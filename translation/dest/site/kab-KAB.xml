@@ -321,4 +321,6 @@
   <string name="thisPuzzleIsWrong">Ugur agi inezri neɣ d amessas</string>
   <string name="closeAccount">Mdel amiḍan</string>
   <string name="victory">Tarennawt!</string>
+  <string name="host">Asenneftaɣ</string>
+  <string name="hostColorX">Ini n usenneftaɣ: %s</string>
 </resources>
