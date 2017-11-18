@@ -25,6 +25,7 @@
   <string name="kingInTheCenter">Agellid deg tlemmast</string>
   <string name="threeChecks">kraḍ n yiciken</string>
   <string name="raceFinished">Tekfa tamzizla</string>
+  <string name="variantEnding">Taggara n talmest</string>
   <string name="newOpponent">Afna amaynu</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Afna inek ibɣa a d‑yurar slal amaynu akk yidek</string>
   <string name="joinTheGame">Sdukel aslal</string>
@@ -298,7 +299,7 @@
   <string name="bestMove">Tiyita Tamawayt</string>
   <string name="keepGoing">Kemmel...</string>
   <string name="puzzleFailed">Aεewwiq ixeṣren</string>
-  <string name="butYouCanKeepTrying">Maca tzemred  at ɛawdeɣ tikkelt niḍen</string>
+  <string name="butYouCanKeepTrying">Maca tzemṛed ad tɛawdeḍ tikkelt niḍen.</string>
   <string name="wasThisPuzzleAnyGood">I sɣa azal ugur agi</string>
   <string name="pleaseVotePuzzle">All Lichess a d-i sileɣ s dɣeṛ s innecaben</string>
   <string name="thankYou">Tanemmirt!</string>
