@@ -50,6 +50,8 @@
   <string name="depthX">Tadrut %s</string>
   <string name="inLocalBrowser">deg iminig andigan</string>
   <string name="move">Asembiwel</string>
+  <string name="capture">Tuṭfa</string>
+  <string name="close">Mdel</string>
   <string name="delete">Kkes</string>
   <string name="blunders">Tuccd\'iwin</string>
   <string name="mistakes">Tiguliwin</string>
