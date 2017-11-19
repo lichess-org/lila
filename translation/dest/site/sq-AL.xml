@@ -247,8 +247,10 @@
     <item quantity="one">Dhuro %s sekonda</item>
     <item quantity="other">Dhuro %s sekonda</item>
   </plurals>
+  <string name="giveMoreTime">Jep më shumë kohë</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ky lojtar përdor ndihmën e kompjuterit.</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ky lojtar e ka rritur vlerësimin e vet në mënyre artificiale</string>
+  <string name="openingExplorerAndTablebase">Eksploruesi i hapjeve &amp; tabela e fundlojës</string>
   <string name="takeback">Anulo levizje</string>
   <string name="proposeATakeback">Propozo marrje mbrapsht</string>
   <string name="takebackPropositionSent">Kërkesa për marrje mbrapsht u dërgua</string>
@@ -272,6 +274,14 @@
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2$s lojë të vlerësuar</item>
     <item quantity="other">≥ %1$s %2$s lojë të vlerësuara</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Duhet të luash %1$s lojë më shumë %2$s të vlerësuar</item>
+    <item quantity="other">Duhet të luash %1$s lojë më shumë %2$s të vlerësuara</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Duhet të luash %s lojë më shumë të vlerësuar</item>
+    <item quantity="other">Duhet të luash %s lojë më shumë të vlerësuara</item>
   </plurals>
   <string name="backToGame">Kthehu te loja</string>
   <string name="siteDescription">Lojë shahu pa pagesë në-linjë. Luani shah përmes një ndërfaqeje të pastër. Pa regjistrim, pa reklama, pa u dashur shtojca. Luani shah me kompjuterin, miqtë ose kundërshtarë të rastësishëm.</string>
@@ -312,6 +322,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Ky është një CAPTCHA shahu.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikoni mbi fushë për të bërë lëvizjen tuaj dhe të vërtetoni që jeni qenie njerëzore</string>
+  <string name="captcha.fail">Ju lutem zgjidheni ushtrimin.</string>
   <string name="notACheckmate">Nuk është shahmat</string>
   <string name="colorPlaysCheckmateInOne">Lëviz %s; shahmat në një lëvizje</string>
   <string name="retry">Provo përsëri</string>
@@ -319,6 +330,7 @@
   <string name="onlineFriends">Miq në linjë</string>
   <string name="noFriendsOnline">Asnjë mik në linje</string>
   <string name="findFriends">Gjej miq</string>
+  <string name="favoriteOpponents">Kundërshtarët e preferuar</string>
   <string name="follow">Ndiq</string>
   <string name="following">Duke ndjekur</string>
   <string name="unfollow">Ndalo së ndjekuri</string>
@@ -360,6 +372,8 @@
   <string name="winStreak">Fitore te njëpasnjëshme</string>
   <string name="createdBy">Krijuar nga</string>
   <string name="tournamentIsStarting">Turneu po fillon</string>
+  <string name="tournamentPairingsAreNowClosed">Çiftimet e turnet mbaruan.</string>
+  <string name="youArePlaying">Po luan!</string>
   <string name="winRate">Perqindja e fitoreve</string>
   <string name="berserkRate">Perqindja e berserkeve</string>
   <string name="performance">Paraqitja</string>
