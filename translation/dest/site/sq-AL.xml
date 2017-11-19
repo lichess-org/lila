@@ -611,9 +611,17 @@ ne %3$s</string>
   <string name="confirmResignationAndDrawOffers">Te konfirmosh dorezimin dhe ofertat e barazimit</string>
   <string name="inputMovesWithTheKeyboard">Vendos levizjet me tastiere</string>
   <string name="letOtherPlayersMessageYou">Lejo lojtarët e tjerë të të dërgojnë mesazh</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Metoda e rrekades</string>
+  <string name="castleByMovingTwoSquares">Leviz mbretin dy kuadrate</string>
+  <string name="castleByMovingOntoTheRook">Levize mbretin tek torra</string>
   <string name="shareYourInsightsData">Shpërndani të dhënat tuaja të depërtuara.</string>
+  <string name="withNobody">Me asnje</string>
+  <string name="withFriends">Me shoket</string>
+  <string name="withEverybody">Me te gjithe</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ju e keni regjistruar tashmë postën elektronike: %s</string>
   <string name="kidMode">Formati për fëmijë</string>
+  <string name="kidModeExplanation">Kjo eshte per sigurine. Ne modalitetin per femije, te gjitha komunikimet ne faqe jane te ndaluara. Aktivizoje ket per femijet dhe studentet e shkolles, ti mbrosh ata nga perdoruesit e tjere te internetit.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Ne modalitetin per femije, logoja e lichess merr nje ikone %s , qe ta dini se femijet tuaj jane te sigurte.</string>
   <string name="playChessEverywhere">Luaj shah kudo</string>
   <string name="asFreeAsLichess">Pa pagesë si vetë lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Ndërtuar nga dashuria për shahun, jo për parane</string>
@@ -632,4 +640,6 @@ ne %3$s</string>
     <item quantity="other">I përdorshëm në %s gjuhë!</item>
   </plurals>
   <string name="gameAnalysis">Analiza e lojës</string>
+  <string name="perfRatingX">Vleresimi: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s sekonda te besh levizjen e pare</string>
 </resources>
