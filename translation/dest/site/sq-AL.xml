@@ -486,6 +486,7 @@ ne %3$s</string>
   <string name="starting">Fillon:</string>
   <string name="allInformationIsPublicAndOptional">Të gjitha informacionet janë publike dhe jo të detyrueshme</string>
   <string name="yourCityRegionOrDepartment">Qyteti juaj, rajoni, ose komuna.</string>
+  <string name="biographyDescription">Tregoni për veten, çfarë ju pëlqen tek shahu, hapjet tuaja të preferuara, lojërat, lojtarët…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Më së shumti:%s karaktere.</item>
     <item quantity="other">Më së shumti:%s karaktere.</item>
@@ -507,6 +508,7 @@ ne %3$s</string>
   <string name="playOnTheBoardOffline">Luaj i shkëputur, në ekran.</string>
   <string name="playOfflineComputer">Luaj me kompjuterin</string>
   <string name="opponent">Kundërshtari</string>
+  <string name="learnMenu">Mëso</string>
   <string name="community">Komuniteti</string>
   <string name="tools">Vegla</string>
   <string name="increment">Shtesa</string>
@@ -519,7 +521,9 @@ ne %3$s</string>
   <string name="error.email">Kjo adresë email është e pavlefshme</string>
   <string name="error.email_acceptable">Kjo afresë email është e papranueshme</string>
   <string name="error.email_unique">Kjo adresë email është përdorur</string>
+  <string name="error.email_different">Kjo eshte tashme adresa juaj e emailit</string>
   <string name="blindfoldChess">Shah i verber (gurë të padukshëm)</string>
+  <string name="zenMode">Modaliteti zen</string>
   <string name="moveConfirmation">Pohim i lëvizjeve</string>
   <string name="inCorrespondenceGames">Lojëkëmbimet</string>
   <string name="ifRatingIsPlusMinusX">Nëse vlerësimi është ± %s</string>
@@ -548,6 +552,7 @@ ne %3$s</string>
   <string name="sourceCode">Source Code</string>
   <string name="simultaneousExhibitions">Simultane</string>
   <string name="host">Pritës</string>
+  <string name="hostColorX">Ngjyra e mikpritesit: %s</string>
   <string name="createdSimuls">Simultanet e krijuara së fundmi</string>
   <string name="hostANewSimul">Krijo një simultane</string>
   <string name="noSimulFound">Simultane nuk u gjet</string>
@@ -582,6 +587,10 @@ ne %3$s</string>
   <string name="tournamentMayHaveBeenCanceled">Mund të jetë anuluar, nëse të gjithë lojtarët ikën para se të fillonte turneu.</string>
   <string name="returnToTournamentsHomepage">Kthehu në faqen kryesore të turneve</string>
   <string name="weeklyPerfTypeRatingDistribution">Shpërndarja javore e vlerësimit në %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s lojtare kete jave.</item>
+    <item quantity="other">%1$s %2$s lojtare kete jave.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Vlerësimi juaj në %1$s është %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ju jeni më mirë se  %1$s e lojtarëve në  %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ju nuk keni një vlerësim të caktuar në %s.</string>
@@ -599,6 +608,8 @@ ne %3$s</string>
   <string name="crosstable">Kryqtryeza</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ju mund edhe të rrotulloni rrotën mbi fushë për të lëvizur gjatë lojës.</string>
   <string name="analysisShapesHowTo">Shtypni shift+klikim ose klikoni me të djathtën për të vizatuar rrathë dhe shigjeta mbi fushë.</string>
+  <string name="confirmResignationAndDrawOffers">Te konfirmosh dorezimin dhe ofertat e barazimit</string>
+  <string name="inputMovesWithTheKeyboard">Vendos levizjet me tastiere</string>
   <string name="letOtherPlayersMessageYou">Lejo lojtarët e tjerë të të dërgojnë mesazh</string>
   <string name="shareYourInsightsData">Shpërndani të dhënat tuaja të depërtuara.</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ju e keni regjistruar tashmë postën elektronike: %s</string>
