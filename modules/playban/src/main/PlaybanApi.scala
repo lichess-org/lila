@@ -156,19 +156,22 @@ final class PlaybanApi(
 
   private def legiferate(record: UserRecord): Funit = {
     record.bannable ?? { ban =>
-      lila.mon.playban.ban.count()
-      lila.mon.playban.ban.mins(ban.mins)
-      bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), 'playban)
-      (!record.banInEffect) ?? coll.update(
-        $id(record.userId),
-        $unset("o") ++
-          $push(
-            "b" -> $doc(
-              "$each" -> List(ban),
-              "$slice" -> -30
+      (!record.banInEffect) ?? {
+        lila.mon.playban.ban.count()
+        lila.mon.playban.ban.mins(ban.mins)
+        bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), 'playban)
+        coll.update(
+          $id(record.userId),
+          $unset("o") ++
+            $push(
+              "b" -> $doc(
+                "$each" -> List(ban),
+                "$slice" -> -30
+              )
             )
-          )
-      ).void
+        ).void
+      }
+
     }
   }
 }
