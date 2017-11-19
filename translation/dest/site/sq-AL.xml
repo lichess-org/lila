@@ -82,7 +82,9 @@
     <item quantity="other">Kapja ose levizja e ushtarit e radhës në %s lëvizje</item>
   </plurals>
   <string name="noGameFound">Nuk u gjet loje</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Mos do të përfshish më shumë lojëra nga menuja e preferencave?</string>
   <string name="openingExplorer">Studiues i hapjeve</string>
+  <string name="xOpeningExplorer">%s eksploruesi i hapjeve</string>
   <string name="winPreventedBy50MoveRule">Fitore e parandaluar nga rregulli i 50 levizjeve</string>
   <string name="lossSavedBy50MoveRule">Humbje e parandaluar nga rregulli i 50 levizjeve</string>
   <string name="allSet">Gjithçka gati!</string>
@@ -165,6 +167,7 @@
   <string name="forgotPassword">Harruat fjalëkalimin?</string>
   <string name="rank">Renditja</string>
   <string name="rankX">Klasifikimi: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Klasifikimi azhornohet cdo %s minuta</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ushtrimi</item>
     <item quantity="other">%s ushtrime</item>
@@ -262,6 +265,14 @@
   <string name="viewTournament">Shiko turneun</string>
   <string name="backToTournament">Kthehu në turne</string>
   <string name="thematic">Tematike</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s lojë të vlerësuar</item>
+    <item quantity="other">≥ %s lojë të vlerësuara</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s lojë të vlerësuar</item>
+    <item quantity="other">≥ %1$s %2$s lojë të vlerësuara</item>
+  </plurals>
   <string name="backToGame">Kthehu te loja</string>
   <string name="siteDescription">Lojë shahu pa pagesë në-linjë. Luani shah përmes një ndërfaqeje të pastër. Pa regjistrim, pa reklama, pa u dashur shtojca. Luani shah me kompjuterin, miqtë ose kundërshtarë të rastësishëm.</string>
   <string name="teams">Ekipet</string>
