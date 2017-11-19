@@ -12,6 +12,7 @@ import lila.user.{ User, UserRepo }
 final class GarbageCollector(
     userSpy: UserSpyApi,
     ipIntel: IpIntel,
+    firewall: Firewall,
     slack: lila.slack.SlackApi,
     configColl: Coll,
     system: akka.actor.ActorSystem
@@ -31,7 +32,7 @@ final class GarbageCollector(
         .takeWhile(_.createdAt.isAfter(DateTime.now minusDays 3))
         .take(5)
       (others.size > 2 && others.forall(closedSB)) ?? {
-        ipIntel(ip).map { 75 < _ }.map {
+        isBadIp(ip).map {
           _ ?? {
             val ipBan = spy.usersSharingIp.forall { u =>
               closedSB(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
@@ -41,6 +42,10 @@ final class GarbageCollector(
         }
       }
     }
+
+  private def isBadIp(ip: IpAddress): Fu[Boolean] =
+    if (firewall blocksIp ip) fuccess(true)
+    else ipIntel(ip).map { 75 < _ }
 
   private def closedSB(user: User) =
     (user.troll || user.engine) && !user.enabled
