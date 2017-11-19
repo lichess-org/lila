@@ -165,6 +165,10 @@
   <string name="forgotPassword">Harruat fjalëkalimin?</string>
   <string name="rank">Renditja</string>
   <string name="rankX">Klasifikimi: %s</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s ushtrimi</item>
+    <item quantity="other">%s ushtrime</item>
+  </plurals>
   <string name="gamesPlayed">Lojra të luajtura</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s lojra me ju</item>
@@ -214,6 +218,10 @@
   <string name="incrementInSeconds">Koha shtesë në sekonda</string>
   <string name="freeOnlineChess">Shah i drejtpërdrejtë pa pagesë</string>
   <string name="spectators">Shikues:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s të vlerësuara</item>
+    <item quantity="other">%s të vlerësuara</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s fitore</item>
     <item quantity="other">%s fitore</item>
@@ -225,6 +233,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s barazime</item>
     <item quantity="other">%s barazime</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s duke luajtur</item>
+    <item quantity="other">%s duke luajtur</item>
   </plurals>
   <string name="exportGames">Eksporto lojërat</string>
   <string name="ratingRange">Shtrirja e vlerësimit</string>
