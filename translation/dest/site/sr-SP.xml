@@ -164,7 +164,7 @@
   <string name="rating">Рејтинг</string>
   <string name="ratingStats">Статистика рејтинга</string>
   <string name="username">Корисничко име</string>
-  <string name="usernameOrEmail">Корисничко име</string>
+  <string name="usernameOrEmail">Корисничко име или е-пошта</string>
   <string name="password">Лозинка</string>
   <string name="haveAnAccount">Имате налог?</string>
   <string name="changePassword">Промените лозинку</string>
