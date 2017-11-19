@@ -16,19 +16,22 @@ case class UserRecord(
 
   def nbOutcomes = outcomes.size
 
-  def nbBadOutcomes = outcomes.count(_ != Outcome.Good)
+  def badOutcomeScore: Float = outcomes.collect {
+    case Outcome.NoPlay | Outcome.Abort => .7f
+    case o if o != Outcome.Good => 1
+  } sum
 
   def badOutcomeRatio: Float = if (bans.size < 3) 0.4f else 0.3f
 
   def minBadOutcomes: Int = bans.size match {
-    case 0 => 4
-    case 1 | 2 | 3 => 3
+    case 0 | 1 => 4
+    case 2 | 3 => 3
     case _ => 2
   }
 
   def bannable: Option[TempBan] = {
     outcomes.lastOption.exists(_ != Outcome.Good) &&
-      nbBadOutcomes >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes)
+      badOutcomeScore >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes)
   } option TempBan.make(bans)
 }
 
