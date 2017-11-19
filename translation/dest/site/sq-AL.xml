@@ -73,7 +73,13 @@
   <string name="recentGames">Lojra te meparshme</string>
   <string name="topGames">Lojërat më të mira</string>
   <string name="masterDbExplanation">Dy milion lojra OTB %1$s + FIDE nga lojtare ranked nga %2$s ne %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mat ne %s gjysem levizje</item>
+    <item quantity="other">Mat ne %s gjysem levizje</item>
+  </plurals>
+  <string name="noGameFound">Nuk u gjet loje</string>
   <string name="openingExplorer">Studiues i hapjeve</string>
+  <string name="delete">Fshije</string>
   <string name="realtimeReplay">kohe reale</string>
   <string name="byCPL">nga CPL</string>
   <string name="blunders">Gafat</string>
