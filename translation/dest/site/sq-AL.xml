@@ -330,6 +330,9 @@
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Raporto %s tek redaktoret</string>
   <string name="profileCompletion">Perfundimi i profilit: %s</string>
+  <string name="xRating">%s vleresim</string>
+  <string name="ifNoneLeaveEmpty">Ne qofte se asnje, lije bosh</string>
+  <string name="gameCompletionRate">Perqindja e lojerave te perfunduara: %s</string>
   <string name="profile">Profili</string>
   <string name="editProfile">Modifiko profilin</string>
   <string name="firstName">Emri</string>
@@ -337,6 +340,7 @@
   <string name="biography">Biografia</string>
   <string name="country">Shteti</string>
   <string name="preferences">Personifikimet</string>
+  <string name="inlineNotation">Shenimet ne rresht</string>
   <string name="watchLichessTV">Shiko Lichess TV</string>
   <string name="previouslyOnLichessTV">Herën e fundit në Lichess TV</string>
   <string name="onlinePlayers">Lojtarët në linjë</string>
@@ -358,6 +362,7 @@
   <string name="keepGoing">Vazhdo ...</string>
   <string name="puzzleFailed">Ushtrimi dështoi</string>
   <string name="butYouCanKeepTrying">Por mundesh të provosh përsëri.</string>
+  <string name="success">Sukses</string>
   <string name="wasThisPuzzleAnyGood">A ishte ky ushtrimi i mirë?</string>
   <string name="pleaseVotePuzzle">Ndihmo lichess të përmirësohet duke votuar, me shigjetat poshtë ose lartë:</string>
   <string name="thankYou">Faleminderit!</string>
@@ -420,6 +425,7 @@
   <string name="closeAccountExplanation">A jeni i sigurt se doni të mbyllni llogarinë tuaj? Mbyllja e llogarisë tuaj është një vendim i përhershëm. Ju nuk do të jeni në gjendje të hyni brënda, dhe faqja e profilit tuaj nuk do të jetë më e arritshme.</string>
   <string name="thisAccountIsClosed">Kjo llogari është e mbyllur</string>
   <string name="invalidUsernameOrPassword">Emri e përdoruesit ose fjalëkalim i pavlefshëm</string>
+  <string name="incorrectPassword">Fjalekalim i gabuar</string>
   <string name="emailMeALink">Më dërgo lidhjen në email</string>
   <string name="currentPassword">Fjalëkalimi i tanishëm</string>
   <string name="newPassword">Fjalëkalimi i ri</string>
@@ -428,6 +434,9 @@
   <string name="pieceDestinations">Vendmbërritja e figurave (lëvizje të vlefshme dhe të paracaktuara)</string>
   <string name="boardCoordinates">Koordinatat e fushës (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista e lëvizjeve gjatë lojës</string>
+  <string name="pgnPieceNotation">Shenimet e levizjeve</string>
+  <string name="chessPieceSymbol">Simboli i figures se shahut</string>
+  <string name="pgnLetter">Shkronja (K, Q, R, B, N)</string>
   <string name="chessClock">Ora e shahut</string>
   <string name="tenthsOfSeconds">Të dhjetat e sekondës</string>
   <string name="never">Kurrë</string>
