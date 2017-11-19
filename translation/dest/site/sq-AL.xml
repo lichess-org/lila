@@ -23,7 +23,7 @@
   <string name="whiteIsVictorious">Fitoi i bardhi</string>
   <string name="blackIsVictorious">Fitoi i ziu</string>
   <string name="kingInTheCenter">Mbreti në qendër</string>
-  <string name="threeChecks">Tre shah</string>
+  <string name="threeChecks">Tre herë shah</string>
   <string name="raceFinished">Gara mbaroi</string>
   <string name="variantEnding">Varianti mbaroi</string>
   <string name="newOpponent">Kundërshtar i ri</string>
@@ -76,6 +76,10 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat ne %s gjysem levizje</item>
     <item quantity="other">Mat ne %s gjysem levizje</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Kapja ose levizja e ushtarit e radhës në %s lëvizje</item>
+    <item quantity="other">Kapja ose levizja e ushtarit e radhës në %s lëvizje</item>
   </plurals>
   <string name="noGameFound">Nuk u gjet loje</string>
   <string name="openingExplorer">Studiues i hapjeve</string>
@@ -199,6 +203,8 @@
   <string name="play">Luaj</string>
   <string name="inbox">Kutia hyrëse</string>
   <string name="chatRoom">Dhomë për bisedë</string>
+  <string name="loginToChat">Vendos hyrjen që të bisedosh</string>
+  <string name="youHaveBeenTimedOut">Ju jeni ndaluar nga chatti ne mënyrë të përkohshme.</string>
   <string name="spectatorRoom">Dhoma e shikuesve</string>
   <string name="composeMessage">Shkruaj mesazh</string>
   <string name="noNewMessages">Asnjë mesazh  i ri</string>
@@ -243,6 +249,7 @@
   <string name="tournamentPoints">Piket e turneut</string>
   <string name="viewTournament">Shiko turneun</string>
   <string name="backToTournament">Kthehu në turne</string>
+  <string name="thematic">Tematike</string>
   <string name="backToGame">Kthehu te loja</string>
   <string name="siteDescription">Lojë shahu pa pagesë në-linjë. Luani shah përmes një ndërfaqeje të pastër. Pa regjistrim, pa reklama, pa u dashur shtojca. Luani shah me kompjuterin, miqtë ose kundërshtarë të rastësishëm.</string>
   <string name="teams">Ekipet</string>
