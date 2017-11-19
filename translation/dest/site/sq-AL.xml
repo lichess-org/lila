@@ -444,12 +444,18 @@
   <string name="horizontalGreenProgressBars">Shufra e gjelbërt e progresit</string>
   <string name="soundWhenTimeGetsCritical">Tingull gjatë kohës kritike</string>
   <string name="gameBehavior">Sjellja në lojë</string>
+  <string name="howDoYouMovePieces">Si i leviz figurat?</string>
+  <string name="clickTwoSquares">Kliko dy kuadrate</string>
+  <string name="dragPiece">Terhiqe figuren</string>
+  <string name="bothClicksAndDrag">Cilindo</string>
   <string name="premovesPlayingDuringOpponentTurn">Lëvizje e paracaktuar (luajtur gjatë radhës së kundërshtarit)</string>
   <string name="takebacksWithOpponentApproval">Marrje mbrapsht (me miratimin e kundërshtarit)</string>
   <string name="promoteToQueenAutomatically">Dalja automatike në mbretëreshë</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Pretendo barazim ne perseritjen tre here te levizjeve automatikisht</string>
   <string name="privacy">Privatësia</string>
   <string name="letOtherPlayersFollowYou">Lejo lojtarët e tjerë të të ndjekin.</string>
   <string name="letOtherPlayersChallengeYou">Lejo lojtarë të tjerë të të sfidojnë</string>
+  <string name="letOtherPlayersInviteYouToStudy">Lejo lojtaret e tjere te te ftojne te studimi</string>
   <string name="sound">Zëri</string>
   <string name="yourPreferencesHaveBeenSaved">Parapëlqimet tuaja janë ruajtur.</string>
   <string name="none">Asnjë</string>
@@ -472,6 +478,9 @@
   <string name="xAnsweredY">%1$s u përgjigj %2$s</string>
   <string name="xCommentedY">s%1$s komentoi %2$s</string>
   <string name="victory">Fitore!</string>
+  <string name="defeat">Humbje</string>
+  <string name="xVsYinZ">%1$s kunder %2$s
+ne %3$s</string>
   <string name="timeline">Vija kohore</string>
   <string name="seeAllTournaments">Shiko të gjithë turnetë</string>
   <string name="starting">Fillon:</string>
