@@ -283,6 +283,12 @@
     <item quantity="one">Duhet të luash %s lojë më shumë të vlerësuar</item>
     <item quantity="other">Duhet të luash %s lojë më shumë të vlerësuara</item>
   </plurals>
+  <string name="yourPerfRatingIsProvisional">Vlerësimi juaj %s është i përkohshëm</string>
+  <string name="yourPerfRatingIsTooHigh">Vlerësimi juaj (%2$s) në %1$s është më i lartë seç duhet</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Vlerësimi juaj javor më i madh (%2$s) në %1$s është më i lartë seç duhet</string>
+  <string name="yourPerfRatingIsTooLow">Vlerësimi juaj (%2$s) në %1$s është më i ulët seç duhet</string>
+  <string name="ratedMoreThanInPerf">Vlerësimi ≥ %1$s në %2$s</string>
+  <string name="ratedLessThanInPerf">Vlerësimi ≤ %1$s në %2$s</string>
   <string name="backToGame">Kthehu te loja</string>
   <string name="siteDescription">Lojë shahu pa pagesë në-linjë. Luani shah përmes një ndërfaqeje të pastër. Pa regjistrim, pa reklama, pa u dashur shtojca. Luani shah me kompjuterin, miqtë ose kundërshtarë të rastësishëm.</string>
   <string name="teams">Ekipet</string>
