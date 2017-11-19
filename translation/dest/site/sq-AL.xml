@@ -316,6 +316,7 @@
   <string name="tournamentIsStarting">Turneu po fillon</string>
   <string name="winRate">Perqindja e fitoreve</string>
   <string name="performance">Paraqitja</string>
+  <string name="draws">Barazime</string>
   <string name="nextXTournament">Turneu %s i radhes:</string>
   <string name="viewMoreTournaments">Shiko me shume turne</string>
   <string name="averageOpponent">Kundershtari mesatar</string>
@@ -622,6 +623,10 @@ ne %3$s</string>
   <string name="kidMode">Formati për fëmijë</string>
   <string name="kidModeExplanation">Kjo eshte per sigurine. Ne modalitetin per femije, te gjitha komunikimet ne faqe jane te ndaluara. Aktivizoje ket per femijet dhe studentet e shkolles, ti mbrosh ata nga perdoruesit e tjere te internetit.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Ne modalitetin per femije, logoja e lichess merr nje ikone %s , qe ta dini se femijet tuaj jane te sigurte.</string>
+  <string name="enableKidMode">Aktivizo modalitetin per femije</string>
+  <string name="disableKidMode">Çaktivizo modalitetin per femije</string>
+  <string name="security">Siguria</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Kjo eshte nje liste e pajisjeve qe kane hyre ne llogarine tuaj. Terhiq cdo seance qe nuk e njihni.</string>
   <string name="playChessEverywhere">Luaj shah kudo</string>
   <string name="asFreeAsLichess">Pa pagesë si vetë lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Ndërtuar nga dashuria për shahun, jo për parane</string>
@@ -640,6 +645,9 @@ ne %3$s</string>
     <item quantity="other">I përdorshëm në %s gjuhë!</item>
   </plurals>
   <string name="gameAnalysis">Analiza e lojës</string>
+  <string name="custom">te zakonshme</string>
+  <string name="notifications">Njoftime</string>
+  <string name="challenges">Sfida</string>
   <string name="perfRatingX">Vleresimi: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekonda te besh levizjen e pare</string>
 </resources>
