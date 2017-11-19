@@ -27,15 +27,13 @@ final class GarbageCollector(
 
   private def apply(user: User, ip: IpAddress, email: EmailAddress): Funit =
     userSpy(user) flatMap { spy =>
-      val others = spy.usersSharingFingerprint.toList
-        .sortBy(-_.createdAt.getSeconds)
-        .takeWhile(_.createdAt.isAfter(DateTime.now minusDays 3))
-        .take(5)
-      (others.size > 2 && others.forall(closedSB)) ?? {
+      badOtherAccounts(spy.usersSharingFingerprint).orElse {
+        badOtherAccounts(spy.usersSharingIp)
+      } ?? { others =>
         isBadIp(ip).map {
           _ ?? {
             val ipBan = spy.usersSharingIp.forall { u =>
-              closedSB(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
+              isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
             }
             collect(user, email, others, ipBan)
           }
@@ -43,11 +41,19 @@ final class GarbageCollector(
       }
     }
 
+  private def badOtherAccounts(accounts: Set[User]): Option[List[User]] = {
+    val others = accounts.toList
+      .sortBy(-_.createdAt.getSeconds)
+      .takeWhile(_.createdAt.isAfter(DateTime.now minusDays 3))
+      .take(5)
+    (others.size > 2 && others.forall(isBadAccount)) option others
+  }
+
   private def isBadIp(ip: IpAddress): Fu[Boolean] =
     if (firewall blocksIp ip) fuccess(true)
     else ipIntel(ip).map { 75 < _ }
 
-  private def closedSB(user: User) =
+  private def isBadAccount(user: User) =
     (user.troll || user.engine) && !user.enabled
 
   private val emailSuffixes = "yandex.ru yandex.com mailfa.com"
