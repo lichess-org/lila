@@ -53,7 +53,7 @@
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">%3$s oyun oynayarak %4$s turnuvasında %1$s. oldu (en iyi %2$s%% içinde)</item>
-    <item quantity="other">%3$s oyun oynayarak %4$s turnuvasında %1$s. oldu (en iyi % 2$s%% içinde)</item>
+    <item quantity="other">%3$s oyun oynayarak %4$s turnuvasında %1$s. oldu (en iyi %2$s%% içinde)</item>
   </plurals>
   <string name="signedUp">Lichess\'e üye oldu</string>
   <plurals name="joinedNbTeams">
