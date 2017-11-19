@@ -79,6 +79,9 @@
   </plurals>
   <string name="noGameFound">Nuk u gjet loje</string>
   <string name="openingExplorer">Studiues i hapjeve</string>
+  <string name="winPreventedBy50MoveRule">Fitore e parandaluar nga rregulli i 50 levizjeve</string>
+  <string name="lossSavedBy50MoveRule">Humbje e parandaluar nga rregulli i 50 levizjeve</string>
+  <string name="allSet">Gjithçka gati!</string>
   <string name="delete">Fshije</string>
   <string name="realtimeReplay">kohe reale</string>
   <string name="byCPL">nga CPL</string>
@@ -662,7 +665,12 @@ ne %3$s</string>
   <string name="boardGeometry">Gjeometria e fushes</string>
   <string name="boardTheme">Tema e fushes</string>
   <string name="boardSize">Madhesia e fushes</string>
+  <string name="pieceSet">Vendosja e figurave</string>
+  <string name="embedInYourWebsite">Fut ne faqen tuaj te webit</string>
   <string name="usernameAlreadyUsed">Ky emër përdoruesi ekziston tashmë, ju lutem zgjidhni një tjetër.</string>
+  <string name="usernameInvalid">Emer perdoruesi jo i vlefshem. Ju lutem perdorni vetem shkronja, numra, nenvije dhe vije.</string>
+  <string name="usernameStartNoNumber">Emri i perdoruesit nuk duhet te filloje me numer.</string>
+  <string name="usernameUnacceptable">Emri i perdoruesit nuk eshte i pranueshem.</string>
   <string name="directlySupportLichess">Mbeshtet Lichess ne menyre te drejtperdrejte</string>
   <string name="playChessInStyle">Luaj shah ne stil</string>
   <string name="chessBasics">Bazat e shahut</string>
