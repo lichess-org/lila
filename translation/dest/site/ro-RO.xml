@@ -788,4 +788,5 @@
   <string name="notifications">Notificări</string>
   <string name="challenges">Provocări</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">Ai %s secunde să faci prima mutare</string>
 </resources>
