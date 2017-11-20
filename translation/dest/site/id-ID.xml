@@ -673,6 +673,8 @@
   <string name="yourScore">Skor Anda: %s</string>
   <string name="language">Bahasa</string>
   <string name="background">Latar</string>
+  <string name="light">Terang</string>
+  <string name="dark">Gelap</string>
   <string name="boardGeometry">Geometri Papan</string>
   <string name="boardTheme">Tema Papan</string>
   <string name="boardSize">Ukuran Papan</string>
