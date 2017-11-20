@@ -159,6 +159,7 @@
   <string name="passwordReset">Reset password</string>
   <string name="forgotPassword">Lupa password?</string>
   <string name="rank">Peringkat</string>
+  <string name="rankX">Rating: %s</string>
   <plurals name="nbPuzzles">
     <item quantity="other">%s</item>
   </plurals>
