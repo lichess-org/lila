@@ -109,6 +109,21 @@ Mereka ada disebelah kuda.</string>
   <string name="placeTheQueen">Tempat Ratu! Dia berada di kotak warnanya sendiri.</string>
   <string name="placeTheKing">Tempatkan raja! Sebelah kanan dari sang ratu.</string>
   <string name="pawnsFormTheFrontLine">Bidak membentuk garis depan. Membuat langkah apa saja untuk melanjutkan.</string>
+  <string name="castlingIntro">Bawa raja anda ke tempat aman, dan siapkan benteng anda untuk menyerang!</string>
+  <string name="castleKingSide">Gerakkan raja anda dua kotak untuk rokade ke sisi raja!</string>
+  <string name="castleQueenSide">Gerakkan raja anda dua kotak untuk rokade ke sisi ratu!</string>
+  <string name="theKnightIsInTheWay">Kuda menghalangi! Pindahkan lalu rokade ke sisi raja.</string>
+  <string name="castleKingSideMovePiecesFirst">Rokade ke sisi raja! Anda perlu memindahkan bidak lain terlebih dahulu.</string>
+  <string name="castleQueenSideMovePiecesFirst">Rokade ke sisi ratu! Anda perlu memindahkan bidak lain terlebih dahulu.</string>
+  <string name="youCannotCastleIfMoved">Anda tidak bisa rokade bila
+raja sudah bergerak
+atau benteng sudah bergerak.</string>
+  <string name="youCannotCastleIfAttacked">Anda tidak bisa rokade bila raja diserang di jalur tersebut. Halangi skak lalu rokade!</string>
+  <string name="findAWayToCastleKingSide">Temukan cara untuk rokade ke sisi raja!</string>
+  <string name="findAWayToCastleQueenSide">Temukan cara untuk rokade ke sisi ratu!</string>
+  <string name="castlingComplete">Selamat! Kamu hampir pasti bisa rokade di setiap permainan.</string>
+  <string name="theSpecialPawnMove">Gerakan khusus pion</string>
+  <string name="enPassantIntro">Saat pion lawan digerakkan dua kotak, anda bisa mengambilnya seperti bila dia digerakkan satu kotak.</string>
   <string name="opponentsFromAroundTheWorld">Lawan dari di seluruh dunia</string>
   <string name="playMachine">Lawan komputer</string>
   <string name="testYourSkillsWithTheComputer">Uji keterampilan Anda dengan komputer</string>
