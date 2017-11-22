@@ -40,7 +40,7 @@ private final class StartedOrganizer(
           PlayerRepo activeUserIds tour.id flatMap { activeUserIds =>
             val nb = activeUserIds.size
             val result: Funit =
-              if (tour.secondsToFinish == 0) fuccess(api finish tour)
+              if (tour.secondsToFinish <= 0) fuccess(api finish tour)
               else if (!tour.isScheduled && nb < 2) fuccess(api finish tour)
               else if (!tour.pairingsClosed) startPairing(tour, activeUserIds, startAt)
               else funit

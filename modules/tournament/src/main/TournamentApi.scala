@@ -128,13 +128,12 @@ final class TournamentApi(
     }
   }
 
-  def start(oldTour: Tournament): Unit = {
+  def start(oldTour: Tournament): Unit =
     Sequencing(oldTour.id)(TournamentRepo.createdById) { tour =>
       TournamentRepo.setStatus(tour.id, Status.Started) >>-
         sendTo(tour.id, Reload) >>-
         publish()
     }
-  }
 
   def wipe(tour: Tournament): Funit =
     TournamentRepo.remove(tour).void >>
