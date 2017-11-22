@@ -39,7 +39,7 @@ private final class CreatedOrganizer(
               case _ =>
             }
             case Some(schedule) if tour.hasWaitedEnough => api start tour
-            case _ => ejectLeavers(tour)
+            case _ => funit
           }
         }
         lila.mon.tournament.created(tours.size)
@@ -48,9 +48,4 @@ private final class CreatedOrganizer(
         .logIfSlow(500, logger)(_ => "CreatedOrganizer.Tick")
         .result addEffectAnyway scheduleNext
   }
-
-  private def ejectLeavers(tour: Tournament) =
-    PlayerRepo userIds tour.id foreach {
-      _ filterNot isOnline foreach { api.withdraw(tour.id, _) }
-    }
 }
