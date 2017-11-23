@@ -21,13 +21,6 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
   // Summer -> first Saturday of August
   // Autumn -> Saturday of weekend before the weekend Halloween falls on (c.f. half-term holidays)
   // Winter -> 28 December, convenient day in the space between Boxing Day and New Year's Day
-  // Summer -> day(2015, 8, 1),
-  // Autumn -> day(2015, 10, 24),
-  // Winter -> day(2015, 12, 28),
-  // Spring -> day(2016, 4, 16),
-  // Summer -> day(2016, 8, 6),
-  // Autumn -> day(2016, 10, 22),
-  // Winter -> day(2016, 12, 28)
   // )
 
   def receive = {
