@@ -21,8 +21,7 @@ private[puzzle] final class Finisher(
         api.head.solved(user, puzzle.id) >> {
           val userRating = user.perfs.puzzle.toRating
           val puzzleRating = puzzle.perf.toRating
-          updateRatings(userRating, puzzleRating,
-            result = result.win.fold(Glicko.Result.Win, Glicko.Result.Loss))
+          updateRatings(userRating, puzzleRating, result.glicko)
           val date = DateTime.now
           val puzzlePerf = puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating)
           val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
@@ -59,6 +58,30 @@ private[puzzle] final class Finisher(
       if (mode.rated)
         bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, ratingBefore -> ratingAfter), 'finishPuzzle)
       round -> mode
+  }
+
+  /* offline solving from the mobile API
+   * avoid exploits by not updating the puzzle rating,
+   * only the user rating (we don't care about that one).
+   * Returns the user with updated puzzle rating */
+  def ratedUntrusted(puzzle: Puzzle, user: User, result: Result): Fu[User] = {
+    val formerUserRating = user.perfs.puzzle.intRating
+    val userRating = user.perfs.puzzle.toRating
+    val puzzleRating = puzzle.perf.toRating
+    updateRatings(userRating, puzzleRating, result.glicko)
+    val date = DateTime.now
+    val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
+    val a = new Round(
+      puzzleId = puzzle.id,
+      userId = user.id,
+      date = date,
+      result = result,
+      rating = formerUserRating,
+      ratingDiff = userPerf.intRating - formerUserRating
+    )
+    (api.round add a) >>
+      UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf) inject
+      user.copy(perfs = user.perfs.copy(puzzle = userPerf))
   }
 
   private val VOLATILITY = Glicko.default.volatility

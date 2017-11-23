@@ -25,6 +25,9 @@ private[puzzle] final class PuzzleApi(
     def find(id: PuzzleId): Fu[Option[Puzzle]] =
       puzzleColl.find($doc(F.id -> id)).uno[Puzzle]
 
+    def findMany(ids: List[PuzzleId]): Fu[List[Option[Puzzle]]] =
+      puzzleColl.optionsByOrderedIds[Puzzle, PuzzleId](ids)(_.id)
+
     def latest(nb: Int): Fu[List[Puzzle]] =
       puzzleColl.find($empty)
         .sort($doc(F.date -> -1))

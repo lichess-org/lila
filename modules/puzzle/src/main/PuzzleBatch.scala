@@ -7,8 +7,20 @@ import Puzzle.{ BSONFields => F }
 private[puzzle] final class PuzzleBatch(
     puzzleColl: Coll,
     api: PuzzleApi,
+    finisher: Finisher,
     puzzleIdMin: Int
 ) {
+
+  def solve(originalUser: User, data: PuzzleBatch.SolveData): Funit = for {
+    puzzles <- api.puzzle findMany data.solutions.map(_.id)
+    user <- lila.common.Future.fold(data.solutions zip puzzles)(originalUser) {
+      case (user, (solution, Some(puzzle))) => finisher.ratedUntrusted(puzzle, user, solution.result)
+      case (user, _) => fuccess(user)
+    }
+    _ <- data.solutions.lastOption ?? { lastSolution =>
+      api.head.solved(user, lastSolution.id).void
+    }
+  } yield ()
 
   object select {
 
@@ -63,4 +75,16 @@ private[puzzle] final class PuzzleBatch(
       case res => fuccess(res)
     }
   }
+}
+
+object PuzzleBatch {
+
+  case class Solution(id: PuzzleId, win: Boolean) {
+    def result = Result(win)
+  }
+  case class SolveData(solutions: List[Solution])
+
+  import play.api.libs.json._
+  private implicit val SolutionReads = Json.reads[Solution]
+  implicit val SolveDataReads = Json.reads[SolveData]
 }

@@ -57,6 +57,7 @@ final class Env(
   lazy val batch = new PuzzleBatch(
     puzzleColl = puzzleColl,
     api = api,
+    finisher = finisher,
     puzzleIdMin = PuzzleIdMin
   )
 

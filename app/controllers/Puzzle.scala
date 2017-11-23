@@ -201,7 +201,8 @@ object Puzzle extends LilaController {
     }
   }
 
-  def batchGet(nb: Int) = Auth { implicit ctx => me =>
+  /* Mobile API: select a bunch of puzzles for offline use */
+  def batchSelect(nb: Int) = Auth { implicit ctx => me =>
     negotiate(
       html = notFound,
       api = _ => for {
@@ -209,6 +210,18 @@ object Puzzle extends LilaController {
         userInfo <- env userInfos me
         json <- env.jsonView.batch(puzzles, userInfo)
       } yield Ok(json) as JSON
+    )
+  }
+
+  /* Mobile API: tell the server about puzzles solved while offline */
+  def batchSolve = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
+    import lila.puzzle.PuzzleBatch._
+    ctx.body.body.validate[SolveData].fold(
+      err => BadRequest(err.toString).fuccess,
+      data => negotiate(
+        html = notFound,
+        api = _ => env.batch.solve(me, data)
+      )
     )
   }
 
