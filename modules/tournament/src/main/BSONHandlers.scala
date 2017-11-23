@@ -11,11 +11,6 @@ import reactivemongo.bson._
 
 object BSONHandlers {
 
-  private implicit val startingPositionBSONHandler = new BSONHandler[BSONString, StartingPosition] {
-    def read(bsonStr: BSONString): StartingPosition = StartingPosition.byEco(bsonStr.value) err s"No such starting position: ${bsonStr.value}"
-    def write(x: StartingPosition) = BSONString(x.eco)
-  }
-
   private implicit val statusBSONHandler = new BSONHandler[BSONInteger, Status] {
     def read(bsonInt: BSONInteger): Status = Status(bsonInt.value) err s"No such status: ${bsonInt.value}"
     def write(x: Status) = BSONInteger(x.id)
@@ -54,7 +49,9 @@ object BSONHandlers {
   implicit val tournamentHandler = new BSON[Tournament] {
     def reads(r: BSON.Reader) = {
       val variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault)
-      val position = r.strO("eco").flatMap(StartingPosition.byEco) | StartingPosition.initial
+      val position: StartingPosition = r.strO("fen").flatMap(Thematic.byFen) orElse
+        r.strO("eco").flatMap(Thematic.byEco) getOrElse // for BC
+        StartingPosition.initial
       val startsAt = r date "startsAt"
       val conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty
       Tournament(
@@ -92,7 +89,7 @@ object BSONHandlers {
       "clock" -> o.clock,
       "minutes" -> o.minutes,
       "variant" -> o.variant.some.filterNot(_.standard).map(_.id),
-      "eco" -> o.position.some.filterNot(_.initial).map(_.eco),
+      "fen" -> o.position.some.filterNot(_.initial).map(_.fen),
       "mode" -> o.mode.some.filterNot(_.rated).map(_.id),
       "private" -> w.boolO(o.`private`),
       "password" -> o.password,

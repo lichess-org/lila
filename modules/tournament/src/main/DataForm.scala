@@ -20,7 +20,7 @@ final class DataForm {
     minutes = minuteDefault,
     waitMinutes = waitMinuteDefault,
     variant = chess.variant.Standard.id,
-    position = StartingPosition.initial.eco,
+    position = StartingPosition.initial.fen,
     `private` = None,
     password = None,
     mode = Mode.Rated.id.some
@@ -88,18 +88,18 @@ object DataForm {
   val waitMinuteChoices = options(waitMinutes, "%d minute{s}")
   val waitMinuteDefault = 5
 
-  val positions = StartingPosition.allWithInitial.map(_.eco)
+  val positions = StartingPosition.allWithInitial.map(_.fen)
   val positionChoices = StartingPosition.allWithInitial.map { p =>
-    p.eco -> p.fullName
+    p.fen -> p.fullName
   }
-  val positionDefault = StartingPosition.initial.eco
+  val positionDefault = StartingPosition.initial.fen
 
   val validVariants = List(Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse)
 
   val validVariantIds = validVariants.map(_.id).toSet
 
-  def startingPosition(eco: String, variant: Variant): StartingPosition =
-    StartingPosition.byEco(eco).ifTrue(variant.standard) | StartingPosition.initial
+  def startingPosition(fen: String, variant: Variant): StartingPosition =
+    Thematic.byFen(fen).ifTrue(variant.standard) | StartingPosition.initial
 }
 
 private[tournament] case class TournamentSetup(
