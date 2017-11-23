@@ -251,9 +251,9 @@
     <item quantity="other">%s ничьих</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s Текущих игр</item>
-    <item quantity="few">%s Текущих игр</item>
-    <item quantity="other">%s Текущих игр</item>
+    <item quantity="one">%s текущая игра</item>
+    <item quantity="few">%s текущих игр</item>
+    <item quantity="other">%s текущие игры</item>
   </plurals>
   <string name="exportGames">Экспорт игр</string>
   <string name="ratingRange">Диапазон рейтинга</string>
