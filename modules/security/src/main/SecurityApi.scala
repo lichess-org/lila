@@ -116,16 +116,15 @@ final class SecurityApi(
   def recentUserIdsByIp(ip: IpAddress) = recentUserIdsByField("ip")(ip.value)
 
   def shareIpOrPrint(u1: User.ID, u2: User.ID): Fu[Boolean] =
-    Store.ipsAndFps(List(u1, u2), max = 100) map {
-      _.foldLeft(Set.empty[String] -> false) {
-        case (found @ (_, true), _) => found
-        case ((u1s, false), entry) if u1 == entry.user =>
-          val newU1s = u1s + entry.ip.value
-          entry.fp.fold(newU1s)(newU1s +) -> false
-        case ((u1s, false), entry) /* if u2 == entry.user */ => u1s -> {
-          u1s(entry.ip.value) || entry.fp.??(u1s.contains)
+    Store.ipsAndFps(List(u1, u2), max = 100) map { ipsAndFps =>
+      val u1s: Set[String] = ipsAndFps.filter(_.user == u1).flatMap { x =>
+        List(x.ip.value, ~x.fp)
+      }.toSet
+      ipsAndFps.exists { x =>
+        x.user == u2 && {
+          u1s(x.ip.value) || x.fp.??(u1s.contains)
         }
-      }._2
+      }
     }
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[User.ID]] =
