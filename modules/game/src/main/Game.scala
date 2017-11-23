@@ -415,6 +415,8 @@ case class Game(
   def rated = mode.rated
   def casual = !rated
 
+  def hasProvisional: Boolean = players.exists(_.provisional)
+
   def finished = status >= Status.Mate
 
   def finishedOrAborted = finished || aborted
