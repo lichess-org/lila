@@ -2,6 +2,7 @@ var tournamentId = 'GToVqkC9';
 var text = 'With a prize found of $1000!';
 
 var userIds = db.user4.distinct('_id', {
+  enabled: true,
   title: {
     $exists: true,
     $ne: 'LM'
