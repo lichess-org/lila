@@ -112,6 +112,7 @@ GET   /training/:id                    controllers.Puzzle.show(id: Int)
 GET   /training/:id/load               controllers.Puzzle.load(id: Int)
 POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
 POST  /training/:id/round              controllers.Puzzle.round(id: Int)
+GET   /training/batch                  controllers.Puzzle.batchGet(nb: Int = 50)
 # new UI
 POST  /training/:id/round2             controllers.Puzzle.round2(id: Int)
 # mobile app BC

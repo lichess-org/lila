@@ -5,8 +5,8 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
 import lila.game.PgnDump
+import lila.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
 import lila.user.UserRepo
 import views._
 
@@ -68,18 +68,15 @@ object Puzzle extends LilaController {
   }
 
   private def puzzleJson(puzzle: PuzzleModel)(implicit ctx: Context) =
-    (env userInfos ctx.me) flatMap { infos =>
+    env userInfos ctx.me flatMap { infos =>
       renderJson(puzzle, infos, ctx.isAuth.fold("play", "try"), voted = none)
     }
 
   // XHR load next play puzzle
   def newPuzzle = Open { implicit ctx =>
     XhrOnly {
-      env.selector(ctx.me) zip (env userInfos ctx.me) flatMap {
-        case (puzzle, infos) =>
-          renderJson(puzzle, infos, ctx.isAuth.fold("play", "try"), voted = none) map { json =>
-            Ok(json) as JSON
-          }
+      env.selector(ctx.me) flatMap puzzleJson map { json =>
+        Ok(json) as JSON
       }
     }
   }
@@ -202,6 +199,17 @@ object Puzzle extends LilaController {
         lila.log("puzzle import").warn(s"${req.remoteAddress} ${e.getMessage}", e)
         BadRequest(e.getMessage)
     }
+  }
+
+  def batchGet(nb: Int) = Auth { implicit ctx => me =>
+    negotiate(
+      html = notFound,
+      api = _ => for {
+        puzzles <- env.batch.select(me, nb atLeast 2 atMost 100)
+        userInfo <- env userInfos me
+        json <- env.jsonView.batch(puzzles, userInfo)
+      } yield Ok(json) as JSON
+    )
   }
 
   def embed = Action { req =>

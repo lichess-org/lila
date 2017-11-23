@@ -12,9 +12,7 @@ private[puzzle] final class Selector(
     puzzleIdMin: Int
 ) {
 
-  private val toleranceMax = 1000
-
-  private val anonSkipMax = 5000
+  import Selector._
 
   def apply(me: Option[User]): Fu[Puzzle] = {
     lila.mon.puzzle.selector.count()
@@ -38,13 +36,6 @@ private[puzzle] final class Selector(
     lila.mon.puzzle.selector.vote(puzzle.vote.sum)
   }
 
-  private def toleranceStepFor(rating: Int) =
-    math.abs(1500 - rating) match {
-      case d if d >= 500 => 300
-      case d if d >= 300 => 250
-      case d => 200
-    }
-
   private def newPuzzleForUser(user: User, headOption: Option[PuzzleHead]): Fu[Option[Puzzle]] = {
     val rating = user.perfs.puzzle.intRating min 2300 max 900
     val step = toleranceStepFor(rating)
@@ -67,22 +58,41 @@ private[puzzle] final class Selector(
     tolerance: Int,
     step: Int,
     idRange: Range
-  ): Fu[Option[Puzzle]] =
-    puzzleColl.find($doc(
-      F.id $gt
-        idRange.min $lt
-        idRange.max,
-      F.rating $gt
-        (rating - tolerance) $lt
-        (rating + tolerance),
-      $or(
-        F.voteRatio $gt AggregateVote.minRatio,
-        F.voteNb $lt AggregateVote.minVotes
-      )
-    )).uno[Puzzle] flatMap {
-      case None if (tolerance + step) <= toleranceMax =>
-        tryRange(rating, tolerance + step, step,
-          idRange = Range(idRange.min, idRange.max + 100))
-      case res => fuccess(res)
+  ): Fu[Option[Puzzle]] = puzzleColl.find(rangeSelector(
+    rating = rating,
+    tolerance = tolerance,
+    idRange = idRange
+  )).uno[Puzzle] flatMap {
+    case None if (tolerance + step) <= toleranceMax =>
+      tryRange(rating, tolerance + step, step,
+        idRange = Range(idRange.min, idRange.max + 100))
+    case res => fuccess(res)
+  }
+}
+
+private final object Selector {
+
+  val toleranceMax = 1000
+
+  val anonSkipMax = 5000
+
+  def toleranceStepFor(rating: Int) =
+    math.abs(1500 - rating) match {
+      case d if d >= 500 => 300
+      case d if d >= 300 => 250
+      case d => 200
     }
+
+  def rangeSelector(rating: Int, tolerance: Int, idRange: Range) = $doc(
+    F.id $gt
+      idRange.min $lt
+      idRange.max,
+    F.rating $gt
+      (rating - tolerance) $lt
+      (rating + tolerance),
+    $or(
+      F.voteRatio $gt AggregateVote.minRatio,
+      F.voteNb $lt AggregateVote.minVotes
+    )
+  )
 }

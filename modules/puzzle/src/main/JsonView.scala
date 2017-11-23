@@ -2,6 +2,7 @@ package lila.puzzle
 
 import play.api.libs.json._
 
+import lila.game.GameRepo
 import lila.tree
 
 final class JsonView(
@@ -27,20 +28,7 @@ final class JsonView(
     ) map some) map { gameJson =>
       Json.obj(
         "game" -> gameJson,
-        "puzzle" -> Json.obj(
-          "id" -> puzzle.id,
-          "rating" -> puzzle.perf.intRating,
-          "attempts" -> puzzle.attempts,
-          "fen" -> puzzle.fen,
-          "color" -> puzzle.color.name,
-          "initialMove" -> isOldMobile.option(puzzle.initialMove.uci),
-          "initialPly" -> puzzle.initialPly,
-          "gameId" -> puzzle.gameId,
-          "lines" -> lila.puzzle.Line.toJson(puzzle.lines),
-          "branch" -> (!isOldMobile).option(makeBranch(puzzle)),
-          "enabled" -> puzzle.enabled,
-          "vote" -> puzzle.vote.sum
-        ).noNull,
+        "puzzle" -> puzzleJson(puzzle, isOldMobile),
         "mode" -> mode,
         "attempt" -> round.ifTrue(isOldMobile).map { r =>
           Json.obj(
@@ -74,6 +62,36 @@ final class JsonView(
     "highlight" -> p.highlight,
     "is3d" -> p.is3d
   )
+
+  def batch(puzzles: List[Puzzle], userInfos: UserInfos): Fu[JsObject] = for {
+    games <- GameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
+    jsons <- (puzzles zip games).collect {
+      case (puzzle, Some(game)) =>
+        gameJson.noCache(game, puzzle.initialPly, true) map { gameJson =>
+          Json.obj(
+            "game" -> gameJson,
+            "puzzle" -> puzzleJson(puzzle, isOldMobile = false)
+          )
+        }
+    }.sequenceFu
+  } yield Json.obj(
+    "user" -> JsonView.infos(false)(userInfos),
+    "puzzles" -> jsons
+  )
+
+  private def puzzleJson(puzzle: Puzzle, isOldMobile: Boolean): JsObject = Json.obj(
+    "id" -> puzzle.id,
+    "rating" -> puzzle.perf.intRating,
+    "attempts" -> puzzle.attempts,
+    "fen" -> puzzle.fen,
+    "color" -> puzzle.color.name,
+    "initialPly" -> puzzle.initialPly,
+    "gameId" -> puzzle.gameId,
+    "lines" -> lila.puzzle.Line.toJson(puzzle.lines),
+    "vote" -> puzzle.vote.sum
+  ).add("initialMove" -> isOldMobile.option(puzzle.initialMove.uci))
+    .add("branch" -> (!isOldMobile).option(makeBranch(puzzle)))
+    .add("enabled" -> puzzle.enabled)
 
   private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
     import chess.format._

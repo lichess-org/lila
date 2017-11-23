@@ -54,6 +54,12 @@ final class Env(
     puzzleIdMin = PuzzleIdMin
   )
 
+  lazy val batch = new PuzzleBatch(
+    puzzleColl = puzzleColl,
+    api = api,
+    puzzleIdMin = PuzzleIdMin
+  )
+
   lazy val userInfos = UserInfos(roundColl = roundColl)
 
   lazy val forms = DataForm

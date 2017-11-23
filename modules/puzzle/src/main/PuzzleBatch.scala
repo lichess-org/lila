@@ -1,0 +1,66 @@
+package lila.puzzle
+
+import lila.db.dsl._
+import lila.user.User
+import Puzzle.{ BSONFields => F }
+
+private[puzzle] final class PuzzleBatch(
+    puzzleColl: Coll,
+    api: PuzzleApi,
+    puzzleIdMin: Int
+) {
+
+  object select {
+
+    import Selector._
+
+    def apply(user: User, nb: Int): Fu[List[Puzzle]] = {
+      api.head.find(user) flatMap {
+        newPuzzlesForUser(user, _, nb)
+      } flatMap { puzzles =>
+        lila.mon.puzzle.batch.selector.count(puzzles.size)
+        puzzles.lastOption.?? { p => api.head.addNew(user, p.id) } inject puzzles
+      }
+    }.mon(_.puzzle.batch.selector.time)
+
+    private def newPuzzlesForUser(user: User, headOption: Option[PuzzleHead], nb: Int): Fu[List[Puzzle]] = {
+      val rating = user.perfs.puzzle.intRating min 2300 max 900
+      val step = toleranceStepFor(rating)
+      api.puzzle.cachedLastId.get flatMap { maxId =>
+        val lastId = headOption match {
+          case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l
+          case _ => puzzleIdMin
+        }
+        tryRange(
+          rating = rating,
+          tolerance = step,
+          step = step,
+          idRange = Range(lastId, lastId + nb * 50),
+          nb = nb
+        )
+      }
+    }
+
+    private def tryRange(
+      rating: Int,
+      tolerance: Int,
+      step: Int,
+      idRange: Range,
+      nb: Int
+    ): Fu[List[Puzzle]] = puzzleColl.find(rangeSelector(
+      rating = rating,
+      tolerance = tolerance,
+      idRange = idRange
+    )).list[Puzzle](nb) flatMap {
+      case res if res.size < nb && (tolerance + step) <= toleranceMax =>
+        tryRange(
+          rating = rating,
+          tolerance = tolerance + step,
+          step = step,
+          idRange = Range(idRange.min, idRange.max + 100),
+          nb = nb
+        )
+      case res => fuccess(res)
+    }
+  }
+}

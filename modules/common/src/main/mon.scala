@@ -397,6 +397,13 @@ object mon {
       val time = rec("puzzle.selector")
       def vote(v: Int) = rec("puzzle.selector.vote")(1000 + v) // vote sum of selected puzzle
     }
+    object batch {
+      object selector {
+        val count = incX("puzzle.batch.selector")
+        val time = rec("puzzle.batch.selector")
+      }
+      val solve = incX("puzzle.batch.solve")
+    }
     object round {
       val user = inc("puzzle.attempt.user")
       val anon = inc("puzzle.attempt.anon")
