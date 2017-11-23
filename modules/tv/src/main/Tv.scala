@@ -142,7 +142,7 @@ object Tv {
     val byKey = all.map { c => c.key -> c }.toMap
   }
 
-  private def rated = (g: Game) => g.rated
+  private def rated = (g: Game) => g.rated && !g.hasProvisional
   private def speed(speed: chess.Speed) = (g: Game) => g.speed == speed
   private def variant(variant: chess.variant.Variant) = (g: Game) => g.variant == variant
   private val standard = variant(V.Standard)
