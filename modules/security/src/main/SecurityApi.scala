@@ -118,11 +118,11 @@ final class SecurityApi(
   def shareIpOrPrint(u1: User.ID, u2: User.ID): Fu[Boolean] =
     Store.ipsAndFps(List(u1, u2), max = 100) map {
       _.foldLeft(Set.empty[String] -> false) {
-        case ((u1s, true), _) => u1s -> true
-        case ((u1s, _), entry) if u1 == entry.user =>
+        case (found @ (_, true), _) => found
+        case ((u1s, false), entry) if u1 == entry.user =>
           val newU1s = u1s + entry.ip.value
           entry.fp.fold(newU1s)(newU1s +) -> false
-        case ((u1s, _), entry) if u2 == entry.user => u1s -> {
+        case ((u1s, false), entry) /* if u2 == entry.user */ => u1s -> {
           u1s(entry.ip.value) || entry.fp.??(u1s.contains)
         }
       }._2
