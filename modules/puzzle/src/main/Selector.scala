@@ -28,8 +28,8 @@ private[puzzle] final class Selector(
       case Some(user) =>
         api.head.find(user) flatMap {
           case Some(PuzzleHead(_, Some(c), _)) => api.puzzle.find(c)
-          case _ =>
-            newPuzzleForUser(user) flatMap { next =>
+          case headOption =>
+            newPuzzleForUser(user, headOption) flatMap { next =>
               next.?? { p => api.head.addNew(user, p.id) } inject next
             }
         }
@@ -45,21 +45,20 @@ private[puzzle] final class Selector(
       case d => 200
     }
 
-  private def newPuzzleForUser(user: User): Fu[Option[Puzzle]] = {
+  private def newPuzzleForUser(user: User, headOption: Option[PuzzleHead]): Fu[Option[Puzzle]] = {
     val rating = user.perfs.puzzle.intRating min 2300 max 900
     val step = toleranceStepFor(rating)
-    (api.head.find(user) zip api.puzzle.cachedLastId.get) flatMap {
-      case (opHead, maxId) =>
-        val lastId = opHead match {
-          case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l
-          case _ => puzzleIdMin
-        }
-        tryRange(
-          rating = rating,
-          tolerance = step,
-          step = step,
-          idRange = Range(lastId, lastId + 200)
-        )
+    api.puzzle.cachedLastId.get flatMap { maxId =>
+      val lastId = headOption match {
+        case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l
+        case _ => puzzleIdMin
+      }
+      tryRange(
+        rating = rating,
+        tolerance = step,
+        step = step,
+        idRange = Range(lastId, lastId + 200)
+      )
     }
   }
 

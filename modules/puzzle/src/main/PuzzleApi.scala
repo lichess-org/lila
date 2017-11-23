@@ -31,12 +31,10 @@ private[puzzle] final class PuzzleApi(
         .cursor[Puzzle]()
         .gather[List](nb)
 
-    private def lastId: Fu[Int] = lila.db.Util findNextId puzzleColl map (_ - 1)
-
     val cachedLastId = asyncCache.single(
       name = "puzzle.lastId",
-      lastId,
-      expireAfter = _.ExpireAfterWrite(20 minutes)
+      f = lila.db.Util findNextId puzzleColl map (_ - 1),
+      expireAfter = _.ExpireAfterWrite(1 day)
     )
 
     def importOne(json: JsValue, token: String): Fu[PuzzleId] =

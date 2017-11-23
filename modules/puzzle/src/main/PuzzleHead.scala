@@ -1,7 +1,7 @@
 package lila.puzzle
 
 case class PuzzleHead(
-    _id: String, // userId
+    _id: lila.user.User.ID,
     current: Option[PuzzleId],
     last: PuzzleId
 ) {
