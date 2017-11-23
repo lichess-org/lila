@@ -67,6 +67,16 @@ export const renderers: Renderers = {
     ]),
     text: n => 'Game with ' + n.content.opponentName + '.'
   },
+  titledTourney: {
+    html: n => generic(n, '/tournament/' + n.content.id, 'g', [
+      h('span', [
+        h('strong', 'Lichess Titled Tournament'),
+        drawTime(n)
+      ]),
+      h('span', n.content.text)
+    ]),
+    text: n => 'Game with ' + n.content.opponentName + '.'
+  },
   reportedBanned: {
     html: n => generic(n, undefined, '', [
       h('span', [

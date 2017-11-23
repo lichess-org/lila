@@ -99,6 +99,11 @@ object TeamJoined {
 
 case object LimitedTournamentInvitation extends NotificationContent("u")
 
+case class TitledTournamentInvitation(
+    id: String,
+    text: String
+) extends NotificationContent("titledTourney")
+
 case class GameEnd(
     gameId: GameEnd.GameId,
     opponentId: Option[GameEnd.OpponentId],
