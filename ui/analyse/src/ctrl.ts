@@ -10,7 +10,7 @@ import { Autoplay, AutoplayDelay } from './autoplay';
 import * as promotion from './promotion';
 import * as util from './util';
 import * as chessUtil from 'chess';
-import { storedProp, throttle, debounce, defined, prop, Prop, StoredBooleanProp } from 'common';
+import { storedProp, throttle, defined, prop, Prop, StoredBooleanProp } from 'common';
 import { make as makeSocket, Socket } from './socket';
 import { make as makeForecast, ForecastCtrl } from './forecast/forecastCtrl';
 import { ctrl as cevalCtrl, isEvalBetter, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
@@ -302,9 +302,9 @@ export default class AnalyseCtrl {
     }
   });
 
-  private updateHref: () => void = debounce(750, () => {
+  private updateHref: () => void = li.fp.debounce(() => {
     if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
-  });
+  }, 750);
 
   autoScroll(): void {
     this.autoScrollRequested = true;

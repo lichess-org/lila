@@ -46,17 +46,19 @@ lichess.topMenuIntent = function() {
   };
   lichess.fp.debounce = function(func, wait, immediate) {
     var timeout;
+    var lastBounce = 0;
     return function() {
       var context = this,
-        args = arguments;
+        args = arguments,
+        elapsed = Date.now() - lastBounce;
+      lastBounce = Date.now();
       var later = function() {
         timeout = null;
-        if (!immediate) func.apply(context, args);
+        func.apply(context, args);
       };
-      var callNow = immediate && !timeout;
       clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
+      if (immediate && elapsed > wait) func.apply(context, args);
+      else timeout = setTimeout(later, wait);
     };
   };
 

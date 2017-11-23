@@ -21,7 +21,10 @@ interface Lichess {
   escapeHtml(html: string): string
   toYouTubeEmbedUrl(url: string): string
 
-  fp: any
+  fp: {
+    debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
+    contains<T>(list: T[], needle: T): boolean;
+  }
   sound: any
   powertip: any
   userAutocomplete: any
