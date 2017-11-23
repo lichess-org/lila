@@ -46,7 +46,7 @@ module.exports = function(env, domElement) {
     this.vm.filters = {};
   }.bind(this);
 
-  var askQuestion = throttle(1000, false, function() {
+  var askQuestion = throttle(1000, function() {
     if (!this.validCombinationCurrent()) reset();
     this.pushState();
     this.vm.loading = true;

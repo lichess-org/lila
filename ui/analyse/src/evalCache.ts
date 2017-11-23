@@ -64,7 +64,7 @@ export function make(opts): EvalCache {
     return fenFetched.indexOf(node.fen) !== -1;
   };
   return {
-    onCeval: throttle(500, false, function() {
+    onCeval: throttle(500, function() {
       const node = opts.getNode(), ev = node.ceval;
       if (ev && !ev.cloud && hasFetched(node) && qualityCheck(ev) && opts.canPut(node)) {
         opts.send("evalPut", toPutData(opts.variant, ev));

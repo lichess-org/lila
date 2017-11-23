@@ -86,7 +86,7 @@ function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
 
 export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types) {
 
-  const submit = throttle(500, false, function(name, value) {
+  const submit = throttle(500, function(name, value) {
     root.study!.makeChange('setTag', {
       chapterId: getChapter().id,
       name,

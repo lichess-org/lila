@@ -1,7 +1,5 @@
 /// <reference types="types/lichess" />
 
-import throttle from './throttle';
-
 export function defined<A>(v: A | undefined): v is A {
   return typeof v !== 'undefined';
 }
@@ -87,7 +85,28 @@ export function sync<T>(promise: Promise<T>): Sync<T> {
   return sync;
 }
 
-export { throttle };
+// Ensures calls to the wrapped function are spaced by the given delay.
+// Any extra calls are dropped, except the last one.
+export function throttle(delay: number, callback: (...args: any[]) => void): (...args: any[]) => void {
+  let timer: number | undefined;
+  let lastExec = 0;
+
+  return function(this: any, ...args: any[]): void {
+    const self: any = this;
+    const elapsed = Date.now() - lastExec;
+
+    function exec() {
+      timer = undefined;
+      lastExec = Date.now();
+      callback.apply(self, args);
+    }
+
+    if (timer) clearTimeout(timer);
+
+    if (elapsed > delay) exec();
+    else timer = setTimeout(exec, delay - elapsed);
+  };
+}
 
 export type F = () => void;
 

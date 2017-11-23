@@ -37,7 +37,7 @@ export function ctrl(root: AnalyseCtrl) {
     });
   };
 
-  const toggleGlyph = throttle(500, false, function(id) {
+  const toggleGlyph = throttle(500, function(id) {
     root.study!.makeChange('toggleGlyph', root.study!.withPosition({
       id
     }));

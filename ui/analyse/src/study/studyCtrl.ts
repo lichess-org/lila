@@ -207,7 +207,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     ).then(onReload, li.reload);
   };
 
-  const onSetPath = throttle(300, false, (path: Tree.Path) => {
+  const onSetPath = throttle(300, (path: Tree.Path) => {
     if (vm.mode.sticky && path !== data.position.path) makeChange("setPath", addChapterId({
       path
     }));

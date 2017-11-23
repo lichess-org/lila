@@ -1,4 +1,4 @@
-import { throttle, prop, storedProp } from 'common';
+import { prop, storedProp } from 'common';
 import { controller as configCtrl } from './explorerConfig';
 import xhr = require('./openingXhr');
 import { synthetic } from '../util';
@@ -38,7 +38,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
 
   const config = configCtrl(root.data.game, onConfigClose, root.trans, root.redraw);
 
-  const fetch = throttle(250, function() {
+  const fetch = window.lichess.fp.debounce(function() {
     const fen = root.node.fen;
     const request: JQueryPromise<ExplorerData> = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
       xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen) :
@@ -55,7 +55,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
       failing(true);
       root.redraw();
     });
-  }, false);
+  }, 250, true);
 
   const empty = {
     opening: true,

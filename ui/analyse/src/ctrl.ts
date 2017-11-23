@@ -241,7 +241,7 @@ export default class AnalyseCtrl {
     });
   }
 
-  getDests: () => void = throttle(800, false, () => {
+  getDests: () => void = throttle(800, () => {
     if (!this.embed && !defined(this.node.dests)) this.socket.sendAnaDests({
       variant: this.data.game.variant.key,
       fen: this.node.fen,
@@ -286,25 +286,25 @@ export default class AnalyseCtrl {
   }
 
   private sound = li.sound ? {
-    move: throttle(50, false, li.sound.move),
-    capture: throttle(50, false, li.sound.capture),
-    check: throttle(50, false, li.sound.check)
+    move: throttle(50, li.sound.move),
+    capture: throttle(50, li.sound.capture),
+    check: throttle(50, li.sound.check)
   } : {
     move: $.noop,
     capture: $.noop,
     check: $.noop
   };
 
-  private onChange: () => void = throttle(300, false, () => {
+  private onChange: () => void = throttle(300, () => {
     if (this.opts.onChange) {
       const mainlinePly = this.onMainline ? this.node.ply : false;
       this.opts.onChange!(this.node.fen, this.path, mainlinePly);
     }
   });
 
-  private updateHref: () => void = throttle(750, false, () => {
+  private updateHref: () => void = li.fp.debounce(() => {
     if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
-  }, false);
+  }, 750);
 
   autoScroll(): void {
     this.autoScrollRequested = true;
@@ -602,7 +602,7 @@ export default class AnalyseCtrl {
     return !this.gameOver() && !this.node.threefold;
   }
 
-  startCeval = throttle(800, false, () => {
+  startCeval = throttle(800, () => {
     if (this.ceval.enabled()) {
       if (this.canUseCeval()) {
         this.ceval.start(this.path, this.nodeList, this.threatMode(), false);
