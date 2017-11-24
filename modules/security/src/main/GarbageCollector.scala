@@ -12,8 +12,6 @@ import lila.user.{ User, UserRepo }
 final class GarbageCollector(
     userSpy: UserSpyApi,
     ipIntel: IpIntel,
-    geoIP: GeoIP,
-    firewall: Firewall,
     slack: lila.slack.SlackApi,
     configColl: Coll,
     system: akka.actor.ActorSystem
@@ -28,10 +26,8 @@ final class GarbageCollector(
 
   private def apply(user: User, ip: IpAddress, email: EmailAddress): Funit =
     userSpy(user) flatMap { spy =>
-      badOtherAccounts(spy.usersSharingFingerprint).orElse {
-        badOtherAccounts(spy.usersSharingIp)
-      } ?? { others =>
-        isBadIp(ip).map {
+      badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
+        lila.common.Future.exists(spy.ips)(isBadIp).map {
           _ ?? {
             val ipBan = spy.usersSharingIp.forall { u =>
               isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
@@ -45,21 +41,17 @@ final class GarbageCollector(
   private def badOtherAccounts(accounts: Set[User]): Option[List[User]] = {
     val others = accounts.toList
       .sortBy(-_.createdAt.getSeconds)
-      .takeWhile(_.createdAt.isAfter(DateTime.now minusDays 3))
-      .take(5)
-    (others.size > 2 && others.forall(isBadAccount)) option others
+      .takeWhile(_.createdAt.isAfter(DateTime.now minusDays 4))
+      .take(4)
+    (others.size > 1 && others.forall(isBadAccount)) option others
   }
 
-  private val suspiciousLocations = Set(
-    Location.unknown,
-    Location.tor,
-    Location.genericIran // undetected proxies
-  )
-
-  private def isBadIp(ip: IpAddress): Fu[Boolean] =
-    if (firewall blocksIp ip) fuccess(true)
-    else if (geoIP(ip).fold(true)(suspiciousLocations.contains)) fuccess(true)
-    else ipIntel(ip).map { 75 < _ }
+  private def isBadIp(ip: UserSpy.IPData): Fu[Boolean] = if (ip.blocked ||
+    ip.location == Location.unknown ||
+    ip.location == Location.tor ||
+    ip.location.shortCountry == "Iran" // some undetected proxies
+    ) fuccess(true)
+  else ipIntel(ip.ip).map { 75 < _ }
 
   private def isBadAccount(user: User) =
     (user.troll || user.engine) && !user.enabled

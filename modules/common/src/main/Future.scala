@@ -47,6 +47,8 @@ object Future {
     }
   }
 
+  def exists[A](list: List[A])(pred: A => Fu[Boolean]): Fu[Boolean] = find(list)(pred).map(_.isDefined)
+
   def delay[A](duration: FiniteDuration)(run: => Fu[A])(implicit system: akka.actor.ActorSystem): Fu[A] =
     if (duration == 0.millis) run
     else akka.pattern.after(duration, system.scheduler)(run)
