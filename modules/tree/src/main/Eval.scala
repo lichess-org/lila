@@ -5,7 +5,7 @@ import chess.format.Uci
 case class Eval(
     cp: Option[Eval.Cp],
     mate: Option[Eval.Mate],
-    best: Option[Uci.Move]
+    best: Option[Uci]
 ) {
 
   def isEmpty = cp.isEmpty && mate.isEmpty
@@ -86,7 +86,7 @@ object Eval {
   object JsonHandlers {
     import play.api.libs.json._
 
-    private implicit val uciWrites: Writes[Uci.Move] = Writes { uci =>
+    private implicit val uciWrites: Writes[Uci] = Writes { uci =>
       JsString(uci.uci)
     }
     implicit val cpFormat: Format[Cp] = Format[Cp](
