@@ -923,6 +923,7 @@ div.cemetery {
   white-space: nowrap;
   line-height: 0;
   height: 32px;
+  max-height: 32px; /* or else firefox bumps to 35px when adding <score> */
 }
 div.cemetery:first-child {
   margin-bottom: 5px;
