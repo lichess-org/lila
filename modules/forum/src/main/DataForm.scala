@@ -42,7 +42,14 @@ object DataForm {
   ) {
 
     def looksLikeVenting = List(name, post.text) exists { txt =>
-      ventingPattern.matcher(txt).find
+      mostlyUpperCase(txt) || ventingPattern.matcher(txt).find
+    }
+  }
+
+  private def mostlyUpperCase(txt: String) = {
+    val extract = txt.take(300)
+    (extract.contains(' ') || extract.size > 5) && {
+      extract.count(_.isUpper) > extract.count(_.isLower) * 2
     }
   }
 
