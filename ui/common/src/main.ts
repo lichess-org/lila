@@ -107,21 +107,3 @@ export function throttle(delay: number, callback: (...args: any[]) => void): (..
     else timer = setTimeout(exec, delay - elapsed);
   };
 }
-
-export type F = () => void;
-
-export function dropThrottle(delay: number): (f: F) => void  {
-  let task: F | undefined;
-  const run = function(f: F) {
-    task = f;
-    f();
-    setTimeout(function() {
-      if (task !== f) run(task!);
-      else task = undefined;
-    }, delay);
-  };
-  return function(f) {
-    if (task) task = f;
-    else run(f);
-  };
-}

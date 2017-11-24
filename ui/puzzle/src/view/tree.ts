@@ -1,23 +1,19 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { defined, dropThrottle } from 'common';
+import { defined, throttle } from 'common';
 import { renderEval as normalizeEval } from 'chess';
 import { path as treePath } from 'tree';
 import { MaybeVNodes } from '../interfaces';
 
-const scrollThrottle = dropThrottle(150);
-
-function autoScroll(ctrl, el) {
-  scrollThrottle(function() {
-    var cont = el.parentNode;
-    var target = el.querySelector('.active');
-    if (!target) {
-      cont.scrollTop = ctrl.vm.path === treePath.root ? 0 : 99999;
-      return;
-    }
-    cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
-  });
-}
+const autoScroll = throttle(150, (ctrl, el) => {
+  var cont = el.parentNode;
+  var target = el.querySelector('.active');
+  if (!target) {
+    cont.scrollTop = ctrl.vm.path === treePath.root ? 0 : 99999;
+    return;
+  }
+  cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
+});
 
 function pathContains(ctx, path) {
   return treePath.contains(ctx.ctrl.vm.path, path);
