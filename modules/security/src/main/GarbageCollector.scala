@@ -12,6 +12,7 @@ import lila.user.{ User, UserRepo }
 final class GarbageCollector(
     userSpy: UserSpyApi,
     ipIntel: IpIntel,
+    geoIP: GeoIP,
     firewall: Firewall,
     slack: lila.slack.SlackApi,
     configColl: Coll,
@@ -49,8 +50,15 @@ final class GarbageCollector(
     (others.size > 2 && others.forall(isBadAccount)) option others
   }
 
+  private val suspiciousLocations = Set(
+    Location.unknown,
+    Location.tor,
+    Location.genericIran // undetected proxies
+  )
+
   private def isBadIp(ip: IpAddress): Fu[Boolean] =
     if (firewall blocksIp ip) fuccess(true)
+    else if (geoIP(ip).fold(true)(suspiciousLocations.contains)) fuccess(true)
     else ipIntel(ip).map { 75 < _ }
 
   private def isBadAccount(user: User) =

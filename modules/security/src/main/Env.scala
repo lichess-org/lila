@@ -85,6 +85,7 @@ final class Env(
   lazy val garbageCollector = new GarbageCollector(
     userSpyApi,
     ipIntel,
+    geoIP,
     firewall,
     slack,
     db("flag"),

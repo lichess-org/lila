@@ -41,6 +41,8 @@ object Location {
 
   val tor = Location("Tor exit node", none, none)
 
+  val genericIran = Location("Iran", none, none)
+
   def apply(ipLoc: IpLocation): Location =
     Location(ipLoc.countryName | unknown.country, ipLoc.region, ipLoc.city)
 }
