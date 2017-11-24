@@ -1262,6 +1262,9 @@ body.piece_letter .tview2 move {
 .tview2 comment a {
   color: #3893e8!important;
 }
+.tview2 comment a {
+  vertical-align: top;
+}
 .tview2 move.current {
   border: 1px solid #d85000!important;
 }
