@@ -23,7 +23,7 @@ private object AnalysisBuilder {
 
     val uciAnalysis = Analysis(
       id = work.game.id,
-      infos = makeInfos(evals, work.game.moveList, work.startPly),
+      infos = makeInfos(evals, work.game.uciList, work.startPly),
       startPly = work.startPly,
       uid = work.sender.userId,
       by = !client.lichess option client.userId.value,
@@ -51,14 +51,14 @@ private object AnalysisBuilder {
     }
   }
 
-  private def makeInfos(evals: List[Option[Evaluation]], moves: List[String], startedAtPly: Int): List[Info] =
+  private def makeInfos(evals: List[Option[Evaluation]], moves: List[Uci], startedAtPly: Int): List[Info] =
     (evals filterNot (_ ?? (_.isCheckmate)) sliding 2).toList.zip(moves).zipWithIndex map {
       case ((List(Some(before), Some(after)), move), index) => {
         val variation = before.cappedPvList match {
           case first :: rest if first != move => first :: rest
           case _ => Nil
         }
-        val best = variation.headOption flatMap Uci.Move.apply
+        val best = variation.headOption
         val info = Info(
           ply = index + 1 + startedAtPly,
           eval = Eval(
@@ -66,7 +66,7 @@ private object AnalysisBuilder {
             after.score.mate,
             best
           ),
-          variation = variation
+          variation = variation.map(_.uci)
         )
         if (info.ply % 2 == 1) info.invert else info
       }

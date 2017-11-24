@@ -72,9 +72,9 @@ final class Analyser(
     }
 
   private def evalCacheHits(work: Work.Analysis): Fu[Map[Int, lila.evalCache.EvalCacheEntry.Eval]] =
-    chess.Replay.games(
-      work.game.moveList.take(12),
-      work.game.initialFen map (_.value),
+    chess.Replay.situationsFromUci(
+      work.game.uciList.take(12),
+      work.game.initialFen,
       work.game.variant
     ).fold(
         _ => fuccess(Map.empty),

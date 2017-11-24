@@ -1,6 +1,7 @@
 package lila.analyse
 
 import chess.Color
+import chess.format.Uci
 
 import org.joda.time.DateTime
 
@@ -28,11 +29,6 @@ case class Analysis(
   }.toList
 
   lazy val advices: List[Advice] = infoAdvices.flatMap(_._2)
-
-  // ply -> UCI
-  def bestMoves: Map[Int, String] = infos.flatMap { i =>
-    i.best map { b => i.ply -> b.keys }
-  }(scala.collection.breakOut)
 
   def summary: List[(Color, List[(Advice.Judgment, Int)])] = Color.all map { color =>
     color -> (Advice.Judgment.all map { judgment =>

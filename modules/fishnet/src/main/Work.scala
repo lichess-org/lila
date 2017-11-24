@@ -50,9 +50,7 @@ object Work {
       moves: String
   ) {
 
-    def moveList = moves.split(' ').toList
-
-    def uciList = Uci readList moves
+    def uciList: List[Uci] = ~(Uci readList moves)
   }
 
   case class Sender(

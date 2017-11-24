@@ -114,7 +114,7 @@ object JsonApi {
     ) {
 
       // use first pv move as bestmove
-      val pvList = pv.??(_.split(' ').toList)
+      val pvList: List[Uci] = ~(pv flatMap Uci.readList)
 
       val cappedNps = nps.map(_ min Evaluation.npsCeil)
 
