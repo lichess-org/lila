@@ -159,6 +159,10 @@
   <string name="passwordReset">Reset password</string>
   <string name="forgotPassword">Lupa password?</string>
   <string name="rank">Peringkat</string>
+  <string name="rankX">Rating: %s</string>
+  <plurals name="nbPuzzles">
+    <item quantity="other">%s</item>
+  </plurals>
   <string name="gamesPlayed">Permainan yang telah dimainkan</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s bermain dengan anda</item>
@@ -219,11 +223,15 @@
   <plurals name="nbDraws">
     <item quantity="other">%s imbang</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="other">%s Sedang bermain</item>
+  </plurals>
   <string name="exportGames">Ekspor Permainan</string>
   <string name="ratingRange">Batasan rating</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">Berikan %s detik</item>
   </plurals>
+  <string name="giveMoreTime">Berikan waktu lebih</string>
   <string name="thisPlayerUsesChessComputerAssistance">Pemain ini menggunakan bantuan komputer</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Pemain ini bertambah/berkurang ratingnya</string>
   <string name="openingExplorerAndTablebase">Pembukaan explorer &amp; tablebase</string>
@@ -242,6 +250,10 @@
   <string name="tournamentPoints">Poin Turnamen</string>
   <string name="viewTournament">Lihat turnamen</string>
   <string name="backToTournament">Kembali ke turnamen</string>
+  <string name="thematic">Bertema</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="other">≥ %s pertandingan tercatat</item>
+  </plurals>
   <string name="backToGame">Kembali ke permainan</string>
   <string name="siteDescription">Permainan Catur gratis. Main Catur sekarang dengan antarmuka yang bersih. Tanpa registrasi, tanpa iklan, dan tanpa plugin tambahan. Bermain catur lawan komputer, teman atau lawan manusia secara acak.</string>
   <string name="teams">Tim</string>
@@ -662,6 +674,8 @@
   <string name="yourScore">Skor Anda: %s</string>
   <string name="language">Bahasa</string>
   <string name="background">Latar</string>
+  <string name="light">Terang</string>
+  <string name="dark">Gelap</string>
   <string name="boardGeometry">Geometri Papan</string>
   <string name="boardTheme">Tema Papan</string>
   <string name="boardSize">Ukuran Papan</string>

@@ -32,8 +32,8 @@
     <item quantity="other">Komencis sekvi %s ludantojn</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Gajnis %s novan aŭton</item>
-    <item quantity="other">Gajnis %s novajn aŭtojn</item>
+    <item quantity="one">Gajnis %s novan sekvanton</item>
+    <item quantity="other">Gajnis %s novajn sekvantojn</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Gastigis %s samtempan ekspozicion</item>
