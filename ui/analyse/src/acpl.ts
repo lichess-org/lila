@@ -3,6 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import { AnalyseData, MaybeVNode } from './interfaces';
 import AnalyseCtrl from './ctrl';
 import { game } from 'game';
+import { defined } from 'common';
 import { bind, dataIcon } from './util';
 
 function renderRatingDiff(rd: number | undefined): VNode | undefined {
@@ -30,7 +31,8 @@ const advices = [
 ];
 
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
-  const d = ctrl.data;
+  const d = ctrl.data, trans = ctrl.trans.noarg;
+  const acpl = d.analysis![color].acpl;
   return h('table', {
     hook: {
       insert(vnode) {
@@ -51,12 +53,12 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
         } : {};
         return h('tr' + (nb ? '.symbol' : ''), { attrs }, [
           h('td', '' + nb),
-          h('th', ctrl.trans(a[1]))
+          h('th', trans(a[1]))
         ]);
       }).concat(
         h('tr', [
-          h('td', '' + d.analysis![color].acpl),
-          h('th', ctrl.trans('averageCentipawnLoss'))
+          h('td', '' + (defined(acpl) ? acpl : '?')),
+          h('th', trans('averageCentipawnLoss'))
         ])
       ))
   ])
