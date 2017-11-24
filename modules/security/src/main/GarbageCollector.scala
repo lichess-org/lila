@@ -83,6 +83,5 @@ final class GarbageCollector(
       lila.hub.actorApi.security.GarbageCollect(user.id, ipBan),
       'garbageCollect
     )
-    slack.garbageCollector(s"@${user.username} has been dealt with.")
   }
 }
