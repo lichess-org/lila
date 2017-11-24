@@ -8,6 +8,7 @@ final class Env(
     config: Config,
     uciMemo: lila.game.UciMemo,
     requesterApi: lila.analyse.RequesterApi,
+    evalCacheApi: lila.evalCache.EvalCacheApi,
     hub: lila.hub.Env,
     db: lila.db.Env,
     system: ActorSystem,
@@ -81,6 +82,7 @@ final class Env(
     repo = repo,
     uciMemo = uciMemo,
     sequencer = sequencer,
+    evalCacheApi = evalCacheApi,
     limiter = limiter
   )
 
@@ -130,6 +132,7 @@ object Env {
     system = lila.common.PlayApp.system,
     uciMemo = lila.game.Env.current.uciMemo,
     requesterApi = lila.analyse.Env.current.requesterApi,
+    evalCacheApi = lila.evalCache.Env.current.api,
     hub = lila.hub.Env.current,
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "fishnet",

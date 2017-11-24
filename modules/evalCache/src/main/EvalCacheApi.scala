@@ -33,6 +33,11 @@ final class EvalCacheApi(
 
   def shouldPut = truster shouldPut _
 
+  def getSinglePvEval(variant: Variant, fen: FEN): Fu[Option[Eval]] = getEval(
+    id = Id(variant, SmallFen.make(variant, fen)),
+    multiPv = 1
+  )
+
   private[evalCache] def drop(variant: Variant, fen: FEN): Funit = {
     val id = Id(chess.variant.Standard, SmallFen.make(variant, fen))
     coll.remove($id(id)).void >>- cache.put(id, none)

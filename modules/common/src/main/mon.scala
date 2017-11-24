@@ -511,6 +511,7 @@ object mon {
       }
       val post = rec("fishnet.analysis.post")
       val requestCount = inc("fishnet.analysis.request")
+      val evalCacheHits = rec("fishnet.analysis.eval_cache_hits")
     }
   }
   object api {

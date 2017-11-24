@@ -4,8 +4,8 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 import scala.util.{ Try, Success, Failure }
 
-import lila.common.IpAddress
 import Client.Skill
+import lila.common.IpAddress
 import lila.db.dsl._
 import lila.hub.FutureSequencer
 
