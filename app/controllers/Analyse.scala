@@ -21,7 +21,7 @@ object Analyse extends LilaController {
         mod = isGranted(_.Hunter),
         system = false
       )) map {
-        case true => Ok
+        case true => NoContent
         case false => Unauthorized
       }
     }
