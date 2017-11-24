@@ -40,27 +40,6 @@ lichess.topMenuIntent = function() {
     lichess.redirectInProgress = href;
     location.href = href;
   };
-  lichess.fp = {};
-  lichess.fp.contains = function(list, needle) {
-    return list.indexOf(needle) !== -1;
-  };
-  lichess.fp.debounce = function(func, wait, immediate) {
-    var timeout;
-    var lastBounce = 0;
-    return function() {
-      var context = this,
-        args = arguments,
-        elapsed = Date.now() - lastBounce;
-      lastBounce = Date.now();
-      var later = function() {
-        timeout = null;
-        func.apply(context, args);
-      };
-      clearTimeout(timeout);
-      if (immediate && elapsed > wait) func.apply(context, args);
-      else timeout = setTimeout(later, wait);
-    };
-  };
 
   lichess.socket = null;
   $.extend(true, lichess.StrongSocket.defaults, {
