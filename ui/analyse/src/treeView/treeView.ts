@@ -10,7 +10,7 @@ import { enrichText, innerHTML } from '../util';
 import { path as treePath } from 'tree';
 import column from './columnView';
 import inline from './inlineView';
-import { empty, defined, dropThrottle, storedProp, StoredProp } from 'common';
+import { empty, defined, throttle, storedProp, StoredProp } from 'common';
 
 export interface Ctx {
   ctrl: AnalyseCtrl;
@@ -142,20 +142,16 @@ function eventPath(e: MouseEvent): Tree.Path | null {
   ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('p');
 }
 
-const scrollThrottle = dropThrottle(200);
-
-export function autoScroll(ctrl: AnalyseCtrl, el: HTMLElement): void {
-  scrollThrottle(() => {
-    const cont = el.parentNode as HTMLElement;
-    if (!cont) return;
-    const target = el.querySelector('.active') as HTMLElement;
-    if (!target) {
-      cont.scrollTop = ctrl.path ? 99999 : 0;
-      return;
-    }
-    cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
-  });
-}
+export const autoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {
+  const cont = el.parentNode as HTMLElement;
+  if (!cont) return;
+  const target = el.querySelector('.active') as HTMLElement;
+  if (!target) {
+    cont.scrollTop = ctrl.path ? 99999 : 0;
+    return;
+  }
+  cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
+});
 
 export function nonEmpty(x: any): boolean {
   return !!x;
