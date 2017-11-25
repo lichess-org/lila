@@ -294,10 +294,15 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         if (sticky && !vm.mode.sticky) redraw();
         return;
       }
-      // node author already has the node
-      if (sticky && who && who.s === sri) {
-        data.position.path = position.path + node.id;
-        return;
+      console.log('addNode', d);
+      if (who && who.s === sri) {
+        // set comment path even if focused
+        commentForm.onSetPath(position.path + node.id, node, true);
+        // node author already has the node
+        if (sticky) {
+          data.position.path = position.path + node.id;
+          return;
+        }
       }
       if (relay) relay.applyChapterRelay(data.chapter, d.relay);
       const newPath = ctrl.tree.addNode(node, position.path);
