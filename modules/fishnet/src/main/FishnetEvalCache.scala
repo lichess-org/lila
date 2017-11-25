@@ -8,7 +8,7 @@ private final class FishnetEvalCache(
     evalCacheApi: lila.evalCache.EvalCacheApi
 ) {
 
-  val maxPlies = 15
+  val maxPlies = 12
 
   // indexes of positions to skip
   def skipPositions(game: Work.Game): Fu[List[Int]] =
