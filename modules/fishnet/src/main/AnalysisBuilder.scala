@@ -21,16 +21,16 @@ private final class AnalysisBuilder(evalCache: FishnetEvalCache) {
     isPartial: Boolean = true
   ): Fu[Analysis] = {
 
-    GameRepo.game(work.game.id) zip evalCache.evals(work) flatMap {
+    GameRepo.game(work.game.id) zip evalCache.evals(work.game) flatMap {
       case (None, _) => fufail(AnalysisBuilder.GameIsGone(work.game.id))
-      case (Some(game), cachedEvals) =>
+      case (Some(game), cached) =>
         GameRepo.initialFen(game) flatMap { initialFen =>
           def debug = s"${game.variant.key} analysis for ${game.id} by ${client.fullId}"
           chess.Replay(game.pgnMoves, initialFen, game.variant).flatMap(_.valid).fold(
             fufail(_),
             replay => UciToPgn(replay, Analysis(
               id = work.game.id,
-              infos = makeInfos(evals, work.game.uciList, work.startPly, cachedEvals),
+              infos = makeInfos(evals, work.game.uciList, work.startPly, cached),
               startPly = work.startPly,
               uid = work.sender.userId,
               by = !client.lichess option client.userId.value,
@@ -49,7 +49,7 @@ private final class AnalysisBuilder(evalCache: FishnetEvalCache) {
     }
   }
 
-  private def makeInfos(evals: List[Option[Evaluation]], moves: List[Uci], startedAtPly: Int, cachedEvals: FishnetEvalCache.CachedEvals): List[Info] =
+  private def makeInfos(evals: List[Option[Evaluation]], moves: List[Uci], startedAtPly: Int, cached: Map[Int, Evaluation]): List[Info] =
     (evals filterNot (_ ?? (_.isCheckmate)) sliding 2).toList.zip(moves).zipWithIndex map {
       case ((List(Some(before), Some(after)), move), index) => {
         val variation = before.cappedPvList match {

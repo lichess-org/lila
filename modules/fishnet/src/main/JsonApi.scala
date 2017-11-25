@@ -165,7 +165,7 @@ object JsonApi {
       id: String,
       game: Game,
       nodes: Int,
-      skipPlies: List[Int]
+      skipPositions: List[Int]
   ) extends Work
 
   def moveFromWork(m: Work.Move) = Move(m.id.value, m.level, fromGame(m.game), m.clock)
@@ -174,7 +174,7 @@ object JsonApi {
     id = m.id.value,
     game = fromGame(m.game),
     nodes = nodes,
-    skipPlies = m.cacheHitPlies
+    skipPositions = m.skipPositions
   )
 
   object readers {
@@ -216,7 +216,7 @@ object JsonApi {
         case a: Analysis => Json.obj(
           "work" -> Json.obj("type" -> "analysis", "id" -> a.id),
           "nodes" -> a.nodes,
-          "skipPlies" -> a.skipPlies
+          "skipPositions" -> a.skipPositions
         )
         case m: Move => Json.obj(
           "work" -> Json.obj(

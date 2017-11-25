@@ -110,7 +110,7 @@ object Work {
       tries: Int,
       lastTryByKey: Option[Client.Key],
       acquired: Option[Acquired],
-      cacheHitPlies: List[Int],
+      skipPositions: List[Int],
       createdAt: DateTime
   ) extends Work {
 

@@ -37,9 +37,9 @@ final class Analyser(
                   // first request, store
                   case _ =>
                     lila.mon.fishnet.analysis.requestCount()
-                    evalCache plies work flatMap { cacheHitPlies =>
-                      lila.mon.fishnet.analysis.evalCacheHits(cacheHitPlies.size)
-                      repo addAnalysis work.copy(cacheHitPlies = cacheHitPlies)
+                    evalCache skipPositions work.game flatMap { skipPositions =>
+                      lila.mon.fishnet.analysis.evalCacheHits(skipPositions.size)
+                      repo addAnalysis work.copy(skipPositions = skipPositions)
                     }
                 }
               }
@@ -67,7 +67,7 @@ final class Analyser(
         tries = 0,
         lastTryByKey = none,
         acquired = none,
-        cacheHitPlies = Nil,
+        skipPositions = Nil,
         createdAt = DateTime.now
       )
     }

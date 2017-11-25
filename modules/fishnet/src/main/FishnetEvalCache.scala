@@ -10,11 +10,12 @@ private final class FishnetEvalCache(
 
   val maxPlies = 15
 
-  def plies(work: Work.Analysis): Fu[List[Int]] =
-    rawEvals(work).map(_.map(_._1))
+  // indexes of positions to skip
+  def skipPositions(game: Work.Game): Fu[List[Int]] =
+    rawEvals(game).map(_.map(_._1))
 
-  def evals(work: Work.Analysis): Fu[Map[Int, Evaluation]] =
-    rawEvals(work) map {
+  def evals(game: Work.Game): Fu[Map[Int, Evaluation]] =
+    rawEvals(game) map {
       _.toMap.mapValues { eval =>
         val pv = eval.pvs.head
         Evaluation(
@@ -31,20 +32,20 @@ private final class FishnetEvalCache(
       }
     }
 
-  private def rawEvals(work: Work.Analysis): Fu[List[(Int, lila.evalCache.EvalCacheEntry.Eval)]] =
+  private def rawEvals(game: Work.Game): Fu[List[(Int, lila.evalCache.EvalCacheEntry.Eval)]] =
     chess.Replay.situationsFromUci(
-      work.game.uciList.take(maxPlies),
-      work.game.initialFen,
-      work.game.variant
+      game.uciList.take(maxPlies),
+      game.initialFen,
+      game.variant
     ).fold(
         _ => fuccess(Nil),
         _.zipWithIndex.map {
-          case (game, index) =>
+          case (sit, index) =>
             evalCacheApi.getSinglePvEval(
-              work.game.variant,
-              FEN(Forsyth >> game)
+              game.variant,
+              FEN(Forsyth >> sit)
             ) map2 { (eval: lila.evalCache.EvalCacheEntry.Eval) =>
-                (index + work.startPly) -> eval
+                index -> eval
               }
         }.sequenceFu.map(_.flatten)
       )
