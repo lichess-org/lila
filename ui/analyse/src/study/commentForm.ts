@@ -18,7 +18,7 @@ interface CommentForm {
   open(chapterId: string, path: Tree.Path, node: Tree.Node): void;
   close(): void;
   submit(text: string): void;
-  onSetPath(path: Tree.Path, node: Tree.Node, myself?: boolean): void;
+  onSetPath(path: Tree.Path, node: Tree.Node, playedMyself: boolean): void;
   redraw(): void;
   toggle(chapterId: string, path: Tree.Path, node: Tree.Node): void;
   delete(chapterId: string, path: Tree.Path, id: string): void;
@@ -66,11 +66,9 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
     open,
     close,
     submit,
-    onSetPath(path: Tree.Path, node: Tree.Node, myself: boolean = false): void {
+    onSetPath(path: Tree.Path, node: Tree.Node, playedMyself: boolean): void {
       const cur = current();
-      console.log(node.san, cur, path, myself);
-      if (cur && cur.path !== path && (myself || !focus())) {
-      console.log('set!');
+      if (cur && cur.path !== path && (!focus() || playedMyself)) {
         cur.path = path;
         cur.node = node;
         root.redraw();

@@ -28,7 +28,7 @@ export interface StudyCtrl {
   canJumpTo(path: Tree.Path): boolean;
   onJump(): void;
   withPosition(obj: any): any;
-  setPath(path: Tree.Path, node: Tree.Node): void;
+  setPath(path: Tree.Path, node: Tree.Node, playedMyself: boolean): void;
   deleteNode(path: Tree.Path): void;
   promote(path: Tree.Path, toMainline: boolean): void;
   setChapter(id: string, force?: boolean): void;

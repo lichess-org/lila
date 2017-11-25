@@ -310,14 +310,18 @@ export default class AnalyseCtrl {
     this.autoScrollRequested = true;
   }
 
+  playedLastMoveMyself = () =>
+    !!this.justPlayed && this.node.uci.indexOf(this.justPlayed) === 0;
+
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path;
     this.setPath(path);
     this.showGround();
     if (pathChanged) {
-      if (this.study) this.study.setPath(path, this.node);
+      const playedMyself = this.playedLastMoveMyself();
+      if (this.study) this.study.setPath(path, this.node, playedMyself);
       if (!this.node.uci) this.sound.move(); // initial position
-      else if (!this.justPlayed || this.node.uci.indexOf(this.justPlayed) !== 0) {
+      else if (!playedMyself) {
         if (this.node.san!.indexOf('x') !== -1) this.sound.capture();
         else this.sound.move();
       }
