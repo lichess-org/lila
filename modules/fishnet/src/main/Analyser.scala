@@ -39,7 +39,7 @@ final class Analyser(
                     lila.mon.fishnet.analysis.requestCount()
                     evalCache skipPositions work.game flatMap { skipPositions =>
                       lila.mon.fishnet.analysis.evalCacheHits(skipPositions.size)
-                      repo addAnalysis work.copy(skipPositions = skipPositions)
+                      repo addAnalysis work // work.copy(skipPositions = skipPositions)
                     }
                 }
               }
