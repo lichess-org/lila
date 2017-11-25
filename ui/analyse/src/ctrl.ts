@@ -755,7 +755,7 @@ export default class AnalyseCtrl {
       canPut: (node: Tree.Node) => {
         return this.data.evalPut && this.canEvalGet(node) && (
           // if not in study, only put decent opening moves
-          this.opts.study || (node.ply < 10 && !node.ceval!.mate && Math.abs(node.ceval!.cp!) < 99)
+          this.opts.study || (node.ply < 12 && !node.ceval!.mate && Math.abs(node.ceval!.cp!) < 99)
         );
       },
       getNode: () => this.node,
