@@ -67,7 +67,7 @@ final class GarbageCollector(
     configColl.primitiveOne[Boolean]($id("ugc"), "value").map(~_)
 
   private def collect(user: User, email: EmailAddress, others: List[User], ipBan: Boolean): Funit = isEffective flatMap { effective =>
-    val wait = (10 + scala.util.Random.nextInt(120)).seconds
+    val wait = (30 + scala.util.Random.nextInt(300)).seconds
     val othersStr = others.map(o => "@" + o.username).mkString(", ")
     val message = s"Will dispose of @${user.username} in $wait. Email: $email. Prev users: $othersStr${!effective ?? " [SIMULATION]"}"
     logger.branch("GarbageCollector").info(message)
