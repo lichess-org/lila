@@ -75,7 +75,7 @@ object JsonApi {
     case class PostAnalysis(
         fishnet: Fishnet,
         stockfish: FullEngine,
-        analysis: List[Option[Evaluation]]
+        analysis: List[Option[Evaluation.OrSkipped]]
     ) extends Request with Result {
 
       def completeOrPartial =
@@ -86,13 +86,17 @@ object JsonApi {
     case class CompleteAnalysis(
         fishnet: Fishnet,
         stockfish: FullEngine,
-        analysis: List[Evaluation]
+        analysis: List[Evaluation.OrSkipped]
     ) {
 
-      def medianNodes = Maths.median(analysis
-        .filterNot(_.mateFound)
-        .filterNot(_.deadDraw)
-        .flatMap(_.nodes))
+      def evaluations = analysis.collect { case Right(e) => e }
+
+      def medianNodes = Maths.median {
+        evaluations
+          .filterNot(_.mateFound)
+          .filterNot(_.deadDraw)
+          .flatMap(_.nodes)
+      }
 
       def strong = medianNodes.fold(true)(_ > Evaluation.acceptableNodes)
       def weak = !strong
@@ -101,7 +105,7 @@ object JsonApi {
     case class PartialAnalysis(
         fishnet: Fishnet,
         stockfish: FullEngine,
-        analysis: List[Option[Evaluation]]
+        analysis: List[Option[Evaluation.OrSkipped]]
     )
 
     case class Evaluation(
@@ -126,6 +130,10 @@ object JsonApi {
     }
 
     object Evaluation {
+
+      object Skipped
+
+      type OrSkipped = Either[Skipped.type, Evaluation]
 
       case class Score(cp: Option[Cp], mate: Option[Mate])
 
@@ -198,9 +206,11 @@ object JsonApi {
       (__ \ "nps").readNullable[Long].map(Maths.toInt) and
       (__ \ "depth").readNullable[Int]
     )(Request.Evaluation.apply _)
-    implicit val EvaluationOptionReads = Reads[Option[Request.Evaluation]] {
+    implicit val EvaluationOptionReads = Reads[Option[Request.Evaluation.OrSkipped]] {
       case JsNull => JsSuccess(None)
-      case obj => EvaluationReads reads obj map some
+      case obj =>
+        if (~(obj boolean "skipped")) JsSuccess(Left(Request.Evaluation.Skipped).some)
+        else EvaluationReads reads obj map Right.apply map some
     }
     implicit val PostAnalysisReads: Reads[Request.PostAnalysis] = Json.reads[Request.PostAnalysis]
   }

@@ -11,13 +11,13 @@ import lila.tree.Eval
 
 private final class AnalysisBuilder(evalCache: FishnetEvalCache) {
 
-  def apply(client: Client, work: Work.Analysis, evals: List[Evaluation]): Fu[Analysis] =
+  def apply(client: Client, work: Work.Analysis, evals: List[Evaluation.OrSkipped]): Fu[Analysis] =
     partial(client, work, evals map some, isPartial = false)
 
   def partial(
     client: Client,
     work: Work.Analysis,
-    evals: List[Option[Evaluation]],
+    evals: List[Option[Evaluation.OrSkipped]],
     isPartial: Boolean = true
   ): Fu[Analysis] = {
 
@@ -30,7 +30,7 @@ private final class AnalysisBuilder(evalCache: FishnetEvalCache) {
             fufail(_),
             replay => UciToPgn(replay, Analysis(
               id = work.game.id,
-              infos = makeInfos(evals, work.game.uciList, work.startPly, cached),
+              infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
               startPly = work.startPly,
               uid = work.sender.userId,
               by = !client.lichess option client.userId.value,
@@ -49,7 +49,17 @@ private final class AnalysisBuilder(evalCache: FishnetEvalCache) {
     }
   }
 
-  private def makeInfos(evals: List[Option[Evaluation]], moves: List[Uci], startedAtPly: Int, cached: Map[Int, Evaluation]): List[Info] =
+  private def mergeEvalsAndCached(work: Work.Analysis, evals: List[Option[Evaluation.OrSkipped]], cached: Map[Int, Evaluation]): List[Option[Evaluation]] =
+    evals.zipWithIndex.map {
+      case (None, i) => cached get i
+      case (Some(Right(eval)), i) => cached.getOrElse(i, eval).some
+      case (_, i) => cached get i orElse {
+        logger.error(s"Missing cached eval for skipped position at index $i in $work")
+        none[Evaluation]
+      }
+    }
+
+  private def makeInfos(evals: List[Option[Evaluation]], moves: List[Uci], startedAtPly: Int): List[Info] =
     (evals filterNot (_ ?? (_.isCheckmate)) sliding 2).toList.zip(moves).zipWithIndex map {
       case ((List(Some(before), Some(after)), move), index) => {
         val variation = before.cappedPvList match {
