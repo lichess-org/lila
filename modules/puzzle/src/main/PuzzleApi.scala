@@ -75,7 +75,7 @@ private[puzzle] final class PuzzleApi(
 
   object round {
 
-    def add(a: Round) = roundColl insert a void
+    def add(a: Round) = roundColl insert a
   }
 
   object vote {

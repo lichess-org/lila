@@ -82,6 +82,8 @@ private[puzzle] final class Finisher(
     (api.round add a) >>
       UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf) inject
       user.copy(perfs = user.perfs.copy(puzzle = userPerf))
+  } recover lila.db.recoverDuplicateKey { _ =>
+    user // has already been solved!
   }
 
   private val VOLATILITY = Glicko.default.volatility
