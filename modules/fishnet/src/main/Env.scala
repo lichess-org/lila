@@ -78,11 +78,13 @@ final class Env(
     requesterApi = requesterApi
   )
 
+  private val evalCache = new FishnetEvalCache(evalCacheApi)
+
   val analyser = new Analyser(
     repo = repo,
     uciMemo = uciMemo,
     sequencer = sequencer,
-    evalCacheApi = evalCacheApi,
+    evalCache = evalCache,
     limiter = limiter
   )
 

@@ -2,7 +2,7 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import chess.format.{ Forsyth, FEN }
+import chess.format.FEN
 
 import lila.analyse.AnalysisRepo
 import lila.game.{ Game, GameRepo, UciMemo }
@@ -11,7 +11,7 @@ final class Analyser(
     repo: FishnetRepo,
     uciMemo: UciMemo,
     sequencer: lila.hub.FutureSequencer,
-    evalCacheApi: lila.evalCache.EvalCacheApi,
+    evalCache: FishnetEvalCache,
     limiter: Limiter
 ) {
 
@@ -37,9 +37,9 @@ final class Analyser(
                   // first request, store
                   case _ =>
                     lila.mon.fishnet.analysis.requestCount()
-                    evalCacheHits(work) flatMap { cacheHits =>
-                      lila.mon.fishnet.analysis.evalCacheHits(cacheHits.size)
-                      repo addAnalysis work
+                    evalCache plies work flatMap { cacheHitPlies =>
+                      lila.mon.fishnet.analysis.evalCacheHits(cacheHitPlies.size)
+                      repo addAnalysis work.copy(cacheHitPlies = cacheHitPlies)
                     }
                 }
               }
@@ -67,25 +67,8 @@ final class Analyser(
         tries = 0,
         lastTryByKey = none,
         acquired = none,
+        cacheHitPlies = Nil,
         createdAt = DateTime.now
       )
     }
-
-  private def evalCacheHits(work: Work.Analysis): Fu[Map[Int, lila.evalCache.EvalCacheEntry.Eval]] =
-    chess.Replay.situationsFromUci(
-      work.game.uciList.take(12),
-      work.game.initialFen,
-      work.game.variant
-    ).fold(
-        _ => fuccess(Map.empty),
-        _.zipWithIndex.map {
-          case (game, index) =>
-            evalCacheApi.getSinglePvEval(
-              work.game.variant,
-              FEN(Forsyth >> game)
-            ) map2 { (eval: lila.evalCache.EvalCacheEntry.Eval) =>
-                (index + work.startPly) -> eval
-              }
-        }.sequenceFu.map(_.flatten.toMap)
-      )
 }

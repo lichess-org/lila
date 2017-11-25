@@ -164,12 +164,18 @@ object JsonApi {
   case class Analysis(
       id: String,
       game: Game,
-      nodes: Int
+      nodes: Int,
+      skipPlies: List[Int]
   ) extends Work
 
   def moveFromWork(m: Work.Move) = Move(m.id.value, m.level, fromGame(m.game), m.clock)
 
-  def analysisFromWork(nodes: Int)(m: Work.Analysis) = Analysis(m.id.value, fromGame(m.game), nodes)
+  def analysisFromWork(nodes: Int)(m: Work.Analysis) = Analysis(
+    id = m.id.value,
+    game = fromGame(m.game),
+    nodes = nodes,
+    skipPlies = m.cacheHitPlies
+  )
 
   object readers {
     import play.api.libs.functional.syntax._
@@ -209,7 +215,8 @@ object JsonApi {
       (work match {
         case a: Analysis => Json.obj(
           "work" -> Json.obj("type" -> "analysis", "id" -> a.id),
-          "nodes" -> a.nodes
+          "nodes" -> a.nodes,
+          "skipPlies" -> a.skipPlies
         )
         case m: Move => Json.obj(
           "work" -> Json.obj(
