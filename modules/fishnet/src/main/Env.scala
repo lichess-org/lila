@@ -49,9 +49,14 @@ final class Env(
 
   private val monitor = new Monitor(moveDb, repo, sequencer, scheduler)
 
+  private val evalCache = new FishnetEvalCache(evalCacheApi)
+
+  private val analysisBuilder = new AnalysisBuilder(evalCache)
+
   val api = new FishnetApi(
     repo = repo,
     moveDb = moveDb,
+    analysisBuilder = analysisBuilder,
     analysisColl = analysisColl,
     sequencer = sequencer,
     monitor = monitor,
@@ -77,8 +82,6 @@ final class Env(
     analysisColl = analysisColl,
     requesterApi = requesterApi
   )
-
-  private val evalCache = new FishnetEvalCache(evalCacheApi)
 
   val analyser = new Analyser(
     repo = repo,

@@ -12,6 +12,7 @@ import lila.hub.FutureSequencer
 final class FishnetApi(
     repo: FishnetRepo,
     moveDb: MoveDB,
+    analysisBuilder: AnalysisBuilder,
     analysisColl: Coll,
     sequencer: FutureSequencer,
     monitor: Monitor,
@@ -91,7 +92,7 @@ final class FishnetApi(
             if (complete.weak && work.game.variant.standard) {
               Monitor.weak(work, client, complete)
               repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis)
-            } else AnalysisBuilder(client, work, complete.analysis) flatMap { analysis =>
+            } else analysisBuilder(client, work, complete.analysis) flatMap { analysis =>
               monitor.analysis(work, client, complete)
               repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
             }
@@ -106,7 +107,7 @@ final class FishnetApi(
           }
           case partial: PartialAnalysis => socketExists(work.game.id) flatMap {
             case true =>
-              AnalysisBuilder.partial(client, work, partial.analysis) map { analysis =>
+              analysisBuilder.partial(client, work, partial.analysis) map { analysis =>
                 PostAnalysisResult.Partial(analysis)
               }
             case false => fuccess(PostAnalysisResult.UnusedPartial)

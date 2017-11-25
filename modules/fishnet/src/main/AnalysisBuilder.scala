@@ -9,7 +9,7 @@ import lila.analyse.{ Analysis, Info }
 import lila.game.GameRepo
 import lila.tree.Eval
 
-private object AnalysisBuilder {
+private final class AnalysisBuilder(evalCache: FishnetEvalCache) {
 
   def apply(client: Client, work: Work.Analysis, evals: List[Evaluation]): Fu[Analysis] =
     partial(client, work, evals map some, isPartial = false)
@@ -21,23 +21,21 @@ private object AnalysisBuilder {
     isPartial: Boolean = true
   ): Fu[Analysis] = {
 
-    val uciAnalysis = Analysis(
-      id = work.game.id,
-      infos = makeInfos(evals, work.game.uciList, work.startPly),
-      startPly = work.startPly,
-      uid = work.sender.userId,
-      by = !client.lichess option client.userId.value,
-      date = DateTime.now
-    )
-
-    GameRepo.game(uciAnalysis.id) flatMap {
-      case None => fufail(AnalysisBuilder.GameIsGone(uciAnalysis.id))
-      case Some(game) =>
+    GameRepo.game(work.game.id) zip evalCache.evals(work) flatMap {
+      case (None, _) => fufail(AnalysisBuilder.GameIsGone(work.game.id))
+      case (Some(game), cachedEvals) =>
         GameRepo.initialFen(game) flatMap { initialFen =>
           def debug = s"${game.variant.key} analysis for ${game.id} by ${client.fullId}"
           chess.Replay(game.pgnMoves, initialFen, game.variant).flatMap(_.valid).fold(
             fufail(_),
-            replay => UciToPgn(replay, uciAnalysis) match {
+            replay => UciToPgn(replay, Analysis(
+              id = work.game.id,
+              infos = makeInfos(evals, work.game.uciList, work.startPly, cachedEvals),
+              startPly = work.startPly,
+              uid = work.sender.userId,
+              by = !client.lichess option client.userId.value,
+              date = DateTime.now
+            )) match {
               case (analysis, errors) =>
                 errors foreach { e => logger.debug(s"[UciToPgn] $debug $e") }
                 if (analysis.valid) {
@@ -51,7 +49,7 @@ private object AnalysisBuilder {
     }
   }
 
-  private def makeInfos(evals: List[Option[Evaluation]], moves: List[Uci], startedAtPly: Int): List[Info] =
+  private def makeInfos(evals: List[Option[Evaluation]], moves: List[Uci], startedAtPly: Int, cachedEvals: FishnetEvalCache.CachedEvals): List[Info] =
     (evals filterNot (_ ?? (_.isCheckmate)) sliding 2).toList.zip(moves).zipWithIndex map {
       case ((List(Some(before), Some(after)), move), index) => {
         val variation = before.cappedPvList match {
@@ -72,6 +70,10 @@ private object AnalysisBuilder {
       }
       case ((_, _), index) => Info(index + 1 + startedAtPly, Eval.empty)
     }
+
+}
+
+private object AnalysisBuilder {
 
   case class GameIsGone(id: String) extends lila.base.LilaException {
     val message = s"Analysis $id game is gone?!"
