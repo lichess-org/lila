@@ -7,6 +7,17 @@ sealed trait Reason {
   def name = toString
 }
 
+trait WithReason {
+  def reason: Reason
+
+  def isCheat = reason == Reason.Cheat
+  def isOther = reason == Reason.Other
+  def isTroll = reason == Reason.Troll
+  def isInsult = reason == Reason.Insult
+  def isPrint = reason == Reason.CheatPrint
+  def isTrollOrInsult = reason == Reason.Troll || reason == Reason.Insult
+}
+
 object Reason {
 
   case object Cheat extends Reason

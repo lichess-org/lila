@@ -15,19 +15,12 @@ case class Report(
     processedBy: Option[User.ID],
     createdAt: DateTime,
     createdBy: User.ID
-) {
+) extends WithReason {
 
   def id = _id
   def slug = _id
 
   def isCreator(user: User.ID) = user == createdBy
-
-  def isCheat = reason == Reason.Cheat
-  def isOther = reason == Reason.Other
-  def isTroll = reason == Reason.Troll
-  def isInsult = reason == Reason.Insult
-  def isPrint = reason == Reason.CheatPrint
-  def isTrollOrInsult = reason == Reason.Troll || reason == Reason.Insult
 
   def unprocessedCheat = unprocessed && isCheat
   def unprocessedOther = unprocessed && isOther
