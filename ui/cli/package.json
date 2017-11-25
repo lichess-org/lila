@@ -4,8 +4,7 @@
   "description": "lichess.org command line interface",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/jquery": "^2.0",
     "browserify": "^14",
