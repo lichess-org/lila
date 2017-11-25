@@ -127,6 +127,9 @@
 .user_show .trophy.patron.hint--left:hover:after {
   transform: scale(-1, 1), translateX(8px);
 }
+.user_show .trophies .perf_shield {
+  margin: 0 3px;
+}
 .user_show .honorific {
   display: inline-block;
   margin-top: 1em;

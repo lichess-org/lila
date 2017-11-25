@@ -1,0 +1,38 @@
+@(perfType: lila.rating.PerfType, height: Int)(implicit ctx: Context)
+
+<a
+class="perf_shield hint--left"
+data-hint="@perfType.name Shield">
+<svg
+style="height: @{height}px; width: ${height*400/512}px;"
+viewBox="0 0 400 512"
+version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+  <style type="text/css">
+    @@font-face {
+    font-family: "lichess";
+    src: url("https://lichess1.org/assets/font75/fonts/lichess.woff");
+    }
+  </style>
+  <pattern id="wood" patternUnits="userSpaceOnUse" width="512" height="512">
+    <image xlink:href="https://lichess1.org/assets/images/trophy/shield-wood.jpg" x="0" y="0" width="512" height="512"></image>
+  </pattern>
+</defs>
+
+<g
+transform="matrix(1.2666667,0,0,1,-133.26666,-15)"
+>
+<path
+fill="url(#wood)"
+stroke="rgba(120, 120, 120, 0.5)"
+stroke-width="42.5958"
+d="m 263.24597,44.462186 c 22.83566,22.666488 91.34265,67.999464 137.01396,67.999464 v 90.66595 c 0,90.66595 -68.50697,226.66489 -137.01396,294.66435 C 194.73897,429.79249 126.232,293.79355 126.232,203.1276 v -90.66595 c 45.67131,0 114.1783,-45.332976 137.01397,-67.999464 z">
+</path>
+</g>
+
+<g font-family="lichess" font-size="190" text-anchor="middle" transform="translate(200,325)">
+<text fill="rgba(255, 255, 255, 0.9)">@perfType.iconChar</text>
+</g>
+
+</svg>
+</a>
