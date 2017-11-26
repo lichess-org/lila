@@ -13,7 +13,7 @@
   <string name="toggleTheChat">Skjul/Vis chat</string>
   <string name="toggleSound">slå lyd til/fra</string>
   <string name="chat">Chat</string>
-  <string name="resign">Giv op</string>
+  <string name="resign">Kapituler</string>
   <string name="checkmate">Skakmat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Hvid</string>
@@ -480,7 +480,7 @@
   <string name="xAskedY">%1$s spurgte %2$s</string>
   <string name="xAnsweredY">%1$s svarede %2$s</string>
   <string name="xCommentedY">%1$s kommenterede %2$s</string>
-  <string name="victory">Opgave løst!</string>
+  <string name="victory">Sejr</string>
   <string name="timeline">Tidslinje</string>
   <string name="seeAllTournaments">Vis alle turneringer</string>
   <string name="starting">Begynder:</string>
