@@ -79,6 +79,7 @@
   </plurals>
   <string name="noGameFound">Ingen spil fundet</string>
   <string name="openingExplorer">Åbning Opdagelse</string>
+  <string name="importPgn">Importer PGN</string>
   <string name="delete">Slet</string>
   <string name="deleteThisImportedGame">Slet dette importerede spil?</string>
   <string name="enable">Aktiver</string>
@@ -508,6 +509,7 @@
   <string name="playOnTheBoardOffline">Spil offline, brug som bræt</string>
   <string name="playOfflineComputer">Spil computer offline</string>
   <string name="opponent">Modstander</string>
+  <string name="learnMenu">Lær</string>
   <string name="community">Fællesskab</string>
   <string name="tools">Værktøjer</string>
   <string name="increment">Forøgelse</string>
@@ -639,6 +641,9 @@
   <string name="lobby">Lobbyen</string>
   <string name="language">Sprog</string>
   <string name="background">Baggrund</string>
+  <string name="boardGeometry">Brætgeometri</string>
+  <string name="boardTheme">Brættema</string>
+  <string name="boardSize">Brætstørrelse</string>
   <string name="usernameAlreadyUsed">Dette brugernavn er allerede i brug. Vælg venligst et andet og prøv igen.</string>
   <string name="usernameStartNoNumber">Brugernavnet må ikke begynde med et tal.</string>
   <string name="usernameUnacceptable">Dette brugernavn er ikke acceptabelt.</string>
