@@ -719,6 +719,7 @@ export default class AnalyseCtrl {
     this.tree.merge(data.tree);
     if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
+    if (data.analysis) data.analysis.partial = !!this.mainline.find(n => !n.eval);
     if (this.retro) this.retro.onMergeAnalysisData();
     this.redraw();
   }
