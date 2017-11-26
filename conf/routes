@@ -108,12 +108,12 @@ GET   /training/frame                  controllers.Puzzle.frame
 GET   /training/api/game.pgn           controllers.Puzzle.recentGame
 POST  /training/api/puzzle             controllers.Puzzle.importOne
 GET   /training/export/png/:id.png     controllers.Export.puzzlePng(id: Int)
+GET   /training/batch                  controllers.Puzzle.batchSelect(nb: Int = 50)
+POST  /training/batch                  controllers.Puzzle.batchSolve
 GET   /training/:id                    controllers.Puzzle.show(id: Int)
 GET   /training/:id/load               controllers.Puzzle.load(id: Int)
 POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
 POST  /training/:id/round              controllers.Puzzle.round(id: Int)
-GET   /training/batch                  controllers.Puzzle.batchSelect(nb: Int = 50)
-POST  /training/batch                  controllers.Puzzle.batchSolve
 # new UI
 POST  /training/:id/round2             controllers.Puzzle.round2(id: Int)
 # mobile app BC
