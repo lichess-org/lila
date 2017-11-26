@@ -80,7 +80,7 @@ export function make(opts): EvalCache {
         path
       };
       if (opts.variant !== 'standard') obj.variant = opts.variant;
-      if (multiPv > 1 || true) obj.mpv = multiPv;
+      if (multiPv > 1) obj.mpv = multiPv;
       opts.send("evalGet", obj);
     },
     onCloudEval(serverEval): void {
