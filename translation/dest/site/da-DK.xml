@@ -338,7 +338,7 @@
   <string name="membersOnly">Kun for medlemmer</string>
   <string name="boardEditor">Rediger stilling</string>
   <string name="startPosition">Udgangsstilling</string>
-  <string name="clearBoard">Slet alle brikker</string>
+  <string name="clearBoard">Fjern alle brikker</string>
   <string name="savePosition">Gem stilling</string>
   <string name="loadPosition">Indlæs stilling</string>
   <string name="isPrivate">Privat</string>
@@ -482,6 +482,7 @@
   <string name="xAnsweredY">%1$s svarede %2$s</string>
   <string name="xCommentedY">%1$s kommenterede %2$s</string>
   <string name="victory">Sejr</string>
+  <string name="defeat">Nederlag</string>
   <string name="timeline">Tidslinje</string>
   <string name="seeAllTournaments">Vis alle turneringer</string>
   <string name="starting">Begynder:</string>
@@ -522,6 +523,7 @@
   <string name="error.email">Email-adressen er ugyldig</string>
   <string name="error.email_acceptable">Email-adressen er ikke accepteret</string>
   <string name="error.email_unique">Email-adressen er allerede taget</string>
+  <string name="error.email_different">Dette er allerede din e-mail-adresse</string>
   <string name="blindfoldChess">Blindskak</string>
   <string name="moveConfirmation">Bekræft træk</string>
   <string name="inCorrespondenceGames">I korrespondancepartier</string>
@@ -644,6 +646,7 @@
   <string name="boardGeometry">Brætgeometri</string>
   <string name="boardTheme">Brættema</string>
   <string name="boardSize">Brætstørrelse</string>
+  <string name="pieceSet">Brikker</string>
   <string name="usernameAlreadyUsed">Dette brugernavn er allerede i brug. Vælg venligst et andet og prøv igen.</string>
   <string name="usernameStartNoNumber">Brugernavnet må ikke begynde med et tal.</string>
   <string name="usernameUnacceptable">Dette brugernavn er ikke acceptabelt.</string>
