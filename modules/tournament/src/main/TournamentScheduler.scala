@@ -16,6 +16,13 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
   import Schedule.Plan
   import chess.variant._
 
+  /* Month plan:
+   * First week: Shield standard tournaments
+   * Second week: Yearly tournament
+   * Third week: Shield varitn tournaments
+   * Last week: Monthly tournaments
+   */
+
   // def marathonDates = List(
   // Spring -> Saturday of the weekend after Orthodox Easter Sunday
   // Summer -> first Saturday of August
@@ -36,9 +43,17 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       val tomorrow = rightNow plusDays 1
       val startOfYear = today.dayOfYear.withMinimumValue
 
-      val lastDayOfMonth = today.dayOfMonth.withMaximumValue
+      class OfMonth(fromNow: Int) {
+        val firstDay = today.plusMonths(fromNow).dayOfMonth.withMinimumValue
+        val lastDay = firstDay.dayOfMonth.withMaximumValue
 
-      val lastWeekOfMonth = lastDayOfMonth.minusDays((lastDayOfMonth.getDayOfWeek - 1) % 7)
+        val firstWeek = firstDay.plusDays(7 - (firstDay.getDayOfWeek - 1) % 7)
+        val secondWeek = firstWeek plusDays 7
+        val thirdWeek = secondWeek plusDays 7
+        val lastWeek = lastDay.minusDays((lastDay.getDayOfWeek - 1) % 7)
+      }
+      val thisMonth = new OfMonth(0)
+      val nextMonth = new OfMonth(1)
 
       def nextDayOfWeek(number: Int) = today.plusDays((number + 7 - today.getDayOfWeek) % 7)
       val nextMonday = nextDayOfWeek(1)
@@ -113,31 +128,62 @@ Thank you all, you rock!"""
               }
           },
 
-        List( // monthly standard tournaments!
-          lastWeekOfMonth.withDayOfWeek(MONDAY) -> Bullet,
-          lastWeekOfMonth.withDayOfWeek(TUESDAY) -> SuperBlitz,
-          lastWeekOfMonth.withDayOfWeek(WEDNESDAY) -> Blitz,
-          lastWeekOfMonth.withDayOfWeek(THURSDAY) -> Classical,
-          lastWeekOfMonth.withDayOfWeek(FRIDAY) -> HyperBullet
-        ).flatMap {
-            case (day, speed) => at(day, 17) map { date =>
-              Schedule(Monthly, speed, Standard, std, date).plan
-            }
-          },
+        List(thisMonth, nextMonth).flatMap { month =>
+          List(
+            List( // monthly standard tournaments!
+              month.lastWeek.withDayOfWeek(MONDAY) -> Bullet,
+              month.lastWeek.withDayOfWeek(TUESDAY) -> SuperBlitz,
+              month.lastWeek.withDayOfWeek(WEDNESDAY) -> Blitz,
+              month.lastWeek.withDayOfWeek(THURSDAY) -> Classical,
+              month.lastWeek.withDayOfWeek(FRIDAY) -> HyperBullet
+            ).flatMap {
+                case (day, speed) => at(day, 17) map { date =>
+                  Schedule(Monthly, speed, Standard, std, date).plan
+                }
+              },
 
-        List( // monthly variant tournaments!
-          lastWeekOfMonth.withDayOfWeek(MONDAY) -> Chess960,
-          lastWeekOfMonth.withDayOfWeek(TUESDAY) -> Crazyhouse,
-          lastWeekOfMonth.withDayOfWeek(WEDNESDAY) -> KingOfTheHill,
-          lastWeekOfMonth.withDayOfWeek(THURSDAY) -> ThreeCheck,
-          lastWeekOfMonth.withDayOfWeek(FRIDAY) -> Antichess,
-          lastWeekOfMonth.withDayOfWeek(SATURDAY) -> Atomic,
-          lastWeekOfMonth.withDayOfWeek(SUNDAY) -> Horde
-        ).flatMap {
-            case (day, variant) => at(day, 19) map { date =>
-              Schedule(Monthly, Blitz, variant, std, date).plan
-            }
-          },
+            List( // monthly variant tournaments!
+              month.lastWeek.withDayOfWeek(MONDAY) -> Chess960,
+              month.lastWeek.withDayOfWeek(TUESDAY) -> Crazyhouse,
+              month.lastWeek.withDayOfWeek(WEDNESDAY) -> KingOfTheHill,
+              month.lastWeek.withDayOfWeek(THURSDAY) -> ThreeCheck,
+              month.lastWeek.withDayOfWeek(FRIDAY) -> Antichess,
+              month.lastWeek.withDayOfWeek(SATURDAY) -> Atomic,
+              month.lastWeek.withDayOfWeek(SUNDAY) -> Horde
+            ).flatMap {
+                case (day, variant) => at(day, 19) map { date =>
+                  Schedule(Monthly, Blitz, variant, std, date).plan
+                }
+              },
+
+            List( // shield tournaments!
+              month.firstWeek.withDayOfWeek(MONDAY) -> Bullet,
+              month.firstWeek.withDayOfWeek(TUESDAY) -> SuperBlitz,
+              month.firstWeek.withDayOfWeek(WEDNESDAY) -> Blitz,
+              month.firstWeek.withDayOfWeek(THURSDAY) -> Classical,
+              month.firstWeek.withDayOfWeek(FRIDAY) -> HyperBullet,
+              month.firstWeek.withDayOfWeek(SATURDAY) -> UltraBullet
+            ).flatMap {
+                case (day, speed) => at(day, 16) map { date =>
+                  Schedule(Shield, speed, Standard, std, date).plan
+                }
+              },
+
+            List( // shield variant tournaments!
+              month.thirdWeek.withDayOfWeek(MONDAY) -> Chess960,
+              month.thirdWeek.withDayOfWeek(TUESDAY) -> Crazyhouse,
+              month.thirdWeek.withDayOfWeek(WEDNESDAY) -> KingOfTheHill,
+              month.thirdWeek.withDayOfWeek(THURSDAY) -> ThreeCheck,
+              month.thirdWeek.withDayOfWeek(FRIDAY) -> Antichess,
+              month.thirdWeek.withDayOfWeek(SATURDAY) -> Atomic,
+              month.thirdWeek.withDayOfWeek(SUNDAY) -> Horde
+            ).flatMap {
+                case (day, variant) => at(day, 16) map { date =>
+                  Schedule(Shield, Blitz, variant, std, date).plan
+                }
+              }
+          ).flatten
+        },
 
         List( // weekly standard tournaments!
           nextMonday -> Bullet,

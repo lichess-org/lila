@@ -17,6 +17,8 @@ case class Schedule(
 
   def name = freq match {
     case m @ Schedule.Freq.ExperimentalMarathon => m.name
+    case Schedule.Freq.Shield if variant.standard => s"${speed.toString} Shield"
+    case Schedule.Freq.Shield => s"${variant.name} Shield"
     case _ if variant.standard && position.initial =>
       (conditions.minRating, conditions.maxRating) match {
         case (None, None) => s"${freq.toString} ${speed.toString}"
@@ -80,13 +82,14 @@ object Schedule {
     case object Weekly extends Freq(40, 40)
     case object Weekend extends Freq(41, 41)
     case object Monthly extends Freq(50, 50)
+    case object Shield extends Freq(51, 51)
     case object Marathon extends Freq(60, 60)
     case object ExperimentalMarathon extends Freq(61, 55) { // for DB BC
       override val name = "Experimental Marathon"
     }
     case object Yearly extends Freq(70, 70)
     case object Unique extends Freq(90, 59)
-    val all: List[Freq] = List(Hourly, Daily, Eastern, Weekly, Weekend, Monthly, Marathon, ExperimentalMarathon, Yearly, Unique)
+    val all: List[Freq] = List(Hourly, Daily, Eastern, Weekly, Weekend, Monthly, Shield, Marathon, ExperimentalMarathon, Yearly, Unique)
     def apply(name: String) = all.find(_.name == name)
     def byId(id: Int) = all.find(_.id == id)
   }
@@ -163,10 +166,17 @@ object Schedule {
       case (Weekend, _, Blitz) => 60 * 3
       case (Weekend, _, Classical) => 60 * 4
 
-      case (Monthly, _, UltraBullet | HyperBullet | Bullet) => 60 * 3
+      case (Monthly, _, UltraBullet) => 60 * 2
+      case (Monthly, _, HyperBullet | Bullet) => 60 * 3
       case (Monthly, _, HippoBullet | SuperBlitz) => 60 * 3 + 30
       case (Monthly, _, Blitz) => 60 * 4
       case (Monthly, _, Classical) => 60 * 5
+
+      case (Shield, _, UltraBullet) => 60 * 3
+      case (Shield, _, HyperBullet | Bullet) => 60 * 4
+      case (Shield, _, HippoBullet | SuperBlitz) => 60 * 5
+      case (Shield, _, Blitz) => 60 * 6
+      case (Shield, _, Classical) => 60 * 8
 
       case (Yearly, _, UltraBullet | HyperBullet | Bullet) => 60 * 4
       case (Yearly, _, HippoBullet | SuperBlitz) => 60 * 5
@@ -225,9 +235,9 @@ object Schedule {
         case (Daily | Eastern, HippoBullet | SuperBlitz | Blitz) => 15
         case (Daily | Eastern, Classical) => 15
 
-        case (Weekly | Monthly, UltraBullet | HyperBullet | Bullet) => 30
-        case (Weekly | Monthly, HippoBullet | SuperBlitz | Blitz) => 20
-        case (Weekly | Monthly, Classical) => 15
+        case (Weekly | Monthly | Shield, UltraBullet | HyperBullet | Bullet) => 30
+        case (Weekly | Monthly | Shield, HippoBullet | SuperBlitz | Blitz) => 20
+        case (Weekly | Monthly | Shield, Classical) => 15
 
         case (Weekend, UltraBullet | HyperBullet | Bullet) => 30
         case (Weekend, HippoBullet | SuperBlitz | Blitz) => 20

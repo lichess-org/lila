@@ -44,7 +44,7 @@ object Spotlight {
         case Daily | Eastern => playedSinceWeeks(2)
         case Weekly | Weekend => playedSinceWeeks(4)
         case Unique => playedSinceWeeks(4)
-        case Monthly | Marathon | Yearly => true
+        case Monthly | Shield | Marathon | Yearly => true
         case ExperimentalMarathon => false
       }
     }

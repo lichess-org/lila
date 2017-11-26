@@ -180,8 +180,6 @@ final class Env(
   private[tournament] lazy val pairingColl = db(CollectionPairing)
   private[tournament] lazy val playerColl = db(CollectionPlayer)
   private[tournament] lazy val leaderboardColl = db(CollectionLeaderboard)
-
-  lila.log("boot").info(s"${nowMillis - startsAtMillis}ms Tournament constructor")
 }
 
 object Env {
