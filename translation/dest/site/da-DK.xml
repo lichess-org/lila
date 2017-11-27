@@ -683,6 +683,7 @@
   <string name="invalidPgn">Ugyldig PGN</string>
   <string name="invalidFen">Ugyldig FEN</string>
   <string name="error.minLength">Minimumslængde er %s</string>
+  <string name="error.maxLength">Maksimumslængde er %s</string>
   <string name="error.min">Skal være større eller lig med %s</string>
   <string name="error.max">Skal være mindre end eller lig med %s</string>
   <string name="error.unknown">Fejl</string>
@@ -690,4 +691,5 @@
   <string name="notifications">Meddelelser</string>
   <string name="challenges">Udfordringer</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s sekunder til at lave det første træk</string>
 </resources>
