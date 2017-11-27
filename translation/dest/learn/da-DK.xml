@@ -8,9 +8,16 @@
   <string name="chessPieces">Skakbrikker</string>
   <string name="theRook">Tårnet</string>
   <string name="itMovesInStraightLines">Den bevæger sig i lige linier</string>
+  <string name="rookIntro">Tårnet er en stærk brik. Er du klar til at beherske den?</string>
+  <string name="theFewerMoves">Jo færre træk du tager, desto flere point får du!</string>
+  <string name="rookComplete">Tillykke! Du mestrer nu tårnet.</string>
   <string name="theBishop">Løberen</string>
+  <string name="itMovesDiagonally">Den bevæger sig diagonalt</string>
   <string name="theQueen">Dronningen</string>
+  <string name="queenCombinesRookAndBishop">Dronning = tårn + løber</string>
   <string name="theKing">Kongen</string>
+  <string name="theKingIsSlow">Kongen er langsom.</string>
   <string name="theKnight">Springeren</string>
   <string name="thePawn">Bonden</string>
+  <string name="pawnPromotion">Bonde-forfremmelse</string>
 </resources>
