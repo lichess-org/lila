@@ -4,15 +4,24 @@
   <string name="learnChess">Lær skak</string>
   <string name="byPlaying">ved at spille!</string>
   <string name="menu">Menu</string>
+  <string name="progressX">Status: %s</string>
+  <string name="resetMyProgress">Nulstil min status</string>
+  <string name="youWillLoseAllYourProgress">Du vil miste alle dine fremskridt!</string>
   <string name="play">spil!</string>
   <string name="chessPieces">Skakbrikker</string>
   <string name="theRook">Tårnet</string>
   <string name="itMovesInStraightLines">Den bevæger sig i lige linier</string>
   <string name="rookIntro">Tårnet er en stærk brik. Er du klar til at beherske den?</string>
+  <string name="rookGoal">Klik på tårnet for at rykke det til stjernen!</string>
+  <string name="grabAllTheStars">Fang alle stjernerne!</string>
   <string name="theFewerMoves">Jo færre træk du tager, desto flere point får du!</string>
+  <string name="useTwoRooks">Brug begge tårne for at fremskynde tingene!</string>
   <string name="rookComplete">Tillykke! Du mestrer nu tårnet.</string>
   <string name="theBishop">Løberen</string>
   <string name="itMovesDiagonally">Den bevæger sig diagonalt</string>
+  <string name="bishopIntro">Nu skal vi lære at flytte med en løber!</string>
+  <string name="youNeedBothBishops">En løber på et lyst felt, en løber på et mørkt felt. Du har brug for dem begge!</string>
+  <string name="bishopComplete">Tillykke! Du behersker løberen.</string>
   <string name="theQueen">Dronningen</string>
   <string name="queenCombinesRookAndBishop">Dronning = tårn + løber</string>
   <string name="theKing">Kongen</string>
