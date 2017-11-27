@@ -30,7 +30,7 @@ object Link {
     case object Twitter extends Site("Twitter", List("twitter.com"))
     case object Facebook extends Site("Facebook", List("facebook.com"))
     case object YouTube extends Site("YouTube", List("youtube.com"))
-    case object Twitch extends Site("Twitch", List("twitch.com"))
+    case object Twitch extends Site("Twitch", List("twitch.tv"))
     case object Github extends Site("Github", List("github.com"))
     case object VKontakte extends Site("VKontakte", List("vk.com"))
     case object ChessCom extends Site("Chess.com", List("chess.com"))

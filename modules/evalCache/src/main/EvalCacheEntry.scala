@@ -81,7 +81,10 @@ object EvalCacheEntry {
 
   case class Pv(score: Score, moves: Moves) {
 
-    def looksValid = score.mateFound || moves.value.size > MIN_PV_SIZE
+    def looksValid = score.mate match {
+      case None => moves.value.size > MIN_PV_SIZE
+      case Some(mate) => mate.value != 0 // sometimes we get #0. Dunno why.
+    }
 
     def truncate = copy(moves = moves.truncate)
   }

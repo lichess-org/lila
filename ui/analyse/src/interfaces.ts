@@ -62,6 +62,7 @@ export interface Division {
 export interface Analysis {
   white: AnalysisSide;
   black: AnalysisSide;
+  partial: boolean;
 }
 
 export interface AnalysisSide {

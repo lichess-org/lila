@@ -56,7 +56,7 @@ final class GarbageCollector(
   private def isBadAccount(user: User) =
     (user.troll || user.engine) && !user.enabled
 
-  private val emailSuffixes = "yandex.ru yandex.com mailfa.com juno.com"
+  private val emailSuffixes = "yandex.ru yandex.com mailfa.com juno.com mail.ru"
     .split(' ').toList.map("@" + _)
 
   private def checkable(user: User, email: EmailAddress): Boolean =

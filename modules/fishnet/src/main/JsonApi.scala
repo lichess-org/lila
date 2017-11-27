@@ -135,7 +135,10 @@ object JsonApi {
 
       type OrSkipped = Either[Skipped.type, Evaluation]
 
-      case class Score(cp: Option[Cp], mate: Option[Mate])
+      case class Score(cp: Option[Cp], mate: Option[Mate]) {
+        def invert = copy(cp.map(_.invert), mate.map(_.invert))
+        def invertIf(cond: Boolean) = if (cond) invert else this
+      }
 
       val npsCeil = 10 * 1000 * 1000
 
