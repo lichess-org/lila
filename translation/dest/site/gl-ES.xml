@@ -4,7 +4,7 @@
   <string name="playWithAFriend">Xogar cun amigo</string>
   <string name="playWithTheMachine">Xogar contra a máquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
-  <string name="gameOver">Rematou a partida</string>
+  <string name="gameOver">Partida rematada</string>
   <string name="waitingForOpponent">Agardando ó rival</string>
   <string name="waiting">Agardando</string>
   <string name="yourTurn">A túa quenda</string>
@@ -13,7 +13,7 @@
   <string name="toggleTheChat">(Des)activar o chat</string>
   <string name="toggleSound">(Des)activar son</string>
   <string name="chat">Chat</string>
-  <string name="resign">Abandonar</string>
+  <string name="resign">Abandoar</string>
   <string name="checkmate">Xaque mate</string>
   <string name="stalemate">Rei afogado</string>
   <string name="white">Brancas</string>
@@ -35,7 +35,7 @@
   <string name="makeYourOpponentResign">Forzar ó teu rival a abandonar</string>
   <string name="forceResignation">Reclamar vitoria</string>
   <string name="forceDraw">Táboas forzadas</string>
-  <string name="talkInChat">Por favor sé correcto no chat!</string>
+  <string name="talkInChat">Por favor, sé correcto no chat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira persoa que chegue a este URL xogará contra ti</string>
   <string name="whiteResigned">As brancas abandonaron</string>
   <string name="blackResigned">As negras abandonaron</string>
