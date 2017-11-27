@@ -79,6 +79,8 @@
   </plurals>
   <string name="noGameFound">Ingen spil fundet</string>
   <string name="openingExplorer">Åbning Opdagelse</string>
+  <string name="winPreventedBy50MoveRule">Sejr forhindret af 50-træks reglen</string>
+  <string name="allSet">Klar!</string>
   <string name="importPgn">Importer PGN</string>
   <string name="delete">Slet</string>
   <string name="deleteThisImportedGame">Slet dette importerede spil?</string>
