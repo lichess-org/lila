@@ -95,6 +95,9 @@
   <string name="placeTheQueen">Placer dronningen! Hun skal stå på sin egen farve.</string>
   <string name="placeTheKing">Placer kongen! Lige ved siden af hans dronning.</string>
   <string name="pawnsFormTheFrontLine">Bønder udgør frontlinjen. Lav et træk for at fortsætte.</string>
+  <string name="boardSetupComplete">Tillykke! Du ved nu, hvordan man stiller brættet op.</string>
+  <string name="castling">Rokade</string>
+  <string name="theSpecialKingMove">Det særlige kongetræk</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Det særlige bondetræk</string>
   <string name="enPassantIntro">Når modstanderbonden flyttede to felter, kan du tage den som om den flyttede ét felt.</string>
