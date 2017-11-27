@@ -6,6 +6,7 @@
   <string name="isRated">Denne turnering rates og vil påvirke din rating.</string>
   <string name="howIsTheWinnerDecided">Hvordan findes vinderen?</string>
   <string name="otherRules">Andre vigtige regler</string>
+  <string name="otherRulesAnswer">Du skal lave dit første træk inden for 20 sekunder, når det er din tur. Undlader du at foretage et træk inden for denne tid, vil partiet gå til din modstander. Indgås der remis inden for de første 10 træk, får ingen af spillerne nogen point.</string>
   <string name="thisIsPrivate">Dette er en privat turnering</string>
   <string name="shareUrl">Del denne URL for at lade folk deltage: %s</string>
 </resources>
