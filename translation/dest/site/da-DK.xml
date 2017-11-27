@@ -342,6 +342,7 @@
   <string name="standByX">Hold dig til %s, danner par med andre spillere – gør dig klar!</string>
   <string name="youArePlaying">Du spiller nu!</string>
   <string name="winRate">Sejrsrate</string>
+  <string name="berserkRate">Berserk rate</string>
   <string name="performance">Ydelse</string>
   <string name="tournamentComplete">Turnering afsluttet</string>
   <string name="movesPlayed">Spillede træk</string>
