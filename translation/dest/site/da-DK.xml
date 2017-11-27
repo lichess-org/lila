@@ -78,7 +78,9 @@
     <item quantity="other">Mat i %s halv-træk</item>
   </plurals>
   <string name="noGameFound">Ingen spil fundet</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Inkluder måske flere partier fra præferencemenuen?</string>
   <string name="openingExplorer">Åbning Opdagelse</string>
+  <string name="xOpeningExplorer">%s åbningsdatabase</string>
   <string name="winPreventedBy50MoveRule">Sejr forhindret af 50-træks reglen</string>
   <string name="lossSavedBy50MoveRule">Nederlag undgået på grund af 50-træks reglen</string>
   <string name="allSet">Klar!</string>
@@ -90,6 +92,7 @@
   <string name="openStudy">Åben studie</string>
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Bedste træk pil</string>
+  <string name="evaluationGauge">Styrkeindikator</string>
   <string name="multipleLines">Flere linjer</string>
   <string name="cpus">CPU\'er</string>
   <string name="memory">Hukommelse</string>
@@ -376,6 +379,7 @@
   <string name="biography">Biografi</string>
   <string name="country">Land</string>
   <string name="preferences">Indstillinger</string>
+  <string name="inlineNotation">Notation uden linjeskift</string>
   <string name="watchLichessTV">Se Lichess TV</string>
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
   <string name="onlinePlayers">Online spillere</string>
