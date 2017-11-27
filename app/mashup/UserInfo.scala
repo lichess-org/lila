@@ -23,6 +23,7 @@ case class UserInfo(
     nbStudies: Int,
     playTime: Option[User.PlayTime],
     trophies: Trophies,
+    shields: List[lila.tournament.TournamentShield.Owner],
     teamIds: List[String],
     isStreamer: Boolean,
     isCoach: Boolean,
@@ -126,6 +127,7 @@ object UserInfo {
   def apply(
     relationApi: RelationApi,
     trophyApi: TrophyApi,
+    shieldApi: lila.tournament.TournamentShieldApi,
     postApi: PostApi,
     studyRepo: lila.study.StudyRepo,
     getRatingChart: User => Fu[Option[String]],
@@ -145,13 +147,14 @@ object UserInfo {
       postApi.nbByUser(user.id) zip
       studyRepo.countByOwner(user.id) zip
       trophyApi.findByUser(user) zip
+      shieldApi(user) zip
       fetchTeamIds(user.id) zip
       fetchIsCoach(user) zip
       fetchIsStreamer(user.id) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       getPlayTime(user) zip
       completionRate(user.id) flatMap {
-        case ranks ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
+        case ranks ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ shields ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
           (nbs.playing > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
@@ -165,6 +168,7 @@ object UserInfo {
               nbStudies = nbStudies,
               playTime = playTime,
               trophies = trophies,
+              shields = shields,
               teamIds = teamIds,
               isStreamer = isStreamer,
               isCoach = isCoach,

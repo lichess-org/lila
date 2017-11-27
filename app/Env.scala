@@ -43,6 +43,7 @@ final class Env(
   lazy val userInfo = mashup.UserInfo(
     relationApi = Env.relation.api,
     trophyApi = Env.user.trophyApi,
+    shieldApi = Env.tournament.shieldApi,
     postApi = Env.forum.postApi,
     studyRepo = Env.study.studyRepo,
     getRatingChart = Env.history.ratingChartApi.apply,
