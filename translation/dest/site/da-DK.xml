@@ -349,6 +349,7 @@
   <string name="whiteWins">Hvid vinder</string>
   <string name="blackWins">Sort vinder</string>
   <string name="draws">Remis</string>
+  <string name="nextXTournament">Næste %s turnering:</string>
   <string name="viewMoreTournaments">Se flere turneringer</string>
   <string name="averageOpponent">Gennemsnitlig modstander</string>
   <string name="membersOnly">Kun for medlemmer</string>
@@ -362,6 +363,7 @@
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapporter %s til administratorer</string>
   <string name="profileCompletion">Profil færdiggørelse: %s</string>
+  <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Hvis ingen, efterlad tom</string>
   <string name="gameCompletionRate">Gennemførelsesprocent af spil: %s</string>
   <string name="profile">Profil</string>
@@ -678,8 +680,11 @@
   <string name="pieceSet">Brikker</string>
   <string name="embedInYourWebsite">Indlejr på din hjemmeside</string>
   <string name="usernameAlreadyUsed">Dette brugernavn er allerede i brug. Vælg venligst et andet og prøv igen.</string>
+  <string name="usernameInvalid">Ugyldigt brugernavn. Brug venligst kun bogstaver, tal, understregning og tankestreg.</string>
   <string name="usernameStartNoNumber">Brugernavnet må ikke begynde med et tal.</string>
   <string name="usernameUnacceptable">Dette brugernavn er ikke acceptabelt.</string>
+  <string name="directlySupportLichess">Støt Lichess direkte</string>
+  <string name="playChessInStyle">Spil skak med stil</string>
   <string name="chessBasics">Skak basics</string>
   <string name="coaches">Trænere</string>
   <string name="invalidPgn">Ugyldig PGN</string>
