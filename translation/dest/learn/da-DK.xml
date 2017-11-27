@@ -88,6 +88,14 @@
   <string name="mateInOne">Mat i en</string>
   <string name="defeatTheOpponentsKing">Slå modstanderens konge</string>
   <string name="mateInOneIntro">Du vinder, når din modstander ikke kan forsvare mod skak.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">Det særlige bondetræk</string>
+  <string name="enPassantIntro">Når modstanderbonden flyttede to felter, kan du tage den som om den flyttede ét felt.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Sort har lige flyttet bonden to felter! Tag den en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant gælder kun umiddelbart efter modstanderen har flyttet bonden.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant gælder kun hvis din bonde er på den 5. række.</string>
+  <string name="takeAllThePawnsEnPassant">Tag alle bønderne en passant!</string>
+  <string name="enPassantComplete">Tillykke! Du kan nu tage en passant.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Partiet ender med remis</string>
   <string name="stalemateIntro">Når en spiller ikke er skak og ikke har noget lovligt træk, er det en pat. Partiet er remis: ingen vinder, ingen taber.</string>
@@ -98,7 +106,23 @@
   <string name="advanced">Avanceret</string>
   <string name="pieceValue">Brikværdi</string>
   <string name="evaluatePieceStrength">Vurder brikstyrke</string>
+  <string name="pieceValueIntro">Brikker med stor bevægelighed har højere værdi!
+Dronning = 9
+Tårn = 5
+Løber = 3
+Springer = 3
+Bonde = 1
+Kongen er uvurderlig! Mistes den, er spillet tabt.</string>
+  <string name="queenOverBishop">Fang brikken med den højeste værdi! Dronning &gt; løber</string>
+  <string name="takeThePieceWithTheHighestValue">Fang brikken med den højeste værdi!</string>
+  <string name="pieceValueComplete">Tillykke! Du kender brikkernes værdi!
+Dronning = 9
+Tårn = 5
+Løber = 3
+Springer = 3
+Bonde = 1</string>
   <string name="checkInTwo">Skak i to</string>
   <string name="twoMovesToGiveCheck">To træk til at give skak</string>
+  <string name="checkInTwoIntro">Find den rette kombination af to træk, der sætter modstanderens konge skak!</string>
   <string name="register">Registrer</string>
 </resources>
