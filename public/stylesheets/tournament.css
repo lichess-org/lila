@@ -101,7 +101,6 @@ ol.scheduled_tournaments a {
   opacity: 0.7;
   transition: 1s;
   font-family: "lichess" !important;
-  speak: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -110,6 +109,26 @@ ol.scheduled_tournaments a {
 }
 #tournament.marathon .fire_trophy {
   filter: hue-rotate(190deg);
+}
+#tournament.shield h1 {
+  padding-left: 90px;
+  letter-spacing: 2px;
+}
+#tournament .shield_trophy {
+  position: absolute;
+  top: -15px;
+  left: 10px;
+  width: 70px;
+  display: block;
+  width: 67px;
+  height: 80px;
+  background: url(../images/trophy/shield-gold.png) no-repeat;
+  background-size: contain;
+  font-family: "lichess" !important;
+  font-size: 40px;
+  line-height: 80px;
+  text-align: center;
+  color: #000;
 }
 #tournament .description {
   padding: 20px;

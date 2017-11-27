@@ -72,6 +72,11 @@ final class Env(
     mongoCache = mongoCache
   )
 
+  lazy val tournamentShield = new TournamentShieldApi(
+    coll = tournamentColl,
+    asyncCache = asyncCache
+  )
+
   lazy val api = new TournamentApi(
     cached = cached,
     scheduleJsonView = scheduleJsonView,

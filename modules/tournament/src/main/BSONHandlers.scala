@@ -11,12 +11,12 @@ import reactivemongo.bson._
 
 object BSONHandlers {
 
-  private implicit val statusBSONHandler = new BSONHandler[BSONInteger, Status] {
+  private[tournament] implicit val statusBSONHandler: BSONHandler[BSONInteger, Status] = new BSONHandler[BSONInteger, Status] {
     def read(bsonInt: BSONInteger): Status = Status(bsonInt.value) err s"No such status: ${bsonInt.value}"
     def write(x: Status) = BSONInteger(x.id)
   }
 
-  private implicit val scheduleFreqHandler = new BSONHandler[BSONString, Schedule.Freq] {
+  private[tournament] implicit val scheduleFreqHandler = new BSONHandler[BSONString, Schedule.Freq] {
     def read(bsonStr: BSONString) = Schedule.Freq(bsonStr.value) err s"No such freq: ${bsonStr.value}"
     def write(x: Schedule.Freq) = BSONString(x.name)
   }

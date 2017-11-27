@@ -10,8 +10,8 @@ function startClock(time) {
 
 const oneDayInSeconds = 60 * 60 * 24;
 
-function isMarathon(d) {
-  return d.schedule && d.schedule.freq === 'marathon';
+function hasFreq(freq, d) {
+  return d.schedule && d.schedule.freq === freq;
 }
 
 function clock(d): VNode | undefined {
@@ -46,7 +46,7 @@ function clock(d): VNode | undefined {
 
 function image(d): VNode | undefined {
   if (d.isFinished) return;
-  if (isMarathon(d)) return;
+  if (hasFreq('shield', d) || hasFreq('marathon', d)) return;
   const s = d.spotlight;
   if (s && s.iconImg) return h('img.img', {
     attrs: { src: window.lichess.assetUrl('/assets/images/' + s.iconImg) }
@@ -58,8 +58,12 @@ function image(d): VNode | undefined {
 
 function title(ctrl: TournamentController) {
   const d = ctrl.data;
-  if (isMarathon(d)) return h('h1', [
+  if (hasFreq('marathon', d)) return h('h1', [
     h('span.fire_trophy', '\\'),
+    d.fullName
+  ]);
+  if (hasFreq('shield', d)) return h('h1', [
+    h('span.shield_trophy', d.perf.icon),
     d.fullName
   ]);
   return h('h1',

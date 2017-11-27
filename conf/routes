@@ -241,6 +241,7 @@ POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(i
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
 GET   /tournament/limited-invitation          controllers.Tournament.limitedInvitation
 GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
+GET   /tournament/shield-trophy/:perfType.svg controllers.Tournament.shieldTrophy(perfType: String)
 
 # Tournament CRUD
 GET   /tournament/manager                     controllers.TournamentCrud.index

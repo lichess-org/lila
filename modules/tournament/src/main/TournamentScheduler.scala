@@ -165,7 +165,18 @@ Thank you all, you rock!"""
               month.firstWeek.withDayOfWeek(SATURDAY) -> UltraBullet
             ).flatMap {
                 case (day, speed) => at(day, 16) map { date =>
-                  Schedule(Shield, speed, Standard, std, date).plan
+                  Schedule(Shield, speed, Standard, std, date) plan {
+                    _.copy(
+                      name = s"${speed.toString} Shield",
+                      spotlight = Spotlight(
+                        iconFont = "5".some,
+                        headline = s"Battle for the ${speed.toString} Shield",
+                        description = s"""
+Winner gets the unique ${speed.toString} Shield,
+until the next tournament!"""
+                      ).some
+                    )
+                  }
                 }
               },
 
@@ -179,7 +190,17 @@ Thank you all, you rock!"""
               month.thirdWeek.withDayOfWeek(SUNDAY) -> Horde
             ).flatMap {
                 case (day, variant) => at(day, 16) map { date =>
-                  Schedule(Shield, Blitz, variant, std, date).plan
+                  Schedule(Shield, Blitz, variant, std, date) plan {
+                    _.copy(
+                      name = s"${variant.name} Shield",
+                      spotlight = Spotlight(
+                        iconFont = "5".some,
+                        headline = s"Battle for the ${variant.name} Shield",
+                        description = s"""Winner gets the unique ${variant.name} Shield,
+until the next tournament!"""
+                      ).some
+                    )
+                  }
                 }
               }
           ).flatten

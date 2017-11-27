@@ -5,6 +5,7 @@ import ornicar.scalalib.Random
 
 import chess.Clock.{ Config => ClockConfig }
 import chess.{ Speed, Mode, StartingPosition }
+import lila.rating.PerfType
 import lila.game.PerfPicker
 import lila.user.User
 import lila.user.UserRepo.lichessId
@@ -87,7 +88,7 @@ case class Tournament(
 
   def speed = Speed(clock)
 
-  def perfType = PerfPicker.perfType(speed, variant, none)
+  def perfType: Option[PerfType] = PerfPicker.perfType(speed, variant, none)
   def perfLens = PerfPicker.mainOrDefault(speed, variant, none)
 
   def durationString =

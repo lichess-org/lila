@@ -230,4 +230,12 @@ object Tournament extends LilaController {
         } flatMap env.scheduleJsonView.featured map { Ok(_) }
     )
   }
+
+  def shieldTrophy(perfType: String) = Action {
+    lila.rating.PerfType.byKey.get(perfType).fold(NotFound(s"Unknown perf $perfType")) { pt =>
+      Ok(html.tournament.shieldTrophy(pt, 80))
+        .as("image/svg+xml")
+        .withHeaders(CACHE_CONTROL -> "max-age=2592000")
+    }
+  }
 }
