@@ -88,7 +88,11 @@
   <string name="mateInOne">Mat i en</string>
   <string name="defeatTheOpponentsKing">Slå modstanderens konge</string>
   <string name="mateInOneIntro">Du vinder, når din modstander ikke kan forsvare mod skak.</string>
+  <string name="intermediate">Mellem</string>
+  <string name="boardSetup">Opstilling</string>
   <string name="howTheGameStarts">Hvordan spillet starter</string>
+  <string name="boardSetupIntro">De to hære står overfor hinanden, klar til slaget.</string>
+  <string name="thisIsTheInitialPosition">Dette er udgangspositionen for alle skakspil! Lav et hvilket som helst træk for at fortsætte.</string>
   <string name="firstPlaceTheRooks">Placer tårnene! De hører til i hjørnerne.</string>
   <string name="thenPlaceTheKnights">Placer dernæst springerne! De skal stå ved siden af tårnene.</string>
   <string name="placeTheBishops">Placer løberne! De skal stå ved siden af springerne.</string>
