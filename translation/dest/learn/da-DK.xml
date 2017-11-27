@@ -67,4 +67,10 @@
   <string name="combat">Kamp</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Partiet ender med remis</string>
+  <string name="stalemateIntro">Når en spiller ikke er skak og ikke har noget lovligt træk, er det en pat. Partiet er remis: ingen vinder, ingen taber.</string>
+  <string name="stalemateGoal">For at sætte sort pat:
+- Sort kan ikke flytte
+- Der er ikke skak.</string>
+  <string name="stalemateComplete">Tillykke! Bedre at være pat end skakmat!</string>
+  <string name="pieceValue">Brikværdi</string>
 </resources>
