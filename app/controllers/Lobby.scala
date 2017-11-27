@@ -21,7 +21,10 @@ object Lobby extends LilaController {
   def home = Open { implicit ctx =>
     negotiate(
       html = renderHome(Results.Ok).map(NoCache),
-      api = _ => fuccess(Ok(lobbyJson))
+      api = _ => fuccess {
+        val expiration = 60 * 60 * 24 * 7 // set to one hour, one week before changing the pool config
+        Ok(lobbyJson).withHeaders(CACHE_CONTROL -> s"max-age=$expiration")
+      }
     )
   }
 
