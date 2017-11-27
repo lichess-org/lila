@@ -95,5 +95,10 @@
 - Sort kan ikke flytte
 - Der er ikke skak.</string>
   <string name="stalemateComplete">Tillykke! Bedre at være pat end skakmat!</string>
+  <string name="advanced">Avanceret</string>
   <string name="pieceValue">Brikværdi</string>
+  <string name="evaluatePieceStrength">Vurder brikstyrke</string>
+  <string name="checkInTwo">Skak i to</string>
+  <string name="twoMovesToGiveCheck">To træk til at give skak</string>
+  <string name="register">Registrer</string>
 </resources>
