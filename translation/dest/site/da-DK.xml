@@ -85,6 +85,7 @@
   <string name="importPgn">Importer PGN</string>
   <string name="delete">Slet</string>
   <string name="deleteThisImportedGame">Slet dette importerede spil?</string>
+  <string name="realtimeReplay">Realtid</string>
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Bedste træk pil</string>
   <string name="multipleLines">Flere linjer</string>
@@ -341,6 +342,7 @@
   <string name="winRate">Sejrsrate</string>
   <string name="performance">Ydelse</string>
   <string name="tournamentComplete">Turnering afsluttet</string>
+  <string name="movesPlayed">Spillede træk</string>
   <string name="whiteWins">Hvid vinder</string>
   <string name="blackWins">Sort vinder</string>
   <string name="draws">Remis</string>
@@ -681,4 +683,5 @@
   <string name="custom">Tilpasset</string>
   <string name="notifications">Meddelelser</string>
   <string name="challenges">Udfordringer</string>
+  <string name="perfRatingX">Rating: %s</string>
 </resources>
