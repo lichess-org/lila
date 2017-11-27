@@ -747,7 +747,7 @@ export default class AnalyseCtrl {
     if (uci) this.playUci(uci);
   }
 
-  canEvalGet = (node: Tree.Node): boolean => this.opts.study || node.ply < 10;
+  canEvalGet = (node: Tree.Node): boolean => this.opts.study || node.ply < 12;
 
   instanciateEvalCache() {
     this.evalCache = makeEvalCache({
@@ -756,7 +756,7 @@ export default class AnalyseCtrl {
       canPut: (node: Tree.Node) => {
         return this.data.evalPut && this.canEvalGet(node) && (
           // if not in study, only put decent opening moves
-          this.opts.study || (node.ply < 12 && !node.ceval!.mate && Math.abs(node.ceval!.cp!) < 99)
+          this.opts.study || (!node.ceval!.mate && Math.abs(node.ceval!.cp!) < 99)
         );
       },
       getNode: () => this.node,
