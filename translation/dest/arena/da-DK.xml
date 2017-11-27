@@ -4,6 +4,9 @@
   <string name="isItRated">Er det ratet?</string>
   <string name="willBeNotified">Du får besked, når turneringen starter, så det er sikkert at spille i en anden fane mens du venter.</string>
   <string name="isRated">Denne turnering rates og vil påvirke din rating.</string>
+  <string name="isNotRated">Denne turnering er *ikke* ratet og vil *ikke* påvirke din rating.</string>
+  <string name="someRated">Nogle turneringer er ratede og vil påvirke din rating.</string>
+  <string name="howAreScoresCalculated">Hvordan beregnes scorerne?</string>
   <string name="howIsTheWinnerDecided">Hvordan findes vinderen?</string>
   <string name="otherRules">Andre vigtige regler</string>
   <string name="otherRulesAnswer">Du skal lave dit første træk inden for 20 sekunder, når det er din tur. Undlader du at foretage et træk inden for denne tid, vil partiet gå til din modstander. Indgås der remis inden for de første 10 træk, får ingen af spillerne nogen point.</string>
