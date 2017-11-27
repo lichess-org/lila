@@ -109,7 +109,7 @@
   <string name="offerDraw">Tilbyd remis</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s spillere online</item>
+    <item quantity="one">%s spiller online</item>
     <item quantity="other">%s spillere online</item>
   </plurals>
   <string name="currentGames">Partier der bliver spillet nu</string>
@@ -142,18 +142,18 @@
   <string name="daysPerTurn">Dage per træk</string>
   <string name="oneDay">En dag</string>
   <plurals name="nbDays">
-    <item quantity="one">%s dage</item>
+    <item quantity="one">%s dag</item>
     <item quantity="other">%s dage</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s timer</item>
+    <item quantity="one">%s time</item>
     <item quantity="other">%s timer</item>
   </plurals>
   <string name="time">Tid</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingstatistik</string>
   <string name="username">Brugernavn</string>
-  <string name="usernameOrEmail">Brugernavn eller Email</string>
+  <string name="usernameOrEmail">Brugernavn eller e-mail</string>
   <string name="password">Adgangskode</string>
   <string name="haveAnAccount">Har du en konto?</string>
   <string name="changePassword">Skift adgangskode</string>
@@ -166,7 +166,7 @@
   <string name="rankIsUpdatedEveryXMinutes">Rang opdateres hvert %s minut</string>
   <string name="gamesPlayed">Antal partier spillet</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s partier med dig</item>
+    <item quantity="one">%s parti med dig</item>
     <item quantity="other">%s partier med dig</item>
   </plurals>
   <string name="cancel">Afbryd</string>
