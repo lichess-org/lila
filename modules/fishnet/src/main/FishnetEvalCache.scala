@@ -8,7 +8,7 @@ private final class FishnetEvalCache(
     evalCacheApi: lila.evalCache.EvalCacheApi
 ) {
 
-  val maxPlies = 12
+  val maxPlies = 15
 
   // indexes of positions to skip
   def skipPositions(game: Work.Game): Fu[List[Int]] =
@@ -35,7 +35,7 @@ private final class FishnetEvalCache(
 
   private def rawEvals(game: Work.Game): Fu[List[(Int, lila.evalCache.EvalCacheEntry.Eval)]] =
     chess.Replay.situationsFromUci(
-      game.uciList.take(maxPlies),
+      game.uciList.take(maxPlies - 1),
       game.initialFen,
       game.variant
     ).fold(
