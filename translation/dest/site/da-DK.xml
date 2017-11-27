@@ -89,6 +89,7 @@
   <string name="deleteThisImportedGame">Slet dette importerede spil?</string>
   <string name="replayMode">Genafspilning</string>
   <string name="realtimeReplay">Realtid</string>
+  <string name="byCPL">CPL</string>
   <string name="openStudy">Åben studie</string>
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Bedste træk pil</string>
@@ -233,6 +234,7 @@
   <string name="giveMoreTime">Give mere tid</string>
   <string name="thisPlayerUsesChessComputerAssistance">Denne spiller bruger skakcomputerassistance</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Denne spiller forøger eller sænker sin rating kunstigt</string>
+  <string name="openingExplorerAndTablebase">Åbner database &amp; tablebase</string>
   <string name="takeback">Omtræk</string>
   <string name="proposeATakeback">Foreslå et omtræk</string>
   <string name="takebackPropositionSent">Anmodning om omtræk sendt</string>
@@ -251,6 +253,7 @@
   <string name="thematic">Tematisk</string>
   <string name="yourPerfRatingIsProvisional">Din %s rating er foreløbig</string>
   <string name="yourPerfRatingIsTooHigh">Din %1$s rating (%2$s) er for høj</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ugentlige %1$s toprating (%2$s) er for høj</string>
   <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
   <string name="ratedMoreThanInPerf">Ratet ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s</string>
