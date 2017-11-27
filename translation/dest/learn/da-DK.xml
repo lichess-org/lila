@@ -24,12 +24,23 @@
   <string name="bishopComplete">Tillykke! Du behersker løberen.</string>
   <string name="theQueen">Dronningen</string>
   <string name="queenCombinesRookAndBishop">Dronning = tårn + løber</string>
+  <string name="queenIntro">Den stærkeste brik gør sin entré. Hendes Majestæt Dronningen!</string>
+  <string name="queenComplete">Tillykke! Dronningen har ingen hemmeligheder for dig.</string>
   <string name="theKing">Kongen</string>
   <string name="theMostImportantPiece">Den vigtigste brik</string>
+  <string name="kingIntro">Du er kongen. Hvis du falder i kamp, er spillet tabt.</string>
   <string name="theKingIsSlow">Kongen er langsom.</string>
+  <string name="lastOne">Den sidste!</string>
+  <string name="kingComplete">Du behersker nu den øverstbefalende!</string>
   <string name="theKnight">Springeren</string>
+  <string name="itMovesInAnLShape">Den bevæger sig i et L-mønster</string>
+  <string name="knightIntro">Her er en udfordring til dig. Springeren er... en vanskelig brik.</string>
+  <string name="knightsHaveAFancyWay">Springere har en smart måde at hoppe rundt på!</string>
+  <string name="knightsCanJumpOverObstacles">Springere kan hoppe over forhindringer! Undslip og sluk stjernerne!</string>
+  <string name="knightComplete">Tillykke! Du har mestret springeren.</string>
   <string name="thePawn">Bonden</string>
   <string name="itMovesForwardOnly">Den bevæger sig kun fremad</string>
+  <string name="pawnIntro">Bønder er svage, men har masser af potentiale.</string>
   <string name="useAllThePawns">Brug alle bønder! Ingen grund til at forfremme.</string>
   <string name="pawnPromotion">Bonde-forfremmelse</string>
   <string name="fundamentals">Grundlæggende</string>
