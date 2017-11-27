@@ -21,7 +21,7 @@ private final class AnalysisBuilder(evalCache: FishnetEvalCache) {
     isPartial: Boolean = true
   ): Fu[Analysis] = {
 
-    GameRepo.game(work.game.id) zip evalCache.evals(work.game) flatMap {
+    GameRepo.game(work.game.id) zip evalCache.evals(work) flatMap {
       case (None, _) => fufail(AnalysisBuilder.GameIsGone(work.game.id))
       case (Some(game), cached) =>
         GameRepo.initialFen(game) flatMap { initialFen =>
