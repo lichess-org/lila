@@ -747,7 +747,7 @@ export default class AnalyseCtrl {
     if (uci) this.playUci(uci);
   }
 
-  canEvalGet = (node: Tree.Node): boolean => this.opts.study || node.ply < 12;
+  canEvalGet = (node: Tree.Node): boolean => this.opts.study || node.ply < 15;
 
   instanciateEvalCache() {
     this.evalCache = makeEvalCache({
