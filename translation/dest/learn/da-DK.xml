@@ -48,11 +48,23 @@
   <string name="useAllThePawns">Brug alle bønder! Ingen grund til at forfremme.</string>
   <string name="aPawnOnTheSecondRank">En bonde på anden række kan flytte 2 felter på én gang!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Fang alle stjernerne! Ingen grund til at forfremme.</string>
+  <string name="pawnComplete">Tillykke! Bønder har ingen hemmeligheder for dig.</string>
   <string name="pawnPromotion">Bonde-forfremmelse</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Din bonde har nået kanten af brættet!</string>
+  <string name="itNowPromotesToAStrongerPiece">Den forfremmes nu til en stærkere brik.</string>
+  <string name="selectThePieceYouWant">Vælg den brik du vil have!</string>
   <string name="fundamentals">Grundlæggende</string>
+  <string name="capture">Fang</string>
+  <string name="takeTheEnemyPieces">Tag fjendens brikker</string>
+  <string name="captureIntro">Identificer modstanderens ubeskyttede brikker og tag dem!</string>
+  <string name="takeTheBlackPieces">Tag de sorte brikker!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Tag de sorte brikker! Og mist ikke dine egne.</string>
+  <string name="captureComplete">Tillykke! Du ved, hvordan man kæmper med skakbrikker!</string>
   <string name="protection">Forsvar</string>
   <string name="keepYourPiecesSafe">Beskyt dine brikker</string>
   <string name="escape">Du er under angreb! Undslip truslen!</string>
   <string name="noEscape">Der er ingen flugtvej, men du kan forsvare!</string>
   <string name="combat">Kamp</string>
+  <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">Partiet ender med remis</string>
 </resources>
