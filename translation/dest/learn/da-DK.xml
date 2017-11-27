@@ -16,6 +16,7 @@
   <string name="theQueen">Dronningen</string>
   <string name="queenCombinesRookAndBishop">Dronning = tårn + løber</string>
   <string name="theKing">Kongen</string>
+  <string name="theMostImportantPiece">Den vigtigste brik</string>
   <string name="theKingIsSlow">Kongen er langsom.</string>
   <string name="theKnight">Springeren</string>
   <string name="thePawn">Bonden</string>
