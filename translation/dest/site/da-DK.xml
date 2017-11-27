@@ -80,6 +80,7 @@
   <string name="noGameFound">Ingen spil fundet</string>
   <string name="openingExplorer">Åbning Opdagelse</string>
   <string name="winPreventedBy50MoveRule">Sejr forhindret af 50-træks reglen</string>
+  <string name="lossSavedBy50MoveRule">Nederlag undgået på grund af 50-træks reglen</string>
   <string name="allSet">Klar!</string>
   <string name="importPgn">Importer PGN</string>
   <string name="delete">Slet</string>
@@ -241,6 +242,9 @@
   <string name="viewTournament">Se turneringen</string>
   <string name="backToTournament">Tilbage til turneringen</string>
   <string name="thematic">Tematisk</string>
+  <string name="yourPerfRatingIsProvisional">Din %s rating er foreløbig</string>
+  <string name="yourPerfRatingIsTooHigh">Din %1$s rating (%2$s) er for høj</string>
+  <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
   <string name="backToGame">Vend tilbage til spil</string>
   <string name="siteDescription">Gratis online skakspil. Spil skak med det samme i et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
   <string name="teams">Hold</string>
@@ -333,12 +337,16 @@
   <string name="tournamentPairingsAreNowClosed">Pardannelsen til turneringen er nu lukket.</string>
   <string name="standByX">Hold dig til %s, danner par med andre spillere – gør dig klar!</string>
   <string name="youArePlaying">Du spiller nu!</string>
+  <string name="winRate">Sejrsrate</string>
   <string name="performance">Ydelse</string>
+  <string name="tournamentComplete">Turnering afsluttet</string>
   <string name="whiteWins">Hvid vinder</string>
   <string name="blackWins">Sort vinder</string>
   <string name="draws">Remis</string>
+  <string name="averageOpponent">Gennemsnitlig modstander</string>
   <string name="membersOnly">Kun for medlemmer</string>
   <string name="boardEditor">Rediger stilling</string>
+  <string name="popularOpenings">Populære åbninger</string>
   <string name="startPosition">Udgangsstilling</string>
   <string name="clearBoard">Fjern alle brikker</string>
   <string name="savePosition">Gem stilling</string>
@@ -437,6 +445,7 @@
   <string name="closeAccountExplanation">Er du sikker på at du vil lukke din konto? Lukningen af din konto er permanent. Du vil ikke længere være i stand til at logge ind og din profilside vil ikke længere være tilgængelig.</string>
   <string name="thisAccountIsClosed">Denne konto er lukket.</string>
   <string name="invalidUsernameOrPassword">Ugyldigt brugernavn eller adgangskode</string>
+  <string name="incorrectPassword">Forkert adgangskode</string>
   <string name="emailMeALink">Email mig et link</string>
   <string name="currentPassword">Nuværende adgangskode</string>
   <string name="newPassword">Ny adgangskode</string>
