@@ -476,6 +476,7 @@
   <string name="gameBehavior">Spil adfærd</string>
   <string name="howDoYouMovePieces">Hvordan flytter du brikker?</string>
   <string name="clickTwoSquares">Klik på to felter</string>
+  <string name="dragPiece">Træk brik</string>
   <string name="bothClicksAndDrag">Begge dele</string>
   <string name="premovesPlayingDuringOpponentTurn">Pre-træk (spilles på modstanderens tur)</string>
   <string name="takebacksWithOpponentApproval">Fortrydelse af træk (med modstanderens accept)</string>
@@ -508,6 +509,7 @@
   <string name="xCommentedY">%1$s kommenterede %2$s</string>
   <string name="victory">Sejr</string>
   <string name="defeat">Nederlag</string>
+  <string name="xVsYinZ">%1$s vs %2$s i %3$s</string>
   <string name="timeline">Tidslinje</string>
   <string name="seeAllTournaments">Vis alle turneringer</string>
   <string name="starting">Begynder:</string>
@@ -550,6 +552,7 @@
   <string name="error.email_unique">Email-adressen er allerede taget</string>
   <string name="error.email_different">Dette er allerede din e-mail-adresse</string>
   <string name="blindfoldChess">Blindskak</string>
+  <string name="zenMode">Zentilstand</string>
   <string name="moveConfirmation">Bekræft træk</string>
   <string name="inCorrespondenceGames">I korrespondancepartier</string>
   <string name="ifRatingIsPlusMinusX">Hvis ratingen er ± %s</string>
@@ -578,6 +581,7 @@
   <string name="sourceCode">Kildekode</string>
   <string name="simultaneousExhibitions">Simultanskak</string>
   <string name="host">Bliv vært</string>
+  <string name="hostColorX">Værtsfarve: %s</string>
   <string name="createdSimuls">Nyligt oprettede simultanspil</string>
   <string name="hostANewSimul">Bliv vært for nyt simultanspil</string>
   <string name="noSimulFound">Simultanspil ikke fundet</string>
@@ -629,10 +633,12 @@
   <string name="crosstable">Korstabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også rulle over bord for at bevæge sig i spillet.</string>
   <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
+  <string name="confirmResignationAndDrawOffers">Bekræft opgivelse og tilbud om remis</string>
   <string name="inputMovesWithTheKeyboard">Lav træk med tastaturet</string>
   <string name="letOtherPlayersMessageYou">En anden spiller har en besked til dig</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokade metode</string>
   <string name="castleByMovingTwoSquares">Flyt kongen to felter</string>
+  <string name="castleByMovingOntoTheRook">Flyt kongen over på tårn</string>
   <string name="shareYourInsightsData">Del din \"insigts\" data</string>
   <string name="withNobody">Med ingen</string>
   <string name="withFriends">Med venner</string>
@@ -665,9 +671,13 @@
     <item quantity="other">Tilgængelig i %s sprog!</item>
   </plurals>
   <string name="gameAnalysis">Spilanalyse</string>
+  <string name="xHostsY">%1$s er vært for %2$s</string>
+  <string name="xJoinsY">%1$s melder sig til %2$s</string>
+  <string name="xLikesY">%1$s synes godt om %2$s</string>
   <string name="quickPairing">Hurtig parring</string>
   <string name="lobby">Lobbyen</string>
   <string name="anonymous">Anonym</string>
+  <string name="yourScore">Din score: %s</string>
   <string name="language">Sprog</string>
   <string name="background">Baggrund</string>
   <string name="light">Lyst</string>
