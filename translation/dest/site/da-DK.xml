@@ -35,7 +35,7 @@
   <string name="makeYourOpponentResign">Tving din modspiller til at opgive</string>
   <string name="forceResignation">Tving fratræden</string>
   <string name="forceDraw">Fremtving remis</string>
-  <string name="talkInChat">Snak i chat</string>
+  <string name="talkInChat">Hold en venlig tone i chatten!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den første person der bruger denne URL, vil blive din modstander</string>
   <string name="whiteResigned">Hvid har givet op</string>
   <string name="blackResigned">Sort har givet op</string>
@@ -46,7 +46,7 @@
   <string name="viewTheComputerAnalysis">Se computeranalysen</string>
   <string name="requestAComputerAnalysis">Anmod om en computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
-  <string name="computerAnalysisAvailable">Computer analyse klar</string>
+  <string name="computerAnalysisAvailable">Computeranalyse klar</string>
   <string name="analysis">Analyse</string>
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Ved brug af serveranalyse</string>
