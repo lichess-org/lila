@@ -7,6 +7,13 @@
   <string name="isNotRated">Denne turnering er *ikke* ratet og vil *ikke* påvirke din rating.</string>
   <string name="someRated">Nogle turneringer er ratede og vil påvirke din rating.</string>
   <string name="howAreScoresCalculated">Hvordan beregnes scorerne?</string>
+  <string name="howAreScoresCalculatedAnswer">En sejr giver 2 point, en remis 1 point, mens et tab ingen point giver.
+Hvis du vinder to partier i træk, vil du starte en dobbeltpoint-stime, repræsenteret ved et flamme-ikon.
+De følgende partier vil give dobbelte point, indtil du ikke formår at vinde et parti.
+Det vil sige, at en sejr er 4 point værd, en remis 2 point, mens et tab fortsat ingen point giver.
+
+For eksempel giver to sejre efterfulgt af en remis 6 point: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Arena Berserk</string>
   <string name="howIsTheWinnerDecided">Hvordan findes vinderen?</string>
   <string name="otherRules">Andre vigtige regler</string>
   <string name="otherRulesAnswer">Du skal lave dit første træk inden for 20 sekunder, når det er din tur. Undlader du at foretage et træk inden for denne tid, vil partiet gå til din modstander. Indgås der remis inden for de første 10 træk, får ingen af spillerne nogen point.</string>
