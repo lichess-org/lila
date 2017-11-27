@@ -196,6 +196,7 @@
   <string name="inbox">Indbakke</string>
   <string name="chatRoom">Chatrum</string>
   <string name="loginToChat">Log ind for at chatte</string>
+  <string name="youHaveBeenTimedOut">Du er sat til timeout.</string>
   <string name="spectatorRoom">Tilskuerrum</string>
   <string name="composeMessage">Skriv besked</string>
   <string name="noNewMessages">Ingen nye beskeder</string>
@@ -454,6 +455,7 @@
   <string name="pieceDestinations">Brikdestinationer (gyldige træk og pre-træk)</string>
   <string name="boardCoordinates">Brætkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Trækliste mens der spilles</string>
+  <string name="pgnPieceNotation">Notation</string>
   <string name="pgnLetter">Bogstaver (K, Q, R, B, N)</string>
   <string name="chessClock">Skakur</string>
   <string name="tenthsOfSeconds">Tiendedelesekunder</string>
@@ -462,6 +464,7 @@
   <string name="horizontalGreenProgressBars">Horisontale grønne statuslinjer</string>
   <string name="soundWhenTimeGetsCritical">Lyd, når tiden bliver kritisk</string>
   <string name="gameBehavior">Spil adfærd</string>
+  <string name="howDoYouMovePieces">Hvordan flytter du brikker?</string>
   <string name="bothClicksAndDrag">Begge dele</string>
   <string name="premovesPlayingDuringOpponentTurn">Pre-træk (spilles på modstanderens tur)</string>
   <string name="takebacksWithOpponentApproval">Fortrydelse af træk (med modstanderens accept)</string>
@@ -615,6 +618,7 @@
   <string name="crosstable">Korstabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også rulle over bord for at bevæge sig i spillet.</string>
   <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
+  <string name="inputMovesWithTheKeyboard">Lav træk med tastaturet</string>
   <string name="letOtherPlayersMessageYou">En anden spiller har en besked til dig</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokade metode</string>
   <string name="castleByMovingTwoSquares">Flyt kongen to felter</string>
@@ -652,8 +656,13 @@
   <string name="gameAnalysis">Spilanalyse</string>
   <string name="quickPairing">Hurtig parring</string>
   <string name="lobby">Lobbyen</string>
+  <string name="anonymous">Anonym</string>
   <string name="language">Sprog</string>
   <string name="background">Baggrund</string>
+  <string name="light">Lyst</string>
+  <string name="dark">Mørkt</string>
+  <string name="transparent">Gennemsigtigt</string>
+  <string name="backgroundImageUrl">Baggrundsbillede URL:</string>
   <string name="boardGeometry">Brætgeometri</string>
   <string name="boardTheme">Brættema</string>
   <string name="boardSize">Brætstørrelse</string>
