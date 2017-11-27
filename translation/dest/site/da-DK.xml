@@ -181,7 +181,7 @@
   <string name="gameAborted">Partiet blev afbrudt</string>
   <string name="standard">Standard</string>
   <string name="unlimited">Ubegrænset</string>
-  <string name="mode">Modus</string>
+  <string name="mode">Variant</string>
   <string name="casual">Uforpligtende</string>
   <string name="rated">Ratet</string>
   <string name="thisGameIsRated">Dette parti er ratet</string>
