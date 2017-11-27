@@ -362,6 +362,7 @@
   <string name="reportXToModerators">Rapporter %s til administratorer</string>
   <string name="profileCompletion">Profil færdiggørelse: %s</string>
   <string name="ifNoneLeaveEmpty">Hvis ingen, efterlad tom</string>
+  <string name="gameCompletionRate">Gennemførelsesprocent af spil: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Redigér profil</string>
   <string name="firstName">Fornavn</string>
