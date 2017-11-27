@@ -54,7 +54,7 @@
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Analysér dybere</string>
   <string name="showThreat">Vis trussel</string>
-  <string name="inLocalBrowser">i din lokale browser</string>
+  <string name="inLocalBrowser">i din egen browser</string>
   <string name="toggleLocalEvaluation">Skift til lokal evaluering</string>
   <string name="move">Træk</string>
   <string name="variantLoss">Variant tab</string>
@@ -85,7 +85,9 @@
   <string name="importPgn">Importer PGN</string>
   <string name="delete">Slet</string>
   <string name="deleteThisImportedGame">Slet dette importerede spil?</string>
+  <string name="replayMode">Genafspilning</string>
   <string name="realtimeReplay">Realtid</string>
+  <string name="openStudy">Åben studie</string>
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Bedste træk pil</string>
   <string name="multipleLines">Flere linjer</string>
@@ -346,9 +348,11 @@
   <string name="whiteWins">Hvid vinder</string>
   <string name="blackWins">Sort vinder</string>
   <string name="draws">Remis</string>
+  <string name="viewMoreTournaments">Se flere turneringer</string>
   <string name="averageOpponent">Gennemsnitlig modstander</string>
   <string name="membersOnly">Kun for medlemmer</string>
   <string name="boardEditor">Rediger stilling</string>
+  <string name="setTheBoard">Opstil bræt</string>
   <string name="popularOpenings">Populære åbninger</string>
   <string name="startPosition">Udgangsstilling</string>
   <string name="clearBoard">Fjern alle brikker</string>
@@ -467,6 +471,7 @@
   <string name="soundWhenTimeGetsCritical">Lyd, når tiden bliver kritisk</string>
   <string name="gameBehavior">Spil adfærd</string>
   <string name="howDoYouMovePieces">Hvordan flytter du brikker?</string>
+  <string name="clickTwoSquares">Klik på to felter</string>
   <string name="bothClicksAndDrag">Begge dele</string>
   <string name="premovesPlayingDuringOpponentTurn">Pre-træk (spilles på modstanderens tur)</string>
   <string name="takebacksWithOpponentApproval">Fortrydelse af træk (med modstanderens accept)</string>
@@ -677,6 +682,7 @@
   <string name="coaches">Trænere</string>
   <string name="invalidPgn">Ugyldig PGN</string>
   <string name="invalidFen">Ugyldig FEN</string>
+  <string name="error.minLength">Minimumslængde er %s</string>
   <string name="error.min">Skal være større eller lig med %s</string>
   <string name="error.max">Skal være mindre end eller lig med %s</string>
   <string name="error.unknown">Fejl</string>
