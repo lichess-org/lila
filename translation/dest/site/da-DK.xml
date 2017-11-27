@@ -249,6 +249,8 @@
   <string name="yourPerfRatingIsProvisional">Din %s rating er foreløbig</string>
   <string name="yourPerfRatingIsTooHigh">Din %1$s rating (%2$s) er for høj</string>
   <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
+  <string name="ratedMoreThanInPerf">Ratet ≥ %1$s i %2$s</string>
+  <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s</string>
   <string name="backToGame">Vend tilbage til spil</string>
   <string name="siteDescription">Gratis online skakspil. Spil skak med det samme i et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
   <string name="teams">Hold</string>
