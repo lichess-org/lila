@@ -84,6 +84,10 @@
   <string name="youCanGetOutOfCheckByTaking">Du kan komme ud af skak ved at tage den angribende brik.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Springeren stiller skak gennem dit forsvar!</string>
   <string name="escapeOrBlock">Undslip med kongen eller bloker angrebet!</string>
+  <string name="outOfCheckComplete">Tillykke! Din konge må aldrig tages, vær sikker på du kan forsvare mod skak!</string>
+  <string name="mateInOne">Mat i en</string>
+  <string name="defeatTheOpponentsKing">Slå modstanderens konge</string>
+  <string name="mateInOneIntro">Du vinder, når din modstander ikke kan forsvare mod skak.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Partiet ender med remis</string>
   <string name="stalemateIntro">Når en spiller ikke er skak og ikke har noget lovligt træk, er det en pat. Partiet er remis: ingen vinder, ingen taber.</string>
