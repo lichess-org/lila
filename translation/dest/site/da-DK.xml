@@ -394,6 +394,7 @@
   <string name="keepGoing">Bliv ved...</string>
   <string name="puzzleFailed">Opgave mislykket</string>
   <string name="butYouCanKeepTrying">Men du kan blive ved med at prøve.</string>
+  <string name="success">Fuldført</string>
   <string name="wasThisPuzzleAnyGood">Var denne opgave god?</string>
   <string name="pleaseVotePuzzle">Hjælp lichess med at forbedres ved at stemme ved hjælp af op- eller ned-pilen.</string>
   <string name="thankYou">Tak!</string>
@@ -466,6 +467,7 @@
   <string name="boardCoordinates">Brætkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Trækliste mens der spilles</string>
   <string name="pgnPieceNotation">Notation</string>
+  <string name="chessPieceSymbol">Skakbrik-symbol</string>
   <string name="pgnLetter">Bogstaver (K, Q, R, B, N)</string>
   <string name="chessClock">Skakur</string>
   <string name="tenthsOfSeconds">Tiendedelesekunder</string>
