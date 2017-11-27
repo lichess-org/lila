@@ -20,5 +20,13 @@
   <string name="theKingIsSlow">Kongen er langsom.</string>
   <string name="theKnight">Springeren</string>
   <string name="thePawn">Bonden</string>
+  <string name="itMovesForwardOnly">Den bevæger sig kun fremad</string>
+  <string name="useAllThePawns">Brug alle bønder! Ingen grund til at forfremme.</string>
   <string name="pawnPromotion">Bonde-forfremmelse</string>
+  <string name="fundamentals">Grundlæggende</string>
+  <string name="protection">Forsvar</string>
+  <string name="keepYourPiecesSafe">Beskyt dine brikker</string>
+  <string name="escape">Du er under angreb! Undslip truslen!</string>
+  <string name="noEscape">Der er ingen flugtvej, men du kan forsvare!</string>
+  <string name="combat">Kamp</string>
 </resources>
