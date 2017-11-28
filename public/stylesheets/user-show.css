@@ -136,8 +136,8 @@
   font-size: 30px;
   line-height: 60px;
   text-align: center;
-  color: #000!important;
-  text-shadow: none;
+  color: #333!important;
+  text-shadow: 0 0 6px #fff;
 }
 
 .user_show .honorific {

@@ -128,7 +128,8 @@ ol.scheduled_tournaments a {
   font-size: 40px;
   line-height: 80px;
   text-align: center;
-  color: #000;
+  color: #333!important;
+  text-shadow: 0 0 6px #fff;
 }
 #tournament .description {
   padding: 20px;
