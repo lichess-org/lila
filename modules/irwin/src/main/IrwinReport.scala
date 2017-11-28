@@ -6,7 +6,6 @@ import org.joda.time.DateTime
 
 case class IrwinReport(
     _id: String, // user id
-    isLegit: Option[Boolean],
     activation: Int, // 0 = clean, 100 = cheater
     games: List[IrwinReport.GameReport],
     pv0ByAmbiguity: List[Option[Int]],
