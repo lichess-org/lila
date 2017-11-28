@@ -376,9 +376,9 @@ chalk@^1.0.0, chalk@^1.1.1:
   version "0.0.0"
   uid ""
 
-chessground@^7.2:
-  version "7.2.8"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.2.8.tgz#a82b4cfb6610eb649374f7dccc19b57c22018dda"
+chessground@7.2.6:
+  version "7.2.6"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.2.6.tgz#3f4d889933be560a9aff878bda08b9cbbb404b37"
 
 chokidar@^1.0.0:
   version "1.7.0"
