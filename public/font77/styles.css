@@ -368,12 +368,12 @@
 .icon-bullseye:before {
   content: "\e001";
 }
-.icon-mouse-pointer:before {
-  content: "\7b";
-}
 .icon-delicious:before {
   content: "\34";
 }
 .icon-shield:before {
   content: "\35";
+}
+.icon-pointer:before {
+  content: "\7b";
 }
