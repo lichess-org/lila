@@ -204,8 +204,7 @@ object Schedule {
       case (Hourly, Crazyhouse, Blitz) if zhInc(s) => TC(4 * 60, 2)
       case (Hourly, Standard, Blitz) if standardInc(s) => TC(3 * 60, 2)
 
-      case (Shield, ThreeCheck | Antichess, Blitz) => TC(3 * 60, 0)
-      case (Shield, Horde, Blitz) => TC(3 * 60, 2)
+      case (Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2)
 
       case (_, _, UltraBullet) => TC(15, 0)
       case (_, _, HyperBullet) => TC(30, 0)
