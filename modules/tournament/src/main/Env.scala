@@ -85,6 +85,7 @@ final class Env(
     autoPairing = autoPairing,
     clearJsonViewCache = jsonView.clearCache,
     clearWinnersCache = winners.clearCache,
+    clearShieldCache = () => shieldApi.clear,
     renderer = hub.actor.renderer,
     timeline = hub.actor.timeline,
     socketHub = socketHub,

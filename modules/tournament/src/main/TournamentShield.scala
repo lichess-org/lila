@@ -1,7 +1,7 @@
 package lila.tournament
 
-import scala.concurrent.duration._
 import org.joda.time.DateTime
+import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.rating.PerfType
@@ -24,6 +24,8 @@ final class TournamentShieldApi(
   }
 
   def apply: Fu[List[Owner]] = cache.get
+
+  private[tournament] def clear = cache.refresh
 
   private val cache = asyncCache.single[List[Owner]](
     name = "tournament.shield",
@@ -55,6 +57,15 @@ final class TournamentShieldApi(
 }
 
 object TournamentShield {
+
+  def spotlight(name: String) = Spotlight(
+    iconFont = "5".some,
+    headline = s"Battle for the $name Shield",
+    description = s"""This Shield trophy is unique.
+The winner keeps it for one month,
+then must defend it during the next $name tournament!""",
+    homepageHours = 6.some
+  )
 
   case class Owner(
       perfType: PerfType,

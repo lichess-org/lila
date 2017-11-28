@@ -158,7 +158,7 @@ object TournamentRepo {
     import Schedule.Freq._
     tour.schedule.map(_.freq) map {
       case Unique | Yearly | Marathon => 24 * 60
-      case Monthly => 6 * 60
+      case Monthly | Shield => 6 * 60
       case Weekly | Weekend => 3 * 60
       case Daily => 1 * 60
       case _ => 30

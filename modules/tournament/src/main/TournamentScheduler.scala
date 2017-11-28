@@ -168,13 +168,7 @@ Thank you all, you rock!"""
                   Schedule(Shield, speed, Standard, std, date) plan {
                     _.copy(
                       name = s"${speed.toString} Shield",
-                      spotlight = Spotlight(
-                        iconFont = "5".some,
-                        headline = s"Battle for the ${speed.toString} Shield",
-                        description = s"""
-Winner gets the unique ${speed.toString} Shield,
-until the next tournament!"""
-                      ).some
+                      spotlight = Some(TournamentShield spotlight speed.toString)
                     )
                   }
                 }
@@ -193,12 +187,7 @@ until the next tournament!"""
                   Schedule(Shield, Blitz, variant, std, date) plan {
                     _.copy(
                       name = s"${variant.name} Shield",
-                      spotlight = Spotlight(
-                        iconFont = "5".some,
-                        headline = s"Battle for the ${variant.name} Shield",
-                        description = s"""Winner gets the unique ${variant.name} Shield,
-until the next tournament!"""
-                      ).some
+                      spotlight = Some(TournamentShield spotlight variant.name)
                     )
                   }
                 }

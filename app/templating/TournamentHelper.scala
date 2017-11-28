@@ -58,8 +58,8 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
     case System.Arena => System.Arena.toString
   }
 
-  def tournamentIconChar(tour: Tournament): Char = tour.schedule.map(_.freq) match {
-    case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => '\\'
-    case _ => tour.perfType.fold('g')(_.iconChar)
+  def tournamentIconChar(tour: Tournament): String = tour.schedule.map(_.freq) match {
+    case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => "\\"
+    case _ => tour.spotlight.flatMap(_.iconFont) | tour.perfType.fold('g')(_.iconChar).toString
   }
 }
