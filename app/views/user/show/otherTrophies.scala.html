@@ -16,7 +16,10 @@
 }
 }
 @info.shields.map { shield =>
-<a class="shield_trophy hint--left" data-hint="@shield.perfType.name Shield" href="@routes.Tournament.show(shield.tourId)">@shield.perfType.iconChar</a>
+<a
+  class="shield_trophy hint--left"
+  data-hint="@shield.categ.name Shield"
+  href="@routes.Tournament.show(shield.tourId)">@shield.categ.iconChar</a>
 }
 @info.allTrophies.find(_.kind == Kind.ZugMiracle).map { t =>
 <style type="text/css">
