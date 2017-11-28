@@ -136,7 +136,7 @@
   font-size: 30px;
   line-height: 60px;
   text-align: center;
-  color: #000;
+  color: #000!important;
   text-shadow: none;
 }
 

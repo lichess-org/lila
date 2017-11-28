@@ -158,11 +158,10 @@ Thank you all, you rock!"""
 
             List( // shield tournaments!
               month.firstWeek.withDayOfWeek(MONDAY) -> Bullet,
-              month.firstWeek.withDayOfWeek(TUESDAY) -> SuperBlitz,
-              month.firstWeek.withDayOfWeek(WEDNESDAY) -> Blitz,
-              month.firstWeek.withDayOfWeek(THURSDAY) -> Classical,
-              month.firstWeek.withDayOfWeek(FRIDAY) -> HyperBullet,
-              month.firstWeek.withDayOfWeek(SATURDAY) -> UltraBullet
+              month.firstWeek.withDayOfWeek(TUESDAY) -> Blitz,
+              month.firstWeek.withDayOfWeek(WEDNESDAY) -> Classical,
+              month.firstWeek.withDayOfWeek(THURSDAY) -> HyperBullet,
+              month.firstWeek.withDayOfWeek(FRIDAY) -> UltraBullet
             ).flatMap {
                 case (day, speed) => at(day, 16) map { date =>
                   Schedule(Shield, speed, Standard, std, date) plan {
