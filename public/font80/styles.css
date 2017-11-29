@@ -248,9 +248,6 @@
 .icon-flame:before {
   content: "\29";
 }
-.icon-hourglass:before {
-  content: "\2b";
-}
 .icon-arrow-streamline-target:before {
   content: "\2d";
 }
@@ -376,4 +373,10 @@
 }
 .icon-pointer:before {
   content: "\7b";
+}
+.icon-turtle:before {
+  content: "\2b";
+}
+.icon-rabbit:before {
+  content: "\23";
 }

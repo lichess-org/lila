@@ -46,7 +46,7 @@ object PerfType {
     key = "rapid",
     name = Speed.Rapid.name,
     title = Speed.Rapid.title,
-    iconChar = 'C'
+    iconChar = '#'
   )
 
   case object Classical extends PerfType(

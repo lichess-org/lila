@@ -103,7 +103,7 @@ object TournamentShield {
 
     case object Rapid extends Category(
       of = Left(Schedule.Speed.Rapid),
-      iconChar = 'C'
+      iconChar = '#'
     )
 
     case object Chess960 extends Category(

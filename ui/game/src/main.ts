@@ -18,6 +18,7 @@ export const perf = {
     ultraBullet: "{",
     bullet: "T",
     blitz: ")",
+    rapid: "C",
     classical: "+",
     correspondence: ";",
     chess960: "'",
