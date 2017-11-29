@@ -61,7 +61,7 @@ final class ScheduleJsonView(lightUser: LightUser.Getter) {
 
   private val perfPositions: Map[PerfType, Int] = {
     import PerfType._
-    List(Bullet, Blitz, Classical, UltraBullet) ::: variants
+    List(Bullet, Blitz, Rapid, UltraBullet) ::: variants
   }.zipWithIndex.toMap
 
   private def perfJson(p: PerfType) = Json.obj(

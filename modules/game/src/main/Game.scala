@@ -495,12 +495,14 @@ case class Game(
       case UltraBullet => 11
       case Bullet => 16
       case Blitz => 21
-      case _ => 25
+      case Rapid => 25
+      case _ => 30
     }
     else speed match {
       case UltraBullet => 15
       case Bullet => 20
       case Blitz => 25
+      case Rapid => 30
       case _ => 35
     }
     if (variant == chess.variant.Chess960) (base * 2) atMost 90

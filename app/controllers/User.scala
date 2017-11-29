@@ -206,6 +206,7 @@ object User extends LilaController {
           Ok(Json.obj(
             "bullet" -> leaderboards.bullet,
             "blitz" -> leaderboards.blitz,
+            "rapid" -> leaderboards.rapid,
             "classical" -> leaderboards.classical,
             "crazyhouse" -> leaderboards.crazyhouse,
             "chess960" -> leaderboards.chess960,

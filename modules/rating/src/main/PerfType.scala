@@ -41,6 +41,14 @@ object PerfType {
     iconChar = ')'
   )
 
+  case object Rapid extends PerfType(
+    6,
+    key = "rapid",
+    name = Speed.Rapid.name,
+    title = Speed.Rapid.title,
+    iconChar = 'C'
+  )
+
   case object Classical extends PerfType(
     3,
     key = "classical",
@@ -137,7 +145,7 @@ object PerfType {
     iconChar = '-'
   )
 
-  val all: List[PerfType] = List(UltraBullet, Bullet, Blitz, Classical, Correspondence, Standard, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Puzzle)
+  val all: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Standard, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Puzzle)
   val byKey = all map { p => (p.key, p) } toMap
   val byId = all map { p => (p.id, p) } toMap
 
@@ -152,11 +160,11 @@ object PerfType {
 
   def id2key(id: Perf.ID): Option[Perf.Key] = byId get id map (_.key)
 
-  val nonPuzzle: List[PerfType] = List(UltraBullet, Bullet, Blitz, Classical, Correspondence, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
+  val nonPuzzle: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
   val nonGame: List[PerfType] = List(Puzzle)
-  val leaderboardable: List[PerfType] = List(Bullet, Blitz, Classical, UltraBullet, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
+  val leaderboardable: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, UltraBullet, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
   val variants: List[PerfType] = List(Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
-  val standard: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence)
+  val standard: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, Correspondence)
 
   def isGame(pt: PerfType) = !nonGame.contains(pt)
 
@@ -193,7 +201,8 @@ object PerfType {
       case UltraBullet => 25 * 100
       case Bullet => 90 * 100
       case Blitz => 7 * 60 * 100
-      case Classical => 15 * 60 * 100
+      case Rapid => 12 * 60 * 100
+      case Classical => 30 * 60 * 100
       case Correspondence => 60 * 60 * 100
       case _ => 7 * 60 * 100
     })

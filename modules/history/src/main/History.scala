@@ -15,6 +15,7 @@ case class History(
     ultraBullet: RatingsMap,
     bullet: RatingsMap,
     blitz: RatingsMap,
+    rapid: RatingsMap,
     classical: RatingsMap,
     correspondence: RatingsMap,
     puzzle: RatingsMap
@@ -24,6 +25,7 @@ case class History(
     case PerfType.Standard => standard
     case PerfType.Bullet => bullet
     case PerfType.Blitz => blitz
+    case PerfType.Rapid => rapid
     case PerfType.Classical => classical
     case PerfType.Correspondence => correspondence
     case PerfType.Chess960 => chess960
@@ -68,6 +70,7 @@ object History {
         ultraBullet = ratingsMap("ultraBullet"),
         bullet = ratingsMap("bullet"),
         blitz = ratingsMap("blitz"),
+        rapid = ratingsMap("rapid"),
         classical = ratingsMap("classical"),
         correspondence = ratingsMap("correspondence"),
         puzzle = ratingsMap("puzzle")

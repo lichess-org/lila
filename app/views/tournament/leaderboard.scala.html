@@ -60,7 +60,7 @@ moreCss = cssTag("tournament_leaderboard.css")) {
     @freqWinners(winners.bullet, PerfType.Bullet, "Bullet")
     @freqWinners(winners.superblitz, PerfType.Blitz, "SuperBlitz")
     @freqWinners(winners.blitz, PerfType.Blitz, "Blitz")
-    @freqWinners(winners.classical, PerfType.Classical, "Classical")
+    @freqWinners(winners.rapid, PerfType.Blitz, "Rapid")
     @marathonWinners
     @lila.tournament.WinnersApi.variants.map { v =>
     @PerfType.byVariant(v).map { pt =>

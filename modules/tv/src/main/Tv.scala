@@ -77,10 +77,15 @@ object Tv {
       icon = P.Blitz.iconChar.toString,
       filters = Seq(rated, standard, speed(S.Blitz), freshBlitz)
     )
-    case object Classical extends Channel(
+    case object Rapid extends Channel(
       name = S.Classical.name,
       icon = P.Classical.iconChar.toString,
       filters = Seq(rated, standard, speed(S.Classical), fresh(60 * 5))
+    )
+    case object Classical extends Channel(
+      name = S.Rapid.name,
+      icon = P.Rapid.iconChar.toString,
+      filters = Seq(rated, standard, speed(S.Rapid), fresh(60 * 8))
     )
     case object Chess960 extends Channel(
       name = V.Chess960.name,
@@ -134,7 +139,7 @@ object Tv {
     )
     val all = List(
       Best,
-      Bullet, Blitz, Classical,
+      Bullet, Blitz, Rapid, Classical,
       Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings,
       UltraBullet,
       Computer

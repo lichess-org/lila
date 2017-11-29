@@ -30,6 +30,7 @@ final class Cached(
     ultraBullet ← top10Perf(PerfType.UltraBullet.id)
     bullet ← top10Perf(PerfType.Bullet.id)
     blitz ← top10Perf(PerfType.Blitz.id)
+    rapid ← top10Perf(PerfType.Rapid.id)
     classical ← top10Perf(PerfType.Classical.id)
     chess960 ← top10Perf(PerfType.Chess960.id)
     kingOfTheHill ← top10Perf(PerfType.KingOfTheHill.id)
@@ -43,6 +44,7 @@ final class Cached(
     ultraBullet = ultraBullet,
     bullet = bullet,
     blitz = blitz,
+    rapid = rapid,
     classical = classical,
     crazyhouse = crazyhouse,
     chess960 = chess960,

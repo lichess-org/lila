@@ -29,13 +29,13 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     PerfType.Chess960,
     PerfType.Blitz,
     PerfType.KingOfTheHill,
-    PerfType.Classical,
+    PerfType.Rapid,
     PerfType.ThreeCheck,
-    PerfType.Correspondence,
+    PerfType.Classical,
     PerfType.Antichess,
+    PerfType.Correspondence,
     PerfType.Atomic,
     PerfType.Horde,
-    PerfType.RacingKings,
     PerfType.Crazyhouse
   )
 

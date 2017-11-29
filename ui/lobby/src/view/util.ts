@@ -34,6 +34,7 @@ export const perfIcons = {
   'UltraBullet':'{',
   'Bullet':'T',
   'Classical':'+',
+  'Rapid':'C',
   'Three-check':'.',
   'Antichess':'@',
   'Horde':'_',

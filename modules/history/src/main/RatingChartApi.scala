@@ -41,7 +41,7 @@ final class RatingChartApi(
       lila.common.String.html.safeJsonValue {
         Json.toJson {
           import lila.rating.PerfType._
-          List(Bullet, Blitz, Classical, Correspondence, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse, Puzzle, UltraBullet) map { pt =>
+          List(Bullet, Blitz, Rapid, Classical, Correspondence, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse, Puzzle, UltraBullet) map { pt =>
             Json.obj(
               "name" -> pt.name,
               "points" -> ratingsMapToJson(user, history(pt))

@@ -91,7 +91,7 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
         List( // legendary tournaments!
           at(birthday.withYear(today.getYear), 12) map orNextYear map { date =>
             val yo = date.getYear - 2010
-            Schedule(Unique, Classical, Standard, std, date) plan {
+            Schedule(Unique, Rapid, Standard, std, date) plan {
               _.copy(
                 name = s"${date.getYear} Lichess Anniversary",
                 minutes = 12 * 60,
@@ -111,14 +111,14 @@ Thank you all, you rock!"""
           secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
           secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
           secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
-          secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> Classical -> Standard,
+          secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> Rapid -> Standard,
           secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> HyperBullet -> Standard,
           secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> SuperBlitz -> Crazyhouse,
 
           secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
           secondWeekOf(AUGUST).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
           secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
-          secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> Classical -> Standard,
+          secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> Rapid -> Standard,
           secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> HyperBullet -> Standard,
           secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> SuperBlitz -> Crazyhouse
         ).flatMap {
@@ -134,7 +134,7 @@ Thank you all, you rock!"""
               month.lastWeek.withDayOfWeek(MONDAY) -> Bullet,
               month.lastWeek.withDayOfWeek(TUESDAY) -> SuperBlitz,
               month.lastWeek.withDayOfWeek(WEDNESDAY) -> Blitz,
-              month.lastWeek.withDayOfWeek(THURSDAY) -> Classical,
+              month.lastWeek.withDayOfWeek(THURSDAY) -> Rapid,
               month.lastWeek.withDayOfWeek(FRIDAY) -> HyperBullet
             ).flatMap {
                 case (day, speed) => at(day, 17) map { date =>
@@ -160,7 +160,7 @@ Thank you all, you rock!"""
               month.firstWeek.withDayOfWeek(MONDAY) -> Bullet,
               month.firstWeek.withDayOfWeek(TUESDAY) -> SuperBlitz,
               month.firstWeek.withDayOfWeek(WEDNESDAY) -> Blitz,
-              month.firstWeek.withDayOfWeek(THURSDAY) -> Classical,
+              month.firstWeek.withDayOfWeek(THURSDAY) -> Rapid,
               month.firstWeek.withDayOfWeek(FRIDAY) -> HyperBullet,
               month.firstWeek.withDayOfWeek(SATURDAY) -> UltraBullet
             ).flatMap {
@@ -199,7 +199,7 @@ Thank you all, you rock!"""
           nextMonday -> Bullet,
           nextTuesday -> SuperBlitz,
           nextWednesday -> Blitz,
-          nextThursday -> Classical,
+          nextThursday -> Rapid,
           nextFriday -> HyperBullet
         ).flatMap {
             case (day, speed) => at(day, 17) map { date =>
@@ -234,7 +234,7 @@ Thank you all, you rock!"""
           at(today, 16) map { date => Schedule(Daily, Bullet, Standard, std, date |> orTomorrow).plan },
           at(today, 17) map { date => Schedule(Daily, SuperBlitz, Standard, std, date |> orTomorrow).plan },
           at(today, 18) map { date => Schedule(Daily, Blitz, Standard, std, date |> orTomorrow).plan },
-          at(today, 19) map { date => Schedule(Daily, Classical, Standard, std, date |> orTomorrow).plan },
+          at(today, 19) map { date => Schedule(Daily, Rapid, Standard, std, date |> orTomorrow).plan },
           at(today, 20) map { date => Schedule(Daily, HyperBullet, Standard, std, date |> orTomorrow).plan },
           at(today, 21) map { date => Schedule(Daily, UltraBullet, Standard, std, date |> orTomorrow).plan }
         ).flatten,
@@ -254,7 +254,7 @@ Thank you all, you rock!"""
           at(today, 4) map { date => Schedule(Eastern, Bullet, Standard, std, date |> orTomorrow).plan },
           at(today, 5) map { date => Schedule(Eastern, SuperBlitz, Standard, std, date |> orTomorrow).plan },
           at(today, 6) map { date => Schedule(Eastern, Blitz, Standard, std, date |> orTomorrow).plan },
-          at(today, 7) map { date => Schedule(Eastern, Classical, Standard, std, date |> orTomorrow).plan }
+          at(today, 7) map { date => Schedule(Eastern, Rapid, Standard, std, date |> orTomorrow).plan }
         ).flatten,
 
         (isHalloween ? // replace more thematic tournaments on halloween
@@ -275,7 +275,7 @@ Thank you all, you rock!"""
                   at(today, hour) map { date => Schedule(Hourly, Bullet, Standard, opening, date |> orTomorrow).plan },
                   at(today, hour + 1) map { date => Schedule(Hourly, SuperBlitz, Standard, opening, date |> orTomorrow).plan },
                   at(today, hour + 2) map { date => Schedule(Hourly, Blitz, Standard, opening, date |> orTomorrow).plan },
-                  at(today, hour + 3) map { date => Schedule(Hourly, Classical, Standard, opening, date |> orTomorrow).plan }
+                  at(today, hour + 3) map { date => Schedule(Hourly, Rapid, Standard, opening, date |> orTomorrow).plan }
                 ).flatten
               },
 
@@ -294,7 +294,7 @@ Thank you all, you rock!"""
             at(date, hour, 30) map { date => Schedule(Hourly, bulletType, Standard, std, date).plan },
             at(date, hour) map { date => Schedule(Hourly, SuperBlitz, Standard, std, date).plan },
             at(date, hour) map { date => Schedule(Hourly, Blitz, Standard, std, date).plan },
-            at(date, hour) collect { case date if hour % 2 == 0 => Schedule(Hourly, Classical, Standard, std, date).plan }
+            at(date, hour) collect { case date if hour % 2 == 0 => Schedule(Hourly, Rapid, Standard, std, date).plan }
           ).flatten
         },
 
@@ -305,7 +305,7 @@ Thank you all, you rock!"""
           val speed = hour % 3 match {
             case 0 => SuperBlitz
             case 1 => Blitz
-            case _ => Classical
+            case _ => Rapid
           }
           List(
             1500 -> 0,

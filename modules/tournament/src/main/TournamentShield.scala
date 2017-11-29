@@ -101,14 +101,9 @@ object TournamentShield {
       iconChar = ')'
     )
 
-    case object Classical extends Category(
-      of = Left(Schedule.Speed.Classical),
-      iconChar = '+'
-    )
-
-    case object Correspondence extends Category(
-      of = Left(Schedule.Speed.Classical),
-      iconChar = ';'
+    case object Rapid extends Category(
+      of = Left(Schedule.Speed.Rapid),
+      iconChar = 'C'
     )
 
     case object Chess960 extends Category(
@@ -151,7 +146,7 @@ object TournamentShield {
       iconChar = ''
     )
 
-    val all: List[Category] = List(UltraBullet, HyperBullet, Bullet, SuperBlitz, Blitz, Classical, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
+    val all: List[Category] = List(UltraBullet, HyperBullet, Bullet, SuperBlitz, Blitz, Rapid, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
   }
 
   def spotlight(name: String) = Spotlight(
