@@ -89,14 +89,19 @@ final class StudySearchApi(
   def reset(system: akka.actor.ActorSystem) = client match {
     case c: ESClientHttp => c.putMapping >> {
       logger.info(s"Index to ${c.index.name}")
+      val retryLogger = logger.branch("index")
       import lila.db.dsl._
-      studyRepo.cursor($empty).enumerator() |>>>
-        Iteratee.foldM[Study, Int](0) {
-          case (nb, study) =>
-            lila.common.Future.retry(doStore(study), 10 seconds, 10)(system) inject {
-              if (nb % 100 == 0) logger.info(s"Indexed $nb studies")
-              nb + 1
+      studyRepo.cursor($empty, sort = $sort asc "createdAt").enumerator() &>
+        Enumeratee.grouped(Iteratee takeUpTo 4) |>>>
+        Iteratee.foldM[Seq[Study], Int](0) {
+          case (nb, studies) => studies.map { study =>
+            lila.common.Future.retry(doStore(study), 5 seconds, 10, retryLogger)(system)
+          }.sequenceFu inject {
+            studies.headOption.ifTrue(nb % 100 == 0) foreach { study =>
+              logger.info(s"Indexed $nb studies - ${study.createdAt}")
             }
+            nb + studies.size
+          }
         }
     } >> client.refresh
     case _ => funit
