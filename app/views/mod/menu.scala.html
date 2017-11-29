@@ -38,8 +38,8 @@
   Chat Panic <strong>@if(isChatPanicEnabled){ON}else{OFF}</strong>
 </a>
 }
-@if(isGranted(_.AssetVersion)) {
-<a class="@active.active("asset")" href="@routes.Dev.assetVersion">Asset version @ctx.pageData.assetVersion</a>
+@if(isGranted(_.Settings)) {
+<a class="@active.active("setting")" href="@routes.Dev.settings">Settings</a>
 }
 @if(isGranted(_.Cli)) {
 <a class="@active.active("cli")" href="@routes.Dev.cli">CLI</a>

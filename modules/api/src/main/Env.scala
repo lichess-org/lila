@@ -7,7 +7,7 @@ import lila.simul.Simul
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
+    settingStore: lila.memo.SettingStore.Builder,
     renderer: ActorSelection,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
@@ -53,10 +53,11 @@ final class Env(
   private val InfluxEventEndpoint = config getString "api.influx_event.endpoint"
   private val InfluxEventEnv = config getString "api.influx_event.env"
 
-  val assetVersion = new AssetVersionApi(
-    fromConfig = lila.common.AssetVersion(config getInt "net.asset.version"),
-    coll = db("flag")
-  )(system)
+  val assetVersionSetting = settingStore[Int](
+    "assetVersion",
+    default = config getInt "net.asset.version",
+    text = "Assets version. Increment to force all clients to load a new version of static assets. Decrement to serve a previous revision of static assets.".some
+  )
 
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
@@ -135,7 +136,7 @@ object Env {
 
   lazy val current = "api" boot new Env(
     config = lila.common.PlayApp.loadConfig,
-    db = lila.db.Env.current,
+    settingStore = lila.memo.Env.current.settingStore,
     renderer = lila.hub.Env.current.actor.renderer,
     userEnv = lila.user.Env.current,
     analyseEnv = lila.analyse.Env.current,

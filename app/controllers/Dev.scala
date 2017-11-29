@@ -8,23 +8,26 @@ import views._
 
 object Dev extends LilaController {
 
-  def assetVersion = Secure(_.AssetVersion) { implicit ctx => me =>
-    Ok(html.dev.assetVersion(
-      Env.api.assetVersion.fromConfig,
-      Env.api.assetVersion.get
-    )).fuccess
+  private lazy val settingsList = List[lila.memo.SettingStore[_]](
+    Env.security.ugcArmedSetting,
+    Env.api.assetVersionSetting
+  )
+
+  def settings = Secure(_.Settings) { implicit ctx => me =>
+    Ok(html.dev.settings(settingsList)).fuccess
   }
 
-  def assetVersionPost = SecureBody(_.AssetVersion) { implicit ctx => me =>
-    implicit val req = ctx.body
-    Form(single(
-      "version" -> number(min = 0)
-    )).bindFromRequest.fold(
-      err => funit,
-      v => Env.api.assetVersion.set(
-        lila.common.AssetVersion(v)
-      ) inject Redirect(routes.Dev.assetVersion)
-    ) inject Redirect(routes.Dev.assetVersion)
+  def settingsPost(id: String) = SecureBody(_.Settings) { implicit ctx => me =>
+    ~(for {
+      setting <- settingsList.find(_.id == id)
+      form <- setting.form
+    } yield {
+      implicit val req = ctx.body
+      form.bindFromRequest.fold(
+        err => BadRequest(html.dev.settings(settingsList)).fuccess,
+        v => setting.setString(v.toString) inject Redirect(routes.Dev.settings)
+      )
+    })
   }
 
   private val commandForm = Form(single(

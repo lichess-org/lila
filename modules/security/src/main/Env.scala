@@ -9,6 +9,7 @@ final class Env(
     authenticator: lila.user.Authenticator,
     slack: lila.slack.SlackApi,
     asyncCache: lila.memo.AsyncCache.Builder,
+    settingStore: lila.memo.SettingStore.Builder,
     system: akka.actor.ActorSystem,
     scheduler: lila.common.Scheduler,
     db: lila.db.Env
@@ -82,11 +83,17 @@ final class Env(
 
   lazy val ipIntel = new IpIntel(asyncCache, NetEmail)
 
+  lazy val ugcArmedSetting = settingStore[Boolean](
+    "ugcArmed",
+    default = true,
+    text = "Enable the user garbage collector".some
+  )
+
   lazy val garbageCollector = new GarbageCollector(
     userSpyApi,
     ipIntel,
     slack,
-    db("flag"),
+    ugcArmedSetting.get,
     system
   )
 
@@ -159,6 +166,7 @@ object Env {
     authenticator = lila.user.Env.current.authenticator,
     slack = lila.slack.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
+    settingStore = lila.memo.Env.current.settingStore,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     captcher = lila.hub.Env.current.actor.captcher

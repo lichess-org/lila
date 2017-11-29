@@ -1,11 +1,9 @@
 package lila.security
 
 import org.joda.time.DateTime
-import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.common.{ EmailAddress, IpAddress }
-import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
 // codename UGC
@@ -13,7 +11,7 @@ final class GarbageCollector(
     userSpy: UserSpyApi,
     ipIntel: IpIntel,
     slack: lila.slack.SlackApi,
-    configColl: Coll,
+    isArmed: () => Boolean,
     system: akka.actor.ActorSystem
 ) {
 
@@ -59,16 +57,14 @@ final class GarbageCollector(
   private def checkable(user: User, email: EmailAddress): Boolean =
     user.createdAt.isAfter(DateTime.now minusDays 3)
 
-  private def isEffective =
-    configColl.primitiveOne[Boolean]($id("ugc"), "value").map(~_)
-
-  private def collect(user: User, email: EmailAddress, others: List[User], ipBan: Boolean): Funit = isEffective flatMap { effective =>
+  private def collect(user: User, email: EmailAddress, others: List[User], ipBan: Boolean): Funit = {
+    val armed = isArmed()
     val wait = (30 + scala.util.Random.nextInt(300)).seconds
     val othersStr = others.map(o => "@" + o.username).mkString(", ")
-    val message = s"Will dispose of @${user.username} in $wait. Email: $email. Prev users: $othersStr${!effective ?? " [SIMULATION]"}"
+    val message = s"Will dispose of @${user.username} in $wait. Email: $email. Prev users: $othersStr${!armed ?? " [SIMULATION]"}"
     logger.branch("GarbageCollector").info(message)
     slack.garbageCollector(message) >>- {
-      if (effective) system.scheduler.scheduleOnce(wait) {
+      if (armed) system.scheduler.scheduleOnce(wait) {
         doCollect(user, ipBan)
       }
     }

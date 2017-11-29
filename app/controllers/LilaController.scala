@@ -313,7 +313,7 @@ private[controllers] trait LilaController
       }
     }
 
-  private def getAssetVersion = Env.api.assetVersion.get
+  protected def getAssetVersion = lila.common.AssetVersion(Env.api.assetVersionSetting.get())
 
   private def blindMode(implicit ctx: UserContext) =
     ctx.req.cookies.get(Env.api.Accessibility.blindCookieName) ?? { c =>
