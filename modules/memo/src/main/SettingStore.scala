@@ -18,7 +18,7 @@ final class SettingStore[A: BSONValueHandler: SettingStore.StringReader] private
 
   def set(v: A): Funit = {
     value = v
-    coll.updateField(dbId, dbField, v).void
+    coll.update(dbId, $set(dbField -> v), upsert = true).void
   }
 
   def form: Option[Form[_]] = SettingStore formOf this
