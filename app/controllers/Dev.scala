@@ -10,6 +10,7 @@ object Dev extends LilaController {
 
   private lazy val settingsList = List[lila.memo.SettingStore[_]](
     Env.security.ugcArmedSetting,
+    Env.irwin.irwinArmedSetting,
     Env.api.assetVersionSetting
   )
 
