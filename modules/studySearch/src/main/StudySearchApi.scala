@@ -86,16 +86,17 @@ final class StudySearchApi(
   private def noMultiSpace(text: String) = multiSpaceRegex.replaceAllIn(text, " ")
 
   import reactivemongo.play.iteratees.cursorProducer
-  def reset = client match {
+  def reset(system: akka.actor.ActorSystem) = client match {
     case c: ESClientHttp => c.putMapping >> {
       logger.info(s"Index to ${c.index.name}")
       import lila.db.dsl._
       studyRepo.cursor($empty).enumerator() |>>>
         Iteratee.foldM[Study, Int](0) {
-          case (nb, study) => doStore(study) inject {
-            if (nb % 100 == 0) logger.info(s"Indexed $nb studies")
-            nb + 1
-          }
+          case (nb, study) =>
+            lila.common.Future.retry(doStore(study), 10 seconds, 10)(system) inject {
+              if (nb % 100 == 0) logger.info(s"Indexed $nb studies")
+              nb + 1
+            }
         }
     } >> client.refresh
     case _ => funit
