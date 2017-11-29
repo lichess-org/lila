@@ -38,13 +38,6 @@ final class Env(
       case InsertGame(game) => api store game
     }
   }), name = ActorName), 'finishGame)
-
-  def cli = new lila.common.Cli {
-    def process = {
-      case "game" :: "search" :: "index" :: "all" :: Nil => api.indexAll inject "done"
-      case "game" :: "search" :: "index" :: since :: Nil => api.indexSince(since) inject "done"
-    }
-  }
 }
 
 object Env {
