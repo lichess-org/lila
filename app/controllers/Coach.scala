@@ -9,7 +9,7 @@ import views._
 
 object Coach extends LilaController {
 
-  private val api = Env.coach.api
+  private def api = Env.coach.api
 
   def allDefault(page: Int) = all(CoachPager.Order.Login.key, page)
 
