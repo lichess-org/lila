@@ -12,9 +12,13 @@ function copyPerf(p) {
   };
 }
 
-var query = {_id:{$in:['thibault', 'neio']}};
+// var query = {_id:{$in:['thibault', 'neio']}};
+var query = {
+  'perfs.classical.nb':{$gte:1},
+  'perfs.rapid': { $exists: false }
+};
 
-db.user4.find(query).forEach(u => {
+db.user4.find(query).limit(1000).forEach(u => {
   var rapid = copyPerf(u.perfs.classical);
   if (rapid) db.user4.update({_id:u._id}, {$set: {'perfs.rapid':rapid}});
 });
