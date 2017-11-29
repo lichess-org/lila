@@ -56,12 +56,8 @@ final class GarbageCollector(
   private def isBadAccount(user: User) =
     (user.troll || user.engine) && !user.enabled
 
-  private val emailSuffixes = "yandex.ru yandex.com mailfa.com juno.com mail.ru"
-    .split(' ').toList.map("@" + _)
-
   private def checkable(user: User, email: EmailAddress): Boolean =
-    user.createdAt.isAfter(DateTime.now minusDays 3) &&
-      emailSuffixes.exists(email.value.endsWith)
+    user.createdAt.isAfter(DateTime.now minusDays 3)
 
   private def isEffective =
     configColl.primitiveOne[Boolean]($id("ugc"), "value").map(~_)
