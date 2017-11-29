@@ -380,9 +380,9 @@ chalk@^1.0.0, chalk@^1.1.1:
   version "0.0.0"
   uid ""
 
-chessground@7.2.6:
-  version "7.2.6"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.2.6.tgz#3f4d889933be560a9aff878bda08b9cbbb404b37"
+chessground@^7.2:
+  version "7.2.9"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.2.9.tgz#3f030f7290037024457e00cbde64a5e163083892"
 
 chokidar@^1.0.0:
   version "1.7.0"
@@ -442,8 +442,8 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
     delayed-stream "~1.0.0"
 
 commander@~2.12.1:
-  version "2.12.1"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.12.1.tgz#468635c4168d06145b9323356d1da84d14ac4a7a"
+  version "2.12.2"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.12.2.tgz#0f5946c427ed9ec0d91a46bb9def53e54650e555"
 
 "common@link:../common":
   version "0.0.0"
