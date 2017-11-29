@@ -49,7 +49,7 @@
   <string name="computerAnalysisAvailable">Computeranalyse beschikbaar</string>
   <string name="analysis">Analyse</string>
   <string name="depthX">Diepte %s</string>
-  <string name="usingServerAnalysis">Met serveranalyse</string>
+  <string name="usingServerAnalysis">Met behulp van server-analyse</string>
   <string name="loadingEngine">Laden van computer...</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Dieper gaan</string>
@@ -414,6 +414,7 @@
   <string name="biography">Biografie</string>
   <string name="country">Land</string>
   <string name="preferences">Voorkeuren</string>
+  <string name="inlineNotation">Geïntegreerde notatie</string>
   <string name="watchLichessTV">Kijk Lichess TV</string>
   <string name="previouslyOnLichessTV">Voorheen op Lichess TV</string>
   <string name="onlinePlayers">Online spelers</string>
@@ -755,4 +756,5 @@
   <string name="notifications">Meldingen</string>
   <string name="challenges">Uitdagingen</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s seconden om eerste zet te spelen</string>
 </resources>
