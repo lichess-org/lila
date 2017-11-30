@@ -9,8 +9,8 @@ import lila.user.User
 final class AutoPairing(onStart: String => Unit) {
 
   def apply(tour: Tournament, pairing: Pairing, usersMap: Map[User.ID, User]): Fu[Game] = {
-    val user1 = usersMap get pairing.user1 err s"Missing pairing user $pairing"
-    val user2 = usersMap get pairing.user2 err s"Missing pairing user $pairing"
+    val user1 = usersMap get pairing.user1 err s"Missing pairing user1 $pairing"
+    val user2 = usersMap get pairing.user2 err s"Missing pairing user2 $pairing"
     val game1 = Game.make(
       game = chess.Game(
         variantOption = tour.variant.some,
