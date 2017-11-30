@@ -1,6 +1,3 @@
-/// <reference types="types/lichess" />
-/// <reference types="types/lichess-jquery" />
-
 import { Chessground } from 'chessground';
 import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'

@@ -22,7 +22,7 @@
     "compile": "tsc"
   },
   "devDependencies": {
-    "types": "link:../types",
+    "@types/lichess": "1.0.0",
     "typescript": "^2"
   },
   "dependencies": {}

@@ -1,5 +1,3 @@
-/// <reference types="types/lichess" />
-/// <reference types="types/lichess-jquery" />
 import { h } from 'snabbdom';
 import { bind } from '../util';
 import LobbyController from '../../ctrl';

@@ -87,11 +87,9 @@ object Report extends LilaController {
   }
 
   def form = Auth { implicit ctx => implicit me =>
-    NotForKids {
-      get("username") ?? UserRepo.named flatMap { user =>
-        env.forms.createWithCaptcha map {
-          case (form, captcha) => Ok(html.report.form(form, user, captcha))
-        }
+    get("username") ?? UserRepo.named flatMap { user =>
+      env.forms.createWithCaptcha map {
+        case (form, captcha) => Ok(html.report.form(form, user, captcha))
       }
     }
   }

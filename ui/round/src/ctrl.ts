@@ -89,15 +89,10 @@ export default class RoundController {
       onFlag: () => { this.socket.outoftime(); this.redraw(); },
       soundColor: (d.simul || d.player.spectator || !d.pref.clockSound) ? undefined : d.player.color
     });
-    else this.makeCorrespondenceClock();
-
-    if (this.clock) {
-      const tickNow = () => {
-        this.clock!.tick();
-        if (game.playable(this.data)) setTimeout(tickNow, 100);
-      };
-      setTimeout(tickNow, 100);
-    } else setInterval(this.corresClockTick, 1000);
+    else {
+      this.makeCorrespondenceClock();
+      setInterval(this.corresClockTick, 1000);
+    }
 
     this.setQuietMode();
 

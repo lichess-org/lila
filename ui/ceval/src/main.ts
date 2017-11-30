@@ -1,6 +1,3 @@
-/// <reference types="types/lichess" />
-/// <reference types="types/defer-promise" />
-
 import ctrl from './ctrl';
 import * as view from './view';
 import * as winningChances from './winningChances';

@@ -1,5 +1,3 @@
-/// <reference types="types/lichess" />
-
 import view from './view';
 
 import { init } from 'snabbdom';

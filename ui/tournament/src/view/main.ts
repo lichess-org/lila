@@ -1,4 +1,3 @@
-/// <reference types="types/lichess" />
 import { h } from 'snabbdom'
 import * as created from './created';
 import * as started from './started';

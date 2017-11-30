@@ -1,4 +1,3 @@
-/// <reference types="types/lichess-jquery" />
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import LobbyController from '../../ctrl';

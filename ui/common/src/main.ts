@@ -1,5 +1,3 @@
-/// <reference types="types/lichess" />
-
 export function defined<A>(v: A | undefined): v is A {
   return typeof v !== 'undefined';
 }

@@ -1,5 +1,3 @@
-/// <reference types="types/lichess" />
-
 import { GameData, GameView, Player, Status, Source, Simul } from './interfaces';
 
 import * as game from './game';
