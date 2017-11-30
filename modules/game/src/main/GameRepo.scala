@@ -102,20 +102,14 @@ object GameRepo {
   def cursor(
     selector: Bdoc,
     readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(
-    implicit
-    cp: CursorProducer[Game]
-  ) =
+  )(implicit cp: CursorProducer[Game]) =
     coll.find(selector).cursor[Game](readPreference)
 
   def sortedCursor(
     selector: Bdoc,
     sort: Bdoc,
     readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(
-    implicit
-    cp: CursorProducer[Game]
-  ) =
+  )(implicit cp: CursorProducer[Game]) =
     coll.find(selector).sort(sort).cursor[Game](readPreference)
 
   def goBerserk(pov: Pov): Funit =
