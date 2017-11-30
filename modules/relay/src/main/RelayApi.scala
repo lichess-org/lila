@@ -22,8 +22,10 @@ final class RelayApi(
 
   def byId(id: Relay.Id) = repo.coll.byId[Relay](id.value)
 
-  def byIdAndOwner(id: Relay.Id, owner: User) = byId(id) map {
-    _.filter(_.ownerId == owner.id)
+  def byIdAndContributor(id: Relay.Id, me: User) = byIdWithStudy(id) map {
+    _ collect {
+      case Relay.WithStudy(relay, study) if study canContribute me.id => relay
+    }
   }
 
   def byIdWithStudy(id: Relay.Id): Fu[Option[Relay.WithStudy]] = WithRelay(id) { relay =>

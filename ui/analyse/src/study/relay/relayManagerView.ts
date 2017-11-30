@@ -9,12 +9,12 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
   if (ctrl.members.canContribute()) return h('div.relay_wrap', [
     h('h2', [
       h('span.text', { attrs: dataIcon('') }, 'Broadcast manager'),
-      ctrl.members.isOwner() ? h('a', {
+      h('a', {
         attrs: {
           href: `/broadcast/${d.slug}/${d.id}/edit`,
           'data-icon': '%'
         }
-      }) : null
+      })
     ]),
     h('div.relay', [
       (d.sync.ongoing ? stateOn : stateOff)(ctrl),

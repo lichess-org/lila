@@ -38,13 +38,13 @@ object Relay extends LilaController {
   }
 
   def edit(slug: String, id: String) = Auth { implicit ctx => me =>
-    OptionFuResult(env.api.byIdAndOwner(id, me)) { relay =>
+    OptionFuResult(env.api.byIdAndContributor(id, me)) { relay =>
       Ok(html.relay.edit(relay, env.forms.edit(relay))).fuccess
     }
   }
 
   def update(slug: String, id: String) = AuthBody { implicit ctx => me =>
-    OptionFuResult(env.api.byIdAndOwner(id, me)) { relay =>
+    OptionFuResult(env.api.byIdAndContributor(id, me)) { relay =>
       implicit val req = ctx.body
       env.forms.edit(relay).bindFromRequest.fold(
         err => BadRequest(html.relay.edit(relay, err)).fuccess,
