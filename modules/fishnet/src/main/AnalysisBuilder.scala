@@ -23,7 +23,12 @@ private final class AnalysisBuilder(evalCache: FishnetEvalCache) {
 
     GameRepo.game(work.game.id) zip evalCache.evals(work) flatMap {
       case (None, _) => fufail(AnalysisBuilder.GameIsGone(work.game.id))
-      case (Some(game), cached) =>
+      case (Some(game), cachedFull) =>
+        /* remove first eval in partial analysis
+         * to prevent the mobile app from thinking it's complete
+         * https://github.com/veloce/lichobile/issues/722
+         */
+        val cached = if (isPartial) cachedFull - 0 else cachedFull
         GameRepo.initialFen(game) flatMap { initialFen =>
           def debug = s"${game.variant.key} analysis for ${game.id} by ${client.fullId}"
           chess.Replay(game.pgnMoves, initialFen, game.variant).flatMap(_.valid).fold(
