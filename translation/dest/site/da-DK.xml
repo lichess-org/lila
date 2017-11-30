@@ -284,10 +284,10 @@
   <string name="filterGames">Filtrér spil</string>
   <string name="reset">Nulstil</string>
   <string name="apply">Anvend</string>
-  <string name="leaderboard">Førertavle</string>
+  <string name="leaderboard">Bedste spillere</string>
   <string name="pasteTheFenStringHere">Indsæt FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Indsæt PGN-teksten her</string>
-  <string name="fromPosition">Fra stilling</string>
+  <string name="fromPosition">Fra position</string>
   <string name="continueFromHere">Fortsæt herfra</string>
   <string name="importGame">Importér spil</string>
   <string name="importGameExplanation">Når du indsætter et partis PGN, får du en afspillelig gengivelse, en computeranalyse, en spilchat og en URL til deling.</string>
@@ -305,7 +305,7 @@
   <string name="onlineFriends">Venner som er online</string>
   <string name="noFriendsOnline">Ingen venner er online</string>
   <string name="findFriends">Find venner</string>
-  <string name="favoriteOpponents">Yndlings modstandere</string>
+  <string name="favoriteOpponents">Favoritmodstandere</string>
   <string name="follow">Følg</string>
   <string name="following">Følger</string>
   <string name="unfollow">Ophør med at følge</string>
@@ -330,8 +330,8 @@
   <string name="list">Liste</string>
   <string name="graph">Graf</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">mindre end %s minutter</item>
-    <item quantity="other">mindre end %s minutter</item>
+    <item quantity="one">Mindre end %s minut</item>
+    <item quantity="other">Mindre end %s minutter</item>
   </plurals>
   <string name="required">Påkrævet</string>
   <string name="openTournaments">Åben turnering</string>
@@ -345,7 +345,7 @@
   <string name="wins">Gevinster</string>
   <string name="losses">Tabte</string>
   <string name="winStreak">Sejrsstribe</string>
-  <string name="createdBy">Lavet af</string>
+  <string name="createdBy">Oprettet af</string>
   <string name="tournamentIsStarting">Turneringen er begyndt</string>
   <string name="tournamentPairingsAreNowClosed">Pardannelsen til turneringen er nu lukket.</string>
   <string name="standByX">Hold dig til %s, danner par med andre spillere – gør dig klar!</string>
