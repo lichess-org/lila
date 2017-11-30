@@ -21,9 +21,7 @@ final class Env(
   private val CollectionUserConfig = config getString "collection.user_config"
   private val CollectionAnonConfig = config getString "collection.anon_config"
 
-  val CasualOnly = config getBoolean "casual_only"
-
-  lazy val forms = new FormFactory(CasualOnly)
+  lazy val forms = new FormFactory
 
   def filter(ctx: UserContext): Fu[FilterConfig] =
     ctx.me.fold(AnonConfigRepo filter ctx.req)(UserConfigRepo.filter)

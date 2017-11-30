@@ -15,7 +15,6 @@ private[round] final class Finisher(
     notifier: RoundNotifier,
     crosstableApi: lila.game.CrosstableApi,
     bus: lila.common.Bus,
-    casualOnly: Boolean,
     getSocketStatus: Game.ID => Fu[actorApi.SocketStatus]
 ) {
 
@@ -70,38 +69,34 @@ private[round] final class Finisher(
     val prog = game.finish(status, winner)
     if (game.nonAi && game.isCorrespondence) Color.all foreach notifier.gameEnd(prog.game)
     lila.mon.game.finish(status.name)()
-    casualOnly.fold(
-      GameRepo unrate prog.game.id inject prog.game.copy(mode = chess.Mode.Casual),
-      fuccess(prog.game)
-    ) flatMap { g =>
-        proxy.save(prog) >>
-          GameRepo.finish(
-            id = g.id,
-            winnerColor = winner,
-            winnerId = winner flatMap (g.player(_).userId),
-            status = prog.game.status
-          ) >>
-          UserRepo.pair(
-            g.whitePlayer.userId,
-            g.blackPlayer.userId
-          ).zip {
-              // because the game comes from the round GameProxy,
-              // it doesn't have the tvAt field set
-              // so we fetch it from the DB
-              GameRepo hydrateTvAt g
-            } flatMap {
-              case ((whiteO, blackO), g) => {
-                val finish = FinishGame(g, whiteO, blackO)
-                updateCountAndPerfs(finish) map { ratingDiffs =>
-                  message foreach { messenger.system(g, _) }
-                  GameRepo game g.id foreach { newGame =>
-                    bus.publish(finish.copy(game = newGame | g), 'finishGame)
-                  }
-                  prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
-                }
+    val g = prog.game
+    proxy.save(prog) >>
+      GameRepo.finish(
+        id = g.id,
+        winnerColor = winner,
+        winnerId = winner flatMap (g.player(_).userId),
+        status = prog.game.status
+      ) >>
+      UserRepo.pair(
+        g.whitePlayer.userId,
+        g.blackPlayer.userId
+      ).zip {
+          // because the game comes from the round GameProxy,
+          // it doesn't have the tvAt field set
+          // so we fetch it from the DB
+          GameRepo hydrateTvAt g
+        } flatMap {
+          case ((whiteO, blackO), g) => {
+            val finish = FinishGame(g, whiteO, blackO)
+            updateCountAndPerfs(finish) map { ratingDiffs =>
+              message foreach { messenger.system(g, _) }
+              GameRepo game g.id foreach { newGame =>
+                bus.publish(finish.copy(game = newGame | g), 'finishGame)
               }
+              prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
             }
-      }
+          }
+        }
   } >>- proxy.invalidate
 
   private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =

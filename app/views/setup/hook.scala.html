@@ -8,9 +8,7 @@
 @setup.timeMode(form, lila.setup.HookConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">
-  @globalCasualOnlyMessage.getOrElse {
   @setup.radios(form("mode"), translatedModeChoices)
-  }
 </div>
 <div class="optional_config">
   <div class="rating_range_config slider">

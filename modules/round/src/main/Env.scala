@@ -47,7 +47,6 @@ final class Env(
     val SocketTimeout = config duration "socket.timeout"
     val NetDomain = config getString "net.domain"
     val ActorMapName = config getString "actor.map.name"
-    val CasualOnly = config getBoolean "casual_only"
     val ActiveTtl = config duration "active.ttl"
     val CollectionNote = config getString "collection.note"
     val CollectionHistory = config getString "collection.history"
@@ -156,7 +155,6 @@ final class Env(
     notifier = notifier,
     playban = playban,
     bus = bus,
-    casualOnly = CasualOnly,
     getSocketStatus = getSocketStatus
   )
 

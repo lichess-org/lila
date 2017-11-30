@@ -5,7 +5,7 @@ import lila.user.UserContext
 import play.api.data._
 import play.api.data.Forms._
 
-private[setup] final class FormFactory(casualOnly: Boolean) {
+private[setup] final class FormFactory {
 
   import Mappings._
 
@@ -60,7 +60,7 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
       "time" -> time,
       "increment" -> increment,
       "days" -> days,
-      "mode" -> mode(withRated = ctx.isAuth && !casualOnly),
+      "mode" -> mode(withRated = ctx.isAuth),
       "color" -> color,
       "fen" -> fen
     )(FriendConfig.<<)(_.>>)
@@ -80,7 +80,7 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
       "time" -> time,
       "increment" -> increment,
       "days" -> days,
-      "mode" -> mode(ctx.isAuth && !casualOnly),
+      "mode" -> mode(ctx.isAuth),
       "ratingRange" -> optional(ratingRange),
       "color" -> nonEmptyText.verifying(Color.names contains _)
     )(HookConfig.<<)(_.>>)
