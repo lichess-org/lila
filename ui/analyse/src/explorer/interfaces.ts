@@ -7,7 +7,7 @@ export interface Hovering {
 
 export type ExplorerDb = 'lichess' | 'masters';
 
-export type ExplorerSpeed = 'bullet' | 'blitz' | 'classical';
+export type ExplorerSpeed = 'bullet' | 'blitz' | 'rapid' | 'classical';
 
 export interface ExplorerConfigData {
   open: Prop<boolean>;

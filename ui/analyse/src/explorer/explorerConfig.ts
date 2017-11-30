@@ -5,6 +5,8 @@ import { bind, dataIcon } from '../util';
 import { Game } from '../interfaces';
 import { ExplorerDb, ExplorerSpeed, ExplorerConfigData, ExplorerConfigCtrl } from './interfaces';
 
+const allSpeeds: ExplorerSpeed[] = ['bullet', 'blitz', 'rapid', 'classical'];
+
 export function controller(game: Game, onClose: () => void, trans: Trans, redraw: () => void): ExplorerConfigCtrl {
 
   const variant = (game.variant.key === 'fromPosition') ? 'standard' : game.variant.key;
@@ -25,8 +27,8 @@ export function controller(game: Game, onClose: () => void, trans: Trans, redraw
       selected: storedJsonProp('explorer.rating', [1600, 1800, 2000, 2200, 2500])
     },
     speed: {
-      available: ['bullet', 'blitz', 'classical'],
-      selected: storedJsonProp<ExplorerSpeed[]>('explorer.speed', ['bullet', 'blitz', 'classical'])
+      available: allSpeeds,
+      selected: storedJsonProp<ExplorerSpeed[]>('explorer.speed', allSpeeds)
     }
   };
 
