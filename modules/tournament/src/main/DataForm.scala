@@ -42,7 +42,7 @@ final class DataForm {
     "minutes" -> numberIn(minutePrivateChoices),
     "waitMinutes" -> numberIn(waitMinuteChoices),
     "variant" -> number.verifying(validVariantIds contains _),
-    "position" -> nonEmptyText.verifying(positions contains _),
+    "position" -> nonEmptyText,
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
     "private" -> optional(text.verifying("on" == _)),
     "password" -> optional(nonEmptyText)
