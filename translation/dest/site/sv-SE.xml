@@ -755,4 +755,5 @@
   <string name="notifications">Notifikationer</string>
   <string name="challenges">Utmaningar</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s sekunder att göra första draget</string>
 </resources>
