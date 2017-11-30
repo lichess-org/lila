@@ -114,11 +114,11 @@
   </plurals>
   <string name="currentGames">Partier der bliver spillet nu</string>
   <plurals name="nbGames">
-    <item quantity="one">Se alle %s partier</item>
+    <item quantity="one">Se %s parti</item>
     <item quantity="other">Se alle %s partier</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s bogmærker</item>
+    <item quantity="one">%s bogmærke</item>
     <item quantity="other">%s bogmærker</item>
   </plurals>
   <string name="viewInFullSize">Se i fuldskærm</string>
@@ -182,7 +182,7 @@
   <string name="yourOpponentOffersADraw">Din modstander tilbyder remis</string>
   <string name="accept">Accepter</string>
   <string name="decline">Afslå</string>
-  <string name="playingRightNow">Spiller lige nu</string>
+  <string name="playingRightNow">Spilles lige nu</string>
   <string name="finished">Afsluttet</string>
   <string name="abortGame">Afbryd parti</string>
   <string name="gameAborted">Partiet blev afbrudt</string>
@@ -212,9 +212,9 @@
   <string name="send">Send</string>
   <string name="incrementInSeconds">Tillæg i sekunder</string>
   <string name="freeOnlineChess">Gratis Online-skak</string>
-  <string name="spectators">Tilskuere</string>
+  <string name="spectators">Tilskuere:</string>
   <plurals name="nbWins">
-    <item quantity="one">%s sejre</item>
+    <item quantity="one">%s sejr</item>
     <item quantity="other">%s sejre</item>
   </plurals>
   <plurals name="nbLosses">
@@ -222,16 +222,16 @@
     <item quantity="other">%s nederlag</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s remiser</item>
+    <item quantity="one">%s remis</item>
     <item quantity="other">%s remiser</item>
   </plurals>
   <string name="exportGames">Eksporter spil</string>
   <string name="ratingRange">Rating-interval</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Giv %s sekunder</item>
+    <item quantity="one">Giv %s sekund</item>
     <item quantity="other">Giv %s sekunder</item>
   </plurals>
-  <string name="giveMoreTime">Give mere tid</string>
+  <string name="giveMoreTime">Giv mere tid</string>
   <string name="thisPlayerUsesChessComputerAssistance">Denne spiller bruger skakcomputerassistance</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Denne spiller forøger eller sænker sin rating kunstigt</string>
   <string name="openingExplorerAndTablebase">Åbner database &amp; tablebase</string>
@@ -261,7 +261,7 @@
   <string name="siteDescription">Gratis online skakspil. Spil skak med det samme i et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
   <string name="teams">Hold</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s medlemmer</item>
+    <item quantity="one">%s medlem</item>
     <item quantity="other">%s medlemmer</item>
   </plurals>
   <string name="allTeams">Alle hold</string>
