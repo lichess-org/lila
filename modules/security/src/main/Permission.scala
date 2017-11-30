@@ -67,7 +67,7 @@ object Permission {
   ))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(
-    Admin, ChangePermission, PublicMod, Developer, Impersonate, PayPal, Cli, Settings
+    Admin, ChangePermission, Developer, Impersonate, PayPal, Cli, Settings
   ))
 
   lazy val allButSuperAdmin: List[Permission] = List(
