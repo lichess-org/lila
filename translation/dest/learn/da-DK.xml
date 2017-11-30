@@ -85,7 +85,7 @@
   <string name="thisKnightIsCheckingThroughYourDefenses">Springeren stiller skak gennem dit forsvar!</string>
   <string name="escapeOrBlock">Undslip med kongen eller bloker angrebet!</string>
   <string name="outOfCheckComplete">Tillykke! Din konge må aldrig tages, vær sikker på du kan forsvare mod skak!</string>
-  <string name="mateInOne">Mat i en</string>
+  <string name="mateInOne">Mat i én</string>
   <string name="defeatTheOpponentsKing">Slå modstanderens konge</string>
   <string name="mateInOneIntro">Du vinder, når din modstander ikke kan forsvare mod skak.</string>
   <string name="attackYourOpponentsKing">Angrib din modstanders konge på en måde, der ikke kan forsvares imod!</string>
