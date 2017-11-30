@@ -92,6 +92,12 @@ object UserRepo {
         _.flatMap { _.getAs[User.ID]("_id") }
       }
 
+  def haveVersion(users: List[User], version: Int): Fu[Boolean] =
+    coll.countSel($doc(
+      F.id $in users.map(_.id),
+      "v" $gte version
+    )) map (users.size ==)
+
   private[user] def allSortToints(nb: Int) =
     coll.find($empty).sort($sort desc F.toints).cursor[User]().gather[List](nb)
 
