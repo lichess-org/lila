@@ -118,13 +118,6 @@ object GameRepo {
   ) =
     coll.find(selector).sort(sort).cursor[Game](readPreference)
 
-  def unrate(gameId: String) =
-    coll.update($id(gameId), $doc("$unset" -> $doc(
-      F.rated -> true,
-      s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> true,
-      s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> true
-    )))
-
   def goBerserk(pov: Pov): Funit =
     coll.update($id(pov.gameId), $set(
       s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${Player.BSONFields.berserk}" -> true
