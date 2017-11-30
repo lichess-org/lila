@@ -13,7 +13,6 @@ interface JQuery {
   typeahead: any;
   scrollTo(el: JQuery | HTMLElement, delay: number): JQuery;
   sparkline: any;
-  slider: any;
   clock: any;
   watchers(): JQuery;
   watchers(method: 'set', data: any): void;

@@ -1,5 +1,3 @@
-/// <reference types="types/lichess" />
-
 import piotr from './piotr';
 
 export const initialFen: Fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';

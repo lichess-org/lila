@@ -1,5 +1,3 @@
-/// <reference types="types/lichess" />
-/// <reference types="types/lichess-jquery" />
 import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
 import klass from 'snabbdom/modules/class';
