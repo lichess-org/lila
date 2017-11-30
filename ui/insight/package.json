@@ -30,7 +30,7 @@
     "watchify": "^3"
   },
   "dependencies": {
-    "common": "link:../common",
+    "common": "1.0.0",
     "mithril": "github:ornicar/mithril.js#lila-1",
     "numeral": "^1.5"
   }

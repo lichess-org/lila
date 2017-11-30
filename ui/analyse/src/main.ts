@@ -1,5 +1,3 @@
-/// <reference types="types/lichess-jquery" />
-
 import { AnalyseOpts } from './interfaces';
 import AnalyseCtrl from './ctrl';
 

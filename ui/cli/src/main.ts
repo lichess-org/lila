@@ -1,5 +1,3 @@
-/// <reference types="types/lichess" />
-
 export function app(wrap: HTMLElement, toggle: () => void) {
   const $wrap = $(wrap), $input = $wrap.find('input');
   window.lichess.userAutocomplete($input, {

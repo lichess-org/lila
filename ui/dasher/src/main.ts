@@ -1,5 +1,3 @@
-/// <reference types="types/lichess" />
-
 import { Redraw } from './util'
 
 import { DasherCtrl, DasherOpts, makeCtrl } from './dasher';

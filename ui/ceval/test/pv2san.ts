@@ -1,5 +1,3 @@
-/// <reference types="types/lichess" />
-
 import { Test } from 'nodeunit';
 
 import pv2san from '../src/pv2san';

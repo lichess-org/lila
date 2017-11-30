@@ -1,8 +1,7 @@
 #!/bin/bash -ea
 target=${1-dev}
-mode=${2-build}
 
-echo "building ui modules with target=$target and mode=$mode"
+echo "building ui modules with target=$target"
 
 cd "$(git rev-parse --show-toplevel)"
 
@@ -12,27 +11,19 @@ ts_apps1="common chess"
 ts_apps2="ceval game tree chat"
 apps="site chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule simul perfStat dasher"
 
-YARN_MUTEX="${TMPDIR-/tmp}/.yarn-mutex"
+yarn install --non-interactive
+
 build_ts() {
   echo "build_ts" "$@"
   set -ev
   cd ui/$1
-  yarn install --non-interactive --mutex file:$YARN_MUTEX
-  if [ $mode == "upgrade" ]; then
-    yarn upgrade --non-interactive --mutex file:$YARN_MUTEX
-  fi
   yarn run compile
 }
 
 build() {
   echo "build" "$@"
   set -ev
-  app=$1
-  cd ui/$app
-  yarn install --non-interactive --mutex file:$YARN_MUTEX
-  if [ $mode == "upgrade" ]; then
-    yarn upgrade --non-interactive --mutex file:$YARN_MUTEX
-  fi
+  cd ui/$1
   gulp $target
 }
 

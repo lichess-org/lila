@@ -16,7 +16,7 @@
     "gulp-uglify": "^3",
     "gulp-util": "^3",
     "tsify": "^3",
-    "types": "link:../types",
+    "@types/lichess": "1.0.0",
     "typescript": "^2",
     "uglify-js": "^2",
     "vinyl-buffer": "^1",

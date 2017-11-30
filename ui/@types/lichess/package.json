@@ -1,0 +1,7 @@
+{
+  "name": "@types/lichess",
+  "version": "1.0.0",
+  "description": "lichess.org type declarations",
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0"
+}
