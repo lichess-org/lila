@@ -915,9 +915,6 @@ body.dark .practice_box .feedback .progress {
   -moz-user-select: none;
   -ms-user-select: none;
 }
-.practice_box .feedback color {
-  text-transform: capitalize;
-}
 .practice_box .comment {
   flex: 0 0 30px;
   display: flex;
@@ -934,8 +931,8 @@ body.dark .practice_box .comment {
 .practice_box .progress div {
   background: #aaa;
 }
-.practice_box.good .title,
-.practice_box.good .progress div {
+.practice_box.goodMove .title,
+.practice_box.goodMove .progress div {
   background: #759900!important;
   color: #fff!important;
 }
@@ -969,10 +966,10 @@ body.dark .practice_box .comment {
   font-size: 1.4em;
   font-weight: normal;
 }
-.practice_box.good .verdict {
+.practice_box.goodMove .verdict {
   color: #759900;
 }
-.practice_box.good .verdict::before {
+.practice_box.goodMove .verdict::before {
   background: #759900;
   content: '✓';
   font-size: 1.7em;
