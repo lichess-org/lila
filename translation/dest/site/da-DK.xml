@@ -24,14 +24,14 @@
   <string name="blackIsVictorious">Sort har vundet</string>
   <string name="kingInTheCenter">Konge i centrum</string>
   <string name="threeChecks">Tre skakker</string>
-  <string name="raceFinished">Løb færdig</string>
+  <string name="raceFinished">Race færdigt</string>
   <string name="variantEnding">Variantafslutning</string>
   <string name="newOpponent">Ny modstander</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Din modspiller vil gerne spille et nyt spil</string>
   <string name="joinTheGame">Start spillet</string>
   <string name="whitePlays">Hvid i trækket</string>
   <string name="blackPlays">Sort i trækket</string>
-  <string name="opponentLeftChoices">Din modspiller har forladt spillet. Du kan fremtvinge modstanderens opgivelse eller vente</string>
+  <string name="opponentLeftChoices">Din modspiller har forladt spillet. Du kan fremtvinge modstanderens kapitulation eller vente.</string>
   <string name="makeYourOpponentResign">Tving din modspiller til at opgive</string>
   <string name="forceResignation">Tving fratræden</string>
   <string name="forceDraw">Fremtving remis</string>
