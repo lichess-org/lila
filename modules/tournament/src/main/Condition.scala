@@ -41,7 +41,7 @@ object Condition {
     def apply(user: User) =
       if (user.hasTitle) Accepted
       else perf match {
-        case Some(p) if nbGames(user, p) >= nb => Accepted
+        case Some(p) if user.perfs(p).nb >= nb => Accepted
         case Some(p) => Refused { lang =>
           val missing = nb - user.perfs(p).nb
           I18nKeys.needNbMorePerfGames.pluralTxtTo(lang, missing, List(missing, p.name))
@@ -56,11 +56,6 @@ object Condition {
     def name(lang: Lang) = perf match {
       case None => I18nKeys.moreThanNbRatedGames.pluralTxtTo(lang, nb, List(nb))
       case Some(p) => I18nKeys.moreThanNbRatedGames.pluralTxtTo(lang, nb, List(nb, p.name))
-    }
-
-    def nbGames(user: User, perf: PerfType): Int = perf match {
-      case PerfType.Rapid => user.perfs(PerfType.Rapid).nb max user.perfs(PerfType.Classical).nb
-      case p => user.perfs(p).nb
     }
   }
 
