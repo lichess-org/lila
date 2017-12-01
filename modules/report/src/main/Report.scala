@@ -30,10 +30,11 @@ case class Report(
     score = atoms.toList.foldLeft(Score(0))(_ + _.score)
   )
 
-  def mostRecentAtom = atoms.head
-  def oldestAtom = atoms.last
+  def mostRecentAtom: Atom = atoms.head
+  def oldestAtom: Atom = atoms.last
+  def bestAtom: Atom = atoms.toList.sortBy(-_.score.value).headOption | mostRecentAtom
 
-  def onlyAtom = atoms.tail.isEmpty option atoms.head
+  def onlyAtom: Option[Atom] = atoms.tail.isEmpty option atoms.head
 
   // def isCreator(user: User.ID) = user == createdBy
 
@@ -53,10 +54,6 @@ case class Report(
 
   def userIds: List[User.ID] = user :: atoms.toList.map(_.by.value)
 
-  def bestAtom: Atom = atoms.toList.sortBy(-_.score.value).headOption | atoms.head
-
-  def simplifiedText = bestAtom.text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
-
   def isRecentComm = room == Room.Coms && !processed
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
 }
@@ -75,7 +72,9 @@ object Report {
       text: String,
       score: Score,
       at: DateTime
-  )
+  ) {
+    def simplifiedText = text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
+  }
 
   case class Inquiry(mod: User.ID, seenAt: DateTime)
 

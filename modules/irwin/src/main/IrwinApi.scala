@@ -62,12 +62,12 @@ final class IrwinApi(
       else if (report.activation >= 60) for {
         suspect <- getSuspect(report.userId)
         irwin <- UserRepo byId "irwin" flatten s"Irwin user not found" map Mod.apply
-        _ <- reportApi.create(Report.make(
+        _ <- reportApi.create(Report.Candidate(
+          reporter = Reporter(irwin.user),
           suspect = suspect,
           reason = lila.report.Reason.Cheat,
-          text = s"${report.activation}% over ${report.games.size} games",
-          reporter = Reporter(irwin.user)
-        ), suspect, Reporter(irwin.user))
+          text = s"${report.activation}% over ${report.games.size} games"
+        ))
       } yield lila.mon.mod.irwin.report()
       else funit
   }

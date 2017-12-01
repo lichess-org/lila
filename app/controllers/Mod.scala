@@ -166,7 +166,7 @@ object Mod extends LilaController {
           Env.report.api.inquiries.ofModId(me.id) map {
             case chats ~ threads ~ publicLines ~ spy ~ notes ~ history ~ inquiry =>
               if (priv && !inquiry.??(_.isRecentCommOf(Suspect(user))))
-                Env.slack.api.commlog(mod = me, user = user, inquiry.map(_.createdBy))
+                Env.slack.api.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
               val povWithChats = (povs zip chats) collect {
                 case (p, Some(c)) if c.nonEmpty => p -> c
               } take 15
