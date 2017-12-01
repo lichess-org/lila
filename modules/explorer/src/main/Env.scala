@@ -12,7 +12,6 @@ final class Env(
 ) {
 
   private val InternalEndpoint = config getString "internal_endpoint"
-  private val IndexFlow = config getBoolean "index_flow"
 
   private lazy val indexer = new ExplorerIndexer(
     gameColl = gameColl,
