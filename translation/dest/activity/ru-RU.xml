@@ -40,13 +40,13 @@
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Получен %s новый подписчик</item>
-    <item quantity="few">Получено подписчиков: %s</item>
-    <item quantity="other">Получил %s подписчиков</item>
+    <item quantity="few">Получил %s новых подписчиков</item>
+    <item quantity="other">Получил %s новых подписчиков</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Провёл %s сеанс</item>
-    <item quantity="few">Провел %s одновременных игр</item>
-    <item quantity="other">Провел %s одновременных игр</item>
+    <item quantity="one">Провёл %s сеанс одновременной игры</item>
+    <item quantity="few">Провёл %s сеанса одновременной игры</item>
+    <item quantity="other">Провёл %s сеансов одновременной игры</item>
   </plurals>
   <plurals name="joinedNbSimuls">
     <item quantity="one">Участвовал в %s сеансе одновременной игры</item>
@@ -60,8 +60,8 @@
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Завершил %s турнир</item>
-    <item quantity="few">Завершил турниров: %s</item>
-    <item quantity="other">Завершил турниров: %s</item>
+    <item quantity="few">Завершил %s турнира</item>
+    <item quantity="other">Завершил %s турниров</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">Достиг #%1$s места (лучшие %2$s%%), сыграна %3$s игра, турнир: %4$s</item>
@@ -71,7 +71,7 @@
   <string name="signedUp">Зарегистрировался на lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Присоединился к %s команде</item>
-    <item quantity="few">Вступил в команды: %s</item>
-    <item quantity="other">Вступил в команды: %s</item>
+    <item quantity="few">Присоединился к %s командам</item>
+    <item quantity="other">Присоединился к %s командам</item>
   </plurals>
 </resources>
