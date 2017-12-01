@@ -5,6 +5,7 @@ import ornicar.scalalib.Random
 import scalaz.NonEmptyList
 
 import lila.user.{ User, Note }
+import lila.user.UserRepo.lichessId
 
 case class Report(
     _id: Report.ID, // also the url slug
@@ -15,7 +16,7 @@ case class Report(
     score: Report.Score,
     inquiry: Option[Report.Inquiry],
     processedBy: Option[User.ID]
-) extends WithReason {
+) extends Reason.WithReason {
 
   import Report.{ Atom, Score }
 
@@ -29,7 +30,10 @@ case class Report(
     score = atoms.toList.foldLeft(Score(0))(_ + _.score)
   )
 
-  def lastAtom = atoms.last
+  def mostRecentAtom = atoms.head
+  def oldestAtom = atoms.last
+
+  def onlyAtom = atoms.tail.isEmpty option atoms.head
 
   // def isCreator(user: User.ID) = user == createdBy
 
@@ -39,7 +43,7 @@ case class Report(
   def unprocessedInsult = unprocessed && isInsult
   def unprocessedTrollOrInsult = unprocessed && isTrollOrInsult
 
-  // def isAutomatic = createdBy == "lichess"
+  // def isAutomatic = createdBy == lichessId
   // def isManual = !isAutomatic
 
   def process(by: User) = copy(processedBy = by.id.some)
@@ -47,7 +51,7 @@ case class Report(
   def unprocessed = processedBy.isEmpty
   def processed = processedBy.isDefined
 
-  // def userIds = List(user, createdBy)
+  def userIds: List[User.ID] = user :: atoms.toList.map(_.by.value)
 
   def bestAtom: Atom = atoms.toList.sortBy(-_.score.value).headOption | atoms.head
 
@@ -75,25 +79,25 @@ object Report {
 
   case class Inquiry(mod: User.ID, seenAt: DateTime)
 
-  case class WithUser(report: Report, user: User, isOnline: Boolean, accuracy: Option[Int]) {
+  case class WithSuspect(report: Report, suspect: Suspect, isOnline: Boolean) {
 
-    // def urgency: Int =
-    //   (nowSeconds - report.createdAt.getSeconds).toInt +
-    //     (isOnline ?? (86400 * 5)) +
-    //     (report.processed ?? Int.MinValue)
+    def urgency: Int =
+      (nowSeconds - report.mostRecentAtom.at.getSeconds).toInt +
+        (isOnline ?? (86400 * 5)) +
+        (report.processed ?? Int.MinValue)
   }
 
-  case class WithUserAndNotes(withUser: WithUser, notes: List[Note]) {
-    def report = withUser.report
-    def user = withUser.user
-    def hasLichessNote = notes.exists(_.from == "lichess")
+  case class WithSuspectAndNotes(withSuspect: WithSuspect, notes: List[Note]) {
+    def report = withSuspect.report
+    def suspect = withSuspect.suspect
+    def hasLichessNote = notes.exists(_.from == lichessId)
     def hasIrwinNote = notes.exists(_.from == "irwin")
 
-    // def userIds = report.userIds ::: notes.flatMap(_.userIds)
+    def userIds = report.userIds ::: notes.flatMap(_.userIds)
   }
 
   case class ByAndAbout(by: List[Report], about: List[Report]) {
-    // def userIds = by.flatMap(_.userIds) ::: about.flatMap(_.userIds)
+    def userIds = by.flatMap(_.userIds) ::: about.flatMap(_.userIds)
   }
 
   case class Candidate(
@@ -108,6 +112,7 @@ object Report {
       score = getScore(this),
       at = DateTime.now
     )
+    def isAutomatic = reporter.user.id == lichessId
   }
 
   private[report] val spontaneousText = "Spontaneous inquiry"

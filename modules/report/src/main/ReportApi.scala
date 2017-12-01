@@ -30,29 +30,23 @@ final class ReportApi(
   private implicit val ReportBSONHandler = Macros.handler[Report]
 
   def create(candidate: Report.Candidate): Funit = !candidate.reporter.user.reportban ?? {
-    !isAlreadySlain(report, reported) ?? {
-      discarder(report, by, accuracy(report)).flatMap {
+    !isAlreadySlain(candidate) ?? {
+      discarder(candidate, accuracy(candidate)).flatMap {
         case true =>
-          logger.info(s"Discarded report $report")
-          lila.mon.mod.report.discard(report.reason.key)()
+          logger.info(s"Discarded report $candidate")
+          lila.mon.mod.report.discard(candidate.reason.key)()
           funit
-        case false =>
-    coll.find($doc(
-      "user" -> setup.suspect.user.id,
-      "reason" -> reason,
-      "processedBy" $exists false
-    )).one[Report] flatMap { existing =>
+        case false => coll.find($doc(
+          "user" -> candidate.suspect.user.id,
+          "reason" -> candidate.reason,
+          "processedBy" $exists false
+        )).one[Report] flatMap { existing =>
+          val report = Report.make(candidate, existing)
           lila.mon.mod.report.create(report.reason.key)()
-
-          def insert = coll.insert(report).void >>
-            autoAnalysis(report) >>-
-            bus.publish(lila.hub.actorApi.report.Created(reported.user.id, report.reason.key, by.user.id), 'report)
-
-          if (List("irwin", UserRepo.lichessId) contains by.user.id) coll.update(
-            selectRecent(reported, report.reason),
-            $doc("$set" -> ReportBSONHandler.write(report).remove("processedBy", "_id"))
-          ) flatMap { res => (res.n == 0) ?? insert }
-          else insert
+          coll.update($id(report.id), report, upsert = true).void >>
+            autoAnalysis(candidate) >>-
+            bus.publish(lila.hub.actorApi.report.Created(candidate.suspect.user.id, candidate.reason.key, candidate.reporter.user.id), 'report)
+        }
       } >>- monitorUnprocessed
     }
   }
@@ -64,71 +58,66 @@ final class ReportApi(
     }
   }
 
-  private def isAlreadySlain(candidate: Report.Candidate, suspect: Suspect) =
-    (candidate.isCheat && suspect.user.engine) ||
-      (candidate.isAutomatic && candidate.isOther && suspect.user.troll) ||
-      (reportcandidateisTrollOrInsult && suspect.user.troll)
+  private def isAlreadySlain(candidate: Report.Candidate) =
+    (candidate.isCheat && candidate.suspect.user.engine) ||
+      (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.troll) ||
+      (candidate.isTrollOrInsult && candidate.suspect.user.troll)
 
   def getMod(username: String): Fu[Option[Mod]] =
     UserRepo named username map2 Mod.apply
 
-  def getLichess: Fu[Option[Mod]] = UserRepo.lichess map2 Mod.apply
+  def getLichessMod: Fu[Mod] = UserRepo.lichess map2 Mod.apply flatten "User lichess is missing"
+  def getLichessReporter: Fu[Reporter] = getLichessMod map { l => Reporter(l.user) }
 
   def getSuspect(username: String): Fu[Option[Suspect]] =
     UserRepo named username map2 Suspect.apply
 
-  def autoCheatPrintReport(userId: String): Funit = {
-    UserRepo byId userId zip UserRepo.lichess flatMap {
-      case (Some(user), Some(lichess)) => create(ReportSetup(
-        user = user,
-        reason = "cheatprint",
-        text = "Shares print with known cheaters",
-        gameId = "",
-        move = ""
-      ), Reporter(lichess))
+  def autoCheatPrintReport(userId: String): Funit =
+    getSuspect(userId) zip getLichessReporter flatMap {
+      case (Some(suspect), reporter) => create(Report.Candidate(
+        reporter = reporter,
+        suspect = suspect,
+        reason = Reason.CheatPrint,
+        text = "Shares print with known cheaters"
+      ))
       case _ => funit
     }
-  }
 
-  def autoCheatReport(userId: String, text: String): Funit = {
-    lila.mon.cheat.autoReport.count()
-    UserRepo byId userId zip UserRepo.lichess flatMap {
-      case (Some(user), Some(lichess)) => create(ReportSetup(
-        user = user,
-        reason = "cheat",
-        text = text,
-        gameId = "",
-        move = ""
-      ), Reporter(lichess))
+  def autoCheatReport(userId: String, text: String): Funit =
+    getSuspect(userId) zip getLichessReporter flatMap {
+      case (Some(suspect), reporter) =>
+        lila.mon.cheat.autoReport.count()
+        create(Report.Candidate(
+          reporter = reporter,
+          suspect = suspect,
+          reason = Reason.Cheat,
+          text = text
+        ))
       case _ => funit
     }
-  }
 
-  def autoBotReport(userId: String, referer: Option[String], name: String): Funit = {
-    UserRepo byId userId zip UserRepo.lichess flatMap {
-      case (Some(user), Some(lichess)) => create(ReportSetup(
-        user = user,
-        reason = "cheat",
-        text = s"""$name bot detected on ${referer | "?"}""",
-        gameId = "",
-        move = ""
-      ), Reporter(lichess))
+  def autoBotReport(userId: String, referer: Option[String], name: String): Funit =
+    getSuspect(userId) zip getLichessReporter flatMap {
+      case (Some(suspect), reporter) => create(Report.Candidate(
+        reporter = reporter,
+        suspect = suspect,
+        reason = Reason.Cheat,
+        text = s"""$name bot detected on ${referer | "?"}"""
+      ))
       case _ => funit
     }
-  }
 
   def autoBoostReport(winnerId: User.ID, loserId: User.ID): Funit =
     securityApi.shareIpOrPrint(winnerId, loserId) zip
-      UserRepo.byId(winnerId) zip UserRepo.byId(loserId) zip UserRepo.lichess flatMap {
-        case isSame ~ Some(winner) ~ Some(loser) ~ Some(lichess) => create(ReportSetup(
-          user = if (isSame) winner else loser,
-          reason = Reason.Boost.key,
+      UserRepo.byId(winnerId) zip UserRepo.byId(loserId) zip getLichessReporter flatMap {
+        case isSame ~ Some(winner) ~ Some(loser) ~ reporter => create(Report.Candidate(
+          reporter = reporter,
+          suspect = Suspect(if (isSame) winner else loser),
+          reason = Reason.Boost,
           text =
             if (isSame) s"Farms rating points from @${loser.username} (same IP or print)"
-            else s"Sandbagging - the winning player @${winner.username} has different IPs & prints",
-          gameId = "",
-          move = ""
-        ), Reporter(lichess))
+            else s"Sandbagging - the winning player @${winner.username} has different IPs & prints"
+        ))
         case _ => funit
       }
 
@@ -164,14 +153,13 @@ final class ReportApi(
     }
 
   def autoInsultReport(userId: String, text: String): Funit = {
-    UserRepo byId userId zip UserRepo.lichess flatMap {
-      case (Some(user), Some(lichess)) => create(ReportSetup(
-        user = user,
-        reason = "insult",
-        text = text,
-        gameId = "",
-        move = ""
-      ), Reporter(lichess))
+    getSuspect(userId) zip getLichessReporter flatMap {
+      case (Some(suspect), reporter) => create(Report.Candidate(
+        reporter = reporter,
+        suspect = suspect,
+        reason = Reason.Insult,
+        text = text
+      ))
       case _ => funit
     }
   } >>- monitorUnprocessed
@@ -216,33 +204,27 @@ final class ReportApi(
     ).some,
       ReadPreference.secondaryPreferred)
 
-  def unprocessedAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithUserAndNotes]] = for {
+  def unprocessedAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithSuspectAndNotes]] = for {
     unprocessed <- findRecent(nb, unprocessedSelect ++ roomSelect(room))
     nbProcessed = nb - unprocessed.size
     processed <- if (room.has(Room.Xfiles) || nbProcessed == 0) fuccess(Nil)
     else findRecent(nbProcessed, processedSelect ++ roomSelect(room))
-    withNotes <- addUsersAndNotes(unprocessed ++ processed)
+    withNotes <- addSuspectsAndNotes(unprocessed ++ processed)
   } yield withNotes
 
   def next(room: Room): Fu[Option[Report]] =
     unprocessedAndRecentWithFilter(1, room.some) map (_.headOption.map(_.report))
 
-  private def addUsersAndNotes(reports: List[Report]): Fu[List[Report.WithUserAndNotes]] = for {
-    withUsers <- UserRepo byIdsSecondary reports.map(_.user).distinct map { users =>
-      reports.flatMap { r =>
-        users.find(_.id == r.user) map { u =>
-          accuracy(r) map { a =>
-            Report.WithUser(r, u, isOnline(u.id), a)
-          }
-        }
+  private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspectAndNotes]] = for {
+    users <- UserRepo byIdsSecondary reports.map(_.user).distinct
+    withSuspects = reports.flatMap { r =>
+      users.find(_.id == r.user) map { u =>
+        Report.WithSuspect(r, Suspect(u), isOnline(u.id))
       }
-    }
-    sorted <- withUsers.sequenceFu map { wu =>
-      wu.sortBy(-_.urgency)
-    }
-    withNotes <- noteApi.byMod(sorted.map(_.user.id).distinct) map { notes =>
-      sorted.map { wu =>
-        Report.WithUserAndNotes(wu, notes.filter(_.to == wu.user.id))
+    }.sortBy(-_.urgency)
+    withNotes <- noteApi.byMod(withSuspects.map(_.suspect.user.id).distinct) map { notes =>
+      withSuspects.map { wu =>
+        Report.WithSuspectAndNotes(wu, notes.filter(_.to == wu.suspect.user.id))
       }
     }
   } yield withNotes
@@ -261,7 +243,7 @@ final class ReportApi(
         "reason" -> Reason.Cheat.key,
         "processedBy" $exists true
       )).sort($sort.createdDesc).list[Report](20, ReadPreference.secondaryPreferred) flatMap { reports =>
-        if (reports.size < 5) fuccess(none) // not enough data to know
+        if (reports.size < 4) fuccess(none) // not enough data to know
         else {
           val userIds = reports.map(_.user).distinct
           UserRepo countEngines userIds map { nbEngines =>
@@ -270,9 +252,9 @@ final class ReportApi(
         }
       }
 
-    def apply(report: Report): Fu[Option[Int]] =
-      (report.reason == Reason.Cheat && !report.processed) ?? {
-        cache get report.createdBy
+    def apply(candidate: Report.Candidate): Fu[Option[Int]] =
+      (candidate.reason == Reason.Cheat) ?? {
+        cache get candidate.reporter.user.id
       }
 
     def invalidate(selector: Bdoc): Funit =
@@ -337,7 +319,8 @@ final class ReportApi(
     } yield !isSame option report
 
     def cancel(mod: Mod)(report: Report): Funit =
-      if (report.isOther && report.createdBy == mod.user.id) coll.remove($id(report.id)).void
+      if (report.isOther && report.onlyAtom.map(_.by.value).has(mod.user.id))
+        coll.remove($id(report.id)).void // cancel spontaneous inquiry
       else coll.update(
         $id(report.id),
         $unset("inquiry", "processedBy")
@@ -346,7 +329,13 @@ final class ReportApi(
     def spontaneous(mod: Mod, sus: Suspect): Fu[Report] = ofModId(mod.user.id) flatMap { current =>
       current.??(cancel(mod)) >> {
         val report = Report.make(
-          sus, Reason.Other, Report.spontaneousText, Reporter(mod.user)
+          Report.Candidate(
+            Reporter(mod.user),
+            sus,
+            Reason.Other,
+            Report.spontaneousText
+          ),
+          none
         ).copy(inquiry = Report.Inquiry(mod.user.id, DateTime.now).some)
         coll.insert(report) inject report
       }

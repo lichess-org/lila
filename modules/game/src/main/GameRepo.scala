@@ -425,11 +425,12 @@ object GameRepo {
       F.createdAt $gt since
     ))
 
-  def lastGamesBetween(u1: String, u2: String, since: DateTime, nb: Int): Fu[List[Game]] =
-    coll.find($doc(
-      F.playerUids $all List(u1, u2),
-      F.createdAt $gt since
-    )).list[Game](nb, ReadPreference.secondaryPreferred)
+  def lastGamesBetween(u1: User, u2: User, since: DateTime, nb: Int): Fu[List[Game]] =
+    List(u1, u2).forall(_.count.game > 0) ??
+      coll.find($doc(
+        F.playerUids $all List(u1.id, u2.id),
+        F.createdAt $gt since
+      )).list[Game](nb, ReadPreference.secondaryPreferred)
 
   def getUserIds(id: ID): Fu[List[User.ID]] =
     coll.primitiveOne[List[User.ID]]($id(id), F.playerUids) map (~_)

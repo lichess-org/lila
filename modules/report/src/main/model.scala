@@ -14,8 +14,8 @@ case class Victim(user: User) extends AnyVal
 case class Reporter(user: User) extends AnyVal {
   def id = ReporterId(user.id)
 }
-case class ReporterId(userId: User.ID) extends AnyVal
+case class ReporterId(value: User.ID) extends AnyVal
 
 object ReporterId {
-  implicit val reporterIdIso = lila.common.Iso.string[ReporterId](ReporterId.apply, _.userId)
+  implicit val reporterIdIso = lila.common.Iso.string[ReporterId](ReporterId.apply, _.value)
 }

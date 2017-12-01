@@ -7,7 +7,6 @@ import lila.user.{ User, UserRepo, Note, NoteApi }
 case class Inquiry(
     mod: LightUser,
     report: Report,
-    accuracy: Option[Int],
     moreReports: List[Report],
     notes: List[Note],
     history: List[lila.mod.Modlog],
@@ -29,17 +28,14 @@ final class InquiryApi(
         _ ?? { report =>
           reportApi.moreLike(report, 10) zip
             UserRepo.named(report.user) zip
-            reportApi.accuracy(report) zip
             noteApi.forMod(report.user) zip
             logApi.userHistory(report.user) map {
-              case moreReports ~ userOption ~ accuracy ~ notes ~ history =>
+              case moreReports ~ userOption ~ notes ~ history =>
                 userOption ?? { user =>
-                  Inquiry(mod.light, report, accuracy, moreReports, notes, history, user).some
+                  Inquiry(mod.light, report, moreReports, notes, history, user).some
                 }
             }
         }
       }
     }
-
-  // val inquiryWrites = Json.writes[Inquiry]
 }
