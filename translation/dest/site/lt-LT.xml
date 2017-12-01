@@ -796,4 +796,9 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="practiceWithComputer">Treniruotė su kompiuteriu</string>
   <string name="resumePractice">Pratęsti treniruotę</string>
   <string name="theGameIsADraw">Partija baigėsi lygiosiomis.</string>
+  <string name="seeBestMove">Rodyti geriausią ėjimą</string>
+  <string name="hideBestMove">Slėpti geriausią ėjimą</string>
+  <string name="getAHint">Gauti užuominą</string>
+  <string name="whiteWinsGame">Laimėjo baltieji</string>
+  <string name="blackWinsGame">Laimėjo juodieji</string>
 </resources>
