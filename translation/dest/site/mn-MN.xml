@@ -51,7 +51,10 @@
   <string name="depthX">Гүн %s</string>
   <string name="usingServerAnalysis">Серверийн шинжилгээг ашиглаж байна</string>
   <string name="loadingEngine">Шинжилгээ ачааллагдаж байна...</string>
+  <string name="cloudAnalysis">Үүлэн анализ</string>
+  <string name="goDeeper">Цаашлах</string>
   <string name="showThreat">Аюулыг үзүүл</string>
+  <string name="inLocalBrowser">вэб хөтөч дээр</string>
   <string name="move">Нүүдэл</string>
   <string name="variantLoss">Хожигдох вариант</string>
   <string name="variantWin">Хожих вариант</string>
@@ -74,6 +77,7 @@
   <string name="delete">Устгах</string>
   <string name="deleteThisImportedGame">Энэ оруулсан тоглолтыг устгах уу?</string>
   <string name="replayMode">Дахин тоглуулах хэлбэр</string>
+  <string name="bestMoveArrow">Хамгийн сайн нүүдэл харуулах сум</string>
   <string name="cpus">CPU</string>
   <string name="memory">Санах ой</string>
   <string name="blunder">Ноцтой алдаа</string>
