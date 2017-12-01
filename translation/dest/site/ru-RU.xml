@@ -797,9 +797,12 @@
   <string name="anotherWas">Можно было</string>
   <string name="bestWas">Лучше было</string>
   <string name="resumePractice">Возобновить тренировку</string>
+  <string name="theGameIsADraw">Игра окончилась вничью.</string>
+  <string name="computerThinking">Компьютер думает...</string>
   <string name="seeBestMove">Показать лучший ход</string>
   <string name="hideBestMove">Скрыть лучший ход</string>
   <string name="getAHint">Получить подсказку</string>
+  <string name="evaluatingYourMove">Оценка вашего хода...</string>
   <string name="whiteWinsGame">Белые выиграли</string>
   <string name="blackWinsGame">Чёрные выиграли</string>
 </resources>
