@@ -142,6 +142,8 @@
   <string name="passwordReset">Нэвтрэх үгээ шинэчлэх</string>
   <string name="forgotPassword">Нэвтрэх үгээ мартсан уу?</string>
   <string name="rank">Зэрэг</string>
+  <string name="rankX">Үнэлгээ: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Үнэлгээ %s минут тутамд шинэчлэгддэг</string>
   <string name="gamesPlayed">Өрөг тоглосон байна</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s өрөг таньтай тоглосон байна</item>
@@ -180,6 +182,7 @@
   <string name="play">Тоглох</string>
   <string name="inbox">Шуудангийн хайрцаг</string>
   <string name="chatRoom">Чат өрөө</string>
+  <string name="loginToChat">Чатлахын тулд нэвтэр</string>
   <string name="spectatorRoom">Үзэгчийн өрөө</string>
   <string name="composeMessage">Зурвас илгээх</string>
   <string name="noNewMessages">Шинэ зурвас ирээгүй байна</string>
