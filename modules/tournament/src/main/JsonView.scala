@@ -358,6 +358,8 @@ object JsonView {
 
   private[tournament] implicit val spotlightWrites: OWrites[Spotlight] = OWrites { s =>
     Json.obj()
+      .add("headline" -> s.iconImg)
+      .add("description" -> s.iconImg)
       .add("iconImg" -> s.iconImg)
       .add("iconFont" -> s.iconFont)
   }
