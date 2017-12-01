@@ -9,7 +9,7 @@ export interface Comment {
   prev: Tree.Node;
   node: Tree.Node;
   path: Tree.Path;
-  verdict: 'good' | 'inaccuracy' | 'mistake' | 'blunder';
+  verdict: 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
   best?: {
     uci: Uci;
     san: San;
@@ -59,7 +59,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     let verdict, best;
     const over = root.gameOver(node);
 
-    if (over === 'checkmate') verdict = 'good';
+    if (over === 'checkmate') verdict = 'goodMove';
     else {
       const nodeEval: Eval = (node.threefold || over === 'draw') ? {
         cp: 0
@@ -69,8 +69,8 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       best = prev.ceval.pvs[0].moves[0];
       if (best === node.uci || best === altCastles[node.uci]) best = null;
 
-      if (!best) verdict = 'good';
-      else if (shift < 0.025) verdict = 'good';
+      if (!best) verdict = 'goodMove';
+      else if (shift < 0.025) verdict = 'goodMove';
       else if (shift < 0.06) verdict = 'inaccuracy';
       else if (shift < 0.14) verdict = 'mistake';
       else verdict = 'blunder';

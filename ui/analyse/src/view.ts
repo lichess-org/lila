@@ -205,7 +205,7 @@ function buttons(ctrl: AnalyseCtrl) {
       }, [iconTag(']')]),
       ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button.hint--bottom', {
         attrs: {
-          'data-hint': 'Practice with computer',
+          'data-hint': ctrl.trans.noarg('practiceWithComputer'),
           'data-act': 'practice'
         },
         class: {

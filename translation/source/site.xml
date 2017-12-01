@@ -102,8 +102,11 @@
   <string name="memory">Memory</string>
   <string name="infiniteAnalysis">Infinite analysis</string>
   <string name="removesTheDepthLimit">Removes the depth limit, and keeps your computer warm</string>
+  <string name="blunder">Blunder</string>
   <string name="blunders">Blunders</string>
+  <string name="mistake">Mistake</string>
   <string name="mistakes">Mistakes</string>
+  <string name="inaccuracy">Inaccuracy</string>
   <string name="inaccuracies">Inaccuracies</string>
   <string name="moveTimes">Move times</string>
   <string name="flipBoard">Flip board</string>
@@ -758,4 +761,17 @@ in %3$s</string>
   <string name="challenges">Challenges</string>
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s seconds to play the first move</string>
+  <string name="practiceWithComputer">Practice with computer</string>
+  <string name="anotherWas">Another was</string>
+  <string name="bestWas">Best was</string>
+  <string name="youBrowsedAway">You browsed away</string>
+  <string name="resumePractice">Resume practice</string>
+  <string name="theGameIsADraw">The game is a draw.</string>
+  <string name="computerThinking">Computer thinking ...</string>
+  <string name="seeBestMove">See best move</string>
+  <string name="hideBestMove">Hide best move</string>
+  <string name="getAHint">Get a hint</string>
+  <string name="evaluatingYourMove">Evaluating your move ...</string>
+  <string name="whiteWinsGame">White wins</string>
+  <string name="blackWinsGame">Black wins</string>
 </resources>
