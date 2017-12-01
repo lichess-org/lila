@@ -35,13 +35,13 @@
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Подписался на %s игрока</item>
-    <item quantity="few">Подписался на игроков: %s</item>
-    <item quantity="other">Подписался на игроков: %s</item>
+    <item quantity="few">Подписался на %s игроков</item>
+    <item quantity="other">Подписался на %s игроков</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Получен %s новый подписчик</item>
     <item quantity="few">Получено подписчиков: %s</item>
-    <item quantity="other">Получено подписчиков: %s</item>
+    <item quantity="other">Получил %s подписчиков</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Провёл %s сеанс</item>
@@ -49,14 +49,14 @@
     <item quantity="other">Провел %s одновременных игр</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Участвовал в %s сеансе</item>
-    <item quantity="few">Участвовал в %s одновременных сеансов игр</item>
-    <item quantity="other">Участвовал в %s одновременных сеансов игр</item>
+    <item quantity="one">Участвовал в %s сеансе одновременной игры</item>
+    <item quantity="few">Участвовал в %s сеансах одновременной игры</item>
+    <item quantity="other">Участвовал в %s сеансах одновременной игры</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Создал %s новую студию</item>
     <item quantity="few">Создал новых студий: %s</item>
-    <item quantity="other">Создал новых студий: %s</item>
+    <item quantity="other">Создал %s новых студий</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Завершил %s турнир</item>
