@@ -246,19 +246,6 @@ body.dark .irwin header > * {
 .mod_zone .irwin header .infos {
   font-size: 0.9em;
 }
-.mod_zone .irwin header .rates {
-  width: 100%;
-  display: flex;
-  flex-flow: row;
-}
-.mod_zone .irwin header .rates div {
-  line-height: 1.2em;
-  margin: 5px 5px 0 5px;
-  flex: 1 1 100%;
-  display: flex;
-  flex-flow: column;
-  text-align: center;
-}
 .mod_zone .irwin header strong {
   display: block;
   font-size: 1.1em;

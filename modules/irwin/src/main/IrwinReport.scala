@@ -8,7 +8,6 @@ case class IrwinReport(
     _id: String, // user id
     activation: Int, // 0 = clean, 100 = cheater
     games: List[IrwinReport.GameReport],
-    pv0ByAmbiguity: List[Option[Int]],
     date: DateTime
 ) {
 
