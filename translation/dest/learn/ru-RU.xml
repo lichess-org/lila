@@ -195,12 +195,12 @@
   <string name="wayToGo">Вперед!</string>
   <string name="yesYesYes">Да, да, да!</string>
   <string name="youreGoodAtThis">Вы молодец!</string>
-  <string name="nailedIt">Успех.</string>
+  <string name="nailedIt">Получилось!</string>
   <string name="rightOn">Правильно!</string>
   <string name="stageXComplete">Этап %s завершен</string>
   <string name="yourScore">Ваш результат</string>
   <string name="next">Дальше</string>
   <string name="backToMenu">Вернуться в меню</string>
   <string name="puzzleFailed">Задача не решена!</string>
-  <string name="retry">Еще раз</string>
+  <string name="retry">Ещё раз</string>
 </resources>
