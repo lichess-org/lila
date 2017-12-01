@@ -66,7 +66,7 @@
   <string name="protection">Защита</string>
   <string name="keepYourPiecesSafe">Защищайте ваши фигуры</string>
   <string name="protectionIntro">Определите, какие ваши фигуры атакует противники, и защитите их!</string>
-  <string name="protectionComplete">Поздравляем! Фигура, которую вы не проиграли, это ваша победа!</string>
+  <string name="protectionComplete">Поздравляем! Фигура, которую вы не проиграли — это выигранная фигура!</string>
   <string name="escape">Вас атакуют! Устраните угрозу!</string>
   <string name="noEscape">Это не выход,
 Но вы можете защитить!</string>
