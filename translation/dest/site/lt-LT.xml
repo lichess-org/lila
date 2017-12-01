@@ -105,8 +105,11 @@
   <string name="memory">Atmintinė</string>
   <string name="infiniteAnalysis">Neribota analizė</string>
   <string name="removesTheDepthLimit">Panaikina gylio limitą ir neleidžia kompiuteriui atvėsti</string>
+  <string name="blunder">Šiurkšti klaida</string>
   <string name="blunders">Šiurkščios klaidos</string>
+  <string name="mistake">Klaida</string>
   <string name="mistakes">Klaidos</string>
+  <string name="inaccuracy">Netikslumas</string>
   <string name="inaccuracies">Netikslumai</string>
   <string name="moveTimes">Ėjimų trukmė</string>
   <string name="flipBoard">Apsukti lentą</string>
@@ -790,4 +793,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="challenges">Iššūkiai</string>
   <string name="perfRatingX">Reitingas: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sek. atlikti pirmąjį ėjimą</string>
+  <string name="practiceWithComputer">Treniruotė su kompiuteriu</string>
+  <string name="resumePractice">Pratęsti treniruotę</string>
+  <string name="theGameIsADraw">Partija baigėsi lygiosiomis.</string>
 </resources>
