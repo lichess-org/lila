@@ -27,4 +27,15 @@ object Reason {
   implicit val reasonIso = lila.common.Iso[String, Reason](k => byKey.getOrElse(k, Other), _.key)
 
   def apply(key: String): Option[Reason] = byKey get key
+
+  trait WithReason {
+    def reason: Reason
+
+    def isCheat = reason == Cheat
+    def isOther = reason == Other
+    def isTroll = reason == Troll
+    def isInsult = reason == Insult
+    def isPrint = reason == CheatPrint
+    def isTrollOrInsult = reason == Troll || reason == Insult
+  }
 }

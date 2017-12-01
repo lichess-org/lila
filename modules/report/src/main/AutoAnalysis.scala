@@ -22,7 +22,7 @@ final class AutoAnalysis(
   private def doItNow(r: Report) =
     gamesToAnalyse(r) map { games =>
       if (games.nonEmpty)
-        logger.info(s"Auto-analyse ${games.size} games after report ${r.createdBy} -> ${r.user}")
+        logger.info(s"Auto-analyse ${games.size} games after report ${r.lastAtom.at} -> ${r.user}")
       games foreach { game =>
         lila.mon.cheat.autoAnalysis.reason("Report")()
         fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
@@ -31,7 +31,7 @@ final class AutoAnalysis(
 
   private def gamesToAnalyse(r: Report): Fu[List[Game]] = {
     GameRepo.recentAnalysableGamesByUserId(r.user, 10) |+|
-      GameRepo.lastGamesBetween(r.user, r.createdBy, DateTime.now.minusHours(2), 10)
+      GameRepo.lastGamesBetween(r.user, r.lastAtom.by.userId, DateTime.now.minusHours(2), 10)
   }.map {
     _.filter { g => g.analysable && !g.metadata.analysed }
       .distinct

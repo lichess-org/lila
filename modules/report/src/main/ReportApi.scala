@@ -22,18 +22,14 @@ final class ReportApi(
   import lila.db.BSON.BSONJodaDateTimeHandler
   private implicit val ReasonBSONHandler = isoHandler[Reason, String, BSONString](Reason.reasonIso)
   private implicit val RoomBSONHandler = isoHandler[Room, String, BSONString](Room.roomIso)
-  import Report.Inquiry
+  import Report.{ Inquiry, Score, Atom }
   private implicit val InquiryBSONHandler = Macros.handler[Inquiry]
+  private implicit val ReporterIdBSONHandler = stringIsoHandler[ReporterId](ReporterId.reporterIdIso)
+  private implicit val ScoreIdBSONHandler = doubleIsoHandler[Score](Report.scoreIso)
+  private implicit val AtomBSONHandler = Macros.handler[Atom]
   private implicit val ReportBSONHandler = Macros.handler[Report]
 
-  def create(setup: ReportSetup, by: Reporter): Funit = create(Report.make(
-    suspect = setup.suspect,
-    reason = Reason(setup.reason).err(s"Invalid report reason ${setup.reason}"),
-    text = setup.text,
-    reporter = by
-  ), setup.suspect, by)
-
-  def create(report: Report, reported: Suspect, by: Reporter): Funit = !by.user.reportban ?? {
+  def create(candidate: Report.Candidate): Funit = !candidate.reporter.user.reportban ?? {
     !isAlreadySlain(report, reported) ?? {
       discarder(report, by, accuracy(report)).flatMap {
         case true =>
@@ -41,6 +37,11 @@ final class ReportApi(
           lila.mon.mod.report.discard(report.reason.key)()
           funit
         case false =>
+    coll.find($doc(
+      "user" -> setup.suspect.user.id,
+      "reason" -> reason,
+      "processedBy" $exists false
+    )).one[Report] flatMap { existing =>
           lila.mon.mod.report.create(report.reason.key)()
 
           def insert = coll.insert(report).void >>
@@ -63,10 +64,10 @@ final class ReportApi(
     }
   }
 
-  private def isAlreadySlain(report: Report, suspect: Suspect) =
-    (report.isCheat && suspect.user.engine) ||
-      (report.isAutomatic && report.isOther && suspect.user.troll) ||
-      (report.isTrollOrInsult && suspect.user.troll)
+  private def isAlreadySlain(candidate: Report.Candidate, suspect: Suspect) =
+    (candidate.isCheat && suspect.user.engine) ||
+      (candidate.isAutomatic && candidate.isOther && suspect.user.troll) ||
+      (reportcandidateisTrollOrInsult && suspect.user.troll)
 
   def getMod(username: String): Fu[Option[Mod]] =
     UserRepo named username map2 Mod.apply
