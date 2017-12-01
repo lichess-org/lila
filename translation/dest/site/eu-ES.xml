@@ -103,8 +103,11 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analisi infinitua</string>
   <string name="removesTheDepthLimit">Sakonera muga ezabatzendu eta zure ordenagailua epel mantentzen du</string>
+  <string name="blunder">Akats larria</string>
   <string name="blunders">Akats larriak</string>
+  <string name="mistake">Akatsa</string>
   <string name="mistakes">Akatsak</string>
+  <string name="inaccuracy">Oker txikia</string>
   <string name="inaccuracies">Ez zehatzak</string>
   <string name="moveTimes">Jokaldi-denborak</string>
   <string name="flipBoard">Taula biratu</string>
@@ -757,4 +760,17 @@
   <string name="challenges">Erronkak</string>
   <string name="perfRatingX">Sailkapena: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s segundu lehenengo jokaldia egiteko</string>
+  <string name="practiceWithComputer">Ordenagailuarekin praktikatu</string>
+  <string name="anotherWas">Beste aukera bat</string>
+  <string name="bestWas">Onena hauxe</string>
+  <string name="youBrowsedAway">Beste batera joan zara</string>
+  <string name="resumePractice">Itzuli praktikatzera</string>
+  <string name="theGameIsADraw">Berdinketa.</string>
+  <string name="computerThinking">Ordenagailua pentsatzen...</string>
+  <string name="seeBestMove">Erakutsi jokaldi onena</string>
+  <string name="hideBestMove">Ezkutatu jokaldi onena</string>
+  <string name="getAHint">Pista bat eman</string>
+  <string name="evaluatingYourMove">Zure jokaldia aztertzen...</string>
+  <string name="whiteWinsGame">Zuriek irabazi</string>
+  <string name="blackWinsGame">Beltzek irabazi</string>
 </resources>
