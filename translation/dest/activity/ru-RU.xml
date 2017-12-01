@@ -44,7 +44,7 @@
     <item quantity="other">Получено подписчиков: %s</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Провел %s сеанс</item>
+    <item quantity="one">Провёл %s сеанс</item>
     <item quantity="few">Провел %s одновременных игр</item>
     <item quantity="other">Провел %s одновременных игр</item>
   </plurals>
@@ -68,7 +68,7 @@
     <item quantity="few">Достиг #%1$s места (лучшие %2$s%%), сыграно игр: %3$s, турнир: %4$s</item>
     <item quantity="other">Достиг #%1$s места (лучшие %2$s%%), сыграно игр: %3$s, турнир: %4$s</item>
   </plurals>
-  <string name="signedUp">Зарегистрировался на lichess</string>
+  <string name="signedUp">Зарегистрировался на lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Присоединился к %s команде</item>
     <item quantity="few">Вступил в команды: %s</item>
