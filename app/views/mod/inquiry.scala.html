@@ -2,8 +2,8 @@
 
 @renderReport(r: lila.report.Report) = {
 <div class="doc report">
-  <h3>by @userIdLink(r.bestAtom.by.value.some, withOnline = false) for <strong>@r.reason.name</strong>, @momentFromNow(r.bestAtom.at)</h3>
-  <p>@autoLink(r.bestAtom.simplifiedText)</p>
+  <h3>by @userIdLink(r.recentAtom.by.value.some, withOnline = false) for <strong>@r.reason.name</strong>, @momentFromNow(r.recentAtom.at)</h3>
+  <p>@autoLink(r.recentAtom.simplifiedText)</p>
 </div>
 }
 
@@ -63,7 +63,7 @@
     </div>
   </div>
   <div class="links">
-    <a href="@routes.User.games(in.user.id, "search")?players.b=@in.report.bestAtom.by.value">View<br />Games</a>
+    <a href="@routes.User.games(in.user.id, "search")?players.b=@in.report.recentAtom.by.value">View<br />Games</a>
     @if(isGranted(_.MarkTroll)) {
     <a href="@routes.Mod.communicationPublic(in.user.id)">View<br />Comms</a>
     }

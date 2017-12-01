@@ -41,16 +41,20 @@ moreCss = cssTag("report.css")) {
       case WithSuspectAndNotes(WithSuspect(r, sus, _), notes) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
       <tr class="@r.unprocessed.fold("new", "")">
         <td>
-          @userIdLink(r.createdBy.some)<br />
-          @momentFromNow(r.createdAt)
-          <br />Score: <strong>@r.score</strong>
+          @reportScore(r.score)
+        </td>
+        <td>
+          @userIdLink(r.recentAtom.by.value.some)<br />
+          @momentFromNow(r.recentAtom.at)
+          @r.nbOtherAtoms.map { nbOthers =>
+          <br />and @nbOthers more
           }
         </td>
-        <td>@userLink(u, params = "?mod")<br />@showBestPerf(u)</td>
+        <td>@userLink(sus.user, params = "?mod")<br />@showBestPerf(sus.user)</td>
         <td>
-          <div class="text@if(r.text.size > 200 || r.text.lines.size > 5){ large}">
+          <div class="text@if(r.recentAtom.text.size > 200 || r.recentAtom.text.lines.size > 5){ large}">
             <strong>@r.reason.name.capitalize</strong>
-            - @autoLink(r.text)
+            - @autoLink(r.recentAtom.text)
             @if(notes.nonEmpty) {
             <br />
             <a href="@routes.User.show(sus.user.username)?notes=1">

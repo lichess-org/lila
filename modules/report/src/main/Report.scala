@@ -4,8 +4,8 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import scalaz.NonEmptyList
 
-import lila.user.{ User, Note }
 import lila.user.UserRepo.lichessId
+import lila.user.{ User, Note }
 
 case class Report(
     _id: Report.ID, // also the url slug
@@ -23,18 +23,29 @@ case class Report(
   def id = _id
   def slug = _id
 
-  def add(atom: Atom) = copy( // atoms = atom +: atoms
-  ).recomputeScore
+  def add(atom: Atom) = atomBy(atom.by).fold(copy(atoms = atom <:: atoms)) { existing =>
+    val newAtom = existing.copy(
+      at = atom.at,
+      score = atom.score,
+      text = s"${existing.text}\n\n${atom.text}"
+    )
+    copy(
+      atoms = {
+        newAtom :: atoms.toList.filterNot(_.by == atom.by)
+      }.toNel | atoms
+    )
+  }.recomputeScore
 
   def recomputeScore = copy(
     score = atoms.toList.foldLeft(Score(0))(_ + _.score)
   )
 
-  def mostRecentAtom: Atom = atoms.head
+  def recentAtom: Atom = atoms.head
   def oldestAtom: Atom = atoms.last
-  def bestAtom: Atom = atoms.toList.sortBy(-_.score.value).headOption | mostRecentAtom
-
+  def bestAtom: Atom = atoms.toList.sortBy(-_.score.value).headOption | recentAtom
   def onlyAtom: Option[Atom] = atoms.tail.isEmpty option atoms.head
+  def nbOtherAtoms: Option[Int] = atoms.tail.nonEmpty option (atoms.size - 1)
+  def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
 
   // def isCreator(user: User.ID) = user == createdBy
 
@@ -81,7 +92,7 @@ object Report {
   case class WithSuspect(report: Report, suspect: Suspect, isOnline: Boolean) {
 
     def urgency: Int =
-      (nowSeconds - report.mostRecentAtom.at.getSeconds).toInt +
+      (nowSeconds - report.recentAtom.at.getSeconds).toInt +
         (isOnline ?? (86400 * 5)) +
         (report.processed ?? Int.MinValue)
   }

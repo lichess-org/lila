@@ -240,12 +240,16 @@
       <strong class="text" data-icon="!">Reports sent by @u.username@if(reports.by.isEmpty){: nothing to show.}</strong>
       @if(reports.by.nonEmpty) {
       @reports.by.map { r =>
+      @r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
       <form action="@routes.Report.inquiry(r.id)" method="post">
-        @userIdLink(r.user.some) for
+        @reportScore(r.score)
+        @userIdLink(r.user.some)
+        for
         <button type="submit">
-          <strong>@r.reason.name</strong> @momentFromNow(r.createdAt) @shorten(r.text, 200)
+          <strong>@r.reason.name</strong> @momentFromNow(atom.at) @shorten(atom.text, 200)
         </button>
       </form>
+      }
       }
       <br />
       }
@@ -255,9 +259,14 @@
       @if(reports.about.nonEmpty) {
       @reports.about.map { r =>
       <form action="@routes.Report.inquiry(r.id)" method="post">
-        @userIdLink(r.createdBy.some) for
+        @reportScore(r.score)
+        By @userIdLink(r.recentAtom.by.value.some)
+        @r.nbOtherAtoms.map { nbOther =>
+        (and @nbOther more)
+        }
+        for
         <button type="submit">
-          <strong>@r.reason.name</strong> @momentFromNow(r.createdAt) @shorten(r.text, 200)
+          <strong>@r.reason.name</strong> @momentFromNow(r.recentAtom.at) @shorten(r.recentAtom.text, 200)
         </button>
       </form>
       }

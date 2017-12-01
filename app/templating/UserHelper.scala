@@ -1,15 +1,16 @@
 package lila.app
 package templating
 
+import play.twirl.api.Html
+
 import controllers.routes
 import mashup._
-import play.twirl.api.Html
 
 import lila.api.Context
 import lila.common.LightUser
+import lila.i18n.I18nKeys
 import lila.rating.{ PerfType, Perf }
 import lila.user.{ User, UserContext }
-import lila.i18n.I18nKeys
 
 trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
