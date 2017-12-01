@@ -105,11 +105,6 @@ final class Env(
     userJson = userJson
   )
 
-  lazy val userHistory = new UserHistory(
-    logApi = logApi,
-    reportApi = reportApi
-  )
-
   lazy val inquiryApi = new InquiryApi(reportApi, noteApi, logApi)
 
   // api actor
