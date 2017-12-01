@@ -23,22 +23,6 @@ case _ => {red}
       <p>Hit "Evaluate" to update</p>
       }
     </div>
-    <div class="pv0">
-      <h3>PV 0 Rate by Ambiguity</h3>
-      <div class="rates text">
-        @report.report.pv0ByAmbiguity.zipWithIndex.map {
-        case (vo, i) => {
-        <div>
-          @vo.map { v =>
-          <strong class="@percentClass(v)">@v%</strong>
-          }.getOrElse {
-          <strong>-</strong>
-          } @(i + 1)
-        </div>
-        }
-        }
-      </div>
-    </div>
     <div class="assess text">
       <strong class="@percentClass(report.report.activation)">@report.report.activation%</strong>
       Overall assessment

@@ -27,7 +27,6 @@ object JSONHandlers {
     (__ \ "userId").read[String] and
     (__ \ "activation").read[Int] and
     (__ \ "games").read[List[GameReport]] and
-    (__ \ "pv0ByAmbiguity").read[List[Option[Int]]] and
     Reads(_ => JsSuccess(DateTime.now))
   )(IrwinReport.apply _)
 }
