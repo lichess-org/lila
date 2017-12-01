@@ -631,6 +631,10 @@
   <string name="tournamentMayHaveBeenCanceled">Den kan være blevet afslyst, hvis alle spiller forlod før turneringsstart.</string>
   <string name="returnToTournamentsHomepage">Vend tilbage til turnerings-forsiden</string>
   <string name="weeklyPerfTypeRatingDistribution">Månedlig %s rating fordelning</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">En %2$s spiller i denne uge.</item>
+    <item quantity="other">%1$s %2$s spillere denne uge.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Din %1$s rating er %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er bedre end %1$s af %2$s spillere</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke en fastsat %s rating</string>
@@ -725,8 +729,14 @@
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekunder til at lave det første træk</string>
   <string name="practiceWithComputer">Træn med computer</string>
+  <string name="bestWas">Bedst var</string>
+  <string name="resumePractice">Genoptag træning</string>
+  <string name="theGameIsADraw">Partiet ender med remis.</string>
   <string name="computerThinking">Computer tænker...</string>
   <string name="seeBestMove">Se bedste træk</string>
   <string name="hideBestMove">Skjul bedste træk</string>
   <string name="getAHint">Få et hint</string>
+  <string name="evaluatingYourMove">Vurderer dit træk ...</string>
+  <string name="whiteWinsGame">Hvid vinder</string>
+  <string name="blackWinsGame">Sort vinder</string>
 </resources>
