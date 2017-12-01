@@ -105,8 +105,11 @@
   <string name="memory">Память</string>
   <string name="infiniteAnalysis">Бесконечный анализ</string>
   <string name="removesTheDepthLimit">Снимает ограничение на глубину (процессор постоянно нагружен)</string>
+  <string name="blunder">Зевок</string>
   <string name="blunders">Грубые ошибки</string>
+  <string name="mistake">Ошибка</string>
   <string name="mistakes">Ошибки</string>
+  <string name="inaccuracy">Неточность</string>
   <string name="inaccuracies">Сомнительные ходы</string>
   <string name="moveTimes">Время ходов</string>
   <string name="flipBoard">Перевернуть доску</string>
@@ -790,4 +793,13 @@
   <string name="challenges">Вызовы</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s секунд, чтобы сделать первый ход</string>
+  <string name="practiceWithComputer">Тренировка с компьютером</string>
+  <string name="anotherWas">Можно было</string>
+  <string name="bestWas">Лучше было</string>
+  <string name="resumePractice">Возобновить тренировку</string>
+  <string name="seeBestMove">Показать лучший ход</string>
+  <string name="hideBestMove">Скрыть лучший ход</string>
+  <string name="getAHint">Получить подсказку</string>
+  <string name="whiteWinsGame">Белые выиграли</string>
+  <string name="blackWinsGame">Чёрные выиграли</string>
 </resources>
