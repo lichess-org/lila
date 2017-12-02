@@ -11,7 +11,7 @@
   <string name="aiNameLevelAiLevel">%1$s nivelo %2$s</string>
   <string name="level">Nivelo</string>
   <string name="toggleTheChat">Ŝanĝi videblecon de la babilejo</string>
-  <string name="toggleSound">(Mal)ŝalti sonon</string>
+  <string name="toggleSound">Baskuligi sonon</string>
   <string name="chat">Babilejo</string>
   <string name="resign">Rezigni</string>
   <string name="checkmate">Ŝakmato</string>
