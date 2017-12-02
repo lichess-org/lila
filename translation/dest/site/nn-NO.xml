@@ -769,4 +769,9 @@ i %3$s</string>
   <string name="theGameIsADraw">Partiet endar med remis.</string>
   <string name="computerThinking">Computer tenker...</string>
   <string name="seeBestMove">Sjå beste trekk</string>
+  <string name="hideBestMove">Skjul beste trekk</string>
+  <string name="getAHint">Få eit hint</string>
+  <string name="evaluatingYourMove">Vurderer trekket ditt...</string>
+  <string name="whiteWinsGame">Kvit vinn</string>
+  <string name="blackWinsGame">Svart vinn</string>
 </resources>
