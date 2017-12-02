@@ -416,7 +416,7 @@
     <item quantity="one">Spillet %s gange</item>
     <item quantity="other">Spillet %s gange</item>
   </plurals>
-  <string name="fromGameLink">Fra spil %s</string>
+  <string name="fromGameLink">Fra parti %s</string>
   <string name="continueTraining">Fortsæt træning</string>
   <string name="retryThisPuzzle">Prøv denne opgave igen</string>
   <string name="thisPuzzleIsCorrect">Denne opgave er korrekt og interessant</string>
