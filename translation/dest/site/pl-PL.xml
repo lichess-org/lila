@@ -799,6 +799,7 @@
   <string name="seeBestMove">Zobacz najlepszy ruch</string>
   <string name="hideBestMove">Ukryj nalepszy ruch</string>
   <string name="getAHint">Pokaż podpowiedź</string>
+  <string name="evaluatingYourMove">Analizowanie Twojego ruchu...</string>
   <string name="whiteWinsGame">Wygrana białych</string>
   <string name="blackWinsGame">Wygrana czarnych</string>
 </resources>
