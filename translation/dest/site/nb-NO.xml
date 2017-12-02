@@ -763,4 +763,16 @@ i %3$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s til første trekk må tas</string>
   <string name="practiceWithComputer">Øv med computer</string>
+  <string name="anotherWas">Et alternativ var</string>
+  <string name="bestWas">Best var</string>
+  <string name="youBrowsedAway">Du bladde vekk</string>
+  <string name="resumePractice">Gjenoppta øving</string>
+  <string name="theGameIsADraw">Partiet ender med remis.</string>
+  <string name="computerThinking">Computer tenker...</string>
+  <string name="seeBestMove">Se beste trekk</string>
+  <string name="hideBestMove">Skjul beste trekk</string>
+  <string name="getAHint">Få et hint</string>
+  <string name="evaluatingYourMove">Vurderer trekket ditt...</string>
+  <string name="whiteWinsGame">Hvit vinner</string>
+  <string name="blackWinsGame">Svart vinner</string>
 </resources>
