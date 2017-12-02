@@ -92,7 +92,7 @@ final class StudySearchApi(
       val retryLogger = logger.branch("index")
       import lila.db.dsl._
       studyRepo.cursor($empty, sort = $sort asc "createdAt").enumerator() &>
-        Enumeratee.grouped(Iteratee takeUpTo 4) |>>>
+        Enumeratee.grouped(Iteratee takeUpTo 8) |>>>
         Iteratee.foldM[Seq[Study], Int](0) {
           case (nb, studies) => studies.map { study =>
             lila.common.Future.retry(doStore(study), 5 seconds, 10, retryLogger)(system)
