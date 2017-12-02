@@ -101,7 +101,7 @@
   <string name="multipleLines">Mehrere Varianten</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Arbeitsspeicher</string>
-  <string name="infiniteAnalysis">Unendliche Analyse</string>
+  <string name="infiniteAnalysis">Endlose Analyse</string>
   <string name="removesTheDepthLimit">Entfernt die Tiefenbegrenzung und hält deinen Computer warm</string>
   <string name="blunders">Grobe Patzer</string>
   <string name="mistakes">Fehler</string>

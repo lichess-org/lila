@@ -96,7 +96,7 @@
   <string name="byCPL">CPL</string>
   <string name="openStudy">Öppna studie</string>
   <string name="enable">Aktivera</string>
-  <string name="bestMoveArrow">Bästa drag pil</string>
+  <string name="bestMoveArrow">Pil som anger bästa drag</string>
   <string name="evaluationGauge">Visa evaluering</string>
   <string name="multipleLines">Multipla varianter</string>
   <string name="cpus">CPUs</string>
@@ -755,4 +755,5 @@
   <string name="notifications">Notifikationer</string>
   <string name="challenges">Utmaningar</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s sekunder att göra första draget</string>
 </resources>
