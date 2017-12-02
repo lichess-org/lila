@@ -767,4 +767,10 @@
   <string name="resumePractice">Daŭrigi praktikon</string>
   <string name="theGameIsADraw">La ludo egalvenkas.</string>
   <string name="computerThinking">Komputilo pensas ...</string>
+  <string name="seeBestMove">Vidi la plej bonan movon</string>
+  <string name="hideBestMove">Kaŝi la plej bonan movon</string>
+  <string name="getAHint">Ricevi konsileton</string>
+  <string name="evaluatingYourMove">Taksante vian movon ...</string>
+  <string name="whiteWinsGame">Blanko venkas</string>
+  <string name="blackWinsGame">Nigro venkas</string>
 </resources>
