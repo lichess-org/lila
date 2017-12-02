@@ -39,20 +39,22 @@ var query = {
 };
 
 var done = 0;
-db.user4.find(query).sort({'count.game':-1}).forEach(u => {
+db.user4.find(query).forEach(u => {
+  if (u.v) return;
   print(done + ' ' + u._id + ' - ' + u.count.game + ' games');
   var classicalPerf = u.perfs.classical;
   classicalPerf.la = undefined;
   classicalPerf.nb = NumberInt(0);
   classicalPerf.re = [];
   var rapidPerf = copyPerf(classicalPerf);
-  db.game5.find({
+  var gameQuery = {
     us: u._id,
     s: { $gte: 30 },
     ra: true,
     v: { $exists: false },
     c: { $exists: true }
-  }, { _id: false, c: true })
+  };
+  db.game5.find(gameQuery, { _id: false, c: true, ca: true })
     .sort({ca:-1})
     .hint('us_1_ca_-1')
     .forEach(g => {
@@ -74,6 +76,7 @@ db.user4.find(query).sort({'count.game':-1}).forEach(u => {
         perf.gl.v = 0.06;
       }
       if (!perf.la) delete perf.la;
+      perf.nb = NumberInt(perf.nb);
     });
 
     var update = {
