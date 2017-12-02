@@ -300,7 +300,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Dette er en skak-CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klik på brættet for at foretage dit træk, og bevis at du ikke er en robot.</string>
-  <string name="captcha.fail">Løs venligst denne skak captcha.</string>
+  <string name="captcha.fail">Løs venligst denne skak-captcha.</string>
   <string name="notACheckmate">Ikke en mat</string>
   <string name="colorPlaysCheckmateInOne">%s trækker; mat i ét træk</string>
   <string name="retry">Prøv igen</string>
@@ -347,7 +347,7 @@
   <string name="points">Points</string>
   <string name="wins">Gevinster</string>
   <string name="losses">Tabte</string>
-  <string name="winStreak">Sejrsstribe</string>
+  <string name="winStreak">Sejrsrække</string>
   <string name="createdBy">Oprettet af</string>
   <string name="tournamentIsStarting">Turneringen er begyndt</string>
   <string name="tournamentPairingsAreNowClosed">Pardannelsen til turneringen er nu lukket.</string>
@@ -368,10 +368,10 @@
   <string name="boardEditor">Rediger stilling</string>
   <string name="setTheBoard">Opstil bræt</string>
   <string name="popularOpenings">Populære åbninger</string>
-  <string name="startPosition">Udgangsstilling</string>
+  <string name="startPosition">Startopstilling</string>
   <string name="clearBoard">Fjern alle brikker</string>
   <string name="savePosition">Gem stilling</string>
-  <string name="loadPosition">Indlæs stilling</string>
+  <string name="loadPosition">Indlæs position</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapporter %s til administratorer</string>
   <string name="profileCompletion">Profil færdiggørelse: %s</string>
@@ -392,7 +392,7 @@
   <string name="activeToday">Aktiv i dag</string>
   <string name="activePlayers">Aktive spillere</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Bemærk: Spillet er ratet, men er uden tidsbegrænsning!</string>
-  <string name="training">Træning</string>
+  <string name="training">Taktikøvelser</string>
   <string name="yourPuzzleRatingX">Din opgave-rating: %s</string>
   <string name="findTheBestMoveForWhite">Find det bedste træk for hvid.</string>
   <string name="findTheBestMoveForBlack">Find det bedste træk for sort.</string>
