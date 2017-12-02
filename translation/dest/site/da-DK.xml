@@ -397,7 +397,7 @@
   <string name="findTheBestMoveForWhite">Find det bedste træk for hvid.</string>
   <string name="findTheBestMoveForBlack">Find det bedste træk for sort.</string>
   <string name="toTrackYourProgress">Følg din udvikling:</string>
-  <string name="trainingSignupExplanation">Lichess vil forsyne opgaver som passer til dit niveau, hvilket forøger kvaliteten i træningen.</string>
+  <string name="trainingSignupExplanation">Lichess vil finde øvelser som passer til dit niveau, hvilket øger kvaliteten af træningen.</string>
   <string name="puzzleId">Opgave %s</string>
   <string name="puzzleOfTheDay">Dagens opgave</string>
   <string name="clickToSolve">Klik for at løse</string>
@@ -422,7 +422,7 @@
   <string name="thisPuzzleIsCorrect">Denne opgave er korrekt og interessant</string>
   <string name="thisPuzzleIsWrong">Denne opgave er forkert eller kedelig</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s partier i gang</item>
+    <item quantity="one">%s parti i gang</item>
     <item quantity="other">%s partier i gang</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisk videre til næste spil efter træk</string>
@@ -435,7 +435,7 @@
   <string name="no">Nej</string>
   <string name="yes">Ja</string>
   <string name="help">Hjælp:</string>
-  <string name="createANewTopic">Lav et nyt emne</string>
+  <string name="createANewTopic">Opret et nyt emne</string>
   <string name="topics">Emner</string>
   <string name="posts">Opslag</string>
   <string name="lastPost">Seneste opslag</string>
@@ -448,12 +448,12 @@
   <string name="reportAUser">Anmeld en bruger</string>
   <string name="user">Bruger</string>
   <string name="reason">Årsag</string>
-  <string name="whatIsIheMatter">Hvad er henvendelsen om?</string>
+  <string name="whatIsIheMatter">Hvad drejer henvendelsen sig om?</string>
   <string name="cheat">Snyd</string>
   <string name="insult">Fornærmelse</string>
   <string name="troll">Troll</string>
   <string name="other">Andet</string>
-  <string name="reportDescriptionHelp">Indsæt et link til spillet (eller spillene) og forklar hvad der er i vejen med brugerens opførsel.</string>
+  <string name="reportDescriptionHelp">Indsæt et link til partiet (eller partierne) og forklar hvad der er i vejen med brugerens opførsel.</string>
   <string name="by">Af %s</string>
   <string name="thisTopicIsNowClosed">Dette emne er nu lukket</string>
   <string name="theming">Tema</string>
@@ -476,7 +476,7 @@
   <string name="newPassword">Ny adgangskode</string>
   <string name="newPasswordAgain">Ny adgangskode (igen)</string>
   <string name="boardHighlights">Fremhævninger på brættet (af sidste træk og skak)</string>
-  <string name="pieceDestinations">Brikdestinationer (gyldige træk og pre-træk)</string>
+  <string name="pieceDestinations">Brikdestinationer (gyldige træk og forhånds-træk)</string>
   <string name="boardCoordinates">Brætkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Trækliste mens der spilles</string>
   <string name="pgnPieceNotation">Notation</string>
