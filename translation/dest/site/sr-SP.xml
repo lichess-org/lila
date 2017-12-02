@@ -793,4 +793,16 @@
   <string name="perfRatingX">Рејтинг: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s секунди да одиграте први потез</string>
   <string name="practiceWithComputer">Тренирај са компјутером</string>
+  <string name="anotherWas">Други је</string>
+  <string name="bestWas">Најбоље је</string>
+  <string name="youBrowsedAway">Отишли сте са овог екрана</string>
+  <string name="resumePractice">Настави тренинг</string>
+  <string name="theGameIsADraw">Партија је нерешена.</string>
+  <string name="computerThinking">Компјутер мисли ...</string>
+  <string name="seeBestMove">Погледајте најбољи потез</string>
+  <string name="hideBestMove">Сакријте најбољи потез</string>
+  <string name="getAHint">Добиј те помоћ</string>
+  <string name="evaluatingYourMove">Процењивање вашег потеза ...</string>
+  <string name="whiteWinsGame">Бели је победио</string>
+  <string name="blackWinsGame">Црни је победио</string>
 </resources>
