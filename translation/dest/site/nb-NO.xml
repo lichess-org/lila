@@ -103,8 +103,11 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Uendelig analyse</string>
   <string name="removesTheDepthLimit">Fjerner dybdebegrensning, og holder maskinen din varm</string>
+  <string name="blunder">Bukk</string>
   <string name="blunders">Bukker</string>
+  <string name="mistake">Feil</string>
   <string name="mistakes">Feil</string>
+  <string name="inaccuracy">Unøyaktighet</string>
   <string name="inaccuracies">Unøyaktigheter</string>
   <string name="moveTimes">Tidsbruk</string>
   <string name="flipBoard">Snu brettet</string>
@@ -759,4 +762,5 @@ i %3$s</string>
   <string name="challenges">Utfordringer</string>
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s til første trekk må tas</string>
+  <string name="practiceWithComputer">Øv med computer</string>
 </resources>
