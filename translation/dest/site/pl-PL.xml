@@ -105,8 +105,11 @@
   <string name="memory">Pamięć RAM</string>
   <string name="infiniteAnalysis">Nieskończona analiza</string>
   <string name="removesTheDepthLimit">Usuwa limit głębokości analizy i rozgrzewa Twój komputer do czerwoności ;)</string>
+  <string name="blunder">Poważny błąd</string>
   <string name="blunders">Poważne błędy</string>
+  <string name="mistake">Błąd</string>
   <string name="mistakes">Błędy</string>
+  <string name="inaccuracy">Niedokładność</string>
   <string name="inaccuracies">Niedokładności</string>
   <string name="moveTimes">Czas przeznaczony na ruch</string>
   <string name="flipBoard">Obróć szachownicę</string>
@@ -788,4 +791,14 @@
   <string name="challenges">Wyzwania</string>
   <string name="perfRatingX">Ranking: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekund na wykonanie pierwszego ruchu</string>
+  <string name="practiceWithComputer">Trening z komputerem</string>
+  <string name="anotherWas">Inna możliwość</string>
+  <string name="bestWas">Najlepsze było</string>
+  <string name="resumePractice">Wznów trening</string>
+  <string name="theGameIsADraw">Gra zakończona remisem.</string>
+  <string name="seeBestMove">Zobacz najlepszy ruch</string>
+  <string name="hideBestMove">Ukryj nalepszy ruch</string>
+  <string name="getAHint">Pokaż podpowiedź</string>
+  <string name="whiteWinsGame">Wygrana białych</string>
+  <string name="blackWinsGame">Wygrana czarnych</string>
 </resources>
