@@ -221,6 +221,7 @@ object Schedule {
       case (_, _, SuperBlitz) => TC(3 * 60, 0)
       case (_, _, Blitz) => TC(5 * 60, 0)
       case (_, _, Rapid) => TC(10 * 60, 0)
+      case (_, _, Classical) => TC(20 * 60, 10)
     }
   }
   private[tournament] def addCondition(s: Schedule) =
