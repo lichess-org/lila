@@ -792,4 +792,8 @@ v %3$s</string>
   <string name="challenges">Výzvy</string>
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekund na první tah</string>
+  <string name="practiceWithComputer">Procvičit s počítačem</string>
+  <string name="seeBestMove">Ukázat nejlepší tah</string>
+  <string name="hideBestMove">Skrýt nejlepší tah</string>
+  <string name="getAHint">Získat nápovědu</string>
 </resources>
