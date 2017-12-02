@@ -68,8 +68,8 @@
   <string name="protectionIntro">Определите, какие ваши фигуры атакует противники, и защитите их!</string>
   <string name="protectionComplete">Поздравляем! Фигура, которую вы не проиграли — это выигранная фигура!</string>
   <string name="escape">Вас атакуют! Устраните угрозу!</string>
-  <string name="noEscape">Это не выход,
-Но вы можете защитить!</string>
+  <string name="noEscape">Нельзя уйти,
+но можно защитить!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Не позволяйте им съедать
 любую незащищённую фигуру!</string>
   <string name="combat">Сражение</string>
