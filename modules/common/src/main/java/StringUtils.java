@@ -77,7 +77,7 @@ public class StringUtils {
      * between two strings is no greater than the sum Levenshtein distances from
      * a third string).
      *
-     * Implementation uses dynamic programming (Wagner–Fischer algorithm), with
+     * Implementation uses dynamic programming (Wagner-Fischer algorithm), with
      * only 2 rows of data. The space requirement is thus O(m) and the algorithm
      * runs in O(mn).
      *
