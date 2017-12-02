@@ -42,9 +42,9 @@ object Irwin extends LilaController {
       OptionFuResult(UserRepo named username) { user =>
         Env.mod.assessApi.refreshAssessByUsername(user.id) >>
           Env.mod.jsonView(user) map {
-            case None => NotFound.
-            case Some(data) => Ok(data)
-          }.map(_ as JSON)
+            case None => NotFound
+            case Some(data) => Ok(data) as JSON
+          }
       }
     }
   }
