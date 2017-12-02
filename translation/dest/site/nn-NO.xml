@@ -103,6 +103,7 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Uendeleg analyse</string>
   <string name="removesTheDepthLimit">Tar bort avgrensing i søke-djupna, og varmar opp maskina</string>
+  <string name="blunder">Bukk</string>
   <string name="blunders">Bukkar</string>
   <string name="mistakes">Mistak</string>
   <string name="inaccuracies">Småfeil</string>
