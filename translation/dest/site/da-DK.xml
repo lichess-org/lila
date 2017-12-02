@@ -545,7 +545,7 @@
   <string name="side">Parti</string>
   <string name="clock">Ur</string>
   <string name="unauthorizedError">Adgang ikke givet.</string>
-  <string name="noInternetConnection">Ingen internetforbindelse. Du kan stadigt spille offline fra menuen.</string>
+  <string name="noInternetConnection">Ingen internetforbindelse. Du kan stadig spille offline fra menuen.</string>
   <string name="connectedToLichess">Du er nu forbundet til lichess.org</string>
   <string name="signedOut">Du er blevet logget ud</string>
   <string name="loginSuccessful">Du er nu logget ind</string>
@@ -604,7 +604,7 @@
   <string name="returnToSimulHomepage">Vend tilbage til Simultan forsiden</string>
   <string name="aboutSimul">Simultanskak er når én spiller dyster mod adskillige andre på en gang.</string>
   <string name="aboutSimulImage">Ud af 50 modstandere, vandt Fischer 47 partier, spillede 2 remis og tabte 1.</string>
-  <string name="aboutSimulRealLife">Konceptet stammer fra ægte skakturneringer rundt omkring i verden. Her bevæger simultanspilleren sig fra bræt til bræt for at spille ét ryk ad gangen.</string>
+  <string name="aboutSimulRealLife">Konceptet stammer fra virkelighedens verden. Her bevæger simultanspilleren sig fra bræt til bræt for at spille ét træk ad gangen.</string>
   <string name="aboutSimulRules">I begyndelsen af spillet starter alle et spil med værten, der får lov at spille med hvide brikker. Simultanspillet er slut, når alle spil er færdige.</string>
   <string name="aboutSimulSettings">Simultanspil er altid \"casual\". Revanche, tilbagetræk og \"ekstra tid\" er ugyldigt.</string>
   <string name="create">Opret</string>
