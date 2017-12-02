@@ -48,10 +48,16 @@
   <string name="computerAnalysis">Өрөг шинжлэгч</string>
   <string name="computerAnalysisAvailable">Компьютерийн шинжилгээ хийх боломжтой</string>
   <string name="analysis">Өрөг шинжлэгч</string>
+  <string name="depthX">Гүн %s</string>
   <string name="usingServerAnalysis">Серверийн шинжилгээг ашиглаж байна</string>
   <string name="loadingEngine">Шинжилгээ ачааллагдаж байна...</string>
+  <string name="cloudAnalysis">Үүлэн анализ</string>
+  <string name="goDeeper">Цаашлах</string>
   <string name="showThreat">Аюулыг үзүүл</string>
+  <string name="inLocalBrowser">вэб хөтөч дээр</string>
   <string name="move">Нүүдэл</string>
+  <string name="variantLoss">Хожигдох вариант</string>
+  <string name="variantWin">Хожих вариант</string>
   <string name="insufficientMaterial">Хангалтгүй бод байна</string>
   <string name="pawnMove">Хүүгийн нүүдэл</string>
   <string name="capture">Идэх</string>
@@ -67,8 +73,18 @@
   <string name="topGames">Өндөр үнэлгээтэй өргүүд</string>
   <string name="noGameFound">Өрөг олдсонгүй</string>
   <string name="openingExplorer">Шатрын нээлтүүдийг судлах</string>
+  <string name="importPgn">PGN оруулах</string>
+  <string name="delete">Устгах</string>
+  <string name="deleteThisImportedGame">Энэ оруулсан тоглолтыг устгах уу?</string>
+  <string name="replayMode">Дахин тоглуулах хэлбэр</string>
+  <string name="bestMoveArrow">Хамгийн сайн нүүдэл харуулах сум</string>
+  <string name="cpus">CPU</string>
+  <string name="memory">Санах ой</string>
+  <string name="blunder">Ноцтой алдаа</string>
   <string name="blunders">Ноцтой алдаа</string>
+  <string name="mistake">Алдаа</string>
   <string name="mistakes">Алдаа</string>
+  <string name="inaccuracy">Оновчгүй нүүдэл</string>
   <string name="inaccuracies">Оновчгүй нүүдэл</string>
   <string name="moveTimes">Нүүдлийн хугацаа</string>
   <string name="flipBoard">Талуудын байрлалыг солих</string>
@@ -130,6 +146,8 @@
   <string name="passwordReset">Нэвтрэх үгээ шинэчлэх</string>
   <string name="forgotPassword">Нэвтрэх үгээ мартсан уу?</string>
   <string name="rank">Зэрэг</string>
+  <string name="rankX">Үнэлгээ: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Үнэлгээ %s минут тутамд шинэчлэгддэг</string>
   <string name="gamesPlayed">Өрөг тоглосон байна</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s өрөг таньтай тоглосон байна</item>
@@ -168,6 +186,7 @@
   <string name="play">Тоглох</string>
   <string name="inbox">Шуудангийн хайрцаг</string>
   <string name="chatRoom">Чат өрөө</string>
+  <string name="loginToChat">Чатлахын тулд нэвтэр</string>
   <string name="spectatorRoom">Үзэгчийн өрөө</string>
   <string name="composeMessage">Зурвас илгээх</string>
   <string name="noNewMessages">Шинэ зурвас ирээгүй байна</string>
@@ -195,6 +214,7 @@
     <item quantity="one">%s секунд нэмж өгөх</item>
     <item quantity="other">%s секунд нэмж өгөх</item>
   </plurals>
+  <string name="giveMoreTime">Цаг нэмж өгөх</string>
   <string name="thisPlayerUsesChessComputerAssistance">Энэ тоглогч шатар тоглохдоо компьютерийн туслалцаа авдаг</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Энэ тоглогч өөрийн чансааг хиймлээр өсгөж/бууруулж байна</string>
   <string name="takeback">Нүүдэл буцаалт</string>

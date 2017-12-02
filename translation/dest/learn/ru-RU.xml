@@ -37,7 +37,7 @@
   <string name="knightIntro">Вот вам задача. Конь — хитрая фигура.</string>
   <string name="knightsHaveAFancyWay">Кони имеют причудливый способ перепрыгивать!</string>
   <string name="knightsCanJumpOverObstacles">Кони могут прыгать через препятствия!
-Выберитесь и соберите все звезды!</string>
+Выберитесь и соберите все звёзды!</string>
   <string name="knightComplete">Поздравляем! Вы освоили фигуру \"Конь\".</string>
   <string name="thePawn">Пешка</string>
   <string name="itMovesForwardOnly">Ходит только вперед</string>
@@ -49,24 +49,24 @@
   <string name="useAllThePawns">Используйте все пешки!
 Необязательно их превращать.</string>
   <string name="aPawnOnTheSecondRank">Пешка на втором ряду может ходить на два поля за ход!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Соберите все звезды!
+  <string name="grabAllTheStarsNoNeedToPromote">Соберите все звёзды!
 Не обязательно превращать пешки.</string>
   <string name="pawnComplete">Поздравляем! У пешек нет секретов для вас.</string>
   <string name="pawnPromotion">Превращение пешки</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваша пешка достигла края доски!</string>
-  <string name="itNowPromotesToAStrongerPiece">Сейчас она превращается в фигуру по-сильнее.</string>
+  <string name="itNowPromotesToAStrongerPiece">Сейчас она превращается в фигуру посильнее.</string>
   <string name="selectThePieceYouWant">Выберите фигуру, какую захотите!</string>
   <string name="fundamentals">Основы</string>
   <string name="capture">Взятие</string>
   <string name="takeTheEnemyPieces">Съешьте фигуры противника</string>
   <string name="captureIntro">Определите незащищенные фигуры противника и съешьте их!</string>
-  <string name="takeTheBlackPieces">Съешьте черные фигуры!</string>
+  <string name="takeTheBlackPieces">Съешьте чёрные фигуры!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Съешьте все чёрные фигуры! И не потеряйте свои.</string>
   <string name="captureComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
   <string name="protection">Защита</string>
   <string name="keepYourPiecesSafe">Защищайте ваши фигуры</string>
   <string name="protectionIntro">Определите, какие ваши фигуры атакует противники, и защитите их!</string>
-  <string name="protectionComplete">Поздравляем! Фигура, которую вы не проиграли, это ваша победа!</string>
+  <string name="protectionComplete">Поздравляем! Фигура, которую вы не проиграли — это выигранная фигура!</string>
   <string name="escape">Вас атакуют! Устраните угрозу!</string>
   <string name="noEscape">Это не выход,
 Но вы можете защитить!</string>
@@ -103,7 +103,7 @@
   <string name="boardSetup">Позиция на доске</string>
   <string name="howTheGameStarts">Начало шахматной партии</string>
   <string name="boardSetupIntro">Две армии, друг напротив друга, готовы к битве.</string>
-  <string name="thisIsTheInitialPosition">Это - начальная позиция в шахматах! Сделайте любой ход, чтобы продолжить.</string>
+  <string name="thisIsTheInitialPosition">Это начальная позиция в шахматах! Сделайте любой ход, чтобы продолжить.</string>
   <string name="firstPlaceTheRooks">Сначала расставьте ладьи!
 Они находятся по углам.</string>
   <string name="thenPlaceTheKnights">Затем расставьте коней!
@@ -122,7 +122,7 @@
   <string name="castlingIntro">Защитите своего короля и выведите в бой ладью!</string>
   <string name="castleKingSide">Передвиньте своего короля на две клетки к ладье королевского фланга!</string>
   <string name="castleQueenSide">Передвиньте своего короля на две клетки к ладье ферзевого фланга!</string>
-  <string name="theKnightIsInTheWay">Конь в пути! Сделайте ход конем, затем сделайте рокировку.</string>
+  <string name="theKnightIsInTheWay">Конь в пути! Сделайте ход конём, затем сделайте рокировку.</string>
   <string name="castleKingSideMovePiecesFirst">Короткая рокировка! Сначала вам нужно развить фигуры.</string>
   <string name="castleQueenSideMovePiecesFirst">Длинная рокировка! Сначала вам нужно развить фигуры.</string>
   <string name="youCannotCastleIfMoved">Вы не можете делать рокировку, если король или ладья, участвующие в рокировке, делали ход.</string>
@@ -195,12 +195,12 @@
   <string name="wayToGo">Вперед!</string>
   <string name="yesYesYes">Да, да, да!</string>
   <string name="youreGoodAtThis">Вы молодец!</string>
-  <string name="nailedIt">Успех.</string>
+  <string name="nailedIt">Получилось!</string>
   <string name="rightOn">Правильно!</string>
   <string name="stageXComplete">Этап %s завершен</string>
   <string name="yourScore">Ваш результат</string>
   <string name="next">Дальше</string>
   <string name="backToMenu">Вернуться в меню</string>
   <string name="puzzleFailed">Задача не решена!</string>
-  <string name="retry">Еще раз</string>
+  <string name="retry">Ещё раз</string>
 </resources>

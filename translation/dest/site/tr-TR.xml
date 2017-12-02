@@ -741,7 +741,7 @@
   <string name="usernameInvalid">Geçersiz kullanıcı adı. Lütfen yalnızca harf, sayı, alt tire ve tire kullanın.</string>
   <string name="usernameStartNoNumber">Kullanıcı adı bir sayı ile başlayamaz.</string>
   <string name="usernameUnacceptable">Bu kullanıcı adı uygun değil.</string>
-  <string name="directlySupportLichess">Lichess\'e doğrudan destek verin</string>
+  <string name="directlySupportLichess">Lichess\'i destekleyin</string>
   <string name="playChessInStyle">Satrancı tarz ile oynayın</string>
   <string name="chessBasics">Satrancın temel prensipleri</string>
   <string name="coaches">Eğitmenler</string>

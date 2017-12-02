@@ -10,7 +10,7 @@
   <string name="play">spil!</string>
   <string name="chessPieces">Skakbrikker</string>
   <string name="theRook">Tårnet</string>
-  <string name="itMovesInStraightLines">Den bevæger sig i lige linier</string>
+  <string name="itMovesInStraightLines">Det bevæger sig i lige linjer</string>
   <string name="rookIntro">Tårnet er en stærk brik. Er du klar til at beherske den?</string>
   <string name="rookGoal">Klik på tårnet for at rykke det til stjernen!</string>
   <string name="grabAllTheStars">Fang alle stjernerne!</string>
@@ -54,7 +54,7 @@
   <string name="itNowPromotesToAStrongerPiece">Den forfremmes nu til en stærkere brik.</string>
   <string name="selectThePieceYouWant">Vælg den brik du vil have!</string>
   <string name="fundamentals">Grundlæggende</string>
-  <string name="capture">Fang</string>
+  <string name="capture">Erobr</string>
   <string name="takeTheEnemyPieces">Tag fjendens brikker</string>
   <string name="captureIntro">Identificer modstanderens ubeskyttede brikker og tag dem!</string>
   <string name="takeTheBlackPieces">Tag de sorte brikker!</string>
@@ -85,7 +85,7 @@
   <string name="thisKnightIsCheckingThroughYourDefenses">Springeren stiller skak gennem dit forsvar!</string>
   <string name="escapeOrBlock">Undslip med kongen eller bloker angrebet!</string>
   <string name="outOfCheckComplete">Tillykke! Din konge må aldrig tages, vær sikker på du kan forsvare mod skak!</string>
-  <string name="mateInOne">Mat i en</string>
+  <string name="mateInOne">Mat i én</string>
   <string name="defeatTheOpponentsKing">Slå modstanderens konge</string>
   <string name="mateInOneIntro">Du vinder, når din modstander ikke kan forsvare mod skak.</string>
   <string name="attackYourOpponentsKing">Angrib din modstanders konge på en måde, der ikke kan forsvares imod!</string>
@@ -153,7 +153,7 @@ Bonde = 1</string>
   <string name="checkInTwoIntro">Find den rette kombination af to træk, der sætter modstanderens konge skak!</string>
   <string name="checkInTwoGoal">True modstanderens konge i to træk!</string>
   <string name="checkInTwoComplete">Tillykke! Du stillede din modstander skak og tvang dem til at forsvare deres konge!</string>
-  <string name="whatNext">Hvad er det næste?</string>
+  <string name="whatNext">Hvad er næste skridt?</string>
   <string name="youKnowHowToPlayChess">Du ved, hvordan man spiller skak, tillykke! Vil du blive en stærkere spiller?</string>
   <string name="register">Registrer</string>
   <string name="getAFreeLichessAccount">Få en gratis Lichess konto</string>
