@@ -105,8 +105,11 @@
   <string name="memory">Меморија</string>
   <string name="infiniteAnalysis">Бесконачна анализа</string>
   <string name="removesTheDepthLimit">Уклања ограничење дубине и греје рачунар</string>
+  <string name="blunder">Груба грешка</string>
   <string name="blunders">Грубе грешке</string>
+  <string name="mistake">Грешка</string>
   <string name="mistakes">Грешке</string>
+  <string name="inaccuracy">Непрецизност</string>
   <string name="inaccuracies">Непрецизности</string>
   <string name="moveTimes">Време померања фигура</string>
   <string name="flipBoard">Обрни таблу</string>
@@ -789,4 +792,5 @@
   <string name="challenges">Изазови</string>
   <string name="perfRatingX">Рејтинг: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s секунди да одиграте први потез</string>
+  <string name="practiceWithComputer">Тренирај са компјутером</string>
 </resources>
