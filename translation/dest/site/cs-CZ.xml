@@ -793,7 +793,16 @@ v %3$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekund na první tah</string>
   <string name="practiceWithComputer">Procvičit s počítačem</string>
+  <string name="anotherWas">Další tah byl</string>
+  <string name="bestWas">Nejlepší tah byl</string>
+  <string name="youBrowsedAway">Procvičování přerušeno</string>
+  <string name="resumePractice">Pokračovat v procvičování</string>
+  <string name="theGameIsADraw">Hra končí remízou.</string>
+  <string name="computerThinking">Počítač přemýšlí...</string>
   <string name="seeBestMove">Ukázat nejlepší tah</string>
   <string name="hideBestMove">Skrýt nejlepší tah</string>
   <string name="getAHint">Získat nápovědu</string>
+  <string name="evaluatingYourMove">Hodnotím tvůj tah...</string>
+  <string name="whiteWinsGame">Bílý vyhrál</string>
+  <string name="blackWinsGame">Černý vyhrál</string>
 </resources>
