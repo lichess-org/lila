@@ -291,14 +291,14 @@
     <item quantity="other">%s рейтинговых игр</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s рейтинговая игра</item>
-    <item quantity="few">≥ %1$s %2%s рейтинговые игры</item>
-    <item quantity="other">≥ %1$s %2%s рейтинговых игр</item>
+    <item quantity="one">≥ %1$s игра в %2$s на рейтинг</item>
+    <item quantity="few">≥ %1$s игры в %2$s на рейтинг</item>
+    <item quantity="other">≥ %1$s игр в %2$s на рейтинг</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Вы должны сыграть еще %1$s рейтинговую игру в %2$s</item>
-    <item quantity="few">Вы должны сыграть еще %1$s рейтинговые игры в %2$s</item>
-    <item quantity="other">Вы должны сыграть еще %1$s рейтинговых игр в %2$s</item>
+    <item quantity="one">Вы должны сыграть ещё %1$s рейтинговую игру в %2$s</item>
+    <item quantity="few">Вы должны сыграть ещё %1$s рейтинговые игры в %2$s</item>
+    <item quantity="other">Вы должны сыграть ещё %1$s рейтинговых игр в %2$s</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Вы должны сыграть еще %s рейтинговую игру</item>
@@ -468,7 +468,7 @@
   <string name="wasThisPuzzleAnyGood">Была ли задача интересной?</string>
   <string name="pleaseVotePuzzle">Помогите сделать lichess лучше, голосуя при помощи стрелок вверх или вниз.</string>
   <string name="thankYou">Спасибо!</string>
-  <string name="ratingX">Место:%s</string>
+  <string name="ratingX">Рейтинг: %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Решено %s раз</item>
     <item quantity="few">Решено %s раза</item>
