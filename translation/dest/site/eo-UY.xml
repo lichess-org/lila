@@ -103,8 +103,11 @@
   <string name="memory">Memoro</string>
   <string name="infiniteAnalysis">Senfina analizo</string>
   <string name="removesTheDepthLimit">Forigas la profundlimon, kaj tenas vian komputilon varma</string>
+  <string name="blunder">Erarego</string>
   <string name="blunders">Eraregoj</string>
+  <string name="mistake">Eraro</string>
   <string name="mistakes">Eraroj</string>
+  <string name="inaccuracy">Erareto</string>
   <string name="inaccuracies">Eraretoj</string>
   <string name="moveTimes">Movaj tempoj</string>
   <string name="flipBoard">Rotacii tabulon</string>
@@ -757,4 +760,11 @@
   <string name="challenges">Defioj</string>
   <string name="perfRatingX">Rango: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekundoj por ludi la unuan movon</string>
+  <string name="practiceWithComputer">Praktiki kun komputilo</string>
+  <string name="anotherWas">Alia estis</string>
+  <string name="bestWas">Plej bona estis</string>
+  <string name="youBrowsedAway">Vi retumis foren</string>
+  <string name="resumePractice">Daŭrigi praktikon</string>
+  <string name="theGameIsADraw">La ludo egalvenkas.</string>
+  <string name="computerThinking">Komputilo pensas ...</string>
 </resources>
