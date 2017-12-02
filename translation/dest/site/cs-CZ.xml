@@ -105,7 +105,9 @@
   <string name="memory">Paměť</string>
   <string name="infiniteAnalysis">Nekonečná analýza</string>
   <string name="removesTheDepthLimit">Zapne nekonečnou analýzu a odstraní omezení hloubky propočtu</string>
+  <string name="blunder">Hrubá chyba</string>
   <string name="blunders">Hrubky</string>
+  <string name="mistake">Chyba</string>
   <string name="mistakes">Omyly</string>
   <string name="inaccuracies">Nepřesnosti</string>
   <string name="moveTimes">Čas na tah</string>
