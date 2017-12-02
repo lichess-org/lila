@@ -79,7 +79,7 @@
   </plurals>
   <string name="noGameFound">Ingen spil fundet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Inkluder måske flere partier fra præferencemenuen?</string>
-  <string name="openingExplorer">Åbning Opdagelse</string>
+  <string name="openingExplorer">Åbningsdatabase</string>
   <string name="xOpeningExplorer">%s åbningsdatabase</string>
   <string name="winPreventedBy50MoveRule">Sejr forhindret af 50-træks reglen</string>
   <string name="lossSavedBy50MoveRule">Nederlag undgået på grund af 50-træks reglen</string>
@@ -530,7 +530,7 @@
   <string name="starting">Begynder:</string>
   <string name="allInformationIsPublicAndOptional">Al information er offentlig og ikke-obligatorisk</string>
   <string name="yourCityRegionOrDepartment">Din by, region eller provins</string>
-  <string name="biographyDescription">Fortæl om dig selv, hvad kan du lide ved skak, dine yndlings åbninger, spil, spillere…</string>
+  <string name="biographyDescription">Fortæl om dig selv, hvad kan du lide ved skak, dine favoritåbninger, spil, spillere…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s tegn.</item>
     <item quantity="other">Maximum: %s tegn.</item>
