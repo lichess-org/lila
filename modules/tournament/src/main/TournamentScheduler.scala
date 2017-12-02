@@ -161,8 +161,9 @@ Thank you all, you rock!"""
               month.firstWeek.withDayOfWeek(TUESDAY) -> SuperBlitz,
               month.firstWeek.withDayOfWeek(WEDNESDAY) -> Blitz,
               month.firstWeek.withDayOfWeek(THURSDAY) -> Rapid,
-              month.firstWeek.withDayOfWeek(FRIDAY) -> HyperBullet,
-              month.firstWeek.withDayOfWeek(SATURDAY) -> UltraBullet
+              month.firstWeek.withDayOfWeek(FRIDAY) -> Classical,
+              month.firstWeek.withDayOfWeek(SATURDAY) -> HyperBullet,
+              month.firstWeek.withDayOfWeek(SUNDAY) -> UltraBullet
             ).flatMap {
                 case (day, speed) => at(day, 16) map { date =>
                   Schedule(Shield, speed, Standard, std, date) plan {
