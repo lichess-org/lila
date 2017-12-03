@@ -27,7 +27,7 @@ final class ReportApi(
   private implicit val ReporterIdBSONHandler = stringIsoHandler[ReporterId](ReporterId.reporterIdIso)
   private implicit val ScoreIdBSONHandler = doubleIsoHandler[Score](Report.scoreIso)
   private implicit val AtomBSONHandler = Macros.handler[Atom]
-  private implicit val ReportBSONHandler = Macros.handler[Report]
+  private implicit val ReportBSONHandler = lila.db.BSON.LoggingHandler(logger)(Macros.handler[Report])
 
   def create(candidate: Report.Candidate): Funit = !candidate.reporter.user.reportban ?? {
     !isAlreadySlain(candidate) ?? {
@@ -199,8 +199,8 @@ final class ReportApi(
   def recentReportersOf(sus: Suspect): Fu[List[User.ID]] =
     coll.distinctWithReadPreference[String, List]("createdBy", $doc(
       "user" -> sus.user.id,
-      "createdAt" $gt DateTime.now.minusDays(3),
-      "createdBy" $ne "lichess"
+      "atoms.0.at" $gt DateTime.now.minusDays(3),
+      "atoms.0.by" $ne "lichess"
     ).some,
       ReadPreference.secondaryPreferred)
 
@@ -290,7 +290,7 @@ final class ReportApi(
     coll.find(selector).sort($sort.createdDesc).list[Report](nb)
 
   private def selectRecent(suspect: Suspect, reason: Reason): Bdoc = $doc(
-    "createdAt" $gt DateTime.now.minusDays(7),
+    "atoms.0.at" $gt DateTime.now.minusDays(7),
     "user" -> suspect.user.id,
     "reason" -> reason.key
   )

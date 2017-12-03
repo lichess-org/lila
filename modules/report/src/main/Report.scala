@@ -47,16 +47,11 @@ case class Report(
   def nbOtherAtoms: Option[Int] = atoms.tail.nonEmpty option (atoms.size - 1)
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
 
-  // def isCreator(user: User.ID) = user == createdBy
-
   def unprocessedCheat = unprocessed && isCheat
   def unprocessedOther = unprocessed && isOther
   def unprocessedTroll = unprocessed && isTroll
   def unprocessedInsult = unprocessed && isInsult
   def unprocessedTrollOrInsult = unprocessed && isTrollOrInsult
-
-  // def isAutomatic = createdBy == lichessId
-  // def isManual = !isAutomatic
 
   def process(by: User) = copy(processedBy = by.id.some)
 
