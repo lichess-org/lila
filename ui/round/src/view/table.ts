@@ -25,7 +25,7 @@ function bottomPlayer(ctrl: RoundController) {
 function renderPlayer(ctrl: RoundController, player: Player) {
   return player.ai ? h('div.username.user_link.online', [
     h('i.line'),
-    h('name', renderUser.aiName(ctrl, player))
+    h('name', renderUser.aiName(ctrl, player.ai))
   ]) :
   renderUser.userHtml(ctrl, player);
 }

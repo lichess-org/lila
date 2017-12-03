@@ -10,7 +10,7 @@ export interface ChatOpts {
   public: boolean
   permissions: Permissions
   timeoutReasons?: ModerationReason[]
-  i18n: Object
+  i18n: { [key: string]: string | undefined }
   preset?: string
   noteId?: string
   loadCss: (url: string) => void

@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import { Redraw, Prop, defined } from './util'
+import { Redraw, defined } from './util'
 
 export interface PingData {
   ping: number | undefined
@@ -13,7 +13,7 @@ export interface PingCtrl {
   trans: Trans
 }
 
-export function ctrl(trans: Prop<Trans>, redraw: Redraw): PingCtrl {
+export function ctrl(trans: Trans, redraw: Redraw): PingCtrl {
 
   const data: PingData = {
     ping: undefined,

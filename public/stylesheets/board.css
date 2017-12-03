@@ -642,7 +642,7 @@ div.table_wrap .clock huns {
   font-size: 80%;
 }
 div.table_wrap .clock sep {
-  opacity: 0.6;
+  opacity: 0.5;
 }
 div.table_wrap .clock sep.low {
   opacity: 0.15;

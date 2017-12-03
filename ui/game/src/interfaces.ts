@@ -50,7 +50,7 @@ export interface Player {
   proposingTakeback?: boolean;
   offeringRematch?: boolean;
   offeringDraw?: boolean;
-  ai: boolean;
+  ai: number | null;
   onGame: boolean;
   isGone: boolean;
   blurs?: Blurs;

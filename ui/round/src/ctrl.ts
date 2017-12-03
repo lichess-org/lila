@@ -234,10 +234,12 @@ export default class RoundController {
     };
     if (this.clock) {
       socketOpts.withLag = !this.shouldSendMoveTime || !this.clock.isRunning;
-      const moveMillis = this.clock.stopClock();
-      if (this.shouldSendMoveTime) {
-        if (meta.premove) socketOpts.millis = 0;
-        else if (moveMillis !== undefined) {
+      if (meta.premove && this.shouldSendMoveTime) {
+        this.clock.hardStopClock();
+        socketOpts.millis = 0;
+      } else {
+        const moveMillis = this.clock.stopClock();
+        if (moveMillis !== undefined && this.shouldSendMoveTime) {
           socketOpts.millis = moveMillis;
           if (socketOpts.millis < 3) {
             // instant move, no premove? might be fishy

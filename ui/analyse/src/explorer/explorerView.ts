@@ -176,9 +176,9 @@ function showTablebase(ctrl: AnalyseCtrl, title: string, moves: TablebaseMoveSta
 }
 
 function winner(stm: string, move: TablebaseMoveStats): Color | undefined {
-  if ((stm[0] == 'w' && move.wdl < 0) || (stm[0] == 'b' && move.wdl > 0))
+  if ((stm[0] == 'w' && move.wdl! < 0) || (stm[0] == 'b' && move.wdl! > 0))
     return 'white';
-  if ((stm[0] == 'b' && move.wdl < 0) || (stm[0] == 'w' && move.wdl > 0))
+  if ((stm[0] == 'b' && move.wdl! < 0) || (stm[0] == 'w' && move.wdl! > 0))
     return 'black';
 }
 
@@ -251,15 +251,16 @@ function show(ctrl: AnalyseCtrl) {
     else lastShow = showEmpty(ctrl);
   } else if (data && isTablebase(data)) {
     const moves = data.moves;
-    if (moves.length) lastShow = h('div.data', [
+    if (moves.length) lastShow = h('div.data', ([
       [trans('winning'), m => m.wdl === -2],
       [trans('unknown'), m => m.wdl === null],
       [trans('winPreventedBy50MoveRule'), m => m.wdl === -1],
       [trans('drawn'), m => m.wdl === 0],
       [trans('lossSavedBy50MoveRule'), m => m.wdl === 1],
       [trans('losing'), m => m.wdl === 2],
-    ].map(a => showTablebase(ctrl, a[0] as string, moves.filter(a[1]), data.fen))
-      .reduce(function(a, b) { return a.concat(b); }, []))
+    ] as [string, (move: TablebaseMoveStats) => boolean][])
+      .map(a => showTablebase(ctrl, a[0] as string, moves.filter(a[1]), data.fen))
+      .reduce(function(a, b) { return a.concat(b); }, []));
     else if (data.checkmate) lastShow = showGameEnd(ctrl, trans('checkmate'))
       else if (data.stalemate) lastShow = showGameEnd(ctrl, trans('stalemate'))
         else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, trans('variantEnding'));
