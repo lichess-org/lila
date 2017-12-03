@@ -44,6 +44,8 @@
   <string name="castlingIntro">Ноёны аюулгүй байдлыг хангаж, тэргээ довтолгоонд оруул!</string>
   <string name="castleKingSide">Ноёноо хоёр нүд нүүж ноёны тал руу сэлгэ!</string>
   <string name="castleQueenSide">Ноёноо хоёр нүд нүүж бэрсийн тал руу сэлгэ!</string>
+  <string name="enPassant">Ан-пассан дүрэм</string>
+  <string name="theSpecialPawnMove">Хүүгийн онцгой нүүдэл</string>
   <string name="stalemate">Мухардалт буюу хайнаа</string>
   <string name="theGameIsADraw">Өрөг тэнцлээ</string>
   <string name="advanced">Ахисан шат</string>
@@ -56,4 +58,8 @@
 Морь = 3
 Хүү = 1
 Ноёнг үнэлж барашгүй юм. Түүнийг алдах нь өрөгт хожигдсоныг илтгэнэ.</string>
+  <string name="checkInTwo">Хоёр нүүдлийн шалаа</string>
+  <string name="twoMovesToGiveCheck">Хоёр нүүгээд шал</string>
+  <string name="whatNext">Дараагийн алхам?</string>
+  <string name="youKnowHowToPlayChess">Баяр хүргэе! Чи шатар хэрхэн тоглодогыг сурлаа. Чи улам сайн шатарчин болмоор байна уу?</string>
 </resources>
