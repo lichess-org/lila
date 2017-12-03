@@ -11,7 +11,7 @@
   <string name="chessPieces">Skakbrikker</string>
   <string name="theRook">Tårnet</string>
   <string name="itMovesInStraightLines">Det bevæger sig i lige linjer</string>
-  <string name="rookIntro">Tårnet er en stærk brik. Er du klar til at beherske den?</string>
+  <string name="rookIntro">Tårnet er en stærk brik. Er du klar til at beherske det?</string>
   <string name="rookGoal">Klik på tårnet for at rykke det til stjernen!</string>
   <string name="grabAllTheStars">Fang alle stjernerne!</string>
   <string name="theFewerMoves">Jo færre træk du tager, desto flere point får du!</string>
