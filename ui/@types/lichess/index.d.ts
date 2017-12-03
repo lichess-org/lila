@@ -1,6 +1,6 @@
 interface Lichess {
   pubsub: Pubsub
-  trans: Trans
+  trans(i18n: { [key: string]: string | undefined }): Trans
   numberFormat(n: number): string
   once(key: string): boolean
   quietMode: boolean
@@ -55,7 +55,11 @@ interface AssetUrlOpts {
 
 declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
 
-declare type Trans = any; // todo
+interface Trans {
+  (key: string, ...args: Array<string | number>): string;
+  noarg(key: string): string;
+  plural(key: string, count: number, ...args: Array<string | number>): string;
+}
 
 interface Pubsub {
   on(msg: string, f: (data: any) => void): void

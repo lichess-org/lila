@@ -22,10 +22,5 @@ lichess.trans = function(i18n) {
     // optimisation for translations without arguments
     return i18n[key] || key;
   };
-  trans.merge = function(more) {
-    Object.keys(more).forEach(function(k) {
-      i18n[k] = more[k];
-    });
-  };
   return trans;
 };
