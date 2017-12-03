@@ -38,7 +38,15 @@
   <string name="captureAndDefendPieces">Довтлолт ба хамгаалалт</string>
   <string name="combatIntro">Сайн тулаанч довтлолт, хамгаалалтын аль алиныг сайн мэддэг!</string>
   <string name="combatComplete">Баяр хүргэе! Чи хэрхэн шатрын хөлгөөр тулалдахыг сурлаа!</string>
+  <string name="checkInOne">Шаглаа</string>
+  <string name="attackTheOpponentsKing">Өрсөлдөгчийнхөө ноён руу довтол</string>
+  <string name="outOfCheck">Шагаас гарах</string>
+  <string name="defendYourKing">Ноёноо хамгаал</string>
+  <string name="mateInOne">Мад</string>
+  <string name="defeatTheOpponentsKing">Өрсөлдөгчийнхөө ноёны буулгаж ав</string>
   <string name="intermediate">Дунд шат</string>
+  <string name="boardSetup">Хөлгийн байрлал</string>
+  <string name="howTheGameStarts">Өрөг хэрхэн эхэлдэг вэ?</string>
   <string name="castling">Сэлгээ</string>
   <string name="theSpecialKingMove">Ноёны тусгай нүүдэл</string>
   <string name="castlingIntro">Ноёны аюулгүй байдлыг хангаж, тэргээ довтолгоонд оруул!</string>
@@ -62,4 +70,10 @@
   <string name="twoMovesToGiveCheck">Хоёр нүүгээд шал</string>
   <string name="whatNext">Дараагийн алхам?</string>
   <string name="youKnowHowToPlayChess">Баяр хүргэе! Чи шатар хэрхэн тоглодогыг сурлаа. Чи улам сайн шатарчин болмоор байна уу?</string>
+  <string name="register">Гишүүн бол</string>
+  <string name="getAFreeLichessAccount">Личессийн хэрэглэгчийн данс үнэгүй нээ</string>
+  <string name="practice">Сургуулилалт</string>
+  <string name="learnCommonChessPositions">Түгээмэл тохиолдох өргийн байрлалуудыг сурах</string>
+  <string name="playPeople">Хүмүүстэй тогло</string>
+  <string name="outstanding">Гайхалтай!</string>
 </resources>
