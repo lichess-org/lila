@@ -43,5 +43,17 @@
   <string name="theSpecialKingMove">Ноёны тусгай нүүдэл</string>
   <string name="castlingIntro">Ноёны аюулгүй байдлыг хангаж, тэргээ довтолгоонд оруул!</string>
   <string name="castleKingSide">Ноёноо хоёр нүд нүүж ноёны тал руу сэлгэ!</string>
+  <string name="castleQueenSide">Ноёноо хоёр нүд нүүж бэрсийн тал руу сэлгэ!</string>
+  <string name="stalemate">Мухардалт буюу хайнаа</string>
+  <string name="theGameIsADraw">Өрөг тэнцлээ</string>
   <string name="advanced">Ахисан шат</string>
+  <string name="pieceValue">Хөлгийн үнэ цэнэ</string>
+  <string name="evaluatePieceStrength">Хөлгийн хүчийг үнэл</string>
+  <string name="pieceValueIntro">Хөлгийн байдал өндөр хөлөг хамгийн хүчтэй!
+Бэрс = 9
+Тэрэг = 5
+Тэмээ = 3
+Морь = 3
+Хүү = 1
+Ноёнг үнэлж барашгүй юм. Түүнийг алдах нь өрөгт хожигдсоныг илтгэнэ.</string>
 </resources>
