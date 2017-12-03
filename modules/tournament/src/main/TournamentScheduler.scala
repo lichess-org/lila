@@ -176,13 +176,14 @@ Thank you all, you rock!"""
               },
 
             List( // shield variant tournaments!
-              month.thirdWeek.withDayOfWeek(MONDAY) -> Chess960,
-              month.thirdWeek.withDayOfWeek(TUESDAY) -> Crazyhouse,
-              month.thirdWeek.withDayOfWeek(WEDNESDAY) -> KingOfTheHill,
-              month.thirdWeek.withDayOfWeek(THURSDAY) -> ThreeCheck,
-              month.thirdWeek.withDayOfWeek(FRIDAY) -> Antichess,
-              month.thirdWeek.withDayOfWeek(SATURDAY) -> Atomic,
-              month.thirdWeek.withDayOfWeek(SUNDAY) -> Horde
+              month.secondWeek.withDayOfWeek(SUNDAY) -> Chess960,
+              month.thirdWeek.withDayOfWeek(MONDAY) -> Crazyhouse,
+              month.thirdWeek.withDayOfWeek(TUESDAY) -> KingOfTheHill,
+              month.thirdWeek.withDayOfWeek(WEDNESDAY) -> ThreeCheck,
+              month.thirdWeek.withDayOfWeek(THURSDAY) -> Antichess,
+              month.thirdWeek.withDayOfWeek(FRIDAY) -> Atomic,
+              month.thirdWeek.withDayOfWeek(SATURDAY) -> Horde,
+              month.thirdWeek.withDayOfWeek(SUNDAY) -> RacingKings
             ).flatMap {
                 case (day, variant) => at(day, 16) map { date =>
                   Schedule(Shield, Blitz, variant, std, date) plan {
