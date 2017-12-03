@@ -486,6 +486,7 @@
   <string name="playOnTheBoardOffline">Нүүр тулсан өрөг</string>
   <string name="playOfflineComputer">Компьютер</string>
   <string name="opponent">Өрсөлдөгч</string>
+  <string name="learnMenu">Сургалт</string>
   <string name="community">Гишүүд</string>
   <string name="tools">Хэрэглүүр</string>
   <string name="increment">Нэмэгдэл</string>
@@ -600,4 +601,6 @@
     <item quantity="other">%s хэл дээр</item>
   </plurals>
   <string name="gameAnalysis">Өргийн шинжилгээ</string>
+  <string name="chessBasics">Шатрын суурь мэдлэг</string>
+  <string name="coaches">Шатрын багш</string>
 </resources>
