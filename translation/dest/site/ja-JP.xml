@@ -101,8 +101,11 @@
   <string name="memory">メモリ</string>
   <string name="infiniteAnalysis">無限解析</string>
   <string name="removesTheDepthLimit">探索手数の制限をなくし最大限の解析を行なう</string>
+  <string name="blunder">大悪手</string>
   <string name="blunders">大悪手</string>
+  <string name="mistake">悪手</string>
   <string name="mistakes">悪手</string>
+  <string name="inaccuracy">疑問手</string>
   <string name="inaccuracies">疑問手</string>
   <string name="moveTimes">消費時間</string>
   <string name="flipBoard">盤を反転させる</string>
@@ -728,4 +731,8 @@
   <string name="challenges">チャレンジ</string>
   <string name="perfRatingX">レーティング: %s</string>
   <string name="xSecondsToPlayTheFirstMove">あと %s 秒以内に初手を指してください</string>
+  <string name="practiceWithComputer">コンピューターと練習する</string>
+  <string name="anotherWas">別の手は</string>
+  <string name="bestWas">最善手は</string>
+  <string name="theGameIsADraw">ドロー（引き分け）です。</string>
 </resources>
