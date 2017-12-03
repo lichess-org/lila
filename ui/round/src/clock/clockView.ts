@@ -42,8 +42,8 @@ function pad2(num: number): string {
   return (num < 10 ? '0' : '') + num;
 }
 
-const sepHigh = '<sep>:</sep>';
-const sepLow = '<sep class="low">:</sep>';
+const sepHigh = '<sep>∶</sep>';
+const sepLow = '<sep class="low">∶</sep>';
 
 function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean) {
   const date = new Date(time),
