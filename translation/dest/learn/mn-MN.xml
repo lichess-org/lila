@@ -56,6 +56,7 @@
   <string name="theSpecialPawnMove">Хүүгийн онцгой нүүдэл</string>
   <string name="stalemate">Мухардалт буюу хайнаа</string>
   <string name="theGameIsADraw">Өрөг тэнцлээ</string>
+  <string name="stalemateIntro">Хэрвээ тоглогч шалаанд ороогүй мөн хориогүй нүүдэл хийх боломжгүй болсныг мухардалт гэнэ. Мухардсан өргийг тэнцээгээр тооцно.</string>
   <string name="advanced">Ахисан шат</string>
   <string name="pieceValue">Хөлгийн үнэ цэнэ</string>
   <string name="evaluatePieceStrength">Хөлгийн хүчийг үнэл</string>
@@ -74,6 +75,15 @@
   <string name="getAFreeLichessAccount">Личессийн хэрэглэгчийн данс үнэгүй нээ</string>
   <string name="practice">Сургуулилалт</string>
   <string name="learnCommonChessPositions">Түгээмэл тохиолдох өргийн байрлалуудыг сурах</string>
+  <string name="puzzles">Бодлого</string>
+  <string name="exerciseYourTacticalSkills">Тактикын ур чадвараа сургуулал</string>
+  <string name="videos">Бичлэг</string>
+  <string name="watchInstructiveChessVideos">Шатрын хичээлийн бичлэгүүдийг үз</string>
   <string name="playPeople">Хүмүүстэй тогло</string>
+  <string name="opponentsFromAroundTheWorld">Дэлхийн өнцөг булан бүрийн шатарчид</string>
+  <string name="playMachine">Компьютертай тогло</string>
+  <string name="testYourSkillsWithTheComputer">Ур чадвараа компьютерийн эсрэг тоглож шалга</string>
   <string name="outstanding">Гайхалтай!</string>
+  <string name="puzzleFailed">Бодлогыг бодож чадсангүй!</string>
+  <string name="retry">Дахин оролд</string>
 </resources>
