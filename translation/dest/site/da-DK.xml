@@ -729,7 +729,7 @@
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekunder til at lave det første træk</string>
   <string name="practiceWithComputer">Træn med computer</string>
-  <string name="anotherWas">En anden var</string>
+  <string name="anotherWas">Et andet var</string>
   <string name="bestWas">Bedst var</string>
   <string name="youBrowsedAway">Du browsede væk</string>
   <string name="resumePractice">Genoptag træning</string>
