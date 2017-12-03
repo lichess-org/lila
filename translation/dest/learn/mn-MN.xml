@@ -21,7 +21,7 @@
   <string name="itMovesDiagonally">Тэмээ ташуу шугамаар нүүдэг</string>
   <string name="theQueen">Бэрс</string>
   <string name="queenCombinesRookAndBishop">Бэрс = Тэрэг + Тэмээ</string>
-  <string name="queenIntro">Шатрын хамгийн хүчирхэг дүрс!</string>
+  <string name="queenIntro">Шатрын хамгийн хүчирхэг хөлөг!</string>
   <string name="theKing">Ноён</string>
   <string name="theMostImportantPiece">Хамгийн чухал дүрс</string>
   <string name="theKnight">Морь</string>
@@ -30,6 +30,18 @@
   <string name="itMovesForwardOnly">Хүү зөвхөн урагшаагаа нүүдэг</string>
   <string name="pawnsMoveForward">Хүү зөвхөн урагш нүүх ба диогналын дагуу иднэ!</string>
   <string name="fundamentals">Анхан шат</string>
+  <string name="capture">Хөлөг идэлт</string>
+  <string name="takeTheEnemyPieces">Дайсныхаа хөлгийг ид</string>
+  <string name="protection">Хамгаалалт</string>
+  <string name="keepYourPiecesSafe">Хөлгийнхөө аюулгүй байдлыг ханга</string>
+  <string name="combat">Тулаан</string>
+  <string name="captureAndDefendPieces">Довтлолт ба хамгаалалт</string>
+  <string name="combatIntro">Сайн тулаанч довтлолт, хамгаалалтын аль алиныг сайн мэддэг!</string>
+  <string name="combatComplete">Баяр хүргэе! Чи хэрхэн шатрын хөлгөөр тулалдахыг сурлаа!</string>
   <string name="intermediate">Дунд шат</string>
+  <string name="castling">Сэлгээ</string>
+  <string name="theSpecialKingMove">Ноёны тусгай нүүдэл</string>
+  <string name="castlingIntro">Ноёны аюулгүй байдлыг хангаж, тэргээ довтолгоонд оруул!</string>
+  <string name="castleKingSide">Ноёноо хоёр нүд нүүж ноёны тал руу сэлгэ!</string>
   <string name="advanced">Ахисан шат</string>
 </resources>
