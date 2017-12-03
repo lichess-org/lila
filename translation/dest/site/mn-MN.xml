@@ -319,6 +319,9 @@
   <string name="winStreak">Ялалтын цуврал</string>
   <string name="createdBy">Зохион байгуулагч:</string>
   <string name="tournamentIsStarting">Тэмцээний удахгүй эхэллээ</string>
+  <string name="winRate">Ялалтын хувь</string>
+  <string name="berserkRate">Берсеркийн хувь</string>
+  <string name="performance">Тэмцээнд үзүүлсэн чансаа</string>
   <string name="membersOnly">Зөвхөн гишүүд</string>
   <string name="boardEditor">Өргийн байрлал өөрчлөгч</string>
   <string name="startPosition">Үндсэн байрлал</string>
