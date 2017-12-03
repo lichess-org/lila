@@ -82,15 +82,15 @@ export interface OpeningMoveStats extends MoveStats {
   averageRating: number;
 }
 export interface TablebaseMoveStats extends MoveStats {
-  dtm: number;
-  dtz: number;
+  wdl: number | null;
+  dtz: number | null;
+  dtm: number | undefined;
   checkmate: boolean;
   stalemate: boolean;
   variant_win: boolean;
   variant_loss: boolean;
   insufficient_material: boolean;
   zeroing: boolean;
-  wdl: number;
 }
 
 export function isOpening(m: ExplorerData): m is OpeningData {

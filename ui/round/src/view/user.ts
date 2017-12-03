@@ -10,8 +10,8 @@ function ratingDiff(player: Player): VNode | undefined {
   return;
 }
 
-export function aiName(ctrl: RoundController, player: Player) {
-  return ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai);
+export function aiName(ctrl: RoundController, level: number) {
+  return ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
 }
 
 export function userHtml(ctrl: RoundController, player: Player) {
@@ -71,6 +71,6 @@ export function userHtml(ctrl: RoundController, player: Player) {
 export function userTxt(ctrl: RoundController, player: Player) {
   if (player.user) {
     return (player.user.title ? player.user.title + ' ' : '') + player.user.username;
-  } else if (player.ai) return aiName(ctrl, player)
+  } else if (player.ai) return aiName(ctrl, player.ai)
   else return 'Anonymous';
 }

@@ -3,12 +3,12 @@ import { Ctrl, ChallengeOpts, ChallengeData, ChallengeUser } from './interfaces'
 
 export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => void): Ctrl {
 
-  let trans: Trans = (key: string) => key;
+  let trans = (key: string) => key;
   let redirecting = false;
 
   function update(d: ChallengeData) {
     data = d;
-    if (d.i18n) trans = window.lichess.trans(d.i18n);
+    if (d.i18n) trans = window.lichess.trans(d.i18n).noarg;
     opts.setCount(countActiveIn());
     notifyNew();
   }

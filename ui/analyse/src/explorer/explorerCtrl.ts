@@ -33,7 +33,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
     cache = {};
     setNode();
   }
-  const withGames = synthetic(root.data) || gameUtil.replayable(root.data) || root.data.opponent.ai;
+  const withGames = synthetic(root.data) || gameUtil.replayable(root.data) || !!root.data.opponent.ai;
   const effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
 
   const config = configCtrl(root.data.game, onConfigClose, root.trans, root.redraw);
