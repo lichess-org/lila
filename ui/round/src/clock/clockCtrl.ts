@@ -128,6 +128,8 @@ export class ClockController {
     }
   }
 
+  hardStopClock = (): void => this.times.activeColor = undefined;
+
   scheduleTick = (time: Millis, extraDelay: Millis) => {
     if (this.tickCallback !== undefined) clearTimeout(this.tickCallback);
     this.tickCallback = setTimeout(
