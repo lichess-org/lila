@@ -346,12 +346,6 @@ body.dark form.translation_form div.message label,
 body.dark div.user_show div.content_box_top > span strong {
   color: #b0b0b0;
 }
-body.dark div.table_wrap > div.clock sep {
-  opacity: 0.5;
-}
-body.dark div.table_wrap > div.clock sep.low {
-  opacity: 0.15;
-}
 body.dark div.table_wrap > div.clock.running > div.time {
   background: #505a60;
   color: #fff;
