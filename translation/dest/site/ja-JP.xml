@@ -734,5 +734,14 @@
   <string name="practiceWithComputer">コンピューターと練習する</string>
   <string name="anotherWas">別の手は</string>
   <string name="bestWas">最善手は</string>
+  <string name="youBrowsedAway">ページを離れました</string>
+  <string name="resumePractice">練習を続ける</string>
   <string name="theGameIsADraw">ドロー（引き分け）です。</string>
+  <string name="computerThinking">コンピューター思考中…</string>
+  <string name="seeBestMove">最善手を見る</string>
+  <string name="hideBestMove">最善手をかくす</string>
+  <string name="getAHint">ヒントを見る</string>
+  <string name="evaluatingYourMove">あなたの手を評価中…</string>
+  <string name="whiteWinsGame">白勝ち</string>
+  <string name="blackWinsGame">黒勝ち</string>
 </resources>
