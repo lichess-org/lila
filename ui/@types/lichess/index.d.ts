@@ -59,6 +59,8 @@ interface Trans {
   (key: string, ...args: Array<string | number>): string;
   noarg(key: string): string;
   plural(key: string, count: number, ...args: Array<string | number>): string;
+  vdom<T>(key: string, ...args: T[]): (string | T)[];
+  vdomPlural<T>(key: string, count: number, ...args: T[]): (string | number | T)[];
 }
 
 interface Pubsub {
