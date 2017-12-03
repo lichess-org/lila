@@ -13,6 +13,11 @@
   <string name="itMovesInStraightLines">Тэрэг шулуун шугамаар нүүдэг</string>
   <string name="rookIntro">Тэрэг бол маш хүчтэй бод. Түүний чадварыг та бүрэн эзэмшихдээ бэлэн үү?</string>
   <string name="rookGoal">Тэрэг дээр дарж түүнийг од руу нүүлгээрэй!</string>
+  <string name="grabAllTheStars">Бүх одыг цуглуулаарай!</string>
+  <string name="theFewerMoves">Боломжит цөөхөн нүүдлээр дасгалыг гүйцэтгэх тусам та илүү их оноо авах болно!</string>
+  <string name="useTwoRooks">2 тэрэг ашиглаж илүү түргэн гүйцэтгэж болно!</string>
+  <string name="rookComplete">Баяр хүргэе! Та тэрэгний нүүдлийг бүрэн эзэмшиж чадлаа.</string>
+  <string name="theBishop">Тэмээ</string>
   <string name="theQueen">Бэрс</string>
   <string name="queenCombinesRookAndBishop">Бэрс = Тэрэг + Тэмээ</string>
   <string name="theKnight">Морь</string>
