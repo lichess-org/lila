@@ -18,12 +18,18 @@
   <string name="useTwoRooks">2 тэрэг ашиглаж илүү түргэн гүйцэтгэж болно!</string>
   <string name="rookComplete">Баяр хүргэе! Та тэрэгний нүүдлийг бүрэн эзэмшиж чадлаа.</string>
   <string name="theBishop">Тэмээ</string>
+  <string name="itMovesDiagonally">Тэмээ ташуу шугамаар нүүдэг</string>
   <string name="theQueen">Бэрс</string>
   <string name="queenCombinesRookAndBishop">Бэрс = Тэрэг + Тэмээ</string>
+  <string name="queenIntro">Шатрын хамгийн хүчирхэг дүрс!</string>
   <string name="theKing">Ноён</string>
+  <string name="theMostImportantPiece">Хамгийн чухал дүрс</string>
   <string name="theKnight">Морь</string>
+  <string name="itMovesInAnLShape">Морь нүд давж нүүдэг</string>
   <string name="thePawn">Хүү</string>
+  <string name="itMovesForwardOnly">Хүү зөвхөн урагшаагаа нүүдэг</string>
   <string name="pawnsMoveForward">Хүү зөвхөн урагш нүүх ба диогналын дагуу иднэ!</string>
   <string name="fundamentals">Анхан шат</string>
   <string name="intermediate">Дунд шат</string>
+  <string name="advanced">Ахисан шат</string>
 </resources>
