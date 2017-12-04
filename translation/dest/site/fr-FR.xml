@@ -762,8 +762,6 @@ en %3$s</string>
   <string name="perfRatingX">Classement : %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s secondes pour jouer le premier coup</string>
   <string name="practiceWithComputer">S\'entrainer avec un ordinateur</string>
-  <string name="anotherWas">Un autre a été</string>
-  <string name="bestWas">Meilleur était</string>
   <string name="youBrowsedAway">Vous avez parcouru</string>
   <string name="resumePractice">Reprendre l\'entrainement</string>
   <string name="theGameIsADraw">La partie est nulle.</string>
