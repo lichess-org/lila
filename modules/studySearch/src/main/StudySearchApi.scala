@@ -89,15 +89,13 @@ final class StudySearchApi(
   private def noMultiSpace(text: String) = multiSpaceRegex.replaceAllIn(text, " ")
 
   import reactivemongo.play.iteratees.cursorProducer
-  def reset(sinceStr: Option[String], system: akka.actor.ActorSystem) = client match {
+  def reset(sinceStr: String, system: akka.actor.ActorSystem) = client match {
     case c: ESClientHttp => {
-      val sinceOption: Option[Either[Unit, DateTime]] = for {
-        str <- sinceStr
-        res <- if (str == "reset") Some(Left(())) else parseDate(str) map Right.apply
-      } yield res
+      val sinceOption: Either[Unit, Option[DateTime]] =
+        if (sinceStr == "reset") Left(()) else Right(parseDate(sinceStr))
       val since = sinceOption match {
-        case None => sys error "Missing since date argument"
-        case Some(Right(date)) =>
+        case Right(None) => sys error "Missing since date argument"
+        case Right(Some(date)) =>
           logger.info(s"Resume since $date")
           date
         case _ =>
