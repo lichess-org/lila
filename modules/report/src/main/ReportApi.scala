@@ -16,7 +16,8 @@ final class ReportApi(
     securityApi: lila.security.SecurityApi,
     isOnline: User.ID => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
-    bus: lila.common.Bus
+    bus: lila.common.Bus,
+    scoreThreshold: () => Int
 ) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
@@ -180,13 +181,14 @@ final class ReportApi(
   private val openSelect: Bdoc = $doc("open" -> true)
   private val closedSelect: Bdoc = $doc("open" -> false)
   private val openAvailableSelect: Bdoc = openSelect ++ $doc("inquiry" $exists false)
+  private def scoreThresholdSelect = $doc("score" $gte scoreThreshold())
 
   private def roomSelect(room: Option[Room]): Bdoc =
     room.fold($doc("room" $ne Room.Xfiles.key)) { r => $doc("room" -> r) }
 
   val nbOpenCache = asyncCache.single[Int](
     name = "report.nbOpen",
-    f = coll.countSel(openSelect ++ roomSelect(none)),
+    f = coll.countSel(openSelect ++ roomSelect(none) ++ scoreThresholdSelect),
     expireAfter = _.ExpireAfterWrite(1 hour)
   )
 
