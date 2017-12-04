@@ -211,10 +211,10 @@
   <string name="cancelRematchOffer">Annulla l\'offerta di rivincita</string>
   <string name="viewRematch">Osserva la rivincita</string>
   <string name="play">Gioca</string>
-  <string name="inbox">Casella postale</string>
+  <string name="inbox">Messaggi</string>
   <string name="chatRoom">Chat room</string>
   <string name="loginToChat">Entra per partecipare alla chat</string>
-  <string name="youHaveBeenTimedOut">Sei stato bloccato.</string>
+  <string name="youHaveBeenTimedOut">Sei stato temporaneamente bloccato.</string>
   <string name="spectatorRoom">Chat spettatori</string>
   <string name="composeMessage">Componi messaggio</string>
   <string name="noNewMessages">Nessun nuovo messaggio</string>
