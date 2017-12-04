@@ -36,7 +36,7 @@ final class StudyRepo(private[study] val coll: Coll) {
     readPreference: ReadPreference = ReadPreference.secondaryPreferred,
     sort: Bdoc = $empty
   )(implicit cp: CursorProducer[Study]) =
-    coll.find(selector).cursor[Study](readPreference)
+    coll.find(selector).sort(sort).cursor[Study](readPreference)
 
   def exists(id: Study.Id) = coll.exists($id(id))
 
