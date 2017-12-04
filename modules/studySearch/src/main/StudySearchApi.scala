@@ -41,7 +41,8 @@ final class StudySearchApi(
     getChapters(study) flatMap { s =>
       client.store(Id(s.study.id.value), toDoc(s))
     }
-  }.mon(_.study.search.index.time) >>- lila.mon.study.search.index.count()
+  }.prefixFailure(study.id)
+    .mon(_.study.search.index.time) >>- lila.mon.study.search.index.count()
 
   private def toDoc(s: Study.WithActualChapters) = Json.obj(
     Fields.name -> s.study.name.value,
