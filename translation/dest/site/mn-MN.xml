@@ -737,8 +737,6 @@
   <string name="perfRatingX">Чансаа:%s</string>
   <string name="xSecondsToPlayTheFirstMove">Эхний нүүдэл хийхэд %s секунд байна</string>
   <string name="practiceWithComputer">Компьютертэй тоглох</string>
-  <string name="anotherWas">Өөр нүүдэл байсан</string>
-  <string name="bestWas">Хамгийн сайн нүүдэл</string>
   <string name="youBrowsedAway">Та гарсан байна</string>
   <string name="resumePractice">Практикийг үргэлжлүүлэх</string>
   <string name="theGameIsADraw">Өрөг тэнцсэн байна.</string>
