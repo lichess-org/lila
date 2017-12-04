@@ -74,6 +74,7 @@
   <string name="topGames">Өндөр үнэлгээтэй өргүүд</string>
   <string name="masterDbExplanation">%2$s-с %3$s оны хоорондох FIDE %1$s+ чансаа бүхий тоглочдын хоёр сая гаруй тэмцээний өргүүд</string>
   <string name="noGameFound">Өрөг олдсонгүй</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Магадгүй цэснээс өөр тоглолтууд оролцуулах уу?</string>
   <string name="openingExplorer">Шатрын нээлтүүдийг судлах</string>
   <string name="xOpeningExplorer">%s гарааны сан</string>
   <string name="winPreventedBy50MoveRule">50-н нүүдлийн дүрмээр хожил тооцогдоогүй</string>
@@ -93,6 +94,7 @@
   <string name="cpus">CPU</string>
   <string name="memory">Санах ой</string>
   <string name="infiniteAnalysis">Хязгааргүй шинжилгээ</string>
+  <string name="removesTheDepthLimit">Гүний хязгаарыг арилгавал компьютер илүү ачаална</string>
   <string name="blunder">Ноцтой алдаа</string>
   <string name="blunders">Ноцтой алдаанууд</string>
   <string name="mistake">Алдаа</string>
@@ -204,7 +206,7 @@
   <string name="inbox">Шуудангийн хайрцаг</string>
   <string name="chatRoom">Чат өрөө</string>
   <string name="loginToChat">Чатлахын тулд нэвтэр</string>
-  <string name="youHaveBeenTimedOut">Таны бичих эрх хүлээлтэнд байна.</string>
+  <string name="youHaveBeenTimedOut">Таны бичих эрх хүлээлгэнд байна.</string>
   <string name="spectatorRoom">Үзэгчийн өрөө</string>
   <string name="composeMessage">Зурвас илгээх</string>
   <string name="noNewMessages">Шинэ зурвас ирээгүй байна</string>
@@ -235,6 +237,7 @@
   <string name="giveMoreTime">Цаг нэмж өгөх</string>
   <string name="thisPlayerUsesChessComputerAssistance">Энэ тоглогч шатар тоглохдоо компьютерийн туслалцаа авдаг</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Энэ тоглогч өөрийн чансааг хиймлээр өсгөж/бууруулж байна</string>
+  <string name="openingExplorerAndTablebase">Шатрын гараа болон төгсгөлүүдийг судлах</string>
   <string name="takeback">Нүүдэл буцаалт</string>
   <string name="proposeATakeback">Нүүдэл буцаах хүсэлт илгээх</string>
   <string name="takebackPropositionSent">Нүүдэл буцаах хүсэлт илгээгдсэн</string>
@@ -251,9 +254,24 @@
   <string name="viewTournament">Тэмцээн үзэх</string>
   <string name="backToTournament">Тэмцээний үндсэн хуудас руу эргэж орох</string>
   <string name="thematic">Хэлбэржүүлсэн</string>
-  <string name="yourPerfRatingIsTooLow">Таны %1$s өргийн чансаа (%2$s) хэт бага байна</string>
-  <string name="ratedMoreThanInPerf">%2$s өргийн чансаа ≥ %1$s</string>
-  <string name="ratedLessThanInPerf">%2$s өргийн чансаа %1$s ≤</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">%s-с дээш үнэлгээтэй тоглолт</item>
+    <item quantity="other">%s-с дээш үнэлгээтэй өрөг</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Та дахиад %1$s удаа %2$s чансаатай өрөг тоглох хэрэгтэй</item>
+    <item quantity="other">Та %1$s удаа %2$s төрлийн чансаатай өрөг тоглох хэрэгтэй</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Та дахиад %sш үнэлгээтэй тоглолт хийх хэрэгтэй</item>
+    <item quantity="other">Та дахиад %s ш үнэлгээтэй тоглолт хийх хэрэгтэй</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Таны %s чансаа богино хугацаанийх байна</string>
+  <string name="yourPerfRatingIsTooHigh">Таны %1$s чансаа (%2$s) хэт өндөр</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Таны 7 хоногийн дээд %1$s чансаа (%2$s) хэт өндөр байна</string>
+  <string name="yourPerfRatingIsTooLow">Таны %1$s чансаа (%2$s) хэт бага байна</string>
+  <string name="ratedMoreThanInPerf">%2$s чансаа ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">%2$s чансаа ≤ %1$s</string>
   <string name="backToGame">Тоглолт руу буцах</string>
   <string name="siteDescription">Үнэ төлбөргүй шатар тоглох цахим хуудас. Цэвэрхэн интерфэйстэй, элдэв зар сурталчилгаагүй, бүртгэл шаардлагагүй. Та найзууд, дурын хүн, хиймэл оюун ухаантай шатар тоглож болно.</string>
   <string name="teams">Баг</string>
