@@ -761,7 +761,7 @@
   <string name="perfRatingX">Wertungszahl: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s Sekunden, um den ersten Zug zu machen</string>
   <string name="practiceWithComputer">Übe mit dem Computer</string>
-  <string name="youBrowsedAway">Du hast den Browser-Tab verlassen</string>
+  <string name="youBrowsedAway">Du hast weg geblättert</string>
   <string name="resumePractice">Übung fortsetzen</string>
   <string name="theGameIsADraw">Das Spiel ist unentschieden.</string>
   <string name="computerThinking">Computer überlegt ...</string>
