@@ -12,11 +12,19 @@ final class Env(
     securityApi: lila.security.SecurityApi,
     system: ActorSystem,
     hub: lila.hub.Env,
+    settingStore: lila.memo.SettingStore.Builder,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
   private val CollectionReport = config getString "collection.report"
   private val ActorName = config getString "actor.name"
+  private val ScoreThreshold = config getInt "score.threshold"
+
+  val scoreThresholdSetting = settingStore[Int](
+    "reportScoreThreshold",
+    default = ScoreThreshold,
+    text = "Report score threshold. Reports with lower scores are concealed to moderators".some
+  )
 
   lazy val forms = new DataForm(hub.actor.captcher)
 
@@ -30,15 +38,22 @@ final class Env(
   lazy val api = new ReportApi(
     reportColl,
     autoAnalysis,
-    discarder = discarder,
+    discarder,
     noteApi,
     securityApi,
     isOnline,
     asyncCache,
-    system.lilaBus
+    system.lilaBus,
+    scoreThreshold = scoreThresholdSetting.get
   )
 
   lazy val modFilters = new ModReportFilter
+
+  def cli = new lila.common.Cli {
+    def process = {
+      case "report" :: "score" :: "reset" :: Nil => api.resetScores inject "done"
+    }
+  }
 
   // api actor
   system.actorOf(Props(new Actor {
@@ -67,6 +82,7 @@ object Env {
     securityApi = lila.security.Env.current.api,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
+    settingStore = lila.memo.Env.current.settingStore,
     asyncCache = lila.memo.Env.current.asyncCache
   )
 }

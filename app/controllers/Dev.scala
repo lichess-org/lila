@@ -12,7 +12,8 @@ object Dev extends LilaController {
     Env.security.ugcArmedSetting,
     Env.irwin.irwinArmedSetting,
     Env.api.assetVersionSetting,
-    Env.explorer.indexFlowSetting
+    Env.explorer.indexFlowSetting,
+    Env.report.scoreThresholdSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>

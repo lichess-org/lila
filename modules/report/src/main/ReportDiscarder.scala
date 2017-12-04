@@ -4,8 +4,8 @@ package lila.report
 private final class ReportDiscarder {
 
   // true if report sucks and should be discarded
-  def apply(report: Report, reporter: Reporter, getAccuracy: => Fu[Option[Int]]): Fu[Boolean] =
-    report.isCheat ?? {
+  def apply(candidate: Report.Candidate, getAccuracy: => Fu[Option[Accuracy]]): Fu[Boolean] =
+    candidate.isCheat ?? {
       getAccuracy map { _ exists discardCheatReportWithAccuracy }
     }
 
@@ -14,6 +14,6 @@ private final class ReportDiscarder {
   // 30% accuracy => 50 -> 50% discard
   // 20% accuracy => 25 -> 75% discard
   // 10% accuracy => 0  -> 100% discard
-  private def discardCheatReportWithAccuracy(accuracy: Int): Boolean =
-    scala.util.Random.nextInt(100) > (accuracy - 10) * 2.5
+  private def discardCheatReportWithAccuracy(accuracy: Accuracy): Boolean =
+    scala.util.Random.nextInt(100) > (accuracy.value - 10) * 2.5
 }

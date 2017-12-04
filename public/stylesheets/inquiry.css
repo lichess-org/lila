@@ -111,6 +111,36 @@ body.no-inquiry {
 #inquiry .doc h3 {
   margin: 0;
 }
+#inquiry .report .atom {
+  margin-bottom: 0.8em;
+  border-bottom: 1px solid #777;
+  padding-bottom: 0.8em;
+}
+#inquiry .report .atom:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+#inquiry .score {
+  display: inline-block;
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 0.9em;
+  padding: 0.1em 0.5em;
+  border-radius: 0.3em;
+}
+#inquiry .score.green {
+  /* actually blue */
+  background-color: rgba(32, 119, 192, 0.4);
+}
+#inquiry .score.yellow {
+  background-color: rgba(221, 207, 63, 0.4);
+}
+#inquiry .score.orange {
+  background-color: rgba(231, 155, 100, 0.4);
+}
+#inquiry .score.red {
+  background-color: rgba(231, 59, 56, 0.4);
+}
 #inquiry form.note textarea {
   width: 100%;
   box-sizing: border-box;

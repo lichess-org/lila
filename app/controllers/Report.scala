@@ -24,8 +24,8 @@ object Report extends LilaController {
   }
 
   private def renderList(room: String)(implicit ctx: Context) =
-    api.unprocessedAndRecentWithFilter(20, Room(room)) zip
-      api.countUnprocesssedByRooms flatMap {
+    api.openAndRecentWithFilter(20, Room(room)) zip
+      api.countOpenByRooms flatMap {
         case reports ~ counts =>
           (Env.user.lightUserApi preloadMany reports.flatMap(_.userIds)) inject
             Ok(html.report.list(reports, room, counts))
@@ -104,7 +104,7 @@ object Report extends LilaController {
       },
       data =>
         if (data.user == me) notFound
-        else api.create(data, lila.report.Reporter(me)) map { report =>
+        else api.create(data candidate lila.report.Reporter(me)) map { report =>
           Redirect(routes.Report.thanks(data.user.username))
         }
     )

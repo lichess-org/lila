@@ -88,7 +88,7 @@ final class ModApi(
   } yield ()
 
   def garbageCollect(sus: Suspect, ipBan: Boolean): Funit = for {
-    mod <- reportApi.getLichess flatten "lichess user is missing"
+    mod <- reportApi.getLichessMod
     _ <- setEngine(mod, sus, true)
     _ <- setTroll(mod, sus, true)
     _ <- ipBan ?? setBan(mod, sus, true)

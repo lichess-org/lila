@@ -58,21 +58,21 @@
   }
   }
   <div class="second_mod_button_row">
-  @if(isGranted(_.RemoveRanking)) {
-  <form method="post" action="@routes.Mod.kickFromRankings(u.username)" data-hint="Excludes this user from the rankings during the next calculation." class="hint--bottom-left">
-    <input class="button" type="submit" value="Kick from ranking" />
-  </form>
-  }
-  @if(isGranted(_.ReportBan)) {
-  <form method="post" action="@routes.Mod.reportban(u.username, !u.reportban)" data-hint="@if(u.reportban){En}else{Dis}able the report feature for this user." class="hint--bottom-left">
-    <input class="button@when(u.reportban, " active")" type="submit" value="Reportban" />
-  </form>
-  }
-  @if(isGranted(_.Impersonate)) {
-  <form method="post" action="@routes.Mod.impersonate(u.username)">
-    <input class="button" type="submit" value="Impersonate" />
-  </form>
-  }
+    @if(isGranted(_.RemoveRanking)) {
+    <form method="post" action="@routes.Mod.kickFromRankings(u.username)" data-hint="Excludes this user from the rankings during the next calculation." class="hint--bottom-left">
+      <input class="button" type="submit" value="Kick from ranking" />
+    </form>
+    }
+    @if(isGranted(_.ReportBan)) {
+    <form method="post" action="@routes.Mod.reportban(u.username, !u.reportban)" data-hint="@if(u.reportban){En}else{Dis}able the report feature for this user." class="hint--bottom-left">
+      <input class="button@when(u.reportban, " active")" type="submit" value="Reportban" />
+    </form>
+    }
+    @if(isGranted(_.Impersonate)) {
+    <form method="post" action="@routes.Mod.impersonate(u.username)">
+      <input class="button" type="submit" value="Impersonate" />
+    </form>
+    }
   </div>
   @if(isGranted(_.SetTitle)) {
   <br />
@@ -206,7 +206,7 @@
     </table>
   </div>
   }
-    @charges.headOption.map { firstCharge =>
+  @charges.headOption.map { firstCharge =>
   <div class="plan_charges">
     <strong class="text" data-icon="@patronIconChar">
       Patron payments
@@ -223,7 +223,7 @@
     </ul>
     <br />
   </div>
-    }
+  }
   <div class="mod_log">
     <strong class="text" data-icon="!">Moderation history@if(history.isEmpty){: nothing to show.}</strong>
     @if(history.nonEmpty) {
@@ -240,12 +240,17 @@
       <strong class="text" data-icon="!">Reports sent by @u.username@if(reports.by.isEmpty){: nothing to show.}</strong>
       @if(reports.by.nonEmpty) {
       @reports.by.map { r =>
+      @r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
       <form action="@routes.Report.inquiry(r.id)" method="post">
-        @userIdLink(r.user.some) for
-        <button type="submit">
-          <strong>@r.reason.name</strong> @momentFromNow(r.createdAt) @shorten(r.text, 200)
-        </button>
+        <button type="submit">@reportScore(r.score) <strong>@r.reason.name</strong></button>
+        @userIdLink(r.user.some)
+        <div class="atoms">
+          <div class="atom">
+            @userIdLink(r.user.some), @momentFromNow(atom.at): @shorten(atom.text, 200)
+          </div>
+        </div>
       </form>
+      }
       }
       <br />
       }
@@ -255,10 +260,15 @@
       @if(reports.about.nonEmpty) {
       @reports.about.map { r =>
       <form action="@routes.Report.inquiry(r.id)" method="post">
-        @userIdLink(r.createdBy.some) for
-        <button type="submit">
-          <strong>@r.reason.name</strong> @momentFromNow(r.createdAt) @shorten(r.text, 200)
-        </button>
+        <button type="submit">@reportScore(r.score) <strong>@r.reason.name</strong></button>
+        <div class="atoms">
+          @r.bestAtoms(3).map { atom =>
+          <div class="atom">
+            By @userIdLink(atom.by.value.some), @momentFromNow(atom.at): @shorten(atom.text, 200)
+          </div>
+          }
+          @if(r.atoms.size > 3) { (and @{r.atoms.size - 3} more) }
+        </div>
       </form>
       }
       <br />
@@ -293,13 +303,7 @@
           <a href="@routes.User.show(o.username)?notes"><i title="Notes from @ns.map(_.from).map(usernameOrId).mkString(", ")" data-icon="m" class="is-green"></i>@ns.size</a>
           }
           }
-          @bans.get(o.id).map { nb => <i title="Playban" data-icon="p"></i>@nb }
-          @if(o.troll){<i title="Shadowban" data-icon="c"></i>}
-          @if(o.booster){<i title="Boosting" data-icon="9"></i>}
-          @if(o.engine){<i title="Engine" data-icon="n"></i>}
-          @if(o.ipBan){<i title="IP ban" data-icon="2" class="is-red"></i>}
-          @if(o.disabled){<i title="Closed" data-icon="k"></i>}
-          @if(o.reportban){<i title="Reportban" data-icon="!"></i>}
+          @userMarks(o, bans.get(o.id))
         </td>
         <td data-sort="@o.createdAt.getMillis">@momentFromNow(o.createdAt)</td>
         <td data-sort="@o.seenAt.map(_.getMillis)">@o.seenAt.map(momentFromNow(_))</td>

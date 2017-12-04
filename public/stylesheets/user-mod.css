@@ -306,6 +306,28 @@ body.dark .irwin header > * {
   background-color: #E73B38;
 }
 
+.mod_zone .reports .score {
+  display: inline-block;
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 0.9em;
+  padding: 0.1em 0.5em;
+  border-radius: 0.3em;
+}
+.mod_zone .reports .score.green {
+  /* actually blue */
+  background-color: rgba(32, 119, 192, 0.4);
+}
+.mod_zone .reports .score.yellow {
+  background-color: rgba(221, 207, 63, 0.4);
+}
+.mod_zone .reports .score.orange {
+  background-color: rgba(231, 155, 100, 0.4);
+}
+.mod_zone .reports .score.red {
+  background-color: rgba(231, 59, 56, 0.4);
+}
+
 th[role=columnheader]:not(.no-sort) {
   cursor: pointer;
   -ms-user-select: none;

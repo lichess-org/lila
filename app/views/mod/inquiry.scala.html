@@ -2,8 +2,17 @@
 
 @renderReport(r: lila.report.Report) = {
 <div class="doc report">
-  <h3>by @userIdLink(r.createdBy.some, withOnline = false) for <strong>@r.reason.name</strong>, @momentFromNow(r.createdAt)</h3>
-  <p>@autoLink(r.simplifiedText)</p>
+  @r.bestAtoms(10).toList.map { atom =>
+  <div class="atom">
+    <h3>
+      @reportScore(atom.score)
+      @userIdLink(atom.by.value.some, withOnline = false)
+      for <strong>@r.reason.name</strong>,
+      @momentFromNow(atom.at)
+    </h3>
+    <p>@autoLink(atom.simplifiedText)</p>
+  </div>
+  }
 </div>
 }
 
@@ -26,9 +35,6 @@
     </h2>
     <div class="docs reports">
       <div class="expendable">
-        @if(in.accuracy.isDefined) {
-        <span class="accuracy"><strong>@in.accuracy%</strong> accuracy</span>
-        }
         @in.allReports.map(renderReport)
       </div>
     </div>
@@ -65,7 +71,7 @@
     </div>
   </div>
   <div class="links">
-    <a href="@routes.User.games(in.user.id, "search")?players.b=@in.report.createdBy">View<br />Games</a>
+    <a href="@routes.User.games(in.user.id, "search")?players.b=@in.report.recentAtom.by.value">View<br />Games</a>
     @if(isGranted(_.MarkTroll)) {
     <a href="@routes.Mod.communicationPublic(in.user.id)">View<br />Comms</a>
     }

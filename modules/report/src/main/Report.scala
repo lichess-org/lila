@@ -2,7 +2,9 @@ package lila.report
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
+import scalaz.NonEmptyList
 
+import lila.user.UserRepo.lichessId
 import lila.user.{ User, Note }
 
 case class Report(
@@ -10,44 +12,61 @@ case class Report(
     user: User.ID, // the reportee
     reason: Reason,
     room: Room,
-    text: String,
+    atoms: NonEmptyList[Report.Atom], // most recent first
+    score: Report.Score,
     inquiry: Option[Report.Inquiry],
-    processedBy: Option[User.ID],
-    createdAt: DateTime,
-    createdBy: User.ID
-) {
+    open: Boolean,
+    processedBy: Option[User.ID]
+) extends Reason.WithReason {
+
+  import Report.{ Atom, Score }
 
   def id = _id
   def slug = _id
 
-  def isCreator(user: User.ID) = user == createdBy
+  def closed = !open
+  def suspect = SuspectId(user)
 
-  def isCheat = reason == Reason.Cheat
-  def isOther = reason == Reason.Other
-  def isTroll = reason == Reason.Troll
-  def isInsult = reason == Reason.Insult
-  def isPrint = reason == Reason.CheatPrint
-  def isTrollOrInsult = reason == Reason.Troll || reason == Reason.Insult
+  def add(atom: Atom) = atomBy(atom.by).fold(copy(atoms = atom <:: atoms)) { existing =>
+    val newAtom = existing.copy(
+      at = atom.at,
+      score = atom.score,
+      text = s"${existing.text}\n\n${atom.text}"
+    )
+    copy(
+      atoms = {
+        newAtom :: atoms.toList.filterNot(_.by == atom.by)
+      }.toNel | atoms
+    )
+  }.recomputeScore
 
-  def unprocessedCheat = unprocessed && isCheat
-  def unprocessedOther = unprocessed && isOther
-  def unprocessedTroll = unprocessed && isTroll
-  def unprocessedInsult = unprocessed && isInsult
-  def unprocessedTrollOrInsult = unprocessed && isTrollOrInsult
+  def recomputeScore = copy(
+    score = atoms.toList.foldLeft(Score(0))(_ + _.score)
+  )
 
-  def isAutomatic = createdBy == "lichess"
-  def isManual = !isAutomatic
+  def recentAtom: Atom = atoms.head
+  def oldestAtom: Atom = atoms.last
+  def bestAtom: Atom = bestAtoms(1).headOption | recentAtom
+  def bestAtoms(nb: Int): List[Atom] = atoms.toList.sortBy { a =>
+    (-a.score.value, -a.at.getSeconds)
+  } take nb
+  def onlyAtom: Option[Atom] = atoms.tail.isEmpty option atoms.head
+  def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
 
-  def process(by: User) = copy(processedBy = by.id.some)
+  def unprocessedCheat = open && isCheat
+  def unprocessedOther = open && isOther
+  def unprocessedTroll = open && isTroll
+  def unprocessedInsult = open && isInsult
+  def unprocessedTrollOrInsult = open && isTrollOrInsult
 
-  def unprocessed = processedBy.isEmpty
-  def processed = processedBy.isDefined
+  def process(by: User) = copy(
+    open = false,
+    processedBy = by.id.some
+  )
 
-  def userIds = List(user, createdBy)
+  def userIds: List[User.ID] = user :: atoms.toList.map(_.by.value)
 
-  def simplifiedText = text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
-
-  def isRecentComm = room == Room.Coms && !processed
+  def isRecentComm = room == Room.Coms && open
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
 }
 
@@ -55,20 +74,39 @@ object Report {
 
   type ID = String
 
-  case class Inquiry(mod: User.ID, seenAt: DateTime)
+  case class Score(value: Double) extends AnyVal {
+    def +(s: Score) = Score(s.value + value)
+    def color =
+      if (value >= 150) "red"
+      else if (value >= 100) "orange"
+      else if (value >= 50) "yellow"
+      else "green"
+  }
+  implicit val scoreIso = lila.common.Iso.double[Score](Score.apply, _.value)
 
-  case class WithUser(report: Report, user: User, isOnline: Boolean, accuracy: Option[Int]) {
-
-    def urgency: Int =
-      (nowSeconds - report.createdAt.getSeconds).toInt +
-        (isOnline ?? (86400 * 5)) +
-        (report.processed ?? Int.MinValue)
+  case class Atom(
+      by: ReporterId,
+      text: String,
+      score: Score,
+      at: DateTime
+  ) {
+    def simplifiedText = text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
   }
 
-  case class WithUserAndNotes(withUser: WithUser, notes: List[Note]) {
-    def report = withUser.report
-    def user = withUser.user
-    def hasLichessNote = notes.exists(_.from == "lichess")
+  case class Inquiry(mod: User.ID, seenAt: DateTime)
+
+  case class WithSuspect(report: Report, suspect: Suspect, isOnline: Boolean) {
+
+    def urgency: Int =
+      report.score.value.toInt +
+        (isOnline ?? 1000) +
+        (report.closed ?? Int.MinValue)
+  }
+
+  case class WithSuspectAndNotes(withSuspect: WithSuspect, notes: List[Note]) {
+    def report = withSuspect.report
+    def suspect = withSuspect.suspect
+    def hasLichessNote = notes.exists(_.from == lichessId)
     def hasIrwinNote = notes.exists(_.from == "irwin")
 
     def userIds = report.userIds ::: notes.flatMap(_.userIds)
@@ -78,22 +116,41 @@ object Report {
     def userIds = by.flatMap(_.userIds) ::: about.flatMap(_.userIds)
   }
 
+  case class Candidate(
+      reporter: Reporter,
+      suspect: Suspect,
+      reason: Reason,
+      text: String
+  ) extends Reason.WithReason {
+    def scored(score: Score) = Candidate.Scored(this, score)
+    def isAutomatic = reporter.user.id == lichessId
+  }
+
+  object Candidate {
+    case class Scored(candidate: Candidate, score: Score) {
+      def atom = Atom(
+        by = candidate.reporter.id,
+        text = candidate.text,
+        score = score,
+        at = DateTime.now
+      )
+    }
+  }
+
   private[report] val spontaneousText = "Spontaneous inquiry"
 
-  def make(
-    suspect: Suspect,
-    reason: Reason,
-    text: String,
-    reporter: Reporter
-  ): Report = new Report(
-    _id = Random nextString 8,
-    user = suspect.user.id,
-    reason = reason,
-    room = Room(reason),
-    text = text,
-    inquiry = none,
-    processedBy = none,
-    createdAt = DateTime.now,
-    createdBy = reporter.user.id
-  )
+  def make(c: Candidate.Scored, existing: Option[Report]) = c match {
+    case c @ Candidate.Scored(candidate, score) =>
+      existing.map(_ add c.atom) | Report(
+        _id = Random nextString 8,
+        user = candidate.suspect.user.id,
+        reason = candidate.reason,
+        room = Room(candidate.reason),
+        atoms = NonEmptyList(c.atom),
+        score = score,
+        inquiry = none,
+        open = true,
+        processedBy = none
+      )
+  }
 }
