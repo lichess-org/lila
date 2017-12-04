@@ -794,8 +794,6 @@
   <string name="perfRatingX">Рейтинг: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s секунд, чтобы сделать первый ход</string>
   <string name="practiceWithComputer">Тренировка с компьютером</string>
-  <string name="anotherWas">Можно было</string>
-  <string name="bestWas">Лучше было</string>
   <string name="youBrowsedAway">Вы вышли из просмотра</string>
   <string name="resumePractice">Возобновить тренировку</string>
   <string name="theGameIsADraw">Игра окончилась вничью.</string>
