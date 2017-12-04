@@ -91,7 +91,7 @@ object TournamentRepo {
   def finishedNotable(limit: Int): Fu[List[Tournament]] =
     coll.find(finishedSelect ++ $doc(
       "$or" -> $arr(
-        $doc("nbPlayers" $gte 15),
+        $doc("nbPlayers" $gte 30),
         scheduledSelect
       )
     ))

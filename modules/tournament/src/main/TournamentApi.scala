@@ -370,7 +370,7 @@ final class TournamentApi(
   def fetchVisibleTournaments: Fu[VisibleTournaments] =
     TournamentRepo.publicCreatedSorted(6 * 60) zip
       TournamentRepo.publicStarted zip
-      TournamentRepo.finishedNotable(20) map {
+      TournamentRepo.finishedNotable(30) map {
         case ((created, started), finished) =>
           VisibleTournaments(created, started, finished)
       }
