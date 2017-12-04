@@ -56,8 +56,8 @@
   <string name="showThreat">Аюулыг үзүүл</string>
   <string name="inLocalBrowser">вэб хөтөч дээр</string>
   <string name="move">Нүүдэл</string>
-  <string name="variantLoss">Хожигдох вариант</string>
-  <string name="variantWin">Хожих вариант</string>
+  <string name="variantLoss">Хожигдох хувилбар</string>
+  <string name="variantWin">Хожих хувилбар</string>
   <string name="insufficientMaterial">Хангалтгүй бод байна</string>
   <string name="pawnMove">Хүүгийн нүүдэл</string>
   <string name="capture">Идэх</string>
@@ -81,11 +81,11 @@
   <string name="cpus">CPU</string>
   <string name="memory">Санах ой</string>
   <string name="blunder">Ноцтой алдаа</string>
-  <string name="blunders">Ноцтой алдаа</string>
+  <string name="blunders">Ноцтой алдаанууд</string>
   <string name="mistake">Алдаа</string>
-  <string name="mistakes">Алдаа</string>
+  <string name="mistakes">Алдаанууд</string>
   <string name="inaccuracy">Оновчгүй нүүдэл</string>
-  <string name="inaccuracies">Оновчгүй нүүдэл</string>
+  <string name="inaccuracies">Оновчгүй нүүдлүүд</string>
   <string name="moveTimes">Нүүдлийн хугацаа</string>
   <string name="flipBoard">Талуудын байрлалыг солих</string>
   <string name="threefoldRepetition">Давтсан гурван нүүдэл</string>
@@ -352,6 +352,7 @@
   <string name="biography">Намтар</string>
   <string name="country">Улс</string>
   <string name="preferences">Тохиргоо</string>
+  <string name="inlineNotation">Мөрийн тэмдэглэгээ</string>
   <string name="watchLichessTV">Личессийн суваг үзэх</string>
   <string name="previouslyOnLichessTV">Өмнөхөн цацагдсан өргийн бичлэгүүд</string>
   <string name="onlinePlayers">Сүлжээнд байгаа гишүүд</string>
@@ -446,6 +447,7 @@
   <string name="boardCoordinates">Солбилцолын тэмдэглэлүүдийг үзүүлэх (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Хийгдсэн нүүдлүүдийн жагсаалтыг хажуу талд харуулах</string>
   <string name="pgnPieceNotation">Нүүдлийн тэмдэглэгээ</string>
+  <string name="chessPieceSymbol">Шатрын дүрсний тэмдэглэгээ</string>
   <string name="pgnLetter">Тэмлэглэгээ (K, Q, R, B, N)</string>
   <string name="chessClock">Шатрын цаг</string>
   <string name="tenthsOfSeconds">1/10 секунд</string>
@@ -455,7 +457,9 @@
   <string name="soundWhenTimeGetsCritical">Цаг эрс бага болвол дуут дохио өгөх</string>
   <string name="gameBehavior">Өргийн тохиргоо</string>
   <string name="howDoYouMovePieces">Нүүдэл яаж хийх вэ?</string>
+  <string name="clickTwoSquares">Нүүх, очих нүднүүдийг дарах</string>
   <string name="dragPiece">Сонголтыг зөөх</string>
+  <string name="bothClicksAndDrag">Аль аль нь</string>
   <string name="premovesPlayingDuringOpponentTurn">Урьдчилсан нүүдэл (өрсөлдөгч нүүх ээлжтэй үед)</string>
   <string name="takebacksWithOpponentApproval">Нүүдэл буцаалт (өрсөлдөгчийн зөвшөөрөл шаардлагатай)</string>
   <string name="promoteToQueenAutomatically">Хүүг үргэлж бэрс гаргана</string>
@@ -484,6 +488,7 @@
   <string name="xAnsweredY">%1$s дараахь гишүүнд хариулт бичлээ: %2$s</string>
   <string name="xCommentedY">%1$s дараахь сэдэвт сэтгэгдлээ бичлээ: %2$s</string>
   <string name="victory">Бодлогыг амжилттай бодлоо!</string>
+  <string name="defeat">Явагдал</string>
   <string name="timeline">Дагагч хүмүүсийн үйлдлүүд</string>
   <string name="seeAllTournaments">Бүх тэмцээнүүдийг харах</string>
   <string name="starting">Тэмцээн эхлэхэд дараахь хугацаа үлдлээ:</string>
@@ -603,6 +608,7 @@
   <string name="crosstable">Ялалт, ялагдлын харьцаа</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Мөн тоглолтын үед та энэхүү үйлдлүүдийг хийх боломжтой.</string>
   <string name="analysisShapesHowTo">Өрөг дээр тойрог, сум зурахын тулд shift+зүүн товшилт эсвэл баруун товшилт хийнэ.</string>
+  <string name="confirmResignationAndDrawOffers">Тэнцэх, буулт хийхийг баталгаажуулах</string>
   <string name="inputMovesWithTheKeyboard">Гарнаас нүүдэл оруулах</string>
   <string name="letOtherPlayersMessageYou">Бусад гишүүд таньд зурвас илгээхийг зөвшөөрнө</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Сэлгээ хийх</string>
@@ -682,4 +688,12 @@
   <string name="anotherWas">Өөр нүүдэл байсан</string>
   <string name="bestWas">Хамгийн сайн нүүдэл</string>
   <string name="youBrowsedAway">Та гарсан байна</string>
+  <string name="theGameIsADraw">Өрөг тэнцсэн байна.</string>
+  <string name="computerThinking">Компьютер бодож байна ...</string>
+  <string name="seeBestMove">Хамгийн сайн нүүдлийг харах</string>
+  <string name="hideBestMove">Хамгийн сайн нүүдлийг нуух</string>
+  <string name="getAHint">Туслалцаа авах</string>
+  <string name="evaluatingYourMove">Таны нүүдлийг шинжилж байна ...</string>
+  <string name="whiteWinsGame">Цагаан хожсон</string>
+  <string name="blackWinsGame">Хар хожсон</string>
 </resources>
