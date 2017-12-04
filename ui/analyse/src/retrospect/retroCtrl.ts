@@ -7,7 +7,8 @@ import AnalyseCtrl from '../ctrl';
 
 export interface RetroCtrl {
   isSolving(): boolean
-  [key: string]: any;
+  trans: Trans
+  [key: string]: any
 }
 
 type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view';

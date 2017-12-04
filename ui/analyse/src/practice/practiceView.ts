@@ -17,8 +17,8 @@ function renderTitle(root: AnalyseCtrl): VNode {
 }
 
 function commentBest(c: Comment, root: AnalyseCtrl, ctrl: PracticeCtrl): MaybeVNodes {
-  return c.best ? [
-    root.trans.noarg(c.verdict === 'goodMove' ? 'anotherWas' : 'bestWas'),
+  return c.best ? root.trans.vdom(
+    c.verdict === 'goodMove' ? 'anotherWasX' : 'bestWasX',
     h('a', {
       hook: {
         insert: vnode => {
@@ -31,7 +31,7 @@ function commentBest(c: Comment, root: AnalyseCtrl, ctrl: PracticeCtrl): MaybeVN
       }
     },
     c.best.san)
-  ] : [];
+  ) : [];
 }
 
 function renderOffTrack(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
