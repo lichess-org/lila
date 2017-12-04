@@ -792,8 +792,6 @@
   <string name="perfRatingX">Reitings: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekundes lai izdarītu pirmo gājienu</string>
   <string name="practiceWithComputer">Treniņš ar datoru</string>
-  <string name="anotherWas">Varēja arī</string>
-  <string name="bestWas">Labākais bija</string>
   <string name="youBrowsedAway">Tu aizlūkojies prom</string>
   <string name="resumePractice">Atsākt treniņu</string>
   <string name="theGameIsADraw">Spēle ir neizšķirts.</string>
