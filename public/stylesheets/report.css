@@ -117,3 +117,25 @@
 #report_list tr.new td:first-child {
   border-left: 3px solid #3893E8;
 }
+.score {
+  white-space: nowrap;
+}
+.score {
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 0.3em 0.5em;
+  border-radius: 0.3em;
+}
+.score.green {
+  /* actually blue */
+  background-color: rgba(32, 119, 192, 0.4);
+}
+.score.yellow {
+  background-color: rgba(221, 207, 63, 0.4);
+}
+.score.orange {
+  background-color: rgba(231, 155, 100, 0.4);
+}
+.score.red {
+  background-color: rgba(231, 59, 56, 0.4);
+}

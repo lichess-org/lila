@@ -3,8 +3,8 @@ package templating
 
 import play.twirl.api.Html
 
-import lila.user.{ User, UserContext }
 import lila.security.{ Permission, Granter }
+import lila.user.{ User, UserContext }
 
 trait SecurityHelper {
 
@@ -21,6 +21,9 @@ trait SecurityHelper {
     Granter(permission)(user)
 
   def reportScore(score: lila.report.Report.Score) = Html {
-    s"Score: <strong>${score.value.toInt}</strong>"
+    s"""<div class="score ${score.color}" title="Report score">${score.value.toInt}</div>"""
   }
+  // def reportScore(score: lila.report.Report.Score) = Html {
+  //   s"""<div class="score"><i>Score</i><strong>${score.value.toInt}</strong></div>"""
+  // }
 }

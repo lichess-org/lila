@@ -27,7 +27,7 @@ final class ReportApi(
   private implicit val ReporterIdBSONHandler = stringIsoHandler[ReporterId](ReporterId.reporterIdIso)
   private implicit val ScoreIdBSONHandler = doubleIsoHandler[Score](Report.scoreIso)
   private implicit val AtomBSONHandler = Macros.handler[Atom]
-  private implicit val ReportBSONHandler = lila.db.BSON.LoggingHandler(logger)(Macros.handler[Report])
+  private implicit val ReportBSONHandler = Macros.handler[Report]
 
   private lazy val scorer = new ReportScore(getAccuracy = accuracy.of)
 
@@ -236,6 +236,8 @@ final class ReportApi(
     }
   } yield withNotes
 
+  private[report] def resetScores: Funit = scorer reset coll void
+
   object accuracy {
 
     private val cache = asyncCache.clearable[User.ID, Option[Int]](
@@ -296,11 +298,13 @@ final class ReportApi(
       ReadPreference.secondaryPreferred
     )
 
-  private def findRecent(nb: Int, selector: Bdoc) =
+  private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] = (nb > 0) ?? {
     coll.find(selector).sort($sort.createdDesc).list[Report](nb)
+  }
 
-  private def findBest(nb: Int, selector: Bdoc) =
+  private def findBest(nb: Int, selector: Bdoc): Fu[List[Report]] = (nb > 0) ?? {
     coll.find(selector).sort($sort desc "score").list[Report](nb)
+  }
 
   private def selectRecent(suspect: Suspect, reason: Reason): Bdoc = $doc(
     "atoms.0.at" $gt DateTime.now.minusDays(7),

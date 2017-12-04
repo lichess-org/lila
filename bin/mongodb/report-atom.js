@@ -38,7 +38,8 @@ db.report.aggregate(
       text: r.text,
       score: 30
     })),
-    score: 30
+    score: 30,
+    open: true
   };
 
   db.report2.insert(report);

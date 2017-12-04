@@ -25,6 +25,7 @@ case class Report(
   def slug = _id
 
   def closed = !open
+  def suspect = SuspectId(user)
 
   def add(atom: Atom) = atomBy(atom.by).fold(copy(atoms = atom <:: atoms)) { existing =>
     val newAtom = existing.copy(
@@ -73,6 +74,11 @@ object Report {
 
   case class Score(value: Double) extends AnyVal {
     def +(s: Score) = Score(s.value + value)
+    def color =
+      if (value >= 150) "red"
+      else if (value >= 100) "orange"
+      else if (value >= 50) "yellow"
+      else "green"
   }
   implicit val scoreIso = lila.common.Iso.double[Score](Score.apply, _.value)
 
@@ -90,8 +96,8 @@ object Report {
   case class WithSuspect(report: Report, suspect: Suspect, isOnline: Boolean) {
 
     def urgency: Int =
-      (nowSeconds - report.recentAtom.at.getSeconds).toInt +
-        (isOnline ?? (86400 * 5)) +
+      report.score.value.toInt +
+        (isOnline ?? 1000) +
         (report.closed ?? Int.MinValue)
   }
 
