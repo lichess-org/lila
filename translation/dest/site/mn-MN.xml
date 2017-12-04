@@ -3,14 +3,14 @@
 <resources>
   <string name="playWithAFriend">Найзтайгаа тоглох</string>
   <string name="playWithTheMachine">Компьютертай тоглох</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Тоглох хүндээ энэ холбоос хаягыг илгээж өрөгт урина</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Тоглох хүндээ энэ холбоос хаягыг илгээж өрөгт урина уу</string>
   <string name="gameOver">Өрөг өндөрлөлөө</string>
   <string name="waitingForOpponent">Өрсөлдөгчийг хүлээж байна</string>
   <string name="waiting">Хүлээж байна</string>
   <string name="yourTurn">Таны ээлж</string>
   <string name="aiNameLevelAiLevel">%1$s түвшин %2$s</string>
   <string name="level">Түвшин</string>
-  <string name="toggleTheChat">Чатыг асаах/унтраах</string>
+  <string name="toggleTheChat">Чатыг нээх/хаах</string>
   <string name="toggleSound">Дууг нээх/хаах</string>
   <string name="chat">Чат</string>
   <string name="resign">Бууж өгөх</string>
@@ -23,7 +23,7 @@
   <string name="whiteIsVictorious">Цагаан хожлоо</string>
   <string name="blackIsVictorious">Хар хожлоо</string>
   <string name="kingInTheCenter">Төв дөх ноён</string>
-  <string name="threeChecks">3 шаг</string>
+  <string name="threeChecks">Гурван шаг</string>
   <string name="raceFinished">Уралдаан өндөрлөлөө</string>
   <string name="variantEnding">Хувилбарын төгсгөл</string>
   <string name="newOpponent">Шинэ өрсөлдөгч</string>
@@ -55,6 +55,7 @@
   <string name="goDeeper">Цаашлах</string>
   <string name="showThreat">Аюулыг үзүүл</string>
   <string name="inLocalBrowser">вэб хөтөч дээр</string>
+  <string name="toggleLocalEvaluation">Шинжилгээг нээх/хаах</string>
   <string name="move">Нүүдэл</string>
   <string name="variantLoss">Хожигдох хувилбар</string>
   <string name="variantWin">Хожих хувилбар</string>
@@ -71,6 +72,7 @@
   <string name="averageRatingX">Дундаж зэрэг: %s</string>
   <string name="recentGames">Сүүлд тоглогдсон өргүүд</string>
   <string name="topGames">Өндөр үнэлгээтэй өргүүд</string>
+  <string name="masterDbExplanation">%2$s-с %3$s оны хоорондох FIDE %1$s+ чансаа бүхий тоглочдын хоёр сая гаруй тэмцээний өргүүд</string>
   <string name="noGameFound">Өрөг олдсонгүй</string>
   <string name="openingExplorer">Шатрын нээлтүүдийг судлах</string>
   <string name="importPgn">PGN оруулах</string>
@@ -528,6 +530,7 @@
   <string name="error.email">Энэ электрон шуудангийн хаяг буруу байна</string>
   <string name="error.email_acceptable">Энэ электрон шуудангийн хаягаар бүртгэл үүсгэх боломжгүй</string>
   <string name="error.email_unique">Энэ электрон шуудангийн хаяг өмнө нь бүртгэгдсэн байна</string>
+  <string name="error.email_different">Энэ таны одоогийн ашиглаж байгаа имэйл хаяг байна</string>
   <string name="blindfoldChess">Харахгүйгээр тоглох (шатрын хөлгүүд үзэгдэхгүй)</string>
   <string name="moveConfirmation">Нүүдлээ баталгаажуулах</string>
   <string name="inCorrespondenceGames">Бодит цагт тоглогдохгүй өрөг</string>
@@ -688,6 +691,7 @@
   <string name="anotherWas">Өөр нүүдэл байсан</string>
   <string name="bestWas">Хамгийн сайн нүүдэл</string>
   <string name="youBrowsedAway">Та гарсан байна</string>
+  <string name="resumePractice">Практикийг үргэлжлүүлэх</string>
   <string name="theGameIsADraw">Өрөг тэнцсэн байна.</string>
   <string name="computerThinking">Компьютер бодож байна ...</string>
   <string name="seeBestMove">Хамгийн сайн нүүдлийг харах</string>
