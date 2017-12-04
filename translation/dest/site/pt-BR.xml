@@ -765,4 +765,14 @@ em %3$s</string>
   <string name="practiceWithComputer">Pratique com o computador</string>
   <string name="anotherWas">Outro seria</string>
   <string name="bestWas">Melhor seria</string>
+  <string name="youBrowsedAway">Você navegou para longe</string>
+  <string name="resumePractice">Retornar à prática</string>
+  <string name="theGameIsADraw">A partida está empatada.</string>
+  <string name="computerThinking">Computador pensando ...</string>
+  <string name="seeBestMove">Veja o melhor lance</string>
+  <string name="hideBestMove">Esconder o melhor lance</string>
+  <string name="getAHint">Obter uma dica</string>
+  <string name="evaluatingYourMove">Avaliando o seu movimento ...</string>
+  <string name="whiteWinsGame">Brancas vencem</string>
+  <string name="blackWinsGame">Pretas vencem</string>
 </resources>
