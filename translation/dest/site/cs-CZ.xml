@@ -105,8 +105,11 @@
   <string name="memory">Paměť</string>
   <string name="infiniteAnalysis">Nekonečná analýza</string>
   <string name="removesTheDepthLimit">Zapne nekonečnou analýzu a odstraní omezení hloubky propočtu</string>
+  <string name="blunder">Hrubá chyba</string>
   <string name="blunders">Hrubky</string>
+  <string name="mistake">Chyba</string>
   <string name="mistakes">Omyly</string>
+  <string name="inaccuracy">Nepřesnost</string>
   <string name="inaccuracies">Nepřesnosti</string>
   <string name="moveTimes">Čas na tah</string>
   <string name="flipBoard">Otočit šachovnici</string>
@@ -789,4 +792,17 @@ v %3$s</string>
   <string name="challenges">Výzvy</string>
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekund na první tah</string>
+  <string name="practiceWithComputer">Procvičit s počítačem</string>
+  <string name="anotherWas">Další tah byl</string>
+  <string name="bestWas">Nejlepší tah byl</string>
+  <string name="youBrowsedAway">Procvičování přerušeno</string>
+  <string name="resumePractice">Pokračovat v procvičování</string>
+  <string name="theGameIsADraw">Hra končí remízou.</string>
+  <string name="computerThinking">Počítač přemýšlí...</string>
+  <string name="seeBestMove">Ukázat nejlepší tah</string>
+  <string name="hideBestMove">Skrýt nejlepší tah</string>
+  <string name="getAHint">Získat nápovědu</string>
+  <string name="evaluatingYourMove">Hodnotím tvůj tah...</string>
+  <string name="whiteWinsGame">Bílý vyhrál</string>
+  <string name="blackWinsGame">Černý vyhrál</string>
 </resources>

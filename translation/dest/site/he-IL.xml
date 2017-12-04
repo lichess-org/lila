@@ -252,6 +252,7 @@
   <string name="winStreak">רצף נצחונות</string>
   <string name="createdBy">נוצר ע\"י</string>
   <string name="tournamentIsStarting">הטורניר מתחיל</string>
+  <string name="youArePlaying">אתה משחק!</string>
   <string name="winRate">שיעור זכיה</string>
   <string name="averageOpponent">יריב ממוצע</string>
   <string name="membersOnly">לרשומים בלבד</string>

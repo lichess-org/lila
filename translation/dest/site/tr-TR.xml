@@ -103,6 +103,7 @@
   <string name="memory">Ayrılan hafıza</string>
   <string name="infiniteAnalysis">Sonsuz analiz</string>
   <string name="removesTheDepthLimit">Derinlik sınırını kaldırır ve bilgisayarınızı sıcacık tutar</string>
+  <string name="blunder">Vahim hata</string>
   <string name="blunders">Vahim hatalar</string>
   <string name="mistakes">Hatalar</string>
   <string name="inaccuracies">Kusurlu hamleler</string>
@@ -757,4 +758,6 @@
   <string name="challenges">Meydan okumalar</string>
   <string name="perfRatingX">Puan: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s saniye içerisinde hamle yapın</string>
+  <string name="practiceWithComputer">Bilgisayar ile pratik yapmak</string>
+  <string name="bestWas">en iyisiydi</string>
 </resources>
