@@ -752,4 +752,12 @@
   <string name="tryAnotherMoveForWhite">Prøv et andet træk for hvid</string>
   <string name="tryAnotherMoveForBlack">Prøv et andet træk for sort</string>
   <string name="solution">Løsning</string>
+  <string name="waitingForAnalysis">Venter på analyse</string>
+  <string name="noMistakesFoundForWhite">Ingen fejl fundet for hvid</string>
+  <string name="noMistakesFoundForBlack">Ingen fejl fundet for sort</string>
+  <string name="doneReviewingWhiteMistakes">Færdig med gennemgang af fejl for hvid</string>
+  <string name="doneReviewingBlackMistakes">Færdig med gennemgang af fejl for sort</string>
+  <string name="doItAgain">Gentag</string>
+  <string name="reviewWhiteMistakes">Gennemgå hvide fejl</string>
+  <string name="reviewBlackMistakes">Gennemgå sorte fejl</string>
 </resources>
