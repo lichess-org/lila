@@ -216,9 +216,9 @@ final class ReportApi(
     unprocessedAndRecentWithFilter(1, room.some) map (_.headOption.map(_.report))
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspectAndNotes]] = for {
-    users <- UserRepo byIdsSecondary reports.map(_.user).distinct
+    users <- UserRepo byIdsSecondary (reports.map(_.user).distinct :+ "neio")
     withSuspects = reports.flatMap { r =>
-      users.find(_.id == r.user) map { u =>
+      users.find(_.id == r.user).orElse(users.find(_.id == "neio")) map { u =>
         Report.WithSuspect(r, Suspect(u), isOnline(u.id))
       }
     }.sortBy(-_.urgency)
