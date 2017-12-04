@@ -795,4 +795,15 @@
   <string name="xSecondsToPlayTheFirstMove">%s секундаў, каб зрабіць першы ход</string>
   <string name="practiceWithComputer">Трэнераванне з кампутарам</string>
   <string name="anotherWas">Можна было</string>
+  <string name="bestWas">Лепш было</string>
+  <string name="youBrowsedAway">Вы выйшлі з прагляду</string>
+  <string name="resumePractice">Аднавіць трэнераванне</string>
+  <string name="theGameIsADraw">Гульня скончылася ўнічыю.</string>
+  <string name="computerThinking">Кампутар думае...</string>
+  <string name="seeBestMove">Паказаць лепшы ход</string>
+  <string name="hideBestMove">Схаваць лепшы ход</string>
+  <string name="getAHint">Атрымаць падказку</string>
+  <string name="evaluatingYourMove">Ацэнка вашага ходу...</string>
+  <string name="whiteWinsGame">Белыя выйгралі</string>
+  <string name="blackWinsGame">Чорныя выйгралі</string>
 </resources>
