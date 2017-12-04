@@ -160,6 +160,10 @@
   <string name="rank">Зэрэг</string>
   <string name="rankX">Үнэлгээ: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Үнэлгээ %s минут тутамд шинэчлэгддэг</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s бодлогууд</item>
+    <item quantity="other">%s бодлого</item>
+  </plurals>
   <string name="gamesPlayed">Өрөг тоглосон байна</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s өрөг таньтай тоглосон байна</item>
@@ -199,6 +203,7 @@
   <string name="inbox">Шуудангийн хайрцаг</string>
   <string name="chatRoom">Чат өрөө</string>
   <string name="loginToChat">Чатлахын тулд нэвтэр</string>
+  <string name="youHaveBeenTimedOut">Таны бичих эрх хүлээлтэнд байна.</string>
   <string name="spectatorRoom">Үзэгчийн өрөө</string>
   <string name="composeMessage">Зурвас илгээх</string>
   <string name="noNewMessages">Шинэ зурвас ирээгүй байна</string>
@@ -244,6 +249,7 @@
   <string name="tournamentPoints">Тэмцээний оноо</string>
   <string name="viewTournament">Тэмцээн үзэх</string>
   <string name="backToTournament">Тэмцээний үндсэн хуудас руу эргэж орох</string>
+  <string name="thematic">Хэлбэржүүлсэн</string>
   <string name="backToGame">Тоглолт руу буцах</string>
   <string name="siteDescription">Үнэ төлбөргүй шатар тоглох цахим хуудас. Цэвэрхэн интерфэйстэй, элдэв зар сурталчилгаагүй, бүртгэл шаардлагагүй. Та найзууд, дурын хүн, хиймэл оюун ухаантай шатар тоглож болно.</string>
   <string name="teams">Баг</string>
@@ -277,12 +283,14 @@
   <string name="fromPosition">Энэ байрлалаас үргэлжлүүлэн тоглох</string>
   <string name="continueFromHere">Энэ байрлалаас үргэлжлүүлэх</string>
   <string name="importGame">Өрөг импортлох</string>
+  <string name="importGameExplanation">Өрөгийн PGN-г оруулсанаар та өргийг дахин тоглуулах, компьютер шинжилгээ хийх, чат бичих болон бусдад түгээх холбоос авах боломжтой.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">Импортлогдсон өргийн тоо: %s</item>
     <item quantity="other">Импортлогдсон өргийн тоо: %s</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Жинхэнэ хүн эсэхийг шалгагч.</string>
   <string name="clickOnTheBoardToMakeYourMove">Та эсрэг талаа мадалж өөрийгөө жинхэнэ хүн гэдгээ батална уу.</string>
+  <string name="captcha.fail">Шатрын бодлогийг бодно уу.</string>
   <string name="notACheckmate">Мадалж чадсангүй</string>
   <string name="colorPlaysCheckmateInOne">%s нүүнэ; нэг нүүгээд мадал</string>
   <string name="retry">Дахин оролдох</string>
@@ -290,6 +298,7 @@
   <string name="onlineFriends">найз сүлжээнд байна</string>
   <string name="noFriendsOnline">Ямар ч найз сүлжээнд алга</string>
   <string name="findFriends">Найзаа эрэх</string>
+  <string name="favoriteOpponents">Таарах дуртай тоглогчид</string>
   <string name="follow">Дагах</string>
   <string name="following">Дагаж байгаа</string>
   <string name="unfollow">Дагахаа болих</string>
@@ -331,6 +340,7 @@
   <string name="winStreak">Ялалтын цуврал</string>
   <string name="createdBy">Зохион байгуулагч:</string>
   <string name="tournamentIsStarting">Тэмцээний удахгүй эхэллээ</string>
+  <string name="tournamentPairingsAreNowClosed">Тэмцээний оноолт хаагдсан байна.</string>
   <string name="youArePlaying">Та тоглож байна!</string>
   <string name="winRate">Ялалтын хувь</string>
   <string name="berserkRate">Берсеркийн хувь</string>
@@ -475,9 +485,11 @@
   <string name="premovesPlayingDuringOpponentTurn">Урьдчилсан нүүдэл (өрсөлдөгч нүүх ээлжтэй үед)</string>
   <string name="takebacksWithOpponentApproval">Нүүдэл буцаалт (өрсөлдөгчийн зөвшөөрөл шаардлагатай)</string>
   <string name="promoteToQueenAutomatically">Хүүг үргэлж бэрс гаргана</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматаар гурван нүүдлийн тэнцэлийг тооцох</string>
   <string name="privacy">Хувийн нууцлалын тохиргоо</string>
   <string name="letOtherPlayersFollowYou">Бусад гишүүд чамайг дагаж болно</string>
   <string name="letOtherPlayersChallengeYou">Бусад гишүүд чамайг тоглолтонд урьж болно</string>
+  <string name="letOtherPlayersInviteYouToStudy">Бусад тоглогчдоор судалгаанд уриулах</string>
   <string name="sound">Дуу чимээ</string>
   <string name="yourPreferencesHaveBeenSaved">Таны шинэчлэгдсэн тохиргоо хадгалагдлаа.</string>
   <string name="none">Үгүй</string>
@@ -506,6 +518,7 @@
   <string name="starting">Тэмцээн эхлэхэд дараахь хугацаа үлдлээ:</string>
   <string name="allInformationIsPublicAndOptional">Энэ хүснэгтийг бөглөх нь сайн дурын бөгөөд өгөгдсөн мэдээлэл нийтэд ил харагдана.</string>
   <string name="yourCityRegionOrDepartment">Таны хот дүүрэг, аймаг сум</string>
+  <string name="biographyDescription">Та өөрийгөө танилцуулна уу. Та шатрын юунд дуртай, таалагддаг гараанууд, тоглолтууд, тоглогчид гэх мэт…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Хамгийн ихдээ: %s тэмдэгт.</item>
     <item quantity="other">Хамгийн ихдээ: %s тэмдэгт.</item>
