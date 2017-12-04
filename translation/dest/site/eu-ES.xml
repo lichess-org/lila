@@ -761,8 +761,6 @@
   <string name="perfRatingX">Sailkapena: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s segundu lehenengo jokaldia egiteko</string>
   <string name="practiceWithComputer">Ordenagailuarekin praktikatu</string>
-  <string name="anotherWas">Beste aukera bat</string>
-  <string name="bestWas">Onena hauxe</string>
   <string name="youBrowsedAway">Beste batera joan zara</string>
   <string name="resumePractice">Itzuli praktikatzera</string>
   <string name="theGameIsADraw">Berdinketa.</string>
