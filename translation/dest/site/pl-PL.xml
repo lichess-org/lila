@@ -796,6 +796,7 @@
   <string name="bestWas">Najlepsze było</string>
   <string name="resumePractice">Wznów trening</string>
   <string name="theGameIsADraw">Gra zakończona remisem.</string>
+  <string name="computerThinking">Komputer namyśla się...</string>
   <string name="seeBestMove">Zobacz najlepszy ruch</string>
   <string name="hideBestMove">Ukryj nalepszy ruch</string>
   <string name="getAHint">Pokaż podpowiedź</string>
