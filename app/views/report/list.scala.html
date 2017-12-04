@@ -30,10 +30,8 @@ moreCss = cssTag("report.css")) {
   <table class="slist see">
     <thead>
       <tr>
-        <th>Score</th>
-        <th>Author</th>
-        <th>Reported</th>
-        <th>For</th>
+        <th>Report</th>
+        <th>By</th>
         <th></th>
       </tr>
     </thead>
@@ -42,27 +40,32 @@ moreCss = cssTag("report.css")) {
       case WithSuspectAndNotes(WithSuspect(r, sus, _), notes) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
       <tr class="@r.open.fold("new", "")">
         <td>
-          @reportScore(r.score)
-        </td>
-        <td>
-          @userIdLink(r.recentAtom.by.value.some)<br />
-          @momentFromNow(r.recentAtom.at)
-          @r.nbOtherAtoms.map { nbOthers =>
-          <br />and @nbOthers more
+          <div class="score @r.score.color">
+            @r.score.value.toInt
+            @r.reason.name.capitalize
+          </div>
+          @userLink(sus.user, params = "?mod")<br />
+          @showBestPerfs(sus.user, 3)<br />
+          @user.userMarks(sus.user, none)
+          @if(notes.nonEmpty) {
+          <br />
+          <a href="@routes.User.show(sus.user.username)?notes=1">
+            <strong>@pluralize("note", notes.size) by @notes.map(_.from).map(usernameOrId).mkString(", ")</strong>
+          </a>
           }
         </td>
-        <td>@userLink(sus.user, params = "?mod")<br />@showBestPerf(sus.user)</td>
-        <td>
-          <div class="text@if(r.recentAtom.text.size > 200 || r.recentAtom.text.lines.size > 5){ large}">
-            <strong>@r.reason.name.capitalize</strong>
-            - @autoLink(r.recentAtom.text)
-            @if(notes.nonEmpty) {
-            <br />
-            <a href="@routes.User.show(sus.user.username)?notes=1">
-              <strong>@pluralize("note", notes.size) by @notes.map(_.from).map(usernameOrId).mkString(", ")</strong>
-            </a>
-            }
+        <td class="atoms">
+          @r.bestAtoms(3).map { atom =>
+          <div class="atom">
+            <span class="head">@reportScore(atom.score) @userIdLink(atom.by.value.some), @momentFromNow(r.recentAtom.at)</span>
+            <p class="text@if(atom.text.size > 100 || atom.text.lines.size > 3){ large}">
+              @shorten(atom.text, 200)
+            </p>
           </div>
+          }
+          @if(r.atoms.size > 3) {
+          <i class="more">And @{r.atoms.size - 3} more</i>
+          }
         </td>
         <td>@r.processedBy.map { u =>
           <form action="@routes.Report.inquiry(r.id)" method="post" class="reopen">

@@ -261,9 +261,7 @@
       <form action="@routes.Report.inquiry(r.id)" method="post">
         @reportScore(r.score)
         By @userIdLink(r.recentAtom.by.value.some)
-        @r.nbOtherAtoms.map { nbOther =>
-        (and @nbOther more)
-        }
+        @if(r.atoms.size > 1) { (and @{r.atoms.size - 1} more) }
         for
         <button type="submit">
           <strong>@r.reason.name</strong> @momentFromNow(r.recentAtom.at) @shorten(r.recentAtom.text, 200)
@@ -302,13 +300,7 @@
           <a href="@routes.User.show(o.username)?notes"><i title="Notes from @ns.map(_.from).map(usernameOrId).mkString(", ")" data-icon="m" class="is-green"></i>@ns.size</a>
           }
           }
-          @bans.get(o.id).map { nb => <i title="Playban" data-icon="p"></i>@nb }
-          @if(o.troll){<i title="Shadowban" data-icon="c"></i>}
-          @if(o.booster){<i title="Boosting" data-icon="9"></i>}
-          @if(o.engine){<i title="Engine" data-icon="n"></i>}
-          @if(o.ipBan){<i title="IP ban" data-icon="2" class="is-red"></i>}
-          @if(o.disabled){<i title="Closed" data-icon="k"></i>}
-          @if(o.reportban){<i title="Reportban" data-icon="!"></i>}
+          @userMarks(o, bans.get(o.id))
         </td>
         <td data-sort="@o.createdAt.getMillis">@momentFromNow(o.createdAt)</td>
         <td data-sort="@o.seenAt.map(_.getMillis)">@o.seenAt.map(momentFromNow(_))</td>

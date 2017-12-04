@@ -55,6 +55,12 @@ case class Perfs(
     }
   }
 
+  def bestPerfs(nb: Int): List[(PerfType, Perf)] = {
+    val ps = PerfType.nonPuzzle map { pt => pt -> apply(pt) }
+    val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 15)
+    ps.filter(p => p._2.nb >= minNb).sortBy(-_._2.intRating) take nb
+  }
+
   def bestPerfType: Option[PerfType] = bestPerf.map(_._1)
 
   def bestRating: Int = bestRatingIn(PerfType.leaderboardable)

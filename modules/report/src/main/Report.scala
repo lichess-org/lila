@@ -46,9 +46,9 @@ case class Report(
 
   def recentAtom: Atom = atoms.head
   def oldestAtom: Atom = atoms.last
-  def bestAtom: Atom = atoms.toList.sortBy(-_.score.value).headOption | recentAtom
+  def bestAtom: Atom = bestAtoms(1).headOption | recentAtom
+  def bestAtoms(nb: Int): List[Atom] = atoms.toList.sortBy(-_.score.value) take nb
   def onlyAtom: Option[Atom] = atoms.tail.isEmpty option atoms.head
-  def nbOtherAtoms: Option[Int] = atoms.tail.nonEmpty option (atoms.size - 1)
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
 
   def unprocessedCheat = open && isCheat
