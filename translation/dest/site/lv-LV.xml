@@ -105,8 +105,11 @@
   <string name="memory">Atmiņa</string>
   <string name="infiniteAnalysis">Bezgalīga analīze</string>
   <string name="removesTheDepthLimit">Noņem dziļuma ierobežojumu un uztur tavu datoru siltu</string>
+  <string name="blunder">Rupja kļūda</string>
   <string name="blunders">Rupjas kļūdas</string>
+  <string name="mistake">Kļūda</string>
   <string name="mistakes">Kļūdas</string>
+  <string name="inaccuracy">Neprecizitāte</string>
   <string name="inaccuracies">Sīkas kļūdas</string>
   <string name="moveTimes">Gājienu ilgumi</string>
   <string name="flipBoard">Apgriezt galdiņu</string>
@@ -788,4 +791,17 @@
   <string name="challenges">Izaicinājumi</string>
   <string name="perfRatingX">Reitings: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekundes lai izdarītu pirmo gājienu</string>
+  <string name="practiceWithComputer">Treniņš ar datoru</string>
+  <string name="anotherWas">Varēja arī</string>
+  <string name="bestWas">Labākais bija</string>
+  <string name="youBrowsedAway">Tu aizlūkojies prom</string>
+  <string name="resumePractice">Atsākt treniņu</string>
+  <string name="theGameIsADraw">Spēle ir neizšķirts.</string>
+  <string name="computerThinking">Dators domā ...</string>
+  <string name="seeBestMove">Redzēt labāko gājienu</string>
+  <string name="hideBestMove">Nerādīt labāko gājienu</string>
+  <string name="getAHint">Saņem padomu</string>
+  <string name="evaluatingYourMove">Novērtējam tavu gājienu ...</string>
+  <string name="whiteWinsGame">Baltie uzvar</string>
+  <string name="blackWinsGame">Melnie uzvar</string>
 </resources>
