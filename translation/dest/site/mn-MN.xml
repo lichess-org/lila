@@ -41,17 +41,17 @@
   <string name="blackResigned">Хар бууж өглөө</string>
   <string name="whiteLeftTheGame">Цагаан тоглолтыг орхилоо</string>
   <string name="blackLeftTheGame">Хар тоглолтыг орхилоо</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Энэхүү холбоос хаягыг бусадтай хуваалцснаар тэд энэ өргийг үзэх боломжтой</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Энэхүү холбоос хаягийг бусадтай хуваалцсанаар тэд энэ өргийг үзэх боломжтой</string>
   <string name="theComputerAnalysisHasFailed">Компьютерийн шинжилгээний хэсэгт алдаа гарлаа</string>
   <string name="viewTheComputerAnalysis">Компьютерийн шинжилгээг үзэх</string>
   <string name="requestAComputerAnalysis">Өрөгт компьютерийн шинжилгээ хийх</string>
-  <string name="computerAnalysis">Өрөг шинжлэгч</string>
+  <string name="computerAnalysis">Компьютерийн шинжилгээ</string>
   <string name="computerAnalysisAvailable">Компьютерийн шинжилгээ хийх боломжтой</string>
   <string name="analysis">Өрөг шинжлэгч</string>
   <string name="depthX">Гүн %s</string>
   <string name="usingServerAnalysis">Серверийн шинжилгээг ашиглаж байна</string>
   <string name="loadingEngine">Шинжилгээ ачааллагдаж байна...</string>
-  <string name="cloudAnalysis">Үүлэн анализ</string>
+  <string name="cloudAnalysis">Үүлэн шинжилгээ</string>
   <string name="goDeeper">Цаашлах</string>
   <string name="showThreat">Аюулыг үзүүл</string>
   <string name="inLocalBrowser">вэб хөтөч дээр</string>
@@ -640,6 +640,10 @@
     <item quantity="other">%s хэл дээр</item>
   </plurals>
   <string name="gameAnalysis">Өргийн шинжилгээ</string>
+  <string name="xHostsY">%2$s-с %1$s үзүүлж байгаа</string>
+  <string name="xJoinsY">%2$s-с %1$s нэгдсэн</string>
+  <string name="xLikesY">%2$s-с %1$s-д таалагдсан</string>
+  <string name="quickPairing">Учирааг хурдасгах</string>
   <string name="lobby">Лобби</string>
   <string name="anonymous">Нэргүй</string>
   <string name="yourScore">Таны оноо: %s</string>
@@ -652,6 +656,7 @@
   <string name="boardGeometry">Хөлгийн геометр</string>
   <string name="boardTheme">Хөлгийн загвар</string>
   <string name="boardSize">Хөлгийн хэмжээ</string>
+  <string name="pieceSet">Дүрсний загвар</string>
   <string name="embedInYourWebsite">Вэб сайтадаа оруулах</string>
   <string name="usernameAlreadyUsed">Ийм нэртэй хэрэглэгч байна, өөр нэр ашиглана уу.</string>
   <string name="usernameInvalid">Буруу хэрэглэгчийн нэр. Зөвхөн үсэг, тоо, дундуур эсвэл доогуур зураас ашигла.</string>
@@ -676,4 +681,5 @@
   <string name="practiceWithComputer">Компьютертэй тоглох</string>
   <string name="anotherWas">Өөр нүүдэл байсан</string>
   <string name="bestWas">Хамгийн сайн нүүдэл</string>
+  <string name="youBrowsedAway">Та гарсан байна</string>
 </resources>
