@@ -105,8 +105,11 @@
   <string name="memory">Пам\'ять</string>
   <string name="infiniteAnalysis">Нескінченний аналіз</string>
   <string name="removesTheDepthLimit">Видаляє обмеження на глибину (ваш комп\'ютер буде гарячим)</string>
+  <string name="blunder">Позіх</string>
   <string name="blunders">Грубі помилки</string>
+  <string name="mistake">Помилка</string>
   <string name="mistakes">Помилки</string>
+  <string name="inaccuracy">Неточність</string>
   <string name="inaccuracies">Неточності</string>
   <string name="moveTimes">Час ходів</string>
   <string name="flipBoard">Перевернути дошку</string>
@@ -790,4 +793,17 @@
   <string name="challenges">Виклики</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s секунд, щоб зробити перший хід</string>
+  <string name="practiceWithComputer">Тренування з комп\'ютером</string>
+  <string name="anotherWas">Можна було</string>
+  <string name="bestWas">Краще було</string>
+  <string name="youBrowsedAway">Ви вийшли з перегляду</string>
+  <string name="resumePractice">Відновити тренування</string>
+  <string name="theGameIsADraw">Гра закінчилася внічию.</string>
+  <string name="computerThinking">Комп\'ютер думає...</string>
+  <string name="seeBestMove">Показати найкращий хід</string>
+  <string name="hideBestMove">Приховати найкращий хід</string>
+  <string name="getAHint">Отримати підказку</string>
+  <string name="evaluatingYourMove">Оцінка вашого ходу...</string>
+  <string name="whiteWinsGame">Білі виграли</string>
+  <string name="blackWinsGame">Чорні виграли</string>
 </resources>
