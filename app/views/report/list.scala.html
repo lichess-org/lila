@@ -40,10 +40,8 @@ moreCss = cssTag("report.css")) {
       case WithSuspectAndNotes(WithSuspect(r, sus, _), notes) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
       <tr class="@r.open.fold("new", "")">
         <td>
-          <div class="score @r.score.color">
-            @r.score.value.toInt
-            @r.reason.name.capitalize
-          </div>
+          @reportScore(r.score)
+          <strong>@r.reason.name.capitalize</strong><br />
           @userLink(sus.user, params = "?mod")<br />
           @showBestPerfs(sus.user, 3)<br />
           @user.userMarks(sus.user, none)

@@ -147,14 +147,14 @@ final class ReportApi(
       val reportSelector = reportId.orElse(inquiry.map(_.id)).fold(relatedSelector) { id =>
         $or($id(id), relatedSelector)
       }
-      coll.update(
+      accuracy.invalidate(reportSelector) >> coll.update(
         reportSelector,
         $set(
           "open" -> false,
           "processedBy" -> mod.user.id
         ) ++ $unset("inquiry"),
         multi = true
-      ).void >> accuracy.invalidate(reportSelector) >>- {
+      ).void >>- {
           monitorOpen
           lila.mon.mod.report.close()
           rooms.flatMap(Room.toReasons) foreach { publishProcessed(sus, _) }
@@ -201,20 +201,24 @@ final class ReportApi(
     coll.find($doc("user" -> report.user, "_id" $ne report.id)).sort($sort.createdDesc).list[Report](nb)
 
   def byAndAbout(user: User, nb: Int): Fu[Report.ByAndAbout] = for {
-    by <- coll.find($doc("createdBy" -> user.id)).sort($sort.createdDesc).list[Report](nb, ReadPreference.secondaryPreferred)
+    by <- coll.find(
+      $doc("atoms.by" -> user.id)
+    ).sort($sort.createdDesc).list[Report](nb, ReadPreference.secondaryPreferred)
     about <- recent(user, nb, ReadPreference.secondaryPreferred)
   } yield Report.ByAndAbout(by, about)
 
   def recentReportersOf(sus: Suspect): Fu[List[User.ID]] =
-    coll.distinctWithReadPreference[String, List]("createdBy", $doc(
-      "user" -> sus.user.id,
-      "atoms.0.at" $gt DateTime.now.minusDays(3),
-      "atoms.0.by" $ne "lichess"
-    ).some,
-      ReadPreference.secondaryPreferred)
+    coll.distinctWithReadPreference[String, List](
+      "atoms.by",
+      $doc(
+        "user" -> sus.user.id,
+        "atoms.0.at" $gt DateTime.now.minusDays(3)
+      ).some,
+      ReadPreference.secondaryPreferred
+    ) map (_ filterNot UserRepo.lichessId.==)
 
   def openAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithSuspectAndNotes]] = for {
-    opens <- findBest(nb, openSelect ++ roomSelect(room))
+    opens <- findBest(nb, openSelect ++ roomSelect(room) ++ scoreThresholdSelect)
     nbClosed = nb - opens.size
     closed <- if (room.has(Room.Xfiles) || nbClosed < 1) fuccess(Nil)
     else findRecent(nbClosed, closedSelect ++ roomSelect(room))
@@ -250,9 +254,9 @@ final class ReportApi(
 
     private def forUser(reporterId: User.ID): Fu[Option[Accuracy]] =
       coll.find($doc(
-        "createdBy" -> reporterId,
+        "atoms.by" -> reporterId,
         "reason" -> Reason.Cheat.key,
-        "processedBy" $exists true
+        "open" -> false
       )).sort($sort.createdDesc).list[Report](20, ReadPreference.secondaryPreferred) flatMap { reports =>
         if (reports.size < 4) fuccess(none) // not enough data to know
         else {
@@ -272,7 +276,7 @@ final class ReportApi(
       (candidate.reason == Reason.Cheat) ?? of(candidate.reporter.id)
 
     def invalidate(selector: Bdoc): Funit =
-      coll.distinct[User.ID, List]("createdBy", selector.some).map {
+      coll.distinct[User.ID, List]("atoms.by", selector.some).map {
         _ foreach cache.invalidate
       }.void
   }
@@ -280,7 +284,7 @@ final class ReportApi(
   def countOpenByRooms: Fu[Room.Counts] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregate(
-      Match(openSelect),
+      Match(openSelect ++ scoreThresholdSelect ++ roomSelect(none)),
       List(
         GroupField("room")("nb" -> SumValue(1))
       )
@@ -342,7 +346,7 @@ final class ReportApi(
         coll.remove($id(report.id)).void // cancel spontaneous inquiry
       else coll.update(
         $id(report.id),
-        $unset("inquiry", "processedBy")
+        $unset("inquiry", "processedBy") ++ $set("open" -> true)
       ).void
 
     def spontaneous(mod: Mod, sus: Suspect): Fu[Report] = ofModId(mod.user.id) flatMap { current =>

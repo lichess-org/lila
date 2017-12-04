@@ -1,46 +1,44 @@
-db.report2.remove({});
-db.report2.createIndex({room:1,score:-1},{partialFilterExpression:{open:true},name:'best_open'})
-
-db.report.find({processedBy:{$exists:true}}).forEach(r => {
-
-  r.atoms = [{
-    by: r.createdBy,
-    at: r.createdAt,
-    text: r.text,
-    score: 0
-  }];
-  r.score = 0;
-  r.open = !r.processedBy;
-
-  ['createdBy', 'createdBy', 'text'].forEach(field => {
-    delete r[field];
-  });
-
-  db.report2.insert(r);
-});
+db.report2.drop();
+db.report2.createIndex({room:1,score:-1},{partialFilterExpression:{open:true},name:'best_open'});
+db.report2.createIndex({'inquiry.mod':1},{partialFilterExpression:{'inquiry.mod':{$exists:true}}});
+db.report2.createIndex({user:1});
+db.report2.createIndex({'atoms.by':1});
 
 db.report.aggregate(
-  {$match:{processedBy:{$exists:false}}},
-  {$group:{_id:'$user',reports:{$push:'$$ROOT'}}}
+  [
+    {$group:{
+      _id: {
+        user: '$user',
+        reason: '$reason',
+        processedBy: '$processedBy'
+      },
+      reports:{$push:'$$ROOT'}
+    }}
+  ],
+  {allowDiskUse:true}
 ).toArray().forEach(group => {
 
   var reports = group.reports;
   var first = reports[0];
+
+  var atoms = reports.map(r => ({
+    by: r.createdBy,
+    at: r.createdAt,
+    text: r.text,
+    score: 30
+  }));
 
   var report = {
     _id: first._id,
     user: first.user,
     reason: first.reason,
     room: first.room,
-    atoms: reports.map(r => ({
-      by: r.createdBy,
-      at: r.createdAt,
-      text: r.text,
-      score: 30
-    })),
-    score: 30,
-    open: true
+    atoms: atoms,
+    score: atoms.reduce((acc, atom) => acc + atom.score, 0),
+    open: !first.processedBy
   };
+  if (first.processedBy)
+    report.processedBy = first.processedBy;
 
   db.report2.insert(report);
 });

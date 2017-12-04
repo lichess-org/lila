@@ -58,21 +58,21 @@
   }
   }
   <div class="second_mod_button_row">
-  @if(isGranted(_.RemoveRanking)) {
-  <form method="post" action="@routes.Mod.kickFromRankings(u.username)" data-hint="Excludes this user from the rankings during the next calculation." class="hint--bottom-left">
-    <input class="button" type="submit" value="Kick from ranking" />
-  </form>
-  }
-  @if(isGranted(_.ReportBan)) {
-  <form method="post" action="@routes.Mod.reportban(u.username, !u.reportban)" data-hint="@if(u.reportban){En}else{Dis}able the report feature for this user." class="hint--bottom-left">
-    <input class="button@when(u.reportban, " active")" type="submit" value="Reportban" />
-  </form>
-  }
-  @if(isGranted(_.Impersonate)) {
-  <form method="post" action="@routes.Mod.impersonate(u.username)">
-    <input class="button" type="submit" value="Impersonate" />
-  </form>
-  }
+    @if(isGranted(_.RemoveRanking)) {
+    <form method="post" action="@routes.Mod.kickFromRankings(u.username)" data-hint="Excludes this user from the rankings during the next calculation." class="hint--bottom-left">
+      <input class="button" type="submit" value="Kick from ranking" />
+    </form>
+    }
+    @if(isGranted(_.ReportBan)) {
+    <form method="post" action="@routes.Mod.reportban(u.username, !u.reportban)" data-hint="@if(u.reportban){En}else{Dis}able the report feature for this user." class="hint--bottom-left">
+      <input class="button@when(u.reportban, " active")" type="submit" value="Reportban" />
+    </form>
+    }
+    @if(isGranted(_.Impersonate)) {
+    <form method="post" action="@routes.Mod.impersonate(u.username)">
+      <input class="button" type="submit" value="Impersonate" />
+    </form>
+    }
   </div>
   @if(isGranted(_.SetTitle)) {
   <br />
@@ -206,7 +206,7 @@
     </table>
   </div>
   }
-    @charges.headOption.map { firstCharge =>
+  @charges.headOption.map { firstCharge =>
   <div class="plan_charges">
     <strong class="text" data-icon="@patronIconChar">
       Patron payments
@@ -223,7 +223,7 @@
     </ul>
     <br />
   </div>
-    }
+  }
   <div class="mod_log">
     <strong class="text" data-icon="!">Moderation history@if(history.isEmpty){: nothing to show.}</strong>
     @if(history.nonEmpty) {
@@ -242,12 +242,13 @@
       @reports.by.map { r =>
       @r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
       <form action="@routes.Report.inquiry(r.id)" method="post">
-        @reportScore(r.score)
+        <button type="submit">@reportScore(r.score) <strong>@r.reason.name</strong></button>
         @userIdLink(r.user.some)
-        for
-        <button type="submit">
-          <strong>@r.reason.name</strong> @momentFromNow(atom.at) @shorten(atom.text, 200)
-        </button>
+        <div class="atoms">
+          <div class="atom">
+            @userIdLink(r.user.some), @momentFromNow(atom.at): @shorten(atom.text, 200)
+          </div>
+        </div>
       </form>
       }
       }
@@ -259,13 +260,15 @@
       @if(reports.about.nonEmpty) {
       @reports.about.map { r =>
       <form action="@routes.Report.inquiry(r.id)" method="post">
-        @reportScore(r.score)
-        By @userIdLink(r.recentAtom.by.value.some)
-        @if(r.atoms.size > 1) { (and @{r.atoms.size - 1} more) }
-        for
-        <button type="submit">
-          <strong>@r.reason.name</strong> @momentFromNow(r.recentAtom.at) @shorten(r.recentAtom.text, 200)
-        </button>
+        <button type="submit">@reportScore(r.score) <strong>@r.reason.name</strong></button>
+        <div class="atoms">
+          @r.bestAtoms(3).map { atom =>
+          <div class="atom">
+            By @userIdLink(atom.by.value.some), @momentFromNow(atom.at): @shorten(atom.text, 200)
+          </div>
+          }
+          @if(r.atoms.size > 3) { (and @{r.atoms.size - 3} more) }
+        </div>
       </form>
       }
       <br />

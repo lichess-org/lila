@@ -107,8 +107,6 @@
 #report_list table.see {
   border-top: 3px solid #3893E8;
 }
-#report_list table.see thead {
-}
 #report_list table.see td {
   padding: 15px 10px 15px 10px;
   word-break: break-all;
@@ -132,7 +130,7 @@
   font-size: 0.9em;
   margin-bottom: 1em;
 }
-#report_list .atoms .atom::last-child {
+#report_list .atoms .atom:last-child {
   margin-bottom: 0;
 }
 #report_list .atoms .atom .head {

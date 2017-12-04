@@ -11,7 +11,8 @@ private final class ReportScore(
 
   def apply(candidate: Report.Candidate): Fu[Report.Candidate.Scored] =
     getAccuracy(candidate.reporter.id) map { accuracy =>
-      impl.accuracyScore(accuracy) +
+      impl.baseScore +
+        impl.accuracyScore(accuracy) +
         impl.reporterScore(candidate.reporter) +
         impl.textScore(candidate.reason, candidate.text)
     } map { score =>
@@ -55,6 +56,8 @@ private final class ReportScore(
 
   private object impl {
 
+    val baseScore = 30
+
     def accuracyScore(a: Option[Accuracy]): Double = a ?? { accuracy =>
       (accuracy.value - 50) * 0.7d
     }
@@ -68,7 +71,7 @@ private final class ReportScore(
     def flagScore(user: User) =
       (user.lameOrTroll) ?? -30d
 
-    private val gamePattern = """lichess.org/(\w{8,12})\b""".r.pattern
+    private val gamePattern = """lichess.org/(\w{8,12})""".r.pattern
 
     def textScore(reason: Reason, text: String) = {
       (reason == Reason.Cheat || reason == Reason.Boost) &&
