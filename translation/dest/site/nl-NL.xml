@@ -103,8 +103,11 @@
   <string name="memory">Geheugen</string>
   <string name="infiniteAnalysis">Oneindige analyse</string>
   <string name="removesTheDepthLimit">Verwijdert de diepte limiet, en houdt je computer warm</string>
+  <string name="blunder">Blunder</string>
   <string name="blunders">Blunders</string>
+  <string name="mistake">Fout</string>
   <string name="mistakes">Fouten</string>
+  <string name="inaccuracy">Onnauwkeurigheid</string>
   <string name="inaccuracies">Imperfecties</string>
   <string name="moveTimes">Tijdsgebruik van zetten</string>
   <string name="flipBoard">Bord draaien</string>
@@ -757,4 +760,5 @@
   <string name="challenges">Uitdagingen</string>
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s seconden om eerste zet te spelen</string>
+  <string name="practiceWithComputer">Oefen met de computer</string>
 </resources>
