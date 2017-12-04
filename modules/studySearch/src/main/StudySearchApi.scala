@@ -1,8 +1,11 @@
 package lila.studySearch
 
 import akka.actor.ActorRef
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 import play.api.libs.iteratee._
 import play.api.libs.json._
+import scala.concurrent._
 import scala.concurrent.duration._
 
 import chess.format.pgn.Tag
@@ -86,12 +89,26 @@ final class StudySearchApi(
   private def noMultiSpace(text: String) = multiSpaceRegex.replaceAllIn(text, " ")
 
   import reactivemongo.play.iteratees.cursorProducer
-  def reset(system: akka.actor.ActorSystem) = client match {
-    case c: ESClientHttp => c.putMapping >> {
-      logger.info(s"Index to ${c.index.name}")
+  def reset(sinceStr: Option[String], system: akka.actor.ActorSystem) = client match {
+    case c: ESClientHttp => {
+      val sinceOption: Option[Either[Unit, DateTime]] = for {
+        str <- sinceStr
+        res <- if (str == "reset") Some(Left(())) else parseDate(str) map Right.apply
+      } yield res
+      val since = sinceOption match {
+        case None => sys error "Missing since date argument"
+        case Some(Right(date)) =>
+          logger.info(s"Resume since $date")
+          date
+        case _ =>
+          logger.info("Reset study index")
+          Await.result(c.putMapping, 20 seconds)
+          parseDate("2011-01-01").get
+      }
+      logger.info(s"Index to ${c.index.name} since $since")
       val retryLogger = logger.branch("index")
       import lila.db.dsl._
-      studyRepo.cursor($empty, sort = $sort asc "createdAt").enumerator() &>
+      studyRepo.cursor($doc("createdAt" $gte since), sort = $sort asc "createdAt").enumerator() &>
         Enumeratee.grouped(Iteratee takeUpTo 8) |>>>
         Iteratee.foldM[Seq[Study], Int](0) {
           case (nb, studies) => studies.map { study =>
@@ -105,5 +122,11 @@ final class StudySearchApi(
         }
     } >> client.refresh
     case _ => funit
+  }
+
+  private def parseDate(str: String): Option[DateTime] = {
+    val datePattern = "yyyy-MM-dd"
+    val dateFormatter = DateTimeFormat forPattern datePattern
+    scala.util.Try(dateFormatter parseDateTime str).toOption
   }
 }
