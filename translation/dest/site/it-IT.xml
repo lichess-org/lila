@@ -103,8 +103,11 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analisi infinita</string>
   <string name="removesTheDepthLimit">Rimuove il limite di profondità di analisi e mantiene il tuo computer caldo</string>
+  <string name="blunder">Errore grave</string>
   <string name="blunders">Errori gravi</string>
+  <string name="mistake">Errore</string>
   <string name="mistakes">Errori</string>
+  <string name="inaccuracy">Imprecisione</string>
   <string name="inaccuracies">Imprecisioni</string>
   <string name="moveTimes">Tempo per mossa</string>
   <string name="flipBoard">Ruota la scacchiera</string>
@@ -759,4 +762,17 @@ in %3$s</string>
   <string name="challenges">Sfide</string>
   <string name="perfRatingX">Punteggio: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s secondi per giocare la prima mossa</string>
+  <string name="practiceWithComputer">Allenati con il computer</string>
+  <string name="anotherWas">Alternativa</string>
+  <string name="bestWas">Mossa migliore</string>
+  <string name="youBrowsedAway">Ti sei allontanato</string>
+  <string name="resumePractice">Riprendi la pratica</string>
+  <string name="theGameIsADraw">La partita è patta.</string>
+  <string name="computerThinking">Il computer sta pensando...</string>
+  <string name="seeBestMove">Scopri la mossa migliore</string>
+  <string name="hideBestMove">Nascondi la mossa migliore</string>
+  <string name="getAHint">Ottieni un suggerimento</string>
+  <string name="evaluatingYourMove">Valutando la tua mossa...</string>
+  <string name="whiteWinsGame">Il Bianco vince</string>
+  <string name="blackWinsGame">Il Nero vince</string>
 </resources>

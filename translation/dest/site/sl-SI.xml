@@ -107,8 +107,11 @@
   <string name="memory">Spomin</string>
   <string name="infiniteAnalysis">Neskončna analiza</string>
   <string name="removesTheDepthLimit">Odstrani omejitev globine in ohrani računalnik topel</string>
+  <string name="blunder">Spodrsljaj</string>
   <string name="blunders">Grobe napake</string>
+  <string name="mistake">Napaka</string>
   <string name="mistakes">Napake</string>
+  <string name="inaccuracy">Netočnost</string>
   <string name="inaccuracies">Nenatančnosti</string>
   <string name="moveTimes">Čas za potezo</string>
   <string name="flipBoard">Obrni igralno desko</string>
@@ -820,4 +823,15 @@ v %3$s</string>
   <string name="challenges">Izzivi</string>
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekund časa za prvo potezo</string>
+  <string name="practiceWithComputer">Vadi z računalnikom</string>
+  <string name="youBrowsedAway">Odtavali ste</string>
+  <string name="resumePractice">Nadaljevanje vadbe</string>
+  <string name="theGameIsADraw">Rezultat partije je remi.</string>
+  <string name="computerThinking">Računalnik razmišlja...</string>
+  <string name="seeBestMove">Poglejte najboljšo potezo</string>
+  <string name="hideBestMove">Skrij najboljšo potezo</string>
+  <string name="getAHint">Namig</string>
+  <string name="evaluatingYourMove">Ocenjevanje poteze ...</string>
+  <string name="whiteWinsGame">Beli je zmagal</string>
+  <string name="blackWinsGame">Črni je zmagal</string>
 </resources>

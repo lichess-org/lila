@@ -103,8 +103,11 @@
   <string name="memory">Arbeitsspeicher</string>
   <string name="infiniteAnalysis">Endlose Analyse</string>
   <string name="removesTheDepthLimit">Entfernt die Tiefenbegrenzung und hält deinen Computer warm</string>
+  <string name="blunder">Grober Patzer</string>
   <string name="blunders">Grobe Patzer</string>
+  <string name="mistake">Fehler</string>
   <string name="mistakes">Fehler</string>
+  <string name="inaccuracy">Ungenauigkeit</string>
   <string name="inaccuracies">Ungenauigkeiten</string>
   <string name="moveTimes">Zugzeiten</string>
   <string name="flipBoard">Brett drehen</string>
@@ -757,4 +760,15 @@
   <string name="challenges">Herausforderungen</string>
   <string name="perfRatingX">Wertungszahl: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s Sekunden, um den ersten Zug zu machen</string>
+  <string name="practiceWithComputer">Übe mit dem Computer</string>
+  <string name="youBrowsedAway">Du hast den Browser-Tab verlassen</string>
+  <string name="resumePractice">Übung fortsetzen</string>
+  <string name="theGameIsADraw">Das Spiel ist unentschieden.</string>
+  <string name="computerThinking">Computer überlegt ...</string>
+  <string name="seeBestMove">Zeige den besten Zug</string>
+  <string name="hideBestMove">Verberge den besten Zug</string>
+  <string name="getAHint">Zeige einen Hinweis</string>
+  <string name="evaluatingYourMove">Zug wird bewertet ...</string>
+  <string name="whiteWinsGame">Weiß gewinnt</string>
+  <string name="blackWinsGame">Schwarz gewinnt</string>
 </resources>

@@ -319,8 +319,21 @@
   <string name="winStreak">Ялалтын цуврал</string>
   <string name="createdBy">Зохион байгуулагч:</string>
   <string name="tournamentIsStarting">Тэмцээний удахгүй эхэллээ</string>
+  <string name="winRate">Ялалтын хувь</string>
+  <string name="berserkRate">Берсеркийн хувь</string>
+  <string name="performance">Тэмцээнд үзүүлсэн чансаа</string>
+  <string name="tournamentComplete">Тэмцээн өндөрллөө</string>
+  <string name="movesPlayed">Нийт нүүдлийн тоо</string>
+  <string name="whiteWins">Цагаанаар авсан ялалт</string>
+  <string name="blackWins">Хараар авсан ялалт</string>
+  <string name="draws">Тэнцээ</string>
+  <string name="nextXTournament">Дараагийн %s тэмцээн:</string>
+  <string name="viewMoreTournaments">Өөр тэмцээнүүдийг харах</string>
+  <string name="averageOpponent">Өрсөлдөгчдийн дундаж чансаа</string>
   <string name="membersOnly">Зөвхөн гишүүд</string>
   <string name="boardEditor">Өргийн байрлал өөрчлөгч</string>
+  <string name="setTheBoard">Өргийн байрлалыг тохируулах</string>
+  <string name="popularOpenings">Түгээмэл тоглогддог нээлтүүд</string>
   <string name="startPosition">Үндсэн байрлал</string>
   <string name="clearBoard">Өргийг хоослох</string>
   <string name="savePosition">Өргийн байрлалыг хадгалах</string>
@@ -486,6 +499,7 @@
   <string name="playOnTheBoardOffline">Нүүр тулсан өрөг</string>
   <string name="playOfflineComputer">Компьютер</string>
   <string name="opponent">Өрсөлдөгч</string>
+  <string name="learnMenu">Сургалт</string>
   <string name="community">Гишүүд</string>
   <string name="tools">Хэрэглүүр</string>
   <string name="increment">Нэмэгдэл</string>
@@ -582,6 +596,8 @@
   <string name="shareYourInsightsData">Та тоглосон өргүүдийнхээ нарийн шинжилгээг бусадтай хуваалцна</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Та дараахь цахим шуудангийн хаягаар бүртгэлтэй байна: %s</string>
   <string name="kidMode">Хүүхдийн горим</string>
+  <string name="enableKidMode">Хүүхдэд ээлтэй хувилбар руу шилжүүл</string>
+  <string name="disableKidMode">Хүүхдэд ээлтэй хувилбараас гарах</string>
   <string name="playChessEverywhere">Хаа газар шатар тоглоцгооё</string>
   <string name="asFreeAsLichess">Ямар ч үнэ төлбөргүй</string>
   <string name="builtForTheLoveOfChessNotMoney">Мөнгөний төлөө биш шатарт хайртайдаа бүтээлээ</string>
@@ -600,4 +616,9 @@
     <item quantity="other">%s хэл дээр</item>
   </plurals>
   <string name="gameAnalysis">Өргийн шинжилгээ</string>
+  <string name="language">Хэлний сонголт</string>
+  <string name="background">Дэвсгэр</string>
+  <string name="chessBasics">Шатрын суурь мэдлэг</string>
+  <string name="coaches">Шатрын багш</string>
+  <string name="error.unknown">Алдаа</string>
 </resources>

@@ -20,7 +20,7 @@
   <string name="theBishop">Слон</string>
   <string name="itMovesDiagonally">Перемещается по диагоналям</string>
   <string name="bishopIntro">Далее мы научимся ходить слоном!</string>
-  <string name="youNeedBothBishops">Поля белого цвета контролирует один слон, поля черного цвета — другой. Вам нужны оба слона!</string>
+  <string name="youNeedBothBishops">Поля белого цвета контролирует один слон, поля чёрного цвета — другой. Вам нужны оба слона!</string>
   <string name="bishopComplete">Поздравляем! Вы научились ходить слоном.</string>
   <string name="theQueen">Ферзь</string>
   <string name="queenCombinesRookAndBishop">Ферзь = ладья + слон</string>
@@ -48,7 +48,7 @@
   <string name="captureThenPromote">Побейте, затем превратитесь!</string>
   <string name="useAllThePawns">Используйте все пешки!
 Необязательно их превращать.</string>
-  <string name="aPawnOnTheSecondRank">Пешка на втором ряду может ходить на два поля за ход!</string>
+  <string name="aPawnOnTheSecondRank">Пешка на втором ряду может переместиться на два поля за ход!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Соберите все звёзды!
 Не обязательно превращать пешки.</string>
   <string name="pawnComplete">Поздравляем! У пешек нет секретов для вас.</string>
@@ -68,8 +68,8 @@
   <string name="protectionIntro">Определите, какие ваши фигуры атакует противники, и защитите их!</string>
   <string name="protectionComplete">Поздравляем! Фигура, которую вы не проиграли — это выигранная фигура!</string>
   <string name="escape">Вас атакуют! Устраните угрозу!</string>
-  <string name="noEscape">Это не выход,
-Но вы можете защитить!</string>
+  <string name="noEscape">Нельзя уйти,
+но можно защитить!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Не позволяйте им съедать
 любую незащищённую фигуру!</string>
   <string name="combat">Сражение</string>
@@ -78,7 +78,7 @@
   <string name="combatComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
   <string name="checkInOne">Шах</string>
   <string name="attackTheOpponentsKing">Атака на короля</string>
-  <string name="checkInOneIntro">Чтобы объявить шах, нападайте на короля противника. Он должен будет защищаться!</string>
+  <string name="checkInOneIntro">Чтобы объявить шах, нападите на короля противника. Он должен будет защищаться!</string>
   <string name="checkInOneGoal">Нападите на короля соперника
 за один ход!</string>
   <string name="checkInOneComplete">Поздравляем! Вы поставили шах своему сопернику, вынудив защищать своего короля!</string>

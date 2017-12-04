@@ -11,7 +11,7 @@
   <string name="aiNameLevelAiLevel">%1$s nivelo %2$s</string>
   <string name="level">Nivelo</string>
   <string name="toggleTheChat">Ŝanĝi videblecon de la babilejo</string>
-  <string name="toggleSound">(Mal)ŝalti sonon</string>
+  <string name="toggleSound">Baskuligi sonon</string>
   <string name="chat">Babilejo</string>
   <string name="resign">Rezigni</string>
   <string name="checkmate">Ŝakmato</string>
@@ -103,8 +103,11 @@
   <string name="memory">Memoro</string>
   <string name="infiniteAnalysis">Senfina analizo</string>
   <string name="removesTheDepthLimit">Forigas la profundlimon, kaj tenas vian komputilon varma</string>
+  <string name="blunder">Erarego</string>
   <string name="blunders">Eraregoj</string>
+  <string name="mistake">Eraro</string>
   <string name="mistakes">Eraroj</string>
+  <string name="inaccuracy">Erareto</string>
   <string name="inaccuracies">Eraretoj</string>
   <string name="moveTimes">Movaj tempoj</string>
   <string name="flipBoard">Rotacii tabulon</string>
@@ -757,4 +760,17 @@
   <string name="challenges">Defioj</string>
   <string name="perfRatingX">Rango: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekundoj por ludi la unuan movon</string>
+  <string name="practiceWithComputer">Praktiki kun komputilo</string>
+  <string name="anotherWas">Alia estis</string>
+  <string name="bestWas">Plej bona estis</string>
+  <string name="youBrowsedAway">Vi retumis foren</string>
+  <string name="resumePractice">Daŭrigi praktikon</string>
+  <string name="theGameIsADraw">La ludo egalvenkas.</string>
+  <string name="computerThinking">Komputilo pensas ...</string>
+  <string name="seeBestMove">Vidi la plej bonan movon</string>
+  <string name="hideBestMove">Kaŝi la plej bonan movon</string>
+  <string name="getAHint">Ricevi konsileton</string>
+  <string name="evaluatingYourMove">Taksante vian movon ...</string>
+  <string name="whiteWinsGame">Blanko venkas</string>
+  <string name="blackWinsGame">Nigro venkas</string>
 </resources>

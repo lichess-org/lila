@@ -103,8 +103,11 @@
   <string name="memory">Mémoire</string>
   <string name="infiniteAnalysis">Analyse infinie</string>
   <string name="removesTheDepthLimit">Désactive la profondeur limitée et fait chauffer votre ordinateur</string>
+  <string name="blunder">Gaffe</string>
   <string name="blunders">Gaffes</string>
+  <string name="mistake">Erreur</string>
   <string name="mistakes">Erreurs</string>
+  <string name="inaccuracy">Imprécision</string>
   <string name="inaccuracies">Imprécisions</string>
   <string name="moveTimes">Temps par coup</string>
   <string name="flipBoard">Tourner l\'échiquier</string>
@@ -758,4 +761,17 @@ en %3$s</string>
   <string name="challenges">Défis</string>
   <string name="perfRatingX">Classement : %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s secondes pour jouer le premier coup</string>
+  <string name="practiceWithComputer">S\'entrainer avec un ordinateur</string>
+  <string name="anotherWas">Un autre a été</string>
+  <string name="bestWas">Meilleur était</string>
+  <string name="youBrowsedAway">Vous avez parcouru</string>
+  <string name="resumePractice">Reprendre l\'entrainement</string>
+  <string name="theGameIsADraw">La partie est nulle.</string>
+  <string name="computerThinking">L’ordinateur réfléchit ...</string>
+  <string name="seeBestMove">Voir le meilleur coup</string>
+  <string name="hideBestMove">Cacher le meilleur coup</string>
+  <string name="getAHint">Obtenir un indice</string>
+  <string name="evaluatingYourMove">Evaluant votre coup ...</string>
+  <string name="whiteWinsGame">Les blancs gagnent</string>
+  <string name="blackWinsGame">Les Noirs gagnent</string>
 </resources>
