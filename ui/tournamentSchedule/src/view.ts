@@ -104,6 +104,10 @@ function tournamentClass(tour) {
   return classes;
 }
 
+function iconOf(tour, perfIcon) {
+  return (tour.schedule && tour.schedule.freq === 'shield') ? '5' : perfIcon;
+}
+
 function renderTournament(ctrl, tour) {
   let width = tour.minutes * scale;
   const left = leftPos(tour.startsAt);
@@ -123,7 +127,7 @@ function renderTournament(ctrl, tour) {
       }, [
         h('span.icon', tour.perf ? {
           attrs: {
-            'data-icon': tour.perf.icon,
+            'data-icon': iconOf(tour, tour.perf.icon),
             title: tour.perf.name
           }
         } : {}),
