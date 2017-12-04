@@ -79,7 +79,7 @@ function doRender(ctrl: AnalyseCtrl): VNode {
       class: { active: !!ctrl.retro },
       attrs: dataIcon('G'),
       hook: bind('click', ctrl.toggleRetro, ctrl.redraw)
-    }, 'Learn from your mistakes'),
+    }, ctrl.trans.noarg('learnFromYourMistakes')),
     playerTable(ctrl, 'black')
   ]);
 }
