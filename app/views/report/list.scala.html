@@ -30,6 +30,7 @@ moreCss = cssTag("report.css")) {
   <table class="slist see">
     <thead>
       <tr>
+        <th></th>
         <th>Author</th>
         <th>Reported</th>
         <th>For</th>
@@ -39,7 +40,7 @@ moreCss = cssTag("report.css")) {
     <tbody>
       @reports.map {
       case WithSuspectAndNotes(WithSuspect(r, sus, _), notes) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
-      <tr class="@r.unprocessed.fold("new", "")">
+      <tr class="@r.open.fold("new", "")">
         <td>
           @reportScore(r.score)
         </td>

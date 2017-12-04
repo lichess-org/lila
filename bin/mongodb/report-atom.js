@@ -1,3 +1,6 @@
+db.report2.remove({});
+db.report2.createIndex({room:1,score:-1},{partialFilterExpression:{open:true},name:'best_open'})
+
 db.report.find({processedBy:{$exists:true}}).forEach(r => {
 
   r.atoms = [{
@@ -7,6 +10,7 @@ db.report.find({processedBy:{$exists:true}}).forEach(r => {
     score: 0
   }];
   r.score = 0;
+  r.open = !r.processedBy;
 
   ['createdBy', 'createdBy', 'text'].forEach(field => {
     delete r[field];
@@ -34,7 +38,7 @@ db.report.aggregate(
       text: r.text,
       score: 30
     })),
-    score: reports.length * 30
+    score: 30
   };
 
   db.report2.insert(report);

@@ -29,31 +29,36 @@ final class ReportApi(
   private implicit val AtomBSONHandler = Macros.handler[Atom]
   private implicit val ReportBSONHandler = lila.db.BSON.LoggingHandler(logger)(Macros.handler[Report])
 
-  def create(candidate: Report.Candidate): Funit = !candidate.reporter.user.reportban ?? {
-    !isAlreadySlain(candidate) ?? {
-      discarder(candidate, accuracy(candidate)).flatMap {
-        case true =>
-          logger.info(s"Discarded report $candidate")
-          lila.mon.mod.report.discard(candidate.reason.key)()
-          funit
-        case false => coll.find($doc(
-          "user" -> candidate.suspect.user.id,
-          "reason" -> candidate.reason,
-          "processedBy" $exists false
-        )).one[Report] flatMap { existing =>
-          val report = Report.make(candidate, existing)
-          lila.mon.mod.report.create(report.reason.key)()
-          coll.update($id(report.id), report, upsert = true).void >>
-            autoAnalysis(candidate) >>-
-            bus.publish(lila.hub.actorApi.report.Created(candidate.suspect.user.id, candidate.reason.key, candidate.reporter.user.id), 'report)
-        }
-      } >>- monitorUnprocessed
+  private lazy val scorer = new ReportScore(getAccuracy = accuracy.of)
+
+  def create(c: Report.Candidate): Funit = !c.reporter.user.reportban ?? {
+    !isAlreadySlain(c) ?? {
+      scorer(c) flatMap {
+        case scored @ Report.Candidate.Scored(candidate, _) =>
+          discarder(candidate, accuracy(candidate)).flatMap {
+            case true =>
+              logger.info(s"Discarded report $candidate")
+              lila.mon.mod.report.discard(candidate.reason.key)()
+              funit
+            case false => coll.find($doc(
+              "user" -> candidate.suspect.user.id,
+              "reason" -> candidate.reason,
+              "open" -> true
+            )).one[Report] flatMap { existing =>
+              val report = Report.make(scored, existing)
+              lila.mon.mod.report.create(report.reason.key)()
+              coll.update($id(report.id), report, upsert = true).void >>
+                autoAnalysis(candidate) >>-
+                bus.publish(lila.hub.actorApi.report.Created(candidate.suspect.user.id, candidate.reason.key, candidate.reporter.user.id), 'report)
+            }
+          } >>- monitorOpen
+      }
     }
   }
 
-  private def monitorUnprocessed = {
-    nbUnprocessedCache.refresh
-    nbUnprocessed foreach { nb =>
+  private def monitorOpen = {
+    nbOpenCache.refresh
+    nbOpen foreach { nb =>
       lila.mon.mod.report.unprocessed(nb)
     }
   }
@@ -136,17 +141,20 @@ final class ReportApi(
       val relatedSelector = $doc(
         "user" -> sus.user.id,
         "room" $in rooms,
-        "processedBy" $exists false
+        "open" -> true
       )
       val reportSelector = reportId.orElse(inquiry.map(_.id)).fold(relatedSelector) { id =>
         $or($id(id), relatedSelector)
       }
       coll.update(
         reportSelector,
-        $set("processedBy" -> mod.user.id) ++ $unset("inquiry"),
+        $set(
+          "open" -> false,
+          "processedBy" -> mod.user.id
+        ) ++ $unset("inquiry"),
         multi = true
       ).void >> accuracy.invalidate(reportSelector) >>- {
-          monitorUnprocessed
+          monitorOpen
           lila.mon.mod.report.close()
           rooms.flatMap(Room.toReasons) foreach { publishProcessed(sus, _) }
         }
@@ -162,28 +170,27 @@ final class ReportApi(
       ))
       case _ => funit
     }
-  } >>- monitorUnprocessed
+  } >>- monitorOpen
 
   def moveToXfiles(id: String): Funit = coll.update(
     $id(id),
     $set("room" -> Room.Xfiles.key) ++ $unset("inquiry")
   ).void
 
-  private val unprocessedSelect: Bdoc = $doc(
-    "processedBy" $exists false,
-    "inquiry" $exists false
-  )
-  private val processedSelect: Bdoc = "processedBy" $exists true
+  private val openSelect: Bdoc = $doc("open" -> true)
+  private val closedSelect: Bdoc = $doc("open" -> false)
+  private val openAvailableSelect: Bdoc = openSelect ++ $doc("inquiry" $exists false)
+
   private def roomSelect(room: Option[Room]): Bdoc =
     room.fold($doc("room" $ne Room.Xfiles.key)) { r => $doc("room" -> r) }
 
-  val nbUnprocessedCache = asyncCache.single[Int](
-    name = "report.nbUnprocessed",
-    f = coll.countSel(unprocessedSelect ++ roomSelect(none)),
+  val nbOpenCache = asyncCache.single[Int](
+    name = "report.nbOpen",
+    f = coll.countSel(openSelect ++ roomSelect(none)),
     expireAfter = _.ExpireAfterWrite(1 hour)
   )
 
-  def nbUnprocessed = nbUnprocessedCache.get
+  def nbOpen = nbOpenCache.get
 
   def recent(user: User, nb: Int, readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[List[Report]] =
     coll.find($doc("user" -> user.id)).sort($sort.createdDesc).list[Report](nb, readPreference)
@@ -204,16 +211,16 @@ final class ReportApi(
     ).some,
       ReadPreference.secondaryPreferred)
 
-  def unprocessedAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithSuspectAndNotes]] = for {
-    unprocessed <- findRecent(nb, unprocessedSelect ++ roomSelect(room))
-    nbProcessed = nb - unprocessed.size
-    processed <- if (room.has(Room.Xfiles) || nbProcessed == 0) fuccess(Nil)
-    else findRecent(nbProcessed, processedSelect ++ roomSelect(room))
-    withNotes <- addSuspectsAndNotes(unprocessed ++ processed)
+  def openAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithSuspectAndNotes]] = for {
+    opens <- findBest(nb, openSelect ++ roomSelect(room))
+    nbClosed = nb - opens.size
+    closed <- if (room.has(Room.Xfiles) || nbClosed < 1) fuccess(Nil)
+    else findRecent(nbClosed, closedSelect ++ roomSelect(room))
+    withNotes <- addSuspectsAndNotes(opens ++ closed)
   } yield withNotes
 
   def next(room: Room): Fu[Option[Report]] =
-    unprocessedAndRecentWithFilter(1, room.some) map (_.headOption.map(_.report))
+    openAndRecentWithFilter(1, room.some) map (_.headOption.map(_.report))
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspectAndNotes]] = for {
     users <- UserRepo byIdsSecondary (reports.map(_.user).distinct :+ "neio")
@@ -233,11 +240,11 @@ final class ReportApi(
 
     private val cache = asyncCache.clearable[User.ID, Option[Int]](
       name = "reporterAccuracy",
-      f = forUser,
+      f = a => forUser(a).map2((a: Accuracy) => a.value),
       expireAfter = _.ExpireAfterWrite(24 hours)
     )
 
-    private def forUser(reporterId: User.ID): Fu[Option[Int]] =
+    private def forUser(reporterId: User.ID): Fu[Option[Accuracy]] =
       coll.find($doc(
         "createdBy" -> reporterId,
         "reason" -> Reason.Cheat.key,
@@ -247,15 +254,18 @@ final class ReportApi(
         else {
           val userIds = reports.map(_.user).distinct
           UserRepo countEngines userIds map { nbEngines =>
-            Math.round((nbEngines + 0.5f) / (userIds.length + 2f) * 100).some
+            Accuracy {
+              Math.round((nbEngines + 0.5f) / (userIds.length + 2f) * 100)
+            }.some
           }
         }
       }
 
-    def apply(candidate: Report.Candidate): Fu[Option[Int]] =
-      (candidate.reason == Reason.Cheat) ?? {
-        cache get candidate.reporter.user.id
-      }
+    def of(reporter: ReporterId): Fu[Option[Accuracy]] =
+      cache get reporter.value map2 Accuracy.apply
+
+    def apply(candidate: Report.Candidate): Fu[Option[Accuracy]] =
+      (candidate.reason == Reason.Cheat) ?? of(candidate.reporter.id)
 
     def invalidate(selector: Bdoc): Funit =
       coll.distinct[User.ID, List]("createdBy", selector.some).map {
@@ -263,10 +273,10 @@ final class ReportApi(
       }.void
   }
 
-  def countUnprocesssedByRooms: Fu[Room.Counts] = {
+  def countOpenByRooms: Fu[Room.Counts] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregate(
-      Match(unprocessedSelect),
+      Match(openSelect),
       List(
         GroupField("room")("nb" -> SumValue(1))
       )
@@ -282,12 +292,15 @@ final class ReportApi(
   def currentlyReportedForCheat: Fu[Set[User.ID]] =
     coll.distinctWithReadPreference[User.ID, Set](
       "user",
-      Some($doc("reason" -> Reason.Cheat.key) ++ unprocessedSelect),
+      Some($doc("reason" -> Reason.Cheat.key) ++ openSelect),
       ReadPreference.secondaryPreferred
     )
 
   private def findRecent(nb: Int, selector: Bdoc) =
     coll.find(selector).sort($sort.createdDesc).list[Report](nb)
+
+  private def findBest(nb: Int, selector: Bdoc) =
+    coll.find(selector).sort($sort desc "score").list[Report](nb)
 
   private def selectRecent(suspect: Suspect, reason: Reason): Bdoc = $doc(
     "atoms.0.at" $gt DateTime.now.minusDays(7),
@@ -334,7 +347,7 @@ final class ReportApi(
             sus,
             Reason.Other,
             Report.spontaneousText
-          ),
+          ) scored Score(0),
           none
         ).copy(inquiry = Report.Inquiry(mod.user.id, DateTime.now).some)
         coll.insert(report) inject report

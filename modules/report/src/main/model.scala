@@ -19,3 +19,5 @@ case class ReporterId(value: User.ID) extends AnyVal
 object ReporterId {
   implicit val reporterIdIso = lila.common.Iso.string[ReporterId](ReporterId.apply, _.value)
 }
+
+case class Accuracy(value: Int) extends AnyVal

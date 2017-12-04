@@ -15,6 +15,7 @@ case class Report(
     atoms: NonEmptyList[Report.Atom], // most recent first
     score: Report.Score,
     inquiry: Option[Report.Inquiry],
+    open: Boolean,
     processedBy: Option[User.ID]
 ) extends Reason.WithReason {
 
@@ -22,6 +23,8 @@ case class Report(
 
   def id = _id
   def slug = _id
+
+  def closed = !open
 
   def add(atom: Atom) = atomBy(atom.by).fold(copy(atoms = atom <:: atoms)) { existing =>
     val newAtom = existing.copy(
@@ -47,20 +50,20 @@ case class Report(
   def nbOtherAtoms: Option[Int] = atoms.tail.nonEmpty option (atoms.size - 1)
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
 
-  def unprocessedCheat = unprocessed && isCheat
-  def unprocessedOther = unprocessed && isOther
-  def unprocessedTroll = unprocessed && isTroll
-  def unprocessedInsult = unprocessed && isInsult
-  def unprocessedTrollOrInsult = unprocessed && isTrollOrInsult
+  def unprocessedCheat = open && isCheat
+  def unprocessedOther = open && isOther
+  def unprocessedTroll = open && isTroll
+  def unprocessedInsult = open && isInsult
+  def unprocessedTrollOrInsult = open && isTrollOrInsult
 
-  def process(by: User) = copy(processedBy = by.id.some)
-
-  def unprocessed = processedBy.isEmpty
-  def processed = processedBy.isDefined
+  def process(by: User) = copy(
+    open = false,
+    processedBy = by.id.some
+  )
 
   def userIds: List[User.ID] = user :: atoms.toList.map(_.by.value)
 
-  def isRecentComm = room == Room.Coms && !processed
+  def isRecentComm = room == Room.Coms && open
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
 }
 
@@ -89,7 +92,7 @@ object Report {
     def urgency: Int =
       (nowSeconds - report.recentAtom.at.getSeconds).toInt +
         (isOnline ?? (86400 * 5)) +
-        (report.processed ?? Int.MinValue)
+        (report.closed ?? Int.MinValue)
   }
 
   case class WithSuspectAndNotes(withSuspect: WithSuspect, notes: List[Note]) {
@@ -111,28 +114,35 @@ object Report {
       reason: Reason,
       text: String
   ) extends Reason.WithReason {
-    def atom = Atom(
-      by = reporter.id,
-      text = text,
-      score = getScore(this),
-      at = DateTime.now
-    )
+    def scored(score: Score) = Candidate.Scored(this, score)
     def isAutomatic = reporter.user.id == lichessId
+  }
+
+  object Candidate {
+    case class Scored(candidate: Candidate, score: Score) {
+      def atom = Atom(
+        by = candidate.reporter.id,
+        text = candidate.text,
+        score = score,
+        at = DateTime.now
+      )
+    }
   }
 
   private[report] val spontaneousText = "Spontaneous inquiry"
 
-  def getScore(candidate: Candidate) = Score(1)
-
-  def make(candidate: Candidate, existing: Option[Report]) =
-    existing.map(_ add candidate.atom) | Report(
-      _id = Random nextString 8,
-      user = candidate.suspect.user.id,
-      reason = candidate.reason,
-      room = Room(candidate.reason),
-      atoms = NonEmptyList(candidate.atom),
-      score = candidate.atom.score,
-      inquiry = none,
-      processedBy = none
-    )
+  def make(c: Candidate.Scored, existing: Option[Report]) = c match {
+    case c @ Candidate.Scored(candidate, score) =>
+      existing.map(_ add c.atom) | Report(
+        _id = Random nextString 8,
+        user = candidate.suspect.user.id,
+        reason = candidate.reason,
+        room = Room(candidate.reason),
+        atoms = NonEmptyList(c.atom),
+        score = score,
+        inquiry = none,
+        open = true,
+        processedBy = none
+      )
+  }
 }
