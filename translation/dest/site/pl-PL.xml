@@ -792,8 +792,6 @@
   <string name="perfRatingX">Ranking: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekund na wykonanie pierwszego ruchu</string>
   <string name="practiceWithComputer">Trening z komputerem</string>
-  <string name="anotherWas">Inna możliwość</string>
-  <string name="bestWas">Najlepsze było</string>
   <string name="resumePractice">Wznów trening</string>
   <string name="theGameIsADraw">Gra zakończona remisem.</string>
   <string name="computerThinking">Komputer namyśla się...</string>
