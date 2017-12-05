@@ -104,7 +104,7 @@ module.exports = function(element, cfg) {
     if (!$("#adv_chart").length) $panel.html('<div id="adv_chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$("#adv_chart_loader").length) $panel.append(chartLoader());
     lichess.loadScript('/assets/javascripts/chart/acpl.js').then(function() {
-      lichess.advantageChart(data);
+      lichess.advantageChart(data, cfg.trans);
     });
   };
 
@@ -116,7 +116,7 @@ module.exports = function(element, cfg) {
     $panels.removeClass('active').filter('.' + panel).addClass('active');
     if (panel === 'move_times' && !lichess.movetimeChart) try {
       lichess.loadScript('/assets/javascripts/chart/movetime.js').then(function() {
-        lichess.movetimeChart(data);
+        lichess.movetimeChart(data, cfg.trans);
       });
     } catch (e) {}
     if (panel === 'computer_analysis' && $("#adv_chart").length)

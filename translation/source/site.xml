@@ -793,4 +793,12 @@ in %3$s</string>
   <string name="doItAgain">Do it again</string>
   <string name="reviewWhiteMistakes">Review white mistakes</string>
   <string name="reviewBlackMistakes">Review black mistakes</string>
+  <string name="advantage">Advantage</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s second</item>
+    <item quantity="other">%s seconds</item>
+  </plurals>
+  <string name="opening">Opening</string>
+  <string name="middlegame">Middlegame</string>
+  <string name="endgame">Endgame</string>
 </resources>

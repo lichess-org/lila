@@ -1,7 +1,7 @@
 function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
-lichess.advantageChart = function(data) {
+lichess.advantageChart = function(data, trans) {
   lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
     lichess.loadScript('/assets/javascripts/chart/division.js').done(function() {
       lichess.chartCommon('highchart').done(function() {
@@ -62,7 +62,7 @@ lichess.advantageChart = function(data) {
           credits: disabled,
           legend: disabled,
           series: [{
-            name: 'Advantage',
+            name: trans('advantage'),
             data: serieData
           }],
           chart: {
@@ -112,7 +112,7 @@ lichess.advantageChart = function(data) {
           },
           tooltip: {
             pointFormatter: function(format) {
-              format = format.replace('{series.name}', 'Advantage');
+              format = format.replace('{series.name}', trans('advantage'));
               var eval = data.treeParts[this.x + 1].eval;
               if (!eval) return;
               else if (eval.mate) return format.replace('{point.y}', '#' + eval.mate);
@@ -129,7 +129,7 @@ lichess.advantageChart = function(data) {
             labels: disabled,
             lineWidth: 0,
             tickWidth: 0,
-            plotLines: lichess.divisionLines(data.game.division)
+            plotLines: lichess.divisionLines(data.game.division, trans)
           },
           yAxis: {
             title: noText,

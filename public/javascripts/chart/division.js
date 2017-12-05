@@ -1,9 +1,9 @@
-lichess.divisionLines = function(div) {
+lichess.divisionLines = function(div, trans) {
   var divisionLines = [];
   if (div.middle) {
     divisionLines.push({
       label: {
-        text: 'Opening',
+        text: trans('opening'),
         verticalAlign: 'top',
         align: 'left',
         y: 0,
@@ -17,7 +17,7 @@ lichess.divisionLines = function(div) {
     });
     divisionLines.push({
       label: {
-        text: 'Middlegame',
+        text: trans('middlegame'),
         verticalAlign: 'top',
         align: 'left',
         y: 0,
@@ -32,7 +32,7 @@ lichess.divisionLines = function(div) {
   }
   if (div.end) divisionLines.push({
     label: {
-      text: 'Endgame',
+      text: trans('endgame'),
       verticalAlign: 'top',
       align: 'left',
       y: 0,
