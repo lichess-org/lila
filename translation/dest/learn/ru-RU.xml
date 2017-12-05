@@ -13,7 +13,7 @@
   <string name="itMovesInStraightLines">Движется по прямым линиям</string>
   <string name="rookIntro">Ладья — это тяжёлая фигура. Готовы ли вы управлять ей?</string>
   <string name="rookGoal">Нажмите на ладью и доведите её до звезды!</string>
-  <string name="grabAllTheStars">Соберите все звезды!</string>
+  <string name="grabAllTheStars">Соберите все звёзды!</string>
   <string name="theFewerMoves">Чем меньше ходов вы сделаете, тем больше очков вы получите!</string>
   <string name="useTwoRooks">Используйте две ладьи, чтобы ускорить процесс!</string>
   <string name="rookComplete">Поздравляем! Вы научились ходить ладьей.</string>
