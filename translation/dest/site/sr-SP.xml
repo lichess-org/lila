@@ -824,4 +824,13 @@
   <string name="doItAgain">Урадите поново</string>
   <string name="reviewWhiteMistakes">Пронађите грешке белог</string>
   <string name="reviewBlackMistakes">Пронађите грешке црног</string>
+  <string name="advantage">Предност</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s секунд</item>
+    <item quantity="few">%s секунде</item>
+    <item quantity="other">%s секунди</item>
+  </plurals>
+  <string name="opening">Отварање</string>
+  <string name="middlegame">Средишњица</string>
+  <string name="endgame">Завршница</string>
 </resources>
