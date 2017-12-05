@@ -668,7 +668,7 @@
   <string name="aboutSimul">Сеансы подразумевают сражение одного игрока с несколькими противниками одновременно.</string>
   <string name="aboutSimulImage">Из общего числа в 50 игр Фишер выиграл 47, 2 сыграл вничью и проиграл 1.</string>
   <string name="aboutSimulRealLife">Идея повторяет принятую в живых шахматах концепцию, когда дающий сеанс одновременной игры перемещается от стола к столу, чтобы совершить один ход.</string>
-  <string name="aboutSimulRules">Старт - каждый игрок начинает игру с сеансёром, получающим белый цвет. Сеанс закончится, когда все партии будут сыграны.</string>
+  <string name="aboutSimulRules">Когда начинается сеанс одновременной игры, каждый игрок начинает игру с сеансёром, который играет белыми. Сеанс закончится, когда все партии будут сыграны.</string>
   <string name="aboutSimulSettings">Сеансы одновременной игры не предполагают партий на рейтинг. Переигровки, отмены ходов и «добавки времени» запрещены.</string>
   <string name="create">Создать</string>
   <string name="whenCreateSimul">Когда вы создаёте Сеанс, вы играете против нескольких игроков одновременно.</string>
@@ -691,7 +691,7 @@
   <string name="tournamentHomeDescription">Играйте в шахматных турнирах в быстрые шахматы! Присоединяйтесь к запланированному турнира или создайте собственный. Пуля, блиц, классика, шахматы Фишера, король в центре, три шаха и другие доступные варианты бесконечного шахматного удовольствия.</string>
   <string name="tournamentNotFound">Турнир не найден</string>
   <string name="tournamentDoesNotExist">Турнира не существует.</string>
-  <string name="tournamentMayHaveBeenCanceled">Может быть отменен, в случае если все игроки покинули турнир до его старта.</string>
+  <string name="tournamentMayHaveBeenCanceled">Может быть отменён в случае, если все игроки покинули турнир до его старта.</string>
   <string name="returnToTournamentsHomepage">Вернуться на страницу турниров</string>
   <string name="weeklyPerfTypeRatingDistribution">Распределение по рейтингу %s за месяц</string>
   <plurals name="nbPerfTypePlayersThisWeek">
