@@ -71,7 +71,9 @@
     </div>
   </div>
   <div class="links">
-    <a href="@routes.User.games(in.user.id, "search")?players.b=@in.report.recentAtom.by.value">View<br />Games</a>
+    @in.report.bestAtomByHuman.map { atom =>
+    <a href="@routes.User.games(in.user.id, "search")?players.b=@atom.by.value">View<br />Games</a>
+    }
     @if(isGranted(_.MarkTroll)) {
     <a href="@routes.Mod.communicationPublic(in.user.id)">View<br />Comms</a>
     }

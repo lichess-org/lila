@@ -52,6 +52,7 @@ case class Report(
   } take nb
   def onlyAtom: Option[Atom] = atoms.tail.isEmpty option atoms.head
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
+  def bestAtomByHuman: Option[Atom] = bestAtoms(10).toList.find(_.byHuman)
 
   def unprocessedCheat = open && isCheat
   def unprocessedOther = open && isOther
@@ -91,6 +92,8 @@ object Report {
       at: DateTime
   ) {
     def simplifiedText = text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
+
+    def byHuman = by.value != "lichess" && by.value != "irwin"
   }
 
   case class Inquiry(mod: User.ID, seenAt: DateTime)
