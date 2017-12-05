@@ -771,4 +771,8 @@
   <string name="evaluatingYourMove">Zug wird bewertet ...</string>
   <string name="whiteWinsGame">Weiß gewinnt</string>
   <string name="blackWinsGame">Schwarz gewinnt</string>
+  <string name="learnFromYourMistakes">Lerne aus deinen Fehlern</string>
+  <string name="skipThisMove">Überspringe diesen Zug</string>
+  <string name="next">Nächster</string>
+  <string name="findBetterMoveForWhite">Finde einen besseren Zug für Weiß</string>
 </resources>
