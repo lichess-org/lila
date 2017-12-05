@@ -187,7 +187,7 @@ function buttons(ctrl: AnalyseCtrl) {
     ctrl.embed ? null : h('div.features', ctrl.studyPractice ? [
       h('a.hint--bottom', {
         attrs: {
-          'data-hint': ctrl.trans.noarg('analysisBoard'),
+          'data-hint': ctrl.trans.noarg('analysis'),
           target: '_blank',
           href: ctrl.studyPractice.analysisUrl()
         }
