@@ -100,7 +100,7 @@ final class Gamify(
   private def reportLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
     reportApi.coll.aggregate(
       Match($doc(
-        "createdAt" -> dateRange(after, before),
+        "atoms.0.at" -> dateRange(after, before),
         "processedBy" -> notLichess
       )), List(
         GroupField("processedBy")("nb" -> SumValue(1)),
