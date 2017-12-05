@@ -784,4 +784,14 @@ i %3$s</string>
   <string name="resumeLearning">Hald fram med læring</string>
   <string name="youCanDoBetter">Du kan gjera det betre</string>
   <string name="tryAnotherMoveForWhite">Prøv eit anna trekk for kvit</string>
+  <string name="tryAnotherMoveForBlack">Prøv eit anna trekk for svart</string>
+  <string name="solution">Løysing</string>
+  <string name="waitingForAnalysis">Ventar på analyse</string>
+  <string name="noMistakesFoundForWhite">Ingen feil funne for kvit</string>
+  <string name="noMistakesFoundForBlack">Ingen feil funne for svart</string>
+  <string name="doneReviewingWhiteMistakes">Ferdig med å gå gjennom kvit sine feil</string>
+  <string name="doneReviewingBlackMistakes">Ferdig med å gå gjennom svart sine feil</string>
+  <string name="doItAgain">Gjer om att</string>
+  <string name="reviewWhiteMistakes">Gå gjennom kvit sine feil</string>
+  <string name="reviewBlackMistakes">Gå gjennom svart sine feil</string>
 </resources>
