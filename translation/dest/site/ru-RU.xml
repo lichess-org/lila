@@ -316,8 +316,8 @@
   <string name="teams">Команды</string>
   <plurals name="nbMembers">
     <item quantity="one">%s участник</item>
-    <item quantity="few">%s участников</item>
-    <item quantity="other">%s участника</item>
+    <item quantity="few">%s участника</item>
+    <item quantity="other">%s участников</item>
   </plurals>
   <string name="allTeams">Все команды</string>
   <string name="newTeam">Новая команда</string>
@@ -691,7 +691,7 @@
   <string name="tournamentHomeDescription">Играйте в шахматных турнирах в быстрые шахматы! Присоединяйтесь к запланированному турнира или создайте собственный. Пуля, блиц, классика, шахматы Фишера, король в центре, три шаха и другие доступные варианты бесконечного шахматного удовольствия.</string>
   <string name="tournamentNotFound">Турнир не найден</string>
   <string name="tournamentDoesNotExist">Турнира не существует.</string>
-  <string name="tournamentMayHaveBeenCanceled">Может быть отменён в случае, если все игроки покинули турнир до его старта.</string>
+  <string name="tournamentMayHaveBeenCanceled">Может быть отменён в том случае, если все игроки покинули турнир до его старта.</string>
   <string name="returnToTournamentsHomepage">Вернуться на страницу турниров</string>
   <string name="weeklyPerfTypeRatingDistribution">Распределение по рейтингу %s за месяц</string>
   <plurals name="nbPerfTypePlayersThisWeek">
