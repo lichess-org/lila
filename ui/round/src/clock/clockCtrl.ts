@@ -69,7 +69,7 @@ export class ClockController {
   showBar: boolean;
   times: Times;
 
-  timePercentDivisor: number
+  timeRatioDivisor: number
   emergMs: Millis;
 
   elements = {
@@ -89,15 +89,15 @@ export class ClockController {
     }
 
     this.showBar = cdata.showBar;
-    this.timePercentDivisor = .1 / (Math.max(cdata.initial, 2) + 5 * cdata.increment);
+    this.timeRatioDivisor = .001 / (Math.max(cdata.initial, 2) + 5 * cdata.increment);
 
     this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * .125));
 
     this.setClock(d, cdata.white, cdata.black);
   }
 
-  timePercent = (millis: number): number =>
-    Math.max(0, Math.min(100, millis * this.timePercentDivisor));
+  timeRatio = (millis: number): number =>
+    Math.max(0, Math.min(1, millis * this.timeRatioDivisor));
 
   setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0) => {
     const isClockRunning = game.playable(d) &&

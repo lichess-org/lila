@@ -68,23 +68,20 @@ function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean) 
 function showBar(ctrl: ClockController, els: ClockElements, millis: Millis, berserk: boolean) {
   const update = (el: HTMLElement) => {
     els.bar = el;
-    el.style.width = ctrl.timePercent(millis) + '%';
+    el.style.transform = "scale(" + ctrl.timeRatio(millis) + ",1)";
   };
   return ctrl.showBar ? h('div.bar', {
-    class: { berserk }
-  }, [
-    h('span', {
-      hook: {
+    class: { berserk },
+    hook: {
         insert: vnode => update(vnode.elm as HTMLElement),
         postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
-      }
-    })
-  ]) : null;
+    }
+  }) : null;
 }
 
 export function updateElements(clock: ClockController, els: ClockElements, millis: Millis) {
   if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true);
-  if (els.bar) els.bar.style.width = clock.timePercent(millis) + '%';
+  if (els.bar) els.bar.style.transform = "scale(" + clock.timeRatio(millis) + ",1)";
   if (els.clock) {
     if (millis < clock.emergMs) els.clock.classList.add("emerg");
     else els.clock.classList.remove("emerg");
