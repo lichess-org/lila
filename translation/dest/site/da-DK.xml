@@ -760,4 +760,8 @@
   <string name="doItAgain">Gentag</string>
   <string name="reviewWhiteMistakes">Gennemgå hvide fejl</string>
   <string name="reviewBlackMistakes">Gennemgå sorte fejl</string>
+  <string name="advantage">Fordel</string>
+  <string name="opening">Åbningsspil</string>
+  <string name="middlegame">Midtspil</string>
+  <string name="endgame">Slutspil</string>
 </resources>
