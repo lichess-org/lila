@@ -810,4 +810,19 @@
   <string name="skipThisMove">Пропустить этот ход</string>
   <string name="next">Далее</string>
   <string name="xWasPlayed">Было сыграно %s</string>
+  <string name="findBetterMoveForWhite">Найдите за белых более сильный ход</string>
+  <string name="findBetterMoveForBlack">Найдите за чёрных более сильный ход</string>
+  <string name="resumeLearning">Продолжить обучение</string>
+  <string name="youCanDoBetter">Есть и более сильный ход</string>
+  <string name="tryAnotherMoveForWhite">Попробуйте другой ход за белых</string>
+  <string name="tryAnotherMoveForBlack">Попробуйте другой ход за чёрных</string>
+  <string name="solution">Ответ</string>
+  <string name="waitingForAnalysis">Ожидание анализа</string>
+  <string name="noMistakesFoundForWhite">Ошибок белых не найдено</string>
+  <string name="noMistakesFoundForBlack">Ошибок чёрных не найдено</string>
+  <string name="doneReviewingWhiteMistakes">Ошибки белых разобраны</string>
+  <string name="doneReviewingBlackMistakes">Ошибки чёрных разобраны</string>
+  <string name="doItAgain">Ещё раз</string>
+  <string name="reviewWhiteMistakes">Разобрать ошибки белых</string>
+  <string name="reviewBlackMistakes">Разобрать ошибки чёрных</string>
 </resources>
