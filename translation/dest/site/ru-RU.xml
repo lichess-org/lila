@@ -308,7 +308,7 @@
   <string name="yourPerfRatingIsProvisional">Ваш предварительный рейтинг: %s</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг в %1$s (%2$s) слишком высок</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш рейтинг еженедельный %1$s рейтинг (%2$s) слишком высок</string>
-  <string name="yourPerfRatingIsTooLow">Ваш рейтинг %1$s (%2$s) слишком низок</string>
+  <string name="yourPerfRatingIsTooLow">Ваш рейтинг в %1$s (%2$s) недостаточен</string>
   <string name="ratedMoreThanInPerf">Рейтинг ≥ %1$s в %2$s</string>
   <string name="ratedLessThanInPerf">Рейтинг ≤ %1$s в %2$s</string>
   <string name="backToGame">Вернуться в игру</string>
@@ -316,8 +316,8 @@
   <string name="teams">Команды</string>
   <plurals name="nbMembers">
     <item quantity="one">%s участник</item>
-    <item quantity="few">%s участника</item>
-    <item quantity="other">%s участников</item>
+    <item quantity="few">%s участников</item>
+    <item quantity="other">%s участника</item>
   </plurals>
   <string name="allTeams">Все команды</string>
   <string name="newTeam">Новая команда</string>
