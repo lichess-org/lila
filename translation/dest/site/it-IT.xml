@@ -763,6 +763,8 @@ in %3$s</string>
   <string name="perfRatingX">Punteggio: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s secondi per giocare la prima mossa</string>
   <string name="practiceWithComputer">Allenati con il computer</string>
+  <string name="anotherWasX">In alternativa %s</string>
+  <string name="bestWasX">Mossa migliore %s</string>
   <string name="youBrowsedAway">Ti sei allontanato</string>
   <string name="resumePractice">Riprendi la pratica</string>
   <string name="theGameIsADraw">La partita è patta.</string>
@@ -773,4 +775,17 @@ in %3$s</string>
   <string name="evaluatingYourMove">Valutando la tua mossa...</string>
   <string name="whiteWinsGame">Il Bianco vince</string>
   <string name="blackWinsGame">Il Nero vince</string>
+  <string name="learnFromYourMistakes">Impara dagli errori</string>
+  <string name="skipThisMove">Salta questa mossa</string>
+  <string name="next">Successivo</string>
+  <string name="findBetterMoveForWhite">Trova una mossa migliore per il Bianco</string>
+  <string name="findBetterMoveForBlack">Trova una mossa migliore per il Nero</string>
+  <string name="resumeLearning">Continua ad imparare</string>
+  <string name="youCanDoBetter">Puoi fare di meglio</string>
+  <string name="tryAnotherMoveForWhite">Prova un\'altra mossa per il bianco</string>
+  <string name="tryAnotherMoveForBlack">Prova un\'altra mossa per il nero</string>
+  <string name="solution">Soluzione</string>
+  <string name="waitingForAnalysis">In attesa dell\'analisi</string>
+  <string name="noMistakesFoundForWhite">Nessun errore trovato per il bianco</string>
+  <string name="noMistakesFoundForBlack">Nessun errore trovato per il nero</string>
 </resources>
