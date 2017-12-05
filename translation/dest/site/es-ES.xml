@@ -760,4 +760,23 @@
   <string name="challenges">Desafíos</string>
   <string name="perfRatingX">Puntuación: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s segundos para realizar el primer movimiento</string>
+  <string name="practiceWithComputer">Entrenar con ordenador</string>
+  <string name="anotherWasX">Otro era %s</string>
+  <string name="bestWasX">Mejor era %s</string>
+  <string name="youBrowsedAway">Te fuiste</string>
+  <string name="resumePractice">Reanudar entrenamiento</string>
+  <string name="theGameIsADraw">La partida es tablas.</string>
+  <string name="computerThinking">El ordenador esta pensando ...</string>
+  <string name="seeBestMove">Ver la mejor jugada</string>
+  <string name="hideBestMove">Ocultar la mejor jugada</string>
+  <string name="getAHint">Recibe una pista</string>
+  <string name="evaluatingYourMove">Evaluando su movimiento ...</string>
+  <string name="whiteWinsGame">Blancas ganan</string>
+  <string name="blackWinsGame">Negras ganan</string>
+  <string name="learnFromYourMistakes">Aprenda de sus errores</string>
+  <string name="skipThisMove">Omitir este movimiento</string>
+  <string name="next">Siguiente</string>
+  <string name="xWasPlayed">%s fue jugado</string>
+  <string name="findBetterMoveForWhite">Encuentra un movimiento mejor para las blancas</string>
+  <string name="findBetterMoveForBlack">Encuentra un movimiento mejor para las negras</string>
 </resources>
