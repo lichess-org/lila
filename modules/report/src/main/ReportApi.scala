@@ -211,7 +211,7 @@ final class ReportApi(
     ) map (_ filterNot UserRepo.lichessId.==)
 
   def openAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithSuspectAndNotes]] = for {
-    opens <- findBest(nb, openSelect ++ roomSelect(room) ++ scoreThresholdSelect)
+    opens <- findBest(nb, openAvailableSelect ++ roomSelect(room) ++ scoreThresholdSelect)
     nbClosed = nb - opens.size
     closed <- if (room.has(Room.Xfiles) || nbClosed < 1) fuccess(Nil)
     else findRecent(nbClosed, closedSelect ++ roomSelect(room))
