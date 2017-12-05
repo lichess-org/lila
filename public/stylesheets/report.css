@@ -140,6 +140,10 @@
   font-size: 0.9em;
   padding: 0.1em 0.4em;
 }
+#report_list table.see .perfs {
+  font-size: 0.9em;
+  white-space: nowrap;
+}
 #report_list table.see .text {
   max-height: 100px;
   overflow: hidden;
@@ -150,4 +154,15 @@
 }
 #report_list tr.new td:first-child {
   border-left: 3px solid #3893E8;
+}
+.user_marks i {
+  font-size: 0.9em;
+  background: #dc322f70;
+  padding: 0.1em 0.4em;
+  border-radius: 0.3em;
+  margin: 0 0.2em;
+}
+body.dark #report_list .score,
+body.dark .user_marks i {
+  color: #ccc;
 }
