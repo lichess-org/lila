@@ -824,6 +824,8 @@ v %3$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekund časa za prvo potezo</string>
   <string name="practiceWithComputer">Vadi z računalnikom</string>
+  <string name="anotherWasX">Drugi/a je bil/a %s</string>
+  <string name="bestWasX">Najboljši/a je bil/a %s</string>
   <string name="youBrowsedAway">Odtavali ste</string>
   <string name="resumePractice">Nadaljevanje vadbe</string>
   <string name="theGameIsADraw">Rezultat partije je remi.</string>
@@ -834,4 +836,16 @@ v %3$s</string>
   <string name="evaluatingYourMove">Ocenjevanje poteze ...</string>
   <string name="whiteWinsGame">Beli je zmagal</string>
   <string name="blackWinsGame">Črni je zmagal</string>
+  <string name="learnFromYourMistakes">Naučite se s svojih napak</string>
+  <string name="skipThisMove">Preskočite to potezo</string>
+  <string name="next">Naprej</string>
+  <string name="xWasPlayed">%s je igral/a</string>
+  <string name="findBetterMoveForWhite">Poišči boljšo potezo za belega</string>
+  <string name="findBetterMoveForBlack">Poišči boljšo potezo za črnega</string>
+  <string name="resumeLearning">Nadaljuj z učenjem</string>
+  <string name="youCanDoBetter">Obstaja boljša poteza</string>
+  <string name="tryAnotherMoveForWhite">Poskusi drugo potezo za belega</string>
+  <string name="tryAnotherMoveForBlack">Poskusi drugo potezo za črnega</string>
+  <string name="solution">Rešitev</string>
+  <string name="waitingForAnalysis">Čakanje na analizo</string>
 </resources>
