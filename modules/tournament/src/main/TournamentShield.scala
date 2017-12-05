@@ -59,8 +59,8 @@ object TournamentShield {
   // newer entry first
   case class History(value: Map[Category, List[Award]]) {
 
-    def sorted: List[(Category, List[Award])] = Category.all flatMap { categ =>
-      value get categ map (categ -> _)
+    def sorted: List[(Category, List[Award])] = Category.all map { categ =>
+      categ -> ~(value get categ)
     }
 
     def userIds: List[User.ID] = value.values.flatMap(_.map(_.userId)).toList
