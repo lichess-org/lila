@@ -778,6 +778,7 @@ in %3$s</string>
   <string name="learnFromYourMistakes">Impara dagli errori</string>
   <string name="skipThisMove">Salta questa mossa</string>
   <string name="next">Successivo</string>
+  <string name="xWasPlayed">Ultima mossa %s</string>
   <string name="findBetterMoveForWhite">Trova una mossa migliore per il Bianco</string>
   <string name="findBetterMoveForBlack">Trova una mossa migliore per il Nero</string>
   <string name="resumeLearning">Continua ad imparare</string>
@@ -788,4 +789,17 @@ in %3$s</string>
   <string name="waitingForAnalysis">In attesa dell\'analisi</string>
   <string name="noMistakesFoundForWhite">Nessun errore trovato per il bianco</string>
   <string name="noMistakesFoundForBlack">Nessun errore trovato per il nero</string>
+  <string name="doneReviewingWhiteMistakes">Hai finito di rivedere gli errori del Bianco</string>
+  <string name="doneReviewingBlackMistakes">Hai finito di rivedere gli errori del Nero</string>
+  <string name="doItAgain">Rifallo</string>
+  <string name="reviewWhiteMistakes">Revisiona gli errori del Bianco</string>
+  <string name="reviewBlackMistakes">Revisiona gli errori del Nero</string>
+  <string name="advantage">Vantaggio</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s secondo</item>
+    <item quantity="other">%s secondi</item>
+  </plurals>
+  <string name="opening">Apertura</string>
+  <string name="middlegame">Mediogioco</string>
+  <string name="endgame">Finale</string>
 </resources>
