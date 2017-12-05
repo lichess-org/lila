@@ -70,7 +70,8 @@
   <string name="keepYourPiecesSafe">Защищайте ваши фигуры</string>
   <string name="protectionIntro">Определите, какие ваши фигуры атакует противники, и защитите их!</string>
   <string name="protectionComplete">Поздравляем! Фигура, которую вы не проиграли — это выигранная фигура!</string>
-  <string name="escape">Вас атакуют! Устраните угрозу!</string>
+  <string name="escape">Вас атакуют!
+Избавьтесь от угрозы!</string>
   <string name="noEscape">Нельзя уйти,
 но можно защитить!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Не позволяйте им съедать
@@ -88,7 +89,7 @@
   <string name="outOfCheck">Уход из-под шаха</string>
   <string name="defendYourKing">Защитите своего короля</string>
   <string name="outOfCheckIntro">Вам шах! Вы должны уходить или блокировать атаку.</string>
-  <string name="escapeWithTheKing">Побег королем!</string>
+  <string name="escapeWithTheKing">Король убегает!</string>
   <string name="theKingCannotEscapeButBlock">Король не может уйти, но вы можете блокировать атаку!</string>
   <string name="youCanGetOutOfCheckByTaking">Вы можете уйти от шаха,
 съев атакующую фигуру.</string>
