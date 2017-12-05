@@ -761,6 +761,8 @@
   <string name="perfRatingX">Sailkapena: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s segundu lehenengo jokaldia egiteko</string>
   <string name="practiceWithComputer">Ordenagailuarekin praktikatu</string>
+  <string name="anotherWasX">Beste aukera bat %s zen</string>
+  <string name="bestWasX">Onena %s zen</string>
   <string name="youBrowsedAway">Beste batera joan zara</string>
   <string name="resumePractice">Itzuli praktikatzera</string>
   <string name="theGameIsADraw">Berdinketa.</string>
@@ -771,4 +773,23 @@
   <string name="evaluatingYourMove">Zure jokaldia aztertzen...</string>
   <string name="whiteWinsGame">Zuriek irabazi</string>
   <string name="blackWinsGame">Beltzek irabazi</string>
+  <string name="learnFromYourMistakes">Ikasi zure akatsetatik</string>
+  <string name="skipThisMove">Jokaldi hau alde batera utzi</string>
+  <string name="next">Hurrengoa</string>
+  <string name="xWasPlayed">%s jokatu zen</string>
+  <string name="findBetterMoveForWhite">Bilatu zurien jokaldi hobe bat</string>
+  <string name="findBetterMoveForBlack">Bilatu beltzen jokaldi hobe bat</string>
+  <string name="resumeLearning">Ikasketari berrekin</string>
+  <string name="youCanDoBetter">Hobeto egin dezakezu</string>
+  <string name="tryAnotherMoveForWhite">Saiatu zurien beste jokaldi bat egiten</string>
+  <string name="tryAnotherMoveForBlack">Saiatu beltzen beste jokaldi bat egiten</string>
+  <string name="solution">Soluzioa</string>
+  <string name="waitingForAnalysis">Analisiaren zain</string>
+  <string name="noMistakesFoundForWhite">Ez da zurien akatsik aurkitu</string>
+  <string name="noMistakesFoundForBlack">Ez da beltzen akatsik aurkitu</string>
+  <string name="doneReviewingWhiteMistakes">Zurien akatsak aurkitzea bukatuta</string>
+  <string name="doneReviewingBlackMistakes">Beltzen akatsak aurkitzea bukatuta</string>
+  <string name="doItAgain">Egin berriz</string>
+  <string name="reviewWhiteMistakes">Zurien akatsak bilatu</string>
+  <string name="reviewBlackMistakes">Beltzen akatsak bilatu</string>
 </resources>
