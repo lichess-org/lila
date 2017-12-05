@@ -810,4 +810,17 @@
   <string name="xWasPlayed">%s tika izspēlēts</string>
   <string name="findBetterMoveForWhite">Atrodi labāku gājienu baltajiem</string>
   <string name="findBetterMoveForBlack">Atrodi labāku gājienu melnajiem</string>
+  <string name="resumeLearning">Atsākt mācības</string>
+  <string name="youCanDoBetter">Tu vari labāk</string>
+  <string name="tryAnotherMoveForWhite">Izmēģini citu gājienu ar baltajām</string>
+  <string name="tryAnotherMoveForBlack">Izmēģini citu gājienu ar melnajām</string>
+  <string name="solution">Risinājums</string>
+  <string name="waitingForAnalysis">Gaidām analīzi</string>
+  <string name="noMistakesFoundForWhite">Baltajiem kļūdas nav atrastas</string>
+  <string name="noMistakesFoundForBlack">Melnajiem kļūdas netika atrastas</string>
+  <string name="doneReviewingWhiteMistakes">Balto kļūdu pārskatīšana pabeigta</string>
+  <string name="doneReviewingBlackMistakes">Melno kļūdu pārskatīšana pabeigta</string>
+  <string name="doItAgain">Dari to vēl</string>
+  <string name="reviewWhiteMistakes">Pārskatīt balto kļūdas</string>
+  <string name="reviewBlackMistakes">Pārskatīt melno kļūdas</string>
 </resources>
