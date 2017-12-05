@@ -621,7 +621,6 @@ div.table_wrap.with_expiration .clock .bar {
   display: none;
 }
 div.table_wrap .clock > .time {
-  display: inline-block;
   border: 1px solid #ccc;
   padding: 0 8px;
   font-size: 38px;
@@ -643,6 +642,11 @@ div.table_wrap .clock huns {
 }
 div.table_wrap .clock sep {
   opacity: 0.5;
+  font-size: 0.8em;
+  vertical-align: top;
+}
+div.table_wrap .clock tenths sep {
+  vertical-align: baseline;
 }
 div.table_wrap .clock sep.low {
   opacity: 0.15;
