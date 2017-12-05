@@ -792,4 +792,12 @@
   <string name="doItAgain">Egin berriz</string>
   <string name="reviewWhiteMistakes">Zurien akatsak bilatu</string>
   <string name="reviewBlackMistakes">Beltzen akatsak bilatu</string>
+  <string name="advantage">Abantaila</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">Segundo %s</item>
+    <item quantity="other">%s segundo</item>
+  </plurals>
+  <string name="opening">Irekiera</string>
+  <string name="middlegame">Erdi-jokoa</string>
+  <string name="endgame">Finala</string>
 </resources>
