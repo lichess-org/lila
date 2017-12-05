@@ -848,4 +848,11 @@ v %3$s</string>
   <string name="tryAnotherMoveForBlack">Poskusi drugo potezo za črnega</string>
   <string name="solution">Rešitev</string>
   <string name="waitingForAnalysis">Čakanje na analizo</string>
+  <string name="noMistakesFoundForWhite">Za belega ni bilo najdenih napak</string>
+  <string name="noMistakesFoundForBlack">Za črnega ni bilo najdenih napak</string>
+  <string name="doneReviewingWhiteMistakes">Pregledovanje napak belega je končano</string>
+  <string name="doneReviewingBlackMistakes">Pregledovanje napak črnega je končano</string>
+  <string name="doItAgain">Naredi še enkrat</string>
+  <string name="reviewWhiteMistakes">Pregled napak belega</string>
+  <string name="reviewBlackMistakes">Pregled napak črnega</string>
 </resources>
