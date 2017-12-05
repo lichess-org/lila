@@ -768,7 +768,7 @@
   <string name="theGameIsADraw">Das Spiel ist Remis.</string>
   <string name="computerThinking">Computer überlegt ...</string>
   <string name="seeBestMove">Zeige den besten Zug</string>
-  <string name="hideBestMove">Verberge den besten Zug</string>
+  <string name="hideBestMove">Den besten Zug ausblenden</string>
   <string name="getAHint">Hinweis anzeigen</string>
   <string name="evaluatingYourMove">Zug wird bewertet ...</string>
   <string name="whiteWinsGame">Weiß gewinnt</string>
@@ -784,7 +784,7 @@
   <string name="tryAnotherMoveForWhite">Versuche einen anderen Zug für Weiß</string>
   <string name="tryAnotherMoveForBlack">Versuche einen anderen Zug für Schwarz</string>
   <string name="solution">Lösung</string>
-  <string name="waitingForAnalysis">Warten auf Analyse</string>
+  <string name="waitingForAnalysis">Warte auf Analyse</string>
   <string name="noMistakesFoundForWhite">Keine Fehler bei Weiß gefunden</string>
   <string name="noMistakesFoundForBlack">Keine Fehler bei Schwarz gefunden</string>
   <string name="doneReviewingWhiteMistakes">Überprüfung der Fehler von Weiß abgeschlossen</string>
