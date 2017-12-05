@@ -161,7 +161,7 @@ body.dark #hooks_wrap .hook_filter {
   white-space: nowrap;
 }
 #hooks_wrap .hook_filter td {
-  padding: 25px 0;
+  padding: 20px 0;
 }
 #hooks_wrap .hook_filter td:first-child {
   font-size: 1.1em;
