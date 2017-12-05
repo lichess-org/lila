@@ -44,7 +44,8 @@
   <string name="pawnIntro">Пешки слабы, но в них много потенциала.</string>
   <string name="pawnsMoveOneSquareOnly">Пешки ходят только на одну клетку вперёд. Но достигнув другого конца доски, они превращаются в сильную фигуру!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">В большинстве случае пешку лучше превратить в ферзя. Но иногда превращение в коня может быть выгоднее!</string>
-  <string name="pawnsMoveForward">Пешки движутся вперёд, но бьют по диагоналям!</string>
+  <string name="pawnsMoveForward">Пешки движутся вперёд,
+но бьют по диагоналям!</string>
   <string name="captureThenPromote">Побейте, затем превратитесь!</string>
   <string name="useAllThePawns">Используйте все пешки!
 Необязательно их превращать.</string>
@@ -59,7 +60,7 @@
   <string name="fundamentals">Основы</string>
   <string name="capture">Взятие</string>
   <string name="takeTheEnemyPieces">Съешьте фигуры противника</string>
-  <string name="captureIntro">Определите незащищенные фигуры противника и съешьте их!</string>
+  <string name="captureIntro">Найдите незащищённые фигуры противника и съешьте их!</string>
   <string name="takeTheBlackPieces">Съешьте чёрные фигуры!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Съешьте все чёрные фигуры! И не потеряйте свои.</string>
   <string name="captureComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
