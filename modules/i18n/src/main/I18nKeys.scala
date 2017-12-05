@@ -675,6 +675,10 @@ val `doneReviewingBlackMistakes` = new Translated("doneReviewingBlackMistakes", 
 val `doItAgain` = new Translated("doItAgain", Site)
 val `reviewWhiteMistakes` = new Translated("reviewWhiteMistakes", Site)
 val `reviewBlackMistakes` = new Translated("reviewBlackMistakes", Site)
+val `advantage` = new Translated("advantage", Site)
+val `opening` = new Translated("opening", Site)
+val `middlegame` = new Translated("middlegame", Site)
+val `endgame` = new Translated("endgame", Site)
 val `mateInXHalfMoves` = new Translated("mateInXHalfMoves", Site)
 val `nextCaptureOrPawnMoveInXHalfMoves` = new Translated("nextCaptureOrPawnMoveInXHalfMoves", Site)
 val `nbPlayers` = new Translated("nbPlayers", Site)
@@ -706,6 +710,7 @@ val `blocks` = new Translated("blocks", Site)
 val `nbForumPosts` = new Translated("nbForumPosts", Site)
 val `nbPerfTypePlayersThisWeek` = new Translated("nbPerfTypePlayersThisWeek", Site)
 val `availableInNbLanguages` = new Translated("availableInNbLanguages", Site)
+val `nbSeconds` = new Translated("nbSeconds", Site)
 
 object arena {
 val `isItRated` = new Translated("isItRated", Arena)
