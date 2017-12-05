@@ -416,7 +416,7 @@
   <string name="tournamentComplete">Турнир завершен</string>
   <string name="movesPlayed">Ходов сделано</string>
   <string name="whiteWins">Белые выиграли</string>
-  <string name="blackWins">Черные выиграли</string>
+  <string name="blackWins">Чёрные выиграли</string>
   <string name="draws">Ничья</string>
   <string name="nextXTournament">Следующий турнир: %s:</string>
   <string name="viewMoreTournaments">Другие турниры</string>
@@ -628,7 +628,7 @@
   <string name="error.email_acceptable">Адрес электронной почты не является приемлемым</string>
   <string name="error.email_unique">Адрес электронной почты занят</string>
   <string name="error.email_different">Это ваш текущий адрес почты</string>
-  <string name="blindfoldChess">Играть с завязанными глазами (невидимые фигуры)</string>
+  <string name="blindfoldChess">Шахматы вслепую (фигуры не видны)</string>
   <string name="zenMode">Режим Дзен</string>
   <string name="moveConfirmation">Подтвердить ход</string>
   <string name="inCorrespondenceGames">В игре по переписке</string>
@@ -638,8 +638,8 @@
   <string name="castling">Рокировка</string>
   <string name="whiteCastlingKingside">Белые О-О</string>
   <string name="whiteCastlingQueenside">Белые О-О-О</string>
-  <string name="blackCastlingKingside">Черные О-О</string>
-  <string name="blackCastlingQueenside">Черные О-О-О</string>
+  <string name="blackCastlingKingside">Чёрные О-О</string>
+  <string name="blackCastlingQueenside">Чёрные О-О-О</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s сообщений на форуме</item>
     <item quantity="few">%s сообщений на форуме</item>
