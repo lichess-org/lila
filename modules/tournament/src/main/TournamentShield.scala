@@ -15,52 +15,56 @@ final class TournamentShieldApi(
   import TournamentShield._
   import BSONHandlers._
 
-  def apply(u: User): Fu[List[Owner]] = cache.get map {
-    _.filter(_.userId == u.id)
+  def active(u: User): Fu[List[Award]] = cache.get map {
+    _.value.values.flatMap(_.headOption.filter(_.userId == u.id)).toList
   }
 
-  def apply(c: Category): Fu[Option[Owner]] = cache.get map {
-    _.find(_.categ == c)
-  }
-
-  def apply: Fu[List[Owner]] = cache.get
+  def history: Fu[History] = cache.get
 
   private[tournament] def clear = cache.refresh
 
-  private val cache = asyncCache.single[List[Owner]](
+  private val cache = asyncCache.single[History](
     name = "tournament.shield",
-    findAll,
-    expireAfter = _.ExpireAfterWrite(1 day)
-  )
-
-  private def findAll: Fu[List[Owner]] =
-    coll.find($doc(
+    expireAfter = _.ExpireAfterWrite(1 day),
+    f = coll.find($doc(
       "schedule.freq" -> scheduleFreqHandler.write(Schedule.Freq.Shield),
-      "status" -> statusBSONHandler.write(Status.Finished),
-      "startsAt" $gt DateTime.now.minusMonths(1).minusDays(1)
-    )).sort($sort desc "startsAt").list[Tournament]() map { tours =>
-      Category.all.flatMap { categ =>
-        for {
-          tour <- tours find categ.matches
-          winner <- tour.winnerId
-        } yield Owner(
-          categ = categ,
-          userId = winner,
-          since = tour.finishesAt,
-          tourId = tour.id
-        )
+      "status" -> statusBSONHandler.write(Status.Finished)
+    )).sort($sort asc "startsAt").list[Tournament]() map { tours =>
+      for {
+        tour <- tours
+        categ <- Category of tour
+        winner <- tour.winnerId
+      } yield Award(
+        categ = categ,
+        userId = winner,
+        date = tour.finishesAt,
+        tourId = tour.id
+      )
+    } map {
+      _.foldLeft(Map.empty[Category, List[Award]]) {
+        case (hist, entry) => hist + (entry.categ -> hist.get(entry.categ).fold(List(entry))(entry :: _))
       }
-    }
+    } map History.apply
+  )
 }
 
 object TournamentShield {
 
-  case class Owner(
+  case class Award(
       categ: Category,
       userId: User.ID,
-      since: DateTime,
+      date: DateTime,
       tourId: Tournament.ID
   )
+  // newer entry first
+  case class History(value: Map[Category, List[Award]]) {
+
+    def sorted: List[(Category, List[Award])] = Category.all map { categ =>
+      categ -> ~(value get categ)
+    }
+
+    def userIds: List[User.ID] = value.values.flatMap(_.map(_.userId)).toList
+  }
 
   sealed abstract class Category(
       val of: Either[Schedule.Speed, chess.variant.Variant],
@@ -151,7 +155,9 @@ object TournamentShield {
       iconChar = ''
     )
 
-    val all: List[Category] = List(UltraBullet, HyperBullet, Bullet, SuperBlitz, Blitz, Rapid, Classical, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
+    val all: List[Category] = List(Bullet, SuperBlitz, Blitz, Rapid, Classical, HyperBullet, UltraBullet, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
+
+    def of(t: Tournament) = all.find(_ matches t)
   }
 
   def spotlight(name: String) = Spotlight(

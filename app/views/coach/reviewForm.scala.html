@@ -17,7 +17,7 @@
   <form action="@routes.Coach.review(c.user.username)" method="POST">
     @barRating(selected = mine.map(_.score), enabled = true)
     <textarea name="text"
-      required minlength=3 maxlength=1000
+      required minlength=3 maxlength=2000
       placeholder="What do you enjoy about taking lessons with @c.user.realNameOrUsername?">@mine.map(_.text)</textarea>
     <button type="submit" class="button">@trans.apply()</button>
   </form>

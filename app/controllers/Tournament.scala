@@ -230,4 +230,11 @@ object Tournament extends LilaController {
         } flatMap env.scheduleJsonView.featured map { Ok(_) }
     )
   }
+
+  def shields = Open { implicit ctx =>
+    for {
+      history <- env.shieldApi.history
+      _ <- Env.user.lightUserApi preloadMany history.userIds
+    } yield html.tournament.shields(history)
+  }
 }
