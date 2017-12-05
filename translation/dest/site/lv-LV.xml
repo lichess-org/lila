@@ -792,6 +792,8 @@
   <string name="perfRatingX">Reitings: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekundes lai izdarītu pirmo gājienu</string>
   <string name="practiceWithComputer">Treniņš ar datoru</string>
+  <string name="anotherWasX">Varēja arī %s</string>
+  <string name="bestWasX">Labākais bija %s</string>
   <string name="youBrowsedAway">Tu aizlūkojies prom</string>
   <string name="resumePractice">Atsākt treniņu</string>
   <string name="theGameIsADraw">Spēle ir neizšķirts.</string>
@@ -802,4 +804,10 @@
   <string name="evaluatingYourMove">Novērtējam tavu gājienu ...</string>
   <string name="whiteWinsGame">Baltie uzvar</string>
   <string name="blackWinsGame">Melnie uzvar</string>
+  <string name="learnFromYourMistakes">Mācies no savām kļūdām</string>
+  <string name="skipThisMove">Izlaist šo gājienu</string>
+  <string name="next">Nākamais</string>
+  <string name="xWasPlayed">%s tika izspēlēts</string>
+  <string name="findBetterMoveForWhite">Atrodi labāku gājienu baltajiem</string>
+  <string name="findBetterMoveForBlack">Atrodi labāku gājienu melnajiem</string>
 </resources>
