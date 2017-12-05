@@ -732,6 +732,8 @@
   <string name="perfRatingX">レーティング: %s</string>
   <string name="xSecondsToPlayTheFirstMove">あと %s 秒以内に初手を指してください</string>
   <string name="practiceWithComputer">コンピューターと練習する</string>
+  <string name="anotherWasX">別の手は %s</string>
+  <string name="bestWasX">最善手は %s</string>
   <string name="youBrowsedAway">ページを離れました</string>
   <string name="resumePractice">練習を続ける</string>
   <string name="theGameIsADraw">ドロー（引き分け）です。</string>
@@ -742,4 +744,22 @@
   <string name="evaluatingYourMove">あなたの手を評価中…</string>
   <string name="whiteWinsGame">白勝ち</string>
   <string name="blackWinsGame">黒勝ち</string>
+  <string name="learnFromYourMistakes">自分の悪手に学ぼう</string>
+  <string name="skipThisMove">この手を飛ばす</string>
+  <string name="next">次</string>
+  <string name="findBetterMoveForWhite">白のもっといい手を見つけてください</string>
+  <string name="findBetterMoveForBlack">黒のもっといい手を見つけてください</string>
+  <string name="resumeLearning">学習を続ける</string>
+  <string name="youCanDoBetter">もっといい手があります</string>
+  <string name="tryAnotherMoveForWhite">白の別の手を考えてください</string>
+  <string name="tryAnotherMoveForBlack">黒の別の手を考えてください</string>
+  <string name="solution">答え</string>
+  <string name="waitingForAnalysis">解析を待っています</string>
+  <string name="noMistakesFoundForWhite">白に悪手はありませんでした</string>
+  <string name="noMistakesFoundForBlack">黒に悪手はありませんでした</string>
+  <string name="doneReviewingWhiteMistakes">白の悪手チェックが終了</string>
+  <string name="doneReviewingBlackMistakes">黒の悪手チェックが終了</string>
+  <string name="doItAgain">もう一度どうぞ</string>
+  <string name="reviewWhiteMistakes">白の悪手をチェックする</string>
+  <string name="reviewBlackMistakes">黒の悪手をチェックする</string>
 </resources>
