@@ -31,7 +31,7 @@ description = ~doc.getText("blog.shortlede")).some) {
   </div>
   @NotForKids {
   <div id="disqus_thread"></div>
-  <script type="text/javascript">
+  @embedJs {
     var disqus_shortname = 'lichessorg';
     var disqus_identifier = '@doc.id';
     var disqus_title = '@doc.getText("blog.title")';
@@ -40,7 +40,7 @@ description = ~doc.getText("blog.shortlede")).some) {
       dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
-  </script>
+  }
   }
 </div>
 }

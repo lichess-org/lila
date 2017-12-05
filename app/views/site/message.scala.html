@@ -13,9 +13,9 @@
   </p>
   <br />
   @if(back) {
-  <script>
+  @embedJs {
     if (document.referrer) document.write('<a class="button text" data-icon="I" href="' + document.referrer + '">Go Back</a>');
-  </script>
+  }
   }
 </div>
 }

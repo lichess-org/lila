@@ -23,14 +23,14 @@ url = s"$netBaseUrl${routes.Page.swag}").some) {
     </p>
   </div>
 
-  <script>
+  @embedJs {
     var spread_shop_config = {
       shopName: 'lichess-org',
         locale: 'us_US',
         prefix: '//shop.spreadshirt.com',
         baseId: 'myShop'
     };
-  </script>
+  }
 
   <script type="text/javascript" src="//shop.spreadshirt.com/shopfiles/shopclient/shopclient.nocache.js"></script>
 </div>
