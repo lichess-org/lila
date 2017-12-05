@@ -1,9 +1,15 @@
 @(history: lila.tournament.TournamentShield.History)(implicit ctx: Context)
 
+@moreCss = {
+@cssTag("tournament_shields.css")
+@cssTag("user-list.css")
+}
+
 @base.layout(
 title = "Tournament shields",
-moreCss = cssTag("tournament_shields.css")) {
+moreCss = moreCss) {
 <div class="content_box no_padding tournament_shields">
+  @user.communityTabs("shield")
   <h1>Tournament shields</h1>
   <div class="winner_lists">
     @history.sorted.map {
