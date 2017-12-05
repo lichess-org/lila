@@ -1,7 +1,7 @@
 interface Deferred<T> {
   promise: Promise<T>;
   resolve(value: T | PromiseLike<T>): void;
-  resolve(): void; // only on Deferred<void>
+  resolve(this: Deferred<void>): void;
   reject(reason?: any): void;
 }
 
