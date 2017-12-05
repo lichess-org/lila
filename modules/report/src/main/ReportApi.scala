@@ -11,7 +11,6 @@ import lila.user.{ User, UserRepo, NoteApi }
 final class ReportApi(
     val coll: Coll,
     autoAnalysis: AutoAnalysis,
-    discarder: ReportDiscarder,
     noteApi: NoteApi,
     securityApi: lila.security.SecurityApi,
     isOnline: User.ID => Boolean,
@@ -36,22 +35,16 @@ final class ReportApi(
     !isAlreadySlain(c) ?? {
       scorer(c) flatMap {
         case scored @ Report.Candidate.Scored(candidate, _) =>
-          discarder(candidate, accuracy(candidate)).flatMap {
-            case true =>
-              logger.info(s"Discarded report $candidate")
-              lila.mon.mod.report.discard(candidate.reason.key)()
-              funit
-            case false => coll.find($doc(
-              "user" -> candidate.suspect.user.id,
-              "reason" -> candidate.reason,
-              "open" -> true
-            )).one[Report] flatMap { existing =>
-              val report = Report.make(scored, existing)
-              lila.mon.mod.report.create(report.reason.key)()
-              coll.update($id(report.id), report, upsert = true).void >>
-                autoAnalysis(candidate) >>-
-                bus.publish(lila.hub.actorApi.report.Created(candidate.suspect.user.id, candidate.reason.key, candidate.reporter.user.id), 'report)
-            }
+          coll.find($doc(
+            "user" -> candidate.suspect.user.id,
+            "reason" -> candidate.reason,
+            "open" -> true
+          )).one[Report].flatMap { existing =>
+            val report = Report.make(scored, existing)
+            lila.mon.mod.report.create(report.reason.key)()
+            coll.update($id(report.id), report, upsert = true).void >>
+              autoAnalysis(candidate) >>-
+              bus.publish(lila.hub.actorApi.report.Created(candidate.suspect.user.id, candidate.reason.key, candidate.reporter.user.id), 'report)
           } >>- monitorOpen
       }
     }

@@ -19,6 +19,31 @@ private final class ReportScore(
       candidate scored Report.Score(score atLeast 0 atMost 100)
     }
 
+  private object impl {
+
+    val baseScore = 30
+
+    def accuracyScore(a: Option[Accuracy]): Double = a ?? { accuracy =>
+      (accuracy.value - 50) * 0.7d
+    }
+
+    def reporterScore(r: Reporter) =
+      titleScore(r.user.title) + flagScore(r.user)
+
+    def titleScore(title: Option[String]) =
+      (title.isDefined) ?? 30d
+
+    def flagScore(user: User) =
+      (user.lameOrTroll) ?? -30d
+
+    private val gamePattern = """lichess.org/(\w{8,12})""".r.pattern
+
+    def textScore(reason: Reason, text: String) = {
+      (reason == Reason.Cheat || reason == Reason.Boost) &&
+        gamePattern.matcher(text).find
+    } ?? 20
+  }
+
   private[report] def reset(coll: Coll)(implicit handler: BSONDocumentHandler[Report]): Fu[Int] = {
     import play.api.libs.iteratee._
     import reactivemongo.play.iteratees.cursorProducer
@@ -53,29 +78,4 @@ private final class ReportScore(
       )) map some
     }
   } yield score
-
-  private object impl {
-
-    val baseScore = 30
-
-    def accuracyScore(a: Option[Accuracy]): Double = a ?? { accuracy =>
-      (accuracy.value - 50) * 0.7d
-    }
-
-    def reporterScore(r: Reporter) =
-      titleScore(r.user.title) + flagScore(r.user)
-
-    def titleScore(title: Option[String]) =
-      (title.isDefined) ?? 30d
-
-    def flagScore(user: User) =
-      (user.lameOrTroll) ?? -30d
-
-    private val gamePattern = """lichess.org/(\w{8,12})""".r.pattern
-
-    def textScore(reason: Reason, text: String) = {
-      (reason == Reason.Cheat || reason == Reason.Boost) &&
-        gamePattern.matcher(text).find
-    } ?? 20
-  }
 }

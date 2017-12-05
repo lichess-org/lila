@@ -33,12 +33,9 @@ final class Env(
     system = system
   )
 
-  private lazy val discarder = new ReportDiscarder
-
   lazy val api = new ReportApi(
     reportColl,
     autoAnalysis,
-    discarder,
     noteApi,
     securityApi,
     isOnline,
