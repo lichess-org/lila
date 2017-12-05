@@ -39,9 +39,9 @@
     <item quantity="other">Подписался на %s игроков</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Получен %s новый подписчик</item>
-    <item quantity="few">Получил %s новых подписчиков</item>
-    <item quantity="other">Получил %s новых подписчиков</item>
+    <item quantity="one">Добавился %s новый подписчик</item>
+    <item quantity="few">Добавилось %s новых подписчика</item>
+    <item quantity="other">Добавились %s новых подписчиков</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Провёл %s сеанс одновременной игры</item>
