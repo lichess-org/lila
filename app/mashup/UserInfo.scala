@@ -23,7 +23,7 @@ case class UserInfo(
     nbStudies: Int,
     playTime: Option[User.PlayTime],
     trophies: Trophies,
-    shields: List[lila.tournament.TournamentShield.Owner],
+    shields: List[lila.tournament.TournamentShield.Award],
     teamIds: List[String],
     isStreamer: Boolean,
     isCoach: Boolean,
@@ -147,7 +147,7 @@ object UserInfo {
       postApi.nbByUser(user.id) zip
       studyRepo.countByOwner(user.id) zip
       trophyApi.findByUser(user) zip
-      shieldApi(user) zip
+      shieldApi.active(user) zip
       fetchTeamIds(user.id) zip
       fetchIsCoach(user) zip
       fetchIsStreamer(user.id) zip
