@@ -512,7 +512,7 @@
   <string name="insult">Оскорбление</string>
   <string name="troll">Троллинг</string>
   <string name="other">Другое</string>
-  <string name="reportDescriptionHelp">Поделитесь с нами ссылкой на игру (игры), где, как вам кажется, были нарушены правила, и опишите, в чем дело. Пожалуйста, расскажите, как и исходя из чего вы догадались, что ваш противник нечестен. Мы сработаем оперативнее, если ваше сообщение будет на английском языке.</string>
+  <string name="reportDescriptionHelp">Поделитесь с нами ссылками на игры, где, как вам кажется, были нарушены правила, и опишите, в чём дело. Недостаточно просто написать «он мухлюет», пожалуйста, опишите, как вы пришли к такому выводу. Мы сработаем оперативнее, если вы напишете на английском языке.</string>
   <string name="by">опубликовал %s</string>
   <string name="thisTopicIsNowClosed">Эта тема закрыта.</string>
   <string name="theming">Настройка темы</string>
@@ -825,4 +825,13 @@
   <string name="doItAgain">Ещё раз</string>
   <string name="reviewWhiteMistakes">Разобрать ошибки белых</string>
   <string name="reviewBlackMistakes">Разобрать ошибки чёрных</string>
+  <string name="advantage">Преимущество</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s секунда</item>
+    <item quantity="few">%s секунды</item>
+    <item quantity="other">%s секунд</item>
+  </plurals>
+  <string name="opening">Дебют</string>
+  <string name="middlegame">Миттельшпиль</string>
+  <string name="endgame">Эндшпиль</string>
 </resources>
