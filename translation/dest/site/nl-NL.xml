@@ -790,4 +790,10 @@
   <string name="doneReviewingWhiteMistakes">Klaar met analyseren van witte fouten</string>
   <string name="doneReviewingBlackMistakes">Klaar met analyseren van zwarte fouten</string>
   <string name="doItAgain">Probeer het opnieuw</string>
+  <string name="reviewWhiteMistakes">Bekijk fouten van wit</string>
+  <string name="reviewBlackMistakes">Bekijk fouten van zwart</string>
+  <string name="advantage">Voordeel</string>
+  <string name="opening">Opening</string>
+  <string name="middlegame">Middenspel</string>
+  <string name="endgame">Eindspel</string>
 </resources>
