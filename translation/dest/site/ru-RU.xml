@@ -536,7 +536,7 @@
   <string name="newPasswordAgain">Новый пароль (ещё раз)</string>
   <string name="boardHighlights">Подсветка (последний ход и шах)</string>
   <string name="pieceDestinations">Показывать все возможные ходы</string>
-  <string name="boardCoordinates">Координаты доски (A-H, 1-8)</string>
+  <string name="boardCoordinates">Координаты доски (A–H, 1–8)</string>
   <string name="moveListWhilePlaying">Показывать список ходов</string>
   <string name="pgnPieceNotation">Запись фигуры в PGN</string>
   <string name="chessPieceSymbol">Символ шахматной фигуры</string>
@@ -768,10 +768,10 @@
   <string name="dark">Тёмный</string>
   <string name="transparent">Прозрачный</string>
   <string name="backgroundImageUrl">URL фонового изображения:</string>
-  <string name="boardGeometry">Геометрия доски</string>
+  <string name="boardGeometry">Вид и размер доски</string>
   <string name="boardTheme">Оформление доски</string>
   <string name="boardSize">Размер доски</string>
-  <string name="pieceSet">Набор фигур</string>
+  <string name="pieceSet">Оформление фигур</string>
   <string name="embedInYourWebsite">Встроить в свой сайт</string>
   <string name="usernameAlreadyUsed">Данное имя пользователя занято. Пожалуйста, попробуйте другое.</string>
   <string name="usernameInvalid">Некорректное имя пользователя. Пожалуйста, используйте только буквы, цифры, подчеркивания и тире.</string>
