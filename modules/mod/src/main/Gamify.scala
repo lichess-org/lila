@@ -3,6 +3,7 @@ package lila.mod
 import lila.db.BSON.BSONJodaDateTimeHandler
 import org.joda.time.DateTime
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
@@ -98,14 +99,15 @@ final class Gamify(
     }
 
   private def reportLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
-    reportApi.coll.aggregate(
+    reportApi.coll.aggregateWithReadPreference(
       Match($doc(
         "atoms.0.at" -> dateRange(after, before),
         "processedBy" -> notLichess
       )), List(
         GroupField("processedBy")("nb" -> SumValue(1)),
         Sort(Descending("nb"))
-      )
+      ),
+      readPreference = ReadPreference.secondaryPreferred
     ).map {
         _.firstBatch.flatMap { obj =>
           obj.getAs[String]("_id") |@| obj.getAs[Int]("nb") apply ModCount.apply
