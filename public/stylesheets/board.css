@@ -608,13 +608,13 @@ div.table_wrap .clock_top .bar {
 div.table_wrap .clock_bottom .bar {
   top: -4px;
 }
-div.table_wrap .clock .bar span {
+div.table_wrap .clock .bar {
   display: block;
   height: 4px;
-  width: 0;
   background: #759900;
+  transform-origin: left;
 }
-div.table_wrap .clock .bar.berserk span {
+div.table_wrap .clock .bar.berserk {
   background: #dc322f;
 }
 div.table_wrap.with_expiration .clock .bar {

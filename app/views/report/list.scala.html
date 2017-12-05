@@ -43,7 +43,7 @@ moreCss = cssTag("report.css")) {
           @reportScore(r.score)
           <strong>@r.reason.name.capitalize</strong><br />
           @userLink(sus.user, params = "?mod")<br />
-          @showBestPerfs(sus.user, 3)<br />
+          <p class="perfs">@showBestPerfs(sus.user, 2)</p>
           @user.userMarks(sus.user, none)
           @if(notes.nonEmpty) {
           <br />
