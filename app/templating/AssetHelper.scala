@@ -52,30 +52,22 @@ trait AssetHelper { self: I18nHelper =>
   def roundTag(implicit ctx: Context) =
     jsAt(s"compiled/lichess.round${isProd ?? (".min")}.js", async = true)
 
-  val highchartsTag = cdnOrLocal(
-    cdn = "//code.highcharts.com/4.1.4/highcharts.js",
-    test = "window.Highcharts",
-    local = staticUrl("vendor/highcharts4/highcharts.js")
-  )
-
-  val highchartsLatestTag = cdnOrLocal(
-    cdn = "//code.highcharts.com/4.2/highcharts.js",
-    test = "window.Highcharts",
-    local = staticUrl("vendor/highcharts-4.2.5/highcharts.js")
-  )
+  val highchartsLatestTag = Html {
+    s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts.js")}"></script>"""
+  }
 
   val highchartsMoreTag = Html {
-    """<script src="//code.highcharts.com/4.1.4/highcharts-more.js"></script>"""
+    s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts-more.js")}"></script>"""
   }
 
   val tagmanagerTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",
+    cdn = "https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",
     test = "$.tagsManager",
     local = staticUrl("vendor/tagmanager/tagmanager.js")
   )
 
   val typeaheadTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js",
+    cdn = "https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js",
     test = "$.typeahead",
     local = staticUrl("javascripts/vendor/typeahead.bundle.min.js")
   )
