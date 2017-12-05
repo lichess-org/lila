@@ -31,7 +31,7 @@
   <string name="kingIntro">Вы - король. Если вы погибнете в битве - игра проиграна.</string>
   <string name="theKingIsSlow">Король медленно передвигается.</string>
   <string name="lastOne">И последний!</string>
-  <string name="kingComplete">Вы научились ходить королем!</string>
+  <string name="kingComplete">Теперь вы можете повелевать повелителем!</string>
   <string name="theKnight">Конь</string>
   <string name="itMovesInAnLShape">Он ходит буквой «Г»</string>
   <string name="knightIntro">Вот вам задача. Конь — хитрая фигура.</string>
