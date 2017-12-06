@@ -855,4 +855,14 @@ v %3$s</string>
   <string name="doItAgain">Naredi še enkrat</string>
   <string name="reviewWhiteMistakes">Pregled napak belega</string>
   <string name="reviewBlackMistakes">Pregled napak črnega</string>
+  <string name="advantage">Prednost</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekunda</item>
+    <item quantity="two">%s sekundi</item>
+    <item quantity="few">%s sekund</item>
+    <item quantity="other">%s sekunde</item>
+  </plurals>
+  <string name="opening">Otvoritev</string>
+  <string name="middlegame">Sredina igre</string>
+  <string name="endgame">Končnica</string>
 </resources>
