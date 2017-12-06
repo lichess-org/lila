@@ -100,7 +100,7 @@
   <string name="enable">Включить</string>
   <string name="bestMoveArrow">Показывать лучший ход</string>
   <string name="evaluationGauge">Шкала оценки</string>
-  <string name="multipleLines">Количество стрелок</string>
+  <string name="multipleLines">Множество вариантов</string>
   <string name="cpus">Потоки</string>
   <string name="memory">Память</string>
   <string name="infiniteAnalysis">Бесконечный анализ</string>
