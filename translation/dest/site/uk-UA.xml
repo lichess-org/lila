@@ -820,4 +820,18 @@
   <string name="waitingForAnalysis">Очікування аналізу</string>
   <string name="noMistakesFoundForWhite">Помилок білих не знайдено</string>
   <string name="noMistakesFoundForBlack">Помилок чорних не знайдено</string>
+  <string name="doneReviewingWhiteMistakes">Помилки білих розібрані</string>
+  <string name="doneReviewingBlackMistakes">Помилки чорних розібрані</string>
+  <string name="doItAgain">Ще раз</string>
+  <string name="reviewWhiteMistakes">Розібрати помилки білих</string>
+  <string name="reviewBlackMistakes">Розібрати помилки чорних</string>
+  <string name="advantage">Перевага</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s секунда</item>
+    <item quantity="few">%s секунди</item>
+    <item quantity="other">%s секунд</item>
+  </plurals>
+  <string name="opening">Дебют</string>
+  <string name="middlegame">Міттельшпіль</string>
+  <string name="endgame">Ендшпіль</string>
 </resources>
