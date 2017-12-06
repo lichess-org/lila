@@ -20,7 +20,7 @@ private final class FishnetEvalCache(
         case (i, eval) =>
           val pv = eval.pvs.head
           i -> Evaluation(
-            pv = Some(pv.moves.value.toList mkString " "),
+            pv = pv.moves.value.toList,
             score = Evaluation.Score(
               cp = pv.score.cp,
               mate = pv.score.mate

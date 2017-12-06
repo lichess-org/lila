@@ -41,10 +41,10 @@ private final class Monitor(
     avgOf(_.nodes) foreach { monitor.node(_) }
     avgOf(_.cappedNps) foreach { monitor.nps(_) }
     avgOf(_.depth) foreach { monitor.depth(_) }
-    avgOf(_.pvList.size.some) foreach { monitor.pvSize(_) }
+    avgOf(_.pv.size.some) foreach { monitor.pvSize(_) }
 
     val significantPvSizes =
-      result.evaluations.filterNot(_.mateFound).filterNot(_.deadDraw).map(_.pvList.size)
+      result.evaluations.filterNot(_.mateFound).filterNot(_.deadDraw).map(_.pv.size)
 
     monitor.pvTotal(significantPvSizes.size)
     monitor.pvShort(significantPvSizes.count(_ < 3))

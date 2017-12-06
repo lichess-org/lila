@@ -109,20 +109,16 @@ object JsonApi {
     )
 
     case class Evaluation(
-        pv: Option[String],
+        pv: List[Uci],
         score: Evaluation.Score,
         time: Option[Int],
         nodes: Option[Int],
         nps: Option[Int],
         depth: Option[Int]
     ) {
-
-      // use first pv move as bestmove
-      val pvList: List[Uci] = ~(pv flatMap Uci.readList)
-
       val cappedNps = nps.map(_ min Evaluation.npsCeil)
 
-      val cappedPvList = pvList take lila.analyse.Info.LineMaxPlies
+      val cappedPv = pv take lila.analyse.Info.LineMaxPlies
 
       def isCheckmate = score.mate has Mate(0)
       def mateFound = score.mate.isDefined
@@ -201,8 +197,12 @@ object JsonApi {
     implicit val MoveResultReads = Json.reads[Request.MoveResult]
     implicit val PostMoveReads = Json.reads[Request.PostMove]
     implicit val ScoreReads = Json.reads[Request.Evaluation.Score]
+    implicit val uciListReads = Reads.of[String] map { str =>
+      ~Uci.readList(str)
+    }
+
     implicit val EvaluationReads: Reads[Request.Evaluation] = (
-      (__ \ "pv").readNullable[String] and
+      (__ \ "pv").read[List[Uci]] and
       (__ \ "score").read[Request.Evaluation.Score] and
       (__ \ "time").readNullable[Int] and
       (__ \ "nodes").readNullable[Long].map(Maths.toInt) and
