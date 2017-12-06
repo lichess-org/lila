@@ -22,7 +22,6 @@
   "devDependencies": {
     "@types/jquery": "^2.0",
     "@types/lichess": "1.0.0",
-    "@types/lichess-jquery": "1.0.0",
     "browserify": "^14",
     "gulp": "^3",
     "gulp-uglify": "^3",

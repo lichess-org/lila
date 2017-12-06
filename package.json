@@ -48,7 +48,6 @@
     "ui/tournamentSchedule",
     "ui/tree",
     "ui/@types/defer-promise",
-    "ui/@types/lichess",
-    "ui/@types/lichess-jquery"
+    "ui/@types/lichess"
   ]
 }
