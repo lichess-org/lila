@@ -168,28 +168,28 @@
   <string name="theGameIsADraw">Игра заканчивается вничью</string>
   <string name="stalemateIntro">Когда игроку не поставлен шах и он не может сделать ход, это пат. Игра заканчивается вничью: нет победителей и побеждённых.</string>
   <string name="stalemateGoal">Пат чёрным: 
-- Чёрные не могут сходить.
-- Король не под шахом.</string>
+• Чёрные не могут сделать ход.
+• Король чёрных не под шахом.</string>
   <string name="stalemateComplete">Поздравляем! Лучше получить пат, чем мат!</string>
   <string name="advanced">Продвинутый этап</string>
   <string name="pieceValue">Ценность фигур</string>
   <string name="evaluatePieceStrength">Оцените силу фигуры</string>
   <string name="pieceValueIntro">Фигуры с высокой подвижностью имеют более высокую ценность!
-Ферзь = 9 пешек
-Ладья = 5 пешек
-Слон = 3 пешки
-Конь = 3 пешки
-Пешка = 1 пешка
+• Ферзь = 9 пешек
+• Ладья = 5 пешек
+• Слон = 3 пешки
+• Конь = 3 пешки
+• Пешка = 1 пешка
 Король бесценен! Его потеря означает, что игра проиграна.</string>
   <string name="queenOverBishop">Атакуйте фигуры с более высокой ценностью!
 Ферзь &gt; Слон</string>
   <string name="takeThePieceWithTheHighestValue">Атакуйте фигуры с более высокой ценностью!</string>
   <string name="pieceValueComplete">Поздравляем! Вы знаете ценность фигур!
-Ферзь = 9 пешек
-Ладья = 5 пешек
-Слон = 3 пешки
-Конь = 3 пешки
-Пешка = 1 пешка</string>
+• Ферзь = 9 пешек
+• Ладья = 5 пешек
+• Слон = 3 пешки
+• Конь = 3 пешки
+• Пешка = 1 пешка</string>
   <string name="checkInTwo">Шах в два хода</string>
   <string name="twoMovesToGiveCheck">Два хода на то, чтобы поставить шах</string>
   <string name="checkInTwoIntro">Найдите комбинацию в два хода, чтобы поставить шах королю противника!</string>
