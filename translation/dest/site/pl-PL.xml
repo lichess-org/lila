@@ -794,6 +794,7 @@
   <string name="practiceWithComputer">Trening z komputerem</string>
   <string name="anotherWasX">Inna możliwość to %s</string>
   <string name="bestWasX">Najlepsze było %s</string>
+  <string name="youBrowsedAway">Przeglądnąłeś</string>
   <string name="resumePractice">Wznów trening</string>
   <string name="theGameIsADraw">Gra zakończona remisem.</string>
   <string name="computerThinking">Komputer namyśla się...</string>
