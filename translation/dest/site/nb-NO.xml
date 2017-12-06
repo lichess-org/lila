@@ -799,4 +799,7 @@ i %3$s</string>
     <item quantity="one">%s sekund</item>
     <item quantity="other">%s sekunder</item>
   </plurals>
+  <string name="opening">Åpning</string>
+  <string name="middlegame">Midtspill</string>
+  <string name="endgame">Sluttspill</string>
 </resources>
