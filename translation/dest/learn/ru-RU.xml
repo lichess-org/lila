@@ -130,12 +130,17 @@
   <string name="boardSetupComplete">Поздравляем! Теперь вы знаете, как расставить фигуры на шахматной доске.</string>
   <string name="castling">Рокировка</string>
   <string name="theSpecialKingMove">Особый ход короля</string>
-  <string name="castlingIntro">Защитите своего короля и выведите в бой ладью!</string>
-  <string name="castleKingSide">Передвиньте своего короля на две клетки к ладье королевского фланга!</string>
-  <string name="castleQueenSide">Передвиньте своего короля на две клетки к ладье ферзевого фланга!</string>
+  <string name="castlingIntro">Поместите своего короля в надёжное место, и выведите в бой ладью!</string>
+  <string name="castleKingSide">Передвиньте своего короля на две клетки
+к ладье королевского фланга
+для короткой рокировки!</string>
+  <string name="castleQueenSide">Передвиньте своего короля на две клетки
+к ладье ферзевого фланга
+для длинной рокировки!</string>
   <string name="theKnightIsInTheWay">Конь уже в пути!
 Сделайте ход конём, затем сделайте короткую рокировку.</string>
-  <string name="castleKingSideMovePiecesFirst">Короткая рокировка! Сначала вам нужно развить фигуры.</string>
+  <string name="castleKingSideMovePiecesFirst">Короткая рокировка!
+Сначала вам нужно вывести фигуры.</string>
   <string name="castleQueenSideMovePiecesFirst">Длинная рокировка! Сначала вам нужно развить фигуры.</string>
   <string name="youCannotCastleIfMoved">Вы не можете делать рокировку, если король или ладья, участвующие в рокировке, делали ход.</string>
   <string name="youCannotCastleIfAttacked">Вы не можете рокироваться, 
