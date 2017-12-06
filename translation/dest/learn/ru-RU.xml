@@ -63,7 +63,7 @@
   <string name="yourPawnReachedTheEndOfTheBoard">Ваша пешка достигла края доски!</string>
   <string name="itNowPromotesToAStrongerPiece">Сейчас она превращается в фигуру посильнее.</string>
   <string name="selectThePieceYouWant">Выберите фигуру, какую захотите!</string>
-  <string name="fundamentals">Основы</string>
+  <string name="fundamentals">Базовый уровень</string>
   <string name="capture">Взятие</string>
   <string name="takeTheEnemyPieces">Съешьте фигуры противника</string>
   <string name="captureIntro">Найдите незащищённые фигуры противника и съешьте их!</string>
@@ -110,7 +110,7 @@
   <string name="attackYourOpponentsKing">Атакуйте короля вашего противника так,
 чтобы его невозможно было защитить!</string>
   <string name="mateInOneComplete">Поздравляем! Вот таким образом вы и будете побеждать!</string>
-  <string name="intermediate">Промежуточный этап</string>
+  <string name="intermediate">Средний уровень</string>
   <string name="boardSetup">Расстановка фигур</string>
   <string name="howTheGameStarts">Начало шахматной партии</string>
   <string name="boardSetupIntro">Две армии, готовые к бою, встретились лицом к лицу.</string>
@@ -171,7 +171,7 @@
 • Чёрные не могут сделать ход.
 • Король чёрных не под шахом.</string>
   <string name="stalemateComplete">Поздравляем! Лучше получить пат, чем мат!</string>
-  <string name="advanced">Продвинутый этап</string>
+  <string name="advanced">Продвинутый уровень</string>
   <string name="pieceValue">Ценность фигур</string>
   <string name="evaluatePieceStrength">Оцените силу фигуры</string>
   <string name="pieceValueIntro">Фигуры с высокой подвижностью имеют более высокую ценность!
