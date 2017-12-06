@@ -202,7 +202,7 @@ object JsonApi {
     }
 
     implicit val EvaluationReads: Reads[Request.Evaluation] = (
-      (__ \ "pv").read[List[Uci]] and
+      (__ \ "pv").readNullable[List[Uci]].map(~_) and
       (__ \ "score").read[Request.Evaluation.Score] and
       (__ \ "time").readNullable[Int] and
       (__ \ "nodes").readNullable[Long].map(Maths.toInt) and
