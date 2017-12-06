@@ -763,8 +763,6 @@ in %3$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s seconds to play the first move</string>
   <string name="practiceWithComputer">Practice with computer</string>
-  <string name="anotherWas">Another was</string>
-  <string name="bestWas">Best was</string>
   <string name="youBrowsedAway">You browsed away</string>
   <string name="resumePractice">Resume practice</string>
   <string name="theGameIsADraw">The game is a draw.</string>

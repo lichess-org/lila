@@ -793,8 +793,8 @@
   <string name="perfRatingX">Рејтинг: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s секунди да одиграте први потез</string>
   <string name="practiceWithComputer">Тренирај са компјутером</string>
-  <string name="anotherWas">Други је</string>
-  <string name="bestWas">Најбоље је</string>
+  <string name="anotherWasX">Још једно је %s</string>
+  <string name="bestWasX">Најбољи је %s</string>
   <string name="youBrowsedAway">Отишли сте са овог екрана</string>
   <string name="resumePractice">Настави тренинг</string>
   <string name="theGameIsADraw">Партија је нерешена.</string>
@@ -805,4 +805,32 @@
   <string name="evaluatingYourMove">Процењивање вашег потеза ...</string>
   <string name="whiteWinsGame">Бели је победио</string>
   <string name="blackWinsGame">Црни је победио</string>
+  <string name="learnFromYourMistakes">Научите из грешака</string>
+  <string name="skipThisMove">Прескочите овај потез</string>
+  <string name="next">Следеће</string>
+  <string name="xWasPlayed">%s је одиграно</string>
+  <string name="findBetterMoveForWhite">Нађите бољи потез за белог</string>
+  <string name="findBetterMoveForBlack">Нађите бољи потез за црног</string>
+  <string name="resumeLearning">Наставите са учењем</string>
+  <string name="youCanDoBetter">Можете то боље</string>
+  <string name="tryAnotherMoveForWhite">Покушајте други потез за белог</string>
+  <string name="tryAnotherMoveForBlack">Покушајте други потез за црног</string>
+  <string name="solution">Решење</string>
+  <string name="waitingForAnalysis">Чекање на анализу</string>
+  <string name="noMistakesFoundForWhite">Нема грешке нађене за белог</string>
+  <string name="noMistakesFoundForBlack">Нема грешке нађене за црног</string>
+  <string name="doneReviewingWhiteMistakes">Завршено прегледање белих грешака</string>
+  <string name="doneReviewingBlackMistakes">Завршено прегледање црних грешака</string>
+  <string name="doItAgain">Урадите поново</string>
+  <string name="reviewWhiteMistakes">Пронађите грешке белог</string>
+  <string name="reviewBlackMistakes">Пронађите грешке црног</string>
+  <string name="advantage">Предност</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s секунд</item>
+    <item quantity="few">%s секунде</item>
+    <item quantity="other">%s секунди</item>
+  </plurals>
+  <string name="opening">Отварање</string>
+  <string name="middlegame">Средишњица</string>
+  <string name="endgame">Завршница</string>
 </resources>

@@ -105,8 +105,11 @@
   <string name="memory">Памяць</string>
   <string name="infiniteAnalysis">Бясконцы аналіз</string>
   <string name="removesTheDepthLimit">Падаляе абмежаванне на глыбіню (ваш кампутар будзе гарачым)</string>
+  <string name="blunder">Грубая памылка</string>
   <string name="blunders">Грубыя памылкі</string>
+  <string name="mistake">Памылка</string>
   <string name="mistakes">Памылкі</string>
+  <string name="inaccuracy">Недакладнасць</string>
   <string name="inaccuracies">Недакладнасьці</string>
   <string name="moveTimes">Час на ход</string>
   <string name="flipBoard">Разьвярнуць дошку</string>
@@ -790,4 +793,15 @@
   <string name="challenges">Выклікі</string>
   <string name="perfRatingX">Рэйтынг: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s секундаў, каб зрабіць першы ход</string>
+  <string name="practiceWithComputer">Трэнераванне з кампутарам</string>
+  <string name="youBrowsedAway">Вы выйшлі з прагляду</string>
+  <string name="resumePractice">Аднавіць трэнераванне</string>
+  <string name="theGameIsADraw">Гульня скончылася ўнічыю.</string>
+  <string name="computerThinking">Кампутар думае...</string>
+  <string name="seeBestMove">Паказаць лепшы ход</string>
+  <string name="hideBestMove">Схаваць лепшы ход</string>
+  <string name="getAHint">Атрымаць падказку</string>
+  <string name="evaluatingYourMove">Ацэнка вашага ходу...</string>
+  <string name="whiteWinsGame">Белыя выйгралі</string>
+  <string name="blackWinsGame">Чорныя выйгралі</string>
 </resources>

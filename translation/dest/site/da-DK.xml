@@ -606,7 +606,7 @@
   <string name="aboutSimulImage">Ud af 50 modstandere, vandt Fischer 47 partier, spillede 2 remis og tabte 1.</string>
   <string name="aboutSimulRealLife">Konceptet stammer fra virkelighedens verden. Her bevæger simultanspilleren sig fra bræt til bræt for at spille ét træk ad gangen.</string>
   <string name="aboutSimulRules">I begyndelsen af spillet starter alle deltagere et parti med værten, der får lov at spille med hvide brikker. Simultanspillet er slut, når alle partier er færdige.</string>
-  <string name="aboutSimulSettings">Simultanspil er altid \"casual\". Revanche, omtræk og \"ekstra tid\" er deaktiveret.</string>
+  <string name="aboutSimulSettings">Simultanspil er altid \"uforpligtende\" dvs. ikke ratede. Revanche, omtræk og \"ekstra tid\" er deaktiveret.</string>
   <string name="create">Opret</string>
   <string name="whenCreateSimul">Når du opretter et simultanspil, spiller du mod adskillige modstandere på én gang.</string>
   <string name="simulVariantsHint">Hvis du vælger flere varianter, kan hver enkelt spiller vælge, hvilken der skal spilles.</string>
@@ -729,8 +729,8 @@
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekunder til at lave det første træk</string>
   <string name="practiceWithComputer">Træn med computer</string>
-  <string name="anotherWas">Et andet var</string>
-  <string name="bestWas">Bedst var</string>
+  <string name="anotherWasX">Et andet var %s</string>
+  <string name="bestWasX">Bedste var %s</string>
   <string name="youBrowsedAway">Du browsede væk</string>
   <string name="resumePractice">Genoptag træning</string>
   <string name="theGameIsADraw">Partiet ender med remis.</string>
@@ -741,4 +741,27 @@
   <string name="evaluatingYourMove">Vurderer dit træk ...</string>
   <string name="whiteWinsGame">Hvid vinder</string>
   <string name="blackWinsGame">Sort vinder</string>
+  <string name="learnFromYourMistakes">Lær af dine fejl</string>
+  <string name="skipThisMove">Spring dette træk over</string>
+  <string name="next">Næste</string>
+  <string name="xWasPlayed">%s blev spillet</string>
+  <string name="findBetterMoveForWhite">Find et bedre træk for hvid</string>
+  <string name="findBetterMoveForBlack">Find et bedre træk for sort</string>
+  <string name="resumeLearning">Fortsæt læring</string>
+  <string name="youCanDoBetter">Du kan gøre det bedre</string>
+  <string name="tryAnotherMoveForWhite">Prøv et andet træk for hvid</string>
+  <string name="tryAnotherMoveForBlack">Prøv et andet træk for sort</string>
+  <string name="solution">Løsning</string>
+  <string name="waitingForAnalysis">Venter på analyse</string>
+  <string name="noMistakesFoundForWhite">Ingen fejl fundet for hvid</string>
+  <string name="noMistakesFoundForBlack">Ingen fejl fundet for sort</string>
+  <string name="doneReviewingWhiteMistakes">Færdig med gennemgang af fejl for hvid</string>
+  <string name="doneReviewingBlackMistakes">Færdig med gennemgang af fejl for sort</string>
+  <string name="doItAgain">Gentag</string>
+  <string name="reviewWhiteMistakes">Gennemgå hvide fejl</string>
+  <string name="reviewBlackMistakes">Gennemgå sorte fejl</string>
+  <string name="advantage">Fordel</string>
+  <string name="opening">Åbningsspil</string>
+  <string name="middlegame">Midtspil</string>
+  <string name="endgame">Slutspil</string>
 </resources>

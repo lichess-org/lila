@@ -761,8 +761,6 @@
   <string name="perfRatingX">Rango: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekundoj por ludi la unuan movon</string>
   <string name="practiceWithComputer">Praktiki kun komputilo</string>
-  <string name="anotherWas">Alia estis</string>
-  <string name="bestWas">Plej bona estis</string>
   <string name="youBrowsedAway">Vi retumis foren</string>
   <string name="resumePractice">Daŭrigi praktikon</string>
   <string name="theGameIsADraw">La ludo egalvenkas.</string>

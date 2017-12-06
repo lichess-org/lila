@@ -71,7 +71,7 @@
   <string name="captureAndDefendPieces">Fang og forsvar brikker</string>
   <string name="combatIntro">En god kriger kender både angreb og forsvar!</string>
   <string name="combatComplete">Tillykke! Du ved, hvordan man kæmper med skakbrikker!</string>
-  <string name="checkInOne">Skak i én</string>
+  <string name="checkInOne">Skak i ét</string>
   <string name="attackTheOpponentsKing">Angrib modstanderens konge</string>
   <string name="checkInOneIntro">Angrib kongen for at sætte din modstander skak. De er nødt til at forsvare den!</string>
   <string name="checkInOneGoal">Sigt efter modstanderens konge i ét træk!</string>
@@ -85,7 +85,7 @@
   <string name="thisKnightIsCheckingThroughYourDefenses">Springeren stiller skak gennem dit forsvar!</string>
   <string name="escapeOrBlock">Undslip med kongen eller bloker angrebet!</string>
   <string name="outOfCheckComplete">Tillykke! Din konge må aldrig tages, vær sikker på du kan forsvare mod skak!</string>
-  <string name="mateInOne">Mat i én</string>
+  <string name="mateInOne">Mat i ét</string>
   <string name="defeatTheOpponentsKing">Slå modstanderens konge</string>
   <string name="mateInOneIntro">Du vinder, når din modstander ikke kan forsvare mod skak.</string>
   <string name="attackYourOpponentsKing">Angrib din modstanders konge på en måde, der ikke kan forsvares imod!</string>

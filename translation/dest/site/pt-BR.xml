@@ -103,8 +103,11 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Remove o limite de profundidade, o que aquece seu computador</string>
+  <string name="blunder">Erro Grave</string>
   <string name="blunders">Erro Grave</string>
+  <string name="mistake">Erro</string>
   <string name="mistakes">Erros</string>
+  <string name="inaccuracy">Imprecisão</string>
   <string name="inaccuracies">Imprecisões</string>
   <string name="moveTimes">Tempo por movimento</string>
   <string name="flipBoard">Girar o tabuleiro</string>
@@ -759,4 +762,15 @@ em %3$s</string>
   <string name="challenges">Desafios</string>
   <string name="perfRatingX">Classificação: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s segundos para fazer o primeiro movimento</string>
+  <string name="practiceWithComputer">Pratique com o computador</string>
+  <string name="youBrowsedAway">Você navegou para longe</string>
+  <string name="resumePractice">Retornar à prática</string>
+  <string name="theGameIsADraw">A partida está empatada.</string>
+  <string name="computerThinking">Computador pensando ...</string>
+  <string name="seeBestMove">Veja o melhor lance</string>
+  <string name="hideBestMove">Esconder o melhor lance</string>
+  <string name="getAHint">Obter uma dica</string>
+  <string name="evaluatingYourMove">Avaliando o seu movimento ...</string>
+  <string name="whiteWinsGame">Brancas vencem</string>
+  <string name="blackWinsGame">Pretas vencem</string>
 </resources>
