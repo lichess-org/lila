@@ -807,4 +807,17 @@
   <string name="whiteWinsGame">Білі виграли</string>
   <string name="blackWinsGame">Чорні виграли</string>
   <string name="learnFromYourMistakes">Робота над помилками</string>
+  <string name="skipThisMove">Пропустити цей хід</string>
+  <string name="next">Далі</string>
+  <string name="xWasPlayed">Було зіграно %s</string>
+  <string name="findBetterMoveForWhite">Знайдіть за білих більш сильний хід</string>
+  <string name="findBetterMoveForBlack">Знайдіть за чорних більш сильний хід</string>
+  <string name="resumeLearning">Продовжити навчання</string>
+  <string name="youCanDoBetter">Є й більш сильний хід</string>
+  <string name="tryAnotherMoveForWhite">Спробуйте інший хід за білих</string>
+  <string name="tryAnotherMoveForBlack">Спробуйте інший хід за чорних</string>
+  <string name="solution">Відповідь</string>
+  <string name="waitingForAnalysis">Очікування аналізу</string>
+  <string name="noMistakesFoundForWhite">Помилок білих не знайдено</string>
+  <string name="noMistakesFoundForBlack">Помилок чорних не знайдено</string>
 </resources>
