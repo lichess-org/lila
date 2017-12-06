@@ -38,17 +38,18 @@
   <string name="lastOne">И напоследок!</string>
   <string name="kingComplete">Теперь вы можете повелевать повелителем!</string>
   <string name="theKnight">Конь</string>
-  <string name="itMovesInAnLShape">Он ходит буквой «Г»</string>
+  <string name="itMovesInAnLShape">Ходит буквой «Г»</string>
   <string name="knightIntro">Вот вам задачка. Конь — хитрая фигура.</string>
-  <string name="knightsHaveAFancyWay">Кони имеют причудливый способ перепрыгивать!</string>
+  <string name="knightsHaveAFancyWay">Кони прыгают довольно причудливо!</string>
   <string name="knightsCanJumpOverObstacles">Кони могут прыгать через препятствия!
 Выберитесь и соберите все звёзды!</string>
-  <string name="knightComplete">Поздравляем! Вы освоили фигуру \"Конь\".</string>
+  <string name="knightComplete">Поздравляем! Вы освоили управление конём.</string>
   <string name="thePawn">Пешка</string>
   <string name="itMovesForwardOnly">Ходит только вперёд</string>
-  <string name="pawnIntro">Пешки слабы, но в них много потенциала.</string>
+  <string name="pawnIntro">Пешки слабы, но в них заложен большой потенциал.</string>
   <string name="pawnsMoveOneSquareOnly">Пешки ходят только на одну клетку вперёд. Но достигнув другого конца доски, они превращаются в сильную фигуру!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">В большинстве случае пешку лучше превратить в ферзя. Но иногда превращение в коня может быть выгоднее!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">В большинстве случаев пешку лучше превратить в ферзя.
+Но иногда превращение в коня может оказаться сподручней!</string>
   <string name="pawnsMoveForward">Пешки движутся вперёд,
 но бьют по диагоналям!</string>
   <string name="captureThenPromote">Побейте, затем превратитесь!</string>
