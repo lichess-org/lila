@@ -769,4 +769,26 @@
   <string name="computerThinking">A gép gondolkodik...</string>
   <string name="seeBestMove">A legjobb lépés mutatása</string>
   <string name="hideBestMove">A legjobb lépés elrejtése</string>
+  <string name="getAHint">Tipp kérése</string>
+  <string name="evaluatingYourMove">Lépés értékelése ...</string>
+  <string name="whiteWinsGame">Világos nyert</string>
+  <string name="blackWinsGame">Sötét nyert</string>
+  <string name="learnFromYourMistakes">Tanulj a hibáidból</string>
+  <string name="skipThisMove">Lépés kihagyása</string>
+  <string name="next">Tovább</string>
+  <string name="findBetterMoveForWhite">Találj egy jobb lépést világosnak</string>
+  <string name="findBetterMoveForBlack">Találj egy jobb lépést sötétnek</string>
+  <string name="resumeLearning">Tanulás folytatása</string>
+  <string name="youCanDoBetter">Van jobb lépés is</string>
+  <string name="solution">Megoldás</string>
+  <string name="waitingForAnalysis">Készül az analízis</string>
+  <string name="doItAgain">Újra</string>
+  <string name="advantage">Előny</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s másodperc</item>
+    <item quantity="other">%s másodperc</item>
+  </plurals>
+  <string name="opening">Megnyitás</string>
+  <string name="middlegame">Középjáték</string>
+  <string name="endgame">Végjáték</string>
 </resources>
