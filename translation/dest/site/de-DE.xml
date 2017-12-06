@@ -792,4 +792,7 @@
   <string name="doItAgain">Mach es nochmal</string>
   <string name="reviewWhiteMistakes">Fehler von Weiß überprüfen</string>
   <string name="reviewBlackMistakes">Fehler von Schwarz überprüfen</string>
+  <string name="opening">Eröffnung</string>
+  <string name="middlegame">Mittelspiel</string>
+  <string name="endgame">Endspiel</string>
 </resources>
