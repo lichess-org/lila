@@ -795,6 +795,7 @@
   <string name="xSecondsToPlayTheFirstMove">%s секундаў, каб зрабіць першы ход</string>
   <string name="practiceWithComputer">Трэнераванне з кампутарам</string>
   <string name="anotherWasX">Таксама можна: %s</string>
+  <string name="bestWasX">Лепшы ход: %s</string>
   <string name="youBrowsedAway">Вы выйшлі з прагляду</string>
   <string name="resumePractice">Аднавіць трэнераванне</string>
   <string name="theGameIsADraw">Гульня скончылася ўнічыю.</string>
@@ -805,4 +806,7 @@
   <string name="evaluatingYourMove">Ацэнка вашага ходу...</string>
   <string name="whiteWinsGame">Белыя выйгралі</string>
   <string name="blackWinsGame">Чорныя выйгралі</string>
+  <string name="learnFromYourMistakes">Праца над абмыламі</string>
+  <string name="skipThisMove">Прапусціць гэты ход</string>
+  <string name="next">Далей</string>
 </resources>
