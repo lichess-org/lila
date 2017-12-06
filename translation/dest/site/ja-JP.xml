@@ -747,6 +747,7 @@
   <string name="learnFromYourMistakes">自分の悪手に学ぼう</string>
   <string name="skipThisMove">この手を飛ばす</string>
   <string name="next">次</string>
+  <string name="xWasPlayed">指されたのは %s</string>
   <string name="findBetterMoveForWhite">白のもっといい手を見つけてください</string>
   <string name="findBetterMoveForBlack">黒のもっといい手を見つけてください</string>
   <string name="resumeLearning">学習を続ける</string>
@@ -762,4 +763,11 @@
   <string name="doItAgain">もう一度どうぞ</string>
   <string name="reviewWhiteMistakes">白の悪手をチェックする</string>
   <string name="reviewBlackMistakes">黒の悪手をチェックする</string>
+  <string name="advantage">優位</string>
+  <plurals name="nbSeconds">
+    <item quantity="other">%s 秒</item>
+  </plurals>
+  <string name="opening">序盤</string>
+  <string name="middlegame">中盤</string>
+  <string name="endgame">終盤</string>
 </resources>
