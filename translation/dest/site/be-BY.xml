@@ -794,6 +794,7 @@
   <string name="perfRatingX">Рэйтынг: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s секундаў, каб зрабіць першы ход</string>
   <string name="practiceWithComputer">Трэнераванне з кампутарам</string>
+  <string name="anotherWasX">Таксама можна: %s</string>
   <string name="youBrowsedAway">Вы выйшлі з прагляду</string>
   <string name="resumePractice">Аднавіць трэнераванне</string>
   <string name="theGameIsADraw">Гульня скончылася ўнічыю.</string>
