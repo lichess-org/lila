@@ -783,6 +783,8 @@
   <string name="solution">Megoldás</string>
   <string name="waitingForAnalysis">Készül az analízis</string>
   <string name="doItAgain">Újra</string>
+  <string name="reviewWhiteMistakes">Világos hibáinak áttekintése</string>
+  <string name="reviewBlackMistakes">Sötét hibáinak áttekintése</string>
   <string name="advantage">Előny</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s másodperc</item>
