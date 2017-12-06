@@ -4,13 +4,17 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.iteratee._
 import play.api.libs.json._
+import scala.concurrent.duration._
 import scala.util.Try
 
 import lila.db.dsl._
 import lila.game.{ Game, GameRepo }
 import lila.search._
 
-final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
+final class GameSearchApi(
+    client: ESClient,
+    system: akka.actor.ActorSystem
+) extends SearchReadApi[Game, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
@@ -25,7 +29,12 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
 
   def store(game: Game) = storable(game) ?? {
     GameRepo isAnalysed game.id flatMap { analysed =>
-      client.store(Id(game.id), toDoc(game, analysed))
+      lila.common.Future.retry(
+        client.store(Id(game.id), toDoc(game, analysed)),
+        10.seconds,
+        5,
+        logger
+      )(system)
     }
   }
 

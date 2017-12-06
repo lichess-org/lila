@@ -17,7 +17,7 @@ final class Env(
 
   private lazy val client = makeClient(Index(IndexName))
 
-  lazy val api = new GameSearchApi(client)
+  lazy val api = new GameSearchApi(client, system)
 
   lazy val paginator = new PaginatorBuilder[lila.game.Game, Query](
     searchApi = api,
