@@ -49,7 +49,6 @@
     "ui/tree",
     "ui/@types/defer-promise",
     "ui/@types/lichess",
-    "ui/@types/lichess-jquery",
-    "ui/@types/mithril"
+    "ui/@types/lichess-jquery"
   ]
 }
