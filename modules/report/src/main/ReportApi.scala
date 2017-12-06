@@ -219,7 +219,7 @@ final class ReportApi(
   } yield withNotes
 
   def next(room: Room): Fu[Option[Report]] =
-    openAndRecentWithFilter(1, room.some) map (_.headOption.map(_.report))
+    findBest(1, openAvailableSelect ++ roomSelect(room.some) ++ scoreThresholdSelect).map(_.headOption)
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspectAndNotes]] = for {
     users <- UserRepo byIdsSecondary (reports.map(_.user).distinct :+ "neio")
