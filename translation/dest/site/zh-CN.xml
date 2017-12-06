@@ -101,8 +101,11 @@
   <string name="memory">内存使用</string>
   <string name="infiniteAnalysis">无限分析</string>
   <string name="removesTheDepthLimit">取消深度限制，使你的电脑发热。</string>
+  <string name="blunder">严重错误</string>
   <string name="blunders">严重错误</string>
+  <string name="mistake">错误</string>
   <string name="mistakes">错误</string>
+  <string name="inaccuracy">轻微失误</string>
   <string name="inaccuracies">轻微失误</string>
   <string name="moveTimes">走棋時間</string>
   <string name="flipBoard">翻转棋盘</string>
@@ -726,4 +729,11 @@
   <string name="challenges">挑战</string>
   <string name="perfRatingX">积分：%s</string>
   <string name="xSecondsToPlayTheFirstMove">您必须在%s内下第一步棋</string>
+  <string name="theGameIsADraw">本局和棋.</string>
+  <string name="computerThinking">电脑正在思考中。</string>
+  <string name="whiteWinsGame">白胜</string>
+  <string name="blackWinsGame">黑胜</string>
+  <string name="opening">开局</string>
+  <string name="middlegame">中盘</string>
+  <string name="endgame">残局</string>
 </resources>
