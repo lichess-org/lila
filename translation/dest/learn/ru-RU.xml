@@ -141,21 +141,27 @@
 Сделайте ход конём, затем сделайте короткую рокировку.</string>
   <string name="castleKingSideMovePiecesFirst">Короткая рокировка!
 Сначала вам нужно вывести фигуры.</string>
-  <string name="castleQueenSideMovePiecesFirst">Длинная рокировка! Сначала вам нужно развить фигуры.</string>
-  <string name="youCannotCastleIfMoved">Вы не можете делать рокировку, если король или ладья, участвующие в рокировке, делали ход.</string>
-  <string name="youCannotCastleIfAttacked">Вы не можете рокироваться, 
-если король находится под шахом. 
-Сначала защитите короля!</string>
+  <string name="castleQueenSideMovePiecesFirst">Длинная рокировка!
+Сначала вам нужно вывести фигуры.</string>
+  <string name="youCannotCastleIfMoved">Вы не можете рокироваться,
+если король или ладья, участвующие в рокировке,
+уже делали ход.</string>
+  <string name="youCannotCastleIfAttacked">Вы не можете рокироваться,
+если на пути к рокировке король окажется под шахом.
+Сначала защитите путь короля, затем рокируйте его!</string>
   <string name="findAWayToCastleKingSide">Найдите способ сделать короткую рокировку!</string>
   <string name="findAWayToCastleQueenSide">Найдите способ сделать длинную рокировку!</string>
-  <string name="castlingComplete">Поздравляем! Вы должны почти всегда рокироваться в партиях.</string>
+  <string name="castlingComplete">Поздравляем! Практически во всех партиях вы должны рокироваться.</string>
   <string name="enPassant">Взятие на проходе</string>
-  <string name="theSpecialPawnMove">Специальный ход пешкой</string>
+  <string name="theSpecialPawnMove">Особый ход пешки</string>
   <string name="enPassantIntro">Когда пешка соперника делает ход на две клетки, вы можете взять её, как если бы она сделала ход на одну.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Чёрные только что сходили пешкой на два поля!
 Возьмите её на проходе.</string>
-  <string name="enPassantOnlyWorksImmediately">Пешка противника может быть взята на проходе только непосредственно после хода.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Взятие на проходе можно сделать, если ваша пешка на пятом ряду.</string>
+  <string name="enPassantOnlyWorksImmediately">Взятие пешки на проходе
+возможно только сразу после
+хода противника этой пешкой.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Взятие на проходе можно сделать,
+если ваша пешка на пятом ряду.</string>
   <string name="takeAllThePawnsEnPassant">Возьмите все пешки на проходе!</string>
   <string name="enPassantComplete">Поздравляем! Теперь вы можете делать взятие на проходе.</string>
   <string name="stalemate">Пат</string>
