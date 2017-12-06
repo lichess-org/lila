@@ -794,6 +794,8 @@
   <string name="perfRatingX">Рейтинг: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s секунд, щоб зробити перший хід</string>
   <string name="practiceWithComputer">Тренування з комп\'ютером</string>
+  <string name="anotherWasX">Також можна: %s</string>
+  <string name="bestWasX">Найкращий хід: %s</string>
   <string name="youBrowsedAway">Ви вийшли з перегляду</string>
   <string name="resumePractice">Відновити тренування</string>
   <string name="theGameIsADraw">Гра закінчилася внічию.</string>
@@ -804,4 +806,5 @@
   <string name="evaluatingYourMove">Оцінка вашого ходу...</string>
   <string name="whiteWinsGame">Білі виграли</string>
   <string name="blackWinsGame">Чорні виграли</string>
+  <string name="learnFromYourMistakes">Робота над помилками</string>
 </resources>
