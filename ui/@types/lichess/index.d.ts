@@ -124,7 +124,7 @@ interface Math {
 }
 
 interface WebAssemblyStatic {
-  validate: (code: Uint8Array) => boolean;
+  validate(bufferSource: ArrayBuffer | Uint8Array): boolean
 }
 
 declare var WebAssembly: WebAssemblyStatic | undefined;
