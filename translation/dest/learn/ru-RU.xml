@@ -106,27 +106,28 @@
   <string name="outOfCheckComplete">Поздравляем! Ваш король не сможет быть взят, убедитесь, что вы можете защитить его от шаха!</string>
   <string name="mateInOne">Мат в один ход</string>
   <string name="defeatTheOpponentsKing">Разгромите короля противника</string>
-  <string name="mateInOneIntro">Вы выигрываете, когда ваш оппонент не может защититься от шаха.</string>
-  <string name="attackYourOpponentsKing">Атакуйте короля вашего противника таким образом, чтобы его нельзя было защитить!</string>
-  <string name="mateInOneComplete">Поздравляем! Таким образом вы выиграете в шахматы!</string>
+  <string name="mateInOneIntro">Вы выиграете, если ваш противник не сможет защититься от шаха.</string>
+  <string name="attackYourOpponentsKing">Атакуйте короля вашего противника так,
+чтобы его невозможно было защитить!</string>
+  <string name="mateInOneComplete">Поздравляем! Вот таким образом вы и будете побеждать!</string>
   <string name="intermediate">Промежуточный этап</string>
   <string name="boardSetup">Расстановка фигур</string>
   <string name="howTheGameStarts">Начало шахматной партии</string>
-  <string name="boardSetupIntro">Две армии, друг напротив друга, готовы к битве.</string>
+  <string name="boardSetupIntro">Две армии, готовые к бою, встретились лицом к лицу.</string>
   <string name="thisIsTheInitialPosition">Это начальная позиция в шахматах! Сделайте любой ход, чтобы продолжить.</string>
   <string name="firstPlaceTheRooks">Сначала расставьте ладьи!
 Они находятся по углам.</string>
   <string name="thenPlaceTheKnights">Затем расставьте коней!
 Они стоят рядом с ладьями.</string>
   <string name="placeTheBishops">Расставьте слонов!
-Они идут рядом с конями.</string>
+Их место рядом с конями.</string>
   <string name="placeTheQueen">Поставьте ферзя!
 Ферзь любит свой цвет.</string>
   <string name="placeTheKing">Поставьте короля!
 Он стоит рядом с ферзём.</string>
-  <string name="pawnsFormTheFrontLine">Пешки стоят на передней линии.
+  <string name="pawnsFormTheFrontLine">Пешки выстроились на передней линии.
 Сделайте любой ход, чтобы продолжить.</string>
-  <string name="boardSetupComplete">Поздравляем! Теперь вы знаете, как ставить фигуры на шахматной доске.</string>
+  <string name="boardSetupComplete">Поздравляем! Теперь вы знаете, как расставить фигуры на шахматной доске.</string>
   <string name="castling">Рокировка</string>
   <string name="theSpecialKingMove">Особый ход короля</string>
   <string name="castlingIntro">Защитите своего короля и выведите в бой ладью!</string>
