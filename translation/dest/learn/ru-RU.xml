@@ -29,7 +29,7 @@
   <string name="bishopComplete">Поздравляем! Вы научились ходить слоном.</string>
   <string name="theQueen">Ферзь</string>
   <string name="queenCombinesRookAndBishop">Ферзь = ладья + слон</string>
-  <string name="queenIntro">Разрешите представить самую мощную фигуру. Его величество ферзь!</string>
+  <string name="queenIntro">Разрешите представить самую мощную фигуру. Его Величество Ферзь!</string>
   <string name="queenComplete">Поздравляем! У ферзя нет секретов от вас.</string>
   <string name="theKing">Король</string>
   <string name="theMostImportantPiece">Самая важная фигура</string>
@@ -210,7 +210,7 @@
   <string name="playMachine">Игра с компьютером</string>
   <string name="testYourSkillsWithTheComputer">Проверьте свои навыки</string>
   <string name="letsGo">Поехали!</string>
-  <string name="stageX">Этап %s</string>
+  <string name="stageX">Урок %s</string>
   <string name="awesome">Невероятно!</string>
   <string name="excellent">Превосходно!</string>
   <string name="greatJob">Отличная работа!</string>
@@ -221,7 +221,7 @@
   <string name="youreGoodAtThis">Вы молодец!</string>
   <string name="nailedIt">Получилось!</string>
   <string name="rightOn">Именно так!</string>
-  <string name="stageXComplete">Этап %s пройден</string>
+  <string name="stageXComplete">Урок %s усвоен</string>
   <string name="yourScore">Ваш результат</string>
   <string name="next">Далее</string>
   <string name="backToMenu">Вернуться в меню</string>
