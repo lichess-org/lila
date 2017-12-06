@@ -58,7 +58,7 @@
   <string name="aPawnOnTheSecondRank">Пешка на втором ряду может переместиться на два поля за ход!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Соберите все звёзды!
 Не обязательно превращать пешки.</string>
-  <string name="pawnComplete">Поздравляем! У пешек нет секретов для вас.</string>
+  <string name="pawnComplete">Поздравляем! У пешек нет секретов от вас.</string>
   <string name="pawnPromotion">Превращение пешки</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваша пешка достигла края доски!</string>
   <string name="itNowPromotesToAStrongerPiece">Сейчас она превращается в фигуру посильнее.</string>
@@ -68,11 +68,12 @@
   <string name="takeTheEnemyPieces">Съешьте фигуры противника</string>
   <string name="captureIntro">Найдите незащищённые фигуры противника и съешьте их!</string>
   <string name="takeTheBlackPieces">Съешьте чёрные фигуры!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Съешьте все чёрные фигуры! И не потеряйте свои.</string>
-  <string name="captureComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Съешьте все чёрные фигуры!
+И не потеряйте свои.</string>
+  <string name="captureComplete">Поздравляем! Теперь вы знаете, как сражаться шахматными фигурами!</string>
   <string name="protection">Защита</string>
   <string name="keepYourPiecesSafe">Защищайте ваши фигуры</string>
-  <string name="protectionIntro">Определите, какие ваши фигуры атакует противники, и защитите их!</string>
+  <string name="protectionIntro">Определите, какие ваши фигуры атакует противник, и защитите их!</string>
   <string name="protectionComplete">Поздравляем! Фигура, которую вы не проиграли — это выигранная фигура!</string>
   <string name="escape">Вас атакуют!
 Избавьтесь от угрозы!</string>
@@ -81,11 +82,11 @@
   <string name="dontLetThemTakeAnyUndefendedPiece">Не позволяйте им съедать
 любую незащищённую фигуру!</string>
   <string name="combat">Сражение</string>
-  <string name="captureAndDefendPieces">Взятие и защита фигур</string>
+  <string name="captureAndDefendPieces">Бейте и защищайте фигуры</string>
   <string name="combatIntro">Хороший воин знает как атаку, так и защиту!</string>
-  <string name="combatComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
+  <string name="combatComplete">Поздравляем! Теперь вы знаете, как сражаться шахматными фигурами!</string>
   <string name="checkInOne">Шах в один ход</string>
-  <string name="attackTheOpponentsKing">Атака на короля</string>
+  <string name="attackTheOpponentsKing">Атакуйте вражеского короля</string>
   <string name="checkInOneIntro">Чтобы объявить шах, нападите на короля противника. Он должен будет защищаться!</string>
   <string name="checkInOneGoal">Нападите на короля соперника
 за один ход!</string>
