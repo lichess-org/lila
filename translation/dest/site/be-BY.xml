@@ -809,4 +809,11 @@
   <string name="learnFromYourMistakes">Праца над абмыламі</string>
   <string name="skipThisMove">Прапусціць гэты ход</string>
   <string name="next">Далей</string>
+  <string name="xWasPlayed">Было сыграна %s</string>
+  <string name="findBetterMoveForWhite">Знайдзіце за белых мацнейшы ход</string>
+  <string name="findBetterMoveForBlack">Знайдзіце за белых мацнейшы ход</string>
+  <string name="resumeLearning">Працягнуць навучанне</string>
+  <string name="youCanDoBetter">Ёсць і мацнейшы ход</string>
+  <string name="tryAnotherMoveForWhite">Паспрабуйце іншы ход за белых</string>
+  <string name="tryAnotherMoveForBlack">Паспрабуйце іншы ход за чорных</string>
 </resources>
