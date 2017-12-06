@@ -430,7 +430,7 @@
   <string name="savePosition">Сохранить позицию</string>
   <string name="loadPosition">Загрузить позицию</string>
   <string name="isPrivate">Закрытый</string>
-  <string name="reportXToModerators">Сообщить о %s модераторам</string>
+  <string name="reportXToModerators">Пожаловаться на %s модераторам</string>
   <string name="profileCompletion">Заполненность профиля: %s</string>
   <string name="xRating">%s рейтинг</string>
   <string name="ifNoneLeaveEmpty">Если нет, оставьте пустым</string>
@@ -802,7 +802,7 @@
   <string name="computerThinking">Компьютер думает...</string>
   <string name="seeBestMove">Показать лучший ход</string>
   <string name="hideBestMove">Скрыть лучший ход</string>
-  <string name="getAHint">Получить подсказку</string>
+  <string name="getAHint">Взять подсказку</string>
   <string name="evaluatingYourMove">Оценка вашего хода...</string>
   <string name="whiteWinsGame">Белые выиграли</string>
   <string name="blackWinsGame">Чёрные выиграли</string>
