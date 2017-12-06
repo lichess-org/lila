@@ -816,4 +816,19 @@
   <string name="youCanDoBetter">Ёсць і мацнейшы ход</string>
   <string name="tryAnotherMoveForWhite">Паспрабуйце іншы ход за белых</string>
   <string name="tryAnotherMoveForBlack">Паспрабуйце іншы ход за чорных</string>
+  <string name="solution">Адказ</string>
+  <string name="waitingForAnalysis">Чаканне аналізу</string>
+  <string name="noMistakesFoundForWhite">Абмылаў белых не знойдзена</string>
+  <string name="noMistakesFoundForBlack">Абмылаў чорных не знойдзена</string>
+  <string name="doneReviewingWhiteMistakes">Абмылы белых разабраны</string>
+  <string name="doneReviewingBlackMistakes">Абмылы чорных разабраны</string>
+  <string name="doItAgain">Яшчэ раз</string>
+  <string name="reviewWhiteMistakes">Разабраць абмылы белых</string>
+  <string name="reviewBlackMistakes">Разабраць абмылы чорных</string>
+  <string name="advantage">Перавага</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s секунда</item>
+    <item quantity="few">%s секунды</item>
+    <item quantity="other">%s секундаў</item>
+  </plurals>
 </resources>
