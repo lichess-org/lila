@@ -103,8 +103,11 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Végtelen elemzés</string>
   <string name="removesTheDepthLimit">Feloldja a mélységi korlátot, és melegen tartja a számítógéped</string>
+  <string name="blunder">Baklövés</string>
   <string name="blunders">Durva hibák</string>
+  <string name="mistake">Hiba</string>
   <string name="mistakes">Hibák</string>
+  <string name="inaccuracy">Pontatlanság</string>
   <string name="inaccuracies">Pontatlanságok</string>
   <string name="moveTimes">Lépésidők</string>
   <string name="flipBoard">Tábla megfordítása</string>
@@ -414,6 +417,7 @@
   <string name="biography">Rólam</string>
   <string name="country">Ország</string>
   <string name="preferences">Beállítások</string>
+  <string name="inlineNotation">Megjegyzések beszúrása</string>
   <string name="watchLichessTV">Nézd a Lichess TV-t</string>
   <string name="previouslyOnLichessTV">A Lichess TV korábbi műsorai</string>
   <string name="onlinePlayers">Online játékosok</string>
@@ -755,4 +759,14 @@
   <string name="notifications">Értesítések</string>
   <string name="challenges">Kihívások</string>
   <string name="perfRatingX">Pontszám: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s másodperc van hátra az első lépés megtételére</string>
+  <string name="practiceWithComputer">Gyakorlás a géppel</string>
+  <string name="anotherWasX">Ez is jó lett volna: %s</string>
+  <string name="bestWasX">Ez lett volna a legjobb lépés: %s</string>
+  <string name="youBrowsedAway">Elnavigáltál</string>
+  <string name="resumePractice">Gyakorlás folytatása</string>
+  <string name="theGameIsADraw">A játék döntetlen.</string>
+  <string name="computerThinking">A gép gondolkodik...</string>
+  <string name="seeBestMove">A legjobb lépés mutatása</string>
+  <string name="hideBestMove">A legjobb lépés elrejtése</string>
 </resources>
