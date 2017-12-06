@@ -10,15 +10,18 @@
   <string name="play">играть!</string>
   <string name="chessPieces">Шахматные фигуры</string>
   <string name="theRook">Ладья</string>
-  <string name="itMovesInStraightLines">Движется по прямым линиям</string>
+  <string name="itMovesInStraightLines">Движется по прямой</string>
   <string name="rookIntro">Ладья — тяжёлая фигура. Сможете управлять ей?</string>
-  <string name="rookGoal">Нажмите на ладью и доведите её до звезды!</string>
+  <string name="rookGoal">Нажмите на ладью,
+чтобы довести её до звезды!</string>
   <string name="grabAllTheStars">Соберите все звёзды!</string>
-  <string name="theFewerMoves">Чем меньше ходов вы сделаете, тем больше очков вы получите!</string>
-  <string name="useTwoRooks">Используйте две ладьи, чтобы ускорить процесс!</string>
+  <string name="theFewerMoves">Чем меньше ходов вы сделаете,
+тем больше очков вы получите!</string>
+  <string name="useTwoRooks">Используйте две ладьи,
+чтобы ускорить процесс!</string>
   <string name="rookComplete">Поздравляем! Вы мастерски овладели ладьёй.</string>
   <string name="theBishop">Слон</string>
-  <string name="itMovesDiagonally">Перемещается по диагоналям</string>
+  <string name="itMovesDiagonally">Двигается по диагонали</string>
   <string name="bishopIntro">Далее мы научимся ходить слоном!</string>
   <string name="youNeedBothBishops">Поля белого цвета контролирует один слон,
 поля чёрного цвета — другой.
@@ -31,12 +34,12 @@
   <string name="theKing">Король</string>
   <string name="theMostImportantPiece">Самая важная фигура</string>
   <string name="kingIntro">Вы — король. Если вы падёте в бою — игра проиграна.</string>
-  <string name="theKingIsSlow">Король медленно передвигается.</string>
-  <string name="lastOne">И последний!</string>
+  <string name="theKingIsSlow">Король медлителен.</string>
+  <string name="lastOne">И напоследок!</string>
   <string name="kingComplete">Теперь вы можете повелевать повелителем!</string>
   <string name="theKnight">Конь</string>
   <string name="itMovesInAnLShape">Он ходит буквой «Г»</string>
-  <string name="knightIntro">Вот вам задача. Конь — хитрая фигура.</string>
+  <string name="knightIntro">Вот вам задачка. Конь — хитрая фигура.</string>
   <string name="knightsHaveAFancyWay">Кони имеют причудливый способ перепрыгивать!</string>
   <string name="knightsCanJumpOverObstacles">Кони могут прыгать через препятствия!
 Выберитесь и соберите все звёзды!</string>
