@@ -831,4 +831,7 @@
     <item quantity="few">%s секунды</item>
     <item quantity="other">%s секундаў</item>
   </plurals>
+  <string name="opening">Дэбют</string>
+  <string name="middlegame">Мітальшпіль</string>
+  <string name="endgame">Эндшпіль</string>
 </resources>
