@@ -28,6 +28,10 @@
   <string name="queenComplete">Баяр хүргэе! Чи бэрсийн нууц чадлуудыг мэдэж авлаа.</string>
   <string name="theKing">Ноён</string>
   <string name="theMostImportantPiece">Хамгийн чухал дүрс</string>
+  <string name="kingIntro">Чи бол ноён. Чи мадлагдвал тоглоом өндөрлөх болно.</string>
+  <string name="theKingIsSlow">Ноён нэг нүдээр удаан хөдөлнө.</string>
+  <string name="lastOne">Хамгийн сүүлийнх!</string>
+  <string name="kingComplete">Чи одоо ноёны манлайлалыг сурлаа!</string>
   <string name="theKnight">Морь</string>
   <string name="itMovesInAnLShape">Морь нүд давж нүүдэг</string>
   <string name="thePawn">Хүү</string>
@@ -89,6 +93,7 @@
   <string name="playMachine">Компьютертай тогло</string>
   <string name="testYourSkillsWithTheComputer">Ур чадвараа компьютерийн эсрэг тоглож шалга</string>
   <string name="outstanding">Гайхалтай!</string>
+  <string name="backToMenu">Үндсэн хуудас руу буцах</string>
   <string name="puzzleFailed">Бодлогыг бодож чадсангүй!</string>
   <string name="retry">Дахин оролд</string>
 </resources>
