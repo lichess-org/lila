@@ -763,6 +763,8 @@ in %3$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s seconds to play the first move</string>
   <string name="practiceWithComputer">Practice with computer</string>
+  <string name="anotherWasX">Another was %s</string>
+  <string name="bestWasX">Best was %s</string>
   <string name="youBrowsedAway">You browsed away</string>
   <string name="resumePractice">Resume practice</string>
   <string name="theGameIsADraw">The game is a draw.</string>
@@ -773,4 +775,7 @@ in %3$s</string>
   <string name="evaluatingYourMove">Evaluating your move ...</string>
   <string name="whiteWinsGame">White wins</string>
   <string name="blackWinsGame">Black wins</string>
+  <string name="learnFromYourMistakes">Learn from your mistakes</string>
+  <string name="skipThisMove">Skip this move</string>
+  <string name="next">Next</string>
 </resources>
