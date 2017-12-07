@@ -20,8 +20,8 @@
     <item quantity="other">Har skrevet %1$s innlegg i %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Har spilt %1$s trekk i %2$s korrespondensparti</item>
-    <item quantity="other">Har spilt %1$s trekk i %2$s korrespondenspartier</item>
+    <item quantity="one">Har spilt %1$s trekk i %2$s korrespondanseparti(er)</item>
+    <item quantity="other">Har spilt %1$s trekk i %2$s korrespondanseparti(er)</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Har spilt %s fjernsjakkparti</item>

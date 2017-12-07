@@ -794,6 +794,8 @@
   <string name="perfRatingX">Рейтинг: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s секунд, щоб зробити перший хід</string>
   <string name="practiceWithComputer">Тренування з комп\'ютером</string>
+  <string name="anotherWasX">Також можна: %s</string>
+  <string name="bestWasX">Найкращий хід: %s</string>
   <string name="youBrowsedAway">Ви вийшли з перегляду</string>
   <string name="resumePractice">Відновити тренування</string>
   <string name="theGameIsADraw">Гра закінчилася внічию.</string>
@@ -804,4 +806,32 @@
   <string name="evaluatingYourMove">Оцінка вашого ходу...</string>
   <string name="whiteWinsGame">Білі виграли</string>
   <string name="blackWinsGame">Чорні виграли</string>
+  <string name="learnFromYourMistakes">Робота над помилками</string>
+  <string name="skipThisMove">Пропустити цей хід</string>
+  <string name="next">Далі</string>
+  <string name="xWasPlayed">Було зіграно %s</string>
+  <string name="findBetterMoveForWhite">Знайдіть за білих більш сильний хід</string>
+  <string name="findBetterMoveForBlack">Знайдіть за чорних більш сильний хід</string>
+  <string name="resumeLearning">Продовжити навчання</string>
+  <string name="youCanDoBetter">Є й більш сильний хід</string>
+  <string name="tryAnotherMoveForWhite">Спробуйте інший хід за білих</string>
+  <string name="tryAnotherMoveForBlack">Спробуйте інший хід за чорних</string>
+  <string name="solution">Відповідь</string>
+  <string name="waitingForAnalysis">Очікування аналізу</string>
+  <string name="noMistakesFoundForWhite">Помилок білих не знайдено</string>
+  <string name="noMistakesFoundForBlack">Помилок чорних не знайдено</string>
+  <string name="doneReviewingWhiteMistakes">Помилки білих розібрані</string>
+  <string name="doneReviewingBlackMistakes">Помилки чорних розібрані</string>
+  <string name="doItAgain">Ще раз</string>
+  <string name="reviewWhiteMistakes">Розібрати помилки білих</string>
+  <string name="reviewBlackMistakes">Розібрати помилки чорних</string>
+  <string name="advantage">Перевага</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s секунда</item>
+    <item quantity="few">%s секунди</item>
+    <item quantity="other">%s секунд</item>
+  </plurals>
+  <string name="opening">Дебют</string>
+  <string name="middlegame">Міттельшпіль</string>
+  <string name="endgame">Ендшпіль</string>
 </resources>

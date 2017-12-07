@@ -794,6 +794,8 @@
   <string name="perfRatingX">Рэйтынг: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s секундаў, каб зрабіць першы ход</string>
   <string name="practiceWithComputer">Трэнераванне з кампутарам</string>
+  <string name="anotherWasX">Таксама можна: %s</string>
+  <string name="bestWasX">Лепшы ход: %s</string>
   <string name="youBrowsedAway">Вы выйшлі з прагляду</string>
   <string name="resumePractice">Аднавіць трэнераванне</string>
   <string name="theGameIsADraw">Гульня скончылася ўнічыю.</string>
@@ -804,4 +806,32 @@
   <string name="evaluatingYourMove">Ацэнка вашага ходу...</string>
   <string name="whiteWinsGame">Белыя выйгралі</string>
   <string name="blackWinsGame">Чорныя выйгралі</string>
+  <string name="learnFromYourMistakes">Праца над абмыламі</string>
+  <string name="skipThisMove">Прапусціць гэты ход</string>
+  <string name="next">Далей</string>
+  <string name="xWasPlayed">Было сыграна %s</string>
+  <string name="findBetterMoveForWhite">Знайдзіце за белых мацнейшы ход</string>
+  <string name="findBetterMoveForBlack">Знайдзіце за белых мацнейшы ход</string>
+  <string name="resumeLearning">Працягнуць навучанне</string>
+  <string name="youCanDoBetter">Ёсць і мацнейшы ход</string>
+  <string name="tryAnotherMoveForWhite">Паспрабуйце іншы ход за белых</string>
+  <string name="tryAnotherMoveForBlack">Паспрабуйце іншы ход за чорных</string>
+  <string name="solution">Адказ</string>
+  <string name="waitingForAnalysis">Чаканне аналізу</string>
+  <string name="noMistakesFoundForWhite">Абмылаў белых не знойдзена</string>
+  <string name="noMistakesFoundForBlack">Абмылаў чорных не знойдзена</string>
+  <string name="doneReviewingWhiteMistakes">Абмылы белых разабраны</string>
+  <string name="doneReviewingBlackMistakes">Абмылы чорных разабраны</string>
+  <string name="doItAgain">Яшчэ раз</string>
+  <string name="reviewWhiteMistakes">Разабраць абмылы белых</string>
+  <string name="reviewBlackMistakes">Разабраць абмылы чорных</string>
+  <string name="advantage">Перавага</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s секунда</item>
+    <item quantity="few">%s секунды</item>
+    <item quantity="other">%s секундаў</item>
+  </plurals>
+  <string name="opening">Дэбют</string>
+  <string name="middlegame">Мітальшпіль</string>
+  <string name="endgame">Эндшпіль</string>
 </resources>

@@ -794,6 +794,7 @@
   <string name="practiceWithComputer">Trening z komputerem</string>
   <string name="anotherWasX">Inna możliwość to %s</string>
   <string name="bestWasX">Najlepsze było %s</string>
+  <string name="youBrowsedAway">Przeglądnąłeś</string>
   <string name="resumePractice">Wznów trening</string>
   <string name="theGameIsADraw">Gra zakończona remisem.</string>
   <string name="computerThinking">Komputer namyśla się...</string>
@@ -822,4 +823,13 @@
   <string name="doItAgain">Zrób to jeszcze raz</string>
   <string name="reviewWhiteMistakes">Przejrzyj błędy białych</string>
   <string name="reviewBlackMistakes">Przejrzyj błędy czarnych</string>
+  <string name="advantage">Przewaga</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekunda</item>
+    <item quantity="few">%s sekundy</item>
+    <item quantity="other">%s sekund</item>
+  </plurals>
+  <string name="opening">Otwarcie</string>
+  <string name="middlegame">Gra środkowa</string>
+  <string name="endgame">Końcówka</string>
 </resources>
