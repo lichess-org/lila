@@ -34,6 +34,10 @@
   <string name="kingComplete">Чи одоо ноёны манлайлалыг сурлаа!</string>
   <string name="theKnight">Морь</string>
   <string name="itMovesInAnLShape">Морь нүд давж нүүдэг</string>
+  <string name="knightIntro">Морь бол их овжин хөлөг.</string>
+  <string name="knightsHaveAFancyWay">Нүд алгасан нүүх онцгой чадвартай!</string>
+  <string name="knightsCanJumpOverObstacles">Морь бусад хөлгийг ч бас давж нүүх авъяастай! Тэднээс зугатаж, оддыг цуглуул!</string>
+  <string name="knightComplete">Баяр хүргэе! Чи морийг номхруулж чадлаа.</string>
   <string name="thePawn">Хүү</string>
   <string name="itMovesForwardOnly">Хүү зөвхөн урагшаагаа нүүдэг</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Бараг ихэнх үед бэрс гаргах нь хамгийн сайн нүүдэл байдаг. Гэхдээ морь гаргах нь заримдаа илүү нүүдэл байдаг!</string>
