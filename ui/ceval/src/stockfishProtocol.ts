@@ -13,7 +13,7 @@ export default class Protocol {
   private work: Work | null = null;
   private curEval: Tree.ClientEval | null = null;
   private expectedPvs = 1;
-  private stopped: Deferred<void> | null;
+  private stopped: DeferPromise.Deferred<void> | null;
   private opts: WorkerOpts;
 
   constructor(send: (cmd: string) => void, opts: WorkerOpts) {

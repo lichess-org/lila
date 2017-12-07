@@ -19,6 +19,10 @@
     normalize-path "^2.0.1"
     through2 "^2.0.3"
 
+"@types/defer-promise@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/defer-promise/-/defer-promise-1.0.0.tgz#9c5054b7ef63fd0f0497d17b0ea1a849f9c6323b"
+
 "@types/jquery@*":
   version "3.2.16"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.2.16.tgz#04419c404a3194350e7d3f339a90e72c88db3111"
