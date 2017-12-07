@@ -747,4 +747,20 @@
   <string name="evaluatingYourMove">Таны нүүдлийг шинжилж байна ...</string>
   <string name="whiteWinsGame">Цагаан хожсон</string>
   <string name="blackWinsGame">Хар хожсон</string>
+  <string name="learnFromYourMistakes">Алдаанаасаа суралцах</string>
+  <string name="skipThisMove">Энэ нүүдлийг алгасах</string>
+  <string name="next">Дараах</string>
+  <string name="tryAnotherMoveForWhite">Цагаанд өөр нүүдэл турших</string>
+  <string name="tryAnotherMoveForBlack">Хард өөр нүүдэл турших</string>
+  <string name="solution">Шийдэл</string>
+  <string name="waitingForAnalysis">Шинжилгээ хүлээж байна</string>
+  <string name="noMistakesFoundForWhite">Цагаанд ямарч алдаа олдсонгүй</string>
+  <string name="noMistakesFoundForBlack">Хард ямарч алдаа олдсонгүй</string>
+  <string name="doneReviewingWhiteMistakes">Цагааны алдааг хянаж дууслаа</string>
+  <string name="doneReviewingBlackMistakes">Харын алдааг хянаж дууслаа</string>
+  <string name="doItAgain">Дахин оролдох</string>
+  <string name="reviewWhiteMistakes">Цагааны алдааг хянах</string>
+  <string name="reviewBlackMistakes">Харын алдааг хянах</string>
+  <string name="advantage">Давуу тал</string>
+  <string name="opening">Гараа</string>
 </resources>
