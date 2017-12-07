@@ -45,6 +45,10 @@
   <string name="mostOfTheTimePromotingToAQueenIsBest">Бараг ихэнх үед бэрс гаргах нь хамгийн сайн нүүдэл байдаг. Гэхдээ морь гаргах нь заримдаа илүү нүүдэл байдаг!</string>
   <string name="pawnsMoveForward">Хүү зөвхөн урагш нүүх ба диогналын дагуу иднэ!</string>
   <string name="captureThenPromote">Идээд дараа нь хүүг бод болго!</string>
+  <string name="useAllThePawns">Бүх хүүнүүдийг ашигла.</string>
+  <string name="aPawnOnTheSecondRank">2-р эгнээнд байгаа хүүг урагш 2 нүүдэл нүүлгэж болно!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Бүх оддыг цуглуул.</string>
+  <string name="pawnComplete">Баяр хүргэе! Хүүд чамаас нуух нууц үгүй боллоо.</string>
   <string name="fundamentals">Анхан шат</string>
   <string name="capture">Хөлөг идэлт</string>
   <string name="takeTheEnemyPieces">Дайсныхаа хөлгийг ид</string>
