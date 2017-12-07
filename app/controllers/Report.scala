@@ -27,7 +27,7 @@ object Report extends LilaController {
     api.openAndRecentWithFilter(20, Room(room)) zip
       api.countOpenByRooms flatMap {
         case reports ~ counts =>
-          (Env.user.lightUserApi preloadMany reports.flatMap(_.userIds)) inject
+          (Env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
             Ok(html.report.list(reports, room, counts))
       }
 

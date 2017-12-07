@@ -181,7 +181,7 @@ final class ReportApi(
 
   val nbOpenCache = asyncCache.single[Int](
     name = "report.nbOpen",
-    f = coll.countSel(openSelect ++ roomSelect(none) ++ scoreThresholdSelect),
+    f = coll.countSel(openAvailableSelect ++ roomSelect(none) ++ scoreThresholdSelect),
     expireAfter = _.ExpireAfterWrite(1 hour)
   )
 
@@ -210,7 +210,7 @@ final class ReportApi(
       ReadPreference.secondaryPreferred
     ) map (_ filterNot UserRepo.lichessId.==)
 
-  def openAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithSuspectAndNotes]] = for {
+  def openAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithSuspect]] = for {
     opens <- findBest(nb, openAvailableSelect ++ roomSelect(room) ++ scoreThresholdSelect)
     nbClosed = nb - opens.size
     closed <- if (room.has(Room.Xfiles) || nbClosed < 1) fuccess(Nil)
@@ -221,19 +221,14 @@ final class ReportApi(
   def next(room: Room): Fu[Option[Report]] =
     findBest(1, openAvailableSelect ++ roomSelect(room.some) ++ scoreThresholdSelect).map(_.headOption)
 
-  private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspectAndNotes]] = for {
-    users <- UserRepo byIdsSecondary (reports.map(_.user).distinct :+ "neio")
-    withSuspects = reports.flatMap { r =>
-      users.find(_.id == r.user).orElse(users.find(_.id == "neio")) map { u =>
-        Report.WithSuspect(r, Suspect(u), isOnline(u.id))
-      }
-    }.sortBy(-_.urgency)
-    withNotes <- noteApi.byMod(withSuspects.map(_.suspect.user.id).distinct) map { notes =>
-      withSuspects.map { wu =>
-        Report.WithSuspectAndNotes(wu, notes.filter(_.to == wu.suspect.user.id))
-      }
+  private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspect]] =
+    UserRepo byIdsSecondary (reports.map(_.user).distinct :+ "neio") map { users =>
+      reports.flatMap { r =>
+        users.find(_.id == r.user).orElse(users.find(_.id == "neio")) map { u =>
+          Report.WithSuspect(r, Suspect(u), isOnline(u.id))
+        }
+      }.sortBy(-_.urgency)
     }
-  } yield withNotes
 
   private[report] def resetScores: Funit = scorer reset coll void
 
@@ -277,7 +272,7 @@ final class ReportApi(
   def countOpenByRooms: Fu[Room.Counts] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregate(
-      Match(openSelect ++ scoreThresholdSelect ++ roomSelect(none)),
+      Match(openAvailableSelect ++ scoreThresholdSelect ++ roomSelect(none)),
       List(
         GroupField("room")("nb" -> SumValue(1))
       )

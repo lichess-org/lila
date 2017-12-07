@@ -106,15 +106,6 @@ object Report {
         (report.closed ?? Int.MinValue)
   }
 
-  case class WithSuspectAndNotes(withSuspect: WithSuspect, notes: List[Note]) {
-    def report = withSuspect.report
-    def suspect = withSuspect.suspect
-    def hasLichessNote = notes.exists(_.from == lichessId)
-    def hasIrwinNote = notes.exists(_.from == "irwin")
-
-    def userIds = report.userIds ::: notes.flatMap(_.userIds)
-  }
-
   case class ByAndAbout(by: List[Report], about: List[Report]) {
     def userIds = by.flatMap(_.userIds) ::: about.flatMap(_.userIds)
   }

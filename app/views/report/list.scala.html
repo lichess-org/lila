@@ -1,10 +1,10 @@
-@(reports: List[lila.report.Report.WithSuspectAndNotes], filter: String, counts: lila.report.Room.Counts)(implicit ctx: Context)
+@(reports: List[lila.report.Report.WithSuspect], filter: String, counts: lila.report.Room.Counts)(implicit ctx: Context)
 
-@import lila.report.Report.{WithSuspect,WithSuspectAndNotes}
+@import lila.report.Report.WithSuspect
 
 @title = @{ "Reports" }
 
-@tab(reports: List[WithSuspectAndNotes], room: lila.report.Room) = {
+@tab(reports: List[WithSuspect], room: lila.report.Room) = {
 <a href="@routes.Report.listWithFilter(room.key)"
   class="@when(counts.value.contains(room), "new") @filter.active(room.key)">
   <count>@counts.get(room)</count>@room.name</a>
@@ -37,7 +37,7 @@ moreCss = cssTag("report.css")) {
     </thead>
     <tbody>
       @reports.map {
-      case WithSuspectAndNotes(WithSuspect(r, sus, _), notes) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
+      case WithSuspect(r, sus, _) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
       <tr class="@r.open.fold("new", "")">
         <td>
           @reportScore(r.score)
@@ -45,12 +45,6 @@ moreCss = cssTag("report.css")) {
           @userLink(sus.user, params = "?mod")<br />
           <p class="perfs">@showBestPerfs(sus.user, 2)</p>
           @user.userMarks(sus.user, none)
-          @if(notes.nonEmpty) {
-          <br />
-          <a href="@routes.User.show(sus.user.username)?notes=1">
-            <strong>@pluralize("note", notes.size) by @notes.map(_.from).map(usernameOrId).mkString(", ")</strong>
-          </a>
-          }
         </td>
         <td class="atoms">
           @r.bestAtoms(3).map { atom =>
