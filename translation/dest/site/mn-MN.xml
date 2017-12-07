@@ -737,6 +737,8 @@
   <string name="perfRatingX">Чансаа:%s</string>
   <string name="xSecondsToPlayTheFirstMove">Эхний нүүдэл хийхэд %s секунд байна</string>
   <string name="practiceWithComputer">Компьютертэй тоглох</string>
+  <string name="anotherWasX">Өөр бас %s</string>
+  <string name="bestWasX">Хамгийн сайн нүүдэл %s байсан</string>
   <string name="youBrowsedAway">Та гарсан байна</string>
   <string name="resumePractice">Практикийг үргэлжлүүлэх</string>
   <string name="theGameIsADraw">Өрөг тэнцсэн байна.</string>
@@ -750,6 +752,11 @@
   <string name="learnFromYourMistakes">Алдаанаасаа суралцах</string>
   <string name="skipThisMove">Энэ нүүдлийг алгасах</string>
   <string name="next">Дараах</string>
+  <string name="xWasPlayed">%s нүүдэл хийгдсэн</string>
+  <string name="findBetterMoveForWhite">Цагаанд арай сайн нүүдэл олох</string>
+  <string name="findBetterMoveForBlack">Хард арай сайн нүүдэл олох</string>
+  <string name="resumeLearning">Үргэлжлүүлэн суралцах</string>
+  <string name="youCanDoBetter">Та илүү сайн нүүж чадна</string>
   <string name="tryAnotherMoveForWhite">Цагаанд өөр нүүдэл турших</string>
   <string name="tryAnotherMoveForBlack">Хард өөр нүүдэл турших</string>
   <string name="solution">Шийдэл</string>
@@ -762,5 +769,11 @@
   <string name="reviewWhiteMistakes">Цагааны алдааг хянах</string>
   <string name="reviewBlackMistakes">Харын алдааг хянах</string>
   <string name="advantage">Давуу тал</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s секунд</item>
+    <item quantity="other">%s секунд</item>
+  </plurals>
   <string name="opening">Гараа</string>
+  <string name="middlegame">Тоглолтын дунд үе</string>
+  <string name="endgame">Төгсгөл үе</string>
 </resources>
