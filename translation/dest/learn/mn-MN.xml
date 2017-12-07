@@ -19,15 +19,20 @@
   <string name="rookComplete">Баяр хүргэе! Та тэрэгний нүүдлийг бүрэн эзэмшиж чадлаа.</string>
   <string name="theBishop">Тэмээ</string>
   <string name="itMovesDiagonally">Тэмээ ташуу шугамаар нүүдэг</string>
+  <string name="bishopIntro">Бид дараагийн алхамдаа тэмээг хэрхэн жолоодохыг сурах болно!</string>
+  <string name="youNeedBothBishops">Чамд цагаан, хар хоёр тэмээ хоёулаа хэрэгтэй!</string>
+  <string name="bishopComplete">Баяр хүргэе! Чи тэмээг жолоодон захирч сурлаа.</string>
   <string name="theQueen">Бэрс</string>
   <string name="queenCombinesRookAndBishop">Бэрс = Тэрэг + Тэмээ</string>
   <string name="queenIntro">Шатрын хамгийн хүчирхэг хөлөг!</string>
+  <string name="queenComplete">Баяр хүргэе! Чи бэрсийн нууц чадлуудыг мэдэж авлаа.</string>
   <string name="theKing">Ноён</string>
   <string name="theMostImportantPiece">Хамгийн чухал дүрс</string>
   <string name="theKnight">Морь</string>
   <string name="itMovesInAnLShape">Морь нүд давж нүүдэг</string>
   <string name="thePawn">Хүү</string>
   <string name="itMovesForwardOnly">Хүү зөвхөн урагшаагаа нүүдэг</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Бараг ихэнх үед бэрс гаргах нь хамгийн сайн нүүдэл байдаг. Гэхдээ морь гаргах нь заримдаа илүү нүүдэл байдаг!</string>
   <string name="pawnsMoveForward">Хүү зөвхөн урагш нүүх ба диогналын дагуу иднэ!</string>
   <string name="fundamentals">Анхан шат</string>
   <string name="capture">Хөлөг идэлт</string>
