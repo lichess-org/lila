@@ -31,7 +31,7 @@
   <string name="joinTheGame">Pievienoties spēlei</string>
   <string name="whitePlays">Gājiens baltajiem</string>
   <string name="blackPlays">Gājiens melnajiem</string>
-  <string name="opponentLeftChoices">Tavs pretinieks ir pametis spēli. Tu vari piespiest viņu padoties,pieprasīt neizšķirtu,vai gaidīt.</string>
+  <string name="opponentLeftChoices">Tavs pretinieks ir pametis spēli. Tu vari pieprasīt uzvaru, pabeigt spēli neizšķirtu, vai gaidīt.</string>
   <string name="makeYourOpponentResign">Lieciet pretiniekam padoties</string>
   <string name="forceResignation">Piespiest padošanos</string>
   <string name="forceDraw">Pieprasīt neizšķirtu</string>
