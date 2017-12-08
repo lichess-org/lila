@@ -2,8 +2,8 @@ package lila.tournament
 
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
-import play.api.libs.json._
 import play.api.i18n.Lang
+import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.common.LightUser
@@ -357,10 +357,10 @@ object JsonView {
   )
 
   private[tournament] implicit val spotlightWrites: OWrites[Spotlight] = OWrites { s =>
-    Json.obj()
-      .add("headline" -> s.iconImg)
-      .add("description" -> s.iconImg)
-      .add("iconImg" -> s.iconImg)
+    Json.obj(
+      "headline" -> s.headline,
+      "description" -> s.description
+    ).add("iconImg" -> s.iconImg)
       .add("iconFont" -> s.iconFont)
   }
 
