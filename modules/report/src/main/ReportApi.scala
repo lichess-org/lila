@@ -175,6 +175,7 @@ final class ReportApi(
   private val closedSelect: Bdoc = $doc("open" -> false)
   private val openAvailableSelect: Bdoc = openSelect ++ $doc("inquiry" $exists false)
   private def scoreThresholdSelect = $doc("score" $gte scoreThreshold())
+  private val sortLastAtomAt = $doc("atoms.0.at" -> -1)
 
   private def roomSelect(room: Option[Room]): Bdoc =
     room.fold($doc("room" $ne Room.Xfiles.key)) { r => $doc("room" -> r) }
@@ -188,15 +189,15 @@ final class ReportApi(
   def nbOpen = nbOpenCache.get
 
   def recent(user: User, nb: Int, readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[List[Report]] =
-    coll.find($doc("user" -> user.id)).sort($sort.createdDesc).list[Report](nb, readPreference)
+    coll.find($doc("user" -> user.id)).sort(sortLastAtomAt).list[Report](nb, readPreference)
 
   def moreLike(report: Report, nb: Int): Fu[List[Report]] =
-    coll.find($doc("user" -> report.user, "_id" $ne report.id)).sort($sort.createdDesc).list[Report](nb)
+    coll.find($doc("user" -> report.user, "_id" $ne report.id)).sort(sortLastAtomAt).list[Report](nb)
 
   def byAndAbout(user: User, nb: Int): Fu[Report.ByAndAbout] = for {
     by <- coll.find(
       $doc("atoms.by" -> user.id)
-    ).sort($sort.createdDesc).list[Report](nb, ReadPreference.secondaryPreferred)
+    ).sort(sortLastAtomAt).list[Report](nb, ReadPreference.secondaryPreferred)
     about <- recent(user, nb, ReadPreference.secondaryPreferred)
   } yield Report.ByAndAbout(by, about)
 
@@ -245,7 +246,7 @@ final class ReportApi(
         "atoms.by" -> reporterId,
         "reason" -> Reason.Cheat.key,
         "open" -> false
-      )).sort($sort.createdDesc).list[Report](20, ReadPreference.secondaryPreferred) flatMap { reports =>
+      )).sort(sortLastAtomAt).list[Report](20, ReadPreference.secondaryPreferred) flatMap { reports =>
         if (reports.size < 4) fuccess(none) // not enough data to know
         else {
           val userIds = reports.map(_.user).distinct
@@ -293,7 +294,7 @@ final class ReportApi(
     )
 
   private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] = (nb > 0) ?? {
-    coll.find(selector).sort($sort.createdDesc).list[Report](nb)
+    coll.find(selector).sort(sortLastAtomAt).list[Report](nb)
   }
 
   private def findBest(nb: Int, selector: Bdoc): Fu[List[Report]] = (nb > 0) ?? {
