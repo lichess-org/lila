@@ -19,7 +19,7 @@
     <item quantity="other">Сыграно %1$s игр в %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">Опубликовано %1$s сообщение в %2$s</item>
+    <item quantity="one">Опубликовал %1$s сообщение в теме %2$s</item>
     <item quantity="few">Оставил(а) %1$s сообщения в %2$s</item>
     <item quantity="other">Оставил(а) %1$s сообщений в %2$s</item>
   </plurals>
