@@ -792,4 +792,12 @@
   <string name="doItAgain">Inténtalo nuevamente</string>
   <string name="reviewWhiteMistakes">Revisar los errores del blanco</string>
   <string name="reviewBlackMistakes">Revisar los errores del negro</string>
+  <string name="advantage">Ventaja</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s segundo</item>
+    <item quantity="other">%s segundos</item>
+  </plurals>
+  <string name="opening">Apertura</string>
+  <string name="middlegame">Medio juego</string>
+  <string name="endgame">Final</string>
 </resources>
