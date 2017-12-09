@@ -23,6 +23,13 @@ private[api] final class UserApi(
 
   def one(username: String)(implicit ctx: Context): Fu[Option[JsObject]] = UserRepo named username flatMap {
     case None => fuccess(none)
+    case Some(u) if u.disabled => fuccess {
+      Json.obj(
+        "id" -> u.id,
+        "username" -> u.username,
+        "closed" -> true
+      ).some
+    }
     case Some(u) => GameRepo mostUrgentGame u zip
       (ctx.me.filter(u!=) ?? { me => crosstableApi.nbGames(me.id, u.id) }) zip
       relationApi.countFollowing(u.id) zip
