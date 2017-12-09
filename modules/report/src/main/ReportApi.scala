@@ -2,7 +2,6 @@ package lila.report
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
@@ -19,15 +18,7 @@ final class ReportApi(
     scoreThreshold: () => Int
 ) {
 
-  import lila.db.BSON.BSONJodaDateTimeHandler
-  private implicit val ReasonBSONHandler = isoHandler[Reason, String, BSONString](Reason.reasonIso)
-  private implicit val RoomBSONHandler = isoHandler[Room, String, BSONString](Room.roomIso)
-  import Report.{ Inquiry, Score, Atom }
-  private implicit val InquiryBSONHandler = Macros.handler[Inquiry]
-  private implicit val ReporterIdBSONHandler = stringIsoHandler[ReporterId](ReporterId.reporterIdIso)
-  private implicit val ScoreIdBSONHandler = doubleIsoHandler[Score](Report.scoreIso)
-  private implicit val AtomBSONHandler = Macros.handler[Atom]
-  private implicit val ReportBSONHandler = Macros.handler[Report]
+  import BSONHandlers._
 
   private lazy val scorer = new ReportScore(getAccuracy = accuracy.of)
 
@@ -346,7 +337,7 @@ final class ReportApi(
             sus,
             Reason.Other,
             Report.spontaneousText
-          ) scored Score(0),
+          ) scored Report.Score(0),
           none
         ).copy(inquiry = Report.Inquiry(mod.user.id, DateTime.now).some)
         coll.insert(report) inject report
