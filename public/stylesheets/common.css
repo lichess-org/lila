@@ -287,6 +287,39 @@ group.radio input:checked + label {
 #powerTip a.mini_board {
   border-width: 0 0 1px 0;
 }
+#powerTip .mod_user_state {
+  float: right;
+  background-color: white;
+  padding: 3px;
+  margin-left: 6px;
+  border: 2px solid green;
+}
+#powerTip .mod_user_state i {
+  float: right;
+  font-size: 0.9em;
+  padding-right: 3px;
+  color: #e60000;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+#powerTip .new_user {
+  color: #00cc00;
+  font-weight: bold;
+  font-style: italic;
+}
+#powerTip .closed_user {
+  color: #aa3333;
+  font-weight: bold;
+}
+#powerTip .mod_info_box {
+  border: 2px solid green;
+  margin: 2px;
+  padding: 2px;
+}
+#powerTip .mod_info_box p {
+  font-family: 'Roboto';
+}
+
 #powerTip .country {
   float: right;
   font-size: 0.9em;
