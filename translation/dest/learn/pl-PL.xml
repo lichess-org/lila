@@ -102,11 +102,11 @@ Jednak czasami bardziej przydatny może być skoczek!</string>
   <string name="thisIsTheInitialPosition">To jest początkowa pozycja każdej partii szachów! Zrób dowolny ruch aby kontynuować.</string>
   <string name="firstPlaceTheRooks">Najpierw ustaw wieże! Umieść je w rogach.</string>
   <string name="thenPlaceTheKnights">Następnie ustaw skoczki! Umieść je obok wież.</string>
-  <string name="placeTheBishops">Teraz ustaw gońce. Postaw je obok skoczków.</string>
-  <string name="placeTheQueen">Ustaw hetmana. Pamiętaj - hetman zawsze trzyma się własnego koloru!</string>
-  <string name="placeTheKing">Ustaw króla - postaw go obok hetmana.</string>
-  <string name="pawnsFormTheFrontLine">Piony tworzą linię frontu. Zrób dowolny ruch aby kontynuować.</string>
-  <string name="boardSetupComplete">Gratulacje! Wiesz jak prawidłowo ustawić figury na szachownicy.</string>
+  <string name="placeTheBishops">Ustaw gońce! Umieść je obok skoczków.</string>
+  <string name="placeTheQueen">Ustaw hetmana! Umieść go na polu jego własnego koloru.</string>
+  <string name="placeTheKing">Ustaw króla! Umieść go obok hetmana.</string>
+  <string name="pawnsFormTheFrontLine">Pionki tworzą linię frontu. Zrób dowolny ruch aby kontynuować.</string>
+  <string name="boardSetupComplete">Gratulacje! Wiesz jak ustawiać figury na szachownicy.</string>
   <string name="castling">Roszada</string>
   <string name="theSpecialKingMove">Specjalny ruch króla</string>
   <string name="castlingIntro">Zabezpiecz swojego króla i wprowadź do gry wieżę!</string>
