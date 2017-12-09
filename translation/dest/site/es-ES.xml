@@ -789,7 +789,7 @@
   <string name="noMistakesFoundForBlack">No hay errores del negro</string>
   <string name="doneReviewingWhiteMistakes">Revisión de errores del blanco terminada</string>
   <string name="doneReviewingBlackMistakes">Revisión de errores del negro terminada</string>
-  <string name="doItAgain">Inténtalo nuevamente</string>
+  <string name="doItAgain">Inténtalo otra vez</string>
   <string name="reviewWhiteMistakes">Revisar los errores del blanco</string>
   <string name="reviewBlackMistakes">Revisar los errores del negro</string>
   <string name="advantage">Ventaja</string>
