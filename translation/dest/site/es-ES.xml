@@ -777,8 +777,8 @@
   <string name="skipThisMove">Omitir este movimiento</string>
   <string name="next">Siguiente</string>
   <string name="xWasPlayed">%s fue jugado</string>
-  <string name="findBetterMoveForWhite">Encuentra un movimiento mejor para las blancas</string>
-  <string name="findBetterMoveForBlack">Encuentra un movimiento mejor para las negras</string>
+  <string name="findBetterMoveForWhite">Encuentre un mejor movimiento para las blancas</string>
+  <string name="findBetterMoveForBlack">Encuentra un mejor movimiento para las negras</string>
   <string name="resumeLearning">Continuar el aprendizaje</string>
   <string name="youCanDoBetter">Puedes hacerlo mejor</string>
   <string name="tryAnotherMoveForWhite">Intenta otro movimiento para las blancas</string>
