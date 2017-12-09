@@ -734,7 +734,7 @@
   <string name="light">Claro</string>
   <string name="dark">Oscuro</string>
   <string name="transparent">Transparente</string>
-  <string name="backgroundImageUrl">URL imagen de fondo:</string>
+  <string name="backgroundImageUrl">URL de imagen de fondo:</string>
   <string name="boardGeometry">Geometría del tablero</string>
   <string name="boardTheme">Tema del tablero</string>
   <string name="boardSize">Tamaño del tablero</string>
