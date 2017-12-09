@@ -41,9 +41,9 @@ Potrzebujesz ich obu!</string>
   <string name="knightsCanJumpOverObstacles">Skoczki mogą przeskakiwać przez przeszkody!
 Skacz i zbieraj gwiazdki!</string>
   <string name="knightComplete">Gratulacje! Opanowałeś poruszanie się skoczkiem.</string>
-  <string name="thePawn">Pion</string>
+  <string name="thePawn">Pionek</string>
   <string name="itMovesForwardOnly">Porusza się tylko do przodu</string>
-  <string name="pawnIntro">Piony są słabe, ale mają w sobie duży potencjał.</string>
+  <string name="pawnIntro">Pionki są słabe, ale mają w sobie duży potencjał.</string>
   <string name="pawnsMoveOneSquareOnly">Piony poruszają się tylko o jedno pole. 
 Ale jeśli dojdą do ostatniej linii mogą zamienić się w silniejszą figurę!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować piona na hetmana. 
