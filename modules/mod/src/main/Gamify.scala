@@ -9,6 +9,7 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.user.UserRepo.lichessId
+import lila.report.Room
 
 final class Gamify(
     logColl: Coll,
@@ -18,6 +19,7 @@ final class Gamify(
 ) {
 
   import Gamify._
+  import lila.report.BSONHandlers.RoomBSONHandler
 
   def history(orCompute: Boolean = true): Fu[List[HistoryMonth]] = {
     val until = DateTime.now minusMonths 1 withDayOfMonth 1
@@ -66,7 +68,7 @@ final class Gamify(
       mixedLeaderboard(DateTime.now minusMonths 1, none) map {
         case ((daily, weekly), monthly) => Leaderboards(daily, weekly, monthly)
       },
-    expireAfter = _.ExpireAfterWrite(10 seconds)
+    expireAfter = _.ExpireAfterWrite(60 seconds)
   )
 
   private def mixedLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModMixed]] =
@@ -102,6 +104,7 @@ final class Gamify(
     reportApi.coll.aggregateWithReadPreference(
       Match($doc(
         "atoms.0.at" -> dateRange(after, before),
+        "room" -> Room.all, // required to make use of the mongodb index room+atoms.0.at
         "processedBy" -> notLichess
       )), List(
         GroupField("processedBy")("nb" -> SumValue(1)),
