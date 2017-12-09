@@ -125,18 +125,18 @@ Jednak czasami bardziej przydatny może być skoczek!</string>
   <string name="enPassantIntro">Kiedy pionek przeciwnika poruszył się o dwa pola, możesz zbić go tak jakby poruszył się o jedno pole.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Czarne właśnie ruszyły się pionkiem o dwa pola! Zbij go w przelocie.</string>
   <string name="enPassantOnlyWorksImmediately">Bicie w przelocie działa tylko bezpośrednio po tym jak przeciwnik ruszył pionkiem.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Bicie w przelocie działa tylko wtedy gdy pion jest na 5 linii.</string>
-  <string name="takeAllThePawnsEnPassant">Zbij wszystkie piony biciem w przelocie!</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Bicie w przelocie działa tylko wtedy, gdy Twój pionek jest na 5. linii.</string>
+  <string name="takeAllThePawnsEnPassant">Zbij wszystkie pionki w przelocie!</string>
   <string name="enPassantComplete">Gratulacje! Potrafisz teraz wykonać bicie w przelocie.</string>
   <string name="stalemate">Pat</string>
-  <string name="theGameIsADraw">Gra zakończona remisem</string>
-  <string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie ma możliwości ruchu to jest to pat. Ogłaszany jest remis: nikt nie wygrywa i nikt nie przegrywa.</string>
-  <string name="stalemateGoal">Czarne dostaną pata gdy:
-- nie będą mogły się ruszyć
-- nie będą szachowane</string>
-  <string name="stalemateComplete">Gratulacje! Lepiej dostać pata niż mata!</string>
+  <string name="theGameIsADraw">Partia zakończona remisem</string>
+  <string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie może zrobić żadnego prawidłowego ruchu to jest to pat. Partia jest zakończona remisem: nikt nie wygrywa, nikt nie przegrywa.</string>
+  <string name="stalemateGoal">Czarne będą zapatowane gdy:
+- nie będą mogły się nigdzie ruszyć
+- nie będzie szacha.</string>
+  <string name="stalemateComplete">Gratulacje! Lepiej zostać zapatowanym niż zamatowanym!</string>
   <string name="advanced">Zaawansowane</string>
-  <string name="pieceValue">Wartości figur</string>
+  <string name="pieceValue">Wartości bierek</string>
   <string name="evaluatePieceStrength">Oceń siłę każdej figury</string>
   <string name="pieceValueIntro">Figury mające większe możliwości poruszania się warte są więcej!
 Hetman = 9
