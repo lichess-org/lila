@@ -45,7 +45,7 @@ object LameName {
       "cunt",
       "kunt",
       "douche",
-      "fagg",
+      "fag",
       "golam",
       "jerk",
       "nigg",
