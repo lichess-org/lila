@@ -44,11 +44,11 @@ Skacz i zbieraj gwiazdki!</string>
   <string name="thePawn">Pionek</string>
   <string name="itMovesForwardOnly">Porusza się tylko do przodu</string>
   <string name="pawnIntro">Pionki są słabe, ale mają w sobie duży potencjał.</string>
-  <string name="pawnsMoveOneSquareOnly">Piony poruszają się tylko o jedno pole. 
-Ale jeśli dojdą do ostatniej linii mogą zamienić się w silniejszą figurę!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować piona na hetmana. 
-Jednak czasem bardziej przydatny może być skoczek!</string>
-  <string name="pawnsMoveForward">Piony poruszają się do przodu ale biją po przekątnej!</string>
+  <string name="pawnsMoveOneSquareOnly">Pionki poruszają się tylko o jedno pole. 
+Ale kiedy dojdą do końca planszy zmieniają się w silniejszą bierkę!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować pionka na hetmana. 
+Jednak czasami bardziej przydatny może być skoczek!</string>
+  <string name="pawnsMoveForward">Pionki poruszają się naprzód ale biją po skosie!</string>
   <string name="captureThenPromote">Zbij, a później promuj piona!</string>
   <string name="useAllThePawns">Użyj wszystkich swoich pionów! Nie ma potrzeby promowania.</string>
   <string name="aPawnOnTheSecondRank">Pion będący na drugiej linii może poruszyć się o 2 pola do przodu!</string>
