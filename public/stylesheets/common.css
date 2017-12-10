@@ -287,20 +287,12 @@ group.radio input:checked + label {
 #powerTip a.mini_board {
   border-width: 0 0 1px 0;
 }
-#powerTip .new_user {
-  color: #00cc00;
-  font-weight: bold;
-  font-style: italic;
-}
-#powerTip .closed_user {
-  color: #aa3333;
-  font-weight: bold;
-}
 #powerTip .mod_info_box {
   position: relative;
   padding: 5px;
   background: #888;
   color: #eee;
+  white-space: nowrap;
 }
 #powerTip .mod_marks {
   position: absolute;

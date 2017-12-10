@@ -10,11 +10,7 @@
     </span>
     }
     }
-    @userLink(u, withPowerTip = false, cssClass =
-    if (u.disabled) "closed_user".some
-    else if (isGranted(_.UserSpy) && !u.title && !u.createdSinceDays(7)) "new_user".some
-    else None
-    )
+    @userLink(u, withPowerTip = false)
   </div>
   @defining(u.engine && ctx.me.fold(true)(u !=)) { showEngine =>
   @if(showEngine) { <div class="warning" data-icon="j">@trans.thisPlayerUsesChessComputerAssistance()</div> }
@@ -52,10 +48,13 @@
   @if((u.lameOrTroll || u.disabled) && isGranted(_.UserSpy)) {
   <span class="mod_marks">@userMarks(u, None) </span>
   }
-  <p>@trans.nbGames.plural(u.count.game, u.count.game.localize)</p>
   <p>
-    @momentFromNow(u.createdAt)
-    @u.seenAt.map { seen => , active @momentFromNow(seen) }
+    @if(!u.createdSinceDays(7)) { [NEW] }
+    @if(u.disabled) { [CLOSED] }
+    @trans.nbGames.plural(u.count.game, u.count.game.localize)
+  </p>
+  <p>
+    @momentFromNow(u.createdAt)@u.seenAt.map { seen =>, active @momentFromNow(seen) }
   </p>
 </div>
 }
