@@ -1,11 +1,21 @@
 package lila.base
 
+import LilaTypes._
+import ornicar.scalalib.Zero
 import play.api.libs.concurrent.Execution.Implicits._
 import scala.concurrent.duration._
 import scala.concurrent.{ Future, ExecutionContext }
-import LilaTypes._
-import ornicar.scalalib.Zero
 
+/*
+ * When calling map, foreach, flatMap, etc.. on a future,
+ * the asynchronous callback is queued in the thread pool (execution context)
+ * and ran asynchronously when a thread is available.
+ * By specifying a DirectExecutionContext, we make the callback be called
+ * immediately, synchronously, in the same thread that just completed
+ * the future. This skips a trip in the thread pool and increases performance.
+ * Only use when the callback is trivial.
+ * E.g. futureString.map(_ + "!")
+ */
 object DirectExecutionContext extends ExecutionContext {
   override def execute(command: Runnable): Unit = command.run()
   override def reportFailure(cause: Throwable): Unit =
@@ -15,6 +25,7 @@ object DirectExecutionContext extends ExecutionContext {
 final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   private type Fu[A] = Future[A]
 
+  // see DirectExecutionContext
   def dmap[B](f: A => B): Fu[B] = fua.map(f)(DirectExecutionContext)
   def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(DirectExecutionContext)
 
