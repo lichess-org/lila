@@ -16,7 +16,7 @@ private final class ReportScore(
         impl.reporterScore(candidate.reporter) +
         impl.textScore(candidate.reason, candidate.text)
     } map { score =>
-      candidate scored Report.Score(score atLeast 0 atMost 100)
+      candidate scored Report.Score(score atLeast 5 atMost 100)
     }
 
   private object impl {
