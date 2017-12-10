@@ -75,7 +75,7 @@ final class Env(
 
   def closeAccount(userId: lila.user.User.ID): Funit = for {
     user <- lila.user.UserRepo byId userId flatten s"No such user $userId"
-    goodUser <- !user.lameOrTroll ?? { Env.playban.api.hasCurrentBan(user.id).map(!_) }
+    goodUser <- !user.lameOrTroll ?? { !Env.playban.api.hasCurrentBan(user.id) }
     _ <- lila.user.UserRepo.disable(user, keepEmail = !goodUser)
     _ = Env.user.onlineUserIdMemo.remove(user.id)
     _ <- Env.relation.api.unfollowAll(user.id)

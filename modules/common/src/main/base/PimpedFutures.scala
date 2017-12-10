@@ -24,9 +24,9 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 
   def >>[B](fub: => Fu[B]): Fu[B] = fua flatMap (_ => fub)
 
-  def void: Fu[Unit] = fua.map(_ => ())(DirectExecutionContext)
+  def void: Fu[Unit] = fua.map(_ => ())
 
-  def inject[B](b: => B): Fu[B] = fua.map(_ => b)(DirectExecutionContext)
+  def inject[B](b: => B): Fu[B] = fua.map(_ => b)
 
   def injectAnyway[B](b: => B): Fu[B] = fold(_ => b, _ => b)
 
@@ -147,7 +147,7 @@ final class PimpedFutureBoolean(private val fua: Fu[Boolean]) extends AnyVal {
   def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
     fua flatMap { if (_) fuccess(true) else fub }
 
-  def unary_! = fua.map { !_ }(DirectExecutionContext)
+  def unary_! = fua.map { !_ }
 }
 
 final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal {
