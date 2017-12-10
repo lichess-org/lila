@@ -14,7 +14,8 @@ import scala.concurrent.{ Future, ExecutionContext }
  * immediately, synchronously, in the same thread that just completed
  * the future. This skips a trip in the thread pool and increases performance.
  * Only use when the callback is trivial.
- * E.g. futureString.map(_ + "!")
+ * E.g. futureString.map(_ + "!")(DirectExecutionContext)
+ * or   futureString.dmap(_ + "!") // shortcut
  */
 object DirectExecutionContext extends ExecutionContext {
   override def execute(command: Runnable): Unit = command.run()
