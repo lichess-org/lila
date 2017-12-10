@@ -12,7 +12,8 @@
 title = challengeTitle(c),
 side = Html(""),
 openGraph = challengeOpenGraph(c).some,
-moreJs = js(c, json, true)) {
+moreJs = js(c, json, true),
+moreCss = cssTag("challenge.css")) {
 <div class="lichess_game" id="challenge">
   <div class="lichess_board_wrap cg-512">
     <div class="lichess_overboard padded">

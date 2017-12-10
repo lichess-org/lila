@@ -44,6 +44,7 @@ window.onload = function() {
       lichess.userAutocomplete($input, {
         focus: 1,
         friend: 1,
+        tag: 'span',
         onSelect: function() {
           $input.parents('form').submit();
         }

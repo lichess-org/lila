@@ -333,22 +333,6 @@ div.lichess_overboard {
 div.lichess_overboard.padded {
   padding: 15px;
 }
-#challenge_await .spinner {
-  width: 90px;
-  height: 90px;
-}
-#ping_challenge .spinner {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 20px;
-}
-#lichess_id_input {
-  margin-top: 10px;
-  width: 80%;
-  text-align: center;
-  font-size: 1.2em;
-  padding: 1em 0;
-}
 #promotion_choice {
   position: absolute;
   top: 0;
