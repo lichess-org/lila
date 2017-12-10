@@ -1,33 +1,30 @@
 @(u: User, playing: Option[Pov], blocked: Boolean, followable: Boolean, rel: Option[lila.relation.Relation], ping: Option[Int], crosstable: Option[lila.game.Crosstable])(implicit ctx: Context)
 <div class="title">
   <div>
-    @defining((u.lameOrTroll || u.disabled) && isGranted(_.UserSpy)) { trollIcons =>
-      @if(trollIcons) { <span class="mod_user_state"> @userMarks(u, None) </span>}
-      @ping.map { p => @signalBars(p) }
-      @u.profileOrDefault.countryInfo.map { c =>
-        @defining(!trollIcons && u.username.size + c.shortName.size < 20) { spaceForNameText =>
-          <span @if(!spaceForNameText){class="country hint--top" data-hint="@c.name"} else {class="country"}>
-            <img class="flag" src="@staticUrl(s"images/flags/${c.code}.png")" alt="@c.name" />
-            @if(spaceForNameText) { @c.shortName }
-          </span>
-        }
-      }
+    @ping.map { p => @signalBars(p) }
+    @u.profileOrDefault.countryInfo.map { c =>
+    @defining(u.username.size + c.shortName.size < 20) { spaceForNameText =>
+    <span @if(!spaceForNameText){class="country hint--top" data-hint="@c.name"} else {class="country"}>
+      <img class="flag" src="@staticUrl(s"images/flags/${c.code}.png")" alt="@c.name" />
+      @if(spaceForNameText) { @c.shortName }
+    </span>
+    }
     }
     @userLink(u, withPowerTip = false, cssClass =
-      if (u.disabled) "closed_user".some
-      else if (isGranted(_.UserSpy) && !u.title && !u.createdSinceDays(7)) "new_user".some
-      else None
+    if (u.disabled) "closed_user".some
+    else if (isGranted(_.UserSpy) && !u.title && !u.createdSinceDays(7)) "new_user".some
+    else None
     )
   </div>
   @defining(u.engine && ctx.me.fold(true)(u !=)) { showEngine =>
-     @if(showEngine) { <div class="warning" data-icon="j">@trans.thisPlayerUsesChessComputerAssistance()</div> }
-     @if(!showEngine || isGranted(_.UserSpy)) {
-       <div class="ratings">
-        @u.best8Perfs.map { pt =>
-          @showPerfRating(u, pt)
-        }
-       </div>
-     }
+  @if(showEngine) { <div class="warning" data-icon="j">@trans.thisPlayerUsesChessComputerAssistance()</div> }
+  @if(!showEngine || isGranted(_.UserSpy)) {
+  <div class="ratings">
+    @u.best8Perfs.map { pt =>
+    @showPerfRating(u, pt)
+    }
+  </div>
+  }
   }
 </div>
 @if(!ctx.pref.isBlindfold) {
@@ -51,10 +48,15 @@
 }
 
 @if(isGranted(_.UserSpy)) {
- <div class="mod_info_box">
+<div class="mod_info_box">
+  @if((u.lameOrTroll || u.disabled) && isGranted(_.UserSpy)) {
+  <span class="mod_marks">@userMarks(u, None) </span>
+  }
   <p>@trans.nbGames.plural(u.count.game, u.count.game.localize)</p>
-  <p>Created: @momentFromNow(u.createdAt)</p>
-  @u.seenAt.map { seen => <p>Active: @momentFromNow(seen)</p> }
+  <p>
+    @momentFromNow(u.createdAt)
+    @u.seenAt.map { seen => , active @momentFromNow(seen) }
+  </p>
 </div>
 }
 
