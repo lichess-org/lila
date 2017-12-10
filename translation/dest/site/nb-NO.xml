@@ -59,7 +59,7 @@
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
   <string name="variantWin">Variant seier</string>
-  <string name="insufficientMaterial">Utilstrekkelig materiale</string>
+  <string name="insufficientMaterial">Utilstrekkelig materiell</string>
   <string name="pawnMove">Bondetrekk</string>
   <string name="capture">Slag</string>
   <string name="close">Lukk</string>
@@ -251,7 +251,7 @@
     <item quantity="other">Gi %s sekunder</item>
   </plurals>
   <string name="giveMoreTime">Gi mer tid</string>
-  <string name="thisPlayerUsesChessComputerAssistance">Denne spilleren bruker computer</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Denne spilleren bruker dataassistanse</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Denne spilleren øker/reduserer ratingen kunstig</string>
   <string name="openingExplorerAndTablebase">Åpningsutforsker &amp; tabellbase</string>
   <string name="takeback">Angre</string>
