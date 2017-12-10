@@ -1,4 +1,4 @@
-@(u: User, info: Option[lila.app.mashup.UserInfo], playing: Option[Pov], blocked: Boolean, followable: Boolean, rel: Option[lila.relation.Relation], ping: Option[Int], crosstable: Option[lila.game.Crosstable])(implicit ctx: Context)
+@(u: User, playing: Option[Pov], blocked: Boolean, followable: Boolean, rel: Option[lila.relation.Relation], ping: Option[Int], crosstable: Option[lila.game.Crosstable])(implicit ctx: Context)
 <div class="title">
   <div>
     @defining((u.lameOrTroll || u.disabled) && isGranted(_.UserSpy)) { trollIcons =>
@@ -50,15 +50,11 @@
 </a>
 }
 
-@info.map { i =>
+@if(isGranted(_.UserSpy)) {
  <div class="mod_info_box">
-  <p>
-    @trans.nbGames.plural(i.user.count.game, i.user.count.game.localize)
-    @if(i.nbs.playing > 0) { <span>(@i.nbs.playing in progress)</span> }
-  </p>
+  <p>@trans.nbGames.plural(u.count.game, u.count.game.localize)</p>
   <p>Created: @momentFromNow(u.createdAt)</p>
   @u.seenAt.map { seen => <p>Active: @momentFromNow(seen)</p> }
-  @i.playTime.map { pt => <p>Played: @showPeriod(pt.totalPeriod)</p> }
 </div>
 }
 

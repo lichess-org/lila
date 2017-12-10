@@ -122,15 +122,10 @@ object User extends LilaController {
         crosstable <- ctx.userId ?? { Env.game.crosstableApi(user.id, _) }
         followable <- ctx.isAuth ?? { Env.pref.api.followable(user.id) }
         relation <- ctx.userId ?? { relationApi.fetchRelation(_, user.id) }
-        info <- isGranted(_.UserSpy) ?? {
-          Env.current.userNbGames(user, ctx) flatMap { nbs =>
-            Env.current.userInfo(user, nbs, ctx)
-          } map some
-        }
         ping = env.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
         res <- negotiate(
           html = !ctx.is(user) ?? GameRepo.lastPlayedPlaying(user) map { pov =>
-            Ok(html.user.mini(user, info, pov, blocked, followable, relation, ping, crosstable))
+            Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
               .withHeaders(CACHE_CONTROL -> "max-age=5")
           },
           api = _ => {
