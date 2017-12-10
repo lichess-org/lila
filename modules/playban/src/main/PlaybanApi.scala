@@ -6,7 +6,7 @@ import chess.{ Status, Color }
 import lila.db.BSON._
 import lila.db.dsl._
 import lila.game.{ Pov, Game, Player, Source }
-import lila.user.UserRepo
+import lila.user.{ User, UserRepo }
 
 final class PlaybanApi(
     coll: Coll,
@@ -101,16 +101,16 @@ final class PlaybanApi(
       save(if (isSandbag) Outcome.Sandbag else Outcome.Good)
     }
 
-  def currentBan(userId: String): Fu[Option[TempBan]] = coll.find(
+  def currentBan(userId: User.ID): Fu[Option[TempBan]] = coll.find(
     $doc("_id" -> userId, "b.0" $exists true),
     $doc("_id" -> false, "b" -> $doc("$slice" -> -1))
   ).uno[Bdoc].map {
       _.flatMap(_.getAs[List[TempBan]]("b")).??(_.find(_.inEffect))
     }
 
-  def hasCurrentBan(userId: String): Fu[Boolean] = currentBan(userId).map(_.isDefined)
+  def hasCurrentBan(userId: User.ID): Fu[Boolean] = currentBan(userId).map(_.isDefined)
 
-  def completionRate(userId: String): Fu[Option[Double]] =
+  def completionRate(userId: User.ID): Fu[Option[Double]] =
     coll.primitiveOne[List[Outcome]]($id(userId), "o").map(~_) map { outcomes =>
       outcomes.collect {
         case Outcome.RageQuit | Outcome.Sitting | Outcome.NoPlay => false
@@ -121,21 +121,21 @@ final class PlaybanApi(
       }
     }
 
-  def bans(userId: String): Fu[List[TempBan]] =
+  def bans(userId: User.ID): Fu[List[TempBan]] =
     coll.primitiveOne[List[TempBan]]($doc("_id" -> userId, "b.0" $exists true), "b").map(~_)
 
-  def bans(userIds: List[String]): Fu[Map[String, Int]] = coll.find(
+  def bans(userIds: List[User.ID]): Fu[Map[User.ID, Int]] = coll.find(
     $inIds(userIds),
     $doc("b" -> true)
   ).cursor[Bdoc]().gather[List]().map {
       _.flatMap { obj =>
-        obj.getAs[String]("_id") flatMap { id =>
+        obj.getAs[User.ID]("_id") flatMap { id =>
           obj.getAs[Barr]("b") map { id -> _.stream.size }
         }
       }(scala.collection.breakOut)
     }
 
-  private def save(outcome: Outcome): String => Funit = userId => {
+  private def save(outcome: Outcome): User.ID => Funit = userId => {
     lila.mon.playban.outcome(outcome.key)()
     coll.findAndUpdate(
       selector = $id(userId),

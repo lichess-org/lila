@@ -73,20 +73,22 @@ final class Env(
         none
     }
 
-  def closeAccount(userId: lila.user.User.ID): Funit =
-    lila.user.UserRepo byId userId flatten s"No such user $userId" flatMap { user =>
-      (lila.user.UserRepo disable user) >>-
-        Env.user.onlineUserIdMemo.remove(user.id) >>
-        Env.relation.api.unfollowAll(user.id) >>
-        Env.user.rankingApi.remove(user.id) >>
-        Env.team.api.quitAll(user.id) >>-
-        Env.challenge.api.removeByUserId(user.id) >>-
-        Env.tournament.api.withdrawAll(user) >>
-        Env.plan.api.cancel(user).nevermind >>
-        Env.lobby.seekApi.removeByUser(user) >>
-        Env.security.store.disconnect(user.id) >>-
-        system.lilaBus.publish(lila.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
-    }
+  def closeAccount(userId: lila.user.User.ID): Funit = for {
+    user <- lila.user.UserRepo byId userId flatten s"No such user $userId"
+    keepEmail <- if (user.lameOrTroll) fuccess(true) else Env.playban.api.hasCurrentBan(user.id)
+    _ <- lila.user.UserRepo.disable(user, keepEmail = keepEmail)
+    _ = Env.user.onlineUserIdMemo.remove(user.id)
+    _ <- Env.relation.api.unfollowAll(user.id)
+    _ <- Env.user.rankingApi.remove(user.id)
+    _ <- Env.team.api.quitAll(user.id)
+    _ = Env.challenge.api.removeByUserId(user.id)
+    _ = Env.tournament.api.withdrawAll(user)
+    _ <- Env.plan.api.cancel(user).nevermind
+    _ <- Env.lobby.seekApi.removeByUser(user)
+    _ <- Env.security.store.disconnect(user.id)
+  } yield {
+    system.lilaBus.publish(lila.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
+  }
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {

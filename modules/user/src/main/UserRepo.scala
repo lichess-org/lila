@@ -294,10 +294,10 @@ object UserRepo {
 
   def enable(id: ID) = coll.updateField($id(id), F.enabled, true)
 
-  def disable(user: User) = coll.update(
+  def disable(user: User, keepEmail: Boolean) = coll.update(
     $id(user.id),
     $set(F.enabled -> false) ++ {
-      if (user.lameOrTroll) $empty
+      if (keepEmail) $empty
       else $doc("$rename" -> $doc(F.email -> F.prevEmail))
     }
   )
