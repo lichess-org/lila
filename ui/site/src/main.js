@@ -477,7 +477,8 @@ lichess.topMenuIntent = function() {
       $('input.user-autocomplete').each(function() {
         var opts = {
           focus: 1,
-          friend: $(this).data('friend')
+          friend: $(this).data('friend'),
+          tag: $(this).data('tag')
         };
         if ($(this).attr('autofocus')) lichess.userAutocomplete($(this), opts);
         else $(this).one('focus', function() {
