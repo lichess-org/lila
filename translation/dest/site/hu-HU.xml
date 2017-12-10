@@ -550,7 +550,7 @@
   <string name="difficultyNormal">Normál</string>
   <string name="difficultyHard">Nehéz</string>
   <string name="xLeftANoteOnY">%1$s hagyott egy üzenetet %2$s számára</string>
-  <string name="xCompetesInY">%1$s részt vesz a(z) %2$s versenyen</string>
+  <string name="xCompetesInY">%1$s részt vett ezen a versenyen: %2$s</string>
   <string name="xAskedY">%1$s kérdést tett fel %2$s címmel</string>
   <string name="xAnsweredY">%1$s megválaszolta a %2$s című témát</string>
   <string name="xCommentedY">%1$s hozzászólt a %2$s című témához</string>
