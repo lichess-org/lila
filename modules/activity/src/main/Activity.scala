@@ -24,6 +24,8 @@ case class Activity(
   def date = Activity.Day.genesis plusDays id.day.value
 
   def interval = new Interval(date, date plusDays 1)
+
+  def isEmpty = List(games, posts, puzzles, learn, practice, simuls, corres, patron, follows, studies, teams).forall(_.isEmpty)
 }
 
 object Activity {

@@ -67,6 +67,7 @@ object activities {
   case class Follows(in: Option[FollowList], out: Option[FollowList]) {
     def addIn(id: User.ID) = copy(in = Some(~in + id))
     def addOut(id: User.ID) = copy(out = Some(~out + id))
+    def isEmpty = in.fold(true)(_.isEmpty) && out.fold(true)(_.isEmpty)
   }
   case class FollowList(ids: List[User.ID], nb: Option[Int]) {
     def actualNb = nb | ids.size
@@ -79,6 +80,7 @@ object activities {
           nb = nb.map(1+).orElse(newIds.size > maxSubEntries option newIds.size)
         )
       }
+    def isEmpty = ids.isEmpty
   }
   implicit val FollowListZero = Zero.instance(FollowList(Nil, None))
   implicit val FollowsZero = Zero.instance(Follows(None, None))

@@ -23,13 +23,14 @@ final class ActivityReadApi(
   private val recentNb = 7
 
   def recent(u: User): Fu[Vector[ActivityView]] = for {
-    as <- coll.find($doc("_id" -> $doc("$regex" -> s"^${u.id}:")))
+    allActivities <- coll.find(regexId(u.id))
       .sort($sort desc "_id")
       .gather[Activity, Vector](recentNb)
-    practiceStructure <- as.exists(_.practice.isDefined) ?? {
+    activities = allActivities.filterNot(_.isEmpty)
+    practiceStructure <- activities.exists(_.practice.isDefined) ?? {
       practiceApi.structure.get map some
     }
-    views <- as.map { one(u, practiceStructure) _ }.sequenceFu
+    views <- activities.map { one(u, practiceStructure) _ }.sequenceFu
   } yield addSignup(u.createdAt, views)
 
   private def one(u: User, practiceStructure: Option[PracticeStructure])(a: Activity): Fu[ActivityView] = for {
