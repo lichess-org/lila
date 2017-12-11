@@ -81,7 +81,7 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
         positions((today.getDayOfYear + offset) % positions.size)
       }
 
-      val farFuture = today plusMonths 5
+      val farFuture = today plusMonths 7
 
       val birthday = new DateTime(2010, 6, 20, 12, 0, 0)
 

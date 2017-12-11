@@ -69,7 +69,7 @@ final class TournamentApi(
     val minutes = Schedule durationFor plan.schedule
     val tournament = plan build Tournament.schedule(plan.schedule, minutes)
     logger.info(s"Create $tournament")
-    TournamentRepo.insert(tournament).void >>- publish()
+    TournamentRepo.insert(tournament).void
   }
 
   private[tournament] def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long): Unit = {
