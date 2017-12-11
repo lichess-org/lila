@@ -233,4 +233,10 @@ object TournamentRepo {
         )
     ).list[Tournament](none, ReadPreference.secondaryPreferred)
   }
+
+  def calendar(from: DateTime, to: DateTime): Fu[List[Tournament]] =
+    coll.find($doc(
+      "startsAt" $gte from $lte to,
+      "schedule.freq" $in Schedule.Freq.all.filter(_.isWeeklyOrBetter)
+    )).sort($sort asc "startsAt").list[Tournament](none, ReadPreference.secondaryPreferred)
 }

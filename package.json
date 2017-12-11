@@ -46,6 +46,7 @@
     "ui/site",
     "ui/tournament",
     "ui/tournamentSchedule",
+    "ui/tournamentCalendar",
     "ui/tree",
     "ui/@types/lichess"
   ]

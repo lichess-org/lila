@@ -237,4 +237,10 @@ object Tournament extends LilaController {
       _ <- Env.user.lightUserApi preloadMany history.userIds
     } yield html.tournament.shields(history)
   }
+
+  def calendar = Open { implicit ctx =>
+    env.api.calendar map { tours =>
+      Ok(html.tournament.calendar(env.scheduleJsonView calendar tours))
+    }
+  }
 }

@@ -2,6 +2,7 @@ package lila.tournament
 
 import akka.actor.{ Props, ActorRef, ActorSelection, ActorSystem }
 import akka.pattern.{ ask, pipe }
+import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -398,6 +399,11 @@ final class TournamentApi(
         tournamentTop(tour.id) map (tour -> _)
       }.sequenceFu.map(_.toMap)
     }
+
+  def calendar: Fu[List[Tournament]] = {
+    val from = DateTime.now.minusDays(1)
+    TournamentRepo.calendar(from = from, to = from plusYears 1)
+  }
 
   private def fetchGames(tour: Tournament, ids: Seq[String]) =
     if (tour.isFinished) GameRepo gamesFromSecondary ids
