@@ -1,8 +1,13 @@
 #tournament_calendar {
-  position: relative;
   -moz-user-select: none;
   -webkit-user-select: none;
-  padding-top: 30px;
+}
+#tournament_calendar group {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  padding-top: 20px;
 }
 #tournament_calendar days {
 }
@@ -103,8 +108,11 @@
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   height: 100%;
   width: 100%;
+  border-top: 1px solid rgba(128,128,128,0.3);
 }
 #tournament_calendar .timeheader {
   position: absolute;

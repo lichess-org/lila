@@ -86,16 +86,29 @@ function makeLanes(tours: Tournament[]): Lanes {
 }
 
 function renderDay(ctrl: Ctrl) {
-  return function(day: Date): VNode | undefined {
+  return function(day: Date): VNode {
     const dayEnd = addDays(day, 1);
     const tours = ctrl.data.tournaments.filter(t =>
       t.bounds.start < dayEnd && t.bounds.end > day
     );
     return h('day', [
-      h('date', [format(day, 'DD/MM')]),
+      h('date', {
+        attrs: {
+          title: format(day, 'dddd, DD/MM/YYYY')
+        }
+      }, [format(day, 'DD/MM')]),
       h('lanes', makeLanes(tours).map(l => renderLane(ctrl, l, day)))
     ]);
-  }
+  };
+}
+
+function renderGroup(ctrl: Ctrl) {
+  return function(group: Date[]): VNode {
+    return h('group', [
+      renderTimeline(),
+      h('days', group.map(renderDay(ctrl)))
+    ]);
+  };
 }
 
 function renderTimeline() {
@@ -113,9 +126,15 @@ function timeString(hour) {
   return ('0' + hour).slice(-2);
 }
 
+function makeGroups(days: Date[]): Date[][] {
+  const groups: Date[][] = [];
+  let i,j,temparray,chunk = 10;
+  for (i=0,j=days.length; i<j; i+=chunk) groups.push(days.slice(i,i+chunk));
+  return groups;
+}
+
 export default function(ctrl) {
-  return h('div#tournament_calendar', [
-    renderTimeline(),
-    h('days', eachDay(new Date(ctrl.data.since), new Date(ctrl.data.to)).map(renderDay(ctrl)))
-  ]);
+  const days = eachDay(new Date(ctrl.data.since), new Date(ctrl.data.to));
+  const groups = makeGroups(days);
+  return h('div#tournament_calendar', h('groups', groups.map(renderGroup(ctrl))));
 }
