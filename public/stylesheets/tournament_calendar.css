@@ -9,7 +9,6 @@
 #tournament_calendar day {
   display: flex;
   align-items: center;
-  padding: 5px 0;
 }
 #tournament_calendar day:nth-child(even) {
   background: rgba(128,128,128,0.15);
@@ -21,6 +20,7 @@
 #tournament_calendar day lanes {
   flex: 1 1 100%;
   overflow: hidden;
+  padding: 5px 0;
 }
 #tournament_calendar day lane {
   display: block;
@@ -35,7 +35,7 @@
   box-sizing: border-box;
   padding: 4px 0;
   background-color: #303E43;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.5);
   border-radius: 2px;
   transition: filter 0.13s;
   color: #fff;
@@ -89,18 +89,14 @@
   text-align: right;
   padding-right: 5px;
 }
-#tournament_calendar .tournament span {
-  margin-right: 4px;
-}
-#tournament_calendar .icon {
+#tournament_calendar .tournament span.icon {
   font-size: 1.3em;
-  margin: -4px 2px -1px 4px;
+  margin: -4px 1px -1px 3px;
 }
 #tournament_calendar .tournament .body {
   flex: 1 0;
   margin-right: 0;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 #tournament_calendar .timeline {

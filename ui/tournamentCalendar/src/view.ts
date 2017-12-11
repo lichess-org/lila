@@ -53,8 +53,7 @@ function renderTournament(ctrl: Ctrl, tour: Tournament, day: Date) {
   }, [
     h('span.icon', tour.perf ? {
       attrs: {
-        'data-icon': iconOf(tour, tour.perf.icon),
-        title: tour.perf.name
+        'data-icon': iconOf(tour, tour.perf.icon)
       }
     } : {}),
     h('span.body', [ tour.fullName ])
