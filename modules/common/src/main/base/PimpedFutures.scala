@@ -27,18 +27,19 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   private type Fu[A] = Future[A]
 
   // see DirectExecutionContext
-  def dmap[B](f: A => B): Fu[B] = fua.map(f)(DirectExecutionContext)
-  def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(DirectExecutionContext)
+  @inline def dmap[B](f: A => B): Fu[B] = fua.map(f)(DirectExecutionContext)
+  @inline def dflatMap[B](f: A => Fu[B]): Fu[B] = fua.flatMap(f)(DirectExecutionContext)
+  @inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(DirectExecutionContext)
 
   def >>-(sideEffect: => Unit): Fu[A] = fua andThen {
     case _ => sideEffect
   }
 
-  def >>[B](fub: => Fu[B]): Fu[B] = fua flatMap (_ => fub)
+  def >>[B](fub: => Fu[B]): Fu[B] = dflatMap { _ => fub }
 
-  def void: Fu[Unit] = fua.map(_ => ())
+  @inline def void: Fu[Unit] = dmap { _ => () }
 
-  def inject[B](b: => B): Fu[B] = fua.map(_ => b)
+  @inline def inject[B](b: => B): Fu[B] = dmap { _ => b }
 
   def injectAnyway[B](b: => B): Fu[B] = fold(_ => b, _ => b)
 
@@ -154,12 +155,12 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 final class PimpedFutureBoolean(private val fua: Fu[Boolean]) extends AnyVal {
 
   def >>&(fub: => Fu[Boolean]): Fu[Boolean] =
-    fua flatMap { if (_) fub else fuccess(false) }
+    fua.flatMap { if (_) fub else fuFalse }(DirectExecutionContext)
 
   def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
-    fua flatMap { if (_) fuccess(true) else fub }
+    fua.flatMap { if (_) fuTrue else fub }(DirectExecutionContext)
 
-  def unary_! = fua.map { !_ }
+  @inline def unary_! = fua.map { !_ }(DirectExecutionContext)
 }
 
 final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal {
@@ -177,7 +178,9 @@ final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal
 
 final class PimpedFutureValid[A](private val fua: Fu[Valid[A]]) extends AnyVal {
 
-  def flatten: Fu[A] = fua flatMap { _.fold[Fu[A]](fufail(_), fuccess(_)) }
+  def flatten: Fu[A] = fua.flatMap {
+    _.fold[Fu[A]](fufail(_), fuccess(_))
+  }(DirectExecutionContext)
 }
 
 final class PimpedTraversableFuture[A, M[X] <: TraversableOnce[X]](private val t: M[Fu[A]]) extends AnyVal {

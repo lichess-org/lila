@@ -26,6 +26,11 @@ trait LilaTypes extends ValidTypes {
   def fufail[X](s: String): Fu[X] = fufail(LilaException(s))
   def fufail[X](f: Failures): Fu[X] = fufail(LilaException(f))
   val funit = fuccess(())
+  val fuTrue = fuccess(true)
+  val fuFalse = fuccess(false)
+
+  implicit val fUnitZero: Zero[Fu[Unit]] = Zero.instance(funit)
+  implicit val fBooleanZero: Zero[Fu[Boolean]] = Zero.instance(fuFalse)
 
   implicit def fuZero[A](implicit az: Zero[A]) = new Zero[Fu[A]] {
     def zero = fuccess(az.zero)
