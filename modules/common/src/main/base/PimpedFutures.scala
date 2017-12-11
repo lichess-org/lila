@@ -28,14 +28,13 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 
   // see DirectExecutionContext
   @inline def dmap[B](f: A => B): Fu[B] = fua.map(f)(DirectExecutionContext)
-  @inline def dflatMap[B](f: A => Fu[B]): Fu[B] = fua.flatMap(f)(DirectExecutionContext)
   @inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(DirectExecutionContext)
 
   def >>-(sideEffect: => Unit): Fu[A] = fua andThen {
     case _ => sideEffect
   }
 
-  def >>[B](fub: => Fu[B]): Fu[B] = dflatMap { _ => fub }
+  def >>[B](fub: => Fu[B]): Fu[B] = fua flatMap { _ => fub }
 
   @inline def void: Fu[Unit] = dmap { _ => () }
 
