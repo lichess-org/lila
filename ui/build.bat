@@ -13,7 +13,7 @@ for %%t in (%ts_apps%) do @(
     call cd ..\..
 )
 
-set apps=site challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule simul perfStat dasher
+set apps=site challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul perfStat dasher
 
 for %%a in (%apps%) do @(
   call echo Building: %%a
