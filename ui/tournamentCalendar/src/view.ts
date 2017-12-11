@@ -1,6 +1,11 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { eachDay, addYears, addDays, format, getHours, getMinutes, areRangesOverlapping } from 'date-fns'
+import * as eachDay from 'date-fns/each_day'
+import * as addDays from 'date-fns/add_days'
+import * as getHours from 'date-fns/get_hours'
+import * as getMinutes from 'date-fns/get_minutes'
+import * as areRangesOverlapping from 'date-fns/are_ranges_overlapping'
+import * as format from 'date-fns/format'
 import { Tournament, Lanes, Ctrl } from './interfaces'
 
 function displayClockLimit(limit) {
@@ -48,7 +53,7 @@ function renderTournament(ctrl: Ctrl, tour: Tournament, day: Date) {
     attrs: {
       href: '/tournament/' + tour.id,
       style: 'width: ' + width + '%; left: ' + left + '%',
-      title: `${tour.fullName} - ${format(tour.bounds.start, 'DD/MM/YYYY HH:mm')}`
+      title: `${tour.fullName} - ${format(tour.bounds.start, 'dddd, DD/MM/YYYY HH:mm')}`
     }
   }, [
     h('span.icon', tour.perf ? {
