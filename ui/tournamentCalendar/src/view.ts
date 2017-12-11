@@ -48,7 +48,7 @@ function renderTournament(ctrl: Ctrl, tour: Tournament, day: Date) {
     attrs: {
       href: '/tournament/' + tour.id,
       style: 'width: ' + width + '%; left: ' + left + '%',
-      title: tour.fullName
+      title: `${tour.fullName} - ${format(tour.bounds.start, 'DD/MM/YYYY HH:mm')}`
     }
   }, [
     h('span.icon', tour.perf ? {
