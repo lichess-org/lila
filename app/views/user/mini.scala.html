@@ -12,15 +12,14 @@
     }
     @userLink(u, withPowerTip = false)
   </div>
-  @defining(u.engine && ctx.me.fold(true)(u !=)) { showEngine =>
-  @if(showEngine) { <div class="warning" data-icon="j">@trans.thisPlayerUsesChessComputerAssistance()</div> }
-  @if(!showEngine || isGranted(_.UserSpy)) {
+  @if(u.engine && ctx.me.fold(true)(u !=) && !isGranted(_.UserSpy)) {
+  <div class="warning" data-icon="j">@trans.thisPlayerUsesChessComputerAssistance()</div>
+  } else {
   <div class="ratings">
     @u.best8Perfs.map { pt =>
     @showPerfRating(u, pt)
     }
   </div>
-  }
   }
 </div>
 @if(!ctx.pref.isBlindfold) {
@@ -43,23 +42,7 @@
 </a>
 }
 
-@if(isGranted(_.UserSpy)) {
-<div class="mod_info_box">
-  @if((u.lameOrTroll || u.disabled) && isGranted(_.UserSpy)) {
-  <span class="mod_marks">@userMarks(u, None) </span>
-  }
-  <p>
-    @if(!u.createdSinceDays(7)) { [NEW] }
-    @if(u.disabled) { [CLOSED] }
-    @trans.nbGames.plural(u.count.game, u.count.game.localize)
-  </p>
-  <p>
-    @momentFromNow(u.createdAt)@u.seenAt.map { seen =>, active @momentFromNow(seen) }
-  </p>
-</div>
-}
-
-@if(myId != u.id) {
+@if(myId != u.id && u.enabled) {
 <table class="actions">
   <tbody>
     <tr>
@@ -85,4 +68,12 @@
   </tbody>
 </table>
 }
+}
+
+@if(isGranted(_.UserSpy)) {
+<div class="mod_info_box">
+  @if(u.lameOrTroll || u.disabled) { <span class="mod_marks">@userMarks(u, None)</span> }
+  <p>@trans.nbGames.plural(u.count.game, u.count.game.localize), @momentFromNow(u.createdAt)</p>
+  @u.seenAt.map { seen =><p>Active @momentFromNow(seen)</p> }
+</div>
 }

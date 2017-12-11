@@ -301,7 +301,9 @@ group.radio input:checked + label {
   padding: 3px 5px;
   background: #dc322f;
 }
-
+#powerTip .mod_marks i {
+  padding: 0px;
+}
 #powerTip .country {
   float: right;
   font-size: 0.9em;
