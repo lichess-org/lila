@@ -784,6 +784,7 @@ ol.scheduled_tournaments li.marathon {
   cursor: move;
 }
 #tournament_schedule .tournament {
+  display: flex;
   position: absolute;
   box-sizing: border-box;
   padding: 4px 0;
@@ -874,9 +875,6 @@ ol.scheduled_tournaments li.marathon {
 }
 #tournament_schedule .tournament.max-rating {
   background-color: #8572ff;
-}
-#tournament_schedule .tournament {
-  display: flex;
 }
 #tournament_schedule .tournament.short.thematic {
   letter-spacing: -1px;

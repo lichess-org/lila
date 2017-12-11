@@ -9,3 +9,5 @@ export interface Ctrl {
     tournaments: Tournament[];
   }
 }
+
+export type Lanes = Array<Array<Tournament>>

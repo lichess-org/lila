@@ -1,21 +1,35 @@
-div.day {
-  height: 30px;
-  display: flex;
-  margin-bottom: 5px;
-}
-div.day:nth-child(even) {
-  background: rgba(128,128,128,0.05);
-}
-day {
-  flex: 0 1 auto;
-  padding: 0 5px;
-}
-tours {
-  flex: 1 5 auto;
+#tournament_calendar {
   position: relative;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  padding-top: 30px;
+}
+#tournament_calendar days {
+}
+#tournament_calendar day {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+}
+#tournament_calendar day:nth-child(even) {
+  background: rgba(128,128,128,0.15);
+}
+#tournament_calendar day date {
+  flex: 0 0 40px;
+  margin-left: -40px;
+}
+#tournament_calendar day lanes {
+  flex: 1 1 100%;
   overflow: hidden;
 }
+#tournament_calendar day lane {
+  display: block;
+  width: 100%;
+  height: 25px;
+  position: relative;
+}
 #tournament_calendar .tournament {
+  display: flex;
   position: absolute;
   top: 0;
   box-sizing: border-box;
@@ -71,8 +85,9 @@ tours {
 #tournament_calendar .tournament.max-rating {
   background-color: #8572ff;
 }
-#tournament_calendar .tournament {
-  display: flex;
+#tournament_calendar .tournament.yesterday {
+  text-align: right;
+  padding-right: 5px;
 }
 #tournament_calendar .tournament span {
   margin-right: 4px;
@@ -86,4 +101,23 @@ tours {
   margin-right: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+#tournament_calendar .timeline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+#tournament_calendar .timeheader {
+  position: absolute;
+  display: inline;
+  box-sizing: border-box;
+  height: 100%;
+  border-left: 1px dashed rgba(128,128,128,0.3);
+  padding: 2px 5px;
+}
+#tournament_calendar .timeheader:first-child {
+  border: none;
 }
