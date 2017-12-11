@@ -112,15 +112,15 @@ Thank you all, you rock!"""
           secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
           secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
           secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> Rapid -> Standard,
-          secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> HyperBullet -> Standard,
-          secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> SuperBlitz -> Crazyhouse,
+          secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> Classical -> Standard,
+          secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> HyperBullet -> Standard,
 
           secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
           secondWeekOf(AUGUST).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
           secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
           secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> Rapid -> Standard,
-          secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> HyperBullet -> Standard,
-          secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> SuperBlitz -> Crazyhouse
+          secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> Classical -> Standard,
+          secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> HyperBullet -> Standard
         ).flatMap {
             case ((day, speed), variant) =>
               at(day, 17) filter farFuture.isAfter map { date =>
@@ -135,7 +135,9 @@ Thank you all, you rock!"""
               month.lastWeek.withDayOfWeek(TUESDAY) -> SuperBlitz,
               month.lastWeek.withDayOfWeek(WEDNESDAY) -> Blitz,
               month.lastWeek.withDayOfWeek(THURSDAY) -> Rapid,
-              month.lastWeek.withDayOfWeek(FRIDAY) -> HyperBullet
+              month.lastWeek.withDayOfWeek(FRIDAY) -> Classical,
+              month.lastWeek.withDayOfWeek(SATURDAY) -> HyperBullet,
+              month.lastWeek.withDayOfWeek(SUNDAY) -> UltraBullet
             ).flatMap {
                 case (day, speed) => at(day, 17) map { date =>
                   Schedule(Monthly, speed, Standard, std, date).plan
@@ -202,7 +204,8 @@ Thank you all, you rock!"""
           nextTuesday -> SuperBlitz,
           nextWednesday -> Blitz,
           nextThursday -> Rapid,
-          nextFriday -> HyperBullet
+          nextFriday -> Classical,
+          nextSaturday -> HyperBullet
         ).flatMap {
             case (day, speed) => at(day, 17) map { date =>
               Schedule(Weekly, speed, Standard, std, date |> orNextWeek).plan
@@ -224,8 +227,8 @@ Thank you all, you rock!"""
           },
 
         List( // week-end elite tournaments!
-          nextSaturday -> Bullet,
-          nextSunday -> SuperBlitz
+          nextSaturday -> SuperBlitz,
+          nextSunday -> Bullet
         ).flatMap {
             case (day, speed) => at(day, 17) map { date =>
               Schedule(Weekend, speed, Standard, std, date |> orNextWeek).plan
