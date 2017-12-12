@@ -103,6 +103,10 @@
   <string name="castleKingSideMovePiecesFirst">Ноёны талд сэлгээ хий! Тэгэхийн тулд дунд нь буй хөлгүүдийг холдуулаарай.</string>
   <string name="castleQueenSideMovePiecesFirst">Ноёныг бэрс талдаа сэлгээрэй! Тэгэхийн тулд дунд нь буй хөлгүүдийг холдуулаарай.</string>
   <string name="youCannotCastleIfMoved">Хэрэв таны ноён эсвэл тэрэг өмнө нь нүүдэл хийсэн бол та сэлгээ хийх боломжгүй.</string>
+  <string name="youCannotCastleIfAttacked">Хэрэв сэлгээ хийх явцад ноён шаглагдахаар бол шагыг хаагаад сэлгэ!</string>
+  <string name="findAWayToCastleKingSide">Ноён талдаа сэлгээ хийх гарцыг ол!</string>
+  <string name="findAWayToCastleQueenSide">Бэрс талдаа сэлгээ хийх гарцыг ол!</string>
+  <string name="castlingComplete">Баяр хүргэе! Та ихэнх өрөгт сэлгээ хийж байх хэрэгтэй.</string>
   <string name="enPassant">Ан-пассан дүрэм</string>
   <string name="theSpecialPawnMove">Хүүгийн онцгой нүүдэл</string>
   <string name="stalemate">Мухардалт буюу хайнаа</string>
