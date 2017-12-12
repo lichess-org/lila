@@ -35,6 +35,7 @@ object LameName {
     List(
       "hitler",
       "fuck",
+      "fouck",
       "penis",
       "vagin",
       "anus",
