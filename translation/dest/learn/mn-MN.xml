@@ -52,8 +52,13 @@
   <string name="fundamentals">Анхан шат</string>
   <string name="capture">Хөлөг идэлт</string>
   <string name="takeTheEnemyPieces">Дайсныхаа хөлгийг ид</string>
+  <string name="captureComplete">Баяр хүргэе! Та шатрын хөлгүүдээр хэрхэн тулалдахыг мэдэж авлаа!</string>
   <string name="protection">Хамгаалалт</string>
   <string name="keepYourPiecesSafe">Хөлгийнхөө аюулгүй байдлыг ханга</string>
+  <string name="protectionIntro">Довтлуулж буй хөлгөө тодорхойлоод, түүнийг хамгаал!</string>
+  <string name="escape">Чам руу довтолж байна! Аюулаас мултарч гар!</string>
+  <string name="noEscape">Танд зугатах газар байхгүй боловч, та түүнийг хамгаалж чадна!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Хамгаалалтгүй байгаа хөлгүүдээ битгий идүүлээрэй!</string>
   <string name="combat">Тулаан</string>
   <string name="captureAndDefendPieces">Довтол хамгаал</string>
   <string name="combatIntro">Сайн тулаанч довтлолт, хамгаалалтын аль алиныг сайн мэддэг!</string>
