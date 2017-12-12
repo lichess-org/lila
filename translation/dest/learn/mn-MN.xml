@@ -52,6 +52,8 @@
   <string name="fundamentals">Анхан шат</string>
   <string name="capture">Хөлөг идэлт</string>
   <string name="takeTheEnemyPieces">Дайсныхаа хөлгийг ид</string>
+  <string name="takeTheBlackPieces">Хар хөлгийг идээрэй!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Хар хөлгийг идээрэй! Гэхдээ өөрийнхөө хөлгийг алдаж болохгүй шүү.</string>
   <string name="captureComplete">Баяр хүргэе! Та шатрын хөлгүүдээр хэрхэн тулалдахыг мэдэж авлаа!</string>
   <string name="protection">Хамгаалалт</string>
   <string name="keepYourPiecesSafe">Хөлгийнхөө аюулгүй байдлыг ханга</string>
@@ -109,6 +111,7 @@
   <string name="castlingComplete">Баяр хүргэе! Та ихэнх өрөгт сэлгээ хийж байх хэрэгтэй.</string>
   <string name="enPassant">Ан-пассан дүрэм</string>
   <string name="theSpecialPawnMove">Хүүгийн онцгой нүүдэл</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Хар дөнгөж сая хүүгээ урагш хоёр нүүлээ! Тэр хүүг нь ан-пассан дүрмийн дагуу ид.</string>
   <string name="stalemate">Мухардалт буюу хайнаа</string>
   <string name="theGameIsADraw">Өрөг тэнцлээ</string>
   <string name="stalemateIntro">Хэрвээ тоглогч шалаанд ороогүй мөн хориогүй нүүдэл хийх боломжгүй болсныг мухардалт гэнэ. Мухардсан өргийг тэнцээгээр тооцно.</string>
