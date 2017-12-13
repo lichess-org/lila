@@ -73,6 +73,14 @@
   <string name="recentGames">Partides recents</string>
   <string name="topGames">Millor partides</string>
   <string name="masterDbExplanation">Dos mil·lions de partides OTB de jugadors amb ELO FIDE +%1$s des de %2$s fins a %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mat en %s mig-moviment</item>
+    <item quantity="other">Mat en %s mig-moviments</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Següent captura o moviment de peó en %s mig-moviment (distància a zero dels 50 moviments)</item>
+    <item quantity="other">Següent captura o moviment de peó en %s mig-moviments (distància a zero dels 50 moviments)</item>
+  </plurals>
   <string name="noGameFound">No s\'ha trobat cap joc</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Potser incloure més jocs desde el menú de preferències?</string>
   <string name="openingExplorer">Explorador d\'obertures i tablebases</string>
@@ -706,4 +714,12 @@ en %3$s</string>
   <string name="noMistakesFoundForWhite">No s\'ha trobat cap error per a les blanques</string>
   <string name="noMistakesFoundForBlack">No s\'ha trobat cap error per a les negres</string>
   <string name="doneReviewingWhiteMistakes">Errors de les blanques revisats</string>
+  <string name="doneReviewingBlackMistakes">Errors de les negres revisats</string>
+  <string name="doItAgain">Fes-ho de nou</string>
+  <string name="reviewWhiteMistakes">Revisar errors de les blanques</string>
+  <string name="reviewBlackMistakes">Revisar errors de les negres</string>
+  <string name="advantage">Avantatge</string>
+  <string name="opening">Obertura</string>
+  <string name="middlegame">Joc mitjà</string>
+  <string name="endgame">Final</string>
 </resources>
