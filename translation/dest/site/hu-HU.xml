@@ -104,11 +104,11 @@
   <string name="infiniteAnalysis">Végtelen elemzés</string>
   <string name="removesTheDepthLimit">Feloldja a mélységi korlátot, és melegen tartja a számítógéped</string>
   <string name="blunder">Baklövés</string>
-  <string name="blunders">Durva hibák</string>
+  <string name="blunders">Durva hiba</string>
   <string name="mistake">Hiba</string>
-  <string name="mistakes">Hibák</string>
+  <string name="mistakes">Hiba</string>
   <string name="inaccuracy">Pontatlanság</string>
-  <string name="inaccuracies">Pontatlanságok</string>
+  <string name="inaccuracies">Pontatlanság</string>
   <string name="moveTimes">Lépésidők</string>
   <string name="flipBoard">Tábla megfordítása</string>
   <string name="threefoldRepetition">Háromszori lépésismétlés</string>
