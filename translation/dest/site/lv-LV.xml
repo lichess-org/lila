@@ -31,7 +31,7 @@
   <string name="joinTheGame">Pievienoties spēlei</string>
   <string name="whitePlays">Gājiens baltajiem</string>
   <string name="blackPlays">Gājiens melnajiem</string>
-  <string name="opponentLeftChoices">Tavs pretinieks ir pametis spēli. Tu vari piespiest viņu padoties,pieprasīt neizšķirtu,vai gaidīt.</string>
+  <string name="opponentLeftChoices">Tavs pretinieks ir pametis spēli. Tu vari pieprasīt uzvaru, pabeigt spēli neizšķirtu, vai gaidīt.</string>
   <string name="makeYourOpponentResign">Lieciet pretiniekam padoties</string>
   <string name="forceResignation">Piespiest padošanos</string>
   <string name="forceDraw">Pieprasīt neizšķirtu</string>
@@ -823,4 +823,13 @@
   <string name="doItAgain">Dari to vēl</string>
   <string name="reviewWhiteMistakes">Pārskatīt balto kļūdas</string>
   <string name="reviewBlackMistakes">Pārskatīt melno kļūdas</string>
+  <string name="advantage">Pārsvars</string>
+  <plurals name="nbSeconds">
+    <item quantity="zero">%s sekundes</item>
+    <item quantity="one">%s sekunde</item>
+    <item quantity="other">%s sekundes</item>
+  </plurals>
+  <string name="opening">Atklātne</string>
+  <string name="middlegame">Vidusspēle</string>
+  <string name="endgame">Galotne</string>
 </resources>

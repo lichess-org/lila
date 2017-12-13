@@ -763,6 +763,8 @@ em %3$s</string>
   <string name="perfRatingX">Classificação: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s segundos para fazer o primeiro movimento</string>
   <string name="practiceWithComputer">Pratique com o computador</string>
+  <string name="anotherWasX">Um outro lance seria %s</string>
+  <string name="bestWasX">Melhor seria %s</string>
   <string name="youBrowsedAway">Você navegou para longe</string>
   <string name="resumePractice">Retornar à prática</string>
   <string name="theGameIsADraw">A partida está empatada.</string>
@@ -773,4 +775,29 @@ em %3$s</string>
   <string name="evaluatingYourMove">Avaliando o seu movimento ...</string>
   <string name="whiteWinsGame">Brancas vencem</string>
   <string name="blackWinsGame">Pretas vencem</string>
+  <string name="learnFromYourMistakes">Aprenda com seus erros</string>
+  <string name="skipThisMove">Ignorar este lance</string>
+  <string name="next">Próximo</string>
+  <string name="xWasPlayed">%s foi jogado</string>
+  <string name="findBetterMoveForWhite">Encontrar o melhor lance para as Brancas</string>
+  <string name="findBetterMoveForBlack">Encontre o melhor lance para as Pretas</string>
+  <string name="resumeLearning">Retomar avaliação</string>
+  <string name="youCanDoBetter">Você pode fazer melhor</string>
+  <string name="tryAnotherMoveForWhite">Tente um outro lance para as Brancas</string>
+  <string name="tryAnotherMoveForBlack">Tente um outro lance para as Pretas</string>
+  <string name="solution">Solução</string>
+  <string name="waitingForAnalysis">Aguardando análise</string>
+  <string name="noMistakesFoundForWhite">Nenhum erro encontrado para as Brancas</string>
+  <string name="noMistakesFoundForBlack">Nenhum erro encontrado para as Pretas</string>
+  <string name="doItAgain">Faça novamente</string>
+  <string name="reviewWhiteMistakes">Rever erros das Brancas</string>
+  <string name="reviewBlackMistakes">Rever erros das Pretas</string>
+  <string name="advantage">Vantagem</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s segundo</item>
+    <item quantity="other">%s segundos</item>
+  </plurals>
+  <string name="opening">Abertura</string>
+  <string name="middlegame">Meio-jogo</string>
+  <string name="endgame">Finais</string>
 </resources>

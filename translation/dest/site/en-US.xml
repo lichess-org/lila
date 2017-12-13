@@ -763,6 +763,8 @@ in %3$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s seconds to play the first move</string>
   <string name="practiceWithComputer">Practice with computer</string>
+  <string name="anotherWasX">Another was %s</string>
+  <string name="bestWasX">Best was %s</string>
   <string name="youBrowsedAway">You browsed away</string>
   <string name="resumePractice">Resume practice</string>
   <string name="theGameIsADraw">The game is a draw.</string>
@@ -773,4 +775,31 @@ in %3$s</string>
   <string name="evaluatingYourMove">Evaluating your move ...</string>
   <string name="whiteWinsGame">White wins</string>
   <string name="blackWinsGame">Black wins</string>
+  <string name="learnFromYourMistakes">Learn from your mistakes</string>
+  <string name="skipThisMove">Skip this move</string>
+  <string name="next">Next</string>
+  <string name="xWasPlayed">%s was played</string>
+  <string name="findBetterMoveForWhite">Find a better move for white</string>
+  <string name="findBetterMoveForBlack">Find a better move for black</string>
+  <string name="resumeLearning">Resume learning</string>
+  <string name="youCanDoBetter">You can do better</string>
+  <string name="tryAnotherMoveForWhite">Try another move for white</string>
+  <string name="tryAnotherMoveForBlack">Try another move for black</string>
+  <string name="solution">Solution</string>
+  <string name="waitingForAnalysis">Waiting for analysis</string>
+  <string name="noMistakesFoundForWhite">No mistakes found for white</string>
+  <string name="noMistakesFoundForBlack">No mistakes found for black</string>
+  <string name="doneReviewingWhiteMistakes">Done reviewing white mistakes</string>
+  <string name="doneReviewingBlackMistakes">Done reviewing black mistakes</string>
+  <string name="doItAgain">Do it again</string>
+  <string name="reviewWhiteMistakes">Review white mistakes</string>
+  <string name="reviewBlackMistakes">Review black mistakes</string>
+  <string name="advantage">Advantage</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s second</item>
+    <item quantity="other">%s seconds</item>
+  </plurals>
+  <string name="opening">Opening</string>
+  <string name="middlegame">Middlegame</string>
+  <string name="endgame">Endgame</string>
 </resources>

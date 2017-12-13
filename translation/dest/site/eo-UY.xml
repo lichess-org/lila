@@ -771,4 +771,8 @@
   <string name="evaluatingYourMove">Taksante vian movon ...</string>
   <string name="whiteWinsGame">Blanko venkas</string>
   <string name="blackWinsGame">Nigro venkas</string>
+  <string name="resumeLearning">Daŭrigi lerni</string>
+  <string name="youCanDoBetter">Vi povas fari pli bone</string>
+  <string name="doItAgain">Fari ĝin denove</string>
+  <string name="advantage">Avantaĝo</string>
 </resources>

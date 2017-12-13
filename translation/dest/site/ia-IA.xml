@@ -103,8 +103,11 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analyse infinite</string>
   <string name="removesTheDepthLimit">Remove le limite de profunditate del analyse e mantene tu computator calide</string>
+  <string name="blunder">Error grave</string>
   <string name="blunders">Errores grave</string>
+  <string name="mistake">Error</string>
   <string name="mistakes">Errores</string>
+  <string name="inaccuracy">Imprecision</string>
   <string name="inaccuracies">Imprecisiones</string>
   <string name="moveTimes">Tempore per movimento</string>
   <string name="flipBoard">Girar le tabuliero</string>
@@ -760,4 +763,12 @@ in %3$s</string>
   <string name="challenges">Defias</string>
   <string name="perfRatingX">Classification: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s secundas pro facer le prime movimento</string>
+  <string name="theGameIsADraw">Le partita es nulle.</string>
+  <string name="learnFromYourMistakes">Apprende ab tu errores</string>
+  <string name="next">Sequente</string>
+  <string name="youCanDoBetter">Tu pote facer melio</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s secunda</item>
+    <item quantity="other">%s secundas</item>
+  </plurals>
 </resources>

@@ -59,7 +59,7 @@
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
   <string name="variantWin">Variant seier</string>
-  <string name="insufficientMaterial">Utilstrekkelig materiale</string>
+  <string name="insufficientMaterial">Utilstrekkelig materiell</string>
   <string name="pawnMove">Bondetrekk</string>
   <string name="capture">Slag</string>
   <string name="close">Lukk</string>
@@ -83,7 +83,7 @@
   </plurals>
   <string name="noGameFound">Intet parti funnet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanskje inkludere flere parti fra preferansemenyen?</string>
-  <string name="openingExplorer">Åpningsutforsker &amp; database</string>
+  <string name="openingExplorer">Åpningsutforsker</string>
   <string name="xOpeningExplorer">Utforsk åpning %s</string>
   <string name="winPreventedBy50MoveRule">Seier hindret av 50-trekkregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindret av 50-trekkregelen</string>
@@ -251,7 +251,7 @@
     <item quantity="other">Gi %s sekunder</item>
   </plurals>
   <string name="giveMoreTime">Gi mer tid</string>
-  <string name="thisPlayerUsesChessComputerAssistance">Denne spilleren bruker computer</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Denne spilleren bruker dataassistanse</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Denne spilleren øker/reduserer ratingen kunstig</string>
   <string name="openingExplorerAndTablebase">Åpningsutforsker &amp; tabellbase</string>
   <string name="takeback">Angre</string>
@@ -392,7 +392,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="tournamentComplete">Turnering fullført</string>
   <string name="movesPlayed">Spilte trekk</string>
   <string name="whiteWins">Hvit vinner</string>
-  <string name="blackWins">Sort vinner</string>
+  <string name="blackWins">Svart vinner</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Neste %s turnering:</string>
   <string name="viewMoreTournaments">Se flere turneringer</string>
@@ -496,7 +496,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="notes">Notater</string>
   <string name="typePrivateNotesHere">Skriv private notater her</string>
   <string name="gameDisplay">Brettutseende</string>
-  <string name="pieceAnimation">Brikkenes bevegelser</string>
+  <string name="pieceAnimation">Brikke animasjon</string>
   <string name="materialDifference">Materiell forskjell</string>
   <string name="closeAccount">Avslutt konto</string>
   <string name="changedMindDoNotCloseAccount">Jeg angrer, ikke avslutt kontoen min</string>
@@ -555,7 +555,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="xAskedY">%1$s spurte %2$s</string>
   <string name="xAnsweredY">%1$s svarte %2$s</string>
   <string name="xCommentedY">%1$s kommenterte %2$s</string>
-  <string name="victory">Seier!</string>
+  <string name="victory">Seier</string>
   <string name="defeat">Tap</string>
   <string name="xVsYinZ">%1$s mot %2$s 
 i %3$s</string>
@@ -566,11 +566,11 @@ i %3$s</string>
   <string name="yourCityRegionOrDepartment">Din by, region eller sted.</string>
   <string name="biographyDescription">Fortell litt om deg selv, hva du liker med sjakk, din favorittåpning, partier, spillere…</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maksimum: %s bokstaver.</item>
+    <item quantity="one">Maksimum: %s bokstav.</item>
     <item quantity="other">Maksimum: %s bokstaver.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s blokkeringer</item>
+    <item quantity="one">%s blokkering</item>
     <item quantity="other">%s blokkeringer</item>
   </plurals>
   <string name="listBlockedPlayers">Vis spillere du har blokkert</string>
@@ -583,8 +583,8 @@ i %3$s</string>
   <string name="connectedToLichess">Du er nå tilkoblet lichess.org</string>
   <string name="signedOut">Du har blitt logget ut.</string>
   <string name="loginSuccessful">Du er nå pålogget</string>
-  <string name="playOnTheBoardOffline">Spill frakoblet, på enheten</string>
-  <string name="playOfflineComputer">Spill frakoblet mot datamaskinen</string>
+  <string name="playOnTheBoardOffline">Over brettet</string>
+  <string name="playOfflineComputer">Datamaskin</string>
   <string name="opponent">Motstander</string>
   <string name="learnMenu">Lær</string>
   <string name="community">Fellesskap</string>
@@ -601,7 +601,7 @@ i %3$s</string>
   <string name="error.email_unique">Denne e-postadressen er allerede registrert</string>
   <string name="error.email_different">Dette er allerede mailadressen din</string>
   <string name="blindfoldChess">Blindsjakk (usynlige brikker)</string>
-  <string name="zenMode">Zen-modus</string>
+  <string name="zenMode">Zen modus</string>
   <string name="moveConfirmation">Trekkbekreftelse</string>
   <string name="inCorrespondenceGames">I fjernsjakk</string>
   <string name="ifRatingIsPlusMinusX">Hvis rating er ± %s</string>
@@ -610,8 +610,8 @@ i %3$s</string>
   <string name="castling">Rokade</string>
   <string name="whiteCastlingKingside">Hvit 0-0</string>
   <string name="whiteCastlingQueenside">Hvit 0-0-0</string>
-  <string name="blackCastlingKingside">Sort 0-0</string>
-  <string name="blackCastlingQueenside">Sort 0-0-0</string>
+  <string name="blackCastlingKingside">Svart 0-0</string>
+  <string name="blackCastlingQueenside">Svart 0-0-0</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Foruminnlegg</item>
     <item quantity="other">%s Foruminnlegg</item>

@@ -780,7 +780,7 @@
   <string name="findBetterMoveForWhite">Finde einen besseren Zug für Weiß</string>
   <string name="findBetterMoveForBlack">Finde einen besseren Zug für Schwarz</string>
   <string name="resumeLearning">Mit dem Lernen fortfahren</string>
-  <string name="youCanDoBetter">Du kannst das besser</string>
+  <string name="youCanDoBetter">Finde eine bessere Variante</string>
   <string name="tryAnotherMoveForWhite">Versuche einen anderen Zug für Weiß</string>
   <string name="tryAnotherMoveForBlack">Versuche einen anderen Zug für Schwarz</string>
   <string name="solution">Lösung</string>
@@ -789,7 +789,7 @@
   <string name="noMistakesFoundForBlack">Keine Fehler bei Schwarz gefunden</string>
   <string name="doneReviewingWhiteMistakes">Überprüfung der Fehler von Weiß abgeschlossen</string>
   <string name="doneReviewingBlackMistakes">Überprüfung der Fehler von Schwarz abgeschlossen</string>
-  <string name="doItAgain">Mach es nochmal</string>
+  <string name="doItAgain">Versuche es nochmal</string>
   <string name="reviewWhiteMistakes">Fehler von Weiß überprüfen</string>
   <string name="reviewBlackMistakes">Fehler von Schwarz überprüfen</string>
   <string name="advantage">Vorteil</string>
