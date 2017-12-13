@@ -78,7 +78,7 @@ function makeSlider(ctrl: BoardCtrl, el: HTMLElement) {
       min: 100,
       max: 200,
       range: 'min',
-      step: 8 / 512 * 100,
+      step: 1,
       value: ctrl.data.zoom,
       slide: (_: any, ui: any) => ctrl.setZoom(ui.value)
     });
