@@ -800,7 +800,7 @@
   <string name="resumePractice">Возобновить тренировку</string>
   <string name="theGameIsADraw">Игра окончилась вничью.</string>
   <string name="computerThinking">Компьютер думает...</string>
-  <string name="seeBestMove">Показать лучший ход</string>
+  <string name="seeBestMove">Посмотреть лучший ход</string>
   <string name="hideBestMove">Скрыть лучший ход</string>
   <string name="getAHint">Взять подсказку</string>
   <string name="evaluatingYourMove">Оценка вашего хода...</string>
