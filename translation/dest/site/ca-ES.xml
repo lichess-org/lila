@@ -514,6 +514,7 @@ en %3$s</string>
   <string name="starting">Començant:</string>
   <string name="allInformationIsPublicAndOptional">Tota la informació és pública i opcional.</string>
   <string name="yourCityRegionOrDepartment">La teva ciutat, regió o província.</string>
+  <string name="biographyDescription">Parla sobre tu, què t\'agrada dels escacs, les teves obertures preferides, jocs, jugadors…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Màxim: %s caràcters.</item>
     <item quantity="other">Màxim: %s caràcters.</item>
@@ -548,6 +549,7 @@ en %3$s</string>
   <string name="error.email">L\'adreça de correu electrònic és invàlida</string>
   <string name="error.email_acceptable">L\'adreça de correu electrònica no és acceptable</string>
   <string name="error.email_unique">Aquesta adreça ja està agafada</string>
+  <string name="error.email_different">Aquest ja era el teu correu electrònic</string>
   <string name="blindfoldChess">Escacs a cegues (peces invisibles)</string>
   <string name="zenMode">Mode Zen</string>
   <string name="moveConfirmation">Confirmació de moviment</string>
@@ -578,6 +580,7 @@ en %3$s</string>
   <string name="sourceCode">Codi font</string>
   <string name="simultaneousExhibitions">Exhibicions de simultànies</string>
   <string name="host">Amfitrió</string>
+  <string name="hostColorX">Color d\'amfitrió: %s</string>
   <string name="createdSimuls">Últimes simultànies creades</string>
   <string name="hostANewSimul">Organitza una simultània</string>
   <string name="noSimulFound">Simultània no trobada</string>
@@ -629,6 +632,8 @@ en %3$s</string>
   <string name="crosstable">Taula creuada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">També pots desplaçar-te sobre el tauler per moure en el joc.</string>
   <string name="analysisShapesHowTo">Pitja la tecla Shift + clic o feu clic dret per dibuixar cercles i fletxes al tauler.</string>
+  <string name="confirmResignationAndDrawOffers">Confirmar resignació i oferiments d\'empat</string>
+  <string name="inputMovesWithTheKeyboard">Moure peces amb el teclat</string>
   <string name="letOtherPlayersMessageYou">Deixa que altres jugadors t\'envïin missatges</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Mètode d\'Enroc</string>
   <string name="castleByMovingTwoSquares">Moure el rei dues caselles</string>
@@ -639,10 +644,14 @@ en %3$s</string>
   <string name="withEverybody">Amb tothom</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ja heu registrat el correu electrònic: %s</string>
   <string name="kidMode">Mode infantil</string>
+  <string name="kidModeExplanation">Es tracta de seguretat. En el mode nen, totes les comunicacions de la pàgina estan inhabilitades. Permeta açò per als seus nens o alumnes, per protegir-los d\'altres usuaris d\'internet.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">En el mode nen, el logo de lichess té una icona de %s, per què sàpigues que els teus nens estan segurs.</string>
   <string name="enableKidMode">Activar el mode de nen</string>
   <string name="disableKidMode">Desactivar el mode de nen</string>
   <string name="security">Seguretat</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Aquesta és una llista de dispositius que han iniciat sessió al teu compte. Si us plau tanqui qualsevol session que no reconegui.</string>
   <string name="alternativelyYouCanX">Alternativament pots %s.</string>
+  <string name="revokeAllSessions">tancar totes les sessions</string>
   <string name="playChessEverywhere">Jugueu a escacs a qualsevol lloc</string>
   <string name="asFreeAsLichess">Tan lliure com lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Fet per amor als escacs, no per diners</string>
@@ -661,6 +670,9 @@ en %3$s</string>
     <item quantity="other">Disponible en %s idiomes</item>
   </plurals>
   <string name="gameAnalysis">Anàlisi de la partida</string>
+  <string name="xHostsY">%1$s és amfitrió de %2$s</string>
+  <string name="xJoinsY">%1$s s\'uneix a %2$s</string>
+  <string name="xLikesY">A %1$s li agrada %2$s</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anònim</string>
   <string name="yourScore">El seu resultat: %s</string>
@@ -689,4 +701,9 @@ en %3$s</string>
   <string name="notifications">Avisos</string>
   <string name="challenges">Reptes</string>
   <string name="perfRatingX">Classificació: %s</string>
+  <string name="solution">Solució</string>
+  <string name="waitingForAnalysis">Esperant l\'anàlisi</string>
+  <string name="noMistakesFoundForWhite">No s\'ha trobat cap error per a les blanques</string>
+  <string name="noMistakesFoundForBlack">No s\'ha trobat cap error per a les negres</string>
+  <string name="doneReviewingWhiteMistakes">Errors de les blanques revisats</string>
 </resources>
