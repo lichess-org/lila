@@ -334,6 +334,9 @@ object mon {
     object rateLimit {
       def generic(key: String) = inc(s"security.rate_limit.generic.$key")
     }
+    object linearLimit {
+      def generic(key: String) = inc(s"security.linear_limit.generic.$key")
+    }
   }
   object tv {
     object stream {

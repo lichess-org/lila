@@ -24,6 +24,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
     data-req-winner="@form("players")("winner").value"
     data-req-white="@form("players")("white").value"
     data-req-black="@form("players")("black").value">
+    @globalError(form)
     <table>
       <tr>
         <th>
