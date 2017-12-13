@@ -776,7 +776,7 @@
   <string name="learnFromYourMistakes">Aprenda de sus errores</string>
   <string name="skipThisMove">Omitir este movimiento</string>
   <string name="next">Siguiente</string>
-  <string name="xWasPlayed">%s fue jugado</string>
+  <string name="xWasPlayed">se jugó %s</string>
   <string name="findBetterMoveForWhite">Encuentre un mejor movimiento para las blancas</string>
   <string name="findBetterMoveForBlack">Encuentra un mejor movimiento para las negras</string>
   <string name="resumeLearning">Continuar el aprendizaje</string>
