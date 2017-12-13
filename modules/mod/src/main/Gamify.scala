@@ -104,7 +104,7 @@ final class Gamify(
     reportApi.coll.aggregateWithReadPreference(
       Match($doc(
         "atoms.0.at" -> dateRange(after, before),
-        "room" -> Room.all, // required to make use of the mongodb index room+atoms.0.at
+        "room" $in Room.all, // required to make use of the mongodb index room+atoms.0.at
         "processedBy" -> notLichess
       )), List(
         GroupField("processedBy")("nb" -> SumValue(1)),
