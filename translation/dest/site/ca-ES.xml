@@ -95,8 +95,11 @@
   <string name="memory">Memòria</string>
   <string name="infiniteAnalysis">Anàlisi infinit</string>
   <string name="removesTheDepthLimit">Treu el límit de profunditat i manté el seu ordinador calent</string>
+  <string name="blunder">Error greu</string>
   <string name="blunders">Errors greus</string>
+  <string name="mistake">Error</string>
   <string name="mistakes">Errades</string>
+  <string name="inaccuracy">Imprecisions</string>
   <string name="inaccuracies">Imprecisions</string>
   <string name="moveTimes">Temps dels moviments</string>
   <string name="flipBoard">Gira el tauler</string>
@@ -234,6 +237,7 @@
   <string name="giveMoreTime">Donar més temps</string>
   <string name="thisPlayerUsesChessComputerAssistance">Aquest jugador s\'ajuda amb un programa informàtic d\'escacs</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Aquest jugador incrementa/disminueix artificialment el seu ràting</string>
+  <string name="openingExplorerAndTablebase">Explorador d\'obertures &amp; taula de moviments</string>
   <string name="takeback">Desfés la jugada</string>
   <string name="proposeATakeback">Proposa desfer la jugada</string>
   <string name="takebackPropositionSent">La proposta de desfer la jugada s\'ha enviat</string>
@@ -249,6 +253,7 @@
   <string name="tournamentPoints">Punts de tornejos</string>
   <string name="viewTournament">Mira el torneig</string>
   <string name="backToTournament">Torna al torneig</string>
+  <string name="thematic">Temàtics</string>
   <string name="backToGame">Torna a la partida</string>
   <string name="siteDescription">Servidor d\'escacs gratuït online. Juga ara a escacs amb una interfície neta i elegant. No cal registrar-s\'hi, sense anuncis, no calen connectors. Juga a escacs amb l\'ordinador, amics o oponents a l\'atzar.</string>
   <string name="teams">Equips</string>
@@ -288,6 +293,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Això és un CAPTCHA d\'escacs.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clica al tauler per fer el teu moviment i demostrar que ets una persona.</string>
+  <string name="captcha.fail">Si us plau resol el captcha d\'escacs.</string>
   <string name="notACheckmate">No és escac i mat</string>
   <string name="colorPlaysCheckmateInOne">%s juga; escac i mat en un moviment</string>
   <string name="retry">Intenta-ho de nou</string>
@@ -346,6 +352,7 @@
   <string name="blackWins">Les negres guanyen</string>
   <string name="draws">Taules</string>
   <string name="viewMoreTournaments">Mostrar més tornejos</string>
+  <string name="averageOpponent">Oponent mitjà</string>
   <string name="membersOnly">Només per membres</string>
   <string name="boardEditor">Editor del tauler</string>
   <string name="popularOpenings">Obertures populars</string>
@@ -355,6 +362,7 @@
   <string name="loadPosition">Carrega la posició</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Denuncia %s als moderadors</string>
+  <string name="profileCompletion">Perfil completat: %s</string>
   <string name="ifNoneLeaveEmpty">Si cap, deixar buit</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Edita el perfil</string>
@@ -456,6 +464,7 @@
   <string name="pieceDestinations">Destinacions de la peça (moviments vàlids i moviments anticipats)</string>
   <string name="boardCoordinates">Coordenades del tauler (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Llista de moviments durant la partida</string>
+  <string name="pgnLetter">Lletres (K, Q, R, B, N)</string>
   <string name="chessClock">Rellotge d\'escacs</string>
   <string name="tenthsOfSeconds">Dècimes de segon</string>
   <string name="never">Mai</string>
@@ -463,12 +472,18 @@
   <string name="horizontalGreenProgressBars">Barres horitzontals verdes de temps</string>
   <string name="soundWhenTimeGetsCritical">So quan quedi poc temps</string>
   <string name="gameBehavior">Opcions de la partida</string>
+  <string name="howDoYouMovePieces">Com mous les peces?</string>
+  <string name="clickTwoSquares">Fes clic en dues caselles</string>
+  <string name="dragPiece">Mou una peça</string>
+  <string name="bothClicksAndDrag">Qualsevol</string>
   <string name="premovesPlayingDuringOpponentTurn">Moviments anticipats (moure durant el torn de l\'oponent)</string>
   <string name="takebacksWithOpponentApproval">Torna enrere (amb l\'aprovació de l\'oponent)</string>
   <string name="promoteToQueenAutomatically">Corona la Dama automàticament</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Demana empat per repetició automàticament</string>
   <string name="privacy">Privacitat</string>
   <string name="letOtherPlayersFollowYou">Deixa que altres jugadors et segueixin</string>
   <string name="letOtherPlayersChallengeYou">Deixa que altres jugadors et reptin</string>
+  <string name="letOtherPlayersInviteYouToStudy">Permetre que altres jugadors et conviden a un estudi</string>
   <string name="sound">So</string>
   <string name="yourPreferencesHaveBeenSaved">Les teves preferències s\'han desat.</string>
   <string name="none">Cap</string>
@@ -492,6 +507,8 @@
   <string name="xCommentedY">%1$s ha comentat %2$s</string>
   <string name="victory">Victòria!</string>
   <string name="defeat">Derrota</string>
+  <string name="xVsYinZ">%1$s contra %2$s
+en %3$s</string>
   <string name="timeline">Cronologia</string>
   <string name="seeAllTournaments">Veure tots els tornejos</string>
   <string name="starting">Començant:</string>
