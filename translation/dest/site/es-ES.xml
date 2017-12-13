@@ -65,7 +65,7 @@
   <string name="close">Cerrar</string>
   <string name="winning">Ganador</string>
   <string name="losing">Perdedor</string>
-  <string name="drawn">Resultó empate</string>
+  <string name="drawn">Resulta en tablas</string>
   <string name="unknown">Desconocido</string>
   <string name="database">Base de datos</string>
   <string name="whiteDrawBlack">Blancas / Tablas / Negras</string>
@@ -78,7 +78,7 @@
     <item quantity="other">Mate en %s medios movimientos</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Próxima captura o movimiento de peón en %s medio movimientos (distancia de puesta a cero del contador de 50 movimientos)</item>
+    <item quantity="one">Siguiente captura o movimiento de péon en medio movimiento (distancia a cero del contador de 50 movimientos)</item>
     <item quantity="other">Siguiente captura o movimiento de péon en %s medios movimientos (distancia a cero del contador de 50 movimientos)</item>
   </plurals>
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
@@ -669,7 +669,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tu puntuación en %1$s es %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Eres mejor que el %1$s de los jugadores de %2$s.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Careces de puntuación de %s establecida.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tienes una puntuación de %s  establecida.</string>
   <string name="checkYourEmail">Revisa tu correo</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Te hemos enviado un correo. Activa tu cuenta en el enlace proporcionado.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no encuentras el correo, mira a ver si está en otras carpetas (spam, social, ...).</string>
@@ -680,7 +680,7 @@
   <string name="downloadAnnotated">Descargar la partida anotada</string>
   <string name="downloadRaw">Descargar la partida sin anotar</string>
   <string name="downloadImported">Descargar la partida importada</string>
-  <string name="printFriendlyPDF">Imprimir en formato PDF simple</string>
+  <string name="printFriendlyPDF">Imprimir en formato PDF</string>
   <string name="crosstable">Tabla cruzada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">También puedes usar la rueda del ratón para desplazarte por la partida.</string>
   <string name="analysisShapesHowTo">Haga clic con el botón derecho o Máyus+clic para dibujar círculos y flechas en el tablero.</string>
@@ -744,7 +744,7 @@
   <string name="usernameInvalid">Nombre de usuario no válido. Por favor, utilice sólo letras, números, guión bajo y guión.</string>
   <string name="usernameStartNoNumber">El nombre de usuario no puede empezar con un número.</string>
   <string name="usernameUnacceptable">Este nombre de usuario no es válido.</string>
-  <string name="directlySupportLichess">Patrocinador de Lichess</string>
+  <string name="directlySupportLichess">Apoyar económicamente a Lichess</string>
   <string name="playChessInStyle">Jugar al ajedrez con estilo</string>
   <string name="chessBasics">Fundamentos de ajedrez</string>
   <string name="coaches">Entrenadores</string>
@@ -760,7 +760,7 @@
   <string name="challenges">Desafíos</string>
   <string name="perfRatingX">Puntuación: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s segundos para realizar el primer movimiento</string>
-  <string name="practiceWithComputer">Practicar con el motor de ajedrez</string>
+  <string name="practiceWithComputer">Practicar con el ordenador</string>
   <string name="anotherWasX">Otro era %s</string>
   <string name="bestWasX">El mejor era %s</string>
   <string name="youBrowsedAway">Has salido de la revisión</string>
@@ -769,7 +769,7 @@
   <string name="computerThinking">El ordenador está calculando...</string>
   <string name="seeBestMove">Ver el mejor movimiento</string>
   <string name="hideBestMove">Ocultar el mejor movimiento</string>
-  <string name="getAHint">Movimiento sugerido</string>
+  <string name="getAHint">Pedir una pista</string>
   <string name="evaluatingYourMove">Evaluando tu movimiento ...</string>
   <string name="whiteWinsGame">Ganan las blancas</string>
   <string name="blackWinsGame">Ganan las negras</string>
