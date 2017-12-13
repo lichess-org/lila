@@ -87,7 +87,7 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр на вкладке предпочтений?</string>
   <string name="openingExplorer">База дебютов</string>
   <string name="xOpeningExplorer">База дебютов по варианту: %s</string>
-  <string name="winPreventedBy50MoveRule">Победа предотвращена правилом 50-го хода</string>
+  <string name="winPreventedBy50MoveRule">Победа не состоялась согласно правилу 50 ходов</string>
   <string name="lossSavedBy50MoveRule">Поражение предотвращено правилом 50-ти ходов</string>
   <string name="allSet">Готово!</string>
   <string name="importPgn">Импортировать PGN</string>
