@@ -482,7 +482,7 @@
   <plurals name="nbGamesInPlay">
     <item quantity="one">и %s партия</item>
     <item quantity="few">и %s партии</item>
-    <item quantity="other">играют %s партий</item>
+    <item quantity="other">и %s партий</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматически переходить к следующей игре после хода</string>
   <string name="autoSwitch">Автосмена</string>
