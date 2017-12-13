@@ -28,7 +28,7 @@ másik sötét mezős futó.
 Mindkettőre szükséged van!</string>
   <string name="bishopComplete">Gratulálunk! Most már tudod hogyan irányíts egy futót.</string>
   <string name="theQueen">A vezér</string>
-  <string name="queenCombinesRookAndBishop">Vezér= bástya + futó</string>
+  <string name="queenCombinesRookAndBishop">Vezér = bástya + futó</string>
   <string name="queenIntro">Színre lép a legerősebb sakkfigura. Őméltósága a vezér!</string>
   <string name="queenComplete">Gratulálunk! Kiismerted a vezér rejtelmeit.</string>
   <string name="theKing">A király</string>
