@@ -36,7 +36,7 @@
   <string name="forceResignation">Запросить победу</string>
   <string name="forceDraw">Объявить ничью</string>
   <string name="talkInChat">Будьте вежливы в чате!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Первый, кто перейдёт по этой ссылке, будет играть с Вами.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">С вами сыграет первый, кто перейдёт по этой ссылке.</string>
   <string name="whiteResigned">Белые сдались</string>
   <string name="blackResigned">Чёрные сдались</string>
   <string name="whiteLeftTheGame">Белые вышли из игры</string>
@@ -118,9 +118,9 @@
   <string name="offerDraw">Предложить ничью</string>
   <string name="draw">Ничья</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s игрок онлайн</item>
-    <item quantity="few">%s игрока онлайн</item>
-    <item quantity="other">%s игроков онлайн</item>
+    <item quantity="one">На сайте %s игрок</item>
+    <item quantity="few">На сайте %s игрока</item>
+    <item quantity="other">На сайте %s игроков</item>
   </plurals>
   <string name="currentGames">Текущие партии</string>
   <plurals name="nbGames">
@@ -480,9 +480,9 @@
   <string name="thisPuzzleIsCorrect">Задача правильная и интересная</string>
   <string name="thisPuzzleIsWrong">Задача неправильная или неинтересная</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s ведется партий</item>
-    <item quantity="few">%s ведется партий</item>
-    <item quantity="other">%s ведется партий</item>
+    <item quantity="one">и %s партия</item>
+    <item quantity="few">и %s партии</item>
+    <item quantity="other">играют %s партий</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматически переходить к следующей игре после хода</string>
   <string name="autoSwitch">Автосмена</string>
