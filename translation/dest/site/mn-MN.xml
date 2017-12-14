@@ -135,7 +135,7 @@
   <string name="minutesPerSide">Нэг талдаа нүүх минут</string>
   <string name="variant">Шатрын төрөл</string>
   <string name="variants">Шатрын төрлүүд</string>
-  <string name="timeControl">Хугацааны хязгаарлалт</string>
+  <string name="timeControl">Хугацаа</string>
   <string name="realTime">Бодит цагт тоглогдох өрөг</string>
   <string name="correspondence">Бодит цагт тоглогдохгүй өрөг</string>
   <string name="daysPerTurn">Нэг нүүдэл хийх өдөр</string>
