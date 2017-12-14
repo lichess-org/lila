@@ -63,10 +63,10 @@
   <string name="pawnMove">Ход пешки</string>
   <string name="capture">Взятие</string>
   <string name="close">Закрыть</string>
-  <string name="winning">Выигрыш</string>
-  <string name="losing">Проигрыш</string>
-  <string name="drawn">Ничья</string>
-  <string name="unknown">Неизвестный исход</string>
+  <string name="winning">Выигрывают</string>
+  <string name="losing">Проигрывают</string>
+  <string name="drawn">Вничью</string>
+  <string name="unknown">Неизвестно</string>
   <string name="database">База данных</string>
   <string name="whiteDrawBlack">Белые / Ничья / Чёрные</string>
   <string name="averageRatingX">Средний рейтинг: %s</string>
