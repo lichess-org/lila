@@ -198,17 +198,17 @@
   <string name="whatNext">Что дальше?</string>
   <string name="youKnowHowToPlayChess">Вы узнали, как играть в шахматы, поздравляем! Хотите ли вы стать более сильным игроком?</string>
   <string name="register">Регистрация</string>
-  <string name="getAFreeLichessAccount">Создайте бесплатный аккаунт</string>
-  <string name="practice">Практика</string>
-  <string name="learnCommonChessPositions">Учите основные позиции</string>
+  <string name="getAFreeLichessAccount">Зарегистрируйтесь бесплатно</string>
+  <string name="practice">Упражнения</string>
+  <string name="learnCommonChessPositions">Изучайте основные шахматные позиции</string>
   <string name="puzzles">Задачи</string>
   <string name="exerciseYourTacticalSkills">Тренируйте свои тактические навыки</string>
   <string name="videos">Видео</string>
   <string name="watchInstructiveChessVideos">Смотрите обучающие видеозаписи</string>
-  <string name="playPeople">Игра онлайн</string>
-  <string name="opponentsFromAroundTheWorld">Противники со всего мира</string>
-  <string name="playMachine">Игра с компьютером</string>
-  <string name="testYourSkillsWithTheComputer">Проверьте свои навыки</string>
+  <string name="playPeople">Игроки</string>
+  <string name="opponentsFromAroundTheWorld">Сражайтесь с шахматистами со всего мира</string>
+  <string name="playMachine">Компьютер</string>
+  <string name="testYourSkillsWithTheComputer">Проверьте свои навыки на искусственном интеллекте</string>
   <string name="letsGo">Поехали!</string>
   <string name="stageX">Урок %s</string>
   <string name="awesome">Невероятно!</string>
@@ -225,6 +225,6 @@
   <string name="yourScore">Ваш результат</string>
   <string name="next">Далее</string>
   <string name="backToMenu">Вернуться в меню</string>
-  <string name="puzzleFailed">Задача не решена!</string>
+  <string name="puzzleFailed">Задание провалено!</string>
   <string name="retry">Ещё раз</string>
 </resources>
