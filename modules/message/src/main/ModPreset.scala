@@ -37,12 +37,6 @@ Offering an excessive amount of draws in order to distract or annoy an opponent 
 
 """, /* ---------------------------------------------------------------*/ """
 
-Warning: Excessive cheat reports
-
-You have reported a significant number of players for cheating. However, none or very few of these cheat reports have turned out to be accurate. Please remember that these reports have to be checked manually by Lichess moderators. Before reporting anyone for cheating, please make sure that you have requested computer analysis of the relevant game(s) and do your absolute best to avoid false reports.
-
-""", /* ---------------------------------------------------------------*/ """
-
 En passant
 
 This is called "en passant" and is one of the rules of chess. Check https://lichess.org/learn#/15 to learn more about it.
