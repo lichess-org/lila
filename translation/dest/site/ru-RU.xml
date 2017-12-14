@@ -387,7 +387,7 @@
   <string name="challengeToPlay">Вызвать на игру</string>
   <string name="player">Игрок</string>
   <string name="list">Список</string>
-  <string name="graph">График</string>
+  <string name="graph">Диаграмма</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Менее %s минуты</item>
     <item quantity="few">Менее %s минут</item>
