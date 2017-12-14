@@ -27,7 +27,7 @@
   <string name="raceFinished">Гонка окончена</string>
   <string name="variantEnding">Вариант завершен</string>
   <string name="newOpponent">Новый соперник</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Соперник предлагает сыграть ещё раз</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Соперник предлагает вам сыграть ещё раз</string>
   <string name="joinTheGame">Присоединиться</string>
   <string name="whitePlays">Ход белых</string>
   <string name="blackPlays">Ход чёрных</string>
@@ -557,9 +557,9 @@
   <string name="promoteToQueenAutomatically">Пешка превращается в ферзя автоматически</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при трёхкратном повторении хода</string>
   <string name="privacy">Приватность</string>
-  <string name="letOtherPlayersFollowYou">Позволить другим наблюдать за мной</string>
-  <string name="letOtherPlayersChallengeYou">Другие игроки могут пригласить меня на игру</string>
-  <string name="letOtherPlayersInviteYouToStudy">Позволить другим игрокам пригласить вас на изучение</string>
+  <string name="letOtherPlayersFollowYou">Позволить другим игрокам становиться вашими подписчиками</string>
+  <string name="letOtherPlayersChallengeYou">Другие игроки могут приглашать вас на игру</string>
+  <string name="letOtherPlayersInviteYouToStudy">Позволить другим игрокам приглашать вас на изучение</string>
   <string name="sound">Мелодия</string>
   <string name="yourPreferencesHaveBeenSaved">Ваши настройки сохранены.</string>
   <string name="none">Нет</string>
@@ -601,7 +601,7 @@
     <item quantity="few">%s заблокировано</item>
     <item quantity="other">%s заблокировано</item>
   </plurals>
-  <string name="listBlockedPlayers">Список заблокированных Вами игроков</string>
+  <string name="listBlockedPlayers">Список игроков, которых вы заблокировали</string>
   <string name="human">Человек</string>
   <string name="computer">Компьютер</string>
   <string name="side">Сторона</string>
@@ -703,11 +703,11 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вы сильнее %1$s игроков в %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рейтинг в %s ещё не определён.</string>
   <string name="checkYourEmail">Подтвердите свой Email</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Мы отправили Вам письмо. Нажмите на ссылку в нём для активации аккаунта.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Мы отправили вам письмо. Для активации учётной записи нажмите на ссылку в письме.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Если письмо не приходит, проверьте папку для спама и другие места, куда оно могло попасть.</string>
   <string name="weHaveSentYouAnEmailTo">Мы отправили письмо по адресу %s. Нажмите на ссылку в нём для сброса пароля.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистрируясь, вы берёте на себя обязанность соблюдать наше %s</string>
-  <string name="networkLagBetweenYouAndLichess">Задержка между Вами и серверами lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Задержки передачи данных между вами и серверами lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Время обработки хода на сервере</string>
   <string name="downloadAnnotated">Скачать с аннотациями</string>
   <string name="downloadRaw">Скачать без аннотаций</string>
@@ -718,7 +718,7 @@
   <string name="analysisShapesHowTo">Чтобы рисовать кружки и стрелки на доске, используйте Shift+левую кнопку мыши или правую кнопку.</string>
   <string name="confirmResignationAndDrawOffers">Подтверждать возврат хода и предложения ничей</string>
   <string name="inputMovesWithTheKeyboard">Вводить ходы с помощью клавиатуры</string>
-  <string name="letOtherPlayersMessageYou">Позволить присылать Вам сообщения</string>
+  <string name="letOtherPlayersMessageYou">Позволить присылать вам сообщения</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Рокировать перемещением короля на две клетки или нажатием на ладью</string>
   <string name="castleByMovingTwoSquares">Рокировать перемещением короля на две клетки</string>
   <string name="castleByMovingOntoTheRook">Рокировать нажатием на ладью</string>
