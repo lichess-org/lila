@@ -716,12 +716,12 @@
   <string name="crosstable">Счёт</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можно использовать колёсико над доской для перемотки ходов.</string>
   <string name="analysisShapesHowTo">Чтобы рисовать кружки и стрелки на доске, используйте Shift+левую кнопку мыши или правую кнопку.</string>
-  <string name="confirmResignationAndDrawOffers">Подтверждать возврат хода и предложения ничей</string>
+  <string name="confirmResignationAndDrawOffers">Подтверждать признание поражения и предложение ничьей</string>
   <string name="inputMovesWithTheKeyboard">Вводить ходы с помощью клавиатуры</string>
   <string name="letOtherPlayersMessageYou">Позволить присылать вам сообщения</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Рокировать перемещением короля на две клетки или нажатием на ладью</string>
-  <string name="castleByMovingTwoSquares">Рокировать перемещением короля на две клетки</string>
-  <string name="castleByMovingOntoTheRook">Рокировать нажатием на ладью</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Способ рокировки</string>
+  <string name="castleByMovingTwoSquares">Переместить короля на две клетки</string>
+  <string name="castleByMovingOntoTheRook">Переместить короля на ладью</string>
   <string name="shareYourInsightsData">Поделиться статистикой</string>
   <string name="withNobody">Ни с кем</string>
   <string name="withFriends">С друзьями</string>
@@ -792,7 +792,7 @@
   <string name="notifications">Уведомления</string>
   <string name="challenges">Вызовы</string>
   <string name="perfRatingX">Рейтинг: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s секунд, чтобы сделать первый ход</string>
+  <string name="xSecondsToPlayTheFirstMove">Для первого хода осталось секунд: %s</string>
   <string name="practiceWithComputer">Тренировка с компьютером</string>
   <string name="anotherWasX">Также можно: %s</string>
   <string name="bestWasX">Лучший ход: %s</string>
