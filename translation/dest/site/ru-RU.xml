@@ -339,7 +339,7 @@
   <string name="filterGames">Фильтр партий</string>
   <string name="reset">Сбросить</string>
   <string name="apply">Сохранить</string>
-  <string name="leaderboard">Таблица лидеров</string>
+  <string name="leaderboard">Лучшие игроки</string>
   <string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
   <string name="pasteThePgnStringHere">Вставьте строку в формате PGN</string>
   <string name="fromPosition">С позиции</string>
