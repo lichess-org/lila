@@ -177,7 +177,7 @@
   <string name="forgotPassword">Забыли пароль?</string>
   <string name="rank">Уровень</string>
   <string name="rankX">Место: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Рейтинг обновляется каждые %s минут</string>
+  <string name="rankIsUpdatedEveryXMinutes">Места в списке обновляются каждые %s минут</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s Задача</item>
     <item quantity="few">%s Задача</item>
@@ -267,7 +267,7 @@
   </plurals>
   <string name="giveMoreTime">Добавить времени</string>
   <string name="thisPlayerUsesChessComputerAssistance">Этот игрок читер</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно повышает/уменьшает свой рейтинг</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно манипулирует своим рейтингом</string>
   <string name="openingExplorerAndTablebase">Анализ дебютных вариантов</string>
   <string name="takeback">Вернуть ход</string>
   <string name="proposeATakeback">Попросить переходить</string>
@@ -306,9 +306,9 @@
     <item quantity="other">Вы должны сыграть еще %s рейтинговых игр</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш предварительный рейтинг: %s</string>
-  <string name="yourPerfRatingIsTooHigh">Ваш рейтинг в %1$s (%2$s) слишком высок</string>
+  <string name="yourPerfRatingIsTooHigh">Ваш рейтинг в %1$s (%2$s) слишком высок для участия</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш еженедельный рейтинг в %1$s (%2$s) слишком высок</string>
-  <string name="yourPerfRatingIsTooLow">Ваш рейтинг в %1$s (%2$s) недостаточен</string>
+  <string name="yourPerfRatingIsTooLow">Ваш рейтинг в %1$s (%2$s) недостаточен для участия</string>
   <string name="ratedMoreThanInPerf">Рейтинг ≥ %1$s в %2$s</string>
   <string name="ratedLessThanInPerf">Рейтинг ≤ %1$s в %2$s</string>
   <string name="backToGame">Вернуться в игру</string>
