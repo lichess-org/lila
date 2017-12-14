@@ -381,7 +381,8 @@ lichess.topMenuIntent = function() {
 
       var setZoom = function(zoom) {
 
-        currentZoom = zoom;
+        var boardPx = Math.round(zoom * 64) * 8;
+        currentZoom = zoom = boardPx / 512;
 
         var $lichessGame = $('.lichess_game, .board_and_ground');
         var $boardWrap = $lichessGame.find('.cg-board-wrap').not('.mini_board .cg-board-wrap');
@@ -389,8 +390,8 @@ lichess.topMenuIntent = function() {
           return Math.round(i) + 'px';
         };
 
-        $('.underboard').css("width", px(512 * zoom + 242 + 15));
-        $boardWrap.add($('.underboard .center, .progress_bar_container')).css("width", px(512 * zoom));
+        $('.underboard').css("width", px(boardPx + 242 + 15));
+        $boardWrap.add($('.underboard .center, .progress_bar_container')).css("width", px(boardPx));
 
         if ($('body > .content').hasClass('is3d')) {
           $boardWrap.css("height", px(464.5 * zoom));
@@ -400,9 +401,9 @@ lichess.topMenuIntent = function() {
           });
           $('#chat').css("height", px(300 + 529 * (zoom - 1)));
         } else {
-          $boardWrap.css("height", px(512 * zoom));
+          $boardWrap.css("height", px(boardPx));
           $lichessGame.css({
-            height: px(512 * zoom),
+            height: px(boardPx),
             paddingTop: px(0)
           });
           $('#chat').css("height", px(335 + 510 * (zoom - 1)));
