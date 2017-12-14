@@ -25,7 +25,7 @@
   <string name="kingInTheCenter">Король достиг центра</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Гонка окончена</string>
-  <string name="variantEnding">Вариант завершен</string>
+  <string name="variantEnding">Особое окончание</string>
   <string name="newOpponent">Новый соперник</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Соперник предлагает вам сыграть ещё раз</string>
   <string name="joinTheGame">Присоединиться</string>
@@ -87,8 +87,8 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр на вкладке предпочтений?</string>
   <string name="openingExplorer">База дебютов</string>
   <string name="xOpeningExplorer">База дебютов по варианту: %s</string>
-  <string name="winPreventedBy50MoveRule">Победа не состоялась согласно правилу 50 ходов</string>
-  <string name="lossSavedBy50MoveRule">Поражение предотвращено правилом 50-ти ходов</string>
+  <string name="winPreventedBy50MoveRule">Не удаётся победить из-за правила 50 ходов</string>
+  <string name="lossSavedBy50MoveRule">Удаётся избежать поражения из-за правила 50 ходов</string>
   <string name="allSet">Готово!</string>
   <string name="importPgn">Импортировать PGN</string>
   <string name="delete">Удалить</string>
