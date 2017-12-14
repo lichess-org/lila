@@ -695,13 +695,13 @@
   <string name="returnToTournamentsHomepage">Вернуться на страницу турниров</string>
   <string name="weeklyPerfTypeRatingDistribution">Распределение по рейтингу %s за месяц</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s %2$s игроков на этой неделе.</item>
-    <item quantity="few">%1$s %2$s игроков на этой неделе.</item>
-    <item quantity="other">%1$s %2$s игроков на этой неделе.</item>
+    <item quantity="one">%1$s игрок в %2$s на этой неделе.</item>
+    <item quantity="few">%1$s игрока в %2$s на этой неделе.</item>
+    <item quantity="other">%1$s игроков в %2$s на этой неделе.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Ваш %1$s рейтинг %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вы сильнее %1$s игроков в %2$s.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш %s рейтинг ещё не определен.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рейтинг в %s ещё не определён.</string>
   <string name="checkYourEmail">Подтвердите свой Email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Мы отправили Вам письмо. Нажмите на ссылку в нём для активации аккаунта.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Если письмо не приходит, проверьте папку для спама и другие места, куда оно могло попасть.</string>
