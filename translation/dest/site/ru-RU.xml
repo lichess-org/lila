@@ -788,7 +788,7 @@
   <string name="error.min">Значение должно быть больше либо равным %s</string>
   <string name="error.max">Значение должно быть меньше либо равным %s</string>
   <string name="error.unknown">Ошибка</string>
-  <string name="custom">Пользовательская партия</string>
+  <string name="custom">Своя игра</string>
   <string name="notifications">Уведомления</string>
   <string name="challenges">Вызовы</string>
   <string name="perfRatingX">Рейтинг: %s</string>
