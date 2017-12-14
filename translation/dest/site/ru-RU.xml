@@ -32,7 +32,7 @@
   <string name="whitePlays">Ход белых</string>
   <string name="blackPlays">Ход чёрных</string>
   <string name="opponentLeftChoices">Вероятно, ваш соперник покинул игру. Вы можете запросить победу, объявить ничью или подождать.</string>
-  <string name="makeYourOpponentResign">Объявить соперника сдавшимся</string>
+  <string name="makeYourOpponentResign">Сопернику будет засчитано поражение</string>
   <string name="forceResignation">Запросить победу</string>
   <string name="forceDraw">Объявить ничью</string>
   <string name="talkInChat">Будьте вежливы в чате!</string>
@@ -199,7 +199,7 @@
   <string name="blackOffersDraw">Чёрные предлагают ничью</string>
   <string name="whiteDeclinesDraw">Белые отклонили предложение ничьей</string>
   <string name="blackDeclinesDraw">Чёрные отклонили предложение ничьей</string>
-  <string name="yourOpponentOffersADraw">Ваш оппонент предлагает ничью</string>
+  <string name="yourOpponentOffersADraw">Ваш соперник предлагает вам ничью</string>
   <string name="accept">Принять</string>
   <string name="decline">Отклонить</string>
   <string name="playingRightNow">Текущая партия</string>
@@ -275,7 +275,7 @@
   <string name="takebackPropositionDeclined">Предложение возврата отклонено</string>
   <string name="takebackPropositionAccepted">Предложение возврата принято</string>
   <string name="takebackPropositionCanceled">Предложение возврата отменено</string>
-  <string name="yourOpponentProposesATakeback">Ваш оппонент просит вернуть ход</string>
+  <string name="yourOpponentProposesATakeback">Ваш соперник просит вас вернуть ход</string>
   <string name="bookmarkThisGame">Добавить игру в закладки</string>
   <string name="search">Поиск</string>
   <string name="advancedSearch">Расширенный поиск</string>
@@ -307,7 +307,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш предварительный рейтинг: %s</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг в %1$s (%2$s) слишком высок</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш рейтинг еженедельный %1$s рейтинг (%2$s) слишком высок</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш еженедельный рейтинг в %1$s (%2$s) слишком высок</string>
   <string name="yourPerfRatingIsTooLow">Ваш рейтинг в %1$s (%2$s) недостаточен</string>
   <string name="ratedMoreThanInPerf">Рейтинг ≥ %1$s в %2$s</string>
   <string name="ratedLessThanInPerf">Рейтинг ≤ %1$s в %2$s</string>
@@ -432,7 +432,7 @@
   <string name="isPrivate">Закрытый</string>
   <string name="reportXToModerators">Пожаловаться на %s модераторам</string>
   <string name="profileCompletion">Заполненность профиля: %s</string>
-  <string name="xRating">%s рейтинг</string>
+  <string name="xRating">Рейтинг %s</string>
   <string name="ifNoneLeaveEmpty">Если нет, оставьте пустым</string>
   <string name="gameCompletionRate">Завершённых игр: %s</string>
   <string name="profile">Профиль</string>
