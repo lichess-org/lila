@@ -104,7 +104,7 @@
   <string name="cpus">Потоки</string>
   <string name="memory">Память</string>
   <string name="infiniteAnalysis">Бесконечный анализ</string>
-  <string name="removesTheDepthLimit">Снимает ограничение на глубину (процессор постоянно нагружен)</string>
+  <string name="removesTheDepthLimit">Снимает ограничение на глубину анализа, но заставляет поработать ваш компьютер</string>
   <string name="blunder">Грубая ошибка</string>
   <string name="blunders">Грубые ошибки</string>
   <string name="mistake">Ошибка</string>
