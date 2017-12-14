@@ -57,7 +57,7 @@
   <string name="inLocalBrowser">в браузере</string>
   <string name="toggleLocalEvaluation">Включить анализ в браузере</string>
   <string name="move">Ход</string>
-  <string name="variantLoss">Проигрывающий ход</string>
+  <string name="variantLoss">Проигрышный ход</string>
   <string name="variantWin">Победный ход</string>
   <string name="insufficientMaterial">Недостаточно фигур для мата</string>
   <string name="pawnMove">Ход пешки</string>
