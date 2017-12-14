@@ -524,9 +524,9 @@
   <string name="gameDisplay">Настройки отображения</string>
   <string name="pieceAnimation">Анимация фигур</string>
   <string name="materialDifference">Показывать разницу в материале</string>
-  <string name="closeAccount">Удалить аккаунт</string>
-  <string name="changedMindDoNotCloseAccount">Я передумал, не удаляйте мой аккаунт</string>
-  <string name="closeAccountExplanation">Вы действительно желаете удалить свой аккаунт? Удаление аккаунта невозможно отменить. Вы больше не сможете зайти в игру, и ваша страница больше не будет доступна.</string>
+  <string name="closeAccount">Удалить учётную запись</string>
+  <string name="changedMindDoNotCloseAccount">Я передумал, не удаляйте мою учётную запись</string>
+  <string name="closeAccountExplanation">Вы действительно желаете удалить свою учётную запись? Её удаление невозможно будет отменить. Вы больше не сможете зайти в эту учётную запись, и ваша страница станет недоступна.</string>
   <string name="thisAccountIsClosed">Профиль этого пользователя был удалён.</string>
   <string name="invalidUsernameOrPassword">Неправильное имя или пароль</string>
   <string name="incorrectPassword">Неверный пароль</string>
@@ -590,7 +590,7 @@
   <string name="starting">Начинается:</string>
   <string name="allInformationIsPublicAndOptional">Вся информация публична и указывается по желанию.</string>
   <string name="yourCityRegionOrDepartment">Ваш город, область или округ.</string>
-  <string name="biographyDescription">Расскажите о себе, что Вы любите в шахматах, Ваши любимые дебюты, партии, игроки...</string>
+  <string name="biographyDescription">Расскажите о себе, что вы любите в шахматах, ваши любимые дебюты, партии, игроки...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Максимум: %s символ.</item>
     <item quantity="few">Максимум: %s символа.</item>
