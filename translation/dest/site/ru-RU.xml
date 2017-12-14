@@ -534,7 +534,7 @@
   <string name="currentPassword">Текущий пароль</string>
   <string name="newPassword">Новый пароль</string>
   <string name="newPasswordAgain">Новый пароль (ещё раз)</string>
-  <string name="boardHighlights">Подсветка (последний ход и шах)</string>
+  <string name="boardHighlights">Подсвечивать последний ход и шах</string>
   <string name="pieceDestinations">Показывать все возможные ходы</string>
   <string name="boardCoordinates">Координаты доски (A–H, 1–8)</string>
   <string name="moveListWhilePlaying">Показывать список ходов</string>
@@ -733,7 +733,7 @@
   <string name="enableKidMode">Включить детский режим</string>
   <string name="disableKidMode">Отключить детский режим</string>
   <string name="security">Безопасность</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Это список устройств, с которых входили в ваш аккаунт. Отмените любые подозрительные сеансы.</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Это список устройств, с которых входили в ваш аккаунт. Закройте все подозрительные сеансы.</string>
   <string name="alternativelyYouCanX">В качестве альтернативы вы можете %s.</string>
   <string name="revokeAllSessions">отменить все сессии</string>
   <string name="playChessEverywhere">Играйте в шахматы везде</string>
