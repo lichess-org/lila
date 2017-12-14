@@ -542,10 +542,10 @@
   <string name="chessPieceSymbol">Символ фигуры</string>
   <string name="pgnLetter">Буква фигуры (K, Q, R, B, N)</string>
   <string name="chessClock">Часы</string>
-  <string name="tenthsOfSeconds">Десятые секунд</string>
+  <string name="tenthsOfSeconds">Десятые доли секунд</string>
   <string name="never">Никогда</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Когда остается меньше 10 секунд</string>
-  <string name="horizontalGreenProgressBars">Горизонтальный зелёный индикатор прогресса</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Когда остаётся меньше 10 секунд</string>
+  <string name="horizontalGreenProgressBars">Убывающий зелёный индикатор</string>
   <string name="soundWhenTimeGetsCritical">Звук, когда время подходит к концу</string>
   <string name="gameBehavior">Настройки игры</string>
   <string name="howDoYouMovePieces">Как вы передвигаете фигуры?</string>
@@ -572,7 +572,7 @@
   <string name="always">Всегда</string>
   <string name="inCasualGamesOnly">Только в товарищеских играх</string>
   <string name="whenPremoving">Когда сделан предварительный ход</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Когда остается меньше 30 секунд</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Когда остаётся меньше 30 секунд</string>
   <string name="difficultyEasy">Лёгкий</string>
   <string name="difficultyNormal">Нормальный</string>
   <string name="difficultyHard">Сложный</string>
