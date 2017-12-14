@@ -301,11 +301,11 @@
     <item quantity="other">Вы должны сыграть ещё %1$s рейтинговых игр в %2$s</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Вы должны сыграть еще %s рейтинговую игру</item>
-    <item quantity="few">Вы должны сыграть еще %s рейтинговые игры</item>
-    <item quantity="other">Вы должны сыграть еще %s рейтинговых игр</item>
+    <item quantity="one">Вы должны сыграть ещё %s рейтинговую игру</item>
+    <item quantity="few">Вы должны сыграть ещё %s рейтинговые игры</item>
+    <item quantity="other">Вы должны сыграть ещё %s рейтинговых игр</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Ваш предварительный рейтинг: %s</string>
+  <string name="yourPerfRatingIsProvisional">Ваш рейтинг в %s ещё недостоверный</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг в %1$s (%2$s) слишком высок для участия</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш еженедельный рейтинг в %1$s (%2$s) слишком высок</string>
   <string name="yourPerfRatingIsTooLow">Ваш рейтинг в %1$s (%2$s) недостаточен для участия</string>
@@ -520,7 +520,7 @@
   <string name="blog">Блог</string>
   <string name="questionsAndAnswers">Вопросы и ответы</string>
   <string name="notes">Заметки</string>
-  <string name="typePrivateNotesHere">Здесь вы можете оставить заметки об игре (доступно только вам)</string>
+  <string name="typePrivateNotesHere">Здесь вы можете оставить личные заметки об игре</string>
   <string name="gameDisplay">Настройки отображения</string>
   <string name="pieceAnimation">Анимация фигур</string>
   <string name="materialDifference">Показывать разницу в материале</string>
@@ -632,7 +632,7 @@
   <string name="zenMode">Режим Дзен</string>
   <string name="moveConfirmation">Подтвердить ход</string>
   <string name="inCorrespondenceGames">В игре по переписке</string>
-  <string name="ifRatingIsPlusMinusX">Если рейтинг ± %s</string>
+  <string name="ifRatingIsPlusMinusX">Если их рейтинг ± %s</string>
   <string name="onlyFriends">Только друзья</string>
   <string name="menu">Меню</string>
   <string name="castling">Рокировка</string>
@@ -673,7 +673,7 @@
   <string name="create">Создать</string>
   <string name="whenCreateSimul">Когда вы создаёте Сеанс, вы играете против нескольких игроков одновременно.</string>
   <string name="simulVariantsHint">Если вы выберете несколько вариантов, то каждый игрок должен будет выбрать желаемый режим.</string>
-  <string name="simulClockHint">Установка Часов Фишера. Чем больше игроков играет против вас, тем больше времени вам может понадобится.</string>
+  <string name="simulClockHint">Настройка часов Фишера. Чем больше игроков играет против вас, тем больше времени вам может понадобится.</string>
   <string name="simulAddExtraTime">Вы можете добавить дополнительное время к своему таймеру для большей форы.</string>
   <string name="simulHostExtraTime">Дополнительное время сеансёра</string>
   <string name="lichessTournaments">Турниры Lichess</string>
