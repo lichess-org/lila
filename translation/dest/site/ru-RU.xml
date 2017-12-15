@@ -341,10 +341,10 @@
   <string name="apply">Сохранить</string>
   <string name="leaderboard">Лучшие игроки</string>
   <string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
-  <string name="pasteThePgnStringHere">Вставьте строку в формате PGN</string>
+  <string name="pasteThePgnStringHere">Вставьте текст в формате PGN</string>
   <string name="fromPosition">С позиции</string>
   <string name="continueFromHere">Продолжить с данного места</string>
-  <string name="importGame">Импорт игры</string>
+  <string name="importGame">Импортировать игру</string>
   <string name="importGameExplanation">Вставьте запись игры в формате PGN, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s импортированная</item>
@@ -617,7 +617,7 @@
   <string name="community">Сообщество</string>
   <string name="tools">Инструменты</string>
   <string name="increment">Добавка</string>
-  <string name="sharePGN">Экспорт PGN</string>
+  <string name="sharePGN">Поделиться PGN</string>
   <string name="playOnline">Играть онлайн</string>
   <string name="playOffline">Играть оффлайн</string>
   <string name="allowAnalytics">Разрешить сбор статистики</string>
@@ -771,7 +771,7 @@
   <string name="boardTheme">Оформление доски</string>
   <string name="boardSize">Размер доски</string>
   <string name="pieceSet">Оформление фигур</string>
-  <string name="embedInYourWebsite">Встроить в свой сайт</string>
+  <string name="embedInYourWebsite">Получить код для вставки на свой сайт</string>
   <string name="usernameAlreadyUsed">Данное имя пользователя занято. Пожалуйста, попробуйте другое.</string>
   <string name="usernameInvalid">Некорректное имя пользователя. Пожалуйста, используйте только буквы, цифры, подчеркивания и тире.</string>
   <string name="usernameStartNoNumber">Имя пользователя не должно начинаться с цифры.</string>
