@@ -94,7 +94,7 @@
   <string name="delete">Удалить</string>
   <string name="deleteThisImportedGame">Удалить эту импортированную игру?</string>
   <string name="replayMode">Режим просмотра повтора</string>
-  <string name="realtimeReplay">В реальном времени</string>
+  <string name="realtimeReplay">Как в партии</string>
   <string name="byCPL">Ошибки</string>
   <string name="openStudy">Открыть анализ</string>
   <string name="enable">Включить</string>
@@ -149,7 +149,7 @@
   <string name="variant">Вариант</string>
   <string name="variants">Варианты</string>
   <string name="timeControl">Контроль времени</string>
-  <string name="realTime">В реальном времени</string>
+  <string name="realTime">С лимитом времени</string>
   <string name="correspondence">По переписке</string>
   <string name="daysPerTurn">Дней на ход</string>
   <string name="oneDay">Один день</string>
