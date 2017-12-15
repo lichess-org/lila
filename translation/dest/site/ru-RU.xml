@@ -265,7 +265,7 @@
     <item quantity="few">Дать %s секунды</item>
     <item quantity="other">Дать %s секунд</item>
   </plurals>
-  <string name="giveMoreTime">Добавить времени</string>
+  <string name="giveMoreTime">Дать больше времени</string>
   <string name="thisPlayerUsesChessComputerAssistance">Этот игрок читер</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно манипулирует своим рейтингом</string>
   <string name="openingExplorerAndTablebase">Книга дебютов и эндшпилей</string>
@@ -368,7 +368,7 @@
   <string name="block">Заблокировать</string>
   <string name="blocked">Заблокированные</string>
   <string name="unblock">Разблокировать</string>
-  <string name="followsYou">Подписаны на вас</string>
+  <string name="followsYou">Подписан на вас</string>
   <string name="xStartedFollowingY">%1$s подписался на %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s подписчик</item>
@@ -430,7 +430,7 @@
   <string name="loadPosition">Загрузить позицию</string>
   <string name="isPrivate">Закрытый</string>
   <string name="reportXToModerators">Пожаловаться на %s модераторам</string>
-  <string name="profileCompletion">Заполненность профиля: %s</string>
+  <string name="profileCompletion">Профиль заполнен на %s</string>
   <string name="xRating">Рейтинг %s</string>
   <string name="ifNoneLeaveEmpty">Если нет, оставьте пустым</string>
   <string name="gameCompletionRate">Завершённых игр: %s</string>
@@ -644,7 +644,7 @@
     <item quantity="few">%s сообщений на форуме</item>
     <item quantity="other">%s сообщений на форуме</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">Времени за игрой: %s</string>
+  <string name="tpTimeSpentPlaying">Проведённое за игрой время: %s</string>
   <string name="watchGames">Смотреть игры</string>
   <string name="tpTimeSpentOnTV">Времени за просмотром TV: %s</string>
   <string name="watch">Смотреть</string>
@@ -681,7 +681,7 @@
   <string name="timeBeforeTournamentStarts">Время до начала турнира</string>
   <string name="averageCentipawnLoss">В среднем потеряно сотых пешки</string>
   <string name="keyboardShortcuts">Горячие клавиши</string>
-  <string name="keyMoveBackwardOrForward">ход назад/вперед</string>
+  <string name="keyMoveBackwardOrForward">ход назад/вперёд</string>
   <string name="keyGoToStartOrEnd">в начало/конец</string>
   <string name="keyShowOrHideComments">показать/скрыть комментарии</string>
   <string name="keyEnterOrExitVariation">ввести/закрыть вариант</string>
