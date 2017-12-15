@@ -665,7 +665,7 @@
   <string name="noSimulExplanation">Этот сеанс одновременной игры не существует.</string>
   <string name="returnToSimulHomepage">Вернуться на страницу сеансов</string>
   <string name="aboutSimul">Сеансы подразумевают сражение одного игрока с несколькими противниками одновременно.</string>
-  <string name="aboutSimulImage">Из общего числа в 50 игр Фишер выиграл 47, 2 сыграл вничью и проиграл 1.</string>
+  <string name="aboutSimulImage">Из общего числа в 50 игр Фишер выиграл 47, сыграл вничью 2 и проиграл 1.</string>
   <string name="aboutSimulRealLife">Идея повторяет принятую в живых шахматах концепцию, когда дающий сеанс одновременной игры перемещается от стола к столу, чтобы совершить один ход.</string>
   <string name="aboutSimulRules">Когда начинается сеанс одновременной игры, каждый игрок начинает игру с сеансёром, который играет белыми. Сеанс закончится, когда все партии будут сыграны.</string>
   <string name="aboutSimulSettings">Сеансы одновременной игры не предполагают партий на рейтинг. Переигровки, отмены ходов и «добавки времени» запрещены.</string>
@@ -713,7 +713,7 @@
   <string name="downloadImported">Скачать в изначальном виде</string>
   <string name="printFriendlyPDF">Скачать в PDF</string>
   <string name="crosstable">Счёт</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можно использовать колёсико над доской для перемотки ходов.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Для перелистывания ходов можно использовать колёсико мыши над доской.</string>
   <string name="analysisShapesHowTo">Чтобы рисовать на доске кружки и стрелки, используйте Shift+левую кнопку мыши или правую кнопку.</string>
   <string name="confirmResignationAndDrawOffers">Подтверждать признание поражения и предложение ничьей</string>
   <string name="inputMovesWithTheKeyboard">Вводить ходы с помощью клавиатуры</string>
@@ -727,14 +727,14 @@
   <string name="withEverybody">Со всеми</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Вы уже активировали этот адрес: %s</string>
   <string name="kidMode">Детский режим</string>
-  <string name="kidModeExplanation">Это для безопасности. В детском режиме отключены все коммуникации на сайте. Включите это для ваших детей и школьников, чтобы защитить их от других пользователей Интернета.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">В детском режиме логотип lichess получает значок в виде %s, так что вы знаете, что ваши дети находятся в безопасности.</string>
+  <string name="kidModeExplanation">Это для безопасности. В детском режиме отключены все коммуникации на сайте. Включите его для ваших детей и учеников, чтобы защитить их от других пользователей интернета.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">В детском режиме к логотипу lichess добавляется значок в виде %s, чтобы вы знали, что ваши дети находятся в безопасности.</string>
   <string name="enableKidMode">Включить детский режим</string>
   <string name="disableKidMode">Отключить детский режим</string>
   <string name="security">Безопасность</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Это список устройств, с которых входили в ваш аккаунт. Закройте все подозрительные сеансы.</string>
-  <string name="alternativelyYouCanX">В качестве альтернативы вы можете %s.</string>
-  <string name="revokeAllSessions">отменить все сессии</string>
+  <string name="alternativelyYouCanX">Также вы можете %s.</string>
+  <string name="revokeAllSessions">закрыть все сессии</string>
   <string name="playChessEverywhere">Играйте в шахматы везде</string>
   <string name="asFreeAsLichess">Бесплатно</string>
   <string name="builtForTheLoveOfChessNotMoney">С любовью к шахматам, а не деньгам</string>
