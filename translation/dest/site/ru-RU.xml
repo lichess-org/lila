@@ -55,11 +55,11 @@
   <string name="goDeeper">Анализировать глубже</string>
   <string name="showThreat">Показать угрозу</string>
   <string name="inLocalBrowser">в браузере</string>
-  <string name="toggleLocalEvaluation">Включить анализ в браузере</string>
+  <string name="toggleLocalEvaluation">Включить локальный анализ</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Проигрышный ход</string>
   <string name="variantWin">Победный ход</string>
-  <string name="insufficientMaterial">Недостаточно фигур для мата</string>
+  <string name="insufficientMaterial">Недостаточно материала для мата</string>
   <string name="pawnMove">Ход пешки</string>
   <string name="capture">Взятие</string>
   <string name="close">Закрыть</string>
@@ -345,8 +345,7 @@
   <string name="fromPosition">С позиции</string>
   <string name="continueFromHere">Продолжить с данного места</string>
   <string name="importGame">Импорт игры</string>
-  <string name="importGameExplanation">При вставке PGN игры вы получаете повтор в браузере,
-компьютерный анализ, игровой чат и ссылку, которой можно поделиться.</string>
+  <string name="importGameExplanation">Вставьте запись игры в формате PGN, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s импортированная</item>
     <item quantity="few">%s импортированные</item>
@@ -442,7 +441,7 @@
   <string name="biography">О себе</string>
   <string name="country">Страна</string>
   <string name="preferences">Настройки</string>
-  <string name="inlineNotation">Встроенная нотация</string>
+  <string name="inlineNotation">Строчная нотация</string>
   <string name="watchLichessTV">Смотреть Lichess TV</string>
   <string name="previouslyOnLichessTV">Ранее на Lichess TV</string>
   <string name="onlinePlayers">Игроки в сети</string>
@@ -817,7 +816,7 @@
   <string name="tryAnotherMoveForWhite">Попробуйте другой ход за белых</string>
   <string name="tryAnotherMoveForBlack">Попробуйте другой ход за чёрных</string>
   <string name="solution">Ответ</string>
-  <string name="waitingForAnalysis">Ожидание анализа</string>
+  <string name="waitingForAnalysis">Ожидание получения анализа</string>
   <string name="noMistakesFoundForWhite">Ошибок белых не найдено</string>
   <string name="noMistakesFoundForBlack">Ошибок чёрных не найдено</string>
   <string name="doneReviewingWhiteMistakes">Ошибки белых разобраны</string>
