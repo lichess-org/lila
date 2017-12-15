@@ -721,7 +721,7 @@
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Способ рокировки</string>
   <string name="castleByMovingTwoSquares">Переместить короля на две клетки</string>
   <string name="castleByMovingOntoTheRook">Переместить короля на ладью</string>
-  <string name="shareYourInsightsData">Поделиться статистикой</string>
+  <string name="shareYourInsightsData">Поделиться данными предметного анализа</string>
   <string name="withNobody">Ни с кем</string>
   <string name="withFriends">С друзьями</string>
   <string name="withEverybody">Со всеми</string>
