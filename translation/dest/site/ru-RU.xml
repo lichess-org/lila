@@ -70,7 +70,7 @@
   <string name="database">База данных</string>
   <string name="whiteDrawBlack">Белые / Ничья / Чёрные</string>
   <string name="averageRatingX">Средний рейтинг: %s</string>
-  <string name="recentGames">Последние игры</string>
+  <string name="recentGames">Недавние игры</string>
   <string name="topGames">Лучшие игры</string>
   <string name="masterDbExplanation">Два миллиона OTB игр %1$s+ FIDE игроков в рейтинге от %2$s до %3$s</string>
   <plurals name="mateInXHalfMoves">
@@ -93,7 +93,7 @@
   <string name="importPgn">Импортировать PGN</string>
   <string name="delete">Удалить</string>
   <string name="deleteThisImportedGame">Удалить эту импортированную игру?</string>
-  <string name="replayMode">Смотреть партию в повторе</string>
+  <string name="replayMode">Режим просмотра повтора</string>
   <string name="realtimeReplay">В реальном времени</string>
   <string name="byCPL">Ошибки</string>
   <string name="openStudy">Открыть анализ</string>
@@ -646,7 +646,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Времени за игрой: %s</string>
   <string name="watchGames">Смотреть игры</string>
-  <string name="tpTimeSpentOnTV">Времени на TV: %s</string>
+  <string name="tpTimeSpentOnTV">Времени за просмотром TV: %s</string>
   <string name="watch">Смотреть</string>
   <string name="internationalEvents">Международные события</string>
   <string name="videoLibrary">Видеотека</string>
