@@ -84,7 +84,7 @@
     <item quantity="other">Следующее взятие или ход пешкой в %s полуходов (Расстояние до обнуления счётчика 50 ходов)</item>
   </plurals>
   <string name="noGameFound">Партий не найдено</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр на вкладке предпочтений?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр в настройках?</string>
   <string name="openingExplorer">Книга дебютов</string>
   <string name="xOpeningExplorer">Книга дебютов для %s</string>
   <string name="winPreventedBy50MoveRule">Не удаётся победить из-за правила 50 ходов</string>
@@ -266,7 +266,7 @@
     <item quantity="other">Дать %s секунд</item>
   </plurals>
   <string name="giveMoreTime">Дать больше времени</string>
-  <string name="thisPlayerUsesChessComputerAssistance">Этот игрок читер</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Этот игрок пользуется подсказками шахматных программ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно манипулирует своим рейтингом</string>
   <string name="openingExplorerAndTablebase">Книга дебютов и эндшпилей</string>
   <string name="takeback">Вернуть ход</string>
@@ -469,11 +469,11 @@
   <string name="thankYou">Спасибо!</string>
   <string name="ratingX">Рейтинг: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Решено %s раз</item>
-    <item quantity="few">Решено %s раза</item>
-    <item quantity="other">Решено %s раз</item>
+    <item quantity="one">Решена %s раз</item>
+    <item quantity="few">Решена %s раза</item>
+    <item quantity="other">Решена %s раз</item>
   </plurals>
-  <string name="fromGameLink">Из игры %s</string>
+  <string name="fromGameLink">Из партии %s</string>
   <string name="continueTraining">Следующая задача</string>
   <string name="retryThisPuzzle">Попробовать ещё раз</string>
   <string name="thisPuzzleIsCorrect">Задача правильная и интересная</string>
@@ -483,7 +483,7 @@
     <item quantity="few">Партий онлайн: %s</item>
     <item quantity="other">Партий онлайн: %s</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Автоматически переходить к следующей игре после хода</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">После хода автоматически переходить к следующей игре</string>
   <string name="autoSwitch">Автосмена</string>
   <string name="puzzles">Задачи</string>
   <string name="latestUpdates">Последние обновления</string>
@@ -714,7 +714,7 @@
   <string name="printFriendlyPDF">Скачать в PDF</string>
   <string name="crosstable">Счёт</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можно использовать колёсико над доской для перемотки ходов.</string>
-  <string name="analysisShapesHowTo">Чтобы рисовать кружки и стрелки на доске, используйте Shift+левую кнопку мыши или правую кнопку.</string>
+  <string name="analysisShapesHowTo">Чтобы рисовать на доске кружки и стрелки, используйте Shift+левую кнопку мыши или правую кнопку.</string>
   <string name="confirmResignationAndDrawOffers">Подтверждать признание поражения и предложение ничьей</string>
   <string name="inputMovesWithTheKeyboard">Вводить ходы с помощью клавиатуры</string>
   <string name="letOtherPlayersMessageYou">Позволить присылать вам сообщения</string>
