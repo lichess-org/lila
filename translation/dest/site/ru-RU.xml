@@ -515,7 +515,7 @@
   <string name="by">опубликовал %s</string>
   <string name="thisTopicIsNowClosed">Эта тема закрыта.</string>
   <string name="theming">Настройка темы</string>
-  <string name="donate">Помочь проекту</string>
+  <string name="donate">Поддержать проект</string>
   <string name="blog">Блог</string>
   <string name="questionsAndAnswers">Вопросы и ответы</string>
   <string name="notes">Заметки</string>
@@ -534,13 +534,13 @@
   <string name="newPassword">Новый пароль</string>
   <string name="newPasswordAgain">Новый пароль (ещё раз)</string>
   <string name="boardHighlights">Подсвечивать последний ход и шах</string>
-  <string name="pieceDestinations">Показывать все возможные ходы</string>
+  <string name="pieceDestinations">Показывать допустимые ходы</string>
   <string name="boardCoordinates">Координаты доски (A–H, 1–8)</string>
   <string name="moveListWhilePlaying">Показывать список ходов</string>
   <string name="pgnPieceNotation">Шахматная нотация</string>
   <string name="chessPieceSymbol">Символ фигуры</string>
   <string name="pgnLetter">Буква фигуры (K, Q, R, B, N)</string>
-  <string name="chessClock">Часы</string>
+  <string name="chessClock">Шахматные часы</string>
   <string name="tenthsOfSeconds">Десятые доли секунд</string>
   <string name="never">Никогда</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Когда остаётся меньше 10 секунд</string>
@@ -548,7 +548,7 @@
   <string name="soundWhenTimeGetsCritical">Звук, когда время подходит к концу</string>
   <string name="gameBehavior">Настройки игры</string>
   <string name="howDoYouMovePieces">Как вы передвигаете фигуры?</string>
-  <string name="clickTwoSquares">Нажатием на две клетки</string>
+  <string name="clickTwoSquares">Нажатием на клетки откуда и куда</string>
   <string name="dragPiece">Перетаскиванием фигуры</string>
   <string name="bothClicksAndDrag">Обоими способами</string>
   <string name="premovesPlayingDuringOpponentTurn">Предварительный ход (пока ходит противник)</string>
@@ -658,7 +658,7 @@
   <string name="sourceCode">Исходный код</string>
   <string name="simultaneousExhibitions">Сеанс одновременной игры</string>
   <string name="host">Сеансёр</string>
-  <string name="hostColorX">Цвет организатора: %s</string>
+  <string name="hostColorX">Цвет сеансёра: %s</string>
   <string name="createdSimuls">Недавно созданные сеансы</string>
   <string name="hostANewSimul">Новый сеанс</string>
   <string name="noSimulFound">Сеанс не найден</string>
