@@ -508,7 +508,7 @@
   <string name="newPassword">Nueva contraseña</string>
   <string name="newPasswordAgain">Nueva contraseña (otra vez)</string>
   <string name="boardHighlights">Destacar casillas del tablero (último movimiento y jaque)</string>
-  <string name="pieceDestinations">Destino de las piezas (movimientos válidos y anticipados)</string>
+  <string name="pieceDestinations">Destino de las piezas (movimientos válidos y movimientos anticipados)</string>
   <string name="boardCoordinates">Coordenadas del tablero (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista de movimientos de la partida</string>
   <string name="pgnPieceNotation">Notación de los movimientos</string>
@@ -557,7 +557,7 @@
   <string name="victory">¡Victoria!</string>
   <string name="defeat">Derrota</string>
   <string name="xVsYinZ">%1$s contra %2$s en %3$s</string>
-  <string name="timeline">Orden cronológico</string>
+  <string name="timeline">Línea de tiempo</string>
   <string name="seeAllTournaments">Ver todos los torneos</string>
   <string name="starting">Comienzo:</string>
   <string name="allInformationIsPublicAndOptional">Toda la información es pública y opcional.</string>
@@ -654,7 +654,7 @@
   <string name="keyMoveBackwardOrForward">movimiento hacia atrás y hacia adelante</string>
   <string name="keyGoToStartOrEnd">ir al inicio/fin</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
-  <string name="keyEnterOrExitVariation">iniciar/dejar variante</string>
+  <string name="keyEnterOrExitVariation">entrar/salir de la variante</string>
   <string name="newTournament">Nuevo torneo</string>
   <string name="tournamentHomeTitle">Torneo de ajedrez que incluye diferentes controles de tiempo y variantes</string>
   <string name="tournamentHomeDescription">¡Juega torneos de ajedrez rápido! Únete a un torneo oficial programado o crea el tuyo propio. Bala, Relámpago, Clásico, Ajedrez960, Rey de la Colina, Tres jaques y más opciones disponibles para una diversión sin fin en ajedrez.</string>
