@@ -142,7 +142,7 @@
   <string name="computersAreNotAllowedToPlay">Создание учётных записей для ботов запрещено. Пожалуйста, во время игры не используйте шахматные движки, базы данных или подсказки других игроков. Также учтите, что создание нескольких аккаунтов не приветствуется и чрезмерное их количество приведёт к блокировке.</string>
   <string name="games">Игры</string>
   <string name="forum">Форум</string>
-  <string name="xPostedInForumY">%1$s оставил сообщение в топике %2$s</string>
+  <string name="xPostedInForumY">%1$s написал сообщение в теме %2$s</string>
   <string name="latestForumPosts">Последние сообщения на форуме</string>
   <string name="players">Шахматисты</string>
   <string name="minutesPerSide">Минут на партию</string>
@@ -353,7 +353,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Это шахматная CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Кликните по доске, чтобы сделать ход и доказать, что вы человек.</string>
-  <string name="captcha.fail">Пожалуйста, решите шахматную CAPTCHA.</string>
+  <string name="captcha.fail">Пожалуйста, решите шахматную капчу.</string>
   <string name="notACheckmate">Это не мат</string>
   <string name="colorPlaysCheckmateInOne">%s начинают; мат в один ход</string>
   <string name="retry">Повторить</string>
