@@ -110,7 +110,7 @@
   <string name="mistake">Ошибка</string>
   <string name="mistakes">Ошибки</string>
   <string name="inaccuracy">Неточность</string>
-  <string name="inaccuracies">Сомнительные ходы</string>
+  <string name="inaccuracies">Неточности</string>
   <string name="moveTimes">Время ходов</string>
   <string name="flipBoard">Перевернуть доску</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
