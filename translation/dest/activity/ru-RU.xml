@@ -64,9 +64,9 @@
     <item quantity="other">Завершил %s турниров</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">Достиг #%1$s места (вошёл в %2$s% % лучших), сыграв %3$s игр в турнире %4$s</item>
-    <item quantity="few">Достиг #%1$s места (вошёл в %2$s% % лучших), сыграв %3$s игр в турнире %4$s</item>
-    <item quantity="other">Достиг #%1$s места (вошёл в %2$s% % лучших), сыграв %3$s игр в турнире %4$s</item>
+    <item quantity="one">Достиг #%1$s места (вошёл в %2$s%% лучших), сыграв %3$s игр в турнире %4$s</item>
+    <item quantity="few">Достиг #%1$s места (вошёл в %2$s%% лучших), сыграв %3$s игр в турнире %4$s</item>
+    <item quantity="other">Достиг #%1$s места (вошёл в %2$s%% лучших), сыграв %3$s игр в турнире %4$s</item>
   </plurals>
   <string name="signedUp">Зарегистрировался на lichess.org</string>
   <plurals name="joinedNbTeams">

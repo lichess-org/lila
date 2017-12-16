@@ -86,7 +86,7 @@
   <string name="replayMode">Дахин тоглуулах хэлбэр</string>
   <string name="realtimeReplay">Бодит</string>
   <string name="byCPL">Онцгой</string>
-  <string name="openStudy">Судалгаа нээх</string>
+  <string name="openStudy">Хичээл нээх</string>
   <string name="enable">Нээх</string>
   <string name="bestMoveArrow">Хамгийн сайн нүүдэл харуулах сум</string>
   <string name="evaluationGauge">Шинжилгээний хэм</string>
@@ -135,7 +135,7 @@
   <string name="minutesPerSide">Нэг талдаа нүүх минут</string>
   <string name="variant">Шатрын төрөл</string>
   <string name="variants">Шатрын төрлүүд</string>
-  <string name="timeControl">Хугацааны хязгаарлалт</string>
+  <string name="timeControl">Хугацаа</string>
   <string name="realTime">Бодит цагт тоглогдох өрөг</string>
   <string name="correspondence">Бодит цагт тоглогдохгүй өрөг</string>
   <string name="daysPerTurn">Нэг нүүдэл хийх өдөр</string>
@@ -404,7 +404,7 @@
   <string name="activeToday">Өнөөдөр хамгийн их идэвхтэй байсан гишүүдийн жагсаалт</string>
   <string name="activePlayers">Идэвхтэй гишүүд</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Энэ өрөг нь чансаа өөрчлөгдөх өрөг боловч цагын хязгаарлалтгүй болохыг анхаарна уу!</string>
-  <string name="training">Дасгал бодлого</string>
+  <string name="training">Бодлого</string>
   <string name="yourPuzzleRatingX">Таны бодлогын чансаа: %s</string>
   <string name="findTheBestMoveForWhite">Цагааны хувьд хамгийн сайн нүүдлийг ол.</string>
   <string name="findTheBestMoveForBlack">Харын хувьд хамгийн сайн нүүдлийг ол.</string>
@@ -512,7 +512,7 @@
   <string name="privacy">Хувийн нууцлалын тохиргоо</string>
   <string name="letOtherPlayersFollowYou">Бусад гишүүд чамайг дагаж болно</string>
   <string name="letOtherPlayersChallengeYou">Бусад гишүүд чамайг тоглолтонд урьж болно</string>
-  <string name="letOtherPlayersInviteYouToStudy">Бусад тоглогчдоор судалгаанд уриулах</string>
+  <string name="letOtherPlayersInviteYouToStudy">Бусад тоглогчид таныг хичээлд урьж болох эсэх</string>
   <string name="sound">Дуу чимээ</string>
   <string name="yourPreferencesHaveBeenSaved">Таны шинэчлэгдсэн тохиргоо хадгалагдлаа.</string>
   <string name="none">Үгүй</string>
@@ -720,9 +720,9 @@
   <string name="usernameInvalid">Буруу хэрэглэгчийн нэр. Зөвхөн үсэг, тоо, дундуур эсвэл доогуур зураас ашигла.</string>
   <string name="usernameStartNoNumber">Хэрэглэгчийн нэр тоогоор эхлэхгүй.</string>
   <string name="usernameUnacceptable">Ийм нэртэй хэрэглэгч үүсгэж болохгүй.</string>
-  <string name="directlySupportLichess">Lichess-д дэмжлэг үзүүлэх</string>
+  <string name="directlySupportLichess">Личессд дэмжлэг үзүүлэх</string>
   <string name="playChessInStyle">Загварлаг тоглоцгооё</string>
-  <string name="chessBasics">Шатрын суурь мэдлэг</string>
+  <string name="chessBasics">Суурь мэдлэг</string>
   <string name="coaches">Шатрын багш</string>
   <string name="invalidPgn">Буруу PGN</string>
   <string name="invalidFen">Буруу FEN</string>
@@ -736,11 +736,11 @@
   <string name="challenges">Бодлогууд</string>
   <string name="perfRatingX">Чансаа:%s</string>
   <string name="xSecondsToPlayTheFirstMove">Эхний нүүдэл хийхэд %s секунд байна</string>
-  <string name="practiceWithComputer">Компьютертэй тоглох</string>
-  <string name="anotherWasX">Өөр бас %s</string>
-  <string name="bestWasX">Хамгийн сайн нүүдэл %s байсан</string>
+  <string name="practiceWithComputer">Компьютертэй сургуулилах</string>
+  <string name="anotherWasX">Өөр хувилбар %s</string>
+  <string name="bestWasX">Хамгийн сайн нүүдэл нь %s байсан</string>
   <string name="youBrowsedAway">Та гарсан байна</string>
-  <string name="resumePractice">Практикийг үргэлжлүүлэх</string>
+  <string name="resumePractice">Дасгалыг үргэлжлүүлэх</string>
   <string name="theGameIsADraw">Өрөг тэнцсэн байна.</string>
   <string name="computerThinking">Компьютер бодож байна ...</string>
   <string name="seeBestMove">Хамгийн сайн нүүдлийг харах</string>

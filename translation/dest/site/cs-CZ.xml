@@ -793,6 +793,8 @@ v %3$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekund na první tah</string>
   <string name="practiceWithComputer">Procvičit s počítačem</string>
+  <string name="anotherWasX">Další možnost je %s</string>
+  <string name="bestWasX">Nejlepší tah byl %s</string>
   <string name="youBrowsedAway">Procvičování přerušeno</string>
   <string name="resumePractice">Pokračovat v procvičování</string>
   <string name="theGameIsADraw">Hra končí remízou.</string>
@@ -803,4 +805,17 @@ v %3$s</string>
   <string name="evaluatingYourMove">Hodnotím tvůj tah...</string>
   <string name="whiteWinsGame">Bílý vyhrál</string>
   <string name="blackWinsGame">Černý vyhrál</string>
+  <string name="learnFromYourMistakes">Poučte se ze svých chyb</string>
+  <string name="skipThisMove">Přeskočit tento krok</string>
+  <string name="next">Další</string>
+  <string name="findBetterMoveForWhite">Najděte lepší tah bílého</string>
+  <string name="findBetterMoveForBlack">Najděte lepší tah černého</string>
+  <string name="resumeLearning">Pokračovat v učení</string>
+  <string name="tryAnotherMoveForWhite">Zkuste jiný tah bílého</string>
+  <string name="tryAnotherMoveForBlack">Zkuste jiný tah černého</string>
+  <string name="solution">Řešení</string>
+  <string name="waitingForAnalysis">Čekání na analýzu</string>
+  <string name="opening">Zahájení</string>
+  <string name="middlegame">Střední hra</string>
+  <string name="endgame">Koncovka</string>
 </resources>
