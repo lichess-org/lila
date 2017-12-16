@@ -1,6 +1,6 @@
 import { Prop } from 'common';
 import { NotifCtrl } from './notif';
-import { AnalyseData } from '../interfaces';
+import { AnalyseData, Redraw } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';
 import { ChapterDescriptionCtrl } from './chapterDescription';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
@@ -46,7 +46,8 @@ export interface StudyCtrl {
   isUpdatedRecently(): boolean;
   setGamebookOverride(o: GamebookOverride): void;
   explorerGame(gameId: string, insert: boolean): void;
-  redraw(): void;
+  redraw: Redraw;
+  trans: Trans;
 }
 
 export type Tab = 'members' | 'chapters';

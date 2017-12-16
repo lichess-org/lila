@@ -130,6 +130,18 @@ body.dark .underboard .feedback {
 .underboard .feedback .comment iframe {
   margin: 10px 0;
 }
+.underboard .setting {
+  margin-top: 15px;
+  text-align: left;
+  line-height: 22px;
+  display: flex;
+}
+.underboard .setting > label {
+  order: 1;
+  flex: 1 0;
+  cursor: pointer;
+  margin-left: 10px;
+}
 
 #practice_app .section {
   width: 742px;

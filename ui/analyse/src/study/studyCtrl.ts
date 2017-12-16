@@ -547,6 +547,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       makeChange('explorerGame', withPosition({ gameId, insert }));
     },
     redraw,
+    trans: ctrl.trans,
     socketHandler: (t: string, d: any) => {
       const handler = socketHandlers[t];
       if (handler) {

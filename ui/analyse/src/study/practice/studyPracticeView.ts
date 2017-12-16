@@ -3,6 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import { plural, bind, spinner, innerHTML, enrichText, option } from '../../util';
 import { StudyCtrl } from '../interfaces';
 import { StudyPracticeData, StudyPracticeCtrl } from './interfaces';
+import { boolSetting } from '../../boolSetting';
 
 function selector(data: StudyPracticeData) {
   return h('select.selector', {
@@ -51,11 +52,14 @@ export function underboard(ctrl: StudyCtrl): VNode {
   const p = ctrl.practice!;
   switch (p.success()) {
     case true:
-      return h('a.feedback.win', {
+      const next = ctrl.nextChapter();
+      return h('a.feedback.win', next ? {
+        hook: bind('click', p.goToNext)
+      } : {
         attrs: { href: '/practice' }
       }, [
         h('span', 'Success!'),
-        ctrl.nextChapter() ? null : 'Back to practice menu'
+        ctrl.nextChapter() ? 'Go to next exercise' : 'Back to practice menu'
       ]);
  case false:
    return h('a.feedback.fail', {
@@ -65,11 +69,19 @@ export function underboard(ctrl: StudyCtrl): VNode {
      h('strong', 'Click to retry')
    ]);
  default:
-   return h('div.feedback.ongoing', [
-     h('div.goal', [renderGoal(p, p.goal().moves! - p.nbMoves())]),
-     p.comment() ? h('div.comment', {
-       hook: innerHTML(p.comment(), text => enrichText(text!, true))
-     }) : null
+   return h('div', [
+     h('div.feedback.ongoing', [
+       h('div.goal', [renderGoal(p, p.goal().moves! - p.nbMoves())]),
+       p.comment() ? h('div.comment', {
+         hook: innerHTML(p.comment(), text => enrichText(text!, true))
+       }) : null
+     ]),
+     boolSetting({
+       name: 'Load next exercise immediately',
+       id: 'autoNext',
+       checked: p.autoNext(),
+       change: p.autoNext
+     }, ctrl.trans, ctrl.redraw)
    ]);
   }
 }
