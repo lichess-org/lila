@@ -762,6 +762,8 @@ en %3$s</string>
   <string name="perfRatingX">Classement : %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s secondes pour jouer le premier coup</string>
   <string name="practiceWithComputer">S\'entrainer avec un ordinateur</string>
+  <string name="anotherWasX">Un autre était %s</string>
+  <string name="bestWasX">Meilleur était %s</string>
   <string name="youBrowsedAway">Vous avez parcouru</string>
   <string name="resumePractice">Reprendre l\'entrainement</string>
   <string name="theGameIsADraw">La partie est nulle.</string>
@@ -772,10 +774,30 @@ en %3$s</string>
   <string name="evaluatingYourMove">Evaluant votre coup ...</string>
   <string name="whiteWinsGame">Les blancs gagnent</string>
   <string name="blackWinsGame">Les Noirs gagnent</string>
+  <string name="learnFromYourMistakes">Apprendre de vos erreurs</string>
   <string name="skipThisMove">Passer ce coup</string>
+  <string name="next">Suivant</string>
   <string name="xWasPlayed">%s a été joué</string>
+  <string name="findBetterMoveForWhite">Trouvez un meilleur coup pour les Blancs</string>
+  <string name="findBetterMoveForBlack">Trouvez un meilleur coup pour les Noirs</string>
   <string name="youCanDoBetter">Vous pouvez faire mieux</string>
+  <string name="tryAnotherMoveForWhite">Essayer un autre coup pour les Blancs</string>
+  <string name="tryAnotherMoveForBlack">Essayer un autre coup pour les Noirs</string>
   <string name="solution">Solution</string>
   <string name="waitingForAnalysis">En attente d\'analyse</string>
+  <string name="noMistakesFoundForWhite">Pas d\'erreur trouvée pour les Blancs</string>
+  <string name="noMistakesFoundForBlack">Pas d\'erreur trouvée pour les Noirs</string>
+  <string name="doneReviewingWhiteMistakes">Examiner les erreurs des Blancs</string>
+  <string name="doneReviewingBlackMistakes">Examiner les erreurs des Noirs</string>
+  <string name="doItAgain">Essayer encore</string>
+  <string name="reviewWhiteMistakes">Revoir les erreurs des Blancs</string>
+  <string name="reviewBlackMistakes">Revoir les erreurs des Noirs</string>
+  <string name="advantage">Avantage</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s seconde</item>
+    <item quantity="other">%s secondes</item>
+  </plurals>
+  <string name="opening">Ouverture</string>
+  <string name="middlegame">Milieu de partie</string>
   <string name="endgame">Fin de partie</string>
 </resources>
