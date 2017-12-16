@@ -5,6 +5,12 @@
 @name = @{ categName(categ) }
 @title = @{ s"$name - ${u.username} - ${trans.preferences.txt()}" }
 
+@categFieldset(categ: lila.pref.PrefCateg, active: lila.pref.PrefCateg)(body: Html) = {
+<div@if(categ != active) { class="none" }>
+  @body
+</div>
+}
+
 @account.layout(title = title, active = categ.slug, evenMoreCss = cssTag("pref.css")) {
 <div class="content_box small_box prefs">
   <div class="signup_box">
