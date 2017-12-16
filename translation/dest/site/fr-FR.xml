@@ -780,6 +780,7 @@ en %3$s</string>
   <string name="xWasPlayed">%s a été joué</string>
   <string name="findBetterMoveForWhite">Trouvez un meilleur coup pour les Blancs</string>
   <string name="findBetterMoveForBlack">Trouvez un meilleur coup pour les Noirs</string>
+  <string name="resumeLearning">Résumé de l\'apprentissage</string>
   <string name="youCanDoBetter">Vous pouvez faire mieux</string>
   <string name="tryAnotherMoveForWhite">Essayer un autre coup pour les Blancs</string>
   <string name="tryAnotherMoveForBlack">Essayer un autre coup pour les Noirs</string>
