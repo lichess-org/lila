@@ -55,7 +55,15 @@ package shutup {
   case class RecordTeamForumMessage(userId: String, text: String)
   case class RecordPrivateMessage(userId: String, toUserId: String, text: String)
   case class RecordPrivateChat(chatId: String, userId: String, text: String)
-  case class RecordPublicChat(chatId: String, userId: String, text: String)
+  case class RecordPublicChat(userId: String, text: String, source: PublicSource)
+
+  sealed trait PublicSource
+  object PublicSource {
+    case class Tournament(id: String) extends PublicSource
+    case class Simul(id: String) extends PublicSource
+    case class Study(id: String) extends PublicSource
+    case class Watcher(gameId: String) extends PublicSource
+  }
 }
 
 package mod {

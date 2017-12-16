@@ -2,6 +2,7 @@ package lila.shutup
 
 case class UserRecord(
     _id: String,
+    /* pub: Option[List[PublicLine]], intentionally not mapped to DB */
     puf: Option[List[Double]],
     tef: Option[List[Double]],
     prm: Option[List[Double]],

@@ -48,6 +48,7 @@ private[simul] final class SocketHandler(
     chatId = Chat.Id(simId),
     member = member,
     socket = socket,
-    chat = chat
+    chat = chat,
+    publicSource = lila.hub.actorApi.shutup.PublicSource.Simul(simId).some
   )
 }

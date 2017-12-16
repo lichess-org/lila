@@ -236,7 +236,8 @@ final class SocketHandler(
     member = member,
     socket = socket,
     chat = chat,
-    canTimeout = Some(() => user.?? { u => api.isContributor(studyId, u.id) })
+    canTimeout = Some(() => user.?? { u => api.isContributor(studyId, u.id) }),
+    publicSource = none // the "talk" event is handled by the study API
   )
 
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =

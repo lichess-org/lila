@@ -5,13 +5,13 @@ import akka.pattern.ask
 
 import actorApi._
 import akka.actor.ActorSelection
+import lila.chat.Chat
 import lila.hub.actorApi.map._
 import lila.security.Flood
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.socket.Socket.Uid
 import lila.user.User
-import lila.chat.Chat
 import makeTimeout.short
 
 private[tournament] final class SocketHandler(
@@ -50,6 +50,7 @@ private[tournament] final class SocketHandler(
     chatId = Chat.Id(tourId),
     member = member,
     socket = socket,
-    chat = chat
+    chat = chat,
+    publicSource = lila.hub.actorApi.shutup.PublicSource.Tournament(tourId).some
   )
 }

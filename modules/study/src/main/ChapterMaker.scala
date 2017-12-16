@@ -134,7 +134,8 @@ private final class ChapterMaker(
       chat ! lila.chat.actorApi.UserTalk(
         chatId = Chat.Id(chatId),
         userId = userId,
-        text = s"I'm studying this game on lichess.org/study/${study.id}"
+        text = s"I'm studying this game on lichess.org/study/${study.id}",
+        publicSource = none
       )
     }
 

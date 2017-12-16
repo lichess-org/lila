@@ -8,6 +8,7 @@ import lila.chat.actorApi._
 import lila.game.Game
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.i18n.{ I18nKeys, enLang }
+import lila.hub.actorApi.shutup.PublicSource
 
 final class Messenger(val chat: ActorSelection) {
 
@@ -24,7 +25,8 @@ final class Messenger(val chat: ActorSelection) {
 
   def watcher(gameId: Game.ID, member: Member, text: String) =
     member.userId foreach { userId =>
-      chat ! UserTalk(Chat.Id(watcherId(gameId)), userId, text)
+      val source = PublicSource.Watcher(gameId)
+      chat ! UserTalk(Chat.Id(watcherId(gameId)), userId, text, source.some)
     }
 
   private val whisperCommands = List("/whisper ", "/w ")
@@ -33,10 +35,11 @@ final class Messenger(val chat: ActorSelection) {
     case Some(userId) =>
       whisperCommands.collectFirst {
         case command if text startsWith command =>
-          UserTalk(Chat.Id(watcherId(gameId)), userId, text drop command.size)
+          val source = PublicSource.Watcher(gameId)
+          UserTalk(Chat.Id(watcherId(gameId)), userId, text drop command.size, source.some)
       } orElse {
         if (text startsWith "/") none // mistyped command?
-        else UserTalk(Chat.Id(gameId), userId, text, public = false).some
+        else UserTalk(Chat.Id(gameId), userId, text, publicSource = none).some
       }
     case None =>
       PlayerTalk(Chat.Id(gameId), member.color.white, text).some

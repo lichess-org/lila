@@ -14,6 +14,7 @@ import lila.common.IpAddress
 import lila.game.{ Pov, PovRef, GameRepo, Game }
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.Berserk
+import lila.hub.actorApi.shutup.PublicSource
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.socket.Socket.Uid
@@ -52,7 +53,8 @@ private[round] final class SocketHandler(
       chatId = Chat.Id(s"$gameId/w"),
       member = member,
       socket = socket,
-      chat = messenger.chat
+      chat = messenger.chat,
+      publicSource = PublicSource.Watcher(gameId).some
     )) { playerId =>
       ({
         case ("p", o) => socket ! Ping(uid, o)
@@ -107,7 +109,8 @@ private[round] final class SocketHandler(
         chatId = chatId | Chat.Id(gameId),
         member = member,
         socket = socket,
-        chat = messenger.chat
+        chat = messenger.chat,
+        publicSource = none
       )
     }
   }

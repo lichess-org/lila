@@ -5,6 +5,7 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicChat, RecordPrivateChat }
 import lila.user.{ User, UserRepo }
 
 final class ChatApi(
@@ -71,15 +72,16 @@ final class ChatApi(
       }
     }
 
-    def write(chatId: Chat.Id, userId: String, text: String, public: Boolean): Funit =
+    def write(chatId: Chat.Id, userId: String, text: String, publicSource: Option[PublicSource]): Funit =
       makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>
           pushLine(chatId, line) >>- {
-            if (public) cached invalidate chatId
+            if (publicSource.isDefined) cached invalidate chatId
             shutup ! {
-              import lila.hub.actorApi.shutup._
-              if (public) RecordPublicChat(chatId.value, userId, text)
-              else RecordPrivateChat(chatId.value, userId, text)
+              publicSource match {
+                case Some(source) => RecordPublicChat(userId, text, source)
+                case _ => RecordPrivateChat(chatId.value, userId, text)
+              }
             }
             lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
           }

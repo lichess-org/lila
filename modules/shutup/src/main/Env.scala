@@ -37,8 +37,8 @@ final class Env(
         api.privateMessage(userId, toUserId, text)
       case RecordPrivateChat(chatId, userId, text) =>
         api.privateChat(chatId, userId, text)
-      case RecordPublicChat(chatId, userId, text) =>
-        api.publicChat(chatId, userId, text)
+      case RecordPublicChat(userId, text, source) =>
+        api.publicChat(userId, text, source)
     }
   }), name = ActorName)
 }

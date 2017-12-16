@@ -155,7 +155,12 @@ final class StudyApi(
   def talk(userId: User.ID, studyId: Study.Id, text: String, socket: ActorRef) = byId(studyId) foreach {
     _ foreach { study =>
       (study canChat userId) ?? {
-        chat ! lila.chat.actorApi.UserTalk(Chat.Id(studyId.value), userId, text)
+        chat ! lila.chat.actorApi.UserTalk(
+          Chat.Id(studyId.value),
+          userId = userId,
+          text = text,
+          publicSource = lila.hub.actorApi.shutup.PublicSource.Study(studyId.value).some
+        )
       }
     }
   }
