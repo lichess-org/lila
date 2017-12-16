@@ -10,9 +10,9 @@ lichess.StrongSocket = function(url, version, settings) {
   var version = version;
   var versioned = version !== false;
   var options = settings.options;
-  var ws = null;
-  var pingSchedule = null;
-  var connectSchedule = null;
+  var ws;
+  var pingSchedule;
+  var connectSchedule;
   var ackable = makeAckable(function(t, d) { send(t, d) });
   var lastPingTime = now();
   var pongCount = 0;
