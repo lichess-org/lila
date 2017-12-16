@@ -55,7 +55,7 @@ final class GameSearchApi(
     Fields.averageRating -> game.averageUsersRating,
     Fields.ai -> game.aiLevel,
     Fields.date -> (lila.search.Date.formatter print game.movedAt),
-    Fields.duration -> game.durationSeconds,
+    Fields.duration -> game.durationSeconds, // for realtime games only
     Fields.clockInit -> game.clock.map(_.limitSeconds),
     Fields.clockInc -> game.clock.map(_.incrementSeconds),
     Fields.analysed -> analysed,
