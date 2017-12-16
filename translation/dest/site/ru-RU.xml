@@ -221,7 +221,7 @@
   <string name="viewRematch">Посмотреть матч-реванш</string>
   <string name="play">Играть</string>
   <string name="inbox">Входящие</string>
-  <string name="chatRoom">Окно чата</string>
+  <string name="chatRoom">Чат</string>
   <string name="loginToChat">Войдите, чтобы использовать чат</string>
   <string name="youHaveBeenTimedOut">Вы были отключены.</string>
   <string name="spectatorRoom">Чат для зрителей</string>
