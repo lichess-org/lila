@@ -24,6 +24,7 @@ $(function() {
       var option = [];
       option.push("<option value='" + user + "'");
       option.push(isSelected(row, "winner", user, 'req-winner'));
+      option.push(isSelected(row, "loser", user, 'req-loser'));
       option.push(isSelected(row, "whiteUser", user, 'req-white'));
       option.push(isSelected(row, "blackUser", user, 'req-black'));
       option.push(">" + user + "</option>");

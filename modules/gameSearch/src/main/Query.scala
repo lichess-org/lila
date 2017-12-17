@@ -10,6 +10,7 @@ case class Query(
     user1: Option[String] = None,
     user2: Option[String] = None,
     winner: Option[String] = None,
+    loser: Option[String] = None,
     winnerColor: Option[Int] = None,
     perf: Option[Int] = None,
     source: Option[Int] = None,
@@ -32,6 +33,7 @@ case class Query(
     user1.nonEmpty ||
       user2.nonEmpty ||
       winner.nonEmpty ||
+      loser.nonEmpty ||
       winnerColor.nonEmpty ||
       perf.nonEmpty ||
       source.nonEmpty ||

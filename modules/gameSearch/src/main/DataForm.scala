@@ -16,6 +16,7 @@ private[gameSearch] final class DataForm {
       "a" -> optional(nonEmptyText),
       "b" -> optional(nonEmptyText),
       "winner" -> optional(nonEmptyText),
+      "loser" -> optional(nonEmptyText),
       "white" -> optional(nonEmptyText),
       "black" -> optional(nonEmptyText)
     )(SearchPlayer.apply)(SearchPlayer.unapply),
@@ -88,6 +89,7 @@ private[gameSearch] case class SearchData(
     user1 = players.cleanA,
     user2 = players.cleanB,
     winner = players.cleanWinner,
+    loser = players.cleanLoser,
     winnerColor = winnerColor,
     perf = perf,
     source = source,
@@ -124,6 +126,7 @@ private[gameSearch] case class SearchPlayer(
     a: Option[String] = None,
     b: Option[String] = None,
     winner: Option[String] = None,
+    loser: Option[String] = None,
     white: Option[String] = None,
     black: Option[String] = None
 ) {
@@ -131,6 +134,7 @@ private[gameSearch] case class SearchPlayer(
   lazy val cleanA = clean(a)
   lazy val cleanB = clean(b)
   def cleanWinner = oneOf(winner)
+  def cleanLoser = oneOf(loser)
   def cleanWhite = oneOf(white)
   def cleanBlack = oneOf(black)
 
