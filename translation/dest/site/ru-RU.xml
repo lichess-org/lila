@@ -72,7 +72,7 @@
   <string name="averageRatingX">Средний рейтинг: %s</string>
   <string name="recentGames">Недавние игры</string>
   <string name="topGames">Лучшие игры</string>
-  <string name="masterDbExplanation">Два миллиона OTB игр %1$s+ FIDE игроков в рейтинге от %2$s до %3$s</string>
+  <string name="masterDbExplanation">Два миллиона игр, проведённых за доской игроками FIDE с рейтингом %1$s+ с %2$s по %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат в %s полуход</item>
     <item quantity="few">Мат в %s полухода</item>
