@@ -821,7 +821,7 @@
   <string name="noMistakesFoundForBlack">Ошибок чёрных не найдено</string>
   <string name="doneReviewingWhiteMistakes">Ошибки белых разобраны</string>
   <string name="doneReviewingBlackMistakes">Ошибки чёрных разобраны</string>
-  <string name="doItAgain">Ещё раз</string>
+  <string name="doItAgain">Выполнить ещё раз</string>
   <string name="reviewWhiteMistakes">Разобрать ошибки белых</string>
   <string name="reviewBlackMistakes">Разобрать ошибки чёрных</string>
   <string name="advantage">Преимущество</string>
