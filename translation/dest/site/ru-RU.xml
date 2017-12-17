@@ -31,7 +31,7 @@
   <string name="joinTheGame">Принять вызов</string>
   <string name="whitePlays">Ход белых</string>
   <string name="blackPlays">Ход чёрных</string>
-  <string name="opponentLeftChoices">Вероятно, ваш соперник покинул игру. Вы можете запросить победу, объявить ничью или подождать.</string>
+  <string name="opponentLeftChoices">Вероятно, ваш соперник покинул игру. Вы можете запросить победу, объявить ничью, или ещё подождать.</string>
   <string name="makeYourOpponentResign">Сопернику будет засчитано поражение</string>
   <string name="forceResignation">Запросить победу</string>
   <string name="forceDraw">Объявить ничью</string>
@@ -67,7 +67,7 @@
   <string name="losing">Проигрывают</string>
   <string name="drawn">Вничью</string>
   <string name="unknown">Неизвестно</string>
-  <string name="database">База данных</string>
+  <string name="database">Источник данных</string>
   <string name="whiteDrawBlack">Белые / Ничья / Чёрные</string>
   <string name="averageRatingX">Средний рейтинг: %s</string>
   <string name="recentGames">Недавние игры</string>
@@ -167,7 +167,7 @@
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Распределение рейтингов</string>
   <string name="username">Имя пользователя</string>
-  <string name="usernameOrEmail">Логин или Email</string>
+  <string name="usernameOrEmail">Логин или электронная почта</string>
   <string name="password">Пароль</string>
   <string name="haveAnAccount">Уже есть учётная запись?</string>
   <string name="changePassword">Сменить пароль</string>
@@ -185,7 +185,7 @@
   </plurals>
   <string name="gamesPlayed">Партий сыграно</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s партий с вами</item>
+    <item quantity="one">%s партия с вами</item>
     <item quantity="few">%s партии с вами</item>
     <item quantity="other">%s партий с вами</item>
   </plurals>
@@ -203,7 +203,7 @@
   <string name="accept">Принять</string>
   <string name="decline">Отклонить</string>
   <string name="playingRightNow">Текущая партия</string>
-  <string name="finished">Закончено</string>
+  <string name="finished">Завершено</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
   <string name="standard">Классические шахматы</string>
@@ -270,7 +270,7 @@
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно манипулирует своим рейтингом</string>
   <string name="openingExplorerAndTablebase">Книга дебютов и эндшпилей</string>
   <string name="takeback">Вернуть ход</string>
-  <string name="proposeATakeback">Попросить переходить</string>
+  <string name="proposeATakeback">Попросить соперника вернуть ход</string>
   <string name="takebackPropositionSent">Предложение вернуть ход отправлено</string>
   <string name="takebackPropositionDeclined">Предложение вернуть ход отклонено</string>
   <string name="takebackPropositionAccepted">Предложение вернуть ход принято</string>
@@ -412,7 +412,7 @@
   <string name="winRate">Процент побед</string>
   <string name="berserkRate">Процент берсерка</string>
   <string name="performance">Сила игры</string>
-  <string name="tournamentComplete">Турнир завершен</string>
+  <string name="tournamentComplete">Турнир завершён</string>
   <string name="movesPlayed">Ходов сделано</string>
   <string name="whiteWins">Белые выиграли</string>
   <string name="blackWins">Чёрные выиграли</string>
