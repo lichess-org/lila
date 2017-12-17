@@ -84,6 +84,7 @@
     <item quantity="other">%s polťahov do ďalšieho brania alebo ťahu pešiakom (vynulovanie pravidla 50 ťahov)</item>
   </plurals>
   <string name="noGameFound">Nenašla sa žiadna partia</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ponuka predvolieb možno obsahuje viac hier?</string>
   <string name="openingExplorer">Prieskumník otvorení</string>
   <string name="xOpeningExplorer">%s prieskumník otvorení</string>
   <string name="winPreventedBy50MoveRule">Zabránené výhre pravidlo 50-tich ťahov</string>
@@ -95,6 +96,7 @@
   <string name="replayMode">Mód prehrávania</string>
   <string name="realtimeReplay">Skutočne</string>
   <string name="byCPL">CPL</string>
+  <string name="openStudy">Otvoriť štúdie</string>
   <string name="enable">Povoliť analýzu</string>
   <string name="bestMoveArrow">Šípka pre najlepší ťah</string>
   <string name="evaluationGauge">Ukazovateľ hodnotenia</string>
@@ -103,6 +105,7 @@
   <string name="memory">Pamäť</string>
   <string name="infiniteAnalysis">Nekonečná analýza</string>
   <string name="blunders">Hrubé chyby</string>
+  <string name="mistake">Chyba</string>
   <string name="mistakes">Chyby</string>
   <string name="inaccuracies">Nepresnosti</string>
   <string name="moveTimes">Trvanie ťahu</string>
