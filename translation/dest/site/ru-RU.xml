@@ -283,7 +283,7 @@
   <string name="tournaments">Турниры</string>
   <string name="tournamentPoints">Турнирные очки</string>
   <string name="viewTournament">Просмотр турнира</string>
-  <string name="backToTournament">Обратно в турнир</string>
+  <string name="backToTournament">Вернуться к турниру</string>
   <string name="thematic">Тематический</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">%s рейтинговая игра</item>
