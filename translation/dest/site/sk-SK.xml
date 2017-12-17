@@ -86,6 +86,8 @@
   <string name="noGameFound">Nenašla sa žiadna partia</string>
   <string name="openingExplorer">Prieskumník otvorení</string>
   <string name="xOpeningExplorer">%s prieskumník otvorení</string>
+  <string name="winPreventedBy50MoveRule">Zabránené výhre pravidlo 50-tich ťahov</string>
+  <string name="lossSavedBy50MoveRule">Prehra zachránená pravidlom 50-tich ťahov</string>
   <string name="allSet">Všetko nastavené!</string>
   <string name="importPgn">Vložiť PGN</string>
   <string name="delete">Zmazat</string>
