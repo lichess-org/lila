@@ -221,7 +221,7 @@
   <string name="viewRematch">Посмотреть матч-реванш</string>
   <string name="play">Играть</string>
   <string name="inbox">Входящие</string>
-  <string name="chatRoom">Окно чата</string>
+  <string name="chatRoom">Чат</string>
   <string name="loginToChat">Войдите, чтобы использовать чат</string>
   <string name="youHaveBeenTimedOut">Вы были отключены.</string>
   <string name="spectatorRoom">Чат для зрителей</string>
@@ -406,8 +406,8 @@
   <string name="winStreak">Серия побед</string>
   <string name="createdBy">Создан</string>
   <string name="tournamentIsStarting">Турнир начинается</string>
-  <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира в настоящее время закрыта.</string>
-  <string name="standByX">Ожидайте, %s, жеребьёвка игроков, будьте готовы!</string>
+  <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира уже закрыта.</string>
+  <string name="standByX">Будьте готовы, %s, идёт жеребьёвка игроков!</string>
   <string name="youArePlaying">Вы в игре!</string>
   <string name="winRate">Процент побед</string>
   <string name="berserkRate">Процент берсерка</string>
