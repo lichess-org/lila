@@ -801,4 +801,12 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="getAHint">Gauti užuominą</string>
   <string name="whiteWinsGame">Laimėjo baltieji</string>
   <string name="blackWinsGame">Laimėjo juodieji</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekundė</item>
+    <item quantity="few">%s sekundės</item>
+    <item quantity="other">%s sekundžių</item>
+  </plurals>
+  <string name="opening">Debiutas</string>
+  <string name="middlegame">Mitelšpilis</string>
+  <string name="endgame">Endšpilis</string>
 </resources>
