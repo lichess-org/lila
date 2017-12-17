@@ -26,7 +26,8 @@ openGraph = lila.app.ui.OpenGraph(
 title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",
 description = s"Sit back, relax, and watch the best ${channel.name.toLowerCase} lichess players compete on lichess TV",
 url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
-).some) {
+).some,
+robots = true) {
 <div class="round cg-512">
   @board.domPreload(pov.some)
   <div class="underboard"><div class="center">
