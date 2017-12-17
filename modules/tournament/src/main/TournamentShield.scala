@@ -72,10 +72,12 @@ object TournamentShield {
   ) {
     def key = of.fold(_.name, _.key)
     def name = of.fold(_.toString, _.name)
-    def matches(tour: Tournament) = of.fold(
-      speed => tour.schedule.exists(_.speed == speed),
-      variant => tour.variant == variant
-    )
+    def matches(tour: Tournament) =
+      if (tour.variant.standard) ~(for {
+        tourSpeed <- tour.schedule.map(_.speed)
+        categSpeed <- of.left.toOption
+      } yield tourSpeed == categSpeed)
+      else of.right.toOption.has(tour.variant)
   }
 
   object Category {
