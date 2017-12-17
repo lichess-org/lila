@@ -223,7 +223,7 @@
   <string name="inbox">Входящие</string>
   <string name="chatRoom">Чат</string>
   <string name="loginToChat">Войдите, чтобы использовать чат</string>
-  <string name="youHaveBeenTimedOut">Вы были отключены.</string>
+  <string name="youHaveBeenTimedOut">Чат временно недоступен для вас.</string>
   <string name="spectatorRoom">Чат для зрителей</string>
   <string name="composeMessage">Написать сообщение</string>
   <string name="noNewMessages">Нет новых сообщений</string>
