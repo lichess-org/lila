@@ -144,7 +144,7 @@
   <string name="forum">Форум</string>
   <string name="xPostedInForumY">%1$s написал сообщение в теме %2$s</string>
   <string name="latestForumPosts">Последние сообщения на форуме</string>
-  <string name="players">Шахматисты</string>
+  <string name="players">Игроки</string>
   <string name="minutesPerSide">Минут на партию</string>
   <string name="variant">Вариант</string>
   <string name="variants">Варианты</string>
