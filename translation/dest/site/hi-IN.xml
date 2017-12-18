@@ -103,6 +103,7 @@
   <string name="infiniteAnalysis">अनंत विश्लेषण</string>
   <string name="removesTheDepthLimit">गहराई सीमा को निकालता है, और आपके कंप्यूटर को गर्म रखता है</string>
   <string name="blunders">गंभीर गल्तियां</string>
+  <string name="mistake">गलती</string>
   <string name="mistakes">गलतियाँ</string>
   <string name="inaccuracies">त्रुटियाँ</string>
   <string name="moveTimes">चाल समय</string>
