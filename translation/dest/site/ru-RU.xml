@@ -416,7 +416,7 @@
   <string name="movesPlayed">Ходов сделано</string>
   <string name="whiteWins">Белые выиграли</string>
   <string name="blackWins">Чёрные выиграли</string>
-  <string name="draws">Ничья</string>
+  <string name="draws">Ничьих</string>
   <string name="nextXTournament">Следующий турнир: %s:</string>
   <string name="viewMoreTournaments">Другие турниры</string>
   <string name="averageOpponent">Средний рейтинг соперников</string>
