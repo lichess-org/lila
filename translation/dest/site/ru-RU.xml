@@ -105,7 +105,7 @@
   <string name="memory">Память</string>
   <string name="infiniteAnalysis">Бесконечный анализ</string>
   <string name="removesTheDepthLimit">Снимает ограничение на глубину анализа, но заставляет поработать ваш компьютер</string>
-  <string name="blunder">Грубая ошибка</string>
+  <string name="blunder">Зевок</string>
   <string name="blunders">Грубые ошибки</string>
   <string name="mistake">Ошибка</string>
   <string name="mistakes">Ошибки</string>
@@ -324,7 +324,7 @@
   <string name="myTeams">Мои команды</string>
   <string name="noTeamFound">Команд не найдено</string>
   <string name="joinTeam">Присоединиться к команде</string>
-  <string name="quitTeam">Выйти из команды</string>
+  <string name="quitTeam">Покинуть комнату</string>
   <string name="anyoneCanJoin">Любой может присоединиться</string>
   <string name="aConfirmationIsRequiredToJoin">Для присоединения требуется подтверждение</string>
   <string name="joiningPolicy">Условия членства</string>
