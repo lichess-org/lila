@@ -726,5 +726,8 @@
   <string name="invalidPgn">Neplatný formát PGN</string>
   <string name="error.min">Musí byť väčšie alebo rovné %s</string>
   <string name="error.max">Musí byť menšie alebo rovné %s</string>
+  <string name="error.unknown">Chyba</string>
+  <string name="custom">Vlastná</string>
   <string name="notifications">Upozornenia</string>
+  <string name="challenges">Výzvy</string>
 </resources>
