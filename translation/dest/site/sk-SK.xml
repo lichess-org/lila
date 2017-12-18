@@ -724,6 +724,8 @@
   <string name="chessBasics">Základy šachu</string>
   <string name="coaches">Tréneri</string>
   <string name="invalidPgn">Neplatný formát PGN</string>
+  <string name="error.minLength">Minimálna dĺžka je %s</string>
+  <string name="error.maxLength">Maximálna dĺžka je %s</string>
   <string name="error.min">Musí byť väčšie alebo rovné %s</string>
   <string name="error.max">Musí byť menšie alebo rovné %s</string>
   <string name="error.unknown">Chyba</string>
