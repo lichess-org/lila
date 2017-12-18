@@ -679,7 +679,7 @@
   <string name="tournamentFAQ">ЧАВо турнира Арена</string>
   <string name="tournamentOfficial">Официальный</string>
   <string name="timeBeforeTournamentStarts">Время до начала турнира</string>
-  <string name="averageCentipawnLoss">В среднем потеряно сотых пешки</string>
+  <string name="averageCentipawnLoss">Потеряно сантипешек в среднем</string>
   <string name="keyboardShortcuts">Горячие клавиши</string>
   <string name="keyMoveBackwardOrForward">ход назад/вперёд</string>
   <string name="keyGoToStartOrEnd">в начало/конец</string>
