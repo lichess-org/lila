@@ -255,6 +255,7 @@
     <item quantity="few">Pridať %s sekundy</item>
     <item quantity="other">Pridať %s sekúnd</item>
   </plurals>
+  <string name="giveMoreTime">Pridaj čas</string>
   <string name="thisPlayerUsesChessComputerAssistance">Tento hráč využíva v šachu pomoc počítača</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tento hráč si umelo zvyšuje/znižuje svoje hodnotenie</string>
   <string name="takeback">Vrátiť ťah</string>
