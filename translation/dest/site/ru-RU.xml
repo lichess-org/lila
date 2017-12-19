@@ -183,7 +183,7 @@
     <item quantity="few">%s Задача</item>
     <item quantity="other">%s Задача</item>
   </plurals>
-  <string name="gamesPlayed">Партий сыграно</string>
+  <string name="gamesPlayed">Сыграно партий</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s партия с вами</item>
     <item quantity="few">%s партии с вами</item>
