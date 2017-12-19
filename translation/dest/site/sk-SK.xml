@@ -274,6 +274,7 @@
   <string name="viewTournament">Zobraz turnaj</string>
   <string name="backToTournament">Návrat do turnaja</string>
   <string name="thematic">Tématický</string>
+  <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je príliš nízky</string>
   <string name="backToGame">Návrat do hry</string>
   <string name="siteDescription">Šach online zadarmo. Hrajte šach teraz v novom rozhraní. Bez registrácie, reklám a  zásuvných modulov. Hrajte šach s počítačom, priateľmi alebo náhodnými protivníkmi.</string>
   <string name="teams">Tímy</string>
