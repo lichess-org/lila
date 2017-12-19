@@ -96,13 +96,13 @@
   <string name="outOfCheckIntro">Вам шах! Вы должны отойти или заблокировать атаку.</string>
   <string name="escapeWithTheKing">Король убегает!</string>
   <string name="theKingCannotEscapeButBlock">Король не может отойти,
-но вы можете отразить атаку!</string>
+но вы можете защитить его!</string>
   <string name="youCanGetOutOfCheckByTaking">Вы можете избавиться от шаха,
 съев атакующую фигуру.</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">Этот конь ставит шах
-сквозь вашу защиту!</string>
-  <string name="escapeOrBlock">Уведите короля
-или закройтесь!</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Конь ставит шах королю
+сквозь его оборону!</string>
+  <string name="escapeOrBlock">Уведите короля из-под атаки
+или защитите его!</string>
   <string name="outOfCheckComplete">Поздравляем! Вашего короля невозможно взять, но убедитесь, что вы можете защитить его от шаха!</string>
   <string name="mateInOne">Мат</string>
   <string name="defeatTheOpponentsKing">Разгромите короля противника</string>
