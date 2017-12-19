@@ -91,7 +91,7 @@
   <string name="checkInOneGoal">Возьмите вражеского короля под прицел
 за один ход!</string>
   <string name="checkInOneComplete">Поздравляем! Вы поставили шах своему сопернику, вынудив защищать своего короля!</string>
-  <string name="outOfCheck">Уход из-под шаха</string>
+  <string name="outOfCheck">Выход из шаха</string>
   <string name="defendYourKing">Защищайте своего короля</string>
   <string name="outOfCheckIntro">Вам шах! Вы должны отойти или заблокировать атаку.</string>
   <string name="escapeWithTheKing">Король убегает!</string>
@@ -103,7 +103,7 @@
 сквозь вашу защиту!</string>
   <string name="escapeOrBlock">Уведите короля
 или закройтесь!</string>
-  <string name="outOfCheckComplete">Поздравляем! Ваш король не сможет быть взят, убедитесь, что вы можете защитить его от шаха!</string>
+  <string name="outOfCheckComplete">Поздравляем! Вашего короля невозможно взять, но убедитесь, что вы можете защитить его от шаха!</string>
   <string name="mateInOne">Мат в один ход</string>
   <string name="defeatTheOpponentsKing">Разгромите короля противника</string>
   <string name="mateInOneIntro">Вы выиграете, если ваш противник не сможет защититься от шаха.</string>
