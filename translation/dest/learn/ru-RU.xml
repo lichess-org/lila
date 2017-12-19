@@ -22,7 +22,7 @@
   <string name="rookComplete">Поздравляем! Вы мастерски овладели ладьёй.</string>
   <string name="theBishop">Слон</string>
   <string name="itMovesDiagonally">Двигается по диагонали</string>
-  <string name="bishopIntro">Далее мы научимся ходить слоном!</string>
+  <string name="bishopIntro">Теперь мы узнаем, как ходит слон!</string>
   <string name="youNeedBothBishops">Поля белого цвета контролирует один слон,
 поля чёрного цвета — другой.
 Вам нужны оба слона!</string>
