@@ -104,7 +104,7 @@
   <string name="escapeOrBlock">Уведите короля
 или закройтесь!</string>
   <string name="outOfCheckComplete">Поздравляем! Вашего короля невозможно взять, но убедитесь, что вы можете защитить его от шаха!</string>
-  <string name="mateInOne">Мат в один ход</string>
+  <string name="mateInOne">Мат</string>
   <string name="defeatTheOpponentsKing">Разгромите короля противника</string>
   <string name="mateInOneIntro">Вы выиграете, если ваш противник не сможет защититься от шаха.</string>
   <string name="attackYourOpponentsKing">Атакуйте короля вашего противника так,
