@@ -311,7 +311,7 @@
   <string name="yourPerfRatingIsTooLow">Ваш рейтинг в %1$s (%2$s) недостаточен для участия</string>
   <string name="ratedMoreThanInPerf">Рейтинг ≥ %1$s в %2$s</string>
   <string name="ratedLessThanInPerf">Рейтинг ≤ %1$s в %2$s</string>
-  <string name="backToGame">Вернуться в игру</string>
+  <string name="backToGame">Вернуться к игре</string>
   <string name="siteDescription">Бесплатные онлайн-шахматы. Играйте в шахматы прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в шахматы с компьютером, друзьями или случайными соперниками.</string>
   <string name="teams">Команды</string>
   <plurals name="nbMembers">
@@ -323,7 +323,7 @@
   <string name="newTeam">Новая команда</string>
   <string name="myTeams">Мои команды</string>
   <string name="noTeamFound">Команд не найдено</string>
-  <string name="joinTeam">Присоединиться к команде</string>
+  <string name="joinTeam">Вступить в команду</string>
   <string name="quitTeam">Покинуть комнату</string>
   <string name="anyoneCanJoin">Любой может присоединиться</string>
   <string name="aConfirmationIsRequiredToJoin">Для присоединения требуется подтверждение</string>
@@ -512,7 +512,7 @@
   <string name="troll">Троллинг</string>
   <string name="other">Другое</string>
   <string name="reportDescriptionHelp">Поделитесь с нами ссылками на игры, где, как вам кажется, были нарушены правила, и опишите, в чём дело. Недостаточно просто написать «он мухлюет», пожалуйста, опишите, как вы пришли к такому выводу. Мы сработаем оперативнее, если вы напишете на английском языке.</string>
-  <string name="by">опубликовал %s</string>
+  <string name="by">%s</string>
   <string name="thisTopicIsNowClosed">Эта тема закрыта.</string>
   <string name="theming">Настройка темы</string>
   <string name="donate">Поддержать проект</string>
@@ -582,8 +582,7 @@
   <string name="xCommentedY">%1$s прокомментировал %2$s</string>
   <string name="victory">Победа</string>
   <string name="defeat">Поражения</string>
-  <string name="xVsYinZ">%1$s с %2$s
-в %3$s</string>
+  <string name="xVsYinZ">%1$s в %3$s с %2$s</string>
   <string name="timeline">Дневник</string>
   <string name="seeAllTournaments">Открыть все турниры</string>
   <string name="starting">Начинается:</string>
