@@ -125,7 +125,7 @@
 Ферзь любит свой цвет.</string>
   <string name="placeTheKing">Поставьте короля!
 Он стоит рядом с ферзём.</string>
-  <string name="pawnsFormTheFrontLine">Пешки выстроились на передней линии.
+  <string name="pawnsFormTheFrontLine">Пешки выстроились в линию перед фигурами.
 Сделайте любой ход, чтобы продолжить.</string>
   <string name="boardSetupComplete">Поздравляем! Теперь вы знаете, как расставить фигуры на шахматной доске.</string>
   <string name="castling">Рокировка</string>
@@ -144,7 +144,7 @@
   <string name="castleQueenSideMovePiecesFirst">Длинная рокировка!
 Сначала вам нужно вывести фигуры.</string>
   <string name="youCannotCastleIfMoved">Вы не можете рокироваться,
-если король или ладья, участвующие в рокировке,
+если король или ладья, участвующая в рокировке,
 уже делали ход.</string>
   <string name="youCannotCastleIfAttacked">Вы не можете рокироваться,
 если на пути к рокировке король окажется под шахом.
