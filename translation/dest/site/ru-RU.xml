@@ -320,15 +320,15 @@
     <item quantity="other">%s участников</item>
   </plurals>
   <string name="allTeams">Все команды</string>
-  <string name="newTeam">Новая команда</string>
+  <string name="newTeam">Создать команду</string>
   <string name="myTeams">Мои команды</string>
-  <string name="noTeamFound">Команд не найдено</string>
+  <string name="noTeamFound">Нет таких команд</string>
   <string name="joinTeam">Вступить в команду</string>
-  <string name="quitTeam">Покинуть комнату</string>
-  <string name="anyoneCanJoin">Любой может присоединиться</string>
-  <string name="aConfirmationIsRequiredToJoin">Для присоединения требуется подтверждение</string>
-  <string name="joiningPolicy">Условия членства</string>
-  <string name="teamLeader">Создатель команды</string>
+  <string name="quitTeam">Выйти из команды</string>
+  <string name="anyoneCanJoin">Любой может свободно вступить в команду</string>
+  <string name="aConfirmationIsRequiredToJoin">Для вступления требуется подтверждение</string>
+  <string name="joiningPolicy">Условия вступления</string>
+  <string name="teamLeader">Капитан команды</string>
   <string name="teamBestPlayers">Лучшие игроки команды</string>
   <string name="teamRecentMembers">Новые члены команды</string>
   <string name="xJoinedTeamY">%1$s вступил в команду %2$s</string>
@@ -392,7 +392,7 @@
     <item quantity="few">Менее %s минут</item>
     <item quantity="other">Менее %s минут</item>
   </plurals>
-  <string name="required">Требуется заполнить.</string>
+  <string name="required">Обязательное поле.</string>
   <string name="openTournaments">Открытые турниры</string>
   <string name="duration">Длительность</string>
   <string name="winner">Победитель</string>
