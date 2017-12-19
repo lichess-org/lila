@@ -85,8 +85,8 @@
   </plurals>
   <string name="noGameFound">Партий не найдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр в настройках?</string>
-  <string name="openingExplorer">Книга дебютов</string>
-  <string name="xOpeningExplorer">Книга дебютов для %s</string>
+  <string name="openingExplorer">База дебютов</string>
+  <string name="xOpeningExplorer">База дебютов для %s</string>
   <string name="winPreventedBy50MoveRule">Не удаётся победить из-за правила 50 ходов</string>
   <string name="lossSavedBy50MoveRule">Удаётся избежать поражения из-за правила 50 ходов</string>
   <string name="allSet">Готово!</string>
@@ -268,7 +268,7 @@
   <string name="giveMoreTime">Дать больше времени</string>
   <string name="thisPlayerUsesChessComputerAssistance">Этот игрок пользуется подсказками шахматных программ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно манипулирует своим рейтингом</string>
-  <string name="openingExplorerAndTablebase">Книга дебютов и эндшпилей</string>
+  <string name="openingExplorerAndTablebase">База дебютов и эндшпилей</string>
   <string name="takeback">Вернуть ход</string>
   <string name="proposeATakeback">Попросить соперника вернуть ход</string>
   <string name="takebackPropositionSent">Предложение вернуть ход отправлено</string>
