@@ -49,10 +49,10 @@
   <string name="pawnIntro">Пешки слабы, но в них заложен большой потенциал.</string>
   <string name="pawnsMoveOneSquareOnly">Пешки ходят только на одну клетку вперёд. Но достигнув другого конца доски, они превращаются в сильную фигуру!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">В большинстве случаев пешку лучше превратить в ферзя.
-Но иногда превращение в коня может оказаться сподручней!</string>
+Но иногда превращение в коня может быть сподручней!</string>
   <string name="pawnsMoveForward">Пешки движутся вперёд,
 но бьют по диагоналям!</string>
-  <string name="captureThenPromote">Побейте, затем превратитесь!</string>
+  <string name="captureThenPromote">Побейте, затем превратите!</string>
   <string name="useAllThePawns">Используйте все пешки!
 Необязательно их превращать.</string>
   <string name="aPawnOnTheSecondRank">Пешка на втором ряду может переместиться на два поля за ход!</string>
@@ -61,7 +61,7 @@
   <string name="pawnComplete">Поздравляем! У пешек нет секретов от вас.</string>
   <string name="pawnPromotion">Превращение пешки</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваша пешка достигла края доски!</string>
-  <string name="itNowPromotesToAStrongerPiece">Сейчас она превращается в фигуру посильнее.</string>
+  <string name="itNowPromotesToAStrongerPiece">Сейчас она превратится в сильную фигуру.</string>
   <string name="selectThePieceYouWant">Выберите фигуру, какую захотите!</string>
   <string name="fundamentals">Базовый уровень</string>
   <string name="capture">Взятие</string>
