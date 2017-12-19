@@ -149,8 +149,8 @@
   <string name="variant">Вариант</string>
   <string name="variants">Варианты</string>
   <string name="timeControl">Контроль времени</string>
-  <string name="realTime">С лимитом времени</string>
-  <string name="correspondence">Дневные</string>
+  <string name="realTime">С контролем времени</string>
+  <string name="correspondence">Дневная</string>
   <string name="daysPerTurn">Дней на ход</string>
   <string name="oneDay">Один день</string>
   <plurals name="nbDays">
@@ -207,7 +207,7 @@
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
   <string name="standard">Классические шахматы</string>
-  <string name="unlimited">Без лимита времени</string>
+  <string name="unlimited">Неограниченная</string>
   <string name="mode">Режим</string>
   <string name="casual">Товарищеская</string>
   <string name="rated">Рейтинговая</string>
