@@ -398,7 +398,7 @@
   <string name="winner">Победитель</string>
   <string name="standing">Турнирная таблица</string>
   <string name="createANewTournament">Создать новый турнир</string>
-  <string name="join">Присоединиться</string>
+  <string name="join">Участвовать</string>
   <string name="withdraw">Покинуть</string>
   <string name="points">Очки</string>
   <string name="wins">Победы</string>
@@ -417,7 +417,7 @@
   <string name="whiteWins">Белые выиграли</string>
   <string name="blackWins">Чёрные выиграли</string>
   <string name="draws">Ничьих</string>
-  <string name="nextXTournament">Следующий турнир: %s:</string>
+  <string name="nextXTournament">Следующий турнир по %s:</string>
   <string name="viewMoreTournaments">Другие турниры</string>
   <string name="averageOpponent">Средний рейтинг соперников</string>
   <string name="membersOnly">Только для зарегистрированных</string>
