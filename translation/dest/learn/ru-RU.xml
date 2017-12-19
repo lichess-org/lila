@@ -76,8 +76,8 @@
   <string name="protectionIntro">Определите, какие ваши фигуры атакует противник, и защитите их!</string>
   <string name="protectionComplete">Поздравляем! Фигура, которую вы не проиграли — это выигранная фигура!</string>
   <string name="escape">Вас атакуют!
-Избавьтесь от угрозы!</string>
-  <string name="noEscape">Нельзя уйти,
+Сбегите от угрозы!</string>
+  <string name="noEscape">Нельзя сбежать,
 но можно защитить!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Не позвольте побить ни одну
 незащищённую фигуру!</string>
@@ -85,7 +85,7 @@
   <string name="captureAndDefendPieces">Бейте и защищайте фигуры</string>
   <string name="combatIntro">Хороший воин знает как атаку, так и защиту!</string>
   <string name="combatComplete">Поздравляем! Теперь вы знаете, как сражаться шахматными фигурами!</string>
-  <string name="checkInOne">Шах в один ход</string>
+  <string name="checkInOne">Шах</string>
   <string name="attackTheOpponentsKing">Атакуйте вражеского короля</string>
   <string name="checkInOneIntro">Чтобы объявить шах, нападите на короля противника. Он должен будет защищаться!</string>
   <string name="checkInOneGoal">Возьмите вражеского короля под прицел
@@ -97,7 +97,7 @@
   <string name="escapeWithTheKing">Король убегает!</string>
   <string name="theKingCannotEscapeButBlock">Король не может отойти,
 но вы можете отразить атаку!</string>
-  <string name="youCanGetOutOfCheckByTaking">Вы можете уйти от шаха,
+  <string name="youCanGetOutOfCheckByTaking">Вы можете избавиться от шаха,
 съев атакующую фигуру.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Этот конь ставит шах
 сквозь вашу защиту!</string>
