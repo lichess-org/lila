@@ -39,10 +39,10 @@
   <string name="kingComplete">Теперь вы можете повелевать повелителем!</string>
   <string name="theKnight">Конь</string>
   <string name="itMovesInAnLShape">Ходит буквой «Г»</string>
-  <string name="knightIntro">Вот вам задачка. Конь — хитрая фигура.</string>
+  <string name="knightIntro">Вызов брошен! Конь — хитрая фигура.</string>
   <string name="knightsHaveAFancyWay">Кони прыгают довольно причудливо!</string>
   <string name="knightsCanJumpOverObstacles">Кони могут прыгать через препятствия!
-Выберитесь и соберите все звёзды!</string>
+Выпрыгните, а затем соберите все звёзды!</string>
   <string name="knightComplete">Поздравляем! Вы освоили управление конём.</string>
   <string name="thePawn">Пешка</string>
   <string name="itMovesForwardOnly">Ходит только вперёд</string>
