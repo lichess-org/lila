@@ -322,6 +322,7 @@
   <string name="onlineFriends">Online pritelia</string>
   <string name="noFriendsOnline">Žiadni priatelia online</string>
   <string name="findFriends">Nájsť priateľov</string>
+  <string name="favoriteOpponents">Obľúbený súperi</string>
   <string name="follow">Nasledovať</string>
   <string name="following">Nasleduješ</string>
   <string name="unfollow">Zrušiť nasledovanie</string>
@@ -375,6 +376,8 @@
   <string name="whiteWins">Biely vyhral</string>
   <string name="blackWins">Čierny vyhral</string>
   <string name="draws">Remízy</string>
+  <string name="viewMoreTournaments">Zobraz ďalšie turnaje</string>
+  <string name="averageOpponent">Priemerná sila súpera</string>
   <string name="membersOnly">Len pre členov</string>
   <string name="boardEditor">Editor šachovnice</string>
   <string name="setTheBoard">Upraviť šachovnicu</string>
@@ -396,6 +399,7 @@
   <string name="biography">Životopis</string>
   <string name="country">Krajina</string>
   <string name="preferences">Nastavenia</string>
+  <string name="inlineNotation">Notácia v riadkoch</string>
   <string name="watchLichessTV">Sledovať Lichess TV</string>
   <string name="previouslyOnLichessTV">Bolo na Lichess TV</string>
   <string name="onlinePlayers">Pripojený hráči</string>
@@ -536,6 +540,7 @@
   <string name="xCommentedY">%1$s komentárov %2$s</string>
   <string name="victory">Výhra!</string>
   <string name="defeat">Porážka</string>
+  <string name="xVsYinZ">%1$s proti %2$s v %3$s</string>
   <string name="timeline">Rozvrh</string>
   <string name="seeAllTournaments">Zobraziť všetky turnaje</string>
   <string name="starting">Štart:</string>
