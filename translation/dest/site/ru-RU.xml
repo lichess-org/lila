@@ -149,8 +149,8 @@
   <string name="variant">Вариант</string>
   <string name="variants">Варианты</string>
   <string name="timeControl">Контроль времени</string>
-  <string name="realTime">С контролем времени</string>
-  <string name="correspondence">Дневная</string>
+  <string name="realTime">По часам</string>
+  <string name="correspondence">По дням</string>
   <string name="daysPerTurn">Дней на ход</string>
   <string name="oneDay">Один день</string>
   <plurals name="nbDays">
@@ -207,7 +207,7 @@
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
   <string name="standard">Классические шахматы</string>
-  <string name="unlimited">Неограниченная</string>
+  <string name="unlimited">Отсутствует</string>
   <string name="mode">Режим</string>
   <string name="casual">Товарищеская</string>
   <string name="rated">Рейтинговая</string>
@@ -630,7 +630,7 @@
   <string name="blindfoldChess">Шахматы вслепую (фигуры не видны)</string>
   <string name="zenMode">Режим «Дзен» (только доска и часы)</string>
   <string name="moveConfirmation">Подтвердить ход</string>
-  <string name="inCorrespondenceGames">В игре по переписке</string>
+  <string name="inCorrespondenceGames">В дневной игре</string>
   <string name="ifRatingIsPlusMinusX">Если их рейтинг ± %s</string>
   <string name="onlyFriends">Только друзья</string>
   <string name="menu">Меню</string>
