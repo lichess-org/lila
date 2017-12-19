@@ -366,10 +366,15 @@ lichess.reload = function() {
   if (window.location.hash) location.reload();
   else location.href = location.href;
 };
-lichess.escapeHtml = function(html) {
-  var div = document.createElement('div');
-  div.appendChild(document.createTextNode(html));
-  return div.innerHTML;
+lichess.escapeHtml = function(str) {
+  return /[&<>\"\']/.test(str) ?
+    str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/'/g, '&#39;')
+      .replace(/"/g, '&quot;') :
+    str;
 };
 lichess.toYouTubeEmbedUrl = function(url) {
   if (!url) return;

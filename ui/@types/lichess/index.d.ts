@@ -18,7 +18,7 @@ interface Lichess {
   loadCss(path: string): void
   unloadCss(path: string): void
   loadedCss: [string];
-  escapeHtml(html: string): string
+  escapeHtml(str: string): string
   toYouTubeEmbedUrl(url: string): string
   fp: {
     debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;

@@ -1,5 +1,5 @@
 export default function(text: string, parseMoves: boolean): string {
-  const escaped = escapeHtml(text);
+  const escaped = window.lichess.escapeHtml(text);
   const linked = autoLink(escaped);
   const plied = parseMoves && linked === escaped ? addPlies(linked) : linked;
   return plied;
@@ -22,15 +22,6 @@ function userLinkReplace(orig: string, prefix: String, user: string) {
 
 function autoLink(html: string) {
   return html.replace(linkPattern, linkReplace).replace(userPattern, userLinkReplace);
-}
-
-function escapeHtml(html: string) {
-  return html
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
 }
 
 const movePattern = /\b(\d+)\s?(\.+)\s?(?:[o0-]+|[NBRQK]*[a-h]?[1-8]?x?@?[a-h][0-9]=?[NBRQK]?)\+?\#?[!\?=]*/gi;
