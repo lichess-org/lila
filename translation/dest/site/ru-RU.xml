@@ -179,9 +179,9 @@
   <string name="rankX">Место: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Места в списке обновляются каждые %s минут</string>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s Задача</item>
-    <item quantity="few">%s Задача</item>
-    <item quantity="other">%s Задача</item>
+    <item quantity="one">%s задача</item>
+    <item quantity="few">%s задачи</item>
+    <item quantity="other">%s задач</item>
   </plurals>
   <string name="gamesPlayed">Сыграно партий</string>
   <plurals name="nbGamesWithYou">
@@ -414,8 +414,8 @@
   <string name="performance">Сила игры</string>
   <string name="tournamentComplete">Турнир завершён</string>
   <string name="movesPlayed">Ходов сделано</string>
-  <string name="whiteWins">Белые выиграли</string>
-  <string name="blackWins">Чёрные выиграли</string>
+  <string name="whiteWins">Побед белыми</string>
+  <string name="blackWins">Побед чёрными</string>
   <string name="draws">Ничьих</string>
   <string name="nextXTournament">Следующий турнир по %s:</string>
   <string name="viewMoreTournaments">Другие турниры</string>
@@ -495,7 +495,7 @@
   <string name="help">Помощь</string>
   <string name="createANewTopic">Создать новую тему</string>
   <string name="topics">Темы</string>
-  <string name="posts">Посты</string>
+  <string name="posts">Сообщения</string>
   <string name="lastPost">Последнее сообщение</string>
   <string name="views">Просмотры</string>
   <string name="replies">Ответы</string>
@@ -507,7 +507,7 @@
   <string name="user">Пользователь</string>
   <string name="reason">Причина</string>
   <string name="whatIsIheMatter">В чём дело?</string>
-  <string name="cheat">Использование помощи сторонних программ</string>
+  <string name="cheat">Жульничество</string>
   <string name="insult">Оскорбление</string>
   <string name="troll">Троллинг</string>
   <string name="other">Другое</string>
