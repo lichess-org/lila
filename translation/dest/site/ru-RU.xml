@@ -150,7 +150,7 @@
   <string name="variants">Варианты</string>
   <string name="timeControl">Контроль времени</string>
   <string name="realTime">С лимитом времени</string>
-  <string name="correspondence">По переписке</string>
+  <string name="correspondence">Дневные</string>
   <string name="daysPerTurn">Дней на ход</string>
   <string name="oneDay">Один день</string>
   <plurals name="nbDays">
@@ -331,7 +331,7 @@
   <string name="teamLeader">Создатель команды</string>
   <string name="teamBestPlayers">Лучшие игроки команды</string>
   <string name="teamRecentMembers">Новые члены команды</string>
-  <string name="xJoinedTeamY">%1$s присоединился к команде %2$s</string>
+  <string name="xJoinedTeamY">%1$s вступил в команду %2$s</string>
   <string name="xCreatedTeamY">%1$s создал команду %2$s</string>
   <string name="averageElo">Средний рейтинг участников</string>
   <string name="location">Местоположение</string>
@@ -343,7 +343,7 @@
   <string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
   <string name="pasteThePgnStringHere">Вставьте текст в формате PGN</string>
   <string name="fromPosition">С позиции</string>
-  <string name="continueFromHere">Продолжить с данного места</string>
+  <string name="continueFromHere">Продолжить с этой позиции</string>
   <string name="importGame">Импортировать игру</string>
   <string name="importGameExplanation">Вставьте запись игры в формате PGN, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
   <plurals name="nbImportedGames">
@@ -352,10 +352,10 @@
     <item quantity="other">%s импортированных</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Это шахматная CAPTCHA.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Кликните по доске, чтобы сделать ход и доказать, что вы человек.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Кликните по доске и сделайте ход, чтобы доказать, что вы человек.</string>
   <string name="captcha.fail">Пожалуйста, решите шахматную капчу.</string>
   <string name="notACheckmate">Это не мат</string>
-  <string name="colorPlaysCheckmateInOne">%s начинают; мат в один ход</string>
+  <string name="colorPlaysCheckmateInOne">%s начинают и ставят мат в один ход</string>
   <string name="retry">Повторить</string>
   <string name="reconnecting">Переподключение</string>
   <string name="onlineFriends">Друзья онлайн</string>
