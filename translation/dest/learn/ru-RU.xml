@@ -30,7 +30,7 @@
   <string name="theQueen">Ферзь</string>
   <string name="queenCombinesRookAndBishop">Ферзь = ладья + слон</string>
   <string name="queenIntro">Разрешите представить самую мощную фигуру. Его Величество Ферзь!</string>
-  <string name="queenComplete">Поздравляем! У ферзя нет секретов от вас.</string>
+  <string name="queenComplete">Поздравляем! Вы знаете о ферзе всё!</string>
   <string name="theKing">Король</string>
   <string name="theMostImportantPiece">Самая важная фигура</string>
   <string name="kingIntro">Вы — король. Если вы падёте в бою — игра проиграна.</string>
@@ -57,7 +57,7 @@
 Необязательно их превращать.</string>
   <string name="aPawnOnTheSecondRank">Пешка на втором ряду может переместиться на два поля за ход!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Соберите все звёзды!
-Не обязательно превращать пешки.</string>
+Необязательно превращать пешки.</string>
   <string name="pawnComplete">Поздравляем! У пешек нет секретов от вас.</string>
   <string name="pawnPromotion">Превращение пешки</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваша пешка достигла края доски!</string>
