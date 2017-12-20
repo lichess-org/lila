@@ -25,7 +25,7 @@
   <string name="kingInTheCenter">Король достиг центра</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Гонка окончена</string>
-  <string name="variantEnding">Особое окончание</string>
+  <string name="variantEnding">Партия окончена</string>
   <string name="newOpponent">Новый соперник</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Соперник предлагает вам сыграть ещё раз</string>
   <string name="joinTheGame">Принять вызов</string>
