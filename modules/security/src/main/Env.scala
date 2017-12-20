@@ -134,6 +134,11 @@ final class Env(
     baseUrl = NetBaseUrl
   )
 
+  lazy val automaticEmail = new AutomaticEmail(
+    mailgun = mailgun,
+    baseUrl = NetBaseUrl
+  )
+
   lazy val emailAddressValidator = new EmailAddressValidator(disposableEmailDomain)
 
   private lazy val disposableEmailDomain = new DisposableEmailDomain(

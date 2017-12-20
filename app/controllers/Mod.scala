@@ -117,7 +117,8 @@ object Mod extends LilaController {
     implicit def req = ctx.body
     lila.user.DataForm.title.bindFromRequest.fold(
       err => fuccess(redirect(username, mod = true)),
-      title => modApi.setTitle(me.id, username, title) >>-
+      title => modApi.setTitle(me.id, username, title) >>
+        Env.security.automaticEmail.onTitleSet(username) >>-
         Env.user.uncacheLightUser(UserModel normalize username) inject
         redirect(username, mod = false)
     )
@@ -246,8 +247,10 @@ object Mod extends LilaController {
       )).bindFromRequest.fold(
         err => BadRequest(html.mod.permissions(user)).fuccess,
         permissions =>
-          modApi.setPermissions(me.id, user.username, Permission(permissions)) inject
-            redirect(user.username, true)
+          modApi.setPermissions(me.id, user.username, Permission(permissions)) >> {
+            (Permission(user.roles) diff Permission(permissions) contains Permission.Coach) ??
+              Env.security.automaticEmail.onBecomeCoach(user)
+          } inject redirect(user.username, true)
       )
     }
   }
