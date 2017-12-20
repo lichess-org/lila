@@ -66,8 +66,10 @@ object TournamentShield {
     def userIds: List[User.ID] = value.values.flatMap(_.map(_.userId)).toList
   }
 
+  private type SpeedOrVariant = Either[Schedule.Speed, chess.variant.Variant]
+
   sealed abstract class Category(
-      val of: Either[Schedule.Speed, chess.variant.Variant],
+      val of: SpeedOrVariant,
       val iconChar: Char
   ) {
     def key = of.fold(_.name, _.key)
