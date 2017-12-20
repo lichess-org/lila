@@ -738,4 +738,10 @@
   <string name="custom">Vlastná</string>
   <string name="notifications">Upozornenia</string>
   <string name="challenges">Výzvy</string>
+  <string name="practiceWithComputer">Precvičenie s počítačom</string>
+  <string name="whiteWinsGame">Biely vyhral</string>
+  <string name="blackWinsGame">Čierny vyhral</string>
+  <string name="learnFromYourMistakes">Poučte sa zo svojich chýb</string>
+  <string name="skipThisMove">Preskočiť tento krok</string>
+  <string name="next">Ďalší</string>
 </resources>
