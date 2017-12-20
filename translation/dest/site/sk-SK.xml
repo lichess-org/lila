@@ -739,6 +739,11 @@
   <string name="notifications">Upozornenia</string>
   <string name="challenges">Výzvy</string>
   <string name="practiceWithComputer">Precvičenie s počítačom</string>
+  <string name="resumePractice">Pokračovať v precvičovaní</string>
+  <string name="computerThinking">Počítač premýšľa...</string>
+  <string name="seeBestMove">Ukázať najlepší ťah</string>
+  <string name="hideBestMove">Skryť najlepší ťah</string>
+  <string name="getAHint">Získať nápovedu</string>
   <string name="whiteWinsGame">Biely vyhral</string>
   <string name="blackWinsGame">Čierny vyhral</string>
   <string name="learnFromYourMistakes">Poučte sa zo svojich chýb</string>
