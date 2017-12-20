@@ -51,20 +51,7 @@ module.exports = {
     );
   },
   withLinebreaks: function(text) {
-    return m.trust(text.replace(/['"<>&]/g, function(s) {
-      switch (s) {
-        case "'":
-          return "&#039;";
-        case "\"":
-          return "&quot;";
-        case "<":
-          return "&lt;";
-        case ">":
-          return "&gt;";
-        case "&":
-          return "&amp;";
-      }
-    }).replace(/\n/g, '<br>'));
+    return m.trust(lichess.escapeHtml(text).replace(/\n/g, '<br>'));
   },
   decomposeUci: function(uci) {
     return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
