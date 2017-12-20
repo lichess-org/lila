@@ -627,8 +627,7 @@ div.table_wrap .clock huns {
 div.table_wrap .clock sep {
   opacity: 0.5;
   font-size: 0.8em;
-  vertical-align: top;
-  line-height: 42px;
+  vertical-align: 4px;
   margin-left: -1px;
 }
 div.table_wrap .clock tenths sep {
