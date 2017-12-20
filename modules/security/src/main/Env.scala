@@ -2,15 +2,16 @@ package lila.security
 
 import com.typesafe.config.Config
 import scala.concurrent.duration._
+import akka.actor._
 
 final class Env(
     config: Config,
-    captcher: akka.actor.ActorSelection,
+    captcher: ActorSelection,
     authenticator: lila.user.Authenticator,
     slack: lila.slack.SlackApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     settingStore: lila.memo.SettingStore.Builder,
-    system: akka.actor.ActorSystem,
+    system: ActorSystem,
     scheduler: lila.common.Scheduler,
     db: lila.db.Env
 ) {
@@ -158,6 +159,13 @@ final class Env(
   lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain)
 
   def cli = new Cli
+
+  // api actor
+  system.actorOf(Props(new Actor {
+    def receive = {
+      case lila.hub.actorApi.fishnet.NewKey(userId, key) => automaticEmail.onFishnetKey(userId, key)
+    }
+  }))
 
   private[security] lazy val storeColl = db(CollectionSecurity)
   private[security] lazy val firewallColl = db(FirewallCollectionFirewall)

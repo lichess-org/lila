@@ -118,7 +118,10 @@ final class Env(
   def cli = new lila.common.Cli {
     def process = {
       case "fishnet" :: "client" :: "create" :: userId :: skill :: Nil =>
-        api.createClient(Client.UserId(userId), skill) map (_.key.value)
+        api.createClient(Client.UserId(userId), skill) map { client =>
+          bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), 'fishnet)
+          s"Created key: ${(client.key.value)} for: $userId"
+        }
       case "fishnet" :: "client" :: "delete" :: key :: Nil =>
         repo.deleteClient(Client.Key(key)) inject "done!"
       case "fishnet" :: "client" :: "enable" :: key :: Nil =>

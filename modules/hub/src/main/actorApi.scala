@@ -202,6 +202,7 @@ package team {
 
 package fishnet {
   case class AutoAnalyse(gameId: String)
+  case class NewKey(userId: String, key: String)
 }
 
 package user {

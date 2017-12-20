@@ -76,4 +76,43 @@ ${Mailgun.txt.serviceNote}
         )
       }
     }
+
+  def onFishnetKey(userId: User.ID, key: String)(implicit lang: Lang): Funit = for {
+    user <- UserRepo named userId flatten s"No such user $userId"
+    emailOption <- UserRepo email user.id
+  } yield for {
+    title <- user.title
+    email <- emailOption
+  } yield {
+
+    val body = s"""
+Hello,
+
+Here is your private fishnet key: $key.
+Please treat it like a password. You can use the same key on multiple machine,
+but you should not share it with anyone.
+
+Thank you very much for your help! Thanks to you, chess lovers all around the world
+will enjoy swift and powerful analysis for their games.
+
+Regards,
+
+The lichess team
+"""
+
+    mailgun send Mailgun.Message(
+      to = email,
+      subject = "Your private fishnet key",
+      text = s"""
+$body
+
+${Mailgun.txt.serviceNote}
+""",
+      htmlBody = s"""
+<div itemscope itemtype="http://schema.org/EmailMessage">
+  <p itemprop="description">$body</p>
+  ${Mailgun.html.serviceNote}
+</div>""".some
+    )
+  }
 }
