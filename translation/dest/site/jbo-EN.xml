@@ -47,9 +47,11 @@
   <string name="requestAComputerAnalysis">gau ku lo skami cu lanli</string>
   <string name="computerAnalysis">lo skami nunlanli te pruce</string>
   <string name="analysis">lo lanli te pruce cartu</string>
+  <string name="close">cliva</string>
   <string name="openingExplorer">cfari nunmu\'u ke lanli tutci je vreji</string>
   <string name="delete">vimcu</string>
   <string name="deleteThisImportedGame">xu vimcu ti noi se nerbe\'i nunjvi</string>
+  <string name="cpus">lo mijykemructerci\'e</string>
   <string name="blunders">lo nu srera sai</string>
   <string name="mistakes">lo nu srera na\'oi</string>
   <string name="inaccuracies">lo nu srera ru\'e</string>
@@ -474,4 +476,5 @@
     <item quantity="other">se sabji bau %s da</item>
   </plurals>
   <string name="language">bangu</string>
+  <string name="coaches">lo te\'ictu</string>
 </resources>
