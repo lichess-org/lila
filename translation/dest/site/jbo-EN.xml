@@ -22,7 +22,7 @@
   <string name="createAGame">cfagau su\'o nunjvi</string>
   <string name="whiteIsVictorious">la blabi cu jinga</string>
   <string name="blackIsVictorious">la xekri cu jinga</string>
-  <string name="kingInTheCenter">lo noltrunau bu\'u lo midju</string>
+  <string name="kingInTheCenter">lo noltrunau cu zvati lo midju</string>
   <string name="threeChecks">ci nu ckape lo noltrunau</string>
   <string name="raceFinished">ca mulfa\'o lo nu bajyjvi</string>
   <string name="variantEnding">lo drata javni gunma fanmo</string>
@@ -48,6 +48,8 @@
   <string name="computerAnalysis">lo skami nunlanli te pruce</string>
   <string name="analysis">lo lanli te pruce cartu</string>
   <string name="openingExplorer">cfari nunmu\'u ke lanli tutci je vreji</string>
+  <string name="delete">vimcu</string>
+  <string name="deleteThisImportedGame">xu vimcu ti noi se nerbe\'i nunjvi</string>
   <string name="blunders">lo nu srera sai</string>
   <string name="mistakes">lo nu srera na\'oi</string>
   <string name="inaccuracies">lo nu srera ru\'e</string>
