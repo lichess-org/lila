@@ -155,7 +155,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     const sameChapter = data.chapter.id === s.chapter.id;
     vm.mode.sticky = (vm.mode.sticky && s.features.sticky) || (!data.features.sticky && s.features.sticky);
     if (vm.mode.sticky) vm.behind = 0;
-    if (vm.mode.sticky && s.position !== data.position) commentForm.close();
+    if (s.position !== data.position) commentForm.close();
     'position name visibility features settings chapter likes liked'.split(' ').forEach(key => {
       data[key] = s[key];
     });
