@@ -5,6 +5,8 @@ import { median } from './math';
 import { prop, storedProp, throttle } from 'common';
 import { povChances } from './winningChances';
 
+const li = window.lichess;
+
 export default function(opts: CevalOpts): CevalCtrl {
 
   const storageKey = function(k: string): string {
@@ -20,7 +22,7 @@ export default function(opts: CevalOpts): CevalCtrl {
   const hashSize = storedProp(storageKey('ceval.hash-size'), 128);
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
-  const enableStorage = window.lichess.storage.make(storageKey('client-eval-enabled'));
+  const enableStorage = li.storage.make(storageKey('client-eval-enabled'));
   const allowed = prop(true);
   const enabled = prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
   let started: Started | false = false;
@@ -30,9 +32,9 @@ export default function(opts: CevalOpts): CevalCtrl {
 
   const sfPath = '/assets/vendor/stockfish/stockfish';
   const pool = new Pool({
-    asmjs: window.lichess.assetUrl(sfPath + '.js', {sameDomain: true}),
-    pnacl: pnaclSupported && window.lichess.assetUrl(sfPath + '.nmf'),
-    wasm: wasmSupported && window.lichess.assetUrl(sfPath + '.wasm.js', {sameDomain: true}),
+    asmjs: li.assetUrl(sfPath + '.js', {sameDomain: true}),
+    pnacl: pnaclSupported && li.assetUrl(sfPath + '.nmf'),
+    wasm: wasmSupported && li.assetUrl(sfPath + '.wasm.js', {sameDomain: true}),
     onCrash: opts.onCrash
   }, {
     minDepth,
@@ -79,7 +81,7 @@ export default function(opts: CevalOpts): CevalCtrl {
     opts.emit(ev, work);
     if (ev.fen !== lastEmitFen) {
       lastEmitFen = ev.fen;
-      window.lichess.storage.set('ceval.fen', ev.fen);
+      li.storage.set('ceval.fen', ev.fen);
     }
   });
 
@@ -158,6 +160,15 @@ export default function(opts: CevalOpts): CevalCtrl {
     lastStarted = started;
     started = false;
   };
+
+  // ask other tabs if a game is in progress
+  if (enabled()) {
+    li.storage.set('ceval.fen', 'start:' + Math.random());
+    li.storage.make('round.ongoing').listen(_ => {
+      enabled(false);
+      opts.redraw();
+    });
+  }
 
   return {
     pnaclSupported,
