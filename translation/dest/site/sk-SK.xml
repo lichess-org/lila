@@ -749,4 +749,8 @@
   <string name="learnFromYourMistakes">Poučte sa zo svojich chýb</string>
   <string name="skipThisMove">Preskočiť tento krok</string>
   <string name="next">Ďalší</string>
+  <string name="waitingForAnalysis">Čakanie na analýzu</string>
+  <string name="opening">Otvorenie</string>
+  <string name="middlegame">Stredná hra</string>
+  <string name="endgame">Koncovka</string>
 </resources>
