@@ -6,7 +6,7 @@ import { RoundData } from '../interfaces';
 
 export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
-  if (ctrl.replaying() || !game.isPlayerPlaying(ctrl.data)) return;
+  if (ctrl.replaying() || !ctrl.isPlaying()) return;
   const el = e.target as HTMLElement,
   role = el.getAttribute('data-role') as cg.Role,
   color = el.getAttribute('data-color') as cg.Color,

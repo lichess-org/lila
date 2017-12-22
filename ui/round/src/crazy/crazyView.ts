@@ -1,7 +1,6 @@
 import { h } from 'snabbdom'
 import * as round from '../round';
 import { drag } from './crazyCtrl';
-import { game } from 'game';
 import * as cg from 'chessground/types';
 import RoundController from '../ctrl';
 import { Position } from '../interfaces';
@@ -16,7 +15,7 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
   preDropRole = ctrl.preDrop,
   pocket = step.crazy.pockets[color === 'white' ? 0 : 1],
   usablePos = position === (ctrl.flip ? 'top' : 'bottom'),
-  usable = usablePos && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data),
+  usable = usablePos && !ctrl.replaying() && ctrl.isPlaying(),
   activeColor = color === ctrl.data.player.color;
   const capturedPiece = ctrl.justCaptured;
   const captured = capturedPiece && (capturedPiece['promoted'] ? 'pawn' : capturedPiece.role);

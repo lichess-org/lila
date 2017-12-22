@@ -180,6 +180,8 @@ export default class RoundController {
     this.jump(ply);
   };
 
+  isPlaying = () => game.isPlayerPlaying(this.data);
+
   jump = (ply: Ply): boolean => {
     if (ply < round.firstPly(this.data) || ply > round.lastPly(this.data)) return false;
     const samePly = this.ply === ply;
@@ -195,7 +197,7 @@ export default class RoundController {
     };
     if (this.replaying()) this.chessground.stop();
     else config.movable = {
-      color: game.isPlayerPlaying(this.data) ? this.data.player.color : undefined,
+      color: this.isPlaying() ? this.data.player.color : undefined,
       dests: util.parsePossibleMoves(this.data.possibleMoves)
     }
     this.chessground.set(config);
@@ -306,7 +308,7 @@ export default class RoundController {
       }
       return txt;
     });
-    else if (game.isPlayerPlaying(d) && this.ply < 1) li.desktopNotification(() => {
+    else if (this.isPlaying() && this.ply < 1) li.desktopNotification(() => {
       return renderUser.userTxt(this, d.opponent) + '\njoined the game.';
     });
   };
@@ -316,7 +318,7 @@ export default class RoundController {
 
   apiMove = (o: ApiMove): void => {
     const d = this.data,
-    playing = game.isPlayerPlaying(d);
+    playing = this.isPlaying();
 
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
@@ -522,7 +524,7 @@ export default class RoundController {
 
   private setQuietMode = () => {
     const was = li.quietMode;
-    const is = game.isPlayerPlaying(this.data);
+    const is = this.isPlaying();
     if (was !== is) {
       li.quietMode = is;
       $('body')
@@ -607,7 +609,7 @@ export default class RoundController {
 
   forecastInfo = (): boolean => {
     const d = this.data;
-    return game.isPlayerPlaying(d) && d.correspondence && !d.opponent.ai &&
+    return this.isPlaying() && d.correspondence && !d.opponent.ai &&
     !this.replaying() && d.game.turns > 1 && li.once('forecast-info-seen6');
   }
 
@@ -656,7 +658,7 @@ export default class RoundController {
   };
 
   toggleZen = () => {
-    if (game.isPlayerPlaying(this.data)) {
+    if (this.isPlaying()) {
       const zen = !$('body').hasClass('zen');
       $('body').toggleClass('zen', zen)
       $.post('/pref/zen', { zen: zen ? 1 : 0 });
@@ -664,11 +666,11 @@ export default class RoundController {
   }
 
   private delayedInit = () => {
-    if (game.isPlayerPlaying(this.data) && game.nbMoves(this.data, this.data.player.color) === 0 && !this.isSimulHost()) {
+    if (this.isPlaying() && game.nbMoves(this.data, this.data.player.color) === 0 && !this.isSimulHost()) {
       li.sound.genericNotify();
     }
     li.requestIdleCallback(() => {
-      if (game.isPlayerPlaying(this.data)) {
+      if (this.isPlaying()) {
         if (!this.data.simul) blur.init(this.data.steps.length > 2);
 
         title.init();

@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { game, Player } from 'game';
+import { Player } from 'game';
 import RoundController from '../ctrl';
 
 function ratingDiff(player: Player): VNode | undefined {
@@ -38,7 +38,7 @@ export function userHtml(ctrl: RoundController, player: Player) {
         attrs: {
           'data-pt-pos': 's',
           href: '/@/' + user.username,
-          target: game.isPlayerPlaying(d) ? '_blank' : '_self'
+          target: ctrl.isPlaying() ? '_blank' : '_self'
         }
       }, user.title ? [h('span.title', user.title), ' ', user.username] : [user.username]),
       rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,

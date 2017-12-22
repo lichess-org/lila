@@ -1,6 +1,5 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { game } from 'game';
 import { plyStep } from '../round';
 import renderTable from './table';
 import * as promotion from '../promotion';
@@ -30,7 +29,7 @@ function renderMaterial(material: cg.MaterialDiffSide, score: number, checks?: n
 }
 
 function wheel(ctrl: RoundController, e: WheelEvent): boolean {
-  if (game.isPlayerPlaying(ctrl.data)) return true;
+  if (ctrl.isPlaying()) return true;
   e.preventDefault();
   if (e.deltaY > 0) keyboard.next(ctrl);
   else if (e.deltaY < 0) keyboard.prev(ctrl);
