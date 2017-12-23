@@ -733,6 +733,7 @@
   <string name="practiceWithComputer">ฝึกหัดกับคอมพิวเตอร์</string>
   <string name="anotherWasX">อีกที่คือ %s</string>
   <string name="bestWasX">ดีที่สุดคือ %s</string>
+  <string name="youBrowsedAway">คุณได้หลุดออกไป</string>
   <string name="resumePractice">ฝึกหัดต่อ</string>
   <string name="theGameIsADraw">เกมเสมอกัน</string>
   <string name="computerThinking">คอมพิวเตอร์กำลังคิด...</string>
@@ -765,6 +766,7 @@
   <plurals name="nbSeconds">
     <item quantity="other">%s วินาที</item>
   </plurals>
-  <string name="opening">การเปิด</string>
+  <string name="opening">การเปิดเกม</string>
   <string name="middlegame">กลางเกม</string>
+  <string name="endgame">ท้ายเกม</string>
 </resources>
