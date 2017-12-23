@@ -47,7 +47,10 @@
   <string name="requestAComputerAnalysis">Setter tasleḍt taymanit</string>
   <string name="computerAnalysis">Tasleṭ n uselkim</string>
   <string name="computerAnalysisAvailable">Tasleṭ n uselkim tehga</string>
+  <string name="analysis">Tafelwit n tesleḍt</string>
   <string name="depthX">Tadrut %s</string>
+  <string name="usingServerAnalysis">Tasleḍt iteddun n useqdac</string>
+  <string name="loadingEngine">Iteddu usali...</string>
   <string name="inLocalBrowser">deg iminig andigan</string>
   <string name="move">Asembiwel</string>
   <string name="capture">Tuṭfa</string>
