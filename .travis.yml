@@ -67,9 +67,6 @@ jobs:
       node_js: "4"
       before_install:
        - yarn --version
-       - curl -sSL https://yarnpkg.com/install.sh | bash
-       - export PATH=$HOME/.yarn/bin:$PATH
-       - yarn --version
        - yarn global add gulp-cli
       script: ./ui/build prod
       after_success:
