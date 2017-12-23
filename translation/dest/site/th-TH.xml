@@ -745,4 +745,26 @@
   <string name="learnFromYourMistakes">เรียนรู้จากความผิดพลาดของคุณ</string>
   <string name="skipThisMove">ข้ามการเดินนี้</string>
   <string name="next">ถัดไป</string>
+  <string name="xWasPlayed">%s ถูกเล่น</string>
+  <string name="findBetterMoveForWhite">หาการเดินที่ดีกว่าสำหรับขาว</string>
+  <string name="findBetterMoveForBlack">หาการเดินที่ดีกว่าสำหรับดำ</string>
+  <string name="resumeLearning">เรียนรู้ต่อ</string>
+  <string name="youCanDoBetter">คุณทำได้ดีกว่านี้</string>
+  <string name="tryAnotherMoveForWhite">ลองเดินที่จุดอื่นสำหรับขาว</string>
+  <string name="tryAnotherMoveForBlack">ลองเดินที่จุดอื่นสำหรับดำ</string>
+  <string name="solution">เฉลย</string>
+  <string name="waitingForAnalysis">กำลังรอวิเคราะห์</string>
+  <string name="noMistakesFoundForWhite">ไม่พบความผิดพลาดสำหรับขาว</string>
+  <string name="noMistakesFoundForBlack">ไม่พบความผิดพลาดสำหรับดำ</string>
+  <string name="doneReviewingWhiteMistakes">ทบทวนความผิดพลาดของขาวแล้ว</string>
+  <string name="doneReviewingBlackMistakes">ทบทวนความผิดพลาดของดำแล้ว</string>
+  <string name="doItAgain">ทำอีกครั้ง</string>
+  <string name="reviewWhiteMistakes">ทบทวนความผิดพลาดของขาว</string>
+  <string name="reviewBlackMistakes">ทบทวนความผิดพลาดของดำ</string>
+  <string name="advantage">ความได้เปรียบ</string>
+  <plurals name="nbSeconds">
+    <item quantity="other">%s วินาที</item>
+  </plurals>
+  <string name="opening">การเปิด</string>
+  <string name="middlegame">กลางเกม</string>
 </resources>
