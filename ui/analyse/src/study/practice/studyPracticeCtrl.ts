@@ -2,7 +2,7 @@ import * as xhr from '../studyXhr';
 import { prop, storedProp } from 'common';
 import makeSuccess from './studyPracticeSuccess';
 import makeSound from './sound';
-import { readOnlyProp, enrichText } from '../../util';
+import { readOnlyProp } from '../../util';
 import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
 import { StudyData } from '../interfaces';
 import AnalyseCtrl from '../../ctrl';
@@ -20,9 +20,8 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
 
   function makeComment(treeRoot: Tree.Node): string | undefined {
     if (!treeRoot.comments) return;
-    const c = enrichText(treeRoot.comments[0].text, false);
+    comment(treeRoot.comments[0].text);
     delete treeRoot.comments;
-    comment(c);
   }
 
   function onLoad() {
