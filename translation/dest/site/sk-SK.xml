@@ -258,6 +258,7 @@
   <string name="giveMoreTime">Pridaj čas</string>
   <string name="thisPlayerUsesChessComputerAssistance">Tento hráč využíva v šachu pomoc počítača</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tento hráč si umelo zvyšuje/znižuje svoje hodnotenie</string>
+  <string name="openingExplorerAndTablebase">Knižnica otvorení &amp; tablebase koncoviek</string>
   <string name="takeback">Vrátiť ťah</string>
   <string name="proposeATakeback">Ponúknuť vrátenie ťahu</string>
   <string name="takebackPropositionSent">Ponuka na návrat zaslaná</string>
@@ -730,6 +731,7 @@
   <string name="chessBasics">Základy šachu</string>
   <string name="coaches">Tréneri</string>
   <string name="invalidPgn">Neplatný formát PGN</string>
+  <string name="invalidFen">Neplatný formát FEN</string>
   <string name="error.minLength">Minimálna dĺžka je %s</string>
   <string name="error.maxLength">Maximálna dĺžka je %s</string>
   <string name="error.min">Musí byť väčšie alebo rovné %s</string>
@@ -744,12 +746,17 @@
   <string name="seeBestMove">Ukázať najlepší ťah</string>
   <string name="hideBestMove">Skryť najlepší ťah</string>
   <string name="getAHint">Získať nápovedu</string>
+  <string name="evaluatingYourMove">Hodnotím tvoj ťah...</string>
   <string name="whiteWinsGame">Biely vyhral</string>
   <string name="blackWinsGame">Čierny vyhral</string>
   <string name="learnFromYourMistakes">Poučte sa zo svojich chýb</string>
   <string name="skipThisMove">Preskočiť tento krok</string>
   <string name="next">Ďalší</string>
+  <string name="solution">Riešenie</string>
   <string name="waitingForAnalysis">Čakanie na analýzu</string>
+  <string name="noMistakesFoundForWhite">Neboli nájdené žiadne chyby bieleho</string>
+  <string name="noMistakesFoundForBlack">Neboli nájdené žiadne chyby čierneho</string>
+  <string name="doItAgain">Urob to znovu</string>
   <string name="opening">Otvorenie</string>
   <string name="middlegame">Stredná hra</string>
   <string name="endgame">Koncovka</string>
