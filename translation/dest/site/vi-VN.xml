@@ -151,7 +151,7 @@
   </plurals>
   <string name="time">Thời gian</string>
   <string name="rating">Hệ số Elo</string>
-  <string name="ratingStats">Thống kê hạng</string>
+  <string name="ratingStats">Thống kê elo</string>
   <string name="username">Tên truy cập</string>
   <string name="usernameOrEmail">Tên đăng nhập hoặc email</string>
   <string name="password">Mật khẩu</string>
@@ -205,6 +205,7 @@
   <string name="inbox">Hộp thư</string>
   <string name="chatRoom">Phòng chat</string>
   <string name="loginToChat">Đăng nhập để trò chuyện</string>
+  <string name="youHaveBeenTimedOut">Bạn đã bị tạm dừng trò chuyện.</string>
   <string name="spectatorRoom">Phòng theo dõi</string>
   <string name="composeMessage">Soạn tin nhắn</string>
   <string name="noNewMessages">Không có tin nhắn mới</string>
@@ -214,6 +215,9 @@
   <string name="incrementInSeconds">Thêm giây</string>
   <string name="freeOnlineChess">Chơi cờ miễn phí online</string>
   <string name="spectators">Khán giả:</string>
+  <plurals name="nbRated">
+    <item quantity="other">%s tính elo</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s thắng</item>
   </plurals>
@@ -223,13 +227,18 @@
   <plurals name="nbDraws">
     <item quantity="other">%s hòa</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="other">%s đang chơi</item>
+  </plurals>
   <string name="exportGames">Xuất biên bản</string>
   <string name="ratingRange">Phạm vi Glicko</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">Cho thêm %s giây</item>
   </plurals>
+  <string name="giveMoreTime">Cho thêm thời gian</string>
   <string name="thisPlayerUsesChessComputerAssistance">Người chơi này sử dụng máy tính trợ giúp</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kỳ thủ này đã tăng hệ số một cách giả tạo</string>
+  <string name="openingExplorerAndTablebase">Sách khai cuộc &amp; bảng dữ liệu</string>
   <string name="takeback">Đi lại</string>
   <string name="proposeATakeback">Đề nghị lùi một nước</string>
   <string name="takebackPropositionSent">Đã gửi đề nghị lùi một nước</string>
