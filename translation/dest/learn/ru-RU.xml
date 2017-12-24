@@ -22,7 +22,7 @@
   <string name="rookComplete">Поздравляем! Вы мастерски овладели ладьёй.</string>
   <string name="theBishop">Слон</string>
   <string name="itMovesDiagonally">Двигается по диагонали</string>
-  <string name="bishopIntro">Далее мы научимся ходить слоном!</string>
+  <string name="bishopIntro">Теперь мы узнаем, как ходит слон!</string>
   <string name="youNeedBothBishops">Поля белого цвета контролирует один слон,
 поля чёрного цвета — другой.
 Вам нужны оба слона!</string>
@@ -30,7 +30,7 @@
   <string name="theQueen">Ферзь</string>
   <string name="queenCombinesRookAndBishop">Ферзь = ладья + слон</string>
   <string name="queenIntro">Разрешите представить самую мощную фигуру. Его Величество Ферзь!</string>
-  <string name="queenComplete">Поздравляем! У ферзя нет секретов от вас.</string>
+  <string name="queenComplete">Поздравляем! Вы знаете о ферзе всё!</string>
   <string name="theKing">Король</string>
   <string name="theMostImportantPiece">Самая важная фигура</string>
   <string name="kingIntro">Вы — король. Если вы падёте в бою — игра проиграна.</string>
@@ -39,29 +39,29 @@
   <string name="kingComplete">Теперь вы можете повелевать повелителем!</string>
   <string name="theKnight">Конь</string>
   <string name="itMovesInAnLShape">Ходит буквой «Г»</string>
-  <string name="knightIntro">Вот вам задачка. Конь — хитрая фигура.</string>
+  <string name="knightIntro">Вызов брошен! Конь — хитрая фигура.</string>
   <string name="knightsHaveAFancyWay">Кони прыгают довольно причудливо!</string>
   <string name="knightsCanJumpOverObstacles">Кони могут прыгать через препятствия!
-Выберитесь и соберите все звёзды!</string>
+Выпрыгните, а затем соберите все звёзды!</string>
   <string name="knightComplete">Поздравляем! Вы освоили управление конём.</string>
   <string name="thePawn">Пешка</string>
   <string name="itMovesForwardOnly">Ходит только вперёд</string>
   <string name="pawnIntro">Пешки слабы, но в них заложен большой потенциал.</string>
   <string name="pawnsMoveOneSquareOnly">Пешки ходят только на одну клетку вперёд. Но достигнув другого конца доски, они превращаются в сильную фигуру!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">В большинстве случаев пешку лучше превратить в ферзя.
-Но иногда превращение в коня может оказаться сподручней!</string>
+Но иногда превращение в коня может быть сподручней!</string>
   <string name="pawnsMoveForward">Пешки движутся вперёд,
 но бьют по диагоналям!</string>
-  <string name="captureThenPromote">Побейте, затем превратитесь!</string>
+  <string name="captureThenPromote">Побейте, затем превратите!</string>
   <string name="useAllThePawns">Используйте все пешки!
 Необязательно их превращать.</string>
   <string name="aPawnOnTheSecondRank">Пешка на втором ряду может переместиться на два поля за ход!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Соберите все звёзды!
-Не обязательно превращать пешки.</string>
+Необязательно превращать пешки.</string>
   <string name="pawnComplete">Поздравляем! У пешек нет секретов от вас.</string>
   <string name="pawnPromotion">Превращение пешки</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваша пешка достигла края доски!</string>
-  <string name="itNowPromotesToAStrongerPiece">Сейчас она превращается в фигуру посильнее.</string>
+  <string name="itNowPromotesToAStrongerPiece">Сейчас она превратится в сильную фигуру.</string>
   <string name="selectThePieceYouWant">Выберите фигуру, какую захотите!</string>
   <string name="fundamentals">Базовый уровень</string>
   <string name="capture">Взятие</string>
@@ -76,8 +76,8 @@
   <string name="protectionIntro">Определите, какие ваши фигуры атакует противник, и защитите их!</string>
   <string name="protectionComplete">Поздравляем! Фигура, которую вы не проиграли — это выигранная фигура!</string>
   <string name="escape">Вас атакуют!
-Избавьтесь от угрозы!</string>
-  <string name="noEscape">Нельзя уйти,
+Сбегите от угрозы!</string>
+  <string name="noEscape">Нельзя сбежать,
 но можно защитить!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Не позвольте побить ни одну
 незащищённую фигуру!</string>
@@ -85,26 +85,26 @@
   <string name="captureAndDefendPieces">Бейте и защищайте фигуры</string>
   <string name="combatIntro">Хороший воин знает как атаку, так и защиту!</string>
   <string name="combatComplete">Поздравляем! Теперь вы знаете, как сражаться шахматными фигурами!</string>
-  <string name="checkInOne">Шах в один ход</string>
+  <string name="checkInOne">Шах</string>
   <string name="attackTheOpponentsKing">Атакуйте вражеского короля</string>
   <string name="checkInOneIntro">Чтобы объявить шах, нападите на короля противника. Он должен будет защищаться!</string>
   <string name="checkInOneGoal">Возьмите вражеского короля под прицел
 за один ход!</string>
   <string name="checkInOneComplete">Поздравляем! Вы поставили шах своему сопернику, вынудив защищать своего короля!</string>
-  <string name="outOfCheck">Уход из-под шаха</string>
+  <string name="outOfCheck">Выход из шаха</string>
   <string name="defendYourKing">Защищайте своего короля</string>
   <string name="outOfCheckIntro">Вам шах! Вы должны отойти или заблокировать атаку.</string>
   <string name="escapeWithTheKing">Король убегает!</string>
   <string name="theKingCannotEscapeButBlock">Король не может отойти,
-но вы можете отразить атаку!</string>
-  <string name="youCanGetOutOfCheckByTaking">Вы можете уйти от шаха,
+но вы можете защитить его!</string>
+  <string name="youCanGetOutOfCheckByTaking">Вы можете избавиться от шаха,
 съев атакующую фигуру.</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">Этот конь ставит шах
-сквозь вашу защиту!</string>
-  <string name="escapeOrBlock">Уведите короля
-или закройтесь!</string>
-  <string name="outOfCheckComplete">Поздравляем! Ваш король не сможет быть взят, убедитесь, что вы можете защитить его от шаха!</string>
-  <string name="mateInOne">Мат в один ход</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Конь ставит шах королю
+сквозь его оборону!</string>
+  <string name="escapeOrBlock">Уведите короля из-под атаки
+или защитите его!</string>
+  <string name="outOfCheckComplete">Поздравляем! Вашего короля невозможно взять, но убедитесь, что вы можете защитить его от шаха!</string>
+  <string name="mateInOne">Мат</string>
   <string name="defeatTheOpponentsKing">Разгромите короля противника</string>
   <string name="mateInOneIntro">Вы выиграете, если ваш противник не сможет защититься от шаха.</string>
   <string name="attackYourOpponentsKing">Атакуйте короля вашего противника так,
@@ -125,7 +125,7 @@
 Ферзь любит свой цвет.</string>
   <string name="placeTheKing">Поставьте короля!
 Он стоит рядом с ферзём.</string>
-  <string name="pawnsFormTheFrontLine">Пешки выстроились на передней линии.
+  <string name="pawnsFormTheFrontLine">Пешки выстроились в линию перед фигурами.
 Сделайте любой ход, чтобы продолжить.</string>
   <string name="boardSetupComplete">Поздравляем! Теперь вы знаете, как расставить фигуры на шахматной доске.</string>
   <string name="castling">Рокировка</string>
@@ -144,7 +144,7 @@
   <string name="castleQueenSideMovePiecesFirst">Длинная рокировка!
 Сначала вам нужно вывести фигуры.</string>
   <string name="youCannotCastleIfMoved">Вы не можете рокироваться,
-если король или ладья, участвующие в рокировке,
+если король или ладья, участвующая в рокировке,
 уже делали ход.</string>
   <string name="youCannotCastleIfAttacked">Вы не можете рокироваться,
 если на пути к рокировке король окажется под шахом.
@@ -166,7 +166,7 @@
   <string name="enPassantComplete">Поздравляем! Теперь вы можете делать взятие на проходе.</string>
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Игра заканчивается вничью</string>
-  <string name="stalemateIntro">Когда игроку не поставлен шах и он не может сделать ход, это пат. Игра заканчивается вничью: нет победителей и побеждённых.</string>
+  <string name="stalemateIntro">Когда король не под шахом, но игрок с правом хода не может сделать его по правилам, — это пат. Игра заканчивается вничью: нет победителей и побеждённых.</string>
   <string name="stalemateGoal">Пат чёрным: 
 • Чёрные не могут сделать ход.
 • Король чёрных не под шахом.</string>

@@ -737,8 +737,8 @@ in %3$s</string>
   <string name="dark">Scuro</string>
   <string name="transparent">Trasparente</string>
   <string name="backgroundImageUrl">URL dell\'immagine di sfondo:</string>
-  <string name="boardGeometry">Geometria della scacchiera</string>
-  <string name="boardTheme">Tema della scacchiera</string>
+  <string name="boardGeometry">Geometria scacchiera</string>
+  <string name="boardTheme">Tema scacchiera</string>
   <string name="boardSize">Dimensione scacchiera</string>
   <string name="pieceSet">Set pezzi</string>
   <string name="embedInYourWebsite">Incorpora nel tuo sito Web</string>

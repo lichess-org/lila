@@ -76,8 +76,36 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Chiếu hết trong %s nước đi</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="other">Sẽ có nước ăn quân hoặc đi tốt trong %s nước đi nữa (Bộ đếm 50 nước đi sẽ trở về 0)</item>
+  </plurals>
+  <string name="noGameFound">Đã hết nước đi gợi ý</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bạn có muốn thêm nhiều ván đấu hơn từ mục lục?</string>
+  <string name="openingExplorer">Sách khai cuộc</string>
+  <string name="xOpeningExplorer">Sách khai cuộc %s</string>
+  <string name="winPreventedBy50MoveRule">Chiến thắng bị ngăn chặn bởi luật 50 nước</string>
+  <string name="lossSavedBy50MoveRule">Ván đấu được cứu thua bởi luật 50 nước</string>
+  <string name="allSet">Đã xong!</string>
+  <string name="importPgn">Nhập PGN</string>
+  <string name="delete">Xóa</string>
+  <string name="deleteThisImportedGame">Bạn muốn xóa ván đấu đã được nhập?</string>
+  <string name="replayMode">Chế độ xem lại</string>
+  <string name="realtimeReplay">Thời gian thực</string>
+  <string name="byCPL">Theo CPL</string>
+  <string name="openStudy">Mở lớp học</string>
+  <string name="enable">Bật</string>
+  <string name="bestMoveArrow">Mũi tên chỉ nước đi tốt nhất</string>
+  <string name="evaluationGauge">Thang đo lợi thế</string>
+  <string name="multipleLines">Phân tích nhiều hàng</string>
+  <string name="cpus">CPU</string>
+  <string name="memory">Bộ nhớ</string>
+  <string name="infiniteAnalysis">Phân tích vô hạn</string>
+  <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu, và giữ máy tính của bạn ấm</string>
+  <string name="blunder">Sai lầm</string>
   <string name="blunders">Nước sai nghiêm trọng</string>
+  <string name="mistake">Mắc lỗi</string>
   <string name="mistakes">Nước đi sai</string>
+  <string name="inaccuracy">Thiếu chính xác</string>
   <string name="inaccuracies">Nước đi không chính xác</string>
   <string name="moveTimes">Thời gian đi</string>
   <string name="flipBoard">Quay bàn cờ</string>
@@ -123,6 +151,7 @@
   </plurals>
   <string name="time">Thời gian</string>
   <string name="rating">Hệ số Elo</string>
+  <string name="ratingStats">Thống kê elo</string>
   <string name="username">Tên truy cập</string>
   <string name="usernameOrEmail">Tên đăng nhập hoặc email</string>
   <string name="password">Mật khẩu</string>
@@ -133,6 +162,11 @@
   <string name="passwordReset">Thiết lập lại mật khẩu đăng nhập</string>
   <string name="forgotPassword">Quên mật khẩu?</string>
   <string name="rank">Xếp hạng</string>
+  <string name="rankX">Hạng: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Thứ hạng sẽ được cập nhật mỗi %s phút</string>
+  <plurals name="nbPuzzles">
+    <item quantity="other">%s thế cờ</item>
+  </plurals>
   <string name="gamesPlayed">Ván đã chơi</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s những ván cờ với bạn</item>
@@ -170,6 +204,8 @@
   <string name="play">Chơi</string>
   <string name="inbox">Hộp thư</string>
   <string name="chatRoom">Phòng chat</string>
+  <string name="loginToChat">Đăng nhập để trò chuyện</string>
+  <string name="youHaveBeenTimedOut">Bạn đã bị tạm dừng trò chuyện.</string>
   <string name="spectatorRoom">Phòng theo dõi</string>
   <string name="composeMessage">Soạn tin nhắn</string>
   <string name="noNewMessages">Không có tin nhắn mới</string>
@@ -179,6 +215,9 @@
   <string name="incrementInSeconds">Thêm giây</string>
   <string name="freeOnlineChess">Chơi cờ miễn phí online</string>
   <string name="spectators">Khán giả:</string>
+  <plurals name="nbRated">
+    <item quantity="other">%s tính elo</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s thắng</item>
   </plurals>
@@ -188,13 +227,18 @@
   <plurals name="nbDraws">
     <item quantity="other">%s hòa</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="other">%s đang chơi</item>
+  </plurals>
   <string name="exportGames">Xuất biên bản</string>
   <string name="ratingRange">Phạm vi Glicko</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">Cho thêm %s giây</item>
   </plurals>
+  <string name="giveMoreTime">Cho thêm thời gian</string>
   <string name="thisPlayerUsesChessComputerAssistance">Người chơi này sử dụng máy tính trợ giúp</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kỳ thủ này đã tăng hệ số một cách giả tạo</string>
+  <string name="openingExplorerAndTablebase">Sách khai cuộc &amp; bảng dữ liệu</string>
   <string name="takeback">Đi lại</string>
   <string name="proposeATakeback">Đề nghị lùi một nước</string>
   <string name="takebackPropositionSent">Đã gửi đề nghị lùi một nước</string>

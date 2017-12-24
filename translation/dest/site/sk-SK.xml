@@ -84,8 +84,11 @@
     <item quantity="other">%s polťahov do ďalšieho brania alebo ťahu pešiakom (vynulovanie pravidla 50 ťahov)</item>
   </plurals>
   <string name="noGameFound">Nenašla sa žiadna partia</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ponuka predvolieb možno obsahuje viac hier?</string>
   <string name="openingExplorer">Prieskumník otvorení</string>
   <string name="xOpeningExplorer">%s prieskumník otvorení</string>
+  <string name="winPreventedBy50MoveRule">Zabránené výhre pravidlo 50-tich ťahov</string>
+  <string name="lossSavedBy50MoveRule">Prehra zachránená pravidlom 50-tich ťahov</string>
   <string name="allSet">Všetko nastavené!</string>
   <string name="importPgn">Vložiť PGN</string>
   <string name="delete">Zmazat</string>
@@ -93,6 +96,7 @@
   <string name="replayMode">Mód prehrávania</string>
   <string name="realtimeReplay">Skutočne</string>
   <string name="byCPL">CPL</string>
+  <string name="openStudy">Otvoriť štúdie</string>
   <string name="enable">Povoliť analýzu</string>
   <string name="bestMoveArrow">Šípka pre najlepší ťah</string>
   <string name="evaluationGauge">Ukazovateľ hodnotenia</string>
@@ -100,8 +104,12 @@
   <string name="cpus">Procesory</string>
   <string name="memory">Pamäť</string>
   <string name="infiniteAnalysis">Nekonečná analýza</string>
+  <string name="removesTheDepthLimit">Odstráni obmedzenie hĺbky analýzy a udržuje Váš počítač v teple</string>
+  <string name="blunder">Hrubá chyba</string>
   <string name="blunders">Hrubé chyby</string>
+  <string name="mistake">Chyba</string>
   <string name="mistakes">Chyby</string>
+  <string name="inaccuracy">Nepresnosť</string>
   <string name="inaccuracies">Nepresnosti</string>
   <string name="moveTimes">Trvanie ťahu</string>
   <string name="flipBoard">Otočiť šachovnicu</string>
@@ -169,6 +177,7 @@
   <string name="forgotPassword">Zabudli ste heslo?</string>
   <string name="rank">Priečka</string>
   <string name="rankX">Rank: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Poradie je aktualizované každých %s minút</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s úloha</item>
     <item quantity="few">%s úlohy</item>
@@ -214,6 +223,7 @@
   <string name="inbox">Správy</string>
   <string name="chatRoom">Chatovacia miestnosť</string>
   <string name="loginToChat">Prihlásiť sa do četu</string>
+  <string name="youHaveBeenTimedOut">Vypršal Vám čas.</string>
   <string name="spectatorRoom">Miestnosť pre divákov</string>
   <string name="composeMessage">Napísať správu</string>
   <string name="noNewMessages">Žiadne nové správy</string>
@@ -245,8 +255,10 @@
     <item quantity="few">Pridať %s sekundy</item>
     <item quantity="other">Pridať %s sekúnd</item>
   </plurals>
+  <string name="giveMoreTime">Pridaj čas</string>
   <string name="thisPlayerUsesChessComputerAssistance">Tento hráč využíva v šachu pomoc počítača</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tento hráč si umelo zvyšuje/znižuje svoje hodnotenie</string>
+  <string name="openingExplorerAndTablebase">Knižnica otvorení &amp; tablebase koncoviek</string>
   <string name="takeback">Vrátiť ťah</string>
   <string name="proposeATakeback">Ponúknuť vrátenie ťahu</string>
   <string name="takebackPropositionSent">Ponuka na návrat zaslaná</string>
@@ -263,6 +275,7 @@
   <string name="viewTournament">Zobraz turnaj</string>
   <string name="backToTournament">Návrat do turnaja</string>
   <string name="thematic">Tématický</string>
+  <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je príliš nízky</string>
   <string name="backToGame">Návrat do hry</string>
   <string name="siteDescription">Šach online zadarmo. Hrajte šach teraz v novom rozhraní. Bez registrácie, reklám a  zásuvných modulov. Hrajte šach s počítačom, priateľmi alebo náhodnými protivníkmi.</string>
   <string name="teams">Tímy</string>
@@ -311,6 +324,7 @@
   <string name="onlineFriends">Online pritelia</string>
   <string name="noFriendsOnline">Žiadni priatelia online</string>
   <string name="findFriends">Nájsť priateľov</string>
+  <string name="favoriteOpponents">Obľúbený súperi</string>
   <string name="follow">Nasledovať</string>
   <string name="following">Nasleduješ</string>
   <string name="unfollow">Zrušiť nasledovanie</string>
@@ -364,6 +378,8 @@
   <string name="whiteWins">Biely vyhral</string>
   <string name="blackWins">Čierny vyhral</string>
   <string name="draws">Remízy</string>
+  <string name="viewMoreTournaments">Zobraz ďalšie turnaje</string>
+  <string name="averageOpponent">Priemerná sila súpera</string>
   <string name="membersOnly">Len pre členov</string>
   <string name="boardEditor">Editor šachovnice</string>
   <string name="setTheBoard">Upraviť šachovnicu</string>
@@ -385,6 +401,7 @@
   <string name="biography">Životopis</string>
   <string name="country">Krajina</string>
   <string name="preferences">Nastavenia</string>
+  <string name="inlineNotation">Notácia v riadkoch</string>
   <string name="watchLichessTV">Sledovať Lichess TV</string>
   <string name="previouslyOnLichessTV">Bolo na Lichess TV</string>
   <string name="onlinePlayers">Pripojený hráči</string>
@@ -525,6 +542,7 @@
   <string name="xCommentedY">%1$s komentárov %2$s</string>
   <string name="victory">Výhra!</string>
   <string name="defeat">Porážka</string>
+  <string name="xVsYinZ">%1$s proti %2$s v %3$s</string>
   <string name="timeline">Rozvrh</string>
   <string name="seeAllTournaments">Zobraziť všetky turnaje</string>
   <string name="starting">Štart:</string>
@@ -713,7 +731,33 @@
   <string name="chessBasics">Základy šachu</string>
   <string name="coaches">Tréneri</string>
   <string name="invalidPgn">Neplatný formát PGN</string>
+  <string name="invalidFen">Neplatný formát FEN</string>
+  <string name="error.minLength">Minimálna dĺžka je %s</string>
+  <string name="error.maxLength">Maximálna dĺžka je %s</string>
   <string name="error.min">Musí byť väčšie alebo rovné %s</string>
   <string name="error.max">Musí byť menšie alebo rovné %s</string>
+  <string name="error.unknown">Chyba</string>
+  <string name="custom">Vlastná</string>
   <string name="notifications">Upozornenia</string>
+  <string name="challenges">Výzvy</string>
+  <string name="practiceWithComputer">Precvičenie s počítačom</string>
+  <string name="resumePractice">Pokračovať v precvičovaní</string>
+  <string name="computerThinking">Počítač premýšľa...</string>
+  <string name="seeBestMove">Ukázať najlepší ťah</string>
+  <string name="hideBestMove">Skryť najlepší ťah</string>
+  <string name="getAHint">Získať nápovedu</string>
+  <string name="evaluatingYourMove">Hodnotím tvoj ťah...</string>
+  <string name="whiteWinsGame">Biely vyhral</string>
+  <string name="blackWinsGame">Čierny vyhral</string>
+  <string name="learnFromYourMistakes">Poučte sa zo svojich chýb</string>
+  <string name="skipThisMove">Preskočiť tento krok</string>
+  <string name="next">Ďalší</string>
+  <string name="solution">Riešenie</string>
+  <string name="waitingForAnalysis">Čakanie na analýzu</string>
+  <string name="noMistakesFoundForWhite">Neboli nájdené žiadne chyby bieleho</string>
+  <string name="noMistakesFoundForBlack">Neboli nájdené žiadne chyby čierneho</string>
+  <string name="doItAgain">Urob to znovu</string>
+  <string name="opening">Otvorenie</string>
+  <string name="middlegame">Stredná hra</string>
+  <string name="endgame">Koncovka</string>
 </resources>
