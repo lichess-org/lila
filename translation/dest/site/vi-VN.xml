@@ -80,6 +80,9 @@
     <item quantity="other">Sẽ có nước ăn quân hoặc đi tốt trong %s nước đi nữa (Bộ đếm 50 nước đi sẽ trở về 0)</item>
   </plurals>
   <string name="noGameFound">Đã hết nước đi gợi ý</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bạn có muốn thêm nhiều ván đấu hơn từ mục lục?</string>
+  <string name="openingExplorer">Sách khai cuộc</string>
+  <string name="xOpeningExplorer">Sách khai cuộc %s</string>
   <string name="blunders">Nước sai nghiêm trọng</string>
   <string name="mistakes">Nước đi sai</string>
   <string name="inaccuracies">Nước đi không chính xác</string>
