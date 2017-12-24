@@ -10,7 +10,7 @@
   <string name="play">Žaisk!</string>
   <string name="chessPieces">Šachmatų figūros</string>
   <string name="theRook">Bokštas</string>
-  <string name="itMovesInStraightLines">Juda statmenai ir gulsčiai</string>
+  <string name="itMovesInStraightLines">Juda tiesiomis linijomis</string>
   <string name="rookIntro">Bokštas yra galinga figūra. Ar pasirengę ją įvaldyti?</string>
   <string name="rookGoal">Spustelk bokštą, kad perkeltum jį iki žvaigždės!</string>
   <string name="grabAllTheStars">Griebk visas žvaigždes!</string>
@@ -128,8 +128,18 @@ atlikti ilgąją rokiruotę!</string>
   <string name="castlingComplete">Sveikiname! Turėtum beveik visada partijos metu atlikti rokiruotę.</string>
   <string name="enPassant">Kirtimas prasilenkiant</string>
   <string name="theSpecialPawnMove">Specialusis ėjimas pėstininku</string>
+  <string name="stalemate">Patas</string>
+  <string name="theGameIsADraw">Partija baigėsi lygiosiomis</string>
+  <string name="stalemateIntro">Kai žaidėjas nėra po šachu ir negali atlikti legalaus ėjimo, tai vadinama patu. Partija baigiasi lygiosiomis - niekas nelaimi ir nepralaimi.</string>
+  <string name="stalemateComplete">Sveikiname! Geriau gauti patą nei matą!</string>
+  <string name="pieceValue">Figūrų vertė</string>
+  <string name="evaluatePieceStrength">Įvertink figūrų galią</string>
   <string name="videos">Vaizdo įrašai</string>
   <string name="watchInstructiveChessVideos">Žiūrėti mokomuosius vaizdo įrašus</string>
+  <string name="playPeople">Žaisti su žmonėmis</string>
+  <string name="opponentsFromAroundTheWorld">Varžovai iš viso pasaulio</string>
+  <string name="playMachine">Žaisti su kompiuteriu</string>
+  <string name="testYourSkillsWithTheComputer">Išbandyk savo įgūdžius prieš kompiuterį</string>
   <string name="letsGo">Pirmyn!</string>
   <string name="stageX">Stadija</string>
   <string name="awesome">Nuostabu!</string>
