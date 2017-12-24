@@ -76,6 +76,10 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Chiếu hết trong %s nước đi</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="other">Sẽ có nước ăn quân hoặc đi tốt trong %s nước đi nữa (Bộ đếm 50 nước đi sẽ trở về 0)</item>
+  </plurals>
+  <string name="noGameFound">Đã hết nước đi gợi ý</string>
   <string name="blunders">Nước sai nghiêm trọng</string>
   <string name="mistakes">Nước đi sai</string>
   <string name="inaccuracies">Nước đi không chính xác</string>
