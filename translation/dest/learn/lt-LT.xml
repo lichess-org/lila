@@ -123,6 +123,12 @@ Išvesk jį, tada atlik trumpą rokiruotę.</string>
 Pirma tu turi išvesti savo figūras.</string>
   <string name="castleQueenSideMovePiecesFirst">Rokiruok valdovės flange!
 Pirma tu turi išvesti savo figūras.</string>
+  <string name="youCannotCastleIfMoved">Negali atlikti rokiruotės
+jeigu karalius jau pajudėjęs
+arba bokštas jau pajudėjęs.</string>
+  <string name="youCannotCastleIfAttacked">Negali atlikti rokiruotės
+jeigu karalius bus užpultas judėjimo metu.
+Apsigink nuo šacho ir tik tada atlik rokiruotę!</string>
   <string name="findAWayToCastleKingSide">Rask būdą
 atlikti trumpąją rokiruotę!</string>
   <string name="findAWayToCastleQueenSide">Rask būdą
@@ -137,6 +143,8 @@ Nukirsk jį prasilenkiamuoju būdu.</string>
   <string name="enPassantOnlyWorksImmediately">Kirtimas prasilenkiant veikia tik
 varžovui iš karto pajudinus
 pėstininką.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Kertimas prasilenkiant veikia tik tada
+kai tavo pėstininkas stovi 5-oje gulstinėje.</string>
   <string name="takeAllThePawnsEnPassant">Iškirsk visus pėstininkus praeinančiuoju metodu!</string>
   <string name="enPassantComplete">Sveikiname! Jau gali kirsti pėstininkus praeinančiuoju būdu.</string>
   <string name="stalemate">Patas</string>
@@ -156,6 +164,17 @@ Rikis = 3
 Žirgas = 3
 Pėstininkas = 1
 Karalius neįkainojamas! Prarasti jį reiškia pralaimėti.</string>
+  <string name="queenOverBishop">Nukirsk didžiausios
+vertės figūrą!
+Valdovė &gt; Rikis</string>
+  <string name="takeThePieceWithTheHighestValue">Nukirsk didžiausios
+vertės figūrą!</string>
+  <string name="pieceValueComplete">Sveikiname! Žinai figūrų vertę ir pajėgumą!
+Valdovė = 9
+Bokštas = 5
+Rikis = 3
+Žirgas = 3
+Pėstininkas = 1</string>
   <string name="checkInTwo">Šachas dviem ėjimais</string>
   <string name="twoMovesToGiveCheck">Du ėjimai duoti šachą</string>
   <string name="checkInTwoIntro">Surask teisingą dviejų ėjimų seką kuri duoda šachą varžovo karaliui!</string>
