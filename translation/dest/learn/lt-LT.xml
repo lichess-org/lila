@@ -130,6 +130,13 @@ atlikti ilgąją rokiruotę!</string>
   <string name="castlingComplete">Sveikiname! Turėtum beveik visada partijos metu atlikti rokiruotę.</string>
   <string name="enPassant">Kirtimas prasilenkiant</string>
   <string name="theSpecialPawnMove">Specialusis ėjimas pėstininku</string>
+  <string name="enPassantIntro">Kai varžovo pėstininkas pajudėjo per du laukelius, gali kirsti jį lyg būtų paėjęs vieną.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Juodieji ką tik paėjo pėstininku
+per du laukelius!
+Nukirsk jį prasilenkiamuoju būdu.</string>
+  <string name="enPassantOnlyWorksImmediately">Kirtimas prasilenkiant veikia tik
+varžovui iš karto pajudinus
+pėstininką.</string>
   <string name="takeAllThePawnsEnPassant">Iškirsk visus pėstininkus praeinančiuoju metodu!</string>
   <string name="enPassantComplete">Sveikiname! Jau gali kirsti pėstininkus praeinančiuoju būdu.</string>
   <string name="stalemate">Patas</string>
