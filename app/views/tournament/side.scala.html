@@ -16,7 +16,7 @@
       </span>
       @tour.mode.fold(trans.casual, trans.rated)() •
       @systemName(tour.system).capitalize
-      (<a href="@routes.Tournament.help(tour.system.toString.toLowerCase.some)">?</a>)
+      <a href="@routes.Tournament.help(tour.system.toString.toLowerCase.some)" data-icon=""></a>
     </div>
   </div>
   @tour.spotlight.map { s =>
