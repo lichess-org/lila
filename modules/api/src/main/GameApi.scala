@@ -195,10 +195,10 @@ private[api] final class GameApi(
     "players" -> JsObject(g.players map { p =>
       p.color.name -> Json.obj(
         "userId" -> p.userId,
-        "name" -> p.name,
         "rating" -> p.rating,
         "ratingDiff" -> p.ratingDiff
-      ).add("provisional" -> p.provisional)
+      ).add("name", p.name)
+        .add("provisional" -> p.provisional)
         .add("moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)))
         .add("blurs" -> withFlags.blurs.option(p.blurs.nb))
         .add("hold" -> p.holdAlert.ifTrue(withFlags.hold).map { h =>
