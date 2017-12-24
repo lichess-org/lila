@@ -112,6 +112,24 @@ Ir nepraraskite savųjų.</string>
   <string name="boardSetupComplete">Sveikiname. Jūs žinote kaip sudėti šachmatų figūras.</string>
   <string name="castling">Rokiruotė</string>
   <string name="theSpecialKingMove">Specialus karaliaus ėjimas</string>
+  <string name="castlingIntro">Paslėpk savo karalių saugioje vietoje bei išvesk bokštą į puolimą!</string>
+  <string name="castleKingSide">Pajudink savo karalių per du laukelius,
+kad atliktum trumpą rokiruotę!</string>
+  <string name="castleQueenSide">Pajudink savo karalių per du laukelius,
+kad atliktum ilgą rokiruotę!</string>
+  <string name="theKnightIsInTheWay">Žirgas painiojasi tavo kelyje!
+Išvesk jį, tada atlik trumpą rokiruotę.</string>
+  <string name="castleKingSideMovePiecesFirst">Rokiruok karaliaus flange!
+Pirma tu turi išvesti savo figūras.</string>
+  <string name="castleQueenSideMovePiecesFirst">Rokiruok valdovės flange!
+Pirma tu turi išvesti savo figūras.</string>
+  <string name="findAWayToCastleQueenSide">Rask būdą
+atlikti ilgąją rokiruotę!</string>
+  <string name="castlingComplete">Sveikiname! Turėtum beveik visada partijos metu atlikti rokiruotę.</string>
+  <string name="enPassant">Kirtimas prasilenkiant</string>
+  <string name="theSpecialPawnMove">Specialusis ėjimas pėstininku</string>
+  <string name="videos">Vaizdo įrašai</string>
+  <string name="watchInstructiveChessVideos">Žiūrėti mokomuosius vaizdo įrašus</string>
   <string name="letsGo">Pirmyn!</string>
   <string name="stageX">Stadija</string>
   <string name="awesome">Nuostabu!</string>
