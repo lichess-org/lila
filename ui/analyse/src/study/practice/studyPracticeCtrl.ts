@@ -18,7 +18,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
   analysisUrl = prop(''),
   autoNext = storedProp('practice-auto-next', true);
 
-  function makeComment(treeRoot: Tree.Node): string | undefined {
+  function makeComment(treeRoot: Tree.Node) {
     if (!treeRoot.comments) return;
     comment(treeRoot.comments[0].text);
     delete treeRoot.comments;
