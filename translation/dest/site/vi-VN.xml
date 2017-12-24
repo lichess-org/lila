@@ -96,8 +96,16 @@
   <string name="enable">Bật</string>
   <string name="bestMoveArrow">Mũi tên chỉ nước đi tốt nhất</string>
   <string name="evaluationGauge">Thang đo lợi thế</string>
+  <string name="multipleLines">Phân tích nhiều hàng</string>
+  <string name="cpus">CPU</string>
+  <string name="memory">Bộ nhớ</string>
+  <string name="infiniteAnalysis">Phân tích vô hạn</string>
+  <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu, và giữ máy tính của bạn ấm</string>
+  <string name="blunder">Sai lầm</string>
   <string name="blunders">Nước sai nghiêm trọng</string>
+  <string name="mistake">Mắc lỗi</string>
   <string name="mistakes">Nước đi sai</string>
+  <string name="inaccuracy">Thiếu chính xác</string>
   <string name="inaccuracies">Nước đi không chính xác</string>
   <string name="moveTimes">Thời gian đi</string>
   <string name="flipBoard">Quay bàn cờ</string>
@@ -143,6 +151,7 @@
   </plurals>
   <string name="time">Thời gian</string>
   <string name="rating">Hệ số Elo</string>
+  <string name="ratingStats">Thống kê hạng</string>
   <string name="username">Tên truy cập</string>
   <string name="usernameOrEmail">Tên đăng nhập hoặc email</string>
   <string name="password">Mật khẩu</string>
@@ -153,6 +162,11 @@
   <string name="passwordReset">Thiết lập lại mật khẩu đăng nhập</string>
   <string name="forgotPassword">Quên mật khẩu?</string>
   <string name="rank">Xếp hạng</string>
+  <string name="rankX">Hạng: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Thứ hạng sẽ được cập nhật mỗi %s phút</string>
+  <plurals name="nbPuzzles">
+    <item quantity="other">%s thế cờ</item>
+  </plurals>
   <string name="gamesPlayed">Ván đã chơi</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s những ván cờ với bạn</item>
@@ -190,6 +204,7 @@
   <string name="play">Chơi</string>
   <string name="inbox">Hộp thư</string>
   <string name="chatRoom">Phòng chat</string>
+  <string name="loginToChat">Đăng nhập để trò chuyện</string>
   <string name="spectatorRoom">Phòng theo dõi</string>
   <string name="composeMessage">Soạn tin nhắn</string>
   <string name="noNewMessages">Không có tin nhắn mới</string>
