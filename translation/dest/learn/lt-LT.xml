@@ -123,6 +123,8 @@ Išvesk jį, tada atlik trumpą rokiruotę.</string>
 Pirma tu turi išvesti savo figūras.</string>
   <string name="castleQueenSideMovePiecesFirst">Rokiruok valdovės flange!
 Pirma tu turi išvesti savo figūras.</string>
+  <string name="findAWayToCastleKingSide">Rask būdą
+atlikti trumpąją rokiruotę!</string>
   <string name="findAWayToCastleQueenSide">Rask būdą
 atlikti ilgąją rokiruotę!</string>
   <string name="castlingComplete">Sveikiname! Turėtum beveik visada partijos metu atlikti rokiruotę.</string>
@@ -140,6 +142,13 @@ atlikti ilgąją rokiruotę!</string>
   <string name="advanced">Aukštesnis lygis</string>
   <string name="pieceValue">Figūrų vertė</string>
   <string name="evaluatePieceStrength">Įvertink figūrų galią</string>
+  <string name="pieceValueIntro">Paslankesnės figūros turi didesnę vertę!
+Valdovė = 9
+Bokštas = 5
+Rikis = 3
+Žirgas = 3
+Pėstininkas = 1
+Karalius neįkainojamas! Prarasti jį reiškia pralaimėti.</string>
   <string name="checkInTwo">Šachas dviem ėjimais</string>
   <string name="twoMovesToGiveCheck">Du ėjimai duoti šachą</string>
   <string name="checkInTwoIntro">Surask teisingą dviejų ėjimų seką kuri duoda šachą varžovo karaliui!</string>
