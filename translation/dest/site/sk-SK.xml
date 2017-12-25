@@ -285,6 +285,16 @@
   <string name="viewTournament">Zobraz turnaj</string>
   <string name="backToTournament">Návrat do turnaja</string>
   <string name="thematic">Tématický</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s hodnotená hra</item>
+    <item quantity="few">≥ %s hodnotené hry</item>
+    <item quantity="other">≥ %s hodnotených hier</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s hodnotená hra</item>
+    <item quantity="few">≥ %1$s %2$s hodnotené hry</item>
+    <item quantity="other">≥ %1$s %2$s hodnotených hier</item>
+  </plurals>
   <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je príliš nízky</string>
   <string name="backToGame">Návrat do hry</string>
   <string name="siteDescription">Šach online zadarmo. Hrajte šach teraz v novom rozhraní. Bez registrácie, reklám a  zásuvných modulov. Hrajte šach s počítačom, priateľmi alebo náhodnými protivníkmi.</string>
@@ -767,6 +777,8 @@
   <string name="noMistakesFoundForWhite">Neboli nájdené žiadne chyby bieleho</string>
   <string name="noMistakesFoundForBlack">Neboli nájdené žiadne chyby čierneho</string>
   <string name="doItAgain">Urob to znovu</string>
+  <string name="reviewWhiteMistakes">Preskúmať chyby bieleho</string>
+  <string name="reviewBlackMistakes">Preskúmať chyby čierneho</string>
   <string name="advantage">Výhoda</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekunda</item>
