@@ -233,6 +233,11 @@
   <string name="incrementInSeconds">Prídavok v sekundách</string>
   <string name="freeOnlineChess">Online šach zdarma</string>
   <string name="spectators">Diváci:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s hodnotená</item>
+    <item quantity="few">%s hodnotená</item>
+    <item quantity="other">%s hodnotená</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s výhra</item>
     <item quantity="few">%s výhry</item>
@@ -247,6 +252,11 @@
     <item quantity="one">%s remíza</item>
     <item quantity="few">%s remízy</item>
     <item quantity="other">%s remíz</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s práve hrá</item>
+    <item quantity="few">%s práve hrá</item>
+    <item quantity="other">%s práve hrá</item>
   </plurals>
   <string name="exportGames">Exportovať hry</string>
   <string name="ratingRange">Rozsah hodnotení</string>
@@ -757,6 +767,12 @@
   <string name="noMistakesFoundForWhite">Neboli nájdené žiadne chyby bieleho</string>
   <string name="noMistakesFoundForBlack">Neboli nájdené žiadne chyby čierneho</string>
   <string name="doItAgain">Urob to znovu</string>
+  <string name="advantage">Výhoda</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekunda</item>
+    <item quantity="few">%s sekúnd</item>
+    <item quantity="other">%s sekúnd</item>
+  </plurals>
   <string name="opening">Otvorenie</string>
   <string name="middlegame">Stredná hra</string>
   <string name="endgame">Koncovka</string>
