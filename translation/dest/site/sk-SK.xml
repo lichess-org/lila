@@ -398,6 +398,7 @@
   <string name="whiteWins">Biely vyhral</string>
   <string name="blackWins">Čierny vyhral</string>
   <string name="draws">Remízy</string>
+  <string name="nextXTournament">Ďalší %s turnaj:</string>
   <string name="viewMoreTournaments">Zobraz ďalšie turnaje</string>
   <string name="averageOpponent">Priemerná sila súpera</string>
   <string name="membersOnly">Len pre členov</string>
