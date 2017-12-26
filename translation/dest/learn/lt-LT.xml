@@ -40,18 +40,19 @@ Jums reikės abiejų!</string>
   <string name="kingComplete">Dabar gebate vadovauti vadui!</string>
   <string name="theKnight">Žirgas</string>
   <string name="itMovesInAnLShape">Juda L raidės forma</string>
-  <string name="knightIntro">Štai tau iššūkis. Žirgas yra... klastinga figūra.</string>
-  <string name="knightsHaveAFancyWay">Pas žirgus įdomus šokinėjimo po lentą būdas!</string>
+  <string name="knightIntro">Štai jums iššūkis. Žirgas yra... sudėtinga figūra.</string>
+  <string name="knightsHaveAFancyWay">Žirgai geba šokinėti 
+po lentą įdomiu būdu!</string>
   <string name="knightsCanJumpOverObstacles">Žirgai geba šokinėti per kliūtis!
-Ištrūk ir nugalėk žvaigždes!</string>
-  <string name="knightComplete">Sveikiname! Įvaldei žirgą.</string>
+Ištrūkite ir nugalėkite žvaigždes!</string>
+  <string name="knightComplete">Sveikinimai! Įvaldėte žirgą.</string>
   <string name="thePawn">Pėstininkas</string>
   <string name="itMovesForwardOnly">Eina tik į priekį</string>
   <string name="pawnIntro">Pėstininkai yra silpni, tačiau turi daug potencialo.</string>
-  <string name="pawnsMoveOneSquareOnly">Pėstininkai juda tik vienų laukeliu į priekį.
+  <string name="pawnsMoveOneSquareOnly">Pėstininkai juda tik vienu laukeliu į priekį.
 Tačiau pasiekę kitą lentos pusę, jie tampa stipresnėmis figūromis!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Dažniausiai geriausia paversti pėstininką valdove.
-Tačiau kartais žirgas taip pat gali praversti!</string>
+Tačiau kartais gali praversti ir žirgas!</string>
   <string name="pawnsMoveForward">Pėstininkai eina į priekį,
 tačiau kerta įstrižai!</string>
   <string name="captureThenPromote">Nukirsk ir perkelk į aukštesnį lygį!</string>
