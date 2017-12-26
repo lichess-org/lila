@@ -790,4 +790,5 @@ u %3$s</string>
   <string name="challenges">Izazovi</string>
   <string name="perfRatingX">Rejting: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekundi da odigraš prvi potez</string>
+  <string name="resumePractice">Nastavi vježbu</string>
 </resources>
