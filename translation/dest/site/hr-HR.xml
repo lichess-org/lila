@@ -801,4 +801,13 @@ u %3$s</string>
   <string name="computerThinking">Kompjuter razmišlja ...</string>
   <string name="seeBestMove">Vidi najbolji potez</string>
   <string name="hideBestMove">Sakrij najbolji potez</string>
+  <string name="advantage">Prednost</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekundi</item>
+    <item quantity="few">%s sekunda</item>
+    <item quantity="other">%s sekundi</item>
+  </plurals>
+  <string name="opening">Otvaranje</string>
+  <string name="middlegame">Središnjica</string>
+  <string name="endgame">Završnica</string>
 </resources>
