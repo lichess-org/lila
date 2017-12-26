@@ -11,9 +11,10 @@
   <string name="chessPieces">Šachmatų figūros</string>
   <string name="theRook">Bokštas</string>
   <string name="itMovesInStraightLines">Juda tiesiomis linijomis</string>
-  <string name="rookIntro">Bokštas yra galinga figūra. Ar pasirengę ją įvaldyti?</string>
-  <string name="rookGoal">Spustelk bokštą, kad perkeltum jį iki žvaigždės!</string>
-  <string name="grabAllTheStars">Griebk visas žvaigždes!</string>
+  <string name="rookIntro">Bokštas yra galinga figūra. Ar esate pasirengę ją valdyti?</string>
+  <string name="rookGoal">Spustelėkite ant boškto, 
+kad perkeltumėte jį ant žvaigždės!</string>
+  <string name="grabAllTheStars">Surinkite visas žvaigždes!</string>
   <string name="theFewerMoves">Kuo mažiau ėjimų atliksi, tuo daugiau laimėsi taškų!</string>
   <string name="useTwoRooks">Naudok abu bokštus, kad pagreitintum procesą!</string>
   <string name="rookComplete">Sveikiname! Sėkmingai įvaldei bokštą.</string>
