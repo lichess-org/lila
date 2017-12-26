@@ -15,28 +15,31 @@
   <string name="rookGoal">Spustelėkite ant boškto, 
 kad perkeltumėte jį ant žvaigždės!</string>
   <string name="grabAllTheStars">Surinkite visas žvaigždes!</string>
-  <string name="theFewerMoves">Kuo mažiau ėjimų atliksi, tuo daugiau laimėsi taškų!</string>
-  <string name="useTwoRooks">Naudok abu bokštus, kad pagreitintum procesą!</string>
-  <string name="rookComplete">Sveikiname! Sėkmingai įvaldei bokštą.</string>
+  <string name="theFewerMoves">Kuo mažiau ėjimų atliksite,
+tuo daugiau taškų gausite!</string>
+  <string name="useTwoRooks">Naudokite abu bokštus, 
+kad surinktumėte greičiau!</string>
+  <string name="rookComplete">Sveikinimai! Sėkmingai įvaldėte bokštą.</string>
   <string name="theBishop">Rikis</string>
-  <string name="itMovesDiagonally">Jis juda įstrižai</string>
-  <string name="bishopIntro">Toliau mes išmoksime manevruoti rikiu!</string>
-  <string name="youNeedBothBishops">Vienas baltalaukis rikis,
-vienas juodalaukis rikis.
-Tau reikės abiejų!</string>
-  <string name="bishopComplete">Sveikiname! Įvaldei riki.</string>
-  <string name="theQueen">Karalienė</string>
+  <string name="itMovesDiagonally">Juda įstrižai</string>
+  <string name="bishopIntro">Toliau mes išmoksime, 
+kaip reikia judėti rikiu!</string>
+  <string name="youNeedBothBishops">Vienas rikis baltuose laukeliuose,
+kitas rikis juoduose laukeliuose.
+Jums reikės abiejų!</string>
+  <string name="bishopComplete">Sveikinimai! Sėkmingai įvaldėte rikį.</string>
+  <string name="theQueen">Valdovė</string>
   <string name="queenCombinesRookAndBishop">Valdovė = bokštas + rikis</string>
-  <string name="queenIntro">Tepasirodo stipriausioji šachmatų figūra, jos didenybė valdove!</string>
-  <string name="queenComplete">Sveikiname! Valdovės tau nekelia jokių problemų.</string>
+  <string name="queenIntro">Te pasirodo stipriausioji šachmatų figūra, jos didenybė valdovė!</string>
+  <string name="queenComplete">Sveikinimai! Valdovės tau nekelia jokių problemų.</string>
   <string name="theKing">Karalius</string>
   <string name="theMostImportantPiece">Pati svarbiausia figūra</string>
   <string name="kingIntro">Jūs esate karalius. Jeigu krisite kovoje, partija bus pralošta.</string>
   <string name="theKingIsSlow">Karalius yra lėtas.</string>
   <string name="lastOne">Paskutinis!</string>
-  <string name="kingComplete">Dabar gebi vadovauti vadui!</string>
+  <string name="kingComplete">Dabar gebate vadovauti vadui!</string>
   <string name="theKnight">Žirgas</string>
-  <string name="itMovesInAnLShape">Jis juda L raidės forma</string>
+  <string name="itMovesInAnLShape">Juda L raidės forma</string>
   <string name="knightIntro">Štai tau iššūkis. Žirgas yra... klastinga figūra.</string>
   <string name="knightsHaveAFancyWay">Pas žirgus įdomus šokinėjimo po lentą būdas!</string>
   <string name="knightsCanJumpOverObstacles">Žirgai geba šokinėti per kliūtis!
