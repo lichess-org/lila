@@ -7,8 +7,8 @@
   <string name="averageScoreAsBlackX">Átlagos pontszám sötétként: %s</string>
   <string name="knowingTheChessBoard">A sakktábla koordinátáinak ismerete nagyon fontos sakk készség:</string>
   <string name="mostChessCourses">A sakk tanfolyamok és feladványok többnyire az algebrai jelölési rendszert alkalmazzák.</string>
-  <string name="talkToYourChessFriends">Könnyebbé teszi a sakk társalgást a barátaiddal, ha mindketten beszélítek a \"sakk nyelvét\".</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Hatékonyabban elemezheted a játszmákat, ha nem kell keresgélned a mezők neveit.</string>
-  <string name="aSquareNameAppears">Kattints pontosan arra a mezőre amelyik neve megjelenik a tábla előtt. 30 másodperc alatt találj el annyit amennyit csak tudsz!</string>
+  <string name="talkToYourChessFriends">Könnyebbé teszi a sakk társalgást a barátokkal, ha mindketten beszélik a \"sakk nyelvét\".</string>
+  <string name="youCanAnalyseAGameMoreEffectively">A játszmák hatékonyabban elemezhetőek, ha nem kell keresgetni a mezőket.</string>
+  <string name="aSquareNameAppears">Mindig arra a mezőre kell kattintani, amelyiknek a neve megjelenik a tábla előtt. A cél, minél több találat elérése 30 másodperc alatt.</string>
   <string name="startTraining">Gyakorlás kezdése</string>
 </resources>
