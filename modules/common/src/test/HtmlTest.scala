@@ -14,6 +14,12 @@ class HtmlTest extends Specification {
         s"""link to <a rel="nofollow" href="$url" target="_blank">$url</a> here"""
       }
     }
+    "skip buggy url like http://foo-@bar" in {
+      val url = "http://foo-@bar"
+      addLinks(Html(s"""link to $url here""")) must_== Html {
+        s"""link to http://foo-@bar here"""
+      }
+    }
     "detect image" in {
       val url = "http://zombo.com/pic.jpg"
       addLinks(Html(s"""img to $url here""")) must_== Html {

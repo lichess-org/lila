@@ -72,6 +72,7 @@ object String {
     private val urlRegex = """(?i)\b((https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}\/)((?:[`!\[\]{};:'".,<>?«»“”‘’]*[^\s`!\[\]{}\(\);:'".,<>?«»“”‘’])*))""".r
     // private val imgRegex = """(?:(?:https?:\/\/))[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b(?:[-a-zA-Z0-9@:%_\+.~#?&\/=]*(\.jpg|\.png|\.jpeg))""".r
     private val netDomain = "lichess.org" // whatever...
+    private val urlMustNotContain = List("&quot", "@")
 
     /**
      * Creates hyperlinks to user profiles mentioned using the '@' prefix. e.g. @ornicar
@@ -90,7 +91,7 @@ object String {
 
     private def addLinksUnsafe(text: String): String = try {
       urlRegex.replaceAllIn(text, m => {
-        if (m.group(0) contains "&quot") m.group(0)
+        if (urlMustNotContain exists m.group(0).contains) m.group(0)
         else if (m.group(2) == "http://" || m.group(2) == "https://") {
           if (s"${m.group(3)}/" startsWith s"$netDomain/") {
             // internal
