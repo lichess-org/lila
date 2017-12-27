@@ -125,7 +125,7 @@ final class AssessApi(
           // reporter ! lila.hub.actorApi.report.Clean(userId)
           funit
       }
-      case none => funit
+      case _ => funit
     }
   }
 
