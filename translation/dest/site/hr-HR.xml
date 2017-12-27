@@ -801,6 +801,13 @@ u %3$s</string>
   <string name="computerThinking">Kompjuter razmišlja ...</string>
   <string name="seeBestMove">Vidi najbolji potez</string>
   <string name="hideBestMove">Sakrij najbolji potez</string>
+  <string name="whiteWinsGame">Bijeli pobjeđuje</string>
+  <string name="blackWinsGame">Crni pobjeđuje</string>
+  <string name="next">Dalje</string>
+  <string name="xWasPlayed">%s je odigran</string>
+  <string name="findBetterMoveForWhite">Pronađi bolji potez za bijelog</string>
+  <string name="findBetterMoveForBlack">Pronađi bolji potez za crnog</string>
+  <string name="resumeLearning">Nastavi učenje</string>
   <string name="advantage">Prednost</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekundi</item>
