@@ -453,8 +453,8 @@
   <string name="findTheBestMoveForWhite">Найдите лучший ход за белых.</string>
   <string name="findTheBestMoveForBlack">Найдите лучший ход за чёрных.</string>
   <string name="toTrackYourProgress">Для отслеживания прогресса:</string>
-  <string name="trainingSignupExplanation">Lichess подберет задачи для вашего уровня, что позволит повысить эффективность тренировок.</string>
-  <string name="puzzleId">Задача %s</string>
+  <string name="trainingSignupExplanation">Lichess подберёт задачи для вашего уровня, чтобы повысить эффективность ваших тренировок.</string>
+  <string name="puzzleId">Задача № %s</string>
   <string name="puzzleOfTheDay">Шахматная задача дня</string>
   <string name="clickToSolve">Нажмите, чтобы решить</string>
   <string name="goodMove">Хороший ход</string>
