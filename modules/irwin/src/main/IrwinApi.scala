@@ -30,13 +30,15 @@ final class IrwinApi(
 
   object reports {
 
-    def insert(report: IrwinReport) = for {
-      _ <- reportColl.update($id(report.id), report, upsert = true)
-      request <- requests get report.id
-      _ <- request.??(r => requests.drop(r.id))
-      _ <- request.??(notifyRequester)
-      _ <- markOrReport(report)
-    } yield ()
+    def insert(report: IrwinReport) = (mode() != "none") ?? {
+      for {
+        _ <- reportColl.update($id(report.id), report, upsert = true)
+        request <- requests get report.id
+        _ <- request.??(r => requests.drop(r.id))
+        _ <- request.??(notifyRequester)
+        _ <- markOrReport(report)
+      } yield ()
+    }
 
     def get(user: User): Fu[Option[IrwinReport]] =
       reportColl.find($id(user.id)).uno[IrwinReport]
