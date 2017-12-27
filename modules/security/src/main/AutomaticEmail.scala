@@ -3,6 +3,7 @@ package lila.security
 import play.api.i18n.Lang
 
 import lila.common.EmailAddress
+import lila.common.String.html.nl2br
 import lila.user.{ User, UserRepo }
 
 final class AutomaticEmail(
@@ -19,8 +20,7 @@ final class AutomaticEmail(
   } yield {
 
     val profileUrl = s"$baseUrl/@/${user.username}"
-    val body = s"""
-Hello,
+    val body = s"""Hello,
 
 Thank you for confirming your $title title on lichess.org.
 It is now visible on your profile page: ${baseUrl}/@/${user.username}.
@@ -40,7 +40,7 @@ ${Mailgun.txt.serviceNote}
 """,
       htmlBody = s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">$body</p>
+  <p itemprop="description">${nl2br(body)}</p>
   ${Mailgun.html.serviceNote}
 </div>""".some
     )
@@ -49,8 +49,7 @@ ${Mailgun.txt.serviceNote}
   def onBecomeCoach(user: User)(implicit lang: Lang): Funit =
     UserRepo email user.id flatMap {
       _ ?? { email =>
-        val body = s"""
-Hello,
+        val body = s"""Hello,
 
 It is our pleasure to welcome you as a certified lichess coach.
 Your coach profile awaits you on ${baseUrl}/@/coach/edit.
@@ -70,7 +69,7 @@ ${Mailgun.txt.serviceNote}
 """,
           htmlBody = s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">$body</p>
+  <p itemprop="description">${nl2br(body)}</p>
   ${Mailgun.html.serviceNote}
 </div>""".some
         )
@@ -85,10 +84,13 @@ ${Mailgun.txt.serviceNote}
     email <- emailOption
   } yield {
 
-    val body = s"""
-Hello,
+    val body = s"""Hello,
 
-Here is your private fishnet key: $key.
+Here is your private fishnet key:
+
+$key
+
+
 Please treat it like a password. You can use the same key on multiple machine,
 but you should not share it with anyone.
 
@@ -110,7 +112,7 @@ ${Mailgun.txt.serviceNote}
 """,
       htmlBody = s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">$body</p>
+  <p itemprop="description">${nl2br(body)}</p>
   ${Mailgun.html.serviceNote}
 </div>""".some
     )

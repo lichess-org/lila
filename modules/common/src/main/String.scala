@@ -58,6 +58,8 @@ object String {
     private def nl2brUnsafe(text: String): String =
       text.replace("\r\n", "<br />").replace("\n", "<br />")
 
+    def nl2br(text: String) = Html(nl2brUnsafe(text))
+
     def shortenWithBr(text: String, length: Int) = Html {
       nl2brUnsafe(escapeHtmlUnsafe(text.take(length))).replace("<br /><br />", "<br />")
     }

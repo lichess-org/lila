@@ -161,11 +161,11 @@ final class Env(
   def cli = new Cli
 
   // api actor
-  system.actorOf(Props(new Actor {
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.fishnet.NewKey(userId, key) => automaticEmail.onFishnetKey(userId, key)
     }
-  }))
+  })), 'fishnet)
 
   private[security] lazy val storeColl = db(CollectionSecurity)
   private[security] lazy val firewallColl = db(FirewallCollectionFirewall)

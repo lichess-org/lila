@@ -248,7 +248,7 @@ object Mod extends LilaController {
         err => BadRequest(html.mod.permissions(user)).fuccess,
         permissions =>
           modApi.setPermissions(me.id, user.username, Permission(permissions)) >> {
-            (Permission(user.roles) diff Permission(permissions) contains Permission.Coach) ??
+            (Permission(permissions) diff Permission(user.roles) contains Permission.Coach) ??
               Env.security.automaticEmail.onBecomeCoach(user)
           } inject redirect(user.username, true)
       )
