@@ -103,7 +103,9 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Oändlig analys</string>
   <string name="removesTheDepthLimit">Tar bort sökdjup-begränsningen, och håller datorn varm</string>
+  <string name="blunder">Tabbe</string>
   <string name="blunders">Blundrar</string>
+  <string name="mistake">Misstag</string>
   <string name="mistakes">Misstag</string>
   <string name="inaccuracies">Felaktigheter</string>
   <string name="moveTimes">Dragtider</string>
@@ -756,4 +758,10 @@
   <string name="challenges">Utmaningar</string>
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekunder att göra första draget</string>
+  <string name="resumePractice">Återuppta övning</string>
+  <string name="getAHint">Ledtråd?</string>
+  <string name="advantage">Fördel</string>
+  <string name="opening">Öppning</string>
+  <string name="middlegame">Mittparti</string>
+  <string name="endgame">Slutspel</string>
 </resources>

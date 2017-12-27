@@ -105,8 +105,11 @@
   <string name="memory">Memorija</string>
   <string name="infiniteAnalysis">Neprekidna analiza</string>
   <string name="removesTheDepthLimit">Uklanja granicu do koje računalo može analizirati, i održava tvoje računalo toplim</string>
+  <string name="blunder">Gruba greška</string>
   <string name="blunders">Previdi</string>
+  <string name="mistake">Pogreška</string>
   <string name="mistakes">Greške</string>
+  <string name="inaccuracy">Netočnost</string>
   <string name="inaccuracies">Nepreciznosti</string>
   <string name="moveTimes">Vrijeme za potez</string>
   <string name="flipBoard">Okreni ploču</string>
@@ -790,4 +793,21 @@ u %3$s</string>
   <string name="challenges">Izazovi</string>
   <string name="perfRatingX">Rejting: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekundi da odigraš prvi potez</string>
+  <string name="practiceWithComputer">Vježbaj sa kompjuterom</string>
+  <string name="anotherWasX">Drugi je %s</string>
+  <string name="bestWasX">Najbolji je %s</string>
+  <string name="resumePractice">Nastavi vježbu</string>
+  <string name="theGameIsADraw">Remi.</string>
+  <string name="computerThinking">Kompjuter razmišlja ...</string>
+  <string name="seeBestMove">Vidi najbolji potez</string>
+  <string name="hideBestMove">Sakrij najbolji potez</string>
+  <string name="advantage">Prednost</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekundi</item>
+    <item quantity="few">%s sekunda</item>
+    <item quantity="other">%s sekundi</item>
+  </plurals>
+  <string name="opening">Otvaranje</string>
+  <string name="middlegame">Središnjica</string>
+  <string name="endgame">Završnica</string>
 </resources>

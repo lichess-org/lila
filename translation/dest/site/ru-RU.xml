@@ -742,9 +742,9 @@
   <string name="fullFeatured">Полнофункционально</string>
   <string name="phoneAndTablet">На телефоне и планшете</string>
   <string name="bulletBlitzClassical">Блиц, Рапид, Классика</string>
-  <string name="correspondenceChess">Игра по переписке</string>
+  <string name="correspondenceChess">Дневные шахматы</string>
   <string name="onlineAndOfflinePlay">Онлайн и оффлайн</string>
-  <string name="correspondenceAndUnlimited">По переписке и без ограничения времени</string>
+  <string name="correspondenceAndUnlimited">В дневной и без ограничения времени</string>
   <string name="viewTheSolution">Посмотреть решение</string>
   <string name="followAndChallengeFriends">Подписаться и вызвать на игру друзей</string>
   <plurals name="availableInNbLanguages">

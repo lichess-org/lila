@@ -55,7 +55,7 @@
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Создал %s новую студию</item>
-    <item quantity="few">Создал новых студий: %s</item>
+    <item quantity="few">Создал %s новые студии</item>
     <item quantity="other">Создал %s новых студий</item>
   </plurals>
   <plurals name="competedInNbTournaments">
