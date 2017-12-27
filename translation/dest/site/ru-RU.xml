@@ -739,11 +739,11 @@
   <string name="builtForTheLoveOfChessNotMoney">С любовью к шахматам, а не к деньгам</string>
   <string name="everybodyGetsAllFeaturesForFree">Все возможности для всех бесплатно</string>
   <string name="zeroAdvertisement">Никакой рекламы</string>
-  <string name="fullFeatured">Полнофункционально</string>
+  <string name="fullFeatured">Максимальная функциональность</string>
   <string name="phoneAndTablet">На телефоне и планшете</string>
   <string name="bulletBlitzClassical">Блиц, Рапид, Классика</string>
   <string name="correspondenceChess">Дневные шахматы</string>
-  <string name="onlineAndOfflinePlay">Онлайн и оффлайн</string>
+  <string name="onlineAndOfflinePlay">Игра онлайн и оффлайн</string>
   <string name="correspondenceAndUnlimited">В дневной и без ограничения времени</string>
   <string name="viewTheSolution">Посмотреть решение</string>
   <string name="followAndChallengeFriends">Подписаться и вызвать на игру друзей</string>
@@ -760,7 +760,7 @@
   <string name="lobby">Вызовы</string>
   <string name="anonymous">Анонимно</string>
   <string name="yourScore">Ваш результат: %s</string>
-  <string name="language">Язык</string>
+  <string name="language">Язык (Language)</string>
   <string name="background">Фон</string>
   <string name="light">Светлый</string>
   <string name="dark">Тёмный</string>
@@ -771,7 +771,7 @@
   <string name="boardSize">Размер доски</string>
   <string name="pieceSet">Оформление фигур</string>
   <string name="embedInYourWebsite">Получить код для вставки на свой сайт</string>
-  <string name="usernameAlreadyUsed">Данное имя пользователя занято. Пожалуйста, попробуйте другое.</string>
+  <string name="usernameAlreadyUsed">Такое имя пользователя уже занято. Пожалуйста, попробуйте другое.</string>
   <string name="usernameInvalid">Некорректное имя пользователя. Пожалуйста, используйте только буквы, цифры, подчеркивание и дефис.</string>
   <string name="usernameStartNoNumber">Имя пользователя не должно начинаться с цифры.</string>
   <string name="usernameUnacceptable">Это имя пользователя уже занято или недопустимо.</string>
