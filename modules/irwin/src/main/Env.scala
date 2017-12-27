@@ -22,10 +22,10 @@ final class Env(
   private val reportColl = db(config getString "collection.report")
   private val requestColl = db(config getString "collection.request")
 
-  lazy val irwinArmedSetting = settingStore[Boolean](
-    "irwinArmed",
-    default = false,
-    text = "Allow Irwin to mark players".some
+  lazy val irwinModeSetting = settingStore[String](
+    "irwinMode",
+    default = "none",
+    text = "Allow Irwin to: [mark|report|none]".some
   )
 
   val api = new IrwinApi(
@@ -34,7 +34,7 @@ final class Env(
     modApi = modApi,
     reportApi = reportApi,
     notifyApi = notifyApi,
-    isArmed = irwinArmedSetting.get
+    mode = irwinModeSetting.get
   )
 
   lazy val stream = new IrwinStream(system)

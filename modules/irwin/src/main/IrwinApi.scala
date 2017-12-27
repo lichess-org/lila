@@ -15,7 +15,7 @@ final class IrwinApi(
     modApi: lila.mod.ModApi,
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
-    isArmed: () => Boolean
+    mode: () => String
 ) {
 
   import BSONHandlers._
@@ -56,10 +56,10 @@ final class IrwinApi(
       UserRepo byId suspectId flatten s"suspect $suspectId not found" map Suspect.apply
 
     private def markOrReport(report: IrwinReport): Funit =
-      if (report.activation > 90 && isArmed())
+      if (report.activation > 90 && mode() == "mark")
         modApi.autoMark(report.userId, "irwin") >>-
           lila.mon.mod.irwin.mark()
-      else if (report.activation >= 60) for {
+      else if (report.activation >= 60 && mode() != "none") for {
         suspect <- getSuspect(report.userId)
         irwin <- UserRepo byId "irwin" flatten s"Irwin user not found" map Mod.apply
         _ <- reportApi.create(Report.Candidate(
