@@ -150,7 +150,7 @@
   <string name="variants">Варианты</string>
   <string name="timeControl">Контроль времени</string>
   <string name="realTime">По часам</string>
-  <string name="correspondence">По дням</string>
+  <string name="correspondence">Дневная</string>
   <string name="daysPerTurn">Дней на ход</string>
   <string name="oneDay">Один день</string>
   <plurals name="nbDays">
@@ -397,7 +397,7 @@
   <string name="duration">Длительность</string>
   <string name="winner">Победитель</string>
   <string name="standing">Турнирная таблица</string>
-  <string name="createANewTournament">Создать новый турнир</string>
+  <string name="createANewTournament">Создать турнир</string>
   <string name="join">Участвовать</string>
   <string name="withdraw">Покинуть</string>
   <string name="points">Очки</string>
@@ -418,7 +418,7 @@
   <string name="blackWins">Побед чёрными</string>
   <string name="draws">Ничьих</string>
   <string name="nextXTournament">Следующий турнир по %s:</string>
-  <string name="viewMoreTournaments">Другие турниры</string>
+  <string name="viewMoreTournaments">Посмотреть все турниры</string>
   <string name="averageOpponent">Средний рейтинг соперников</string>
   <string name="membersOnly">Только для зарегистрированных</string>
   <string name="boardEditor">Редактор доски</string>
