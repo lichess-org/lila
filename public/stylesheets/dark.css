@@ -176,7 +176,7 @@ body.dark #tournament .controls,
 body.dark .rematch-decline,
 body.dark div.mchat .chat_tabs .tab,
 body.dark #team table.requests.for-team {
-  border-color: #3d3d3d;
+  border-color: #1d1d1d;
 }
 body.dark .tview2.column > index,
 body.dark .tview2.column > interrupt,
@@ -477,7 +477,7 @@ body.dark #topmenu section:hover > a {
 }
 body.dark #topmenu div {
   background: #2b2b2b;
-  border: 1px solid #3d3d3d;
+  border: 1px solid #1d1d1d;
   border-top: 0;
   box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
 }

@@ -15,7 +15,6 @@
   display: block;
   padding: 5px 10px;
   transition: 0.13s;
-  white-space: nowrap;
 }
 #dasher_app .links a:hover,
 #dasher_app .links button:hover,
