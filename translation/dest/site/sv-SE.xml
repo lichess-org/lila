@@ -759,6 +759,8 @@
   <string name="perfRatingX">Rating: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s sekunder att göra första draget</string>
   <string name="resumePractice">Återuppta övning</string>
+  <string name="seeBestMove">Visa det bästa draget</string>
+  <string name="hideBestMove">Dölj det bästa draget</string>
   <string name="getAHint">Ledtråd?</string>
   <string name="advantage">Fördel</string>
   <string name="opening">Öppning</string>
