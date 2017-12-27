@@ -90,7 +90,7 @@
   <string name="winPreventedBy50MoveRule">Не удаётся победить из-за правила 50 ходов</string>
   <string name="lossSavedBy50MoveRule">Удаётся избежать поражения из-за правила 50 ходов</string>
   <string name="allSet">Готово!</string>
-  <string name="importPgn">Импортировать PGN</string>
+  <string name="importPgn">Импортировать в PGN</string>
   <string name="delete">Удалить</string>
   <string name="deleteThisImportedGame">Удалить эту импортированную игру?</string>
   <string name="replayMode">Смотреть в повторе</string>
@@ -425,7 +425,7 @@
   <string name="setTheBoard">Установить позицию</string>
   <string name="popularOpenings">Популярные дебюты</string>
   <string name="startPosition">Начальная позиция</string>
-  <string name="clearBoard">Очистить доску</string>
+  <string name="clearBoard">Пустая доска</string>
   <string name="savePosition">Сохранить позицию</string>
   <string name="loadPosition">Загрузить позицию</string>
   <string name="isPrivate">Закрытый</string>
@@ -709,7 +709,7 @@
   <string name="timeToProcessAMoveOnLichessServer">Время обработки хода на сервере</string>
   <string name="downloadAnnotated">Скачать с аннотациями</string>
   <string name="downloadRaw">Скачать в исходном виде</string>
-  <string name="downloadImported">Скачать в изначальном виде</string>
+  <string name="downloadImported">Скачать в исходном виде</string>
   <string name="printFriendlyPDF">Скачать в PDF</string>
   <string name="crosstable">Счёт</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Для перелистывания ходов можно использовать колёсико мыши над доской.</string>
