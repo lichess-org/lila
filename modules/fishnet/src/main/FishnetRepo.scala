@@ -62,4 +62,10 @@ private final class FishnetRepo(
 
   def selectWork(id: Work.Id) = $id(id.value)
   def selectClient(key: Client.Key) = $id(key.value)
+
+  private[fishnet] def toKey(keyOrUser: String): Fu[Client.Key] =
+    clientColl.primitiveOne[String]($or(
+      "_id" $eq keyOrUser,
+      "userId" $eq keyOrUser
+    ), "_id") flatten "client not found" map Client.Key.apply
 }

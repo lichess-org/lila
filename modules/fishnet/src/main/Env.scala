@@ -123,13 +123,13 @@ final class Env(
           s"Created key: ${(client.key.value)} for: $userId"
         }
       case "fishnet" :: "client" :: "delete" :: key :: Nil =>
-        repo.deleteClient(Client.Key(key)) inject "done!"
+        repo toKey key flatMap repo.deleteClient inject "done!"
       case "fishnet" :: "client" :: "enable" :: key :: Nil =>
-        repo.enableClient(Client.Key(key), true) inject "done!"
+        repo toKey key flatMap { repo.enableClient(_, true) } inject "done!"
       case "fishnet" :: "client" :: "disable" :: key :: Nil =>
-        repo.enableClient(Client.Key(key), false) inject "done!"
+        repo toKey key flatMap { repo.enableClient(_, false) } inject "done!"
       case "fishnet" :: "client" :: "skill" :: key :: skill :: Nil =>
-        api.setClientSkill(Client.Key(key), skill) inject "done!"
+        repo toKey key flatMap { api.setClientSkill(_, skill) } inject "done!"
     }
   }
 }
