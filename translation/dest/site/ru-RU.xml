@@ -111,7 +111,7 @@
   <string name="mistakes">Ошибки</string>
   <string name="inaccuracy">Неточность</string>
   <string name="inaccuracies">Неточности</string>
-  <string name="moveTimes">Время ходов</string>
+  <string name="moveTimes">Время на ход</string>
   <string name="flipBoard">Перевернуть доску</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
   <string name="claimADraw">Объявить ничью</string>
@@ -688,9 +688,9 @@
   <string name="tournamentHomeTitle">Шахматный турнир по различным вариантам шахмат и контролем времени</string>
   <string name="tournamentHomeDescription">Играйте в быстрые шахматы на турнире! Выбирайте любой из официальных турниров Lichess или создайте свой собственный. Пуля, блиц, классика, шахматы Фишера, король в центре, три шаха и другие варианты игры обеспечат вам бесконечное шахматное удовольствие!</string>
   <string name="tournamentNotFound">Турнир не найден</string>
-  <string name="tournamentDoesNotExist">Турнира не существует.</string>
+  <string name="tournamentDoesNotExist">Такого турнира не существует.</string>
   <string name="tournamentMayHaveBeenCanceled">Может быть отменён в том случае, если все игроки покинули турнир до его старта.</string>
-  <string name="returnToTournamentsHomepage">Вернуться на страницу турниров</string>
+  <string name="returnToTournamentsHomepage">Главная страница турниров</string>
   <string name="weeklyPerfTypeRatingDistribution">Еженедельное распределение рейтингов в %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s игрок в %2$s на этой неделе.</item>
@@ -708,7 +708,7 @@
   <string name="networkLagBetweenYouAndLichess">Задержки передачи данных между вами и серверами lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Время обработки хода на сервере</string>
   <string name="downloadAnnotated">Скачать с аннотациями</string>
-  <string name="downloadRaw">Скачать без аннотаций</string>
+  <string name="downloadRaw">Скачать в исходном виде</string>
   <string name="downloadImported">Скачать в изначальном виде</string>
   <string name="printFriendlyPDF">Скачать в PDF</string>
   <string name="crosstable">Счёт</string>
