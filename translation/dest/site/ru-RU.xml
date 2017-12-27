@@ -282,7 +282,7 @@
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турниры</string>
   <string name="tournamentPoints">Турнирные очки</string>
-  <string name="viewTournament">Просмотр турнира</string>
+  <string name="viewTournament">Перейти в турнир</string>
   <string name="backToTournament">Вернуться к турниру</string>
   <string name="thematic">Тематический</string>
   <plurals name="moreThanNbRatedGames">
@@ -584,7 +584,7 @@
   <string name="defeat">Поражения</string>
   <string name="xVsYinZ">%1$s в %3$s с %2$s</string>
   <string name="timeline">Дневник</string>
-  <string name="seeAllTournaments">Открыть все турниры</string>
+  <string name="seeAllTournaments">Посмотреть все турниры</string>
   <string name="starting">Начинается:</string>
   <string name="allInformationIsPublicAndOptional">Вся информация публична и указывается по желанию.</string>
   <string name="yourCityRegionOrDepartment">Ваш город, область или округ.</string>
