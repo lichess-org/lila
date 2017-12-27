@@ -295,6 +295,11 @@
     <item quantity="few">≥ %1$s %2$s hodnotené hry</item>
     <item quantity="other">≥ %1$s %2$s hodnotených hier</item>
   </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Potrebuješ odohrať ešte %1$s %2$s hodnotenú partiu</item>
+    <item quantity="few">Potrebuješ odohrať ešte %1$s %2$s hodnotené partie</item>
+    <item quantity="other">Potrebuješ odohrať ešte %1$s %2$s hodnotených partií</item>
+  </plurals>
   <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je príliš nízky</string>
   <string name="backToGame">Návrat do hry</string>
   <string name="siteDescription">Šach online zadarmo. Hrajte šach teraz v novom rozhraní. Bez registrácie, reklám a  zásuvných modulov. Hrajte šach s počítačom, priateľmi alebo náhodnými protivníkmi.</string>
@@ -761,7 +766,9 @@
   <string name="custom">Vlastná</string>
   <string name="notifications">Upozornenia</string>
   <string name="challenges">Výzvy</string>
+  <string name="perfRatingX">Rating: %s</string>
   <string name="practiceWithComputer">Precvičenie s počítačom</string>
+  <string name="bestWasX">Najlepší ťah bol %s</string>
   <string name="resumePractice">Pokračovať v precvičovaní</string>
   <string name="computerThinking">Počítač premýšľa...</string>
   <string name="seeBestMove">Ukázať najlepší ťah</string>
