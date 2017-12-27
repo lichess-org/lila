@@ -1,5 +1,6 @@
 package lila.study
 
+import chess.format.FEN
 import chess.format.pgn.{ Parser, ParsedPgn, Tag }
 import lila.common.LightUser
 import lila.game.{ Game, Namer }
@@ -19,6 +20,10 @@ private final class ExplorerGame(
       }
     }
 
+  private def truncateFen(f: FEN) = f.value split ' ' take 4 mkString " "
+
+  private def compareFens(a: FEN, b: FEN) = truncateFen(a) == truncateFen(b)
+
   def insert(userId: User.ID, study: Study, position: Position, gameId: Game.ID): Fu[Option[(Chapter, Path)]] =
     importer(gameId) map {
       _ ?? { game =>
@@ -29,27 +34,14 @@ private final class ExplorerGame(
               path = Path(root.mainline.map(_.id))
             )
           } ?? { gameRoot =>
-            merge(fromNode, position.path, gameRoot) flatMap {
-              case (newNode, path) => position.chapter.addNode(newNode, path) map (_ -> path)
+            val truncated = truncateFen(fromNode.fen)
+            gameRoot.mainline.find(n => truncateFen(n.fen) == truncated).pp("gameNode") flatMap { gameNode =>
+              position.chapter.mergeNode(gameNode, position.path).pp("mergeNode") map (_ -> (position.path + gameNode))
             }
           }
         }
       }
     }
-
-  private def merge(fromNode: RootOrNode, fromPath: Path, game: Node.Root): Option[(Node, Path)] = {
-    val gameNodes = game.mainline.dropWhile(_.fen != fromNode.fen) drop 1
-    val (path, foundGameNode) = gameNodes.foldLeft((Path.root, none[Node])) {
-      case ((path, None), gameNode) =>
-        val nextPath = path + gameNode
-        fromNode.children.nodeAt(nextPath) match {
-          case Some(child) => (nextPath, none)
-          case None => (path, gameNode.some)
-        }
-      case (found, _) => found
-    }
-    foundGameNode.map { _ -> fromPath.+(path) }
-  }
 
   private def gameComment(game: Game) = Comment(
     id = Comment.Id.make,
