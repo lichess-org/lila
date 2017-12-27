@@ -573,7 +573,7 @@
   <string name="whenPremoving">Когда сделан предварительный ход</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Когда остаётся меньше 30 секунд</string>
   <string name="difficultyEasy">Лёгкий</string>
-  <string name="difficultyNormal">Нормальный</string>
+  <string name="difficultyNormal">Средний</string>
   <string name="difficultyHard">Сложный</string>
   <string name="xLeftANoteOnY">%1$s оставил заметку в %2$s</string>
   <string name="xCompetesInY">%1$s соревнуется в %2$s</string>
@@ -595,9 +595,9 @@
     <item quantity="other">Максимум: %s символов.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s заблокировано</item>
-    <item quantity="few">%s заблокировано</item>
-    <item quantity="other">%s заблокировано</item>
+    <item quantity="one">%s блокировка</item>
+    <item quantity="few">%s блокировки</item>
+    <item quantity="other">%s блокировок</item>
   </plurals>
   <string name="listBlockedPlayers">Список игроков, которых вы заблокировали</string>
   <string name="human">Человек</string>
