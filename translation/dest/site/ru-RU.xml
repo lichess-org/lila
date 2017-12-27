@@ -492,7 +492,7 @@
   <string name="description">Описание</string>
   <string name="no">Нет</string>
   <string name="yes">Да</string>
-  <string name="help">Помощь</string>
+  <string name="help">Помощь:</string>
   <string name="createANewTopic">Создать новую тему</string>
   <string name="topics">Темы</string>
   <string name="posts">Сообщения</string>
