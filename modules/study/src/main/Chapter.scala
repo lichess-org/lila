@@ -38,9 +38,6 @@ case class Chapter(
       _.copy(relay = newRelay orElse relay)
     }
 
-  def mergeNode(node: Node, path: Path): Option[Chapter] =
-    updateRoot { _.withChildren(_.mergeNodeAt(node, path)) }
-
   def setShapes(shapes: Shapes, path: Path): Option[Chapter] =
     updateRoot(_.setShapesAt(shapes, path))
 

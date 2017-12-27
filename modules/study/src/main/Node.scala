@@ -67,16 +67,6 @@ case class Node(
       copy(children = children.update(main updateMainlineLast f))
     }
 
-  def merge(n: Node) = copy(
-    shapes = shapes ++ n.shapes,
-    comments = comments ++ n.comments,
-    gamebook = n.gamebook orElse gamebook,
-    glyphs = glyphs merge n.glyphs,
-    clock = n.clock orElse clock,
-    crazyData = n.crazyData orElse crazyData,
-    children = children
-  )
-
   override def toString = s"$id:${move.san}"
 }
 
@@ -100,17 +90,6 @@ object Node {
       case None => Children(nodes :+ node).some
       case Some((head, tail)) => updateChildren(head, _.addNodeAt(node, tail))
     }
-
-    def mergeNodeAt(node: Node, path: Path): Option[Children] = path.split match {
-      case None => updateWith(node.id, n => Some(n merge node)) orElse Children(nodes :+ node).some
-      case Some((head, tail)) => updateChildren(head, _.mergeNodeAt(node, tail))
-    }
-
-    def merge(c: Children) = copy(
-      nodes = nodes.map { n =>
-        c.get(n.id).fold(n)(n.merge)
-      } ++ c.nodes.filterNot(n => has(n.id))
-    )
 
     def deleteNodeAt(path: Path): Option[Children] = path.split match {
       case None => none
