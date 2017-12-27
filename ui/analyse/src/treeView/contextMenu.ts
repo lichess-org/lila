@@ -78,7 +78,8 @@ function view(opts: Opts, coords: Coords): VNode {
 export default function(e: MouseEvent, opts: Opts): void {
   const el = $('#' + elementId)[0] || $('<div id="' + elementId + '">').appendTo($('body'))[0];
   opts.root.contextMenuPath = opts.path;
-  function close() {
+  function close(e: MouseEvent) {
+    if (e.button === 2) return; // right click
     opts.root.contextMenuPath = undefined;
     document.removeEventListener('click', close, false);
     $('#' + elementId).removeClass('visible');
