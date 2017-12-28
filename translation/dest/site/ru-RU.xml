@@ -202,7 +202,7 @@
   <string name="yourOpponentOffersADraw">Ваш соперник предлагает вам ничью</string>
   <string name="accept">Принять</string>
   <string name="decline">Отклонить</string>
-  <string name="playingRightNow">Текущая партия</string>
+  <string name="playingRightNow">Идёт игра</string>
   <string name="eventInProgress">Идёт прямо сейчас</string>
   <string name="finished">Завершено</string>
   <string name="abortGame">Отменить игру</string>
@@ -416,7 +416,7 @@
   <string name="berserkRate">Процент берсерка</string>
   <string name="performance">Сила игры</string>
   <string name="tournamentComplete">Турнир завершён</string>
-  <string name="movesPlayed">Ходов сделано</string>
+  <string name="movesPlayed">Сделано ходов</string>
   <string name="whiteWins">Побед белыми</string>
   <string name="blackWins">Побед чёрными</string>
   <string name="draws">Ничьих</string>
