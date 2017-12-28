@@ -138,7 +138,7 @@ function renderTournament(ctrl, tour) {
               displayClock(tour.clock) + ' ',
               tour.variant.key === 'standard' ? null : tour.variant.name + ' ',
               tour.position ? 'Thematic ' : null,
-              tour.rated ? ctrl.trans('rated') : ctrl.trans('casual')
+              tour.rated ? ctrl.trans('ratedTournament') : ctrl.trans('casualTournament')
             ]),
             tour.nbPlayers ? h('span.nb-players', {
               attrs: { 'data-icon': 'r' }
