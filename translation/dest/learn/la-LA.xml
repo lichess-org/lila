@@ -11,9 +11,8 @@
   <string name="chessPieces">Scaccī</string>
   <string name="theRook">Turris</string>
   <string name="itMovesInStraightLines">Dirēctē movētur</string>
-  <string name="rookIntro">Turris potēns est. Esne parātus ad eam dūcendam?</string>
-  <string name="rookGoal">Turrim ēlige
-ut eam ad stēllam afferās!</string>
+  <string name="rookIntro">Turris potēns est signum. Esne parātus ad eī imperandum?</string>
+  <string name="rookGoal">Turrim ēlige ut eam ad stēllam afferās!</string>
   <string name="grabAllTheStars">Omnēs stēllās corripe!</string>
   <string name="useTwoRooks">Duābus turribus ūtere
 ut rēs accelerēs!</string>
