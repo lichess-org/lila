@@ -203,6 +203,8 @@
   <string name="mode">Modus</string>
   <string name="casual">Ungewertet</string>
   <string name="rated">Gewertet</string>
+  <string name="casualTournament">Ungewertet</string>
+  <string name="ratedTournament">Gewertet</string>
   <string name="thisGameIsRated">Dieses Spiel wird gewertet</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Angebot zur Revanche gesendet</string>
