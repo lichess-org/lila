@@ -195,6 +195,8 @@
   <string name="mode">Variant</string>
   <string name="casual">Uforpligtende</string>
   <string name="rated">Ratet</string>
+  <string name="casualTournament">Uforpligtende</string>
+  <string name="ratedTournament">Ratet</string>
   <string name="thisGameIsRated">Dette parti er ratet</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Tilbud om revanche sendt</string>
