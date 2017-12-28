@@ -50,7 +50,12 @@
   <string name="loadingEngine">ca\'o samymo\'i</string>
   <string name="move">kelka\'u</string>
   <string name="close">cliva</string>
+  <string name="winning">jivna kelka\'u</string>
+  <string name="losing">terji\'a kelka\'u</string>
+  <string name="unknown">narju\'odza</string>
+  <string name="database">samdatni</string>
   <string name="openingExplorer">cfari nunmu\'u ke lanli tutci je vreji</string>
+  <string name="allSet">.i\'e</string>
   <string name="delete">vimcu</string>
   <string name="deleteThisImportedGame">xu vimcu ti noi se nerbe\'i nunjvi</string>
   <string name="cpus">lo mijykemructerci\'e</string>
