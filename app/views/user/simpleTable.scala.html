@@ -12,7 +12,7 @@
     <tr class="paginated_element">
       <td>@userLink(r.user)</td>
       <td>@showBestPerf(r.user)</td>
-      <td>@r.user.count.game @trans.games()</td>
+      <td>@trans.nbGames.pluralSame(r.user.count.game)</td>
       <td><div class="relation_actions">@relation.actions(r.user.id, relation = r.relation, followable = r.followable, blocked = false)</div></td>
     </tr>
     }
