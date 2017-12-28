@@ -269,6 +269,10 @@
   <string name="tournament">Tournament</string>
   <string name="tournaments">Tournaments</string>
   <string name="tournamentPoints">Tournament points</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s tournament point</item>
+    <item quantity="other">%s tournament points</item>
+  </plurals>
   <string name="viewTournament">View tournament</string>
   <string name="backToTournament">Back to tournament</string>
   <string name="thematic">Thematic</string>
