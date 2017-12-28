@@ -17,6 +17,7 @@ private final class Importer(api: StreamerApi, flagColl: Coll) {
         _id = Id(s.lichessName.toLowerCase),
         listed = Listed(true),
         autoFeatured = AutoFeatured(s.featured),
+        chatEnabled = ChatEnabled(s.chat),
         picturePath = none,
         name = s.streamerNameForDisplay.map(removeTitle).map(Name.apply),
         description = none,

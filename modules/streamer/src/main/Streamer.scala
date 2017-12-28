@@ -8,6 +8,7 @@ case class Streamer(
     _id: Streamer.Id, // user ID
     listed: Streamer.Listed,
     autoFeatured: Streamer.AutoFeatured,
+    chatEnabled: Streamer.ChatEnabled,
     picturePath: Option[Streamer.PicturePath],
     name: Option[Streamer.Name],
     description: Option[Streamer.Description],
@@ -30,6 +31,7 @@ object Streamer {
     _id = Id(user.id),
     listed = Listed(true),
     autoFeatured = AutoFeatured(false),
+    chatEnabled = ChatEnabled(true),
     picturePath = none,
     name = none,
     description = none,
@@ -42,6 +44,7 @@ object Streamer {
   case class Id(value: User.ID) extends AnyVal with StringValue
   case class Listed(value: Boolean) extends AnyVal
   case class AutoFeatured(value: Boolean) extends AnyVal
+  case class ChatEnabled(value: Boolean) extends AnyVal
   case class PicturePath(value: String) extends AnyVal with StringValue
   case class Name(value: String) extends AnyVal with StringValue
   case class Description(value: String) extends AnyVal with StringValue

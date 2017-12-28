@@ -11,6 +11,7 @@ final class Env(
 
   private val CollectionStreamer = config getString "collection.streamer"
   private val CollectionImage = config getString "collection.image"
+  private val MaxPerPage = config getString "paginator.max_per_page"
 
   private lazy val streamerColl = db(CollectionStreamer)
   private lazy val imageColl = db(CollectionImage)
@@ -20,6 +21,11 @@ final class Env(
   lazy val api = new StreamerApi(
     coll = streamerColl,
     photographer = photographer
+  )
+
+  lazy val pager = new StreamerPager(
+    coll = streamerColl,
+    maxPerPage = lila.common.MaxPerPage(MaxPerPage)
   )
 
   private lazy val importer = new Importer(api, db("flag"))
