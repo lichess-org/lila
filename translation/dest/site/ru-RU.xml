@@ -129,9 +129,9 @@
     <item quantity="other">%s игр</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s закладка</item>
-    <item quantity="few">%s закладки</item>
-    <item quantity="other">%s закладок</item>
+    <item quantity="one">%s отмеченная</item>
+    <item quantity="few">%s отмеченные</item>
+    <item quantity="other">%s отмеченных</item>
   </plurals>
   <string name="viewInFullSize">Посмотреть в полном размере</string>
   <string name="logOut">Выйти</string>
@@ -276,7 +276,7 @@
   <string name="takebackPropositionAccepted">Предложение вернуть ход принято</string>
   <string name="takebackPropositionCanceled">Предложение вернуть ход отменено</string>
   <string name="yourOpponentProposesATakeback">Ваш соперник просит вас вернуть ход</string>
-  <string name="bookmarkThisGame">Добавить игру в закладки</string>
+  <string name="bookmarkThisGame">Отметить эту игру</string>
   <string name="search">Поиск</string>
   <string name="advancedSearch">Расширенный поиск</string>
   <string name="tournament">Турнир</string>
