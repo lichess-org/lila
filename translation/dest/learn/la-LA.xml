@@ -17,4 +17,8 @@ ut eam ad stēllam afferās!</string>
   <string name="grabAllTheStars">Omnēs stēllās rape!</string>
   <string name="useTwoRooks">Duābus turribus ūtere
 ut rēs accelerēs!</string>
+  <string name="rookComplete">Tibi grātulor! Turrim profectō perdidicistī.</string>
+  <string name="theBishop">Episcopus</string>
+  <string name="itMovesDiagonally">Oblīquē movētur</string>
+  <string name="bishopIntro">Dēinde episcopum movēre discēmus!</string>
 </resources>
