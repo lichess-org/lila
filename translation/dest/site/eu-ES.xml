@@ -194,6 +194,7 @@
   <string name="accept">Onartu</string>
   <string name="decline">Uko egin</string>
   <string name="playingRightNow">Oraintxe jokatzen</string>
+  <string name="eventInProgress">Oraintxe jokatzen</string>
   <string name="finished">Amaituta</string>
   <string name="abortGame">Partida geldiarazi</string>
   <string name="gameAborted">Geldiarazitako partida</string>
@@ -202,6 +203,8 @@
   <string name="mode">Modua</string>
   <string name="casual">Lagunartekoa</string>
   <string name="rated">Sailkapenerako baliogarria</string>
+  <string name="casualTournament">Lagunartekoa</string>
+  <string name="ratedTournament">Sailkapenerako baliogarria</string>
   <string name="thisGameIsRated">Partida honek sailkapen-puntuei eragingo die</string>
   <string name="rematch">Errebantxa</string>
   <string name="rematchOfferSent">Errebantxa eskaria bidalita</string>
