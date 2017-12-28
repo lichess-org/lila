@@ -4,4 +4,11 @@
   <string name="learnChess">Scacos disce</string>
   <string name="byPlaying">ludendo!</string>
   <string name="menu">Index</string>
+  <string name="progressX">Progressus: %s</string>
+  <string name="resetMyProgress">Progressum repone</string>
+  <string name="youWillLoseAllYourProgress">Omnem tuum prōgressum āmittēs!</string>
+  <string name="play">lūde!</string>
+  <string name="chessPieces">Scaccī</string>
+  <string name="theRook">Turris</string>
+  <string name="itMovesInStraightLines">Dirēctē movētur</string>
 </resources>
