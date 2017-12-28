@@ -203,6 +203,7 @@
   <string name="accept">Принять</string>
   <string name="decline">Отклонить</string>
   <string name="playingRightNow">Текущая партия</string>
+  <string name="eventInProgress">Идёт прямо сейчас</string>
   <string name="finished">Завершено</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
@@ -211,6 +212,8 @@
   <string name="mode">Режим</string>
   <string name="casual">Товарищеская</string>
   <string name="rated">Рейтинговая</string>
+  <string name="casualTournament">Товарищеский</string>
+  <string name="ratedTournament">Рейтинговый</string>
   <string name="thisGameIsRated">Игра на рейтинг</string>
   <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Предложение реванша отправлено</string>
