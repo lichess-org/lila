@@ -253,7 +253,7 @@
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s ничья</item>
-    <item quantity="few">%s ничьих</item>
+    <item quantity="few">%s ничьи</item>
     <item quantity="other">%s ничьих</item>
   </plurals>
   <plurals name="nbPlaying">
@@ -414,7 +414,7 @@
   <string name="youArePlaying">Вы в игре!</string>
   <string name="winRate">Процент побед</string>
   <string name="berserkRate">Процент берсерка</string>
-  <string name="performance">Сила игры</string>
+  <string name="performance">Достигнут рейтинг</string>
   <string name="tournamentComplete">Турнир завершён</string>
   <string name="movesPlayed">Сделано ходов</string>
   <string name="whiteWins">Побед белыми</string>
@@ -623,7 +623,7 @@
   <string name="playOnline">Играть онлайн</string>
   <string name="playOffline">Играть оффлайн</string>
   <string name="allowAnalytics">Разрешить сбор статистики</string>
-  <string name="shareGameURL">Получить URL игры</string>
+  <string name="shareGameURL">Поделиться ссылкой на игру</string>
   <string name="error.required">Заполните это поле</string>
   <string name="error.email">Адрес электронной почты является недействительным</string>
   <string name="error.email_acceptable">Адрес электронной почты не является приемлемым</string>
