@@ -508,7 +508,7 @@
   <string name="newPassword">Nueva contraseña</string>
   <string name="newPasswordAgain">Nueva contraseña (otra vez)</string>
   <string name="boardHighlights">Destacar casillas del tablero (último movimiento y jaque)</string>
-  <string name="pieceDestinations">Destino de las piezas (movimientos válidos y movimientos anticipados)</string>
+  <string name="pieceDestinations">Destino de las piezas (movimientos válidos y anticipados)</string>
   <string name="boardCoordinates">Coordenadas del tablero (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista de movimientos de la partida</string>
   <string name="pgnPieceNotation">Notación de los movimientos</string>
@@ -557,7 +557,7 @@
   <string name="victory">¡Victoria!</string>
   <string name="defeat">Derrota</string>
   <string name="xVsYinZ">%1$s contra %2$s en %3$s</string>
-  <string name="timeline">Línea de tiempo</string>
+  <string name="timeline">Orden cronológico</string>
   <string name="seeAllTournaments">Ver todos los torneos</string>
   <string name="starting">Comienzo:</string>
   <string name="allInformationIsPublicAndOptional">Toda la información es pública y opcional.</string>
