@@ -1,8 +1,8 @@
 package lila.streamer
 
-import scala.concurrent.duration._
-import com.typesafe.config.Config
 import akka.actor._
+import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 final class Env(
     config: Config,
@@ -21,6 +21,14 @@ final class Env(
     coll = streamerColl,
     photographer = photographer
   )
+
+  private lazy val importer = new Importer(api, db("flag"))
+
+  def cli = new lila.common.Cli {
+    def process = {
+      case "streamer" :: "import" :: Nil => importer.apply inject "done"
+    }
+  }
 }
 
 object Env {

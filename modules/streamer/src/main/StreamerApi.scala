@@ -10,4 +10,7 @@ import lila.user.{ User, UserRepo }
 final class StreamerApi(coll: Coll, photographer: Photographer) {
 
   import BsonHandlers._
+
+  def save(s: Streamer): Funit =
+    coll.update($id(s.id), s, upsert = true).void
 }

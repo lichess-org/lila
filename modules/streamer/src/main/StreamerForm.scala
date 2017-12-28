@@ -6,47 +6,37 @@ import play.api.data.Forms._
 
 object StreamerForm {
 
-  def edit(coach: Coach) = Form(mapping(
-    "listed" -> boolean,
-    "available" -> boolean,
-    "profile" -> profileMapping
-  )(Data.apply)(Data.unapply)) fill Data(
-    listed = coach.listed.value,
-    available = coach.available.value,
-    profile = coach.profile
-  )
+  import Streamer.{ Name, Description, Twitch, YouTube, Live }
 
-  case class Data(
-      listed: Boolean,
-      available: Boolean,
-      profile: CoachProfile
+  val userForm = Form(mapping(
+    "name" -> name,
+    "description" -> description,
+    "youTube" -> optional(text),
+    "twitch" -> optional(text)
+  )(UserData.apply)(UserData.unapply))
+
+  case class UserData(
+      name: Name,
+      description: Description,
+      twitch: Option[String],
+      youTube: Option[String]
   ) {
 
-    def apply(coach: Coach) = coach.copy(
-      listed = Coach.Listed(listed),
-      available = Coach.Available(available),
-      profile = profile,
+    def apply(streamer: Streamer) = streamer.copy(
+      name = name.some,
+      description = description.some,
+      twitch = twitch.flatMap(Twitch.parseUserId).fold(streamer.twitch) { userId =>
+        streamer.twitch.fold(Twitch(userId, Live.empty))(_.copy(userId = userId)).some
+      },
+      youTube = youTube.flatMap(YouTube.parseChannelId).fold(streamer.youTube) { channelId =>
+        streamer.youTube.fold(YouTube(channelId, Live.empty))(_.copy(channelId = channelId)).some
+      },
       updatedAt = DateTime.now
     )
   }
 
-  private def profileMapping = mapping(
-    "headline" -> optional(nonEmptyText(minLength = 5, maxLength = 170)),
-    "languages" -> optional(nonEmptyText(minLength = 3, maxLength = 140)),
-    "hourlyRate" -> optional(nonEmptyText(minLength = 3, maxLength = 140)),
-    "description" -> optional(richText),
-    "playingExperience" -> optional(richText),
-    "teachingExperience" -> optional(richText),
-    "otherExperience" -> optional(richText),
-    "skills" -> optional(richText),
-    "methodology" -> optional(richText),
-    "youtubeVideos" -> optional(nonEmptyText),
-    "youtubeChannel" -> optional(nonEmptyText),
-    "publicStudies" -> optional(nonEmptyText)
-  )(CoachProfile.apply)(CoachProfile.unapply)
-
-  import CoachProfile.RichText
-
-  private def richText = of[RichText]
-  private implicit val richTextFormat = lila.common.Form.formatter.stringFormatter[RichText](_.value, RichText.apply)
+  private implicit val descriptionFormat = lila.common.Form.formatter.stringFormatter[Description](_.value, Description.apply)
+  private def description = of[Description]
+  private implicit val nameFormat = lila.common.Form.formatter.stringFormatter[Name](_.value, Name.apply)
+  private def name = of[Name]
 }
