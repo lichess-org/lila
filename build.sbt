@@ -63,7 +63,7 @@ lazy val modules = Seq(
   playban, insight, perfStat, slack, quote, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
-  activity, relay
+  activity, relay, streamer
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -97,7 +97,13 @@ lazy val video = module("video", Seq(
 lazy val coach = module("coach", Seq(
   common, hub, db, user, security, notifyModule
 )).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, scrimage)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+)
+
+lazy val streamer = module("streamer", Seq(
+  common, hub, db, user
+)).settings(
+  libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
 lazy val coordinate = module("coordinate", Seq(common, db)).settings(
@@ -141,7 +147,7 @@ lazy val history = module("history", Seq(common, db, memo, game, user)).settings
 )
 
 lazy val db = module("db", Seq(common)).settings(
-  libraryDependencies ++= provided(play.test, play.api, reactivemongo.driver, hasher)
+  libraryDependencies ++= provided(play.test, play.api, reactivemongo.driver, hasher, scrimage)
 )
 
 lazy val memo = module("memo", Seq(common, db)).settings(

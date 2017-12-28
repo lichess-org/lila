@@ -20,7 +20,7 @@ final class Env(
   private lazy val reviewColl = db(CollectionReview)
   private lazy val imageColl = db(CollectionImage)
 
-  private lazy val photographer = new Photographer(imageColl)
+  private lazy val photographer = new lila.db.Photographer(imageColl, "coach")
 
   lazy val api = new CoachApi(
     coachColl = coachColl,

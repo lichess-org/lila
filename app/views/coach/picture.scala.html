@@ -20,7 +20,7 @@ moreCss = moreCss) {
     <p class="error">@e</p>
     }
     @helper.form(action = routes.Coach.pictureApply, 'enctype -> "multipart/form-data", 'class -> "upload") {
-    <p>Max size: @{lila.coach.Photographer.uploadMaxMb}MB.</p>
+    <p>Max size: @{lila.db.Photographer.uploadMaxMb}MB.</p>
     <input type="file" name="picture">
     <button type="submit" class="button">Upload profile picture</button>
     }

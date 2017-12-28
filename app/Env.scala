@@ -220,4 +220,5 @@ object Env {
   def irwin = lila.irwin.Env.current
   def activity = lila.activity.Env.current
   def relay = lila.relay.Env.current
+  def streamer = lila.streamer.Env.current
 }
