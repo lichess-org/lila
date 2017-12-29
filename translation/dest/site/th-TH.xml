@@ -185,6 +185,7 @@
   <string name="accept">ยอมรับ</string>
   <string name="decline">ปฏิเสธ</string>
   <string name="playingRightNow">กำลังเล่นในขณะนี้</string>
+  <string name="eventInProgress">กำลังเล่นในขณะนี้</string>
   <string name="finished">จบแล้ว</string>
   <string name="abortGame">ยกเลิกเกม</string>
   <string name="gameAborted">เกมถูกยกเลิก</string>
@@ -193,6 +194,8 @@
   <string name="mode">แบบการเล่น</string>
   <string name="casual">ธรรมดา</string>
   <string name="rated">คิดคะแนน</string>
+  <string name="casualTournament">ธรรมดา</string>
+  <string name="ratedTournament">คิดคะแนน</string>
   <string name="thisGameIsRated">เกมนี้ถูกคิดคะแนน</string>
   <string name="rematch">เล่นอีกครั้ง</string>
   <string name="rematchOfferSent">ข้อเสนอเพื่อเล่นอีกครั้ง ถูกส่ง</string>
@@ -252,6 +255,9 @@
   <string name="tournament">ทัวร์นาเมนต์</string>
   <string name="tournaments">ทัวร์นาเมนต์</string>
   <string name="tournamentPoints">แต้มทัวร์นาเมนต์</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="other">%s แต้มทัวร์นาเมนต์</item>
+  </plurals>
   <string name="viewTournament">ดูทัวร์นาเมนต์</string>
   <string name="backToTournament">กลับสู่ทัวร์นาเมนต์</string>
   <string name="thematic">ธีมาติก</string>
