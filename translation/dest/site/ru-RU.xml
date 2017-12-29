@@ -96,7 +96,7 @@
   <string name="replayMode">Смотреть в повторе</string>
   <string name="realtimeReplay">Как в партии</string>
   <string name="byCPL">По ошибкам</string>
-  <string name="openStudy">Открыть анализ</string>
+  <string name="openStudy">Открыть студию</string>
   <string name="enable">Включить</string>
   <string name="bestMoveArrow">Показывать лучший ход</string>
   <string name="evaluationGauge">Шкала оценки</string>
@@ -225,7 +225,7 @@
   <string name="play">Играть</string>
   <string name="inbox">Входящие</string>
   <string name="chatRoom">Чат</string>
-  <string name="loginToChat">Войдите, чтобы использовать чат</string>
+  <string name="loginToChat">Войдите, чтобы общаться в чате</string>
   <string name="youHaveBeenTimedOut">Чат временно недоступен для вас.</string>
   <string name="spectatorRoom">Чат для зрителей</string>
   <string name="composeMessage">Написать сообщение</string>
