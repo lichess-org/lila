@@ -11,7 +11,7 @@ final class Env(
 
   private val CollectionStreamer = config getString "collection.streamer"
   private val CollectionImage = config getString "collection.image"
-  private val MaxPerPage = config getString "paginator.max_per_page"
+  private val MaxPerPage = config getInt "paginator.max_per_page"
 
   private lazy val streamerColl = db(CollectionStreamer)
   private lazy val imageColl = db(CollectionImage)

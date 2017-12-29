@@ -1,39 +1,42 @@
 package lila.streamer
 
+import reactivemongo.api._
+
 import lila.common.paginator.Paginator
 import lila.db.dsl._
-import lila.db.paginator.{ Adapter, CachedAdapter }
-import lila.user.User
+import lila.db.paginator.{ Adapter }
+import lila.user.{ User, UserRepo }
 
 final class StreamerPager(
     coll: Coll,
     maxPerPage: lila.common.MaxPerPage
 ) {
 
-  import BSONHandlers._
+  import BsonHandlers._
 
-  def finished(me: Option[User], page: Int) = paginator(
-    repo.selectors finished true, me, page, fuccess(9999).some
-  )
-
-  private def paginator(
-    selector: Bdoc,
-    me: Option[User],
-    page: Int,
-    nbResults: Option[Fu[Int]] = none
-  ): Fu[Paginator[Relay.WithStudyAndLiked]] = {
-    val adapter = new Adapter[Relay](
-      collection = repo.coll,
-      selector = selector,
+  def apply(page: Int): Fu[Paginator[Streamer.WithUser]] = {
+    val adapter = new Adapter[Streamer](
+      collection = coll,
+      selector = $doc("listed" -> Streamer.Listed(true)),
       projection = $empty,
-      sort = $sort desc "startedAt"
-    ) mapFutureList withStudy.andLiked(me)
+      sort = $doc(
+        "sorting.streaming" -> -1,
+        "sorting.onlineAt" -> -1
+      )
+    ) mapFutureList withUsers
     Paginator(
-      adapter = nbResults.fold(adapter) { nb =>
-        new CachedAdapter(adapter, nb)
-      },
+      adapter = adapter,
       currentPage = page,
       maxPerPage = maxPerPage.value
     )
   }
+
+  private def withUsers(streamers: Seq[Streamer]): Fu[Seq[Streamer.WithUser]] =
+    UserRepo.withColl {
+      _.optionsByOrderedIds[User, User.ID](streamers.map(_.id.value), ReadPreference.secondaryPreferred)(_.id)
+    } map { users =>
+      streamers zip users collect {
+        case (streamer, Some(user)) => Streamer.WithUser(streamer, user)
+      }
+    }
 }

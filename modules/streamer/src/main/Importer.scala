@@ -23,6 +23,7 @@ private final class Importer(api: StreamerApi, flagColl: Coll) {
         description = none,
         twitch = s.twitch option Twitch(s.streamerName, Live.empty),
         youTube = s.youtube option YouTube(s.streamerName, Live.empty),
+        sorting = Sorting.empty,
         createdAt = now,
         updatedAt = now
       ))

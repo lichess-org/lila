@@ -14,6 +14,7 @@ case class Streamer(
     description: Option[Streamer.Description],
     twitch: Option[Streamer.Twitch],
     youTube: Option[Streamer.YouTube],
+    sorting: Streamer.Sorting,
     createdAt: DateTime,
     updatedAt: DateTime
 ) {
@@ -37,6 +38,7 @@ object Streamer {
     description = none,
     twitch = none,
     youTube = none,
+    sorting = Sorting.empty,
     createdAt = DateTime.now,
     updatedAt = DateTime.now
   )
@@ -48,14 +50,14 @@ object Streamer {
   case class PicturePath(value: String) extends AnyVal with StringValue
   case class Name(value: String) extends AnyVal with StringValue
   case class Description(value: String) extends AnyVal with StringValue
+  case class Sorting(streaming: Boolean, onlineAt: Option[DateTime])
+  object Sorting { val empty = Sorting(false, none) }
   case class Live(liveAt: Option[DateTime], checkedAt: Option[DateTime]) {
     def now = liveAt ?? { l =>
       checkedAt ?? { l == }
     }
   }
-  object Live {
-    val empty = Live(none, none)
-  }
+  object Live { val empty = Live(none, none) }
   case class Twitch(userId: String, live: Live)
   object Twitch {
     private val UserIdRegex = """^(\w{2,24})$""".r
@@ -77,4 +79,6 @@ object Streamer {
       case _ => none
     }
   }
+
+  case class WithUser(streamer: Streamer, user: User)
 }

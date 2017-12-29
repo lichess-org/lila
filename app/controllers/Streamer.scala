@@ -9,7 +9,7 @@ object Streamer extends LilaController {
 
   private def api = Env.streamer.api
 
-  def all(page: Int) = Open { implicit ctx =>
+  def index(page: Int) = Open { implicit ctx =>
     Env.streamer.pager(page) map { pager =>
       ???
       // Ok(html.streamer.index(pager))

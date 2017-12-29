@@ -32,7 +32,7 @@ GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey: String)
 
 # Streamer
-GET   /streamers                       controllers.Streamer.index
+GET   /streamers                       controllers.Streamer.index(page: Int ?= 1)
 
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
