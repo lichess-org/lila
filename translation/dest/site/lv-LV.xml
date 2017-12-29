@@ -203,6 +203,7 @@
   <string name="accept">Pieņemt</string>
   <string name="decline">Noraidīt</string>
   <string name="playingRightNow">Patlaban spēlē</string>
+  <string name="eventInProgress">Patlaban notiek</string>
   <string name="finished">Beigušies</string>
   <string name="abortGame">Atcelt spēli</string>
   <string name="gameAborted">Spēle atcelta</string>
