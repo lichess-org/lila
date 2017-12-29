@@ -759,4 +759,6 @@
   <string name="challenges">Предизвикателства</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s секунди за първия ход</string>
+  <string name="next">Напред</string>
+  <string name="solution">Решение</string>
 </resources>
