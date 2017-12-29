@@ -53,7 +53,7 @@
   <string name="loadingEngine">Загрузка движка...</string>
   <string name="cloudAnalysis">Облачный анализ</string>
   <string name="goDeeper">Анализировать глубже</string>
-  <string name="showThreat">Показать угрозу</string>
+  <string name="showThreat">Показать ответную угрозу</string>
   <string name="inLocalBrowser">в браузере</string>
   <string name="toggleLocalEvaluation">Включить локальный анализ</string>
   <string name="move">Ход</string>
@@ -417,7 +417,7 @@
   <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира уже закрыта.</string>
   <string name="standByX">Будьте готовы, %s, идёт жеребьёвка игроков!</string>
   <string name="youArePlaying">Вы в игре!</string>
-  <string name="winRate">Процент побед</string>
+  <string name="winRate">Победы</string>
   <string name="berserkRate">Берсерк</string>
   <string name="performance">Достигнут рейтинг</string>
   <string name="tournamentComplete">Турнир завершён</string>
@@ -743,7 +743,7 @@
   <string name="alternativelyYouCanX">Также вы можете %s.</string>
   <string name="revokeAllSessions">закрыть все сессии</string>
   <string name="playChessEverywhere">Играйте в шахматы везде</string>
-  <string name="asFreeAsLichess">Бесплатно</string>
+  <string name="asFreeAsLichess">Свободен, как Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">С любовью к шахматам, а не к деньгам</string>
   <string name="everybodyGetsAllFeaturesForFree">Все возможности для всех бесплатно</string>
   <string name="zeroAdvertisement">Никакой рекламы</string>
@@ -800,8 +800,8 @@
   <string name="perfRatingX">Рейтинг: %s</string>
   <string name="xSecondsToPlayTheFirstMove">Для первого хода осталось секунд: %s</string>
   <string name="practiceWithComputer">Тренировка с компьютером</string>
-  <string name="anotherWasX">Также можно: %s</string>
-  <string name="bestWasX">Лучший ход: %s</string>
+  <string name="anotherWasX">Можно было %s</string>
+  <string name="bestWasX">Лучше было %s</string>
   <string name="youBrowsedAway">Вы вышли из режима тренировки</string>
   <string name="resumePractice">Возобновить тренировку</string>
   <string name="theGameIsADraw">Игра окончилась вничью.</string>
@@ -818,7 +818,7 @@
   <string name="xWasPlayed">Было сыграно %s</string>
   <string name="findBetterMoveForWhite">Найдите более сильный ход за белых</string>
   <string name="findBetterMoveForBlack">Найдите более сильный ход за чёрных</string>
-  <string name="resumeLearning">Продолжить обучение</string>
+  <string name="resumeLearning">Вернуться к обучению</string>
   <string name="youCanDoBetter">Есть более сильный ход</string>
   <string name="tryAnotherMoveForWhite">Попробуйте другой ход за белых</string>
   <string name="tryAnotherMoveForBlack">Попробуйте другой ход за чёрных</string>
