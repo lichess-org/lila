@@ -27,7 +27,7 @@ final class StreamerPager(
     Paginator(
       adapter = adapter,
       currentPage = page,
-      maxPerPage = maxPerPage.value
+      maxPerPage = maxPerPage
     )
   }
 
