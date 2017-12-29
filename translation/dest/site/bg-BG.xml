@@ -759,6 +759,21 @@
   <string name="challenges">Предизвикателства</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s секунди за първия ход</string>
+  <string name="whiteWinsGame">Белите побеждават</string>
+  <string name="blackWinsGame">Черните побеждават</string>
   <string name="next">Напред</string>
+  <string name="findBetterMoveForWhite">Намерете по-добър ход за белите</string>
+  <string name="findBetterMoveForBlack">Намерете по-добър ход за черните</string>
+  <string name="youCanDoBetter">Можете да го направите по-добре</string>
+  <string name="tryAnotherMoveForWhite">Опитайте друг ход за белите</string>
+  <string name="tryAnotherMoveForBlack">Опитайте друг ход за черните</string>
   <string name="solution">Решение</string>
+  <string name="waitingForAnalysis">Чакане на анализ</string>
+  <string name="reviewWhiteMistakes">Преглед на грешки при белите</string>
+  <string name="reviewBlackMistakes">Преглед на грешки при черните</string>
+  <string name="advantage">Предимство</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s секунда</item>
+    <item quantity="other">%s секунди</item>
+  </plurals>
 </resources>
