@@ -473,7 +473,7 @@
   <string name="butYouCanKeepTrying">Но вы можете попробовать ещё раз.</string>
   <string name="success">Успешно</string>
   <string name="wasThisPuzzleAnyGood">Была ли задача интересной?</string>
-  <string name="pleaseVotePuzzle">Помогите сделать lichess лучше, голосуя при помощи стрелок вверх или вниз.</string>
+  <string name="pleaseVotePuzzle">Голосуйте, чтобы сделать lichess лучше. Используйте стрелки вверх и вниз:</string>
   <string name="thankYou">Спасибо!</string>
   <string name="ratingX">Рейтинг: %s</string>
   <plurals name="playedXTimes">
@@ -594,7 +594,7 @@
   <string name="timeline">Дневник</string>
   <string name="seeAllTournaments">Посмотреть все турниры</string>
   <string name="starting">Начинается:</string>
-  <string name="allInformationIsPublicAndOptional">Вся информация публична и указывается по желанию.</string>
+  <string name="allInformationIsPublicAndOptional">Вся указываемая здесь информация будет доступна публично, добавляйте её по своему желанию.</string>
   <string name="yourCityRegionOrDepartment">Ваш город, область или округ.</string>
   <string name="biographyDescription">Расскажите о себе, что вы любите в шахматах, ваши любимые дебюты, партии, игроки...</string>
   <plurals name="maximumNbCharacters">
