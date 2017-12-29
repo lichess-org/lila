@@ -212,6 +212,8 @@
   <string name="mode">Režīms</string>
   <string name="casual">Draudzīgs</string>
   <string name="rated">Vērtēts</string>
+  <string name="casualTournament">Draudzīgs</string>
+  <string name="ratedTournament">Vērtēts</string>
   <string name="thisGameIsRated">Šī spēle tiek vērtēta</string>
   <string name="rematch">Revanšēties</string>
   <string name="rematchOfferSent">Revanša piedāvājums nosūtīts</string>
@@ -283,6 +285,11 @@
   <string name="tournament">Turnīrs</string>
   <string name="tournaments">Turnīri</string>
   <string name="tournamentPoints">Turnīru punkti</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="zero">%s turnīra punkti</item>
+    <item quantity="one">%s turnīra punkts</item>
+    <item quantity="other">%s turnīra punkti</item>
+  </plurals>
   <string name="viewTournament">Skatīt turnīru</string>
   <string name="backToTournament">Atgriesties turnīrā</string>
   <string name="thematic">Tematisks</string>
