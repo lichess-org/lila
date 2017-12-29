@@ -234,7 +234,7 @@
   <string name="recipient">Получатель</string>
   <string name="send">Отправить</string>
   <string name="incrementInSeconds">Добавление секунд на ход</string>
-  <string name="freeOnlineChess">Бесплатные онлайн-шахматы</string>
+  <string name="freeOnlineChess">свободные шахматы онлайн</string>
   <string name="spectators">Зрители:</string>
   <plurals name="nbRated">
     <item quantity="one">%s рейтинговая</item>
@@ -320,7 +320,7 @@
   <string name="ratedMoreThanInPerf">Рейтинг ≥ %1$s в %2$s</string>
   <string name="ratedLessThanInPerf">Рейтинг ≤ %1$s в %2$s</string>
   <string name="backToGame">Вернуться к игре</string>
-  <string name="siteDescription">Бесплатные онлайн-шахматы. Играйте в шахматы прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в шахматы с компьютером, друзьями или случайными соперниками.</string>
+  <string name="siteDescription">Свободный и бесплатный шахматный сервер. Сыграйте в шахматы прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в шахматы с компьютером, друзьями или случайными соперниками.</string>
   <string name="teams">Команды</string>
   <plurals name="nbMembers">
     <item quantity="one">%s участник</item>
