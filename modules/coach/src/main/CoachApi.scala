@@ -56,6 +56,18 @@ final class CoachApi(
       }
     }
 
+  def setSeenAt(user: User): Funit =
+    Granter(_.Coach)(user) ?? coachColl.update($id(user.id), $set("user.seenAt" -> DateTime.now)).void
+
+  def setRating(userPre: User): Funit =
+    Granter(_.Coach)(userPre) ?? {
+      UserRepo.byId(userPre.id) flatMap {
+        _ ?? { user =>
+          coachColl.update($id(user.id), $set("user.rating" -> user.perfs.bestStandardRating)).void
+        }
+      }
+    }
+
   def update(c: Coach.WithUser, data: CoachProfileForm.Data): Funit =
     coachColl.update(
       $id(c.coach.id),

@@ -1,8 +1,8 @@
 package lila.coach
 
-import scala.concurrent.duration._
-import com.typesafe.config.Config
 import akka.actor._
+import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 final class Env(
     config: Config,
@@ -37,9 +37,15 @@ final class Env(
       def receive = {
         case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
           system.scheduler.scheduleOnce(5 minutes) { api.reviews.deleteAllBy(userId) }
+        case lila.user.User.Active(user) if !user.seenRecently => api.setSeenAt(user)
+        case lila.game.actorApi.FinishGame(game, white, black) if game.rated =>
+          if (game.perfType.exists(lila.rating.PerfType.standard.contains)) {
+            white ?? api.setRating
+            black ?? api.setRating
+          }
       }
     })),
-    'adjustCheater
+    'adjustCheater, 'userActive, 'finishGame
   )
 
   def cli = new lila.common.Cli {

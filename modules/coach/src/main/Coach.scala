@@ -2,8 +2,6 @@ package lila.coach
 
 import org.joda.time.{ DateTime, Days }
 
-import lila.user.User
-
 case class Coach(
     _id: Coach.Id, // user ID
     listed: Coach.Listed,
@@ -12,13 +10,14 @@ case class Coach(
     profile: CoachProfile,
     picturePath: Option[Coach.PicturePath],
     nbReviews: Int,
+    user: Coach.User,
     createdAt: DateTime,
     updatedAt: DateTime
 ) {
 
   def id = _id
 
-  def is(user: User) = id.value == user.id
+  def is(user: lila.user.User) = id.value == user.id
 
   def hasPicture = picturePath.isDefined
 
@@ -29,7 +28,7 @@ case class Coach(
 
 object Coach {
 
-  def make(user: User) = Coach(
+  def make(user: lila.user.User) = Coach(
     _id = Id(user.id),
     listed = Listed(false),
     available = Available(true),
@@ -37,15 +36,17 @@ object Coach {
     profile = CoachProfile(),
     picturePath = None,
     nbReviews = 0,
+    user = User(user.perfs.bestStandardRating, user.seenAt | user.createdAt),
     createdAt = DateTime.now,
     updatedAt = DateTime.now
   )
 
-  case class WithUser(coach: Coach, user: User)
+  case class WithUser(coach: Coach, user: lila.user.User)
 
   case class Id(value: String) extends AnyVal with StringValue
   case class Listed(value: Boolean) extends AnyVal
   case class Available(value: Boolean) extends AnyVal
   case class Approved(value: Boolean) extends AnyVal
   case class PicturePath(value: String) extends AnyVal with StringValue
+  case class User(rating: Int, seenAt: DateTime)
 }
