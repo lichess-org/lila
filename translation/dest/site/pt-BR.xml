@@ -194,6 +194,7 @@
   <string name="accept">Aceitar</string>
   <string name="decline">Recusar</string>
   <string name="playingRightNow">Jogando agora</string>
+  <string name="eventInProgress">Jogando agora</string>
   <string name="finished">Terminado</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
@@ -202,6 +203,8 @@
   <string name="mode">Modo</string>
   <string name="casual">Amigável</string>
   <string name="rated">Valendo pontos</string>
+  <string name="casualTournament">Casual</string>
+  <string name="ratedTournament">Ranqueado</string>
   <string name="thisGameIsRated">Esta partida vale pontos</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Oferta de revanche enviada</string>
@@ -267,6 +270,10 @@
   <string name="tournament">Torneio</string>
   <string name="tournaments">Torneios</string>
   <string name="tournamentPoints">Pontos de torneios</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s ponto(s) de torneio</item>
+    <item quantity="other">%s ponto(s) de torneio</item>
+  </plurals>
   <string name="viewTournament">Ver torneio</string>
   <string name="backToTournament">Voltar ao torneio</string>
   <string name="thematic">Temático</string>
