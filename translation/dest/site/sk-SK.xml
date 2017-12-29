@@ -203,6 +203,7 @@
   <string name="accept">Prijať</string>
   <string name="decline">Odmietnuť</string>
   <string name="playingRightNow">Práve hrajú</string>
+  <string name="eventInProgress">Práve sa hrá</string>
   <string name="finished">Ukončené</string>
   <string name="abortGame">Zrušiť hru</string>
   <string name="gameAborted">Hra bola zrušená</string>
@@ -211,6 +212,7 @@
   <string name="mode">Režim hry</string>
   <string name="casual">Priateľská</string>
   <string name="rated">Hodnotená</string>
+  <string name="ratedTournament">Hodnotená</string>
   <string name="thisGameIsRated">Táto hra je hodnotená</string>
   <string name="rematch">Odveta</string>
   <string name="rematchOfferSent">Zaslaná ponuka na odvetu</string>
