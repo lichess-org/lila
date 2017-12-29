@@ -789,8 +789,8 @@ en %3$s</string>
   <string name="findBetterMoveForBlack">Trouvez un meilleur coup pour les Noirs</string>
   <string name="resumeLearning">Retour à l\'apprentissage</string>
   <string name="youCanDoBetter">Vous pouvez faire mieux</string>
-  <string name="tryAnotherMoveForWhite">Essayer un autre coup pour les Blancs</string>
-  <string name="tryAnotherMoveForBlack">Essayer un autre coup pour les Noirs</string>
+  <string name="tryAnotherMoveForWhite">Essayez un autre coup pour les Blancs</string>
+  <string name="tryAnotherMoveForBlack">Essayez un autre coup pour les Noirs</string>
   <string name="solution">Solution</string>
   <string name="waitingForAnalysis">En cours d\'analyse</string>
   <string name="noMistakesFoundForWhite">Pas d\'erreur trouvée pour les Blancs</string>
