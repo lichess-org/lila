@@ -629,11 +629,11 @@
   <string name="playOffline">Играть оффлайн</string>
   <string name="allowAnalytics">Разрешить сбор статистики</string>
   <string name="shareGameURL">Поделиться ссылкой на игру</string>
-  <string name="error.required">Заполните это поле</string>
-  <string name="error.email">Адрес электронной почты является недействительным</string>
-  <string name="error.email_acceptable">Адрес электронной почты не является приемлемым</string>
-  <string name="error.email_unique">Адрес электронной почты занят</string>
-  <string name="error.email_different">Это ваш текущий адрес почты</string>
+  <string name="error.required">Это обязательное поле</string>
+  <string name="error.email">Неверный адрес электронной почты</string>
+  <string name="error.email_acceptable">Неприемлемый адрес электронной почты</string>
+  <string name="error.email_unique">Этот адрес электронной почты уже занят</string>
+  <string name="error.email_different">Это уже и так ваш адрес электронной почты</string>
   <string name="blindfoldChess">Шахматы вслепую (фигуры не видны)</string>
   <string name="zenMode">Режим «Дзен» (только доска и часы)</string>
   <string name="moveConfirmation">Подтвердить ход</string>
@@ -659,7 +659,7 @@
   <string name="videoLibrary">Видеотека</string>
   <string name="mobileApp">Мобильное приложение</string>
   <string name="webmasters">Разработчикам</string>
-  <string name="contribute">Помочь Lichess</string>
+  <string name="contribute">Внести вклад в развитие</string>
   <string name="contact">Контакты</string>
   <string name="termsOfService">Пользовательское соглашение</string>
   <string name="sourceCode">Исходный код</string>
