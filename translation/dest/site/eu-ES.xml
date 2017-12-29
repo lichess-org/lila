@@ -270,6 +270,10 @@
   <string name="tournament">Txapelketa</string>
   <string name="tournaments">Txapelketak</string>
   <string name="tournamentPoints">Txapelketa-puntuak</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">Txapelketa puntu %s</item>
+    <item quantity="other">%s txapelketa puntu</item>
+  </plurals>
   <string name="viewTournament">Txapelketa ikusi</string>
   <string name="backToTournament">Txapelketara itzuli</string>
   <string name="thematic">Hasiera finkoduna</string>
