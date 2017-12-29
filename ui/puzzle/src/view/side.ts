@@ -76,7 +76,10 @@ function userBox(ctrl: Controller) {
       diff = '+' + diff;
       if (diff > 0) klass = 'up';
     } else if (diff === 0) diff = '+0';
-    else klass = 'down';
+    else {
+      diff = '−' + (-diff);
+      klass = 'down';
+    }
     ratingHtml += ' <span class="rp ' + klass + '">' + diff + '</span>';
   }
   const hash = ctrl.recentHash();

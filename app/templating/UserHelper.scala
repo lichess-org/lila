@@ -70,7 +70,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     diff match {
       case 0 => """<span class="rp null">±0</span>"""
       case d if d > 0 => s"""<span class="rp up">+$d</span>"""
-      case d => s"""<span class="rp down">$d</span>"""
+      case d => s"""<span class="rp down">−${-d}</span>"""
     }
   }
 
