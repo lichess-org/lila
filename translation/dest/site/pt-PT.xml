@@ -103,8 +103,11 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Remove o limite de profundidade e mantém o seu computador quente</string>
+  <string name="blunder">Erro de distração</string>
   <string name="blunders">Erro Grave</string>
+  <string name="mistake">Erro</string>
   <string name="mistakes">Erros</string>
+  <string name="inaccuracy">Inexatidão</string>
   <string name="inaccuracies">Imprecisões</string>
   <string name="moveTimes">Tempo por movimento</string>
   <string name="flipBoard">Girar o tabuleiro</string>
@@ -191,6 +194,7 @@
   <string name="accept">Aceitar</string>
   <string name="decline">Recusar</string>
   <string name="playingRightNow">Jogando agora</string>
+  <string name="eventInProgress">Jogando em direto</string>
   <string name="finished">Terminado</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
@@ -199,6 +203,8 @@
   <string name="mode">Modo</string>
   <string name="casual">Amigável</string>
   <string name="rated">Valendo pontos</string>
+  <string name="casualTournament">Amigável</string>
+  <string name="ratedTournament">Por pontos</string>
   <string name="thisGameIsRated">Esta partida vale pontos</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Oferta de revanche enviada</string>
@@ -279,6 +285,12 @@
     <item quantity="one">Precisa de jogar mais %1$s jogo de %2$s classificado</item>
     <item quantity="other">Precisa de jogar mais %1$s jogos de %2$s classificados</item>
   </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Tu tens de jogar mais %s jogo por pontos</item>
+    <item quantity="other">Tu tens de jogar mais %s jogos por pontos</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">A tua qualificação de %s é provisória</string>
+  <string name="yourPerfRatingIsTooHigh">A tua pontuação em %1$s (%2$s) é demasiado alta</string>
   <string name="backToGame">Retorne à partida</string>
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou oponentes aleatórios.</string>
   <string name="teams">Equipas</string>
