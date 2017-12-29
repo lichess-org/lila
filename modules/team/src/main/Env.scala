@@ -4,6 +4,7 @@ import com.typesafe.config.Config
 import akka.actor._
 
 import lila.notify.NotifyApi
+import lila.common.MaxPerPage
 
 final class Env(
     config: Config,
@@ -44,8 +45,8 @@ final class Env(
 
   lazy val paginator = new PaginatorBuilder(
     coll = colls,
-    maxPerPage = PaginatorMaxPerPage,
-    maxUserPerPage = PaginatorMaxUserPerPage
+    maxPerPage = MaxPerPage(PaginatorMaxPerPage),
+    maxUserPerPage = MaxPerPage(PaginatorMaxUserPerPage)
   )
 
   lazy val cli = new Cli(api, colls)

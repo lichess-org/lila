@@ -21,7 +21,7 @@ final class Env(
 
   lazy val paginator = new PaginatorBuilder[lila.game.Game, Query](
     searchApi = api,
-    maxPerPage = PaginatorMaxPerPage
+    maxPerPage = lila.common.MaxPerPage(PaginatorMaxPerPage)
   )
 
   lazy val forms = new DataForm

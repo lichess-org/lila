@@ -6,7 +6,7 @@ import lila.user.{ User, UserRepo }
 
 final class MemberPager(coll: Coll) {
 
-  def apply(team: Team, page: Int, maxPerPage: Int): Fu[Paginator[User]] =
+  def apply(team: Team, page: Int, maxPerPage: lila.common.MaxPerPage): Fu[Paginator[User]] =
     Paginator(
       new MemberAdapter(team),
       currentPage = page,

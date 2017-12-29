@@ -43,7 +43,7 @@ final class Env(
         def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
       } mapFutureList studyEnv.pager.withChapters mapFutureList studyEnv.pager.withLiking(me),
       currentPage = page,
-      maxPerPage = MaxPerPage
+      maxPerPage = lila.common.MaxPerPage(MaxPerPage)
     )
 
   def cli = new lila.common.Cli {

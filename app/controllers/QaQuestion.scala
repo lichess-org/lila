@@ -12,7 +12,7 @@ object QaQuestion extends QaController {
 
   def index(page: Option[Int] = None) = Open { implicit ctx =>
     for {
-      pag <- api.question.recentPaginator(page getOrElse 1, 20)
+      pag <- api.question.recentPaginator(page getOrElse 1, lila.common.MaxPerPage(20))
       popular <- fetchPopular
       _ <- preloadUsers(pag.currentPageResults)
     } yield Ok(html.qa.index(pag, popular))

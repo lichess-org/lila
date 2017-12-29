@@ -19,7 +19,7 @@ final class Env(
 
   lazy val paginator = new PaginatorBuilder(
     coll = bookmarkColl,
-    maxPerPage = PaginatorMaxPerPage
+    maxPerPage = lila.common.MaxPerPage(PaginatorMaxPerPage)
   )
 
   lazy val api = new BookmarkApi(

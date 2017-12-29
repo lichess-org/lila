@@ -13,7 +13,7 @@ import lila.user.{ User, UserContext }
 private[forum] final class TopicApi(
     env: Env,
     indexer: ActorSelection,
-    maxPerPage: Int,
+    maxPerPage: lila.common.MaxPerPage,
     modLog: lila.mod.ModlogApi,
     shutup: ActorSelection,
     timeline: ActorSelection,

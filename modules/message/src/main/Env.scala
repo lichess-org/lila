@@ -33,7 +33,7 @@ final class Env(
   lazy val api = new MessageApi(
     coll = threadColl,
     shutup = shutup,
-    maxPerPage = ThreadMaxPerPage,
+    maxPerPage = lila.common.MaxPerPage(ThreadMaxPerPage),
     blocks = blocks,
     notifyApi = notifyApi,
     security = security,

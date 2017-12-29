@@ -9,7 +9,7 @@ import lila.user.{ User, UserRepo }
 final class MessageApi(
     coll: Coll,
     shutup: akka.actor.ActorSelection,
-    maxPerPage: Int,
+    maxPerPage: lila.common.MaxPerPage,
     blocks: (String, String) => Fu[Boolean],
     notifyApi: lila.notify.NotifyApi,
     security: MessageSecurity,

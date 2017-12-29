@@ -38,7 +38,7 @@ private[video] final class VideoApi(
 
   object video {
 
-    private val maxPerPage = 18
+    private val maxPerPage = lila.common.MaxPerPage(18)
 
     def find(id: Video.ID): Fu[Option[Video]] =
       videoColl.find($id(id)).uno[Video]

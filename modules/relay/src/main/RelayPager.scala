@@ -34,7 +34,7 @@ final class RelayPager(
         new CachedAdapter(adapter, nb)
       },
       currentPage = page,
-      maxPerPage = maxPerPage.value
+      maxPerPage = maxPerPage
     )
   }
 }

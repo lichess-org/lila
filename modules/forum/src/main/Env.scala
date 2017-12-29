@@ -3,7 +3,7 @@ package lila.forum
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.common.DetectLanguage
+import lila.common.{ DetectLanguage, MaxPerPage }
 
 import lila.hub.actorApi.team.CreateTeam
 import lila.mod.ModlogApi
@@ -43,7 +43,7 @@ final class Env(
   lazy val topicApi = new TopicApi(
     env = this,
     indexer = hub.actor.forumSearch,
-    maxPerPage = TopicMaxPerPage,
+    maxPerPage = MaxPerPage(TopicMaxPerPage),
     modLog = modLog,
     shutup = shutup,
     timeline = hub.actor.timeline,
@@ -55,7 +55,7 @@ final class Env(
   lazy val postApi = new PostApi(
     env = this,
     indexer = hub.actor.forumSearch,
-    maxPerPage = PostMaxPerPage,
+    maxPerPage = MaxPerPage(PostMaxPerPage),
     modLog = modLog,
     shutup = shutup,
     timeline = hub.actor.timeline,

@@ -14,7 +14,7 @@
         • @trans.thematic()
         } • @tour.durationString
       </span>
-      @tour.mode.fold(trans.casual, trans.rated)() •
+      @tour.mode.fold(trans.casualTournament, trans.ratedTournament)() •
       @systemName(tour.system).capitalize
       <a href="@routes.Tournament.help(tour.system.toString.toLowerCase.some)" data-icon=""></a>
     </div>

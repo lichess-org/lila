@@ -34,7 +34,7 @@ final class Env(
 
   private lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
     searchApi = api,
-    maxPerPage = PaginatorMaxPerPage
+    maxPerPage = lila.common.MaxPerPage(PaginatorMaxPerPage)
   )
 
   system.actorOf(Props(new Actor {

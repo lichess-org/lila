@@ -118,7 +118,7 @@ final class Env(
 
   lazy val leaderboardApi = new LeaderboardApi(
     coll = leaderboardColl,
-    maxPerPage = 15
+    maxPerPage = lila.common.MaxPerPage(15)
   )
 
   private lazy val leaderboardIndexer = new LeaderboardIndexer(

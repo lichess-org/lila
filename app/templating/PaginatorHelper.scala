@@ -27,7 +27,7 @@ trait PaginatorHelper {
     }
 
     def firstIndex: Int =
-      (pager.maxPerPage * (pager.currentPage - 1) + 1) min pager.nbResults
+      (pager.maxPerPage.value * (pager.currentPage - 1) + 1) min pager.nbResults
 
     def lastIndex: Int =
       (firstIndex + pageNbResults - 1) max 0

@@ -45,7 +45,7 @@ final class Env(
   lazy val paginator = new PaginatorBuilder(
     coll = gameColl,
     cached = cached,
-    maxPerPage = PaginatorMaxPerPage
+    maxPerPage = lila.common.MaxPerPage(PaginatorMaxPerPage)
   )
 
   lazy val rewind = Rewind

@@ -53,8 +53,8 @@ abbrev@1:
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
 
 acorn@5.X, acorn@^5.0.3, acorn@^5.2.1:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.2.1.tgz#317ac7821826c22c702d66189ab8359675f135d7"
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.3.0.tgz#7446d39459c54fb49a80e6ee6478149b940ec822"
 
 acorn@^4.0.3:
   version "4.0.13"
@@ -2099,6 +2099,12 @@ is-accessor-descriptor@^0.1.6:
   dependencies:
     kind-of "^3.0.2"
 
+is-accessor-descriptor@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/is-accessor-descriptor/-/is-accessor-descriptor-1.0.0.tgz#169c2f6d3df1f992618072365c9b0ea1f6878656"
+  dependencies:
+    kind-of "^6.0.0"
+
 is-arrayish@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/is-arrayish/-/is-arrayish-0.2.1.tgz#77c99840527aa8ecb1a8ba697b80645a7a926a9d"
@@ -2125,6 +2131,12 @@ is-data-descriptor@^0.1.4:
   dependencies:
     kind-of "^3.0.2"
 
+is-data-descriptor@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/is-data-descriptor/-/is-data-descriptor-1.0.0.tgz#d84876321d0e7add03990406abbbbd36ba9268c7"
+  dependencies:
+    kind-of "^6.0.0"
+
 is-descriptor@^0.1.0:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/is-descriptor/-/is-descriptor-0.1.6.tgz#366d8240dde487ca51823b1ab9f07a10a78251ca"
@@ -2134,12 +2146,12 @@ is-descriptor@^0.1.0:
     kind-of "^5.0.0"
 
 is-descriptor@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/is-descriptor/-/is-descriptor-1.0.1.tgz#2c6023599bde2de9d5d2c8b9a9d94082036b6ef2"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/is-descriptor/-/is-descriptor-1.0.2.tgz#3b159746a66604b04f8c81524ba365c5f14d86ec"
   dependencies:
-    is-accessor-descriptor "^0.1.6"
-    is-data-descriptor "^0.1.4"
-    kind-of "^5.0.0"
+    is-accessor-descriptor "^1.0.0"
+    is-data-descriptor "^1.0.0"
+    kind-of "^6.0.2"
 
 is-dotfile@^1.0.0:
   version "1.0.3"
@@ -2451,7 +2463,7 @@ kind-of@^5.0.0, kind-of@^5.0.2:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-5.1.0.tgz#729c91e2d857b7a419a1f9aa65685c4c33f5845d"
 
-kind-of@^6.0.0:
+kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
@@ -2662,8 +2674,8 @@ make-error-cause@^1.1.1:
     make-error "^1.2.0"
 
 make-error@^1.2.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/make-error/-/make-error-1.3.0.tgz#52ad3a339ccf10ce62b4040b708fe707244b8b96"
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/make-error/-/make-error-1.3.2.tgz#8762ffad2444dd8ff1f7c819629fa28e24fea1c4"
 
 make-iterator@^1.0.0:
   version "1.0.0"
@@ -4307,8 +4319,8 @@ uglify-js@^2, uglify-js@^2.6:
     uglify-to-browserify "~1.0.0"
 
 uglify-js@^3.0.5:
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.3.2.tgz#517af20aad7abe15e1e4c9aa33c0cc72aa0107ab"
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.3.3.tgz#66f9b57f7dda913ad9f48a21b12e4e7377fdaf40"
   dependencies:
     commander "~2.12.1"
     source-map "~0.6.1"
