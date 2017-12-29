@@ -203,6 +203,7 @@
   <string name="accept">Прихвати</string>
   <string name="decline">Одбиј</string>
   <string name="playingRightNow">Управо игра</string>
+  <string name="eventInProgress">Управо игра</string>
   <string name="finished">Завршен</string>
   <string name="abortGame">Прекините партију</string>
   <string name="gameAborted">Партија прекинута</string>
@@ -211,6 +212,8 @@
   <string name="mode">Начин</string>
   <string name="casual">Неформална</string>
   <string name="rated">Рангирана</string>
+  <string name="casualTournament">Неформално</string>
+  <string name="ratedTournament">Рангирано</string>
   <string name="thisGameIsRated">Ова партија се рангира</string>
   <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Понуда за реванш је послата</string>
@@ -282,6 +285,11 @@
   <string name="tournament">Tурнир</string>
   <string name="tournaments">Турнири</string>
   <string name="tournamentPoints">Поени на такмичењима</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s турнирски поен</item>
+    <item quantity="few">%s турнирска поена</item>
+    <item quantity="other">%s турнирских поена</item>
+  </plurals>
   <string name="viewTournament">Погледај турнир</string>
   <string name="backToTournament">Повратак у турнир</string>
   <string name="thematic">Тематски</string>
