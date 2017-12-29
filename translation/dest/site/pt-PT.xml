@@ -535,6 +535,7 @@
   <string name="privacy">Privacidade</string>
   <string name="letOtherPlayersFollowYou">Permitir que outros jogadores sigam você</string>
   <string name="letOtherPlayersChallengeYou">Permitir que outros jogadores desafiem você</string>
+  <string name="letOtherPlayersInviteYouToStudy">Permitir que outros jogadores te convidem para estudar</string>
   <string name="sound">Som</string>
   <string name="yourPreferencesHaveBeenSaved">Suas preferências foram salvas.</string>
   <string name="none">Nenhum</string>
@@ -557,11 +558,14 @@
   <string name="xAnsweredY">%1$s respondeu %2$s</string>
   <string name="xCommentedY">%1$s comentou %2$s</string>
   <string name="victory">Vitória!</string>
+  <string name="defeat">Derrota</string>
+  <string name="xVsYinZ">%1$s contra %2$s em %3$s</string>
   <string name="timeline">Linha do tempo</string>
   <string name="seeAllTournaments">Ver todos os torneios</string>
   <string name="starting">Iniciando:</string>
   <string name="allInformationIsPublicAndOptional">Todas as informações são públicas e opcionais.</string>
   <string name="yourCityRegionOrDepartment">Sua cidade, região ou divisão territorial.</string>
+  <string name="biographyDescription">Fala-nos de ti, do que gostas no xadrez, as tuas aberturas favoritas, jogos, jogadores…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Máximo: %s caracteres.</item>
     <item quantity="other">Máximo: %s caracteres.</item>
@@ -583,6 +587,7 @@
   <string name="playOnTheBoardOffline">Jogar offline contra um amigo</string>
   <string name="playOfflineComputer">Jogar offline contra o computador</string>
   <string name="opponent">Oponente</string>
+  <string name="learnMenu">Aprende</string>
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
@@ -595,7 +600,9 @@
   <string name="error.email">Este endereço de email é inválido</string>
   <string name="error.email_acceptable">Este endereço de email não é aceitável</string>
   <string name="error.email_unique">Este endereço de email já existe</string>
+  <string name="error.email_different">Este já é o teu e-mail</string>
   <string name="blindfoldChess">Xadrez cego (peças invisíveis)</string>
+  <string name="zenMode">Modo Zen</string>
   <string name="moveConfirmation">Confirmação de movimento</string>
   <string name="inCorrespondenceGames">Jogos por correspondência</string>
   <string name="ifRatingIsPlusMinusX">Se o rating for ± %s</string>
@@ -606,6 +613,10 @@
   <string name="whiteCastlingQueenside">Roque longo das Brancas</string>
   <string name="blackCastlingKingside">Roque curto das Pretas</string>
   <string name="blackCastlingQueenside">Roque longo das Pretas</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s artigo no fórum</item>
+    <item quantity="other">%s artigos no fórum</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Tempo jogando: %s</string>
   <string name="watchGames">Observar jogos</string>
   <string name="tpTimeSpentOnTV">Tempo na TV: %s</string>
@@ -620,6 +631,7 @@
   <string name="sourceCode">Código-fonte</string>
   <string name="simultaneousExhibitions">Exibição simultânea</string>
   <string name="host">Simultanista</string>
+  <string name="hostColorX">Cor do anfitrião: %s</string>
   <string name="createdSimuls">Simultâneas recentemente criadas</string>
   <string name="hostANewSimul">Iniciar nova simultânea</string>
   <string name="noSimulFound">Simultânea não encontrada</string>
@@ -648,12 +660,16 @@
   <string name="keyEnterOrExitVariation">Entrar/sair da variante</string>
   <string name="newTournament">Novo torneio</string>
   <string name="tournamentHomeTitle">Torneio de xadrez apresentando diversos controles de tempo e variações</string>
-  <string name="tournamentHomeDescription">Jogue xadrez em ritmo acelerado! Entre em um torneio oficial agendado ou crie seu próprio. Bullet, Blitz, Clássico, Chess960, King of the Hill, Três Xeques e outras modalidades disponíveis para uma ilimitada diversão enxadrística.</string>
+  <string name="tournamentHomeDescription">Jogue xadrez em ritmo acelerado! Entre em um torneio oficial agendado ou crie seu próprio. Bala, Relâmpago, Clássico, Chess960, King of the Hill, Três Xeques e outras modalidades disponíveis para uma ilimitada diversão enxadrística.</string>
   <string name="tournamentNotFound">Torneio não encontrado</string>
   <string name="tournamentDoesNotExist">Este torneio não existe.</string>
   <string name="tournamentMayHaveBeenCanceled">O evento pode ter sido cancelado, se todos os jogadores saíram antes de seu início.</string>
   <string name="returnToTournamentsHomepage">Volte à página inicial de torneios</string>
   <string name="weeklyPerfTypeRatingDistribution">Distribuição mensal de rating em %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s jogador ativo esta semana em %2$s.</item>
+    <item quantity="other">%1$s jogadores ativos esta semana em %2$s.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Seu rating em %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Você é melhor que %1$s entre os jogadores de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Você não tem rating definido em %s.</string>
@@ -671,7 +687,10 @@
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Você também pode rolar sobre o tabuleiro para percorrer as jogadas.</string>
   <string name="analysisShapesHowTo">Pressione Shift+Clique ou clique com o botão direito do mouse para desenhar círculos e flechas no tabuleiro.</string>
+  <string name="confirmResignationAndDrawOffers">Confirmar desistências e propor empate</string>
+  <string name="inputMovesWithTheKeyboard">Lançar movimentos com o teclado</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros jogadores lhe enviem mensagem</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Método de enrocar</string>
   <string name="shareYourInsightsData">Compartilhar seus dados de percepção</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Você ja registrou o e-mail: %s</string>
   <string name="kidMode">Modo infantil</string>
@@ -681,8 +700,8 @@
   <string name="everybodyGetsAllFeaturesForFree">Todos usam grátis todos os recursos</string>
   <string name="zeroAdvertisement">Zero anúncios</string>
   <string name="fullFeatured">Cheio de recursos</string>
-  <string name="phoneAndTablet">Celular e tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, clássico</string>
+  <string name="phoneAndTablet">Telemóvel e tablet</string>
+  <string name="bulletBlitzClassical">Bala, relâmpago, clássico</string>
   <string name="correspondenceChess">Xadrez por correspondência</string>
   <string name="onlineAndOfflinePlay">Jogue online e offline.</string>
   <string name="correspondenceAndUnlimited">Por correspondência e sem limites</string>
