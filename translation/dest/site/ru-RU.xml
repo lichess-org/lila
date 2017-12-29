@@ -418,7 +418,7 @@
   <string name="standByX">Будьте готовы, %s, идёт жеребьёвка игроков!</string>
   <string name="youArePlaying">Вы в игре!</string>
   <string name="winRate">Процент побед</string>
-  <string name="berserkRate">Процент берсерка</string>
+  <string name="berserkRate">Берсерк</string>
   <string name="performance">Достигнут рейтинг</string>
   <string name="tournamentComplete">Турнир завершён</string>
   <string name="movesPlayed">Сделано ходов</string>
