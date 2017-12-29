@@ -7,6 +7,7 @@ import reactivemongo.bson._
 import org.joda.time.DateTime
 
 import lila.common.paginator._
+import lila.common.MaxPerPage
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.user.User
@@ -74,10 +75,10 @@ final class QaApi(
 
     def count: Fu[Int] = questionColl.count(None)
 
-    def recentPaginator(page: Int, perPage: Int): Fu[Paginator[Question]] =
+    def recentPaginator(page: Int, perPage: MaxPerPage): Fu[Paginator[Question]] =
       paginator($empty, $doc("createdAt" -> -1), page, perPage)
 
-    private def paginator(selector: Bdoc, sort: Bdoc, page: Int, perPage: Int): Fu[Paginator[Question]] =
+    private def paginator(selector: Bdoc, sort: Bdoc, page: Int, perPage: MaxPerPage): Fu[Paginator[Question]] =
       Paginator(
         adapter = new Adapter[Question](
           collection = questionColl,

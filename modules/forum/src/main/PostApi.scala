@@ -14,7 +14,7 @@ import org.joda.time.DateTime
 final class PostApi(
     env: Env,
     indexer: ActorSelection,
-    maxPerPage: Int,
+    maxPerPage: lila.common.MaxPerPage,
     modLog: ModlogApi,
     shutup: ActorSelection,
     timeline: ActorSelection,
@@ -99,7 +99,7 @@ final class PostApi(
   private def shouldHideOnPost(topic: Topic) =
     topic.visibleOnHome && {
       (quickHideCategs(topic.categId) && topic.nbPosts == 1) || {
-        topic.nbPosts == maxPerPage ||
+        topic.nbPosts == maxPerPage.value ||
           topic.createdAt.isBefore(DateTime.now minusDays 5)
       }
     }
@@ -107,7 +107,7 @@ final class PostApi(
   def urlData(postId: String, troll: Boolean): Fu[Option[PostUrlData]] = get(postId) flatMap {
     case Some((topic, post)) if (!troll && post.troll) => fuccess(none[PostUrlData])
     case Some((topic, post)) => PostRepo(troll).countBeforeNumber(topic.id, post.number) map { nb =>
-      val page = nb / maxPerPage + 1
+      val page = nb / maxPerPage.value + 1
       PostUrlData(topic.categId, topic.slug, page, post.number).some
     }
     case _ => fuccess(none)
@@ -169,7 +169,7 @@ final class PostApi(
     PostRepo lastByTopic topic map { _ ?? (_.number) }
 
   def lastPageOf(topic: Topic) =
-    math.ceil(topic.nbPosts / maxPerPage.toFloat).toInt
+    math.ceil(topic.nbPosts / maxPerPage.value.toFloat).toInt
 
   def paginator(topic: Topic, page: Int, troll: Boolean): Fu[Paginator[Post]] = Paginator(
     new Adapter(

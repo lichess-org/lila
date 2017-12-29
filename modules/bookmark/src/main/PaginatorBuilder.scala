@@ -7,7 +7,7 @@ import lila.user.User
 
 private[bookmark] final class PaginatorBuilder(
     coll: Coll,
-    maxPerPage: Int
+    maxPerPage: lila.common.MaxPerPage
 ) {
 
   def byUser(user: User, page: Int): Fu[Paginator[Bookmark]] =

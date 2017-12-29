@@ -18,7 +18,7 @@ final class NotifyApi(
   import BSONHandlers.NotificationBSONHandler
   import jsonHandlers._
 
-  val perPage = 7
+  val perPage = lila.common.MaxPerPage(7)
 
   def getNotifications(userId: Notification.Notifies, page: Int): Fu[Paginator[Notification]] = Paginator(
     adapter = new Adapter(

@@ -98,7 +98,7 @@ object TournamentRepo {
       .sort($doc("startsAt" -> -1))
       .list[Tournament](limit)
 
-  def finishedPaginator(maxPerPage: Int, page: Int) = Paginator(
+  def finishedPaginator(maxPerPage: lila.common.MaxPerPage, page: Int) = Paginator(
     adapter = new CachedAdapter(
       new Adapter[Tournament](
         collection = coll,

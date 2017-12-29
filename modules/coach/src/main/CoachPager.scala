@@ -4,7 +4,7 @@ import lila.common.paginator.Paginator
 
 final class CoachPager(api: CoachApi) {
 
-  val maxPerPage = 10
+  val maxPerPage = lila.common.MaxPerPage(10)
 
   import CoachPager._
 
@@ -34,7 +34,7 @@ object CoachPager {
     case object NbReview extends Order("review", "User reviews",
       (a, b) => a.coach.nbReviews > b.coach.nbReviews)
     case object Alphabetical extends Order("alphabetical", "Alphabetical",
-      (a, b) => a.user.username < b.user.username)
+      (a, b) => a.coach.id.value < b.coach.id.value)
 
     val default = Login
     val all = List(Login, LichessRating, NbReview, Alphabetical)

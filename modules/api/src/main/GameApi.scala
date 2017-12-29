@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 
 import lila.analyse.{ JsonView => analysisJson, AnalysisRepo, Analysis }
 import lila.common.paginator.{ Paginator, PaginatorJson }
+import lila.common.MaxPerPage
 import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.game.BSONHandlers._
@@ -32,7 +33,7 @@ private[api] final class GameApi(
     playing: Option[Boolean],
     analysed: Option[Boolean],
     withFlags: WithFlags,
-    nb: Int,
+    nb: MaxPerPage,
     page: Int
   ): Fu[JsObject] = Paginator(
     adapter = new CachedAdapter(
@@ -84,7 +85,7 @@ private[api] final class GameApi(
     playing: Option[Boolean],
     analysed: Option[Boolean],
     withFlags: WithFlags,
-    nb: Int,
+    nb: MaxPerPage,
     page: Int
   ): Fu[JsObject] = Paginator(
     adapter = new CachedAdapter(
@@ -122,7 +123,7 @@ private[api] final class GameApi(
     analysed: Option[Boolean],
     withFlags: WithFlags,
     since: DateTime,
-    nb: Int,
+    nb: MaxPerPage,
     page: Int
   ): Fu[JsObject] = Paginator(
     adapter = new Adapter[Game](

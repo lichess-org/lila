@@ -15,5 +15,7 @@ object PaginatorJson {
     "nbPages" -> p.nbPages
   )
 
+  implicit val maxPerPageWrites = Writes[MaxPerPage] { m => JsNumber(m.value) }
+
   implicit def paginatorWrites[A: Writes]: Writes[Paginator[A]] = Writes[Paginator[A]](apply)
 }
