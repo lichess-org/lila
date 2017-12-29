@@ -398,14 +398,21 @@
   <string name="draws">Empates</string>
   <string name="nextXTournament">Próximo torneio %s:</string>
   <string name="viewMoreTournaments">Ver mais torneios</string>
+  <string name="averageOpponent">Pontuação média oponentes</string>
   <string name="membersOnly">Somente para membros</string>
   <string name="boardEditor">Editor de tabuleiro</string>
+  <string name="setTheBoard">Partilha o tabuleiro</string>
+  <string name="popularOpenings">Aberturas populares</string>
   <string name="startPosition">Posição inicial</string>
   <string name="clearBoard">Limpar tabuleiro</string>
   <string name="savePosition">Guardar posição</string>
   <string name="loadPosition">Carregar posição</string>
   <string name="isPrivate">Privado</string>
   <string name="reportXToModerators">Reportar %s aos moderadores</string>
+  <string name="profileCompletion">Perfil completo: %s</string>
+  <string name="xRating">Pontuação %s</string>
+  <string name="ifNoneLeaveEmpty">Se não existe, deixa em branco</string>
+  <string name="gameCompletionRate">Percentagem de partidas terminadas: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Primeiro nome</string>
@@ -413,6 +420,7 @@
   <string name="biography">Biografia</string>
   <string name="country">País</string>
   <string name="preferences">Preferências</string>
+  <string name="inlineNotation">Anotações em linha</string>
   <string name="watchLichessTV">Assistir Lichess TV</string>
   <string name="previouslyOnLichessTV">Anteriormente em Lichess TV</string>
   <string name="onlinePlayers">Jogadores online</string>
@@ -434,15 +442,24 @@
   <string name="keepGoing">Continue...</string>
   <string name="puzzleFailed">Quebra-cabeça fracassado</string>
   <string name="butYouCanKeepTrying">Mas você pode continuar a tentar.</string>
+  <string name="success">Correto</string>
   <string name="wasThisPuzzleAnyGood">Este quebra-cabeça foi bom?</string>
   <string name="pleaseVotePuzzle">Ajude o Lichess a melhorar através do seu voto, usando a seta para cima ou para baixo:</string>
   <string name="thankYou">Obrigado!</string>
   <string name="ratingX">Classificação: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Jogado %s vez</item>
+    <item quantity="other">Jogado %s vezes</item>
+  </plurals>
   <string name="fromGameLink">Do jogo %s</string>
   <string name="continueTraining">Continuar o treino</string>
   <string name="retryThisPuzzle">Tentar novamente este quebra-cabeça</string>
   <string name="thisPuzzleIsCorrect">O quebra-cabeça está correto e é interessante</string>
   <string name="thisPuzzleIsWrong">O quebra-cabeça está errado ou é chato</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s jogo de decorrer</item>
+    <item quantity="other">%s jogos de decorrer</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após o lance</string>
   <string name="autoSwitch">Alternar automaticamente</string>
   <string name="puzzles">Quebra-cabeças</string>
@@ -488,6 +505,7 @@
   <string name="closeAccountExplanation">Você tem certeza de que deseja encerrar sua conta? Esta é uma decisão permanente. Você não será mais capaz de fazer login, e a página de seu perfil não será mais acessível.</string>
   <string name="thisAccountIsClosed">Esta conta foi encerrada</string>
   <string name="invalidUsernameOrPassword">Nome de usuário ou senha incorretos</string>
+  <string name="incorrectPassword">Contrassenha incorreta</string>
   <string name="emailMeALink">Envie-me um link</string>
   <string name="currentPassword">Senha atual</string>
   <string name="newPassword">Nova senha</string>
@@ -496,6 +514,9 @@
   <string name="pieceDestinations">Destino das peças (movimentos válidos e pré-movimentos)</string>
   <string name="boardCoordinates">Coordenadas do tabuleiro</string>
   <string name="moveListWhilePlaying">Lista de movimentos</string>
+  <string name="pgnPieceNotation">Anotação de movimentos</string>
+  <string name="chessPieceSymbol">Usar símbolo das peças</string>
+  <string name="pgnLetter">Usar letras (K, Q, R, B, N)</string>
   <string name="chessClock">Relógio de xadrez</string>
   <string name="tenthsOfSeconds">Décimos de segundo</string>
   <string name="never">Nunca</string>
@@ -503,9 +524,14 @@
   <string name="horizontalGreenProgressBars">Barras de progresso verdes horizontais</string>
   <string name="soundWhenTimeGetsCritical">Som ao atingir tempo crítico</string>
   <string name="gameBehavior">Funcionamento do jogo</string>
+  <string name="howDoYouMovePieces">Como queres mexer as peças?</string>
+  <string name="clickTwoSquares">Clicar em duas casas</string>
+  <string name="dragPiece">Arrastar a peça</string>
+  <string name="bothClicksAndDrag">Ambos</string>
   <string name="premovesPlayingDuringOpponentTurn">Pré-movimentos (jogadas durante o turno do oponente)</string>
   <string name="takebacksWithOpponentApproval">Voltar jogada (com aprovação do oponente)</string>
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar empate automaticamente à repetição de três movimentos</string>
   <string name="privacy">Privacidade</string>
   <string name="letOtherPlayersFollowYou">Permitir que outros jogadores sigam você</string>
   <string name="letOtherPlayersChallengeYou">Permitir que outros jogadores desafiem você</string>
