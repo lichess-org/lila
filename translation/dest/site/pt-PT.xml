@@ -289,8 +289,12 @@
     <item quantity="one">Tu tens de jogar mais %s jogo por pontos</item>
     <item quantity="other">Tu tens de jogar mais %s jogos por pontos</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">A tua qualificação de %s é provisória</string>
+  <string name="yourPerfRatingIsProvisional">A tua pontuação de %s é provisória</string>
   <string name="yourPerfRatingIsTooHigh">A tua pontuação em %1$s (%2$s) é demasiado alta</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">A tua pontuação máxima desta semana em %1$s (%2$s) é demasiado alta</string>
+  <string name="yourPerfRatingIsTooLow">A tua pontuação em %1$s (%2$s) é demasiado baixa</string>
+  <string name="ratedMoreThanInPerf">Qualificação ≥ %1$s em %2$s</string>
+  <string name="ratedLessThanInPerf">Qualificação ≤ %1$s em %2$s</string>
   <string name="backToGame">Retorne à partida</string>
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou oponentes aleatórios.</string>
   <string name="teams">Equipas</string>
@@ -381,6 +385,19 @@
   <string name="winStreak">Vitórias consecutivas</string>
   <string name="createdBy">Criado por</string>
   <string name="tournamentIsStarting">O torneio está a começar</string>
+  <string name="tournamentPairingsAreNowClosed">Os emparelhamentos no torneio já estão fechados.</string>
+  <string name="standByX">Aguarda %s, emparelhando jogadores, prepara-te!</string>
+  <string name="youArePlaying">Estás a jogar!</string>
+  <string name="winRate">Percentagem vitórias</string>
+  <string name="berserkRate">Percentagem frenético</string>
+  <string name="performance">Desempenho</string>
+  <string name="tournamentComplete">Torneio terminado</string>
+  <string name="movesPlayed">Movimentos feitos</string>
+  <string name="whiteWins">Vitórias com brancas</string>
+  <string name="blackWins">Vitórias com negras</string>
+  <string name="draws">Empates</string>
+  <string name="nextXTournament">Próximo torneio %s:</string>
+  <string name="viewMoreTournaments">Ver mais torneios</string>
   <string name="membersOnly">Somente para membros</string>
   <string name="boardEditor">Editor de tabuleiro</string>
   <string name="startPosition">Posição inicial</string>
