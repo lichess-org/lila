@@ -22,6 +22,8 @@ object UserRepo {
   private[user] val coll = Env.current.userColl
   import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Group, SumField }
 
+  def withColl[A](f: Coll => A): A = f(coll)
+
   val normalize = User normalize _
 
   def topNbGame(nb: Int): Fu[List[User]] =
