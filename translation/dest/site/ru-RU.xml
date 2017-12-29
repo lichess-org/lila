@@ -98,7 +98,7 @@
   <string name="byCPL">По ошибкам</string>
   <string name="openStudy">Открыть студию</string>
   <string name="enable">Включить</string>
-  <string name="bestMoveArrow">Показывать лучший ход</string>
+  <string name="bestMoveArrow">Показывать лучшие ходы стрелками</string>
   <string name="evaluationGauge">Шкала оценки</string>
   <string name="multipleLines">Множество вариантов</string>
   <string name="cpus">Потоки</string>
