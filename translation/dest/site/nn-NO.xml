@@ -194,6 +194,7 @@
   <string name="accept">Godta</string>
   <string name="decline">Avslå</string>
   <string name="playingRightNow">Spelast nett no</string>
+  <string name="eventInProgress">Spelast nett no</string>
   <string name="finished">Slutt</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet blei avbrote</string>
@@ -202,6 +203,8 @@
   <string name="mode">Modus</string>
   <string name="casual">Ikkje rangert</string>
   <string name="rated">Rangert</string>
+  <string name="casualTournament">Ikkje rangert</string>
+  <string name="ratedTournament">Rangert</string>
   <string name="thisGameIsRated">Dette partiet er rangert</string>
   <string name="rematch">Omkamp</string>
   <string name="rematchOfferSent">Tilbod om omkamp sendt</string>
@@ -267,6 +270,10 @@
   <string name="tournament">Turnering</string>
   <string name="tournaments">Turneringar</string>
   <string name="tournamentPoints">Turneringspoeng</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turneringspoeng</item>
+    <item quantity="other">%s turneringspoeng</item>
+  </plurals>
   <string name="viewTournament">Vis turnering</string>
   <string name="backToTournament">Tilbake til turneringa</string>
   <string name="thematic">Tematisk</string>
