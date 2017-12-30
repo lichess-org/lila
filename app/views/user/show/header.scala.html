@@ -84,7 +84,7 @@
   @notes.map { note =>
   <div>
     <p class="meta">@userIdLink(note.from.some)<br />@momentFromNow(note.date)</p>
-    <p class="text">@autoLink(note.text)</p>
+    <p class="text">@richText(note.text)</p>
   </div>
   }
 </div>
@@ -132,7 +132,7 @@ case _ => {
     <strong class="name">@name</strong>
     }
     @profile.nonEmptyBio.ifTrue(!u.troll || ctx.is(u)).map { bio =>
-    <p class="bio">@addUserProfileLinks(addLinks(escapeHtml(shorten(bio, 400))))</p>
+    <p class="bio">@richText(shorten(bio, 400), br=false)</p>
     }
     }
     <div class="stats">

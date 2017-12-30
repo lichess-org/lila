@@ -52,7 +52,7 @@ description = shorten(q.body, 152)).some) {
       </div>
       <div class="content">
         <div class="body">
-          @autoLink(q.body)
+          @richText(q.body)
         </div>
         <div class="comments" id="question-@q.id-comments">
           @views.html.qa.commentList(q, q.comments.sorted, routes.QaComment.question(q.id).url)

@@ -114,7 +114,7 @@ side = side.some) {
               You may delete this review, or ask the author to rephrase it, then approve it.
             </div>
             }
-            @autoLink(r.text)
+            @richText(r.text)
           </div>
           <div class="actions">
             @if(r.moddedAt.fold(true)(_.isBefore(r.updatedAt))) {

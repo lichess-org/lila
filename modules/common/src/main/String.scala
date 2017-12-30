@@ -64,26 +64,21 @@ object String {
       nl2br(StringUtils.escapeHtml(text.take(length))).replace("<br /><br />", "<br />")
     }
 
-    def autoLink(text: String): Html = Html(nl2br(addUserProfileLinksUnsafe(addLinksUnsafe(StringUtils.escapeHtml(text)))))
+    def richText(text: String, br: Boolean = true) = Html {
+      val multiLine = addUserProfileLinksUnsafe(addLinksUnsafe(StringUtils.escapeHtml(text)))
+      if (br) nl2br(multiLine) else multiLine
+    }
+
     private val urlRegex = """(?i)\b((https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}\/)((?:[`!\[\]{};:'".,<>?«»“”‘’]*[^\s`!\[\]{}\(\);:'".,<>?«»“”‘’])*))""".r
     // private val imgRegex = """(?:(?:https?:\/\/))[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b(?:[-a-zA-Z0-9@:%_\+.~#?&\/=]*(\.jpg|\.png|\.jpeg))""".r
     private val netDomain = "lichess.org" // whatever...
     private val urlMustNotContain = List("&quot", "@")
-
-    /**
-     * Creates hyperlinks to user profiles mentioned using the '@' prefix. e.g. @ornicar
-     * @param text The text to regex match
-     * @return The text as a HTML hyperlink
-     */
-    def addUserProfileLinks(html: Html) = Html(addUserProfileLinksUnsafe(html.body))
 
     private def addUserProfileLinksUnsafe(text: String): String =
       atUsernameRegex.replaceAllIn(text, m => {
         val user = m group 1
         s"""<a href="/@/$user">@$user</a>"""
       })
-
-    def addLinks(html: Html) = Html(addLinksUnsafe(html.body))
 
     private def addLinksUnsafe(text: String): String = try {
       urlRegex.replaceAllIn(text, m => {

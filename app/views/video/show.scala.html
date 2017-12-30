@@ -25,7 +25,7 @@ more = video.tags.map("video:tag" -> _)).some) {
     <a class="tag" data-icon="o" href="@routes.Video.index?tags=@tag.replace(" ", "+")">@tag.capitalize</a>
     }
     @video.metadata.description.map { desc =>
-    <p class="description">@autoLink(desc)</p>
+    <p class="description">@richText(desc)</p>
     }
   </div>
   <div class="similar list">

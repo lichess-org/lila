@@ -6,7 +6,7 @@
     <span class="light">@userIdLink(c.userId.some) commented @momentFromNow(c.createdAt):</span>
     @nope("Remove", routes.QaComment.remove(q.id, c.id), "thin")
   </div>
-  @autoLink(c.body)
+  @richText(c.body)
 </div>
 }
 @if(lila.qa.QaAuth.canComment) {
