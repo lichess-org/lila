@@ -769,7 +769,10 @@
   <string name="notifications">Meddelelser</string>
   <string name="challenges">Udfordringer</string>
   <string name="perfRatingX">Rating: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s sekunder til at lave det første træk</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekund til at lave det første træk</item>
+    <item quantity="other">%s sekunder til at lave det første træk</item>
+  </plurals>
   <string name="practiceWithComputer">Træn med computer</string>
   <string name="anotherWasX">Et andet var %s</string>
   <string name="bestWasX">Bedste var %s</string>
