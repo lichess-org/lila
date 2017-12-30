@@ -285,6 +285,14 @@
     <item quantity="one">≥ %1$s ratet %2$s parti</item>
     <item quantity="other">≥ %1$s ratede %2$s partier</item>
   </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Du er nødt til at spille %1$s ratet %2$s parti mere</item>
+    <item quantity="other">Du er nødt til at spille %1$s ratede %2$s partier mere</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Du er nødt til at spille %s ratet parti mere</item>
+    <item quantity="other">Du er nødt til at spille %s ratede partier mere</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">Din %s rating er foreløbig</string>
   <string name="yourPerfRatingIsTooHigh">Din %1$s rating (%2$s) er for høj</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ugentlige %1$s toprating (%2$s) er for høj</string>
@@ -792,6 +800,10 @@
   <string name="reviewWhiteMistakes">Gennemgå hvide fejl</string>
   <string name="reviewBlackMistakes">Gennemgå sorte fejl</string>
   <string name="advantage">Fordel</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekund</item>
+    <item quantity="other">%s sekunder</item>
+  </plurals>
   <string name="opening">Åbningsspil</string>
   <string name="middlegame">Midtspil</string>
   <string name="endgame">Slutspil</string>
