@@ -61,9 +61,9 @@ object String {
 
     def nl2br(text: String): Html = nl2brUnsafe(StringUtils.escapeHtml(text))
 
-    def richText(text: String, br: Boolean = true): Html = {
+    def richText(text: String, nl2br: Boolean = true): Html = {
       val multiLine = addUserProfileLinksUnsafe(addLinksUnsafe(StringUtils.escapeHtml(text)))
-      if (br) nl2brUnsafe(multiLine) else Html(multiLine)
+      if (nl2br) nl2brUnsafe(multiLine) else Html(multiLine)
     }
 
     private val urlRegex = """(?i)\b((https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}\/)((?:[`!\[\]{};:'".,<>?«»“”‘’]*[^\s`!\[\]{}\(\);:'".,<>?«»“”‘’])*))""".r
