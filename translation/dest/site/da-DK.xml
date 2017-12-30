@@ -77,6 +77,10 @@
     <item quantity="one">Mat i %s halv-træk</item>
     <item quantity="other">Mat i %s halv-træk</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Næste vundet brik eller bondetræk i %s halvtræk (Afstand for at nulstille 50-træks-tæller)</item>
+    <item quantity="other">Næste vundet brik eller bondetræk i %s halvtræk (Afstand for at nulstille 50-træks-tæller)</item>
+  </plurals>
   <string name="noGameFound">Ingen spil fundet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Inkluder måske flere partier fra præferencemenuen?</string>
   <string name="openingExplorer">Åbningsdatabase</string>
@@ -167,6 +171,10 @@
   <string name="rank">Rang</string>
   <string name="rankX">Rang: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Rang opdateres hvert %s minut</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s taktikøvelse</item>
+    <item quantity="other">%s taktikøvelser</item>
+  </plurals>
   <string name="gamesPlayed">Antal partier spillet</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s parti med dig</item>
@@ -219,6 +227,10 @@
   <string name="incrementInSeconds">Tillæg i sekunder</string>
   <string name="freeOnlineChess">Gratis Online-skak</string>
   <string name="spectators">Tilskuere:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s ratet</item>
+    <item quantity="other">%s ratede</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s sejr</item>
     <item quantity="other">%s sejre</item>
@@ -230,6 +242,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s remis</item>
     <item quantity="other">%s remiser</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s spil i gang</item>
+    <item quantity="other">%s spil i gang</item>
   </plurals>
   <string name="exportGames">Eksporter spil</string>
   <string name="ratingRange">Rating-interval</string>
@@ -254,9 +270,21 @@
   <string name="tournament">Turnering</string>
   <string name="tournaments">Turneringer</string>
   <string name="tournamentPoints">Turneringspoint</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turneringspoint</item>
+    <item quantity="other">%s turneringspoint</item>
+  </plurals>
   <string name="viewTournament">Se turneringen</string>
   <string name="backToTournament">Tilbage til turneringen</string>
   <string name="thematic">Tematisk</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s ratet parti</item>
+    <item quantity="other">≥ %s ratede partier</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s ratet %2$s parti</item>
+    <item quantity="other">≥ %1$s ratede %2$s partier</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">Din %s rating er foreløbig</string>
   <string name="yourPerfRatingIsTooHigh">Din %1$s rating (%2$s) er for høj</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ugentlige %1$s toprating (%2$s) er for høj</string>
@@ -767,4 +795,10 @@
   <string name="opening">Åbningsspil</string>
   <string name="middlegame">Midtspil</string>
   <string name="endgame">Slutspil</string>
+  <string name="registerToSendChallenges">Opret konto for at sende udfordringer.</string>
+  <string name="youCannotChallengeX">Du kan ikke udfordre %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s accepterer ikke udfordringer.</string>
+  <string name="yourXRatingIsTooFarFromY">Din %1$s rating er for langt fra %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan ikke udfordre på grund af midlertidig %s rating.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s accepterer kun udfordringer fra venner.</string>
 </resources>
