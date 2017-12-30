@@ -773,7 +773,7 @@
   <string name="seeBestMove">Δείτε την καλύτερη κίνηση</string>
   <string name="hideBestMove">Απόκρυψη καλύτερης κίνησης</string>
   <string name="blackWinsGame">Τα μαύρα νικούν</string>
-  <string name="learnFromYourMistakes">Μάθε από τα λάθη σου</string>
+  <string name="learnFromYourMistakes">Μάθετε από τα λάθη σας</string>
   <string name="findBetterMoveForWhite">Βρες μια καλύτερη κίνηση για τα λευκά</string>
   <string name="findBetterMoveForBlack">Βρες μια καλύτερη κίνηση για τα μαύρα</string>
   <string name="solution">Λύση</string>
