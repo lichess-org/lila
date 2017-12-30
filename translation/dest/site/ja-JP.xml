@@ -185,6 +185,7 @@
   <string name="accept">承諾</string>
   <string name="decline">拒否</string>
   <string name="playingRightNow">対局中</string>
+  <string name="eventInProgress">対局中</string>
   <string name="finished">終了したトーナメント</string>
   <string name="abortGame">対局を中止する</string>
   <string name="gameAborted">対局を中止しました</string>
@@ -193,6 +194,8 @@
   <string name="mode">モード</string>
   <string name="casual">非レート戦</string>
   <string name="rated">レート戦</string>
+  <string name="casualTournament">非レート戦</string>
+  <string name="ratedTournament">レート戦</string>
   <string name="thisGameIsRated">この対局はレート戦です</string>
   <string name="rematch">再対局</string>
   <string name="rematchOfferSent">再対局の申し込みを送信しました</string>
@@ -252,6 +255,9 @@
   <string name="tournament">トーナメント</string>
   <string name="tournaments">トーナメント</string>
   <string name="tournamentPoints">トーナメントポイント</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="other">%s トーナメントポイント</item>
+  </plurals>
   <string name="viewTournament">トーナメントを見る</string>
   <string name="backToTournament">トーナメントに戻る</string>
   <string name="thematic">局面指定</string>
@@ -770,4 +776,10 @@
   <string name="opening">序盤</string>
   <string name="middlegame">中盤</string>
   <string name="endgame">終盤</string>
+  <string name="registerToSendChallenges">チャレンジを送るには登録が必要です。</string>
+  <string name="youCannotChallengeX">%s にチャレンジできません。</string>
+  <string name="xDoesNotAcceptChallenges">%s はチャレンジを受け付けていません。</string>
+  <string name="yourXRatingIsTooFarFromY">%1$s レーティングが %2$s と離れすぎです。</string>
+  <string name="cannotChallengeDueToProvisionalXRating">%s が仮レーティングのためチャレンジできません。</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s は友達からのチャレンジしか受け付けません。</string>
 </resources>
