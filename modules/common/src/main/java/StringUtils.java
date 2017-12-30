@@ -30,20 +30,20 @@ public class StringUtils {
         return sb.toString();
     }
 
-    // Extensively profiled with jmh. It is faster to pass
-    // around the String reference than to reuse the char
-    // array.
-    public static String escapeHtmlUnsafe(String s) {
+    public static String escapeHtml(String s) {
+        // Extensively profiled with jmh. It is faster to pass
+        // around the String reference than to reuse the char
+        // array.
         for (char c : s.toCharArray()) {
             switch (c) {
                 case '<': case '>': case '&': case '"': case '\'':
-                  return realHtmlEscape(s);
+                  return reallyEscapeHtml(s);
             }
         }
         return s;
     }
 
-    private static String realHtmlEscape(String s) {
+    private static String reallyEscapeHtml(String s) {
         char[] sArr = s.toCharArray();
         StringBuilder sb = new StringBuilder(sArr.length + 10);
         for (char c : sArr) {

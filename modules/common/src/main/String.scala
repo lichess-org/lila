@@ -55,6 +55,8 @@ object String {
 
   object html {
 
+    private val escapeHtmlUnsafe = StringUtils.escapeHtml _
+
     private def nl2brUnsafe(text: String): String =
       text.replace("\r\n", "<br />").replace("\n", "<br />")
 
@@ -132,8 +134,6 @@ object String {
     }) map { imgUrl => s"""<img class="embed" src="$imgUrl"/>""" }
 
     private def urlOrImgUnsafe(url: String): String = urlToImgUnsafe(url) getOrElse url
-
-    val escapeHtmlUnsafe = StringUtils.escapeHtmlUnsafe _
 
     // from https://github.com/android/platform_frameworks_base/blob/d59921149bb5948ffbcb9a9e832e9ac1538e05a0/core/java/android/text/TextUtils.java#L1361
     def escapeHtml(s: String): Html = Html(escapeHtmlUnsafe(s))
