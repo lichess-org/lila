@@ -55,13 +55,13 @@ object String {
 
   object html {
 
-    private def nl2brUnsafe(text: String): String =
+    private def nl2br(text: String): String =
       text.replace("\r\n", "<br />").replace("\n", "<br />")
 
-    def nl2br(text: String) = Html(nl2brUnsafe(text))
+    def nl2brUnsafe(text: String) = Html(nl2br(text))
 
     def shortenWithBr(text: String, length: Int) = Html {
-      nl2brUnsafe(StringUtils.escapeHtml(text.take(length))).replace("<br /><br />", "<br />")
+      nl2br(StringUtils.escapeHtml(text.take(length))).replace("<br /><br />", "<br />")
     }
 
     def shorten(text: String, length: Int, sep: String = "…"): Html = {
@@ -70,7 +70,7 @@ object String {
       else escapeHtml(t)
     }
 
-    def autoLink(text: String): Html = Html(nl2brUnsafe(addUserProfileLinksUnsafe(addLinksUnsafe(StringUtils.escapeHtml(text)))))
+    def autoLink(text: String): Html = Html(nl2br(addUserProfileLinksUnsafe(addLinksUnsafe(StringUtils.escapeHtml(text)))))
     private val urlRegex = """(?i)\b((https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}\/)((?:[`!\[\]{};:'".,<>?«»“”‘’]*[^\s`!\[\]{}\(\);:'".,<>?«»“”‘’])*))""".r
     // private val imgRegex = """(?:(?:https?:\/\/))[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b(?:[-a-zA-Z0-9@:%_\+.~#?&\/=]*(\.jpg|\.png|\.jpeg))""".r
     private val netDomain = "lichess.org" // whatever...
@@ -137,7 +137,7 @@ object String {
 
     private val markdownLinkRegex = """\[([^\[]+)\]\(([^\)]+)\)""".r
 
-    def markdownLinks(text: String): Html = Html(nl2brUnsafe {
+    def markdownLinks(text: String): Html = Html(nl2br {
       markdownLinkRegex.replaceAllIn(StringUtils.escapeHtml(text), m => {
         val href = m.group(2)
         if (href.startsWith("http://") || href.startsWith("https://"))
