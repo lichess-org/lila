@@ -182,14 +182,14 @@ declare namespace Tree {
   export interface Node {
     id: string;
     ply: Ply;
-    uci: Uci;
+    uci?: Uci;
     fen: Fen;
     children: Node[];
     comments?: Comment[];
     gamebook?: Gamebook;
     dests?: string;
     drops: string | undefined | null;
-    check: boolean;
+    check?: boolean;
     threat?: ClientEval;
     ceval?: ClientEval;
     eval?: ServerEval;
