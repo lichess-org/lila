@@ -62,7 +62,7 @@ object String {
     def nl2br(text: String): Html = nl2brUnsafe(StringUtils.escapeHtml(text))
 
     def richText(text: String, nl2br: Boolean = true): Html = {
-      val multiLine = addUserProfileLinksUnsafe(addLinksUnsafe(StringUtils.escapeHtml(text)))
+      val multiLine = addUserProfileLinks(addLinks(StringUtils.escapeHtml(text)))
       if (nl2br) nl2brUnsafe(multiLine) else Html(multiLine)
     }
 
@@ -71,34 +71,34 @@ object String {
     private val netDomain = "lichess.org" // whatever...
     private val urlMustNotContain = List("&quot", "@")
 
-    private def addUserProfileLinksUnsafe(text: String): String =
+    private def addUserProfileLinks(text: String): String =
       atUsernameRegex.replaceAllIn(text, m => {
         val user = m group 1
         s"""<a href="/@/$user">@$user</a>"""
       })
 
-    private def addLinksUnsafe(text: String): String = try {
+    private def addLinks(text: String): String = try {
       urlRegex.replaceAllIn(text, m => {
         if (urlMustNotContain exists m.group(0).contains) m.group(0)
         else if (m.group(2) == "http://" || m.group(2) == "https://") {
           if (s"${m.group(3)}/" startsWith s"$netDomain/") {
             // internal
             val link = m.group(3)
-            s"""<a href="//$link">${urlOrImgUnsafe(link)}</a>"""
+            s"""<a href="//$link">${urlOrImg(link)}</a>"""
           } else {
             // external
             val link = m.group(1)
-            s"""<a rel="nofollow" href="$link" target="_blank">${urlOrImgUnsafe(link)}</a>"""
+            s"""<a rel="nofollow" href="$link" target="_blank">${urlOrImg(link)}</a>"""
           }
         } else {
           if (s"${m.group(2)}/" startsWith s"$netDomain/") {
             // internal
             val link = m.group(1)
-            s"""<a href="//$link">${urlOrImgUnsafe(link)}</a>"""
+            s"""<a href="//$link">${urlOrImg(link)}</a>"""
           } else {
             // external
             val link = m.group(1)
-            s"""<a rel="nofollow" href="http://$link" target="_blank">${urlOrImgUnsafe(link)}</a>"""
+            s"""<a rel="nofollow" href="http://$link" target="_blank">${urlOrImg(link)}</a>"""
           }
         }
       })
@@ -111,13 +111,13 @@ object String {
     private val imgUrlPattern = """.*\.(jpg|jpeg|png|gif)$""".r.pattern
     private val imgurRegex = """https?://imgur\.com/(\w+)""".r
 
-    private def urlToImgUnsafe(url: String): Option[String] = (url match {
+    private def urlToImg(url: String): Option[String] = (url match {
       case imgurRegex(id) => s"""https://i.imgur.com/$id.jpg""".some
       case u if imgUrlPattern.matcher(url).matches && !url.contains(s"://$netDomain") => u.some
       case _ => none
     }) map { imgUrl => s"""<img class="embed" src="$imgUrl"/>""" }
 
-    private def urlOrImgUnsafe(url: String): String = urlToImgUnsafe(url) getOrElse url
+    private def urlOrImg(url: String): String = urlToImg(url) getOrElse url
 
     private val markdownLinkRegex = """\[([^\[]+)\]\(([^\)]+)\)""".r
 
