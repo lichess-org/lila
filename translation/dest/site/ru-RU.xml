@@ -801,7 +801,6 @@
   <string name="notifications">Уведомления</string>
   <string name="challenges">Вызовы</string>
   <string name="perfRatingX">Рейтинг: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">Для первого хода осталось секунд: %s</string>
   <string name="practiceWithComputer">Тренировка с компьютером</string>
   <string name="anotherWasX">Можно было %s</string>
   <string name="bestWasX">Лучше было %s</string>
