@@ -56,6 +56,8 @@
   <string name="showThreat">Vis trussel</string>
   <string name="inLocalBrowser">i din egen browser</string>
   <string name="toggleLocalEvaluation">Skift til lokal evaluering</string>
+  <string name="promoteVariation">Forfremmelsesvariation</string>
+  <string name="deleteFromHere">Slet herfra</string>
   <string name="move">Træk</string>
   <string name="variantLoss">Variant tab</string>
   <string name="variantWin">Gevinst</string>
@@ -781,6 +783,7 @@
   <string name="whiteWinsGame">Hvid vinder</string>
   <string name="blackWinsGame">Sort vinder</string>
   <string name="learnFromYourMistakes">Lær af dine fejl</string>
+  <string name="learnFromThisMistake">Lær af denne fejl</string>
   <string name="skipThisMove">Spring dette træk over</string>
   <string name="next">Næste</string>
   <string name="xWasPlayed">%s blev spillet</string>
