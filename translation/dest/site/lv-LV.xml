@@ -798,7 +798,6 @@
   <string name="notifications">Paziņojumi</string>
   <string name="challenges">Izaicinājumi</string>
   <string name="perfRatingX">Reitings: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s sekundes lai izdarītu pirmo gājienu</string>
   <string name="practiceWithComputer">Treniņš ar datoru</string>
   <string name="anotherWasX">Varēja arī %s</string>
   <string name="bestWasX">Labākais bija %s</string>
