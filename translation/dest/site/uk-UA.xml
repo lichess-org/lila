@@ -800,7 +800,6 @@
   <string name="notifications">Сповіщення</string>
   <string name="challenges">Виклики</string>
   <string name="perfRatingX">Рейтинг: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s секунд, щоб зробити перший хід</string>
   <string name="practiceWithComputer">Тренування з комп\'ютером</string>
   <string name="anotherWasX">Також можна: %s</string>
   <string name="bestWasX">Найкращий хід: %s</string>
