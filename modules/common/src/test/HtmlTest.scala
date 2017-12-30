@@ -16,9 +16,7 @@ class HtmlTest extends Specification {
     }
     "skip buggy url like http://foo-@bar" in {
       val url = "http://foo-@bar"
-      richText(s"""link to $url here""") must_== Html {
-        s"""link to http://foo-@bar here"""
-      }
+      richText(s"""link to $url here""").body must not contain ("""href="http://foo"""")
     }
     "detect image" in {
       val url = "http://zombo.com/pic.jpg"
