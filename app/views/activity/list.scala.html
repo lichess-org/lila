@@ -60,7 +60,7 @@ case (pt, score) => {
   <div>
     @posts.map {
     case (topic, posts) => {
-    @trans.activity.postedNbMessages.plural(posts.size, posts.size, Html(s"""<a href="${routes.ForumTopic.show(topic.categId, topic.slug)}">${shorten(topic.name, 70)}</a>"""))
+    @trans.activity.postedNbMessages.plural(posts.size, posts.size, Html(s"""<a href="${routes.ForumTopic.show(topic.categId, topic.slug)}">${escapeHtml(shorten(topic.name, 70))}</a>"""))
     <div class="sub">
       @posts.map { post =>
       <div class="line">

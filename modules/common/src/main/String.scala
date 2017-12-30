@@ -64,12 +64,6 @@ object String {
       nl2br(StringUtils.escapeHtml(text.take(length))).replace("<br /><br />", "<br />")
     }
 
-    def shorten(text: String, length: Int, sep: String = "…"): Html = {
-      val t = text.replace("\n", " ")
-      if (t.size > (length + sep.size)) escapeHtml(t.take(length) ++ sep)
-      else escapeHtml(t)
-    }
-
     def autoLink(text: String): Html = Html(nl2br(addUserProfileLinksUnsafe(addLinksUnsafe(StringUtils.escapeHtml(text)))))
     private val urlRegex = """(?i)\b((https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}\/)((?:[`!\[\]{};:'".,<>?«»“”‘’]*[^\s`!\[\]{}\(\);:'".,<>?«»“”‘’])*))""".r
     // private val imgRegex = """(?:(?:https?:\/\/))[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b(?:[-a-zA-Z0-9@:%_\+.~#?&\/=]*(\.jpg|\.png|\.jpeg))""".r

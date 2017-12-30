@@ -132,7 +132,7 @@ case _ => {
     <strong class="name">@name</strong>
     }
     @profile.nonEmptyBio.ifTrue(!u.troll || ctx.is(u)).map { bio =>
-    <p class="bio">@addUserProfileLinks(addLinks(shorten(bio, 400)))</p>
+    <p class="bio">@addUserProfileLinks(addLinks(escapeHtml(shorten(bio, 400))))</p>
     }
     }
     <div class="stats">

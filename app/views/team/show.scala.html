@@ -3,7 +3,7 @@
 @team.layout(title = t.name, openGraph = lila.app.ui.OpenGraph(
 title = s"${t.name} team",
 url = s"$netBaseUrl${routes.Team.show(t.id).url}",
-description = shorten(t.description.replace("\n", ""), 152).body).some) {
+description = shorten(t.description, 152)).some) {
 <div id="team" class="content_box no_padding team_show">
   <div class="content_box_top">
     <span class="righty">@trans.nbMembers.plural(t.nbMembers, Html("<strong>" + t.nbMembers.localize + "</strong>"))</span>

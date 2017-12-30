@@ -14,6 +14,8 @@ trait StringHelper { self: NumberHelper =>
 
   val slugify = lila.common.String.slugify _
 
+  def shorten(text: String, length: Int, sep: String = "…") = lila.common.String.shorten(text, length, sep)
+
   def pluralize(s: String, n: Int) = s"$n $s${if (n > 1) "s" else ""}"
 
   def repositionTooltipUnsafe(link: Html, position: String) = Html {
