@@ -757,6 +757,5 @@
   <string name="notifications">Bildirimler</string>
   <string name="challenges">Meydan okumalar</string>
   <string name="perfRatingX">Puan: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s saniye içerisinde hamle yapın</string>
   <string name="practiceWithComputer">Bilgisayar ile pratik yapmak</string>
 </resources>
