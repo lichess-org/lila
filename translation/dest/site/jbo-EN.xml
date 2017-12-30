@@ -485,7 +485,7 @@
     <item quantity="other">se sabji bau %s da</item>
   </plurals>
   <string name="lobby">lo depystu</string>
-  <string name="language">bangu</string>
+  <string name="language">lo bangu</string>
   <string name="directlySupportLichess">sarji la .litces.</string>
   <string name="coaches">lo te\'ictu</string>
 </resources>
