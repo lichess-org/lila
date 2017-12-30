@@ -134,7 +134,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
 
 export function retroLine(ctx: Ctx, node: Tree.Node, opts: Opts): VNode | undefined {
   return node.comp && ctx.ctrl.retro && ctx.ctrl.retro.hideComputerLine(node, opts.parentPath) ?
-  h('line', 'Learn from this mistake') : undefined;
+  h('line', ctx.ctrl.trans.noarg('learnFromThisMistake')) : undefined;
 }
 
 function eventPath(e: MouseEvent): Tree.Path | null {

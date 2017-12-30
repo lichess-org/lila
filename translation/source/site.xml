@@ -782,6 +782,7 @@ in %3$s</string>
   <string name="whiteWinsGame">White wins</string>
   <string name="blackWinsGame">Black wins</string>
   <string name="learnFromYourMistakes">Learn from your mistakes</string>
+  <string name="learnFromThisMistake">Learn from this mistake</string>
   <string name="skipThisMove">Skip this move</string>
   <string name="next">Next</string>
   <string name="xWasPlayed">%s was played</string>
