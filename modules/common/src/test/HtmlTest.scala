@@ -48,4 +48,17 @@ class HtmlTest extends Specification {
     //   }
     // }
   }
+
+  "markdown links" should {
+    "add http links" in {
+      val md = "[Example](http://example.com)"
+      markdownLinks(md) must_== Html {
+        """<a href="http://example.com">Example</a>"""
+      }
+    }
+    "only allow safe protocols" in {
+      val md = "A [link](javascript:powned) that is not safe."
+      markdownLinks(md) must_== Html(md)
+    }
+  }
 }

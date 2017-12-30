@@ -141,8 +141,11 @@ object String {
     private val markdownLinkRegex = """\[([^\[]+)\]\(([^\)]+)\)""".r
 
     def markdownLinks(text: String): Html = Html(nl2brUnsafe {
-      markdownLinkRegex.replaceAllIn(escapeHtmlUnsafe(text), m => {
-        s"""<a href="${m group 2}">${m group 1}</a>"""
+      markdownLinkRegex.replaceAllIn(StringUtils.escapeHtml(text), m => {
+        val href = m.group(2)
+        if (href.startsWith("http://") || href.startsWith("https://"))
+          s"""<a href="$href">${m group 1}</a>"""
+        else m.group(0)
       })
     })
 
