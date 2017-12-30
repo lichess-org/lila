@@ -736,7 +736,6 @@
   <string name="notifications">通知</string>
   <string name="challenges">チャレンジ</string>
   <string name="perfRatingX">レーティング: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">あと %s 秒以内に初手を指してください</string>
   <string name="practiceWithComputer">コンピューターと練習する</string>
   <string name="anotherWasX">別の手は %s</string>
   <string name="bestWasX">最善手は %s</string>
