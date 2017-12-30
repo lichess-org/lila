@@ -56,6 +56,9 @@
   <string name="showThreat">Показать ответную угрозу</string>
   <string name="inLocalBrowser">в браузере</string>
   <string name="toggleLocalEvaluation">Включить локальный анализ</string>
+  <string name="promoteVariation">Активизировать этот вариант</string>
+  <string name="makeMainLine">Сделать этот вариант основным</string>
+  <string name="deleteFromHere">Удалить с этого места</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Проигрышный ход</string>
   <string name="variantWin">Победный ход</string>
@@ -813,6 +816,7 @@
   <string name="whiteWinsGame">Белые выиграли</string>
   <string name="blackWinsGame">Чёрные выиграли</string>
   <string name="learnFromYourMistakes">Разобрать свои ошибки</string>
+  <string name="learnFromThisMistake">Разобрать эту ошибку</string>
   <string name="skipThisMove">Пропустить этот ход</string>
   <string name="next">Далее</string>
   <string name="xWasPlayed">Было сыграно %s</string>
@@ -840,4 +844,10 @@
   <string name="opening">Дебют</string>
   <string name="middlegame">Миттельшпиль</string>
   <string name="endgame">Эндшпиль</string>
+  <string name="registerToSendChallenges">Зарегистрируйтесь, чтобы вызывать соперников на игру.</string>
+  <string name="youCannotChallengeX">Вы не можете вызвать на игру %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s не принимает вызовы.</string>
+  <string name="yourXRatingIsTooFarFromY">Ваш рейтинг %1$s слишком далёк от %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Невозможно из-за недостоверности рейтинга %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s принимает вызовы только от друзей.</string>
 </resources>
