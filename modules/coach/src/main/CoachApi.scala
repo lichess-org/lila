@@ -76,8 +76,7 @@ final class CoachApi(
   def deletePicture(c: Coach.WithUser): Funit =
     coachColl.update($id(c.coach.id), $unset("picturePath")).void
 
-  private def withUser(user: User)(coach: Coach): Coach.WithUser =
-    Coach.WithUser(coach, user)
+  private def withUser(user: User)(coach: Coach) = Coach.WithUser(coach, user)
 
   object reviews {
 

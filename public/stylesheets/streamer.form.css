@@ -1,0 +1,97 @@
+.streamer_edit .top {
+  display: flex;
+  line-height: 2;
+}
+.streamer_edit .top h1 {
+  margin: 0;
+  padding: 0!important;
+  font-family: 'Roboto';
+  font-size: 32px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+.streamer_edit .top .picture_wrap {
+  margin-right: 30px;
+  width: 250px;
+  height: 250px;
+}
+.streamer_picture .picture_wrap {
+  text-align: center;
+}
+
+.streamer_edit .top .upload_picture {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.streamer_edit .overview {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  flex-flow: column;
+}
+
+.streamer_edit .top a,
+body.dark .streamer_edit .top a {
+  color: #3893E8;
+}
+
+.streamer_edit .material.form {
+  margin-top: 0;
+}
+.streamer_edit .material.form .form-group textarea {
+  height: 12em;
+}
+
+.streamer_picture form {
+  padding: 30px;
+  border-top: 1px solid #ccc;
+  text-align: center;
+}
+.streamer_picture form.delete button {
+  color: red;
+}
+.streamer_picture .cancel {
+  padding: 40px;
+  border-top: 1px solid #ccc;
+}
+.streamer_picture .forms > *:first-child {
+  margin-top: 40px;
+}
+
+.streamer_edit .status {
+  opacity: 0;
+  transition: 0.5s;
+  text-align: center;
+  color: #759900;
+}
+.streamer_edit .status.saved {
+  opacity: 1;
+}
+#site_header a.preview {
+  display: block;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.streamer-new h2 {
+  font-size: 1.4em;
+  margin-bottom: 1em;
+}
+.streamer-new ul li {
+  font-size: 1.2em;
+  margin: 0.5em 0;
+  list-style: disc inside;
+}
+
+.streamer-new button {
+  margin: 1.5em auto 0 auto;
+  display: block;
+  font-size: 2em;
+}
+
+body.dark .streamer_picture form,
+body.dark .streamer_picture .cancel {
+  border-color: #3d3d3d;
+}

@@ -1,0 +1,19 @@
+@(s: lila.streamer.Streamer.WithUser)(implicit ctx: Context)
+
+@side = {
+<div class="streamer-side">
+  <div class="profile">
+    <a class="blue" href="@routes.User.show(s.user.username)">View @s.user.username lichess profile</a>
+  </div>
+</div>
+}
+
+@base.layout(title = s"${s.user.titleUsername} streams on lichess.org",
+side = side.some,
+moreCss = cssTag("streamer.css")) {
+<div class="content_box no_padding coach">
+  <div class="top">
+    @widget(s)
+  </div>
+</div>
+}

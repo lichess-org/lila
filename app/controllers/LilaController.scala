@@ -136,6 +136,9 @@ private[controllers] trait LilaController
   protected def NoLame[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     NoEngine(NoBooster(a))
 
+  protected def NoShadowban[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+    ctx.me.??(_.troll).fold(notFound, a)
+
   protected def NoPlayban(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     ctx.userId.??(Env.playban.api.currentBan) flatMap {
       _.fold(a) { ban =>

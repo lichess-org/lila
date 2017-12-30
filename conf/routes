@@ -31,9 +31,6 @@ GET   /tv/:chanKey/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey: String)
 
-# Streamer
-GET   /streamers                       controllers.Streamer.index(page: Int ?= 1)
-
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
 POST  /rel/unfollow/:userId            controllers.Relation.unfollow(userId: String)
@@ -192,6 +189,17 @@ GET   /practice/:sectionId/:studySlug             controllers.Practice.showStudy
 GET   /practice/:sectionId/:studySlug/:studyId    controllers.Practice.show(sectionId: String, studySlug: String, studyId: String)
 GET   /practice/:sectionId/:studySlug/:studyId/:chapterId controllers.Practice.showChapter(sectionId: String, studySlug: String, studyId: String, chapterId: String)
 POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(chapterId: String, moves: Int)
+
+# Streamer
+GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
+GET   /streamer/new                    controllers.Streamer.create
+POST  /streamer/new                    controllers.Streamer.createApply
+GET   /streamer/edit                   controllers.Streamer.edit
+POST  /streamer/edit                   controllers.Streamer.editApply
+GET   /streamer/picture/edit           controllers.Streamer.picture
+POST  /streamer/picture/upload         controllers.Streamer.pictureApply
+POST  /streamer/picture/delete         controllers.Streamer.pictureDelete
+GET   /streamer/:username              controllers.Streamer.show(username: String)
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")

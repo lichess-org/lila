@@ -1,0 +1,20 @@
+@(me: User)(implicit ctx: Context)
+
+@site.message(
+title = "Become a lichess streamer",
+icon = Some(Html("")),
+back = true,
+moreCss = cssTag("streamer.form.css").some) {
+<form class="streamer-new" action="@routes.Streamer.createApply" method="POST">
+  <h2>Are you ready to become a lichess streamer, @me.username?</h2>
+  <ul>
+    <li>You will be listed on <a href="@routes.Streamer.index()">the lichess streamer directory</a>.</li>
+    <li>When you stream with the keyword "lichess.org" in the stream title, you will be bumped up the top of the list!</li>
+    <li>You are free to stream on other chess servers, or to stream non-chess things; just don't include "lichess.org" in the stream title then.</li>
+  </ul>
+  <p>
+    <button type="submit" class="submit button large new text" data-icon="">Here we go!</button>
+  </p>
+</form>
+}
+

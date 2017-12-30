@@ -14,7 +14,7 @@
 }
 
 @moreJs = {
-<script src="//oss.maxcdn.com/jquery.form/3.50/jquery.form.min.js"></script>
+<script src="//oss.maxcdn.com/jquery.form/3.51/jquery.form.min.js"></script>
 @jsAt("vendor/bar-rating/dist/jquery.barrating.min.js")
 @jsTag("coach.form.js")
 }
@@ -23,7 +23,7 @@
 <a href="@routes.Coach.show(c.user.username)" class="preview button text" data-icon="v">Preview coach page</a>
 }
 
-@layout(title = s"${c.user.titleUsername} coach page",
+@base.layout(title = s"${c.user.titleUsername} coach page",
 moreCss = moreCss,
 moreJs = moreJs,
 side = side.some) {

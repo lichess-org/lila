@@ -23,6 +23,7 @@ export interface DasherData {
   zen: 0 | 1;
   kid: boolean;
   coach: boolean;
+  streamer: boolean;
   i18n: any;
 }
 

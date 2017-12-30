@@ -21,7 +21,7 @@ final class StreamerPager(
       projection = $empty,
       sort = $doc(
         "sorting.streaming" -> -1,
-        "sorting.onlineAt" -> -1
+        "sorting.seenAt" -> -1
       )
     ) mapFutureList withUsers
     Paginator(

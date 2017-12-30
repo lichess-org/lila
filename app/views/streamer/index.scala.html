@@ -1,0 +1,21 @@
+@(pager: Paginator[lila.streamer.Streamer.WithUser])(implicit ctx: Context)
+
+@base.layout(title = "Lichess streamers",
+moreCss = cssTag("streamer.list.css"),
+moreJs = jsTag("vendor/jquery.infinitescroll.min.js")) {
+<div class="content_box no_padding streamers">
+  <div class="top"><h1>Streamers</h1></div>
+  <div class="list infinitescroll">
+    @pager.currentPageResults.map { c =>
+    <div class="streamer paginated_element" data-dedup="@c.streamer.id">
+      @widget(c)
+    </div>
+    }
+    @pager.nextPage.map { np =>
+    <div class="pager none">
+      <a rel="next" href="@addQueryParameter(routes.Streamer.index().toString, "page", np)">Next</a>
+    </div>
+    }
+  </div>
+</div>
+}

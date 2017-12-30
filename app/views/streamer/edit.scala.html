@@ -1,0 +1,55 @@
+@(s: lila.streamer.Streamer.WithUser, form: Form[_])(implicit ctx: Context)
+
+@import play.api.data.Field
+
+@textarea(field: Field, name: Html, help: Option[Html] = None) = {
+@base.form.group(field, name, half = false, help = help) {
+<textarea name="@field.name" id="@field.id">@field.value</textarea>
+}
+}
+
+@moreCss = {
+@cssTag("material.form.css")
+@cssTag("streamer.form.css")
+}
+
+@moreJs = {
+<script src="//oss.maxcdn.com/jquery.form/3.51/jquery.form.min.js"></script>
+@jsTag("streamer.form.js")
+}
+
+@side = {
+<a href="@routes.Streamer.show(s.user.username)" class="preview button text" data-icon="v">Preview streamer page</a>
+}
+
+@base.layout(title = s"${s.user.titleUsername} streamer page",
+moreCss = moreCss,
+moreJs = moreJs,
+side = side.some) {
+<div class="streamer_edit content_box no_padding">
+  <div class="top">
+    <div class="picture_wrap">
+      @if(s.streamer.hasPicture) {
+      <a class="upload_picture" href="@routes.Streamer.picture" title="Change/delete your profile picture">
+        @pic(s, 250)
+      </a>
+      } else {
+      <div class="upload_picture">
+        <a class="button" href="@routes.Streamer.picture">Upload a profile picture</a>
+      </div>
+      }
+    </div>
+    <div class="overview">
+      <h1>
+        @s.user.title.map { t => @t }@s.user.profileOrDefault.nonEmptyRealName.getOrElse(s.user.username)
+      </h1>
+    </div>
+  </div>
+  <form class="content_box_content material form" action="@routes.Streamer.edit" method="POST">
+    @base.form.group(form("profile.headline"), Html("Short and inspiring headline"), help = Html("Just one sentence to make students want to choose you").some) {
+    @base.form.input(form("profile.headline"), maxLength = 170)
+    }
+    <div class="status text" data-icon="E">Your changes have been saved.</div>
+  </form>
+</div>
+}

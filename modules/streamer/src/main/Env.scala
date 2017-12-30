@@ -6,6 +6,8 @@ import scala.concurrent.duration._
 
 final class Env(
     config: Config,
+    system: ActorSystem,
+    asyncCache: lila.memo.AsyncCache.Builder,
     db: lila.db.Env
 ) {
 
@@ -20,6 +22,7 @@ final class Env(
 
   lazy val api = new StreamerApi(
     coll = streamerColl,
+    asyncCache = asyncCache,
     photographer = photographer
   )
 
@@ -35,12 +38,22 @@ final class Env(
       case "streamer" :: "import" :: Nil => importer.apply inject "done"
     }
   }
+
+  system.lilaBus.subscribe(
+    system.actorOf(Props(new Actor {
+      def receive = {
+        case lila.user.User.Active(user) if !user.seenRecently => api.setSeenAt(user)
+      }
+    })), 'userActive
+  )
 }
 
 object Env {
 
   lazy val current: Env = "streamer" boot new Env(
     config = lila.common.PlayApp loadConfig "streamer",
+    system = lila.common.PlayApp.system,
+    asyncCache = lila.memo.Env.current.asyncCache,
     db = lila.db.Env.current
   )
 }

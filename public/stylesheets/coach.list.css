@@ -97,11 +97,6 @@
   margin-left: 4px;
   display: inline-block;
 }
-.coaches .few_results {
-  padding: 40px;
-  text-align: center;
-  border-top: 1px solid #ccc;
-}
 @media (max-width: 1084px) {
   .coach-side {
     margin-left: 0!important;
@@ -112,8 +107,7 @@
   }
 }
 body.dark .coaches .coach,
-body.dark .coach-add,
-body.dark .coaches .few_results {
+body.dark .coach-add {
   border-color: #3d3d3d;
 }
 

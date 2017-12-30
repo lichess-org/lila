@@ -1,0 +1,6 @@
+@(c: lila.streamer.Streamer.WithUser, size: Int)(implicit ctx: Context)
+@c.streamer.picturePath.map { path =>
+<img width=@size height=@size class="picture" src="@dbImageUrl(path.value)" alt="@c.user.titleUsername lichess streamer" />
+}.getOrElse {
+<img width=@size height=@size class="picture" src="@staticUrl("images/streamer-nopic.svg")" />
+}
