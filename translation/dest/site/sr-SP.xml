@@ -56,6 +56,9 @@
   <string name="showThreat">Прикажи претњу</string>
   <string name="inLocalBrowser">у локалном прегледачу</string>
   <string name="toggleLocalEvaluation">Укључи/искључи локалну процену</string>
+  <string name="promoteVariation">Промовишите варијацију</string>
+  <string name="makeMainLine">Направи као главну линију</string>
+  <string name="deleteFromHere">Избриши одавде</string>
   <string name="move">Потез</string>
   <string name="variantLoss">Губитак из варијанте</string>
   <string name="variantWin">Победа из варијанте</string>
@@ -814,6 +817,7 @@
   <string name="whiteWinsGame">Бели је победио</string>
   <string name="blackWinsGame">Црни је победио</string>
   <string name="learnFromYourMistakes">Научите из грешака</string>
+  <string name="learnFromThisMistake">Научите из ове грешке</string>
   <string name="skipThisMove">Прескочите овај потез</string>
   <string name="next">Следеће</string>
   <string name="xWasPlayed">%s је одиграно</string>
@@ -841,4 +845,10 @@
   <string name="opening">Отварање</string>
   <string name="middlegame">Средишњица</string>
   <string name="endgame">Завршница</string>
+  <string name="registerToSendChallenges">Молимо вас да се региструјете како би послали изазове.</string>
+  <string name="youCannotChallengeX">Не можете да изазовете %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s не прихвата изазове.</string>
+  <string name="yourXRatingIsTooFarFromY">Ваш рејтинг %1$s, је превише далеко од %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Не можете изазвати јер вам је рејтинг %s привремен.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s прихвата само изазове од пријатеља.</string>
 </resources>
