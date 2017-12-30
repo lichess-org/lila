@@ -382,7 +382,7 @@
   <string name="standing">Tabelle</string>
   <string name="createANewTournament">Neues Turnier erstellen</string>
   <string name="join">Teilnehmen</string>
-  <string name="withdraw">Austreten</string>
+  <string name="withdraw">Verlassen</string>
   <string name="points">Punkte</string>
   <string name="wins">Siege</string>
   <string name="losses">Niederlagen</string>
@@ -425,7 +425,7 @@
   <string name="country">Land</string>
   <string name="preferences">Einstellungen</string>
   <string name="inlineNotation">Inline-Notation</string>
-  <string name="watchLichessTV">Lichess TV anschauen</string>
+  <string name="watchLichessTV">Lichess-TV anschauen</string>
   <string name="previouslyOnLichessTV">Zuletzt auf Lichess TV</string>
   <string name="onlinePlayers">Spieler online</string>
   <string name="activeToday">Heute aktiv</string>
@@ -561,7 +561,7 @@
   <string name="xAskedY">%1$s fragte %2$s</string>
   <string name="xAnsweredY">%1$s beantwortete %2$s</string>
   <string name="xCommentedY">%1$s kommentierte %2$s</string>
-  <string name="victory">Geschafft!</string>
+  <string name="victory">Sieg</string>
   <string name="defeat">Niederlage</string>
   <string name="xVsYinZ">%1$s gegen %2$s in %3$s</string>
   <string name="timeline">Verlauf</string>
@@ -765,7 +765,7 @@
   <string name="custom">Andere Spielzeit</string>
   <string name="notifications">Benachrichtigungen</string>
   <string name="challenges">Herausforderungen</string>
-  <string name="perfRatingX">Wertungszahl: %s</string>
+  <string name="perfRatingX">Wertung: %s</string>
   <string name="xSecondsToPlayTheFirstMove">%s Sekunden, um den ersten Zug zu machen</string>
   <string name="practiceWithComputer">Übe mit dem Computer</string>
   <string name="anotherWasX">Auch möglich war %s</string>
