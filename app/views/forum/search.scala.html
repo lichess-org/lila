@@ -25,7 +25,7 @@ searchText = text
     <tr class="paginated_element">
       <td>
         <a class="post" href="@routes.ForumPost.redirect(view.post.id)">@view.categ.name - @view.topic.name #@view.post.number</a>
-        <p>@lila.common.String.html.shortenWithBr(view.post.text, 200)</p>
+        <p>@nl2br(shorten(view.post.text.replace("\n\n", "\n"), 200))</p>
       </td>
       <td class="info">
         @momentFromNow(view.post.createdAt) by @authorLink(view.post)

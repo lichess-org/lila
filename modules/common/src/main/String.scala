@@ -55,18 +55,15 @@ object String {
 
   object html {
 
-    private def nl2br(text: String): String =
+    def nl2brUnsafe(text: String) = Html {
       text.replace("\r\n", "<br />").replace("\n", "<br />")
-
-    def nl2brUnsafe(text: String) = Html(nl2br(text))
-
-    def shortenWithBr(text: String, length: Int) = Html {
-      nl2br(StringUtils.escapeHtml(text.take(length))).replace("<br /><br />", "<br />")
     }
 
-    def richText(text: String, br: Boolean = true) = Html {
+    def nl2br(text: String): Html = nl2brUnsafe(StringUtils.escapeHtml(text))
+
+    def richText(text: String, br: Boolean = true): Html = {
       val multiLine = addUserProfileLinksUnsafe(addLinksUnsafe(StringUtils.escapeHtml(text)))
-      if (br) nl2br(multiLine) else multiLine
+      if (br) nl2brUnsafe(multiLine) else Html(multiLine)
     }
 
     private val urlRegex = """(?i)\b((https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}\/)((?:[`!\[\]{};:'".,<>?«»“”‘’]*[^\s`!\[\]{}\(\);:'".,<>?«»“”‘’])*))""".r
@@ -122,18 +119,16 @@ object String {
 
     private def urlOrImgUnsafe(url: String): String = urlToImgUnsafe(url) getOrElse url
 
-    def escapeHtml(s: String): Html = Html(StringUtils.escapeHtml(s))
-
     private val markdownLinkRegex = """\[([^\[]+)\]\(([^\)]+)\)""".r
 
-    def markdownLinks(text: String): Html = Html(nl2br {
+    def markdownLinks(text: String): Html = nl2brUnsafe {
       markdownLinkRegex.replaceAllIn(StringUtils.escapeHtml(text), m => {
         val href = m.group(2)
         if (href.startsWith("http://") || href.startsWith("https://"))
           s"""<a href="$href">${m group 1}</a>"""
         else m.group(0)
       })
-    })
+    }
 
     def safeJsonValue(jsValue: JsValue): String = {
       // Borrowed from:
@@ -154,5 +149,7 @@ object String {
     }
 
     def safeJson(jsValue: JsValue): Html = Html(safeJsonValue(jsValue))
+
+    def escapeHtml(s: String): Html = Html(StringUtils.escapeHtml(s))
   }
 }
