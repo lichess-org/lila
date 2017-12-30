@@ -798,7 +798,6 @@
   <string name="notifications">Powiadomienia</string>
   <string name="challenges">Wyzwania</string>
   <string name="perfRatingX">Ranking: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s sekund na wykonanie pierwszego ruchu</string>
   <string name="practiceWithComputer">Trening z komputerem</string>
   <string name="anotherWasX">Inna możliwość to %s</string>
   <string name="bestWasX">Najlepsze było %s</string>
