@@ -67,9 +67,9 @@ function view(opts: Opts, coords: Coords): VNode {
     }
   }, [
     h('p.title', nodeFullName(node)),
-    onMainline ? null : action('S', 'Promote variation', () => ctrl.promote(opts.path, false)),
-    onMainline ? null : action('E', 'Make main line', () => ctrl.promote(opts.path, true)),
-    action('q', 'Delete from here', () => ctrl.deleteNode(opts.path))
+    onMainline ? null : action('S', ctrl.trans.noarg('promoteVariation'), () => ctrl.promote(opts.path, false)),
+    onMainline ? null : action('E', ctrl.trans.noarg('makeMainLine'), () => ctrl.promote(opts.path, true)),
+    action('q', ctrl.trans.noarg('deleteFromHere'), () => ctrl.deleteNode(opts.path))
   ].concat(
     ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : []
   ));
