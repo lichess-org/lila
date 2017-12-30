@@ -1,11 +1,12 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { ForecastCtrl, ForecastStep } from './interfaces';
 import AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
 import { bind, dataIcon, spinner } from '../util';
 import { fixCrazySan } from 'chess';
 
-function onMyTurn(fctrl, cNodes) {
+function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   var firstNode = cNodes[0];
   if (!firstNode) return;
   var fcs = fctrl.findStartingWithNode(firstNode);
@@ -22,16 +23,21 @@ function onMyTurn(fctrl, cNodes) {
     h('span', 'and save ' + lines.length + ' premove line' + (lines.length > 1 ? 's' : '')) :
     h('span', 'No conditional premoves')
   ]);
-};
-
-function makeCnodes(ctrl: AnalyseCtrl) {
-  return ctrl.forecast!.truncate(ctrl.tree.getCurrentNodesAfterPly(
-    ctrl.nodeList, ctrl.mainline, ctrl.data.game.turns))
 }
 
-export default function(ctrl: AnalyseCtrl): VNode {
-  const fctrl = ctrl.forecast as any;
-  const cNodes = makeCnodes(ctrl);
+function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
+  const afterPly = ctrl.tree.getCurrentNodesAfterPly(ctrl.nodeList, ctrl.mainline, ctrl.data.game.turns);
+  return fctrl.truncate(afterPly.map(node => ({
+    ply: node.ply,
+    fen: node.fen,
+    uci: node.uci!,
+    san: node.san!,
+    check: node.check
+  })));
+}
+
+export default function(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
+  const cNodes = makeCnodes(ctrl, fctrl);
   const isCandidate = fctrl.isCandidate(cNodes);
   return h('div.forecast', {
     class: { loading: fctrl.loading() }
@@ -55,7 +61,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       h('button.add.button.text', {
         class: { enabled: isCandidate },
         attrs: dataIcon(isCandidate ? 'O' : ""),
-        hook: bind('click', _ => fctrl.addNodes(makeCnodes(ctrl)), ctrl.redraw)
+        hook: bind('click', _ => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw)
       }, isCandidate ? [
         h('span', 'Add current variation'),
         h('sans', renderNodesHtml(cNodes))
@@ -66,4 +72,4 @@ export default function(ctrl: AnalyseCtrl): VNode {
     ]),
     fctrl.onMyTurn ? onMyTurn(fctrl, cNodes) : null
   ]);
-};
+}

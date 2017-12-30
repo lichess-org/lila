@@ -1,5 +1,6 @@
 import { Player, Status, Source } from 'game';
 import * as cg from 'chessground/types';
+import { ForecastData } from './forecast/interfaces';
 import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
 import { RelayData } from './study/relay/interfaces';
 
@@ -19,7 +20,7 @@ export interface AnalyseData {
   takebackable: boolean;
   analysis?: Analysis;
   userAnalysis: boolean;
-  forecast?: any;
+  forecast?: ForecastData;
   treeParts: Tree.Node[];
   evalPut?: boolean;
   practiceGoal?: PracticeGoal;
