@@ -768,7 +768,6 @@ i %3$s</string>
   <string name="notifications">Meldingar</string>
   <string name="challenges">Utfordringar</string>
   <string name="perfRatingX">Rating: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s sekund til første trekk må takast</string>
   <string name="practiceWithComputer">Øv med computer</string>
   <string name="anotherWasX">Eit anna var %s</string>
   <string name="bestWasX">Best var %s</string>
