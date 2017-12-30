@@ -12,7 +12,7 @@ public class StringUtils {
             boolean safe = c >= ' ' && c <= '~';
             if (safe) switch(c) {
                 case '<': case '>': case '&': case '"':
-                case '\'': case '\\': case '`': case '/':
+                case '\'': case '\\': case '`':
                   safe = false;
             }
 
