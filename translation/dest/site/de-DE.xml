@@ -766,7 +766,6 @@
   <string name="notifications">Benachrichtigungen</string>
   <string name="challenges">Herausforderungen</string>
   <string name="perfRatingX">Wertung: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s Sekunden, um den ersten Zug zu machen</string>
   <string name="practiceWithComputer">Übe mit dem Computer</string>
   <string name="anotherWasX">Auch möglich war %s</string>
   <string name="bestWasX">Am besten war %s</string>
