@@ -10,7 +10,7 @@
       for <strong>@r.reason.name</strong>,
       @momentFromNow(atom.at)
     </h3>
-    <p>@autoLink(atom.simplifiedText)</p>
+    <p>@richText(atom.simplifiedText)</p>
   </div>
   }
 </div>
@@ -19,7 +19,7 @@
 @renderNote(r: lila.user.Note) = {
 <div class="doc note">
   <h3>by @userIdLink(r.from.some, withOnline = false), @momentFromNow(r.date)</h3>
-  <p>@autoLink(r.text)</p>
+  <p>@richText(r.text)</p>
 </div>
 }
 
@@ -31,7 +31,7 @@
   <i title="Costello the Inquiry Octopus" class="costello"></i>
   <div class="meat">
     <h2 class="user">
-      @repositionTooltip(userLink(in.user, withBestRating = true, params = "?mod"), "se")
+      @repositionTooltipUnsafe(userLink(in.user, withBestRating = true, params = "?mod"), "se")
     </h2>
     <div class="docs reports">
       <div class="expendable">

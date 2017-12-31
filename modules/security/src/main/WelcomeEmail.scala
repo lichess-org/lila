@@ -1,6 +1,7 @@
 package lila.security
 
 import play.api.i18n.Lang
+import play.twirl.api.Html
 
 import lila.common.EmailAddress
 import lila.user.User
@@ -22,11 +23,11 @@ ${trans.welcome_text.literalTxtTo(lang, List(profileUrl, editUrl))}
 
 ${Mailgun.txt.serviceNote}
 """,
-      htmlBody = s"""
+      htmlBody = Html(s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
   <p itemprop="description">${trans.welcome_text.literalHtmlTo(lang, List(profileUrl, editUrl))}</p>
   ${Mailgun.html.serviceNote}
-</div>""".some
+</div>""").some
     )
   }
 }

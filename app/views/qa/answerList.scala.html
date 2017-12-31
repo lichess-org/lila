@@ -58,7 +58,7 @@
           </form>
           }
         </div>
-        <div class="body">@autoLink(a.body)</div>
+        <div class="body">@richText(a.body)</div>
         @if(lila.qa.QaAuth canEdit a) {
         <form class="edit-answer" action="@routes.QaAnswer.doEdit(q.id, a.id)" method="post">
           <textarea class="answer-body" name="body">@a.body</textarea>

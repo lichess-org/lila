@@ -1,6 +1,8 @@
 package lila.security
 
 import play.api.i18n.Lang
+import play.twirl.api.Html
+
 import lila.common.EmailAddress
 import lila.user.{ User, UserRepo }
 import lila.i18n.I18nKeys.{ emails => trans }
@@ -50,7 +52,7 @@ ${trans.common_orPaste.literalTxtTo(lang)}
 ${Mailgun.txt.serviceNote}
 ${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
 """,
-      htmlBody = s"""
+      htmlBody = Html(s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
   <p itemprop="description">${trans.emailConfirm_click.literalHtmlTo(lang)}</p>
   <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ViewAction">
@@ -63,7 +65,7 @@ ${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
       ${trans.emailConfirm_ignore.literalHtmlTo(lang)}
     </small>
   </div>
-</div>""".some
+</div>""").some
     )
   }
 

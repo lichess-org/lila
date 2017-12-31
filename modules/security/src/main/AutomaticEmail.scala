@@ -1,9 +1,10 @@
 package lila.security
 
 import play.api.i18n.Lang
+import play.twirl.api.Html
 
 import lila.common.EmailAddress
-import lila.common.String.html.nl2br
+import lila.common.String.html.nl2brUnsafe
 import lila.user.{ User, UserRepo }
 
 final class AutomaticEmail(
@@ -38,11 +39,11 @@ $body
 
 ${Mailgun.txt.serviceNote}
 """,
-      htmlBody = s"""
+      htmlBody = Html(s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">${nl2br(body)}</p>
+  <p itemprop="description">${nl2brUnsafe(body)}</p>
   ${Mailgun.html.serviceNote}
-</div>""".some
+</div>""").some
     )
   }
 
@@ -67,11 +68,11 @@ $body
 
 ${Mailgun.txt.serviceNote}
 """,
-          htmlBody = s"""
+          htmlBody = Html(s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">${nl2br(body)}</p>
+  <p itemprop="description">${nl2brUnsafe(body)}</p>
   ${Mailgun.html.serviceNote}
-</div>""".some
+</div>""").some
         )
       }
     }
@@ -110,11 +111,11 @@ $body
 
 ${Mailgun.txt.serviceNote}
 """,
-      htmlBody = s"""
+      htmlBody = Html(s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">${nl2br(body)}</p>
+  <p itemprop="description">${nl2brUnsafe(body)}</p>
   ${Mailgun.html.serviceNote}
-</div>""".some
+</div>""").some
     )
   }
 }

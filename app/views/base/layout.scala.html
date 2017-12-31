@@ -47,7 +47,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(ctx.userContext.impersonatedBy.isDefined) { @cssTag("impersonate.css") }
     @moreCss
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=${ctx.pageData.assetVersion}")" type="text/css" rel="stylesheet"/>
-    <meta content="@openGraph.fold(trans.siteDescription())(o => escapeHtml(o.description))" name="description">
+    <meta content="@openGraph.fold(trans.siteDescription.txt())(o => o.description)" name="description">
     <link id="favicon" rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
     @if(!robots) {
     <meta content="noindex, nofollow" name="robots">

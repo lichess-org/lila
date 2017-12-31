@@ -6,7 +6,7 @@ import chess.{ Status => S, Color, Clock, Mode }
 import controllers.routes
 import play.twirl.api.Html
 
-import lila.common.String.html.escapeHtmlUnsafe
+import lila.common.String.html.escapeHtml
 import lila.game.{ Game, Player, Namer, Pov }
 import lila.user.{ User, UserContext }
 import lila.i18n.{ I18nKeys, enLang }
@@ -126,7 +126,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         val klass = cssClass.??(" " + _)
         val content = (player.aiLevel, player.name) match {
           case (Some(level), _) => aiNameHtml(level, withRating).body
-          case (_, Some(name)) => escapeHtmlUnsafe(name)
+          case (_, Some(name)) => escapeHtml(name).body
           case _ => User.anonymous
         }
         s"""<span class="user_link$klass">$content$statusIcon</span>"""

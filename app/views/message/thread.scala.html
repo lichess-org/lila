@@ -18,7 +18,7 @@ title = thread.name) {
     <span class="infos">
       @userIdLink(thread.visibleSenderOf(post), none) <span data-icon="H"></span> @userIdLink(thread.visibleReceiverOf(post), "inline".some) - @momentFromNow(post.createdAt)
     </span>
-    <div class="thread_message_body">@autoLink(post.text)</div>
+    <div class="thread_message_body">@richText(post.text)</div>
   </div>
   }
 
