@@ -56,6 +56,7 @@
   <string name="showThreat">Vis trussel</string>
   <string name="inLocalBrowser">i lokal nettlesar</string>
   <string name="toggleLocalEvaluation">Lokal analyse av/på</string>
+  <string name="promoteVariation">Forfremjingsvariant</string>
   <string name="makeMainLine">Gjer til hovudline</string>
   <string name="deleteFromHere">Slett herifrå</string>
   <string name="move">Trekk</string>
@@ -819,4 +820,6 @@ i %3$s</string>
   <string name="youCannotChallengeX">Du kan ikkje utfordre %s.</string>
   <string name="xDoesNotAcceptChallenges">%s tek ikkje i mot utfordringar.</string>
   <string name="yourXRatingIsTooFarFromY">Din %1$s rating er for langt frå %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan ikkje utfordre på grunn av mellombels %s rating.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s tek berre mot utfordringar frå vener.</string>
 </resources>
