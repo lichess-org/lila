@@ -11,7 +11,7 @@ case class Streamer(
     autoFeatured: Streamer.AutoFeatured, // on homepage when title contains "lichess.org"
     chatEnabled: Streamer.ChatEnabled, // embed chat inside lichess
     picturePath: Option[Streamer.PicturePath],
-    name: Option[Streamer.Name],
+    name: Streamer.Name,
     description: Option[Streamer.Description],
     twitch: Option[Streamer.Twitch],
     youTube: Option[Streamer.YouTube],
@@ -46,7 +46,7 @@ object Streamer {
     autoFeatured = AutoFeatured(false),
     chatEnabled = ChatEnabled(true),
     picturePath = none,
-    name = none,
+    name = Name(user.realNameOrUsername),
     description = none,
     twitch = none,
     youTube = none,
@@ -91,7 +91,7 @@ object Streamer {
   }
   object YouTube {
     private val ChannelIdRegex = """^(\w{11})$""".r
-    private val UrlRegex = """.*(?:youtube\.com|youtu\.be)/(?:watch)?(?:\?v=)?([^"&?\/ ]{11}).*""".r
+    private val UrlRegex = """.*youtube\.com/channel/(\w{11}).*""".r
     def parseChannelId(str: String): Option[String] = str match {
       case ChannelIdRegex(c) => c.some
       case UrlRegex(c) => c.some

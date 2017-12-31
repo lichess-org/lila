@@ -35,13 +35,17 @@
 .streamers .streamer .headline {
   font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
   font-size: 17px;
-  padding: 0 0 20px 0!important;
+  padding: 0 0 10px 0!important;
+}
+.streamers .streamer .services {
+  margin-top: 5px;
 }
 .streamers .streamer .service {
   display: flex;
   font-size: 1.5em;
   font-weight: bold;
   white-space: nowrap;
+  padding: 5px 0;
 }
 .streamers .streamer .service svg {
   width: 1.4em;

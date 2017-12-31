@@ -9,10 +9,10 @@ object StreamerForm {
   import Streamer.{ Name, Description, Twitch, YouTube, Live }
 
   lazy val emptyUserForm = Form(mapping(
-    "name" -> optional(name),
+    "name" -> name,
     "description" -> optional(description),
-    "youTube" -> optional(text),
-    "twitch" -> optional(text)
+    "twitch" -> optional(nonEmptyText.verifying("Invalid Twitch username", s => Streamer.Twitch.parseUserId(s).isDefined)),
+    "youTube" -> optional(nonEmptyText.verifying("Invalid YouTube channel", s => Streamer.YouTube.parseChannelId(s).isDefined))
   )(UserData.apply)(UserData.unapply))
 
   def userForm(streamer: Streamer) = emptyUserForm fill UserData(
@@ -23,7 +23,7 @@ object StreamerForm {
   )
 
   case class UserData(
-      name: Option[Name],
+      name: Name,
       description: Option[Description],
       twitch: Option[String],
       youTube: Option[String]

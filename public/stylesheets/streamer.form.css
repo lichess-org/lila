@@ -25,23 +25,13 @@
   margin-top: 80px;
 }
 
-.streamer_edit .overview {
-  width: 100%;
-  height: 250px;
-  display: flex;
-  flex-flow: column;
-}
-
 .streamer_edit .top a,
 body.dark .streamer_edit .top a {
   color: #3893E8;
 }
 
-.streamer_edit .material.form {
-  margin-top: 0;
-}
 .streamer_edit .material.form .form-group textarea {
-  height: 12em;
+  height: 4em;
 }
 
 .streamer_picture form {
@@ -79,7 +69,8 @@ body.dark .streamer_edit .top a {
   font-size: 1.4em;
   margin-bottom: 1em;
 }
-.streamer-new ul li {
+.streamer-new ul li,
+.streamer_edit ul li {
   font-size: 1.2em;
   margin: 0.5em 0;
   list-style: disc inside;

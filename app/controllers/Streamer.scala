@@ -51,8 +51,8 @@ object Streamer extends LilaController {
     AsStreamer { s =>
       implicit val req = ctx.body
       StreamerForm.userForm(s.streamer).bindFromRequest.fold(
-        _ => fuccess(BadRequest),
-        data => api.update(s.streamer, data) inject Ok
+        error => BadRequest(html.streamer.edit(s, error)).fuccess,
+        data => api.update(s.streamer, data) inject Redirect(routes.Streamer.edit())
       )
     }
   }

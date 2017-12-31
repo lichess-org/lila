@@ -34,7 +34,7 @@ final class StreamerApi(
     coll.update($id(s.id), s, upsert = true).void
 
   def setSeenAt(user: User): Funit =
-    listedIdsCache.get flatMap { ids =>
+    listedIdsCache.get.pp(user.username) flatMap { ids =>
       ids.contains(Streamer.Id(user.id)) ??
         coll.update($id(user.id), $set("sorting.seenAt" -> DateTime.now)).void
     }

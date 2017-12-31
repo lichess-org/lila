@@ -33,7 +33,7 @@ export default function(ctrl: DasherCtrl): VNode {
 
       !d.streamer ? null : h(
         'a.text',
-        linkCfg('/streamer/edit', ':'),
+        linkCfg('/streamer/edit', ''),
         'Streamer manager'),
 
       h('form', {

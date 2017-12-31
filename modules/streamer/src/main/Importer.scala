@@ -1,10 +1,12 @@
 package lila.streamer
 
 import com.typesafe.config.ConfigFactory
-import lila.db.dsl._
 import reactivemongo.bson._
 import scala.collection.JavaConversions._
 import scala.util.{ Try, Success, Failure }
+
+import lila.db.dsl._
+import lila.user.UserRepo
 
 private final class Importer(api: StreamerApi, flagColl: Coll) {
 
@@ -13,21 +15,27 @@ private final class Importer(api: StreamerApi, flagColl: Coll) {
   def apply = flagColl.primitiveOne[String]($id("streamer"), "text") dmap (~_) flatMap { text =>
     val now = org.joda.time.DateTime.now
     validate(text)._1.map { s =>
-      api.save(Streamer(
-        _id = Id(s.lichessName.toLowerCase),
-        listed = Listed(true),
-        approved = Approved(true),
-        autoFeatured = AutoFeatured(s.featured),
-        chatEnabled = ChatEnabled(s.chat),
-        picturePath = none,
-        name = s.streamerNameForDisplay.map(removeTitle).map(Name.apply),
-        description = none,
-        twitch = s.twitch option Twitch(s.streamerName, Live.empty),
-        youTube = s.youtube option YouTube(s.streamerName, Live.empty),
-        sorting = Sorting.empty,
-        createdAt = now,
-        updatedAt = now
-      ))
+      UserRepo named s.lichessName flatMap {
+        _ ?? { user =>
+          api.save(Streamer(
+            _id = Id(s.lichessName.toLowerCase),
+            listed = Listed(true),
+            approved = Approved(true),
+            autoFeatured = AutoFeatured(s.featured),
+            chatEnabled = ChatEnabled(s.chat),
+            picturePath = none,
+            name = Name {
+              s.streamerNameForDisplay.fold(user.realNameOrUsername)(removeTitle)
+            },
+            description = none,
+            twitch = s.twitch option Twitch(s.streamerName, Live.empty),
+            youTube = s.youtube option YouTube(s.streamerName, Live.empty),
+            sorting = Sorting.empty,
+            createdAt = now,
+            updatedAt = now
+          ))
+        }
+      }
     }.sequenceFu.void
   }
 

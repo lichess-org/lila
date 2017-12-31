@@ -50,12 +50,6 @@ case class UserInfo(
       user = user.id,
       kind = Trophy.Kind.Developer,
       date = org.joda.time.DateTime.now
-    ),
-    isStreamer option Trophy(
-      _id = "",
-      user = user.id,
-      kind = Trophy.Kind.Streamer,
-      date = org.joda.time.DateTime.now
     )
   ).flatten ::: trophies
 
@@ -131,9 +125,9 @@ object UserInfo {
     postApi: PostApi,
     studyRepo: lila.study.StudyRepo,
     getRatingChart: User => Fu[Option[String]],
-    getRanks: String => Fu[Map[String, Int]],
-    isHostingSimul: String => Fu[Boolean],
-    fetchIsStreamer: String => Fu[Boolean],
+    getRanks: User.ID => Fu[Map[String, Int]],
+    isHostingSimul: User.ID => Fu[Boolean],
+    fetchIsStreamer: User => Fu[Boolean],
     fetchTeamIds: User.ID => Fu[List[String]],
     fetchIsCoach: User => Fu[Boolean],
     insightShare: lila.insight.Share,
@@ -150,7 +144,7 @@ object UserInfo {
       shieldApi.active(user) zip
       fetchTeamIds(user.id) zip
       fetchIsCoach(user) zip
-      fetchIsStreamer(user.id) zip
+      fetchIsStreamer(user) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       getPlayTime(user) zip
       completionRate(user.id) flatMap {

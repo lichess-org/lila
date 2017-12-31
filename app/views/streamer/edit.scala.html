@@ -40,16 +40,25 @@ side = side.some) {
       }
     </div>
     <div class="overview">
-      <h1>
-        @s.user.title.map { t => @t }@s.user.profileOrDefault.nonEmptyRealName.getOrElse(s.user.username)
-      </h1>
+      <h1>Lichess Streamer</h1>
+      @rules()
     </div>
   </div>
   <form class="content_box_content material form" action="@routes.Streamer.edit" method="POST">
-    @base.form.group(form("profile.headline"), Html("Short and inspiring headline"), help = Html("Just one sentence to make students want to choose you").some) {
-    @base.form.input(form("profile.headline"), maxLength = 170)
+    @errMsgMaterial(form.errors)
+    @base.form.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some) {
+      @base.form.input(form("twitch"))
     }
-    <div class="status text" data-icon="E">Your changes have been saved.</div>
+    @base.form.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none").some) {
+      @base.form.input(form("youTube"))
+    }
+    @base.form.group(form("name"), Html("Your streamer name"), help = Html("Keep it short: 20 characters max").some) {
+      @base.form.input(form("name"), maxLength = 20)
+    }
+    @base.form.group(form("description"), Html("Short description"), help = Html("Who are you, why do you love streaming?").some) {
+      <textarea name="description" id="description" maxlength="300">@form("description").value</textarea>
+    }
+    @base.form.submit()
   </form>
 </div>
 }
