@@ -211,6 +211,8 @@
   <string name="mode">Način</string>
   <string name="casual">Prijateljska</string>
   <string name="rated">Za bodove</string>
+  <string name="casualTournament">Prijateljska</string>
+  <string name="ratedTournament">Za bodove</string>
   <string name="thisGameIsRated">Ovo je partija za bodove</string>
   <string name="rematch">Revanš</string>
   <string name="rematchOfferSent">Ponuda za revanš poslana</string>
