@@ -137,6 +137,7 @@
   <string name="accept">fitytu\'i</string>
   <string name="decline">fitytoltu\'i</string>
   <string name="playingRightNow">ca\'o jivna</string>
+  <string name="eventInProgress">ca\'o jivna</string>
   <string name="finished">mo\'u fasnu</string>
   <string name="abortGame">tolcfagau je vimcu lo nu jivna</string>
   <string name="gameAborted">lo nu jivna gau ge tolcfa gi ba se vimcu</string>
@@ -145,6 +146,8 @@
   <string name="mode">nilcre cnegau pei</string>
   <string name="casual">na nilcre cnegau</string>
   <string name="rated">nilcre cnegau</string>
+  <string name="casualTournament">na nilcre cnegau</string>
+  <string name="ratedTournament">nilcre cnegau</string>
   <string name="thisGameIsRated">ti jai nu nilcre cenba</string>
   <string name="rematch">jvikei xoi krefu</string>
   <string name="rematchOfferSent">jungau co jivna be xoi krefu vau djica</string>
@@ -156,6 +159,7 @@
   <string name="play">jivna</string>
   <string name="inbox">lo selmri</string>
   <string name="chatRoom">se cusku kumfa</string>
+  <string name="loginToChat">ko co\'a pilno lo jaspu te zu\'e lo nu tavla</string>
   <string name="spectatorRoom">catlu se cusku kumfa</string>
   <string name="composeMessage">ciska su\'o notci</string>
   <string name="noNewMessages">no cnino cu se mrilu</string>
