@@ -108,7 +108,7 @@
   <string name="memory">Память</string>
   <string name="infiniteAnalysis">Бесконечный анализ</string>
   <string name="removesTheDepthLimit">Снимает ограничение на глубину анализа, но заставляет поработать ваш компьютер</string>
-  <string name="blunder">Зевок</string>
+  <string name="blunder">Грубая ошибка</string>
   <string name="blunders">Грубые ошибки</string>
   <string name="mistake">Ошибка</string>
   <string name="mistakes">Ошибки</string>
@@ -540,7 +540,7 @@
   <string name="thisAccountIsClosed">Профиль этого пользователя был удалён.</string>
   <string name="invalidUsernameOrPassword">Неправильное имя или пароль</string>
   <string name="incorrectPassword">Неверный пароль</string>
-  <string name="emailMeALink">Выслать ссылку</string>
+  <string name="emailMeALink">Отослать ссылку</string>
   <string name="currentPassword">Текущий пароль</string>
   <string name="newPassword">Новый пароль</string>
   <string name="newPasswordAgain">Новый пароль (ещё раз)</string>
