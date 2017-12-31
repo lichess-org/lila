@@ -56,6 +56,9 @@
   <string name="showThreat">Mehatxua erakutsi</string>
   <string name="inLocalBrowser">nabigatzailean</string>
   <string name="toggleLocalEvaluation">Analisia erakutsi</string>
+  <string name="promoteVariation">Bariantea nagusi egin</string>
+  <string name="makeMainLine">Linea nagusi bihurtu</string>
+  <string name="deleteFromHere">Ezabatu hemendik aurrera</string>
   <string name="move">Jokaldia</string>
   <string name="variantLoss">Galtzeko bidea</string>
   <string name="variantWin">Irabazteko bidea</string>
@@ -766,6 +769,10 @@
   <string name="notifications">Jakinarazpenak</string>
   <string name="challenges">Erronkak</string>
   <string name="perfRatingX">Sailkapena: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">Segundo %s lehenengo jokaldia egiteko</item>
+    <item quantity="other">%s segundo lehenengo jokaldia egiteko</item>
+  </plurals>
   <string name="practiceWithComputer">Ordenagailuarekin praktikatu</string>
   <string name="anotherWasX">Beste aukera bat %s zen</string>
   <string name="bestWasX">Onena %s zen</string>
@@ -780,6 +787,7 @@
   <string name="whiteWinsGame">Zuriek irabazi</string>
   <string name="blackWinsGame">Beltzek irabazi</string>
   <string name="learnFromYourMistakes">Ikasi zure akatsetatik</string>
+  <string name="learnFromThisMistake">Akats honetatik ikasi</string>
   <string name="skipThisMove">Jokaldi hau alde batera utzi</string>
   <string name="next">Hurrengoa</string>
   <string name="xWasPlayed">%s jokatu zen</string>
@@ -806,4 +814,10 @@
   <string name="opening">Irekiera</string>
   <string name="middlegame">Erdi-jokoa</string>
   <string name="endgame">Finala</string>
+  <string name="registerToSendChallenges">Eman izena erronkak bidaltzeko.</string>
+  <string name="youCannotChallengeX">Ezin diozu %s erabiltzaileri erronka egin.</string>
+  <string name="xDoesNotAcceptChallenges">%s erabiltzaileak ez du erronkarik onartzen.</string>
+  <string name="yourXRatingIsTooFarFromY">Zure %1$s puntuazioa urrunegi dago %2$s-tik.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Ezin duzu erronkarik egin behin-behineko %s puntuazioa duzulako.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s erabiltzaileak bere lagunen erronkak onartzen ditu bakarrik.</string>
 </resources>
