@@ -15,7 +15,9 @@
 lichess = lichess || {};
 lichess.user_analysis = {
 data: @safeJson(data),
-i18n: @userAnalysisI18n(),
+i18n: @userAnalysisI18n(
+withForecast = !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined
+),
 explorer: {
 endpoint: "@explorerEndpoint",
 tablebaseEndpoint: "@tablebaseEndpoint"
