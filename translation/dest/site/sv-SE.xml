@@ -766,7 +766,6 @@
   <string name="notifications">Notifikationer</string>
   <string name="challenges">Utmaningar</string>
   <string name="perfRatingX">Rating: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s sekunder att göra första draget</string>
   <string name="practiceWithComputer">Öva med datormotståndare</string>
   <string name="anotherWasX">Ett alternativt bra drag var %s</string>
   <string name="bestWasX">Bästa draget var %s</string>
