@@ -4,6 +4,9 @@
 <div class="streamer-side">
   <div class="profile">
     <a class="blue" href="@routes.User.show(s.user.username)">View @s.user.username lichess profile</a>
+    @if(ctx.is(s.user)) {
+    <br /><a class="blue" href="@routes.Streamer.edit()">Edit streamer page</a>
+    }
   </div>
 </div>
 }

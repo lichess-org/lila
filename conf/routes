@@ -196,6 +196,7 @@ GET   /streamer/new                    controllers.Streamer.create
 POST  /streamer/new                    controllers.Streamer.createApply
 GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/edit                   controllers.Streamer.editApply
+POST  /streamer/approval/request       controllers.Streamer.approvalRequest
 GET   /streamer/picture/edit           controllers.Streamer.picture
 POST  /streamer/picture/upload         controllers.Streamer.pictureApply
 POST  /streamer/picture/delete         controllers.Streamer.pictureDelete

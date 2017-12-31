@@ -51,14 +51,18 @@ body.dark .streamer_edit .top a {
 }
 
 .streamer_edit .status {
-  opacity: 0;
-  transition: 0.5s;
-  text-align: center;
-  color: #759900;
+  margin: 30px 20px 20px 20px;
+  padding: 20px;
+  background: rgba(128,128,128,0.2);
 }
-.streamer_edit .status.saved {
-  opacity: 1;
+.streamer_edit .status::before {
+  font-size: 2em;
+  margin-right: 0.5em;
 }
+.streamer_edit .status form {
+  display: inline;
+}
+
 #site_header a.preview {
   display: block;
   margin-top: 40px;

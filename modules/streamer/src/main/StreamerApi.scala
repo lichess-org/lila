@@ -34,13 +34,13 @@ final class StreamerApi(
     coll.update($id(s.id), s, upsert = true).void
 
   def setSeenAt(user: User): Funit =
-    listedIdsCache.get.pp(user.username) flatMap { ids =>
+    listedIdsCache.get flatMap { ids =>
       ids.contains(Streamer.Id(user.id)) ??
         coll.update($id(user.id), $set("sorting.seenAt" -> DateTime.now)).void
     }
 
-  def update(s: Streamer, data: StreamerForm.UserData): Funit =
-    coll.update($id(s.id), data(s)).void
+  def update(s: Streamer, data: StreamerForm.UserData, asMod: Boolean): Funit =
+    coll.update($id(s.id), data(s, asMod)).void
 
   def create(u: User): Funit =
     isStreamer(u) flatMap { exists =>
@@ -57,11 +57,20 @@ final class StreamerApi(
   def deletePicture(s: Streamer): Funit =
     coll.update($id(s.id), $unset("picturePath")).void
 
+  object approval {
+
+    def request(user: User) = find(user) flatMap {
+      _.filter(!_.streamer.approval.granted) ?? { s =>
+        coll.updateField($id(s.streamer.id), "approval.requested", true).void
+      }
+    }
+  }
+
   private def withUser(user: User)(streamer: Streamer) = Streamer.WithUser(streamer, user)
 
   private def selectListedApproved = $doc(
     "listed" -> true,
-    "approved" -> true
+    "approval.granted" -> true
   )
 
   private val listedIdsCache = asyncCache.single[Set[Streamer.Id]](

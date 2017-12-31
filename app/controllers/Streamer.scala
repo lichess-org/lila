@@ -52,9 +52,13 @@ object Streamer extends LilaController {
       implicit val req = ctx.body
       StreamerForm.userForm(s.streamer).bindFromRequest.fold(
         error => BadRequest(html.streamer.edit(s, error)).fuccess,
-        data => api.update(s.streamer, data) inject Redirect(routes.Streamer.edit())
+        data => api.update(s.streamer, data, isGranted(_.Streamers)) inject Redirect(routes.Streamer.edit())
       )
     }
+  }
+
+  def approvalRequest = AuthBody { implicit ctx => me =>
+    api.approval.request(me) inject Redirect(routes.Streamer.edit)
   }
 
   def picture = Auth { implicit ctx => _ =>
@@ -81,7 +85,7 @@ object Streamer extends LilaController {
   }
 
   private def AsStreamer(f: StreamerModel.WithUser => Fu[Result])(implicit ctx: Context) =
-    ctx.me ?? api.find flatMap { _.fold(notFound)(f) }
+    get("u").ifTrue(isGranted(_.Streamers)).orElse(ctx.userId) ?? api.find flatMap { _.fold(notFound)(f) }
 
   private def WithVisibleStreamer(s: StreamerModel.WithUser)(f: Fu[Result])(implicit ctx: Context) =
     if (s.streamer.isListed || ctx.me.??(s.streamer.is) || isGranted(_.Admin)) f

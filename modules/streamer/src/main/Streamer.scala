@@ -7,8 +7,7 @@ import lila.user.User
 case class Streamer(
     _id: Streamer.Id, // user ID
     listed: Streamer.Listed, // user wants to be in the list
-    approved: Streamer.Approved, // mods agree about being in the list
-    autoFeatured: Streamer.AutoFeatured, // on homepage when title contains "lichess.org"
+    approval: Streamer.Approval,
     chatEnabled: Streamer.ChatEnabled, // embed chat inside lichess
     picturePath: Option[Streamer.PicturePath],
     name: Streamer.Name,
@@ -26,7 +25,7 @@ case class Streamer(
 
   def hasPicture = picturePath.isDefined
 
-  def isListed = listed.value && approved.value
+  def isListed = listed.value && approval.granted
 
   def seenAt: Option[DateTime] = sorting.seenAt
   def liveAt: Option[DateTime] = (twitch.flatMap(_.live.liveAt), youTube.flatMap(_.live.liveAt)) match {
@@ -35,6 +34,10 @@ case class Streamer(
     }
     case (twitch, youTube) => twitch orElse youTube
   }
+
+  def completeEnough = {
+    twitch.isDefined || youTube.isDefined
+  } && description.isDefined && hasPicture
 }
 
 object Streamer {
@@ -42,8 +45,12 @@ object Streamer {
   def make(user: User) = Streamer(
     _id = Id(user.id),
     listed = Listed(true),
-    approved = Approved(false),
-    autoFeatured = AutoFeatured(false),
+    approval = Approval(
+      requested = false,
+      granted = false,
+      ignored = false,
+      autoFeatured = false
+    ),
     chatEnabled = ChatEnabled(true),
     picturePath = none,
     name = Name(user.realNameOrUsername),
@@ -57,8 +64,12 @@ object Streamer {
 
   case class Id(value: User.ID) extends AnyVal with StringValue
   case class Listed(value: Boolean) extends AnyVal
-  case class Approved(value: Boolean) extends AnyVal
-  case class AutoFeatured(value: Boolean) extends AnyVal
+  case class Approval(
+      requested: Boolean, // user requests a mod to approve
+      granted: Boolean, // a mod approved
+      ignored: Boolean, // further requests are ignored
+      autoFeatured: Boolean // on homepage when title contains "lichess.org"
+  )
   case class ChatEnabled(value: Boolean) extends AnyVal
   case class PicturePath(value: String) extends AnyVal with StringValue
   case class Name(value: String) extends AnyVal with StringValue

@@ -20,8 +20,12 @@ private final class Importer(api: StreamerApi, flagColl: Coll) {
           api.save(Streamer(
             _id = Id(s.lichessName.toLowerCase),
             listed = Listed(true),
-            approved = Approved(true),
-            autoFeatured = AutoFeatured(s.featured),
+            approval = Approval(
+              requested = false,
+              granted = true,
+              ignored = false,
+              autoFeatured = s.featured
+            ),
             chatEnabled = ChatEnabled(s.chat),
             picturePath = none,
             name = Name {
