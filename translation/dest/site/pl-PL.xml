@@ -56,6 +56,7 @@
   <string name="showThreat">Pokaż zagrożenia</string>
   <string name="inLocalBrowser">w przeglądarce</string>
   <string name="toggleLocalEvaluation">Włącz/wyłącz lokalną ewaluację</string>
+  <string name="deleteFromHere">Usuń począwszy odtąd</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrany</string>
   <string name="variantWin">Wariant wygrany</string>
@@ -798,6 +799,11 @@
   <string name="notifications">Powiadomienia</string>
   <string name="challenges">Wyzwania</string>
   <string name="perfRatingX">Ranking: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekunda na wykonanie pierwszego ruchu</item>
+    <item quantity="few">%s sekundy na wykonanie pierwszego ruchu</item>
+    <item quantity="other">%s sekund na wykonanie pierwszego ruchu</item>
+  </plurals>
   <string name="practiceWithComputer">Trening z komputerem</string>
   <string name="anotherWasX">Inna możliwość to %s</string>
   <string name="bestWasX">Najlepsze było %s</string>
