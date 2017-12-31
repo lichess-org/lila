@@ -789,6 +789,7 @@ i %3$s</string>
   <string name="whiteWinsGame">Hvit vinner</string>
   <string name="blackWinsGame">Svart vinner</string>
   <string name="learnFromYourMistakes">Lær av dine feil</string>
+  <string name="learnFromThisMistake">Lær av denne feilen</string>
   <string name="skipThisMove">Hopp over dette trekket</string>
   <string name="next">Neste</string>
   <string name="xWasPlayed">%s ble spilt</string>
@@ -815,4 +816,10 @@ i %3$s</string>
   <string name="opening">Åpning</string>
   <string name="middlegame">Midtspill</string>
   <string name="endgame">Sluttspill</string>
+  <string name="registerToSendChallenges">Opprett en konto om du vil utforde andre.</string>
+  <string name="youCannotChallengeX">Du kan ikke utfordre %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s aksepterer ikke utfordringer.</string>
+  <string name="yourXRatingIsTooFarFromY">Din %1$s rating er for langt fra %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan ikke utfordre på grunn av midlertidig %s rating.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s aksepterer kun utfordringer fra venner.</string>
 </resources>
