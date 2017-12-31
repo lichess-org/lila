@@ -56,6 +56,9 @@
   <string name="showThreat">狙いを表示</string>
   <string name="inLocalBrowser">ローカル ブラウザ内で</string>
   <string name="toggleLocalEvaluation">ローカル評価値のオン/オフ</string>
+  <string name="promoteVariation">変化を主手順にする</string>
+  <string name="makeMainLine">主手順にする</string>
+  <string name="deleteFromHere">ここから削除</string>
   <string name="move">手</string>
   <string name="variantLoss">バリアント負け</string>
   <string name="variantWin">バリアント勝ち</string>
@@ -736,6 +739,9 @@
   <string name="notifications">通知</string>
   <string name="challenges">チャレンジ</string>
   <string name="perfRatingX">レーティング: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">あと %s 秒以内に初手を指してください</item>
+  </plurals>
   <string name="practiceWithComputer">コンピューターと練習する</string>
   <string name="anotherWasX">別の手は %s</string>
   <string name="bestWasX">最善手は %s</string>
@@ -750,6 +756,7 @@
   <string name="whiteWinsGame">白勝ち</string>
   <string name="blackWinsGame">黒勝ち</string>
   <string name="learnFromYourMistakes">自分の悪手に学ぼう</string>
+  <string name="learnFromThisMistake">この悪手に学ぶ</string>
   <string name="skipThisMove">この手を飛ばす</string>
   <string name="next">次</string>
   <string name="xWasPlayed">指されたのは %s</string>
