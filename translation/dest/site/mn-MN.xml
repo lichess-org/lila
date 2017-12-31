@@ -735,7 +735,6 @@
   <string name="notifications">Мэдэгдэлүүд</string>
   <string name="challenges">Бодлогууд</string>
   <string name="perfRatingX">Чансаа:%s</string>
-  <string name="xSecondsToPlayTheFirstMove">Эхний нүүдэл хийхэд %s секунд байна</string>
   <string name="practiceWithComputer">Компьютертэй сургуулилах</string>
   <string name="anotherWasX">Өөр хувилбар %s</string>
   <string name="bestWasX">Хамгийн сайн нүүдэл нь %s байсан</string>
