@@ -781,8 +781,10 @@
   <string name="whiteWinsGame">Белите побеждават</string>
   <string name="blackWinsGame">Черните побеждават</string>
   <string name="learnFromYourMistakes">Учете се от грешките си</string>
+  <string name="learnFromThisMistake">Поучете се от тази грешка</string>
   <string name="skipThisMove">Пропускане на този ход</string>
   <string name="next">Напред</string>
+  <string name="xWasPlayed">Предишен ход: %s</string>
   <string name="findBetterMoveForWhite">Намерете по-добър ход за белите</string>
   <string name="findBetterMoveForBlack">Намерете по-добър ход за черните</string>
   <string name="resumeLearning">Възобновяване на обучението</string>
@@ -791,6 +793,10 @@
   <string name="tryAnotherMoveForBlack">Опитайте друг ход за черните</string>
   <string name="solution">Решение</string>
   <string name="waitingForAnalysis">Чакане на анализ</string>
+  <string name="noMistakesFoundForWhite">Не са намерени грешки за белите</string>
+  <string name="noMistakesFoundForBlack">Не са намерени грешки за черните</string>
+  <string name="doneReviewingWhiteMistakes">Приключен преглед за грешки на белите</string>
+  <string name="doneReviewingBlackMistakes">Приключен преглед за грешки на черните</string>
   <string name="doItAgain">Направете го пак</string>
   <string name="reviewWhiteMistakes">Преглед на грешки при белите</string>
   <string name="reviewBlackMistakes">Преглед на грешки при черните</string>
@@ -799,4 +805,7 @@
     <item quantity="one">%s секунда</item>
     <item quantity="other">%s секунди</item>
   </plurals>
+  <string name="opening">Дебют</string>
+  <string name="middlegame">Мителшпил</string>
+  <string name="endgame">Ендшпил</string>
 </resources>
