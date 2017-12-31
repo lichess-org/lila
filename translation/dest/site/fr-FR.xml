@@ -767,7 +767,6 @@ en %3$s</string>
   <string name="notifications">Notifications</string>
   <string name="challenges">Défis</string>
   <string name="perfRatingX">Classement : %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s secondes pour jouer le premier coup</string>
   <string name="practiceWithComputer">S\'entrainer avec un ordinateur</string>
   <string name="anotherWasX">Un autre était %s</string>
   <string name="bestWasX">Meilleur était %s</string>
