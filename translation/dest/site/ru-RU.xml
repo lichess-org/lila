@@ -26,7 +26,7 @@
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Гонка окончена</string>
   <string name="variantEnding">Партия окончена</string>
-  <string name="newOpponent">Новый соперник</string>
+  <string name="newOpponent">Вызвать нового соперника</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Соперник предлагает вам сыграть ещё раз</string>
   <string name="joinTheGame">Принять вызов</string>
   <string name="whitePlays">Ход белых</string>
