@@ -728,7 +728,6 @@
   <string name="notifications">通知</string>
   <string name="challenges">挑战</string>
   <string name="perfRatingX">积分：%s</string>
-  <string name="xSecondsToPlayTheFirstMove">您必须在%s内下第一步棋</string>
   <string name="theGameIsADraw">本局和棋.</string>
   <string name="computerThinking">电脑正在思考中。</string>
   <string name="whiteWinsGame">白胜</string>
