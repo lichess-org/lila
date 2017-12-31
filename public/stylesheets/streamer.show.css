@@ -1,0 +1,55 @@
+.streamer .top {
+  display: flex;
+}
+.streamer img.picture {
+  flex: 0 0 250px;
+  background: #888;
+}
+.streamer .overview {
+  margin: 20px 10px 0 20px;
+}
+.streamer h1 {
+  font-family: 'Roboto';
+  font-size: 32px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding: 0 0 16px 0!important;
+  text-shadow: none!important;
+}
+.streamer .headline {
+  font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
+  font-size: 17px;
+  padding: 0 0 10px 0!important;
+}
+.streamer .headline.medium {
+  font-size: 15px;
+  padding-bottom: 18px!important;
+}
+.streamer .headline.large {
+  font-size: 14px;
+  padding-bottom: 14px!important;
+}
+.streamer .services {
+  margin-top: 5px;
+}
+.streamer .service {
+  display: flex;
+  font-size: 1.5em;
+  font-weight: bold;
+  white-space: nowrap;
+  padding: 5px 0;
+}
+.streamer .service svg {
+  width: 1.4em;
+  height: 1.4em;
+  margin-right: 0.4em;
+}
+.streamer .live {
+  margin-bottom: 20px;
+}
+.streamer .live iframe {
+  border: none;
+}
+body.dark .streamer .service svg path {
+  fill: #aaa;
+}

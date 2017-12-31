@@ -3,9 +3,6 @@
   position: relative;
   display: flex;
 }
-.streamers .streamer {
-  border-right: 1px solid #ccc;
-}
 .streamers .streamer:hover {
   background: rgba(191, 231, 255, 0.5);
 }
@@ -37,6 +34,14 @@
   font-size: 17px;
   padding: 0 0 10px 0!important;
 }
+.streamers .streamer .headline.medium {
+  font-size: 15px;
+  padding-bottom: 18px!important;
+}
+.streamers .streamer .headline.large {
+  font-size: 14px;
+  padding-bottom: 14px!important;
+}
 .streamers .streamer .services {
   margin-top: 5px;
 }
@@ -54,14 +59,6 @@
 }
 body.dark .streamers .streamer .service svg path {
   fill: #aaa;
-}
-.streamers .streamer .headline.medium {
-  font-size: 15px;
-  padding-bottom: 18px!important;
-}
-.streamers .streamer .headline.large {
-  font-size: 14px;
-  padding-bottom: 14px!important;
 }
 @media (max-width: 1084px) {
   .streamer-side {

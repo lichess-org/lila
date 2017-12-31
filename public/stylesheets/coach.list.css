@@ -40,9 +40,6 @@
   position: relative;
   display: flex;
 }
-.coaches .coach {
-  border-right: 1px solid #ccc;
-}
 .coaches .coach:hover {
   background: rgba(191, 231, 255, 0.5);
 }

@@ -13,10 +13,55 @@
 
 @base.layout(title = s"${s.user.titleUsername} streams on lichess.org",
 side = side.some,
-moreCss = cssTag("streamer.css")) {
-<div class="content_box no_padding coach">
+moreCss = cssTag("streamer.show.css")) {
+<div class="content_box no_padding streamer">
+  @s.streamer.twitch.filter(_.live.now).map { twitch =>
+  <div class="live twitch">
+    <iframe
+      src="https://player.twitch.tv/?channel=@twitch.userId"
+      width="792"
+      height="477"
+      allowfullscreen autoplay></iframe>
+  </div>
+  }.getOrElse {
+  @s.streamer.youTube.filter(_.live.now).map { yt =>
+  <div class="live youTube">
+  <iframe
+    width="792"
+    height="446"
+    src="https://www.youtube.com/embed/@yt.channelId?autoplay=1"
+    frameborder="0" allowfullscreen></iframe>
+  </div>
+  }
+  }
   <div class="top">
-    @widget(s)
+    @pic(s, 250)
+    <div class="overview">
+      <h1>@s.streamer.name</h1>
+      @s.streamer.description.map(_.value).map { d =>
+      <p class="headline @if(d.size < 60){small} else {@if(d.size < 120){medium}else{large}}">@d</p>
+      }
+      <div class="services">
+        @s.streamer.twitch.map { twitch =>
+        <a class="service twitch" href="@twitch.fullUrl">
+          @StreamerSvg.twitch
+          @twitch.minUrl
+        </a>
+        }
+        @s.streamer.youTube.map { youTube =>
+        <a class="service youTube" href="@youTube.fullUrl">
+          @StreamerSvg.youTube
+          @youTube.minUrl
+        </a>
+        }
+      </div>
+      @s.streamer.seenAt.map { seenAt =>
+      <p class="at">@trans.lastSeenActive(momentFromNow(seenAt))</p>
+      }
+      @s.streamer.liveAt.map { liveAt =>
+      <p class="at">Last stream @momentFromNow(liveAt)</p>
+      }
+    </div>
   </div>
 </div>
 }

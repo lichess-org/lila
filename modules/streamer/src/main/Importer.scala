@@ -24,9 +24,9 @@ private final class Importer(api: StreamerApi, flagColl: Coll) {
               requested = false,
               granted = true,
               ignored = false,
-              autoFeatured = s.featured
+              autoFeatured = s.featured,
+              chatEnabled = s.chat
             ),
-            chatEnabled = ChatEnabled(s.chat),
             picturePath = none,
             name = Name {
               s.streamerNameForDisplay.fold(user.realNameOrUsername)(removeTitle)

@@ -69,14 +69,20 @@ side = side.some) {
     @base.form.group(form("approval.granted"), Html("Publish on the streamers list"), help = Html("Moderators only").some, half = true) {
     @base.form.select(form("approval.granted"), booleanChoices)
     }
-    @base.form.group(form("approval.featured"), Html("Feature on lichess homepage"), help = Html("Moderators only").some, half = true) {
-    @base.form.select(form("approval.featured"), booleanChoices)
-    }
     @base.form.group(form("approval.requested"), Html("Active approval request"), help = Html("Moderators only").some, half = true) {
     @base.form.select(form("approval.requested"), booleanChoices)
     }
+    @if(granted) {
+    @base.form.group(form("approval.chat"), Html("Embed stream chat too"), help = Html("Moderators only").some, half = true) {
+    @base.form.select(form("approval.chat"), booleanChoices)
+    }
+    @base.form.group(form("approval.featured"), Html("Feature on lichess homepage"), help = Html("Moderators only").some, half = true) {
+    @base.form.select(form("approval.featured"), booleanChoices)
+    }
+    } else {
     @base.form.group(form("approval.ignored"), Html("Ignore further approval requests"), help = Html("Moderators only").some, half = true) {
     @base.form.select(form("approval.ignored"), booleanChoices)
+    }
     }
     }
     @base.form.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some) {

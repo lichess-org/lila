@@ -8,7 +8,6 @@ case class Streamer(
     _id: Streamer.Id, // user ID
     listed: Streamer.Listed, // user wants to be in the list
     approval: Streamer.Approval,
-    chatEnabled: Streamer.ChatEnabled, // embed chat inside lichess
     picturePath: Option[Streamer.PicturePath],
     name: Streamer.Name,
     description: Option[Streamer.Description],
@@ -49,9 +48,9 @@ object Streamer {
       requested = false,
       granted = false,
       ignored = false,
-      autoFeatured = false
+      autoFeatured = false,
+      chatEnabled = true
     ),
-    chatEnabled = ChatEnabled(true),
     picturePath = none,
     name = Name(s"${user.title.??(_ + " ")}${user.realNameOrUsername}"),
     description = none,
@@ -68,16 +67,16 @@ object Streamer {
       requested: Boolean, // user requests a mod to approve
       granted: Boolean, // a mod approved
       ignored: Boolean, // further requests are ignored
-      autoFeatured: Boolean // on homepage when title contains "lichess.org"
+      autoFeatured: Boolean, // on homepage when title contains "lichess.org"
+      chatEnabled: Boolean // embed chat inside lichess
   )
-  case class ChatEnabled(value: Boolean) extends AnyVal
   case class PicturePath(value: String) extends AnyVal with StringValue
   case class Name(value: String) extends AnyVal with StringValue
   case class Description(value: String) extends AnyVal with StringValue
   case class Sorting(streaming: Boolean, seenAt: Option[DateTime])
   object Sorting { val empty = Sorting(false, none) }
   case class Live(liveAt: Option[DateTime], checkedAt: Option[DateTime]) {
-    def now = liveAt ?? { l =>
+    def now = liveAt.filter(DateTime.now.minusMinutes(1).isBefore) ?? { l =>
       checkedAt ?? { l == }
     }
   }

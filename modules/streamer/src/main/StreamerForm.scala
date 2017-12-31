@@ -17,7 +17,8 @@ object StreamerForm {
       "granted" -> boolean,
       "featured" -> boolean,
       "requested" -> boolean,
-      "ignored" -> boolean
+      "ignored" -> boolean,
+      "chat" -> boolean
     )(ApprovalData.apply)(ApprovalData.unapply))
   )(UserData.apply)(UserData.unapply))
 
@@ -30,7 +31,8 @@ object StreamerForm {
       granted = streamer.approval.granted,
       featured = streamer.approval.autoFeatured,
       requested = streamer.approval.requested,
-      ignored = streamer.approval.ignored
+      ignored = streamer.approval.ignored,
+      chat = streamer.approval.chatEnabled
     ).some
   )
 
@@ -63,7 +65,8 @@ object StreamerForm {
               if (streamer.approval.requested != m.requested) m.requested
               else streamer.approval.requested || m.requested
             },
-            ignored = m.ignored && !m.granted
+            ignored = m.ignored && !m.granted,
+            chatEnabled = m.chat
           )
           case None if streamer.twitch != newStreamer.twitch || streamer.youTube != newStreamer.youTube =>
             streamer.approval.copy(granted = false, autoFeatured = false)
@@ -77,7 +80,8 @@ object StreamerForm {
       granted: Boolean,
       featured: Boolean,
       requested: Boolean,
-      ignored: Boolean
+      ignored: Boolean,
+      chat: Boolean
   )
 
   private implicit val descriptionFormat = lila.common.Form.formatter.stringFormatter[Description](_.value, Description.apply)
