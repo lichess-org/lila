@@ -770,10 +770,14 @@
   <string name="practiceWithComputer">Практикуване с компютър</string>
   <string name="anotherWasX">Друг ход бе %s</string>
   <string name="bestWasX">Най-добър ход е %s</string>
+  <string name="youBrowsedAway">Навигирахте към друг изглед</string>
+  <string name="resumePractice">Подновяване на упражнението</string>
   <string name="theGameIsADraw">Партията е реми.</string>
   <string name="computerThinking">Компютърът размишлява...</string>
   <string name="seeBestMove">Вижте най-добрия ход</string>
   <string name="hideBestMove">Скриване на най-добрия ход</string>
+  <string name="getAHint">Подсказка</string>
+  <string name="evaluatingYourMove">Оценяване на хода...</string>
   <string name="whiteWinsGame">Белите побеждават</string>
   <string name="blackWinsGame">Черните побеждават</string>
   <string name="learnFromYourMistakes">Учете се от грешките си</string>
