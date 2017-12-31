@@ -56,6 +56,9 @@
   <string name="showThreat">Mostrar ameaça</string>
   <string name="inLocalBrowser">no navegador local</string>
   <string name="toggleLocalEvaluation">Ativar/Desativar análise local</string>
+  <string name="promoteVariation">Promover variante</string>
+  <string name="makeMainLine">Transformar em linha principal</string>
+  <string name="deleteFromHere">Excluir a partir daqui</string>
   <string name="move">Movimentos</string>
   <string name="variantLoss">Derrota por variante</string>
   <string name="variantWin">Vitória por variante</string>
@@ -808,4 +811,5 @@ em %3$s</string>
   <string name="opening">Abertura</string>
   <string name="middlegame">Meio-jogo</string>
   <string name="endgame">Finais</string>
+  <string name="registerToSendChallenges">Por favor, registre-se para enviar desafios.</string>
 </resources>
