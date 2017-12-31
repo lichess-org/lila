@@ -7,7 +7,8 @@ export default function(text: string, parseMoves: boolean): string {
 
 const linkPattern = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?):\/\/|lichess\.org\/)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 
-function linkReplace(_: string, before: string, url: string) {
+function linkReplace(match: string, before: string, url: string) {
+  if (url.indexOf('@') !== -1 || url.indexOf('&quot;') !== -1) return match;
   const fullUrl = url.indexOf('http') === 0 ? url : 'https://' + url;
   const minUrl = url.replace(/^(?:https:\/\/)?(.+)$/, '$1');
   return before + '<a target="_blank" rel="nofollow" href="' + fullUrl + '">' + minUrl + '</a>';
