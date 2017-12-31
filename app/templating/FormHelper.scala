@@ -36,5 +36,5 @@ trait FormHelper { self: I18nHelper =>
       Html(s"""<div class="form-group has-error">${errMsg(msg)}</div>""")
     }
 
-  val booleanChoices = Seq("true" -> "Yes", "false" -> "No")
+  val booleanChoices = Seq("true" -> "✓ Yes", "false" -> "✗ No")
 }

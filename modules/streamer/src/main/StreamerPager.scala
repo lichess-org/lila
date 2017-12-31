@@ -14,10 +14,15 @@ final class StreamerPager(
 
   import BsonHandlers._
 
-  def apply(page: Int): Fu[Paginator[Streamer.WithUser]] = {
+  def apply(page: Int, approvalRequested: Boolean = false): Fu[Paginator[Streamer.WithUser]] = {
     val adapter = new Adapter[Streamer](
       collection = coll,
-      selector = $doc("listed" -> Streamer.Listed(true)),
+      selector =
+        if (approvalRequested) $doc(
+          "approval.requested" -> true,
+          "approval.ignored" -> false
+        )
+        else $doc("listed" -> Streamer.Listed(true)),
       projection = $empty,
       sort = $doc(
         "sorting.streaming" -> -1,

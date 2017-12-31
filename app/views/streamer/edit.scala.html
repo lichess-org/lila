@@ -66,17 +66,17 @@ side = side.some) {
   <form class="content_box_content material form" action="@routes.Streamer.edit" method="POST">
     @errMsgMaterial(form.errors)
     @if(isGranted(_.Streamers)) {
-    @base.form.group(form("mod.approved"), Html("Publish on the streamers list"), help = Html("Moderation").some, half = true) {
-    @base.form.select(form("mod.approved"), booleanChoices)
+    @base.form.group(form("approval.granted"), Html("Publish on the streamers list"), help = Html("Moderators only").some, half = true) {
+    @base.form.select(form("approval.granted"), booleanChoices)
     }
-    @if(granted) {
-    @base.form.group(form("mod.featured"), Html("Feature on lichess homepage"), help = Html("Moderation").some, half = true) {
-    @base.form.select(form("mod.featured"), booleanChoices)
+    @base.form.group(form("approval.featured"), Html("Feature on lichess homepage"), help = Html("Moderators only").some, half = true) {
+    @base.form.select(form("approval.featured"), booleanChoices)
     }
-    } else {
-    @base.form.group(form("mod.ignored"), Html("Ignore further approval requests"), help = Html("Moderation").some, half = true) {
-    @base.form.select(form("mod.ignored"), booleanChoices)
+    @base.form.group(form("approval.requested"), Html("Active approval request"), help = Html("Moderators only").some, half = true) {
+    @base.form.select(form("approval.requested"), booleanChoices)
     }
+    @base.form.group(form("approval.ignored"), Html("Ignore further approval requests"), help = Html("Moderators only").some, half = true) {
+    @base.form.select(form("approval.ignored"), booleanChoices)
     }
     }
     @base.form.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some) {

@@ -64,6 +64,11 @@ final class StreamerApi(
         coll.updateField($id(s.streamer.id), "approval.requested", true).void
       }
     }
+
+    def countRequests: Fu[Int] = coll.countSel($doc(
+      "approval.requested" -> true,
+      "approval.ignored" -> false
+    ))
   }
 
   private def withUser(user: User)(streamer: Streamer) = Streamer.WithUser(streamer, user)

@@ -1,5 +1,5 @@
-@(s: lila.streamer.Streamer.WithUser)(implicit ctx: Context)
-<a class="overlay" href="@routes.Streamer.show(s.user.username)"></a>
+@(s: lila.streamer.Streamer.WithUser, edit: Boolean = false)(implicit ctx: Context)
+<a class="overlay" href="@if(edit){@routes.Streamer.edit?u=@s.user.username}else{@routes.Streamer.show(s.user.username)}"></a>
 @pic(s, 250)
 @defining(s.user.profileOrDefault) { profile =>
 <div class="overview">

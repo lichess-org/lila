@@ -12,8 +12,9 @@ object Streamer extends LilaController {
   private def api = Env.streamer.api
 
   def index(page: Int) = Open { implicit ctx =>
-    Env.streamer.pager(page) map { pager =>
-      Ok(html.streamer.index(pager))
+    val requests = getBool("requests") && isGranted(_.Streamers)
+    Env.streamer.pager(page, requests) map { pager =>
+      Ok(html.streamer.index(pager, requests))
     }
   }
 

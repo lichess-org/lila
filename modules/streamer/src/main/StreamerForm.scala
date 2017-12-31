@@ -13,11 +13,12 @@ object StreamerForm {
     "description" -> optional(description),
     "twitch" -> optional(nonEmptyText.verifying("Invalid Twitch username", s => Streamer.Twitch.parseUserId(s).isDefined)),
     "youTube" -> optional(nonEmptyText.verifying("Invalid YouTube channel", s => Streamer.YouTube.parseChannelId(s).isDefined)),
-    "mod" -> optional(mapping(
-      "approved" -> boolean,
-      "ignored" -> boolean,
-      "featured" -> boolean
-    )(ModData.apply)(ModData.unapply))
+    "approval" -> optional(mapping(
+      "granted" -> boolean,
+      "featured" -> boolean,
+      "requested" -> boolean,
+      "ignored" -> boolean
+    )(ApprovalData.apply)(ApprovalData.unapply))
   )(UserData.apply)(UserData.unapply))
 
   def userForm(streamer: Streamer) = emptyUserForm fill UserData(
@@ -25,10 +26,11 @@ object StreamerForm {
     description = streamer.description,
     twitch = streamer.twitch.map(_.userId),
     youTube = streamer.youTube.map(_.channelId),
-    mod = ModData(
-      approved = streamer.approval.granted,
-      ignored = streamer.approval.ignored,
-      featured = streamer.approval.autoFeatured
+    approval = ApprovalData(
+      granted = streamer.approval.granted,
+      featured = streamer.approval.autoFeatured,
+      requested = streamer.approval.requested,
+      ignored = streamer.approval.ignored
     ).some
   )
 
@@ -37,7 +39,7 @@ object StreamerForm {
       description: Option[Description],
       twitch: Option[String],
       youTube: Option[String],
-      mod: Option[ModData]
+      approval: Option[ApprovalData]
   ) {
 
     def apply(streamer: Streamer, asMod: Boolean) = {
@@ -53,11 +55,15 @@ object StreamerForm {
         updatedAt = DateTime.now
       )
       newStreamer.copy(
-        approval = mod match {
+        approval = approval match {
           case Some(m) if asMod => streamer.approval.copy(
-            granted = m.approved,
-            ignored = m.ignored && !m.approved,
-            autoFeatured = m.featured && m.approved
+            granted = m.granted,
+            autoFeatured = m.featured && m.granted,
+            requested = !m.granted && {
+              if (streamer.approval.requested != m.requested) m.requested
+              else streamer.approval.requested || m.requested
+            },
+            ignored = m.ignored && !m.granted
           )
           case None if streamer.twitch != newStreamer.twitch || streamer.youTube != newStreamer.youTube =>
             streamer.approval.copy(granted = false, autoFeatured = false)
@@ -67,10 +73,11 @@ object StreamerForm {
     }
   }
 
-  case class ModData(
-      approved: Boolean,
-      ignored: Boolean,
-      featured: Boolean
+  case class ApprovalData(
+      granted: Boolean,
+      featured: Boolean,
+      requested: Boolean,
+      ignored: Boolean
   )
 
   private implicit val descriptionFormat = lila.common.Form.formatter.stringFormatter[Description](_.value, Description.apply)
