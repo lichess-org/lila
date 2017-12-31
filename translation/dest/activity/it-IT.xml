@@ -28,7 +28,7 @@
     <item quantity="other">%s partite per corrispondenza</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Ha iniziato a seguire %s giocatori</item>
+    <item quantity="one">Ha iniziato a seguire %s giocatore</item>
     <item quantity="other">Ha iniziato a seguire %s giocatori</item>
   </plurals>
   <plurals name="gainedNbFollowers">
