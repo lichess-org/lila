@@ -53,7 +53,7 @@ object Streamer {
     ),
     chatEnabled = ChatEnabled(true),
     picturePath = none,
-    name = Name(user.realNameOrUsername),
+    name = Name(s"${user.title.??(_ + " ")}${user.realNameOrUsername}"),
     description = none,
     twitch = none,
     youTube = none,

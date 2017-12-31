@@ -29,7 +29,10 @@ object Streamer extends LilaController {
   def create = Auth { implicit ctx => me =>
     NoLame {
       NoShadowban {
-        Ok(html.streamer.create(me)).fuccess
+        api.find(me) map {
+          case None => Ok(html.streamer.create(me))
+          case _ => Redirect(routes.Streamer.edit)
+        }
       }
     }
   }
@@ -37,7 +40,10 @@ object Streamer extends LilaController {
   def createApply = AuthBody { implicit ctx => me =>
     NoLame {
       NoShadowban {
-        api.create(me) inject Redirect(routes.Streamer.edit)
+        api.find(me) flatMap {
+          case None => api.create(me) inject Redirect(routes.Streamer.edit)
+          case _ => Redirect(routes.Streamer.edit).fuccess
+        }
       }
     }
   }
