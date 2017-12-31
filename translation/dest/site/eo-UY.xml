@@ -786,8 +786,19 @@
   <string name="evaluatingYourMove">Taksante vian movon ...</string>
   <string name="whiteWinsGame">Blanko venkas</string>
   <string name="blackWinsGame">Nigro venkas</string>
+  <string name="learnFromYourMistakes">Lerni de viaj eraroj</string>
+  <string name="learnFromThisMistake">Lerni de tio ĉi eraro</string>
+  <string name="skipThisMove">Preterpasi tion ĉi movon</string>
+  <string name="next">Sekva</string>
+  <string name="xWasPlayed">%s ludita</string>
+  <string name="findBetterMoveForWhite">Trovi plibonan movon por blanka</string>
+  <string name="findBetterMoveForBlack">Trovi plibonan movon por nigra</string>
   <string name="resumeLearning">Daŭrigi lerni</string>
   <string name="youCanDoBetter">Vi povas fari pli bone</string>
+  <string name="tryAnotherMoveForWhite">Provi por blanka alian movon</string>
+  <string name="tryAnotherMoveForBlack">Provi por nigra alian movon</string>
+  <string name="solution">Solvo</string>
+  <string name="waitingForAnalysis">Atendante analizon</string>
   <string name="doItAgain">Fari ĝin denove</string>
   <string name="advantage">Avantaĝo</string>
 </resources>
