@@ -57,6 +57,8 @@
   <string name="inLocalBrowser">en loka foliumilo</string>
   <string name="toggleLocalEvaluation">Mal/aktivigi lokan takson</string>
   <string name="promoteVariation">Plivalorigi variaĵon</string>
+  <string name="makeMainLine">Precipigi vicon</string>
+  <string name="deleteFromHere">Forigi ekde tie ĉi</string>
   <string name="move">Moviĝi</string>
   <string name="variantLoss">Variaĵa malvenko</string>
   <string name="variantWin">Variaĵa venko</string>
@@ -195,6 +197,7 @@
   <string name="accept">Akcepti</string>
   <string name="decline">Malakcepti</string>
   <string name="playingRightNow">Ludate nun</string>
+  <string name="eventInProgress">Ludanta</string>
   <string name="finished">Finite</string>
   <string name="abortGame">Abortigi ludon</string>
   <string name="gameAborted">Ludo estis abortigita</string>
@@ -203,6 +206,8 @@
   <string name="mode">Moduso</string>
   <string name="casual">Amike</string>
   <string name="rated">Range</string>
+  <string name="casualTournament">Amike</string>
+  <string name="ratedTournament">Taksa</string>
   <string name="thisGameIsRated">Ĉi tiu ludo estas ranga</string>
   <string name="rematch">Reludi</string>
   <string name="rematchOfferSent">Rematĉa oferto estis sendita</string>
@@ -268,6 +273,10 @@
   <string name="tournament">Turniro</string>
   <string name="tournaments">Turniroj</string>
   <string name="tournamentPoints">Turniraj poentoj</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turnira poento</item>
+    <item quantity="other">%s turnira poento</item>
+  </plurals>
   <string name="viewTournament">Vidi turniron</string>
   <string name="backToTournament">Reiri al turniro</string>
   <string name="thematic">Tema</string>
@@ -760,7 +769,13 @@
   <string name="notifications">Sciigoj</string>
   <string name="challenges">Defioj</string>
   <string name="perfRatingX">Rango: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekundo por ludi la unuan movon</item>
+    <item quantity="other">%s sekundoj por ludi la unuan movon</item>
+  </plurals>
   <string name="practiceWithComputer">Praktiki kun komputilo</string>
+  <string name="anotherWasX">Alia estis %s</string>
+  <string name="bestWasX">Plejbona estis %s</string>
   <string name="youBrowsedAway">Vi retumis foren</string>
   <string name="resumePractice">Daŭrigi praktikon</string>
   <string name="theGameIsADraw">La ludo egalvenkas.</string>
