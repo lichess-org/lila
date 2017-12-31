@@ -759,7 +759,6 @@
   <string name="notifications">Értesítések</string>
   <string name="challenges">Kihívások</string>
   <string name="perfRatingX">Pontszám: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s másodperc van hátra az első lépés megtételére</string>
   <string name="practiceWithComputer">Gyakorlás a géppel</string>
   <string name="anotherWasX">Ez is jó lett volna: %s</string>
   <string name="bestWasX">Ez lett volna a legjobb lépés: %s</string>
