@@ -805,6 +805,7 @@ u %3$s</string>
   <string name="whiteWinsGame">Bijeli pobjeđuje</string>
   <string name="blackWinsGame">Crni pobjeđuje</string>
   <string name="learnFromYourMistakes">Uči iz svojih grešaka</string>
+  <string name="learnFromThisMistake">Nauči od ove greške</string>
   <string name="skipThisMove">Preskoči ovaj potez</string>
   <string name="next">Dalje</string>
   <string name="xWasPlayed">%s je odigran</string>
@@ -832,5 +833,8 @@ u %3$s</string>
   <string name="opening">Otvaranje</string>
   <string name="middlegame">Središnjica</string>
   <string name="endgame">Završnica</string>
+  <string name="registerToSendChallenges">Za slanje izazova morate se registrirati.</string>
+  <string name="youCannotChallengeX">Ne možete izazvati %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s ne prihvaća izazove.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s samo prihvaća izazove od prijatelja.</string>
 </resources>
