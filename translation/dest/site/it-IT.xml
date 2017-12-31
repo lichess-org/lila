@@ -768,7 +768,6 @@ in %3$s</string>
   <string name="notifications">Notifiche</string>
   <string name="challenges">Sfide</string>
   <string name="perfRatingX">Punteggio: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s secondi per giocare la prima mossa</string>
   <string name="practiceWithComputer">Allenati con il computer</string>
   <string name="anotherWasX">In alternativa %s</string>
   <string name="bestWasX">Mossa migliore %s</string>
