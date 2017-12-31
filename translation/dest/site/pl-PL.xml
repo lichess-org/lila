@@ -56,6 +56,8 @@
   <string name="showThreat">Pokaż zagrożenia</string>
   <string name="inLocalBrowser">w przeglądarce</string>
   <string name="toggleLocalEvaluation">Włącz/wyłącz lokalną ewaluację</string>
+  <string name="promoteVariation">Promuj ten wariant</string>
+  <string name="makeMainLine">Promuj na główny wariant</string>
   <string name="deleteFromHere">Usuń począwszy odtąd</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrany</string>
@@ -818,6 +820,7 @@
   <string name="whiteWinsGame">Wygrana białych</string>
   <string name="blackWinsGame">Wygrana czarnych</string>
   <string name="learnFromYourMistakes">Ucz się na swoich błędach</string>
+  <string name="learnFromThisMistake">Ucz się na tym błędzie</string>
   <string name="skipThisMove">Pomiń ten ruch</string>
   <string name="next">Następny</string>
   <string name="xWasPlayed">Zagrano %s</string>
