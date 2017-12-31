@@ -11,7 +11,7 @@ side = side.some,
 openGraph = lila.app.ui.OpenGraph(
 title = q.title,
 url = s"$netBaseUrl${routes.QaQuestion.show(q.id, q.slug).url}",
-description = shorten(q.body.replace("\n", ""), 152).body).some) {
+description = shorten(q.body, 152)).some) {
 
 <div class="question">
   <div class="content_box_top">
@@ -52,7 +52,7 @@ description = shorten(q.body.replace("\n", ""), 152).body).some) {
       </div>
       <div class="content">
         <div class="body">
-          @autoLink(q.body)
+          @richText(q.body)
         </div>
         <div class="comments" id="question-@q.id-comments">
           @views.html.qa.commentList(q, q.comments.sorted, routes.QaComment.question(q.id).url)

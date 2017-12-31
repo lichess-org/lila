@@ -12,7 +12,8 @@ import * as util from './util';
 import * as chessUtil from 'chess';
 import { storedProp, throttle, defined, prop, Prop, StoredBooleanProp } from 'common';
 import { make as makeSocket, Socket } from './socket';
-import { make as makeForecast, ForecastCtrl } from './forecast/forecastCtrl';
+import { ForecastCtrl } from './forecast/interfaces';
+import { make as makeForecast } from './forecast/forecastCtrl';
 import { ctrl as cevalCtrl, isEvalBetter, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
 import explorerCtrl from './explorer/explorerCtrl';
 import { ExplorerCtrl } from './explorer/interfaces';
@@ -225,7 +226,7 @@ export default class AnalyseCtrl {
     this.actionMenu.open = false;
   }
 
-  private uciToLastMove(uci: Uci): Key[] | undefined {
+  private uciToLastMove(uci?: Uci): Key[] | undefined {
     if (!uci) return;
     if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)] as Key[];
     return [uci.substr(0, 2), uci.substr(2, 2)] as Key[];
@@ -311,7 +312,7 @@ export default class AnalyseCtrl {
   }
 
   playedLastMoveMyself = () =>
-    !!this.justPlayed && this.node.uci.indexOf(this.justPlayed) === 0;
+    !!this.justPlayed && !!this.node.uci && this.node.uci.indexOf(this.justPlayed) === 0;
 
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path;

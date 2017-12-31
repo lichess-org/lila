@@ -59,7 +59,7 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
   return h('a.show-threat', {
     class: {
       active: ctrl.threatMode(),
-      hidden: ctrl.getNode().check
+      hidden: !!ctrl.getNode().check
     },
     attrs: {
       'data-icon': '7',

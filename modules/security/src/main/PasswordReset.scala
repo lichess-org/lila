@@ -1,6 +1,7 @@
 package lila.security
 
 import play.api.i18n.Lang
+import play.twirl.api.Html
 
 import lila.common.EmailAddress
 import lila.user.{ User, UserRepo }
@@ -30,7 +31,7 @@ ${trans.common_orPaste.literalTxtTo(lang)}
 
 ${Mailgun.txt.serviceNote}
 """,
-        htmlBody = s"""
+        htmlBody = Html(s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
   <p itemprop="description">${trans.passwordReset_intro.literalHtmlTo(lang)}</p>
   <p>${trans.passwordReset_clickOrIgnore.literalHtmlTo(lang)}</p>
@@ -39,7 +40,7 @@ ${Mailgun.txt.serviceNote}
     ${Mailgun.html.url(url)}
   </div>
   ${Mailgun.html.serviceNote}
-</div>""".some
+</div>""").some
       )
     }
 

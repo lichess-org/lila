@@ -23,9 +23,9 @@
 </div>
 <div class="team-right">
   <p class="description">
-    @autoLink(t.description)
+    @richText(t.description)
     @t.location.map { loc =>
-    <br />@trans.location(): @autoLink(loc)
+    <br />@trans.location(): @richText(loc)
     }
   </p>
   <div class="actions">

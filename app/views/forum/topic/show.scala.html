@@ -16,7 +16,7 @@ moreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(
 title = s"Forum: ${categ.name} / ${topic.name} page ${posts.currentPage}",
 url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug).url}",
-description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n", ""), 152).body).some) {
+description = shorten(posts.currentPageResults.headOption.??(_.text), 152)).some) {
 <div class="topic">
   @categ.team.map { team =>
   <ol class="crumbs">
@@ -65,7 +65,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
         }
         }
       </div>
-      <p class="message">@autoLink(post.text)</p>
+      <p class="message">@richText(post.text)</p>
       @if(ctx.userId.fold(false)(post.shouldShowEditForm(_))) {
       <form class="edit-post-form" method="post" action="@routes.ForumPost.edit(post.id)">
         <textarea data-topic="@topic.id" name="changes" class="post-text-area edit-post-box" minlength="3" required>@post.text</textarea>

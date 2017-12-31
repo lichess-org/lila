@@ -42,7 +42,7 @@ lichess.trans = function(i18n) {
   trans.vdomPlural = function(key, count) {
     var pluralKey = key + ':' + lichess.quantity(count);
     var str = i18n[pluralKey] || i18n[key];
-    return str ? list(str, Array.prototype.slice.call(arguments, 1)) : [key];
+    return str ? list(str, Array.prototype.slice.call(arguments, 2)) : [key];
   };
   return trans;
 };

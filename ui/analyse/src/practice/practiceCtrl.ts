@@ -16,6 +16,11 @@ export interface Comment {
   }
 }
 
+interface Hinting {
+  mode: 'move' | 'piece';
+  uci: Uci;
+}
+
 export interface PracticeCtrl {
   [key: string]: any; // #TODO
 }
@@ -25,7 +30,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   const running = prop(true),
   comment = prop<Comment | null>(null),
   hovering = prop<any>(null),
-  hinting = prop<any>(null),
+  hinting = prop<Hinting | null>(null),
   played = prop(false);
 
   function ensureCevalRunning() {
@@ -67,7 +72,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prev.ceval);
 
       best = prev.ceval.pvs[0].moves[0];
-      if (best === node.uci || best === altCastles[node.uci]) best = null;
+      if (best === node.uci || best === altCastles[node.uci!]) best = null;
 
       if (!best) verdict = 'goodMove';
       else if (shift < 0.025) verdict = 'goodMove';

@@ -59,7 +59,7 @@ interface Trans {
   noarg(key: string): string;
   plural(key: string, count: number, ...args: Array<string | number>): string;
   vdom<T>(key: string, ...args: T[]): (string | T)[];
-  vdomPlural<T>(key: string, count: number, ...args: T[]): (string | number | T)[];
+  vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): (string | T)[];
 }
 
 interface Pubsub {
@@ -182,14 +182,14 @@ declare namespace Tree {
   export interface Node {
     id: string;
     ply: Ply;
-    uci: Uci;
+    uci?: Uci;
     fen: Fen;
     children: Node[];
     comments?: Comment[];
     gamebook?: Gamebook;
     dests?: string;
     drops: string | undefined | null;
-    check: boolean;
+    check?: boolean;
     threat?: ClientEval;
     ceval?: ClientEval;
     eval?: ServerEval;

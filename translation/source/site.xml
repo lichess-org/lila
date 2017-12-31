@@ -55,6 +55,9 @@
   <string name="showThreat">Show threat</string>
   <string name="inLocalBrowser">in local browser</string>
   <string name="toggleLocalEvaluation">Toggle local evaluation</string>
+  <string name="promoteVariation">Promote variation</string>
+  <string name="makeMainLine">Make main line</string>
+  <string name="deleteFromHere">Delete from here</string>
   <string name="move">Move</string>
   <string name="variantLoss">Variant loss</string>
   <string name="variantWin">Variant win</string>
@@ -767,7 +770,10 @@ in %3$s</string>
   <string name="notifications">Notifications</string>
   <string name="challenges">Challenges</string>
   <string name="perfRatingX">Rating: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s seconds to play the first move</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s second to play the first move</item>
+    <item quantity="other">%s seconds to play the first move</item>
+  </plurals>
   <string name="practiceWithComputer">Practice with computer</string>
   <string name="anotherWasX">Another was %s</string>
   <string name="bestWasX">Best was %s</string>
@@ -782,6 +788,7 @@ in %3$s</string>
   <string name="whiteWinsGame">White wins</string>
   <string name="blackWinsGame">Black wins</string>
   <string name="learnFromYourMistakes">Learn from your mistakes</string>
+  <string name="learnFromThisMistake">Learn from this mistake</string>
   <string name="skipThisMove">Skip this move</string>
   <string name="next">Next</string>
   <string name="xWasPlayed">%s was played</string>
@@ -808,4 +815,10 @@ in %3$s</string>
   <string name="opening">Opening</string>
   <string name="middlegame">Middlegame</string>
   <string name="endgame">Endgame</string>
+  <string name="registerToSendChallenges">Please register to send challenges.</string>
+  <string name="youCannotChallengeX">You cannot challenge %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s does not accept challenges.</string>
+  <string name="yourXRatingIsTooFarFromY">Your %1$s rating is too far from %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Cannot challenge due to provisional %s rating.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s only accepts challenges from friends.</string>
 </resources>

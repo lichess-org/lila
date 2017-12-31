@@ -9,6 +9,7 @@ import play.api.Play.current
 import play.twirl.api.Html
 
 import lila.common.EmailAddress
+import lila.common.String.html.escapeHtml
 import lila.i18n.I18nKeys.{ emails => trans }
 
 final class Mailgun(
@@ -31,7 +32,7 @@ final class Mailgun(
       "subject" -> Seq(msg.subject),
       "text" -> Seq(msg.text)
     ) ++ msg.htmlBody.?? { body =>
-        Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body)))
+        Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).body))
       }).void addFailureEffect {
       case e: java.net.ConnectException => lila.mon.http.mailgun.timeout()
       case _ =>
@@ -49,7 +50,7 @@ object Mailgun {
       to: EmailAddress,
       subject: String,
       text: String,
-      htmlBody: Option[String] = none,
+      htmlBody: Option[Html] = none,
       from: Option[String] = none,
       replyTo: Option[String] = none,
       tag: Option[String] = none,
@@ -80,16 +81,18 @@ object Mailgun {
 <p>${trans.common_orPaste.literalHtmlTo(lang)}</p>
 """
 
-    private[Mailgun] def wrap(subject: String, body: String) = s"""<!doctype html>
+    private[Mailgun] def wrap(subject: String, body: Html) = Html {
+      s"""<!doctype html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>$subject</title>
+    <title>${escapeHtml(subject)}</title>
   </head>
   <body>
     $body
   </body>
 </html>"""
+    }
   }
 }

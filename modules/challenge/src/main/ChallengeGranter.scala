@@ -1,9 +1,10 @@
 package lila.challenge
 
+import lila.i18n.I18nKeys
 import lila.pref.Pref
 import lila.rating.PerfType
 import lila.relation.{ Relation, Block, Follow }
-import lila.user.User
+import lila.user.{ User, UserContext }
 
 case class ChallengeDenied(dest: User, reason: ChallengeDenied.Reason)
 
@@ -20,13 +21,13 @@ object ChallengeDenied {
     case object FriendsOnly extends Reason
   }
 
-  def inEnglish(d: ChallengeDenied) = d.reason match {
-    case Reason.YouAreAnon => "Please register to send challenges."
-    case Reason.YouAreBlocked => s"You cannot challenge ${d.dest.titleUsername}."
-    case Reason.TheyDontAcceptChallenges => s"${d.dest.titleUsername} does not accept any challenge."
-    case Reason.RatingOutsideRange(perf) => s"Your ${perf.name} rating is too far from ${d.dest.titleUsername} rating."
-    case Reason.RatingIsProvisional(perf) => s"The ${perf.name} rating is provisional."
-    case Reason.FriendsOnly => s"${d.dest.titleUsername} only accepts challenges from friends."
+  def translated(d: ChallengeDenied)(implicit ctx: UserContext) = d.reason match {
+    case Reason.YouAreAnon => I18nKeys.registerToSendChallenges.txt()
+    case Reason.YouAreBlocked => I18nKeys.youCannotChallengeX.txt(d.dest.titleUsername)
+    case Reason.TheyDontAcceptChallenges => I18nKeys.xDoesNotAcceptChallenges.txt(d.dest.titleUsername)
+    case Reason.RatingOutsideRange(perf) => I18nKeys.yourXRatingIsTooFarFromY.txt(perf.name, d.dest.titleUsername)
+    case Reason.RatingIsProvisional(perf) => I18nKeys.cannotChallengeDueToProvisionalXRating.txt(perf.name)
+    case Reason.FriendsOnly => I18nKeys.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
   }
 }
 

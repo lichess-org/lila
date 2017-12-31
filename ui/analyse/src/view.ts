@@ -323,7 +323,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       h('div.right', [acplView(ctrl)])
     ]),
     ctrl.embed || synthetic(ctrl.data) ? null : h('div.analeft', [
-      ctrl.forecast ? forecastView(ctrl) : null,
+      ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
       game.playable(ctrl.data) ? h('div.back_to_game',
         h('a.button.text', {
           attrs: {
