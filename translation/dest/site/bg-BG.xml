@@ -56,6 +56,9 @@
   <string name="showThreat">Покажи заплаха</string>
   <string name="inLocalBrowser">в местния браузър</string>
   <string name="toggleLocalEvaluation">Превключване на локална оценка</string>
+  <string name="promoteVariation">Промотиране на вариация</string>
+  <string name="makeMainLine">Направи основна линия</string>
+  <string name="deleteFromHere">Изтриване от тук</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Вариант на загуба</string>
   <string name="variantWin">Вариант на победа</string>
@@ -194,6 +197,7 @@
   <string name="accept">Приеми</string>
   <string name="decline">Откажи</string>
   <string name="playingRightNow">Играещи сега</string>
+  <string name="eventInProgress">Играещи сега</string>
   <string name="finished">Приключи</string>
   <string name="abortGame">Отмени играта</string>
   <string name="gameAborted">Играта е отменена</string>
@@ -202,6 +206,8 @@
   <string name="mode">Начин</string>
   <string name="casual">Приятелски</string>
   <string name="rated">С рейтинг</string>
+  <string name="casualTournament">Приятелски</string>
+  <string name="ratedTournament">С рейтинг</string>
   <string name="thisGameIsRated">Тази игра е с рейтинг</string>
   <string name="rematch">Повторна</string>
   <string name="rematchOfferSent">Предложението за повторна е изпратено</string>
