@@ -473,6 +473,7 @@
   <string name="watch">zgana</string>
   <string name="internationalEvents">lo gugykruca fasnu</string>
   <string name="videoLibrary">kinsro</string>
+  <string name="termsOfService">lo pilno terbilga</string>
   <string name="simultaneousExhibitions">cabysi\'u nuntigni</string>
   <string name="noSimulExplanation">ti noi cabysi\'u nuntigni cu na zasti</string>
   <string name="create">finti</string>
@@ -481,6 +482,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">do cremau lo %1$s si\'e be loi kelci be la\'o zoi. %2$s .zoi</string>
   <string name="checkYourEmail">ko catlu lo se samymri be fi do</string>
   <string name="inputMovesWithTheKeyboard">jarco tu\'a lo nunmu\'u se pi\'o lo batkyfoi</string>
+  <string name="security">kamnu\'a</string>
   <string name="playChessEverywhere">fe\'e ro roi ku jvikei lo caxmati</string>
   <string name="asFreeAsLichess">nonseldi\'a du\'i la .litces.</string>
   <string name="zeroAdvertisement">no gubnoi</string>
