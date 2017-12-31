@@ -764,7 +764,6 @@
   <string name="notifications">Ειδοποιήσεις</string>
   <string name="challenges">Προκλήσεις</string>
   <string name="perfRatingX">Βαθμολογία: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s δευτερόλεπτα για να παιχτεί η πρώτη κίνηση</string>
   <string name="anotherWasX">Εναλλακτική ήταν %s</string>
   <string name="bestWasX">Το καλύτερο ήταν %s</string>
   <string name="resumePractice">Συνεχίσετε την πρακτική</string>
