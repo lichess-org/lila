@@ -29,4 +29,22 @@ Vajate mõlemat!</string>
   <string name="bishopComplete">Õnnitlused! Te valdate nüüd oda.</string>
   <string name="theQueen">Lipp</string>
   <string name="queenCombinesRookAndBishop">Lipp = vanker + oda</string>
+  <string name="theKing">Kuningas</string>
+  <string name="theMostImportantPiece">Kõige tähtsam malend</string>
+  <string name="kingIntro">Sina oled kuningas. Kui sa langed lahingus, siis mäng lõppeb.</string>
+  <string name="theKingIsSlow">Kuningas on aeglane.</string>
+  <string name="lastOne">Viimane!</string>
+  <string name="theKnight">Ratsu</string>
+  <string name="itMovesInAnLShape">See liigub L-kujuliselt</string>
+  <string name="knightIntro">Siin on väljakutse teile. Ratsu... on väga kavalal malend.</string>
+  <string name="knightsHaveAFancyWay">Ratsude liikumine on väga peen!</string>
+  <string name="knightsCanJumpOverObstacles">Ratsud suudavad malenditest üle minna. Kogu kõik tähed!</string>
+  <string name="knightComplete">Õnnitlused! Te valdate nüüd ratsukäike.</string>
+  <string name="thePawn">Ettur</string>
+  <string name="itMovesForwardOnly">See liigub ainult edasi</string>
+  <string name="pawnIntro">Etturid on nõrgad, kuid nendes on palju potensiaali.</string>
+  <string name="pawnsMoveOneSquareOnly">Etturid liiguvad ühe ruudu kaupa.
+Kui nad jõuavad mängulaua lõppu, siis nendest saab palju tugevam nupp!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Enamik juhtudest on mõtekas ettur muundada lipuks.
+Kuid mõnikord tuleb ratsu rohkem kasuks!</string>
 </resources>
