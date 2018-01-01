@@ -836,5 +836,6 @@ u %3$s</string>
   <string name="registerToSendChallenges">Za slanje izazova morate se registrirati.</string>
   <string name="youCannotChallengeX">Ne možete izazvati %s.</string>
   <string name="xDoesNotAcceptChallenges">%s ne prihvaća izazove.</string>
+  <string name="yourXRatingIsTooFarFromY">Prevelika je razlika između vašeg %1$s rejtinga i onog %2$s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s samo prihvaća izazove od prijatelja.</string>
 </resources>
