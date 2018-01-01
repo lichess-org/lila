@@ -771,6 +771,10 @@ em %3$s</string>
   <string name="notifications">Notificações</string>
   <string name="challenges">Desafios</string>
   <string name="perfRatingX">Classificação: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s segundo para fazer o primeiro lance</item>
+    <item quantity="other">%s segundos para fazer o primeiro lance</item>
+  </plurals>
   <string name="practiceWithComputer">Pratique com o computador</string>
   <string name="anotherWasX">Um outro lance seria %s</string>
   <string name="bestWasX">Melhor seria %s</string>
@@ -785,6 +789,7 @@ em %3$s</string>
   <string name="whiteWinsGame">Brancas vencem</string>
   <string name="blackWinsGame">Pretas vencem</string>
   <string name="learnFromYourMistakes">Aprenda com seus erros</string>
+  <string name="learnFromThisMistake">Aprenda com este erro</string>
   <string name="skipThisMove">Ignorar este lance</string>
   <string name="next">Próximo</string>
   <string name="xWasPlayed">%s foi jogado</string>
@@ -812,4 +817,9 @@ em %3$s</string>
   <string name="middlegame">Meio-jogo</string>
   <string name="endgame">Finais</string>
   <string name="registerToSendChallenges">Por favor, registre-se para enviar desafios.</string>
+  <string name="youCannotChallengeX">Você não pode desafiar %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s não aceita desafios.</string>
+  <string name="yourXRatingIsTooFarFromY">O seu %1$s rating está muito diferente de %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Não pode desafiar devido ao rating provisório de %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s só aceita desafios de amigos.</string>
 </resources>
