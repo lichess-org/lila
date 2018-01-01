@@ -309,7 +309,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vaš %s rejting je privremen</string>
   <string name="yourPerfRatingIsTooHigh">Tvoj %1$s rejting (%2$s) je previsok</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tvoj najvisi tjedni %1$s rejting %2$s je previsok</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Vaš najvisi tjedni %1$s rejting (%2$s) je previsok</string>
   <string name="yourPerfRatingIsTooLow">Vaš %1$s rejting (%2$s) je prenizak</string>
   <string name="ratedMoreThanInPerf">%2$s rejting ≥ %1$s</string>
   <string name="ratedLessThanInPerf">Rangirano  %1$s u %2$s</string>
@@ -697,19 +697,19 @@ u %3$s</string>
   <string name="returnToTournamentsHomepage">Povratak na početnu stranicu turnira</string>
   <string name="weeklyPerfTypeRatingDistribution">Mjesečna %s distribucija rejtinga</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">Jedan %2$s igrač ovaj tjedan.</item>
+    <item quantity="one">%1$s %2$s igrača ovog tjedna.</item>
     <item quantity="few">%1$s %2$s igrača ovog tjedna.</item>
     <item quantity="other">%1$s %2$s igrača ovog tjedna.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rejting je %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji si od %1$s od %2$s igrača.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji ste od %1$s %2$s igrača.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemaš službeni %s rejting.</string>
-  <string name="checkYourEmail">Provjeri svoj e-mail</string>
+  <string name="checkYourEmail">Provjerite vaš e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Poslali smo ti e-mail. Klikni na link u e-mailu kako da aktiviraš svoj račun.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidiš email, možda se nalazi u drugim mapama: smeće, neželjena pošta, društvene mreže ili druge mape.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidite email, možda se nalazi u drugim mapama: smeće, neželjena pošta, društvene mreže ili druge mape.</string>
   <string name="weHaveSentYouAnEmailTo">Poslali smo email na %s. Klikni na link u emailu da se resetia lozinka.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvaćaš naše %s.</string>
-  <string name="networkLagBetweenYouAndLichess">mrežno kašnjenje između tebe i lichess-a</string>
+  <string name="networkLagBetweenYouAndLichess">Mrežno kašnjenje između tebe i lichess-a</string>
   <string name="timeToProcessAMoveOnLichessServer">Vrijeme obrade poteza na lichess serveru</string>
   <string name="downloadAnnotated">Preuzmi s bilješkama</string>
   <string name="downloadRaw">Preuzmi bez bilješki</string>
