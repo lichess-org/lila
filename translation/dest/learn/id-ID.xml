@@ -109,6 +109,9 @@ Mereka ada disebelah kuda.</string>
   <string name="placeTheQueen">Tempat Ratu! Dia berada di kotak warnanya sendiri.</string>
   <string name="placeTheKing">Tempatkan raja! Sebelah kanan dari sang ratu.</string>
   <string name="pawnsFormTheFrontLine">Bidak membentuk garis depan. Membuat langkah apa saja untuk melanjutkan.</string>
+  <string name="boardSetupComplete">Selamat! Anda tahu cara memasang papan catur.</string>
+  <string name="castling">Castling</string>
+  <string name="theSpecialKingMove">Raja khusus bergerak</string>
   <string name="castlingIntro">Bawa raja anda ke tempat aman, dan siapkan benteng anda untuk menyerang!</string>
   <string name="castleKingSide">Gerakkan raja anda dua kotak untuk rokade ke sisi raja!</string>
   <string name="castleQueenSide">Gerakkan raja anda dua kotak untuk rokade ke sisi ratu!</string>
@@ -127,9 +130,18 @@ atau benteng sudah bergerak.</string>
   <string name="enPassantIntro">Saat pion lawan digerakkan dua kotak, anda bisa mengambilnya seperti bila dia digerakkan satu kotak.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Hitam baru saja menggerakkan pion sejauh dua kotak! Ambil dengan en passant.</string>
   <string name="enPassantOnlyWorksImmediately">En passant hanya berlaku sesaat setelah lawan menggerakkan pionnya.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant hanya bekerja
+Jika pion Anda berada di peringkat 5.</string>
   <string name="takeAllThePawnsEnPassant">Ambil semua pion dengan en passant!</string>
   <string name="enPassantComplete">Selamat! Anda bisa mengambil dengan en passant sekarang.</string>
+  <string name="stalemate">Jalan buntu</string>
   <string name="theGameIsADraw">Permainan berakhir remis</string>
+  <string name="stalemateIntro">Bila pemain tidak di cek dan tidak memiliki langkah hukum, itu adalah jalan buntu. Permainan ditarik: tidak ada yang menang, tidak ada yang kalah.</string>
+  <string name="stalemateGoal">Untuk jalan buntu hitam:
+- Hitam tidak bisa bergerak kemana-mana
+- Tidak ada cek disana.</string>
+  <string name="stalemateComplete">Selamat! Lebih baik buntu dari pada checkmated!</string>
+  <string name="advanced">Maju</string>
   <string name="pieceValue">Nilai bidak</string>
   <string name="evaluatePieceStrength">Menilai kekuatan bidak</string>
   <string name="pieceValueIntro">Bidak dengen mobilitas tinggi memiliki nilai lebih tinggi!
@@ -140,6 +152,8 @@ Kuda = 3
 Pion = 1
 Raja tak ternilai harganya! Kehilangan raja berarti kekalahan.</string>
   <string name="queenOverBishop">Ambil bidak dengan nilai tertinggi! Ratu > Menteri</string>
+  <string name="takeThePieceWithTheHighestValue">Ambil bagian
+dengan nilai tertinggi!</string>
   <string name="pieceValueComplete">Selamat! Anda tahu nilai bidak!
 Ratu = 9
 Benteng = 5
@@ -157,6 +171,7 @@ Pion = 1</string>
   <string name="getAFreeLichessAccount">Dapatkan akun Lichess gratis</string>
   <string name="practice">Latihan</string>
   <string name="learnCommonChessPositions">Belajar posisi umum catur</string>
+  <string name="puzzles">Teka teki</string>
   <string name="opponentsFromAroundTheWorld">Lawan dari di seluruh dunia</string>
   <string name="playMachine">Lawan komputer</string>
   <string name="testYourSkillsWithTheComputer">Uji keterampilan Anda dengan komputer</string>
