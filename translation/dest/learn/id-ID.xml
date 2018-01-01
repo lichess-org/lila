@@ -40,10 +40,11 @@ Anda membutuhkan keduanya!</string>
   <string name="theKnight">Kuda</string>
   <string name="itMovesInAnLShape">Bergerak dalam bentuk L</string>
   <string name="knightIntro">Inilah tantangan bagi Anda. Ksatria adalah... sepotong rumit.</string>
-  <string name="knightsHaveAFancyWay">Kuda mempunyai cara keren berlompat sana-sini!</string>
+  <string name="knightsHaveAFancyWay">Ksatria memiliki cara yang bagus
+melompat-lompat!</string>
   <string name="knightsCanJumpOverObstacles">Kuda dapat meloncati rintangan!
 Lolosi dan hilangkan bintang-bintang!</string>
-  <string name="knightComplete">Selamat! Anda telah menguasai buah kuda.</string>
+  <string name="knightComplete">Selamat! Anda telah menguasai ksatria.</string>
   <string name="thePawn">Pion</string>
   <string name="itMovesForwardOnly">Ia hanya bergerak maju</string>
   <string name="pawnIntro">Pion adalah bidak lemah, tapi mereka punya banyak potensi.</string>
@@ -59,15 +60,15 @@ Tapi kadangkala menjadi kuda lebih berguna!</string>
   <string name="pawnComplete">Selamat! Pion tidak punya rahasia untuk Anda.</string>
   <string name="pawnPromotion">Pion promosi</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Pion Anda mencapai akhir dari papan!</string>
-  <string name="itNowPromotesToAStrongerPiece">Sekarang telah terpromosikan menjadi buah yang lebih kuat.</string>
+  <string name="itNowPromotesToAStrongerPiece">Sekarang mempromosikan ke bagian yang lebih kuat.</string>
   <string name="selectThePieceYouWant">Pilih buah yang Anda mau!</string>
   <string name="fundamentals">Dasar-dasar</string>
   <string name="capture">Makan</string>
   <string name="takeTheEnemyPieces">Makan buah lawan</string>
-  <string name="captureIntro">Identifikasi buah lawan yang tak terlindungi, dan makan mereka!</string>
+  <string name="captureIntro">Kenali potongan yang tidak terjaga lawan, dan tangkap mereka!</string>
   <string name="takeTheBlackPieces">Makan buah hitam!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Makan buah hitam!
-Dan jangan kehilangan Ada punya.</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Ambil potongan hitamnya!
+Dan jangan sampai kehilangan milikmu.</string>
   <string name="captureComplete">Selamat! Sekarang Anda tahu bertarung dengan buah-buah catur!</string>
   <string name="protection">Proteksi</string>
   <string name="keepYourPiecesSafe">Menjaga buah Anda agar aman</string>
