@@ -821,6 +821,8 @@
   <string name="cannotChallengeDueToProvisionalXRating">Kan ikke udfordre på grund af midlertidig %s rating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accepterer kun udfordringer fra venner.</string>
   <string name="conditionalPremoves">Betingede forhåndstræk</string>
+  <string name="addCurrentVariation">Tilføj nuværende variation</string>
+  <string name="playVariationToCreateConditionalPremoves">Spil en variation for at lave betingede forhåndstræk</string>
   <string name="noConditionalPremoves">Ingen betingede forhåndstræk</string>
   <string name="playX">Spil %s</string>
 </resources>
