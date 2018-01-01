@@ -56,6 +56,8 @@
   <string name="showThreat">Näita ohtu</string>
   <string name="inLocalBrowser">Kohalikus veebis</string>
   <string name="toggleLocalEvaluation">Lülita kohalik hindamine</string>
+  <string name="makeMainLine">Loo põhiliin</string>
+  <string name="deleteFromHere">Kustuta siit</string>
   <string name="move">Käik</string>
   <string name="variantLoss">Variandi kaotus</string>
   <string name="variantWin">Variant võidab</string>
@@ -103,8 +105,11 @@
   <string name="memory">Mälu</string>
   <string name="infiniteAnalysis">Lõputu analüüs</string>
   <string name="removesTheDepthLimit">Eemaldab sügavuslimiidi ja hoiab arvuti soojana</string>
+  <string name="blunder">Viga</string>
   <string name="blunders">vigu</string>
+  <string name="mistake">Eksimus</string>
   <string name="mistakes">eksimusi</string>
+  <string name="inaccuracy">Ebatäpsus</string>
   <string name="inaccuracies">ebatäpsused</string>
   <string name="moveTimes">Aeg käikudele</string>
   <string name="flipBoard">Keera lauda</string>
@@ -191,6 +196,7 @@
   <string name="accept">Nõustu</string>
   <string name="decline">Keeldu</string>
   <string name="playingRightNow">Mängime kohe</string>
+  <string name="eventInProgress">Praegu mängimas</string>
   <string name="finished">Lõpetatud</string>
   <string name="abortGame">Katkesta mäng</string>
   <string name="gameAborted">Mäng katkestatud</string>
@@ -199,6 +205,8 @@
   <string name="mode">Variant</string>
   <string name="casual">Reitinguta</string>
   <string name="rated">Reitinguga</string>
+  <string name="casualTournament">Reitinguta</string>
+  <string name="ratedTournament">Reitinguga</string>
   <string name="thisGameIsRated">See mäng on reitinguga</string>
   <string name="rematch">Kordusmäng</string>
   <string name="rematchOfferSent">Kordusmängu pakkumine</string>
@@ -264,6 +272,10 @@
   <string name="tournament">Turniir</string>
   <string name="tournaments">Turniirid</string>
   <string name="tournamentPoints">Turniiri punktid</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turniiri punkt</item>
+    <item quantity="other">%s turniiri punkti</item>
+  </plurals>
   <string name="viewTournament">Vaata turniiri</string>
   <string name="backToTournament">Tagasi turniirile</string>
   <string name="thematic">Temaatiline</string>
@@ -693,6 +705,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="boardTheme">Laua kujundus</string>
   <string name="boardSize">Laua suurus</string>
   <string name="pieceSet">Malendite kujundus</string>
+  <string name="doneReviewingWhiteMistakes">Valge vead on üle vaadatud</string>
+  <string name="doneReviewingBlackMistakes">Musta vead on üle vaadatud</string>
   <string name="doItAgain">Tee veelkord</string>
   <string name="reviewWhiteMistakes">Vaata üle valge vead</string>
   <string name="reviewBlackMistakes">Vaata üle musta vead</string>
@@ -707,4 +721,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="registerToSendChallenges">Palun registreerige, et väljakutseid saata.</string>
   <string name="youCannotChallengeX">Te ei saa väljakutset esitada mängijale %s.</string>
   <string name="xDoesNotAcceptChallenges">Mängija %s ei aktsepteeri väljakutseid.</string>
+  <string name="yourXRatingIsTooFarFromY">Sinu %1$s reiting on liiga suure vahega võrreldes mängijaga %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Ei saa väljakutset esitada ajutise %s reitingu tõttu.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s aktsepteerib väljakutseid ainult oma sõpradelt.</string>
 </resources>
