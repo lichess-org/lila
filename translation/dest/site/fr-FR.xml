@@ -57,6 +57,8 @@
   <string name="inLocalBrowser">dans le navigateur local</string>
   <string name="toggleLocalEvaluation">Activer/désactiver l\'évaluation locale</string>
   <string name="promoteVariation">Promouvoir la variante</string>
+  <string name="makeMainLine">En faire la ligne principale</string>
+  <string name="deleteFromHere">Supprimer à partir d\'ici</string>
   <string name="move">Coup</string>
   <string name="variantLoss">Perte (variante)</string>
   <string name="variantWin">Gain (variante)</string>
@@ -768,6 +770,10 @@ en %3$s</string>
   <string name="notifications">Notifications</string>
   <string name="challenges">Défis</string>
   <string name="perfRatingX">Classement : %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s seconde pour jouer le premier coup</item>
+    <item quantity="other">%s secondes pour jouer le premier coup</item>
+  </plurals>
   <string name="practiceWithComputer">S\'entrainer avec un ordinateur</string>
   <string name="anotherWasX">Un autre était %s</string>
   <string name="bestWasX">Meilleur était %s</string>
@@ -782,6 +788,7 @@ en %3$s</string>
   <string name="whiteWinsGame">Les blancs gagnent</string>
   <string name="blackWinsGame">Les Noirs gagnent</string>
   <string name="learnFromYourMistakes">Apprendre de vos erreurs</string>
+  <string name="learnFromThisMistake">Apprendre de cette erreur</string>
   <string name="skipThisMove">Passer ce coup</string>
   <string name="next">Suivant</string>
   <string name="xWasPlayed">%s a été joué</string>
@@ -808,4 +815,11 @@ en %3$s</string>
   <string name="opening">Ouverture</string>
   <string name="middlegame">Milieu de partie</string>
   <string name="endgame">Fin de partie</string>
+  <string name="registerToSendChallenges">Veuillez vous enregistrer pour envoyer des défis.</string>
+  <string name="youCannotChallengeX">Vous ne pouvez pas défier %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s n’accepte pas les défis.</string>
+  <string name="yourXRatingIsTooFarFromY">Votre classement de %1$s est trop différent de %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Défier est impossible à cause du classement %s provisoire.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s n’accepte que les défis d’amis.</string>
+  <string name="conditionalPremoves">Précoups conditionnels</string>
 </resources>
