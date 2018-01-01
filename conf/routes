@@ -22,9 +22,6 @@ POST  /games/export/:user              controllers.Game.exportConfirm(user: Stri
 GET   /tv                              controllers.Tv.index
 GET   /tv/embed                        controllers.Tv.embed
 GET   /tv/frame                        controllers.Tv.frame
-GET   /tv/stream/config                controllers.Tv.streamConfig
-POST  /tv/stream/config                controllers.Tv.streamConfigSave
-GET   /tv/stream/:id                   controllers.Tv.streamIn(id: String)
 GET   /tv/feed                         controllers.Tv.feed
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey: String)
 GET   /tv/:chanKey/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(chanKey: String, gameId: String, color: String)
