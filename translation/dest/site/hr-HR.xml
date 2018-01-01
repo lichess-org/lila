@@ -729,7 +729,7 @@ u %3$s</string>
   <string name="withFriends">S prijateljima</string>
   <string name="withEverybody">Sa svima</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Već si se registrirao/la ovim emailom: %s</string>
-  <string name="kidMode">Dječji mod</string>
+  <string name="kidMode">Dječji način</string>
   <string name="kidModeExplanation">Ovdje se radi se o sigurnosti. U dječjem načinu, sve komunikacije na stranici su onemogućene. Omogući ovo za svoju djecu i učenike, da ih zaštitiš od drugih internet korisnika.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">U dječjem načinu, logo lichess-a dobiva %s ikonu, tako da znaš da su tvoja djeca sigurna.</string>
   <string name="enableKidMode">Omogući dječji način</string>
