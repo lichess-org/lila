@@ -50,7 +50,9 @@ function makeBindings(opts, submit, clear) {
     if (v.indexOf('/') > -1) {
       focusChat();
       clear();
-    } else submit(v, e.which === 13);
+    }
+    else if (v === '' && e.which === 13) opts.confirmMove();
+    else submit(v, e.which === 13);
   });
   opts.input.addEventListener('focus', function() {
     opts.setFocus(true);
