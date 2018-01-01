@@ -39,4 +39,11 @@
   <plurals name="competedInNbTournaments">
     <item quantity="other">Sudah mengikuti %s turnamen</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="other">Peringkat #%1$s (atas %2$s%%) dengan %3$s permainan di %4$s</item>
+  </plurals>
+  <string name="signedUp">Daftarkan untuk lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="other">Bergabung %s tim</item>
+  </plurals>
 </resources>
