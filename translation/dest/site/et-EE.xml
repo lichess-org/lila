@@ -680,4 +680,31 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
     <item quantity="other">Saadaval %s keeles!</item>
   </plurals>
   <string name="gameAnalysis">Mäng analüüs</string>
+  <string name="xLikesY">Mängijale %1$s meeldib %2$s</string>
+  <string name="anonymous">Anonüümne</string>
+  <string name="yourScore">Sinu skoor: %s</string>
+  <string name="language">Keel</string>
+  <string name="background">Taust</string>
+  <string name="light">Hele</string>
+  <string name="dark">Tume</string>
+  <string name="transparent">Läbipaistev</string>
+  <string name="backgroundImageUrl">Taustapildi URL:</string>
+  <string name="boardGeometry">Laua geomeetria</string>
+  <string name="boardTheme">Laua kujundus</string>
+  <string name="boardSize">Laua suurus</string>
+  <string name="pieceSet">Malendite kujundus</string>
+  <string name="doItAgain">Tee veelkord</string>
+  <string name="reviewWhiteMistakes">Vaata üle valge vead</string>
+  <string name="reviewBlackMistakes">Vaata üle musta vead</string>
+  <string name="advantage">Eelis</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekund</item>
+    <item quantity="other">%s sekundit</item>
+  </plurals>
+  <string name="opening">Avang</string>
+  <string name="middlegame">Keskmäng</string>
+  <string name="endgame">Lõppmäng</string>
+  <string name="registerToSendChallenges">Palun registreerige, et väljakutseid saata.</string>
+  <string name="youCannotChallengeX">Te ei saa väljakutset esitada mängijale %s.</string>
+  <string name="xDoesNotAcceptChallenges">Mängija %s ei aktsepteeri väljakutseid.</string>
 </resources>
