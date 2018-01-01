@@ -56,6 +56,7 @@
   <string name="showThreat">Tehdidi göster</string>
   <string name="inLocalBrowser">yerel tarayıcı üzerinde</string>
   <string name="toggleLocalEvaluation">Yerel analizi aç/kapat</string>
+  <string name="makeMainLine">Ana devam yolu yap</string>
   <string name="move">Hamle</string>
   <string name="variantLoss">Kayıp devam yolu</string>
   <string name="variantWin">Kazanç devam yolu</string>
