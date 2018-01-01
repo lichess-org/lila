@@ -56,6 +56,7 @@
   <string name="showThreat">Voir la menace</string>
   <string name="inLocalBrowser">dans le navigateur local</string>
   <string name="toggleLocalEvaluation">Activer/désactiver l\'évaluation locale</string>
+  <string name="promoteVariation">Promouvoir la variante</string>
   <string name="move">Coup</string>
   <string name="variantLoss">Perte (variante)</string>
   <string name="variantWin">Gain (variante)</string>
