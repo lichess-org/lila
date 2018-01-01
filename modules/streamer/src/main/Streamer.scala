@@ -20,11 +20,15 @@ case class Streamer(
 
   def id = _id
 
-  def is(user: User) = id.value == user.id
+  def userId = _id.value
+
+  def is(user: User) = userId == user.id
 
   def hasPicture = picturePath.isDefined
 
   def isListed = listed.value && approval.granted
+
+  def isLive = twitch.exists(_.live.now) || youTube.exists(_.live.now)
 
   def seenAt: Option[DateTime] = sorting.seenAt
   def liveAt: Option[DateTime] = (twitch.flatMap(_.live.liveAt), youTube.flatMap(_.live.liveAt)) match {
@@ -67,7 +71,7 @@ object Streamer {
       requested: Boolean, // user requests a mod to approve
       granted: Boolean, // a mod approved
       ignored: Boolean, // further requests are ignored
-      autoFeatured: Boolean, // on homepage when title contains "lichess.org"
+      autoFeatured: Boolean, // on homepage when status contains "lichess.org"
       chatEnabled: Boolean // embed chat inside lichess
   )
   case class PicturePath(value: String) extends AnyVal with StringValue
@@ -75,12 +79,12 @@ object Streamer {
   case class Description(value: String) extends AnyVal with StringValue
   case class Sorting(streaming: Boolean, seenAt: Option[DateTime])
   object Sorting { val empty = Sorting(false, none) }
-  case class Live(liveAt: Option[DateTime], checkedAt: Option[DateTime]) {
+  case class Live(liveAt: Option[DateTime], checkedAt: Option[DateTime], status: Option[String]) {
     def now = liveAt.filter(DateTime.now.minusMinutes(1).isBefore) ?? { l =>
       checkedAt ?? { l == }
     }
   }
-  object Live { val empty = Live(none, none) }
+  object Live { val empty = Live(none, none, none) }
   case class Twitch(userId: String, live: Live) {
     def fullUrl = s"https://www.twitch.tv/$userId"
     def minUrl = s"twitch.tv/$userId"

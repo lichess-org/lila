@@ -1,4 +1,4 @@
-@(channel: lila.tv.Tv.Channel, champions: lila.tv.Tv.Champions, baseUrl: String, povOption: Option[Pov], streams: List[lila.tv.StreamOnAir])(implicit ctx: Context)
+@(channel: lila.tv.Tv.Channel, champions: lila.tv.Tv.Champions, baseUrl: String, povOption: Option[Pov])(implicit ctx: Context)
 <div class="side">
   <div class="side_box padded">
     @povOption.map { pov =>
@@ -18,7 +18,6 @@
     <h2 data-icon="1" class="text">Lichess games</h2>
     }
   </div>
-  @streamsOnAir(streams)
   <div id="tv_channels">
     @lila.tv.Tv.Channel.all.map { c =>
     <a data-icon="@Html(c.icon)" href="@baseUrl/@c.key" class="@c.key@if(c == channel){ active}">

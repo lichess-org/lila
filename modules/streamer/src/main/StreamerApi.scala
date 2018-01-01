@@ -16,6 +16,8 @@ final class StreamerApi(
 
   import BsonHandlers._
 
+  def withColl[A](f: Coll => A): A = f(coll)
+
   def byId(id: Streamer.Id): Fu[Option[Streamer]] = coll.byId[Streamer](id.value)
 
   def find(username: String): Fu[Option[Streamer.WithUser]] =
@@ -29,6 +31,9 @@ final class StreamerApi(
       val s = Streamer.WithUser(Streamer make user, user)
       coll insert s.streamer inject s.some
     }
+
+  def allListed: Fu[List[Streamer]] =
+    coll.find(selectListedApproved).list[Streamer]()
 
   def save(s: Streamer): Funit =
     coll.update($id(s.id), s, upsert = true).void

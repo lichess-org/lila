@@ -7,6 +7,8 @@ import scala.concurrent.duration._
 final class Env(
     config: Config,
     system: ActorSystem,
+    renderer: ActorSelection,
+    isOnline: lila.user.User.ID => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
     db: lila.db.Env
 ) {
@@ -14,6 +16,9 @@ final class Env(
   private val CollectionStreamer = config getString "collection.streamer"
   private val CollectionImage = config getString "collection.image"
   private val MaxPerPage = config getInt "paginator.max_per_page"
+  private val Keyword = config getString "streaming.keyword"
+  private val GoogleApiKey = config getString "streaming.google.api_key"
+  private val TwitchClientId = config getString "streaming.twitch.client_id"
 
   private lazy val streamerColl = db(CollectionStreamer)
   private lazy val imageColl = db(CollectionImage)
@@ -32,6 +37,26 @@ final class Env(
   )
 
   private lazy val importer = new Importer(api, db("flag"))
+
+  private val streamingActor = system.actorOf(Props(new Streaming(
+    renderer = renderer,
+    api = api,
+    isOnline = isOnline,
+    keyword = Stream.Keyword(Keyword),
+    googleApiKey = GoogleApiKey,
+    twitchClientId = TwitchClientId
+  )))
+
+  object liveStreams {
+    import makeTimeout.short
+    import akka.pattern.ask
+    private val cache = asyncCache.single[Stream.LiveStreams](
+      name = "streamer.liveStreams",
+      f = streamingActor ? Streaming.Get mapTo manifest[Stream.LiveStreams],
+      expireAfter = _.ExpireAfterWrite(2 seconds)
+    )
+    def all = cache.get
+  }
 
   def cli = new lila.common.Cli {
     def process = {
@@ -53,6 +78,8 @@ object Env {
   lazy val current: Env = "streamer" boot new Env(
     config = lila.common.PlayApp loadConfig "streamer",
     system = lila.common.PlayApp.system,
+    renderer = lila.hub.Env.current.actor.renderer,
+    isOnline = lila.user.Env.current.isOnline,
     asyncCache = lila.memo.Env.current.asyncCache,
     db = lila.db.Env.current
   )

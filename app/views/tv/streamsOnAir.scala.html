@@ -1,7 +1,0 @@
-@(ss: List[lila.tv.StreamOnAir])
-@ss.sortBy(!_.highlight).map { s =>
-<a class="stream @if(s.highlight){highlight}" href="@routes.Tv.streamIn(s.id)" title="@s.name">
-  <span class="text" data-icon="1">@s.streamer.showStreamerName</span>
-  @s.name
-</a>
-}
