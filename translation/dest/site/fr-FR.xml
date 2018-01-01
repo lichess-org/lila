@@ -822,4 +822,12 @@ en %3$s</string>
   <string name="cannotChallengeDueToProvisionalXRating">Défier est impossible à cause du classement %s provisoire.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s n’accepte que les défis d’amis.</string>
   <string name="conditionalPremoves">Précoups conditionnels</string>
+  <string name="addCurrentVariation">Ajouter la variante en cours</string>
+  <string name="playVariationToCreateConditionalPremoves">Jouer une variante pour créer des précoups conditionnels</string>
+  <string name="noConditionalPremoves">Pas de précoups conditionnels</string>
+  <string name="playX">Jouer %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">et enregistrer %s la variante de précoups</item>
+    <item quantity="other">et enregistrer %s les variantes de précoups</item>
+  </plurals>
 </resources>
