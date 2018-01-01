@@ -774,4 +774,17 @@ masuk %3$s</string>
   <string name="doItAgain">Lakukan itu lagi</string>
   <string name="reviewWhiteMistakes">Review kesalahan putih</string>
   <string name="reviewBlackMistakes">Review kesalahan hitam</string>
+  <string name="advantage">Keuntungan</string>
+  <plurals name="nbSeconds">
+    <item quantity="other">%s yang kedua</item>
+  </plurals>
+  <string name="opening">Pembuka</string>
+  <string name="middlegame">Setengah permainan</string>
+  <string name="endgame">Akhir permainan</string>
+  <string name="registerToSendChallenges">Silahkan daftar untuk mengirim tantangan.</string>
+  <string name="youCannotChallengeX">Anda tidak bisa menantang %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s tidak menerima tantangan.</string>
+  <string name="yourXRatingIsTooFarFromY">Rating %1$s terlalu jauh dari %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Tidak bisa menantang karena sementara%s rating.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s hanya menerima tantangan dari teman.</string>
 </resources>
