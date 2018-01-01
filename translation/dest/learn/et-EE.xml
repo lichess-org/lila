@@ -26,4 +26,7 @@ et kiirust lisada!</string>
   <string name="youNeedBothBishops">Üks oda heledatel ruutudel,
 üks oda tumedatel ruutudel.
 Vajate mõlemat!</string>
+  <string name="bishopComplete">Õnnitlused! Te valdate nüüd oda.</string>
+  <string name="theQueen">Lipp</string>
+  <string name="queenCombinesRookAndBishop">Lipp = vanker + oda</string>
 </resources>
