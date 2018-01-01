@@ -698,6 +698,13 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Te olete juba registreeritud e-posti: %s</string>
   <string name="kidMode">Lapserežiim</string>
   <string name="kidModeExplanation">See seisneb turvalisuses. Lapse režiimis, igasugune suhtlus sellel lehel on välja lülitatud. Aktiveerige see režiim, et kaitsta lapsi ja kooliõpilasi teiste kasutajate eest.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Lapse režiimis, lichessi logole lisandub %s ikoon, mis tähendab, et lapse režiim on aktiveeritud.</string>
+  <string name="enableKidMode">Aktiveeri lapse režiim</string>
+  <string name="disableKidMode">Deaktiveeri lapse režiim</string>
+  <string name="security">Turvalisus</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">See on nimekiri seadmetest, mis on sellesse kasutajasse sisse loginud. Lõpetage igasugused sessioonid, mis ei tulene teie endi seadmetest.</string>
+  <string name="alternativelyYouCanX">Võite ka %s.</string>
+  <string name="revokeAllSessions">lõpetada kõik sessioonid</string>
   <string name="playChessEverywhere">Mängi malet kõikjal</string>
   <string name="asFreeAsLichess">Nii vaba kui Lichessi</string>
   <string name="builtForTheLoveOfChessNotMoney">Ehitatud armastus male, mitte raha</string>
@@ -717,6 +724,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   </plurals>
   <string name="gameAnalysis">Mäng analüüs</string>
   <string name="xLikesY">Mängijale %1$s meeldib %2$s</string>
+  <string name="quickPairing">Kiirelt mängu</string>
   <string name="anonymous">Anonüümne</string>
   <string name="yourScore">Sinu skoor: %s</string>
   <string name="language">Keel</string>
@@ -729,6 +737,19 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="boardTheme">Laua kujundus</string>
   <string name="boardSize">Laua suurus</string>
   <string name="pieceSet">Malendite kujundus</string>
+  <string name="usernameAlreadyUsed">See kasutajanimi on juba olemas, proovige midagi muud.</string>
+  <string name="usernameInvalid">Lubamatu kasutajanimi. Palun kasutage ainult tähti, numbreid, alakriipsu ja kriipsu.</string>
+  <string name="usernameStartNoNumber">Kasutajanimi ei tohi alata numbriga.</string>
+  <string name="usernameUnacceptable">Selline kasutajanimi ei ole lubatud.</string>
+  <string name="directlySupportLichess">Toeta Lichess-i</string>
+  <string name="chessBasics">Male põhitõed</string>
+  <string name="resumeLearning">Jätkake õppimist</string>
+  <string name="youCanDoBetter">Te suudate paremini</string>
+  <string name="tryAnotherMoveForWhite">Proovige mingisugust teist käiku valgele</string>
+  <string name="tryAnotherMoveForBlack">Proovige mingisugust teist käiku mustale</string>
+  <string name="solution">Lahendus</string>
+  <string name="noMistakesFoundForWhite">Valge eksimusi ei leitud</string>
+  <string name="noMistakesFoundForBlack">Musta eksimusi ei leitud</string>
   <string name="doneReviewingWhiteMistakes">Valge vead on üle vaadatud</string>
   <string name="doneReviewingBlackMistakes">Musta vead on üle vaadatud</string>
   <string name="doItAgain">Tee veelkord</string>
