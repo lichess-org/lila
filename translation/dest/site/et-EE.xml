@@ -118,7 +118,7 @@
   <string name="offerDraw">Paku viiki</string>
   <string name="draw">Viik</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s mängijat</item>
+    <item quantity="one">%s mängija</item>
     <item quantity="other">%s mängijat</item>
   </plurals>
   <string name="currentGames">Käimasolevad mängud</string>
