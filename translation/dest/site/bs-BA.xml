@@ -250,6 +250,11 @@
     <item quantity="few">%s poraza</item>
     <item quantity="other">%s poraza</item>
   </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s remija</item>
+    <item quantity="few">%s remija</item>
+    <item quantity="other">%s remija</item>
+  </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s u tijeku</item>
     <item quantity="few">%s u tijeku</item>
@@ -257,6 +262,11 @@
   </plurals>
   <string name="exportGames">Izvezite odigrane partije</string>
   <string name="ratingRange">Raspon rejtinga</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Dodaj protivniku %s sekundi</item>
+    <item quantity="few">Dodaj protivniku %s sekundi</item>
+    <item quantity="other">Dodaj protivniku %s sekundi</item>
+  </plurals>
   <string name="giveMoreTime">Daj više vremena</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ovaj igrač koristi pomoć šahovskog programa</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovaj igrač umjetno diže/spušta svoj rejting</string>
@@ -283,6 +293,11 @@
   <string name="backToGame">Vrati se igri</string>
   <string name="siteDescription">Besplatni internetski šah. Igrajte šah s čistim interfejsom. Registracija nije obavezna, nema reklama, ne zahtijevaju se dodaci za preglednik. Igrajte protiv računara, prijatelja ili slučajnih protivnika.</string>
   <string name="teams">Ekipe</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s član</item>
+    <item quantity="few">%s članova</item>
+    <item quantity="other">%s članova</item>
+  </plurals>
   <string name="allTeams">Sve ekipe</string>
   <string name="newTeam">Nova ekipa</string>
   <string name="myTeams">Moje ekipe</string>
@@ -309,6 +324,11 @@
   <string name="fromPosition">Od pozicije</string>
   <string name="continueFromHere">Nastavite odavde</string>
   <string name="importGame">Uvezite partiju</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s uvezena partija</item>
+    <item quantity="few">%s uvezenih partija</item>
+    <item quantity="other">%s uvezenih partija</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Ovo je šahovski CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Odigrajte potez da dokažete da ste ljudsko biće</string>
   <string name="notACheckmate">Nije mat</string>
@@ -326,6 +346,16 @@
   <string name="unblock">Deblokiraj</string>
   <string name="followsYou">Prati vas</string>
   <string name="xStartedFollowingY">%1$s je počeo pratiti %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s pratitelj</item>
+    <item quantity="few">%s pratitelj</item>
+    <item quantity="other">%s pratitelj</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s prati</item>
+    <item quantity="few">%s prati</item>
+    <item quantity="other">%s prati</item>
+  </plurals>
   <string name="more">Više</string>
   <string name="memberSince">Član od</string>
   <string name="lastSeenActive">Zadnja aktivnost %s</string>
@@ -333,6 +363,11 @@
   <string name="player">Igrač</string>
   <string name="list">Spisak</string>
   <string name="graph">Grafikon</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Manje od %s minuta</item>
+    <item quantity="few">Manje od %s minuta</item>
+    <item quantity="other">Manje od %s minuta</item>
+  </plurals>
   <string name="required">Potrebno.</string>
   <string name="openTournaments">Otvoreni turniri</string>
   <string name="duration">Trajanje</string>
@@ -387,11 +422,21 @@
   <string name="pleaseVotePuzzle">Pomozi da se Lichess poboljša, koristeći strelice gore/dolje:</string>
   <string name="thankYou">Hvala!</string>
   <string name="ratingX">Rejting: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Odigrano %s put</item>
+    <item quantity="few">Odigrano %s put</item>
+    <item quantity="other">Odigrano %s puta</item>
+  </plurals>
   <string name="fromGameLink">Iz partije %s</string>
   <string name="continueTraining">Nastavite trening</string>
   <string name="retryThisPuzzle">Pokušajte ponovo ovaj problem</string>
   <string name="thisPuzzleIsCorrect">Ovaj problem je ispravan i zanimljiv</string>
   <string name="thisPuzzleIsWrong">Ovaj problem je neispravan ili dosadan</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">odigrano %s partija</item>
+    <item quantity="few">odigrano %s partija</item>
+    <item quantity="other">odigrano %s partija</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatski prebaci na sljedeću partiju poslije odigranog poteza</string>
   <string name="autoSwitch">Automatski prebaci</string>
   <string name="puzzles">Problemi</string>
@@ -490,6 +535,16 @@ u %3$s</string>
   <string name="allInformationIsPublicAndOptional">Sve informacije su javne i neobavezne.</string>
   <string name="yourCityRegionOrDepartment">Vaš grad, regija ili pokrajina.</string>
   <string name="biographyDescription">Nešto više o vama, što volite u šahu, omiljena otvaranja, igre, igrači…</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Najviše %s znakova.</item>
+    <item quantity="few">Najviše %s znakova.</item>
+    <item quantity="other">Najviše %s znakova.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s blokiranih</item>
+    <item quantity="few">%s blokiranih</item>
+    <item quantity="other">%s blokiranih</item>
+  </plurals>
   <string name="listBlockedPlayers">Lista blokiranih igrača</string>
   <string name="human">Osoba</string>
   <string name="computer">Računar</string>
@@ -529,6 +584,11 @@ u %3$s</string>
   <string name="whiteCastlingQueenside">Bijeli O-O-O</string>
   <string name="blackCastlingKingside">Crni O-O</string>
   <string name="blackCastlingQueenside">Crni O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s forumskih poruka</item>
+    <item quantity="few">%s forumskih poruka</item>
+    <item quantity="other">%s forumskih poruka</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Vrijeme provedeno igrajući: %s</string>
   <string name="watchGames">Gledaj partije</string>
   <string name="tpTimeSpentOnTV">Vrijeme na TV-u: %s</string>
@@ -628,6 +688,11 @@ u %3$s</string>
   <string name="correspondenceAndUnlimited">Prepiska i neograničeno</string>
   <string name="viewTheSolution">Prikaži rješenje</string>
   <string name="followAndChallengeFriends">Prati i izazovi prijatelje</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Dostupno na %s jezika!</item>
+    <item quantity="few">Dostupno na %s jezika!</item>
+    <item quantity="other">Dostupno na %s jezika!</item>
+  </plurals>
   <string name="gameAnalysis">Analiza igre</string>
   <string name="xHostsY">%1$s održava %2$s</string>
   <string name="xJoinsY">%1$s se pridružuje %2$s</string>
