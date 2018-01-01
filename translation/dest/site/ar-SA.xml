@@ -880,4 +880,6 @@
   <string name="notifications">إشعارات</string>
   <string name="challenges">التحديات</string>
   <string name="perfRatingX">التقييم: %s</string>
+  <string name="cannotChallengeDueToProvisionalXRating">لا يمكن اتمام التحدي بسبب التقييم %s المؤقت.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s يقبل التحديات من الأصدقاء فقط.</string>
 </resources>
