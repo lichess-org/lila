@@ -71,4 +71,15 @@ Muundada pole tarvus.</string>
   <string name="protection">Kaitsmine</string>
   <string name="keepYourPiecesSafe">Hoia oma malendid kaitse all</string>
   <string name="protectionIntro">Tuvasta malendid, mida vastane ründab ja kaitse neid!</string>
+  <string name="protectionComplete">Õnnitlused! Olete läbinud malendite kaitsmise peatüki!</string>
+  <string name="escape">Te olete rünnaku all!
+Leia pääsutee!</string>
+  <string name="noEscape">Pääsuteed ei leidu,
+kuid sul on võimalik kaitsta!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ära lase neil võtta
+mitte ühtegi kaitseta vigurit!</string>
+  <string name="combat">Võitlus</string>
+  <string name="captureAndDefendPieces">Löö ning kaitse malendeid</string>
+  <string name="combatIntro">Hea mängija oskab rünnata ja kaitsta üheaegselt!</string>
+  <string name="combatComplete">Õnnitlused! Olete osav võitleja!</string>
 </resources>
