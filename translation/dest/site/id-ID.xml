@@ -56,6 +56,9 @@
   <string name="showThreat">Menunjukkan ancaman</string>
   <string name="inLocalBrowser">di browser lokal</string>
   <string name="toggleLocalEvaluation">Toggle evaluasi lokal</string>
+  <string name="promoteVariation">Promosikan variasi</string>
+  <string name="makeMainLine">Buat jalur utama</string>
+  <string name="deleteFromHere">Hapus dari sini</string>
   <string name="move">Langkah</string>
   <string name="variantLoss">Varian kerugian</string>
   <string name="variantWin">Varian menang</string>
@@ -101,8 +104,11 @@
   <string name="memory">Memori</string>
   <string name="infiniteAnalysis">Analisis tak terbatas</string>
   <string name="removesTheDepthLimit">Menghapus batas kedalaman, dan membuat komputer Anda hangat</string>
+  <string name="blunder">Kekeliruan</string>
   <string name="blunders">Blunder</string>
+  <string name="mistake">Kesalahan</string>
   <string name="mistakes">Kesalahan</string>
+  <string name="inaccuracy">Ketidaktelitian</string>
   <string name="inaccuracies">Ketidaktepatan</string>
   <string name="moveTimes">Waktu gerak</string>
   <string name="flipBoard">Putar papan catur</string>
@@ -160,6 +166,7 @@
   <string name="forgotPassword">Lupa password?</string>
   <string name="rank">Peringkat</string>
   <string name="rankX">Rating: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Peringkat diupdate setiap %s menit</string>
   <plurals name="nbPuzzles">
     <item quantity="other">%s</item>
   </plurals>
@@ -181,6 +188,7 @@
   <string name="accept">Terima</string>
   <string name="decline">Tolak</string>
   <string name="playingRightNow">Bermain saat ini</string>
+  <string name="eventInProgress">Mainkan sekarang</string>
   <string name="finished">Selesai</string>
   <string name="abortGame">Batalkan permainan</string>
   <string name="gameAborted">Permainan dibatalkan</string>
@@ -189,6 +197,8 @@
   <string name="mode">Mode</string>
   <string name="casual">Bebas</string>
   <string name="rated">Di-rating</string>
+  <string name="casualTournament">Santai</string>
+  <string name="ratedTournament">Yang digolongkan</string>
   <string name="thisGameIsRated">Permainan ini di-rating</string>
   <string name="rematch">Ulang pertandingan</string>
   <string name="rematchOfferSent">Tawaran permainan ulang terkirim</string>
@@ -248,6 +258,9 @@
   <string name="tournament">Turnamen</string>
   <string name="tournaments">Turnamen</string>
   <string name="tournamentPoints">Poin Turnamen</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="other">%s titik turnamen</item>
+  </plurals>
   <string name="viewTournament">Lihat turnamen</string>
   <string name="backToTournament">Kembali ke turnamen</string>
   <string name="thematic">Bertema</string>
