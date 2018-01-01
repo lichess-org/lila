@@ -47,4 +47,28 @@ Vajate mõlemat!</string>
 Kui nad jõuavad mängulaua lõppu, siis nendest saab palju tugevam nupp!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Enamik juhtudest on mõtekas ettur muundada lipuks.
 Kuid mõnikord tuleb ratsu rohkem kasuks!</string>
+  <string name="pawnsMoveForward">Etturid liiguvad ainult edasi,
+kuid löövad diagonaalselt!</string>
+  <string name="captureThenPromote">Löö, siis muunda!</string>
+  <string name="useAllThePawns">Kasuta kõiki ettureid!
+Pole vajadust muundada.</string>
+  <string name="aPawnOnTheSecondRank">Ettur teisel real saab liikuda 2 ruutu korraga!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Kogu kõik tähed!
+Muundada pole tarvus.</string>
+  <string name="pawnComplete">Õnnitlused! Tunnete nüüd etturi käike.</string>
+  <string name="pawnPromotion">Etturi muundamine</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Sinu ettur on jõudnud viimasele reale!</string>
+  <string name="itNowPromotesToAStrongerPiece">Nüüd ta muundub tugevamaks malendiks.</string>
+  <string name="selectThePieceYouWant">Vali malend, mida sa soovid!</string>
+  <string name="fundamentals">Põhialused</string>
+  <string name="capture">Löömine</string>
+  <string name="takeTheEnemyPieces">Löö vastase malendid</string>
+  <string name="captureIntro">Tuvasta vastase kaitseta malendid, ning löö need!</string>
+  <string name="takeTheBlackPieces">Löö vastase malendid!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Löö vastase malendid!
+Ära kaota enda omi.</string>
+  <string name="captureComplete">Õnnitlused! Oskate vastase malendeid lüüa!</string>
+  <string name="protection">Kaitsmine</string>
+  <string name="keepYourPiecesSafe">Hoia oma malendid kaitse all</string>
+  <string name="protectionIntro">Tuvasta malendid, mida vastane ründab ja kaitse neid!</string>
 </resources>
