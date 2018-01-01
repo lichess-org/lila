@@ -691,6 +691,11 @@ val `xDoesNotAcceptChallenges` = new Translated("xDoesNotAcceptChallenges", Site
 val `yourXRatingIsTooFarFromY` = new Translated("yourXRatingIsTooFarFromY", Site)
 val `cannotChallengeDueToProvisionalXRating` = new Translated("cannotChallengeDueToProvisionalXRating", Site)
 val `xOnlyAcceptsChallengesFromFriends` = new Translated("xOnlyAcceptsChallengesFromFriends", Site)
+val `conditionalPremoves` = new Translated("conditionalPremoves", Site)
+val `addCurrentVariation` = new Translated("addCurrentVariation", Site)
+val `playVariationToCreateConditionalPremoves` = new Translated("playVariationToCreateConditionalPremoves", Site)
+val `noConditionalPremoves` = new Translated("noConditionalPremoves", Site)
+val `playX` = new Translated("playX", Site)
 val `mateInXHalfMoves` = new Translated("mateInXHalfMoves", Site)
 val `nextCaptureOrPawnMoveInXHalfMoves` = new Translated("nextCaptureOrPawnMoveInXHalfMoves", Site)
 val `nbPlayers` = new Translated("nbPlayers", Site)
@@ -725,6 +730,7 @@ val `nbPerfTypePlayersThisWeek` = new Translated("nbPerfTypePlayersThisWeek", Si
 val `availableInNbLanguages` = new Translated("availableInNbLanguages", Site)
 val `nbSecondsToPlayTheFirstMove` = new Translated("nbSecondsToPlayTheFirstMove", Site)
 val `nbSeconds` = new Translated("nbSeconds", Site)
+val `andSaveNbPremoveLines` = new Translated("andSaveNbPremoveLines", Site)
 
 object arena {
 val `isItRated` = new Translated("isItRated", Arena)

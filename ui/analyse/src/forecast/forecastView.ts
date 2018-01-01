@@ -6,7 +6,7 @@ import { renderNodesHtml } from '../pgnExport';
 import { bind, dataIcon, spinner } from '../util';
 import { fixCrazySan } from 'chess';
 
-function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
+function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   var firstNode = cNodes[0];
   if (!firstNode) return;
   var fcs = fctrl.findStartingWithNode(firstNode);
@@ -18,10 +18,10 @@ function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefine
     attrs: dataIcon('E'),
     hook: bind('click', _ => fctrl.playAndSave(firstNode))
   }, [
-    h('span', h('strong', 'Play ' + fixCrazySan(cNodes[0].san))),
+    h('span', h('strong', ctrl.trans('playX', fixCrazySan(cNodes[0].san)))),
     lines.length ?
-    h('span', 'and save ' + lines.length + ' premove line' + (lines.length > 1 ? 's' : '')) :
-    h('span', 'No conditional premoves')
+    h('span', ctrl.trans.plural('andSaveNbPremoveLines', lines.length)) :
+    h('span', ctrl.trans.noarg('noConditionalPremoves'))
   ]);
 }
 
@@ -44,7 +44,7 @@ export default function(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
   }, [
     fctrl.loading() ? h('div.overlay', spinner()) : null,
     h('div.box', [
-      h('div.top', 'Conditional premoves'),
+      h('div.top', ctrl.trans.noarg('conditionalPremoves')),
       h('div.list', fctrl.list().map(function(nodes, i) {
         return h('div.entry.text', {
           attrs: dataIcon('G')
@@ -63,13 +63,12 @@ export default function(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
         attrs: dataIcon(isCandidate ? 'O' : ""),
         hook: bind('click', _ => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw)
       }, isCandidate ? [
-        h('span', 'Add current variation'),
+        h('span', ctrl.trans.noarg('addCurrentVariation')),
         h('sans', renderNodesHtml(cNodes))
       ] : [
-        h('span', 'Play a variation to create'),
-        h('span', 'conditional premoves')
+        h('span', ctrl.trans.noarg('playVariationToCreateConditionalPremoves'))
       ])
     ]),
-    fctrl.onMyTurn ? onMyTurn(fctrl, cNodes) : null
+    fctrl.onMyTurn ? onMyTurn(ctrl, fctrl, cNodes) : null
   ]);
 }
