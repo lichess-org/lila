@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
-import { Api as ChessgroundApi } from 'chessground/api';
 import * as cg from 'chessground/types';
 import { Step, Redraw } from './interfaces';
+import RoundController from './ctrl';
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests) => void;
 
@@ -13,26 +13,27 @@ export interface KeyboardMove {
   san(orig: cg.Key, dest: cg.Key): void;
   select(key: cg.Key): void;
   hasSelected(): cg.Key | undefined;
+  confirmMove(): void;
   usedSan: boolean;
 }
 
-export function ctrl(cg: ChessgroundApi, step: Step, redraw: Redraw): KeyboardMove {
+export function ctrl(root: RoundController, step: Step, redraw: Redraw): KeyboardMove {
   let focus = false;
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
   const select = function(key: cg.Key): void {
-    if (cg.state.selected === key) cg.cancelMove();
-    else cg.selectSquare(key, true);
+    if (root.chessground.state.selected === key) root.chessground.cancelMove();
+    else root.chessground.selectSquare(key, true);
   };
   let usedSan = false;
   return {
     update(step) {
-      if (handler) handler(step.fen, cg.state.movable.dests);
+      if (handler) handler(step.fen, root.chessground.state.movable.dests);
       else preHandlerBuffer = step.fen;
     },
     registerHandler(h: KeyboardMoveHandler) {
       handler = h;
-      if (preHandlerBuffer) handler(preHandlerBuffer, cg.state.movable.dests);
+      if (preHandlerBuffer) handler(preHandlerBuffer, root.chessground.state.movable.dests);
     },
     hasFocus: () => focus,
     setFocus(v) {
@@ -41,12 +42,15 @@ export function ctrl(cg: ChessgroundApi, step: Step, redraw: Redraw): KeyboardMo
     },
     san(orig, dest) {
       usedSan = true;
-      cg.cancelMove();
+      root.chessground.cancelMove();
       select(orig);
       select(dest);
     },
     select,
-    hasSelected: () => cg.state.selected,
+    hasSelected: () => root.chessground.state.selected,
+    confirmMove() {
+      root.submitMove(true);
+    },
     usedSan
   };
 }
@@ -66,6 +70,7 @@ export function render(ctrl: KeyboardMove) {
               setFocus: ctrl.setFocus,
               select: ctrl.select,
               hasSelected: ctrl.hasSelected,
+              confirmMove: ctrl.confirmMove,
               san: ctrl.san
             }));
           });

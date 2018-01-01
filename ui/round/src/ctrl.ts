@@ -593,13 +593,14 @@ export default class RoundController {
   };
 
   submitMove = (v: boolean): void => {
-    if (v && (this.moveToSubmit || this.dropToSubmit)) {
+    const toSubmit = this.moveToSubmit || this.dropToSubmit;
+    if (v && toSubmit) {
       if (this.moveToSubmit) this.actualSendMove('move', this.moveToSubmit);
       else this.actualSendMove('drop', this.dropToSubmit);
       li.sound.confirmation();
     } else this.jump(this.ply);
     this.cancelMove();
-    this.setLoading(true, 300);
+    if (toSubmit) this.setLoading(true, 300);
   };
 
   cancelMove = (): void => {
@@ -653,7 +654,7 @@ export default class RoundController {
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
     if (this.data.pref.keyboardMove) {
-      this.keyboardMove = makeKeyboardMove(cg, round.plyStep(this.data, this.ply), this.redraw);
+      this.keyboardMove = makeKeyboardMove(this, round.plyStep(this.data, this.ply), this.redraw);
     }
   };
 
@@ -690,7 +691,12 @@ export default class RoundController {
             return msg;
         });
 
-        window.Mousetrap.bind(['esc'], () => this.chessground.cancelMove());
+        window.Mousetrap.bind('esc', () => {
+          this.submitMove(false);
+          this.chessground.cancelMove();
+        });
+
+        window.Mousetrap.bind('return', () => this.submitMove(true));
 
         cevalSub.subscribe(this);
       }
