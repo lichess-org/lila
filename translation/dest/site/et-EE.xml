@@ -569,6 +569,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="starting">Algab:</string>
   <string name="allInformationIsPublicAndOptional">Kõik andmed on avalikud ja vabatahtlikud.</string>
   <string name="yourCityRegionOrDepartment">Teie asukoht. Linn, maakond või muu.</string>
+  <string name="biographyDescription">Rääkige endast, mis teile meeldib male juures, teie lemmikud avangud, mängijad, jne…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksimum: %s märki.</item>
     <item quantity="other">Maksimum: %s märki.</item>
@@ -590,6 +591,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="playOnTheBoardOffline">Reaalelumäng</string>
   <string name="playOfflineComputer">Arvuti</string>
   <string name="opponent">Vastane</string>
+  <string name="learnMenu">Õpi</string>
   <string name="community">Kogukond</string>
   <string name="tools">Tööriistad</string>
   <string name="increment">lisa sek</string>
@@ -602,6 +604,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="error.email">See e-posti aadress on vigane</string>
   <string name="error.email_acceptable">See e-posti aadress ei ole vastuvõetav</string>
   <string name="error.email_unique">See e-posti aadress on juba võetud</string>
+  <string name="error.email_different">See on juba teie e-posti aadress</string>
   <string name="blindfoldChess">Pime male</string>
   <string name="moveConfirmation">Käigu kinnitus</string>
   <string name="inCorrespondenceGames">Kirjavahetus mängud</string>
@@ -682,10 +685,19 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="crosstable">Risti tabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Samuti võite liikuda üle laual liikuda mängu.</string>
   <string name="analysisShapesHowTo">Press Shift + click või paremklikk teha ringid ja nooled laual.</string>
+  <string name="confirmResignationAndDrawOffers">Kinnitage alistumise ning viigi pakkumised</string>
+  <string name="inputMovesWithTheKeyboard">Sisestage käigud klaviatuuril</string>
   <string name="letOtherPlayersMessageYou">Las teised mängijad sõnumi</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Vangerdamise meetod</string>
+  <string name="castleByMovingTwoSquares">Liiguta kuningat kaks ruutu</string>
+  <string name="castleByMovingOntoTheRook">Liiguta kuningas vankri peale</string>
   <string name="shareYourInsightsData">Jaga oma teadmisi andmeid</string>
+  <string name="withNobody">Mitte kellegagi</string>
+  <string name="withFriends">Sõpradega</string>
+  <string name="withEverybody">Kõigiga</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Te olete juba registreeritud e-posti: %s</string>
   <string name="kidMode">Lapserežiim</string>
+  <string name="kidModeExplanation">See seisneb turvalisuses. Lapse režiimis, igasugune suhtlus sellel lehel on välja lülitatud. Aktiveerige see režiim, et kaitsta lapsi ja kooliõpilasi teiste kasutajate eest.</string>
   <string name="playChessEverywhere">Mängi malet kõikjal</string>
   <string name="asFreeAsLichess">Nii vaba kui Lichessi</string>
   <string name="builtForTheLoveOfChessNotMoney">Ehitatud armastus male, mitte raha</string>
