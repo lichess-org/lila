@@ -419,6 +419,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="profileCompletion">Profiili täitmine: %s</string>
   <string name="xRating">%s reiting</string>
   <string name="ifNoneLeaveEmpty">Kui pole, jätke tühjaks</string>
+  <string name="gameCompletionRate">Mängu lõpuni mängimise protsent: %s</string>
   <string name="profile">Profiil</string>
   <string name="editProfile">Muuda profiili</string>
   <string name="firstName">Eesnimi</string>
@@ -509,6 +510,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="closeAccountExplanation">Kas oled kindel, et tahad oma konto sulgeda? Sulgemine teie konto on püsiv otsus. Sa ei saa enam sisse logida ja profiili leht ei ole enam kättesaadav.</string>
   <string name="thisAccountIsClosed">See konto on suletud.</string>
   <string name="invalidUsernameOrPassword">Vale kasutajanimi või parool</string>
+  <string name="incorrectPassword">Vale parool</string>
   <string name="emailMeALink">Saada mulle link</string>
   <string name="currentPassword">Praegune salasõna</string>
   <string name="newPassword">Uus salasõna</string>
@@ -517,6 +519,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="pieceDestinations">malendi sihtkoht (kehtib käies ja ennetaval käigul)</string>
   <string name="boardCoordinates">Laua koordinaadid (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">käikude loend mängides</string>
+  <string name="pgnPieceNotation">Käikude notatsioon</string>
+  <string name="chessPieceSymbol">Malendi sümbol</string>
+  <string name="pgnLetter">Täht (K, L, V, O, R)</string>
   <string name="chessClock">Malekell</string>
   <string name="tenthsOfSeconds">Kümnendikku sekundit</string>
   <string name="never">Mitte kunagi</string>
@@ -524,12 +529,18 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="horizontalGreenProgressBars">Horisontaalne roheline progressi riba</string>
   <string name="soundWhenTimeGetsCritical">Heli kui aeg hakkab lõppema</string>
   <string name="gameBehavior">Mängu käitumine</string>
+  <string name="howDoYouMovePieces">Kuidas malendeid liigutada?</string>
+  <string name="clickTwoSquares">Vajuta kahele ruudule</string>
+  <string name="dragPiece">Lohista malendit</string>
+  <string name="bothClicksAndDrag">Mõlemad</string>
   <string name="premovesPlayingDuringOpponentTurn">ennetav käik (käigu tegemine vastase käiguajal)</string>
   <string name="takebacksWithOpponentApproval">Tagasi võtma (kui vastane lubab)</string>
   <string name="promoteToQueenAutomatically">Automaatselt edenda lipuks</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Kuuluta viik kolmekordsel kordusel automaatselt</string>
   <string name="privacy">Privaatsus</string>
   <string name="letOtherPlayersFollowYou">Lubage teistele mängijatele teid jälgida</string>
   <string name="letOtherPlayersChallengeYou">Lubage teistele mängijatele esitada väljakutse</string>
+  <string name="letOtherPlayersInviteYouToStudy">Lase teistel mängijatel sind kutsuda õppima</string>
   <string name="sound">Heli</string>
   <string name="yourPreferencesHaveBeenSaved">Teie eelistused on salvestatud.</string>
   <string name="none">Ilma</string>
@@ -552,6 +563,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="xAnsweredY">%1$s vastas %2$s</string>
   <string name="xCommentedY">%1$s kommenteeris %2$s</string>
   <string name="victory">Võit!</string>
+  <string name="defeat">Kaotus</string>
   <string name="timeline">Ajatelg</string>
   <string name="seeAllTournaments">Näita kõik turniirid</string>
   <string name="starting">Algab:</string>
