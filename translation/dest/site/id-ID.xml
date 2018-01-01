@@ -746,4 +746,19 @@ masuk %3$s</string>
   <string name="bestWasX">Terbaik adalah %s</string>
   <string name="youBrowsedAway">Anda melihat-lihat</string>
   <string name="resumePractice">Lanjutkan latihan</string>
+  <string name="theGameIsADraw">Permainan ini menarik.</string>
+  <string name="computerThinking">Komputer berpikir ...</string>
+  <string name="seeBestMove">Lihat langkah terbaik</string>
+  <string name="hideBestMove">Sembunyikan langkah terbaik</string>
+  <string name="getAHint">Dapatkan petunjuk</string>
+  <string name="evaluatingYourMove">Mengevaluasi kepindahan Anda ...</string>
+  <string name="whiteWinsGame">Putih menang</string>
+  <string name="blackWinsGame">Hitam menang</string>
+  <string name="learnFromYourMistakes">Belajar dari kesalahanmu</string>
+  <string name="learnFromThisMistake">Belajar dari kesalahan ini</string>
+  <string name="skipThisMove">Lewatkan kepindahan ini</string>
+  <string name="next">Lanjutkan</string>
+  <string name="xWasPlayed">%s sedang diamainkan</string>
+  <string name="findBetterMoveForWhite">Temukan langkah yang lebih baik untuk warna putih</string>
+  <string name="findBetterMoveForBlack">Temukan langkah yang lebih baik untuk warna hitam</string>
 </resources>
