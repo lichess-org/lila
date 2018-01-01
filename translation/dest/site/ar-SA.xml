@@ -333,6 +333,14 @@
   <string name="tournament">مسابقة</string>
   <string name="tournaments">مسابقات</string>
   <string name="tournamentPoints">نقاط المسابقة</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="zero">نقاط المسابقة %s</item>
+    <item quantity="one">نقاط المسابقة %s</item>
+    <item quantity="two">نقاط المسابقة %s</item>
+    <item quantity="few">نقاط المسابقة %s</item>
+    <item quantity="many">نقاط المسابقة %s</item>
+    <item quantity="other">نقاط المسابقة %s</item>
+  </plurals>
   <string name="viewTournament">شاهد المسابقة</string>
   <string name="backToTournament">عودة للمسابقة</string>
   <string name="thematic">وضعية مخصصة</string>
@@ -889,6 +897,24 @@
   <string name="notifications">إشعارات</string>
   <string name="challenges">التحديات</string>
   <string name="perfRatingX">التقييم: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="zero">%s ثانية متبقية لاتمام النقلة الأولى</item>
+    <item quantity="one">%s ثانية متبقية لإتمام النقلة الأولى</item>
+    <item quantity="two">%s ثوانِ متبقية لاتمام النقلة الأولى</item>
+    <item quantity="few">%s ثوانِ متبقية لاتمام النقلة الأولى</item>
+    <item quantity="many">%s ثوانِ متبقية لاتمام النقلة الأولى</item>
+    <item quantity="other">%s ثوانِ متبقية لاتمام النقلة الأولى</item>
+  </plurals>
+  <string name="practiceWithComputer">الممارسة مع الكمبيوتر</string>
+  <string name="anotherWasX">نقلة أخرى %s</string>
+  <string name="bestWasX">النقلة الأفضل هي %s</string>
+  <string name="youBrowsedAway">تصفحت نقلات مختلفة</string>
+  <string name="resumePractice">استئناف التدريب</string>
+  <string name="theGameIsADraw">المباراة تعادل.</string>
+  <string name="computerThinking">الكمبيوتر يفكر ...</string>
+  <string name="seeBestMove">شاهد افضل نقلة</string>
+  <string name="hideBestMove">أخفي أفضل نقلة</string>
+  <string name="getAHint">احصل على تلميح</string>
   <string name="registerToSendChallenges">الرجاء التسجيل لإرسال التحديات.</string>
   <string name="youCannotChallengeX">لا يمكنك تحدي %s.</string>
   <string name="xDoesNotAcceptChallenges">%s لا يقبل التحديات.</string>
