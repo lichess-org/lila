@@ -825,4 +825,8 @@
   <string name="playVariationToCreateConditionalPremoves">Spil en variation for at lave betingede forhåndstræk</string>
   <string name="noConditionalPremoves">Ingen betingede forhåndstræk</string>
   <string name="playX">Spil %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">og gem %s line med forhåndstræk</item>
+    <item quantity="other">og gem %s liner med forhåndstræk</item>
+  </plurals>
 </resources>
