@@ -11,19 +11,22 @@
   <string name="chessPieces">Buah catur</string>
   <string name="theRook">Benteng</string>
   <string name="itMovesInStraightLines">Bergerak secara garis lurus</string>
-  <string name="rookIntro">Benteng adalah buah yang kuat. Apakah Anda siap untuk memerintahkannya?</string>
-  <string name="rookGoal">Klik pada benteng untuk membawa ke bintang!</string>
+  <string name="rookIntro">Benteng adalah bagian yang kuat. Apakah kamu siap untuk perintah itu?</string>
+  <string name="rookGoal">Klik di rook
+untuk membawanya ke bintang!</string>
   <string name="grabAllTheStars">Ambil semua bintang!</string>
-  <string name="theFewerMoves">Semakin sedikit jalan yang Anda buat, semakin banyak poin yang Anda dapat!</string>
-  <string name="useTwoRooks">Menggunakan dua benteng mempercepat semuanya!</string>
-  <string name="rookComplete">Selamat! Anda telah sukses memelajari benteng.</string>
+  <string name="theFewerMoves">Semakin sedikit gerakan yang Anda lakukan,
+semakin banyak poin yang kamu menangkan!</string>
+  <string name="useTwoRooks">Gunakan dua rooks
+untuk mempercepat segalanya!</string>
+  <string name="rookComplete">Selamat! Anda telah berhasil menguasai benteng.</string>
   <string name="theBishop">Patih</string>
   <string name="itMovesDiagonally">Bergerak secara diagonal</string>
-  <string name="bishopIntro">Selanjutnya kita akan belajar cara patih bermanuver!</string>
+  <string name="bishopIntro">Selanjutnya kita akan belajar bagaimana cara manuver seorang uskup!</string>
   <string name="youNeedBothBishops">Satu patih di kotak terang,
 satu patih di kotak gelap.
 Anda membutuhkan keduanya!</string>
-  <string name="bishopComplete">Selamat! Anda bisa memerintahkan sebuah patih.</string>
+  <string name="bishopComplete">Selamat! Anda bisa memerintahkan seorang uskup.</string>
   <string name="theQueen">Ratu</string>
   <string name="queenCombinesRookAndBishop">Ratu = benteng + patih</string>
   <string name="queenIntro">Memasuki bagian catur yang paling kuat. Yang Mulia sang Ratu!</string>
@@ -33,10 +36,10 @@ Anda membutuhkan keduanya!</string>
   <string name="kingIntro">Anda adalah rajanya. Apabila Anda gugur di pertempuran, permainan berakhir.</string>
   <string name="theKingIsSlow">Sang raja bergerak lambat.</string>
   <string name="lastOne">Yang terakhir!</string>
-  <string name="kingComplete">Anda kini dapat memerintah sang Panglima!</string>
+  <string name="kingComplete">Anda sekarang bisa memerintah komandan!</string>
   <string name="theKnight">Kuda</string>
   <string name="itMovesInAnLShape">Bergerak dalam bentuk L</string>
-  <string name="knightIntro">Berikut adalah sebuah tantangan bagi Anda. Kuda adalah... buah yang penuh trik.</string>
+  <string name="knightIntro">Inilah tantangan bagi Anda. Ksatria adalah... sepotong rumit.</string>
   <string name="knightsHaveAFancyWay">Kuda mempunyai cara keren berlompat sana-sini!</string>
   <string name="knightsCanJumpOverObstacles">Kuda dapat meloncati rintangan!
 Lolosi dan hilangkan bintang-bintang!</string>
@@ -172,6 +175,10 @@ Pion = 1</string>
   <string name="practice">Latihan</string>
   <string name="learnCommonChessPositions">Belajar posisi umum catur</string>
   <string name="puzzles">Teka teki</string>
+  <string name="exerciseYourTacticalSkills">Latih keterampilan taktis anda</string>
+  <string name="videos">Video</string>
+  <string name="watchInstructiveChessVideos">Tonton video catur instruktif</string>
+  <string name="playPeople">Orang bermain</string>
   <string name="opponentsFromAroundTheWorld">Lawan dari di seluruh dunia</string>
   <string name="playMachine">Lawan komputer</string>
   <string name="testYourSkillsWithTheComputer">Uji keterampilan Anda dengan komputer</string>
