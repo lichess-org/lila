@@ -56,6 +56,9 @@
   <string name="showThreat">إظهار التهديد</string>
   <string name="inLocalBrowser">في متصفحك</string>
   <string name="toggleLocalEvaluation">التبديل للتحليل بالمتصفح</string>
+  <string name="promoteVariation">تغيير النوع</string>
+  <string name="makeMainLine">اجعله التسلسل الرئيسي</string>
+  <string name="deleteFromHere">احذف من هنا</string>
   <string name="move">نقلة</string>
   <string name="variantLoss">تفريع خاسر</string>
   <string name="variantWin">تفريع رابح</string>
@@ -111,8 +114,11 @@
   <string name="memory">الذاكرة</string>
   <string name="infiniteAnalysis">تحليل لانهائي</string>
   <string name="removesTheDepthLimit">التحليل لأبعد عمق، وابقاء حاسوبك نشطًا</string>
+  <string name="blunder">خطأ غير مقصود</string>
   <string name="blunders">أخطاء فادحة</string>
+  <string name="mistake">خطأ</string>
   <string name="mistakes">أخطاء</string>
+  <string name="inaccuracy">غير دقيق</string>
   <string name="inaccuracies">نقلات غير دقيقة</string>
   <string name="moveTimes">توقيت النقلات</string>
   <string name="flipBoard">تدوير الرقعة</string>
@@ -227,6 +233,7 @@
   <string name="accept">قبول</string>
   <string name="decline">رفض</string>
   <string name="playingRightNow">يلعب الآن</string>
+  <string name="eventInProgress">يلعب الآن</string>
   <string name="finished">انتهت</string>
   <string name="abortGame">إلغاء اللعبة</string>
   <string name="gameAborted">اللعبة ألغيت</string>
@@ -235,6 +242,8 @@
   <string name="mode">مقيمة أو غير مقيمة</string>
   <string name="casual">غير مقيّمة</string>
   <string name="rated">مقيّمة</string>
+  <string name="casualTournament">غير مقيّمة</string>
+  <string name="ratedTournament">مقيّمة</string>
   <string name="thisGameIsRated">هذه اللعبة مقيّمة</string>
   <string name="rematch">العب مرة أخرى</string>
   <string name="rematchOfferSent">أُرسل طلب اللعب</string>
@@ -880,6 +889,10 @@
   <string name="notifications">إشعارات</string>
   <string name="challenges">التحديات</string>
   <string name="perfRatingX">التقييم: %s</string>
+  <string name="registerToSendChallenges">الرجاء التسجيل لإرسال التحديات.</string>
+  <string name="youCannotChallengeX">لا يمكنك تحدي %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s لا يقبل التحديات.</string>
+  <string name="yourXRatingIsTooFarFromY">تقييمك %1$s بعيد جداً عن %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">لا يمكن اتمام التحدي بسبب التقييم %s المؤقت.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s يقبل التحديات من الأصدقاء فقط.</string>
 </resources>
