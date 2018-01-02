@@ -854,4 +854,7 @@
   <string name="yourXRatingIsTooFarFromY">Twój ranking (%1$s) jest zbyt odległy od %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Nie można rzucić wyzwania ze względu na tymczasowy ranking (%s).</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s akceptuje tylko wyzwania od znajomych.</string>
+  <string name="conditionalPremoves">Ruchy warunkowe</string>
+  <string name="noConditionalPremoves">Brak ruchów warunkowych</string>
+  <string name="playX">Zagraj %s</string>
 </resources>
