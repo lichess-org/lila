@@ -57,6 +57,7 @@
   <string name="inLocalBrowser">v lokálnom prehliadači</string>
   <string name="toggleLocalEvaluation">Prepnúť na vlastnú analýzu</string>
   <string name="promoteVariation">Povýš variant</string>
+  <string name="makeMainLine">Povýš na hlavný variant</string>
   <string name="deleteFromHere">Vymaž odtiaľto</string>
   <string name="move">Ťah</string>
   <string name="variantLoss">Prehrávajúci variant</string>
@@ -310,6 +311,14 @@
     <item quantity="few">Potrebuješ odohrať ešte %1$s %2$s hodnotené partie</item>
     <item quantity="other">Potrebuješ odohrať ešte %1$s %2$s hodnotených partií</item>
   </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Musíš odohrať o %s hodnotenú partiu viac</item>
+    <item quantity="few">Musíš odohrať o %s hodnotené partie viac</item>
+    <item quantity="other">Musíš odohrať o %s hodnotených partií viac</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Tvoj %s rating je predbežný</string>
+  <string name="yourPerfRatingIsTooHigh">Tvoj %1$s rating (%2$s) je príliš vysoký</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tvoj najvyšší týždenný %1$s rating (%2$s) je príliš vysoký</string>
   <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je príliš nízky</string>
   <string name="backToGame">Návrat do hry</string>
   <string name="siteDescription">Šach online zadarmo. Hrajte šach teraz v novom rozhraní. Bez registrácie, reklám a  zásuvných modulov. Hrajte šach s počítačom, priateľmi alebo náhodnými protivníkmi.</string>
