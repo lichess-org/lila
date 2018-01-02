@@ -818,6 +818,8 @@
   <string name="youCannotChallengeX">Tu não podes desafiar %s.</string>
   <string name="xDoesNotAcceptChallenges">%s não aceita o desafio.</string>
   <string name="yourXRatingIsTooFarFromY">A tua pontuação em %1$s está muito longe de %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Tu não podes desafiar por causa do tua pontuação provisória %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s só aceita desafios de amigos.</string>
   <string name="conditionalPremoves">Pre-movimentos condicionais</string>
   <string name="addCurrentVariation">Adicionar variante actual</string>
   <string name="playVariationToCreateConditionalPremoves">Jogar uma variante para criar pre-movimentos condicionais</string>
