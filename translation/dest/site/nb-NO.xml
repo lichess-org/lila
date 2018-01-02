@@ -829,6 +829,6 @@ i %3$s</string>
   <string name="playX">Spill %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">og lagre %s linje med forhåndstrekk</item>
-    <item quantity="other">og lagre %s linje med forhåndstrekk</item>
+    <item quantity="other">og lagre %s linjer med forhåndstrekk</item>
   </plurals>
 </resources>
