@@ -767,6 +767,10 @@
   <string name="notifications">Известия</string>
   <string name="challenges">Предизвикателства</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s секунда за първия ход</item>
+    <item quantity="other">%s секунди за първия ход</item>
+  </plurals>
   <string name="practiceWithComputer">Практикуване с компютър</string>
   <string name="anotherWasX">Друг ход бе %s</string>
   <string name="bestWasX">Най-добър ход е %s</string>
