@@ -8,4 +8,9 @@
     <item quantity="few">%s riešené taktické úlohy</item>
     <item quantity="other">%s riešených taktických úloh</item>
   </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Odohral/-a %1$s %2$s partiu</item>
+    <item quantity="few">Odohral/-a %1$s %2$s partie</item>
+    <item quantity="other">Odohral/-a %1$s %2$s partií</item>
+  </plurals>
 </resources>
