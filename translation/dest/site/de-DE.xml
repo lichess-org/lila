@@ -818,4 +818,9 @@
   <string name="youCannotChallengeX">Du kannst %s nicht herausfordern.</string>
   <string name="xDoesNotAcceptChallenges">%s akzeptiert keine Herausforderungen.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s kann nur von Freunden herausgefordert werden.</string>
+  <string name="conditionalPremoves">Bedingte Vorauszüge</string>
+  <string name="addCurrentVariation">Aktuelle Variante hinzufügen</string>
+  <string name="playVariationToCreateConditionalPremoves">Spiele eine Variante, um bedingte Vorauszüge hinzuzufügen</string>
+  <string name="noConditionalPremoves">Keine bedingten Vorauszüge</string>
+  <string name="playX">Spiele %s</string>
 </resources>
