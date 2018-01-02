@@ -56,6 +56,8 @@
   <string name="showThreat">Mostra minaccia</string>
   <string name="inLocalBrowser">nel browser locale</string>
   <string name="toggleLocalEvaluation">Attiva/disattiva analisi locale</string>
+  <string name="makeMainLine">Rendi la linea principale</string>
+  <string name="deleteFromHere">Elimina da qui</string>
   <string name="move">Mossa</string>
   <string name="variantLoss">Variante perdente</string>
   <string name="variantWin">Variante vincente</string>
@@ -768,6 +770,10 @@ in %3$s</string>
   <string name="notifications">Notifiche</string>
   <string name="challenges">Sfide</string>
   <string name="perfRatingX">Punteggio: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s secondi per giocare la prima mossa</item>
+    <item quantity="other">%s secondi per giocare la prima mossa</item>
+  </plurals>
   <string name="practiceWithComputer">Allenati con il computer</string>
   <string name="anotherWasX">In alternativa %s</string>
   <string name="bestWasX">Mossa migliore %s</string>
@@ -782,6 +788,7 @@ in %3$s</string>
   <string name="whiteWinsGame">Il Bianco vince</string>
   <string name="blackWinsGame">Il Nero vince</string>
   <string name="learnFromYourMistakes">Impara dagli errori</string>
+  <string name="learnFromThisMistake">Impara da questo errore</string>
   <string name="skipThisMove">Salta questa mossa</string>
   <string name="next">Successivo</string>
   <string name="xWasPlayed">Ultima mossa %s</string>
@@ -808,4 +815,12 @@ in %3$s</string>
   <string name="opening">Apertura</string>
   <string name="middlegame">Mediogioco</string>
   <string name="endgame">Finale</string>
+  <string name="registerToSendChallenges">Per favore, registrati per mandare sfide.</string>
+  <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s non accetta sfide.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s accetta solo sfide da amici.</string>
+  <string name="conditionalPremoves">Premosse condizionali</string>
+  <string name="addCurrentVariation">Aggiungi variazione corrente</string>
+  <string name="playVariationToCreateConditionalPremoves">Gioca una variazione per creare premosse condizionali</string>
+  <string name="noConditionalPremoves">Nessuna premossa condizionale</string>
 </resources>
