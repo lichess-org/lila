@@ -167,6 +167,61 @@ imediatamente depois do adversário
 mover o peão.</string>
   <string name="enPassantOnlyWorksOnFifthRank">En passant só funciona
 se o peão está na quinta fila.</string>
+  <string name="takeAllThePawnsEnPassant">Captura todos os peões en passant!</string>
+  <string name="enPassantComplete">Parabéns! Agora sabes capturar en passat.</string>
+  <string name="stalemate">Rei afogado</string>
+  <string name="theGameIsADraw">O jogo é empate</string>
+  <string name="stalemateIntro">Quando um jogador não está em cheque e não pode fazer um movimento legal, então diz-se rei afogado. O jogo é empate: ninguém ganha, ninguém perde.</string>
+  <string name="stalemateGoal">Para afogar o rei das negras:
+- as negras não se podem mexer
+- não há cheque.</string>
+  <string name="stalemateComplete">Parabéns! É melhor ser rei afogado que cheque mate!</string>
+  <string name="advanced">Avançado</string>
+  <string name="pieceValue">Valor das peças</string>
+  <string name="evaluatePieceStrength">Avalia o valor das peças</string>
+  <string name="pieceValueIntro">Peças com alta mobilidade têm maior valor!
+Rainha = 9
+Torre = 5
+Bispo = 3
+Cavalo = 3
+Peão = 1
+O rei não tem preço! Perde-lo significa perder o jogo.</string>
+  <string name="queenOverBishop">Captura a peça
+de maior valor!
+Rainha &gt; Bispo</string>
+  <string name="takeThePieceWithTheHighestValue">Captura a peça
+de maior valor!</string>
+  <string name="pieceValueComplete">Parabéns! Sabes o valor do material!
+Rainha = 9
+Torre = 5
+Bispo = 3
+Cavalo = 3
+Peão = 1</string>
+  <string name="checkInTwo">Cheque em duas</string>
+  <string name="twoMovesToGiveCheck">Dois movimentos para dar cheque</string>
+  <string name="checkInTwoIntro">Encontra a combinação correta de dois movimentos que dá cheque ao rei adversário!</string>
+  <string name="checkInTwoGoal">Ameaça o rei adversário em dois movimentos!</string>
+  <string name="checkInTwoComplete">Parabéns! Fizeste cheque ao adversário, forçando-o a defender o seu rei!</string>
+  <string name="whatNext">O que se segue?</string>
+  <string name="youKnowHowToPlayChess">Tu sabes como jogar xadrez, parabéns! Queres tornar-te um jogador mais forte?</string>
+  <string name="register">Regista-te</string>
+  <string name="getAFreeLichessAccount">Obtém um conta gratuita no Lichess</string>
+  <string name="practice">Pratica</string>
+  <string name="learnCommonChessPositions">Aprende posições comuns no xadrez</string>
+  <string name="puzzles">Quebra-cabeças</string>
+  <string name="exerciseYourTacticalSkills">Pratica as tuas habilidades táticas</string>
+  <string name="videos">Vídeos</string>
+  <string name="watchInstructiveChessVideos">Vê vídeos instrutivos de xadrez</string>
+  <string name="playPeople">Joga com pessoas</string>
+  <string name="opponentsFromAroundTheWorld">Adversários de todo o mundo</string>
+  <string name="playMachine">Joga com o computador</string>
+  <string name="testYourSkillsWithTheComputer">Testa a tuas habilidades contra o computador</string>
+  <string name="letsGo">Vamos!</string>
+  <string name="stageX">Estágio %s</string>
+  <string name="awesome">Brilhante!</string>
+  <string name="excellent">Excelente!</string>
+  <string name="greatJob">Bom trabalho!</string>
+  <string name="perfect">Perfeito!</string>
   <string name="wayToGo">Boa!</string>
   <string name="yesYesYes">Sim, sim sim!</string>
   <string name="youreGoodAtThis">Tu és bom nisto!</string>
