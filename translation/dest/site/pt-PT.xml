@@ -273,6 +273,10 @@
   <string name="tournament">Torneio</string>
   <string name="tournaments">Torneios</string>
   <string name="tournamentPoints">Pontos de torneios</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s ponto de torneio</item>
+    <item quantity="other">%s pontos de torneio</item>
+  </plurals>
   <string name="viewTournament">Ver torneio</string>
   <string name="backToTournament">Voltar ao torneio</string>
   <string name="thematic">Temático</string>
@@ -732,4 +736,42 @@
   <string name="xJoinsY">%1$s entra em %2$s</string>
   <string name="xLikesY">%1$s gosta de %2$s</string>
   <string name="quickPairing">Emparelhamento rápido</string>
+  <string name="lobby">Vestíbulo</string>
+  <string name="anonymous">Anónimo</string>
+  <string name="yourScore">A tua pontuação: %s</string>
+  <string name="language">Idioma</string>
+  <string name="background">Fundo</string>
+  <string name="light">Claro</string>
+  <string name="dark">Escuro</string>
+  <string name="transparent">Transparente</string>
+  <string name="backgroundImageUrl">URL da imagem de fundo:</string>
+  <string name="boardGeometry">Geometria do tabuleiro</string>
+  <string name="boardTheme">Estilo de tabuleiro</string>
+  <string name="boardSize">Tamanho do tabuleiro</string>
+  <string name="pieceSet">Peças</string>
+  <string name="embedInYourWebsite">Incorpora no teu website</string>
+  <string name="usernameAlreadyUsed">Este usuário já está em uso, por favor escolhe outro.</string>
+  <string name="usernameInvalid">Usuário inválido. Por favor usa apenas letras, números, barra baixa ou traço.</string>
+  <string name="usernameStartNoNumber">O nome do usuário não deve começar com números.</string>
+  <string name="usernameUnacceptable">O nome de usuário não é aceitável.</string>
+  <string name="directlySupportLichess">Apoie o Lichess</string>
+  <string name="playChessInStyle">Xadrez com estilo</string>
+  <string name="chessBasics">O básico do xadrez</string>
+  <string name="coaches">Treinadores</string>
+  <string name="invalidPgn">PGN inválido</string>
+  <string name="invalidFen">FEN inválido</string>
+  <string name="error.minLength">O tamanho mínimo é %s</string>
+  <string name="error.maxLength">O tamanho máximo é %s</string>
+  <string name="error.min">Deve ser maior ou igual a %s</string>
+  <string name="error.max">Deve ser menor ou igual a %s</string>
+  <string name="error.unknown">Erro</string>
+  <string name="conditionalPremoves">Pre-movimentos condicionais</string>
+  <string name="addCurrentVariation">Adicionar variante actual</string>
+  <string name="playVariationToCreateConditionalPremoves">Jogar uma variante para criar pre-movimentos condicionais</string>
+  <string name="noConditionalPremoves">Sem pre-movimentos condicionais</string>
+  <string name="playX">Jogar %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">e guarda %s variante de pre-movimentos</item>
+    <item quantity="other">e guarda %s variantes de pre-movimentos</item>
+  </plurals>
 </resources>
