@@ -4,8 +4,8 @@
 <div class="side streamer-side">
   <div class="profile">
     <a class="blue" href="@routes.User.show(s.user.username)">View @s.user.username lichess profile</a>
-    @if(ctx.is(s.user)) {
-    <br /><a class="blue" href="@routes.Streamer.edit()">Edit streamer page</a>
+    @if(ctx.is(s.user) || isGranted(_.Streamers)) {
+    <br /><br /><a class="blue" href="@routes.Streamer.edit()@if(!ctx.is(s.user)){?u=@s.user.id}">Edit streamer page</a>
     }
   </div>
   @if(s.streamer.approval.chatEnabled) {
@@ -80,5 +80,8 @@ moreCss = cssTag("streamer.show.css")) {
       }
     </div>
   </div>
+  @if(!s.streamer.isLive) {
+  <div class="offline">OFFLINE</div>
+  }
 </div>
 }

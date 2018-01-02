@@ -101,7 +101,7 @@ lazy val coach = module("coach", Seq(
 )
 
 lazy val streamer = module("streamer", Seq(
-  common, hub, db, user
+  common, hub, db, user, notifyModule
 )).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )

@@ -52,6 +52,7 @@ private object BSONHandlers {
   implicit val RatingRefundHandler = Macros.handler[RatingRefund]
   implicit val CorresAlarmHandler = Macros.handler[CorresAlarm]
   implicit val IrwinDoneHandler = Macros.handler[IrwinDone]
+  implicit val GenericLinkHandler = Macros.handler[GenericLink]
 
   implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, chess.Color] {
     def read(b: BSONBoolean) = chess.Color(b.value)
@@ -79,6 +80,7 @@ private object BSONHandlers {
         case CoachReview => $empty
         case x: CorresAlarm => CorresAlarmHandler.write(x)
         case x: IrwinDone => IrwinDoneHandler.write(x)
+        case x: GenericLink => GenericLinkHandler.write(x)
       }
     } ++ $doc("type" -> notificationContent.key)
 
@@ -116,6 +118,7 @@ private object BSONHandlers {
       case "coachReview" => CoachReview
       case "corresAlarm" => CorresAlarmHandler read reader.doc
       case "irwinDone" => IrwinDoneHandler read reader.doc
+      case "genericLink" => GenericLinkHandler read reader.doc
     }
 
     def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = writeNotificationContent(n)

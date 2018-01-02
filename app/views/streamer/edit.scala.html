@@ -30,17 +30,27 @@ side = side.some) {
   <div class="top">
     <div class="picture_wrap">
       @if(s.streamer.hasPicture) {
-      <a class="upload_picture" href="@routes.Streamer.picture" title="Change/delete your streamer picture">
+      @if(ctx.is(s.user)) {
+      <a class="upload_picture" href="@routes.Streamer.picture" title="Change/delete your picture">
         @pic(s, 250)
       </a>
       } else {
+      @pic(s, 250)
+      }
+      } else {
       <div class="upload_picture">
-        <a class="button" href="@routes.Streamer.picture">Upload a streamer picture</a>
+        @if(ctx.is(s.user)) {
+        <a class="button" href="@routes.Streamer.picture">Upload a picture</a>
+        }
       </div>
       }
     </div>
     <div class="overview">
+      @if(ctx.is(s.user)) {
       <h1>Lichess Streamer</h1>
+      } else {
+      <h1 class="text" data-icon="">@s.streamer.name</h1>
+      }
       @rules()
     </div>
   </div>
@@ -55,7 +65,7 @@ side = side.some) {
     @if(s.streamer.completeEnough) {
     When you are ready to be listed on <a href="@routes.Streamer.index()">lichess streamers list</a>,
     <form method="post" action="@routes.Streamer.approvalRequest">
-      <button type="submmit" class="button">request a moderator review</button>
+      <button type="submmit" class="button" @if(!ctx.is(s.user)){disabled}>request a moderator review</button>
     </form>
     } else {
     Please fill in your streamer information below.
@@ -63,35 +73,37 @@ side = side.some) {
     }
     }
   </div>
-  <form class="content_box_content material form" action="@routes.Streamer.edit" method="POST">
+  <form class="content_box_content material form" action="@routes.Streamer.edit@if(!ctx.is(s.user)){?u=@s.user.id}" method="POST">
     @errMsgMaterial(form.errors)
-    @if(isGranted(_.Streamers)) {
-    @base.form.group(form("approval.granted"), Html("Publish on the streamers list"), help = Html("Moderators only").some, half = true) {
-    @base.form.select(form("approval.granted"), booleanChoices)
-    }
-    @base.form.group(form("approval.requested"), Html("Active approval request"), help = Html("Moderators only").some, half = true) {
-    @base.form.select(form("approval.requested"), booleanChoices)
-    }
-    @if(granted) {
-    @base.form.group(form("approval.chat"), Html("Embed stream chat too"), help = Html("Moderators only").some, half = true) {
-    @base.form.select(form("approval.chat"), booleanChoices)
-    }
-    @base.form.group(form("approval.featured"), Html("Feature on lichess homepage"), help = Html("Moderators only").some, half = true) {
-    @base.form.select(form("approval.featured"), booleanChoices)
-    }
-    } else {
-    @base.form.group(form("approval.ignored"), Html("Ignore further approval requests"), help = Html("Moderators only").some, half = true) {
-    @base.form.select(form("approval.ignored"), booleanChoices)
-    }
-    }
-    }
-    @base.form.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some) {
+    <div>
+      @if(isGranted(_.Streamers)) {
+      @base.form.group(form("approval.granted"), Html("Publish on the streamers list"), help = Html("Moderators only").some, half = true) {
+      @base.form.select(form("approval.granted"), booleanChoices)
+      }
+      @base.form.group(form("approval.requested"), Html("Active approval request"), help = Html("Moderators only").some, half = true) {
+      @base.form.select(form("approval.requested"), booleanChoices)
+      }
+      @if(granted) {
+      @base.form.group(form("approval.chat"), Html("Embed stream chat too"), help = Html("Moderators only").some, half = true) {
+      @base.form.select(form("approval.chat"), booleanChoices)
+      }
+      @base.form.group(form("approval.featured"), Html("Feature on lichess homepage"), help = Html("Moderators only").some, half = true) {
+      @base.form.select(form("approval.featured"), booleanChoices)
+      }
+      } else {
+      @base.form.group(form("approval.ignored"), Html("Ignore further approval requests"), help = Html("Moderators only").some, half = true) {
+      @base.form.select(form("approval.ignored"), booleanChoices)
+      }
+      }
+      }
+    </div>
+    @base.form.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some, half = true) {
     @base.form.input(form("twitch"))
     }
-    @base.form.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none. Example: youtube.com/channel/UCr6RfQga70yMM9-nuzAYTsA").some) {
+    @base.form.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none.").some, half = true) {
     @base.form.input(form("youTube"))
     }
-    @base.form.group(form("name"), Html("Your streamer name"), help = Html("Keep it short: 20 characters max").some) {
+    @base.form.group(form("name"), Html("Your streamer name on lichess"), help = Html("Keep it short: 20 characters max").some) {
     @base.form.input(form("name"), maxLength = 20)
     }
     @base.form.group(form("description"), Html("Short description"), help = Html("Who are you, why do you love streaming?").some) {

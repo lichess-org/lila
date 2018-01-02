@@ -11,7 +11,8 @@ import lila.user.{ User, UserRepo }
 final class StreamerApi(
     coll: Coll,
     asyncCache: lila.memo.AsyncCache.Builder,
-    photographer: Photographer
+    photographer: Photographer,
+    notifyApi: lila.notify.NotifyApi
 ) {
 
   import BsonHandlers._
@@ -45,7 +46,20 @@ final class StreamerApi(
     }
 
   def update(s: Streamer, data: StreamerForm.UserData, asMod: Boolean): Funit =
-    coll.update($id(s.id), data(s, asMod)).void
+    coll.update($id(s.id), data(s, asMod)).void >> {
+      import lila.notify.Notification.Notifies
+      import lila.notify.{ Notification, NotifyApi }
+      (!s.approval.granted && data.approval.exists(_.granted)) ??
+        notifyApi.addNotification(Notification.make(
+          Notifies(s.userId),
+          lila.notify.GenericLink(
+            url = s"/streamer/edit",
+            title = "Listed on /streamer".some,
+            text = "Your streamer page is public".some,
+            icon = ""
+          )
+        ))
+    }
 
   def create(u: User): Funit =
     isStreamer(u) flatMap { exists =>

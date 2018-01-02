@@ -1,3 +1,6 @@
+.streamer-side {
+  margin: 50px 0 0 -35px;
+}
 .streamer .top {
   display: flex;
 }
@@ -8,12 +11,12 @@
 .streamer .overview {
   margin: 20px 10px 0 20px;
 }
-.streamer h1 {
+div.content_box.streamer h1 {
   font-family: 'Roboto';
-  font-size: 32px;
+  font-size: 35px;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  padding: 0 0 16px 0!important;
+  letter-spacing: 5px;
+  padding: 0 0 12px 0!important;
   text-shadow: none!important;
 }
 .streamer .headline {
@@ -49,6 +52,15 @@
 }
 .streamer .live iframe {
   border: none;
+}
+.streamer .offline {
+  height: 300px;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  letter-spacing: 10px;
 }
 body.dark .streamer .service svg path {
   fill: #aaa;

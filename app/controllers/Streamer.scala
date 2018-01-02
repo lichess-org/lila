@@ -54,12 +54,14 @@ object Streamer extends LilaController {
     }
   }
 
-  def editApply = AuthBody { implicit ctx => _ =>
+  def editApply = AuthBody { implicit ctx => me =>
     AsStreamer { s =>
       implicit val req = ctx.body
       StreamerForm.userForm(s.streamer).bindFromRequest.fold(
         error => BadRequest(html.streamer.edit(s, error)).fuccess,
-        data => api.update(s.streamer, data, isGranted(_.Streamers)) inject Redirect(routes.Streamer.edit())
+        data => api.update(s.streamer, data, isGranted(_.Streamers)) inject Redirect {
+          s"${routes.Streamer.edit().url}${if (s.streamer is me) "" else "?u=" + s.user.id}"
+        }
       )
     }
   }

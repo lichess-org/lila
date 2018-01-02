@@ -10,6 +10,7 @@ final class Env(
     renderer: ActorSelection,
     isOnline: lila.user.User.ID => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
+    notifyApi: lila.notify.NotifyApi,
     db: lila.db.Env
 ) {
 
@@ -28,7 +29,8 @@ final class Env(
   lazy val api = new StreamerApi(
     coll = streamerColl,
     asyncCache = asyncCache,
-    photographer = photographer
+    photographer = photographer,
+    notifyApi = notifyApi
   )
 
   lazy val pager = new StreamerPager(
@@ -81,6 +83,7 @@ object Env {
     renderer = lila.hub.Env.current.actor.renderer,
     isOnline = lila.user.Env.current.isOnline,
     asyncCache = lila.memo.Env.current.asyncCache,
+    notifyApi = lila.notify.Env.current.api,
     db = lila.db.Env.current
   )
 }

@@ -59,6 +59,12 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync) {
         case IrwinDone(userId) => Json.obj(
           "user" -> getLightUser(userId)
         )
+        case GenericLink(url, title, text, icon) => Json.obj(
+          "url" -> url,
+          "title" -> title,
+          "text" -> text,
+          "icon" -> icon
+        )
       }
     }
 

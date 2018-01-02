@@ -3,7 +3,18 @@ import { VNode } from 'snabbdom/vnode'
 
 import { Notification, Renderers } from './interfaces'
 
+// function generic(n: Notification, url: string | undefined, icon: string, content: VNode[]): VNode {
 export const renderers: Renderers = {
+  genericLink: {
+    html: n => generic(n, n.content.url, n.content.icon, [
+      h('span', [
+        h('strong', n.content.title),
+        drawTime(n)
+      ]),
+      h('span', n.content.text)
+    ]),
+    text: n => n.content.title || n.content.text
+  },
   mention: {
     html: n => generic(n, "/forum/redirect/post/" + n.content.postId, 'd', [
       h('span', [

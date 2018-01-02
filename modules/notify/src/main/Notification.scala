@@ -133,3 +133,10 @@ case class CorresAlarm(
 case class IrwinDone(
     userId: lila.user.User.ID
 ) extends NotificationContent("irwinDone")
+
+case class GenericLink(
+    url: String,
+    title: Option[String],
+    text: Option[String],
+    icon: String
+) extends NotificationContent("genericLink")
