@@ -14,7 +14,7 @@
   <string name="toggleSound">Prepínač zvuku</string>
   <string name="chat">Chat</string>
   <string name="resign">Vzdať sa</string>
-  <string name="checkmate">Šach mat</string>
+  <string name="checkmate">Mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Biely</string>
   <string name="black">Čierny</string>
