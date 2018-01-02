@@ -74,4 +74,75 @@ Não é necessário promover.</string>
 E não percas as tuas.</string>
   <string name="captureComplete">Parabéns! Já sabes como lutar com as peças do xadrez!</string>
   <string name="protection">Proteção</string>
+  <string name="keepYourPiecesSafe">Mantém as tuas peças seguras</string>
+  <string name="protectionIntro">Identifica as peças que o teu adversário está a atacar, e defende-as!</string>
+  <string name="protectionComplete">Parabéns! Uma peça que não perdes é uma peça que ganhas!</string>
+  <string name="escape">Estás a ser atacado!
+Escapa da ameaça!</string>
+  <string name="noEscape">Não há escapatória,
+mas podes-te defender!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Não lhes deixes capturar
+as peças não defendidas!</string>
+  <string name="combat">Combate</string>
+  <string name="captureAndDefendPieces">Captura e defende peças</string>
+  <string name="combatIntro">Um bom guerreiro sabe tanto atacar como defender!</string>
+  <string name="combatComplete">Parabéns! Sabes como lutar com as peças de xadrez!</string>
+  <string name="checkInOne">Cheque numa jogada</string>
+  <string name="attackTheOpponentsKing">Ataca o rei adversário</string>
+  <string name="checkInOneIntro">Para fazer cheque ao adversário, ataca o seu rei. Eles devem defende-lo!</string>
+  <string name="checkInOneGoal">Aponta ao rei adversário
+em apenas um movimento!</string>
+  <string name="checkInOneComplete">Parabéns! Fizeste cheque ao adversário, forçando-lhes a defender o seu rei!</string>
+  <string name="outOfCheck">Sair do cheque</string>
+  <string name="defendYourKing">Defende o teu rei</string>
+  <string name="outOfCheckIntro">Tu estás em cheque! Tens de escapar o bloquear o ataque.</string>
+  <string name="escapeWithTheKing">Escapa com o rei!</string>
+  <string name="theKingCannotEscapeButBlock">O rei não pode escapar,
+mas tu podes bloquear o ataque!</string>
+  <string name="youCanGetOutOfCheckByTaking">Tu podes sair do cheque
+capturando a peça atacante.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Este cavalo está a fazer-te cheque
+através das tuas defesas!</string>
+  <string name="escapeOrBlock">Escapa com o rei
+ou bloqueia o ataque!</string>
+  <string name="outOfCheckComplete">Parabéns! O teu rei nunca foi capturado, certifica-te que podes sempre defender contra um cheque!</string>
+  <string name="mateInOne">Cheque Mate numa jogada</string>
+  <string name="defeatTheOpponentsKing">Derrota o rei adversário</string>
+  <string name="mateInOneIntro">Tu ganhas quando o teu adversário não pode defender-se do teu cheque.</string>
+  <string name="attackYourOpponentsKing">Ataca o rei adversário
+de maneira que não se possa defender!</string>
+  <string name="mateInOneComplete">Parabéns! É assim que se ganham os jogos de xadrez!</string>
+  <string name="intermediate">Intermédio</string>
+  <string name="boardSetup">Organização do tabuleiro</string>
+  <string name="howTheGameStarts">Como começa o jogo</string>
+  <string name="boardSetupIntro">Os dois exércitos cara a cara, preparados para a batalha.</string>
+  <string name="thisIsTheInitialPosition">Esta é a posição inicial
+de todos os jogos de xadrez!
+Faz qualquer movimento para continuar.</string>
+  <string name="firstPlaceTheRooks">Primeiro coloca as torres!
+Elas vão as cantos.</string>
+  <string name="thenPlaceTheKnights">Depois coloca os cavalos!
+Vão ao lado das torres.</string>
+  <string name="placeTheBishops">Coloca os bispos!
+Vão ao lado dos cavalos.</string>
+  <string name="placeTheQueen">Coloca a rainha!
+Ela vai na casa da sua cor.</string>
+  <string name="placeTheKing">Coloca o rei!
+Ao lado da rainha.</string>
+  <string name="pawnsFormTheFrontLine">Os peões formam a linha da frente.
+Faz qualquer movimentos para continuar.</string>
+  <string name="boardSetupComplete">Parabéns! Agora sabes como organizar o tabuleiro de xadrez.</string>
+  <string name="castling">Enrocar</string>
+  <string name="theSpecialKingMove">O movimento especial do rei</string>
+  <string name="castlingIntro">Trás o teu rei à segurança, e leva a tua torre para o ataque!</string>
+  <string name="castleKingSide">Mexe o teu rei duas casas
+para enrocar no lado do rei!</string>
+  <string name="castleQueenSide">Mexe o rei duas casa
+para enrocar no lado da rainha!</string>
+  <string name="theKnightIsInTheWay">O cavalo está no meio!
+Mexe-o, depois enroca-te do lado do rei.</string>
+  <string name="castleKingSideMovePiecesFirst">Encora-te do lado do rei!
+Precisas de tirar as tuas peças primeiro.</string>
+  <string name="castleQueenSideMovePiecesFirst">Enroca-te do lado da rainha!
+Precisas de tirar as tuas peças primeiro.</string>
 </resources>
