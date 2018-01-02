@@ -56,4 +56,8 @@
     <item quantity="other">Qualificado #%1$s (por cima dos %2$s%%) com %3$s jogos em %4$s</item>
   </plurals>
   <string name="signedUp">Registado no lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Entrou na equipa %s</item>
+    <item quantity="other">Entrou nas equipas %s</item>
+  </plurals>
 </resources>
