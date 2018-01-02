@@ -192,7 +192,7 @@ export function submitMove(ctrl: RoundController): VNode | undefined {
     h('a.accept', {
       attrs: {
         'data-icon': 'E',
-        title: 'Submit move'
+        title: ctrl.trans.noarg('accept')
       },
       hook: util.bind('click', () => ctrl.submitMove(true))
     }),

@@ -62,14 +62,17 @@ object String {
     def nl2br(text: String): Html = nl2brUnsafe(StringUtils.escapeHtml(text))
 
     def richText(text: String, nl2br: Boolean = true): Html = {
-      val multiLine = addUserProfileLinks(addLinks(StringUtils.escapeHtml(text)))
-      if (nl2br) nl2brUnsafe(multiLine) else Html(multiLine)
+      val withUsernames = addUserProfileLinks(StringUtils.escapeHtml(text))
+      val withLinks = addLinks(withUsernames)
+      if (nl2br) nl2brUnsafe(withLinks) else Html(withLinks)
     }
 
-    private val urlRegex = """(?i)\b((https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}\/)((?:[`!\[\]{};:'".,<>?«»“”‘’]*[^\s`!\[\]{}\(\);:'".,<>?«»“”‘’])*))""".r
+    // has negative lookbehind to exclude overlaps with user profile links
+    private val urlRegex = """(?i)(?<![">])\b((https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}\/)((?:[`!\[\]{};:'".,<>?«»“”‘’]*[^\s`!\[\]{}\(\);:'".,<>?«»“”‘’])*))""".r
     // private val imgRegex = """(?:(?:https?:\/\/))[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b(?:[-a-zA-Z0-9@:%_\+.~#?&\/=]*(\.jpg|\.png|\.jpeg))""".r
     private val netDomain = "lichess.org" // whatever...
-    private val urlMustNotContain = List("&quot", "@")
+
+    private val urlMustNotContain = List("&quot")
 
     private def addUserProfileLinks(text: String): String =
       atUsernameRegex.replaceAllIn(text, m => {

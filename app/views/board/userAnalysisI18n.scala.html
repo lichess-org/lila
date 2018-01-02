@@ -1,4 +1,4 @@
-@(withCeval: Boolean = true, withExplorer: Boolean = true)(implicit ctx: Context)
+@(withCeval: Boolean = true, withExplorer: Boolean = true, withForecast: Boolean = false)(implicit ctx: Context)
 @import play.api.libs.json.Json
 @safeJson(i18nJsObject(
 trans.analysis,
@@ -112,4 +112,12 @@ trans.maybeIncludeMoreGamesFromThePreferencesMenu,
 trans.winPreventedBy50MoveRule,
 trans.lossSavedBy50MoveRule,
 trans.allSet
+), Json.obj()) ++ withForecast.fold(i18nJsObject(
+// forecast
+trans.conditionalPremoves,
+trans.addCurrentVariation,
+trans.playVariationToCreateConditionalPremoves,
+trans.noConditionalPremoves,
+trans.playX,
+trans.andSaveNbPremoveLines
 ), Json.obj()))

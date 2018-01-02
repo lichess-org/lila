@@ -8,7 +8,7 @@ export default function(text: string, parseMoves: boolean): string {
 const linkPattern = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?):\/\/|lichess\.org\/)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 
 function linkReplace(match: string, before: string, url: string) {
-  if (url.indexOf('@') !== -1 || url.indexOf('&quot;') !== -1) return match;
+  if (url.indexOf('&quot;') !== -1) return match;
   const fullUrl = url.indexOf('http') === 0 ? url : 'https://' + url;
   const minUrl = url.replace(/^(?:https:\/\/)?(.+)$/, '$1');
   return before + '<a target="_blank" rel="nofollow" href="' + fullUrl + '">' + minUrl + '</a>';
@@ -22,7 +22,7 @@ function userLinkReplace(orig: string, prefix: String, user: string) {
 }
 
 function autoLink(html: string) {
-  return html.replace(linkPattern, linkReplace).replace(userPattern, userLinkReplace);
+  return html.replace(userPattern, userLinkReplace).replace(linkPattern, linkReplace);
 }
 
 const movePattern = /\b(\d+)\s?(\.+)\s?(?:[o0-]+|[NBRQK]*[a-h]?[1-8]?x?@?[a-h][0-9]=?[NBRQK]?)\+?\#?[!\?=]*/gi;

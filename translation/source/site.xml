@@ -821,4 +821,13 @@ in %3$s</string>
   <string name="yourXRatingIsTooFarFromY">Your %1$s rating is too far from %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Cannot challenge due to provisional %s rating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s only accepts challenges from friends.</string>
+  <string name="conditionalPremoves">Conditional premoves</string>
+  <string name="addCurrentVariation">Add current variation</string>
+  <string name="playVariationToCreateConditionalPremoves">Play a variation to create conditional premoves</string>
+  <string name="noConditionalPremoves">No conditional premoves</string>
+  <string name="playX">Play %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">and save %s premove line</item>
+    <item quantity="other">and save %s premove lines</item>
+  </plurals>
 </resources>
