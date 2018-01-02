@@ -56,6 +56,7 @@
   <string name="showThreat">Mostrar amenaza</string>
   <string name="inLocalBrowser">en el navegador local</string>
   <string name="toggleLocalEvaluation">Evaluación local</string>
+  <string name="deleteFromHere">Borrar a partir de aquí</string>
   <string name="move">Movimiento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante ganadora</string>
@@ -194,6 +195,7 @@
   <string name="accept">Aceptar</string>
   <string name="decline">Rechazar</string>
   <string name="playingRightNow">Jugando ahora</string>
+  <string name="eventInProgress">Se está jugando ahora</string>
   <string name="finished">Terminado</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
@@ -202,6 +204,8 @@
   <string name="mode">Modo</string>
   <string name="casual">Amistosa</string>
   <string name="rated">Por puntos</string>
+  <string name="casualTournament">Amistoso</string>
+  <string name="ratedTournament">Por puntos</string>
   <string name="thisGameIsRated">Esta partida es por puntos</string>
   <string name="rematch">Revancha</string>
   <string name="rematchOfferSent">Oferta de revancha enviada</string>
@@ -773,6 +777,7 @@
   <string name="whiteWinsGame">Ganan las blancas</string>
   <string name="blackWinsGame">Ganan las negras</string>
   <string name="learnFromYourMistakes">Aprende de tus errores</string>
+  <string name="learnFromThisMistake">Aprende de este error</string>
   <string name="skipThisMove">Omitir este movimiento</string>
   <string name="next">Siguiente</string>
   <string name="xWasPlayed">se jugó %s</string>
@@ -799,4 +804,8 @@
   <string name="opening">Apertura</string>
   <string name="middlegame">Medio juego</string>
   <string name="endgame">Final</string>
+  <string name="registerToSendChallenges">Regístrate para desafiar a otros.</string>
+  <string name="youCannotChallengeX">No puedes desafiar a %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s no acepta desafíos.</string>
+  <string name="yourXRatingIsTooFarFromY">Tu puntuación de %1$s está demasiado lejos de la de %2$s.</string>
 </resources>
