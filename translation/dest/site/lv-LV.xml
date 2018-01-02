@@ -858,4 +858,10 @@
   <string name="addCurrentVariation">Pievienot pašreizējo variantu</string>
   <string name="playVariationToCreateConditionalPremoves">Izspēlē variantu lai izveidotu nosacījumu priekšgājienus</string>
   <string name="noConditionalPremoves">Nav nosacījumu priekšgājienu</string>
+  <string name="playX">Spēlēt %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="zero">un saglabāt %s priekšgājienu variantus</item>
+    <item quantity="one">un saglabāt %s priekšgājienu variantu</item>
+    <item quantity="other">un saglabāt %s priekšgājienu variantus</item>
+  </plurals>
 </resources>
