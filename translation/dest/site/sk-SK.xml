@@ -668,6 +668,7 @@
   <string name="sourceCode">Zdrojový kód</string>
   <string name="simultaneousExhibitions">Simultánne exhibície</string>
   <string name="host">Hostiteľ</string>
+  <string name="hostColorX">Farba simultánneho hráča: %s</string>
   <string name="createdSimuls">Novovytvorené simultánky</string>
   <string name="hostANewSimul">Vytvoriť novú simultánku</string>
   <string name="noSimulFound">Simultánka nenájdená</string>
