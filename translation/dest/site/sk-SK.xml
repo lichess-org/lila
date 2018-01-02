@@ -56,6 +56,8 @@
   <string name="showThreat">Ukázať hrozbu</string>
   <string name="inLocalBrowser">v lokálnom prehliadači</string>
   <string name="toggleLocalEvaluation">Prepnúť na vlastnú analýzu</string>
+  <string name="promoteVariation">Povýš variant</string>
+  <string name="deleteFromHere">Vymaž odtiaľto</string>
   <string name="move">Ťah</string>
   <string name="variantLoss">Prehrávajúci variant</string>
   <string name="variantWin">Vyhrávajúci variant</string>
@@ -285,6 +287,11 @@
   <string name="tournament">Turnaj</string>
   <string name="tournaments">Turnaje</string>
   <string name="tournamentPoints">Turnajové body</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turnajový bod</item>
+    <item quantity="few">%s turnajové body</item>
+    <item quantity="other">%s turnajových bodov</item>
+  </plurals>
   <string name="viewTournament">Zobraz turnaj</string>
   <string name="backToTournament">Návrat do turnaja</string>
   <string name="thematic">Tématický</string>
