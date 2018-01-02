@@ -58,6 +58,9 @@ final class Env(
       expireAfter = _.ExpireAfterWrite(2 seconds)
     )
     def all = cache.get
+    def of(s: Streamer.WithUser): Fu[Streamer.WithUserAndStream] = all.map { live =>
+      Streamer.WithUserAndStream(s.streamer, s.user, live get s.streamer)
+    }
   }
 
   def cli = new lila.common.Cli {

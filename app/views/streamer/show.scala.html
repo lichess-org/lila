@@ -1,4 +1,4 @@
-@(s: lila.streamer.Streamer.WithUser)(implicit ctx: Context)
+@(s: lila.streamer.Streamer.WithUserAndStream)(implicit ctx: Context)
 
 @side = {
 <div class="side streamer-side">
@@ -9,18 +9,19 @@
     }
   </div>
   @if(s.streamer.approval.chatEnabled) {
-  @s.streamer.twitch.filter(_.live.now).map { twitch =>
+  @s.stream.map {
+  case lila.streamer.Stream.Twitch.Stream(userId, _, _) => {
   <iframe
     frameborder="0"
     scrolling="no"
-    src="https://twitch.tv/@twitch.userId/chat?popout="
+    src="https://twitch.tv/@userId/chat?popout="
     height="418"></iframe>
-  }.getOrElse {
-  @s.streamer.youTube.filter(_.live.now).map { yt =>
+  }
+  case lila.streamer.Stream.YouTube.Stream(_, _, videoId, _) => {
   <iframe
     frameborder="0"
     scrolling="no"
-    src="https://www.youtube.com/live_chat?v=@yt.channelId&embed_domain=@netDomain"
+    src="https://www.youtube.com/live_chat?v=@videoId&embed_domain=@netDomain"
     height="418"></iframe>
   }
   }
@@ -32,27 +33,28 @@
 side = side.some,
 moreCss = cssTag("streamer.show.css")) {
 <div class="content_box no_padding streamer">
-  @s.streamer.twitch.filter(_.live.now).map { twitch =>
+  @s.stream.map {
+  case lila.streamer.Stream.Twitch.Stream(userId, _, _) => {
   <div class="live twitch">
     <iframe
-      src="https://player.twitch.tv/?channel=@twitch.userId"
+      src="https://player.twitch.tv/?channel=@userId"
       width="792"
-      height="477"
+      height="446"
       allowfullscreen autoplay></iframe>
   </div>
-  }.getOrElse {
-  @s.streamer.youTube.filter(_.live.now).map { yt =>
+  }
+  case lila.streamer.Stream.YouTube.Stream(_, _, videoId, _) => {
   <div class="live youTube">
     <iframe
       width="792"
       height="446"
-      src="https://www.youtube.com/embed/@yt.channelId?autoplay=1"
+      src="https://www.youtube.com/embed/@videoId?autoplay=1"
       frameborder="0" allowfullscreen></iframe>
   </div>
   }
   }
   <div class="top">
-    @pic(s, 250)
+    @pic(s.streamer, s.user, 250)
     <div class="overview">
       <h1>@s.streamer.name</h1>
       @s.streamer.headline.map(_.value).map { d =>
@@ -72,15 +74,13 @@ moreCss = cssTag("streamer.show.css")) {
         </a>
         }
       </div>
-      @s.streamer.seenAt.map { seenAt =>
-      <p class="at">@trans.lastSeenActive(momentFromNow(seenAt))</p>
-      }
+      <p class="at">@trans.lastSeenActive(momentFromNow(s.streamer.seenAt))</p>
       @s.streamer.liveAt.map { liveAt =>
       <p class="at">Last stream @momentFromNow(liveAt)</p>
       }
     </div>
   </div>
-  @if(!s.streamer.isLive) {
+  @if(s.stream.isEmpty) {
   <div class="offline">OFFLINE</div>
   }
   <div class="description">@richText(s.streamer.description.fold("")(_.value))</div>

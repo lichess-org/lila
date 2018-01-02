@@ -21,7 +21,9 @@ object Streamer extends LilaController {
   def show(username: String) = Open { implicit ctx =>
     OptionFuResult(api find username) { s =>
       WithVisibleStreamer(s) {
-        Ok(html.streamer.show(s)).fuccess
+        Env.streamer.liveStreams of s map { sws =>
+          Ok(html.streamer.show(sws.pp))
+        }
       }
     }
   }

@@ -14,7 +14,8 @@ case class Streamer(
     description: Option[Streamer.Description],
     twitch: Option[Streamer.Twitch],
     youTube: Option[Streamer.YouTube],
-    sorting: Streamer.Sorting,
+    seenAt: DateTime, // last seen online
+    liveAt: Option[DateTime], // last seen streaming
     createdAt: DateTime,
     updatedAt: DateTime
 ) {
@@ -28,16 +29,6 @@ case class Streamer(
   def hasPicture = picturePath.isDefined
 
   def isListed = listed.value && approval.granted
-
-  def isLive = twitch.exists(_.live.now) || youTube.exists(_.live.now)
-
-  def seenAt: Option[DateTime] = sorting.seenAt
-  def liveAt: Option[DateTime] = (twitch.flatMap(_.live.liveAt), youTube.flatMap(_.live.liveAt)) match {
-    case (Some(twitch), Some(youTube)) => Some {
-      if (twitch isAfter youTube) twitch else youTube
-    }
-    case (twitch, youTube) => twitch orElse youTube
-  }
 
   def completeEnough = {
     twitch.isDefined || youTube.isDefined
@@ -62,7 +53,8 @@ object Streamer {
     description = none,
     twitch = none,
     youTube = none,
-    sorting = Sorting.empty,
+    seenAt = DateTime.now,
+    liveAt = none,
     createdAt = DateTime.now,
     updatedAt = DateTime.now
   )
@@ -80,15 +72,8 @@ object Streamer {
   case class Name(value: String) extends AnyVal with StringValue
   case class Headline(value: String) extends AnyVal with StringValue
   case class Description(value: String) extends AnyVal with StringValue
-  case class Sorting(streaming: Boolean, seenAt: Option[DateTime])
-  object Sorting { val empty = Sorting(false, none) }
-  case class Live(liveAt: Option[DateTime], checkedAt: Option[DateTime], status: Option[String]) {
-    def now = liveAt.filter(DateTime.now.minusMinutes(1).isBefore) ?? { l =>
-      checkedAt ?? { l == }
-    }
-  }
-  object Live { val empty = Live(none, none, none) }
-  case class Twitch(userId: String, live: Live) {
+
+  case class Twitch(userId: String) {
     def fullUrl = s"https://www.twitch.tv/$userId"
     def minUrl = s"twitch.tv/$userId"
   }
@@ -102,13 +87,14 @@ object Streamer {
       case _ => none
     }
   }
-  case class YouTube(channelId: String, live: Live) {
+
+  case class YouTube(channelId: String) {
     def fullUrl = s"https://www.youtube.com/channel/$channelId"
     def minUrl = s"youtube.com/channel/$channelId"
   }
   object YouTube {
-    private val ChannelIdRegex = """^(\w{11})$""".r
-    private val UrlRegex = """.*youtube\.com/channel/(\w{11}).*""".r
+    private val ChannelIdRegex = """^(\w{24})$""".r
+    private val UrlRegex = """.*youtube\.com/channel/(\w{24}).*""".r
     def parseChannelId(str: String): Option[String] = str match {
       case ChannelIdRegex(c) => c.some
       case UrlRegex(c) => c.some
@@ -117,4 +103,5 @@ object Streamer {
   }
 
   case class WithUser(streamer: Streamer, user: User)
+  case class WithUserAndStream(streamer: Streamer, user: User, stream: Option[Stream])
 }

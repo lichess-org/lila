@@ -6,14 +6,19 @@ trait Stream {
   def serviceName: String
   val status: String
   val streamer: Streamer
-  def is(s: Streamer) = streamer == s
+  def is(s: Streamer) = streamer.id == s.id
 }
 
 object Stream {
 
   case class Keyword(value: String) extends AnyRef with StringValue
 
-  case class LiveStreams(streams: List[Stream])
+  case class LiveStreams(streams: List[Stream]) {
+
+    def has(streamer: Streamer) = streams.exists(_ is streamer)
+
+    def get(streamer: Streamer) = streams.find(_ is streamer)
+  }
 
   object Twitch {
     case class Channel(name: String, status: Option[String])
@@ -40,16 +45,16 @@ object Stream {
     case class Item(id: Id, snippet: Snippet)
     case class Result(items: List[Item]) {
       def streams(keyword: Keyword, streamers: List[Streamer]): List[Stream] =
-        items.map(_.snippet).filter(_.liveBroadcastContent == "live").filter { snippet =>
-          snippet.liveBroadcastContent == "live" &&
-            snippet.title.toLowerCase.contains(keyword.value)
-        }.flatMap { snippet =>
-          streamers.find(s => s.youTube.exists(_.channelId == snippet.channelId)) map {
-            Stream(snippet.channelId, snippet.title, _)
+        items.filter { item =>
+          item.snippet.liveBroadcastContent == "live" &&
+            item.snippet.title.toLowerCase.contains(keyword.value.toLowerCase)
+        }.flatMap { item =>
+          streamers.find(s => s.youTube.exists(_.channelId == item.snippet.channelId)) map {
+            Stream(item.snippet.channelId, item.snippet.title, item.id.videoId, _)
           }
         }
     }
-    case class Stream(channelId: String, status: String, streamer: Streamer) extends lila.streamer.Stream {
+    case class Stream(channelId: String, status: String, videoId: String, streamer: Streamer) extends lila.streamer.Stream {
       def serviceName = "youTube"
     }
 

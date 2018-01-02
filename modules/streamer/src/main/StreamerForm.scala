@@ -6,7 +6,7 @@ import play.api.data.Forms._
 
 object StreamerForm {
 
-  import Streamer.{ Name, Headline, Description, Twitch, YouTube, Live }
+  import Streamer.{ Name, Headline, Description, Twitch, YouTube }
 
   lazy val emptyUserForm = Form(mapping(
     "name" -> name,
@@ -53,10 +53,10 @@ object StreamerForm {
         headline = headline,
         description = description,
         twitch = twitch.flatMap(Twitch.parseUserId).fold(streamer.twitch) { userId =>
-          streamer.twitch.fold(Twitch(userId, Live.empty))(_.copy(userId = userId)).some
+          streamer.twitch.fold(Twitch(userId))(_.copy(userId = userId)).some
         },
         youTube = youTube.flatMap(YouTube.parseChannelId).fold(streamer.youTube) { channelId =>
-          streamer.youTube.fold(YouTube(channelId, Live.empty))(_.copy(channelId = channelId)).some
+          streamer.youTube.fold(YouTube(channelId))(_.copy(channelId = channelId)).some
         },
         updatedAt = DateTime.now
       )

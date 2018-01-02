@@ -48,7 +48,7 @@ div.content_box.streamer h1 {
   margin-right: 0.4em;
 }
 .streamer .live {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 .streamer .live iframe {
   border: none;

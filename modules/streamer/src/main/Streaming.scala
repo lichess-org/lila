@@ -1,7 +1,6 @@
 package lila.streamer
 
 import akka.actor._
-import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.libs.ws.WS
 import play.api.Play.current
@@ -27,9 +26,6 @@ private final class Streaming(
 
   private case object Tick
 
-  private def scheduleTick =
-    context.system.scheduler.scheduleOnce(15 seconds, self, Tick)
-
   private var liveStreams = LiveStreams(Nil)
 
   def receive = {
@@ -39,65 +35,29 @@ private final class Streaming(
     case Tick => updateStreams addEffectAnyway scheduleTick
   }
 
+  private def scheduleTick = context.system.scheduler.scheduleOnce(15 seconds, self, Tick)
+
+  self ! Tick
+
   def updateStreams: Funit = for {
     streamers <- api.allListed.map {
       _.filter { streamer =>
-        streamer.sorting.streaming || isOnline(streamer.userId)
+        liveStreams.has(streamer) || isOnline(streamer.userId)
       }
     }
     (twitchStreams, youTubeStreams) <- fetchTwitchStreams(streamers) zip fetchYouTubeStreams(streamers)
-    now = DateTime.now
-    _ <- finishGoneStreams(streamers, twitchStreams, youTubeStreams, now)
-    _ <- updateCurrentStreams(streamers, twitchStreams, youTubeStreams, now)
-  } yield publishStreams(streamers, LiveStreams(twitchStreams ::: youTubeStreams))
+    streams = LiveStreams(twitchStreams ::: youTubeStreams)
+    _ <- api.setLiveNow(streamers.filter(streams.has).map(_.id))
+  } yield publishStreams(streamers, streams)
 
-  def finishGoneStreams(streamers: List[Streamer], twitch: List[Twitch.Stream], youTube: List[YouTube.Stream], now: DateTime): Funit =
-    streamers.map { s =>
-      val onTwitch = twitch.exists(_ is s)
-      val onYouTube = youTube.exists(_ is s)
-      val goneFromTwitch = s.twitch.exists(_.live.now) && !onTwitch
-      val goneFromYouTube = s.youTube.exists(_.live.now) && !onYouTube
-      val noLongerStreaming = s.sorting.streaming && !onTwitch && !onYouTube
-      (goneFromTwitch || goneFromYouTube || noLongerStreaming) ??
-        api.withColl {
-          _.update(
-            $id(s.id),
-            $doc("$set" -> {
-              $doc("sorting.streaming" -> false) ++
-                s.twitch.isDefined.??($doc("twitch.live.checkedAt" -> now)) ++
-                s.youTube.isDefined.??($doc("youTube.live.checkedAt" -> now))
-            })
-          ).void
-        }
-    }.sequenceFu.void
-
-  def updateCurrentStreams(streamers: List[Streamer], twitch: List[Twitch.Stream], youTube: List[YouTube.Stream], now: DateTime): Funit =
-    (twitch ::: youTube).map { s =>
-      api.withColl {
-        _.update(
-          $id(s.streamer.id),
-          $set(
-            "sorting.streaming" -> true,
-            s"${s.serviceName}.live.liveAt" -> now,
-            s"${s.serviceName}.live.status" -> s.status,
-            s"${s.serviceName}.live.checkedAt" -> now
-          )
-        ).void
-      }
-    }.sequenceFu.void
-
-  var lastPublishedHtml: Html = Html("")
-
-  def publishStreams(streamers: List[Streamer], liveStreams: LiveStreams) = {
+  def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) = {
     import makeTimeout.short
     import akka.pattern.ask
-    renderer ? liveStreams foreach {
+    if (newStreams != liveStreams) renderer ? newStreams foreach {
       case html: play.twirl.api.Html =>
-        if (html != lastPublishedHtml) {
-          lastPublishedHtml = html
-          context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'streams)
-        }
+        context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'streams)
     }
+    liveStreams = newStreams
     streamers foreach { streamer =>
       streamer.twitch.foreach { t =>
         lila.mon.tv.stream.name(s"${t.userId}@twitch") {

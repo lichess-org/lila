@@ -1,6 +1,6 @@
 @(s: lila.streamer.Streamer.WithUser, edit: Boolean = false)(implicit ctx: Context)
 <a class="overlay" href="@if(edit){@routes.Streamer.edit?u=@s.user.username}else{@routes.Streamer.show(s.user.username)}"></a>
-@pic(s, 250)
+@pic(s.streamer, s.user, 250)
 <div class="overview">
   <h1>@s.streamer.name</h1>
   @s.streamer.headline.map(_.value).map { d =>
@@ -20,9 +20,7 @@
     </div>
     }
   </div>
-  @s.streamer.seenAt.map { seenAt =>
-  <p class="at">@trans.lastSeenActive(momentFromNow(seenAt))</p>
-  }
+  <p class="at">@trans.lastSeenActive(momentFromNow(s.streamer.seenAt))</p>
   @s.streamer.liveAt.map { liveAt =>
   <p class="at">Last stream @momentFromNow(liveAt)</p>
   }

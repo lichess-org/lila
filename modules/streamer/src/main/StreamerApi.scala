@@ -42,8 +42,11 @@ final class StreamerApi(
   def setSeenAt(user: User): Funit =
     listedIdsCache.get flatMap { ids =>
       ids.contains(Streamer.Id(user.id)) ??
-        coll.update($id(user.id), $set("sorting.seenAt" -> DateTime.now)).void
+        coll.update($id(user.id), $set("seenAt" -> DateTime.now)).void
     }
+
+  def setLiveNow(ids: List[Streamer.Id]): Funit =
+    coll.update($doc("_id" $in ids), $set("liveAt" -> DateTime.now), multi = true).void
 
   def update(s: Streamer, data: StreamerForm.UserData, asMod: Boolean): Funit =
     coll.update($id(s.id), data(s, asMod)).void >> {

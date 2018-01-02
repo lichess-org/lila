@@ -25,7 +25,6 @@ final class StreamerPager(
         else $doc("listed" -> Streamer.Listed(true)),
       projection = $empty,
       sort = $doc(
-        "sorting.streaming" -> -1,
         "sorting.seenAt" -> -1
       )
     ) mapFutureList withUsers

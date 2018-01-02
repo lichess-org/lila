@@ -12,11 +12,9 @@ private object BsonHandlers {
   implicit val StreamerHeadlineBSONHandler = stringAnyValHandler[Streamer.Headline](_.value, Streamer.Headline.apply)
   implicit val StreamerDescriptionBSONHandler = stringAnyValHandler[Streamer.Description](_.value, Streamer.Description.apply)
 
-  import Streamer.{ Live, Twitch, YouTube, Sorting, Approval }
-  implicit val StreamerLiveBSONHandler = Macros.handler[Live]
+  import Streamer.{ Twitch, YouTube, Approval }
   implicit val StreamerTwitchBSONHandler = Macros.handler[Twitch]
   implicit val StreamerYouTubeBSONHandler = Macros.handler[YouTube]
-  implicit val StreamerSortingBSONHandler = Macros.handler[Sorting]
   implicit val StreamerApprovalBSONHandler = Macros.handler[Approval]
   implicit val StreamerBSONHandler = Macros.handler[Streamer]
 }

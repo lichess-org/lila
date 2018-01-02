@@ -32,10 +32,10 @@ side = side.some) {
       @if(s.streamer.hasPicture) {
       @if(ctx.is(s.user)) {
       <a class="upload_picture" href="@routes.Streamer.picture" title="Change/delete your picture">
-        @pic(s, 250)
+        @pic(s.streamer, s.user, 250)
       </a>
       } else {
-      @pic(s, 250)
+      @pic(s.streamer, s.user, 250)
       }
       } else {
       <div class="upload_picture">
@@ -71,8 +71,8 @@ side = side.some) {
   </div>
   <form class="content_box_content material form" action="@routes.Streamer.edit@if(!ctx.is(s.user)){?u=@s.user.id}" method="POST">
     @errMsgMaterial(form.errors)
+    @if(isGranted(_.Streamers)) {
     <div class="mod">
-      @if(isGranted(_.Streamers)) {
       @base.form.group(form("approval.granted"), Html("Publish on the streamers list"), help = Html("Moderators only").some, half = true) {
       @base.form.select(form("approval.granted"), booleanChoices)
       }
@@ -91,8 +91,8 @@ side = side.some) {
       @base.form.select(form("approval.ignored"), booleanChoices)
       }
       }
-      }
     </div>
+    }
     @base.form.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some, half = true) {
     @base.form.input(form("twitch"))
     }
