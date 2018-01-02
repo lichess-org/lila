@@ -855,6 +855,13 @@
   <string name="cannotChallengeDueToProvisionalXRating">Nie można rzucić wyzwania ze względu na tymczasowy ranking (%s).</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s akceptuje tylko wyzwania od znajomych.</string>
   <string name="conditionalPremoves">Ruchy warunkowe</string>
+  <string name="addCurrentVariation">Dodaj wariant</string>
+  <string name="playVariationToCreateConditionalPremoves">Wykonaj ruch aby utworzyć wariant warunkowy</string>
   <string name="noConditionalPremoves">Brak ruchów warunkowych</string>
   <string name="playX">Zagraj %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">i zapisz wariant warunkowy</item>
+    <item quantity="few">i zapisz warianty warunkowe</item>
+    <item quantity="other">i zapisz warianty warunkowe</item>
+  </plurals>
 </resources>
