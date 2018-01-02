@@ -312,8 +312,8 @@
     <item quantity="other">Potrebuješ odohrať ešte %1$s %2$s hodnotených partií</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Potrebuješ odohrať ešte %s hodnotenú partiu</item>
-    <item quantity="few">Potrebuješ odohrať ešte %s hodnotené partie</item>
+    <item quantity="one">Potrebujete odohrať ešte %s hodnotenú partiu</item>
+    <item quantity="few">Potrebujete odohrať ešte %s hodnotené partie</item>
     <item quantity="other">Potrebujete odohrať ešte %s hodnotených partií</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Váš %s rating je provizórny</string>
