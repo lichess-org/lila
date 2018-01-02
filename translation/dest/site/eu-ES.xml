@@ -820,4 +820,13 @@
   <string name="yourXRatingIsTooFarFromY">Zure %1$s puntuazioa urrunegi dago %2$s-tik.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Ezin duzu erronkarik egin behin-behineko %s puntuazioa duzulako.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s erabiltzaileak bere lagunen erronkak onartzen ditu bakarrik.</string>
+  <string name="conditionalPremoves">Baldintzadun aurrejokaldiak</string>
+  <string name="addCurrentVariation">Uneko bariantea gehitu</string>
+  <string name="playVariationToCreateConditionalPremoves">Bariante bat jokatu baldintzadun aurrejokaldiak sortzeko</string>
+  <string name="noConditionalPremoves">Ez dago baldintzadun aurrejokaldirik</string>
+  <string name="playX">%s jokatu</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">eta aurrejokaldi linea %s gorde</item>
+    <item quantity="other">eta %s aurrejokaldi linea gorde</item>
+  </plurals>
 </resources>
