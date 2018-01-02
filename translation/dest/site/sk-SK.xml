@@ -37,11 +37,11 @@
   <string name="forceDraw">Vyhlásiť remízu</string>
   <string name="talkInChat">Prosíme, aby ste sa v chate chovali slušne!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Prvá osoba, ktorá použije tento odkaz, s Vami začne hru.</string>
-  <string name="whiteResigned">Biely sa vzdal</string>
-  <string name="blackResigned">Čierny sa vzdal</string>
+  <string name="whiteResigned">Biely vzdal</string>
+  <string name="blackResigned">Čierny vzdal</string>
   <string name="whiteLeftTheGame">Biely opustil hru</string>
   <string name="blackLeftTheGame">Čierny opustil hru</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Zdieľajte túto adresu, aby diváci mohli sledovať hru</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Zdieľajte túto adresu, aby mohli diváci vidieť túto partiu</string>
   <string name="theComputerAnalysisHasFailed">Počítačová analýza zlyhala</string>
   <string name="viewTheComputerAnalysis">Zobraziť počítačovú analýzu</string>
   <string name="requestAComputerAnalysis">Požiadať o počítačovú analýzu</string>
@@ -824,6 +824,8 @@
   <string name="skipThisMove">Preskočiť tento krok</string>
   <string name="next">Ďalší</string>
   <string name="xWasPlayed">hráč potiahol %s</string>
+  <string name="findBetterMoveForWhite">Nájdite lepší ťah bieleho</string>
+  <string name="findBetterMoveForBlack">Nájdite lepší ťah čierneho</string>
   <string name="solution">Riešenie</string>
   <string name="waitingForAnalysis">Čakanie na analýzu</string>
   <string name="noMistakesFoundForWhite">Neboli nájdené žiadne chyby bieleho</string>
