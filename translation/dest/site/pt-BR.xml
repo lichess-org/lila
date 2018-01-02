@@ -824,4 +824,11 @@ em %3$s</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s só aceita desafios de amigos.</string>
   <string name="conditionalPremoves">Pré-lances condicionais</string>
   <string name="addCurrentVariation">Adicionar a variação atual</string>
+  <string name="playVariationToCreateConditionalPremoves">Jogar uma variação para criar pré-lances condicionais</string>
+  <string name="noConditionalPremoves">Sem pré-lances condicionais</string>
+  <string name="playX">Jogar %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">e salvar a linha de pré-lance de %s</item>
+    <item quantity="other">e salvar as linhas de pré-lance de %s</item>
+  </plurals>
 </resources>
