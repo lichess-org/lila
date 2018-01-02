@@ -356,6 +356,7 @@
   <string name="fromPosition">Z pozície</string>
   <string name="continueFromHere">Pokračujte odtiaľto</string>
   <string name="importGame">Import hry</string>
+  <string name="importGameExplanation">Vložením partie vo formáte PGN získate možnosť jej prehrania, počítačovú analýzu, chat k partii ako aj URL pre jej zdieľanie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importovaná hra</item>
     <item quantity="few">%s importované hry</item>
@@ -416,6 +417,7 @@
   <string name="winStreak">Séria výhier</string>
   <string name="createdBy">Vytvorené</string>
   <string name="tournamentIsStarting">Turnaj sa začína</string>
+  <string name="tournamentPairingsAreNowClosed">Párovanie hráčov v turnaji je momentálne uzavreté.</string>
   <string name="youArePlaying">Hra začala!</string>
   <string name="winRate">Pomer výhier</string>
   <string name="berserkRate">Šialenosť</string>
