@@ -320,6 +320,8 @@
   <string name="yourPerfRatingIsTooHigh">Tvoj %1$s rating (%2$s) je príliš vysoký</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tvoj najvyšší týždenný %1$s rating (%2$s) je príliš vysoký</string>
   <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je príliš nízky</string>
+  <string name="ratedMoreThanInPerf">S ratingom ≥ %1$s v %2$s</string>
+  <string name="ratedLessThanInPerf">S ratingom ≥ %1$s v %2$s</string>
   <string name="backToGame">Návrat do hry</string>
   <string name="siteDescription">Šach online zadarmo. Hrajte šach teraz v novom rozhraní. Bez registrácie, reklám a  zásuvných modulov. Hrajte šach s počítačom, priateľmi alebo náhodnými protivníkmi.</string>
   <string name="teams">Tímy</string>
