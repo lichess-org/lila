@@ -823,6 +823,7 @@
   <string name="learnFromThisMistake">Poučte sa z tejto chyby</string>
   <string name="skipThisMove">Preskočiť tento krok</string>
   <string name="next">Ďalší</string>
+  <string name="xWasPlayed">hráč potiahol %s</string>
   <string name="solution">Riešenie</string>
   <string name="waitingForAnalysis">Čakanie na analýzu</string>
   <string name="noMistakesFoundForWhite">Neboli nájdené žiadne chyby bieleho</string>
