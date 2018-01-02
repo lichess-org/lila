@@ -103,5 +103,7 @@ object Streamer {
   }
 
   case class WithUser(streamer: Streamer, user: User)
-  case class WithUserAndStream(streamer: Streamer, user: User, stream: Option[Stream])
+  case class WithUserAndStream(streamer: Streamer, user: User, stream: Option[Stream]) {
+    def withoutStream = WithUser(streamer, user)
+  }
 }

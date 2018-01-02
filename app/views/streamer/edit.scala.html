@@ -18,14 +18,10 @@
 @jsTag("streamer.form.js")
 }
 
-@side = {
-<a href="@routes.Streamer.show(s.user.username)" class="preview button text" data-icon="v">Preview streamer page</a>
-}
-
 @base.layout(title = s"${s.user.titleUsername} streamer page",
 moreCss = moreCss,
 moreJs = moreJs,
-side = side.some) {
+menu = menu("edit", s.some).some) {
 <div class="streamer_edit content_box no_padding">
   <div class="top">
     <div class="picture_wrap">

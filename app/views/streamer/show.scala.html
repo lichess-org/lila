@@ -1,48 +1,46 @@
 @(s: lila.streamer.Streamer.WithUserAndStream)(implicit ctx: Context)
 
 @side = {
-<div class="side streamer-side">
-  <div class="profile">
-    <a class="blue" href="@routes.User.show(s.user.username)">View @s.user.username lichess profile</a>
-    @if(ctx.is(s.user) || isGranted(_.Streamers)) {
-    <br /><br /><a class="blue" href="@routes.Streamer.edit()@if(!ctx.is(s.user)){?u=@s.user.id}">Edit streamer page</a>
-    }
-  </div>
   @if(s.streamer.approval.chatEnabled) {
-  @s.stream.map {
-  case lila.streamer.Stream.Twitch.Stream(userId, _, _) => {
+<div class="side streamer-side">
+  @s.streamer.twitch.map { twitch =>
   <iframe
     frameborder="0"
     scrolling="no"
-    src="https://twitch.tv/@userId/chat?popout="
-    height="418"></iframe>
-  }
+    src="https://twitch.tv/@twitch.userId/chat?popout="
+    width="235"
+    height="500"></iframe>
+  }.getOrElse {
+  @s.stream.collect {
   case lila.streamer.Stream.YouTube.Stream(_, _, videoId, _) => {
   <iframe
     frameborder="0"
     scrolling="no"
     src="https://www.youtube.com/live_chat?v=@videoId&embed_domain=@netDomain"
-    height="418"></iframe>
+    width="235"
+    height="500"></iframe>
   }
   }
   }
 </div>
 }
+}
 
 @base.layout(title = s"${s.user.titleUsername} streams on lichess.org",
 side = side.some,
+menu = menu("show", s.withoutStream.some).some,
 moreCss = cssTag("streamer.show.css")) {
 <div class="content_box no_padding streamer">
-  @s.stream.map {
-  case lila.streamer.Stream.Twitch.Stream(userId, _, _) => {
+  @s.streamer.twitch.map { twitch =>
   <div class="live twitch">
     <iframe
-      src="https://player.twitch.tv/?channel=@userId"
+      src="https://player.twitch.tv/?channel=@twitch.userId"
       width="792"
       height="446"
       allowfullscreen autoplay></iframe>
   </div>
-  }
+  }.getOrElse {
+  @s.stream.collect {
   case lila.streamer.Stream.YouTube.Stream(_, _, videoId, _) => {
   <div class="live youTube">
     <iframe
@@ -51,6 +49,9 @@ moreCss = cssTag("streamer.show.css")) {
       src="https://www.youtube.com/embed/@videoId?autoplay=1"
       frameborder="0" allowfullscreen></iframe>
   </div>
+  }
+  }.getOrElse {
+  <div class="offline">OFFLINE</div>
   }
   }
   <div class="top">
@@ -80,9 +81,6 @@ moreCss = cssTag("streamer.show.css")) {
       }
     </div>
   </div>
-  @if(s.stream.isEmpty) {
-  <div class="offline">OFFLINE</div>
-  }
   <div class="description">@richText(s.streamer.description.fold("")(_.value))</div>
 </div>
 }

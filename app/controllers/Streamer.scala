@@ -13,16 +13,18 @@ object Streamer extends LilaController {
 
   def index(page: Int) = Open { implicit ctx =>
     val requests = getBool("requests") && isGranted(_.Streamers)
-    Env.streamer.pager(page, requests) map { pager =>
-      Ok(html.streamer.index(pager, requests))
-    }
+    for {
+      liveStreams <- Env.streamer.liveStreams.all
+      live <- api withUsers liveStreams
+      pager <- Env.streamer.pager.notLive(page, liveStreams, requests)
+    } yield Ok(html.streamer.index(live, pager, requests))
   }
 
   def show(username: String) = Open { implicit ctx =>
     OptionFuResult(api find username) { s =>
       WithVisibleStreamer(s) {
         Env.streamer.liveStreams of s map { sws =>
-          Ok(html.streamer.show(sws.pp))
+          Ok(html.streamer.show(sws))
         }
       }
     }

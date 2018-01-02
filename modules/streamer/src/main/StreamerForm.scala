@@ -52,12 +52,8 @@ object StreamerForm {
         name = name,
         headline = headline,
         description = description,
-        twitch = twitch.flatMap(Twitch.parseUserId).fold(streamer.twitch) { userId =>
-          streamer.twitch.fold(Twitch(userId))(_.copy(userId = userId)).some
-        },
-        youTube = youTube.flatMap(YouTube.parseChannelId).fold(streamer.youTube) { channelId =>
-          streamer.youTube.fold(YouTube(channelId))(_.copy(channelId = channelId)).some
-        },
+        twitch = twitch.flatMap(Twitch.parseUserId).map(Twitch.apply),
+        youTube = youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply),
         updatedAt = DateTime.now
       )
       newStreamer.copy(

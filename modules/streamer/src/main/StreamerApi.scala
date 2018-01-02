@@ -33,6 +33,14 @@ final class StreamerApi(
       coll insert s.streamer inject s.some
     }
 
+  def withUser(s: Stream): Fu[Option[Streamer.WithUserAndStream]] =
+    UserRepo named s.streamer.userId map {
+      _ map { user => Streamer.WithUserAndStream(s.streamer, user, s.some) }
+    }
+
+  def withUsers(live: Stream.LiveStreams): Fu[List[Streamer.WithUserAndStream]] =
+    live.streams.map(withUser).sequenceFu.map(_.flatten)
+
   def allListed: Fu[List[Streamer]] =
     coll.find(selectListedApproved).list[Streamer]()
 

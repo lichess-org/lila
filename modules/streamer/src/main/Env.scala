@@ -57,7 +57,7 @@ final class Env(
       f = streamingActor ? Streaming.Get mapTo manifest[Stream.LiveStreams],
       expireAfter = _.ExpireAfterWrite(2 seconds)
     )
-    def all = cache.get
+    def all: Fu[Stream.LiveStreams] = cache.get
     def of(s: Streamer.WithUser): Fu[Streamer.WithUserAndStream] = all.map { live =>
       Streamer.WithUserAndStream(s.streamer, s.user, live get s.streamer)
     }
