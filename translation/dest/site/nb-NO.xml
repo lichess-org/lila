@@ -822,4 +822,13 @@ i %3$s</string>
   <string name="yourXRatingIsTooFarFromY">Din %1$s rating er for langt fra %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Kan ikke utfordre på grunn av midlertidig %s rating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s aksepterer kun utfordringer fra venner.</string>
+  <string name="conditionalPremoves">Betingede forhåndstrekk</string>
+  <string name="addCurrentVariation">Føy til gjeldende variant</string>
+  <string name="playVariationToCreateConditionalPremoves">Spill en variant for å lage betingede forhåndstrekk</string>
+  <string name="noConditionalPremoves">Ingen betingede forhåndstrekk</string>
+  <string name="playX">Spill %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">og lagre %s linje med forhåndstrekk</item>
+    <item quantity="other">og lagre %s linje med forhåndstrekk</item>
+  </plurals>
 </resources>
