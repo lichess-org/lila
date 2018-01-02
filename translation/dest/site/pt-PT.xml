@@ -56,6 +56,9 @@
   <string name="showThreat">Mostrar ameaça</string>
   <string name="inLocalBrowser">no navegador local</string>
   <string name="toggleLocalEvaluation">Alternar avaliação local</string>
+  <string name="promoteVariation">Promover variante</string>
+  <string name="makeMainLine">Fazer linha principal</string>
+  <string name="deleteFromHere">Eliminar a partir de aqui</string>
   <string name="move">Jogada</string>
   <string name="variantLoss">Variante perdida</string>
   <string name="variantWin">Variante ganha</string>
@@ -691,9 +694,22 @@
   <string name="inputMovesWithTheKeyboard">Lançar movimentos com o teclado</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros jogadores lhe enviem mensagem</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Método de enrocar</string>
+  <string name="castleByMovingTwoSquares">Mover o rei duas casas</string>
+  <string name="castleByMovingOntoTheRook">Mover o rei até à torre</string>
   <string name="shareYourInsightsData">Compartilhar seus dados de percepção</string>
+  <string name="withNobody">Com ninguém</string>
+  <string name="withFriends">Com amigos</string>
+  <string name="withEverybody">Com todos</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Você ja registrou o e-mail: %s</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="kidModeExplanation">Sobre segurança. Em modo criança, todas as comunicações do site estão desactivadas. Activa esta opção para os teus filhos ou alunos, para protegê-los de outros usuários da internet.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Em modo criança, o logotipo do lichess fica com um %s icon para que saibas que as tuas crianças estão seguras.</string>
+  <string name="enableKidMode">Activar modo Criança</string>
+  <string name="disableKidMode">Desactivar modo Criança</string>
+  <string name="security">Segurança</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta é a lista de dispositivos que se conectaram à tua conta. Desactiva quaisquer sessões que não reconheças.</string>
+  <string name="alternativelyYouCanX">Alternativamente tu podes %s.</string>
+  <string name="revokeAllSessions">desactivar todas as sessões</string>
   <string name="playChessEverywhere">Jogue xadrez em qualquer lugar!</string>
   <string name="asFreeAsLichess">Tão gratuito quanto o Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Desenvolvido pelo amor ao xadrez, não pelo dinheiro</string>
@@ -712,4 +728,8 @@
     <item quantity="other">Disponível em %s idiomas!</item>
   </plurals>
   <string name="gameAnalysis">Análise da partida</string>
+  <string name="xHostsY">%1$s criou %2$s</string>
+  <string name="xJoinsY">%1$s entra em %2$s</string>
+  <string name="xLikesY">%1$s gosta de %2$s</string>
+  <string name="quickPairing">Emparelhamento rápido</string>
 </resources>
