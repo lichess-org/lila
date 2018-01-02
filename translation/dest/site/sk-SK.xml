@@ -312,13 +312,13 @@
     <item quantity="other">Potrebuješ odohrať ešte %1$s %2$s hodnotených partií</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Musíš odohrať o %s hodnotenú partiu viac</item>
-    <item quantity="few">Musíš odohrať o %s hodnotené partie viac</item>
-    <item quantity="other">Musíš odohrať o %s hodnotených partií viac</item>
+    <item quantity="one">Potrebuješ odohrať ešte %s hodnotenú partiu</item>
+    <item quantity="few">Potrebuješ odohrať ešte %s hodnotené partie</item>
+    <item quantity="other">Potrebujete odohrať ešte %s hodnotených partií</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Tvoj %s rating je predbežný</string>
-  <string name="yourPerfRatingIsTooHigh">Tvoj %1$s rating (%2$s) je príliš vysoký</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tvoj najvyšší týždenný %1$s rating (%2$s) je príliš vysoký</string>
+  <string name="yourPerfRatingIsProvisional">Váš %s rating je provizórny</string>
+  <string name="yourPerfRatingIsTooHigh">Váš %1$s rating (%2$s) je príliš vysoký</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Váš najvyšší týždenný %1$s rating (%2$s) je príliš vysoký</string>
   <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je príliš nízky</string>
   <string name="ratedMoreThanInPerf">S ratingom ≥ %1$s v %2$s</string>
   <string name="ratedLessThanInPerf">S ratingom ≥ %1$s v %2$s</string>
