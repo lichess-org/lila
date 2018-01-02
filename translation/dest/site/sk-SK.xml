@@ -418,6 +418,7 @@
   <string name="createdBy">Vytvorené</string>
   <string name="tournamentIsStarting">Turnaj sa začína</string>
   <string name="tournamentPairingsAreNowClosed">Párovanie hráčov v turnaji je momentálne uzavreté.</string>
+  <string name="standByX">Čakajte %s, vyberám súpera, pripravte sa!</string>
   <string name="youArePlaying">Hra začala!</string>
   <string name="winRate">Pomer výhier</string>
   <string name="berserkRate">Šialenosť</string>
@@ -598,6 +599,7 @@
   <string name="starting">Štart:</string>
   <string name="allInformationIsPublicAndOptional">Všetky informácie sú verejné a voliteľné.</string>
   <string name="yourCityRegionOrDepartment">Vaše mesto, región alebo oblasť</string>
+  <string name="biographyDescription">Napíšte niečo o sebe, čo sa Vám v šachu páči, Vaše obľúbené zahájenia, partie, hráči…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s znak.</item>
     <item quantity="few">Maximum: %s znaky.</item>
