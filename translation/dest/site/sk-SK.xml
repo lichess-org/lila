@@ -807,7 +807,9 @@
     <item quantity="other">%s sekúnd na vykonanie prvého ťahu</item>
   </plurals>
   <string name="practiceWithComputer">Precvičenie s počítačom</string>
+  <string name="anotherWasX">Ďalšou možnosťou bolo %s</string>
   <string name="bestWasX">Najlepší ťah bol %s</string>
+  <string name="youBrowsedAway">Precvičovanie prerušené</string>
   <string name="resumePractice">Pokračovať v precvičovaní</string>
   <string name="computerThinking">Počítač premýšľa...</string>
   <string name="seeBestMove">Ukázať najlepší ťah</string>
