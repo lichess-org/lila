@@ -855,4 +855,14 @@
   <string name="yourXRatingIsTooFarFromY">Ваш рејтинг %1$s, је превише далеко од %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Не можете изазвати јер вам је рејтинг %s привремен.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s прихвата само изазове од пријатеља.</string>
+  <string name="conditionalPremoves">Условни пре-потези</string>
+  <string name="addCurrentVariation">Додајте тренутну варијацију</string>
+  <string name="playVariationToCreateConditionalPremoves">Играјте варијацију да направите условне пре-потезе</string>
+  <string name="noConditionalPremoves">Нема условних пре-потеза</string>
+  <string name="playX">Играј %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">и сачувај %s пре-потезну линију</item>
+    <item quantity="few">и сачувај %s пре-потезне линије</item>
+    <item quantity="other">и сачувај %s пре-потезних линија</item>
+  </plurals>
 </resources>
