@@ -817,6 +817,8 @@
   <string name="registerToSendChallenges">Bitte registriere dich, um Herausforderungen zu senden.</string>
   <string name="youCannotChallengeX">Du kannst %s nicht herausfordern.</string>
   <string name="xDoesNotAcceptChallenges">%s akzeptiert keine Herausforderungen.</string>
+  <string name="yourXRatingIsTooFarFromY">Deine %1$s Wertung ist zu weit von %2$s entfernt.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Herausforderung wegen vorläufiger %s-Wertungszahl nicht möglich.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s kann nur von Freunden herausgefordert werden.</string>
   <string name="conditionalPremoves">Bedingte Vorauszüge</string>
   <string name="addCurrentVariation">Aktuelle Variante hinzufügen</string>
