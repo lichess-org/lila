@@ -706,7 +706,7 @@
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">Tento týždeň hral %2$s %1$s hráč.</item>
     <item quantity="few">Tento týždeň hrali %2$s %1$s hráči.</item>
-    <item quantity="other">Tento týždeň hrali %2$s %1$s hráči.</item>
+    <item quantity="other">Tento týždeň hralo %2$s %1$s hráčov.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Vaše %1$s hodnotenie je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ste lepší než %1$s z %2$s hráčov</string>
@@ -820,6 +820,7 @@
   <string name="whiteWinsGame">Biely vyhral</string>
   <string name="blackWinsGame">Čierny vyhral</string>
   <string name="learnFromYourMistakes">Poučte sa zo svojich chýb</string>
+  <string name="learnFromThisMistake">Poučte sa z tejto chyby</string>
   <string name="skipThisMove">Preskočiť tento krok</string>
   <string name="next">Ďalší</string>
   <string name="solution">Riešenie</string>
