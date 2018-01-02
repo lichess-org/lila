@@ -5,7 +5,7 @@ title = "Become a lichess streamer",
 icon = Some(Html("")),
 back = true,
 moreCss = cssTag("streamer.form.css").some) {
-<form class="streamer-new" action="@routes.Streamer.createApply" method="POST">
+<form class="streamer-new" action="@routes.Streamer.create" method="POST">
   <h2>Are you ready to become a lichess streamer, @me.username?</h2>
   @rules()
   <p>

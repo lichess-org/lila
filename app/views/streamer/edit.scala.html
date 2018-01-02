@@ -46,11 +46,7 @@ side = side.some) {
       }
     </div>
     <div class="overview">
-      @if(ctx.is(s.user)) {
-      <h1>Lichess Streamer</h1>
-      } else {
-      <h1 class="text" data-icon="">@s.streamer.name</h1>
-      }
+      <h1 @if(!ctx.is(s.user)){class="text" data-icon=""}>@s.streamer.name</h1>
       @rules()
     </div>
   </div>
@@ -106,7 +102,7 @@ side = side.some) {
     @base.form.group(form("name"), Html("Your streamer name on lichess"), help = Html("Keep it short: 20 characters max").some) {
     @base.form.input(form("name"), maxLength = 20)
     }
-    @base.form.group(form("headline"), Html("Headline"), help = Html("What is your stream about, in one sentence?").some) {
+    @base.form.group(form("headline"), Html("Headline"), help = Html("In one sentence, what is your stream about?").some) {
     @base.form.input(form("headline"), maxLength = 300)
     }
     @base.form.group(form("description"), Html("Long description")) {

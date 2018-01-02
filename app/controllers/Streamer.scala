@@ -26,18 +26,7 @@ object Streamer extends LilaController {
     }
   }
 
-  def create = Auth { implicit ctx => me =>
-    NoLame {
-      NoShadowban {
-        api.find(me) map {
-          case None => Ok(html.streamer.create(me))
-          case _ => Redirect(routes.Streamer.edit)
-        }
-      }
-    }
-  }
-
-  def createApply = AuthBody { implicit ctx => me =>
+  def create = AuthBody { implicit ctx => me =>
     NoLame {
       NoShadowban {
         api.find(me) flatMap {
@@ -94,7 +83,11 @@ object Streamer extends LilaController {
   }
 
   private def AsStreamer(f: StreamerModel.WithUser => Fu[Result])(implicit ctx: Context) =
-    get("u").ifTrue(isGranted(_.Streamers)).orElse(ctx.userId) ?? api.find flatMap { _.fold(notFound)(f) }
+    ctx.me.fold(notFound) { me =>
+      api.find(get("u").ifTrue(isGranted(_.Streamers)) | me.id) flatMap {
+        _.fold(Ok(html.streamer.create(me)).fuccess)(f)
+      }
+    }
 
   private def WithVisibleStreamer(s: StreamerModel.WithUser)(f: Fu[Result])(implicit ctx: Context) =
     if (s.streamer.isListed || ctx.me.??(s.streamer.is) || isGranted(_.Admin)) f

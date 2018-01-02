@@ -6,7 +6,7 @@ import lila.user.User
 
 case class Streamer(
     _id: Streamer.Id, // user ID
-    listed: Streamer.Listed, // user wants to be in the list
+    listed: Streamer.Listed,
     approval: Streamer.Approval,
     picturePath: Option[Streamer.PicturePath],
     name: Streamer.Name,

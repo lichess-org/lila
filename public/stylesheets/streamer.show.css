@@ -13,9 +13,9 @@
 }
 div.content_box.streamer h1 {
   font-family: 'Roboto';
-  font-size: 35px;
+  font-size: 32px;
   text-transform: uppercase;
-  letter-spacing: 5px;
+  letter-spacing: 4px;
   padding: 0 0 12px 0!important;
   text-shadow: none!important;
 }
@@ -33,7 +33,7 @@ div.content_box.streamer h1 {
   padding-bottom: 14px!important;
 }
 .streamer .services {
-  margin-top: 5px;
+  margin: 5px 0;
 }
 .streamer .service {
   display: flex;
