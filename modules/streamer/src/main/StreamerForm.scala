@@ -6,10 +6,11 @@ import play.api.data.Forms._
 
 object StreamerForm {
 
-  import Streamer.{ Name, Description, Twitch, YouTube, Live }
+  import Streamer.{ Name, Headline, Description, Twitch, YouTube, Live }
 
   lazy val emptyUserForm = Form(mapping(
     "name" -> name,
+    "headline" -> optional(headline),
     "description" -> optional(description),
     "twitch" -> optional(nonEmptyText.verifying("Invalid Twitch username", s => Streamer.Twitch.parseUserId(s).isDefined)),
     "youTube" -> optional(nonEmptyText.verifying("Invalid YouTube channel", s => Streamer.YouTube.parseChannelId(s).isDefined)),
@@ -24,6 +25,7 @@ object StreamerForm {
 
   def userForm(streamer: Streamer) = emptyUserForm fill UserData(
     name = streamer.name,
+    headline = streamer.headline,
     description = streamer.description,
     twitch = streamer.twitch.map(_.userId),
     youTube = streamer.youTube.map(_.channelId),
@@ -38,6 +40,7 @@ object StreamerForm {
 
   case class UserData(
       name: Name,
+      headline: Option[Headline],
       description: Option[Description],
       twitch: Option[String],
       youTube: Option[String],
@@ -47,6 +50,7 @@ object StreamerForm {
     def apply(streamer: Streamer, asMod: Boolean) = {
       val newStreamer = streamer.copy(
         name = name,
+        headline = headline,
         description = description,
         twitch = twitch.flatMap(Twitch.parseUserId).fold(streamer.twitch) { userId =>
           streamer.twitch.fold(Twitch(userId, Live.empty))(_.copy(userId = userId)).some
@@ -84,6 +88,8 @@ object StreamerForm {
       chat: Boolean
   )
 
+  private implicit val headlineFormat = lila.common.Form.formatter.stringFormatter[Headline](_.value, Headline.apply)
+  private def headline = of[Headline]
   private implicit val descriptionFormat = lila.common.Form.formatter.stringFormatter[Description](_.value, Description.apply)
   private def description = of[Description]
   private implicit val nameFormat = lila.common.Form.formatter.stringFormatter[Name](_.value, Name.apply)

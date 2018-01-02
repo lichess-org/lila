@@ -55,7 +55,7 @@ moreCss = cssTag("streamer.show.css")) {
     @pic(s, 250)
     <div class="overview">
       <h1>@s.streamer.name</h1>
-      @s.streamer.description.map(_.value).map { d =>
+      @s.streamer.headline.map(_.value).map { d =>
       <p class="headline @if(d.size < 60){small} else {@if(d.size < 120){medium}else{large}}">@d</p>
       }
       <div class="services">
@@ -83,5 +83,6 @@ moreCss = cssTag("streamer.show.css")) {
   @if(!s.streamer.isLive) {
   <div class="offline">OFFLINE</div>
   }
+  <div class="description">@richText(s.streamer.description.fold("")(_.value))</div>
 </div>
 }

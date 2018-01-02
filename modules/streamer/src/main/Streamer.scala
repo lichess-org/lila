@@ -10,6 +10,7 @@ case class Streamer(
     approval: Streamer.Approval,
     picturePath: Option[Streamer.PicturePath],
     name: Streamer.Name,
+    headline: Option[Streamer.Headline],
     description: Option[Streamer.Description],
     twitch: Option[Streamer.Twitch],
     youTube: Option[Streamer.YouTube],
@@ -40,7 +41,7 @@ case class Streamer(
 
   def completeEnough = {
     twitch.isDefined || youTube.isDefined
-  } && description.isDefined && hasPicture
+  } && headline.isDefined && hasPicture
 }
 
 object Streamer {
@@ -57,6 +58,7 @@ object Streamer {
     ),
     picturePath = none,
     name = Name(s"${user.title.??(_ + " ")}${user.realNameOrUsername}"),
+    headline = none,
     description = none,
     twitch = none,
     youTube = none,
@@ -76,6 +78,7 @@ object Streamer {
   )
   case class PicturePath(value: String) extends AnyVal with StringValue
   case class Name(value: String) extends AnyVal with StringValue
+  case class Headline(value: String) extends AnyVal with StringValue
   case class Description(value: String) extends AnyVal with StringValue
   case class Sorting(streaming: Boolean, seenAt: Option[DateTime])
   object Sorting { val empty = Sorting(false, none) }

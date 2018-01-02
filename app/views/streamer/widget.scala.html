@@ -3,7 +3,7 @@
 @pic(s, 250)
 <div class="overview">
   <h1>@s.streamer.name</h1>
-  @s.streamer.description.map(_.value).map { d =>
+  @s.streamer.headline.map(_.value).map { d =>
   <p class="headline @if(d.size < 60){small} else {@if(d.size < 120){medium}else{large}}">@d</p>
   }
   <div class="services">

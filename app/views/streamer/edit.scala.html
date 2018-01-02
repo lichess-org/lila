@@ -75,7 +75,7 @@ side = side.some) {
   </div>
   <form class="content_box_content material form" action="@routes.Streamer.edit@if(!ctx.is(s.user)){?u=@s.user.id}" method="POST">
     @errMsgMaterial(form.errors)
-    <div>
+    <div class="mod">
       @if(isGranted(_.Streamers)) {
       @base.form.group(form("approval.granted"), Html("Publish on the streamers list"), help = Html("Moderators only").some, half = true) {
       @base.form.select(form("approval.granted"), booleanChoices)
@@ -106,8 +106,11 @@ side = side.some) {
     @base.form.group(form("name"), Html("Your streamer name on lichess"), help = Html("Keep it short: 20 characters max").some) {
     @base.form.input(form("name"), maxLength = 20)
     }
-    @base.form.group(form("description"), Html("Short description"), help = Html("Who are you, why do you love streaming?").some) {
-    <textarea name="description" id="description" maxlength="300">@form("description").value</textarea>
+    @base.form.group(form("headline"), Html("Headline"), help = Html("What is your stream about, in one sentence?").some) {
+    @base.form.input(form("headline"), maxLength = 300)
+    }
+    @base.form.group(form("description"), Html("Long description")) {
+    <textarea name="description" id="description" maxlength="50000">@form("description").value</textarea>
     }
     @base.form.submit()
   </form>

@@ -31,6 +31,7 @@ private final class Importer(api: StreamerApi, flagColl: Coll) {
             name = Name {
               s.streamerNameForDisplay.fold(user.realNameOrUsername)(removeTitle)
             },
+            headline = none,
             description = none,
             twitch = s.twitch option Twitch(s.streamerName, Live.empty),
             youTube = s.youtube option YouTube(s.streamerName, Live.empty),
