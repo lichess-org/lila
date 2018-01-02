@@ -822,4 +822,6 @@ em %3$s</string>
   <string name="yourXRatingIsTooFarFromY">O seu %1$s rating está muito diferente de %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Não pode desafiar devido ao rating provisório de %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s só aceita desafios de amigos.</string>
+  <string name="conditionalPremoves">Pré-lances condicionais</string>
+  <string name="addCurrentVariation">Adicionar a variação atual</string>
 </resources>
