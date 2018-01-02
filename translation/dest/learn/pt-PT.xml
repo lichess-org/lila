@@ -145,4 +145,37 @@ Mexe-o, depois enroca-te do lado do rei.</string>
 Precisas de tirar as tuas peças primeiro.</string>
   <string name="castleQueenSideMovePiecesFirst">Enroca-te do lado da rainha!
 Precisas de tirar as tuas peças primeiro.</string>
+  <string name="youCannotCastleIfMoved">Tu não te podes enrocar se
+o teu rei ou a torre correspondente
+já executaram algum movimento anteriormente.</string>
+  <string name="youCannotCastleIfAttacked">Não te podes enrocar se
+o teu rei está a ser atacado no caminho.
+Bloqueia o cheque e depois enroca-te!</string>
+  <string name="findAWayToCastleKingSide">Encontra a maneira de
+enrocar-te do lado do rei!</string>
+  <string name="findAWayToCastleQueenSide">Encontra a maneira de
+enrocar-te do lado da rainha!</string>
+  <string name="castlingComplete">Parabéns! Tu deves quase sempre enrocar-te durante um jogo.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">O movimento especial do peão</string>
+  <string name="enPassantIntro">Quando o peão adversário move-se duas casas, tu podes capturá-lo como se ele se tivesse movido só uma casa.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">As negras moveram o peão
+duas casas!
+Captura-o en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant apenas funciona
+imediatamente depois do adversário
+mover o peão.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant só funciona
+se o peão está na quinta fila.</string>
+  <string name="wayToGo">Boa!</string>
+  <string name="yesYesYes">Sim, sim sim!</string>
+  <string name="youreGoodAtThis">Tu és bom nisto!</string>
+  <string name="nailedIt">Acertou em cheio.</string>
+  <string name="rightOn">Certeiro!</string>
+  <string name="stageXComplete">Estágio %s completo</string>
+  <string name="yourScore">A tua pontuação</string>
+  <string name="next">Seguinte</string>
+  <string name="backToMenu">Voltar ao menu</string>
+  <string name="puzzleFailed">Exercício falhado!</string>
+  <string name="retry">De novo</string>
 </resources>
