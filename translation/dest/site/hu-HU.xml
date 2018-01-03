@@ -56,6 +56,7 @@
   <string name="showThreat">Fenyegetés mutatása</string>
   <string name="inLocalBrowser">a böngészőben</string>
   <string name="toggleLocalEvaluation">Helyi elemzés bekapcsolása</string>
+  <string name="makeMainLine">Főváltozat létrehozása</string>
   <string name="deleteFromHere">Törlés innentől</string>
   <string name="move">Lépés</string>
   <string name="variantLoss">Vesztő</string>
@@ -804,6 +805,9 @@
   <string name="opening">Megnyitás</string>
   <string name="middlegame">Középjáték</string>
   <string name="endgame">Végjáték</string>
+  <string name="registerToSendChallenges">A kihíváshoz regisztráció szükséges.</string>
   <string name="xDoesNotAcceptChallenges">%s nem fogad kihívást.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s csak barátoktól fogad kihívást.</string>
+  <string name="conditionalPremoves">Feltételes előre megadott lépések</string>
+  <string name="noConditionalPremoves">Nincs feltételes előre megadott lépés</string>
 </resources>
