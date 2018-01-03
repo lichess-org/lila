@@ -823,7 +823,7 @@
   <string name="learnFromThisMistake">Poučte sa z tejto chyby</string>
   <string name="skipThisMove">Preskočiť tento krok</string>
   <string name="next">Ďalší</string>
-  <string name="xWasPlayed">hráč potiahol %s</string>
+  <string name="xWasPlayed">hralo sa %s</string>
   <string name="findBetterMoveForWhite">Nájdite lepší ťah bieleho</string>
   <string name="findBetterMoveForBlack">Nájdite lepší ťah čierneho</string>
   <string name="resumeLearning">Pokračovať v učení</string>
