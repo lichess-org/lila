@@ -343,7 +343,7 @@
   <string name="retry">Próbáld újra</string>
   <string name="reconnecting">Újrakapcsolódás</string>
   <string name="onlineFriends">Online barátok</string>
-  <string name="noFriendsOnline">Jelenleg nincsenek online barátaid</string>
+  <string name="noFriendsOnline">Nincs ismerős online</string>
   <string name="findFriends">Barátok keresése</string>
   <string name="favoriteOpponents">Kedvenc ellenfelek</string>
   <string name="follow">Követés</string>
@@ -492,7 +492,7 @@
   <string name="other">Egyéb</string>
   <string name="reportDescriptionHelp">Másold be a játék(ok) linkjét, és magyarázd el mi volt a probléma a játékos viselkedésével. Ne csak annyit írj hogy \"csalt\", próbáld elmondani hogyan jöttél rá. A jelentésed hamarabb feldolgozásra kerül ha angolul írod.</string>
   <string name="by">%s által</string>
-  <string name="thisTopicIsNowClosed">Ez a téma jelenleg zárt.</string>
+  <string name="thisTopicIsNowClosed">Ez a téma le lett zárva.</string>
   <string name="theming">Kinézet</string>
   <string name="donate">Támogatás</string>
   <string name="blog">Blog</string>
@@ -637,7 +637,7 @@
   <string name="createdSimuls">Új szimultán játékok</string>
   <string name="hostANewSimul">Új szimultán csata létrehozása</string>
   <string name="noSimulFound">Szimultán csata nem található</string>
-  <string name="noSimulExplanation">Szimultán játékok jelenleg nincsenek</string>
+  <string name="noSimulExplanation">Ez a szimultán játék nem létezik.</string>
   <string name="returnToSimulHomepage">Visszatérés a szimultán játékok főoldalára</string>
   <string name="aboutSimul">A szimultán játékban egy játékos játszik több ellen.</string>
   <string name="aboutSimulImage">50 ellenfél ellen, Fisher 47-szer nyert, kétszer játszott döntetlent és egyszer vesztett</string>
