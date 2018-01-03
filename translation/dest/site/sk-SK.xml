@@ -47,7 +47,7 @@
   <string name="requestAComputerAnalysis">Požiadať o počítačovú analýzu</string>
   <string name="computerAnalysis">Počítačová analýza</string>
   <string name="computerAnalysisAvailable">Počítačová analýza je k dispozícii</string>
-  <string name="analysis">Analýza</string>
+  <string name="analysis">Analýza partie</string>
   <string name="depthX">Hĺbka %s</string>
   <string name="usingServerAnalysis">Používanie analýzy servera</string>
   <string name="loadingEngine">Zavádzanie motora ...</string>
