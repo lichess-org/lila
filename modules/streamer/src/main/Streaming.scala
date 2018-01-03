@@ -14,6 +14,7 @@ private final class Streaming(
     renderer: ActorSelection,
     api: StreamerApi,
     isOnline: User.ID => Boolean,
+    timeline: ActorSelection,
     keyword: Stream.Keyword,
     googleApiKey: String,
     twitchClientId: String
@@ -53,9 +54,19 @@ private final class Streaming(
   def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) = {
     import makeTimeout.short
     import akka.pattern.ask
-    if (newStreams != liveStreams) renderer ? newStreams foreach {
-      case html: play.twirl.api.Html =>
-        context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'streams)
+    if (newStreams != liveStreams) {
+      renderer ? newStreams foreach {
+        case html: play.twirl.api.Html =>
+          context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'streams)
+      }
+      newStreams.streams filterNot { s =>
+        liveStreams has s.streamer
+      } foreach { s =>
+        timeline ! {
+          import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
+          Propagate(StreamStart(s.streamer.userId, s.streamer.name.value)) toFollowersOf s.streamer.userId
+        }
+      }
     }
     liveStreams = newStreams
     streamers foreach { streamer =>

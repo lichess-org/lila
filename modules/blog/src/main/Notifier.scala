@@ -17,7 +17,6 @@ private[blog] final class Notifier(
     }
 
   private def doSend(post: Document): Funit = post.getText("blog.title") ?? { title =>
-
     timelineApi.broadcast.insert {
       BlogPost(id = post.id, slug = post.slug, title = title)
     }
