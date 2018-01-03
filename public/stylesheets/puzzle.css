@@ -204,14 +204,14 @@ body.dark #puzzle .timeline > * {
 #puzzle .timeline a:hover {
   opacity: 1;
 }
-#puzzle .timeline a.current {
-  background: #3893E8!important;
-}
 #puzzle .timeline a.win {
   background: #759900!important;
 }
 #puzzle .timeline a.loss {
   background: #dc322f!important;
+}
+#puzzle .timeline a.current {
+  background: #3893E8!important;
 }
 .puzzle_side .side_box.metas {
   padding: 0 7px;
