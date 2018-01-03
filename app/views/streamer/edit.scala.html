@@ -91,12 +91,14 @@ menu = menu("edit", s.some).some) {
       }
     </div>
     }
-    @base.form.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some, half = true) {
-    @base.form.input(form("twitch"))
-    }
-    @base.form.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none.").some, half = true) {
-    @base.form.input(form("youTube"))
-    }
+    <div>
+      @base.form.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some, half = true) {
+      @base.form.input(form("twitch"))
+      }
+      @base.form.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none.").some, half = true) {
+      @base.form.input(form("youTube"))
+      }
+    </div>
     <div>
       @base.form.group(form("name"), Html("Your streamer name on lichess"), help = Html("Keep it short: 20 characters max").some, half = true) {
       @base.form.input(form("name"), maxLength = 20)

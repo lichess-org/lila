@@ -586,7 +586,7 @@ div.lichess_overboard .color_submits .spinner {
   color: #d59120;
 }
 #streams_on_air a.stream span:before {
-  vertical-align: -3px;
+  font-size: 1.5em;
 }
 .tour_spotlight {
   display: flex;
