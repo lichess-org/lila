@@ -816,6 +816,8 @@
   <string name="registerToSendChallenges">A kihíváshoz regisztráció szükséges.</string>
   <string name="youCannotChallengeX">%s nem kihívható.</string>
   <string name="xDoesNotAcceptChallenges">%s nem fogad kihívást.</string>
+  <string name="yourXRatingIsTooFarFromY">A pontszámod túl messze van tőle: %2$s (%1$s).</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nem kihívható az ideiglenes %s pontszám miatt.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s csak barátoktól fogad kihívást.</string>
   <string name="conditionalPremoves">Feltételes előre megadott lépések</string>
   <string name="addCurrentVariation">Változat hozzáadása</string>
