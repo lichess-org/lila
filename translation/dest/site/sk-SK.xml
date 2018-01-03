@@ -41,7 +41,7 @@
   <string name="blackResigned">Čierny vzdal</string>
   <string name="whiteLeftTheGame">Biely opustil partiu</string>
   <string name="blackLeftTheGame">Čierny opustil partiu</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Zdieľajte túto adresu, aby mohli diváci vidieť túto partiu</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ukážte partiu ostatným pomocou zdieľania tejto adresy</string>
   <string name="theComputerAnalysisHasFailed">Počítačová analýza zlyhala</string>
   <string name="viewTheComputerAnalysis">Zobraziť počítačovú analýzu</string>
   <string name="requestAComputerAnalysis">Požiadať o počítačovú analýzu</string>
@@ -631,7 +631,7 @@
   <string name="playOnline">Hrať online</string>
   <string name="playOffline">Hrať offline</string>
   <string name="allowAnalytics">Povoliť anonymné štatistiky</string>
-  <string name="shareGameURL">Zdieľať URL hry</string>
+  <string name="shareGameURL">Zdieľať URL partie</string>
   <string name="error.required">Povinné pole</string>
   <string name="error.email">Neplatná emailová adresa</string>
   <string name="error.email_acceptable">Neprístupná emailová adresa</string>
@@ -731,7 +731,7 @@
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Spôsob vykonania rošády</string>
   <string name="castleByMovingTwoSquares">Presunúť kráľa o dve polia</string>
   <string name="castleByMovingOntoTheRook">Presunúť kráľa na vežu</string>
-  <string name="shareYourInsightsData">Zdiaľajte výsledky analýzy vašeho hrania</string>
+  <string name="shareYourInsightsData">Zdieľať výsledky analýz Vašich partií</string>
   <string name="withNobody">S nikým</string>
   <string name="withFriends">S priateľmi</string>
   <string name="withEverybody">S každým</string>
