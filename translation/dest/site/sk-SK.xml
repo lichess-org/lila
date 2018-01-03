@@ -854,5 +854,14 @@
   <string name="yourXRatingIsTooFarFromY">Medzi tvojim %1$s ratingom a ratingom hráča %2$s je príliš veľký rozdiel.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Nemôžeš odoslať výzvu kvôli provizórnemu %s ratingu.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s prijíma výzvy iba od priateľov.</string>
+  <string name="conditionalPremoves">Podmienené predťahy</string>
   <string name="addCurrentVariation">Pridaj aktuálny variant</string>
+  <string name="playVariationToCreateConditionalPremoves">Hrať variant a vytvoriť podmienené predťahy</string>
+  <string name="noConditionalPremoves">Žiadne podmienené predťahy</string>
+  <string name="playX">Hrať %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">a uložiť %s variant predťahu</item>
+    <item quantity="few">a uložiť %s varianty predťahu</item>
+    <item quantity="other">a uložiť %s variantov predťahu</item>
+  </plurals>
 </resources>
