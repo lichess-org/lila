@@ -373,18 +373,18 @@
   <string name="noFriendsOnline">Žiadni priatelia online</string>
   <string name="findFriends">Nájsť priateľov</string>
   <string name="favoriteOpponents">Obľúbený súperi</string>
-  <string name="follow">Nasledovať</string>
-  <string name="following">Nasleduješ</string>
-  <string name="unfollow">Zrušiť nasledovanie</string>
+  <string name="follow">Sledovať</string>
+  <string name="following">Sledujete</string>
+  <string name="unfollow">Zrušiť sledovanie</string>
   <string name="block">Blokovať</string>
   <string name="blocked">Blokovaný</string>
   <string name="unblock">Odblokovať</string>
-  <string name="followsYou">Nasledujú ťa</string>
-  <string name="xStartedFollowingY">%1$s začal nasledovať %2$s</string>
+  <string name="followsYou">Sleduje Vás</string>
+  <string name="xStartedFollowingY">%1$s začal sledovať %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s nasledovník</item>
-    <item quantity="few">%s nasledovníci</item>
-    <item quantity="other">%s nasledovníkov</item>
+    <item quantity="one">%s sledujúci</item>
+    <item quantity="few">%s sledujúcich</item>
+    <item quantity="other">%s sledujúcich</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s sledovaný</item>
