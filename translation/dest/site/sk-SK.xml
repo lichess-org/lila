@@ -93,9 +93,9 @@
   <string name="winPreventedBy50MoveRule">Zabránené výhre pravidlo 50-tich ťahov</string>
   <string name="lossSavedBy50MoveRule">Prehra zachránená pravidlom 50-tich ťahov</string>
   <string name="allSet">Všetko nastavené!</string>
-  <string name="importPgn">Vložiť PGN</string>
+  <string name="importPgn">Importovať PGN</string>
   <string name="delete">Zmazat</string>
-  <string name="deleteThisImportedGame">Vymazať túto dôležitú partiu?</string>
+  <string name="deleteThisImportedGame">Vymazať túto importovanú partiu?</string>
   <string name="replayMode">Mód prehrávania</string>
   <string name="realtimeReplay">Skutočne</string>
   <string name="byCPL">CPL</string>
