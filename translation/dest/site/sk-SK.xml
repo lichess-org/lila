@@ -834,6 +834,8 @@
   <string name="waitingForAnalysis">Čakanie na analýzu</string>
   <string name="noMistakesFoundForWhite">Neboli nájdené žiadne chyby bieleho</string>
   <string name="noMistakesFoundForBlack">Neboli nájdené žiadne chyby čierneho</string>
+  <string name="doneReviewingWhiteMistakes">Prezeranie chýb bieleho ukončené</string>
+  <string name="doneReviewingBlackMistakes">Prezeranie chýb čierneho ukončené</string>
   <string name="doItAgain">Urob to znovu</string>
   <string name="reviewWhiteMistakes">Preskúmať chyby bieleho</string>
   <string name="reviewBlackMistakes">Preskúmať chyby čierneho</string>
@@ -846,4 +848,9 @@
   <string name="opening">Otvorenie</string>
   <string name="middlegame">Stredná hra</string>
   <string name="endgame">Koncovka</string>
+  <string name="registerToSendChallenges">Pre odoslanie výzvy sa zaregistruj!</string>
+  <string name="youCannotChallengeX">Nemôžeš vyzvať %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s neprijíma výzvy.</string>
+  <string name="yourXRatingIsTooFarFromY">Medzi tvojim %1$s ratingom a ratingom hráča %2$s je príliš veľký rozdiel.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nemôžeš odoslať výzvu kvôli provizórnemu %s ratingu.</string>
 </resources>
