@@ -61,5 +61,6 @@
 }
 @if(info.isStreamer) {
 <a href="@routes.Streamer.show(u.username)"
-  class="trophy award icon3d streamer hint--left" data-hint="Lichess Streamer"></a>
+  class="trophy award icon3d streamer hint--left@if(isStreaming(u.id)){ streaming}"
+  data-hint="@if(isStreaming(u.id)){Live now!}else{Lichess Streamer}"></a>
 }

@@ -106,6 +106,10 @@
 .user_show .trophy.icon3d:not(.patron):hover {
   transform: translateY(-3px);
 }
+.user_show .trophy.streaming {
+  color: #d59120!important;
+  animation: fire 1.25s ease-in-out infinite alternate;
+}
 .user_show .trophy.patron {
   font-size: 60px;
   margin: -30px 10px 0 25px!important;
