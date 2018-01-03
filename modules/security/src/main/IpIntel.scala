@@ -14,7 +14,15 @@ final class IpIntel(asyncCache: lila.memo.AsyncCache.Builder, lichessEmail: Stri
       0
   }
 
-  def failable(ip: IpAddress): Fu[Int] = cache get ip
+  def failable(ip: IpAddress): Fu[Int] =
+    if (blackList.exists(ip.value.startsWith)) fuccess(90)
+    else cache get ip
+
+  // Proxies ipintel doesn't detect
+  private val blackList = List(
+    "5.121.",
+    "5.122."
+  )
 
   private val cache = asyncCache.multi[IpAddress, Int](
     name = "ipIntel",
