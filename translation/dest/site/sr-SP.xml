@@ -44,7 +44,7 @@
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Подели овај линк како би посматрачи могли да гледају партију</string>
   <string name="theComputerAnalysisHasFailed">Рачунарска анализа није успела</string>
   <string name="viewTheComputerAnalysis">Погледај рачунарску анализу</string>
-  <string name="requestAComputerAnalysis">Затражи рачунарску анализу</string>
+  <string name="requestAComputerAnalysis">Тражи рачунарску анализу</string>
   <string name="computerAnalysis">Компјутерска анализа</string>
   <string name="computerAnalysisAvailable">Рачунарска анализа је доступна</string>
   <string name="analysis">Табла за анализирање</string>
