@@ -56,9 +56,9 @@
   <string name="showThreat">Ukázať hrozbu</string>
   <string name="inLocalBrowser">vo Vašom prehliadači</string>
   <string name="toggleLocalEvaluation">Prepnúť na vlastnú analýzu</string>
-  <string name="promoteVariation">Povýš variant</string>
-  <string name="makeMainLine">Povýš na hlavný variant</string>
-  <string name="deleteFromHere">Vymaž odtiaľto</string>
+  <string name="promoteVariation">Povýšiť variant</string>
+  <string name="makeMainLine">Povýšiť na hlavný variant</string>
+  <string name="deleteFromHere">Vymazať odtiaľto</string>
   <string name="move">Ťah</string>
   <string name="variantLoss">Prehrávajúci variant</string>
   <string name="variantWin">Vyhrávajúci variant</string>
