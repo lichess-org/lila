@@ -3,6 +3,7 @@ package lila.mod
 import play.api.libs.json._
 
 import chess.format.FEN
+import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.evaluation._
 import lila.game.JsonView.blursWriter
 import lila.game.{ Game, GameRepo }
@@ -24,10 +25,14 @@ final class JsonView(
           }
           moreGamesWithFen <- GameRepo withInitialFens moreGames
           allGamesWithFen = gamesWithFen ::: moreGamesWithFen
+          analysis <- AnalysisRepo byIds allGamesWithFen.map(_._1.id)
+          allGamesWithFenAndAnalysis = allGamesWithFen zip analysis map {
+            case ((game, fen), analysis) => (game, fen, analysis)
+          }
         } yield Json.obj(
           "user" -> userJson(user),
           "assessment" -> pag,
-          "games" -> JsObject(allGamesWithFen.map { g =>
+          "games" -> JsObject(allGamesWithFenAndAnalysis.map { g =>
             g._1.id -> {
               gameWithFenWrites.writes(g) ++ Json.obj(
                 "color" -> g._1.player(user).map(_.color.name)
@@ -56,8 +61,8 @@ final class JsonView(
   private implicit val playerAssWrites = Json.writes[PlayerAssessment]
   private implicit val playerAggAssWrites = Json.writes[PlayerAggregateAssessment]
 
-  private implicit val gameWithFenWrites = OWrites[(Game, Option[FEN])] {
-    case (g, fen) => Json.obj(
+  private implicit val gameWithFenWrites = OWrites[(Game, Option[FEN], Option[Analysis])] {
+    case (g, fen, analysis) => Json.obj(
       "initialFen" -> fen.map(_.value),
       // "createdAt" -> g.createdAt.getDate,
       "pgn" -> g.pgnMoves.mkString(" "),
@@ -66,7 +71,14 @@ final class JsonView(
       "blurs" -> Json.obj(
         "white" -> g.whitePlayer.blurs,
         "black" -> g.blackPlayer.blurs
-      )
+      ),
+      "analysis" -> analysis.map { a =>
+        JsArray(a.infos.map { info =>
+          info.cp.map { cp => Json.obj("cp" -> cp.value) } orElse
+            info.mate.map { mate => Json.obj("mate" -> mate.value) } getOrElse
+            JsNull
+        })
+      }
     ).noNull
   }
 }
