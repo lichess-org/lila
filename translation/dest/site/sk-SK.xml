@@ -827,6 +827,9 @@
   <string name="findBetterMoveForWhite">Nájdite lepší ťah bieleho</string>
   <string name="findBetterMoveForBlack">Nájdite lepší ťah čierneho</string>
   <string name="resumeLearning">Pokračovať v učení</string>
+  <string name="youCanDoBetter">Dá sa to aj lepšie</string>
+  <string name="tryAnotherMoveForWhite">Skús ako biely potiahnuť niečo iné</string>
+  <string name="tryAnotherMoveForBlack">Skús ako čierny potiahnuť niečo iné</string>
   <string name="solution">Riešenie</string>
   <string name="waitingForAnalysis">Čakanie na analýzu</string>
   <string name="noMistakesFoundForWhite">Neboli nájdené žiadne chyby bieleho</string>
