@@ -59,6 +59,7 @@ body.dark .streamer_edit .top a {
 .streamer_edit .mod {
   border-bottom: 5px dotted rgba(128,128,128,0.15);
   margin-bottom: 5em;
+  padding-bottom: 4em;
 }
 .streamer_edit .status::before {
   font-size: 2em;
@@ -81,7 +82,7 @@ body.dark .streamer_edit .top a {
 .streamer-new ul li,
 .streamer_edit ul li {
   font-size: 1.2em;
-  margin: 1.1em 0;
+  margin: 1em 0;
   line-height: 1.6em;
 }
 .streamer-new ul li::before,
@@ -91,6 +92,7 @@ body.dark .streamer_edit .top a {
   font-size: 1.5em;
   margin-right: 0.5em;
   vertical-align: middle;
+  opacity: 0.8;
 }
 
 .streamer-new button {
