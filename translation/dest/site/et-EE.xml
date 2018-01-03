@@ -782,6 +782,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="tryAnotherMoveForWhite">Proovige mingisugust teist käiku valgele</string>
   <string name="tryAnotherMoveForBlack">Proovige mingisugust teist käiku mustale</string>
   <string name="solution">Lahendus</string>
+  <string name="waitingForAnalysis">Analüüsimine</string>
   <string name="noMistakesFoundForWhite">Valge eksimusi ei leitud</string>
   <string name="noMistakesFoundForBlack">Musta eksimusi ei leitud</string>
   <string name="doneReviewingWhiteMistakes">Valge vead on üle vaadatud</string>
