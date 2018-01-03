@@ -7,6 +7,8 @@ trait Stream {
   val status: String
   val streamer: Streamer
   def is(s: Streamer): Boolean = streamer.id == s.id
+  def twitch = serviceName == "twitch"
+  def youTube = serviceName == "youTube"
 }
 
 object Stream {

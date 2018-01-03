@@ -38,9 +38,11 @@ div.content_box.streamer h1 {
 .streamer .service {
   display: flex;
   font-size: 1.5em;
-  font-weight: bold;
   white-space: nowrap;
   padding: 5px 0;
+}
+.streamer .service.live {
+  color: #dc322f;
 }
 .streamer .service svg {
   width: 1.4em;

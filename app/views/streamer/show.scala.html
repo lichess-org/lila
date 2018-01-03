@@ -67,21 +67,28 @@ moreCss = cssTag("streamer.show.css")) {
       }
       <div class="services">
         @s.streamer.twitch.map { twitch =>
-        <a class="service twitch" href="@twitch.fullUrl">
+        <a class="service twitch@if(s.stream.exists(_.twitch)){ live}" href="@twitch.fullUrl">
           @StreamerSvg.twitch
           @twitch.minUrl
         </a>
         }
         @s.streamer.youTube.map { youTube =>
-        <a class="service youTube" href="@youTube.fullUrl">
+        <a class="service youTube@if(s.stream.exists(_.youTube)){ live}" href="@youTube.fullUrl">
           @StreamerSvg.youTube
           @youTube.minUrl
         </a>
         }
       </div>
+      @s.stream.map { s =>
+      <p class="at">
+        Currently streaming:
+        <strong>@s.status</strong>
+      </p>
+      }.getOrElse {
       <p class="at">@trans.lastSeenActive(momentFromNow(s.streamer.seenAt))</p>
       @s.streamer.liveAt.map { liveAt =>
       <p class="at">Last stream @momentFromNow(liveAt)</p>
+      }
       }
     </div>
   </div>
