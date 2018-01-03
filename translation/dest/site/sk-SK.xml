@@ -19,7 +19,7 @@
   <string name="white">Biely</string>
   <string name="black">Čierny</string>
   <string name="randomColor">Náhodná farba figúr</string>
-  <string name="createAGame">Vytvoriť partiu</string>
+  <string name="createAGame">Nastaviť partiu</string>
   <string name="whiteIsVictorious">Biely zvíťazil</string>
   <string name="blackIsVictorious">Čierny zvíťazil</string>
   <string name="kingInTheCenter">Kráľ v strede</string>
@@ -149,7 +149,7 @@
   <string name="latestForumPosts">Najnovšie príspevky</string>
   <string name="players">Hráči</string>
   <string name="minutesPerSide">Minút na stranu</string>
-  <string name="variant">Varianta</string>
+  <string name="variant">Variant</string>
   <string name="variants">Varianty</string>
   <string name="timeControl">Nastavenie času</string>
   <string name="realTime">Nastaviť čas</string>
@@ -767,8 +767,8 @@
   <string name="xHostsY">%1$s založil %2$s</string>
   <string name="xJoinsY">%1$s sa pridal k %2$s</string>
   <string name="xLikesY">%1$s lajkol %2$s</string>
-  <string name="quickPairing">Rýchla hra</string>
-  <string name="lobby">Výzvy</string>
+  <string name="quickPairing">Rýchle nájdenie súpera</string>
+  <string name="lobby">Výzvy hráčov</string>
   <string name="anonymous">Anonymný</string>
   <string name="yourScore">Vaše skóre: %s</string>
   <string name="language">Jazyk</string>
