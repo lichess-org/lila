@@ -54,8 +54,13 @@ final class SecurityApi(
       case true => fufail(SecurityApi MustConfirmEmail userId)
       case false =>
         val sessionId = Random secureString 12
-        Store.save(sessionId, userId, req, apiVersion) inject sessionId
+        Store.save(sessionId, userId, req, apiVersion, up = true) inject sessionId
     }
+
+  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion])(implicit req: RequestHeader): Funit = {
+    val sessionId = Random secureString 8
+    Store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false)
+  }
 
   def restoreUser(req: RequestHeader): Fu[Option[FingerprintedUser]] =
     firewall.accepts(req) ?? {

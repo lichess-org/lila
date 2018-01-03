@@ -21,7 +21,8 @@ object Store {
     sessionId: String,
     userId: User.ID,
     req: RequestHeader,
-    apiVersion: Option[ApiVersion]
+    apiVersion: Option[ApiVersion],
+    up: Boolean
   ): Funit =
     coll.insert($doc(
       "_id" -> sessionId,
@@ -29,7 +30,7 @@ object Store {
       "ip" -> HTTPRequest.lastRemoteAddress(req),
       "ua" -> HTTPRequest.userAgent(req).|("?"),
       "date" -> DateTime.now,
-      "up" -> true,
+      "up" -> up,
       "api" -> apiVersion.map(_.value)
     )).void
 

@@ -181,7 +181,9 @@ object Auth extends LilaController {
                     .map(_ -> email).flatMap {
                       case (user, email) if mustConfirm.value =>
                         env.emailConfirm.send(user, email) >> {
-                          if (env.emailConfirm.effective) Redirect(routes.Auth.checkYourEmail(user.username)).fuccess
+                          if (env.emailConfirm.effective)
+                            api.saveSignup(user.id, ctx.mobileApiVersion) inject
+                              Redirect(routes.Auth.checkYourEmail(user.username))
                           else welcome(user, email) >> redirectNewUser(user)
                         }
                       case (user, email) => welcome(user, email) >> redirectNewUser(user)
