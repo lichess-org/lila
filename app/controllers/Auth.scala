@@ -136,6 +136,7 @@ object Auth extends LilaController {
     case object YesBecauseIp extends MustConfirmEmail(true)
     case object YesBecauseProxy extends MustConfirmEmail(true)
     case object YesBecauseMobile extends MustConfirmEmail(true)
+    case object YesBecauseUA extends MustConfirmEmail(true)
 
     def apply(print: Option[FingerPrint])(implicit ctx: Context): Fu[MustConfirmEmail] = {
       val ip = HTTPRequest lastRemoteAddress ctx.req
@@ -143,6 +144,7 @@ object Auth extends LilaController {
         if (ipExists) fuccess(YesBecauseIp)
         else print.??(api.recentByPrintExists) flatMap { printExists =>
           if (printExists) fuccess(YesBecausePrint)
+          else if (HTTPRequest weirdUA ctx.req) fuccess(YesBecauseUA)
           else Env.security.ipIntel(ip).map(80 <).map { _.fold(YesBecauseProxy, Nope) }
         }
       }
