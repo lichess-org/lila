@@ -40,8 +40,7 @@
       @game.pgnImport.flatMap(_.date).map { date =>
       Imported
       @game.pgnImport.flatMap(_.user).map { user =>
-      by
-      @userIdLink(user.some, None, false)
+      by @userIdLink(user.some, None, false)
       <br />
       }
       }
@@ -69,6 +68,10 @@
     }
     }
   </div>
+
+  @game.userIds.filter(isStreaming).map { id =>
+  <a href="@routes.Streamer.show(id)" class="context-streamer text side_box" data-icon="">@usernameOrId(id) is streaming</a>
+  }
 
   @userTv.map { u =>
   <div class="side_box">

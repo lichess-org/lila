@@ -77,10 +77,10 @@ menu = menu("edit", s.some).some) {
       @base.form.group(form("approval.requested"), Html("Active approval request"), help = Html("Moderators only").some, half = true) {
       @base.form.select(form("approval.requested"), booleanChoices)
       }
-      @if(granted) {
       @base.form.group(form("approval.chat"), Html("Embed stream chat too"), help = Html("Moderators only").some, half = true) {
       @base.form.select(form("approval.chat"), booleanChoices)
       }
+      @if(granted) {
       @base.form.group(form("approval.featured"), Html("Feature on lichess homepage"), help = Html("Moderators only").some, half = true) {
       @base.form.select(form("approval.featured"), booleanChoices)
       }

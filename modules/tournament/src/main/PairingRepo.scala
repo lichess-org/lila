@@ -1,11 +1,12 @@
 package lila.tournament
 
-import scala.collection.breakOut
 import org.joda.time.DateTime
 import reactivemongo.bson._
+import scala.collection.breakOut
 
 import BSONHandlers._
 import lila.db.dsl._
+import lila.user.User
 
 object PairingRepo {
 
@@ -90,13 +91,16 @@ object PairingRepo {
       }
   }
 
-  def removePlaying(tourId: String) = coll.remove(selectTour(tourId) ++ selectPlaying).void
+  def removePlaying(tourId: Tournament.ID) = coll.remove(selectTour(tourId) ++ selectPlaying).void
 
-  def findPlaying(tourId: String): Fu[Pairings] =
+  def findPlaying(tourId: Tournament.ID): Fu[Pairings] =
     coll.find(selectTour(tourId) ++ selectPlaying).cursor[Pairing]().gather[List]()
 
-  def findPlaying(tourId: String, userId: String): Fu[Option[Pairing]] =
+  def findPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Option[Pairing]] =
     coll.find(selectTourUser(tourId, userId) ++ selectPlaying).uno[Pairing]
+
+  def isPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
+    coll.exists(selectTourUser(tourId, userId) ++ selectPlaying)
 
   private[tournament] def finishedByPlayerChronological(tourId: String, userId: String): Fu[Pairings] =
     coll.find(

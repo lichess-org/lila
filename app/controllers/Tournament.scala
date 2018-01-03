@@ -89,7 +89,8 @@ object Tournament extends LilaController {
             chat <- canHaveChat(tour) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
             json <- env.jsonView(tour, page, ctx.me, none, version.some, ctx.lang)
             _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
-          } yield Ok(html.tournament.show(tour, verdicts, json, chat))).mon(_.http.response.tournament.show.website)
+            streamers <- streamerCache get tour.id
+          } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers))).mon(_.http.response.tournament.show.website)
         }
       },
       api = _ => repo byId id flatMap {
@@ -243,4 +244,14 @@ object Tournament extends LilaController {
       Ok(html.tournament.calendar(env.scheduleJsonView calendar tours))
     }
   }
+
+  private val streamerCache = Env.memo.asyncCache.multi[Tour.ID, Set[UserModel.ID]](
+    name = "tournament.streamers",
+    f = tourId => Env.streamer.liveStreams.all.flatMap {
+      _.streams.map { stream =>
+        env.hasUser(tourId, stream.streamer.userId) map (_ option stream.streamer.userId)
+      }.sequenceFu.map(_.flatten.toSet)
+    },
+    expireAfter = _.ExpireAfterWrite(15.seconds)
+  )
 }

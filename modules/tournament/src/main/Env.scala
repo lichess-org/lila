@@ -9,6 +9,7 @@ import lila.hub.actorApi.map.Ask
 import lila.hub.{ ActorMap, Sequencer }
 import lila.socket.actorApi.GetVersion
 import lila.socket.History
+import lila.user.User
 import makeTimeout.short
 
 final class Env(
@@ -170,8 +171,14 @@ final class Env(
 
   TournamentInviter.start(system, api, notifyApi)
 
-  def version(tourId: String): Fu[Int] =
+  def version(tourId: Tournament.ID): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
+
+  // is that user playing a game of this tournament
+  // or hanging out in the tournament lobby (joined or not)
+  def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] = {
+    socketHub ? Ask(tourId, lila.hub.actorApi.HasUserId(userId)) mapTo manifest[Boolean]
+  } >>| PairingRepo.isPlaying(tourId, userId)
 
   def cli = new lila.common.Cli {
     def process = {

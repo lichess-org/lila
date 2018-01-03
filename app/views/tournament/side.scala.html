@@ -1,4 +1,4 @@
-@(tour: Tournament, verdicts: lila.tournament.Condition.All.WithVerdicts)(implicit ctx: Context)
+@(tour: Tournament, verdicts: lila.tournament.Condition.All.WithVerdicts, streamers: Set[User.ID])(implicit ctx: Context)
 
 <div class="side_box padded">
   <div class="game_infos" data-icon="@tour.perfType.map(_.iconChar)">
@@ -60,3 +60,7 @@
   </form>
   }
 </div>
+
+@streamers.map { id =>
+<a href="@routes.Streamer.show(id)" class="context-streamer text side_box" data-icon="">@usernameOrId(id) is streaming</a>
+}

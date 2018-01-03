@@ -694,7 +694,7 @@ div.side h2 {
   text-align: center;
   font-size: 1.5em;
 }
-div.side_box {
+.side_box {
   margin-top: 12px;
   margin-left: -30px;
   width: 226px;
@@ -828,6 +828,22 @@ div.side form.search input {
 }
 #site_header div.side_menu .sep {
   margin: 10px;
+}
+.context-streamer {
+  display: block;
+  padding: 5px;
+  color: #fff!important;
+  background: #3893E8;
+  opacity: 0.8;
+  border-radius: 3px;
+  overflow: hidden;
+  white-space:nowrap;
+}
+.context-streamer::before {
+  font-size: 1.5em;
+}
+.context-streamer:hover {
+  opacity: 1;
 }
 
 #ham-plate {

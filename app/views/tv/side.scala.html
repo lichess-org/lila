@@ -18,6 +18,11 @@
     <h2 data-icon="1" class="text">Lichess games</h2>
     }
   </div>
+  @povOption.map { pov =>
+  @pov.game.userIds.filter(isStreaming).map { id =>
+  <a href="@routes.Streamer.show(id)" class="context-streamer text side_box" data-icon="">@usernameOrId(id) is streaming</a>
+  }
+  }
   <div id="tv_channels">
     @lila.tv.Tv.Channel.all.map { c =>
     <a data-icon="@Html(c.icon)" href="@baseUrl/@c.key" class="@c.key@if(c == channel){ active}">
