@@ -6,7 +6,7 @@ import play.api.data.Forms._
 
 object StreamerForm {
 
-  import Streamer.{ Name, Headline, Description, Twitch, YouTube }
+  import Streamer.{ Name, Headline, Description, Twitch, YouTube, Listed }
 
   lazy val emptyUserForm = Form(mapping(
     "name" -> name,
@@ -14,6 +14,7 @@ object StreamerForm {
     "description" -> optional(description),
     "twitch" -> optional(nonEmptyText.verifying("Invalid Twitch username", s => Streamer.Twitch.parseUserId(s).isDefined)),
     "youTube" -> optional(nonEmptyText.verifying("Invalid YouTube channel", s => Streamer.YouTube.parseChannelId(s).isDefined)),
+    "listed" -> boolean,
     "approval" -> optional(mapping(
       "granted" -> boolean,
       "featured" -> boolean,
@@ -29,6 +30,7 @@ object StreamerForm {
     description = streamer.description,
     twitch = streamer.twitch.map(_.userId),
     youTube = streamer.youTube.map(_.channelId),
+    listed = streamer.listed.value,
     approval = ApprovalData(
       granted = streamer.approval.granted,
       featured = streamer.approval.autoFeatured,
@@ -44,6 +46,7 @@ object StreamerForm {
       description: Option[Description],
       twitch: Option[String],
       youTube: Option[String],
+      listed: Boolean,
       approval: Option[ApprovalData]
   ) {
 
@@ -54,6 +57,7 @@ object StreamerForm {
         description = description,
         twitch = twitch.flatMap(Twitch.parseUserId).map(Twitch.apply),
         youTube = youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply),
+        listed = Listed(listed),
         updatedAt = DateTime.now
       )
       newStreamer.copy(

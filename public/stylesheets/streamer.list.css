@@ -43,20 +43,65 @@
   padding-bottom: 14px!important;
 }
 .streamers .streamer .services {
-  margin-top: 5px;
+  margin: 5px 0 10px 0;
 }
 .streamers .streamer .service {
   display: flex;
   font-size: 1.5em;
-  font-weight: bold;
   white-space: nowrap;
-  padding: 5px 0;
+  padding: 3px 0;
 }
 .streamers .streamer .service svg {
   width: 1.4em;
   height: 1.4em;
   margin-right: 0.4em;
+  opacity: 0.7;
 }
+
+.streamer .ribbon {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 2;
+}
+.streamer .ribbon::before,
+.streamer .ribbon::after {
+  position: absolute;
+  z-index: 0;
+  content: '';
+  display: block;
+  border: 5px solid #2980b9;
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+.streamer .ribbon::before {
+  top: 0;
+  left: 0;
+}
+.streamer .ribbon::after {
+  bottom: 0;
+  right: 0;
+}
+.streamer .ribbon span {
+  position: absolute;
+  left: -25px;
+  top: 30px;
+  transform: rotate(45deg);
+  display: block;
+  width: 225px;
+  padding: 15px 0;
+  background-color: #3498db;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  color: #fff;
+  font: 700 18px/1 Roboto;
+  text-shadow: 0 1px 1px rgba(0,0,0,.2);
+  text-transform: uppercase;
+  text-align: center;
+}
+
 body.dark .streamers .streamer .service svg path {
   fill: #aaa;
 }

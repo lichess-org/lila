@@ -1,22 +1,25 @@
 @(s: lila.streamer.Streamer.WithUserAndStream)(implicit ctx: Context)
 
+@import lila.streamer.Stream.{ Twitch, YouTube }
+
 @side = {
-  @if(s.streamer.approval.chatEnabled) {
+@if(s.streamer.approval.chatEnabled) {
 <div class="side streamer-side">
+  @s.stream match {
+  case Some(YouTube.Stream(_, _, videoId, _)) => {
+  <iframe
+    frameborder="0"
+    scrolling="no"
+    src="https://www.youtube.com/live_chat?v=@videoId&embed_domain=@netDomain"
+    width="235"
+    height="500"></iframe>
+  }
+  case _ => {
   @s.streamer.twitch.map { twitch =>
   <iframe
     frameborder="0"
     scrolling="no"
     src="https://twitch.tv/@twitch.userId/chat?popout="
-    width="235"
-    height="500"></iframe>
-  }.getOrElse {
-  @s.stream.collect {
-  case lila.streamer.Stream.YouTube.Stream(_, _, videoId, _) => {
-  <iframe
-    frameborder="0"
-    scrolling="no"
-    src="https://www.youtube.com/live_chat?v=@videoId&embed_domain=@netDomain"
     width="235"
     height="500"></iframe>
   }
@@ -31,6 +34,17 @@ side = side.some,
 menu = menu("show", s.withoutStream.some).some,
 moreCss = cssTag("streamer.show.css")) {
 <div class="content_box no_padding streamer">
+  @s.stream match {
+  case Some(YouTube.Stream(_, _, videoId, _)) => {
+  <div class="live youTube">
+    <iframe
+      width="792"
+      height="446"
+      src="https://www.youtube.com/embed/@videoId?autoplay=1"
+      frameborder="0" allowfullscreen></iframe>
+  </div>
+  }
+  case _ => {
   @s.streamer.twitch.map { twitch =>
   <div class="live twitch">
     <iframe
@@ -40,18 +54,8 @@ moreCss = cssTag("streamer.show.css")) {
       allowfullscreen autoplay></iframe>
   </div>
   }.getOrElse {
-  @s.stream.collect {
-  case lila.streamer.Stream.YouTube.Stream(_, _, videoId, _) => {
-  <div class="live youTube">
-    <iframe
-      width="792"
-      height="446"
-      src="https://www.youtube.com/embed/@videoId?autoplay=1"
-      frameborder="0" allowfullscreen></iframe>
-  </div>
-  }
-  }.getOrElse {
   <div class="offline">OFFLINE</div>
+  }
   }
   }
   <div class="top">

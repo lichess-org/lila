@@ -11,14 +11,14 @@ menu = menu("index", none).some) {
   @if(!requests) {
   <div class="list live">
     @live.map { c =>
-    <div class="streamer">@widget(c.withoutStream, c.stream.some)</div>
+    <div class="streamer">@widget(c.withoutStream, c.stream)</div>
     }
   </div>
   }
   <div class="list infinitescroll">
     @pager.currentPageResults.map { c =>
     <div class="streamer paginated_element" data-dedup="@c.streamer.id">
-      @widget(c, edit = requests)
+      @widget(c, none, edit = requests)
     </div>
     }
     @pager.nextPage.map { np =>

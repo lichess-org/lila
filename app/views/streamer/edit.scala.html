@@ -47,6 +47,7 @@ menu = menu("edit", s.some).some) {
     </div>
   </div>
   @defining(s.streamer.approval.granted) { granted =>
+  @if(s.streamer.listed.value) {
   <div class="status is@if(granted){-green}" data-icon="@if(granted){E}else{}">
     @if(granted) {
     Your stream is approved and listed on <a href="@routes.Streamer.index()">lichess streamers list</a>.
@@ -65,6 +66,7 @@ menu = menu("edit", s.some).some) {
     }
     }
   </div>
+  }
   <form class="content_box_content material form" action="@routes.Streamer.edit@if(!ctx.is(s.user)){?u=@s.user.id}" method="POST">
     @errMsgMaterial(form.errors)
     @if(isGranted(_.Streamers)) {
@@ -95,9 +97,14 @@ menu = menu("edit", s.some).some) {
     @base.form.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none.").some, half = true) {
     @base.form.input(form("youTube"))
     }
-    @base.form.group(form("name"), Html("Your streamer name on lichess"), help = Html("Keep it short: 20 characters max").some) {
-    @base.form.input(form("name"), maxLength = 20)
-    }
+    <div>
+      @base.form.group(form("name"), Html("Your streamer name on lichess"), help = Html("Keep it short: 20 characters max").some, half = true) {
+      @base.form.input(form("name"), maxLength = 20)
+      }
+      @base.form.group(form("listed"), Html("Visible on the streamers page"), help = Html("When approved by moderators").some, half = true) {
+      @base.form.select(form("listed"), booleanChoices)
+      }
+    </div>
     @base.form.group(form("headline"), Html("Headline"), help = Html("In one sentence, what is your stream about?").some) {
     @base.form.input(form("headline"), maxLength = 300)
     }
