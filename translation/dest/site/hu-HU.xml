@@ -326,7 +326,7 @@
   <string name="location">Helység</string>
   <string name="settings">Beállítások</string>
   <string name="filterGames">Játékok szűrése</string>
-  <string name="reset">Visszaállítás</string>
+  <string name="reset">Alaphelyzet</string>
   <string name="apply">Alkalmaz</string>
   <string name="leaderboard">Ranglista</string>
   <string name="pasteTheFenStringHere">A FEN szöveget másolja át ide</string>
