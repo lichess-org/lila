@@ -32,7 +32,7 @@
   <string name="whitePlays">Világos lép</string>
   <string name="blackPlays">Sötét lép</string>
   <string name="opponentLeftChoices">Az ellenfeled valamiért elhagyta a játékot. Igényelhetsz győzelmet, döntetlent vagy várhatsz rá.</string>
-  <string name="makeYourOpponentResign">Ha ellenfeled valamiért kilépett, igényt tarthatsz a győzelemre</string>
+  <string name="makeYourOpponentResign">Ha az ellenfél valamiért kilépett, igényelhető a győzelem</string>
   <string name="forceResignation">Győzelem igénylése</string>
   <string name="forceDraw">Döntetlen</string>
   <string name="talkInChat">Légy udvarias másokkal!</string>
@@ -272,6 +272,10 @@
   <string name="tournament">Verseny</string>
   <string name="tournaments">Versenyek</string>
   <string name="tournamentPoints">Verseny pont</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s versenypont</item>
+    <item quantity="other">%s versenypont</item>
+  </plurals>
   <string name="viewTournament">Verseny nézése</string>
   <string name="backToTournament">Vissza a versenyhez</string>
   <string name="thematic">Tematikus</string>
@@ -764,6 +768,10 @@
   <string name="notifications">Értesítések</string>
   <string name="challenges">Kihívások</string>
   <string name="perfRatingX">Pontszám: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s másodperc a kezdőlépés megtételére</item>
+    <item quantity="other">%s másodperc a kezdőlépés megtételére</item>
+  </plurals>
   <string name="practiceWithComputer">Gyakorlás a géppel</string>
   <string name="anotherWasX">Ez is jó lett volna: %s</string>
   <string name="bestWasX">Ez lett volna a legjobb lépés: %s</string>
