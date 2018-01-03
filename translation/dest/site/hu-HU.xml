@@ -194,6 +194,7 @@
   <string name="accept">Elfogad</string>
   <string name="decline">Elutasít</string>
   <string name="playingRightNow">Jelenlegi játék</string>
+  <string name="eventInProgress">Éppen zajlik</string>
   <string name="finished">Vége</string>
   <string name="abortGame">Játszma elvetése</string>
   <string name="gameAborted">Játszma elvetve</string>
