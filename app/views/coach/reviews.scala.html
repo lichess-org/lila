@@ -1,7 +1,7 @@
 @(c: lila.coach.Coach.WithUser, reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context)
 
 @if(reviews.list.nonEmpty) {
-<div class="reviews coach-side">
+<div class="reviews">
   <h2>@pluralize("Player review", reviews.list.size)</h2>
   @reviews.list.map { r =>
   <div class="review">
