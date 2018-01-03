@@ -196,7 +196,7 @@
   <string name="yourOpponentOffersADraw">Dein Gegner bietet Remis an</string>
   <string name="accept">Annehmen</string>
   <string name="decline">Ablehnen</string>
-  <string name="playingRightNow">Laufende Partien</string>
+  <string name="playingRightNow">Partie läuft</string>
   <string name="eventInProgress">Laufende Partien</string>
   <string name="finished">Beendet</string>
   <string name="abortGame">Partie abbrechen</string>
