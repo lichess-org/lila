@@ -459,8 +459,8 @@
   <string name="activeToday">Dnešná aktivita</string>
   <string name="activePlayers">Najaktívnejší hráči</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pozor, hra je bodovaná, ale bez času!</string>
-  <string name="training">Tréning</string>
-  <string name="yourPuzzleRatingX">Vaše hodnotenie riešenia rébusov: %s</string>
+  <string name="training">Šachové úlohy</string>
+  <string name="yourPuzzleRatingX">Váš rating riešenia úloh: %s</string>
   <string name="findTheBestMoveForWhite">Nájdite najlepší ťah za bieleho.</string>
   <string name="findTheBestMoveForBlack">Nájdite najlepší ťah za čierneho.</string>
   <string name="toTrackYourProgress">Sledovať svoj pokrok:</string>
@@ -496,7 +496,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">po ťahu automaticky prejdite k ďalšej hre</string>
   <string name="autoSwitch">Prepnite automaticky</string>
-  <string name="puzzles">Rébusy</string>
+  <string name="puzzles">Šachové úlohy</string>
   <string name="latestUpdates">Posledné aktualizácie</string>
   <string name="tournamentWinners">Víťazi turnaja</string>
   <string name="name">Meno</string>
