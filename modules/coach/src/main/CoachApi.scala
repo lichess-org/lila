@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.db.Photographer
 import lila.notify.{ Notification, NotifyApi }
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
@@ -68,15 +69,14 @@ final class CoachApi(
     }
 
   def uploadPicture(c: Coach.WithUser, picture: Photographer.Uploaded): Funit =
-    photographer(c.coach.id, picture).flatMap { pic =>
+    photographer(c.coach.id.value, picture).flatMap { pic =>
       coachColl.update($id(c.coach.id), $set("picturePath" -> pic.path)).void
     }
 
   def deletePicture(c: Coach.WithUser): Funit =
     coachColl.update($id(c.coach.id), $unset("picturePath")).void
 
-  private def withUser(user: User)(coach: Coach): Coach.WithUser =
-    Coach.WithUser(coach, user)
+  private def withUser(user: User)(coach: Coach) = Coach.WithUser(coach, user)
 
   object reviews {
 

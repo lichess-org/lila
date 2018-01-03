@@ -1,0 +1,105 @@
+.streamer_edit .top {
+  display: flex;
+  line-height: 2;
+  padding-right: 1em;
+}
+.streamer_edit .top h1 {
+  margin: 0;
+  padding: 0!important;
+  font-family: 'Roboto';
+  font-size: 32px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+.streamer_edit .top .picture_wrap {
+  margin-right: 30px;
+  width: 250px;
+  height: 250px;
+}
+.streamer_picture .picture_wrap {
+  text-align: center;
+}
+
+.streamer_edit .top .upload_picture {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.streamer_edit .top a,
+body.dark .streamer_edit .top a {
+  color: #3893E8;
+}
+
+.streamer_edit #description {
+  height: 10em;
+}
+
+.streamer_picture form {
+  padding: 30px;
+  border-top: 1px solid #ccc;
+  text-align: center;
+}
+.streamer_picture form.delete button {
+  color: red;
+}
+.streamer_picture .cancel {
+  padding: 40px;
+  border-top: 1px solid #ccc;
+}
+.streamer_picture .forms > *:first-child {
+  margin-top: 40px;
+}
+
+.streamer_edit .status {
+  margin: 30px 20px 20px 20px;
+  padding: 20px;
+  background: rgba(128,128,128,0.2);
+}
+.streamer_edit .mod {
+  border-bottom: 5px dotted rgba(128,128,128,0.15);
+  margin-bottom: 5em;
+}
+.streamer_edit .status::before {
+  font-size: 2em;
+  margin-right: 0.5em;
+}
+.streamer_edit .status form {
+  display: inline;
+}
+
+#site_header a.preview {
+  display: block;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.streamer-new h2 {
+  font-size: 1.4em;
+  margin-bottom: 1em;
+}
+.streamer-new ul li,
+.streamer_edit ul li {
+  font-size: 1.2em;
+  margin: 1.1em 0;
+  line-height: 1.6em;
+}
+.streamer-new ul li::before,
+.streamer_edit ul li::before {
+  font-family: 'lichess';
+  content: 'E';
+  font-size: 1.5em;
+  margin-right: 0.5em;
+  vertical-align: middle;
+}
+
+.streamer-new button {
+  margin: 1.5em auto 0 auto;
+  display: block;
+  font-size: 2em;
+}
+
+body.dark .streamer_picture form,
+body.dark .streamer_picture .cancel {
+  border-color: #3d3d3d;
+}

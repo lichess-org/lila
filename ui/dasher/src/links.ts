@@ -31,6 +31,11 @@ export default function(ctrl: DasherCtrl): VNode {
         linkCfg('/coach/edit', ':'),
         'Coach manager'),
 
+      !d.streamer ? null : h(
+        'a.text',
+        linkCfg('/streamer/edit', ''),
+        'Streamer manager'),
+
       h('form', {
         attrs: { method: 'post', action: '/logout' }
       }, [

@@ -1,4 +1,4 @@
-@(reports: List[lila.report.Report.WithSuspect], filter: String, counts: lila.report.Room.Counts)(implicit ctx: Context)
+@(reports: List[lila.report.Report.WithSuspect], filter: String, counts: lila.report.Room.Counts, streamers: Int)(implicit ctx: Context)
 
 @import lila.report.Report.WithSuspect
 
@@ -24,6 +24,11 @@ moreCss = cssTag("report.css")) {
         <count>@if(counts.sum > 0) {@counts.sum}</count>All</a>
       @lila.report.Room.all.map { r =>
       @tab(reports, r)
+      }
+      @if(streamers > 0) {
+      <a href="@routes.Streamer.index()?requests=1" class="new">
+        <count>@streamers</count>Streamers
+      </a>
       }
     </span>
   </div>

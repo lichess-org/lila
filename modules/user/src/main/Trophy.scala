@@ -119,15 +119,6 @@ object Trophy {
       order = 101
     )
 
-    object Streamer extends Kind(
-      key = "streamer",
-      name = "Lichess streamer",
-      icon = "&#xe003;".some,
-      url = "//lichess.org/help/stream-on-lichess".some,
-      "icon3d".some,
-      order = 102
-    )
-
     object ZHWC extends Kind(
       key = "zhwc",
       name = "Crazyhouse champion",
@@ -138,7 +129,7 @@ object Trophy {
     )
 
     val all = List(
-      Streamer, Developer, Moderator,
+      Developer, Moderator,
       MarathonTopHundred, MarathonTopTen, MarathonTopFifty, MarathonWinner,
       ZugMiracle, ZHWC,
       WayOfBerserk,

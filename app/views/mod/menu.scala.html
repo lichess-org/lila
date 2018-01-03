@@ -15,9 +15,6 @@
 @if(isGranted(_.SetEmail)) {
 <a class="@active.active("email")" href="@routes.Mod.emailConfirm">Email confirm</a>
 }
-@if(isGranted(_.StreamConfig)) {
-<a class="@active.active("stream")" href="@routes.Tv.streamConfig">Streams</a>
-}
 @if(isGranted(_.PracticeConfig)) {
 <a class="@active.active("practice")" href="@routes.Practice.config">Practice</a>
 }

@@ -23,7 +23,7 @@ private[app] final class Renderer extends Actor {
     case lila.puzzle.RenderDaily(puzzle, fen, lastMove) =>
       sender ! spaceless(V.puzzle.daily(puzzle, fen, lastMove))
 
-    case lila.tv.StreamsOnAir(streams) => sender ! V.tv.streamsOnAir(streams)
+    case streams: lila.streamer.Stream.LiveStreams => sender ! V.streamer.liveStreams(streams)
   }
 
   private val spaceRegex = """\s{2,}""".r

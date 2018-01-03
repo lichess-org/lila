@@ -1,0 +1,90 @@
+@(s: lila.streamer.Streamer.WithUserAndStream)(implicit ctx: Context)
+
+@import lila.streamer.Stream.{ Twitch, YouTube }
+
+@side = {
+@if(s.streamer.approval.chatEnabled) {
+<div class="side streamer-side">
+  @s.stream match {
+  case Some(YouTube.Stream(_, _, videoId, _)) => {
+  <iframe
+    frameborder="0"
+    scrolling="no"
+    src="https://www.youtube.com/live_chat?v=@videoId&embed_domain=@netDomain"
+    width="235"
+    height="500"></iframe>
+  }
+  case _ => {
+  @s.streamer.twitch.map { twitch =>
+  <iframe
+    frameborder="0"
+    scrolling="no"
+    src="https://twitch.tv/@twitch.userId/chat?popout="
+    width="235"
+    height="500"></iframe>
+  }
+  }
+  }
+</div>
+}
+}
+
+@base.layout(title = s"${s.user.titleUsername} streams on lichess.org",
+side = side.some,
+menu = menu("show", s.withoutStream.some).some,
+moreCss = cssTag("streamer.show.css")) {
+<div class="content_box no_padding streamer">
+  @s.stream match {
+  case Some(YouTube.Stream(_, _, videoId, _)) => {
+  <div class="live youTube">
+    <iframe
+      width="792"
+      height="446"
+      src="https://www.youtube.com/embed/@videoId?autoplay=1"
+      frameborder="0" allowfullscreen></iframe>
+  </div>
+  }
+  case _ => {
+  @s.streamer.twitch.map { twitch =>
+  <div class="live twitch">
+    <iframe
+      src="https://player.twitch.tv/?channel=@twitch.userId"
+      width="792"
+      height="446"
+      allowfullscreen autoplay></iframe>
+  </div>
+  }.getOrElse {
+  <div class="offline">OFFLINE</div>
+  }
+  }
+  }
+  <div class="top">
+    @pic(s.streamer, s.user, 250)
+    <div class="overview">
+      <h1>@s.streamer.name</h1>
+      @s.streamer.headline.map(_.value).map { d =>
+      <p class="headline @if(d.size < 60){small} else {@if(d.size < 120){medium}else{large}}">@d</p>
+      }
+      <div class="services">
+        @s.streamer.twitch.map { twitch =>
+        <a class="service twitch" href="@twitch.fullUrl">
+          @StreamerSvg.twitch
+          @twitch.minUrl
+        </a>
+        }
+        @s.streamer.youTube.map { youTube =>
+        <a class="service youTube" href="@youTube.fullUrl">
+          @StreamerSvg.youTube
+          @youTube.minUrl
+        </a>
+        }
+      </div>
+      <p class="at">@trans.lastSeenActive(momentFromNow(s.streamer.seenAt))</p>
+      @s.streamer.liveAt.map { liveAt =>
+      <p class="at">Last stream @momentFromNow(liveAt)</p>
+      }
+    </div>
+  </div>
+  <div class="description">@richText(s.streamer.description.fold("")(_.value))</div>
+</div>
+}

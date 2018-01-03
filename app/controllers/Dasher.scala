@@ -47,52 +47,55 @@ object Dasher extends LilaController {
   def get = Open { implicit ctx =>
     negotiate(
       html = notFound,
-      api = _ => Ok {
-        Json.obj(
-          "user" -> ctx.me.map(_.light),
-          "lang" -> Json.obj(
-            "current" -> ctx.lang.code,
-            "accepted" -> I18nLangPicker.allFromRequestHeaders(ctx.req).map(_.code)
-          ),
-          "sound" -> Json.obj(
-            "list" -> lila.pref.SoundSet.list.map { set =>
-              s"${set.key} ${set.name}"
-            }
-          ),
-          "background" -> Json.obj(
-            "current" -> ctx.currentBg,
-            "image" -> ctx.pref.bgImgOrDefault
-          ),
-          "board" -> Json.obj(
-            "is3d" -> ctx.pref.is3d,
-            "zoom" -> ctx.zoom
-          ),
-          "theme" -> Json.obj(
-            "d2" -> Json.obj(
-              "current" -> ctx.currentTheme.name,
-              "list" -> lila.pref.Theme.all.map(_.name)
+      api = _ => ctx.me.??(Env.streamer.api.isStreamer) map { isStreamer =>
+        Ok {
+          Json.obj(
+            "user" -> ctx.me.map(_.light),
+            "lang" -> Json.obj(
+              "current" -> ctx.lang.code,
+              "accepted" -> I18nLangPicker.allFromRequestHeaders(ctx.req).map(_.code)
             ),
-            "d3" -> Json.obj(
-              "current" -> ctx.currentTheme3d.name,
-              "list" -> lila.pref.Theme3d.all.map(_.name)
-            )
-          ),
-          "piece" -> Json.obj(
-            "d2" -> Json.obj(
-              "current" -> ctx.currentPieceSet.name,
-              "list" -> lila.pref.PieceSet.all.map(_.name)
+            "sound" -> Json.obj(
+              "list" -> lila.pref.SoundSet.list.map { set =>
+                s"${set.key} ${set.name}"
+              }
             ),
-            "d3" -> Json.obj(
-              "current" -> ctx.currentPieceSet3d.name,
-              "list" -> lila.pref.PieceSet3d.all.map(_.name)
-            )
-          ),
-          "kid" -> ctx.me ?? (_.kid),
-          "coach" -> isGranted(_.Coach),
-          "zen" -> ctx.pref.zen,
-          "i18n" -> translations
-        )
-      } fuccess
+            "background" -> Json.obj(
+              "current" -> ctx.currentBg,
+              "image" -> ctx.pref.bgImgOrDefault
+            ),
+            "board" -> Json.obj(
+              "is3d" -> ctx.pref.is3d,
+              "zoom" -> ctx.zoom
+            ),
+            "theme" -> Json.obj(
+              "d2" -> Json.obj(
+                "current" -> ctx.currentTheme.name,
+                "list" -> lila.pref.Theme.all.map(_.name)
+              ),
+              "d3" -> Json.obj(
+                "current" -> ctx.currentTheme3d.name,
+                "list" -> lila.pref.Theme3d.all.map(_.name)
+              )
+            ),
+            "piece" -> Json.obj(
+              "d2" -> Json.obj(
+                "current" -> ctx.currentPieceSet.name,
+                "list" -> lila.pref.PieceSet.all.map(_.name)
+              ),
+              "d3" -> Json.obj(
+                "current" -> ctx.currentPieceSet3d.name,
+                "list" -> lila.pref.PieceSet3d.all.map(_.name)
+              )
+            ),
+            "kid" -> ctx.me ?? (_.kid),
+            "coach" -> isGranted(_.Coach),
+            "streamer" -> isStreamer,
+            "zen" -> ctx.pref.zen,
+            "i18n" -> translations
+          )
+        }
+      }
     )
   }
 }

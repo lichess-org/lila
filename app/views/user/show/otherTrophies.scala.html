@@ -57,5 +57,9 @@
 }
 @if(info.isCoach) {
 <a href="@routes.Coach.show(u.username)"
-  class="trophy award icon3d coach hint--left" data-hint="Lichess coach">:</a>
+  class="trophy award icon3d coach hint--left" data-hint="Lichess Coach">:</a>
+}
+@if(info.isStreamer) {
+<a href="@routes.Streamer.show(u.username)"
+  class="trophy award icon3d streamer hint--left" data-hint="Lichess Streamer"></a>
 }

@@ -1,17 +1,16 @@
-package lila.coach
+package lila.db
 
 import java.io.File
 
-import lila.db.DbImage
-import lila.db.dsl._
+import dsl._
 
-private final class Photographer(coll: Coll) {
+final class Photographer(coll: Coll, prefix: String) {
 
   import Photographer.uploadMaxMb
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
-  private def pictureId(id: Coach.Id) = s"coach:${id.value}:picture"
+  private def pictureId(id: String) = s"$prefix:$id:picture"
 
-  def apply(coachId: Coach.Id, uploaded: Photographer.Uploaded): Fu[DbImage] =
+  def apply(id: String, uploaded: Photographer.Uploaded): Fu[DbImage] =
     if (uploaded.ref.file.length > uploadMaxBytes)
       fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else {
@@ -19,7 +18,7 @@ private final class Photographer(coll: Coll) {
       process(uploaded.ref.file)
 
       val image = DbImage.make(
-        id = pictureId(coachId),
+        id = pictureId(id),
         name = sanitizeName(uploaded.filename),
         contentType = uploaded.contentType,
         file = uploaded.ref.file

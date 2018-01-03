@@ -25,10 +25,11 @@ object Report extends LilaController {
 
   private def renderList(room: String)(implicit ctx: Context) =
     api.openAndRecentWithFilter(20, Room(room)) zip
-      api.countOpenByRooms flatMap {
-        case reports ~ counts =>
+      api.countOpenByRooms zip
+      Env.streamer.api.approval.countRequests flatMap {
+        case reports ~ counts ~ streamers =>
           (Env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
-            Ok(html.report.list(reports, room, counts))
+            Ok(html.report.list(reports, room, counts, streamers))
       }
 
   def inquiry(id: String) = Secure(_.SeeReport) { implicit ctx => me =>

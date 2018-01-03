@@ -190,7 +190,7 @@ body.dark .material.form .form-group select option {
 }
 
 .material.form .has-error .legend.legend,
-.material.form .has-error .error,
+body.base .material.form .has-error .error,
 .has-error.form-group .control-label.control-label {
   color: #d9534f;
 }

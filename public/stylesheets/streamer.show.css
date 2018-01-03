@@ -1,0 +1,72 @@
+.streamer-side {
+  margin: 15px 0 0 -35px;
+}
+.streamer .top {
+  display: flex;
+}
+.streamer img.picture {
+  flex: 0 0 250px;
+  background: #888;
+}
+.streamer .overview {
+  margin: 20px 10px 0 20px;
+}
+div.content_box.streamer h1 {
+  font-family: 'Roboto';
+  font-size: 32px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  padding: 0 0 12px 0!important;
+  text-shadow: none!important;
+}
+.streamer .headline {
+  font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
+  font-size: 17px;
+  padding: 0 0 10px 0!important;
+}
+.streamer .headline.medium {
+  font-size: 15px;
+  padding-bottom: 18px!important;
+}
+.streamer .headline.large {
+  font-size: 14px;
+  padding-bottom: 14px!important;
+}
+.streamer .services {
+  margin: 5px 0;
+}
+.streamer .service {
+  display: flex;
+  font-size: 1.5em;
+  font-weight: bold;
+  white-space: nowrap;
+  padding: 5px 0;
+}
+.streamer .service svg {
+  width: 1.4em;
+  height: 1.4em;
+  margin-right: 0.4em;
+}
+.streamer .live {
+  margin-bottom: 0px;
+}
+.streamer .live iframe {
+  border: none;
+}
+.streamer .offline {
+  height: 300px;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  letter-spacing: 10px;
+}
+.streamer .description {
+  padding: 2.5em;
+  font-size: 1.4em;
+  min-height: 4em;
+}
+body.dark .streamer .service svg path {
+  fill: #aaa;
+}

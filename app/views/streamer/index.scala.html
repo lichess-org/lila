@@ -1,0 +1,31 @@
+@(live: List[lila.streamer.Streamer.WithUserAndStream], pager: Paginator[lila.streamer.Streamer.WithUser], requests: Boolean)(implicit ctx: Context)
+
+@title = @{ if (requests) "Streamer approval requests" else "Lichess streamers" }
+
+@base.layout(title = title,
+moreCss = cssTag("streamer.list.css"),
+moreJs = jsTag("vendor/jquery.infinitescroll.min.js"),
+menu = menu("index", none).some) {
+<div class="content_box no_padding streamers">
+  <div class="top"><h1 data-icon="" class="text">@title</h1></div>
+  @if(!requests) {
+  <div class="list live">
+    @live.map { c =>
+    <div class="streamer">@widget(c.withoutStream, c.stream)</div>
+    }
+  </div>
+  }
+  <div class="list infinitescroll">
+    @pager.currentPageResults.map { c =>
+    <div class="streamer paginated_element" data-dedup="@c.streamer.id">
+      @widget(c, none, edit = requests)
+    </div>
+    }
+    @pager.nextPage.map { np =>
+    <div class="pager none">
+      <a rel="next" href="@addQueryParameter(routes.Streamer.index().toString, "page", np)">Next</a>
+    </div>
+    }
+  </div>
+</div>
+}

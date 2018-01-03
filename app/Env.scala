@@ -21,7 +21,7 @@ final class Env(
     tourneyWinners = Env.tournament.winners.all.map(_.top),
     timelineEntries = Env.timeline.entryApi.userEntries _,
     dailyPuzzle = tryDailyPuzzle,
-    streamsOnAir = () => Env.tv.streamsOnAir.all,
+    liveStreams = () => Env.streamer.liveStreams.all,
     countRounds = Env.round.count,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
@@ -49,7 +49,7 @@ final class Env(
     getRatingChart = Env.history.ratingChartApi.apply,
     getRanks = Env.user.cached.ranking.getAll,
     isHostingSimul = Env.simul.isHosting,
-    fetchIsStreamer = Env.tv.isStreamer.apply,
+    fetchIsStreamer = Env.streamer.api.isStreamer,
     fetchTeamIds = Env.team.cached.teamIdsList,
     fetchIsCoach = Env.coach.api.isListedCoach,
     insightShare = Env.insight.share,
@@ -220,4 +220,5 @@ object Env {
   def irwin = lila.irwin.Env.current
   def activity = lila.activity.Env.current
   def relay = lila.relay.Env.current
+  def streamer = lila.streamer.Env.current
 }
