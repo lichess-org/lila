@@ -28,7 +28,7 @@
   <string name="variantEnding">Koniec varianty</string>
   <string name="newOpponent">Nový súper</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Váš súper by si s Vami rád zahral odvetný zápas</string>
-  <string name="joinTheGame">Pridať sa k hre</string>
+  <string name="joinTheGame">Hrať ďalšiu partiu</string>
   <string name="whitePlays">Biely na ťahu</string>
   <string name="blackPlays">Čierny na ťahu</string>
   <string name="opponentLeftChoices">Váš súper zrejme opustil hru. Môžete vynútiť výhru, vyhlásiť remízu, alebo počkať.</string>
@@ -853,4 +853,6 @@
   <string name="xDoesNotAcceptChallenges">%s neprijíma výzvy.</string>
   <string name="yourXRatingIsTooFarFromY">Medzi tvojim %1$s ratingom a ratingom hráča %2$s je príliš veľký rozdiel.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Nemôžeš odoslať výzvu kvôli provizórnemu %s ratingu.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s prijíma výzvy len od priateľov.</string>
+  <string name="addCurrentVariation">Pridaj aktuálny variant</string>
 </resources>
