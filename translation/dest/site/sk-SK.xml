@@ -4,7 +4,7 @@
   <string name="playWithAFriend">Hrať s priateľom</string>
   <string name="playWithTheMachine">Hrať proti počítaču</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Aby ste niekoho pozvali k hre, dajte mu/jej túto adresu</string>
-  <string name="gameOver">Koniec hry</string>
+  <string name="gameOver">Koniec partie</string>
   <string name="waitingForOpponent">Čaká sa na súpera</string>
   <string name="waiting">Čaká sa</string>
   <string name="yourTurn">Ste na ťahu</string>
@@ -19,7 +19,7 @@
   <string name="white">Biely</string>
   <string name="black">Čierny</string>
   <string name="randomColor">Náhodná farba figúr</string>
-  <string name="createAGame">Vytvoriť hru</string>
+  <string name="createAGame">Vytvoriť partiu</string>
   <string name="whiteIsVictorious">Biely zvíťazil</string>
   <string name="blackIsVictorious">Čierny zvíťazil</string>
   <string name="kingInTheCenter">Kráľ v strede</string>
@@ -39,8 +39,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Prvý kto použije tento odkaz si s Vami zahrá.</string>
   <string name="whiteResigned">Biely vzdal</string>
   <string name="blackResigned">Čierny vzdal</string>
-  <string name="whiteLeftTheGame">Biely opustil hru</string>
-  <string name="blackLeftTheGame">Čierny opustil hru</string>
+  <string name="whiteLeftTheGame">Biely opustil partiu</string>
+  <string name="blackLeftTheGame">Čierny opustil partiu</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Zdieľajte túto adresu, aby mohli diváci vidieť túto partiu</string>
   <string name="theComputerAnalysisHasFailed">Počítačová analýza zlyhala</string>
   <string name="viewTheComputerAnalysis">Zobraziť počítačovú analýzu</string>
