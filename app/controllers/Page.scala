@@ -17,8 +17,6 @@ object Page extends LilaController {
 
   def contribute = bookmark("help")
 
-  def streamHowTo = bookmark("stream-howto")
-
   def contact = bookmark("contact")
 
   def master = bookmark("master")
