@@ -56,6 +56,7 @@
   <string name="showThreat">Mostra minaccia</string>
   <string name="inLocalBrowser">nel browser locale</string>
   <string name="toggleLocalEvaluation">Attiva/disattiva analisi locale</string>
+  <string name="promoteVariation">Promuovi la variazione</string>
   <string name="makeMainLine">Rendi la linea principale</string>
   <string name="deleteFromHere">Elimina da qui</string>
   <string name="move">Mossa</string>
@@ -818,9 +819,16 @@ in %3$s</string>
   <string name="registerToSendChallenges">Per favore, registrati per mandare sfide.</string>
   <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
   <string name="xDoesNotAcceptChallenges">%s non accetta sfide.</string>
+  <string name="yourXRatingIsTooFarFromY">Il tuo %1$s rating è troppo diverso da %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Non puoi sfidare poichè hai ancora un %s rating provvisorio.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accetta solo sfide da amici.</string>
   <string name="conditionalPremoves">Premosse condizionali</string>
   <string name="addCurrentVariation">Aggiungi variazione corrente</string>
   <string name="playVariationToCreateConditionalPremoves">Gioca una variazione per creare premosse condizionali</string>
   <string name="noConditionalPremoves">Nessuna premossa condizionale</string>
+  <string name="playX">Gioca %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">e salva %s linea pre-mossa</item>
+    <item quantity="other">e salva %s linee pre-mossa</item>
+  </plurals>
 </resources>
