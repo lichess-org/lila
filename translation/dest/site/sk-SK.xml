@@ -475,7 +475,7 @@
   <string name="puzzleFailed">Nesprávne riešenie</string>
   <string name="butYouCanKeepTrying">Ale môžete skúšať ďalej.</string>
   <string name="success">Úspešne vyriešené</string>
-  <string name="wasThisPuzzleAnyGood">Bol tento rébus dobrý?</string>
+  <string name="wasThisPuzzleAnyGood">Bola táto úloha dobrá?</string>
   <string name="pleaseVotePuzzle">Pomôžte zlepšiť lichess hlasovaním, kliknutím na šípku hore alebo dole:</string>
   <string name="thankYou">Ďakujeme!</string>
   <string name="ratingX">Hodnotenie: %s</string>
