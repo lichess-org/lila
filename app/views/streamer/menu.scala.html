@@ -7,6 +7,7 @@
 @if(ctx.is(st.user) || isGranted(_.Streamers)) {
 <a class="@active.active("edit")" href="@routes.Streamer.edit?u=@st.streamer.id.value">Edit streamer page</a>
 }
+<a href="@routes.User.show(st.user.id)">View lichess profile</a>
 }.getOrElse {
 <a href="@routes.Streamer.edit">Your streamer page</a>
 }
