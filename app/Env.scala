@@ -79,7 +79,7 @@ final class Env(
     _ <- lila.user.UserRepo.disable(user, keepEmail = !goodUser)
     _ = Env.user.onlineUserIdMemo.remove(user.id)
     following <- Env.relation.api fetchFollowing user.id
-    _ <- Env.activity.write.unfollowAll(user, following)
+    _ <- !goodUser ?? Env.activity.write.unfollowAll(user, following)
     _ <- Env.relation.api.unfollowAll(user.id)
     _ <- Env.user.rankingApi.remove(user.id)
     _ <- Env.team.api.quitAll(user.id)

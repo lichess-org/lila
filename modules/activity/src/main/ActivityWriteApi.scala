@@ -85,12 +85,15 @@ final class ActivityWriteApi(
         a.copy(follows = Some(~a.follows addIn from)).some
       }
 
-  def unfollowAll(from: User, following: Set[User.ID]) = following.map { userId =>
-    coll.update(
-      regexId(userId) ++ $doc("f.i.ids" -> from.id),
-      $pull("f.i.ids" -> from.id)
-    )
-  }.sequenceFu.void
+  def unfollowAll(from: User, following: Set[User.ID]) = {
+    logger.info(s"${from.id} unfollow ${following.size} users")
+    following.map { userId =>
+      coll.update(
+        regexId(userId) ++ $doc("f.i.ids" -> from.id),
+        $pull("f.i.ids" -> from.id)
+      )
+    }.sequenceFu.void
+  }
 
   def study(id: Study.Id) = studyApi byId id flatMap {
     _.filter(_.isPublic) ?? { s =>
