@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">Hrať s priateľom</string>
   <string name="playWithTheMachine">Hrať proti počítaču</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Aby ste niekoho pozvali k hre, dajte mu/jej túto adresu</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Aby ste niekoho pozvali k partii, dajte mu/jej túto adresu</string>
   <string name="gameOver">Koniec partie</string>
   <string name="waitingForOpponent">Čaká sa na súpera</string>
   <string name="waiting">Čaká sa</string>
@@ -152,7 +152,7 @@
   <string name="variant">Varianta</string>
   <string name="variants">Varianty</string>
   <string name="timeControl">Nastavenie času</string>
-  <string name="realTime">Rýchla hra</string>
+  <string name="realTime">Nastaviť čas</string>
   <string name="correspondence">Korešpondenčný šach</string>
   <string name="daysPerTurn">Počet dní na ťah</string>
   <string name="oneDay">Jeden deň</string>
