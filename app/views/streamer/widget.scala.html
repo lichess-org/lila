@@ -1,8 +1,8 @@
 @(s: lila.streamer.Streamer.WithUser, stream: Option[lila.streamer.Stream], edit: Boolean = false)(implicit ctx: Context)
 <a class="overlay" href="@if(edit){@routes.Streamer.edit?u=@s.user.username}else{@routes.Streamer.show(s.user.username)}"></a>
-@if(stream.isDefined || true) {
+@if(stream.isDefined) {
 <span class="ribbon">
-  <span>LIVE</span>
+  <span>LIVE!</span>
 </span>
 }
 @pic(s.streamer, s.user, 250)
