@@ -449,8 +449,8 @@
   <string name="puzzleFailed">A megoldás sikertelen</string>
   <string name="butYouCanKeepTrying">Még próbálkozhatsz.</string>
   <string name="success">Győzelem</string>
-  <string name="wasThisPuzzleAnyGood">Jónak találtad ezt a feladványt?</string>
-  <string name="pleaseVotePuzzle">Segíts a Lichess fejlesztésében szavazatoddal, a fel és le nyilakat használva:</string>
+  <string name="wasThisPuzzleAnyGood">Tetszett a feladvány?</string>
+  <string name="pleaseVotePuzzle">Segíts a fejlesztésben! Szavazz, a nyilakat használva:</string>
   <string name="thankYou">Köszönjük!</string>
   <string name="ratingX">Pontszám: %s</string>
   <plurals name="playedXTimes">
