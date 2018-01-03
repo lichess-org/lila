@@ -806,9 +806,11 @@
   <string name="middlegame">Középjáték</string>
   <string name="endgame">Végjáték</string>
   <string name="registerToSendChallenges">A kihíváshoz regisztráció szükséges.</string>
+  <string name="youCannotChallengeX">%s nem kihívható.</string>
   <string name="xDoesNotAcceptChallenges">%s nem fogad kihívást.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s csak barátoktól fogad kihívást.</string>
   <string name="conditionalPremoves">Feltételes előre megadott lépések</string>
+  <string name="addCurrentVariation">Változat hozzáadása</string>
   <string name="playVariationToCreateConditionalPremoves">Egy variáció megjátszásával, hozzáadható feltételes előre megadott lépés</string>
   <string name="noConditionalPremoves">Nincs feltételes előre megadott lépés</string>
 </resources>
