@@ -28,9 +28,7 @@ final class StreamerPager(
           "_id" $nin live.streams.map(_.streamer.id)
         ),
       projection = $empty,
-      sort = $doc(
-        "sorting.seenAt" -> -1
-      )
+      sort = $doc("seenAt" -> -1)
     ) mapFutureList withUsers
     Paginator(
       adapter = adapter,
