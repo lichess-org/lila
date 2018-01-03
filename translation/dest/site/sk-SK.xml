@@ -826,6 +826,7 @@
   <string name="xWasPlayed">hráč potiahol %s</string>
   <string name="findBetterMoveForWhite">Nájdite lepší ťah bieleho</string>
   <string name="findBetterMoveForBlack">Nájdite lepší ťah čierneho</string>
+  <string name="resumeLearning">Pokračovať v učení</string>
   <string name="solution">Riešenie</string>
   <string name="waitingForAnalysis">Čakanie na analýzu</string>
   <string name="noMistakesFoundForWhite">Neboli nájdené žiadne chyby bieleho</string>
