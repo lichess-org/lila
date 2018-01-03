@@ -383,12 +383,12 @@
   <string name="xStartedFollowingY">%1$s začal sledovať %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s sledujúci</item>
-    <item quantity="few">%s sledujúcich</item>
+    <item quantity="few">%s sledujúci</item>
     <item quantity="other">%s sledujúcich</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s sledovaný</item>
-    <item quantity="few">%s sledovaný</item>
+    <item quantity="few">%s sledovaní</item>
     <item quantity="other">%s sledovaných</item>
   </plurals>
   <string name="more">Viac</string>
@@ -567,7 +567,7 @@
   <string name="promoteToQueenAutomatically">Povýšiť pešiaka na Kráľovnú automaticky</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžiadať remízu pri treťom opakovaní pozície</string>
   <string name="privacy">Súkromie</string>
-  <string name="letOtherPlayersFollowYou">Nechajte ostatných hráčov následovať vás</string>
+  <string name="letOtherPlayersFollowYou">Dovoliť ostatným hráčom aby Vás sledovali</string>
   <string name="letOtherPlayersChallengeYou">Ostatní hráči vás môžu vyzývať</string>
   <string name="letOtherPlayersInviteYouToStudy">Dovoliť iným hráčom pozvať Vás študovať</string>
   <string name="sound">Zvuk</string>
@@ -757,7 +757,7 @@
   <string name="onlineAndOfflinePlay">Hra online i offline</string>
   <string name="correspondenceAndUnlimited">Korešpondenčný a nekonečný</string>
   <string name="viewTheSolution">Pozrite riešenie</string>
-  <string name="followAndChallengeFriends">Nasledujte a vyzvite priateľov</string>
+  <string name="followAndChallengeFriends">Sledovať a vyzvať priateľov</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dostupné v %s jazykoch!</item>
     <item quantity="few">Dostupné v %s jazykoch!</item>
