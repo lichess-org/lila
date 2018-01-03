@@ -175,7 +175,7 @@ se o peão está na quinta fila.</string>
   <string name="stalemateGoal">Para afogar o rei das negras:
 - as negras não se podem mexer
 - não há cheque.</string>
-  <string name="stalemateComplete">Parabéns! É melhor ser rei afogado que cheque mate!</string>
+  <string name="stalemateComplete">Parabéns! É melhor ser rei afogado que xeque-mate!</string>
   <string name="advanced">Avançado</string>
   <string name="pieceValue">Valor das peças</string>
   <string name="evaluatePieceStrength">Avalia o valor das peças</string>
