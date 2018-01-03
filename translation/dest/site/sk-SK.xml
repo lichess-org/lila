@@ -564,7 +564,7 @@
   <string name="bothClicksAndDrag">Oboje</string>
   <string name="premovesPlayingDuringOpponentTurn">Predťahy (hranie počas súperovho ťahu)</string>
   <string name="takebacksWithOpponentApproval">Vrátenie ťahu (so súhlasom súpera)</string>
-  <string name="promoteToQueenAutomatically">Povýšiť pešiaka na Kráľovnú automaticky</string>
+  <string name="promoteToQueenAutomatically">Automaticky premeniť pešiaka Dámu</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžiadať remízu pri treťom opakovaní pozície</string>
   <string name="privacy">Súkromie</string>
   <string name="letOtherPlayersFollowYou">Povoliť ostatným hráčom aby Vás sledovali</string>
@@ -642,7 +642,7 @@
   <string name="moveConfirmation">Potvrdenie ťahu</string>
   <string name="inCorrespondenceGames">Korešpondenčná hra</string>
   <string name="ifRatingIsPlusMinusX">Keď je hodnotenie ± %s</string>
-  <string name="onlyFriends">Len priatelia</string>
+  <string name="onlyFriends">Iba priatelia</string>
   <string name="menu">Menu</string>
   <string name="castling">Rošáda</string>
   <string name="whiteCastlingKingside">Biely O-O</string>
@@ -853,6 +853,6 @@
   <string name="xDoesNotAcceptChallenges">%s neprijíma výzvy.</string>
   <string name="yourXRatingIsTooFarFromY">Medzi tvojim %1$s ratingom a ratingom hráča %2$s je príliš veľký rozdiel.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Nemôžeš odoslať výzvu kvôli provizórnemu %s ratingu.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s prijíma výzvy len od priateľov.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s prijíma výzvy iba od priateľov.</string>
   <string name="addCurrentVariation">Pridaj aktuálny variant</string>
 </resources>
