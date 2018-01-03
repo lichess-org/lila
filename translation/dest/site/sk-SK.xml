@@ -547,7 +547,7 @@
   <string name="boardHighlights">Zvýraznenie šachovnice (posledný ťah a šach)</string>
   <string name="pieceDestinations">Zobrazovať dostupné polia  (možné ťahy a predťahy)</string>
   <string name="boardCoordinates">Šachovnicové súradnice (A-H, 1-8)</string>
-  <string name="moveListWhilePlaying">Zobraziť zoznam ťahov počas hry</string>
+  <string name="moveListWhilePlaying">Zobraziť šachovú notáciu počas hry</string>
   <string name="pgnPieceNotation">Označenie figúr v notácii</string>
   <string name="chessPieceSymbol">Symboly šachových figúr</string>
   <string name="pgnLetter">Písmená (K, Q, R, B, N)</string>
