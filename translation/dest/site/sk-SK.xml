@@ -358,9 +358,9 @@
   <string name="importGame">Importovať partiu</string>
   <string name="importGameExplanation">Vložením partie vo formáte PGN získate možnosť jej prehrania, počítačovú analýzu, chat k partii ako aj URL pre jej zdieľanie.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s importovaná hra</item>
-    <item quantity="few">%s importované hry</item>
-    <item quantity="other">%s importovaných hier</item>
+    <item quantity="one">%s importovaná partia</item>
+    <item quantity="few">%s importované partie</item>
+    <item quantity="other">%s importovaných partií</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Šachová CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Kliknite na šachovnicu a spravte ťah, aby ste dokázali, že ste človek.</string>
@@ -719,8 +719,8 @@
   <string name="networkLagBetweenYouAndLichess">Internetové oneskorenie medzi Vami a lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Čas na spracovanie ťahu na lichess serveri</string>
   <string name="downloadAnnotated">Stiahnuť okomentované</string>
-  <string name="downloadRaw">Stiahnuť bez komentárov</string>
-  <string name="downloadImported">Stiahnuť vložené</string>
+  <string name="downloadRaw">Stiahnuť čisté PGN</string>
+  <string name="downloadImported">Stiahnuť importované</string>
   <string name="printFriendlyPDF">Tlačiteľné PDF</string>
   <string name="crosstable">Tabuľka</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii môžete tiež použiť scrollovacie koliečko myši nad šachovnicou.</string>
