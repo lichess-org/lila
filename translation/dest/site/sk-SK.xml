@@ -681,7 +681,7 @@
   <string name="aboutSimulSettings">Simultánky sú vždy nebodované. Odvety, vrátenie ťahu a \"pridávania času\" sú zakázané.</string>
   <string name="create">Vytvoriť</string>
   <string name="whenCreateSimul">Po vytvorení simultánky, môžete hrať s niekoľkými hračmi naraz.</string>
-  <string name="simulVariantsHint">Ak je vybratých viac variánt, každý hráč dostane na výber, ktorú z nich chce hrať.</string>
+  <string name="simulVariantsHint">Ak vyberiete viacero variantov, každý hráč si môže vybrať ktorý bude hrať.</string>
   <string name="simulClockHint">Nastavenie (Fisherových) hodín. Čím viac súperov, tým viac času budete potrebovat.</string>
   <string name="simulAddExtraTime">Môžete si pridať dodatočný čas k vašim hodinám pre zlepšenie behu simultánky.</string>
   <string name="simulHostExtraTime">Dotatočný čas pre hostiteľa.</string>
@@ -696,7 +696,7 @@
   <string name="keyShowOrHideComments">zobraziť/skryť komentáre</string>
   <string name="keyEnterOrExitVariation">zvoliť/opustiť variant</string>
   <string name="newTournament">Nový turnaj</string>
-  <string name="tournamentHomeTitle">Šachové turnaje sú v rôznych časových rozmedziach a šachových variantách</string>
+  <string name="tournamentHomeTitle">Šachový turnaj ponúka rôzne časové nastavenia partie a rôzne varianty</string>
   <string name="tournamentHomeDescription">Hraj šachové turnaje s rýchlym tempom! Pridaj sa k oficiálnym plánovaným turnajom, alebo si vytvor vlastný. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, a viac možností na výber pre nekonečnú šachovú zábavu.</string>
   <string name="tournamentNotFound">Turnaj nenájdený</string>
   <string name="tournamentDoesNotExist">Zvolený turnaj neexistuje</string>
