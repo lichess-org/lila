@@ -473,8 +473,8 @@
   <string name="bestMove">Najlepší ťah!</string>
   <string name="keepGoing">Pokračujte...</string>
   <string name="puzzleFailed">Nesprávne riešenie</string>
-  <string name="butYouCanKeepTrying">Ale môžeťe skúšať ďalej</string>
-  <string name="success">Úspech</string>
+  <string name="butYouCanKeepTrying">Ale môžete skúšať ďalej.</string>
+  <string name="success">Úspešne vyriešené</string>
   <string name="wasThisPuzzleAnyGood">Bol tento rébus dobrý?</string>
   <string name="pleaseVotePuzzle">Pomôžte zlepšiť lichess hlasovaním, kliknutím na šípku hore alebo dole:</string>
   <string name="thankYou">Ďakujeme!</string>
@@ -485,10 +485,10 @@
     <item quantity="other">Hrané %skrát</item>
   </plurals>
   <string name="fromGameLink">Z hry %s</string>
-  <string name="continueTraining">Pokračovanie v tréningu</string>
-  <string name="retryThisPuzzle">Znova riešiť tento rébus</string>
-  <string name="thisPuzzleIsCorrect">Tento rébus je správny a pútavý</string>
-  <string name="thisPuzzleIsWrong">Tento rébus je nesprávny alebo nudný</string>
+  <string name="continueTraining">Trénujte ďalej</string>
+  <string name="retryThisPuzzle">Riešiť úlohu ešte raz</string>
+  <string name="thisPuzzleIsCorrect">Táto úloha je bezchybná a zaujímavá</string>
+  <string name="thisPuzzleIsWrong">Táto úloha je chybná alebo nudná</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s rozohraná partia</item>
     <item quantity="few">%s rozohrané partie</item>
