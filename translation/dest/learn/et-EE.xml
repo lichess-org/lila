@@ -29,6 +29,7 @@ Vajate mõlemat!</string>
   <string name="bishopComplete">Õnnitlused! Te valdate nüüd oda.</string>
   <string name="theQueen">Lipp</string>
   <string name="queenCombinesRookAndBishop">Lipp = vanker + oda</string>
+  <string name="queenIntro">Kõige tugevam male siseneb. Teie maiasteedi kuninganna!</string>
   <string name="theKing">Kuningas</string>
   <string name="theMostImportantPiece">Kõige tähtsam malend</string>
   <string name="kingIntro">Sina oled kuningas. Kui sa langed lahingus, siis mäng lõppeb.</string>
