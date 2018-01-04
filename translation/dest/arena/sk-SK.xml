@@ -22,4 +22,8 @@ Besnenie Vám zabezpečí 1 bod naviac iba v prípade odohrania aspoň 7 ťahov 
   <string name="howIsTheWinnerDecided">Ako sa rozhodne o víťazovi?</string>
   <string name="howIsTheWinnerDecidedAnswer">Hráč, ktorý má po uplynutí časového limitu turnaja najvyšší počet bodov sa stane víťazom.</string>
   <string name="howDoesPairingWork">Ako funguje párovanie hráčov?</string>
+  <string name="howDoesPairingWorkAnswer">Na začiatku turnaja sa hráči spárujú na základe ich ratingu.
+Akonáhle ukončíte partiu, vráťte sa do turnajovej miestnosti: budete spárovaný so súperom, ktorý má podobný rating ako Vy. Takýto postup Vám zabezpečí minimum čakacieho času, avšak môže sa stať, že nebudete hrať so všetkými hráčmi v turnaji.
+Hrajte rýchlo a vráťte sa vždy čo najrýchlejšie do turnajovej miestnosti aby ste stihli odohrať viac partií a získať tak viac bodov.</string>
+  <string name="howDoesItEnd">Ako turnaj končí?</string>
 </resources>
