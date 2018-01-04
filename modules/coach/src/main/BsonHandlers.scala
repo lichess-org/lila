@@ -17,7 +17,7 @@ private[coach] object BsonHandlers {
   import Coach.User
   implicit val CoachUserBSONHandler = Macros.handler[User]
 
-  implicit val CoachBSONHandler = Macros.handler[Coach]
+  implicit val CoachBSONHandler = lila.db.BSON.LoggingHandler[Coach](logger)(Macros.handler[Coach])
 
   implicit val CoachReviewBSONHandler = Macros.handler[CoachReview]
 }

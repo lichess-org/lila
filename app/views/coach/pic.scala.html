@@ -2,5 +2,5 @@
 @c.coach.picturePath.map { path =>
 <img width=@size height=@size class="picture" src="@dbImageUrl(path.value)" alt="@c.user.titleUsername lichess coach" />
 }.getOrElse {
-<img width=@size height=@size class="picture" src="@staticUrl("images/coach-nopic.svg")" />
+<img width=@size height=@size class="default picture" src="@staticUrl("images/coach-nopic.svg")" />
 }
