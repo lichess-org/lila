@@ -6,6 +6,12 @@
   <string name="menu">Menu</string>
   <string name="progressX">Dosiahnutý výsledok: %s</string>
   <string name="resetMyProgress">Vynulovať moje výsledky</string>
+  <string name="theRook">Veža</string>
+  <string name="theBishop">Strelec</string>
+  <string name="theQueen">Dáma</string>
+  <string name="queenCombinesRookAndBishop">Dáma = Veža + Strelec</string>
+  <string name="theKing">Kráľ</string>
+  <string name="theKnight">Jazdec</string>
   <string name="puzzles">Úlohy</string>
   <string name="exerciseYourTacticalSkills">Precvičte si svoje taktické schopnosti</string>
   <string name="greatJob">Skvelá práca!</string>
@@ -14,7 +20,9 @@
   <string name="wayToGo">To je ono!</string>
   <string name="yesYesYes">Áno, áno, áno!</string>
   <string name="youreGoodAtThis">Ide Vám to!</string>
+  <string name="nailedIt">Zásah do čierneho.</string>
   <string name="rightOn">To je presne ono!</string>
+  <string name="stageXComplete">Stupeň %s dokončený</string>
   <string name="yourScore">Vaše skóre</string>
   <string name="next">Ďalej</string>
   <string name="backToMenu">Návrat do menu</string>
