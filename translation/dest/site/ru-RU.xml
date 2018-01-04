@@ -857,4 +857,11 @@
   <string name="conditionalPremoves">Условные предходы</string>
   <string name="addCurrentVariation">Добавить текущий вариант</string>
   <string name="playVariationToCreateConditionalPremoves">Выполните ходы на доске, чтобы установить условные предходы</string>
+  <string name="noConditionalPremoves">Безусловные предходы</string>
+  <string name="playX">Сыграть %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">и сохранить %s последовательность</item>
+    <item quantity="few">и сохранить %s последовательности</item>
+    <item quantity="other">и сохранить %s последовательностей</item>
+  </plurals>
 </resources>
