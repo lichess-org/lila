@@ -137,7 +137,7 @@
   <string name="newToLichess">Novo no Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Você precisa de uma conta para fazer isso</string>
   <string name="signUp">Registrar</string>
-  <string name="computersAreNotAllowedToPlay">O uso de engine não é permitido. Por favor, não utilize programas de xadrez, bancos de dados ou outros jogadores durante a partida. Além disso, a criação de contas múltiplas é fortemente desencorajada e sua prática excessiva acarretará banimento.</string>
+  <string name="computersAreNotAllowedToPlay">O uso de motores de cálculo não é permitido. Por favor, não utilize programas de xadrez, bancos de dados ou outros jogadores durante a partida. Além disso, a criação de contas múltiplas é fortemente desencorajada e sua prática excessiva acarretará banimento.</string>
   <string name="games">Partidas</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s postou em %2$s</string>
@@ -147,9 +147,9 @@
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
   <string name="timeControl">Controle de Tempo</string>
-  <string name="realTime">Tempo real</string>
+  <string name="realTime">Em directo</string>
   <string name="correspondence">Correspondência</string>
-  <string name="daysPerTurn">Dias por lance</string>
+  <string name="daysPerTurn">Dias por turno</string>
   <string name="oneDay">Um dia</string>
   <plurals name="nbDays">
     <item quantity="one">%s dia</item>
@@ -160,8 +160,8 @@
     <item quantity="other">%s horas</item>
   </plurals>
   <string name="time">Tempo</string>
-  <string name="rating">Rating</string>
-  <string name="ratingStats">Estatísticas de rating</string>
+  <string name="rating">Pontuação</string>
+  <string name="ratingStats">Estatísticas de classificação</string>
   <string name="username">Nome de usuário</string>
   <string name="usernameOrEmail">Nome ou email do usuário</string>
   <string name="password">Senha</string>
