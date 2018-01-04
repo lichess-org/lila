@@ -72,6 +72,9 @@ div.content_box.streamer h1 {
   font-size: 1.4em;
   min-height: 4em;
 }
+.streamer .description a {
+  color: #3893E8;
+}
 body.dark .streamer .service svg path {
   fill: #aaa;
 }
