@@ -258,13 +258,13 @@
   </plurals>
   <string name="giveMoreTime">Dê mais tempo</string>
   <string name="thisPlayerUsesChessComputerAssistance">Este jogador usa a ajuda de computador</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador aumentou o seu rating de maneira artificial.</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador aumentou o a sua pontuação de maneira artificial</string>
   <string name="openingExplorerAndTablebase">Explorador de aberturas &amp; tabela</string>
   <string name="takeback">Voltar jogada</string>
-  <string name="proposeATakeback">Propor voltar jogada</string>
-  <string name="takebackPropositionSent">Proposta de voltar jogada enviada</string>
-  <string name="takebackPropositionDeclined">Proposta de voltar jogada recusada</string>
-  <string name="takebackPropositionAccepted">Proposta de voltar jogada aceita</string>
+  <string name="proposeATakeback">Propor cancelar movimento</string>
+  <string name="takebackPropositionSent">Proposta de cancelar movimento enviada</string>
+  <string name="takebackPropositionDeclined">Proposta de cancelação recusada</string>
+  <string name="takebackPropositionAccepted">Proposta de cancelação aceite</string>
   <string name="takebackPropositionCanceled">Proposta de voltar jogada cancelada</string>
   <string name="yourOpponentProposesATakeback">Seu oponente propõe voltar jogada</string>
   <string name="bookmarkThisGame">Adicionar esta partida às favoritas</string>
