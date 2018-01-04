@@ -16,7 +16,9 @@
 }
 .streamers .streamer img.picture {
   flex: 0 0 250px;
-  background: #888;
+}
+.streamers .streamer img.picture.default {
+  opacity: 0.3;
 }
 .streamers .overview {
   margin: 20px 10px 0 20px;

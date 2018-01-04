@@ -6,10 +6,6 @@
 }
 .streamer img.picture {
   flex: 0 0 250px;
-  background: #888;
-}
-.streamer img.picture.default {
-  opacity: 0.3;
 }
 .streamer .overview {
   margin: 20px 10px 0 20px;
@@ -73,7 +69,7 @@ div.content_box.streamer h1 {
   min-height: 4em;
 }
 .streamer .description a {
-  color: #3893E8;
+ color: #3893E8;
 }
 body.dark .streamer .service svg path {
   fill: #aaa;
