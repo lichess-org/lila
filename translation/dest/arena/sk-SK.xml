@@ -4,4 +4,7 @@
   <string name="isItRated">Započítava sa turnaj do môjho ratingu?</string>
   <string name="willBeNotified">Dáme Vám vedieť keď turnaj začne, takže kým čakáte, môžete pokojne hrať na ďalšej karte prehliadača.</string>
   <string name="isRated">Tento turnaj sa bude počítať do Vášho ratingu.</string>
+  <string name="isNotRated">Tento turnaj sa *NE*bude počítať do Vášho ratingu.</string>
+  <string name="someRated">Niektoré turnaje sa počítajú do ratingu hráčov a ovplyvnia aj ten Váš.</string>
+  <string name="howAreScoresCalculated">Ako sa počíta skóre turnaja?</string>
 </resources>
