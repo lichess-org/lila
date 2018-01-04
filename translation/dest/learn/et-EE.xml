@@ -82,6 +82,7 @@ mitte ühtegi kaitseta vigurit!</string>
   <string name="captureAndDefendPieces">Löö ning kaitse malendeid</string>
   <string name="combatIntro">Hea mängija oskab rünnata ja kaitsta üheaegselt!</string>
   <string name="combatComplete">Õnnitlused! Olete osav võitleja!</string>
+  <string name="practice">Harjuta</string>
   <string name="next">Järgmine</string>
   <string name="backToMenu">Tagasi menüüsse</string>
 </resources>
