@@ -421,7 +421,7 @@
   <string name="standByX">Čakajte %s, vyberám súpera, pripravte sa!</string>
   <string name="youArePlaying">Hra začala!</string>
   <string name="winRate">Pomer výhier</string>
-  <string name="berserkRate">Šialenosť</string>
+  <string name="berserkRate">Miera besnenia</string>
   <string name="performance">Výkon</string>
   <string name="tournamentComplete">Turnaj skončil</string>
   <string name="movesPlayed">Odohraných ťahov</string>
