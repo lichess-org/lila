@@ -8,6 +8,7 @@
   <string name="resetMyProgress">Vynulovať môj pokrok</string>
   <string name="puzzles">Úlohy</string>
   <string name="exerciseYourTacticalSkills">Precvičte si taktické schopnosti</string>
+  <string name="greatJob">Skvelá práca!</string>
   <string name="puzzleFailed">Úloha nevyriešená!</string>
   <string name="retry">Zopakovať</string>
 </resources>
