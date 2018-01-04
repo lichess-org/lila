@@ -271,6 +271,10 @@
   <string name="tournament">Torneo</string>
   <string name="tournaments">Torneos</string>
   <string name="tournamentPoints">Puntos de torneo</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s punto de torneo</item>
+    <item quantity="other">%s puntos de torneo</item>
+  </plurals>
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Volver al torneo</string>
   <string name="thematic">Temático</string>
@@ -763,6 +767,10 @@
   <string name="notifications">Notificaciones</string>
   <string name="challenges">Desafíos</string>
   <string name="perfRatingX">Puntuación: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s segundo para hacer el primer movimiento</item>
+    <item quantity="other">%s segundos para hacer el primer movimiento</item>
+  </plurals>
   <string name="practiceWithComputer">Practicar con el ordenador</string>
   <string name="anotherWasX">Otro era %s</string>
   <string name="bestWasX">El mejor era %s</string>
@@ -808,4 +816,6 @@
   <string name="youCannotChallengeX">No puedes desafiar a %s.</string>
   <string name="xDoesNotAcceptChallenges">%s no acepta desafíos.</string>
   <string name="yourXRatingIsTooFarFromY">Tu puntuación de %1$s está demasiado lejos de la de %2$s.</string>
+  <string name="addCurrentVariation">Añadir la variante actual</string>
+  <string name="playX">Jugar %s</string>
 </resources>
