@@ -26,4 +26,6 @@ Besnenie Vám zabezpečí 1 bod naviac iba v prípade odohrania aspoň 7 ťahov 
 Akonáhle ukončíte partiu, vráťte sa do turnajovej miestnosti: budete spárovaný so súperom, ktorý má podobný rating ako Vy. Takýto postup Vám zabezpečí minimum čakacieho času, avšak môže sa stať, že nebudete hrať so všetkými hráčmi v turnaji.
 Hrajte rýchlo a vráťte sa vždy čo najrýchlejšie do turnajovej miestnosti aby ste stihli odohrať viac partií a získať tak viac bodov.</string>
   <string name="howDoesItEnd">Ako turnaj končí?</string>
+  <string name="howDoesItEndAnswer">Dĺžku turnaja merajú hodiny s časovým odpočítavaním. Keď dosiahnu nulu, turnajový rebríček sa zmrazí a vyhlási sa víťaz. Rozohrané partie sa musia dohrať, avšak neovplyvnia už výsledok turnaja.</string>
+  <string name="otherRules">Ďalšie dôležité pravidlá</string>
 </resources>
