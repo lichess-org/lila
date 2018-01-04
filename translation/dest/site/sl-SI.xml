@@ -890,4 +890,13 @@ v %3$s</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s sprejema izzive samo od prijateljev.</string>
   <string name="conditionalPremoves">Pogojne predpoteze</string>
   <string name="addCurrentVariation">Dodaj trenutno varianto</string>
+  <string name="playVariationToCreateConditionalPremoves">Igrajte varianto, za ustvarjanje pogojnih predpotez</string>
+  <string name="noConditionalPremoves">Ni pogojnih predpotez</string>
+  <string name="playX">Odigrajte %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">in shranite %s predpotezno varianto</item>
+    <item quantity="two">in shranite %s predpotezni varianti</item>
+    <item quantity="few">in shranite %s predpotezne variante</item>
+    <item quantity="other">in shranite %s predpoteznih variant</item>
+  </plurals>
 </resources>
