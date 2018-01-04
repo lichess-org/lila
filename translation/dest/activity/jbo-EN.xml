@@ -6,4 +6,7 @@
   <plurals name="practicedNbPositions">
     <item quantity="other">crezenzu\'e se pi\'o %1$s lo nabmi be se ra\'a %2$s</item>
   </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="other">dafyfa\'i %s lo nabmi be se ra\'a kavytadji</item>
+  </plurals>
 </resources>
