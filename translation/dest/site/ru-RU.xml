@@ -802,9 +802,9 @@
   <string name="challenges">Вызовы</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="one">Осталась %s секунда, чтобы сделать первый ход</item>
-    <item quantity="few">Осталось %s секунды, чтобы сделать первый ход</item>
-    <item quantity="other">Осталось %s секунд, чтобы сделать первый ход</item>
+    <item quantity="one">%s секунда на первый ход</item>
+    <item quantity="few">%s секунды на первый ход</item>
+    <item quantity="other">%s секунд на первый ход</item>
   </plurals>
   <string name="practiceWithComputer">Тренировка с компьютером</string>
   <string name="anotherWasX">Можно было %s</string>
