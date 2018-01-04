@@ -33,4 +33,29 @@
     <item quantity="few">Dohrané %s korešpondenčné partie</item>
     <item quantity="other">Dohraných %s korešpondenčných partií</item>
   </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Začiatok sledovania %s hráča</item>
+    <item quantity="few">Začiatok sledovania %s hráčov</item>
+    <item quantity="other">Začiatok sledovania %s hráčov</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Získanie %s nového sledovateľa</item>
+    <item quantity="few">Získanie %s nových sledovateľov</item>
+    <item quantity="other">Získanie %s nových sledovateľov</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Usporiadanie a odohranie %s simultánky</item>
+    <item quantity="few">Usporiadanie a odohranie %s simultánok</item>
+    <item quantity="other">Usporiadanie a odohranie %s simultánok</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Zúčastnenie sa v %s simultánke</item>
+    <item quantity="few">Zúčastnenie sa v %s simultánkach</item>
+    <item quantity="other">Zúčastnenie sa v %s simultánkach</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Vytvorenie %s novej štúdie</item>
+    <item quantity="few">Vytvorenie %s nových štúdií</item>
+    <item quantity="other">Vytvorenie %s nových štúdií</item>
+  </plurals>
 </resources>
