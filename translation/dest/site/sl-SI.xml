@@ -833,6 +833,12 @@ v %3$s</string>
   <string name="notifications">Obvestila</string>
   <string name="challenges">Izzivi</string>
   <string name="perfRatingX">Rating: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekund za prvo potezo</item>
+    <item quantity="two">%s sekundi za prvo potezo</item>
+    <item quantity="few">%s sekunde za prvo potezo</item>
+    <item quantity="other">%s sekund za prvo potezo</item>
+  </plurals>
   <string name="practiceWithComputer">Vadi z računalnikom</string>
   <string name="anotherWasX">Drugi/a je bil/a %s</string>
   <string name="bestWasX">Najboljši/a je bil/a %s</string>
@@ -847,6 +853,7 @@ v %3$s</string>
   <string name="whiteWinsGame">Beli je zmagal</string>
   <string name="blackWinsGame">Črni je zmagal</string>
   <string name="learnFromYourMistakes">Naučite se s svojih napak</string>
+  <string name="learnFromThisMistake">Učite se iz svojih napak</string>
   <string name="skipThisMove">Preskočite to potezo</string>
   <string name="next">Naprej</string>
   <string name="xWasPlayed">%s je igral/a</string>
@@ -875,4 +882,12 @@ v %3$s</string>
   <string name="opening">Otvoritev</string>
   <string name="middlegame">Sredina igre</string>
   <string name="endgame">Končnica</string>
+  <string name="registerToSendChallenges">Če želite poslati izziv, se prosim registrirajte.</string>
+  <string name="youCannotChallengeX">Ne morete izzvati %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s ne sprejema izzivov.</string>
+  <string name="yourXRatingIsTooFarFromY">Vaš %1$s rating je predaleč od ratinga igralca %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Izzivanje ni mogoče, zaradi preskusnega %s ratinga.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s sprejema izzive samo od prijateljev.</string>
+  <string name="conditionalPremoves">Pogojne predpoteze</string>
+  <string name="addCurrentVariation">Dodaj trenutno varianto</string>
 </resources>
