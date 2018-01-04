@@ -7,4 +7,9 @@
   <string name="isNotRated">Tento turnaj sa *NE*bude počítať do Vášho ratingu.</string>
   <string name="someRated">Niektoré turnaje sa počítajú do ratingu hráčov a ovplyvnia aj ten Váš.</string>
   <string name="howAreScoresCalculated">Ako sa počíta skóre turnaja?</string>
+  <string name="howAreScoresCalculatedAnswer">Základné hodnotenie je nasledovné: výhra 2 body, remíza 1 bod, prehra 0 bodov.
+Ak vyhráte 2 po sebe nasledujúce partie, odštartujete tzv. \"dvojnásobne bodovanú sériu\", symbolizovanú ikonou plameňa.
+Nasledujúce partie budú ohodnotené dvojnásobným počtom bodov až dokiaľ neprehráte alebo neremizujete.
+To znamená, že výhra bude za 4 body a remíza 2 body. Prehra bude stále za 0 bodov.</string>
+  <string name="berserk">Aréna Besnenia</string>
 </resources>
