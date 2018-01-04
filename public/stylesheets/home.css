@@ -738,6 +738,9 @@ body.dark .tour_spotlight:hover .img {
   font-weight: normal;
   display: block;
 }
+.about-side {
+  margin-top: 15px;
+}
 .donation {
   display: flex;
   font-size: 1.3em;
@@ -803,4 +806,10 @@ body.dark .tour_spotlight:hover .img {
 }
 .donation a:hover i::before {
   opacity: 1;
+}
+.about-footer {
+  width: 512px;
+  margin-top: 15px;
+  text-align: center;
+  opacity: 0.8;
 }
