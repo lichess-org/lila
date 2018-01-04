@@ -8,10 +8,11 @@ final class SettingStore[A: BSONValueHandler: SettingStore.StringReader] private
     val id: String,
     val default: A,
     val text: Option[String],
-    persist: Boolean
+    persist: Boolean,
+    init: SettingStore.Init[A]
 ) {
 
-  import SettingStore.dbField
+  import SettingStore.{ ConfigValue, DbValue, dbField }
 
   private var value: A = default
 
@@ -31,19 +32,25 @@ final class SettingStore[A: BSONValueHandler: SettingStore.StringReader] private
   private val dbId = $id(id)
 
   persist ?? coll.primitiveOne[A](dbId, dbField) map2 { (v: A) =>
-    value = v
+    value = init(ConfigValue(default), DbValue(v))
   }
 }
 
 object SettingStore {
+
+  case class ConfigValue[A](value: A)
+  case class DbValue[A](value: A)
+
+  type Init[A] = (ConfigValue[A], DbValue[A]) => A
 
   final class Builder(coll: Coll) {
     def apply[A: BSONValueHandler: StringReader](
       id: String,
       default: A,
       text: Option[String] = None,
-      persist: Boolean = true
-    ) = new SettingStore[A](coll, id, default, text, persist = persist)
+      persist: Boolean = true,
+      init: Init[A] = (config: ConfigValue[A], db: DbValue[A]) => db.value
+    ) = new SettingStore[A](coll, id, default, text, persist = persist, init = init)
   }
 
   private final class StringReader[A](val read: String => Option[A])

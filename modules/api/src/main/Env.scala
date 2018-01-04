@@ -56,7 +56,8 @@ final class Env(
   val assetVersionSetting = settingStore[Int](
     "assetVersion",
     default = config getInt "net.asset.version",
-    text = "Assets version. Increment to force all clients to load a new version of static assets. Decrement to serve a previous revision of static assets.".some
+    text = "Assets version. Increment to force all clients to load a new version of static assets. Decrement to serve a previous revision of static assets.".some,
+    init = (config, db) => config.value max db.value
   )
 
   object Accessibility {
