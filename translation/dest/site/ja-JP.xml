@@ -788,4 +788,12 @@
   <string name="yourXRatingIsTooFarFromY">%1$s レーティングが %2$s と離れすぎです。</string>
   <string name="cannotChallengeDueToProvisionalXRating">%s が仮レーティングのためチャレンジできません。</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s は友達からのチャレンジしか受け付けません。</string>
+  <string name="conditionalPremoves">コンディショナルムーブ</string>
+  <string name="addCurrentVariation">現在の変化を追加する</string>
+  <string name="playVariationToCreateConditionalPremoves">駒を動かしてコンディショナルムーブを設定します</string>
+  <string name="noConditionalPremoves">コンディショナルムーブなし</string>
+  <string name="playX">指し手は %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="other">%s 種のコンディショナルムーブを設定</item>
+  </plurals>
 </resources>
