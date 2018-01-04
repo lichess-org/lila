@@ -108,7 +108,7 @@
   <string name="memory">Память</string>
   <string name="infiniteAnalysis">Бесконечный анализ</string>
   <string name="removesTheDepthLimit">Снимает ограничение на глубину анализа, но заставляет поработать ваш компьютер</string>
-  <string name="blunder">Грубая ошибка</string>
+  <string name="blunder">Зевок</string>
   <string name="blunders">Грубые ошибки</string>
   <string name="mistake">Ошибка</string>
   <string name="mistakes">Ошибки</string>
@@ -153,7 +153,7 @@
   <string name="variants">Варианты</string>
   <string name="timeControl">Контроль времени</string>
   <string name="realTime">По часам</string>
-  <string name="correspondence">Дневная</string>
+  <string name="correspondence">Дневная игра</string>
   <string name="daysPerTurn">Дней на ход</string>
   <string name="oneDay">Один день</string>
   <plurals name="nbDays">
@@ -648,7 +648,7 @@
   <string name="whiteCastlingKingside">Белые О-О</string>
   <string name="whiteCastlingQueenside">Белые О-О-О</string>
   <string name="blackCastlingKingside">Чёрные О-О</string>
-  <string name="blackCastlingQueenside">Чёрные О-О-О</string>
+  <string name="blackCastlingQueenside">Черные О-О-О</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s сообщений на форуме</item>
     <item quantity="few">%s сообщений на форуме</item>
