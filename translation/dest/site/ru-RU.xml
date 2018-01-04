@@ -56,7 +56,7 @@
   <string name="showThreat">Показать ответную угрозу</string>
   <string name="inLocalBrowser">в браузере</string>
   <string name="toggleLocalEvaluation">Включить локальный анализ</string>
-  <string name="promoteVariation">Активизировать этот вариант</string>
+  <string name="promoteVariation">Сделать вариант главным</string>
   <string name="makeMainLine">Сделать этот вариант основным</string>
   <string name="deleteFromHere">Удалить с этого места</string>
   <string name="move">Ход</string>
@@ -854,4 +854,7 @@
   <string name="yourXRatingIsTooFarFromY">Ваш рейтинг %1$s слишком далёк от %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Невозможно из-за недостоверности рейтинга %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s принимает вызовы только от друзей.</string>
+  <string name="conditionalPremoves">Условные предходы</string>
+  <string name="addCurrentVariation">Добавить текущий вариант</string>
+  <string name="playVariationToCreateConditionalPremoves">Выполните ходы на доске, чтобы установить условные предходы</string>
 </resources>
