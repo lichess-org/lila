@@ -12,4 +12,11 @@ Ak vyhráte 2 po sebe nasledujúce partie, odštartujete tzv. \"dvojnásobne bod
 Nasledujúce partie budú ohodnotené dvojnásobným počtom bodov až dokiaľ neprehráte alebo neremizujete.
 To znamená, že výhra bude za 4 body a remíza 2 body. Prehra bude stále za 0 bodov.</string>
   <string name="berserk">Aréna Besnenia</string>
+  <string name="berserkAnswer">Keď hráč na začiatku partie klikne na tlačidlo \"Berserk\" (besnenie), stratí polovicu svojho času, jeho výhra však bude ohodnotená 1 bodom naviac (spolu 3 resp. 5 bodmi).
+
+Besnenie pri časoch s pripočítavaným bonusom vynuluje tento bonus. (Výnimkou je čas 1+2, ktorý sa zmení na 1+0.)
+
+Besnenie nie je umožnené pri hrách s nulovým základným časom (0+1, 0+2).
+
+Besnenie Vám zabezpečí 1 bod naviac iba v prípade odohrania aspoň 7 ťahov v partii.</string>
 </resources>
