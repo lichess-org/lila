@@ -7,7 +7,8 @@ final class SettingStore[A: BSONValueHandler: SettingStore.StringReader] private
     coll: Coll,
     val id: String,
     val default: A,
-    val text: Option[String]
+    val text: Option[String],
+    persist: Boolean
 ) {
 
   import SettingStore.dbField
@@ -18,18 +19,18 @@ final class SettingStore[A: BSONValueHandler: SettingStore.StringReader] private
 
   def set(v: A): Funit = {
     value = v
-    coll.update(dbId, $set(dbField -> v), upsert = true).void
+    persist ?? coll.update(dbId, $set(dbField -> v), upsert = true).void
   }
 
   def form: Option[Form[_]] = SettingStore formOf this
 
   def setString(str: String): Funit = (implicitly[SettingStore.StringReader[A]] read str) ?? set
 
-  override def toString = s"SettingStore(id: $id, default: $default, value: $value)"
+  override def toString = s"SettingStore(id: $id, default: $default, value: $value, persist: $persist)"
 
   private val dbId = $id(id)
 
-  coll.primitiveOne[A](dbId, dbField) map2 { (v: A) =>
+  persist ?? coll.primitiveOne[A](dbId, dbField) map2 { (v: A) =>
     value = v
   }
 }
@@ -40,8 +41,9 @@ object SettingStore {
     def apply[A: BSONValueHandler: StringReader](
       id: String,
       default: A,
-      text: Option[String] = None
-    ) = new SettingStore[A](coll, id, default, text)
+      text: Option[String] = None,
+      persist: Boolean = true
+    ) = new SettingStore[A](coll, id, default, text, persist = persist)
   }
 
   private final class StringReader[A](val read: String => Option[A])

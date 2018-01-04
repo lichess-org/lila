@@ -121,7 +121,8 @@ final class Env(
   val websocketDropPercentSetting = settingStore[Int](
     "websocketDropPercent",
     default = 100,
-    text = "Percentage of websockets to drop. Experimenting server restart issues. Don't touch it.".some
+    text = "Percentage of websockets to drop. Experimenting server restart issues. Don't touch it.".some,
+    persist = false
   )
 
   val requestDropper = new RequestDropper(
