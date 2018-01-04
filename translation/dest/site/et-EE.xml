@@ -538,8 +538,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="promoteToQueenAutomatically">Automaatselt edenda lipuks</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Kuuluta viik kolmekordsel kordusel automaatselt</string>
   <string name="privacy">Privaatsus</string>
-  <string name="letOtherPlayersFollowYou">Lubage teistele mängijatele teid jälgida</string>
-  <string name="letOtherPlayersChallengeYou">Lubage teistele mängijatele esitada väljakutse</string>
+  <string name="letOtherPlayersFollowYou">Luba teistel mängijatel sind jälgida</string>
+  <string name="letOtherPlayersChallengeYou">Luba teistel mängijatel sulle väljakutseid esitada</string>
   <string name="letOtherPlayersInviteYouToStudy">Lase teistel mängijatel sind kutsuda õppima</string>
   <string name="sound">Heli</string>
   <string name="yourPreferencesHaveBeenSaved">Teie eelistused on salvestatud.</string>
