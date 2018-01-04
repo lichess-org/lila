@@ -106,11 +106,11 @@
   <string name="infiniteAnalysis">Lõputu analüüs</string>
   <string name="removesTheDepthLimit">Eemaldab sügavuslimiidi ja hoiab arvuti soojana</string>
   <string name="blunder">Viga</string>
-  <string name="blunders">vigu</string>
+  <string name="blunders">Viga</string>
   <string name="mistake">Eksimus</string>
-  <string name="mistakes">eksimusi</string>
+  <string name="mistakes">Eksimust</string>
   <string name="inaccuracy">Ebatäpsus</string>
-  <string name="inaccuracies">ebatäpsused</string>
+  <string name="inaccuracies">Ebatäpsust</string>
   <string name="moveTimes">Aeg käikudele</string>
   <string name="flipBoard">Keera lauda</string>
   <string name="threefoldRepetition">Kolmekordne kordus</string>
@@ -123,11 +123,11 @@
   </plurals>
   <string name="currentGames">Käimasolevad mängud</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Mängud</item>
-    <item quantity="other">%s Mängud</item>
+    <item quantity="one">%s mäng</item>
+    <item quantity="other">%s mängu</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s järjehoidjad</item>
+    <item quantity="one">%s järjehoidja</item>
     <item quantity="other">%s järjehoidjad</item>
   </plurals>
   <string name="viewInFullSize">Vaata täisekraanil</string>
@@ -148,21 +148,21 @@
   <string name="timeControl">Aja kontroll</string>
   <string name="realTime">Reaalajas</string>
   <string name="correspondence">Kirjavahetus</string>
-  <string name="daysPerTurn">aega päevi käiguks</string>
+  <string name="daysPerTurn">Päevi käiguks</string>
   <string name="oneDay">Üks päev</string>
   <plurals name="nbDays">
-    <item quantity="one">%s päeva</item>
+    <item quantity="one">%s päev</item>
     <item quantity="other">%s päeva</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s tundi</item>
+    <item quantity="one">%s tund</item>
     <item quantity="other">%s tundi</item>
   </plurals>
   <string name="time">Aeg</string>
   <string name="rating">Reiting</string>
   <string name="ratingStats">Reitingu statistika</string>
   <string name="username">Kasutaja nimi</string>
-  <string name="usernameOrEmail">Kasutajanimi</string>
+  <string name="usernameOrEmail">Kasutajanimi või email</string>
   <string name="password">Salasõna</string>
   <string name="haveAnAccount">Kas sul on kasutaja?</string>
   <string name="changePassword">Muuda salasõna</string>
