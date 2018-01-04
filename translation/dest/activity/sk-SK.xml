@@ -58,4 +58,20 @@
     <item quantity="few">Vytvorenie %s nových štúdií</item>
     <item quantity="other">Vytvorenie %s nových štúdií</item>
   </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Zúčastnenie sa v %s turnaji</item>
+    <item quantity="few">Zúčastnenie sa v %s turnajoch</item>
+    <item quantity="other">Zúčastnenie sa v %s turnajoch</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiou v %4$s</item>
+    <item quantity="few">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
+    <item quantity="other">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
+  </plurals>
+  <string name="signedUp">Registrácia na lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Pripojenie sa k %s tímu</item>
+    <item quantity="few">Pripojenie sa k %s tímom</item>
+    <item quantity="other">Pripojenie sa k %s tímom</item>
+  </plurals>
 </resources>
