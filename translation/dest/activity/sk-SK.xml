@@ -18,4 +18,19 @@
     <item quantity="few">Odohrané %1$s %2$s partie</item>
     <item quantity="other">Odohraných %1$s %2$s partií</item>
   </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Uverejnený %1$s príspevok v %2$s</item>
+    <item quantity="few">Uverejnené %1$s príspevky v %2$s</item>
+    <item quantity="other">Uverejnených %1$s príspevkov v %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Potiahnutý %1$s ťah v %2$s korešpond. partii/-ách</item>
+    <item quantity="few">Potiahnuté %1$s ťahy v %2$s korešpond. partii/-ách</item>
+    <item quantity="other">Potiahnutých %1$s ťahov v %2$s korešpond. partii/-ách</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Dohraná %s korešpondenčná partia</item>
+    <item quantity="few">Dohrané %s korešpondenčné partie</item>
+    <item quantity="other">Dohraných %s korešpondenčných partií</item>
+  </plurals>
 </resources>
