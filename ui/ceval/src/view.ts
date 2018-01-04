@@ -71,7 +71,7 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
   });
 }
 
-function engineName(ctrl: CevalCtrl) {
+function engineName(ctrl: CevalCtrl): Array<VNode | string> {
   return [
     window.lichess.engineName,
     ctrl.pnaclSupported ? h('span.native', 'pnacl') : (ctrl.wasmSupported ? h('span.native', 'wasm') : h('span.asmjs', 'asmjs'))
@@ -160,17 +160,20 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
 
   const body: Array<VNode | null> = enabled ? [
     h('pearl', [pearl]),
-    h('div.engine',
-      (threatMode ? [ctrl.trans.noarg('showThreat')] : engineName(instance)).concat(
-        h('span.info', ctrl.gameOver() ? [ctrl.trans.noarg('gameOver')] : (
-          threatMode ? [threatInfo(ctrl, threat)] : localEvalInfo(ctrl, evs)
-        )))
-    )
+    h('div.engine', [
+      ...(threatMode ? [ctrl.trans.noarg('showThreat')] : engineName(instance)),
+      h('span.info',
+        ctrl.gameOver() ? [ctrl.trans.noarg('gameOver')] :
+        (threatMode ? [threatInfo(ctrl, threat)] : localEvalInfo(ctrl, evs))
+      )
+    ])
   ] : [
     pearl ? h('pearl', [pearl]) : null,
-    h('help',
-      engineName(instance).concat([ h('br'), ctrl.trans.noarg('inLocalBrowser') ])
-    )
+    h('help', [
+      ...engineName(instance),
+      h('br'),
+      ctrl.trans.noarg('inLocalBrowser')
+    ])
   ];
 
   const switchButton: VNode | null = mandatoryCeval ? null : h('div.switch', {
