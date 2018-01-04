@@ -235,7 +235,7 @@ final class ReportApi(
     private def forUser(reporterId: User.ID): Fu[Option[Accuracy]] =
       coll.find($doc(
         "atoms.by" -> reporterId,
-        "reason" -> Reason.Cheat.key,
+        "room" -> Room.Cheat.key,
         "open" -> false
       )).sort(sortLastAtomAt).list[Report](20, ReadPreference.secondaryPreferred) flatMap { reports =>
         if (reports.size < 4) fuccess(none) // not enough data to know
