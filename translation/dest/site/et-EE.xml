@@ -195,7 +195,7 @@
   <string name="yourOpponentOffersADraw">Su vastane pakub viiki</string>
   <string name="accept">Nõustu</string>
   <string name="decline">Keeldu</string>
-  <string name="playingRightNow">Mängime kohe</string>
+  <string name="playingRightNow">Mängimas praegu</string>
   <string name="eventInProgress">Praegu mängimas</string>
   <string name="finished">Lõpetatud</string>
   <string name="abortGame">Katkesta mäng</string>
