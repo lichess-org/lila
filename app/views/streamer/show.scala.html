@@ -1,4 +1,4 @@
-@(s: lila.streamer.Streamer.WithUserAndStream)(implicit ctx: Context)
+@(s: lila.streamer.Streamer.WithUserAndStream, activities: Vector[lila.activity.ActivityView])(implicit ctx: Context)
 
 @import lila.streamer.Stream.{ Twitch, YouTube }
 
@@ -29,10 +29,15 @@
 }
 }
 
+@moreCss = {
+@cssTag("streamer.show.css")
+@cssTag("activity.css")
+}
+
 @base.layout(title = s"${s.user.titleUsername} streams on lichess.org",
 side = side.some,
 menu = menu("show", s.withoutStream.some).some,
-moreCss = cssTag("streamer.show.css")) {
+moreCss = moreCss) {
 <div class="content_box no_padding streamer">
   @s.stream match {
   case Some(YouTube.Stream(_, _, videoId, _)) => {
@@ -93,5 +98,6 @@ moreCss = cssTag("streamer.show.css")) {
     </div>
   </div>
   <div class="description">@richText(s.streamer.description.fold("")(_.value))</div>
+  @views.html.activity.list(s.user, activities)
 </div>
 }
