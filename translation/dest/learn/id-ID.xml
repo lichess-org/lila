@@ -11,19 +11,22 @@
   <string name="chessPieces">Buah catur</string>
   <string name="theRook">Benteng</string>
   <string name="itMovesInStraightLines">Bergerak secara garis lurus</string>
-  <string name="rookIntro">Benteng adalah buah yang kuat. Apakah Anda siap untuk memerintahkannya?</string>
-  <string name="rookGoal">Klik pada benteng untuk membawa ke bintang!</string>
+  <string name="rookIntro">Benteng adalah bagian yang kuat. Apakah kamu siap untuk perintah itu?</string>
+  <string name="rookGoal">Klik di rook
+untuk membawanya ke bintang!</string>
   <string name="grabAllTheStars">Ambil semua bintang!</string>
-  <string name="theFewerMoves">Semakin sedikit jalan yang Anda buat, semakin banyak poin yang Anda dapat!</string>
-  <string name="useTwoRooks">Menggunakan dua benteng mempercepat semuanya!</string>
-  <string name="rookComplete">Selamat! Anda telah sukses memelajari benteng.</string>
+  <string name="theFewerMoves">Semakin sedikit gerakan yang Anda lakukan,
+semakin banyak poin yang kamu menangkan!</string>
+  <string name="useTwoRooks">Gunakan dua rooks
+untuk mempercepat segalanya!</string>
+  <string name="rookComplete">Selamat! Anda telah berhasil menguasai benteng.</string>
   <string name="theBishop">Patih</string>
   <string name="itMovesDiagonally">Bergerak secara diagonal</string>
-  <string name="bishopIntro">Selanjutnya kita akan belajar cara patih bermanuver!</string>
+  <string name="bishopIntro">Selanjutnya kita akan belajar bagaimana cara manuver seorang uskup!</string>
   <string name="youNeedBothBishops">Satu patih di kotak terang,
 satu patih di kotak gelap.
 Anda membutuhkan keduanya!</string>
-  <string name="bishopComplete">Selamat! Anda bisa memerintahkan sebuah patih.</string>
+  <string name="bishopComplete">Selamat! Anda bisa memerintahkan seorang uskup.</string>
   <string name="theQueen">Ratu</string>
   <string name="queenCombinesRookAndBishop">Ratu = benteng + patih</string>
   <string name="queenIntro">Memasuki bagian catur yang paling kuat. Yang Mulia sang Ratu!</string>
@@ -33,14 +36,15 @@ Anda membutuhkan keduanya!</string>
   <string name="kingIntro">Anda adalah rajanya. Apabila Anda gugur di pertempuran, permainan berakhir.</string>
   <string name="theKingIsSlow">Sang raja bergerak lambat.</string>
   <string name="lastOne">Yang terakhir!</string>
-  <string name="kingComplete">Anda kini dapat memerintah sang Panglima!</string>
+  <string name="kingComplete">Anda sekarang bisa memerintah komandan!</string>
   <string name="theKnight">Kuda</string>
   <string name="itMovesInAnLShape">Bergerak dalam bentuk L</string>
-  <string name="knightIntro">Berikut adalah sebuah tantangan bagi Anda. Kuda adalah... buah yang penuh trik.</string>
-  <string name="knightsHaveAFancyWay">Kuda mempunyai cara keren berlompat sana-sini!</string>
+  <string name="knightIntro">Inilah tantangan bagi Anda. Ksatria adalah... sepotong rumit.</string>
+  <string name="knightsHaveAFancyWay">Ksatria memiliki cara yang bagus
+melompat-lompat!</string>
   <string name="knightsCanJumpOverObstacles">Kuda dapat meloncati rintangan!
 Lolosi dan hilangkan bintang-bintang!</string>
-  <string name="knightComplete">Selamat! Anda telah menguasai buah kuda.</string>
+  <string name="knightComplete">Selamat! Anda telah menguasai ksatria.</string>
   <string name="thePawn">Pion</string>
   <string name="itMovesForwardOnly">Ia hanya bergerak maju</string>
   <string name="pawnIntro">Pion adalah bidak lemah, tapi mereka punya banyak potensi.</string>
@@ -56,15 +60,15 @@ Tapi kadangkala menjadi kuda lebih berguna!</string>
   <string name="pawnComplete">Selamat! Pion tidak punya rahasia untuk Anda.</string>
   <string name="pawnPromotion">Pion promosi</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Pion Anda mencapai akhir dari papan!</string>
-  <string name="itNowPromotesToAStrongerPiece">Sekarang telah terpromosikan menjadi buah yang lebih kuat.</string>
+  <string name="itNowPromotesToAStrongerPiece">Sekarang mempromosikan ke bagian yang lebih kuat.</string>
   <string name="selectThePieceYouWant">Pilih buah yang Anda mau!</string>
   <string name="fundamentals">Dasar-dasar</string>
   <string name="capture">Makan</string>
   <string name="takeTheEnemyPieces">Makan buah lawan</string>
-  <string name="captureIntro">Identifikasi buah lawan yang tak terlindungi, dan makan mereka!</string>
+  <string name="captureIntro">Kenali potongan yang tidak terjaga lawan, dan tangkap mereka!</string>
   <string name="takeTheBlackPieces">Makan buah hitam!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Makan buah hitam!
-Dan jangan kehilangan Ada punya.</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Ambil potongan hitamnya!
+Dan jangan sampai kehilangan milikmu.</string>
   <string name="captureComplete">Selamat! Sekarang Anda tahu bertarung dengan buah-buah catur!</string>
   <string name="protection">Proteksi</string>
   <string name="keepYourPiecesSafe">Menjaga buah Anda agar aman</string>
@@ -109,6 +113,9 @@ Mereka ada disebelah kuda.</string>
   <string name="placeTheQueen">Tempat Ratu! Dia berada di kotak warnanya sendiri.</string>
   <string name="placeTheKing">Tempatkan raja! Sebelah kanan dari sang ratu.</string>
   <string name="pawnsFormTheFrontLine">Bidak membentuk garis depan. Membuat langkah apa saja untuk melanjutkan.</string>
+  <string name="boardSetupComplete">Selamat! Anda tahu cara memasang papan catur.</string>
+  <string name="castling">Castling</string>
+  <string name="theSpecialKingMove">Raja khusus bergerak</string>
   <string name="castlingIntro">Bawa raja anda ke tempat aman, dan siapkan benteng anda untuk menyerang!</string>
   <string name="castleKingSide">Gerakkan raja anda dua kotak untuk rokade ke sisi raja!</string>
   <string name="castleQueenSide">Gerakkan raja anda dua kotak untuk rokade ke sisi ratu!</string>
@@ -127,9 +134,18 @@ atau benteng sudah bergerak.</string>
   <string name="enPassantIntro">Saat pion lawan digerakkan dua kotak, anda bisa mengambilnya seperti bila dia digerakkan satu kotak.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Hitam baru saja menggerakkan pion sejauh dua kotak! Ambil dengan en passant.</string>
   <string name="enPassantOnlyWorksImmediately">En passant hanya berlaku sesaat setelah lawan menggerakkan pionnya.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant hanya bekerja
+Jika pion Anda berada di peringkat 5.</string>
   <string name="takeAllThePawnsEnPassant">Ambil semua pion dengan en passant!</string>
   <string name="enPassantComplete">Selamat! Anda bisa mengambil dengan en passant sekarang.</string>
+  <string name="stalemate">Jalan buntu</string>
   <string name="theGameIsADraw">Permainan berakhir remis</string>
+  <string name="stalemateIntro">Bila pemain tidak di cek dan tidak memiliki langkah hukum, itu adalah jalan buntu. Permainan ditarik: tidak ada yang menang, tidak ada yang kalah.</string>
+  <string name="stalemateGoal">Untuk jalan buntu hitam:
+- Hitam tidak bisa bergerak kemana-mana
+- Tidak ada cek disana.</string>
+  <string name="stalemateComplete">Selamat! Lebih baik buntu dari pada checkmated!</string>
+  <string name="advanced">Maju</string>
   <string name="pieceValue">Nilai bidak</string>
   <string name="evaluatePieceStrength">Menilai kekuatan bidak</string>
   <string name="pieceValueIntro">Bidak dengen mobilitas tinggi memiliki nilai lebih tinggi!
@@ -140,6 +156,8 @@ Kuda = 3
 Pion = 1
 Raja tak ternilai harganya! Kehilangan raja berarti kekalahan.</string>
   <string name="queenOverBishop">Ambil bidak dengan nilai tertinggi! Ratu > Menteri</string>
+  <string name="takeThePieceWithTheHighestValue">Ambil bagian
+dengan nilai tertinggi!</string>
   <string name="pieceValueComplete">Selamat! Anda tahu nilai bidak!
 Ratu = 9
 Benteng = 5
@@ -157,6 +175,11 @@ Pion = 1</string>
   <string name="getAFreeLichessAccount">Dapatkan akun Lichess gratis</string>
   <string name="practice">Latihan</string>
   <string name="learnCommonChessPositions">Belajar posisi umum catur</string>
+  <string name="puzzles">Teka teki</string>
+  <string name="exerciseYourTacticalSkills">Latih keterampilan taktis anda</string>
+  <string name="videos">Video</string>
+  <string name="watchInstructiveChessVideos">Tonton video catur instruktif</string>
+  <string name="playPeople">Orang bermain</string>
   <string name="opponentsFromAroundTheWorld">Lawan dari di seluruh dunia</string>
   <string name="playMachine">Lawan komputer</string>
   <string name="testYourSkillsWithTheComputer">Uji keterampilan Anda dengan komputer</string>

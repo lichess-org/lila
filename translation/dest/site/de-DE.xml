@@ -56,6 +56,9 @@
   <string name="showThreat">Drohungen zeigen</string>
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
+  <string name="promoteVariation">Variante anheben</string>
+  <string name="makeMainLine">Zur Hauptvariante machen</string>
+  <string name="deleteFromHere">Ab hier löschen</string>
   <string name="move">Zug</string>
   <string name="variantLoss">Niederlage in der Variante</string>
   <string name="variantWin">Sieg in der Schachvariante</string>
@@ -86,7 +89,7 @@
   <string name="openingExplorer">Eröffnungsdatenbank &amp; Tablebases</string>
   <string name="xOpeningExplorer">%s Eröffnungsbuch</string>
   <string name="winPreventedBy50MoveRule">Sieg durch 50-Züge-Regel verhindert</string>
-  <string name="lossSavedBy50MoveRule">Niederlage durch 50-Züge-Regel verhindert</string>
+  <string name="lossSavedBy50MoveRule">Verlust durch 50-Züge-Regel verhindert</string>
   <string name="allSet">Fertig!</string>
   <string name="importPgn">PGN importieren</string>
   <string name="delete">Löschen</string>
@@ -193,7 +196,8 @@
   <string name="yourOpponentOffersADraw">Dein Gegner bietet Remis an</string>
   <string name="accept">Annehmen</string>
   <string name="decline">Ablehnen</string>
-  <string name="playingRightNow">Laufende Partien</string>
+  <string name="playingRightNow">Partie läuft</string>
+  <string name="eventInProgress">Laufende Partien</string>
   <string name="finished">Beendet</string>
   <string name="abortGame">Partie abbrechen</string>
   <string name="gameAborted">Partie abgebrochen</string>
@@ -202,6 +206,8 @@
   <string name="mode">Modus</string>
   <string name="casual">Ungewertet</string>
   <string name="rated">Gewertet</string>
+  <string name="casualTournament">Ungewertet</string>
+  <string name="ratedTournament">Gewertet</string>
   <string name="thisGameIsRated">Dieses Spiel wird gewertet</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Angebot zur Revanche gesendet</string>
@@ -261,12 +267,16 @@
   <string name="takebackPropositionAccepted">Zugrücknahme angenommen</string>
   <string name="takebackPropositionCanceled">Zugrücknahme zurückgezogen</string>
   <string name="yourOpponentProposesATakeback">Dein Gegner möchte den letzten Zug zurücknehmen</string>
-  <string name="bookmarkThisGame">Dieses Spiel mit einem Lesezeichen versehen</string>
+  <string name="bookmarkThisGame">Als Lesezeichen speichern</string>
   <string name="search">Suche</string>
   <string name="advancedSearch">Erweiterte Suche</string>
   <string name="tournament">Turnier</string>
   <string name="tournaments">Turniere</string>
   <string name="tournamentPoints">Turnierpunkte</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s Turnierpunkt</item>
+    <item quantity="other">%s Turnierpunkte</item>
+  </plurals>
   <string name="viewTournament">Turnier anschauen</string>
   <string name="backToTournament">Zurück zum Turnier</string>
   <string name="thematic">Thematisch</string>
@@ -337,7 +347,7 @@
   <string name="colorPlaysCheckmateInOne">%s setzt Matt in einem Zug</string>
   <string name="retry">Erneut versuchen</string>
   <string name="reconnecting">Wiederverbinden</string>
-  <string name="onlineFriends">Online-Freunde</string>
+  <string name="onlineFriends">Freunde online</string>
   <string name="noFriendsOnline">Keine Freunde online</string>
   <string name="findFriends">Freunde finden</string>
   <string name="favoriteOpponents">Häufigste Gegner</string>
@@ -348,7 +358,7 @@
   <string name="blocked">Blockiert</string>
   <string name="unblock">Nicht mehr blockieren</string>
   <string name="followsYou">Folgt dir</string>
-  <string name="xStartedFollowingY">%1$s folgt nun %2$s</string>
+  <string name="xStartedFollowingY">%1$s folgt jetzt %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s Follower</item>
     <item quantity="other">%s Follower</item>
@@ -365,7 +375,7 @@
   <string name="list">Liste</string>
   <string name="graph">Graph</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Weniger als eine Minute</item>
+    <item quantity="one">Weniger als %s Minute</item>
     <item quantity="other">Weniger als %s Minuten</item>
   </plurals>
   <string name="required">Pflichtfeld.</string>
@@ -375,7 +385,7 @@
   <string name="standing">Tabelle</string>
   <string name="createANewTournament">Neues Turnier erstellen</string>
   <string name="join">Teilnehmen</string>
-  <string name="withdraw">Austreten</string>
+  <string name="withdraw">Verlassen</string>
   <string name="points">Punkte</string>
   <string name="wins">Siege</string>
   <string name="losses">Niederlagen</string>
@@ -418,7 +428,7 @@
   <string name="country">Land</string>
   <string name="preferences">Einstellungen</string>
   <string name="inlineNotation">Inline-Notation</string>
-  <string name="watchLichessTV">Lichess TV anschauen</string>
+  <string name="watchLichessTV">Lichess-TV anschauen</string>
   <string name="previouslyOnLichessTV">Zuletzt auf Lichess TV</string>
   <string name="onlinePlayers">Spieler online</string>
   <string name="activeToday">Heute aktiv</string>
@@ -554,7 +564,7 @@
   <string name="xAskedY">%1$s fragte %2$s</string>
   <string name="xAnsweredY">%1$s beantwortete %2$s</string>
   <string name="xCommentedY">%1$s kommentierte %2$s</string>
-  <string name="victory">Geschafft!</string>
+  <string name="victory">Sieg</string>
   <string name="defeat">Niederlage</string>
   <string name="xVsYinZ">%1$s gegen %2$s in %3$s</string>
   <string name="timeline">Verlauf</string>
@@ -644,7 +654,7 @@
   <string name="simulVariantsHint">Wurden mehrere Varianten gewählt, kann jeder Spieler sich eine Variante aussuchen.</string>
   <string name="simulClockHint">Fischer Bedenkzeit. Je mehr Gegner du hast, desto mehr Zeit wirst du benötigen.</string>
   <string name="simulAddExtraTime">Du kannst dir selbst zusätzliche Zeit hinzufügen, um mit dem Simultan zurechtzukommen.</string>
-  <string name="simulHostExtraTime">Extra Bedenkzeit für Alleinspieler</string>
+  <string name="simulHostExtraTime">Extra Bedenkzeit des Ausrichters</string>
   <string name="lichessTournaments">Lichess Turniere</string>
   <string name="tournamentFAQ">Arena FAQ</string>
   <string name="tournamentOfficial">Offiziell</string>
@@ -758,8 +768,11 @@
   <string name="custom">Andere Spielzeit</string>
   <string name="notifications">Benachrichtigungen</string>
   <string name="challenges">Herausforderungen</string>
-  <string name="perfRatingX">Wertungszahl: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s Sekunden, um den ersten Zug zu machen</string>
+  <string name="perfRatingX">Wertung: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s Sekunde, um den ersten Zug zu machen</item>
+    <item quantity="other">%s Sekunden, um den ersten Zug zu machen</item>
+  </plurals>
   <string name="practiceWithComputer">Übe mit dem Computer</string>
   <string name="anotherWasX">Auch möglich war %s</string>
   <string name="bestWasX">Am besten war %s</string>
@@ -774,6 +787,7 @@
   <string name="whiteWinsGame">Weiß gewinnt</string>
   <string name="blackWinsGame">Schwarz gewinnt</string>
   <string name="learnFromYourMistakes">Lerne aus deinen Fehlern</string>
+  <string name="learnFromThisMistake">Lerne aus diesem Fehler</string>
   <string name="skipThisMove">Überspringe diesen Zug</string>
   <string name="next">Nächster</string>
   <string name="xWasPlayed">%s wurde gespielt</string>
@@ -800,4 +814,19 @@
   <string name="opening">Eröffnung</string>
   <string name="middlegame">Mittelspiel</string>
   <string name="endgame">Endspiel</string>
+  <string name="registerToSendChallenges">Bitte registriere dich, um Herausforderungen zu senden.</string>
+  <string name="youCannotChallengeX">Du kannst %s nicht herausfordern.</string>
+  <string name="xDoesNotAcceptChallenges">%s akzeptiert keine Herausforderungen.</string>
+  <string name="yourXRatingIsTooFarFromY">Deine %1$s Wertung ist zu weit von %2$s entfernt.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Herausforderung wegen vorläufiger %s-Wertungszahl nicht möglich.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s kann nur von Freunden herausgefordert werden.</string>
+  <string name="conditionalPremoves">Bedingte Vorauszüge</string>
+  <string name="addCurrentVariation">Aktuelle Variante hinzufügen</string>
+  <string name="playVariationToCreateConditionalPremoves">Spiele eine Variante, um bedingte Vorauszüge hinzuzufügen</string>
+  <string name="noConditionalPremoves">Keine bedingten Vorauszüge</string>
+  <string name="playX">Spiele %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">und speichere %s Vorauszug</item>
+    <item quantity="other">und speichere %s Vorauszüge</item>
+  </plurals>
 </resources>

@@ -56,6 +56,9 @@
   <string name="showThreat">Menunjukkan ancaman</string>
   <string name="inLocalBrowser">di browser lokal</string>
   <string name="toggleLocalEvaluation">Toggle evaluasi lokal</string>
+  <string name="promoteVariation">Promosikan variasi</string>
+  <string name="makeMainLine">Buat jalur utama</string>
+  <string name="deleteFromHere">Hapus dari sini</string>
   <string name="move">Langkah</string>
   <string name="variantLoss">Varian kerugian</string>
   <string name="variantWin">Varian menang</string>
@@ -101,8 +104,11 @@
   <string name="memory">Memori</string>
   <string name="infiniteAnalysis">Analisis tak terbatas</string>
   <string name="removesTheDepthLimit">Menghapus batas kedalaman, dan membuat komputer Anda hangat</string>
+  <string name="blunder">Kekeliruan</string>
   <string name="blunders">Blunder</string>
+  <string name="mistake">Kesalahan</string>
   <string name="mistakes">Kesalahan</string>
+  <string name="inaccuracy">Ketidaktelitian</string>
   <string name="inaccuracies">Ketidaktepatan</string>
   <string name="moveTimes">Waktu gerak</string>
   <string name="flipBoard">Putar papan catur</string>
@@ -160,6 +166,7 @@
   <string name="forgotPassword">Lupa password?</string>
   <string name="rank">Peringkat</string>
   <string name="rankX">Rating: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Peringkat diupdate setiap %s menit</string>
   <plurals name="nbPuzzles">
     <item quantity="other">%s</item>
   </plurals>
@@ -181,6 +188,7 @@
   <string name="accept">Terima</string>
   <string name="decline">Tolak</string>
   <string name="playingRightNow">Bermain saat ini</string>
+  <string name="eventInProgress">Mainkan sekarang</string>
   <string name="finished">Selesai</string>
   <string name="abortGame">Batalkan permainan</string>
   <string name="gameAborted">Permainan dibatalkan</string>
@@ -189,6 +197,8 @@
   <string name="mode">Mode</string>
   <string name="casual">Bebas</string>
   <string name="rated">Di-rating</string>
+  <string name="casualTournament">Santai</string>
+  <string name="ratedTournament">Yang digolongkan</string>
   <string name="thisGameIsRated">Permainan ini di-rating</string>
   <string name="rematch">Ulang pertandingan</string>
   <string name="rematchOfferSent">Tawaran permainan ulang terkirim</string>
@@ -248,12 +258,30 @@
   <string name="tournament">Turnamen</string>
   <string name="tournaments">Turnamen</string>
   <string name="tournamentPoints">Poin Turnamen</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="other">%s titik turnamen</item>
+  </plurals>
   <string name="viewTournament">Lihat turnamen</string>
   <string name="backToTournament">Kembali ke turnamen</string>
   <string name="thematic">Bertema</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">≥ %s pertandingan tercatat</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="other">%1$s %2$s permainan yang digolongkan</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="other">Kamu perlu bermain %1$s lebih banyak %2$s permainan yang digolongkan</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="other">Kamu perlu bermain %s lebih banyak permainan yang digolongkan</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Rating anda %s bersifat sementara</string>
+  <string name="yourPerfRatingIsTooHigh">Rating %1$s kamu (%2$s) terlalu besar</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Mingguan teratas anda %1$s rating (%2$s) terlalu besar</string>
+  <string name="yourPerfRatingIsTooLow">Rating %1$s kamu (%2$s) terlalu rendah</string>
+  <string name="ratedMoreThanInPerf">Rated ≥ %1$s masuk %2$s</string>
+  <string name="ratedLessThanInPerf">Rated ≤ %1$s masuk %2$s</string>
   <string name="backToGame">Kembali ke permainan</string>
   <string name="siteDescription">Permainan Catur gratis. Main Catur sekarang dengan antarmuka yang bersih. Tanpa registrasi, tanpa iklan, dan tanpa plugin tambahan. Bermain catur lawan komputer, teman atau lawan manusia secara acak.</string>
   <string name="teams">Tim</string>
@@ -355,6 +383,8 @@
   <string name="averageOpponent">Rata-rata lawan</string>
   <string name="membersOnly">Hanya untuk anggota</string>
   <string name="boardEditor">Edit Papan</string>
+  <string name="setTheBoard">Atur papan</string>
+  <string name="popularOpenings">Pembuka populer</string>
   <string name="startPosition">Posisi Awal</string>
   <string name="clearBoard">Bersihkan papan</string>
   <string name="savePosition">Simpan posisi</string>
@@ -372,6 +402,7 @@
   <string name="biography">Biografi</string>
   <string name="country">Negara</string>
   <string name="preferences">Preferensi</string>
+  <string name="inlineNotation">Notasi inline</string>
   <string name="watchLichessTV">Nonton Lichess TV</string>
   <string name="previouslyOnLichessTV">Sebelumnya di Lichess TV</string>
   <string name="onlinePlayers">Pemain online</string>
@@ -393,6 +424,7 @@
   <string name="keepGoing">Teruskan...</string>
   <string name="puzzleFailed">Taktik gagal diselesaikan.</string>
   <string name="butYouCanKeepTrying">Tetapi anda bisa mencoba terus.</string>
+  <string name="success">Sukses</string>
   <string name="wasThisPuzzleAnyGood">Apakah taktik ini bagus?</string>
   <string name="pleaseVotePuzzle">Bantu lichess berkembang dengan vote, gunakan tanda panah ke atas atau bawah:</string>
   <string name="thankYou">Terima Kasih!</string>
@@ -506,6 +538,9 @@
   <string name="xAnsweredY">%1$s menjawab %2$s</string>
   <string name="xCommentedY">%1$s berkomentar %2$s</string>
   <string name="victory">Menang!</string>
+  <string name="defeat">Kalah</string>
+  <string name="xVsYinZ">%1$s vs %2$s
+masuk %3$s</string>
   <string name="timeline">Timeline</string>
   <string name="seeAllTournaments">Lihat semua turnamen</string>
   <string name="starting">Mulai:</string>
@@ -574,6 +609,7 @@
   <string name="sourceCode">Kode Sumber</string>
   <string name="simultaneousExhibitions">Eksibisi Simultan</string>
   <string name="host">Penyedia</string>
+  <string name="hostColorX">Warna host: %s</string>
   <string name="createdSimuls">Membuat Simultan baru</string>
   <string name="hostANewSimul">Penyedia Simultan baru</string>
   <string name="noSimulFound">Simultan tidak ada</string>
@@ -676,6 +712,8 @@
   <string name="background">Latar</string>
   <string name="light">Terang</string>
   <string name="dark">Gelap</string>
+  <string name="transparent">Tembus pandang</string>
+  <string name="backgroundImageUrl">URL gambar latar belakang:</string>
   <string name="boardGeometry">Geometri Papan</string>
   <string name="boardTheme">Tema Papan</string>
   <string name="boardSize">Ukuran Papan</string>
@@ -700,4 +738,53 @@
   <string name="notifications">Notifikasi</string>
   <string name="challenges">Tantangan</string>
   <string name="perfRatingX">Rating: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">%s kedua untuk memainkan langkah pertama</item>
+  </plurals>
+  <string name="practiceWithComputer">Praktis dengan komputer</string>
+  <string name="anotherWasX">Lainnya %s</string>
+  <string name="bestWasX">Terbaik adalah %s</string>
+  <string name="youBrowsedAway">Anda melihat-lihat</string>
+  <string name="resumePractice">Lanjutkan latihan</string>
+  <string name="theGameIsADraw">Permainan ini menarik.</string>
+  <string name="computerThinking">Komputer berpikir ...</string>
+  <string name="seeBestMove">Lihat langkah terbaik</string>
+  <string name="hideBestMove">Sembunyikan langkah terbaik</string>
+  <string name="getAHint">Dapatkan petunjuk</string>
+  <string name="evaluatingYourMove">Mengevaluasi kepindahan Anda ...</string>
+  <string name="whiteWinsGame">Putih menang</string>
+  <string name="blackWinsGame">Hitam menang</string>
+  <string name="learnFromYourMistakes">Belajar dari kesalahanmu</string>
+  <string name="learnFromThisMistake">Belajar dari kesalahan ini</string>
+  <string name="skipThisMove">Lewatkan kepindahan ini</string>
+  <string name="next">Lanjutkan</string>
+  <string name="xWasPlayed">%s sedang diamainkan</string>
+  <string name="findBetterMoveForWhite">Temukan langkah yang lebih baik untuk warna putih</string>
+  <string name="findBetterMoveForBlack">Temukan langkah yang lebih baik untuk warna hitam</string>
+  <string name="resumeLearning">Lanjutkan belajar</string>
+  <string name="youCanDoBetter">Kamu bisa melakukan lebih baik</string>
+  <string name="tryAnotherMoveForWhite">Coba langkah lain untuk putih</string>
+  <string name="tryAnotherMoveForBlack">Coba langkah lain untuk hitam</string>
+  <string name="solution">Solusi</string>
+  <string name="waitingForAnalysis">Tunggu untuk analisis</string>
+  <string name="noMistakesFoundForWhite">Tidak ditemukan kesalahan untuk putih</string>
+  <string name="noMistakesFoundForBlack">Tidak ditemukan kesalahan untuk hitam</string>
+  <string name="doneReviewingWhiteMistakes">Selesai mereview kesalahan putih</string>
+  <string name="doneReviewingBlackMistakes">Selesai mereview kesalahan hitam</string>
+  <string name="doItAgain">Lakukan itu lagi</string>
+  <string name="reviewWhiteMistakes">Review kesalahan putih</string>
+  <string name="reviewBlackMistakes">Review kesalahan hitam</string>
+  <string name="advantage">Keuntungan</string>
+  <plurals name="nbSeconds">
+    <item quantity="other">%s yang kedua</item>
+  </plurals>
+  <string name="opening">Pembuka</string>
+  <string name="middlegame">Setengah permainan</string>
+  <string name="endgame">Akhir permainan</string>
+  <string name="registerToSendChallenges">Silahkan daftar untuk mengirim tantangan.</string>
+  <string name="youCannotChallengeX">Anda tidak bisa menantang %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s tidak menerima tantangan.</string>
+  <string name="yourXRatingIsTooFarFromY">Rating %1$s terlalu jauh dari %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Tidak bisa menantang karena sementara%s rating.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s hanya menerima tantangan dari teman.</string>
 </resources>

@@ -56,6 +56,9 @@
   <string name="showThreat">Pokaż zagrożenia</string>
   <string name="inLocalBrowser">w przeglądarce</string>
   <string name="toggleLocalEvaluation">Włącz/wyłącz lokalną ewaluację</string>
+  <string name="promoteVariation">Promuj ten wariant</string>
+  <string name="makeMainLine">Promuj na główny wariant</string>
+  <string name="deleteFromHere">Usuń począwszy odtąd</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrany</string>
   <string name="variantWin">Wariant wygrany</string>
@@ -203,6 +206,7 @@
   <string name="accept">Akceptuję</string>
   <string name="decline">Odrzuć</string>
   <string name="playingRightNow">W toku</string>
+  <string name="eventInProgress">W toku</string>
   <string name="finished">Zakończone</string>
   <string name="abortGame">Przerwij partię</string>
   <string name="gameAborted">Gra została przerwana</string>
@@ -211,6 +215,8 @@
   <string name="mode">Tryb</string>
   <string name="casual">Towarzyska</string>
   <string name="rated">Rankingowa</string>
+  <string name="casualTournament">Towarzyska</string>
+  <string name="ratedTournament">Rankingowa</string>
   <string name="thisGameIsRated">Gra rankingowa</string>
   <string name="rematch">Rewanż</string>
   <string name="rematchOfferSent">Wysłano propozycję rewanżu</string>
@@ -282,6 +288,11 @@
   <string name="tournament">Turniej</string>
   <string name="tournaments">Turnieje</string>
   <string name="tournamentPoints">Punkty turniejowe</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s punkt turniejowy</item>
+    <item quantity="few">%s punkty turniejowe</item>
+    <item quantity="other">%s punktów turniejowych</item>
+  </plurals>
   <string name="viewTournament">Wróć do turnieju</string>
   <string name="backToTournament">Wróć do turnieju</string>
   <string name="thematic">Tematyczny</string>
@@ -790,7 +801,11 @@
   <string name="notifications">Powiadomienia</string>
   <string name="challenges">Wyzwania</string>
   <string name="perfRatingX">Ranking: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s sekund na wykonanie pierwszego ruchu</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekunda na wykonanie pierwszego ruchu</item>
+    <item quantity="few">%s sekundy na wykonanie pierwszego ruchu</item>
+    <item quantity="other">%s sekund na wykonanie pierwszego ruchu</item>
+  </plurals>
   <string name="practiceWithComputer">Trening z komputerem</string>
   <string name="anotherWasX">Inna możliwość to %s</string>
   <string name="bestWasX">Najlepsze było %s</string>
@@ -805,6 +820,7 @@
   <string name="whiteWinsGame">Wygrana białych</string>
   <string name="blackWinsGame">Wygrana czarnych</string>
   <string name="learnFromYourMistakes">Ucz się na swoich błędach</string>
+  <string name="learnFromThisMistake">Ucz się na tym błędzie</string>
   <string name="skipThisMove">Pomiń ten ruch</string>
   <string name="next">Następny</string>
   <string name="xWasPlayed">Zagrano %s</string>
@@ -832,4 +848,20 @@
   <string name="opening">Otwarcie</string>
   <string name="middlegame">Gra środkowa</string>
   <string name="endgame">Końcówka</string>
+  <string name="registerToSendChallenges">Zarejestruj się aby móc wysyłać wyzwania.</string>
+  <string name="youCannotChallengeX">Nie możesz wyzwać %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s nie przyjmuje wyzwań.</string>
+  <string name="yourXRatingIsTooFarFromY">Twój ranking (%1$s) jest zbyt odległy od %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nie można rzucić wyzwania ze względu na tymczasowy ranking (%s).</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s akceptuje tylko wyzwania od znajomych.</string>
+  <string name="conditionalPremoves">Ruchy warunkowe</string>
+  <string name="addCurrentVariation">Dodaj bieżący wariant</string>
+  <string name="playVariationToCreateConditionalPremoves">Wykonaj ruch aby utworzyć wariant warunkowy</string>
+  <string name="noConditionalPremoves">Brak ruchów warunkowych</string>
+  <string name="playX">Zagraj %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">i zapisz wariant warunkowy</item>
+    <item quantity="few">i zapisz warianty warunkowe</item>
+    <item quantity="other">i zapisz warianty warunkowe</item>
+  </plurals>
 </resources>

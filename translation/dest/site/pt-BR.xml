@@ -10,7 +10,7 @@
   <string name="yourTurn">Sua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
   <string name="level">Nível</string>
-  <string name="toggleTheChat">Ativar/Desativar o chat</string>
+  <string name="toggleTheChat">Ativar/Desativar chat</string>
   <string name="toggleSound">Ativar/Desativar som</string>
   <string name="chat">Chat</string>
   <string name="resign">Desistir</string>
@@ -56,6 +56,9 @@
   <string name="showThreat">Mostrar ameaça</string>
   <string name="inLocalBrowser">no navegador local</string>
   <string name="toggleLocalEvaluation">Ativar/Desativar análise local</string>
+  <string name="promoteVariation">Promover variante</string>
+  <string name="makeMainLine">Transformar em linha principal</string>
+  <string name="deleteFromHere">Excluir a partir daqui</string>
   <string name="move">Movimentos</string>
   <string name="variantLoss">Derrota por variante</string>
   <string name="variantWin">Vitória por variante</string>
@@ -194,6 +197,7 @@
   <string name="accept">Aceitar</string>
   <string name="decline">Recusar</string>
   <string name="playingRightNow">Jogando agora</string>
+  <string name="eventInProgress">Jogando agora</string>
   <string name="finished">Terminado</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
@@ -202,6 +206,8 @@
   <string name="mode">Modo</string>
   <string name="casual">Amigável</string>
   <string name="rated">Valendo pontos</string>
+  <string name="casualTournament">Casual</string>
+  <string name="ratedTournament">Ranqueado</string>
   <string name="thisGameIsRated">Esta partida vale pontos</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Oferta de revanche enviada</string>
@@ -267,6 +273,10 @@
   <string name="tournament">Torneio</string>
   <string name="tournaments">Torneios</string>
   <string name="tournamentPoints">Pontos de torneios</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s ponto(s) de torneio</item>
+    <item quantity="other">%s ponto(s) de torneio</item>
+  </plurals>
   <string name="viewTournament">Ver torneio</string>
   <string name="backToTournament">Voltar ao torneio</string>
   <string name="thematic">Temático</string>
@@ -761,7 +771,10 @@ em %3$s</string>
   <string name="notifications">Notificações</string>
   <string name="challenges">Desafios</string>
   <string name="perfRatingX">Classificação: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s segundos para fazer o primeiro movimento</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s segundo para fazer o primeiro lance</item>
+    <item quantity="other">%s segundos para fazer o primeiro lance</item>
+  </plurals>
   <string name="practiceWithComputer">Pratique com o computador</string>
   <string name="anotherWasX">Um outro lance seria %s</string>
   <string name="bestWasX">Melhor seria %s</string>
@@ -776,6 +789,7 @@ em %3$s</string>
   <string name="whiteWinsGame">Brancas vencem</string>
   <string name="blackWinsGame">Pretas vencem</string>
   <string name="learnFromYourMistakes">Aprenda com seus erros</string>
+  <string name="learnFromThisMistake">Aprenda com este erro</string>
   <string name="skipThisMove">Ignorar este lance</string>
   <string name="next">Próximo</string>
   <string name="xWasPlayed">%s foi jogado</string>
@@ -802,4 +816,19 @@ em %3$s</string>
   <string name="opening">Abertura</string>
   <string name="middlegame">Meio-jogo</string>
   <string name="endgame">Finais</string>
+  <string name="registerToSendChallenges">Por favor, registre-se para enviar desafios.</string>
+  <string name="youCannotChallengeX">Você não pode desafiar %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s não aceita desafios.</string>
+  <string name="yourXRatingIsTooFarFromY">O seu %1$s rating está muito diferente de %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Não pode desafiar devido ao rating provisório de %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s só aceita desafios de amigos.</string>
+  <string name="conditionalPremoves">Pré-lances condicionais</string>
+  <string name="addCurrentVariation">Adicionar a variação atual</string>
+  <string name="playVariationToCreateConditionalPremoves">Jogar uma variação para criar pré-lances condicionais</string>
+  <string name="noConditionalPremoves">Sem pré-lances condicionais</string>
+  <string name="playX">Jogar %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">e salvar a linha de pré-lance de %s</item>
+    <item quantity="other">e salvar as linhas de pré-lance de %s</item>
+  </plurals>
 </resources>

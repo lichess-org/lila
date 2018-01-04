@@ -3,9 +3,19 @@
 <resources>
   <string name="activity">Aktivita</string>
   <string name="supportedNbMonths">Podporuje lichess.org %1$s mesiacov ako %2$s</string>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Precvičená %1$s pozícia v %2$s</item>
+    <item quantity="few">Precvičené %1$s pozície v %2$s</item>
+    <item quantity="other">Precvičených %1$s pozícii v %2$s</item>
+  </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">%s riešená taktická úloha</item>
-    <item quantity="few">%s riešené taktické úlohy</item>
-    <item quantity="other">%s riešených taktických úloh</item>
+    <item quantity="one">Riešená %s taktická úloha</item>
+    <item quantity="few">Riešené %s taktické úlohy</item>
+    <item quantity="other">Riešených %s taktických úloh</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Odohraná %1$s %2$s partia</item>
+    <item quantity="few">Odohrané %1$s %2$s partie</item>
+    <item quantity="other">Odohraných %1$s %2$s partií</item>
   </plurals>
 </resources>

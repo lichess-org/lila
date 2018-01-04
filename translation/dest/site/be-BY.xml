@@ -203,6 +203,7 @@
   <string name="accept">Прыняць</string>
   <string name="decline">Адхіліць</string>
   <string name="playingRightNow">Цяпер гуляюць</string>
+  <string name="eventInProgress">Цяпер гуляюць</string>
   <string name="finished">Скончана</string>
   <string name="abortGame">Спыніць гульню</string>
   <string name="gameAborted">Гульня спынена</string>
@@ -211,6 +212,8 @@
   <string name="mode">Рэжым</string>
   <string name="casual">Бязрэйтынгавая</string>
   <string name="rated">Рэйтынгавая</string>
+  <string name="casualTournament">Бязрэйтынгавая</string>
+  <string name="ratedTournament">Рэйтынгавая</string>
   <string name="thisGameIsRated">Гульня на рэйтынг</string>
   <string name="rematch">Перагуляць</string>
   <string name="rematchOfferSent">Прапанова перагуляць даслана</string>
@@ -282,6 +285,11 @@
   <string name="tournament">Турнір</string>
   <string name="tournaments">Турніры</string>
   <string name="tournamentPoints">Турнірныя балы</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s турнірнае ачко</item>
+    <item quantity="few">%s турнірныя ачкі</item>
+    <item quantity="other">%s турнірных ачкоў</item>
+  </plurals>
   <string name="viewTournament">Назіраць за турнірам</string>
   <string name="backToTournament">Вярнуцца да турніру</string>
   <string name="thematic">Тэматычны</string>
@@ -792,7 +800,6 @@
   <string name="notifications">Апавяшчэнні</string>
   <string name="challenges">Выклікі</string>
   <string name="perfRatingX">Рэйтынг: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s секундаў, каб зрабіць першы ход</string>
   <string name="practiceWithComputer">Трэнераванне з кампутарам</string>
   <string name="anotherWasX">Таксама можна: %s</string>
   <string name="bestWasX">Лепшы ход: %s</string>

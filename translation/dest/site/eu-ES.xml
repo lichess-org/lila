@@ -56,6 +56,9 @@
   <string name="showThreat">Mehatxua erakutsi</string>
   <string name="inLocalBrowser">nabigatzailean</string>
   <string name="toggleLocalEvaluation">Analisia erakutsi</string>
+  <string name="promoteVariation">Bariantea nagusi egin</string>
+  <string name="makeMainLine">Linea nagusi bihurtu</string>
+  <string name="deleteFromHere">Ezabatu hemendik aurrera</string>
   <string name="move">Jokaldia</string>
   <string name="variantLoss">Galtzeko bidea</string>
   <string name="variantWin">Irabazteko bidea</string>
@@ -194,6 +197,7 @@
   <string name="accept">Onartu</string>
   <string name="decline">Uko egin</string>
   <string name="playingRightNow">Oraintxe jokatzen</string>
+  <string name="eventInProgress">Oraintxe jokatzen</string>
   <string name="finished">Amaituta</string>
   <string name="abortGame">Partida geldiarazi</string>
   <string name="gameAborted">Geldiarazitako partida</string>
@@ -202,6 +206,8 @@
   <string name="mode">Modua</string>
   <string name="casual">Lagunartekoa</string>
   <string name="rated">Sailkapenerako baliogarria</string>
+  <string name="casualTournament">Lagunartekoa</string>
+  <string name="ratedTournament">Sailkapenerako baliogarria</string>
   <string name="thisGameIsRated">Partida honek sailkapen-puntuei eragingo die</string>
   <string name="rematch">Errebantxa</string>
   <string name="rematchOfferSent">Errebantxa eskaria bidalita</string>
@@ -267,6 +273,10 @@
   <string name="tournament">Txapelketa</string>
   <string name="tournaments">Txapelketak</string>
   <string name="tournamentPoints">Txapelketa-puntuak</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">Txapelketa puntu %s</item>
+    <item quantity="other">%s txapelketa puntu</item>
+  </plurals>
   <string name="viewTournament">Txapelketa ikusi</string>
   <string name="backToTournament">Txapelketara itzuli</string>
   <string name="thematic">Hasiera finkoduna</string>
@@ -759,7 +769,10 @@
   <string name="notifications">Jakinarazpenak</string>
   <string name="challenges">Erronkak</string>
   <string name="perfRatingX">Sailkapena: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s segundu lehenengo jokaldia egiteko</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">Segundo %s lehenengo jokaldia egiteko</item>
+    <item quantity="other">%s segundo lehenengo jokaldia egiteko</item>
+  </plurals>
   <string name="practiceWithComputer">Ordenagailuarekin praktikatu</string>
   <string name="anotherWasX">Beste aukera bat %s zen</string>
   <string name="bestWasX">Onena %s zen</string>
@@ -774,6 +787,7 @@
   <string name="whiteWinsGame">Zuriek irabazi</string>
   <string name="blackWinsGame">Beltzek irabazi</string>
   <string name="learnFromYourMistakes">Ikasi zure akatsetatik</string>
+  <string name="learnFromThisMistake">Akats honetatik ikasi</string>
   <string name="skipThisMove">Jokaldi hau alde batera utzi</string>
   <string name="next">Hurrengoa</string>
   <string name="xWasPlayed">%s jokatu zen</string>
@@ -800,4 +814,19 @@
   <string name="opening">Irekiera</string>
   <string name="middlegame">Erdi-jokoa</string>
   <string name="endgame">Finala</string>
+  <string name="registerToSendChallenges">Eman izena erronkak bidaltzeko.</string>
+  <string name="youCannotChallengeX">Ezin diozu %s erabiltzaileri erronka egin.</string>
+  <string name="xDoesNotAcceptChallenges">%s erabiltzaileak ez du erronkarik onartzen.</string>
+  <string name="yourXRatingIsTooFarFromY">Zure %1$s puntuazioa urrunegi dago %2$s-tik.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Ezin duzu erronkarik egin behin-behineko %s puntuazioa duzulako.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s erabiltzaileak bere lagunen erronkak onartzen ditu bakarrik.</string>
+  <string name="conditionalPremoves">Baldintzadun aurrejokaldiak</string>
+  <string name="addCurrentVariation">Uneko bariantea gehitu</string>
+  <string name="playVariationToCreateConditionalPremoves">Bariante bat jokatu baldintzadun aurrejokaldiak sortzeko</string>
+  <string name="noConditionalPremoves">Ez dago baldintzadun aurrejokaldirik</string>
+  <string name="playX">%s jokatu</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">eta aurrejokaldi linea %s gorde</item>
+    <item quantity="other">eta %s aurrejokaldi linea gorde</item>
+  </plurals>
 </resources>

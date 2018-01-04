@@ -56,6 +56,8 @@
   <string name="showThreat">Tehdidi göster</string>
   <string name="inLocalBrowser">yerel tarayıcı üzerinde</string>
   <string name="toggleLocalEvaluation">Yerel analizi aç/kapat</string>
+  <string name="makeMainLine">Ana devam yolu yap</string>
+  <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
   <string name="move">Hamle</string>
   <string name="variantLoss">Kayıp devam yolu</string>
   <string name="variantWin">Kazanç devam yolu</string>
@@ -105,6 +107,7 @@
   <string name="removesTheDepthLimit">Derinlik sınırını kaldırır ve bilgisayarınızı sıcacık tutar</string>
   <string name="blunder">Vahim hata</string>
   <string name="blunders">Vahim hatalar</string>
+  <string name="mistake">Hata</string>
   <string name="mistakes">Hatalar</string>
   <string name="inaccuracies">Kusurlu hamleler</string>
   <string name="moveTimes">Hamle zamanları</string>
@@ -192,6 +195,7 @@
   <string name="accept">Kabul et</string>
   <string name="decline">Reddet</string>
   <string name="playingRightNow">Şu an oynanıyor</string>
+  <string name="eventInProgress">Şu an oynanıyor</string>
   <string name="finished">Bitti</string>
   <string name="abortGame">Oyunu iptal et</string>
   <string name="gameAborted">Oyun iptal edildi</string>
@@ -757,6 +761,29 @@
   <string name="notifications">Bildirimler</string>
   <string name="challenges">Meydan okumalar</string>
   <string name="perfRatingX">Puan: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s saniye içerisinde hamle yapın</string>
   <string name="practiceWithComputer">Bilgisayar ile pratik yapmak</string>
+  <string name="theGameIsADraw">Beraberlik.</string>
+  <string name="seeBestMove">En iyi hamleye bak</string>
+  <string name="hideBestMove">En iyi hamleyi gizle</string>
+  <string name="getAHint">İpucu</string>
+  <string name="whiteWinsGame">Beyaz kazandı</string>
+  <string name="blackWinsGame">Siyah kazandı</string>
+  <string name="learnFromYourMistakes">Hatalarından ders al</string>
+  <string name="learnFromThisMistake">Hatalarından ders al</string>
+  <string name="skipThisMove">Bu hamleyi geç</string>
+  <string name="next">Sonraki</string>
+  <string name="findBetterMoveForWhite">Beyaz için en iyi hamleyi bulun</string>
+  <string name="findBetterMoveForBlack">Siyah için en iyi hamleyi bulun</string>
+  <string name="youCanDoBetter">Daha iyisini yapabilirsin</string>
+  <string name="solution">Çözüm</string>
+  <string name="reviewWhiteMistakes">Beyazın hatalarını gözden geçirin</string>
+  <string name="reviewBlackMistakes">Siyahın hatalarını gözden geçirin</string>
+  <string name="advantage">Avantaj</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s saniye</item>
+    <item quantity="other">%s saniye</item>
+  </plurals>
+  <string name="opening">Açılış</string>
+  <string name="middlegame">Oyunortası</string>
+  <string name="endgame">Oyunsonu</string>
 </resources>

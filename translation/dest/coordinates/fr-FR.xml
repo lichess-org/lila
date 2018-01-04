@@ -6,8 +6,8 @@
   <string name="averageScoreAsWhiteX">Moyenne blanc : %s</string>
   <string name="averageScoreAsBlackX">Moyenne noir : %s</string>
   <string name="knowingTheChessBoard">Connaitre les coordonnées des cases d\'un échiquier est une compétence clé :</string>
-  <string name="mostChessCourses">La plupart des cours d’échecs et des exercices utilisent largement la notation algébrique.</string>
-  <string name="talkToYourChessFriends">Cela permet de faciliter la communication avec vos amis, puisque vous pouvez tout les deux comprendre \"la langue des échecs\".</string>
+  <string name="mostChessCourses">La plupart des cours d’échecs et des exercices utilisent la notation algébrique.</string>
+  <string name="talkToYourChessFriends">Cela facilite la communication avec vos amis, puisque vous comprenez tous les deux \"la langue des échecs\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">L\'analyse des parties est facilité si vous visualisez l\'emplacement des cases.</string>
   <string name="aSquareNameAppears">Les coordonnées d\'une case apparaissent sur l\'échiquier, à vous de cliquer sur son emplacement correct. Vous avez 30 secondes pour trouver un maximum de cases possibles !</string>
   <string name="startTraining">Démarrer l\'entrainement</string>

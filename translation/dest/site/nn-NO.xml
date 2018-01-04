@@ -56,6 +56,9 @@
   <string name="showThreat">Vis trussel</string>
   <string name="inLocalBrowser">i lokal nettlesar</string>
   <string name="toggleLocalEvaluation">Lokal analyse av/på</string>
+  <string name="promoteVariation">Forfremjingsvariant</string>
+  <string name="makeMainLine">Gjer til hovudline</string>
+  <string name="deleteFromHere">Slett herifrå</string>
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
   <string name="variantWin">Variant siger</string>
@@ -194,6 +197,7 @@
   <string name="accept">Godta</string>
   <string name="decline">Avslå</string>
   <string name="playingRightNow">Spelast nett no</string>
+  <string name="eventInProgress">Spelast nett no</string>
   <string name="finished">Slutt</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet blei avbrote</string>
@@ -202,6 +206,8 @@
   <string name="mode">Modus</string>
   <string name="casual">Ikkje rangert</string>
   <string name="rated">Rangert</string>
+  <string name="casualTournament">Ikkje rangert</string>
+  <string name="ratedTournament">Rangert</string>
   <string name="thisGameIsRated">Dette partiet er rangert</string>
   <string name="rematch">Omkamp</string>
   <string name="rematchOfferSent">Tilbod om omkamp sendt</string>
@@ -267,6 +273,10 @@
   <string name="tournament">Turnering</string>
   <string name="tournaments">Turneringar</string>
   <string name="tournamentPoints">Turneringspoeng</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turneringspoeng</item>
+    <item quantity="other">%s turneringspoeng</item>
+  </plurals>
   <string name="viewTournament">Vis turnering</string>
   <string name="backToTournament">Tilbake til turneringa</string>
   <string name="thematic">Tematisk</string>
@@ -659,7 +669,7 @@ i %3$s</string>
   <string name="keyEnterOrExitVariation">gå inn i/gå ut av varianten</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturnering med varierande tid og sjakkvariantar</string>
-  <string name="tournamentHomeDescription">Spel fartsfylde sjakkturneringar! Delta i offisielle, faste turneringar eller lag dine eigne. Lynsjakk, hurtigsjakk, og andre variantar er tilgjengeleg for endelaus sjakkunderhaldning.</string>
+  <string name="tournamentHomeDescription">Spel fartsfylde sjakkturneringar! Delta i offisielle, planlagde turneringar eller lag dine eigne. Lynsjakk, snøggsjakk, og andre variantar er tilgjengeleg for endelaus sjakkmoro.</string>
   <string name="tournamentNotFound">Kan ikke finne turneringa</string>
   <string name="tournamentDoesNotExist">Denna turneringa finst ikkje.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blitt avbroten om alle spelarane trakk seg før turneringa starta.</string>
@@ -727,7 +737,7 @@ i %3$s</string>
   <string name="xHostsY">%1$s er vert for %2$s</string>
   <string name="xJoinsY">%1$s tar del i %2$s</string>
   <string name="xLikesY">%1$s liker %2$s</string>
-  <string name="quickPairing">Hurtig samankopling</string>
+  <string name="quickPairing">Snøgt parti</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
   <string name="yourScore">Din poengsum: %s</string>
@@ -761,7 +771,10 @@ i %3$s</string>
   <string name="notifications">Meldingar</string>
   <string name="challenges">Utfordringar</string>
   <string name="perfRatingX">Rating: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s sekund til første trekk må takast</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekund til å ta det første trekket</item>
+    <item quantity="other">%s sekund til å ta det første trekket</item>
+  </plurals>
   <string name="practiceWithComputer">Øv med computer</string>
   <string name="anotherWasX">Eit anna var %s</string>
   <string name="bestWasX">Best var %s</string>
@@ -776,6 +789,7 @@ i %3$s</string>
   <string name="whiteWinsGame">Kvit vinn</string>
   <string name="blackWinsGame">Svart vinn</string>
   <string name="learnFromYourMistakes">Lær av feila dine</string>
+  <string name="learnFromThisMistake">Lær av dette mistaket</string>
   <string name="skipThisMove">Hopp over dette trekket</string>
   <string name="next">Neste</string>
   <string name="xWasPlayed">%s vart spela</string>
@@ -802,4 +816,19 @@ i %3$s</string>
   <string name="opening">Opning</string>
   <string name="middlegame">Midtspel</string>
   <string name="endgame">Sluttspel</string>
+  <string name="registerToSendChallenges">Opprett ein konto om du vil utforde andre.</string>
+  <string name="youCannotChallengeX">Du kan ikkje utfordre %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s tek ikkje i mot utfordringar.</string>
+  <string name="yourXRatingIsTooFarFromY">Din %1$s rating er for langt frå %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan ikkje utfordre på grunn av mellombels %s rating.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s tek berre mot utfordringar frå vener.</string>
+  <string name="conditionalPremoves">Vilkårsbundne førehandstrekk</string>
+  <string name="addCurrentVariation">Legg til gjeldande variant</string>
+  <string name="playVariationToCreateConditionalPremoves">Spel ein variant for å lage vilkårsbundne førehandstrekk</string>
+  <string name="noConditionalPremoves">Ingen vilkårsbundne førehandstrekk</string>
+  <string name="playX">Spel %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">og lagra %s line med førehandstrekk</item>
+    <item quantity="other">og lagra %s liner med førehandstrekk</item>
+  </plurals>
 </resources>

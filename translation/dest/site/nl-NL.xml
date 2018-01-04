@@ -173,7 +173,7 @@
   <string name="rankIsUpdatedEveryXMinutes">Positie wordt elke %s minuten bijgewerkt</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzzle</item>
-    <item quantity="other">%s puzzel</item>
+    <item quantity="other">%s puzzels</item>
   </plurals>
   <string name="gamesPlayed">Gespeelde partijen</string>
   <plurals name="nbGamesWithYou">
@@ -759,7 +759,6 @@
   <string name="notifications">Meldingen</string>
   <string name="challenges">Uitdagingen</string>
   <string name="perfRatingX">Rating: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s seconden om eerste zet te spelen</string>
   <string name="practiceWithComputer">Oefen met de computer</string>
   <string name="anotherWasX">Een andere mogelijkheid was %s</string>
   <string name="bestWasX">De beste zet was %s</string>

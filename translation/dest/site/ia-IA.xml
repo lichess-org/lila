@@ -762,7 +762,6 @@ in %3$s</string>
   <string name="notifications">Notificationes</string>
   <string name="challenges">Defias</string>
   <string name="perfRatingX">Classification: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s secundas pro facer le prime movimento</string>
   <string name="theGameIsADraw">Le partita es nulle.</string>
   <string name="learnFromYourMistakes">Apprende ab tu errores</string>
   <string name="next">Sequente</string>

@@ -761,7 +761,6 @@ in %3$s</string>
   <string name="notifications">Notifications</string>
   <string name="challenges">Challenges</string>
   <string name="perfRatingX">Rating: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s seconds to play the first move</string>
   <string name="practiceWithComputer">Practice with computer</string>
   <string name="anotherWasX">Another was %s</string>
   <string name="bestWasX">Best was %s</string>

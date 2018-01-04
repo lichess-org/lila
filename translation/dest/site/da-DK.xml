@@ -56,6 +56,9 @@
   <string name="showThreat">Vis trussel</string>
   <string name="inLocalBrowser">i din egen browser</string>
   <string name="toggleLocalEvaluation">Skift til lokal evaluering</string>
+  <string name="promoteVariation">Forfremmelsesvariation</string>
+  <string name="makeMainLine">Gør til hovedlinjen</string>
+  <string name="deleteFromHere">Slet herfra</string>
   <string name="move">Træk</string>
   <string name="variantLoss">Variant tab</string>
   <string name="variantWin">Gevinst</string>
@@ -76,6 +79,10 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat i %s halv-træk</item>
     <item quantity="other">Mat i %s halv-træk</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Næste vundet brik eller bondetræk i %s halvtræk (Afstand for at nulstille 50-træks-tæller)</item>
+    <item quantity="other">Næste vundet brik eller bondetræk i %s halvtræk (Afstand for at nulstille 50-træks-tæller)</item>
   </plurals>
   <string name="noGameFound">Ingen spil fundet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Inkluder måske flere partier fra præferencemenuen?</string>
@@ -167,6 +174,10 @@
   <string name="rank">Rang</string>
   <string name="rankX">Rang: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Rang opdateres hvert %s minut</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s taktikøvelse</item>
+    <item quantity="other">%s taktikøvelser</item>
+  </plurals>
   <string name="gamesPlayed">Antal partier spillet</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s parti med dig</item>
@@ -186,6 +197,7 @@
   <string name="accept">Accepter</string>
   <string name="decline">Afslå</string>
   <string name="playingRightNow">Spilles lige nu</string>
+  <string name="eventInProgress">Spilles lige nu</string>
   <string name="finished">Afsluttet</string>
   <string name="abortGame">Afbryd parti</string>
   <string name="gameAborted">Partiet blev afbrudt</string>
@@ -194,6 +206,8 @@
   <string name="mode">Variant</string>
   <string name="casual">Uforpligtende</string>
   <string name="rated">Ratet</string>
+  <string name="casualTournament">Uforpligtende</string>
+  <string name="ratedTournament">Ratet</string>
   <string name="thisGameIsRated">Dette parti er ratet</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Tilbud om revanche sendt</string>
@@ -216,6 +230,10 @@
   <string name="incrementInSeconds">Tillæg i sekunder</string>
   <string name="freeOnlineChess">Gratis Online-skak</string>
   <string name="spectators">Tilskuere:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s ratet</item>
+    <item quantity="other">%s ratede</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s sejr</item>
     <item quantity="other">%s sejre</item>
@@ -227,6 +245,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s remis</item>
     <item quantity="other">%s remiser</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s spil i gang</item>
+    <item quantity="other">%s spil i gang</item>
   </plurals>
   <string name="exportGames">Eksporter spil</string>
   <string name="ratingRange">Rating-interval</string>
@@ -251,9 +273,29 @@
   <string name="tournament">Turnering</string>
   <string name="tournaments">Turneringer</string>
   <string name="tournamentPoints">Turneringspoint</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turneringspoint</item>
+    <item quantity="other">%s turneringspoint</item>
+  </plurals>
   <string name="viewTournament">Se turneringen</string>
   <string name="backToTournament">Tilbage til turneringen</string>
   <string name="thematic">Tematisk</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s ratet parti</item>
+    <item quantity="other">≥ %s ratede partier</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s ratet %2$s parti</item>
+    <item quantity="other">≥ %1$s ratede %2$s partier</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Du er nødt til at spille %1$s ratet %2$s parti mere</item>
+    <item quantity="other">Du er nødt til at spille %1$s ratede %2$s partier mere</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Du er nødt til at spille %s ratet parti mere</item>
+    <item quantity="other">Du er nødt til at spille %s ratede partier mere</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">Din %s rating er foreløbig</string>
   <string name="yourPerfRatingIsTooHigh">Din %1$s rating (%2$s) er for høj</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ugentlige %1$s toprating (%2$s) er for høj</string>
@@ -727,7 +769,10 @@
   <string name="notifications">Meddelelser</string>
   <string name="challenges">Udfordringer</string>
   <string name="perfRatingX">Rating: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s sekunder til at lave det første træk</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekund til at lave det første træk</item>
+    <item quantity="other">%s sekunder til at lave det første træk</item>
+  </plurals>
   <string name="practiceWithComputer">Træn med computer</string>
   <string name="anotherWasX">Et andet var %s</string>
   <string name="bestWasX">Bedste var %s</string>
@@ -742,6 +787,7 @@
   <string name="whiteWinsGame">Hvid vinder</string>
   <string name="blackWinsGame">Sort vinder</string>
   <string name="learnFromYourMistakes">Lær af dine fejl</string>
+  <string name="learnFromThisMistake">Lær af denne fejl</string>
   <string name="skipThisMove">Spring dette træk over</string>
   <string name="next">Næste</string>
   <string name="xWasPlayed">%s blev spillet</string>
@@ -761,7 +807,26 @@
   <string name="reviewWhiteMistakes">Gennemgå hvide fejl</string>
   <string name="reviewBlackMistakes">Gennemgå sorte fejl</string>
   <string name="advantage">Fordel</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekund</item>
+    <item quantity="other">%s sekunder</item>
+  </plurals>
   <string name="opening">Åbningsspil</string>
   <string name="middlegame">Midtspil</string>
   <string name="endgame">Slutspil</string>
+  <string name="registerToSendChallenges">Opret konto for at sende udfordringer.</string>
+  <string name="youCannotChallengeX">Du kan ikke udfordre %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s accepterer ikke udfordringer.</string>
+  <string name="yourXRatingIsTooFarFromY">Din %1$s rating er for langt fra %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan ikke udfordre på grund af midlertidig %s rating.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s accepterer kun udfordringer fra venner.</string>
+  <string name="conditionalPremoves">Betingede forhåndstræk</string>
+  <string name="addCurrentVariation">Tilføj nuværende variation</string>
+  <string name="playVariationToCreateConditionalPremoves">Spil en variation for at lave betingede forhåndstræk</string>
+  <string name="noConditionalPremoves">Ingen betingede forhåndstræk</string>
+  <string name="playX">Spil %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">og gem %s serie af forhåndstræk</item>
+    <item quantity="other">og gem %s serier af forhåndstræk</item>
+  </plurals>
 </resources>

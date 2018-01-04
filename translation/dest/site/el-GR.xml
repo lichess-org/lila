@@ -56,6 +56,7 @@
   <string name="showThreat">Εμφάνιση απειλής</string>
   <string name="inLocalBrowser">σε τοπικό περιηγητή</string>
   <string name="toggleLocalEvaluation">Εναλλαγή τοπικής αξιολόγησης</string>
+  <string name="deleteFromHere">Διαγραφή</string>
   <string name="move">Κίνηση</string>
   <string name="variantLoss">Ήττα εκδοχής</string>
   <string name="variantWin">Νίκη εκδοχής</string>
@@ -194,6 +195,7 @@
   <string name="accept">Αποδοχή</string>
   <string name="decline">Άρνηση</string>
   <string name="playingRightNow">Παιχνίδια σε εξέλιξη τώρα</string>
+  <string name="eventInProgress">Παιχνίδια σε εξέλιξη τώρα</string>
   <string name="finished">Ολοκληρωμένα</string>
   <string name="abortGame">Εγκαταλείψτε το παιχνίδι</string>
   <string name="gameAborted">Παιχνίδι εγκατελήφθη</string>
@@ -202,6 +204,8 @@
   <string name="mode">Ρύθμιση</string>
   <string name="casual">Φιλικό</string>
   <string name="rated">Βαθμολογημένο</string>
+  <string name="casualTournament">Φιλικό</string>
+  <string name="ratedTournament">Βαθμολογημένo</string>
   <string name="thisGameIsRated">Το παιχνίδι βαθμολογείται</string>
   <string name="rematch">Ξαναπαίξτε</string>
   <string name="rematchOfferSent">Πρόταση επανάληψης εστάλη</string>
@@ -760,7 +764,6 @@
   <string name="notifications">Ειδοποιήσεις</string>
   <string name="challenges">Προκλήσεις</string>
   <string name="perfRatingX">Βαθμολογία: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s δευτερόλεπτα για να παιχτεί η πρώτη κίνηση</string>
   <string name="anotherWasX">Εναλλακτική ήταν %s</string>
   <string name="bestWasX">Το καλύτερο ήταν %s</string>
   <string name="resumePractice">Συνεχίσετε την πρακτική</string>
@@ -769,7 +772,15 @@
   <string name="seeBestMove">Δείτε την καλύτερη κίνηση</string>
   <string name="hideBestMove">Απόκρυψη καλύτερης κίνησης</string>
   <string name="blackWinsGame">Τα μαύρα νικούν</string>
+  <string name="learnFromYourMistakes">Μάθετε από τα λάθη σας</string>
+  <string name="findBetterMoveForWhite">Βρες μια καλύτερη κίνηση για τα λευκά</string>
+  <string name="findBetterMoveForBlack">Βρες μια καλύτερη κίνηση για τα μαύρα</string>
   <string name="solution">Λύση</string>
   <string name="noMistakesFoundForWhite">Δεν βρέθηκαν λάθη για τα λευκά</string>
   <string name="noMistakesFoundForBlack">Δεν βρέθηκαν λάθη για τα μαύρα</string>
+  <string name="advantage">Πλεονέκτημα</string>
+  <string name="opening">Άνοιγμα</string>
+  <string name="endgame">Φινάλε</string>
+  <string name="registerToSendChallenges">Παρακαλώ εγγραφείτε για να στείλετε προκλήσεις.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%σ δέχεται προκλήσεις μόνο από φίλους.</string>
 </resources>

@@ -56,6 +56,9 @@
   <string name="showThreat">Vis trussel</string>
   <string name="inLocalBrowser">i nettleser</string>
   <string name="toggleLocalEvaluation">Lokal evaluering</string>
+  <string name="promoteVariation">Forfremmingsvariant</string>
+  <string name="makeMainLine">Gjør til hovedlinje</string>
+  <string name="deleteFromHere">Slett herfra</string>
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
   <string name="variantWin">Variant seier</string>
@@ -194,6 +197,7 @@
   <string name="accept">Godta</string>
   <string name="decline">Avslå</string>
   <string name="playingRightNow">Spiller nå</string>
+  <string name="eventInProgress">Spiller nå</string>
   <string name="finished">Ferdig</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet er avbrutt</string>
@@ -202,6 +206,8 @@
   <string name="mode">Modus</string>
   <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
+  <string name="casualTournament">Urangert</string>
+  <string name="ratedTournament">Rangert</string>
   <string name="thisGameIsRated">Dette partiet er rangert</string>
   <string name="rematch">Omkamp</string>
   <string name="rematchOfferSent">Tilbud om omkamp sendt</string>
@@ -267,6 +273,10 @@
   <string name="tournament">Turnering</string>
   <string name="tournaments">Turneringer</string>
   <string name="tournamentPoints">Turneringspoeng</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turneringspoeng</item>
+    <item quantity="other">%s turneringspoeng</item>
+  </plurals>
   <string name="viewTournament">Vis turnering</string>
   <string name="backToTournament">Tilbake til turneringen</string>
   <string name="thematic">Tematisk</string>
@@ -761,7 +771,10 @@ i %3$s</string>
   <string name="notifications">Varsler</string>
   <string name="challenges">Utfordringer</string>
   <string name="perfRatingX">Rating: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s til første trekk må tas</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekund til å ta det første trekket</item>
+    <item quantity="other">%s sekunder til å ta det første trekket</item>
+  </plurals>
   <string name="practiceWithComputer">Øv med computer</string>
   <string name="anotherWasX">Et annet var %s</string>
   <string name="bestWasX">Best var %s</string>
@@ -776,6 +789,7 @@ i %3$s</string>
   <string name="whiteWinsGame">Hvit vinner</string>
   <string name="blackWinsGame">Svart vinner</string>
   <string name="learnFromYourMistakes">Lær av dine feil</string>
+  <string name="learnFromThisMistake">Lær av denne feilen</string>
   <string name="skipThisMove">Hopp over dette trekket</string>
   <string name="next">Neste</string>
   <string name="xWasPlayed">%s ble spilt</string>
@@ -802,4 +816,19 @@ i %3$s</string>
   <string name="opening">Åpning</string>
   <string name="middlegame">Midtspill</string>
   <string name="endgame">Sluttspill</string>
+  <string name="registerToSendChallenges">Opprett en konto om du vil utforde andre.</string>
+  <string name="youCannotChallengeX">Du kan ikke utfordre %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s aksepterer ikke utfordringer.</string>
+  <string name="yourXRatingIsTooFarFromY">Din %1$s rating er for langt fra %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan ikke utfordre på grunn av midlertidig %s rating.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s aksepterer kun utfordringer fra venner.</string>
+  <string name="conditionalPremoves">Betingede forhåndstrekk</string>
+  <string name="addCurrentVariation">Føy til gjeldende variant</string>
+  <string name="playVariationToCreateConditionalPremoves">Spill en variant for å lage betingede forhåndstrekk</string>
+  <string name="noConditionalPremoves">Ingen betingede forhåndstrekk</string>
+  <string name="playX">Spill %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">og lagre %s linje med forhåndstrekk</item>
+    <item quantity="other">og lagre %s linjer med forhåndstrekk</item>
+  </plurals>
 </resources>

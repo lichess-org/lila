@@ -791,7 +791,6 @@
   <string name="notifications">Notificări</string>
   <string name="challenges">Provocări</string>
   <string name="perfRatingX">Rating: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">Ai %s secunde să faci prima mutare</string>
   <string name="practiceWithComputer">Joacă cu computer-ul</string>
   <string name="anotherWasX">Altă mutare bună este: %s</string>
   <string name="bestWasX">Cea mai bună mutare este: %s</string>

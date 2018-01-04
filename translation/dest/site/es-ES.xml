@@ -56,6 +56,7 @@
   <string name="showThreat">Mostrar amenaza</string>
   <string name="inLocalBrowser">en el navegador local</string>
   <string name="toggleLocalEvaluation">Evaluación local</string>
+  <string name="deleteFromHere">Borrar a partir de aquí</string>
   <string name="move">Movimiento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante ganadora</string>
@@ -194,6 +195,7 @@
   <string name="accept">Aceptar</string>
   <string name="decline">Rechazar</string>
   <string name="playingRightNow">Jugando ahora</string>
+  <string name="eventInProgress">Se está jugando ahora</string>
   <string name="finished">Terminado</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
@@ -202,6 +204,8 @@
   <string name="mode">Modo</string>
   <string name="casual">Amistosa</string>
   <string name="rated">Por puntos</string>
+  <string name="casualTournament">Amistoso</string>
+  <string name="ratedTournament">Por puntos</string>
   <string name="thisGameIsRated">Esta partida es por puntos</string>
   <string name="rematch">Revancha</string>
   <string name="rematchOfferSent">Oferta de revancha enviada</string>
@@ -267,6 +271,10 @@
   <string name="tournament">Torneo</string>
   <string name="tournaments">Torneos</string>
   <string name="tournamentPoints">Puntos de torneo</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s punto de torneo</item>
+    <item quantity="other">%s puntos de torneo</item>
+  </plurals>
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Volver al torneo</string>
   <string name="thematic">Temático</string>
@@ -508,7 +516,7 @@
   <string name="newPassword">Nueva contraseña</string>
   <string name="newPasswordAgain">Nueva contraseña (otra vez)</string>
   <string name="boardHighlights">Destacar casillas del tablero (último movimiento y jaque)</string>
-  <string name="pieceDestinations">Destino de las piezas (movimientos válidos y movimientos anticipados)</string>
+  <string name="pieceDestinations">Destino de las piezas (movimientos válidos y anticipados)</string>
   <string name="boardCoordinates">Coordenadas del tablero (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista de movimientos de la partida</string>
   <string name="pgnPieceNotation">Notación de los movimientos</string>
@@ -557,7 +565,7 @@
   <string name="victory">¡Victoria!</string>
   <string name="defeat">Derrota</string>
   <string name="xVsYinZ">%1$s contra %2$s en %3$s</string>
-  <string name="timeline">Línea de tiempo</string>
+  <string name="timeline">Orden cronológico</string>
   <string name="seeAllTournaments">Ver todos los torneos</string>
   <string name="starting">Comienzo:</string>
   <string name="allInformationIsPublicAndOptional">Toda la información es pública y opcional.</string>
@@ -759,7 +767,10 @@
   <string name="notifications">Notificaciones</string>
   <string name="challenges">Desafíos</string>
   <string name="perfRatingX">Puntuación: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s segundos para realizar el primer movimiento</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s segundo para hacer el primer movimiento</item>
+    <item quantity="other">%s segundos para hacer el primer movimiento</item>
+  </plurals>
   <string name="practiceWithComputer">Practicar con el ordenador</string>
   <string name="anotherWasX">Otro era %s</string>
   <string name="bestWasX">El mejor era %s</string>
@@ -774,6 +785,7 @@
   <string name="whiteWinsGame">Ganan las blancas</string>
   <string name="blackWinsGame">Ganan las negras</string>
   <string name="learnFromYourMistakes">Aprende de tus errores</string>
+  <string name="learnFromThisMistake">Aprende de este error</string>
   <string name="skipThisMove">Omitir este movimiento</string>
   <string name="next">Siguiente</string>
   <string name="xWasPlayed">se jugó %s</string>
@@ -800,4 +812,11 @@
   <string name="opening">Apertura</string>
   <string name="middlegame">Medio juego</string>
   <string name="endgame">Final</string>
+  <string name="registerToSendChallenges">Regístrate para desafiar a otros.</string>
+  <string name="youCannotChallengeX">No puedes desafiar a %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s no acepta desafíos.</string>
+  <string name="yourXRatingIsTooFarFromY">Tu puntuación de %1$s está demasiado lejos de la de %2$s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s sólo acepta desafíos de sus amigos.</string>
+  <string name="addCurrentVariation">Añadir la variante actual</string>
+  <string name="playX">Jugar %s</string>
 </resources>

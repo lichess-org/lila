@@ -194,6 +194,7 @@
   <string name="accept">Acceptera</string>
   <string name="decline">Avböj</string>
   <string name="playingRightNow">Spelas just nu</string>
+  <string name="eventInProgress">Spelas just nu</string>
   <string name="finished">Avslutade</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet avbröts</string>
@@ -202,6 +203,8 @@
   <string name="mode">Typ</string>
   <string name="casual">Ej rankat</string>
   <string name="rated">Rankat</string>
+  <string name="casualTournament">Ej rankat</string>
+  <string name="ratedTournament">Rankat</string>
   <string name="thisGameIsRated">Detta parti är rankat</string>
   <string name="rematch">Returmatch</string>
   <string name="rematchOfferSent">Förslag om returmatch skickat</string>
@@ -267,6 +270,10 @@
   <string name="tournament">Turnering</string>
   <string name="tournaments">Turneringar</string>
   <string name="tournamentPoints">Turneringspoäng</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turneringspoäng</item>
+    <item quantity="other">%s turneringspoäng</item>
+  </plurals>
   <string name="viewTournament">Visa turnering</string>
   <string name="backToTournament">Tillbaka till turnering</string>
   <string name="thematic">Tema</string>
@@ -759,7 +766,6 @@
   <string name="notifications">Notifikationer</string>
   <string name="challenges">Utmaningar</string>
   <string name="perfRatingX">Rating: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s sekunder att göra första draget</string>
   <string name="practiceWithComputer">Öva med datormotståndare</string>
   <string name="anotherWasX">Ett alternativt bra drag var %s</string>
   <string name="bestWasX">Bästa draget var %s</string>

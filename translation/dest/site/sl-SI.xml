@@ -822,7 +822,6 @@ v %3$s</string>
   <string name="notifications">Obvestila</string>
   <string name="challenges">Izzivi</string>
   <string name="perfRatingX">Rating: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s sekund časa za prvo potezo</string>
   <string name="practiceWithComputer">Vadi z računalnikom</string>
   <string name="anotherWasX">Drugi/a je bil/a %s</string>
   <string name="bestWasX">Najboljši/a je bil/a %s</string>

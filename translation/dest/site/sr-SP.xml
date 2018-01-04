@@ -27,7 +27,7 @@
   <string name="raceFinished">Трка је завршена</string>
   <string name="variantEnding">Крај варијацијом</string>
   <string name="newOpponent">Нови противник</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Твој противник жели да игра још једну партију са тобом</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Твој противник жели да игра нову партију са тобом</string>
   <string name="joinTheGame">Придружи се партији</string>
   <string name="whitePlays">Бели је на потезу</string>
   <string name="blackPlays">Црни је на потезу</string>
@@ -44,7 +44,7 @@
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Подели овај линк како би посматрачи могли да гледају партију</string>
   <string name="theComputerAnalysisHasFailed">Рачунарска анализа није успела</string>
   <string name="viewTheComputerAnalysis">Погледај рачунарску анализу</string>
-  <string name="requestAComputerAnalysis">Затражи рачунарску анализу</string>
+  <string name="requestAComputerAnalysis">Тражи рачунарску анализу</string>
   <string name="computerAnalysis">Компјутерска анализа</string>
   <string name="computerAnalysisAvailable">Рачунарска анализа је доступна</string>
   <string name="analysis">Табла за анализирање</string>
@@ -56,6 +56,9 @@
   <string name="showThreat">Прикажи претњу</string>
   <string name="inLocalBrowser">у локалном прегледачу</string>
   <string name="toggleLocalEvaluation">Укључи/искључи локалну процену</string>
+  <string name="promoteVariation">Промовишите варијацију</string>
+  <string name="makeMainLine">Направи као главну линију</string>
+  <string name="deleteFromHere">Избриши одавде</string>
   <string name="move">Потез</string>
   <string name="variantLoss">Губитак из варијанте</string>
   <string name="variantWin">Победа из варијанте</string>
@@ -203,6 +206,7 @@
   <string name="accept">Прихвати</string>
   <string name="decline">Одбиј</string>
   <string name="playingRightNow">Управо игра</string>
+  <string name="eventInProgress">Управо игра</string>
   <string name="finished">Завршен</string>
   <string name="abortGame">Прекините партију</string>
   <string name="gameAborted">Партија прекинута</string>
@@ -211,6 +215,8 @@
   <string name="mode">Начин</string>
   <string name="casual">Неформална</string>
   <string name="rated">Рангирана</string>
+  <string name="casualTournament">Неформално</string>
+  <string name="ratedTournament">Рангирано</string>
   <string name="thisGameIsRated">Ова партија се рангира</string>
   <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Понуда за реванш је послата</string>
@@ -282,6 +288,11 @@
   <string name="tournament">Tурнир</string>
   <string name="tournaments">Турнири</string>
   <string name="tournamentPoints">Поени на такмичењима</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s турнирски поен</item>
+    <item quantity="few">%s турнирска поена</item>
+    <item quantity="other">%s турнирских поена</item>
+  </plurals>
   <string name="viewTournament">Погледај турнир</string>
   <string name="backToTournament">Повратак у турнир</string>
   <string name="thematic">Тематски</string>
@@ -791,7 +802,11 @@
   <string name="notifications">Обавештења</string>
   <string name="challenges">Изазови</string>
   <string name="perfRatingX">Рејтинг: %s</string>
-  <string name="xSecondsToPlayTheFirstMove">%s секунди да одиграте први потез</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s секунд да одиграте први потез</item>
+    <item quantity="few">%s секунде да одиграте први потез</item>
+    <item quantity="other">%s секунди да одиграте први потез</item>
+  </plurals>
   <string name="practiceWithComputer">Тренирај са компјутером</string>
   <string name="anotherWasX">Још једно је %s</string>
   <string name="bestWasX">Најбољи је %s</string>
@@ -806,6 +821,7 @@
   <string name="whiteWinsGame">Бели је победио</string>
   <string name="blackWinsGame">Црни је победио</string>
   <string name="learnFromYourMistakes">Научите из грешака</string>
+  <string name="learnFromThisMistake">Научите из ове грешке</string>
   <string name="skipThisMove">Прескочите овај потез</string>
   <string name="next">Следеће</string>
   <string name="xWasPlayed">%s је одиграно</string>
@@ -833,4 +849,20 @@
   <string name="opening">Отварање</string>
   <string name="middlegame">Средишњица</string>
   <string name="endgame">Завршница</string>
+  <string name="registerToSendChallenges">Молимо вас да се региструјете како би послали изазове.</string>
+  <string name="youCannotChallengeX">Не можете да изазовете %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s не прихвата изазове.</string>
+  <string name="yourXRatingIsTooFarFromY">Ваш рејтинг %1$s, је превише далеко од %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Не можете изазвати јер вам је рејтинг %s привремен.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s прихвата само изазове од пријатеља.</string>
+  <string name="conditionalPremoves">Условни пре-потези</string>
+  <string name="addCurrentVariation">Додајте тренутну варијацију</string>
+  <string name="playVariationToCreateConditionalPremoves">Играјте варијацију да направите условне пре-потезе</string>
+  <string name="noConditionalPremoves">Нема условних пре-потеза</string>
+  <string name="playX">Играј %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">и сачувај %s пре-потезну линију</item>
+    <item quantity="few">и сачувај %s пре-потезне линије</item>
+    <item quantity="other">и сачувај %s пре-потезних линија</item>
+  </plurals>
 </resources>

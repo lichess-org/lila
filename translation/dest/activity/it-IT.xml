@@ -28,12 +28,12 @@
     <item quantity="other">%s partite per corrispondenza</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Seguito da %s giocatore</item>
-    <item quantity="other">Seguito da %s giocatori</item>
+    <item quantity="one">Ha iniziato a seguire %s giocatore</item>
+    <item quantity="other">Ha iniziato a seguire %s giocatori</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Nuovo follower guadagnato %s</item>
-    <item quantity="other">Nuovi follower guadagnati %s</item>
+    <item quantity="one">Nuovi followers guadagnati %s</item>
+    <item quantity="other">Nuovi followers guadagnati %s</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Ospitato %s esibizione simultanea</item>

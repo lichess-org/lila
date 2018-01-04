@@ -47,10 +47,19 @@
   <string name="requestAComputerAnalysis">gau ku lo skami cu lanli</string>
   <string name="computerAnalysis">lo skami nunlanli te pruce</string>
   <string name="analysis">lo lanli te pruce cartu</string>
+  <string name="loadingEngine">ca\'o samymo\'i</string>
+  <string name="move">kelka\'u</string>
   <string name="close">cliva</string>
+  <string name="winning">jivna kelka\'u</string>
+  <string name="losing">terji\'a kelka\'u</string>
+  <string name="unknown">narju\'odza</string>
+  <string name="database">samdatni</string>
   <string name="openingExplorer">cfari nunmu\'u ke lanli tutci je vreji</string>
+  <string name="allSet">.i\'e</string>
   <string name="delete">vimcu</string>
   <string name="deleteThisImportedGame">xu vimcu ti noi se nerbe\'i nunjvi</string>
+  <string name="realtimeReplay">pu ca\'o</string>
+  <string name="openStudy">kalri lo seltadni</string>
   <string name="cpus">lo mijykemructerci\'e</string>
   <string name="blunders">lo nu srera sai</string>
   <string name="mistakes">lo nu srera na\'oi</string>
@@ -128,6 +137,7 @@
   <string name="accept">fitytu\'i</string>
   <string name="decline">fitytoltu\'i</string>
   <string name="playingRightNow">ca\'o jivna</string>
+  <string name="eventInProgress">ca\'o jivna</string>
   <string name="finished">mo\'u fasnu</string>
   <string name="abortGame">tolcfagau je vimcu lo nu jivna</string>
   <string name="gameAborted">lo nu jivna gau ge tolcfa gi ba se vimcu</string>
@@ -136,6 +146,8 @@
   <string name="mode">nilcre cnegau pei</string>
   <string name="casual">na nilcre cnegau</string>
   <string name="rated">nilcre cnegau</string>
+  <string name="casualTournament">na nilcre cnegau</string>
+  <string name="ratedTournament">nilcre cnegau</string>
   <string name="thisGameIsRated">ti jai nu nilcre cenba</string>
   <string name="rematch">jvikei xoi krefu</string>
   <string name="rematchOfferSent">jungau co jivna be xoi krefu vau djica</string>
@@ -147,6 +159,7 @@
   <string name="play">jivna</string>
   <string name="inbox">lo selmri</string>
   <string name="chatRoom">se cusku kumfa</string>
+  <string name="loginToChat">ko co\'a pilno lo jaspu te zu\'e lo nu tavla</string>
   <string name="spectatorRoom">catlu se cusku kumfa</string>
   <string name="composeMessage">ciska su\'o notci</string>
   <string name="noNewMessages">no cnino cu se mrilu</string>
@@ -230,7 +243,7 @@
   <string name="reconnecting">troci lo ka di\'a jorne</string>
   <string name="onlineFriends">lo pendo poi ca kibzva</string>
   <string name="noFriendsOnline">no lo do pendo ca\'o kibzva</string>
-  <string name="findFriends">sespe\'i lo pendo</string>
+  <string name="findFriends">sispe\'i lo pendo</string>
   <string name="follow">co\'a catlu</string>
   <string name="following">ca\'o catlu</string>
   <string name="unfollow">co\'u catlu</string>
@@ -460,6 +473,7 @@
   <string name="watch">zgana</string>
   <string name="internationalEvents">lo gugykruca fasnu</string>
   <string name="videoLibrary">kinsro</string>
+  <string name="termsOfService">lo pilno terbilga</string>
   <string name="simultaneousExhibitions">cabysi\'u nuntigni</string>
   <string name="noSimulExplanation">ti noi cabysi\'u nuntigni cu na zasti</string>
   <string name="create">finti</string>
@@ -468,6 +482,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">do cremau lo %1$s si\'e be loi kelci be la\'o zoi. %2$s .zoi</string>
   <string name="checkYourEmail">ko catlu lo se samymri be fi do</string>
   <string name="inputMovesWithTheKeyboard">jarco tu\'a lo nunmu\'u se pi\'o lo batkyfoi</string>
+  <string name="security">kamnu\'a</string>
   <string name="playChessEverywhere">fe\'e ro roi ku jvikei lo caxmati</string>
   <string name="asFreeAsLichess">nonseldi\'a du\'i la .litces.</string>
   <string name="zeroAdvertisement">no gubnoi</string>
@@ -476,7 +491,7 @@
     <item quantity="other">se sabji bau %s da</item>
   </plurals>
   <string name="lobby">lo depystu</string>
-  <string name="language">bangu</string>
+  <string name="language">lo bangu</string>
   <string name="directlySupportLichess">sarji la .litces.</string>
   <string name="coaches">lo te\'ictu</string>
 </resources>
