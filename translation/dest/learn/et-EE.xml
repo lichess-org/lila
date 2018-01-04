@@ -30,11 +30,13 @@ Vajate mõlemat!</string>
   <string name="theQueen">Lipp</string>
   <string name="queenCombinesRookAndBishop">Lipp = vanker + oda</string>
   <string name="queenIntro">Kõige tugevam male siseneb. Teie maiasteedi kuninganna!</string>
+  <string name="queenComplete">Õnnitlused! Kuningannal pole sulle saladusi.</string>
   <string name="theKing">Kuningas</string>
   <string name="theMostImportantPiece">Kõige tähtsam malend</string>
   <string name="kingIntro">Sina oled kuningas. Kui sa langed lahingus, siis mäng lõppeb.</string>
   <string name="theKingIsSlow">Kuningas on aeglane.</string>
   <string name="lastOne">Viimane!</string>
+  <string name="kingComplete">Sa saad nüüd juhatajat juhtida!</string>
   <string name="theKnight">Ratsu</string>
   <string name="itMovesInAnLShape">See liigub L-kujuliselt</string>
   <string name="knightIntro">Siin on väljakutse teile. Ratsu... on väga kavalal malend.</string>
@@ -83,6 +85,10 @@ mitte ühtegi kaitseta vigurit!</string>
   <string name="captureAndDefendPieces">Löö ning kaitse malendeid</string>
   <string name="combatIntro">Hea mängija oskab rünnata ja kaitsta üheaegselt!</string>
   <string name="combatComplete">Õnnitlused! Olete osav võitleja!</string>
+  <string name="checkInOne">Kabe ühes</string>
+  <string name="attackTheOpponentsKing">Ründa vastase kuningat</string>
+  <string name="checkInOneIntro">Et võita oma vastast, ründa nende kuningat. Nad peavad seda kaitsma!</string>
+  <string name="checkInOneGoal">Sihi vastase kuningat ühe liigutusega!</string>
   <string name="practice">Harjuta</string>
   <string name="next">Järgmine</string>
   <string name="backToMenu">Tagasi menüüsse</string>
