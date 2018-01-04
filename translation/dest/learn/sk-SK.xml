@@ -12,6 +12,7 @@
   <string name="queenCombinesRookAndBishop">Dáma = Veža + Strelec</string>
   <string name="theKing">Kráľ</string>
   <string name="theKnight">Jazdec</string>
+  <string name="thePawn">Pešiak</string>
   <string name="puzzles">Úlohy</string>
   <string name="exerciseYourTacticalSkills">Precvičte si svoje taktické schopnosti</string>
   <string name="greatJob">Skvelá práca!</string>
