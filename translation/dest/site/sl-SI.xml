@@ -56,6 +56,8 @@
   <string name="showThreat">Prikaži grožnjo</string>
   <string name="inLocalBrowser">v lokalnem brskalniku</string>
   <string name="toggleLocalEvaluation">Preklopi lokalno analizo</string>
+  <string name="makeMainLine">Nastavite kot glavno varianto</string>
+  <string name="deleteFromHere">Izbriši od tukaj</string>
   <string name="move">Poteze</string>
   <string name="variantLoss">Izgubljena varianta</string>
   <string name="variantWin">Dobljena varianta</string>
@@ -212,6 +214,7 @@
   <string name="accept">Sprejmi</string>
   <string name="decline">Zavrni</string>
   <string name="playingRightNow">Trenutno se igra</string>
+  <string name="eventInProgress">Pravkar poteka</string>
   <string name="finished">Končani</string>
   <string name="abortGame">Opusti igro</string>
   <string name="gameAborted">Igra je opuščena</string>
@@ -220,6 +223,8 @@
   <string name="mode">Način</string>
   <string name="casual">Nerangirano</string>
   <string name="rated">Rangirano</string>
+  <string name="casualTournament">Nerangirano</string>
+  <string name="ratedTournament">Rangirano</string>
   <string name="thisGameIsRated">Igra je rangirana</string>
   <string name="rematch">Revanša</string>
   <string name="rematchOfferSent">Ponudba za revanšo poslana</string>
@@ -297,6 +302,12 @@
   <string name="tournament">Turnir</string>
   <string name="tournaments">Turnirji</string>
   <string name="tournamentPoints">Turnirske točke</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turnirsko točko</item>
+    <item quantity="two">%s turnirski točki</item>
+    <item quantity="few">%s turnirske točke</item>
+    <item quantity="other">%s turnirskih točk</item>
+  </plurals>
   <string name="viewTournament">Poglej turnir</string>
   <string name="backToTournament">Nazaj k turnirju</string>
   <string name="thematic">Tematski</string>
