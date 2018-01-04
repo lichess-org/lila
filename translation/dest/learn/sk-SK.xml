@@ -10,6 +10,14 @@
   <string name="exerciseYourTacticalSkills">Precvičte si svoje taktické schopnosti</string>
   <string name="greatJob">Skvelá práca!</string>
   <string name="perfect">Výborne!</string>
+  <string name="outstanding">Vynikajúco!</string>
+  <string name="wayToGo">To je ono!</string>
+  <string name="yesYesYes">Áno, áno, áno!</string>
+  <string name="youreGoodAtThis">Ide Vám to!</string>
+  <string name="rightOn">To je presne ono!</string>
+  <string name="yourScore">Vaše skóre</string>
+  <string name="next">Ďalej</string>
+  <string name="backToMenu">Návrat do menu</string>
   <string name="puzzleFailed">Nesprávne riešenie!</string>
   <string name="retry">Zopakovať</string>
 </resources>
