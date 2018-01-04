@@ -6,7 +6,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este endereço</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
-  <string name="waiting">Aguardando</string>
+  <string name="waiting">Em espera</string>
   <string name="yourTurn">Sua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
   <string name="level">Nível</string>
@@ -17,7 +17,7 @@
   <string name="checkmate">Xeque-mate</string>
   <string name="stalemate">Rei afogado</string>
   <string name="white">Brancas</string>
-  <string name="black">Pretas</string>
+  <string name="black">Negras</string>
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
