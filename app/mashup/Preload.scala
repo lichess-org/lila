@@ -46,7 +46,7 @@ final class Preload(
       leaderboard(()) zip
       tourneyWinners zip
       dailyPuzzle() zip
-      liveStreams() zip
+      liveStreams().dmap(_.autoFeatured) zip
       (ctx.userId ?? getPlayban) flatMap {
         case (data, povs) ~ posts ~ tours ~ events ~ simuls ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban =>
           val currentGame = ctx.me ?? Preload.currentGame(povs, lightUserApi.sync) _

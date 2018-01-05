@@ -22,6 +22,10 @@ object Stream {
     def has(streamer: Streamer) = streams.exists(_ is streamer)
 
     def get(streamer: Streamer) = streams.find(_ is streamer)
+
+    def autoFeatured = LiveStreams {
+      streams.filter(_.streamer.approval.autoFeatured)
+    }
   }
 
   object Twitch {
