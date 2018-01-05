@@ -45,6 +45,9 @@
   <string name="depthX">Lalim %s</string>
   <string name="usingServerAnalysis">Ginagamit ang analysis na nasa server</string>
   <string name="loadingEngine">Nilo-load ang engine ...</string>
+  <string name="toggleLocalEvaluation">Buksan o isara ang local evaluation</string>
+  <string name="pawnMove">Paggalaw ng pawn</string>
+  <string name="close">Isara</string>
   <string name="blunders">Mga malalaking pagkakamali</string>
   <string name="mistakes">Mga Pagkakamali</string>
   <string name="inaccuracies">Mga Alanganging Tira</string>
