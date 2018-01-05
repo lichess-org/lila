@@ -70,12 +70,6 @@ final class Env(
     def isStreaming(userId: User.ID) = userIdsCache contains userId
   }
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "streamer" :: "import" :: Nil => importer.apply inject "done"
-    }
-  }
-
   system.lilaBus.subscribe(
     system.actorOf(Props(new Actor {
       def receive = {
