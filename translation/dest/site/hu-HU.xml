@@ -543,7 +543,7 @@
   <string name="letOtherPlayersChallengeYou">Mások kihívhatnak egy játszmára</string>
   <string name="letOtherPlayersInviteYouToStudy">Mások meghívhatnak játszma tanulmányozásra</string>
   <string name="sound">Hang</string>
-  <string name="yourPreferencesHaveBeenSaved">Beállításaid elmentettük.</string>
+  <string name="yourPreferencesHaveBeenSaved">Beállítások elmentve.</string>
   <string name="none">Nincs</string>
   <string name="fast">Gyors</string>
   <string name="normal">Normál</string>
@@ -665,7 +665,7 @@
   <string name="keyShowOrHideComments">kommentek megjelenítése/elrejtése</string>
   <string name="keyEnterOrExitVariation">be/kilépés variációnál</string>
   <string name="newTournament">Új torna</string>
-  <string name="tournamentHomeTitle">A sakk bajnokságokra jellemző, hogy beállíthatsz időket és variációkat</string>
+  <string name="tournamentHomeTitle">A sakk bajnokságokban lehetőség van különböző időbeállítások és változatok beállítására</string>
   <string name="tournamentHomeDescription">Vegyél részt villám-versenyeken! Csatlakozz hivatalkos versenyekhez, vagy hozz létre te saját magad. Bullet, Blitz, Hagyományos, Sakk960, King of the Hill, Threecheck és mások elérhetők, hogy minél jobban élvezd a sakkot.</string>
   <string name="tournamentNotFound">A torna nem található.</string>
   <string name="tournamentDoesNotExist">Ez a torna nem létezik.</string>
