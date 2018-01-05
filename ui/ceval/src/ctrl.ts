@@ -210,6 +210,9 @@ export default function(opts: CevalOpts): CevalCtrl {
     isComputing() {
       return !!started && pool.isComputing();
     },
+    engineName() {
+      return pool.engineName();
+    },
     destroy() { pool.destroy() },
     redraw: opts.redraw
   };

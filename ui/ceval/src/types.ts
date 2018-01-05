@@ -64,6 +64,7 @@ export interface CevalCtrl {
   enabled: Prop<boolean>;
   possible: boolean;
   isComputing(): boolean;
+  engineName(): string | undefined;
   variant: Variant;
   setHovering: (fen: string, uci?: string) => void;
   multiPv: StoredProp<number>;

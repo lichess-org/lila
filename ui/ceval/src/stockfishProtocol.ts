@@ -16,12 +16,16 @@ export default class Protocol {
   private stopped: DeferPromise.Deferred<void> | null;
   private opts: WorkerOpts;
 
+  public engineName: string | undefined;
+
   constructor(send: (cmd: string) => void, opts: WorkerOpts) {
     this.send = send;
     this.opts = opts;
 
     this.stopped = defer<void>();
     this.stopped.resolve();
+
+    send('uci'); // warm up the webworker
 
     if (opts.variant === 'fromPosition' || opts.variant === 'chess960')
       send('setoption name UCI_Chess960 value true');
@@ -31,12 +35,11 @@ export default class Protocol {
       send('setoption name UCI_Variant value 3check');
     else if (opts.variant !== 'standard')
       send('setoption name UCI_Variant value ' + opts.variant.toLowerCase());
-    else
-      send('isready'); // warm up the webworker
   }
 
   received(text: string) {
-    if (text.indexOf('bestmove ') === 0) {
+    if (text.indexOf('id name ') === 0) this.engineName = text.substring('id name '.length);
+    else if (text.indexOf('bestmove ') === 0) {
       if (!this.stopped) this.stopped = defer<void>();
       this.stopped.resolve();
       if (this.work && this.curEval) this.work.emit(this.curEval);
