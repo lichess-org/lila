@@ -17,7 +17,8 @@ case class Question(
     createdAt: DateTime,
     updatedAt: DateTime,
     acceptedAt: Option[DateTime],
-    editedAt: Option[DateTime]
+    editedAt: Option[DateTime],
+    locked: Option[Locked] = None
 ) {
 
   def id = _id
@@ -35,6 +36,8 @@ case class Question(
   def editNow = copy(editedAt = Some(DateTime.now)).updateNow
 
   def accepted = acceptedAt.isDefined
+
+  def isLocked = locked.isDefined
 }
 
 case class Answer(
@@ -95,3 +98,5 @@ object Comment {
 
   def makeId = ornicar.scalalib.Random nextString 8
 }
+
+case class Locked(by: User.ID, at: DateTime)

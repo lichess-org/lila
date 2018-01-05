@@ -37,7 +37,7 @@
           @if(lila.qa.QaAuth canEdit a) {
           <a class="thin button toggle-edit-answer" data-icon="m"> Edit</a>
           }
-          @nope("Remove", routes.QaAnswer.remove(q.id, a.id), "thin")
+          @nope("Remove", routes.QaAnswer.remove(q.id, a.id), "q", "thin")
           @if(isGranted(_.ModerateQa)) {
           <br />
           <form class="mod" action="@routes.QaAnswer.moveTo(q.id, a.id)" method="post">

@@ -111,4 +111,11 @@ object QaQuestion extends QaController {
         Redirect(routes.QaQuestion.index())
     }
   }
+
+  def lock(questionId: QuestionId) = Secure(_.ModerateQa) { implicit ctx => me =>
+    WithQuestion(questionId) { q =>
+      (api.question.lock(q.id, !q.isLocked option me)) inject
+        Redirect(routes.QaQuestion.show(q.id, q.slug))
+    }
+  }
 }

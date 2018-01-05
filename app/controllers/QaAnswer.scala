@@ -9,12 +9,13 @@ object QaAnswer extends QaController {
   def create(id: QuestionId) = AuthBody { implicit ctx => me =>
     WithQuestion(id) { q =>
       implicit val req = ctx.body
-      forms.answer.bindFromRequest.fold(
+      if (QaAuth canAnswer q) forms.answer.bindFromRequest.fold(
         err => renderQuestion(q, Some(err)),
         data => api.answer.create(data, q, me) map { answer =>
           Redirect(routes.QaQuestion.show(q.id, q.slug) + "#answer-" + answer.id)
         }
       )
+      else Redirect(routes.QaQuestion.show(q.id, q.slug)).fuccess
     }
   }
 

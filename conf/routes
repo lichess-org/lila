@@ -483,6 +483,7 @@ GET    /qa/:id/:slug/edit          controllers.QaQuestion.edit(id: Int, slug: St
 POST   /qa/:id/edit                controllers.QaQuestion.doEdit(id: Int)
 POST   /qa/:id/vote                controllers.QaQuestion.vote(id: Int)
 POST   /qa/:id/rm                  controllers.QaQuestion.remove(id: Int)
+POST   /qa/:id/lock                controllers.QaQuestion.lock(id: Int)
 POST   /qa/:id/answer              controllers.QaAnswer.create(id: Int)
 POST   /qa/:id/:a/vote             controllers.QaAnswer.vote(id: Int, a: Int)
 POST   /qa/:id/:a/accept           controllers.QaAnswer.accept(id: Int, a: Int)

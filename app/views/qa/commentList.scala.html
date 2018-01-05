@@ -4,7 +4,7 @@
 <div class="comment" id="comment-@c.id">
   <div class="meta">
     <span class="light">@userIdLink(c.userId.some) commented @momentFromNow(c.createdAt):</span>
-    @nope("Remove", routes.QaComment.remove(q.id, c.id), "thin")
+    @nope("Remove", routes.QaComment.remove(q.id, c.id), "q", "thin")
   </div>
   @richText(c.body)
 </div>

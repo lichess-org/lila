@@ -226,6 +226,9 @@ div.side .questions a:hover {
 #qa #your-answer textarea {
   display: block;
 }
+#qa .noform {
+  padding: 20px;
+}
 #qa .answer-wrap {
   overflow: hidden;
   padding: 20px 0;
