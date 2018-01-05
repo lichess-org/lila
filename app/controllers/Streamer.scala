@@ -24,7 +24,7 @@ object Streamer extends LilaController {
     OptionFuResult(api find username) { s =>
       WithVisibleStreamer(s) {
         Env.streamer.liveStreams of s flatMap { sws =>
-          Env.activity.read.recent(sws.user) map { activity =>
+          Env.activity.read.recent(sws.user, 10) map { activity =>
             Ok(html.streamer.show(sws, activity))
           }
         }

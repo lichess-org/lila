@@ -34,39 +34,39 @@
 @cssTag("activity.css")
 }
 
-@base.layout(title = s"${s.user.titleUsername} streams on lichess.org",
+@base.layout(title = s"${s.user.title.fold("")(_ + " ")}${s.user.titleUsername} streams on lichess.org",
 side = side.some,
 menu = menu("show", s.withoutStream.some).some,
 moreCss = moreCss) {
+@s.stream match {
+case Some(YouTube.Stream(_, _, videoId, _)) => {
+<div class="content_box no_padding livestream youTube">
+  <iframe
+    width="792"
+    height="446"
+    src="https://www.youtube.com/embed/@videoId?autoplay=1"
+    frameborder="0" allowfullscreen></iframe>
+</div>
+}
+case _ => {
+@s.streamer.twitch.map { twitch =>
+<div class="content_box no_padding livestream twitch">
+  <iframe
+    src="https://player.twitch.tv/?channel=@twitch.userId"
+    width="792"
+    height="446"
+    allowfullscreen autoplay></iframe>
+</div>
+}.getOrElse {
+<div class="content_box no_padding nostream">OFFLINE</div>
+}
+}
+}
 <div class="content_box no_padding streamer">
-  @s.stream match {
-  case Some(YouTube.Stream(_, _, videoId, _)) => {
-  <div class="live youTube">
-    <iframe
-      width="792"
-      height="446"
-      src="https://www.youtube.com/embed/@videoId?autoplay=1"
-      frameborder="0" allowfullscreen></iframe>
-  </div>
-  }
-  case _ => {
-  @s.streamer.twitch.map { twitch =>
-  <div class="live twitch">
-    <iframe
-      src="https://player.twitch.tv/?channel=@twitch.userId"
-      width="792"
-      height="446"
-      allowfullscreen autoplay></iframe>
-  </div>
-  }.getOrElse {
-  <div class="offline">OFFLINE</div>
-  }
-  }
-  }
   <div class="top">
     @pic(s.streamer, s.user, 250)
     <div class="overview">
-      <h1>@s.streamer.name</h1>
+      <h1>@titleTag(s.user.title)@s.streamer.name</h1>
       @s.streamer.headline.map(_.value).map { d =>
       <p class="headline @if(d.size < 60){small} else {@if(d.size < 120){medium}else{large}}">@d</p>
       }

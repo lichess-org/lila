@@ -48,13 +48,15 @@ div.content_box.streamer h1 {
   height: 1.4em;
   margin-right: 0.4em;
 }
-.streamer .live {
+.livestream {
   margin-bottom: 0px;
+  line-height: 0;
+  margin-bottom: 10px;
 }
-.streamer .live iframe {
+.livestream iframe {
   border: none;
 }
-.streamer .offline {
+.nostream {
   height: 300px;
   background: black;
   display: flex;

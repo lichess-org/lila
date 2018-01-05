@@ -22,10 +22,10 @@ final class ActivityReadApi(
 
   private val recentNb = 7
 
-  def recent(u: User): Fu[Vector[ActivityView]] = for {
+  def recent(u: User, nb: Int = recentNb): Fu[Vector[ActivityView]] = for {
     allActivities <- coll.find(regexId(u.id))
       .sort($sort desc "_id")
-      .gather[Activity, Vector](recentNb)
+      .gather[Activity, Vector](nb)
     activities = allActivities.filterNot(_.isEmpty)
     practiceStructure <- activities.exists(_.practice.isDefined) ?? {
       practiceApi.structure.get map some
