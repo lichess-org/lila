@@ -653,7 +653,7 @@
   <string name="simulVariantsHint">Ha több variánst hozol létre, minden játékos eldöntheti mihez csatlakozik.</string>
   <string name="simulClockHint">Fisher óra beállítás. Minél több játékossal játszol, annál több időre lesz szükség</string>
   <string name="simulAddExtraTime">Plusz időt adhatsz az órához, hogy a szimultán könnyebb legyen.</string>
-  <string name="simulHostExtraTime">Állíts be extra időbónuszokat</string>
+  <string name="simulHostExtraTime">Időbónusz</string>
   <string name="lichessTournaments">Lichess versenyek</string>
   <string name="tournamentFAQ">Aréna verseny GYIK</string>
   <string name="tournamentOfficial">Hivatalos</string>
