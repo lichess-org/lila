@@ -56,6 +56,7 @@
   <string name="showThreat">Prikaži grožnjo</string>
   <string name="inLocalBrowser">v lokalnem brskalniku</string>
   <string name="toggleLocalEvaluation">Preklopi lokalno analizo</string>
+  <string name="promoteVariation">Promoviraj variacijo</string>
   <string name="makeMainLine">Nastavite kot glavno varianto</string>
   <string name="deleteFromHere">Izbriši od tukaj</string>
   <string name="move">Poteze</string>
