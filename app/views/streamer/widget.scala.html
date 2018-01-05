@@ -7,7 +7,7 @@
 }
 @pic(s.streamer, s.user, 250)
 <div class="overview">
-  <h1>@s.streamer.name</h1>
+  <h1>@titleTag(s.user.title)@s.streamer.name</h1>
   @s.streamer.headline.map(_.value).map { d =>
   <p class="headline @if(d.size < 60){small} else {@if(d.size < 120){medium}else{large}}">@d</p>
   }

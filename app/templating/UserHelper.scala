@@ -138,9 +138,11 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     cssClass: Option[String]
   ): Html = userIdLink(userId.some, cssClass)
 
-  private def titleTag(title: Option[String]) = title match {
-    case None => ""
-    case Some(t) => s"""<span class="title" title="${User titleName t}">$t</span>&nbsp;"""
+  def titleTag(title: Option[String]) = Html {
+    title match {
+      case None => ""
+      case Some(t) => s"""<span class="title" title="${User titleName t}">$t</span>&nbsp;"""
+    }
   }
 
   private def userIdNameLink(
@@ -158,7 +160,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     val klass = userClass(userId, cssClass, withOnline)
     val href = userHref(username, params = params)
     val content = truncate.fold(username)(username.take)
-    val titleS = if (withTitle) titleTag(title) else ""
+    val titleS = if (withTitle) titleTag(title).body else ""
     val icon = withOnline ?? (if (modIcon) moderatorIcon else lineIcon(isPatron))
     s"""<a $klass $href>$icon$titleS$content</a>"""
   }
@@ -177,7 +179,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
     val href = userHref(user.username, params)
     val content = text | user.username
-    val titleS = if (withTitle) titleTag(user.title) else ""
+    val titleS = if (withTitle) titleTag(user.title).body else ""
     val rating = userRating(user, withPerfRating, withBestRating)
     val icon = withOnline ?? lineIcon(user)
     s"""<a $klass $href>$icon$titleS$content$rating</a>"""
@@ -196,7 +198,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     val klass = userClass(userId, cssClass, withOnline, withPowerTip)
     val href = userHref(name)
     val rat = rating ?? { r => s" ($r)" }
-    val titleS = titleTag(user.flatMap(_.title) ifTrue withTitle)
+    val titleS = titleTag(user.flatMap(_.title) ifTrue withTitle).body
     val icon = withOnline ?? lineIcon(user)
     Html(s"""<a $klass $href>$icon$titleS$name$rat</a>""")
   }
@@ -214,7 +216,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
     val href = s"data-${userHref(user.username)}"
     val content = text | user.username
-    val titleS = if (withTitle) titleTag(user.title) else ""
+    val titleS = if (withTitle) titleTag(user.title).body else ""
     val rating = userRating(user, withPerfRating, withBestRating)
     val icon = withOnline ?? lineIcon(user)
     s"""<span $klass $href>$icon$titleS$content$rating</span>"""
@@ -224,7 +226,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
     val content = user.fold(userId)(_.name)
-    val titleS = user.??(u => titleTag(u.title))
+    val titleS = user.??(u => titleTag(u.title).body)
     val klass = userClass(userId, none, withOnline)
     val href = s"data-${userHref(name)}"
     val icon = withOnline ?? lineIcon(user)
