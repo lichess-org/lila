@@ -127,8 +127,8 @@
     <item quantity="other">%s játszma</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s könyvjelző</item>
-    <item quantity="other">%s könyvjelző</item>
+    <item quantity="one">%s kedvenc</item>
+    <item quantity="other">%s kedvenc</item>
   </plurals>
   <string name="viewInFullSize">Teljes méret</string>
   <string name="logOut">Kijelentkezés</string>
