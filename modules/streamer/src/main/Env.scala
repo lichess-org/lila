@@ -39,8 +39,6 @@ final class Env(
     maxPerPage = lila.common.MaxPerPage(MaxPerPage)
   )
 
-  private lazy val importer = new Importer(api, db("flag"))
-
   private val streamingActor = system.actorOf(Props(new Streaming(
     renderer = renderer,
     api = api,
