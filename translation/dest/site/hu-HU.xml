@@ -136,7 +136,7 @@
   <string name="newToLichess">Új vagy a Lichess-en?</string>
   <string name="youNeedAnAccountToDoThat">Ehhez egy fiókra van szükséged</string>
   <string name="signUp">Regisztráció</string>
-  <string name="computersAreNotAllowedToPlay">Számítógépek és számítógép segítségét igénybe vevő játékosok nem játszhatnak. Kérünk játék közbe ne vegyél igénybe segítséget sakk programoktól, adatbázisoktól, vagy más játékosoktól. Több fiók készítése és használata egyszerre az oldalról való kitiltást vonja maga után.</string>
+  <string name="computersAreNotAllowedToPlay">Számítógépek és számítógép segítségét igénybe vevő játékosok nem játszhatnak. Kérünk játék közben ne vegyél igénybe segítséget sakk programoktól, adatbázisoktól, vagy más játékosoktól. Több fiók készítése és használata egyszerre az oldalról való kitiltást vonja maga után.</string>
   <string name="games">Játszmák</string>
   <string name="forum">Fórum</string>
   <string name="xPostedInForumY">%1$s írt a következő témába: %2$s</string>
