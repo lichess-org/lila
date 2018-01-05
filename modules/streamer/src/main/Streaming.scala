@@ -84,13 +84,13 @@ private final class Streaming(
   }
 
   def fetchTwitchStreams(streamers: List[Streamer]): Fu[List[Twitch.Stream]] =
-    WS.url("https://api.twitch.tv/kraken/streams")
+    streamers.nonEmpty ?? WS.url("https://api.twitch.tv/kraken/streams")
       .withQueryString("channel" -> streamers.flatMap(_.twitch).map(_.userId).mkString(","))
       .withHeaders(
         "Accept" -> "application/vnd.twitchtv.v3+json",
         "Client-ID" -> twitchClientId
       )
-      .get() map { res =>
+      .get().map { res =>
         res.json.validate[Twitch.Result](twitchResultReads) match {
           case JsSuccess(data, _) => data.streams(keyword, streamers)
           case JsError(err) =>
@@ -99,7 +99,9 @@ private final class Streaming(
         }
       }
 
-  def fetchYouTubeStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] = googleApiKey.nonEmpty ?? {
+  def fetchYouTubeStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] = {
+    googleApiKey.nonEmpty && streamers.nonEmpty
+  } ?? {
     WS.url("https://www.googleapis.com/youtube/v3/search").withQueryString(
       "part" -> "snippet",
       "type" -> "video",

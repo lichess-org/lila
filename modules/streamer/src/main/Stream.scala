@@ -13,7 +13,9 @@ trait Stream {
 
 object Stream {
 
-  case class Keyword(value: String) extends AnyRef with StringValue
+  case class Keyword(value: String) extends AnyRef with StringValue {
+    def toLowerCase = value.toLowerCase
+  }
 
   case class LiveStreams(streams: List[Stream]) {
 
@@ -27,7 +29,7 @@ object Stream {
     case class TwitchStream(channel: Channel)
     case class Result(streams: Option[List[TwitchStream]]) {
       def streams(keyword: Keyword, streamers: List[Streamer]): List[Stream] = (~streams).map(_.channel).collect {
-        case Channel(name, Some(status)) if status.toLowerCase contains keyword.value =>
+        case Channel(name, Some(status)) if status.toLowerCase contains keyword.toLowerCase =>
           streamers.find(s => s.twitch.exists(_.userId == name)) map { Stream(name, status, _) }
       }.flatten
     }
@@ -49,7 +51,7 @@ object Stream {
       def streams(keyword: Keyword, streamers: List[Streamer]): List[Stream] =
         items.filter { item =>
           item.snippet.liveBroadcastContent == "live" &&
-            item.snippet.title.toLowerCase.contains(keyword.value.toLowerCase)
+            item.snippet.title.toLowerCase.contains(keyword.toLowerCase)
         }.flatMap { item =>
           streamers.find(s => s.youTube.exists(_.channelId == item.snippet.channelId)) map {
             Stream(item.snippet.channelId, item.snippet.title, item.id.videoId, _)
