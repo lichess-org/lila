@@ -14,7 +14,7 @@
   <string name="toggleSound">Preklopi zvok</string>
   <string name="chat">Klepet</string>
   <string name="resign">Predaj</string>
-  <string name="checkmate">Šah-Mat</string>
+  <string name="checkmate">Mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Beli</string>
   <string name="black">Črni</string>
@@ -33,8 +33,8 @@
   <string name="blackPlays">Črni na potezi</string>
   <string name="opponentLeftChoices">Nasprotnik je zapustil igro. Vsili predajo ali počakaj nanj.</string>
   <string name="makeYourOpponentResign">Prisili nasprotnika k predaji</string>
-  <string name="forceResignation">Prisili predajo</string>
-  <string name="forceDraw">Vsili remi</string>
+  <string name="forceResignation">Prijavi zmago</string>
+  <string name="forceDraw">Prijavi remi</string>
   <string name="talkInChat">Prosimo bodite prijazni v klepetu!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">S teboj bo igrala prva oseba, ki pride na ta naslov.</string>
   <string name="whiteResigned">Beli je predal</string>
