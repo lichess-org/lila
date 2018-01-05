@@ -187,7 +187,7 @@
   <string name="drawOfferSent">Döntetlen felajánlás elküldve</string>
   <string name="drawOfferDeclined">Döntetlen felajánlás elutasítva</string>
   <string name="drawOfferAccepted">Döntetlen elfogadva</string>
-  <string name="drawOfferCanceled">Felajánlás visszavonva</string>
+  <string name="drawOfferCanceled">Döntetlen ajánlás elvetve</string>
   <string name="whiteOffersDraw">Világos döntetlent ajánl</string>
   <string name="blackOffersDraw">Sötét döntetlent ajánl</string>
   <string name="whiteDeclinesDraw">Világos elutasította a döntetlen ajánlatot</string>
@@ -211,7 +211,7 @@
   <string name="rematch">Visszavágó</string>
   <string name="rematchOfferSent">Visszavágó felajánlva</string>
   <string name="rematchOfferAccepted">Visszavágó elfogadva</string>
-  <string name="rematchOfferCanceled">Visszavágó ajánlat visszavonva</string>
+  <string name="rematchOfferCanceled">Visszavágó ajánlat elvetve</string>
   <string name="rematchOfferDeclined">Visszavágót visszautasították</string>
   <string name="cancelRematchOffer">Visszavágó visszavonása</string>
   <string name="viewRematch">Visszavágó megtekintése</string>
