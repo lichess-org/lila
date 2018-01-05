@@ -45,19 +45,23 @@ object Streamer extends LilaController {
 
   def edit = Auth { implicit ctx => me =>
     AsStreamer { s =>
-      NoCache(Ok(html.streamer.edit(s, StreamerForm userForm s.streamer))).fuccess
+      Env.streamer.liveStreams of s flatMap { sws =>
+        NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer))).fuccess
+      }
     }
   }
 
   def editApply = AuthBody { implicit ctx => me =>
     AsStreamer { s =>
-      implicit val req = ctx.body
-      StreamerForm.userForm(s.streamer).bindFromRequest.fold(
-        error => BadRequest(html.streamer.edit(s, error)).fuccess,
-        data => api.update(s.streamer, data, isGranted(_.Streamers)) inject Redirect {
-          s"${routes.Streamer.edit().url}${if (s.streamer is me) "" else "?u=" + s.user.id}"
-        }
-      )
+      Env.streamer.liveStreams of s flatMap { sws =>
+        implicit val req = ctx.body
+        StreamerForm.userForm(sws.streamer).bindFromRequest.fold(
+          error => BadRequest(html.streamer.edit(sws, error)).fuccess,
+          data => api.update(sws.streamer, data, isGranted(_.Streamers)) inject Redirect {
+            s"${routes.Streamer.edit().url}${if (sws.streamer is me) "" else "?u=" + sws.user.id}"
+          }
+        )
+      }
     }
   }
 

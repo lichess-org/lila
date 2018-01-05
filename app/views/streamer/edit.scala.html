@@ -1,4 +1,4 @@
-@(s: lila.streamer.Streamer.WithUser, form: Form[_])(implicit ctx: Context)
+@(s: lila.streamer.Streamer.WithUserAndStream, form: Form[_])(implicit ctx: Context)
 
 @import play.api.data.Field
 
@@ -10,6 +10,7 @@
 
 @moreCss = {
 @cssTag("material.form.css")
+@cssTag("streamer.show.css")
 @cssTag("streamer.form.css")
 }
 
@@ -21,18 +22,15 @@
 @base.layout(title = s"${s.user.titleUsername} streamer page",
 moreCss = moreCss,
 moreJs = moreJs,
-menu = menu("edit", s.some).some) {
-<div class="streamer_edit content_box no_padding">
+menu = menu("edit", s.withoutStream.some).some) {
+<div class="streamer edit content_box no_padding">
+  @if(ctx.is(s.user)) {
   <div class="top">
     <div class="picture_wrap">
       @if(s.streamer.hasPicture) {
-      @if(ctx.is(s.user)) {
       <a class="upload_picture" href="@routes.Streamer.picture" title="Change/delete your picture">
         @pic(s.streamer, s.user, 250)
       </a>
-      } else {
-      @pic(s.streamer, s.user, 250)
-      }
       } else {
       <div class="upload_picture">
         @if(ctx.is(s.user)) {
@@ -42,31 +40,14 @@ menu = menu("edit", s.some).some) {
       }
     </div>
     <div class="overview">
-      <h1 @if(!ctx.is(s.user)){class="text" data-icon=""}>@s.streamer.name</h1>
+      <h1>@s.streamer.name</h1>
       @rules()
     </div>
   </div>
-  @defining(s.streamer.approval.granted) { granted =>
-  @if(s.streamer.listed.value) {
-  <div class="status is@if(granted){-green}" data-icon="@if(granted){E}else{}">
-    @if(granted) {
-    Your stream is approved and listed on <a href="@routes.Streamer.index()">lichess streamers list</a>.
-    } else {
-    @if(s.streamer.approval.requested) {
-    Your stream is being reviewed by moderators, and will soon be listed on <a href="@routes.Streamer.index()">lichess streamers list</a>.
-    } else {
-    @if(s.streamer.completeEnough) {
-    When you are ready to be listed on <a href="@routes.Streamer.index()">lichess streamers list</a>,
-    <form method="post" action="@routes.Streamer.approvalRequest">
-      <button type="submmit" class="button" @if(!ctx.is(s.user)){disabled}>request a moderator review</button>
-    </form>
-    } else {
-    Please fill in your streamer information below.
-    }
-    }
-    }
-  </div>
+  } else {
+  @header(s)
   }
+  @defining(s.streamer.approval.granted) { granted =>
   <form class="content_box_content material form" action="@routes.Streamer.edit@if(!ctx.is(s.user)){?u=@s.user.id}" method="POST">
     @errMsgMaterial(form.errors)
     @if(isGranted(_.Streamers)) {
@@ -90,6 +71,26 @@ menu = menu("edit", s.some).some) {
       }
       }
       @base.form.submit()
+    </div>
+    }
+    @if(s.streamer.listed.value) {
+    <div class="status is@if(granted){-green}" data-icon="@if(granted){E}else{}">
+      @if(granted) {
+      Your stream is approved and listed on <a href="@routes.Streamer.index()">lichess streamers list</a>.
+      } else {
+      @if(s.streamer.approval.requested) {
+      Your stream is being reviewed by moderators, and will soon be listed on <a href="@routes.Streamer.index()">lichess streamers list</a>.
+      } else {
+      @if(s.streamer.completeEnough) {
+      When you are ready to be listed on <a href="@routes.Streamer.index()">lichess streamers list</a>,
+      <form method="post" action="@routes.Streamer.approvalRequest">
+        <button type="submmit" class="button" @if(!ctx.is(s.user)){disabled}>request a moderator review</button>
+      </form>
+      } else {
+      Please fill in your streamer information, and upload a picture.
+      }
+      }
+      }
     </div>
     }
     <div>
