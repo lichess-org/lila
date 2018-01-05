@@ -84,13 +84,13 @@ description = shorten(q.body, 152)).some) {
     </div>
     }
     case _ => {
-    <div class="noform">
+    <p class="title answers-header content_box_inter">
       @q.locked.map { l =>
       @userIdLink(l.by.some) locked this question @momentFromNow(l.at)
       }.getOrElse {
       You cannot answer this question.
       }
-    </div>
+    </p>
     }
     }
     }
