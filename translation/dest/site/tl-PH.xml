@@ -51,6 +51,7 @@
   <string name="pawnMove">Paggalaw ng pawn</string>
   <string name="capture">Pagkain</string>
   <string name="close">Isara</string>
+  <string name="database">Database</string>
   <string name="recentGames">Mga bagong laro</string>
   <string name="topGames">Mga nauunang laro</string>
   <string name="noGameFound">Walang larong natagpuan</string>
