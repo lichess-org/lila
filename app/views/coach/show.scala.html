@@ -41,10 +41,18 @@ $('.review-form form').show();
 }
 }
 
-@base.layout(title = c.user.titleUsername,
+@title = @{ s"${c.user.titleUsername} coaches chess on lichess.org" }
+
+@base.layout(title = title,
 side = side.some,
 moreJs = moreJs,
-moreCss = moreCss) {
+moreCss = moreCss,
+openGraph = lila.app.ui.OpenGraph(
+title = title,
+description = shorten(~(c.coach.profile.headline), 152),
+url = s"$netBaseUrl${routes.Coach.show(c.user.username)}",
+`type` = "profile",
+image = c.coach.picturePath.map(p => dbImageUrl(p.value))).some) {
 <div class="content_box no_padding coach">
   <div class="top">
     @pic(c, 250)
