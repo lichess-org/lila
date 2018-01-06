@@ -242,7 +242,7 @@
     <item quantity="other">%s kaotust</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s viiki</item>
+    <item quantity="one">%s viik</item>
     <item quantity="other">%s viiki</item>
   </plurals>
   <plurals name="nbPlaying">
@@ -651,7 +651,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="simulAddExtraTime">Võid enda kellale lisaaega anda, et simultaaniga paremini hakkama saada.</string>
   <string name="simulHostExtraTime">Sinultaani andja lisaaeg</string>
   <string name="lichessTournaments">lichess turniirid</string>
-  <string name="tournamentFAQ">Arena turniiri Korduma kippuvad küsimused</string>
+  <string name="tournamentFAQ">Korduma kippuvad küsimused</string>
   <string name="tournamentOfficial">Ametlik</string>
   <string name="timeBeforeTournamentStarts">Aega turniiri alguseni</string>
   <string name="averageCentipawnLoss">Keskmine kaotus käigu kohta sajandiketturites</string>
