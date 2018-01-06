@@ -213,7 +213,7 @@
   <string name="rematchOfferAccepted">Visszavágó elfogadva</string>
   <string name="rematchOfferCanceled">Visszavágó ajánlat elvetve</string>
   <string name="rematchOfferDeclined">Visszavágót visszautasították</string>
-  <string name="cancelRematchOffer">Visszavágó visszavonása</string>
+  <string name="cancelRematchOffer">Visszavágó elvetése</string>
   <string name="viewRematch">Visszavágó megtekintése</string>
   <string name="play">Játék</string>
   <string name="inbox">Beérkező üzenetek</string>
@@ -264,7 +264,7 @@
   <string name="takebackPropositionSent">Visszalépés kérése elküldve</string>
   <string name="takebackPropositionDeclined">Visszalépés kérése elutasítva</string>
   <string name="takebackPropositionAccepted">Visszalépés kérése elfogadva</string>
-  <string name="takebackPropositionCanceled">Visszalépés kérése visszavonva</string>
+  <string name="takebackPropositionCanceled">Visszalépés kérés elvetve</string>
   <string name="yourOpponentProposesATakeback">Az ellenfeled visszalépést kér</string>
   <string name="bookmarkThisGame">Játszma hozzáadása a könyvjelzőkhöz</string>
   <string name="search">Keresés</string>
@@ -384,7 +384,7 @@
   <string name="standing">Állás</string>
   <string name="createANewTournament">Új verseny létrehozása</string>
   <string name="join">Csatlakozás</string>
-  <string name="withdraw">Visszavonulás</string>
+  <string name="withdraw">Visszavon</string>
   <string name="points">Pontok</string>
   <string name="wins">Győzelmek</string>
   <string name="losses">Vereségek</string>
