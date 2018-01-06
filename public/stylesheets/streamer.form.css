@@ -33,12 +33,12 @@
 }
 
 .streamer.edit .status {
-  margin: 0px 20px 60px 20px;
+  margin: 20px;
   padding: 20px;
   background: rgba(128,128,128,0.2);
 }
 .streamer.edit .mod {
-  margin-bottom: 4em;
+  margin-bottom: 6em;
 }
 .streamer.edit .status::before {
   font-size: 2em;

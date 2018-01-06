@@ -48,6 +48,26 @@ menu = menu("edit", s.withoutStream.some).some) {
   @header(s, none)
   }
   @defining(s.streamer.approval.granted) { granted =>
+  @if(s.streamer.listed.value) {
+  <div class="status is@if(granted){-green}" data-icon="@if(granted){E}else{}">
+    @if(granted) {
+    Your stream is approved and listed on <a href="@routes.Streamer.index()">lichess streamers list</a>.
+    } else {
+    @if(s.streamer.approval.requested) {
+    Your stream is being reviewed by moderators, and will soon be listed on <a href="@routes.Streamer.index()">lichess streamers list</a>.
+    } else {
+    @if(s.streamer.completeEnough) {
+    When you are ready to be listed on <a href="@routes.Streamer.index()">lichess streamers list</a>,
+    <form method="post" action="@routes.Streamer.approvalRequest">
+      <button type="submmit" class="button" @if(!ctx.is(s.user)){disabled}>request a moderator review</button>
+    </form>
+    } else {
+    Please fill in your streamer information, and upload a picture.
+    }
+    }
+    }
+  </div>
+  }
   <form class="content_box_content material form" action="@routes.Streamer.edit@if(!ctx.is(s.user)){?u=@s.user.id}" method="POST">
     @errMsgMaterial(form.errors)
     @if(isGranted(_.Streamers)) {
@@ -71,26 +91,6 @@ menu = menu("edit", s.withoutStream.some).some) {
       }
       }
       @base.form.submit()
-    </div>
-    }
-    @if(s.streamer.listed.value) {
-    <div class="status is@if(granted){-green}" data-icon="@if(granted){E}else{}">
-      @if(granted) {
-      Your stream is approved and listed on <a href="@routes.Streamer.index()">lichess streamers list</a>.
-      } else {
-      @if(s.streamer.approval.requested) {
-      Your stream is being reviewed by moderators, and will soon be listed on <a href="@routes.Streamer.index()">lichess streamers list</a>.
-      } else {
-      @if(s.streamer.completeEnough) {
-      When you are ready to be listed on <a href="@routes.Streamer.index()">lichess streamers list</a>,
-      <form method="post" action="@routes.Streamer.approvalRequest">
-        <button type="submmit" class="button" @if(!ctx.is(s.user)){disabled}>request a moderator review</button>
-      </form>
-      } else {
-      Please fill in your streamer information, and upload a picture.
-      }
-      }
-      }
     </div>
     }
     <div>
