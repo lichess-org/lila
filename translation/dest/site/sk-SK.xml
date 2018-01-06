@@ -25,10 +25,10 @@
   <string name="kingInTheCenter">Kráľ v strede</string>
   <string name="threeChecks">Tri šachy</string>
   <string name="raceFinished">Preteky ukončené</string>
-  <string name="variantEnding">Koniec varianty</string>
+  <string name="variantEnding">Koniec variantu</string>
   <string name="newOpponent">Nový súper</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Váš súper by si s Vami rád zahral odvetnú partiu</string>
-  <string name="joinTheGame">Ešte jednu partiu</string>
+  <string name="joinTheGame">Pridať sa k hre</string>
   <string name="whitePlays">Biely na ťahu</string>
   <string name="blackPlays">Čierny na ťahu</string>
   <string name="opponentLeftChoices">Váš súper zrejme opustil túto partiu. Môžete požadovať výhru, vyhlásiť partiu za remízu alebo počkať.</string>
@@ -37,8 +37,8 @@
   <string name="forceDraw">Vyhlásiť za remízu</string>
   <string name="talkInChat">Prosím, buďte v chate ohľaduplní!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Prvý kto použije tento odkaz si s Vami zahrá.</string>
-  <string name="whiteResigned">Biely vzdal</string>
-  <string name="blackResigned">Čierny vzdal</string>
+  <string name="whiteResigned">Biely sa vzdal</string>
+  <string name="blackResigned">Čierny sa vzdal</string>
   <string name="whiteLeftTheGame">Biely opustil partiu</string>
   <string name="blackLeftTheGame">Čierny opustil partiu</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ukážte partiu ostatným pomocou zdieľania tejto adresy</string>
@@ -68,7 +68,7 @@
   <string name="close">Zavrieť</string>
   <string name="winning">Vyhráva</string>
   <string name="losing">Prehráva</string>
-  <string name="drawn">Remízuje</string>
+  <string name="drawn">Remizuje</string>
   <string name="unknown">Neznáme</string>
   <string name="database">Databáza</string>
   <string name="whiteDrawBlack">Biely / Remíza / Čierny</string>
