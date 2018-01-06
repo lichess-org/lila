@@ -15,4 +15,16 @@
   <string name="rookGoal">I-click mo ang rook
 at ilagay ito sa bituin!</string>
   <string name="grabAllTheStars">Kuhain mo lahat ng mga bituin!</string>
+  <string name="theFewerMoves">Kapag kaunti ang mga galaw na ginawa mo,
+mas maraming puntos ang makukuha mo!</string>
+  <string name="useTwoRooks">Gumamit ka ng dalawang rook
+upang mapabilis ang mga bagay!</string>
+  <string name="rookComplete">Binabati kita! Matagumpay ka nang sanay sa rook.</string>
+  <string name="theBishop">Ang bishop</string>
+  <string name="itMovesDiagonally">Gumagalaw ito pahilis</string>
+  <string name="bishopIntro">Ngayon, matututunan natin kung paano igalaw ang bishop!</string>
+  <string name="youNeedBothBishops">Isang bishop sa maliwanang na square,
+Isang bishop sa madilim na square.
+Kailangan mo silang pareho!</string>
+  <string name="bishopComplete">Binabati kita! Kaya mo nang utusan ang bishop.</string>
 </resources>
