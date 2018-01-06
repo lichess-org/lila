@@ -171,7 +171,7 @@
   <string name="passwordReset">Salasõna lähtestamine</string>
   <string name="forgotPassword">Unustasid salasõna?</string>
   <string name="rank">Asetus</string>
-  <string name="rankX">Reiting %s</string>
+  <string name="rankX">Koht: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Reitingut uuendatakse iga %s minuti tagant</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ülesanne</item>
