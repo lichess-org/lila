@@ -832,10 +832,10 @@ div.side form.search input {
 .context-streamer {
   display: block;
   padding: 5px;
+  margin-top: 0;
   color: #fff!important;
-  background: #3893E8;
-  opacity: 0.8;
-  border-radius: 3px;
+  background: rgba(117,153,0,0.5);
+  border-radius: 0 0 3px 3px;
   overflow: hidden;
   white-space:nowrap;
 }
@@ -843,7 +843,7 @@ div.side form.search input {
   font-size: 1.5em;
 }
 .context-streamer:hover {
-  opacity: 1;
+  background: rgba(117,153,0,0.7);
 }
 
 #ham-plate {

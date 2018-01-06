@@ -525,6 +525,9 @@ body.dark input.cmn-toggle-round + label:after {
 body.dark signal > i.off {
   background-color: #555;
 }
+body.dark .context-streamer {
+  color: #ccc!important;
+}
 body.dark .ddloader {
   background-image: url(../images/loader/whitex1.png);
 }
