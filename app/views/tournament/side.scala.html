@@ -60,7 +60,6 @@
   </form>
   }
 </div>
-
 @streamers.map { id =>
 <a href="@routes.Streamer.show(id)" class="context-streamer text side_box" data-icon="">@usernameOrId(id) is streaming</a>
 }

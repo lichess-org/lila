@@ -41,7 +41,8 @@ object Simul extends LilaController {
           json <- env.jsonView(sim)
           chat <- canHaveChat ?? Env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
           _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
-        } yield html.simul.show(sim, version, json, chat)
+          stream <- Env.streamer.liveStreamApi one sim.hostId
+        } yield html.simul.show(sim, version, json, chat, stream)
       }
     } map NoCache
   }
