@@ -36,8 +36,8 @@
       </div>
       @following.map { f =>
       @if(ctx.isAuth && !ctx.is(s.user)) {
-      <button data-action="@routes.Relation.follow(s.user.id)" class="follow icon button hint--top inline" type="submit" @if(f){disabled}>
-        <span class="text" data-icon="h">@if(f){@trans.following()}else{@trans.follow()}</span>
+      <button data-user="@s.user.id" class="follow icon button@if(f){ active}" type="submit">
+        <span class="text" data-icon="h">@trans.follow()</span>
       </button>
       }
       }

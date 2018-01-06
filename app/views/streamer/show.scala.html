@@ -36,15 +36,11 @@
 
 @moreJs = {
 @embedJs {
-$('button.follow').one('click', function() {
-var $button = $(this);
-$button.find('span').text('Following...');
+$('button.follow').click(function() {
+$(this).toggleClass('active');
 $.ajax({
-url:$button.data('action'),
-method:'post',
-success: function() {
-$button.find('span').text('Following');
-}
+url: '/rel/' + ($(this).hasClass('active') ? 'follow/' : 'unfollow/') + $(this).data('user'),
+method:'post'
 });
 });
 }
