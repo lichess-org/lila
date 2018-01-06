@@ -819,14 +819,14 @@
   <string name="xDoesNotAcceptChallenges">%s akzeptiert keine Herausforderungen.</string>
   <string name="yourXRatingIsTooFarFromY">Deine %1$s Wertung ist zu weit von %2$s entfernt.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Herausforderung wegen vorläufiger %s-Wertungszahl nicht möglich.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s kann nur von Freunden herausgefordert werden.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s akzeptiert Herausforderungen nur von Freunden.</string>
   <string name="conditionalPremoves">Bedingte Vorauszüge</string>
   <string name="addCurrentVariation">Aktuelle Variante hinzufügen</string>
   <string name="playVariationToCreateConditionalPremoves">Spiele eine Variante, um bedingte Vorauszüge hinzuzufügen</string>
   <string name="noConditionalPremoves">Keine bedingten Vorauszüge</string>
-  <string name="playX">Spiele %s</string>
+  <string name="playX">Ziehe %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">und speichere %s Vorauszug</item>
-    <item quantity="other">und speichere %s Vorauszüge</item>
+    <item quantity="one">und speichere %s Variante im Voraus</item>
+    <item quantity="other">und speichere %s Varianten im Voraus</item>
   </plurals>
 </resources>
