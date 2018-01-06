@@ -29,17 +29,19 @@
     </div>
     }
   </div>
-  @stream.map { s =>
-  <p class="at">
-    Currently streaming:
-    <strong>@s.status</strong>
-  </p>
-  }.getOrElse {
-  <p class="at">@trans.lastSeenActive(momentFromNow(s.streamer.seenAt))</p>
-  @s.streamer.liveAt.map { liveAt =>
-  <p class="at">Last stream @momentFromNow(liveAt)</p>
-  }
-  }
+  <div class="ats">
+    @stream.map { s =>
+    <p class="at">
+      Currently streaming:
+      <strong>@s.status</strong>
+    </p>
+    }.getOrElse {
+    <p class="at">@trans.lastSeenActive(momentFromNow(s.streamer.seenAt))</p>
+    @s.streamer.liveAt.map { liveAt =>
+    <p class="at">Last stream @momentFromNow(liveAt)</p>
+    }
+    }
+  </div>
 </div>
 }
 

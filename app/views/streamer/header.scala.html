@@ -1,4 +1,4 @@
-@(s: lila.streamer.Streamer.WithUserAndStream)(implicit ctx: Context)
+@(s: lila.streamer.Streamer.WithUserAndStream, following: Option[Boolean])(implicit ctx: Context)
 <div class="top">
   @pic(s.streamer, s.user, 250)
   <div class="overview">
@@ -20,16 +20,27 @@
       </a>
       }
     </div>
-    @s.stream.map { s =>
-    <p class="at">
-      Currently streaming:
-      <strong>@s.status</strong>
-    </p>
-    }.getOrElse {
-    <p class="at">@trans.lastSeenActive(momentFromNow(s.streamer.seenAt))</p>
-    @s.streamer.liveAt.map { liveAt =>
-    <p class="at">Last stream @momentFromNow(liveAt)</p>
-    }
-    }
+    <div class="metas">
+      <div class="ats">
+        @s.stream.map { s =>
+        <p class="at">
+          Currently streaming:<br />
+          <strong>@s.status</strong>
+        </p>
+        }.getOrElse {
+        <p class="at">@trans.lastSeenActive(momentFromNow(s.streamer.seenAt))</p>
+        @s.streamer.liveAt.map { liveAt =>
+        <p class="at">Last stream @momentFromNow(liveAt)</p>
+        }
+        }
+      </div>
+      @following.map { f =>
+      @if(ctx.isAuth && !ctx.is(s.user)) {
+      <button data-action="@routes.Relation.follow(s.user.id)" class="follow icon button hint--top inline" type="submit" @if(f){disabled}>
+        <span class="text" data-icon="h">@if(f){@trans.following()}else{@trans.follow()}</span>
+      </button>
+      }
+      }
+    </div>
   </div>
 </div>

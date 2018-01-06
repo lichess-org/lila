@@ -45,7 +45,7 @@ menu = menu("edit", s.withoutStream.some).some) {
     </div>
   </div>
   } else {
-  @header(s)
+  @header(s, none)
   }
   @defining(s.streamer.approval.granted) { granted =>
   <form class="content_box_content material form" action="@routes.Streamer.edit@if(!ctx.is(s.user)){?u=@s.user.id}" method="POST">

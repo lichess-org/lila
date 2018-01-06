@@ -1,4 +1,4 @@
-@(s: lila.streamer.Streamer.WithUserAndStream, activities: Vector[lila.activity.ActivityView])(implicit ctx: Context)
+@(s: lila.streamer.Streamer.WithUserAndStream, activities: Vector[lila.activity.ActivityView], following: Boolean)(implicit ctx: Context)
 
 @import lila.streamer.Stream.{ Twitch, YouTube }
 
@@ -34,10 +34,27 @@
 @cssTag("activity.css")
 }
 
+@moreJs = {
+@embedJs {
+$('button.follow').one('click', function() {
+var $button = $(this);
+$button.find('span').text('Following...');
+$.ajax({
+url:$button.data('action'),
+method:'post',
+success: function() {
+$button.find('span').text('Following');
+}
+});
+});
+}
+}
+
 @base.layout(title = s"${s.user.title.fold("")(_ + " ")}${s.user.titleUsername} streams on lichess.org",
 side = side.some,
 menu = menu("show", s.withoutStream.some).some,
-moreCss = moreCss) {
+moreCss = moreCss,
+moreJs = moreJs) {
 @s.stream match {
 case Some(YouTube.Stream(_, _, videoId, _)) => {
 <div class="content_box no_padding livestream youTube">
@@ -63,7 +80,7 @@ case _ => {
 }
 }
 <div class="content_box no_padding streamer">
-  @header(s)
+  @header(s, following.some)
   <div class="description">@richText(s.streamer.description.fold("")(_.value))</div>
   @views.html.activity.list(s.user, activities)
 </div>

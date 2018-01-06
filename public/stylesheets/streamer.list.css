@@ -22,27 +22,29 @@
 }
 .streamers .overview {
   margin: 20px 10px 0 20px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  padding-bottom: 15px;
 }
 .streamers .streamer h1 {
   font-family: 'Roboto';
   font-size: 32px;
   text-transform: uppercase;
   letter-spacing: 3px;
-  padding: 0 0 16px 0!important;
+  padding: 0!important;
   text-shadow: none!important;
 }
 .streamers .streamer .headline {
   font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
   font-size: 17px;
-  padding: 0 0 10px 0!important;
+  padding: 0!important;
 }
 .streamers .streamer .headline.medium {
   font-size: 15px;
-  padding-bottom: 18px!important;
 }
 .streamers .streamer .headline.large {
   font-size: 14px;
-  padding-bottom: 14px!important;
 }
 .streamers .streamer .services {
   margin: 5px 0 10px 0;

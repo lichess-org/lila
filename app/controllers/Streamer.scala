@@ -23,11 +23,11 @@ object Streamer extends LilaController {
   def show(username: String) = Open { implicit ctx =>
     OptionFuResult(api find username) { s =>
       WithVisibleStreamer(s) {
-        Env.streamer.liveStreams of s flatMap { sws =>
-          Env.activity.read.recent(sws.user, 10) map { activity =>
-            Ok(html.streamer.show(sws, activity))
-          }
-        }
+        for {
+          sws <- Env.streamer.liveStreams of s
+          activity <- Env.activity.read.recent(sws.user, 10)
+          following <- ctx.userId.??(Env.relation.api.fetchFollows(_, sws.user.id))
+        } yield Ok(html.streamer.show(sws, activity, following))
       }
     }
   }

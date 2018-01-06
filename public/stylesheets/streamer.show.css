@@ -9,27 +9,37 @@
 }
 .streamer .overview {
   margin: 20px 10px 0 20px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+}
+.streamer .metas {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+.streamer .follow:disabled {
+  cursor: default;
+  opacity: 1;
 }
 div.content_box.streamer h1 {
   font-family: 'Roboto';
   font-size: 32px;
   text-transform: uppercase;
   letter-spacing: 4px;
-  padding: 0 0 12px 0!important;
+  padding: 0!important;
   text-shadow: none!important;
 }
 .streamer .headline {
   font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
   font-size: 17px;
-  padding: 0 0 10px 0!important;
+  padding: 0!important;
 }
 .streamer .headline.medium {
   font-size: 15px;
-  padding-bottom: 18px!important;
 }
 .streamer .headline.large {
   font-size: 14px;
-  padding-bottom: 14px!important;
 }
 .streamer .services {
   margin: 5px 0;
