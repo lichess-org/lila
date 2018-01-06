@@ -10,6 +10,14 @@
     <item quantity="one">Mängis %1$s %2$s mängu</item>
     <item quantity="other">Mängis %1$s %2$s mängu</item>
   </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Postitas %1$s sõnumi foorumis %2$s</item>
+    <item quantity="other">Postitas %1$s sõnumit foorumis %2$s</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Lõpetas %s kirjavahetusmängu</item>
+    <item quantity="other">Lõpetas %s kirjavahetusmängu</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Hakkas jälgima %s mängijat</item>
     <item quantity="other">Hakkas jälgima %s mängijat</item>
@@ -23,4 +31,8 @@
     <item quantity="other">Võistles %s turniiril</item>
   </plurals>
   <string name="signedUp">Registreerus lehel lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Liitus %s rühmaga</item>
+    <item quantity="other">Liitus %s rühmaga</item>
+  </plurals>
 </resources>
