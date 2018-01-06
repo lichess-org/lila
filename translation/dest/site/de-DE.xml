@@ -770,8 +770,8 @@
   <string name="challenges">Herausforderungen</string>
   <string name="perfRatingX">Wertung: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="one">%s Sekunden, um den ersten Zug zu machen</item>
-    <item quantity="other">%s Sekunden, um den ersten Zug zu machen</item>
+    <item quantity="one">%s Sekunde, um den ersten Zug zu ziehen</item>
+    <item quantity="other">%s Sekunden, um den ersten Zug zu ziehen</item>
   </plurals>
   <string name="practiceWithComputer">Übe mit dem Computer</string>
   <string name="anotherWasX">Auch möglich war %s</string>
@@ -818,7 +818,7 @@
   <string name="youCannotChallengeX">Du kannst %s nicht herausfordern.</string>
   <string name="xDoesNotAcceptChallenges">%s akzeptiert keine Herausforderungen.</string>
   <string name="yourXRatingIsTooFarFromY">Deine %1$s Wertung ist zu weit von %2$s entfernt.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Herausforderung wegen vorläufiger %s-Wertungszahl nicht möglich.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Herausforderung wegen provisorischer %s Wertungszahl nicht möglich.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s akzeptiert Herausforderungen nur von Freunden.</string>
   <string name="conditionalPremoves">Bedingte Vorauszüge</string>
   <string name="addCurrentVariation">Aktuelle Variante hinzufügen</string>
