@@ -26,9 +26,21 @@
     <item quantity="one">Sai %s uue jälgija</item>
     <item quantity="other">Sai %s uut jälgijat</item>
   </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Korraldas %s simultaani</item>
+    <item quantity="other">Korraldas %s simultaani</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Osales %s simultaanis</item>
+    <item quantity="other">Osales %s simultaanis</item>
+  </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Võistles %s turniiril</item>
     <item quantity="other">Võistles %s turniiril</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Saavutas #%1$s koha (parima %2$s%% seas) %3$s mänguga turniiril %4$s</item>
+    <item quantity="other">Saavutas #%1$s koha (parima %2$s%% seas) %3$s mänguga turniiril %4$s</item>
   </plurals>
   <string name="signedUp">Registreerus lehel lichess.org</string>
   <plurals name="joinedNbTeams">
