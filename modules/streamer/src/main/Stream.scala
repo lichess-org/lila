@@ -2,11 +2,14 @@ package lila.streamer
 
 import play.api.libs.json._
 
+import lila.user.User
+
 trait Stream {
   def serviceName: String
   val status: String
   val streamer: Streamer
   def is(s: Streamer): Boolean = streamer.id == s.id
+  def is(userId: User.ID): Boolean = streamer.userId == userId
   def twitch = serviceName == "twitch"
   def youTube = serviceName == "youTube"
 }
@@ -15,17 +18,6 @@ object Stream {
 
   case class Keyword(value: String) extends AnyRef with StringValue {
     def toLowerCase = value.toLowerCase
-  }
-
-  case class LiveStreams(streams: List[Stream]) {
-
-    def has(streamer: Streamer) = streams.exists(_ is streamer)
-
-    def get(streamer: Streamer) = streams.find(_ is streamer)
-
-    def autoFeatured = LiveStreams {
-      streams.filter(_.streamer.approval.autoFeatured)
-    }
   }
 
   object Twitch {

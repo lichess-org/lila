@@ -12,6 +12,7 @@
   display: flex;
   flex-flow: column;
   justify-content: space-between;
+  width: 100%;
 }
 .streamer .metas {
   display: flex;

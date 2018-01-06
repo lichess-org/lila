@@ -10,7 +10,7 @@ import lila.simul.Simul
 import lila.timeline.Entry
 import lila.tournament.{ Tournament, Winner }
 import lila.tv.Tv
-import lila.streamer.Stream.LiveStreams
+import lila.streamer.LiveStreams
 import lila.user.LightUserApi
 import lila.user.User
 import play.api.libs.json._

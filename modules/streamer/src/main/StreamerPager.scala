@@ -14,7 +14,7 @@ final class StreamerPager(
 
   import BsonHandlers._
 
-  def notLive(page: Int, live: Stream.LiveStreams, approvalRequested: Boolean = false): Fu[Paginator[Streamer.WithUser]] = {
+  def notLive(page: Int, live: LiveStreams, approvalRequested: Boolean = false): Fu[Paginator[Streamer.WithUser]] = {
     val adapter = new Adapter[Streamer](
       collection = coll,
       selector =

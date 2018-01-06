@@ -21,7 +21,7 @@ final class Env(
     tourneyWinners = Env.tournament.winners.all.map(_.top),
     timelineEntries = Env.timeline.entryApi.userEntries _,
     dailyPuzzle = tryDailyPuzzle,
-    liveStreams = () => Env.streamer.liveStreams.all,
+    liveStreams = () => Env.streamer.liveStreamApi.all,
     countRounds = Env.round.count,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,

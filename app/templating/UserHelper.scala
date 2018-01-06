@@ -84,7 +84,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def isOnline(userId: String) = Env.user isOnline userId
 
-  def isStreaming(userId: String) = Env.streamer.liveStreams isStreaming userId
+  def isStreaming(userId: String) = Env.streamer.liveStreamApi isStreaming userId
 
   def userIdLink(
     userIdOption: Option[String],

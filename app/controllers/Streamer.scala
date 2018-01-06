@@ -14,7 +14,7 @@ object Streamer extends LilaController {
   def index(page: Int) = Open { implicit ctx =>
     val requests = getBool("requests") && isGranted(_.Streamers)
     for {
-      liveStreams <- Env.streamer.liveStreams.all
+      liveStreams <- Env.streamer.liveStreamApi.all
       live <- api withUsers liveStreams
       pager <- Env.streamer.pager.notLive(page, liveStreams, requests)
     } yield Ok(html.streamer.index(live, pager, requests))
@@ -24,7 +24,7 @@ object Streamer extends LilaController {
     OptionFuResult(api find username) { s =>
       WithVisibleStreamer(s) {
         for {
-          sws <- Env.streamer.liveStreams of s
+          sws <- Env.streamer.liveStreamApi of s
           activity <- Env.activity.read.recent(sws.user, 10)
           following <- ctx.userId.??(Env.relation.api.fetchFollows(_, sws.user.id))
         } yield Ok(html.streamer.show(sws, activity, following))
@@ -45,7 +45,7 @@ object Streamer extends LilaController {
 
   def edit = Auth { implicit ctx => me =>
     AsStreamer { s =>
-      Env.streamer.liveStreams of s flatMap { sws =>
+      Env.streamer.liveStreamApi of s flatMap { sws =>
         NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer))).fuccess
       }
     }
@@ -53,7 +53,7 @@ object Streamer extends LilaController {
 
   def editApply = AuthBody { implicit ctx => me =>
     AsStreamer { s =>
-      Env.streamer.liveStreams of s flatMap { sws =>
+      Env.streamer.liveStreamApi of s flatMap { sws =>
         implicit val req = ctx.body
         StreamerForm.userForm(sws.streamer).bindFromRequest.fold(
           error => BadRequest(html.streamer.edit(sws, error)).fuccess,

@@ -2,7 +2,6 @@ package lila.streamer
 
 import akka.actor._
 import com.typesafe.config.Config
-import scala.concurrent.duration._
 
 final class Env(
     config: Config,
@@ -49,26 +48,7 @@ final class Env(
     twitchClientId = TwitchClientId
   )))
 
-  object liveStreams {
-    import lila.user.User
-    import makeTimeout.short
-    import akka.pattern.ask
-    private val cache = asyncCache.single[Stream.LiveStreams](
-      name = "streamer.liveStreams",
-      f = streamingActor ? Streaming.Get mapTo manifest[Stream.LiveStreams] addEffect {
-        liveStreams => userIdsCache = liveStreams.streams.map(_.streamer.userId).toSet
-      },
-      expireAfter = _.ExpireAfterWrite(2 seconds)
-    )
-    private var userIdsCache = Set.empty[User.ID]
-
-    def all: Fu[Stream.LiveStreams] = cache.get
-    def of(s: Streamer.WithUser): Fu[Streamer.WithUserAndStream] = all.map { live =>
-      Streamer.WithUserAndStream(s.streamer, s.user, live get s.streamer)
-    }
-    def userIds = userIdsCache
-    def isStreaming(userId: User.ID) = userIdsCache contains userId
-  }
+  lazy val liveStreamApi = new LiveStreamApi(asyncCache, streamingActor)
 
   system.lilaBus.subscribe(
     system.actorOf(Props(new Actor {

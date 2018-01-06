@@ -38,7 +38,7 @@ final class StreamerApi(
       _ map { user => Streamer.WithUserAndStream(s.streamer, user, s.some) }
     }
 
-  def withUsers(live: Stream.LiveStreams): Fu[List[Streamer.WithUserAndStream]] =
+  def withUsers(live: LiveStreams): Fu[List[Streamer.WithUserAndStream]] =
     live.streams.map(withUser).sequenceFu.map(_.flatten)
 
   def allListed: Fu[List[Streamer]] =

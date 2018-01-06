@@ -247,7 +247,7 @@ object Tournament extends LilaController {
 
   private val streamerCache = Env.memo.asyncCache.multi[Tour.ID, Set[UserModel.ID]](
     name = "tournament.streamers",
-    f = tourId => Env.streamer.liveStreams.all.flatMap {
+    f = tourId => Env.streamer.liveStreamApi.all.flatMap {
       _.streams.map { stream =>
         env.hasUser(tourId, stream.streamer.userId) map (_ option stream.streamer.userId)
       }.sequenceFu.map(_.flatten.toSet)
