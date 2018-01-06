@@ -107,7 +107,8 @@ object Study extends LilaController {
             html = for {
               chat <- chatOf(sc.study)
               sVersion <- env.version(sc.study.id)
-            } yield Ok(html.study.show(sc.study, data, chat, sVersion)),
+              streams <- streamsOf(sc.study)
+            } yield Ok(html.study.show(sc.study, data, chat, sVersion, streams)),
             api = _ => Ok(Json.obj(
               "study" -> data.study,
               "analysis" -> data.analysis
@@ -339,4 +340,14 @@ object Study extends LilaController {
 
   private implicit def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
   private implicit def makeChapterId(id: String): Chapter.Id = Chapter.Id(id)
+
+  private[controllers] def streamsOf(study: StudyModel)(implicit ctx: Context): Fu[List[lila.streamer.Stream]] =
+    Env.streamer.liveStreamApi.all.flatMap {
+      _.streams.filter { s =>
+        study.members.members.exists(m => s is m._2.id)
+      }.map { stream =>
+        (fuccess(ctx.me ?? stream.streamer.is) >>|
+          env.isConnected(study.id, stream.streamer.userId)) map { _ option stream }
+      }.sequenceFu.map(_.flatten)
+    }
 }

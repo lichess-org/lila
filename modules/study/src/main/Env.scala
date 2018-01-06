@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 
 import lila.user.User
 import lila.hub.actorApi.map.Ask
+import lila.hub.actorApi.HasUserId
 import lila.hub.{ ActorMap, Sequencer }
 import lila.socket.actorApi.GetVersion
 import makeTimeout.short
@@ -58,6 +59,9 @@ final class Env(
 
   def version(studyId: Study.Id): Fu[Int] =
     socketHub ? Ask(studyId.value, GetVersion) mapTo manifest[Int]
+
+  def isConnected(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
+    socketHub ? Ask(studyId.value, HasUserId(userId)) mapTo manifest[Boolean]
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,

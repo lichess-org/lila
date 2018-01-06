@@ -1,9 +1,9 @@
 package lila.streamer
 
-import scala.concurrent.duration._
 import akka.actor._
 import akka.pattern.ask
 import makeTimeout.short
+import scala.concurrent.duration._
 
 import lila.user.User
 
@@ -39,4 +39,5 @@ final class LiveStreamApi(
   def userIds = userIdsCache
   def isStreaming(userId: User.ID) = userIdsCache contains userId
   def one(userId: User.ID): Fu[Option[Stream]] = all.map(_.streams.find(_ is userId))
+  def many(userIds: Seq[User.ID]): Fu[List[Stream]] = all.map(_.streams.filter(s => userIds.exists(s.is)))
 }

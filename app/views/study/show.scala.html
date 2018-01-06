@@ -1,4 +1,4 @@
-@(s: lila.study.Study, data: lila.study.JsonView.JsData, chatOption: Option[lila.chat.UserChat.Mine], socketVersion: Int)(implicit ctx: Context)
+@(s: lila.study.Study, data: lila.study.JsonView.JsData, chatOption: Option[lila.chat.UserChat.Mine], socketVersion: Int, streams: List[lila.streamer.Stream])(implicit ctx: Context)
 
 @moreJs = {
 @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
@@ -37,6 +37,9 @@ socketVersion: @socketVersion
 
 @side = {
 <div class="side_box study_box"></div>
+@streams.map { s =>
+<a href="@routes.Streamer.show(s.streamer.userId)" class="context-streamer text side_box" data-icon="">@usernameOrId(s.streamer.userId) is streaming</a>
+}
 }
 
 @base.layout(

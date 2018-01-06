@@ -86,7 +86,8 @@ object Relay extends LilaController {
     data = lila.relay.JsonView.makeData(relay, studyData)
     chat <- Study.chatOf(sc.study)
     sVersion <- Env.study.version(sc.study.id)
-  } yield Ok(html.relay.show(relay, sc.study, data, chat, sVersion))
+    streams <- Study.streamsOf(sc.study)
+  } yield Ok(html.relay.show(relay, sc.study, data, chat, sVersion, streams))
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
