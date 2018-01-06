@@ -6,7 +6,15 @@
   <string name="menu">Menu</string>
   <string name="progressX">Dosiahnutý výsledok: %s</string>
   <string name="resetMyProgress">Vynulovať moje výsledky</string>
+  <string name="youWillLoseAllYourProgress">Upozornenie: Váš pokrok bude odstránený!</string>
+  <string name="play">hrať!</string>
+  <string name="chessPieces">Šachové figúrky</string>
   <string name="theRook">Veža</string>
+  <string name="itMovesInStraightLines">Pohybuje sa vodorovne a zvislo</string>
+  <string name="rookIntro">Veža je mocná figúrka. Ovládnete ju?</string>
+  <string name="rookGoal">Kliknite a presuňte vež na hviezdu!</string>
+  <string name="grabAllTheStars">Zoberte všetky hviezdy!</string>
+  <string name="theFewerMoves">Čím menej ťahov urobíte, tým viac bodov získate!</string>
   <string name="theBishop">Strelec</string>
   <string name="theQueen">Dáma</string>
   <string name="queenCombinesRookAndBishop">Dáma = Veža + Strelec</string>
