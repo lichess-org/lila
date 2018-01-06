@@ -3,5 +3,8 @@
 <resources>
   <string name="coordinates">Mga coordinate</string>
   <string name="coordinateTraining">Pagsasanay tungkol sa mga coordinate</string>
+  <string name="knowingTheChessBoard">Importanteng kakayahan sa chess ang pag-alam ng mga coordinate ng checkboard:</string>
+  <string name="mostChessCourses">Ginagamit ng karamihan ng mga pagsasanay sa chess ang algebraic notation.</string>
+  <string name="talkToYourChessFriends">Pinapadali nito ang pakikipag-usap sa mga kaibigan mong may kaalaman sa chess, sapagkat alam ninyong pareho ang \"wika ng chess\".</string>
   <string name="startTraining">Simulan ang pagsasanay</string>
 </resources>
