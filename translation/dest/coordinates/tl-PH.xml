@@ -3,8 +3,12 @@
 <resources>
   <string name="coordinates">Mga coordinate</string>
   <string name="coordinateTraining">Pagsasanay tungkol sa mga coordinate</string>
+  <string name="averageScoreAsWhiteX">Katampatang score bilang puti: %s</string>
+  <string name="averageScoreAsBlackX">Katampatang score bilang itim: %s</string>
   <string name="knowingTheChessBoard">Importanteng kakayahan sa chess ang pag-alam ng mga coordinate ng checkboard:</string>
   <string name="mostChessCourses">Ginagamit ng karamihan ng mga pagsasanay sa chess ang algebraic notation.</string>
   <string name="talkToYourChessFriends">Pinapadali nito ang pakikipag-usap sa mga kaibigan mong may kaalaman sa chess, sapagkat alam ninyong pareho ang \"wika ng chess\".</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Pwede mong i-analyse ang isang laro nang mas mabisa kapag hindi mo kailangang maghanap ng mga pangalan para sa mga square.</string>
+  <string name="aSquareNameAppears">May lilitaw na pangalan ng square sa board at kailangan mong i-click ang tamang square. Mayroon kang 30 segundo para kilalanin ang pinakamaraming square na kaya mo!</string>
   <string name="startTraining">Simulan ang pagsasanay</string>
 </resources>
