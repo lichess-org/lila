@@ -56,6 +56,8 @@
   <string name="showThreat">แสดงภัยคุกคาม</string>
   <string name="inLocalBrowser">ในเบราว์เซอร์ท้องถิ่น</string>
   <string name="toggleLocalEvaluation">เปิด/ปิดการประเมินท้องถิ่น</string>
+  <string name="makeMainLine">สร้างเส้นทางหลัก</string>
+  <string name="deleteFromHere">ลบจากที่นี่</string>
   <string name="move">เดิน</string>
   <string name="variantLoss">ตัวแปรฯที่แพ้</string>
   <string name="variantWin">ตัวแปรฯที่ชนะ</string>
@@ -735,6 +737,9 @@
   <string name="notifications">การแจ้งเตือน</string>
   <string name="challenges">การท้าดวล</string>
   <string name="perfRatingX">ระดับคะแนน: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">%s วินาทีต้องเริ่มเดินตาแรก</item>
+  </plurals>
   <string name="practiceWithComputer">ฝึกหัดกับคอมพิวเตอร์</string>
   <string name="anotherWasX">อีกที่คือ %s</string>
   <string name="bestWasX">ดีที่สุดคือ %s</string>
@@ -749,6 +754,7 @@
   <string name="whiteWinsGame">ขาวชนะ</string>
   <string name="blackWinsGame">ดำชนะ</string>
   <string name="learnFromYourMistakes">เรียนรู้จากความผิดพลาดของคุณ</string>
+  <string name="learnFromThisMistake">เรียนรู้จากความผิดพลาดนี้</string>
   <string name="skipThisMove">ข้ามการเดินนี้</string>
   <string name="next">ถัดไป</string>
   <string name="xWasPlayed">%s ถูกเล่น</string>
@@ -774,4 +780,18 @@
   <string name="opening">การเปิดเกม</string>
   <string name="middlegame">กลางเกม</string>
   <string name="endgame">ท้ายเกม</string>
+  <string name="registerToSendChallenges">กรุณาลงทะเบียนเพื่อส่งคำท้าดวล</string>
+  <string name="youCannotChallengeX">คุณไม่สามารถท้า %s</string>
+  <string name="xDoesNotAcceptChallenges">%s ไม่รับคำท้า</string>
+  <string name="yourXRatingIsTooFarFromY">ระดับคะแนน %1$s ของคุณห่างจาก %2$s เกินไป</string>
+  <string name="cannotChallengeDueToProvisionalXRating">ไม่สามารถท้าได้เนื่องจากระดับคะแนน %s ชั่วคราว</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s รับคำท้าจากเพื่อนเท่านั้น</string>
+  <string name="conditionalPremoves">การเดินล่วงหน้าแบบมีเงื่อนไข</string>
+  <string name="addCurrentVariation">เพิ่มการแปรผันปัจจุบัน</string>
+  <string name="playVariationToCreateConditionalPremoves">เล่นหนึ่งการแปรผัน เพื่อสร้างการเดินล่วงหน้าแบบมีเงื่อนไข</string>
+  <string name="noConditionalPremoves">ไม่มีการเดินล่วงหน้าแบบมีเงื่อนไข</string>
+  <string name="playX">เล่น %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="other">และบันทึก %s เส้นทางเดินล่วงหน้า</item>
+  </plurals>
 </resources>

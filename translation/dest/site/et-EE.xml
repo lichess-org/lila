@@ -25,17 +25,17 @@
   <string name="kingInTheCenter">Kuningas keskel</string>
   <string name="threeChecks">Kolmetulemale</string>
   <string name="raceFinished">Võiduajamine lõpetatud</string>
-  <string name="variantEnding">Käikude kordamine</string>
+  <string name="variantEnding">Variandi lõpp</string>
   <string name="newOpponent">Uus vastane</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Sinu vastane soovib mängida uut mängu sinuga</string>
   <string name="joinTheGame">Liitu mänguga</string>
   <string name="whitePlays">Valge mängib</string>
   <string name="blackPlays">Must mängib</string>
   <string name="opponentLeftChoices">Vastane on lahkunud mängust. Sa võid sundida, et mängija alistuks või ootad.</string>
-  <string name="makeYourOpponentResign">Pane vastane alistuma</string>
+  <string name="makeYourOpponentResign">Sunni vastane alistuma</string>
   <string name="forceResignation">Sunni alistuma</string>
   <string name="forceDraw">Sunni viiki</string>
-  <string name="talkInChat">Räägi jututoas</string>
+  <string name="talkInChat">Palun käitu vestluses viisakalt!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Esimene inimene kes selle URLi peale klikib, mängib sinuga.</string>
   <string name="whiteResigned">Valge alistus</string>
   <string name="blackResigned">Must alistus</string>
@@ -106,11 +106,11 @@
   <string name="infiniteAnalysis">Lõputu analüüs</string>
   <string name="removesTheDepthLimit">Eemaldab sügavuslimiidi ja hoiab arvuti soojana</string>
   <string name="blunder">Viga</string>
-  <string name="blunders">vigu</string>
+  <string name="blunders">Viga</string>
   <string name="mistake">Eksimus</string>
-  <string name="mistakes">eksimusi</string>
+  <string name="mistakes">Eksimust</string>
   <string name="inaccuracy">Ebatäpsus</string>
-  <string name="inaccuracies">ebatäpsused</string>
+  <string name="inaccuracies">Ebatäpsust</string>
   <string name="moveTimes">Aeg käikudele</string>
   <string name="flipBoard">Keera lauda</string>
   <string name="threefoldRepetition">Kolmekordne kordus</string>
@@ -123,11 +123,11 @@
   </plurals>
   <string name="currentGames">Käimasolevad mängud</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Mängud</item>
-    <item quantity="other">%s Mängud</item>
+    <item quantity="one">%s mäng</item>
+    <item quantity="other">%s mängu</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s järjehoidjad</item>
+    <item quantity="one">%s järjehoidja</item>
     <item quantity="other">%s järjehoidjad</item>
   </plurals>
   <string name="viewInFullSize">Vaata täisekraanil</string>
@@ -148,21 +148,21 @@
   <string name="timeControl">Aja kontroll</string>
   <string name="realTime">Reaalajas</string>
   <string name="correspondence">Kirjavahetus</string>
-  <string name="daysPerTurn">aega päevi käiguks</string>
+  <string name="daysPerTurn">Päevi käiguks</string>
   <string name="oneDay">Üks päev</string>
   <plurals name="nbDays">
-    <item quantity="one">%s päeva</item>
+    <item quantity="one">%s päev</item>
     <item quantity="other">%s päeva</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s tundi</item>
+    <item quantity="one">%s tund</item>
     <item quantity="other">%s tundi</item>
   </plurals>
   <string name="time">Aeg</string>
   <string name="rating">Reiting</string>
   <string name="ratingStats">Reitingu statistika</string>
   <string name="username">Kasutaja nimi</string>
-  <string name="usernameOrEmail">Kasutajanimi</string>
+  <string name="usernameOrEmail">Kasutajanimi või email</string>
   <string name="password">Salasõna</string>
   <string name="haveAnAccount">Kas sul on kasutaja?</string>
   <string name="changePassword">Muuda salasõna</string>
@@ -195,7 +195,7 @@
   <string name="yourOpponentOffersADraw">Su vastane pakub viiki</string>
   <string name="accept">Nõustu</string>
   <string name="decline">Keeldu</string>
-  <string name="playingRightNow">Mängime kohe</string>
+  <string name="playingRightNow">Mängimas praegu</string>
   <string name="eventInProgress">Praegu mängimas</string>
   <string name="finished">Lõpetatud</string>
   <string name="abortGame">Katkesta mäng</string>
@@ -538,8 +538,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="promoteToQueenAutomatically">Automaatselt edenda lipuks</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Kuuluta viik kolmekordsel kordusel automaatselt</string>
   <string name="privacy">Privaatsus</string>
-  <string name="letOtherPlayersFollowYou">Lubage teistele mängijatele teid jälgida</string>
-  <string name="letOtherPlayersChallengeYou">Lubage teistele mängijatele esitada väljakutse</string>
+  <string name="letOtherPlayersFollowYou">Luba teistel mängijatel sind jälgida</string>
+  <string name="letOtherPlayersChallengeYou">Luba teistel mängijatel sulle väljakutseid esitada</string>
   <string name="letOtherPlayersInviteYouToStudy">Lase teistel mängijatel sind kutsuda õppima</string>
   <string name="sound">Heli</string>
   <string name="yourPreferencesHaveBeenSaved">Teie eelistused on salvestatud.</string>
@@ -558,7 +558,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="difficultyNormal">Tavaline</string>
   <string name="difficultyHard">Keeruline</string>
   <string name="xLeftANoteOnY">%1$s jättis teate %2$s -le</string>
-  <string name="xCompetesInY">%1$s võtab osa turniilist %2$s</string>
+  <string name="xCompetesInY">%1$s võtab osa turniirist %2$s</string>
   <string name="xAskedY">%1$s küsis %2$s</string>
   <string name="xAnsweredY">%1$s vastas %2$s</string>
   <string name="xCommentedY">%1$s kommenteeris %2$s</string>
@@ -687,7 +687,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="analysisShapesHowTo">Press Shift + click või paremklikk teha ringid ja nooled laual.</string>
   <string name="confirmResignationAndDrawOffers">Kinnitage alistumise ning viigi pakkumised</string>
   <string name="inputMovesWithTheKeyboard">Sisestage käigud klaviatuuril</string>
-  <string name="letOtherPlayersMessageYou">Las teised mängijad sõnumi</string>
+  <string name="letOtherPlayersMessageYou">Luba teistel mängijatel saata sulle sõnumeid</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Vangerdamise meetod</string>
   <string name="castleByMovingTwoSquares">Liiguta kuningat kaks ruutu</string>
   <string name="castleByMovingOntoTheRook">Liiguta kuningas vankri peale</string>

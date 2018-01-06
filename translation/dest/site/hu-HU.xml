@@ -127,8 +127,8 @@
     <item quantity="other">%s játszma</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s könyvjelző</item>
-    <item quantity="other">%s könyvjelző</item>
+    <item quantity="one">%s kedvenc</item>
+    <item quantity="other">%s kedvenc</item>
   </plurals>
   <string name="viewInFullSize">Teljes méret</string>
   <string name="logOut">Kijelentkezés</string>
@@ -136,7 +136,7 @@
   <string name="newToLichess">Új vagy a Lichess-en?</string>
   <string name="youNeedAnAccountToDoThat">Ehhez egy fiókra van szükséged</string>
   <string name="signUp">Regisztráció</string>
-  <string name="computersAreNotAllowedToPlay">Számítógépek és számítógép segítségét igénybe vevő játékosok nem játszhatnak. Kérünk játék közbe ne vegyél igénybe segítséget sakk programoktól, adatbázisoktól, vagy más játékosoktól. Több fiók készítése és használata egyszerre az oldalról való kitiltást vonja maga után.</string>
+  <string name="computersAreNotAllowedToPlay">Számítógépek és számítógép segítségét igénybe vevő játékosok nem játszhatnak. Kérünk játék közben ne vegyél igénybe segítséget sakk programoktól, adatbázisoktól, vagy más játékosoktól. Több fiók készítése és használata egyszerre az oldalról való kitiltást vonja maga után.</string>
   <string name="games">Játszmák</string>
   <string name="forum">Fórum</string>
   <string name="xPostedInForumY">%1$s írt a következő témába: %2$s</string>
@@ -187,7 +187,7 @@
   <string name="drawOfferSent">Döntetlen felajánlás elküldve</string>
   <string name="drawOfferDeclined">Döntetlen felajánlás elutasítva</string>
   <string name="drawOfferAccepted">Döntetlen elfogadva</string>
-  <string name="drawOfferCanceled">Felajánlás visszavonva</string>
+  <string name="drawOfferCanceled">Döntetlen ajánlás elvetve</string>
   <string name="whiteOffersDraw">Világos döntetlent ajánl</string>
   <string name="blackOffersDraw">Sötét döntetlent ajánl</string>
   <string name="whiteDeclinesDraw">Világos elutasította a döntetlen ajánlatot</string>
@@ -211,9 +211,9 @@
   <string name="rematch">Visszavágó</string>
   <string name="rematchOfferSent">Visszavágó felajánlva</string>
   <string name="rematchOfferAccepted">Visszavágó elfogadva</string>
-  <string name="rematchOfferCanceled">Visszavágó ajánlat visszavonva</string>
+  <string name="rematchOfferCanceled">Visszavágó ajánlat elvetve</string>
   <string name="rematchOfferDeclined">Visszavágót visszautasították</string>
-  <string name="cancelRematchOffer">Visszavágó visszavonása</string>
+  <string name="cancelRematchOffer">Visszavágó elvetése</string>
   <string name="viewRematch">Visszavágó megtekintése</string>
   <string name="play">Játék</string>
   <string name="inbox">Beérkező üzenetek</string>
@@ -264,7 +264,7 @@
   <string name="takebackPropositionSent">Visszalépés kérése elküldve</string>
   <string name="takebackPropositionDeclined">Visszalépés kérése elutasítva</string>
   <string name="takebackPropositionAccepted">Visszalépés kérése elfogadva</string>
-  <string name="takebackPropositionCanceled">Visszalépés kérése visszavonva</string>
+  <string name="takebackPropositionCanceled">Visszalépés kérés elvetve</string>
   <string name="yourOpponentProposesATakeback">Az ellenfeled visszalépést kér</string>
   <string name="bookmarkThisGame">Játszma hozzáadása a könyvjelzőkhöz</string>
   <string name="search">Keresés</string>
@@ -384,7 +384,7 @@
   <string name="standing">Állás</string>
   <string name="createANewTournament">Új verseny létrehozása</string>
   <string name="join">Csatlakozás</string>
-  <string name="withdraw">Visszavonulás</string>
+  <string name="withdraw">Visszavon</string>
   <string name="points">Pontok</string>
   <string name="wins">Győzelmek</string>
   <string name="losses">Vereségek</string>
@@ -429,7 +429,7 @@
   <string name="inlineNotation">Megjegyzések beszúrása</string>
   <string name="watchLichessTV">Nézd a Lichess TV-t</string>
   <string name="previouslyOnLichessTV">A Lichess TV korábbi műsorai</string>
-  <string name="onlinePlayers">Online játékosok</string>
+  <string name="onlinePlayers">Játékosok online</string>
   <string name="activeToday">Aktív ma</string>
   <string name="activePlayers">Aktív játékosok</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Időmérés nélküli, de rangsorolt meccs!</string>
@@ -543,7 +543,7 @@
   <string name="letOtherPlayersChallengeYou">Mások kihívhatnak egy játszmára</string>
   <string name="letOtherPlayersInviteYouToStudy">Mások meghívhatnak játszma tanulmányozásra</string>
   <string name="sound">Hang</string>
-  <string name="yourPreferencesHaveBeenSaved">Beállításaid elmentettük.</string>
+  <string name="yourPreferencesHaveBeenSaved">Beállítások elmentve.</string>
   <string name="none">Nincs</string>
   <string name="fast">Gyors</string>
   <string name="normal">Normál</string>
@@ -653,7 +653,7 @@
   <string name="simulVariantsHint">Ha több variánst hozol létre, minden játékos eldöntheti mihez csatlakozik.</string>
   <string name="simulClockHint">Fisher óra beállítás. Minél több játékossal játszol, annál több időre lesz szükség</string>
   <string name="simulAddExtraTime">Plusz időt adhatsz az órához, hogy a szimultán könnyebb legyen.</string>
-  <string name="simulHostExtraTime">Állíts be extra időbónuszokat</string>
+  <string name="simulHostExtraTime">Időbónusz</string>
   <string name="lichessTournaments">Lichess versenyek</string>
   <string name="tournamentFAQ">Aréna verseny GYIK</string>
   <string name="tournamentOfficial">Hivatalos</string>
@@ -665,7 +665,7 @@
   <string name="keyShowOrHideComments">kommentek megjelenítése/elrejtése</string>
   <string name="keyEnterOrExitVariation">be/kilépés variációnál</string>
   <string name="newTournament">Új torna</string>
-  <string name="tournamentHomeTitle">A sakk bajnokságokra jellemző, hogy beállíthatsz időket és variációkat</string>
+  <string name="tournamentHomeTitle">A sakk bajnokságokban lehetőség van különböző időbeállítások és változatok beállítására</string>
   <string name="tournamentHomeDescription">Vegyél részt villám-versenyeken! Csatlakozz hivatalkos versenyekhez, vagy hozz létre te saját magad. Bullet, Blitz, Hagyományos, Sakk960, King of the Hill, Threecheck és mások elérhetők, hogy minél jobban élvezd a sakkot.</string>
   <string name="tournamentNotFound">A torna nem található.</string>
   <string name="tournamentDoesNotExist">Ez a torna nem létezik.</string>
@@ -823,4 +823,9 @@
   <string name="addCurrentVariation">Változat hozzáadása</string>
   <string name="playVariationToCreateConditionalPremoves">Egy variáció megjátszásával, hozzáadható feltételes előre megadott lépés</string>
   <string name="noConditionalPremoves">Nincs feltételes előre megadott lépés</string>
+  <string name="playX">%s megjátszása</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">és %s változat mentése</item>
+    <item quantity="other">és %s változat mentése</item>
+  </plurals>
 </resources>

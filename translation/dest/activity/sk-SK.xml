@@ -18,4 +18,60 @@
     <item quantity="few">Odohrané %1$s %2$s partie</item>
     <item quantity="other">Odohraných %1$s %2$s partií</item>
   </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Uverejnený %1$s príspevok v %2$s</item>
+    <item quantity="few">Uverejnené %1$s príspevky v %2$s</item>
+    <item quantity="other">Uverejnených %1$s príspevkov v %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Potiahnutý %1$s ťah v %2$s korešpond. partii/-ách</item>
+    <item quantity="few">Potiahnuté %1$s ťahy v %2$s korešpond. partii/-ách</item>
+    <item quantity="other">Potiahnutých %1$s ťahov v %2$s korešpond. partii/-ách</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Dohraná %s korešpondenčná partia</item>
+    <item quantity="few">Dohrané %s korešpondenčné partie</item>
+    <item quantity="other">Dohraných %s korešpondenčných partií</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Začiatok sledovania %s hráča</item>
+    <item quantity="few">Začiatok sledovania %s hráčov</item>
+    <item quantity="other">Začiatok sledovania %s hráčov</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Získanie %s nového sledovateľa</item>
+    <item quantity="few">Získanie %s nových sledovateľov</item>
+    <item quantity="other">Získanie %s nových sledovateľov</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Usporiadanie a odohranie %s simultánky</item>
+    <item quantity="few">Usporiadanie a odohranie %s simultánok</item>
+    <item quantity="other">Usporiadanie a odohranie %s simultánok</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Zúčastnenie sa v %s simultánke</item>
+    <item quantity="few">Zúčastnenie sa v %s simultánkach</item>
+    <item quantity="other">Zúčastnenie sa v %s simultánkach</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Vytvorenie %s novej štúdie</item>
+    <item quantity="few">Vytvorenie %s nových štúdií</item>
+    <item quantity="other">Vytvorenie %s nových štúdií</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Zúčastnenie sa v %s turnaji</item>
+    <item quantity="few">Zúčastnenie sa v %s turnajoch</item>
+    <item quantity="other">Zúčastnenie sa v %s turnajoch</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiou v %4$s</item>
+    <item quantity="few">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
+    <item quantity="other">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
+  </plurals>
+  <string name="signedUp">Registrácia na lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Pripojenie sa k %s tímu</item>
+    <item quantity="few">Pripojenie sa k %s tímom</item>
+    <item quantity="other">Pripojenie sa k %s tímom</item>
+  </plurals>
 </resources>

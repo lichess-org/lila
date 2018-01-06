@@ -56,7 +56,7 @@
   <string name="showThreat">Показать ответную угрозу</string>
   <string name="inLocalBrowser">в браузере</string>
   <string name="toggleLocalEvaluation">Включить локальный анализ</string>
-  <string name="promoteVariation">Активизировать этот вариант</string>
+  <string name="promoteVariation">Сделать вариант главным</string>
   <string name="makeMainLine">Сделать этот вариант основным</string>
   <string name="deleteFromHere">Удалить с этого места</string>
   <string name="move">Ход</string>
@@ -108,7 +108,7 @@
   <string name="memory">Память</string>
   <string name="infiniteAnalysis">Бесконечный анализ</string>
   <string name="removesTheDepthLimit">Снимает ограничение на глубину анализа, но заставляет поработать ваш компьютер</string>
-  <string name="blunder">Грубая ошибка</string>
+  <string name="blunder">Зевок</string>
   <string name="blunders">Грубые ошибки</string>
   <string name="mistake">Ошибка</string>
   <string name="mistakes">Ошибки</string>
@@ -153,7 +153,7 @@
   <string name="variants">Варианты</string>
   <string name="timeControl">Контроль времени</string>
   <string name="realTime">По часам</string>
-  <string name="correspondence">Дневная</string>
+  <string name="correspondence">Дневная игра</string>
   <string name="daysPerTurn">Дней на ход</string>
   <string name="oneDay">Один день</string>
   <plurals name="nbDays">
@@ -648,7 +648,7 @@
   <string name="whiteCastlingKingside">Белые О-О</string>
   <string name="whiteCastlingQueenside">Белые О-О-О</string>
   <string name="blackCastlingKingside">Чёрные О-О</string>
-  <string name="blackCastlingQueenside">Чёрные О-О-О</string>
+  <string name="blackCastlingQueenside">Черные О-О-О</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s сообщений на форуме</item>
     <item quantity="few">%s сообщений на форуме</item>
@@ -802,9 +802,9 @@
   <string name="challenges">Вызовы</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="one">Осталась %s секунда, чтобы сделать первый ход</item>
-    <item quantity="few">Осталось %s секунды, чтобы сделать первый ход</item>
-    <item quantity="other">Осталось %s секунд, чтобы сделать первый ход</item>
+    <item quantity="one">%s секунда на первый ход</item>
+    <item quantity="few">%s секунды на первый ход</item>
+    <item quantity="other">%s секунд на первый ход</item>
   </plurals>
   <string name="practiceWithComputer">Тренировка с компьютером</string>
   <string name="anotherWasX">Можно было %s</string>
@@ -854,4 +854,14 @@
   <string name="yourXRatingIsTooFarFromY">Ваш рейтинг %1$s слишком далёк от %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Невозможно из-за недостоверности рейтинга %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s принимает вызовы только от друзей.</string>
+  <string name="conditionalPremoves">Условные предходы</string>
+  <string name="addCurrentVariation">Добавить текущий вариант</string>
+  <string name="playVariationToCreateConditionalPremoves">Выполните ходы на доске, чтобы установить условные предходы</string>
+  <string name="noConditionalPremoves">Безусловные предходы</string>
+  <string name="playX">Сыграть %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">и сохранить %s последовательность</item>
+    <item quantity="few">и сохранить %s последовательности</item>
+    <item quantity="other">и сохранить %s последовательностей</item>
+  </plurals>
 </resources>
