@@ -78,8 +78,8 @@ object Streamer {
     def minUrl = s"twitch.tv/$userId"
   }
   object Twitch {
-    private val UserIdRegex = """^(\w{2,24})$""".r
-    private val UrlRegex = """.*twitch\.tv/(\w{2,24}).*""".r
+    private val UserIdRegex = """^([\w-]{2,24})$""".r
+    private val UrlRegex = """.*twitch\.tv/([\w-]{2,24}).*""".r
     // https://www.twitch.tv/chessnetwork
     def parseUserId(str: String): Option[String] = str match {
       case UserIdRegex(u) => u.some
@@ -93,8 +93,8 @@ object Streamer {
     def minUrl = s"youtube.com/channel/$channelId"
   }
   object YouTube {
-    private val ChannelIdRegex = """^(\w{24})$""".r
-    private val UrlRegex = """.*youtube\.com/channel/(\w{24}).*""".r
+    private val ChannelIdRegex = """^([\w-]{24})$""".r
+    private val UrlRegex = """.*youtube\.com/channel/([\w-]{24}).*""".r
     def parseChannelId(str: String): Option[String] = str match {
       case ChannelIdRegex(c) => c.some
       case UrlRegex(c) => c.some
