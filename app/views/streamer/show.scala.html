@@ -56,6 +56,7 @@ side = side.some,
 moreCss = moreCss,
 moreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(
+title = title,
 description = shorten(~(s.streamer.headline.map(_.value) orElse s.streamer.description.map(_.value)), 152),
 url = s"$netBaseUrl${routes.Streamer.show(s.user.username)}",
 `type` = "video",
