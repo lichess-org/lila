@@ -230,7 +230,7 @@
   <string name="chatRoom">Chatovacia miestnosť</string>
   <string name="loginToChat">Prihlásiť sa do četu</string>
   <string name="youHaveBeenTimedOut">Vypršal Vám čas.</string>
-  <string name="spectatorRoom">Miestnosť pre divákov</string>
+  <string name="spectatorRoom">Divácka miestnosť</string>
   <string name="composeMessage">Napísať správu</string>
   <string name="noNewMessages">Žiadne nové správy</string>
   <string name="subject">Predmet</string>
