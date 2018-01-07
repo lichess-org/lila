@@ -173,6 +173,11 @@
   <string name="forgotPassword">Nakalimutan mo ba ang iyong password?</string>
   <string name="rank">Ranko</string>
   <string name="rankX">Ranggo: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Ang ranggo ay na-update bawat %s minuto</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s palaisipan</item>
+    <item quantity="other">%s palaisipan</item>
+  </plurals>
   <string name="gamesPlayed">Games Na Nalaro</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s  laro sa iyo</item>
@@ -180,6 +185,10 @@
   </plurals>
   <string name="cancel">Ikansela</string>
   <string name="timeOut">Naubusan ng oras</string>
+  <string name="drawOfferSent">Naipadala na ang alok sa gumawa</string>
+  <string name="drawOfferDeclined">Tinanggihan ang alok ng gumawa</string>
+  <string name="drawOfferAccepted">Tinanggap ang alok ng gumawa</string>
+  <string name="drawOfferCanceled">Kinansela ang alok ng gumawa</string>
   <string name="whiteDeclinesDraw">Tinanggihan ng White ang draw</string>
   <string name="blackDeclinesDraw">Tinanggihan ng Black ang draw</string>
   <string name="accept">Tanggapin</string>
