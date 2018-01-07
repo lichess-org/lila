@@ -87,7 +87,7 @@
     <item quantity="other">%s polťahov do ďalšieho brania alebo ťahu pešiakom (vynulovanie pravidla 50 ťahov)</item>
   </plurals>
   <string name="noGameFound">Nenašla sa žiadna partia</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ponuka predvolieb možno obsahuje viac hier?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možno vyberte viac partií z menu preferencií?</string>
   <string name="openingExplorer">Prieskumník otvorení</string>
   <string name="xOpeningExplorer">%s prieskumník otvorení</string>
   <string name="winPreventedBy50MoveRule">Zabránené výhre pravidlo 50-tich ťahov</string>
