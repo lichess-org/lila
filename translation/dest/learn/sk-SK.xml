@@ -50,6 +50,8 @@ Niekedy sa však môže hodiť aj jazdec!</string>
   <string name="pawnsMoveForward">Pešiaci sa pohybujú vpred,
 ale berú diagonálne!</string>
   <string name="captureThenPromote">Berte, premente a opäť berte!</string>
+  <string name="useAllThePawns">Použite všetkých pešiakov!
+Premieňať nepotrebujete.</string>
   <string name="pawnComplete">Gratulujeme! Pešiakov zvládate ľavou zadnou.</string>
   <string name="captureComplete">Gratulujeme! Viete ako s šachovými figúrkami bojovať!</string>
   <string name="protectionComplete">Gratulujeme! Figúrka, ktorú nestratíte je figúrka, ktorú získate!</string>
