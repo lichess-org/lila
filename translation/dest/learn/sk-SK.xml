@@ -129,6 +129,7 @@ ale môžete sa brániť!</string>
   <string name="theSpecialPawnMove">Osobitý ťah pešiakom</string>
   <string name="enPassantIntro">Keď súper potiahne pešiakom o dve políčka, môžete ho vziať akoby potiahol len o jedno.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Čierny práve potiahol pešiakom o dve políčka. Vezmite ho mimochodom!</string>
+  <string name="enPassantOnlyWorksImmediately">Branie mimochodom je možné vykonať iba bezprostredne po ťahu súperovho pešiaka.</string>
   <string name="enPassantComplete">Gratulujeme! Teraz už dokážete brať mimochodom.</string>
   <string name="stalemateComplete">Gratulujeme! Lepší pat, než dostať mat!</string>
   <string name="advanced">Nadstavba</string>
