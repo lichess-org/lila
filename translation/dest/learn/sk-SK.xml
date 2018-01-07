@@ -89,6 +89,8 @@ ale môžete sa brániť!</string>
   <string name="outOfCheck">Únik zo šachu</string>
   <string name="defendYourKing">Ochráňte svojho kráľa</string>
   <string name="outOfCheckIntro">Ste v šachu! Musíte z neho ustúpiť alebo predkryť napadnutie.</string>
+  <string name="escapeWithTheKing">Ustúpte kráľom!</string>
+  <string name="theKingCannotEscapeButBlock">Kráľ nemôže ustúpiť, ale napadnutie môžete predkryť!</string>
   <string name="outOfCheckComplete">Gratulujeme! Na Vášho kráľa si len tak niekto nepríde! Vždy sa uistite, že sa proti šachu dokážete brániť!</string>
   <string name="mateInOneComplete">Gratulujeme! Presne takto sa vyhrávajú šachové partie!</string>
   <string name="boardSetupComplete">Gratulujeme! Dokážete rozložiť figúrky do základného postavenia.</string>
