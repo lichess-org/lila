@@ -464,8 +464,8 @@
   <string name="thisPuzzleIsCorrect">O quebra-cabeça está correto e é interessante</string>
   <string name="thisPuzzleIsWrong">O quebra-cabeça está errado ou é chato</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s jogo de decorrer</item>
-    <item quantity="other">%s jogos de decorrer</item>
+    <item quantity="one">%s jogo a decorrer</item>
+    <item quantity="other">%s jogos a decorrer</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após o lance</string>
   <string name="autoSwitch">Alternar automaticamente</string>
