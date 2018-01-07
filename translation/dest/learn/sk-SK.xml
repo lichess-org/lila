@@ -121,7 +121,12 @@ ale môžete sa brániť!</string>
   <string name="castleKingSideMovePiecesFirst">Vykonajte krátku rošádu! Najprv si však potrebujete vyvinúť zopár figúrok.</string>
   <string name="castleQueenSideMovePiecesFirst">Vykonajte dlhú rošádu! Najprv je ale potrebné vyvinúť zopár figúrok.</string>
   <string name="youCannotCastleIfMoved">Nie je možné vykonať rošádu pokiaľ sa s kráľom alebo vežou už hýbalo.</string>
+  <string name="youCannotCastleIfAttacked">Nemôžete robiť rošádu ak je kráľ v šachu. Predkryte šach a zrošádujte potom!</string>
+  <string name="findAWayToCastleKingSide">Nájdite spôsob ako urobiť krátku rošádu!</string>
+  <string name="findAWayToCastleQueenSide">Nájdite spôsob ako urobiť dlhú rošádu!</string>
   <string name="castlingComplete">Gratulujeme! Rošádu by ste v mali urobiť takmer v každej partii.</string>
+  <string name="enPassant">Branie mimochodom</string>
+  <string name="theSpecialPawnMove">Osobitý ťah pešiakom</string>
   <string name="enPassantComplete">Gratulujeme! Teraz už dokážete brať mimochodom.</string>
   <string name="stalemateComplete">Gratulujeme! Lepší pat, než dostať mat!</string>
   <string name="advanced">Nadstavba</string>
