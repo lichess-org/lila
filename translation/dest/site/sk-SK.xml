@@ -107,7 +107,7 @@
   <string name="cpus">Procesory</string>
   <string name="memory">Pamäť</string>
   <string name="infiniteAnalysis">Nekonečná analýza</string>
-  <string name="removesTheDepthLimit">Odstráni obmedzenie hĺbky analýzy a udržuje Váš počítač v teple</string>
+  <string name="removesTheDepthLimit">Odstráni obmedzenie hĺbky analýzy a spôsobí zahrievanie Vášho počítača</string>
   <string name="blunder">Hrubá chyba</string>
   <string name="blunders">Hrubé chyby</string>
   <string name="mistake">Chyba</string>
@@ -117,12 +117,12 @@
   <string name="moveTimes">Trvanie ťahov</string>
   <string name="flipBoard">Otočiť šachovnicu</string>
   <string name="threefoldRepetition">Trojnásobné opakovanie</string>
-  <string name="claimADraw">Žiadať remízu</string>
+  <string name="claimADraw">Požadovať remízu</string>
   <string name="offerDraw">Ponúknuť remízu</string>
   <string name="draw">Remíza</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s pripojený hráč</item>
-    <item quantity="few">%s pripojený hráči</item>
+    <item quantity="few">%s pripojení hráči</item>
     <item quantity="other">%s pripojených hráčov</item>
   </plurals>
   <string name="currentGames">Práve prebiehajúce partie</string>
