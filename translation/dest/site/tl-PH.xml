@@ -288,14 +288,43 @@
   <string name="following">Sinusundan</string>
   <string name="unfollow">Wag sundan</string>
   <string name="blocked">Naka-harang</string>
+  <string name="unblock">I-unblock</string>
+  <string name="followsYou">Sinusunod ka</string>
+  <string name="xStartedFollowingY">%1$s nagsimulang sumusunod %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s tagasunod</item>
+    <item quantity="other">%s mga tagasunod</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s sumusunod</item>
+    <item quantity="other">%s sumusunod</item>
+  </plurals>
+  <string name="more">Higit pa</string>
+  <string name="memberSince">Miyembro mula noong</string>
+  <string name="lastSeenActive">Aktibo %s</string>
+  <string name="challengeToPlay">Anyayahang maglaro</string>
+  <string name="player">Manlalaro</string>
+  <string name="list">Listahan</string>
+  <string name="graph">Talangguhit</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Mas mababa pa %s minuto</item>
+    <item quantity="other">Mas mababa pa %s mga minuto</item>
+  </plurals>
+  <string name="required">Kailangan.</string>
+  <string name="openTournaments">Bukas na mga paligsahan</string>
+  <string name="duration">Tagal</string>
+  <string name="winner">Nagwagi</string>
+  <string name="standing">Katayuan</string>
   <string name="createANewTournament">Gumawa ng baong torneo</string>
   <string name="join">Sumali</string>
   <string name="withdraw">Umalis</string>
   <string name="points">Punto</string>
   <string name="wins">Mga Panalo</string>
   <string name="losses">Mga Talo</string>
+  <string name="winStreak">Tuloy-tuloy na panalo</string>
   <string name="createdBy">Ginawa ni</string>
   <string name="tournamentIsStarting">Mag sisimula na yung torneo</string>
+  <string name="tournamentPairingsAreNowClosed">Ang mga pagpapares ng torneo ay sarado na ngayon.</string>
   <string name="membersOnly">Mga Myembro Lang</string>
   <string name="firstName">Pangalan</string>
   <string name="lastName">Apelyido</string>
