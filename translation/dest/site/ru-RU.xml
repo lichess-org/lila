@@ -417,7 +417,7 @@
   <string name="winStreak">Серия побед</string>
   <string name="createdBy">Создан</string>
   <string name="tournamentIsStarting">Турнир начинается</string>
-  <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира уже закрыта.</string>
+  <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира завершена.</string>
   <string name="standByX">Будьте готовы, %s, идёт жеребьёвка игроков!</string>
   <string name="youArePlaying">Вы в игре!</string>
   <string name="winRate">Победы</string>
