@@ -418,7 +418,7 @@
   <string name="createdBy">Создан</string>
   <string name="tournamentIsStarting">Турнир начинается</string>
   <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира завершена.</string>
-  <string name="standByX">Будьте готовы, %s, идёт жеребьёвка игроков!</string>
+  <string name="standByX">Ожидайте, %s, идёт жеребьёвка. Будьте готовы!</string>
   <string name="youArePlaying">Вы в игре!</string>
   <string name="winRate">Победы</string>
   <string name="berserkRate">Берсерк</string>
