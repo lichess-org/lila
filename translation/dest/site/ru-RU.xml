@@ -422,7 +422,7 @@
   <string name="youArePlaying">Вы в игре!</string>
   <string name="winRate">Победы</string>
   <string name="berserkRate">Берсерк</string>
-  <string name="performance">Достигнут рейтинг</string>
+  <string name="performance">Пик рейтинга</string>
   <string name="tournamentComplete">Турнир завершён</string>
   <string name="movesPlayed">Сделано ходов</string>
   <string name="whiteWins">Побед белыми</string>
