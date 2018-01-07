@@ -19,12 +19,20 @@
   <string name="rookComplete">Gratulujeme! Ťahy vežou máte úspešne zvládnuté.</string>
   <string name="theBishop">Strelec</string>
   <string name="itMovesDiagonally">Pohybuje sa diagonálne</string>
+  <string name="bishopIntro">Ďalej sa naučíte ako manévrovať so strelcom!</string>
+  <string name="youNeedBothBishops">Jeden bielopoľný strelec,
+jeden čiernopoľný strelec.
+Potrebujete ich oboch!</string>
   <string name="bishopComplete">Gratulujeme! Dokážete ovládať strelca.</string>
   <string name="theQueen">Dáma</string>
   <string name="queenCombinesRookAndBishop">Dáma = Veža + Strelec</string>
+  <string name="queenIntro">Prichádza najsilnejšia figúrka na šachovnici. Áno, reč je o dáme!</string>
   <string name="queenComplete">Gratulujeme! Dámy už pred Vami neukrývajú žiadne tajomstvá.</string>
   <string name="theKing">Kráľ</string>
   <string name="theMostImportantPiece">Najdôležitejšia figúrka</string>
+  <string name="kingIntro">Vy ste kráľom. Ak v bitke padnete, partia je prehraná.</string>
+  <string name="theKingIsSlow">Kráľ je pomalý.</string>
+  <string name="lastOne">A naposledy!</string>
   <string name="theKnight">Jazdec</string>
   <string name="itMovesInAnLShape">Pohybuje sa do \"L\"</string>
   <string name="knightComplete">Gratulujeme! Zvládli ste ťahy jazdcom.</string>
