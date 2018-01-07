@@ -132,9 +132,9 @@
     <item quantity="other">%s partií</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Záložka</item>
-    <item quantity="few">%s Záložky</item>
-    <item quantity="other">%s Záložiek</item>
+    <item quantity="one">%s záložka</item>
+    <item quantity="few">%s záložky</item>
+    <item quantity="other">%s záložiek</item>
   </plurals>
   <string name="viewInFullSize">Zobraziť v plnej veľkosti</string>
   <string name="logOut">Odhlásiť sa</string>
@@ -241,8 +241,8 @@
   <string name="spectators">Diváci:</string>
   <plurals name="nbRated">
     <item quantity="one">%s hodnotená</item>
-    <item quantity="few">%s hodnotená</item>
-    <item quantity="other">%s hodnotená</item>
+    <item quantity="few">%s hodnotené</item>
+    <item quantity="other">%s hodnotených</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s výhra</item>
@@ -260,9 +260,9 @@
     <item quantity="other">%s remíz</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s práve hrá</item>
-    <item quantity="few">%s práve hrá</item>
-    <item quantity="other">%s práve hrá</item>
+    <item quantity="one">%s práve sa hrá</item>
+    <item quantity="few">%s práve sa hrajú</item>
+    <item quantity="other">%s práve sa hrá</item>
   </plurals>
   <string name="exportGames">Exportovať hry</string>
   <string name="ratingRange">Rozsah hodnotení</string>
