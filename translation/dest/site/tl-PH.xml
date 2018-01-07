@@ -228,7 +228,14 @@
   <string name="recipient">Tumatanggap</string>
   <string name="send">Ipadala</string>
   <string name="incrementInSeconds">Pagdagdag ng mga segundo</string>
+  <string name="freeOnlineChess">Libreng Online ng Chess</string>
   <string name="spectators">Manonood</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s sa turing
+%s sa turing</item>
+    <item quantity="other">%s sa turing
+%s sa turing</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s Panalo</item>
     <item quantity="other">%s Panalo</item>
@@ -236,6 +243,12 @@
   <plurals name="nbLosses">
     <item quantity="one">%s Talo</item>
     <item quantity="other">%s Talo</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s ilabas
+%s mga inilabas</item>
+    <item quantity="other">%s ilabas
+%s mga inilabas</item>
   </plurals>
   <string name="search">Hanapin</string>
   <string name="newTeam">Bagong Team</string>
