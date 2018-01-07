@@ -27,6 +27,9 @@
   }
 </div>
 }
+<div class="side_menu">
+  @menu("show", s.withoutStream.some)
+</div>
 }
 
 @moreCss = {
@@ -50,7 +53,6 @@ method:'post'
 
 @base.layout(title = title,
 side = side.some,
-menu = menu("show", s.withoutStream.some).some,
 moreCss = moreCss,
 moreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(

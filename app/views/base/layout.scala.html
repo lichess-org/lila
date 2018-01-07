@@ -153,8 +153,8 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
             <a id="site_title" href="@routes.Lobby.home">@if(ctx.kid){<span title="@trans.kidMode()" class="kiddo">😊</span>}lichess<span class="extension">.org</span></a>
           </h1>
           @baseline
-          @menu.map { side =>
-          <div class="side_menu">@side</div>
+          @menu.map { sideMenu =>
+          <div class="side_menu">@sideMenu</div>
           }
           @side
           @chat
