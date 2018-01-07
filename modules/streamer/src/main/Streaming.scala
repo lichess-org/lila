@@ -55,7 +55,7 @@ private final class Streaming(
     import makeTimeout.short
     import akka.pattern.ask
     if (newStreams != liveStreams) {
-      renderer ? newStreams foreach {
+      renderer ? newStreams.autoFeatured foreach {
         case html: play.twirl.api.Html =>
           context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'streams)
       }
