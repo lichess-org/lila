@@ -374,6 +374,12 @@
   <string name="reportDescriptionHelp">Ilagay ang link sa (mga) laro at ipaliwanag kung ano ang mali tungkol sa pag-uugali ng user na ito. Huwag lamang sabihin \"sila ay nandaya\", ngunit sabihin sa amin kung paano dumating sa konklusyon na ito. Mas mabilis na maproseso ang iyong ulat kung nakasulat sa Ingles.</string>
   <string name="by">sa pamamagitan ng %s</string>
   <string name="thisTopicIsNowClosed">Ang paksa na ito ay sarado na ngayon.</string>
+  <string name="theming">Pag-tema</string>
+  <string name="donate">Ihandog</string>
+  <string name="blog">Blog</string>
+  <string name="questionsAndAnswers">Mga Tanong &amp; mga Sagot</string>
+  <string name="notes">Mga Nota</string>
+  <string name="typePrivateNotesHere">Mag-type ng mga pribadong tala dito</string>
   <string name="never">Hindi Kailanman</string>
   <string name="none">Wala</string>
   <string name="fast">Mabilis</string>
