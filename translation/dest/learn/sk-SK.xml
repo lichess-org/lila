@@ -18,14 +18,20 @@
   <string name="useTwoRooks">Urýchlite zbieranie pomocou dvoch veží!</string>
   <string name="rookComplete">Gratulujeme! Ťahy vežou máte úspešne zvládnuté.</string>
   <string name="theBishop">Strelec</string>
+  <string name="itMovesDiagonally">Pohybuje sa diagonálne</string>
   <string name="bishopComplete">Gratulujeme! Dokážete ovládať strelca.</string>
   <string name="theQueen">Dáma</string>
   <string name="queenCombinesRookAndBishop">Dáma = Veža + Strelec</string>
   <string name="queenComplete">Gratulujeme! Dámy už pred Vami neukrývajú žiadne tajomstvá.</string>
   <string name="theKing">Kráľ</string>
+  <string name="theMostImportantPiece">Najdôležitejšia figúrka</string>
   <string name="theKnight">Jazdec</string>
+  <string name="itMovesInAnLShape">Pohybuje sa do \"L\"</string>
   <string name="knightComplete">Gratulujeme! Zvládli ste ťahy jazdcom.</string>
   <string name="thePawn">Pešiak</string>
+  <string name="itMovesForwardOnly">Pohybuje sa výlučne vpred</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Väčšinou je najlepšie premeniť pešiaka na dámu.
+Niekedy sa však môže hodiť aj jazdec!</string>
   <string name="pawnComplete">Gratulujeme! Pešiakov zvládate ľavou zadnou.</string>
   <string name="captureComplete">Gratulujeme! Viete ako s šachovými figúrkami bojovať!</string>
   <string name="protectionComplete">Gratulujeme! Figúrka, ktorú nestratíte je figúrka, ktorú získate!</string>
@@ -36,12 +42,14 @@
   <string name="boardSetupComplete">Gratulujeme! Dokážete rozložiť figúrky do základného postavenia.</string>
   <string name="castlingComplete">Gratulujeme! Rošádu by ste v mali urobiť takmer v každej partii.</string>
   <string name="enPassantComplete">Gratulujeme! Teraz už dokážete brať mimochodom.</string>
+  <string name="stalemateComplete">Gratulujeme! Lepší pat, než dostať mat!</string>
   <string name="pieceValueComplete">Gratulujeme! Poznáte hodnotu šachového materiálu!
 Dáma = 9
 Veža = 5
 Strelec = 3
 Jazdec = 3
 Pešiak = 1</string>
+  <string name="checkInTwoComplete">Gratulujeme! Šachom ste súpera prinútili k obrane svojho kráľa!</string>
   <string name="youKnowHowToPlayChess">Gratulujeme! Viete hrať šach! Chcete sa stať silnejším hráčom?</string>
   <string name="puzzles">Úlohy</string>
   <string name="exerciseYourTacticalSkills">Precvičte si svoje taktické schopnosti</string>
