@@ -143,6 +143,13 @@ ale môžete sa brániť!</string>
   <string name="advanced">Nadstavba</string>
   <string name="pieceValue">Hodnota figúr</string>
   <string name="evaluatePieceStrength">Ohodnotenie sily figúrok</string>
+  <string name="pieceValueIntro">Figúrky s vyššou pohyblivosťou majú vyššiu hodnotu!
+Dáma = 9
+Veža = 5
+Strelec = 3
+Jazdec = 3
+Pešiak = 1
+Kráľ má nevyčísliteľnú hodnotu! Jeho strata znamená prehru partie.</string>
   <string name="pieceValueComplete">Gratulujeme! Poznáte hodnotu šachového materiálu!
 Dáma = 9
 Veža = 5
