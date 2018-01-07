@@ -83,9 +83,10 @@ private final class Streaming(
     }
   }
 
-  def fetchTwitchStreams(streamers: List[Streamer]): Fu[List[Twitch.Stream]] =
-    streamers.nonEmpty ?? WS.url("https://api.twitch.tv/kraken/streams")
-      .withQueryString("channel" -> streamers.flatMap(_.twitch).map(_.userId).mkString(","))
+  def fetchTwitchStreams(streamers: List[Streamer]): Fu[List[Twitch.Stream]] = {
+    val userIds = streamers.flatMap(_.twitch).map(_.userId)
+    userIds.nonEmpty ?? WS.url("https://api.twitch.tv/kraken/streams")
+      .withQueryString("channel" -> userIds.mkString(","))
       .withHeaders(
         "Accept" -> "application/vnd.twitchtv.v3+json",
         "Client-ID" -> twitchClientId
@@ -98,19 +99,19 @@ private final class Streaming(
             Nil
         }
       }
+  }
 
-  def fetchYouTubeStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] = {
-    googleApiKey.nonEmpty && streamers.nonEmpty
-  } ?? {
-    WS.url("https://www.googleapis.com/youtube/v3/search").withQueryString(
+  def fetchYouTubeStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] = googleApiKey.nonEmpty ?? {
+    val youtubeStreamers = streamers.filter(_.youTube.isDefined)
+    youtubeStreamers.nonEmpty ?? WS.url("https://www.googleapis.com/youtube/v3/search").withQueryString(
       "part" -> "snippet",
       "type" -> "video",
       "eventType" -> "live",
       "q" -> keyword.value,
       "key" -> googleApiKey
-    ).get() map { res =>
+    ).get().map { res =>
         res.json.validate[YouTube.Result](youtubeResultReads) match {
-          case JsSuccess(data, _) => data.streams(keyword, streamers)
+          case JsSuccess(data, _) => data.streams(keyword, youtubeStreamers)
           case JsError(err) =>
             logger.warn(s"youtube ${res.status} $err ${~res.body.lines.toList.headOption}")
             Nil
