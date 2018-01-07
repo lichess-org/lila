@@ -104,7 +104,16 @@ ale môžete sa brániť!</string>
   <string name="boardSetup">Rozmiestnenie figúrok</string>
   <string name="howTheGameStarts">Ako hra začína</string>
   <string name="boardSetupIntro">Dve armády stoja zoči voči, pripravené na bitku.</string>
+  <string name="thisIsTheInitialPosition">Toto je počiatočná pozícia každej šachovej partie. Pre pokračovanie urobte ľubovoľný ťah!</string>
+  <string name="firstPlaceTheRooks">Najprv umiestnite veže! Patria do rohov šachovnice.</string>
+  <string name="thenPlaceTheKnights">Potom umiestnite jazdcov! Ich miesto je vedľa veží.</string>
+  <string name="placeTheBishops">Teraz umiestnite strelcov! Tí budú stáť vedľa jazdcov.</string>
+  <string name="placeTheQueen">Prišiel čas na dámu! Patrí na pole vlastnej farby.</string>
+  <string name="placeTheKing">A napokon kráľ! Kde inde ako po boku svojej dámy.</string>
+  <string name="pawnsFormTheFrontLine">Pešiaci tvoria prvú líniu. Pre pokračovanie urobte ľubovoľný ťah.</string>
   <string name="boardSetupComplete">Gratulujeme! Dokážete rozložiť figúrky do základného postavenia.</string>
+  <string name="castling">Rošáda</string>
+  <string name="theSpecialKingMove">Osobitý ťah kráľom</string>
   <string name="castlingComplete">Gratulujeme! Rošádu by ste v mali urobiť takmer v každej partii.</string>
   <string name="enPassantComplete">Gratulujeme! Teraz už dokážete brať mimochodom.</string>
   <string name="stalemateComplete">Gratulujeme! Lepší pat, než dostať mat!</string>
