@@ -264,7 +264,7 @@
     <item quantity="few">%s práve sa hrajú</item>
     <item quantity="other">%s práve sa hrá</item>
   </plurals>
-  <string name="exportGames">Exportovať hry</string>
+  <string name="exportGames">Exportovať partie</string>
   <string name="ratingRange">Rozsah hodnotení</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Pridať %s sekundu</item>
@@ -584,7 +584,7 @@
   <string name="whenPremoving">Pri predťahu</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Keď ostáva &lt; 30 sekúnd</string>
   <string name="difficultyEasy">Ľahký</string>
-  <string name="difficultyNormal">Normálny</string>
+  <string name="difficultyNormal">Normálna</string>
   <string name="difficultyHard">Ťažký</string>
   <string name="xLeftANoteOnY">%1$s zanechalo poznámku k %2$s</string>
   <string name="xCompetesInY">%1$s súťaží v %2$s</string>
