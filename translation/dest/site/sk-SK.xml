@@ -564,7 +564,7 @@
   <string name="bothClicksAndDrag">Oboje</string>
   <string name="premovesPlayingDuringOpponentTurn">Predťahy (hranie počas súperovho ťahu)</string>
   <string name="takebacksWithOpponentApproval">Vrátenie ťahu (so súhlasom súpera)</string>
-  <string name="promoteToQueenAutomatically">Automaticky premeniť pešiaka Dámu</string>
+  <string name="promoteToQueenAutomatically">Automaticky premeniť pešiaka na Dámu</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžiadať remízu pri treťom opakovaní pozície</string>
   <string name="privacy">Súkromie</string>
   <string name="letOtherPlayersFollowYou">Povoliť ostatným hráčom aby Vás sledovali</string>
