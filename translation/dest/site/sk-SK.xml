@@ -97,7 +97,7 @@
   <string name="delete">Vymazať</string>
   <string name="deleteThisImportedGame">Vymazať túto importovanú partiu?</string>
   <string name="replayMode">Mód prehrávania</string>
-  <string name="realtimeReplay">Skutočne</string>
+  <string name="realtimeReplay">Ako pri hre</string>
   <string name="byCPL">CHYBY</string>
   <string name="openStudy">Otvoriť štúdie</string>
   <string name="enable">Povoliť analýzu</string>
@@ -151,7 +151,7 @@
   <string name="minutesPerSide">Minút na stranu</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianty</string>
-  <string name="timeControl">Nastavenie času</string>
+  <string name="timeControl">Čas</string>
   <string name="realTime">Nastaviť čas</string>
   <string name="correspondence">Korešpondenčný šach</string>
   <string name="daysPerTurn">Počet dní na ťah</string>
@@ -168,7 +168,7 @@
   </plurals>
   <string name="time">Čas</string>
   <string name="rating">Rating</string>
-  <string name="ratingStats">Štatistika hodnotení</string>
+  <string name="ratingStats">Štatistika ratingov</string>
   <string name="username">Užívateľské meno</string>
   <string name="usernameOrEmail">Meno používateľa alebo email</string>
   <string name="password">Heslo</string>
