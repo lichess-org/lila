@@ -69,7 +69,7 @@ Premieňať nepotrebujete.</string>
 A nepríďte o vlastné!</string>
   <string name="captureComplete">Gratulujeme! Viete ako s šachovými figúrkami bojovať!</string>
   <string name="protection">Chránenie</string>
-  <string name="keepYourPiecesSafe">Chránenie svojich figúrok</string>
+  <string name="keepYourPiecesSafe">Chránenie vlastných figúrok</string>
   <string name="protectionIntro">Rozpoznajte figúrky, ktoré Vám súper napadá a ochráňte ich!</string>
   <string name="protectionComplete">Gratulujeme! Figúrka, ktorú nestratíte je figúrka, ktorú získate!</string>
   <string name="escape">Ste napadnutí!
@@ -78,7 +78,7 @@ Uniknite ohrozeniu!</string>
 ale môžete sa brániť!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Nenechajte si vziať žiadne nechránené figúrky!</string>
   <string name="combat">Súboj</string>
-  <string name="captureAndDefendPieces">Branie a bránenie figúrok</string>
+  <string name="captureAndDefendPieces">Branie a chránenie figúrok</string>
   <string name="combatIntro">Dobrý bojovník vie aj útočiť aj sa brániť!</string>
   <string name="combatComplete">Gratulujeme! Viete ako s šachovými figúrkami útočiť!</string>
   <string name="checkInOne">Šach prvým ťahom</string>
@@ -87,11 +87,17 @@ ale môžete sa brániť!</string>
   <string name="checkInOneGoal">Namierte si to na súperovho kráľa jedným ťahom!</string>
   <string name="checkInOneComplete">Gratulujeme! Šachom ste súpera prinútili k obrane svojho kráľa!</string>
   <string name="outOfCheck">Únik zo šachu</string>
-  <string name="defendYourKing">Ochráňte svojho kráľa</string>
+  <string name="defendYourKing">Chránenie vlastného kráľa</string>
   <string name="outOfCheckIntro">Ste v šachu! Musíte z neho ustúpiť alebo predkryť napadnutie.</string>
   <string name="escapeWithTheKing">Ustúpte kráľom!</string>
   <string name="theKingCannotEscapeButBlock">Kráľ nemôže ustúpiť, ale napadnutie môžete predkryť!</string>
+  <string name="youCanGetOutOfCheckByTaking">Môžete sa dostať zo šachu tým, že vezmete šachujúcu figúrku.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Tento jazdec Vás šachuje aj cez Vašu obranu!</string>
+  <string name="escapeOrBlock">Ustúpte kráľom alebo napadnutie predkryte!</string>
   <string name="outOfCheckComplete">Gratulujeme! Na Vášho kráľa si len tak niekto nepríde! Vždy sa uistite, že sa proti šachu dokážete brániť!</string>
+  <string name="mateInOne">Mat prvým ťahom</string>
+  <string name="defeatTheOpponentsKing">Porazenie súperovho kráľa</string>
+  <string name="mateInOneIntro">Vyhráte vtedy, keď sa Váš súper nedokáže brániť proti šachu.</string>
   <string name="mateInOneComplete">Gratulujeme! Presne takto sa vyhrávajú šachové partie!</string>
   <string name="boardSetupComplete">Gratulujeme! Dokážete rozložiť figúrky do základného postavenia.</string>
   <string name="castlingComplete">Gratulujeme! Rošádu by ste v mali urobiť takmer v každej partii.</string>
