@@ -46,7 +46,7 @@
   <string name="viewTheComputerAnalysis">Zobraziť počítačovú analýzu</string>
   <string name="requestAComputerAnalysis">Požiadať o počítačovú analýzu</string>
   <string name="computerAnalysis">Počítačová analýza</string>
-  <string name="computerAnalysisAvailable">Počítačová analýza je k dispozícii</string>
+  <string name="computerAnalysisAvailable">K dispozícii je aj počítačová analýza partie</string>
   <string name="analysis">Analýza partie</string>
   <string name="depthX">Hĺbka %s</string>
   <string name="usingServerAnalysis">Používa sa analýza servera</string>
