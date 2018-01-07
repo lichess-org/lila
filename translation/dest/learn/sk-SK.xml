@@ -18,10 +18,12 @@
   <string name="useTwoRooks">Urýchlite zbieranie pomocou dvoch veží!</string>
   <string name="rookComplete">Gratulujeme! Ťahy vežou máte úspešne zvládnuté.</string>
   <string name="theBishop">Strelec</string>
+  <string name="bishopComplete">Gratulujeme! Dokážete ovládať strelca.</string>
   <string name="theQueen">Dáma</string>
   <string name="queenCombinesRookAndBishop">Dáma = Veža + Strelec</string>
   <string name="theKing">Kráľ</string>
   <string name="theKnight">Jazdec</string>
+  <string name="knightComplete">Gratulujeme! Zvládli ste ťahy jazdcom.</string>
   <string name="thePawn">Pešiak</string>
   <string name="puzzles">Úlohy</string>
   <string name="exerciseYourTacticalSkills">Precvičte si svoje taktické schopnosti</string>
