@@ -63,8 +63,20 @@ Premieňať nepotrebujete.</string>
   <string name="fundamentals">Základy</string>
   <string name="capture">Branie</string>
   <string name="takeTheEnemyPieces">Vezmite súperove figúrky</string>
+  <string name="captureIntro">Rozpoznajte súperove nechránené figúrky a vezmite ich!</string>
+  <string name="takeTheBlackPieces">Vezmite súperove figúrky!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Vezmite súperove figúrky!
+A nepríďte o vlastné!</string>
   <string name="captureComplete">Gratulujeme! Viete ako s šachovými figúrkami bojovať!</string>
+  <string name="protection">Chránenie</string>
+  <string name="keepYourPiecesSafe">Ochráňte svoje figúrky</string>
+  <string name="protectionIntro">Rozpoznajte figúrky, ktoré Vám súper napadá a ochráňte ich!</string>
   <string name="protectionComplete">Gratulujeme! Figúrka, ktorú nestratíte je figúrka, ktorú získate!</string>
+  <string name="escape">Ste napadnutí!
+Uniknite ohrozeniu!</string>
+  <string name="noEscape">Nedá sa utiecť,
+ale môžete sa brániť!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Nenechajte si vziať žiadne nechránené figúrky!</string>
   <string name="combatComplete">Gratulujeme! Viete ako s šachovými figúrkami útočiť!</string>
   <string name="checkInOneComplete">Gratulujeme! Šachom ste súpera prinútili k obrane svojho kráľa!</string>
   <string name="outOfCheckComplete">Gratulujeme! Na Vášho kráľa si len tak niekto nepríde! Vždy sa uistite, že sa proti šachu dokážete brániť!</string>
