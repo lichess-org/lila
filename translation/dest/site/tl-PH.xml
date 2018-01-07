@@ -76,8 +76,23 @@
   <string name="recentGames">Mga bagong laro</string>
   <string name="topGames">Mga nauunang laro</string>
   <string name="masterDbExplanation">Dalawang milyong laro ng OTB ng %1$s+ sa turing na FIDE ang mga manlalaro mula sa %2$s hanggang %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mati na sa %s kalahating-galaw</item>
+    <item quantity="other">Mati na sa %s kalahating-galaw</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Susunod na pagkuha o paglipat ng move sa %s kalahating-galaw (Distansya Sa Zeroing ng 50 galaw na sumasalungat)</item>
+    <item quantity="other">Susunod na pagkuha o paglipat ng move sa %s kalahating-galaw (Distansya Sa Zeroing ng 50 galaw na sumasalungat)</item>
+  </plurals>
   <string name="noGameFound">Walang larong natagpuan</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Siguro kasama ang higt pang mga laro mula sa menu ng mga kagustuhan?</string>
+  <string name="openingExplorer">Pagbubukas ng gumagalugad</string>
+  <string name="xOpeningExplorer">%s pagbubukas ng gumagalugad</string>
+  <string name="winPreventedBy50MoveRule">Ang panalo ay napigilan ng 50-galaw na panuntunan</string>
+  <string name="lossSavedBy50MoveRule">Ang pagkatalo ay na-save ng 50-move na panuntunan</string>
+  <string name="allSet">Lahat ay naka-set!</string>
   <string name="importPgn">I-import ang PGN</string>
+  <string name="delete">Burahin</string>
   <string name="byCPL">Base sa CPL</string>
   <string name="openStudy">Buksan ang study</string>
   <string name="enable">Paganahin</string>
