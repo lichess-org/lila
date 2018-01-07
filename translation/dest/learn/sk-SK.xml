@@ -33,8 +33,13 @@ Potrebujete ich oboch!</string>
   <string name="kingIntro">Vy ste kráľom. Ak v bitke padnete, partia je prehraná.</string>
   <string name="theKingIsSlow">Kráľ je pomalý.</string>
   <string name="lastOne">A naposledy!</string>
+  <string name="kingComplete">Gratulujeme! Teraz dokážete veliť veliteľovi!</string>
   <string name="theKnight">Jazdec</string>
   <string name="itMovesInAnLShape">Pohybuje sa do \"L\"</string>
+  <string name="knightIntro">Máme pre Vás výzvu. Jazdec je... prešibaná figúrka.</string>
+  <string name="knightsHaveAFancyWay">Jazdci skáču naozaj nevyspytateľne!</string>
+  <string name="knightsCanJumpOverObstacles">Jazdci dokážu skákať cez prekážky!
+Uniknite z obkľúčenia a premôžte hviezdy!</string>
   <string name="knightComplete">Gratulujeme! Zvládli ste ťahy jazdcom.</string>
   <string name="thePawn">Pešiak</string>
   <string name="itMovesForwardOnly">Pohybuje sa výlučne vpred</string>
