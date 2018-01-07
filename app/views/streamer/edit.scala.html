@@ -28,13 +28,13 @@ menu = menu("edit", s.withoutStream.some).some) {
   <div class="top">
     <div class="picture_wrap">
       @if(s.streamer.hasPicture) {
-      <a class="upload_picture" href="@routes.Streamer.picture" title="Change/delete your picture">
+      <a target="_blank" class="upload_picture" href="@routes.Streamer.picture" title="Change/delete your picture">
         @pic(s.streamer, s.user, 250)
       </a>
       } else {
       <div class="upload_picture">
         @if(ctx.is(s.user)) {
-        <a class="button" href="@routes.Streamer.picture">Upload a picture</a>
+        <a target="_blank" class="button" href="@routes.Streamer.picture">Upload a picture</a>
         }
       </div>
       }
