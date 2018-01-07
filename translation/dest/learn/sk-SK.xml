@@ -21,10 +21,15 @@
   <string name="bishopComplete">Gratulujeme! Dokážete ovládať strelca.</string>
   <string name="theQueen">Dáma</string>
   <string name="queenCombinesRookAndBishop">Dáma = Veža + Strelec</string>
+  <string name="queenComplete">Gratulujeme! Dámy už pred Vami neukrývajú žiadne tajomstvá.</string>
   <string name="theKing">Kráľ</string>
   <string name="theKnight">Jazdec</string>
   <string name="knightComplete">Gratulujeme! Zvládli ste ťahy jazdcom.</string>
   <string name="thePawn">Pešiak</string>
+  <string name="pawnComplete">Gratulujeme! Pešiakov zvládate ľavou zadnou.</string>
+  <string name="captureComplete">Gratulujeme! Už viete ako s šachovými figúrkami bojovať!</string>
+  <string name="protectionComplete">Gratulujeme! Figúrka, ktorú nestratíte je figúrka, ktorú získate!</string>
+  <string name="combatComplete">Gratulujeme! Už viete ako s šachovými figúrkami útočiť!</string>
   <string name="puzzles">Úlohy</string>
   <string name="exerciseYourTacticalSkills">Precvičte si svoje taktické schopnosti</string>
   <string name="greatJob">Skvelá práca!</string>
