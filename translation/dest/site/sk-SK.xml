@@ -55,7 +55,7 @@
   <string name="goDeeper">Hlbšia analýza</string>
   <string name="showThreat">Ukázať hrozbu</string>
   <string name="inLocalBrowser">vo Vašom prehliadači</string>
-  <string name="toggleLocalEvaluation">Prepnúť na vlastnú analýzu</string>
+  <string name="toggleLocalEvaluation">Prepnúť na analýzu vo Vašom prehliadači</string>
   <string name="promoteVariation">Povýšiť variant</string>
   <string name="makeMainLine">Povýšiť na hlavný variant</string>
   <string name="deleteFromHere">Vymazať odtiaľto</string>
@@ -718,7 +718,7 @@
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registráciou súhlasíte aby ste boli viazaný s našimi %s.</string>
   <string name="networkLagBetweenYouAndLichess">Internetové oneskorenie medzi Vami a lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Čas na spracovanie ťahu na lichess serveri</string>
-  <string name="downloadAnnotated">Stiahnuť okomentované</string>
+  <string name="downloadAnnotated">Stiahnuť s poznámkami</string>
   <string name="downloadRaw">Stiahnuť čisté PGN</string>
   <string name="downloadImported">Stiahnuť importované</string>
   <string name="printFriendlyPDF">Tlačiteľné PDF</string>
