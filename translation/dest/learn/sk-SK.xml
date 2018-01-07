@@ -98,11 +98,17 @@ ale môžete sa brániť!</string>
   <string name="mateInOne">Mat prvým ťahom</string>
   <string name="defeatTheOpponentsKing">Porazenie súperovho kráľa</string>
   <string name="mateInOneIntro">Vyhráte vtedy, keď sa Váš súper nedokáže brániť proti šachu.</string>
+  <string name="attackYourOpponentsKing">Napadnite súperovho kráľa spôsobom, ktorému sa nedokáže brániť!</string>
   <string name="mateInOneComplete">Gratulujeme! Presne takto sa vyhrávajú šachové partie!</string>
+  <string name="intermediate">Rozšírenie</string>
+  <string name="boardSetup">Rozmiestnenie figúrok</string>
+  <string name="howTheGameStarts">Ako hra začína</string>
+  <string name="boardSetupIntro">Dve armády stoja zoči voči, pripravené na bitku.</string>
   <string name="boardSetupComplete">Gratulujeme! Dokážete rozložiť figúrky do základného postavenia.</string>
   <string name="castlingComplete">Gratulujeme! Rošádu by ste v mali urobiť takmer v každej partii.</string>
   <string name="enPassantComplete">Gratulujeme! Teraz už dokážete brať mimochodom.</string>
   <string name="stalemateComplete">Gratulujeme! Lepší pat, než dostať mat!</string>
+  <string name="advanced">Nadstavba</string>
   <string name="pieceValueComplete">Gratulujeme! Poznáte hodnotu šachového materiálu!
 Dáma = 9
 Veža = 5
