@@ -216,7 +216,7 @@
   <string name="casual">Priateľská</string>
   <string name="rated">Hodnotená</string>
   <string name="casualTournament">Nehodnotený</string>
-  <string name="ratedTournament">Hodnotená</string>
+  <string name="ratedTournament">Hodnotený</string>
   <string name="thisGameIsRated">Táto hra je hodnotená</string>
   <string name="rematch">Odveta</string>
   <string name="rematchOfferSent">Zaslaná ponuka na odvetu</string>
