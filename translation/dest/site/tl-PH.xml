@@ -231,10 +231,8 @@
   <string name="freeOnlineChess">Libreng Online ng Chess</string>
   <string name="spectators">Manonood</string>
   <plurals name="nbRated">
-    <item quantity="one">%s sa turing
-%s sa turing</item>
-    <item quantity="other">%s sa turing
-%s sa turing</item>
+    <item quantity="one">%s sa turing</item>
+    <item quantity="other">%s sa turing</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s Panalo</item>
@@ -245,11 +243,27 @@
     <item quantity="other">%s Talo</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s ilabas
-%s mga inilabas</item>
-    <item quantity="other">%s ilabas
-%s mga inilabas</item>
+    <item quantity="one">%s ilabas</item>
+    <item quantity="other">%s mga inilabas</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s naglalaro</item>
+    <item quantity="other">%s naglalaro</item>
+  </plurals>
+  <string name="exportGames">Magluwas ng mga laro</string>
+  <string name="ratingRange">Saklaw ng marka</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Bigyan %s ng segundo</item>
+    <item quantity="other">Bigyan %s ng mga segundo</item>
+  </plurals>
+  <string name="giveMoreTime">Bigyan ng mas maraming oras</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Ang manlalarong ito ay gumagamit ng tulong ng kompyuter sa chess</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ang manlalaro na ito ay artipisyal na nagtataas/bumababa sa kanilang mga marka</string>
+  <string name="openingExplorerAndTablebase">Pagbubukas ng gumagalugad &amp; tablebase</string>
+  <string name="takeback">Bawiin mo</string>
+  <string name="proposeATakeback">Magpanukala ng isang pagbawi</string>
+  <string name="takebackPropositionSent">Napadala ang pagbawi</string>
+  <string name="takebackPropositionDeclined">Tinanggihan ang pagbawi</string>
   <string name="search">Hanapin</string>
   <string name="newTeam">Bagong Team</string>
   <string name="myTeams">Ang mga Teams mo</string>
