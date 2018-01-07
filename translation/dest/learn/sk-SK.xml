@@ -150,12 +150,18 @@ Strelec = 3
 Jazdec = 3
 Pešiak = 1
 Kráľ má nevyčísliteľnú hodnotu! Jeho strata znamená prehru partie.</string>
+  <string name="queenOverBishop">Vezmite figúrku s najvyššou hodnotou!
+Dáma &gt; Strelec</string>
+  <string name="takeThePieceWithTheHighestValue">Vezmite figúrku s najvyššou hodnotou!</string>
   <string name="pieceValueComplete">Gratulujeme! Poznáte hodnotu šachového materiálu!
 Dáma = 9
 Veža = 5
 Strelec = 3
 Jazdec = 3
 Pešiak = 1</string>
+  <string name="checkInTwo">Šach druhým ťahom</string>
+  <string name="twoMovesToGiveCheck">Dva ťahy na zašachovanie</string>
+  <string name="checkInTwoIntro">Nájdite správnu kombináciu dvoch ťahov aby ste dali súperovmu kráľovi šach!</string>
   <string name="checkInTwoComplete">Gratulujeme! Šachom ste súpera prinútili k obrane svojho kráľa!</string>
   <string name="youKnowHowToPlayChess">Gratulujeme! Viete hrať šach! Chcete sa stať silnejším hráčom?</string>
   <string name="puzzles">Úlohy</string>
