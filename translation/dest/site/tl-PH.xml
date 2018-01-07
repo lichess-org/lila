@@ -264,7 +264,22 @@
   <string name="proposeATakeback">Magpanukala ng isang pagbawi</string>
   <string name="takebackPropositionSent">Napadala ang pagbawi</string>
   <string name="takebackPropositionDeclined">Tinanggihan ang pagbawi</string>
+  <string name="takebackPropositionAccepted">Tinanggap ang pagbawi</string>
+  <string name="takebackPropositionCanceled">Kinansela ang pagbawi</string>
+  <string name="yourOpponentProposesATakeback">Ang iyong kalaban ay nagpanukala ng isang pagbawi</string>
+  <string name="bookmarkThisGame">I-bookmark ang larong ito</string>
   <string name="search">Hanapin</string>
+  <string name="advancedSearch">Masulong na pagsasaliksik</string>
+  <string name="tournament">Paligsahan</string>
+  <string name="tournaments">Mga Paligsahan</string>
+  <string name="tournamentPoints">Mga puntos sa paligsahan</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s punto sa paligsahan</item>
+    <item quantity="other">%s mga puntos sa paligsahan</item>
+  </plurals>
+  <string name="viewTournament">Tingnan ang paligsahan</string>
+  <string name="backToTournament">Bumalik sa paligsahan</string>
+  <string name="thematic">Pampakay</string>
   <string name="newTeam">Bagong Team</string>
   <string name="myTeams">Ang mga Teams mo</string>
   <string name="notACheckmate">Hindi ito checkmate</string>
@@ -272,6 +287,7 @@
   <string name="follow">Sundan</string>
   <string name="following">Sinusundan</string>
   <string name="unfollow">Wag sundan</string>
+  <string name="blocked">Naka-harang</string>
   <string name="createANewTournament">Gumawa ng baong torneo</string>
   <string name="join">Sumali</string>
   <string name="withdraw">Umalis</string>
