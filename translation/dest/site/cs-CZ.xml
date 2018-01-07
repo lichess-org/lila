@@ -56,6 +56,9 @@
   <string name="showThreat">Zobrazit hrozbu</string>
   <string name="inLocalBrowser">v lokálním prohlížeči</string>
   <string name="toggleLocalEvaluation">Lokální analýza</string>
+  <string name="promoteVariation">Povýšit variantu</string>
+  <string name="makeMainLine">Povýšit na hlavní variantu</string>
+  <string name="deleteFromHere">Smazat odsud</string>
   <string name="move">Tah</string>
   <string name="variantLoss">Prohra</string>
   <string name="variantWin">Výhra</string>
@@ -203,6 +206,7 @@
   <string name="accept">Přijmout</string>
   <string name="decline">Odmítnout</string>
   <string name="playingRightNow">Právě se hraje</string>
+  <string name="eventInProgress">Právě se hraje</string>
   <string name="finished">Dokončeno</string>
   <string name="abortGame">Zrušit hru</string>
   <string name="gameAborted">Hra byla zrušena</string>
