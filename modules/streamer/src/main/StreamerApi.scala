@@ -72,6 +72,9 @@ final class StreamerApi(
         ))
     }
 
+  def onClose(u: User): Funit =
+    coll.update($id(u.id), $set("approval.granted" -> false)).void
+
   def create(u: User): Funit =
     isStreamer(u) flatMap { exists =>
       !exists ?? coll.insert(Streamer make u).void

@@ -88,6 +88,7 @@ final class Env(
     _ <- Env.plan.api.cancel(user).nevermind
     _ <- Env.lobby.seekApi.removeByUser(user)
     _ <- Env.security.store.disconnect(user.id)
+    _ <- Env.streamer.api.onClose(user)
   } yield {
     system.lilaBus.publish(lila.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
   }
