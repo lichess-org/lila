@@ -15,7 +15,7 @@
   <string name="rookGoal">Kliknite a presuňte vež na hviezdu!</string>
   <string name="grabAllTheStars">Zoberte všetky hviezdy!</string>
   <string name="theFewerMoves">Čím menej ťahov urobíte, tým viac bodov získate!</string>
-  <string name="useTwoRooks">Urýchlite to pomocou dvoch veží!</string>
+  <string name="useTwoRooks">Urýchlite zbieranie pomocou dvoch veží!</string>
   <string name="theBishop">Strelec</string>
   <string name="theQueen">Dáma</string>
   <string name="queenCombinesRookAndBishop">Dáma = Veža + Strelec</string>
