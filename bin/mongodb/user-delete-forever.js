@@ -99,6 +99,11 @@ print(db.activity.remove({
   _id: new RegExp('^' + userId + ':')
 }).nRemoved + ' done');
 
+print('Delete assessments');
+print(db.player_assessment.remove({
+  userId: userId
+}).nRemoved + ' done');
+
 print('Delete user');
 print(db.user4.remove({
   _id: userId
