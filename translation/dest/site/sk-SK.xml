@@ -13,7 +13,7 @@
   <string name="toggleTheChat">Prepínač chatu</string>
   <string name="toggleSound">Prepínač zvuku</string>
   <string name="chat">Chat</string>
-  <string name="resign">Vzdať</string>
+  <string name="resign">Vzdať sa</string>
   <string name="checkmate">Mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Biely</string>
@@ -28,11 +28,11 @@
   <string name="variantEnding">Koniec variantu</string>
   <string name="newOpponent">Nový súper</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Váš súper by si s Vami rád zahral odvetnú partiu</string>
-  <string name="joinTheGame">Ešte jednu partiu</string>
+  <string name="joinTheGame">Ďalšiu partiu</string>
   <string name="whitePlays">Biely na ťahu</string>
   <string name="blackPlays">Čierny na ťahu</string>
   <string name="opponentLeftChoices">Váš súper zrejme opustil túto partiu. Môžete požadovať výhru, vyhlásiť partiu za remízu alebo počkať.</string>
-  <string name="makeYourOpponentResign">Týmto tlačidlom si vynútite výhru v partii.</string>
+  <string name="makeYourOpponentResign">Vynútiť si výhru v partii</string>
   <string name="forceResignation">Požadovať výhru</string>
   <string name="forceDraw">Vyhlásiť za remízu</string>
   <string name="talkInChat">Prosím, buďte v chate ohľaduplní!</string>
