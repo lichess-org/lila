@@ -127,14 +127,14 @@
   </plurals>
   <string name="currentGames">Práve prebiehajúce partie</string>
   <plurals name="nbGames">
-    <item quantity="one">%s hra</item>
-    <item quantity="few">%s hry</item>
-    <item quantity="other">%s hier</item>
+    <item quantity="one">%s partia</item>
+    <item quantity="few">%s partie</item>
+    <item quantity="other">%s partií</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s záložka</item>
-    <item quantity="few">%s záložky</item>
-    <item quantity="other">%s záložiek</item>
+    <item quantity="one">%s Záložka</item>
+    <item quantity="few">%s Záložky</item>
+    <item quantity="other">%s Záložiek</item>
   </plurals>
   <string name="viewInFullSize">Zobraziť v plnej veľkosti</string>
   <string name="logOut">Odhlásiť sa</string>
@@ -186,7 +186,7 @@
     <item quantity="few">%s úlohy</item>
     <item quantity="other">%s úloh</item>
   </plurals>
-  <string name="gamesPlayed">Odohraných hier</string>
+  <string name="gamesPlayed">Odohraných partií</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s hra s tebou</item>
     <item quantity="few">%s hry s tebou</item>
@@ -344,7 +344,7 @@
   <string name="teamRecentMembers">Noví členovia tímu</string>
   <string name="xJoinedTeamY">%1$s sa pripojil/la k tímu %2$s</string>
   <string name="xCreatedTeamY">%1$s vytvoril/la tím %2$s</string>
-  <string name="averageElo">Priemerné hodnotenie</string>
+  <string name="averageElo">Priemerný rating</string>
   <string name="location">Poloha</string>
   <string name="settings">Nastavenia</string>
   <string name="filterGames">Filter hier</string>
@@ -425,8 +425,8 @@
   <string name="performance">Výkon</string>
   <string name="tournamentComplete">Turnaj skončil</string>
   <string name="movesPlayed">Odohraných ťahov</string>
-  <string name="whiteWins">Biely vyhral</string>
-  <string name="blackWins">Čierny vyhral</string>
+  <string name="whiteWins">Výhry ako biely</string>
+  <string name="blackWins">Výhry ako čierny</string>
   <string name="draws">Remízy</string>
   <string name="nextXTournament">Ďalší %s turnaj:</string>
   <string name="viewMoreTournaments">Zobraz ďalšie turnaje</string>
