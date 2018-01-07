@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">Hrať s priateľom</string>
   <string name="playWithTheMachine">Hrať proti počítaču</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Aby ste niekoho pozvali k partii, dajte mu/jej túto adresu</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Zdieľaním tejto adresy môžete niekoho pozvať k partii</string>
   <string name="gameOver">Koniec partie</string>
   <string name="waitingForOpponent">Čaká sa na súpera</string>
   <string name="waiting">Čaká sa</string>
