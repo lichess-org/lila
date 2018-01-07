@@ -94,7 +94,7 @@
   <string name="lossSavedBy50MoveRule">Prehra zachránená pravidlom 50-tich ťahov</string>
   <string name="allSet">Všetko nastavené!</string>
   <string name="importPgn">Importovať PGN</string>
-  <string name="delete">Zmazat</string>
+  <string name="delete">Vymazať</string>
   <string name="deleteThisImportedGame">Vymazať túto importovanú partiu?</string>
   <string name="replayMode">Mód prehrávania</string>
   <string name="realtimeReplay">Skutočne</string>
@@ -236,7 +236,7 @@
   <string name="subject">Predmet</string>
   <string name="recipient">Príjemca</string>
   <string name="send">Poslať</string>
-  <string name="incrementInSeconds">Prídavok v sekundách</string>
+  <string name="incrementInSeconds">Prírastok v sekundách</string>
   <string name="freeOnlineChess">Online šach zdarma</string>
   <string name="spectators">Diváci:</string>
   <plurals name="nbRated">
@@ -626,7 +626,7 @@
   <string name="learnMenu">Učiť sa</string>
   <string name="community">Komunita</string>
   <string name="tools">Nástroje</string>
-  <string name="increment">Prídavok</string>
+  <string name="increment">Prírastok</string>
   <string name="sharePGN">Zdieľať PGN</string>
   <string name="playOnline">Hrať online</string>
   <string name="playOffline">Hrať offline</string>
