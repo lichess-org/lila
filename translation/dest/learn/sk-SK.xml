@@ -43,8 +43,13 @@ Uniknite z obkľúčenia a premôžte hviezdy!</string>
   <string name="knightComplete">Gratulujeme! Zvládli ste ťahy jazdcom.</string>
   <string name="thePawn">Pešiak</string>
   <string name="itMovesForwardOnly">Pohybuje sa výlučne vpred</string>
+  <string name="pawnIntro">Pešiaci sú slabí, ale majú v sebe veľký potenciál.</string>
+  <string name="pawnsMoveOneSquareOnly">Pešiaci sa pohybujú iba o jedno políčko vpred. Keď však dosiahnu koniec šachovnice, stanú sa silnejšou figúrkou!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Väčšinou je najlepšie premeniť pešiaka na dámu.
 Niekedy sa však môže hodiť aj jazdec!</string>
+  <string name="pawnsMoveForward">Pešiaci sa pohybujú vpred,
+ale berú diagonálne!</string>
+  <string name="captureThenPromote">Berte, premente a opäť berte!</string>
   <string name="pawnComplete">Gratulujeme! Pešiakov zvládate ľavou zadnou.</string>
   <string name="captureComplete">Gratulujeme! Viete ako s šachovými figúrkami bojovať!</string>
   <string name="protectionComplete">Gratulujeme! Figúrka, ktorú nestratíte je figúrka, ktorú získate!</string>
