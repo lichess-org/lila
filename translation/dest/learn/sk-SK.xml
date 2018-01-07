@@ -30,11 +30,14 @@
   <string name="captureComplete">Gratulujeme! Už viete ako s šachovými figúrkami bojovať!</string>
   <string name="protectionComplete">Gratulujeme! Figúrka, ktorú nestratíte je figúrka, ktorú získate!</string>
   <string name="combatComplete">Gratulujeme! Už viete ako s šachovými figúrkami útočiť!</string>
+  <string name="checkInOneComplete">Gratulujeme! Šachom ste súpera prinútili k obrane svojho kráľa!</string>
   <string name="puzzles">Úlohy</string>
   <string name="exerciseYourTacticalSkills">Precvičte si svoje taktické schopnosti</string>
+  <string name="awesome">Paráda!</string>
+  <string name="excellent">Znamenité!</string>
   <string name="greatJob">Skvelá práca!</string>
   <string name="perfect">Výborne!</string>
-  <string name="outstanding">Vynikajúco!</string>
+  <string name="outstanding">Vynikajúce!</string>
   <string name="wayToGo">To je ono!</string>
   <string name="yesYesYes">Áno, áno, áno!</string>
   <string name="youreGoodAtThis">Ide Vám to!</string>
