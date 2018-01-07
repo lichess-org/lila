@@ -135,8 +135,14 @@ ale môžete sa brániť!</string>
   <string name="enPassantComplete">Gratulujeme! Teraz už dokážete brať mimochodom.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Partia končí remízou</string>
+  <string name="stalemateIntro">Keď hráč, ktorý je na ťahu nemôže potiahnuť žiadnou figúrkou a jeho kráľ nie je v šachu, je to pat. Partia končí remízou: nikto nevyhrá ani neprehrá.</string>
+  <string name="stalemateGoal">Dostaňte čierneho do patu:
+- Nemôže vykonať žiadny ťah
+- Jeho kráľ nie je v šachu.</string>
   <string name="stalemateComplete">Gratulujeme! Lepší pat, než dostať mat!</string>
   <string name="advanced">Nadstavba</string>
+  <string name="pieceValue">Hodnota figúr</string>
+  <string name="evaluatePieceStrength">Ohodnotenie sily figúrok</string>
   <string name="pieceValueComplete">Gratulujeme! Poznáte hodnotu šachového materiálu!
 Dáma = 9
 Veža = 5
