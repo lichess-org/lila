@@ -41,14 +41,13 @@ $('.review-form form').show();
 }
 }
 
-@title = @{ s"${c.user.titleUsername} coaches chess on lichess.org" }
+@title = @{ s"${c.user.titleUsername} coaches chess students" }
 
 @base.layout(title = title,
 side = side.some,
 moreJs = moreJs,
 moreCss = moreCss,
 openGraph = lila.app.ui.OpenGraph(
-title = title,
 description = shorten(~(c.coach.profile.headline), 152),
 url = s"$netBaseUrl${routes.Coach.show(c.user.username)}",
 `type` = "profile",
