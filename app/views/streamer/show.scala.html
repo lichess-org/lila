@@ -18,8 +18,8 @@
   @s.streamer.twitch.map { twitch =>
   <iframe
     frameborder="0"
-    scrolling="no"
-    src="https://twitch.tv/@twitch.userId/chat?popout="
+    scrolling="yes"
+    src="https://twitch.tv/embed/@twitch.userId/chat@if(ctx.currentBg != "light"){?darkpopout}"
     width="235"
     height="500"></iframe>
   }
