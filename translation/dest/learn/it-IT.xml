@@ -10,11 +10,11 @@
   <string name="play">gioca!</string>
   <string name="chessPieces">I pezzi degli scacchi</string>
   <string name="theRook">La torre</string>
-  <string name="itMovesInStraightLines">Si muove in linee rette</string>
+  <string name="itMovesInStraightLines">Si muove in linea retta</string>
   <string name="rookIntro">La torre è un pezzo potente. Sei pronto a manovrarla?</string>
   <string name="rookGoal">Clicca sulla torre per muoverla sulla stella!</string>
   <string name="grabAllTheStars">Raccogli tutte le stelle!</string>
-  <string name="theFewerMoves">Il meno mosse farai, più punti vincerai!</string>
+  <string name="theFewerMoves">Meno mosse fai, più punti vinci!</string>
   <string name="useTwoRooks">Utilizza due torri per accelerare le cose!</string>
   <string name="rookComplete">Congratulazioni! Hai imparato con successo ad utilizzare la torre.</string>
   <string name="theBishop">L\'alfiere</string>
@@ -26,11 +26,11 @@ Ti servono entrambi!</string>
   <string name="bishopComplete">Congratulazioni! Hai imparato ad utilizzare l\'alfiere.</string>
   <string name="theQueen">La donna</string>
   <string name="queenCombinesRookAndBishop">Donna = torre + alfiere</string>
-  <string name="queenIntro">Ed ora il pezzo più potente negli scacchi. La donna!</string>
+  <string name="queenIntro">Il pezzo più potente negli scacchi: la donna!</string>
   <string name="queenComplete">Congratulazioni! La donna non ha segreti per te.</string>
   <string name="theKing">Il re</string>
   <string name="theMostImportantPiece">Il pezzo più importante</string>
-  <string name="kingIntro">Tu sei il re. Se cadi in battaglia la partita è persa.</string>
+  <string name="kingIntro">Tu sei il re. Se cadi in battaglia la partita è perduta.</string>
   <string name="theKingIsSlow">Il re è lento.</string>
   <string name="lastOne">L\'ultimo!</string>
   <string name="kingComplete">Ora puoi comandare il comandante!</string>
