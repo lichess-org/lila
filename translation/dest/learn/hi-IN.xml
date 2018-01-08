@@ -53,6 +53,7 @@
   <string name="captureComplete">बधाई! आप जानते हैं कि शतरंज के टुकड़ों से कैसे लड़ें!</string>
   <string name="protection">सुरक्षा</string>
   <string name="keepYourPiecesSafe">अपने टुकड़े सुरक्षित रखें</string>
+  <string name="protectionComplete">बधाई हो! आप जिस टुकड़े को नहीं खोते हैं वह एक टुकड़ा है जिसे आप जीते हैं!</string>
   <string name="escape">आप पर हमला कर रहे हैं!
 खतरे से बच!</string>
   <string name="noEscape">कहीं नहीं भाग सकते,
@@ -63,6 +64,7 @@
   <string name="combatComplete">बधाई! आप जानते हैं कि शतरंज के टुकड़ों से कैसे लड़ें</string>
   <string name="checkInOne">एक में चेक करें</string>
   <string name="attackTheOpponentsKing">विरोधी के राजा पर हमला करें</string>
+  <string name="checkInOneIntro">अपने प्रतिद्वंद्वी की जांच करने के लिए, अपने राजा पर हमला करें। उन्हें इसका बचाव करना होगा!</string>
   <string name="outOfCheck">चेक से बाहर</string>
   <string name="defendYourKing">अपने राजा की रक्षा करें</string>
   <string name="escapeWithTheKing">राजा के साथ भागो!</string>
