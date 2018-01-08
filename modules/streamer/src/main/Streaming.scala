@@ -47,7 +47,9 @@ private final class Streaming(
       }
     }
     (twitchStreams, youTubeStreams) <- fetchTwitchStreams(streamers) zip fetchYouTubeStreams(streamers)
-    streams = LiveStreams(twitchStreams ::: youTubeStreams)
+    streams = LiveStreams {
+      scala.util.Random.shuffle(twitchStreams ::: youTubeStreams) |> dedupStreamers
+    }
     _ <- api.setLiveNow(streamers.filter(streams.has).map(_.id))
   } yield publishStreams(streamers, streams)
 
@@ -118,6 +120,11 @@ private final class Streaming(
         }
       }
   }
+
+  def dedupStreamers(streams: List[Stream]): List[Stream] = streams.foldLeft((Set.empty[Streamer.Id], List.empty[Stream])) {
+    case ((streamerIds, streams), stream) if streamerIds(stream.streamer.id) => (streamerIds, streams)
+    case ((streamerIds, streams), stream) => (streamerIds + stream.streamer.id, stream :: streams)
+  }._2
 }
 
 object Streaming {
