@@ -7,7 +7,7 @@
   <string name="gameOver">Játszma vége</string>
   <string name="waitingForOpponent">Várakozás az ellenfélre</string>
   <string name="waiting">Várakozás</string>
-  <string name="yourTurn">Te következel</string>
+  <string name="yourTurn">Te lépsz</string>
   <string name="aiNameLevelAiLevel">%1$s szint: %2$s</string>
   <string name="level">Szint</string>
   <string name="toggleTheChat">Csevegő ki-be</string>
@@ -31,7 +31,7 @@
   <string name="joinTheGame">Csatlakozás a játékhoz</string>
   <string name="whitePlays">Világos lép</string>
   <string name="blackPlays">Sötét lép</string>
-  <string name="opponentLeftChoices">Az ellenfeled valamiért elhagyta a játékot. Igényelhetsz győzelmet, döntetlent vagy várhatsz rá.</string>
+  <string name="opponentLeftChoices">Úgy tűnik az ellenfél kilépett. Igényelhetsz győzelmet, döntetlent vagy várhatsz rá.</string>
   <string name="makeYourOpponentResign">Ha az ellenfél valamiért kilépett, igényelhető a győzelem</string>
   <string name="forceResignation">Győzelem igénylése</string>
   <string name="forceDraw">Döntetlen</string>
@@ -39,8 +39,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember, aki erre a linkre látogat, fog veled játszani.</string>
   <string name="whiteResigned">Világos feladta</string>
   <string name="blackResigned">Sötét feladta</string>
-  <string name="whiteLeftTheGame">Világos elhagyta a játékot</string>
-  <string name="blackLeftTheGame">Sötét elhagyta a játékot</string>
+  <string name="whiteLeftTheGame">Világos kilépett</string>
+  <string name="blackLeftTheGame">Sötét kilépett</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Oszd meg ezt az linket, hogy mások is láthassák a játszmát</string>
   <string name="theComputerAnalysisHasFailed">A számítógépes elemzés sikertelen</string>
   <string name="viewTheComputerAnalysis">Számítógépes elemzés megtekintése</string>
@@ -56,8 +56,8 @@
   <string name="showThreat">Fenyegetés mutatása</string>
   <string name="inLocalBrowser">a böngészőben</string>
   <string name="toggleLocalEvaluation">Helyi elemzés bekapcsolása</string>
-  <string name="promoteVariation">Egy szinttel feljebb</string>
-  <string name="makeMainLine">Főváltozat</string>
+  <string name="promoteVariation">Egy szinttel feljebb emelés</string>
+  <string name="makeMainLine">Legyen ez a főváltozat</string>
   <string name="deleteFromHere">Törlés innentől</string>
   <string name="move">Lépés</string>
   <string name="variantLoss">Vesztő</string>
