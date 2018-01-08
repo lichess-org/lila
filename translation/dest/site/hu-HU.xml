@@ -749,7 +749,7 @@
   <string name="boardTheme">Tábla szín</string>
   <string name="boardSize">Tábla mérete</string>
   <string name="pieceSet">Figurakészlet</string>
-  <string name="embedInYourWebsite">Beágyazás saját weboldalba</string>
+  <string name="embedInYourWebsite">Beágyazás weboldalba</string>
   <string name="usernameAlreadyUsed">Ez a felhasználónév már foglalt, kérjük válassz másikat.</string>
   <string name="usernameInvalid">Érvénytelen felhasználói név. A név csak betűkből, számokból, alulvonásból és gondolatjelből állhat.</string>
   <string name="usernameStartNoNumber">A felhasználói név nem kezdődhet számmal.</string>
