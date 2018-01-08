@@ -366,4 +366,7 @@
   <string name="yourPerfTypeRatingIsRating">nanpa %1$s sina li nanpa %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">sina jo ala e nanpa %s</string>
   <string name="gameAnalysis">sona musi</string>
+  <string name="language">toki</string>
+  <string name="light">walo</string>
+  <string name="dark">pimeja</string>
 </resources>
