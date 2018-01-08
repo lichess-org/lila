@@ -48,7 +48,9 @@ private final class Streaming(
     }
     (twitchStreams, youTubeStreams) <- fetchTwitchStreams(streamers) zip fetchYouTubeStreams(streamers)
     streams = LiveStreams {
-      scala.util.Random.shuffle(twitchStreams ::: youTubeStreams) |> dedupStreamers
+      scala.util.Random.shuffle {
+        (twitchStreams ::: youTubeStreams) |> dedupStreamers
+      }
     }
     _ <- api.setLiveNow(streamers.filter(streams.has).map(_.id))
   } yield publishStreams(streamers, streams)
