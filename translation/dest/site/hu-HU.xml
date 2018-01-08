@@ -56,7 +56,8 @@
   <string name="showThreat">Fenyegetés mutatása</string>
   <string name="inLocalBrowser">a böngészőben</string>
   <string name="toggleLocalEvaluation">Helyi elemzés bekapcsolása</string>
-  <string name="makeMainLine">Főváltozat létrehozása</string>
+  <string name="promoteVariation">Egy szinttel feljebb</string>
+  <string name="makeMainLine">Főváltozat</string>
   <string name="deleteFromHere">Törlés innentől</string>
   <string name="move">Lépés</string>
   <string name="variantLoss">Vesztő</string>
@@ -663,7 +664,7 @@
   <string name="keyMoveBackwardOrForward">lépj előre/hátra</string>
   <string name="keyGoToStartOrEnd">menjen az elejére/végére</string>
   <string name="keyShowOrHideComments">kommentek megjelenítése/elrejtése</string>
-  <string name="keyEnterOrExitVariation">be/kilépés variációnál</string>
+  <string name="keyEnterOrExitVariation">ki/belépés változatba</string>
   <string name="newTournament">Új torna</string>
   <string name="tournamentHomeTitle">A sakk bajnokságokban lehetőség van különböző időbeállítások és változatok beállítására</string>
   <string name="tournamentHomeDescription">Vegyél részt villám-versenyeken! Csatlakozz hivatalkos versenyekhez, vagy hozz létre te saját magad. Bullet, Blitz, Hagyományos, Sakk960, King of the Hill, Threecheck és mások elérhetők, hogy minél jobban élvezd a sakkot.</string>
@@ -821,7 +822,7 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s csak barátoktól fogad kihívást.</string>
   <string name="conditionalPremoves">Feltételes előre megadott lépések</string>
   <string name="addCurrentVariation">Változat hozzáadása</string>
-  <string name="playVariationToCreateConditionalPremoves">Egy variáció megjátszásával, hozzáadható feltételes előre megadott lépés</string>
+  <string name="playVariationToCreateConditionalPremoves">Egy változat megjátszásával, hozzáadható feltételes előre megadott lépés</string>
   <string name="noConditionalPremoves">Nincs feltételes előre megadott lépés</string>
   <string name="playX">%s megjátszása</string>
   <plurals name="andSaveNbPremoveLines">
