@@ -56,7 +56,7 @@ private[tv] final class TvActor(
       val player = game.firstPlayer
       val user = player.userId flatMap lightUser
       (user |@| player.rating) apply {
-        case (u, r) => channelChampions += (channel -> Tv.Champion(u, r))
+        case (u, r) => channelChampions += (channel -> Tv.Champion(u, r, game.id))
       }
       selectChannel ! lila.socket.Channel.Publish(makeMessage("tvSelect", Json.obj(
         "channel" -> channel.key,

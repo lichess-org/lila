@@ -28,6 +28,14 @@ object Tv extends LilaController {
     }
   }
 
+  def channels = Action.async {
+    import play.api.libs.json._
+    implicit val championWrites = Json.writes[lila.tv.Tv.Champion]
+    Env.tv.tv.getChampions map {
+      _.channels map { case (chan, champ) => chan.name -> champ }
+    } map { Json.toJson(_) } map { Ok(_) }
+  }
+
   private def lichessTv(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =
     OptionFuResult(Env.tv.tv getGameAndHistory channel) {
       case (game, history) =>
