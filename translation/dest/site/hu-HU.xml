@@ -303,7 +303,7 @@
   <string name="ratedMoreThanInPerf">%2$s pontszám ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s pontszám ≤ %1$s</string>
   <string name="backToGame">Vissza a játékhoz</string>
-  <string name="siteDescription">Ingyenes online sakk játék. Sakkozz letisztult kezelőfelületen. Nem szükséges regisztráció vagy pluginok, és hirdetéseket sem kell nézned. Sakkozz a számítógéppel, barátokkal vagy véletlenszerű ellenfelekkel.</string>
+  <string name="siteDescription">Ingyenes online sakk játék letisztult kezelőfelülettel. Nem szükséges regisztráció, nincsenek hirdetések és pluginek telepítése sem szükséges. Játssz a gép ellen, barátokkal vagy ismeretlen ellenfelekkel.</string>
   <string name="teams">Csapatok</string>
   <plurals name="nbMembers">
     <item quantity="one">%s tag</item>
