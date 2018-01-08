@@ -19,7 +19,7 @@ export default class TournamentController {
   joinSpinner: boolean = false;
   playerInfo: PlayerInfo = {};
   disableClicks: boolean = true;
-  searching: boolean = true;
+  searching: boolean = false;
   redraw: () => void;
 
   private watchingGameId: string;
