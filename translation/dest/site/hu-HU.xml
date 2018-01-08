@@ -22,7 +22,7 @@
   <string name="createAGame">Játék létrehozása</string>
   <string name="whiteIsVictorious">Világos nyert</string>
   <string name="blackIsVictorious">Sötét nyert</string>
-  <string name="kingInTheCenter">Király középen</string>
+  <string name="kingInTheCenter">Király a centrumban</string>
   <string name="threeChecks">Három sakk</string>
   <string name="raceFinished">A verseny befejeződött</string>
   <string name="variantEnding">Variáns vége</string>
