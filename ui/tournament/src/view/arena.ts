@@ -20,7 +20,8 @@ function playerTr(ctrl: TournamentController, player) {
     class: {
       me: ctrl.opts.userId === userId,
       long: nbScores > 35,
-      xlong: nbScores > 80
+      xlong: nbScores > 80,
+      active: ctrl.playerInfo.id === userId
     },
     hook: bind('click', _ => ctrl.showPlayerInfo(player), ctrl.redraw)
   }, [

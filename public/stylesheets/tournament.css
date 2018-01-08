@@ -374,6 +374,9 @@ ol.scheduled_tournaments a {
 #tournament table.standing tr.me td:first-child {
   background: linear-gradient(to right, rgba(99,155,36,0.7) 0px, rgba(99,155,36,0.7) 5px, rgba(0,0,0,0) 5px, rgba(0,0,0,0) 100%);
 }
+#tournament table.standing tr.active td:last-child {
+  background: linear-gradient(to left, rgba(56,147,232,0.7) 0px, rgba(56,147,232,0.7) 5px, rgba(0,0,0,0) 5px, rgba(0,0,0,0) 100%);
+}
 #tournament table.slist td.rank {
   font-family: 'Roboto';
   padding: 1em 0.5em 1em 10px;
