@@ -36,7 +36,7 @@
   <string name="forceResignation">Győzelem igénylése</string>
   <string name="forceDraw">Döntetlen</string>
   <string name="talkInChat">Légy udvarias másokkal!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember, aki erre a linkre látogat, fog veled játszani.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember, aki felkeresi ezt a címet, az lesz az ellenfeled.</string>
   <string name="whiteResigned">Világos feladta</string>
   <string name="blackResigned">Sötét feladta</string>
   <string name="whiteLeftTheGame">Világos kilépett</string>
