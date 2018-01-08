@@ -768,7 +768,7 @@
   <string name="xJoinsY">%1$s присоединился к %2$s</string>
   <string name="xLikesY">%1$s отметил %2$s как понравившееся</string>
   <string name="quickPairing">Быстрый старт</string>
-  <string name="lobby">Вызовы</string>
+  <string name="lobby">Зал ожидания</string>
   <string name="anonymous">Анонимно</string>
   <string name="yourScore">Ваш результат: %s</string>
   <string name="language">Язык (Language)</string>
