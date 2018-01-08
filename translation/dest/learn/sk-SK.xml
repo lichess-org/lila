@@ -6,7 +6,7 @@
   <string name="menu">Menu</string>
   <string name="progressX">Dosiahnutý výsledok: %s</string>
   <string name="resetMyProgress">Vynulovať moje výsledky</string>
-  <string name="youWillLoseAllYourProgress">Upozornenie: Váš pokrok bude odstránený!</string>
+  <string name="youWillLoseAllYourProgress">Upozornenie: Všetky Vami dosiahnuté výsledky budú odstránené!</string>
   <string name="play">hrať!</string>
   <string name="chessPieces">Šachové figúrky</string>
   <string name="theRook">Veža</string>
@@ -188,7 +188,7 @@ Pešiak = 1</string>
   <string name="wayToGo">To je ono!</string>
   <string name="yesYesYes">Áno, áno, áno!</string>
   <string name="youreGoodAtThis">Ide Vám to!</string>
-  <string name="nailedIt">Zásah do čierneho.</string>
+  <string name="nailedIt">Zásah do čierneho!</string>
   <string name="rightOn">To je presne ono!</string>
   <string name="stageXComplete">Stupeň %s dokončený</string>
   <string name="yourScore">Vaše skóre</string>
