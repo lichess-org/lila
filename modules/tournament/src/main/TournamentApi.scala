@@ -217,6 +217,13 @@ final class TournamentApi(
     }
   }
 
+  def pageOf(tour: Tournament, userId: User.ID): Fu[Option[Int]] =
+    cached ranking tour map {
+      _ get userId map { rank =>
+        (Math.floor((rank - 1) / 10) + 1).toInt
+      }
+    }
+
   private def updateNbPlayers(tourId: String) =
     PlayerRepo count tourId flatMap { TournamentRepo.setNbPlayers(tourId, _) }
 

@@ -39,6 +39,13 @@ function loadPage(ctrl: TournamentController, p: number) {
   }, onFail);
 }
 
+function loadPageOf(ctrl: TournamentController, userId: string): JQueryXHR {
+  return $.ajax({
+    url: '/tournament/' + ctrl.data.id + '/page-of/' + userId,
+    headers
+  });
+}
+
 function reloadTournament(ctrl: TournamentController) {
   return $.ajax({
     url: '/tournament/' + ctrl.data.id,
@@ -67,6 +74,7 @@ export default {
   join: throttle(1000, join),
   withdraw: throttle(1000, withdraw),
   loadPage: throttle(1000, loadPage),
+  loadPageOf,
   reloadTournament: throttle(2000, reloadTournament),
   playerInfo
 };

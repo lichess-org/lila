@@ -125,7 +125,7 @@ lichess.topMenuIntent = function() {
     lichess.loadCss('/assets/stylesheets/autocomplete.css');
     return lichess.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
       $input.typeahead(null, {
-        minLength: 3,
+        minLength: opts.minLength || 3,
         hint: true,
         highlight: false,
         source: function(query, _, runAsync) {
@@ -135,6 +135,7 @@ lichess.topMenuIntent = function() {
             data: {
               term: query,
               friend: opts.friend ? 1 : 0,
+              tour: opts.tour,
               object: 1
             },
             success: function(res) {

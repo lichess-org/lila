@@ -163,4 +163,12 @@ object PlayerRepo {
       .logIfSlow(200, logger) { players =>
         s"PlayerRepo.rankedByTourAndUserIds $tourId ${userIds.size} user IDs, ${ranking.size} ranking, ${players.size} players"
       }.result
+
+  def searchPlayers(tourId: Tournament.ID, term: String, nb: Int): Fu[List[User.ID]] =
+    term.nonEmpty ?? coll.primitive[User.ID](
+      selector = $doc("tid" -> tourId, "uid".$regex("^" + term.toLowerCase + ".*$", "")),
+      sort = $sort desc "m",
+      nb = nb,
+      field = "uid"
+    )
 }

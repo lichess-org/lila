@@ -8,8 +8,8 @@ import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.app.mashup.{ GameFilterMenu, GameFilter }
 import lila.common.paginator.Paginator
-import lila.common.{ IpAddress, HTTPRequest }
 import lila.common.PimpedJson._
+import lila.common.{ IpAddress, HTTPRequest }
 import lila.game.{ GameRepo, Game => GameModel }
 import lila.rating.PerfType
 import lila.socket.UserLagCache
@@ -316,13 +316,16 @@ object User extends LilaController {
       case None => BadRequest("No search term provided").fuccess
       case Some(term) if getBool("exists") => UserRepo nameExists term map { r => Ok(JsBoolean(r)) }
       case Some(term) => {
-        ctx.me.ifTrue(getBool("friend")) match {
-          case None => UserRepo userIdsLike term
-          case Some(follower) =>
-            Env.relation.api.searchFollowedBy(follower, term, 10) flatMap {
-              case Nil => UserRepo userIdsLike term
-              case userIds => fuccess(userIds)
-            }
+        get("tour") match {
+          case Some(tourId) => Env.tournament.playerRepo.searchPlayers(tourId, term, 10)
+          case None => ctx.me.ifTrue(getBool("friend")) match {
+            case None => UserRepo userIdsLike term
+            case Some(follower) =>
+              Env.relation.api.searchFollowedBy(follower, term, 10) flatMap {
+                case Nil => UserRepo userIdsLike term
+                case userIds => fuccess(userIds)
+              }
+          }
         }
       } flatMap { userIds =>
         if (getBool("object")) Env.user.lightUserApi.asyncMany(userIds) map { users =>

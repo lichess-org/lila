@@ -292,10 +292,25 @@ ol.scheduled_tournaments a {
 #tournament .pager {
   user-select: none;
   -webkit-user-select: none;
+  display: flex;
+  align-items: center;
 }
 #tournament .pager .page {
   margin: 0 3px;
 }
+
+#tournament .pager input {
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  padding-left: 10px;
+}
+#tournament .pager .search,
+#tournament .pager input,
+#tournament .twitter-typeahead {
+  height: 100%;
+}
+
 #tournament .notice {
   color: #FFF;
   background: #639B24;

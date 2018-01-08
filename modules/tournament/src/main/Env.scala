@@ -122,6 +122,8 @@ final class Env(
     maxPerPage = lila.common.MaxPerPage(15)
   )
 
+  def playerRepo = PlayerRepo
+
   private lazy val leaderboardIndexer = new LeaderboardIndexer(
     tournamentColl = tournamentColl,
     leaderboardColl = leaderboardColl

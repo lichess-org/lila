@@ -114,6 +114,18 @@ object Tournament extends LilaController {
     }
   }
 
+  def pageOf(id: String, userId: String) = Open { implicit ctx =>
+    OptionFuResult(repo byId id) { tour =>
+      env.api.pageOf(tour, UserModel normalize userId) flatMap {
+        _ ?? { page =>
+          env.jsonView.standing(tour, page) map { data =>
+            Ok(data) as JSON
+          }
+        }
+      }
+    }
+  }
+
   def userGameNbMini(id: String, user: String, nb: Int) = Open { implicit ctx =>
     withUserGameNb(id, user, nb) { pov =>
       Ok(html.tournament.miniGame(pov))

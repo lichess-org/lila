@@ -19,6 +19,7 @@ export default class TournamentController {
   joinSpinner: boolean = false;
   playerInfo: PlayerInfo = {};
   disableClicks: boolean = true;
+  searching: boolean = true;
   redraw: () => void;
 
   private watchingGameId: string;
@@ -79,6 +80,16 @@ export default class TournamentController {
     xhr.loadPage(this, page);
   };
 
+  jumpToPageOf = (userId: string) => {
+    xhr.loadPageOf(this, userId).then(data => {
+      this.loadPage(data);
+      this.page = data.page;
+      this.searching = false;
+      this.pages[this.page].filter(p => p.name.toLowerCase() == userId).forEach(this.showPlayerInfo);
+      this.redraw();
+    });
+  }
+
   userSetPage = (page: number) => {
     this.focusOnMe = false;
     this.setPage(page);
@@ -136,4 +147,6 @@ export default class TournamentController {
     if (data.player.id !== this.playerInfo.id) return;
     this.playerInfo.data = data;
   };
+
+  toggleSearch = () => this.searching = !this.searching;
 }
