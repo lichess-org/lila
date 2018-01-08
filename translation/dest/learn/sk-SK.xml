@@ -44,12 +44,12 @@ Uniknite z obkľúčenia a premôžte hviezdy!</string>
   <string name="thePawn">Pešiak</string>
   <string name="itMovesForwardOnly">Pohybuje sa výlučne vpred</string>
   <string name="pawnIntro">Pešiaci sú slabí, ale majú v sebe veľký potenciál.</string>
-  <string name="pawnsMoveOneSquareOnly">Pešiaci sa pohybujú iba o jedno políčko vpred. Keď však dosiahnu koniec šachovnice, stanú sa silnejšou figúrkou!</string>
+  <string name="pawnsMoveOneSquareOnly">Pešiaci sa pohybujú iba o jedno políčko vpred. Keď však dôjdu na koniec šachovnice, stane sa z nich silnejšia figúrka!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Väčšinou je najlepšie premeniť pešiaka na dámu.
 Niekedy sa však môže hodiť aj jazdec!</string>
   <string name="pawnsMoveForward">Pešiaci sa pohybujú vpred,
 ale berú diagonálne!</string>
-  <string name="captureThenPromote">Berte, premente a opäť berte!</string>
+  <string name="captureThenPromote">Zbierajte, premente a opäť zbierajte!</string>
   <string name="useAllThePawns">Použite všetkých pešiakov!
 Premieňať nepotrebujete.</string>
   <string name="aPawnOnTheSecondRank">Keď je pešiak v základnej pozícii, môže sa pohnúť o 2 políčka naraz!</string>
@@ -67,7 +67,7 @@ Premieňať nepotrebujete.</string>
   <string name="takeTheBlackPieces">Vezmite súperove figúrky!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Vezmite súperove figúrky!
 A nepríďte o vlastné!</string>
-  <string name="captureComplete">Gratulujeme! Viete ako s šachovými figúrkami bojovať!</string>
+  <string name="captureComplete">Gratulujeme! Už viete ako s šachovými figúrkami bojovať!</string>
   <string name="protection">Chránenie</string>
   <string name="keepYourPiecesSafe">Chránenie vlastných figúrok</string>
   <string name="protectionIntro">Rozpoznajte figúrky, ktoré Vám súper napadá a ochráňte ich!</string>
@@ -80,7 +80,7 @@ ale môžete sa brániť!</string>
   <string name="combat">Súboj</string>
   <string name="captureAndDefendPieces">Branie a chránenie figúrok</string>
   <string name="combatIntro">Dobrý bojovník vie aj útočiť aj sa brániť!</string>
-  <string name="combatComplete">Gratulujeme! Viete ako s šachovými figúrkami útočiť!</string>
+  <string name="combatComplete">Gratulujeme! Už viete ako s šachovými figúrkami útočiť!</string>
   <string name="checkInOne">Šach prvým ťahom</string>
   <string name="attackTheOpponentsKing">Útočenie na súperovho kráľa</string>
   <string name="checkInOneIntro">Ak chcete dať súperovi šach, zaútočte na jeho kráľa! On ho bude musieť brániť!</string>
@@ -115,15 +115,15 @@ ale môžete sa brániť!</string>
   <string name="castling">Rošáda</string>
   <string name="theSpecialKingMove">Osobitý ťah kráľom</string>
   <string name="castlingIntro">Schovajte svojho kráľa do bezpečia a nasaďte vežu do útoku!</string>
-  <string name="castleKingSide">Potiahnite kráľom o dve polia a urobte krátku rošádu!</string>
-  <string name="castleQueenSide">Potiahnite kráľom o dve polia a urobte dlhú rošádu!</string>
-  <string name="theKnightIsInTheWay">Jazdec stojí v ceste. Pohnite ním a potom urobte krátku rošádu!</string>
-  <string name="castleKingSideMovePiecesFirst">Vykonajte krátku rošádu! Najprv si však potrebujete vyvinúť zopár figúrok.</string>
-  <string name="castleQueenSideMovePiecesFirst">Vykonajte dlhú rošádu! Najprv je ale potrebné vyvinúť zopár figúrok.</string>
+  <string name="castleKingSide">Potiahnite kráľom o dve polia a urobte malú rošádu!</string>
+  <string name="castleQueenSide">Potiahnite kráľom o dve polia a urobte veľkú rošádu!</string>
+  <string name="theKnightIsInTheWay">Jazdec stojí v ceste. Pohnite ním a potom urobte malú rošádu!</string>
+  <string name="castleKingSideMovePiecesFirst">Vykonajte malú rošádu! Najprv si však potrebujete vyvinúť zopár figúrok.</string>
+  <string name="castleQueenSideMovePiecesFirst">Vykonajte veľkú rošádu! Najprv je ale potrebné vyvinúť zopár figúrok.</string>
   <string name="youCannotCastleIfMoved">Nie je možné vykonať rošádu pokiaľ sa s kráľom alebo vežou už hýbalo.</string>
   <string name="youCannotCastleIfAttacked">Nemôžete robiť rošádu ak je kráľ v šachu. Predkryte šach a zrošádujte potom!</string>
-  <string name="findAWayToCastleKingSide">Nájdite spôsob ako urobiť krátku rošádu!</string>
-  <string name="findAWayToCastleQueenSide">Nájdite spôsob ako urobiť dlhú rošádu!</string>
+  <string name="findAWayToCastleKingSide">Nájdite spôsob ako urobiť malú rošádu!</string>
+  <string name="findAWayToCastleQueenSide">Nájdite spôsob ako urobiť veľkú rošádu!</string>
   <string name="castlingComplete">Gratulujeme! Rošádu by ste v mali urobiť takmer v každej partii.</string>
   <string name="enPassant">Branie mimochodom</string>
   <string name="theSpecialPawnMove">Osobitý ťah pešiakom</string>
