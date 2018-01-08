@@ -28,12 +28,12 @@ object Tv extends LilaController {
     }
   }
 
-  def channels = Action.async {
+  def channels = Api.ApiRequest { implicit ctx =>
     import play.api.libs.json._
     implicit val championWrites = Json.writes[lila.tv.Tv.Champion]
     Env.tv.tv.getChampions map {
       _.channels map { case (chan, champ) => chan.name -> champ }
-    } map { Json.toJson(_) } map { Ok(_) }
+    } map { Json.toJson(_) } map Api.Data.apply
   }
 
   private def lichessTv(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =

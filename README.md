@@ -636,6 +636,16 @@ curl 'https://lichess.org/api/tournament/x5WNIngd?page=1'
 
 JSONP is available.
 
+### `GET /tv/channels` fetch current tournaments
+
+Returns the current game ID and best player for each TV channel: https://lichess.org/tv
+
+```
+> curl https://lichess.org/tv/channels
+```
+
+JSONP is available.
+
 Credits
 -------
 

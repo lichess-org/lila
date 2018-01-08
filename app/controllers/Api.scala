@@ -295,7 +295,7 @@ object Api extends LilaController {
   def toApiResult(json: Option[JsValue]): ApiResult = json.fold[ApiResult](NoData)(Data.apply)
   def toApiResult(json: Seq[JsValue]): ApiResult = Data(JsArray(json))
 
-  private def ApiRequest(js: Context => Fu[ApiResult]) = Open { implicit ctx =>
+  def ApiRequest(js: Context => Fu[ApiResult]) = Open { implicit ctx =>
     js(ctx) map toHttp
   }
 
