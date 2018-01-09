@@ -104,8 +104,6 @@ final class Env(
 
   val tourAndRanks = api tourAndRanks _
 
-  private lazy val performance = new Performance
-
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     socketHub = socketHub,
@@ -113,7 +111,7 @@ final class Env(
     flood = flood
   )
 
-  lazy val jsonView = new JsonView(lightUserApi, cached, performance, statsApi, asyncCache, verify)
+  lazy val jsonView = new JsonView(lightUserApi, cached, statsApi, asyncCache, verify)
 
   lazy val scheduleJsonView = new ScheduleJsonView(lightUserApi.async)
 

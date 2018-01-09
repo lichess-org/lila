@@ -279,20 +279,19 @@ final class TournamentApi(
     }
   }
 
-  def finishGame(game: Game): Unit = {
+  def finishGame(game: Game): Unit =
     game.tournamentId foreach { tourId =>
       Sequencing(tourId)(TournamentRepo.startedById) { tour =>
         PairingRepo.finish(game) >>
-          game.userIds.map(updatePlayer(tour)).sequenceFu.void >>- {
+          game.userIds.map(updatePlayer(tour, game.some)).sequenceFu.void >>- {
             socketReload(tour.id)
             updateTournamentStanding(tour.id)
             withdrawNonMover(game)
           }
       }
     }
-  }
 
-  private def updatePlayer(tour: Tournament)(userId: String): Funit =
+  private def updatePlayer(tour: Tournament, finishing: Option[Game])(userId: String): Funit =
     (tour.perfType.ifTrue(tour.mode.rated) ?? { UserRepo.perfOf(userId, _) }) flatMap { perf =>
       PlayerRepo.update(tour.id, userId) { player =>
         cached.sheet.update(tour, userId) map { sheet =>
@@ -300,11 +299,27 @@ final class TournamentApi(
             score = sheet.total,
             fire = sheet.onFire,
             ratingDiff = perf.fold(player.ratingDiff)(_.intRating - player.rating),
-            provisional = perf.fold(player.provisional)(_.provisional)
+            provisional = perf.fold(player.provisional)(_.provisional),
+            performance = {
+              for {
+                g <- finishing
+                performance <- performanceOf(g, userId).toDouble
+                nbGames = sheet.scores.size
+                if nbGames > 0
+              } yield Math.round {
+                player.performance * (nbGames - 1) / nbGames + performance / nbGames
+              }
+            } | player.performance
           ).recomputeMagicScore
         }
       }
     }
+
+  private def performanceOf(g: Game, userId: String): Option[Int] = for {
+    opponent <- g.opponentByUserId(userId)
+    opponentRating <- opponent.rating
+    multiplier = g.winnerUserId.??(_ == userId).fold(1, -1)
+  } yield opponentRating + 500 * multiplier
 
   private def withdrawNonMover(game: Game): Unit = for {
     tourId <- game.tournamentId
@@ -344,7 +359,7 @@ final class TournamentApi(
             }
           } >> PairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
             PairingRepo.removeByTourAndUserId(tour.id, userId) >>
-              lila.common.Future.applySequentially(uids.toList)(updatePlayer(tour))
+              lila.common.Future.applySequentially(uids.toList)(updatePlayer(tour, none))
           }
         else if (tour.isFinished && tour.winnerId.contains(userId))
           PlayerRepo winner tour.id flatMap {

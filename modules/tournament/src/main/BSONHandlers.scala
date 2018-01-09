@@ -122,7 +122,7 @@ object BSONHandlers {
       ratingDiff = r intD "p",
       magicScore = r int "m",
       fire = r boolD "f",
-      performance = r intO "e"
+      performance = r intD "e"
     )
     def writes(w: BSON.Writer, o: Player) = $doc(
       "_id" -> o._id,

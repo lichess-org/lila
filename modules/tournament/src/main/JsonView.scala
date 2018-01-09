@@ -15,7 +15,6 @@ import lila.user.User
 final class JsonView(
     lightUserApi: lila.user.LightUserApi,
     cached: Cached,
-    performance: Performance,
     statsApi: TournamentStatsApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     verify: Condition.Verify
@@ -101,7 +100,6 @@ final class JsonView(
   def playerInfo(info: PlayerInfoExt): Fu[JsObject] = for {
     ranking <- cached ranking info.tour
     sheet <- cached.sheet(info.tour, info.user.id)
-    tpr <- performance(info.tour, info.player, sheet)
   } yield info match {
     case PlayerInfoExt(tour, user, player, povs) =>
       val isPlaying = povs.headOption.??(_.game.playable)
@@ -116,12 +114,12 @@ final class JsonView(
           "score" -> player.score,
           "ratingDiff" -> player.ratingDiff,
           "fire" -> player.fire,
-          "nb" -> sheetNbs(user.id, sheet)
+          "nb" -> sheetNbs(user.id, sheet),
+          "performance" -> player.performance
         ).add("title" -> user.title)
           .add("rank" -> ranking.get(user.id).map(1+))
           .add("provisional" -> player.provisional)
-          .add("withdraw" -> player.withdraw)
-          .add("performance" -> tpr),
+          .add("withdraw" -> player.withdraw),
         "pairings" -> povScores.map {
           case (pov, score) => Json.obj(
             "id" -> pov.gameId,
@@ -290,11 +288,10 @@ final class JsonView(
           _.map {
             case rp @ RankedPlayer(_, player) => for {
               sheet <- cached.sheet(tour, player.userId)
-              tpr <- performance(tour, player, sheet)
               json <- playerJson(sheet.some, tour, rp)
             } yield json ++ Json.obj(
               "nb" -> sheetNbs(player.userId, sheet),
-              "performance" -> tpr
+              "performance" -> player.performance
             )
           }.sequenceFu
         } map { l => JsArray(l).some }

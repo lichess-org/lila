@@ -60,6 +60,7 @@ case class Game(
   def player: Player = player(turnColor)
 
   def playerByUserId(userId: String): Option[Player] = players.find(_.userId contains userId)
+  def opponentByUserId(userId: String): Option[Player] = playerByUserId(userId) map opponent
 
   def opponent(p: Player): Player = opponent(p.color)
 
