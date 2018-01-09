@@ -31,6 +31,8 @@ private[tournament] case class Player(
   def finalRating = rating + ratingDiff
 
   def recomputeMagicScore = copy(magicScore = score * 10000 + performance)
+
+  def performanceOption = performance > 0 option performance
 }
 
 private[tournament] object Player {

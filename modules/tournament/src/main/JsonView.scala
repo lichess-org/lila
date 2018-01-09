@@ -114,9 +114,9 @@ final class JsonView(
           "score" -> player.score,
           "ratingDiff" -> player.ratingDiff,
           "fire" -> player.fire,
-          "nb" -> sheetNbs(user.id, sheet),
-          "performance" -> player.performance
+          "nb" -> sheetNbs(user.id, sheet)
         ).add("title" -> user.title)
+          .add("performance" -> player.performanceOption)
           .add("rank" -> ranking.get(user.id).map(1+))
           .add("provisional" -> player.provisional)
           .add("withdraw" -> player.withdraw),
@@ -290,9 +290,8 @@ final class JsonView(
               sheet <- cached.sheet(tour, player.userId)
               json <- playerJson(sheet.some, tour, rp)
             } yield json ++ Json.obj(
-              "nb" -> sheetNbs(player.userId, sheet),
-              "performance" -> player.performance
-            )
+              "nb" -> sheetNbs(player.userId, sheet)
+            ).add("performance" -> player.performanceOption)
           }.sequenceFu
         } map { l => JsArray(l).some }
       }
