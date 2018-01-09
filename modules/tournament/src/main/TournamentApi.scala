@@ -291,7 +291,10 @@ final class TournamentApi(
       }
     }
 
-  private def updatePlayer(tour: Tournament, finishing: Option[Game])(userId: String): Funit =
+  private def updatePlayer(
+    tour: Tournament,
+    finishing: Option[Game] // if set, update the player performance. Leave to none to just recompute the sheet.
+  )(userId: String): Funit =
     (tour.perfType.ifTrue(tour.mode.rated) ?? { UserRepo.perfOf(userId, _) }) flatMap { perf =>
       PlayerRepo.update(tour.id, userId) { player =>
         cached.sheet.update(tour, userId) map { sheet =>
