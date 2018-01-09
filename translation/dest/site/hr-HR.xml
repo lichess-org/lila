@@ -802,7 +802,7 @@ u %3$s</string>
   <string name="anotherWasX">Drugi je %s</string>
   <string name="bestWasX">Najbolji je %s</string>
   <string name="resumePractice">Nastavi vježbu</string>
-  <string name="theGameIsADraw">Remi.</string>
+  <string name="theGameIsADraw">Partija završava remijem.</string>
   <string name="computerThinking">Kompjuter razmišlja ...</string>
   <string name="seeBestMove">Vidi najbolji potez</string>
   <string name="hideBestMove">Sakrij najbolji potez</string>
