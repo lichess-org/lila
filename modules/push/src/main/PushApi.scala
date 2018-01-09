@@ -14,7 +14,6 @@ import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lila.message.{ Thread, Post }
 
 private final class PushApi(
-    googlePush: GooglePush,
     oneSignalPush: OneSignalPush,
     implicit val lightUser: LightUser.GetterSync,
     roundSocketHub: ActorSelection,
@@ -201,16 +200,11 @@ private final class PushApi(
 
   private type MonitorType = lila.mon.push.send.type => (String => Unit)
 
-  private def pushToAll(userId: String, monitor: MonitorType, data: PushApi.Data) = {
+  private def pushToAll(userId: String, monitor: MonitorType, data: PushApi.Data): Unit =
     oneSignalPush(userId) {
       monitor(lila.mon.push.send)("onesignal")
       data
     }
-    googlePush(userId) {
-      monitor(lila.mon.push.send)("android")
-      data
-    }
-  }
 
   private def describeChallenge(c: Challenge) = {
     import lila.challenge.Challenge.TimeControl._
