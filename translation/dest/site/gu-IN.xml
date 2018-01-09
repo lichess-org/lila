@@ -9,7 +9,7 @@
   <string name="waiting">રાહ જુએ છે</string>
   <string name="yourTurn">તમરો વારો</string>
   <string name="aiNameLevelAiLevel">%1$sધોરણ%2$s</string>
-  <string name="level">પાળવ</string>
+  <string name="level">ધોરણ</string>
   <string name="chat">વાત ચીત</string>
   <string name="resign">રાજીનામું</string>
   <string name="white">સફેદ</string>
@@ -26,4 +26,7 @@
   <string name="forceResignation">વિજયનો દાવો કરો</string>
   <string name="talkInChat">કૃપા કરીને ચેટમાં સભ્યતા રાખવી!</string>
   <string name="move">ચાલ</string>
+  <string name="youCannotChallengeX">તમે %sને પડકાર કરી શકતા નથી.</string>
+  <string name="xDoesNotAcceptChallenges">%s પડકારોને સ્વીકારતા નથી.</string>
+  <string name="playX">%s ચાલો</string>
 </resources>
