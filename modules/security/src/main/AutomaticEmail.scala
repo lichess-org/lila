@@ -53,7 +53,7 @@ ${Mailgun.txt.serviceNote}
         val body = s"""Hello,
 
 It is our pleasure to welcome you as a certified lichess coach.
-Your coach profile awaits you on ${baseUrl}/@/coach/edit.
+Your coach profile awaits you on ${baseUrl}/coach/edit.
 
 Regards,
 
