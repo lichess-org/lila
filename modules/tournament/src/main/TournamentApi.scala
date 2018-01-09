@@ -303,12 +303,12 @@ final class TournamentApi(
             performance = {
               for {
                 g <- finishing
-                performance <- performanceOf(g, userId).toDouble
+                performance <- performanceOf(g, userId).map(_.toDouble)
                 nbGames = sheet.scores.size
                 if nbGames > 0
               } yield Math.round {
                 player.performance * (nbGames - 1) / nbGames + performance / nbGames
-              }
+              } toInt
             } | player.performance
           ).recomputeMagicScore
         }
