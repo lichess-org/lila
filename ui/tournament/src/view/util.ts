@@ -42,15 +42,7 @@ export function playerName(p) {
 }
 
 export function player(p, asLink?: boolean) {
-  let ratingDiff;
-  if (p.ratingDiff > 0) ratingDiff = h('span.positive', {
-    attrs: { 'data-icon': 'N' }
-  }, '' + p.ratingDiff);
-  else if (p.ratingDiff < 0) ratingDiff = h('span.negative', {
-    attrs: { 'data-icon': 'M' }
-  }, '' + -p.ratingDiff);
-  const rating = p.rating + p.ratingDiff + (p.provisional ? '?' : ''),
-  fullName = playerName(p);
+  const fullName = playerName(p);
 
   return h('a.ulpt.user_link' + (fullName.length > 15 ? '.long' : ''), {
     attrs: asLink ? { href: '/@/' + p.name } : { 'data-href': '/@/' + p.name },
@@ -59,7 +51,7 @@ export function player(p, asLink?: boolean) {
     }
   }, [
     h('span.name', fullName),
-    h('span.progress', [rating, ratingDiff])
+    h('span.progress', p.rating + p.ratingDiff + (p.provisional ? '?' : ''))
   ]);
 }
 
