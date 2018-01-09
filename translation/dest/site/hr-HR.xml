@@ -844,6 +844,9 @@ u %3$s</string>
   <string name="yourXRatingIsTooFarFromY">Prevelika je razlika između vašeg %1$s rejtinga i onog %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Nemogu izazvati zbog privremenog (%s) rejtinga.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s samo prihvaća izazove od prijatelja.</string>
+  <string name="conditionalPremoves">Uvjetni predpotezi</string>
   <string name="addCurrentVariation">Dodajte trenutnu varijantu</string>
+  <string name="playVariationToCreateConditionalPremoves">Odigraj varijaciju da stvoriš predpotez</string>
+  <string name="noConditionalPremoves">Nema uvijetnih predpoteza</string>
   <string name="playX">Igraj %s</string>
 </resources>
