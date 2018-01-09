@@ -8,6 +8,7 @@
   <string name="waitingForOpponent">વિરોધિ માટે રાહ જુએ છે</string>
   <string name="waiting">રાહ જુએ છે</string>
   <string name="yourTurn">તમરો વારો</string>
+  <string name="aiNameLevelAiLevel">%1$sધોરણ%2$s</string>
   <string name="level">પાળવ</string>
   <string name="chat">વાત ચીત</string>
   <string name="resign">રાજીનામું</string>
@@ -16,6 +17,8 @@
   <string name="createAGame">રમત બનાવો</string>
   <string name="whiteIsVictorious">સફેદ વિજય રહ્યો</string>
   <string name="blackIsVictorious">કાળો વિજય રહ્યો</string>
+  <string name="kingInTheCenter">મધ્યમાં રાજા</string>
   <string name="newOpponent">નવો  પ્રાતીસ્પર્ધી</string>
   <string name="joinTheGame">રમત માં જોડવ</string>
+  <string name="move">ચાલ</string>
 </resources>
