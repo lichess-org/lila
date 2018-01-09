@@ -35,7 +35,7 @@ function playerTr(ctrl: TournamentController, player) {
     h('td.sheet', player.sheet.scores.map(scoreTag)),
     h('td.total', [
       h('strong',
-        player.sheet.fire ?
+        player.sheet.fire && !ctrl.data.isFinished ?
         h('strong.is-gold', { attrs: { 'data-icon': 'Q' } }, player.sheet.total) :
         h('strong', player.sheet.total))
     ])
