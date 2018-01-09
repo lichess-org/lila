@@ -45,14 +45,14 @@ lichess.timeago = (function() {
   var formatterInst;
 
   function formatter() {
-    return formatterInst = formatterInst || (window.Intl && Intl.DateTimeFormat) ?
+    return formatterInst = formatterInst || (window.Intl && Intl.DateTimeFormat ?
       new Intl.DateTimeFormat(document.documentElement.lang, {
         year: 'numeric',
         month: 'short',
         day: 'numeric',
         hour: 'numeric',
         minute: 'numeric'
-      }).format : function(d) { return d.toLocaleString(); }
+      }).format : function(d) { return d.toLocaleString(); })
   }
 
   /**
