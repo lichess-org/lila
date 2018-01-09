@@ -60,8 +60,8 @@
   <string name="makeMainLine">Zur Hauptvariante machen</string>
   <string name="deleteFromHere">Ab hier löschen</string>
   <string name="move">Zug</string>
-  <string name="variantLoss">Niederlage in der Variante</string>
-  <string name="variantWin">Sieg in der Schachvariante</string>
+  <string name="variantLoss">Variante verloren</string>
+  <string name="variantWin">Variante gewonnen</string>
   <string name="insufficientMaterial">Ungenügendes Material</string>
   <string name="pawnMove">Bauernzug</string>
   <string name="capture">Schlagzug</string>
