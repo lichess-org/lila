@@ -48,38 +48,23 @@ function podiumUsername(p) {
   }, p.name);
 }
 
-function podiumStats(p, trans): MaybeVNodes {
-  let ratingDiff;
-  var noarg = trans.noarg;
-  if (p.ratingDiff === 0) ratingDiff = h('span', ' =');
-  else if (p.ratingDiff > 0) ratingDiff = h('span.positive', {
-    attrs: { 'data-icon': 'N' }
-  }, p.ratingDiff);
-  else if (p.ratingDiff < 0) ratingDiff = h('span.negative', {
-    attrs: { 'data-icon': 'M' }
-  }, '' + -p.ratingDiff);
-  const nb = p.nb;
-  return [
-    h('span.rating.progress', [
-      p.rating + p.ratingDiff,
-      ratingDiff
-    ]),
-    h('table.stats', [
-      h('tr', [h('th', noarg('gamesPlayed')), h('td', nb.game)]),
-      ...(nb.game ? [
-        h('tr', [h('th', noarg('winRate')), h('td', ratio2percent(nb.win / nb.game))]),
-        h('tr', [h('th', noarg('berserkRate')), h('td', ratio2percent(nb.berserk / nb.game))])
-      ] : []),
-      p.performance ? h('tr', [h('th', 'Performance'), h('td', p.performance)]) : null
-    ])
-  ];
+function podiumStats(p, trans): VNode {
+  const noarg = trans.noarg, nb = p.nb;
+  return h('table.stats', [
+    h('tr', [h('th', noarg('gamesPlayed')), h('td', nb.game)]),
+    ...(nb.game ? [
+      h('tr', [h('th', noarg('winRate')), h('td', ratio2percent(nb.win / nb.game))]),
+      h('tr', [h('th', noarg('berserkRate')), h('td', ratio2percent(nb.berserk / nb.game))])
+    ] : []),
+    p.performance ? h('tr', [h('th', 'Performance'), h('td', p.performance)]) : null
+  ]);
 }
 
 function podiumPosition(p, pos, trans): VNode | undefined {
   if (p) return h('div.' + pos, [
     h('div.trophy'),
     podiumUsername(p),
-    ...podiumStats(p, trans)
+    podiumStats(p, trans)
   ]);
 }
 
