@@ -417,7 +417,7 @@
   <string name="winStreak">Séria výhier</string>
   <string name="createdBy">Vytvorené</string>
   <string name="tournamentIsStarting">Turnaj sa začína</string>
-  <string name="tournamentPairingsAreNowClosed">Párovanie hráčov v turnaji je momentálne uzavreté.</string>
+  <string name="tournamentPairingsAreNowClosed">Párovanie hráčov v turnaji je už uzavreté.</string>
   <string name="standByX">Čakajte %s, vyberám súpera, pripravte sa!</string>
   <string name="youArePlaying">Hra začala!</string>
   <string name="winRate">Pomer výhier</string>
