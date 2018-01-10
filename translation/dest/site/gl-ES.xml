@@ -58,6 +58,7 @@
   <string name="toggleLocalEvaluation">Avaliación local</string>
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Converter en liña principal</string>
+  <string name="deleteFromHere">Borrar desde aquí</string>
   <string name="move">Movemento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante gañadora</string>
@@ -423,6 +424,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="biography">Biografía</string>
   <string name="country">País</string>
   <string name="preferences">Preferencias</string>
+  <string name="inlineNotation">Notación compacta</string>
   <string name="watchLichessTV">Mirar Lichess TV</string>
   <string name="previouslyOnLichessTV">Previamente en Lichess TV</string>
   <string name="onlinePlayers">Xogadores en liña</string>
@@ -765,4 +767,25 @@ en %3$s</string>
   <string name="notifications">Notificacións</string>
   <string name="challenges">Desafíos</string>
   <string name="perfRatingX">Puntuación: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s segundo para facer o primeiro movemento</item>
+    <item quantity="other">%s segundos para facer o primeiro movemento</item>
+  </plurals>
+  <string name="practiceWithComputer">Practicar coa computadora</string>
+  <string name="anotherWasX">Outro era %s</string>
+  <string name="bestWasX">O mellor era %s</string>
+  <string name="resumePractice">Continuar a prática</string>
+  <string name="theGameIsADraw">A partida está en táboas.</string>
+  <string name="computerThinking">Computadora pensando ...</string>
+  <string name="seeBestMove">Ver o mellor movemento</string>
+  <string name="hideBestMove">Ocultar o mellor movemento</string>
+  <string name="getAHint">Obter unha pista</string>
+  <string name="evaluatingYourMove">Avaliando o teu movemento ...</string>
+  <string name="whiteWinsGame">Brancas gañan</string>
+  <string name="blackWinsGame">Negras gañan</string>
+  <string name="learnFromYourMistakes">Aprende dos teus erros</string>
+  <string name="learnFromThisMistake">Aprende deste erro</string>
+  <string name="skipThisMove">Salta este movemento</string>
+  <string name="next">Seguinte</string>
+  <string name="xWasPlayed">%s foi xogado</string>
 </resources>
