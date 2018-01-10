@@ -17,7 +17,10 @@ final class CoachPager(coll: Coll) {
   def apply(order: Order, page: Int): Fu[Paginator[Coach.WithUser]] = {
     val adapter = new Adapter[Coach](
       collection = coll,
-      selector = $doc("listed" -> Coach.Listed(true)),
+      selector = $doc(
+        "listed" -> Coach.Listed(true),
+        "approved" -> Coach.Approved(true)
+      ),
       projection = $empty,
       sort = order.predicate
     ) mapFutureList withUsers
