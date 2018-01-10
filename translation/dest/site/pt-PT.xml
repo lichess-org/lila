@@ -25,12 +25,12 @@
   <string name="kingInTheCenter">Rei no centro</string>
   <string name="threeChecks">Três xeques</string>
   <string name="raceFinished">Corrida terminada</string>
-  <string name="variantEnding">Fim de variante</string>
+  <string name="variantEnding">Fim da variante</string>
   <string name="newOpponent">Novo oponente</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Seu oponente quer jogar uma nova partida contra você</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">O seu oponente quer jogar uma nova partida contra você</string>
   <string name="joinTheGame">Entrar no jogo</string>
-  <string name="whitePlays">Brancas jogam</string>
-  <string name="blackPlays">Negras jogam</string>
+  <string name="whitePlays">Jogam as brancas</string>
+  <string name="blackPlays">Jogam as negras</string>
   <string name="opponentLeftChoices">O outro jogador pode ter deixado a partida. Você pode proclamar vitória, declarar empate ou aguardar.</string>
   <string name="makeYourOpponentResign">Obrigar o oponente a desistir</string>
   <string name="forceResignation">Reivindicar vitória</string>
