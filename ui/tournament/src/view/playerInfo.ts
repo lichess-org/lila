@@ -18,7 +18,7 @@ function result(win, stat): string {
 function playerTitle(player) {
   return h('h2', [
     h('span.rank', player.rank + '. '),
-    renderPlayer(player, true)
+    renderPlayer(player, true, false)
   ]);
 }
 

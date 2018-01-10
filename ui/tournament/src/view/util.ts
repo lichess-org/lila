@@ -41,7 +41,7 @@ export function playerName(p) {
   return p.title ? [h('span.title', p.title), ' ' + p.name] : p.name;
 }
 
-export function player(p, asLink?: boolean) {
+export function player(p, asLink: boolean, withRating: boolean) {
   const fullName = playerName(p);
 
   return h('a.ulpt.user_link' + (fullName.length > 15 ? '.long' : ''), {
@@ -51,7 +51,7 @@ export function player(p, asLink?: boolean) {
     }
   }, [
     h('span.name', fullName),
-    h('span.rating', p.rating + (p.provisional ? '?' : ''))
+    withRating ? h('span.rating', p.rating + (p.provisional ? '?' : '')) : null
   ]);
 }
 

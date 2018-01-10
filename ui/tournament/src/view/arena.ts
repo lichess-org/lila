@@ -31,7 +31,7 @@ function playerTr(ctrl: TournamentController, player) {
         'title': ctrl.trans.noarg('pause')
       }
     }) : player.rank),
-    h('td.player', renderPlayer(player)),
+    h('td.player', renderPlayer(player, false, true)),
     h('td.sheet', player.sheet.scores.map(scoreTag)),
     h('td.total', [
       h('strong',
