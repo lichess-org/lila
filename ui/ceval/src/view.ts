@@ -74,9 +74,9 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 function engineName(ctrl: CevalCtrl): VNode[] {
   const version = ctrl.engineName();
   return [
-    h('span', {
-      attrs: version ? { title: version } : {}
-    }, window.lichess.engineName),
+    h('span', version ? {
+      attrs: { title: version }
+    } : {}, window.lichess.engineName),
     ctrl.pnaclSupported ? h('span.native', 'pnacl') : (ctrl.wasmSupported ? h('span.native', 'wasm') : h('span.asmjs', 'asmjs'))
   ];
 }
