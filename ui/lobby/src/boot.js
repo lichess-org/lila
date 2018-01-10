@@ -58,10 +58,10 @@ module.exports = function(cfg, element) {
             }
           });
         },
-        // streams: function(html) {
-        //   $('#streams_on_air').html(html);
-        //   filterStreams();
-        // },
+        streams: function(html) {
+          $('#streams_on_air').html(html);
+          filterStreams();
+        },
         featured: function(o) {
           $('#featured_game').html(o.html);
           lichess.pubsub.emit('content_loaded')();
