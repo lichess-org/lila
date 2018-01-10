@@ -547,6 +547,10 @@ div.side_box .refused {
   margin: 30px auto;
   opacity: 0.8;
 }
+#tournament_side .player,
+#tournament_side .featured {
+  box-shadow: 0 .5px 2px rgba(0, 0, 0, 0.15);
+}
 #tournament_side .player .rank {
   display: none;
 }
