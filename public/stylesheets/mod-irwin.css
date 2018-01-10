@@ -50,6 +50,7 @@ body.dark .irwin .both > * {
 }
 body.dark .irwin .activation {
   color: #fff;
+  text-align: center;
 }
 .irwin .green {
   /* actually blue */
