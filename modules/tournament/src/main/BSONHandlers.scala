@@ -120,7 +120,6 @@ object BSONHandlers {
       withdraw = r boolD "w",
       score = r intD "s",
       ratingDiff = r intD "p",
-      magicScore = r int "m",
       fire = r boolD "f",
       performance = r intD "e"
     )

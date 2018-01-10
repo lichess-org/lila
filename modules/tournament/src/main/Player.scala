@@ -12,7 +12,6 @@ private[tournament] case class Player(
     withdraw: Boolean = false,
     score: Int = 0,
     ratingDiff: Int = 0,
-    magicScore: Int = 0,
     fire: Boolean = false,
     performance: Int = 0
 ) {
@@ -30,7 +29,7 @@ private[tournament] case class Player(
 
   def finalRating = rating + ratingDiff
 
-  def recomputeMagicScore = copy(magicScore = score * 10000 + (performanceOption | rating))
+  def magicScore = score * 10000 + (performanceOption | rating)
 
   def performanceOption = performance > 0 option performance
 }
@@ -43,5 +42,5 @@ private[tournament] object Player {
     userId = user.id,
     rating = perfLens(user.perfs).intRating,
     provisional = perfLens(user.perfs).provisional
-  ).recomputeMagicScore
+  )
 }

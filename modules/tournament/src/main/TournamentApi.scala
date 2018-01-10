@@ -313,7 +313,7 @@ final class TournamentApi(
                 player.performance * (nbGames - 1) / nbGames + performance / nbGames
               } toInt
             } | player.performance
-          ).recomputeMagicScore
+          )
         }
       }
     }
