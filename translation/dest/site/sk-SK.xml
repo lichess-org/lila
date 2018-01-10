@@ -443,7 +443,7 @@
   <string name="reportXToModerators">Nahlásiť %s moderátorom</string>
   <string name="profileCompletion">Úplnosť profilu: %s</string>
   <string name="xRating">%s rating</string>
-  <string name="ifNoneLeaveEmpty">Ak nemáte, nechajte prázdne</string>
+  <string name="ifNoneLeaveEmpty">Ak nemáte, nevyplňujte</string>
   <string name="gameCompletionRate">Pomer ukončených partií: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Upraviť profil</string>
