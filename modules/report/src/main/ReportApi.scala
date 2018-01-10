@@ -214,9 +214,9 @@ final class ReportApi(
     findBest(1, openAvailableSelect ++ roomSelect(room.some) ++ scoreThresholdSelect).map(_.headOption)
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspect]] =
-    UserRepo byIdsSecondary (reports.map(_.user).distinct :+ "neio") map { users =>
+    UserRepo byIdsSecondary (reports.map(_.user).distinct) map { users =>
       reports.flatMap { r =>
-        users.find(_.id == r.user).orElse(users.find(_.id == "neio")) map { u =>
+        users.find(_.id == r.user) map { u =>
           Report.WithSuspect(r, Suspect(u), isOnline(u.id))
         }
       }.sortBy(-_.urgency)
