@@ -14,4 +14,17 @@
   <string name="rookIntro">Hrókurinn er öflugur. Ertu reiðubúinn að stjórna honum?</string>
   <string name="rookGoal">Ýttu á hrókinn og færðu hann að stjörnunni!</string>
   <string name="grabAllTheStars">Náðu öllum stjörnunum!</string>
+  <string name="theFewerMoves">Því færri leiki sem þú leikur, þeim mun fleiri stig færðu!</string>
+  <string name="useTwoRooks">Notaðu tvo hróka til að flýta fyrir!</string>
+  <string name="rookComplete">Til lukku! Þú hefur náð valdi á hróknum.</string>
+  <string name="theBishop">Biskupinn</string>
+  <string name="itMovesDiagonally">Hann ferðast á ská</string>
+  <string name="bishopIntro">Næst lærum við að hreyfa biskupinn!</string>
+  <string name="youNeedBothBishops">Einn biskup fyrir hvíta reiti,
+einn biskup fyrir svarta reiti.
+Þú þarft báða!</string>
+  <string name="bishopComplete">Til lukku! Þú getur stjórnað biskupnum.</string>
+  <string name="theQueen">Drottningin</string>
+  <string name="queenCombinesRookAndBishop">Drottning = hrókur + biskup</string>
+  <string name="queenIntro">Öflugasti maðurinn kemur til leiks. Hennar hátign drottningin!</string>
 </resources>
