@@ -360,6 +360,26 @@ lichess.pubsub = (function() {
 })();
 lichess.hasToReload = false;
 lichess.redirectInProgress = false;
+lichess.redirect = function(obj) {
+  var url;
+  if (typeof obj == "string") url = obj;
+  else {
+    url = obj.url;
+    if (obj.cookie) {
+      var domain = document.domain.replace(/^.+(\.[^\.]+\.[^\.]+)$/, '$1');
+      var cookie = [
+        encodeURIComponent(obj.cookie.name) + '=' + obj.cookie.value,
+        '; max-age=' + obj.cookie.maxAge,
+        '; path=/',
+        '; domain=' + domain
+      ].join('');
+      document.cookie = cookie;
+    }
+  }
+  var href = '//' + location.hostname + '/' + url.replace(/^\//, '');
+  lichess.redirectInProgress = href;
+  location.href = href;
+};
 lichess.reload = function() {
   if (lichess.redirectInProgress) return;
   lichess.hasToReload = true;
@@ -368,12 +388,12 @@ lichess.reload = function() {
 };
 lichess.escapeHtml = function(str) {
   return /[&<>\"\']/.test(str) ?
-    str
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/'/g, '&#39;')
-      .replace(/"/g, '&quot;') :
+  str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/'/g, '&#39;')
+    .replace(/"/g, '&quot;') :
     str;
 };
 lichess.toYouTubeEmbedUrl = function(url) {

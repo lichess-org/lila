@@ -20,26 +20,6 @@ lichess.topMenuIntent = function() {
     var id = split.length == 1 ? split[0] : split[1];
     return u ? '<a class="user_link ulpt ' + (klass || '') + '" href="/@/' + id + '">' + (limit ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
   };
-  $.redirect = function(obj) {
-    var url;
-    if (typeof obj == "string") url = obj;
-    else {
-      url = obj.url;
-      if (obj.cookie) {
-        var domain = document.domain.replace(/^.+(\.[^\.]+\.[^\.]+)$/, '$1');
-        var cookie = [
-          encodeURIComponent(obj.cookie.name) + '=' + obj.cookie.value,
-          '; max-age=' + obj.cookie.maxAge,
-          '; path=/',
-          '; domain=' + domain
-        ].join('');
-        document.cookie = cookie;
-      }
-    }
-    var href = '//' + location.hostname + '/' + url.replace(/^\//, '');
-    lichess.redirectInProgress = href;
-    location.href = href;
-  };
 
   lichess.socket = null;
   $.extend(true, lichess.StrongSocket.defaults, {

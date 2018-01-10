@@ -9,6 +9,7 @@ interface Lichess {
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   storage: LichessStorageHelper
   reload(): void;
+  redirect(o: string | { url: string, cookie: Cookie }): void;
   loadScript(url: string): any
   keyboardMove: any
   slider(): any
@@ -45,6 +46,12 @@ interface Lichess {
     format(date: number | Date): string;
     absolute(date: number | Date): string;
   }
+}
+
+interface Cookie {
+  name: string;
+  value: string;
+  maxAge: number;
 }
 
 interface AssetUrlOpts {

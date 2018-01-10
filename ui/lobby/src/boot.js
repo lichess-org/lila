@@ -69,7 +69,7 @@ module.exports = function(cfg, element) {
         redirect: function(e) {
           lobby.leavePool();
           lobby.setRedirecting();
-          $.redirect(e);
+          window.lichess.redirect(e);
         },
         tournaments: function(data) {
           $("#enterable_tournaments").html(data);
