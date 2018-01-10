@@ -295,7 +295,7 @@
   </plurals>
   <string name="viewTournament">Zobraz turnaj</string>
   <string name="backToTournament">Návrat do turnaja</string>
-  <string name="thematic">Tématický</string>
+  <string name="thematic">Tematický</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s hodnotená hra</item>
     <item quantity="few">≥ %s hodnotené hry</item>
