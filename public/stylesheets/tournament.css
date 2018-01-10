@@ -310,6 +310,10 @@ ol.scheduled_tournaments a {
 #tournament .twitter-typeahead {
   height: 100%;
 }
+#tournament .search .tt-menu .spinner {
+  float: none;
+  margin: 10px auto;
+}
 
 #tournament .notice {
   color: #FFF;
