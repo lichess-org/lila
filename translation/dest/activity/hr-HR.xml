@@ -59,7 +59,7 @@
     <item quantity="other">Kreirao/la %s novih studija</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Natjecao/la se u jednom turniru</item>
+    <item quantity="one">Natjecao/la se u %s turnira</item>
     <item quantity="few">Natjecao/la se u %s turnira</item>
     <item quantity="other">Natjecao/la se u %s turnira</item>
   </plurals>
