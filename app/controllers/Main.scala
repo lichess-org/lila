@@ -116,11 +116,11 @@ object Main extends LilaController {
     glyphsResult
   }
 
-  def image(id: String, hash: String, name: String) = Action.async {
+  def image(id: String, hash: String, name: String) = Action.async { req =>
     Env.db.image.fetch(id) map {
       case None => NotFound
       case Some(image) =>
-        lila.log("image").info(s"Serving ${image.path} from database")
+        lila.log("image").info(s"Serving ${image.path} to ${HTTPRequest printClient req}")
         Ok(image.data).withHeaders(
           CONTENT_TYPE -> image.contentType.getOrElse("image/jpeg"),
           CONTENT_DISPOSITION -> image.name,
