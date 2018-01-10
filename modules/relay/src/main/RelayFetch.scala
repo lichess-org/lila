@@ -200,6 +200,7 @@ private object RelayFetch {
         res => Success(index => RelayGame(
           index = index,
           tags = res.tags,
+          variant = res.variant,
           root = res.root.copy(
             comments = Comments.empty,
             children = res.root.children.updateMainline(_.copy(comments = Comments.empty))

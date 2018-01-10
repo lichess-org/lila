@@ -127,7 +127,7 @@ private final class RelaySync(
         name = Chapter.Name(name),
         setup = Chapter.Setup(
           none,
-          game.tags.variant | chess.variant.Variant.default,
+          game.variant,
           chess.Color.White
         ),
         root = game.root,

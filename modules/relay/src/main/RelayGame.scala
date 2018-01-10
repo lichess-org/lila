@@ -6,6 +6,7 @@ import lila.study.{ Node, PgnImport }
 case class RelayGame(
     index: Int,
     tags: Tags,
+    variant: chess.variant.Variant,
     root: Node.Root,
     end: Option[PgnImport.End]
 ) {
