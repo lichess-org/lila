@@ -56,6 +56,8 @@
   <string name="showThreat">Amosar ameaza</string>
   <string name="inLocalBrowser">en navegador local</string>
   <string name="toggleLocalEvaluation">Avaliación local</string>
+  <string name="promoteVariation">Promover variante</string>
+  <string name="makeMainLine">Converter en liña principal</string>
   <string name="move">Movemento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante gañadora</string>
@@ -103,8 +105,11 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Elimina o límite de profundidade, e mantén o teu ordenador quente</string>
+  <string name="blunder">Pifia</string>
   <string name="blunders">Erros grandes</string>
+  <string name="mistake">Erro</string>
   <string name="mistakes">Erros</string>
+  <string name="inaccuracy">Imprecisión</string>
   <string name="inaccuracies">Imprecisións</string>
   <string name="moveTimes">Tempos por movemento</string>
   <string name="flipBoard">Xirar o taboleiro</string>
@@ -191,6 +196,7 @@
   <string name="accept">Aceptar</string>
   <string name="decline">Rexeitar</string>
   <string name="playingRightNow">Xogando agora mesmo</string>
+  <string name="eventInProgress">Xogando agora mesmo</string>
   <string name="finished">Finalizado</string>
   <string name="abortGame">Abortar partida</string>
   <string name="gameAborted">Partida abortada</string>
@@ -199,6 +205,8 @@
   <string name="mode">Modo</string>
   <string name="casual">Amigable</string>
   <string name="rated">Puntuado</string>
+  <string name="casualTournament">Amigable</string>
+  <string name="ratedTournament">Puntuado</string>
   <string name="thisGameIsRated">Esta partida é puntuada</string>
   <string name="rematch">Desquite</string>
   <string name="rematchOfferSent">Oferta de desquite enviada</string>
