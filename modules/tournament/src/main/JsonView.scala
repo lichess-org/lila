@@ -111,6 +111,7 @@ final class JsonView(
           "id" -> user.id,
           "name" -> user.username,
           "rating" -> player.rating,
+          "ratingDiff" -> 0, // # temp mobile app BC - remove me #TODO
           "score" -> player.score,
           "fire" -> player.fire,
           "nb" -> sheetNbs(user.id, sheet)
@@ -269,6 +270,7 @@ final class JsonView(
         "name" -> light.fold(p.userId)(_.name),
         "rank" -> rankedPlayer.rank,
         "rating" -> p.rating,
+        "ratingDiff" -> 0, // # temp mobile app BC - remove me #TODO
         "score" -> p.score,
         "sheet" -> sheet.map(sheetJson)
       ).add("title" -> light.flatMap(_.title))
