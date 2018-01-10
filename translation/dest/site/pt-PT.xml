@@ -57,7 +57,7 @@
   <string name="inLocalBrowser">no navegador local</string>
   <string name="toggleLocalEvaluation">Alternar avaliação local</string>
   <string name="promoteVariation">Promover variante</string>
-  <string name="makeMainLine">Fazer linha principal</string>
+  <string name="makeMainLine">Tornar variante principal</string>
   <string name="deleteFromHere">Eliminar a partir de aqui</string>
   <string name="move">Jogada</string>
   <string name="variantLoss">Variante perdida</string>
@@ -141,9 +141,9 @@
   <string name="games">Partidas</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s postou em %2$s</string>
-  <string name="latestForumPosts">Últimas postagens do forum</string>
+  <string name="latestForumPosts">Últimas entradas do forum</string>
   <string name="players">Jogadores</string>
-  <string name="minutesPerSide">Minutos por lado</string>
+  <string name="minutesPerSide">Minutos por jogador</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
   <string name="timeControl">Controle de Tempo</string>
@@ -171,9 +171,9 @@
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinição de senha</string>
   <string name="forgotPassword">Esqueceu sua senha?</string>
-  <string name="rank">Rank</string>
+  <string name="rank">Classificação</string>
   <string name="rankX">Classificação: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">A classificação é atualizado a cada %s minutos</string>
+  <string name="rankIsUpdatedEveryXMinutes">A classificação é atualizada a cada %s minutos</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s quebra-cabeça</item>
     <item quantity="other">%s quebra-cabeças</item>
