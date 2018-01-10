@@ -31,18 +31,18 @@ lichess.StrongSocket.defaults.events.reload = app.update;
     }
   </ul>
   <h2 class="leaderboard_title">@trans.lichessTournaments()</h2>
-  <ol class="scheduled_tournaments">
+  <div class="scheduled_tournaments">
     @scheduled.map { tour =>
     @tour.schedule.map { s =>
     @if(s.freq != lila.tournament.Schedule.Freq.Hourly) {
-    <li data-icon="@tournamentIconChar(tour)" class="is-gold @s.freq.name">
-      <a href="@routes.Tournament.show(tour.id)">@tour.name</a>
+    <a href="@routes.Tournament.show(tour.id)" data-icon="@tournamentIconChar(tour)" class="is-gold @s.freq.name">
+      <strong>@tour.name</strong>
       @momentFromNow(s.at)
-    </li>
+    </a>
     }
     }
     }
-  </ol>
+  </div>
 </div>
 }
 

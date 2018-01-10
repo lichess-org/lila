@@ -3,10 +3,6 @@ div.create_tournament {
   top: 26px;
   right: 15px;
 }
-ol.scheduled_tournaments a {
-  font-weight: bold;
-  display: block;
-}
 #tournament .header {
   display: flex;
   align-items: center;
@@ -760,22 +756,39 @@ div.faq_box {
 .leaderboard_title:hover a {
   color: #3893E8;
 }
-ol.scheduled_tournaments li {
+.scheduled_tournaments a {
   padding: 5px 0;
+  display: block;
+  transition: all 0.3s;
 }
-ol.scheduled_tournaments li::before {
+.scheduled_tournaments a:hover {
+  padding-left: 5px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+  background: #fff;
+  border-radius: 3px;
+}
+body.dark .scheduled_tournaments a:hover {
+  background: rgba(27, 51, 68, 0.5);
+  background: #333;
+}
+.scheduled_tournaments strong {
+  display: block;
+}
+.scheduled_tournaments a::before {
   font-size: 30px;
   float: left;
   margin: 3px 5px 0 0;
-  opacity: 0.8;
+  opacity: 0.6;
+  transition: opacity 0.3s;
 }
-ol.scheduled_tournaments li:hover::before {
+.scheduled_tournaments a:hover::before {
   opacity: 1;
 }
-ol.scheduled_tournaments li.marathon {
+.scheduled_tournaments a.marathon {
   background: #fff;
   box-shadow: 0 0 9px rgba(0,0,0,0.2);
 }
+
 #tournament_schedule {
   min-height: 400px;
   position: relative;
