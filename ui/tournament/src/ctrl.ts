@@ -66,7 +66,7 @@ export default class TournamentController {
     setTimeout(() => {
       if (this.lastStorage.get() !== gameId) {
         this.lastStorage.set(gameId);
-        location.href = '/' + gameId;
+        window.lichess.redirect('/' + gameId);
       }
     }, delay);
   };
