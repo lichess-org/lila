@@ -112,7 +112,6 @@ final class JsonView(
           "name" -> user.username,
           "rating" -> player.rating,
           "score" -> player.score,
-          "ratingDiff" -> player.ratingDiff,
           "fire" -> player.fire,
           "nb" -> sheetNbs(user.id, sheet)
         ).add("title" -> user.title)
@@ -214,8 +213,7 @@ final class JsonView(
       Json.obj(
         "rank" -> rp.rank,
         "name" -> light.fold(rp.player.userId)(_.name),
-        "rating" -> rp.player.rating,
-        "ratingDiff" -> rp.player.ratingDiff
+        "rating" -> rp.player.rating
       ).add("title" -> light.flatMap(_.title))
         .add("berserk" -> p.berserk)
     }
@@ -272,7 +270,6 @@ final class JsonView(
         "rank" -> rankedPlayer.rank,
         "rating" -> p.rating,
         "score" -> p.score,
-        "ratingDiff" -> p.ratingDiff,
         "sheet" -> sheet.map(sheetJson)
       ).add("title" -> light.flatMap(_.title))
         .add("provisional" -> p.provisional)

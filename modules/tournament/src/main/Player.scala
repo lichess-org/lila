@@ -11,7 +11,6 @@ private[tournament] case class Player(
     provisional: Boolean,
     withdraw: Boolean = false,
     score: Int = 0,
-    ratingDiff: Int = 0,
     fire: Boolean = false,
     performance: Int = 0
 ) {
@@ -26,8 +25,6 @@ private[tournament] case class Player(
 
   def doWithdraw = copy(withdraw = true)
   def unWithdraw = copy(withdraw = false)
-
-  def finalRating = rating + ratingDiff
 
   def magicScore = score * 10000 + (performanceOption | rating)
 

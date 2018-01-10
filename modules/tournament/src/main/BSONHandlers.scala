@@ -119,7 +119,6 @@ object BSONHandlers {
       provisional = r boolD "pr",
       withdraw = r boolD "w",
       score = r intD "s",
-      ratingDiff = r intD "p",
       fire = r boolD "f",
       performance = r intD "e"
     )
@@ -131,7 +130,6 @@ object BSONHandlers {
       "pr" -> w.boolO(o.provisional),
       "w" -> w.boolO(o.withdraw),
       "s" -> w.intO(o.score),
-      "p" -> w.intO(o.ratingDiff),
       "m" -> o.magicScore,
       "f" -> w.boolO(o.fire),
       "e" -> o.performance

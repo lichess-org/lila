@@ -301,7 +301,7 @@ final class TournamentApi(
           player.copy(
             score = sheet.total,
             fire = sheet.onFire,
-            ratingDiff = perf.fold(player.ratingDiff)(_.intRating - player.rating),
+            rating = perf.fold(player.rating)(_.intRating),
             provisional = perf.fold(player.provisional)(_.provisional),
             performance = {
               for {
