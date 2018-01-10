@@ -31,7 +31,7 @@ function setup(vnode: VNode) {
 export default function(ctrl: TournamentController): VNode {
   const data = ctrl.playerInfo.data;
   var noarg = ctrl.trans.noarg;
-  if (!data || data.player.id !== ctrl.playerInfo.id) return h('div.player', [
+  if (!data || data.player.id !== ctrl.playerInfo.id) return h('div.player.box', [
     h('div.stats', [
       playerTitle(ctrl.playerInfo.player),
       spinner()
