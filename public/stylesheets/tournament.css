@@ -174,12 +174,6 @@ ol.scheduled_tournaments a {
 #tournament .podium .user_link {
   font-weight: bold;
 }
-#tournament .podium .progress {
-  display: block;
-}
-#tournament .podium .progress span {
-  font-size: 0.8em;
-}
 #tournament .podium .stats {
   margin: 0.5em auto 0 auto;
   font-size: 0.7em;
@@ -349,17 +343,13 @@ ol.scheduled_tournaments a {
 #tournament table.standing .user_link.long {
   letter-spacing: -0.7px;
 }
-#tournament table.standing .user_link .progress {
+#tournament table.standing .user_link .rating {
   font-style: italic;
   font-size: 0.8em;
-  letter-spacing: 0;
 }
-#tournament table.standing tr.long .user_link .progress {
+#tournament table.standing tr.long .user_link .rating {
   display: block;
   padding-left: 0px;
-}
-#tournament table.standing .user_link .progress span {
-  padding-left: 5px;
 }
 #tournament table.standing tbody tr {
   transition: 0.13s;

@@ -51,7 +51,7 @@ export function player(p, asLink?: boolean) {
     }
   }, [
     h('span.name', fullName),
-    h('span.progress', p.rating + p.ratingDiff + (p.provisional ? '?' : ''))
+    h('span.rating', p.rating + p.ratingDiff + (p.provisional ? '?' : ''))
   ]);
 }
 
