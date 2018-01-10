@@ -14,7 +14,7 @@
     <item quantity="other">Riješio/la %s taktičkih problema</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Odigrao %1$s %2$s partiju</item>
+    <item quantity="one">Odigrao %1$s %2$s partija</item>
     <item quantity="few">Odigrao %1$s %2$s partije</item>
     <item quantity="other">Odigrao %1$s %2$s partija</item>
   </plurals>
@@ -44,12 +44,12 @@
     <item quantity="other">Dobio %s novih pratitelja</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Vodio/la jednu simultanku</item>
+    <item quantity="one">Vodio/la %s simultanku</item>
     <item quantity="few">Vodio/la %s simultanke</item>
     <item quantity="other">Vodio/la %s simultanki</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Sudjelovao/la u jednoj simultanki</item>
+    <item quantity="one">Sudjelovao/la u %s simultanki</item>
     <item quantity="few">Sudjelovao/la u %s simultanke</item>
     <item quantity="other">Sudjelovao/la u %s simultanki</item>
   </plurals>
@@ -64,13 +64,13 @@
     <item quantity="other">Natjecao/la se u %s turnira</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">Rangiran/rangirana #%1$s (top %2$s%%) s jednom partijom u turniru %4$s</item>
+    <item quantity="one">Rangiran/rangirana #%1$s (prvih %2$s%%) s %3$s odigranih partija u turniru %4$s</item>
     <item quantity="few">Rangiran/rangirana #%1$s (top %2$s%%) s %3$s partije u turniru %4$s</item>
     <item quantity="other">Rangiran/rangirana #%1$s (top %2$s%%) s %3$s partija u turniru %4$s</item>
   </plurals>
   <string name="signedUp">Registrirao/la se na lichess</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Pridružio/la se jednom timu</item>
+    <item quantity="one">Pridružio/la se u %s tima</item>
     <item quantity="few">Pridružio/la se %s timovima</item>
     <item quantity="other">Pridružio/la se %s timovima</item>
   </plurals>
