@@ -145,7 +145,7 @@ Věž = 5
 Střelec = 3
 Jezdec = 3
 Pěšec = 1
-Král hodnotu nemá! Ztráta krále znamená prohru partie.</string>
+Král má nevyčíslitelnou hodnotu! Ztráta krále znamená prohru partie.</string>
   <string name="queenOverBishop">Vyberte figuru
 s nejvyšší hodnotou!
 Dáma &gt; Střelec</string>

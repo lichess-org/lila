@@ -7,7 +7,7 @@
   <string name="gameOver">Játszma vége</string>
   <string name="waitingForOpponent">Várakozás az ellenfélre</string>
   <string name="waiting">Várakozás</string>
-  <string name="yourTurn">Te következel</string>
+  <string name="yourTurn">Te lépsz</string>
   <string name="aiNameLevelAiLevel">%1$s szint: %2$s</string>
   <string name="level">Szint</string>
   <string name="toggleTheChat">Csevegő ki-be</string>
@@ -22,7 +22,7 @@
   <string name="createAGame">Játék létrehozása</string>
   <string name="whiteIsVictorious">Világos nyert</string>
   <string name="blackIsVictorious">Sötét nyert</string>
-  <string name="kingInTheCenter">Király középen</string>
+  <string name="kingInTheCenter">Király a centrumban</string>
   <string name="threeChecks">Három sakk</string>
   <string name="raceFinished">A verseny befejeződött</string>
   <string name="variantEnding">Variáns vége</string>
@@ -31,16 +31,16 @@
   <string name="joinTheGame">Csatlakozás a játékhoz</string>
   <string name="whitePlays">Világos lép</string>
   <string name="blackPlays">Sötét lép</string>
-  <string name="opponentLeftChoices">Az ellenfeled valamiért elhagyta a játékot. Igényelhetsz győzelmet, döntetlent vagy várhatsz rá.</string>
+  <string name="opponentLeftChoices">Úgy tűnik az ellenfél kilépett. Igényelhetsz győzelmet, döntetlent vagy várhatsz rá.</string>
   <string name="makeYourOpponentResign">Ha az ellenfél valamiért kilépett, igényelhető a győzelem</string>
   <string name="forceResignation">Győzelem igénylése</string>
   <string name="forceDraw">Döntetlen</string>
   <string name="talkInChat">Légy udvarias másokkal!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember, aki erre a linkre látogat, fog veled játszani.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember, aki felkeresi ezt a címet, az lesz az ellenfeled.</string>
   <string name="whiteResigned">Világos feladta</string>
   <string name="blackResigned">Sötét feladta</string>
-  <string name="whiteLeftTheGame">Világos elhagyta a játékot</string>
-  <string name="blackLeftTheGame">Sötét elhagyta a játékot</string>
+  <string name="whiteLeftTheGame">Világos kilépett</string>
+  <string name="blackLeftTheGame">Sötét kilépett</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Oszd meg ezt az linket, hogy mások is láthassák a játszmát</string>
   <string name="theComputerAnalysisHasFailed">A számítógépes elemzés sikertelen</string>
   <string name="viewTheComputerAnalysis">Számítógépes elemzés megtekintése</string>
@@ -56,7 +56,8 @@
   <string name="showThreat">Fenyegetés mutatása</string>
   <string name="inLocalBrowser">a böngészőben</string>
   <string name="toggleLocalEvaluation">Helyi elemzés bekapcsolása</string>
-  <string name="makeMainLine">Főváltozat létrehozása</string>
+  <string name="promoteVariation">Egy szinttel feljebb emelés</string>
+  <string name="makeMainLine">Legyen ez a főváltozat</string>
   <string name="deleteFromHere">Törlés innentől</string>
   <string name="move">Lépés</string>
   <string name="variantLoss">Vesztő</string>
@@ -302,7 +303,7 @@
   <string name="ratedMoreThanInPerf">%2$s pontszám ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s pontszám ≤ %1$s</string>
   <string name="backToGame">Vissza a játékhoz</string>
-  <string name="siteDescription">Ingyenes online sakk játék. Sakkozz letisztult kezelőfelületen. Nem szükséges regisztráció vagy pluginok, és hirdetéseket sem kell nézned. Sakkozz a számítógéppel, barátokkal vagy véletlenszerű ellenfelekkel.</string>
+  <string name="siteDescription">Ingyenes online sakk játék letisztult kezelőfelülettel. Nem szükséges regisztráció, nincsenek hirdetések és pluginek telepítése sem szükséges. Játssz a gép ellen, barátokkal vagy ismeretlen ellenfelekkel.</string>
   <string name="teams">Csapatok</string>
   <plurals name="nbMembers">
     <item quantity="one">%s tag</item>
@@ -663,7 +664,7 @@
   <string name="keyMoveBackwardOrForward">lépj előre/hátra</string>
   <string name="keyGoToStartOrEnd">menjen az elejére/végére</string>
   <string name="keyShowOrHideComments">kommentek megjelenítése/elrejtése</string>
-  <string name="keyEnterOrExitVariation">be/kilépés variációnál</string>
+  <string name="keyEnterOrExitVariation">ki/belépés változatba</string>
   <string name="newTournament">Új torna</string>
   <string name="tournamentHomeTitle">A sakk bajnokságokban lehetőség van különböző időbeállítások és változatok beállítására</string>
   <string name="tournamentHomeDescription">Vegyél részt villám-versenyeken! Csatlakozz hivatalkos versenyekhez, vagy hozz létre te saját magad. Bullet, Blitz, Hagyományos, Sakk960, King of the Hill, Threecheck és mások elérhetők, hogy minél jobban élvezd a sakkot.</string>
@@ -748,7 +749,7 @@
   <string name="boardTheme">Tábla szín</string>
   <string name="boardSize">Tábla mérete</string>
   <string name="pieceSet">Figurakészlet</string>
-  <string name="embedInYourWebsite">Beágyazás saját weboldalba</string>
+  <string name="embedInYourWebsite">Beágyazás weboldalba</string>
   <string name="usernameAlreadyUsed">Ez a felhasználónév már foglalt, kérjük válassz másikat.</string>
   <string name="usernameInvalid">Érvénytelen felhasználói név. A név csak betűkből, számokból, alulvonásból és gondolatjelből állhat.</string>
   <string name="usernameStartNoNumber">A felhasználói név nem kezdődhet számmal.</string>
@@ -821,7 +822,7 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s csak barátoktól fogad kihívást.</string>
   <string name="conditionalPremoves">Feltételes előre megadott lépések</string>
   <string name="addCurrentVariation">Változat hozzáadása</string>
-  <string name="playVariationToCreateConditionalPremoves">Egy variáció megjátszásával, hozzáadható feltételes előre megadott lépés</string>
+  <string name="playVariationToCreateConditionalPremoves">Egy változat megjátszásával, hozzáadható feltételes előre megadott lépés</string>
   <string name="noConditionalPremoves">Nincs feltételes előre megadott lépés</string>
   <string name="playX">%s megjátszása</string>
   <plurals name="andSaveNbPremoveLines">

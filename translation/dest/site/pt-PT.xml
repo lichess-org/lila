@@ -335,7 +335,7 @@
   <string name="fromPosition">A partir da posição</string>
   <string name="continueFromHere">Continuar daqui</string>
   <string name="importGame">Importar partida</string>
-  <string name="importGameExplanation">Quando cola um jogo PGN tem acesso a um replay navegável, análise de computer, chat e um URL partilhável.</string>
+  <string name="importGameExplanation">Quando copias o PGN de um jogo, tens acesso a navegar pela repetição, análise de computador, sala de conversação e link de partilha.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
@@ -353,7 +353,7 @@
   <string name="favoriteOpponents">Oponentes favoritos</string>
   <string name="follow">Seguir</string>
   <string name="following">Seguindo</string>
-  <string name="unfollow">Parar de seguir</string>
+  <string name="unfollow">Deixar de seguir</string>
   <string name="block">Bloquear</string>
   <string name="blocked">Bloqueado</string>
   <string name="unblock">Desbloquear</string>
@@ -464,8 +464,8 @@
   <string name="thisPuzzleIsCorrect">O quebra-cabeça está correto e é interessante</string>
   <string name="thisPuzzleIsWrong">O quebra-cabeça está errado ou é chato</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s jogo de decorrer</item>
-    <item quantity="other">%s jogos de decorrer</item>
+    <item quantity="one">%s jogo a decorrer</item>
+    <item quantity="other">%s jogos a decorrer</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após o lance</string>
   <string name="autoSwitch">Alternar automaticamente</string>
@@ -487,7 +487,7 @@
   <string name="reply">Responder</string>
   <string name="message">Mensagem</string>
   <string name="createTheTopic">Criar tópico</string>
-  <string name="reportAUser">Reportar um usuário</string>
+  <string name="reportAUser">Denunciar um usuário</string>
   <string name="user">Usuário</string>
   <string name="reason">Motivo</string>
   <string name="whatIsIheMatter">Qual é o motivo?</string>
@@ -495,7 +495,7 @@
   <string name="insult">Insulto</string>
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
-  <string name="reportDescriptionHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele trapaceia\"; informe-nos como chegou a esta conclusão. Sua denúncia será processada mais rapidamente se escrita em inglês.</string>
+  <string name="reportDescriptionHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele faz batota\"; informe-nos como chegou a esta conclusão. A sua denúncia será processada mais rapidamente se for escrita em inglês.</string>
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">O tópico foi fechado.</string>
   <string name="theming">Customização</string>

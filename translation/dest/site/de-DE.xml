@@ -56,12 +56,12 @@
   <string name="showThreat">Drohungen zeigen</string>
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
-  <string name="promoteVariation">Variante anheben</string>
+  <string name="promoteVariation">Variante hervorheben</string>
   <string name="makeMainLine">Zur Hauptvariante machen</string>
   <string name="deleteFromHere">Ab hier löschen</string>
   <string name="move">Zug</string>
-  <string name="variantLoss">Niederlage in der Variante</string>
-  <string name="variantWin">Sieg in der Schachvariante</string>
+  <string name="variantLoss">Variante verloren</string>
+  <string name="variantWin">Variante gewonnen</string>
   <string name="insufficientMaterial">Ungenügendes Material</string>
   <string name="pawnMove">Bauernzug</string>
   <string name="capture">Schlagzug</string>
@@ -654,7 +654,7 @@
   <string name="simulVariantsHint">Wurden mehrere Varianten gewählt, kann jeder Spieler sich eine Variante aussuchen.</string>
   <string name="simulClockHint">Fischer Bedenkzeit. Je mehr Gegner du hast, desto mehr Zeit wirst du benötigen.</string>
   <string name="simulAddExtraTime">Du kannst dir selbst zusätzliche Zeit hinzufügen, um mit dem Simultan zurechtzukommen.</string>
-  <string name="simulHostExtraTime">Extra Bedenkzeit des Ausrichters</string>
+  <string name="simulHostExtraTime">Extra Bedenkzeit des Host</string>
   <string name="lichessTournaments">Lichess Turniere</string>
   <string name="tournamentFAQ">Arena FAQ</string>
   <string name="tournamentOfficial">Offiziell</string>
@@ -770,8 +770,8 @@
   <string name="challenges">Herausforderungen</string>
   <string name="perfRatingX">Wertung: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="one">%s Sekunden, um den ersten Zug zu machen</item>
-    <item quantity="other">%s Sekunden, um den ersten Zug zu machen</item>
+    <item quantity="one">%s Sekunde, um den ersten Zug zu ziehen</item>
+    <item quantity="other">%s Sekunden, um den ersten Zug zu ziehen</item>
   </plurals>
   <string name="practiceWithComputer">Übe mit dem Computer</string>
   <string name="anotherWasX">Auch möglich war %s</string>
@@ -818,13 +818,13 @@
   <string name="youCannotChallengeX">Du kannst %s nicht herausfordern.</string>
   <string name="xDoesNotAcceptChallenges">%s akzeptiert keine Herausforderungen.</string>
   <string name="yourXRatingIsTooFarFromY">Deine %1$s Wertung ist zu weit von %2$s entfernt.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Herausforderung wegen vorläufiger %s-Wertungszahl nicht möglich.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s kann nur von Freunden herausgefordert werden.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Herausforderung wegen provisorischer %s Wertungszahl nicht möglich.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s akzeptiert Herausforderungen nur von Freunden.</string>
   <string name="conditionalPremoves">Bedingte Vorauszüge</string>
   <string name="addCurrentVariation">Aktuelle Variante hinzufügen</string>
   <string name="playVariationToCreateConditionalPremoves">Spiele eine Variante, um bedingte Vorauszüge hinzuzufügen</string>
   <string name="noConditionalPremoves">Keine bedingten Vorauszüge</string>
-  <string name="playX">Spiele %s</string>
+  <string name="playX">Ziehe %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">und speichere %s Vorauszug</item>
     <item quantity="other">und speichere %s Vorauszüge</item>

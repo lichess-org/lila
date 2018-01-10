@@ -417,12 +417,12 @@
   <string name="winStreak">Серия побед</string>
   <string name="createdBy">Создан</string>
   <string name="tournamentIsStarting">Турнир начинается</string>
-  <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира уже закрыта.</string>
-  <string name="standByX">Будьте готовы, %s, идёт жеребьёвка игроков!</string>
+  <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира завершена.</string>
+  <string name="standByX">Ожидайте, %s, идёт жеребьёвка. Будьте готовы!</string>
   <string name="youArePlaying">Вы в игре!</string>
   <string name="winRate">Победы</string>
   <string name="berserkRate">Берсерк</string>
-  <string name="performance">Достигнут рейтинг</string>
+  <string name="performance">Пик рейтинга</string>
   <string name="tournamentComplete">Турнир завершён</string>
   <string name="movesPlayed">Сделано ходов</string>
   <string name="whiteWins">Побед белыми</string>
@@ -587,7 +587,7 @@
   <string name="difficultyNormal">Средний</string>
   <string name="difficultyHard">Сложный</string>
   <string name="xLeftANoteOnY">%1$s оставил заметку в %2$s</string>
-  <string name="xCompetesInY">%1$s соревнуется в %2$s</string>
+  <string name="xCompetesInY">%1$s участвовал в %2$s</string>
   <string name="xAskedY">%1$s спросил %2$s</string>
   <string name="xAnsweredY">%1$s ответил %2$s</string>
   <string name="xCommentedY">%1$s прокомментировал %2$s</string>
@@ -768,7 +768,7 @@
   <string name="xJoinsY">%1$s присоединился к %2$s</string>
   <string name="xLikesY">%1$s отметил %2$s как понравившееся</string>
   <string name="quickPairing">Быстрый старт</string>
-  <string name="lobby">Вызовы</string>
+  <string name="lobby">Зал ожидания</string>
   <string name="anonymous">Анонимно</string>
   <string name="yourScore">Ваш результат: %s</string>
   <string name="language">Язык (Language)</string>
