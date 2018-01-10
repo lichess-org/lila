@@ -40,7 +40,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
       })
     }) : null,
     h('a.button.rematch.white', {
-      class: { me, them },
+      class: { me, them, enabled: true },
       attrs: {
         title: them ? ctrl.trans.noarg('yourOpponentWantsToPlayANewGameWithYou') : (
           me ? ctrl.trans.noarg('rematchOfferSent') : '')
@@ -248,7 +248,12 @@ export function followUp(ctrl: RoundController): VNode {
       d.game.source === 'pool'),
   rematchZone = ctrl.challengeRematched ? [
     h('div.suggestion.text', util.justIcon('j'), ctrl.trans.noarg('rematchOfferSent')
-  )] : (rematchable || d.game.rematch ? rematchButtons(ctrl) : []);
+  )] : (rematchable || d.game.rematch ? rematchButtons(ctrl) : [
+    h('a.button.rematch.white',
+      { class: { disabled: true } },
+      [h('span', ctrl.trans.noarg('rematch'))]
+    )
+  ]);
   return h('div.follow_up', [
     ...rematchZone,
     d.tournament ? h('a.button', {

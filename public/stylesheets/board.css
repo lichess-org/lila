@@ -872,6 +872,23 @@ div.control .button.disabled {
   animation: none;
   text-shadow: none;
 }
+.lichess_ground .rematch.enabled {
+    height: 80px;
+    transition: height 0.5s ease;
+}
+.lichess_ground .rematch.enabled span {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+.lichess_ground .rematch.disabled {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s ease;
+}
+.lichess_ground .rematch.disabled span {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
 .lichess_ground .rematch-decline {
   position: absolute;
   top: 0;
