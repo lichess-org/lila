@@ -220,7 +220,7 @@ final class TournamentApi(
   def pageOf(tour: Tournament, userId: User.ID): Fu[Option[Int]] =
     cached ranking tour map {
       _ get userId map { rank =>
-        (Math.floor((rank - 1) / 10) + 1).toInt
+        (Math.floor(rank / 10) + 1).toInt
       }
     }
 
