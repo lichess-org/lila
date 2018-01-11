@@ -843,6 +843,19 @@ div.control .button.disabled {
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
+  transition: height 0.5s ease;
+}
+.lichess_ground .rematch.button span {
+  transition: opacity 0.5s ease;
+}
+.lichess_ground .rematch.disabled {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.5s ease;
+}
+.lichess_ground .rematch.disabled span {
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 .variant_crazyhouse .lichess_ground .rematch.button {
   height: 60px;
@@ -871,23 +884,6 @@ div.control .button.disabled {
   color: #fff!important;
   animation: none;
   text-shadow: none;
-}
-.lichess_ground .rematch.enabled {
-    height: 80px;
-    transition: height 0.5s ease;
-}
-.lichess_ground .rematch.enabled span {
-    opacity: 1;
-    transition: opacity 0.5s ease;
-}
-.lichess_ground .rematch.disabled {
-    height: 0;
-    overflow: hidden;
-    transition: height 0.5s ease;
-}
-.lichess_ground .rematch.disabled span {
-    opacity: 0;
-    transition: opacity 0.25s ease;
 }
 .lichess_ground .rematch-decline {
   position: absolute;

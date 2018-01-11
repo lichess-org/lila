@@ -40,7 +40,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
       })
     }) : null,
     h('a.button.rematch.white', {
-      class: { me, them, enabled: true },
+      class: { me, them },
       attrs: {
         title: them ? ctrl.trans.noarg('yourOpponentWantsToPlayANewGameWithYou') : (
           me ? ctrl.trans.noarg('rematchOfferSent') : '')
