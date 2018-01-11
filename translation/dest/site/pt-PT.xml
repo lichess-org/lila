@@ -87,7 +87,7 @@
   <string name="noGameFound">Nenhum jogo encontrado</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
   <string name="openingExplorer">Explorador de aberturas</string>
-  <string name="xOpeningExplorer">Explorador de aberturas %s</string>
+  <string name="xOpeningExplorer">Explorador de aberturas para %s</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota evitada pela regra dos 50 movimentos</string>
   <string name="allSet">Tudo pronto!</string>
@@ -329,7 +329,7 @@
   <string name="filterGames">Filtrar partidas</string>
   <string name="reset">Voltar ao original</string>
   <string name="apply">Aplicar</string>
-  <string name="leaderboard">Classificação</string>
+  <string name="leaderboard">Quadro de classificações</string>
   <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>
   <string name="fromPosition">A partir da posição</string>
@@ -375,8 +375,8 @@
   <string name="list">Lista</string>
   <string name="graph">Gráfico</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Menos que %s minutos</item>
-    <item quantity="other">Menos que %s minutos</item>
+    <item quantity="one">Menos de %s minuto</item>
+    <item quantity="other">Menos de %s minutos</item>
   </plurals>
   <string name="required">Requerido.</string>
   <string name="openTournaments">Torneios abertos</string>
