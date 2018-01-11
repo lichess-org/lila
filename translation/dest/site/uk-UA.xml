@@ -56,6 +56,9 @@
   <string name="showThreat">Показати загрозу</string>
   <string name="inLocalBrowser">на комп\'ютері</string>
   <string name="toggleLocalEvaluation">Включити аналіз на комп\'ютері</string>
+  <string name="promoteVariation">Зробити варіант головним</string>
+  <string name="makeMainLine">Зробити цей варіант основним</string>
+  <string name="deleteFromHere">Видалити з цього місця</string>
   <string name="move">Хід</string>
   <string name="variantLoss">Шанс програшу</string>
   <string name="variantWin">Шанс виграшу</string>
@@ -800,6 +803,11 @@
   <string name="notifications">Сповіщення</string>
   <string name="challenges">Виклики</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s секунда на перший хід</item>
+    <item quantity="few">%s секунди на перший хід</item>
+    <item quantity="other">%s секунд на перший хід</item>
+  </plurals>
   <string name="practiceWithComputer">Тренування з комп\'ютером</string>
   <string name="anotherWasX">Також можна: %s</string>
   <string name="bestWasX">Найкращий хід: %s</string>
@@ -814,6 +822,7 @@
   <string name="whiteWinsGame">Білі виграли</string>
   <string name="blackWinsGame">Чорні виграли</string>
   <string name="learnFromYourMistakes">Робота над помилками</string>
+  <string name="learnFromThisMistake">Розібрати цю помилку</string>
   <string name="skipThisMove">Пропустити цей хід</string>
   <string name="next">Далі</string>
   <string name="xWasPlayed">Було зіграно %s</string>
@@ -841,4 +850,20 @@
   <string name="opening">Дебют</string>
   <string name="middlegame">Міттельшпіль</string>
   <string name="endgame">Ендшпіль</string>
+  <string name="registerToSendChallenges">Зареєструйтесь, щоб викликати суперників на гру.</string>
+  <string name="youCannotChallengeX">Ви не можете викликати на гру %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s не приймає викликів.</string>
+  <string name="yourXRatingIsTooFarFromY">Ваш рейтинг %1$s дуже далекий від %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Неможливо через недостовірність рейтингу %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s приймає виклики тільки від друзів.</string>
+  <string name="conditionalPremoves">Умовні предходи</string>
+  <string name="addCurrentVariation">Додати поточний варіант</string>
+  <string name="playVariationToCreateConditionalPremoves">Виконайте ходи на шахівниці, аби встановити умовні предходи</string>
+  <string name="noConditionalPremoves">Безумовні предходи</string>
+  <string name="playX">Зіграти %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">і зберегти %s послідовність</item>
+    <item quantity="few">і зберегти %s послідовності</item>
+    <item quantity="other">і зберегти %s послідовностей</item>
+  </plurals>
 </resources>
