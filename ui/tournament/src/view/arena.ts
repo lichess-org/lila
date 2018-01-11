@@ -78,6 +78,10 @@ export function podium(ctrl: TournamentController) {
   ]);
 }
 
+function preloadUserTips(el: HTMLElement) {
+  window.lichess.powertip.manualUserIn(el);
+}
+
 export function standing(ctrl: TournamentController, pag, klass?: string) {
   const tableBody = pag.currentPageResults ?
     pag.currentPageResults.map(res => playerTr(ctrl, res)) : lastBody;
@@ -92,7 +96,8 @@ export function standing(ctrl: TournamentController, pag, klass?: string) {
     }, [
       h('tbody', {
         hook: {
-          insert: vnode => window.lichess.powertip.manualUserIn(vnode.elm as HTMLElement)
+          insert: vnode => preloadUserTips(vnode.elm as HTMLElement),
+          update(_, vnode) { preloadUserTips(vnode.elm as HTMLElement) }
         }
       }, tableBody)
     ])
