@@ -71,11 +71,11 @@
   <string name="drawn">Empates</string>
   <string name="unknown">Desconhecido</string>
   <string name="database">Base de Dados</string>
-  <string name="whiteDrawBlack">Branco / Empate / Preto</string>
+  <string name="whiteDrawBlack">Brancas / Empate / Negras</string>
   <string name="averageRatingX">Classificação média: %s</string>
   <string name="recentGames">Jogos recentes</string>
   <string name="topGames">Melhores jogos</string>
-  <string name="masterDbExplanation">Dois milhões de jogos de tabuleiro de jogadores de %1$s+ classificação FIDE desde %2$s a %3$s</string>
+  <string name="masterDbExplanation">Dois milhões de jogos de tabuleiro de jogadores de classificação FIDE %1$s+ desde %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Xeque-mate em %s meio-movimento</item>
     <item quantity="other">Xeque-mate em %s meio-movimentos</item>
@@ -87,7 +87,7 @@
   <string name="noGameFound">Nenhum jogo encontrado</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
   <string name="openingExplorer">Explorador de aberturas</string>
-  <string name="xOpeningExplorer">%s Explorador de Aberturas</string>
+  <string name="xOpeningExplorer">Explorador de aberturas %s</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota evitada pela regra dos 50 movimentos</string>
   <string name="allSet">Tudo pronto!</string>
