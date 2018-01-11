@@ -599,7 +599,7 @@
   <string name="starting">Štart:</string>
   <string name="allInformationIsPublicAndOptional">Všetky informácie sú verejné a voliteľné.</string>
   <string name="yourCityRegionOrDepartment">Vaše mesto, región alebo oblasť</string>
-  <string name="biographyDescription">Napíšte niečo o sebe, čo sa Vám v šachu páči, Vaše obľúbené zahájenia, partie, hráči…</string>
+  <string name="biographyDescription">Napíšte niečo o sebe, čo sa Vám v šachu páči, Vaše obľúbené otvorenia, partie, hráči…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s znak.</item>
     <item quantity="few">Maximum: %s znaky.</item>
