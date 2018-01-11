@@ -23,9 +23,9 @@ function playerTitle(player) {
 }
 
 function setup(vnode: VNode) {
-  const el = vnode.elm as HTMLElement;
-  window.lichess.powertip.manualUserIn(el);
-  window.lichess.powertip.manualGameIn(el);
+  const el = vnode.elm as HTMLElement, p = window.lichess.powertip;
+  p.manualUserIn(el);
+  p.manualGameIn(el);
 }
 
 export default function(ctrl: TournamentController): VNode {

@@ -146,6 +146,12 @@ lichess.powertip = (function() {
     $.powerTip.show(el, ev);
   };
 
+  function onIdleForAll(par, sel, fun) {
+    lichess.requestIdleCallback(function() {
+      Array.prototype.forEach.call(par.querySelectorAll(sel), fun);
+    });
+  }
+
   return {
     mouseover: function(e) {
       var t = e.target,
@@ -154,16 +160,10 @@ lichess.powertip = (function() {
       else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
     },
     manualGameIn: function(parent) {
-      lichess.requestIdleCallback(function() {
-        Array.prototype.forEach.call(parent.querySelectorAll('.glpt'), gamePowertip);
-      });
+      onIdleForAll(parent, '.glpt', gamePowertip);
     },
     manualUserIn: function(parent) {
-      lichess.requestIdleCallback(function() {
-        Array.prototype.forEach.call(parent.querySelectorAll('.ulpt'), function(el) {
-          userPowertip(el);
-        });
-      });
+      onIdleForAll(parent, '.ulpt', function(el) { userPowertip(el) });
     }
   };
 })();
