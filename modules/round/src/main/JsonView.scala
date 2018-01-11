@@ -177,6 +177,7 @@ final class JsonView(
               .add("clockBar" -> pref.clockBar)
               .add("highlight" -> (pref.highlight || pref.isBlindfold))
               .add("destination" -> (pref.destination && !pref.isBlindfold))
+              .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
               .add("showCaptured" -> pref.captured),
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
           ).add("evalPut" -> me.??(evalCache.shouldPut))
