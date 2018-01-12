@@ -84,16 +84,17 @@ case class User(
 
   def lightCount = User.LightCount(light, count.game)
 
-  private def best4Of(perfTypes: List[PerfType]) =
+  private def bestOf(perfTypes: List[PerfType], nb: Int) =
     perfTypes.sortBy { pt =>
       -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).fold(0)(_.centis))
-    } take 4
+    } take nb
 
   private val firstRow: List[PerfType] = List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
   private val secondRow: List[PerfType] = List(PerfType.UltraBullet, PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings)
 
-  def best8Perfs: List[PerfType] =
-    best4Of(firstRow) ::: best4Of(secondRow)
+  def best8Perfs: List[PerfType] = bestOf(firstRow, 4) ::: bestOf(secondRow, 4)
+
+  def best6Perfs: List[PerfType] = bestOf(firstRow ::: secondRow, 6)
 
   def hasEstablishedRating(pt: PerfType) = perfs(pt).established
 

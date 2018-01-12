@@ -40,7 +40,8 @@
 @moreJs = {
 @embedJs {
 $('button.follow').click(function() {
-$(this).toggleClass('active');
+var klass = 'active';
+$(this).toggleClass(klass);
 $.ajax({
 url: '/rel/' + ($(this).hasClass('active') ? 'follow/' : 'unfollow/') + $(this).data('user'),
 method:'post'
@@ -89,7 +90,7 @@ case _ => {
   @header(s, following.some)
   <div class="description">@richText(s.streamer.description.fold("")(_.value))</div>
   <a class="ratings" href="@routes.User.show(s.user.username)">
-    @s.user.best8Perfs.map { pt =>
+    @s.user.best6Perfs.map { pt =>
     @showPerfRating(s.user, pt)
     }
   </a>

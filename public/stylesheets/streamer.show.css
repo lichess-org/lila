@@ -59,6 +59,9 @@ div.content_box.streamer h1 {
   height: 1.4em;
   margin-right: 0.4em;
 }
+.streamer a.service:hover svg path {
+  fill: #3893E8!important;
+}
 .livestream {
   margin-bottom: 0px;
   line-height: 0;
@@ -77,14 +80,15 @@ div.content_box.streamer h1 {
   letter-spacing: 10px;
 }
 .streamer .description {
-  padding: 2.5em;
+  padding: 2.5em 50px 2.5em 65px;
   font-size: 1.4em;
 }
+.streamer .services a:hover,
 .streamer .description a {
- color: #3893E8;
+  color: #3893E8;
 }
 .streamer .ratings {
-  padding: 2em;
+  padding: 2em 50px 2em 58px;
   font-size: 1.6em;
   background: rgba(128,128,128,0.3);
   background: rgba(220,50,47,0.2);
@@ -92,6 +96,10 @@ div.content_box.streamer h1 {
   display: flex;
   justify-content: space-between;
   margin-bottom: 1em;
+}
+.streamer .ratings span::before {
+  font-size: 1.6em;
+  margin-right: 0.1em;
 }
 body.dark .streamer .service svg path {
   fill: #aaa;
