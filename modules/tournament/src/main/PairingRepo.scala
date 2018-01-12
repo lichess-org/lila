@@ -32,15 +32,13 @@ object PairingRepo {
     coll.find(
       selectTour(tourId) ++ $doc("u" $in userIds),
       $doc("_id" -> false, "u" -> true)
-    ).sort(recentSort).cursor[Bdoc]().fold(
-        scala.collection.immutable.Map.empty[String, String], nb
-      ) { (acc, doc) =>
-          ~doc.getAs[List[String]]("u") match {
-            case List(u1, u2) =>
-              val acc1 = acc.contains(u1).fold(acc, acc.updated(u1, u2))
-              acc.contains(u2).fold(acc1, acc1.updated(u2, u1))
-          }
-        } map Pairing.LastOpponents.apply
+    ).sort(recentSort).cursor[Bdoc]().fold(Map.empty[String, String], nb) { (acc, doc) =>
+        ~doc.getAs[List[String]]("u") match {
+          case List(u1, u2) =>
+            val acc1 = acc.contains(u1).fold(acc, acc.updated(u1, u2))
+            acc.contains(u2).fold(acc1, acc1.updated(u2, u1))
+        }
+      } map Pairing.LastOpponents.apply
 
   def opponentsOf(tourId: String, userId: String): Fu[Set[String]] =
     coll.find(
