@@ -69,9 +69,7 @@ object PlayerRepo {
 
   def playerInfo(tourId: String, userId: String): Fu[Option[PlayerInfo]] = find(tourId, userId) flatMap {
     _ ?? { player =>
-      coll.countSel(selectTour(tourId) ++ $doc(
-        "m" -> $doc("$gt" -> player.magicScore)
-      )) map { n =>
+      coll.countSel(selectTour(tourId) ++ $doc("m" $gt player.magicScore)) map { n =>
         PlayerInfo((n + 1), player.withdraw).some
       }
     }

@@ -27,7 +27,7 @@ function notice(ctrl: TournamentController): VNode {
 }
 
 export function main(ctrl: TournamentController): MaybeVNodes {
-  const gameId = tour.myCurrentGameId(ctrl);
+  const gameId = ctrl.data.myGameId;
   return [
     header(ctrl),
     gameId ? joinTheGame(ctrl, gameId) : (tour.isIn(ctrl) ? notice(ctrl) : null),

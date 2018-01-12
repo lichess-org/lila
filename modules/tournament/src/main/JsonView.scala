@@ -17,13 +17,14 @@ final class JsonView(
     cached: Cached,
     statsApi: TournamentStatsApi,
     asyncCache: lila.memo.AsyncCache.Builder,
-    verify: Condition.Verify
+    verify: Condition.Verify,
+    duelStore: DuelStore
 ) {
 
   import JsonView._
 
   private case class CachableData(
-      pairings: JsArray,
+      duels: JsArray,
       featured: Option[JsObject],
       podium: Option[JsArray],
       next: Option[JsObject]
@@ -53,6 +54,9 @@ final class JsonView(
       case Some(user) => verify(tour.conditions, user)
     }
     stats <- statsApi(tour)
+    myGameId <- me.ifTrue(myInfo.isDefined) ?? { u =>
+      PairingRepo.playingByTourAndUserId(tour.id, u.id)
+    }
   } yield Json.obj(
     "id" -> tour.id,
     "createdBy" -> tour.createdBy,
@@ -67,7 +71,7 @@ final class JsonView(
     "isStarted" -> tour.isStarted,
     "isFinished" -> tour.isFinished,
     "startsAt" -> formatDate(tour.startsAt),
-    "pairings" -> data.pairings,
+    "duels" -> data.duels,
     "standing" -> stand,
     "socketVersion" -> socketVersion
   ).add("greatPlayer" -> GreatPlayer.wikiUrl(tour.name).map { url =>
@@ -87,12 +91,13 @@ final class JsonView(
     .add("pairingsClosed" -> tour.pairingsClosed)
     .add("stats" -> stats)
     .add("next" -> data.next)
+    .add("myGameId" -> myGameId)
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =
     if (page == 1) firstPageCache get tour.id
     else computeStanding(tour, page)
 
-  def clearCache(id: String) = {
+  def clearCache(id: String): Unit = {
     firstPageCache invalidate id
     cachableData invalidate id
   }
@@ -183,14 +188,14 @@ final class JsonView(
     name = "tournament.json.cachable",
     id =>
       for {
-        pairings <- PairingRepo.recentByTour(id, 40)
-        jsonPairings <- pairings.map(pairingJson).sequenceFu
         tour <- TournamentRepo byId id
+        duels = duelStore.bestRated(id, 20)
+        jsonDuels <- duels.map(duelJson).sequenceFu
         featured <- tour ?? fetchFeaturedGame
         podium <- tour.exists(_.isFinished) ?? podiumJsonCache.get(id)
         next <- tour.filter(_.isFinished) ?? cached.findNext map2 nextJson
       } yield CachableData(
-        pairings = JsArray(jsonPairings),
+        duels = JsArray(jsonDuels),
         featured = featured map featuredJson,
         podium = podium,
         next = next
@@ -298,21 +303,21 @@ final class JsonView(
     expireAfter = _.ExpireAfterWrite(10 seconds)
   )
 
-  private def pairingUserJson(userId: String): Fu[String] =
-    lightUserApi.async(userId).map(_.fold(userId)(_.name))
-
-  private def pairingJson(p: Pairing): Fu[JsObject] = for {
-    u1 <- pairingUserJson(p.user1)
-    u2 <- pairingUserJson(p.user2)
-  } yield Json.obj(
-    "id" -> p.gameId,
-    "u" -> Json.arr(u1, u2),
-    "s" -> (if (p.finished) p.winner match {
-      case Some(w) if w == p.user1 => 2
-      case Some(w) => 3
-      case _ => 1
+  private def duelPlayerJson(p: Duel.DuelPlayer): Fu[JsObject] =
+    lightUserApi.async(p.name.id) map { u =>
+      Json.obj(
+        "n" -> u.fold(p.name.value)(_.name),
+        "r" -> p.rating.value,
+        "k" -> p.rank.value
+      ).add("t" -> u.flatMap(_.title))
     }
-    else 0)
+
+  private def duelJson(d: Duel): Fu[JsObject] = for {
+    u1 <- duelPlayerJson(d.p1)
+    u2 <- duelPlayerJson(d.p2)
+  } yield Json.obj(
+    "id" -> d.gameId,
+    "p" -> Json.arr(u1, u2)
   )
 }
 

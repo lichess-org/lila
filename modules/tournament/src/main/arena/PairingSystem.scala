@@ -87,16 +87,16 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
   private[arena] def url(tourId: String) = s"https://lichess.org/tournament/$tourId"
 
   /* Was previously static 1000.
-     * By increasing the factor for high ranked players,
-     * we increase pairing quality for them.
-     * The higher ranked, and the more ranking is relevant.
-     * For instance rank 1 vs rank 5
-     * is better thank 300 vs rank 310
-     * This should increase leader vs leader pairing chances
-     *
-     * top rank factor = 2000
-     * bottom rank factor = 300
-     */
+   * By increasing the factor for high ranked players,
+   * we increase pairing quality for them.
+   * The higher ranked, and the more ranking is relevant.
+   * For instance rank 1 vs rank 5
+   * is better thank 300 vs rank 310
+   * This should increase leader vs leader pairing chances
+   *
+   * top rank factor = 2000
+   * bottom rank factor = 300
+   */
   private[arena] def rankFactorFor(players: RankedPlayers): (RankedPlayer, RankedPlayer) => Int = {
     val maxRank = players.map(_.rank).max
     (a, b) => {

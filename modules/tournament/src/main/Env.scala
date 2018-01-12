@@ -111,7 +111,7 @@ final class Env(
     flood = flood
   )
 
-  lazy val jsonView = new JsonView(lightUserApi, cached, statsApi, asyncCache, verify)
+  lazy val jsonView = new JsonView(lightUserApi, cached, statsApi, asyncCache, verify, duelStore)
 
   lazy val scheduleJsonView = new ScheduleJsonView(lightUserApi.async)
 
@@ -147,6 +147,8 @@ final class Env(
       logger = logger
     )
   }))
+
+  private val duelStore = new DuelStore
 
   system.lilaBus.subscribe(
     system.actorOf(Props(new ApiActor(api = api)), name = ApiActorName),
@@ -184,6 +186,8 @@ final class Env(
     def process = {
       case "tournament" :: "leaderboard" :: "generate" :: Nil =>
         leaderboardIndexer.generateAll inject "Done!"
+      case "tournament" :: "boards" :: "count" :: Nil =>
+        fuccess(duelStore.count.toString)
     }
   }
 

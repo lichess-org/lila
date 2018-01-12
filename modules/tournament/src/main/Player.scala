@@ -5,8 +5,8 @@ import lila.user.{ User, Perfs }
 
 private[tournament] case class Player(
     _id: String, // random
-    tourId: String,
-    userId: String,
+    tourId: Tournament.ID,
+    userId: User.ID,
     rating: Int,
     provisional: Boolean,
     withdraw: Boolean = false,
@@ -32,6 +32,8 @@ private[tournament] case class Player(
 }
 
 private[tournament] object Player {
+
+  case class WithUser(player: Player, user: User)
 
   private[tournament] def make(tourId: String, user: User, perfLens: Perfs => Perf): Player = new Player(
     _id = lila.game.IdGenerator.game,
