@@ -187,7 +187,7 @@ final class JsonView(
         jsonPairings <- pairings.map(pairingJson).sequenceFu
         tour <- TournamentRepo byId id
         featured <- tour ?? fetchFeaturedGame
-        podium <- tour.??(_.isFinished) ?? podiumJsonCache.get(id)
+        podium <- tour.exists(_.isFinished) ?? podiumJsonCache.get(id)
         next <- tour.filter(_.isFinished) ?? cached.findNext map2 nextJson
       } yield CachableData(
         pairings = JsArray(jsonPairings),

@@ -90,8 +90,6 @@ div.content_box.streamer h1 {
 .streamer .ratings {
   padding: 2em 50px 2em 58px;
   font-size: 1.6em;
-  background: rgba(128,128,128,0.3);
-  background: rgba(220,50,47,0.2);
   background: rgba(213,145,32,0.2);
   display: flex;
   justify-content: space-between;
