@@ -82,6 +82,7 @@ $(function() {
   });
 
   $form.submit(function() {
+    $form.find("input,select").filter(function() { return !this.value; }).attr("disabled", "disabled");
     $(this).addClass('searching');
   });
 
