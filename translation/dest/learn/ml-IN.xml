@@ -58,4 +58,16 @@
   <string name="aPawnOnTheSecondRank">രണ്ടാം വരിയിലെ കാലാൾക്ക് രണ്ടുകളം നീങ്ങാം!</string>
   <string name="grabAllTheStarsNoNeedToPromote">എല്ലാ നക്ഷത്രങ്ങളും നേടൂ!
 കാലാൾക്കു കയറ്റം കൊടുക്കേണ്ട ആവശ്യം ഇല്ല.</string>
+  <string name="pawnComplete">അഭിനന്ദനങ്ങൾ! നിങ്ങൾ കാലാളുടെ രഹസ്യങ്ങൾ മനസ്സിലാക്കിയിരിക്കുന്നു.</string>
+  <string name="pawnPromotion">കാലാളുടെ കയറ്റം</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">നിങ്ങളുടെ കാലാൾ എതിർമുഖത്തിന്റെ അങ്ങേത്തലക്കൽ എത്തിയിരിക്കുന്നു!</string>
+  <string name="itNowPromotesToAStrongerPiece">ഇനി അത് കരുത്തുറ്റ കരുവായി സ്ഥാനക്കയറ്റം നേടും.</string>
+  <string name="selectThePieceYouWant">നിങ്ങളുടെ കരു തിരഞ്ഞെടുക്കുക!</string>
+  <string name="fundamentals">അടിസ്ഥാനഘടകങ്ങൾ</string>
+  <string name="capture">ക്യാപ്ചർ</string>
+  <string name="takeTheEnemyPieces">എതിരാളിയുടെ കരുക്കളെ കീഴടക്കൽ</string>
+  <string name="captureIntro">എതിരാളികൾ സംരക്ഷിക്കാത്ത കരുക്കൾ തിരിച്ചറിയുക, അവയെ പിടിച്ചടക്കുക!</string>
+  <string name="takeTheBlackPieces">കറുമ്പൻ കരുക്കളെ കീഴടക്കൂ!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">കറുമ്പൻ കരുക്കളെ കീഴടക്കൂ!
+നിങ്ങളുടെ കരുക്കൾ നഷ്ടപ്പെടാതെ സൂക്ഷിക്കുക.</string>
 </resources>
