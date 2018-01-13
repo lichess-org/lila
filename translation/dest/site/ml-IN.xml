@@ -668,6 +668,9 @@ in %3$s</string>
     <item quantity="other">%s ഭാഷകളിൽ ലഭ്യമാണ്!</item>
   </plurals>
   <string name="gameAnalysis">കളി അപഗ്രഥനം</string>
+  <string name="xHostsY">%1$s %2$s host ചെയ്യുന്നു</string>
+  <string name="xJoinsY">%1$s %2$s -ൽ ചേർന്നിരിക്കുന്നു</string>
+  <string name="xLikesY">%1$s -ന് %2$s -നെ ഇഷ്ടമാണ്</string>
   <string name="quickPairing">പെട്ടെന്ന് പെയറിങ് നടത്തുക</string>
   <string name="lobby">ലോബി</string>
   <string name="anonymous">അജ്ഞാത</string>
@@ -684,6 +687,11 @@ in %3$s</string>
   <string name="pieceSet">വിവിധ കരുക്കൾ</string>
   <string name="embedInYourWebsite">നിങ്ങളുടെ വെബ്‌സൈറ്റിലേക്ക് എംബെഡ് ചെയ്യുക</string>
   <string name="usernameAlreadyUsed">ഈ യൂസർനെയിം ഇപ്പോൾ ലഭ്യമല്ല, ദയവു ചെയ്ത് മറ്റൊരു യൂസർനെയിം ഉപയോഗിക്കുക.</string>
+  <string name="usernameStartNoNumber">യൂസർനെയിം ഒരു സംഖ്യയിൽ തുടങ്ങരുത്.</string>
+  <string name="usernameUnacceptable">ഈ ഇമെയിൽ വിലാസം സ്വീകാര്യമല്ല.</string>
+  <string name="directlySupportLichess">നേരിട്ട് lichess -നെ പിൻതങ്ങാം</string>
+  <string name="playChessInStyle">അടിപൊളി സ്റ്റൈലിൽ ചെസ്സ് കളിക്കൂ</string>
+  <string name="chessBasics">ചെസ്സിന്റെ അടിസ്ഥാനം</string>
   <string name="coaches">പരിശീലകർ</string>
   <string name="invalidPgn">അസാധുവായ PGN</string>
   <string name="invalidFen">അസാധുവായ FEN</string>
@@ -741,6 +749,7 @@ in %3$s</string>
   <string name="opening">ഓപ്പണിങ്</string>
   <string name="middlegame">മിഡിൽഗെയിം</string>
   <string name="endgame">എൻഡ്ഗെയിം</string>
+  <string name="registerToSendChallenges">വെല്ലുവിളികൾ അയക്കാൻ ദയവായി രജിസ്റ്റർ ചെയ്യൂ.</string>
   <string name="conditionalPremoves">സാധ്യമായ premoves</string>
   <string name="addCurrentVariation">ഇപ്പോഴത്തെ വേരിയേഷൻ ചേർക്കുക</string>
   <string name="playX">%s കളിയ്ക്കൂ</string>
