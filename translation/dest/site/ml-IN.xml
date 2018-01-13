@@ -52,6 +52,17 @@
   <string name="usingServerAnalysis">സെർവറിന്റെ സഹായത്താൽ വിശകലനം ചെയ്യുന്നു</string>
   <string name="loadingEngine">എൻജിൻ സജ്ജമാക്കുന്നു ...</string>
   <string name="cloudAnalysis">ക്‌ളൗഡ്‌ ഉപയോഗിച്ചുള്ള വിശകലനം</string>
+  <string name="goDeeper">ആഴം കൂട്ടുക</string>
+  <string name="showThreat">ഭീഷണി വെളിപ്പെടുത്തുക</string>
+  <string name="inLocalBrowser">സ്വകാര്യ ബ്രൗസറിൽ</string>
+  <string name="toggleLocalEvaluation">മൂല്യനിർണയപ്രക്രിയ മാറ്റുക</string>
+  <string name="promoteVariation">ഈ വേരിയേഷൻ ഉപയോഗിക്കുക</string>
+  <string name="makeMainLine">മെയിൻ ലൈൻ ആയി ഉപയോഗിക്കുക</string>
+  <string name="deleteFromHere">ഇവിടംതൊട്ട് ഒഴിവാക്കുക</string>
+  <string name="move">നീക്കം</string>
+  <string name="variantLoss">വേരിയന്റ് തോൽവി</string>
+  <string name="variantWin">വേരിയന്റ് ജയം</string>
+  <string name="insufficientMaterial">വേണ്ടത്ര മെറ്റീരിയൽ ഇല്ല</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
   <string name="blunders">മണ്ടത്തരം</string>
   <string name="mistakes">തെറ്റുകൾ</string>
