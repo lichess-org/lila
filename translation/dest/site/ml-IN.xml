@@ -380,6 +380,7 @@
   <string name="averageOpponent">ശരാശരി എതിരാളി</string>
   <string name="membersOnly">അംഗങ്ങൾക്ക് മാത്രം</string>
   <string name="boardEditor">പലക ചിട്ടപ്പെടുത്തുക</string>
+  <string name="setTheBoard">കളിക്കളം സജ്ജമാക്കുക</string>
   <string name="popularOpenings">പ്രചാരത്തിലുള്ള ഓപ്പണിങ്ങുകൾ</string>
   <string name="startPosition">പ്രാരംഭ സ്ഥാനം</string>
   <string name="clearBoard">പലക വ്യക്തമാക്കുക</string>
@@ -506,6 +507,7 @@
   <string name="privacy">സ്വകാര്യത</string>
   <string name="letOtherPlayersFollowYou">മറ്റു കളിക്കാരെ പിന്തുടരാൻ (ഫോളോ) അനുവദിക്കൂ</string>
   <string name="letOtherPlayersChallengeYou">മറ്റു കളിക്കാർക്ക് പന്തയത്തിനുള്ള അനുവാദം നൽകൂ</string>
+  <string name="letOtherPlayersInviteYouToStudy">മറ്റു കളിക്കാർ നിങ്ങളെ പഠനത്തിലേക്ക് ക്ഷണിക്കട്ടെ</string>
   <string name="sound">ശബ്‌ദം</string>
   <string name="yourPreferencesHaveBeenSaved">നിങ്ങളുടെ ക്രമീകരണങ്ങൾ സേവ് ചെയ്തു.</string>
   <string name="none">ഒന്നുമില്ലാത്ത</string>
@@ -610,6 +612,7 @@ in %3$s</string>
   <string name="tournamentFAQ">അറീന പരമ്പര</string>
   <string name="tournamentOfficial">ഔദ്യോഗികമായ</string>
   <string name="timeBeforeTournamentStarts">പരമ്പര തുടങ്ങുന്നതിനു മുൻപുള്ള സമയം</string>
+  <string name="averageCentipawnLoss">ശരാശരി centipawn നഷ്ടം</string>
   <string name="keyboardShortcuts">കീബോർഡ് ഷോർട് കട്ടുകൾ</string>
   <string name="keyMoveBackwardOrForward">നീക്കം പുറകോട്ട്/മുന്നോട്ട്</string>
   <string name="keyGoToStartOrEnd">പോകാം തുടക്കം/ഒടുക്കം</string>
@@ -665,7 +668,22 @@ in %3$s</string>
     <item quantity="other">%s ഭാഷകളിൽ ലഭ്യമാണ്!</item>
   </plurals>
   <string name="gameAnalysis">കളി അപഗ്രഥനം</string>
+  <string name="quickPairing">പെട്ടെന്ന് പെയറിങ് നടത്തുക</string>
+  <string name="lobby">ലോബി</string>
+  <string name="anonymous">അജ്ഞാത</string>
+  <string name="yourScore">നിങ്ങളുടെ സ്കോർ %s</string>
+  <string name="language">ഭാഷ</string>
+  <string name="background">പശ്ചാത്തലം</string>
+  <string name="light">ലൈറ്റ്</string>
+  <string name="dark">ഇരുണ്ടത്</string>
+  <string name="transparent">സുതാര്യത</string>
+  <string name="backgroundImageUrl">പശ്ചാത്തല ചിത്രത്തിന്റെ URL:</string>
+  <string name="boardGeometry">കളിക്കളത്തിന്റെ ജ്യാമിതി</string>
+  <string name="boardTheme">കളിക്കളത്തിന്റെ തീം</string>
+  <string name="boardSize">കളിക്കളത്തിന്റെ വലിപ്പം</string>
+  <string name="pieceSet">വിവിധ കരുക്കൾ</string>
   <string name="embedInYourWebsite">നിങ്ങളുടെ വെബ്‌സൈറ്റിലേക്ക് എംബെഡ് ചെയ്യുക</string>
+  <string name="usernameAlreadyUsed">ഈ യൂസർനെയിം ഇപ്പോൾ ലഭ്യമല്ല, ദയവു ചെയ്ത് മറ്റൊരു യൂസർനെയിം ഉപയോഗിക്കുക.</string>
   <string name="coaches">പരിശീലകർ</string>
   <string name="invalidPgn">അസാധുവായ PGN</string>
   <string name="invalidFen">അസാധുവായ FEN</string>
@@ -723,4 +741,7 @@ in %3$s</string>
   <string name="opening">ഓപ്പണിങ്</string>
   <string name="middlegame">മിഡിൽഗെയിം</string>
   <string name="endgame">എൻഡ്ഗെയിം</string>
+  <string name="conditionalPremoves">സാധ്യമായ premoves</string>
+  <string name="addCurrentVariation">ഇപ്പോഴത്തെ വേരിയേഷൻ ചേർക്കുക</string>
+  <string name="playX">%s കളിയ്ക്കൂ</string>
 </resources>
