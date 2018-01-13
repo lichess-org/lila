@@ -9,4 +9,8 @@
   <plurals name="solvedNbPuzzles">
     <item quantity="other">dafyfa\'i %s lo nabmi be se ra\'a kavytadji</item>
   </plurals>
+  <string name="signedUp">co\'a se jaspu fi la\'o .urli lichess.org .urli</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="other">co\'a cmima la\'o zoi. %s .zoi noi bende</item>
+  </plurals>
 </resources>
