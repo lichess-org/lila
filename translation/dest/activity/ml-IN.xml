@@ -31,6 +31,10 @@
     <item quantity="one">%s simultaneous exhibition നടത്തി</item>
     <item quantity="other">%s simultaneous exhibitions നടത്തി</item>
   </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">ഒരേ സമയത്തുള്ള പ്രദർശനങ്ങളിൽ %s-ൽ പങ്കെടുത്തു</item>
+    <item quantity="other">ഒരേ സമയത്തുള്ള പ്രദർശനങ്ങളിൽ %s-ൽ പങ്കെടുത്തു</item>
+  </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">%s പുതിയ സ്റ്റഡി ഉണ്ടാക്കി</item>
     <item quantity="other">%s പുതിയ സ്റ്റഡി ഉണ്ടാക്കി</item>
@@ -39,6 +43,7 @@
     <item quantity="one">%s ടൂർണമെന്റിൽ പങ്കെടുത്തു</item>
     <item quantity="other">%s ടൂർണമെന്റുകളിൽ പങ്കെടുത്തു</item>
   </plurals>
+  <string name="signedUp">Lichess.org -ൽ സൈൻ-അപ്പ് ചെയ്തു</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s ടീമിൽ അംഗമായി</item>
     <item quantity="other">%s ടീമുകളിൽ അംഗമായി</item>
