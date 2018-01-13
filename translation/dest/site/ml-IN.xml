@@ -643,10 +643,36 @@ in %3$s</string>
   </plurals>
   <string name="gameAnalysis">കളി അപഗ്രഥനം</string>
   <string name="embedInYourWebsite">നിങ്ങളുടെ വെബ്‌സൈറ്റിലേക്ക് എംബെഡ് ചെയ്യുക</string>
+  <string name="coaches">പരിശീലകർ</string>
+  <string name="invalidPgn">അസാധുവായ PGN</string>
+  <string name="invalidFen">അസാധുവായ FEN</string>
+  <string name="error.minLength">ഏറ്റവും കുറഞ്ഞ നീളം %s ആണ്</string>
+  <string name="error.maxLength">ഏറ്റവും കൂടിയ നീളം %s ആണ്</string>
+  <string name="error.min">%s -നു സമമോ അതിനേക്കാൾ കൂടുതലോ ആയിരിക്കണം</string>
+  <string name="error.max">%s -നു സമമോ അതിനേക്കാൾ കുറവോ ആയിരിക്കണം</string>
   <string name="error.unknown">തെറ്റ്</string>
   <string name="custom">ഇച്ഛാനുസൃതം</string>
   <string name="notifications">അറിയിപ്പുകൾ</string>
   <string name="challenges">വെല്ലുവിളികൾ</string>
   <string name="perfRatingX">നിലവാരം: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">ആദ്യ നീക്കം കളിയ്ക്കാൻ %s സെക്കന്റ് ബാക്കി നിൽക്കുന്നു</item>
+    <item quantity="other">ആദ്യ നീക്കം കളിയ്ക്കാൻ %s സെക്കൻഡ്‌സ് ബാക്കി നിൽക്കുന്നു</item>
+  </plurals>
+  <string name="practiceWithComputer">കമ്പ്യൂട്ടർ ഉപയോഗിച്ച് പരിശീലിക്കുക</string>
+  <string name="anotherWasX">മറ്റൊന്ന് %s ആണ്</string>
+  <string name="bestWasX">മികച്ചത് %s ആയിരുന്നു</string>
+  <string name="youBrowsedAway">നിങ്ങൾ തുടർന്ന് നീങ്ങാൻ ശ്രമിച്ചു</string>
+  <string name="resumePractice">പരിശീലനം തുടരുക</string>
+  <string name="theGameIsADraw">ഗെയിം സമനിലയിൽ കലാശിച്ചിരിക്കുന്നു.</string>
+  <string name="computerThinking">ഗുരുജി ആലോചിക്കുകയാണ്...</string>
+  <string name="seeBestMove">മികച്ച നീക്കം കാണുക</string>
+  <string name="hideBestMove">മികച്ച നീക്കം മറയ്ക്കുക</string>
+  <string name="getAHint">സൂചന ലഭിക്കുക</string>
+  <string name="evaluatingYourMove">നിങ്ങളുടെ നീക്കം മൂല്യനിർണയം ചെയ്യുന്നു...</string>
+  <string name="whiteWinsGame">വെള്ള കരുക്കൾ ജേതാക്കൾ</string>
+  <string name="blackWinsGame">കറുത്ത കരുക്കൾ ജേതാക്കൾ</string>
+  <string name="learnFromYourMistakes">തെറ്റുകളിൽ നിന്ന് പഠിക്കാം</string>
+  <string name="learnFromThisMistake">ഈ തെറ്റിൽ നിന്ന് പഠിക്കാം</string>
   <string name="waitingForAnalysis">വിശകലനത്തിനായി കാത്തിരിക്കുന്നു</string>
 </resources>
