@@ -146,7 +146,7 @@
   <string name="games">Партије</string>
   <string name="forum">Форум</string>
   <string name="xPostedInForumY">%1$s је написао/ла коментар на теми %2$s</string>
-  <string name="latestForumPosts">Последњe оглашавање на форуму</string>
+  <string name="latestForumPosts">Последње објаве на форуму</string>
   <string name="players">Шахисти</string>
   <string name="minutesPerSide">Минута по страни</string>
   <string name="variant">Варијанта</string>
