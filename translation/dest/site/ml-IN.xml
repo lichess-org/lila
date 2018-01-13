@@ -672,6 +672,7 @@ in %3$s</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ഞങ്ങൾ നിങ്ങൾക്കൊരു ഇമെയിൽ അയച്ചിട്ടുണ്ട്. ഇമെയിലിലെ ലിങ്ക് ക്ലിക്ക് ചെയ്ത് നിങ്ങളുടെ അക്കൗണ്ട് ആക്ടിവേറ്റ് ചെയ്യൂ.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">നിങ്ങൾക്ക്  ഇമെയിൽ കണ്ടെത്താനായില്ലെങ്കിൽ, junk, spam, social അല്ലെങ്കിൽ മറ്റുള്ള ഫോൾഡറുകളിൽ ഉണ്ടോയെന്ന് പരിശോധിക്കാവുന്നതാണ്.</string>
   <string name="weHaveSentYouAnEmailTo">%s ഞങ്ങൾ ഒരു ഇമെയിൽ അയച്ചിട്ടുണ്ട്. ഇമെയിൽ ലിങ്കിൽ ക്ലിക്ക് ചെയ്ത് നിങ്ങളുടെ പാസ്സ്‌വേർഡ് പുനഃക്രമീകരിക്കാവുന്നതാണ്.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">രജിസ്റ്റർ ചെയ്യുന്നത് വഴി നിങ്ങൾ ഞങ്ങളുടെ %s പിന്തുടരുമെന്നു സമ്മതിക്കുന്നു.</string>
   <string name="networkLagBetweenYouAndLichess">നിങ്ങളും lichessഉം തമ്മിലുള്ള നെറ്റ്വർക്ക് കാലയളവ്</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess സെർവറിൽ ഒരു നീക്കം വിശകലനം ചെയ്യാൻ എടുക്കുന്ന സമയം</string>
   <string name="downloadAnnotated">Annotated ആയി ഡൗൺലോഡ് ചെയ്യുക</string>
@@ -693,9 +694,12 @@ in %3$s</string>
   <string name="withEverybody">എല്ലാവർക്കുമൊപ്പം</string>
   <string name="youHaveAlreadyRegisteredTheEmail">നിങ്ങളുടെ ഇമെയിൽ  നേരത്തെ തന്നെ രജിസ്റ്റർ ചെയ്തിട്ടുണ്ട്: %s</string>
   <string name="kidMode">കുട്ടികൾക്ക് വേണ്ട വിധം</string>
+  <string name="kidModeExplanation">ഇത് സുരക്ഷിതത്വത്തിനു വേണ്ടിയാണ്. കിഡ്-മോഡിൽ എല്ലാ വിധ സൈറ്റ് വർത്തമാനങ്ങളും തടസ്സപ്പെടുന്നു. ഈ സംവിധാനം ചെറിയ കുട്ടികൾക്കും വിദ്യാർത്ഥികൾക്കും മറ്റു ഇന്റർനെറ്റ് യൂസേറുകളിൽ നിന്നും സുരക്ഷിതത്വം നൽകുന്നു.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">കിഡ്-മോഡിൽ lichess ലോഗോയ്ക്ക് ഒരു %s ഐക്കൺ ലഭിക്കുന്നു. അത് നിങ്ങളുടെ കുട്ടികൾ സുരക്ഷിതരാണെന്ന് നിങ്ങൾക്ക് ബോധ്യപ്പെടുത്തുന്നു.</string>
   <string name="enableKidMode">കിഡ്-മോഡ് സജ്ജമാക്കുക</string>
   <string name="disableKidMode">കിഡ്-മോഡ് ഒഴിവാക്കുക</string>
   <string name="security">സുരക്ഷിതത്വം</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">ഇത് നിങ്ങളുടെ അക്കൗണ്ടിൽ ലോഗിൻ ചെയ്ത ഉപകരണങ്ങളാണ്. നിങ്ങൾ അറിയാത്ത വല്ല ഉപകരണങ്ങളും ഇതിൽ ഉണ്ടെങ്കിൽ ആ ഉപകരണം ഇതിൽ നിന്നും പിൻവലിക്കാൻ സാധിക്കുന്നതാണ്.</string>
   <string name="alternativelyYouCanX">ഇതിനുപുറമേ നിങ്ങൾക്ക് %s പറ്റും.</string>
   <string name="revokeAllSessions">എല്ലാ സെഷനും പിൻവലിക്കാൻ</string>
   <string name="playChessEverywhere">എല്ലായിടത്തും ചതുരംഗം കളിക്കൂ</string>
@@ -735,6 +739,7 @@ in %3$s</string>
   <string name="pieceSet">വിവിധ കരുക്കൾ</string>
   <string name="embedInYourWebsite">നിങ്ങളുടെ വെബ്‌സൈറ്റിലേക്ക് എംബെഡ് ചെയ്യുക</string>
   <string name="usernameAlreadyUsed">ഈ യൂസർനെയിം ഇപ്പോൾ ലഭ്യമല്ല, ദയവു ചെയ്ത് മറ്റൊരു യൂസർനെയിം ഉപയോഗിക്കുക.</string>
+  <string name="usernameInvalid">അസാധുവായ യൂസർനെയിം ആണിത്. ദയവായി അക്ഷരങ്ങൾ, സംഖ്യകൾ, അണ്ടർസ്കോർ, ഡാഷ് എന്നിവ മാത്രം ഉപയോഗിക്കുക.</string>
   <string name="usernameStartNoNumber">യൂസർനെയിം ഒരു സംഖ്യയിൽ തുടങ്ങരുത്.</string>
   <string name="usernameUnacceptable">ഈ ഇമെയിൽ വിലാസം സ്വീകാര്യമല്ല.</string>
   <string name="directlySupportLichess">നേരിട്ട് lichess -നെ പിൻതങ്ങാം</string>
@@ -804,4 +809,8 @@ in %3$s</string>
   <string name="addCurrentVariation">ഇപ്പോഴത്തെ വേരിയേഷൻ ചേർക്കുക</string>
   <string name="noConditionalPremoves">സാധ്യമല്ലാത്ത premoves</string>
   <string name="playX">%s കളിയ്ക്കൂ</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">എന്നിട്ട് %s premove ലൈൻ സേവ് ചെയ്യൂ</item>
+    <item quantity="other">എന്നിട്ട് %s premove ലൈനുകൾ സേവ് ചെയ്യൂ</item>
+  </plurals>
 </resources>
