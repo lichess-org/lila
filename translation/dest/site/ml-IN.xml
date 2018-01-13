@@ -293,7 +293,11 @@
     <item quantity="other">നിങ്ങൾ ഇനിയും %s റേറ്റഡ് ഗെയിമുകൾ കളിക്കേണ്ടിയിരിക്കുന്നു</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">നിങ്ങളുടെ %s റേറ്റിംഗ് താത്ക്കാലികമാണ്</string>
+  <string name="yourPerfRatingIsTooHigh">നിങ്ങളുടെ %1$s-ലെ റേറ്റിംഗ് (%2$s) വളരെ വലുതാണ്</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">നിങ്ങളുടെ %1$s-ലെ ആഴ്ചതോറുമുള്ള ഏറ്റവും ഉയർന്ന റേറ്റിംഗ് (%2$s) വളരെ വലുതാണ്</string>
   <string name="yourPerfRatingIsTooLow">നിങ്ങളുടെ %1$s-ലെ റേറ്റിംഗ് (%2$s) വളരെ കുറവാണ്</string>
+  <string name="ratedMoreThanInPerf">%2$s -ൽ റേറ്റിംഗ് ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">%2$s -ൽ റേറ്റിംഗ് ≤ %1$s</string>
   <string name="backToGame">മത്സരത്തിലേക്ക് തിരികെ പോവുക</string>
   <string name="siteDescription">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
   <string name="teams">ടീമുകള്‍</string>
@@ -327,6 +331,7 @@
   <string name="fromPosition">സ്ഥാനത്തു നിന്ന്</string>
   <string name="continueFromHere">ഇവിടെ മുതല്‍ പുനരാരംഭിക്കുക</string>
   <string name="importGame">മത്സരം അപ്പ്‌ലോഡ് ചെയ്യുക</string>
+  <string name="importGameExplanation">ഒരു ഗെയിം PGN പേസ്റ്റ് ചെയ്യുമ്പോൾ ബ്രൗസ്‌ ചെയ്യാൻ പറ്റുന്ന റീപ്ലേ, കമ്പ്യൂട്ടർ വിശകലനം, ഗെയിം ചാറ്റ്, ഷെയർ ചെയ്യാൻ പറ്റുന്ന ഒരു URL എന്നിവ ലഭിക്കുന്നു.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">ഇറക്കിയ കളികൾ %s</item>
     <item quantity="other">ഇറക്കിയ കളികൾ %s</item>
@@ -499,6 +504,7 @@
   <string name="materialDifference">രൂപ വ്യത്യാസം</string>
   <string name="closeAccount">അക്കൗണ്ട് അവസാനിപ്പിക്കാം</string>
   <string name="changedMindDoNotCloseAccount">മനംമാറ്റം, അക്കൗണ്ട് അവസാനിപ്പിക്കേണ്ടതില്ല</string>
+  <string name="closeAccountExplanation">നിങ്ങളുടെ അക്കൗണ്ട് നിർത്തലാക്കാനായുള്ള തീരുമാനം നിശ്ചിതമാണോ? അക്കൗണ്ട് നിർത്തലാക്കാൻ ഒരു സ്ഥായിയായ തീരുമാനമാണ്. പിന്നീട് ലോഗിൻ ചെയ്യാനോ, നിങ്ങളുടെ പ്രൊഫൈൽ പേജ് കാണണോ നിങ്ങൾക്ക് സാധിക്കില്ല.</string>
   <string name="thisAccountIsClosed">ഈ അക്കൗണ്ട് അവസാനിപ്പിച്ചിരിക്കുന്നു.</string>
   <string name="invalidUsernameOrPassword">യൂസർ നെയിം അല്ലെങ്കിൽ പാസ്സ്‌വേർഡ്‌ അസാധുവാണ്</string>
   <string name="incorrectPassword">തെറ്റായ രഹസ്യപദം</string>
