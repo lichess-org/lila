@@ -82,13 +82,24 @@
   </plurals>
   <string name="noGameFound">ഒരു ഗെയിമും കണ്ടെത്താൻ സാധിച്ചില്ല</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
+  <string name="allSet">എല്ലാം തയ്യാറാണ്!</string>
+  <string name="importPgn">PGN import ചെയ്യുക</string>
   <string name="delete">നീക്കം ചെയ്യുക</string>
+  <string name="deleteThisImportedGame">Import ചെയ്ത ഗെയിം നീക്കം ചെയ്യണോ?</string>
+  <string name="replayMode">പുനരാവിഷ്കരണം</string>
+  <string name="realtimeReplay">തത്സമയം</string>
+  <string name="byCPL">CPL മുഖേന</string>
+  <string name="openStudy">തുറന്ന പഠനം</string>
   <string name="enable">വേണോ</string>
+  <string name="bestMoveArrow">മികച്ച നീക്കത്തിന്റെ arrow</string>
+  <string name="evaluationGauge">മൂല്യനിർണയ സംവിധാനം</string>
   <string name="multipleLines">ഒന്നിലധികം ലൈനുകൾ</string>
   <string name="cpus">CPUs</string>
   <string name="memory">മെമ്മോറി</string>
   <string name="infiniteAnalysis">അനന്തമായ വിശകലനം</string>
+  <string name="blunder">മണ്ടത്തരം</string>
   <string name="blunders">മണ്ടത്തരം</string>
+  <string name="mistake">തെറ്റുകൾ</string>
   <string name="mistakes">തെറ്റുകൾ</string>
   <string name="inaccuracies">പിഴകൾ</string>
   <string name="moveTimes">മാറ്റങളുടെ സമയങൾ</string>
@@ -151,6 +162,12 @@
   <string name="passwordReset">പാസ്‌വേഡ് റീസെറ്റ് ചെയ്യുക</string>
   <string name="forgotPassword">പാസ്‌വേഡ് മറന്നുപോയോ?</string>
   <string name="rank">റാങ്ക്</string>
+  <string name="rankX">റാങ്ക്: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">ഓരോ %s മിനിട്ടിലും റാങ്ക് അപ്ഡേറ്റ് ചെയ്യപ്പെടുന്നു</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s puzzle</item>
+    <item quantity="other">%s puzzles</item>
+  </plurals>
   <string name="gamesPlayed">മത്സരങ്ങള്‍ കളിച്ചു</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">നിങ്ങളോടോത്തു %s കളികൾ</item>
@@ -170,6 +187,7 @@
   <string name="accept">സ്വീകരിക്കുക</string>
   <string name="decline">നിരസിക്കുക</string>
   <string name="playingRightNow">ഇപ്പോള്‍ കളിച്ചുക്കൊണ്ടിരിക്കുന്നു</string>
+  <string name="eventInProgress">ഇപ്പോൾ കളിച്ചുകൊണ്ടിരിക്കുന്നു</string>
   <string name="finished">പൂര്‍ത്തിയായി</string>
   <string name="abortGame">മത്സരം ഉപേക്ഷിക്കുക</string>
   <string name="gameAborted">മത്സരം ഉപേക്ഷിച്ചു</string>
@@ -178,6 +196,8 @@
   <string name="mode">മോഡ്</string>
   <string name="casual">സൗഹാര്‍ദ്ദം</string>
   <string name="rated">മൂല്യാധിഷ്ഠിതം</string>
+  <string name="casualTournament">Casual</string>
+  <string name="ratedTournament">റേറ്റഡ്</string>
   <string name="thisGameIsRated">ഈ മത്സരം മൂല്യാധിഷ്ഠിതമാണ്</string>
   <string name="rematch">റീമാച്ച് (വീണ്ടും കളിക്കുക)</string>
   <string name="rematchOfferSent">റീമാച്ച് വാഗ്ദാനം അയച്ചു</string>
@@ -189,6 +209,8 @@
   <string name="play">കളിക്കുക</string>
   <string name="inbox">ഇന്‍ബോക്സ്‌</string>
   <string name="chatRoom">ചാറ്റ് റൂം</string>
+  <string name="loginToChat">ചാറ്റ് ചെയ്യാൻ ലോഗിൻ ചെയ്യുക</string>
+  <string name="youHaveBeenTimedOut">നിങ്ങൾ ടൈംഡ്-ഔട്ട് ആയിരിക്കുന്നു.</string>
   <string name="spectatorRoom">വീക്ഷണ റൂം</string>
   <string name="composeMessage">സന്ദേശം എഴുതുക</string>
   <string name="noNewMessages">പുതിയ സന്ദേശങ്ങള്‍ ഇല്ല</string>
