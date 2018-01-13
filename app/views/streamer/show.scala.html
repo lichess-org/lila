@@ -50,7 +50,7 @@ method:'post'
 }
 }
 
-@title = @{ s"${s.user.title.fold("")(_ + " ")}${s.streamer.name} streams chess" }
+@title = @{ s"${s.titleName} streams chess" }
 
 @base.layout(title = title,
 side = side.some,

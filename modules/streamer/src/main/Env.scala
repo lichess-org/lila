@@ -10,6 +10,7 @@ final class Env(
     isOnline: lila.user.User.ID => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
     notifyApi: lila.notify.NotifyApi,
+    lightUserApi: lila.user.LightUserApi,
     hub: lila.hub.Env,
     db: lila.db.Env
 ) {
@@ -45,7 +46,8 @@ final class Env(
     timeline = hub.actor.timeline,
     keyword = Stream.Keyword(Keyword),
     googleApiKey = GoogleApiKey,
-    twitchClientId = TwitchClientId
+    twitchClientId = TwitchClientId,
+    lightUserApi = lightUserApi
   )))
 
   lazy val liveStreamApi = new LiveStreamApi(asyncCache, streamingActor)
@@ -68,6 +70,7 @@ object Env {
     isOnline = lila.user.Env.current.isOnline,
     asyncCache = lila.memo.Env.current.asyncCache,
     notifyApi = lila.notify.Env.current.api,
+    lightUserApi = lila.user.Env.current.lightUserApi,
     hub = lila.hub.Env.current,
     db = lila.db.Env.current
   )

@@ -1,6 +1,6 @@
-@(live: lila.streamer.LiveStreams)
-@live.streams.map { s =>
+@(l: lila.streamer.LiveStreams.WithTitles)
+@l.live.streams.map { s =>
 <a class="stream highlight" href="@routes.Streamer.show(s.streamer.id.value)" title="@s.status">
-  <span class="text" data-icon="">@s.streamer.name.value</span> @s.status
+  <span class="text" data-icon="">@l.titleName(s)</span> @s.status
 </a>
 }

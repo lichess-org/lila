@@ -102,8 +102,11 @@ object Streamer {
     }
   }
 
-  case class WithUser(streamer: Streamer, user: User)
+  case class WithUser(streamer: Streamer, user: User) {
+    def titleName = s"${user.title.fold("")(_ + " ")}${streamer.name}"
+  }
   case class WithUserAndStream(streamer: Streamer, user: User, stream: Option[Stream]) {
     def withoutStream = WithUser(streamer, user)
+    def titleName = withoutStream.titleName
   }
 }

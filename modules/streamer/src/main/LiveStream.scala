@@ -16,6 +16,19 @@ case class LiveStreams(streams: List[Stream]) {
   def autoFeatured = LiveStreams {
     streams.filter(_.streamer.approval.autoFeatured)
   }
+
+  def withTitles(lightUser: lila.user.LightUserApi) = LiveStreams.WithTitles(
+    this,
+    streams.map(_.streamer.userId).map { userId =>
+      userId -> lightUser.sync(userId).flatMap(_.title)
+    }.toMap
+  )
+}
+
+object LiveStreams {
+  case class WithTitles(live: LiveStreams, titles: Map[User.ID, Option[String]]) {
+    def titleName(s: Stream) = s"${titles.get(s.streamer.userId).fold("")(_ + " ")}${s.streamer.name}"
+  }
 }
 
 final class LiveStreamApi(
