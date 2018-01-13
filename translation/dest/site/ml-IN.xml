@@ -46,7 +46,12 @@
   <string name="viewTheComputerAnalysis">കമ്പ്യൂട്ടർ പരിശോധന നോക്കുക</string>
   <string name="requestAComputerAnalysis">കമ്പ്യൂട്ടർ പരിശോധന അപേക്ഷിക്കുക</string>
   <string name="computerAnalysis">കമ്പ്യൂട്ടർ പരിശോധന</string>
+  <string name="computerAnalysisAvailable">കമ്പ്യൂട്ടർ വിശകലനം ലഭ്യമാണ്</string>
   <string name="analysis">പരിശോധന പലക</string>
+  <string name="depthX">ആഴം %s</string>
+  <string name="usingServerAnalysis">സെർവറിന്റെ സഹായത്താൽ വിശകലനം ചെയ്യുന്നു</string>
+  <string name="loadingEngine">എൻജിൻ സജ്ജമാക്കുന്നു ...</string>
+  <string name="cloudAnalysis">ക്‌ളൗഡ്‌ ഉപയോഗിച്ചുള്ള വിശകലനം</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
   <string name="blunders">മണ്ടത്തരം</string>
   <string name="mistakes">തെറ്റുകൾ</string>
