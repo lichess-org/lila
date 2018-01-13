@@ -19,6 +19,14 @@
     <item quantity="one">%2$s -ൽ %1$s മെസ്സേജ് post ചെയ്തു</item>
     <item quantity="other">%2$s -ൽ %1$s മെസ്സേജ് post ചെയ്തു</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%2$s കറസ്പോണ്ടൻസ് ഗെയിമിൽ(ഗെയിമുകളിൽ) %1$s നീക്കം കളിച്ചു</item>
+    <item quantity="other">%2$s കറസ്പോണ്ടൻസ് ഗെയിമിൽ(ഗെയിമുകളിൽ) %1$s നീക്കങ്ങൾ കളിച്ചു</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">%s കറസ്പോണ്ടൻസ് ഗെയിം പൂർത്തിയാക്കി</item>
+    <item quantity="other">കറസ്പോണ്ടൻസ് ഗെയിമുകൾ പൂർത്തിയാക്കി</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">%s കളിക്കാരനെ പിന്തുടരാൻ തുടങ്ങി</item>
     <item quantity="other">%s കളിക്കാരെ പിന്തുടരാൻ തുടങ്ങി</item>
@@ -42,6 +50,10 @@
   <plurals name="competedInNbTournaments">
     <item quantity="one">%s ടൂർണമെന്റിൽ പങ്കെടുത്തു</item>
     <item quantity="other">%s ടൂർണമെന്റുകളിൽ പങ്കെടുത്തു</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">%4$s -ൽ റാങ്ക് #%1$s (ആദ്യത്തെ %2$s%% -ൽ) നേടി. %3$s ഗെയിം കളിച്ചു</item>
+    <item quantity="other">%4$s -ൽ റാങ്ക് #%1$s (ആദ്യത്തെ %2$s%% -ൽ) നേടി. %3$s ഗെയിമുകൾ കളിച്ചു</item>
   </plurals>
   <string name="signedUp">Lichess.org -ൽ സൈൻ-അപ്പ് ചെയ്തു</string>
   <plurals name="joinedNbTeams">
