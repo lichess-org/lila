@@ -373,12 +373,14 @@
   <string name="blackWins">കറുത്ത കരുക്കളാലുള്ള വിജയങ്ങൾ</string>
   <string name="membersOnly">അംഗങ്ങൾക്ക് മാത്രം</string>
   <string name="boardEditor">പലക ചിട്ടപ്പെടുത്തുക</string>
+  <string name="popularOpenings">പ്രചാരത്തിലുള്ള ഓപ്പണിങ്ങുകൾ</string>
   <string name="startPosition">പ്രാരംഭ സ്ഥാനം</string>
   <string name="clearBoard">പലക വ്യക്തമാക്കുക</string>
   <string name="savePosition">സ്ഥാനം കാത്തു വെക്കാം</string>
   <string name="loadPosition">സ്ഥാനത്തു നിന്ന്</string>
   <string name="isPrivate">സ്വകാര്യം</string>
   <string name="reportXToModerators">നിയന്ത്രകരോട് %s നെ സൂചിപ്പിക്കാം</string>
+  <string name="profileCompletion">പ്രൊഫൈൽ പൂർത്തിയാക്കൽ: %s</string>
   <string name="xRating">%s റേറ്റിംഗ്</string>
   <string name="profile">രൂപരേഖ</string>
   <string name="editProfile">രൂപരേഖ തിരുത്താം</string>
@@ -469,6 +471,7 @@
   <string name="changedMindDoNotCloseAccount">മനംമാറ്റം, അക്കൗണ്ട് അവസാനിപ്പിക്കേണ്ടതില്ല</string>
   <string name="thisAccountIsClosed">ഈ അക്കൗണ്ട് അവസാനിപ്പിച്ചിരിക്കുന്നു.</string>
   <string name="invalidUsernameOrPassword">യൂസർ നെയിം അല്ലെങ്കിൽ പാസ്സ്‌വേർഡ്‌ അസാധുവാണ്</string>
+  <string name="incorrectPassword">തെറ്റായ രഹസ്യപദം</string>
   <string name="emailMeALink">ഒരു ലിങ്ക് ഇമെയിൽ ചെയ്യൂ</string>
   <string name="currentPassword">നിലവിലുള്ള രഹസ്യപദം</string>
   <string name="newPassword">പുതിയ രഹസ്യപദം</string>
@@ -476,6 +479,8 @@
   <string name="boardHighlights">പലകയിലെ മുഖ്യ ആകർഷണങ്ങൾ (അവസാന നീക്കവും അടിയറവും)</string>
   <string name="boardCoordinates">പലകയിലെ സ്ഥാനാങ്കങ്ങൾ (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">കളിയുടെ നീക്ക-ശ്രേണി</string>
+  <string name="chessPieceSymbol">ചെസ്സ് കരുവിന്റെ അടയാളം</string>
+  <string name="pgnLetter">അക്ഷരം (K, Q, R, B, N)</string>
   <string name="chessClock">ചതുരംഗ സമയം</string>
   <string name="tenthsOfSeconds">സെക്കന്റിന്റെ പത്തിലൊരംശം</string>
   <string name="never">ഒരിക്കലും</string>
@@ -483,6 +488,9 @@
   <string name="horizontalGreenProgressBars">തിരശ്ചീന പച്ച നിലവാര രേഖകൾ</string>
   <string name="soundWhenTimeGetsCritical">നിർണായക സമയത്തു ധ്വനിപ്പിക്കുക</string>
   <string name="gameBehavior">കളിയുടെ ഭാവം</string>
+  <string name="howDoYouMovePieces">എങ്ങനെയാണ് നിങ്ങൾ കരുക്കൾ നീക്കാറുള്ളത്?</string>
+  <string name="clickTwoSquares">രണ്ട് കളങ്ങൾ അമർത്തുക</string>
+  <string name="dragPiece">ഒരു കരു വലിയ്ക്കുക</string>
   <string name="premovesPlayingDuringOpponentTurn">മുൻകൂട്ടിയുള്ള നീക്കങ്ങൾ (എതിരാളിയുടെ നീക്കത്തിന് അനുസരിച്ച്)</string>
   <string name="takebacksWithOpponentApproval">തിരിച്ചെടുക്കൽ (എതിരാളിയുടെ സമ്മത പ്രകാരം)</string>
   <string name="promoteToQueenAutomatically">റാണിയായി താനെ സ്ഥാനക്കയറ്റം നൽകൂ</string>
@@ -582,6 +590,7 @@ in %3$s</string>
   <string name="sourceCode">സോഴ്സ് കോഡ്</string>
   <string name="simultaneousExhibitions">ഈ വേളയിലെ പ്രദർശനങ്ങൾ</string>
   <string name="host">ഹോസ്റ്റ്</string>
+  <string name="hostColorX">ഹോസ്റ്റ് നിറം: %s</string>
   <string name="createdSimuls">പുതിയ സിമുൽ</string>
   <string name="hostANewSimul">ഒരു പുതിയ സിമുലിന് ആതിഥ്യം നൽകൂ</string>
   <string name="noSimulFound">സിമുൽ കണ്ടെത്തിയില്ല</string>
@@ -600,6 +609,9 @@ in %3$s</string>
   <string name="tournamentNotFound">പരമ്പര കണ്ടെത്തിയില്ല</string>
   <string name="tournamentDoesNotExist">ഈ പരമ്പര നിലവിലില്ല</string>
   <string name="returnToTournamentsHomepage">മടക്കം പരമ്പരകളുടെ ഹോംപേജിലേക്ക്</string>
+  <string name="yourPerfTypeRatingIsRating">നിങ്ങളുടെ %1$s റേറ്റിംഗ് %2$s ആണ്.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">നിങ്ങൾ %1$s -ൽ %2$s-വരേക്കാളും മികച്ചവരാണ്.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">നിങ്ങൾക്ക് സ്വന്തമായി രേഖപ്പെടുത്തപ്പെട്ട %s റേറ്റിംഗ് ഇല്ല.</string>
   <string name="checkYourEmail">നിങ്ങളുടെ ഇമെയിൽ പരിശോധിക്കൂ</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ഞങ്ങൾ നിങ്ങൾക്കൊരു ഇമെയിൽ അയച്ചിട്ടുണ്ട്. ഇമെയിലിലെ ലിങ്ക് ക്ലിക്ക് ചെയ്ത് നിങ്ങളുടെ അക്കൗണ്ട് ആക്ടിവേറ്റ് ചെയ്യൂ.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">നിങ്ങൾക്ക്  ഇമെയിൽ കണ്ടെത്താനായില്ലെങ്കിൽ, junk, spam, social അല്ലെങ്കിൽ മറ്റുള്ള ഫോൾഡറുകളിൽ ഉണ്ടോയെന്ന് പരിശോധിക്കാവുന്നതാണ്.</string>
