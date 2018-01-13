@@ -9,4 +9,17 @@
   <string name="youWillLoseAllYourProgress">ഇത് ചെയ്താൽ നിങ്ങളുടെ എല്ലാ പുരോഗതിയും നഷ്ടമാകും!</string>
   <string name="play">തുടങ്ങാം!</string>
   <string name="chessPieces">ചെസ്സ് കരുക്കൾ</string>
+  <string name="theRook">തേര്</string>
+  <string name="itMovesInStraightLines">അത് നേർരേഖകളിലൂടെ മാത്രം നീങ്ങുന്നു</string>
+  <string name="rookIntro">തേരാളി കരുത്താനാണ്. അതിനെ നിലയ്ക്കുനിർത്താൻ നിനക്ക് പറ്റുമോ?</string>
+  <string name="rookGoal">തേരാളിയെ നക്ഷത്രത്തിലേക്കു
+കൊണ്ടുവരാൻ അതിനുമേൽ അമർത്തുക!</string>
+  <string name="grabAllTheStars">നക്ഷത്രങ്ങളെല്ലാം സ്വന്തമാക്കൂ!</string>
+  <string name="theFewerMoves">കുറച്ചു മാത്രം നീങ്ങൂ,
+കൂടുതൽ പോയന്റ് നേടൂ!</string>
+  <string name="useTwoRooks">രണ്ടു തേരും ഉപയോഗിച്ച് 
+കളിക്ക് വേഗം കൂട്ടൂ!</string>
+  <string name="rookComplete">അഭിനന്ദനങ്ങൾ! നിങ്ങൾ തേരാളിയെ ഉപയോഗിക്കാൻ പഠിച്ചിരിക്കുന്നു.</string>
+  <string name="theBishop">ആന</string>
+  <string name="itMovesDiagonally">അത് കോണോടുകോൺ നീങ്ങുന്നു</string>
 </resources>
