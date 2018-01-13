@@ -33,4 +33,18 @@
   <string name="queenComplete">അഭിനന്ദനങൾ! രാജ്ഞിയുടെ തന്ത്രങ്ങളെല്ലാം ഇനി നിങ്ങൾക്കും സ്വന്തം.</string>
   <string name="theKing">രാജാവ്</string>
   <string name="theMostImportantPiece">ഏറ്റവും പ്രധാനപ്പെട്ട കരു</string>
+  <string name="kingIntro">നിങ്ങളാണ് രാജാവ്. നിങ്ങൾ പതറിയാൽ, നിങ്ങളുടെ കളിയുടെ കാലിടറും.</string>
+  <string name="theKingIsSlow">രാജാവിന്റെ വേഗം കുറവാണ്.</string>
+  <string name="lastOne">അവസാനത്തേത്!</string>
+  <string name="kingComplete">നിങ്ങൾക്കിനി നേതാവിനെ നയിക്കാം!</string>
+  <string name="theKnight">കുതിര</string>
+  <string name="itMovesInAnLShape">അത് L ഷേപ്പിൽ നീങ്ങുന്നു</string>
+  <string name="knightIntro">ഇതാ നിങ്ങൾക്കൊരു വെല്ലുവിളി. നമ്മുടെ കുതിര ഒരു സൂത്രശാലിയായ കരുവാണ്.</string>
+  <string name="knightsHaveAFancyWay">കുതിരകൾ ഒരു വല്ലാത്ത രീതിയിൽ അങ്ങോട്ടും ഇങ്ങോട്ടും ചാടിക്കളിക്കാം!</string>
+  <string name="knightsCanJumpOverObstacles">കുതിരകൾക്കു തടസ്സങ്ങൾക്കു മുകളിലൂടെ ചാടാം!
+തടസ്സങ്ങളെ ഭേദിച്ച് നക്ഷത്രങ്ങൾ കീഴടക്കൂ!</string>
+  <string name="knightComplete">അഭിനന്ദനാണ്! നിങ്ങൾ കുതിരയെ നിയന്ത്രിക്കാം പഠിച്ചിരിക്കുന്നു.</string>
+  <string name="thePawn">കാലാൾ</string>
+  <string name="itMovesForwardOnly">അത് മുന്നോട്ടു മാത്രം നീങ്ങുന്നു</string>
+  <string name="pawnIntro">കാലാളുകൾ ശക്തരല്ല, പ്രബലരാണ്.</string>
 </resources>
