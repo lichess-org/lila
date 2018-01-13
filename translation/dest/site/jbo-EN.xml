@@ -56,6 +56,7 @@
   <string name="drawn">no da cu jinga</string>
   <string name="unknown">narju\'odza</string>
   <string name="database">samdatni</string>
+  <string name="whiteDrawBlack">labji\'a .e caxpati .e xekyji\'a</string>
   <string name="openingExplorer">cfari nunmu\'u ke lanli tutci je vreji</string>
   <string name="allSet">.i\'e</string>
   <string name="delete">vimcu</string>
@@ -493,6 +494,7 @@
   <plurals name="availableInNbLanguages">
     <item quantity="other">se sabji bau %s da</item>
   </plurals>
+  <string name="quickPairing">selsutra jivna</string>
   <string name="lobby">lo depystu</string>
   <string name="language">lo bangu</string>
   <string name="directlySupportLichess">sarji la .litces.</string>
