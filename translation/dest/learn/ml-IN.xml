@@ -90,4 +90,16 @@
   <string name="checkInOneGoal">എതിരാളിയെ ഒറ്റനീക്കത്തിനുള്ളിൽ ലക്ഷ്യമിടൂ!</string>
   <string name="checkInOneComplete">അഭിനന്ദനങൾ! നിങ്ങൾ എതിരാളിയെ ഒറ്റനീക്കത്തിനുള്ളിൽ ചെക്ക് ചെയ്തിരിക്കുന്നു. അവർ രാജാവിനെ പ്രതിരോധിക്കാൻ നിർബന്ധിക്കപ്പെട്ടിരിക്കുന്നു!</string>
   <string name="outOfCheck">ചെക്കിൽ നിന്നും മുക്തി</string>
+  <string name="defendYourKing">രാജാവിനെ പ്രധിരോധിക്കുന്നതെങ്ങനെ</string>
+  <string name="outOfCheckIntro">നിങ്ങൾ ചെക്കിലാണ്! ഒന്നെങ്കിൽ രക്ഷപ്പെടുക, അല്ലെങ്കിൽ ചെക്ക് തടയുക.</string>
+  <string name="escapeWithTheKing">രാജാവിനെയും എടുത്ത് രക്ഷപെട്ടോ!</string>
+  <string name="theKingCannotEscapeButBlock">രാജാവിന് രക്ഷപെടാൻ പറ്റില്ല,
+പക്ഷെ ആക്രമണം ചെറുക്കൻ നിങ്ങൾക്കു പറ്റും!</string>
+  <string name="youCanGetOutOfCheckByTaking">എതിർകരുവിനെ ആക്രമിച്ചു നിങ്ങൾക്ക് ചെക്കിൽ നിന്നും രക്ഷപെടാം.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">ഈ കുതിര നിങ്ങളുടെ പ്രതിരോധം ഭേദിച്ചു ആക്രമിക്കുകയാണ്!</string>
+  <string name="escapeOrBlock">രാജാവിനെയും എടുത്ത് രക്ഷപെട്ടോ
+അല്ലെങ്കിൽ ചെക്ക് തടയൂ!</string>
+  <string name="outOfCheckComplete">അഭിനന്ദനങൾ! നിങ്ങളുടെ രാജാവിനെ ഒരിക്കലും എതിരാളികൾക്ക് നേടാൻ പറ്റില്ല, ഒരു ചെക്കിനെ നേരിടാൻ ശ്രദ്ധ ഉറപ്പാക്കൂ!</string>
+  <string name="mateInOne">ഒരു നീക്കത്തിനുള്ളിൽ ചെക്ക്മേറ്റ്</string>
+  <string name="defeatTheOpponentsKing">എതിർരാജാവിനെ കീഴടക്കൂ</string>
 </resources>
