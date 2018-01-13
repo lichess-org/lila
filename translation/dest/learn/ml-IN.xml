@@ -126,11 +126,27 @@
 ഏതെങ്കിലും നീക്കത്തോടെ നമുക്ക് തുടരാം.</string>
   <string name="castling">കാസ്റ്റലിങ്</string>
   <string name="theSpecialKingMove">രാജാവിന്റെ പ്രത്യേക നീക്കം</string>
+  <string name="castleKingSide">രണ്ടു കളങ്ങൾ നീക്കി രാജാവിന്റെ വശത്തേക്ക് 
+രാജാവിനെ കാസ്റ്റലിങ് ചെയ്യിക്കൂ!</string>
+  <string name="castleQueenSide">രണ്ടു കളങ്ങൾ നീക്കി രാജ്ഞിയുടെ വശത്തേക്ക് രാജാവിനെ കാസ്റ്റലിങ് ചെയ്യിക്കൂ!</string>
+  <string name="theKnightIsInTheWay">കുതിര വഴിമുടക്കിയിരിക്കുന്നു!
+അതിനെ നീക്കു, എന്നിട്ട് രാജാവിന്റെ വശത്തേക്ക് കാസ്റ്റലിങ് ചെയ്യൂ.</string>
+  <string name="castleKingSideMovePiecesFirst">രാജാവിന്റെ വശത്തേക്ക് കാസ്റ്റിലെ ചെയ്യൂ!
+ആദ്യം മറ്റു കരുക്കൾ അവിടെ നിന്നും നീക്കൂ.</string>
+  <string name="castleQueenSideMovePiecesFirst">രാജ്ഞിയുടെ വശത്തേക്ക് കാസ്റ്റിലെ ചെയ്യൂ!
+ആദ്യം മറ്റു കരുക്കൾ അവിടെ നിന്നും നീക്കൂ.</string>
+  <string name="youCannotCastleIfMoved">രാജാവോ തേരാളിയോ
+നീങ്ങിക്കഴിഞ്ഞാൽ
+പിന്നെ കാസ്റ്റലിങ് നടക്കില്ല.</string>
+  <string name="youCannotCastleIfAttacked">വഴിമധ്യേ രാജാവ് ആക്രമിക്കപെട്ടാൽ 
+പിന്നെ കാസ്റ്റലിങ് നടക്കില്ല.
+ചെക്ക് തടയൂ, പിന്നെ കാസ്റ്റിലെ ചെയ്യൂ!</string>
   <string name="findAWayToCastleKingSide">രാജാവിന്റെ വശത്തേക്ക് കാസ്റ്റലിങ് നടത്താൻ വഴി കണ്ടെത്തൂ!</string>
   <string name="findAWayToCastleQueenSide">രാജ്ഞിയുടെ വശത്തേക്ക് കാസ്റ്റലിങ് നടത്താൻ വഴി കണ്ടെത്തൂ!</string>
   <string name="castlingComplete">അഭിനന്ദനങൾ! നിങ്ങൾ ഏകദേശം എല്ലാ തവണയും കാസ്റ്റലിങ് നടത്താൻ ശ്രമിക്കണം.</string>
   <string name="enPassant">എൻ പാസ്സൻറ്</string>
   <string name="theSpecialPawnMove">പ്രത്യേക കാലാൾ നീക്കം</string>
+  <string name="takeAllThePawnsEnPassant">എല്ലാ കാലാളുകളും en-passant മുഖേന നേടൂ!</string>
   <string name="stalemate">സ്റ്റേൽമേറ്റ്</string>
   <string name="theGameIsADraw">ഗെയിം സമനിലയിൽ കലാശിച്ചിരിക്കുന്നു</string>
   <string name="advanced">ഉയർന്ന പഠനം</string>
