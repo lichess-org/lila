@@ -82,6 +82,8 @@
   </plurals>
   <string name="noGameFound">ഒരു ഗെയിമും കണ്ടെത്താൻ സാധിച്ചില്ല</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
+  <string name="winPreventedBy50MoveRule">50 നീക്കങ്ങളുടെ നിയമം പ്രകാരം ജയം തടയപ്പെട്ടു</string>
+  <string name="lossSavedBy50MoveRule">50 നീക്കങ്ങളുടെ നിയമം പ്രകാരം തോൽവി തടയപ്പെട്ടു</string>
   <string name="allSet">എല്ലാം തയ്യാറാണ്!</string>
   <string name="importPgn">PGN import ചെയ്യുക</string>
   <string name="delete">നീക്കം ചെയ്യുക</string>
@@ -368,9 +370,14 @@
   <string name="winRate">വിജയനിരക്ക്</string>
   <string name="berserkRate">ജടാപാടാലിറ്റി റേറ്റ്</string>
   <string name="performance">പെർഫോമൻസ്</string>
+  <string name="tournamentComplete">ടൂർണമെന്റ് പൂർത്തിയായിരിക്കുന്നു</string>
   <string name="movesPlayed">കളിച്ച കളികൾ</string>
   <string name="whiteWins">വെള്ള കരുക്കളാലുള്ള വിജയങ്ങൾ</string>
   <string name="blackWins">കറുത്ത കരുക്കളാലുള്ള വിജയങ്ങൾ</string>
+  <string name="draws">സമനിലകൾ</string>
+  <string name="nextXTournament">അടുത്ത %s ടൂർണമെന്റ്:</string>
+  <string name="viewMoreTournaments">കൂടുതൽ ടൂർണമെന്റുകൾ കാണുക</string>
+  <string name="averageOpponent">ശരാശരി എതിരാളി</string>
   <string name="membersOnly">അംഗങ്ങൾക്ക് മാത്രം</string>
   <string name="boardEditor">പലക ചിട്ടപ്പെടുത്തുക</string>
   <string name="popularOpenings">പ്രചാരത്തിലുള്ള ഓപ്പണിങ്ങുകൾ</string>
@@ -479,6 +486,7 @@
   <string name="boardHighlights">പലകയിലെ മുഖ്യ ആകർഷണങ്ങൾ (അവസാന നീക്കവും അടിയറവും)</string>
   <string name="boardCoordinates">പലകയിലെ സ്ഥാനാങ്കങ്ങൾ (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">കളിയുടെ നീക്ക-ശ്രേണി</string>
+  <string name="pgnPieceNotation">നീക്കങ്ങൾ എങ്ങനെ രേഖപ്പെടുത്തണം</string>
   <string name="chessPieceSymbol">ചെസ്സ് കരുവിന്റെ അടയാളം</string>
   <string name="pgnLetter">അക്ഷരം (K, Q, R, B, N)</string>
   <string name="chessClock">ചതുരംഗ സമയം</string>
@@ -491,6 +499,7 @@
   <string name="howDoYouMovePieces">എങ്ങനെയാണ് നിങ്ങൾ കരുക്കൾ നീക്കാറുള്ളത്?</string>
   <string name="clickTwoSquares">രണ്ട് കളങ്ങൾ അമർത്തുക</string>
   <string name="dragPiece">ഒരു കരു വലിയ്ക്കുക</string>
+  <string name="bothClicksAndDrag">ഏതുവിധത്തിലും</string>
   <string name="premovesPlayingDuringOpponentTurn">മുൻകൂട്ടിയുള്ള നീക്കങ്ങൾ (എതിരാളിയുടെ നീക്കത്തിന് അനുസരിച്ച്)</string>
   <string name="takebacksWithOpponentApproval">തിരിച്ചെടുക്കൽ (എതിരാളിയുടെ സമ്മത പ്രകാരം)</string>
   <string name="promoteToQueenAutomatically">റാണിയായി താനെ സ്ഥാനക്കയറ്റം നൽകൂ</string>
