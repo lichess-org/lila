@@ -77,4 +77,17 @@
   <string name="protectionComplete">അഭിനന്ദനങൾ! നിങ്ങൾ നഷ്ടപ്പെടാതെ സൂക്ഷിച്ച കരു നിങ്ങൾ നേടിയ കരുവിനു തുല്യമാണ്!</string>
   <string name="escape">നിങ്ങൾ ആക്രമണത്തിൽ അകപ്പെട്ടിരിക്കുന്നു!
 ഭീഷണിയിൽ നിന്നും രക്ഷ നേടൂ!</string>
+  <string name="noEscape">രക്ഷപെടൽ സാധ്യമല്ല,
+പക്ഷെ പ്രതിരോധം സാധ്യമാണ്!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">നിങ്ങൾ സംരക്ഷിക്കാത്ത കരു അവർക്കു സ്വന്തമാക്കാൻ അനുവദിക്കരുത്!</string>
+  <string name="combat">യുദ്ധം</string>
+  <string name="captureAndDefendPieces">കരുക്കൾ കീഴ്പെടുത്തു, പ്രതിരോധിക്കൂ</string>
+  <string name="combatIntro">യഥാർത്ഥ പോരാളിക്കു ആക്രമണവും പ്രതിരോധവും ഒരുപോലെ അറിയാം!</string>
+  <string name="combatComplete">അഭിനന്ദനങൾ! നിങ്ങൾ ചെസ്സ് കരുക്കൾ കൊണ്ട് പൊരുതാൻ പഠിച്ചിരിക്കുന്നു!</string>
+  <string name="checkInOne">ഒരു നീക്കത്തിനുള്ളിൽ ചെക്ക്</string>
+  <string name="attackTheOpponentsKing">എതിരാളിയുടെ രാജാവിനെ ആക്രമിക്കൂ</string>
+  <string name="checkInOneIntro">എതിരാളിയെ ചെക്ക് ചെയ്യാൻ രാജാവിനെ ആക്രമിക്കണം. എതിരാളികൾ അത് പ്രധിരോധിച്ചേ മതിയാകൂ!</string>
+  <string name="checkInOneGoal">എതിരാളിയെ ഒറ്റനീക്കത്തിനുള്ളിൽ ലക്ഷ്യമിടൂ!</string>
+  <string name="checkInOneComplete">അഭിനന്ദനങൾ! നിങ്ങൾ എതിരാളിയെ ഒറ്റനീക്കത്തിനുള്ളിൽ ചെക്ക് ചെയ്തിരിക്കുന്നു. അവർ രാജാവിനെ പ്രതിരോധിക്കാൻ നിർബന്ധിക്കപ്പെട്ടിരിക്കുന്നു!</string>
+  <string name="outOfCheck">ചെക്കിൽ നിന്നും മുക്തി</string>
 </resources>
