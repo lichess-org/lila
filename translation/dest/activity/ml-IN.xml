@@ -7,4 +7,20 @@
     <item quantity="one">%1$s position %2$s -ൽ അഭ്യസിച്ചു</item>
     <item quantity="other">%1$s positions %2$s -ൽ അഭ്യസിച്ചു</item>
   </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">%s puzzle-നു ഉത്തരം കണ്ടുപിടിച്ചിരിക്കുന്നു</item>
+    <item quantity="other">%s puzzles-നു ഉത്തരം കണ്ടുപിടിച്ചിരിക്കുന്നു</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">%1$s ഗെയിം %2$s -ൽ കളിച്ചിരിക്കുന്നു</item>
+    <item quantity="other">%1$s ഗെയിംസ് %2$s -ൽ കളിച്ചിരിക്കുന്നു</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">%2$s -ൽ %1$s മെസ്സേജ് post ചെയ്തു</item>
+    <item quantity="other">%2$s -ൽ %1$s മെസ്സേജ് post ചെയ്തു</item>
+  </plurals>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">%s ടീമിൽ അംഗമായി</item>
+    <item quantity="other">%s ടീമുകളിൽ അംഗമായി</item>
+  </plurals>
 </resources>
