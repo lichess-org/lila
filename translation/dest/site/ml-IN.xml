@@ -69,6 +69,12 @@
   <string name="winning">വിജയനീക്കങ്ങൾ</string>
   <string name="losing">മോശം നീക്കങ്ങൾ</string>
   <string name="drawn">സമനിലനീക്കങ്ങൾ</string>
+  <string name="unknown">അജ്ഞാതനീക്കങ്ങൾ</string>
+  <string name="database">ഡേറ്റാബേസ്</string>
+  <string name="whiteDrawBlack">വൈറ്റ് / സമനില / ബ്ലാക്ക്</string>
+  <string name="averageRatingX">ശരാശരി റേറ്റിങ് %s</string>
+  <string name="recentGames">സമീപകാല ഗെയിമുകൾ</string>
+  <string name="topGames">മികച്ച ഗെയിമുകൾ</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
   <string name="blunders">മണ്ടത്തരം</string>
   <string name="mistakes">തെറ്റുകൾ</string>
