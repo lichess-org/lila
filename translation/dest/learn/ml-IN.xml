@@ -70,4 +70,11 @@
   <string name="takeTheBlackPieces">കറുമ്പൻ കരുക്കളെ കീഴടക്കൂ!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">കറുമ്പൻ കരുക്കളെ കീഴടക്കൂ!
 നിങ്ങളുടെ കരുക്കൾ നഷ്ടപ്പെടാതെ സൂക്ഷിക്കുക.</string>
+  <string name="captureComplete">അഭിനന്ദനങൾ! നിങ്ങൾ ചെസ്സ് കരുക്കൾ കൊണ്ട് പൊരുതാൻ പഠിച്ചിരിക്കുന്നു!</string>
+  <string name="protection">സംരക്ഷണം</string>
+  <string name="keepYourPiecesSafe">എങ്ങനെ നിങ്ങളുടെ കരുക്കൾ സംരക്ഷിക്കാം</string>
+  <string name="protectionIntro">നിങ്ങളുടെ എതിരാളി ആക്രമിക്കുന്ന കരുക്കൾ കണ്ടെത്തുക, അവയെ സംരക്ഷിക്കുക!</string>
+  <string name="protectionComplete">അഭിനന്ദനങൾ! നിങ്ങൾ നഷ്ടപ്പെടാതെ സൂക്ഷിച്ച കരു നിങ്ങൾ നേടിയ കരുവിനു തുല്യമാണ്!</string>
+  <string name="escape">നിങ്ങൾ ആക്രമണത്തിൽ അകപ്പെട്ടിരിക്കുന്നു!
+ഭീഷണിയിൽ നിന്നും രക്ഷ നേടൂ!</string>
 </resources>
