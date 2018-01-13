@@ -7,7 +7,11 @@
   <string name="isNotRated">ടൂർണമെന്റ് റേറ്റഡ് അല്ല. അത് നിങ്ങളുടെ റേറ്റിംഗിനെ ബാധിക്കില്ല.</string>
   <string name="someRated">ചില ടൂർണമെന്റ് റേറ്റഡ് ആണ്. അത് നിങ്ങളുടെ റേറ്റിംഗിനെ ബാധിക്കും.</string>
   <string name="howAreScoresCalculated">എങ്ങനെയാണ് പോയിന്‍റ് നില നിർണയിക്കുന്നത്?</string>
+  <string name="berserk">പോർക്കളത്തിലെ ബെർസേർക്</string>
+  <string name="howIsTheWinnerDecided">ജേതാവിനെ എങ്ങനെ തീരുമാനിക്കും?</string>
+  <string name="howDoesPairingWork">പെയറിങ് നടക്കുന്നതെങ്ങനെ?</string>
   <string name="howDoesItEnd">എങ്ങനെയാണ് ഇത് അവസാനിക്കുന്നത്?</string>
   <string name="otherRules">മറ്റു പ്രധാന നിയമങ്ങൾ</string>
   <string name="thisIsPrivate">ഇതൊരു സ്വകാര്യ ടൂർണമെന്റ് ആണ്</string>
+  <string name="shareUrl">ഈ URL മുഖേന മറ്റുള്ളവരെ ക്ഷണിക്കുക %s</string>
 </resources>
