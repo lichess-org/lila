@@ -81,7 +81,9 @@
     <item quantity="other">%s പകുതി-നീക്കങ്ങൾക്കുള്ളിൽ ചെക്ക്മേറ്റ്</item>
   </plurals>
   <string name="noGameFound">ഒരു ഗെയിമും കണ്ടെത്താൻ സാധിച്ചില്ല</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">പരിഗണന മെനുവിൽ നിന്ന് കൂടുതൽ ഗെയിമുകൾ ഉൾപ്പെടുത്താണോ?</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
+  <string name="xOpeningExplorer">%s ഓപ്പണിങ് എക്സ്പ്ലോറർ</string>
   <string name="winPreventedBy50MoveRule">50 നീക്കങ്ങളുടെ നിയമം പ്രകാരം ജയം തടയപ്പെട്ടു</string>
   <string name="lossSavedBy50MoveRule">50 നീക്കങ്ങളുടെ നിയമം പ്രകാരം തോൽവി തടയപ്പെട്ടു</string>
   <string name="allSet">എല്ലാം തയ്യാറാണ്!</string>
@@ -99,6 +101,7 @@
   <string name="cpus">CPUs</string>
   <string name="memory">മെമ്മോറി</string>
   <string name="infiniteAnalysis">അനന്തമായ വിശകലനം</string>
+  <string name="removesTheDepthLimit">ആഴം കുറിച്ച് കംപ്യൂട്ടറിനെ ചൂടാക്കി വെയ്ക്കുന്നു</string>
   <string name="blunder">മണ്ടത്തരം</string>
   <string name="blunders">മണ്ടത്തരം</string>
   <string name="mistake">തെറ്റുകൾ</string>
@@ -276,6 +279,14 @@
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s റേറ്റിംഗുള്ള ഗെയിം</item>
     <item quantity="other">≥ %s റേറ്റിംഗുള്ള ഗെയിമുകൾ</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s റേറ്റിംഗുള്ള ഗെയിം</item>
+    <item quantity="other">≥ %1$s %2$s റേറ്റിംഗുള്ള ഗെയിമുകൾ</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">നിങ്ങൾ ഇനിയും %1$s %2$s റേറ്റഡ് ഗെയിം കളിക്കേണ്ടിയിരിക്കുന്നു</item>
+    <item quantity="other">നിങ്ങൾ ഇനിയും %1$s %2$s റേറ്റഡ് ഗെയിമുകൾ കളിക്കേണ്ടിയിരിക്കുന്നു</item>
   </plurals>
   <string name="backToGame">മത്സരത്തിലേക്ക് തിരികെ പോവുക</string>
   <string name="siteDescription">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
@@ -617,10 +628,16 @@ in %3$s</string>
   <string name="keyMoveBackwardOrForward">നീക്കം പുറകോട്ട്/മുന്നോട്ട്</string>
   <string name="keyGoToStartOrEnd">പോകാം തുടക്കം/ഒടുക്കം</string>
   <string name="keyShowOrHideComments">അഭിപ്രായ പ്രകടനം കാണിക്കുക/മറയ്ക്കുക</string>
+  <string name="keyEnterOrExitVariation">വേരിയേഷനിലേക്ക് കടക്കുക / പുറത്തുപോകുക</string>
   <string name="newTournament">പുതിയ പരമ്പര</string>
   <string name="tournamentNotFound">പരമ്പര കണ്ടെത്തിയില്ല</string>
   <string name="tournamentDoesNotExist">ഈ പരമ്പര നിലവിലില്ല</string>
   <string name="returnToTournamentsHomepage">മടക്കം പരമ്പരകളുടെ ഹോംപേജിലേക്ക്</string>
+  <string name="weeklyPerfTypeRatingDistribution">ആഴ്ചതോറുമുള്ള %s റേറ്റിംഗ് ഡിസ്ട്രിബ്യുഷൻ</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s കളിക്കാർ ഈ ആഴ്ച.</item>
+    <item quantity="other">%1$s %2$s കളിക്കാർ ഈ ആഴ്ച.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">നിങ്ങളുടെ %1$s റേറ്റിംഗ് %2$s ആണ്.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">നിങ്ങൾ %1$s -ൽ %2$s-വരേക്കാളും മികച്ചവരാണ്.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">നിങ്ങൾക്ക് സ്വന്തമായി രേഖപ്പെടുത്തപ്പെട്ട %s റേറ്റിംഗ് ഇല്ല.</string>
@@ -629,6 +646,7 @@ in %3$s</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">നിങ്ങൾക്ക്  ഇമെയിൽ കണ്ടെത്താനായില്ലെങ്കിൽ, junk, spam, social അല്ലെങ്കിൽ മറ്റുള്ള ഫോൾഡറുകളിൽ ഉണ്ടോയെന്ന് പരിശോധിക്കാവുന്നതാണ്.</string>
   <string name="weHaveSentYouAnEmailTo">%s ഞങ്ങൾ ഒരു ഇമെയിൽ അയച്ചിട്ടുണ്ട്. ഇമെയിൽ ലിങ്കിൽ ക്ലിക്ക് ചെയ്ത് നിങ്ങളുടെ പാസ്സ്‌വേർഡ് പുനഃക്രമീകരിക്കാവുന്നതാണ്.</string>
   <string name="networkLagBetweenYouAndLichess">നിങ്ങളും lichessഉം തമ്മിലുള്ള നെറ്റ്വർക്ക് കാലയളവ്</string>
+  <string name="timeToProcessAMoveOnLichessServer">Lichess സെർവറിൽ ഒരു നീക്കം വിശകലനം ചെയ്യാൻ എടുക്കുന്ന സമയം</string>
   <string name="downloadAnnotated">Annotated ആയി ഡൗൺലോഡ് ചെയ്യുക</string>
   <string name="downloadRaw">അസംസ്കൃതമായി ഡൗൺലോഡ് ചെയ്യുക</string>
   <string name="downloadImported">Import ചെയ്തത് ഡൌൺലോഡ് ചെയ്യുക</string>
@@ -636,8 +654,11 @@ in %3$s</string>
   <string name="crosstable">ക്രോസ്സ്‌റ്റേബിൾ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ചതുരംഗ പലകയിൽ സ്ക്രോൾ ചെയ്തും കളിയുടെ നീക്കം നടത്താവുന്നതാണ്.</string>
   <string name="analysisShapesHowTo">ചതുരംഗ പലകയിൽ വൃത്തങ്ങളും രേഖകളും വരക്കാൻ ഷിഫ്റ്റ്+ക്ലിക്ക് അല്ലെങ്കിൽ റൈറ്റ് ക്ലിക്ക് അമർത്തുക</string>
+  <string name="confirmResignationAndDrawOffers">രാജി സ്വീകരിക്കുക, സമനില സ്വീകരിക്കുക</string>
+  <string name="inputMovesWithTheKeyboard">കീബോർഡ് മുഖേന നീക്കങ്ങൾ നൽകുക</string>
   <string name="letOtherPlayersMessageYou">മറ്റുള്ള കളിക്കാർ നിങ്ങൾക്ക് സന്ദേശമയക്കുന്നതിനുള്ള അനുവാദം</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">കാസ്റ്റലിങ് ചെയ്യുന്ന രീതി</string>
+  <string name="castleByMovingTwoSquares">രാജാവിനെ രണ്ടു കാലങ്ങൾ നീക്കുക</string>
   <string name="castleByMovingOntoTheRook">തേരിനു മുകളിൽ രാജാവിനെ വയ്ക്കുക</string>
   <string name="shareYourInsightsData">നിങ്ങളെ കുറിച്ച് കൂടുതൽ വിവരം പങ്കു വെക്കൂ</string>
   <string name="withNobody">ആരോടും വേണ്ട</string>
@@ -750,7 +771,10 @@ in %3$s</string>
   <string name="middlegame">മിഡിൽഗെയിം</string>
   <string name="endgame">എൻഡ്ഗെയിം</string>
   <string name="registerToSendChallenges">വെല്ലുവിളികൾ അയക്കാൻ ദയവായി രജിസ്റ്റർ ചെയ്യൂ.</string>
+  <string name="youCannotChallengeX">നിങ്ങൾക്ക് %s -നെ വെല്ലുവിളിക്കാൻ പറ്റില്ല.</string>
+  <string name="xDoesNotAcceptChallenges">%s വെല്ലുവിളികൾ സ്വീകരിക്കുന്നില്ല.</string>
   <string name="conditionalPremoves">സാധ്യമായ premoves</string>
   <string name="addCurrentVariation">ഇപ്പോഴത്തെ വേരിയേഷൻ ചേർക്കുക</string>
+  <string name="noConditionalPremoves">സാധ്യമല്ലാത്ത premoves</string>
   <string name="playX">%s കളിയ്ക്കൂ</string>
 </resources>
