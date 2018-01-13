@@ -80,6 +80,10 @@
     <item quantity="one">%s പകുതി-നീക്കത്തിനുള്ളിൽ ചെക്ക്മേറ്റ്</item>
     <item quantity="other">%s പകുതി-നീക്കങ്ങൾക്കുള്ളിൽ ചെക്ക്മേറ്റ്</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">അടുത്തതായി %s പകുതി-നീക്കത്തിൽ എതിരാളിയുടെ കരു നേടുകയോ അല്ലെങ്കിൽ കാലാളിനെ നീക്കുകയോ ചെയ്യുക ( 50 നീക്കങ്ങളുടെ കൗണ്ടറിൽ പൂജ്യത്തിലേക്ക് പോകാനുള്ള ദൂരം)</item>
+    <item quantity="other">അടുത്തതായി %s പകുതി-നീക്കത്തിൽ എതിരാളിയുടെ കരു നേടുകയോ അല്ലെങ്കിൽ കാലാളിനെ നീക്കുകയോ ചെയ്യുക ( 50 നീക്കങ്ങളുടെ കൗണ്ടറിൽ പൂജ്യത്തിലേക്ക് പോകാനുള്ള ദൂരം)</item>
+  </plurals>
   <string name="noGameFound">ഒരു ഗെയിമും കണ്ടെത്താൻ സാധിച്ചില്ല</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">പരിഗണന മെനുവിൽ നിന്ന് കൂടുതൽ ഗെയിമുകൾ ഉൾപ്പെടുത്താണോ?</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
@@ -514,6 +518,7 @@
   <string name="newPassword">പുതിയ രഹസ്യപദം</string>
   <string name="newPasswordAgain">പുതിയ രഹസ്യപദം (പിന്നെയും)</string>
   <string name="boardHighlights">പലകയിലെ മുഖ്യ ആകർഷണങ്ങൾ (അവസാന നീക്കവും അടിയറവും)</string>
+  <string name="pieceDestinations">കരുവിന്റെ ശരിയായ സ്ഥാനം ( ന്യായമായ നീക്കങ്ങളും premoves-ഉം)</string>
   <string name="boardCoordinates">പലകയിലെ സ്ഥാനാങ്കങ്ങൾ (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">കളിയുടെ നീക്ക-ശ്രേണി</string>
   <string name="pgnPieceNotation">നീക്കങ്ങൾ എങ്ങനെ രേഖപ്പെടുത്തണം</string>
@@ -644,8 +649,12 @@ in %3$s</string>
   <string name="aboutSimulImage">അൻപത് എതിരാളികളിൽ, ഫിഷർ 47 കളികൾ ജയിച്ചു, 2 എണ്ണം സമനിലയിലായി, ഒന്നിൽ പരാജയം നേരിട്ടു.</string>
   <string name="aboutSimulRealLife">ഈ ആശയം യഥാർത്ഥ ലോകത്തിൽ നിന്നും അടർത്തിയെടുത്തതാണ്. അവിടെ simul നടത്തുന്ന ആൾ മേശയിൽ നിന്നും മേശയിലേക്ക് ഓരോ നീക്കം കളിച്ചു കൊണ്ട് നീങ്ങും.</string>
   <string name="aboutSimulRules">Simul തുടങ്ങുമ്പോൾ, എല്ലാ വെള്ള കരുക്കളുമായി കളിക്കുന്ന കളിക്കാരും ഹോസ്റ്റുമായി ഗെയിം തുടങ്ങും. Simul അവസാനിക്കുന്നത് എല്ലാ ഗെയിമും പൂർത്തിയാവുമ്പോഴാണ്.</string>
+  <string name="aboutSimulSettings">Simuls എപ്പോഴും സാധാരണ ഗെയിമുകളാണ്. പുനർകളികളും, \"കൂടുതൽ സമയവും\", തിരിച്ചെടുക്കലും ഒഴിവാക്കിയെന്ന വ്യത്യാസം മാത്രമേയുള്ളൂ.</string>
   <string name="create">തുടങ്ങുക</string>
   <string name="whenCreateSimul">ഒരു simul ഉണ്ടാക്കുമ്പോൾ, നിങ്ങൾ ഒരുപാടു പേരെ ഒരുമിച്ചു കളിക്കുന്നു.</string>
+  <string name="simulVariantsHint">കുറെ വേരിയന്റുകൾ നിങ്ങൾ തിരഞ്ഞെടുത്താൽ ഓരോ കളിക്കാർക്കും അവരുടെ വേരിയന്റ് തീരുമാനിക്കും.</string>
+  <string name="simulClockHint">ഫിഷെറിന്റെ ക്ലോക്ക് ക്രമീകരണം. കൂടുതൽ കളിക്കാരെ നേരിടുമ്പോൾ കൂടുതൽ സമയം ആവശ്യമായി വരും.</string>
+  <string name="simulAddExtraTime">Simul-മായി പൊരുത്തപ്പെടാൻ കുറച്ച് അധികം സമയം നിങ്ങൾക്ക് ചേർക്കാം.</string>
   <string name="simulHostExtraTime">ഹോസ്റ്റിന്റെ കൂടുതൽ ക്ലോക്ക് സമയം</string>
   <string name="lichessTournaments">Lichess പരമ്പരകൾ</string>
   <string name="tournamentFAQ">അറീന പരമ്പര</string>
