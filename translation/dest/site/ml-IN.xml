@@ -491,6 +491,7 @@
   <string name="insult">അധിക്ഷേപം</string>
   <string name="troll">ചൂണ്ട</string>
   <string name="other">മറ്റുള്ളവ</string>
+  <string name="reportDescriptionHelp">ഗെയിമിന്റെ ലിങ്ക് ഇവിടെ പേസ്റ്റ് ചെയ്യുക. ശേഷം യുസറിന്റെ പെരുമാറ്റത്തിലെ അപാകത ഞങ്ങളോട് വിശദമായി പറയുക. \"they cheat\" എന്ന് പറയരുത്. പക്ഷെ എന്തുകൊണ്ട് നിങ്ങൾ ആ അഭിപ്രായത്തിലേക്ക് എത്തി എന്നാണ് പറയേണ്ടത്. ഇംഗ്ലീഷിൽ എഴുതിയാൽ നിങ്ങളുടെ റിപ്പോർട്ട് വേഗത്തിൽ വിശകലനം ചെയ്യപ്പെടും.</string>
   <string name="by">%sന്റേത്</string>
   <string name="thisTopicIsNowClosed">ഈ വിഷയം സമാപിച്ചിരിക്കുന്നു.</string>
   <string name="theming">തീമിങ്ങ്</string>
@@ -639,6 +640,10 @@ in %3$s</string>
   <string name="noSimulFound">സിമുൽ കണ്ടെത്തിയില്ല</string>
   <string name="noSimulExplanation">ഈ ഒരേ സമയത്തുള്ള പ്രദര്ശനം നിലവിലില്ല.</string>
   <string name="returnToSimulHomepage">സിമുൽ ഹോംപേജിലേക്ക് മടക്കം</string>
+  <string name="aboutSimul">ഒരു simul-ൽ ഒരു കളിക്കാരൻ ഒട്ടനേകം കളിക്കാരെ ഒരേ സമയം നേരിടുന്നു.</string>
+  <string name="aboutSimulImage">അൻപത് എതിരാളികളിൽ, ഫിഷർ 47 കളികൾ ജയിച്ചു, 2 എണ്ണം സമനിലയിലായി, ഒന്നിൽ പരാജയം നേരിട്ടു.</string>
+  <string name="aboutSimulRealLife">ഈ ആശയം യഥാർത്ഥ ലോകത്തിൽ നിന്നും അടർത്തിയെടുത്തതാണ്. അവിടെ simul നടത്തുന്ന ആൾ മേശയിൽ നിന്നും മേശയിലേക്ക് ഓരോ നീക്കം കളിച്ചു കൊണ്ട് നീങ്ങും.</string>
+  <string name="aboutSimulRules">Simul തുടങ്ങുമ്പോൾ, എല്ലാ വെള്ള കരുക്കളുമായി കളിക്കുന്ന കളിക്കാരും ഹോസ്റ്റുമായി ഗെയിം തുടങ്ങും. Simul അവസാനിക്കുന്നത് എല്ലാ ഗെയിമും പൂർത്തിയാവുമ്പോഴാണ്.</string>
   <string name="create">തുടങ്ങുക</string>
   <string name="lichessTournaments">Lichess പരമ്പരകൾ</string>
   <string name="tournamentFAQ">അറീന പരമ്പര</string>
@@ -653,6 +658,7 @@ in %3$s</string>
   <string name="newTournament">പുതിയ പരമ്പര</string>
   <string name="tournamentNotFound">പരമ്പര കണ്ടെത്തിയില്ല</string>
   <string name="tournamentDoesNotExist">ഈ പരമ്പര നിലവിലില്ല</string>
+  <string name="tournamentMayHaveBeenCanceled">ടൂർണമെന്റ് തുടങ്ങുന്നതിനു മുൻപ് എല്ലാവരും അവിടം വിട്ടു പോയെങ്കിൽ ടൂർണമെന്റ് ക്യാൻസൽ ചെയ്യപ്പെട്ടിട്ടുണ്ടാകും.</string>
   <string name="returnToTournamentsHomepage">മടക്കം പരമ്പരകളുടെ ഹോംപേജിലേക്ക്</string>
   <string name="weeklyPerfTypeRatingDistribution">ആഴ്ചതോറുമുള്ള %s റേറ്റിംഗ് ഡിസ്ട്രിബ്യുഷൻ</string>
   <plurals name="nbPerfTypePlayersThisWeek">
