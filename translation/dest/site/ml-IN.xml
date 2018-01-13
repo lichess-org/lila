@@ -101,6 +101,7 @@
   <string name="blunders">മണ്ടത്തരം</string>
   <string name="mistake">തെറ്റുകൾ</string>
   <string name="mistakes">തെറ്റുകൾ</string>
+  <string name="inaccuracy">പിഴവ്</string>
   <string name="inaccuracies">പിഴകൾ</string>
   <string name="moveTimes">മാറ്റങളുടെ സമയങൾ</string>
   <string name="flipBoard">ബോര്‍ഡ്‌ തിരിക്കുക</string>
@@ -249,6 +250,7 @@
   <string name="giveMoreTime">കൂടുതൽ സമയം കൊടുക്കുക</string>
   <string name="thisPlayerUsesChessComputerAssistance">ഈ കളിക്കാരന്‍ കമ്പ്യൂട്ടര്‍ സഹായം തേടുന്നു</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">ഈ കളിക്കാരന്‍ കൃത്രിമമായി റേറ്റിംഗ് കൂട്ടുകയോ കുറയ്ക്കുകയോ ചെയ്യുന്നു</string>
+  <string name="openingExplorerAndTablebase">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
   <string name="takeback">തിരിച്ചെടുക്കുക</string>
   <string name="proposeATakeback">തിരിച്ചെടുക്കാന്‍ നിര്‍ദേശിക്കുക</string>
   <string name="takebackPropositionSent">തിരിച്ചെടുക്കാനുള്ള നിര്‍ദേശം അയച്ചു</string>
@@ -262,9 +264,17 @@
   <string name="tournament">ടൂര്‍ണമെന്‍റ് (മത്സര പരമ്പര)</string>
   <string name="tournaments">ടൂര്‍ണമെന്‍റുകള്‍ (മത്സര പരമ്പരകള്‍)</string>
   <string name="tournamentPoints">ടൂര്‍ണമെന്‍റ് പോയിന്‍റുകള്‍</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s ടൂര്‍ണമെന്‍റ് പോയിന്റ്</item>
+    <item quantity="other">%s ടൂര്‍ണമെന്‍റ് പോയിന്‍റുകള്‍</item>
+  </plurals>
   <string name="viewTournament">ടൂര്‍ണമെന്‍റ് കാണുക</string>
   <string name="backToTournament">ടൂര്‍ണമെന്‍റിലേക്ക് തിരികെ പോവുക</string>
   <string name="thematic">തീമാറ്റിക്</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s റേറ്റിംഗുള്ള ഗെയിം</item>
+    <item quantity="other">≥ %s റേറ്റിംഗുള്ള ഗെയിമുകൾ</item>
+  </plurals>
   <string name="backToGame">മത്സരത്തിലേക്ക് തിരികെ പോവുക</string>
   <string name="siteDescription">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
   <string name="teams">ടീമുകള്‍</string>
@@ -633,5 +643,10 @@ in %3$s</string>
   </plurals>
   <string name="gameAnalysis">കളി അപഗ്രഥനം</string>
   <string name="embedInYourWebsite">നിങ്ങളുടെ വെബ്‌സൈറ്റിലേക്ക് എംബെഡ് ചെയ്യുക</string>
+  <string name="error.unknown">തെറ്റ്</string>
+  <string name="custom">ഇച്ഛാനുസൃതം</string>
+  <string name="notifications">അറിയിപ്പുകൾ</string>
+  <string name="challenges">വെല്ലുവിളികൾ</string>
+  <string name="perfRatingX">നിലവാരം: %s</string>
   <string name="waitingForAnalysis">വിശകലനത്തിനായി കാത്തിരിക്കുന്നു</string>
 </resources>
