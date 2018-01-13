@@ -102,4 +102,20 @@
   <string name="outOfCheckComplete">അഭിനന്ദനങൾ! നിങ്ങളുടെ രാജാവിനെ ഒരിക്കലും എതിരാളികൾക്ക് നേടാൻ പറ്റില്ല, ഒരു ചെക്കിനെ നേരിടാൻ ശ്രദ്ധ ഉറപ്പാക്കൂ!</string>
   <string name="mateInOne">ഒരു നീക്കത്തിനുള്ളിൽ ചെക്ക്മേറ്റ്</string>
   <string name="defeatTheOpponentsKing">എതിർരാജാവിനെ കീഴടക്കൂ</string>
+  <string name="boardSetup">കളിക്കളം ക്രമീകരിക്കുക</string>
+  <string name="howTheGameStarts">എങ്ങനെ കളി തുടങ്ങണം</string>
+  <string name="boardSetupIntro">രണ്ടു സേനകളും യുദ്ധത്തിനായി പോർക്കളത്തിൽ അണിനിരക്കുന്നു.</string>
+  <string name="thisIsTheInitialPosition">ഈ പൊസിഷൻ ആണ് 
+ഏതു ചെസ്സ് കളിയുടെയും ആദ്യ പൊസിഷൻ!
+ഏതെങ്കിലും നീക്കം നടത്തി കളി ആരംഭിക്കൂ.</string>
+  <string name="firstPlaceTheRooks">ആദ്യം തേരുകളെ പ്രതിഷ്ഠിക്കാം!
+കളിക്കളത്തിന്റെ കോണിലാണ് അവരുടെ സ്ഥാനം.</string>
+  <string name="thenPlaceTheKnights">അടുത്തത് കുതിരകളെ അണിനിരത്താം!
+അവർ തേരുകൾക്കടുത്തു നിൽക്കുന്നു.</string>
+  <string name="placeTheBishops">അടുത്തതായി ആനകളെ അണിനിരത്താം!
+അവർ കുതിരകൾക്കടുത്തായി നിൽക്കുന്നു.</string>
+  <string name="placeTheQueen">രാജ്ഞിയെ അണിനിരത്തൂ!
+അവൾ അവളുടെ നിറത്തിലുള്ള കളത്തിൽ നിൽക്കുന്നു.</string>
+  <string name="placeTheKing">രാജാവിനെ അണിനിരത്തൂ!
+രാജ്ഞിക്കു തൊട്ടരികെ.</string>
 </resources>
