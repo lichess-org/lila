@@ -15,6 +15,12 @@
   <plurals name="gainedNbFollowers">
     <item quantity="other">co\'a se catlu %s da</item>
   </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="other">jivna fo %s cabysi\'u nuntigni</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="other">jivna fo %s lo grinunjvi</item>
+  </plurals>
   <string name="signedUp">co\'a se jaspu fi la\'o .urli lichess.org .urli</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">co\'a cmima la\'o zoi. %s .zoi noi bende</item>
