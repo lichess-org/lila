@@ -102,6 +102,10 @@
   <string name="outOfCheckComplete">അഭിനന്ദനങൾ! നിങ്ങളുടെ രാജാവിനെ ഒരിക്കലും എതിരാളികൾക്ക് നേടാൻ പറ്റില്ല, ഒരു ചെക്കിനെ നേരിടാൻ ശ്രദ്ധ ഉറപ്പാക്കൂ!</string>
   <string name="mateInOne">ഒരു നീക്കത്തിനുള്ളിൽ ചെക്ക്മേറ്റ്</string>
   <string name="defeatTheOpponentsKing">എതിർരാജാവിനെ കീഴടക്കൂ</string>
+  <string name="attackYourOpponentsKing">എതിരാളിക്ക് പ്രതിരോധിക്കാൻ സാധിക്കാത്ത വിധം
+ എതിർരാജാവിനെ ആക്രമിക്കൂ!</string>
+  <string name="mateInOneComplete">അഭിനന്ദനങൾ! ഇങ്ങനെയാണ് നമ്മൾ ചെസ്സ് ഗെയിം വിജയിക്കുന്നത്!</string>
+  <string name="intermediate">ശരാശരി അറിവുള്ളവർക്ക്</string>
   <string name="boardSetup">കളിക്കളം ക്രമീകരിക്കുക</string>
   <string name="howTheGameStarts">എങ്ങനെ കളി തുടങ്ങണം</string>
   <string name="boardSetupIntro">രണ്ടു സേനകളും യുദ്ധത്തിനായി പോർക്കളത്തിൽ അണിനിരക്കുന്നു.</string>
@@ -122,6 +126,13 @@
 ഏതെങ്കിലും നീക്കത്തോടെ നമുക്ക് തുടരാം.</string>
   <string name="castling">കാസ്റ്റലിങ്</string>
   <string name="theSpecialKingMove">രാജാവിന്റെ പ്രത്യേക നീക്കം</string>
+  <string name="findAWayToCastleKingSide">രാജാവിന്റെ വശത്തേക്ക് കാസ്റ്റലിങ് നടത്താൻ വഴി കണ്ടെത്തൂ!</string>
+  <string name="findAWayToCastleQueenSide">രാജ്ഞിയുടെ വശത്തേക്ക് കാസ്റ്റലിങ് നടത്താൻ വഴി കണ്ടെത്തൂ!</string>
+  <string name="castlingComplete">അഭിനന്ദനങൾ! നിങ്ങൾ ഏകദേശം എല്ലാ തവണയും കാസ്റ്റലിങ് നടത്താൻ ശ്രമിക്കണം.</string>
+  <string name="enPassant">എൻ പാസ്സൻറ്</string>
+  <string name="theSpecialPawnMove">പ്രത്യേക കാലാൾ നീക്കം</string>
+  <string name="stalemate">സ്റ്റേൽമേറ്റ്</string>
+  <string name="theGameIsADraw">ഗെയിം സമനിലയിൽ കലാശിച്ചിരിക്കുന്നു</string>
   <string name="advanced">ഉയർന്ന പഠനം</string>
   <string name="pieceValue">കരുക്കളുടെ വില</string>
   <string name="evaluatePieceStrength">കരുക്കളുടെ ശക്തി നിർണയിക്കൽ</string>
@@ -131,6 +142,7 @@
   <string name="checkInTwoGoal">എതിരാളിയുടെ രാജാവിനെ
 രണ്ടു നീക്കത്തിനുള്ളിൽ ഭീഷണി ചെയ്യുക!</string>
   <string name="whatNext">അടുത്തതെന്ത്?</string>
+  <string name="youKnowHowToPlayChess">നിങ്ങൾക്ക് ചെസ്സ് കളിക്കാൻ അറിയാം, അഭിനന്ദനങൾ! ഇനി കൂടുതൽ കരുത്തുറ്റ കളിക്കാരനാകണോ?</string>
   <string name="register">രജിസ്റ്റർ</string>
   <string name="getAFreeLichessAccount">ഫ്രീയായി Lichess അക്കൗണ്ട് നേടൂ</string>
   <string name="practice">അഭ്യസിക്കുക</string>
@@ -138,6 +150,7 @@
   <string name="puzzles">Puzzles</string>
   <string name="exerciseYourTacticalSkills">നിങ്ങളുടെ tactical കഴിവ് അഭ്യസിക്കുക</string>
   <string name="videos">വീഡിയോസ്</string>
+  <string name="watchInstructiveChessVideos">പഠനസംബന്ധമായ ചെസ്സ് വീഡിയോസ് കാണാം</string>
   <string name="playPeople">മറ്റുള്ളവരോട് കളിക്കാം</string>
   <string name="opponentsFromAroundTheWorld">ലോകമെമ്പാടുമുള്ള എതിരാളികൾ</string>
   <string name="playMachine">മെഷീനോട് കളിക്കാം</string>
