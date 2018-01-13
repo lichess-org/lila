@@ -22,4 +22,15 @@
   <string name="rookComplete">അഭിനന്ദനങ്ങൾ! നിങ്ങൾ തേരാളിയെ ഉപയോഗിക്കാൻ പഠിച്ചിരിക്കുന്നു.</string>
   <string name="theBishop">ആന</string>
   <string name="itMovesDiagonally">അത് കോണോടുകോൺ നീങ്ങുന്നു</string>
+  <string name="bishopIntro">അടുത്തതായി എങ്ങനെ ആനയെ നീക്കണമെന്ന് നോക്കാം!</string>
+  <string name="youNeedBothBishops">ഒരു വെളുമ്പൻ-കളത്തിലെ ആന,
+ഒരു കറുമ്പൻ-കളത്തിലെ ആന.
+നമുക്ക് രണ്ടും വേണം!</string>
+  <string name="bishopComplete">അഭിനന്ദനങ്ങൾ! ഇനി നിങ്ങൾക്ക് ആനയെ നിയന്ത്രിക്കാം.</string>
+  <string name="theQueen">രാജ്ഞി</string>
+  <string name="queenCombinesRookAndBishop">രാജ്ഞി = തേര് + ആന</string>
+  <string name="queenIntro">പോർക്കളത്തിലെ അതിശക്തിശാലി കടന്നുവരുന്നു. തേജോജ്വലയായ മഹാറാണി!</string>
+  <string name="queenComplete">അഭിനന്ദനങൾ! രാജ്ഞിയുടെ തന്ത്രങ്ങളെല്ലാം ഇനി നിങ്ങൾക്കും സ്വന്തം.</string>
+  <string name="theKing">രാജാവ്</string>
+  <string name="theMostImportantPiece">ഏറ്റവും പ്രധാനപ്പെട്ട കരു</string>
 </resources>
