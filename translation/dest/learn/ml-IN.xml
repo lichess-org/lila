@@ -118,4 +118,23 @@
 അവൾ അവളുടെ നിറത്തിലുള്ള കളത്തിൽ നിൽക്കുന്നു.</string>
   <string name="placeTheKing">രാജാവിനെ അണിനിരത്തൂ!
 രാജ്ഞിക്കു തൊട്ടരികെ.</string>
+  <string name="pawnsFormTheFrontLine">കാലാളുകൾ മുന്നണിയിൽ നിൽക്കുന്നു.
+ഏതെങ്കിലും നീക്കത്തോടെ നമുക്ക് തുടരാം.</string>
+  <string name="castling">കാസ്റ്റലിങ്</string>
+  <string name="theSpecialKingMove">രാജാവിന്റെ പ്രത്യേക നീക്കം</string>
+  <string name="advanced">ഉയർന്ന പഠനം</string>
+  <string name="pieceValue">കരുക്കളുടെ വില</string>
+  <string name="evaluatePieceStrength">കരുക്കളുടെ ശക്തി നിർണയിക്കൽ</string>
+  <string name="checkInTwo">2 നീക്കത്തിൽ ചെക്ക്</string>
+  <string name="twoMovesToGiveCheck">ചെക്കിനായി 2 നീക്കങ്ങൾ അവശേഷിക്കുന്നു</string>
+  <string name="checkInTwoIntro">എതിരാളിയുടെ രാജാവിനെ ചെക്കുചെയ്യാൻ 2 നീക്കങ്ങളുടെ ശരിയായ കോമ്പിനേഷൻ കണ്ടെത്തുക!</string>
+  <string name="checkInTwoGoal">എതിരാളിയുടെ രാജാവിനെ
+രണ്ടു നീക്കത്തിനുള്ളിൽ ഭീഷണി ചെയ്യുക!</string>
+  <string name="whatNext">അടുത്തതെന്ത്?</string>
+  <string name="register">രജിസ്റ്റർ</string>
+  <string name="getAFreeLichessAccount">ഫ്രീയായി Lichess അക്കൗണ്ട് നേടൂ</string>
+  <string name="practice">അഭ്യസിക്കുക</string>
+  <string name="puzzles">Puzzles</string>
+  <string name="videos">വീഡിയോസ്</string>
+  <string name="playPeople">മറ്റുള്ളവരോട് കളിക്കാം</string>
 </resources>
