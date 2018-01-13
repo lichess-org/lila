@@ -83,6 +83,7 @@
   <string name="noGameFound">ഒരു ഗെയിമും കണ്ടെത്താൻ സാധിച്ചില്ല</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
   <string name="delete">നീക്കം ചെയ്യുക</string>
+  <string name="enable">വേണോ</string>
   <string name="multipleLines">ഒന്നിലധികം ലൈനുകൾ</string>
   <string name="cpus">CPUs</string>
   <string name="memory">മെമ്മോറി</string>
@@ -576,5 +577,6 @@
     <item quantity="other">%s ഭാഷകളിൽ ലഭ്യമാണ്!</item>
   </plurals>
   <string name="gameAnalysis">കളി അപഗ്രഥനം</string>
+  <string name="embedInYourWebsite">നിങ്ങളുടെ വെബ്‌സൈറ്റിലേക്ക് എംബെഡ് ചെയ്യുക</string>
   <string name="waitingForAnalysis">വിശകലനത്തിനായി കാത്തിരിക്കുന്നു</string>
 </resources>
