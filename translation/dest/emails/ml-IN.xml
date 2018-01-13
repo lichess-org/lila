@@ -4,4 +4,11 @@
   <string name="emailConfirm_subject">നിങ്ങളുടെ lichess.org അക്കൗണ്ട് confirm ചെയ്യൂ, %s</string>
   <string name="emailConfirm_click">ലിങ്ക് അമർത്തി അക്കൗണ്ട് സജ്ജമാക്കൂ:</string>
   <string name="emailConfirm_ignore">Lichess ഉപയോഗിച്ച് രജിസ്റ്റർ ചെയ്തിട്ടില്ലെങ്കിൽ ഈ മെസ്സേജ് നിങ്ങൾക്ക് അവഗണിക്കാം.</string>
+  <string name="passwordReset_subject">നിങ്ങളുടെ lichess.org പാസ്സ്‌വേഡ് മാറ്റുക, %s</string>
+  <string name="passwordReset_intro">നിങ്ങളുടെ പാസ്സ്‌വേർഡ് മാറ്റാനുള്ള അപേക്ഷ ഞങ്ങൾക്കു ലഭിച്ചിരിക്കുന്നു.</string>
+  <string name="passwordReset_clickOrIgnore">നിങ്ങൾ ഈ അപേക്ഷ സമർപ്പിച്ചിട്ടുണ്ടെങ്കിൽ, താഴെ കാണുന്ന ലിങ്ക് അമർത്തൂ. അല്ലെങ്കിൽ, ഈ മെസ്സേജ് നിങ്ങൾക്ക് അവഗണിക്കാം.</string>
+  <string name="emailChange_subject">പുതിയ email address സ്ഥിരീകരിക്കുക, %s</string>
+  <string name="emailChange_intro">നിങ്ങളുടെ email address മാറ്റാനുള്ള അപേക്ഷ ലഭിച്ചിരിക്കുന്നു.</string>
+  <string name="emailChange_click">ഈ email നിങ്ങളുടേതാണെന്ന് ഉറപ്പു വരുത്തുന്നതിനു വേണ്ടി, താഴെ കാണുന്ന ലിങ്ക് അമർത്തുക:</string>
+  <string name="welcome_subject">Lichess.org -ലേക്ക് നിങ്ങൾക്കു സ്വാഗതം, %s</string>
 </resources>
