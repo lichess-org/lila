@@ -293,6 +293,7 @@
     <item quantity="other">നിങ്ങൾ ഇനിയും %s റേറ്റഡ് ഗെയിമുകൾ കളിക്കേണ്ടിയിരിക്കുന്നു</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">നിങ്ങളുടെ %s റേറ്റിംഗ് താത്ക്കാലികമാണ്</string>
+  <string name="yourPerfRatingIsTooLow">നിങ്ങളുടെ %1$s-ലെ റേറ്റിംഗ് (%2$s) വളരെ കുറവാണ്</string>
   <string name="backToGame">മത്സരത്തിലേക്ക് തിരികെ പോവുക</string>
   <string name="siteDescription">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
   <string name="teams">ടീമുകള്‍</string>
@@ -525,6 +526,7 @@
   <string name="premovesPlayingDuringOpponentTurn">മുൻകൂട്ടിയുള്ള നീക്കങ്ങൾ (എതിരാളിയുടെ നീക്കത്തിന് അനുസരിച്ച്)</string>
   <string name="takebacksWithOpponentApproval">തിരിച്ചെടുക്കൽ (എതിരാളിയുടെ സമ്മത പ്രകാരം)</string>
   <string name="promoteToQueenAutomatically">റാണിയായി താനെ സ്ഥാനക്കയറ്റം നൽകൂ</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">3 തവണ ഒരേ നീക്കം തുടർന്നാൽ താനെ ഗെയിം സമനിലയായി മാറ്റുക</string>
   <string name="privacy">സ്വകാര്യത</string>
   <string name="letOtherPlayersFollowYou">മറ്റു കളിക്കാരെ പിന്തുടരാൻ (ഫോളോ) അനുവദിക്കൂ</string>
   <string name="letOtherPlayersChallengeYou">മറ്റു കളിക്കാർക്ക് പന്തയത്തിനുള്ള അനുവാദം നൽകൂ</string>
@@ -545,6 +547,8 @@
   <string name="difficultyEasy">ലളിതം</string>
   <string name="difficultyNormal">സ്വാഭാവികം</string>
   <string name="difficultyHard">കഠിനം</string>
+  <string name="xLeftANoteOnY">%1$s %2$s-നു വേണ്ടി ഒരു നോട്ട് അയച്ചിട്ടുണ്ട്</string>
+  <string name="xCompetesInY">%1$s %2$s-ൽ മത്സരിക്കുന്നു</string>
   <string name="xAskedY">%1$sചോദിച്ചിരിക്കുന്നു %2$s</string>
   <string name="xAnsweredY">%1$s നൽകിയ ഉത്തരം %2$s</string>
   <string name="xCommentedY">%1$s അഭിപ്രായപ്പെട്ടിരിക്കുന്നത് %2$s</string>
