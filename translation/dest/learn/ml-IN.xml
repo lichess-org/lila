@@ -102,6 +102,7 @@
   <string name="outOfCheckComplete">അഭിനന്ദനങൾ! നിങ്ങളുടെ രാജാവിനെ ഒരിക്കലും എതിരാളികൾക്ക് നേടാൻ പറ്റില്ല, ഒരു ചെക്കിനെ നേരിടാൻ ശ്രദ്ധ ഉറപ്പാക്കൂ!</string>
   <string name="mateInOne">ഒരു നീക്കത്തിനുള്ളിൽ ചെക്ക്മേറ്റ്</string>
   <string name="defeatTheOpponentsKing">എതിർരാജാവിനെ കീഴടക്കൂ</string>
+  <string name="mateInOneIntro">എതിരാളിക്ക് നിങ്ങളുടെ ചെക്ക് പ്രതിരോധിക്കാൻ സാധിക്കാത്ത ഘട്ടത്തിൽ നിങ്ങൾ വിജയിക്കുന്നു.</string>
   <string name="attackYourOpponentsKing">എതിരാളിക്ക് പ്രതിരോധിക്കാൻ സാധിക്കാത്ത വിധം
  എതിർരാജാവിനെ ആക്രമിക്കൂ!</string>
   <string name="mateInOneComplete">അഭിനന്ദനങൾ! ഇങ്ങനെയാണ് നമ്മൾ ചെസ്സ് ഗെയിം വിജയിക്കുന്നത്!</string>
@@ -148,9 +149,20 @@
   <string name="castlingComplete">അഭിനന്ദനങൾ! നിങ്ങൾ ഏകദേശം എല്ലാ തവണയും കാസ്റ്റലിങ് നടത്താൻ ശ്രമിക്കണം.</string>
   <string name="enPassant">എൻ പാസ്സൻറ്</string>
   <string name="theSpecialPawnMove">പ്രത്യേക കാലാൾ നീക്കം</string>
+  <string name="enPassantIntro">എതിർ കാലാൾ രണ്ടു കളങ്ങൾ നീങ്ങിയാൽ, അതു രണ്ടു കളങ്ങൾ നീങ്ങിയതായി കണക്കാക്കി നമുക്ക് അതിനെ കൈക്കലാക്കാം.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">കറുപ്പ് അവരുടെ കാലാളിനെ 
+രണ്ടു കളങ്ങൾ മുന്നോട്ട് നീക്കി!
+എൻ-പാസ്സണ്ട് മുഖേന അതിനെ നേടിയെടുക്കൂ.</string>
+  <string name="enPassantOnlyWorksImmediately">എതിരാളി കാലാളിനെ നീക്കിയതിനു
+ തൊട്ടടുത്ത നീക്കത്തിൽ മാത്രമേ 
+നമുക്ക് എൻ-പാസ്സൻഡ്‌ കളിയ്ക്കാൻ സാധിക്കുകയുള്ളൂ.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">നിങ്ങളുടെ കാലാൾ അഞ്ചാമത്തെ വരിയിൽ നിൽക്കുമ്പോൾ മാത്രമേ
+ എൻ-പാസ്സൻഡ്‌ നടക്കുകയുള്ളൂ.</string>
   <string name="takeAllThePawnsEnPassant">എല്ലാ കാലാളുകളും en-passant മുഖേന നേടൂ!</string>
+  <string name="enPassantComplete">അഭിനന്ദനങൾ! ഇനി നിങ്ങൾക്ക് എൻ-പാസ്സൻഡ്‌ മുഖേന എടുക്കാം.</string>
   <string name="stalemate">സ്റ്റേൽമേറ്റ്</string>
   <string name="theGameIsADraw">ഗെയിം സമനിലയിൽ കലാശിച്ചിരിക്കുന്നു</string>
+  <string name="stalemateIntro">ഒരു കളിക്കാരൻ ചെക്കിൽ അല്ലാത്ത ഘട്ടത്തിൽ അദ്ദേഹത്തിന് ന്യായമായ നീക്കങ്ങൾ നടത്താൻ പറ്റിയില്ലെങ്കിൽ, അത് സ്റ്റേൽമേറ്റിൽ അവസാനിക്കുന്നു. ഗെയിം സമനിലയാവുന്നു: ആരും ജയിക്കുന്നില്ല, ആരും തോൽക്കുന്നില്ല.</string>
   <string name="stalemateComplete">അഭിനന്ദനങൾ! തോൽക്കുന്നതിനേക്കാൾ നല്ലത് സ്റ്റേൽമേറ്റ് ആവുന്നതാണ്!</string>
   <string name="advanced">ഉയർന്ന പഠനം</string>
   <string name="pieceValue">കരുക്കളുടെ വില</string>
@@ -162,6 +174,8 @@
 കുതിര = 3
 കാലാൾ = 1
 രാജാവ് അമൂല്യമായ കരുവാണ്! രാജാവിനെ നഷ്ടപ്പെട്ടാൽ ഗെയിം തോറ്റതിന് തുല്യമാണ്.</string>
+  <string name="takeThePieceWithTheHighestValue">ഏറ്റവും മൂല്യമേറിയ 
+കരുവെടുക്കൂ!</string>
   <string name="pieceValueComplete">അഭിനന്ദനങ്ങൾ! നിങ്ങൾക്ക് ഇപ്പോൾ കരുക്കളുടെ മൂല്യമറിയാം!
 രാജ്ഞി = 9
 തേരാളി = 5
