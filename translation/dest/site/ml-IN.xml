@@ -379,6 +379,7 @@
   <string name="loadPosition">സ്ഥാനത്തു നിന്ന്</string>
   <string name="isPrivate">സ്വകാര്യം</string>
   <string name="reportXToModerators">നിയന്ത്രകരോട് %s നെ സൂചിപ്പിക്കാം</string>
+  <string name="xRating">%s റേറ്റിംഗ്</string>
   <string name="profile">രൂപരേഖ</string>
   <string name="editProfile">രൂപരേഖ തിരുത്താം</string>
   <string name="firstName">നൽകിയ പേര്</string>
@@ -407,6 +408,7 @@
   <string name="keepGoing">മുന്നോട്ട് പോവൂ...</string>
   <string name="puzzleFailed">സമസ്യ പരാജയം</string>
   <string name="butYouCanKeepTrying">എന്നാലും നിങ്ങൾ ശ്രമിച്ചു നോക്കൂ.</string>
+  <string name="success">വിജയകരം</string>
   <string name="wasThisPuzzleAnyGood">ഈ സമസ്യ നല്ലതായിരുന്നോ?</string>
   <string name="pleaseVotePuzzle">Lichess മികവുറ്റതാക്കാൻ അപ്പ് അല്ലെങ്കിൽ ഡൗൺ ആരോ ഉപയോഗിച്ച് വോട്ട് ചെയ്തു സഹായിക്കൂ:</string>
   <string name="thankYou">നന്ദി!</string>
@@ -674,5 +676,30 @@ in %3$s</string>
   <string name="blackWinsGame">കറുത്ത കരുക്കൾ ജേതാക്കൾ</string>
   <string name="learnFromYourMistakes">തെറ്റുകളിൽ നിന്ന് പഠിക്കാം</string>
   <string name="learnFromThisMistake">ഈ തെറ്റിൽ നിന്ന് പഠിക്കാം</string>
+  <string name="skipThisMove">ഈ നീക്കം ഒഴിവാക്കുക</string>
+  <string name="next">അടുത്തത്</string>
+  <string name="xWasPlayed">%s ആയിരുന്നു കളിച്ചത്</string>
+  <string name="findBetterMoveForWhite">വെള്ള കരുക്കളുടെ നല്ല നീക്കം കണ്ടെത്തുക</string>
+  <string name="findBetterMoveForBlack">കറുത്ത കരുക്കളുടെ നല്ല നീക്കം കണ്ടെത്തുക</string>
+  <string name="resumeLearning">പഠനം തുടരുക</string>
+  <string name="youCanDoBetter">നിങ്ങൾക്ക് ഇനിയും മെച്ചപ്പെടാം</string>
+  <string name="tryAnotherMoveForWhite">വെള്ളയ്ക്ക്‌ വേറെ നീക്കം നടത്തിനോക്കൂ</string>
+  <string name="tryAnotherMoveForBlack">കറുപ്പിന് വേറെ നീക്കം നടത്തിനോക്കൂ</string>
+  <string name="solution">പരിഹാരം</string>
   <string name="waitingForAnalysis">വിശകലനത്തിനായി കാത്തിരിക്കുന്നു</string>
+  <string name="noMistakesFoundForWhite">വെള്ളയ്ക്ക് തെറ്റുകൾ കാണുന്നില്ല</string>
+  <string name="noMistakesFoundForBlack">കറുപ്പിന് തെറ്റുകൾ കാണുന്നില്ല</string>
+  <string name="doneReviewingWhiteMistakes">വെള്ളയുടെ തെറ്റുകൾ കണ്ടെത്തിയിരിക്കുന്നു</string>
+  <string name="doneReviewingBlackMistakes">കറുപ്പിന്റെ തെറ്റുകൾ കണ്ടെത്തിയിരിക്കുന്നു</string>
+  <string name="doItAgain">ഒരിക്കൽ കൂടി ശ്രമിക്കൂ</string>
+  <string name="reviewWhiteMistakes">വെള്ളയുടെ തെറ്റുകൾ പരിശോധിക്കുക</string>
+  <string name="reviewBlackMistakes">കറുപ്പിന്റെ തെറ്റുകൾ പരിശോധിക്കുക</string>
+  <string name="advantage">മേൽകൈ</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s നിമിഷം</item>
+    <item quantity="other">%s നിമിഷങ്ങൾ</item>
+  </plurals>
+  <string name="opening">ഓപ്പണിങ്</string>
+  <string name="middlegame">മിഡിൽഗെയിം</string>
+  <string name="endgame">എൻഡ്ഗെയിം</string>
 </resources>
