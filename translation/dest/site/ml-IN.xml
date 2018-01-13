@@ -292,6 +292,7 @@
     <item quantity="one">നിങ്ങൾ ഇനിയും %s റേറ്റഡ് ഗെയിം കളിക്കേണ്ടിയിരിക്കുന്നു</item>
     <item quantity="other">നിങ്ങൾ ഇനിയും %s റേറ്റഡ് ഗെയിമുകൾ കളിക്കേണ്ടിയിരിക്കുന്നു</item>
   </plurals>
+  <string name="yourPerfRatingIsProvisional">നിങ്ങളുടെ %s റേറ്റിംഗ് താത്ക്കാലികമാണ്</string>
   <string name="backToGame">മത്സരത്തിലേക്ക് തിരികെ പോവുക</string>
   <string name="siteDescription">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
   <string name="teams">ടീമുകള്‍</string>
@@ -556,6 +557,7 @@ in %3$s</string>
   <string name="starting">തുടങ്ങിയത്:</string>
   <string name="allInformationIsPublicAndOptional">എല്ലാ വിവരങ്ങളും പൊതുവായതും ഐച്ഛികവുമാണ്.</string>
   <string name="yourCityRegionOrDepartment">നിങ്ങളുടെ നഗരം, മേഖല, അല്ലെങ്കിൽ ദേശം</string>
+  <string name="biographyDescription">നിങ്ങളെ കുറിച്ച് പറയൂ, നിങ്ങൾക്ക് ചതുരംഗത്തിൽ എന്താണ് ഇഷ്ടo, നിങ്ങൾക്ക് ഇഷ്ടപ്പെട്ട തുടക്കങ്ങൾ, കളികൾ, കളിക്കാർ…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">പരമാവധി: %s അക്ഷരങ്ങള്‍</item>
     <item quantity="other">പരമാവധി: %s അക്ഷരങ്ങള്‍</item>
