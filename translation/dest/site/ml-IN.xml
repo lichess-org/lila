@@ -288,6 +288,10 @@
     <item quantity="one">നിങ്ങൾ ഇനിയും %1$s %2$s റേറ്റഡ് ഗെയിം കളിക്കേണ്ടിയിരിക്കുന്നു</item>
     <item quantity="other">നിങ്ങൾ ഇനിയും %1$s %2$s റേറ്റഡ് ഗെയിമുകൾ കളിക്കേണ്ടിയിരിക്കുന്നു</item>
   </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">നിങ്ങൾ ഇനിയും %s റേറ്റഡ് ഗെയിം കളിക്കേണ്ടിയിരിക്കുന്നു</item>
+    <item quantity="other">നിങ്ങൾ ഇനിയും %s റേറ്റഡ് ഗെയിമുകൾ കളിക്കേണ്ടിയിരിക്കുന്നു</item>
+  </plurals>
   <string name="backToGame">മത്സരത്തിലേക്ക് തിരികെ പോവുക</string>
   <string name="siteDescription">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
   <string name="teams">ടീമുകള്‍</string>
@@ -327,6 +331,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">ഇതാണ് ചതുരംഗ ക്യാപ്ച്യ</string>
   <string name="clickOnTheBoardToMakeYourMove">നിങ്ങളുടെ നീക്കം ചതുരംഗ പലകയിൽ ക്ലിക്ക് ചെയ്ത് മനുഷ്യൻ ആണെന്നു തെളിയിക്കൂ.</string>
+  <string name="captcha.fail">ദയവായി ചെസ്സ് captcha പരിഹരിക്കുക.</string>
   <string name="notACheckmate">അതൊരു അടിയറവ് അല്ല</string>
   <string name="colorPlaysCheckmateInOne">%s കളിക്കാർ; അടിയറവ് ഒരു നീക്കം കൊണ്ട്</string>
   <string name="retry">വീണ്ടും ശ്രമിക്കുക</string>
@@ -334,6 +339,7 @@
   <string name="onlineFriends">ഓണ്‍ലൈന്‍ സുഹൃത്തുക്കള്‍</string>
   <string name="noFriendsOnline">സുഹൃത്തുക്കളാരും ഓണ്‍ലൈന്‍ ഇല്ല</string>
   <string name="findFriends">സുഹൃത്തുക്കളെ കണ്ടെത്തുക</string>
+  <string name="favoriteOpponents">ഇഷ്ടപ്പെട്ട എതിരാളികള്‍</string>
   <string name="follow">പിന്തുടരുക</string>
   <string name="following">പിന്തുടരുന്നു</string>
   <string name="unfollow">പിന്തുടരുന്നത് നിര്‍ത്തുക</string>
@@ -401,6 +407,8 @@
   <string name="reportXToModerators">നിയന്ത്രകരോട് %s നെ സൂചിപ്പിക്കാം</string>
   <string name="profileCompletion">പ്രൊഫൈൽ പൂർത്തിയാക്കൽ: %s</string>
   <string name="xRating">%s റേറ്റിംഗ്</string>
+  <string name="ifNoneLeaveEmpty">ഒന്നുമില്ലെങ്കിൽ ഒഴിവാക്കിയിടുക</string>
+  <string name="gameCompletionRate">ഗെയിം പൂർത്തിയാക്കാൻ നിരക്ക്: %s</string>
   <string name="profile">രൂപരേഖ</string>
   <string name="editProfile">രൂപരേഖ തിരുത്താം</string>
   <string name="firstName">നൽകിയ പേര്</string>
@@ -408,6 +416,7 @@
   <string name="biography">ജീവചരിത്രം</string>
   <string name="country">രാജ്യം</string>
   <string name="preferences">പരിഗണനകൾ</string>
+  <string name="inlineNotation">ഇൻഫയൽ നോട്ടെഷൻ</string>
   <string name="watchLichessTV">കാണാം Lichess TV</string>
   <string name="previouslyOnLichessTV">Lichess TV യിൽ നേരെത്തെയുള്ളത്</string>
   <string name="onlinePlayers">ഓൺലൈൻ കളിക്കാർ</string>
