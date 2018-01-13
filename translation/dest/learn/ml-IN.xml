@@ -47,4 +47,15 @@
   <string name="thePawn">കാലാൾ</string>
   <string name="itMovesForwardOnly">അത് മുന്നോട്ടു മാത്രം നീങ്ങുന്നു</string>
   <string name="pawnIntro">കാലാളുകൾ ശക്തരല്ല, പ്രബലരാണ്.</string>
+  <string name="pawnsMoveOneSquareOnly">കാലാളുകൾ ഒരു കളം മാത്രം നീങ്ങുന്നു.
+പക്ഷെ പോർക്കളത്തിന്റെ എതിർമുഖത്തിൽ അവർ കരുത്തുറ്റവരാണ്!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">പല ഘട്ടങ്ങളിലും കലാളിനെ രാജ്ഞിയാക്കുന്നതാണ് ഏറ്റവും മികച്ചത്.
+പക്ഷെ ചിലപ്പോൾ ഒരു കുതിരയാക്കുന്നത് നന്നാകും!</string>
+  <string name="pawnsMoveForward">കാലാൾ മുൻപോട്ട് പോകുന്നു. കോണോടു വെട്ടുന്നു!</string>
+  <string name="captureThenPromote">കീഴ്പെടുത്തുക, പിന്നെ കയറ്റം ചെയ്യുക!</string>
+  <string name="useAllThePawns">എല്ലാ കാലാളുകളെയും ഉപയോഗിക്കൂ!
+കയറ്റം ചെയ്യേണ്ട ആവശ്യമില്ല.</string>
+  <string name="aPawnOnTheSecondRank">രണ്ടാം വരിയിലെ കാലാൾക്ക് രണ്ടുകളം നീങ്ങാം!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">എല്ലാ നക്ഷത്രങ്ങളും നേടൂ!
+കാലാൾക്കു കയറ്റം കൊടുക്കേണ്ട ആവശ്യം ഇല്ല.</string>
 </resources>
