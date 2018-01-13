@@ -63,6 +63,12 @@
   <string name="variantLoss">വേരിയന്റ് തോൽവി</string>
   <string name="variantWin">വേരിയന്റ് ജയം</string>
   <string name="insufficientMaterial">വേണ്ടത്ര മെറ്റീരിയൽ ഇല്ല</string>
+  <string name="pawnMove">കാലാൾ നീക്കം</string>
+  <string name="capture">ക്യാപ്ചർ</string>
+  <string name="close">അടയ്‌ക്കുക</string>
+  <string name="winning">വിജയനീക്കങ്ങൾ</string>
+  <string name="losing">മോശം നീക്കങ്ങൾ</string>
+  <string name="drawn">സമനിലനീക്കങ്ങൾ</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
   <string name="blunders">മണ്ടത്തരം</string>
   <string name="mistakes">തെറ്റുകൾ</string>
