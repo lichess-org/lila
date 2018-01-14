@@ -56,6 +56,9 @@
   <string name="showThreat">Visa hot</string>
   <string name="inLocalBrowser">i lokal webbläsare</string>
   <string name="toggleLocalEvaluation">Lokal analys av/på</string>
+  <string name="promoteVariation">Höj upp variation</string>
+  <string name="makeMainLine">Gör till huvudvariation</string>
+  <string name="deleteFromHere">Radera från här</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
   <string name="variantWin">Variantvinst</string>
@@ -780,6 +783,7 @@
   <string name="whiteWinsGame">Vit vinner</string>
   <string name="blackWinsGame">Svart vinner</string>
   <string name="learnFromYourMistakes">Lär av dina misstag</string>
+  <string name="learnFromThisMistake">Lär från dina misstag</string>
   <string name="skipThisMove">Hoppa över detta drag</string>
   <string name="next">Nästa</string>
   <string name="xWasPlayed">%s spelades</string>
@@ -803,4 +807,11 @@
   <string name="opening">Öppning</string>
   <string name="middlegame">Mittparti</string>
   <string name="endgame">Slutspel</string>
+  <string name="registerToSendChallenges">Vänligen registrera ett konto för att skicka utmaningar.</string>
+  <string name="youCannotChallengeX">Du kan inte utmana %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s accepterar inte utmaningar.</string>
+  <string name="yourXRatingIsTooFarFromY">Din %1$s rating är för långt från %2$s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s accepterar utmaningar endast från vänner.</string>
+  <string name="addCurrentVariation">Addera aktuell variant</string>
+  <string name="playX">Spela %s</string>
 </resources>

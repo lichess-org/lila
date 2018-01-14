@@ -56,6 +56,9 @@
   <string name="showThreat">Amosar ameaza</string>
   <string name="inLocalBrowser">en navegador local</string>
   <string name="toggleLocalEvaluation">Avaliación local</string>
+  <string name="promoteVariation">Promover variante</string>
+  <string name="makeMainLine">Converter en liña principal</string>
+  <string name="deleteFromHere">Borrar desde aquí</string>
   <string name="move">Movemento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante gañadora</string>
@@ -103,8 +106,11 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Elimina o límite de profundidade, e mantén o teu ordenador quente</string>
+  <string name="blunder">Pifia</string>
   <string name="blunders">Erros grandes</string>
+  <string name="mistake">Erro</string>
   <string name="mistakes">Erros</string>
+  <string name="inaccuracy">Imprecisión</string>
   <string name="inaccuracies">Imprecisións</string>
   <string name="moveTimes">Tempos por movemento</string>
   <string name="flipBoard">Xirar o taboleiro</string>
@@ -191,6 +197,7 @@
   <string name="accept">Aceptar</string>
   <string name="decline">Rexeitar</string>
   <string name="playingRightNow">Xogando agora mesmo</string>
+  <string name="eventInProgress">Xogando agora mesmo</string>
   <string name="finished">Finalizado</string>
   <string name="abortGame">Abortar partida</string>
   <string name="gameAborted">Partida abortada</string>
@@ -199,6 +206,8 @@
   <string name="mode">Modo</string>
   <string name="casual">Amigable</string>
   <string name="rated">Puntuado</string>
+  <string name="casualTournament">Amigable</string>
+  <string name="ratedTournament">Puntuado</string>
   <string name="thisGameIsRated">Esta partida é puntuada</string>
   <string name="rematch">Desquite</string>
   <string name="rematchOfferSent">Oferta de desquite enviada</string>
@@ -264,6 +273,10 @@
   <string name="tournament">Torneo</string>
   <string name="tournaments">Torneos</string>
   <string name="tournamentPoints">Puntos en torneos</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s punto de torneo</item>
+    <item quantity="other">%s puntos de torneo</item>
+  </plurals>
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Voltar ó torneo</string>
   <string name="thematic">Temático</string>
@@ -415,6 +428,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="biography">Biografía</string>
   <string name="country">País</string>
   <string name="preferences">Preferencias</string>
+  <string name="inlineNotation">Notación compacta</string>
   <string name="watchLichessTV">Mirar Lichess TV</string>
   <string name="previouslyOnLichessTV">Previamente en Lichess TV</string>
   <string name="onlinePlayers">Xogadores en liña</string>
@@ -757,4 +771,64 @@ en %3$s</string>
   <string name="notifications">Notificacións</string>
   <string name="challenges">Desafíos</string>
   <string name="perfRatingX">Puntuación: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s segundo para facer o primeiro movemento</item>
+    <item quantity="other">%s segundos para facer o primeiro movemento</item>
+  </plurals>
+  <string name="practiceWithComputer">Practicar coa computadora</string>
+  <string name="anotherWasX">Outro era %s</string>
+  <string name="bestWasX">O mellor era %s</string>
+  <string name="youBrowsedAway">Saíches da revisión</string>
+  <string name="resumePractice">Continuar a prática</string>
+  <string name="theGameIsADraw">A partida está en táboas.</string>
+  <string name="computerThinking">Computadora pensando ...</string>
+  <string name="seeBestMove">Ver o mellor movemento</string>
+  <string name="hideBestMove">Ocultar o mellor movemento</string>
+  <string name="getAHint">Obter unha pista</string>
+  <string name="evaluatingYourMove">Avaliando o teu movemento ...</string>
+  <string name="whiteWinsGame">Brancas gañan</string>
+  <string name="blackWinsGame">Negras gañan</string>
+  <string name="learnFromYourMistakes">Aprende dos teus erros</string>
+  <string name="learnFromThisMistake">Aprende deste erro</string>
+  <string name="skipThisMove">Salta este movemento</string>
+  <string name="next">Seguinte</string>
+  <string name="xWasPlayed">%s foi xogado</string>
+  <string name="findBetterMoveForWhite">Encontra un mellor movemento para as brancas</string>
+  <string name="findBetterMoveForBlack">Encontra um mellor movemento para as negras</string>
+  <string name="resumeLearning">Retomar avaliación</string>
+  <string name="youCanDoBetter">Podes facelo mellor</string>
+  <string name="tryAnotherMoveForWhite">Tenta outro movemento para as brancas</string>
+  <string name="tryAnotherMoveForBlack">Tenta outro movemento para as negras</string>
+  <string name="solution">Solución</string>
+  <string name="waitingForAnalysis">Agardando análise</string>
+  <string name="noMistakesFoundForWhite">Ningún erro atopado para as brancas</string>
+  <string name="noMistakesFoundForBlack">Ningún erro atopado para as negras</string>
+  <string name="doneReviewingWhiteMistakes">Terminada a revisión de erros para as brancas</string>
+  <string name="doneReviewingBlackMistakes">Terminada a revisión de erros para as negras</string>
+  <string name="doItAgain">Tenta outra vez</string>
+  <string name="reviewWhiteMistakes">Revisar erros das brancas</string>
+  <string name="reviewBlackMistakes">Revisar erros das negras</string>
+  <string name="advantage">Vantaxe</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s segundo</item>
+    <item quantity="other">%s segundos</item>
+  </plurals>
+  <string name="opening">Abertura</string>
+  <string name="middlegame">Medio xogo</string>
+  <string name="endgame">Final</string>
+  <string name="registerToSendChallenges">Por favor, rexístrese para enviar desafíos.</string>
+  <string name="youCannotChallengeX">Non podes desafiar a %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s non acepta desafíos.</string>
+  <string name="yourXRatingIsTooFarFromY">A túa puntuación de %1$s está demasiado lonxe da de %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Non pode desafiar debido ao rating provisorio de %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s só acepta desafíos de amigos.</string>
+  <string name="conditionalPremoves">Premovementos condicionais</string>
+  <string name="addCurrentVariation">Engadir variante actual</string>
+  <string name="playVariationToCreateConditionalPremoves">Xogar unha variante para crear premovementos condicionais</string>
+  <string name="noConditionalPremoves">Sen premovementos condicionais</string>
+  <string name="playX">Xogar %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">e garda %s variante de premovementos</item>
+    <item quantity="other">e garda %s variantes de premovementos</item>
+  </plurals>
 </resources>

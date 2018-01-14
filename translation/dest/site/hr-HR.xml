@@ -801,12 +801,14 @@ u %3$s</string>
   <string name="practiceWithComputer">Vježbaj sa kompjuterom</string>
   <string name="anotherWasX">Drugi je %s</string>
   <string name="bestWasX">Najbolji je %s</string>
+  <string name="youBrowsedAway">Odsurfali ste</string>
   <string name="resumePractice">Nastavi vježbu</string>
   <string name="theGameIsADraw">Partija završava remijem.</string>
   <string name="computerThinking">Kompjuter razmišlja ...</string>
   <string name="seeBestMove">Vidi najbolji potez</string>
   <string name="hideBestMove">Sakrij najbolji potez</string>
   <string name="getAHint">Dobiti savjet</string>
+  <string name="evaluatingYourMove">Procijenjivanje vašeg poteza ...</string>
   <string name="whiteWinsGame">Bijeli pobjeđuje</string>
   <string name="blackWinsGame">Crni pobjeđuje</string>
   <string name="learnFromYourMistakes">Uči iz svojih grešaka</string>

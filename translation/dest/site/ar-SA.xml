@@ -12,13 +12,13 @@
   <string name="level">المستوى</string>
   <string name="toggleTheChat">تعطيل/تشغيل الدردشة</string>
   <string name="toggleSound">تعطيل/تشغيل الصوت</string>
-  <string name="chat">الدردشة</string>
-  <string name="resign">إستسلام</string>
+  <string name="chat">دردشة</string>
+  <string name="resign">استسلام</string>
   <string name="checkmate">كش مات</string>
   <string name="stalemate">مات مخنوق</string>
   <string name="white">أبيض</string>
   <string name="black">أسود</string>
-  <string name="randomColor">جهة عشوائية</string>
+  <string name="randomColor">لون عشوائي</string>
   <string name="createAGame">إنشاء مباراة</string>
   <string name="whiteIsVictorious">الأبيض هو المنتصر</string>
   <string name="blackIsVictorious">الأسود هو المنتصر</string>
@@ -958,4 +958,15 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s يقبل التحديات من الأصدقاء فقط.</string>
   <string name="conditionalPremoves">تحريكات شرطية</string>
   <string name="addCurrentVariation">إضافة تنويعة حالية</string>
+  <string name="playVariationToCreateConditionalPremoves">إلعب تفريع لإنشاء نقلة مسبقة مشروطة</string>
+  <string name="noConditionalPremoves">لا توجد نقلات استباقية مشروطة</string>
+  <string name="playX">إلعب %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="zero">واحفظ تفريع النقلة المسبقة</item>
+    <item quantity="one">واحفظ تفريع النقلة المسبقة</item>
+    <item quantity="two">واحفظ عدد %s تفريع نقلة مسبقة</item>
+    <item quantity="few">واحفظ عدد %s تفريع نقلة مسبقة</item>
+    <item quantity="many">واحفظ عدد %s تفريع نقلة مسبقة</item>
+    <item quantity="other">واحفظ عدد %s تفريع نقلة مسبقة</item>
+  </plurals>
 </resources>

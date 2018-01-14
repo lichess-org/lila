@@ -203,14 +203,17 @@
   <string name="accept">Sutikti</string>
   <string name="decline">Atmesti</string>
   <string name="playingRightNow">Vyksta šiuo metu</string>
+  <string name="eventInProgress">Vyksta šiuo metu</string>
   <string name="finished">Baigėsi</string>
   <string name="abortGame">Nutraukti žaidimą</string>
   <string name="gameAborted">Žaidimas nutrauktas</string>
   <string name="standard">Standartinis</string>
   <string name="unlimited">Neriboti</string>
   <string name="mode">Tipas</string>
-  <string name="casual">Įprastas</string>
+  <string name="casual">Nevertinamas</string>
   <string name="rated">Vertinamas</string>
+  <string name="casualTournament">Nevertinamas</string>
+  <string name="ratedTournament">Vertinamas</string>
   <string name="thisGameIsRated">Ši partija yra vertinama</string>
   <string name="rematch">Revanšas</string>
   <string name="rematchOfferSent">Revanšo pasiūlymas išsiųstas</string>
@@ -282,6 +285,11 @@
   <string name="tournament">Turnyras</string>
   <string name="tournaments">Turnyrai</string>
   <string name="tournamentPoints">Turnyro taškai</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turnyro taškas</item>
+    <item quantity="few">%s turnyro taškai</item>
+    <item quantity="other">%s turnyro taškų</item>
+  </plurals>
   <string name="viewTournament">Stebėti turnyrą</string>
   <string name="backToTournament">Grįžti į turnyrą</string>
   <string name="thematic">Tematinis</string>
@@ -669,7 +677,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="aboutSimulImage">Iš 50 varžovų, Fišeris laimėjo 47 žaidimus, lygiosiom baigė 2 ir pralaimėjo 1.</string>
   <string name="aboutSimulRealLife">Idėja yra paimta iš tikro pasaulio įvykių. Tikrame gyvenime, simulo šeiminkas vaikšto nuo stalo prie stalo atlikdamas po ėjimą.</string>
   <string name="aboutSimulRules">Prasidėjus simului, kiekvienas žaidėjas pradeda partiją su šeimininku, kuris gauna baltuosius. Simulas baigiasi kai užbaigiamos visos partijos.</string>
-  <string name="aboutSimulSettings">Simulai visada yra nerimti. Revanšai, ėjimų atšaukimai ir „daugiau laiko“ yra negalimi.</string>
+  <string name="aboutSimulSettings">Simulai visada yra nevertinami. Revanšai, ėjimų atšaukimai ir „daugiau laiko“ yra negalimi.</string>
   <string name="create">Sukurti</string>
   <string name="whenCreateSimul">Sukūrę simulą, turite galimybę žaisti su keletu žaidėjų vienu metu.</string>
   <string name="simulVariantsHint">Jei pasirinksite keletą variantų, kiekvienas žaidėjas galės nuspręsti kurį norės žaisti.</string>
@@ -792,6 +800,11 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="notifications">Pranešimai</string>
   <string name="challenges">Iššūkiai</string>
   <string name="perfRatingX">Reitingas: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekundė atlikti pirmąjį ėjimą</item>
+    <item quantity="few">%s sekundės atlikti pirmąjį ėjimą</item>
+    <item quantity="other">%s sekundžių atlikti pirmąjį ėjimą</item>
+  </plurals>
   <string name="practiceWithComputer">Treniruotė su kompiuteriu</string>
   <string name="anotherWasX">Dar vienas buvo %s</string>
   <string name="bestWasX">Geriausias buvo %s</string>
@@ -806,6 +819,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="whiteWinsGame">Laimėjo baltieji</string>
   <string name="blackWinsGame">Laimėjo juodieji</string>
   <string name="learnFromYourMistakes">Mokykitės iš savo klaidų</string>
+  <string name="learnFromThisMistake">Pasimokykite iš šios klaidos</string>
   <string name="skipThisMove">Praleisti šį ėjimą</string>
   <string name="next">Toliau</string>
   <string name="xWasPlayed">Buvo sužaistas %s</string>
@@ -833,4 +847,20 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="opening">Debiutas</string>
   <string name="middlegame">Mitelšpilis</string>
   <string name="endgame">Endšpilis</string>
+  <string name="registerToSendChallenges">Užsiregistruokite, norėdami mesti iššūkius.</string>
+  <string name="youCannotChallengeX">Negalite mesti iššūkio žaidėjui %s.</string>
+  <string name="xDoesNotAcceptChallenges">Žaidėjas %s nepriima iššūkių.</string>
+  <string name="yourXRatingIsTooFarFromY">Jūsų „%1$s“ reitingas yra per toli nuo žaidėjo „%2$s“.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Iššūkio mesti nepavyko dėl laikino žaidėjo %s reitingo.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">Žaidėjas %s iššūkius priima tik iš draugų.</string>
+  <string name="conditionalPremoves">Sąlyginiai išankstiniai ėjimai</string>
+  <string name="addCurrentVariation">Pridėti dabartinę variaciją</string>
+  <string name="playVariationToCreateConditionalPremoves">Sužaiskite variaciją, norėdami sukurti sąlyginius išankstinius ėjimus</string>
+  <string name="noConditionalPremoves">Nėra sąlyginių išankstinių ėjimų</string>
+  <string name="playX">Žaiskite %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">ir sutaupykite %s išankstinio ėjimo liniją</item>
+    <item quantity="few">ir sutaupykite %s išankstinio ėjimo linijas</item>
+    <item quantity="other">ir sutaupykite %s išankstinio ėjimo linijų</item>
+  </plurals>
 </resources>

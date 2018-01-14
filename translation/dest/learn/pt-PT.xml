@@ -87,28 +87,28 @@ as peças não defendidas!</string>
   <string name="captureAndDefendPieces">Captura e defende peças</string>
   <string name="combatIntro">Um bom guerreiro sabe tanto atacar como defender!</string>
   <string name="combatComplete">Parabéns! Sabes como lutar com as peças de xadrez!</string>
-  <string name="checkInOne">Cheque numa jogada</string>
+  <string name="checkInOne">Xeque numa</string>
   <string name="attackTheOpponentsKing">Ataca o rei adversário</string>
-  <string name="checkInOneIntro">Para fazer cheque ao adversário, ataca o seu rei. Eles devem defende-lo!</string>
+  <string name="checkInOneIntro">Para fazer xeque ao adversário, ataca o seu rei. Eles devem defende-lo!</string>
   <string name="checkInOneGoal">Aponta ao rei adversário
 em apenas um movimento!</string>
-  <string name="checkInOneComplete">Parabéns! Fizeste cheque ao adversário, forçando-lhes a defender o seu rei!</string>
-  <string name="outOfCheck">Sair do cheque</string>
+  <string name="checkInOneComplete">Parabéns! Fizeste xeque ao adversário, forçando-lhes a defender o seu rei!</string>
+  <string name="outOfCheck">Sair do xeque</string>
   <string name="defendYourKing">Defende o teu rei</string>
-  <string name="outOfCheckIntro">Tu estás em cheque! Tens de escapar o bloquear o ataque.</string>
+  <string name="outOfCheckIntro">Tu estás em xeque! Tens de escapar o bloquear o ataque.</string>
   <string name="escapeWithTheKing">Escapa com o rei!</string>
   <string name="theKingCannotEscapeButBlock">O rei não pode escapar,
 mas tu podes bloquear o ataque!</string>
-  <string name="youCanGetOutOfCheckByTaking">Tu podes sair do cheque
+  <string name="youCanGetOutOfCheckByTaking">Tu podes sair do xeque
 capturando a peça atacante.</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">Este cavalo está a fazer-te cheque
+  <string name="thisKnightIsCheckingThroughYourDefenses">Este cavalo está a fazer-te xeque
 através das tuas defesas!</string>
   <string name="escapeOrBlock">Escapa com o rei
 ou bloqueia o ataque!</string>
-  <string name="outOfCheckComplete">Parabéns! O teu rei nunca foi capturado, certifica-te que podes sempre defender contra um cheque!</string>
+  <string name="outOfCheckComplete">Parabéns! O teu rei nunca foi capturado, certifica-te que podes sempre defender contra um xeque!</string>
   <string name="mateInOne">Cheque Mate numa jogada</string>
   <string name="defeatTheOpponentsKing">Derrota o rei adversário</string>
-  <string name="mateInOneIntro">Tu ganhas quando o teu adversário não pode defender-se do teu cheque.</string>
+  <string name="mateInOneIntro">Tu ganhas quando o teu adversário não pode defender-se do teu xeque.</string>
   <string name="attackYourOpponentsKing">Ataca o rei adversário
 de maneira que não se possa defender!</string>
   <string name="mateInOneComplete">Parabéns! É assim que se ganham os jogos de xadrez!</string>
@@ -150,7 +150,7 @@ o teu rei ou a torre correspondente
 já executaram algum movimento anteriormente.</string>
   <string name="youCannotCastleIfAttacked">Não te podes enrocar se
 o teu rei está a ser atacado no caminho.
-Bloqueia o cheque e depois enroca-te!</string>
+Bloqueia o xeque e depois enroca-te!</string>
   <string name="findAWayToCastleKingSide">Encontra a maneira de
 enrocar-te do lado do rei!</string>
   <string name="findAWayToCastleQueenSide">Encontra a maneira de
@@ -171,10 +171,10 @@ se o peão está na quinta fila.</string>
   <string name="enPassantComplete">Parabéns! Agora sabes capturar en passat.</string>
   <string name="stalemate">Rei afogado</string>
   <string name="theGameIsADraw">O jogo é empate</string>
-  <string name="stalemateIntro">Quando um jogador não está em cheque e não pode fazer um movimento legal, então diz-se rei afogado. O jogo é empate: ninguém ganha, ninguém perde.</string>
+  <string name="stalemateIntro">Quando um jogador não está em xeque e não pode fazer um movimento legal, então diz-se rei afogado. O jogo é empate: ninguém ganha, ninguém perde.</string>
   <string name="stalemateGoal">Para afogar o rei das negras:
 - as negras não se podem mexer
-- não há cheque.</string>
+- não há xeque.</string>
   <string name="stalemateComplete">Parabéns! É melhor ser rei afogado que xeque-mate!</string>
   <string name="advanced">Avançado</string>
   <string name="pieceValue">Valor das peças</string>
@@ -197,11 +197,11 @@ Torre = 5
 Bispo = 3
 Cavalo = 3
 Peão = 1</string>
-  <string name="checkInTwo">Cheque em duas</string>
-  <string name="twoMovesToGiveCheck">Dois movimentos para dar cheque</string>
-  <string name="checkInTwoIntro">Encontra a combinação correta de dois movimentos que dá cheque ao rei adversário!</string>
+  <string name="checkInTwo">Xeque em duas</string>
+  <string name="twoMovesToGiveCheck">Dois movimentos para dar xeque</string>
+  <string name="checkInTwoIntro">Encontra a combinação correta de dois movimentos que dá xeque ao rei adversário!</string>
   <string name="checkInTwoGoal">Ameaça o rei adversário em dois movimentos!</string>
-  <string name="checkInTwoComplete">Parabéns! Fizeste cheque ao adversário, forçando-o a defender o seu rei!</string>
+  <string name="checkInTwoComplete">Parabéns! Fizeste xeque ao adversário, forçando-o a defender o seu rei!</string>
   <string name="whatNext">O que se segue?</string>
   <string name="youKnowHowToPlayChess">Tu sabes como jogar xadrez, parabéns! Queres tornar-te um jogador mais forte?</string>
   <string name="register">Regista-te</string>

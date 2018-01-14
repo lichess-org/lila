@@ -25,12 +25,12 @@
   <string name="kingInTheCenter">Rei no centro</string>
   <string name="threeChecks">Três xeques</string>
   <string name="raceFinished">Corrida terminada</string>
-  <string name="variantEnding">Fim de variante</string>
+  <string name="variantEnding">Fim da variante</string>
   <string name="newOpponent">Novo oponente</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Seu oponente quer jogar uma nova partida contra você</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">O seu oponente quer jogar uma nova partida contra você</string>
   <string name="joinTheGame">Entrar no jogo</string>
-  <string name="whitePlays">Brancas jogam</string>
-  <string name="blackPlays">Negras jogam</string>
+  <string name="whitePlays">Jogam as brancas</string>
+  <string name="blackPlays">Jogam as negras</string>
   <string name="opponentLeftChoices">O outro jogador pode ter deixado a partida. Você pode proclamar vitória, declarar empate ou aguardar.</string>
   <string name="makeYourOpponentResign">Obrigar o oponente a desistir</string>
   <string name="forceResignation">Reivindicar vitória</string>
@@ -57,7 +57,7 @@
   <string name="inLocalBrowser">no navegador local</string>
   <string name="toggleLocalEvaluation">Alternar avaliação local</string>
   <string name="promoteVariation">Promover variante</string>
-  <string name="makeMainLine">Fazer linha principal</string>
+  <string name="makeMainLine">Tornar variante principal</string>
   <string name="deleteFromHere">Eliminar a partir de aqui</string>
   <string name="move">Jogada</string>
   <string name="variantLoss">Variante perdida</string>
@@ -71,11 +71,11 @@
   <string name="drawn">Empates</string>
   <string name="unknown">Desconhecido</string>
   <string name="database">Base de Dados</string>
-  <string name="whiteDrawBlack">Branco / Empate / Preto</string>
+  <string name="whiteDrawBlack">Brancas / Empate / Negras</string>
   <string name="averageRatingX">Classificação média: %s</string>
   <string name="recentGames">Jogos recentes</string>
   <string name="topGames">Melhores jogos</string>
-  <string name="masterDbExplanation">Dois milhões de jogos de tabuleiro de jogadores de %1$s+ classificação FIDE desde %2$s a %3$s</string>
+  <string name="masterDbExplanation">Dois milhões de jogos de tabuleiro de jogadores de classificação FIDE %1$s+ desde %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Xeque-mate em %s meio-movimento</item>
     <item quantity="other">Xeque-mate em %s meio-movimentos</item>
@@ -87,7 +87,7 @@
   <string name="noGameFound">Nenhum jogo encontrado</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
   <string name="openingExplorer">Explorador de aberturas</string>
-  <string name="xOpeningExplorer">%s Explorador de Aberturas</string>
+  <string name="xOpeningExplorer">Explorador de aberturas para %s</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota evitada pela regra dos 50 movimentos</string>
   <string name="allSet">Tudo pronto!</string>
@@ -141,9 +141,9 @@
   <string name="games">Partidas</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s postou em %2$s</string>
-  <string name="latestForumPosts">Últimas postagens do forum</string>
+  <string name="latestForumPosts">Últimas entradas do forum</string>
   <string name="players">Jogadores</string>
-  <string name="minutesPerSide">Minutos por lado</string>
+  <string name="minutesPerSide">Minutos por jogador</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
   <string name="timeControl">Controle de Tempo</string>
@@ -171,9 +171,9 @@
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinição de senha</string>
   <string name="forgotPassword">Esqueceu sua senha?</string>
-  <string name="rank">Rank</string>
+  <string name="rank">Classificação</string>
   <string name="rankX">Classificação: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">A classificação é atualizado a cada %s minutos</string>
+  <string name="rankIsUpdatedEveryXMinutes">A classificação é atualizada a cada %s minutos</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s quebra-cabeça</item>
     <item quantity="other">%s quebra-cabeças</item>
@@ -329,7 +329,7 @@
   <string name="filterGames">Filtrar partidas</string>
   <string name="reset">Voltar ao original</string>
   <string name="apply">Aplicar</string>
-  <string name="leaderboard">Classificação</string>
+  <string name="leaderboard">Quadro de classificações</string>
   <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>
   <string name="fromPosition">A partir da posição</string>
@@ -375,8 +375,8 @@
   <string name="list">Lista</string>
   <string name="graph">Gráfico</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Menos que %s minutos</item>
-    <item quantity="other">Menos que %s minutos</item>
+    <item quantity="one">Menos de %s minuto</item>
+    <item quantity="other">Menos de %s minutos</item>
   </plurals>
   <string name="required">Requerido.</string>
   <string name="openTournaments">Torneios abertos</string>

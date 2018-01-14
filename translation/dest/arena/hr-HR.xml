@@ -4,7 +4,7 @@
   <string name="isItRated">Igra li se za bodove?</string>
   <string name="willBeNotified">Bit ćeš obaviješten(a) kada turnir počne, stoga slobodno možeš igrati u drugom prozoru dok čekaš.</string>
   <string name="isRated">Ovaj turnir se igra za bodove i utjecat će na tvoj rejting.</string>
-  <string name="isNotRated">Ovaj turnir se *ne* igra za bodove i *neće* utjecati na tvoj rejting.</string>
+  <string name="isNotRated">Ovaj turnir *nije* za bodove i *ne* utječe na tvoj rejting.</string>
   <string name="someRated">Neki turniri se igraju za bodove i utjecat će na tvoj rejting.</string>
   <string name="howAreScoresCalculated">Kako se rezultati računaju?</string>
   <string name="howAreScoresCalculatedAnswer">Pobjeda daje glavni rezultat od 2 boda, remi: 1 bod, a poraz ne daje nijedan bod.

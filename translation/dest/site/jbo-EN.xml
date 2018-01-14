@@ -46,14 +46,17 @@
   <string name="viewTheComputerAnalysis">zgana lo skami nunlanli te pruce</string>
   <string name="requestAComputerAnalysis">gau ku lo skami cu lanli</string>
   <string name="computerAnalysis">lo skami nunlanli te pruce</string>
+  <string name="computerAnalysisAvailable">zifre lo nu lanli se pi\'o lo skami</string>
   <string name="analysis">lo lanli te pruce cartu</string>
   <string name="loadingEngine">ca\'o samymo\'i</string>
   <string name="move">kelka\'u</string>
   <string name="close">cliva</string>
   <string name="winning">jivna kelka\'u</string>
   <string name="losing">terji\'a kelka\'u</string>
+  <string name="drawn">no da cu jinga</string>
   <string name="unknown">narju\'odza</string>
   <string name="database">samdatni</string>
+  <string name="whiteDrawBlack">labji\'a .e caxpati .e xekyji\'a</string>
   <string name="openingExplorer">cfari nunmu\'u ke lanli tutci je vreji</string>
   <string name="allSet">.i\'e</string>
   <string name="delete">vimcu</string>
@@ -459,7 +462,8 @@
   <string name="error.email_acceptable">.e\'a nai pilno lo ti kibytermri</string>
   <string name="error.email_unique">su\'o da xa\'o pilno ti</string>
   <string name="blindfoldChess">na jarco tu\'a lo caxmati</string>
-  <string name="moveConfirmation">birtygau fi lo du\'u djixa</string>
+  <string name="zenMode">cuvytadji</string>
+  <string name="moveConfirmation">birtygau fi lo du\'u djica</string>
   <string name="inCorrespondenceGames">masno nunkei</string>
   <string name="ifRatingIsPlusMinusX">lo se nilcre be lo ke zmadu je mleca ke\'e be fo li su\'e %s</string>
   <string name="onlyFriends">lo pendo ku po\'o</string>
@@ -490,8 +494,11 @@
   <plurals name="availableInNbLanguages">
     <item quantity="other">se sabji bau %s da</item>
   </plurals>
+  <string name="quickPairing">selsutra jivna</string>
   <string name="lobby">lo depystu</string>
   <string name="language">lo bangu</string>
   <string name="directlySupportLichess">sarji la .litces.</string>
   <string name="coaches">lo te\'ictu</string>
+  <string name="seeBestMove">viska lo xagrai se zukte</string>
+  <string name="hideBestMove">te mipri lo xagrai se zukte</string>
 </resources>

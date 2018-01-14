@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">Hrať s priateľom</string>
   <string name="playWithTheMachine">Hrať proti počítaču</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Zdieľaním tejto adresy môžete niekoho pozvať k partii</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Zverejnením tejto adresy môžete niekoho pozvať k partii</string>
   <string name="gameOver">Koniec partie</string>
   <string name="waitingForOpponent">Čaká sa na súpera</string>
   <string name="waiting">Čaká sa</string>
@@ -295,7 +295,7 @@
   </plurals>
   <string name="viewTournament">Zobraz turnaj</string>
   <string name="backToTournament">Návrat do turnaja</string>
-  <string name="thematic">Tématický</string>
+  <string name="thematic">Tematický</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s hodnotená hra</item>
     <item quantity="few">≥ %s hodnotené hry</item>
@@ -369,7 +369,7 @@
   <string name="colorPlaysCheckmateInOne">%s na ťahu; mat prvým ťahom</string>
   <string name="retry">Znova</string>
   <string name="reconnecting">Pripájanie</string>
-  <string name="onlineFriends">Online pritelia</string>
+  <string name="onlineFriends">Online priatelia</string>
   <string name="noFriendsOnline">Žiadni priatelia online</string>
   <string name="findFriends">Nájsť priateľov</string>
   <string name="favoriteOpponents">Obľúbený súperi</string>
@@ -443,7 +443,7 @@
   <string name="reportXToModerators">Nahlásiť %s moderátorom</string>
   <string name="profileCompletion">Úplnosť profilu: %s</string>
   <string name="xRating">%s rating</string>
-  <string name="ifNoneLeaveEmpty">Ak nemáte, nechajte prázdne</string>
+  <string name="ifNoneLeaveEmpty">Ak nemáte, nevyplňujte</string>
   <string name="gameCompletionRate">Pomer ukončených partií: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Upraviť profil</string>
@@ -599,7 +599,7 @@
   <string name="starting">Štart:</string>
   <string name="allInformationIsPublicAndOptional">Všetky informácie sú verejné a voliteľné.</string>
   <string name="yourCityRegionOrDepartment">Vaše mesto, región alebo oblasť</string>
-  <string name="biographyDescription">Napíšte niečo o sebe, čo sa Vám v šachu páči, Vaše obľúbené zahájenia, partie, hráči…</string>
+  <string name="biographyDescription">Napíšte niečo o sebe, čo sa Vám v šachu páči, Vaše obľúbené otvorenia, partie, hráči…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s znak.</item>
     <item quantity="few">Maximum: %s znaky.</item>
