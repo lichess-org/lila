@@ -5,6 +5,7 @@ import { StudyPracticeCtrl } from './practice/interfaces';
 import { ChapterDescriptionCtrl } from './chapterDescription';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
+import { GlyphCtrl } from './studyGlyph';
 import RelayCtrl from './relay/relayCtrl';
 
 export interface StudyCtrl {
@@ -18,7 +19,7 @@ export interface StudyCtrl {
   chapters: any;
   notif: NotifCtrl;
   commentForm: any;
-  glyphForm: any;
+  glyphForm: GlyphCtrl;
   share: any;
   tags: any;
   desc: ChapterDescriptionCtrl;
