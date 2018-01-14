@@ -241,7 +241,10 @@ declare namespace Tree {
     eco: string;
   }
 
-  export interface Glyph {
+  type GlyphId = number;
+
+  interface Glyph {
+    id: GlyphId;
     name: string;
     symbol: string;
   }
