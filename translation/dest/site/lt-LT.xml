@@ -853,4 +853,14 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="yourXRatingIsTooFarFromY">Jūsų „%1$s“ reitingas yra per toli nuo žaidėjo „%2$s“.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Iššūkio mesti nepavyko dėl laikino žaidėjo %s reitingo.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">Žaidėjas %s iššūkius priima tik iš draugų.</string>
+  <string name="conditionalPremoves">Sąlyginiai išankstiniai ėjimai</string>
+  <string name="addCurrentVariation">Pridėti dabartinę variaciją</string>
+  <string name="playVariationToCreateConditionalPremoves">Sužaiskite variaciją, norėdami sukurti sąlyginius išankstinius ėjimus</string>
+  <string name="noConditionalPremoves">Nėra sąlyginių išankstinių ėjimų</string>
+  <string name="playX">Žaiskite %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">ir sutaupykite %s išankstinio ėjimo liniją</item>
+    <item quantity="few">ir sutaupykite %s išankstinio ėjimo linijas</item>
+    <item quantity="other">ir sutaupykite %s išankstinio ėjimo linijų</item>
+  </plurals>
 </resources>
