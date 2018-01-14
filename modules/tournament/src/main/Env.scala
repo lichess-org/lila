@@ -188,8 +188,6 @@ final class Env(
     def process = {
       case "tournament" :: "leaderboard" :: "generate" :: Nil =>
         leaderboardIndexer.generateAll inject "Done!"
-      case "tournament" :: "boards" :: "count" :: Nil =>
-        fuccess(duelStore.count.toString)
     }
   }
 

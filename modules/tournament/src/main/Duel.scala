@@ -43,8 +43,6 @@ final class DuelStore {
   def find(tour: Tournament, user: User): Option[Game.ID] =
     byTourId get tour.id flatMap { _.find(_ has user).map(_.gameId) }
 
-  def count = byTourId.pp.size
-
   def add(tour: Tournament, game: Game, p1: UsernameRating, p2: UsernameRating, ranking: Ranking): Unit = for {
     p1 <- tbUser(p1, ranking)
     p2 <- tbUser(p2, ranking)
@@ -60,7 +58,7 @@ final class DuelStore {
     tourId <- game.tournamentId
     tb <- byTourId get tourId
   } {
-    // if (tb.size <= 1) byTourId -= tourId
-    // else byTourId += (tourId, tb.filter(_.gameId != game.id))
+    if (tb.size <= 1) byTourId -= tourId
+    else byTourId += (tourId, tb.filter(_.gameId != game.id))
   }
 }
