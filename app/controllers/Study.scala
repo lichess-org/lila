@@ -126,13 +126,14 @@ object Study extends LilaController {
     _ = if (HTTPRequest isSynchronousHttp ctx.req) Env.study.studyRepo.incViews(study)
     initialFen = chapter.root.fen.value.some
     pov = UserAnalysis.makePov(initialFen, chapter.setup.variant)
+    analysis <- chapter.analysisId ?? Env.analyse.analyser.get
     baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation, owner = false, me = ctx.me)
     studyJson <- Env.study.jsonView(study, chapters, chapter, ctx.me)
   } yield WithChapter(study, chapter) -> JsData(
     study = studyJson,
     analysis = baseData ++ Json.obj(
       "treeParts" -> partitionTreeJsonWriter.writes {
-        lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
+        lila.study.TreeBuilder(chapter.root, chapter.setup.variant, analysis)
       }
     )
   )
@@ -229,7 +230,7 @@ object Study extends LilaController {
             val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, setup.orientation, owner = false, me = ctx.me)
             val analysis = baseData ++ Json.obj(
               "treeParts" -> partitionTreeJsonWriter.writes {
-                lila.study.TreeBuilder.makeRoot(chapter.root)
+                lila.study.TreeBuilder.makeRoot(chapter.root, analysis = none)
               }
             )
             val data = lila.study.JsonView.JsData(

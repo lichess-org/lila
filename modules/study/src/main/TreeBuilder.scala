@@ -1,37 +1,25 @@
 package lila.study
 
 import chess.opening._
+import lila.analyse.{ Analysis, Info, Advice }
 import lila.tree
+import lila.tree.Eval
 
 object TreeBuilder {
 
   private val initialStandardDests = chess.Game(chess.variant.Standard).situation.destinations
 
-  def apply(root: Node.Root, variant: chess.variant.Variant) = {
+  def apply(root: Node.Root, variant: chess.variant.Variant, analysis: Option[Analysis]) = {
     val dests =
       if (variant.standard && root.fen.value == chess.format.Forsyth.initial) initialStandardDests
       else {
         val sit = chess.Game(variant.some, root.fen.value.some).situation
         sit.playable(false) ?? sit.destinations
       }
-    makeRoot(root).copy(dests = dests.some)
+    makeRoot(root, analysis).copy(dests = dests.some)
   }
 
-  def makeRoot(root: Node.Root) = tree.Root(
-    ply = root.ply,
-    fen = root.fen.value,
-    check = root.check,
-    shapes = root.shapes,
-    comments = root.comments,
-    gamebook = root.gamebook,
-    glyphs = root.glyphs,
-    clock = root.clock,
-    crazyData = root.crazyData,
-    children = toBranches(root.children),
-    opening = FullOpeningDB findByFen root.fen.value
-  )
-
-  def toBranch(node: Node): tree.Branch = tree.Branch(
+  def toBranch(node: Node, infos: Option[List[Info]]): tree.Branch = tree.Branch(
     id = node.id,
     ply = node.ply,
     move = node.move,
@@ -43,10 +31,34 @@ object TreeBuilder {
     glyphs = node.glyphs,
     clock = node.clock,
     crazyData = node.crazyData,
-    children = toBranches(node.children),
+    eval = infos.flatMap(_.headOption) map makeEval,
+    children = toBranches(node.children, infos.map(_.tail)),
     opening = FullOpeningDB findByFen node.fen.value
   )
 
-  private def toBranches(children: Node.Children): List[tree.Branch] =
-    children.nodes.map(toBranch)(scala.collection.breakOut)
+  def toBranches(children: Node.Children, infos: Option[List[Info]]): List[tree.Branch] = children.nodes match {
+    case Vector() => Nil
+    case mainline +: rest => toBranch(mainline, infos) :: rest.map { toBranch(_, none) }.toList
+  }
+
+  def makeRoot(root: Node.Root, analysis: Option[Analysis]) =
+    tree.Root(
+      ply = root.ply,
+      fen = root.fen.value,
+      check = root.check,
+      shapes = root.shapes,
+      comments = root.comments,
+      gamebook = root.gamebook,
+      glyphs = root.glyphs,
+      clock = root.clock,
+      crazyData = root.crazyData,
+      children = toBranches(root.children, analysis.map(_.infos)),
+      opening = FullOpeningDB findByFen root.fen.value
+    )
+
+  private def makeEval(info: Info) = Eval(
+    cp = info.cp,
+    mate = info.mate,
+    best = info.best
+  )
 }
