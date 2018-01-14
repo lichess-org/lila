@@ -7,6 +7,8 @@
 package org.goochjs.glicko2;
 
 import java.util.List;
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 
 /**
  * This is the main calculation engine based on the contents of Glickman's paper.
@@ -61,14 +63,34 @@ public class RatingCalculator {
    * @param results
    */
   public void updateRatings(RatingPeriodResults results) {
+    updateRatings(results, null, 0);
+  }
+
+  /**
+   * <p>Run through all players within a resultset and calculate their new ratings.</p>
+   * <p>Players within the resultset who did not compete during the rating period
+   * will have see their deviation increase (in line with Prof Glickman's paper).</p>
+   * <p>Note that this method will clear the results held in the association resultset.</p>
+   *
+   * @param results
+   * @param ratingPeriodEndDate
+   * @param ratingPeriodLengthMillis
+   */
+  public void updateRatings(RatingPeriodResults results, DateTime ratingPeriodEndDate, long ratingPeriodLengthMillis) {
     for ( Rating player : results.getParticipants() ) {
+      double ratingPeriodCount = 1;
+      if ( ratingPeriodEndDate != null && ratingPeriodLengthMillis != 0 && player.getLatest() != null ) {
+        Duration interval = new Duration(player.getLatest(), ratingPeriodEndDate);
+        ratingPeriodCount = interval.getMillis() / (double)ratingPeriodLengthMillis;
+      }
       if ( results.getResults(player).size() > 0 ) {
-        calculateNewRating(player, results.getResults(player));
+        calculateNewRating(player, results.getResults(player), ratingPeriodCount);
       } else {
         // if a player does not compete during the rating period, then only Step 6 applies.
         // the player's rating and volatility parameters remain the same but deviation increases
+        
         player.setWorkingRating(player.getGlicko2Rating());
-        player.setWorkingRatingDeviation(calculateNewRD(player.getGlicko2RatingDeviation(), player.getVolatility()));
+        player.setWorkingRatingDeviation(calculateNewRD(player.getGlicko2RatingDeviation(), player.getVolatility(), ratingPeriodCount));
         player.setWorkingVolatility(player.getVolatility());
       }
     }
@@ -88,8 +110,9 @@ public class RatingCalculator {
    *
    * @param player
    * @param results
+   * @param ratingPeriodCount
    */
-  private void calculateNewRating(Rating player, List<Result> results) throws RuntimeException {
+  private void calculateNewRating(Rating player, List<Result> results, double ratingPeriodCount) throws RuntimeException {
     double phi = player.getGlicko2RatingDeviation();
     double sigma = player.getVolatility();
     double a = Math.log( Math.pow(sigma, 2) );
@@ -147,7 +170,7 @@ public class RatingCalculator {
     player.setWorkingVolatility(newSigma);
 
     // Step 6
-    double phiStar = calculateNewRD( phi, newSigma );
+    double phiStar = calculateNewRD( phi, newSigma, ratingPeriodCount );
 
     // Step 7
     double newPhi = 1.0 / Math.sqrt(( 1.0 / Math.pow(phiStar, 2) ) + ( 1.0 / v ));
@@ -260,10 +283,11 @@ public class RatingCalculator {
    *
    * @param phi
    * @param sigma
+   * @param ratingPeriodCount
    * @return new rating deviation
    */
-  private double calculateNewRD(double phi, double sigma) {
-    return Math.sqrt( Math.pow(phi, 2) + Math.pow(sigma, 2) );
+  private double calculateNewRD(double phi, double sigma, double ratingPeriodCount) {
+    return Math.sqrt( Math.pow(phi, 2) + ratingPeriodCount * Math.pow(sigma, 2) );
   }
 
 

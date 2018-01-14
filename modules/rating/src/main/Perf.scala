@@ -54,7 +54,8 @@ case class Perf(
     math.max(Glicko.minRating, glicko.rating),
     glicko.deviation,
     glicko.volatility,
-    nb
+    nb,
+    latest.orNull
   )
 
   def isEmpty = nb == 0

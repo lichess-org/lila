@@ -2,6 +2,7 @@ package lila.round
 
 import chess.{ Speed, Color }
 import org.goochjs.glicko2._
+import org.joda.time.DateTime
 
 import lila.game.{ GameRepo, Game, PerfPicker, RatingDiffs }
 import lila.history.HistoryApi
@@ -26,34 +27,34 @@ final class PerfsUpdater(
         val result = resultOf(game)
         game.ratingVariant match {
           case chess.variant.Chess960 =>
-            updateRatings(ratingsW.chess960, ratingsB.chess960, result, system)
+            updateRatings(ratingsW.chess960, ratingsB.chess960, result, system, game.movedAt)
           case chess.variant.KingOfTheHill =>
-            updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, result, system)
+            updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, result, system, game.movedAt)
           case chess.variant.ThreeCheck =>
-            updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, result, system)
+            updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, result, system, game.movedAt)
           case chess.variant.Antichess =>
-            updateRatings(ratingsW.antichess, ratingsB.antichess, result, system)
+            updateRatings(ratingsW.antichess, ratingsB.antichess, result, system, game.movedAt)
           case chess.variant.Atomic =>
-            updateRatings(ratingsW.atomic, ratingsB.atomic, result, system)
+            updateRatings(ratingsW.atomic, ratingsB.atomic, result, system, game.movedAt)
           case chess.variant.Horde =>
-            updateRatings(ratingsW.horde, ratingsB.horde, result, system)
+            updateRatings(ratingsW.horde, ratingsB.horde, result, system, game.movedAt)
           case chess.variant.RacingKings =>
-            updateRatings(ratingsW.racingKings, ratingsB.racingKings, result, system)
+            updateRatings(ratingsW.racingKings, ratingsB.racingKings, result, system, game.movedAt)
           case chess.variant.Crazyhouse =>
-            updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, result, system)
+            updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, result, system, game.movedAt)
           case chess.variant.Standard => game.speed match {
             case Speed.Bullet =>
-              updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
+              updateRatings(ratingsW.bullet, ratingsB.bullet, result, system, game.movedAt)
             case Speed.Blitz =>
-              updateRatings(ratingsW.blitz, ratingsB.blitz, result, system)
+              updateRatings(ratingsW.blitz, ratingsB.blitz, result, system, game.movedAt)
             case Speed.Rapid =>
-              updateRatings(ratingsW.rapid, ratingsB.rapid, result, system)
+              updateRatings(ratingsW.rapid, ratingsB.rapid, result, system, game.movedAt)
             case Speed.Classical =>
-              updateRatings(ratingsW.classical, ratingsB.classical, result, system)
+              updateRatings(ratingsW.classical, ratingsB.classical, result, system, game.movedAt)
             case Speed.Correspondence =>
-              updateRatings(ratingsW.correspondence, ratingsB.correspondence, result, system)
+              updateRatings(ratingsW.correspondence, ratingsB.correspondence, result, system, game.movedAt)
             case Speed.UltraBullet =>
-              updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, result, system)
+              updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, result, system, game.movedAt)
           }
           case _ =>
         }
@@ -115,7 +116,7 @@ final class PerfsUpdater(
       case None => Glicko.Result.Draw
     }
 
-  private def updateRatings(white: Rating, black: Rating, result: Glicko.Result, system: RatingCalculator): Unit = {
+  private def updateRatings(white: Rating, black: Rating, result: Glicko.Result, system: RatingCalculator, movedAt: DateTime): Unit = {
     val results = new RatingPeriodResults()
     result match {
       case Glicko.Result.Draw => results.addDraw(white, black)
@@ -123,7 +124,7 @@ final class PerfsUpdater(
       case Glicko.Result.Loss => results.addResult(black, white)
     }
     try {
-      system.updateRatings(results)
+      system.updateRatings(results, movedAt, Glicko.ratingPeriodLengthMillis)
     } catch {
       case e: Exception => logger.error("update ratings", e)
     }
