@@ -95,6 +95,7 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
     if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
       history.replaceState(null, '', '/' + data.game.id);
     if (!data.player.spectator && data.game.status.id < 25) li.topMenuIntent();
+    $('#zentog').click(round.toggleZen);
   };
   if (window.navigator.userAgent.indexOf('Trident/') > -1) setTimeout(letsGo, 150);
   else letsGo();

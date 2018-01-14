@@ -1123,35 +1123,34 @@ body.playing.zen .table .moves,
 body.playing.zen .table .username,
 body.playing.zen rating,
 body.playing.zen .tournament_rank,
-body.playing.zen #friend_box {
-  display: none!important;
-}
+body.playing.zen #friend_box,
 body.playing.zen .board_left .side,
 body.playing.zen #chat,
 body.playing.zen .underboard,
 body.playing.zen .other_games,
 body.playing.zen .table .replay .buttons,
 body.playing.zen .clock .moretime,
-body.playing.zen #top > * {
-  opacity: 0;
-  transition: 1s;
+body.playing.zen #top > *,
+body.playing.zen #site_title,
+#zentog {
+  display: none;
 }
-body.playing.zen.offline #reconnecting,
-body.playing.zen .board_left:hover .side,
-body.playing.zen .board_left:hover #chat,
-body.playing.zen .board_left:hover #site_title,
-body.playing.zen .table:hover .replay .buttons,
-body.playing.zen .clock:hover .moretime,
-body.playing.zen .underboard:hover,
-body.playing.zen .other_games:hover,
-body.playing.zen #top:hover > *,
-body.playing.zen .dasher {
+body.playing.zen.offline #reconnecting {
   opacity: 1!important;
 }
-@media (hover) {
-  body.playing.zen #site_title,
-  body.playing.zen .dasher:not(.shown):not(:hover) {
-    opacity: 0!important;
-    transition: 1s;
-  }
+#zentog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 15px;
+  opacity: 0.5;
+}
+body.playing.zen #zentog {
+  display: block;
+}
+#zentog::before {
+  font-size: 1.3em;
+}
+#zentog:hover {
+  opacity: 1;
 }

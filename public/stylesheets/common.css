@@ -1147,7 +1147,7 @@ div.pagination span.current,
   animation: none;
 }
 .fbt:not(:disabled):active,
-.fbt.active {
+body.base .fbt.active {
   background: #3893E8!important;
   color: #fff;
 }
