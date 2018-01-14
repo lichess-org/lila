@@ -448,28 +448,29 @@ div.underboard .notif.error {
 .study_buttons {
   display: flex;
   justify-content: space-between;
+  border: 1px solid #ccc;
+  border-bottom: none;
 }
-.study_buttons > div {
-  justify-content: flex-start;
+.study_buttons .member_buttons {
+  display: flex;
 }
-.study_buttons .member_buttons .button {
+.study_buttons .member_buttons .fbt {
   display: inline-block;
-  margin-right: 10px;
   font-weight: normal;
   text-transform: uppercase;
 }
-.study_buttons .button.mode i::before {
+.study_buttons .fbt.mode i::before {
   font-size: 19px;
-  content: 'j';
+  content: 'L';
   color: #dc322f;
   margin-right: 4px;
 }
-.study_buttons .button.mode.on {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
-}
-.study_buttons .button.mode.on i::before {
+.study_buttons .fbt.mode.on i::before {
   content: 'E';
   color: #759900;
+}
+.study_buttons .fbt.mode:hover i::before {
+  color: #fff;
 }
 .study_buttons .behind {
   background: #dc322f;
@@ -478,15 +479,18 @@ div.underboard .notif.error {
   border-radius: 9px;
   margin-right: 4px;
 }
-.study_buttons .button i {
+.study_buttons .fbt {
+  padding: 5px 10px;
+}
+.study_buttons .fbt i {
   height: 16px;
   display: inline-block;
 }
-.study_buttons .button.disabled {
+.study_buttons .fbt.disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.study_buttons .button:hover {
+.study_buttons .fbt:hover {
   color: #3893E8;
 }
 .glyph-icon::before {
@@ -705,7 +709,8 @@ table.tags th {
   padding: 0 5px 0 15px!important;
 }
 body.dark .study_box .add,
-body.dark table.tags th {
+body.dark table.tags th,
+body.dark .study_buttons {
   border-color: #3d3d3d;
 }
 table.tags tr:first-child th {
@@ -735,7 +740,7 @@ table.tags #study_fen {
   margin: 0.3em 0;
 }
 div.undertable {
-  margin-top: 5px;
+  margin-top: 0;
 }
 div.undertable_inner {
   height: auto;

@@ -27,7 +27,7 @@ function buttons(root: AnalyseCtrl): VNode {
   return h('div.study_buttons', [
     h('div.member_buttons', [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
-      showSticky ? h('a.button.mode.sync.hint--top', {
+      showSticky ? h('a.fbt.mode.sync.hint--top', {
         attrs: { 'data-hint': 'All sync members remain on the same position' },
         class: { on: ctrl.vm.mode.sticky },
         hook: bind('click', ctrl.toggleSticky)
@@ -35,14 +35,14 @@ function buttons(root: AnalyseCtrl): VNode {
         ctrl.vm.behind ? h('span.behind', '' + ctrl.vm.behind) : h('i.is'),
         'Sync'
       ]) : null,
-      ctrl.members.canContribute() ? h('a.button.mode.write.hint--top', {
+      ctrl.members.canContribute() ? h('a.fbt.mode.write.hint--top', {
         attrs: { 'data-hint': 'Write changes to the server' },
         class: {on: ctrl.vm.mode.write },
         hook: bind('click', ctrl.toggleWrite)
       }, [ h('i.is'), 'Record' ]) : null,
       shareButton(ctrl),
       ...(canContribute ? [
-        h('a.button.comment.hint--top', {
+        h('a.fbt.comment.hint--top', {
           attrs: { 'data-hint': 'Comment this position' },
           class: {
             active: ctrl.commentForm.current(),
@@ -54,7 +54,7 @@ function buttons(root: AnalyseCtrl): VNode {
         }, [
           h('i', { attrs: dataIcon('c') })
         ]),
-        h('a.button.glyph.hint--top', {
+        h('a.fbt.glyph.hint--top', {
           attrs: { 'data-hint': 'Annotate with glyphs' },
           class: {
             active: ctrl.glyphForm.isOpen(),
@@ -73,7 +73,7 @@ function buttons(root: AnalyseCtrl): VNode {
 }
 
 function helpButton(ctrl: StudyCtrl) {
-  return h('span.button.help.hint--top', {
+  return h('span.fbt.help.hint--top', {
     attrs: { 'data-hint': 'Need help? Get the tour!' },
     hook: bind('click', ctrl.startTour)
   }, [
@@ -82,7 +82,7 @@ function helpButton(ctrl: StudyCtrl) {
 }
 
 export function shareButton(ctrl: StudyCtrl) {
-  return h('a.button.share.hint--top', {
+  return h('a.fbt.share.hint--top', {
     attrs: { 'data-hint': 'Share & export' },
     class: { active: ctrl.share.open() },
     hook: bind('click', ctrl.share.toggle, ctrl.redraw)

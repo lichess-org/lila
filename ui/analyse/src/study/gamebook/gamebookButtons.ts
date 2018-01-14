@@ -15,11 +15,11 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
   return h('div.study_buttons', [
     shareButton(study),
     h('div.gb_buttons', [
-      root.path ? h('a.button.text.back', {
+      root.path ? h('a.fbt.text.back', {
         attrs: dataIcon('I'),
         hook: bind('click', () => root.userJump(''), ctrl.redraw)
       }, 'Back') : null,
-      myTurn ? h('a.button.text.solution', {
+      myTurn ? h('a.fbt.text.solution', {
         attrs: dataIcon('G'),
         hook: bind('click', ctrl.solution, ctrl.redraw)
       }, 'View the solution') : undefined,
@@ -31,7 +31,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
 export function overrideButton(study: StudyCtrl): VNode | undefined {
   if (study.data.chapter.gamebook) {
     const o = study.vm.gamebookOverride;
-    if (study.members.canContribute()) return h('a.button.text.preview', {
+    if (study.members.canContribute()) return h('a.fbt.text.preview', {
       class: { active: o === 'play' },
       attrs: dataIcon('v'),
       hook: bind('click', () => {
@@ -41,7 +41,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
     else {
       const isAnalyse = o === 'analyse',
       ctrl = study.gamebookPlay();
-      if (isAnalyse || (ctrl && ctrl.state.feedback === 'end')) return h('a.button.text.preview', {
+      if (isAnalyse || (ctrl && ctrl.state.feedback === 'end')) return h('a.fbt.text.preview', {
         class: { active: isAnalyse },
         attrs: dataIcon('A'),
         hook: bind('click', () => {
