@@ -189,20 +189,19 @@ final class JsonView(
 
   private val cachableData = asyncCache.clearable[String, CachableData](
     name = "tournament.json.cachable",
-    id =>
-      for {
-        tour <- TournamentRepo byId id
-        duels = duelStore.bestRated(id, 6)
-        jsonDuels <- duels.map(duelJson).sequenceFu
-        featured <- tour ?? fetchFeaturedGame
-        podium <- tour.exists(_.isFinished) ?? podiumJsonCache.get(id)
-        next <- tour.filter(_.isFinished) ?? cached.findNext map2 nextJson
-      } yield CachableData(
-        duels = JsArray(jsonDuels),
-        featured = featured map featuredJson,
-        podium = podium,
-        next = next
-      ),
+    id => for {
+      tour <- TournamentRepo byId id
+      duels = duelStore.bestRated(id, 6)
+      jsonDuels <- duels.map(duelJson).sequenceFu
+      featured <- tour ?? fetchFeaturedGame
+      podium <- tour.exists(_.isFinished) ?? podiumJsonCache.get(id)
+      next <- tour.filter(_.isFinished) ?? cached.findNext map2 nextJson
+    } yield CachableData(
+      duels = JsArray(jsonDuels),
+      featured = featured map featuredJson,
+      podium = podium,
+      next = next
+    ),
     expireAfter = _.ExpireAfterWrite(1 second)
   )
 

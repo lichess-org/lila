@@ -470,8 +470,11 @@ div.create_tournament {
   margin-top: 30px;
   width: 300px;
 }
-.setup {
+.header .setup {
   text-transform: uppercase;
+}
+.header .help {
+  opacity: 0.6;
 }
 div.side_box .game_infos.spotlight {
   padding-left: 0;
