@@ -653,6 +653,12 @@ body.dark #tournament_side .featured {
 #tournament_side .player .color-icon {
   opacity: 0.6;
 }
+#tournament_side .duels h3 {
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
 #tournament_side .duels a {
   padding: 0.5em 0.7em;
   white-space: nowrap;
