@@ -92,10 +92,6 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
       li.hasToReload = true;
       return true;
     });
-    $('#now_playing').find('.zen input').change(function() {
-      li.loadCss('/assets/stylesheets/zen.css');
-      $('body').toggleClass('zen');
-    });
     if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
       history.replaceState(null, '', '/' + data.game.id);
     if (!data.player.spectator && data.game.status.id < 25) li.topMenuIntent();
