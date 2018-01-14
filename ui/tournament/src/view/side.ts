@@ -2,14 +2,8 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { opposite } from 'chessground/util';
 import { player as renderPlayer, miniBoard, bind } from './util';
-import { MaybeVNodes } from '../interfaces';
+import { Duel, DuelPlayer, MaybeVNodes } from '../interfaces';
 import TournamentController from '../ctrl';
-
-function user(p, it): VNode {
-  return h(
-    p.s === 0 ? 'playing' : (p.s === 1 ? 'draw' : ((p.s === 2) === (it === 0) ? 'win' : 'loss')),
-    [p.u[it]]);
-}
 
 function featuredPlayer(f, orientation) {
   const p = f[orientation === 'top' ? opposite(f.color) : f.color];
@@ -57,22 +51,35 @@ function nextTournament(ctrl: TournamentController): MaybeVNodes {
   ] : [];
 }
 
-function renderPairing(p): VNode {
+function duelPlayerMeta(p: DuelPlayer) {
+  return [
+    h('em.rank', '#' + p.k),
+    p.t ? h('em.title', p.t) : null,
+    h('em.rating', '' + p.r)
+  ];
+}
+
+function renderDuel(d: Duel): VNode {
   return h('a.glpt', {
-    key: p.id,
-    attrs: { href: '/' + p.id }
+    key: d.id,
+    attrs: { href: '/' + d.id }
   }, [
-    user(p, 0),
-    '-',
-    user(p, 1)
+    h('line.a', [
+      h('strong', d.p[0].n),
+      h('span', duelPlayerMeta(d.p[1]).reverse())
+    ]),
+    h('line.b', [
+      h('span', duelPlayerMeta(d.p[0])),
+      h('strong', d.p[1].n)
+    ])
   ]);
 }
 
 export default function(ctrl: TournamentController): MaybeVNodes {
   return [
     ...(ctrl.data.featured ? [featured(ctrl.data.featured)] : nextTournament(ctrl)),
-    h('div.box.all_pairings.scroll-shadow-soft', {
+    ctrl.data.duels.length ? h('div.duels', {
       hook: bind('click', _ => !ctrl.disableClicks)
-    }, ctrl.data.pairings.map(renderPairing))
+    }, ctrl.data.duels.map(renderDuel)) : null
   ];
 };

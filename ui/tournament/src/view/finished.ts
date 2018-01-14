@@ -5,7 +5,7 @@ import { TournamentData, MaybeVNodes } from '../interfaces';
 import * as pagination from '../pagination';
 import { standing, podium } from './arena';
 import header from './header';
-import pairings from './pairings';
+import tourSide from './side';
 import playerInfo from './playerInfo';
 import { numberRow } from './util';
 
@@ -48,6 +48,6 @@ export function main(ctrl: TournamentController): MaybeVNodes {
 export function side(ctrl: TournamentController): MaybeVNodes {
   return ctrl.playerInfo.id ? [playerInfo(ctrl)] : [
     stats ? stats(ctrl.data.stats, ctrl.trans.noarg) : null,
-    ...pairings(ctrl)
+    ...tourSide(ctrl)
   ];
 }

@@ -28,7 +28,8 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
     notifyApi: lila.notify.NotifyApi,
-    scheduler: lila.common.Scheduler
+    scheduler: lila.common.Scheduler,
+    startedSinceSeconds: Int => Boolean
 ) {
 
   private val startsAtMillis = nowMillis
@@ -78,6 +79,8 @@ final class Env(
     asyncCache = asyncCache
   )
 
+  private val duelStore = new DuelStore
+
   lazy val api = new TournamentApi(
     cached = cached,
     scheduleJsonView = scheduleJsonView,
@@ -97,6 +100,7 @@ final class Env(
     indexLeaderboard = leaderboardIndexer.indexOne _,
     roundMap = roundMap,
     asyncCache = asyncCache,
+    duelStore = duelStore,
     lightUserApi = lightUserApi
   )
 
@@ -111,7 +115,7 @@ final class Env(
     flood = flood
   )
 
-  lazy val jsonView = new JsonView(lightUserApi, cached, statsApi, asyncCache, verify, duelStore)
+  lazy val jsonView = new JsonView(lightUserApi, cached, statsApi, asyncCache, verify, duelStore, startedSinceSeconds)
 
   lazy val scheduleJsonView = new ScheduleJsonView(lightUserApi.async)
 
@@ -147,8 +151,6 @@ final class Env(
       logger = logger
     )
   }))
-
-  private val duelStore = new DuelStore
 
   system.lilaBus.subscribe(
     system.actorOf(Props(new ApiActor(api = api)), name = ApiActorName),
@@ -191,7 +193,7 @@ final class Env(
     }
   }
 
-  private lazy val autoPairing = new AutoPairing(onStart)
+  private lazy val autoPairing = new AutoPairing(duelStore, onStart)
 
   private[tournament] lazy val tournamentColl = db(CollectionTournament)
   private[tournament] lazy val pairingColl = db(CollectionPairing)
@@ -217,6 +219,7 @@ object Env {
     historyApi = lila.history.Env.current.api,
     trophyApi = lila.user.Env.current.trophyApi,
     notifyApi = lila.notify.Env.current.api,
-    scheduler = lila.common.PlayApp.scheduler
+    scheduler = lila.common.PlayApp.scheduler,
+    startedSinceSeconds = lila.common.PlayApp.startedSinceSeconds
   )
 }

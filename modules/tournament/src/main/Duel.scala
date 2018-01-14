@@ -10,9 +10,14 @@ case class Duel(
     p1: Duel.DuelPlayer,
     p2: Duel.DuelPlayer,
     averageRating: Duel.Rating
-)
+) {
+
+  def has(u: User) = p1.name.id == u.id || p2.name.id == u.id
+}
 
 object Duel {
+
+  type UsernameRating = (String, Int)
 
   case class DuelPlayer(name: Name, rating: Rating, rank: Rank)
   case class Name(value: String) extends AnyVal with StringValue {
@@ -21,8 +26,8 @@ object Duel {
   case class Rating(value: Int) extends AnyVal with IntValue
   case class Rank(value: Int) extends AnyVal with IntValue
 
-  def tbUser(p: Player.WithUser, ranking: Ranking) = ranking get p.user.id map { rank =>
-    DuelPlayer(Name(p.user.username), Rating(p.player.rating), Rank(rank))
+  def tbUser(p: UsernameRating, ranking: Ranking) = ranking get User.normalize(p._1) map { rank =>
+    DuelPlayer(Name(p._1), Rating(p._2), Rank(rank + 1))
   }
 }
 
@@ -35,9 +40,12 @@ final class DuelStore {
   def bestRated(tourId: Tournament.ID, nb: Int): Vector[Duel] =
     ~(byTourId get tourId) sortBy (-_.averageRating.value) take nb
 
+  def find(tour: Tournament, user: User): Option[Game.ID] =
+    byTourId get tour.id flatMap { _.find(_ has user).map(_.gameId) }
+
   def count = byTourId.pp.size
 
-  def add(tour: Tournament, game: Game, p1: Player.WithUser, p2: Player.WithUser, ranking: Ranking): Unit = for {
+  def add(tour: Tournament, game: Game, p1: UsernameRating, p2: UsernameRating, ranking: Ranking): Unit = for {
     p1 <- tbUser(p1, ranking)
     p2 <- tbUser(p2, ranking)
     tb = Duel(
@@ -52,7 +60,7 @@ final class DuelStore {
     tourId <- game.tournamentId
     tb <- byTourId get tourId
   } {
-    if (tb.size <= 1) byTourId -= tourId
-    else byTourId += (tourId, tb.filter(_.gameId != game.id))
+    // if (tb.size <= 1) byTourId -= tourId
+    // else byTourId += (tourId, tb.filter(_.gameId != game.id))
   }
 }

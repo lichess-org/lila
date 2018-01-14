@@ -29,8 +29,8 @@ export interface PlayerInfo {
 }
 
 export interface Duel {
-  gameId: string;
-  p: DuelPlayer[]
+  id: string;
+  p: [DuelPlayer, DuelPlayer]
 }
 
 export interface DuelPlayer {

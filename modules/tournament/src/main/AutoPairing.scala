@@ -6,9 +6,12 @@ import chess.Color
 import lila.game.{ Game, Player => GamePlayer, GameRepo, PovRef, Source, PerfPicker }
 import lila.user.User
 
-final class AutoPairing(onStart: String => Unit) {
+final class AutoPairing(
+    duelStore: DuelStore,
+    onStart: String => Unit
+) {
 
-  def apply(tour: Tournament, pairing: Pairing, usersMap: Map[User.ID, User]): Fu[Game] = {
+  def apply(tour: Tournament, pairing: Pairing, usersMap: Map[User.ID, User], ranking: Ranking): Fu[Game] = {
     val user1 = usersMap get pairing.user1 err s"Missing pairing user1 $pairing"
     val user2 = usersMap get pairing.user2 err s"Missing pairing user2 $pairing"
     val game1 = Game.make(
@@ -38,6 +41,15 @@ final class AutoPairing(onStart: String => Unit) {
       .withTournamentId(tour.id)
       .withId(pairing.gameId)
       .start
-    (GameRepo insertDenormalized game2) >>- onStart(game2.id) inject game2
+    (GameRepo insertDenormalized game2) >>- {
+      onStart(game2.id)
+      duelStore.add(
+        tour = tour,
+        game = game2,
+        p1 = (user1.username -> ~game2.whitePlayer.rating),
+        p2 = (user2.username -> ~game2.blackPlayer.rating),
+        ranking = ranking
+      )
+    } inject game2
   }
 }

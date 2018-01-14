@@ -36,6 +36,7 @@ final class TournamentApi(
     trophyApi: lila.user.TrophyApi,
     verify: Condition.Verify,
     indexLeaderboard: Tournament => Funit,
+    duelStore: DuelStore,
     asyncCache: lila.memo.AsyncCache.Builder,
     lightUserApi: lila.user.LightUserApi
 ) {
@@ -84,7 +85,7 @@ final class TournamentApi(
           case pairings => UserRepo.idsMap(pairings.flatMap(_.users)) flatMap { users =>
             pairings.map { pairing =>
               PairingRepo.insert(pairing) >>
-                autoPairing(tour, pairing, users) addEffect { game =>
+                autoPairing(tour, pairing, users, ranking) addEffect { game =>
                   sendTo(tour.id, StartGame(game))
                 }
             }.sequenceFu >> featureOneOf(tour, pairings, ranking) >>- {
@@ -284,6 +285,7 @@ final class TournamentApi(
       Sequencing(tourId)(TournamentRepo.startedById) { tour =>
         PairingRepo.finish(game) >>
           game.userIds.map(updatePlayer(tour, game.some)).sequenceFu.void >>- {
+            duelStore.remove(game)
             socketReload(tour.id)
             updateTournamentStanding(tour.id)
             withdrawNonMover(game)

@@ -7,7 +7,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.common.LightUser
-import lila.game.{ GameRepo, Pov }
+import lila.game.{ GameRepo, Pov, Game }
 import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType
 import lila.user.User
@@ -18,7 +18,8 @@ final class JsonView(
     statsApi: TournamentStatsApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     verify: Condition.Verify,
-    duelStore: DuelStore
+    duelStore: DuelStore,
+    startedSinceSeconds: Int => Boolean
 ) {
 
   import JsonView._
@@ -54,9 +55,7 @@ final class JsonView(
       case Some(user) => verify(tour.conditions, user)
     }
     stats <- statsApi(tour)
-    myGameId <- me.ifTrue(myInfo.isDefined) ?? { u =>
-      PairingRepo.playingByTourAndUserId(tour.id, u.id)
-    }
+    myGameId <- me.ifTrue(myInfo.isDefined) ?? { fetchCurrentGameId(tour, _) }
   } yield Json.obj(
     "id" -> tour.id,
     "createdBy" -> tour.createdBy,
@@ -138,6 +137,10 @@ final class JsonView(
       )
   }
 
+  private def fetchCurrentGameId(tour: Tournament, user: User): Fu[Option[Game.ID]] =
+    if (startedSinceSeconds(60)) fuccess(duelStore.find(tour, user))
+    else PairingRepo.playingByTourAndUserId(tour.id, user.id)
+
   private def fetchFeaturedGame(tour: Tournament): Fu[Option[FeaturedGame]] =
     tour.featuredId.ifTrue(tour.isStarted) ?? PairingRepo.byId flatMap {
       _ ?? { pairing =>
@@ -189,7 +192,7 @@ final class JsonView(
     id =>
       for {
         tour <- TournamentRepo byId id
-        duels = duelStore.bestRated(id, 20)
+        duels = duelStore.bestRated(id, 6)
         jsonDuels <- duels.map(duelJson).sequenceFu
         featured <- tour ?? fetchFeaturedGame
         podium <- tour.exists(_.isFinished) ?? podiumJsonCache.get(id)

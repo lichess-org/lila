@@ -653,20 +653,73 @@ body.dark #tournament_side .featured {
 #tournament_side .player .color-icon {
   opacity: 0.6;
 }
-#tournament_side .all_pairings {
-  font-style: italic;
-}
-#tournament_side .all_pairings a {
-  padding: 0.3em 0.2em;
-  display: block;
+#tournament_side .duels a {
+  padding: 0.5em 0.7em;
   white-space: nowrap;
-  overflow: hidden;
+  border: 1px solid rgba(150,150,150,0.25);
+  display: flex;
+  flex-flow: column;
+  line-height: 1.9em;
+  border-bottom: none;
+  background: none;
 }
-#tournament_side .all_pairings > a > * {
-  margin: 0 5px;
-  font-weight: bold;
+#tournament_side .duels a:first-child {
+  border-top: none;
+}
+#tournament_side .duels a:nth-child(even) {
+  border-left: none;
+}
+#tournament_side .duels a:nth-child(odd) {
+  border-right: none;
+}
+#tournament_side .duels a:hover {
+  background: rgba(191, 231, 255, 0.7);
+}
+body.dark #tournament_side .duels a:hover {
+  background: rgba(27, 51, 68, 0.7);
+}
+#tournament_side .duels line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#tournament_side .duels .white {
+  text-align: left;
+}
+#tournament_side .duels .black {
+  text-align: right;
+}
+#tournament_side .duels em {
   font-style: normal;
 }
+#tournament_side .duels strong {
+  font-size: 1.2em;
+  display: block;
+  max-width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#tournament_side .duels span {
+}
+#tournament_side .duels .title {
+  color: #d59120;
+  font-weight: bold;
+}
+#tournament_side .duels .rank {
+  padding: 0.1em 0.5em;
+  background: rgba(128,128,128,0.5);
+  color: #fff;
+  border-radius: 2px;
+}
+#tournament_side .duels .b .title,
+#tournament_side .duels .b .rank {
+  margin-right: 0.3em;
+}
+#tournament_side .duels .a .title,
+#tournament_side .duels .a .rank {
+  margin-left: 0.3em;
+}
+
 #tournament_side win {
   color: #33aa33;
 }
