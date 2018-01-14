@@ -800,6 +800,11 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="notifications">Pranešimai</string>
   <string name="challenges">Iššūkiai</string>
   <string name="perfRatingX">Reitingas: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekundė atlikti pirmąjį ėjimą</item>
+    <item quantity="few">%s sekundės atlikti pirmąjį ėjimą</item>
+    <item quantity="other">%s sekundžių atlikti pirmąjį ėjimą</item>
+  </plurals>
   <string name="practiceWithComputer">Treniruotė su kompiuteriu</string>
   <string name="anotherWasX">Dar vienas buvo %s</string>
   <string name="bestWasX">Geriausias buvo %s</string>
@@ -814,6 +819,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="whiteWinsGame">Laimėjo baltieji</string>
   <string name="blackWinsGame">Laimėjo juodieji</string>
   <string name="learnFromYourMistakes">Mokykitės iš savo klaidų</string>
+  <string name="learnFromThisMistake">Pasimokykite iš šios klaidos</string>
   <string name="skipThisMove">Praleisti šį ėjimą</string>
   <string name="next">Toliau</string>
   <string name="xWasPlayed">Buvo sužaistas %s</string>
@@ -841,4 +847,10 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="opening">Debiutas</string>
   <string name="middlegame">Mitelšpilis</string>
   <string name="endgame">Endšpilis</string>
+  <string name="registerToSendChallenges">Užsiregistruokite, norėdami mesti iššūkius.</string>
+  <string name="youCannotChallengeX">Negalite mesti iššūkio žaidėjui %s.</string>
+  <string name="xDoesNotAcceptChallenges">Žaidėjas %s nepriima iššūkių.</string>
+  <string name="yourXRatingIsTooFarFromY">Jūsų „%1$s“ reitingas yra per toli nuo žaidėjo „%2$s“.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Iššūkio mesti nepavyko dėl laikino žaidėjo %s reitingo.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">Žaidėjas %s iššūkius priima tik iš draugų.</string>
 </resources>
