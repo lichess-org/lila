@@ -35,6 +35,7 @@ case class Glicko(
 
   def cap = copy(
     rating = rating atLeast Glicko.minRating,
+    deviation = deviation atLeast Glicko.minDeviation atMost Glicko.maxDeviation,
     volatility = volatility atMost Glicko.maxVolatility
   )
 
@@ -49,7 +50,9 @@ case object Glicko {
 
   val defaultIntRating = default.rating.toInt
 
+  val minDeviation = 60
   val provisionalDeviation = 110
+  val maxDeviation = 350
 
   // past this, it might not stabilize ever again
   val maxVolatility = 0.1d
