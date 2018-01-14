@@ -1,11 +1,27 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import * as xhr from './studyXhr';
-import { prop, throttle } from 'common';
+import { prop, throttle, Prop } from 'common';
 import { bind, nodeFullName, spinner } from '../util';
 import AnalyseCtrl from '../ctrl';
 
-function renderGlyph(ctrl, node) {
+interface AllGlyphs {
+  move: Tree.Glyph[];
+  observation: Tree.Glyph[];
+  position: Tree.Glyph[];
+}
+
+export interface GlyphCtrl {
+  root: AnalyseCtrl;
+  all: Prop<AllGlyphs>;
+  open(): void;
+  isOpen: Prop<boolean>;
+  toggle(): void;
+  toggleGlyph(id: Tree.GlyphId): void;
+  redraw(): void;
+}
+
+function renderGlyph(ctrl: GlyphCtrl, node: Tree.Node) {
   return function(glyph) {
     return h('a', {
       hook: bind('click', _ => {
@@ -13,9 +29,7 @@ function renderGlyph(ctrl, node) {
         return false;
       }, ctrl.redraw),
       class: {
-        active: (node.glyphs && node.glyphs.find(function(g) {
-          return g.id === glyph.id;
-        }))
+        active: !!node.glyphs && !!node.glyphs.find(g => g.id === glyph.id)
       }
     }, [
       h('i', {
@@ -31,13 +45,13 @@ export function ctrl(root: AnalyseCtrl) {
   all = prop<any | null>(null);
 
   function loadGlyphs() {
-    if (!all()) xhr.glyphs().then(function(gs) {
+    if (!all()) xhr.glyphs().then(gs => {
       all(gs);
       root.redraw();
     });
   };
 
-  const toggleGlyph = throttle(500, function(id) {
+  const toggleGlyph = throttle(500, (id: string) => {
     root.study!.makeChange('toggleGlyph', root.study!.withPosition({
       id
     }));
@@ -62,7 +76,7 @@ export function ctrl(root: AnalyseCtrl) {
   };
 }
 
-export function view(ctrl): VNode | undefined {
+export function view(ctrl: GlyphCtrl): VNode | undefined {
 
   if (!ctrl.isOpen()) return;
   const all = ctrl.all();

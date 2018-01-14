@@ -112,9 +112,7 @@ object Main extends LilaController {
       "observation" -> Glyph.Observation.display
     )) as JSON
   }
-  def glyphs = Action {
-    glyphsResult
-  }
+  val glyphs = Action(glyphsResult)
 
   def image(id: String, hash: String, name: String) = Action.async { req =>
     Env.db.image.fetch(id) map {
