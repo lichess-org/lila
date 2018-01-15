@@ -6,7 +6,6 @@ import { view as chapterView } from './studyChapters';
 import { view as chapterNewFormView } from './chapterNewForm';
 import { view as chapterEditFormView } from './chapterEditForm';
 import * as commentForm from './commentForm';
-import { currentComments as currentCommentsView } from './studyComments';
 import * as glyphForm from './studyGlyph';
 import { view as inviteFormView } from './inviteForm';
 import { view as studyFormView } from './studyForm';
@@ -28,17 +27,21 @@ interface ToolButtonOpts {
   hint: string;
   icon: VNode;
   onClick?: () => void;
+  count?: number;
 }
 
 function toolButton(opts: ToolButtonOpts): VNode {
   return h('a.fbt.hint--top.' + opts.tab, {
     attrs: { 'data-hint': opts.hint },
     class: { active: opts.tab === opts.ctrl.vm.toolTab() },
-    hook: bind('click', () => {
+    hook: bind('mousedown', () => {
       if (opts.onClick) opts.onClick();
       opts.ctrl.vm.toolTab(opts.tab);
     }, opts.ctrl.redraw)
-  }, [opts.icon]);
+  }, [
+    opts.count ? h('count.data-count', { attrs: { 'data-count': opts.count } }) : null,
+    opts.icon
+  ]);
 }
 
 function buttons(root: AnalyseCtrl): VNode {
@@ -67,21 +70,23 @@ function buttons(root: AnalyseCtrl): VNode {
         hint: 'PGN tags',
         icon: iconTag('o'),
       }),
+      toolButton({
+        ctrl,
+        tab: 'comments',
+        hint: 'Comment this position',
+        icon: iconTag('c'),
+        onClick() {
+          ctrl.commentForm.set(ctrl.currentChapter().id, root.path, root.node);
+        },
+        count: (root.node.comments || []).length
+      }),
       ...(canContribute ? [
-        toolButton({
-          ctrl,
-          tab: 'comments',
-          hint: 'Comment this position',
-          icon: iconTag('c'),
-          onClick() {
-            ctrl.commentForm.set(ctrl.currentChapter().id, root.path, root.node);
-          }
-        }),
         toolButton({
           ctrl,
           tab: 'glyphs',
           hint: 'Annotate with glyphs',
-          icon: h('i.glyph-icon')
+          icon: h('i.glyph-icon'),
+          count: (root.node.glyphs || []).length
         }),
         toolButton({
           ctrl,
@@ -201,8 +206,8 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
       break;
     case 'comments':
       panel = study.vm.mode.write ?
-        commentForm.view(study.commentForm) :
-        commentForm.viewDisabled('Press RECORD before commenting moves');
+        commentForm.view(ctrl) :
+        commentForm.viewDisabled(ctrl, 'Press RECORD before commenting moves');
       break;
     case 'glyphs':
       panel = ctrl.path ? (
@@ -220,7 +225,6 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   }
   return [
     notifView(study.notif),
-    currentCommentsView(ctrl, toolTab !== 'comments'),
     buttons(ctrl),
     panel,
     descView(study)

@@ -80,7 +80,7 @@ div.underboard .notif.error {
 }
 .study_comment_form form.material.form textarea,
 .chapter_desc_form form.material.form textarea {
-  height: 100px;
+  height: 150px;
   font-size: 1.1em;
   line-height: 1.3em;
   resize: vertical;
@@ -451,12 +451,14 @@ div.underboard .notif.error {
   height: 16px;
   display: inline-block;
 }
-.study_buttons .fbt.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+body.base .study_buttons .fbt:not(:disabled):hover {
+  background: #639B24;
 }
-.study_buttons .fbt:hover {
-  color: #3893E8;
+body.base .study_buttons .fbt:not(:disabled):active,
+body.base .study_buttons .fbt.active {
+  background: rgba(99,155,36,0.75)!important;
+  border-top: 1px solid #639B24;
+  margin-top: -1px;
 }
 .glyph-icon::before {
   content: '⁉';
@@ -550,12 +552,13 @@ div.underboard .notif.error {
 .study_comment_form,
 .study_metadata,
 .study_share {
-  border-top: 2px solid #3893E8 !important;
+  border-top: 2px solid rgba(99,155,36,0.75) !important;
 }
-.underboard .disabled {
-  height: 100px;
-  line-height: 100px;
-  text-align: center;
+.underboard .message {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 body.dark .underboard_form .title,
@@ -572,7 +575,6 @@ body.dark .study_box .add,
 body.dark .glyph_form a:hover i::before {
   background: #303030;
 }
-
 
 .destructive {
   margin-top: 20px;

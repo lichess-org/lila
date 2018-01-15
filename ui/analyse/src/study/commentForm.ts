@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { currentComments } from './studyComments';
 import { nodeFullName, bind } from '../util';
 import { prop, throttle, Prop } from 'common';
 import AnalyseCtrl from '../ctrl';
@@ -79,14 +80,17 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
   };
 }
 
-export function viewDisabled(why: string): VNode {
-  return h('div.study_comment_form.underboard_form.disabled', why);
+export function viewDisabled(root: AnalyseCtrl, why: string): VNode {
+  return h('div.study_comment_form.underboard_form', [
+    currentComments(root, true),
+    h('div.disabled', why)
+  ]);
 }
 
-export function view(ctrl: CommentForm): VNode {
+export function view(root: AnalyseCtrl): VNode {
 
-  const current = ctrl.current();
-  if (!current) return viewDisabled('Select a move to comment');
+  const study = root.study!, ctrl = study.commentForm, current = ctrl.current();
+  if (!current) return viewDisabled(root, 'Select a move to comment');
 
   function setupTextarea(vnode: VNode) {
     const el = vnode.elm as HTMLInputElement,
@@ -103,6 +107,7 @@ export function view(ctrl: CommentForm): VNode {
       insert: _ => window.lichess.loadCss('/assets/stylesheets/material.form.css')
     }
   }, [
+    currentComments(root, !study.members.canContribute()),
     h('p.title', [
       'Commenting position after ',
       h('button.button', {

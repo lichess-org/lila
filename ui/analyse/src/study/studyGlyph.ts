@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import * as xhr from './studyXhr';
 import { prop, throttle, Prop } from 'common';
-import { bind, nodeFullName, spinner } from '../util';
+import { bind, spinner } from '../util';
 import AnalyseCtrl from '../ctrl';
 
 interface AllGlyphs {
@@ -65,7 +65,9 @@ export function ctrl(root: AnalyseCtrl) {
 }
 
 export function viewDisabled(why: string): VNode {
-  return h('div.study_glyph_form.underboard_form.disabled', why);
+  return h('div.study_glyph_form', [
+    h('div.message', h('span', why))
+  ]);
 }
 
 export function view(ctrl: GlyphCtrl): VNode {
@@ -75,14 +77,10 @@ export function view(ctrl: GlyphCtrl): VNode {
   return h('div.study_glyph_form.underboard_form', {
     hook: { insert: ctrl.loadGlyphs }
   }, [
-    h('p.title', [
-      'Annotating position after ',
-      h('strong', nodeFullName(node))
-    ]),
     all ? h('div.glyph_form', [
       h('div.move', all.move.map(renderGlyph(ctrl, node))),
       h('div.position', all.position.map(renderGlyph(ctrl, node))),
       h('div.observation', all.observation.map(renderGlyph(ctrl, node)))
-    ]) : spinner()
+    ]) : h('div.message', spinner())
   ]);
 }
