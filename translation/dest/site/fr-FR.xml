@@ -753,7 +753,7 @@ en %3$s</string>
   <string name="embedInYourWebsite">Intégrer dans votre site web</string>
   <string name="usernameAlreadyUsed">Ce nom d\'utilisateur existe déjà. Merci d\'en choisir un autre.</string>
   <string name="usernameInvalid">Nom d\'utilisateur invalide. Veullez utiliser seulement des lettres, chiffres, underscore et tirets.</string>
-  <string name="usernameStartNoNumber">Le premier caractère du nom ne peut pas être un chiffre.</string>
+  <string name="usernameStartNoNumber">Le nom d\'utilisateur ne doit pas commencer par un chiffre.</string>
   <string name="usernameUnacceptable">Ce nom d\'utilisateur existe déjà ou est insultant.</string>
   <string name="directlySupportLichess">Financer Lichess</string>
   <string name="playChessInStyle">Jouez aux échecs avec classe</string>
