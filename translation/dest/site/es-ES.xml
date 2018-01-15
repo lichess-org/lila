@@ -822,5 +822,10 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s sólo acepta desafíos de sus amigos.</string>
   <string name="conditionalPremoves">Premovimientos condicionales</string>
   <string name="addCurrentVariation">Añadir la variante actual</string>
+  <string name="playVariationToCreateConditionalPremoves">Juega una variación para crear premovimientos condicionales</string>
   <string name="playX">Jugar %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">y ahorra %s variante de premovimientos</item>
+    <item quantity="other">y ahorra %s variantes de premovimientos</item>
+  </plurals>
 </resources>
