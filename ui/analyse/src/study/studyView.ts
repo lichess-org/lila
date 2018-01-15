@@ -164,7 +164,10 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
   return ctrl.vm.mode.write ? [
     h('a.action', {
       attrs: dataIcon('c'),
-      hook: bind('click', () => ctrl.commentForm.open(ctrl.currentChapter()!.id, path, node))
+      hook: bind('click', () => {
+        ctrl.vm.toolTab('comments');
+        ctrl.commentForm.set(ctrl.currentChapter()!.id, path, node);
+      })
     }, 'Comment this move'),
     h('a.action.glyph-icon', {
       hook: bind('click', () => {
