@@ -616,12 +616,12 @@
   <string name="side">Сторона</string>
   <string name="clock">Часы</string>
   <string name="unauthorizedError">Неавторизованный доступ</string>
-  <string name="noInternetConnection">Нет интернет соединения. Вы можете играть оффлайн из меню.</string>
+  <string name="noInternetConnection">Нет интернет соединения. Вы можете пока играть офлайн из меню.</string>
   <string name="connectedToLichess">Сейчас вы подключены к lichess.org</string>
   <string name="signedOut">Вы вышли</string>
   <string name="loginSuccessful">Вы вошли</string>
-  <string name="playOnTheBoardOffline">Играйте оффлайн</string>
-  <string name="playOfflineComputer">Играть с компьютером оффлайн</string>
+  <string name="playOnTheBoardOffline">Играйте офлайн</string>
+  <string name="playOfflineComputer">Играть с компьютером офлайн</string>
   <string name="opponent">Соперник</string>
   <string name="learnMenu">Учиться</string>
   <string name="community">Сообщество</string>
@@ -754,7 +754,7 @@
   <string name="phoneAndTablet">На телефоне и планшете</string>
   <string name="bulletBlitzClassical">Блиц, Рапид, Классика</string>
   <string name="correspondenceChess">Дневные шахматы</string>
-  <string name="onlineAndOfflinePlay">Игра онлайн и оффлайн</string>
+  <string name="onlineAndOfflinePlay">Игра онлайн и офлайн</string>
   <string name="correspondenceAndUnlimited">В дневной и без ограничения времени</string>
   <string name="viewTheSolution">Посмотреть решение</string>
   <string name="followAndChallengeFriends">Подписаться и вызвать на игру друзей</string>
@@ -851,7 +851,7 @@
   <string name="registerToSendChallenges">Зарегистрируйтесь, чтобы вызывать соперников на игру.</string>
   <string name="youCannotChallengeX">Вы не можете вызвать на игру %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не принимает вызовы.</string>
-  <string name="yourXRatingIsTooFarFromY">Ваш рейтинг %1$s слишком далёк от %2$s.</string>
+  <string name="yourXRatingIsTooFarFromY">Ваш рейтинг в %1$s слишком отличается от рейтинга %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Невозможно из-за недостоверности рейтинга %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s принимает вызовы только от друзей.</string>
   <string name="conditionalPremoves">Условные предходы</string>
