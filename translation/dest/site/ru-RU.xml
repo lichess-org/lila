@@ -648,7 +648,7 @@
   <string name="whiteCastlingKingside">Белые О-О</string>
   <string name="whiteCastlingQueenside">Белые О-О-О</string>
   <string name="blackCastlingKingside">Чёрные О-О</string>
-  <string name="blackCastlingQueenside">Черные О-О-О</string>
+  <string name="blackCastlingQueenside">Чёрные О-О-О</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s сообщений на форуме</item>
     <item quantity="few">%s сообщений на форуме</item>
