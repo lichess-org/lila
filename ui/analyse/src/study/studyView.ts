@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { bind, plural, dataIcon } from '../util';
+import { bind, plural, dataIcon, iconTag } from '../util';
 import { view as memberView } from './studyMembers';
 import { view as chapterView } from './studyChapters';
 import { view as chapterNewFormView } from './chapterNewForm';
@@ -18,14 +18,33 @@ import * as practiceView from './practice/studyPracticeView';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
 import { view as descView } from './chapterDescription';
 import AnalyseCtrl from '../ctrl';
-import { StudyCtrl, Tab } from './interfaces';
+import { StudyCtrl, Tab, ToolTab } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
+
+
+interface ToolButtonOpts {
+  ctrl: StudyCtrl;
+  tab: ToolTab;
+  hint: string;
+  icon: VNode;
+  onClick?: () => void;
+}
+
+function toolButton(opts: ToolButtonOpts): VNode {
+  return h('a.fbt.hint--top.' + opts.tab, {
+    attrs: { 'data-hint': opts.hint },
+    class: { active: opts.tab === opts.ctrl.vm.toolTab() },
+    hook: bind('click', () => {
+      if (opts.onClick) opts.onClick();
+      opts.ctrl.vm.toolTab(opts.tab);
+    }, opts.ctrl.redraw)
+  }, [opts.icon]);
+}
 
 function buttons(root: AnalyseCtrl): VNode {
   const ctrl = root.study!,
   canContribute = ctrl.members.canContribute(),
-  showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently())),
-  toolTab = ctrl.vm.toolTab();
+  showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
   return h('div.study_buttons', [
     h('div.member_buttons', [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
@@ -42,46 +61,41 @@ function buttons(root: AnalyseCtrl): VNode {
         class: { on: ctrl.vm.mode.write },
         hook: bind('click', ctrl.toggleWrite)
       }, [ h('i.is'), 'Record' ]) : null,
-      h('a.fbt.tags.hint--top', {
-        attrs: { 'data-hint': 'PGN tags' },
-        class: { active: toolTab === 'tags' },
-        hook: bind('click', () => ctrl.vm.toolTab('tags'), ctrl.redraw)
-      }, [
-        h('i', { attrs: dataIcon('o') })
-      ]),
+      toolButton({
+        ctrl,
+        tab: 'tags',
+        hint: 'PGN tags',
+        icon: iconTag('o'),
+      }),
       ...(canContribute ? [
-        h('a.fbt.comment.hint--top', {
-          attrs: { 'data-hint': 'Comment this position' },
-          class: { active: toolTab === 'comments' },
-          hook: bind('click', () => {
+        toolButton({
+          ctrl,
+          tab: 'comments',
+          hint: 'Comment this position',
+          icon: iconTag('c'),
+          onClick() {
             ctrl.commentForm.set(ctrl.currentChapter().id, root.path, root.node);
-            ctrl.vm.toolTab('comments');
-          }, ctrl.redraw)
-        }, [
-          h('i', { attrs: dataIcon('c') })
-        ]),
-        h('a.fbt.glyph.hint--top', {
-          attrs: { 'data-hint': 'Annotate with glyphs' },
-          class: { active: toolTab === 'glyphs' },
-          hook: bind('click', () => ctrl.vm.toolTab('glyphs'), ctrl.redraw)
-        }, [
-          h('i.glyph-icon')
-        ]),
-        h('a.fbt.analysis.hint--top', {
-          attrs: { 'data-hint': root.trans.noarg('computerAnalysis') },
-          class: { active: toolTab === 'serverEval' },
-          hook: bind('click', () => ctrl.vm.toolTab('serverEval'), ctrl.redraw)
-        }, [
-          h('i', { attrs: dataIcon('') })
-        ])
+          }
+        }),
+        toolButton({
+          ctrl,
+          tab: 'glyphs',
+          hint: 'Annotate with glyphs',
+          icon: h('i.glyph-icon')
+        }),
+        toolButton({
+          ctrl,
+          tab: 'serverEval',
+          hint: root.trans.noarg('computerAnalysis'),
+          icon: iconTag('')
+        })
       ] : []),
-      h('a.fbt.share.hint--top', {
-        attrs: { 'data-hint': 'Share & export' },
-        class: { active: toolTab === 'share' },
-        hook: bind('click', () => ctrl.vm.toolTab('share'), ctrl.redraw)
-      }, [
-        h('i', { attrs: dataIcon('z') })
-      ])
+      toolButton({
+        ctrl,
+        tab: 'share',
+        hint: 'Share & export',
+        icon: iconTag('z')
+      })
     ]),
     gbOverrideButton(ctrl) || helpButton(ctrl)
   ]);
@@ -134,7 +148,7 @@ export function main(ctrl: StudyCtrl): VNode {
     makeTab('chapters', plural(ctrl.relay ? 'Game' : 'Chapter', ctrl.chapters.size())),
     ctrl.members.isOwner() ? h('a.more', {
       hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw)
-    }, [ h('i', { attrs: dataIcon('[') }) ]) : null
+    }, [ iconTag('[') ]) : null
     ]);
 
   let panel;
