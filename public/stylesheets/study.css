@@ -424,19 +424,6 @@ div.underboard .notif.error {
   font-weight: normal;
   text-transform: uppercase;
 }
-.study_buttons .fbt.mode i::before {
-  font-size: 19px;
-  content: 'L';
-  color: #dc322f;
-  margin-right: 4px;
-}
-.study_buttons .fbt.mode.on i::before {
-  content: 'E';
-  color: #759900;
-}
-.study_buttons .fbt.mode:hover i::before {
-  color: #fff;
-}
 .study_buttons .behind {
   background: #dc322f;
   color: #fff;
@@ -459,6 +446,26 @@ body.base .study_buttons .fbt.active {
   background: rgba(99,155,36,0.75)!important;
   border-top: 1px solid #639B24;
   margin-top: -1px;
+  cursor: default;
+}
+.study_buttons .mode {
+  padding: 5px 10px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.study_buttons .mode i::before {
+  font-size: 19px;
+  content: 'L';
+  color: #dc322f;
+  margin-right: 4px;
+}
+.study_buttons .mode.on i::before {
+  content: 'E';
+  color: #639B24!important;
+}
+.study_buttons .mode:hover {
+  background: rgba(128,128,128,0.15);
+  opacity: 1;
 }
 .glyph-icon::before {
   content: '⁉';
