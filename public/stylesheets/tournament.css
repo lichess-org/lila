@@ -720,6 +720,9 @@ body.dark #tournament_side .duels a:hover {
   color: #fff;
   border-radius: 2px;
 }
+body.dark #tournament_side .duels .rank {
+  color: #ccc;
+}
 #tournament_side .duels .b .title,
 #tournament_side .duels .b .rank {
   margin-right: 0.3em;
