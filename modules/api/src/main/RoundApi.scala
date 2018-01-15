@@ -1,6 +1,7 @@
 package lila.api
 
 import play.api.libs.json._
+import chess.format.FEN
 
 import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.ApiVersion
@@ -24,7 +25,7 @@ private[api] final class RoundApi(
 ) {
 
   def player(pov: Pov, apiVersion: ApiVersion)(implicit ctx: Context): Fu[JsObject] =
-    GameRepo.initialFen(pov.game) flatMap { initialFen =>
+    GameRepo.initialFen(pov.game) map2 FEN.apply flatMap { initialFen =>
       jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
         withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs)),
         initialFen = initialFen) zip
@@ -46,8 +47,8 @@ private[api] final class RoundApi(
     }
 
   def watcher(pov: Pov, apiVersion: ApiVersion, tv: Option[lila.round.OnTv],
-    initialFenO: Option[Option[String]] = None)(implicit ctx: Context): Fu[JsObject] =
-    initialFenO.fold(GameRepo initialFen pov.game)(fuccess) flatMap { initialFen =>
+    initialFenO: Option[Option[FEN]] = None)(implicit ctx: Context): Fu[JsObject] =
+    initialFenO.fold(GameRepo initialFen pov.game map2 FEN)(fuccess) flatMap { initialFen =>
       jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
         initialFen = initialFen,
         withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs))) zip
@@ -69,9 +70,9 @@ private[api] final class RoundApi(
   def review(pov: Pov, apiVersion: ApiVersion,
     tv: Option[lila.round.OnTv] = None,
     analysis: Option[Analysis] = None,
-    initialFenO: Option[Option[String]] = None,
+    initialFenO: Option[Option[FEN]] = None,
     withFlags: WithFlags)(implicit ctx: Context): Fu[JsObject] =
-    initialFenO.fold(GameRepo initialFen pov.game)(fuccess) flatMap { initialFen =>
+    initialFenO.fold(GameRepo initialFen pov.game map2 FEN)(fuccess) flatMap { initialFen =>
       jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
         initialFen = initialFen,
         withFlags = withFlags.copy(blurs = ctx.me ?? Granter(_.ViewBlurs))) zip
@@ -91,37 +92,37 @@ private[api] final class RoundApi(
         }
     }
 
-  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean, me: Option[User]) =
+  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: chess.Color, owner: Boolean, me: Option[User]) =
     owner.??(forecastApi loadForDisplay pov).map { fco =>
-      withForecast(pov, owner, fco)(
-        withTree(pov, analysis = none, initialFen, WithFlags(opening = true))(
+      withForecast(pov, owner, fco) {
+        withTree(pov, analysis = none, initialFen, WithFlags(opening = true)) {
           jsonView.userAnalysisJson(pov, pref, initialFen, orientation, owner = owner, me = me)
-        )
-      )
+        }
+      }
     }
 
-  def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, me: Option[User]) =
+  def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: chess.Color, me: Option[User]) =
     withTree(pov, analysis = none, initialFen, WithFlags(opening = true))(
       jsonView.userAnalysisJson(pov, pref, initialFen, orientation, owner = false, me = me)
     )
 
-  private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[String], withFlags: WithFlags)(obj: JsObject) =
+  private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[FEN], withFlags: WithFlags)(obj: JsObject) =
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(lila.round.TreeBuilder(
       id = pov.game.id,
       pgnMoves = pov.game.pgnMoves,
       variant = pov.game.variant,
       analysis = analysis,
-      initialFen = initialFen | pov.game.variant.initialFen,
+      initialFen = initialFen | FEN(pov.game.variant.initialFen),
       withFlags = withFlags,
       clocks = withFlags.clocks ?? pov.game.bothClockStates
     )))
 
-  private def withSteps(pov: Pov, initialFen: Option[String])(obj: JsObject) =
+  private def withSteps(pov: Pov, initialFen: Option[FEN])(obj: JsObject) =
     obj + ("steps" -> lila.round.StepBuilder(
       id = pov.game.id,
       pgnMoves = pov.game.pgnMoves,
       variant = pov.game.variant,
-      initialFen = initialFen | pov.game.variant.initialFen
+      initialFen = initialFen.fold(pov.game.variant.initialFen)(_.value)
     ))
 
   private def withNote(note: String)(json: JsObject) =

@@ -1,16 +1,14 @@
 function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
-lichess.advantageChart = function(data, trans) {
+lichess.advantageChart = function(data, trans, el) {
   lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
     lichess.loadScript('/assets/javascripts/chart/division.js').done(function() {
       lichess.chartCommon('highchart').done(function() {
 
         lichess.advantageChart.update = function(d, partial) {
-          $elem.highcharts().series[0].setData(makeSerieData(d, partial));
+          $(el).highcharts().series[0].setData(makeSerieData(d, partial));
         };
-
-        var $elem = $('#adv_chart');
 
         var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
         if (data.player.color === 'white') blurs.reverse();
@@ -58,7 +56,7 @@ lichess.advantageChart = function(data, trans) {
           text: null
         };
         var serieData = makeSerieData(data);
-        var chart = $elem.highcharts({
+        var chart = $(el).highcharts({
           credits: disabled,
           legend: disabled,
           series: [{
@@ -147,7 +145,7 @@ lichess.advantageChart = function(data, trans) {
             }]
           }
         });
-        lichess.analyse.onChange();
+        lichess.pubsub.emit('analysis.change.trigger')();
       });
     });
   });

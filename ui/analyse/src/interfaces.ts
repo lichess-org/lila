@@ -86,7 +86,6 @@ export interface AnalyseOpts {
   study?: any;
   tagTypes?: string;
   practice?: StudyPracticeData;
-  onChange?: (fen: Fen, path: Tree.Path, mainlinePly: Ply | false) => void;
   onToggleComputer?: (v: boolean) => void;
   relay?: RelayData;
 }

@@ -13,6 +13,7 @@ import { view as studyFormView } from './studyForm';
 import { view as studyShareView } from './studyShare';
 import { view as notifView } from './notif';
 import { view as tagsView } from './studyTags';
+import { view as serverEvalView } from './serverEval';
 import * as practiceView from './practice/studyPracticeView';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
 import { view as descView } from './chapterDescription';
@@ -65,7 +66,17 @@ function buttons(root: AnalyseCtrl): VNode {
           }, ctrl.redraw)
         }, [
           h('i.glyph-icon')
-        ])
+        ]),
+        root.data.game.division ? h('a.fbt.analysis.hint--top', {
+          attrs: { 'data-hint': root.trans.noarg('computerAnalysis') },
+          class: {
+            active: ctrl.serverEval.open(),
+            disabled: false
+          },
+          hook: bind('click', ctrl.serverEval.toggle, ctrl.redraw)
+        }, [
+          h('i', { attrs: dataIcon('') })
+        ]) : null
       ] : [])
     ]),
     gbOverrideButton(ctrl) || helpButton(ctrl)
@@ -181,6 +192,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
     currentCommentsView(ctrl, !commentForm),
     commentForm,
     buttons(ctrl),
+    ctrl.data.game.division ? serverEvalView(study.serverEval) : null,
     descView(study),
     metadata(study)
   ];

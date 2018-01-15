@@ -37,7 +37,8 @@ module.exports = function(element, cfg) {
     });
   };
   var lastFen, lastPly;
-  cfg.onChange = function(fen, path, mainlinePly) {
+
+  lichess.pubsub.on('analysis.change', function(fen, path, mainlinePly) {
     if (lastPly === mainlinePly) return;
     lastPly = typeof mainlinePly === 'undefined' ? lastPly : mainlinePly;
     var chart, point, $chart = $("#adv_chart");
@@ -70,7 +71,7 @@ module.exports = function(element, cfg) {
         }
       }
     } catch (e) {}
-  };
+  });
   cfg.onToggleComputer = function(v) {
     setTimeout(function() {
       if (v) $('div.analysis_menu a.computer_analysis').mousedown();
@@ -104,7 +105,7 @@ module.exports = function(element, cfg) {
     if (!$("#adv_chart").length) $panel.html('<div id="adv_chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$("#adv_chart_loader").length) $panel.append(chartLoader());
     lichess.loadScript('/assets/javascripts/chart/acpl.js').then(function() {
-      lichess.advantageChart(data, cfg.trans);
+      lichess.advantageChart(data, cfg.trans, $("#adv_chart")[0]);
     });
   };
 

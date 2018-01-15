@@ -11,7 +11,7 @@ import lila.game.{ Pov, Game, Player => GamePlayer }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
-import chess.format.Forsyth
+import chess.format.{ Forsyth, FEN }
 import chess.{ Color, Clock }
 
 import actorApi.SocketStatus
@@ -52,7 +52,7 @@ final class JsonView(
     pref: Pref,
     apiVersion: ApiVersion,
     playerUser: Option[User],
-    initialFen: Option[String],
+    initialFen: Option[FEN],
     withFlags: WithFlags
   ): Fu[JsObject] =
     getSocketStatus(pov.game.id) zip
@@ -141,7 +141,7 @@ final class JsonView(
     apiVersion: ApiVersion,
     me: Option[User],
     tv: Option[OnTv],
-    initialFen: Option[String] = None,
+    initialFen: Option[FEN] = None,
     withFlags: WithFlags
   ) =
     getSocketStatus(pov.game.id) zip
@@ -197,10 +197,11 @@ final class JsonView(
   def userAnalysisJson(
     pov: Pov,
     pref: Pref,
-    initialFen: Option[String],
+    initialFen: Option[FEN],
     orientation: chess.Color,
     owner: Boolean,
-    me: Option[User]
+    me: Option[User],
+    division: Option[chess.Division] = none
   ) = {
     import pov._
     val fen = Forsyth >> game.toChess
@@ -209,12 +210,12 @@ final class JsonView(
         "id" -> gameId,
         "variant" -> game.variant,
         "opening" -> game.opening,
-        "initialFen" -> (initialFen | game.variant.initialFen),
+        "initialFen" -> initialFen.fold(chess.format.Forsyth.initial)(_.value),
         "fen" -> fen,
         "turns" -> game.turns,
         "player" -> game.turnColor.name,
         "status" -> game.status
-      ),
+      ).add("division", division),
       "player" -> Json.obj(
         "id" -> owner.option(pov.playerId),
         "color" -> color.name

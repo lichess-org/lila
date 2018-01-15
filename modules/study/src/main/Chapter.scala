@@ -23,6 +23,7 @@ case class Chapter(
     gamebook: Option[Boolean] = None,
     description: Option[String] = None,
     relay: Option[Chapter.Relay] = None,
+    analysisId: Option[lila.analyse.Analysis.ID],
     createdAt: DateTime
 ) extends Chapter.Like {
 
@@ -163,6 +164,7 @@ object Chapter {
     gamebook = gamebook option true,
     conceal = conceal,
     relay = relay,
+    analysisId = none,
     createdAt = DateTime.now
   )
 }

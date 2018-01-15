@@ -17,7 +17,7 @@ final class Analyser(
   def get(game: Game): Fu[Option[Analysis]] =
     game.analysable ?? get(game.id)
 
-  def get(id: String): Fu[Option[Analysis]] = AnalysisRepo byId id
+  def get(id: Analysis.ID): Fu[Option[Analysis]] = AnalysisRepo byId id
 
   def save(analysis: Analysis): Funit = GameRepo game analysis.id flatMap {
     _ ?? { game =>

@@ -10,6 +10,7 @@ import { ctrl as studyFormCtrl, StudyFormCtrl } from './studyForm';
 import { ctrl as notifCtrl } from './notif';
 import { ctrl as shareCtrl } from './studyShare';
 import { ctrl as tagsCtrl } from './studyTags';
+import { ctrl as serverEvalCtrl } from './serverEval';
 import * as tours from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
@@ -114,6 +115,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       description: t
     });
   }, redraw);
+  const serverEval = serverEvalCtrl(() => ctrl.data, redraw, ctrl.trans);
 
   function addChapterId(req) {
     req.ch = vm.chapterId;
@@ -453,6 +455,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     notif,
     commentForm,
     glyphForm,
+    serverEval,
     share,
     tags,
     desc,
