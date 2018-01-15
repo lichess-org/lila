@@ -42,7 +42,6 @@ function buttons(root: AnalyseCtrl): VNode {
         class: { on: ctrl.vm.mode.write },
         hook: bind('click', ctrl.toggleWrite)
       }, [ h('i.is'), 'Record' ]) : null,
-      shareButton(ctrl),
       h('a.fbt.tags.hint--top', {
         attrs: { 'data-hint': 'PGN tags' },
         class: { active: toolTab === 'tags' },
@@ -75,7 +74,14 @@ function buttons(root: AnalyseCtrl): VNode {
         }, [
           h('i', { attrs: dataIcon('') })
         ])
-      ] : [])
+      ] : []),
+      h('a.fbt.share.hint--top', {
+        attrs: { 'data-hint': 'Share & export' },
+        class: { active: toolTab === 'share' },
+        hook: bind('click', () => ctrl.vm.toolTab('share'), ctrl.redraw)
+      }, [
+        h('i', { attrs: dataIcon('z') })
+      ])
     ]),
     gbOverrideButton(ctrl) || helpButton(ctrl)
   ]);
@@ -87,16 +93,6 @@ function helpButton(ctrl: StudyCtrl) {
     hook: bind('click', ctrl.startTour)
   }, [
     h('i.text', { attrs: dataIcon('') }, 'help')
-  ]);
-}
-
-export function shareButton(ctrl: StudyCtrl) {
-  return h('a.fbt.share.hint--top', {
-    attrs: { 'data-hint': 'Share & export' },
-    class: { active: ctrl.share.open() },
-    hook: bind('click', ctrl.share.toggle, ctrl.redraw)
-  }, [
-    h('i', { attrs: dataIcon('z') })
   ]);
 }
 
@@ -171,7 +167,6 @@ export function overboard(ctrl: StudyCtrl) {
   if (ctrl.chapters.editForm.current()) return chapterEditFormView(ctrl.chapters.editForm);
   if (ctrl.members.inviteForm.open()) return inviteFormView(ctrl.members.inviteForm);
   if (ctrl.form.open()) return studyFormView(ctrl.form);
-  if (ctrl.share.open()) return studyShareView(ctrl.share);
 }
 
 export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
@@ -202,6 +197,9 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
       break;
     case 'serverEval':
       panel = serverEvalView(study.serverEval);
+      break;
+    case 'share':
+      panel = studyShareView(study.share);
       break;
   }
   return [

@@ -45,31 +45,6 @@ form.chapter_form.material.form .form-group textarea {
   line-height: 1.2em;
   font-size: 0.9em;
 }
-.form.share input {
-  font-size: 13px!important;
-}
-.form.share .ply-wrap {
-  margin-top: -5px;
-  text-align: left;
-  opacity: 0.7;
-  font-size: 0.8rem;
-}
-.form.share .ply {
-  cursor: pointer;
-}
-.form.share .ply input {
-  margin-right: 5px;
-  vertical-align: middle;
-}
-.form.share .fen {
-  overflow: hidden;
-  font-family: monospace;
-  font-size: 10px;
-  white-space: nowrap;
-  margin: -1rem 0 1rem 0;
-  background: #f0f0f0;
-  border-radius: 5px;
-}
 div.underboard {
   margin-top: 17px;
   min-height: 370px;
@@ -77,9 +52,6 @@ div.underboard {
 .underboard_form .title {
   background: #e0e0e0;
   line-height: 30px;
-}
-.underboard_form .close {
-  float: right;
 }
 div.underboard .notif {
   margin: -20px 0 20px 0;
@@ -435,15 +407,8 @@ div.underboard .notif.error {
   opacity: 0.7;
   color: #3893E8;
 }
-.study_overboard a.form-help:hover {
+.material.form a.form-help:hover {
   text-decoration: underline;
-}
-.study_overboard .downloads {
-  display: flex;
-  justify-content: space-between;
-}
-.study_overboard .downloads a {
-  font-weight: normal;
 }
 .study_buttons {
   display: flex;
@@ -548,10 +513,43 @@ div.underboard .notif.error {
   align-items: content;
   height: 200px;
 }
+.study_share input {
+  font-size: 13px!important;
+}
+.study_share .ply-wrap {
+  margin-top: -5px;
+  text-align: left;
+  opacity: 0.7;
+  font-size: 0.8rem;
+}
+.study_share .ply {
+  cursor: pointer;
+}
+.study_share .ply input {
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.study_share .fen {
+  overflow: hidden;
+  font-family: monospace;
+  font-size: 11px;
+  line-heigth: 2em;
+  white-space: nowrap;
+  margin: -1rem 0 1rem 0;
+  padding: 1em;
+  background: #f0f0f0;
+  border-radius: 5px;
+}
+.study_share .downloads {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 20px 20px 20px;
+}
 .server_eval,
 .study_glyph_form,
 .study_comment_form,
-.study_metadata {
+.study_metadata,
+.study_share {
   border-top: 2px solid #3893E8 !important;
 }
 .underboard .disabled {
@@ -565,7 +563,7 @@ body.dark .study_comments .comment,
 body.dark .glyph_form i::before {
   background: #262626;
 }
-body.dark .form.share .fen,
+body.dark .study_share .fen,
 body.dark .glyph_form a:hover {
   background: #383838;
 }

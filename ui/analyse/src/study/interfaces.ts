@@ -54,7 +54,7 @@ export interface StudyCtrl {
 }
 
 export type Tab = 'members' | 'chapters';
-export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval';
+export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share';
 
 export interface StudyVm {
   loading: boolean;

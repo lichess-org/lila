@@ -3,7 +3,6 @@ import { VNode } from 'snabbdom/vnode'
 import { bind, dataIcon } from '../../util';
 import AnalyseCtrl from '../../ctrl';
 import { StudyCtrl } from '../interfaces';
-import { shareButton } from '../studyView';
 
 export function playButtons(root: AnalyseCtrl): VNode | undefined {
   const study = root.study!,
@@ -13,7 +12,6 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
   fb = state.feedback,
   myTurn = fb === 'play';
   return h('div.study_buttons', [
-    shareButton(study),
     h('div.gb_buttons', [
       root.path ? h('a.fbt.text.back', {
         attrs: dataIcon('I'),
