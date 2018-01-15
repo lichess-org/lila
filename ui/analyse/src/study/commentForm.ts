@@ -62,12 +62,14 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
     set,
     submit,
     onSetPath(path: Tree.Path, node: Tree.Node, playedMyself: boolean): void {
-      const cur = current();
-      if (cur && cur.path !== path && (!focus() || playedMyself)) {
-        cur.path = path;
-        cur.node = node;
-        root.redraw();
-      }
+      setTimeout(() => {
+        const cur = current();
+        if (cur && cur.path !== path && (!focus() || playedMyself)) {
+          cur.path = path;
+          cur.node = node;
+          root.redraw();
+        }
+      }, 100);
     },
     redraw: root.redraw,
     delete(chapterId: string, path: Tree.Path, id: string) {
@@ -98,7 +100,7 @@ export function view(root: AnalyseCtrl): VNode {
       return c.by && c.by.id && c.by.id === ctrl.root.opts.userId;
     });
     el.value = mine ? mine.text : '';
-    if (ctrl.opening() || ctrl.focus()) el.focus();
+    if (ctrl.opening() || ctrl.focus()) window.lichess.raf(() => el.focus());
     ctrl.opening(false);
   }
 
@@ -108,13 +110,12 @@ export function view(root: AnalyseCtrl): VNode {
     }
   }, [
     currentComments(root, !study.members.canContribute()),
-    h('p.title', [
+    ctrl.focus() && ctrl.root.path !== current.path ? h('p.title', [
       'Commenting position after ',
       h('button.button', {
-        class: { active: ctrl.root.path === current.path },
-        hook: bind('click', _ => ctrl.root.userJump(current.path), ctrl.redraw)
+        hook: bind('mousedown', () => ctrl.root.userJump(current.path), ctrl.redraw)
       }, nodeFullName(current.node))
-    ]),
+    ]) : null,
     h('form.material.form', [
       h('div.form-group', [
         h('textarea#comment-text', {
@@ -136,9 +137,11 @@ export function view(root: AnalyseCtrl): VNode {
                 ctrl.focus(false);
                 ctrl.redraw();
               };
+              vnode.data!.path = current.path;
             },
             postpatch(old, vnode) {
               if (old.data!.path !== current.path) setupTextarea(vnode);
+              vnode.data!.path = current.path;
             }
           }
         }),

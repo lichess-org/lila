@@ -490,7 +490,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     withPosition,
     setPath(path, node, playedMyself) {
       onSetPath(path);
-      setTimeout(() => commentForm.onSetPath(path, node, playedMyself), 100);
+      commentForm.onSetPath(path, node, playedMyself);
     },
     deleteNode(path) {
       makeChange("deleteNode", addChapterId({

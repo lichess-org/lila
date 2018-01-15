@@ -67,23 +67,24 @@ div.underboard .notif {
 div.underboard .notif.error {
   background-color: #d59120;
 }
-.study_comment_form form.material.form,
-.chapter_desc_form form.material.form {
+.underboard form.material.form {
   display: flex;
   align-items: center;
   margin: 0;
 }
-.study_comment_form form .form-group,
-.chapter_desc_form form .form-group {
+.underboard form .form-group {
   width: 100%;
   margin-bottom: 15px!important;
 }
-.study_comment_form form.material.form textarea,
-.chapter_desc_form form.material.form textarea {
+.underboard form.material.form textarea {
   height: 150px;
+  padding: 10px 0;
   font-size: 1.1em;
   line-height: 1.3em;
   resize: vertical;
+}
+.underboard form.material.form .form-group .bar::before {
+  background: rgba(99,155,36,0.75);
 }
 .study_comments {
   text-align: left;
@@ -446,7 +447,6 @@ body.base .study_buttons .fbt.active {
   background: rgba(99,155,36,0.75)!important;
   border-top: 1px solid #639B24;
   margin-top: -1px;
-  cursor: default;
 }
 .study_buttons .mode {
   padding: 5px 10px;
@@ -562,7 +562,7 @@ body.base .study_buttons .fbt.active {
   border-top: 2px solid rgba(99,155,36,0.75) !important;
 }
 .underboard .message {
-  height: 200px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;

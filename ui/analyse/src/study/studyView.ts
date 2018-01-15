@@ -207,13 +207,13 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
     case 'comments':
       panel = study.vm.mode.write ?
         commentForm.view(ctrl) :
-        commentForm.viewDisabled(ctrl, 'Press RECORD before commenting moves');
+        commentForm.viewDisabled(ctrl, 'Press RECORD to comment moves');
       break;
     case 'glyphs':
       panel = ctrl.path ? (
         study.vm.mode.write ?
         glyphForm.view(study.glyphForm) :
-        glyphForm.viewDisabled('Press RECORD before annotating moves')
+        glyphForm.viewDisabled('Press RECORD to annotate moves')
       ) : glyphForm.viewDisabled('Select a move to annotate');
       break;
     case 'serverEval':
