@@ -70,8 +70,8 @@
   </plurals>
   <string name="signedUp">Зарегистрировался на lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Присоединился к %s команде</item>
-    <item quantity="few">Присоединился к %s командам</item>
-    <item quantity="other">Присоединился к %s командам</item>
+    <item quantity="one">Вступил в %s команду</item>
+    <item quantity="few">Вступил в %s команды</item>
+    <item quantity="other">Вступил в %s команд</item>
   </plurals>
 </resources>
