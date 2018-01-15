@@ -111,13 +111,12 @@ function helpButton(ctrl: StudyCtrl) {
 }
 
 function metadata(ctrl: StudyCtrl): VNode {
-  const chapter = ctrl.currentChapter();
   const d = ctrl.data;
   return h('div.study_metadata.undertable', [
     h('h2.undertable_top', [
       h('span.name', [
         d.name,
-        ': ' + chapter.name
+        ': ' + ctrl.currentChapter().name
       ]),
       h('span.liking.text', {
         class: { liked: d.liked },

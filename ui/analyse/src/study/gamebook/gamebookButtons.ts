@@ -12,6 +12,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
   fb = state.feedback,
   myTurn = fb === 'play';
   return h('div.study_buttons', [
+    h('div.member_buttons'),
     h('div.gb_buttons', [
       root.path ? h('a.fbt.text.back', {
         attrs: dataIcon('I'),
