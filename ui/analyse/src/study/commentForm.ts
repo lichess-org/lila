@@ -15,12 +15,11 @@ interface CommentForm {
   current: Prop<Current | null>;
   focus: Prop<boolean>;
   opening: Prop<boolean>;
-  open(chapterId: string, path: Tree.Path, node: Tree.Node): void;
-  close(): void;
+  set(chapterId: string, path: Tree.Path, node: Tree.Node): void;
   submit(text: string): void;
   onSetPath(path: Tree.Path, node: Tree.Node, playedMyself: boolean): void;
   redraw(): void;
-  toggle(chapterId: string, path: Tree.Path, node: Tree.Node): void;
+  set(chapterId: string, path: Tree.Path, node: Tree.Node): void;
   delete(chapterId: string, path: Tree.Path, id: string): void;
 }
 
@@ -44,7 +43,7 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
     });
   });
 
-  function open(chapterId: string, path: Tree.Path, node: Tree.Node): void {
+  function set(chapterId: string, path: Tree.Path, node: Tree.Node): void {
     opening(true);
     current({
       chapterId,
@@ -54,17 +53,12 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
     root.userJump(path);
   };
 
-  function close() {
-    current(null);
-  }
-
   return {
     root,
     current,
     focus,
     opening,
-    open,
-    close,
+    set,
     submit,
     onSetPath(path: Tree.Path, node: Tree.Node, playedMyself: boolean): void {
       const cur = current();
@@ -75,10 +69,6 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
       }
     },
     redraw: root.redraw,
-    toggle(chapterId: string, path: Tree.Path, node: Tree.Node) {
-      if (current()) close();
-      else open(chapterId, path, node);
-    },
     delete(chapterId: string, path: Tree.Path, id: string) {
       root.study!.makeChange('deleteComment', {
         ch: chapterId,
@@ -89,10 +79,14 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
   };
 }
 
-export function view(ctrl: CommentForm): VNode | undefined {
+export function viewDisabled(why: string): VNode {
+  return h('div.study_comment_form.underboard_form.disabled', why);
+}
+
+export function view(ctrl: CommentForm): VNode {
 
   const current = ctrl.current();
-  if (!current) return;
+  if (!current) return viewDisabled('Select a move to comment');
 
   function setupTextarea(vnode: VNode) {
     const el = vnode.elm as HTMLInputElement,
@@ -110,13 +104,6 @@ export function view(ctrl: CommentForm): VNode | undefined {
     }
   }, [
     h('p.title', [
-      h('button.button.frameless.close', {
-        attrs: {
-          'data-icon': 'L',
-          title: 'Close'
-        },
-        hook: bind('click', ctrl.close, ctrl.redraw)
-      }),
       'Commenting position after ',
       h('button.button', {
         class: { active: ctrl.root.path === current.path },
@@ -144,18 +131,10 @@ export function view(ctrl: CommentForm): VNode | undefined {
                 ctrl.focus(false);
                 ctrl.redraw();
               };
-              const trap = window.Mousetrap(el);
-              trap.bind(['ctrl+enter', 'command+enter'], ctrl.close);
-              trap.stopCallback = () => false;
-              vnode.data!.trap = trap;
-              vnode.data!.path = current.path;
             },
             postpatch(old, vnode) {
               if (old.data!.path !== current.path) setupTextarea(vnode);
-              vnode.data!.path = current.path;
-              vnode.data!.trap = old.data!.trap;
-            },
-            destroy: vnode => vnode.data!.trap.reset()
+            }
           }
         }),
         h('i.bar')

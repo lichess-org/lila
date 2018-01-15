@@ -5,9 +5,9 @@ import { view as memberView } from './studyMembers';
 import { view as chapterView } from './studyChapters';
 import { view as chapterNewFormView } from './chapterNewForm';
 import { view as chapterEditFormView } from './chapterEditForm';
-import { view as commentFormView } from './commentForm';
+import * as commentForm from './commentForm';
 import { currentComments as currentCommentsView } from './studyComments';
-import { view as glyphFormView } from './studyGlyph';
+import * as glyphForm from './studyGlyph';
 import { view as inviteFormView } from './inviteForm';
 import { view as studyFormView } from './studyForm';
 import { view as studyShareView } from './studyShare';
@@ -24,7 +24,8 @@ import { MaybeVNodes } from '../interfaces';
 function buttons(root: AnalyseCtrl): VNode {
   const ctrl = root.study!,
   canContribute = ctrl.members.canContribute(),
-  showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
+  showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently())),
+  toolTab = ctrl.vm.toolTab();
   return h('div.study_buttons', [
     h('div.member_buttons', [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
@@ -38,45 +39,42 @@ function buttons(root: AnalyseCtrl): VNode {
       ]) : null,
       ctrl.members.canContribute() ? h('a.fbt.mode.write.hint--top', {
         attrs: { 'data-hint': 'Write changes to the server' },
-        class: {on: ctrl.vm.mode.write },
+        class: { on: ctrl.vm.mode.write },
         hook: bind('click', ctrl.toggleWrite)
       }, [ h('i.is'), 'Record' ]) : null,
       shareButton(ctrl),
+      h('a.fbt.tags.hint--top', {
+        attrs: { 'data-hint': 'PGN tags' },
+        class: { active: toolTab === 'tags' },
+        hook: bind('click', () => ctrl.vm.toolTab('tags'), ctrl.redraw)
+      }, [
+        h('i', { attrs: dataIcon('o') })
+      ]),
       ...(canContribute ? [
         h('a.fbt.comment.hint--top', {
           attrs: { 'data-hint': 'Comment this position' },
-          class: {
-            active: ctrl.commentForm.current(),
-            disabled: !ctrl.vm.mode.write
-          },
-          hook: bind('click', function() {
-            if (ctrl.vm.mode.write) ctrl.commentForm.toggle(ctrl.currentChapter().id, root.path, root.node);
+          class: { active: toolTab === 'comments' },
+          hook: bind('click', () => {
+            ctrl.commentForm.set(ctrl.currentChapter().id, root.path, root.node);
+            ctrl.vm.toolTab('comments');
           }, ctrl.redraw)
         }, [
           h('i', { attrs: dataIcon('c') })
         ]),
         h('a.fbt.glyph.hint--top', {
           attrs: { 'data-hint': 'Annotate with glyphs' },
-          class: {
-            active: ctrl.glyphForm.isOpen(),
-            disabled: !(root.path && ctrl.vm.mode.write)
-          },
-          hook: bind('click', function() {
-            if (root.path && ctrl.vm.mode.write) ctrl.glyphForm.toggle();
-          }, ctrl.redraw)
+          class: { active: toolTab === 'glyphs' },
+          hook: bind('click', () => ctrl.vm.toolTab('glyphs'), ctrl.redraw)
         }, [
           h('i.glyph-icon')
         ]),
-        root.data.game.division ? h('a.fbt.analysis.hint--top', {
+        h('a.fbt.analysis.hint--top', {
           attrs: { 'data-hint': root.trans.noarg('computerAnalysis') },
-          class: {
-            active: ctrl.serverEval.open(),
-            disabled: false
-          },
-          hook: bind('click', ctrl.serverEval.toggle, ctrl.redraw)
+          class: { active: toolTab === 'serverEval' },
+          hook: bind('click', () => ctrl.vm.toolTab('serverEval'), ctrl.redraw)
         }, [
           h('i', { attrs: dataIcon('') })
-        ]) : null
+        ])
       ] : [])
     ]),
     gbOverrideButton(ctrl) || helpButton(ctrl)
@@ -102,7 +100,7 @@ export function shareButton(ctrl: StudyCtrl) {
   ]);
 }
 
-function metadata(ctrl: StudyCtrl): VNode | undefined {
+function metadata(ctrl: StudyCtrl): VNode {
   const chapter = ctrl.currentChapter();
   const d = ctrl.data;
   return h('div.study_metadata.undertable', [
@@ -161,7 +159,7 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
     }, 'Comment this move'),
     h('a.action.glyph-icon', {
       hook: bind('click', () => {
-        ctrl.glyphForm.open();
+        ctrl.vm.toolTab('glyphs');
         ctrl.userJump(path);
       })
     }, 'Annotate with glyphs')
@@ -179,21 +177,38 @@ export function overboard(ctrl: StudyCtrl) {
 export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   if (ctrl.embed) return [];
   if (ctrl.studyPractice) return [practiceView.underboard(ctrl.study!)];
-  const study = ctrl.study!;
+  const study = ctrl.study!, toolTab = study.vm.toolTab();
   if (study.gamebookPlay()) return [
     gbPlayButtons(ctrl),
     descView(study),
     metadata(study)
   ];
-  const commentForm = commentFormView(study.commentForm);
+  let panel;
+  switch(toolTab) {
+    case 'tags':
+      panel = metadata(study);
+      break;
+    case 'comments':
+      panel = study.vm.mode.write ?
+        commentForm.view(study.commentForm) :
+        commentForm.viewDisabled('Press RECORD before commenting moves');
+      break;
+    case 'glyphs':
+      panel = ctrl.path ? (
+        study.vm.mode.write ?
+        glyphForm.view(study.glyphForm) :
+        glyphForm.viewDisabled('Press RECORD before annotating moves')
+      ) : glyphForm.viewDisabled('Select a move to annotate');
+      break;
+    case 'serverEval':
+      panel = serverEvalView(study.serverEval);
+      break;
+  }
   return [
     notifView(study.notif),
-    glyphFormView(study.glyphForm),
-    currentCommentsView(ctrl, !commentForm),
-    commentForm,
+    currentCommentsView(ctrl, toolTab !== 'comments'),
     buttons(ctrl),
-    ctrl.data.game.division ? serverEvalView(study.serverEval) : null,
-    descView(study),
-    metadata(study)
+    panel,
+    descView(study)
   ];
 }

@@ -14,9 +14,7 @@ interface AllGlyphs {
 export interface GlyphCtrl {
   root: AnalyseCtrl;
   all: Prop<AllGlyphs>;
-  open(): void;
-  isOpen: Prop<boolean>;
-  toggle(): void;
+  loadGlyphs(): void;
   toggleGlyph(id: Tree.GlyphId): void;
   redraw(): void;
 }
@@ -41,8 +39,8 @@ function renderGlyph(ctrl: GlyphCtrl, node: Tree.Node) {
 }
 
 export function ctrl(root: AnalyseCtrl) {
-  const isOpen = prop(false),
-  all = prop<any | null>(null);
+
+  const all = prop<any | null>(null);
 
   function loadGlyphs() {
     if (!all()) xhr.glyphs().then(gs => {
@@ -57,40 +55,27 @@ export function ctrl(root: AnalyseCtrl) {
     }));
   });
 
-  function open() {
-    loadGlyphs();
-    isOpen(true);
-  };
-
   return {
     root,
     all,
-    open,
-    isOpen,
-    toggle() {
-      if (isOpen()) isOpen(false);
-      else open();
-    },
+    loadGlyphs,
     toggleGlyph,
     redraw: root.redraw
   };
 }
 
-export function view(ctrl: GlyphCtrl): VNode | undefined {
+export function viewDisabled(why: string): VNode {
+  return h('div.study_glyph_form.underboard_form.disabled', why);
+}
 
-  if (!ctrl.isOpen()) return;
-  const all = ctrl.all();
-  const node = ctrl.root.node;
+export function view(ctrl: GlyphCtrl): VNode {
 
-  return h('div.study_glyph_form.underboard_form', [
+  const all = ctrl.all(), node = ctrl.root.node;
+
+  return h('div.study_glyph_form.underboard_form', {
+    hook: { insert: ctrl.loadGlyphs }
+  }, [
     h('p.title', [
-      h('button.button.frameless.close', {
-        attrs: {
-          'data-icon': 'L',
-          title: 'Close'
-        },
-        hook: bind('click', () => ctrl.isOpen(false), ctrl.redraw)
-      }),
       'Annotating position after ',
       h('strong', nodeFullName(node))
     ]),

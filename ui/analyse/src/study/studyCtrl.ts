@@ -14,7 +14,7 @@ import { ctrl as serverEvalCtrl } from './serverEval';
 import * as tours from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
-import { StudyCtrl, StudyVm, Tab, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
+import { StudyCtrl, StudyVm, Tab, ToolTab, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { ChapterDescriptionCtrl } from './chapterDescription';
 import RelayCtrl from './relay/relayCtrl';
@@ -37,6 +37,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return {
       loading: false,
       tab: prop<Tab>(relayData || data.chapters.length > 1 ? 'chapters' : 'members'),
+      toolTab: prop<ToolTab>('tags'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
       // path is at ctrl.path
       mode: {
@@ -157,7 +158,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     const sameChapter = data.chapter.id === s.chapter.id;
     vm.mode.sticky = (vm.mode.sticky && s.features.sticky) || (!data.features.sticky && s.features.sticky);
     if (vm.mode.sticky) vm.behind = 0;
-    if (s.position !== data.position) commentForm.close();
+    // if (s.position !== data.position) commentForm.close();
     'position name visibility features settings chapter likes liked'.split(' ').forEach(key => {
       data[key] = s[key];
     });
@@ -522,7 +523,6 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     toggleWrite: function() {
       vm.mode.write = !vm.mode.write && members.canContribute();
-      if (!vm.mode.write) commentForm.close();
       xhrReload();
     },
     isWriting,

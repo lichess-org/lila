@@ -54,12 +54,14 @@ export interface StudyCtrl {
 }
 
 export type Tab = 'members' | 'chapters';
+export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval';
 
 export interface StudyVm {
   loading: boolean;
   nextChapterId?: string;
   justSetChapterId?: string;
   tab: Prop<Tab>;
+  toolTab: Prop<ToolTab>;
   chapterId: string;
   mode: {
     sticky: boolean;
