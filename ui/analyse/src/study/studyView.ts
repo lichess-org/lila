@@ -67,7 +67,7 @@ function buttons(root: AnalyseCtrl): VNode {
         }, [
           h('i.glyph-icon')
         ]),
-        h('a.fbt.analysis.hint--top', {
+        root.data.game.division ? h('a.fbt.analysis.hint--top', {
           attrs: { 'data-hint': root.trans.noarg('computerAnalysis') },
           class: {
             active: ctrl.serverEval.open(),
@@ -76,7 +76,7 @@ function buttons(root: AnalyseCtrl): VNode {
           hook: bind('click', ctrl.serverEval.toggle, ctrl.redraw)
         }, [
           h('i', { attrs: dataIcon('') })
-        ])
+        ]) : null
       ] : [])
     ]),
     gbOverrideButton(ctrl) || helpButton(ctrl)
@@ -192,7 +192,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
     currentCommentsView(ctrl, !commentForm),
     commentForm,
     buttons(ctrl),
-    serverEvalView(study.serverEval),
+    ctrl.data.game.division ? serverEvalView(study.serverEval) : null,
     descView(study),
     metadata(study)
   ];
