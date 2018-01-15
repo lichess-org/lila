@@ -629,8 +629,8 @@
   <string name="increment">Добавка</string>
   <string name="sharePGN">Поделиться PGN</string>
   <string name="playOnline">Играть онлайн</string>
-  <string name="playOffline">Играть оффлайн</string>
-  <string name="allowAnalytics">Разрешить сбор статистики</string>
+  <string name="playOffline">Играть офлайн</string>
+  <string name="allowAnalytics">Разрешить анонимный сбор статистики</string>
   <string name="shareGameURL">Поделиться ссылкой на игру</string>
   <string name="error.required">Это обязательное поле</string>
   <string name="error.email">Неверный адрес электронной почты</string>
@@ -650,8 +650,8 @@
   <string name="blackCastlingKingside">Чёрные О-О</string>
   <string name="blackCastlingQueenside">Чёрные О-О-О</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s сообщений на форуме</item>
-    <item quantity="few">%s сообщений на форуме</item>
+    <item quantity="one">%s сообщение на форуме</item>
+    <item quantity="few">%s сообщения на форуме</item>
     <item quantity="other">%s сообщений на форуме</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Проведённое за игрой время: %s</string>
