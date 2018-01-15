@@ -158,6 +158,8 @@ export default class AnalyseCtrl {
         });
         if (this.music && set !== 'music') this.music = null;
     });
+
+    li.pubsub.on('analysis.change.trigger', this.onChange);
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -297,10 +299,7 @@ export default class AnalyseCtrl {
   };
 
   private onChange: () => void = throttle(300, () => {
-    if (this.opts.onChange) {
-      const mainlinePly = this.onMainline ? this.node.ply : false;
-      this.opts.onChange!(this.node.fen, this.path, mainlinePly);
-    }
+    li.pubsub.emit('analysis.change')(this.node.fen, this.path, this.onMainline ? this.node.ply : false);
   });
 
   private updateHref: () => void = li.fp.debounce(() => {

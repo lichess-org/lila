@@ -37,7 +37,8 @@ module.exports = function(element, cfg) {
     });
   };
   var lastFen, lastPly;
-  cfg.onChange = function(fen, path, mainlinePly) {
+
+  lichess.pubsub.on('analysis.change', function(fen, path, mainlinePly) {
     if (lastPly === mainlinePly) return;
     lastPly = typeof mainlinePly === 'undefined' ? lastPly : mainlinePly;
     var chart, point, $chart = $("#adv_chart");
@@ -70,7 +71,7 @@ module.exports = function(element, cfg) {
         }
       }
     } catch (e) {}
-  };
+  });
   cfg.onToggleComputer = function(v) {
     setTimeout(function() {
       if (v) $('div.analysis_menu a.computer_analysis').mousedown();

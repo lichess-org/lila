@@ -32,7 +32,7 @@ export function view(ctrl: ServerEvalCtrl): VNode | undefined {
 
   if (!ctrl.open()) return;
 
-  return h('div.server_eval', {
+  return h('div#adv_chart.server_eval', {
     hook: {
       insert(vnode) {
         window.lichess.requestIdleCallback(() => {

@@ -129,7 +129,7 @@ object Study extends LilaController {
     pov = UserAnalysis.makePov(initialFen, chapter.setup.variant)
     division = analysis.isDefined option Env.game.divider(
       id = chapter.id.value,
-      pgnMoves = chapter.root.mainline.map(_.move.uci.uci)(scala.collection.breakOut),
+      pgnMoves = chapter.root.mainline.map(_.move.san).toVector,
       variant = chapter.setup.variant,
       initialFen = initialFen
     )

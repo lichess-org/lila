@@ -145,7 +145,7 @@ lichess.advantageChart = function(data, trans, el) {
             }]
           }
         });
-        if (lichess.analyse) lichess.analyse.onChange();
+        lichess.pubsub.emit('analysis.change.trigger')();
       });
     });
   });
