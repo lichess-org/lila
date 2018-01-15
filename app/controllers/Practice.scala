@@ -70,7 +70,7 @@ object Practice extends LilaController {
   private def analysisJson(us: UserStudy)(implicit ctx: Context): Fu[(JsObject, JsObject)] = us match {
     case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
       studyEnv.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>
-        val initialFen = chapter.root.fen.value.some
+        val initialFen = chapter.root.fen.some
         val pov = UserAnalysis.makePov(initialFen, chapter.setup.variant)
         val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation, owner = false, me = ctx.me)
         val analysis = baseData ++ Json.obj(

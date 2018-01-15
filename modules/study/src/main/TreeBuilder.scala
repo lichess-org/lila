@@ -32,7 +32,7 @@ object TreeBuilder {
     clock = node.clock,
     crazyData = node.crazyData,
     eval = infos.flatMap(_.headOption) map makeEval,
-    children = toBranches(node.children, infos.map(_.tail)),
+    children = toBranches(node.children, infos.map(_ drop 1)),
     opening = FullOpeningDB findByFen node.fen.value
   )
 

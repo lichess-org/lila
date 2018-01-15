@@ -543,6 +543,12 @@ div.underboard .notif.error {
   background: #3893E8!important;
   color: #fff!important;
 }
+.server_eval {
+  display: flex;
+  align-items: content;
+  height: 200px;
+  border-top: 3px solid #3893E8 !important;
+}
 
 body.dark .underboard_form .title,
 body.dark .study_comments .comment,
@@ -558,6 +564,8 @@ body.dark .study_box .add,
 body.dark .glyph_form a:hover i::before {
   background: #303030;
 }
+
+
 .destructive {
   margin-top: 20px;
 }

@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc._
 
+import chess.format.FEN
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
@@ -42,7 +43,7 @@ object Analyse extends LilaController {
               Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
                 tv = userTv.map { u => lila.round.OnUserTv(u.id) },
                 analysis,
-                initialFenO = initialFen.some,
+                initialFenO = initialFen.map(FEN).some,
                 withFlags = WithFlags(
                   movetimes = true,
                   clocks = true,
@@ -72,7 +73,7 @@ object Analyse extends LilaController {
       case Some((game, initialFen)) =>
         val pov = Pov(game, chess.Color(color == "white"))
         Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
-          initialFenO = initialFen.map(_.value).some,
+          initialFenO = initialFen.some,
           withFlags = WithFlags(opening = true)) map { data =>
             Ok(html.analyse.embed(pov, data))
           }

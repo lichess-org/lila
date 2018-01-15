@@ -124,10 +124,19 @@ object Study extends LilaController {
     chapter = resetToChapter | sc.chapter
     _ <- Env.user.lightUserApi preloadMany study.members.ids.toList
     _ = if (HTTPRequest isSynchronousHttp ctx.req) Env.study.studyRepo.incViews(study)
-    initialFen = chapter.root.fen.value.some
-    pov = UserAnalysis.makePov(initialFen, chapter.setup.variant)
+    initialFen = chapter.root.fen.some
     analysis <- chapter.analysisId ?? Env.analyse.analyser.get
-    baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation, owner = false, me = ctx.me)
+    pov = UserAnalysis.makePov(initialFen, chapter.setup.variant)
+    division = analysis.isDefined option Env.game.divider(
+      id = chapter.id.value,
+      pgnMoves = chapter.root.mainline.map(_.move.uci.uci)(scala.collection.breakOut),
+      variant = chapter.setup.variant,
+      initialFen = initialFen
+    )
+    baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation,
+      owner = false,
+      me = ctx.me,
+      division = division)
     studyJson <- Env.study.jsonView(study, chapters, chapter, ctx.me)
   } yield WithChapter(study, chapter) -> JsData(
     study = studyJson,
@@ -225,7 +234,7 @@ object Study extends LilaController {
             members = lila.study.StudyMembers(Map.empty) // don't need no members
           ), List(chapter.metadata), chapter, ctx.me) flatMap { studyJson =>
             val setup = chapter.setup
-            val initialFen = chapter.root.fen.value.some
+            val initialFen = chapter.root.fen.some
             val pov = UserAnalysis.makePov(initialFen, setup.variant)
             val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, setup.orientation, owner = false, me = ctx.me)
             val analysis = baseData ++ Json.obj(

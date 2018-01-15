@@ -1,7 +1,7 @@
 package controllers
 
-import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
+import chess.format.{ FEN, Forsyth }
 import chess.Situation
 import chess.variant.{ Variant, Standard, FromPosition }
 import play.api.libs.json.Json
@@ -31,9 +31,9 @@ object UserAnalysis extends LilaController with TheftPrevention {
   }
 
   def load(urlFen: String, variant: Variant) = Open { implicit ctx =>
-    val decodedFen = lila.common.String.decodeUriPath(urlFen)
+    val decodedFen: Option[FEN] = lila.common.String.decodeUriPath(urlFen)
       .map(_.replace("_", " ").trim).filter(_.nonEmpty)
-      .orElse(get("fen"))
+      .orElse(get("fen")) map FEN.apply
     val pov = makePov(decodedFen, variant)
     val orientation = get("color").flatMap(chess.Color.apply) | pov.color
     Env.api.roundApi.userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false, me = ctx.me) map { data =>
@@ -41,9 +41,9 @@ object UserAnalysis extends LilaController with TheftPrevention {
     }
   }
 
-  private[controllers] def makePov(fen: Option[String], variant: Variant): Pov = makePov {
-    fen.filter(_.nonEmpty).flatMap {
-      Forsyth.<<<@(variant, _)
+  private[controllers] def makePov(fen: Option[FEN], variant: Variant): Pov = makePov {
+    fen.filter(_.value.nonEmpty).flatMap { f =>
+      Forsyth.<<<@(variant, f.value)
     } | SituationPlus(Situation(variant), 1)
   }
 
@@ -71,7 +71,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
           if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).fuccess
           else for {
             initialFen <- GameRepo initialFen game.id
-            data <- Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov), me = ctx.me)
+            data <- Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen map FEN, pov.color, owner = isMyPov(pov), me = ctx.me)
           } yield NoCache(Ok(html.board.userAnalysis(data, pov))),
         api = apiVersion => mobileAnalysis(pov, apiVersion)
       )
@@ -89,7 +89,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
             Env.api.roundApi.review(pov, apiVersion,
               tv = none,
               analysis,
-              initialFenO = initialFen.some,
+              initialFenO = initialFen.map(FEN).some,
               withFlags = WithFlags(division = true, opening = true, clocks = true, movetimes = true)) map { data =>
                 Ok(data.add("crosstable", crosstable))
               }
@@ -111,7 +111,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
         err => BadRequest(jsonError(err.shows)).fuccess, {
           case (game, fen) =>
             val pov = Pov(game, chess.White)
-            Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen = fen.map(_.value), pov.color, owner = false, me = ctx.me) map { data =>
+            Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen = fen, pov.color, owner = false, me = ctx.me) map { data =>
               Ok(data)
             }
         }
