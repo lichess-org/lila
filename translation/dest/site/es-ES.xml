@@ -567,7 +567,7 @@
   <string name="victory">¡Victoria!</string>
   <string name="defeat">Derrota</string>
   <string name="xVsYinZ">%1$s contra %2$s en %3$s</string>
-  <string name="timeline">Orden cronológico</string>
+  <string name="timeline">Línea de tiempo</string>
   <string name="seeAllTournaments">Ver todos los torneos</string>
   <string name="starting">Comienzo:</string>
   <string name="allInformationIsPublicAndOptional">Toda la información es pública y opcional.</string>
@@ -820,6 +820,7 @@
   <string name="yourXRatingIsTooFarFromY">Tu puntuación de %1$s está demasiado lejos de la de %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">No puedes desafiar debido a tu rating provisional %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s sólo acepta desafíos de sus amigos.</string>
+  <string name="conditionalPremoves">Premovimientos condicionales</string>
   <string name="addCurrentVariation">Añadir la variante actual</string>
   <string name="playX">Jugar %s</string>
 </resources>
