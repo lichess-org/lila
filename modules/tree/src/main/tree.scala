@@ -164,6 +164,7 @@ object Node {
       value.filterNot(_.id == commentId)
     }
     def +(comment: Comment) = Comments(comment :: value)
+    def ++(comments: Comments) = Comments(value ::: comments.value)
 
     def filterEmpty = Comments(value.filter(_.text.value.nonEmpty))
   }
