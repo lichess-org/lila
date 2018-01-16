@@ -737,10 +737,26 @@
   <string name="notifications">通知</string>
   <string name="challenges">挑战</string>
   <string name="perfRatingX">积分：%s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">还剩%s秒走第一步</item>
+  </plurals>
+  <string name="practiceWithComputer">与电脑练习</string>
+  <string name="anotherWasX">%s也不错</string>
+  <string name="bestWasX">最佳走法是%s</string>
+  <string name="youBrowsedAway">你浏览到别处了</string>
+  <string name="resumePractice">继续练习</string>
   <string name="theGameIsADraw">本局和棋.</string>
   <string name="computerThinking">电脑正在思考中。</string>
+  <string name="seeBestMove">查看最佳一步</string>
+  <string name="hideBestMove">隐藏最佳一步</string>
+  <string name="getAHint">提示</string>
+  <string name="evaluatingYourMove">评估走法中……</string>
   <string name="whiteWinsGame">白胜</string>
   <string name="blackWinsGame">黑胜</string>
+  <string name="learnFromYourMistakes">吸取教训</string>
+  <string name="learnFromThisMistake">从这里吸取教训</string>
+  <string name="skipThisMove">跳过此步</string>
+  <string name="next">继续</string>
   <string name="opening">开局</string>
   <string name="middlegame">中盘</string>
   <string name="endgame">残局</string>
