@@ -11,7 +11,7 @@ lichess.divisionLines = function(div, trans) {
           color: Highcharts.theme.lichess.text.weak
         }
       },
-      color: '#30cc4d',
+      color: '#639B24',
       width: 1,
       value: 0
     });
