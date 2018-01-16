@@ -782,4 +782,11 @@
   <string name="endgame">残局</string>
   <string name="registerToSendChallenges">发送挑战请注册。</string>
   <string name="youCannotChallengeX">你不能挑战%s。</string>
+  <string name="xDoesNotAcceptChallenges">%s不接受挑战。</string>
+  <string name="yourXRatingIsTooFarFromY">您的%1$s积分与%2$s相差过远。</string>
+  <string name="cannotChallengeDueToProvisionalXRating">因暂时的%s评级，不能挑战。</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s只接受朋友的挑战。</string>
+  <string name="conditionalPremoves">条件预先走棋</string>
+  <string name="addCurrentVariation">添加当前变着</string>
+  <string name="playVariationToCreateConditionalPremoves">进入变着以创建条件预先走棋</string>
 </resources>
