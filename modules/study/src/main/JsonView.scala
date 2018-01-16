@@ -42,6 +42,7 @@ final class JsonView(
             "ownerId" -> currentChapter.ownerId,
             "setup" -> currentChapter.setup,
             "tags" -> currentChapter.tags,
+            "analysed" -> currentChapter.analysed,
             "features" -> Json.obj(
               "computer" -> allowed(study.settings.computer),
               "explorer" -> allowed(study.settings.explorer)

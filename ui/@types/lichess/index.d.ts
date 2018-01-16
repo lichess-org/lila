@@ -46,7 +46,10 @@ interface Lichess {
     format(date: number | Date): string;
     absolute(date: number | Date): string;
   }
-  advantageChart(data: any, trans: Trans, el: HTMLElement): void;
+  advantageChart: {
+    update(data: any): void;
+    (data: any, trans: Trans, el: HTMLElement): void;
+  }
 }
 
 interface Cookie {

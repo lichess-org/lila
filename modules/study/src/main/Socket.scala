@@ -224,10 +224,9 @@ private final class Socket(
 
     case Broadcast(t, msg) => notifyAll(t, msg)
 
-    case ServerEval.Progress(chapterId, tree) =>
-      // import lila.analyse.{ JsonView => analysisJson }
+    case ServerEval.Progress(chapterId, tree, analysis) =>
       notifyAll("analysisProgress", Json.obj(
-        // "analysis" -> analysisJson.bothPlayers(a.game, a.analysis),
+        "analysis" -> analysis,
         "ch" -> chapterId,
         "tree" -> tree
       ))

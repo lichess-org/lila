@@ -20,6 +20,7 @@ sealed trait RootOrNode {
   val glyphs: Glyphs
   def fullMoveNumber = 1 + ply / 2
   def mainline: List[Node]
+  def color = chess.Color(ply % 2 == 0)
 }
 
 case class Node(

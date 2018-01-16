@@ -721,6 +721,7 @@ export default class AnalyseCtrl {
     this.data.analysis = data.analysis;
     if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(data.tree, n => !n.eval);
     if (this.retro) this.retro.onMergeAnalysisData();
+    if (this.study) this.study.serverEval.onMergeAnalysisData();
     this.redraw();
   }
 

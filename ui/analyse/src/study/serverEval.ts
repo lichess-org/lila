@@ -11,18 +11,32 @@ export interface ServerEvalCtrl {
   redraw(): void;
   trans: Trans;
   request(): void;
+  chapterId(): string;
+  onMergeAnalysisData(): void;
+  el: Prop<HTMLElement | null>;
 }
 
-export function ctrl(data: () => AnalyseData, redraw: Redraw, trans: Trans, request: () => void): ServerEvalCtrl {
+const li = window.lichess;
 
-  const requested = prop(false);
+export function ctrl(data: () => AnalyseData, redraw: Redraw, trans: Trans, request: () => void, chapterId: () => string): ServerEvalCtrl {
+
+  const requested = prop(false),
+  el = prop<HTMLElement | null>(null);
 
   return {
-    request,
+    onMergeAnalysisData() {
+      if (el() && li.advantageChart) li.advantageChart.update(data());
+    },
+    request() {
+      request();
+      requested(true);
+    },
     requested,
     data,
     redraw,
-    trans
+    trans,
+    chapterId,
+    el
   };
 }
 
@@ -30,19 +44,25 @@ export function view(ctrl: ServerEvalCtrl): VNode {
 
   const data = ctrl.data();
 
-  if (!data.game.division) return requestButton(ctrl);
+  if (!data.analysis) return ctrl.requested() ? requested() : requestButton(ctrl);
 
-  return h('div.server_eval.ready', {
+  return h('div.server_eval.ready.' + ctrl.chapterId(), {
     hook: {
       insert(vnode) {
-        window.lichess.requestIdleCallback(() => {
-          window.lichess.loadScript('/assets/javascripts/chart/acpl.js').then(() => {
-            window.lichess.advantageChart(data, ctrl.trans, vnode.elm as HTMLElement);
+        ctrl.el(vnode.elm as HTMLElement);
+        li.requestIdleCallback(() => {
+          li.loadScript('/assets/javascripts/chart/acpl.js').then(() => {
+            li.advantageChart(data, ctrl.trans, vnode.elm as HTMLElement);
           });
         });
       }
     }
   }, [h('div.message', spinner())]);
+}
+
+function requested(): VNode {
+  return h('div.server_eval.requested',
+    h('div.message', spinner()));
 }
 
 function requestButton(ctrl: ServerEvalCtrl) {
@@ -56,7 +76,7 @@ function requestButton(ctrl: ServerEvalCtrl) {
       ]),
       h('a.button.text.request', {
         attrs: { 'data-icon': '' },
-        hook: bind('click', ctrl.request)
+        hook: bind('click', ctrl.request, ctrl.redraw)
       }, ctrl.trans.noarg('requestAComputerAnalysis'))
     ])
   ]);

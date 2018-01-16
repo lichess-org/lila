@@ -1,5 +1,7 @@
 package lila.study
 
+import play.api.libs.json._
+
 import lila.analyse.Analysis
 import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.hub.actorApi.map.Tell
@@ -26,7 +28,8 @@ private final class ServerEval(
               initialFen = chapter.root.fen,
               withFlags = lila.round.JsonView.WithFlags(),
               clocks = none
-            )
+            ),
+            analysis = ServerEval.toJson(chapter, analysis)
           ))
         }
       }
@@ -46,7 +49,13 @@ private final class ServerEval(
     }
 }
 
-private object ServerEval {
+object ServerEval {
 
-  case class Progress(chapterId: Chapter.Id, tree: Root)
+  case class Progress(chapterId: Chapter.Id, tree: Root, analysis: JsObject)
+
+  def toJson(chapter: Chapter, analysis: Analysis) =
+    lila.analyse.JsonView.bothPlayers(
+      lila.analyse.Accuracy.PovLike(chess.White, chapter.root.color, chapter.root.ply),
+      analysis
+    )
 }

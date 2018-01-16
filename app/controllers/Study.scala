@@ -127,7 +127,7 @@ object Study extends LilaController {
     initialFen = chapter.root.fen.some
     analysis <- ~chapter.analysed ?? Env.analyse.analyser.get(chapter.id.value)
     pov = UserAnalysis.makePov(initialFen, chapter.setup.variant)
-    division = analysis.isDefined option Env.game.divider(
+    division = chapter.analysed.isDefined option Env.game.divider(
       id = chapter.id.value,
       pgnMoves = chapter.root.mainline.map(_.move.san).toVector,
       variant = chapter.setup.variant,
@@ -140,11 +140,11 @@ object Study extends LilaController {
     studyJson <- Env.study.jsonView(study, chapters, chapter, ctx.me)
   } yield WithChapter(study, chapter) -> JsData(
     study = studyJson,
-    analysis = baseData ++ Json.obj(
+    analysis = baseData.add(
       "treeParts" -> partitionTreeJsonWriter.writes {
         lila.study.TreeBuilder(chapter.root, chapter.setup.variant, analysis)
-      }
-    )
+      }.some
+    ).add("analysis" -> analysis.map { lila.study.ServerEval.toJson(chapter, _) })
   )
 
   def show(id: String) = Open { implicit ctx =>

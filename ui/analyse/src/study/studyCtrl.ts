@@ -116,11 +116,13 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       description: t
     });
   }, redraw);
+
   const serverEval = serverEvalCtrl(
     () => ctrl.data,
     redraw,
     ctrl.trans,
-    () => send('requestAnalysis', vm.chapterId)
+    () => send('requestAnalysis', vm.chapterId),
+    () => vm.chapterId
   );
 
   function addChapterId(req) {
