@@ -56,8 +56,8 @@
   <string name="showThreat">Показать ответную угрозу</string>
   <string name="inLocalBrowser">в браузере</string>
   <string name="toggleLocalEvaluation">Включить локальный анализ</string>
-  <string name="promoteVariation">Сделать вариант главным</string>
-  <string name="makeMainLine">Сделать этот вариант основным</string>
+  <string name="promoteVariation">Повысить приоритет варианта</string>
+  <string name="makeMainLine">Сделать этот вариант главным</string>
   <string name="deleteFromHere">Удалить с этого места</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Проигрышный ход</string>
@@ -510,8 +510,8 @@
   <string name="lastPost">Последнее сообщение</string>
   <string name="views">Просмотры</string>
   <string name="replies">Ответы</string>
-  <string name="replyToThisTopic">Ответить</string>
-  <string name="reply">Ответ</string>
+  <string name="replyToThisTopic">Ответить в этой теме</string>
+  <string name="reply">Ответить</string>
   <string name="message">Сообщение</string>
   <string name="createTheTopic">Создать тему</string>
   <string name="reportAUser">Пожаловаться на пользователя</string>
