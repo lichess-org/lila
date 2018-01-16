@@ -11,7 +11,7 @@ final class Analyser(
     indexer: ActorSelection,
     requesterApi: RequesterApi,
     roundSocket: ActorSelection,
-    studySocket: ActorSelection,
+    studyActor: ActorSelection,
     bus: lila.common.Bus
 ) {
 
@@ -25,7 +25,7 @@ final class Analyser(
       _ ?? { game =>
         GameRepo.setAnalysed(game.id)
         AnalysisRepo.save(analysis) >>
-          sendAnalysisProgress(analysis) >>- {
+          sendAnalysisProgress(analysis, complete = true) >>- {
             bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
             indexer ! InsertGame(game)
             requesterApi save analysis
@@ -34,14 +34,14 @@ final class Analyser(
     }
     case Some(studyId) =>
       AnalysisRepo.save(analysis) >>
-        sendAnalysisProgress(analysis) >>- {
+        sendAnalysisProgress(analysis, complete = true) >>- {
           requesterApi save analysis
         }
   }
 
-  def progress(analysis: Analysis): Funit = sendAnalysisProgress(analysis)
+  def progress(analysis: Analysis): Funit = sendAnalysisProgress(analysis, complete = false)
 
-  private def sendAnalysisProgress(analysis: Analysis): Funit = analysis.studyId match {
+  private def sendAnalysisProgress(analysis: Analysis, complete: Boolean): Funit = analysis.studyId match {
     case None => GameRepo gameWithInitialFen analysis.id map {
       _ ?? {
         case (game, initialFen) =>
@@ -54,7 +54,7 @@ final class Analyser(
       }
     }
     case Some(studyId) => fuccess {
-      studySocket ! Tell(analysis.id, actorApi.StudyAnalysisProgress(analysis))
+      studyActor ! actorApi.StudyAnalysisProgress(analysis, complete)
     }
   }
 }

@@ -26,6 +26,7 @@ final class Env(config: Config, system: ActorSystem) {
     val moveBroadcast = select("actor.move_broadcast")
     val userRegister = select("actor.user_register")
     val notification = select("actor.notify")
+    val study = select("actor.study")
   }
 
   object channel {
@@ -38,7 +39,6 @@ final class Env(config: Config, system: ActorSystem) {
     val round = select("socket.round")
     val tournament = select("socket.tournament")
     val simul = select("socket.simul")
-    val study = select("socket.study")
     val site = select("socket.site")
     val hub = select("socket.hub")
   }

@@ -5,11 +5,11 @@ import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.user.User
-import lila.hub.actorApi.map.Ask
 import lila.hub.actorApi.HasUserId
+import lila.hub.actorApi.map.Ask
 import lila.hub.{ ActorMap, Sequencer }
 import lila.socket.actorApi.GetVersion
+import lila.user.User
 import makeTimeout.short
 
 final class Env(
@@ -35,6 +35,7 @@ final class Env(
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val SocketName = config getString "socket.name"
+    val ActorName = config getString "actor.name"
     val SequencerTimeout = config duration "sequencer.timeout"
     val NetDomain = config getString "net.domain"
     val NetBaseUrl = config getString "net.base_url"
@@ -106,6 +107,19 @@ final class Env(
     getPref = getPref
   )
 
+  private lazy val serverEval = new ServerEval(
+    socketHub = socketHub,
+    fishnetActor = hub.actor.fishnet,
+    chapterRepo = chapterRepo
+  )
+
+  // study actor
+  system.actorOf(Props(new Actor {
+    def receive = {
+      case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) => serverEval.progress(analysis, complete)
+    }
+  }), name = ActorName)
+
   lazy val api = new StudyApi(
     studyRepo = studyRepo,
     chapterRepo = chapterRepo,
@@ -121,6 +135,7 @@ final class Env(
     bus = system.lilaBus,
     timeline = hub.actor.timeline,
     socketHub = socketHub,
+    serverEval = serverEval,
     lightStudyCache = lightStudyCache
   )
 

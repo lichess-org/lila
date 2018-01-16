@@ -12,4 +12,4 @@ case class AnalysisProgress(
     analysis: Analysis
 )
 
-case class StudyAnalysisProgress(analysis: Analysis)
+case class StudyAnalysisProgress(analysis: Analysis, complete: Boolean)

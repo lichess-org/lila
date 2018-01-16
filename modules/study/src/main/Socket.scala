@@ -224,24 +224,13 @@ private final class Socket(
 
     case Broadcast(t, msg) => notifyAll(t, msg)
 
-    case lila.analyse.actorApi.StudyAnalysisProgress(analysis) =>
-      chapterRepo byId Chapter.Id(analysis.id) foreach {
-        _ foreach { chapter =>
-          // import lila.analyse.{ JsonView => analysisJson }
-          notifyAll("analysisProgress", Json.obj(
-            // "analysis" -> analysisJson.bothPlayers(a.game, a.analysis),
-            "tree" -> lila.round.TreeBuilder(
-              id = analysis.id,
-              pgnMoves = chapter.root.mainline.map(_.move.san)(scala.collection.breakOut),
-              variant = chapter.setup.variant,
-              analysis = analysis.some,
-              initialFen = chapter.root.fen,
-              withFlags = lila.round.JsonView.WithFlags(),
-              clocks = none
-            )
-          ))
-        }
-      }
+    case ServerEval.Progress(chapterId, tree) =>
+      // import lila.analyse.{ JsonView => analysisJson }
+      notifyAll("analysisProgress", Json.obj(
+        // "analysis" -> analysisJson.bothPlayers(a.game, a.analysis),
+        "chapterId" -> chapterId,
+        "tree" -> tree
+      ))
 
     case GetNbMembers => sender ! NbMembers(members.size)
 

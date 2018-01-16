@@ -235,7 +235,7 @@ final class SocketHandler(
     case ("requestAnalysis", o) => for {
       byUserId <- member.userId
       chapterId <- o.get[Chapter.Id]("d")
-    } api.analysisRequest(studyId, chapterId, byUserId)(hub.actor.fishnet.!)
+    } api.analysisRequest(studyId, chapterId, byUserId)
 
   }: Handler.Controller) orElse evalCacheHandler(member, user) orElse lila.chat.Socket.in(
     chatId = Chat.Id(studyId.value),

@@ -26,7 +26,7 @@ final class Env(
     indexer = indexer,
     requesterApi = requesterApi,
     roundSocket = hub.socket.round,
-    studySocket = hub.socket.study,
+    studyActor = hub.actor.study,
     bus = system.lilaBus
   )
 

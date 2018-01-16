@@ -6,7 +6,6 @@ import scala.concurrent.duration._
 import chess.Centis
 import chess.format.pgn.{ Tags, Glyph }
 import lila.chat.Chat
-import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.hub.Sequencer
@@ -29,6 +28,7 @@ final class StudyApi(
     bus: lila.common.Bus,
     timeline: ActorSelection,
     socketHub: ActorRef,
+    serverEval: ServerEval,
     lightStudyCache: LightStudyCache
 ) {
 
@@ -649,18 +649,10 @@ final class StudyApi(
       }
     }
 
-  def analysisRequest(studyId: Study.Id, chapterId: Chapter.Id, userId: User.ID)(f: StudyChapterRequest => Unit): Funit =
+  def analysisRequest(studyId: Study.Id, chapterId: Chapter.Id, userId: User.ID): Funit =
     sequenceStudyWithChapter(studyId, chapterId) {
       case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-        chapterRepo.setAnalysed(chapter.id, false.some) >>-
-          f(StudyChapterRequest(
-            studyId = study.id.value,
-            chapterId = chapter.id.value,
-            initialFen = chapter.root.fen.some,
-            variant = chapter.setup.variant,
-            moves = chapter.root.mainline.map(_.move.uci),
-            userId = userId.some
-          ))
+        serverEval.request(study, chapter, userId)
       }
     }
 
