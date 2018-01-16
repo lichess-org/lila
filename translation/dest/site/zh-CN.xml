@@ -757,7 +757,29 @@
   <string name="learnFromThisMistake">从这里吸取教训</string>
   <string name="skipThisMove">跳过此步</string>
   <string name="next">继续</string>
+  <string name="xWasPlayed">走了%s</string>
+  <string name="findBetterMoveForWhite">为白方找更好走法</string>
+  <string name="findBetterMoveForBlack">为黑方找更好走法</string>
+  <string name="resumeLearning">继续学习</string>
+  <string name="youCanDoBetter">再接再厉</string>
+  <string name="tryAnotherMoveForWhite">为白方另找走法</string>
+  <string name="tryAnotherMoveForBlack">为黑方另找走法</string>
+  <string name="solution">解答</string>
+  <string name="waitingForAnalysis">等待分析</string>
+  <string name="noMistakesFoundForWhite">未找到白方失误</string>
+  <string name="noMistakesFoundForBlack">未找到黑方失误</string>
+  <string name="doneReviewingWhiteMistakes">白方失误回顾完成</string>
+  <string name="doneReviewingBlackMistakes">黑方失误回顾完成</string>
+  <string name="doItAgain">再来一次</string>
+  <string name="reviewWhiteMistakes">回顾白方失误</string>
+  <string name="reviewBlackMistakes">回顾黑方失误</string>
+  <string name="advantage">优势</string>
+  <plurals name="nbSeconds">
+    <item quantity="other">%s秒</item>
+  </plurals>
   <string name="opening">开局</string>
   <string name="middlegame">中盘</string>
   <string name="endgame">残局</string>
+  <string name="registerToSendChallenges">发送挑战请注册。</string>
+  <string name="youCannotChallengeX">你不能挑战%s。</string>
 </resources>
