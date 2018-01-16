@@ -476,7 +476,7 @@
   <string name="butYouCanKeepTrying">Но вы можете попробовать ещё раз.</string>
   <string name="success">Задача решена</string>
   <string name="wasThisPuzzleAnyGood">Была ли задача интересной?</string>
-  <string name="pleaseVotePuzzle">Голосуйте, чтобы сделать lichess лучше. Используйте стрелки вверх и вниз:</string>
+  <string name="pleaseVotePuzzle">Голосуйте стрелками «вверх» и «вниз», сделайте lichess лучше!</string>
   <string name="thankYou">Спасибо!</string>
   <string name="ratingX">Рейтинг: %s</string>
   <plurals name="playedXTimes">
