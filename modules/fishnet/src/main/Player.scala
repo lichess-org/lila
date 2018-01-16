@@ -27,6 +27,7 @@ final class Player(
           game = Work.Game(
             id = game.id,
             initialFen = initialFen map FEN.apply,
+            studyId = none,
             variant = game.variant,
             moves = moves mkString " "
           ),

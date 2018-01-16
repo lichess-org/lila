@@ -6,7 +6,6 @@ import scalaz.Validation.FlatMap._
 import chess.format.Uci
 import JsonApi.Request.Evaluation
 import lila.analyse.{ Analysis, Info }
-import lila.game.GameRepo
 import lila.tree.Eval
 
 private final class AnalysisBuilder(evalCache: FishnetEvalCache) {
@@ -19,40 +18,34 @@ private final class AnalysisBuilder(evalCache: FishnetEvalCache) {
     work: Work.Analysis,
     evals: List[Option[Evaluation.OrSkipped]],
     isPartial: Boolean = true
-  ): Fu[Analysis] = {
-
-    GameRepo.game(work.game.id) zip evalCache.evals(work) flatMap {
-      case (None, _) => fufail(AnalysisBuilder.GameIsGone(work.game.id))
-      case (Some(game), cachedFull) =>
-        /* remove first eval in partial analysis
+  ): Fu[Analysis] =
+    evalCache.evals(work) flatMap { cachedFull =>
+      /* remove first eval in partial analysis
          * to prevent the mobile app from thinking it's complete
          * https://github.com/veloce/lichobile/issues/722
          */
-        val cached = if (isPartial) cachedFull - 0 else cachedFull
-        GameRepo.initialFen(game) flatMap { initialFen =>
-          def debug = s"${game.variant.key} analysis for ${game.id} by ${client.fullId}"
-          chess.Replay(game.pgnMoves, initialFen, game.variant).flatMap(_.valid).fold(
-            fufail(_),
-            replay => UciToPgn(replay, Analysis(
-              id = work.game.id,
-              infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
-              startPly = work.startPly,
-              uid = work.sender.userId,
-              by = !client.lichess option client.userId.value,
-              date = DateTime.now
-            )) match {
-              case (analysis, errors) =>
-                errors foreach { e => logger.debug(s"[UciToPgn] $debug $e") }
-                if (analysis.valid) {
-                  if (!isPartial && analysis.emptyRatio >= 1d / 10)
-                    fufail(s"${game.variant.key} analysis $debug has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
-                  else fuccess(analysis)
-                } else fufail(s"${game.variant.key} analysis $debug is empty")
-            }
-          )
+      val cached = if (isPartial) cachedFull - 0 else cachedFull
+      def debug = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
+      chess.Replay(work.game.uciList, work.game.initialFen.map(_.value), work.game.variant).fold(
+        fufail(_),
+        replay => UciToPgn(replay, Analysis(
+          id = work.game.id,
+          infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
+          startPly = work.startPly,
+          uid = work.sender.userId,
+          by = !client.lichess option client.userId.value,
+          date = DateTime.now
+        )) match {
+          case (analysis, errors) =>
+            errors foreach { e => logger.debug(s"[UciToPgn] $debug $e") }
+            if (analysis.valid) {
+              if (!isPartial && analysis.emptyRatio >= 1d / 10)
+                fufail(s"${work.game.variant.key} analysis $debug has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
+              else fuccess(analysis)
+            } else fufail(s"${work.game.variant.key} analysis $debug is empty")
         }
+      )
     }
-  }
 
   private def mergeEvalsAndCached(work: Work.Analysis, evals: List[Option[Evaluation.OrSkipped]], cached: Map[Int, Evaluation]): List[Option[Evaluation]] =
     evals.zipWithIndex.map {
@@ -85,12 +78,4 @@ private final class AnalysisBuilder(evalCache: FishnetEvalCache) {
       }
       case ((_, _), index) => Info(index + 1 + startedAtPly, Eval.empty)
     }
-
-}
-
-private object AnalysisBuilder {
-
-  case class GameIsGone(id: String) extends lila.base.LilaException {
-    val message = s"Analysis $id game is gone?!"
-  }
 }

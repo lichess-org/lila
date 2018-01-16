@@ -112,6 +112,7 @@ final class Env(
     def receive = {
       case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
         analyser(gameId, Work.Sender(userId = none, ip = none, mod = false, system = true))
+      case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser study req
     }
   }), name = ActorName)
 

@@ -97,10 +97,6 @@ final class FishnetApi(
               repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
             }
           } recoverWith {
-            case e: AnalysisBuilder.GameIsGone =>
-              logger.warn(s"Game ${work.game.id} was deleted by ${work.sender} before analysis completes")
-              monitor.analysis(work, client, complete)
-              repo.deleteAnalysis(work) >> fufail(GameNotFound)
             case e: Exception =>
               Monitor.failure(work, client)
               repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)

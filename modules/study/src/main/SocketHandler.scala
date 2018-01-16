@@ -231,6 +231,12 @@ final class SocketHandler(
       byUserId <- member.userId
       v <- (o \ "d" \ "liked").asOpt[Boolean]
     } api.like(studyId, byUserId, v, uid)
+
+    case ("requestAnalysis", o) => for {
+      byUserId <- member.userId
+      chapterId <- o.get[Chapter.Id]("d")
+    } api.analysisRequest(studyId, chapterId, byUserId)(hub.actor.fishnet.!)
+
   }: Handler.Controller) orElse evalCacheHandler(member, user) orElse lila.chat.Socket.in(
     chatId = Chat.Id(studyId.value),
     member = member,

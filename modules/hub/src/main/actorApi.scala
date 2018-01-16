@@ -206,6 +206,14 @@ package team {
 package fishnet {
   case class AutoAnalyse(gameId: String)
   case class NewKey(userId: String, key: String)
+  case class StudyChapterRequest(
+      studyId: String,
+      chapterId: String,
+      initialFen: Option[chess.format.FEN],
+      variant: chess.variant.Variant,
+      moves: List[chess.format.Uci],
+      userId: Option[String]
+  )
 }
 
 package user {

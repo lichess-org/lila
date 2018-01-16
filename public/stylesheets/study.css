@@ -67,12 +67,14 @@ div.underboard .notif {
 div.underboard .notif.error {
   background-color: #d59120;
 }
-.underboard form.material.form {
+.study_comment_form form.material.form,
+.chapter_desc_form form.material.form {
   display: flex;
   align-items: center;
   margin: 0;
 }
-.underboard form .form-group {
+.study_comment_form form .form-group,
+.chapter_desc_form form .form-group {
   width: 100%;
   margin-bottom: 15px!important;
 }
@@ -467,6 +469,16 @@ body.base .study_buttons .fbt.active {
   background: rgba(128,128,128,0.15);
   opacity: 1;
 }
+
+.underboard .message {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .glyph-icon::before {
   content: '⁉';
   font-size: 1.3em;
@@ -517,11 +529,6 @@ body.base .study_buttons .fbt.active {
   background: #3893E8!important;
   color: #fff!important;
 }
-.server_eval {
-  display: flex;
-  align-items: content;
-  height: 200px;
-}
 .study_share input {
   font-size: 13px!important;
 }
@@ -554,18 +561,20 @@ body.base .study_buttons .fbt.active {
   justify-content: space-between;
   margin: 20px 20px 20px 20px;
 }
+
+.server_eval .message {
+  height: 150px;
+}
+.server_eval .request {
+  margin-top: 2em;
+}
+
 .server_eval,
 .study_glyph_form,
 .study_comment_form,
 .study_metadata,
 .study_share {
   border-top: 2px solid rgba(99,155,36,0.75) !important;
-}
-.underboard .message {
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 body.dark .underboard_form .title,

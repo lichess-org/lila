@@ -44,8 +44,9 @@ object Work {
   }
 
   case class Game(
-      id: String,
+      id: String, // can be a study chapter ID, if studyId is set
       initialFen: Option[FEN],
+      studyId: Option[String],
       variant: Variant,
       moves: String
   ) {
@@ -106,7 +107,6 @@ object Work {
       sender: Sender,
       game: Game,
       startPly: Int,
-      nbPly: Int,
       tries: Int,
       lastTryByKey: Option[Client.Key],
       acquired: Option[Acquired],
@@ -137,6 +137,8 @@ object Work {
     def inProgress = acquired map { a =>
       InProgress(a.userId, a.date)
     }
+
+    def nbMoves = game.moves.count(' ' ==) + 1
 
     override def toString = s"id:$id game:${game.id} tries:$tries requestedBy:$sender acquired:$acquired"
   }

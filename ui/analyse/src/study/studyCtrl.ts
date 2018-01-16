@@ -37,7 +37,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return {
       loading: false,
       tab: prop<Tab>(relayData || data.chapters.length > 1 ? 'chapters' : 'members'),
-      toolTab: prop<ToolTab>('tags'),
+      toolTab: prop<ToolTab>('serverEval'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
       // path is at ctrl.path
       mode: {
@@ -116,7 +116,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       description: t
     });
   }, redraw);
-  const serverEval = serverEvalCtrl(() => ctrl.data, redraw, ctrl.trans);
+  const serverEval = serverEvalCtrl(
+    () => ctrl.data, 
+    redraw, 
+    ctrl.trans,
+    () => send('requestAnalysis', vm.chapterId)
+  );
 
   function addChapterId(req) {
     req.ch = vm.chapterId;
