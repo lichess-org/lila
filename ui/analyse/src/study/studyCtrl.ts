@@ -117,8 +117,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     });
   }, redraw);
   const serverEval = serverEvalCtrl(
-    () => ctrl.data, 
-    redraw, 
+    () => ctrl.data,
+    redraw,
     ctrl.trans,
     () => send('requestAnalysis', vm.chapterId)
   );

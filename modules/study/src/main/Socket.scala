@@ -228,7 +228,7 @@ private final class Socket(
       // import lila.analyse.{ JsonView => analysisJson }
       notifyAll("analysisProgress", Json.obj(
         // "analysis" -> analysisJson.bothPlayers(a.game, a.analysis),
-        "chapterId" -> chapterId,
+        "ch" -> chapterId,
         "tree" -> tree
       ))
 
