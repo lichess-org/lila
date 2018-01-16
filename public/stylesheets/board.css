@@ -1128,13 +1128,17 @@ body.playing.zen .board_left .side,
 body.playing.zen #chat,
 body.playing.zen .underboard,
 body.playing.zen #now_playing,
-body.playing.zen .table .replay .buttons,
 body.playing.zen .clock .moretime,
 body.playing.zen #top > *,
 body.playing.zen #site_title,
 #zentog {
   display: none;
 }
+body.playing.zen .table_wrap .replay .buttons,
+body.playing.zen.offline #reconnecting {
+  opacity: 0!important;
+}
+body.playing.zen .table_wrap:hover .replay .buttons,
 body.playing.zen.offline #reconnecting {
   opacity: 1!important;
 }
