@@ -472,9 +472,9 @@
   <string name="butYouCanDoBetter">Но вы можете найти лучше.</string>
   <string name="bestMove">Лучший ход!</string>
   <string name="keepGoing">Продолжайте...</string>
-  <string name="puzzleFailed">Задача не решена.</string>
+  <string name="puzzleFailed">Неверное решение</string>
   <string name="butYouCanKeepTrying">Но вы можете попробовать ещё раз.</string>
-  <string name="success">Успешно</string>
+  <string name="success">Задача решена</string>
   <string name="wasThisPuzzleAnyGood">Была ли задача интересной?</string>
   <string name="pleaseVotePuzzle">Голосуйте, чтобы сделать lichess лучше. Используйте стрелки вверх и вниз:</string>
   <string name="thankYou">Спасибо!</string>
