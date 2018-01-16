@@ -676,11 +676,11 @@
   <string name="returnToSimulHomepage">Späť na Simultánku</string>
   <string name="aboutSimul">Simultánky sú hry jedného hráča proti viacerým oponentom súčasne.</string>
   <string name="aboutSimulImage">Z celkovo 50 hráčov, Fisher vyhral 47 hier, 2 remízoval a 1 prehral.</string>
-  <string name="aboutSimulRealLife">Koncept je prebratý zo skutočných svetových podujatí. V tomto prípade sa hostiteľ simultánky pohybuje do stola k stolu aby zahrl jeden ťah.</string>
-  <string name="aboutSimulRules">Keď simultánka začne, každý hráč hrá s hostiteľom, ktorý má biele figúrky. Simultánka končí, keď skončia všetky hry.</string>
+  <string name="aboutSimulRealLife">Koncept je prebraný zo skutočných svetových podujatí. V tomto prípade sa hostiteľ simultánky pohybuje do stola k stolu aby zahral jeden ťah.</string>
+  <string name="aboutSimulRules">Keď simultánka začne, každý hráč hrá s hostiteľom, ktorý má biele figúrky. Simultánka končí, keď sa dohrajú všetky partie.</string>
   <string name="aboutSimulSettings">Simultánky sú vždy nebodované. Odvety, vrátenie ťahu a \"pridávania času\" sú zakázané.</string>
   <string name="create">Vytvoriť</string>
-  <string name="whenCreateSimul">Po vytvorení simultánky, môžete hrať s niekoľkými hračmi naraz.</string>
+  <string name="whenCreateSimul">Po vytvorení simultánky, môžete hrať s niekoľkými hráčmi naraz.</string>
   <string name="simulVariantsHint">Ak vyberiete viacero variantov, každý hráč si môže vybrať ktorý bude hrať.</string>
   <string name="simulClockHint">Nastavenie (Fisherových) hodín. Čím viac súperov, tým viac času budete potrebovat.</string>
   <string name="simulAddExtraTime">Môžete si pridať dodatočný čas k vašim hodinám pre zlepšenie behu simultánky.</string>
