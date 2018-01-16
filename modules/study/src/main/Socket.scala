@@ -17,6 +17,7 @@ private final class Socket(
     studyId: Study.Id,
     jsonView: JsonView,
     studyRepo: StudyRepo,
+    chapterRepo: ChapterRepo,
     lightUser: lila.common.LightUser.Getter,
     val history: History[Socket.Messadata],
     uidTimeout: Duration,
@@ -223,20 +224,24 @@ private final class Socket(
 
     case Broadcast(t, msg) => notifyAll(t, msg)
 
-    // case a: lila.analyse.actorApi.AnalysisProgress =>
-    //   import lila.analyse.{ JsonView => analysisJson }
-    //   notifyAll("analysisProgress", Json.obj(
-    //     "analysis" -> analysisJson.bothPlayers(a.game, a.analysis),
-    //     "tree" -> TreeBuilder(
-    //       id = a.analysis.id,
-    //       pgnMoves = a.game.pgnMoves,
-    //       variant = a.variant,
-    //       analysis = a.analysis.some,
-    //       initialFen = a.initialFen,
-    //       withFlags = JsonView.WithFlags(),
-    //       clocks = none
-    //     )
-    //   ))
+    case lila.analyse.actorApi.StudyAnalysisProgress(analysis) =>
+      chapterRepo byId Chapter.Id(analysis.id) foreach {
+        _ foreach { chapter =>
+          // import lila.analyse.{ JsonView => analysisJson }
+          notifyAll("analysisProgress", Json.obj(
+            // "analysis" -> analysisJson.bothPlayers(a.game, a.analysis),
+            "tree" -> lila.round.TreeBuilder(
+              id = analysis.id,
+              pgnMoves = chapter.root.mainline.map(_.move.san)(scala.collection.breakOut),
+              variant = chapter.setup.variant,
+              analysis = analysis.some,
+              initialFen = chapter.root.fen,
+              withFlags = lila.round.JsonView.WithFlags(),
+              clocks = none
+            )
+          ))
+        }
+      }
 
     case GetNbMembers => sender ! NbMembers(members.size)
 

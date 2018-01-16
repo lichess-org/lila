@@ -11,3 +11,5 @@ case class AnalysisProgress(
     initialFen: chess.format.FEN,
     analysis: Analysis
 )
+
+case class StudyAnalysisProgress(analysis: Analysis)

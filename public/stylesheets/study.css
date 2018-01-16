@@ -441,8 +441,9 @@ div.underboard .notif.error {
   height: 16px;
   display: inline-block;
 }
-body.base .study_buttons .fbt:not(:disabled):hover {
-  background: #639B24;
+.study_buttons .fbt .data-count::after,
+.study_buttons .fbt:not(:disabled):hover {
+  background: #639B24!important;
 }
 body.base .study_buttons .fbt:not(:disabled):active,
 body.base .study_buttons .fbt.active {
@@ -562,8 +563,9 @@ body.base .study_buttons .fbt.active {
   margin: 20px 20px 20px 20px;
 }
 
+.server_eval,
 .server_eval .message {
-  height: 150px;
+  height: 200px;
 }
 .server_eval .request {
   margin-top: 2em;

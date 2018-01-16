@@ -48,6 +48,7 @@ final class Env(
         studyId = Study.Id(studyId),
         jsonView = jsonView,
         studyRepo = studyRepo,
+        chapterRepo = chapterRepo,
         lightUser = lightUserApi.async,
         history = new lila.socket.History(ttl = HistoryMessageTtl),
         uidTimeout = UidTimeout,

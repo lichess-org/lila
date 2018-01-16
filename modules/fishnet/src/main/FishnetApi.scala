@@ -87,7 +87,7 @@ final class FishnetApi(
         Monitor.notFound(workId, client)
         fufail(WorkNotFound)
       case Some(work) if work isAcquiredBy client =>
-        data.completeOrPartial match {
+        data.completeOrPartial.pp match {
           case complete: CompleteAnalysis => {
             if (complete.weak && work.game.variant.standard) {
               Monitor.weak(work, client, complete)
@@ -96,7 +96,7 @@ final class FishnetApi(
               monitor.analysis(work, client, complete)
               repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
             }
-          } recoverWith {
+          }.thenPp recoverWith {
             case e: Exception =>
               Monitor.failure(work, client)
               repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)

@@ -652,7 +652,7 @@ final class StudyApi(
   def analysisRequest(studyId: Study.Id, chapterId: Chapter.Id, userId: User.ID)(f: StudyChapterRequest => Unit): Funit =
     sequenceStudyWithChapter(studyId, chapterId) {
       case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-        fuccess {
+        chapterRepo.setAnalysed(chapter.id, false.some) >>-
           f(StudyChapterRequest(
             studyId = study.id.value,
             chapterId = chapter.id.value,
@@ -661,7 +661,6 @@ final class StudyApi(
             moves = chapter.root.mainline.map(_.move.uci),
             userId = userId.some
           ))
-        }
       }
     }
 

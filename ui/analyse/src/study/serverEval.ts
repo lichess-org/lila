@@ -42,7 +42,7 @@ export function view(ctrl: ServerEvalCtrl): VNode {
         });
       }
     }
-  }, [spinner()]);
+  }, [h('div.message', spinner())]);
 }
 
 function requestButton(ctrl: ServerEvalCtrl) {

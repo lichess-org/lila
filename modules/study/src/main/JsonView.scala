@@ -47,6 +47,7 @@ final class JsonView(
               "explorer" -> allowed(study.settings.explorer)
             )
           ).add("description", currentChapter.description)
+            .add("analysed", currentChapter.analysed)
             .add("relay", currentChapter.relay)(relayWrites) |> addChapterMode(currentChapter)
         }
       )

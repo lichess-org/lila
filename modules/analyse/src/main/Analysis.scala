@@ -6,7 +6,8 @@ import chess.format.Uci
 import org.joda.time.DateTime
 
 case class Analysis(
-    id: String,
+    id: String, // game ID, or chapter ID if studyId is set
+    studyId: Option[String],
     infos: List[Info],
     startPly: Int,
     uid: Option[String], // requester lichess ID
@@ -57,6 +58,7 @@ object Analysis {
       val raw = r str "data"
       Analysis(
         id = r str "_id",
+        studyId = r strO "studyId",
         infos = Info.decodeList(raw, startPly) err s"Invalid analysis data $raw",
         startPly = startPly,
         uid = r strO "uid",
@@ -66,6 +68,7 @@ object Analysis {
     }
     def writes(w: BSON.Writer, o: Analysis) = BSONDocument(
       "_id" -> o.id,
+      "studyId" -> o.studyId,
       "data" -> Info.encodeList(o.infos),
       "ply" -> w.intO(o.startPly),
       "uid" -> o.uid,

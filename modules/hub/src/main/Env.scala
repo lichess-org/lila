@@ -38,6 +38,7 @@ final class Env(config: Config, system: ActorSystem) {
     val round = select("socket.round")
     val tournament = select("socket.tournament")
     val simul = select("socket.simul")
+    val study = select("socket.study")
     val site = select("socket.site")
     val hub = select("socket.hub")
   }

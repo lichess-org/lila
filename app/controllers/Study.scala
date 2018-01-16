@@ -125,7 +125,7 @@ object Study extends LilaController {
     _ <- Env.user.lightUserApi preloadMany study.members.ids.toList
     _ = if (HTTPRequest isSynchronousHttp ctx.req) Env.study.studyRepo.incViews(study)
     initialFen = chapter.root.fen.some
-    analysis <- chapter.analysisId ?? Env.analyse.analyser.get
+    analysis <- ~chapter.analysed ?? Env.analyse.analyser.get(chapter.id.value)
     pov = UserAnalysis.makePov(initialFen, chapter.setup.variant)
     division = analysis.isDefined option Env.game.divider(
       id = chapter.id.value,

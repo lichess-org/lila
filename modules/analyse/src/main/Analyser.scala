@@ -11,6 +11,7 @@ final class Analyser(
     indexer: ActorSelection,
     requesterApi: RequesterApi,
     roundSocket: ActorSelection,
+    studySocket: ActorSelection,
     bus: lila.common.Bus
 ) {
 
@@ -19,22 +20,29 @@ final class Analyser(
 
   def get(id: Analysis.ID): Fu[Option[Analysis]] = AnalysisRepo byId id
 
-  def save(analysis: Analysis): Funit = GameRepo game analysis.id flatMap {
-    _ ?? { game =>
-      GameRepo.setAnalysed(game.id)
+  def save(analysis: Analysis): Funit = analysis.studyId match {
+    case None => GameRepo game analysis.id flatMap {
+      _ ?? { game =>
+        GameRepo.setAnalysed(game.id)
+        AnalysisRepo.save(analysis) >>
+          sendAnalysisProgress(analysis) >>- {
+            bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
+            indexer ! InsertGame(game)
+            requesterApi save analysis
+          }
+      }
+    }
+    case Some(studyId) =>
       AnalysisRepo.save(analysis) >>
         sendAnalysisProgress(analysis) >>- {
-          bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
-          indexer ! InsertGame(game)
           requesterApi save analysis
         }
-    }
   }
 
   def progress(analysis: Analysis): Funit = sendAnalysisProgress(analysis)
 
-  private def sendAnalysisProgress(analysis: Analysis): Funit =
-    GameRepo gameWithInitialFen analysis.id map {
+  private def sendAnalysisProgress(analysis: Analysis): Funit = analysis.studyId match {
+    case None => GameRepo gameWithInitialFen analysis.id map {
       _ ?? {
         case (game, initialFen) =>
           roundSocket ! Tell(analysis.id, actorApi.AnalysisProgress(
@@ -45,4 +53,8 @@ final class Analyser(
           ))
       }
     }
+    case Some(studyId) => fuccess {
+      studySocket ! Tell(analysis.id, actorApi.StudyAnalysisProgress(analysis))
+    }
+  }
 }

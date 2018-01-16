@@ -30,6 +30,7 @@ private final class AnalysisBuilder(evalCache: FishnetEvalCache) {
         fufail(_),
         replay => UciToPgn(replay, Analysis(
           id = work.game.id,
+          studyId = work.game.studyId,
           infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
           startPly = work.startPly,
           uid = work.sender.userId,
