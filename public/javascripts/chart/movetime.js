@@ -144,7 +144,7 @@ lichess.movetimeChart = function(data, trans) {
               }
             });
           });
-          lichess.analyse.onChange();
+          lichess.pubsub.emit('analysis.change.trigger')();
         };
         lichess.movetimeChart.render();
       });
