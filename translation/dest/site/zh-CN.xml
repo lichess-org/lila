@@ -56,6 +56,9 @@
   <string name="showThreat">显示威胁</string>
   <string name="inLocalBrowser">在本地浏览器</string>
   <string name="toggleLocalEvaluation">切换到本地分析</string>
+  <string name="promoteVariation">提升变着</string>
+  <string name="makeMainLine">做为主线</string>
+  <string name="deleteFromHere">从此处删除</string>
   <string name="move">走棋</string>
   <string name="variantLoss">因变体规则输棋</string>
   <string name="variantWin">因变体规则赢棋</string>
@@ -185,6 +188,7 @@
   <string name="accept">接受</string>
   <string name="decline">拒绝</string>
   <string name="playingRightNow">正在对局</string>
+  <string name="eventInProgress">正在进行</string>
   <string name="finished">已结束</string>
   <string name="abortGame">中止本局</string>
   <string name="gameAborted">棋局已中止</string>
@@ -193,6 +197,8 @@
   <string name="mode">模式</string>
   <string name="casual">无积分</string>
   <string name="rated">有积分</string>
+  <string name="casualTournament">无积分</string>
+  <string name="ratedTournament">积分</string>
   <string name="thisGameIsRated">这盘棋是有积分的</string>
   <string name="rematch">重赛</string>
   <string name="rematchOfferSent">重赛请求已发送</string>
@@ -252,6 +258,9 @@
   <string name="tournament">锦标赛</string>
   <string name="tournaments">锦标赛</string>
   <string name="tournamentPoints">锦标赛分数</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="other">%s比赛得分</item>
+  </plurals>
   <string name="viewTournament">观看锦标赛</string>
   <string name="backToTournament">返回锦标赛主页</string>
   <string name="thematic">从常见开局开始的锦标赛</string>
