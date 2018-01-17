@@ -4,7 +4,7 @@
   <string name="playWithAFriend">Сыграть с другом</string>
   <string name="playWithTheMachine">Сыграть с компьютером</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Чтобы пригласить друга, отправьте ему эту ссылку</string>
-  <string name="gameOver">Игра завершена</string>
+  <string name="gameOver">Партия окончена</string>
   <string name="waitingForOpponent">Ожидание соперника</string>
   <string name="waiting">Ожидание</string>
   <string name="yourTurn">Ваш ход</string>
