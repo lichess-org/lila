@@ -71,6 +71,13 @@ case class Node(
       copy(children = children.update(main updateMainlineLast f))
     }
 
+  def clearAnnotations = copy(
+    comments = Comments(Nil),
+    shapes = Shapes(Nil),
+    glyphs = Glyphs.empty,
+    score = none
+  )
+
   override def toString = s"$id:${move.san} $score"
 }
 
@@ -140,6 +147,12 @@ object Node {
       }
 
     def has(id: UciCharPair): Boolean = nodes.exists(_.id == id)
+
+    def updateAllWith(op: Node => Node): Children = Children {
+      nodes.map { n =>
+        op(n.copy(children = n.children.updateAllWith(op)))
+      }
+    }
 
     def updateWith(id: UciCharPair, op: Node => Option[Node]): Option[Children] =
       get(id) flatMap op map update

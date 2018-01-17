@@ -9,8 +9,8 @@ import lila.chat.Chat
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.socket.Socket.Uid
-import lila.tree.Node.{ Shapes, Comment, Gamebook }
 import lila.tree.Eval
+import lila.tree.Node.{ Shapes, Comment, Gamebook }
 import lila.user.User
 
 final class StudyApi(
@@ -245,6 +245,14 @@ final class StudyApi(
           fufail(s"Invalid delNode $studyId $position") >>-
             reloadUidBecauseOf(study, uid, chapter.id)
       }
+    }
+  }
+
+  def clearAnnotations(userId: User.ID, studyId: Study.Id, chapterId: Chapter.Id, uid: Uid) = sequenceStudyWithChapter(studyId, chapterId) {
+    case Study.WithChapter(study, chapter) => Contribute(userId, study) {
+      chapterRepo.update(chapter.updateRoot { root =>
+        root.withChildren(_.updateAllWith(_.clearAnnotations).some)
+      } | chapter) >>- sendTo(study, Socket.UpdateChapter(uid, chapter.id))
     }
   }
 
