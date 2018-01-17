@@ -1,12 +1,12 @@
 package lila.round
 
+import chess.Centis
 import chess.format.pgn.Glyphs
 import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
 import JsonView.WithFlags
 import lila.analyse.{ Analysis, Info, Advice }
-import chess.Centis
 import lila.tree._
 
 object TreeBuilder {

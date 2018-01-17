@@ -1,7 +1,8 @@
 package lila.study
 
+import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
 import chess.opening._
-import lila.analyse.{ Analysis, Info, Advice, InfoAdvices }
+import chess.variant.Variant
 import lila.tree
 import lila.tree.Eval
 import lila.tree.Node.Comment
@@ -10,45 +11,35 @@ object TreeBuilder {
 
   private val initialStandardDests = chess.Game(chess.variant.Standard).situation.destinations
 
-  def apply(root: Node.Root, variant: chess.variant.Variant, analysis: Option[Analysis]) = {
+  def apply(root: Node.Root, variant: Variant) = {
     val dests =
       if (variant.standard && root.fen.value == chess.format.Forsyth.initial) initialStandardDests
       else {
         val sit = chess.Game(variant.some, root.fen.value.some).situation
         sit.playable(false) ?? sit.destinations
       }
-    makeRoot(root, analysis).copy(dests = dests.some)
+    makeRoot(root).copy(dests = dests.some)
   }
 
-  def toBranch(node: Node, infos: Option[InfoAdvices]): tree.Branch = tree.Branch(
-    id = node.id,
-    ply = node.ply,
-    move = node.move,
-    fen = node.fen.value,
-    check = node.check,
-    shapes = node.shapes,
-    comments = infos.flatMap(_.headOption.map(_._2)).fold(node.comments) { advice =>
-      node.comments ++ tree.Node.Comments {
-        advice.map(_.makeComment(false, true)).toList.map { text =>
-          Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
-        }
-      }
-    },
-    gamebook = node.gamebook,
-    glyphs = node.glyphs,
-    clock = node.clock,
-    crazyData = node.crazyData,
-    eval = infos.flatMap(_.headOption.map(_._1)) map makeEval,
-    children = toBranches(node.children, infos.map(_ drop 1)),
-    opening = FullOpeningDB findByFen node.fen.value
-  )
+  def toBranch(node: Node): tree.Branch =
+    tree.Branch(
+      id = node.id,
+      ply = node.ply,
+      move = node.move,
+      fen = node.fen.value,
+      check = node.check,
+      shapes = node.shapes,
+      comments = node.comments,
+      gamebook = node.gamebook,
+      glyphs = node.glyphs,
+      clock = node.clock,
+      crazyData = node.crazyData,
+      eval = node.score.map(_.eval),
+      children = toBranches(node.children),
+      opening = FullOpeningDB findByFen node.fen.value
+    )
 
-  def toBranches(children: Node.Children, infos: Option[InfoAdvices]): List[tree.Branch] = children.nodes match {
-    case Vector() => Nil
-    case mainline +: rest => toBranch(mainline, infos) :: rest.map { toBranch(_, none) }.toList
-  }
-
-  def makeRoot(root: Node.Root, analysis: Option[Analysis]) =
+  def makeRoot(root: Node.Root) =
     tree.Root(
       ply = root.ply,
       fen = root.fen.value,
@@ -59,13 +50,11 @@ object TreeBuilder {
       glyphs = root.glyphs,
       clock = root.clock,
       crazyData = root.crazyData,
-      children = toBranches(root.children, analysis.map(_.infoAdvices)),
+      eval = root.score.map(_.eval),
+      children = toBranches(root.children),
       opening = FullOpeningDB findByFen root.fen.value
     )
 
-  private def makeEval(info: Info) = Eval(
-    cp = info.cp,
-    mate = info.mate,
-    best = info.best
-  )
+  private def toBranches(children: Node.Children): List[tree.Branch] =
+    children.nodes.map(toBranch)(scala.collection.breakOut)
 }

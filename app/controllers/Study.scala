@@ -142,7 +142,7 @@ object Study extends LilaController {
     study = studyJson,
     analysis = baseData.add(
       "treeParts" -> partitionTreeJsonWriter.writes {
-        lila.study.TreeBuilder(chapter.root, chapter.setup.variant, analysis)
+        lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
       }.some
     ).add("analysis" -> analysis.map { lila.study.ServerEval.toJson(chapter, _) })
   )
@@ -239,7 +239,7 @@ object Study extends LilaController {
             val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, setup.orientation, owner = false, me = ctx.me)
             val analysis = baseData ++ Json.obj(
               "treeParts" -> partitionTreeJsonWriter.writes {
-                lila.study.TreeBuilder.makeRoot(chapter.root, analysis = none)
+                lila.study.TreeBuilder.makeRoot(chapter.root)
               }
             )
             val data = lila.study.JsonView.JsData(

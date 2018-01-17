@@ -107,23 +107,41 @@ final class Env(
     getPref = getPref
   )
 
-  private lazy val serverEval = new ServerEval(
-    socketHub = socketHub,
+  private lazy val sequencer = new StudySequencer(
+    studyRepo,
+    chapterRepo,
+    system.actorOf(Props(ActorMap { id =>
+      new Sequencer(
+        receiveTimeout = SequencerTimeout.some,
+        executionTimeout = 5.seconds.some,
+        logger = logger
+      )
+    }))
+  )
+
+  private lazy val serverEvalRequester = new ServerEval.Requester(
     fishnetActor = hub.actor.fishnet,
     chapterRepo = chapterRepo
+  )
+
+  private lazy val serverEvalMerger = new ServerEval.Merger(
+    sequencer = sequencer,
+    api = api,
+    chapterRepo = chapterRepo,
+    socketHub = socketHub
   )
 
   // study actor
   system.actorOf(Props(new Actor {
     def receive = {
-      case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) => serverEval.progress(analysis, complete)
+      case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) => serverEvalMerger(analysis, complete)
     }
   }), name = ActorName)
 
   lazy val api = new StudyApi(
     studyRepo = studyRepo,
     chapterRepo = chapterRepo,
-    sequencers = sequencerMap,
+    sequencer = sequencer,
     chapterMaker = chapterMaker,
     studyMaker = studyMaker,
     inviter = studyInvite,
@@ -135,7 +153,7 @@ final class Env(
     bus = system.lilaBus,
     timeline = hub.actor.timeline,
     socketHub = socketHub,
-    serverEval = serverEval,
+    serverEvalRequester = serverEvalRequester,
     lightStudyCache = lightStudyCache
   )
 
@@ -151,14 +169,6 @@ final class Env(
     lightUser = lightUserApi.sync,
     netBaseUrl = NetBaseUrl
   )
-
-  private val sequencerMap = system.actorOf(Props(ActorMap { id =>
-    new Sequencer(
-      receiveTimeout = SequencerTimeout.some,
-      executionTimeout = 5.seconds.some,
-      logger = logger
-    )
-  }))
 
   lazy val lightStudyCache: LightStudyCache = asyncCache.multi(
     name = "study.lightStudyCache",
