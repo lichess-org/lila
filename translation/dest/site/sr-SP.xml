@@ -247,7 +247,7 @@
   <plurals name="nbWins">
     <item quantity="one">%s победа</item>
     <item quantity="few">%s победе</item>
-    <item quantity="other">%s победе</item>
+    <item quantity="other">%s победа</item>
   </plurals>
   <plurals name="nbLosses">
     <item quantity="one">%s пораз</item>
