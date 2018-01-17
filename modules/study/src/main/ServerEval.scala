@@ -43,7 +43,11 @@ private final class ServerEval(
         chapterId = chapter.id.value,
         initialFen = chapter.root.fen.some,
         variant = chapter.setup.variant,
-        moves = chapter.root.mainline.map(_.move.uci),
+        moves = chess.format.UciDump(
+          moves = chapter.root.mainline.map(_.move.san),
+          initialFen = chapter.root.fen.value.some,
+          variant = chapter.setup.variant
+        ).toOption.map(_.map(chess.format.Uci.apply).flatten) | List.empty,
         userId = userId.some
       )
     }

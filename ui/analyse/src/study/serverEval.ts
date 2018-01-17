@@ -13,19 +13,17 @@ export interface ServerEvalCtrl {
   request(): void;
   chapterId(): string;
   onMergeAnalysisData(): void;
-  el: Prop<HTMLElement | null>;
 }
 
 const li = window.lichess;
 
 export function ctrl(data: () => AnalyseData, redraw: Redraw, trans: Trans, request: () => void, chapterId: () => string): ServerEvalCtrl {
 
-  const requested = prop(false),
-  el = prop<HTMLElement | null>(null);
+  const requested = prop(false);
 
   return {
     onMergeAnalysisData() {
-      if (el() && li.advantageChart) li.advantageChart.update(data());
+      if (li.advantageChart) li.advantageChart.update(data());
     },
     request() {
       request();
@@ -35,8 +33,7 @@ export function ctrl(data: () => AnalyseData, redraw: Redraw, trans: Trans, requ
     data,
     redraw,
     trans,
-    chapterId,
-    el
+    chapterId
   };
 }
 
@@ -49,7 +46,6 @@ export function view(ctrl: ServerEvalCtrl): VNode {
   return h('div.server_eval.ready.' + ctrl.chapterId(), {
     hook: {
       insert(vnode) {
-        ctrl.el(vnode.elm as HTMLElement);
         li.requestIdleCallback(() => {
           li.loadScript('/assets/javascripts/chart/acpl.js').then(() => {
             li.advantageChart(data, ctrl.trans, vnode.elm as HTMLElement);

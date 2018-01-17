@@ -579,6 +579,10 @@ body.base .study_buttons .fbt.active {
   border-top: 2px solid rgba(99,155,36,0.75) !important;
 }
 
+div.advice_summary {
+  margin-top: 42px;
+}
+
 body.dark .underboard_form .title,
 body.dark .study_comments .comment,
 body.dark .glyph_form i::before {
@@ -646,228 +650,226 @@ form .editor .spare piece {
   width: 100%;
   height: 100%;
 }
-/*
-http://www.flaticon.com/free-icon/clicker_99162
- */
-  form .editor .spare piece.pointer {
-    background-image: url('/assets/images/icons/pointer.png');
-    width: 100%;
-    height: 100%;
-  }
-  form .editor .spare piece.trash {
-    font-size: 12pt;
-    top: 10%;
-    height: 100%;
-  }
-  form .editor .spare .no-square.trash {
-    color: black;
-    text-align: center
-  }
-  form .editor .cg-board-wrap {
-    width: 224px!important;
-    height: 224px!important;
-  }
-  form .editor square.last-move {
-    background-color: transparent!important;
-  }
-  form .editor .editor-side {
-    position: absolute;
-    left: 233px;
-    top: 35px;
-    text-align: left;
-  }
-  form .editor .editor-side .content_box {
-    background: none;
-    border: 0;
-    padding: 0;
-    box-shadow: none;
-    margin-bottom: 10px;
-  }
-  form .editor .castling {
-    margin-top: 10px;
-  }
-  form .editor .castling strong {
-    display: none;
-  }
-  form .editor .castling label {
-    display: block;
-    cursor: pointer;
-  }
-  form .editor .castling input {
-    cursor: pointer;
-    margin-right: 5px;
-  }
-  form .editor a.button {
-    display: block;
-  }
-  .study_metadata {
-    text-align: left;
-  }
-  .study_metadata h2 {
-    font-size: 1.3em;
-    padding: 7px 12px 7px 12px;
-    font-weight: normal;
-    white-space: nowrap;
-    display: flex;
-    justify-content: space-between;
-  }
-  .study_metadata .name::before {
-    font-size: 1.3em;
-    margin-right: 8px;
-    opacity: 0.7;
-  }
-  .study_metadata h2 .name {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .study_metadata h2 .liking {
-    padding-left: 12px;
-    margin-left: 12px;
-    border-left: 1px solid #ccc;
-    font-weight: bold;
-    cursor: pointer;
-    opacity: 0.7;
-    transition: 0.3s;
-  }
-  .study_metadata h2 .liking:hover {
-    opacity: 1;
-    color: #dc322f!important;
-  }
-  table.tags {
-    border: none;
-  }
-  table.tags th {
-    text-transform: uppercase;
-    font-size: 1.1em;
-    opacity: 0.7;
-    border-top: 1px solid #eaeaea;
-    width: 1px;
-    padding: 0 5px 0 15px!important;
-  }
-  body.dark .study_box .add,
-  body.dark table.tags th,
-  body.dark .study_buttons {
-    border-color: #3d3d3d;
-  }
-  table.tags tr:first-child th {
-    border-top: none;
-  }
-  table.tags td {
-    padding: 0;
-  }
-  table.tags td input,
-  table.tags td span,
-  table.tags td pre {
-    padding-left: 10px;
-    line-height: 2.5em;
-  }
-  table.tags td input {
-    border: none;
-    background: none;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  table.tags td input:hover,
-  table.tags td input:focus {
-    background: rgba(56, 147, 232, 0.08);
-  }
-  table.tags #study_fen {
-    font-size: 0.8em;
-    margin: 0.3em 0;
-  }
-  div.undertable {
-    margin-top: 0;
-  }
-  div.undertable_inner {
-    height: auto;
-    max-height: 200px;
-  }
-  .board_left.no_chat #chat {
-    height: auto!important;
-  }
-  .board_left.no_chat .study_box .list {
-    max-height: 500px;
-  }
-  div.chapter_embed {
-    line-height: 0;
-    margin-bottom: 5px;
-  }
+/* http://www.flaticon.com/free-icon/clicker_99162 */
+form .editor .spare piece.pointer {
+  background-image: url('/assets/images/icons/pointer.png');
+  width: 100%;
+  height: 100%;
+}
+form .editor .spare piece.trash {
+  font-size: 12pt;
+  top: 10%;
+  height: 100%;
+}
+form .editor .spare .no-square.trash {
+  color: black;
+  text-align: center
+}
+form .editor .cg-board-wrap {
+  width: 224px!important;
+  height: 224px!important;
+}
+form .editor square.last-move {
+  background-color: transparent!important;
+}
+form .editor .editor-side {
+  position: absolute;
+  left: 233px;
+  top: 35px;
+  text-align: left;
+}
+form .editor .editor-side .content_box {
+  background: none;
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+  margin-bottom: 10px;
+}
+form .editor .castling {
+  margin-top: 10px;
+}
+form .editor .castling strong {
+  display: none;
+}
+form .editor .castling label {
+  display: block;
+  cursor: pointer;
+}
+form .editor .castling input {
+  cursor: pointer;
+  margin-right: 5px;
+}
+form .editor a.button {
+  display: block;
+}
+.study_metadata {
+  text-align: left;
+}
+.study_metadata h2 {
+  font-size: 1.3em;
+  padding: 7px 12px 7px 12px;
+  font-weight: normal;
+  white-space: nowrap;
+  display: flex;
+  justify-content: space-between;
+}
+.study_metadata .name::before {
+  font-size: 1.3em;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+.study_metadata h2 .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.study_metadata h2 .liking {
+  padding-left: 12px;
+  margin-left: 12px;
+  border-left: 1px solid #ccc;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: 0.3s;
+}
+.study_metadata h2 .liking:hover {
+  opacity: 1;
+  color: #dc322f!important;
+}
+table.tags {
+  border: none;
+}
+table.tags th {
+  text-transform: uppercase;
+  font-size: 1.1em;
+  opacity: 0.7;
+  border-top: 1px solid #eaeaea;
+  width: 1px;
+  padding: 0 5px 0 15px!important;
+}
+body.dark .study_box .add,
+body.dark table.tags th,
+body.dark .study_buttons {
+  border-color: #3d3d3d;
+}
+table.tags tr:first-child th {
+  border-top: none;
+}
+table.tags td {
+  padding: 0;
+}
+table.tags td input,
+table.tags td span,
+table.tags td pre {
+  padding-left: 10px;
+  line-height: 2.5em;
+}
+table.tags td input {
+  border: none;
+  background: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+table.tags td input:hover,
+table.tags td input:focus {
+  background: rgba(56, 147, 232, 0.08);
+}
+table.tags #study_fen {
+  font-size: 0.8em;
+  margin: 0.3em 0;
+}
+div.undertable {
+  margin-top: 0;
+}
+div.undertable_inner {
+  height: auto;
+  max-height: 200px;
+}
+.board_left.no_chat #chat {
+  height: auto!important;
+}
+.board_left.no_chat .study_box .list {
+  max-height: 500px;
+}
+div.chapter_embed {
+  line-height: 0;
+  margin-bottom: 5px;
+}
 
-  .player_bars  {
-    margin-bottom: 32px;
-  }
-  .player_bar {
-    background: #ccc;
-    color: #555;
-    text-shadow: 0 .5px 1px #fff;
-    display: flex;
-    height: 26px;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-    position: absolute;
-    left: 0;
-    right: 0;
-  }
-  body.dark .player_bar {
-    background: #444;
-    color: #bbb;
-    text-shadow: 0 .5px 1px #000;
-  }
-  .lichess_board_wrap.white .player_bar.black,
-  .lichess_board_wrap.black .player_bar.white {
-    border-radius: 4px 4px 0 0;
-    top: -26px;
-  }
-  .lichess_board_wrap.white .player_bar.white,
-  .lichess_board_wrap.black .player_bar.black {
-    border-radius: 0 0 4px 4px;
-    bottom: -26px;
-  }
-  .player_bar .left {
-    flex: 1 1 100%;
-    display: flex;
-    justify-content: flex-start;
-  }
-  .player_bar .result {
-    flex: 0 0 auto;
-    margin-left: 10px;
-    font-weight: normal;
-    padding-right: 10px;
-    border-right: 1px solid rgba(127,127,127,0.5);
-  }
-  .player_bar .aclock {
-    font-family: 'Roboto Mono', 'Roboto';
-    font-size: 17px;
-    height: 26px;
-    line-height: 26px;
-    padding: 0 10px;
-    border-radius: 0 4px 0 0;
-  }
-  .lichess_board_wrap.white .player_bar.white .aclock,
-  .lichess_board_wrap.black .player_bar.black .aclock {
-    border-radius: 0 0 4px 0;
-  }
-  .player_bar.ticking .aclock {
-    background: #759900;
-    color: #fff;
-    text-shadow: none;
-  }
-  .player_bar .info {
-    margin-left: 10px;
-  }
-  .player_bar .elo {
-    margin-left: 0.5em;
-    font-weight: normal;
-  }
+.player_bars  {
+  margin-bottom: 32px;
+}
+.player_bar {
+  background: #ccc;
+  color: #555;
+  text-shadow: 0 .5px 1px #fff;
+  display: flex;
+  height: 26px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+body.dark .player_bar {
+  background: #444;
+  color: #bbb;
+  text-shadow: 0 .5px 1px #000;
+}
+.lichess_board_wrap.white .player_bar.black,
+.lichess_board_wrap.black .player_bar.white {
+  border-radius: 4px 4px 0 0;
+  top: -26px;
+}
+.lichess_board_wrap.white .player_bar.white,
+.lichess_board_wrap.black .player_bar.black {
+  border-radius: 0 0 4px 4px;
+  bottom: -26px;
+}
+.player_bar .left {
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+.player_bar .result {
+  flex: 0 0 auto;
+  margin-left: 10px;
+  font-weight: normal;
+  padding-right: 10px;
+  border-right: 1px solid rgba(127,127,127,0.5);
+}
+.player_bar .aclock {
+  font-family: 'Roboto Mono', 'Roboto';
+  font-size: 17px;
+  height: 26px;
+  line-height: 26px;
+  padding: 0 10px;
+  border-radius: 0 4px 0 0;
+}
+.lichess_board_wrap.white .player_bar.white .aclock,
+.lichess_board_wrap.black .player_bar.black .aclock {
+  border-radius: 0 0 4px 0;
+}
+.player_bar.ticking .aclock {
+  background: #759900;
+  color: #fff;
+  text-shadow: none;
+}
+.player_bar .info {
+  margin-left: 10px;
+}
+.player_bar .elo {
+  margin-left: 0.5em;
+  font-weight: normal;
+}
 
-  .relay_players .cg-board-wrap coords.files {
-    bottom: 0px;
-    text-align: left;
-  }
-  .relay_players .cg-board-wrap coords.files coord {
-    padding-left: 2px;
-    color: #fff;
-    text-shadow: 0 1px 2px #000;
-  }
+.relay_players .cg-board-wrap coords.files {
+  bottom: 0px;
+  text-align: left;
+}
+.relay_players .cg-board-wrap coords.files coord {
+  padding-left: 2px;
+  color: #fff;
+  text-shadow: 0 1px 2px #000;
+}

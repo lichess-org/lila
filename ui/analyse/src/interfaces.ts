@@ -36,7 +36,6 @@ export interface Game {
   status: Status;
   player: Color;
   turns: number;
-  startedAtTurn: number;
   source: Source;
   speed: Speed;
   variant: Variant;

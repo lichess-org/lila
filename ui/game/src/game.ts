@@ -18,7 +18,7 @@ export function mandatory(data: GameData): boolean {
 }
 
 export function playedTurns(data: GameData): number {
-  return data.game.turns - data.game.startedAtTurn;
+  return data.game.turns - (data.game.startedAtTurn || 0);
 }
 
 export function bothPlayersHavePlayed(data: GameData): boolean {

@@ -79,7 +79,7 @@ export default class AnalyseCtrl {
   flipped: boolean = false;
   embed: boolean;
   showComments: boolean = true; // whether to display comments in the move tree
-  showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
+    showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
   showGauge: StoredBooleanProp = storedProp('show-gauge', true);
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
@@ -160,6 +160,10 @@ export default class AnalyseCtrl {
     });
 
     li.pubsub.on('analysis.change.trigger', this.onChange);
+    li.pubsub.on('analysis.chart.click', index => {
+      this.jumpToIndex(index);
+      this.redraw()
+    });
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -372,8 +376,8 @@ export default class AnalyseCtrl {
     this.userJump(this.mainlinePathToPly(ply));
   }
 
-  jumpToIndex(index: number): void {
-    this.jumpToMain(index + 1 + this.data.game.startedAtTurn);
+  jumpToIndex = (index: number): void => {
+    this.jumpToMain(index + 1 + this.tree.root.ply);
   }
 
   jumpToGlyphSymbol(color: Color, symbol: string): void {

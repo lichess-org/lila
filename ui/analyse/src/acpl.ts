@@ -86,7 +86,7 @@ function doRender(ctrl: AnalyseCtrl): VNode {
 
 export function render(ctrl: AnalyseCtrl): MaybeVNode {
 
-  if (!ctrl.data.analysis || !ctrl.showComputer()) return;
+  if (!ctrl.data.analysis || !ctrl.showComputer() || (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval')) return;
 
   // don't cache until the analysis is complete!
   const buster = ctrl.data.analysis.partial ? Math.random() : '';
