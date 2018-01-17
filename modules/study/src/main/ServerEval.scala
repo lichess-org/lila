@@ -57,22 +57,15 @@ object ServerEval {
                   }
               } inject path + node
             } void
-          } >>- {
-            socketHub ! Tell(study.id.value, Socket.UpdateChapter(lila.socket.Socket.Uid(""), chapter.id))
+          } >>- chapterRepo.byId(Chapter.Id(analysis.id)).foreach {
+            _ ?? { chapter =>
+              socketHub ! Tell(studyId, ServerEval.Progress(
+                chapterId = chapter.id,
+                tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
+                analysis = toJson(chapter, analysis)
+              ))
+            }
           }
-        // socketHub ! Tell(studyId, ServerEval.Progress(
-        //   chapterId = chapter.id,
-        //   tree = lila.round.TreeBuilder(
-        //     id = analysis.id,
-        //     pgnMoves = chapter.root.mainline.map(_.move.san)(scala.collection.breakOut),
-        //     variant = chapter.setup.variant,
-        //     analysis = analysis.some,
-        //     initialFen = chapter.root.fen,
-        //     withFlags = lila.round.JsonView.WithFlags(),
-        //     clocks = none
-        //   ),
-        //   analysis = ServerEval.toJson(chapter, analysis)
-        // ))
       }
     }
   }
