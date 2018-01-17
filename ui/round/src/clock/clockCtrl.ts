@@ -100,9 +100,8 @@ export class ClockController {
     Math.max(0, Math.min(1, millis * this.timeRatioDivisor));
 
   setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0) => {
-    const isClockRunning = game.playable(d) &&
-           ((d.game.turns - d.game.startedAtTurn) > 1 || d.clock!.running),
-          delayMs = delay * 10;
+    const isClockRunning = game.playable(d) && (game.playedTurns(d) > 1 || d.clock!.running),
+    delayMs = delay * 10;
 
     this.times = {
       white: white * 1000,
