@@ -122,7 +122,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     redraw,
     ctrl.trans,
     () => send('requestAnalysis', vm.chapterId),
-    () => vm.chapterId
+    () => vm.chapterId,
+    () => ctrl.tree.root.ply
   );
 
   function addChapterId(req) {

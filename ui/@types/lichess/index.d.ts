@@ -74,7 +74,7 @@ interface Trans {
 }
 
 interface Pubsub {
-  on(msg: string, f: (data: any) => void): void
+  on(msg: string, f: (...data: any[]) => void): void
   emit(msg: string): (...args: any[]) => void
 }
 
@@ -277,6 +277,7 @@ interface JQuery {
   clock: any;
   watchers(): JQuery;
   watchers(method: 'set', data: any): void;
+  highcharts(conf?: any): any;
 }
 
 declare namespace PowerTip {
