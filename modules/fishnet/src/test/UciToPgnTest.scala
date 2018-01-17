@@ -20,7 +20,7 @@ final class UciToPgnTest extends Specification with ValidationMatchers {
 
   "convert UCI analysis to PGN" should {
     "work :)" in {
-      val uciAnalysis = Analysis("ke5ssdgj", List(
+      val uciAnalysis = Analysis("ke5ssdgj", None, List(
         Info(1, Eval(Some(Cp(12)), None, None), List()),
         Info(2, Eval(Some(Cp(36)), None, None), List()),
         Info(3, Eval(Some(Cp(22)), None, None), List("g1f3", "g8f6", "e2e3", "e7e6", "f1e2", "b8c6", "e1g1", "f8d6", "b1c3", "e8g8", "c3b5", "f6e4", "b5d6", "d8d6")),
@@ -61,7 +61,7 @@ final class UciToPgnTest extends Specification with ValidationMatchers {
     "even in KotH" in {
       val pgn = List("e4", "e5", "d4", "Nc6", "Ke2", "Nxd4+", "Ke3", "Ne6", "f4", "Bc5+", "Kf3", "Nf6", "fxe5", "Qe7", "Be3", "d6", "Bxc5", "Nxc5", "exf6", "Qxf6+", "Ke3", "Qe5", "Qd4", "Qg5+", "Kf3", "f5", "exf5", "O-O", "Qxc5", "Bxf5", "Qc4+", "Kh8", "Qf4", "Qg6", "g4", "Be4+", "Ke3", "c5", "Bd3", "Bxd3", "Qg3", "Bxc2", "Nf3", "Rae8+", "Kf2", "Qd3", "Kg2", "Re2+", "Kh3", "Rxf3", "Kh4", "Rxg3", "hxg3", "h6", "g5", "Qf5", "g4", "Re4", "Kg3", "Qf4+", "Kh3", "Re3+", "Kh4", "Qxg5#")
       val rep = Replay(pgn, None, chess.variant.KingOfTheHill).map(evenIncomplete).toOption.get
-      val uciAnalysis = Analysis("g5hX8efz", Nil, 0, None, None, now)
+      val uciAnalysis = Analysis("g5hX8efz", None, Nil, 0, None, None, now)
       UciToPgn(rep, uciAnalysis) match {
         case (a, errs) => errs must beEmpty
       }
