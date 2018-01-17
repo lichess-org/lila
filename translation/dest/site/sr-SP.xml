@@ -242,7 +242,7 @@
   <plurals name="nbRated">
     <item quantity="one">%s рангирана</item>
     <item quantity="few">%s рангиране</item>
-    <item quantity="other">%s рангирано</item>
+    <item quantity="other">%s рангираних</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s победа</item>
