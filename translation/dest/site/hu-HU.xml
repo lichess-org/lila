@@ -428,7 +428,7 @@
   <string name="country">Ország</string>
   <string name="preferences">Beállítások</string>
   <string name="inlineNotation">Megjegyzések beszúrása</string>
-  <string name="watchLichessTV">Nézd a Lichess TV-t</string>
+  <string name="watchLichessTV">Lichess TV</string>
   <string name="previouslyOnLichessTV">A Lichess TV korábbi műsorai</string>
   <string name="onlinePlayers">Játékosok online</string>
   <string name="activeToday">Aktív ma</string>
@@ -592,7 +592,7 @@
   <string name="signedOut">Kijelentkeztél</string>
   <string name="loginSuccessful">Sikeres bejelntkezés</string>
   <string name="playOnTheBoardOffline">Asztali játék</string>
-  <string name="playOfflineComputer">Játssz gép ellen</string>
+  <string name="playOfflineComputer">Játék a gép ellen</string>
   <string name="opponent">Ellenfél</string>
   <string name="learnMenu">Tanulás</string>
   <string name="community">Közösség</string>
@@ -600,7 +600,7 @@
   <string name="increment">Növekmény</string>
   <string name="sharePGN">PGN megosztása</string>
   <string name="playOnline">Játssz online</string>
-  <string name="playOffline">Játssz offline</string>
+  <string name="playOffline">Offline játék</string>
   <string name="allowAnalytics">Statisztika engedélyezése</string>
   <string name="shareGameURL">URL megosztása</string>
   <string name="error.required">A mező kitöltése kötelező</string>
