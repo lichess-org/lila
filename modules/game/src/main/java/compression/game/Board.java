@@ -3,20 +3,20 @@ package org.lichess.compression.game;
 import java.util.ArrayList;
 
 class Board {
-    private long pawns;
-    private long knights;
-    private long bishops;
-    private long rooks;
-    private long queens;
-    private long kings;
+    long pawns;
+    long knights;
+    long bishops;
+    long rooks;
+    long queens;
+    long kings;
 
-    private long white;
-    private long black;
-    private long occupied;
+    long white;
+    long black;
+    long occupied;
 
-    private boolean turn;
-    private int epSquare;
-    private long castlingRights;
+    boolean turn;
+    int epSquare;
+    long castlingRights;
 
     public Board() {
         this.pawns = 0xff00000000ff00L;

@@ -1,6 +1,8 @@
 package org.lichess.compression.game;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 import org.lichess.compression.BitReader;
 import org.lichess.compression.BitWriter;
@@ -16,17 +18,60 @@ public class Encoder {
         VarIntEncoder.writeUnsigned(pgnMoves.length, writer);
 
         for (String pgnMove: pgnMoves) {
+            Role role = null, promotion = null;
+            long from = Bitboard.ALL;
+            int to;
+
+            if (pgnMove.startsWith("O-O-O")) {
+                role = Role.KING;
+                from = board.kings;
+                to = Bitboard.lsb(board.rooks & Bitboard.RANKS[board.turn ? 0 : 7]);
+            } else if (pgnMove.startsWith("O-O")) {
+                role = Role.KING;
+                from = board.kings;
+                to = Bitboard.msb(board.rooks & Bitboard.RANKS[board.turn ?  0 : 7]);
+            } else {
+                Matcher matcher = SAN_PATTERN.matcher(pgnMove);
+                if (!matcher.matches()) return null;
+
+                if (matcher.group(1) == null) role = Role.PAWN;
+                else if (matcher.group(1).equals("N")) role = Role.KNIGHT;
+                else if (matcher.group(1).equals("B")) role = Role.BISHOP;
+                else if (matcher.group(1).equals("R")) role = Role.ROOK;
+                else if (matcher.group(1).equals("Q")) role = Role.QUEEN;
+                else if (matcher.group(1).equals("K")) role = Role.KING;
+
+                if (matcher.group(2) != null) from &= Bitboard.FILES[matcher.group(2).charAt(0) - 'a'];
+                if (matcher.group(3) != null) from &= Bitboard.RANKS[matcher.group(3).charAt(0) - '1'];
+
+                to = (matcher.group(4).charAt(0) - 'a') ^ ((matcher.group(4).charAt(1) - '1') << 3);
+
+                if (matcher.group(5) != null) {
+                    if (matcher.group(5).endsWith("Q")) promotion = Role.QUEEN;
+                    else if (matcher.group(5).endsWith("R")) promotion = Role.ROOK;
+                    else if (matcher.group(5).endsWith("B")) promotion = Role.BISHOP;
+                    else if (matcher.group(5).endsWith("N")) promotion = Role.KNIGHT;
+                    else if (matcher.group(5).endsWith("K")) promotion = Role.KING;
+                }
+            }
+
             board.legalMoves(legals);
             legals.sort(new MoveComparator());
 
-            for (int code = 0; code < legals.size(); code++) {
-                Move legal = legals.get(code);
-                // TODO: Optimize SAN parsing
-                if (san(legal, legals).equals(pgnMove.replace("+", "").replace("#", ""))) {
-                    Huffman.write(code, writer);
-                    board.play(legal);
+            int code = -1;
+
+            for (int i = 0; i < legals.size(); i++) {
+                Move legal = legals.get(i);
+                if (legal.role == role && legal.to == to && legal.promotion == promotion && Bitboard.contains(from, legal.from)) {
+                    if (code == -1) code = i;
+                    else return null;
                 }
             }
+
+            if (code == -1) return null;
+
+            Huffman.write(code, writer);
+            board.play(legals.get(code));
         }
 
         return writer.toArray();
@@ -58,6 +103,8 @@ public class Encoder {
 
         return output;
     }
+
+    private static Pattern SAN_PATTERN = Pattern.compile("^([NBKRQ])?([a-h])?([1-8])?[x-]?([a-h][1-8])(=?[NBRQK])?[\\+#]?$");
 
     private static String san(Move move, ArrayList<Move> legals) {
         switch (move.type) {
