@@ -6,7 +6,6 @@ import java.util.regex.Matcher;
 
 import org.lichess.compression.BitReader;
 import org.lichess.compression.BitWriter;
-import org.lichess.compression.VarIntEncoder;
 
 public class Encoder {
     public static byte[] encode(String pgnMoves[]) {
@@ -14,8 +13,6 @@ public class Encoder {
 
         Board board = new Board();
         ArrayList<Move> legals = new ArrayList<Move>(255);
-
-        VarIntEncoder.writeUnsigned(pgnMoves.length, writer);
 
         for (String pgnMove: pgnMoves) {
             Role role = null, promotion = null;
@@ -77,23 +74,22 @@ public class Encoder {
         return writer.toArray();
     }
 
-    public static String[] decode(byte input[]) {
+    public static String[] decode(byte input[], int plies) {
         BitReader reader = new BitReader(input);
 
-        int length = VarIntEncoder.readUnsigned(reader);
-        String output[] = new String[length];
+        String output[] = new String[plies];
 
         Board board = new Board();
         ArrayList<Move> legals = new ArrayList<Move>(255);
 
-        for (int i = 0; i < length + 1; i++) {
+        for (int i = 0; i < plies + 1; i++) {
             board.legalMoves(legals);
 
             if (i > 0) {
                 if (board.isCheck()) output[i - 1] += (legals.isEmpty() ? "#" : "+");
             }
 
-            if (i < length) {
+            if (i < plies) {
                 legals.sort(new MoveComparator(board));
                 Move move = legals.get(Huffman.read(reader));
                 output[i] = san(move, legals);
