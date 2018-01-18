@@ -122,7 +122,7 @@ class Bitboard {
 
     public static int msb(long b) {
         assert b != 0;
-        double x = (double)(b & ~(b >>> 32));
+        double x = (double) (b & ~(b >>> 32));
         int exp = (int) (Double.doubleToLongBits(x) >> 52);
         int sign = (exp >> 11) & 63; // 63 if < 0 else 0
         exp = (exp & 2047) - 1023;
