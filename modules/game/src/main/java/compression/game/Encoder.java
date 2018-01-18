@@ -32,11 +32,11 @@ public class Encoder {
         return writer.toArray();
     }
 
-    public static ArrayList<String> decode(byte input[]) {
+    public static String[] decode(byte input[]) {
         BitReader reader = new BitReader(input);
 
         int length = VarIntEncoder.readUnsigned(reader);
-        ArrayList<String> output = new ArrayList<String>(length);
+        String output[] = new String[length];
 
         Board board = new Board();
         ArrayList<Move> legals = new ArrayList<Move>(255);
@@ -45,13 +45,13 @@ public class Encoder {
             board.legalMoves(legals);
 
             if (i > 0) {
-                if (board.isCheck()) output.set(i - 1, output.get(i - 1) + (legals.isEmpty() ? "#" : "+"));
+                if (board.isCheck()) output[i - 1] += (legals.isEmpty() ? "#" : "+");
             }
 
             if (i < length) {
                 legals.sort(new MoveComparator());
                 Move move = legals.get(Huffman.read(reader));
-                output.add(san(move, legals));
+                output[i] = san(move, legals);
                 board.play(move);
             }
         }
