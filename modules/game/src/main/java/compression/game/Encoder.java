@@ -56,7 +56,7 @@ public class Encoder {
             }
 
             board.legalMoves(legals);
-            legals.sort(new MoveComparator());
+            legals.sort(new MoveComparator(board));
 
             int code = -1;
 
@@ -94,7 +94,7 @@ public class Encoder {
             }
 
             if (i < length) {
-                legals.sort(new MoveComparator());
+                legals.sort(new MoveComparator(board));
                 Move move = legals.get(Huffman.read(reader));
                 output[i] = san(move, legals);
                 board.play(move);
