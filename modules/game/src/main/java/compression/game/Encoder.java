@@ -7,7 +7,7 @@ import org.lichess.compression.BitWriter;
 import org.lichess.compression.VarIntEncoder;
 
 public class Encoder {
-    static byte[] encode(String pgnMoves[]) {
+    public static byte[] encode(String pgnMoves[]) {
         BitWriter writer = new BitWriter();
 
         Board board = new Board();
@@ -45,7 +45,7 @@ public class Encoder {
             board.legalMoves(legals);
 
             if (i > 0) {
-                if (board.isCheck()) output.set(i - 1, legals.get(i - 1) + (legals.isEmpty() ? "#" : "+"));
+                if (board.isCheck()) output.set(i - 1, output.get(i - 1) + (legals.isEmpty() ? "#" : "+"));
             }
 
             if (i < length) {
