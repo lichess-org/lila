@@ -60,11 +60,10 @@ public class Encoder {
     }
 
     private static String san(Move move, ArrayList<Move> legals) {
-        StringBuilder builder;
-
         switch (move.type) {
             case Move.NORMAL:
-                builder = new StringBuilder(6);
+            case Move.EN_PASSANT:
+                StringBuilder builder = new StringBuilder(6);
                 builder.append(move.role.symbol);
 
                 if (move.role != Role.PAWN) {
@@ -98,14 +97,6 @@ public class Encoder {
                     builder.append('=');
                     builder.append(move.promotion.symbol);
                 }
-                return builder.toString();
-
-            case Move.EN_PASSANT:
-                builder = new StringBuilder(4);
-                builder.append((char) (Square.file(move.from) + 'a'));
-                builder.append('x');
-                builder.append((char) (Square.file(move.to) + 'a'));
-                builder.append((char) (Square.rank(move.to) + '1'));
                 return builder.toString();
 
             case Move.CASTLING:
