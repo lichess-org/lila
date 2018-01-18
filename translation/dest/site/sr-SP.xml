@@ -327,7 +327,7 @@
   <string name="teams">Тимови</string>
   <plurals name="nbMembers">
     <item quantity="one">%s члан</item>
-    <item quantity="few">%s чланова</item>
+    <item quantity="few">%s члана</item>
     <item quantity="other">%s чланова</item>
   </plurals>
   <string name="allTeams">Сви тимови</string>
