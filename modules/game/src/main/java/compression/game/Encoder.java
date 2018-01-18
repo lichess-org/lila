@@ -7,65 +7,59 @@ import org.lichess.compression.BitWriter;
 import org.lichess.compression.VarIntEncoder;
 
 public class Encoder {
-    static byte[] encode(Move line[]) {
-        ArrayList<Move> legals = new ArrayList<Move>(255);
+    static byte[] encode(String pgnMoves[]) {
         BitWriter writer = new BitWriter();
+
         Board board = new Board();
+        ArrayList<Move> legals = new ArrayList<Move>(255);
 
-        VarIntEncoder.writeUnsigned(line.length, writer);
+        VarIntEncoder.writeUnsigned(pgnMoves.length, writer);
 
-        for (int i = 0; i < line.length; i++) {
+        for (String pgnMove: pgnMoves) {
             board.legalMoves(legals);
             legals.sort(new MoveComparator());
 
-            int code = -1;
-            for (int j = 0; j < legals.size(); j++) {
-                Move legal = legals.get(j);
-                if (legal.from == line[i].from && legal.to == line[i].to && legal.promotion == line[i].promotion) {
-                    code = j;
-                    break;
+            for (int code = 0; code < legals.size(); code++) {
+                Move legal = legals.get(code);
+                // TODO: Optimize SAN parsing
+                if (san(legal, legals).equals(pgnMove.replace("+", "").replace("#", ""))) {
+                    Huffman.write(code, writer);
+                    board.play(legal);
                 }
             }
-
-            assert code != -1;
-
-            Huffman.write(code, writer);
-
-            board.play(legals.get(code));
         }
 
         return writer.toArray();
     }
 
-    public static String decodePgn(byte input[]) {
-        ArrayList<Move> legals = new ArrayList<Move>(255);
-        StringBuilder output = new StringBuilder();
-        Board board = new Board();
-
+    public static ArrayList<String> decode(byte input[]) {
         BitReader reader = new BitReader(input);
-        int numMoves = VarIntEncoder.readUnsigned(reader);
 
-        for (int i = 0; i < numMoves + 1; i++) {
+        int length = VarIntEncoder.readUnsigned(reader);
+        ArrayList<String> output = new ArrayList<String>(length);
+
+        Board board = new Board();
+        ArrayList<Move> legals = new ArrayList<Move>(255);
+
+        for (int i = 0; i < length + 1; i++) {
             board.legalMoves(legals);
 
             if (i > 0) {
-                if (legals.isEmpty() && board.isCheck()) output.append('#');
-                else if (board.isCheck()) output.append('+');
+                if (board.isCheck()) output.set(i - 1, legals.get(i - 1) + (legals.isEmpty() ? "#" : "+"));
             }
 
-            if (i < input.length) {
-                if (i > 0) output.append(' ');
+            if (i < length) {
                 legals.sort(new MoveComparator());
                 Move move = legals.get(Huffman.read(reader));
-                output.append(san(move, legals));
+                output.add(san(move, legals));
                 board.play(move);
             }
         }
 
-        return output.toString();
+        return output;
     }
 
-    static String san(Move move, ArrayList<Move> legals) {
+    private static String san(Move move, ArrayList<Move> legals) {
         StringBuilder builder;
 
         switch (move.type) {
