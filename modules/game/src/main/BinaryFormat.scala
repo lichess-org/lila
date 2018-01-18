@@ -2,8 +2,8 @@ package lila.game
 
 import org.joda.time.DateTime
 import scala.collection.breakOut
-import scala.collection.Searching._
 import scala.collection.breakOut
+import scala.collection.Searching._
 import scala.util.Try
 
 import chess._
@@ -35,14 +35,15 @@ object BinaryFormat {
   }
   object BinPgn {
     private val betaTesters = Set("thibault", "revoof", "isaacly")
-    private def shouldUseHuffman(playerUserIds: List[lila.user.User.ID]) =
+    private def shouldUseHuffman(variant: Variant, playerUserIds: List[lila.user.User.ID]) = variant.standard && {
       lila.game.Env.current.pgnEncodingSetting.get() match {
         case "all" => true
         case "beta" if playerUserIds.exists(betaTesters.contains) => true
         case _ => false
       }
-    private[game] def empty(playerUserIds: List[lila.user.User.ID]) =
-      if (shouldUseHuffman(playerUserIds)) HuffmanBinPgn(ByteArray.empty)
+    }
+    private[game] def empty(variant: Variant, playerUserIds: List[lila.user.User.ID]) =
+      if (shouldUseHuffman(variant, playerUserIds)) HuffmanBinPgn(ByteArray.empty)
       else OldBinPgn(ByteArray.empty)
   }
 

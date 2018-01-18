@@ -673,7 +673,7 @@ object Game {
       binaryPieces =
         if (game.isStandardInit) BinaryFormat.piece.standard
         else BinaryFormat.piece write game.board.pieces,
-      binaryPgn = BinaryFormat.BinPgn.empty(List(whitePlayer.userId, blackPlayer.userId).flatten),
+      binaryPgn = BinaryFormat.BinPgn.empty(variant, List(whitePlayer.userId, blackPlayer.userId).flatten),
       status = Status.Created,
       turns = game.turns,
       startedAtTurn = game.startedAtTurn,
