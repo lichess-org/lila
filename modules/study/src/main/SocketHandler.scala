@@ -168,6 +168,11 @@ final class SocketHandler(
       id <- o.get[Chapter.Id]("d")
     } api.deleteChapter(byUserId, studyId, id, uid)
 
+    case ("clearAnnotations", o) => for {
+      byUserId <- member.userId
+      id <- o.get[Chapter.Id]("d")
+    } api.clearAnnotations(byUserId, studyId, id, uid)
+
     case ("sortChapters", o) => for {
       byUserId <- member.userId
       ids <- o.get[List[Chapter.Id]]("d")

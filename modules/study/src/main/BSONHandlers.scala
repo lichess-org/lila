@@ -10,10 +10,12 @@ import reactivemongo.bson._
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
+import lila.tree.Eval
+import lila.tree.Eval.Score
 import lila.tree.Node.{ Shape, Shapes, Comment, Comments, Gamebook }
 
-import lila.common.Iso._
 import lila.common.Iso
+import lila.common.Iso._
 
 object BSONHandlers {
 
@@ -139,6 +141,21 @@ object BSONHandlers {
     def write(x: Glyphs) = BSONArray(x.toList.map(_.id).map(BSONInteger.apply))
   }
 
+  implicit val EvalScoreBSONHandler = new BSONHandler[BSONInteger, Score] {
+    private val mateFactor = 1000000
+    def read(i: BSONInteger) = Score {
+      val v = i.value
+      if (v >= mateFactor || v <= -mateFactor) Right(Eval.Mate(v / mateFactor))
+      else Left(Eval.Cp(v))
+    }
+    def write(e: Score) = BSONInteger {
+      e.value.fold(
+        cp => cp.value atLeast (-mateFactor + 1) atMost (mateFactor - 1),
+        mate => mate.value * mateFactor
+      )
+    }
+  }
+
   private implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {
     def reads(r: Reader) = Node(
       id = r.get[UciCharPair]("i"),
@@ -150,6 +167,7 @@ object BSONHandlers {
       comments = r.getO[Comments]("co") | Comments.empty,
       gamebook = r.getO[Gamebook]("ga"),
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
+      score = r.getO[Score]("e"),
       crazyData = r.getO[Crazyhouse.Data]("z"),
       clock = r.getO[Centis]("l"),
       children = r.get[Node.Children]("n")
@@ -165,6 +183,7 @@ object BSONHandlers {
       "co" -> s.comments.value.nonEmpty.option(s.comments),
       "ga" -> s.gamebook,
       "g" -> s.glyphs.nonEmpty,
+      "e" -> s.score,
       "l" -> s.clock,
       "z" -> s.crazyData,
       "n" -> (if (s.ply < Node.MAX_PLIES) s.children else Node.emptyChildren)
@@ -180,6 +199,7 @@ object BSONHandlers {
       comments = r.getO[Comments]("co") | Comments.empty,
       gamebook = r.getO[Gamebook]("ga"),
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
+      score = r.getO[Score]("e"),
       clock = r.getO[Centis]("l"),
       crazyData = r.getO[Crazyhouse.Data]("z"),
       children = r.get[Node.Children]("n")
@@ -192,6 +212,7 @@ object BSONHandlers {
       "co" -> s.comments.value.nonEmpty.option(s.comments),
       "ga" -> s.gamebook,
       "g" -> s.glyphs.nonEmpty,
+      "e" -> s.score,
       "l" -> s.clock,
       "z" -> s.crazyData,
       "n" -> s.children

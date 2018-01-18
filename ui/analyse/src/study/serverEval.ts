@@ -1,24 +1,21 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { Redraw } from '../interfaces';
-import { AnalyseData } from '../interfaces';
+import AnalyseCtrl from '../ctrl';
 import { spinner, bind } from '../util';
 import { Prop, prop, defined } from 'common';
 
 export interface ServerEvalCtrl {
   requested: Prop<boolean>;
-  data(): AnalyseData;
-  redraw(): void;
-  trans: Trans;
-  request(): void;
+  root: AnalyseCtrl;
   chapterId(): string;
+  request(): void;
   onMergeAnalysisData(): void;
   chartEl: Prop<HTMLElement | null>;
 }
 
 const li = window.lichess;
 
-export function ctrl(data: () => AnalyseData, redraw: Redraw, trans: Trans, request: () => void, chapterId: () => string, startPly: () => number): ServerEvalCtrl {
+export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl {
 
   const requested = prop(false),
   lastPly = prop<number | false>(false),
@@ -29,7 +26,7 @@ export function ctrl(data: () => AnalyseData, redraw: Redraw, trans: Trans, requ
   }
 
   li.pubsub.on('analysis.change', (_fen: string, _path: string, mainlinePly: number | false) => {
-    if (!li.advantageChart || lastPly() === mainlinePly || !data().analysis) return;
+    if (!li.advantageChart || lastPly() === mainlinePly || root.data.analysis) return;
     const lp = lastPly(typeof mainlinePly === 'undefined' ? lastPly() : mainlinePly),
     el = chartEl();
     if (el) {
@@ -39,7 +36,7 @@ export function ctrl(data: () => AnalyseData, redraw: Redraw, trans: Trans, requ
         if (chart) {
           if (lp === false) unselect(chart);
           else {
-            const point = chart.series[0].data[lp - 1 - startPly()];
+            const point = chart.series[0].data[lp - 1 - root.tree.root.ply];
             if (defined(point)) point.select();
             else unselect(chart);
           }
@@ -49,34 +46,30 @@ export function ctrl(data: () => AnalyseData, redraw: Redraw, trans: Trans, requ
   });
 
   return {
+    root,
+    chapterId,
     onMergeAnalysisData() {
-      if (li.advantageChart) li.advantageChart.update(data());
+      if (li.advantageChart) li.advantageChart.update(root.data);
     },
     request() {
-      request();
+      root.socket.send('requestAnalysis', chapterId());
       requested(true);
     },
     requested,
-    data,
-    redraw,
-    trans,
-    chapterId,
     chartEl
   };
 }
 
 export function view(ctrl: ServerEvalCtrl): VNode {
 
-  const data = ctrl.data();
-
-  if (!data.analysis) return ctrl.requested() ? requested() : requestButton(ctrl);
+  if (!ctrl.root.data.analysis) return ctrl.requested() ? requested() : requestButton(ctrl);
 
   return h('div.server_eval.ready.' + ctrl.chapterId(), {
     hook: {
       insert(vnode) {
         li.requestIdleCallback(() => {
           li.loadScript('/assets/javascripts/chart/acpl.js').then(() => {
-            li.advantageChart(data, ctrl.trans, vnode.elm as HTMLElement);
+            li.advantageChart(ctrl.root.data, ctrl.root.trans, vnode.elm as HTMLElement);
             ctrl.chartEl(vnode.elm as HTMLElement);
           });
         });
@@ -93,16 +86,20 @@ function requested(): VNode {
 function requestButton(ctrl: ServerEvalCtrl) {
 
   return h('div.server_eval', [
-    h('div.message', [
-      h('p', [
-        'Get a full server-side computer analysis of the main line.',
-        h('br'),
-        'Make sure the chapter is complete, for you can only request analysis once.'
-      ]),
-      h('a.button.text.request', {
-        attrs: { 'data-icon': '' },
-        hook: bind('click', ctrl.request, ctrl.redraw)
-      }, ctrl.trans.noarg('requestAComputerAnalysis'))
-    ])
+    h('div.message',
+      ctrl.root.mainline.length < 5 ? h('p', 'The study is too short to be analysed.') : [
+        h('p', [
+          'Get a full server-side computer analysis of the main line.',
+          h('br'),
+          'Make sure the chapter is complete, for you can only request analysis once.'
+        ]),
+        h('a.button.text.request', {
+          attrs: {
+            'data-icon': '',
+            disabled: ctrl.root.mainline.length < 5
+          },
+          hook: bind('click', ctrl.request, ctrl.root.redraw)
+        }, ctrl.root.trans.noarg('requestAComputerAnalysis'))
+      ])
   ]);
 }

@@ -117,14 +117,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     });
   }, redraw);
 
-  const serverEval = serverEvalCtrl(
-    () => ctrl.data,
-    redraw,
-    ctrl.trans,
-    () => send('requestAnalysis', vm.chapterId),
-    () => vm.chapterId,
-    () => ctrl.tree.root.ply
-  );
+  const serverEval = serverEvalCtrl(ctrl, () => vm.chapterId);
 
   function addChapterId(req) {
     req.ch = vm.chapterId;

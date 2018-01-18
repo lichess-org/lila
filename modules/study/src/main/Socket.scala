@@ -76,7 +76,7 @@ private final class Socket(
         pos.chapterId.value.some
       )
       notifyVersion("addNode", Json.obj(
-        "n" -> TreeBuilder.toBranch(node, none),
+        "n" -> TreeBuilder.toBranch(node),
         "p" -> pos,
         "w" -> who(uid),
         "d" -> dests.dests,

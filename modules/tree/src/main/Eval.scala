@@ -13,6 +13,8 @@ case class Eval(
   def dropBest = copy(best = None)
 
   def invert = copy(cp = cp.map(_.invert), mate = mate.map(_.invert))
+
+  def score: Option[Eval.Score] = cp.map(Eval.Score.cp) orElse mate.map(Eval.Score.mate)
 }
 
 object Eval {
@@ -27,6 +29,8 @@ object Eval {
 
     def invert = copy(value = value.left.map(_.invert).right.map(_.invert))
     def invertIf(cond: Boolean) = if (cond) invert else this
+
+    def eval = Eval(cp, mate, None)
   }
 
   object Score {

@@ -5,6 +5,7 @@ import chess.format.{ Uci, UciCharPair, FEN }
 import chess.variant.Crazyhouse
 
 import chess.Centis
+import lila.tree.Eval.Score
 import lila.tree.Node.{ Shapes, Comment, Comments, Gamebook }
 
 sealed trait RootOrNode {
@@ -18,6 +19,7 @@ sealed trait RootOrNode {
   val comments: Comments
   val gamebook: Option[Gamebook]
   val glyphs: Glyphs
+  val score: Option[Score]
   def fullMoveNumber = 1 + ply / 2
   def mainline: List[Node]
   def color = chess.Color(ply % 2 == 0)
@@ -33,6 +35,7 @@ case class Node(
     comments: Comments = Comments(Nil),
     gamebook: Option[Gamebook] = None,
     glyphs: Glyphs = Glyphs.empty,
+    score: Option[Score] = None,
     clock: Option[Centis],
     crazyData: Option[Crazyhouse.Data],
     children: Node.Children
@@ -68,7 +71,14 @@ case class Node(
       copy(children = children.update(main updateMainlineLast f))
     }
 
-  override def toString = s"$id:${move.san}"
+  def clearAnnotations = copy(
+    comments = Comments(Nil),
+    shapes = Shapes(Nil),
+    glyphs = Glyphs.empty,
+    score = none
+  )
+
+  override def toString = s"$id:${move.san} $score"
 }
 
 object Node {
@@ -138,6 +148,12 @@ object Node {
 
     def has(id: UciCharPair): Boolean = nodes.exists(_.id == id)
 
+    def updateAllWith(op: Node => Node): Children = Children {
+      nodes.map { n =>
+        op(n.copy(children = n.children.updateAllWith(op)))
+      }
+    }
+
     def updateWith(id: UciCharPair, op: Node => Option[Node]): Option[Children] =
       get(id) flatMap op map update
 
@@ -174,6 +190,7 @@ object Node {
       comments: Comments = Comments(Nil),
       gamebook: Option[Gamebook] = None,
       glyphs: Glyphs = Glyphs.empty,
+      score: Option[Score] = None,
       clock: Option[Centis],
       crazyData: Option[Crazyhouse.Data],
       children: Children

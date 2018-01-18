@@ -100,8 +100,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
         ctrl.forecast.reloadToLastPly();
     },
     analysisProgress(data) {
-      if (!data.ch || data.ch === currentChapterId())
-        ctrl.mergeAnalysisData(data);
+      ctrl.mergeAnalysisData(data);
     },
     evalHit(e) {
       ctrl.evalCache.onCloudEval(e);

@@ -46,6 +46,10 @@ export function ctrl(send: SocketSend, chapterConfig, redraw: () => void) {
       send("deleteChapter", id);
       current(null);
     },
+    clearAnnotations(id) {
+      send("clearAnnotations", id);
+      current(null);
+    },
     isEditing,
     redraw
   }
@@ -123,13 +127,20 @@ export function view(ctrl): VNode | undefined {
           dialog.button('Save chapter')
         ] : [spinner()]
       )),
-      h('div.destructive',
+      h('div.destructive', [
+        h('button.button.frameless', {
+          hook: bind('click', _ => {
+            if (confirm('Clear all comments and shapes in this chapter?'))
+            ctrl.clearAnnotations(data.id);
+          })
+        }, 'Clear annotations'),
         h('button.button.frameless', {
           hook: bind('click', _ => {
             if (confirm('Delete this chapter? There is no going back!'))
             ctrl.delete(data.id);
           })
-        }, 'Delete chapter'))
+        }, 'Delete chapter')
+      ])
     ]
   });
 }

@@ -89,6 +89,9 @@ final class ChapterRepo(coll: Coll) {
   def setClock(chapter: Chapter, path: Path, clock: Option[chess.Centis]): Funit =
     setNodeValue(chapter, path, "l", clock)
 
+  def setScore(chapter: Chapter, path: Path, score: Option[lila.tree.Eval.Score]): Funit =
+    setNodeValue(chapter, path, "e", score)
+
   def setChildren(chapter: Chapter, path: Path, children: Node.Children): Funit =
     setNodeValue(chapter, path, "n", children.some)
 
