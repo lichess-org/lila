@@ -13,9 +13,6 @@ class Move {
     public Role promotion;
 
     public Move(Role role, int from, boolean capture, int to) {
-        assert role != null;
-        assert from != to;
-
         this.type = NORMAL;
         this.role = role;
         this.from = from;
