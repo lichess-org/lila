@@ -14,6 +14,7 @@ object Dev extends LilaController {
     Env.api.assetVersionSetting,
     Env.explorer.indexFlowSetting,
     Env.report.scoreThresholdSetting,
+    Env.game.pgnEncodingSetting,
     Env.api.websocketDropPercentSetting
   )
 

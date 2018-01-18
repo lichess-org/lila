@@ -7,7 +7,7 @@ import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.api.commands.GetLastError
 import reactivemongo.api.{ CursorProducer, ReadPreference }
-import reactivemongo.bson.BSONBinary
+import reactivemongo.bson.BSONDocument
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
@@ -413,9 +413,12 @@ object GameRepo {
     getOptionPgn(id) map (_ filter (_.nonEmpty))
 
   def getOptionPgn(id: ID): Fu[Option[PgnMoves]] =
-    coll.primitiveOne[BSONBinary]($id(id), F.binaryPgn) map {
-      _ map { bin =>
-        BinaryFormat.pgn read { ByteArray.ByteArrayBSONHandler read bin }
+    coll.find($id(id), $doc(F.oldPgn -> true, F.huffmanPgn -> true, F.turns -> true)).uno[BSONDocument] map {
+      _ flatMap { doc =>
+        doc.getAs[Int](F.turns) flatMap { plies =>
+          (doc.getAs[ByteArray](F.huffmanPgn) map BinaryFormat.HuffmanBinPgn.apply map (_ decode plies)) orElse
+            (doc.getAs[ByteArray](F.oldPgn) map BinaryFormat.OldBinPgn.apply map (_ decode plies))
+        }
       }
     }
 

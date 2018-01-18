@@ -13,6 +13,7 @@ final class Env(
     appPath: String,
     isProd: Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
+    settingStore: lila.memo.SettingStore.Builder,
     scheduler: lila.common.Scheduler
 ) {
 
@@ -29,6 +30,12 @@ final class Env(
     val PngSize = config getInt "png.size"
   }
   import settings._
+
+  lazy val pgnEncodingSetting = settingStore[String](
+    "pgnEncodingSetting",
+    default = "none",
+    text = "Use Huffman encoding for game PGN [none|beta|all]".some
+  )
 
   lazy val gameColl = db(CollectionGame)
 
@@ -106,6 +113,7 @@ object Env {
     appPath = play.api.Play.current.path.getCanonicalPath,
     isProd = lila.common.PlayApp.isProd,
     asyncCache = lila.memo.Env.current.asyncCache,
+    settingStore = lila.memo.Env.current.settingStore,
     scheduler = lila.common.PlayApp.scheduler
   )
 }

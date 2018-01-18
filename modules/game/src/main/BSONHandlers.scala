@@ -1,8 +1,8 @@
 package lila.game
 
-import scala.collection.breakOut
 import org.joda.time.DateTime
 import reactivemongo.bson._
+import scala.collection.breakOut
 
 import chess.variant.{ Variant, Crazyhouse }
 import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRooks }
@@ -81,7 +81,9 @@ object BSONHandlers {
         whitePlayer = player(whitePlayer, White, whiteId, whiteUid),
         blackPlayer = player(blackPlayer, Black, blackId, blackUid),
         binaryPieces = r bytes binaryPieces,
-        binaryPgn = r bytesD binaryPgn,
+        binaryPgn =
+          (r bytesO huffmanPgn map BinaryFormat.HuffmanBinPgn.apply) orElse
+            (r bytesO oldPgn map BinaryFormat.OldBinPgn.apply) err s"No PGN moves for game ${r str id}",
         status = r.get[Status](status),
         turns = r int turns,
         startedAtTurn = r intD startedAtTurn,
@@ -131,7 +133,14 @@ object BSONHandlers {
       whitePlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.Id) => (_: Player.UserId) => (_: Player.Win) => o.whitePlayer)),
       blackPlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.Id) => (_: Player.UserId) => (_: Player.Win) => o.blackPlayer)),
       binaryPieces -> o.binaryPieces,
-      binaryPgn -> w.byteArrayO(o.binaryPgn),
+      oldPgn -> (o.binaryPgn match {
+        case BinaryFormat.OldBinPgn(bytes) => bytes.some
+        case _ => none
+      }),
+      huffmanPgn -> (o.binaryPgn match {
+        case BinaryFormat.HuffmanBinPgn(bytes) => bytes.some
+        case _ => none
+      }),
       status -> o.status,
       turns -> o.turns,
       startedAtTurn -> w.intO(o.startedAtTurn),

@@ -12,8 +12,39 @@ import chess.variant.Variant
 import lila.db.ByteArray
 
 import org.lichess.compression.clock.{ Encoder => ClockEncoder }
+import org.lichess.compression.game.{ Encoder => HuffmanEncoder }
 
 object BinaryFormat {
+
+  sealed trait BinPgn {
+    def bytes: ByteArray
+    def decode(plies: Int): PgnMoves
+    def update(moves: PgnMoves): BinPgn
+  }
+  case class OldBinPgn(bytes: ByteArray) extends BinPgn {
+    def decode(plies: Int) = format.pgn.Binary.readMoves(bytes.value.toList, plies).get.toVector
+    def update(moves: PgnMoves) = OldBinPgn {
+      format.pgn.Binary.writeMoves(moves).get
+    }
+  }
+  case class HuffmanBinPgn(bytes: ByteArray) extends BinPgn {
+    def decode(plies: Int) = HuffmanEncoder.decode(bytes.value, plies).toVector
+    def update(moves: PgnMoves) = HuffmanBinPgn {
+      HuffmanEncoder.encode(moves.toArray)
+    }
+  }
+  object BinPgn {
+    private val betaTesters = Set("thibault", "revoof", "isaacly")
+    private def shouldUseHuffman(playerUserIds: List[lila.user.User.ID]) =
+      lila.game.Env.current.pgnEncodingSetting.get() match {
+        case "all" => true
+        case "beta" if playerUserIds.exists(betaTesters.contains) => true
+        case _ => false
+      }
+    private[game] def empty(playerUserIds: List[lila.user.User.ID]) =
+      if (shouldUseHuffman(playerUserIds)) HuffmanBinPgn(ByteArray.empty)
+      else OldBinPgn(ByteArray.empty)
+  }
 
   object pgn {
 

@@ -33,7 +33,7 @@ object Rewind {
         whitePlayer = rewindPlayer(game.whitePlayer),
         blackPlayer = rewindPlayer(game.blackPlayer),
         binaryPieces = BinaryFormat.piece write rewindedGame.board.pieces,
-        binaryPgn = BinaryFormat.pgn write rewindedGame.pgnMoves,
+        binaryPgn = game.binaryPgn update rewindedGame.pgnMoves,
         turns = rewindedGame.turns,
         positionHashes = rewindedHistory.positionHashes,
         checkCount = rewindedHistory.checkCount,

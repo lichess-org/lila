@@ -94,9 +94,11 @@ case class ImportData(pgn: String, analyse: Option[String]) {
             variant = variant,
             source = Source.Import,
             pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
-          ).copy(
-            binaryPgn = BinaryFormat.pgn write replay.state.pgnMoves
-          ).start
+          ) |> { g =>
+            g.copy(
+              binaryPgn = g.binaryPgn update replay.state.pgnMoves
+            ).start
+          }
 
           Preprocessed(dbGame, replay, result, initialFen, parsed)
       }
