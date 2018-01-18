@@ -11,7 +11,7 @@ class Square {
     }
 
     public static int rank(int square) {
-        return square >> 3;
+        return square >>> 3;
     }
 
     public static int combine(int file, int rank) {
