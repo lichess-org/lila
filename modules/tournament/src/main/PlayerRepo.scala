@@ -77,15 +77,13 @@ object PlayerRepo {
 
   def join(tourId: String, user: User, perfLens: Perfs => Perf) =
     find(tourId, user.id) flatMap {
-      case Some(p) if p.withdraw => coll.update(selectId(p._id), $doc("$unset" -> $doc("w" -> true)))
+      case Some(p) if p.withdraw => coll.update(selectId(p._id), $unset("w"))
       case Some(p) => funit
       case None => coll.insert(Player.make(tourId, user, perfLens))
     } void
 
-  def withdraw(tourId: String, userId: String) = coll.update(
-    selectTourUser(tourId, userId),
-    $doc("$set" -> $doc("w" -> true))
-  ).void
+  def withdraw(tourId: String, userId: String) =
+    coll.update(selectTourUser(tourId, userId), $set("w" -> true)).void
 
   private[tournament] def withPoints(tourId: String): Fu[List[Player]] =
     coll.find(
