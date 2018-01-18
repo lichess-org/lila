@@ -21,6 +21,12 @@ class BinaryPgnTest extends Specification {
       pgnMoves must_== decoded.toArray
 
     }
-  }
 
+    "en passant and promotion" in {
+      val pgnMoves = "e4 d5 e5 f5 exf6 h6 fxg7 Nf6 gxf8=Q+ Kd7 Qh5 Nc6 Qhf7".split(" ")
+      val encoded = GameEncoder.encode(pgnMoves)
+      val decoded = GameEncoder.decode(encoded)
+      pgnMoves must_== decoded.toArray
+    }
+  }
 }
