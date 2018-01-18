@@ -23,9 +23,21 @@ public class MoveComparator implements Comparator<Move> {
             else return 1;
         }
 
+        int cmpMoveValue = Integer.compare(moveValue(b), moveValue(a));
+        if (cmpMoveValue != 0) return cmpMoveValue;
+
         if (a.to != b.to) return Integer.compare(a.to, b.to);
 
         return Integer.compare(a.from, b.from);
+    }
+
+    private int moveValue(Move move) {
+        return pieceValue(move.role, move.to) - pieceValue(move.role, move.from);
+    }
+
+    private int pieceValue(Role role, int square) {
+        if (this.board.turn) square ^= 0x38; // mirror
+        return PQST[role.index][square];
     }
 
     private static int PQST[][] = {
