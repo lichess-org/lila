@@ -3,7 +3,7 @@ package org.lichess.compression.game;
 import org.lichess.compression.BitReader;
 import org.lichess.compression.BitWriter;
 
-public class Huffman {
+class Huffman {
     public static void write(int value, BitWriter writer) {
         Symbol symbol = CODES[value];
         writer.writeBits(symbol.code, symbol.bits);
