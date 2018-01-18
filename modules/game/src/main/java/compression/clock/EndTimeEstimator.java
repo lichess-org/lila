@@ -1,4 +1,4 @@
-package org.lichess.clockencoder;
+package org.lichess.compression.clock;
 
 public class EndTimeEstimator {
     public static void encode(int[] vals, int startTime) {

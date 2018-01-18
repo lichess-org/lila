@@ -1,4 +1,4 @@
-package org.lichess.clockencoder;
+package org.lichess.compression;
 
 class BitOps {
     static int[] getBitMasks() {

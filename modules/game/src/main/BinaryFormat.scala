@@ -11,7 +11,7 @@ import chess.variant.Variant
 
 import lila.db.ByteArray
 
-import org.lichess.clockencoder.{ Encoder => ClockEncoder }
+import org.lichess.compression.clock.{ Encoder => ClockEncoder }
 
 object BinaryFormat {
 
