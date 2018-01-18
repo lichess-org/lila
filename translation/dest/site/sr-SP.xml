@@ -265,16 +265,16 @@
     <item quantity="other">%s играју</item>
   </plurals>
   <string name="exportGames">Извоз партија</string>
-  <string name="ratingRange">ЕЛО ранг</string>
+  <string name="ratingRange">Опсег рејтинга</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Додај %s секунд</item>
-    <item quantity="few">Додај %s секунди</item>
+    <item quantity="few">Додај %s секунде</item>
     <item quantity="other">Додај %s секунди</item>
   </plurals>
   <string name="giveMoreTime">Додај још времена</string>
   <string name="thisPlayerUsesChessComputerAssistance">Овај играч користи помоћ рачунара</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovi igrači veštački uvećavaju svoj rejting</string>
-  <string name="openingExplorerAndTablebase">отвори претраживач и базе</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ови играчи вештачки увећавају свој рејтинг</string>
+  <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
   <string name="takeback">Повлачење потеза</string>
   <string name="proposeATakeback">Предложи повлачење потеза</string>
   <string name="takebackPropositionSent">Предлог повлачења потеза је послат</string>
@@ -282,12 +282,12 @@
   <string name="takebackPropositionAccepted">Предлог повлачења потеза је прихваћен</string>
   <string name="takebackPropositionCanceled">Предлог повлачења потеза је отказан</string>
   <string name="yourOpponentProposesATakeback">Противник предлаже повлачење потеза</string>
-  <string name="bookmarkThisGame">Обележите ову партију</string>
-  <string name="search">Тражи</string>
+  <string name="bookmarkThisGame">Забележите ову партију</string>
+  <string name="search">Претрага</string>
   <string name="advancedSearch">Напредна претрага</string>
   <string name="tournament">Tурнир</string>
   <string name="tournaments">Турнири</string>
-  <string name="tournamentPoints">Поени на такмичењима</string>
+  <string name="tournamentPoints">Поени на турнирима</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s турнирски поен</item>
     <item quantity="few">%s турнирска поена</item>
