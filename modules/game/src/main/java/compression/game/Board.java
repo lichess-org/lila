@@ -15,8 +15,8 @@ class Board {
     private long occupied;
 
     private boolean turn;
-    private int ep_square;
-    private long castling_rights;
+    private int epSquare;
+    private long castlingRights;
 
     public Board() {
         this.pawns = 0xff00000000ff00L;
@@ -31,8 +31,8 @@ class Board {
         this.occupied = 0xffff00000000ffffL;
 
         this.turn = true;
-        this.ep_square = 0;
-        this.castling_rights = this.rooks;
+        this.epSquare = 0;
+        this.castlingRights = this.rooks;
     }
 
     public Board(Board board) {
@@ -48,13 +48,13 @@ class Board {
         this.occupied = board.occupied;
 
         this.turn = board.turn;
-        this.ep_square = board.ep_square;
-        this.castling_rights = board.castling_rights;
+        this.epSquare = board.epSquare;
+        this.castlingRights = board.castlingRights;
     }
 
     Board(long pawns, long knights, long bishops, long rooks, long queens, long kings,
           long white, long black,
-          boolean turn, int ep_square, long castling_rights) {
+          boolean turn, int epSquare, long castlingRights) {
 
         this.pawns = pawns;
         this.knights = knights;
@@ -68,8 +68,8 @@ class Board {
         this.occupied = white | black;
 
         this.turn = turn;
-        this.ep_square = ep_square;
-        this.castling_rights = castling_rights;
+        this.epSquare = epSquare;
+        this.castlingRights = castlingRights;
     }
 
     private boolean isOccupied(int square) {
@@ -121,22 +121,22 @@ class Board {
     }
 
     public void play(Move move) {
-        this.ep_square = 0;
+        this.epSquare = 0;
 
         switch (move.type) {
             case Move.NORMAL:
                 if (move.role == Role.PAWN && Math.abs(move.from - move.to) == 16) {
-                    this.ep_square = move.from + (this.turn ? 8 : -8);
+                    this.epSquare = move.from + (this.turn ? 8 : -8);
                 }
 
                 if (move.role == Role.KING) {
-                    this.castling_rights &= Bitboard.RANKS[this.turn ? 7 : 0];
+                    this.castlingRights &= Bitboard.RANKS[this.turn ? 7 : 0];
                 } else if (move.role == Role.ROOK) {
-                    this.castling_rights &= ~(1L << move.from);
+                    this.castlingRights &= ~(1L << move.from);
                 }
 
                 if (move.capture) {
-                    this.castling_rights &= ~(1L << move.to);
+                    this.castlingRights &= ~(1L << move.to);
                 }
 
                 discard(move.from);
@@ -144,7 +144,7 @@ class Board {
                 break;
 
             case Move.CASTLING:
-                this.castling_rights &= Bitboard.RANKS[this.turn ? 7 : 0];
+                this.castlingRights &= Bitboard.RANKS[this.turn ? 7 : 0];
                 int rookTo = Square.combine(move.to < move.from ? Square.D1 : Square.F1, move.to);
                 int kingTo = Square.combine(move.to < move.from ? Square.C1 : Square.G1, move.from);
                 discard(move.from);
@@ -370,13 +370,13 @@ class Board {
     }
 
     private boolean genEnPassant(ArrayList<Move> moves) {
-        if (this.ep_square == 0) return false;
+        if (this.epSquare == 0) return false;
 
         boolean found = false;
-        long pawns = us() & this.pawns & Bitboard.pawnAttacks(!this.turn, this.ep_square);
+        long pawns = us() & this.pawns & Bitboard.pawnAttacks(!this.turn, this.epSquare);
         while (pawns != 0) {
             int pawn = Bitboard.lsb(pawns);
-            moves.add(Move.enPassant(pawn, this.ep_square));
+            moves.add(Move.enPassant(pawn, this.epSquare));
             found = true;
             pawns ^= 1L << pawn;
         }
@@ -384,7 +384,7 @@ class Board {
     }
 
     private void genCastling(int king, ArrayList<Move> moves) {
-        long rooks = this.castling_rights & Bitboard.RANKS[this.turn ? 0 : 7];
+        long rooks = this.castlingRights & Bitboard.RANKS[this.turn ? 0 : 7];
         while (rooks != 0) {
             int rook = Bitboard.lsb(rooks);
             long path = Bitboard.BETWEEN[king][rook];
