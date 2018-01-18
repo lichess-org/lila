@@ -5,15 +5,20 @@ import java.util.Comparator;
 public class MoveComparator implements Comparator<Move> {
     @Override
     public int compare(Move a, Move b) {
+        if (a.promotion != b.promotion) {
+            if (a.promotion == null) return 1;
+            else if (b.promotion == null) return -1;
+            else return Integer.compare(b.promotion.index, a.promotion.index);
+        }
+
+        if (a.capture != b.capture) {
+            if (a.capture) return -1;
+            else return 1;
+        }
+
         int cmpFrom = Integer.compare(a.from, b.from);
         if (cmpFrom != 0) return cmpFrom;
 
-        int cmpTo = Integer.compare(a.to, b.to);
-        if (cmpTo != 0) return cmpTo;
-
-        if (a.promotion == null && b.promotion == null) return 0;
-        if (a.promotion == null && b.promotion != null) return -1;
-        if (a.promotion != null && b.promotion == null) return 1;
-        return Integer.compare(a.promotion.index, b.promotion.index);
+        return Integer.compare(a.to, b.to);
     }
 }
