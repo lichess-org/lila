@@ -42,7 +42,7 @@ public class Encoder {
                 if (matcher.group(2) != null) from &= Bitboard.FILES[matcher.group(2).charAt(0) - 'a'];
                 if (matcher.group(3) != null) from &= Bitboard.RANKS[matcher.group(3).charAt(0) - '1'];
 
-                to = (matcher.group(4).charAt(0) - 'a') ^ ((matcher.group(4).charAt(1) - '1') << 3);
+                to = Square.square(matcher.group(4).charAt(0) - 'a', matcher.group(4).charAt(1) - '1');
 
                 if (matcher.group(5) != null) {
                     if (matcher.group(5).endsWith("Q")) promotion = Role.QUEEN;
