@@ -531,7 +531,7 @@
   <string name="questionsAndAnswers">Вопросы и ответы</string>
   <string name="notes">Заметки</string>
   <string name="typePrivateNotesHere">Здесь вы можете оставить личные заметки об игре</string>
-  <string name="gameDisplay">Настройки отображения</string>
+  <string name="gameDisplay">Внешний вид</string>
   <string name="pieceAnimation">Анимация фигур</string>
   <string name="materialDifference">Показывать разницу в материале</string>
   <string name="closeAccount">Удалить учётную запись</string>
@@ -557,7 +557,7 @@
   <string name="whenTimeRemainingLessThanTenSeconds">Когда остаётся меньше 10 секунд</string>
   <string name="horizontalGreenProgressBars">Убывающий зелёный индикатор</string>
   <string name="soundWhenTimeGetsCritical">Звук, когда время подходит к концу</string>
-  <string name="gameBehavior">Настройки игры</string>
+  <string name="gameBehavior">Управление в игре</string>
   <string name="howDoYouMovePieces">Как вы передвигаете фигуры?</string>
   <string name="clickTwoSquares">Нажатием на клетки откуда и куда</string>
   <string name="dragPiece">Перетаскиванием фигуры</string>
