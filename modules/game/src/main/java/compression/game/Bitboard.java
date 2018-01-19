@@ -110,24 +110,12 @@ class Bitboard {
 
     public static int lsb(long b) {
         assert b != 0;
-
-        // Floating point trick by Gerd Isenberg:
-        // https://chessprogramming.wikispaces.com/Java-Bitscan
-        double x = (double) (b & - b);
-        int exp = (int) (Double.doubleToLongBits(x) >>> 52);
-        return (exp & 2047) - 1023;
+        return Long.numberOfTrailingZeros(b);
     }
 
     public static int msb(long b) {
         assert b != 0;
-
-        // Another floating point trick by Gerd Isenberg:
-        // https://chessprogramming.wikispaces.com/Java-Bitscan
-        double x = (double) (b & ~(b >>> 32));
-        int exp = (int) (Double.doubleToLongBits(x) >> 52);
-        int sign = (exp >> 11) & 63; // 63 if < 0 else 0
-        exp = (exp & 2047) - 1023;
-        return exp | sign;
+        return 63 ^ Long.numberOfLeadingZeros(b);
     }
 
     public static boolean moreThanOne(long b) {
