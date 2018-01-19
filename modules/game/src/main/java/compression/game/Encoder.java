@@ -55,7 +55,7 @@ public class Encoder {
 
             // Find index in legal moves.
             board.legalMoves(legals);
-            legals.sort(new MoveComparator(board));
+            legals.sort(null);
 
             int code = -1;
 
@@ -93,7 +93,7 @@ public class Encoder {
             }
 
             if (i < plies) {
-                legals.sort(new MoveComparator(board));
+                legals.sort(null);
                 Move move = legals.get(Huffman.read(reader));
                 output[i] = san(move, legals);
                 board.play(move);

@@ -245,7 +245,7 @@ class Board {
             long targets = Bitboard.KNIGHT_ATTACKS[from] & mask;
             while (targets != 0) {
                 int to = Bitboard.lsb(targets);
-                moves.add(new Move(Role.KNIGHT, from, isOccupied(to), to));
+                moves.add(Move.normal(this, Role.KNIGHT, from, isOccupied(to), to));
                 targets ^= 1L << to;
             }
             knights ^= 1L << from;
@@ -258,7 +258,7 @@ class Board {
             long targets = Bitboard.bishopAttacks(from, this.occupied) & mask;
             while (targets != 0) {
                 int to = Bitboard.lsb(targets);
-                moves.add(new Move(Role.BISHOP, from, isOccupied(to), to));
+                moves.add(Move.normal(this, Role.BISHOP, from, isOccupied(to), to));
                 targets ^= 1L << to;
             }
             bishops ^= 1L << from;
@@ -271,7 +271,7 @@ class Board {
             long targets = Bitboard.rookAttacks(from, this.occupied) & mask;
             while (targets != 0) {
                 int to = Bitboard.lsb(targets);
-                moves.add(new Move(Role.ROOK, from, isOccupied(to), to));
+                moves.add(Move.normal(this, Role.ROOK, from, isOccupied(to), to));
                 targets ^= 1L << to;
             }
             rooks ^= 1L << from;
@@ -284,7 +284,7 @@ class Board {
             long targets = Bitboard.queenAttacks(from, this.occupied) & mask;
             while (targets != 0) {
                 int to = Bitboard.lsb(targets);
-                moves.add(new Move(Role.QUEEN, from, isOccupied(to), to));
+                moves.add(Move.normal(this, Role.QUEEN, from, isOccupied(to), to));
                 targets ^= 1L << to;
             }
             queens ^= 1L << from;
@@ -296,7 +296,7 @@ class Board {
         while (targets != 0) {
             int to = Bitboard.lsb(targets);
             if (attacksTo(to, !this.turn) == 0) {
-                moves.add(new Move(Role.KING, king, isOccupied(to), to));
+                moves.add(Move.normal(this, Role.KING, king, isOccupied(to), to));
             }
             targets ^= 1L << to;
         }
@@ -361,19 +361,19 @@ class Board {
         while (doubleMoves != 0) {
             int to = Bitboard.lsb(doubleMoves);
             int from = to + (this.turn ? -16: 16);
-            moves.add(new Move(Role.PAWN, from, false, to));
+            moves.add(Move.normal(this, Role.PAWN, from, false, to));
             doubleMoves ^= 1L << to;
         }
     }
 
     private void addPawnMoves(int from, boolean capture, int to, ArrayList<Move> moves) {
         if (Square.rank(to) == (this.turn ? 7 : 0)) {
-            moves.add(new Move(Role.PAWN, from, capture, to, Role.QUEEN));
-            moves.add(new Move(Role.PAWN, from, capture, to, Role.KNIGHT));
-            moves.add(new Move(Role.PAWN, from, capture, to, Role.ROOK));
-            moves.add(new Move(Role.PAWN, from, capture, to, Role.BISHOP));
+            moves.add(Move.promotion(this, from, capture, to, Role.QUEEN));
+            moves.add(Move.promotion(this, from, capture, to, Role.KNIGHT));
+            moves.add(Move.promotion(this, from, capture, to, Role.ROOK));
+            moves.add(Move.promotion(this, from, capture, to, Role.BISHOP));
         } else {
-            moves.add(new Move(Role.PAWN, from, capture, to));
+            moves.add(Move.normal(this, Role.PAWN, from, capture, to));
         }
     }
 
@@ -384,7 +384,7 @@ class Board {
         long pawns = us() & this.pawns & Bitboard.pawnAttacks(!this.turn, this.epSquare);
         while (pawns != 0) {
             int pawn = Bitboard.lsb(pawns);
-            moves.add(Move.enPassant(pawn, this.epSquare));
+            moves.add(Move.enPassant(this, pawn, this.epSquare));
             found = true;
             pawns ^= 1L << pawn;
         }
@@ -406,7 +406,7 @@ class Board {
                     }
                     kingPath ^= 1L << sq;
                 }
-                if (kingPath == 0) moves.add(Move.castle(king, rook));
+                if (kingPath == 0) moves.add(Move.castle(this, king, rook));
             }
             rooks ^= 1L << rook;
         }
