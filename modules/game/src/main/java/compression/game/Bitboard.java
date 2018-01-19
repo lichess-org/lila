@@ -106,28 +106,21 @@ class Bitboard {
         return (white ? WHITE_PAWN_ATTACKS : BLACK_PAWN_ATTACKS)[square];
     }
 
-    static private final int[] LSB_TABLE = {
-         0,  1, 48,  2, 57, 49, 28,  3,
-        61, 58, 50, 42, 38, 29, 17,  4,
-        62, 55, 59, 36, 53, 51, 43, 22,
-        45, 39, 33, 30, 24, 18, 12,  5,
-        63, 47, 56, 27, 60, 41, 37, 16,
-        54, 35, 52, 21, 44, 32, 23, 11,
-        46, 26, 40, 15, 34, 20, 31, 10,
-        25, 14, 19,  9, 13,  8,  7,  6,
-    };
-
     public static int lsb(long b) {
         assert b != 0;
 
-        // De-Bruijn multiplication to extract the least significant bit.
-        return LSB_TABLE[(int)(((b & -b) * 0x03f79d71b4cb0a89L) >>> 58)];
+        // Floating point trick by Gerd Isenberg:
+        // https://chessprogramming.wikispaces.com/Java-Bitscan
+        double x = (double) (b & - b);
+        int exp = (int) (Double.doubleToLongBits(x) >>> 52);
+        return (exp & 2047) - 1023;
     }
 
     public static int msb(long b) {
         assert b != 0;
 
-        // Floating point trick by Gerd Isenberg.
+        // Another floating point trick by Gerd Isenberg:
+        // https://chessprogramming.wikispaces.com/Java-Bitscan
         double x = (double) (b & ~(b >>> 32));
         int exp = (int) (Double.doubleToLongBits(x) >> 52);
         int sign = (exp >> 11) & 63; // 63 if < 0 else 0
