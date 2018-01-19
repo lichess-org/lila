@@ -440,7 +440,7 @@
   <string name="savePosition">Сохранить позицию</string>
   <string name="loadPosition">Загрузить позицию</string>
   <string name="isPrivate">Закрытый</string>
-  <string name="reportXToModerators">Пожаловаться на %s модераторам</string>
+  <string name="reportXToModerators">Сообщить о %s модераторам</string>
   <string name="profileCompletion">Профиль заполнен на %s</string>
   <string name="xRating">Рейтинг %s</string>
   <string name="ifNoneLeaveEmpty">Если нет, оставьте пустым</string>
@@ -514,7 +514,7 @@
   <string name="reply">Ответить</string>
   <string name="message">Сообщение</string>
   <string name="createTheTopic">Создать тему</string>
-  <string name="reportAUser">Пожаловаться на пользователя</string>
+  <string name="reportAUser">Сообщить о пользователе</string>
   <string name="user">Пользователь</string>
   <string name="reason">Причина</string>
   <string name="whatIsIheMatter">В чём дело?</string>
