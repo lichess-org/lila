@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class PerftTest {
     public static long perft(Board board, int depth) {
+        // Counts the number of paths in the tree of legal moves. Useful for
+        // testing performance and comparing to well known numbers.
         if (depth >= 1) {
             ArrayList<Move> moves = new ArrayList<Move>(255);
             board.legalMoves(moves);
@@ -27,6 +29,9 @@ public class PerftTest {
     public static void assertEqual(long lhs, long rhs) {
         if (lhs != rhs) throw new RuntimeException("perft test failed");
     }
+
+    // Test cases generated from:
+    // https://marcelk.net/rookie/nostalgia/v3/perft-random.epd
 
     public static void batch0() {
         // gentest-1
