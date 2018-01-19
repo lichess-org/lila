@@ -18,11 +18,13 @@ class Bitboard {
     public static final long WHITE_PAWN_ATTACKS[] = new long[64];
     public static final long BLACK_PAWN_ATTACKS[] = new long[64];
 
-    private static final long ATTACKS[] = new long[88772];
-
     public static final long BETWEEN[][] = new long[64][64];
     public static final long RAYS[][] = new long[64][64];
 
+    // Large overlapping attack table indexed using magic multiplication.
+    private static final long ATTACKS[] = new long[88772];
+
+    // Slow attack set generation. Used only to bootstrap the attack tables.
     private static long slidingAttacks(int square, long occupied, int[] deltas) {
         long attacks = 0;
         for (int delta: deltas) {

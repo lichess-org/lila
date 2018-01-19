@@ -1,9 +1,6 @@
 package org.lichess.compression.game;
 
-// Precomputed overlapping fixed shift magics:
-// https://chessprogramming.wikispaces.com/Magic+Bitboards#FixedShiftFancy
 class Magic {
-
     // Mask relevant occupancies.
     public long mask;
 
@@ -18,6 +15,9 @@ class Magic {
         this.factor = factor;
         this.offset = offset;
     }
+
+    // Precomputed overlapping fixed shift magics:
+    // https://chessprogramming.wikispaces.com/Magic+Bitboards#FixedShiftFancy
 
     public static Magic ROOK[] = {
         new Magic(0x000101010101017eL, 0x00280077ffebfffeL, 26304),
