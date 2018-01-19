@@ -59,6 +59,10 @@ class Huffman {
             buildTree((code << 1) | 1, bits + 1));
     }
 
+    // Huffman code for indexes in the legal move list. Precomputed based on
+    // actual frequency in 1 million rated games. This is based on a maximum of
+    // 256 legal moves per position, but the highest indexes did not actually
+    // occur. They were manually assigned a frequency of 1 and ordered.
     private static final Symbol CODES[] = {
         new Symbol(0b111, 3), // 0
         new Symbol(0b100, 3), // 1

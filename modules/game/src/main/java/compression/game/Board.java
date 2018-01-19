@@ -238,6 +238,7 @@ class Board {
     private void genNonKing(long mask, ArrayList<Move> moves) {
         genPawn(mask, moves);
 
+        // Knights.
         long knights = us() & this.knights;
         while (knights != 0) {
             int from = Bitboard.lsb(knights);
@@ -250,6 +251,7 @@ class Board {
             knights ^= 1L << from;
         }
 
+        // Bishops.
         long bishops = us() & this.bishops;
         while (bishops != 0) {
             int from = Bitboard.lsb(bishops);
@@ -262,6 +264,7 @@ class Board {
             bishops ^= 1L << from;
         }
 
+        // Rooks.
         long rooks = us() & this.rooks;
         while (rooks != 0) {
             int from = Bitboard.lsb(rooks);
@@ -274,6 +277,7 @@ class Board {
             rooks ^= 1L << from;
         }
 
+        // Queens.
         long queens = us() & this.queens;
         while (queens != 0) {
             int from = Bitboard.lsb(queens);
@@ -299,8 +303,10 @@ class Board {
     }
 
     private void genEvasions(int king, long checkers, ArrayList<Move> moves) {
+        // Checks by these sliding pieces can maybe be blocked.
         long sliders = checkers & (this.bishops ^ this.rooks ^ this.queens);
 
+        // Collect attacked squares that the king can not escape to.
         long attacked = 0;
         while (sliders != 0) {
             int slider = Bitboard.lsb(sliders);
@@ -318,6 +324,7 @@ class Board {
     }
 
     private void genPawn(long mask, ArrayList<Move> moves) {
+        // Pawn captures (except en passant).
         long capturers = us() & this.pawns;
         while (capturers != 0) {
             int from = Bitboard.lsb(capturers);
@@ -330,6 +337,7 @@ class Board {
             capturers ^= 1L << from;
         }
 
+        // Normal pawn moves.
         long singleMoves =
             ~this.occupied & (this.turn ?
                 ((this.white & this.pawns) << 8) :
@@ -404,6 +412,8 @@ class Board {
         }
     }
 
+    // Used for filtering candidate moves that would leave/put the king
+    // in check.
     private boolean isSafe(int king, Move move, long blockers) {
         switch (move.type) {
             case Move.NORMAL:

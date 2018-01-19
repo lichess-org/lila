@@ -43,6 +43,8 @@ class Bitboard {
             int idx = (int) ((magic.factor * subset) >>> (64 - shift)) + magic.offset;
             assert ATTACKS[idx] == 0 || ATTACKS[idx] == attack;
             ATTACKS[idx] = attack;
+
+            // Carry-rippler trick for enumerating subsets.
             subset = (subset - magic.mask) & magic.mask;
         } while (subset != 0);
     }
@@ -117,11 +119,15 @@ class Bitboard {
 
     public static int lsb(long b) {
         assert b != 0;
+
+        // De-Bruijn multiplication to extract the least significant bit.
         return LSB_TABLE[(int)(((b & -b) * 0x03f79d71b4cb0a89L) >>> 58)];
     }
 
     public static int msb(long b) {
         assert b != 0;
+
+        // Floating point trick by Gerd Isenberg.
         double x = (double) (b & ~(b >>> 32));
         int exp = (int) (Double.doubleToLongBits(x) >> 52);
         int sign = (exp >> 11) & 63; // 63 if < 0 else 0

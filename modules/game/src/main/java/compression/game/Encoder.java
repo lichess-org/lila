@@ -15,6 +15,7 @@ public class Encoder {
         ArrayList<Move> legals = new ArrayList<Move>(255);
 
         for (String pgnMove: pgnMoves) {
+            // Parse SAN.
             Role role = null, promotion = null;
             long from = Bitboard.ALL;
             int to;
@@ -52,6 +53,7 @@ public class Encoder {
                 }
             }
 
+            // Find index in legal moves.
             board.legalMoves(legals);
             legals.sort(new MoveComparator(board));
 
@@ -67,6 +69,7 @@ public class Encoder {
 
             if (code == -1) return null;
 
+            // Encode and play.
             Huffman.write(code, writer);
             board.play(legals.get(code));
         }
@@ -109,6 +112,7 @@ public class Encoder {
                 StringBuilder builder = new StringBuilder(6);
                 builder.append(move.role.symbol);
 
+                // From.
                 if (move.role != Role.PAWN) {
                     boolean file = false, rank = false;
                     long others = 0;
@@ -131,15 +135,19 @@ public class Encoder {
                     builder.append((char) (Square.file(move.from) + 'a'));
                 }
 
+                // Capture.
                 if (move.capture) builder.append('x');
 
+                // To.
                 builder.append((char) (Square.file(move.to) + 'a'));
                 builder.append((char) (Square.rank(move.to) + '1'));
 
+                // Promotion.
                 if (move.promotion != null) {
                     builder.append('=');
                     builder.append(move.promotion.symbol);
                 }
+
                 return builder.toString();
 
             case Move.CASTLING:

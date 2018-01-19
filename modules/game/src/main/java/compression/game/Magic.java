@@ -1,8 +1,16 @@
 package org.lichess.compression.game;
 
+// Precomputed overlapping fixed shift magics:
+// https://chessprogramming.wikispaces.com/Magic+Bitboards#FixedShiftFancy
 class Magic {
+
+    // Mask relevant occupancies.
     public long mask;
+
+    // Magic factor.
     public long factor;
+
+    // Offset in overlapping table.
     public int offset;
 
     public Magic(long mask, long factor, int offset) {

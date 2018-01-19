@@ -12,22 +12,25 @@ public class MoveComparator implements Comparator<Move> {
 
     @Override
     public int compare(Move a, Move b) {
+        // Promotions (of higher value) first.
         if (a.promotion != b.promotion) {
             if (a.promotion == null) return 1;
             else if (b.promotion == null) return -1;
             else return Integer.compare(b.promotion.index, a.promotion.index);
         }
 
+        // Then captures.
         if (a.capture != b.capture) {
             if (a.capture) return -1;
             else return 1;
         }
 
+        // Then positional value of the move.
         int cmpMoveValue = Integer.compare(moveValue(b), moveValue(a));
         if (cmpMoveValue != 0) return cmpMoveValue;
 
+        // Disambiguate.
         if (a.to != b.to) return Integer.compare(a.to, b.to);
-
         return Integer.compare(a.from, b.from);
     }
 
@@ -40,6 +43,8 @@ public class MoveComparator implements Comparator<Move> {
         return PSQT[role.index][square];
     }
 
+    // Piece-Square table takem from:
+    // https://github.com/flok99/feeks/blob/f02e4897555ac08497a5fea43f241bad30f2ecff/psq.py#L8-L67
     private static int PSQT[][] = {
         {   0,  0,  0,  0,  0,  0,  0,  0,
            50, 50, 50, 50, 50, 50, 50, 50,
