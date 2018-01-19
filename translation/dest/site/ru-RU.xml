@@ -683,7 +683,7 @@
   <string name="whenCreateSimul">Если вы создадите сеанс одновременной игры, вам придётся сыграть против нескольких игроков одновременно.</string>
   <string name="simulVariantsHint">Если вы выберете несколько вариантов игры, тогда каждый игрок веберет тот из них, в который он хочет сыграть с вами.</string>
   <string name="simulClockHint">Настройка часов Фишера. Чем больше игроков играет против вас, тем больше времени вам может понадобится.</string>
-  <string name="simulAddExtraTime">Вы можете добавить дополнительное время к своему таймеру для большей форы.</string>
+  <string name="simulAddExtraTime">Вы можете взять себе дополнительное время на обдумывание партий.</string>
   <string name="simulHostExtraTime">Дополнительное время сеансёра</string>
   <string name="lichessTournaments">Турниры Lichess</string>
   <string name="tournamentFAQ">Вопросы и ответы про Арену</string>
@@ -770,7 +770,7 @@
   <string name="quickPairing">Быстрый старт</string>
   <string name="lobby">Зал ожидания</string>
   <string name="anonymous">Анонимно</string>
-  <string name="yourScore">Ваш результат: %s</string>
+  <string name="yourScore">Ваш счёт: %s</string>
   <string name="language">Язык (Language)</string>
   <string name="background">Фон</string>
   <string name="light">Светлый</string>
