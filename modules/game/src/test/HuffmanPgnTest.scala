@@ -15,6 +15,7 @@ class HuffmanPgnTest extends Specification {
         pgnMoves must_== decoded
       }
     }
+
     "pass perft test" in {
       // Running the entire suite can take minutes.
 
@@ -43,6 +44,7 @@ class HuffmanPgnTest extends Specification {
 
       PerftTest.batch17();
 
+      // These test throw a RuntimeError if they fail.
       true must_== true
     }
   }
