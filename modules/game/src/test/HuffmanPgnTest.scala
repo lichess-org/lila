@@ -1,13 +1,12 @@
 package lila.game
 
-import org.lichess.compression.game.{ Encoder => GameEncoder }
+import org.lichess.compression.game.{ Encoder => GameEncoder, PerftTest }
 
 import org.specs2.mutable._
 
 class HuffmanPgnTest extends Specification {
 
   "game compression" should {
-
     "compress and decompress" in {
       forall(fixtures) { pgn =>
         val pgnMoves = pgn.split(" ")
@@ -15,6 +14,35 @@ class HuffmanPgnTest extends Specification {
         val decoded = GameEncoder.decode(encoded, pgnMoves.size)
         pgnMoves must_== decoded
       }
+    }
+    "pass perft test" in {
+      // Running the entire suite can take minutes.
+      PerftTest.batch0();
+
+      /*
+      PerftTest.batch1();
+      PerftTest.batch2();
+      PerftTest.batch3();
+      PerftTest.batch4();
+
+      PerftTest.batch5();
+      PerftTest.batch6();
+      PerftTest.batch7();
+      PerftTest.batch8();
+      PerftTest.batch9();
+
+      PerftTest.batch10();
+      PerftTest.batch11();
+      PerftTest.batch12();
+      PerftTest.batch13();
+      PerftTest.batch14();
+
+      PerftTest.batch15();
+      PerftTest.batch16();
+      PerftTest.batch17();
+      */
+
+      true must_== true
     }
   }
 
