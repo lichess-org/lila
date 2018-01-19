@@ -77,17 +77,17 @@ class Board {
     }
 
     private void discard(int square) {
-        if (isOccupied(square)) {
-            this.pawns &= ~(1L << square);
-            this.knights &= ~(1L << square);
-            this.bishops &= ~(1L << square);
-            this.rooks &= ~(1L << square);
-            this.queens &= ~(1L << square);
-            this.kings &= ~(1L << square);
-            this.white &= ~(1L << square);
-            this.black &= ~(1L << square);
-            this.occupied &= ~(1L << square);
-        }
+        long mask = ~(1L << square);
+
+        this.pawns &= mask;
+        this.knights &= mask;
+        this.bishops &= mask;
+        this.rooks &= mask;
+        this.queens &= mask;
+        this.kings &= mask;
+        this.white &= mask;
+        this.black &= mask;
+        this.occupied &= mask;
     }
 
     private void put(int square, Role role, boolean color) {
