@@ -43,16 +43,19 @@ public class MoveComparator implements Comparator<Move> {
         return PSQT[role.index][square];
     }
 
-    // Piece-Square table takem from:
+    // Piece-Square table with some manual tweaks (breaking symmetry).
+    //
+    // Original table taken from:
     // https://github.com/flok99/feeks/blob/f02e4897555ac08497a5fea43f241bad30f2ecff/psq.py#L8-L67
+
     private static int PSQT[][] = {
         {   0,  0,  0,  0,  0,  0,  0,  0,
            50, 50, 50, 50, 50, 50, 50, 50,
            10, 10, 20, 30, 30, 20, 10, 10,
             5,  5, 10, 25, 25, 10,  5,  5,
-            0,  0,  0, 20, 20,  0,  0,  0,
+            0,  0,  0, 20, 21,  0,  0,  0,
             5, -5,-10,  0,  0,-10, -5,  5,
-            5, 10, 10,-20,-20, 10, 10,  5,
+            5, 10, 10,-31,-31, 10, 10,  5,
             0,  0,  0,  0,  0,  0,  0,  0 },
 
         { -50,-40,-30,-30,-30,-30,-40,-50,
@@ -60,7 +63,7 @@ public class MoveComparator implements Comparator<Move> {
           -30,  0, 10, 15, 15, 10,  0,-30,
           -30,  5, 15, 20, 20, 15,  5,-30,
           -30,  0, 15, 20, 20, 15,  0,-30,
-          -30,  5, 10, 15, 15, 10,  5,-30,
+          -30,  5, 10, 15, 15, 11,  5,-30,
           -40,-20,  0,  5,  5,  0,-20,-40,
           -50,-40,-30,-30,-30,-30,-40,-50 },
 
@@ -98,6 +101,6 @@ public class MoveComparator implements Comparator<Move> {
           -20,-30,-30,-40,-40,-30,-30,-20,
           -10,-20,-20,-20,-20,-20,-20,-10,
            20, 20,  0,  0,  0,  0, 20, 20,
-           20, 30, 10,  0,  0, 10, 30, 20 }
+            0, 30, 10,  0,  0, 10, 30,  0 }
     };
 }
