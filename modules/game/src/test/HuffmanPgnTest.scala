@@ -17,9 +17,9 @@ class HuffmanPgnTest extends Specification {
     }
     "pass perft test" in {
       // Running the entire suite can take minutes.
-      PerftTest.batch0();
 
       /*
+      PerftTest.batch0();
       PerftTest.batch1();
       PerftTest.batch2();
       PerftTest.batch3();
@@ -39,8 +39,9 @@ class HuffmanPgnTest extends Specification {
 
       PerftTest.batch15();
       PerftTest.batch16();
-      PerftTest.batch17();
       */
+
+      PerftTest.batch17();
 
       true must_== true
     }
