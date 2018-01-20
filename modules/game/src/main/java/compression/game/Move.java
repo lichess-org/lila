@@ -63,8 +63,7 @@ final class Move implements Comparable<Move> {
     // https://github.com/flok99/feeks/blob/f02e4897555ac08497a5fea43f241bad30f2ecff/psq.py#L8-L67
 
     private static int pieceValue(Board board, Role role, int square) {
-        if (board.turn) square = Square.mirror(square);
-        return PSQT[role.index][square];
+        return PSQT[role.index][board.turn ? Square.mirror(square) : square];
     }
 
     private static final int PSQT[][] = {

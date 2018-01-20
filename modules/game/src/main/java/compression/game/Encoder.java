@@ -47,8 +47,7 @@ public class Encoder {
                 if (!matcher.matches()) return null;
 
                 String roleStr = matcher.group(1);
-                if (roleStr == null) role = Role.PAWN;
-                else role = charToRole(roleStr.charAt(0));
+                role = roleStr == null ? Role.PAWN : charToRole(roleStr.charAt(0));
 
                 if (matcher.group(2) != null) from &= Bitboard.FILES[matcher.group(2).charAt(0) - 'a'];
                 if (matcher.group(3) != null) from &= Bitboard.RANKS[matcher.group(3).charAt(0) - '1'];
