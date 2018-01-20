@@ -16,15 +16,16 @@ lichess.advantageChart = function(data, trans, el) {
         var makeSerieData = function(d, partial) {
           return d.treeParts.slice(1).map(function(node, i) {
 
-            var color = node.ply & 1;
+            var color = node.ply & 1, cp;
 
+            console.log(node.eval);
             if (node.eval && node.eval.mate) {
-              var cp = node.eval.mate > 0 ? Infinity : -Infinity;
+              cp = node.eval.mate > 0 ? Infinity : -Infinity;
             } else if (node.san.indexOf('#') > 0) {
-              var cp = color === 1 ? Infinity : -Infinity;
+              cp = color === 1 ? Infinity : -Infinity;
               if (d.game.variant.key === 'antichess') cp = -cp;
             } else if (node.eval && typeof node.eval.cp !== 'undefined') {
-              var cp = node.eval.cp;
+              cp = node.eval.cp;
             } else return {
               y: null
             };

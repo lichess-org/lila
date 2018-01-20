@@ -15,7 +15,7 @@ userIds.forEach(id => {
   if (user && (!user.perfs[perfType] || !user.perfs[perfType].nb))
     db.user4.update({_id:id},{$set:{['perfs.' + perfType]: perf}});
   db.tournament_player.update(
-    {uid:id,r:1500,m:150},
-    {$set:{r:NumberInt(perf.gl.r),m:NumberInt(perf.gl.r/10)}},
+    {uid:id,r:1500,m:1500},
+    {$set:{r:NumberInt(perf.gl.r),m:NumberInt(perf.gl.r)}},
     {multi:1});
 });

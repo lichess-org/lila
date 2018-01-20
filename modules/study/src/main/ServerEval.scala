@@ -46,8 +46,8 @@ object ServerEval {
           (complete ?? chapterRepo.setAnalysed(chapter.id, true.some)) >> {
             val allInfoAdvices = analysis.infos.headOption.map(_ -> none).toList ::: analysis.infoAdvices
             lila.common.Future.fold(chapter.root.mainline zip allInfoAdvices)(Path.root) {
-              case (path, (node, (info, advOpt))) => info.eval.score.ifTrue(true || node.score.isEmpty).?? { score =>
-                chapterRepo.setScore(chapter, path, score.some) >>
+              case (path, (node, (info, advOpt))) => info.eval.score.ifTrue(node.score.isEmpty).?? { score =>
+                chapterRepo.setScore(chapter, path + node, score.some) >>
                   advOpt.?? { adv =>
                     chapterRepo.setComments(chapter, path, node.comments + Comment(
                       Comment.Id.make,
