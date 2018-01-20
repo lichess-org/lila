@@ -85,7 +85,9 @@
 Մատ կես քայլից</item>
   </plurals>
   <string name="blunders">Կոպիտ սխալներ</string>
+  <string name="mistake">Բաղթողում</string>
   <string name="mistakes">Սխալներ</string>
+  <string name="inaccuracy">Անճշտություն</string>
   <string name="inaccuracies">Անճշտություններ</string>
   <string name="moveTimes">քայլի ժամանակ</string>
   <string name="flipBoard">Շրջել խաղատախտակը</string>
@@ -147,6 +149,7 @@
   <string name="passwordReset">վերականգնել ծածկագիրը</string>
   <string name="forgotPassword">Մոռացել ե՞ք գաղտնաբառը</string>
   <string name="rank">Միավորներ</string>
+  <string name="rankX">Դասակարգում</string>
   <string name="gamesPlayed">Խաղացած խաղեր</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s Խաղեր՝ ձեր հետ</item>
