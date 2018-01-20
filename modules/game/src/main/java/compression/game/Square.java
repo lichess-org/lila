@@ -27,8 +27,8 @@ class Square {
     }
 
     public static int distance(int a, int b) {
-        return Integer.max(Math.abs(file(a) - file(b)),
-                           Math.abs(rank(a) - rank(b)));
+        return Math.max(Math.abs(file(a) - file(b)),
+                        Math.abs(rank(a) - rank(b)));
     }
 
     public static boolean aligned(int a, int b, int c) {

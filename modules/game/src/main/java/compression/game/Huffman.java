@@ -30,11 +30,13 @@ class Huffman {
     }
 
     private static class Node {
-        public Node zero;
-        public Node one;
-        public int leaf;
+        public final Node zero;
+        public final Node one;
+        public final int leaf;
 
         public Node(int leaf) {
+            this.zero = null;
+            this.one = null;
             this.leaf = leaf;
         }
 

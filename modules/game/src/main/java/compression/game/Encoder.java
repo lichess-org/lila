@@ -8,11 +8,25 @@ import org.lichess.compression.BitReader;
 import org.lichess.compression.BitWriter;
 
 public class Encoder {
+    private static Pattern SAN_PATTERN = Pattern.compile(
+        "([NBKRQ])?([a-h])?([1-8])?x?([a-h][1-8])(?:=([NBRQK]))?[\\+#]?");
+
+    private static Role charToRole(char c) {
+        switch (c) {
+            case 'N': return Role.KNIGHT;
+            case 'B': return Role.BISHOP;
+            case 'R': return Role.ROOK;
+            case 'Q': return Role.QUEEN;
+            case 'K': return Role.KING;
+            default: throw new IllegalArgumentException();
+        }
+    }
+
     public static byte[] encode(String pgnMoves[]) {
         BitWriter writer = new BitWriter();
 
         Board board = new Board();
-        ArrayList<Move> legals = new ArrayList<Move>(255);
+        ArrayList<Move> legals = new ArrayList<Move>(80);
 
         for (String pgnMove: pgnMoves) {
             // Parse SAN.
@@ -32,12 +46,9 @@ public class Encoder {
                 Matcher matcher = SAN_PATTERN.matcher(pgnMove);
                 if (!matcher.matches()) return null;
 
-                if (matcher.group(1) == null) role = Role.PAWN;
-                else if (matcher.group(1).equals("N")) role = Role.KNIGHT;
-                else if (matcher.group(1).equals("B")) role = Role.BISHOP;
-                else if (matcher.group(1).equals("R")) role = Role.ROOK;
-                else if (matcher.group(1).equals("Q")) role = Role.QUEEN;
-                else if (matcher.group(1).equals("K")) role = Role.KING;
+                String roleStr = matcher.group(1);
+                if (roleStr == null) role = Role.PAWN;
+                else role = charToRole(roleStr.charAt(0));
 
                 if (matcher.group(2) != null) from &= Bitboard.FILES[matcher.group(2).charAt(0) - 'a'];
                 if (matcher.group(3) != null) from &= Bitboard.RANKS[matcher.group(3).charAt(0) - '1'];
@@ -45,11 +56,7 @@ public class Encoder {
                 to = Square.square(matcher.group(4).charAt(0) - 'a', matcher.group(4).charAt(1) - '1');
 
                 if (matcher.group(5) != null) {
-                    if (matcher.group(5).endsWith("Q")) promotion = Role.QUEEN;
-                    else if (matcher.group(5).endsWith("R")) promotion = Role.ROOK;
-                    else if (matcher.group(5).endsWith("B")) promotion = Role.BISHOP;
-                    else if (matcher.group(5).endsWith("N")) promotion = Role.KNIGHT;
-                    else if (matcher.group(5).endsWith("K")) promotion = Role.KING;
+                    promotion = charToRole(matcher.group(5).charAt(0));
                 }
             }
 
@@ -57,21 +64,23 @@ public class Encoder {
             board.legalMoves(legals);
             legals.sort(null);
 
-            int code = -1;
+            boolean foundMatch = false;
+            int size = legals.size();
 
-            for (int i = 0; i < legals.size(); i++) {
+            for (int i = 0; i < size; i++) {
                 Move legal = legals.get(i);
                 if (legal.role == role && legal.to == to && legal.promotion == promotion && Bitboard.contains(from, legal.from)) {
-                    if (code == -1) code = i;
+                    if (!foundMatch) {
+                        // Encode and play.
+                        Huffman.write(i, writer);
+                        board.play(legal);
+                        foundMatch = true;
+                    }
                     else return null;
                 }
             }
 
-            if (code == -1) return null;
-
-            // Encode and play.
-            Huffman.write(code, writer);
-            board.play(legals.get(code));
+            if (!foundMatch) return null;
         }
 
         return writer.toArray();
@@ -83,9 +92,9 @@ public class Encoder {
         String output[] = new String[plies];
 
         Board board = new Board();
-        ArrayList<Move> legals = new ArrayList<Move>(255);
+        ArrayList<Move> legals = new ArrayList<Move>(80);
 
-        for (int i = 0; i < plies + 1; i++) {
+        for (int i = 0; i <= plies; i++) {
             board.legalMoves(legals);
 
             if (i > 0) {
@@ -102,8 +111,6 @@ public class Encoder {
 
         return output;
     }
-
-    private static Pattern SAN_PATTERN = Pattern.compile("^([NBKRQ])?([a-h])?([1-8])?[x-]?([a-h][1-8])(=?[NBRQK])?[\\+#]?$");
 
     private static String san(Move move, ArrayList<Move> legals) {
         switch (move.type) {

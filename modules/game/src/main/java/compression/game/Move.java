@@ -1,16 +1,16 @@
 package org.lichess.compression.game;
 
-class Move implements Comparable<Move> {
+final class Move implements Comparable<Move> {
     public static final int NORMAL = 0;
     public static final int EN_PASSANT = 1;
     public static final int CASTLING = 2;
 
-    public int type;
-    public Role role;
-    public int from;
-    public boolean capture;
-    public int to;
-    public Role promotion;
+    public final int type;
+    public final Role role;
+    public final int from;
+    public final boolean capture;
+    public final int to;
+    public final Role promotion;
 
     private int score;
 
@@ -27,15 +27,13 @@ class Move implements Comparable<Move> {
         // Scores must be unique for every move in the position, because
         // move ordering should never depend on implementation details of the
         // generator.
-
-        int promotionValue = (promotion == null) ? 0 : promotion.index;
         int moveValue = pieceValue(board, role, to) - pieceValue(board, role, from);
 
         this.score =
-            promotionValue * 64 * 64 * 2000 * 2 +
-            (capture ? 1 : 0) * 64 * 64 * 2000 +
-            (1000 + moveValue) * 64 * 64 +
-            to * 64 +
+            (promotion == null ? 0 : promotion.index << 23) +
+            (capture ? 1 << 22 : 0) +
+            (512 + moveValue << 12) +
+            (to << 6) +
             from;
     }
 
@@ -69,7 +67,7 @@ class Move implements Comparable<Move> {
         return PSQT[role.index][square];
     }
 
-    private static int PSQT[][] = {
+    private static final int PSQT[][] = {
         {   0,  0,  0,  0,  0,  0,  0,  0,
            50, 50, 50, 50, 50, 50, 50, 50,
            10, 10, 20, 30, 30, 20, 10, 10,

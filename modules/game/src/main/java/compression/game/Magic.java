@@ -2,13 +2,13 @@ package org.lichess.compression.game;
 
 class Magic {
     // Mask relevant occupancies.
-    public long mask;
+    public final long mask;
 
     // Magic factor.
-    public long factor;
+    public final long factor;
 
     // Offset in overlapping table.
-    public int offset;
+    public final int offset;
 
     public Magic(long mask, long factor, int offset) {
         this.mask = mask;
