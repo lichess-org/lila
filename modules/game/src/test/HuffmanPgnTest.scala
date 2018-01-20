@@ -44,7 +44,7 @@ class HuffmanPgnTest extends Specification {
 
       PerftTest.batch17();
 
-      // These test throw a RuntimeError if they fail.
+      // These tests throw a RuntimeError if they fail.
       true must_== true
     }
   }
