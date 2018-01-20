@@ -14,7 +14,7 @@ final class Board {
     long black;
     long occupied;
 
-    boolean turn;
+    boolean turn; // prob should be int for idx into white/black bitmaps.
     int epSquare;
     long castlingRights;
 
@@ -90,34 +90,66 @@ final class Board {
         this.occupied &= mask;
     }
 
-    private void put(int square, Role role, boolean color) {
-        discard(square);
+    private void discard(int square, Role role) {
+        long mask = ~(1L << square);
 
         switch (role) {
             case PAWN:
-                this.pawns ^= 1L << square;
+                this.pawns &= mask;
                 break;
             case KNIGHT:
-                this.knights ^= 1L << square;
+                this.knights &= mask;
                 break;
             case BISHOP:
-                this.bishops ^= 1L << square;
+                this.bishops &= mask;
                 break;
             case ROOK:
-                this.rooks ^= 1L << square;
+                this.rooks &= mask;
                 break;
             case QUEEN:
-                this.queens ^= 1L << square;
+                this.queens &= mask;
                 break;
             case KING:
-                this.kings ^= 1L << square;
+                this.kings &= mask;
                 break;
         }
 
-        if (color) this.white ^= 1L << square;
-        else this.black ^= 1L << square;
+        if (this.turn) this.white &= mask;
+        else this.black &= mask;
 
-        this.occupied ^= 1L << square;
+        this.occupied &= mask;
+    }
+
+    private void put(int square, Role role) {
+        discard(square);
+
+        long mask = 1L << square;
+
+        switch (role) {
+            case PAWN:
+                this.pawns ^= mask;
+                break;
+            case KNIGHT:
+                this.knights ^= mask;
+                break;
+            case BISHOP:
+                this.bishops ^= mask;
+                break;
+            case ROOK:
+                this.rooks ^= mask;
+                break;
+            case QUEEN:
+                this.queens ^= mask;
+                break;
+            case KING:
+                this.kings ^= mask;
+                break;
+        }
+
+        if (this.turn) this.white ^= mask;
+        else this.black ^= mask;
+
+        this.occupied ^= mask;
     }
 
     public void play(Move move) {
@@ -129,34 +161,36 @@ final class Board {
                     this.epSquare = move.from + (this.turn ? 8 : -8);
                 }
 
-                if (move.role == Role.KING) {
-                    this.castlingRights &= Bitboard.RANKS[this.turn ? 7 : 0];
-                } else if (move.role == Role.ROOK) {
-                    this.castlingRights &= ~(1L << move.from);
+                if (this.castlingRights != 0) {
+                    if (move.role == Role.KING) {
+                        this.castlingRights &= Bitboard.RANKS[this.turn ? 7 : 0];
+                    } else if (move.role == Role.ROOK) {
+                        this.castlingRights &= ~(1L << move.from);
+                    }
+
+                    if (move.capture) {
+                        this.castlingRights &= ~(1L << move.to);
+                    }
                 }
 
-                if (move.capture) {
-                    this.castlingRights &= ~(1L << move.to);
-                }
-
-                discard(move.from);
-                put(move.to, move.promotion != null ? move.promotion : move.role, this.turn);
+                discard(move.from, move.role);
+                put(move.to, move.promotion != null ? move.promotion : move.role);
                 break;
 
             case Move.CASTLING:
                 this.castlingRights &= Bitboard.RANKS[this.turn ? 7 : 0];
                 int rookTo = Square.combine(move.to < move.from ? Square.D1 : Square.F1, move.to);
                 int kingTo = Square.combine(move.to < move.from ? Square.C1 : Square.G1, move.from);
-                discard(move.from);
-                discard(move.to);
-                put(rookTo, Role.ROOK, this.turn);
-                put(kingTo, Role.KING, this.turn);
+                discard(move.from, Role.KING);
+                discard(move.to, Role.ROOK);
+                put(rookTo, Role.ROOK);
+                put(kingTo, Role.KING);
                 break;
 
             case Move.EN_PASSANT:
                 discard(Square.combine(move.to, move.from));
-                discard(move.from);
-                put(move.to, Role.PAWN, this.turn);
+                discard(move.from, Role.PAWN);
+                put(move.to, Role.PAWN);
                 break;
         }
 
