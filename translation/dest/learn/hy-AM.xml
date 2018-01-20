@@ -33,4 +33,9 @@
   <string name="kingIntro">Դուք արքան եք: Եթե զոհվում եք ճակատամարտում՝ խաղն ավարտված է:</string>
   <string name="theKingIsSlow">Արքան դանդաղաշարժ է</string>
   <string name="lastOne">Վերջինը</string>
+  <string name="kingComplete">Հիմա կարող ես ղեկավարել հրամանատարին:</string>
+  <string name="theKnight">Ձի</string>
+  <string name="itMovesInAnLShape">Այն քայլում է L տառի նման</string>
+  <string name="knightIntro">Ահա եվ խնդիր քեզ համար: Ձին բարդ խաղաքար է</string>
+  <string name="knightsHaveAFancyWay">Ձիերը կարող են թռչկոտել խաղաքարերի վրայով</string>
 </resources>
