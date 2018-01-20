@@ -36,10 +36,14 @@ object BinaryFormat {
   object BinPgn {
     private val betaTesters = Set("thibault", "revoof", "isaacly")
     private def shouldUseHuffman(variant: Variant, playerUserIds: List[lila.user.User.ID]) = variant.standard && {
-      lila.game.Env.current.pgnEncodingSetting.get() match {
-        case "all" => true
-        case "beta" if playerUserIds.exists(betaTesters.contains) => true
-        case _ => false
+      try {
+        lila.game.Env.current.pgnEncodingSetting.get() match {
+          case "all" => true
+          case "beta" if playerUserIds.exists(betaTesters.contains) => true
+          case _ => false
+        }
+      } catch {
+        case _: Throwable => false // breaks in tests. The shouldUseHuffman function is temporary anyway
       }
     }
     private[game] def empty(variant: Variant, playerUserIds: List[lila.user.User.ID]) =
