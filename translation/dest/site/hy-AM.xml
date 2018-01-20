@@ -54,6 +54,36 @@
   <string name="cloudAnalysis">Ամպի վերլուծություն</string>
   <string name="goDeeper">Ավելի խորանալ</string>
   <string name="showThreat">Ցուցադրել սպառնալիքը</string>
+  <string name="inLocalBrowser">Տեղական բրաուզերում</string>
+  <string name="toggleLocalEvaluation">Միացնել լոկալ գնահատականը</string>
+  <string name="promoteVariation">Կատարել փոփոխություն</string>
+  <string name="makeMainLine">Դարձնել հիմնական տարբերակ</string>
+  <string name="deleteFromHere">Ջնջել այստեղից</string>
+  <string name="move">Քայլ</string>
+  <string name="variantLoss">Տարբերակը պարտվում է</string>
+  <string name="variantWin">Տարբերակը հաղթում է</string>
+  <string name="insufficientMaterial">Ոչ բավարար նյութ</string>
+  <string name="pawnMove">Զինվորի քայլ</string>
+  <string name="capture">Սևեռեք</string>
+  <string name="close">Փակել</string>
+  <string name="winning">Հաղթում է</string>
+  <string name="losing">Պարտվում է</string>
+  <string name="drawn">Ոչ-ոքիով</string>
+  <string name="unknown">Անհայտ</string>
+  <string name="database">Նյութերի բազա</string>
+  <string name="whiteDrawBlack">Սպիտակ / Ոչ-ոքի / Սև</string>
+  <string name="averageRatingX">Միջին գնահատականը</string>
+  <string name="recentGames">Վերջին խաղեր</string>
+  <string name="topGames">Լավագույն խաղեր</string>
+  <string name="masterDbExplanation">2 միլիոն խաղ ֆիդե-ի վարկանիշային խաղացողներից</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Մատ կես քայլից
+
+Մատ կես քայլից</item>
+    <item quantity="other">Մատ կես քայլից
+
+Մատ կես քայլից</item>
+  </plurals>
   <string name="blunders">Կոպիտ սխալներ</string>
   <string name="mistakes">Սխալներ</string>
   <string name="inaccuracies">Անճշտություններ</string>
