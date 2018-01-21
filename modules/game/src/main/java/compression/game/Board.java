@@ -96,24 +96,12 @@ final class Board {
         long mask = 1L << square;
 
         switch (role) {
-            case PAWN:
-                this.pawns ^= mask;
-                break;
-            case KNIGHT:
-                this.knights ^= mask;
-                break;
-            case BISHOP:
-                this.bishops ^= mask;
-                break;
-            case ROOK:
-                this.rooks ^= mask;
-                break;
-            case QUEEN:
-                this.queens ^= mask;
-                break;
-            case KING:
-                this.kings ^= mask;
-                break;
+            case PAWN: this.pawns ^= mask; break;
+            case KNIGHT: this.knights ^= mask; break;
+            case BISHOP: this.bishops ^= mask; break;
+            case ROOK: this.rooks ^= mask; break;
+            case QUEEN: this.queens ^= mask; break;
+            case KING: this.kings ^= mask; break;
         }
 
         if (color) this.white ^= mask;
