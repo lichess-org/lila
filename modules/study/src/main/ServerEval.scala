@@ -39,7 +39,8 @@ object ServerEval {
       sequencer: StudySequencer,
       socketHub: akka.actor.ActorRef,
       api: StudyApi,
-      chapterRepo: ChapterRepo
+      chapterRepo: ChapterRepo,
+      divider: lila.game.Divider
   ) {
 
     def apply(analysis: Analysis, complete: Boolean): Funit = analysis.studyId ?? { studyId =>
@@ -70,13 +71,21 @@ object ServerEval {
                 socketHub ! Tell(studyId, ServerEval.Progress(
                   chapterId = chapter.id,
                   tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
-                  analysis = toJson(chapter, analysis)
+                  analysis = toJson(chapter, analysis),
+                  division = divisionOf(chapter)
                 ))
               }
             }
           } logFailure logger
       }
     }
+
+    def divisionOf(chapter: Chapter) = divider(
+      id = chapter.id.value,
+      pgnMoves = chapter.root.mainline.map(_.move.san).toVector,
+      variant = chapter.setup.variant,
+      initialFen = chapter.root.fen.some
+    )
 
     private def analysisLine(root: RootOrNode, variant: chess.variant.Variant, info: Info): Option[Node] = {
       chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen.value, variant) match {
@@ -106,7 +115,7 @@ object ServerEval {
     }
   }
 
-  case class Progress(chapterId: Chapter.Id, tree: Root, analysis: JsObject)
+  case class Progress(chapterId: Chapter.Id, tree: Root, analysis: JsObject, division: chess.Division)
 
   def toJson(chapter: Chapter, analysis: Analysis) =
     lila.analyse.JsonView.bothPlayers(

@@ -224,11 +224,13 @@ private final class Socket(
 
     case Broadcast(t, msg) => notifyAll(t, msg)
 
-    case ServerEval.Progress(chapterId, tree, analysis) =>
+    case ServerEval.Progress(chapterId, tree, analysis, division) =>
+      import lila.game.JsonView.divisionWriter
       notifyAll("analysisProgress", Json.obj(
         "analysis" -> analysis,
         "ch" -> chapterId,
-        "tree" -> tree
+        "tree" -> tree,
+        "division" -> division
       ))
 
     case GetNbMembers => sender ! NbMembers(members.size)

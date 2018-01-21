@@ -26,8 +26,12 @@ export interface AnalyseData {
   practiceGoal?: PracticeGoal;
   pref: any;
 }
-export interface AnalyseDataWithTree extends AnalyseData {
+
+export interface ServerEvalData {
+  ch: string;
+  analysis?: Analysis;
   tree: Tree.Node;
+  division?: Division;
 }
 
 // similar, but not identical, to game/Game

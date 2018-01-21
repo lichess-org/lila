@@ -16,6 +16,7 @@ final class Env(
     config: Config,
     lightUserApi: lila.user.LightUserApi,
     gamePgnDump: lila.game.PgnDump,
+    divider: lila.game.Divider,
     importer: lila.importer.Importer,
     explorerImporter: lila.explorer.ExplorerImporter,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
@@ -124,11 +125,12 @@ final class Env(
     chapterRepo = chapterRepo
   )
 
-  private lazy val serverEvalMerger = new ServerEval.Merger(
+  lazy val serverEvalMerger = new ServerEval.Merger(
     sequencer = sequencer,
     api = api,
     chapterRepo = chapterRepo,
-    socketHub = socketHub
+    socketHub = socketHub,
+    divider = divider
   )
 
   // study actor
@@ -189,6 +191,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "study",
     lightUserApi = lila.user.Env.current.lightUserApi,
     gamePgnDump = lila.game.Env.current.pgnDump,
+    divider = lila.game.Env.current.divider,
     importer = lila.importer.Env.current.importer,
     explorerImporter = lila.explorer.Env.current.importer,
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,

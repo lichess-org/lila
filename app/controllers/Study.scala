@@ -127,12 +127,7 @@ object Study extends LilaController {
     initialFen = chapter.root.fen.some
     analysis <- ~chapter.analysed ?? Env.analyse.analyser.get(chapter.id.value)
     pov = UserAnalysis.makePov(initialFen, chapter.setup.variant)
-    division = chapter.analysed.isDefined option Env.game.divider(
-      id = chapter.id.value,
-      pgnMoves = chapter.root.mainline.map(_.move.san).toVector,
-      variant = chapter.setup.variant,
-      initialFen = initialFen
-    )
+    division = chapter.analysed.isDefined option env.serverEvalMerger.divisionOf(chapter)
     baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation,
       owner = false,
       me = ctx.me,
