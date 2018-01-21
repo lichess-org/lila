@@ -156,7 +156,7 @@ object BSONHandlers {
     }
   }
 
-  private implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {
+  implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {
     def reads(r: Reader) = Node(
       id = r.get[UciCharPair]("i"),
       ply = r int "p",

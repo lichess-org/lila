@@ -113,6 +113,16 @@ final class ChapterRepo(coll: Coll) {
       s"root.n.${indexes.mkString(".n.")}.$subField"
     }
 
+  private[study] def setChild(chapter: Chapter, path: Path, child: Node): Funit =
+    pathToField(chapter, path, "n") ?? { parentChildrenPath =>
+      coll.update(
+        $id(chapter.id) ++ $doc(s"$parentChildrenPath.i" -> child.id),
+        $set(s"$parentChildrenPath.$$" -> child)
+      ) flatMap { res =>
+          (res.n == 0) ?? coll.update($id(chapter.id), $push(parentChildrenPath -> child)).void
+        }
+    }
+
   private[study] def idNamesByStudyIds(studyIds: Seq[Study.Id]): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
     coll.find(
       $doc("studyId" $in studyIds),

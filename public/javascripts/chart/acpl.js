@@ -18,7 +18,6 @@ lichess.advantageChart = function(data, trans, el) {
 
             var color = node.ply & 1, cp;
 
-            console.log(node.eval);
             if (node.eval && node.eval.mate) {
               cp = node.eval.mate > 0 ? Infinity : -Infinity;
             } else if (node.san.indexOf('#') > 0) {

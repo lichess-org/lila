@@ -20,6 +20,7 @@ sealed trait RootOrNode {
   val gamebook: Option[Gamebook]
   val glyphs: Glyphs
   val score: Option[Score]
+  def addChild(node: Node): RootOrNode
   def fullMoveNumber = 1 + ply / 2
   def mainline: List[Node]
   def color = chess.Color(ply % 2 == 0)
@@ -50,6 +51,8 @@ case class Node(
 
   def withoutChildren = copy(children = Node.emptyChildren)
 
+  def addChild(child: Node) = copy(children = children addNode child)
+
   def withClock(centis: Option[Centis]) = copy(clock = centis)
 
   def isCommented = comments.value.nonEmpty
@@ -78,7 +81,20 @@ case class Node(
     score = none
   )
 
-  override def toString = s"$id:${move.san} $score"
+  def merge(n: Node): Node = copy(
+    shapes = shapes ++ n.shapes,
+    comments = comments ++ n.comments,
+    gamebook = n.gamebook orElse gamebook,
+    glyphs = glyphs merge n.glyphs,
+    score = n.score orElse score,
+    clock = n.clock orElse clock,
+    crazyData = n.crazyData orElse crazyData,
+    children = n.children.nodes.foldLeft(children) {
+      case (cs, c) => children addNode c
+    }
+  )
+
+  override def toString = s"$ply.${move.san} ${children.nodes}"
 }
 
 object Node {
@@ -97,9 +113,12 @@ object Node {
     }
 
     def addNodeAt(node: Node, path: Path): Option[Children] = path.split match {
-      case None if has(node.id) => this.some
-      case None => Children(nodes :+ node).some
+      case None => addNode(node).some
       case Some((head, tail)) => updateChildren(head, _.addNodeAt(node, tail))
+    }
+
+    def addNode(node: Node): Children = get(node.id).fold(Children(nodes :+ node)) { prev =>
+      Children(nodes.filterNot(_.id == node.id) :+ prev.merge(node))
     }
 
     def deleteNodeAt(path: Path): Option[Children] = path.split match {
@@ -202,6 +221,8 @@ object Node {
       }
 
     def withoutChildren = copy(children = Node.emptyChildren)
+
+    def addChild(child: Node) = copy(children = children addNode child)
 
     def nodeAt(path: Path): Option[RootOrNode] =
       if (path.isEmpty) this.some else children nodeAt path

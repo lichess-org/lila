@@ -29,7 +29,7 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
     if (!li.advantageChart || lastPly() === mainlinePly) return;
     const lp = lastPly(typeof mainlinePly === 'undefined' ? lastPly() : mainlinePly),
     el = chartEl();
-    if (el) {
+    if (el && window.HighCharts) {
       const $chart = $(el);
       if ($chart.length) {
         const chart = $chart.highcharts();
