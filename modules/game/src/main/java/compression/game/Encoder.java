@@ -110,7 +110,7 @@ public class Encoder {
             }
         }
 
-        return new scala.Tuple2(output, chessPieceMap(board));
+        return new scala.Tuple2<String[], Map<chess.Pos, chess.Piece>>(output, chessPieceMap(board));
     }
 
     private static String san(Move move, ArrayList<Move> legals) {
