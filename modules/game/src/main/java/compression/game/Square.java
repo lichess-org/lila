@@ -1,10 +1,14 @@
 package org.lichess.compression.game;
 
 class Square {
+    public static final int A1 = 0;
     public static final int C1 = 2;
     public static final int D1 = 3;
     public static final int F1 = 5;
     public static final int G1 = 6;
+    public static final int H1 = 7;
+    public static final int A8 = 56;
+    public static final int H8 = 63;
 
     public static int square(int file, int rank) {
         return file ^ (rank << 3);
