@@ -45,7 +45,7 @@ object BinaryFormat {
     import scala.collection.JavaConversions.mapAsScalaMap
     def decode(plies: Int, unusedPieces: Option[PieceMap]) = monitor(lila.mon.game.pgn.huffman.decode) {
       HuffmanEncoder.decode(bytes.value, plies) match {
-        case (pgn, pieces) => pgn.toVector -> mapAsScalaMap(pieces).toMap
+        case (pgn, pieces, _) => pgn.toVector -> mapAsScalaMap(pieces).toMap
       }
     }
     def update(moves: PgnMoves) = HuffmanBinPgn {

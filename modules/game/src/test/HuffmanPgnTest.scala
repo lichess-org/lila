@@ -4,6 +4,8 @@ import org.lichess.compression.game.{ Encoder => GameEncoder, PerftTest }
 
 import org.specs2.mutable._
 
+import chess.Pos
+
 class HuffmanPgnTest extends Specification {
 
   "game compression" should {
@@ -11,9 +13,17 @@ class HuffmanPgnTest extends Specification {
       forall(fixtures) { pgn =>
         val pgnMoves = pgn.split(" ")
         val encoded = GameEncoder.encode(pgnMoves)
-        val (decoded, _) = GameEncoder.decode(encoded, pgnMoves.size)
+        val (decoded, _, _) = GameEncoder.decode(encoded, pgnMoves.size)
         pgnMoves must_== decoded
       }
+    }
+
+    "unmoved rooks" in {
+      import scala.collection.JavaConversions.asScalaSet
+      val pgnMoves = "d4 h5 c4 Rh6 Nf3 Rh8".split(" ")
+      val encoded = GameEncoder.encode(pgnMoves)
+      val (_, _, unmovedRooks) = GameEncoder.decode(encoded, pgnMoves.size)
+      asScalaSet(unmovedRooks) must_== Set(Pos.A1, Pos.H1, Pos.A8)
     }
 
     "pass perft test" in {

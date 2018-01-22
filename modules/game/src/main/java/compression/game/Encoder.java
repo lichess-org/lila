@@ -3,6 +3,8 @@ package org.lichess.compression.game;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -87,7 +89,7 @@ public class Encoder {
         return writer.toArray();
     }
 
-    public static scala.Tuple2<String[], Map<chess.Pos, chess.Piece>> decode(byte input[], int plies) {
+    public static scala.Tuple3<String[], Map<chess.Pos, chess.Piece>, Set<chess.Pos>> decode(byte input[], int plies) {
         BitReader reader = new BitReader(input);
 
         String output[] = new String[plies];
@@ -110,7 +112,10 @@ public class Encoder {
             }
         }
 
-        return new scala.Tuple2<String[], Map<chess.Pos, chess.Piece>>(output, chessPieceMap(board));
+        return new scala.Tuple3<String[], Map<chess.Pos, chess.Piece>, Set<chess.Pos>>(
+            output,
+            chessPieceMap(board),
+            chessPosSet(board.castlingRights & board.rooks));
     }
 
     private static String san(Move move, ArrayList<Move> legals) {
@@ -177,16 +182,29 @@ public class Encoder {
         }
     }
 
+    private static chess.Pos chessPos(int square) {
+        return chess.Pos.posAt(Square.file(square) + 1, Square.rank(square) + 1).get();
+    }
+
+    private static Set<chess.Pos> chessPosSet(long b) {
+        HashSet<chess.Pos> set = new HashSet<chess.Pos>();
+        while (b != 0) {
+            int sq = Bitboard.lsb(b);
+            set.add(chessPos(sq));
+            b ^= 1L << sq;
+        }
+        return set;
+    }
+
     private static Map<chess.Pos, chess.Piece> chessPieceMap(Board board) {
         HashMap<chess.Pos, chess.Piece> map = new HashMap<chess.Pos, chess.Piece>();
 
         long occupied = board.occupied;
         while (occupied != 0) {
             int sq = Bitboard.lsb(occupied);
-            chess.Pos pos = chess.Pos.posAt(Square.file(sq) + 1, Square.rank(sq) + 1).get();
             chess.Color color = chess.Color$.MODULE$.apply((board.white & (1L << sq)) != 0);
             chess.Piece piece = new chess.Piece(color, chessRole(board.roleAt(sq)));
-            map.put(pos, piece);
+            map.put(chessPos(sq), piece);
             occupied ^= 1L << sq;
         }
 
