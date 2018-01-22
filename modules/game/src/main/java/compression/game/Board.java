@@ -2,7 +2,7 @@ package org.lichess.compression.game;
 
 import java.util.ArrayList;
 
-final class Board {
+public final class Board {
     long pawns;
     long knights;
     long bishops;
