@@ -6,8 +6,8 @@ import scala.collection.breakOut
 import scala.collection.Searching._
 import scala.util.Try
 
-import chess.{ ToOptionOpsFromOption => _, _ }
 import chess.variant.Variant
+import chess.{ ToOptionOpsFromOption => _, _ }
 
 import lila.db.ByteArray
 
@@ -33,8 +33,9 @@ object BinaryFormat {
     def isHuffman = false
   }
   case class HuffmanBinPgn(bytes: ByteArray) extends BinPgn {
+    import scala.collection.JavaConversions.mapAsScalaMap
     def decode(plies: Int, unusedPieces: Option[PieceMap]) = HuffmanEncoder.decode(bytes.value, plies) match {
-      case (pgn, pieces) => pgn.toVector -> pieces.toMap
+      case (pgn, pieces) => pgn.toVector -> mapAsScalaMap(pieces).toMap
     }
     def update(moves: PgnMoves) = HuffmanBinPgn {
       HuffmanEncoder.encode(moves.toArray)
