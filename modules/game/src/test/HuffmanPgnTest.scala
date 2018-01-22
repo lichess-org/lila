@@ -1,6 +1,6 @@
 package lila.game
 
-import org.lichess.compression.game.{ Encoder => GameEncoder, PerftTest }
+import org.lichess.compression.game.{ Encoder => GameEncoder, PerftTest, Board }
 
 import org.specs2.mutable._
 
@@ -24,6 +24,11 @@ class HuffmanPgnTest extends Specification {
       val encoded = GameEncoder.encode(pgnMoves)
       val (_, _, unmovedRooks) = GameEncoder.decode(encoded, pgnMoves.size)
       asScalaSet(unmovedRooks) must_== Set(Pos.A1, Pos.H1, Pos.A8)
+    }
+
+    "zobrist hashes" in {
+      val board = new Board()
+      board.zobristHash must_== 0x463b96181691fc9cL
     }
 
     "pass perft test" in {
