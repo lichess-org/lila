@@ -75,7 +75,11 @@ private[i18n] object Registry {
   }
 
   private def render(db: String, locale: String, file: File): String = {
-    val xml = XML.loadFile(file)
+    val xml = try {
+      XML.loadFile(file)
+    } catch {
+      case e => println(file); throw e;
+    }
     def quote(msg: String) = s"""""\"$msg""\""""
     val content = xml.child.collect {
       case e if e.label == "string" =>
