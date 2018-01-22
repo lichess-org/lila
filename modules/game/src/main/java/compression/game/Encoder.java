@@ -1,5 +1,6 @@
 package org.lichess.compression.game;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -99,8 +100,8 @@ public class Encoder {
         Board board = new Board();
         ArrayList<Move> legals = new ArrayList<Move>(80);
 
-        ByteBuffer positionHashBuffer = ByteBuffer.allocate(3 * (plies + 1));
-        appendHash(positionHashBuffer, board.zobristHash());
+        ByteBuffer positionHashes = ByteBuffer.allocate(3 * (plies + 1));
+        appendHash(positionHashes, board.zobristHash());
 
         for (int i = 0; i <= plies; i++) {
             board.legalMoves(legals);
@@ -115,20 +116,18 @@ public class Encoder {
                 output[i] = san(move, legals);
                 board.play(move);
 
-                if (move.isZeroing()) positionHashBuffer.clear();
-                appendHash(positionHashBuffer, board.zobristHash());
+                if (move.isZeroing()) positionHashes.clear();
+                appendHash(positionHashes, board.zobristHash());
             }
         }
 
-        positionHashBuffer.flip();
-        byte positionHashes[] = new byte[positionHashBuffer.remaining()];
-        positionHashBuffer.get(positionHashes);
+        positionHashes.flip();
 
         return new scala.Tuple4<String[], Map<chess.Pos, chess.Piece>, Set<chess.Pos>, byte[]>(
             output,
             chessPieceMap(board),
             chessPosSet(board.castlingRights & board.rooks),
-            positionHashes);
+            Arrays.copyOf(positionHashes.array(), positionHashes.limit()));
     }
 
     private static String san(Move move, ArrayList<Move> legals) {
