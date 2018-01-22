@@ -85,7 +85,7 @@ public class Encoder {
         return writer.toArray();
     }
 
-    public static scala.Tuple2<String[], scala.collection.immutable.Map<chess.Pos, chess.Piece>> decode(byte input[], int plies) {
+    public static scala.Tuple2<String[], scala.collection.mutable.Map<chess.Pos, chess.Piece>> decode(byte input[], int plies) {
         BitReader reader = new BitReader(input);
 
         String output[] = new String[plies];
@@ -175,7 +175,7 @@ public class Encoder {
         }
     }
 
-    private static scala.collection.immutable.Map<chess.Pos, chess.Piece> chessPieceMap(Board board) {
+    private static scala.collection.mutable.Map chessPieceMap(Board board) {
         scala.collection.mutable.HashMap<chess.Pos, chess.Piece> map = new scala.collection.mutable.HashMap<chess.Pos, chess.Piece>();
 
         long occupied = board.occupied;
@@ -188,6 +188,6 @@ public class Encoder {
             occupied ^= 1L << sq;
         }
 
-        return map.toMap();
+        return map;
     }
 }
