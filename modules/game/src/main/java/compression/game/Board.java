@@ -18,6 +18,8 @@ final class Board {
     int epSquare;
     long castlingRights;
 
+    long incrementalHash;
+
     public Board() {
         this.pawns = 0xff00000000ff00L;
         this.knights = 0x4200000000000042L;
@@ -33,6 +35,8 @@ final class Board {
         this.turn = true;
         this.epSquare = 0;
         this.castlingRights = this.rooks;
+
+        this.incrementalHash = ZobristHash.hashPieces(this);
     }
 
     public Board(Board board) {
@@ -50,6 +54,8 @@ final class Board {
         this.turn = board.turn;
         this.epSquare = board.epSquare;
         this.castlingRights = board.castlingRights;
+
+        this.incrementalHash = ZobristHash.hashPieces(this);
     }
 
     Board(long pawns, long knights, long bishops, long rooks, long queens, long kings,
@@ -77,17 +83,25 @@ final class Board {
     }
 
     private void discard(int square) {
-        long mask = ~(1L << square);
+        if (!isOccupied(square)) return;
+        Role role = roleAt(square);
+        long mask = 1L << square;
 
-        this.pawns &= mask;
-        this.knights &= mask;
-        this.bishops &= mask;
-        this.rooks &= mask;
-        this.queens &= mask;
-        this.kings &= mask;
-        this.white &= mask;
-        this.black &= mask;
-        this.occupied &= mask;
+        switch (role) {
+            case PAWN: this.pawns ^= mask; break;
+            case KNIGHT: this.knights ^= mask; break;
+            case BISHOP: this.bishops ^= mask; break;
+            case ROOK: this.rooks ^= mask; break;
+            case QUEEN: this.queens ^= mask; break;
+            case KING: this.kings ^= mask; break;
+        }
+
+        boolean color = whiteAt(square);
+        if (color) this.white ^= mask;
+        else this.black ^= mask;
+
+        this.occupied ^= mask;
+        this.incrementalHash ^= ZobristHash.hashPiece(square, color, role);
     }
 
     private void put(int square, boolean color, Role role) {
@@ -108,6 +122,7 @@ final class Board {
         else this.black ^= mask;
 
         this.occupied ^= mask;
+        this.incrementalHash ^= ZobristHash.hashPiece(square, color, role);
     }
 
     public Role roleAt(int square) {
@@ -122,6 +137,10 @@ final class Board {
 
     public boolean whiteAt(int square) {
         return Bitboard.contains(this.white, square);
+    }
+
+    public long zobristHash() {
+        return this.incrementalHash ^ ZobristHash.hashCastling(this) ^ ZobristHash.hashEnPassant(this);
     }
 
     public void play(Move move) {
@@ -167,6 +186,7 @@ final class Board {
         }
 
         this.turn = !this.turn;
+        this.incrementalHash ^= ZobristHash.POLYGLOT[780];
     }
 
     long us() {

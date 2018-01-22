@@ -64,6 +64,10 @@ final class Move implements Comparable<Move> {
         return other.score - this.score;
     }
 
+    public boolean isZeroing() {
+        return this.capture || this.role == Role.PAWN;
+    }
+
     // Piece-Square table with some manual tweaks (breaking symmetry).
     //
     // Original table taken from:
