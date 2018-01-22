@@ -1,4 +1,7 @@
-package org.lichess.clockencoder;
+package org.lichess.compression.clock;
+
+import org.lichess.compression.BitReader;
+import org.lichess.compression.BitWriter;
 
 public class LowBitTruncator {
     // Truncate 3 bits from centisecs, but preserve precision for low values.

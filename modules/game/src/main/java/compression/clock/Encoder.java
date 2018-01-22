@@ -1,6 +1,10 @@
-package org.lichess.clockencoder;
+package org.lichess.compression.clock;
 
 import java.util.Arrays;
+
+import org.lichess.compression.BitReader;
+import org.lichess.compression.BitWriter;
+import org.lichess.compression.VarIntEncoder;
 
 /*
  * startTime is the initial clock time in centiseconds

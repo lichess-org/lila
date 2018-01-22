@@ -1,4 +1,4 @@
-package org.lichess.clockencoder;
+package org.lichess.compression;
 
 public class VarIntEncoder {
     public static void writeSigned(int[] values, BitWriter writer) {

@@ -17,7 +17,7 @@ case class Game(
     whitePlayer: Player,
     blackPlayer: Player,
     binaryPieces: ByteArray,
-    binaryPgn: ByteArray,
+    binaryPgn: BinaryFormat.BinPgn,
     status: Status,
     turns: Int, // = ply
     startedAtTurn: Int,
@@ -149,9 +149,9 @@ case class Game(
 
   def bothClockStates: Option[Vector[Centis]] = clockHistory.map(_ bothClockStates startColor)
 
-  lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
+  lazy val pgnMoves: PgnMoves = binaryPgn.decode(turns)
 
-  def openingPgnMoves(nb: Int): PgnMoves = BinaryFormat.pgn.read(binaryPgn, nb)
+  def openingPgnMoves(nb: Int): PgnMoves = binaryPgn.decode(nb)
 
   def pgnMoves(color: Color): PgnMoves = {
     val pivot = if (color == startColor) 0 else 1
@@ -205,7 +205,7 @@ case class Game(
       whitePlayer = copyPlayer(whitePlayer),
       blackPlayer = copyPlayer(blackPlayer),
       binaryPieces = BinaryFormat.piece write game.board.pieces,
-      binaryPgn = BinaryFormat.pgn write game.pgnMoves,
+      binaryPgn = binaryPgn update game.pgnMoves,
       turns = game.turns,
       positionHashes = history.positionHashes,
       checkCount = history.checkCount,
@@ -666,7 +666,6 @@ object Game {
     daysPerTurn: Option[Int] = None
   ): Game = {
     var createdAt = DateTime.now
-
     Game(
       id = IdGenerator.game,
       whitePlayer = whitePlayer,
@@ -674,7 +673,7 @@ object Game {
       binaryPieces =
         if (game.isStandardInit) BinaryFormat.piece.standard
         else BinaryFormat.piece write game.board.pieces,
-      binaryPgn = ByteArray.empty,
+      binaryPgn = BinaryFormat.BinPgn.empty(variant, List(whitePlayer.userId, blackPlayer.userId).flatten),
       status = Status.Created,
       turns = game.turns,
       startedAtTurn = game.startedAtTurn,
@@ -707,7 +706,8 @@ object Game {
     val playerUids = "us"
     val playingUids = "pl"
     val binaryPieces = "ps"
-    val binaryPgn = "pg"
+    val oldPgn = "pg"
+    val huffmanPgn = "hp"
     val status = "s"
     val turns = "t"
     val startedAtTurn = "st"

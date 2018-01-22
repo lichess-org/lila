@@ -1,4 +1,4 @@
-package org.lichess.clockencoder;
+package org.lichess.compression.clock;
 
 public class LinearEstimator {
 

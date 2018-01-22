@@ -1,15 +1,15 @@
 package lila.game
 
-import chess.{ Color, White, Black, Clock, CheckCount, UnmovedRooks }
 import chess.variant.Crazyhouse
+import chess.{ Color, White, Black, Clock, CheckCount, UnmovedRooks }
 import Game.BSONFields._
 import reactivemongo.bson._
 
+import Blurs.BlursBSONWriter
+import chess.Centis
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.ByteArray.ByteArrayBSONHandler
-import Blurs.BlursBSONWriter
-import chess.Centis
 
 private[game] object GameDiff {
 
@@ -57,7 +57,10 @@ private[game] object GameDiff {
     val w = lila.db.BSON.writer
 
     d(binaryPieces, _.binaryPieces, ByteArrayBSONHandler.write)
-    d(binaryPgn, _.binaryPgn, ByteArrayBSONHandler.write)
+    b.binaryPgn match {
+      case _: BinaryFormat.OldBinPgn => d(oldPgn, _.binaryPgn.bytes, ByteArrayBSONHandler.write)
+      case _: BinaryFormat.HuffmanBinPgn => d(huffmanPgn, _.binaryPgn.bytes, ByteArrayBSONHandler.write)
+    }
     d(status, _.status.id, w.int)
     d(turns, _.turns, w.int)
     d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)

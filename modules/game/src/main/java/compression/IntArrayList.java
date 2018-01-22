@@ -1,4 +1,4 @@
-package org.lichess.clockencoder;
+package org.lichess.compression;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
