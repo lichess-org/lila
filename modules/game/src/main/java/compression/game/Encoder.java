@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+import java.nio.ByteBuffer;
+
 import org.lichess.compression.BitReader;
 import org.lichess.compression.BitWriter;
 
@@ -89,13 +91,16 @@ public class Encoder {
         return writer.toArray();
     }
 
-    public static scala.Tuple3<String[], Map<chess.Pos, chess.Piece>, Set<chess.Pos>> decode(byte input[], int plies) {
+    public static scala.Tuple4<String[], Map<chess.Pos, chess.Piece>, Set<chess.Pos>, byte[]> decode(byte input[], int plies) {
         BitReader reader = new BitReader(input);
 
         String output[] = new String[plies];
 
         Board board = new Board();
         ArrayList<Move> legals = new ArrayList<Move>(80);
+
+        ByteBuffer positionHashBuffer = ByteBuffer.allocate(3 * plies);
+        appendHash(positionHashBuffer, board.zobristHash());
 
         for (int i = 0; i <= plies; i++) {
             board.legalMoves(legals);
@@ -109,13 +114,20 @@ public class Encoder {
                 Move move = legals.get(Huffman.read(reader));
                 output[i] = san(move, legals);
                 board.play(move);
+
+                if (move.isZeroing()) positionHashBuffer.clear();
+                appendHash(positionHashBuffer, board.zobristHash());
             }
         }
 
-        return new scala.Tuple3<String[], Map<chess.Pos, chess.Piece>, Set<chess.Pos>>(
+        byte positionHashes[] = new byte[positionHashBuffer.remaining()];
+        positionHashBuffer.get(positionHashes);
+
+        return new scala.Tuple4<String[], Map<chess.Pos, chess.Piece>, Set<chess.Pos>, byte[]>(
             output,
             chessPieceMap(board),
-            chessPosSet(board.castlingRights & board.rooks));
+            chessPosSet(board.castlingRights & board.rooks),
+            positionHashes);
     }
 
     private static String san(Move move, ArrayList<Move> legals) {
@@ -168,6 +180,12 @@ public class Encoder {
         }
 
         return "--";
+    }
+
+    private static void appendHash(ByteBuffer buffer, long hash) {
+        buffer.put((byte) (hash & 0xff));
+        buffer.put((byte) ((hash >> 8) & 0xff));
+        buffer.put((byte) ((hash >> 16) & 0xff));
     }
 
     private static chess.Role chessRole(Role role) {
