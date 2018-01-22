@@ -1,7 +1,8 @@
 package lila.game
 
-import chess.{ variant => _, ToOptionOpsFromOption => _, _ }
+import chess.format.Uci
 import chess.variant.Variant
+import chess.{ variant => _, ToOptionOpsFromOption => _, _ }
 import lila.db.ByteArray
 
 sealed trait PgnStorage
@@ -33,11 +34,21 @@ object PgnStorage {
     }
     def decode(bytes: ByteArray, plies: Int): Decoded = monitor(lila.mon.game.pgn.huffman.decode) {
       val decoded = Encoder.decode(bytes.value, plies)
+      val unmovedRooks = asScalaSet(decoded.unmovedRooks.flatMap(javaPos)).toSet
       Decoded(
         pgnMoves = decoded.pgnMoves.toVector,
-        pieces = mapAsScalaMap(decoded.pieces).flatMap { case (k, v) => javaPos(k).map(_ -> javaPiece(v)) }.toMap,
+        pieces = mapAsScalaMap(decoded.pieces).flatMap {
+          case (k, v) => javaPos(k).map(_ -> javaPiece(v))
+        }.toMap,
         positionHashes = decoded.positionHashes,
-        unmovedRooks = UnmovedRooks(asScalaSet(decoded.unmovedRooks).flatMap(javaPos).toSet),
+        unmovedRooks = UnmovedRooks(unmovedRooks),
+        lastMove = Option(decoded.lastUci) flatMap Uci.apply,
+        castles = Castles(
+          whiteKingSide = unmovedRooks(Pos.H1),
+          whiteQueenSide = unmovedRooks(Pos.A1),
+          blackKingSide = unmovedRooks(Pos.H8),
+          blackQueenSide = unmovedRooks(Pos.A8)
+        ),
         format = Huffman
       )
     }
@@ -60,6 +71,8 @@ object PgnStorage {
       pieces: PieceMap,
       positionHashes: PositionHash, // irrelevant after game ends
       unmovedRooks: UnmovedRooks, // irrelevant after game ends
+      lastMove: Option[Uci],
+      castles: Castles,
       format: PgnStorage
   )
 

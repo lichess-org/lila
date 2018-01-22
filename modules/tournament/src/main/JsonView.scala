@@ -232,7 +232,7 @@ final class JsonView(
         case chess.variant.RacingKings => chess.White
         case _ => game.firstColor
       }).name,
-      "lastMove" -> ~game.castleLastMoveTime.lastMoveString,
+      "lastMove" -> ~game.lastMoveKeys,
       "white" -> ofPlayer(featured.white, game player chess.White),
       "black" -> ofPlayer(featured.black, game player chess.Black)
     )

@@ -38,11 +38,8 @@ object Rewind {
         unmovedRooks = rewindedGame.board.unmovedRooks,
         turns = rewindedGame.turns,
         checkCount = rewindedHistory.checkCount,
-        castleLastMoveTime = CastleLastMoveTime(
-          castles = rewindedHistory.castles,
-          lastMove = rewindedHistory.lastMove.map(_.origDest),
-          check = if (rewindedSituation.check) rewindedSituation.kingPos else None
-        ),
+        lastMove = rewindedHistory.lastMove,
+        castles = rewindedHistory.castles,
         binaryMoveTimes = game.binaryMoveTimes.map { binary =>
           val moveTimes = BinaryFormat.moveTime.read(binary, game.playedTurns)
           BinaryFormat.moveTime.write(moveTimes.dropRight(1))

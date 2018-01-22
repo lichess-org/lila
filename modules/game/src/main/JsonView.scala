@@ -26,7 +26,7 @@ object JsonView {
     .add("boosted" -> game.boosted)
     .add("tournamentId" -> game.tournamentId)
     .add("winner" -> game.winnerColor)
-    .add("lastMove" -> game.castleLastMoveTime.lastMoveString)
+    .add("lastMove" -> game.lastMoveKeys)
     .add("check" -> game.check.map(_.key))
     .add("rematch" -> game.next)
 
