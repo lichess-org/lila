@@ -27,11 +27,18 @@ final class Move implements Comparable<Move> {
         // Scores must be unique for every move in the position, because
         // move ordering should never depend on implementation details of the
         // generator.
+
+        long defendingPawns =
+            Bitboard.pawnAttacks(board.turn, to) &
+            board.pawns &
+            board.them();
+
         int moveValue = pieceValue(board, role, to) - pieceValue(board, role, from);
 
         this.score =
-            (promotion == null ? 0 : promotion.index << 23) +
-            (capture ? 1 << 22 : 0) +
+            (promotion == null ? 0 : promotion.index << 26) +
+            (capture ? 1 << 25 : 0) +
+            ((defendingPawns == 0 ? 6 : (5 - role.index)) << 22) +
             (512 + moveValue << 12) +
             (to << 6) +
             from;

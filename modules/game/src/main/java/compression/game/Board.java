@@ -155,15 +155,15 @@ final class Board {
         this.turn = !this.turn;
     }
 
-    private long us() {
+    long us() {
         return byColor(this.turn);
     }
 
-    private long them() {
+    long them() {
         return byColor(!this.turn);
     }
 
-    private long byColor(boolean white) {
+    long byColor(boolean white) {
         return white ? this.white : this.black;
     }
 
