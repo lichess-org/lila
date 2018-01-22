@@ -36,7 +36,7 @@ public final class Board {
         this.epSquare = 0;
         this.castlingRights = this.rooks;
 
-        this.incrementalHash = ZobristHash.hashPieces(this);
+        this.incrementalHash = ZobristHash.hashPieces(this) ^ ZobristHash.hashTurn(this);
     }
 
     public Board(Board board) {
@@ -55,7 +55,7 @@ public final class Board {
         this.epSquare = board.epSquare;
         this.castlingRights = board.castlingRights;
 
-        this.incrementalHash = ZobristHash.hashPieces(this);
+        this.incrementalHash = ZobristHash.hashPieces(this) ^ ZobristHash.hashTurn(this);
     }
 
     Board(long pawns, long knights, long bishops, long rooks, long queens, long kings,
@@ -76,6 +76,8 @@ public final class Board {
         this.turn = turn;
         this.epSquare = epSquare;
         this.castlingRights = castlingRights;
+
+        this.incrementalHash = ZobristHash.hashPieces(this) ^ ZobristHash.hashTurn(this);
     }
 
     private boolean isOccupied(int square) {
@@ -262,6 +264,8 @@ public final class Board {
     }
 
     public boolean hasLegalEnPassant() {
+        if (this.epSquare == 0) return false; // shortcut
+
         ArrayList<Move> moves = new ArrayList<Move>(2);
         boolean hasEp = genEnPassant(moves);
 
