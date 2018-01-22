@@ -149,8 +149,11 @@ case class Game(
 
   def bothClockStates: Option[Vector[Centis]] = clockHistory.map(_ bothClockStates startColor)
 
-  private lazy val decodedMovesAndPieces: (PgnMoves, chess.PieceMap) =
+  private lazy val decodedMovesAndPieces: (PgnMoves, chess.PieceMap) = try {
     binaryPgn.decode(turns, binaryPieces map { BinaryFormat.piece.read(_, variant) })
+  } catch {
+    case e: Exception => println(id); throw e;
+  }
 
   def pgnMoves: PgnMoves = decodedMovesAndPieces._1
 
