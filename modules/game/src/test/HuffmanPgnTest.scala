@@ -29,17 +29,50 @@ class HuffmanPgnTest extends Specification {
       asScalaSet(unmovedRooks) must_== Set(Pos.A1, Pos.H1, Pos.A8)
     }
 
-    "position hashes" in {
-      val pgnMoves = "Nf3 d5 Ne5 Nf6 Ng4 Bf5".split(" ")
+    "position hash 1. e4 d5 2. e5 f5 3. Ke2 Kf7" in {
+      val pgnMoves = "e4 d5 e5 f5 Ke2 Kf7".split(" ")
       val encoded = GameEncoder.encode(pgnMoves)
 
-      val (_, _, _, h1) = GameEncoder.decode(encoded, 0)
-      h1 must_== hexToBytes("91fc9c")
-      /*
-      val pgnMoves = "Nf3 d5 Ne5 Nf6 Ng4 Bf5".split(" ")
+      // initial position
+      val (_, _, _, h0) = GameEncoder.decode(encoded, 0)
+      h0 must_== hexToBytes("91fc9c")
+
+      // 1. e4
+      val (_, _, _, h1) = GameEncoder.decode(encoded, 1)
+      h1 must_== hexToBytes("114196")
+
+      // 1. e4 d5
+      val (_, _, _, h2) = GameEncoder.decode(encoded, 2)
+      h2 must_== hexToBytes("c50fb0")
+
+      // 1. e4 d5 2. e5
+      val (_, _, _, h3) = GameEncoder.decode(encoded, 3)
+      h3 must_== hexToBytes("db29d4")
+
+      // 1. e4 d5 2. e5 f5 (en passant matters)
+      val (_, _, _, h4) = GameEncoder.decode(encoded, 4)
+      h4 must_== hexToBytes("47ff78")
+
+      // 1. e4 d5 2. e5 f5 3. Ke2
+      val (_, _, _, h5) = GameEncoder.decode(encoded, 5)
+      h5 must_== hexToBytes("47ff78" + "f242c1")
+
+      // 1. e4 d5 2. e5 f5 3. Ke2 Kf7
+      val (_, _, _, h6) = GameEncoder.decode(encoded, 6)
+      h6 must_== hexToBytes("47ff78" + "f242c1" + "46bdd9")
+    }
+
+    "position hash 1. a4 b5 2. h4 b4 3. c4 bxc3 4. Ra3" in {
+      val pgnMoves = "a4 b5 h4 b4 c4 bxc3 Ra3".split(" ")
       val encoded = GameEncoder.encode(pgnMoves)
-      val (_, _, _, h2) = GameEncoder.decode(encoded, pgnMoves.size)
-      h2.size must_== 3 * 5 */
+
+      // 1. a4 b5 2. h4 b4 3. c4
+      val (_, _, _, h5) = GameEncoder.decode(encoded, 5)
+      h5 must_== hexToBytes("067637")
+
+      // 1. a4 b5 2. h4 b4 3. c4 bxc3 4. Ra3
+      val (_, _, _, h7) = GameEncoder.decode(encoded, 7)
+      h7 must_== hexToBytes("2edfae" + "279560")
     }
 
     "pass perft test" in {
