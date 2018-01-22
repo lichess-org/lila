@@ -16,7 +16,7 @@ case class Game(
     id: String,
     whitePlayer: Player,
     blackPlayer: Player,
-    binaryPieces: ByteArray,
+    binaryPieces: Option[ByteArray],
     binaryPgn: BinaryFormat.BinPgn,
     status: Status,
     turns: Int, // = ply
@@ -149,9 +149,12 @@ case class Game(
 
   def bothClockStates: Option[Vector[Centis]] = clockHistory.map(_ bothClockStates startColor)
 
-  lazy val pgnMoves: PgnMoves = binaryPgn.decode(turns)
+  private lazy val decodedMovesAndPieces: (PgnMoves, chess.PieceMap) =
+    binaryPgn.decode(turns, binaryPieces map { BinaryFormat.piece.read(_, variant) })
 
-  def openingPgnMoves(nb: Int): PgnMoves = binaryPgn.decode(nb atMost turns)
+  def pgnMoves: PgnMoves = decodedMovesAndPieces._1
+
+  def openingPgnMoves(nb: Int): PgnMoves = pgnMoves take nb
 
   def pgnMoves(color: Color): PgnMoves = {
     val pivot = if (color == startColor) 0 else 1
@@ -160,21 +163,16 @@ case class Game(
     }
   }
 
-  lazy val toChess: ChessGame = {
-
-    val pieces = BinaryFormat.piece.read(binaryPieces, variant)
-
-    ChessGame(
-      situation = Situation(
-        Board(pieces, toChessHistory, variant, crazyData),
-        Color.fromPly(turns)
-      ),
-      pgnMoves = pgnMoves.toVector,
-      clock = clock,
-      turns = turns,
-      startedAtTurn = startedAtTurn
-    )
-  }
+  lazy val toChess: ChessGame = ChessGame(
+    situation = Situation(
+      Board(decodedMovesAndPieces._2, toChessHistory, variant, crazyData),
+      Color.fromPly(turns)
+    ),
+    pgnMoves = pgnMoves.toVector,
+    clock = clock,
+    turns = turns,
+    startedAtTurn = startedAtTurn
+  )
 
   lazy val toChessHistory = ChessHistory(
     lastMove = castleLastMoveTime.lastMove map {
@@ -204,7 +202,7 @@ case class Game(
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
       blackPlayer = copyPlayer(blackPlayer),
-      binaryPieces = BinaryFormat.piece write game.board.pieces,
+      binaryPieces = binaryPieces.isDefined option (BinaryFormat.piece write game.board.pieces),
       binaryPgn = binaryPgn update game.pgnMoves,
       turns = game.turns,
       positionHashes = history.positionHashes,
@@ -666,14 +664,16 @@ object Game {
     daysPerTurn: Option[Int] = None
   ): Game = {
     var createdAt = DateTime.now
+    val binaryPgn = BinaryFormat.BinPgn.empty(variant, List(whitePlayer.userId, blackPlayer.userId).flatten)
     Game(
       id = IdGenerator.game,
       whitePlayer = whitePlayer,
       blackPlayer = blackPlayer,
-      binaryPieces =
+      binaryPieces = binaryPgn.requiresPieces option {
         if (game.isStandardInit) BinaryFormat.piece.standard
-        else BinaryFormat.piece write game.board.pieces,
-      binaryPgn = BinaryFormat.BinPgn.empty(variant, List(whitePlayer.userId, blackPlayer.userId).flatten),
+        else BinaryFormat.piece write game.board.pieces
+      },
+      binaryPgn = binaryPgn,
       status = Status.Created,
       turns = game.turns,
       startedAtTurn = game.startedAtTurn,

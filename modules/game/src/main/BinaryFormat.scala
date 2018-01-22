@@ -6,7 +6,7 @@ import scala.collection.breakOut
 import scala.collection.Searching._
 import scala.util.Try
 
-import chess._
+import chess.{ ToOptionOpsFromOption => _, _ }
 import chess.variant.Variant
 
 import lila.db.ByteArray
@@ -18,20 +18,26 @@ object BinaryFormat {
 
   sealed trait BinPgn {
     def bytes: ByteArray
-    def decode(plies: Int): PgnMoves
+    def decode(plies: Int, pieces: Option[PieceMap]): (PgnMoves, PieceMap)
     def update(moves: PgnMoves): BinPgn
+    def isHuffman: Boolean
+    def requiresPieces = !isHuffman
   }
   case class OldBinPgn(bytes: ByteArray) extends BinPgn {
-    def decode(plies: Int) = format.pgn.Binary.readMoves(bytes.value.toList, plies).get.toVector
+    def decode(plies: Int, pieces: Option[PieceMap]) =
+      format.pgn.Binary.readMoves(bytes.value.toList, plies).get.toVector ->
+        pieces.err("Missing binary pieces for game encoding moves will old binary format!")
     def update(moves: PgnMoves) = OldBinPgn {
       format.pgn.Binary.writeMoves(moves).get
     }
+    def isHuffman = false
   }
   case class HuffmanBinPgn(bytes: ByteArray) extends BinPgn {
-    def decode(plies: Int) = HuffmanEncoder.decode(bytes.value, plies).toVector
+    def decode(plies: Int, pieces: Option[PieceMap]) = ??? // HuffmanEncoder.decode(bytes.value, plies).toVector
     def update(moves: PgnMoves) = HuffmanBinPgn {
       HuffmanEncoder.encode(moves.toArray)
     }
+    def isHuffman = true
   }
   object BinPgn {
     private val betaTesters = Set("thibault", "revoof", "isaacly")

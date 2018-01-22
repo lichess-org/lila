@@ -32,7 +32,9 @@ object Rewind {
       val newGame = game.copy(
         whitePlayer = rewindPlayer(game.whitePlayer),
         blackPlayer = rewindPlayer(game.blackPlayer),
-        binaryPieces = BinaryFormat.piece write rewindedGame.board.pieces,
+        binaryPieces = game.binaryPieces.isDefined option {
+          BinaryFormat.piece write rewindedGame.board.pieces
+        },
         binaryPgn = game.binaryPgn update rewindedGame.pgnMoves,
         turns = rewindedGame.turns,
         positionHashes = rewindedHistory.positionHashes,
