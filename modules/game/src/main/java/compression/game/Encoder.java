@@ -99,7 +99,7 @@ public class Encoder {
         Board board = new Board();
         ArrayList<Move> legals = new ArrayList<Move>(80);
 
-        ByteBuffer positionHashBuffer = ByteBuffer.allocate(3 * plies);
+        ByteBuffer positionHashBuffer = ByteBuffer.allocate(3 * (plies + 1));
         appendHash(positionHashBuffer, board.zobristHash());
 
         for (int i = 0; i <= plies; i++) {
