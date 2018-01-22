@@ -64,6 +64,16 @@ final class Move implements Comparable<Move> {
         return other.score - this.score;
     }
 
+    public String uci() {
+        StringBuilder builder = new StringBuilder(4);
+        builder.append((char) (Square.file(this.from) + 'a'));
+        builder.append((char) (Square.rank(this.from) + '1'));
+        builder.append((char) (Square.file(this.to) + 'a'));
+        builder.append((char) (Square.file(this.to) + '1'));
+        if (this.promotion != null) builder.append(this.promotion.symbol.toLowerCase());
+        return builder.toString();
+    }
+
     public boolean isZeroing() {
         return this.capture || this.role == Role.PAWN;
     }

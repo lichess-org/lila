@@ -97,12 +97,14 @@ public class Encoder {
         public final Map<Integer, Piece> pieces;
         public final Set<Integer> unmovedRooks;
         public final byte positionHashes[];
+        public final String lastUci;
 
-        public DecodeResult(String pgnMoves[], Map<Integer, Piece> pieces, Set<Integer> unmovedRooks, byte positionHashes[]) {
+        public DecodeResult(String pgnMoves[], Map<Integer, Piece> pieces, Set<Integer> unmovedRooks, byte positionHashes[], String lastUci) {
             this.pgnMoves = pgnMoves;
             this.pieces = pieces;
             this.unmovedRooks = unmovedRooks;
             this.positionHashes = positionHashes;
+            this.lastUci = lastUci;
         }
     }
 
@@ -113,6 +115,8 @@ public class Encoder {
 
         Board board = new Board();
         ArrayList<Move> legals = new ArrayList<Move>(80);
+
+        String lastUci = null;
 
         // Collect the position hashes (3 bytes each) since the last capture
         // or pawn move.
@@ -136,6 +140,8 @@ public class Encoder {
 
                 if (move.isZeroing()) positionHashes.clear();
                 appendHash(positionHashes, board.zobristHash());
+
+                if (i + 1 == plies) lastUci = move.uci();
             }
         }
 
@@ -145,7 +151,8 @@ public class Encoder {
             output,
             board.pieceMap(),
             Bitboard.squareSet(board.castlingRights),
-            Arrays.copyOf(positionHashes.array(), positionHashes.limit()));
+            Arrays.copyOf(positionHashes.array(), positionHashes.limit()),
+            lastUci);
     }
 
     private static String san(Move move, ArrayList<Move> legals) {
