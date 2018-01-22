@@ -9,11 +9,15 @@ class ZobristHash {
         long hash = 0, occupied = board.occupied;
         while (occupied != 0) {
             int sq = Bitboard.lsb(occupied);
-            int pieceIndex = board.roleAt(sq).index * 2 + (board.whiteAt(sq) ? 1 : 0);
-            hash ^= POLYGLOT[64 * pieceIndex + sq];
+            hash ^= hashPiece(sq, board.whiteAt(sq), board.roleAt(sq));
             occupied ^= 1L << sq;
         }
         return hash;
+    }
+
+    public static long hashPiece(int square, boolean color, Role role) {
+        int index = role.index * 2 + (color ? 1 : 0);
+        return POLYGLOT[64 * index + square];
     }
 
     public static long hashCastling(Board board) {
@@ -34,7 +38,7 @@ class ZobristHash {
         return board.hasLegalEnPassant() ? POLYGLOT[772 + Square.file(board.epSquare)] : 0;
     }
 
-    private static final long POLYGLOT[] = {
+    public static final long POLYGLOT[] = {
         0x9D39247E33776D41L, 0x2AF7398005AAA5C7L, 0x44DB015024623547L, 0x9C15F73E62A76AE2L,
         0x75834465489C0C89L, 0x3290AC3A203001BFL, 0x0FBBAD1F61042279L, 0xE83A908FF2FB60CAL,
         0x0D7E765D58755C10L, 0x1A083822CEAFE02DL, 0x9605D5F0E25EC3B0L, 0xD021FF5CD13A2ED5L,
