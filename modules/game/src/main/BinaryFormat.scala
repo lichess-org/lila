@@ -33,7 +33,9 @@ object BinaryFormat {
     def isHuffman = false
   }
   case class HuffmanBinPgn(bytes: ByteArray) extends BinPgn {
-    def decode(plies: Int, pieces: Option[PieceMap]) = ??? // HuffmanEncoder.decode(bytes.value, plies).toVector
+    def decode(plies: Int, pieces: Option[PieceMap]) = HuffmanEncoder.decode(bytes.value, plies) match {
+      case (pgn, pieces) => pgn.toVector -> pieces.toMap
+    }
     def update(moves: PgnMoves) = HuffmanBinPgn {
       HuffmanEncoder.encode(moves.toArray)
     }
