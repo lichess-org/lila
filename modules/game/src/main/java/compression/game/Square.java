@@ -1,6 +1,6 @@
 package org.lichess.compression.game;
 
-class Square {
+public class Square {
     public static final int A1 = 0;
     public static final int C1 = 2;
     public static final int D1 = 3;

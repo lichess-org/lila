@@ -92,7 +92,21 @@ public class Encoder {
         return writer.toArray();
     }
 
-    public static scala.Tuple4<String[], Map<chess.Pos, chess.Piece>, Set<chess.Pos>, byte[]> decode(byte input[], int plies) {
+    public static class DecodeResult {
+        public final String pgnMoves[];
+        public final Map<Integer, Piece> pieces;
+        public final Set<Integer> unmovedRooks;
+        public final byte positionHashes[];
+
+        public DecodeResult(String pgnMoves[], Map<Integer, Piece> pieces, Set<Integer> unmovedRooks, byte positionHashes[]) {
+            this.pgnMoves = pgnMoves;
+            this.pieces = pieces;
+            this.unmovedRooks = unmovedRooks;
+            this.positionHashes = positionHashes;
+        }
+    }
+
+    public static DecodeResult decode(byte input[], int plies) {
         BitReader reader = new BitReader(input);
 
         String output[] = new String[plies];
@@ -100,16 +114,20 @@ public class Encoder {
         Board board = new Board();
         ArrayList<Move> legals = new ArrayList<Move>(80);
 
+        // Collect the position hashes (3 bytes each) since the last capture
+        // or pawn move.
         ByteBuffer positionHashes = ByteBuffer.allocate(3 * (plies + 1));
         appendHash(positionHashes, board.zobristHash());
 
         for (int i = 0; i <= plies; i++) {
             board.legalMoves(legals);
 
+            // Append check or checkmate suffix to previous move.
             if (i > 0) {
                 if (board.isCheck()) output[i - 1] += (legals.isEmpty() ? "#" : "+");
             }
 
+            // Decode and play next move.
             if (i < plies) {
                 legals.sort(null);
                 Move move = legals.get(Huffman.read(reader));
@@ -123,10 +141,10 @@ public class Encoder {
 
         positionHashes.flip();
 
-        return new scala.Tuple4<String[], Map<chess.Pos, chess.Piece>, Set<chess.Pos>, byte[]>(
+        return new DecodeResult(
             output,
-            chessPieceMap(board),
-            chessPosSet(board.castlingRights & board.rooks),
+            board.pieceMap(),
+            Bitboard.squareSet(board.castlingRights),
             Arrays.copyOf(positionHashes.array(), positionHashes.limit()));
     }
 
@@ -186,46 +204,5 @@ public class Encoder {
         buffer.put((byte) (hash >>> 16));
         buffer.put((byte) (hash >>> 8));
         buffer.put((byte) hash);
-    }
-
-    private static chess.Role chessRole(Role role) {
-        switch (role) {
-            case PAWN: return chess.Pawn$.MODULE$;
-            case KNIGHT: return chess.Knight$.MODULE$;
-            case BISHOP: return chess.Bishop$.MODULE$;
-            case ROOK: return chess.Rook$.MODULE$;
-            case QUEEN: return chess.Queen$.MODULE$;
-            case KING: return chess.King$.MODULE$;
-            default: throw new IllegalArgumentException();
-        }
-    }
-
-    private static chess.Pos chessPos(int square) {
-        return chess.Pos.posAt(Square.file(square) + 1, Square.rank(square) + 1).get();
-    }
-
-    private static Set<chess.Pos> chessPosSet(long b) {
-        HashSet<chess.Pos> set = new HashSet<chess.Pos>();
-        while (b != 0) {
-            int sq = Bitboard.lsb(b);
-            set.add(chessPos(sq));
-            b ^= 1L << sq;
-        }
-        return set;
-    }
-
-    private static Map<chess.Pos, chess.Piece> chessPieceMap(Board board) {
-        HashMap<chess.Pos, chess.Piece> map = new HashMap<chess.Pos, chess.Piece>();
-
-        long occupied = board.occupied;
-        while (occupied != 0) {
-            int sq = Bitboard.lsb(occupied);
-            chess.Color color = chess.Color$.MODULE$.apply(board.whiteAt(sq));
-            chess.Piece piece = new chess.Piece(color, chessRole(board.roleAt(sq)));
-            map.put(chessPos(sq), piece);
-            occupied ^= 1L << sq;
-        }
-
-        return map;
     }
 }

@@ -1,6 +1,8 @@
 package org.lichess.compression.game;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 final class Board {
     long pawns;
@@ -143,6 +145,17 @@ final class Board {
 
     public long zobristHash() {
         return this.incrementalHash ^ ZobristHash.hashCastling(this) ^ ZobristHash.hashEnPassant(this);
+    }
+
+    public Map<Integer, Piece> pieceMap() {
+        HashMap<Integer, Piece> map = new HashMap<Integer, Piece>();
+        long occupied = this.occupied;
+        while (occupied != 0) {
+            int sq = Bitboard.lsb(occupied);
+            map.put(sq, new Piece(whiteAt(sq), roleAt(sq)));
+            occupied ^= 1L << sq;
+        }
+        return map;
     }
 
     public void play(Move move) {
