@@ -129,7 +129,7 @@ class Bitboard {
         return (b & (1L << sq)) != 0;
     }
 
-    public static Set squareSet(long b) {
+    public static Set<Integer> squareSet(long b) {
         HashSet<Integer> set = new HashSet<Integer>();
         while (b != 0) {
             int sq = lsb(b);
