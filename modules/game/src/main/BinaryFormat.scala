@@ -43,7 +43,9 @@ object BinaryFormat {
           case _ => false
         }
       } catch {
-        case _: Throwable => false // breaks in tests. The shouldUseHuffman function is temporary anyway
+        case e: Throwable =>
+          println(e)
+          false // breaks in tests. The shouldUseHuffman function is temporary anyway
       }
     }
     private[game] def empty(variant: Variant, playerUserIds: List[lila.user.User.ID]) =
