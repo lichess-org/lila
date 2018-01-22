@@ -1,6 +1,8 @@
 package org.lichess.compression.game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -85,7 +87,7 @@ public class Encoder {
         return writer.toArray();
     }
 
-    public static scala.Tuple2<String[], scala.collection.mutable.Map<chess.Pos, chess.Piece>> decode(byte input[], int plies) {
+    public static scala.Tuple2<String[], Map<chess.Pos, chess.Piece>> decode(byte input[], int plies) {
         BitReader reader = new BitReader(input);
 
         String output[] = new String[plies];
@@ -175,8 +177,8 @@ public class Encoder {
         }
     }
 
-    private static scala.collection.mutable.Map chessPieceMap(Board board) {
-        scala.collection.mutable.HashMap<chess.Pos, chess.Piece> map = new scala.collection.mutable.HashMap<chess.Pos, chess.Piece>();
+    private static Map<chess.Pos, chess.Piece> chessPieceMap(Board board) {
+        HashMap<chess.Pos, chess.Piece> map = new HashMap<chess.Pos, chess.Piece>();
 
         long occupied = board.occupied;
         while (occupied != 0) {
@@ -184,7 +186,7 @@ public class Encoder {
             chess.Pos pos = chess.Pos.posAt(Square.file(sq) + 1, Square.rank(sq) + 1).get();
             chess.Color color = chess.Color$.MODULE$.apply((board.white & (1L << sq)) != 0);
             chess.Piece piece = new chess.Piece(color, chessRole(board.roleAt(sq)));
-            map.update(pos, piece);
+            map.put(pos, piece);
             occupied ^= 1L << sq;
         }
 
