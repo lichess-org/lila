@@ -143,10 +143,14 @@ final class ChapterRepo(coll: Coll) {
         }
       }
 
-  def setAnalysed(chapterId: Chapter.Id, v: Option[Boolean]) = v match {
-    case None => coll.unsetField($id(chapterId), "analysed").void
-    case Some(x) => coll.updateField($id(chapterId), "analysed", x).void
-  }
+  def startServerEval(chapter: Chapter) =
+    coll.updateField($id(chapter.id), "serverEval", Chapter.ServerEval(
+      path = chapter.root.mainlinePath,
+      done = false
+    )).void
+
+  def completeServerEval(chapter: Chapter) =
+    coll.updateField($id(chapter.id), "serverEval.done", true).void
 
   def countByStudyId(studyId: Study.Id): Fu[Int] =
     coll.countSel($studyId(studyId))

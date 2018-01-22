@@ -23,7 +23,7 @@ case class Chapter(
     gamebook: Option[Boolean] = None,
     description: Option[String] = None,
     relay: Option[Chapter.Relay] = None,
-    analysed: Option[Boolean] = None,
+    serverEval: Option[Chapter.ServerEval] = None,
     createdAt: DateTime
 ) extends Chapter.Like {
 
@@ -114,6 +114,8 @@ object Chapter {
   ) {
     def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.getSeconds).toInt
   }
+
+  case class ServerEval(path: Path, done: Boolean)
 
   case class RelayAndTags(id: Id, relay: Relay, tags: Tags) {
 

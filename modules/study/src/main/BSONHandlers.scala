@@ -259,6 +259,7 @@ object BSONHandlers {
     )
   private implicit val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
   implicit val ChapterRelayBSONHandler = Macros.handler[Chapter.Relay]
+  implicit val ChapterServerEvalBSONHandler = Macros.handler[Chapter.ServerEval]
   import Chapter.Ply
   implicit val PlyBSONHandler = intAnyValHandler[Ply](_.value, Ply.apply)
   implicit val ChapterBSONHandler = Macros.handler[Chapter]

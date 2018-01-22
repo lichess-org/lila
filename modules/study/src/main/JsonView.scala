@@ -42,13 +42,12 @@ final class JsonView(
             "ownerId" -> currentChapter.ownerId,
             "setup" -> currentChapter.setup,
             "tags" -> currentChapter.tags,
-            "analysed" -> currentChapter.analysed,
             "features" -> Json.obj(
               "computer" -> allowed(study.settings.computer),
               "explorer" -> allowed(study.settings.explorer)
             )
           ).add("description", currentChapter.description)
-            .add("analysed", currentChapter.analysed)
+            .add("serverEval", currentChapter.serverEval)
             .add("relay", currentChapter.relay)(relayWrites) |> addChapterMode(currentChapter)
         }
       )
@@ -186,4 +185,6 @@ object JsonView {
       "secondsSinceLastMove" -> r.secondsSinceLastMove
     )
   }
+
+  private[study] implicit val serverEvalWrites: Writes[Chapter.ServerEval] = Json.writes[Chapter.ServerEval]
 }

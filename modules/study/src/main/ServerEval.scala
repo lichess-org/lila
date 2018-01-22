@@ -19,7 +19,7 @@ object ServerEval {
   ) {
 
     def apply(study: Study, chapter: Chapter, userId: User.ID): Funit =
-      chapterRepo.setAnalysed(chapter.id, false.some) >>- {
+      chapterRepo.startServerEval(chapter) >>- {
         fishnetActor ! StudyChapterRequest(
           studyId = study.id.value,
           chapterId = chapter.id.value,
@@ -46,7 +46,7 @@ object ServerEval {
     def apply(analysis: Analysis, complete: Boolean): Funit = analysis.studyId ?? { studyId =>
       sequencer.sequenceStudyWithChapter(Study.Id(studyId), Chapter.Id(analysis.id)) {
         case Study.WithChapter(study, chapter) =>
-          (complete ?? chapterRepo.setAnalysed(chapter.id, true.some)) >> {
+          (complete ?? chapterRepo.completeServerEval(chapter)) >> {
             lila.common.Future.fold(chapter.root.mainline zip analysis.infoAdvices)(Path.root) {
               case (path, (node, (info, advOpt))) => info.eval.score.ifTrue(node.score.isEmpty).?? { score =>
                 chapterRepo.setScore(chapter, path + node, score.some) >>

@@ -124,11 +124,10 @@ object Study extends LilaController {
     chapter = resetToChapter | sc.chapter
     _ <- Env.user.lightUserApi preloadMany study.members.ids.toList
     _ = if (HTTPRequest isSynchronousHttp ctx.req) Env.study.studyRepo.incViews(study)
-    initialFen = chapter.root.fen.some
-    analysis <- ~chapter.analysed ?? Env.analyse.analyser.get(chapter.id.value)
-    pov = UserAnalysis.makePov(initialFen, chapter.setup.variant)
-    division = chapter.analysed.isDefined option env.serverEvalMerger.divisionOf(chapter)
-    baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation,
+    pov = UserAnalysis.makePov(chapter.root.fen.some, chapter.setup.variant)
+    analysis <- chapter.serverEval.exists(_.done) ?? Env.analyse.analyser.get(chapter.id.value)
+    division = analysis.isDefined option env.serverEvalMerger.divisionOf(chapter)
+    baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.root.fen.some, chapter.setup.orientation,
       owner = false,
       me = ctx.me,
       division = division)
