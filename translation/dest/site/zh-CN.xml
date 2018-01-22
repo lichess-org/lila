@@ -56,6 +56,9 @@
   <string name="showThreat">显示威胁</string>
   <string name="inLocalBrowser">在本地浏览器</string>
   <string name="toggleLocalEvaluation">切换到本地分析</string>
+  <string name="promoteVariation">提升变着</string>
+  <string name="makeMainLine">做为主线</string>
+  <string name="deleteFromHere">从此处删除</string>
   <string name="move">走棋</string>
   <string name="variantLoss">因变体规则输棋</string>
   <string name="variantWin">因变体规则赢棋</string>
@@ -185,6 +188,7 @@
   <string name="accept">接受</string>
   <string name="decline">拒绝</string>
   <string name="playingRightNow">正在对局</string>
+  <string name="eventInProgress">正在进行</string>
   <string name="finished">已结束</string>
   <string name="abortGame">中止本局</string>
   <string name="gameAborted">棋局已中止</string>
@@ -193,6 +197,8 @@
   <string name="mode">模式</string>
   <string name="casual">无积分</string>
   <string name="rated">有积分</string>
+  <string name="casualTournament">无积分</string>
+  <string name="ratedTournament">积分</string>
   <string name="thisGameIsRated">这盘棋是有积分的</string>
   <string name="rematch">重赛</string>
   <string name="rematchOfferSent">重赛请求已发送</string>
@@ -252,6 +258,9 @@
   <string name="tournament">锦标赛</string>
   <string name="tournaments">锦标赛</string>
   <string name="tournamentPoints">锦标赛分数</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="other">%s比赛得分</item>
+  </plurals>
   <string name="viewTournament">观看锦标赛</string>
   <string name="backToTournament">返回锦标赛主页</string>
   <string name="thematic">从常见开局开始的锦标赛</string>
@@ -728,11 +737,61 @@
   <string name="notifications">通知</string>
   <string name="challenges">挑战</string>
   <string name="perfRatingX">积分：%s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">还剩%s秒走第一步</item>
+  </plurals>
+  <string name="practiceWithComputer">与电脑练习</string>
+  <string name="anotherWasX">%s也不错</string>
+  <string name="bestWasX">最佳走法是%s</string>
+  <string name="youBrowsedAway">你浏览到别处了</string>
+  <string name="resumePractice">继续练习</string>
   <string name="theGameIsADraw">本局和棋.</string>
   <string name="computerThinking">电脑正在思考中。</string>
+  <string name="seeBestMove">查看最佳一步</string>
+  <string name="hideBestMove">隐藏最佳一步</string>
+  <string name="getAHint">提示</string>
+  <string name="evaluatingYourMove">评估走法中……</string>
   <string name="whiteWinsGame">白胜</string>
   <string name="blackWinsGame">黑胜</string>
+  <string name="learnFromYourMistakes">吸取教训</string>
+  <string name="learnFromThisMistake">从这里吸取教训</string>
+  <string name="skipThisMove">跳过此步</string>
+  <string name="next">继续</string>
+  <string name="xWasPlayed">走了%s</string>
+  <string name="findBetterMoveForWhite">为白方找更好走法</string>
+  <string name="findBetterMoveForBlack">为黑方找更好走法</string>
+  <string name="resumeLearning">继续学习</string>
+  <string name="youCanDoBetter">再接再厉</string>
+  <string name="tryAnotherMoveForWhite">为白方另找走法</string>
+  <string name="tryAnotherMoveForBlack">为黑方另找走法</string>
+  <string name="solution">解答</string>
+  <string name="waitingForAnalysis">等待分析</string>
+  <string name="noMistakesFoundForWhite">未找到白方失误</string>
+  <string name="noMistakesFoundForBlack">未找到黑方失误</string>
+  <string name="doneReviewingWhiteMistakes">白方失误回顾完成</string>
+  <string name="doneReviewingBlackMistakes">黑方失误回顾完成</string>
+  <string name="doItAgain">再来一次</string>
+  <string name="reviewWhiteMistakes">回顾白方失误</string>
+  <string name="reviewBlackMistakes">回顾黑方失误</string>
+  <string name="advantage">优势</string>
+  <plurals name="nbSeconds">
+    <item quantity="other">%s秒</item>
+  </plurals>
   <string name="opening">开局</string>
   <string name="middlegame">中盘</string>
   <string name="endgame">残局</string>
+  <string name="registerToSendChallenges">发送挑战请注册。</string>
+  <string name="youCannotChallengeX">你不能挑战%s。</string>
+  <string name="xDoesNotAcceptChallenges">%s不接受挑战。</string>
+  <string name="yourXRatingIsTooFarFromY">您的%1$s积分与%2$s相差过远。</string>
+  <string name="cannotChallengeDueToProvisionalXRating">因暂时的%s评级，不能挑战。</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s只接受朋友的挑战。</string>
+  <string name="conditionalPremoves">条件预先走棋</string>
+  <string name="addCurrentVariation">添加当前变着</string>
+  <string name="playVariationToCreateConditionalPremoves">进入变着以创建条件预先走棋</string>
+  <string name="noConditionalPremoves">没有条件预先走棋</string>
+  <string name="playX">走%s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="other">并保存%s条预先走棋线</item>
+  </plurals>
 </resources>

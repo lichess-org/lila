@@ -753,7 +753,7 @@ en %3$s</string>
   <string name="embedInYourWebsite">Intégrer dans votre site web</string>
   <string name="usernameAlreadyUsed">Ce nom d\'utilisateur existe déjà. Merci d\'en choisir un autre.</string>
   <string name="usernameInvalid">Nom d\'utilisateur invalide. Veullez utiliser seulement des lettres, chiffres, underscore et tirets.</string>
-  <string name="usernameStartNoNumber">Le premier caractère du nom ne peut pas être un chiffre.</string>
+  <string name="usernameStartNoNumber">Le nom d\'utilisateur ne doit pas commencer par un chiffre.</string>
   <string name="usernameUnacceptable">Ce nom d\'utilisateur existe déjà ou est insultant.</string>
   <string name="directlySupportLichess">Financer Lichess</string>
   <string name="playChessInStyle">Jouez aux échecs avec classe</string>
@@ -799,7 +799,7 @@ en %3$s</string>
   <string name="tryAnotherMoveForWhite">Essayez un autre coup pour les Blancs</string>
   <string name="tryAnotherMoveForBlack">Essayez un autre coup pour les Noirs</string>
   <string name="solution">Solution</string>
-  <string name="waitingForAnalysis">En cours d\'analyse</string>
+  <string name="waitingForAnalysis">En attente d\'analyse</string>
   <string name="noMistakesFoundForWhite">Pas d\'erreur trouvée pour les Blancs</string>
   <string name="noMistakesFoundForBlack">Pas d\'erreur trouvée pour les Noirs</string>
   <string name="doneReviewingWhiteMistakes">Fin d\'examen des erreurs des Blancs</string>
@@ -827,7 +827,7 @@ en %3$s</string>
   <string name="noConditionalPremoves">Pas de précoups conditionnels</string>
   <string name="playX">Jouer %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">et enregistrer %s la variante de précoups</item>
+    <item quantity="one">et enregistrer les %s premiers coups</item>
     <item quantity="other">et enregistrer %s les variantes de précoups</item>
   </plurals>
 </resources>

@@ -769,6 +769,10 @@
   <string name="notifications">Notifikationer</string>
   <string name="challenges">Utmaningar</string>
   <string name="perfRatingX">Rating: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekunder kvar för att spela första draget</item>
+    <item quantity="other">%s sekunder kvar för att spela första draget</item>
+  </plurals>
   <string name="practiceWithComputer">Öva med datormotståndare</string>
   <string name="anotherWasX">Ett alternativt bra drag var %s</string>
   <string name="bestWasX">Bästa draget var %s</string>
@@ -804,6 +808,10 @@
 </string>
   <string name="reviewBlackMistakes">Granska svarts misstag</string>
   <string name="advantage">Fördel</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekunder</item>
+    <item quantity="other">%s av sekunder</item>
+  </plurals>
   <string name="opening">Öppning</string>
   <string name="middlegame">Mittparti</string>
   <string name="endgame">Slutspel</string>
@@ -811,7 +819,15 @@
   <string name="youCannotChallengeX">Du kan inte utmana %s.</string>
   <string name="xDoesNotAcceptChallenges">%s accepterar inte utmaningar.</string>
   <string name="yourXRatingIsTooFarFromY">Din %1$s rating är för långt från %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Ingen utmaning eftersom det bara finns en temporär %s värdering.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accepterar utmaningar endast från vänner.</string>
+  <string name="conditionalPremoves">Villkorade förhandsdrag</string>
   <string name="addCurrentVariation">Addera aktuell variant</string>
+  <string name="playVariationToCreateConditionalPremoves">Spela en variant för att skapa villkorade förhandsdrag</string>
+  <string name="noConditionalPremoves">Inga villkorade förhandsdrag</string>
   <string name="playX">Spela %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">och spara %s linje av förhandsdrag</item>
+    <item quantity="other">och spara %s linje av förhandsdrag</item>
+  </plurals>
 </resources>

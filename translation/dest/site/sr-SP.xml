@@ -242,12 +242,12 @@
   <plurals name="nbRated">
     <item quantity="one">%s рангирана</item>
     <item quantity="few">%s рангиране</item>
-    <item quantity="other">%s рангирано</item>
+    <item quantity="other">%s рангираних</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s победа</item>
     <item quantity="few">%s победе</item>
-    <item quantity="other">%s победе</item>
+    <item quantity="other">%s победа</item>
   </plurals>
   <plurals name="nbLosses">
     <item quantity="one">%s пораз</item>
@@ -265,16 +265,16 @@
     <item quantity="other">%s играју</item>
   </plurals>
   <string name="exportGames">Извоз партија</string>
-  <string name="ratingRange">ЕЛО ранг</string>
+  <string name="ratingRange">Опсег рејтинга</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Додај %s секунд</item>
-    <item quantity="few">Додај %s секунди</item>
+    <item quantity="few">Додај %s секунде</item>
     <item quantity="other">Додај %s секунди</item>
   </plurals>
   <string name="giveMoreTime">Додај још времена</string>
   <string name="thisPlayerUsesChessComputerAssistance">Овај играч користи помоћ рачунара</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovi igrači veštački uvećavaju svoj rejting</string>
-  <string name="openingExplorerAndTablebase">отвори претраживач и базе</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ови играчи вештачки увећавају свој рејтинг</string>
+  <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
   <string name="takeback">Повлачење потеза</string>
   <string name="proposeATakeback">Предложи повлачење потеза</string>
   <string name="takebackPropositionSent">Предлог повлачења потеза је послат</string>
@@ -282,12 +282,12 @@
   <string name="takebackPropositionAccepted">Предлог повлачења потеза је прихваћен</string>
   <string name="takebackPropositionCanceled">Предлог повлачења потеза је отказан</string>
   <string name="yourOpponentProposesATakeback">Противник предлаже повлачење потеза</string>
-  <string name="bookmarkThisGame">Обележите ову партију</string>
-  <string name="search">Тражи</string>
+  <string name="bookmarkThisGame">Забележите ову партију</string>
+  <string name="search">Претрага</string>
   <string name="advancedSearch">Напредна претрага</string>
   <string name="tournament">Tурнир</string>
   <string name="tournaments">Турнири</string>
-  <string name="tournamentPoints">Поени на такмичењима</string>
+  <string name="tournamentPoints">Поени на турнирима</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s турнирски поен</item>
     <item quantity="few">%s турнирска поена</item>
@@ -327,7 +327,7 @@
   <string name="teams">Тимови</string>
   <plurals name="nbMembers">
     <item quantity="one">%s члан</item>
-    <item quantity="few">%s чланова</item>
+    <item quantity="few">%s члана</item>
     <item quantity="other">%s чланова</item>
   </plurals>
   <string name="allTeams">Сви тимови</string>
@@ -342,28 +342,28 @@
   <string name="teamLeader">Вођа тима</string>
   <string name="teamBestPlayers">Најбољи играчи тима</string>
   <string name="teamRecentMembers">Скорашњи чланови тима</string>
-  <string name="xJoinedTeamY">%1$s придружио се тиму %2$s</string>
-  <string name="xCreatedTeamY">%1$s креирао тим %2$s</string>
-  <string name="averageElo">Просечни ЕЛО рејтинг</string>
+  <string name="xJoinedTeamY">%1$s придружио/ла се тиму %2$s</string>
+  <string name="xCreatedTeamY">%1$s креирао/ла тим %2$s</string>
+  <string name="averageElo">Просечан рејтинг</string>
   <string name="location">Локација</string>
   <string name="settings">Подешавања</string>
   <string name="filterGames">Филтрирај партије</string>
-  <string name="reset">Рестарт</string>
+  <string name="reset">Ресетуј</string>
   <string name="apply">Примени</string>
   <string name="leaderboard">Табела</string>
-  <string name="pasteTheFenStringHere">Убаци FEN низ овде</string>
-  <string name="pasteThePgnStringHere">Убаци PGN низ овде</string>
+  <string name="pasteTheFenStringHere">Убаци FEN текст овде</string>
+  <string name="pasteThePgnStringHere">Убаци PGN текст овде</string>
   <string name="fromPosition">Од позиције</string>
   <string name="continueFromHere">Настави одавде</string>
   <string name="importGame">Увези игру</string>
   <string name="importGameExplanation">Кад прекопирате партију у PGN-у, отвори се табла за поновно проигравање, рачунарска анализа, прозор за ћаскање и адреса странице.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s увезена игра</item>
-    <item quantity="few">%s увезених игара</item>
+    <item quantity="few">%s увезене игре</item>
     <item quantity="other">%s увезених игара</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Ово је шаховски КАПЧА.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Кликни на таблу и направи потез да би доказао да си људско биће.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Кликни на таблу и направи потез да би доказао да си човек.</string>
   <string name="captcha.fail">Решите \"капча\" шаховски проблем.</string>
   <string name="notACheckmate">Није шахмат</string>
   <string name="colorPlaysCheckmateInOne">%s играј, шахмат у једном потезу</string>
@@ -372,7 +372,7 @@
   <string name="onlineFriends">Пријатељи на мрежи</string>
   <string name="noFriendsOnline">Нема пријатеља на мрежи</string>
   <string name="findFriends">Нађи пријатеље</string>
-  <string name="favoriteOpponents">омиљени противници</string>
+  <string name="favoriteOpponents">Омиљени противници</string>
   <string name="follow">Прати</string>
   <string name="following">Праћен</string>
   <string name="unfollow">Не прати</string>

@@ -176,7 +176,7 @@
   <string name="rankIsUpdatedEveryXMinutes">A clasificación actualízase cada %s minutos</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problema</item>
-    <item quantity="other">%s problema</item>
+    <item quantity="other">%s problemas</item>
   </plurals>
   <string name="gamesPlayed">Partidas xogadas</string>
   <plurals name="nbGamesWithYou">
