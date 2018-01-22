@@ -29,6 +29,17 @@ class HuffmanPgnTest extends Specification {
       asScalaSet(decoded.unmovedRooks) must_== Set(0, 7, 56)
     }
 
+    "last uci" in {
+      val pgnMoves = "e4 e5 Nf3 Nc6 Bc4 Nf6 d4 exd4 O-O Bc5 e5 d5 exf6 dxc4 Re1+ Be6 Ng5 Qxf6 Nxe6 Qxe6".split(" ")
+      val encoded = GameEncoder.encode(pgnMoves)
+
+      val empty = GameEncoder.decode(encoded, 0)
+      Option(empty.lastUci) must_== None
+
+      val decoded = GameEncoder.decode(encoded, pgnMoves.size)
+      Option(decoded.lastUci) must_== Some("f6e6")
+    }
+
     "position hash 1. e4 d5 2. e5 f5 3. Ke2 Kf7" in {
       val pgnMoves = "e4 d5 e5 f5 Ke2 Kf7".split(" ")
       val encoded = GameEncoder.encode(pgnMoves)

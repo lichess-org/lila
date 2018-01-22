@@ -65,11 +65,18 @@ final class Move implements Comparable<Move> {
     }
 
     public String uci() {
-        StringBuilder builder = new StringBuilder(4);
+        int to = this.to;
+
+        // Select the king target square instead.
+        if (this.type == CASTLING) {
+            to = Square.combine(this.to < this.from ? Square.C1 : Square.G1, this.from);
+        }
+
+        StringBuilder builder = new StringBuilder(this.promotion == null ? 4 : 5);
         builder.append((char) (Square.file(this.from) + 'a'));
         builder.append((char) (Square.rank(this.from) + '1'));
-        builder.append((char) (Square.file(this.to) + 'a'));
-        builder.append((char) (Square.file(this.to) + '1'));
+        builder.append((char) (Square.file(to) + 'a'));
+        builder.append((char) (Square.rank(to) + '1'));
         if (this.promotion != null) builder.append(this.promotion.symbol.toLowerCase());
         return builder.toString();
     }
