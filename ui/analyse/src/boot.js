@@ -36,41 +36,45 @@ module.exports = function(element, cfg) {
       point.select(false);
     });
   };
-  var lastFen, lastPly;
+  var lastFen;
 
   lichess.pubsub.on('analysis.change', function(fen, path, mainlinePly) {
-    if (lastPly === mainlinePly) return;
-    lastPly = typeof mainlinePly === 'undefined' ? lastPly : mainlinePly;
     var chart, point, $chart = $("#adv_chart");
     if (fen && fen !== lastFen) {
       inputFen.value = fen;
       lastFen = fen;
     }
-    if ($chart.length) try {
-      chart = $chart.highcharts();
+    if ($chart.length) {
+      chart = window.Highcharts && $chart.highcharts();
       if (chart) {
-        if (lastPly === false) unselect(chart);
-        else {
-          point = chart.series[0].data[lastPly - 1 - cfg.data.game.startedAtTurn];
-          if (defined(point)) point.select();
-          else unselect(chart);
+        if (mainlinePly != chart.lastPly) {
+          if (mainlinePly === false) unselect(chart);
+          else {
+            point = chart.series[0].data[mainlinePly - 1 - cfg.data.game.startedAtTurn];
+            if (defined(point)) point.select();
+            else unselect(chart);
+          }
         }
+        chart.lastPly = mainlinePly;
       }
-    } catch (e) {}
-    if ($timeChart.length) try {
+    }
+    if ($timeChart.length) {
       chart = window.Highcharts && $timeChart.highcharts();
       if (chart) {
-        if (lastPly === false) unselect(chart);
-        else {
-          var white = lastPly % 2 !== 0;
-          var serie = white ? 0 : 1;
-          var turn = Math.floor((lastPly - 1 - cfg.data.game.startedAtTurn) / 2);
-          point = chart.series[serie].data[turn];
-          if (defined(point)) point.select();
-          else unselect(chart);
+        if (mainlinePly != chart.lastPly) {
+          if (mainlinePly === false) unselect(chart);
+          else {
+            var white = mainlinePly % 2 !== 0;
+            var serie = white ? 0 : 1;
+            var turn = Math.floor((mainlinePly - 1 - cfg.data.game.startedAtTurn) / 2);
+            point = chart.series[serie].data[turn];
+            if (defined(point)) point.select();
+            else unselect(chart);
+          }
         }
+        chart.lastPly = mainlinePly;
       }
-    } catch (e) {}
+    }
   });
   cfg.onToggleComputer = function(v) {
     setTimeout(function() {
@@ -94,9 +98,9 @@ module.exports = function(element, cfg) {
 
   var chartLoader = function() {
     return '<div id="adv_chart_loader">' +
-      '<span>' + lichess.engineName + '<br>server analysis</span>' +
-      lichess.spinnerHtml +
-      '</div>'
+    '<span>' + lichess.engineName + '<br>server analysis</span>' +
+    lichess.spinnerHtml +
+    '</div>'
   };
   var startAdvantageChart = function() {
     if (lichess.advantageChart) return;

@@ -12,6 +12,7 @@ export interface ServerEvalCtrl {
   onMergeAnalysisData(): void;
   chartEl: Prop<HTMLElement | null>;
   reset(): void;
+  lastPly: Prop<number | false>;
 }
 
 const li = window.lichess;
@@ -41,9 +42,9 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
             if (defined(point)) point.select();
             else unselect(chart);
           }
-        }
+        } else lastPly(false);
       }
-    }
+    } else lastPly(false);
   });
 
   return {
@@ -51,7 +52,6 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
     reset() {
       requested(false);
       lastPly(false);
-      chartEl(null);
     },
     chapterId,
     onMergeAnalysisData() {
@@ -62,6 +62,7 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
       requested(true);
     },
     requested,
+    lastPly,
     chartEl
   };
 }
@@ -73,6 +74,7 @@ export function view(ctrl: ServerEvalCtrl): VNode {
   return h('div.server_eval.ready.' + ctrl.chapterId(), {
     hook: {
       insert(vnode) {
+        ctrl.lastPly(false);
         li.requestIdleCallback(() => {
           li.loadScript('/assets/javascripts/chart/acpl.js').then(() => {
             li.advantageChart(ctrl.root.data, ctrl.root.trans, vnode.elm as HTMLElement);
