@@ -26,6 +26,13 @@ class HuffmanPgnTest extends Specification {
       asScalaSet(unmovedRooks) must_== Set(Pos.A1, Pos.H1, Pos.A8)
     }
 
+    "position hashes" in {
+      val pgnMoves = "Nf3 d5 Ne5 Nf6 Ng4 Bf5".split(" ")
+      val encoded = GameEncoder.encode(pgnMoves)
+      val (_, _, _, positionHashes) = GameEncoder.decode(encoded, pgnMoves.size)
+      positionHashes.size must_== 3 * 5
+    }
+
     "pass perft test" in {
       // Running the entire suite can take minutes.
 
