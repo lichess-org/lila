@@ -129,7 +129,7 @@ object Syncache {
   sealed trait Strategy
   case object NeverWait extends Strategy
   case class AlwaysWait(duration: FiniteDuration) extends Strategy
-  case class WaitAfterUptime(duration: FiniteDuration, uptimeSeconds: Int = 12) extends Strategy
+  case class WaitAfterUptime(duration: FiniteDuration, uptimeSeconds: Int = 20) extends Strategy
 
   sealed trait ExpireAfter
   case class ExpireAfterAccess(duration: FiniteDuration) extends ExpireAfter
