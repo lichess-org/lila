@@ -26,7 +26,7 @@ object BinaryFormat {
   case class OldBinPgn(bytes: ByteArray) extends BinPgn {
     def decode(plies: Int, pieces: Option[PieceMap]) =
       format.pgn.Binary.readMoves(bytes.value.toList, plies).get.toVector ->
-        pieces.err("Missing binary pieces for game encoding moves will old binary format!")
+        pieces.err("Missing binary pieces for game encoding moves with old binary format!")
     def update(moves: PgnMoves) = OldBinPgn {
       format.pgn.Binary.writeMoves(moves).get
     }
