@@ -1,5 +1,8 @@
 package org.lichess.compression.game;
 
+import java.util.Set;
+import java.util.HashSet;
+
 class Bitboard {
     public static final long ALL = -1;
 
@@ -124,5 +127,15 @@ class Bitboard {
 
     public static boolean contains(long b, int sq) {
         return (b & (1L << sq)) != 0;
+    }
+
+    public static Set squareSet(long b) {
+        HashSet<Integer> set = new HashSet<Integer>();
+        while (b != 0) {
+            int sq = lsb(b);
+            set.add(sq);
+            b ^= 1L << sq;
+        }
+        return set;
     }
 }

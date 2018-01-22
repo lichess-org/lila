@@ -1,6 +1,6 @@
 package org.lichess.compression.game;
 
-enum Role {
+public enum Role {
     PAWN(0, ""),
     KNIGHT(1, "N"),
     BISHOP(2, "B"),
