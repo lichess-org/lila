@@ -48,10 +48,8 @@ private[challenge] final class Joiner(onStart: String => Unit) {
               state.fold(g) {
                 case sit @ SituationPlus(Situation(board, _), _) => g.copy(
                   variant = chess.variant.FromPosition,
-                  castleLastMoveTime = g.castleLastMoveTime.copy(
-                    lastMove = board.history.lastMove.map(_.origDest),
-                    castles = board.history.castles
-                  ),
+                  lastMove = board.history.lastMove,
+                  castles = board.history.castles,
                   turns = sit.turns
                 )
               }

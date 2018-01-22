@@ -40,7 +40,7 @@ final class LobbyApi(
     "gameId" -> pov.gameId,
     "fen" -> (chess.format.Forsyth exportBoard pov.game.toChess.board),
     "color" -> pov.color.name,
-    "lastMove" -> ~pov.game.castleLastMoveTime.lastMoveString,
+    "lastMove" -> ~pov.game.lastMoveKeys,
     "variant" -> Json.obj(
       "key" -> pov.game.variant.key,
       "name" -> pov.game.variant.name

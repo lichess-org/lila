@@ -62,12 +62,12 @@ private[game] object GameDiff {
         d(binaryPieces, _.pieces, writeBytes compose BinaryFormat.piece.write)
         d(positionHashes, _.positionHashes, w.bytes)
         d(unmovedRooks, _.unmovedRooks, writeBytes compose BinaryFormat.unmovedRooks.write)
+        d(castleLastMove, makeCastleLastMove, CastleLastMove.castleLastMoveBSONHandler.write)
       case f @ PgnStorage.Huffman =>
         d(huffmanPgn, _.pgnMoves, writeBytes compose f.encode)
     }
     d(status, _.status.id, w.int)
     d(turns, _.turns, w.int)
-    d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)
     dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o map ByteArrayBSONHandler.write)
     dOpt(whiteClockHistory, getClockHistory(White), clockHistoryToBytes)
     dOpt(blackClockHistory, getClockHistory(Black), clockHistoryToBytes)
@@ -95,4 +95,10 @@ private[game] object GameDiff {
   private val bTrue = BSONBoolean(true)
 
   private val writeBytes = ByteArrayBSONHandler.write _
+
+  private def makeCastleLastMove(g: Game) = CastleLastMove(
+    lastMove = g.lastMove,
+    castles = g.castles,
+    check = g.check
+  )
 }

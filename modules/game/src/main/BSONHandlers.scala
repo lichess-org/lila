@@ -79,13 +79,18 @@ object BSONHandlers {
       val gameVariant = Variant(r intD variant) | chess.variant.Standard
       val plies = r int turns
 
-      val decoded = r.bytesO(huffmanPgn).map { PgnStorage.Huffman.decode(_, plies) } getOrElse PgnStorage.Decoded(
-        pgnMoves = PgnStorage.OldBin.decode(r bytesD oldPgn, plies),
-        pieces = BinaryFormat.piece.read(r bytes binaryPieces, gameVariant),
-        positionHashes = r.getO[chess.PositionHash](positionHashes) | Array.empty,
-        unmovedRooks = r.getO[UnmovedRooks](unmovedRooks) | UnmovedRooks.default,
-        format = PgnStorage.OldBin
-      )
+      val decoded = r.bytesO(huffmanPgn).map { PgnStorage.Huffman.decode(_, plies) } | {
+        val clm = r.get[CastleLastMove](castleLastMove)
+        PgnStorage.Decoded(
+          pgnMoves = PgnStorage.OldBin.decode(r bytesD oldPgn, plies),
+          pieces = BinaryFormat.piece.read(r bytes binaryPieces, gameVariant),
+          positionHashes = r.getO[chess.PositionHash](positionHashes) | Array.empty,
+          unmovedRooks = r.getO[UnmovedRooks](unmovedRooks) | UnmovedRooks.default,
+          lastMove = clm.lastMove,
+          castles = clm.castles,
+          format = PgnStorage.OldBin
+        )
+      }
 
       val g = Game(
         id = r str id,
@@ -95,6 +100,8 @@ object BSONHandlers {
         pieces = decoded.pieces,
         positionHashes = decoded.positionHashes,
         unmovedRooks = decoded.unmovedRooks,
+        lastMove = decoded.lastMove,
+        castles = decoded.castles,
         pgnStorage = decoded.format,
         status = r.get[Status](status),
         turns = plies,
@@ -103,7 +110,6 @@ object BSONHandlers {
           val counts = r.intsD(checkCount)
           CheckCount(~counts.headOption, ~counts.lastOption)
         },
-        castleLastMoveTime = r.get[CastleLastMoveTime](castleLastMoveTime)(CastleLastMoveTime.castleLastMoveTimeBSONHandler),
         daysPerTurn = r intO daysPerTurn,
         binaryMoveTimes = r bytesO moveTimes,
         mode = Mode(r boolD rated),
@@ -147,7 +153,6 @@ object BSONHandlers {
       startedAtTurn -> w.intO(o.startedAtTurn),
       clock -> (o.clock map { c => clockBSONWrite(o.createdAt, c) }),
       checkCount -> o.checkCount.nonEmpty.option(o.checkCount),
-      castleLastMoveTime -> CastleLastMoveTime.castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
       daysPerTurn -> o.daysPerTurn,
       moveTimes -> o.binaryMoveTimes,
       whiteClockHistory -> clockHistory(White, o.clockHistory, o.clock, o.flagged),
@@ -171,7 +176,12 @@ object BSONHandlers {
             oldPgn -> f.encode(o.pgnMoves),
             binaryPieces -> BinaryFormat.piece.write(o.pieces),
             positionHashes -> o.positionHashes,
-            unmovedRooks -> o.unmovedRooks
+            unmovedRooks -> o.unmovedRooks,
+            castleLastMove -> CastleLastMove.castleLastMoveBSONHandler.write(CastleLastMove(
+              castles = o.castles,
+              lastMove = o.lastMove,
+              check = o.toChess.situation.checkSquare
+            ))
           )
           case f @ PgnStorage.Huffman => $doc(
             huffmanPgn -> f.encode(o.pgnMoves)

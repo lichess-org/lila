@@ -9,14 +9,14 @@ import lila.db.ByteArray
 class BinaryCLMTTest extends Specification {
 
   val _0_ = "00000000"
-  def write(all: CastleLastMoveTime): List[String] =
-    (BinaryFormat.castleLastMoveTime write all).showBytes.split(',').toList
-  def read(bytes: List[String]): CastleLastMoveTime =
-    BinaryFormat.castleLastMoveTime read ByteArray.parseBytes(bytes)
+  def write(all: CastleLastMove): List[String] =
+    (BinaryFormat.castleLastMove write all).showBytes.split(',').toList
+  def read(bytes: List[String]): CastleLastMove =
+    BinaryFormat.CastleLastMove read ByteArray.parseBytes(bytes)
 
-  "binary CastleLastMoveTime" should {
+  "binary CastleLastMove" should {
     "write" in {
-      val clmt = CastleLastMoveTime.init
+      val clmt = CastleLastMove.init
       write(clmt) must_== {
         "11110000" :: _0_ :: Nil
       }
@@ -43,7 +43,7 @@ class BinaryCLMTTest extends Specification {
       }
     }
     "read" in {
-      val clmt = CastleLastMoveTime.init
+      val clmt = CastleLastMove.init
       read("11110000" :: _0_ :: List.fill(3)(_0_)) must_== {
         clmt
       }

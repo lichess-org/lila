@@ -20,12 +20,13 @@ case class Game(
     pieces: PieceMap,
     positionHashes: PositionHash,
     unmovedRooks: UnmovedRooks,
+    lastMove: Option[Uci],
+    castles: Castles,
     pgnStorage: PgnStorage,
     status: Status,
     turns: Int, // = ply
     startedAtTurn: Int,
     clock: Option[Clock] = None,
-    castleLastMoveTime: CastleLastMoveTime,
     daysPerTurn: Option[Int],
     checkCount: CheckCount = CheckCount(0, 0),
     binaryMoveTimes: Option[ByteArray] = None,
@@ -169,10 +170,8 @@ case class Game(
   )
 
   lazy val toChessHistory = ChessHistory(
-    lastMove = castleLastMoveTime.lastMove map {
-      case (orig, dest) => Uci.Move(orig, dest)
-    },
-    castles = castleLastMoveTime.castles,
+    lastMove = lastMove,
+    castles = castles,
     positionHashes = positionHashes,
     checkCount = checkCount,
     unmovedRooks = unmovedRooks
@@ -200,14 +199,11 @@ case class Game(
       pieces = game.board.pieces,
       positionHashes = history.positionHashes,
       unmovedRooks = game.board.unmovedRooks,
+      lastMove = history.lastMove,
+      castles = history.castles,
       turns = game.turns,
       checkCount = history.checkCount,
       crazyData = situation.board.crazyData,
-      castleLastMoveTime = CastleLastMoveTime(
-        castles = history.castles,
-        lastMove = history.lastMove.map(_.origDest),
-        check = situation.checkSquare
-      ),
       binaryMoveTimes = (!isPgnImport && !clock.isDefined).option {
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
@@ -254,7 +250,12 @@ case class Game(
     Progress(this, updated, events)
   }
 
-  def check = castleLastMoveTime.check
+  def check = toChess.situation.checkSquare
+
+  def lastMoveKeys: Option[String] = lastMove map {
+    case Uci.Drop(target, _) => s"$target$target"
+    case m: Uci.Move => m.keys
+  }
 
   def updatePlayer(color: Color, f: Player => Player) = color.fold(
     copy(whitePlayer = f(whitePlayer)),
@@ -666,12 +667,13 @@ object Game {
       pieces = game.board.pieces,
       positionHashes = game.board.history.positionHashes,
       unmovedRooks = game.board.unmovedRooks,
+      lastMove = none,
+      castles = game.board.history.castles,
       pgnStorage = PgnStorage(variant, List(whitePlayer.userId, blackPlayer.userId).flatten),
       status = Status.Created,
       turns = game.turns,
       startedAtTurn = game.startedAtTurn,
       clock = game.clock,
-      castleLastMoveTime = CastleLastMoveTime.init.copy(castles = game.board.history.castles),
       daysPerTurn = daysPerTurn,
       mode = mode,
       variant = variant,
@@ -706,7 +708,7 @@ object Game {
     val clock = "c"
     val positionHashes = "ph"
     val checkCount = "cc"
-    val castleLastMoveTime = "cl"
+    val castleLastMove = "cl"
     val unmovedRooks = "ur"
     val daysPerTurn = "cd"
     val moveTimes = "mt"
@@ -732,28 +734,28 @@ object Game {
   }
 }
 
-case class CastleLastMoveTime(
+case class CastleLastMove(
     castles: Castles,
-    lastMove: Option[(Pos, Pos)],
+    lastMove: Option[Uci],
     check: Option[Pos]
 ) {
 
-  def lastMoveString = lastMove map { case (a, b) => s"$a$b" }
+  def lastMoveString = lastMove map (_.origDest)
 }
 
-object CastleLastMoveTime {
+object CastleLastMove {
 
-  def init = CastleLastMoveTime(Castles.all, None, None)
+  def init = CastleLastMove(Castles.all, None, None)
 
   import reactivemongo.bson._
   import lila.db.ByteArray.ByteArrayBSONHandler
 
-  private[game] implicit val castleLastMoveTimeBSONHandler = new BSONHandler[BSONBinary, CastleLastMoveTime] {
-    def read(bin: BSONBinary) = BinaryFormat.castleLastMoveTime read {
+  private[game] implicit val castleLastMoveBSONHandler = new BSONHandler[BSONBinary, CastleLastMove] {
+    def read(bin: BSONBinary) = BinaryFormat.castleLastMove read {
       ByteArrayBSONHandler read bin
     }
-    def write(clmt: CastleLastMoveTime) = ByteArrayBSONHandler write {
-      BinaryFormat.castleLastMoveTime write clmt
+    def write(clmt: CastleLastMove) = ByteArrayBSONHandler write {
+      BinaryFormat.castleLastMove write clmt
     }
   }
 }

@@ -219,7 +219,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val cssClass = isLive ?? ("live live_" + game.id)
     val live = isLive ?? game.id
     val fen = Forsyth exportBoard game.toChess.board
-    val lastMove = ~game.castleLastMoveTime.lastMoveString
+    val lastMove = ~game.lastMoveKeys
     val variant = game.variant.key
     val tag = if (withLink) "a" else "span"
     s"""<$tag $href $title class="mini_board mini_board_${game.id} parse_fen is2d $cssClass $variant" data-live="$live" data-color="${pov.color.name}" data-fen="$fen" data-lastmove="$lastMove">$miniBoardContent</$tag>"""
@@ -236,7 +236,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       isLive ?? pov.game.id,
       pov.color.name,
       Forsyth exportBoard pov.game.toChess.board,
-      ~pov.game.castleLastMoveTime.lastMoveString,
+      ~pov.game.lastMoveKeys,
       blank ?? """ target="_blank""""
     )
   }

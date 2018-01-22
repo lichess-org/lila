@@ -68,7 +68,7 @@ final class JsonView(getLightUser: LightUser.Getter) {
     "id" -> g.id,
     "status" -> g.status.id,
     "fen" -> (chess.format.Forsyth exportBoard g.toChess.board),
-    "lastMove" -> ~g.castleLastMoveTime.lastMoveString,
+    "lastMove" -> ~g.lastMoveKeys,
     "orient" -> g.playerByUserId(hostId).map(_.color)
   )
 
