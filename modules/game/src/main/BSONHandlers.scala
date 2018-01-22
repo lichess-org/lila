@@ -83,7 +83,7 @@ object BSONHandlers {
         binaryPieces = r bytes binaryPieces,
         binaryPgn =
           (r bytesO huffmanPgn map BinaryFormat.HuffmanBinPgn.apply) orElse
-            (r bytesO oldPgn map BinaryFormat.OldBinPgn.apply) err s"No PGN moves for game ${r str id}",
+            (r bytesO oldPgn map BinaryFormat.OldBinPgn.apply) getOrElse BinaryFormat.OldBinPgn(lila.db.ByteArray.empty),
         status = r.get[Status](status),
         turns = r int turns,
         startedAtTurn = r intD startedAtTurn,
