@@ -8,6 +8,9 @@ import chess.Pos
 
 class HuffmanPgnTest extends Specification {
 
+  def hexToBytes(str: String) =
+    str.grouped(2).map(cc => Integer.parseInt(cc, 16).toByte).toArray
+
   "game compression" should {
     "compress and decompress" in {
       forall(fixtures) { pgn =>
@@ -29,8 +32,14 @@ class HuffmanPgnTest extends Specification {
     "position hashes" in {
       val pgnMoves = "Nf3 d5 Ne5 Nf6 Ng4 Bf5".split(" ")
       val encoded = GameEncoder.encode(pgnMoves)
-      val (_, _, _, positionHashes) = GameEncoder.decode(encoded, pgnMoves.size)
-      positionHashes.size must_== 3 * 5
+
+      val (_, _, _, h1) = GameEncoder.decode(encoded, 0)
+      h1 must_== hexToBytes("91fc9c")
+      /*
+      val pgnMoves = "Nf3 d5 Ne5 Nf6 Ng4 Bf5".split(" ")
+      val encoded = GameEncoder.encode(pgnMoves)
+      val (_, _, _, h2) = GameEncoder.decode(encoded, pgnMoves.size)
+      h2.size must_== 3 * 5 */
     }
 
     "pass perft test" in {
