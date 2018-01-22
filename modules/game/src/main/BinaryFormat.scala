@@ -8,72 +8,12 @@ import scala.util.Try
 
 import chess.variant.Variant
 import chess.{ ToOptionOpsFromOption => _, _ }
+import org.lichess.compression.clock.{ Encoder => ClockEncoder }
 
 import lila.common.Chronometer
 import lila.db.ByteArray
 
-import org.lichess.compression.clock.{ Encoder => ClockEncoder }
-import org.lichess.compression.game.{ Encoder => HuffmanEncoder }
-
 object BinaryFormat {
-
-  sealed trait BinPgn {
-    def bytes: ByteArray
-    def decode(plies: Int, pieces: Option[PieceMap]): (PgnMoves, PieceMap)
-    def update(moves: PgnMoves): BinPgn
-    def isHuffman: Boolean
-    def requiresPieces = !isHuffman
-
-    protected def monitor[A](mon: lila.mon.game.pgn.Protocol)(f: => A): A = {
-      mon.count()
-      lila.mon.measureRec(mon.time)(f)
-    }
-  }
-  case class OldBinPgn(bytes: ByteArray) extends BinPgn {
-    def decode(plies: Int, pieces: Option[PieceMap]) = monitor(lila.mon.game.pgn.oldBin.decode) {
-      format.pgn.Binary.readMoves(bytes.value.toList, plies).get.toVector ->
-        pieces.err("Missing binary pieces for game encoding moves with old binary format!")
-    }
-    def update(moves: PgnMoves) = OldBinPgn {
-      monitor(lila.mon.game.pgn.oldBin.encode) {
-        format.pgn.Binary.writeMoves(moves).get
-      }
-    }
-    def isHuffman = false
-  }
-  case class HuffmanBinPgn(bytes: ByteArray) extends BinPgn {
-    import scala.collection.JavaConversions.mapAsScalaMap
-    def decode(plies: Int, unusedPieces: Option[PieceMap]) = monitor(lila.mon.game.pgn.huffman.decode) {
-      HuffmanEncoder.decode(bytes.value, plies) match {
-        case (pgn, pieces, _, _) => pgn.toVector -> mapAsScalaMap(pieces).toMap
-      }
-    }
-    def update(moves: PgnMoves) = HuffmanBinPgn {
-      monitor(lila.mon.game.pgn.huffman.encode) {
-        HuffmanEncoder.encode(moves.toArray)
-      }
-    }
-    def isHuffman = true
-  }
-  object BinPgn {
-    private val betaTesters = Set("thibault", "revoof", "isaacly")
-    private def shouldUseHuffman(variant: Variant, playerUserIds: List[lila.user.User.ID]) = variant.standard && {
-      try {
-        lila.game.Env.current.pgnEncodingSetting.get() match {
-          case "all" => true
-          case "beta" if playerUserIds.exists(betaTesters.contains) => true
-          case _ => false
-        }
-      } catch {
-        case e: Throwable =>
-          println(e)
-          false // breaks in tests. The shouldUseHuffman function is temporary anyway
-      }
-    }
-    private[game] def empty(variant: Variant, playerUserIds: List[lila.user.User.ID]) =
-      if (shouldUseHuffman(variant, playerUserIds)) HuffmanBinPgn(ByteArray.empty)
-      else OldBinPgn(ByteArray.empty)
-  }
 
   object pgn {
 

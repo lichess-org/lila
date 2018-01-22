@@ -8,6 +8,7 @@ import chess.variant.{ Variant, Crazyhouse }
 import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRooks }
 
 import lila.db.BSON
+import lila.db.dsl._
 
 object BSONHandlers {
 
@@ -75,30 +76,38 @@ object BSONHandlers {
         val win = winC map (_ == color)
         builder(color)(id)(uid)(win)
       }
-      val binaryPgn = (r bytesO huffmanPgn map BinaryFormat.HuffmanBinPgn.apply) orElse
-        (r bytesO oldPgn map BinaryFormat.OldBinPgn.apply) getOrElse
-        BinaryFormat.OldBinPgn(lila.db.ByteArray.empty)
+      val gameVariant = Variant(r intD variant) | chess.variant.Standard
+      val plies = r int turns
+
+      val decoded = r.bytesO(huffmanPgn).map { PgnStorage.Huffman.decode(_, plies) } getOrElse PgnStorage.Decoded(
+        pgnMoves = PgnStorage.OldBin.decode(r bytesD oldPgn, plies),
+        pieces = BinaryFormat.piece.read(r bytes binaryPieces, gameVariant),
+        positionHashes = r.getO[chess.PositionHash](positionHashes) | Array.empty,
+        unmovedRooks = r.getO[UnmovedRooks](unmovedRooks) | UnmovedRooks.default,
+        format = PgnStorage.OldBin
+      )
 
       val g = Game(
         id = r str id,
         whitePlayer = player(whitePlayer, White, whiteId, whiteUid),
         blackPlayer = player(blackPlayer, Black, blackId, blackUid),
-        binaryPieces = binaryPgn.requiresPieces ?? (r bytesO binaryPieces),
-        binaryPgn = binaryPgn,
+        pgnMoves = decoded.pgnMoves,
+        pieces = decoded.pieces,
+        positionHashes = decoded.positionHashes,
+        unmovedRooks = decoded.unmovedRooks,
+        pgnStorage = decoded.format,
         status = r.get[Status](status),
-        turns = r int turns,
+        turns = plies,
         startedAtTurn = r intD startedAtTurn,
-        positionHashes = r.bytesD(positionHashes).value,
         checkCount = {
           val counts = r.intsD(checkCount)
           CheckCount(~counts.headOption, ~counts.lastOption)
         },
         castleLastMoveTime = r.get[CastleLastMoveTime](castleLastMoveTime)(CastleLastMoveTime.castleLastMoveTimeBSONHandler),
-        unmovedRooks = r.getO[UnmovedRooks](unmovedRooks) | UnmovedRooks.default,
         daysPerTurn = r intO daysPerTurn,
         binaryMoveTimes = r bytesO moveTimes,
         mode = Mode(r boolD rated),
-        variant = Variant(r intD variant) | chess.variant.Standard,
+        variant = gameVariant,
         next = r strO next,
         bookmarks = r intD bookmarks,
         createdAt = r date createdAt,
@@ -133,23 +142,12 @@ object BSONHandlers {
       playerUids -> w.strListO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
       whitePlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.Id) => (_: Player.UserId) => (_: Player.Win) => o.whitePlayer)),
       blackPlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.Id) => (_: Player.UserId) => (_: Player.Win) => o.blackPlayer)),
-      binaryPieces -> o.binaryPieces,
-      oldPgn -> (o.binaryPgn match {
-        case BinaryFormat.OldBinPgn(bytes) => bytes.some
-        case _ => none
-      }),
-      huffmanPgn -> (o.binaryPgn match {
-        case BinaryFormat.HuffmanBinPgn(bytes) => bytes.some
-        case _ => none
-      }),
       status -> o.status,
       turns -> o.turns,
       startedAtTurn -> w.intO(o.startedAtTurn),
       clock -> (o.clock map { c => clockBSONWrite(o.createdAt, c) }),
-      positionHashes -> w.bytesO(o.positionHashes),
       checkCount -> o.checkCount.nonEmpty.option(o.checkCount),
       castleLastMoveTime -> CastleLastMoveTime.castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
-      unmovedRooks -> o.unmovedRooks,
       daysPerTurn -> o.daysPerTurn,
       moveTimes -> o.binaryMoveTimes,
       whiteClockHistory -> clockHistory(White, o.clockHistory, o.clock, o.flagged),
@@ -167,7 +165,19 @@ object BSONHandlers {
       simulId -> o.metadata.simulId,
       tvAt -> o.metadata.tvAt.map(w.date),
       analysed -> w.boolO(o.metadata.analysed)
-    )
+    ) ++ {
+        o.pgnStorage match {
+          case f @ PgnStorage.OldBin => $doc(
+            oldPgn -> f.encode(o.pgnMoves),
+            binaryPieces -> BinaryFormat.piece.write(o.pieces),
+            positionHashes -> o.positionHashes,
+            unmovedRooks -> o.unmovedRooks
+          )
+          case f @ PgnStorage.Huffman => $doc(
+            huffmanPgn -> f.encode(o.pgnMoves)
+          )
+        }
+      }
   }
 
   private def clockHistory(color: Color, clockHistory: Option[ClockHistory], clock: Option[Clock], flagged: Option[Color]) =

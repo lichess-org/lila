@@ -56,19 +56,21 @@ private[game] object GameDiff {
 
     val w = lila.db.BSON.writer
 
-    dOpt[Option[ByteArray], BSONBinary](binaryPieces, _.binaryPieces, _ map ByteArrayBSONHandler.write)
-    b.binaryPgn match {
-      case _: BinaryFormat.OldBinPgn => d(oldPgn, _.binaryPgn.bytes, ByteArrayBSONHandler.write)
-      case _: BinaryFormat.HuffmanBinPgn => d(huffmanPgn, _.binaryPgn.bytes, ByteArrayBSONHandler.write)
+    a.pgnStorage match {
+      case f @ PgnStorage.OldBin =>
+        d(oldPgn, _.pgnMoves, writeBytes compose f.encode)
+        d(binaryPieces, _.pieces, writeBytes compose BinaryFormat.piece.write)
+        d(positionHashes, _.positionHashes, w.bytes)
+        d(unmovedRooks, _.unmovedRooks, writeBytes compose BinaryFormat.unmovedRooks.write)
+      case f @ PgnStorage.Huffman =>
+        d(huffmanPgn, _.pgnMoves, writeBytes compose f.encode)
     }
     d(status, _.status.id, w.int)
     d(turns, _.turns, w.int)
     d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)
-    d(unmovedRooks, _.unmovedRooks, (x: UnmovedRooks) => ByteArrayBSONHandler.write(BinaryFormat.unmovedRooks write x))
     dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o map ByteArrayBSONHandler.write)
     dOpt(whiteClockHistory, getClockHistory(White), clockHistoryToBytes)
     dOpt(blackClockHistory, getClockHistory(Black), clockHistoryToBytes)
-    dOpt(positionHashes, _.positionHashes, w.bytesO)
     dOpt(clock, _.clock, (o: Option[Clock]) => o map { c =>
       BSONHandlers.clockBSONWrite(a.createdAt, c)
     })
@@ -91,4 +93,6 @@ private[game] object GameDiff {
   }
 
   private val bTrue = BSONBoolean(true)
+
+  private val writeBytes = ByteArrayBSONHandler.write _
 }

@@ -170,6 +170,7 @@ object BSON extends Handlers {
     def byteArrayO(b: ByteArray): Option[BSONBinary] =
       if (b.isEmpty) None else ByteArray.ByteArrayBSONHandler.write(b).some
     def bytesO(b: Array[Byte]): Option[BSONBinary] = byteArrayO(ByteArray(b))
+    def bytes(b: Array[Byte]): BSONBinary = BSONBinary(b, ByteArray.subtype)
     def strListO(list: List[String]): Option[List[String]] = list match {
       case Nil => None
       case List("") => None

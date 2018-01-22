@@ -4,7 +4,7 @@ import chess.Color.{ White, Black }
 import chess.format.{ Uci, FEN }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ Variant, Crazyhouse }
-import chess.{ MoveMetrics, History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks, Centis, Situation }
+import chess.{ PieceMap, MoveMetrics, History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks, Centis, Situation }
 import org.joda.time.DateTime
 
 import lila.common.Sequence
@@ -16,16 +16,17 @@ case class Game(
     id: String,
     whitePlayer: Player,
     blackPlayer: Player,
-    binaryPieces: Option[ByteArray],
-    binaryPgn: BinaryFormat.BinPgn,
+    pgnMoves: PgnMoves,
+    pieces: PieceMap,
+    positionHashes: PositionHash,
+    unmovedRooks: UnmovedRooks,
+    pgnStorage: PgnStorage,
     status: Status,
     turns: Int, // = ply
     startedAtTurn: Int,
     clock: Option[Clock] = None,
     castleLastMoveTime: CastleLastMoveTime,
-    unmovedRooks: UnmovedRooks,
     daysPerTurn: Option[Int],
-    positionHashes: PositionHash = Array(),
     checkCount: CheckCount = CheckCount(0, 0),
     binaryMoveTimes: Option[ByteArray] = None,
     clockHistory: Option[ClockHistory] = Option(ClockHistory()),
@@ -149,16 +150,6 @@ case class Game(
 
   def bothClockStates: Option[Vector[Centis]] = clockHistory.map(_ bothClockStates startColor)
 
-  private lazy val decodedMovesAndPieces: (PgnMoves, chess.PieceMap) = try {
-    binaryPgn.decode(turns, binaryPieces map { BinaryFormat.piece.read(_, variant) })
-  } catch {
-    case e: Exception => println(id); throw e;
-  }
-
-  def pgnMoves: PgnMoves = decodedMovesAndPieces._1
-
-  def openingPgnMoves(nb: Int): PgnMoves = pgnMoves take nb
-
   def pgnMoves(color: Color): PgnMoves = {
     val pivot = if (color == startColor) 0 else 1
     pgnMoves.zipWithIndex.collect {
@@ -168,10 +159,10 @@ case class Game(
 
   lazy val toChess: ChessGame = ChessGame(
     situation = Situation(
-      Board(decodedMovesAndPieces._2, toChessHistory, variant, crazyData),
+      Board(pieces, toChessHistory, variant, crazyData),
       Color.fromPly(turns)
     ),
-    pgnMoves = pgnMoves.toVector,
+    pgnMoves = pgnMoves,
     clock = clock,
     turns = turns,
     startedAtTurn = startedAtTurn
@@ -205,10 +196,11 @@ case class Game(
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
       blackPlayer = copyPlayer(blackPlayer),
-      binaryPieces = binaryPieces.isDefined option (BinaryFormat.piece write game.board.pieces),
-      binaryPgn = binaryPgn update game.pgnMoves,
-      turns = game.turns,
+      pgnMoves = game.pgnMoves,
+      pieces = game.board.pieces,
       positionHashes = history.positionHashes,
+      unmovedRooks = game.board.unmovedRooks,
+      turns = game.turns,
       checkCount = history.checkCount,
       crazyData = situation.board.crazyData,
       castleLastMoveTime = CastleLastMoveTime(
@@ -216,7 +208,6 @@ case class Game(
         lastMove = history.lastMove.map(_.origDest),
         check = situation.checkSquare
       ),
-      unmovedRooks = game.board.unmovedRooks,
       binaryMoveTimes = (!isPgnImport && !clock.isDefined).option {
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
@@ -667,22 +658,20 @@ object Game {
     daysPerTurn: Option[Int] = None
   ): Game = {
     var createdAt = DateTime.now
-    val binaryPgn = BinaryFormat.BinPgn.empty(variant, List(whitePlayer.userId, blackPlayer.userId).flatten)
     Game(
       id = IdGenerator.game,
       whitePlayer = whitePlayer,
       blackPlayer = blackPlayer,
-      binaryPieces = binaryPgn.requiresPieces option {
-        if (game.isStandardInit) BinaryFormat.piece.standard
-        else BinaryFormat.piece write game.board.pieces
-      },
-      binaryPgn = binaryPgn,
+      pgnMoves = Vector.empty,
+      pieces = game.board.pieces,
+      positionHashes = game.board.history.positionHashes,
+      unmovedRooks = game.board.unmovedRooks,
+      pgnStorage = PgnStorage(variant, List(whitePlayer.userId, blackPlayer.userId).flatten),
       status = Status.Created,
       turns = game.turns,
       startedAtTurn = game.startedAtTurn,
       clock = game.clock,
       castleLastMoveTime = CastleLastMoveTime.init.copy(castles = game.board.history.castles),
-      unmovedRooks = game.board.unmovedRooks,
       daysPerTurn = daysPerTurn,
       mode = mode,
       variant = variant,
