@@ -11,6 +11,7 @@ export interface ServerEvalCtrl {
   request(): void;
   onMergeAnalysisData(): void;
   chartEl: Prop<HTMLElement | null>;
+  reset(): void;
 }
 
 const li = window.lichess;
@@ -29,7 +30,7 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
     if (!li.advantageChart || lastPly() === mainlinePly) return;
     const lp = lastPly(typeof mainlinePly === 'undefined' ? lastPly() : mainlinePly),
     el = chartEl();
-    if (el && window.HighCharts) {
+    if (el && window.Highcharts) {
       const $chart = $(el);
       if ($chart.length) {
         const chart = $chart.highcharts();
@@ -47,6 +48,11 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
 
   return {
     root,
+    reset() {
+      requested(false);
+      lastPly(false);
+      chartEl(null);
+    },
     chapterId,
     onMergeAnalysisData() {
       if (li.advantageChart) li.advantageChart.update(root.data);

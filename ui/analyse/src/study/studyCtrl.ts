@@ -197,6 +197,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     vm.justSetChapterId = undefined;
 
     configurePractice();
+    serverEval.reset();
 
     redraw();
     ctrl.startCeval();
