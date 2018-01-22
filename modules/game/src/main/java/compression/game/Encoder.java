@@ -120,6 +120,7 @@ public class Encoder {
             }
         }
 
+        positionHashBuffer.flip();
         byte positionHashes[] = new byte[positionHashBuffer.remaining()];
         positionHashBuffer.get(positionHashes);
 
