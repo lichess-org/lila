@@ -63,7 +63,6 @@ object PgnStorage {
       case JavaRole.KING => King
     }
     private def javaPiece(piece: JavaPiece): Piece = Piece(Color(piece.white), javaRole(piece.role))
-
   }
 
   case class Decoded(
@@ -72,7 +71,7 @@ object PgnStorage {
       positionHashes: PositionHash, // irrelevant after game ends
       unmovedRooks: UnmovedRooks, // irrelevant after game ends
       lastMove: Option[Uci],
-      castles: Castles,
+      castles: Castles, // irrelevant after game ends
       format: PgnStorage
   )
 

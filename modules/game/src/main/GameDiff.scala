@@ -98,7 +98,6 @@ private[game] object GameDiff {
 
   private def makeCastleLastMove(g: Game) = CastleLastMove(
     lastMove = g.lastMove,
-    castles = g.castles,
-    check = g.check
+    castles = g.castles
   )
 }

@@ -734,18 +734,11 @@ object Game {
   }
 }
 
-case class CastleLastMove(
-    castles: Castles,
-    lastMove: Option[Uci],
-    check: Option[Pos]
-) {
-
-  def lastMoveString = lastMove map (_.origDest)
-}
+case class CastleLastMove(castles: Castles, lastMove: Option[Uci])
 
 object CastleLastMove {
 
-  def init = CastleLastMove(Castles.all, None, None)
+  def init = CastleLastMove(Castles.all, None)
 
   import reactivemongo.bson._
   import lila.db.ByteArray.ByteArrayBSONHandler

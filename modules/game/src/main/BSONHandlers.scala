@@ -179,8 +179,7 @@ object BSONHandlers {
             unmovedRooks -> o.unmovedRooks,
             castleLastMove -> CastleLastMove.castleLastMoveBSONHandler.write(CastleLastMove(
               castles = o.castles,
-              lastMove = o.lastMove,
-              check = o.toChess.situation.checkSquare
+              lastMove = o.lastMove
             ))
           )
           case f @ PgnStorage.Huffman => $doc(

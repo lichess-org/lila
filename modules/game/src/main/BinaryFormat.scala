@@ -179,31 +179,24 @@ object BinaryFormat {
       val lastMoveInt = clmt.lastMove.map(_.origDest).fold(0) {
         case (o, d) => (posInt(o) << 6) + posInt(d)
       }
-      Array((castleInt << 4) + (lastMoveInt >> 8) toByte, lastMoveInt.toByte) ++
-        clmt.check.map(x => posInt(x).toByte)
+      Array((castleInt << 4) + (lastMoveInt >> 8) toByte, lastMoveInt.toByte)
     }
 
     def read(ba: ByteArray): CastleLastMove = {
       val ints = ba.value map toInt
-      val size = ints.size
-
-      if (size < 2 || size > 6) sys error s"BinaryFormat.clmt.read invalid: ${ba.showBytes}"
-      val checkByte = if (size == 6 || size == 3) ints.lastOption else None
-
-      doRead(ints(0), ints(1), checkByte)
+      doRead(ints(0), ints(1))
     }
 
     private def posAt(x: Int, y: Int) = Pos.posAt(x + 1, y + 1)
 
-    private def doRead(b1: Int, b2: Int, checkByte: Option[Int]) =
+    private def doRead(b1: Int, b2: Int) =
       CastleLastMove(
         castles = Castles(b1 > 127, (b1 & 64) != 0, (b1 & 32) != 0, (b1 & 16) != 0),
         lastMove = for {
           orig ← posAt((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
           dest ← posAt((b2 & 63) >> 3, b2 & 7)
           if orig != Pos.A1 || dest != Pos.A1
-        } yield Uci.Move(orig, dest),
-        check = checkByte flatMap { x => posAt(x >> 3, x & 7) }
+        } yield Uci.Move(orig, dest)
       )
   }
 
