@@ -13,7 +13,7 @@ class HuffmanPgnTest extends Specification {
       forall(fixtures) { pgn =>
         val pgnMoves = pgn.split(" ")
         val encoded = GameEncoder.encode(pgnMoves)
-        val (decoded, _, _) = GameEncoder.decode(encoded, pgnMoves.size)
+        val (decoded, _, _, _) = GameEncoder.decode(encoded, pgnMoves.size)
         pgnMoves must_== decoded
       }
     }
@@ -22,13 +22,8 @@ class HuffmanPgnTest extends Specification {
       import scala.collection.JavaConversions.asScalaSet
       val pgnMoves = "d4 h5 c4 Rh6 Nf3 Rh8".split(" ")
       val encoded = GameEncoder.encode(pgnMoves)
-      val (_, _, unmovedRooks) = GameEncoder.decode(encoded, pgnMoves.size)
+      val (_, _, unmovedRooks, _) = GameEncoder.decode(encoded, pgnMoves.size)
       asScalaSet(unmovedRooks) must_== Set(Pos.A1, Pos.H1, Pos.A8)
-    }
-
-    "zobrist hashes" in {
-      val board = new Board()
-      board.zobristHash must_== 0x463b96181691fc9cL
     }
 
     "pass perft test" in {
