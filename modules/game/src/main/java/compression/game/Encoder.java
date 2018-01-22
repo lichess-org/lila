@@ -184,9 +184,9 @@ public class Encoder {
     }
 
     private static void appendHash(ByteBuffer buffer, long hash) {
-        buffer.put((byte) ((hash >> 16) & 0xff));
-        buffer.put((byte) ((hash >> 8) & 0xff));
-        buffer.put((byte) (hash & 0xff));
+        buffer.put((byte) (hash >>> 16));
+        buffer.put((byte) (hash >>> 8));
+        buffer.put((byte) hash);
     }
 
     private static chess.Role chessRole(Role role) {
