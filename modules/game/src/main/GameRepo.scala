@@ -216,36 +216,36 @@ object GameRepo {
 
   def setBorderAlert(pov: Pov) = setHoldAlert(pov, 0, 0, 20.some)
 
+  private val finishUnsets = $doc(
+    F.positionHashes -> true,
+    F.playingUids -> true,
+    F.unmovedRooks -> true,
+    ("p0." + Player.BSONFields.lastDrawOffer) -> true,
+    ("p1." + Player.BSONFields.lastDrawOffer) -> true,
+    ("p0." + Player.BSONFields.isOfferingDraw) -> true,
+    ("p1." + Player.BSONFields.isOfferingDraw) -> true,
+    ("p0." + Player.BSONFields.proposeTakebackAt) -> true,
+    ("p1." + Player.BSONFields.proposeTakebackAt) -> true
+  )
+
   def finish(
     id: ID,
     winnerColor: Option[Color],
     winnerId: Option[String],
     status: Status
-  ) = {
-    val partialUnsets = $doc(
-      F.positionHashes -> true,
-      F.playingUids -> true,
-      F.unmovedRooks -> true,
-      ("p0." + Player.BSONFields.lastDrawOffer) -> true,
-      ("p1." + Player.BSONFields.lastDrawOffer) -> true,
-      ("p0." + Player.BSONFields.isOfferingDraw) -> true,
-      ("p1." + Player.BSONFields.isOfferingDraw) -> true,
-      ("p0." + Player.BSONFields.proposeTakebackAt) -> true,
-      ("p1." + Player.BSONFields.proposeTakebackAt) -> true
+  ) = coll.update(
+    $id(id),
+    nonEmptyMod("$set", $doc(
+      F.winnerId -> winnerId,
+      F.winnerColor -> winnerColor.map(_.white)
+    )) ++ $doc(
+      "$unset" -> finishUnsets.++ {
+        // keep the checkAt field when game is aborted,
+        // so it gets deleted in 24h
+        (status >= Status.Mate) ?? $doc(F.checkAt -> true)
+      }
     )
-    // keep the checkAt field when game is aborted,
-    // so it gets deleted in 24h
-    val unsets =
-      if (status >= Status.Mate) partialUnsets ++ $doc(F.checkAt -> true)
-      else partialUnsets
-    coll.update(
-      $id(id),
-      nonEmptyMod("$set", $doc(
-        F.winnerId -> winnerId,
-        F.winnerColor -> winnerColor.map(_.white)
-      )) ++ $doc("$unset" -> unsets)
-    )
-  }
+  )
 
   def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] = coll.find(
     Query.mate ++ Query.variantStandard

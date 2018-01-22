@@ -96,7 +96,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
             pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
           ) |> { g =>
             g.copy(
-              binaryPgn = g.binaryPgn update replay.state.pgnMoves
+              pgnMoves = replay.state.pgnMoves
             ).start
           }
 
