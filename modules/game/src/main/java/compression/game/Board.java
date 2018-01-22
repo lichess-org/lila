@@ -120,6 +120,10 @@ final class Board {
         return null;
     }
 
+    public boolean whiteAt(int square) {
+        return Bitboard.contains(this.white, square);
+    }
+
     public void play(Move move) {
         this.epSquare = 0;
 
@@ -235,6 +239,19 @@ final class Board {
         if (blockers != 0 || hasEp) {
             moves.removeIf(m -> !isSafe(king, m, blockers));
         }
+    }
+
+    public boolean hasLegalEnPassant() {
+        ArrayList<Move> moves = new ArrayList<Move>(2);
+        boolean hasEp = genEnPassant(moves);
+
+        if (hasEp) {
+            int king = king(this.turn);
+            long blockers = sliderBlockers(king);
+            moves.removeIf(m -> !isSafe(king, m, blockers));
+        }
+
+        return !moves.isEmpty();
     }
 
     private void genNonKing(long mask, ArrayList<Move> moves) {

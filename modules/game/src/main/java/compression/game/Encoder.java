@@ -202,7 +202,7 @@ public class Encoder {
         long occupied = board.occupied;
         while (occupied != 0) {
             int sq = Bitboard.lsb(occupied);
-            chess.Color color = chess.Color$.MODULE$.apply((board.white & (1L << sq)) != 0);
+            chess.Color color = chess.Color$.MODULE$.apply(board.whiteAt(sq));
             chess.Piece piece = new chess.Piece(color, chessRole(board.roleAt(sq)));
             map.put(chessPos(sq), piece);
             occupied ^= 1L << sq;
