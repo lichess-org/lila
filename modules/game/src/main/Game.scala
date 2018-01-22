@@ -151,7 +151,7 @@ case class Game(
 
   lazy val pgnMoves: PgnMoves = binaryPgn.decode(turns)
 
-  def openingPgnMoves(nb: Int): PgnMoves = binaryPgn.decode(nb)
+  def openingPgnMoves(nb: Int): PgnMoves = binaryPgn.decode(nb atMost turns)
 
   def pgnMoves(color: Color): PgnMoves = {
     val pivot = if (color == startColor) 0 else 1
