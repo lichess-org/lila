@@ -75,7 +75,7 @@ function doRender(ctrl: AnalyseCtrl): VNode {
     }
   }, [
     playerTable(ctrl, 'white'),
-    h('a.button.text', {
+    ctrl.study ? null : h('a.button.text', {
       class: { active: !!ctrl.retro },
       attrs: dataIcon('G'),
       hook: bind('click', ctrl.toggleRetro, ctrl.redraw)
