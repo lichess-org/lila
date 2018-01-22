@@ -407,20 +407,7 @@ object GameRepo {
     $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
   )
 
-  def getPgn(id: ID): Fu[PgnMoves] = getOptionPgn(id) map (~_)
-
-  def getNonEmptyPgn(id: ID): Fu[Option[PgnMoves]] =
-    getOptionPgn(id) map (_ filter (_.nonEmpty))
-
-  def getOptionPgn(id: ID): Fu[Option[PgnMoves]] =
-    coll.find($id(id), $doc(F.oldPgn -> true, F.huffmanPgn -> true, F.turns -> true)).uno[BSONDocument] map {
-      _ flatMap { doc =>
-        doc.getAs[Int](F.turns) flatMap { plies =>
-          (doc.getAs[ByteArray](F.huffmanPgn) map BinaryFormat.HuffmanBinPgn.apply map (_ decode plies)) orElse
-            (doc.getAs[ByteArray](F.oldPgn) map BinaryFormat.OldBinPgn.apply map (_ decode plies))
-        }
-      }
-    }
+  def getOptionPgn(id: ID): Fu[Option[PgnMoves]] = game(id) map2 { (g: Game) => g.pgnMoves }
 
   def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] =
     coll.uno[Game]($doc(

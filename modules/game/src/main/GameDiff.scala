@@ -56,7 +56,7 @@ private[game] object GameDiff {
 
     val w = lila.db.BSON.writer
 
-    d(binaryPieces, _.binaryPieces, ByteArrayBSONHandler.write)
+    dOpt[Option[ByteArray], BSONBinary](binaryPieces, _.binaryPieces, _ map ByteArrayBSONHandler.write)
     b.binaryPgn match {
       case _: BinaryFormat.OldBinPgn => d(oldPgn, _.binaryPgn.bytes, ByteArrayBSONHandler.write)
       case _: BinaryFormat.HuffmanBinPgn => d(huffmanPgn, _.binaryPgn.bytes, ByteArrayBSONHandler.write)

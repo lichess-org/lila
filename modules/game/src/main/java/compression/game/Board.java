@@ -110,6 +110,16 @@ final class Board {
         this.occupied ^= mask;
     }
 
+    public Role roleAt(int square) {
+        if (Bitboard.contains(this.pawns, square)) return Role.PAWN;
+        if (Bitboard.contains(this.knights, square)) return Role.KNIGHT;
+        if (Bitboard.contains(this.bishops, square)) return Role.BISHOP;
+        if (Bitboard.contains(this.rooks, square)) return Role.ROOK;
+        if (Bitboard.contains(this.queens, square)) return Role.QUEEN;
+        if (Bitboard.contains(this.kings, square)) return Role.KING;
+        return null;
+    }
+
     public void play(Move move) {
         this.epSquare = 0;
 

@@ -75,15 +75,16 @@ object BSONHandlers {
         val win = winC map (_ == color)
         builder(color)(id)(uid)(win)
       }
+      val binaryPgn = (r bytesO huffmanPgn map BinaryFormat.HuffmanBinPgn.apply) orElse
+        (r bytesO oldPgn map BinaryFormat.OldBinPgn.apply) getOrElse
+        BinaryFormat.OldBinPgn(lila.db.ByteArray.empty)
 
       val g = Game(
         id = r str id,
         whitePlayer = player(whitePlayer, White, whiteId, whiteUid),
         blackPlayer = player(blackPlayer, Black, blackId, blackUid),
-        binaryPieces = r bytes binaryPieces,
-        binaryPgn =
-          (r bytesO huffmanPgn map BinaryFormat.HuffmanBinPgn.apply) orElse
-            (r bytesO oldPgn map BinaryFormat.OldBinPgn.apply) getOrElse BinaryFormat.OldBinPgn(lila.db.ByteArray.empty),
+        binaryPieces = binaryPgn.requiresPieces ?? (r bytesO binaryPieces),
+        binaryPgn = binaryPgn,
         status = r.get[Status](status),
         turns = r int turns,
         startedAtTurn = r intD startedAtTurn,

@@ -11,7 +11,7 @@ class HuffmanPgnTest extends Specification {
       forall(fixtures) { pgn =>
         val pgnMoves = pgn.split(" ")
         val encoded = GameEncoder.encode(pgnMoves)
-        val decoded = GameEncoder.decode(encoded, pgnMoves.size)
+        val (decoded, _) = GameEncoder.decode(encoded, pgnMoves.size)
         pgnMoves must_== decoded
       }
     }
