@@ -34,11 +34,11 @@ object PgnStorage {
     }
     def decode(bytes: ByteArray, plies: Int): Decoded = monitor(lila.mon.game.pgn.huffman.decode) {
       val decoded = Encoder.decode(bytes.value, plies)
-      val unmovedRooks = asScalaSet(decoded.unmovedRooks.flatMap(javaPos)).toSet
+      val unmovedRooks = asScalaSet(decoded.unmovedRooks.flatMap(chessPos)).toSet
       Decoded(
         pgnMoves = decoded.pgnMoves.toVector,
         pieces = mapAsScalaMap(decoded.pieces).flatMap {
-          case (k, v) => javaPos(k).map(_ -> javaPiece(v))
+          case (k, v) => chessPos(k).map(_ -> chessPiece(v))
         }.toMap,
         positionHashes = decoded.positionHashes,
         unmovedRooks = UnmovedRooks(unmovedRooks),
@@ -53,8 +53,8 @@ object PgnStorage {
       )
     }
 
-    private def javaPos(sq: Integer): Option[Pos] = Pos.posAt(JavaSquare.file(sq) + 1, JavaSquare.rank(sq) + 1)
-    private def javaRole(role: JavaRole): Role = role match {
+    private def chessPos(sq: Integer): Option[Pos] = Pos.posAt(JavaSquare.file(sq) + 1, JavaSquare.rank(sq) + 1)
+    private def chessRole(role: JavaRole): Role = role match {
       case JavaRole.PAWN => Pawn
       case JavaRole.KNIGHT => Knight
       case JavaRole.BISHOP => Bishop
@@ -62,7 +62,7 @@ object PgnStorage {
       case JavaRole.QUEEN => Queen
       case JavaRole.KING => King
     }
-    private def javaPiece(piece: JavaPiece): Piece = Piece(Color(piece.white), javaRole(piece.role))
+    private def chessPiece(piece: JavaPiece): Piece = Piece(Color(piece.white), chessRole(piece.role))
   }
 
   case class Decoded(
