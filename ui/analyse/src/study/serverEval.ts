@@ -93,19 +93,20 @@ function requestButton(ctrl: ServerEvalCtrl) {
 
   return h('div.server_eval', [
     h('div.message',
-      ctrl.root.mainline.length < 5 ? h('p', 'The study is too short to be analysed.') : [
-        h('p', [
-          'Get a full server-side computer analysis of the main line.',
-          h('br'),
-          'Make sure the chapter is complete, for you can only request analysis once.'
-        ]),
-        h('a.button.text.request', {
-          attrs: {
-            'data-icon': '',
-            disabled: ctrl.root.mainline.length < 5
-          },
-          hook: bind('click', ctrl.request, ctrl.root.redraw)
-        }, ctrl.root.trans.noarg('requestAComputerAnalysis'))
-      ])
-  ]);
+      ctrl.root.mainline.length < 5 ? h('p', 'The study is too short to be analysed.') : (
+        !ctrl.root.study!.members.canContribute() ? h('p', 'Only the study contributors can request a computer analysis') : [
+          h('p', [
+            'Get a full server-side computer analysis of the main line.',
+            h('br'),
+            'Make sure the chapter is complete, for you can only request analysis once.'
+          ]),
+          h('a.button.text.request', {
+            attrs: {
+              'data-icon': '',
+              disabled: ctrl.root.mainline.length < 5
+            },
+            hook: bind('click', ctrl.request, ctrl.root.redraw)
+          }, ctrl.root.trans.noarg('requestAComputerAnalysis'))
+        ])
+    )]);
 }

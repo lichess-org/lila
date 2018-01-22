@@ -80,21 +80,19 @@ function buttons(root: AnalyseCtrl): VNode {
         },
         count: (root.node.comments || []).length
       }),
-      ...(canContribute ? [
-        toolButton({
-          ctrl,
-          tab: 'glyphs',
-          hint: 'Annotate with glyphs',
-          icon: h('i.glyph-icon'),
-          count: (root.node.glyphs || []).length
-        }),
-        toolButton({
-          ctrl,
-          tab: 'serverEval',
-          hint: root.trans.noarg('computerAnalysis'),
-          icon: iconTag('')
-        })
-      ] : []),
+      canContribute ?  toolButton({
+        ctrl,
+        tab: 'glyphs',
+        hint: 'Annotate with glyphs',
+        icon: h('i.glyph-icon'),
+        count: (root.node.glyphs || []).length
+      }) : null,
+      toolButton({
+        ctrl,
+        tab: 'serverEval',
+        hint: root.trans.noarg('computerAnalysis'),
+        icon: iconTag('')
+      }),
       toolButton({
         ctrl,
         tab: 'share',
@@ -110,9 +108,7 @@ function helpButton(ctrl: StudyCtrl) {
   return h('span.fbt.help.hint--top', {
     attrs: { 'data-hint': 'Need help? Get the tour!' },
     hook: bind('click', ctrl.startTour)
-  }, [
-    h('i.text', { attrs: dataIcon('') }, 'help')
-  ]);
+  }, [ iconTag('') ]);
 }
 
 function metadata(ctrl: StudyCtrl): VNode {

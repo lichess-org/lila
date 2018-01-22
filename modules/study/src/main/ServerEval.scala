@@ -87,7 +87,7 @@ object ServerEval {
       initialFen = chapter.root.fen.some
     )
 
-    private def analysisLine(root: RootOrNode, variant: chess.variant.Variant, info: Info): Option[Node] = {
+    private def analysisLine(root: RootOrNode, variant: chess.variant.Variant, info: Info): Option[Node] =
       chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen.value, variant) match {
         case (init, games, error) =>
           error foreach { logger.info(_) }
@@ -98,7 +98,6 @@ object ServerEval {
             } some
           }
       }
-    }
 
     private def makeBranch(g: chess.Game, m: Uci.WithSan) = {
       val fen = FEN(Forsyth >> g)

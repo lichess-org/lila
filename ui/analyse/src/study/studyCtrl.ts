@@ -37,7 +37,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return {
       loading: false,
       tab: prop<Tab>(relayData || data.chapters.length > 1 ? 'chapters' : 'members'),
-      toolTab: prop<ToolTab>('serverEval'),
+      toolTab: prop<ToolTab>('tags'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
       // path is at ctrl.path
       mode: {
