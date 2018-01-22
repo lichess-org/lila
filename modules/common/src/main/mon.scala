@@ -434,6 +434,20 @@ object mon {
       def source(v: String) = inc(s"game.create.source.$v")
       def mode(v: String) = inc(s"game.create.mode.$v")
     }
+    object pgn {
+      final class Protocol(name: String) {
+        val count = inc(s"game.pgn.$name.count")
+        val time = rec(s"game.pgn.$name.time")
+      }
+      object oldBin {
+        val encode = new Protocol("oldBin.encode")
+        val decode = new Protocol("oldBin.decode")
+      }
+      object huffman {
+        val encode = new Protocol("huffman.encode")
+        val decode = new Protocol("huffman.decode")
+      }
+    }
   }
   object chat {
     val message = inc("chat.message")
@@ -552,10 +566,11 @@ object mon {
     val unknown = inc("jsmon.unknown")
   }
 
-  def measure[A](path: RecPath)(op: => A): A = {
+  def measure[A](path: RecPath)(op: => A): A = measureRec(path(this))(op)
+  def measureRec[A](rec: Rec)(op: => A): A = {
     val start = System.nanoTime()
     val res = op
-    path(this)(System.nanoTime() - start)
+    rec(System.nanoTime() - start)
     res
   }
   def measureIncMicros[A](path: IncXPath)(op: => A): A = {

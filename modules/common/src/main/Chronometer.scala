@@ -62,4 +62,11 @@ object Chronometer {
     effect(lap)
     lap.result
   }
+
+  def syncMon[A](f: => A)(path: lila.mon.RecPath): A = {
+    val start = nowNanos
+    val res = f
+    lila.mon.recPath(path)(nowNanos - start)
+    res
+  }
 }
