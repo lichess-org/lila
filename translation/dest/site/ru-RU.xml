@@ -70,7 +70,7 @@
   <string name="losing">Проигрывают</string>
   <string name="drawn">Вничью</string>
   <string name="unknown">Неизвестно</string>
-  <string name="database">Источник данных</string>
+  <string name="database">Архив партий</string>
   <string name="whiteDrawBlack">Белые / Ничья / Чёрные</string>
   <string name="averageRatingX">Средний рейтинг: %s</string>
   <string name="recentGames">Недавние игры</string>
