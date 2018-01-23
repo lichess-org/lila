@@ -140,8 +140,7 @@ object GameRepo {
       val povs = games flatMap { Pov(_, user) }
       try {
         povs sortWith Pov.priority
-      }
-      catch {
+      } catch {
         case e: IllegalArgumentException =>
           povs sortBy (-_.game.movedAt.getSeconds)
       }
@@ -238,7 +237,8 @@ object GameRepo {
     $id(id),
     nonEmptyMod("$set", $doc(
       F.winnerId -> winnerId,
-      F.winnerColor -> winnerColor.map(_.white)
+      F.winnerColor -> winnerColor.map(_.white),
+      F.status -> status
     )) ++ $doc(
       "$unset" -> finishUnsets.++ {
         // keep the checkAt field when game is aborted,
