@@ -109,7 +109,8 @@ case class Simul(
 
   def variantRich = variants.size > 3
 
-  def isHost(userOption: Option[User]) = userOption ?? (_.id == hostId)
+  def isHost(userOption: Option[User]): Boolean = userOption ?? isHost
+  def isHost(user: User): Boolean = user.id == hostId
 
   def playingPairings = pairings filterNot (_.finished)
 

@@ -116,7 +116,7 @@ final class SimulApi(
   }
 
   def onPlayerConnection(game: Game, user: Option[User])(simul: Simul): Unit = {
-    user.filter(_.id == simul.hostId) ifTrue simul.isRunning foreach { host =>
+    user.filter(simul.isHost) ifTrue simul.isRunning foreach { host =>
       repo.setHostGameId(simul, game.id)
       sendTo(simul.id, actorApi.HostIsOn(game.id))
     }
