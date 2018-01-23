@@ -4,8 +4,8 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 import scala.collection.breakOut
 
-import chess.variant.{ Variant, Crazyhouse }
-import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRooks }
+import chess.variant.{ Variant, Crazyhouse, ThreeCheck }
+import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRooks, History => ChessHistory }
 
 import lila.db.BSON
 import lila.db.dsl._
@@ -98,18 +98,20 @@ object BSONHandlers {
         blackPlayer = player(blackPlayer, Black, blackId, blackUid),
         pgnMoves = decoded.pgnMoves,
         pieces = decoded.pieces,
-        positionHashes = decoded.positionHashes,
-        unmovedRooks = decoded.unmovedRooks,
-        lastMove = decoded.lastMove,
-        castles = decoded.castles,
+        history = ChessHistory(
+          lastMove = decoded.lastMove,
+          castles = decoded.castles,
+          positionHashes = decoded.positionHashes,
+          unmovedRooks = decoded.unmovedRooks,
+          checkCount = if (gameVariant == ThreeCheck) {
+            val counts = r.intsD(checkCount)
+            CheckCount(~counts.headOption, ~counts.lastOption)
+          } else Game.emptyCheckCount
+        ),
         pgnStorage = decoded.format,
         status = r.get[Status](status),
         turns = plies,
         startedAtTurn = r intD startedAtTurn,
-        checkCount = {
-          val counts = r.intsD(checkCount)
-          CheckCount(~counts.headOption, ~counts.lastOption)
-        },
         daysPerTurn = r intO daysPerTurn,
         binaryMoveTimes = r bytesO moveTimes,
         mode = Mode(r boolD rated),
@@ -152,7 +154,7 @@ object BSONHandlers {
       turns -> o.turns,
       startedAtTurn -> w.intO(o.startedAtTurn),
       clock -> (o.clock map { c => clockBSONWrite(o.createdAt, c) }),
-      checkCount -> o.checkCount.nonEmpty.option(o.checkCount),
+      checkCount -> o.history.checkCount.nonEmpty.option(o.history.checkCount),
       daysPerTurn -> o.daysPerTurn,
       moveTimes -> o.binaryMoveTimes,
       whiteClockHistory -> clockHistory(White, o.clockHistory, o.clock, o.flagged),
@@ -175,11 +177,11 @@ object BSONHandlers {
           case f @ PgnStorage.OldBin => $doc(
             oldPgn -> f.encode(o.pgnMoves),
             binaryPieces -> BinaryFormat.piece.write(o.pieces),
-            positionHashes -> o.positionHashes,
-            unmovedRooks -> o.unmovedRooks,
+            positionHashes -> o.history.positionHashes,
+            unmovedRooks -> o.history.unmovedRooks,
             castleLastMove -> CastleLastMove.castleLastMoveBSONHandler.write(CastleLastMove(
-              castles = o.castles,
-              lastMove = o.lastMove
+              castles = o.history.castles,
+              lastMove = o.history.lastMove
             ))
           )
           case f @ PgnStorage.Huffman => $doc(
