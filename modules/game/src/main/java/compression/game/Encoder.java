@@ -207,7 +207,7 @@ public class Encoder {
         return "--";
     }
 
-    private static void appendHash(ByteBuffer buffer, long hash) {
+    private static void appendHash(ByteBuffer buffer, int hash) {
         buffer.put((byte) (hash >>> 16));
         buffer.put((byte) (hash >>> 8));
         buffer.put((byte) hash);

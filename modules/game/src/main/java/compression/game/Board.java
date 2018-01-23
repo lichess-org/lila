@@ -20,7 +20,7 @@ final class Board {
     int epSquare;
     long castlingRights;
 
-    long incrementalHash;
+    int incrementalHash;
 
     public Board() {
         this.pawns = 0xff00000000ff00L;
@@ -143,7 +143,7 @@ final class Board {
         return Bitboard.contains(this.white, square);
     }
 
-    public long zobristHash() {
+    public int zobristHash() {
         return this.incrementalHash ^ ZobristHash.hashCastling(this) ^ ZobristHash.hashEnPassant(this);
     }
 
