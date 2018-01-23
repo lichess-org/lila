@@ -135,7 +135,6 @@ export function view(root: AnalyseCtrl): VNode {
               };
               el.onblur = function() {
                 ctrl.focus(false);
-                ctrl.redraw();
               };
               vnode.data!.path = current.path;
             },
