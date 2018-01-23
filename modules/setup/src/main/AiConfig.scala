@@ -1,6 +1,5 @@
 package lila.setup
 
-import chess.{ Mode, Color => ChessColor }
 import lila.game.{ Game, Player, Source, Pov }
 import lila.lobby.Color
 import lila.user.User
@@ -21,17 +20,22 @@ case class AiConfig(
   def >> = (variant.id, timeMode.id, time, increment, days, level, color.name, fen).some
 
   def game(user: Option[User]) = fenGame { chessGame =>
+    val perfPicker = lila.game.PerfPicker.mainOrDefault(
+      chess.Speed(chessGame.clock.map(_.config)),
+      chessGame.situation.board.variant,
+      makeDaysPerTurn
+    )
     Game.make(
       chess = chessGame,
-      whitePlayer = Player.make(
-        color = ChessColor.White,
-        aiLevel = creatorColor.black option level
+      whitePlayer = creatorColor.fold(
+        Player.make(chess.White, user, perfPicker),
+        Player.make(chess.White, level.some)
       ),
-      blackPlayer = Player.make(
-        color = ChessColor.Black,
-        aiLevel = creatorColor.white option level
+      blackPlayer = creatorColor.fold(
+        Player.make(chess.Black, level.some),
+        Player.make(chess.Black, user, perfPicker)
       ),
-      mode = Mode.Casual,
+      mode = chess.Mode.Casual,
       source = (chessGame.board.variant.fromPosition).fold(Source.Position, Source.Ai),
       daysPerTurn = makeDaysPerTurn,
       pgnImport = None
