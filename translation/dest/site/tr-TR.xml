@@ -790,11 +790,17 @@
   <string name="learnFromThisMistake">Hatalarından ders al</string>
   <string name="skipThisMove">Bu hamleyi geç</string>
   <string name="next">Sonraki</string>
+  <string name="xWasPlayed">%s oynandı</string>
   <string name="findBetterMoveForWhite">Beyaz için en iyi hamleyi bulun</string>
   <string name="findBetterMoveForBlack">Siyah için en iyi hamleyi bulun</string>
   <string name="resumeLearning">Kaldığınız yerden devam edin</string>
   <string name="youCanDoBetter">Daha iyisini yapabilirsin</string>
+  <string name="tryAnotherMoveForWhite">Beyaz için başka bir hamle dene</string>
+  <string name="tryAnotherMoveForBlack">Siyah için başka bir hamle dene</string>
   <string name="solution">Çözüm</string>
+  <string name="waitingForAnalysis">Analiz bekleniyor</string>
+  <string name="noMistakesFoundForWhite">Beyazın bir hatası bulunamadı</string>
+  <string name="noMistakesFoundForBlack">Siyahın bir hatası bulunamadı</string>
   <string name="reviewWhiteMistakes">Beyazın hatalarını gözden geçirin</string>
   <string name="reviewBlackMistakes">Siyahın hatalarını gözden geçirin</string>
   <string name="advantage">Avantaj</string>
