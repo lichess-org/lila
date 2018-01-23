@@ -178,7 +178,7 @@
   <string name="email">Электронная почта</string>
   <string name="passwordReset">Сброс пароля</string>
   <string name="forgotPassword">Забыли пароль?</string>
-  <string name="rank">Уровень</string>
+  <string name="rank">Ранг</string>
   <string name="rankX">Место: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Места в списке обновляются каждые %s минут</string>
   <plurals name="nbPuzzles">
@@ -517,7 +517,7 @@
   <string name="reportAUser">Сообщить о пользователе</string>
   <string name="user">Пользователь</string>
   <string name="reason">Причина</string>
-  <string name="whatIsIheMatter">В чём дело?</string>
+  <string name="whatIsIheMatter">Что это было?</string>
   <string name="cheat">Жульничество</string>
   <string name="insult">Оскорбление</string>
   <string name="troll">Троллинг</string>
@@ -620,7 +620,7 @@
   <string name="connectedToLichess">Сейчас вы подключены к lichess.org</string>
   <string name="signedOut">Вы вышли</string>
   <string name="loginSuccessful">Вы вошли</string>
-  <string name="playOnTheBoardOffline">Играйте офлайн</string>
+  <string name="playOnTheBoardOffline">Вдвоём за доской</string>
   <string name="playOfflineComputer">Играть с компьютером офлайн</string>
   <string name="opponent">Соперник</string>
   <string name="learnMenu">Учиться</string>
@@ -766,7 +766,7 @@
   <string name="gameAnalysis">Анализ игры</string>
   <string name="xHostsY">%1$s создал %2$s</string>
   <string name="xJoinsY">%1$s присоединился к %2$s</string>
-  <string name="xLikesY">%1$s отметил %2$s как понравившееся</string>
+  <string name="xLikesY">%1$s поставил лайк к %2$s</string>
   <string name="quickPairing">Быстрый старт</string>
   <string name="lobby">Зал ожидания</string>
   <string name="anonymous">Анонимно</string>
