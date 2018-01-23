@@ -21,7 +21,7 @@ case class Game(
     status: Status,
     daysPerTurn: Option[Int],
     binaryMoveTimes: Option[ByteArray] = None,
-    clockHistory: Option[ClockHistory] = Option(ClockHistory()),
+    clockHistory: Option[ClockHistory] = Some(ClockHistory()),
     mode: Mode = Mode.default,
     next: Option[String] = None,
     bookmarks: Int = 0,
