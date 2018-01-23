@@ -70,7 +70,6 @@ private[game] object GameDiff {
       case f @ PgnStorage.Huffman =>
         d(huffmanPgn, _.pgnMoves, writeBytes compose f.encode)
     }
-    d(status, _.status.id, w.int)
     d(turns, _.turns, w.int)
     dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o map ByteArrayBSONHandler.write)
     dOpt(whiteClockHistory, getClockHistory(White), clockHistoryToBytes)
