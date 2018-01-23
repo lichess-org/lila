@@ -118,7 +118,7 @@ class Bitboard {
 
     public static int msb(long b) {
         assert b != 0;
-        return 63 ^ Long.numberOfLeadingZeros(b);
+        return 63 - Long.numberOfLeadingZeros(b);
     }
 
     public static boolean moreThanOne(long b) {
