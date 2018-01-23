@@ -29,18 +29,13 @@ private[challenge] final class Joiner(onStart: String => Unit) {
               if (Forsyth.>>(game) == Forsyth.initial) makeChess(chess.variant.Standard) -> none
               else game -> baseState
           }
-          val realVariant = chessGame.board.variant
-          def makePlayer(color: chess.Color, userOption: Option[User]) = Player.make(color, None) |> { p =>
-            userOption.fold(p) { user =>
-              p.withUser(user.id, user.perfs(c.perfType))
-            }
-          }
+          val perfPicker = (perfs: lila.user.Perfs) => perfs(c.perfType)
           val game = Game.make(
             chess = chessGame,
-            whitePlayer = makePlayer(chess.White, c.finalColor.fold(challengerUser, destUser)),
-            blackPlayer = makePlayer(chess.Black, c.finalColor.fold(destUser, challengerUser)),
-            mode = realVariant.fromPosition.fold(Mode.Casual, c.mode),
-            source = realVariant.fromPosition.fold(Source.Position, Source.Friend),
+            whitePlayer = Player.make(chess.White, c.finalColor.fold(challengerUser, destUser), perfPicker),
+            blackPlayer = Player.make(chess.Black, c.finalColor.fold(destUser, challengerUser), perfPicker),
+            mode = chessGame.board.variant.fromPosition.fold(Mode.Casual, c.mode),
+            source = chessGame.board.variant.fromPosition.fold(Source.Position, Source.Friend),
             daysPerTurn = c.daysPerTurn,
             pgnImport = None
           ).copy(id = c.id).|> { g =>

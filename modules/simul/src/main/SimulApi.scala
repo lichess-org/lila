@@ -185,20 +185,20 @@ final class SimulApi(
     hostColor = simul.hostColor
     whiteUser = hostColor.fold(host, user)
     blackUser = hostColor.fold(user, host)
+    clock = simul.clock.chessClockOf(hostColor)
+    perfPicker = lila.game.PerfPicker.mainOrDefault(chess.Speed(clock.config), pairing.player.variant, none)
     game1 = Game.make(
       chess = chess.Game(
         situation = chess.Situation(pairing.player.variant),
-        clock = simul.clock.chessClockOf(hostColor).start.some
+        clock = clock.start.some
       ),
-      whitePlayer = lila.game.Player.white,
-      blackPlayer = lila.game.Player.black,
+      whitePlayer = lila.game.Player.make(chess.White, whiteUser.some, perfPicker),
+      blackPlayer = lila.game.Player.make(chess.Black, blackUser.some, perfPicker),
       mode = chess.Mode.Casual,
       source = lila.game.Source.Simul,
       pgnImport = None
     )
     game2 = game1
-      .updatePlayer(chess.White, _.withUser(whiteUser.id, lila.game.PerfPicker.mainOrDefault(game1)(whiteUser.perfs)))
-      .updatePlayer(chess.Black, _.withUser(blackUser.id, lila.game.PerfPicker.mainOrDefault(game1)(blackUser.perfs)))
       .withSimulId(simul.id)
       .withId(pairing.gameId)
       .start

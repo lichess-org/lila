@@ -63,8 +63,8 @@ private final class GameStarter(
       situation = chess.Situation(chess.variant.Standard),
       clock = pool.clock.toClock.some
     ),
-    whitePlayer = Player.white.withUser(whiteUser._1, whiteUser._2),
-    blackPlayer = Player.black.withUser(blackUser._1, blackUser._2),
+    whitePlayer = Player.make(chess.White, whiteUser),
+    blackPlayer = Player.make(chess.Black, blackUser),
     mode = chess.Mode.Rated,
     source = lila.game.Source.Pool,
     pgnImport = None
