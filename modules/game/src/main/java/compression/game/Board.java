@@ -277,6 +277,9 @@ final class Board {
     }
 
     public boolean hasLegalEnPassant() {
+        // Like legalMoves(), but generate only en passant captures to see if
+        // there are any legal en passant moves in the position.
+
         if (this.epSquare == 0) return false; // shortcut
 
         ArrayList<Move> moves = new ArrayList<Move>(2);
@@ -480,7 +483,7 @@ final class Board {
             case Move.EN_PASSANT:
                 long occupied = this.occupied;
                 occupied ^= (1L << move.from);
-                occupied ^= (1L << Square.combine(move.to, move.from));
+                occupied ^= (1L << Square.combine(move.to, move.from)); // captured pawn
                 occupied |= (1L << move.to);
                 return
                     (Bitboard.rookAttacks(king, occupied) & them() & (this.rooks ^ this.queens)) == 0 &&
