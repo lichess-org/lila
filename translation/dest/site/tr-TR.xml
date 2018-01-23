@@ -801,6 +801,8 @@
   <string name="waitingForAnalysis">Analiz bekleniyor</string>
   <string name="noMistakesFoundForWhite">Beyazın bir hatası bulunamadı</string>
   <string name="noMistakesFoundForBlack">Siyahın bir hatası bulunamadı</string>
+  <string name="doneReviewingWhiteMistakes">Beyazın hataları analiz edildi</string>
+  <string name="doneReviewingBlackMistakes">Siyahın hataları analiz edildi</string>
   <string name="reviewWhiteMistakes">Beyazın hatalarını gözden geçirin</string>
   <string name="reviewBlackMistakes">Siyahın hatalarını gözden geçirin</string>
   <string name="advantage">Avantaj</string>
