@@ -168,14 +168,12 @@ object BSONHandlers {
       F.turns -> o.chess.turns,
       F.startedAtTurn -> w.intO(o.chess.startedAtTurn),
       F.clock -> (o.chess.clock map { c => clockBSONWrite(o.createdAt, c) }),
-      F.checkCount -> o.history.checkCount.nonEmpty.option(o.history.checkCount),
       F.daysPerTurn -> o.daysPerTurn,
       F.moveTimes -> o.binaryMoveTimes,
       F.whiteClockHistory -> clockHistory(White, o.clockHistory, o.chess.clock, o.flagged),
       F.blackClockHistory -> clockHistory(Black, o.clockHistory, o.chess.clock, o.flagged),
       F.rated -> w.boolO(o.mode.rated),
       F.variant -> o.board.variant.exotic.option(w int o.board.variant.id),
-      F.crazyData -> o.board.crazyData,
       F.next -> o.next,
       F.bookmarks -> w.intO(o.bookmarks),
       F.createdAt -> w.date(o.createdAt),
@@ -196,7 +194,10 @@ object BSONHandlers {
             F.castleLastMove -> CastleLastMove.castleLastMoveBSONHandler.write(CastleLastMove(
               castles = o.history.castles,
               lastMove = o.history.lastMove
-            ))
+            )),
+            // since variants are always OldBin
+            F.checkCount -> o.history.checkCount.nonEmpty.option(o.history.checkCount),
+            F.crazyData -> o.board.crazyData
           )
           case f @ PgnStorage.Huffman => $doc(
             F.huffmanPgn -> f.encode(o.pgnMoves)

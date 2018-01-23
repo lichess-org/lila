@@ -140,7 +140,8 @@ object GameRepo {
       val povs = games flatMap { Pov(_, user) }
       try {
         povs sortWith Pov.priority
-      } catch {
+      }
+      catch {
         case e: IllegalArgumentException =>
           povs sortBy (-_.game.movedAt.getSeconds)
       }
