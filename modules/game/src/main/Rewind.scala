@@ -32,18 +32,12 @@ object Rewind {
       val newGame = game.copy(
         whitePlayer = rewindPlayer(game.whitePlayer),
         blackPlayer = rewindPlayer(game.blackPlayer),
-        pgnMoves = rewindedGame.pgnMoves,
-        pieces = rewindedGame.board.pieces,
-        history = rewindedHistory,
-        turns = rewindedGame.turns,
+        chess = rewindedGame.copy(clock = newClock),
         binaryMoveTimes = game.binaryMoveTimes.map { binary =>
           val moveTimes = BinaryFormat.moveTime.read(binary, game.playedTurns)
           BinaryFormat.moveTime.write(moveTimes.dropRight(1))
         },
         clockHistory = game.clockHistory.map(_.update(!color, _.dropRight(1))),
-        crazyData = rewindedSituation.board.crazyData,
-        status = game.status,
-        clock = newClock,
         movedAt = DateTime.now
       )
       Progress(game, newGame)

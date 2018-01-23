@@ -74,9 +74,15 @@ trait Positional { self: Config =>
     val game = builder(chessGame)
     state.fold(game) {
       case sit @ SituationPlus(Situation(board, _), _) => game.copy(
-        variant = chess.variant.FromPosition,
-        history = board.history,
-        turns = sit.turns
+        chess = game.chess.copy(
+          situation = game.situation.copy(
+            board = game.board.copy(
+              history = board.history,
+              variant = chess.variant.FromPosition
+            )
+          ),
+          turns = sit.turns
+        )
       )
     }
   }

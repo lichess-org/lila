@@ -81,7 +81,7 @@ private[round] final class Rematcher(
     }
     users <- UserRepo byIds pov.game.userIds
   } yield Game.make(
-    game = ChessGame(
+    chess = ChessGame(
       situation = Situation(
         board = Board(pieces, variant = pov.game.variant).withCastles {
           situation.fold(Castles.init)(_.situation.board.history.castles)
@@ -95,7 +95,6 @@ private[round] final class Rematcher(
     whitePlayer = returnPlayer(pov.game, White, users),
     blackPlayer = returnPlayer(pov.game, Black, users),
     mode = if (users.exists(_.lame)) chess.Mode.Casual else pov.game.mode,
-    variant = pov.game.variant,
     source = pov.game.source | Source.Lobby,
     daysPerTurn = pov.game.daysPerTurn,
     pgnImport = None

@@ -36,7 +36,7 @@ private[round] final class Finisher(
       other(game, _.Aborted, none)
     } else {
       val winner = Some(!game.player.color) filterNot { color =>
-        game.toChess.board.variant.insufficientWinningMaterial(game.toChess.situation.board, color)
+        game.variant.insufficientWinningMaterial(game.board, color)
       }
       apply(game, _.Outoftime, winner) >>-
         winner.?? { w => playban.flag(game, !w) }

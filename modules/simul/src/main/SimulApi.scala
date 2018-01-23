@@ -186,14 +186,13 @@ final class SimulApi(
     whiteUser = hostColor.fold(host, user)
     blackUser = hostColor.fold(user, host)
     game1 = Game.make(
-      game = chess.Game(
+      chess = chess.Game(
         situation = chess.Situation(pairing.player.variant),
         clock = simul.clock.chessClockOf(hostColor).start.some
       ),
       whitePlayer = lila.game.Player.white,
       blackPlayer = lila.game.Player.black,
       mode = chess.Mode.Casual,
-      variant = pairing.player.variant,
       source = lila.game.Source.Simul,
       pgnImport = None
     )

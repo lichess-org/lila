@@ -51,7 +51,7 @@ private[round] final class Player(
 
   def fishnet(game: Game, uci: Uci, currentFen: FEN, round: ActorRef)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi) {
-      if (currentFen == FEN(Forsyth >> game.toChess))
+      if (currentFen == FEN(Forsyth >> game.chess))
         applyUci(game, uci, blur = false, metrics = fishnetLag)
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case Flagged => finisher.outOfTime(game)
@@ -76,10 +76,10 @@ private[round] final class Player(
 
   private def applyUci(game: Game, uci: Uci, blur: Boolean, metrics: MoveMetrics): Valid[MoveResult] =
     (uci match {
-      case Uci.Move(orig, dest, prom) => game.toChess.apply(orig, dest, prom, metrics) map {
+      case Uci.Move(orig, dest, prom) => game.chess(orig, dest, prom, metrics) map {
         case (ncg, move) => ncg -> (Left(move): MoveOrDrop)
       }
-      case Uci.Drop(role, pos) => game.toChess.drop(role, pos, metrics) map {
+      case Uci.Drop(role, pos) => game.chess.drop(role, pos, metrics) map {
         case (ncg, drop) => ncg -> (Right(drop): MoveOrDrop)
       }
     }).map {
@@ -95,7 +95,7 @@ private[round] final class Player(
     val color = moveOrDrop.fold(_.color, _.color)
     val moveEvent = MoveEvent(
       gameId = game.id,
-      fen = Forsyth exportBoard game.toChess.board,
+      fen = Forsyth exportBoard game.board,
       move = moveOrDrop.fold(_.toUci.keys, _.toUci.uci)
     )
     // publish all moves
@@ -124,8 +124,8 @@ private[round] final class Player(
   }
 
   private def moveFinish(game: Game, color: Color)(implicit proxy: GameProxy): Fu[Events] = game.status match {
-    case Status.Mate => finisher.other(game, _.Mate, game.toChess.situation.winner)
-    case Status.VariantEnd => finisher.other(game, _.VariantEnd, game.toChess.situation.winner)
+    case Status.Mate => finisher.other(game, _.Mate, game.situation.winner)
+    case Status.VariantEnd => finisher.other(game, _.VariantEnd, game.situation.winner)
     case status @ (Status.Stalemate | Status.Draw) => finisher.other(game, _ => status, None)
     case _ => fuccess(Nil)
   }

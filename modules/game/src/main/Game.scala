@@ -3,8 +3,8 @@ package lila.game
 import chess.Color.{ White, Black }
 import chess.format.{ Uci, FEN }
 import chess.opening.{ FullOpening, FullOpeningDB }
-import chess.variant.{ Variant, Crazyhouse }
-import chess.{ PieceMap, MoveMetrics, History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks, Centis, Situation }
+import chess.variant.{ Variant, Standard }
+import chess.{ Speed, PieceMap, MoveMetrics, History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks, Centis, Situation }
 import org.joda.time.DateTime
 
 import lila.common.Sequence
@@ -16,26 +16,27 @@ case class Game(
     id: String,
     whitePlayer: Player,
     blackPlayer: Player,
-    pgnMoves: PgnMoves,
-    pieces: PieceMap,
-    history: ChessHistory,
+    chess: ChessGame,
     pgnStorage: PgnStorage,
     status: Status,
-    turns: Int, // = ply
-    startedAtTurn: Int,
-    clock: Option[Clock] = None,
     daysPerTurn: Option[Int],
     binaryMoveTimes: Option[ByteArray] = None,
     clockHistory: Option[ClockHistory] = Option(ClockHistory()),
     mode: Mode = Mode.default,
-    variant: Variant = Variant.default,
-    crazyData: Option[Crazyhouse.Data] = None,
     next: Option[String] = None,
     bookmarks: Int = 0,
     createdAt: DateTime = DateTime.now,
     movedAt: DateTime = DateTime.now,
     metadata: Metadata
 ) {
+
+  def situation = chess.situation
+  def board = chess.situation.board
+  def history = chess.situation.board.history
+  def variant = chess.situation.board.variant
+  def turns = chess.turns
+  def clock = chess.clock
+  def pgnMoves = chess.pgnMoves
 
   val players = List(whitePlayer, blackPlayer)
 
@@ -74,7 +75,7 @@ case class Game(
   def turnOf(c: Color): Boolean = c == turnColor
   def turnOf(u: User): Boolean = player(u) ?? turnOf
 
-  def playedTurns = turns - startedAtTurn
+  def playedTurns = turns - chess.startedAtTurn
 
   def flagged = (status == Status.Outoftime).option(turnColor)
 
@@ -154,17 +155,6 @@ case class Game(
     }
   }
 
-  lazy val toChess: ChessGame = ChessGame(
-    situation = Situation(
-      Board(pieces, history, variant, crazyData),
-      Color.fromPly(turns)
-    ),
-    pgnMoves = pgnMoves,
-    clock = clock,
-    turns = turns,
-    startedAtTurn = startedAtTurn
-  )
-
   def update(
     game: ChessGame,
     moveOrDrop: MoveOrDrop,
@@ -182,12 +172,8 @@ case class Game(
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
       blackPlayer = copyPlayer(blackPlayer),
-      pgnMoves = game.pgnMoves,
-      pieces = game.board.pieces,
-      history = game.board.history,
-      turns = game.turns,
-      crazyData = game.situation.board.crazyData,
-      binaryMoveTimes = (!isPgnImport && !clock.isDefined).option {
+      chess = game,
+      binaryMoveTimes = (!isPgnImport && !chess.clock.isDefined).option {
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
@@ -199,7 +185,6 @@ case class Game(
         ch <- clockHistory
       } yield ch.record(turnColor, clk),
       status = game.situation.status | status,
-      clock = game.clock,
       movedAt = DateTime.now
     )
 
@@ -212,17 +197,17 @@ case class Game(
       blackOffersDraw = blackPlayer.isOfferingDraw
     )
 
-    val clockEvent = updated.clock map Event.Clock.apply orElse {
+    val clockEvent = updated.chess.clock map Event.Clock.apply orElse {
       updated.playableCorrespondenceClock map Event.CorrespondenceClock.apply
     }
 
     val events = moveOrDrop.fold(
-      Event.Move(_, game.situation, state, clockEvent, updated.crazyData),
-      Event.Drop(_, game.situation, state, clockEvent, updated.crazyData)
+      Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData),
+      Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData)
     ) ::
       {
         // abstraction leak, I know.
-        (updated.variant.threeCheck && game.situation.check) ?? List(Event.CheckCount(
+        (updated.board.variant.threeCheck && game.situation.check) ?? List(Event.CheckCount(
           white = updated.history.checkCount.white,
           black = updated.history.checkCount.black
         ))
@@ -230,8 +215,6 @@ case class Game(
 
     Progress(this, updated, events)
   }
-
-  def check = toChess.situation.checkSquare
 
   def lastMoveKeys: Option[String] = history.lastMove map {
     case Uci.Drop(target, _) => s"$target$target"
@@ -266,7 +249,7 @@ case class Game(
   def playableCorrespondenceClock: Option[CorrespondenceClock] =
     playable ?? correspondenceClock
 
-  def speed = chess.Speed(clock.map(_.config))
+  def speed = Speed(chess.clock.map(_.config))
 
   def perfKey = PerfPicker.key(this)
   def perfType = PerfType(perfKey)
@@ -343,7 +326,7 @@ case class Game(
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>
       val newClock = c goBerserk color
       Progress(this, copy(
-        clock = Some(newClock),
+        chess = chess.copy(clock = Some(newClock)),
         clockHistory = clockHistory.map(history => {
           if (history(color).isEmpty) history
           else history.reset(color).record(color, newClock)
@@ -367,7 +350,7 @@ case class Game(
         status = status,
         whitePlayer = whitePlayer.finish(winner contains White),
         blackPlayer = blackPlayer.finish(winner contains Black),
-        clock = newClock,
+        chess = chess.copy(clock = newClock),
         clockHistory = for {
           clk <- clock
           history <- clockHistory
@@ -404,10 +387,10 @@ case class Game(
       !Game.isOldHorde(this)
 
   def ratingVariant =
-    if (isTournament && variant == chess.variant.FromPosition) chess.variant.Standard
+    if (isTournament && variant.fromPosition) Standard
     else variant
 
-  def fromPosition = variant == chess.variant.FromPosition || source.??(Source.Position==)
+  def fromPosition = variant.fromPosition || source.??(Source.Position==)
 
   def imported = source contains Source.Import
 
@@ -443,7 +426,7 @@ case class Game(
   private def outoftimeCorrespondence: Boolean =
     playableCorrespondenceClock ?? { _ outoftime turnColor }
 
-  def isCorrespondence = speed == chess.Speed.Correspondence
+  def isCorrespondence = speed == Speed.Correspondence
 
   def isSwitchable = nonAi && (isCorrespondence || isSimul)
 
@@ -455,7 +438,7 @@ case class Game(
 
   def isClockRunning = clock ?? (_.isRunning)
 
-  def withClock(c: Clock) = Progress(this, copy(clock = Some(c)))
+  def withClock(c: Clock) = Progress(this, copy(chess = chess.copy(clock = Some(c))))
 
   def correspondenceGiveTime = Progress(this, copy(movedAt = DateTime.now))
 
@@ -465,7 +448,7 @@ case class Game(
     correspondenceClock.map(_.estimateTotalTime) getOrElse 1200
 
   def timeForFirstMove: Centis = Centis ofSeconds {
-    import chess.Speed._
+    import Speed._
     val base = if (isTournament) speed match {
       case UltraBullet => 11
       case Bullet => 16
@@ -480,7 +463,7 @@ case class Game(
       case Rapid => 30
       case _ => 35
     }
-    if (variant == chess.variant.Chess960) (base * 2) atMost 90
+    if (variant.chess960) (base * 2) atMost 90
     else base
   }
 
@@ -500,7 +483,7 @@ case class Game(
   def onePlayerHasMoved = playedTurns > 0
   def bothPlayersHaveMoved = playedTurns > 1
 
-  def startColor = Color(startedAtTurn % 2 == 0)
+  def startColor = Color(chess.startedAtTurn % 2 == 0)
 
   def playerMoves(color: Color): Int =
     if (color == startColor) (playedTurns + 1) / 2
@@ -551,7 +534,9 @@ case class Game(
   def pgnImport = metadata.pgnImport
   def isPgnImport = pgnImport.isDefined
 
-  def resetTurns = copy(turns = 0, startedAtTurn = 0)
+  def resetTurns = copy(
+    chess = chess.copy(turns = 0, startedAtTurn = 0)
+  )
 
   lazy val opening: Option[FullOpening.AtPly] =
     if (fromPosition || !Variant.openingSensibleVariants(variant)) none
@@ -632,11 +617,10 @@ object Game {
   private[game] val emptyCheckCount = CheckCount(0, 0)
 
   def make(
-    game: ChessGame,
+    chess: ChessGame,
     whitePlayer: Player,
     blackPlayer: Player,
     mode: Mode,
-    variant: Variant,
     source: Source,
     pgnImport: Option[PgnImport],
     daysPerTurn: Option[Int] = None
@@ -646,24 +630,11 @@ object Game {
       id = IdGenerator.game,
       whitePlayer = whitePlayer,
       blackPlayer = blackPlayer,
-      pgnMoves = Vector.empty,
-      pieces = game.board.pieces,
-      history = ChessHistory(
-        lastMove = none,
-        castles = game.board.history.castles,
-        positionHashes = game.board.history.positionHashes,
-        checkCount = emptyCheckCount,
-        unmovedRooks = game.board.unmovedRooks
-      ),
-      pgnStorage = PgnStorage(variant, List(whitePlayer.userId, blackPlayer.userId).flatten),
+      chess = chess,
+      pgnStorage = PgnStorage(chess.situation.board.variant, List(whitePlayer.userId, blackPlayer.userId).flatten),
       status = Status.Created,
-      turns = game.turns,
-      startedAtTurn = game.startedAtTurn,
-      clock = game.clock,
       daysPerTurn = daysPerTurn,
       mode = mode,
-      variant = variant,
-      crazyData = game.board.crazyData,
       metadata = Metadata(
         source = source.some,
         pgnImport = pgnImport,

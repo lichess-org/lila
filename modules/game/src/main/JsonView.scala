@@ -15,10 +15,10 @@ object JsonView {
     "perf" -> PerfPicker.key(game),
     "rated" -> game.rated,
     "initialFen" -> initialFen.fold(chess.format.Forsyth.initial)(_.value),
-    "fen" -> (Forsyth >> game.toChess),
+    "fen" -> (Forsyth >> game.chess),
     "player" -> game.turnColor,
     "turns" -> game.turns,
-    "startedAtTurn" -> game.startedAtTurn,
+    "startedAtTurn" -> game.chess.startedAtTurn,
     "source" -> game.source,
     "status" -> game.status,
     "createdAt" -> game.createdAt
@@ -27,7 +27,7 @@ object JsonView {
     .add("tournamentId" -> game.tournamentId)
     .add("winner" -> game.winnerColor)
     .add("lastMove" -> game.lastMoveKeys)
-    .add("check" -> game.check.map(_.key))
+    .add("check" -> game.situation.checkSquare.map(_.key))
     .add("rematch" -> game.next)
 
   implicit val statusWrites: OWrites[chess.Status] = OWrites { s =>
