@@ -88,8 +88,8 @@ case class ImportData(pgn: String, analyse: Option[String]) {
 
           val dbGame = Game.make(
             chess = replay.state,
-            whitePlayer = Player.white withName name(_.White, _.WhiteElo),
-            blackPlayer = Player.black withName name(_.Black, _.BlackElo),
+            whitePlayer = Player.make(chess.White, None) withName name(_.White, _.WhiteElo),
+            blackPlayer = Player.make(chess.Black, None) withName name(_.Black, _.BlackElo),
             mode = Mode.Casual,
             source = Source.Import,
             pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some

@@ -53,8 +53,8 @@ object UserAnalysis extends LilaController with TheftPrevention {
         situation = from.situation,
         turns = from.turns
       ),
-      whitePlayer = lila.game.Player.white,
-      blackPlayer = lila.game.Player.black,
+      whitePlayer = lila.game.Player.make(chess.White, none),
+      blackPlayer = lila.game.Player.make(chess.Black, none),
       mode = chess.Mode.Casual,
       source = lila.game.Source.Api,
       pgnImport = None

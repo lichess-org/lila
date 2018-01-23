@@ -20,10 +20,11 @@ private[lobby] object Biter {
     userOption ← lobbyUserOption.map(_.id) ?? UserRepo.byId
     ownerOption ← hook.userId ?? UserRepo.byId
     creatorColor <- assignCreatorColor(ownerOption, userOption, hook.realColor)
-    game = blame(
-      !creatorColor, userOption,
-      blame(creatorColor, ownerOption, makeGame(hook))
-    ).start
+    game = makeGame(
+      hook,
+      whiteUser = creatorColor.fold(ownerOption, userOption),
+      blackUser = creatorColor.fold(userOption, ownerOption)
+    )
     _ ← GameRepo insertDenormalized game
   } yield {
     lila.mon.lobby.hook.join()
@@ -34,10 +35,11 @@ private[lobby] object Biter {
     user ← UserRepo byId lobbyUser.id flatten s"No such user: ${lobbyUser.id}"
     owner ← UserRepo byId seek.user.id flatten s"No such user: ${seek.user.id}"
     creatorColor <- assignCreatorColor(owner.some, user.some, seek.realColor)
-    game = blame(
-      !creatorColor, user.some,
-      blame(creatorColor, owner.some, makeGame(seek))
-    ).start
+    game = makeGame(
+      seek,
+      whiteUser = creatorColor.fold(owner.some, user.some),
+      blackUser = creatorColor.fold(user.some, owner.some)
+    )
     _ ← GameRepo insertDenormalized game
   } yield JoinSeek(user.id, seek, game, creatorColor)
 
@@ -51,35 +53,37 @@ private[lobby] object Biter {
     case Color.Black => fuccess(chess.Black)
   }
 
-  private def blame(color: ChessColor, userOption: Option[User], game: Game) =
-    userOption.fold(game) { user =>
-      game.updatePlayer(color, _.withUser(user.id, PerfPicker.mainOrDefault(game)(user.perfs)))
-    }
+  private def makeGame(hook: Hook, whiteUser: Option[User], blackUser: Option[User]) = {
+    val clock = hook.clock.toClock
+    val perfPicker = PerfPicker.mainOrDefault(chess.Speed(clock.config), hook.realVariant, none)
+    Game.make(
+      chess = ChessGame(
+        situation = Situation(hook.realVariant),
+        clock = clock.some
+      ),
+      whitePlayer = Player.make(chess.White, whiteUser, perfPicker),
+      blackPlayer = Player.make(chess.Black, blackUser, perfPicker),
+      mode = hook.realMode,
+      source = lila.game.Source.Lobby,
+      pgnImport = None
+    ).start
+  }
 
-  private def makeGame(hook: Hook) = Game.make(
-    chess = ChessGame(
-      situation = Situation(hook.realVariant),
-      clock = hook.clock.toClock.some
-    ),
-    whitePlayer = Player.white,
-    blackPlayer = Player.black,
-    mode = hook.realMode,
-    source = lila.game.Source.Lobby,
-    pgnImport = None
-  )
-
-  private def makeGame(seek: Seek) = Game.make(
-    chess = ChessGame(
-      situation = Situation(seek.realVariant),
-      clock = none
-    ),
-    whitePlayer = Player.white,
-    blackPlayer = Player.black,
-    mode = seek.realMode,
-    source = lila.game.Source.Lobby,
-    daysPerTurn = seek.daysPerTurn,
-    pgnImport = None
-  )
+  private def makeGame(seek: Seek, whiteUser: Option[User], blackUser: Option[User]) = {
+    val perfPicker = PerfPicker.mainOrDefault(chess.Speed(none), seek.realVariant, seek.daysPerTurn)
+    Game.make(
+      chess = ChessGame(
+        situation = Situation(seek.realVariant),
+        clock = none
+      ),
+      whitePlayer = Player.make(chess.White, whiteUser, perfPicker),
+      blackPlayer = Player.make(chess.Black, blackUser, perfPicker),
+      mode = seek.realMode,
+      source = lila.game.Source.Lobby,
+      daysPerTurn = seek.daysPerTurn,
+      pgnImport = None
+    ).start
+  }
 
   def canJoin(hook: Hook, user: Option[LobbyUser]): Boolean =
     hook.isAuth == user.isDefined && user.fold(true) { u =>

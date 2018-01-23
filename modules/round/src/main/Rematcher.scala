@@ -100,14 +100,15 @@ private[round] final class Rematcher(
     pgnImport = None
   )
 
-  private def returnPlayer(game: Game, color: ChessColor, users: List[User]): lila.game.Player = {
-    val player = lila.game.Player.make(color = color, aiLevel = game.opponent(color).aiLevel)
-    game.player(!color).userId.flatMap { id =>
-      users.find(_.id == id)
-    }.fold(player) { user =>
-      player.withUser(user.id, PerfPicker.mainOrDefault(game)(user.perfs))
+  private def returnPlayer(game: Game, color: ChessColor, users: List[User]): lila.game.Player =
+    game.opponent(color).aiLevel match {
+      case Some(ai) => lila.game.Player.make(color, ai.some)
+      case None => lila.game.Player.make(
+        color,
+        game.opponent(color).userId.flatMap { id => users.find(_.id == id) },
+        PerfPicker.mainOrDefault(game)
+      )
     }
-  }
 
   private def redirectEvents(game: Game): Events = {
     val whiteId = game fullIdOf White

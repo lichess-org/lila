@@ -114,6 +114,8 @@ case class Tournament(
 
   def nonLichessCreatedBy = (createdBy != lichessId) option createdBy
 
+  def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
+
   override def toString = s"$id $startsAt $fullName $minutes minutes, $clock"
 }
 

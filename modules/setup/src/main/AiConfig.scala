@@ -3,6 +3,7 @@ package lila.setup
 import chess.{ Mode, Color => ChessColor }
 import lila.game.{ Game, Player, Source, Pov }
 import lila.lobby.Color
+import lila.user.User
 
 case class AiConfig(
     variant: chess.variant.Variant,
@@ -19,7 +20,7 @@ case class AiConfig(
 
   def >> = (variant.id, timeMode.id, time, increment, days, level, color.name, fen).some
 
-  def game = fenGame { chessGame =>
+  def game(user: Option[User]) = fenGame { chessGame =>
     Game.make(
       chess = chessGame,
       whitePlayer = Player.make(
@@ -37,7 +38,7 @@ case class AiConfig(
     )
   } start
 
-  def pov = Pov(game, creatorColor)
+  def pov(user: Option[User]) = Pov(game(user), creatorColor)
 }
 
 object AiConfig extends BaseConfig {
