@@ -803,6 +803,7 @@
   <string name="noMistakesFoundForBlack">Siyahın bir hatası bulunamadı</string>
   <string name="doneReviewingWhiteMistakes">Beyazın hataları analiz edildi</string>
   <string name="doneReviewingBlackMistakes">Siyahın hataları analiz edildi</string>
+  <string name="doItAgain">Tekrar yapın</string>
   <string name="reviewWhiteMistakes">Beyazın hatalarını gözden geçirin</string>
   <string name="reviewBlackMistakes">Siyahın hatalarını gözden geçirin</string>
   <string name="advantage">Avantaj</string>
@@ -813,4 +814,7 @@
   <string name="opening">Açılış</string>
   <string name="middlegame">Oyunortası</string>
   <string name="endgame">Oyunsonu</string>
+  <string name="registerToSendChallenges">Oyun daveti göndermek için üye olun.</string>
+  <string name="youCannotChallengeX">%s adlı oyuncuya oyun daveti gönderemezsiniz.</string>
+  <string name="xDoesNotAcceptChallenges">%s oyun davetlerini kabul etmiyor.</string>
 </resources>
