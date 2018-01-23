@@ -202,9 +202,12 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
       break;
     case 'comments':
       panel = study.vm.mode.write ?
-        commentForm.view(ctrl) :
-        commentForm.viewDisabled(ctrl, 'Press RECORD to comment moves');
-      break;
+        commentForm.view(ctrl) : (
+          study.members.canContribute() ?
+          commentForm.viewDisabled(ctrl, 'Press RECORD to comment moves') :
+          null
+        );
+        break;
     case 'glyphs':
       panel = ctrl.path ? (
         study.vm.mode.write ?
