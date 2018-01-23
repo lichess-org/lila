@@ -74,6 +74,5 @@
 <div class="mod_info_box">
   @if(u.lameOrTroll || u.disabled) { <span class="mod_marks">@userMarks(u, None)</span> }
   <p>@trans.nbGames.plural(u.count.game, u.count.game.localize), @momentFromNow(u.createdAt)</p>
-  @u.seenAt.map { seen =><p>Active @momentFromNow(seen)</p> }
 </div>
 }
