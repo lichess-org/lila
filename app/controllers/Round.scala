@@ -61,7 +61,7 @@ object Round extends LilaController with TheftPrevention {
                 simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
                 Ok(html.round.player(pov, data,
                   tour = tour,
-                  simul = simul,
+                  simul = simul.filter(_ isHost ctx.me),
                   cross = crosstable,
                   playing = playing,
                   chatOption = chatOption,
