@@ -124,10 +124,10 @@ public class Encoder {
         appendHash(positionHashes, board.zobristHash());
 
         for (int i = 0; i <= plies; i++) {
-            board.legalMoves(legals);
+            if (0 < i || i < plies) board.legalMoves(legals);
 
             // Append check or checkmate suffix to previous move.
-            if (i > 0) {
+            if (0 < i) {
                 if (board.isCheck()) output[i - 1] += (legals.isEmpty() ? "#" : "+");
             }
 
