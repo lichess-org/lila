@@ -7,7 +7,7 @@ import lila.db.ByteArray
 
 sealed trait PgnStorage
 
-object PgnStorage {
+private object PgnStorage {
 
   case object OldBin extends PgnStorage {
 
