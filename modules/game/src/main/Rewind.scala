@@ -34,12 +34,8 @@ object Rewind {
         blackPlayer = rewindPlayer(game.blackPlayer),
         pgnMoves = rewindedGame.pgnMoves,
         pieces = rewindedGame.board.pieces,
-        positionHashes = rewindedHistory.positionHashes,
-        unmovedRooks = rewindedGame.board.unmovedRooks,
+        history = rewindedHistory,
         turns = rewindedGame.turns,
-        checkCount = rewindedHistory.checkCount,
-        lastMove = rewindedHistory.lastMove,
-        castles = rewindedHistory.castles,
         binaryMoveTimes = game.binaryMoveTimes.map { binary =>
           val moveTimes = BinaryFormat.moveTime.read(binary, game.playedTurns)
           BinaryFormat.moveTime.write(moveTimes.dropRight(1))

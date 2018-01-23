@@ -22,7 +22,7 @@ object JsonView {
     "source" -> game.source,
     "status" -> game.status,
     "createdAt" -> game.createdAt
-  ).add("threefold" -> game.toChessHistory.threefoldRepetition)
+  ).add("threefold" -> game.history.threefoldRepetition)
     .add("boosted" -> game.boosted)
     .add("tournamentId" -> game.tournamentId)
     .add("winner" -> game.winnerColor)

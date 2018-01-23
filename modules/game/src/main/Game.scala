@@ -18,17 +18,13 @@ case class Game(
     blackPlayer: Player,
     pgnMoves: PgnMoves,
     pieces: PieceMap,
-    positionHashes: PositionHash,
-    unmovedRooks: UnmovedRooks,
-    lastMove: Option[Uci],
-    castles: Castles,
+    history: ChessHistory,
     pgnStorage: PgnStorage,
     status: Status,
     turns: Int, // = ply
     startedAtTurn: Int,
     clock: Option[Clock] = None,
     daysPerTurn: Option[Int],
-    checkCount: CheckCount = CheckCount(0, 0),
     binaryMoveTimes: Option[ByteArray] = None,
     clockHistory: Option[ClockHistory] = Option(ClockHistory()),
     mode: Mode = Mode.default,
@@ -160,7 +156,7 @@ case class Game(
 
   lazy val toChess: ChessGame = ChessGame(
     situation = Situation(
-      Board(pieces, toChessHistory, variant, crazyData),
+      Board(pieces, history, variant, crazyData),
       Color.fromPly(turns)
     ),
     pgnMoves = pgnMoves,
@@ -169,21 +165,12 @@ case class Game(
     startedAtTurn = startedAtTurn
   )
 
-  lazy val toChessHistory = ChessHistory(
-    lastMove = lastMove,
-    castles = castles,
-    positionHashes = positionHashes,
-    checkCount = checkCount,
-    unmovedRooks = unmovedRooks
-  )
-
   def update(
     game: ChessGame,
     moveOrDrop: MoveOrDrop,
     blur: Boolean = false,
     moveMetrics: MoveMetrics = MoveMetrics()
   ): Progress = {
-    val (history, situation) = (game.board.history, game.situation)
 
     def copyPlayer(player: Player) =
       if (blur && moveOrDrop.fold(_.color, _.color) == player.color)
@@ -197,36 +184,30 @@ case class Game(
       blackPlayer = copyPlayer(blackPlayer),
       pgnMoves = game.pgnMoves,
       pieces = game.board.pieces,
-      positionHashes = history.positionHashes,
-      unmovedRooks = game.board.unmovedRooks,
-      lastMove = history.lastMove,
-      castles = history.castles,
+      history = game.board.history,
       turns = game.turns,
-      checkCount = history.checkCount,
-      crazyData = situation.board.crazyData,
+      crazyData = game.situation.board.crazyData,
       binaryMoveTimes = (!isPgnImport && !clock.isDefined).option {
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
-          } :+ {
-            Centis(nowCentis - movedAt.getCentis) nonNeg
-          }
+          } :+ Centis(nowCentis - movedAt.getCentis).nonNeg
         }
       },
       clockHistory = for {
         clk <- game.clock
-        history <- clockHistory
-      } yield history.record(turnColor, clk),
-      status = situation.status | status,
+        ch <- clockHistory
+      } yield ch.record(turnColor, clk),
+      status = game.situation.status | status,
       clock = game.clock,
       movedAt = DateTime.now
     )
 
     val state = Event.State(
-      color = situation.color,
+      color = game.situation.color,
       turns = game.turns,
       status = (status != updated.status) option updated.status,
-      winner = situation.winner,
+      winner = game.situation.winner,
       whiteOffersDraw = whitePlayer.isOfferingDraw,
       blackOffersDraw = blackPlayer.isOfferingDraw
     )
@@ -236,14 +217,14 @@ case class Game(
     }
 
     val events = moveOrDrop.fold(
-      Event.Move(_, situation, state, clockEvent, updated.crazyData),
-      Event.Drop(_, situation, state, clockEvent, updated.crazyData)
+      Event.Move(_, game.situation, state, clockEvent, updated.crazyData),
+      Event.Drop(_, game.situation, state, clockEvent, updated.crazyData)
     ) ::
       {
         // abstraction leak, I know.
-        (updated.variant.threeCheck && situation.check) ?? List(Event.CheckCount(
-          white = updated.checkCount.white,
-          black = updated.checkCount.black
+        (updated.variant.threeCheck && game.situation.check) ?? List(Event.CheckCount(
+          white = updated.history.checkCount.white,
+          black = updated.history.checkCount.black
         ))
       }.toList
 
@@ -252,7 +233,7 @@ case class Game(
 
   def check = toChess.situation.checkSquare
 
-  def lastMoveKeys: Option[String] = lastMove map {
+  def lastMoveKeys: Option[String] = history.lastMove map {
     case Uci.Drop(target, _) => s"$target$target"
     case m: Uci.Move => m.keys
   }
@@ -648,6 +629,8 @@ object Game {
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
 
+  private[game] val emptyCheckCount = CheckCount(0, 0)
+
   def make(
     game: ChessGame,
     whitePlayer: Player,
@@ -665,10 +648,13 @@ object Game {
       blackPlayer = blackPlayer,
       pgnMoves = Vector.empty,
       pieces = game.board.pieces,
-      positionHashes = game.board.history.positionHashes,
-      unmovedRooks = game.board.unmovedRooks,
-      lastMove = none,
-      castles = game.board.history.castles,
+      history = ChessHistory(
+        lastMove = none,
+        castles = game.board.history.castles,
+        positionHashes = game.board.history.positionHashes,
+        checkCount = emptyCheckCount,
+        unmovedRooks = game.board.unmovedRooks
+      ),
       pgnStorage = PgnStorage(variant, List(whitePlayer.userId, blackPlayer.userId).flatten),
       status = Status.Created,
       turns = game.turns,

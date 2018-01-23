@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.variant.Crazyhouse
+import chess.variant.{ Crazyhouse, ThreeCheck }
 import chess.{ Color, White, Black, Clock, CheckCount, UnmovedRooks }
 import Game.BSONFields._
 import reactivemongo.bson._
@@ -60,9 +60,14 @@ private[game] object GameDiff {
       case f @ PgnStorage.OldBin =>
         d(oldPgn, _.pgnMoves, writeBytes compose f.encode)
         d(binaryPieces, _.pieces, writeBytes compose BinaryFormat.piece.write)
-        d(positionHashes, _.positionHashes, w.bytes)
-        d(unmovedRooks, _.unmovedRooks, writeBytes compose BinaryFormat.unmovedRooks.write)
+        d(positionHashes, _.history.positionHashes, w.bytes)
+        d(unmovedRooks, _.history.unmovedRooks, writeBytes compose BinaryFormat.unmovedRooks.write)
         d(castleLastMove, makeCastleLastMove, CastleLastMove.castleLastMoveBSONHandler.write)
+        // since variants are always OldBin
+        if (a.variant == ThreeCheck)
+          dOpt(checkCount, _.history.checkCount, (o: CheckCount) => o.nonEmpty option { BSONHandlers.checkCountWriter write o })
+        if (a.variant == Crazyhouse)
+          dOpt(crazyData, _.crazyData, (o: Option[Crazyhouse.Data]) => o map BSONHandlers.crazyhouseDataBSONHandler.write)
       case f @ PgnStorage.Huffman =>
         d(huffmanPgn, _.pgnMoves, writeBytes compose f.encode)
     }
@@ -74,9 +79,6 @@ private[game] object GameDiff {
     dOpt(clock, _.clock, (o: Option[Clock]) => o map { c =>
       BSONHandlers.clockBSONWrite(a.createdAt, c)
     })
-    dOpt(checkCount, _.checkCount, (o: CheckCount) => o.nonEmpty option { BSONHandlers.checkCountWriter write o })
-    if (a.variant == Crazyhouse)
-      dOpt(crazyData, _.crazyData, (o: Option[Crazyhouse.Data]) => o map BSONHandlers.crazyhouseDataBSONHandler.write)
     for (i ← 0 to 1) {
       import Player.BSONFields._
       val name = s"p$i."
@@ -97,7 +99,7 @@ private[game] object GameDiff {
   private val writeBytes = ByteArrayBSONHandler.write _
 
   private def makeCastleLastMove(g: Game) = CastleLastMove(
-    lastMove = g.lastMove,
-    castles = g.castles
+    lastMove = g.history.lastMove,
+    castles = g.history.castles
   )
 }
