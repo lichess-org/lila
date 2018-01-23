@@ -273,6 +273,10 @@
   <string name="tournament">Turnuva</string>
   <string name="tournaments">Turnuvalar</string>
   <string name="tournamentPoints">Turnuvada alınan puanlar</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s Turnuva Puanı</item>
+    <item quantity="other">%s Turnuva Puanı</item>
+  </plurals>
   <string name="viewTournament">Turnuvayı izle</string>
   <string name="backToTournament">Turnuvaya dön</string>
   <string name="thematic">Tematik</string>
@@ -765,7 +769,14 @@
   <string name="notifications">Bildirimler</string>
   <string name="challenges">Meydan okumalar</string>
   <string name="perfRatingX">Puan: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">İlk hamle için son %s saniye</item>
+    <item quantity="other">İlk hamle için son %s saniye</item>
+  </plurals>
   <string name="practiceWithComputer">Bilgisayar ile pratik yapmak</string>
+  <string name="anotherWasX">%s de olurdu</string>
+  <string name="bestWasX">En iyi hamle %s</string>
+  <string name="youBrowsedAway">Çok uzaklara gittiniz</string>
   <string name="resumePractice">Alıştırmaya devam et</string>
   <string name="theGameIsADraw">Beraberlik.</string>
   <string name="computerThinking">Bilgisayar düşünüyor...</string>
@@ -781,6 +792,7 @@
   <string name="next">Sonraki</string>
   <string name="findBetterMoveForWhite">Beyaz için en iyi hamleyi bulun</string>
   <string name="findBetterMoveForBlack">Siyah için en iyi hamleyi bulun</string>
+  <string name="resumeLearning">Kaldığınız yerden devam edin</string>
   <string name="youCanDoBetter">Daha iyisini yapabilirsin</string>
   <string name="solution">Çözüm</string>
   <string name="reviewWhiteMistakes">Beyazın hatalarını gözden geçirin</string>
