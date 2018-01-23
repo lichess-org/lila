@@ -22,7 +22,7 @@
   <string name="createAGame">Создать игру</string>
   <string name="whiteIsVictorious">Победа белых</string>
   <string name="blackIsVictorious">Победа чёрных</string>
-  <string name="kingInTheCenter">Король достиг центра</string>
+  <string name="kingInTheCenter">Король в центре</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Гонка окончена</string>
   <string name="variantEnding">Партия окончена</string>
