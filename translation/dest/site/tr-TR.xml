@@ -56,6 +56,7 @@
   <string name="showThreat">Tehdidi göster</string>
   <string name="inLocalBrowser">yerel tarayıcı üzerinde</string>
   <string name="toggleLocalEvaluation">Yerel analizi aç/kapat</string>
+  <string name="promoteVariation">Bu varyanttan devam et</string>
   <string name="makeMainLine">Ana devam yolu yap</string>
   <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
   <string name="move">Hamle</string>
@@ -109,6 +110,7 @@
   <string name="blunders">Vahim hatalar</string>
   <string name="mistake">Hata</string>
   <string name="mistakes">Hatalar</string>
+  <string name="inaccuracy">Kusurlu hamle</string>
   <string name="inaccuracies">Kusurlu hamleler</string>
   <string name="moveTimes">Hamle zamanları</string>
   <string name="flipBoard">Tahtayı döndür</string>
@@ -204,6 +206,8 @@
   <string name="mode">Mod</string>
   <string name="casual">Puansız</string>
   <string name="rated">Puanlı</string>
+  <string name="casualTournament">Puansız</string>
+  <string name="ratedTournament">Puanlı</string>
   <string name="thisGameIsRated">Oyun puanlıdır</string>
   <string name="rematch">Yeniden oyna</string>
   <string name="rematchOfferSent">Yeniden oynama teklifi yollandı</string>
@@ -762,10 +766,13 @@
   <string name="challenges">Meydan okumalar</string>
   <string name="perfRatingX">Puan: %s</string>
   <string name="practiceWithComputer">Bilgisayar ile pratik yapmak</string>
+  <string name="resumePractice">Alıştırmaya devam et</string>
   <string name="theGameIsADraw">Beraberlik.</string>
+  <string name="computerThinking">Bilgisayar düşünüyor...</string>
   <string name="seeBestMove">En iyi hamleye bak</string>
   <string name="hideBestMove">En iyi hamleyi gizle</string>
   <string name="getAHint">İpucu</string>
+  <string name="evaluatingYourMove">Hamleniz değerlendiriliyor...</string>
   <string name="whiteWinsGame">Beyaz kazandı</string>
   <string name="blackWinsGame">Siyah kazandı</string>
   <string name="learnFromYourMistakes">Hatalarından ders al</string>
