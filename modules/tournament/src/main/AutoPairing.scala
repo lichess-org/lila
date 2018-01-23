@@ -16,7 +16,10 @@ final class AutoPairing(
     val user2 = usersMap get pairing.user2 err s"Missing pairing user2 $pairing"
     val game1 = Game.make(
       chess = chess.Game(
-        variantOption = tour.variant.some,
+        variantOption = Some {
+          if (tour.position.initial) tour.variant
+          else chess.variant.FromPosition
+        },
         fen = tour.position.some.filterNot(_.initial).map(_.fen)
       ) |> { g =>
           val turns = g.player.fold(0, 1)
