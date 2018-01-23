@@ -36,20 +36,25 @@ private[challenge] final class Joiner(onStart: String => Unit) {
             }
           }
           val game = Game.make(
-            game = chessGame,
+            chess = chessGame,
             whitePlayer = makePlayer(chess.White, c.finalColor.fold(challengerUser, destUser)),
             blackPlayer = makePlayer(chess.Black, c.finalColor.fold(destUser, challengerUser)),
-            mode = (realVariant == chess.variant.FromPosition).fold(Mode.Casual, c.mode),
-            variant = realVariant,
-            source = (realVariant == chess.variant.FromPosition).fold(Source.Position, Source.Friend),
+            mode = realVariant.fromPosition.fold(Mode.Casual, c.mode),
+            source = realVariant.fromPosition.fold(Source.Position, Source.Friend),
             daysPerTurn = c.daysPerTurn,
             pgnImport = None
           ).copy(id = c.id).|> { g =>
               state.fold(g) {
                 case sit @ SituationPlus(Situation(board, _), _) => g.copy(
-                  variant = chess.variant.FromPosition,
-                  history = board.history,
-                  turns = sit.turns
+                  chess = g.chess.copy(
+                    situation = g.situation.copy(
+                      board = g.board.copy(
+                        history = board.history,
+                        variant = chess.variant.FromPosition
+                      )
+                    ),
+                    turns = sit.turns
+                  )
                 )
               }
             }.start

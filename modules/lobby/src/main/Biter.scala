@@ -57,27 +57,25 @@ private[lobby] object Biter {
     }
 
   private def makeGame(hook: Hook) = Game.make(
-    game = ChessGame(
+    chess = ChessGame(
       situation = Situation(hook.realVariant),
       clock = hook.clock.toClock.some
     ),
     whitePlayer = Player.white,
     blackPlayer = Player.black,
     mode = hook.realMode,
-    variant = hook.realVariant,
     source = lila.game.Source.Lobby,
     pgnImport = None
   )
 
   private def makeGame(seek: Seek) = Game.make(
-    game = ChessGame(
+    chess = ChessGame(
       situation = Situation(seek.realVariant),
       clock = none
     ),
     whitePlayer = Player.white,
     blackPlayer = Player.black,
     mode = seek.realMode,
-    variant = seek.realVariant,
     source = lila.game.Source.Lobby,
     daysPerTurn = seek.daysPerTurn,
     pgnImport = None

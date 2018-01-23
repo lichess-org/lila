@@ -110,7 +110,7 @@ final class JsonView(
           ).add("clock" -> game.clock.map(clockJson))
             .add("correspondence" -> game.correspondenceClock)
             .add("takebackable" -> takebackable)
-            .add("crazyhouse" -> pov.game.crazyData)
+            .add("crazyhouse" -> pov.game.board.crazyData)
             .add("possibleMoves" -> possibleMoves(pov))
             .add("possibleDrops" -> possibleDrops(pov))
             .add("expiration" -> game.expirable.option {
@@ -204,7 +204,7 @@ final class JsonView(
     division: Option[chess.Division] = none
   ) = {
     import pov._
-    val fen = Forsyth >> game.toChess
+    val fen = Forsyth >> game.chess
     Json.obj(
       "game" -> Json.obj(
         "id" -> gameId,
@@ -256,13 +256,13 @@ final class JsonView(
 
   private def possibleMoves(pov: Pov): Option[Map[String, String]] =
     (pov.game playableBy pov.player) option {
-      pov.game.toChess.situation.destinations map {
+      pov.game.situation.destinations map {
         case (from, dests) => from.key -> dests.mkString
       }
     }
 
   private def possibleDrops(pov: Pov): Option[JsValue] = (pov.game playableBy pov.player) ?? {
-    pov.game.toChess.situation.drops map { drops =>
+    pov.game.situation.drops map { drops =>
       JsString(drops.map(_.key).mkString)
     }
   }

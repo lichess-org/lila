@@ -4,8 +4,8 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 import scala.collection.breakOut
 
-import chess.variant.{ Variant, Crazyhouse, ThreeCheck }
-import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRooks, History => ChessHistory }
+import chess.variant.{ Variant, Crazyhouse }
+import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRooks, History => ChessHistory, Game => ChessGame }
 
 import lila.db.BSON
 import lila.db.dsl._
@@ -60,132 +60,146 @@ object BSONHandlers {
 
   implicit val gameBSONHandler: BSON[Game] = new BSON[Game] {
 
-    import Game.BSONFields._
+    import Game.{ BSONFields => F }
     import PgnImport.pgnImportBSONHandler
     import Player.playerBSONHandler
 
     private val emptyPlayerBuilder = playerBSONHandler.read(BSONDocument())
 
     def reads(r: BSON.Reader): Game = {
-      val winC = r boolO winnerColor map Color.apply
-      val (whiteId, blackId) = r str playerIds splitAt 4
-      val uids = ~r.getO[List[String]](playerUids)
-      val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
-      def player(field: String, color: Color, id: Player.Id, uid: Player.UserId): Player = {
-        val builder = r.getO[Player.Builder](field)(playerBSONHandler) | emptyPlayerBuilder
-        val win = winC map (_ == color)
-        builder(color)(id)(uid)(win)
-      }
-      val gameVariant = Variant(r intD variant) | chess.variant.Standard
-      val plies = r int turns
 
-      val decoded = r.bytesO(huffmanPgn).map { PgnStorage.Huffman.decode(_, plies) } | {
-        val clm = r.get[CastleLastMove](castleLastMove)
+      val gameVariant = Variant(r intD F.variant) | chess.variant.Standard
+      val plies = r int F.turns
+      val turnColor = Color.fromPly(plies)
+
+      val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, plies) } | {
+        val clm = r.get[CastleLastMove](F.castleLastMove)
         PgnStorage.Decoded(
-          pgnMoves = PgnStorage.OldBin.decode(r bytesD oldPgn, plies),
-          pieces = BinaryFormat.piece.read(r bytes binaryPieces, gameVariant),
-          positionHashes = r.getO[chess.PositionHash](positionHashes) | Array.empty,
-          unmovedRooks = r.getO[UnmovedRooks](unmovedRooks) | UnmovedRooks.default,
+          pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, plies),
+          pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
+          positionHashes = r.getO[chess.PositionHash](F.positionHashes) | Array.empty,
+          unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
           lastMove = clm.lastMove,
           castles = clm.castles,
           format = PgnStorage.OldBin
         )
       }
 
-      val g = Game(
-        id = r str id,
-        whitePlayer = player(whitePlayer, White, whiteId, whiteUid),
-        blackPlayer = player(blackPlayer, Black, blackId, blackUid),
-        pgnMoves = decoded.pgnMoves,
-        pieces = decoded.pieces,
-        history = ChessHistory(
-          lastMove = decoded.lastMove,
-          castles = decoded.castles,
-          positionHashes = decoded.positionHashes,
-          unmovedRooks = decoded.unmovedRooks,
-          checkCount = if (gameVariant == ThreeCheck) {
-            val counts = r.intsD(checkCount)
-            CheckCount(~counts.headOption, ~counts.lastOption)
-          } else Game.emptyCheckCount
+      val winC = r boolO F.winnerColor map Color.apply
+      val uids = ~r.getO[List[String]](F.playerUids)
+      val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
+      def makePlayer(field: String, color: Color, id: Player.Id, uid: Player.UserId): Player = {
+        val builder = r.getO[Player.Builder](field)(playerBSONHandler) | emptyPlayerBuilder
+        val win = winC map (_ == color)
+        builder(color)(id)(uid)(win)
+      }
+      val (whiteId, blackId) = r str F.playerIds splitAt 4
+      val wPlayer = makePlayer(F.whitePlayer, White, whiteId, whiteUid)
+      val bPlayer = makePlayer(F.blackPlayer, Black, blackId, blackUid)
+
+      val createdAt = r date F.createdAt
+      val status = r.get[Status](F.status)
+
+      val chessGame = ChessGame(
+        situation = chess.Situation(
+          chess.Board(
+            pieces = decoded.pieces,
+            history = ChessHistory(
+              lastMove = decoded.lastMove,
+              castles = decoded.castles,
+              positionHashes = decoded.positionHashes,
+              unmovedRooks = decoded.unmovedRooks,
+              checkCount = if (gameVariant.threeCheck) {
+                val counts = r.intsD(F.checkCount)
+                CheckCount(~counts.headOption, ~counts.lastOption)
+              } else Game.emptyCheckCount
+            ),
+            variant = gameVariant,
+            crazyData = gameVariant.crazyhouse option r.get[Crazyhouse.Data](F.crazyData)
+          ),
+          color = turnColor
         ),
-        pgnStorage = decoded.format,
-        status = r.get[Status](status),
+        pgnMoves = decoded.pgnMoves,
+        clock = r.getO[Color => Clock](F.clock) {
+          clockBSONReader(createdAt, wPlayer.berserk, bPlayer.berserk)
+        } map (_(turnColor)),
         turns = plies,
-        startedAtTurn = r intD startedAtTurn,
-        daysPerTurn = r intO daysPerTurn,
-        binaryMoveTimes = r bytesO moveTimes,
-        mode = Mode(r boolD rated),
-        variant = gameVariant,
-        next = r strO next,
-        bookmarks = r intD bookmarks,
-        createdAt = r date createdAt,
-        movedAt = r.dateD(movedAt, r date createdAt),
-        metadata = Metadata(
-          source = r intO source flatMap Source.apply,
-          pgnImport = r.getO[PgnImport](pgnImport)(PgnImport.pgnImportBSONHandler),
-          tournamentId = r strO tournamentId,
-          simulId = r strO simulId,
-          tvAt = r dateO tvAt,
-          analysed = r boolD analysed
-        )
+        startedAtTurn = r intD F.startedAtTurn
       )
 
-      val gameClock = r.getO[Color => Clock](clock)(clockBSONReader(g.createdAt, g.whitePlayer.berserk, g.blackPlayer.berserk)) map (_(g.turnColor))
-
-      g.copy(
-        clock = gameClock,
-        crazyData = (g.variant == Crazyhouse) option r.get[Crazyhouse.Data](crazyData),
+      Game(
+        id = r str F.id,
+        whitePlayer = wPlayer,
+        blackPlayer = bPlayer,
+        chess = chessGame,
+        pgnStorage = decoded.format,
+        status = status,
+        daysPerTurn = r intO F.daysPerTurn,
+        binaryMoveTimes = r bytesO F.moveTimes,
         clockHistory = for {
-          clk <- gameClock
-          bw <- r bytesO whiteClockHistory
-          bb <- r bytesO blackClockHistory
-          history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, g.flagged, g.id)
-        } yield history
+          clk <- chessGame.clock
+          bw <- r bytesO F.whiteClockHistory
+          bb <- r bytesO F.blackClockHistory
+          history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, (status == Status.Outoftime).option(turnColor))
+        } yield history,
+        mode = Mode(r boolD F.rated),
+        next = r strO F.next,
+        bookmarks = r intD F.bookmarks,
+        createdAt = createdAt,
+        movedAt = r.dateD(F.movedAt, createdAt),
+        metadata = Metadata(
+          source = r intO F.source flatMap Source.apply,
+          pgnImport = r.getO[PgnImport](F.pgnImport)(PgnImport.pgnImportBSONHandler),
+          tournamentId = r strO F.tournamentId,
+          simulId = r strO F.simulId,
+          tvAt = r dateO F.tvAt,
+          analysed = r boolD F.analysed
+        )
       )
     }
 
     def writes(w: BSON.Writer, o: Game) = BSONDocument(
-      id -> o.id,
-      playerIds -> (o.whitePlayer.id + o.blackPlayer.id),
-      playerUids -> w.strListO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
-      whitePlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.Id) => (_: Player.UserId) => (_: Player.Win) => o.whitePlayer)),
-      blackPlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.Id) => (_: Player.UserId) => (_: Player.Win) => o.blackPlayer)),
-      status -> o.status,
-      turns -> o.turns,
-      startedAtTurn -> w.intO(o.startedAtTurn),
-      clock -> (o.clock map { c => clockBSONWrite(o.createdAt, c) }),
-      checkCount -> o.history.checkCount.nonEmpty.option(o.history.checkCount),
-      daysPerTurn -> o.daysPerTurn,
-      moveTimes -> o.binaryMoveTimes,
-      whiteClockHistory -> clockHistory(White, o.clockHistory, o.clock, o.flagged),
-      blackClockHistory -> clockHistory(Black, o.clockHistory, o.clock, o.flagged),
-      rated -> w.boolO(o.mode.rated),
-      variant -> o.variant.exotic.option(o.variant.id).map(w.int),
-      crazyData -> o.crazyData,
-      next -> o.next,
-      bookmarks -> w.intO(o.bookmarks),
-      createdAt -> w.date(o.createdAt),
-      movedAt -> w.date(o.movedAt),
-      source -> o.metadata.source.map(_.id),
-      pgnImport -> o.metadata.pgnImport,
-      tournamentId -> o.metadata.tournamentId,
-      simulId -> o.metadata.simulId,
-      tvAt -> o.metadata.tvAt.map(w.date),
-      analysed -> w.boolO(o.metadata.analysed)
+      F.id -> o.id,
+      F.playerIds -> (o.whitePlayer.id + o.blackPlayer.id),
+      F.playerUids -> w.strListO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
+      F.whitePlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.Id) => (_: Player.UserId) => (_: Player.Win) => o.whitePlayer)),
+      F.blackPlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.Id) => (_: Player.UserId) => (_: Player.Win) => o.blackPlayer)),
+      F.status -> o.status,
+      F.turns -> o.chess.turns,
+      F.startedAtTurn -> w.intO(o.chess.startedAtTurn),
+      F.clock -> (o.chess.clock map { c => clockBSONWrite(o.createdAt, c) }),
+      F.checkCount -> o.history.checkCount.nonEmpty.option(o.history.checkCount),
+      F.daysPerTurn -> o.daysPerTurn,
+      F.moveTimes -> o.binaryMoveTimes,
+      F.whiteClockHistory -> clockHistory(White, o.clockHistory, o.chess.clock, o.flagged),
+      F.blackClockHistory -> clockHistory(Black, o.clockHistory, o.chess.clock, o.flagged),
+      F.rated -> w.boolO(o.mode.rated),
+      F.variant -> o.board.variant.exotic.option(w int o.board.variant.id),
+      F.crazyData -> o.board.crazyData,
+      F.next -> o.next,
+      F.bookmarks -> w.intO(o.bookmarks),
+      F.createdAt -> w.date(o.createdAt),
+      F.movedAt -> w.date(o.movedAt),
+      F.source -> o.metadata.source.map(_.id),
+      F.pgnImport -> o.metadata.pgnImport,
+      F.tournamentId -> o.metadata.tournamentId,
+      F.simulId -> o.metadata.simulId,
+      F.tvAt -> o.metadata.tvAt.map(w.date),
+      F.analysed -> w.boolO(o.metadata.analysed)
     ) ++ {
         o.pgnStorage match {
           case f @ PgnStorage.OldBin => $doc(
-            oldPgn -> f.encode(o.pgnMoves),
-            binaryPieces -> BinaryFormat.piece.write(o.pieces),
-            positionHashes -> o.history.positionHashes,
-            unmovedRooks -> o.history.unmovedRooks,
-            castleLastMove -> CastleLastMove.castleLastMoveBSONHandler.write(CastleLastMove(
+            F.oldPgn -> f.encode(o.pgnMoves),
+            F.binaryPieces -> BinaryFormat.piece.write(o.board.pieces),
+            F.positionHashes -> o.history.positionHashes,
+            F.unmovedRooks -> o.history.unmovedRooks,
+            F.castleLastMove -> CastleLastMove.castleLastMoveBSONHandler.write(CastleLastMove(
               castles = o.history.castles,
               lastMove = o.history.lastMove
             ))
           )
           case f @ PgnStorage.Huffman => $doc(
-            huffmanPgn -> f.encode(o.pgnMoves)
+            F.huffmanPgn -> f.encode(o.pgnMoves)
           )
         }
       }

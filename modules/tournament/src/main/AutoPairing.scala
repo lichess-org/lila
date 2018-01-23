@@ -15,7 +15,7 @@ final class AutoPairing(
     val user1 = usersMap get pairing.user1 err s"Missing pairing user1 $pairing"
     val user2 = usersMap get pairing.user2 err s"Missing pairing user2 $pairing"
     val game1 = Game.make(
-      game = chess.Game(
+      chess = chess.Game(
         variantOption = tour.variant.some,
         fen = tour.position.some.filterNot(_.initial).map(_.fen)
       ) |> { g =>
@@ -29,9 +29,6 @@ final class AutoPairing(
       whitePlayer = GamePlayer.white,
       blackPlayer = GamePlayer.black,
       mode = tour.mode,
-      variant =
-        if (tour.position.initial) tour.variant
-        else chess.variant.FromPosition,
       source = Source.Tournament,
       pgnImport = None
     )

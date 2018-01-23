@@ -42,13 +42,13 @@ object BinaryFormat {
       if (flagged) decoded :+ Centis(0) else decoded
     }
 
-    def read(start: Centis, bw: ByteArray, bb: ByteArray, flagged: Option[Color], gameId: String) = Try {
+    def read(start: Centis, bw: ByteArray, bb: ByteArray, flagged: Option[Color]) = Try {
       ClockHistory(
         readSide(start, bw, flagged has White),
         readSide(start, bb, flagged has Black)
       )
     }.fold(
-      e => { logger.warn(s"Exception decoding history on game $gameId", e); none },
+      e => { logger.warn(s"Exception decoding history", e); none },
       some
     )
   }

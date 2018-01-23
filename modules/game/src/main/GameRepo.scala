@@ -274,7 +274,7 @@ object GameRepo {
     val userIds = g2.userIds.distinct
     val fen = initialFen.map(_.value) orElse {
       (!g2.variant.standardInitialPosition)
-        .option(Forsyth >> g2.toChess)
+        .option(Forsyth >> g2.chess)
         .filter(Forsyth.initial !=)
     }
     val checkInHours =

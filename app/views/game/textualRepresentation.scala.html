@@ -7,7 +7,7 @@
   <dt>PGN</dt>
   <dd>@Html(pov.game.pgnMoves.mkString("<br />"))</dd>
   <dt>FEN</dt>
-  <dd>@{chess.format.Forsyth.>>(pov.game.toChess)}</dd>
+  <dd>@{chess.format.Forsyth.>>(pov.game.chess)}</dd>
   @if(playing) {
   <dt>Your color</dt>
   <dd>@pov.color.name</dd>
