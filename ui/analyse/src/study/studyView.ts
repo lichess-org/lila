@@ -203,9 +203,9 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
     case 'comments':
       panel = study.vm.mode.write ?
         commentForm.view(ctrl) : (
-          study.members.canContribute() ?
-          commentForm.viewDisabled(ctrl, 'Press RECORD to comment moves') :
-          null
+          commentForm.viewDisabled(ctrl, study.members.canContribute() ?
+            'Press RECORD to comment moves' :
+            'Only the study members can comment on moves')
         );
         break;
     case 'glyphs':
