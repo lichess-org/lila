@@ -151,7 +151,7 @@ object JsonApi {
   )
 
   def fromGame(g: W.Game) = Game(
-    game_id = g.id,
+    game_id = if (g.studyId.isDefined) "" else g.id,
     position = g.initialFen | FEN(g.variant.initialFen),
     variant = g.variant,
     moves = g.moves
