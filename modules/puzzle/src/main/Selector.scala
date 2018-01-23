@@ -33,7 +33,10 @@ private[puzzle] final class Selector(
         }
     }
   }.mon(_.puzzle.selector.time) flatten "No puzzles available" addEffect { puzzle =>
-    lila.mon.puzzle.selector.vote(puzzle.vote.sum)
+    if (puzzle.vote.sum < -1000)
+      logger.warn(s"Select #${puzzle.id} vote.sum: ${puzzle.vote.sum} for ${me.fold("Anon")(_.username)} (${me.fold("?")(_.perfs.puzzle.intRating.toString)})")
+    else
+      lila.mon.puzzle.selector.vote(puzzle.vote.sum)
   }
 
   private def newPuzzleForUser(user: User, headOption: Option[PuzzleHead]): Fu[Option[Puzzle]] = {
