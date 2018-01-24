@@ -27,6 +27,8 @@
   <string name="raceFinished">Kapprenning liðug</string>
   <string name="variantEnding">Avbrigdarendi</string>
   <string name="newOpponent">Nýtt mótstøðufólk</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Títt mótstøðufólk vil telva við teg av nýggjum</string>
+  <string name="joinTheGame">Byrja talvið</string>
   <string name="whitePlays">Hvítur leikar</string>
   <string name="blackPlays">Svartur leikar</string>
   <string name="forceDraw">Krev remis</string>
