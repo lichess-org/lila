@@ -5,7 +5,7 @@
   <string name="playWithTheMachine">Spæl ímóti telduni</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Bjóða einum til at telva við at geva hesa adressuna</string>
   <string name="gameOver">Talvið er liðugt</string>
-  <string name="waitingForOpponent">Bíði eftir mótstøðufólki</string>
+  <string name="waitingForOpponent">Bíði eftir mótparti</string>
   <string name="waiting">Bíða</string>
   <string name="yourTurn">Títt tørn</string>
   <string name="aiNameLevelAiLevel">%1$s støði %2$s</string>
@@ -26,13 +26,16 @@
   <string name="threeChecks">Trý skák</string>
   <string name="raceFinished">Kapprenning liðug</string>
   <string name="variantEnding">Avbrigdarendi</string>
-  <string name="newOpponent">Nýtt mótstøðufólk</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Títt mótstøðufólk vil telva við teg av nýggjum</string>
+  <string name="newOpponent">Nýggjur mótpartur</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Tín mótpartur vil telva ímóti tær av nýggjum</string>
   <string name="joinTheGame">Byrja talvið</string>
   <string name="whitePlays">Hvítur leikar</string>
   <string name="blackPlays">Svartur leikar</string>
+  <string name="opponentLeftChoices">Tín mótpartur er farin frá talvinum. Tú kanst antin krevja sigur, siga tað vera remis ella bíða.</string>
+  <string name="makeYourOpponentResign">Noyð tín mótpart til at geva upp</string>
   <string name="forceResignation">Krev sigur</string>
   <string name="forceDraw">Krev remis</string>
+  <string name="talkInChat">Ver vinalig/ur í kjattinum!</string>
   <string name="whiteResigned">Hvítur leggur kong</string>
   <string name="blackResigned">Svartur leggur kong</string>
   <string name="computerAnalysis">Analysera talvið</string>
