@@ -8,6 +8,11 @@
   <string name="waitingForOpponent">Bíði eftir mótstøðufólki</string>
   <string name="waiting">Bíða</string>
   <string name="yourTurn">Títt tørn</string>
+  <string name="aiNameLevelAiLevel">%1$s støði %2$s</string>
+  <string name="level">Støði</string>
+  <string name="toggleTheChat">Goym/Vís kjatt</string>
+  <string name="toggleSound">Slá ljóð til/frá</string>
+  <string name="chat">Kjatta</string>
   <string name="resign">Legg kong</string>
   <string name="checkmate">Skákmát</string>
   <string name="stalemate">Patt</string>
