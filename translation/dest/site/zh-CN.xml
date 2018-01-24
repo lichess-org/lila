@@ -58,7 +58,7 @@
   <string name="toggleLocalEvaluation">切换到本地分析</string>
   <string name="promoteVariation">提升变着</string>
   <string name="makeMainLine">做为主线</string>
-  <string name="deleteFromHere">从此处删除</string>
+  <string name="deleteFromHere">从此处开始删除</string>
   <string name="move">走棋</string>
   <string name="variantLoss">因变体规则输棋</string>
   <string name="variantWin">因变体规则赢棋</string>
