@@ -18,9 +18,13 @@
   <string name="stalemate">Patt</string>
   <string name="white">Hvítur</string>
   <string name="black">Svartur</string>
+  <string name="randomColor">Tilvildarligur litur</string>
+  <string name="createAGame">Byrja eitt talv</string>
   <string name="whiteIsVictorious">Hvítur hevur vunnið</string>
   <string name="blackIsVictorious">Svartur hevur vunnið</string>
+  <string name="kingInTheCenter">Kongur í miðjuni</string>
   <string name="threeChecks">Trý skák</string>
+  <string name="raceFinished">Kapprenning liðug</string>
   <string name="whitePlays">Hvítur leikar</string>
   <string name="blackPlays">Svartur leikar</string>
   <string name="forceDraw">Krev remis</string>
