@@ -768,8 +768,8 @@
   <string name="waitingForAnalysis">等待分析</string>
   <string name="noMistakesFoundForWhite">未找到白方失误</string>
   <string name="noMistakesFoundForBlack">未找到黑方失误</string>
-  <string name="doneReviewingWhiteMistakes">白方失误回顾完成</string>
-  <string name="doneReviewingBlackMistakes">黑方失误回顾完成</string>
+  <string name="doneReviewingWhiteMistakes">白方失误回顾完毕</string>
+  <string name="doneReviewingBlackMistakes">黑方失误回顾完毕</string>
   <string name="doItAgain">再来一次</string>
   <string name="reviewWhiteMistakes">回顾白方失误</string>
   <string name="reviewBlackMistakes">回顾黑方失误</string>
@@ -781,10 +781,10 @@
   <string name="middlegame">中盘</string>
   <string name="endgame">残局</string>
   <string name="registerToSendChallenges">发送挑战请注册。</string>
-  <string name="youCannotChallengeX">你不能挑战%s。</string>
+  <string name="youCannotChallengeX">您不能挑战%s。</string>
   <string name="xDoesNotAcceptChallenges">%s不接受挑战。</string>
   <string name="yourXRatingIsTooFarFromY">您的%1$s积分与%2$s相差过远。</string>
-  <string name="cannotChallengeDueToProvisionalXRating">因暂时的%s评级，不能挑战。</string>
+  <string name="cannotChallengeDueToProvisionalXRating">因为您的%s积分不够稳定您不能进行挑战。</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s只接受朋友的挑战。</string>
   <string name="conditionalPremoves">条件预先走棋</string>
   <string name="addCurrentVariation">添加当前变着</string>
