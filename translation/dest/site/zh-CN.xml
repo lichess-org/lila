@@ -198,7 +198,7 @@
   <string name="casual">无积分</string>
   <string name="rated">有积分</string>
   <string name="casualTournament">无积分</string>
-  <string name="ratedTournament">积分</string>
+  <string name="ratedTournament">有积分</string>
   <string name="thisGameIsRated">这盘棋是有积分的</string>
   <string name="rematch">重赛</string>
   <string name="rematchOfferSent">重赛请求已发送</string>
@@ -742,13 +742,13 @@
   </plurals>
   <string name="practiceWithComputer">与电脑练习</string>
   <string name="anotherWasX">%s也不错</string>
-  <string name="bestWasX">最佳走法是%s</string>
-  <string name="youBrowsedAway">你浏览到别处了</string>
+  <string name="bestWasX">最佳着是%s</string>
+  <string name="youBrowsedAway">您浏览到别处了</string>
   <string name="resumePractice">继续练习</string>
   <string name="theGameIsADraw">本局和棋.</string>
   <string name="computerThinking">电脑正在思考中。</string>
-  <string name="seeBestMove">查看最佳一步</string>
-  <string name="hideBestMove">隐藏最佳一步</string>
+  <string name="seeBestMove">查看最佳着</string>
+  <string name="hideBestMove">隐藏最佳着</string>
   <string name="getAHint">提示</string>
   <string name="evaluatingYourMove">评估走法中……</string>
   <string name="whiteWinsGame">白胜</string>
