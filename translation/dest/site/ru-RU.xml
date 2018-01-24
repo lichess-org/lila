@@ -615,7 +615,7 @@
   <string name="computer">Компьютер</string>
   <string name="side">Сторона</string>
   <string name="clock">Часы</string>
-  <string name="unauthorizedError">Неавторизованный доступ</string>
+  <string name="unauthorizedError">Неавторизованный доступ.</string>
   <string name="noInternetConnection">Нет интернет соединения. Вы можете пока играть офлайн из меню.</string>
   <string name="connectedToLichess">Сейчас вы подключены к lichess.org</string>
   <string name="signedOut">Вы вышли</string>
