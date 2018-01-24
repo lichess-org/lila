@@ -25,6 +25,8 @@
   <string name="kingInTheCenter">Kongur í miðjuni</string>
   <string name="threeChecks">Trý skák</string>
   <string name="raceFinished">Kapprenning liðug</string>
+  <string name="variantEnding">Avbrigdarendi</string>
+  <string name="newOpponent">Nýtt mótstøðufólk</string>
   <string name="whitePlays">Hvítur leikar</string>
   <string name="blackPlays">Svartur leikar</string>
   <string name="forceDraw">Krev remis</string>
