@@ -36,8 +36,11 @@
   <string name="forceResignation">Krev sigur</string>
   <string name="forceDraw">Krev remis</string>
   <string name="talkInChat">Ver vinalig/ur í kjattinum!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Tann fyrsti persónurin, sum brúkar hesa adressuna, verður tín mótpartur.</string>
   <string name="whiteResigned">Hvítur leggur kong</string>
   <string name="blackResigned">Svartur leggur kong</string>
+  <string name="whiteLeftTheGame">Hvítur er farin frá talvinum</string>
+  <string name="blackLeftTheGame">Svartur er farin frá talvinum</string>
   <string name="computerAnalysis">Analysera talvið</string>
   <string name="analysis">Analysera borði</string>
   <string name="blunders">Brølari</string>
