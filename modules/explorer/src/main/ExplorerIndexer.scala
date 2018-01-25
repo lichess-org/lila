@@ -40,7 +40,7 @@ private final class ExplorerIndexer(
         Query.createdSince(since) ++
           Query.rated ++
           Query.finished ++
-          Query.turnsMoreThan(8) ++
+          Query.turnsGt(8) ++
           Query.noProvisional ++
           Query.bothRatingsGreaterThan(1501)
 
