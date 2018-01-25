@@ -87,7 +87,9 @@ piece {
   /* no less than 2 */
 }
 .cg-512 piece {
-  will-change: transform;
+  will-change: transform, opacity;
+  transform: opacity .1s;
+  transition-timing-function: linear;
 }
 .mini_board piece {
   z-index: initial;
