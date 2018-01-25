@@ -36,8 +36,6 @@ object Query {
 
   def analysed(an: Boolean): Bdoc = F.analysed $eq an
 
-  def turnsMoreThan(length: Int): Bdoc = F.turns $eq $gte(length)
-
   val frozen: Bdoc = F.status $gte Status.Mate.id
 
   def imported(u: String): Bdoc = s"${F.pgnImport}.user" $eq u

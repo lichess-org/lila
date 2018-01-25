@@ -82,7 +82,7 @@ object GameRepo {
       ++ Query.rated
       ++ Query.user(userId)
       ++ Query.analysed(true)
-      ++ Query.turnsMoreThan(20)
+      ++ Query.turnsGt(20)
       ++ Query.clockHistory(true)
   )
     .sort($sort asc F.createdAt)
@@ -92,7 +92,7 @@ object GameRepo {
     Query.finished
       ++ Query.rated
       ++ Query.user(userId)
-      ++ Query.turnsMoreThan(22)
+      ++ Query.turnsGt(22)
       ++ Query.variantStandard
       ++ Query.clock(true)
   )
@@ -174,7 +174,7 @@ object GameRepo {
     Query.user(user.id) ++
       Query.rated ++
       Query.finished ++
-      Query.turnsMoreThan(2) ++
+      Query.turnsGt(2) ++
       Query.notFromPosition
   ).sort(Query.sortAntiChronological).uno[Game]
 
@@ -255,7 +255,7 @@ object GameRepo {
     .uno[Game]
 
   def findRandomFinished(distribution: Int): Fu[Option[Game]] = coll.find(
-    Query.finished ++ Query.variantStandard ++ Query.turnsMoreThan(20) ++ Query.rated
+    Query.finished ++ Query.variantStandard ++ Query.turnsGt(20) ++ Query.rated
   ).sort(Query.sortCreated)
     .skip(Random nextInt distribution)
     .uno[Game]
@@ -431,7 +431,7 @@ object GameRepo {
       Query.finished
         ++ Query.rated
         ++ Query.user(userId)
-        ++ Query.turnsMoreThan(20)
+        ++ Query.turnsGt(20)
     ).sort(Query.sortCreated)
       .cursor[Game](ReadPreference.secondaryPreferred)
       .list(nb)
