@@ -67,8 +67,8 @@ final class JsonView(getLightUser: LightUser.Getter) {
   private def gameJson(hostId: String)(g: Game) = Json.obj(
     "id" -> g.id,
     "status" -> g.status.id,
-    "fen" -> (chess.format.Forsyth exportBoard g.toChess.board),
-    "lastMove" -> ~g.castleLastMoveTime.lastMoveString,
+    "fen" -> (chess.format.Forsyth exportBoard g.board),
+    "lastMove" -> ~g.lastMoveKeys,
     "orient" -> g.playerByUserId(hostId).map(_.color)
   )
 

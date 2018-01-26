@@ -82,7 +82,7 @@ object GameRepo {
       ++ Query.rated
       ++ Query.user(userId)
       ++ Query.analysed(true)
-      ++ Query.turnsMoreThan(20)
+      ++ Query.turnsGt(20)
       ++ Query.clockHistory(true)
   )
     .sort($sort asc F.createdAt)
@@ -92,7 +92,7 @@ object GameRepo {
     Query.finished
       ++ Query.rated
       ++ Query.user(userId)
-      ++ Query.turnsMoreThan(22)
+      ++ Query.turnsGt(22)
       ++ Query.variantStandard
       ++ Query.clock(true)
   )
@@ -174,7 +174,7 @@ object GameRepo {
     Query.user(user.id) ++
       Query.rated ++
       Query.finished ++
-      Query.turnsMoreThan(2) ++
+      Query.turnsGt(2) ++
       Query.notFromPosition
   ).sort(Query.sortAntiChronological).uno[Game]
 
@@ -216,36 +216,37 @@ object GameRepo {
 
   def setBorderAlert(pov: Pov) = setHoldAlert(pov, 0, 0, 20.some)
 
+  private val finishUnsets = $doc(
+    F.positionHashes -> true,
+    F.playingUids -> true,
+    F.unmovedRooks -> true,
+    ("p0." + Player.BSONFields.lastDrawOffer) -> true,
+    ("p1." + Player.BSONFields.lastDrawOffer) -> true,
+    ("p0." + Player.BSONFields.isOfferingDraw) -> true,
+    ("p1." + Player.BSONFields.isOfferingDraw) -> true,
+    ("p0." + Player.BSONFields.proposeTakebackAt) -> true,
+    ("p1." + Player.BSONFields.proposeTakebackAt) -> true
+  )
+
   def finish(
     id: ID,
     winnerColor: Option[Color],
     winnerId: Option[String],
     status: Status
-  ) = {
-    val partialUnsets = $doc(
-      F.positionHashes -> true,
-      F.playingUids -> true,
-      F.unmovedRooks -> true,
-      ("p0." + Player.BSONFields.lastDrawOffer) -> true,
-      ("p1." + Player.BSONFields.lastDrawOffer) -> true,
-      ("p0." + Player.BSONFields.isOfferingDraw) -> true,
-      ("p1." + Player.BSONFields.isOfferingDraw) -> true,
-      ("p0." + Player.BSONFields.proposeTakebackAt) -> true,
-      ("p1." + Player.BSONFields.proposeTakebackAt) -> true
+  ) = coll.update(
+    $id(id),
+    nonEmptyMod("$set", $doc(
+      F.winnerId -> winnerId,
+      F.winnerColor -> winnerColor.map(_.white),
+      F.status -> status
+    )) ++ $doc(
+      "$unset" -> finishUnsets.++ {
+        // keep the checkAt field when game is aborted,
+        // so it gets deleted in 24h
+        (status >= Status.Mate) ?? $doc(F.checkAt -> true)
+      }
     )
-    // keep the checkAt field when game is aborted,
-    // so it gets deleted in 24h
-    val unsets =
-      if (status >= Status.Mate) partialUnsets ++ $doc(F.checkAt -> true)
-      else partialUnsets
-    coll.update(
-      $id(id),
-      nonEmptyMod("$set", $doc(
-        F.winnerId -> winnerId,
-        F.winnerColor -> winnerColor.map(_.white)
-      )) ++ $doc("$unset" -> unsets)
-    )
-  }
+  )
 
   def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] = coll.find(
     Query.mate ++ Query.variantStandard
@@ -254,7 +255,7 @@ object GameRepo {
     .uno[Game]
 
   def findRandomFinished(distribution: Int): Fu[Option[Game]] = coll.find(
-    Query.finished ++ Query.variantStandard ++ Query.turnsMoreThan(20) ++ Query.rated
+    Query.finished ++ Query.variantStandard ++ Query.turnsGt(20) ++ Query.rated
   ).sort(Query.sortCreated)
     .skip(Random nextInt distribution)
     .uno[Game]
@@ -274,7 +275,7 @@ object GameRepo {
     val userIds = g2.userIds.distinct
     val fen = initialFen.map(_.value) orElse {
       (!g2.variant.standardInitialPosition)
-        .option(Forsyth >> g2.toChess)
+        .option(Forsyth >> g2.chess)
         .filter(Forsyth.initial !=)
     }
     val checkInHours =
@@ -430,7 +431,7 @@ object GameRepo {
       Query.finished
         ++ Query.rated
         ++ Query.user(userId)
-        ++ Query.turnsMoreThan(20)
+        ++ Query.turnsGt(20)
     ).sort(Query.sortCreated)
       .cursor[Game](ReadPreference.secondaryPreferred)
       .list(nb)

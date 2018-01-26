@@ -30,7 +30,7 @@ externalizeResources := false
 scriptClasspath := Seq("*")
 // offline := true
 libraryDependencies ++= Seq(
-  scalaz, chess, scalalib, hasher, typesafeConfig, findbugs,
+  scalaz, chess, compression, scalalib, hasher, typesafeConfig, findbugs,
   reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
   maxmind, prismic, netty, guava,
   kamon.core, kamon.influxdb,
@@ -182,7 +182,7 @@ lazy val user = module("user", Seq(common, memo, db, hub, rating)).settings(
 )
 
 lazy val game = module("game", Seq(common, memo, db, hub, user, chat)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees)
+  libraryDependencies ++= provided(compression, play.api, reactivemongo.driver, reactivemongo.iteratees)
 )
 
 lazy val gameSearch = module("gameSearch", Seq(common, hub, search, game)).settings(

@@ -29,9 +29,9 @@ trait ChessgroundHelper {
   }
 
   def chessground(pov: Pov)(implicit ctx: Context): Html = chessground(
-    board = pov.game.toChess.board,
+    board = pov.game.board,
     orient = pov.color,
-    lastMove = pov.game.castleLastMoveTime.lastMove.?? {
+    lastMove = pov.game.history.lastMove.map(_.origDest) ?? {
       case (orig, dest) => List(orig, dest)
     }
   )

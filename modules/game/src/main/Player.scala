@@ -29,12 +29,6 @@ case class Player(
     rating map { PlayerUser(uid, _, ratingDiff) }
   }
 
-  def withUser(id: User.ID, perf: lila.rating.Perf): Player = copy(
-    userId = id.some,
-    rating = perf.intRating.some,
-    provisional = perf.glicko.provisional
-  )
-
   def isAi = aiLevel.isDefined
 
   def isHuman = !isAi
@@ -100,16 +94,32 @@ object Player {
 
   def make(
     color: Color,
-    aiLevel: Option[Int]
+    aiLevel: Option[Int] = None
   ): Player = Player(
     id = IdGenerator.player,
     color = color,
     aiLevel = aiLevel
   )
 
-  def white = make(Color.White, None)
+  def make(
+    color: Color,
+    userPerf: (User.ID, lila.rating.Perf)
+  ): Player = Player(
+    id = IdGenerator.player,
+    color = color,
+    aiLevel = none,
+    userId = userPerf._1.some,
+    rating = userPerf._2.intRating.some,
+    provisional = userPerf._2.glicko.provisional
+  )
 
-  def black = make(Color.Black, None)
+  def make(
+    color: Color,
+    user: Option[User],
+    perfPicker: lila.user.Perfs => lila.rating.Perf
+  ): Player = user.fold(make(color)) { u =>
+    make(color, (u.id, perfPicker(u.perfs)))
+  }
 
   case class HoldAlert(ply: Int, mean: Int, sd: Int) {
 

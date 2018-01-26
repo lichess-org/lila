@@ -29,30 +29,27 @@ private[challenge] final class Joiner(onStart: String => Unit) {
               if (Forsyth.>>(game) == Forsyth.initial) makeChess(chess.variant.Standard) -> none
               else game -> baseState
           }
-          val realVariant = chessGame.board.variant
-          def makePlayer(color: chess.Color, userOption: Option[User]) = Player.make(color, None) |> { p =>
-            userOption.fold(p) { user =>
-              p.withUser(user.id, user.perfs(c.perfType))
-            }
-          }
+          val perfPicker = (perfs: lila.user.Perfs) => perfs(c.perfType)
           val game = Game.make(
-            game = chessGame,
-            whitePlayer = makePlayer(chess.White, c.finalColor.fold(challengerUser, destUser)),
-            blackPlayer = makePlayer(chess.Black, c.finalColor.fold(destUser, challengerUser)),
-            mode = (realVariant == chess.variant.FromPosition).fold(Mode.Casual, c.mode),
-            variant = realVariant,
-            source = (realVariant == chess.variant.FromPosition).fold(Source.Position, Source.Friend),
+            chess = chessGame,
+            whitePlayer = Player.make(chess.White, c.finalColor.fold(challengerUser, destUser), perfPicker),
+            blackPlayer = Player.make(chess.Black, c.finalColor.fold(destUser, challengerUser), perfPicker),
+            mode = chessGame.board.variant.fromPosition.fold(Mode.Casual, c.mode),
+            source = chessGame.board.variant.fromPosition.fold(Source.Position, Source.Friend),
             daysPerTurn = c.daysPerTurn,
             pgnImport = None
           ).copy(id = c.id).|> { g =>
               state.fold(g) {
                 case sit @ SituationPlus(Situation(board, _), _) => g.copy(
-                  variant = chess.variant.FromPosition,
-                  castleLastMoveTime = g.castleLastMoveTime.copy(
-                    lastMove = board.history.lastMove.map(_.origDest),
-                    castles = board.history.castles
-                  ),
-                  turns = sit.turns
+                  chess = g.chess.copy(
+                    situation = g.situation.copy(
+                      board = g.board.copy(
+                        history = board.history,
+                        variant = chess.variant.FromPosition
+                      )
+                    ),
+                    turns = sit.turns
+                  )
                 )
               }
             }.start

@@ -19,7 +19,7 @@ final class PerfStatIndexer(storage: PerfStatStorage, sequencer: ActorRef) {
     GameRepo.sortedCursor(
       Query.user(user.id) ++
         Query.finished ++
-        Query.turnsMoreThan(2) ++
+        Query.turnsGt(2) ++
         Query.variant(PerfType variantOf perfType),
       Query.sortChronological
     ).fold(PerfStat.init(user.id, perfType)) {

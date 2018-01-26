@@ -61,7 +61,7 @@ object Round extends LilaController with TheftPrevention {
                 simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
                 Ok(html.round.player(pov, data,
                   tour = tour,
-                  simul = simul,
+                  simul = simul.filter(_ isHost ctx.me),
                   cross = crosstable,
                   playing = playing,
                   chatOption = chatOption,
@@ -265,7 +265,7 @@ object Round extends LilaController with TheftPrevention {
     OptionResult(GameRepo game id) { game =>
       Redirect("%s?fen=%s#%s".format(
         routes.Lobby.home(),
-        get("fen") | (chess.format.Forsyth >> game.toChess),
+        get("fen") | (chess.format.Forsyth >> game.chess),
         mode
       ))
     }

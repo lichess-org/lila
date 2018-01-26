@@ -56,7 +56,7 @@ object Editor extends LilaController {
     OptionResult(GameRepo game id) { game =>
       Redirect {
         if (game.playable) routes.Round.watcher(game.id, "white")
-        else routes.Editor.load(get("fen") | (chess.format.Forsyth >> game.toChess))
+        else routes.Editor.load(get("fen") | (chess.format.Forsyth >> game.chess))
       }
     }
   }

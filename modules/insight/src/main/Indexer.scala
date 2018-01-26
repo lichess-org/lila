@@ -39,7 +39,7 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
   private def gameQuery(user: User) = Query.user(user.id) ++
     Query.rated ++
     Query.finished ++
-    Query.turnsMoreThan(2) ++
+    Query.turnsGt(2) ++
     Query.notFromPosition ++
     Query.notHordeOrSincePawnsAreWhite
 

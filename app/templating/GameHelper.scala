@@ -61,7 +61,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       }
       case _ => "Game is still being played"
     }
-    val moves = s"${game.toChess.fullMoveNumber} moves"
+    val moves = s"${game.chess.fullMoveNumber} moves"
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
   }
 
@@ -218,8 +218,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val title = withTitle ?? s"""title="${gameTitle(game, pov.color)}""""
     val cssClass = isLive ?? ("live live_" + game.id)
     val live = isLive ?? game.id
-    val fen = Forsyth exportBoard game.toChess.board
-    val lastMove = ~game.castleLastMoveTime.lastMoveString
+    val fen = Forsyth exportBoard game.board
+    val lastMove = ~game.lastMoveKeys
     val variant = game.variant.key
     val tag = if (withLink) "a" else "span"
     s"""<$tag $href $title class="mini_board mini_board_${game.id} parse_fen is2d $cssClass $variant" data-live="$live" data-color="${pov.color.name}" data-fen="$fen" data-lastmove="$lastMove">$miniBoardContent</$tag>"""
@@ -235,8 +235,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       isLive ?? ("live live_" + pov.game.id),
       isLive ?? pov.game.id,
       pov.color.name,
-      Forsyth exportBoard pov.game.toChess.board,
-      ~pov.game.castleLastMoveTime.lastMoveString,
+      Forsyth exportBoard pov.game.board,
+      ~pov.game.lastMoveKeys,
       blank ?? """ target="_blank""""
     )
   }

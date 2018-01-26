@@ -8,72 +8,12 @@ import scala.util.Try
 
 import chess.variant.Variant
 import chess.{ ToOptionOpsFromOption => _, _ }
+import chess.format.Uci
+import org.lichess.compression.clock.{ Encoder => ClockEncoder }
 
-import lila.common.Chronometer
 import lila.db.ByteArray
 
-import org.lichess.compression.clock.{ Encoder => ClockEncoder }
-import org.lichess.compression.game.{ Encoder => HuffmanEncoder }
-
 object BinaryFormat {
-
-  sealed trait BinPgn {
-    def bytes: ByteArray
-    def decode(plies: Int, pieces: Option[PieceMap]): (PgnMoves, PieceMap)
-    def update(moves: PgnMoves): BinPgn
-    def isHuffman: Boolean
-    def requiresPieces = !isHuffman
-
-    protected def monitor[A](mon: lila.mon.game.pgn.Protocol)(f: => A): A = {
-      mon.count()
-      lila.mon.measureRec(mon.time)(f)
-    }
-  }
-  case class OldBinPgn(bytes: ByteArray) extends BinPgn {
-    def decode(plies: Int, pieces: Option[PieceMap]) = monitor(lila.mon.game.pgn.oldBin.decode) {
-      format.pgn.Binary.readMoves(bytes.value.toList, plies).get.toVector ->
-        pieces.err("Missing binary pieces for game encoding moves with old binary format!")
-    }
-    def update(moves: PgnMoves) = OldBinPgn {
-      monitor(lila.mon.game.pgn.oldBin.encode) {
-        format.pgn.Binary.writeMoves(moves).get
-      }
-    }
-    def isHuffman = false
-  }
-  case class HuffmanBinPgn(bytes: ByteArray) extends BinPgn {
-    import scala.collection.JavaConversions.mapAsScalaMap
-    def decode(plies: Int, unusedPieces: Option[PieceMap]) = monitor(lila.mon.game.pgn.huffman.decode) {
-      HuffmanEncoder.decode(bytes.value, plies) match {
-        case (pgn, pieces) => pgn.toVector -> mapAsScalaMap(pieces).toMap
-      }
-    }
-    def update(moves: PgnMoves) = HuffmanBinPgn {
-      monitor(lila.mon.game.pgn.huffman.encode) {
-        HuffmanEncoder.encode(moves.toArray)
-      }
-    }
-    def isHuffman = true
-  }
-  object BinPgn {
-    private val betaTesters = Set("thibault", "revoof", "isaacly")
-    private def shouldUseHuffman(variant: Variant, playerUserIds: List[lila.user.User.ID]) = variant.standard && {
-      try {
-        lila.game.Env.current.pgnEncodingSetting.get() match {
-          case "all" => true
-          case "beta" if playerUserIds.exists(betaTesters.contains) => true
-          case _ => false
-        }
-      } catch {
-        case e: Throwable =>
-          println(e)
-          false // breaks in tests. The shouldUseHuffman function is temporary anyway
-      }
-    }
-    private[game] def empty(variant: Variant, playerUserIds: List[lila.user.User.ID]) =
-      if (shouldUseHuffman(variant, playerUserIds)) HuffmanBinPgn(ByteArray.empty)
-      else OldBinPgn(ByteArray.empty)
-  }
 
   object pgn {
 
@@ -101,13 +41,13 @@ object BinaryFormat {
       if (flagged) decoded :+ Centis(0) else decoded
     }
 
-    def read(start: Centis, bw: ByteArray, bb: ByteArray, flagged: Option[Color], gameId: String) = Try {
+    def read(start: Centis, bw: ByteArray, bb: ByteArray, flagged: Option[Color]) = Try {
       ClockHistory(
         readSide(start, bw, flagged has White),
         readSide(start, bb, flagged has Black)
       )
     }.fold(
-      e => { logger.warn(s"Exception decoding history on game $gameId", e); none },
+      e => { logger.warn(s"Exception decoding history", e); none },
       some
     )
   }
@@ -225,9 +165,9 @@ object BinaryFormat {
     def apply(start: DateTime) = new clock(Timestamp(start.getMillis))
   }
 
-  object castleLastMoveTime {
+  object castleLastMove {
 
-    def write(clmt: CastleLastMoveTime): ByteArray = {
+    def write(clmt: CastleLastMove): ByteArray = {
 
       val castleInt = clmt.castles.toSeq.zipWithIndex.foldLeft(0) {
         case (acc, (false, _)) => acc
@@ -235,34 +175,27 @@ object BinaryFormat {
       }
 
       def posInt(pos: Pos): Int = ((pos.x - 1) << 3) + pos.y - 1
-      val lastMoveInt = clmt.lastMove.fold(0) {
-        case (f, t) => (posInt(f) << 6) + posInt(t)
+      val lastMoveInt = clmt.lastMove.map(_.origDest).fold(0) {
+        case (o, d) => (posInt(o) << 6) + posInt(d)
       }
-      Array((castleInt << 4) + (lastMoveInt >> 8) toByte, lastMoveInt.toByte) ++
-        clmt.check.map(x => posInt(x).toByte)
+      Array((castleInt << 4) + (lastMoveInt >> 8) toByte, lastMoveInt.toByte)
     }
 
-    def read(ba: ByteArray): CastleLastMoveTime = {
+    def read(ba: ByteArray): CastleLastMove = {
       val ints = ba.value map toInt
-      val size = ints.size
-
-      if (size < 2 || size > 6) sys error s"BinaryFormat.clmt.read invalid: ${ba.showBytes}"
-      val checkByte = if (size == 6 || size == 3) ints.lastOption else None
-
-      doRead(ints(0), ints(1), checkByte)
+      doRead(ints(0), ints(1))
     }
 
     private def posAt(x: Int, y: Int) = Pos.posAt(x + 1, y + 1)
 
-    private def doRead(b1: Int, b2: Int, checkByte: Option[Int]) =
-      CastleLastMoveTime(
+    private def doRead(b1: Int, b2: Int) =
+      CastleLastMove(
         castles = Castles(b1 > 127, (b1 & 64) != 0, (b1 & 32) != 0, (b1 & 16) != 0),
         lastMove = for {
-          from ← posAt((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
-          to ← posAt((b2 & 63) >> 3, b2 & 7)
-          if from != Pos.A1 || to != Pos.A1
-        } yield from -> to,
-        check = checkByte flatMap { x => posAt(x >> 3, x & 7) }
+          orig ← posAt((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
+          dest ← posAt((b2 & 63) >> 3, b2 & 7)
+          if orig != Pos.A1 || dest != Pos.A1
+        } yield Uci.Move(orig, dest)
       )
   }
 

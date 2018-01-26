@@ -11,16 +11,15 @@ interface Current {
   node: Tree.Node;
 }
 
-interface CommentForm {
+export interface CommentForm {
   root: AnalyseCtrl;
   current: Prop<Current | null>;
   focus: Prop<boolean>;
   opening: Prop<boolean>;
-  set(chapterId: string, path: Tree.Path, node: Tree.Node): void;
   submit(text: string): void;
-  onSetPath(path: Tree.Path, node: Tree.Node, playedMyself: boolean): void;
+  start(chapterId: string, path: Tree.Path, node: Tree.Node): void;
+  onSetPath(chapterId: string, path: Tree.Path, node: Tree.Node, playedMyself: boolean): void;
   redraw(): void;
-  set(chapterId: string, path: Tree.Path, node: Tree.Node): void;
   delete(chapterId: string, path: Tree.Path, id: string): void;
 }
 
@@ -44,7 +43,7 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
     });
   });
 
-  function set(chapterId: string, path: Tree.Path, node: Tree.Node): void {
+  function start(chapterId: string, path: Tree.Path, node: Tree.Node): void {
     opening(true);
     current({
       chapterId,
@@ -59,12 +58,13 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
     current,
     focus,
     opening,
-    set,
     submit,
-    onSetPath(path: Tree.Path, node: Tree.Node, playedMyself: boolean): void {
+    start,
+    onSetPath(chapterId: string, path: Tree.Path, node: Tree.Node, playedMyself: boolean): void {
       setTimeout(() => {
         const cur = current();
-        if (cur && cur.path !== path && (!focus() || playedMyself)) {
+        if (cur && (path !== cur.path || chapterId !== cur.chapterId) && (!focus() || playedMyself)) {
+          cur.chapterId = chapterId;
           cur.path = path;
           cur.node = node;
           root.redraw();
@@ -136,11 +136,12 @@ export function view(root: AnalyseCtrl): VNode {
               el.onblur = function() {
                 ctrl.focus(false);
               };
-              vnode.data!.path = current.path;
+              vnode.data!.hash = current.chapterId + current.path;
             },
             postpatch(old, vnode) {
-              if (old.data!.path !== current.path) setupTextarea(vnode);
-              vnode.data!.path = current.path;
+              const newKey = current.chapterId + current.path;
+              if (old.data!.path !== newKey) setupTextarea(vnode);
+              vnode.data!.path = newKey;
             }
           }
         }),

@@ -4,14 +4,14 @@ import play.api.libs.iteratee._
 import play.api.libs.ws.WS
 import play.api.Play.current
 
-import chess.format.{ Forsyth, FEN }
+import chess.format.{ Forsyth, FEN, Uci }
 
 final class PngExport(url: String, size: Int) {
 
   def fromGame(game: Game): Fu[Enumerator[Array[Byte]]] = apply(
-    fen = FEN(Forsyth >> game.toChess),
-    lastMove = game.castleLastMoveTime.lastMoveString,
-    check = game.toChess.situation.checkSquare,
+    fen = FEN(Forsyth >> game.chess),
+    lastMove = game.lastMoveKeys,
+    check = game.situation.checkSquare,
     orientation = game.firstColor.some,
     logHint = s"game ${game.id}"
   )

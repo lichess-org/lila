@@ -40,8 +40,8 @@ private final class PushApi(
                 "gameId" -> game.id,
                 "fullId" -> pov.fullId,
                 "color" -> pov.color.name,
-                "fen" -> Forsyth.exportBoard(game.toChess.board),
-                "lastMove" -> game.castleLastMoveTime.lastMoveString,
+                "fen" -> Forsyth.exportBoard(game.board),
+                "lastMove" -> game.lastMoveKeys,
                 "win" -> pov.win
               )
             )
@@ -139,8 +139,8 @@ private final class PushApi(
     "gameId" -> pov.game.id,
     "fullId" -> pov.fullId,
     "color" -> pov.color.name,
-    "fen" -> Forsyth.exportBoard(pov.game.toChess.board),
-    "lastMove" -> pov.game.castleLastMoveTime.lastMoveString,
+    "fen" -> Forsyth.exportBoard(pov.game.board),
+    "lastMove" -> pov.game.lastMoveKeys,
     "secondsLeft" -> pov.remainingSeconds
   )
 

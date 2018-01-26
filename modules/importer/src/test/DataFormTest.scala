@@ -19,7 +19,7 @@ class DataFormTest extends Specification with ValidationMatchers {
 1. Bd7 b4 2. Kf7 b3 3. Ke8 b2 4. Kd8 g6 5. Bxc7# { Black is checkmated } 1-0"""
 
       ImportData(pgn, None).preprocess(None) must beSuccess.like {
-        case s => s.game.toChess.board.history.castles must_== Castles.none
+        case s => s.game.history.castles must_== Castles.none
       }
     }
   }

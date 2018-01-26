@@ -49,14 +49,13 @@ object UserAnalysis extends LilaController with TheftPrevention {
 
   private[controllers] def makePov(from: SituationPlus): Pov = Pov(
     lila.game.Game.make(
-      game = chess.Game(
+      chess = chess.Game(
         situation = from.situation,
         turns = from.turns
       ),
-      whitePlayer = lila.game.Player.white,
-      blackPlayer = lila.game.Player.black,
+      whitePlayer = lila.game.Player.make(chess.White, none),
+      blackPlayer = lila.game.Player.make(chess.Black, none),
       mode = chess.Mode.Casual,
-      variant = from.situation.board.variant,
       source = lila.game.Source.Api,
       pgnImport = None
     ).copy(id = "synthetic"),

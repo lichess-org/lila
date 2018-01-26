@@ -23,7 +23,7 @@ object Accuracy {
   implicit def povToPovLike(pov: Pov): PovLike = PovLike(
     color = pov.color,
     startColor = pov.game.startColor,
-    startedAtTurn = pov.game.startedAtTurn
+    startedAtTurn = pov.game.chess.startedAtTurn
   )
 
   def diffsList(pov: PovLike, analysis: Analysis): List[Int] =

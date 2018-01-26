@@ -2,21 +2,22 @@ package lila.game
 
 import chess._
 import chess.Pos._
+import chess.format.Uci
 import org.specs2.mutable._
 
 import lila.db.ByteArray
 
-class BinaryCLMTTest extends Specification {
+class BinaryCLMTest extends Specification {
 
   val _0_ = "00000000"
-  def write(all: CastleLastMoveTime): List[String] =
-    (BinaryFormat.castleLastMoveTime write all).showBytes.split(',').toList
-  def read(bytes: List[String]): CastleLastMoveTime =
-    BinaryFormat.castleLastMoveTime read ByteArray.parseBytes(bytes)
+  def write(all: CastleLastMove): List[String] =
+    (BinaryFormat.castleLastMove write all).showBytes.split(',').toList
+  def read(bytes: List[String]): CastleLastMove =
+    BinaryFormat.castleLastMove read ByteArray.parseBytes(bytes)
 
-  "binary CastleLastMoveTime" should {
+  "binary CastleLastMove" should {
     "write" in {
-      val clmt = CastleLastMoveTime.init
+      val clmt = CastleLastMove.init
       write(clmt) must_== {
         "11110000" :: _0_ :: Nil
       }
@@ -26,24 +27,15 @@ class BinaryCLMTTest extends Specification {
       write(clmt.copy(castles = clmt.castles.without(Black, QueenSide))) must_== {
         "11100000" :: _0_ :: Nil
       }
-      write(clmt.copy(lastMove = Some(A1 -> A2))) must_== {
+      write(clmt.copy(lastMove = Uci("a1a2"))) must_== {
         "11110000" :: "00000001" :: Nil
       }
-      write(clmt.copy(lastMove = Some(B1 -> H8))) must_== {
+      write(clmt.copy(lastMove = Uci("b1h8"))) must_== {
         "11110010" :: "00111111" :: Nil
-      }
-      write(clmt.copy(check = Some(Pos.A1))) must_== {
-        "11110000" :: _0_ :: List("00000000")
-      }
-      write(clmt.copy(check = Some(Pos.A3))) must_== {
-        "11110000" :: _0_ :: List("00000010")
-      }
-      write(clmt.copy(check = Some(Pos.H8))) must_== {
-        "11110000" :: _0_ :: List("00111111")
       }
     }
     "read" in {
-      val clmt = CastleLastMoveTime.init
+      val clmt = CastleLastMove.init
       read("11110000" :: _0_ :: List.fill(3)(_0_)) must_== {
         clmt
       }
@@ -54,10 +46,10 @@ class BinaryCLMTTest extends Specification {
         clmt.copy(castles = clmt.castles.without(Black, QueenSide))
       }
       read("00000000" :: "00000001" :: List.fill(3)(_0_)) must_== {
-        clmt.copy(castles = Castles.none, lastMove = Some(A1 -> A2))
+        clmt.copy(castles = Castles.none, lastMove = Uci("a1a2"))
       }
       read("11110010" :: "00111111" :: List.fill(3)(_0_)) must_== {
-        clmt.copy(lastMove = Some(B1 -> H8))
+        clmt.copy(lastMove = Uci("b1h8"))
       }
       read("11110000" :: _0_ :: _0_ :: _0_ :: "00000001" :: Nil) must_== clmt
 
@@ -65,13 +57,11 @@ class BinaryCLMTTest extends Specification {
 
       read("11110000" :: _0_ :: Nil) must_== clmt
 
-      read("11110000" :: _0_ :: List("00000010")) must_== {
-        clmt.copy(check = A3.some)
-      }
+      // check from old format ignored
+      read("11110000" :: _0_ :: List("00000010")) must_== clmt
 
-      read("11110000" :: _0_ :: "00000001" :: "10000110" :: "10011111" :: "00111111" :: Nil) must_== {
-        clmt.copy(check = Some(H8))
-      }
+      // check from old format ignored
+      read("11110000" :: _0_ :: "00000001" :: "10000110" :: "10011111" :: "00111111" :: Nil) must_== clmt
     }
   }
 }

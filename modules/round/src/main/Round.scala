@@ -27,7 +27,7 @@ private[round] final class Round(
     socketHub: ActorRef,
     /* Send a message to self,
      * but by going through the actor map,
-     * so this actor is spaned again if it had died/expired */
+     * so this actor is spawned again if it had died/expired */
     awakeWith: Any => Unit,
     moretimeDuration: FiniteDuration,
     activeTtl: Duration
