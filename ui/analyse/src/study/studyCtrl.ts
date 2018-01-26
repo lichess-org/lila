@@ -4,8 +4,8 @@ import { ctrl as memberCtrl } from './studyMembers';
 import { ctrl as chapterCtrl } from './studyChapters';
 import practiceCtrl from './practice/studyPracticeCtrl';
 import { StudyPracticeData, StudyPracticeCtrl } from './practice/interfaces';
-import { ctrl as commentFormCtrl } from './commentForm';
-import { ctrl as glyphFormCtrl } from './studyGlyph';
+import { ctrl as commentFormCtrl, CommentForm } from './commentForm';
+import { ctrl as glyphFormCtrl, GlyphCtrl } from './studyGlyph';
 import { ctrl as studyFormCtrl, StudyFormCtrl } from './studyForm';
 import { ctrl as notifCtrl } from './notif';
 import { ctrl as shareCtrl } from './studyShare';
@@ -106,8 +106,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return vm.mode.sticky = false;
   };
 
-  const commentForm = commentFormCtrl(ctrl);
-  const glyphForm = glyphFormCtrl(ctrl);
+  const commentForm: CommentForm = commentFormCtrl(ctrl);
+  const glyphForm: GlyphCtrl = glyphFormCtrl(ctrl);
   const tags = tagsCtrl(ctrl, () => data.chapter, tagTypes);
   const desc = new ChapterDescriptionCtrl(data.chapter.description, t => {
     data.chapter.description = t;
@@ -159,7 +159,6 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     const sameChapter = data.chapter.id === s.chapter.id;
     vm.mode.sticky = (vm.mode.sticky && s.features.sticky) || (!data.features.sticky && s.features.sticky);
     if (vm.mode.sticky) vm.behind = 0;
-    // if (s.position !== data.position) commentForm.close();
     'position name visibility features settings chapter likes liked'.split(' ').forEach(key => {
       data[key] = s[key];
     });
@@ -198,6 +197,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
 
     configurePractice();
     serverEval.reset();
+    commentForm.onSetPath(data.chapter.id, ctrl.path, ctrl.node, false);
 
     redraw();
     ctrl.startCeval();
@@ -492,7 +492,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     withPosition,
     setPath(path, node, playedMyself) {
       onSetPath(path);
-      commentForm.onSetPath(path, node, playedMyself);
+      commentForm.onSetPath(vm.chapterId, path, node, playedMyself);
     },
     deleteNode(path) {
       makeChange("deleteNode", addChapterId({

@@ -45,7 +45,7 @@ function toolButton(opts: ToolButtonOpts): VNode {
 }
 
 function buttons(root: AnalyseCtrl): VNode {
-  const ctrl = root.study!,
+  const ctrl: StudyCtrl = root.study!,
   canContribute = ctrl.members.canContribute(),
   showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
   return h('div.study_buttons', [
@@ -76,7 +76,7 @@ function buttons(root: AnalyseCtrl): VNode {
         hint: 'Comment this position',
         icon: iconTag('c'),
         onClick() {
-          ctrl.commentForm.set(ctrl.currentChapter().id, root.path, root.node);
+          ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node);
         },
         count: (root.node.comments || []).length
       }),
