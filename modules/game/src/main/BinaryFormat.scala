@@ -11,7 +11,6 @@ import chess.{ ToOptionOpsFromOption => _, _ }
 import chess.format.Uci
 import org.lichess.compression.clock.{ Encoder => ClockEncoder }
 
-import lila.common.Chronometer
 import lila.db.ByteArray
 
 object BinaryFormat {
