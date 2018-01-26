@@ -289,9 +289,9 @@
   <string name="tournaments">Турниры</string>
   <string name="tournamentPoints">Турнирные очки</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s турнирое очко</item>
-    <item quantity="few">%s турнирых очка</item>
-    <item quantity="other">%s турнирых очков</item>
+    <item quantity="one">%s турнирное очко</item>
+    <item quantity="few">%s турнирных очка</item>
+    <item quantity="other">%s турнирных очков</item>
   </plurals>
   <string name="viewTournament">Перейти в турнир</string>
   <string name="backToTournament">Вернуться к турниру</string>
