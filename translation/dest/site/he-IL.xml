@@ -52,6 +52,7 @@
   <string name="usingServerAnalysis">באמצעות ניתוח שרת</string>
   <string name="loadingEngine">טוען מנוע...</string>
   <string name="cloudAnalysis">ניתוח ענן</string>
+  <string name="goDeeper">עמוק יותר</string>
   <string name="showThreat">הצג איום</string>
   <string name="inLocalBrowser">בדפדפן המקומי</string>
   <string name="move">מסע</string>
@@ -73,11 +74,14 @@
   <string name="openingExplorer">סייר הפתיחות</string>
   <string name="allSet">הכול מוכן!</string>
   <string name="delete">מחק</string>
+  <string name="realtimeReplay">זמן אמת</string>
   <string name="enable">אפשר/י</string>
   <string name="cpus">ליבות</string>
   <string name="memory">זיכרון</string>
   <string name="blunders">טעויות גסות</string>
+  <string name="mistake">שגיאה</string>
   <string name="mistakes">טעויות</string>
+  <string name="inaccuracy">חוסר דיוק</string>
   <string name="inaccuracies">אי-דיוקים</string>
   <string name="moveTimes">זמני המהלך</string>
   <string name="flipBoard">הפוך את הלוח</string>
@@ -134,6 +138,7 @@
   <string name="accept">הסכם</string>
   <string name="decline">סרב</string>
   <string name="playingRightNow">משחקים עכשיו</string>
+  <string name="eventInProgress">משחקים עכשיו</string>
   <string name="finished">נגמר</string>
   <string name="abortGame">בטל משחק</string>
   <string name="gameAborted">משחק בוטל</string>
@@ -142,6 +147,8 @@
   <string name="mode">מצב</string>
   <string name="casual">לא מדורג</string>
   <string name="rated">מדורג</string>
+  <string name="casualTournament">לא מדורג</string>
+  <string name="ratedTournament">מדורג</string>
   <string name="thisGameIsRated">משחק זה מדורג</string>
   <string name="rematch">משחק חוזר</string>
   <string name="rematchOfferSent">הצעה למשחק חוזר נשלחה</string>
@@ -223,6 +230,7 @@
   <string name="onlineFriends">החברים המחוברים עכשיו</string>
   <string name="noFriendsOnline">אין חברים מחוברים</string>
   <string name="findFriends">מצא חברים</string>
+  <string name="favoriteOpponents">יריבים מועדפים</string>
   <string name="follow">עקוב</string>
   <string name="following">עוקבים</string>
   <string name="unfollow">הפסק מעקב</string>
