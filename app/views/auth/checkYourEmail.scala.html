@@ -1,8 +1,6 @@
 @(u: User)(implicit ctx: Context)
 
-@auth.layout(
-title = "Check your email",
-zen = true) {
+@auth.layout(title = "Check your email") {
 <div class="content_box small_box signup">
   <div class="signup_box">
     <h1 class="lichess_title is-green text" data-icon="E">@trans.checkYourEmail()</h1>
