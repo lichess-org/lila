@@ -120,6 +120,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
         <div id="notify_app" class="dropdown"></div>
       </div>
       }.getOrElse {
+      @if(!ctx.pageData.error) {
       <div class="dasher">
         <a class="toggle anon">
           <span class="hint--bottom-left" data-hint="@trans.preferences()">
@@ -129,6 +130,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
         <div id="dasher_app" class="dropdown"@if(playing){ data-playing="true"}></div>
       </div>
       <a href="@routes.Auth.login?referrer=@currentPath" class="signin button text">@trans.signIn()</a>
+      }
       }
       @if(ctx.teamNbRequests > 0) {
       <a class="link data-count" href="@routes.Team.requests()" data-count="@ctx.teamNbRequests">

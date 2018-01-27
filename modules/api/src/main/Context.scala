@@ -17,7 +17,8 @@ case class PageData(
     blindMode: Boolean,
     hasFingerprint: Boolean,
     assetVersion: AssetVersion,
-    inquiry: Option[lila.mod.Inquiry]
+    inquiry: Option[lila.mod.Inquiry],
+    error: Boolean = false
 )
 
 object PageData {
@@ -36,6 +37,8 @@ object PageData {
     assetVersion = v,
     none
   )
+
+  def error(req: RequestHeader, v: AssetVersion) = anon(req, v).copy(error = true)
 }
 
 sealed trait Context extends lila.user.UserContextWrapper {
@@ -98,8 +101,8 @@ final class HeaderContext(
 
 object Context {
 
-  def apply(req: RequestHeader, v: AssetVersion, lang: Lang): HeaderContext =
-    new HeaderContext(UserContext(req, none, none, lang), PageData.anon(req, v))
+  def error(req: RequestHeader, v: AssetVersion, lang: Lang): HeaderContext =
+    new HeaderContext(UserContext(req, none, none, lang), PageData.error(req, v))
 
   def apply(userContext: HeaderUserContext, pageData: PageData): HeaderContext =
     new HeaderContext(userContext, pageData)

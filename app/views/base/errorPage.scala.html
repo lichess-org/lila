@@ -1,14 +1,13 @@
 @(ex: Throwable)(implicit ctx: Context)
 
-@base.layout(
-title = "Internal server error") {
+@base.layout(title = "Internal server error") {
 
 <div class="content_box small_box">
   <h1>Something went wrong on this page.</h1>
   <br />
   <br />
-  <p>If the problem persists, please report it in the <a href="@routes.ForumCateg.show("lichess-feedback", 1)">forum</a>.</p>
-  <p>Or send us an email at contact&#64;lichess.org</p>
+  <p>If the problem persists, please report it in the <a class="blue" href="@routes.ForumCateg.show("lichess-feedback", 1)">forum</a>.</p>
+  <p>Or send us an email at @contactEmail.</p>
   <br />
   <br />
   <code>@ex.getMessage</code>
