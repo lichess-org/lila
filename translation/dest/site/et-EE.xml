@@ -56,6 +56,7 @@
   <string name="showThreat">Näita ohtu</string>
   <string name="inLocalBrowser">Kohalikus veebis</string>
   <string name="toggleLocalEvaluation">Lülita kohalik hindamine</string>
+  <string name="promoteVariation">Edenda varient</string>
   <string name="makeMainLine">Loo põhiliin</string>
   <string name="deleteFromHere">Kustuta siit</string>
   <string name="move">Käik</string>
@@ -427,6 +428,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="biography">Elulugu</string>
   <string name="country">Maa</string>
   <string name="preferences">Sätted</string>
+  <string name="inlineNotation">Tekstisisene märge</string>
   <string name="watchLichessTV">Vaata Lichess TV-d</string>
   <string name="previouslyOnLichessTV">Eelnevalt Lichess TV-s</string>
   <string name="onlinePlayers">Online -s mängijad</string>
@@ -448,6 +450,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="keepGoing">Jätka samas vaimus</string>
   <string name="puzzleFailed">Kukkusid läbi</string>
   <string name="butYouCanKeepTrying">Aga võid uuesti proovida</string>
+  <string name="success">Edukas</string>
   <string name="wasThisPuzzleAnyGood">Oli see huvitav pusle?</string>
   <string name="pleaseVotePuzzle">Aita lichess\'i paremaks muuta, hääletades üles või alla nuppu kasutades:</string>
   <string name="thankYou">Aitäh!</string>
@@ -564,6 +567,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="xCommentedY">%1$s kommenteeris %2$s</string>
   <string name="victory">Võit!</string>
   <string name="defeat">Kaotus</string>
+  <string name="xVsYinZ">%1$s : %2$s - %3$s</string>
   <string name="timeline">Ajatelg</string>
   <string name="seeAllTournaments">Näita kõik turniirid</string>
   <string name="starting">Algab:</string>
@@ -606,6 +610,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="error.email_unique">See e-posti aadress on juba võetud</string>
   <string name="error.email_different">See on juba teie e-posti aadress</string>
   <string name="blindfoldChess">Pime male</string>
+  <string name="zenMode">Keskendumis mood</string>
   <string name="moveConfirmation">Käigu kinnitus</string>
   <string name="inCorrespondenceGames">Kirjavahetus mängud</string>
   <string name="ifRatingIsPlusMinusX">Kui Reiting on ±%s</string>
@@ -634,6 +639,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="sourceCode">Lähtekood</string>
   <string name="simultaneousExhibitions">Simultaanid</string>
   <string name="host">Korraldaja</string>
+  <string name="hostColorX">Vastuvõtva värv: %s</string>
   <string name="createdSimuls">Hiljuti loodud simultanid</string>
   <string name="hostANewSimul">Korralda uus simultaan</string>
   <string name="noSimulFound">Simultani ei leitud</string>
@@ -723,8 +729,11 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
     <item quantity="other">Saadaval %s keeles!</item>
   </plurals>
   <string name="gameAnalysis">Mäng analüüs</string>
+  <string name="xHostsY">%1$s liitub %2$s</string>
+  <string name="xJoinsY">%1$s liitub %2$s</string>
   <string name="xLikesY">Mängijale %1$s meeldib %2$s</string>
   <string name="quickPairing">Kiirelt mängu</string>
+  <string name="lobby">Puhketuba</string>
   <string name="anonymous">Anonüümne</string>
   <string name="yourScore">Sinu skoor: %s</string>
   <string name="language">Keel</string>
@@ -737,11 +746,13 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="boardTheme">Laua kujundus</string>
   <string name="boardSize">Laua suurus</string>
   <string name="pieceSet">Malendite kujundus</string>
+  <string name="embedInYourWebsite">Lubad oma veebilehel</string>
   <string name="usernameAlreadyUsed">See kasutajanimi on juba olemas, proovige midagi muud.</string>
   <string name="usernameInvalid">Lubamatu kasutajanimi. Palun kasutage ainult tähti, numbreid, alakriipsu ja kriipsu.</string>
   <string name="usernameStartNoNumber">Kasutajanimi ei tohi alata numbriga.</string>
   <string name="usernameUnacceptable">Selline kasutajanimi ei ole lubatud.</string>
   <string name="directlySupportLichess">Toeta Lichess-i</string>
+  <string name="playChessInStyle">Mängi malet stiiliga</string>
   <string name="chessBasics">Male põhitõed</string>
   <string name="coaches">Treenerid</string>
   <string name="invalidPgn">Väär PGN</string>
@@ -762,6 +773,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="practiceWithComputer">Harjuta arvutiga</string>
   <string name="anotherWasX">Samuti oleks hea %s</string>
   <string name="bestWasX">Parim oli %s</string>
+  <string name="youBrowsedAway">Sa lahkusid eemale</string>
   <string name="resumePractice">Jätka harjutamist</string>
   <string name="theGameIsADraw">See mäng on viik.</string>
   <string name="computerThinking">Arvuti mõtleb ...</string>
@@ -775,6 +787,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="learnFromThisMistake">Õpi sellest veast</string>
   <string name="skipThisMove">Jäta see käik vahele</string>
   <string name="next">Järgmine</string>
+  <string name="xWasPlayed">%s mängis</string>
   <string name="findBetterMoveForWhite">Leia parem käik valgele</string>
   <string name="findBetterMoveForBlack">Leia parem käik mustale</string>
   <string name="resumeLearning">Jätkake õppimist</string>
@@ -804,4 +817,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="yourXRatingIsTooFarFromY">Sinu %1$s reiting on liiga suure vahega võrreldes mängijaga %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Ei saa väljakutset esitada ajutise %s reitingu tõttu.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s aktsepteerib väljakutseid ainult oma sõpradelt.</string>
+  <string name="addCurrentVariation">Lisa praegune varient</string>
+  <string name="playX">Mängi %s</string>
 </resources>
