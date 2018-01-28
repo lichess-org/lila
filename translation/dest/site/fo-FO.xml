@@ -42,6 +42,9 @@
   <string name="whiteLeftTheGame">Hvítur er farin frá talvinum</string>
   <string name="blackLeftTheGame">Svartur er farin frá talvinum</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Deil hesa adressuna við áskoðarar</string>
+  <string name="theComputerAnalysisHasFailed">Teldugreiningin miseydnaðist</string>
+  <string name="viewTheComputerAnalysis">Síggj teldugreiningina</string>
+  <string name="requestAComputerAnalysis">Bið um eina teldugreining</string>
   <string name="computerAnalysis">Analysera talvið</string>
   <string name="analysis">Analysera borði</string>
   <string name="blunders">Brølari</string>
