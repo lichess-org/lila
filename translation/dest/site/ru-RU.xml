@@ -537,7 +537,7 @@
   <string name="closeAccount">Удалить учётную запись</string>
   <string name="changedMindDoNotCloseAccount">Я передумал, не удаляйте мою учётную запись</string>
   <string name="closeAccountExplanation">Вы действительно желаете удалить свою учётную запись? Её удаление невозможно будет отменить. Вы больше не сможете зайти в эту учётную запись, и ваша страница станет недоступна.</string>
-  <string name="thisAccountIsClosed">Профиль этого игрока был закрыт.</string>
+  <string name="thisAccountIsClosed">Профиль этого игрока закрыт.</string>
   <string name="invalidUsernameOrPassword">Неверное имя пользователя или пароль</string>
   <string name="incorrectPassword">Неверный пароль</string>
   <string name="emailMeALink">Прислать ссылку мне на почту</string>
@@ -856,7 +856,7 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s принимает вызовы только от друзей.</string>
   <string name="conditionalPremoves">Условные предходы</string>
   <string name="addCurrentVariation">Добавить текущий вариант</string>
-  <string name="playVariationToCreateConditionalPremoves">Выполните ходы на доске, чтобы установить условные предходы</string>
+  <string name="playVariationToCreateConditionalPremoves">Выполните ходы на доске, чтобы задать условные предходы</string>
   <string name="noConditionalPremoves">Безусловные предходы</string>
   <string name="playX">Сыграть %s</string>
   <plurals name="andSaveNbPremoveLines">
