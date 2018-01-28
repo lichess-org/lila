@@ -73,7 +73,7 @@ object Countries {
     C("CW", "Curaçao"),
     C("CX", "Christmas Island"),
     C("CY", "Cyprus"),
-    C("CZ", "Czech Republic"),
+    C("CZ", "Czechia"),
     C("DE", "Germany"),
     C("DJ", "Djibouti"),
     C("DK", "Denmark"),
