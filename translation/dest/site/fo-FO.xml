@@ -52,6 +52,9 @@
   <string name="usingServerAnalysis">Nýtandi ambætaragreining</string>
   <string name="loadingEngine">Inntekur engine ...</string>
   <string name="cloudAnalysis">Skíggj-greining</string>
+  <string name="goDeeper">Greina djúpari</string>
+  <string name="showThreat">Vís hóttan</string>
+  <string name="inLocalBrowser">í tínum egna kaga</string>
   <string name="blunders">Brølari</string>
   <string name="mistakes">Feilir</string>
   <string name="flipBoard">Vend borð</string>
@@ -114,8 +117,8 @@
   <string name="yes">Ja</string>
   <string name="help">Hjálp</string>
   <string name="reply">Svarað</string>
-  <string name="cheat">Snýtari</string>
-  <string name="donate">Donerað</string>
+  <string name="cheat">Snýt</string>
+  <string name="donate">Gev gávu</string>
   <string name="never">Aldrin</string>
   <string name="sound">Ljóð</string>
   <string name="none">Einki</string>
