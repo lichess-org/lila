@@ -46,7 +46,12 @@
   <string name="viewTheComputerAnalysis">Síggj teldugreiningina</string>
   <string name="requestAComputerAnalysis">Bið um eina teldugreining</string>
   <string name="computerAnalysis">Analysera talvið</string>
+  <string name="computerAnalysisAvailable">Teldugreining klár</string>
   <string name="analysis">Analysera borði</string>
+  <string name="depthX">Dýpd %s</string>
+  <string name="usingServerAnalysis">Nýtandi ambætaragreining</string>
+  <string name="loadingEngine">Inntekur engine ...</string>
+  <string name="cloudAnalysis">Skíggj-greining</string>
   <string name="blunders">Brølari</string>
   <string name="mistakes">Feilir</string>
   <string name="flipBoard">Vend borð</string>
