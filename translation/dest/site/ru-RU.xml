@@ -757,7 +757,7 @@
   <string name="onlineAndOfflinePlay">Игра онлайн и офлайн</string>
   <string name="correspondenceAndUnlimited">В дневной и без ограничения времени</string>
   <string name="viewTheSolution">Посмотреть решение</string>
-  <string name="followAndChallengeFriends">Подписаться и вызвать на игру друзей</string>
+  <string name="followAndChallengeFriends">Подписки и игра с друзьями</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Доступно на %s языке!</item>
     <item quantity="few">Доступно на %s языках!</item>
