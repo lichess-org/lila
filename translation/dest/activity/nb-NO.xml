@@ -8,7 +8,7 @@
     <item quantity="other">Har trent %1$s stillinger på %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Har løst %s taktikkoppgaver</item>
+    <item quantity="one">Har løst %s taktikkoppgave</item>
     <item quantity="other">Har løst %s taktikkoppgaver</item>
   </plurals>
   <plurals name="playedNbGames">
