@@ -132,13 +132,15 @@ final class ModApi(
       logApi.setPermissions(mod, user.id, permissions)
   }
 
-  def kickFromRankings(mod: String, username: String): Funit = withUser(username) { user =>
-    lilaBus.publish(lila.hub.actorApi.mod.KickFromRankings(user.id), 'kickFromRankings)
-    logApi.kickFromRankings(mod, user.id)
-  }
-
   def setReportban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.reportban != v) ?? {
     UserRepo.setReportban(sus.user.id, v) >>- logApi.reportban(mod, sus, v)
+  }
+
+  def setRankban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.rankban != v) ?? {
+    if (v) {
+      lilaBus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), 'kickFromRankings)
+    }
+    UserRepo.setRankban(sus.user.id, v) >>- logApi.rankban(mod, sus, v)
   }
 
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =

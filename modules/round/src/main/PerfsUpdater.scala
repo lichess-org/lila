@@ -69,8 +69,8 @@ final class PerfsUpdater(
           UserRepo.setPerfs(black, perfsB, black.perfs) zip
           historyApi.add(white, game, perfsW) zip
           historyApi.add(black, game, perfsB) zip
-          rankingApi.save(white.id, game.perfType, perfsW) zip
-          rankingApi.save(black.id, game.perfType, perfsB) inject ratingDiffs.some
+          (if (!white.rankban) rankingApi.save(white.id, game.perfType, perfsW) else funit) zip
+          (if (!black.rankban) rankingApi.save(black.id, game.perfType, perfsB) else funit) inject ratingDiffs.some
       }
     }
 

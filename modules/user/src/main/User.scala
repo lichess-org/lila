@@ -27,7 +27,8 @@ case class User(
     kid: Boolean,
     lang: Option[String],
     plan: Plan,
-    reportban: Boolean = false
+    reportban: Boolean = false,
+    rankban: Boolean = false
 ) extends Ordered[User] {
 
   override def equals(other: Any) = other match {
@@ -197,6 +198,7 @@ object User {
     val colorIt = "colorIt"
     val plan = "plan"
     val reportban = "reportban"
+    val rankban = "rankban"
     val salt = "salt"
     val bpass = "bpass"
     val sha512 = "sha512"
@@ -234,7 +236,8 @@ object User {
       lang = r strO lang,
       title = r strO title,
       plan = r.getO[Plan](plan) | Plan.empty,
-      reportban = r boolD reportban
+      reportban = r boolD reportban,
+      rankban = r boolD rankban
     )
 
     def writes(w: BSON.Writer, o: User) = BSONDocument(
@@ -257,7 +260,8 @@ object User {
       lang -> o.lang,
       title -> o.title,
       plan -> o.plan.nonEmpty,
-      reportban -> w.boolO(o.reportban)
+      reportban -> w.boolO(o.reportban),
+      rankban -> w.boolO(o.rankban)
     )
   }
 }

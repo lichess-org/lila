@@ -91,13 +91,15 @@ object Mod extends LilaController {
     modApi.reopenAccount(me.id, username) inject redirect(username)
   }
 
-  def kickFromRankings(username: String) = Secure(_.RemoveRanking) { implicit ctx => me =>
-    modApi.kickFromRankings(me.id, username) inject redirect(username)
-  }
-
   def reportban(username: String, v: Boolean) = Secure(_.ReportBan) { implicit ctx => me =>
     withSuspect(username) { sus =>
       modApi.setReportban(AsMod(me), sus, v) inject redirect(username)
+    }
+  }
+
+  def rankban(username: String, v: Boolean) = Secure(_.RemoveRanking) { implicit ctx => me =>
+    withSuspect(username) { sus =>
+      modApi.setRankban(AsMod(me), sus, v) inject redirect(username)
     }
   }
 
