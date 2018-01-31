@@ -25,7 +25,11 @@ export default class Protocol {
     this.stopped = defer<void>();
     this.stopped.resolve();
 
-    send('uci'); // warm up the webworker
+    // get engine name/version
+    send('uci');
+
+    // contempt 0 is more suitable for analysis (default is 20 since sf 9)
+    send('setoption name Contempt value 0');
 
     if (opts.variant === 'fromPosition' || opts.variant === 'chess960')
       send('setoption name UCI_Chess960 value true');
