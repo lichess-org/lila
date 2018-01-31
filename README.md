@@ -23,15 +23,15 @@ The UI is available in more than [80 languages](https://crowdin.com/project/lich
 Lichess is written in [Scala 2.11](https://www.scala-lang.org/),
 and relies on [Play 2.4](https://www.playframework.com/) for the routing, templating, and JSON.
 Pure chess logic is contained in [scalachess](https://github.com/ornicar/scalachess) submodule.
-The codebase is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
+The server is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
 Lichess talks to [Stockfish](http://stockfishchess.org/) deployed in an [AI cluster](https://github.com/niklasf/fishnet) of donated servers.
-It uses [MongoDB 3.4](https://mongodb.org) to store more than 500 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
-HTTP requests and websocket connections are proxied by [nginx 1.8](http://nginx.org).
+It uses [MongoDB 3.4](https://mongodb.org) to store more than 600 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
+HTTP requests and websocket connections are proxied by [nginx 1.9](http://nginx.org).
 The web client is written in [TypeScript](https://typescriptlang.org) and [snabbdom](https://github.com/snabbdom/snabbdom).
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
-All rated standard games as published in a [free PGN database](https://database.lichess.org).
+All rated standard games are published in a [free PGN database](https://database.lichess.org).
 Browser testing done with [![](https://raw.githubusercontent.com/ornicar/lila/master/public/images/browserstack.png)](https://www.browserstack.com).
-Please help us [translate lichess with Crowdin](https://crowdin.com).
+Please help us [translate lichess with Crowdin](https://crowdin.com/project/lichess).
 
 [Join us on discord](https://discord.gg/hy5jqSs) or in the #lichess freenode IRC channel for more info.
 Use [GitHub issues](https://github.com/ornicar/lila/issues) for bug reports and feature requests.
@@ -43,7 +43,7 @@ Installation
 
 > This project source code is open for other developers to have an example of non-trivial scala/play2/mongodb application. You're welcome to reuse as much code as you want for your projects and to get inspired by the solutions I propose to many common web development problems. But please don't just create a public lichess clone. Instead, [embed lichess using an &lt;iframe&gt;](https://lichess.org/developers) into your website.
 
-> Also note that if I provide the source code, I do **not** offer support for your lichess instance. I will probably ignore any question about lichess installation and runtime issues.
+> Also note that while I provide the source code, I do **not** offer support for your lichess instance. I will probably ignore any question about lichess installation and runtime issues.
 
 ## HTTP API
 
