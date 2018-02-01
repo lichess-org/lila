@@ -618,7 +618,7 @@
   <string name="aboutSimulImage">在50个队手中，菲舍尔贏了47局，和了2局，输了1局。</string>
   <string name="aboutSimulRealLife">这个概念来自网下比赛。在网下这涉及到主持在桌与桌之间來回穿梭走棋。</string>
   <string name="aboutSimulRules">当车轮战开始时， 每个棋手都与主持开始下棋， 而主持用白方。当所有的对局都结束时，车轮战就结束了。</string>
-  <string name="aboutSimulSettings">同步赛总是无积分的。重赛、悔棋和\"加时\"功能被禁用。</string>
+  <string name="aboutSimulSettings">车轮战总是无积分的。重赛、悔棋和\"加时\"功能被禁用。</string>
   <string name="create">创建</string>
   <string name="whenCreateSimul">当你创建一个车轮战时，你要一次同时跟几个棋手一起下棋。</string>
   <string name="simulVariantsHint">如果您选择几个变体，每个棋手都要选择下哪一种。</string>
