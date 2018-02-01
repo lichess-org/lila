@@ -44,7 +44,7 @@ object PlayApp {
 
   lazy val isDev = isMode(_.Dev)
   lazy val isTest = isMode(_.Test)
-  lazy val isProd = isMode(_.Prod) && !loadConfig.getBoolean("forcedev")
+  lazy val isProd = isMode(_.Prod) && !loadConfig.getBoolean("app.forcedev")
   def isServer = !isTest
 
   def isMode(f: Mode.type => Mode.Mode) = withApp { _.mode == f(Mode) }

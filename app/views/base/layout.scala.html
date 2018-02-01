@@ -44,6 +44,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(ctx.pref.coords == 1) { @cssTag("board.coords.inner.css") }
     @if(ctx.pageData.inquiry.isDefined) { @cssTag("inquiry.css") }
     @if(ctx.userContext.impersonatedBy.isDefined) { @cssTag("impersonate.css") }
+    @if(isStage) { @cssTag("stage.css") }
     @moreCss
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=${ctx.pageData.assetVersion}")" type="text/css" rel="stylesheet"/>
     <meta content="@openGraph.fold(trans.siteDescription.txt())(o => o.description)" name="description">
@@ -91,6 +92,9 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     }
     @ctx.me.map { me =>
     @if(ctx.userContext.impersonatedBy.isDefined) { @mod.impersonate(me) }
+    }
+    @if(isStage) {
+    <div id="stage">This is an empty lichess preview website for developers. <a href="https://lichess.org">Go to lichess.org instead</a></div>
     }
     @if(playing) { <a data-icon="E" id="zentog" class="text fbt active@if(!ctx.pref.isZen){ none}">ZEN MODE</a> }
     <div id="top" class="@ctx.pref.is3d.fold("is3d", "is2d")">

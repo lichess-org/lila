@@ -42,6 +42,7 @@ object Environment
   val isGloballyCrawlable = apiEnv.Net.Crawlable
 
   def isProd = apiEnv.isProd
+  def isStage = apiEnv.isStage
 
   def apiVersion = lila.api.Mobile.Api.currentVersion
 

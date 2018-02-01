@@ -36,6 +36,8 @@ final class Env(
 
   val apiToken = config getString "api.token"
 
+  val isStage = config getBoolean "app.stage"
+
   object Net {
     val Domain = config getString "net.domain"
     val Protocol = config getString "net.protocol"
