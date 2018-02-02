@@ -26,6 +26,7 @@ public class RatingCalculator {
   private final static double MULTIPLIER =  173.7178;
   private final static double CONVERGENCE_TOLERANCE =  0.000001;
   private final static int ITERATION_MAX =  3000;
+  private final static int MILLIS_PER_DAY =  1000 * 60 * 60 * 24;
 
   private double tau; // constrains volatility over time
   private double defaultVolatility;
@@ -76,12 +77,12 @@ public class RatingCalculator {
    * @param ratingPeriodEndDate
    * @param ratingPeriodLengthMillis
    */
-  public void updateRatings(RatingPeriodResults results, DateTime ratingPeriodEndDate, long ratingPeriodLengthMillis) {
+  public void updateRatings(RatingPeriodResults results, DateTime ratingPeriodEndDate, double ratingPeriodDays) {
     for ( Rating player : results.getParticipants() ) {
       double ratingPeriodCount = 1;
-      if ( ratingPeriodEndDate != null && ratingPeriodLengthMillis != 0 && player.getLatest() != null ) {
+      if ( ratingPeriodEndDate != null && ratingPeriodDays != 0 && player.getLatest() != null ) {
         Duration interval = new Duration(player.getLatest(), ratingPeriodEndDate);
-        ratingPeriodCount = interval.getMillis() / (double)ratingPeriodLengthMillis;
+        ratingPeriodCount = interval.getMillis() / (ratingPeriodDays * MILLIS_PER_DAY);
       }
       if ( results.getResults(player).size() > 0 ) {
         calculateNewRating(player, results.getResults(player), ratingPeriodCount);

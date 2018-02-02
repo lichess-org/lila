@@ -57,8 +57,8 @@ case object Glicko {
   // past this, it might not stabilize ever again
   val maxVolatility = 0.1d
 
-  // 4.665 days, chosen so a typical player's RD goes from 60 -> 110 in 1 year
-  val ratingPeriodLengthMillis = 1000 * 60 * 60 * 24 * 4.665d toLong
+  // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
+  val ratingPeriodDays = 4.665d
 
   def range(rating: Double, deviation: Double) = (
     rating - (deviation * 2),

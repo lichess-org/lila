@@ -113,7 +113,7 @@ final class PerfsUpdater(
       case Glicko.Result.Loss => results.addResult(black, white)
     }
     try {
-      system.updateRatings(results, movedAt, Glicko.ratingPeriodLengthMillis)
+      system.updateRatings(results, movedAt, Glicko.ratingPeriodDays)
     } catch {
       case e: Exception => logger.error("update ratings", e)
     }
