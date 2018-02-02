@@ -25,36 +25,25 @@ final class PerfsUpdater(
         val ratingsW = mkRatings(white.perfs)
         val ratingsB = mkRatings(black.perfs)
         val result = resultOf(game)
+        def ur(white: Rating, black: Rating): Unit = {
+            updateRatings(white, black, result, system, game.movedAt)
+        }
         game.ratingVariant match {
-          case chess.variant.Chess960 =>
-            updateRatings(ratingsW.chess960, ratingsB.chess960, result, system, game.movedAt)
-          case chess.variant.KingOfTheHill =>
-            updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, result, system, game.movedAt)
-          case chess.variant.ThreeCheck =>
-            updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, result, system, game.movedAt)
-          case chess.variant.Antichess =>
-            updateRatings(ratingsW.antichess, ratingsB.antichess, result, system, game.movedAt)
-          case chess.variant.Atomic =>
-            updateRatings(ratingsW.atomic, ratingsB.atomic, result, system, game.movedAt)
-          case chess.variant.Horde =>
-            updateRatings(ratingsW.horde, ratingsB.horde, result, system, game.movedAt)
-          case chess.variant.RacingKings =>
-            updateRatings(ratingsW.racingKings, ratingsB.racingKings, result, system, game.movedAt)
-          case chess.variant.Crazyhouse =>
-            updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, result, system, game.movedAt)
+          case chess.variant.Chess960 => ur(ratingsW.chess960, ratingsB.chess960)
+          case chess.variant.KingOfTheHill => ur(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill)
+          case chess.variant.ThreeCheck => ur(ratingsW.threeCheck, ratingsB.threeCheck)
+          case chess.variant.Antichess =>  ur(ratingsW.antichess, ratingsB.antichess)
+          case chess.variant.Atomic => ur(ratingsW.atomic, ratingsB.atomic)
+          case chess.variant.Horde => ur(ratingsW.horde, ratingsB.horde)
+          case chess.variant.RacingKings => ur(ratingsW.racingKings, ratingsB.racingKings)
+          case chess.variant.Crazyhouse => ur(ratingsW.crazyhouse, ratingsB.crazyhouse)
           case chess.variant.Standard => game.speed match {
-            case Speed.Bullet =>
-              updateRatings(ratingsW.bullet, ratingsB.bullet, result, system, game.movedAt)
-            case Speed.Blitz =>
-              updateRatings(ratingsW.blitz, ratingsB.blitz, result, system, game.movedAt)
-            case Speed.Rapid =>
-              updateRatings(ratingsW.rapid, ratingsB.rapid, result, system, game.movedAt)
-            case Speed.Classical =>
-              updateRatings(ratingsW.classical, ratingsB.classical, result, system, game.movedAt)
-            case Speed.Correspondence =>
-              updateRatings(ratingsW.correspondence, ratingsB.correspondence, result, system, game.movedAt)
-            case Speed.UltraBullet =>
-              updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, result, system, game.movedAt)
+            case Speed.Bullet => ur(ratingsW.bullet, ratingsB.bullet)
+            case Speed.Blitz => ur(ratingsW.blitz, ratingsB.blitz)
+            case Speed.Rapid => ur(ratingsW.rapid, ratingsB.rapid)
+            case Speed.Classical => ur(ratingsW.classical, ratingsB.classical)
+            case Speed.Correspondence => ur(ratingsW.correspondence, ratingsB.correspondence)
+            case Speed.UltraBullet => ur(ratingsW.ultraBullet, ratingsB.ultraBullet)
           }
           case _ =>
         }
