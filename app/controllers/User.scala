@@ -248,7 +248,7 @@ object User extends LilaController {
         Env.plan.api.recentChargesOf(user) zip
         Env.report.api.byAndAbout(user, 20) zip
         Env.pref.api.getPref(user) zip
-        Env.irwin.api.status(user) flatMap {
+        Env.irwin.api.reports.withPovs(user) flatMap {
           case emails ~ spy ~ assess ~ history ~ charges ~ reports ~ pref ~ irwin =>
             val familyUserIds = user.id :: spy.otherUserIds.toList
             Env.playban.api.bans(familyUserIds) zip

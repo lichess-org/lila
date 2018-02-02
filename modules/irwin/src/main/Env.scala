@@ -20,7 +20,6 @@ final class Env(
 ) {
 
   private val reportColl = db(config getString "collection.report")
-  private val requestColl = db(config getString "collection.request")
 
   lazy val irwinModeSetting = settingStore[String](
     "irwinMode",
@@ -28,16 +27,16 @@ final class Env(
     text = "Allow Irwin to: [mark|report|none]".some
   )
 
-  val api = new IrwinApi(
+  val stream = new IrwinStream(system)
+
+  lazy val api = new IrwinApi(
     reportColl = reportColl,
-    requestColl = requestColl,
     modApi = modApi,
     reportApi = reportApi,
     notifyApi = notifyApi,
+    bus = system.lilaBus,
     mode = irwinModeSetting.get
   )
-
-  lazy val stream = new IrwinStream(system)
 
   scheduler.future(5 minutes, "irwin tournament leaders") {
     tournamentApi.allCurrentLeadersInStandard flatMap api.requests.fromTournamentLeaders
@@ -45,14 +44,6 @@ final class Env(
   scheduler.future(15 minutes, "irwin leaderboards") {
     userCache.getTop50Online flatMap api.requests.fromLeaderboard
   }
-
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    import lila.hub.actorApi.report._
-    def receive = {
-      case Created(userId, "cheat" | "cheatprint", reporterId) => api.requests.insert(userId, _.Report, none)
-      case Processed(userId, "cheat" | "cheatprint") => api.requests.drop(userId)
-    }
-  })), 'report)
 }
 
 object Env {

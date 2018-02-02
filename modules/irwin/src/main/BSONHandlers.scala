@@ -1,8 +1,10 @@
 package lila.irwin
 
+import reactivemongo.bson._
+
 import lila.db.dsl._
 import lila.db.BSON
-import reactivemongo.bson._
+import lila.report.ReporterId
 
 object BSONHandlers {
 
@@ -35,19 +37,6 @@ object BSONHandlers {
 
   private implicit val GameReportBSONHandler = Macros.handler[GameReport]
   private implicit val PvBSONHandler = nullableHandler[Int, BSONInteger]
+  private implicit val ReporterIdBSONHandler = stringIsoHandler[ReporterId](ReporterId.reporterIdIso)
   implicit val ReportBSONHandler = Macros.handler[IrwinReport]
-
-  private implicit val RequestOriginBSONHandler: BSONHandler[BSONString, IrwinRequest.Origin] =
-    new BSONHandler[BSONString, IrwinRequest.Origin] {
-      import IrwinRequest.Origin, Origin._
-      def read(bs: BSONString) = bs.value match {
-        case "moderator" => Moderator
-        case "report" => Report
-        case "tournament" => Tournament
-        case "leaderboard" => Leaderboard
-        case _ => sys error s"Invalid origin ${bs.value}"
-      }
-      def write(x: Origin) = BSONString(x.key)
-    }
-  implicit val RequestBSONHandler = Macros.handler[IrwinRequest]
 }
