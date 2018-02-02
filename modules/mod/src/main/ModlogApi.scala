@@ -109,10 +109,6 @@ final class ModlogApi(coll: Coll) {
     Modlog(mod, user.some, Modlog.permissions, details = permissions.mkString(", ").some)
   }
 
-  def kickFromRankings(mod: String, user: String) = add {
-    Modlog(mod, user.some, Modlog.kickFromRankings)
-  }
-
   def reportban(mod: Mod, sus: Suspect, v: Boolean) = add {
     Modlog.make(mod, sus, if (v) Modlog.reportban else Modlog.unreportban)
   }
@@ -135,6 +131,10 @@ final class ModlogApi(coll: Coll) {
 
   def garbageCollect(mod: Mod, sus: Suspect) = add {
     Modlog.make(mod, sus, Modlog.garbageCollect)
+  }
+
+  def rankban(mod: Mod, sus: Suspect, v: Boolean) = add {
+    Modlog.make(mod, sus, if (v) Modlog.rankban else Modlog.unrankban)
   }
 
   def recent = coll.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)

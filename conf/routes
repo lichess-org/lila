@@ -382,7 +382,7 @@ POST  /mod/:username/title             controllers.Mod.setTitle(username: String
 POST  /mod/:username/inquiry           controllers.Mod.spontaneousInquiry(username: String)
 GET   /mod/:username/communication     controllers.Mod.communicationPublic(username: String)
 GET   /mod/:username/communication/private controllers.Mod.communicationPrivate(username: String)
-POST  /mod/:username/kickFromRankings  controllers.Mod.kickFromRankings(username: String)
+POST  /mod/:username/rankban/:v        controllers.Mod.rankban(username: String, v: Boolean)
 POST  /mod/:username/reportban/:v      controllers.Mod.reportban(username: String, v: Boolean)
 POST  /mod/:username/impersonate       controllers.Mod.impersonate(username: String)
 GET   /mod/log                         controllers.Mod.log

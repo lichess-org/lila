@@ -280,6 +280,8 @@ object UserRepo {
 
   def setReportban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "reportban", v).void
 
+  def setRankban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "rankban", v).void
+
   def setIpBan(id: ID, v: Boolean) = coll.updateField($id(id), "ipBan", v).void
 
   def toggleKid(user: User) = coll.updateField($id(user.id), "kid", !user.kid)
