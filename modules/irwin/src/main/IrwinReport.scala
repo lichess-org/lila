@@ -1,9 +1,8 @@
 package lila.irwin
 
-import org.joda.time.DateTime
-
 import lila.game.{ Game, Pov }
-import lila.report.{ SuspectId, ReporterId }
+
+import org.joda.time.DateTime
 
 case class IrwinReport(
     _id: String, // user id
@@ -12,8 +11,11 @@ case class IrwinReport(
     date: DateTime
 ) {
 
-  def suspectId = SuspectId(_id)
+  def id = _id
+  def userId = _id
 }
+
+case class IrwinStatus(report: Option[IrwinReport.WithPovs], request: Option[IrwinRequest])
 
 object IrwinReport {
 

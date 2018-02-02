@@ -28,7 +28,37 @@ moreCss = cssTag("mod-irwin.css")) {
   </h1>
   <div class="both">
     <div class="queue">
-      We no longer know what irwin is up to.
+      <table class="slist">
+        <thead>
+          <tr>
+            <th>Queued request</th>
+            <th>Created</th>
+            <th>Started</th>
+          </tr>
+        </thead>
+        <tbody>
+          @dashboard.queue.map { req =>
+          <tr class="request @if(req.isInProgress){started}">
+            <td>
+              @userIdLink(req.id.some, params = "?mod")
+            </td>
+            <td class="little for">
+              @momentFromNow(req.createdAt)<br />
+              @req.notifyUserId.map { modId =>
+              by @userIdSpanMini(modId, withOnline = true)
+              }.getOrElse {
+              by @req.origin
+              }
+            </td>
+            <td class="little">
+              @req.startedAt.map { at =>
+              @momentFromNow(at)
+              }
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
     </div>
     <div class="recent">
       <table class="slist">
@@ -43,7 +73,7 @@ moreCss = cssTag("mod-irwin.css")) {
           @dashboard.recent.map { rep =>
           <tr class="report">
             <td>
-              @userIdLink(rep.suspectId.value.some, params = "?mod")
+              @userIdLink(rep.id.some, params = "?mod")
             </td>
             <td class="little completed">
               @momentFromNow(rep.date)

@@ -28,6 +28,15 @@ object Irwin extends LilaController {
     }
   }
 
+  def getRequest = Open { implicit ctx =>
+    ModExternalBot {
+      Env.irwin.api.requests.getAndStart map {
+        case None => NotFound
+        case Some(req) => Ok(req.id)
+      }
+    }
+  }
+
   def assessment(username: String) = Open { implicit ctx =>
     ModExternalBot {
       OptionFuResult(UserRepo named username) { user =>

@@ -4,20 +4,10 @@ import lila.user.User
 
 case class Mod(user: User) extends AnyVal
 
-case class ModId(value: User.ID) extends AnyVal
-object ModId {
-  def lichess = ModId("lichess")
-  def irwin = ModId("irwin")
-  def normalize(username: String) = ModId(User normalize username)
-}
-
 case class Suspect(user: User) extends AnyVal {
   def set(f: User => User) = copy(user = f(user))
 }
 case class SuspectId(value: User.ID) extends AnyVal
-object SuspectId {
-  def normalize(username: String) = SuspectId(User normalize username)
-}
 
 case class Victim(user: User) extends AnyVal
 
