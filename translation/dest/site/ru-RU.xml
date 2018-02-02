@@ -22,7 +22,7 @@
   <string name="createAGame">Создать игру</string>
   <string name="whiteIsVictorious">Победа белых</string>
   <string name="blackIsVictorious">Победа чёрных</string>
-  <string name="kingInTheCenter">Король достиг центра</string>
+  <string name="kingInTheCenter">Король в центре</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Гонка окончена</string>
   <string name="variantEnding">Партия окончена</string>
@@ -70,7 +70,7 @@
   <string name="losing">Проигрывают</string>
   <string name="drawn">Вничью</string>
   <string name="unknown">Неизвестно</string>
-  <string name="database">Источник данных</string>
+  <string name="database">Архив партий</string>
   <string name="whiteDrawBlack">Белые / Ничья / Чёрные</string>
   <string name="averageRatingX">Средний рейтинг: %s</string>
   <string name="recentGames">Недавние игры</string>
@@ -178,7 +178,7 @@
   <string name="email">Электронная почта</string>
   <string name="passwordReset">Сброс пароля</string>
   <string name="forgotPassword">Забыли пароль?</string>
-  <string name="rank">Уровень</string>
+  <string name="rank">Ранг</string>
   <string name="rankX">Место: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Места в списке обновляются каждые %s минут</string>
   <plurals name="nbPuzzles">
@@ -289,9 +289,9 @@
   <string name="tournaments">Турниры</string>
   <string name="tournamentPoints">Турнирные очки</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s турнирое очко</item>
-    <item quantity="few">%s турнирых очка</item>
-    <item quantity="other">%s турнирых очков</item>
+    <item quantity="one">%s турнирное очко</item>
+    <item quantity="few">%s турнирных очка</item>
+    <item quantity="other">%s турнирных очков</item>
   </plurals>
   <string name="viewTournament">Перейти в турнир</string>
   <string name="backToTournament">Вернуться к турниру</string>
@@ -422,7 +422,7 @@
   <string name="youArePlaying">Вы в игре!</string>
   <string name="winRate">Победы</string>
   <string name="berserkRate">Берсерк</string>
-  <string name="performance">Пик рейтинга</string>
+  <string name="performance">Сила игры</string>
   <string name="tournamentComplete">Турнир завершён</string>
   <string name="movesPlayed">Сделано ходов</string>
   <string name="whiteWins">Побед белыми</string>
@@ -517,7 +517,7 @@
   <string name="reportAUser">Сообщить о пользователе</string>
   <string name="user">Пользователь</string>
   <string name="reason">Причина</string>
-  <string name="whatIsIheMatter">В чём дело?</string>
+  <string name="whatIsIheMatter">Что это было?</string>
   <string name="cheat">Жульничество</string>
   <string name="insult">Оскорбление</string>
   <string name="troll">Троллинг</string>
@@ -537,10 +537,10 @@
   <string name="closeAccount">Удалить учётную запись</string>
   <string name="changedMindDoNotCloseAccount">Я передумал, не удаляйте мою учётную запись</string>
   <string name="closeAccountExplanation">Вы действительно желаете удалить свою учётную запись? Её удаление невозможно будет отменить. Вы больше не сможете зайти в эту учётную запись, и ваша страница станет недоступна.</string>
-  <string name="thisAccountIsClosed">Профиль этого пользователя был удалён.</string>
-  <string name="invalidUsernameOrPassword">Неправильное имя или пароль</string>
+  <string name="thisAccountIsClosed">Профиль этого игрока закрыт.</string>
+  <string name="invalidUsernameOrPassword">Неверное имя пользователя или пароль</string>
   <string name="incorrectPassword">Неверный пароль</string>
-  <string name="emailMeALink">Отослать ссылку</string>
+  <string name="emailMeALink">Прислать ссылку мне на почту</string>
   <string name="currentPassword">Текущий пароль</string>
   <string name="newPassword">Новый пароль</string>
   <string name="newPasswordAgain">Новый пароль (ещё раз)</string>
@@ -586,11 +586,11 @@
   <string name="difficultyEasy">Лёгкий</string>
   <string name="difficultyNormal">Средний</string>
   <string name="difficultyHard">Сложный</string>
-  <string name="xLeftANoteOnY">%1$s оставил заметку в %2$s</string>
+  <string name="xLeftANoteOnY">%1$s оставил заметку к вопросу %2$s</string>
   <string name="xCompetesInY">%1$s участвовал в %2$s</string>
-  <string name="xAskedY">%1$s спросил %2$s</string>
-  <string name="xAnsweredY">%1$s ответил %2$s</string>
-  <string name="xCommentedY">%1$s прокомментировал %2$s</string>
+  <string name="xAskedY">%1$s задал вопрос %2$s</string>
+  <string name="xAnsweredY">%1$s ответил на вопрос %2$s</string>
+  <string name="xCommentedY">%1$s прокомментировал вопрос %2$s</string>
   <string name="victory">Победа</string>
   <string name="defeat">Поражения</string>
   <string name="xVsYinZ">%1$s в %3$s с %2$s</string>
@@ -615,12 +615,12 @@
   <string name="computer">Компьютер</string>
   <string name="side">Сторона</string>
   <string name="clock">Часы</string>
-  <string name="unauthorizedError">Неавторизованный доступ</string>
+  <string name="unauthorizedError">Неавторизованный доступ.</string>
   <string name="noInternetConnection">Нет интернет соединения. Вы можете пока играть офлайн из меню.</string>
   <string name="connectedToLichess">Сейчас вы подключены к lichess.org</string>
   <string name="signedOut">Вы вышли</string>
   <string name="loginSuccessful">Вы вошли</string>
-  <string name="playOnTheBoardOffline">Играйте офлайн</string>
+  <string name="playOnTheBoardOffline">Вдвоём за доской</string>
   <string name="playOfflineComputer">Играть с компьютером офлайн</string>
   <string name="opponent">Соперник</string>
   <string name="learnMenu">Учиться</string>
@@ -757,7 +757,7 @@
   <string name="onlineAndOfflinePlay">Игра онлайн и офлайн</string>
   <string name="correspondenceAndUnlimited">В дневной и без ограничения времени</string>
   <string name="viewTheSolution">Посмотреть решение</string>
-  <string name="followAndChallengeFriends">Подписаться и вызвать на игру друзей</string>
+  <string name="followAndChallengeFriends">Подписки и игра с друзьями</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Доступно на %s языке!</item>
     <item quantity="few">Доступно на %s языках!</item>
@@ -766,7 +766,7 @@
   <string name="gameAnalysis">Анализ игры</string>
   <string name="xHostsY">%1$s создал %2$s</string>
   <string name="xJoinsY">%1$s присоединился к %2$s</string>
-  <string name="xLikesY">%1$s отметил %2$s как понравившееся</string>
+  <string name="xLikesY">%1$s поставил лайк к %2$s</string>
   <string name="quickPairing">Быстрый старт</string>
   <string name="lobby">Зал ожидания</string>
   <string name="anonymous">Анонимно</string>
@@ -856,7 +856,7 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s принимает вызовы только от друзей.</string>
   <string name="conditionalPremoves">Условные предходы</string>
   <string name="addCurrentVariation">Добавить текущий вариант</string>
-  <string name="playVariationToCreateConditionalPremoves">Выполните ходы на доске, чтобы установить условные предходы</string>
+  <string name="playVariationToCreateConditionalPremoves">Выполните ходы на доске, чтобы задать условные предходы</string>
   <string name="noConditionalPremoves">Безусловные предходы</string>
   <string name="playX">Сыграть %s</string>
   <plurals name="andSaveNbPremoveLines">

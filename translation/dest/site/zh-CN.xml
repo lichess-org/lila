@@ -58,7 +58,7 @@
   <string name="toggleLocalEvaluation">切换到本地分析</string>
   <string name="promoteVariation">提升变着</string>
   <string name="makeMainLine">做为主线</string>
-  <string name="deleteFromHere">从此处删除</string>
+  <string name="deleteFromHere">从此处开始删除</string>
   <string name="move">走棋</string>
   <string name="variantLoss">因变体规则输棋</string>
   <string name="variantWin">因变体规则赢棋</string>
@@ -198,7 +198,7 @@
   <string name="casual">无积分</string>
   <string name="rated">有积分</string>
   <string name="casualTournament">无积分</string>
-  <string name="ratedTournament">积分</string>
+  <string name="ratedTournament">有积分</string>
   <string name="thisGameIsRated">这盘棋是有积分的</string>
   <string name="rematch">重赛</string>
   <string name="rematchOfferSent">重赛请求已发送</string>
@@ -617,13 +617,13 @@
   <string name="aboutSimul">车轮战涉及到一个人同时和几位棋手下棋。</string>
   <string name="aboutSimulImage">在50个队手中，菲舍尔贏了47局，和了2局，输了1局。</string>
   <string name="aboutSimulRealLife">这个概念来自网下比赛。在网下这涉及到主持在桌与桌之间來回穿梭走棋。</string>
-  <string name="aboutSimulRules">当同步赛开始时， 每个棋手都与主持开始下棋， 而主持用白方。当所有的对局都结束时，同步赛就结束了。</string>
-  <string name="aboutSimulSettings">同步赛总是无积分的。重赛、悔棋和\"加时\"功能被禁用。</string>
+  <string name="aboutSimulRules">当车轮战开始时， 每个棋手都与主持开始下棋， 而主持用白方。当所有的对局都结束时，车轮战就结束了。</string>
+  <string name="aboutSimulSettings">车轮战总是无积分的。重赛、悔棋和\"加时\"功能被禁用。</string>
   <string name="create">创建</string>
-  <string name="whenCreateSimul">当你创建一个同步赛時，你要一次同时跟几个棋手一起下棋。</string>
+  <string name="whenCreateSimul">当你创建一个车轮战时，你要一次同时跟几个棋手一起下棋。</string>
   <string name="simulVariantsHint">如果您选择几个变体，每个棋手都要选择下哪一种。</string>
   <string name="simulClockHint">菲舍尔时钟设置。棋手越多，您需要的時间可能就越多。</string>
-  <string name="simulAddExtraTime">您可以给您的时钟多加点时间以帮助您应对同步赛。</string>
+  <string name="simulAddExtraTime">您可以给您的时钟多加点时间以帮助您应对车轮战。</string>
   <string name="simulHostExtraTime">主持人的额外时间</string>
   <string name="lichessTournaments">Lichess锦标赛</string>
   <string name="tournamentFAQ">锦标赛常见问题</string>
@@ -742,13 +742,13 @@
   </plurals>
   <string name="practiceWithComputer">与电脑练习</string>
   <string name="anotherWasX">%s也不错</string>
-  <string name="bestWasX">最佳走法是%s</string>
-  <string name="youBrowsedAway">你浏览到别处了</string>
+  <string name="bestWasX">最佳着是%s</string>
+  <string name="youBrowsedAway">您浏览到别处了</string>
   <string name="resumePractice">继续练习</string>
   <string name="theGameIsADraw">本局和棋.</string>
   <string name="computerThinking">电脑正在思考中。</string>
-  <string name="seeBestMove">查看最佳一步</string>
-  <string name="hideBestMove">隐藏最佳一步</string>
+  <string name="seeBestMove">查看最佳着</string>
+  <string name="hideBestMove">隐藏最佳着</string>
   <string name="getAHint">提示</string>
   <string name="evaluatingYourMove">评估走法中……</string>
   <string name="whiteWinsGame">白胜</string>
@@ -768,8 +768,8 @@
   <string name="waitingForAnalysis">等待分析</string>
   <string name="noMistakesFoundForWhite">未找到白方失误</string>
   <string name="noMistakesFoundForBlack">未找到黑方失误</string>
-  <string name="doneReviewingWhiteMistakes">白方失误回顾完成</string>
-  <string name="doneReviewingBlackMistakes">黑方失误回顾完成</string>
+  <string name="doneReviewingWhiteMistakes">白方失误回顾完毕</string>
+  <string name="doneReviewingBlackMistakes">黑方失误回顾完毕</string>
   <string name="doItAgain">再来一次</string>
   <string name="reviewWhiteMistakes">回顾白方失误</string>
   <string name="reviewBlackMistakes">回顾黑方失误</string>
@@ -781,10 +781,10 @@
   <string name="middlegame">中盘</string>
   <string name="endgame">残局</string>
   <string name="registerToSendChallenges">发送挑战请注册。</string>
-  <string name="youCannotChallengeX">你不能挑战%s。</string>
+  <string name="youCannotChallengeX">您不能挑战%s。</string>
   <string name="xDoesNotAcceptChallenges">%s不接受挑战。</string>
   <string name="yourXRatingIsTooFarFromY">您的%1$s积分与%2$s相差过远。</string>
-  <string name="cannotChallengeDueToProvisionalXRating">因暂时的%s评级，不能挑战。</string>
+  <string name="cannotChallengeDueToProvisionalXRating">因为您的%s积分不够稳定您不能进行挑战。</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s只接受朋友的挑战。</string>
   <string name="conditionalPremoves">条件预先走棋</string>
   <string name="addCurrentVariation">添加当前变着</string>
