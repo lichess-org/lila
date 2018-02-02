@@ -12,10 +12,14 @@ final class UserSearch(
     if (query.isEmpty) fuccess(Nil)
     else EmailAddress.from(query).map(searchEmail) orElse
       IpAddress.from(query).map(searchIp) getOrElse
-      searchUsername(query)
+      (searchUsername(query) zip searchFingerHash(query) map Function.tupled(_ ++ _)) // list concatenation, in case a fingerhash is also someone's username
 
   private def searchIp(ip: IpAddress) =
     securityApi recentUserIdsByIp ip map (_.reverse) flatMap UserRepo.usersFromSecondary
+
+  private def searchFingerHash(fh: String) =
+    if (fh.length() == 8) securityApi recentUserIdsByFingerHash lila.security.FingerHash(fh) map (_.reverse) flatMap UserRepo.usersFromSecondary
+    else fuccess(List[User]())
 
   private def searchUsername(username: String) = UserRepo named username map (_.toList)
 

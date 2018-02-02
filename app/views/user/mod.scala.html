@@ -335,6 +335,14 @@
         <li>@ua</li>
         }</ul>
     </div>
+    <div class="spy_fps">
+      <strong>@spy.prints.size Fingerprint(s)</strong> <ul>@spy.prints.sorted.map { fp =>
+        <li>
+          <a href="@{routes.Mod.search}?q=@{java.net.URLEncoder.encode(fp, "US-ASCII")}">@fp</a>
+        </li>
+        }
+      </ul>
+    </div>
   </div>
 </div>
 
