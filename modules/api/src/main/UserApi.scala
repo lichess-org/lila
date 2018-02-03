@@ -21,7 +21,7 @@ private[api] final class UserApi(
       jsonView(u) ++ Json.obj("url" -> makeUrl(s"@/${u.username}"))
     }))
 
-  def one(username: String, isAuth: Boolean)(implicit ctx: Context): Fu[Option[JsObject]] = UserRepo named username flatMap {
+  def one(username: String)(implicit ctx: Context): Fu[Option[JsObject]] = UserRepo named username flatMap {
     case None => fuccess(none)
     case Some(u) if u.disabled => fuccess {
       Json.obj(

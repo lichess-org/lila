@@ -42,7 +42,7 @@ object Api extends LilaController {
   }
 
   def user(name: String) = ApiRequest { implicit ctx =>
-    userApi.one(name, isAuth = ctx.me.exists(_ is name)) map toApiResult
+    userApi one name map toApiResult
   }
 
   private val UsersRateLimitGlobal = new lila.memo.RateLimit[String](
