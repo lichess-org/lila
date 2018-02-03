@@ -7,6 +7,7 @@ import play.api.data.Forms._
 import play.api.mvc.RequestHeader
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
+import scala.concurrent.duration._
 
 import lila.common.{ ApiVersion, IpAddress, EmailAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -18,7 +19,8 @@ final class SecurityApi(
     firewall: Firewall,
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
-    emailValidator: EmailAddressValidator
+    emailValidator: EmailAddressValidator,
+    asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
   val AccessUri = "access_uri"
@@ -75,11 +77,7 @@ final class SecurityApi(
             }
           }
         }
-      } orElse reqBasicAuth(req).?? { auth =>
-        authenticator.authenticateByUsername(auth.username, auth.password) map {
-          _ map { FingerprintedUser(_, false) }
-        }
-      }
+      } orElse BasicAuth(req).map2 { (u: User) => FingerprintedUser(u, false) }
     }
 
   def locatedOpenSessions(userId: User.ID, nb: Int): Fu[List[LocatedSession]] =
@@ -97,12 +95,28 @@ final class SecurityApi(
 
   def reqSessionId(req: RequestHeader) = req.session get "sessionId"
 
-  case class BasicAuth(username: String, password: User.ClearPassword)
+  private object BasicAuth {
 
-  def reqBasicAuth(req: RequestHeader): Option[BasicAuth] =
-    req.headers get "Authorization" flatMap lila.common.String.base64.decode map (_.split(":", 2)) collect {
-      case Array(username, password) => BasicAuth(username, User.ClearPassword(password))
+    private type Username = String
+
+    private val cache = asyncCache.multi[(Username, User.ClearPassword), Boolean](
+      name = "security.basic_auth",
+      f = {
+        case (username, password) => authenticator.authenticateByUsername(username, password).map(_.isDefined)
+      },
+      expireAfter = _.ExpireAfterWrite(2 minutes)
+    )
+
+    def apply(req: RequestHeader): Fu[Option[User]] = {
+      req.headers get "Authorization" flatMap lila.common.String.base64.decode map (_.split(":", 2))
+    } ?? {
+      case Array(username, password) =>
+        cache.get(username -> User.ClearPassword(password)) flatMap {
+          _ ?? UserRepo.named(username)
+        }
+      case _ => fuccess(none)
     }
+  }
 
   def userIdsSharingIp = userIdsSharingField("ip") _
 
