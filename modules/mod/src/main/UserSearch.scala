@@ -17,9 +17,10 @@ final class UserSearch(
   private def searchIp(ip: IpAddress) =
     securityApi recentUserIdsByIp ip map (_.reverse) flatMap UserRepo.usersFromSecondary
 
-  private def searchFingerHash(fh: String) =
-    if (fh.length() == 8) securityApi recentUserIdsByFingerHash lila.security.FingerHash(fh) map (_.reverse) flatMap UserRepo.usersFromSecondary
-    else fuccess(List[User]())
+  private def searchFingerHash(fh: String): Fu[List[User]] =
+    (fh.size == 8) ?? {
+      securityApi recentUserIdsByFingerHash lila.security.FingerHash(fh) map (_.reverse) flatMap UserRepo.usersFromSecondary
+    }
 
   private def searchUsername(username: String) = UserRepo named username map (_.toList)
 

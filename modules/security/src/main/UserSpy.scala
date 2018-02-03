@@ -9,7 +9,7 @@ import lila.user.{ User, UserRepo }
 case class UserSpy(
     ips: List[UserSpy.IPData],
     uas: List[String],
-    prints: List[String],
+    prints: List[FingerHash],
     usersSharingIp: Set[User],
     usersSharingFingerprint: Set[User]
 ) {
@@ -42,7 +42,7 @@ private[security] final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll:
   def apply(user: User): Fu[UserSpy] = for {
     infos ← Store.findInfoByUser(user.id)
     ips = infos.map(_.ip).distinct
-    prints = infos.map(_.fp).flatten.distinct
+    prints = infos.flatMap(_.fp).map(FingerHash(_)).distinct
     blockedIps = ips map firewall.blocksIp
     locations = ips map geoIP.orUnknown
     sharingIp ← exploreSimilar("ip")(user)(coll)
