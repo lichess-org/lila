@@ -85,7 +85,7 @@
     <item quantity="other">Nästa slag eller bondedrag inom %s halvdrag (drag till nollställning av räknaren för 50-dragsregeln)</item>
   </plurals>
   <string name="noGameFound">Inget parti hittades</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">För att söka bland fler partier, gå till Inställningar-menyn.</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">För att söka bland fler partier, gå till Inställningar?</string>
   <string name="openingExplorer">Öppningsbok</string>
   <string name="xOpeningExplorer">%s öppningsutforskare</string>
   <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-drags regeln</string>
