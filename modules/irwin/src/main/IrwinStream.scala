@@ -40,7 +40,7 @@ final class IrwinStream(system: ActorSystem) {
               channel push Json.obj(
                 "t" -> "mark",
                 "user" -> userId,
-                "value" -> value
+                "marked" -> value
               )
           }
         }))
