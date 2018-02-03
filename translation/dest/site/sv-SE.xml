@@ -56,8 +56,8 @@
   <string name="showThreat">Visa hot</string>
   <string name="inLocalBrowser">i lokal webbläsare</string>
   <string name="toggleLocalEvaluation">Lokal analys av/på</string>
-  <string name="promoteVariation">Höj upp variation</string>
-  <string name="makeMainLine">Gör till huvudvariation</string>
+  <string name="promoteVariation">Höj upp variant</string>
+  <string name="makeMainLine">Gör till huvudvariant</string>
   <string name="deleteFromHere">Radera från här</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
