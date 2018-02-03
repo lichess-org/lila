@@ -56,7 +56,12 @@
   <string name="showThreat">ন্হমকি দেখান</string>
   <string name="inLocalBrowser">সাধারন ব্রাউজারের মধ্যে</string>
   <string name="toggleLocalEvaluation">স্থানীয় টগ্ল মূল্যায়ন</string>
+  <string name="promoteVariation">বিজ্ঞাপন</string>
+  <string name="makeMainLine">প্রাধান সীমা করা</string>
+  <string name="deleteFromHere">এখান থেকে মুছুন</string>
   <string name="move">চাল</string>
+  <string name="variantLoss">ভিন্ন ক্ষতি</string>
+  <string name="variantWin">ভিন্ন জয়</string>
   <string name="drawn">ড্র</string>
   <string name="unknown">অজানা</string>
   <string name="database">ডেটাবেজ</string>
