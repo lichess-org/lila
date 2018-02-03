@@ -79,19 +79,19 @@ public class RatingCalculator {
    */
   public void updateRatings(RatingPeriodResults results, DateTime ratingPeriodEndDate, double ratingPeriodDays) {
     for ( Rating player : results.getParticipants() ) {
-      double ratingPeriodCount = 1;
+      double elapsedRatingPeriods = 1;
       if ( ratingPeriodEndDate != null && ratingPeriodDays != 0 && player.getLatest() != null ) {
         Duration interval = new Duration(player.getLatest(), ratingPeriodEndDate);
-        ratingPeriodCount = interval.getMillis() / (ratingPeriodDays * MILLIS_PER_DAY);
+        elapsedRatingPeriods = interval.getMillis() / (ratingPeriodDays * MILLIS_PER_DAY);
       }
       if ( results.getResults(player).size() > 0 ) {
-        calculateNewRating(player, results.getResults(player), ratingPeriodCount);
+        calculateNewRating(player, results.getResults(player), elapsedRatingPeriods);
       } else {
         // if a player does not compete during the rating period, then only Step 6 applies.
         // the player's rating and volatility parameters remain the same but deviation increases
         
         player.setWorkingRating(player.getGlicko2Rating());
-        player.setWorkingRatingDeviation(calculateNewRD(player.getGlicko2RatingDeviation(), player.getVolatility(), ratingPeriodCount));
+        player.setWorkingRatingDeviation(calculateNewRD(player.getGlicko2RatingDeviation(), player.getVolatility(), elapsedRatingPeriods));
         player.setWorkingVolatility(player.getVolatility());
       }
     }
@@ -111,9 +111,9 @@ public class RatingCalculator {
    *
    * @param player
    * @param results
-   * @param ratingPeriodCount
+   * @param elapsedRatingPeriods
    */
-  private void calculateNewRating(Rating player, List<Result> results, double ratingPeriodCount) throws RuntimeException {
+  private void calculateNewRating(Rating player, List<Result> results, double elapsedRatingPeriods) throws RuntimeException {
     double phi = player.getGlicko2RatingDeviation();
     double sigma = player.getVolatility();
     double a = Math.log( Math.pow(sigma, 2) );
@@ -171,7 +171,7 @@ public class RatingCalculator {
     player.setWorkingVolatility(newSigma);
 
     // Step 6
-    double phiStar = calculateNewRD( phi, newSigma, ratingPeriodCount );
+    double phiStar = calculateNewRD( phi, newSigma, elapsedRatingPeriods );
 
     // Step 7
     double newPhi = 1.0 / Math.sqrt(( 1.0 / Math.pow(phiStar, 2) ) + ( 1.0 / v ));
@@ -284,11 +284,11 @@ public class RatingCalculator {
    *
    * @param phi
    * @param sigma
-   * @param ratingPeriodCount
+   * @param elapsedRatingPeriods
    * @return new rating deviation
    */
-  private double calculateNewRD(double phi, double sigma, double ratingPeriodCount) {
-    return Math.sqrt( Math.pow(phi, 2) + ratingPeriodCount * Math.pow(sigma, 2) );
+  private double calculateNewRD(double phi, double sigma, double elapsedRatingPeriods) {
+    return Math.sqrt( Math.pow(phi, 2) + elapsedRatingPeriods * Math.pow(sigma, 2) );
   }
 
 
