@@ -64,7 +64,7 @@ final class SecurityApi(
 
   def restoreUser(req: RequestHeader): Fu[Option[FingerprintedUser]] =
     firewall.accepts(req) ?? {
-      reqSessionId(req) ?? { sessionId =>
+      reqSessionId(req).?? { sessionId =>
         Store userIdAndFingerprint sessionId flatMap {
           _ ?? { d =>
             if (d.isOld) Store.setDateToNow(sessionId)
@@ -74,6 +74,10 @@ final class SecurityApi(
               }
             }
           }
+        }
+      } orElse reqBasicAuth(req).?? { auth =>
+        authenticator.authenticateByUsername(auth.username, auth.password) map {
+          _ map { FingerprintedUser(_, false) }
         }
       }
     }
@@ -92,6 +96,13 @@ final class SecurityApi(
     reqSessionId(req) ?? { Store.setFingerPrint(_, fp) map some }
 
   def reqSessionId(req: RequestHeader) = req.session get "sessionId"
+
+  case class BasicAuth(username: String, password: User.ClearPassword)
+
+  def reqBasicAuth(req: RequestHeader) = for {
+    username <- req.headers get "username"
+    password <- req.headers get "password"
+  } yield BasicAuth(username, User.ClearPassword(password))
 
   def userIdsSharingIp = userIdsSharingField("ip") _
 
