@@ -45,10 +45,6 @@ object Api extends LilaController {
     userApi.one(name, isAuth = ctx.me.exists(_ is name)) map toApiResult
   }
 
-  def me = ApiRequestAuth { implicit ctx => me =>
-    userApi.one(me.id, isAuth = true) map toApiResult
-  }
-
   private val UsersRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 1000,
     duration = 1 minute,
@@ -301,10 +297,6 @@ object Api extends LilaController {
 
   def ApiRequest(js: Context => Fu[ApiResult]) = Open { implicit ctx =>
     js(ctx) map toHttp
-  }
-
-  def ApiRequestAuth(js: Context => lila.user.User => Fu[ApiResult]) = Auth { implicit ctx => me =>
-    js(ctx)(me) map toHttp
   }
 
   private val tooManyRequests = TooManyRequest(jsonError("Try again later"))
