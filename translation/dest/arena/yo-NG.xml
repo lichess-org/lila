@@ -7,4 +7,7 @@
   <string name="isNotRated">idije yi kosi lori osuwon beni ko ba igbelewon re je</string>
   <string name="someRated">awon idije kan wa lori osuwon beni yio ba igbelewon re je.</string>
   <string name="howAreScoresCalculated">bawo la se le ka ami ayo.</string>
+  <string name="howIsTheWinnerDecided">bawo la se ma mu asegu?</string>
+  <string name="howIsTheWinnerDecidedAnswer">akopa ti igbelewon re ba poju ni ipari igelewon wakati idije ni akade gege bi asegun</string>
+  <string name="howDoesPairingWork">bawoni ipinni se sise?</string>
 </resources>
