@@ -100,7 +100,7 @@ final class SecurityApi(
   case class BasicAuth(username: String, password: User.ClearPassword)
 
   def reqBasicAuth(req: RequestHeader): Option[BasicAuth] =
-    req.headers get "Authorization" flatMap lila.common.String.base64.decode map (_ split ':') collect {
+    req.headers get "Authorization" flatMap lila.common.String.base64.decode map (_.split(":", 2)) collect {
       case Array(username, password) => BasicAuth(username, User.ClearPassword(password))
     }
 
