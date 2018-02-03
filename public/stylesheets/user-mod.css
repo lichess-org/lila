@@ -74,6 +74,12 @@ body.dark .mod_zone .slist {
 .mod_zone .spy_uas {
   margin-left: 34%;
 }
+.mod_zone .spy_fps {
+  margin-left: 34%;
+}
+.mod_zone .spy_fps li {
+  font-family: monospace;
+}
 .mod_zone .listings .blocked {
   color: red;
   font-weight: bold;
