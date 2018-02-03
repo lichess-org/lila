@@ -1,4 +1,4 @@
-@(u: User, emails: User.Emails, spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, irwinStatus: lila.irwin.IrwinStatus, notes: List[lila.user.Note])(implicit ctx: Context)
+@(u: User, emails: User.Emails, spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, irwinReport: Option[lila.irwin.IrwinReport.WithPovs], notes: List[lila.user.Note])(implicit ctx: Context)
 
 @import lila.evaluation.Display
 @import lila.pref.Pref
@@ -105,13 +105,8 @@
     <strong class="text inline" data-icon="%">Notable preferences:</strong>
     @if(pref.keyboardMove != Pref.KeyboardMove.NO) { [keyboard moves] } else { none }
   </div>
-  @irwinStatus.report.map { report =>
-  @views.html.irwin.irwinReport(report, irwinStatus.request)
-  }.getOrElse {
-  @irwinStatus.request.map { request =>
-  <strong class="inline text" data-icon="">Irwin request:</strong>
-  in progress, requested @momentFromNow(request.createdAt) by: @request.origin
-  }
+  @irwinReport.map { report =>
+  @views.html.irwin.irwinReport(report)
   }
   @optionAggregateAssessment.map { pag =>
   <div class="evaluation results">

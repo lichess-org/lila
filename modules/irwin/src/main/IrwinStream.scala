@@ -17,11 +17,25 @@ final class IrwinStream(system: ActorSystem) {
       onStart = channel => {
         val actor = system.actorOf(Props(new Actor {
           def receive = {
+            case request: IrwinRequest =>
+              channel push Json.obj(
+                "t" -> "request",
+                "origin" -> request.origin.key,
+                "user" -> request.suspect.value
+              )
             case lila.hub.actorApi.report.Created(userId, "cheat" | "cheatprint", _) =>
               channel push Json.obj(
-                "t" -> "report",
+                "t" -> "reportCreated",
                 "user" -> userId
               )
+            case lila.hub.actorApi.report.Processed(userId, "cheat" | "cheatprint") =>
+              lila.user.UserRepo.isEngine(userId) foreach { marked =>
+                channel push Json.obj(
+                  "t" -> "reportProcessed",
+                  "user" -> userId,
+                  "marked" -> marked
+                )
+              }
             case lila.hub.actorApi.mod.MarkCheater(userId, value) =>
               channel push Json.obj(
                 "t" -> "mark",
@@ -30,7 +44,7 @@ final class IrwinStream(system: ActorSystem) {
               )
           }
         }))
-        system.lilaBus.subscribe(actor, 'report, 'adjustCheater)
+        system.lilaBus.subscribe(actor, 'report, 'adjustCheater, 'irwin)
       },
       onComplete = {
         stream.foreach { actor =>

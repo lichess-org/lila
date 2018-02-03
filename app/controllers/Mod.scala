@@ -4,7 +4,7 @@ import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.{ IpAddress, EmailAddress }
-import lila.report.{ Suspect, Mod => AsMod }
+import lila.report.{ Suspect, Mod => AsMod, SuspectId }
 import lila.user.{ UserRepo, User => UserModel }
 import views._
 
@@ -194,7 +194,7 @@ object Mod extends LilaController {
 
   def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx => me =>
     assessApi.refreshAssessByUsername(username) >>
-      Env.irwin.api.requests.fromMod(lila.user.User normalize username, me) inject
+      Env.irwin.api.requests.fromMod(SuspectId normalize username, me) inject
       redirect(username)
   }
 

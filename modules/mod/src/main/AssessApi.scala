@@ -8,6 +8,7 @@ import lila.evaluation.Statistics
 import lila.evaluation.{ AccountAction, Analysed, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
 import lila.game.{ Game, Player, GameRepo, Source, Pov }
 import lila.user.{ User, UserRepo }
+import lila.report.{ SuspectId, ModId }
 
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
@@ -112,7 +113,7 @@ final class AssessApi(
       case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
         case AccountAction.Engine | AccountAction.EngineAndBan =>
           UserRepo.getTitle(userId).flatMap {
-            case None => modApi.autoMark(userId, "lichess")
+            case None => modApi.autoMark(SuspectId(userId), ModId.lichess)
             case Some(title) => fuccess {
               val reason = s"Would mark as engine, but has a $title title"
               reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(reason, 3))

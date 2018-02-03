@@ -1,7 +1,7 @@
 package lila.mod
 
 import lila.common.{ IpAddress, EmailAddress }
-import lila.report.{ Mod, Suspect, Room }
+import lila.report.{ Mod, ModId, Suspect, SuspectId, Room }
 import lila.security.Permission
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.{ User, UserRepo, LightUserApi }
@@ -33,10 +33,10 @@ final class ModApi(
     }
   }
 
-  def autoMark(username: String, modId: User.ID): Funit = for {
-    sus <- reportApi.getSuspect(username) flatten s"No such suspect $username"
+  def autoMark(suspectId: SuspectId, modId: ModId): Funit = for {
+    sus <- reportApi.getSuspect(suspectId.value) flatten s"No such suspect $suspectId"
     unengined <- logApi.wasUnengined(sus)
-    _ <- if (unengined) funit else reportApi.getMod(modId) flatMap {
+    _ <- if (unengined) funit else reportApi.getMod(modId.value) flatMap {
       _ ?? { mod =>
         lila.mon.cheat.autoMark.count()
         setEngine(mod, sus, true)
