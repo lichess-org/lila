@@ -13,7 +13,7 @@ import com.roundeights.hasher.Implicits._
  * CTS reveals input length, which is fine for
  * this application.
  */
-private[user] final class Aes(secret: String) {
+private final class Aes(secret: String) {
   private val sKey = {
     val sk = Base64.getDecoder.decode(secret)
     val kBits = sk.length * 8
@@ -36,7 +36,7 @@ private[user] final class Aes(secret: String) {
   def decrypt(iv: Aes.InitVector, b: Array[Byte]) = run(DECRYPT_MODE, iv, b)
 }
 
-private[user] object Aes {
+private object Aes {
   type InitVector = IvParameterSpec
 
   def iv(bytes: Array[Byte]): InitVector = new IvParameterSpec(bytes)
@@ -46,7 +46,7 @@ case class HashedPassword(bytes: Array[Byte]) extends AnyVal {
   def parse = bytes.length == 39 option bytes.splitAt(16)
 }
 
-final class PasswordHasher(
+private final class PasswordHasher(
     secret: String,
     logRounds: Int,
     hashTimer: (=> Array[Byte]) => Array[Byte] = x => x
