@@ -7,6 +7,7 @@
   <string name="isNotRated">idije yi kosi lori osuwon beni ko ba igbelewon re je</string>
   <string name="someRated">awon idije kan wa lori osuwon beni yio ba igbelewon re je.</string>
   <string name="howAreScoresCalculated">bawo la se le ka ami ayo.</string>
+  <string name="berserk">ibudo berseki</string>
   <string name="howIsTheWinnerDecided">bawo la se ma mu asegu?</string>
   <string name="howIsTheWinnerDecidedAnswer">akopa ti igbelewon re ba poju ni ipari igelewon wakati idije ni akade gege bi asegun</string>
   <string name="howDoesPairingWork">bawoni ipinni se sise?</string>
@@ -14,4 +15,7 @@
   <string name="howDoesItEnd">bawo lose pari?</string>
   <string name="howDoesItEndAnswer">idije na ni agogo ti ka wakati.to ba si ti dori o do,igbelewon pari asi kede asegun.idije tin lo yo pari sugbon won si lara idije mo.</string>
   <string name="otherRules">awon ikilo to se pataki miiran</string>
+  <string name="otherRulesAnswer">o ni lati koko gbe igbese akoko re ni abo iseju kan lase yi wa pada nu idije so wo akopa miiran.gbigbe ibese akoko ni ona mewa ma jasi ikuna fun akopa kokan.</string>
+  <string name="thisIsPrivate">idije bonkele ni yi</string>
+  <string name="shareUrl">pin atona yi pelu awon eniyan lati kopa</string>
 </resources>
