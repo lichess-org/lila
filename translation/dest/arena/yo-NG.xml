@@ -10,4 +10,8 @@
   <string name="howIsTheWinnerDecided">bawo la se ma mu asegu?</string>
   <string name="howIsTheWinnerDecidedAnswer">akopa ti igbelewon re ba poju ni ipari igelewon wakati idije ni akade gege bi asegun</string>
   <string name="howDoesPairingWork">bawoni ipinni se sise?</string>
+  <string name="howDoesPairingWorkAnswer">ni ibere idije,apin akopa ko kan gege bi igbelewon re.bi oba si pari idije tan,pada lo si yara idije:beni won ma pin e pelu akopa ti igelewon e ati ti sun mon ara won.Ayi jeki ama fi asiko so fo,sugbon o le ma ba akopa miiran pade ninu ideje.kopa kia kosi padi losi yara idije lati lo kopa ninu idije miiran lati je igelewon si.</string>
+  <string name="howDoesItEnd">bawo lose pari?</string>
+  <string name="howDoesItEndAnswer">idije na ni agogo ti ka wakati.to ba si ti dori o do,igbelewon pari asi kede asegun.idije tin lo yo pari sugbon won si lara idije mo.</string>
+  <string name="otherRules">awon ikilo to se pataki miiran</string>
 </resources>
