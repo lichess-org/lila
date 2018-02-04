@@ -124,7 +124,7 @@ object Auth extends LilaController {
 
   def signup = Open { implicit ctx =>
     NoTor {
-      Ok(html.auth.signup(forms.signup.website, env.RecaptchaPublicKey)).fuccess
+      Ok(html.auth.signup(forms.signup.website, env.recaptchaPublicConfig)).fuccess
     }
   }
 
@@ -161,12 +161,12 @@ object Auth extends LilaController {
           html = forms.signup.website.bindFromRequest.fold(
             err => {
               err("username").value foreach { authLog(_, s"Signup fail: ${err.errors mkString ", "}") }
-              BadRequest(html.auth.signup(err, env.RecaptchaPublicKey)).fuccess
+              BadRequest(html.auth.signup(err, env.recaptchaPublicConfig)).fuccess
             },
             data => env.recaptcha.verify(~data.recaptchaResponse, req).flatMap {
               case false =>
                 authLog(data.username, "Signup recaptcha fail")
-                BadRequest(html.auth.signup(forms.signup.website fill data, env.RecaptchaPublicKey)).fuccess
+                BadRequest(html.auth.signup(forms.signup.website fill data, env.recaptchaPublicConfig)).fuccess
               case true => HasherRateLimit(data.username, ctx.req) { _ =>
                 MustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
                   authLog(data.username, s"fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")

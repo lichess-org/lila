@@ -22,3 +22,5 @@ case class UserSession(
 case class LocatedSession(session: UserSession, location: Option[Location])
 
 case class IpAndFp(ip: IpAddress, fp: Option[String], user: User.ID)
+
+case class RecaptchaPublicConfig(key: String, enabled: Boolean)

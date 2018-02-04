@@ -1,8 +1,8 @@
 package lila.security
 
+import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
-import akka.actor._
 
 final class Env(
     config: Config,
@@ -40,14 +40,16 @@ final class Env(
     val DisposableEmailRefreshDelay = config duration "disposable_email.refresh_delay"
     val RecaptchaPrivateKey = config getString "recaptcha.private_key"
     val RecaptchaEndpoint = config getString "recaptcha.endpoint"
-    val RecaptchaEnabled = config getBoolean "recaptcha.enabled"
     val NetBaseUrl = config getString "net.base_url"
     val NetDomain = config getString "net.domain"
     val NetEmail = config getString "net.email"
   }
   import settings._
 
-  val RecaptchaPublicKey = config getString "recaptcha.public_key"
+  val recaptchaPublicConfig = RecaptchaPublicConfig(
+    key = config getString "recaptcha.public_key",
+    enabled = config getBoolean "recaptcha.enabled"
+  )
 
   lazy val firewall = new Firewall(
     coll = firewallColl,
@@ -59,7 +61,7 @@ final class Env(
   lazy val flood = new Flood(FloodDuration)
 
   lazy val recaptcha: Recaptcha =
-    if (RecaptchaEnabled) new RecaptchaGoogle(
+    if (recaptchaPublicConfig.enabled) new RecaptchaGoogle(
       privateKey = RecaptchaPrivateKey,
       endpoint = RecaptchaEndpoint,
       lichessHostname = NetDomain

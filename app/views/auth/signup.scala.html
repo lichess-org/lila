@@ -1,13 +1,15 @@
-@(form: Form[_], recaptchaPublicKey: String)(implicit ctx: Context)
+@(form: Form[_], recaptcha: lila.security.RecaptchaPublicConfig)(implicit ctx: Context)
 
 @moreJs = {
 @jsTag("signup.js")
+@if(recaptcha.enabled) {
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+}
 @fingerprintTag
 }
 
 @tosLink = {
-  <a href="@routes.Page.tos">@trans.termsOfService()</a>
+<a href="@routes.Page.tos">@trans.termsOfService()</a>
 }
 
 @auth.layout(
@@ -31,7 +33,11 @@ moreJs = moreJs) {
           </small>
         </li>
         <li>
-          <button class="g-recaptcha submit button text" data-icon="F" data-sitekey="@recaptchaPublicKey" data-callback='signupSubmit'>@trans.signUp()</button>
+          @if(recaptcha.enabled) {
+          <button class="g-recaptcha submit button text" data-icon="F" data-sitekey="@recaptcha.key" data-callback='signupSubmit'>@trans.signUp()</button>
+          } else {
+          <button class="submit button text" data-icon="F">@trans.signUp()</button>
+          }
         </li>
       </ul>
     </form>
