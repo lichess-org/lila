@@ -71,3 +71,54 @@ private final class PasswordHasher(
       BCrypt.bytesEqualSecure(hash, bHash(salt, p))
   }
 }
+
+object PasswordHasher {
+
+  import scala.concurrent.duration._
+  import play.api.mvc.RequestHeader
+  import ornicar.scalalib.Zero
+  import lila.memo.RateLimit
+  import lila.common.{ IpAddress, HTTPRequest }
+
+  private val rateLimitPerIP = new RateLimit[IpAddress](
+    credits = 20 * 2, // double cost in case of hash check failure
+    duration = 10 minutes,
+    name = "Password hashes per IP",
+    key = "password.hashes.ip"
+  )
+
+  private val rateLimitPerUA = new RateLimit[String](
+    credits = 30,
+    duration = 20 seconds,
+    name = "Password hashes per UA",
+    key = "password.hashes.ua"
+  )
+
+  private val rateLimitPerUser = new RateLimit[String](
+    credits = 6,
+    duration = 1.minute,
+    name = "Password hashes per user",
+    key = "password.hashes.user"
+  )
+
+  private val rateLimitGlobal = new RateLimit[String](
+    credits = 4 * 10 * 60, // max out 4 cores for 60 seconds
+    duration = 1 minute,
+    name = "Password hashes global",
+    key = "password.hashes.global"
+  )
+
+  def rateLimit[A: Zero](username: String, req: RequestHeader)(run: RateLimit.Charge => Fu[A]): Fu[A] = {
+    val cost = 1
+    val ip = HTTPRequest lastRemoteAddress req
+    rateLimitPerUser(username, cost = cost) {
+      rateLimitPerIP.chargeable(ip, cost = cost) { charge =>
+        rateLimitPerUA(~HTTPRequest.userAgent(req), cost = cost, msg = ip.value) {
+          rateLimitGlobal("-", cost = cost, msg = ip.value) {
+            run(charge)
+          }
+        }
+      }
+    }
+  }
+}

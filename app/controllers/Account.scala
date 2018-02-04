@@ -2,7 +2,6 @@ package controllers
 
 import play.api.mvc._
 
-import controllers.Auth.HasherRateLimit
 import lila.api.Context
 import lila.app._
 import lila.common.LilaCookie
@@ -89,7 +88,7 @@ object Account extends LilaController {
       FormFuResult(form) { err =>
         fuccess(html.account.passwd(err))
       } { data =>
-        HasherRateLimit(me.username) { _ =>
+        controllers.Auth.HasherRateLimit(me.username, req) { _ =>
           Env.user.authenticator.setPassword(me.id, ClearPassword(data.newPasswd1)) inject
             Redirect(s"${routes.Account.passwd}?ok=1")
         }
