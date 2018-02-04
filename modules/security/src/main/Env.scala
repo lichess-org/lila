@@ -44,14 +44,16 @@ final class Env(
   private val DisposableEmailRefreshDelay = config duration "disposable_email.refresh_delay"
   private val RecaptchaPrivateKey = config getString "recaptcha.private_key"
   private val RecaptchaEndpoint = config getString "recaptcha.endpoint"
-  private val RecaptchaEnabled = config getBoolean "recaptcha.enabled"
   private val NetBaseUrl = config getString "net.base_url"
   private val NetDomain = config getString "net.domain"
   private val NetEmail = config getString "net.email"
   private val IpIntelEmail = EmailAddress(config getString "ipintel.email")
   private val CsrfEnabled = config getBoolean "csrf.enabled"
 
-  val RecaptchaPublicKey = config getString "recaptcha.public_key"
+  val recaptchaPublicConfig = RecaptchaPublicConfig(
+    key = config getString "recaptcha.public_key",
+    enabled = config getBoolean "recaptcha.enabled"
+  )
 
   lazy val firewall = new Firewall(
     coll = firewallColl,
@@ -63,7 +65,7 @@ final class Env(
   lazy val flood = new Flood(FloodDuration)
 
   lazy val recaptcha: Recaptcha =
-    if (RecaptchaEnabled) new RecaptchaGoogle(
+    if (recaptchaPublicConfig.enabled) new RecaptchaGoogle(
       privateKey = RecaptchaPrivateKey,
       endpoint = RecaptchaEndpoint,
       lidraughtsHostname = NetDomain
