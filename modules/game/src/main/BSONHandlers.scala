@@ -69,7 +69,7 @@ object BSONHandlers {
     def reads(r: BSON.Reader): Game = {
 
       val gameVariant = Variant(r intD F.variant) | chess.variant.Standard
-      val plies = r int F.turns
+      val plies = r int F.turns atMost Game.maxPlies // unlimited can cause StackOverflowError
       val turnColor = Color.fromPly(plies)
 
       val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, plies) } | {
@@ -187,7 +187,7 @@ object BSONHandlers {
     ) ++ {
         o.pgnStorage match {
           case f @ PgnStorage.OldBin => $doc(
-            F.oldPgn -> f.encode(o.pgnMoves),
+            F.oldPgn -> f.encode(o.pgnMoves take Game.maxPlies),
             F.binaryPieces -> BinaryFormat.piece.write(o.board.pieces),
             F.positionHashes -> o.history.positionHashes,
             F.unmovedRooks -> o.history.unmovedRooks,
@@ -200,7 +200,7 @@ object BSONHandlers {
             F.crazyData -> o.board.crazyData
           )
           case f @ PgnStorage.Huffman => $doc(
-            F.huffmanPgn -> f.encode(o.pgnMoves)
+            F.huffmanPgn -> f.encode(o.pgnMoves take Game.maxPlies)
           )
         }
       }

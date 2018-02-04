@@ -565,6 +565,8 @@ object Game {
 
   val maxPlayingRealtime = 100 // plus 200 correspondence games
 
+  val maxPlies = 600 // unlimited can cause StackOverflowError
+
   val analysableVariants: Set[Variant] = Set(
     chess.variant.Standard,
     chess.variant.Crazyhouse,
