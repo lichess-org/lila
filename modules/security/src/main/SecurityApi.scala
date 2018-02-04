@@ -77,7 +77,7 @@ final class SecurityApi(
             }
           }
         }
-      } orElse BasicAuth(req).map2 { (u: User) => FingerprintedUser(u, false) }
+      } // orElse BasicAuth(req).map2 { (u: User) => FingerprintedUser(u, false) }
     }
 
   def locatedOpenSessions(userId: User.ID, nb: Int): Fu[List[LocatedSession]] =
