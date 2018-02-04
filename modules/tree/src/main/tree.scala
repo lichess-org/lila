@@ -242,9 +242,10 @@ object Node {
   implicit val gamebookWriter = Json.writes[Node.Gamebook]
   import Eval.JsonHandlers.evalWrites
 
+  @inline implicit private def toPimpedJsObject(jo: JsObject) = new lila.base.PimpedJsObject(jo)
+
   def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] = Writes { node =>
     import node._
-    @inline implicit def toPimpedJsObject(jo: JsObject) = new lila.base.PimpedJsObject(jo)
     try {
       val comments = node.comments.list.flatMap(_.removeMeta)
       Json.obj(
