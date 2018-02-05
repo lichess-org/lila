@@ -198,6 +198,10 @@ object Node {
           case (node, index) => node.children.pathToIndexes(tail).map(rest => index :: rest)
         }
       }
+
+    def countRecursive: Int = nodes.foldLeft(nodes.size) {
+      case (count, n) => count + n.children.countRecursive
+    }
   }
   val emptyChildren = Children(Vector.empty)
 

@@ -21,7 +21,10 @@ private final class ExplorerGame(
     }
 
   def insert(userId: User.ID, study: Study, position: Position, gameId: Game.ID): Fu[Option[(Chapter, Path)]] =
-    importer(gameId) map {
+    if (position.chapter.isOverweight) {
+      logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
+      fuccess(none)
+    } else importer(gameId) map {
       _ ?? { game =>
         position.node ?? { fromNode =>
           GameToRoot(game, none, false).|> { root =>

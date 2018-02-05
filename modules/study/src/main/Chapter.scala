@@ -79,9 +79,15 @@ case class Chapter(
   def withoutChildren = copy(root = root.withoutChildren)
 
   def relayAndTags = relay map { Chapter.RelayAndTags(id, _, tags) }
+
+  def isOverweight = root.children.countRecursive >= Chapter.maxNodes
 }
 
 object Chapter {
+
+  // I've seen chapters with 35,000 nodes on prod.
+  // It works but could be used for DoS.
+  val maxNodes = 3000
 
   case class Id(value: String) extends AnyVal with StringValue
   implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)

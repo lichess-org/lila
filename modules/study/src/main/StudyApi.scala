@@ -192,12 +192,16 @@ final class StudyApi(
       }
     }
 
-  private[study] def doAddNode(userId: User.ID, study: Study, position: Position, rawNode: Node, uid: Uid, opts: MoveOpts, relay: Option[Chapter.Relay]): Funit = {
+  private def doAddNode(userId: User.ID, study: Study, position: Position, rawNode: Node, uid: Uid, opts: MoveOpts, relay: Option[Chapter.Relay]): Funit = {
     val node = rawNode.withoutChildren
-    position.chapter.addNode(node, position.path, relay) match {
+    def failReload = reloadUidBecauseOf(study, uid, position.chapter.id)
+    if (position.chapter.isOverweight) {
+      logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
+      fuccess(failReload)
+    } else position.chapter.addNode(node, position.path, relay) match {
       case None =>
-        fufail(s"Invalid addNode ${study.id} ${position.ref} $node") >>-
-          reloadUidBecauseOf(study, uid, position.chapter.id) inject none
+        failReload
+        fufail(s"Invalid addNode ${study.id} ${position.ref} $node")
       case Some(chapter) =>
         chapter.root.nodeAt(position.path) ?? { parent =>
           val newPosition = position.ref + node
