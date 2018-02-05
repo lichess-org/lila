@@ -59,7 +59,12 @@ final class JsonView(
     JsNumber(a.id)
   }
   private implicit val playerAssWrites = Json.writes[PlayerAssessment]
-  private implicit val playerAggAssWrites = Json.writes[PlayerAggregateAssessment]
+  private implicit val playerAggAssWrites = OWrites[PlayerAggregateAssessment] { a =>
+    Json.obj(
+      "user" -> a.user,
+      "relatedCheaters" -> a.relatedCheaters
+    )
+  }
 
   private implicit val gameWithFenWrites = OWrites[(Game, Option[FEN], Option[Analysis])] {
     case (g, fen, analysis) => Json.obj(
