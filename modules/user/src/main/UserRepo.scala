@@ -80,8 +80,7 @@ object UserRepo {
   def byIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User]] =
     coll.find($inIds(ids) ++ goodLadSelectBson)
       .sort($sort desc "perfs.standard.gl.r")
-      .cursor[User](ReadPreference.secondaryPreferred)
-      .gather[List](nb)
+      .list[User](nb, ReadPreference.secondaryPreferred)
 
   // expensive, send to secondary
   def idsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
@@ -107,7 +106,7 @@ object UserRepo {
     coll.find(
       $inIds(List(u1, u2)),
       $doc(s"${F.count}.game" -> true)
-    ).cursor[Bdoc]().gather[List]() map { docs =>
+    ).list[Bdoc]() map { docs =>
         docs.sortBy {
           _.getAs[Bdoc](F.count).flatMap(_.getAs[BSONNumberLike]("game")).??(_.toInt)
         }.map(_.getAs[User.ID]("_id")).flatten match {
