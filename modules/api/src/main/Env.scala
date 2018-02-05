@@ -19,6 +19,7 @@ final class Env(
     getTourAndRanks: lila.game.Game => Fu[Option[lila.tournament.TourAndRanks]],
     crosstableApi: lila.game.CrosstableApi,
     prefApi: lila.pref.PrefApi,
+    playBanApi: lila.playban.PlaybanApi,
     gamePgnDump: lila.game.PgnDump,
     gameCache: lila.game.Cached,
     userEnv: lila.user.Env,
@@ -84,6 +85,7 @@ final class Env(
     relationApi = relationApi,
     bookmarkApi = bookmarkApi,
     crosstableApi = crosstableApi,
+    playBanApi = playBanApi,
     gameCache = gameCache,
     prefApi = prefApi
   )
@@ -155,6 +157,7 @@ object Env {
     bookmarkApi = lila.bookmark.Env.current.api,
     getTourAndRanks = lila.tournament.Env.current.tourAndRanks,
     crosstableApi = lila.game.Env.current.crosstableApi,
+    playBanApi = lila.playban.Env.current.api,
     prefApi = lila.pref.Env.current.api,
     gamePgnDump = lila.game.Env.current.pgnDump,
     gameCache = lila.game.Env.current.cached,

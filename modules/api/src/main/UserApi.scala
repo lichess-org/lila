@@ -11,6 +11,7 @@ private[api] final class UserApi(
     relationApi: lila.relation.RelationApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     crosstableApi: lila.game.CrosstableApi,
+    playBanApi: lila.playban.PlaybanApi,
     gameCache: lila.game.Cached,
     prefApi: lila.pref.PrefApi,
     makeUrl: String => String
@@ -39,14 +40,18 @@ private[api] final class UserApi(
       ctx.userId.?? { relationApi.fetchFollows(u.id, _) } zip
       bookmarkApi.countByUser(u) zip
       gameCache.nbPlaying(u.id) zip
-      gameCache.nbImportedBy(u.id) map {
-        case gameOption ~ nbGamesWithMe ~ following ~ followers ~ followable ~ relation ~ isFollowed ~ nbBookmarks ~ nbPlaying ~ nbImported =>
+      gameCache.nbImportedBy(u.id) zip
+      playBanApi.completionRate(u.id).map(_.map { cr => math.round(cr * 100) }.getOrElse(0L)) map
+      {
+        case gameOption ~ nbGamesWithMe ~ following ~ followers ~ followable ~ relation ~
+          isFollowed ~ nbBookmarks ~ nbPlaying ~ nbImported ~ completionRate =>
           jsonView(u) ++ {
             Json.obj(
               "url" -> makeUrl(s"@/$username"),
               "playing" -> gameOption.map(g => makeUrl(s"${g.gameId}/${g.color.name}")),
               "nbFollowing" -> following,
               "nbFollowers" -> followers,
+              "completionRate" -> completionRate,
               "count" -> Json.obj(
                 "all" -> u.count.game,
                 "rated" -> u.count.rated,
