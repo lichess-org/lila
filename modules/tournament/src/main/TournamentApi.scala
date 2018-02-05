@@ -323,7 +323,7 @@ final class TournamentApi(
   private def performanceOf(g: Game, userId: String): Option[Int] = for {
     opponent <- g.opponentByUserId(userId)
     opponentRating <- opponent.rating
-    multiplier = g.winnerUserId.??(_ == userId).fold(1, -1)
+    multiplier = g.winnerUserId.??(winner => if (winner == userId) 1 else -1)
   } yield opponentRating + 500 * multiplier
 
   private def withdrawNonMover(game: Game): Unit = for {
