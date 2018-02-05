@@ -121,7 +121,6 @@ package round {
   case class DrawClaim(playerId: String)
   case class DrawYes(playerId: String)
   case class DrawNo(playerId: String)
-  case object DrawForce
   case class RematchYes(playerId: String)
   case class RematchNo(playerId: String)
   case class TakebackYes(playerId: String)
@@ -135,6 +134,7 @@ package round {
   case class HoldAlert(playerId: String, mean: Int, sd: Int, ip: IpAddress)
   case class GoBerserk(color: Color)
   case object NoStart
+  case object TooManyPlies
 }
 
 private[round] case object GetNbRounds

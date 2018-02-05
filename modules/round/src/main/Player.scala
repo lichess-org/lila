@@ -3,7 +3,7 @@ package lila.round
 import chess.format.{ Forsyth, FEN, Uci }
 import chess.{ MoveMetrics, Centis, Status, Color, MoveOrDrop }
 
-import actorApi.round.{ HumanPlay, DrawNo, TakebackNo, ForecastPlay }
+import actorApi.round.{ HumanPlay, DrawNo, TooManyPlies, TakebackNo, ForecastPlay }
 import akka.actor.ActorRef
 import lila.game.{ Game, Progress, Pov, UciMemo }
 
@@ -20,6 +20,9 @@ private[round] final class Player(
 
   def human(play: HumanPlay, round: ActorRef)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
     case p @ HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
+      case Pov(game, _) if game.turns > Game.maxPlies =>
+        round ! TooManyPlies
+        fuccess(Nil)
       case Pov(game, color) if game playableBy color =>
         p.trace.segmentSync("applyUci", "logic")(applyUci(game, uci, blur, lag)).prefixFailuresWith(s"$pov ")
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
