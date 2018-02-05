@@ -646,7 +646,7 @@
   <string name="returnToTournamentsHomepage">トーナメントトップに戻る</string>
   <string name="weeklyPerfTypeRatingDistribution">月別 %s レーティング分布</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="other">この 1 週間の %1$s 参加者 %2$s 人。</item>
+    <item quantity="other">この 1 週間の参加者 %1$s 人（%2$s）。</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">あなたの %1$s レーティングは %2$s です。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">あなたは全体の %1$s の%2$s参加者より上です。</string>
