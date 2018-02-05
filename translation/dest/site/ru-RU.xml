@@ -621,7 +621,7 @@
   <string name="signedOut">Вы вышли</string>
   <string name="loginSuccessful">Вы вошли</string>
   <string name="playOnTheBoardOffline">Вдвоём за доской</string>
-  <string name="playOfflineComputer">Играть с компьютером офлайн</string>
+  <string name="playOfflineComputer">С компьютером</string>
   <string name="opponent">Соперник</string>
   <string name="learnMenu">Учиться</string>
   <string name="community">Сообщество</string>
