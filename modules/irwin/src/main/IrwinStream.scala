@@ -4,6 +4,8 @@ import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
+import lila.report.ModId
+
 final class IrwinStream(system: ActorSystem) {
 
   private val stringify =
@@ -23,7 +25,7 @@ final class IrwinStream(system: ActorSystem) {
                 "origin" -> request.origin.key,
                 "user" -> request.suspect.value
               )
-            case lila.hub.actorApi.report.Created(userId, "cheat" | "cheatprint", _) =>
+            case lila.hub.actorApi.report.Created(userId, "cheat" | "cheatprint", by) if by != ModId.irwin.value =>
               channel push Json.obj(
                 "t" -> "reportCreated",
                 "user" -> userId
