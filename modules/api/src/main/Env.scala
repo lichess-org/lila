@@ -121,17 +121,6 @@ final class Env(
     pools = pools
   )
 
-  val websocketDropPercentSetting = settingStore[Int](
-    "websocketDropPercent",
-    default = config getInt "net.websocket_drop_percent",
-    text = "Percentage of websockets to drop. Experimenting server restart issues. Don't touch it.".some,
-    persist = false
-  )
-
-  val requestDropper = new RequestDropper(
-    websocketDropPercent = websocketDropPercentSetting.get
-  )
-
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
   lazy val cli = new Cli(system.lilaBus)

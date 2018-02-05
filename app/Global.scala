@@ -30,7 +30,6 @@ object Global extends GlobalSettings {
     lila.mon.http.request.all()
     if (req.remoteAddress contains ":") lila.mon.http.request.ipv6()
     lila.i18n.Env.current.subdomainKiller(req) orElse
-      lila.api.Env.current.requestDropper(req) orElse
       super.onRouteRequest(req)
   }
 

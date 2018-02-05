@@ -14,8 +14,7 @@ object Dev extends LilaController {
     Env.api.assetVersionSetting,
     Env.explorer.indexFlowSetting,
     Env.report.scoreThresholdSetting,
-    Env.game.pgnEncodingSetting,
-    Env.api.websocketDropPercentSetting
+    Env.game.pgnEncodingSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>
