@@ -41,7 +41,7 @@ private[api] final class UserApi(
       bookmarkApi.countByUser(u) zip
       gameCache.nbPlaying(u.id) zip
       gameCache.nbImportedBy(u.id) zip
-      playBanApi.completionRate(u.id).map(_.map { cr => math.round(cr * 100) }.getOrElse(0L)) map
+      playBanApi.completionRate(u.id).map(_.map { cr => math.round(cr * 100) }) map
       {
         case gameOption ~ nbGamesWithMe ~ following ~ followers ~ followable ~ relation ~
           isFollowed ~ nbBookmarks ~ nbPlaying ~ nbImported ~ completionRate =>
