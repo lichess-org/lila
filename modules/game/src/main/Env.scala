@@ -102,7 +102,7 @@ final class Env(
 
   def cli = new lila.common.Cli {
     def process = {
-      case "stream" :: "test" :: Nil => StreamTest.start
+      case "game" :: "test" :: times :: Nil => parseIntOption(times) ?? StreamTest.start
     }
   }
 }
