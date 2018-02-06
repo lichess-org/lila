@@ -45,5 +45,6 @@ private[api] final class Cli(bus: lila.common.Bus) extends lila.common.Cli {
       lila.coach.Env.current.cli.process orElse
       lila.evalCache.Env.current.cli.process orElse
       lila.report.Env.current.cli.process orElse
+      lila.game.Env.current.cli.process orElse
       process
 }
