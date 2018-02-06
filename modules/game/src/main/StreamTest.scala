@@ -5,8 +5,10 @@ import lila.db.dsl._
 import play.api.libs.iteratee._
 import reactivemongo.play.iteratees.cursorProducer
 
-// old lazyload = 25 micros
-// old + toChess = 55 micros
+// old (lazyload)   = 25 micros / game
+// old + toChess    = 55 micros / game
+// new (eager load) = 63 micros / game
+// huffman          = 211 micros / game
 object StreamTest {
 
   val max = 100000
@@ -18,7 +20,6 @@ object StreamTest {
       .enumerator(max) |>>>
       Iteratee.fold[Game, Int](0) {
         case (nb, g) =>
-          g.toChess
           if (nb % 10000 == 0) println(nb)
           nb + 1
       }
