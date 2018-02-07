@@ -136,16 +136,16 @@ object BSONHandlers {
         whitePlayer = wPlayer,
         blackPlayer = bPlayer,
         loadChess = loadChess,
-        pgnStorage = pgnFormat,
-        status = status,
-        daysPerTurn = r intO F.daysPerTurn,
-        binaryMoveTimes = r bytesO F.moveTimes,
         loadClockHistory = () => for {
           clk <- loadChess().clock
           bw <- r bytesO F.whiteClockHistory
           bb <- r bytesO F.blackClockHistory
           history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, (status == Status.Outoftime).option(turnColor))
         } yield history,
+        pgnStorage = pgnFormat,
+        status = status,
+        daysPerTurn = r intO F.daysPerTurn,
+        binaryMoveTimes = r bytesO F.moveTimes,
         mode = Mode(r boolD F.rated),
         next = r strO F.next,
         bookmarks = r intD F.bookmarks,
