@@ -16,12 +16,12 @@ case class Game(
     id: String,
     whitePlayer: Player,
     blackPlayer: Player,
-    chess: ChessGame,
+    loadChess: () => ChessGame,
+    loadClockHistory: () => Option[ClockHistory] = () => Some(ClockHistory()),
     pgnStorage: PgnStorage,
     status: Status,
     daysPerTurn: Option[Int],
     binaryMoveTimes: Option[ByteArray] = None,
-    clockHistory: Option[ClockHistory] = Some(ClockHistory()),
     mode: Mode = Mode.default,
     next: Option[String] = None,
     bookmarks: Int = 0,
@@ -29,6 +29,9 @@ case class Game(
     movedAt: DateTime = DateTime.now,
     metadata: Metadata
 ) {
+
+  lazy val chess = loadChess()
+  lazy val clockHistory = loadClockHistory()
 
   def situation = chess.situation
   def board = chess.situation.board
@@ -172,7 +175,7 @@ case class Game(
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
       blackPlayer = copyPlayer(blackPlayer),
-      chess = game,
+      loadChess = () => game,
       binaryMoveTimes = (!isPgnImport && !chess.clock.isDefined).option {
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
@@ -180,7 +183,7 @@ case class Game(
           } :+ Centis(nowCentis - movedAt.getCentis).nonNeg
         }
       },
-      clockHistory = for {
+      loadClockHistory = () => for {
         clk <- game.clock
         ch <- clockHistory
       } yield ch.record(turnColor, clk),
@@ -326,8 +329,8 @@ case class Game(
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>
       val newClock = c goBerserk color
       Progress(this, copy(
-        chess = chess.copy(clock = Some(newClock)),
-        clockHistory = clockHistory.map(history => {
+        loadChess = () => chess.copy(clock = Some(newClock)),
+        loadClockHistory = () => loadClockHistory().map(history => {
           if (history(color).isEmpty) history
           else history.reset(color).record(color, newClock)
         })
@@ -350,8 +353,8 @@ case class Game(
         status = status,
         whitePlayer = whitePlayer.finish(winner contains White),
         blackPlayer = blackPlayer.finish(winner contains Black),
-        chess = chess.copy(clock = newClock),
-        clockHistory = for {
+        loadChess = () => chess.copy(clock = newClock),
+        loadClockHistory = () => for {
           clk <- clock
           history <- clockHistory
         } yield {
@@ -438,7 +441,7 @@ case class Game(
 
   def isClockRunning = clock ?? (_.isRunning)
 
-  def withClock(c: Clock) = Progress(this, copy(chess = chess.copy(clock = Some(c))))
+  def withClock(c: Clock) = Progress(this, copy(loadChess = () => chess.copy(clock = Some(c))))
 
   def correspondenceGiveTime = Progress(this, copy(movedAt = DateTime.now))
 
@@ -535,7 +538,7 @@ case class Game(
   def isPgnImport = pgnImport.isDefined
 
   def resetTurns = copy(
-    chess = chess.copy(turns = 0, startedAtTurn = 0)
+    loadChess = () => chess.copy(turns = 0, startedAtTurn = 0)
   )
 
   lazy val opening: Option[FullOpening.AtPly] =
@@ -632,7 +635,7 @@ object Game {
       id = IdGenerator.game,
       whitePlayer = whitePlayer,
       blackPlayer = blackPlayer,
-      chess = chess,
+      loadChess = () => chess,
       pgnStorage = PgnStorage(chess.situation.board.variant, List(whitePlayer.userId, blackPlayer.userId).flatten),
       status = Status.Created,
       daysPerTurn = daysPerTurn,

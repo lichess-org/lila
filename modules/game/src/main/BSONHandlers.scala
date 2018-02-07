@@ -72,19 +72,6 @@ object BSONHandlers {
       val plies = r int F.turns atMost Game.maxPlies // unlimited can cause StackOverflowError
       val turnColor = Color.fromPly(plies)
 
-      val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, plies) } | {
-        val clm = r.get[CastleLastMove](F.castleLastMove)
-        PgnStorage.Decoded(
-          pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, plies),
-          pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
-          positionHashes = r.getO[chess.PositionHash](F.positionHashes) | Array.empty,
-          unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
-          lastMove = clm.lastMove,
-          castles = clm.castles,
-          format = PgnStorage.OldBin
-        )
-      }
-
       val winC = r boolO F.winnerColor map Color.apply
       val uids = ~r.getO[List[String]](F.playerUids)
       val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
@@ -100,44 +87,61 @@ object BSONHandlers {
       val createdAt = r date F.createdAt
       val status = r.get[Status](F.status)
 
-      val chessGame = ChessGame(
-        situation = chess.Situation(
-          chess.Board(
-            pieces = decoded.pieces,
-            history = ChessHistory(
-              lastMove = decoded.lastMove,
-              castles = decoded.castles,
-              positionHashes = decoded.positionHashes,
-              unmovedRooks = decoded.unmovedRooks,
-              checkCount = if (gameVariant.threeCheck) {
-                val counts = r.intsD(F.checkCount)
-                CheckCount(~counts.headOption, ~counts.lastOption)
-              } else Game.emptyCheckCount
+      val pgnFormat =
+        if (r contains F.huffmanPgn) PgnStorage.Huffman else PgnStorage.OldBin
+
+      val loadChess: () => chess.Game = () => {
+
+        val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, plies) } | {
+          val clm = r.get[CastleLastMove](F.castleLastMove)
+          PgnStorage.Decoded(
+            pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, plies),
+            pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
+            positionHashes = r.getO[chess.PositionHash](F.positionHashes) | Array.empty,
+            unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
+            lastMove = clm.lastMove,
+            castles = clm.castles
+          )
+        }
+        ChessGame(
+          situation = chess.Situation(
+            chess.Board(
+              pieces = decoded.pieces,
+              history = ChessHistory(
+                lastMove = decoded.lastMove,
+                castles = decoded.castles,
+                positionHashes = decoded.positionHashes,
+                unmovedRooks = decoded.unmovedRooks,
+                checkCount = if (gameVariant.threeCheck) {
+                  val counts = r.intsD(F.checkCount)
+                  CheckCount(~counts.headOption, ~counts.lastOption)
+                } else Game.emptyCheckCount
+              ),
+              variant = gameVariant,
+              crazyData = gameVariant.crazyhouse option r.get[Crazyhouse.Data](F.crazyData)
             ),
-            variant = gameVariant,
-            crazyData = gameVariant.crazyhouse option r.get[Crazyhouse.Data](F.crazyData)
+            color = turnColor
           ),
-          color = turnColor
-        ),
-        pgnMoves = decoded.pgnMoves,
-        clock = r.getO[Color => Clock](F.clock) {
-          clockBSONReader(createdAt, wPlayer.berserk, bPlayer.berserk)
-        } map (_(turnColor)),
-        turns = plies,
-        startedAtTurn = r intD F.startedAtTurn
-      )
+          pgnMoves = decoded.pgnMoves,
+          clock = r.getO[Color => Clock](F.clock) {
+            clockBSONReader(createdAt, wPlayer.berserk, bPlayer.berserk)
+          } map (_(turnColor)),
+          turns = plies,
+          startedAtTurn = r intD F.startedAtTurn
+        )
+      }
 
       Game(
         id = r str F.id,
         whitePlayer = wPlayer,
         blackPlayer = bPlayer,
-        chess = chessGame,
-        pgnStorage = decoded.format,
+        loadChess = loadChess,
+        pgnStorage = pgnFormat,
         status = status,
         daysPerTurn = r intO F.daysPerTurn,
         binaryMoveTimes = r bytesO F.moveTimes,
-        clockHistory = for {
-          clk <- chessGame.clock
+        loadClockHistory = () => for {
+          clk <- loadChess().clock
           bw <- r bytesO F.whiteClockHistory
           bb <- r bytesO F.blackClockHistory
           history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, (status == Status.Outoftime).option(turnColor))

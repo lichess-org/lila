@@ -48,8 +48,7 @@ private object PgnStorage {
           whiteQueenSide = unmovedRooks(Pos.A1),
           blackKingSide = unmovedRooks(Pos.H8),
           blackQueenSide = unmovedRooks(Pos.A8)
-        ),
-        format = Huffman
+        )
       )
     }
 
@@ -71,8 +70,7 @@ private object PgnStorage {
       positionHashes: PositionHash, // irrelevant after game ends
       unmovedRooks: UnmovedRooks, // irrelevant after game ends
       lastMove: Option[Uci],
-      castles: Castles, // irrelevant after game ends
-      format: PgnStorage
+      castles: Castles // irrelevant after game ends
   )
 
   private val betaTesters = Set("thibault", "revoof", "isaacly")
