@@ -43,6 +43,10 @@ final class Env(
     val NetBaseUrl = config getString "net.base_url"
     val NetDomain = config getString "net.domain"
     val NetEmail = config getString "net.email"
+    object oauth {
+      val CollectionAccessToken = config getString "collection.access_token"
+      val CollectionClient = config getString "collection.client"
+    }
   }
   import settings._
 
@@ -156,7 +160,12 @@ final class Env(
   scheduler.once(30 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
-  lazy val api = new SecurityApi(storeColl, firewall, geoIP, authenticator, emailAddressValidator)
+  private lazy val oAuthServer = new OAuthServer(
+    tokenColl = db(oauth.CollectionAccessToken),
+    clientColl = db(oauth.CollectionClient)
+  )
+
+  lazy val api = new SecurityApi(storeColl, firewall, geoIP, authenticator, emailAddressValidator, oAuthServer)
 
   lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain)
 
