@@ -92,10 +92,6 @@ object BSONHandlers {
         whitePlayer = light.whitePlayer,
         blackPlayer = light.blackPlayer,
         draughts = draughtsGame,
-        pdnStorage = decoded.format,
-        status = light.status,
-        daysPerTurn = r intO F.daysPerTurn,
-        binaryMoveTimes = r bytesO F.moveTimes,
         loadClockHistory = () => for {
           clk <- draughtsGame.clock
           bw <- r bytesO F.whiteClockHistory
@@ -103,6 +99,10 @@ object BSONHandlers {
           history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, (light.status == Status.Outoftime).option(decodedSituation.color))
           _ = lidraughts.mon.game.loadClockHistory()
         } yield history,
+        pdnStorage = decoded.format,
+        status = light.status,
+        daysPerTurn = r intO F.daysPerTurn,
+        binaryMoveTimes = r bytesO F.moveTimes,
         mode = Mode(r boolD F.rated),
         next = r strO F.next,
         bookmarks = r intD F.bookmarks,
