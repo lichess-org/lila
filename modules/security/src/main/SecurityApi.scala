@@ -19,8 +19,7 @@ final class SecurityApi(
     firewall: Firewall,
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
-    emailValidator: EmailAddressValidator,
-    asyncCache: lila.memo.AsyncCache.Builder
+    emailValidator: EmailAddressValidator
 ) {
 
   val AccessUri = "access_uri"
@@ -77,7 +76,7 @@ final class SecurityApi(
             }
           }
         }
-      } // orElse BasicAuth(req).map2 { (u: User) => FingerprintedUser(u, false) }
+      }
     }
 
   def locatedOpenSessions(userId: User.ID, nb: Int): Fu[List[LocatedSession]] =
@@ -94,29 +93,6 @@ final class SecurityApi(
     reqSessionId(req) ?? { Store.setFingerPrint(_, fp) map some }
 
   def reqSessionId(req: RequestHeader) = req.session get "sessionId"
-
-  private object BasicAuth {
-
-    private type Username = String
-
-    private val cache = asyncCache.multi[(Username, User.ClearPassword), Boolean](
-      name = "security.basic_auth",
-      f = {
-        case (username, password) => authenticator.authenticateByUsername(username, password).map(_.isDefined)
-      },
-      expireAfter = _.ExpireAfterWrite(2 minutes)
-    )
-
-    def apply(req: RequestHeader): Fu[Option[User]] = {
-      req.headers get "Authorization" flatMap lila.common.String.base64.decode map (_.split(":", 2))
-    } ?? {
-      case Array(username, password) =>
-        cache.get(username -> User.ClearPassword(password)) flatMap {
-          _ ?? UserRepo.named(username)
-        }
-      case _ => fuccess(none)
-    }
-  }
 
   def userIdsSharingIp = userIdsSharingField("ip") _
 

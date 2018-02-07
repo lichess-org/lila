@@ -26,9 +26,6 @@ final class Authenticator(
   def authenticateById(id: User.ID, password: ClearPassword): Fu[Option[User]] =
     loginCandidateById(id) map { _ flatMap { _(password) } }
 
-  def authenticateByUsername(username: String, password: ClearPassword): Fu[Option[User]] =
-    authenticateById(User normalize username, password)
-
   def authenticateByEmail(email: EmailAddress, password: ClearPassword): Fu[Option[User]] =
     loginCandidateByEmail(email) map { _ flatMap { _(password) } }
 
