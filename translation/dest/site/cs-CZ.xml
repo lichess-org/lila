@@ -215,6 +215,8 @@
   <string name="mode">Režim hry</string>
   <string name="casual">Jen tak</string>
   <string name="rated">Hodnocená</string>
+  <string name="casualTournament">Jen tak</string>
+  <string name="ratedTournament">Hodnocená</string>
   <string name="thisGameIsRated">Tato hra se započítává do hodnocení</string>
   <string name="rematch">Odveta</string>
   <string name="rematchOfferSent">Nabídka odvety byla odeslána</string>
