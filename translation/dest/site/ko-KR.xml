@@ -230,8 +230,16 @@
   <string name="tournamentPoints">토너먼트 점수</string>
   <string name="viewTournament">토너먼트 보기</string>
   <string name="backToTournament">토너먼트로 돌아가기</string>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="other">%2$s 랭크 게임을 %1$s회 더 플레이해야합니다.</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="other">랭크 게임을 %s회 더 플레이하셔야 합니다.</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">사용자의 임시 등급 %s는 임시적입니다.</string>
   <string name="yourPerfRatingIsTooHigh">귀하의 %1$s 레이팅(%2$s)은 너무 높습니다.</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">%1$s 랭크가 너무 높습니다. (%2$s)</string>
+  <string name="yourPerfRatingIsTooLow">%1$s 랭크가 너무 낮습니다. (%2$s)</string>
   <string name="backToGame">게임으로 돌아가기</string>
   <string name="siteDescription">회원가입, 광고, 플러그인 없이 즐길 수 있는 깔끔한 구성의 무료 온라인 체스 게임입니다. 컴퓨터, 친구 또는 무작위로 고른 상대와 함께 체스를 즐겨보세요.</string>
   <string name="teams">팀</string>
