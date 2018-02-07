@@ -18,6 +18,9 @@ final class IrwinApi(
     mode: () => String
 ) {
 
+  val reportThreshold = 90
+  val markThreshold = 95
+
   import BSONHandlers._
 
   def dashboard: Fu[IrwinDashboard] =
@@ -51,10 +54,10 @@ final class IrwinApi(
       UserRepo byId suspectId flatten s"suspect $suspectId not found" map Suspect.apply
 
     private def markOrReport(report: IrwinReport): Funit =
-      if (report.activation > 90 && mode() == "mark")
+      if (report.activation > markThreshold && mode() == "mark")
         modApi.autoMark(report.suspectId, ModId.irwin) >>-
           lila.mon.mod.irwin.mark()
-      else if (report.activation >= 60 && mode() != "none") for {
+      else if (report.activation >= reportThreshold && mode() != "none") for {
         suspect <- getSuspect(report.suspectId.value)
         irwin <- UserRepo byId "irwin" flatten s"Irwin user not found" map Mod.apply
         _ <- reportApi.create(Report.Candidate(
