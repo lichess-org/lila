@@ -599,7 +599,7 @@
   <string name="zeroAdvertisement">بدون تبلیغات</string>
   <string name="fullFeatured">با تمامی امکانات</string>
   <string name="phoneAndTablet">موبایل و تبلت</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
+  <string name="bulletBlitzClassical">Bullet, برق آسا, classical</string>
   <string name="correspondenceChess">شطرنج مکاتبه ای</string>
   <string name="onlineAndOfflinePlay">بازی کردن آنلاین وآفلاین</string>
   <string name="correspondenceAndUnlimited">مکاتبه ای و نامحدود</string>
@@ -633,4 +633,7 @@
   <string name="perfRatingX">ریتینگ. %s</string>
   <string name="whiteWinsGame">سفید برنده شد</string>
   <string name="blackWinsGame">سیاه برنده شد</string>
+  <string name="next">بعدی</string>
+  <string name="findBetterMoveForWhite">یه حرکت بهتر برای سفید پیدا کنید</string>
+  <string name="findBetterMoveForBlack">یه حرکت بهتر برای سیاه پیدا کنید</string>
 </resources>
