@@ -17,33 +17,25 @@ final class IrwinStream(system: ActorSystem) {
     var stream: Option[ActorRef] = None
     Concurrent.unicast[JsValue](
       onStart = channel => {
+        def push(eventType: String, userId: String, payload: JsObject): Unit = {
+          lila.mon.mod.irwin.streamEventType(eventType)()
+          channel push payload ++ Json.obj(
+            "t" -> eventType,
+            "user" -> userId
+          )
+        }
         val actor = system.actorOf(Props(new Actor {
           def receive = {
             case request: IrwinRequest =>
-              channel push Json.obj(
-                "t" -> "request",
-                "origin" -> request.origin.key,
-                "user" -> request.suspect.value
-              )
+              push("request", request.suspect.value, Json.obj("origin" -> request.origin.key))
             case lila.hub.actorApi.report.Created(userId, "cheat" | "cheatprint", by) if by != ModId.irwin.value =>
-              channel push Json.obj(
-                "t" -> "reportCreated",
-                "user" -> userId
-              )
+              push("reportCreated", userId, Json.obj())
             case lila.hub.actorApi.report.Processed(userId, "cheat" | "cheatprint") =>
               lila.user.UserRepo.isEngine(userId) foreach { marked =>
-                channel push Json.obj(
-                  "t" -> "reportProcessed",
-                  "user" -> userId,
-                  "marked" -> marked
-                )
+                push("reportProcessed", userId, Json.obj("marked" -> marked))
               }
             case lila.hub.actorApi.mod.MarkCheater(userId, value) =>
-              channel push Json.obj(
-                "t" -> "mark",
-                "user" -> userId,
-                "marked" -> value
-              )
+              push("mark", userId, Json.obj("marked" -> value))
           }
         }))
         system.lilaBus.subscribe(actor, 'report, 'adjustCheater, 'irwin)

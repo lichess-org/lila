@@ -33,7 +33,9 @@ final class IrwinApi(
         _ <- reportColl.update($id(report._id), report, upsert = true)
         _ <- markOrReport(report)
         _ <- notification(report)
-      } yield ()
+      } yield {
+        lila.mon.mod.irwin.ownerReport(report.owner)()
+      }
     }
 
     def get(user: User): Fu[Option[IrwinReport]] =

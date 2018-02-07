@@ -279,6 +279,8 @@ object mon {
       // val discard = inc(s"mod.report.irwin.discard")
       val report = inc(s"mod.report.irwin.report")
       val mark = inc(s"mod.report.irwin.mark")
+      def ownerReport(name: String) = inc(s"mod.irwin.owner_report.$name")
+      def streamEventType(name: String) = inc(s"mod.irwin.streama.event_type.$name")
     }
   }
   object relay {
