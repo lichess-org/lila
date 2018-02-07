@@ -172,6 +172,13 @@ case class Game(
         )
       else player
 
+    // This must be computed eagerly
+    // because it depends on the current time
+    val newClockHistory = for {
+      clk <- game.clock
+      ch <- clockHistory
+    } yield ch.record(turnColor, clk)
+
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
       blackPlayer = copyPlayer(blackPlayer),
@@ -183,10 +190,7 @@ case class Game(
           } :+ Centis(nowCentis - movedAt.getCentis).nonNeg
         }
       },
-      loadClockHistory = () => for {
-        clk <- game.clock
-        ch <- clockHistory
-      } yield ch.record(turnColor, clk),
+      loadClockHistory = () => newClockHistory,
       status = game.situation.status | status,
       movedAt = DateTime.now
     )
