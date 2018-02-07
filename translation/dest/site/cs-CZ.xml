@@ -288,6 +288,11 @@
   <string name="tournament">Turnaj</string>
   <string name="tournaments">Turnaje</string>
   <string name="tournamentPoints">Turnajové body</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turnajový bod</item>
+    <item quantity="few">%s turnajové body</item>
+    <item quantity="other">%s turnajové body</item>
+  </plurals>
   <string name="viewTournament">Zobrazit turnaj</string>
   <string name="backToTournament">Zpět k turnaji</string>
   <string name="thematic">Tématický</string>
@@ -797,6 +802,11 @@ v %3$s</string>
   <string name="notifications">Oznámení</string>
   <string name="challenges">Výzvy</string>
   <string name="perfRatingX">Rating: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekunda na první tah</item>
+    <item quantity="few">%s sekund na první tah</item>
+    <item quantity="other">%s sekund na první tah</item>
+  </plurals>
   <string name="practiceWithComputer">Procvičit s počítačem</string>
   <string name="anotherWasX">Další možnost je %s</string>
   <string name="bestWasX">Nejlepší tah byl %s</string>
@@ -811,16 +821,30 @@ v %3$s</string>
   <string name="whiteWinsGame">Bílý vyhrál</string>
   <string name="blackWinsGame">Černý vyhrál</string>
   <string name="learnFromYourMistakes">Poučte se ze svých chyb</string>
+  <string name="learnFromThisMistake">Poučte se z této chyby</string>
   <string name="skipThisMove">Přeskočit tento krok</string>
   <string name="next">Další</string>
+  <string name="xWasPlayed">Bylo zahráno %s</string>
   <string name="findBetterMoveForWhite">Najděte lepší tah bílého</string>
   <string name="findBetterMoveForBlack">Najděte lepší tah černého</string>
   <string name="resumeLearning">Pokračovat v učení</string>
+  <string name="youCanDoBetter">Máte lepší tah</string>
   <string name="tryAnotherMoveForWhite">Zkuste jiný tah bílého</string>
   <string name="tryAnotherMoveForBlack">Zkuste jiný tah černého</string>
   <string name="solution">Řešení</string>
   <string name="waitingForAnalysis">Čekání na analýzu</string>
+  <string name="noMistakesFoundForWhite">Žádné bílého chyby nenalezeny</string>
+  <string name="noMistakesFoundForBlack">Žádné černého chyby nenalezeny</string>
+  <string name="advantage">Výhoda</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekunda</item>
+    <item quantity="few">%s sekunda</item>
+    <item quantity="other">%s vteřin</item>
+  </plurals>
   <string name="opening">Zahájení</string>
   <string name="middlegame">Střední hra</string>
   <string name="endgame">Koncovka</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s přijímá výzvy pouze od přátel.</string>
+  <string name="addCurrentVariation">Přidat současnou variantu</string>
+  <string name="playX">Hrajte %s</string>
 </resources>
