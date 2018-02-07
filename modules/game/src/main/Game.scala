@@ -13,7 +13,7 @@ import lila.rating.PerfType
 import lila.user.User
 
 case class Game(
-    id: String,
+    id: Game.ID,
     whitePlayer: Player,
     blackPlayer: Player,
     loadChess: () => ChessGame,
