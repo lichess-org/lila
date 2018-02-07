@@ -99,12 +99,6 @@ final class Env(
   lazy val stream = new GameStream(system)
 
   lazy val bestOpponents = new BestOpponents
-
-  def cli = new lila.common.Cli {
-    def process = {
-      case "game" :: "test" :: times :: Nil => parseIntOption(times) ?? StreamTest.start
-    }
-  }
 }
 
 object Env {
