@@ -20,12 +20,11 @@ lichess.StrongSocket = function(url, version, settings) {
   var tryOtherUrl = false;
   var autoReconnect = true;
   var nbConnects = 0;
-  var storage = lichess.storage.make(options.baseUrlKey);
 
   var connect = function() {
     destroy();
     autoReconnect = true;
-    var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + $.param(settings.params);
+    var fullUrl = options.protocol + '//socket.' + document.domain + url + "?" + $.param(settings.params);
     debug("connection attempt to " + fullUrl);
     try {
       ws = new WebSocket(fullUrl);
@@ -226,20 +225,6 @@ lichess.StrongSocket = function(url, version, settings) {
     }
   };
 
-  var baseUrl = function() {
-    var urls = options.baseUrls;
-    var url = storage.get();
-    if (!url) {
-      url = urls[0];
-      storage.set(url);
-    } else if (tryOtherUrl) {
-      tryOtherUrl = false;
-      url = urls[(urls.indexOf(url) + 1) % urls.length];
-      storage.set(url);
-    }
-    return url;
-  };
-
   connect();
   window.addEventListener('unload', destroy);
 
@@ -286,14 +271,6 @@ lichess.StrongSocket.defaults = {
     pingDelay: 2000, // time between pong and ping
     autoReconnectDelay: 2000,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
-    baseUrls: (function(domain) {
-      var main = 'socket.' + domain,
-      extraPorts = /lichess\.org/.test(main) ? [9025, 9026, 9027, 9028, 9029] : [];
-      return [main].concat(extraPorts.map(function(port) {
-        return main + ':' + port;
-      }));
-    })(document.domain),
-    onFirstConnect: $.noop,
-    baseUrlKey: 'surl5'
+    onFirstConnect: $.noop
   }
 };
