@@ -13,7 +13,8 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
-    db: lila.db.Env
+    db: lila.db.Env,
+    lifecycle: play.api.inject.ApplicationLifecycle
 ) {
 
   private val settings = new {
@@ -44,8 +45,8 @@ final class Env(
     val NetDomain = config getString "net.domain"
     val NetEmail = config getString "net.email"
     object oauth {
-      val CollectionAccessToken = config getString "collection.access_token"
-      val CollectionClient = config getString "collection.client"
+      val CollectionAccessToken = config getString "oauth.collection.access_token"
+      val CollectionClient = config getString "oauth.collection.client"
     }
   }
   import settings._
@@ -160,9 +161,10 @@ final class Env(
   scheduler.once(30 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
+  private lazy val oAuthDb = new lila.db.Env("puzzle", config getConfig "oauth.mongodb", lifecycle)
   private lazy val oAuthServer = new OAuthServer(
-    tokenColl = db(oauth.CollectionAccessToken),
-    clientColl = db(oauth.CollectionClient)
+    tokenColl = oAuthDb(oauth.CollectionAccessToken),
+    clientColl = oAuthDb(oauth.CollectionClient)
   )
 
   lazy val api = new SecurityApi(storeColl, firewall, geoIP, authenticator, emailAddressValidator, oAuthServer)
@@ -193,6 +195,7 @@ object Env {
     settingStore = lila.memo.Env.current.settingStore,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
-    captcher = lila.hub.Env.current.actor.captcher
+    captcher = lila.hub.Env.current.actor.captcher,
+    lifecycle = lila.common.PlayApp.lifecycle
   )
 }
