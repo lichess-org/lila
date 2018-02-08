@@ -32,6 +32,7 @@ moreCss = cssTag("mod-irwin.css")) {
         <tr>
           <th>Recent report</th>
           <th>Completed</th>
+          <th>Owner</th>
           <th>Activation</th>
         </tr>
       </thead>
@@ -44,6 +45,7 @@ moreCss = cssTag("mod-irwin.css")) {
           <td class="little completed">
             @momentFromNow(rep.date)
           </td>
+          <td>@rep.owner</td>
           <td class="little activation @percentClass(rep.activation)">
             <strong>@rep.activation%</strong>
             over @rep.games.size games
