@@ -30,6 +30,6 @@ private final class OAuthServer(
   def activeUser(token: AccessTokenId): Fu[Option[User]] =
     tokenColl.primitiveOne[User.ID]($doc(
       "access_token_id" -> token,
-      "expireDate" $gt DateTime.now
+      "expire_date" $gt DateTime.now
     ), "user_id") flatMap { _ ?? UserRepo.byId }
 }
