@@ -12,20 +12,23 @@ title = "Irwin dashboard",
 active = "irwin",
 moreCss = cssTag("mod-irwin.css")) {
 <div class="content_box irwin no_padding">
-  <h1 class="text lichess_title">
-    Irwin status:
-    @if(dashboard.seenRecently) {
-    <span class="up">Operational</span>
-    } else {
-    <span class="down">
-      @dashboard.lastSeenAt.map { seenAt =>
-      Last seen @momentFromNow(seenAt)
-      }.getOrElse {
-      Unknown
+  <div class="content_box_top">
+    <h1 class="text lichess_title">
+      Irwin status:
+      @if(dashboard.seenRecently) {
+      <span class="up">Operational</span>
+      } else {
+      <span class="down">
+        @dashboard.lastSeenAt.map { seenAt =>
+        Last seen @momentFromNow(seenAt)
+        }.getOrElse {
+        Unknown
+        }
+      </span>
       }
-    </span>
-    }
-  </h1>
+    </h1>
+    <a href="https://monitor.lichess.org/dashboard/db/lichess-moderation" class="monitoring button">Monitoring</a>
+  </div>
   <div class="recent">
     <table class="slist">
       <thead>
