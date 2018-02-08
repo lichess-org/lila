@@ -7,20 +7,6 @@
 .irwin h1 .down {
   color: #dc322f;
 }
-.irwin .both {
-  display: flex;
-  justify-content: space-between;
-}
-.irwin .both > div {
-  flex: 0 0 49%;
-  width: auto;
-  border-left: 1px solid #ccc;
-  border-width: 0 1px;
-}
-.irwin .both > div:first-child {
-  border-left: none;
-  border-right: 1px solid #ccc;
-}
 .irwin .little {
   font-size: 0.8em;
   opacity: 0.8;
@@ -38,15 +24,6 @@
 .irwin .slist strong {
   display: block;
   text-align: center;
-}
-.irwin .queue tbody tr {
-}
-.irwin .queue tbody tr.started,
-body.dark .irwin .queue tbody tr.started {
-  background-image: linear-gradient(to right, rgba(99,155,36,0.7) 0px, rgba(99,155,36,0.7) 5px, rgba(0,0,0,0) 5px, rgba(0,0,0,0) 100%);
-}
-body.dark .irwin .both > * {
-  border-color: #444;
 }
 body.dark .irwin .activation {
   color: #fff;

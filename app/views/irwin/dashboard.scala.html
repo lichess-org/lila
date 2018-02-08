@@ -26,37 +26,32 @@ moreCss = cssTag("mod-irwin.css")) {
     </span>
     }
   </h1>
-  <div class="both">
-    <div class="queue">
-      We no longer know what irwin is up to.
-    </div>
-    <div class="recent">
-      <table class="slist">
-        <thead>
-          <tr>
-            <th>Recent report</th>
-            <th>Completed</th>
-            <th>Activation</th>
-          </tr>
-        </thead>
-        <tbody>
-          @dashboard.recent.map { rep =>
-          <tr class="report">
-            <td>
-              @userIdLink(rep.suspectId.value.some, params = "?mod")
-            </td>
-            <td class="little completed">
-              @momentFromNow(rep.date)
-            </td>
-            <td class="little activation @percentClass(rep.activation)">
-              <strong>@rep.activation%</strong>
-              over @rep.games.size games
-            </td>
-          </tr>
-          }
-        </tbody>
-      </table>
-    </div>
+  <div class="recent">
+    <table class="slist">
+      <thead>
+        <tr>
+          <th>Recent report</th>
+          <th>Completed</th>
+          <th>Activation</th>
+        </tr>
+      </thead>
+      <tbody>
+        @dashboard.recent.map { rep =>
+        <tr class="report">
+          <td>
+            @userIdLink(rep.suspectId.value.some, params = "?mod")
+          </td>
+          <td class="little completed">
+            @momentFromNow(rep.date)
+          </td>
+          <td class="little activation @percentClass(rep.activation)">
+            <strong>@rep.activation%</strong>
+            over @rep.games.size games
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
   </div>
 </div>
 }
