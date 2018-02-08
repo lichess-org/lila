@@ -161,7 +161,7 @@ final class Env(
   scheduler.once(30 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
-  private lazy val oAuthDb = new lila.db.Env("puzzle", config getConfig "oauth.mongodb", lifecycle)
+  private lazy val oAuthDb = new lila.db.Env("oauth", config getConfig "oauth.mongodb", lifecycle)
   private lazy val oAuthServer = new OAuthServer(
     tokenColl = oAuthDb(oauth.CollectionAccessToken),
     clientColl = oAuthDb(oauth.CollectionClient)
