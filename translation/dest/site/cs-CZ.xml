@@ -835,6 +835,11 @@ v %3$s</string>
   <string name="waitingForAnalysis">Čekání na analýzu</string>
   <string name="noMistakesFoundForWhite">Žádné bílého chyby nenalezeny</string>
   <string name="noMistakesFoundForBlack">Žádné černého chyby nenalezeny</string>
+  <string name="doneReviewingWhiteMistakes">Procházení bílého chyb dokončeno</string>
+  <string name="doneReviewingBlackMistakes">Procházení černého chyb dokončeno</string>
+  <string name="doItAgain">Udělat znovu</string>
+  <string name="reviewWhiteMistakes">Projít chyby bílého</string>
+  <string name="reviewBlackMistakes">Projít chyby černého</string>
   <string name="advantage">Výhoda</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekunda</item>
@@ -844,7 +849,20 @@ v %3$s</string>
   <string name="opening">Zahájení</string>
   <string name="middlegame">Střední hra</string>
   <string name="endgame">Koncovka</string>
+  <string name="registerToSendChallenges">Pro poslání výzvy se musíte zaregistrovat.</string>
+  <string name="youCannotChallengeX">Nemůžete vyzvat %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s nepřijímá výzvy.</string>
+  <string name="yourXRatingIsTooFarFromY">Vaše %1$s elo je příliš daleko od %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nelze vyzvat kvůli prozatimnímu %s elu.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s přijímá výzvy pouze od přátel.</string>
+  <string name="conditionalPremoves">Podmíněné předtahy</string>
   <string name="addCurrentVariation">Přidat současnou variantu</string>
+  <string name="playVariationToCreateConditionalPremoves">Hrajte variantu k vytvoření podmíněných předtahů</string>
+  <string name="noConditionalPremoves">Žádné podmíněné předtahy</string>
   <string name="playX">Hrajte %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">a uložit %s předtaženou variantu</item>
+    <item quantity="few">a uložit %s předtažené varianty</item>
+    <item quantity="other">a uložit %s předtažené varianty</item>
+  </plurals>
 </resources>
