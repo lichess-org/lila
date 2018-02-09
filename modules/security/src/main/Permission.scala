@@ -40,7 +40,6 @@ object Permission {
   case object PublicMod extends Permission("ROLE_PUBLIC_MOD")
   case object Developer extends Permission("ROLE_DEVELOPER")
   case object Coach extends Permission("ROLE_COACH")
-  case object PreviewCoach extends Permission("ROLE_PREVIEW_COACH")
   case object ModNote extends Permission("ROLE_MOD_NOTE")
   case object RemoveRanking extends Permission("ROLE_REMOVE_RANKING")
   case object ReportBan extends Permission("ROLE_REPORT_BAN")
@@ -63,7 +62,7 @@ object Permission {
     Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount, ViewPrivateComms,
     ChatTimeout, MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
     MessageAnyone, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
-    PreviewCoach, PracticeConfig, RemoveRanking, ReportBan, Beta, DisapproveCoachReview,
+    PracticeConfig, RemoveRanking, ReportBan, Beta, DisapproveCoachReview,
     Relay, Streamers
   ))
 
@@ -75,7 +74,7 @@ object Permission {
     Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,
     UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig, PracticeConfig,
     Beta, MessageAnyone, UserSearch, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
-    PublicMod, Developer, Coach, PreviewCoach, ModNote, RemoveRanking, ReportBan,
+    PublicMod, Developer, Coach, ModNote, RemoveRanking, ReportBan,
     Relay, Cli, Settings, Streamers
   )
 

@@ -112,7 +112,7 @@ image = c.coach.picturePath.map(p => dbImageUrl(p.value))).some) {
               }
             </td>
           </tr>
-          @if(ctx.me.??(c.coach.is) || isGranted(_.PreviewCoach)) {
+          @if(ctx.me.??(c.coach.is)) {
           <tr class="edit">
             <th>Admin</th>
             <td>
