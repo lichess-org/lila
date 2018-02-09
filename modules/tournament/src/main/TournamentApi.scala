@@ -200,9 +200,6 @@ final class TournamentApi(
               withdrawOtherTournaments(tour.id, me.id)
               socketReload(tour.id)
               publish()
-              if (!tour.`private`) timeline ! {
-                Propagate(TourJoin(me.id, tour.id, tour.fullName)) toFollowersOf me.id
-              }
             }
           }
         }
