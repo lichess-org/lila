@@ -782,5 +782,5 @@
   <string name="opening">Άνοιγμα</string>
   <string name="endgame">Φινάλε</string>
   <string name="registerToSendChallenges">Παρακαλώ εγγραφείτε για να στείλετε προκλήσεις.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%σ δέχεται προκλήσεις μόνο από φίλους.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s δέχεται προκλήσεις μόνο από φίλους.</string>
 </resources>
