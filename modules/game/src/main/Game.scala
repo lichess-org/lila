@@ -564,6 +564,9 @@ case class Game(
 
 object Game {
 
+  var nbFetch = 0l
+  var nbDecoded = 0l
+
   type ID = String
 
   case class WithInitialFen(game: Game, fen: Option[FEN])

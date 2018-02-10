@@ -90,7 +90,11 @@ object BSONHandlers {
       val pgnFormat =
         if (r contains F.huffmanPgn) PgnStorage.Huffman else PgnStorage.OldBin
 
+      Game.nbFetch = Game.nbFetch + 1
+
       val loadChess: () => chess.Game = () => {
+
+        Game.nbDecoded = Game.nbDecoded + 1
 
         val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, plies) } | {
           val clm = r.get[CastleLastMove](F.castleLastMove)
