@@ -136,21 +136,16 @@ export class Ctrl {
 
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
-  noarg = ctrl.trans.noarg;
-
-  const flipOpts = d.userAnalysis ? {
-    hook: bind('click', ctrl.flip)
-  } : {
-    attrs: { href: router.game(d, d.opponent.color, ctrl.embed) + '#' + ctrl.node.ply }
-  };
-
-  const canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard';
-  const ceval = ctrl.getCeval();
-  const mandatoryCeval = ctrl.mandatoryCeval();
+  noarg = ctrl.trans.noarg,
+  canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard',
+  ceval = ctrl.getCeval(),
+  mandatoryCeval = ctrl.mandatoryCeval();
 
   const tools: MaybeVNodes = [
     h('div.tools', [
-      h('a.fbt', flipOpts, [
+      h('a.fbt', {
+    hook: bind('click', ctrl.flip)
+  }, [
         h('i.icon', { attrs: dataIcon('B') }),
         noarg('flipBoard')
       ]),
