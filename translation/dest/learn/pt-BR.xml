@@ -27,7 +27,7 @@ Você precisa de ambos!</string>
   <string name="theQueen">A dama</string>
   <string name="queenCombinesRookAndBishop">Dama = torre + bispo</string>
   <string name="queenIntro">Entra a mais poderosa das peças. Sua majestade, a rainha (dama)!</string>
-  <string name="queenComplete">Parabéns! A Dama não é segredos para você.</string>
+  <string name="queenComplete">Parabéns! A Dama não é segredo para você.</string>
   <string name="theKing">O rei</string>
   <string name="theMostImportantPiece">A peça mais importante</string>
   <string name="kingIntro">Você é o rei. Se cair em batalha, perderá o jogo.</string>
