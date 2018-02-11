@@ -26,7 +26,7 @@ object Stream {
     case class Result(streams: Option[List[TwitchStream]]) {
       def streams(keyword: Keyword, streamers: List[Streamer]): List[Stream] = (~streams).map(_.channel).collect {
         case Channel(name, Some(status)) if status.toLowerCase contains keyword.toLowerCase =>
-          streamers.find(s => s.twitch.exists(_.userId == name)) map { Stream(name, status, _) }
+          streamers.find(s => s.twitch.exists(_.userId.toLowerCase == name.toLowerCase)) map { Stream(name, status, _) }
       }.flatten
     }
     case class Stream(userId: String, status: String, streamer: Streamer) extends lila.streamer.Stream {
