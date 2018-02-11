@@ -78,7 +78,7 @@ private[i18n] object Registry {
     val xml = try {
       XML.loadFile(file)
     } catch {
-      case e => println(file); throw e;
+      case e: Exception => println(file); throw e;
     }
     def quote(msg: String) = s"""""\"$msg""\""""
     val content = xml.child.collect {
