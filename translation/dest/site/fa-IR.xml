@@ -342,7 +342,7 @@
   <string name="biography">زندگی نامه</string>
   <string name="country">کشور</string>
   <string name="preferences">تنظیمات عملکرد</string>
-  <string name="watchLichessTV">تلویزیون لایچس را ببین</string>
+  <string name="watchLichessTV">تلویزیون لیچس را ببین</string>
   <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
   <string name="onlinePlayers">بازکنان آنلاین</string>
   <string name="activeToday">فعالیت امروز</string>
@@ -496,6 +496,7 @@
   <string name="playOnTheBoardOffline">آفلاین روی تخته بازی کنید</string>
   <string name="playOfflineComputer">بازی آفلاین با رایانه</string>
   <string name="opponent">حریف</string>
+  <string name="learnMenu">یادگیری</string>
   <string name="community">انجمن</string>
   <string name="tools">ابزارها</string>
   <string name="increment">افزایش زمان</string>
@@ -524,7 +525,7 @@
     <item quantity="other">%s پست ها در انجمن</item>
   </plurals>
   <string name="tpTimeSpentPlaying">زمان بازی کردن: %s</string>
-  <string name="watchGames">تماشای بازی</string>
+  <string name="watchGames">تماشای بازی ها</string>
   <string name="tpTimeSpentOnTV">مدت زمان سپری شده در تلویزیون: %s</string>
   <string name="watch">نگاه کردن</string>
   <string name="internationalEvents">رویدادهای بین المللی</string>
