@@ -313,10 +313,10 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vaš %s rejting je privremen</string>
   <string name="yourPerfRatingIsTooHigh">Tvoj %1$s rejting (%2$s) je previsok</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Vaš najvisi tjedni %1$s rejting (%2$s) je previsok</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Vaš najviši tjedni %1$s rejting (%2$s) je previsok</string>
   <string name="yourPerfRatingIsTooLow">Vaš %1$s rejting (%2$s) je prenizak</string>
   <string name="ratedMoreThanInPerf">%2$s rejting ≥ %1$s</string>
-  <string name="ratedLessThanInPerf">Rangirano  %1$s u %2$s</string>
+  <string name="ratedLessThanInPerf">Rangirano %1$s u %2$s</string>
   <string name="backToGame">Natrag na partiju</string>
   <string name="siteDescription">Besplatni internetski šah. Igrajte odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igrajte šah protiv računala, prijatelja ili nasumičnih protivnika.</string>
   <string name="teams">Ekipe</string>
@@ -706,13 +706,13 @@ u %3$s</string>
     <item quantity="other">%1$s %2$s igrača ovog tjedna.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rejting je %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji ste od %1$s %2$s igrača.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji si od %1$s %2$s igrača.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemaš službeni %s rejting.</string>
-  <string name="checkYourEmail">Provjerite vaš e-mail</string>
+  <string name="checkYourEmail">Provjeri svoj e-mail.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Poslali smo ti e-mail. Klikni na link u e-mailu kako da aktiviraš svoj račun.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidite email, možda se nalazi u drugim mapama: smeće, neželjena pošta, društvene mreže ili druge mape.</string>
-  <string name="weHaveSentYouAnEmailTo">Poslali smo email na %s. Klikni na link u emailu da se resetia lozinka.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvaćaš naše %s.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidiš email, pogledaj na drugim mjestima (otpad/smeće, neželjena pošta, društvene mreže ili druge mape).</string>
+  <string name="weHaveSentYouAnEmailTo">Poslali smo email na %s. Klikni link u emailu da resetiraš lozinku.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvaćaš %s</string>
   <string name="networkLagBetweenYouAndLichess">Mrežno kašnjenje između tebe i lichess-a</string>
   <string name="timeToProcessAMoveOnLichessServer">Vrijeme obrade poteza na lichess serveru</string>
   <string name="downloadAnnotated">Preuzmi s bilješkama</string>
@@ -721,7 +721,7 @@ u %3$s</string>
   <string name="printFriendlyPDF">Preuzmi PDF igre</string>
   <string name="crosstable">Tablica križanja</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možeš skrolirati preko ploče za micanje u partiji.</string>
-  <string name="analysisShapesHowTo">Pritisnite shift + lijevi klik ili desni klik za crtanje krugova i strelica na ploči.</string>
+  <string name="analysisShapesHowTo">Pritisni shift + lijevi klik ili desni klik kako bi crtao/la krugove i strelice na ploči.</string>
   <string name="confirmResignationAndDrawOffers">Potvrdi predaju i ponudu za remi</string>
   <string name="inputMovesWithTheKeyboard">Omogući unošenje poteza tipkovnicom</string>
   <string name="letOtherPlayersMessageYou">Dopusti drugim igračima da ti pošalju poruku</string>
@@ -732,7 +732,7 @@ u %3$s</string>
   <string name="withNobody">Ni sa kime</string>
   <string name="withFriends">S prijateljima</string>
   <string name="withEverybody">Sa svima</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Već ste registrirali email: %s</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Već si se registrirao/la ovim emailom: %s</string>
   <string name="kidMode">Dječji način</string>
   <string name="kidModeExplanation">Ovdje se radi se o sigurnosti. U dječjem načinu, sve komunikacije na stranici su onemogućene. Omogući ovo za svoju djecu i učenike, da ih zaštitiš od drugih internet korisnika.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">U dječjem načinu, logo lichess-a dobiva %s ikonu, tako da znaš da su tvoja djeca sigurna.</string>
@@ -742,7 +742,7 @@ u %3$s</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ovo je popis uređaja koji su se prijavili u tvoj račun. Opozovi bilo koju sesiju koju ne prepoznaješ.</string>
   <string name="alternativelyYouCanX">Alternativno, možeš %s.</string>
   <string name="revokeAllSessions">opozvati sve sesije</string>
-  <string name="playChessEverywhere">Igraj šah bilo gdje</string>
+  <string name="playChessEverywhere">Igraj šah svugdje</string>
   <string name="asFreeAsLichess">Besplatno kao i lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Napravljeno iz ljubavi prema šahu, ne novcu</string>
   <string name="everybodyGetsAllFeaturesForFree">Svi dobivaju sve usluge besplatno</string>
@@ -799,8 +799,8 @@ u %3$s</string>
   <string name="challenges">Izazovi</string>
   <string name="perfRatingX">Rejting: %s</string>
   <string name="practiceWithComputer">Vježbaj sa kompjuterom</string>
-  <string name="anotherWasX">Drugi je %s</string>
-  <string name="bestWasX">Najbolji je %s</string>
+  <string name="anotherWasX">Drugi potez je %s</string>
+  <string name="bestWasX">Najbolji potez je %s</string>
   <string name="youBrowsedAway">Odsurfali ste</string>
   <string name="resumePractice">Nastavi vježbu</string>
   <string name="theGameIsADraw">Partija završava remijem.</string>
@@ -824,8 +824,8 @@ u %3$s</string>
   <string name="tryAnotherMoveForBlack">Probaj drugi potez za crnog</string>
   <string name="solution">Rješenje</string>
   <string name="waitingForAnalysis">Analiza u tijeku</string>
-  <string name="noMistakesFoundForWhite">Nisu pronađene greške za bijelog</string>
-  <string name="noMistakesFoundForBlack">Nisu pronađene greške za crnog</string>
+  <string name="noMistakesFoundForWhite">Nisu pronađene greške bijelog</string>
+  <string name="noMistakesFoundForBlack">Nisu pronađene greške crnog</string>
   <string name="doneReviewingWhiteMistakes">Završeno pregledavanje grešaka bijelog</string>
   <string name="doneReviewingBlackMistakes">Završeno pregledavanje grešaka crnog</string>
   <string name="doItAgain">Pokušaj ponovo</string>
