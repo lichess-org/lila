@@ -32,7 +32,7 @@ scriptClasspath := Seq("*")
 libraryDependencies ++= Seq(
   scalaz, chess, compression, scalalib, hasher, typesafeConfig, findbugs,
   reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
-  maxmind, prismic, netty, guava,
+  maxmind, prismic, netty, guava, jwt,
   kamon.core, kamon.influxdb,
   java8compat, semver, scrimage, scalaConfigs, scaffeine
 )
@@ -264,7 +264,7 @@ lazy val irwin = module("irwin", Seq(common, db, user, game, tournament, mod)).s
 )
 
 lazy val security = module("security", Seq(common, hub, db, user, i18n, slack)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, maxmind, hasher)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, maxmind, hasher, jwt)
 )
 
 lazy val shutup = module("shutup", Seq(common, db, hub, game, relation)).settings(

@@ -40,6 +40,7 @@ object Dependencies {
   val netty = "io.netty" % "netty" % "3.10.6.Final"
   val guava = "com.google.guava" % "guava" % "21.0"
   val specs2 = "org.specs2" %% "specs2-core" % "3.9.2" % "test"
+  val jwt = "com.pauldijou" %% "jwt-core" % "0.14.1"
 
   object reactivemongo {
     val version = "0.12.2"
