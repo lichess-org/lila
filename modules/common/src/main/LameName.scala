@@ -69,7 +69,8 @@ object LameName {
       "dick",
       "wanker",
       "feces",
-      "fart"
+      "fart",
+      "cuck"
     ).map {
         _.map(subs).map(_ + "+").mkString
       }.mkString("|").r.pattern
