@@ -302,7 +302,7 @@
     <item quantity="other">≥ %1$s %2$s partija</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Trebaš igrati još jednu %2$s partiju za bodove</item>
+    <item quantity="one">Trebaš igrati još %1$s %2$s partija za bodove</item>
     <item quantity="few">Trebaš igrati još %1$s %2$s partije za bodove</item>
     <item quantity="other">Trebaš igrati još %1$s %2$s partija za bodove</item>
   </plurals>
@@ -848,7 +848,7 @@ u %3$s</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s samo prihvaća izazove od prijatelja.</string>
   <string name="conditionalPremoves">Uvjetni predpotezi</string>
   <string name="addCurrentVariation">Dodajte trenutnu varijantu</string>
-  <string name="playVariationToCreateConditionalPremoves">Odigraj varijaciju da stvoriš predpotez</string>
+  <string name="playVariationToCreateConditionalPremoves">Odigraj varijantu da stvoriš predpotez</string>
   <string name="noConditionalPremoves">Nema uvijetnih predpoteza</string>
   <string name="playX">Igraj %s</string>
 </resources>
