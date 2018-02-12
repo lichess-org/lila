@@ -9,7 +9,7 @@ import { bind, dataIcon } from './util';
 function renderRatingDiff(rd: number | undefined): VNode | undefined {
   if (rd === 0) return h('span.rp.null', '±0');
   if (rd && rd > 0) return h('span.rp.up', '+' + rd);
-  if (rd && rd < 0) return h('span.rp.down', '' + rd);
+  if (rd && rd < 0) return h('span.rp.down', '−' + (-rd));
   return;
 }
 
