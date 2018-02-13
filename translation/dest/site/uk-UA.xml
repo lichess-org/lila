@@ -6,7 +6,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Щоб запросити когось до гри, дайте це посилання</string>
   <string name="gameOver">Гру завершено</string>
   <string name="waitingForOpponent">Очікування на суперника</string>
-  <string name="waiting">Очікування</string>
+  <string name="waiting">Очікуйте</string>
   <string name="yourTurn">Ваш хід</string>
   <string name="aiNameLevelAiLevel">%1$s рівень %2$s</string>
   <string name="level">Рівень</string>
