@@ -6,7 +6,7 @@ import RoundController from '../ctrl';
 function ratingDiff(player: Player): VNode | undefined {
   if (player.ratingDiff === 0) return h('span.rp.null', '±0');
   if (player.ratingDiff && player.ratingDiff > 0) return h('span.rp.up', '+' + player.ratingDiff);
-  if (player.ratingDiff && player.ratingDiff < 0) return h('span.rp.down', '' + player.ratingDiff);
+  if (player.ratingDiff && player.ratingDiff < 0) return h('span.rp.down', '−' + (-player.ratingDiff));
   return;
 }
 
