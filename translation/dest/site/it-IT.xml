@@ -281,8 +281,8 @@
   <string name="backToTournament">Ritorna al torneo</string>
   <string name="thematic">A tema</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s partita partita classificata</item>
-    <item quantity="other">≥ %s partite partite classificate</item>
+    <item quantity="one">≥ %s partita classificata</item>
+    <item quantity="other">≥ %s partite classificate</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2%s partita valida per la classifica</item>
