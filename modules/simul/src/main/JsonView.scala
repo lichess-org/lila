@@ -22,6 +22,7 @@ final class JsonView(getLightUser: LightUser.Getter) {
       Json.obj(
         "id" -> host.id,
         "username" -> host.name,
+        "patron" -> host.isPatron,
         "title" -> host.title,
         "rating" -> simul.hostRating,
         "gameId" -> simul.hostGameId
