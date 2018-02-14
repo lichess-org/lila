@@ -51,6 +51,8 @@ case class Tournament(
     case _ => false
   }
 
+  def isShield = schedule.map(_.freq) has Schedule.Freq.Shield
+
   def isUnique = schedule.map(_.freq) has Schedule.Freq.Unique
 
   def isMarathonOrUnique = isMarathon || isUnique
