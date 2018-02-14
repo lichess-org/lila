@@ -46,12 +46,6 @@ final class Env(
 
   lazy val modFilters = new ModReportFilter
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "report" :: "score" :: "reset" :: Nil => api.resetScores inject "done"
-    }
-  }
-
   // api actor
   system.actorOf(Props(new Actor {
     def receive = {

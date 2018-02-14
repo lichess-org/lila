@@ -222,8 +222,6 @@ final class ReportApi(
       }.sortBy(-_.urgency)
     }
 
-  private[report] def resetScores: Funit = scorer reset coll void
-
   object accuracy {
 
     private val cache = asyncCache.clearable[User.ID, Option[Int]](

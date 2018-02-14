@@ -44,28 +44,6 @@ private final class ReportScore(
     } ?? 20
   }
 
-  private[report] def reset(coll: Coll)(implicit handler: BSONDocumentHandler[Report]): Fu[Int] = {
-    import play.api.libs.iteratee._
-    import reactivemongo.play.iteratees.cursorProducer
-    coll.find($doc("open" -> true)).cursor[Report]().enumerator() |>>>
-      Iteratee.foldM[Report, Int](0) {
-        case (nb, report) => for {
-          newAtoms <- report.atoms.map { atom =>
-            candidateOf(report, atom) map {
-              _.fold(atom) { scored =>
-                atom.copy(score = scored.score)
-              }
-            }
-          }.toList.sequenceFu.map(_.toNel | report.atoms)
-          newReport = report.copy(atoms = newAtoms).recomputeScore
-          _ <- coll.update($id(report.id), newReport)
-        } yield {
-          if (nb % 100 == 0) logger.info(s"Score reset $nb")
-          nb + 1
-        }
-      }
-  }
-
   private def candidateOf(report: Report, atom: Report.Atom): Fu[Option[Report.Candidate.Scored]] = for {
     reporter <- UserRepo byId atom.by.value map2 Reporter.apply
     suspect <- UserRepo named report.suspect.value map2 Suspect.apply
