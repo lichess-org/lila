@@ -21,10 +21,10 @@ final class OAuthServer(
     req.headers get "Authorization" map (_.split(" ", 2))
   } ?? {
     case Array("Bearer", token) => for {
-      jsonStr <- Jwt.decodeRaw(token, jwtPublicKey.value, Seq(JwtAlgorithm.RS256)).pp.future
-      json = Json.parse(jsonStr).pp
-      accessToken = AccessTokenId((json str "jti" err s"Bad token json $json")).pp
-      user <- activeUser(accessToken).thenPp
+      jsonStr <- Jwt.decodeRaw(token, jwtPublicKey.value, Seq(JwtAlgorithm.RS256)).future
+      json = Json.parse(jsonStr)
+      accessToken = AccessTokenId((json str "jti" err s"Bad token json $json"))
+      user <- activeUser(accessToken)
     } yield user
     case _ => fuccess(none)
   }
@@ -33,7 +33,7 @@ final class OAuthServer(
     tokenColl.primitiveOne[User.ID]($doc(
       "access_token_id" -> token,
       "expire_date" $gt DateTime.now
-    ), "user_id").thenPp flatMap { _ ?? UserRepo.byId }
+    ), "user_id") flatMap { _ ?? UserRepo.byId }
 }
 
 object OAuthServer {
