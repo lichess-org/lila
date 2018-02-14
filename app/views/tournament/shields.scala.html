@@ -22,7 +22,7 @@ moreCss = moreCss) {
       <ul>
         @awards.map { a =>
         <li>
-          @userIdLink(a.userId.some)
+          @userIdLink(a.owner.value.some)
           <a href="@routes.Tournament.show(a.tourId)">@showDate(a.date)</a>
         </li>
         }

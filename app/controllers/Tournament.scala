@@ -90,7 +90,8 @@ object Tournament extends LilaController {
             json <- env.jsonView(tour, page, ctx.me, none, version.some, ctx.lang)
             _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
             streamers <- streamerCache get tour.id
-          } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers))).mon(_.http.response.tournament.show.website)
+            shieldOwner <- env.shieldApi currentOwner tour
+          } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))).mon(_.http.response.tournament.show.website)
         }
       },
       api = _ => repo byId id flatMap {

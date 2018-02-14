@@ -57,7 +57,7 @@ final class JsonView(
     }
     stats <- statsApi(tour)
     myGameId <- me.ifTrue(myInfo.isDefined) ?? { fetchCurrentGameId(tour, _) }
-    shieldOwner <- shieldApi.currentOwner(tour) map { _ ?? lightUserApi.sync }
+    shieldOwner <- shieldApi.currentOwner(tour) map { _ ?? { o => lightUserApi sync o.value } }
   } yield Json.obj(
     "id" -> tour.id,
     "createdBy" -> tour.createdBy,

@@ -482,6 +482,10 @@ div.side_box .game_infos.spotlight {
 div.side_box .game_infos.spotlight a {
   text-decoration: underline;
 }
+div.side_box .game_infos .defender::before {
+  font-size: 1.6em;
+  vertical-align: -0.26em;
+}
 div.side_box .conditions::before {
   opacity: 0.6;
 }

@@ -16,14 +16,14 @@ final class TournamentShieldApi(
   import BSONHandlers._
 
   def active(u: User): Fu[List[Award]] = cache.get map {
-    _.value.values.flatMap(_.headOption.filter(_.userId == u.id)).toList
+    _.value.values.flatMap(_.headOption.filter(_.owner.value == u.id)).toList
   }
 
   def history: Fu[History] = cache.get
 
-  def currentOwner(tour: Tournament): Fu[Option[User.ID]] = tour.isShield ?? {
+  def currentOwner(tour: Tournament): Fu[Option[OwnerId]] = tour.isShield ?? {
     Category.of(tour) ?? { cat =>
-      history.map(_.current(cat).map(_.userId))
+      history.map(_.current(cat).map(_.owner))
     }
   }
 
@@ -42,7 +42,7 @@ final class TournamentShieldApi(
         winner <- tour.winnerId
       } yield Award(
         categ = categ,
-        userId = winner,
+        owner = OwnerId(winner),
         date = tour.finishesAt,
         tourId = tour.id
       )
@@ -56,9 +56,11 @@ final class TournamentShieldApi(
 
 object TournamentShield {
 
+  case class OwnerId(value: String) extends AnyVal
+
   case class Award(
       categ: Category,
-      userId: User.ID,
+      owner: OwnerId,
       date: DateTime,
       tourId: Tournament.ID
   )
@@ -69,7 +71,7 @@ object TournamentShield {
       categ -> ~(value get categ)
     }
 
-    def userIds: List[User.ID] = value.values.flatMap(_.map(_.userId)).toList
+    def userIds: List[User.ID] = value.values.flatMap(_.map(_.owner.value)).toList
 
     def current(cat: Category): Option[Award] = value get cat flatMap (_.headOption)
   }

@@ -1,4 +1,4 @@
-@(tour: Tournament, verdicts: lila.tournament.Condition.All.WithVerdicts, streamers: Set[User.ID])(implicit ctx: Context)
+@(tour: Tournament, verdicts: lila.tournament.Condition.All.WithVerdicts, streamers: Set[User.ID], shieldOwner: Option[lila.tournament.TournamentShield.OwnerId])(implicit ctx: Context)
 
 <div class="side_box padded">
   <div class="game_infos" data-icon="@tour.perfType.map(_.iconChar)">
@@ -27,6 +27,9 @@
   @tour.spotlight.map { s =>
   <div class="game_infos spotlight">
     @lila.common.String.html.markdownLinks(s.description)
+    @shieldOwner.map { owner =>
+    <p class="defender" data-icon="5">Defender:@userIdLink(owner.value.some)</p>
+    }
   </div>
   }
   @if(verdicts.relevant) {
