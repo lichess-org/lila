@@ -62,6 +62,10 @@ private[puzzle] final class Daily(
     }
 }
 
+object Daily {
+  type Try = () => Fu[Option[DailyPuzzle]]
+}
+
 case class DailyPuzzle(html: play.twirl.api.Html, color: chess.Color, id: Int)
 
 case class RenderDaily(puzzle: Puzzle, fen: String, lastMove: String)

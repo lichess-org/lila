@@ -21,7 +21,7 @@ final class Preload(
     tourneyWinners: Fu[List[Winner]],
     timelineEntries: String => Fu[Vector[Entry]],
     liveStreams: () => Fu[LiveStreams],
-    dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]],
+    dailyPuzzle: lila.puzzle.Daily.Try,
     countRounds: () => Int,
     lobbyApi: lila.api.LobbyApi,
     getPlayban: String => Fu[Option[TempBan]],

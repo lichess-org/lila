@@ -1,5 +1,7 @@
 package lila.security
 
+import lila.oauth.OAuthServer
+
 import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
@@ -11,6 +13,7 @@ final class Env(
     slack: lila.slack.SlackApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     settingStore: lila.memo.SettingStore.Builder,
+    tryOAuthServer: OAuthServer.Try,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     db: lila.db.Env,
@@ -44,11 +47,6 @@ final class Env(
     val NetBaseUrl = config getString "net.base_url"
     val NetDomain = config getString "net.domain"
     val NetEmail = config getString "net.email"
-    object oauth {
-      val CollectionAccessToken = config getString "oauth.collection.access_token"
-      val CollectionClient = config getString "oauth.collection.client"
-      val PublicKey = OAuth.JWT.PublicKey(config getString "oauth.jwt.public_key")
-    }
   }
   import settings._
 
@@ -162,14 +160,7 @@ final class Env(
   scheduler.once(30 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
-  private lazy val oAuthDb = new lila.db.Env("oauth", config getConfig "oauth.mongodb", lifecycle)
-  private lazy val oAuthServer = new OAuthServer(
-    tokenColl = oAuthDb(oauth.CollectionAccessToken),
-    clientColl = oAuthDb(oauth.CollectionClient),
-    publicKey = oauth.PublicKey
-  )
-
-  lazy val api = new SecurityApi(storeColl, firewall, geoIP, authenticator, emailAddressValidator, oAuthServer)
+  lazy val api = new SecurityApi(storeColl, firewall, geoIP, authenticator, emailAddressValidator, tryOAuthServer)
 
   lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain)
 
@@ -188,6 +179,8 @@ final class Env(
 
 object Env {
 
+  private lazy val system = lila.common.PlayApp.system
+
   lazy val current = "security" boot new Env(
     config = lila.common.PlayApp loadConfig "security",
     db = lila.db.Env.current,
@@ -195,7 +188,14 @@ object Env {
     slack = lila.slack.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
     settingStore = lila.memo.Env.current.settingStore,
-    system = lila.common.PlayApp.system,
+    tryOAuthServer = () => scala.concurrent.Future {
+      lila.oauth.Env.current.server.some
+    }.withTimeoutDefault(50 millis, none)(system).thenPp recover {
+      case e: Exception =>
+        lila.log("security").warn("oauth", e)
+        none
+    },
+    system = system,
     scheduler = lila.common.PlayApp.scheduler,
     captcher = lila.hub.Env.current.actor.captcher,
     lifecycle = lila.common.PlayApp.lifecycle

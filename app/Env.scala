@@ -64,7 +64,7 @@ final class Env(
     asyncCache = Env.memo.asyncCache
   )
 
-  private def tryDailyPuzzle(): Fu[Option[lila.puzzle.DailyPuzzle]] =
+  private val tryDailyPuzzle: lila.puzzle.Daily.Try = () =>
     scala.concurrent.Future {
       Env.puzzle.daily.get
     }.flatMap(identity).withTimeoutDefault(50 millis, none)(system) recover {
@@ -222,4 +222,5 @@ object Env {
   def activity = lila.activity.Env.current
   def relay = lila.relay.Env.current
   def streamer = lila.streamer.Env.current
+  def oauth = lila.oauth.Env.current
 }

@@ -20,7 +20,7 @@ final class SecurityApi(
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
-    oAuth: OAuthServer
+    tryOauthServer: lila.oauth.OAuthServer.Try
 ) {
 
   val AccessUri = "access_uri"
@@ -77,7 +77,13 @@ final class SecurityApi(
             }
           }
         }
-      } orElse oAuth.activeUser(req).map2 { (u: User) => FingerprintedUser(u, false) }
+      } orElse lila.oauth.OAuthServer.appliesTo(req).?? {
+        tryOauthServer().flatMap {
+          _ ?? {
+            _.activeUser(req).map2 { (u: User) => FingerprintedUser(u, false) }
+          }
+        }
+      }
     }
 
   def locatedOpenSessions(userId: User.ID, nb: Int): Fu[List[LocatedSession]] =
