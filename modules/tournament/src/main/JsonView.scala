@@ -57,7 +57,7 @@ final class JsonView(
     }
     stats <- statsApi(tour)
     myGameId <- me.ifTrue(myInfo.isDefined) ?? { fetchCurrentGameId(tour, _) }
-    shieldOwner <- shieldApi.currentOwner(tour) map { _ ?? { o => lightUserApi sync o.value } }
+    shieldOwner <- shieldApi currentOwner tour
   } yield Json.obj(
     "id" -> tour.id,
     "createdBy" -> tour.createdBy,
@@ -93,7 +93,7 @@ final class JsonView(
     .add("stats" -> stats)
     .add("next" -> data.next)
     .add("myGameId" -> myGameId)
-    .add("shieldOwner" -> shieldOwner)
+    .add("defender" -> shieldOwner.map(_.value))
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =
     if (page == 1) firstPageCache get tour.id

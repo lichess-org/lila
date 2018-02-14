@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import TournamentController from '../ctrl';
+import { dataIcon } from './util';
 
 function startClock(time) {
   return {
@@ -52,7 +53,7 @@ function image(d): VNode | undefined {
     attrs: { src: window.lichess.assetUrl('/assets/images/' + s.iconImg) }
   });
   return h('i.img', {
-    attrs: { 'data-icon': (s && s.iconFont) || 'g' }
+    attrs: dataIcon((s && s.iconFont) || 'g')
   });
 }
 
@@ -80,7 +81,7 @@ function title(ctrl: TournamentController) {
     ] : [d.fullName]).concat(
       d.private ? [
         ' ',
-        h('span', { attrs: { 'data-icon': 'a' }})
+        h('span', { attrs: dataIcon('a')})
       ] : [])
   );
 }

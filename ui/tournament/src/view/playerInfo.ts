@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
-import { spinner, bind, numberRow, playerName, player as renderPlayer } from './util';
+import { spinner, bind, numberRow, playerName, dataIcon, player as renderPlayer } from './util';
 import { status } from 'game';
 import TournamentController from '../ctrl';
 
@@ -18,7 +18,7 @@ function result(win, stat): string {
 function playerTitle(player) {
   return h('h2', [
     h('span.rank', player.rank + '. '),
-    renderPlayer(player, true, false)
+    renderPlayer(player, true, false, false)
   ]);
 }
 
@@ -49,7 +49,7 @@ export default function(ctrl: TournamentController): VNode {
     }
   }, [
     h('close', {
-      attrs: { 'data-icon': 'L' },
+      attrs: dataIcon('L'),
       hook: bind('click', () => ctrl.showPlayerInfo(data.player), ctrl.redraw)
     }),
     h('div.stats', [

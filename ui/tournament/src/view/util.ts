@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { Hooks } from 'snabbdom/hooks'
+import { Attrs } from 'snabbdom/modules/attributes'
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
   return {
@@ -11,6 +12,12 @@ export function bind(eventName: string, f: (e: Event) => any, redraw?: () => voi
         return res;
       });
     }
+  };
+}
+
+export function dataIcon(icon: string): Attrs {
+  return {
+    'data-icon': icon
   };
 }
 
@@ -41,7 +48,8 @@ export function playerName(p) {
   return p.title ? [h('span.title', p.title), ' ' + p.name] : p.name;
 }
 
-export function player(p, asLink: boolean, withRating: boolean) {
+export function player(p, asLink: boolean, withRating: boolean, defender: boolean) {
+
   const fullName = playerName(p);
 
   return h('a.ulpt.user_link' + (fullName.length > 15 ? '.long' : ''), {
@@ -50,7 +58,7 @@ export function player(p, asLink: boolean, withRating: boolean) {
       destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement)
     }
   }, [
-    h('span.name', fullName),
+    h('span.name' + (defender ? '.defender' : ''), defender ? { attrs: dataIcon('5') } : {}, fullName),
     withRating ? h('span.rating', p.rating + (p.provisional ? '?' : '')) : null
   ]);
 }

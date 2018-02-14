@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import TournamentController from '../ctrl';
-import { player as renderPlayer, ratio2percent, bind } from './util';
+import { player as renderPlayer, ratio2percent, bind, dataIcon } from './util';
 import { MaybeVNodes } from '../interfaces';
 import * as button from './button';
 import * as pagination from '../pagination';
@@ -31,12 +31,12 @@ function playerTr(ctrl: TournamentController, player) {
         'title': ctrl.trans.noarg('pause')
       }
     }) : player.rank),
-    h('td.player', renderPlayer(player, false, true)),
+    h('td.player', renderPlayer(player, false, true, userId === ctrl.data.defender)),
     h('td.sheet', player.sheet.scores.map(scoreTag)),
     h('td.total', [
       h('strong',
         player.sheet.fire && !ctrl.data.isFinished ?
-        h('strong.is-gold', { attrs: { 'data-icon': 'Q' } }, player.sheet.total) :
+        h('strong.is-gold', { attrs: dataIcon('Q') }, player.sheet.total) :
         h('strong', player.sheet.total))
     ])
   ]);
