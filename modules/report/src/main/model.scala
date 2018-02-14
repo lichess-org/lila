@@ -27,6 +27,8 @@ case class Reporter(user: User) extends AnyVal {
 case class ReporterId(value: User.ID) extends AnyVal
 
 object ReporterId {
+  def lichess = ReporterId("lichess")
+  def irwin = ReporterId("irwin")
   implicit val reporterIdIso = lila.common.Iso.string[ReporterId](ReporterId.apply, _.value)
 }
 

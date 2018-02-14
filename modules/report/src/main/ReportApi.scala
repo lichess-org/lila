@@ -74,17 +74,19 @@ final class ReportApi(
     }
 
   def autoCheatReport(userId: String, text: String): Funit =
-    getSuspect(userId) zip getLichessReporter flatMap {
-      case (Some(suspect), reporter) =>
-        lila.mon.cheat.autoReport.count()
-        create(Report.Candidate(
-          reporter = reporter,
-          suspect = suspect,
-          reason = Reason.Cheat,
-          text = text
-        ))
-      case _ => funit
-    }
+    getSuspect(userId) zip
+      getLichessReporter zip
+      findRecent(1, selectRecent(SuspectId(userId), Reason.Cheat)).map(_.flatMap(_.atoms.toList)) flatMap {
+        case Some(suspect) ~ reporter ~ atoms if atoms.forall(_.byHuman) =>
+          lila.mon.cheat.autoReport.count()
+          create(Report.Candidate(
+            reporter = reporter,
+            suspect = suspect,
+            reason = Reason.Cheat,
+            text = text
+          ))
+        case _ => funit
+      }
 
   def autoBotReport(userId: String, referer: Option[String], name: String): Funit =
     getSuspect(userId) zip getLichessReporter flatMap {
@@ -290,9 +292,9 @@ final class ReportApi(
     coll.find(selector).sort($sort desc "score").list[Report](nb)
   }
 
-  private def selectRecent(suspect: Suspect, reason: Reason): Bdoc = $doc(
+  private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc = $doc(
     "atoms.0.at" $gt DateTime.now.minusDays(7),
-    "user" -> suspect.user.id,
+    "user" -> suspect.value,
     "reason" -> reason.key
   )
 

@@ -93,7 +93,7 @@ object Report {
   ) {
     def simplifiedText = text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
 
-    def byHuman = by.value != "lichess" && by.value != "irwin"
+    def byHuman = by != ReporterId.lichess && by != ReporterId.irwin
   }
 
   case class Inquiry(mod: User.ID, seenAt: DateTime)
