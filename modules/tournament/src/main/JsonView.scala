@@ -16,6 +16,7 @@ final class JsonView(
     lightUserApi: lila.user.LightUserApi,
     cached: Cached,
     statsApi: TournamentStatsApi,
+    shieldApi: TournamentShieldApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     verify: Condition.Verify,
     duelStore: DuelStore,
@@ -56,6 +57,7 @@ final class JsonView(
     }
     stats <- statsApi(tour)
     myGameId <- me.ifTrue(myInfo.isDefined) ?? { fetchCurrentGameId(tour, _) }
+    shieldOwner <- shieldApi.currentOwner(tour) map { _ ?? lightUserApi.sync }
   } yield Json.obj(
     "id" -> tour.id,
     "createdBy" -> tour.createdBy,
@@ -91,6 +93,7 @@ final class JsonView(
     .add("stats" -> stats)
     .add("next" -> data.next)
     .add("myGameId" -> myGameId)
+    .add("shieldOwner" -> shieldOwner)
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =
     if (page == 1) firstPageCache get tour.id

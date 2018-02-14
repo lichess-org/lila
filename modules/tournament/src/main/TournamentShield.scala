@@ -21,6 +21,12 @@ final class TournamentShieldApi(
 
   def history: Fu[History] = cache.get
 
+  def currentOwner(tour: Tournament): Fu[Option[User.ID]] = tour.isShield ?? {
+    Category.of(tour) ?? { cat =>
+      history.map(_.current(cat).map(_.userId))
+    }
+  }
+
   private[tournament] def clear = cache.refresh
 
   private val cache = asyncCache.single[History](
@@ -64,6 +70,8 @@ object TournamentShield {
     }
 
     def userIds: List[User.ID] = value.values.flatMap(_.map(_.userId)).toList
+
+    def current(cat: Category): Option[Award] = value get cat flatMap (_.headOption)
   }
 
   private type SpeedOrVariant = Either[Schedule.Speed, chess.variant.Variant]
