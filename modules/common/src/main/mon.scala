@@ -163,12 +163,14 @@ object mon {
         def create = makeTrace("round.move.trace")
       }
       object lag {
-        val avgReported = rec("round.move.lag.avg_reported")
-        private val estErrorRec = rec("round.move.lag.estimate_error_1000")
-        def estimateError(e: Int) = estErrorRec(e + 1000)
         val compDeviation = rec("round.move.lag.comp_deviation")
         def uncomped(key: String) = rec(s"round.move.lag.uncomped.$key")
         val uncompedAll = rec(s"round.move.lag.uncomped.all")
+        val stdDev = rec(s"round.move.lag.stddev_ms")
+        val mean = rec(s"round.move.lag.mean_ms")
+        val coefVar = rec(s"round.move.lag.coef_var_1000")
+        val compEstStdErr = rec(s"round.move.lag.comp_est_stderr_1000")
+        val compEstOverErr = rec("round.move.lag.avg_over_error_ms")
       }
     }
     object error {
