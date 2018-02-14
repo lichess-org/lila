@@ -26,7 +26,7 @@ export function start(ctrl: RoundController, orig: cg.Key, dest: cg.Key, meta: c
   const d = ctrl.data,
   piece = ctrl.chessground.state.pieces[dest],
   premovePiece = ctrl.chessground.state.pieces[orig];
-  if (((piece && piece.role === 'pawn') || (premovePiece && premovePiece.role === 'pawn')) && (
+  if (((piece && piece.role === 'pawn' && !premovePiece) || (premovePiece && premovePiece.role === 'pawn')) && (
     (dest[1] === '8' && d.player.color === 'white') ||
       (dest[1] === '1' && d.player.color === 'black'))) {
     if (prePromotionRole && meta && meta.premove) return sendPromotion(ctrl, orig, dest, prePromotionRole, meta);
