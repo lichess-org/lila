@@ -4,7 +4,7 @@
 <div class="content_box login">
   <div class="signup_box">
     <h1 class="lichess_title">@trans.signIn()</h1>
-    <form action="@routes.Auth.authenticate?referrer=@referrer" method="POST">
+    <form action="@routes.Auth.authenticate@referrer.map { ref =>?referrer=@{java.net.URLEncoder.encode(ref, "US-ASCII")}}" method="POST">
       @globalError(form)
       <ul>
         @auth.formFields(form("username"), form("password"), none, register = false)
