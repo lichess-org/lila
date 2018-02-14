@@ -31,8 +31,10 @@ object Auth extends LilaController {
 
   private def goodReferrer(referrer: String): Boolean = {
     referrer.nonEmpty &&
-      referrer.stripPrefix("/") != "mobile" &&
-      """(?:[\w@-]|(:?\/[\w@-]))*\/?""".r.matches(referrer)
+      referrer.stripPrefix("/") != "mobile" && {
+        """(?:[\w@-]|(:?\/[\w@-]))*\/?""".r.matches(referrer) ||
+          referrer.startsWith(Env.oauth.baseUrl)
+      }
   }
 
   def authenticateUser(u: UserModel, result: Option[Fu[Result]] = None)(implicit ctx: Context): Fu[Result] = {
@@ -64,7 +66,7 @@ object Auth extends LilaController {
   }
 
   def login = Open { implicit ctx =>
-    val referrer = get("referrer")
+    val referrer = get("referrer").filter(goodReferrer)
     Ok(html.auth.login(api.loginForm, referrer)).fuccess
   }
 

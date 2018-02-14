@@ -18,6 +18,8 @@ final class Env(
   }
   import settings._
 
+  val baseUrl = config getString "base_url"
+
   private val db = new lila.db.Env("oauth", DbConfig, lifecycle)
 
   lazy val server = new OAuthServer(
