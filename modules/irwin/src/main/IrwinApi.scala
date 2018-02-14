@@ -56,7 +56,7 @@ final class IrwinApi(
       UserRepo byId suspectId flatten s"suspect $suspectId not found" map Suspect.apply
 
     private def markOrReport(report: IrwinReport): Funit =
-      if (report.activation > markThreshold && mode() == "mark")
+      if (report.activation >= markThreshold && mode() == "mark")
         modApi.autoMark(report.suspectId, ModId.irwin) >>-
           lila.mon.mod.irwin.mark()
       else if (report.activation >= reportThreshold && mode() != "none") for {
