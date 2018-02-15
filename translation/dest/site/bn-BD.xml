@@ -643,4 +643,7 @@
   <string name="whenCreateSimul">যখন আপনি একটি সিমুল তৈরি করেন, আপনি খেলার জন্য একাধিক খেলোয়ার পাবেন.</string>
   <string name="simulVariantsHint">যদি আপনি বিভিন্ন অপশন নির্বাচন করেন, প্রতিটি খেলোয়াড়কে বেছে নিতে হবে যেটা সে খেলতে চায়.</string>
   <string name="simulClockHint">ফিশার ঘড়ি বিন্যাস. একবারে অনেক খেলোয়াড় নিলে, হয়তো আপনার অনেক সময় প্রয়োজন হবে.</string>
+  <string name="simulAddExtraTime">আপনি হয়তো অতিরিক্ত সময় যোগ করে আপনার ঘড়ি সিমুলের সাথে মোকাবেলা করতে পারবেন.</string>
+  <string name="simulHostExtraTime">অতিরিক্ত ঘড়ির সময়ের স্বাগতিক</string>
+  <string name="lichessTournaments">দাবা ক্রীড়া-প্রতিযোগিতা</string>
 </resources>
