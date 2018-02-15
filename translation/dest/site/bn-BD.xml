@@ -599,4 +599,8 @@
   <string name="error.email_unique">এই ইমেইলটি ইতিমধ্যে ব্যবহার করা হয়েছে</string>
   <string name="error.email_different">এই ইমেইল ঠিকানাটি ইতিমধ্যে আপনার</string>
   <string name="blindfoldChess">বেপরোয়াভাবে দাবা (অদৃশ্য টুকরা)</string>
+  <string name="zenMode">জেন মোড</string>
+  <string name="moveConfirmation">অনুমোদন সরান</string>
+  <string name="inCorrespondenceGames">সাদৃশ্য খেলাগুলো</string>
+  <string name="ifRatingIsPlusMinusX">যদি অনুপাত হয় ± %s</string>
 </resources>
