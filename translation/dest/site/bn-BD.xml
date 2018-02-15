@@ -276,6 +276,19 @@
   <string name="viewTournament">টুর্নামেন্ট দেখুন</string>
   <string name="backToTournament">টুর্নামেন্ট এ ফিরে যান</string>
   <string name="thematic">ধাতুসংক্রান্ত</string>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">আপনার খেলার প্রয়োজন %1$s আরো %2$s খেলার অনুপাত</item>
+    <item quantity="other">আপনার খেলার প্রয়োজন %1$s আরো %2$s খেলার অনুপাত</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">আপনার খেলার প্রয়োজন %s আরো অনুপাদিত খেলা</item>
+    <item quantity="other">আপনার খেলার প্রয়োজন %s আরো অনুপাদিত খেলা</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">আপনার %s অনুপাত হয় সাময়িক</string>
+  <string name="yourPerfRatingIsTooHigh">আপনার %1$s অনুপাত (%2$s) হয় অনেক বেশি</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">আপনার সাপ্তাহিক সর্বোচ্চ %1$s অনুপাত (%2$s) হয় অনেক বেশি</string>
+  <string name="yourPerfRatingIsTooLow">আপনার %1$s অনুপাত (%2$s) হয় অনেক কম</string>
+  <string name="ratedMoreThanInPerf">অনুপাতদিত ≥ %1$s এ %2$s</string>
   <string name="backToGame">খেলায় এ ফিরে যান</string>
   <string name="siteDescription">ফ্রি অনলাইন দাবা খেলা। এখন থেকে পরিচ্ছন্ন ইন্টারফেসে দাবা খেলুন। কোন রেজিস্ট্রেশনের দরকার নেই, নেই কোন বিজ্ঞাপন, এমনকি কোনও প্লাগইন-এরও প্রয়োজন নেই। দাবা খেলুন কম্পিউটারের সাথে, অথবা বন্ধুর সাথে অথবা অজানা যে কোন প্রতিপক্ষের সাথে।</string>
   <string name="teams">দল</string>
