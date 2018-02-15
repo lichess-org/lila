@@ -673,4 +673,5 @@
   <string name="checkYourEmail">আপনার ই-মেইল চেক করুন</string>
   <string name="weHaveSentYouAnEmailClickTheLink">আমরা আপনাকে একটি ই-মেইল পাঠিয়েছি. একাউন্টি সক্তিয় করার জন্য ই-মেইল দেওয়া লিংকটি ক্লিক করুন.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">যদি আপনি ই-মেইলটি না দেখতে পান, অন্যজাগায় থাকতে পারে, যেমন আপনার জুনক, স্প্যাম, সোসিয়াল, অথবা অন্য ফোল্ডার.</string>
+  <string name="weHaveSentYouAnEmailTo">আমরা একটি ই-মেইল পাঠিয়েছি %s. ই-মেইলে দেওয়া লিংকে ক্লিক করুন পাসওয়ার্ড পরিবর্তন করতে.</string>
 </resources>
