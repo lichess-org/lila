@@ -591,4 +591,12 @@
   <string name="sharePGN">PGN ভাগাভাগি করুন</string>
   <string name="playOnline">অনলাইনে খেলুন</string>
   <string name="playOffline">অফলাইনে খেলুন</string>
+  <string name="allowAnalytics">বেনামি পরিসংখ্যান অনুমতি দিন</string>
+  <string name="shareGameURL">খেলার URL ভাগভাগি করুন</string>
+  <string name="error.required">এই ঘরটি পূরন করা আবশ্যক</string>
+  <string name="error.email">এই ইমেইল ঠিকানাটি অবৈধ</string>
+  <string name="error.email_acceptable">এই ইমেইল ঠিকানাটি গ্রহণযোগ্য নয়</string>
+  <string name="error.email_unique">এই ইমেইলটি ইতিমধ্যে ব্যবহার করা হয়েছে</string>
+  <string name="error.email_different">এই ইমেইল ঠিকানাটি ইতিমধ্যে আপনার</string>
+  <string name="blindfoldChess">বেপরোয়াভাবে দাবা (অদৃশ্য টুকরা)</string>
 </resources>
