@@ -632,4 +632,7 @@
   <string name="createdSimuls">নতুন সিমুলস তৈরি হয়েছে</string>
   <string name="hostANewSimul">একটি নতুন সিমুল স্বাগতিক</string>
   <string name="noSimulFound">একসঙ্গে খুঁজে পাওয়া যায়নি</string>
+  <string name="noSimulExplanation">এই যুগপত প্রদর্শনী বিদ্যমান নেই.</string>
+  <string name="returnToSimulHomepage">সিমুল প্রথমপাতায় ফিরে যান</string>
+  <string name="aboutSimul">সিমুলস একজন খেলোয়াড় মুখোমুখি হয় একসজ্ঞে কয়েকজন খেলোয়াড়ের সাথে.</string>
 </resources>
