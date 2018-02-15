@@ -517,6 +517,10 @@
   <string name="tenthsOfSeconds">সেকেন্ডের কাটা</string>
   <string name="never">কখনই না</string>
   <string name="whenTimeRemainingLessThanTenSeconds">যখন সময় বাকি &lt; 10 সেকেন্ড</string>
+  <string name="horizontalGreenProgressBars">সমতল সবুজ অগ্রগতি বার</string>
+  <string name="soundWhenTimeGetsCritical">যখন সময় জটিল হয়ে যায় শব্দ</string>
+  <string name="gameBehavior">খেলার আচরন</string>
+  <string name="howDoYouMovePieces">কিভাবে আপনি টুকরোগুলো সরাবেন?</string>
   <string name="victory">বিজয়!</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">সর্বোচ্চ: %s টি অক্ষর</item>
