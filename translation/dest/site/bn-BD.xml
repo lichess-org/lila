@@ -161,6 +161,8 @@
   </plurals>
   <string name="time">সময়</string>
   <string name="rating">রেটিং</string>
+  <string name="ratingStats">অনুপাত পরিসংখ্যান</string>
+  <string name="username">ব্যবহারকারীর নাম</string>
   <string name="usernameOrEmail">ব্যবহারকারী নাম</string>
   <string name="password">পাসওয়ার্ড</string>
   <string name="haveAnAccount">আপনার কি  account রয়েছে</string>
@@ -170,6 +172,12 @@
   <string name="passwordReset">password পরিবর্তন</string>
   <string name="forgotPassword">password ভুলে গেছেন ?</string>
   <string name="rank">মর্যাদাক্রম</string>
+  <string name="rankX">অনুপাত: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">অনুপাতের রুপ দেওয়া হয়েছে প্রতি %s মিনিটে</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s ধাঁধা</item>
+    <item quantity="other">%s ধাঁধা</item>
+  </plurals>
   <string name="gamesPlayed">খেলা খেলেছেন</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s টি খেলা আপনার সঙ্গে</item>
@@ -189,6 +197,7 @@
   <string name="accept">গ্রহণ করুন</string>
   <string name="decline">প্রত্যাখ্যান করুন</string>
   <string name="playingRightNow">এই মুহূর্তে খেলছেন</string>
+  <string name="eventInProgress">এই মুহূর্তে খেলতেছে</string>
   <string name="finished">সমাপ্ত</string>
   <string name="abortGame">খেলা বন্ধ করুন</string>
   <string name="gameAborted">খেলা বন্ধ করা হয়েছে</string>
