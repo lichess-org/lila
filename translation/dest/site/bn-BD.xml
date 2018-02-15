@@ -385,6 +385,11 @@
   <string name="standByX">অপেক্ষিত %s, যোগদান খেলোয়ার, তৈরি হও!</string>
   <string name="youArePlaying">আপনি খেলতেছেন!</string>
   <string name="winRate">জয়ের অনুপাত</string>
+  <string name="berserkRate">ক্ষিপ্ত অনুপাত</string>
+  <string name="performance">সম্পাদন</string>
+  <string name="tournamentComplete">ক্রীড়া-প্রতিযোগিতা সম্পন্ন হয়েছে</string>
+  <string name="movesPlayed">খেলা সরানো হয়েছে</string>
+  <string name="whiteWins">সাদা বিজয়ী</string>
   <string name="membersOnly">শুধুমাত্র সদস্যদের জন্য</string>
   <string name="boardEditor">বোর্ড সম্পাদক</string>
   <string name="startPosition">শুরুর অবস্থান</string>
