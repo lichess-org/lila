@@ -657,4 +657,7 @@
   <string name="keyEnterOrExitVariation">প্রবেশ করান/বেরিয়ে যান</string>
   <string name="newTournament">নতুন ক্রীড়া-প্রতিযোগিতা</string>
   <string name="tournamentHomeTitle">দাবা ক্রীড়া-প্রতিযোগিতা বিভিন্ন সময় নিয়ন্ত্রণ এবং বৈকল্পিক দেখানো হয়েছে</string>
+  <string name="tournamentHomeDescription">দ্রুত-গুরূত্বপূর্ণ দাবা প্রতিযোগিতা খেলুন! একটি অফিসিয়াল সময়সূচী প্রতিযোগিতায় যোগ দিন অথবা নিজের তৈরি করুন. বুল্লেট, বিলটজ, ক্লাসিক্যাল, দাবা960, পাহাড়ের রাজা, তিনরেখা, এবং আরো অপশন রয়েছে দাবা মজার জন্য.</string>
+  <string name="tournamentNotFound">ক্রীড়া-প্রতিযোগিতা খুজে পাওয়া যাইনি</string>
+  <string name="tournamentDoesNotExist">এই ক্রীড়া-প্রতিযোগিতার অস্তিত্ব নেই.</string>
 </resources>
