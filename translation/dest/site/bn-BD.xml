@@ -527,6 +527,12 @@
   <string name="premovesPlayingDuringOpponentTurn">পূনারয়চালন (প্রতিপক্ষের মোর নেওয়ার সময়)</string>
   <string name="takebacksWithOpponentApproval">পিছনে নেও (প্রতিদ্বন্দ্বীর অনুমদনের সাথে)</string>
   <string name="promoteToQueenAutomatically">সংক্রিয়ভাবে রানীর জন্য প্রচার</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">সংক্রিয়ভাবে দাবি আঁকা বিষয়ে তিনগুন অনুবর্তন</string>
+  <string name="privacy">গোপনীয়তা</string>
+  <string name="letOtherPlayersFollowYou">অন্যান্য খেলোয়ারদের আপানকে অনুসরন করতে দিন</string>
+  <string name="letOtherPlayersChallengeYou">অন্যান্য খেলোয়ারদের আপানকে চ্যালেঞ্জ করতে দিন</string>
+  <string name="letOtherPlayersInviteYouToStudy">অন্যান্য খেলোয়ারদের আপানকে আমন্ত্রন করতে দিন</string>
+  <string name="sound">শব্দ</string>
   <string name="victory">বিজয়!</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">সর্বোচ্চ: %s টি অক্ষর</item>
