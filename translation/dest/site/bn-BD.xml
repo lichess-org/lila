@@ -246,14 +246,20 @@
     <item quantity="one">%s টি ড্র</item>
     <item quantity="other">%s টি ড্র</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s খেলছে</item>
+    <item quantity="other">%s খেলছে</item>
+  </plurals>
   <string name="exportGames">খেলা রপ্তানী</string>
   <string name="ratingRange">রেটিং সীমা</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s সেকেন্ড দিন</item>
     <item quantity="other">%s সেকেন্ড দিন</item>
   </plurals>
+  <string name="giveMoreTime">আরো কিছু সময় দিন</string>
   <string name="thisPlayerUsesChessComputerAssistance">এই খেলোয়াড় দাবা-কম্পিউটারের সাহায্য ব্যবহার করেন</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">এই খেলোয়াড় প্রযুক্তি ব্যবহার করে কৃত্তিম ভাবে নিজের rating বাড়ায়/কমায়</string>
+  <string name="openingExplorerAndTablebase">বিস্লেষন খুলতেছে &amp; টেবিলবেস</string>
   <string name="takeback">চাল ফিরিয়ে নিন</string>
   <string name="proposeATakeback">চাল ফিরিয়ে নেবার সুযোগ দিন</string>
   <string name="takebackPropositionSent">চাল ফিরিয়ে সুযোগ পাঠানো হয়েছে</string>
@@ -269,6 +275,7 @@
   <string name="tournamentPoints">টুর্নামেন্ট পয়েন্ট</string>
   <string name="viewTournament">টুর্নামেন্ট দেখুন</string>
   <string name="backToTournament">টুর্নামেন্ট এ ফিরে যান</string>
+  <string name="thematic">ধাতুসংক্রান্ত</string>
   <string name="backToGame">খেলায় এ ফিরে যান</string>
   <string name="siteDescription">ফ্রি অনলাইন দাবা খেলা। এখন থেকে পরিচ্ছন্ন ইন্টারফেসে দাবা খেলুন। কোন রেজিস্ট্রেশনের দরকার নেই, নেই কোন বিজ্ঞাপন, এমনকি কোনও প্লাগইন-এরও প্রয়োজন নেই। দাবা খেলুন কম্পিউটারের সাথে, অথবা বন্ধুর সাথে অথবা অজানা যে কোন প্রতিপক্ষের সাথে।</string>
   <string name="teams">দল</string>
