@@ -86,7 +86,14 @@
   </plurals>
   <string name="noGameFound">কোন খেলা নেই</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">হয়তো আরো খেলা যোগ করা হবে পচ্ছন্দের তালিকায়?</string>
+  <string name="openingExplorer">অনুসন্ধানকারী খুলতেছে</string>
+  <string name="xOpeningExplorer">%s অনুসন্ধানকারী খুলতেছে</string>
+  <string name="winPreventedBy50MoveRule">50-চাল নিয়মে জয় প্রতিরোধ</string>
+  <string name="lossSavedBy50MoveRule">50- চাল নিয়মে হার জমা</string>
   <string name="allSet">সব প্রস্তুত!</string>
+  <string name="importPgn">PGN প্রবেশ করান</string>
+  <string name="delete">মুছে ফেলা</string>
+  <string name="deleteThisImportedGame">প্রেবেশ করানো খেলাটি মুছেফেলবেন?</string>
   <string name="cpus">সিপিইউ</string>
   <string name="memory">মেমরি</string>
   <string name="infiniteAnalysis">অনন্ত বিশ্লেষণ</string>
