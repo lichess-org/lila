@@ -646,4 +646,6 @@
   <string name="simulAddExtraTime">আপনি হয়তো অতিরিক্ত সময় যোগ করে আপনার ঘড়ি সিমুলের সাথে মোকাবেলা করতে পারবেন.</string>
   <string name="simulHostExtraTime">অতিরিক্ত ঘড়ির সময়ের স্বাগতিক</string>
   <string name="lichessTournaments">দাবা ক্রীড়া-প্রতিযোগিতা</string>
+  <string name="tournamentFAQ">কর্মক্ষেত্র প্রতিযোগিতার প্রশ্নবলী</string>
+  <string name="tournamentOfficial">সরকারী</string>
 </resources>
