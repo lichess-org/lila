@@ -533,6 +533,17 @@
   <string name="letOtherPlayersChallengeYou">অন্যান্য খেলোয়ারদের আপানকে চ্যালেঞ্জ করতে দিন</string>
   <string name="letOtherPlayersInviteYouToStudy">অন্যান্য খেলোয়ারদের আপানকে আমন্ত্রন করতে দিন</string>
   <string name="sound">শব্দ</string>
+  <string name="yourPreferencesHaveBeenSaved">আপনার পচ্ছন্দগুলি সংরক্ষিত করা হয়েছে.</string>
+  <string name="none">কিছুই না</string>
+  <string name="fast">দ্রুত</string>
+  <string name="normal">সাধারন</string>
+  <string name="slow">ধীর</string>
+  <string name="insideTheBoard">বোর্ডের মাধ্যে</string>
+  <string name="outsideTheBoard">বোর্ডের বাহিরে</string>
+  <string name="onSlowGames">খেলায় ধীর গতি</string>
+  <string name="always">সব সময়</string>
+  <string name="inCasualGamesOnly">শুধু অনিয়মিত খেলার মধ্যে</string>
+  <string name="whenPremoving">যখন পূনার‍য়সারান</string>
   <string name="victory">বিজয়!</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">সর্বোচ্চ: %s টি অক্ষর</item>
