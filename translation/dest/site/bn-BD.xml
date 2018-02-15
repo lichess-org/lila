@@ -206,6 +206,8 @@
   <string name="mode">ধরন</string>
   <string name="casual">সাধারণ</string>
   <string name="rated">রেট করা</string>
+  <string name="casualTournament">সাধারন</string>
+  <string name="ratedTournament">অনুপাত</string>
   <string name="thisGameIsRated">এই খেলাটি রেট করা</string>
   <string name="rematch">আবার খেলুন</string>
   <string name="rematchOfferSent">পুনঃম্যাচের অফার পাঠানো হয়েছে</string>
@@ -217,6 +219,8 @@
   <string name="play">খেলুন</string>
   <string name="inbox">ডাকবাক্স</string>
   <string name="chatRoom">আড্ডাঘর</string>
+  <string name="loginToChat">আলাপআলচনা করতে লগিন করুন</string>
+  <string name="youHaveBeenTimedOut">আপনার সময় শেষ.</string>
   <string name="spectatorRoom">দর্শক কক্ষ</string>
   <string name="composeMessage">মেসেজ তৈরি করুন</string>
   <string name="noNewMessages">কোন নতুন মেসেজ নেই</string>
@@ -226,6 +230,10 @@
   <string name="incrementInSeconds">প্রতি সেকেন্ডে পর্যায়ক্রমিক বৃদ্ধি</string>
   <string name="freeOnlineChess">ফ্রি অনলাইন দাবা</string>
   <string name="spectators">দর্শক</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s অনুপাত</item>
+    <item quantity="other">%s অনুপাত</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s টি জয়</item>
     <item quantity="other">%s টি জয়</item>
