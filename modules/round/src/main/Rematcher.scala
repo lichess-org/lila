@@ -86,7 +86,7 @@ private[round] final class Rematcher(
         board = Board(pieces, variant = pov.game.variant).withCastles {
           situation.fold(Castles.init)(_.situation.board.history.castles)
         },
-        color = White
+        color = situation.fold[chess.Color](White)(_.situation.color)
       ),
       clock = pov.game.clock map { c => Clock(c.config) },
       turns = situation ?? (_.turns),
