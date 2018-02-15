@@ -521,6 +521,12 @@
   <string name="soundWhenTimeGetsCritical">যখন সময় জটিল হয়ে যায় শব্দ</string>
   <string name="gameBehavior">খেলার আচরন</string>
   <string name="howDoYouMovePieces">কিভাবে আপনি টুকরোগুলো সরাবেন?</string>
+  <string name="clickTwoSquares">দুই স্থান নির্বাচন করুন</string>
+  <string name="dragPiece">এক টুকরো স্থান্তর করুন</string>
+  <string name="bothClicksAndDrag">উভয়ের</string>
+  <string name="premovesPlayingDuringOpponentTurn">পূনারয়চালন (প্রতিপক্ষের মোর নেওয়ার সময়)</string>
+  <string name="takebacksWithOpponentApproval">পিছনে নেও (প্রতিদ্বন্দ্বীর অনুমদনের সাথে)</string>
+  <string name="promoteToQueenAutomatically">সংক্রিয়ভাবে রানীর জন্য প্রচার</string>
   <string name="victory">বিজয়!</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">সর্বোচ্চ: %s টি অক্ষর</item>
