@@ -71,7 +71,7 @@ object BSONHandlers {
       val gameVariant = Variant(r intD F.variant) | chess.variant.Standard
       val startedAtTurn = r intD F.startedAtTurn
       val plies = r int F.turns atMost Game.maxPlies // unlimited can cause StackOverflowError
-      val playedPlies = turns - startedAtTurn
+      val playedPlies = plies - startedAtTurn
       val turnColor = Color.fromPly(plies)
 
       val winC = r boolO F.winnerColor map Color.apply
