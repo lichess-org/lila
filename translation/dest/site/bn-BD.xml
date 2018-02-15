@@ -648,4 +648,12 @@
   <string name="lichessTournaments">দাবা ক্রীড়া-প্রতিযোগিতা</string>
   <string name="tournamentFAQ">কর্মক্ষেত্র প্রতিযোগিতার প্রশ্নবলী</string>
   <string name="tournamentOfficial">সরকারী</string>
+  <string name="timeBeforeTournamentStarts">সময়ের পূর্বে প্রতিযোগিতা শুরু</string>
+  <string name="averageCentipawnLoss">গড় ছিন্টেপাওন ক্ষতি</string>
+  <string name="keyboardShortcuts">কী-বোর্ড শর্টকাট</string>
+  <string name="keyMoveBackwardOrForward">পেছনে সরান/সামনে যান</string>
+  <string name="keyGoToStartOrEnd">শুরু করতে যান/শেষ</string>
+  <string name="keyShowOrHideComments">দেখুন/মন্তব্য লুকান</string>
+  <string name="keyEnterOrExitVariation">প্রবেশ করান/বেরিয়ে যান</string>
+  <string name="newTournament">নতুন ক্রীড়া-প্রতিযোগিতা</string>
 </resources>
