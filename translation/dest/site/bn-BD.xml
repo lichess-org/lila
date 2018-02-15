@@ -577,4 +577,18 @@
   <string name="side">পাশে</string>
   <string name="clock">ঘড়ি</string>
   <string name="unauthorizedError">অধিগমন অননুমোদিত করা হয়েছে.</string>
+  <string name="noInternetConnection">ইন্টারনেট সংযোগ নেই. অবশ্যই আপনি ইন্টারনেট সংযোগ ছাড়া মেনু থেকে খেলতে পারবেন.</string>
+  <string name="connectedToLichess">এখন আপনি সংযুক্ত হয়েছেন lichess.org</string>
+  <string name="signedOut">আপনি সাইন আউট হয়েছেন</string>
+  <string name="loginSuccessful">আপনি এখন সাইন ইন হয়েছেন</string>
+  <string name="playOnTheBoardOffline">বোর্ডের উপরে</string>
+  <string name="playOfflineComputer">কম্পিউটার</string>
+  <string name="opponent">প্রতিদ্বন্দ্বী</string>
+  <string name="learnMenu">শেখা</string>
+  <string name="community">সম্প্রদায়</string>
+  <string name="tools">সরঞ্জামসমূহ</string>
+  <string name="increment">মুনাফা</string>
+  <string name="sharePGN">PGN ভাগাভাগি করুন</string>
+  <string name="playOnline">অনলাইনে খেলুন</string>
+  <string name="playOffline">অফলাইনে খেলুন</string>
 </resources>
