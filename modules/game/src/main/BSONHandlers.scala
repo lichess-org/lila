@@ -69,7 +69,9 @@ object BSONHandlers {
     def reads(r: BSON.Reader): Game = {
 
       val gameVariant = Variant(r intD F.variant) | chess.variant.Standard
+      val startedAtTurn = r intD F.startedAtTurn
       val plies = r int F.turns atMost Game.maxPlies // unlimited can cause StackOverflowError
+      val playedPlies = turns - startedAtTurn
       val turnColor = Color.fromPly(plies)
 
       val winC = r boolO F.winnerColor map Color.apply
@@ -96,10 +98,10 @@ object BSONHandlers {
 
         Game.nbDecoded = Game.nbDecoded + 1
 
-        val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, plies) } | {
+        val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, playedPlies) } | {
           val clm = r.get[CastleLastMove](F.castleLastMove)
           PgnStorage.Decoded(
-            pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, plies),
+            pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, playedPlies),
             pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
             positionHashes = r.getO[chess.PositionHash](F.positionHashes) | Array.empty,
             unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
@@ -131,7 +133,7 @@ object BSONHandlers {
             clockBSONReader(createdAt, wPlayer.berserk, bPlayer.berserk)
           } map (_(turnColor)),
           turns = plies,
-          startedAtTurn = r intD F.startedAtTurn
+          startedAtTurn = startedAtTurn
         )
       }
 
