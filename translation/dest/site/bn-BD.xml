@@ -603,4 +603,11 @@
   <string name="moveConfirmation">অনুমোদন সরান</string>
   <string name="inCorrespondenceGames">সাদৃশ্য খেলাগুলো</string>
   <string name="ifRatingIsPlusMinusX">যদি অনুপাত হয় ± %s</string>
+  <string name="onlyFriends">শুধু বন্ধুরা</string>
+  <string name="menu">মেনু</string>
+  <string name="castling">কাস্টেলিং</string>
+  <string name="whiteCastlingKingside">সাদা O-O</string>
+  <string name="whiteCastlingQueenside">সাদা O-O-O</string>
+  <string name="blackCastlingKingside">কালো O-O</string>
+  <string name="blackCastlingQueenside">কালো O-O-O</string>
 </resources>
