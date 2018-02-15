@@ -619,4 +619,12 @@
   <string name="tpTimeSpentOnTV">টিভির সময়: %s</string>
   <string name="watch">দেখুন</string>
   <string name="internationalEvents">আন্তর্জাতিক ঘটনাগুলো</string>
+  <string name="videoLibrary">ভিডিও লাইব্রেরি</string>
+  <string name="mobileApp">মোবাইল অ্যাপ</string>
+  <string name="webmasters">ওয়েবমাস্টারগুলো</string>
+  <string name="contribute">অবদান</string>
+  <string name="contact">যোগাযোগ</string>
+  <string name="termsOfService">পরিষেবার শর্তাদি</string>
+  <string name="sourceCode">উৎস সংকেতলিপি</string>
+  <string name="simultaneousExhibitions">সমকালবর্তী প্রদর্শন</string>
 </resources>
