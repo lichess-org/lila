@@ -567,4 +567,14 @@
     <item quantity="one">সর্বোচ্চ: %s টি অক্ষর</item>
     <item quantity="other">সর্বোচ্চ: %s টি অক্ষর</item>
   </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s বাধা</item>
+    <item quantity="other">%s বাধা</item>
+  </plurals>
+  <string name="listBlockedPlayers">আপনি যাদের অবরুদ্ধ করেছেন তাদের তালিকা</string>
+  <string name="human">মানুষ</string>
+  <string name="computer">কম্পিউটার</string>
+  <string name="side">পাশে</string>
+  <string name="clock">ঘড়ি</string>
+  <string name="unauthorizedError">অধিগমন অননুমোদিত করা হয়েছে.</string>
 </resources>
