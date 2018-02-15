@@ -627,4 +627,9 @@
   <string name="termsOfService">পরিষেবার শর্তাদি</string>
   <string name="sourceCode">উৎস সংকেতলিপি</string>
   <string name="simultaneousExhibitions">সমকালবর্তী প্রদর্শন</string>
+  <string name="host">স্বাগতিক</string>
+  <string name="hostColorX">হোস্ট রং: %s</string>
+  <string name="createdSimuls">নতুন সিমুলস তৈরি হয়েছে</string>
+  <string name="hostANewSimul">একটি নতুন সিমুল স্বাগতিক</string>
+  <string name="noSimulFound">একসঙ্গে খুঁজে পাওয়া যায়নি</string>
 </resources>
