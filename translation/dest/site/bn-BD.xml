@@ -660,4 +660,13 @@
   <string name="tournamentHomeDescription">দ্রুত-গুরূত্বপূর্ণ দাবা প্রতিযোগিতা খেলুন! একটি অফিসিয়াল সময়সূচী প্রতিযোগিতায় যোগ দিন অথবা নিজের তৈরি করুন. বুল্লেট, বিলটজ, ক্লাসিক্যাল, দাবা960, পাহাড়ের রাজা, তিনরেখা, এবং আরো অপশন রয়েছে দাবা মজার জন্য.</string>
   <string name="tournamentNotFound">ক্রীড়া-প্রতিযোগিতা খুজে পাওয়া যাইনি</string>
   <string name="tournamentDoesNotExist">এই ক্রীড়া-প্রতিযোগিতার অস্তিত্ব নেই.</string>
+  <string name="tournamentMayHaveBeenCanceled">ক্রীড়া-প্রতিযোগিতা শুরু হওয়ার পূর্বে যদি সব খেলোয়াড় বেড়িয়ে যায়, হয়তো এটা বাতিল করা হতে পারে.</string>
+  <string name="returnToTournamentsHomepage">ফিরেযান ক্রীড়া-প্রতিযোগিতার প্রথম পাতায়</string>
+  <string name="weeklyPerfTypeRatingDistribution">সাপ্তাহিক %s অনুপাত বন্টন</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s খেলোয়াড় এই সপ্তাহের.</item>
+    <item quantity="other">%1$s %2$s খেলোয়াড়গুলো এই সপ্তাহের.</item>
+  </plurals>
+  <string name="yourPerfTypeRatingIsRating">আপনার %1$s অনুপাত হয় %2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">আপনি তুলনায় ভাল %1$s এর %2$s খেলোয়াড়দের.</string>
 </resources>
