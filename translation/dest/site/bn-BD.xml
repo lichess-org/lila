@@ -656,4 +656,5 @@
   <string name="keyShowOrHideComments">দেখুন/মন্তব্য লুকান</string>
   <string name="keyEnterOrExitVariation">প্রবেশ করান/বেরিয়ে যান</string>
   <string name="newTournament">নতুন ক্রীড়া-প্রতিযোগিতা</string>
+  <string name="tournamentHomeTitle">দাবা ক্রীড়া-প্রতিযোগিতা বিভিন্ন সময় নিয়ন্ত্রণ এবং বৈকল্পিক দেখানো হয়েছে</string>
 </resources>
