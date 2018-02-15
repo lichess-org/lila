@@ -398,12 +398,17 @@
   <string name="membersOnly">শুধুমাত্র সদস্যদের জন্য</string>
   <string name="boardEditor">বোর্ড সম্পাদক</string>
   <string name="setTheBoard">বোর্ড সেট করুন</string>
+  <string name="popularOpenings">জনপ্রিয় চমক</string>
   <string name="startPosition">শুরুর অবস্থান</string>
   <string name="clearBoard">বোর্ড খালি করুন</string>
   <string name="savePosition">অবস্থান সংরক্ষণ</string>
   <string name="loadPosition">অবস্থান পুনঃস্থাপন</string>
   <string name="isPrivate">ব্যক্তিগত</string>
   <string name="reportXToModerators">মডারেটরদের কাছে %s এর নামে রিপোর্ট করুন</string>
+  <string name="profileCompletion">প্রোফাইল সম্পন্ন: %s</string>
+  <string name="xRating">%s অনুপাত</string>
+  <string name="ifNoneLeaveEmpty">যদি কিছুই না হয়, খালি রাখুন</string>
+  <string name="gameCompletionRate">খেলার সম্পন্ন অনুপাত: %s</string>
   <string name="profile">পরিচিতি</string>
   <string name="editProfile">পরিচিতি সম্পাদনা</string>
   <string name="firstName">প্রথম নাম</string>
@@ -411,6 +416,7 @@
   <string name="biography">জীবনবৃত্তান্ত</string>
   <string name="country">দেশ</string>
   <string name="preferences">পছন্দসমূহ</string>
+  <string name="inlineNotation">রেখা চিহ্ন</string>
   <string name="watchLichessTV">Lichess TV দেখুন</string>
   <string name="previouslyOnLichessTV">এর আগে Lichess TV- তে যা হয়েছে</string>
   <string name="onlinePlayers">যে সমস্ত  খেলোয়ার অনলাইন আছে</string>
@@ -432,6 +438,7 @@
   <string name="keepGoing">এইভাবে চালিয়ে যান</string>
   <string name="puzzleFailed">ধাঁধা সমাধান করতে ব্যর্থ</string>
   <string name="butYouCanKeepTrying">তবে চেষ্টা চালিয়ে যেতে পারেন</string>
+  <string name="success">সফল্য হয়েছে</string>
   <string name="wasThisPuzzleAnyGood">এই ধাঁধাটি কেমন ছিল ?</string>
   <string name="pleaseVotePuzzle">UP অথবা Down arrow তে ভোট করে lichess-কে সাহায্য করুন</string>
   <string name="thankYou">ধন্যবাদ</string>
@@ -494,6 +501,7 @@
   <string name="closeAccountExplanation">আপনি সত্যি আপনার ACCOUNT বন্ধ করতে চান? মনে রাখুন এটি একটি চূড়ান্ত নির্বাচন কেননা আপনি আর নিজের প্রোফাইল খুলতে পারবেন না</string>
   <string name="thisAccountIsClosed">এই একাউন্টটি বন্ধ করা হয়েছে</string>
   <string name="invalidUsernameOrPassword">username অথবা password টি ঠিক নয়</string>
+  <string name="incorrectPassword">ভুল সঙ্কেত শব্দ</string>
   <string name="emailMeALink">আমাকে link ইমেইল কর</string>
   <string name="currentPassword">বর্তমান password</string>
   <string name="newPassword">নতুন password</string>
