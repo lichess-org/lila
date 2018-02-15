@@ -544,7 +544,19 @@
   <string name="always">সব সময়</string>
   <string name="inCasualGamesOnly">শুধু অনিয়মিত খেলার মধ্যে</string>
   <string name="whenPremoving">যখন পূনার‍য়সারান</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">যখন সময় বাকি &lt; 30 সেকেন্ড</string>
+  <string name="difficultyEasy">সহজ</string>
+  <string name="difficultyNormal">সাধারন</string>
+  <string name="difficultyHard">কঠিন</string>
+  <string name="xLeftANoteOnY">%1$s এর পরে নোট %2$s</string>
+  <string name="xCompetesInY">%1$s করা আছে মধ্যে %2$s</string>
+  <string name="xAskedY">%1$s জিজ্ঞেসা %2$s</string>
+  <string name="xAnsweredY">%1$s উত্তর দেওয়া হয়েছে %2$s</string>
+  <string name="xCommentedY">%1$s মন্তব্য করা হয়েছে %2$s</string>
   <string name="victory">বিজয়!</string>
+  <string name="defeat">হার</string>
+  <string name="xVsYinZ">%1$s বানাম %2$s
+এর %3$s</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">সর্বোচ্চ: %s টি অক্ষর</item>
     <item quantity="other">সর্বোচ্চ: %s টি অক্ষর</item>
