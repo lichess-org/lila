@@ -376,21 +376,21 @@
   <string name="blocked">Блокиран</string>
   <string name="unblock">Одблокирај</string>
   <string name="followsYou">Прате тебе</string>
-  <string name="xStartedFollowingY">%1$s почео праћење %2$s</string>
+  <string name="xStartedFollowingY">%1$s је почео/ла пратити %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s пратиоц</item>
     <item quantity="few">%s пратиоца</item>
     <item quantity="other">%s пратиоца</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s прати</item>
-    <item quantity="few">%s прати</item>
-    <item quantity="other">%s прати</item>
+    <item quantity="one">прати %s</item>
+    <item quantity="few">прати %s</item>
+    <item quantity="other">прати %s</item>
   </plurals>
   <string name="more">Више</string>
   <string name="memberSince">Члан од</string>
   <string name="lastSeenActive">Последња посета %s</string>
-  <string name="challengeToPlay">Изазови на игру</string>
+  <string name="challengeToPlay">Изазови на партију</string>
   <string name="player">Играч</string>
   <string name="list">Списак</string>
   <string name="graph">Графикон</string>
@@ -403,7 +403,7 @@
   <string name="openTournaments">Отворени турнири</string>
   <string name="duration">Трајање</string>
   <string name="winner">Победник</string>
-  <string name="standing">Стојећи</string>
+  <string name="standing">Позиција</string>
   <string name="createANewTournament">Креирајте нови турнир</string>
   <string name="join">Придружи се</string>
   <string name="withdraw">Повући</string>
