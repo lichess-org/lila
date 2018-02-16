@@ -3,7 +3,7 @@ import LobbyController from '../ctrl';
 import { bind, spinner } from './util';
 
 function renderRange(range: string) {
-  return h('div.range', range.replace('-', ' - '));
+  return h('div.range', range.replace('-', '–'));
 }
 
 export default function(ctrl: LobbyController) {

@@ -355,7 +355,7 @@ module.exports = function(cfg, element) {
         var max = $input.data("max");
         var values = $input.val() ? $input.val().split("-") : [min, max];
 
-        $span.text(values.join(' - '));
+        $span.text(values.join('–'));
         $this.slider({
           range: true,
           min: min,
@@ -364,7 +364,7 @@ module.exports = function(cfg, element) {
           step: 50,
           slide: function(event, ui) {
             $input.val(ui.values[0] + "-" + ui.values[1]);
-            $span.text(ui.values[0] + " - " + ui.values[1]);
+            $span.text(ui.values[0] + "–" + ui.values[1]);
           }
         });
       });
