@@ -288,11 +288,6 @@
   <string name="tournament">Tурнир</string>
   <string name="tournaments">Турнири</string>
   <string name="tournamentPoints">Поени на турнирима</string>
-  <plurals name="nbTournamentPoints">
-    <item quantity="one">%s турнирски поен</item>
-    <item quantity="few">%s турнирска поена</item>
-    <item quantity="other">%s турнирских поена</item>
-  </plurals>
   <string name="viewTournament">Погледај турнир</string>
   <string name="backToTournament">Повратак у турнир</string>
   <string name="thematic">Тематски</string>
@@ -323,7 +318,7 @@
   <string name="ratedMoreThanInPerf">Рејтинг ≥ %1$s у %2$s</string>
   <string name="ratedLessThanInPerf">Рејтинг ≤ %1$s у %2$s</string>
   <string name="backToGame">Повратак у игру</string>
-  <string name="siteDescription">Бесплатни интернет шах. Играј сада у чистом окружењу. Без регистрације, реклама, додатака захтеваних. Играј шах ротив рачунара, пријатеља или насумичних противника.</string>
+  <string name="siteDescription">Бесплатни интернет шах. Играј сада у чистом окружењу. Без регистрације, реклама, захтеваних података. Играј шах ротив рачунара, пријатеља или насумичних противника.</string>
   <string name="teams">Тимови</string>
   <plurals name="nbMembers">
     <item quantity="one">%s члан</item>
@@ -356,17 +351,18 @@
   <string name="fromPosition">Од позиције</string>
   <string name="continueFromHere">Настави одавде</string>
   <string name="importGame">Увези игру</string>
-  <string name="importGameExplanation">Кад прекопирате партију у PGN-у, отвори се табла за поновно проигравање, рачунарска анализа, прозор за ћаскање и адреса странице.</string>
+  <string name="importGameExplanation">Кад прекопирате партију у PGN-у, отвори се табла за поновно проигравање,
+рачунарска анализа, прозор за ћаскање и адреса странице коју можете поделити.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s увезена игра</item>
     <item quantity="few">%s увезене игре</item>
     <item quantity="other">%s увезених игара</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Ово је шаховски КАПЧА.</string>
+  <string name="thisIsAChessCaptcha">Ово је шаховска CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Кликни на таблу и направи потез да би доказао да си човек.</string>
-  <string name="captcha.fail">Решите \"капча\" шаховски проблем.</string>
+  <string name="captcha.fail">Решите CAPTCHA шаховски проблем.</string>
   <string name="notACheckmate">Није шахмат</string>
-  <string name="colorPlaysCheckmateInOne">%s играј, шахмат у једном потезу</string>
+  <string name="colorPlaysCheckmateInOne">%s игра; мат у једном потезу</string>
   <string name="retry">Покушај поново</string>
   <string name="reconnecting">Поновно повезивање</string>
   <string name="onlineFriends">Пријатељи на мрежи</string>
