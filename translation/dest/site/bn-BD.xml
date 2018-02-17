@@ -676,4 +676,9 @@
   <string name="weHaveSentYouAnEmailTo">আমরা একটি ই-মেইল পাঠিয়েছি %s. ই-মেইলে দেওয়া লিংকে ক্লিক করুন পাসওয়ার্ড পরিবর্তন করতে.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">নিবন্ধন করে, আপনি সম্মত হন আমাদের দ্বারা আবদ্ধ হতে %s.</string>
   <string name="networkLagBetweenYouAndLichess">আপনার এবং লিচেস এর মধ্যে নেটওয়ার্ক ব্যবধান</string>
+  <string name="timeToProcessAMoveOnLichessServer">লিচেস সার্ভারে স্থানান্তর প্রক্রিয়া করার সময়</string>
+  <string name="downloadAnnotated">টীকাযুক্ত ডাউনলোড করুন</string>
+  <string name="downloadRaw">কাঁচা ডাউনলোড করুন</string>
+  <string name="downloadImported">আগমিত ডাউনলোড করুন</string>
+  <string name="printFriendlyPDF">ছাপা-বন্ধুত্বপূর্ণ পিডিএফ</string>
 </resources>
