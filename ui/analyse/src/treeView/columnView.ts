@@ -8,7 +8,7 @@ import { authorText as commentAuthorText } from '../study/studyComments';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes, ConcealOf, Conceal } from '../interfaces';
 import { nonEmpty, mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, truncateComment, retroLine } from './treeView';
-import { enrichText, innerHTML } from '../util';
+import { richHTMLWithJumpEvents } from '../util';
 import { Ctx as BaseCtx, Opts as BaseOpts } from './treeView';
 
 interface Ctx extends BaseCtx {
@@ -175,7 +175,7 @@ function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, w
     const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
     truncated = truncateComment(comment.text, 400, ctx);
     return h(sel, {
-      hook: innerHTML(truncated, text => by + enrichText(text, true))
+      hook: richHTMLWithJumpEvents(truncated, by)
     });
   });
 }
