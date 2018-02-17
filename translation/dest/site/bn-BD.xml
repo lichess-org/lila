@@ -683,4 +683,7 @@
   <string name="printFriendlyPDF">ছাপা-বন্ধুত্বপূর্ণ পিডিএফ</string>
   <string name="crosstable">ক্রোস্ট্যাবলে</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">খেলা সরাতে আপনি বোর্ডের উপর স্ক্রল ও করতে পারবেন.</string>
+  <string name="analysisShapesHowTo">সিফ্ট+ক্লিক চাপুন অথবা ডান-ক্লিক করুন বোর্ডের উপর বৃত্ত এবং তীর আঁকার জন্য.</string>
+  <string name="confirmResignationAndDrawOffers">পদত্যাগ নিশ্চিত করুন এবং অফার লুটে নিন</string>
+  <string name="inputMovesWithTheKeyboard">কী-বোর্ডের সাথে নিবেশ সরান</string>
 </resources>
