@@ -681,4 +681,6 @@
   <string name="downloadRaw">কাঁচা ডাউনলোড করুন</string>
   <string name="downloadImported">আগমিত ডাউনলোড করুন</string>
   <string name="printFriendlyPDF">ছাপা-বন্ধুত্বপূর্ণ পিডিএফ</string>
+  <string name="crosstable">ক্রোস্ট্যাবলে</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">খেলা সরাতে আপনি বোর্ডের উপর স্ক্রল ও করতে পারবেন.</string>
 </resources>
