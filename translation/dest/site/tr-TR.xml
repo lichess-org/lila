@@ -818,6 +818,7 @@
   <string name="youCannotChallengeX">%s adlı oyuncuya oyun daveti gönderemezsiniz.</string>
   <string name="xDoesNotAcceptChallenges">%s oyun davetlerini kabul etmiyor.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Geçici %s puanı sırasında meydan okunamaz.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s sadece arkadaşlarından gelen meydan okumaları kabul ediyor.</string>
   <string name="conditionalPremoves">Şartlı ön hamle</string>
   <string name="addCurrentVariation">Geçerli varyasyon ekle</string>
 </resources>
