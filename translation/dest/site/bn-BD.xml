@@ -675,4 +675,5 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">যদি আপনি ই-মেইলটি না দেখতে পান, অন্যজাগায় থাকতে পারে, যেমন আপনার জুনক, স্প্যাম, সোসিয়াল, অথবা অন্য ফোল্ডার.</string>
   <string name="weHaveSentYouAnEmailTo">আমরা একটি ই-মেইল পাঠিয়েছি %s. ই-মেইলে দেওয়া লিংকে ক্লিক করুন পাসওয়ার্ড পরিবর্তন করতে.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">নিবন্ধন করে, আপনি সম্মত হন আমাদের দ্বারা আবদ্ধ হতে %s.</string>
+  <string name="networkLagBetweenYouAndLichess">আপনার এবং লিচেস এর মধ্যে নেটওয়ার্ক ব্যবধান</string>
 </resources>
