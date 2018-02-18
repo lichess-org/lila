@@ -22,7 +22,7 @@
   <string name="createAGame">খেলা তৈরি করুন</string>
   <string name="whiteIsVictorious">সাদা বিজয়ী</string>
   <string name="blackIsVictorious">কালো বিজয়ী</string>
-  <string name="kingInTheCenter">রাজাকে center এ আনুন</string>
+  <string name="kingInTheCenter">রাজাকে কেন্দ্রে আনুন</string>
   <string name="threeChecks">তিনটি কিস্তি</string>
   <string name="raceFinished">প্রতিযোগিতা শেষ</string>
   <string name="variantEnding">ভিন্ন রকমের সমাপ্তি</string>
