@@ -82,12 +82,12 @@
     <item quantity="other">Мат у %s хадах бакоў</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Наступны захоп ці ход пешкай у %s ходзе бакоў (Дыстанцыя да 50-га ходу)</item>
+    <item quantity="one">Наступнае ўзяцьце або ход пешкай за %s паўхадоў (да нуля з 50 хадоў)</item>
     <item quantity="few">Наступны захоп ці ход пешкай у %s хадах бакоў (Дыстанцыя да 50-га ходу)</item>
     <item quantity="other">Наступны захоп ці ход пешкай у %s хадах бакоў (Дыстанцыя да 50-га ходу)</item>
   </plurals>
-  <string name="noGameFound">Гульняў не знойдзена</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Можа, варта ўключыць больш гульняў з укладкі пераваг?</string>
+  <string name="noGameFound">Гульні ня знойдзеныя</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Можа варта ўключыць больш гульняў з укладкі пераваг?</string>
   <string name="openingExplorer">Аналіз дэбютных варыянтаў</string>
   <string name="xOpeningExplorer">Адкрываем праваднік: %s</string>
   <string name="winPreventedBy50MoveRule">Перамога папярэджана правілам 50-га ходу</string>
