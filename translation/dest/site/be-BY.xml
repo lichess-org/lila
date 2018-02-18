@@ -72,12 +72,12 @@
   <string name="unknown">Невядома</string>
   <string name="database">Дадзеныя з</string>
   <string name="whiteDrawBlack">Белыя / нічыя / чорныя</string>
-  <string name="averageRatingX">Сярэдняя ацэнка: %s</string>
+  <string name="averageRatingX">Сярэдні рэйтынг: %s</string>
   <string name="recentGames">Апошнія гульні</string>
-  <string name="topGames">Лепшыя гульні</string>
-  <string name="masterDbExplanation">Два мільёна OTB гульняў %1$s+ FIDE гульцоў у рэйтынгу ад %2$s да %3$s</string>
+  <string name="topGames">Топ-партыі</string>
+  <string name="masterDbExplanation">Два мільёны OTB гульняў %1$s+ FIDE гульцоў у рэйтынгу ад %2$s да %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Мат у %s ходзе бакоў</item>
+    <item quantity="one">Мат у %s паўхадоў</item>
     <item quantity="few">Мат у %s хадах бакоў</item>
     <item quantity="other">Мат у %s хадах бакоў</item>
   </plurals>
