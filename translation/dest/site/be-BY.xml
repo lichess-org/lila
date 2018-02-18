@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">Гуляць з сябрамi</string>
   <string name="playWithTheMachine">Гуляць з камп\'ютарам</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Выкарыстайце гэтую спасылку каб запрасіць кагосьці да гульні</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Выкарыстайце гэтую спасылку каб запрасіць да гульні</string>
   <string name="gameOver">Гульня скончана</string>
   <string name="waitingForOpponent">Чакайце апанэнта</string>
   <string name="waiting">Чакайце</string>
@@ -41,7 +41,7 @@
   <string name="blackResigned">Чорныя здаліся</string>
   <string name="whiteLeftTheGame">Белыя пакінулі гульню</string>
   <string name="blackLeftTheGame">Чорныя пакінулі гульню</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Падзяліцца гэтай спасылкай каб дазволіць назіральнікам глядзець гульню</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Падзяліцца гэтай спасылкай каб дазволіць назіраць гульню</string>
   <string name="theComputerAnalysisHasFailed">Камп\'ютарны аналіз ня ўдаўся</string>
   <string name="viewTheComputerAnalysis">Прагледзець камп\'ютарны аналіз</string>
   <string name="requestAComputerAnalysis">Запытаць камп\'ютарный аналіз</string>
