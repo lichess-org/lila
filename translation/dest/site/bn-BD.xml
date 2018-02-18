@@ -163,7 +163,7 @@
   <string name="rating">রেটিং</string>
   <string name="ratingStats">অনুপাত পরিসংখ্যান</string>
   <string name="username">ব্যবহারকারীর নাম</string>
-  <string name="usernameOrEmail">ব্যবহারকারী নাম</string>
+  <string name="usernameOrEmail">ব্যবহারকারী নাম অথবা ই-মেইল</string>
   <string name="password">পাসওয়ার্ড</string>
   <string name="haveAnAccount">আপনার কি  account রয়েছে</string>
   <string name="changePassword">পাসওয়ার্ড পরিবর্তন</string>
