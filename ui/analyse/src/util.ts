@@ -113,9 +113,13 @@ function toLink(url: string) {
   return '<a target="_blank" rel="nofollow" href="' + url + '">' + show + '</a>';
 }
 
+const markdownLinkRegex = /\[([^<\]]+)\]\(((?:(?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|]))\)/gi;
+const markdownLinkReplacement = '<a href="$2">$1</a>';
+
 export function enrichText(text: string, allowNewlines: boolean, plies: boolean): string {
   let linked = autolink(window.lichess.escapeHtml(text), toLink);
-  let html = plies ? addPlies(linked) : linked;
+  let withOrWithoutPlies = plies ? addPlies(linked) : linked;
+  let html = withOrWithoutPlies.replace(markdownLinkRegex, markdownLinkReplacement);
   if (allowNewlines) html = html.replace(newLineRegex, '<br>');
   return html;
 }
