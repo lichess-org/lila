@@ -6,7 +6,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import actorApi._, round._
-import chess.{ DecayingStats, Color }
+import chess.Color
 import lila.game.{ Game, Progress, Pov, Event }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
@@ -60,7 +60,7 @@ private[round] final class Round(
       handleHumanPlay(p) { pov =>
         if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
         else {
-          recordLagStats(pov)
+          recordLag(pov)
           player.human(p, self)(pov)
         }
       } >>- {
@@ -240,33 +240,15 @@ private[round] final class Round(
       (game withClock newClock) ++ colors.map { Event.ClockInc(_, centis) }
     }
 
-  private def recordLagStats(pov: Pov) =
+  private def recordLag(pov: Pov) =
     if ((pov.game.playedTurns & 30) == 10) {
       // Triggers every 32 moves starting on ply 10.
       // i.e. 10, 11, 42, 43, 74, 75, ...
       for {
+        user <- pov.player.userId
         clock <- pov.game.clock
-        lt = clock.lag(pov.color)
-        lag <- lt.avgLag
-      } {
-        pov.player.userId.foreach { UserLagCache.put(_, lag) }
-        if (pov.game.playedTurns < 12) {
-          import lila.mon.round.move.{ lag => lRec }
-          lRec.avgReported(lag.centis)
-          lt.history match {
-            case h: DecayingStats => lRec.compDeviation(h.deviation.toInt)
-          }
-          for {
-            lowEst <- lt.lowEstimate
-            avgComp <- lt.avgLagComp
-            uncomp <- (lt.totalLag - lt.totalComp) / lt.lagSteps
-          } {
-            lRec.estimateError((avgComp - lowEst).centis)
-            lRec.uncomped(f"${lt.quotaGain.centis / 10}%02d")(uncomp.centis)
-            lRec.uncompedAll(uncomp.centis)
-          }
-        }
-      }
+        lag <- clock.lag(pov.color).lagMean
+      } UserLagCache.put(user, lag)
     }
 
   private def scheduleExpiration: Funit = proxy.game map {

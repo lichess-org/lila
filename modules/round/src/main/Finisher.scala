@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.{ Status, Color }
+import chess.{ Status, DecayingStats, Color, Clock }
 
 import lila.game.actorApi.{ FinishGame, AbortedBy }
 import lila.game.{ GameRepo, Game, Pov, RatingDiffs }
@@ -59,6 +59,33 @@ private[round] final class Finisher(
   )(implicit proxy: GameProxy): Fu[Events] =
     apply(game, status, winner, message) >>- playban.other(game, status, winner)
 
+  private def recordLagStats(game: Game): Unit = for {
+    clock <- game.clock
+    player <- clock.players.all
+    lt = player.lag
+    stats = lt.lagStats
+    moves = lt.moves if moves > 4
+    sd <- stats.stdDev
+    mean = stats.mean if mean > 0
+    uncomp <- lt.totalUncomped / moves
+    compEstStdErr <- lt.compEstStdErr
+    quotaStr = f"${lt.quotaGain.centis / 10}%02d"
+    compEstOvers = lt.compEstOvers.centis
+  } {
+    import lila.mon.round.move.{ lag => lRec }
+    lRec.mean(Math.round(10 * mean))
+    lRec.stdDev(Math.round(10 * sd))
+    // wikipedia.org/wiki/Coefficient_of_variation#Estimation
+    lRec.coefVar(Math.round((1000f + 250f / moves) * sd / mean))
+    lRec.uncomped(quotaStr)(uncomp.centis)
+    lRec.uncompedAll(uncomp.centis)
+    lt.lagEstimator match {
+      case h: DecayingStats => lRec.compDeviation(h.deviation.toInt)
+    }
+    lRec.compEstStdErr(Math.round(1000 * compEstStdErr))
+    lRec.compEstOverErr(Math.round(10f * compEstOvers / moves))
+  }
+
   private def apply(
     game: Game,
     makeStatus: Status.type => Status,
@@ -70,6 +97,7 @@ private[round] final class Finisher(
     if (game.nonAi && game.isCorrespondence) Color.all foreach notifier.gameEnd(prog.game)
     lila.mon.game.finish(status.name)()
     val g = prog.game
+    recordLagStats(g)
     proxy.save(prog) >>
       GameRepo.finish(
         id = g.id,

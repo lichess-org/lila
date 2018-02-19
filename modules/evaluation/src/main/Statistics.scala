@@ -1,7 +1,7 @@
 package lila.evaluation
 
-import chess.Centis
-import lila.common.{ Maths, Stats }
+import chess.{ Centis, Stats }
+import lila.common.Maths
 
 object Statistics {
 
