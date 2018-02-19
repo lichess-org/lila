@@ -120,7 +120,6 @@ private[round] final class Finisher(
               message foreach { messenger.system(g, _) }
               GameRepo game g.id foreach { newGame =>
                 bus.publish(finish.copy(game = newGame | g), 'finishGame)
-
               }
               prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
             }
