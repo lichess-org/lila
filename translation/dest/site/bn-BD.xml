@@ -686,4 +686,7 @@
   <string name="analysisShapesHowTo">সিফ্ট+ক্লিক চাপুন অথবা ডান-ক্লিক করুন বোর্ডের উপর বৃত্ত এবং তীর আঁকার জন্য.</string>
   <string name="confirmResignationAndDrawOffers">পদত্যাগ নিশ্চিত করুন এবং অফার লুটে নিন</string>
   <string name="inputMovesWithTheKeyboard">কী-বোর্ডের সাথে নিবেশ সরান</string>
+  <string name="letOtherPlayersMessageYou">অন্যান্য খেলোয়ারদের আপনাকে বার্তা করতে দিন</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">কাস্টলিং পদ্বতি</string>
+  <string name="castleByMovingTwoSquares">দুই বর্গে রাজা সরান</string>
 </resources>
