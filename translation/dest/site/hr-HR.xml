@@ -288,6 +288,11 @@
   <string name="tournament">Turnir</string>
   <string name="tournaments">Turniri</string>
   <string name="tournamentPoints">Turnirski bodovi</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turnirski bod</item>
+    <item quantity="few">%s turnirskih bodova</item>
+    <item quantity="other">%s turnirskih bodova</item>
+  </plurals>
   <string name="viewTournament">Pogledaj turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
   <string name="thematic">Tematski</string>
@@ -798,6 +803,11 @@ u %3$s</string>
   <string name="notifications">Obavijesti</string>
   <string name="challenges">Izazovi</string>
   <string name="perfRatingX">Rejting: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekunda da odigrate prvi potez</item>
+    <item quantity="few">%s sekundi da odigrate prvi potez</item>
+    <item quantity="other">%s sekundi da odigrate prvi potez</item>
+  </plurals>
   <string name="practiceWithComputer">Vježbaj sa kompjuterom</string>
   <string name="anotherWasX">Drugi potez je %s</string>
   <string name="bestWasX">Najbolji potez je %s</string>
@@ -851,4 +861,9 @@ u %3$s</string>
   <string name="playVariationToCreateConditionalPremoves">Odigraj varijantu da stvoriš predpotez</string>
   <string name="noConditionalPremoves">Nema uvijetnih predpoteza</string>
   <string name="playX">Igraj %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">i uštedi %s predpotez</item>
+    <item quantity="few">i uštedi %s predpoteza</item>
+    <item quantity="other">i uštedi %s predpoteza</item>
+  </plurals>
 </resources>
