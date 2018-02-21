@@ -91,8 +91,13 @@
   <string name="noGameFound">משחק לא נמצא</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">להוסיף עוד משחקים מתפריט ההגדרות?</string>
   <string name="openingExplorer">סייר הפתיחות</string>
+  <string name="xOpeningExplorer">חוקר פתיחות %s</string>
+  <string name="winPreventedBy50MoveRule">ניצחון נמנע מפעת כלל 50 המהלכים</string>
+  <string name="lossSavedBy50MoveRule">נמנע הפסד מפעת כלל 50 המהלכים</string>
   <string name="allSet">הכול מוכן!</string>
+  <string name="importPgn">ייבא בפורמט PGN</string>
   <string name="delete">מחק</string>
+  <string name="deleteThisImportedGame">מחק את המשחק המיובא?</string>
   <string name="realtimeReplay">זמן אמת</string>
   <string name="enable">אפשר/י</string>
   <string name="cpus">ליבות</string>
