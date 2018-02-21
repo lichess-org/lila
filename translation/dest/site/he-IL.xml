@@ -573,6 +573,7 @@
   <string name="sourceCode">קוד מקור</string>
   <string name="simultaneousExhibitions">משחקים בו-זמנית</string>
   <string name="host">מארח</string>
+  <string name="hostColorX">צבע המארח: %s</string>
   <string name="createdSimuls">משחקים חדשים בו-זמנית</string>
   <string name="hostANewSimul">לארח משחקים חדשים בו-זמנית</string>
   <string name="noSimulFound">המשחק בו-זמנית לא נמצא</string>
@@ -607,6 +608,12 @@
   <string name="tournamentMayHaveBeenCanceled">קיימת אפשרות שהטורניר בוטל, במקרה שכל השחקנים יצאו ממנו לפני התחלתו.</string>
   <string name="returnToTournamentsHomepage">תחזור לדף הבית של טורנירים</string>
   <string name="weeklyPerfTypeRatingDistribution">התפלגות חודשית של דירוגי %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s שחקני %2$s השבוע.</item>
+    <item quantity="two">%1$s שחקני %2$s השבוע.</item>
+    <item quantity="many">%1$s שחקני %2$s השבוע.</item>
+    <item quantity="other">%1$s שחקני %2$s השבוע.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">דירוגך במשחקי %1$s הוא %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">דירוגך גבוה יותר מ-%1$s משחקני %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">טרם נקבע לך דירוג במשחקי %s.</string>
@@ -624,12 +631,24 @@
   <string name="crosstable">חשבון נקודות</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ניתן גם לגלול בכדי להתקדם במשחק.</string>
   <string name="analysisShapesHowTo">הקש \"שיפט\" ולחץ מקש עכבר שמאלי או לחץ מקש עכבר ימני כדי לצייר חצים ועיגולים על הלוח.</string>
+  <string name="confirmResignationAndDrawOffers">אשר הצעות כניעה ותיקו</string>
+  <string name="inputMovesWithTheKeyboard">קלוט מהלכים באמצעות המקלדת</string>
   <string name="letOtherPlayersMessageYou">אפשר לשחקנים אחרים לשלוח לך הודעות</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">שיטת הצרחה</string>
+  <string name="castleByMovingTwoSquares">הזז את המלך שני משבצות</string>
+  <string name="castleByMovingOntoTheRook">הזז את המלך על הצריח</string>
   <string name="shareYourInsightsData">שתף את הנתונים הסטטיסטיים שלך</string>
+  <string name="withNobody">עם אף אחד</string>
+  <string name="withFriends">עם חברים</string>
+  <string name="withEverybody">עם כולם</string>
   <string name="youHaveAlreadyRegisteredTheEmail">אתה כבר נרשמת עם הדוא\"ל: %s</string>
   <string name="kidMode">הגדרות ילדים</string>
+  <string name="kidModeExplanation">זהו נושא בטיחותי, במצב ילדים, כל אמצעי התקשורת באתר מבוטלים. הפעל אופציה זו עבור ילדייך ותלמידי בית ספר, זאת על מנת להגן עליהם מפני משתמשים אחרים.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">במצב ילדים הסמל של ליצ\'אס מקבל אייקון %s, כדי שתדע שילדייך מוגנים.</string>
+  <string name="enableKidMode">הפעל מצב ילדים</string>
+  <string name="disableKidMode">בטל מצב ילדים</string>
   <string name="security">אבטחה</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">רשימת המכשירים שהתחברו לחשבונך, בטל את ההתחברויות שאתה לא מכיר.</string>
   <string name="playChessEverywhere">שחק בשחמט בכל מקום</string>
   <string name="asFreeAsLichess">חופשי כמו ליצ\'ס</string>
   <string name="builtForTheLoveOfChessNotMoney">נבנה בשביל אהבת משחק השחמט, לא כדי להרוויח כסף</string>
