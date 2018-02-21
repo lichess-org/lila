@@ -271,6 +271,11 @@
     <item quantity="other">עלייך לשחק עוד %s משחקים מדורגים</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">דירוג משחק ה%s שלך הוא זמני</string>
+  <string name="yourPerfRatingIsTooHigh">דירוגך ב%1$s של ( %2$s) גבוה מדי</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">דירוגך השבועי ב%1$s של (%2$s) גבוה מדי</string>
+  <string name="yourPerfRatingIsTooLow">דירוגך ב%1$s של (%2$s) נמןך מדי</string>
+  <string name="ratedMoreThanInPerf">דירוגך ≥ %1$s ב%2$s</string>
+  <string name="ratedLessThanInPerf">מדורג ≤ %1$s ב%2$s</string>
   <string name="backToGame">חזור למשחק</string>
   <string name="siteDescription">משחק שחמט חינם ברשת.  שחק שחמט כעת בממשק נקי. בלי הרשמה, בלי פרסומות, בלי להתקין שום דבר. שחק שחמט עם המחשב, חברים או יריבים אקראיים.</string>
   <string name="teams">קבוצות</string>
@@ -300,6 +305,7 @@
   <string name="fromPosition">מהעמדה</string>
   <string name="continueFromHere">המשך מכאן</string>
   <string name="importGame">ייבא משחק</string>
+  <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN אתה מקבל הרצה מחדש בצורת דפדפוף, ניתוח מחשב, צ\'אט משחק וקישור לשיתוף.</string>
   <string name="thisIsAChessCaptcha">זו קאפצ\'ה של שחמט.</string>
   <string name="clickOnTheBoardToMakeYourMove">לחץ על הלוח כדי לעשות מהלך, והוכח שאתה בן אנוש.</string>
   <string name="captcha.fail">אנא בצע את המהלך הנכון בלוח, לצורך captcha.</string>
@@ -340,11 +346,23 @@
   <string name="winStreak">רצף נצחונות</string>
   <string name="createdBy">נוצר ע\"י</string>
   <string name="tournamentIsStarting">הטורניר מתחיל</string>
+  <string name="tournamentPairingsAreNowClosed">התאמת זוגות בטורניר הסתיימה.</string>
+  <string name="standByX">%s, נא המתן, מתאימים זוגות, היה מוכן!</string>
   <string name="youArePlaying">אתה משחק!</string>
   <string name="winRate">שיעור זכיה</string>
+  <string name="berserkRate">מתוכם ברזרק</string>
+  <string name="performance">דירוג הביצוע</string>
+  <string name="tournamentComplete">הטורניר הושלם</string>
+  <string name="movesPlayed">מהלים ששוחקו</string>
+  <string name="whiteWins">לבן מנצח</string>
+  <string name="blackWins">שחור מנצח</string>
+  <string name="draws">תוצאות תיקו</string>
+  <string name="nextXTournament">טורניר ה%s הבא:</string>
+  <string name="viewMoreTournaments">צפה בעוד טורנירים</string>
   <string name="averageOpponent">יריב ממוצע</string>
   <string name="membersOnly">לרשומים בלבד</string>
   <string name="boardEditor">עריכת לוח</string>
+  <string name="setTheBoard">הכן את הלוח</string>
   <string name="popularOpenings">פתיחות פופולריות</string>
   <string name="startPosition">מצב התחלתי</string>
   <string name="clearBoard">נקה לוח</string>
@@ -352,6 +370,10 @@
   <string name="loadPosition">טען מיקום</string>
   <string name="isPrivate">פרטי</string>
   <string name="reportXToModerators">%s דווח למנהלים על</string>
+  <string name="profileCompletion">השלמת הפרופיל: %s</string>
+  <string name="xRating">דירוג %s</string>
+  <string name="ifNoneLeaveEmpty">אם אין, השאר ריק</string>
+  <string name="gameCompletionRate">אחוזי השלמת משחקים: %s</string>
   <string name="profile">פרופיל</string>
   <string name="editProfile">ערוך פרופיל</string>
   <string name="firstName">שם פרטי</string>
@@ -359,6 +381,7 @@
   <string name="biography">ביוגרפיה</string>
   <string name="country">מדינה</string>
   <string name="preferences">עדיפויות</string>
+  <string name="inlineNotation">תיאור מהלכים בשורה</string>
   <string name="watchLichessTV">צפה בטלוויזיה של ליצ\'ס TV</string>
   <string name="previouslyOnLichessTV">לאחרונה בטלוויזיה של ליצ\'ס</string>
   <string name="onlinePlayers">שחקנים מחוברים</string>
@@ -444,6 +467,9 @@
   <string name="pieceDestinations">יעדי הכלים: מהלכים וקדם-מהלכים מותרים</string>
   <string name="boardCoordinates">קואורדינטות לוח (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">רשימת מהלכים במהלך המשחק</string>
+  <string name="pgnPieceNotation">תיאור המהלכים</string>
+  <string name="chessPieceSymbol">סימן הכלי</string>
+  <string name="pgnLetter">אות ( K, Q, R, B, N)</string>
   <string name="chessClock">שעון השחמט</string>
   <string name="tenthsOfSeconds">עשיריות שניה</string>
   <string name="never">אף פעם</string>
@@ -451,12 +477,18 @@
   <string name="horizontalGreenProgressBars">מדי התקדמות ירוקים אופקיים</string>
   <string name="soundWhenTimeGetsCritical">השמע צליל כאשר הזמן נהיה קריטי</string>
   <string name="gameBehavior">התנהגות המשחק</string>
+  <string name="howDoYouMovePieces">איך מזיזים את הכלים?</string>
+  <string name="clickTwoSquares">לחץ על שני ריבועים</string>
+  <string name="dragPiece">הזז את הכלי</string>
+  <string name="bothClicksAndDrag">שניהם</string>
   <string name="premovesPlayingDuringOpponentTurn">קדם-מהלכים: ביצוע מהלכים במהלך תורו של היריב</string>
   <string name="takebacksWithOpponentApproval">החזרת המהלך האחרון: מותנה בהסכמת היריב</string>
   <string name="promoteToQueenAutomatically">הפוך למלכה באופן אוטומטי</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">הכרז על תיקו בחזרה משולשת באופן אוטומטי</string>
   <string name="privacy">פרטיות</string>
   <string name="letOtherPlayersFollowYou">אפשר לשחקנים אחרים לעקוב אחריך</string>
   <string name="letOtherPlayersChallengeYou">אפשר לשחקנים אחרים להזמינך למשחק</string>
+  <string name="letOtherPlayersInviteYouToStudy">תן לשחקנים אחרים להזמין אותך ללמידה</string>
   <string name="sound">צלילים</string>
   <string name="yourPreferencesHaveBeenSaved">העדפותיך נשמרו</string>
   <string name="none">ללא</string>
@@ -480,11 +512,14 @@
   <string name="xCommentedY">%1$s כתב %2$s</string>
   <string name="victory">ניצחון!</string>
   <string name="defeat">הפסד</string>
+  <string name="xVsYinZ">%1$s נגד %2$s
+ב%3$s</string>
   <string name="timeline">ציר הזמן</string>
   <string name="seeAllTournaments">ראה את כל הטורנירים</string>
   <string name="starting">מתחיל:</string>
   <string name="allInformationIsPublicAndOptional">כל המידע הוא פומבי ואופציונלי</string>
   <string name="yourCityRegionOrDepartment">העיר, האזור,המדינה, או המחוז שלך</string>
+  <string name="biographyDescription">ספר/י על עצמך, מה את/ה אוהב/ת בשחמט, הפתיחה המועדפת עליך, משחקים, שחקנים…</string>
   <string name="listBlockedPlayers">רשימת שחקנים שחסמת</string>
   <string name="human">בן אנוש</string>
   <string name="computer">מחשב</string>
@@ -511,7 +546,9 @@
   <string name="error.email">כתובת המייל אינה חוקית</string>
   <string name="error.email_acceptable">כתובת המייל אינה קבילה</string>
   <string name="error.email_unique">כתובת המייל שהזנת תפוסה</string>
+  <string name="error.email_different">זהו כבר המייל שלך</string>
   <string name="blindfoldChess">לשחק עם עיניים מכוסות: הכלים אינם נראים</string>
+  <string name="zenMode">מצב זן</string>
   <string name="moveConfirmation">אישור מהלך</string>
   <string name="inCorrespondenceGames">במשחקים בהתכתבות</string>
   <string name="ifRatingIsPlusMinusX">אלו מדורגים ± %s</string>
