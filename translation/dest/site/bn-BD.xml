@@ -690,4 +690,10 @@
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">কাস্টলিং পদ্বতি</string>
   <string name="castleByMovingTwoSquares">দুই বর্গে রাজা সরান</string>
   <string name="castleByMovingOntoTheRook">দাবার নৌকার উপর দিয়ে রাজাকে সরান</string>
+  <string name="shareYourInsightsData">আপনার দাবার অর্ন্তদৃষ্টি তথ্য শেয়ার করুন</string>
+  <string name="withNobody">কারো সাথে না</string>
+  <string name="withFriends">বন্ধুদের সাথে</string>
+  <string name="withEverybody">সবার সাথে</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">আপনি ইতিমধ্যে এই ই-মেইলে নিবন্ধন করেছেন: %s</string>
+  <string name="kidMode">বাচ্চা ধরন</string>
 </resources>
