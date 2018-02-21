@@ -766,4 +766,20 @@
   </plurals>
   <string name="practiceWithComputer">কম্পিউটারের সাথে অনুশীলন</string>
   <string name="anotherWasX">আরেকটি ছিল %s</string>
+  <string name="bestWasX">সেরা ছিল %s</string>
+  <string name="youBrowsedAway">আপনি যতদূর ব্রাউজ করেছেন</string>
+  <string name="resumePractice">পুনারয় অনুশীলন</string>
+  <string name="theGameIsADraw">খেলাটি হয় সমান.</string>
+  <string name="computerThinking">কম্পিউটারের চিন্তা ...</string>
+  <string name="seeBestMove">দেখুন সেরা চাল</string>
+  <string name="hideBestMove">লুকান সেরা চাল</string>
+  <string name="getAHint">একটি সূত্র পান</string>
+  <string name="evaluatingYourMove">আপনার চাল মূল্যায়ন করবে...</string>
+  <string name="whiteWinsGame">সাদা জিতেছে</string>
+  <string name="blackWinsGame">কালো জিতেছে</string>
+  <string name="learnFromYourMistakes">আপনার ভুলগুলো থেকে শিখুন</string>
+  <string name="learnFromThisMistake">এই ভুল থেকে শিখুন</string>
+  <string name="skipThisMove">এই ধাপটি এড়িয়ে যান</string>
+  <string name="next">পরবর্তী</string>
+  <string name="xWasPlayed">%s খেলা হয়েছিল</string>
 </resources>
