@@ -273,9 +273,21 @@
   <string name="tournament">টুর্নামেন্ট</string>
   <string name="tournaments">টুর্নামেন্টগুলো</string>
   <string name="tournamentPoints">টুর্নামেন্ট পয়েন্ট</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s ক্রীড়া-প্রতিযোগিতা অনুপাত</item>
+    <item quantity="other">%s ক্রীড়া-প্রতিযোগিতা অনুপাতগুলো</item>
+  </plurals>
   <string name="viewTournament">টুর্নামেন্ট দেখুন</string>
   <string name="backToTournament">টুর্নামেন্ট এ ফিরে যান</string>
   <string name="thematic">ধাতুসংক্রান্ত</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s খেলার অনুপাত</item>
+    <item quantity="other">≥ %s খেলার অনুপাতগুলো</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s খেলার অনুপাত</item>
+    <item quantity="other">≥ %1$s %2$s খেলার অনুপাতগুলো</item>
+  </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">আপনার খেলার প্রয়োজন %1$s আরো %2$s খেলার অনুপাত</item>
     <item quantity="other">আপনার খেলার প্রয়োজন %1$s আরো %2$s খেলার অনুপাত</item>
@@ -798,4 +810,11 @@
   <string name="reviewWhiteMistakes">সাদার ভুল পর্যালোচনা</string>
   <string name="reviewBlackMistakes">কালোর ভুল পর্যালোচনা</string>
   <string name="advantage">সুবিধা</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s সেকেন্ড</item>
+    <item quantity="other">%s সেকেন্ড</item>
+  </plurals>
+  <string name="opening">উদ্বোধন</string>
+  <string name="middlegame">মাধ্যমখেলা</string>
+  <string name="endgame">খেলাশেষ</string>
 </resources>
