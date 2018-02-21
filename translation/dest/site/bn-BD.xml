@@ -712,4 +712,9 @@
   <string name="zeroAdvertisement">শূন্য বিজ্ঞাপন</string>
   <string name="fullFeatured">সম্পূর্ণ বৈশিষ্ট্যযুক্ত</string>
   <string name="phoneAndTablet">ফোন এবং ট্যাবলেট</string>
+  <string name="bulletBlitzClassical">গুলি, খুব দ্রুত আক্রমণ, ক্লাসিকাল</string>
+  <string name="correspondenceChess">সাদৃশ্য দাবা</string>
+  <string name="onlineAndOfflinePlay">অনলাইন এবং অফলাইন খেলা</string>
+  <string name="correspondenceAndUnlimited">সাদৃশ্য এবং সীমাহীন</string>
+  <string name="viewTheSolution">সমাধান দেখুন</string>
 </resources>
