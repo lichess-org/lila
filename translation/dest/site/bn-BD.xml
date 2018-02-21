@@ -689,4 +689,5 @@
   <string name="letOtherPlayersMessageYou">অন্যান্য খেলোয়ারদের আপনাকে বার্তা করতে দিন</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">কাস্টলিং পদ্বতি</string>
   <string name="castleByMovingTwoSquares">দুই বর্গে রাজা সরান</string>
+  <string name="castleByMovingOntoTheRook">দাবার নৌকার উপর দিয়ে রাজাকে সরান</string>
 </resources>
