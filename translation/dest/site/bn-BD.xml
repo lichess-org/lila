@@ -696,4 +696,10 @@
   <string name="withEverybody">সবার সাথে</string>
   <string name="youHaveAlreadyRegisteredTheEmail">আপনি ইতিমধ্যে এই ই-মেইলে নিবন্ধন করেছেন: %s</string>
   <string name="kidMode">বাচ্চা ধরন</string>
+  <string name="kidModeExplanation">এটা হয় নিরাপত্তা সম্পর্কে. বাচ্চা ধরনের মধ্যে সব সাইটের যোগাযোগ নিষ্ক্রিয় করা হয়েছে. আপনার বাচ্চা এবং বিদ্যালয়ের ছাত্রদের, অন্য ইন্টারনেট ব্যবহারকারীদের থেকে রক্ষা করতে এটা সক্রিয় করুন.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">বাচ্চা ধরনের মধ্যে, লিচেস লোগো পায় একটি %s প্রতীক,
+তাই আপনি জানতে পারবেন আপনার বাচ্চা নিরাপদ.</string>
+  <string name="enableKidMode">বাচ্চা ধরন সক্রিয় করুন</string>
+  <string name="disableKidMode">বাচ্চা ধরন নিষ্ক্রিয় করুন</string>
+  <string name="security">নিরাপত্তা</string>
 </resources>
