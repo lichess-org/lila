@@ -751,4 +751,19 @@
   <string name="coaches">প্রশিক্ষক</string>
   <string name="invalidPgn">অকার্যকর PGN</string>
   <string name="invalidFen">অকার্যকর FEN</string>
+  <string name="error.minLength">সর্বনিম্ম দৈর্ঘ্য হয় %s</string>
+  <string name="error.maxLength">সর্বোচ্চ দৈর্ঘ্য হয় %s</string>
+  <string name="error.min">অবশ্যই অধিক অথবা সবান হতে হবে %s</string>
+  <string name="error.max">অবশ্যই কম অথবা সমান হতে হবে %s</string>
+  <string name="error.unknown">ক্রুটি</string>
+  <string name="custom">স্বনির্ধারিত</string>
+  <string name="notifications">বিজ্ঞাপন</string>
+  <string name="challenges">চ্যালেঞ্জ</string>
+  <string name="perfRatingX">অনুপাত: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s সেকেন্ডে খেলার প্রথম চাল</item>
+    <item quantity="other">%s সেকেন্ডে খেলার প্রথম চাল</item>
+  </plurals>
+  <string name="practiceWithComputer">কম্পিউটারের সাথে অনুশীলন</string>
+  <string name="anotherWasX">আরেকটি ছিল %s</string>
 </resources>
