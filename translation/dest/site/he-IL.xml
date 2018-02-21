@@ -25,15 +25,15 @@
   <string name="kingInTheCenter">המלך במרכז</string>
   <string name="threeChecks">שח משולש</string>
   <string name="raceFinished">המירוץ נגמר</string>
-  <string name="variantEnding">הגרסה הסתיימה</string>
+  <string name="variantEnding">וריאציה הסתיימה</string>
   <string name="newOpponent">יריב חדש</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">יריבך רוצה לשחק איתך שוב</string>
   <string name="joinTheGame">הצטרף למשחק</string>
   <string name="whitePlays">תור הלבן</string>
   <string name="blackPlays">תור השחור</string>
   <string name="opponentLeftChoices">יריבך עזב את המשחק. באפשרותך לכפות פרישה, להכריז על תיקו או להמתין לו.</string>
-  <string name="makeYourOpponentResign">טען שניצחת</string>
-  <string name="forceResignation">טען שניצחת</string>
+  <string name="makeYourOpponentResign">קח את הניצחון</string>
+  <string name="forceResignation">קח את הניצחון</string>
   <string name="forceDraw">הכרז תיקו</string>
   <string name="talkInChat">בבקשה דבר בצ\'אט בצורה נאותה</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">האדם הראשון שיכנס לכתובת הזאת ישחק איתך</string>
@@ -47,8 +47,8 @@
   <string name="requestAComputerAnalysis">בקש ניתוח ממוחשב</string>
   <string name="computerAnalysis">ניתוח ע\"י המחשב</string>
   <string name="computerAnalysisAvailable">ניתוח מחשב זמין</string>
-  <string name="analysis">לוח ניתוח</string>
-  <string name="depthX">עומק %s</string>
+  <string name="analysis">לוח ניתוחים</string>
+  <string name="depthX">בעומק של %s מהלכים</string>
   <string name="usingServerAnalysis">באמצעות ניתוח שרת</string>
   <string name="loadingEngine">טוען מנוע...</string>
   <string name="cloudAnalysis">ניתוח ענן</string>
@@ -98,10 +98,19 @@
   <string name="importPgn">ייבא בפורמט PGN</string>
   <string name="delete">מחק</string>
   <string name="deleteThisImportedGame">מחק את המשחק המיובא?</string>
+  <string name="replayMode">מצב הרצה מחדש</string>
   <string name="realtimeReplay">זמן אמת</string>
+  <string name="byCPL">ע\"י CPL</string>
+  <string name="openStudy">פתח למידה</string>
   <string name="enable">אפשר/י</string>
+  <string name="bestMoveArrow">חץ המהלך הטוב ביותר</string>
+  <string name="evaluationGauge">מד הערכה</string>
+  <string name="multipleLines">ליינים בו זמנית</string>
   <string name="cpus">ליבות</string>
   <string name="memory">זיכרון</string>
+  <string name="infiniteAnalysis">ניתוח אינסופי</string>
+  <string name="removesTheDepthLimit">הסר את מגבלת העומק, גורם לחימום מעבד</string>
+  <string name="blunder">בלאנדר</string>
   <string name="blunders">טעויות גסות</string>
   <string name="mistake">שגיאה</string>
   <string name="mistakes">טעויות</string>
@@ -147,6 +156,8 @@
   <string name="passwordReset">איפוס סיסמה</string>
   <string name="forgotPassword">שכחת סיסמה?</string>
   <string name="rank">דרוג</string>
+  <string name="rankX">דירוג: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">הדירוג מתעדכן כל %s דקות</string>
   <string name="gamesPlayed">משחקים ששוחקו</string>
   <string name="cancel">בטל</string>
   <string name="timeOut">נגמר הזמן</string>
@@ -185,6 +196,7 @@
   <string name="inbox">תיבת דואר</string>
   <string name="chatRoom">חדר צא\'ט</string>
   <string name="loginToChat">התחבר כדי לדבר בצ\'אט</string>
+  <string name="youHaveBeenTimedOut">עבר הזמן הקצוב והתנתקת.</string>
   <string name="spectatorRoom">חדר צופים</string>
   <string name="composeMessage">כתוב הודעה</string>
   <string name="noNewMessages">אין הודעות כרגע</string>
@@ -194,11 +206,24 @@
   <string name="incrementInSeconds">תוספת בשניות</string>
   <string name="freeOnlineChess">שחמט חינמי ברשת</string>
   <string name="spectators">צופים:</string>
+  <plurals name="nbRated">
+    <item quantity="one">מדורג %s</item>
+    <item quantity="two">מדורג %s</item>
+    <item quantity="many">מדורג %s</item>
+    <item quantity="other">מדורג %s</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s משחק</item>
+    <item quantity="two">%s משחקים</item>
+    <item quantity="many">%s משחקים</item>
+    <item quantity="other">%s משחקים</item>
+  </plurals>
   <string name="exportGames">ייצא משחקים</string>
   <string name="ratingRange">טווח דירוג</string>
   <string name="giveMoreTime">תן עוד זמן</string>
   <string name="thisPlayerUsesChessComputerAssistance">שחקן זה משתמש בסיוע מחשב שחמט</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">שחקן זה מעלה/מוריד את דירוגו באופן מלאכותי</string>
+  <string name="openingExplorerAndTablebase">סייר הפתיחות וניתוח סיומים</string>
   <string name="takeback">החזר מהלך</string>
   <string name="proposeATakeback">הצע החזרת המהלך האחרון</string>
   <string name="takebackPropositionSent">הצעת החזרת המהלך האחרון נשלחה</string>
@@ -212,9 +237,40 @@
   <string name="tournament">טורניר</string>
   <string name="tournaments">טורנירים</string>
   <string name="tournamentPoints">נקודות טורניר</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s נקודת טורניר</item>
+    <item quantity="two">%s נקודות טורניר</item>
+    <item quantity="many">%s נקודות טורניר</item>
+    <item quantity="other">%s נקודות טורניר</item>
+  </plurals>
   <string name="viewTournament">צפה בטורניר</string>
   <string name="backToTournament">חזור לטורניר</string>
   <string name="thematic">נושאי</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">משחק מדורג %s ≥</item>
+    <item quantity="two">משחק מדורג %s ≥</item>
+    <item quantity="many">משחק מדורג %s ≥</item>
+    <item quantity="other">משחק מדורג %s ≥</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s משחק מדורג</item>
+    <item quantity="two">≥ %1$s %2$s משחקים מדורגים</item>
+    <item quantity="many">≥ %1$s %2$s משחקים מדורגים</item>
+    <item quantity="other">≥ %1$s %2$s משחקים מדורגים</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">עלייך לשחק עוד %1$s עוד %2$s משחקים מדורגים</item>
+    <item quantity="two">עלייך לשחק עוד %1$s עוד %2$s משחקים מדורגים</item>
+    <item quantity="many">עלייך לשחק עוד %1$s עוד %2$s משחקים מדורגים</item>
+    <item quantity="other">עלייך לשחק עוד %1$s עוד %2$s משחקים מדורגים</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">עלייך לשחק עוד %s משחקים מדורגים</item>
+    <item quantity="two">עלייך לשחק עוד %s משחקים מדורגים</item>
+    <item quantity="many">עלייך לשחק עוד %s משחקים מדורגים</item>
+    <item quantity="other">עלייך לשחק עוד %s משחקים מדורגים</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">דירוג משחק ה%s שלך הוא זמני</string>
   <string name="backToGame">חזור למשחק</string>
   <string name="siteDescription">משחק שחמט חינם ברשת.  שחק שחמט כעת בממשק נקי. בלי הרשמה, בלי פרסומות, בלי להתקין שום דבר. שחק שחמט עם המחשב, חברים או יריבים אקראיים.</string>
   <string name="teams">קבוצות</string>
