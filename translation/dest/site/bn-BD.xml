@@ -717,4 +717,14 @@
   <string name="onlineAndOfflinePlay">অনলাইন এবং অফলাইন খেলা</string>
   <string name="correspondenceAndUnlimited">সাদৃশ্য এবং সীমাহীন</string>
   <string name="viewTheSolution">সমাধান দেখুন</string>
+  <string name="followAndChallengeFriends">অনুসরন করুন এবং বন্ধুদের চ্যালেঞ্জ করুন</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">প্রাপ্য %s ভাষা!</item>
+    <item quantity="other">প্রাপ্য %s ভাষা সমূহ!</item>
+  </plurals>
+  <string name="gameAnalysis">খেলা বিশ্লেষন</string>
+  <string name="xHostsY">%1$s নির্মানকর্তা %2$s</string>
+  <string name="xJoinsY">%1$s যোগদেয় %2$s</string>
+  <string name="xLikesY">%1$s পচ্ছন্দ %2$s</string>
+  <string name="quickPairing">দ্রুত জোর-বাঁধানো</string>
 </resources>
