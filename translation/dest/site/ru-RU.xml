@@ -537,7 +537,7 @@
   <string name="closeAccount">Удалить учётную запись</string>
   <string name="changedMindDoNotCloseAccount">Я передумал, не удаляйте мою учётную запись</string>
   <string name="closeAccountExplanation">Вы действительно желаете удалить свою учётную запись? Её удаление невозможно будет отменить. Вы больше не сможете зайти в эту учётную запись, и ваша страница станет недоступна.</string>
-  <string name="thisAccountIsClosed">Профиль этого игрока закрыт.</string>
+  <string name="thisAccountIsClosed">Профиль этого игрока удалён.</string>
   <string name="invalidUsernameOrPassword">Неверное имя пользователя или пароль</string>
   <string name="incorrectPassword">Неверный пароль</string>
   <string name="emailMeALink">Прислать ссылку мне на почту</string>
