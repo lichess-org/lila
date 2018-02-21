@@ -782,4 +782,20 @@
   <string name="skipThisMove">এই ধাপটি এড়িয়ে যান</string>
   <string name="next">পরবর্তী</string>
   <string name="xWasPlayed">%s খেলা হয়েছিল</string>
+  <string name="findBetterMoveForWhite">সাদার জন্য একটি ভালো চাল খুঁজুন</string>
+  <string name="findBetterMoveForBlack">কালোর জন্য একটি ভালো চাল খুঁজুন</string>
+  <string name="resumeLearning">পুনারয় শিখুন</string>
+  <string name="youCanDoBetter">আপনি ভালো করতে পারেন</string>
+  <string name="tryAnotherMoveForWhite">সাদার জন্য আরেকটি চাল চেষ্টা করুন</string>
+  <string name="tryAnotherMoveForBlack">কালোর জন্য আরেকটি চাল চেষ্টা করুন</string>
+  <string name="solution">সমাধান</string>
+  <string name="waitingForAnalysis">অপেক্ষা করা হচ্ছে বিশ্লেষণের জন্য</string>
+  <string name="noMistakesFoundForWhite">সাদার জন্য কোন ভুল পাওয়া যায়নি</string>
+  <string name="noMistakesFoundForBlack">কালোর জন্য কোন ভুল পাওয়া যায়নি</string>
+  <string name="doneReviewingWhiteMistakes">সাদার ভুল পর্যালোচনা করা হয়েছে</string>
+  <string name="doneReviewingBlackMistakes">কালোর ভুল পর্যালোচনা করা হয়েছে</string>
+  <string name="doItAgain">এটা পুনারয় করুন</string>
+  <string name="reviewWhiteMistakes">সাদার ভুল পর্যালোচনা</string>
+  <string name="reviewBlackMistakes">কালোর ভুল পর্যালোচনা</string>
+  <string name="advantage">সুবিধা</string>
 </resources>
