@@ -739,4 +739,8 @@
   <string name="boardGeometry">বোর্ড জ্যামিতি</string>
   <string name="boardTheme">বোর্ড বিষয়</string>
   <string name="boardSize">বোর্ডের আয়তন</string>
+  <string name="pieceSet">টুকরা সেট</string>
+  <string name="embedInYourWebsite">আপনার ওয়েবসাইটে বসান</string>
+  <string name="usernameAlreadyUsed">এই ব্যবহারকারীর নাম ইতিমধ্যে ব্যবহার করা হয়েছে, দয়া করে অন্য একটি চেষ্টা করুন.</string>
+  <string name="usernameInvalid">অকার্যকর ব্যবহারকারীর নাম. দয়া করে শুধু বর্ণ, সংখ্যা, আন্ডারস্কোর এবং ড্যাশ ব্যবহার করুন.</string>
 </resources>
