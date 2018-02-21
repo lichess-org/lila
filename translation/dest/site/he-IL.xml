@@ -55,7 +55,13 @@
   <string name="goDeeper">עמוק יותר</string>
   <string name="showThreat">הצג איום</string>
   <string name="inLocalBrowser">בדפדפן המקומי</string>
+  <string name="toggleLocalEvaluation">הפעל הערכה מקומית</string>
+  <string name="promoteVariation">קידום וראציה</string>
+  <string name="makeMainLine">הפוך לליין הראשי</string>
+  <string name="deleteFromHere">מחק וריאציה</string>
   <string name="move">מסע</string>
+  <string name="variantLoss">וראצית הפסד</string>
+  <string name="variantWin">וריאצית ניצחון</string>
   <string name="insufficientMaterial">אין מספיק כלים</string>
   <string name="pawnMove">מסע רגלי</string>
   <string name="capture">הכאה</string>
@@ -70,7 +76,20 @@
   <string name="recentGames">משחקים אחרונים</string>
   <string name="topGames">המשחקים המובילים</string>
   <string name="masterDbExplanation">שני מיליון משחקים על לוח פיזי של %1$s+ שחקני פידה מ %2$s עד %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">מט בעוד %s חצי מהלך</item>
+    <item quantity="two">מט בעוד %s חצאי מהלכים</item>
+    <item quantity="many">מט בעוד %s חצאי מהלכים</item>
+    <item quantity="other">מט בעוד %s חצי מהלך</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">לקיחת רגלי או מהלך פיאון הבא בעוד %s חצי מהלך (מרחק לאיפוס צובר למהלך ה50)</item>
+    <item quantity="two">לקיחת רגלי או מהלך פיאון הבא בעוד %s חצי מהלך (מרחק לאיפוס צובר למהלך ה50)</item>
+    <item quantity="many">לקיחת רגלי או מהלך פיאון הבא בעוד %s חצי מהלך (מרחק לאיפוס צובר למהלך ה50)</item>
+    <item quantity="other">לקיחת רגלי או מהלך פיאון הבא בעוד %s חצי מהלך (מרחק לאיפוס צובר למהלך ה50)</item>
+  </plurals>
   <string name="noGameFound">משחק לא נמצא</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">להוסיף עוד משחקים מתפריט ההגדרות?</string>
   <string name="openingExplorer">סייר הפתיחות</string>
   <string name="allSet">הכול מוכן!</string>
   <string name="delete">מחק</string>
