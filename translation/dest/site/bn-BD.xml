@@ -821,4 +821,8 @@
   <string name="youCannotChallengeX">আপনি চ্যালেঞ্জ করতে পারবেন না%s.</string>
   <string name="xDoesNotAcceptChallenges">%s চ্যালেঞ্জ গ্রহন করবে না.</string>
   <string name="yourXRatingIsTooFarFromY">আপনার %1$s অনুপাত হয় অনেক বেশি দূরে থেকে %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">কিছু সময় চ্যালেঞ্জ করতে পারবেন না %s অনুপাত.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s শুধু বন্ধুদের থেকে চ্যালেঞ্জ গ্রহন.</string>
+  <string name="conditionalPremoves">সর্তমূলক পুনারয়চাল</string>
+  <string name="addCurrentVariation">বর্তমান ভিন্ন করুন</string>
 </resources>
