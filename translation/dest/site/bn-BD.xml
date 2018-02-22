@@ -817,4 +817,8 @@
   <string name="opening">উদ্বোধন</string>
   <string name="middlegame">মাধ্যমখেলা</string>
   <string name="endgame">খেলাশেষ</string>
+  <string name="registerToSendChallenges">চ্যালেঞ্জ করার জন্য দয়া করে নিবন্ধন করুন.</string>
+  <string name="youCannotChallengeX">আপনি চ্যালেঞ্জ করতে পারবেন না%s.</string>
+  <string name="xDoesNotAcceptChallenges">%s চ্যালেঞ্জ গ্রহন করবে না.</string>
+  <string name="yourXRatingIsTooFarFromY">আপনার %1$s অনুপাত হয় অনেক বেশি দূরে থেকে %2$s.</string>
 </resources>
