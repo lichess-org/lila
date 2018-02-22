@@ -116,13 +116,13 @@
   <string name="flipBoard">বোর্ডকে ঘোরান</string>
   <string name="threefoldRepetition">তিনবার একই চাল</string>
   <string name="claimADraw">ড্র দাবী করুন</string>
-  <string name="offerDraw">ড্র এর জন্য আহ্‌বান জানান</string>
-  <string name="draw">ড্র</string>
+  <string name="offerDraw">সমানের জন্য আহ্‌বান জানান</string>
+  <string name="draw">সমান</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s জন খেলোয়াড়</item>
     <item quantity="other">%s জন খেলোয়াড়</item>
   </plurals>
-  <string name="currentGames">এই খেলাটি চলছে</string>
+  <string name="currentGames">বর্তমান খেলা</string>
   <plurals name="nbGames">
     <item quantity="one">%s টি খেলা</item>
     <item quantity="other">%s টি খেলা</item>
