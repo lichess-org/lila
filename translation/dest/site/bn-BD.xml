@@ -15,7 +15,7 @@
   <string name="chat">আড্ডা</string>
   <string name="resign">হার স্বীকার করুন</string>
   <string name="checkmate">কিস্তিমাত</string>
-  <string name="stalemate">চালমাত - ড্র</string>
+  <string name="stalemate">চালমাত - সমান</string>
   <string name="white">সাদা</string>
   <string name="black">কালো</string>
   <string name="randomColor">যে কোন রঙ</string>
@@ -134,10 +134,10 @@
   <string name="viewInFullSize">পূর্ণ আকারে দেখুন</string>
   <string name="logOut">প্রস্থান</string>
   <string name="signIn">সাইন ইন</string>
-  <string name="newToLichess">আপনি কি Lichess প্রথম ব্যবহার করছেন?</string>
-  <string name="youNeedAnAccountToDoThat">এটি করার জন্য আপনার account প্রয়োজন</string>
-  <string name="signUp">সাইন আপ</string>
-  <string name="computersAreNotAllowedToPlay">Computer অথবা Computer ব্যবহার করে খেলা যাবে না | সবাইকে অনুরোধ করা হচ্ছে যেন কেউ খেলার সময় কোনো রকম Computer এর সাহায্য না নেন | পুনশ্চ , অযথা অনেক গুলি account খুলবেন না তাহলে আপনাকে  ban করা হতে পারেন</string>
+  <string name="newToLichess">আপনি কি লিচেসে নতুন?</string>
+  <string name="youNeedAnAccountToDoThat">এটি করার জন্য আপনার একাউন্ট প্রয়োজন</string>
+  <string name="signUp">নিবন্ধ</string>
+  <string name="computersAreNotAllowedToPlay">কম্পিউটার অথবা কম্পিউটার ব্যবহার করে খেলা যাবে না | সবাইকে অনুরোধ করা হচ্ছে যেন কেউ খেলার সময় কোনো রকম কম্পিউটার এর সাহায্য না নেন | পুনশ্চ, অযথা অনেক গুলি একাউন্ট খুলবেন না তাহলে আপনাকে বহিষ্কার করা হতে পারে.</string>
   <string name="games">সমস্ত খেলা</string>
   <string name="forum">ফোরাম</string>
   <string name="xPostedInForumY">%1$s লিখেছেন %2$s ফোরামে</string>
@@ -823,6 +823,13 @@
   <string name="yourXRatingIsTooFarFromY">আপনার %1$s অনুপাত হয় অনেক বেশি দূরে থেকে %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">কিছু সময় চ্যালেঞ্জ করতে পারবেন না %s অনুপাত.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s শুধু বন্ধুদের থেকে চ্যালেঞ্জ গ্রহন.</string>
-  <string name="conditionalPremoves">সর্তমূলক পুনারয়চাল</string>
+  <string name="conditionalPremoves">শর্তাধীন পুনারয়চাল</string>
   <string name="addCurrentVariation">বর্তমান ভিন্ন করুন</string>
+  <string name="playVariationToCreateConditionalPremoves">শর্তাধীন পুনারয় চাল তৈরির জন্য একটি ভিন্ন খেলুন</string>
+  <string name="noConditionalPremoves">পুনারয়চাল শর্তাধীন নেই</string>
+  <string name="playX">খেলা %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">এবং সংরক্ষন %s পুনারয়চাল রেখা</item>
+    <item quantity="other">এবং সংরক্ষন %s পুনারয়চাল রেখা</item>
+  </plurals>
 </resources>
