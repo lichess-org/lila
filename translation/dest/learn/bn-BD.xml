@@ -4,4 +4,5 @@
   <string name="learnChess">দাবা দক্ষতা অর্জন করুন</string>
   <string name="byPlaying">খেলার দ্বারা!</string>
   <string name="menu">মেনু</string>
+  <string name="progressX">অগ্রগতি: %s</string>
 </resources>
