@@ -14,4 +14,12 @@
   <string name="rookIntro">দাবার নৌকা হয় একটি শক্তিশালী টুকরা. এটাকে নির্দেশ দিতে আপনি কি প্রস্তুত?</string>
   <string name="rookGoal">তারায় নিয়ে আসতে নৌকায় ক্লিক করুন!</string>
   <string name="grabAllTheStars">সকল তারা দখল করুন!</string>
+  <string name="theFewerMoves">কম চালে আপনি তৈরি করুন,
+আরো পয়েন্ট আপনার জয়!</string>
+  <string name="useTwoRooks">দুটি দাবার নৌকা ব্যবহার করুন
+কিছু গতিতে!</string>
+  <string name="rookComplete">অভিনন্দন! আপনি সফল ভাবে দাবার নৌকাকে আয়ত্তে নিয়েছেন.</string>
+  <string name="theBishop">বিশপ</string>
+  <string name="itMovesDiagonally">এটা কোণাকুণি সরান</string>
+  <string name="bishopIntro">পরবর্তিতে আমরা শিখবো কিভাবে একটি বিশপ চালতে হয়!</string>
 </resources>
