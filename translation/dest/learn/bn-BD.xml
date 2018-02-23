@@ -46,4 +46,12 @@
   <string name="thePawn">গুটি</string>
   <string name="itMovesForwardOnly">এতা শুধু সামনের দিকে সরান</string>
   <string name="pawnIntro">গুটি হয় দুর্বল, কিন্তু তারা একটি শক্তিশালী দল.</string>
+  <string name="pawnsMoveOneSquareOnly">গুটি শুধু একটি বর্গে সরান.
+কিন্তু যখন তারা বোর্ডের অন্য প্রান্তে পৌছাবে
+তারা একটি শক্তিশালী টুকরা হবে!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">অনেক সময় একটি রানীকে প্রচার করা শ্রেষ্ঠ.
+কিন্তু মাঝে মাঝে একটি ঘোরা হাতের নাগালে আসতে পারে!</string>
+  <string name="pawnsMoveForward">গুটি সামনে সরান,
+কিন্তু কোনাকুনি আটকিয়ে!</string>
+  <string name="captureThenPromote">বন্দী করুন, তারপর প্রচার করুন!</string>
 </resources>
