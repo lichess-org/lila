@@ -42,4 +42,8 @@
   <string name="knightsHaveAFancyWay">ঘোরার চারপাশে লাফানোর একটি অভনব উপায় আছে!</string>
   <string name="knightsCanJumpOverObstacles">ঘোরা বাধার উপর লাফাতে পারে!
 মুক্ত এবং তারা পরাজিত!</string>
+  <string name="knightComplete">অভিনন্দন! আপনি ঘোরাকে আয়ত্ত করেছেন.</string>
+  <string name="thePawn">গুটি</string>
+  <string name="itMovesForwardOnly">এতা শুধু সামনের দিকে সরান</string>
+  <string name="pawnIntro">গুটি হয় দুর্বল, কিন্তু তারা একটি শক্তিশালী দল.</string>
 </resources>
