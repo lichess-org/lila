@@ -28,4 +28,13 @@
   <string name="bishopComplete">অভিনন্দন! আপনি একটি বিশপকে নির্দেশ করতে পারবেন.</string>
   <string name="theQueen">রানী</string>
   <string name="queenCombinesRookAndBishop">রানী = দাবার নৌকা + বিশপ</string>
+  <string name="queenIntro">সবচেয়ে শক্তিশালী দাবার টুকারার প্রবেশ. তার মহিমা রানী!</string>
+  <string name="queenComplete">অভিনন্দন! আপনার জন্য রানীর কোন গোপনীয়তা নেই.</string>
+  <string name="theKing">রাজা</string>
+  <string name="theMostImportantPiece">সবচেয়ে গুরুত্বপূর্ণ টুকরা</string>
+  <string name="kingIntro">আপনি হন রাজা. যদি আপনার পতন হয়, খেলাটি শেষ হয়ে যাবে.</string>
+  <string name="theKingIsSlow">রাজা হয় ধীর.</string>
+  <string name="lastOne">শেষ একটি!</string>
+  <string name="kingComplete">আপনি এখন সেনাপতি নির্দেশ করতে পারবেন!</string>
+  <string name="theKnight">দাবার ঘোড়া</string>
 </resources>
