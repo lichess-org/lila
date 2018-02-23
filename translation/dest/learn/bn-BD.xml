@@ -5,4 +5,10 @@
   <string name="byPlaying">খেলার দ্বারা!</string>
   <string name="menu">মেনু</string>
   <string name="progressX">অগ্রগতি: %s</string>
+  <string name="resetMyProgress">আমার অগ্রগতি পুনারয় বসান</string>
+  <string name="youWillLoseAllYourProgress">আপনি আপনার সকল অগ্রগতি হারাবেন!</string>
+  <string name="play">খেলুন!</string>
+  <string name="chessPieces">দাবার টুকরা</string>
+  <string name="theRook">দাবার নৌকা</string>
+  <string name="itMovesInStraightLines">এটা সোজা রেখা গুলোতে সরান</string>
 </resources>
