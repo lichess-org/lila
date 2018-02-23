@@ -14,7 +14,12 @@
   <string name="theBishop">הרץ</string>
   <string name="itMovesDiagonally">הוא זז באלכסון</string>
   <string name="theQueen">המלכה</string>
+  <string name="queenCombinesRookAndBishop">צריח + רץ = מלכה</string>
+  <string name="queenIntro">כלי השחמט החזק ביותר נכנס. הוד מלכותה, המלכה!</string>
   <string name="theKing">המלך</string>
+  <string name="theMostImportantPiece">הכלי החשוב ביותר</string>
+  <string name="kingIntro">אתה המלך. אם אתה נופל בקרב, אתה מפסיד את המשחק.</string>
+  <string name="theKingIsSlow">המלך איטי.</string>
   <string name="lastOne">אחרון!</string>
   <string name="theKnight">הפרש</string>
   <string name="thePawn">הרגלי</string>
