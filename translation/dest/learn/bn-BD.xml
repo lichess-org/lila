@@ -54,4 +54,11 @@
   <string name="pawnsMoveForward">গুটি সামনে সরান,
 কিন্তু কোনাকুনি আটকিয়ে!</string>
   <string name="captureThenPromote">বন্দী করুন, তারপর প্রচার করুন!</string>
+  <string name="useAllThePawns">সবগুটি ব্যবহার করুন!
+প্রচার করার প্রয়োজন নেই.</string>
+  <string name="aPawnOnTheSecondRank">দ্বিতীয় পদের একটি গুটি একবার 2 বর্গ সরতে পারবে!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">সব তারা লুফে নিন!
+প্রচার করার প্রয়োজন নেই.</string>
+  <string name="pawnComplete">অভিনন্দন! আপনার জন্য গুটির কোন গোপনীয়তা নেই.</string>
+  <string name="pawnPromotion">গুটির প্রমোশন</string>
 </resources>
