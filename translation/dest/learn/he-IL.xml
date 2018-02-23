@@ -48,4 +48,14 @@
   <string name="theSpecialPawnMove">מהלך מיוחד של רגלי</string>
   <string name="stalemate">פט</string>
   <string name="theGameIsADraw">המשחק מסתיים בתיקו</string>
+  <string name="stalemateIntro">כאשר שחקן לא מצוי תחת איום שח ואין לו אף מהלך חוקי, מצב כזה נקרא פט והמשחק מסתיים בתיקו.</string>
+  <string name="pieceValue">הערך של כל כלי</string>
+  <string name="pieceValueIntro">לכלים בעלי ניידות גבוהה יש ערך גבוה יותר!
+מלכה = 9
+צריח = 5
+רץ = 3
+פרש = 3
+רגלי = 1
+המלך לא יסולא בפז! הפסדת המלך משמעותה הפסדת המשחק.</string>
+  <string name="checkInTwo">שח בשני מהלכים</string>
 </resources>
