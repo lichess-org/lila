@@ -80,4 +80,10 @@
 হ্নমকু ত্যাগ করুন!</string>
   <string name="noEscape">এখানে কোন মুক্তি নেই,
 কিন্তু আপনি প্রতিরোধ করতে পারেন!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">তাদের কোন অরক্ষিত টুকরা নিতে দিবেন না!</string>
+  <string name="combat">যুদ্ধ</string>
+  <string name="captureAndDefendPieces">বন্দী এবং প্রতিরোধ টুকরাগুলো</string>
+  <string name="combatIntro">একজন ভালো যোদ্ধা জানে উভয় আক্রমন এবং প্রতিরোধ!</string>
+  <string name="combatComplete">অভিনন্দন! আপনি জানেন কিভাবে দাবার টুকরা গুলোর সাথে যুদ্ধ করতে হয়!</string>
+  <string name="checkInOne">একটি চেক করুন</string>
 </resources>
