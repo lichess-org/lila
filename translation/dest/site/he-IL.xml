@@ -672,6 +672,8 @@
   <string name="error.unknown">שגיאה</string>
   <string name="skipThisMove">דלג/י על מהלך זה</string>
   <string name="solution">פתרון</string>
+  <string name="noMistakesFoundForWhite">אף טעות לא נמצאה עבור הלבן</string>
+  <string name="noMistakesFoundForBlack">אף טעות לא נמצאה עבור השחור</string>
   <string name="advantage">יתרון</string>
   <string name="opening">פתיחה</string>
   <string name="middlegame">מציעה</string>
