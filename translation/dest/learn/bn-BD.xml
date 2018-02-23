@@ -86,4 +86,7 @@
   <string name="combatIntro">একজন ভালো যোদ্ধা জানে উভয় আক্রমন এবং প্রতিরোধ!</string>
   <string name="combatComplete">অভিনন্দন! আপনি জানেন কিভাবে দাবার টুকরা গুলোর সাথে যুদ্ধ করতে হয়!</string>
   <string name="checkInOne">একটি চেক করুন</string>
+  <string name="attackTheOpponentsKing">প্রতিদ্বন্দ্বীর রাজাকে আক্রমন করুন</string>
+  <string name="checkInOneIntro">আপনার প্রতিদ্বন্দ্বীকে চেক করার জন্য, তাদের রাজাকে আক্রমন করুন. তারা অবশ্যই এটাকে রক্ষা করবে!</string>
+  <string name="checkInOneGoal">প্রতিদ্বন্দ্বী রাজার লক্ষ্য এক পদক্ষেপ!</string>
 </resources>
