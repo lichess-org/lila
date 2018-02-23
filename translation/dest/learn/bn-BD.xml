@@ -69,4 +69,7 @@
   <string name="takeTheEnemyPieces">শত্রুর টুকরা নিন</string>
   <string name="captureIntro">প্রতিপক্ষের অনির্দিষ্ট টুকরা চিহ্নিত করুন, এবং তাদের বন্দী করুন!</string>
   <string name="takeTheBlackPieces">কালো টুকরা নিন!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">কালো টুকরা নিন!
+এবং আপনাকে হারাবেন না.</string>
+  <string name="captureComplete">অভিনন্দন! আপনি জানেন এখন কিভাবে দাবার টুকার সাথে যুদ্ধ করতে হয়!</string>
 </resources>
