@@ -42,4 +42,10 @@
   <string name="selectThePieceYouWant">בחר/י את הכלי שאת/ה רוצה!</string>
   <string name="fundamentals">יסודות</string>
   <string name="capture">הכאה</string>
+  <string name="castling">הצרחה</string>
+  <string name="theSpecialKingMove">מהלך מיוחד של המלך</string>
+  <string name="enPassant">הכאה דרך הילוכו</string>
+  <string name="theSpecialPawnMove">מהלך מיוחד של רגלי</string>
+  <string name="stalemate">פט</string>
+  <string name="theGameIsADraw">המשחק מסתיים בתיקו</string>
 </resources>
