@@ -668,5 +668,11 @@
   <string name="background">רקע</string>
   <string name="light">בהיר</string>
   <string name="transparent">שקוף</string>
+  <string name="usernameStartNoNumber">שם המשתמש לא יכול להתחיל עם ספרה.</string>
   <string name="error.unknown">שגיאה</string>
+  <string name="skipThisMove">דלג/י על מהלך זה</string>
+  <string name="advantage">יתרון</string>
+  <string name="opening">פתיחה</string>
+  <string name="middlegame">מציעה</string>
+  <string name="endgame">סיום</string>
 </resources>
