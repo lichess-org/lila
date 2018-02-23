@@ -22,4 +22,10 @@
   <string name="theBishop">বিশপ</string>
   <string name="itMovesDiagonally">এটা কোণাকুণি সরান</string>
   <string name="bishopIntro">পরবর্তিতে আমরা শিখবো কিভাবে একটি বিশপ চালতে হয়!</string>
+  <string name="youNeedBothBishops">একটি আলো-ছক বিশপ,
+একটি অন্ধকার-ছক বিশপ.
+আপনার দুটোই প্র‍য়োজন!</string>
+  <string name="bishopComplete">অভিনন্দন! আপনি একটি বিশপকে নির্দেশ করতে পারবেন.</string>
+  <string name="theQueen">রানী</string>
+  <string name="queenCombinesRookAndBishop">রানী = দাবার নৌকা + বিশপ</string>
 </resources>
