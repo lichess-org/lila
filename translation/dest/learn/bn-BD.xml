@@ -72,4 +72,6 @@
   <string name="takeTheBlackPiecesAndDontLoseYours">কালো টুকরা নিন!
 এবং আপনাকে হারাবেন না.</string>
   <string name="captureComplete">অভিনন্দন! আপনি জানেন এখন কিভাবে দাবার টুকার সাথে যুদ্ধ করতে হয়!</string>
+  <string name="protection">নিরাপত্তা</string>
+  <string name="keepYourPiecesSafe">আপনার টুকরা গুলো নিরাপদ রাখুন</string>
 </resources>
