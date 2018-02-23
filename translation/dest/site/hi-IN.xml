@@ -56,6 +56,8 @@
   <string name="showThreat">खतरे को दिखाएं</string>
   <string name="inLocalBrowser">स्थानीय ब्राउज़र में</string>
   <string name="toggleLocalEvaluation">स्थानीय मूल्यांकन को टॉगल करें</string>
+  <string name="makeMainLine">मुख्य लाइन बनाओ</string>
+  <string name="deleteFromHere">यहां से हटाएं</string>
   <string name="move">चाल</string>
   <string name="variantLoss">भिन् न हानि</string>
   <string name="variantWin">भिन् न जीत</string>
@@ -102,9 +104,11 @@
   <string name="memory">मेमोरी</string>
   <string name="infiniteAnalysis">अनंत विश्लेषण</string>
   <string name="removesTheDepthLimit">गहराई सीमा को निकालता है, और आपके कंप्यूटर को गर्म रखता है</string>
+  <string name="blunder">बड़ी भूल</string>
   <string name="blunders">गंभीर गल्तियां</string>
   <string name="mistake">गलती</string>
   <string name="mistakes">गलतियाँ</string>
+  <string name="inaccuracy">गलती</string>
   <string name="inaccuracies">त्रुटियाँ</string>
   <string name="moveTimes">चाल समय</string>
   <string name="flipBoard">बोर्ड पलटें</string>
@@ -191,6 +195,7 @@
   <string name="accept">स्वीकार करें</string>
   <string name="decline">अस्वीकार करें</string>
   <string name="playingRightNow">अभी खेला जा रहा</string>
+  <string name="eventInProgress">अभी खेला जा रहा</string>
   <string name="finished">समाप्त</string>
   <string name="abortGame">खेल रद्द करें</string>
   <string name="gameAborted">खेल रद्द किया गया</string>
@@ -199,6 +204,8 @@
   <string name="mode">प्रणाली</string>
   <string name="casual">मूल्यांकन के बिना</string>
   <string name="rated">मूल्यांकित</string>
+  <string name="casualTournament">आकस्मिक</string>
+  <string name="ratedTournament">रेटेड</string>
   <string name="thisGameIsRated">यह खेल मूल्यांकित है</string>
   <string name="rematch">फिर से खेलें</string>
   <string name="rematchOfferSent">फिर से खेलने का प्रस्ताव भेजा गया है</string>
@@ -726,7 +733,26 @@
   <string name="notifications">सूचनाएँ</string>
   <string name="challenges">चुनौतियाँ</string>
   <string name="perfRatingX">रेटिंग: %s</string>
+  <string name="practiceWithComputer">कंप्यूटर के साथ अभ्यास</string>
+  <string name="theGameIsADraw">खेल ड्रॉ है ।</string>
+  <string name="computerThinking">कंप्यूटर सोच...</string>
+  <string name="seeBestMove">सबसे अच्छा कदम देखें</string>
+  <string name="hideBestMove">सबसे अच्छा कदम छिपाएं</string>
+  <string name="getAHint">एक संकेत प्राप्त करें</string>
+  <string name="whiteWinsGame">सफेद जीत</string>
+  <string name="blackWinsGame">काला विजयी</string>
   <string name="learnFromYourMistakes">अपनी गलतियों से सीखें</string>
+  <string name="skipThisMove">इस चाल को छोड़ें</string>
   <string name="next">अगला</string>
+  <string name="xWasPlayed">%s खेला गया</string>
+  <string name="findBetterMoveForWhite">सफेद के लिए एक बेहतर कदम का पता लगाएं</string>
+  <string name="findBetterMoveForBlack">काले के लिए एक बेहतर कदम खोजें</string>
+  <string name="youCanDoBetter">आप बेहतर कर सकते हैं</string>
+  <string name="tryAnotherMoveForWhite">सफ़ेद के लिए एक और चाल आज़माएं</string>
+  <string name="tryAnotherMoveForBlack">काले के लिए एक और कदम की कोशिश</string>
   <string name="solution">समाधान</string>
+  <string name="waitingForAnalysis">विश्लेषण के लिए प्रतीक्षा</string>
+  <string name="noMistakesFoundForWhite">श्वेता के लिए नहीं मिली कोई गलतियां</string>
+  <string name="doItAgain">इसे फिर से करो</string>
+  <string name="advantage">लाभ</string>
 </resources>
