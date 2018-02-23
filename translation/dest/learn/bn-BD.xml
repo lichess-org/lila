@@ -61,4 +61,12 @@
 প্রচার করার প্রয়োজন নেই.</string>
   <string name="pawnComplete">অভিনন্দন! আপনার জন্য গুটির কোন গোপনীয়তা নেই.</string>
   <string name="pawnPromotion">গুটির প্রমোশন</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">আপনার গুটি বোর্ডের শেষ দিক অতিক্রম করেছে!</string>
+  <string name="itNowPromotesToAStrongerPiece">এটা একটি শক্তুশালী টুকরার প্রচার.</string>
+  <string name="selectThePieceYouWant">আপনি যে টুকরা চান তা নির্বাচন করুন!</string>
+  <string name="fundamentals">মূলসূত্র</string>
+  <string name="capture">অধিগ্রহন করুন</string>
+  <string name="takeTheEnemyPieces">শত্রুর টুকরা নিন</string>
+  <string name="captureIntro">প্রতিপক্ষের অনির্দিষ্ট টুকরা চিহ্নিত করুন, এবং তাদের বন্দী করুন!</string>
+  <string name="takeTheBlackPieces">কালো টুকরা নিন!</string>
 </resources>
