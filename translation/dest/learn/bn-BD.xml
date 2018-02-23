@@ -11,4 +11,7 @@
   <string name="chessPieces">দাবার টুকরা</string>
   <string name="theRook">দাবার নৌকা</string>
   <string name="itMovesInStraightLines">এটা সোজা রেখা গুলোতে সরান</string>
+  <string name="rookIntro">দাবার নৌকা হয় একটি শক্তিশালী টুকরা. এটাকে নির্দেশ দিতে আপনি কি প্রস্তুত?</string>
+  <string name="rookGoal">তারায় নিয়ে আসতে নৌকায় ক্লিক করুন!</string>
+  <string name="grabAllTheStars">সকল তারা দখল করুন!</string>
 </resources>
