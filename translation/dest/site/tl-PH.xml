@@ -484,6 +484,9 @@
   <string name="promoteToQueenAutomatically">Awtomatikong gawing Queen</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Awtomatikong magkuha sa tatlong beses na pag-uulit</string>
   <string name="privacy">Pagiging Pribado</string>
+  <string name="letOtherPlayersFollowYou">Hayaan ang ibang manlalaro na sundan ka</string>
+  <string name="letOtherPlayersChallengeYou">Hayaan ang ibang manlalaro na hamunin ka</string>
+  <string name="letOtherPlayersInviteYouToStudy">Hayaan ang ibang mga manlalaro na imbitahan ka a pag-aralan</string>
   <string name="none">Wala</string>
   <string name="fast">Mabilis</string>
   <string name="slow">Mabagal</string>
