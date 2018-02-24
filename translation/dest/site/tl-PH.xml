@@ -523,6 +523,16 @@
   <string name="sourceCode">Pinagkukunan ng Code</string>
   <string name="simultaneousExhibitions">Magkasabay na mga eksibisyon</string>
   <string name="host">Host</string>
+  <string name="hostColorX">Kulay ng Host: %s</string>
+  <string name="createdSimuls">Bagong ginawang mga simul</string>
+  <string name="hostANewSimul">Maghost ng bagong simul</string>
+  <string name="noSimulFound">Hindi makita ang simul</string>
+  <string name="noSimulExplanation">Ang pagsasabay na eksibisyong ito ay hindi umiiral.</string>
+  <string name="returnToSimulHomepage">Bumalik sa pahina ng home ng simul</string>
+  <string name="aboutSimul">Ang mga simul ay kasangkot ang isang solong manlalaro na nakaharap sa ilang manlalaro nang sabay-sabay.</string>
+  <string name="aboutSimulImage">Sa lahat ng 50 opponents, si Fischer ay nanalo ng 47 na mga laro, 2 drew at 1 talo.</string>
+  <string name="aboutSimulRealLife">Ang konsepto ay kinuha mula sa mga pangyayri sa tunay na mundo. Sa tunay na buhay, ito ay nagsasangkot ng simul na host na lumilipat mula sa talahanayan hanggang sa talahanayan upang maglaro ng isang solong galaw.</string>
+  <string name="aboutSimulRules">Kapag ang isang simul ay nagsimula, bawat manlalaro ay nagsisimula maglaro ng isang laro kasama ang host, kung sino ang makakalaro sa puting mga piraso. Ang simuls ay natatapos kapag ang lahat ng mga laro ay nakompleto.</string>
   <string name="keyboardShortcuts">Shortcut sa Keyboard</string>
   <string name="newTournament">Bagong torneo</string>
   <string name="tournamentNotFound">Hindi mahanap ang torneo</string>
