@@ -479,6 +479,11 @@
   <string name="clickTwoSquares">I-click ang dalawang kwadrado</string>
   <string name="dragPiece">I-drag ang isang piraso</string>
   <string name="bothClicksAndDrag">Alinman</string>
+  <string name="premovesPlayingDuringOpponentTurn">Bago gumalaw (paglalaro sa panahon ng kalaban)</string>
+  <string name="takebacksWithOpponentApproval">Mga Pagbawi (na may permiso ng kalaban)</string>
+  <string name="promoteToQueenAutomatically">Awtomatikong gawing Queen</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Awtomatikong magkuha sa tatlong beses na pag-uulit</string>
+  <string name="privacy">Pagiging Pribado</string>
   <string name="none">Wala</string>
   <string name="fast">Mabilis</string>
   <string name="slow">Mabagal</string>
