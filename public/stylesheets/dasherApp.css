@@ -389,6 +389,9 @@
 #dasher_app piece.fantasy {
   background-image: url(../piece/fantasy/wN.svg);
 }
+#dasher_app piece.go {
+  background-image: url(../piece/go/wN.svg);
+}
 #dasher_app piece.shapes {
   background-image: url(../piece/shapes/wN.svg);
 }

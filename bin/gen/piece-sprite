@@ -17,6 +17,7 @@ themes = [
   ['chess7', 'svg'],
   ['reillycraig', 'svg'],
   ['fantasy', 'svg'],
+  ['go', 'svg'],
   ['shapes', 'svg'],
   ['chessnut', 'svg'],
   ['companion', 'svg'],
