@@ -292,8 +292,32 @@
     <item quantity="one">Kailangan mo maglaro %1$s na maraming %2$s narate na laro</item>
     <item quantity="other">Kailangan mo maglaro %1$s na maraming %2$s narate na mga laro</item>
   </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Kailangan mo maglaro ng %s na maraming narate na laro</item>
+    <item quantity="other">Kailangan mo maglaro ng %s na maraming narate na mga laro</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Ang iyong %s marka ay probisyonal</string>
+  <string name="yourPerfRatingIsTooHigh">Ang iyong %1$s marka (%2$s) ay masyadong mataas</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Ang iyong linggong pinakamataas na %1$s marka (%2$s) ay masyadong mataas</string>
+  <string name="yourPerfRatingIsTooLow">Ang iyong %1$s marka (%2$s) ay masyadong mababa</string>
+  <string name="ratedMoreThanInPerf">Namarka ≥ %1$s sa %2$s</string>
+  <string name="ratedLessThanInPerf">Namarka ≤ %1$s sa %2$s</string>
+  <string name="backToGame">Bumalik sa laro</string>
+  <string name="siteDescription">Libreng Online na Server ng Chess. Magalro ng Chess ngayon sa isang malinis na interface. Walang rehistrsyon, walang mga ad, walang plugin na kailangan. Maglaro ng Chess kasama ang kompyuter, mga kaibigan, o sinong mga kalaban.</string>
+  <string name="teams">Mga Koponan</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s miyembro</item>
+    <item quantity="other">%s mga miyembro</item>
+  </plurals>
+  <string name="allTeams">Lahat ng mga koponan</string>
   <string name="newTeam">Bagong Team</string>
   <string name="myTeams">Ang mga Teams mo</string>
+  <string name="noTeamFound">Walang koponan na nakita</string>
+  <string name="joinTeam">Sumali sa koponan</string>
+  <string name="quitTeam">Umalis sa koponan</string>
+  <string name="anyoneCanJoin">Libre para sa lahat</string>
+  <string name="aConfirmationIsRequiredToJoin">Isang kompirmasyon ang kailangan para makasali</string>
+  <string name="joiningPolicy">Patakaran ng Pagsali</string>
   <string name="notACheckmate">Hindi ito checkmate</string>
   <string name="findFriends">Maghanap ng Kaibigan</string>
   <string name="follow">Sundan</string>
