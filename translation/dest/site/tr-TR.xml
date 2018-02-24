@@ -823,4 +823,10 @@
   <string name="conditionalPremoves">Şartlı ön hamle</string>
   <string name="addCurrentVariation">Geçerli varyasyon ekle</string>
   <string name="playVariationToCreateConditionalPremoves">Koşullu ön hamleler yapmak için bir varyasyon oynayın</string>
+  <string name="noConditionalPremoves">Koşullu ön hamle yok</string>
+  <string name="playX">%s oyna</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">ve %s önceki varyantları kaydedin</item>
+    <item quantity="other">ve %s önceki varyantları kaydedin</item>
+  </plurals>
 </resources>
