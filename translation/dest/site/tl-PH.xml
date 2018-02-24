@@ -425,6 +425,17 @@
   <string name="firstName">Pangalan</string>
   <string name="lastName">Apelyido</string>
   <string name="biography">Talambuhay</string>
+  <string name="country">Bansa</string>
+  <string name="preferences">Mga Kagustuhan</string>
+  <string name="inlineNotation">Nakalinyang notasyon</string>
+  <string name="watchLichessTV">Tumingin sa Lichess TV</string>
+  <string name="previouslyOnLichessTV">Ang Nakaraan sa Lichess TV</string>
+  <string name="onlinePlayers">Mga online na manlalaro</string>
+  <string name="activeToday">Aktibo ngayon</string>
+  <string name="activePlayers">Aktibong manlalaro</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Mag-ingat, ay laro ay namarkahan pero walang orasan!</string>
+  <string name="training">Mga palaisipan</string>
+  <string name="yourPuzzleRatingX">Ang iyong marka sa palaisipan: %s</string>
   <string name="views">Mga Tumingin</string>
   <string name="replies">Mga Tumugon</string>
   <string name="replyToThisTopic">Sumagot sa paksang ito</string>
@@ -583,4 +594,29 @@
   <string name="pieceSet">Itakda ang piraso</string>
   <string name="embedInYourWebsite">Idikit sa iyong website</string>
   <string name="usernameAlreadyUsed">Ang uername na ito ay nagamit na, pakisubukan ang iba.</string>
+  <string name="usernameInvalid">Maling username. Pakigamit lamang ng mga letra, mga numero, salungguhit at gitling.</string>
+  <string name="usernameStartNoNumber">Ang username ay kailangan na magsimula sa numero.</string>
+  <string name="usernameUnacceptable">Ang username na ito ay hindi matatanggap.</string>
+  <string name="directlySupportLichess">Direktang sumusuporta sa Lichess</string>
+  <string name="playChessInStyle">Maglaro ng chess na may istilo</string>
+  <string name="chessBasics">Mga pangunahing kaalaman ng Chess</string>
+  <string name="coaches">Mga Tagapagsanay</string>
+  <string name="invalidPgn">Maling PGN</string>
+  <string name="invalidFen">Maling FEN</string>
+  <string name="error.minLength">Pinakamaliit na haba ay %s</string>
+  <string name="error.maxLength">Pinakamalaking haba ay %s</string>
+  <string name="error.min">Dapat mas malaki o kapareha sa %s</string>
+  <string name="error.max">Dapat na maliit o kapreha sa %s</string>
+  <string name="error.unknown">Mali</string>
+  <string name="custom">Pinasadya</string>
+  <string name="notifications">Mga Notipikasyon</string>
+  <string name="challenges">Mga Hamon</string>
+  <string name="perfRatingX">Marka: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s segundo na gawin ang unang galaw</item>
+    <item quantity="other">%s segundos na gawin ang unang galaw</item>
+  </plurals>
+  <string name="practiceWithComputer">Magsanay kasama ang kompyuter</string>
+  <string name="anotherWasX">Ang iba ay %s</string>
+  <string name="bestWasX">Pinakamahusay ay %s</string>
 </resources>
