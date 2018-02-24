@@ -462,6 +462,11 @@
   <string name="continueTraining">Ipagpatuloy ang pagsasanay</string>
   <string name="retryThisPuzzle">Ulitin ang palaisipang ito</string>
   <string name="thisPuzzleIsCorrect">Ang palaisipang ito ay eksakto at kawili-wili</string>
+  <string name="thisPuzzleIsWrong">Ang palaisipang ito ay mali o nakakainip</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s laro na nilalaro</item>
+    <item quantity="other">%s mga  laro na nilalaro</item>
+  </plurals>
   <string name="views">Mga Tumingin</string>
   <string name="replies">Mga Tumugon</string>
   <string name="replyToThisTopic">Sumagot sa paksang ito</string>
