@@ -1,4 +1,5 @@
 import { h } from 'snabbdom';
+import { Hooks } from 'snabbdom/hooks'
 import LobbyController from '../ctrl';
 import { bind, spinner } from './util';
 
@@ -6,9 +7,18 @@ function renderRange(range: string) {
   return h('div.range', range.replace('-', '–'));
 }
 
-export default function(ctrl: LobbyController) {
+export function hooks(ctrl: LobbyController): Hooks {
+  return bind('click', e => {
+    const id = (e.target as HTMLElement).getAttribute('data-id') ||
+      ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-id');
+    if (id === 'custom') $('#start_buttons .config_hook').mousedown();
+    else id && ctrl.clickPool(id);
+  }, ctrl.redraw);
+}
+
+export function render(ctrl: LobbyController) {
   const member = ctrl.poolMember;
-  return ctrl.pools.map(function(pool) {
+  return ctrl.pools.map(pool => {
     const active = !!member && member.id === pool.id,
     transp = !!member && !active;
     return h('div.pool', {
@@ -16,7 +26,7 @@ export default function(ctrl: LobbyController) {
         active,
         transp: !active && transp
       },
-      hook: bind('click', _ => ctrl.clickPool(pool.id), ctrl.redraw)
+      attrs: { 'data-id': pool.id }
     }, [
       h('div.clock', pool.lim + '+' + pool.inc),
       (active && member!.range) ? renderRange(member!.range!) : h('div.perf', pool.perf),
@@ -25,7 +35,7 @@ export default function(ctrl: LobbyController) {
   }).concat(
     h('div.custom', {
       class: { transp: !!member },
-      hook: bind('click', _ => $('#start_buttons .config_hook').mousedown())
+      attrs: { 'data-id': 'custom' }
     }, ctrl.trans.noarg('custom'))
   );
 }
