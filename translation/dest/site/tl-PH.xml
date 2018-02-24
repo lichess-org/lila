@@ -567,4 +567,20 @@
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ikaw ay walang naitatag %s na marka.</string>
   <string name="checkYourEmail">Suriin ang iyong Email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Kami ay nagpadala ng email sa iyo. I-click ang link sa email upang paganahin ang iyong akawnt.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Kung wala kang nakikitang email, suriin ang ibang lugar kagaya ng junk, spam, mga sosyal, o ibang mga folder.</string>
+  <string name="weHaveSentYouAnEmailTo">Kami ay nagpadala ng email kay %s. I-click ang link sa email upang ibalik ang iyong password.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Sa pagrerehistro, ikaw ay pumayag na madikit sa aming %s.</string>
+  <string name="networkLagBetweenYouAndLichess">Network lag sa pagitan mo at ng lichess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Oras upang maproseso ang isang galaw sa server ng lichess</string>
+  <string name="downloadAnnotated">I-download ang na-annotate</string>
+  <string name="light">Liwanag</string>
+  <string name="dark">Madilim</string>
+  <string name="transparent">Transparent</string>
+  <string name="backgroundImageUrl">URL ng Likurang imahe:</string>
+  <string name="boardGeometry">Board ng geometry</string>
+  <string name="boardTheme">Tema ng Board</string>
+  <string name="boardSize">Sukat ng board</string>
+  <string name="pieceSet">Itakda ang piraso</string>
+  <string name="embedInYourWebsite">Idikit sa iyong website</string>
+  <string name="usernameAlreadyUsed">Ang uername na ito ay nagamit na, pakisubukan ang iba.</string>
 </resources>
