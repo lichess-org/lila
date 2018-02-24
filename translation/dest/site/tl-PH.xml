@@ -546,7 +546,25 @@
   <string name="timeBeforeTournamentStarts">Oras bago magsimula ang paligsahan</string>
   <string name="averageCentipawnLoss">Karaniwang nawawalang centipawn</string>
   <string name="keyboardShortcuts">Shortcut sa Keyboard</string>
+  <string name="keyMoveBackwardOrForward">gumalaw pabalik/pasulong</string>
+  <string name="keyGoToStartOrEnd">pumunta sa simula/huli</string>
+  <string name="keyShowOrHideComments">ipakita/itago ang mga komento</string>
+  <string name="keyEnterOrExitVariation">pumasok/lumabas na pagkakaiba-iba</string>
   <string name="newTournament">Bagong torneo</string>
+  <string name="tournamentHomeTitle">Paligsahan ng Chess tampok ang ibat-ibang pagkontrol sa oras at mga pagkakaiba-iba</string>
+  <string name="tournamentHomeDescription">Maglaro ng mabilis sa mga paligsahn ng chess! Sumali sa opisyal na nakaiskedyul na mga paligsahan, o gumawa na iyong sarili. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, at marami pang magagamit para sa walang katapusang kasayahan ng chess.</string>
   <string name="tournamentNotFound">Hindi mahanap ang torneo</string>
   <string name="tournamentDoesNotExist">Itong torneo nato ay hindi nag-eexist</string>
+  <string name="tournamentMayHaveBeenCanceled">Ito ay maaring makansela, kung lahat ng mga manlalaro ay umalis bago magsimula ang paligsahan.</string>
+  <string name="returnToTournamentsHomepage">Bumalik sa pahina ng home ng paligsahan</string>
+  <string name="weeklyPerfTypeRatingDistribution">Linggohang %s pagbabahagi ng marka</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s%2$s manlalaro sa linggo.</item>
+    <item quantity="other">%1$s%2$s mga manlalaro sa linggo.</item>
+  </plurals>
+  <string name="yourPerfTypeRatingIsRating">Ang iyong %1$s marka ay %2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Ikaw ay mas magaling kaysa sa %1$s ng %2$s mga manlalaro.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ikaw ay walang naitatag %s na marka.</string>
+  <string name="checkYourEmail">Suriin ang iyong Email</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Kami ay nagpadala ng email sa iyo. I-click ang link sa email upang paganahin ang iyong akawnt.</string>
 </resources>
