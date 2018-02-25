@@ -69,6 +69,13 @@
   <string name="winning">Nananalo</string>
   <string name="losing">Natatalo</string>
   <string name="drawn">Natabla</string>
+  <string name="unknown">Hindi kilala</string>
+  <string name="database">Database</string>
+  <string name="whiteDrawBlack">Puti / Tabla / Itim</string>
+  <string name="averageRatingX">Pangkaraniwang marka: %s</string>
+  <string name="recentGames">Bagong mga laro</string>
+  <string name="topGames">Nangungunang mga laro</string>
+  <string name="masterDbExplanation">Dalawang milyong mga laro ng OTB na %1$s + namarkahan na FIDE na mga manlalaro galing sa %2$s patungo sa %3$s</string>
   <string name="mistakes">Mga Pagkakamali</string>
   <string name="flipBoard">Baligtarin ang board</string>
   <plurals name="nbPlayers">
