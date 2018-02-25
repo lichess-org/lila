@@ -615,6 +615,7 @@
   <string name="ifRatingIsPlusMinusX">Kung ang marka ay ± %s</string>
   <string name="onlyFriends">Mga kaibigan lamang</string>
   <string name="menu">Menu</string>
+  <string name="castling">Pag-enrock</string>
   <string name="whiteCastlingKingside">Puti O-O</string>
   <string name="whiteCastlingQueenside">Puti O-O-O</string>
   <string name="blackCastlingKingside">Itim O-O</string>
@@ -628,6 +629,8 @@
   <string name="tpTimeSpentOnTV">Oras sa TV: %s</string>
   <string name="watch">Manood</string>
   <string name="internationalEvents">Internasyonal na mga pangyayari</string>
+  <string name="videoLibrary">Lalagyan ng mga Video</string>
+  <string name="mobileApp">Aplikasyon sa Mobile</string>
   <string name="webmasters">Webmasters</string>
   <string name="contribute">Mag-ambag</string>
   <string name="contact">Kontak</string>
@@ -685,6 +688,17 @@
   <string name="networkLagBetweenYouAndLichess">Network lag sa pagitan mo at ng lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Oras upang maproseso ang isang galaw sa server ng lichess</string>
   <string name="downloadAnnotated">I-download ang na-annotate</string>
+  <string name="downloadRaw">I-download ang raw</string>
+  <string name="downloadImported">Naluwas na mga nadownload</string>
+  <string name="printFriendlyPDF">Palakaibigang pagprint ng PDF</string>
+  <string name="crosstable">Crosstable</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Pwede kang magscroll sa ibabaw ng board upang gumalaw sa laro.</string>
+  <string name="analysisShapesHowTo">Pindutin ang shift+click o pindutin ang kanan ng mouse upang gumawa ngcmga bilog at mga arrow sa board.</string>
+  <string name="confirmResignationAndDrawOffers">Kompirmahin ang pagbitiw at mga tabla na mga pag-alok</string>
+  <string name="inputMovesWithTheKeyboard">Maglagay ng mga galaw sa keyboard</string>
+  <string name="letOtherPlayersMessageYou">Hayaan ang ibang mga manlalaro na magmensahe sayo</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Paraan ng pag-endrok</string>
+  <string name="castleByMovingTwoSquares">Galawin ang hari ng dalawang kwadrado</string>
   <string name="builtForTheLoveOfChessNotMoney">Ginawa para sa pag-ibig sa chess, hindi sa pera</string>
   <string name="everybodyGetsAllFeaturesForFree">Ang lahat ay nakakuha ng lahat ng tampok ng libre</string>
   <string name="zeroAdvertisement">Walang advertisement</string>
