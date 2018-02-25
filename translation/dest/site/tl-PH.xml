@@ -513,9 +513,30 @@
   <string name="xCompetesInY">%1$s nakikipagkumpitensya sa %2$s</string>
   <string name="xAskedY">%1$s tinanong %2$s</string>
   <string name="xAnsweredY">%1$s nasagot %2$s</string>
+  <string name="xCommentedY">%1$s nakomentohan %2$s</string>
+  <string name="victory">Tagumpay</string>
+  <string name="defeat">Natalo</string>
+  <string name="xVsYinZ">%1$s vs.%2$s sa %3$s</string>
+  <string name="timeline">Timeline</string>
+  <string name="seeAllTournaments">Tingnan ang lahat ng mga paligsahan</string>
   <string name="starting">Nagsisimula:</string>
+  <string name="allInformationIsPublicAndOptional">Ang lahat ng impormasyon ay nasa publiko at opsyonal.</string>
+  <string name="yourCityRegionOrDepartment">Ang iyong lungsod, rehiyon, o probinsya.</string>
+  <string name="biographyDescription">Sabihin mo ako tungkol sa iyo, ano ang gusto mo sa chess, paboritong mga pagbukas, mga laro, mga manlalaro…</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Pinakamarami: %s karakter.</item>
+    <item quantity="other">Pinakamarami: %s mga karakter.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s pagharang</item>
+    <item quantity="other">%s mga pagharang</item>
+  </plurals>
+  <string name="listBlockedPlayers">Listahan ng mga manlalaro na iyong hinarangan</string>
   <string name="human">Tao</string>
   <string name="computer">Makina</string>
+  <string name="side">Panig</string>
+  <string name="clock">Orasan</string>
+  <string name="unauthorizedError">Ang pagbukas ay hindi pinapayagan.</string>
   <string name="connectedToLichess">Konectado sa lichess.org</string>
   <string name="playOfflineComputer">Makina</string>
   <string name="opponent">Kalaban</string>
