@@ -700,6 +700,13 @@
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Paraan ng pag-endrok</string>
   <string name="castleByMovingTwoSquares">Galawin ang hari ng dalawang kwadrado</string>
   <string name="castleByMovingOntoTheRook">Igalaw ang Hari sa rook</string>
+  <string name="shareYourInsightsData">Ibahagi ang iyong mga data ng pananaw</string>
+  <string name="withNobody">Walang kasama</string>
+  <string name="withFriends">Kasama ang mga kaibigan</string>
+  <string name="withEverybody">Kasama ang lahat</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Ikaw ay nakarehistro na sa email: %s</string>
+  <string name="kidMode">Batang mode</string>
+  <string name="kidModeExplanation">Ito ay tungkol sa kaligtasan. Sa batang mode, lahat ng site pangkomunikasyon ay hindi pinagana. Paganahin ito para sa iyong mga bata at mga studyante, upang maprotektahan sa ibang gumagamit ng internet.</string>
   <string name="builtForTheLoveOfChessNotMoney">Ginawa para sa pag-ibig sa chess, hindi sa pera</string>
   <string name="everybodyGetsAllFeaturesForFree">Ang lahat ay nakakuha ng lahat ng tampok ng libre</string>
   <string name="zeroAdvertisement">Walang advertisement</string>
