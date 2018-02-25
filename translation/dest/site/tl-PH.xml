@@ -443,6 +443,17 @@
   <string name="whatIsIheMatter">Ano ang problema?</string>
   <string name="cheat">Pandaraya</string>
   <string name="insult">Insulto</string>
+  <string name="troll">Awitin</string>
+  <string name="other">Iba pa</string>
+  <string name="reportDescriptionHelp">I-paste ang link sa mga laro at ipaliwanag kung ano ang mali tungkol sa ugali ng gumagamit. Huwag mo lamang sabihin na \"sila\'y nandaya\", pero sabihin mo sa amin kung paano mo ito nasabi. Ang iyong report ay ipoproseso ng mas mabilis kapag nakasulat sa English.</string>
+  <string name="by">sa pamamagitan ng %s</string>
+  <string name="thisTopicIsNowClosed">Ang paksang itp ay sarado na.</string>
+  <string name="theming">Pagtetema</string>
+  <string name="donate">Magbigay</string>
+  <string name="blog">Blog</string>
+  <string name="questionsAndAnswers">Mga tanong &amp; Mga sagot</string>
+  <string name="notes">Mga Talaan</string>
+  <string name="typePrivateNotesHere">I-type ang mga pribadong talaan dito</string>
   <string name="gameDisplay">Papakita ng Laro</string>
   <string name="pieceAnimation">Piraso ng animasyon</string>
   <string name="materialDifference">Pagkakaiba ng materyal</string>
@@ -500,6 +511,8 @@
   <string name="difficultyHard">Mahirap</string>
   <string name="xLeftANoteOnY">%1$s naghabilin ng palatandaa sa %2$s</string>
   <string name="xCompetesInY">%1$s nakikipagkumpitensya sa %2$s</string>
+  <string name="xAskedY">%1$s tinanong %2$s</string>
+  <string name="xAnsweredY">%1$s nasagot %2$s</string>
   <string name="starting">Nagsisimula:</string>
   <string name="human">Tao</string>
   <string name="computer">Makina</string>
