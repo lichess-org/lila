@@ -91,6 +91,14 @@
   <string name="winPreventedBy50MoveRule">Nanalo na pinigilan ng 50-alituntunin ng galaw</string>
   <string name="lossSavedBy50MoveRule">Natalo naisave sa 50-alituntunin ng galaw</string>
   <string name="allSet">Lahat ay natakda na!</string>
+  <string name="importPgn">Magluwas ng PGN</string>
+  <string name="delete">Burahin</string>
+  <string name="deleteThisImportedGame">Burahin ang naluwas na mga laro?</string>
+  <string name="replayMode">Mode ng pagbalik-balik</string>
+  <string name="realtimeReplay">Totoong oras</string>
+  <string name="byCPL">Sa pamamagitan ng CPL</string>
+  <string name="openStudy">Bukas na pagsusuri</string>
+  <string name="enable">Paganahin</string>
   <string name="mistakes">Mga Pagkakamali</string>
   <string name="flipBoard">Baligtarin ang board</string>
   <plurals name="nbPlayers">
