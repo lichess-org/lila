@@ -170,7 +170,7 @@
   <string name="changeEmail">ই-মেইল পরিবর্তন করুন</string>
   <string name="email">ইমেল</string>
   <string name="passwordReset">পাসওয়ার্ড পরিবর্তন</string>
-  <string name="forgotPassword">password ভুলে গেছেন ?</string>
+  <string name="forgotPassword">পাসওয়ার্ড ভুলে গেছেন?</string>
   <string name="rank">মর্যাদাক্রম</string>
   <string name="rankX">অনুপাত: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">অনুপাতের রুপ দেওয়া হয়েছে প্রতি %s মিনিটে</string>
@@ -185,15 +185,15 @@
   </plurals>
   <string name="cancel">বাতিল করুন</string>
   <string name="timeOut">সময় শেষ</string>
-  <string name="drawOfferSent">ড্র অফার পাঠানো হয়েছে</string>
-  <string name="drawOfferDeclined">ড্র অফার প্রত্যাখ্যাত হয়েছে</string>
-  <string name="drawOfferAccepted">ড্র অফার গ্রহণ করা হয়েছে</string>
-  <string name="drawOfferCanceled">ড্র অফার বাতিল করা হয়েছে</string>
-  <string name="whiteOffersDraw">সাদা ড্র এর প্রস্তাব দিয়েছে</string>
-  <string name="blackOffersDraw">কালো  ড্র এর প্রস্তাব দিয়েছে</string>
-  <string name="whiteDeclinesDraw">সাদা draw প্রত্যাখান করেছে</string>
-  <string name="blackDeclinesDraw">কালো draw প্রত্যাখান করেছে</string>
-  <string name="yourOpponentOffersADraw">আপনার প্রতিপক্ষ ড্র অফার করেছেন</string>
+  <string name="drawOfferSent">সমান অফার পাঠানো হয়েছে</string>
+  <string name="drawOfferDeclined">সমান অফার প্রত্যাখ্যাত হয়েছে</string>
+  <string name="drawOfferAccepted">সমান অফার গ্রহণ করা হয়েছে</string>
+  <string name="drawOfferCanceled">সমান অফার বাতিল করা হয়েছে</string>
+  <string name="whiteOffersDraw">সাদা অফার সমান</string>
+  <string name="blackOffersDraw">কালো অফার সমান</string>
+  <string name="whiteDeclinesDraw">সাদা সমান প্রত্যাখান করেছে</string>
+  <string name="blackDeclinesDraw">কালো সমান প্রত্যাখান করেছে</string>
+  <string name="yourOpponentOffersADraw">আপনার প্রতিপক্ষ সমান অফার করেছেন</string>
   <string name="accept">গ্রহণ করুন</string>
   <string name="decline">প্রত্যাখ্যান করুন</string>
   <string name="playingRightNow">এই মুহূর্তে খেলছেন</string>
