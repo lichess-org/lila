@@ -371,6 +371,14 @@
   <string name="lastSeenActive">Aktibo %s</string>
   <string name="challengeToPlay">Hamunin sa isang laro</string>
   <string name="player">Manlalaro</string>
+  <string name="list">Listahan</string>
+  <string name="graph">Graph</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Mas maliit ng %s minuto</item>
+    <item quantity="other">Mas maliit ng %s mga minuto</item>
+  </plurals>
+  <string name="required">Kinakailangan.</string>
+  <string name="openTournaments">Bukas na mga paligsahan</string>
   <string name="createANewTournament">Gumawa ng baong torneo</string>
   <string name="join">Sumali</string>
   <string name="withdraw">Umalis</string>
@@ -424,6 +432,15 @@
     <item quantity="one">%s laro na nilalaro</item>
     <item quantity="other">%s mga  laro na nilalaro</item>
   </plurals>
+  <string name="replies">Mga sagot</string>
+  <string name="replyToThisTopic">Sumagot sa paksang ito</string>
+  <string name="reply">Sumagot</string>
+  <string name="message">Mensahe</string>
+  <string name="createTheTopic">Gumawa ng paksa</string>
+  <string name="reportAUser">I-report ang gumagamit</string>
+  <string name="user">Gumagamit</string>
+  <string name="reason">Dahilan</string>
+  <string name="whatIsIheMatter">Ano ang problema?</string>
   <string name="gameDisplay">Papakita ng Laro</string>
   <string name="pieceAnimation">Piraso ng animasyon</string>
   <string name="materialDifference">Pagkakaiba ng materyal</string>
