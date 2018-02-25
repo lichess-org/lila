@@ -699,6 +699,7 @@
   <string name="letOtherPlayersMessageYou">Hayaan ang ibang mga manlalaro na magmensahe sayo</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Paraan ng pag-endrok</string>
   <string name="castleByMovingTwoSquares">Galawin ang hari ng dalawang kwadrado</string>
+  <string name="castleByMovingOntoTheRook">Igalaw ang Hari sa rook</string>
   <string name="builtForTheLoveOfChessNotMoney">Ginawa para sa pag-ibig sa chess, hindi sa pera</string>
   <string name="everybodyGetsAllFeaturesForFree">Ang lahat ay nakakuha ng lahat ng tampok ng libre</string>
   <string name="zeroAdvertisement">Walang advertisement</string>
