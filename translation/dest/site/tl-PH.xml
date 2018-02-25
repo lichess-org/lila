@@ -421,8 +421,10 @@
   <string name="ifNoneLeaveEmpty">Kung wala, iwang walang laman</string>
   <string name="gameCompletionRate">Katayuan ng pagkakompleto ng laro: %s</string>
   <string name="profile">Profile</string>
+  <string name="editProfile">I-edit ang profile</string>
   <string name="firstName">Pangalan</string>
   <string name="lastName">Apelyido</string>
+  <string name="biography">Talambuhay</string>
   <string name="country">Bansa</string>
   <string name="preferences">Mga Kagustuhan</string>
   <string name="inlineNotation">Nakalinyang notasyon</string>
@@ -465,6 +467,20 @@
     <item quantity="one">%s laro na nilalaro</item>
     <item quantity="other">%s mga  laro na nilalaro</item>
   </plurals>
+  <string name="automaticallyProceedToNextGameAfterMoving">Awtomatikong pumupunta sa sunod na laro pagkatapos ng paggalaw</string>
+  <string name="autoSwitch">Awtomatikong paglipat</string>
+  <string name="puzzles">Mga palaisipan</string>
+  <string name="latestUpdates">Pinakabagong mga update</string>
+  <string name="tournamentWinners">Mga nanalo sa paligsahan</string>
+  <string name="name">Pangalan</string>
+  <string name="description">Paglalarawan</string>
+  <string name="no">Hindi</string>
+  <string name="yes">Oo</string>
+  <string name="help">Tulong:</string>
+  <string name="createANewTopic">Gumawa ng bagong paksa</string>
+  <string name="topics">Mga paksa</string>
+  <string name="posts">Mga post</string>
+  <string name="lastPost">Huling post</string>
   <string name="replies">Mga sagot</string>
   <string name="replyToThisTopic">Sumagot sa paksang ito</string>
   <string name="reply">Sumagot</string>
