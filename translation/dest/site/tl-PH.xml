@@ -615,6 +615,12 @@
   <string name="downloadAnnotated">I-download ang na-annotate</string>
   <string name="builtForTheLoveOfChessNotMoney">Ginawa para sa pag-ibig sa chess, hindi sa pera</string>
   <string name="everybodyGetsAllFeaturesForFree">Ang lahat ay nakakuha ng lahat ng tampok ng libre</string>
+  <string name="zeroAdvertisement">Walang advertisement</string>
+  <string name="fullFeatured">Buong tinampok</string>
+  <string name="phoneAndTablet">Telepono at tablet</string>
+  <string name="bulletBlitzClassical">Bullet, blitz, klasikal</string>
+  <string name="correspondenceChess">Chess ng pagsusulatan</string>
+  <string name="onlineAndOfflinePlay">Online at offline na paglalaro</string>
   <string name="light">Liwanag</string>
   <string name="dark">Madilim</string>
   <string name="transparent">Transparent</string>
