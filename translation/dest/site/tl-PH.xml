@@ -278,6 +278,7 @@
   </plurals>
   <string name="viewTournament">Tingnan ang paligsahan</string>
   <string name="backToTournament">Bumalik sa paligsahan</string>
+  <string name="thematic">Pangpakay</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s narate na laro</item>
     <item quantity="other">≥ %s narate na mga laro</item>
@@ -353,6 +354,14 @@
   <string name="following">Sinusundan</string>
   <string name="unfollow">Wag sundan</string>
   <string name="block">Harangan</string>
+  <string name="blocked">Naharangan</string>
+  <string name="unblock">Huwag harangan</string>
+  <string name="followsYou">Sumusunod sa iyo</string>
+  <string name="xStartedFollowingY">%1$s sinumulang sumunod sa iyo %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s sumusunod</item>
+    <item quantity="other">%s mga sumusunod</item>
+  </plurals>
   <string name="createANewTournament">Gumawa ng baong torneo</string>
   <string name="join">Sumali</string>
   <string name="withdraw">Umalis</string>
