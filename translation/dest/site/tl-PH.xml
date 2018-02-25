@@ -148,19 +148,42 @@
   <string name="variants">Mga pagkakaiba-iba</string>
   <string name="timeControl">Kontrol sa Oras</string>
   <string name="realTime">Totoong oras</string>
+  <string name="daysPerTurn">Araw kada paggalaw</string>
   <string name="oneDay">Isang Araw</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s araw</item>
+    <item quantity="other">%s mga araw</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s oras</item>
+    <item quantity="other">%s mga oras</item>
+  </plurals>
+  <string name="time">Oras</string>
+  <string name="rating">Marka</string>
+  <string name="ratingStats">Istats ng marka</string>
+  <string name="username">Pangalan ng gumamit</string>
+  <string name="usernameOrEmail">Pangalan ng gumamit o email</string>
+  <string name="password">Password</string>
   <string name="haveAnAccount">May account ka ba?</string>
   <string name="changePassword">Palitan ang password</string>
   <string name="changeEmail">Palitan ang email</string>
   <string name="email">Email</string>
+  <string name="passwordReset">Ibalik ang password</string>
   <string name="forgotPassword">Nakalimutan mo ba ang iyong password?</string>
   <string name="rank">Ranggo</string>
+  <string name="rankX">Ranggo: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Ang ranggo ay na update bawat %s mga minuto</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s palaisipan</item>
+    <item quantity="other">%s mga palaisipan</item>
+  </plurals>
   <string name="gamesPlayed">Mga Laro na nalaro</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s laro ko</item>
     <item quantity="other">%s mga laro ko</item>
   </plurals>
   <string name="cancel">Ikansela</string>
+  <string name="timeOut">Naubos na ang oras</string>
   <string name="playingRightNow">Maglalaro ngayon</string>
   <string name="finished">Tapos na</string>
   <string name="abortGame">Itigil ang laro</string>
