@@ -89,4 +89,7 @@
   <string name="attackTheOpponentsKing">প্রতিদ্বন্দ্বীর রাজাকে আক্রমন করুন</string>
   <string name="checkInOneIntro">আপনার প্রতিদ্বন্দ্বীকে চেক করার জন্য, তাদের রাজাকে আক্রমন করুন. তারা অবশ্যই এটাকে রক্ষা করবে!</string>
   <string name="checkInOneGoal">প্রতিদ্বন্দ্বী রাজার লক্ষ্য এক পদক্ষেপ!</string>
+  <string name="checkInOneComplete">অভিনন্দন! আপনি আপনার প্রতিদ্বন্দ্বীকে চেক করেছেন, তাদের রাজা রক্ষা করতে জোর করুন!</string>
+  <string name="outOfCheck">চেকের বাইরে</string>
+  <string name="defendYourKing">আপনার রাজা রক্ষা করুন</string>
 </resources>
