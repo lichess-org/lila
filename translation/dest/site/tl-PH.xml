@@ -219,7 +219,12 @@
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Silid ng Pakikipagchat</string>
   <string name="loginToChat">Maglog-in upang makipagchat</string>
+  <string name="youHaveBeenTimedOut">Ikaw ay naubusan ng oras.</string>
+  <string name="spectatorRoom">Silid ng tumitingin</string>
+  <string name="composeMessage">Gumawa ng Mensahe</string>
   <string name="noNewMessages">Walang bagong mensahe</string>
+  <string name="subject">Paksa</string>
+  <string name="recipient">Tatanggap</string>
   <string name="send">Ipadala</string>
   <string name="spectators">Manonood</string>
   <plurals name="nbWins">
