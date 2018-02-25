@@ -137,8 +137,17 @@
   <string name="newToLichess">Bago ka ba sa Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Kailangan mo ng account para magawa ito</string>
   <string name="signUp">Magparehistro</string>
+  <string name="computersAreNotAllowedToPlay">Mga kompyuter at tinulungan ng kompyuter na mga manlalaro ay hindi pwedeng maglaro. Huwag ng humingi ng tulong sa mga makina ng chess, mga database, at galing sa ibang manlalaro habang naglalaro. Pakitandaan din na ang paggawa ng maraming akawnt ay hindi pinapayagan na maaring magresulta sa pagbabawal na pumasok muli.</string>
   <string name="games">Mga Laro</string>
+  <string name="forum">Forum</string>
+  <string name="xPostedInForumY">%1$s naipaskil sa paksa %2$s</string>
+  <string name="latestForumPosts">Pinakabagong mga naipaskil sa forum</string>
   <string name="players">Mga Manlalaro</string>
+  <string name="minutesPerSide">Minuto sa kada parte</string>
+  <string name="variant">Pagkakaiba-iba</string>
+  <string name="variants">Mga pagkakaiba-iba</string>
+  <string name="timeControl">Kontrol sa Oras</string>
+  <string name="realTime">Totoong oras</string>
   <string name="oneDay">Isang Araw</string>
   <string name="haveAnAccount">May account ka ba?</string>
   <string name="changePassword">Palitan ang password</string>
