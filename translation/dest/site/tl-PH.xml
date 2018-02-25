@@ -15,10 +15,10 @@
   <string name="chat">Makipag-usap</string>
   <string name="resign">Magbitiw</string>
   <string name="checkmate">Checkmate</string>
-  <string name="stalemate">Pagkamatay</string>
+  <string name="stalemate">Tabla</string>
   <string name="white">Puti</string>
   <string name="black">Itim</string>
-  <string name="randomColor">Ibat-ibang bahagi</string>
+  <string name="randomColor">Ibat-ibang panig</string>
   <string name="createAGame">Gumawa ng laro</string>
   <string name="whiteIsVictorious">Nanalo ang Puti</string>
   <string name="blackIsVictorious">Nanalo ang Itim</string>
