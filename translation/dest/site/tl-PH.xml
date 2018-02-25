@@ -148,6 +148,7 @@
   <string name="variants">Mga pagkakaiba-iba</string>
   <string name="timeControl">Kontrol sa Oras</string>
   <string name="realTime">Totoong oras</string>
+  <string name="correspondence">Pagsusulatan</string>
   <string name="daysPerTurn">Araw kada paggalaw</string>
   <string name="oneDay">Isang Araw</string>
   <plurals name="nbDays">
@@ -379,14 +380,29 @@
   </plurals>
   <string name="required">Kinakailangan.</string>
   <string name="openTournaments">Bukas na mga paligsahan</string>
+  <string name="duration">Tagal</string>
+  <string name="winner">Nanalo</string>
+  <string name="standing">Katayuan</string>
   <string name="createANewTournament">Gumawa ng baong torneo</string>
   <string name="join">Sumali</string>
   <string name="withdraw">Umalis</string>
   <string name="points">Punto</string>
   <string name="wins">Mga Panalo</string>
   <string name="losses">Mga Talo</string>
+  <string name="winStreak">Sunod-sunod na panalo</string>
   <string name="createdBy">Ginawa ni</string>
   <string name="tournamentIsStarting">Mag sisimula na yung torneo</string>
+  <string name="tournamentPairingsAreNowClosed">Ang pagpares-pares ng paligsahan ay sarado na ngayon.</string>
+  <string name="standByX">Tumayo sa %s, pagpares-pares ng mga manlalaro, humanda!</string>
+  <string name="youArePlaying">Ikaw ay naglalaro!</string>
+  <string name="winRate">Porsyento na manalo</string>
+  <string name="berserkRate">Porsyento na magberserk</string>
+  <string name="performance">Pagganap</string>
+  <string name="tournamentComplete">Ang paligsahan ay kompleto na</string>
+  <string name="movesPlayed">Mga Galaw na nagawa</string>
+  <string name="whiteWins">Nanalo ang puti</string>
+  <string name="blackWins">Nanalo ang itim</string>
+  <string name="draws">Mga tabla</string>
   <string name="membersOnly">Mga Myembro Lang</string>
   <string name="firstName">Pangalan</string>
   <string name="lastName">Apelyido</string>
@@ -621,6 +637,8 @@
   <string name="bulletBlitzClassical">Bullet, blitz, klasikal</string>
   <string name="correspondenceChess">Chess ng pagsusulatan</string>
   <string name="onlineAndOfflinePlay">Online at offline na paglalaro</string>
+  <string name="correspondenceAndUnlimited">Pagsusulatan at walang katapusan</string>
+  <string name="viewTheSolution">Tingnan ang solusyon</string>
   <string name="light">Liwanag</string>
   <string name="dark">Madilim</string>
   <string name="transparent">Transparent</string>
