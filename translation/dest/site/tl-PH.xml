@@ -707,6 +707,15 @@
   <string name="youHaveAlreadyRegisteredTheEmail">Ikaw ay nakarehistro na sa email: %s</string>
   <string name="kidMode">Batang mode</string>
   <string name="kidModeExplanation">Ito ay tungkol sa kaligtasan. Sa batang mode, lahat ng site pangkomunikasyon ay hindi pinagana. Paganahin ito para sa iyong mga bata at mga studyante, upang maprotektahan sa ibang gumagamit ng internet.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Sa batang mode, ang logo ng lichess ay nakakuha ng %s icon, dapat malaman na ligtas ang iyong bata.</string>
+  <string name="enableKidMode">Paganahin ang Batang mode</string>
+  <string name="disableKidMode">Huwag paganahin ang batang mode</string>
+  <string name="security">Seguridad</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ito ay isang listahan ng mga aparatu na nakalog-in sa iyong akawnt. Bawiin ang kahit anong sesyon na hindi mo kilala.</string>
+  <string name="alternativelyYouCanX">Altenatibong pwede mong %s.</string>
+  <string name="revokeAllSessions">bawiin ang lahat ng sesyon</string>
+  <string name="playChessEverywhere">Maglaro ng chess kahit saan</string>
+  <string name="asFreeAsLichess">Kasinglibre ng lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Ginawa para sa pag-ibig sa chess, hindi sa pera</string>
   <string name="everybodyGetsAllFeaturesForFree">Ang lahat ay nakakuha ng lahat ng tampok ng libre</string>
   <string name="zeroAdvertisement">Walang advertisement</string>
