@@ -262,7 +262,22 @@
   <string name="takeback">Kunin muli</string>
   <string name="proposeATakeback">Magmungkahi ng pagkuha muli</string>
   <string name="takebackPropositionSent">Pagkuha muli ay naipadala na</string>
+  <string name="takebackPropositionDeclined">Tinanggihan ang pagkuha muli</string>
+  <string name="takebackPropositionAccepted">Tinanggap ang pagkuha muli</string>
+  <string name="takebackPropositionCanceled">Kinansela ang pagkuha muli</string>
+  <string name="yourOpponentProposesATakeback">An iyong kalaban ay nagmungkahi ng isang pagkuha muli</string>
+  <string name="bookmarkThisGame">Namarkahan na ng laro</string>
   <string name="search">Hanapin</string>
+  <string name="advancedSearch">Naunang paghanap</string>
+  <string name="tournament">Paligsahan</string>
+  <string name="tournaments">Mga Paligsahan</string>
+  <string name="tournamentPoints">Mga Puntos ng Paligsahan</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s puntos ng paligsahan</item>
+    <item quantity="other">%s mga puntos ng paligsahan</item>
+  </plurals>
+  <string name="viewTournament">Tingnan ang paligsahan</string>
+  <string name="backToTournament">Bumalik sa paligsahan</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s narate na laro</item>
     <item quantity="other">≥ %s narate na mga laro</item>
