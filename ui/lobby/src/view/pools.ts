@@ -12,7 +12,7 @@ export function hooks(ctrl: LobbyController): Hooks {
     const id = (e.target as HTMLElement).getAttribute('data-id') ||
       ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-id');
     if (id === 'custom') $('#start_buttons .config_hook').mousedown();
-    else id && ctrl.clickPool(id);
+    else if (id) ctrl.clickPool(id);
   }, ctrl.redraw);
 }
 

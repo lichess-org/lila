@@ -215,7 +215,11 @@ export default class LobbyController {
 
   setRedirecting = () => {
     this.redirecting = true;
-    setTimeout(() => this.redirecting = false, 2000);
+    setTimeout(() => {
+      this.redirecting = false;
+      this.redraw();
+    }, 3000);
+    this.redraw();
   };
 
   awake = () => {

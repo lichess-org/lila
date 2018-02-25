@@ -373,6 +373,15 @@ body.dark #hooks_wrap .hook_filter {
 #hook span {
   display: block;
 }
+
+#hooks_wrap .redir {
+  background: rgba(128,128,128,0.5);
+  display: flex;
+}
+#hooks_wrap .redir .spinner {
+  width: 100px;
+  height: 100px;
+}
 /*********** POOLS *********/
 
 #hooks_wrap .pools {
