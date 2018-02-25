@@ -217,6 +217,8 @@
   <string name="viewRematch">Tingnan ang paglalabang muli</string>
   <string name="play">Mag-laro</string>
   <string name="inbox">Inbox</string>
+  <string name="chatRoom">Silid ng Pakikipagchat</string>
+  <string name="loginToChat">Maglog-in upang makipagchat</string>
   <string name="noNewMessages">Walang bagong mensahe</string>
   <string name="send">Ipadala</string>
   <string name="spectators">Manonood</string>
