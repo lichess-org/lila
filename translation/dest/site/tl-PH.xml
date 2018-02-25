@@ -617,8 +617,17 @@
   <string name="menu">Menu</string>
   <string name="whiteCastlingKingside">Puti O-O</string>
   <string name="whiteCastlingQueenside">Puti O-O-O</string>
-  <string name="blackCastlingKingside">Itim O-O-O</string>
+  <string name="blackCastlingKingside">Itim O-O</string>
+  <string name="blackCastlingQueenside">Itim O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s post ng forum</item>
+    <item quantity="other">%s mga post ng forum</item>
+  </plurals>
+  <string name="tpTimeSpentPlaying">Oras na nagugol sa paglalaro: %s</string>
+  <string name="watchGames">Manood ng mga laro</string>
+  <string name="tpTimeSpentOnTV">Oras sa TV: %s</string>
   <string name="watch">Manood</string>
+  <string name="internationalEvents">Internasyonal na mga pangyayari</string>
   <string name="webmasters">Webmasters</string>
   <string name="contribute">Mag-ambag</string>
   <string name="contact">Kontak</string>
