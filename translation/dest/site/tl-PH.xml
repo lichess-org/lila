@@ -212,7 +212,11 @@
   <string name="rematchOfferSent">Naipadala na ang alok na makipaglabang muli</string>
   <string name="rematchOfferAccepted">Tinanggap ang alok na pakikibaglaban muli</string>
   <string name="rematchOfferCanceled">Nakansela ang alok ng pakikipaglabang muli</string>
+  <string name="rematchOfferDeclined">Tinanggihan ang alok ng paglalabang muli</string>
+  <string name="cancelRematchOffer">Kansel ang alok ng paglalabang muli</string>
+  <string name="viewRematch">Tingnan ang paglalabang muli</string>
   <string name="play">Mag-laro</string>
+  <string name="inbox">Inbox</string>
   <string name="noNewMessages">Walang bagong mensahe</string>
   <string name="send">Ipadala</string>
   <string name="spectators">Manonood</string>
