@@ -257,6 +257,11 @@
   </plurals>
   <string name="giveMoreTime">Magbigay ng maraming oras</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ang mga manlalarong ay gumagamit ng tulong ng kompyuter</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ang manlalarong ito artipisyal na dagdagan/nababawasan ang marka</string>
+  <string name="openingExplorerAndTablebase">Bubukas tagalakbay &amp; base ng talahanayan</string>
+  <string name="takeback">Kunin muli</string>
+  <string name="proposeATakeback">Magmungkahi ng pagkuha muli</string>
+  <string name="takebackPropositionSent">Pagkuha muli ay naipadala na</string>
   <string name="search">Hanapin</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s narate na laro</item>
