@@ -359,9 +359,18 @@
   <string name="followsYou">Sumusunod sa iyo</string>
   <string name="xStartedFollowingY">%1$s sinumulang sumunod sa iyo %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s sumusunod</item>
-    <item quantity="other">%s mga sumusunod</item>
+    <item quantity="one">%s tagasunod</item>
+    <item quantity="other">%s mga tagasunod</item>
   </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s sumusunod</item>
+    <item quantity="other">%s sumusunod</item>
+  </plurals>
+  <string name="more">Higit pa</string>
+  <string name="memberSince">Miyembro mula pa noong</string>
+  <string name="lastSeenActive">Aktibo %s</string>
+  <string name="challengeToPlay">Hamunin sa isang laro</string>
+  <string name="player">Manlalaro</string>
   <string name="createANewTournament">Gumawa ng baong torneo</string>
   <string name="join">Sumali</string>
   <string name="withdraw">Umalis</string>
