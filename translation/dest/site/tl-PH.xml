@@ -806,4 +806,27 @@
   <string name="doItAgain">Gawin muli ito</string>
   <string name="reviewWhiteMistakes">Tingnan muli ang mga pagkakamali ng puti</string>
   <string name="reviewBlackMistakes">Tingnan muli ang mga pagkakamali ng itim</string>
+  <string name="advantage">Kalamangan</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s segundo</item>
+    <item quantity="other">%s mga segundo</item>
+  </plurals>
+  <string name="opening">Bukasan</string>
+  <string name="middlegame">Sa gitna ng laro</string>
+  <string name="endgame">Taposin ang laro</string>
+  <string name="registerToSendChallenges">Magrehistro upang magpadala ng mga hamon.</string>
+  <string name="youCannotChallengeX">Hindi mo pwedeng hamonin %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s ay hindi tumatanggap ng mga hamon.</string>
+  <string name="yourXRatingIsTooFarFromY">Ang iyong %1$s marka ay masyadong malayo sa %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Hindi makatanggap ng hamon dahil sa probisyonal na %s marka.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s tumatanggap lamang ng hamon galing sa mga kaibigan.</string>
+  <string name="conditionalPremoves">Kondisyonal na mga bago gumalaw</string>
+  <string name="addCurrentVariation">Magdagdag ng kasalukuyang pagkakaiba</string>
+  <string name="playVariationToCreateConditionalPremoves">Maglaro ng pagkakaiba upang makagawa ng kondisyonal na mga paggalaw</string>
+  <string name="noConditionalPremoves">Walang kondisyonal na mga bago gumalaw</string>
+  <string name="playX">Maglaro %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">at i-save %s bago gumalaw na linya</item>
+    <item quantity="other">at i-save %s bago gumalaw na mga linya</item>
+  </plurals>
 </resources>
