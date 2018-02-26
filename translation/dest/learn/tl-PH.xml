@@ -97,4 +97,11 @@ pero pwede mong harangan ang atake!</string>
   <string name="youCanGetOutOfCheckByTaking">Pwede kang makawala sa pagkacheck sa pamamagitan ng pag-atake sa umatakeng piraso.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ang kabayong ito ay sumusuri sa iyong depensa!</string>
   <string name="escapeOrBlock">Itakas ang hari o harangan ang atake!</string>
+  <string name="outOfCheckComplete">Binabati kita! Ang iyong hari ay hindi kailanman makukuha, siguraduhin na ikaw ay makakadepensa sa check!</string>
+  <string name="mateInOne">Mag-abot sa isa</string>
+  <string name="defeatTheOpponentsKing">Talunin ang kalabang hari</string>
+  <string name="mateInOneIntro">Ikaw ay panalo kapag ang iyong kalaban ay hindi na makadepensa sa isang check.</string>
+  <string name="attackYourOpponentsKing">Atakihin ang kalabang hari sa paaran na hindi madedepensahan!</string>
+  <string name="mateInOneComplete">Binabati kita! Ito ang paraan kung paano manalo sa laro ng chess!</string>
+  <string name="intermediate">Medyo marunong</string>
 </resources>
