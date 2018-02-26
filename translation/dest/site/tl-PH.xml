@@ -740,6 +740,7 @@
   <string name="anonymous">Hindi kilala</string>
   <string name="yourScore">Ang iyong marka: %s</string>
   <string name="language">Wika</string>
+  <string name="background">Likuran</string>
   <string name="light">Liwanag</string>
   <string name="dark">Madilim</string>
   <string name="transparent">Transparent</string>
@@ -778,4 +779,11 @@
   <string name="youBrowsedAway">Ikaw nabrowse palayo</string>
   <string name="resumePractice">Ipagpatulog ang pagsasanay</string>
   <string name="theGameIsADraw">Ang laro ay tabla.</string>
+  <string name="computerThinking">Nag-iisip ang kompyuter...</string>
+  <string name="seeBestMove">Tingnan ang pinakamahusay na galaw</string>
+  <string name="hideBestMove">Itago ang pinakamahusay na galaw</string>
+  <string name="getAHint">Kumuha ng pahiwatig</string>
+  <string name="evaluatingYourMove">Sinusuri ang iyong galaw...</string>
+  <string name="whiteWinsGame">Nanalo ang puti</string>
+  <string name="blackWinsGame">Nanalo ang itim</string>
 </resources>
