@@ -97,6 +97,7 @@ export interface CorrespondenceClock {
 export type Source = 'import' | 'lobby' | 'pool';
 
 export interface PlayerUser {
+  id: string;
   online: boolean;
   username: string;
   patron?: boolean;
