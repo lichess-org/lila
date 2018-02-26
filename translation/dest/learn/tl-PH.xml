@@ -89,4 +89,12 @@ pero pwedeng kang dumepensa!</string>
   <string name="checkInOneGoal">Hangarin ang hari ng kalaban sa isang galaw!</string>
   <string name="checkInOneComplete">Binabati kita! Nacheck mo ang iyong kalaban, pagpilit sa kanila na depensahan ang kanilang hari!</string>
   <string name="outOfCheck">Hindi na check</string>
+  <string name="defendYourKing">Depensahan ang iyong hari</string>
+  <string name="outOfCheckIntro">Ikaw ay na check! Kailangan nating tumakas o harangan ang atake.</string>
+  <string name="escapeWithTheKing">Tumakas kasama ang hari!</string>
+  <string name="theKingCannotEscapeButBlock">Ang hari ay hindi makakatakas,
+pero pwede mong harangan ang atake!</string>
+  <string name="youCanGetOutOfCheckByTaking">Pwede kang makawala sa pagkacheck sa pamamagitan ng pag-atake sa umatakeng piraso.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Ang kabayong ito ay sumusuri sa iyong depensa!</string>
+  <string name="escapeOrBlock">Itakas ang hari o harangan ang atake!</string>
 </resources>
