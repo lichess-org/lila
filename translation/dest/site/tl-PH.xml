@@ -733,6 +733,13 @@
   </plurals>
   <string name="gameAnalysis">Pagsusuri ng laro</string>
   <string name="xHostsY">%1$s mga host %2$s</string>
+  <string name="xJoinsY">%1$s mga sumali %2$s</string>
+  <string name="xLikesY">%1$s mga gusto %2$s</string>
+  <string name="quickPairing">Mabilis na pagpares</string>
+  <string name="lobby">Lobby</string>
+  <string name="anonymous">Hindi kilala</string>
+  <string name="yourScore">Ang iyong marka: %s</string>
+  <string name="language">Wika</string>
   <string name="light">Liwanag</string>
   <string name="dark">Madilim</string>
   <string name="transparent">Transparent</string>
@@ -768,4 +775,6 @@
   <string name="practiceWithComputer">Magsanay kasama ang kompyuter</string>
   <string name="anotherWasX">Ang iba ay %s</string>
   <string name="bestWasX">Pinakamahusay ay %s</string>
+  <string name="youBrowsedAway">Ikaw nabrowse palayo</string>
+  <string name="resumePractice">Ipagpatulog ang pagsasanay</string>
 </resources>
