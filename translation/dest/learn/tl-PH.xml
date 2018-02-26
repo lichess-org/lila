@@ -104,4 +104,10 @@ pero pwede mong harangan ang atake!</string>
   <string name="attackYourOpponentsKing">Atakihin ang kalabang hari sa paaran na hindi madedepensahan!</string>
   <string name="mateInOneComplete">Binabati kita! Ito ang paraan kung paano manalo sa laro ng chess!</string>
   <string name="intermediate">Medyo marunong</string>
+  <string name="boardSetup">Ayos ng Board</string>
+  <string name="howTheGameStarts">Paano magsimula ang laro</string>
+  <string name="boardSetupIntro">Ang dalawang hukbo ay maghaharap, maghanda para sa laban.</string>
+  <string name="thisIsTheInitialPosition">Ang simulang posisyon
+sa bawat laro ng chess!
+Gumaw ng galaw para magpatuloy.</string>
 </resources>
