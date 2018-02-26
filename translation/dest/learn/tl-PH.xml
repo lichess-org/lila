@@ -86,4 +86,6 @@ pero pwedeng kang dumepensa!</string>
   <string name="checkInOne">Nacheck sa isa</string>
   <string name="attackTheOpponentsKing">Umatake sa kalabang hari</string>
   <string name="checkInOneIntro">Upang macheck ang iyong kalaban, atakihin ang hari nila. Dapat nilang depensahan ito!</string>
+  <string name="checkInOneGoal">Hangarin ang hari ng kalaban sa isang galaw!</string>
+  <string name="checkInOneComplete">Binabati kita! Nacheck mo ang iyong kalaban, pagpilit sa kanila na depensahan ang kanilang hari!</string>
 </resources>
