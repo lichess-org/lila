@@ -59,4 +59,21 @@ Hindi na kailangan na palitan ng malakas.</string>
 Hindibna kailangan pa mapromote.</string>
   <string name="pawnComplete">Binabati kita! Ang mga pawn ay walang mga sekreto para sayo.</string>
   <string name="pawnPromotion">Pagpromote sa pawn</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Ang iyong pawn ay umabot na sa hangganan ng board!</string>
+  <string name="itNowPromotesToAStrongerPiece">Ito ay pwede ng palitan ng mas malakas na piraso.</string>
+  <string name="selectThePieceYouWant">Pumili ng pirasong gusto mo!</string>
+  <string name="fundamentals">Mga pangunahin</string>
+  <string name="capture">Dakpin</string>
+  <string name="takeTheEnemyPieces">Kunin ang mga piraso ng kalaban</string>
+  <string name="captureIntro">Kilalanin ang mga piraso na hindi nadepensahan ng kalaban, at dakpin sila!</string>
+  <string name="takeTheBlackPieces">Kunin ang itim na mga piraso!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Kunin ang ito na mga piraso!
+At mong iwala ang sayo.</string>
+  <string name="captureComplete">Binabati kita! Alam mo ngayon kung paano labanan ang mga piraso sa chess!</string>
+  <string name="protection">Proteksyon</string>
+  <string name="keepYourPiecesSafe">Panatilihing ligtas ang iyong mga piraso</string>
+  <string name="protectionIntro">Kilalanin ang mga piraso na umaatake sa iyo, at depensahan sila!</string>
+  <string name="protectionComplete">Binabati kita! Ang piraso na hindi nawala sayo ay ang piraso na mapapanalonan mo!</string>
+  <string name="escape">Ikaw ay inaatake!
+Takasan ang banta!</string>
 </resources>
