@@ -132,4 +132,8 @@ Gumawa ng kahit anong galaw para magpatuloy.</string>
 Galawin ito, at protektahan ang panig ng hari.</string>
   <string name="castleKingSideMovePiecesFirst">Protektahan ang panig ng hari!
 Kailangan mong muna maglabas ng mga piraso.</string>
+  <string name="castleQueenSideMovePiecesFirst">Protektahan ang panig ng reyna!
+Kailangan mo muna maglabas ng mga piraso.</string>
+  <string name="youCannotCastleIfMoved">Hindi ka makakapag-enrock kapag ang rook at hari ay nagalaw muna.</string>
+  <string name="youCannotCastleIfAttacked">Hindi ka makakpag-enrook kapag ang hari ay inatake na. Harangan ang pag-atake at mag-enrook!</string>
 </resources>
