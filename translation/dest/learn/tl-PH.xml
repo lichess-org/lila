@@ -22,4 +22,14 @@ para padaliin ang mga bagay!</string>
   <string name="rookComplete">Binabati kita! Ikaw ay matagumpay na nasanay sa rook.</string>
   <string name="theBishop">Ang bishop</string>
   <string name="itMovesDiagonally">Ito ay gumagalaw ng pahalang</string>
+  <string name="bishopIntro">Sunod tayo ay matuto kung paano pagalawin ang bishop!</string>
+  <string name="youNeedBothBishops">Isang maliwanag-kwadradong bishop,
+isang maitim-kwadradong bishop,
+Pareho mong kailangan!</string>
+  <string name="bishopComplete">Binabati kita! Pwede mong utosan ang bishop.</string>
+  <string name="theQueen">Ang reyna</string>
+  <string name="queenCombinesRookAndBishop">Reyna = rook + bishop</string>
+  <string name="queenIntro">Ang pinakamakapangyarihan na piraso ng chess ay pumasok. Ang kamahalang reyna!</string>
+  <string name="queenComplete">Binabati kita! Ang mga reyna ay walang mga sekreto para sayo.</string>
+  <string name="theKing">Ang hari</string>
 </resources>
