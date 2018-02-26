@@ -136,4 +136,8 @@ Kailangan mong muna maglabas ng mga piraso.</string>
 Kailangan mo muna maglabas ng mga piraso.</string>
   <string name="youCannotCastleIfMoved">Hindi ka makakapag-enrock kapag ang rook at hari ay nagalaw muna.</string>
   <string name="youCannotCastleIfAttacked">Hindi ka makakpag-enrook kapag ang hari ay inatake na. Harangan ang pag-atake at mag-enrook!</string>
+  <string name="findAWayToCastleKingSide">Humanap ng paraan para maka-enrook sa panig ng hari!</string>
+  <string name="findAWayToCastleQueenSide">Humanap ng paraan para maka-enrook sa panig ng reyna!</string>
+  <string name="castlingComplete">Binabati kita! Ikaw ay palaging nag-enrook sa isang laro.</string>
+  <string name="enPassant">En passant</string>
 </resources>
