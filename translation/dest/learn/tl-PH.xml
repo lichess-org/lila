@@ -122,4 +122,8 @@ Ilagay kung anong kulay nya.</string>
 Sunod ng kanyang reyna.</string>
   <string name="pawnsFormTheFrontLine">Ang pawn ay nasa unahan na linya.
 Gumawa ng kahit anong galaw para magpatuloy.</string>
+  <string name="boardSetupComplete">Binabati kita! Marunong ka ng mag-ayos ng chess board.</string>
+  <string name="castling">Pag-enrock</string>
+  <string name="theSpecialKingMove">Ang espesyal na galaw ng hari</string>
+  <string name="castlingIntro">Iligtas ang hari, at ilabas ang rook upang umatake!</string>
 </resources>
