@@ -777,4 +777,5 @@
   <string name="bestWasX">Pinakamahusay ay %s</string>
   <string name="youBrowsedAway">Ikaw nabrowse palayo</string>
   <string name="resumePractice">Ipagpatulog ang pagsasanay</string>
+  <string name="theGameIsADraw">Ang laro ay tabla.</string>
 </resources>
