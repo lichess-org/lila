@@ -86,6 +86,7 @@ jerk
 jizz?(um|)
 kaffir
 kike
+kys
 labia
 lesbo
 masturbat(e|ion|ing)
