@@ -55,4 +55,8 @@ kumakain ng pahalaang!</string>
   <string name="useAllThePawns">Gamiti lahat ng mg pawn!
 Hindi na kailangan na palitan ng malakas.</string>
   <string name="aPawnOnTheSecondRank">Ang pawn na nasa ikalawang antas ay pwede ng gumalaw ng dalawang kwadrado!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Kunin lahat ng mga bituin!
+Hindibna kailangan pa mapromote.</string>
+  <string name="pawnComplete">Binabati kita! Ang mga pawn ay walang mga sekreto para sayo.</string>
+  <string name="pawnPromotion">Pagpromote sa pawn</string>
 </resources>
