@@ -10,4 +10,10 @@
   <string name="yourTurn">Imohang turno</string>
   <string name="aiNameLevelAiLevel">%1$s lebel %2$s</string>
   <string name="level">Lebel</string>
+  <string name="toggleTheChat">I-toggle ang chat</string>
+  <string name="toggleSound">I-toggle ang tingog</string>
+  <string name="chat">Pag-chat</string>
+  <string name="white">Puti</string>
+  <string name="black">Itom</string>
+  <string name="randomColor">Bisagkinsang kilid</string>
 </resources>
