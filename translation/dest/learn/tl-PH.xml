@@ -19,4 +19,7 @@ para dalhin ito sa bituin!</string>
 mas maraming puntos ang mapapanalonan!</string>
   <string name="useTwoRooks">Gamitin ang dalawang rook
 para padaliin ang mga bagay!</string>
+  <string name="rookComplete">Binabati kita! Ikaw ay matagumpay na nasanay sa rook.</string>
+  <string name="theBishop">Ang bishop</string>
+  <string name="itMovesDiagonally">Ito ay gumagalaw ng pahalang</string>
 </resources>
