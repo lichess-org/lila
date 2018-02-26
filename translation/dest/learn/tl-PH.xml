@@ -32,4 +32,18 @@ Pareho mong kailangan!</string>
   <string name="queenIntro">Ang pinakamakapangyarihan na piraso ng chess ay pumasok. Ang kamahalang reyna!</string>
   <string name="queenComplete">Binabati kita! Ang mga reyna ay walang mga sekreto para sayo.</string>
   <string name="theKing">Ang hari</string>
+  <string name="theMostImportantPiece">Ang pinakaimportanteng piraso</string>
+  <string name="kingIntro">Ikaw ang hari. Kapag ikaw ay natumba sa laban, talo na ang laro.</string>
+  <string name="theKingIsSlow">Ang hari ay mabagal.</string>
+  <string name="lastOne">Huling isa!</string>
+  <string name="kingComplete">Pwede mo nang utosan ang taga-utos!</string>
+  <string name="theKnight">Ang kabayo</string>
+  <string name="itMovesInAnLShape">Ito ay gumagalaw gaya ng hugis ng L</string>
+  <string name="knightIntro">Ito ang hamon para sa iyo. Ang kabayo ay... isang nakakalitong piraso.</string>
+  <string name="knightsHaveAFancyWay">Ang kabayo ay may kakaibang paraan ng pagtalon!</string>
+  <string name="knightsCanJumpOverObstacles">Ang mg kabayo ay pwedeng tumalon sa mga hadlang!
+Tumakas at mawala ang mga bituin!</string>
+  <string name="knightComplete">Binabati kita! Ikaw ay dalubhasa na sa kabayo.</string>
+  <string name="thePawn">Ang pawn</string>
+  <string name="itMovesForwardOnly">Ito ay gumagalaw ng pasulong lamang</string>
 </resources>
