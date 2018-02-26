@@ -786,4 +786,24 @@
   <string name="evaluatingYourMove">Sinusuri ang iyong galaw...</string>
   <string name="whiteWinsGame">Nanalo ang puti</string>
   <string name="blackWinsGame">Nanalo ang itim</string>
+  <string name="learnFromYourMistakes">Matuto sa iyong pagkakamali</string>
+  <string name="learnFromThisMistake">Matuto sa iyong pagkakamali</string>
+  <string name="skipThisMove">Laktawan ang galaw na ito</string>
+  <string name="next">Sunod</string>
+  <string name="xWasPlayed">%s nalaro</string>
+  <string name="findBetterMoveForWhite">Humanap ng mas mahusay na galaw para sa puti</string>
+  <string name="findBetterMoveForBlack">Humanap ng mas mahusay na galaw para sa itim</string>
+  <string name="resumeLearning">Ipagpatuloy ang pag-aaral</string>
+  <string name="youCanDoBetter">Ikaw ay makakagawa pa ng mas mahusay</string>
+  <string name="tryAnotherMoveForWhite">Subukan ang ibang galaw para sa puti</string>
+  <string name="tryAnotherMoveForBlack">Subukan ang ibang galaw para sa itim</string>
+  <string name="solution">Solusyon</string>
+  <string name="waitingForAnalysis">Naghihintay sa pagsusuri</string>
+  <string name="noMistakesFoundForWhite">Walang nakitang mga mali sa puti</string>
+  <string name="noMistakesFoundForBlack">Walang nakitang mali sa itim</string>
+  <string name="doneReviewingWhiteMistakes">Tapos ng tingnan muli ang mga pagkakamali ng puti</string>
+  <string name="doneReviewingBlackMistakes">Tapos ng tingnan muli ang mga pagkakamali ng itim</string>
+  <string name="doItAgain">Gawin muli ito</string>
+  <string name="reviewWhiteMistakes">Tingnan muli ang mga pagkakamali ng puti</string>
+  <string name="reviewBlackMistakes">Tingnan muli ang mga pagkakamali ng itim</string>
 </resources>
