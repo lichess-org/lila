@@ -76,4 +76,14 @@ At mong iwala ang sayo.</string>
   <string name="protectionComplete">Binabati kita! Ang piraso na hindi nawala sayo ay ang piraso na mapapanalonan mo!</string>
   <string name="escape">Ikaw ay inaatake!
 Takasan ang banta!</string>
+  <string name="noEscape">Hindi na makakatakas,
+pero pwedeng kang dumepensa!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Huwag ming hayaan na kunin nila ang kahit anong hindi nadepensahan na piraso!</string>
+  <string name="combat">Pakikipaglaban</string>
+  <string name="captureAndDefendPieces">Dakpin at depensahan ang mga piraso</string>
+  <string name="combatIntro">Ang mahusay na mandirigma ay alam kung paano lumaban at magdepensa!</string>
+  <string name="combatComplete">Binabati kita! Marunong ka ng labanan ang mga piraso sa chess!</string>
+  <string name="checkInOne">Nacheck sa isa</string>
+  <string name="attackTheOpponentsKing">Umatake sa kalabang hari</string>
+  <string name="checkInOneIntro">Upang macheck ang iyong kalaban, atakihin ang hari nila. Dapat nilang depensahan ito!</string>
 </resources>
