@@ -110,4 +110,16 @@ pero pwede mong harangan ang atake!</string>
   <string name="thisIsTheInitialPosition">Ang simulang posisyon
 sa bawat laro ng chess!
 Gumaw ng galaw para magpatuloy.</string>
+  <string name="firstPlaceTheRooks">Una na ilagay ang rook!
+Silay papunta sa mga gilid.</string>
+  <string name="thenPlaceTheKnights">At pagkatapos amg mga kabayo!
+Sila ay sunod sa mga rook.</string>
+  <string name="placeTheBishops">Ilagay ang mga bishop!
+Sila ay sunod sa mga kabayo.</string>
+  <string name="placeTheQueen">Ilagay ang reyna!
+Ilagay kung anong kulay nya.</string>
+  <string name="placeTheKing">Ilagay ang hari!
+Sunod ng kanyang reyna.</string>
+  <string name="pawnsFormTheFrontLine">Ang pawn ay nasa unahan na linya.
+Gumawa ng kahit anong galaw para magpatuloy.</string>
 </resources>
