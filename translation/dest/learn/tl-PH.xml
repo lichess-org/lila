@@ -46,4 +46,12 @@ Tumakas at mawala ang mga bituin!</string>
   <string name="knightComplete">Binabati kita! Ikaw ay dalubhasa na sa kabayo.</string>
   <string name="thePawn">Ang pawn</string>
   <string name="itMovesForwardOnly">Ito ay gumagalaw ng pasulong lamang</string>
+  <string name="pawnIntro">Ang mga pawn ay mahina, pero sila puno ng potensyal.</string>
+  <string name="pawnsMoveOneSquareOnly">Ang mga pawn ay gagalaw lang ng isang kwadrado lamang. Pero pag sila ay umabot sa kabilang panig ng board ay nagiging malakaw sila!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Sa lahat ng pagkakataon, ang pagpili ng reyna ang pinakamabuti. Pero minsan ang kabayo ay magagamit rin!</string>
+  <string name="pawnsMoveForward">Ang mga pawn ay gumagalaw pasulong,
+kumakain ng pahalaang!</string>
+  <string name="captureThenPromote">Dakpin, pagkatapos palitan nga mas malakas!</string>
+  <string name="useAllThePawns">Gamiti lahat ng mg pawn!
+Hindi na kailangan na palitan ng malakas.</string>
 </resources>
