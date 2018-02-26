@@ -126,4 +126,10 @@ Gumawa ng kahit anong galaw para magpatuloy.</string>
   <string name="castling">Pag-enrock</string>
   <string name="theSpecialKingMove">Ang espesyal na galaw ng hari</string>
   <string name="castlingIntro">Iligtas ang hari, at ilabas ang rook upang umatake!</string>
+  <string name="castleKingSide">Galawin ang iyong hari ng upang depensahan ang panig ng hari!</string>
+  <string name="castleQueenSide">Galawin ang inyong hari ng dalawang kwadrado upang protektahan ang panig ng reyna!</string>
+  <string name="theKnightIsInTheWay">Ang kabayo ay nasa daanan!
+Galawin ito, at protektahan ang panig ng hari.</string>
+  <string name="castleKingSideMovePiecesFirst">Protektahan ang panig ng hari!
+Kailangan mong muna maglabas ng mga piraso.</string>
 </resources>
