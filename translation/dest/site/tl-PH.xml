@@ -726,6 +726,13 @@
   <string name="onlineAndOfflinePlay">Online at offline na paglalaro</string>
   <string name="correspondenceAndUnlimited">Pagsusulatan at walang katapusan</string>
   <string name="viewTheSolution">Tingnan ang solusyon</string>
+  <string name="followAndChallengeFriends">Sundin at hamunin ang mga kaibigan</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Magagamit sa %s wika!</item>
+    <item quantity="other">Magagamit sa %s mga wika!</item>
+  </plurals>
+  <string name="gameAnalysis">Pagsusuri ng laro</string>
+  <string name="xHostsY">%1$s mga host %2$s</string>
   <string name="light">Liwanag</string>
   <string name="dark">Madilim</string>
   <string name="transparent">Transparent</string>
