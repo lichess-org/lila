@@ -163,4 +163,6 @@
 শুধু এন পাসান্ত কাজ করে.</string>
   <string name="takeAllThePawnsEnPassant">সব গুটি এন পাশান্ত নিন!</string>
   <string name="enPassantComplete">অভিন! এখন আপনি এন পাসান্ত নিতে পারেন.</string>
+  <string name="stalemate">চলমাত-সমান</string>
+  <string name="theGameIsADraw">খেলাটি হয় সমান</string>
 </resources>
