@@ -169,4 +169,9 @@
   <string name="stalemateGoal">কালো অচল অবস্থা থেকে:
 - কালো কোথায় সরতে পারবে না
 - সেখানে কোন চেক নেই.</string>
+  <string name="stalemateComplete">অভিনন্দন! ভালো হবে অচল অবস্থা তারপর
+বাজিমাত!</string>
+  <string name="advanced">উন্নত</string>
+  <string name="pieceValue">টুকরার মান</string>
+  <string name="evaluatePieceStrength">টুকরা শক্তির মূল্য ্</string>
 </resources>
