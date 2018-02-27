@@ -92,4 +92,10 @@
   <string name="checkInOneComplete">অভিনন্দন! আপনি আপনার প্রতিদ্বন্দ্বীকে চেক করেছেন, তাদের রাজা রক্ষা করতে জোর করুন!</string>
   <string name="outOfCheck">চেকের বাইরে</string>
   <string name="defendYourKing">আপনার রাজা রক্ষা করুন</string>
+  <string name="outOfCheckIntro">আপনি চেকের মাঝে আছেন! অবশ্যই আপনাকে পালায়ন অথবা হামলা বন্ধ করতে হবে.</string>
+  <string name="escapeWithTheKing">রাজার সাথে পালান!</string>
+  <string name="theKingCannotEscapeButBlock">রাজা পালাতে পারবে না,
+কিন্তু আপনি হামলা বন্ধ করতে পারবেন!</string>
+  <string name="youCanGetOutOfCheckByTaking">আক্রমনের টুকরা গ্রহন করে
+আপনি চেক আউট পেতে পারেন.</string>
 </resources>
