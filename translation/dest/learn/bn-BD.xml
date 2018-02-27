@@ -103,4 +103,11 @@
   <string name="escapeOrBlock">রাজার সাথে পালান অথবা হামলা বন্ধ করুন!</string>
   <string name="outOfCheckComplete">অভিনন্দন! আপনার রাজা নেওয়া যাবে না,
 নিশ্চিত হন আপনি চেকের বিরুদ্ধে রক্ষা করতে পারবেন!</string>
+  <string name="mateInOne">এক সহচরে</string>
+  <string name="defeatTheOpponentsKing">প্রতিদ্বন্দ্বী রাজাকে পরাজিত</string>
+  <string name="mateInOneIntro">যখন আপনার প্রতিদ্বন্দ্বী চেক রক্ষা করতে পারবেনা আপনি জিতে যাবেন.</string>
+  <string name="attackYourOpponentsKing">আপনার প্রতিদ্বন্দ্বী রাজাকে হামলা করুন 
+এমন উপায়ে যাতে করে রক্ষা না করতে পারে!</string>
+  <string name="mateInOneComplete">অভিনন্দন! ঐটা হয় কিভাবে আপনি দাবা খেলা জিতেছেন!</string>
+  <string name="intermediate">মাধ্যমিক</string>
 </resources>
