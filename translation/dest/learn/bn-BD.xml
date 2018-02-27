@@ -116,4 +116,14 @@
 যু্দ্ধের জন্য.</string>
   <string name="thisIsTheInitialPosition">এটা হয় প্রাথমিক অবস্থান সকল দাবা খেলার!
 যেকোন একটি চাল তৈরি করুন অবিরতর জন্য.</string>
+  <string name="firstPlaceTheRooks">নৌকার প্রথম স্থান!
+তারা কোনাকোনি যাবে.</string>
+  <string name="thenPlaceTheKnights">তারপর ঘোরার স্থান!
+তারা নৌকার পরে যাবে.</string>
+  <string name="placeTheBishops">বিশপের স্থান!
+তারা ঘোরার পরে যাবে.</string>
+  <string name="placeTheQueen">রানীর স্থান!
+সে তার নিজের রঙ নিয়ে যায়.</string>
+  <string name="placeTheKing">রাজার স্থান!
+তার রানীর পরে ডান পাশে.</string>
 </resources>
