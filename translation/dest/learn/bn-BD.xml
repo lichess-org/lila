@@ -165,4 +165,8 @@
   <string name="enPassantComplete">অভিন! এখন আপনি এন পাসান্ত নিতে পারেন.</string>
   <string name="stalemate">চলমাত-সমান</string>
   <string name="theGameIsADraw">খেলাটি হয় সমান</string>
+  <string name="stalemateIntro">যখন একজন খেলোয়াড় চেকে থাকেনা এবং কোন বৈধ চাল থাকেনা, এটা হয় একট অচল অবস্থা. খেলাটি সমান হবে: কেউ জিতবেনা, কেউ হারবেনা.</string>
+  <string name="stalemateGoal">কালো অচল অবস্থা থেকে:
+- কালো কোথায় সরতে পারবে না
+- সেখানে কোন চেক নেই.</string>
 </resources>
