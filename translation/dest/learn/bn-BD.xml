@@ -130,4 +130,6 @@
 অবিরত রাখার জন্য যে কোন চাল তৈরি করে.</string>
   <string name="boardSetupComplete">অভিনন্দন! আপনি জানেন কিভাবে দাবার বোর্ড সেটাপ করতে হয়.</string>
   <string name="castling">কাস্টেলিং</string>
+  <string name="theSpecialKingMove">বিশেষ রাজাকে সরান</string>
+  <string name="castlingIntro">রাজাকে নিরাপদে নিয়ে আসুন, এবং আপনার নৌকাকে স্থাপন করুন হামলার জন্য!</string>
 </resources>
