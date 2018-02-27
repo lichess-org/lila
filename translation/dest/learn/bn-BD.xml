@@ -132,4 +132,14 @@
   <string name="castling">কাস্টেলিং</string>
   <string name="theSpecialKingMove">বিশেষ রাজাকে সরান</string>
   <string name="castlingIntro">রাজাকে নিরাপদে নিয়ে আসুন, এবং আপনার নৌকাকে স্থাপন করুন হামলার জন্য!</string>
+  <string name="castleKingSide">আপনার রাজাকে দুই বর্গ সরান 
+প্রসাদ রাজার পাশে!</string>
+  <string name="castleQueenSide">আপনার রাজাকে দুই বর্গ সরান 
+প্রসাদ রানীর পাশে!</string>
+  <string name="theKnightIsInTheWay">ঘোরার উপায় আছে!
+এটা সরান, তারপর প্রসাদ রাজার পাশে.</string>
+  <string name="castleKingSideMovePiecesFirst">প্রসাদ রাজার পাশে!
+আপনার প্র‍য়োজন প্রথম টুকরা সরানো.</string>
+  <string name="castleQueenSideMovePiecesFirst">প্রসাদ রানীর পাশে!
+আপনার প্রয়োজন প্রথম টুকরা সরানো.</string>
 </resources>
