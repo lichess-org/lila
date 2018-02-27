@@ -158,4 +158,9 @@
   <string name="enPassantIntro">যখন প্রতিদ্বন্দ্বী গুটি দুই বর্গ সরে, আপনি এটা নিতে পারবেন যেমন এটা যদি এক বর্গে সরে.</string>
   <string name="blackJustMovedThePawnByTwoSquares">শুধু কালো গুটি দুই বর্গ সরেছে!
 এটাকে এন পাসান্তে নিন.</string>
+  <string name="enPassantOnlyWorksImmediately">প্রতিদ্বন্দ্বী গুটি সরানোর পর তত্ক্ষণাৎ শুধু এন পাসান্ত কাজ করে.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">যদি আপনার গুটির অনুপাত 5 হয় তাহলে
+শুধু এন পাসান্ত কাজ করে.</string>
+  <string name="takeAllThePawnsEnPassant">সব গুটি এন পাশান্ত নিন!</string>
+  <string name="enPassantComplete">অভিন! এখন আপনি এন পাসান্ত নিতে পারেন.</string>
 </resources>
