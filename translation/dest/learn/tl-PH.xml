@@ -142,4 +142,6 @@ Kailangan mo muna maglabas ng mga piraso.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Ang espesyal na galaw ng pawn</string>
   <string name="enPassantIntro">Kapag ang pawn nga iyong kalaban ay gumalaw ng dalawang kwadrado, pwede mo itong kunin gaya ng ito ay gumalaw ng isang kwadrado.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Ang itim na pawn ay gumalaw paibaba na dalawang kwadrado!
+Kunin ito bilang galw ng pagkain sa pawn.</string>
 </resources>
