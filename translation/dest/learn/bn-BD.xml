@@ -155,4 +155,7 @@
   <string name="castlingComplete">অভিনন্দন! আপনাকে প্রায় সবসময় খেলায় প্রসাদ করা উচিত.</string>
   <string name="enPassant">এন পাসান্ত</string>
   <string name="theSpecialPawnMove">বিশেষ গুটি সরান</string>
+  <string name="enPassantIntro">যখন প্রতিদ্বন্দ্বী গুটি দুই বর্গ সরে, আপনি এটা নিতে পারবেন যেমন এটা যদি এক বর্গে সরে.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">শুধু কালো গুটি দুই বর্গ সরেছে!
+এটাকে এন পাসান্তে নিন.</string>
 </resources>
