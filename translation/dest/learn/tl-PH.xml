@@ -144,4 +144,25 @@ Kailangan mo muna maglabas ng mga piraso.</string>
   <string name="enPassantIntro">Kapag ang pawn nga iyong kalaban ay gumalaw ng dalawang kwadrado, pwede mo itong kunin gaya ng ito ay gumalaw ng isang kwadrado.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Ang itim na pawn ay gumalaw paibaba na dalawang kwadrado!
 Kunin ito bilang galw ng pagkain sa pawn.</string>
+  <string name="enPassantOnlyWorksImmediately">Ang pagdakip sa pawn ay gumagana lamang pagkatapos ang isang pawn ay gumalaw.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Ang pagdakip sa pawn ay gumagana lamang kung ang iyong pawn ay nasa ika-5 antas.</string>
+  <string name="takeAllThePawnsEnPassant">Kunin ang lahat ng pawn na dakpin ang unang pawn na gagalaw!</string>
+  <string name="enPassantComplete">Binabati kita! Pwede muna ngayong kunin ang pagdakip sa unang gagalaw na pawn.</string>
+  <string name="stalemate">Tabla</string>
+  <string name="theGameIsADraw">Ang laro ay tabla</string>
+  <string name="stalemateIntro">Kapag ang isang manlalaro ay hindi nacheck at wala ng maigagalaw, ito ay tabla. Ang laro ay tabla, walang nanalo, walang natalo.</string>
+  <string name="stalemateGoal">Upang tablahin ang itim:
+-Ang itim ay hindi na makakagalaw
+-Walang nacheck.</string>
+  <string name="stalemateComplete">Binabati kita! Mas mabuting matabla kaysa matalo!</string>
+  <string name="advanced">Nauna</string>
+  <string name="pieceValue">Halaga ng piraso</string>
+  <string name="evaluatePieceStrength">Suriin ang lakas ng piraso</string>
+  <string name="pieceValueIntro">Ang mga piraso na mabilis ay may mataas na halaga!
+Reyna = 9
+Rook = 5
+Bishop = 3
+Kabayo = 3
+Pawn = 1
+Ang hari ay napakahalaga! Kapag nawal to ay ibig sabihin talo kana sa laro.</string>
 </resources>
