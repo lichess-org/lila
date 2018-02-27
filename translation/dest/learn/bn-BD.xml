@@ -126,4 +126,8 @@
 সে তার নিজের রঙ নিয়ে যায়.</string>
   <string name="placeTheKing">রাজার স্থান!
 তার রানীর পরে ডান পাশে.</string>
+  <string name="pawnsFormTheFrontLine">সামনে সারির গুটি
+অবিরত রাখার জন্য যে কোন চাল তৈরি করে.</string>
+  <string name="boardSetupComplete">অভিনন্দন! আপনি জানেন কিভাবে দাবার বোর্ড সেটাপ করতে হয়.</string>
+  <string name="castling">কাস্টেলিং</string>
 </resources>
