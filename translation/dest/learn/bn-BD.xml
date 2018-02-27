@@ -98,4 +98,9 @@
 কিন্তু আপনি হামলা বন্ধ করতে পারবেন!</string>
   <string name="youCanGetOutOfCheckByTaking">আক্রমনের টুকরা গ্রহন করে
 আপনি চেক আউট পেতে পারেন.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">আপনার প্রতিরক্ষক দ্বারা
+দাবার ঘোরাটি চেক করা হচ্ছে!</string>
+  <string name="escapeOrBlock">রাজার সাথে পালান অথবা হামলা বন্ধ করুন!</string>
+  <string name="outOfCheckComplete">অভিনন্দন! আপনার রাজা নেওয়া যাবে না,
+নিশ্চিত হন আপনি চেকের বিরুদ্ধে রক্ষা করতে পারবেন!</string>
 </resources>
