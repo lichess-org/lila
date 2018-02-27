@@ -142,4 +142,17 @@
 আপনার প্র‍য়োজন প্রথম টুকরা সরানো.</string>
   <string name="castleQueenSideMovePiecesFirst">প্রসাদ রানীর পাশে!
 আপনার প্রয়োজন প্রথম টুকরা সরানো.</string>
+  <string name="youCannotCastleIfMoved">আপনি প্রসাদ করতে পারবেন না 
+যদি রাজাকে ইতিমধ্যে সরানো হয়
+অথবা নৌকাকে ইতিমধ্যে সরানো হয়.</string>
+  <string name="youCannotCastleIfAttacked">আপনি প্রসাদ করতে পারবেন না
+যদি রাজাকে কোন উপায় হামলা করা হয়.
+চেক বন্ধ করুন তারপর প্রসাদ!</string>
+  <string name="findAWayToCastleKingSide">প্রসাদ রাজার পাশে
+একটি উপায় খুজুন!</string>
+  <string name="findAWayToCastleQueenSide">প্রসাদ রানীর পাশে
+একটি উপায় খুজুন!</string>
+  <string name="castlingComplete">অভিনন্দন! আপনাকে প্রায় সবসময় খেলায় প্রসাদ করা উচিত.</string>
+  <string name="enPassant">এন পাসান্ত</string>
+  <string name="theSpecialPawnMove">বিশেষ গুটি সরান</string>
 </resources>
