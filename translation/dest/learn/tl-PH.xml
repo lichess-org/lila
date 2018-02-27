@@ -165,4 +165,6 @@ Bishop = 3
 Kabayo = 3
 Pawn = 1
 Ang hari ay napakahalaga! Kapag nawal to ay ibig sabihin talo kana sa laro.</string>
+  <string name="queenOverBishop">Kunin ang piraso na may pinakamataas na halaga!
+Reyna &gt; Bishop</string>
 </resources>
