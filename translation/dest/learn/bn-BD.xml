@@ -110,4 +110,10 @@
 এমন উপায়ে যাতে করে রক্ষা না করতে পারে!</string>
   <string name="mateInOneComplete">অভিনন্দন! ঐটা হয় কিভাবে আপনি দাবা খেলা জিতেছেন!</string>
   <string name="intermediate">মাধ্যমিক</string>
+  <string name="boardSetup">বোর্ড সেটাপ</string>
+  <string name="howTheGameStarts">কিভাবে খেলাটি শুরু হয়</string>
+  <string name="boardSetupIntro">দুইটি সেনাদল একে অপরের দিকে, প্রস্তুত
+যু্দ্ধের জন্য.</string>
+  <string name="thisIsTheInitialPosition">এটা হয় প্রাথমিক অবস্থান সকল দাবা খেলার!
+যেকোন একটি চাল তৈরি করুন অবিরতর জন্য.</string>
 </resources>
