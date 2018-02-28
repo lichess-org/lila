@@ -228,4 +228,6 @@
   <string name="yourScore">আপনার স্কোর</string>
   <string name="next">পরবর্তী</string>
   <string name="backToMenu">মেনুতে ফিরে যান</string>
+  <string name="puzzleFailed">ধাঁধা ব্যর্থ!</string>
+  <string name="retry">পুনারয় চেষ্টা করুন</string>
 </resources>
