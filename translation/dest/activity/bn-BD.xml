@@ -39,4 +39,25 @@
     <item quantity="one">হোস্টেড %s সমকালীন প্রদর্শনী</item>
     <item quantity="other">হোস্টেড %s সমকালীন প্রদর্শনী</item>
   </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">অংশগ্রহণ করী %s সমকালীন প্রদর্শনী</item>
+    <item quantity="other">অংশগ্রহণ করী %s সমকালীন প্রদর্শনী</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">তৈরি হয়েছে %s নতুন গবেষণা</item>
+    <item quantity="other">তৈরি হয়েছে %s নতুন গবেষণা</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">অনুষ্ঠানে %s প্রতিযোগিতা</item>
+    <item quantity="other">অনুষ্ঠানে %s প্রতিযোগিতা</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">অনুপাত #%1$s (সর্বোচ্চ %2$s%%) সাথে %3$s খেলায় %4$s</item>
+    <item quantity="other">অনুপাত #%1$s (সর্বোচ্চ %2$s%%) সাথে %3$s খেলায় %4$s</item>
+  </plurals>
+  <string name="signedUp">Lichess.org সাইন আপ করুন</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">যুক্ত হয়েছে %s দল</item>
+    <item quantity="other">যুক্ত হয়েছে %s দল</item>
+  </plurals>
 </resources>
