@@ -219,4 +219,13 @@
   <string name="greatJob">মহৎ কাজ!</string>
   <string name="perfect">ঠিক আছে!</string>
   <string name="outstanding">অসাধারন!</string>
+  <string name="wayToGo">পথে যেতে হবে!</string>
+  <string name="yesYesYes">হ্যা, হ্যা, হ্যা!</string>
+  <string name="youreGoodAtThis">এখান এটাতে আপনি ভালো!</string>
+  <string name="nailedIt">দৃঢ়ভাবে ধরুন.</string>
+  <string name="rightOn">ঠিক উপরে!</string>
+  <string name="stageXComplete">সম্পূর্ণ %s ধাপ</string>
+  <string name="yourScore">আপনার স্কোর</string>
+  <string name="next">পরবর্তী</string>
+  <string name="backToMenu">মেনুতে ফিরে যান</string>
 </resources>
