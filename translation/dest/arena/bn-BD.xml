@@ -22,4 +22,6 @@
 
 যদি আপনি কমপক্ষে ৭ টি চাল দিন তাহলে ক্ষিপ্তের অতিরিক্ত একটি পয়েন্ট অনুদান হবে.</string>
   <string name="howIsTheWinnerDecided">কিভাবে জয়ী সিদ্ধান্ত নিয়েছে?</string>
+  <string name="howIsTheWinnerDecidedAnswer">সবচেয়ে বেশি পয়েন্টের সাথে বিজয়ী (গুলি) নির্ধারিত প্রতিযোগিতার সময়ের সীমার শেষে প্রতিযোগিতা (গুলি) ঘোষণা করা হবে।.</string>
+  <string name="howDoesPairingWork">কিভাবে জোরায় কাজ করে?</string>
 </resources>
