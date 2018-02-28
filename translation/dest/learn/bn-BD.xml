@@ -195,4 +195,16 @@
   <string name="checkInTwoIntro">দুটি চালের সঠিক মিল খুজুন যা
 প্রতিদ্বন্দ্বী রাজাকে চেক করবে!</string>
   <string name="checkInTwoGoal">প্রতিদ্বন্দ্বী রাজাকে দুইচালে শাসান!</string>
+  <string name="checkInTwoComplete">অভিনন্দন! আপনি আপনার প্রতিদ্বন্দ্বীকে চেক করেছেন,
+তাদের রাজা রক্ষা করতে জোর করুন!</string>
+  <string name="whatNext">এরপর কি?</string>
+  <string name="youKnowHowToPlayChess">আপনি জানেন কিভাবে দাবা খেলতে হয়, অভিনন্দন!
+আপনকি কি একজন শক্তিশালী খেলোয়াড় হতে চান?</string>
+  <string name="register">নিবন্ধন করুন</string>
+  <string name="getAFreeLichessAccount">বিনামূল্যে একটি দাবা একাউন্ট পান</string>
+  <string name="practice">চর্চা</string>
+  <string name="learnCommonChessPositions">সধারন দাবার অবস্থান শিখুন</string>
+  <string name="puzzles">ধাঁধা</string>
+  <string name="exerciseYourTacticalSkills">আপনার কৌশলগত দক্ষতা চর্চা করুন</string>
+  <string name="videos">ভিডিওগুলো</string>
 </resources>
