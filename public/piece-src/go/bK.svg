@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="100%" height="100%" viewBox="0 0 2048 2048">
+    <defs id="defs10"/>
+    <g id="g4" transform="matrix(1 0 0 -1 0 2048)">
+        <circle cx="1024" cy="1024" r="768" style="fill:#ececec"/>
+        <circle cx="1024" cy="1024" r="704" style="fill:#101010;"/>
+    </g>
+</svg>

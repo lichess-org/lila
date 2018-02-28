@@ -44,7 +44,7 @@ svg_optimize () {
 }
 
 # pieces
-for pset in alpha chess7 chessnut fantasy letter merida mono pirouetti reillycraig spatial shapes riohacha; do
+for pset in alpha chess7 chessnut fantasy go letter merida mono pirouetti reillycraig spatial shapes riohacha; do
   mkdir -p public/piece/$pset
   for file in public/piece-src/$pset/*.svg; do
     svg_optimize $file $(echo $file | sed 's#/piece-src/#/piece/#')
