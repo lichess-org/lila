@@ -5,4 +5,6 @@
   <string name="willBeNotified">আপনাকে জানানো হবে যখন প্রতিযোগিতা শুরু হবে, তো অপেক্ষার সময় অন্য টেবে খেলা এটা হয় নিরাপদ.</string>
   <string name="isRated">এই প্রতিযোগিতা মূল্যায়িত হয়েছে এবং আপনার অনুপাত প্রাভাবিত করবে.</string>
   <string name="isNotRated">এই প্রতিযোগিতা হয় *না* মূল্যায়িত এবং হবে *না* আপনার অনুপাত প্রভাবিত.</string>
+  <string name="someRated">কিছু প্রতিযোগিতা হয় মূল্যায়িত এবং আপনার অনুপাত প্রভাবিত করবে.</string>
+  <string name="howAreScoresCalculated">কিভাবে স্কোর গণনা করা হয়?</string>
 </resources>
