@@ -207,4 +207,16 @@
   <string name="puzzles">ধাঁধা</string>
   <string name="exerciseYourTacticalSkills">আপনার কৌশলগত দক্ষতা চর্চা করুন</string>
   <string name="videos">ভিডিওগুলো</string>
+  <string name="watchInstructiveChessVideos">শিক্ষা মূলক দাবার ভিডিও দেখুন</string>
+  <string name="playPeople">মানুষ খেলে</string>
+  <string name="opponentsFromAroundTheWorld">সারা বিশ্ব থেকে প্রতিদ্বন্দ্বী</string>
+  <string name="playMachine">মেশিন খেলা</string>
+  <string name="testYourSkillsWithTheComputer">কম্পিউটারের সাথে আপনার দক্ষতা যাচাই করুন</string>
+  <string name="letsGo">চলো যাই!</string>
+  <string name="stageX">পর্যায় %s</string>
+  <string name="awesome">অসাধারন!</string>
+  <string name="excellent">চমৎকার!</string>
+  <string name="greatJob">মহৎ কাজ!</string>
+  <string name="perfect">ঠিক আছে!</string>
+  <string name="outstanding">অসাধারন!</string>
 </resources>
