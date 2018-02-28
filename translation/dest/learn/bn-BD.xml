@@ -174,4 +174,14 @@
   <string name="advanced">উন্নত</string>
   <string name="pieceValue">টুকরার মান</string>
   <string name="evaluatePieceStrength">টুকরা শক্তির মূল্য ্</string>
+  <string name="pieceValueIntro">উচ্চ মানের টুকরাগুলো নিয়ে উচ্চ মূল্যে আছে!
+রানী = ৯
+নৌকা = ৫
+বিশপ = ৩
+ঘোরা = ৩
+গুটি = ১
+রাজা হয় অমূল্য! রাজাকে হারিয়ে ফেলা মানে খেলা হেরে যাওয়া.</string>
+  <string name="queenOverBishop">উচ্চ মূল্যের টুকরা নিন!
+রানী &gt; বিশপ</string>
+  <string name="takeThePieceWithTheHighestValue">উচ্চ মানের গুটি নিন!</string>
 </resources>
