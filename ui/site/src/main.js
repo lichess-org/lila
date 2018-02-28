@@ -460,7 +460,10 @@ lichess.topMenuIntent = function() {
         var opts = {
           focus: 1,
           friend: $(this).data('friend'),
-          tag: $(this).data('tag')
+          tag: $(this).data('tag'),
+          onSelect: function(q) {
+            location.href = '/@/' + q
+          }
         };
         if ($(this).attr('autofocus')) lichess.userAutocomplete($(this), opts);
         else $(this).one('focus', function() {
