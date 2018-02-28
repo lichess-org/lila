@@ -184,4 +184,15 @@
   <string name="queenOverBishop">উচ্চ মূল্যের টুকরা নিন!
 রানী &gt; বিশপ</string>
   <string name="takeThePieceWithTheHighestValue">উচ্চ মানের গুটি নিন!</string>
+  <string name="pieceValueComplete">অভিনন্দন! আপনি উপাদানের মূল্য জানেন!
+রানী = ৯
+নৌকা = ৫
+বিশপ = ৩
+ঘোরা = ২
+গুটি = ১</string>
+  <string name="checkInTwo">দুইটির চেক</string>
+  <string name="twoMovesToGiveCheck">দুটি চাল দিয়ে একটি চেক দিন</string>
+  <string name="checkInTwoIntro">দুটি চালের সঠিক মিল খুজুন যা
+প্রতিদ্বন্দ্বী রাজাকে চেক করবে!</string>
+  <string name="checkInTwoGoal">প্রতিদ্বন্দ্বী রাজাকে দুইচালে শাসান!</string>
 </resources>
