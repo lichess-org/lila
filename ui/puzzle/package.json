@@ -35,7 +35,7 @@
   "dependencies": {
     "ceval": "1.0.0",
     "chess": "1.0.0",
-    "chessground": "^7.2",
+    "chessground": "^7.3",
     "common": "1.0.0",
     "snabbdom": "ornicar/snabbdom#lichess",
     "tree": "1.0.0"
