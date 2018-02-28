@@ -19,4 +19,24 @@
     <item quantity="one">পোস্ট করা হয়েছে %1$s বার্তায় %2$s</item>
     <item quantity="other">পোস্ট করা হয়েছে %1$s বার্তাগুলো %2$s</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">খেলেছে %1$s চালানো %2$s সাদৃশ্য খেলা(s)</item>
+    <item quantity="other">খেলেছে %1$s চালানো %2$s সাদৃশ্য খেলা(s)</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">সম্পন্ন হয়েছে %s সাদৃশ্য খেলা</item>
+    <item quantity="other">সম্পন্ন হয়েছে %s সাদৃশ্য খেলাগুলো</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">অনুসরণ শুরু করেছে %s খেলোয়াড়</item>
+    <item quantity="other">অনুসরণ শুরু করেছে %s খেলোয়াড়</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">অর্জন করেছেন %s নতুন অনুসরন</item>
+    <item quantity="other">অর্জন করেছেন %s নতুন অনুসরন</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">হোস্টেড %s সমকালীন প্রদর্শনী</item>
+    <item quantity="other">হোস্টেড %s সমকালীন প্রদর্শনী</item>
+  </plurals>
 </resources>
