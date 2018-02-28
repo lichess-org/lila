@@ -25,9 +25,9 @@ case class ActivityView(
     studies: Option[List[Study.IdName]] = None,
     teams: Option[Teams] = None,
     tours: Option[ActivityView.Tours] = None,
+    stream: Boolean = false,
     signup: Boolean = false
-) {
-}
+)
 
 object ActivityView {
 

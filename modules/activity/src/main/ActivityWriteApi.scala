@@ -103,10 +103,13 @@ final class ActivityWriteApi(
     }
   }
 
-  def team(id: String, userId: String) =
+  def team(id: String, userId: User.ID) =
     update(userId) { a =>
       a.copy(teams = Some(~a.teams + id)).some
     }
+
+  def streamStart(userId: User.ID) =
+    update(userId) { _.copy(stream = true).some }
 
   private def simulParticipant(simul: lila.simul.Simul, userId: String, host: Boolean) =
     update(userId) { a => a.copy(simuls = Some(~a.simuls + SimulId(simul.id))).some }

@@ -58,10 +58,11 @@ final class Env(
           system.scheduler.scheduleOnce(5 minutes) { write study id }
         case lila.hub.actorApi.team.CreateTeam(id, _, userId) => write.team(id, userId)
         case lila.hub.actorApi.team.JoinTeam(id, userId) => write.team(id, userId)
+        case lila.hub.actorApi.streamer.StreamStart(userId) => write.streamStart(userId)
       }
     })),
     'finishGame, 'forumPost, 'finishPuzzle, 'finishPractice, 'team,
-    'startSimul, 'moveEventCorres, 'plan, 'relation, 'startStudy
+    'startSimul, 'moveEventCorres, 'plan, 'relation, 'startStudy, 'streamStart
   )
 }
 

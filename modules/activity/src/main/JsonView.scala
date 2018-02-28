@@ -136,5 +136,6 @@ final class JsonView(
         )
       }))
       .add("patron" -> a.patron)
+      .add("stream" -> a.stream)
   }
 }

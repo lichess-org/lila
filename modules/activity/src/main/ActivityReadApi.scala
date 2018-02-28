@@ -88,7 +88,8 @@ final class ActivityReadApi(
     follows = a.follows,
     studies = studies,
     teams = a.teams,
-    tours = tours
+    tours = tours,
+    stream = a.stream
   )
 
   private def addSignup(at: DateTime, recent: Vector[ActivityView]) = {

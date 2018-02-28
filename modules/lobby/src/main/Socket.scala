@@ -132,7 +132,7 @@ private[lobby] final class Socket(
         withActiveMember(uid)(_ push msg)
       }
 
-    case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
+    case lila.hub.actorApi.streamer.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
 
     case NbMembers(nb) => pong = pong + ("d" -> JsNumber(nb))
     case lila.hub.actorApi.round.NbRounds(nb) =>

@@ -116,6 +116,7 @@ private object BSONHandlers {
     val follows = "f"
     val studies = "t"
     val teams = "e"
+    val stream = "st"
   }
 
   implicit val activityHandler = new lila.db.BSON[Activity] {
@@ -134,7 +135,8 @@ private object BSONHandlers {
       patron = r.getO[Patron](patron),
       follows = r.getO[Follows](follows).filterNot(_.isEmpty),
       studies = r.getO[Studies](studies),
-      teams = r.getO[Teams](teams)
+      teams = r.getO[Teams](teams),
+      stream = r.getD[Boolean](stream)
     )
 
     def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
@@ -149,7 +151,8 @@ private object BSONHandlers {
       patron -> o.patron,
       follows -> o.follows,
       studies -> o.studies,
-      teams -> o.teams
+      teams -> o.teams,
+      stream -> o.stream.option(true)
     )
   }
 }

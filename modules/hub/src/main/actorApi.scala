@@ -22,7 +22,11 @@ object SendTos {
 sealed abstract class Deploy(val key: String)
 case object DeployPre extends Deploy("deployPre")
 case object DeployPost extends Deploy("deployPost")
-case class StreamsOnAir(html: String)
+
+package streamer {
+  case class StreamsOnAir(html: String)
+  case class StreamStart(userId: String)
+}
 
 package map {
   case class Get(id: String)

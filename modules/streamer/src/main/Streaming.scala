@@ -19,7 +19,8 @@ private final class Streaming(
     googleApiKey: String,
     twitchClientId: String,
     lightUserApi: lila.user.LightUserApi
-) extends Actor {
+)
+  extends Actor {
 
   import Stream._
   import Twitch.Reads._
@@ -62,7 +63,7 @@ private final class Streaming(
     if (newStreams != liveStreams) {
       renderer ? newStreams.autoFeatured.withTitles(lightUserApi) foreach {
         case html: play.twirl.api.Html =>
-          context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'streams)
+          context.system.lilaBus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html.body), 'streams)
       }
       newStreams.streams filterNot { s =>
         liveStreams has s.streamer
@@ -71,6 +72,10 @@ private final class Streaming(
           import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
           Propagate(StreamStart(s.streamer.userId, s.streamer.name.value)) toFollowersOf s.streamer.userId
         }
+        context.system.lilaBus.publish(
+          lila.hub.actorApi.streamer.StreamStart(s.streamer.userId),
+          'streamStart
+        )
       }
     }
     liveStreams = newStreams

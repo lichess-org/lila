@@ -212,6 +212,13 @@ case (pt, score) => {
 </div>
 }
 
+@renderStream() = {
+<div class="entry">
+  <i data-icon=""></i>
+  Hosted a <a href="@routes.Streamer.show(u.username)">live stream</a>
+</div>
+}
+
 @renderSignup() = {
 <div class="entry">
   <i data-icon="s"></i>
@@ -242,6 +249,7 @@ case (pt, score) => {
       @a.studies.map(renderStudies)
       @a.tours.map(renderTours)
       @a.teams.map(renderTeams)
+      @if(a.stream) { @renderStream() }
       @if(a.signup) { @renderSignup() }
     </div>
   </section>
