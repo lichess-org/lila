@@ -434,9 +434,9 @@
   <string name="onlinePlayers">যে সমস্ত  খেলোয়ার অনলাইন আছে</string>
   <string name="activeToday">যারা আজকে সক্রিয় রয়েছে</string>
   <string name="activePlayers">সক্রিয় খেলোয়াড়গণ</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">সাবধান, এই খেলাটি rated তবে কোনো সময়সীমা নেই</string>
-  <string name="training">প্রশিক্ষণ</string>
-  <string name="yourPuzzleRatingX">আপনার ধাঁধার rating: %s</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">সাবধান, এই খেলাটি মূল্যায়িত তবে কোনো সময়সীমা নেই!</string>
+  <string name="training">ধাঁধা</string>
+  <string name="yourPuzzleRatingX">আপনার ধাঁধার অনুপাত: %s</string>
   <string name="findTheBestMoveForWhite">সাদার জন্য সবচেয়ে ভালো চাল খোঁজার চেষ্টা করুন</string>
   <string name="findTheBestMoveForBlack">কালোর জন্য সবচেয়ে ভালো চাল খোঁজার চেষ্টা করুন</string>
   <string name="toTrackYourProgress">আপনার উন্নতির পরিসংখ্যান দেখুন</string>
@@ -454,16 +454,16 @@
   <string name="wasThisPuzzleAnyGood">এই ধাঁধাটি কেমন ছিল ?</string>
   <string name="pleaseVotePuzzle">UP অথবা Down arrow তে ভোট করে lichess-কে সাহায্য করুন</string>
   <string name="thankYou">ধন্যবাদ</string>
-  <string name="ratingX">Rating: %s</string>
+  <string name="ratingX">অনুপাত: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">%s বার খেলা হয়েছে</item>
-    <item quantity="other">%s বার খেলা হয়েছে</item>
+    <item quantity="one">%s সময় খেলা হয়েছে</item>
+    <item quantity="other">%s সময় খেলা হয়েছে</item>
   </plurals>
   <string name="fromGameLink">%s খেলা থেকে</string>
   <string name="continueTraining">প্রশিক্ষণ বজায় রাখুন</string>
   <string name="retryThisPuzzle">এই ধাঁধাটি কে আবার চেষ্টা করুন</string>
   <string name="thisPuzzleIsCorrect">এই ধাঁধাটি ভালো এবং আকর্ষণীয়</string>
-  <string name="thisPuzzleIsWrong">এই ধাঁধাটি ভুল এবং বিরক্তিকর</string>
+  <string name="thisPuzzleIsWrong">এই ধাঁধাটি ভুল অথবা বিরক্তিকর</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s খেলা চলছে</item>
     <item quantity="other">%s খেলা চলছে</item>
