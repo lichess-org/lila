@@ -56,7 +56,10 @@ function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       move: ctrl.userMove,
       dropNewPiece: ctrl.userNewPiece
     },
-    premovable: opts.premovable,
+    premovable: {
+      enabled: opts.premovable!.enabled,
+      showDests: pref.destination
+    },
     drawable: {
       enabled: !ctrl.embed,
       eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice
