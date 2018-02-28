@@ -171,7 +171,7 @@ lazy val event = module("event", Seq(common, db, memo, i18n)).settings(
 )
 
 lazy val mod = module("mod", Seq(common, db, user, hub, security, tournament, simul, game, analyse, evaluation,
-  report, notifyModule, history)).settings(
+  report, notifyModule, history, perfStat)).settings(
   libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver)
 )
 
