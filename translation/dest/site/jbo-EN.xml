@@ -50,6 +50,9 @@
   <string name="analysis">lo lanli te pruce cartu</string>
   <string name="loadingEngine">ca\'o samymo\'i</string>
   <string name="move">kelka\'u</string>
+  <string name="variantLoss">lo drata javni gunma nuntolji\'a</string>
+  <string name="variantWin">lo drata javni gunma nunji\'a</string>
+  <string name="capture">kavbu</string>
   <string name="close">cliva</string>
   <string name="winning">jivna kelka\'u</string>
   <string name="losing">terji\'a kelka\'u</string>
@@ -519,9 +522,19 @@
   </plurals>
   <string name="quickPairing">selsutra jivna</string>
   <string name="lobby">lo depystu</string>
+  <string name="anonymous">cmecau</string>
+  <string name="yourScore">veljvilai do fa li %S</string>
   <string name="language">lo bangu</string>
+  <string name="light">tolmanku</string>
+  <string name="dark">manku</string>
+  <string name="transparent">guskli</string>
   <string name="directlySupportLichess">sarji la .litces.</string>
   <string name="coaches">lo te\'ictu</string>
+  <string name="error.unknown">srera da</string>
+  <string name="practiceWithComputer">crezenrapzu\'e se pi\'o lo skami</string>
   <string name="seeBestMove">viska lo xagrai se zukte</string>
   <string name="hideBestMove">te mipri lo xagrai se zukte</string>
+  <string name="whiteWinsGame">lo nu la blabi cu jinga</string>
+  <string name="blackWinsGame">lo nu la xekri cu jinga</string>
+  <string name="next">bavla\'i</string>
 </resources>
