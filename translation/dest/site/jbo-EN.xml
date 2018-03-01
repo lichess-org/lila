@@ -381,6 +381,7 @@
   <string name="closeAccountExplanation">xu do birti lo ka djica lo nu co\'upli lo do jaspu .i vitno nu jdice .i ba ki ri ze\'e na pilno .i lo do jaspu velski cu na jai zgana se zifre</string>
   <string name="thisAccountIsClosed">co\'upli ti poi jaspu</string>
   <string name="invalidUsernameOrPassword">.i lo cmene .a lo japyvla cu na drani</string>
+  <string name="incorrectPassword">na drani kikyvla</string>
   <string name="emailMeALink">samymri lo urli mi</string>
   <string name="currentPassword">lo cabna japyvla</string>
   <string name="newPassword">lo cnino japyvla</string>
