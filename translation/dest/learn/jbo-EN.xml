@@ -35,6 +35,7 @@
   <string name="outOfCheckIntro">lo do noltrunau cu se ckape .i sarcu fa lo nu do rivbi gi\'a dicra lo nungunta</string>
   <string name="escapeWithTheKing">ko rivbi ka\'ai lo noltrunau</string>
   <string name="theKingCannotEscapeButBlock">lo noltrunau na ka\'e rivbi i ku\'i do kakne lo nu dicra lo nungunta</string>
+  <string name="mateInOne">gasnu lo caxmata ba\'o pa nunmu\'u</string>
   <string name="howTheGameStarts">lo nunji\'a cu cfari tai ma kau</string>
   <string name="castling">lo badydi\'ulujnunmu\'u</string>
   <string name="theSpecialKingMove">lo se steci be fi lo\'i nunmu\'u pe lo noltrunau</string>
@@ -43,4 +44,16 @@
   <string name="takeAllThePawnsEnPassant">ko kavbu ro lo sonci fau lo lamgresoinunmu\'u</string>
   <string name="stalemate">caxpata</string>
   <string name="theGameIsADraw">lo nunji\'a cu se jalge lo nu no da cu jinga</string>
+  <string name="pieceValue">lo vamji be lo keirmu\'u</string>
+  <string name="checkInTwo">gasnu lo nu ckape lo bradi kei ba\'o re nunmu\'u</string>
+  <string name="whatNext">ma se lidne</string>
+  <string name="register">co\'a se jaspu</string>
+  <string name="getAFreeLichessAccount">co\'a nonseldi\'a se jaspu fi la .litces.</string>
+  <string name="practice">crezenrapzu\'e</string>
+  <string name="learnCommonChessPositions">cilre lo kampu be lo\'i morna pe lo caxmati</string>
+  <string name="videos">lo skina</string>
+  <string name="playMachine">jivna lo minji</string>
+  <string name="awesome">xautce</string>
+  <string name="excellent">xautce</string>
+  <string name="greatJob">xautce</string>
 </resources>
