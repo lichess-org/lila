@@ -7,4 +7,12 @@
   <string name="isNotRated">Kini nga torneyo *wala* gi-rate ug *dili* makaapekto sa imong rating.</string>
   <string name="someRated">Ang uban nga mga torneyo gihatagan og rate ug makaapekto sa imong rating.</string>
   <string name="howAreScoresCalculated">Giunsa pagkuwenta sa mga iskor?</string>
+  <string name="howAreScoresCalculatedAnswer">Ang daog adunay base iskor na 2 puntos, usa ka draw: 1 punto, ug ang usa ka pildi walay puntos.
+Kon modaog ka sunodsunod sa duha ka duwa ikaw magsugod sa usa ka double point streak, nga girepresentahan sa usa ka flame icon.
+Ang mga mosunod nga mga dula magpadayon nga magkantidad og doble nga puntos hangtud nga ikaw mapildi sa dula.
+Sa ato pa, ang usa ka kadaugan mamahimong 4 puntos, usa ka draw: 2 puntos, ug ang usa ka pildi magpabilin nga walay puntos.
+
+
+Pananglitan, ang duha ka daog nga gisundan sa usa ka draw adunay kantidad nga 6 puntos: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Arena Berserk</string>
 </resources>
