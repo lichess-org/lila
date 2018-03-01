@@ -12,4 +12,14 @@
   <string name="itMovesDiagonally">ti muvdu fo lo salpo be lo radno be li pai fi\'u vo lo pinta a lo sraji</string>
   <string name="theQueen">lo noltruni\'u</string>
   <string name="queenCombinesRookAndBishop">lo noltruni\'u cu simsa lo slanydi\'u jo\'e lo xanto</string>
+  <string name="queenIntro">lo vlirai be lo\'i keirmu\'u</string>
+  <string name="theKing">lo noltrunau</string>
+  <string name="theMostImportantPiece">lo vajrai be lo\'i keirmu\'u</string>
+  <string name="kingIntro">do noltrunau .i ga nai do se catra gi do te jinga</string>
+  <string name="theKingIsSlow">lo noltrunau cu masno</string>
+  <string name="lastOne">lo ro moi</string>
+  <string name="theKnight">lo xirma</string>
+  <string name="itMovesInAnLShape">ti muvdu fo lo tarmi be zoi lerfu. L .lerfu</string>
+  <string name="thePawn">lo sonci</string>
+  <string name="itMovesForwardOnly">ti mo\'i ca\'u po\'o muvdu</string>
 </resources>
