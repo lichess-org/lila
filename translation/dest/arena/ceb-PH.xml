@@ -25,4 +25,8 @@ Ang Berserk naghatag lamang og dugang nga punto kon magdula ka og labing menos 7
   <string name="howIsTheWinnerDecided">Unsaon paghukom sa mananaog?</string>
   <string name="howIsTheWinnerDecidedAnswer">Ang (mga) magdudula nga adunay daghan nga mga puntos sa paghuman sa gitakda nga limit na oras sa torneyo maoy maanunsyo nga (mga) mananaog.</string>
   <string name="howDoesPairingWork">Giunsa ang paagi sa pagpares?</string>
+  <string name="howDoesPairingWorkAnswer">Sa sinugdanan sa torneyo, ang mga magdudula gipares base sa ilang rating.
+Sa diha nga ikaw makahuman sa usa ka dula, balik ngadto sa lobby sa torneyo: ikaw dayon mapares sa usa ka magdudula nga duol sa imong ranking. Kini makasiguro sa minimum nga oras sa paghulat, apan dili nimo makontra ang tanan nga mga magdudula sa torneyo.
+Pagdula og dali ug balik sa lobby aron magdula og dugang nga mga dula ug makadaog og mas daghang puntos.</string>
+  <string name="howDoesItEnd">Giunsa kini paghuman?</string>
 </resources>
