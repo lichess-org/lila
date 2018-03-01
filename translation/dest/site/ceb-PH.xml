@@ -13,7 +13,16 @@
   <string name="toggleTheChat">I-toggle ang chat</string>
   <string name="toggleSound">I-toggle ang tingog</string>
   <string name="chat">Pag-chat</string>
+  <string name="resign">Pagluwat</string>
+  <string name="checkmate">Checkmate</string>
+  <string name="stalemate">Stalemate</string>
   <string name="white">Puti</string>
   <string name="black">Itom</string>
   <string name="randomColor">Bisagkinsang kilid</string>
+  <string name="createAGame">Paghimo og dula</string>
+  <string name="whiteIsVictorious">Madaugon ang puti</string>
+  <string name="blackIsVictorious">Madaugon ang itom</string>
+  <string name="kingInTheCenter">Hari naa sa sentro</string>
+  <string name="threeChecks">Tulo ka mga checks</string>
+  <string name="raceFinished">Nahuman ang lumba</string>
 </resources>
