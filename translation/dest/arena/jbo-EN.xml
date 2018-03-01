@@ -3,6 +3,9 @@
 <resources>
   <string name="isItRated">xu nilcre cnegau</string>
   <string name="willBeNotified">ba notci fo do ca lo nu lo grinunjvi cu cfari .i se ki\'u bo tolckape fa lo nu jinga bu\'u lo drata kibyca\'opau ca\'o lo nu denpa</string>
+  <string name="isRated">ti noi nunjvi cu nilcre cnegau gi\'e ba stika lo nilcre be do</string>
+  <string name="isNotRated">ti noi nunjvi cu ba\'e na nilcre cnegau gi\'e ba ba\'e na stika lo nilcre be do</string>
+  <string name="someRated">su\'o lo grinunjvi cu nilcre cnegau gi\'e ba stika lo nilcre be do</string>
   <string name="howAreScoresCalculated">kanji lo veljvilai fo ma</string>
   <string name="howAreScoresCalculatedAnswer">lo nunji\'a fa\'u lo nunynorji\'a fa\'u lo nuntolji\'a cu se vamji li re fa\'u pa fa\'u no gradu fe lo jicmu
 .i ga nai do jinga fo re da poi lamsi\'u gi cfari fa lo za\'i lo veljvirau cu se relpi\'igau kei noi se sinxa lo tamsmi be lo fagri
