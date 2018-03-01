@@ -31,4 +31,8 @@ Pagdula og dali ug balik sa lobby aron magdula og dugang nga mga dula ug makadao
   <string name="howDoesItEnd">Giunsa kini paghuman?</string>
   <string name="howDoesItEndAnswer">Ang torneyo adunay countdown clock. Sa diha nga kini moabot sa zero, ang mga ranking sa torneyo kay mohunong, ug ang mananaog ipahibalo. Ang mga dula nga gisugdan kinahanglan humanon, apan dili kini maihap sa torneyo.</string>
   <string name="otherRules">Ang ubang importante nga mga lagda</string>
+  <string name="otherRulesAnswer">Gikinahanglan nga himoon ang imong una nga paglihok sulod sa 20 ka segundo sa imong turno. Ang pagkapakyas sa paglihok niining panahona makapildi sa duwa ngadto sa imong kaatbang.
+Ang pagtabla sa duwa sulod sa unang 10 ka mga lihok sa dula dili makaganansiya og mga puntos sa bisan kinsang magdudula.</string>
+  <string name="thisIsPrivate">Kini usa ka pribadong torneyo</string>
+  <string name="shareUrl">Ipakigbahin kini nga URL aron pasudlon ang mga tawo: %s</string>
 </resources>
