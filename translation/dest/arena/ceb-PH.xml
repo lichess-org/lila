@@ -15,4 +15,12 @@ Sa ato pa, ang usa ka kadaugan mamahimong 4 puntos, usa ka draw: 2 puntos, ug an
 
 Pananglitan, ang duha ka daog nga gisundan sa usa ka draw adunay kantidad nga 6 puntos: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Berserk</string>
+  <string name="berserkAnswer">Kon ang usa ka magdudula mo-klik sa Berserk button sa sinugdanan sa dula, mawala ang katunga sa ilang clock time, apan ang daog nagkantidad og usa ka dugang nga punto sa torneyo.
+
+Ang pag-adto sa Berserk sa oras magkontrol sa usa ka pagsaka ug usab magkansel sa pagsaka. (1+2 usa ka eksepsyon, kini naghatag og 1+0)
+
+Ang Berserk dili magamit alang sa mga dula nga adunay zero initial time (0 + 1, 0 + 2).
+
+Ang Berserk naghatag lamang og dugang nga punto kon magdula ka og labing menos 7 ka mga lihok sa dula.</string>
+  <string name="howIsTheWinnerDecided">Unsaon paghukom sa mananaog?</string>
 </resources>
