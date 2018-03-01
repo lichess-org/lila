@@ -26,6 +26,10 @@
   <string name="itMovesForwardOnly">ti mo\'i ca\'u po\'o muvdu</string>
   <string name="pawnIntro">lo sonci cu ruble gi\'e ku\'i barda lo ni kakne</string>
   <string name="pawnPromotion">lo nunxagmaubi\'o be lo sonci</string>
+  <string name="capture">kavbu</string>
+  <string name="protection">nunbandu</string>
+  <string name="checkInOne">gasnu lo nu ckape lo bradi kei ba\'o pa nunmu\'u</string>
+  <string name="attackTheOpponentsKing">ko gunta lo noltrunau pe lo se jivna</string>
   <string name="outOfCheck">rivbi lo nu ckape lo noltrunau</string>
   <string name="defendYourKing">ko bandu lo do noltrunau</string>
   <string name="outOfCheckIntro">lo do noltrunau cu se ckape .i sarcu fa lo nu do rivbi gi\'a dicra lo nungunta</string>
