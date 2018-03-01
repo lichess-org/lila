@@ -492,14 +492,14 @@
   <string name="user">user এর নাম</string>
   <string name="reason">কারণ</string>
   <string name="whatIsIheMatter">সম্পূর্ণ ঘটনার বিবরণ দেন</string>
-  <string name="cheat">cheating করছে</string>
+  <string name="cheat">চিটিং করছে</string>
   <string name="insult">অপমান করেছে</string>
   <string name="troll">ব্যঙ্গ করছে</string>
   <string name="other">অন্য কোনো কারণ</string>
   <string name="reportDescriptionHelp">এখানে সেই খেলাটির link দেন এবং বলুন ওই ব্যক্তি ব্যবহারে কি অসুবিধা ছিল ?</string>
   <string name="by">%s এর দ্বারা</string>
   <string name="thisTopicIsNowClosed">এই বিষয়টি এখন শেষ হয়ে গেছে</string>
-  <string name="theming">THEMING</string>
+  <string name="theming">ছবি</string>
   <string name="donate">LICHESS কে সহায়তা করতে চাইলে</string>
   <string name="blog">ব্লগ</string>
   <string name="questionsAndAnswers">প্রশ্ন এবং উত্তর</string>
