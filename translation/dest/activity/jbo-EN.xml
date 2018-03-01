@@ -23,6 +23,6 @@
   </plurals>
   <string name="signedUp">co\'a se jaspu fi la\'o .urli lichess.org .urli</string>
   <plurals name="joinedNbTeams">
-    <item quantity="other">co\'a cmima la\'o zoi. %s .zoi noi bende</item>
+    <item quantity="other">co\'a cmima %s bende</item>
   </plurals>
 </resources>
