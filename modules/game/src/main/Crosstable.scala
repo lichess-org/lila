@@ -50,6 +50,8 @@ object Crosstable {
       else if (userId == user2.id) showScore(user1.id).some
       else none
 
+    def scores: List[Int] = List(user1, user2).map(_.score)
+
     def fromPov(userId: String) =
       if (userId == user2.id) copy(user1 = user2, user2 = user1)
       else this

@@ -36,17 +36,31 @@ final class CrosstableApi(
       case crosstable ~ matchup => crosstable.map { Crosstable.WithMatchup(_, matchup) }
     }
 
-  def nbGames(u1: String, u2: String): Fu[Int] =
-    coll.find(
+  def nbGames(u1: String, u2: String): Fu[Int] = scores(u1, u2).map {
+    _ ?? {
+      case (s1, s2) => (s1 + s2) / 10
+    }
+  }
+
+  def scores(u1: String, u2: String): Fu[Option[(Int, Int)]] =
+    coll.uno[Bdoc](
       select(u1, u2),
       $doc("s1" -> true, "s2" -> true)
-    ).uno[Bdoc] map { res =>
-        ~(for {
-          o <- res
-          s1 <- o.getAs[Int]("s1")
-          s2 <- o.getAs[Int]("s2")
-        } yield (s1 + s2) / 10)
+    ).map { docOpt =>
+        for {
+          doc <- docOpt
+          s1 <- doc.getAs[Int]("s1")
+          s2 <- doc.getAs[Int]("s2")
+        } yield (s1, s2)
       }
+
+  def scoresOrCompute(game: Game, timeout: FiniteDuration = 1.second): Fu[Option[List[Int]]] =
+    game.userIds.distinct match {
+      case List(u1, u2) => scores(u1, u2) map2 { (s: (Int, Int)) =>
+        List(s._1, s._2)
+      } orElse createWithTimeout(u1, u2, timeout).map2 { (c: Crosstable) => c.users.scores }
+      case _ => fuccess(none)
+    }
 
   def add(game: Game): Funit = game.userIds.distinct.sorted match {
     case List(u1, u2) => {
