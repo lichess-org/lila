@@ -186,6 +186,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">dunda %s snidu</item>
   </plurals>
+  <string name="giveMoreTime">dunda lo temci</string>
   <string name="thisPlayerUsesChessComputerAssistance">ti noi jivna cu se sidju lo skami</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">ti tolvrude cenba lo nilcre</string>
   <string name="takeback">nunmu\'u xruti</string>
@@ -203,6 +204,10 @@
   <string name="tournamentPoints">torneio pointo</string>
   <string name="viewTournament">zgana lo torneio</string>
   <string name="backToTournament">xruti tu\'a lo torneio</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="other">su\'o %s nunjvi je ke nilcre cnegau</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">lo nilcre be do cu tolsatci</string>
   <string name="backToGame">xruti tu\'a lo nunjvi</string>
   <string name="siteDescription">zifre je kibro ke caxmati seltcana .i .e\'e kelci la caxmati do\'e lo sampu krati .i na japtcu .i na viska lo gubnoi .i na nitcu lo kibykla se jmina .i .e\'e jvikei lo skami .a lo pendo .a lo jai cunso</string>
   <string name="teams">lo bende</string>
@@ -247,6 +252,7 @@
   <string name="onlineFriends">lo pendo poi ca kibzva</string>
   <string name="noFriendsOnline">no lo do pendo ca\'o kibzva</string>
   <string name="findFriends">sispe\'i lo pendo</string>
+  <string name="favoriteOpponents">lo cafrai be lo\'i se jivna</string>
   <string name="follow">co\'a catlu</string>
   <string name="following">ca\'o catlu</string>
   <string name="unfollow">co\'u catlu</string>
@@ -285,6 +291,10 @@
   <string name="winStreak">lo se pormei be lo te lamji be lo nunji\'a</string>
   <string name="createdBy">fi\'e la\'oi</string>
   <string name="tournamentIsStarting">le torneio ca\'o cfari</string>
+  <string name="youArePlaying">do ca\'o jivna</string>
+  <string name="winRate">lo parbi be lo se rapli be lo nunji\'a</string>
+  <string name="berserkRate">lo parbi be lo se rapli be lo nunsutytcebilga</string>
+  <string name="performance">lo selsmi nilcre</string>
   <string name="membersOnly">lo cmima be la .litces. cu selte\'i</string>
   <string name="boardEditor">keltcini tiktci</string>
   <string name="startPosition">cfari keltcini</string>
