@@ -57,6 +57,7 @@
   <string name="unknown">narju\'odza</string>
   <string name="database">samdatni</string>
   <string name="whiteDrawBlack">labji\'a .e caxpati .e xekyji\'a</string>
+  <string name="averageRatingX">nilcre cnano fa li %s</string>
   <string name="openingExplorer">cfari nunmu\'u ke lanli tutci je vreji</string>
   <string name="allSet">.i\'e</string>
   <string name="delete">vimcu</string>
@@ -295,6 +296,11 @@
   <string name="winRate">lo parbi be lo se rapli be lo nunji\'a</string>
   <string name="berserkRate">lo parbi be lo se rapli be lo nunsutytcebilga</string>
   <string name="performance">lo selsmi nilcre</string>
+  <string name="tournamentComplete">ba\'o grinunjvi</string>
+  <string name="movesPlayed">se krefu lo nunmu\'u</string>
+  <string name="whiteWins">parbi co nu la blabi cu jinga</string>
+  <string name="blackWins">parbi co nu la xekri cu jinga</string>
+  <string name="draws">parbi co nu no da cu jinga</string>
   <string name="membersOnly">lo cmima be la .litces. cu selte\'i</string>
   <string name="boardEditor">keltcini tiktci</string>
   <string name="startPosition">cfari keltcini</string>
@@ -331,6 +337,7 @@
   <string name="keepGoing">.i ko ranji</string>
   <string name="puzzleFailed">lo se namkei cu jai se fliba</string>
   <string name="butYouCanKeepTrying">.i ku\'i do ka\'e za\'u re\'u troci</string>
+  <string name="success">nunsnada</string>
   <string name="wasThisPuzzleAnyGood">xu le se namkei xamgu</string>
   <string name="pleaseVotePuzzle">ko sidju mi\'a se zu\'e lo nu nilnei cuxna se pi\'o lo re strelka</string>
   <string name="thankYou">ki\'e</string>
@@ -407,6 +414,7 @@
   <string name="horizontalGreenProgressBars">pinta ke crino nilmulyuidje</string>
   <string name="soundWhenTimeGetsCritical">sance fi\'o se sinxa lo nu lo temci cu cmalu</string>
   <string name="gameBehavior">nunjvi seltra</string>
+  <string name="bothClicksAndDrag">.a</string>
   <string name="premovesPlayingDuringOpponentTurn">muvycfapru</string>
   <string name="takebacksWithOpponentApproval">xruti be pa keimu\'u</string>
   <string name="promoteToQueenAutomatically">zmiku palbi\'ogau lo sonci lo noltruni\'u</string>
@@ -492,11 +500,15 @@
   <string name="simultaneousExhibitions">cabysi\'u nuntigni</string>
   <string name="noSimulExplanation">ti noi cabysi\'u nuntigni cu na zasti</string>
   <string name="create">finti</string>
+  <string name="tournamentFAQ">lo cafne se reisku preti be lo kelcrxarena zei grinunjvi</string>
   <string name="tournamentOfficial">ca\'iselzau</string>
+  <string name="tournamentNotFound">na facki fi ti noi grinunjvi</string>
+  <string name="tournamentDoesNotExist">ti noi grinunjvi cu na zasti</string>
   <string name="yourPerfTypeRatingIsRating">nilcre do la\'o zoi. %1$s .zoi fa li %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">do cremau lo %1$s si\'e be loi kelci be la\'o zoi. %2$s .zoi</string>
   <string name="checkYourEmail">ko catlu lo se samymri be fi do</string>
   <string name="inputMovesWithTheKeyboard">jarco tu\'a lo nunmu\'u se pi\'o lo batkyfoi</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">lo tadji be lo badydi\'ulujnunmu\'u</string>
   <string name="security">kamnu\'a</string>
   <string name="playChessEverywhere">fe\'e ro roi ku jvikei lo caxmati</string>
   <string name="asFreeAsLichess">nonseldi\'a du\'i la .litces.</string>
