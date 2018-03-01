@@ -234,7 +234,7 @@
   <string name="rematchOfferDeclined">Предложение реванша отклонено</string>
   <string name="cancelRematchOffer">Отказаться от реванша</string>
   <string name="viewRematch">Посмотреть матч-реванш</string>
-  <string name="play">Играть</string>
+  <string name="play">Игра</string>
   <string name="inbox">Входящие</string>
   <string name="chatRoom">Чат</string>
   <string name="loginToChat">Войдите, чтобы общаться в чате</string>
@@ -652,7 +652,7 @@
   <string name="playOnTheBoardOffline">Вдвоём за доской</string>
   <string name="playOfflineComputer">С компьютером</string>
   <string name="opponent">Соперник</string>
-  <string name="learnMenu">Учиться</string>
+  <string name="learnMenu">Обучение</string>
   <string name="community">Сообщество</string>
   <string name="tools">Инструменты</string>
   <string name="increment">Добавка</string>
@@ -687,7 +687,7 @@
   <string name="tpTimeSpentPlaying">Проведённое за игрой время: %s</string>
   <string name="watchGames">Смотреть игры</string>
   <string name="tpTimeSpentOnTV">Времени за просмотром TV: %s</string>
-  <string name="watch">Смотреть</string>
+  <string name="watch">Просмотр</string>
   <string name="internationalEvents">Международные события</string>
   <string name="videoLibrary">Видеотека</string>
   <string name="mobileApp">Мобильное приложение</string>
