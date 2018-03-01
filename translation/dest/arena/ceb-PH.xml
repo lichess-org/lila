@@ -29,4 +29,6 @@ Ang Berserk naghatag lamang og dugang nga punto kon magdula ka og labing menos 7
 Sa diha nga ikaw makahuman sa usa ka dula, balik ngadto sa lobby sa torneyo: ikaw dayon mapares sa usa ka magdudula nga duol sa imong ranking. Kini makasiguro sa minimum nga oras sa paghulat, apan dili nimo makontra ang tanan nga mga magdudula sa torneyo.
 Pagdula og dali ug balik sa lobby aron magdula og dugang nga mga dula ug makadaog og mas daghang puntos.</string>
   <string name="howDoesItEnd">Giunsa kini paghuman?</string>
+  <string name="howDoesItEndAnswer">Ang torneyo adunay countdown clock. Sa diha nga kini moabot sa zero, ang mga ranking sa torneyo kay mohunong, ug ang mananaog ipahibalo. Ang mga dula nga gisugdan kinahanglan humanon, apan dili kini maihap sa torneyo.</string>
+  <string name="otherRules">Ang ubang importante nga mga lagda</string>
 </resources>
