@@ -4,4 +4,7 @@
   <string name="isItRated">Gihatagan ba kini og rate?</string>
   <string name="willBeNotified">Pahibaw-on ka kon ang torneyo magsugod na, mao nga luwas ang pagdula sa laing tab samtang naghulat.</string>
   <string name="isRated">Kini nga torneyo gi-rate ug makaapekto sa imong rating.</string>
+  <string name="isNotRated">Kini nga torneyo *wala* gi-rate ug *dili* makaapekto sa imong rating.</string>
+  <string name="someRated">Ang uban nga mga torneyo gihatagan og rate ug makaapekto sa imong rating.</string>
+  <string name="howAreScoresCalculated">Giunsa pagkuwenta sa mga iskor?</string>
 </resources>
