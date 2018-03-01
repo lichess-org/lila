@@ -25,4 +25,8 @@
   <string name="kingInTheCenter">Hari naa sa sentro</string>
   <string name="threeChecks">Tulo ka mga checks</string>
   <string name="raceFinished">Nahuman ang lumba</string>
+  <string name="variantEnding">Lainlaing panapos</string>
+  <string name="newOpponent">Bag-ong kontra</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Ang imong kontra gusto nga magdula og bag-ong dula uban kanimo</string>
+  <string name="joinTheGame">Pag-apil sa dula</string>
 </resources>
