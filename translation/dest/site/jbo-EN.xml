@@ -49,6 +49,7 @@
   <string name="computerAnalysisAvailable">pu se lanli lo skami</string>
   <string name="analysis">lo lanli te pruce cartu</string>
   <string name="loadingEngine">ca\'o samymo\'i</string>
+  <string name="goDeeper">zenba lo ka condi</string>
   <string name="move">kelka\'u</string>
   <string name="variantLoss">lo drata javni gunma nuntolji\'a</string>
   <string name="variantWin">lo drata javni gunma nunji\'a</string>
@@ -501,6 +502,7 @@
   <string name="videoLibrary">kinsro</string>
   <string name="termsOfService">lo pilno terbilga</string>
   <string name="simultaneousExhibitions">cabysi\'u nuntigni</string>
+  <string name="hostColorX">lo ralkei cu skari lo ka %s</string>
   <string name="noSimulExplanation">ti noi cabysi\'u nuntigni cu na zasti</string>
   <string name="create">finti</string>
   <string name="tournamentFAQ">lo cafne se reisku preti be lo kelcrxarena zei grinunjvi</string>
@@ -537,4 +539,6 @@
   <string name="whiteWinsGame">lo nu la blabi cu jinga</string>
   <string name="blackWinsGame">lo nu la xekri cu jinga</string>
   <string name="next">bavla\'i</string>
+  <string name="noMistakesFoundForWhite">na facki lo se srera be la blabi</string>
+  <string name="noMistakesFoundForBlack">na facki lo se srera be la xekri</string>
 </resources>
