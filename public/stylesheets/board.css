@@ -83,8 +83,8 @@ piece {
   top: 0;
   left: 0;
   background-size: cover;
-  z-index: 2; /* no less than 2 */
-  pointer-events: none;
+  z-index: 2;
+  /* no less than 2 */
 }
 .cg-512 piece {
   will-change: transform, opacity;
@@ -116,6 +116,10 @@ piece.ghost {
 piece.fading {
   z-index: 2!important;
   opacity: 0.5;
+}
+.cg-board-wrap .over {
+  will-change: transform;
+  background-color: rgba(20, 85, 30, 0.2);
 }
 .cg-board-wrap svg {
   overflow: hidden;
