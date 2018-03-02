@@ -65,4 +65,5 @@ Dili na kihanglan i-promote.</string>
   <string name="boardSetupComplete">Congratulations! Kamao naka mobutang sa mga piraso sa chess sa board.</string>
   <string name="castling">Pag-enrook</string>
   <string name="theSpecialKingMove">Ang espesyal ng lihok sa king</string>
+  <string name="castlingIntro">Dad. a imong king sa kaluwasan, ug ipagawas imong rook para pag-atake!</string>
 </resources>
