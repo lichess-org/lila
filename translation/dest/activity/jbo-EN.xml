@@ -12,6 +12,9 @@
   <plurals name="playedNbGames">
     <item quantity="other">jivna fo %1$s da ci\'e la\'o zoi. %2$s .zoi</item>
   </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="other">co\'a catlu %s da</item>
+  </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="other">co\'a se catlu %s da</item>
   </plurals>
