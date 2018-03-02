@@ -54,4 +54,15 @@ Pero magamit gihapon ang kabayo!</string>
   <string name="pawnsMoveForward">Ang pawn molihok paatubangan, 
 pero modakop pakilid!</string>
   <string name="captureThenPromote">Dakpa, dayun i-promote!</string>
+  <string name="useAllThePawns">Gamita tanang pawn!
+Dili na kinahanglan i-promote.</string>
+  <string name="aPawnOnTheSecondRank">Ang pawn ng naa sa ikaduhang ranggo kay pwede molihok ug duha ka square!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Kuhaa tanang bitoon!
+Dili na kihanglan i-promote.</string>
+  <string name="pawnComplete">Congratulations! Ang pawn kay walay mga sekreto.</string>
+  <string name="pawnPromotion">Pagpromote sa pawn</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Ang imong pawn kay naabot na sa tumoy sa board!</string>
+  <string name="boardSetupComplete">Congratulations! Kamao naka mobutang sa mga piraso sa chess sa board.</string>
+  <string name="castling">Pag-enrook</string>
+  <string name="theSpecialKingMove">Ang espesyal ng lihok sa king</string>
 </resources>
