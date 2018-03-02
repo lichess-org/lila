@@ -18,4 +18,18 @@ para dal. on didto sa bitoon!</string>
   <string name="theFewerMoves">Mas gamay imong lihok, mas dako imo puntos nga madaog!</string>
   <string name="useTwoRooks">Gamita ang duha ka rook
 para padalion ang mga butang!</string>
+  <string name="rookComplete">Congratulations! Maayo na kaayo ka mogamit sa rook.</string>
+  <string name="theBishop">Ang bishop</string>
+  <string name="itMovesDiagonally">Molihok ni padiagonal</string>
+  <string name="bishopIntro">Sunod magkat-on ta unsaon paggamit ang bishop!</string>
+  <string name="youNeedBothBishops">Usa ka puti nga square nga bishop,
+usa ka itom nga square ng bishop.
+Kinahanglan nimo ang duha!</string>
+  <string name="bishopComplete">Congratulations! Pwede na nimo sugoon ang bishop.</string>
+  <string name="theQueen">Ang reyna</string>
+  <string name="queenCombinesRookAndBishop">Reyna = rook + bishop</string>
+  <string name="queenIntro">Ang pinakagamhanan ng piraso kay nisulod na. Ang reyna!</string>
+  <string name="queenComplete">Congratulations! Ang reyna kay walay mga sekreto sa imo.</string>
+  <string name="theKing">Ang hari</string>
+  <string name="theMostImportantPiece">Ang pinakaimportanteng piraso</string>
 </resources>
