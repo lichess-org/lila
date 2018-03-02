@@ -32,4 +32,26 @@ Kinahanglan nimo ang duha!</string>
   <string name="queenComplete">Congratulations! Ang reyna kay walay mga sekreto sa imo.</string>
   <string name="theKing">Ang hari</string>
   <string name="theMostImportantPiece">Ang pinakaimportanteng piraso</string>
+  <string name="kingIntro">Ikaw ang hari. Kung ikaw mamatay sa gubat, pildi na ang duwa.</string>
+  <string name="theKingIsSlow">Ang king kay hinay.</string>
+  <string name="lastOne">Usa ng nahibilin!</string>
+  <string name="kingComplete">Pwede na nimo sugoon ang tagasugo!</string>
+  <string name="theKnight">Ang kabayo</string>
+  <string name="itMovesInAnLShape">Molihok pareha sa porma sa letrang L</string>
+  <string name="knightIntro">Mao kini ang hagit para nimo. Ang kabayo kay... usa ka makailad ng piraso.</string>
+  <string name="knightsHaveAFancyWay">Ang kabayo kay naay kuyaw ng paglihok!</string>
+  <string name="knightsCanJumpOverObstacles">Ang kabayo kay makalukso sa mga nag-ali!
+Dagan ug mawala ang mga bitoon!</string>
+  <string name="knightComplete">Congratulations! Maayu na ka sa kabayo.</string>
+  <string name="thePawn">Ang pawn</string>
+  <string name="itMovesForwardOnly">Molihok paatubangan ra</string>
+  <string name="pawnIntro">Ang pawn kay huyang, pero puno ug potensyal.</string>
+  <string name="pawnsMoveOneSquareOnly">Ang mga pawn molihok ug usa ra ka square.
+Pero kung maabot na sa pikas tumoy sa board,
+mahimo silang kusgan!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Pero ang kasagaran ang reyna ang pinakapiliin para pagpromote.
+Pero magamit gihapon ang kabayo!</string>
+  <string name="pawnsMoveForward">Ang pawn molihok paatubangan, 
+pero modakop pakilid!</string>
+  <string name="captureThenPromote">Dakpa, dayun i-promote!</string>
 </resources>
