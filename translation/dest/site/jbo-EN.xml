@@ -118,7 +118,7 @@
   <string name="rating">nilcre</string>
   <string name="ratingStats">nilcre datni</string>
   <string name="username">lo japycme</string>
-  <string name="usernameOrEmail">lo japycme ja lo samymrijudri</string>
+  <string name="usernameOrEmail">lo japcme jo nai lo samymrijudri</string>
   <string name="password">lo kikyvla</string>
   <string name="haveAnAccount">xu do se jaspu .i</string>
   <string name="changePassword">cenba lo ka ma kau kikyvla</string>
@@ -530,6 +530,8 @@
   <string name="light">tolmanku</string>
   <string name="dark">manku</string>
   <string name="transparent">guskli</string>
+  <string name="usernameStartNoNumber">sarcu fa lo nu lo japcme cu na se tolfa\'o lo nacle\'u</string>
+  <string name="usernameUnacceptable">ti noi japcme cu se tolzau</string>
   <string name="directlySupportLichess">sarji la .litces.</string>
   <string name="chessBasics">lo jicmu be lo caxmati</string>
   <string name="coaches">lo te\'ictu</string>
