@@ -6,9 +6,9 @@
   <string name="isRated">ti noi nunjvi cu nilcre cnegau gi\'e ba stika lo nilcre be do</string>
   <string name="isNotRated">ti noi nunjvi cu ba\'e na nilcre cnegau gi\'e ba ba\'e na stika lo nilcre be do</string>
   <string name="someRated">su\'o lo grinunjvi cu nilcre cnegau gi\'e ba stika lo nilcre be do</string>
-  <string name="howAreScoresCalculated">kanji lo veljiglai fo ma</string>
+  <string name="howAreScoresCalculated">kanji lo seljiglai fo ma</string>
   <string name="howAreScoresCalculatedAnswer">lo nunji\'a fa\'u lo nunynorji\'a fa\'u lo nuntolji\'a cu se vamji li re fa\'u pa fa\'u no gradu fe lo jicmu
-.i ga nai do jinga fo re da poi lamsi\'u gi cfari fa lo za\'i lo veljigrau cu se relpi\'igau kei noi se sinxa lo tamsmi be lo fagri
+.i ga nai do jinga fo re da poi lamsi\'u gi cfari fa lo za\'i lo seljigrau cu se relpi\'igau kei noi se sinxa lo tamsmi be lo fagri
 .i lo balvi nunjvi cu se vamji lo relpi\'i be lo nilji\'urau pu\'o lo nu do fliba lo nu jinga 
 .i va\'i lu nunji\'a fa\'u lo nunynorji\'a fa\'u lo nuntolji\'a cu se vamji li vo fa\'u re fa\'u no gradu
 
@@ -20,8 +20,11 @@
   <string name="howIsTheWinnerDecided">ta\'i ma zi\'o jdice lo du\'u ma kau jinga</string>
   <string name="howIsTheWinnerDecidedAnswer">lo traji be tu\'a lo veljvilai ba jai xusra fai lo du\'u jinga</string>
   <string name="howDoesPairingWork">lo nunrelmeizilzba cu tamsmi ma</string>
+  <string name="howDoesPairingWorkAnswer">.i pa mai lo jvikei cu te zbasu fa zi\'o lo re mei ji\'u lo nilcre
+.i ca lo nu do co\'u jivna fo pa nunjvi kei ko xruti vo\'a lo depstu po lo grinunjvi .i ba zi bo do ce lo simsa be do bei lo ka xo kau moi kei ku te zbasu fa zi\'o lo re mei .i la\'e di\'u se jalge lo nu lo deptei cu tordu .i ku\'i cumki fa lo nu do jivna me\'i ro jvikei be fo lo grinunjvi
+.i ko sutra lo nu kelci kei gi\'e xruti fi lo depstu te zu\'e lo nu jivna fo za\'u no\'o da gi\'e jinga za\'u no\'o selji\'arau</string>
   <string name="howDoesItEnd">tai ma tolcfa</string>
-  <string name="howDoesItEndAnswer">lo grinunjvi cu tolcau lo jdikykemtemjunla .i ca lo nu zo\'e pe ri binxo lo ka me li no kei ge lo porsi be tu\'a lo veljiglai cu ba\'o cenba gi lo jinga cu se gubysku .i ei lo ca\'o nunjvi cu tolcfa .i ku\'i ri na stika tu\'a lo grinunjvi</string>
+  <string name="howDoesItEndAnswer">lo grinunjvi cu tolcau lo jdikykemtemjunla .i ca lo nu zo\'e pe ri binxo lo ka me li no kei ge lo porsi be tu\'a lo seljiglai cu ba\'o cenba gi lo jinga cu se gubysku .i ei lo ca\'o nunjvi cu tolcfa .i ku\'i ri na stika tu\'a lo grinunjvi</string>
   <string name="otherRules">lo drata ke vajni javni</string>
   <string name="otherRulesAnswer">do bilga lo nu zukte lo pa moi nunmu\'u ba nu\'i lo cfamokca la\'u lo snidu be li su\'e reno .i va\'o lo nu na zukte ra kei do tolji\'a
 .i va\'o lo nu norji\'a cau lo papa moi nunmu\'u kei ro lo re jvipre cu cpacu no gradu</string>
