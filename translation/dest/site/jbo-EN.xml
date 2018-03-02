@@ -523,7 +523,7 @@
     <item quantity="other">se sabji bau %s da</item>
   </plurals>
   <string name="quickPairing">selsutra jivna</string>
-  <string name="lobby">lo depystu</string>
+  <string name="lobby">lo depstu</string>
   <string name="anonymous">cmecau</string>
   <string name="yourScore">veljvilai do fa li %S</string>
   <string name="language">lo bangu</string>
