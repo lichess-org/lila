@@ -531,9 +531,11 @@
   <string name="dark">manku</string>
   <string name="transparent">guskli</string>
   <string name="directlySupportLichess">sarji la .litces.</string>
+  <string name="chessBasics">lo jicmu be lo caxmati</string>
   <string name="coaches">lo te\'ictu</string>
   <string name="error.unknown">srera da</string>
   <string name="practiceWithComputer">crezenrapzu\'e se pi\'o lo skami</string>
+  <string name="resumePractice">di\'a crezenrapzu\'e</string>
   <string name="seeBestMove">viska lo xagrai se zukte</string>
   <string name="hideBestMove">te mipri lo xagrai se zukte</string>
   <string name="whiteWinsGame">lo nu la blabi cu jinga</string>
