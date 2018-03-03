@@ -6,5 +6,8 @@
   <string name="averageScoreAsWhiteX">Sagad na puntos ingon sa puti: %s</string>
   <string name="averageScoreAsBlackX">Sagad na puntos ingon sa itom: %s</string>
   <string name="knowingTheChessBoard">Nahibal-an na ang coordinate sa chessboard kay ang pinaka importanteng abilidad sa chess:</string>
+  <string name="talkToYourChessFriends">Makapahimong mas sayon ​​ang pagpakigsulti sa imong mga higala sa chess, tungod kay nakasabut man mo sa \"pinulongan sa chess\".</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Maka-analyse ka og usa ka dula nga mas epektibo kon dili nimo kinahanglan pangitaon ang mga square name.</string>
+  <string name="aSquareNameAppears">Ang usa ka square name makita sa board ug kinahanglan nimo i-klik ang husto nga square. Aduna kay 30 segundos aron pag-ila sa daghang mga square kutob sa mahimo!</string>
   <string name="startTraining">Sugdi ang pagbansay</string>
 </resources>
