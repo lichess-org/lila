@@ -6,4 +6,5 @@
   <string name="averageScoreAsWhiteX">Sagad na puntos ingon sa puti: %s</string>
   <string name="averageScoreAsBlackX">Sagad na puntos ingon sa itom: %s</string>
   <string name="knowingTheChessBoard">Nahibal-an na ang coordinate sa chessboard kay ang pinaka importanteng abilidad sa chess:</string>
+  <string name="startTraining">Sugdi ang pagbansay</string>
 </resources>
