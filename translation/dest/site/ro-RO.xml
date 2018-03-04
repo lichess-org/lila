@@ -784,8 +784,6 @@
   <string name="pieceSet">Set de piese</string>
   <string name="embedInYourWebsite">Incorporează în site-ul tău</string>
   <string name="usernameAlreadyUsed">Nume deja folosit, te rugam să încerci altul.</string>
-  <string name="usernameInvalid">Nume de utilizator invalid. Vă rugăm să introduceți doar litere, numere, bară jos și liniuță.</string>
-  <string name="usernameStartNoNumber">Numele te utilizator nu trebuie să înceapă cu un număr.</string>
   <string name="usernameUnacceptable">Numele de utilizator nu e acceptabil.</string>
   <string name="directlySupportLichess">Susține în mod direct Lichess</string>
   <string name="playChessInStyle">Joacă șah cu stil</string>
