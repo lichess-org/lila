@@ -751,8 +751,6 @@
   <string name="pieceSet">Peças</string>
   <string name="embedInYourWebsite">Incorpora no teu website</string>
   <string name="usernameAlreadyUsed">Este usuário já está em uso, por favor escolhe outro.</string>
-  <string name="usernameInvalid">Usuário inválido. Por favor usa apenas letras, números, barra baixa ou traço.</string>
-  <string name="usernameStartNoNumber">O nome do usuário não deve começar com números.</string>
   <string name="usernameUnacceptable">O nome de usuário não é aceitável.</string>
   <string name="directlySupportLichess">Apoie o Lichess</string>
   <string name="playChessInStyle">Xadrez com estilo</string>
