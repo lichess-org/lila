@@ -45,6 +45,10 @@
   <string name="theComputerAnalysisHasFailed">Ang pagsusi sa kompyuter napakyas</string>
   <string name="viewTheComputerAnalysis">Tan-awa ang pagsusi sa kompyuter</string>
   <string name="requestAComputerAnalysis">Paghangyo og usa ka pagsusi sa kompyuter</string>
+  <string name="computerAnalysis">Pagsusi sa kompyuter</string>
+  <string name="computerAnalysisAvailable">Anaa ang pagsusi sa computer</string>
+  <string name="analysis">Board sa pagsusi</string>
+  <string name="depthX">Gilawmon %s</string>
   <string name="noGameFound">Walay nakit-an nga dula</string>
   <string name="openingExplorer">Pag-abli sa explorer</string>
   <string name="xOpeningExplorer">%s pag-abli sa explorer</string>
