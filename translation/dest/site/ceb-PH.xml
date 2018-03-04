@@ -31,4 +31,7 @@
   <string name="joinTheGame">Pag-apil sa dula</string>
   <string name="noGameFound">Walay nakit-an nga dula</string>
   <string name="openingExplorer">Pag-abli sa explorer</string>
+  <string name="xOpeningExplorer">%s pag-abli sa explorer</string>
+  <string name="winPreventedBy50MoveRule">Napugngan ang kadaogan pinaagi sa 50-move rule</string>
+  <string name="lossSavedBy50MoveRule">Naluwas sa kapildihan pinaagi sa 50-move rule</string>
 </resources>
