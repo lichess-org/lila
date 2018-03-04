@@ -783,8 +783,6 @@
   <string name="pieceSet">Figūru komplekts</string>
   <string name="embedInYourWebsite">Iegult savā mājaslapā</string>
   <string name="usernameAlreadyUsed">Lietotājvārds ir aizņemts, lūdzu mēģiniet citu.</string>
-  <string name="usernameInvalid">Nepareizs lietotājvārds. Lūdzu lietot tikai burtus, ciparus, apakšsvītru un defisi.</string>
-  <string name="usernameStartNoNumber">Lietotājvārds nedrīkst sākties ar skaitli.</string>
   <string name="usernameUnacceptable">Šāds lietotājvārds nav pieņemams.</string>
   <string name="directlySupportLichess">Tiešais Lichess atbalsts</string>
   <string name="playChessInStyle">Spēlē šahu stilīgi</string>
