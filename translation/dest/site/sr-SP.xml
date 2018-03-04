@@ -288,6 +288,11 @@
   <string name="tournament">Tурнир</string>
   <string name="tournaments">Турнири</string>
   <string name="tournamentPoints">Поени на турнирима</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s поен на турнирима</item>
+    <item quantity="few">%s поена на турнирима</item>
+    <item quantity="other">%s поена на турнирима</item>
+  </plurals>
   <string name="viewTournament">Погледај турнир</string>
   <string name="backToTournament">Повратак у турнир</string>
   <string name="thematic">Тематски</string>
@@ -780,8 +785,6 @@
   <string name="pieceSet">Скуп фигура</string>
   <string name="embedInYourWebsite">Угради у свој сајт</string>
   <string name="usernameAlreadyUsed">Ово корисничко име је у употреби, изаберите неко друго.</string>
-  <string name="usernameInvalid">Неважеће корисничко име. Користите само слова, бројеве, подвлаке и црте.</string>
-  <string name="usernameStartNoNumber">Име не сме да почиње са бројем.</string>
   <string name="usernameUnacceptable">Ово корисничко име није прихватљиво.</string>
   <string name="directlySupportLichess">Директно подржите Личес</string>
   <string name="playChessInStyle">Играјте шах у стилу</string>
