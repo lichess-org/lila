@@ -34,4 +34,7 @@
   <string name="xOpeningExplorer">%s pag-abli sa explorer</string>
   <string name="winPreventedBy50MoveRule">Napugngan ang kadaogan pinaagi sa 50-move rule</string>
   <string name="lossSavedBy50MoveRule">Naluwas sa kapildihan pinaagi sa 50-move rule</string>
+  <string name="allSet">Andam na tanan!</string>
+  <string name="importPgn">Import PGN</string>
+  <string name="delete">Pagtangtang</string>
 </resources>
