@@ -751,8 +751,6 @@
   <string name="pieceSet">Brikker</string>
   <string name="embedInYourWebsite">Indlejr på din hjemmeside</string>
   <string name="usernameAlreadyUsed">Dette brugernavn er allerede i brug. Vælg venligst et andet og prøv igen.</string>
-  <string name="usernameInvalid">Ugyldigt brugernavn. Brug venligst kun bogstaver, tal, understregning og tankestreg.</string>
-  <string name="usernameStartNoNumber">Brugernavnet må ikke begynde med et tal.</string>
   <string name="usernameUnacceptable">Dette brugernavn er ikke acceptabelt.</string>
   <string name="directlySupportLichess">Støt Lichess direkte</string>
   <string name="playChessInStyle">Spil skak med stil</string>
