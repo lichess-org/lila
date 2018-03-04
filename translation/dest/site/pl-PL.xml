@@ -505,10 +505,10 @@
   <string name="thankYou">Dziękujemy!</string>
   <string name="ratingX">Ranking: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Rozwiązane %s raz</item>
-    <item quantity="few">Rozwiązane %s razy</item>
-    <item quantity="many">Rozwiązane %s razy</item>
-    <item quantity="other">Rozwiązane %s razy</item>
+    <item quantity="one">Rozwiązywane %s raz</item>
+    <item quantity="few">Rozwiązywane %s razy</item>
+    <item quantity="many">Rozwiązywane %s razy</item>
+    <item quantity="other">Rozwiązywane %s razy</item>
   </plurals>
   <string name="fromGameLink">Pochodzi z partii %s</string>
   <string name="continueTraining">Kontynuuj trening</string>
