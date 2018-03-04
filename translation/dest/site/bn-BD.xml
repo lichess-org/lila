@@ -754,8 +754,6 @@
   <string name="pieceSet">টুকরা সেট</string>
   <string name="embedInYourWebsite">আপনার ওয়েবসাইটে বসান</string>
   <string name="usernameAlreadyUsed">এই ব্যবহারকারীর নাম ইতিমধ্যে ব্যবহার করা হয়েছে, দয়া করে অন্য একটি চেষ্টা করুন.</string>
-  <string name="usernameInvalid">অকার্যকর ব্যবহারকারীর নাম. দয়া করে শুধু বর্ণ, সংখ্যা, আন্ডারস্কোর এবং ড্যাশ ব্যবহার করুন.</string>
-  <string name="usernameStartNoNumber">ব্যবহারকারীর নাম অবশ্যই সংখ্যা দিয়ে শুরু করা যাবেনা.</string>
   <string name="usernameUnacceptable">এই ব্যবহারকারী নামটি গ্রহণযোগ্য নয়.</string>
   <string name="directlySupportLichess">সরাসরি লিচাস সমার্থন</string>
   <string name="playChessInStyle">দাবা খেলুন শৈলিতে</string>
