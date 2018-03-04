@@ -29,4 +29,6 @@
   <string name="newOpponent">Bag-ong kontra</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Ang imong kontra gusto nga magdula og bag-ong dula uban kanimo</string>
   <string name="joinTheGame">Pag-apil sa dula</string>
+  <string name="noGameFound">Walay nakit-an nga dula</string>
+  <string name="openingExplorer">Pag-abli sa explorer</string>
 </resources>
