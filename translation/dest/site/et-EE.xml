@@ -748,8 +748,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="pieceSet">Malendite kujundus</string>
   <string name="embedInYourWebsite">Lubad oma veebilehel</string>
   <string name="usernameAlreadyUsed">See kasutajanimi on juba olemas, proovige midagi muud.</string>
-  <string name="usernameInvalid">Lubamatu kasutajanimi. Palun kasutage ainult tähti, numbreid, alakriipsu ja kriipsu.</string>
-  <string name="usernameStartNoNumber">Kasutajanimi ei tohi alata numbriga.</string>
   <string name="usernameUnacceptable">Selline kasutajanimi ei ole lubatud.</string>
   <string name="directlySupportLichess">Toeta Lichess-i</string>
   <string name="playChessInStyle">Mängi malet stiiliga</string>
