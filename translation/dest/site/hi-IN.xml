@@ -715,8 +715,6 @@
   <string name="pieceSet">मोहरे</string>
   <string name="embedInYourWebsite">अपनी वेबसाइट में एम्बेड करें</string>
   <string name="usernameAlreadyUsed">यह उपयोगकर्ता नाम पहले से उपयोग में है, कृपया एक दूसरे का प्रयास करें।</string>
-  <string name="usernameInvalid">अमान्य उपयोगकर्ता नाम। कृपया केवल अक्षर, संख्याएँ, अंडरस्कोर और डैश का उपयोग करें।</string>
-  <string name="usernameStartNoNumber">उपयोगकर्ता नाम किसी संख्या से प्रारंभ नहीं होना चाहिए।</string>
   <string name="usernameUnacceptable">यह उपयोगकर्ता नाम स्वीकार्य नहीं है।</string>
   <string name="directlySupportLichess">Lichess का समर्थन करें</string>
   <string name="playChessInStyle">शैली में शतरंज खेलें</string>
