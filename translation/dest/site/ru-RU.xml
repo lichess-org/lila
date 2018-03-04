@@ -815,6 +815,9 @@
   <string name="pieceSet">Оформление фигур</string>
   <string name="embedInYourWebsite">Получить код для вставки на свой сайт</string>
   <string name="usernameAlreadyUsed">Такое имя пользователя уже занято. Пожалуйста, попробуйте другое.</string>
+  <string name="usernamePrefixInvalid">Имя пользователя должно начинаться с буквы.</string>
+  <string name="usernameSuffixInvalid">Имя пользователя должно заканчиваться буквой или цифрой.</string>
+  <string name="usernameCharsInvalid">Имя пользователя должно содержать только буквы, цифры, нижние подчёркивания и тире.</string>
   <string name="usernameUnacceptable">Это имя пользователя уже занято или недопустимо.</string>
   <string name="directlySupportLichess">Поддержать Lichess</string>
   <string name="playChessInStyle">В шахматном стиле</string>
