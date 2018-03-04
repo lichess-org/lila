@@ -625,6 +625,9 @@
   <string name="pieceSet">Набір фігур</string>
   <string name="embedInYourWebsite">Вставити на свій сайт</string>
   <string name="usernameAlreadyUsed">Таке ім\'я користувача вже використовується, будь ласка, спробуйте інше.</string>
+  <string name="usernamePrefixInvalid">Ім\'я користувача має починатися з літери.</string>
+  <string name="usernameSuffixInvalid">Ім\'я користувача має закінчуватися буквою або цифрою.</string>
+  <string name="usernameCharsInvalid">Ім\'я користувача має містити тільки літери, цифри, символи підкреслення і тире.</string>
   <string name="usernameUnacceptable">Неприйнятне ім\'я користувача.</string>
   <string name="directlySupportLichess">Підтримує Lichess</string>
   <string name="playChessInStyle">В шаховому стилі</string>
