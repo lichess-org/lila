@@ -623,6 +623,9 @@
   <string name="pieceSet">Zestaw figur</string>
   <string name="embedInYourWebsite">Osadź na swojej stronie internetowej</string>
   <string name="usernameAlreadyUsed">Ta nazwa użytkownika jest już zajęta, wybierz inną.</string>
+  <string name="usernamePrefixInvalid">Nazwa użytkownika musi zaczynać się literą.</string>
+  <string name="usernameSuffixInvalid">Nazwa użytkownika musi kończyć się literą lub liczbą.</string>
+  <string name="usernameCharsInvalid">Nazwa użytkownika może zawierać tylko litery, cyfry, znaki podkreślenia i myślniki.</string>
   <string name="usernameUnacceptable">Ta nazwa użytkownika jest niedozwolona.</string>
   <string name="directlySupportLichess">Wspomóż Lichess</string>
   <string name="playChessInStyle">Graj w szachy z klasą</string>
