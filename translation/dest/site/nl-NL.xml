@@ -741,8 +741,6 @@
   <string name="pieceSet">Schaakstukken</string>
   <string name="embedInYourWebsite">Insluiten in uw website</string>
   <string name="usernameAlreadyUsed">Deze naam is al in gebruik, probeer a.u.b. een andere naam.</string>
-  <string name="usernameInvalid">Ongeldige gebruikersnaam. Gelieve enkel letters, cijfers, underscores en koppeltekens te gebruiken.</string>
-  <string name="usernameStartNoNumber">De gebruikersnaam mag niet starten met een cijfer.</string>
   <string name="usernameUnacceptable">Deze gebruikersnaam is niet acceptabel.</string>
   <string name="directlySupportLichess">Lichess direct ondersteunen</string>
   <string name="playChessInStyle">Speel schaken in stijl</string>
