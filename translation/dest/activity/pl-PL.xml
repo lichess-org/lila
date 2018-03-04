@@ -75,6 +75,12 @@
     <item quantity="many">Uczestnictwo w %s turniejach</item>
     <item quantity="other">Uczestnictwo w %s turniejach</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partią w %4$s</item>
+    <item quantity="few">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
+    <item quantity="many">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
+    <item quantity="other">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
+  </plurals>
   <string name="signedUp">Zarejestrowany na lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Dołączył do %s klubu</item>
