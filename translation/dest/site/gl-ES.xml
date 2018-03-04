@@ -753,8 +753,6 @@ en %3$s</string>
   <string name="pieceSet">Estilo das pezas</string>
   <string name="embedInYourWebsite">Incrustar na túa páxina web</string>
   <string name="usernameAlreadyUsed">Este nome de usuario xa está en uso. Proba outro, por favor.</string>
-  <string name="usernameInvalid">Nome de usuario non válido. Por favor, usa so letras, números, guión baixo e guión.</string>
-  <string name="usernameStartNoNumber">O nome de usuario non pode comezar cun número.</string>
   <string name="usernameUnacceptable">Este nome de usuario non é aceptable.</string>
   <string name="directlySupportLichess">Apoiar directamente a Lichess</string>
   <string name="playChessInStyle">Xogar ao xadrez con estilo</string>
