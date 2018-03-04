@@ -719,8 +719,6 @@
   <string name="pieceSet">ชุดหมาก</string>
   <string name="embedInYourWebsite">ฝังในเว็บไซต์ของคุณ</string>
   <string name="usernameAlreadyUsed">ชื่อผู้ใช้นี้ถูกใช้ไปแล้ว, โปรดตั้งชื่อใหม่</string>
-  <string name="usernameInvalid">ชื่อผู้ใช้ไม่ถูกต้อง โปรดใช้เฉพาะตัวอักษร, ตัวเลข, ขีด หรือขีดล่าง</string>
-  <string name="usernameStartNoNumber">ชื่อผู้ใช้ต้องไม่เริ่มต้นด้วยตัวเลข</string>
   <string name="usernameUnacceptable">ไม่ยอมรับชื่อผู้ใช้นี้</string>
   <string name="directlySupportLichess">สนับสนุน Lichess โดยตรง</string>
   <string name="playChessInStyle">เล่นหมากรุกแบบมีสไตล์</string>
