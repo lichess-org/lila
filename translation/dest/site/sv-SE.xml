@@ -751,8 +751,6 @@
   <string name="pieceSet">Pjäsuppsättning</string>
   <string name="embedInYourWebsite">Integrera i din webbplats</string>
   <string name="usernameAlreadyUsed">Användarnamnet är upptaget, vänligen försök med ett annat.</string>
-  <string name="usernameInvalid">Ogiltigt användarnamn. Använd bara bokstäver, siffror, understreck och bindestreck.</string>
-  <string name="usernameStartNoNumber">Användarnamnet får inte inledas med ett nummer.</string>
   <string name="usernameUnacceptable">Detta användarnamn är inte acceptabelt.</string>
   <string name="directlySupportLichess">Stöd Lichess</string>
   <string name="playChessInStyle">Spela schack med stil</string>
