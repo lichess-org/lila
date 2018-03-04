@@ -76,6 +76,12 @@
   <string name="recentGames">Ostatnie partie</string>
   <string name="topGames">Najlepsze partie</string>
   <string name="masterDbExplanation">Dwa miliony partii zawodników FIDE (2200+) od 1952 do 2016 roku</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mat w %s ruchu</item>
+    <item quantity="few">Mat w %s ruchach</item>
+    <item quantity="many">Mat w %s ruchach</item>
+    <item quantity="other">Mat w %s ruchach</item>
+  </plurals>
   <string name="noGameFound">Nie znaleziono partii</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może zaimportujesz więcej partii z menu narzędzi?</string>
   <string name="openingExplorer">Biblioteka otwarć</string>
@@ -300,11 +306,29 @@
   <string name="viewTournament">Wróć do turnieju</string>
   <string name="backToTournament">Wróć do turnieju</string>
   <string name="thematic">Tematyczny</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s partia rankingowa</item>
+    <item quantity="few">≥ %s partie rankingowe</item>
+    <item quantity="many">≥ %s partii rankingowych</item>
+    <item quantity="other">≥ %s partii rankingowych</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s rankingowa partia (%2$s)</item>
+    <item quantity="few">≥ %1$s rankingowe partie (%2$s)</item>
+    <item quantity="many">≥ %1$s rankingowych partii (%2$s)</item>
+    <item quantity="other">≥ %1$s rankingowych partii (%2$s)</item>
+  </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Musisz rozegrać jeszcze %1$s rankingową partię (%2$s)</item>
     <item quantity="few">Musisz rozegrać jeszcze %1$s rankingowe partie (%2$s)</item>
     <item quantity="many">Musisz rozegrać jeszcze %1$s rankingowych partii (%2$s)</item>
     <item quantity="other">Musisz rozegrać jeszcze %1$s rankingowych partii (%2$s)</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Musisz rozegrać jeszcze %s partię rankingową</item>
+    <item quantity="few">Musisz rozegrać jeszcze %s partie rankingowe</item>
+    <item quantity="many">Musisz rozegrać jeszcze %s partii rankingowych</item>
+    <item quantity="other">Musisz rozegrać jeszcze %s partii rankingowych</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Twój ranking (%s) jest prowizoryczny</string>
   <string name="yourPerfRatingIsTooHigh">Twój ranking %2$s (%1$s) jest za wysoki</string>
@@ -392,6 +416,12 @@
   <string name="player">Gracz</string>
   <string name="list">Lista</string>
   <string name="graph">Wykres</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Poniżej %s minuty</item>
+    <item quantity="few">Poniżej %s minut</item>
+    <item quantity="many">Poniżej %s minut</item>
+    <item quantity="other">Poniżej %s minut</item>
+  </plurals>
   <string name="required">Wymagane.</string>
   <string name="openTournaments">Turnieje</string>
   <string name="duration">Czas trwania</string>
@@ -697,6 +727,12 @@
   <string name="tournamentMayHaveBeenCanceled">Mógł zostać anulowany, jeżeli wszyscy gracze wycofali się przed jego rozpoczęciem.</string>
   <string name="returnToTournamentsHomepage">Wróć do turnieju</string>
   <string name="weeklyPerfTypeRatingDistribution">Tygodniowy rozkład rankingu w wariancie %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s gracz w tym tygodniu (%2$s).</item>
+    <item quantity="few">%1$s graczy w tym tygodniu (%2$s).</item>
+    <item quantity="many">%1$s graczy w tym tygodniu (%2$s).</item>
+    <item quantity="other">%1$s graczy w tym tygodniu (%2$s).</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Twój ranking w wariancie %1$s to %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jesteś lepszy niż %1$s graczy (%2$s).</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu w tym wariancie.</string>
