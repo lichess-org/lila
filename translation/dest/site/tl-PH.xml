@@ -751,8 +751,6 @@
   <string name="pieceSet">Itakda ang piraso</string>
   <string name="embedInYourWebsite">Idikit sa iyong website</string>
   <string name="usernameAlreadyUsed">Ang uername na ito ay nagamit na, pakisubukan ang iba.</string>
-  <string name="usernameInvalid">Maling username. Pakigamit lamang ng mga letra, mga numero, salungguhit at gitling.</string>
-  <string name="usernameStartNoNumber">Ang username ay kailangan na magsimula sa numero.</string>
   <string name="usernameUnacceptable">Ang username na ito ay hindi matatanggap.</string>
   <string name="directlySupportLichess">Direktang sumusuporta sa Lichess</string>
   <string name="playChessInStyle">Maglaro ng chess na may istilo</string>
