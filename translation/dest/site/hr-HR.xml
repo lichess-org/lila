@@ -785,8 +785,6 @@ u %3$s</string>
   <string name="pieceSet">Set figura</string>
   <string name="embedInYourWebsite">Ugradi u svoju stranicu</string>
   <string name="usernameAlreadyUsed">Ovo korisničko ime je već u uporabi, molimo probaj s drugim.</string>
-  <string name="usernameInvalid">Nevaljano korisničko ime. Molimo koristi samo slova, brojeve, donju crtu i povlaku.</string>
-  <string name="usernameStartNoNumber">Korisničko ime ne smije započeti brojem.</string>
   <string name="usernameUnacceptable">Ovo korisničko ime nije prihvatljivo.</string>
   <string name="directlySupportLichess">Direktno podrži Lichess</string>
   <string name="playChessInStyle">Igraj šah u stilu</string>
