@@ -721,8 +721,6 @@
   <string name="pieceSet">駒のデザイン</string>
   <string name="embedInYourWebsite">自分のウェブサイトに埋め込む</string>
   <string name="usernameAlreadyUsed">このユーザー名は既に使用されています。別の名前にしてください。</string>
-  <string name="usernameInvalid">無効なユーザー名です。使えるのは英数字、アンダースコア、ダッシュだけです。</string>
-  <string name="usernameStartNoNumber">ユーザー名の最初は数字であってはいけません。</string>
   <string name="usernameUnacceptable">このユーザー名は認められません。</string>
   <string name="directlySupportLichess">Lichess を支援（寄付）</string>
   <string name="playChessInStyle">グッズ購入</string>
