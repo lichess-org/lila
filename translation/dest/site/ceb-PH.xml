@@ -29,6 +29,11 @@
   <string name="newOpponent">Bag-ong kontra</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Ang imong kontra gusto nga magdula og bag-ong dula uban kanimo</string>
   <string name="joinTheGame">Pag-apil sa dula</string>
+  <string name="whitePlays">Lihok sa puti</string>
+  <string name="blackPlays">Lihok sa itom</string>
+  <string name="opponentLeftChoices">Ang laing magdudula tingali mibiya sa dula. Makapangangkon ka og kadaugan, tawagon ang dula nga tabla, o maghulat.</string>
+  <string name="makeYourOpponentResign">Himoa ang imong kaaway nga moluwat</string>
+  <string name="forceResignation">Pag-angkon sa kadaugan</string>
   <string name="noGameFound">Walay nakit-an nga dula</string>
   <string name="openingExplorer">Pag-abli sa explorer</string>
   <string name="xOpeningExplorer">%s pag-abli sa explorer</string>
@@ -37,4 +42,6 @@
   <string name="allSet">Andam na tanan!</string>
   <string name="importPgn">Import PGN</string>
   <string name="delete">Pagtangtang</string>
+  <string name="deleteThisImportedGame">Tangtangon kining gi-import nga dula?</string>
+  <string name="replayMode">Replay mode</string>
 </resources>
