@@ -34,6 +34,17 @@
   <string name="opponentLeftChoices">Ang laing magdudula tingali mibiya sa dula. Makapangangkon ka og kadaugan, tawagon ang dula nga tabla, o maghulat.</string>
   <string name="makeYourOpponentResign">Himoa ang imong kaaway nga moluwat</string>
   <string name="forceResignation">Pag-angkon sa kadaugan</string>
+  <string name="forceDraw">Tawagon nga tabla</string>
+  <string name="talkInChat">Palihug pagmabination sa chat!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Ang unang tawo nga moadto niining URL makigdula kanimo.</string>
+  <string name="whiteResigned">Nagpapildi ang puti</string>
+  <string name="blackResigned">Nagpapildi ang itom</string>
+  <string name="whiteLeftTheGame">Mibiya ang puti sa dula</string>
+  <string name="blackLeftTheGame">Mibiya ang itom sa dula</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ipakigbahin kini nga URL aron ang mga motan-away makakita sa dula</string>
+  <string name="theComputerAnalysisHasFailed">Ang pagsusi sa kompyuter napakyas</string>
+  <string name="viewTheComputerAnalysis">Tan-awa ang pagsusi sa kompyuter</string>
+  <string name="requestAComputerAnalysis">Paghangyo og usa ka pagsusi sa kompyuter</string>
   <string name="noGameFound">Walay nakit-an nga dula</string>
   <string name="openingExplorer">Pag-abli sa explorer</string>
   <string name="xOpeningExplorer">%s pag-abli sa explorer</string>
