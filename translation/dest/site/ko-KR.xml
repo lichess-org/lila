@@ -669,8 +669,6 @@
   <string name="pieceSet">조각 세트</string>
   <string name="embedInYourWebsite">웹사이트에 공유하기</string>
   <string name="usernameAlreadyUsed">이미 사용중인 사용자 이름입니다. 다른 이름을 사용해주세요.</string>
-  <string name="usernameInvalid">잘못된 사용자 이름입니다. 영문자, 숫자, 밑줄(_)과 대시(-)만 사용하십시오.</string>
-  <string name="usernameStartNoNumber">사용자명은 숫자로 시작할 수 없습니다.</string>
   <string name="usernameUnacceptable">사용자 이름을 사용할 수 없습니다.</string>
   <string name="directlySupportLichess">Lichess 후원하기</string>
   <string name="playChessInStyle">스타일리시하게 체스하기</string>
