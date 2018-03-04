@@ -624,6 +624,9 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="pieceSet">Figūrų rinkinys</string>
   <string name="embedInYourWebsite">Įterpto jūsų svetainėje</string>
   <string name="usernameAlreadyUsed">Šis vartotojo vardas jau naudojamas, pabandykite kitą.</string>
+  <string name="usernamePrefixInvalid">Vartotojo vardas turi prasidėti raide.</string>
+  <string name="usernameSuffixInvalid">Vartotojo vardas turi baigtis raide arba skaičiumi.</string>
+  <string name="usernameCharsInvalid">Vartotojo vardui naudokite tik raides, skaičius, pabraukimo brūkšnius ir brūkšnelius.</string>
   <string name="usernameUnacceptable">Šis vartotojo vardas yra netinkamas.</string>
   <string name="directlySupportLichess">Paremkite „lichess“ tiesiogiai</string>
   <string name="playChessInStyle">Žaiskite šachmatais stilingai</string>
