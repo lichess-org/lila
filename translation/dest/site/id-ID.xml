@@ -720,8 +720,6 @@ masuk %3$s</string>
   <string name="pieceSet">Susunan buah catur</string>
   <string name="embedInYourWebsite">Salin dalam website Anda</string>
   <string name="usernameAlreadyUsed">Nama pengguna ini sudah digunakan, coba yang lain.</string>
-  <string name="usernameInvalid">Username tidak valid. Silakan gunakan hanya huruf, angka, garis bawah dan garis tengah.</string>
-  <string name="usernameStartNoNumber">Nama pengguna harus tidak dimulai dengan angka.</string>
   <string name="usernameUnacceptable">Nama pengguna ini tidak dapat diterima.</string>
   <string name="directlySupportLichess">Mendukung Lichess secara langsung</string>
   <string name="playChessInStyle">Bermain catur dengan gaya</string>
