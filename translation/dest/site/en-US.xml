@@ -753,8 +753,6 @@ in %3$s</string>
   <string name="pieceSet">Piece set</string>
   <string name="embedInYourWebsite">Embed in your website</string>
   <string name="usernameAlreadyUsed">This username is already in use, please try another one.</string>
-  <string name="usernameInvalid">Invalid username. Please use only letters, numbers, underscore and dashes.</string>
-  <string name="usernameStartNoNumber">The username must not start with a number.</string>
   <string name="usernameUnacceptable">This username is not acceptable.</string>
   <string name="directlySupportLichess">Directly support Lichess</string>
   <string name="playChessInStyle">Play chess in style</string>
