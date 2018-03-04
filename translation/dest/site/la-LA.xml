@@ -624,8 +624,6 @@
   <string name="pieceSet">Familia</string>
   <string name="embedInYourWebsite">Ostende in locum</string>
   <string name="usernameAlreadyUsed">Username hanc iam usus aliquam alia.</string>
-  <string name="usernameInvalid">Irritum nomen usoris. Quaeso uti literis tantum, numero et offendas.</string>
-  <string name="usernameStartNoNumber">Nomen usoris cum numero non coependum.</string>
   <string name="usernameUnacceptable">Hoc nomen usoris acceptabile non est.</string>
   <string name="directlySupportLichess">Lichess directe auxilium</string>
   <string name="playChessInStyle">Lude scacos moris</string>
