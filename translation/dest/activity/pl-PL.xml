@@ -3,5 +3,41 @@
 <resources>
   <string name="activity">Aktywność</string>
   <string name="supportedNbMonths">Wspomógł Lichess przez %1$s miesięcy jako %2$s</string>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Próbował rozwiązać %s zadanie szachowe</item>
+    <item quantity="few">Próbował rozwiązać %s zadania szachowe</item>
+    <item quantity="many">Próbował rozwiązać %s zadań szachowych</item>
+    <item quantity="other">Próbował rozwiązać %s zadań szachowych</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Opublikowana %1$s wiadomość w %2$s</item>
+    <item quantity="few">Opublikowane %1$s wiadomości w %2$s</item>
+    <item quantity="many">Opublikowane %1$s wiadomości w %2$s</item>
+    <item quantity="other">Opublikowane %1$s wiadomości w %2$s</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">%s nowy obserwowany gracz</item>
+    <item quantity="few">%s nowych obserwowanych graczy</item>
+    <item quantity="many">%s nowych obserwowanych graczy</item>
+    <item quantity="other">%s nowych obserwowanych graczy</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">%s nowy obserwujący</item>
+    <item quantity="few">%s nowych obserwujących</item>
+    <item quantity="many">%s nowych obserwujących</item>
+    <item quantity="other">%s nowych obserwujących</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Utworzono %s nowe studium</item>
+    <item quantity="few">Utworzono %s nowe studia</item>
+    <item quantity="many">Utworzono %s nowych studiów</item>
+    <item quantity="other">Utworzono %s nowych studiów</item>
+  </plurals>
   <string name="signedUp">Zarejestrowany na lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Dołączył do %s klubu</item>
+    <item quantity="few">Dołączył do %s klubów</item>
+    <item quantity="many">Dołączył do %s klubów</item>
+    <item quantity="other">Dołączył do %s klubów</item>
+  </plurals>
 </resources>
