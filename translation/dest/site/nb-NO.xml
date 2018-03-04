@@ -411,7 +411,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="boardEditor">Oppsett</string>
   <string name="setTheBoard">Still opp brett</string>
   <string name="popularOpenings">Populære åpninger</string>
-  <string name="startPosition">Startposisjon</string>
+  <string name="startPosition">Utgangsstilling</string>
   <string name="clearBoard">Tøm brett</string>
   <string name="savePosition">Lagre stilling</string>
   <string name="loadPosition">Last stilling</string>
@@ -753,8 +753,6 @@ i %3$s</string>
   <string name="pieceSet">Brikkesett</string>
   <string name="embedInYourWebsite">Embed på nettsiden din</string>
   <string name="usernameAlreadyUsed">Brukernavnet er allerede i bruk, prøv et annet et.</string>
-  <string name="usernameInvalid">Ugyldig brukernavn. Vennligst bare bruk bokstaver, tall, under- og bindestrek.</string>
-  <string name="usernameStartNoNumber">Brukernavnet kan ikke begynne med et tall.</string>
   <string name="usernameUnacceptable">Dette brukernavnet er ikke akseptabelt.</string>
   <string name="directlySupportLichess">Støtt Lichess direkte</string>
   <string name="playChessInStyle">Spill sjakk med stil</string>
