@@ -739,8 +739,6 @@ ne %3$s</string>
   <string name="pieceSet">Vendosja e figurave</string>
   <string name="embedInYourWebsite">Fut ne faqen tuaj te webit</string>
   <string name="usernameAlreadyUsed">Ky emër përdoruesi ekziston tashmë, ju lutem zgjidhni një tjetër.</string>
-  <string name="usernameInvalid">Emer perdoruesi jo i vlefshem. Ju lutem perdorni vetem shkronja, numra, nenvije dhe vije.</string>
-  <string name="usernameStartNoNumber">Emri i perdoruesit nuk duhet te filloje me numer.</string>
   <string name="usernameUnacceptable">Emri i perdoruesit nuk eshte i pranueshem.</string>
   <string name="directlySupportLichess">Mbeshtet Lichess ne menyre te drejtperdrejte</string>
   <string name="playChessInStyle">Luaj shah ne stil</string>
