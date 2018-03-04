@@ -751,8 +751,6 @@
   <string name="pieceSet">Figurenstil</string>
   <string name="embedInYourWebsite">In Webseite einbetten</string>
   <string name="usernameAlreadyUsed">Dieser Benutzername ist bereits vergeben. Bitte versuche es mit einem anderen.</string>
-  <string name="usernameInvalid">Ungültiger Benutzername. Bitte verwende nur Buchstaben, Ziffern, Unterstrich und Bindestrich.</string>
-  <string name="usernameStartNoNumber">Der Benutzername muss mit einem Buchstaben beginnen.</string>
   <string name="usernameUnacceptable">Dieser Benutzername ist nicht akzeptabel.</string>
   <string name="directlySupportLichess">Lichess direkt unterstützen</string>
   <string name="playChessInStyle">Schachspielen mit Style</string>
