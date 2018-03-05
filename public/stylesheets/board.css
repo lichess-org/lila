@@ -482,6 +482,7 @@ body.piece_letter .lichess_ground .replay move {
 }
 .pocket.usable piece {
   cursor: pointer;
+  pointer-events: auto;
 }
 .pocket.usable piece:hover {
   background-color: #999;
