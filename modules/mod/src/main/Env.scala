@@ -10,6 +10,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     hub: lila.hub.Env,
+    perfStat: lila.perfStat.Env,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     firewall: Firewall,
@@ -54,7 +55,8 @@ final class Env(
     notifier = notifier,
     historyApi = historyApi,
     rankingApi = rankingApi,
-    wasUnengined = logApi.wasUnengined
+    wasUnengined = logApi.wasUnengined,
+    perfStatter = perfStat.get _
   )
 
   lazy val publicChat = new PublicChat(chatApi, tournamentApi, simulEnv)
@@ -134,6 +136,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "mod",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
+    perfStat = lila.perfStat.Env.current,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     firewall = lila.security.Env.current.firewall,

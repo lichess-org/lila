@@ -4,6 +4,12 @@ lichess.engineName = 'Stockfish 9+';
 
 lichess.raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
 lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
+lichess.dispatchEvent = function(el, eventName) {
+  // compability for ie 11 instead of el.dispatchEvent(new Event(eventName)))
+  var ev = document.createEvent('Event');
+  ev.initEvent(eventName, false, false);
+  el.dispatchEvent(ev);
+};
 lichess.storage = (function() {
   try {
     // just accessing localStorage can throw an exception...
