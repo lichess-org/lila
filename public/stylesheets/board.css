@@ -35,16 +35,19 @@ square {
   left: 0;
   width: 12.5%;
   height: 12.5%;
+  pointer-events: none;
 }
 .cg-board square.move-dest {
   background: radial-gradient(rgba(20, 85, 30, 0.3) 17%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
   cursor: pointer;
+  pointer-events: auto;
 }
 .cg-board square.oc.move-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
 }
 .cg-board square.premove-dest {
   background: radial-gradient(rgba(20, 30, 85, 0.2) 17%, #203085 0, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0) 0);
+  pointer-events: auto;
 }
 .cg-board square.oc.premove-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
@@ -57,7 +60,6 @@ square {
 }
 .cg-board square.check {
   background: radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
-  pointer-events: none;
 }
 .cg-board square.selected {
   background-color: rgba(20, 85, 30, 0.5);
