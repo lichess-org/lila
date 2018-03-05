@@ -751,6 +751,9 @@
   <string name="pieceSet">Figurakészlet</string>
   <string name="embedInYourWebsite">Beágyazás weboldalba</string>
   <string name="usernameAlreadyUsed">Ez a felhasználónév már foglalt, kérjük válassz másikat.</string>
+  <string name="usernamePrefixInvalid">A felhasználói névnek betűvel kell kezdődnie.</string>
+  <string name="usernameSuffixInvalid">A felhasználói névnek betűvel vagy számmal kell végződnie.</string>
+  <string name="usernameCharsInvalid">A felhasználói névben nem szerepelhet más mint betűk, számok, aláhúzás- és kötőjel.</string>
   <string name="usernameUnacceptable">A felhasználói név nem megfelelő.</string>
   <string name="directlySupportLichess">Támogasd a Lichesst</string>
   <string name="playChessInStyle">Sakkozz stílusosan</string>
