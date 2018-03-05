@@ -753,6 +753,7 @@
   <string name="usernameAlreadyUsed">Este usuário já está em uso, por favor escolhe outro.</string>
   <string name="usernamePrefixInvalid">O nome do usuário deve começar por uma letra.</string>
   <string name="usernameSuffixInvalid">O nome do usuário deve acabar numa letra ou número.</string>
+  <string name="usernameCharsInvalid">O nome do usuário deve conter apenas letras, números, barra baixa y hifens.</string>
   <string name="usernameUnacceptable">O nome de usuário não é aceitável.</string>
   <string name="directlySupportLichess">Apoie o Lichess</string>
   <string name="playChessInStyle">Xadrez com estilo</string>
