@@ -825,7 +825,7 @@
   <string name="addCurrentVariation">Aktuelle Variante hinzufügen</string>
   <string name="playVariationToCreateConditionalPremoves">Spiele eine Variante, um bedingte Vorauszüge hinzuzufügen</string>
   <string name="noConditionalPremoves">Keine bedingten Vorauszüge</string>
-  <string name="playX">Spiele %s</string>
+  <string name="playX">Ziehe %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">und speichere %s Vorauszug</item>
     <item quantity="other">und speichere %s Vorauszüge</item>
