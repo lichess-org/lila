@@ -62,6 +62,13 @@ Dili na kihanglan i-promote.</string>
   <string name="pawnComplete">Congratulations! Ang pawn kay walay mga sekreto.</string>
   <string name="pawnPromotion">Pagpromote sa pawn</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ang imong pawn kay naabot na sa tumoy sa board!</string>
+  <string name="itNowPromotesToAStrongerPiece">Nitaas na ang ranggo sa mas kusgan nga piraso.</string>
+  <string name="selectThePieceYouWant">Pilia ang piraso nga imong gusto!</string>
+  <string name="fundamentals">Mga Sinukaran</string>
+  <string name="capture">Dakpon</string>
+  <string name="takeTheEnemyPieces">Kuhaa ang mga piraso sa imong kontra</string>
+  <string name="captureIntro">Pangitaa ang mga piraso sa imong kontra nga walay bantay, ug dakpa sila!</string>
+  <string name="takeTheBlackPieces">Kuhaa ang mga piraso sa itom!</string>
   <string name="boardSetupComplete">Congratulations! Kamao naka mobutang sa mga piraso sa chess sa board.</string>
   <string name="castling">Pag-enrook</string>
   <string name="theSpecialKingMove">Ang espesyal ng lihok sa king</string>
