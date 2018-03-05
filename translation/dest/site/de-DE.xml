@@ -753,6 +753,7 @@
   <string name="usernameAlreadyUsed">Dieser Benutzername ist bereits vergeben. Bitte versuche es mit einem anderen.</string>
   <string name="usernamePrefixInvalid">Der Benutzername muss mit einem Buchstaben beginnen.</string>
   <string name="usernameSuffixInvalid">Der Benutzername muss mit einem Buchstaben oder einer Zahl enden.</string>
+  <string name="usernameCharsInvalid">Der Nutzername darf nur Buchstaben, Zahlen, Unterstriche und Bindestriche beinhalten.</string>
   <string name="usernameUnacceptable">Dieser Benutzername ist nicht akzeptabel.</string>
   <string name="directlySupportLichess">Lichess direkt unterstützen</string>
   <string name="playChessInStyle">Schachspielen mit Style</string>
