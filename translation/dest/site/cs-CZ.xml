@@ -624,6 +624,9 @@ v %3$s</string>
   <string name="pieceSet">Vzhled figur</string>
   <string name="embedInYourWebsite">Vložit na web</string>
   <string name="usernameAlreadyUsed">Toto uživatelské jméno již existuje. Zvol, prosím, jiné.</string>
+  <string name="usernamePrefixInvalid">Uživatelské jméno musí začínat písmenem.</string>
+  <string name="usernameSuffixInvalid">Uživatelské jméno musí končit písmenem nebo číslem.</string>
+  <string name="usernameCharsInvalid">Uživatelské jméno musí obsahovat pouze písmena, číslice, podtržítka a pomlčky.</string>
   <string name="usernameUnacceptable">Toto uživatelské jméno není přijatelné.</string>
   <string name="directlySupportLichess">Podpořte Lichess přímo</string>
   <string name="playChessInStyle">Hrajte šachy stylově</string>
