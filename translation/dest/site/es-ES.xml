@@ -751,6 +751,9 @@
   <string name="pieceSet">Estilo de piezas</string>
   <string name="embedInYourWebsite">Incrustar en su página web</string>
   <string name="usernameAlreadyUsed">Este nombre de usuario se está usando. Pruebe con otro, por favor.</string>
+  <string name="usernamePrefixInvalid">El nombre de usuario debe comenzar con una letra.</string>
+  <string name="usernameSuffixInvalid">El nombre de usuario debe finalizar con una letra o un número.</string>
+  <string name="usernameCharsInvalid">El nombre de usuario debe contener sólo letras, números, guiones bajos y guiones.</string>
   <string name="usernameUnacceptable">Este nombre de usuario no es válido.</string>
   <string name="directlySupportLichess">Apoyar económicamente a Lichess</string>
   <string name="playChessInStyle">Jugar al ajedrez con estilo</string>
