@@ -753,6 +753,9 @@ em %3$s</string>
   <string name="pieceSet">Estilo das peças</string>
   <string name="embedInYourWebsite">Incorporar no seu site</string>
   <string name="usernameAlreadyUsed">Este nome de usuário já está registado, por favor, escolha outro.</string>
+  <string name="usernamePrefixInvalid">O nome de usuário deve começar com uma letra.</string>
+  <string name="usernameSuffixInvalid">O nome de usuário deve terminar com uma letra ou um número.</string>
+  <string name="usernameCharsInvalid">Nomes de usuário só podem conter letras, números, sublinhados e hífens.</string>
   <string name="usernameUnacceptable">Este nome de usuário não é aceitável.</string>
   <string name="directlySupportLichess">Ajude Lichess diretamente</string>
   <string name="playChessInStyle">Jogue com estilo</string>
