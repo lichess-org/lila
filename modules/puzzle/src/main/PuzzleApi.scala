@@ -40,26 +40,6 @@ private[puzzle] final class PuzzleApi(
       expireAfter = _.ExpireAfterWrite(1 day)
     )
 
-    def importOne(json: JsValue, token: String): Fu[PuzzleId] =
-      if (token != apiToken) fufail("Invalid API token")
-      else {
-        import Generated.generatedJSONRead
-        insertPuzzle(json.as[Generated])
-      }
-
-    def insertPuzzle(generated: Generated): Fu[PuzzleId] =
-      lila.db.Util findNextId puzzleColl flatMap { id =>
-        val p = generated toPuzzle id
-        val fenStart = p.fen.split(' ').take(2).mkString(" ")
-        puzzleColl.exists($doc(
-          F.id -> $gte(puzzleIdMin),
-          F.fen.$regex(fenStart.replace("/", "\\/"), "")
-        )) flatMap {
-          case false => puzzleColl insert p inject id
-          case _ => fufail(s"Duplicate puzzle $fenStart")
-        }
-      }
-
     def export(nb: Int): Fu[List[Puzzle]] = List(true, false).map { mate =>
       puzzleColl.find($doc(F.mate -> mate))
         .sort($doc(F.voteRatio -> -1))

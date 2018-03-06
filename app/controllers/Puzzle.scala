@@ -127,45 +127,6 @@ object Puzzle extends LilaController {
     ) map (_ as JSON)
   }
 
-  def recentGame = Action.async { req =>
-    if (!get("token", req).contains(Env.api.apiToken)) BadRequest.fuccess
-    else {
-      import akka.pattern.ask
-      import makeTimeout.short
-      Env.game.recentGoodGameActor ? true mapTo manifest[Option[String]] flatMap {
-        _ ?? lila.game.GameRepo.gameWithInitialFen flatMap {
-          case Some((game, initialFen)) =>
-            Env.api.pgnDump(game, initialFen.map(_.value), PgnDump.WithFlags(clocks = false)) map { pgn =>
-              Ok(pgn.render)
-            }
-          case _ =>
-            lila.log("puzzle import").info("No recent good game, serving a random one :-/")
-            lila.game.GameRepo.findRandomFinished(1000) flatMap {
-              _ ?? { game =>
-                lila.game.GameRepo.initialFen(game) flatMap { fen =>
-                  Env.api.pgnDump(game, fen, PgnDump.WithFlags(clocks = false)) map { pgn =>
-                    Ok(pgn.render)
-                  }
-                }
-              }
-            }
-        }
-      }
-    }
-  }
-
-  def importOne = Action.async(parse.json) { implicit req =>
-    env.api.puzzle.importOne(req.body, ~get("token", req)) map { id =>
-      val url = s"https://lichess.org/training/$id"
-      lila.log("puzzle import").info(s"${req.remoteAddress} $url")
-      Ok(s"kthxbye $url")
-    } recover {
-      case e =>
-        lila.log("puzzle import").warn(s"${req.remoteAddress} ${e.getMessage}", e)
-        BadRequest(e.getMessage)
-    }
-  }
-
   /* Mobile API: select a bunch of puzzles for offline use */
   def batchSelect = Auth { implicit ctx => me =>
     negotiate(
