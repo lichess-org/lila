@@ -50,6 +50,7 @@ interface Lichess {
     update(data: any): void;
     (data: any, trans: Trans, el: HTMLElement): void;
   }
+  dispatchEvent(el: HTMLElement, eventName: string): void;
 }
 
 interface Cookie {
