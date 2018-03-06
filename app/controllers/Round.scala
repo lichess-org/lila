@@ -75,7 +75,6 @@ object Round extends LilaController with TheftPrevention {
       if (isTheft(pov)) fuccess(theftResponse)
       else Game.preloadUsers(pov.game) zip
         Env.api.roundApi.player(pov, apiVersion) zip
-        Env.game.crosstableApi.scoresOrCompute(pov.game) zip // probably what raises page mean time?
         getPlayerChat(pov.game, none) map {
           case _ ~ data ~ chat => Ok {
             data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))
