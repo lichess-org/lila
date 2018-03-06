@@ -438,6 +438,8 @@ object mon {
       def source(v: String) = inc(s"game.create.source.$v")
       def mode(v: String) = inc(s"game.create.mode.$v")
     }
+    val fetch = inc("game.fetch.count")
+    val decode = inc("game.decode.count")
     object pgn {
       final class Protocol(name: String) {
         val count = inc(s"game.pgn.$name.count")
