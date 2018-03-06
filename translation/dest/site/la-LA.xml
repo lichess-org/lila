@@ -113,15 +113,15 @@
     <item quantity="other">%s dies</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s horae</item>
+    <item quantity="one">%s hora</item>
     <item quantity="other">%s horae</item>
   </plurals>
   <string name="time">Tempus</string>
-  <string name="rating">Status</string>
-  <string name="ratingStats">Ordinis informatio</string>
-  <string name="username">Usoris nomen</string>
-  <string name="usernameOrEmail">Usoris nomen vel email</string>
-  <string name="password">Tessera</string>
+  <string name="rating">Ordo</string>
+  <string name="ratingStats">Informatio ordinis</string>
+  <string name="username">Nomen interretiarii</string>
+  <string name="usernameOrEmail">Nomen interretiarii vel email</string>
+  <string name="password">Verba quae licet uno inire</string>
   <string name="haveAnAccount">Nonne inscriptus es?</string>
   <string name="changePassword">Tesseram mutare</string>
   <string name="changeEmail">Email mutare</string>
