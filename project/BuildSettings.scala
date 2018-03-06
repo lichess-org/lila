@@ -29,7 +29,7 @@ object BuildSettings {
     .setPreference(DanglingCloseParenthesis, Force)
     .setPreference(DoubleIndentConstructorArguments, true)
 
-  def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime, ws, java8compat, specs2)
+  def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime, ws, java8compat, specs2, specs2Scalaz)
 
   def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
   def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
