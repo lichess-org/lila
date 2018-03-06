@@ -2,7 +2,7 @@ package lila.mod
 
 import lila.db.dsl._
 import lila.security.Permission
-import lila.report.{ Mod, Suspect }
+import lila.report.{ Mod, Suspect, ModId }
 
 final class ModlogApi(coll: Coll) {
 
@@ -35,6 +35,10 @@ final class ModlogApi(coll: Coll) {
 
   def closeAccount(mod: String, user: String) = add {
     Modlog(mod, user.some, Modlog.closeAccount)
+  }
+
+  def selfCloseAccount(user: String) = add {
+    Modlog(ModId.lichess.value, user.some, Modlog.selfCloseAccount)
   }
 
   def reopenAccount(mod: String, user: String) = add {
