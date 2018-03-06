@@ -520,7 +520,7 @@
   <string name="boardHighlights">Destacar casillas del tablero (último movimiento y jaque)</string>
   <string name="pieceDestinations">Destino de las piezas (movimientos válidos y anticipados)</string>
   <string name="boardCoordinates">Coordenadas del tablero (A-H, 1-8)</string>
-  <string name="moveListWhilePlaying">Lista de movimientos durante la partida</string>
+  <string name="moveListWhilePlaying">Lista de movimientos de la partida</string>
   <string name="pgnPieceNotation">Notación de los movimientos</string>
   <string name="chessPieceSymbol">Símbolo de la pieza</string>
   <string name="pgnLetter">Inicial (en inglés) de la pieza (K, Q, R, B, N)</string>
