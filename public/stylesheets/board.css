@@ -353,6 +353,9 @@ div.lichess_overboard.padded {
   box-sizing: border-box;
   transition: 0.2s;
 }
+#promotion_choice piece {
+  pointer-events: auto;
+}
 .is2d #promotion_choice piece {
   width: 100%;
   height: 100%;
