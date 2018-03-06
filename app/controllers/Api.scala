@@ -224,6 +224,16 @@ object Api extends LilaController {
     }
   }
 
+  def crosstable(u1: String, u2: String) = ApiRequest { implicit ctx =>
+    UserRateLimit(cost = 200) {
+      Env.game.crosstableApi(u1, u2, timeout = 15.seconds) map { ct =>
+        toApiResult {
+          ct map lila.game.JsonView.crosstableWrites.writes
+        }
+      }
+    }
+  }
+
   def gamesVsTeam(teamId: String) = ApiRequest { implicit ctx =>
     Env.team.api team teamId flatMap {
       case None => fuccess {

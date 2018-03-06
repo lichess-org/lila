@@ -508,6 +508,7 @@ GET   /api/status                      controllers.Api.status
 GET   /api/socket                      controllers.Main.apiWebsocket
 POST  /api/game-stream                 controllers.Api.gameStream
 GET   /api/users/status                controllers.Api.usersStatus
+GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
 
 # Events
 GET   /event                           controllers.Event.index
