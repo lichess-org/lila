@@ -35,4 +35,27 @@
   <string name="makeYourOpponentResign">Himoa nga imong kontra mo undang</string>
   <string name="forceResignation">Kuhaa ang pagkadaog</string>
   <string name="forceDraw">Tawagi ug tabla</string>
+  <string name="talkInChat">Palihug pagbinuotan sa chat!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Ang unang taw ng moari sa URL kay makigduwa sa imo.</string>
+  <string name="whiteResigned">Niundang ang puti</string>
+  <string name="blackResigned">Niundang ang itom</string>
+  <string name="whiteLeftTheGame">Niundang ang puti sa duwa</string>
+  <string name="blackLeftTheGame">Ninundang ang itom sa duwa</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ipanghatag ni nga URL para makakita ang mga motan-aw</string>
+  <string name="theComputerAnalysisHasFailed">Ang pagtuki sa kompyuter kay napakyas</string>
+  <string name="viewTheComputerAnalysis">Tan-awa ang pagtuki sa kompyuter</string>
+  <string name="requestAComputerAnalysis">Mangayu ug pagtuki sa kompyuter</string>
+  <string name="computerAnalysis">Pagtuki sa kompyuter</string>
+  <string name="computerAnalysisAvailable">Naa nay pagtuki sa kompyuter</string>
+  <string name="analysis">Board sa pagtuki</string>
+  <string name="depthX">Gilawmon %s</string>
+  <string name="usingServerAnalysis">Paggamit sa pagtuki sa server</string>
+  <string name="loadingEngine">Pagload sa makina...</string>
+  <string name="cloudAnalysis">Pagtuki sa Cloud</string>
+  <string name="goDeeper">Moadtu sa mas ilawm pa</string>
+  <string name="showThreat">Magpakita ug hulga</string>
+  <string name="inLocalBrowser">sa lokal nga browser</string>
+  <string name="toggleLocalEvaluation">Pagpuli sa lokal nga pagtuki</string>
+  <string name="promoteVariation">Ipataas ang ranggo sa pagkalain-lain</string>
+  <string name="makeMainLine">Maghimo ug unang linya</string>
 </resources>
