@@ -79,6 +79,7 @@ private[puzzle] final class Finisher(
       rating = formerUserRating,
       ratingDiff = userPerf.intRating - formerUserRating
     )
+    bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating), 'finishPuzzle)
     (api.round add a) >>
       UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf) inject
       user.copy(perfs = user.perfs.copy(puzzle = userPerf))
