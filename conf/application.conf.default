@@ -1,0 +1,9 @@
+include "base"
+
+net {
+  domain = "l.org"
+}
+
+geoip {
+  file = "data/GeoLite2-City.mmdb"
+}
