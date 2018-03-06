@@ -81,4 +81,16 @@
     <item quantity="other">Namate sa %s tunga nga mga lihok</item>
   </plurals>
   <string name="players">Mga manuwaay</string>
+  <string name="minutesPerSide">Minuto kada side</string>
+  <string name="variant">Nagkalahi-lahi</string>
+  <string name="variants">Mga Paglahi-lahi</string>
+  <string name="timeControl">Pagkontrol sa oras</string>
+  <string name="realTime">Tinoud nga oras</string>
+  <string name="correspondence">Pagsuwatay</string>
+  <string name="daysPerTurn">Adlaw kada lihok</string>
+  <string name="oneDay">Usa ka adlaw</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s adlaw</item>
+    <item quantity="other">%s mga adlaw</item>
+  </plurals>
 </resources>
