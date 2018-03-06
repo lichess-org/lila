@@ -96,10 +96,10 @@
   <string name="signUp">Personam crea</string>
   <string name="computersAreNotAllowedToPlay">Non licet computatris vel lusoribus ab computatro auxiliatis ludere. Obsecramus vos adiutos non esse ab machina scacchica, vel tabulis datis, vel lusoribus alteris. Nota bene etiam multos creare codices minime hortatur atque si nimis multis codices habeatis, exsulatos estis.</string>
   <string name="games">Ludi</string>
-  <string name="forum">Forum eletronicum</string>
+  <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s nuntiavit in re %2$s</string>
   <string name="latestForumPosts">Recentes nuntii</string>
-  <string name="players">Scaccorum lusores</string>
+  <string name="players">Lusores</string>
   <string name="minutesPerSide">Minutae pro utriusque lusore</string>
   <string name="variant">Varietas</string>
   <string name="variants">variationes</string>
