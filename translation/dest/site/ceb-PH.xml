@@ -8,8 +8,13 @@
   <string name="waitingForOpponent">Naghuwat sa kaatbang</string>
   <string name="waiting">Naghuwat</string>
   <string name="yourTurn">Imo ng lihok</string>
+  <string name="aiNameLevelAiLevel">%1$s lebel %2$s</string>
+  <string name="opponentLeftChoices">Ang pikas nga magdudula kay nibiya sa dula. Mamahimo nimo dawaton ang kadaugan, tawagon ang dula isip tabla, o maghuwat.</string>
   <string name="computersAreNotAllowedToPlay">Ang mga kompyuter ug ang mga mandudula nga gitabangan sa kompyuter kay dili mamahimong makadula. Kung mamahimo ayaw pangayo og tabang gikan sa mga makina sa chess, mga database, o gikan sa uban pa nga mga magdudula samtang nagdula. Hinumduman usab nga ang pagbuhat ug daghan nga mga account kay wala gidasig ug ang pagdula gamit ang sobra ka daghan nga mga account kay musampot sa pagka-ban.</string>
   <string name="siteDescription">Ang libre nga server sa online nga Chess. Magdula ug Chess karon nga naa sa limpyo nga interface. Wala\'y rehistrasyon, wala mga ad, wala nagkinahanglan og plugin. Pagdula ug Chess kauban ang kompyuter, mga higala o si bisan kinsa nga kaatbang.</string>
+  <string name="importGameExplanation">Sa pagpapilit sa PGN sa dula makakuha ka og mamahimo nga ma-browse nga replay,
+usa ka pagtuki sa kompyuter, usa ka sultihanay sa dula ug usa URL na mamahimong mabahin-bahin.</string>
+  <string name="trainingSignupExplanation">Ang Lichess kay nakahatag ug mga sulbaronon nga matupngan ang imong abilidad, gibuhat alang sa mas maayo nga sesyon sa pagbansay-bansay.</string>
   <string name="reportDescriptionHelp">Ipapilit ang link sa (mga) dula ug ipasabut ang mga sayop mahitungod niini nga binuhatan sa magdudula. Dili lang moingon nga \"nanikas sila\", apan isugilon kanamo kung gi-unsa nimo pag-abot sa mao nga konklusyon. Ang imoha nga taho kay mas paspas nga ma-proseso kung nasulat kini sa Englis.</string>
   <string name="closeAccountExplanation">Sigurado ka ba nga gusto nimo sirhan ang imong account? Ang pagsira sa imong account kay usa ka permanenta nga desisyon. Dili kana mamahimong maka-login, ug ang pahina sa imong propayl dili na mamahimong sudlon.</string>
   <string name="aboutSimulRealLife">Ang konsepto kay gikuha gikan sa tinuod nga panghitabo sa kalibutan. Sa tinuod nga kinabuhi, naglangkit kini sa pagbalhin-balhin sa tig-abiabi sa simul gikan sa usa ka lamisa ngadto sa pikas nga lamisa aron pa sa pagdula sa usa ka lihok.</string>
