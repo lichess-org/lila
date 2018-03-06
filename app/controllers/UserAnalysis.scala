@@ -81,10 +81,10 @@ object UserAnalysis extends LilaController with TheftPrevention {
     GameRepo initialFen pov.game.id flatMap { initialFen =>
       Game.preloadUsers(pov.game) zip
         (Env.analyse.analyser get pov.game) zip
-        Env.game.crosstableApi.withMatchup(pov.game) zip
+        Env.game.crosstableApi(pov.game) zip
         Env.bookmark.api.exists(pov.game, ctx.me) flatMap {
           case _ ~ analysis ~ crosstable ~ bookmarked =>
-            import lila.game.JsonView.crosstableWithMatchupWrites
+            import lila.game.JsonView.crosstableWrites
             Env.api.roundApi.review(pov, apiVersion,
               tv = none,
               analysis,
