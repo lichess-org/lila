@@ -2,7 +2,9 @@ package lila.report
 
 import lila.user.User
 
-case class Mod(user: User) extends AnyVal
+case class Mod(user: User) extends AnyVal {
+  def id = ModId(user.id)
+}
 
 case class ModId(value: User.ID) extends AnyVal
 object ModId {
@@ -12,6 +14,7 @@ object ModId {
 }
 
 case class Suspect(user: User) extends AnyVal {
+  def id = user.id
   def set(f: User => User) = copy(user = f(user))
 }
 case class SuspectId(value: User.ID) extends AnyVal

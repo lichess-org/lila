@@ -99,6 +99,12 @@ final class ReportApi(
       case _ => funit
     }
 
+  def processAndGetBySuspect(suspect: Suspect): Fu[List[Report]] = for {
+    all <- recent(suspect, 10)
+    open = all.filter(_.open)
+    _ <- doProcessReport($inIds(open.map(_.id)), ModId.lichess)
+  } yield open
+
   def autoBoostReport(winnerId: User.ID, loserId: User.ID): Funit =
     securityApi.shareIpOrPrint(winnerId, loserId) zip
       UserRepo.byId(winnerId) zip UserRepo.byId(loserId) zip getLichessReporter flatMap {
@@ -133,19 +139,22 @@ final class ReportApi(
       val reportSelector = reportId.orElse(inquiry.map(_.id)).fold(relatedSelector) { id =>
         $or($id(id), relatedSelector)
       }
-      accuracy.invalidate(reportSelector) >> coll.update(
-        reportSelector,
-        $set(
-          "open" -> false,
-          "processedBy" -> mod.user.id
-        ) ++ $unset("inquiry"),
-        multi = true
-      ).void >>- {
+      accuracy.invalidate(reportSelector) >>
+        doProcessReport(reportSelector, mod.id).void >>- {
           monitorOpen
           lila.mon.mod.report.close()
           rooms.flatMap(Room.toReasons) foreach { publishProcessed(sus, _) }
         }
     }
+
+  private def doProcessReport(selector: Bdoc, by: ModId) = coll.update(
+    selector,
+    $set(
+      "open" -> false,
+      "processedBy" -> by.value
+    ) ++ $unset("inquiry"),
+    multi = true
+  )
 
   def autoInsultReport(userId: String, text: String): Funit = {
     getSuspect(userId) zip getLichessReporter flatMap {
@@ -181,8 +190,8 @@ final class ReportApi(
 
   def nbOpen = nbOpenCache.get
 
-  def recent(user: User, nb: Int, readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[List[Report]] =
-    coll.find($doc("user" -> user.id)).sort(sortLastAtomAt).list[Report](nb, readPreference)
+  def recent(suspect: Suspect, nb: Int, readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[List[Report]] =
+    coll.find($doc("user" -> suspect.id)).sort(sortLastAtomAt).list[Report](nb, readPreference)
 
   def moreLike(report: Report, nb: Int): Fu[List[Report]] =
     coll.find($doc("user" -> report.user, "_id" $ne report.id)).sort(sortLastAtomAt).list[Report](nb)
@@ -191,7 +200,7 @@ final class ReportApi(
     by <- coll.find(
       $doc("atoms.by" -> user.id)
     ).sort(sortLastAtomAt).list[Report](nb, ReadPreference.secondaryPreferred)
-    about <- recent(user, nb, ReadPreference.secondaryPreferred)
+    about <- recent(Suspect(user), nb, ReadPreference.secondaryPreferred)
   } yield Report.ByAndAbout(by, about)
 
   def recentReportersOf(sus: Suspect): Fu[List[User.ID]] =
