@@ -15,7 +15,7 @@ private final class ReportScore(
         impl.accuracyScore(accuracy) +
         impl.reporterScore(candidate.reporter) +
         impl.textScore(candidate.reason, candidate.text)
-    } map { score =>
+    } map impl.fixedAutoCommScore(candidate) map { score =>
       candidate scored Report.Score(score atLeast 5 atMost 100)
     }
 
@@ -42,6 +42,10 @@ private final class ReportScore(
       (reason == Reason.Cheat || reason == Reason.Boost) &&
         gamePattern.matcher(text).find
     } ?? 20
+
+    // https://github.com/ornicar/lila/issues/4093
+    def fixedAutoCommScore(c: Report.Candidate)(score: Double): Double =
+      if (c.isAutoComm) baseScore else score
   }
 
   private def candidateOf(report: Report, atom: Report.Atom): Fu[Option[Report.Candidate.Scored]] = for {
