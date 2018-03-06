@@ -696,8 +696,6 @@ en %3$s</string>
   <string name="pieceSet">Conjunt de peces</string>
   <string name="embedInYourWebsite">Integrar en el seu lloc web</string>
   <string name="usernameAlreadyUsed">Aquest nom d\'usuari ja està en ús. Si us plau, tria un altre nom.</string>
-  <string name="usernameInvalid">Nom d\'usuari no vàlid. Empreu només lletres, números, subratllat i guió.</string>
-  <string name="usernameStartNoNumber">El nom d\'usuari no pot començar amb un nombre.</string>
   <string name="usernameUnacceptable">Aquest nom d\'usuari no és acceptable.</string>
   <string name="playChessInStyle">Juga a escacs amb estil</string>
   <string name="chessBasics">Fonaments d\'escacs</string>

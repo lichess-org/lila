@@ -79,11 +79,13 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat w %s ruchu</item>
     <item quantity="few">Mat w %s ruchach</item>
+    <item quantity="many">Mat w %s ruchach</item>
     <item quantity="other">Mat w %s ruchach</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Następne bicie lub ruch pionem w ciągu %s posunięcia (zerowanie licznika posunięć reguły 50 ruchów)</item>
     <item quantity="few">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
+    <item quantity="many">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
     <item quantity="other">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
   </plurals>
   <string name="noGameFound">Nie znaleziono partii</string>
@@ -123,17 +125,20 @@
   <plurals name="nbPlayers">
     <item quantity="one">%s gracz</item>
     <item quantity="few">%s graczy</item>
+    <item quantity="many">%s graczy</item>
     <item quantity="other">%s graczy</item>
   </plurals>
   <string name="currentGames">Partie w toku</string>
   <plurals name="nbGames">
     <item quantity="one">%s partia</item>
     <item quantity="few">%s partie</item>
+    <item quantity="many">%s partii</item>
     <item quantity="other">%s partii</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s ulubiona partia</item>
     <item quantity="few">%s ulubiona partie</item>
+    <item quantity="many">%s ulubiona partii</item>
     <item quantity="other">%s ulubiona partii</item>
   </plurals>
   <string name="viewInFullSize">Zobacz w pełnym rozmiarze</string>
@@ -159,11 +164,13 @@
   <plurals name="nbDays">
     <item quantity="one">%s dzień</item>
     <item quantity="few">%s dni</item>
+    <item quantity="many">%s dni</item>
     <item quantity="other">%s dni</item>
   </plurals>
   <plurals name="nbHours">
     <item quantity="one">%s godzina</item>
     <item quantity="few">%s godziny</item>
+    <item quantity="many">%s godzin</item>
     <item quantity="other">%s godzin</item>
   </plurals>
   <string name="time">Czas</string>
@@ -184,12 +191,14 @@
   <plurals name="nbPuzzles">
     <item quantity="one">%s zadanie</item>
     <item quantity="few">%s zadania</item>
+    <item quantity="many">%s zadań</item>
     <item quantity="other">%s zadań</item>
   </plurals>
   <string name="gamesPlayed">Rozegranych partii</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partia z Tobą</item>
     <item quantity="few">%s partie z Tobą</item>
+    <item quantity="many">%s partii z Tobą</item>
     <item quantity="other">%s partii z Tobą</item>
   </plurals>
   <string name="cancel">Anuluj</string>
@@ -242,26 +251,31 @@
   <plurals name="nbRated">
     <item quantity="one">%s rankingowa</item>
     <item quantity="few">%s rankingowe</item>
+    <item quantity="many">%s rankingowych</item>
     <item quantity="other">%s rankingowych</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s wygrana</item>
     <item quantity="few">%s wygrane</item>
+    <item quantity="many">%s wygranych</item>
     <item quantity="other">%s wygranych</item>
   </plurals>
   <plurals name="nbLosses">
     <item quantity="one">%s przegrana</item>
     <item quantity="few">%s przegrane</item>
+    <item quantity="many">%s przegranych</item>
     <item quantity="other">%s przegranych</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s remis</item>
     <item quantity="few">%s remisy</item>
+    <item quantity="many">%s remisów</item>
     <item quantity="other">%s remisów</item>
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s w toku</item>
     <item quantity="few">%s w toku</item>
+    <item quantity="many">%s w toku</item>
     <item quantity="other">%s w toku</item>
   </plurals>
   <string name="exportGames">Eksportuj partie</string>
@@ -269,6 +283,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="one">Dodaj %s sekundę</item>
     <item quantity="few">Dodaj %s sekundy</item>
+    <item quantity="many">Dodaj %s sekund</item>
     <item quantity="other">Dodaj %s sekund</item>
   </plurals>
   <string name="giveMoreTime">Dodaj więcej czasu</string>
@@ -291,30 +306,35 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s punkt turniejowy</item>
     <item quantity="few">%s punkty turniejowe</item>
+    <item quantity="many">%s punktów turniejowych</item>
     <item quantity="other">%s punktów turniejowych</item>
   </plurals>
   <string name="viewTournament">Wróć do turnieju</string>
   <string name="backToTournament">Wróć do turnieju</string>
   <string name="thematic">Tematyczny</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s partia rankingowa (%s)</item>
-    <item quantity="few">≥ %s partie rankingowe (%s)</item>
-    <item quantity="other">≥ %s partii rankingowych (%s)</item>
+    <item quantity="one">≥ %s partia rankingowa</item>
+    <item quantity="few">≥ %s partie rankingowe</item>
+    <item quantity="many">≥ %s partii rankingowych</item>
+    <item quantity="other">≥ %s partii rankingowych</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s rankingowa partia (%2$s)</item>
     <item quantity="few">≥ %1$s rankingowe partie (%2$s)</item>
+    <item quantity="many">≥ %1$s rankingowych partii (%2$s)</item>
     <item quantity="other">≥ %1$s rankingowych partii (%2$s)</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Musisz rozegrać jeszcze %1$s rankingową partię (%2$s)</item>
     <item quantity="few">Musisz rozegrać jeszcze %1$s rankingowe partie (%2$s)</item>
+    <item quantity="many">Musisz rozegrać jeszcze %1$s rankingowych partii (%2$s)</item>
     <item quantity="other">Musisz rozegrać jeszcze %1$s rankingowych partii (%2$s)</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Musisz rozegrać jeszcze %1$s partię rankingową %2$s</item>
-    <item quantity="few">Musisz rozegrać jeszcze %1$s partie rankingowe %2$s</item>
-    <item quantity="other">Musisz rozegrać jeszcze %1$s partii rankingowych %2$s</item>
+    <item quantity="one">Musisz rozegrać jeszcze %s partię rankingową</item>
+    <item quantity="few">Musisz rozegrać jeszcze %s partie rankingowe</item>
+    <item quantity="many">Musisz rozegrać jeszcze %s partii rankingowych</item>
+    <item quantity="other">Musisz rozegrać jeszcze %s partii rankingowych</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Twój ranking (%s) jest prowizoryczny</string>
   <string name="yourPerfRatingIsTooHigh">Twój ranking %2$s (%1$s) jest za wysoki</string>
@@ -328,6 +348,7 @@
   <plurals name="nbMembers">
     <item quantity="one">%s gracz</item>
     <item quantity="few">%s graczy</item>
+    <item quantity="many">%s graczy</item>
     <item quantity="other">%s graczy</item>
   </plurals>
   <string name="allTeams">Wszystkie kluby</string>
@@ -360,6 +381,7 @@
   <plurals name="nbImportedGames">
     <item quantity="one">%s zaimportowana partia</item>
     <item quantity="few">%s zaimportowana partie</item>
+    <item quantity="many">%s zaimportowana partii</item>
     <item quantity="other">%s zaimportowana partii</item>
   </plurals>
   <string name="thisIsAChessCaptcha">To jest szachowa CAPTCHA.</string>
@@ -384,11 +406,13 @@
   <plurals name="nbFollowers">
     <item quantity="one">%s obserwujący</item>
     <item quantity="few">%s obserwujących</item>
+    <item quantity="many">%s obserwujących</item>
     <item quantity="other">%s obserwujących</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s obserwowany</item>
     <item quantity="few">%s obserwowanych</item>
+    <item quantity="many">%s obserwowanych</item>
     <item quantity="other">%s obserwowanych</item>
   </plurals>
   <string name="more">Więcej</string>
@@ -401,6 +425,7 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Poniżej %s minuty</item>
     <item quantity="few">Poniżej %s minut</item>
+    <item quantity="many">Poniżej %s minut</item>
     <item quantity="other">Poniżej %s minut</item>
   </plurals>
   <string name="required">Wymagane.</string>
@@ -480,9 +505,10 @@
   <string name="thankYou">Dziękujemy!</string>
   <string name="ratingX">Ranking: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Rozwiązane %s raz</item>
-    <item quantity="few">Rozwiązane %s razy</item>
-    <item quantity="other">Rozwiązane %s razy</item>
+    <item quantity="one">Rozwiązywane %s raz</item>
+    <item quantity="few">Rozwiązywane %s razy</item>
+    <item quantity="many">Rozwiązywane %s razy</item>
+    <item quantity="other">Rozwiązywane %s razy</item>
   </plurals>
   <string name="fromGameLink">Pochodzi z partii %s</string>
   <string name="continueTraining">Kontynuuj trening</string>
@@ -492,6 +518,7 @@
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partia w toku</item>
     <item quantity="few">%s partie w toku</item>
+    <item quantity="many">%s partii w toku</item>
     <item quantity="other">%s partii w toku</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Przejdź do następnej partii po wykonaniu ruchu</string>
@@ -603,11 +630,13 @@
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksymalnie: %s znak.</item>
     <item quantity="few">Maksymalnie: %s znaki.</item>
+    <item quantity="many">Maksymalnie: %s znaków.</item>
     <item quantity="other">Maksymalnie: %s znaków.</item>
   </plurals>
   <plurals name="blocks">
     <item quantity="one">%s zablokowany</item>
     <item quantity="few">%s zablokowanych</item>
+    <item quantity="many">%s zablokowanych</item>
     <item quantity="other">%s zablokowanych</item>
   </plurals>
   <string name="listBlockedPlayers">Lista zablokowanych graczy</string>
@@ -652,6 +681,7 @@
   <plurals name="nbForumPosts">
     <item quantity="one">%s post na forum</item>
     <item quantity="few">%s posty na forum</item>
+    <item quantity="many">%s postów na forum</item>
     <item quantity="other">%s postów na forum</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Łączny czas gry: %s</string>
@@ -706,6 +736,7 @@
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s gracz w tym tygodniu (%2$s).</item>
     <item quantity="few">%1$s graczy w tym tygodniu (%2$s).</item>
+    <item quantity="many">%1$s graczy w tym tygodniu (%2$s).</item>
     <item quantity="other">%1$s graczy w tym tygodniu (%2$s).</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Twój ranking w wariancie %1$s to %2$s.</string>
@@ -761,6 +792,7 @@
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dostępna w %s języku!</item>
     <item quantity="few">Dostępna w %s językach!</item>
+    <item quantity="many">Dostępna w %s językach!</item>
     <item quantity="other">Dostępna w %s językach!</item>
   </plurals>
   <string name="gameAnalysis">Analizowanie partii</string>
@@ -783,8 +815,9 @@
   <string name="pieceSet">Zestaw figur</string>
   <string name="embedInYourWebsite">Osadź na swojej stronie internetowej</string>
   <string name="usernameAlreadyUsed">Ta nazwa użytkownika jest już zajęta, wybierz inną.</string>
-  <string name="usernameInvalid">Nieprawidłowa nazwa użytkownika. Proszę używać tylko liter, cyfr, znaku podkreślenia i myślnika.</string>
-  <string name="usernameStartNoNumber">Nazwa użytkownika nie może zaczynać się cyfrą.</string>
+  <string name="usernamePrefixInvalid">Nazwa użytkownika musi zaczynać się literą.</string>
+  <string name="usernameSuffixInvalid">Nazwa użytkownika musi kończyć się literą lub liczbą.</string>
+  <string name="usernameCharsInvalid">Nazwa użytkownika może zawierać tylko litery, cyfry, znaki podkreślenia i myślniki.</string>
   <string name="usernameUnacceptable">Ta nazwa użytkownika jest niedozwolona.</string>
   <string name="directlySupportLichess">Wspomóż Lichess</string>
   <string name="playChessInStyle">Graj w szachy z klasą</string>
@@ -804,6 +837,7 @@
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na wykonanie pierwszego ruchu</item>
     <item quantity="few">%s sekundy na wykonanie pierwszego ruchu</item>
+    <item quantity="many">%s sekund na wykonanie pierwszego ruchu</item>
     <item quantity="other">%s sekund na wykonanie pierwszego ruchu</item>
   </plurals>
   <string name="practiceWithComputer">Trening z komputerem</string>
@@ -843,6 +877,7 @@
   <plurals name="nbSeconds">
     <item quantity="one">%s sekunda</item>
     <item quantity="few">%s sekundy</item>
+    <item quantity="many">%s sekund</item>
     <item quantity="other">%s sekund</item>
   </plurals>
   <string name="opening">Otwarcie</string>
@@ -862,6 +897,7 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">i zapisz wariant warunkowy</item>
     <item quantity="few">i zapisz warianty warunkowe</item>
+    <item quantity="many">i zapisz warianty warunkowe</item>
     <item quantity="other">i zapisz warianty warunkowe</item>
   </plurals>
 </resources>

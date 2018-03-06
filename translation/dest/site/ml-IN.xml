@@ -752,8 +752,6 @@ in %3$s</string>
   <string name="pieceSet">വിവിധ കരുക്കൾ</string>
   <string name="embedInYourWebsite">നിങ്ങളുടെ വെബ്‌സൈറ്റിലേക്ക് എംബെഡ് ചെയ്യുക</string>
   <string name="usernameAlreadyUsed">ഈ യൂസർനെയിം ഇപ്പോൾ ലഭ്യമല്ല, ദയവു ചെയ്ത് മറ്റൊരു യൂസർനെയിം ഉപയോഗിക്കുക.</string>
-  <string name="usernameInvalid">അസാധുവായ യൂസർനെയിം ആണിത്. ദയവായി അക്ഷരങ്ങൾ, സംഖ്യകൾ, അണ്ടർസ്കോർ, ഡാഷ് എന്നിവ മാത്രം ഉപയോഗിക്കുക.</string>
-  <string name="usernameStartNoNumber">യൂസർനെയിം ഒരു സംഖ്യയിൽ തുടങ്ങരുത്.</string>
   <string name="usernameUnacceptable">ഈ ഇമെയിൽ വിലാസം സ്വീകാര്യമല്ല.</string>
   <string name="directlySupportLichess">നേരിട്ട് lichess -നെ പിൻതങ്ങാം</string>
   <string name="playChessInStyle">അടിപൊളി സ്റ്റൈലിൽ ചെസ്സ് കളിക്കൂ</string>

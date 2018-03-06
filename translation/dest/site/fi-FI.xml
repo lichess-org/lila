@@ -738,8 +738,6 @@
   <string name="pieceSet">Nappuloiden tyyli</string>
   <string name="embedInYourWebsite">Upota sivustollesi</string>
   <string name="usernameAlreadyUsed">Käyttäjänimi varattu, kokeile jotain toista.</string>
-  <string name="usernameInvalid">Käyttäjänimi ei kelpaa. Vain kirjaimet, numerot, alaviivat ja viivamerkit ovat sallittuja.</string>
-  <string name="usernameStartNoNumber">Käyttäjänimi ei voi alkaa numerolla.</string>
   <string name="usernameUnacceptable">Käyttäjänimi ei kelpaa.</string>
   <string name="directlySupportLichess">Lahjoita Lichessille</string>
   <string name="playChessInStyle">Tyylikästä shakinpeluuta</string>

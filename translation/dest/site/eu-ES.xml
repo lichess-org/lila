@@ -751,8 +751,9 @@
   <string name="pieceSet">Pieza formatua</string>
   <string name="embedInYourWebsite">Zure webgunean txertatu</string>
   <string name="usernameAlreadyUsed">Erabiltzaile izen hori hartuta dago, erabili beste bat.</string>
-  <string name="usernameInvalid">Erabiltzaile izena ez da zuzena. Erabili hizkiak, zenbakiak eta azpi- edo goi-marrak.</string>
-  <string name="usernameStartNoNumber">Erabiltzaile izena ezin da zenbaki batekin hasi.</string>
+  <string name="usernamePrefixInvalid">Erabiltzaile izena hizki batekin hasi behar da.</string>
+  <string name="usernameSuffixInvalid">Erabiltzaile izena hizki edo zenbaki batekin bukatu behar da.</string>
+  <string name="usernameCharsInvalid">Erabiltzaile izenak hizkiak, zenbakiak, azpiko marrak eta gidoiak bakarrik izan ditzake.</string>
   <string name="usernameUnacceptable">Erabiltzaile hori ezin da erabili.</string>
   <string name="directlySupportLichess">Lichess zuzenean lagundu</string>
   <string name="playChessInStyle">Xakean estiloarekin jokatu</string>

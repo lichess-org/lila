@@ -28,7 +28,7 @@ object Dependencies {
   val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jodaTime = "joda-time" % "joda-time" % "2.9.9"
-  val chess = "org.lichess" %% "scalachess" % "8.6.1"
+  val chess = "org.lichess" %% "scalachess" % "8.6.2"
   val compression = "org.lichess" %% "compression" % "1.2"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
@@ -39,7 +39,8 @@ object Dependencies {
   val scaffeine = "com.github.blemale" %% "scaffeine" % "2.2.0" % "compile"
   val netty = "io.netty" % "netty" % "3.10.6.Final"
   val guava = "com.google.guava" % "guava" % "21.0"
-  val specs2 = "org.specs2" %% "specs2-core" % "3.9.2" % "test"
+  val specs2 = "org.specs2" %% "specs2-core" % "4.0.2" % "test"
+  val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % "4.0.2" % "test"
   val jwt = "com.pauldijou" %% "jwt-core" % "0.14.1"
 
   object reactivemongo {

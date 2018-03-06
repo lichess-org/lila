@@ -197,7 +197,7 @@
   <string name="accept">Aceptar</string>
   <string name="decline">Rechazar</string>
   <string name="playingRightNow">Jugando ahora</string>
-  <string name="eventInProgress">Se está jugando ahora</string>
+  <string name="eventInProgress">Jugando ahora</string>
   <string name="finished">Terminado</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
@@ -751,8 +751,9 @@
   <string name="pieceSet">Estilo de piezas</string>
   <string name="embedInYourWebsite">Incrustar en su página web</string>
   <string name="usernameAlreadyUsed">Este nombre de usuario se está usando. Pruebe con otro, por favor.</string>
-  <string name="usernameInvalid">Nombre de usuario no válido. Por favor, utilice sólo letras, números, guión bajo y guión.</string>
-  <string name="usernameStartNoNumber">El nombre de usuario no puede empezar con un número.</string>
+  <string name="usernamePrefixInvalid">El nombre de usuario debe comenzar con una letra.</string>
+  <string name="usernameSuffixInvalid">El nombre de usuario debe finalizar con una letra o un número.</string>
+  <string name="usernameCharsInvalid">El nombre de usuario debe contener sólo letras, números, guiones bajos y guiones.</string>
   <string name="usernameUnacceptable">Este nombre de usuario no es válido.</string>
   <string name="directlySupportLichess">Apoyar económicamente a Lichess</string>
   <string name="playChessInStyle">Jugar al ajedrez con estilo</string>
@@ -814,13 +815,13 @@
   <string name="opening">Apertura</string>
   <string name="middlegame">Medio juego</string>
   <string name="endgame">Final</string>
-  <string name="registerToSendChallenges">Regístrate para desafiar a otros.</string>
+  <string name="registerToSendChallenges">Por favor regístrate para desafiar a otros.</string>
   <string name="youCannotChallengeX">No puedes desafiar a %s.</string>
   <string name="xDoesNotAcceptChallenges">%s no acepta desafíos.</string>
   <string name="yourXRatingIsTooFarFromY">Tu puntuación de %1$s está demasiado lejos de la de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">No puedes desafiar debido a tu rating provisional %s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">No puedes desafiar debido a tu elo %s provisional.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s sólo acepta desafíos de sus amigos.</string>
-  <string name="conditionalPremoves">Premovimientos condicionales</string>
+  <string name="conditionalPremoves">Movimientos previos condicionales</string>
   <string name="addCurrentVariation">Añadir la variante actual</string>
   <string name="playVariationToCreateConditionalPremoves">Juega una variación para crear premovimientos condicionales</string>
   <string name="noConditionalPremoves">Sin movimientos anticipados condicionales</string>

@@ -37,8 +37,16 @@ final class DataForm(
       Constraints minLength 2,
       Constraints maxLength 20,
       Constraints.pattern(
-        regex = User.newUsernameRegex,
-        error = "usernameInvalid"
+        regex = User.newUsernamePrefix,
+        error = "usernamePrefixInvalid"
+      ),
+      Constraints.pattern(
+        regex = User.newUsernameSuffix,
+        error = "usernameSuffixInvalid"
+      ),
+      Constraints.pattern(
+        regex = User.newUsernameChars,
+        error = "usernameCharsInvalid"
       )
     ).verifying("usernameUnacceptable", u => !LameName.username(u))
       .verifying("usernameAlreadyUsed", u => !UserRepo.nameExists(u).awaitSeconds(4))

@@ -54,7 +54,7 @@
   <string name="cloudAnalysis">Explicatio nimbō</string>
   <string name="goDeeper">Plus analyzare</string>
   <string name="move">Actio</string>
-  <string name="variantWin">Adversus vincite</string>
+  <string name="variantWin">Alius modus vincentis</string>
   <string name="openingExplorer">Aperis indagatorem</string>
   <string name="allSet">Hic bonus est.</string>
   <string name="importPgn">Inferre PGN</string>
@@ -91,7 +91,7 @@
   <string name="viewInFullSize">Integro modo vide</string>
   <string name="logOut">Conventum claudere</string>
   <string name="signIn">Conventum aperire</string>
-  <string name="newToLichess">Novusne in Lichesse?</string>
+  <string name="newToLichess">Lichessne novus tibi est?</string>
   <string name="youNeedAnAccountToDoThat">Ut communices tibi inscribere opus est</string>
   <string name="signUp">Inscribere</string>
   <string name="computersAreNotAllowedToPlay">Non licet computatris vel lusoribus ab computatro auxiliatis ludere. Obsecramus vos adiutos non esse ab machina scacchica, vel tabulis datis, vel lusoribus alteris. Nota bene etiam multos creare codices minime hortatur atque si nimis multis codices habeatis, exsulatos estis.</string>
@@ -624,8 +624,6 @@
   <string name="pieceSet">Familia</string>
   <string name="embedInYourWebsite">Ostende in locum</string>
   <string name="usernameAlreadyUsed">Username hanc iam usus aliquam alia.</string>
-  <string name="usernameInvalid">Irritum nomen usoris. Quaeso uti literis tantum, numero et offendas.</string>
-  <string name="usernameStartNoNumber">Nomen usoris cum numero non coependum.</string>
   <string name="usernameUnacceptable">Hoc nomen usoris acceptabile non est.</string>
   <string name="directlySupportLichess">Lichess directe auxilium</string>
   <string name="playChessInStyle">Lude scacos moris</string>

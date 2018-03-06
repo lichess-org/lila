@@ -717,8 +717,6 @@
   <string name="pieceSet">Дүрсний загвар</string>
   <string name="embedInYourWebsite">Вэб сайтадаа оруулах</string>
   <string name="usernameAlreadyUsed">Ийм нэртэй хэрэглэгч байна, өөр нэр ашиглана уу.</string>
-  <string name="usernameInvalid">Буруу хэрэглэгчийн нэр. Зөвхөн үсэг, тоо, дундуур эсвэл доогуур зураас ашигла.</string>
-  <string name="usernameStartNoNumber">Хэрэглэгчийн нэр тоогоор эхлэхгүй.</string>
   <string name="usernameUnacceptable">Ийм нэртэй хэрэглэгч үүсгэж болохгүй.</string>
   <string name="directlySupportLichess">Личессд дэмжлэг үзүүлэх</string>
   <string name="playChessInStyle">Загварлаг тоглоцгооё</string>

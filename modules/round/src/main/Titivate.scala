@@ -42,7 +42,6 @@ private[round] final class Titivate(
       throw new RuntimeException(msg)
 
     case Run => GameRepo.count(_.checkable).flatMap { total =>
-      logger.info(s"fetch: ${Game.nbFetch}, decode: ${Game.nbDecoded}")
       GameRepo.cursor(Query.checkable)
         .enumerator(1000, Cursor.ContOnError())
         .|>>>(Iteratee.foldM[Game, Int](0) {

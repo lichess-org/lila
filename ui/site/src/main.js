@@ -403,9 +403,9 @@ lichess.topMenuIntent = function() {
         }
 
         // reflow charts
-        window.dispatchEvent(new Event('resize'));
+        lichess.dispatchEvent(window, 'resize');
 
-        document.body.dispatchEvent(new Event('chessground.resize'));
+        lichess.dispatchEvent(document.body, 'chessground.resize');
       };
       lichess.pubsub.on('reset_zoom', function() {
         if (currentZoom > 1 || $('body').data('zoom') > 100) setZoom(currentZoom);

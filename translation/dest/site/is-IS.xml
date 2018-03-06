@@ -46,7 +46,14 @@
   <string name="viewTheComputerAnalysis">Skoða tölvugreiningu</string>
   <string name="requestAComputerAnalysis">Biðja um tölvugreiningu</string>
   <string name="computerAnalysis">Tölvugreining</string>
+  <string name="computerAnalysisAvailable">Tölvugreining í boði</string>
   <string name="analysis">Greining</string>
+  <string name="depthX">Dýpt %s</string>
+  <string name="usingServerAnalysis">Greining frá þjóni</string>
+  <string name="loadingEngine">Hleð inn vél...</string>
+  <string name="cloudAnalysis">Greining í skýi</string>
+  <string name="goDeeper">Fara dýpra</string>
+  <string name="showThreat">Sýna ógn</string>
   <string name="openingExplorer">Skoða opnanir</string>
   <string name="blunders">Afleikir</string>
   <string name="mistakes">Mistök</string>

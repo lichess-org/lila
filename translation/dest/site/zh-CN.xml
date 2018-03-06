@@ -719,8 +719,6 @@
   <string name="pieceSet">棋子风格</string>
   <string name="embedInYourWebsite">嵌入到您的网站上</string>
   <string name="usernameAlreadyUsed">该用户名已被使用，请使用另一个。</string>
-  <string name="usernameInvalid">该用户名非法。在用户名中只能使用拉丁字母，数字，下划线以及连接号。</string>
-  <string name="usernameStartNoNumber">用户名不能以数字开头。</string>
   <string name="usernameUnacceptable">该用户名不被接受。</string>
   <string name="directlySupportLichess">向我们捐款</string>
   <string name="playChessInStyle">有型地下棋</string>

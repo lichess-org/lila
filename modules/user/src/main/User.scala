@@ -148,8 +148,14 @@ object User {
 
   // what existing usernames are like
   val historicalUsernameRegex = """(?i)[a-z0-9][\w-]*[a-z0-9]""".r
-  // what new usernames should be like
+  // what new usernames should be like -- now split into further parts for clearer error messages
   val newUsernameRegex = """(?i)[a-z][\w-]*[a-z0-9]""".r
+
+  val newUsernamePrefix = """(?i)[a-z].*""".r
+
+  val newUsernameSuffix = """(?i).*[a-z0-9]""".r
+
+  val newUsernameChars = """(?i)[\w-]*""".r
 
   def couldBeUsername(str: User.ID) = historicalUsernameRegex.pattern.matcher(str).matches
 

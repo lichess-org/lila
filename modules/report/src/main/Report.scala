@@ -118,6 +118,7 @@ object Report {
   ) extends Reason.WithReason {
     def scored(score: Score) = Candidate.Scored(this, score)
     def isAutomatic = reporter.user.id == lichessId
+    def isAutoComm = isAutomatic && isTrollOrInsult
   }
 
   object Candidate {

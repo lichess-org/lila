@@ -81,41 +81,6 @@ object Puzzle extends LilaController {
     }
   }
 
-  // mobile app BC
-  def round(id: PuzzleId) = OpenBody { implicit ctx =>
-    implicit val req = ctx.body
-    OptionFuResult(env.api.puzzle find id) { puzzle =>
-      if (puzzle.mate) lila.mon.puzzle.round.mate()
-      else lila.mon.puzzle.round.material()
-      env.forms.round.bindFromRequest.fold(
-        err => fuccess(BadRequest(errorsAsJson(err))),
-        resultInt => {
-          val result = Result(resultInt == 1)
-          ctx.me match {
-            case Some(me) => for {
-              (round, mode) <- env.finisher(puzzle, me, result)
-              me2 <- mode.rated.fold(UserRepo byId me.id map (_ | me), fuccess(me))
-              infos <- env userInfos me2
-              voted <- ctx.me.?? { env.api.vote.value(puzzle.id, _) }
-              data <- renderJson(puzzle, infos.some, "view", voted = voted, result = result.some, round = round.some)
-            } yield {
-              lila.mon.puzzle.round.user()
-              val d2 = if (mode.rated) data else data ++ Json.obj("win" -> result.win)
-              Ok(d2)
-            }
-            case None =>
-              lila.mon.puzzle.round.anon()
-              env.finisher.incPuzzleAttempts(puzzle)
-              renderJson(puzzle, none, "view", result = result.some, voted = none) map { data =>
-                val d2 = data ++ Json.obj("win" -> result.win)
-                Ok(d2)
-              }
-          }
-        }
-      ) map (_ as JSON)
-    }
-  }
-
   // new API
   def round2(id: PuzzleId) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
@@ -160,45 +125,6 @@ object Puzzle extends LilaController {
           Ok(Json.arr(a.value, p.vote.sum))
       }
     ) map (_ as JSON)
-  }
-
-  def recentGame = Action.async { req =>
-    if (!get("token", req).contains(Env.api.apiToken)) BadRequest.fuccess
-    else {
-      import akka.pattern.ask
-      import makeTimeout.short
-      Env.game.recentGoodGameActor ? true mapTo manifest[Option[String]] flatMap {
-        _ ?? lila.game.GameRepo.gameWithInitialFen flatMap {
-          case Some((game, initialFen)) =>
-            Env.api.pgnDump(game, initialFen.map(_.value), PgnDump.WithFlags(clocks = false)) map { pgn =>
-              Ok(pgn.render)
-            }
-          case _ =>
-            lila.log("puzzle import").info("No recent good game, serving a random one :-/")
-            lila.game.GameRepo.findRandomFinished(1000) flatMap {
-              _ ?? { game =>
-                lila.game.GameRepo.initialFen(game) flatMap { fen =>
-                  Env.api.pgnDump(game, fen, PgnDump.WithFlags(clocks = false)) map { pgn =>
-                    Ok(pgn.render)
-                  }
-                }
-              }
-            }
-        }
-      }
-    }
-  }
-
-  def importOne = Action.async(parse.json) { implicit req =>
-    env.api.puzzle.importOne(req.body, ~get("token", req)) map { id =>
-      val url = s"https://lichess.org/training/$id"
-      lila.log("puzzle import").info(s"${req.remoteAddress} $url")
-      Ok(s"kthxbye $url")
-    } recover {
-      case e =>
-        lila.log("puzzle import").warn(s"${req.remoteAddress} ${e.getMessage}", e)
-        BadRequest(e.getMessage)
-    }
   }
 
   /* Mobile API: select a bunch of puzzles for offline use */

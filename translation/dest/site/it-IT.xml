@@ -281,8 +281,8 @@
   <string name="backToTournament">Ritorna al torneo</string>
   <string name="thematic">A tema</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s partita partita classificata</item>
-    <item quantity="other">≥ %s partite partite classificate</item>
+    <item quantity="one">≥ %s partita classificata</item>
+    <item quantity="other">≥ %s partite classificate</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2%s partita valida per la classifica</item>
@@ -753,8 +753,6 @@ in %3$s</string>
   <string name="pieceSet">Set pezzi</string>
   <string name="embedInYourWebsite">Incorpora nel tuo sito Web</string>
   <string name="usernameAlreadyUsed">Questo nome è già in uso. Prego sceglierne un altro.</string>
-  <string name="usernameInvalid">Nome utente non valido. Si prega di utilizzare solo lettere, numeri e tratti ( \"-\" o \"_\" ).</string>
-  <string name="usernameStartNoNumber">Un nome utente non può iniziare con un numero.</string>
   <string name="usernameUnacceptable">Questo nome utente non è permesso.</string>
   <string name="directlySupportLichess">Supporta direttamente Lichess</string>
   <string name="playChessInStyle">Gioca a scacchi con stile</string>

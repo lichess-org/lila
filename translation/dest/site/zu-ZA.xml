@@ -9,4 +9,6 @@
   <string name="waiting">Ukulinda</string>
   <string name="yourTurn">Ithuba lakho</string>
   <string name="aiNameLevelAiLevel">%1$s Izinga %2$s</string>
+  <string name="level">Izinga</string>
+  <string name="checkmate">Mui_season_name_76</string>
 </resources>

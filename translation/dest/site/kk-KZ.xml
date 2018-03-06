@@ -56,16 +56,7 @@
   <string name="claimADraw">Тепе-теңдікті ұсыну</string>
   <string name="offerDraw">Тепе-теңдік ұсынысын қабылдау</string>
   <string name="draw">Тепе-тең</string>
-  <plurals name="nbPlayers">
-    <item quantity="other">%s ойыншы онлайн</item>
-  </plurals>
   <string name="currentGames">Ойналып жатқан ойындар</string>
-  <plurals name="nbGames">
-    <item quantity="other">Барлық %s ойындарды көру</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="other">%s бетбелгілер</item>
-  </plurals>
   <string name="viewInFullSize">Толық көлемде көрсету</string>
   <string name="logOut">Шығу</string>
   <string name="signIn">Кіру</string>
@@ -85,12 +76,6 @@
   <string name="correspondence">Хаттар жіберіп ойнау</string>
   <string name="daysPerTurn">Бір жүріске қанша күн</string>
   <string name="oneDay">Бір күн</string>
-  <plurals name="nbDays">
-    <item quantity="other">%s күндер</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="other">%s сағаттар</item>
-  </plurals>
   <string name="time">уақыт</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтинг статистикасы</string>
@@ -125,20 +110,8 @@
   <string name="incrementInSeconds">Секунд қосылады</string>
   <string name="freeOnlineChess">Тегін онлайн шахмат</string>
   <string name="spectators">Көрермен</string>
-  <plurals name="nbWins">
-    <item quantity="other">%s ұтыс</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="other">%s ұтылыс</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="other">%s тепе-тең</item>
-  </plurals>
   <string name="exportGames">Ойынды экспорттау</string>
   <string name="ratingRange">Эло ауқымы</string>
-  <plurals name="giveNbSeconds">
-    <item quantity="other">%s секунд қосу</item>
-  </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Бұл ойыншы компьютер бағдарламасын қолданады</string>
   <string name="takeback">Қайтару</string>
   <string name="proposeATakeback">Жүрісті қайтару ұсыну</string>

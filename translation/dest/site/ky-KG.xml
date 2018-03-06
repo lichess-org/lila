@@ -72,20 +72,11 @@
   <string name="recentGames">Жакында бүткөн оюндар</string>
   <string name="topGames">Мыкты оюндар</string>
   <string name="masterDbExplanation">Эки миллион OTB оюндар %1$sтен + FIDE рейтинги оюнчулары %2$sдан %3$sга чейин</string>
-  <plurals name="mateInXHalfMoves">
-    <item quantity="other">%s жарым жүрүштөө мат</item>
-  </plurals>
   <string name="blunders">Одоно ката</string>
   <string name="mistakes">Жаңылыштык</string>
   <string name="inaccuracies">Так эместик</string>
   <string name="draw">Ничья</string>
-  <plurals name="nbPlayers">
-    <item quantity="other">%s оюнчу</item>
-  </plurals>
   <string name="currentGames">Азыркы оюндар</string>
-  <plurals name="nbGames">
-    <item quantity="other">%s Оюн</item>
-  </plurals>
   <string name="logOut">Чыгыш</string>
   <string name="signIn">Кирүү</string>
   <string name="newToLichess">Lichess\'де биринчи жолу?</string>
@@ -97,12 +88,6 @@
   <string name="variants">Варианттар</string>
   <string name="realTime">Убакыт контроль</string>
   <string name="oneDay">Бир күнү</string>
-  <plurals name="nbDays">
-    <item quantity="other">%s күндөр</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="other">%s саат</item>
-  </plurals>
   <string name="time">Убакыт</string>
   <string name="playOfflineComputer">Компьютер</string>
   <string name="opponent">Өнөктөш</string>

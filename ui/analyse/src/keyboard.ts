@@ -77,16 +77,15 @@ export function bind(ctrl: AnalyseCtrl): void {
     else ctrl.toggleCeval();
   }));
   if (ctrl.study) {
-    kbd.bind('c', preventing(function() {
-      $('.study_buttons a.comment').each(function(this: HTMLElement) {
-        this.click();
-      });
-    }));
-    kbd.bind('g', preventing(function() {
-      $('.study_buttons a.glyph').each(function(this: HTMLElement) {
-        this.click();
-      });
-    }));
+    const keyToMousedown = (key: string, selector: string) => {
+      kbd.bind(key, preventing(function() {
+        $(selector).each(function(this: HTMLElement) {
+          window.lichess.dispatchEvent(this, 'mousedown');
+        });
+      }));
+    };
+    keyToMousedown('c', '.study_buttons a.comments');
+    keyToMousedown('g', '.study_buttons a.glyphs');
   }
 }
 

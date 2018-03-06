@@ -4,7 +4,7 @@ import lila.common.Future
 import lila.notify.NotifyApi
 import lila.notify.{ Notification, MentionedInThread }
 import lila.relation.RelationApi
-import lila.user.UserRepo
+import lila.user.{ User, UserRepo }
 
 /**
  * Notifier to inform users if they have been mentioned in a post
@@ -26,7 +26,7 @@ final class MentionNotifier(notifyApi: NotifyApi, relationApi: RelationApi) {
    * Checks the database to make sure that the users mentioned exist, and removes any users that do not exist
    * or block the mentioner from the returned list.
    */
-  private def filterValidUsers(users: Set[String], mentionedBy: String): Fu[List[Notification.Notifies]] = {
+  private def filterValidUsers(users: Set[User.ID], mentionedBy: User.ID): Fu[List[Notification.Notifies]] = {
     for {
       validUsers <- UserRepo.existingUsernameIds(users take 20).map(_.take(5))
       validUnblockedUsers <- filterNotBlockedByUsers(validUsers, mentionedBy)
@@ -34,9 +34,8 @@ final class MentionNotifier(notifyApi: NotifyApi, relationApi: RelationApi) {
     } yield validNotifies
   }
 
-  private def filterNotBlockedByUsers(usersMentioned: List[String], mentionedBy: String): Fu[List[String]] = {
+  private def filterNotBlockedByUsers(usersMentioned: List[User.ID], mentionedBy: User.ID): Fu[List[User.ID]] =
     Future.filterNot(usersMentioned) { relationApi.fetchBlocks(_, mentionedBy) }
-  }
 
   private def createMentionNotification(post: Post, topic: Topic, mentionedUser: Notification.Notifies, mentionedBy: MentionedInThread.MentionedBy): Notification = {
     val notificationContent = MentionedInThread(
@@ -50,7 +49,6 @@ final class MentionNotifier(notifyApi: NotifyApi, relationApi: RelationApi) {
     Notification.make(mentionedUser, notificationContent)
   }
 
-  private def extractMentionedUsers(post: Post): Set[String] = {
-    lila.common.String.atUsernameRegex.findAllMatchIn(post.text).map(_ group 1).toSet
-  }
+  private def extractMentionedUsers(post: Post): Set[User.ID] =
+    lila.common.String.atUsernameRegex.findAllMatchIn(post.text).map(_ group 1).toSet - ~post.author
 }
