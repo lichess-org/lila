@@ -28,6 +28,12 @@
 </div>
 }
 
+@moreJs = {
+  @embedJs {
+    $('.user-autocomplete').data('onselect', function (q) { window.location = '/@@/' + q })
+  }
+}
+
 @side = {
 <div class="side">
   <form class="search public">
@@ -55,6 +61,7 @@
 @user.layout(
 trans.players.txt(),
 side = side.some,
+evenMoreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(
 title = "Chess players and leaderboards",
 url = s"$netBaseUrl${routes.User.list.url}",
