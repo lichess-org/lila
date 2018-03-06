@@ -9,7 +9,8 @@ final class CSRFRequestHandler(domain: String) {
   private def logger = lila.log("csrf")
 
   def check(req: RequestHeader): Boolean = {
-    if (isSafe(req) && !isSocket(req)) true
+    if (isXhr(req)) true // cross origin xhr not allowed by browsers
+    else if (isSafe(req) && !isSocket(req)) true
     else origin(req) match {
       case None =>
         lila.mon.http.csrf.missingOrigin()
@@ -27,9 +28,7 @@ final class CSRFRequestHandler(domain: String) {
           lila.mon.http.csrf.forbidden()
           logger.info(print(req))
         }
-
-        if (isXhr(req)) true // todo: remove if possible
-        else false
+        false
     }
   }
 
