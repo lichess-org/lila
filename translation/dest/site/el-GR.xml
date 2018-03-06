@@ -746,8 +746,6 @@
   <string name="pieceSet">Επιλογή πιονιών</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
   <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη ήδη χρησιμοποιείται, παρακαλώ δοκιμάστε ένα άλλο.</string>
-  <string name="usernameInvalid">Άκυρο όνομα χρήστη. Παρακαλούμε χρησιμοποιήστε μόνο γράμματα, αριθμούς, κάτω παύλα και παύλα.</string>
-  <string name="usernameStartNoNumber">Το όνομα χρήστη δεν πρέπει να ξεκινάει με αριθμό.</string>
   <string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>
   <string name="directlySupportLichess">Υποστηρίξτε άμεσα το Lichess</string>
   <string name="playChessInStyle">Παίξτε σκάκι με στυλ</string>
@@ -782,5 +780,5 @@
   <string name="opening">Άνοιγμα</string>
   <string name="endgame">Φινάλε</string>
   <string name="registerToSendChallenges">Παρακαλώ εγγραφείτε για να στείλετε προκλήσεις.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%σ δέχεται προκλήσεις μόνο από φίλους.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s δέχεται προκλήσεις μόνο από φίλους.</string>
 </resources>

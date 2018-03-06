@@ -744,8 +744,6 @@ in %3$s</string>
   <string name="pieceSet">Stilo del pecias</string>
   <string name="embedInYourWebsite">Incorpora in tu sito web</string>
   <string name="usernameAlreadyUsed">Iste nomine de usator ja es usate, per favor, selectiona un altere.</string>
-  <string name="usernameInvalid">Nomine de usator invalide. Per favor, usa solmente litteras, numeros, sublinea ( _ ) e lineetta ( - ).</string>
-  <string name="usernameStartNoNumber">Le nomine de usator non debe initiar con un numero.</string>
   <string name="usernameUnacceptable">Iste nomine de usator non es acceptabile.</string>
   <string name="directlySupportLichess">Appoia directemente Lichess</string>
   <string name="playChessInStyle">Joca chacos con stilo</string>

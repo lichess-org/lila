@@ -83,6 +83,12 @@
   <string name="dontLetThemTakeAnyUndefendedPiece">بهشون اجازه نده هیچ مهره بی دفاعی رو بگیرن!</string>
   <string name="combat">مبارزه</string>
   <string name="captureAndDefendPieces">زدن و دفاع کردن مهره ها</string>
+  <string name="combatIntro">یه جنگجوی خوب هم حمله بلده هم دفاع!</string>
+  <string name="combatComplete">تبریک! شما بلدید چطور با مهره های شطرنج بجنگید!</string>
+  <string name="attackTheOpponentsKing">به شاه حریف حمله کن</string>
+  <string name="checkInOneIntro">برای کیش دادن به حریف، به شاهش حمله کن. اون باید دفاع کنه!</string>
+  <string name="outOfCheck">خارج از کیش</string>
+  <string name="defendYourKing">از شاهت دفاع کن</string>
   <string name="next">بعدی</string>
   <string name="backToMenu">برگشت به منو</string>
   <string name="retry">تلاش مجدد</string>

@@ -80,8 +80,11 @@
   <string name="noGameFound">بازیی یافت نشد</string>
   <string name="openingExplorer">باز کردن جستجوگر</string>
   <string name="realtimeReplay">زمان واقعی</string>
+  <string name="blunder">اشتباه جدی</string>
   <string name="blunders">اشتباهات جدی</string>
+  <string name="mistake">اشتباه</string>
   <string name="mistakes">اشتباهات</string>
+  <string name="inaccuracy">بی دقتی</string>
   <string name="inaccuracies">بی‌ دقتی‌ ها</string>
   <string name="moveTimes">مدت زمان حركت</string>
   <string name="flipBoard">چرخاندن صفحه</string>
@@ -170,6 +173,8 @@
   <string name="mode">نوع</string>
   <string name="casual">غیر رسمی</string>
   <string name="rated">رسمی</string>
+  <string name="casualTournament">غیر رسمی</string>
+  <string name="ratedTournament">رسمی</string>
   <string name="thisGameIsRated">این بازی رتبه بندی می شود</string>
   <string name="rematch">بازی دوباره</string>
   <string name="rematchOfferSent">درخواست بازی دوباره فرستاده شد</string>
@@ -319,9 +324,11 @@
   <string name="winRate">درصد برد</string>
   <string name="berserkRate">درصد برزرک</string>
   <string name="performance">عملکرد</string>
+  <string name="draws">مساوی</string>
   <string name="viewMoreTournaments">تورنومنت های بیشتری نشان بده</string>
   <string name="membersOnly">فقط اعضا</string>
   <string name="boardEditor">صفحه ویرایشگر</string>
+  <string name="popularOpenings">گشایش های معروف</string>
   <string name="startPosition">موقعیت شروع</string>
   <string name="clearBoard">پاک کردن صفحه</string>
   <string name="savePosition">ذخیره موقعیت</string>
@@ -335,7 +342,7 @@
   <string name="biography">زندگی نامه</string>
   <string name="country">کشور</string>
   <string name="preferences">تنظیمات عملکرد</string>
-  <string name="watchLichessTV">تلویزیون لایچس را ببین</string>
+  <string name="watchLichessTV">تلویزیون لیچس را ببین</string>
   <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
   <string name="onlinePlayers">بازکنان آنلاین</string>
   <string name="activeToday">فعالیت امروز</string>
@@ -489,6 +496,7 @@
   <string name="playOnTheBoardOffline">آفلاین روی تخته بازی کنید</string>
   <string name="playOfflineComputer">بازی آفلاین با رایانه</string>
   <string name="opponent">حریف</string>
+  <string name="learnMenu">یادگیری</string>
   <string name="community">انجمن</string>
   <string name="tools">ابزارها</string>
   <string name="increment">افزایش زمان</string>
@@ -517,7 +525,7 @@
     <item quantity="other">%s پست ها در انجمن</item>
   </plurals>
   <string name="tpTimeSpentPlaying">زمان بازی کردن: %s</string>
-  <string name="watchGames">تماشای بازی</string>
+  <string name="watchGames">تماشای بازی ها</string>
   <string name="tpTimeSpentOnTV">مدت زمان سپری شده در تلویزیون: %s</string>
   <string name="watch">نگاه کردن</string>
   <string name="internationalEvents">رویدادهای بین المللی</string>
@@ -592,7 +600,7 @@
   <string name="zeroAdvertisement">بدون تبلیغات</string>
   <string name="fullFeatured">با تمامی امکانات</string>
   <string name="phoneAndTablet">موبایل و تبلت</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
+  <string name="bulletBlitzClassical">Bullet, برق آسا, classical</string>
   <string name="correspondenceChess">شطرنج مکاتبه ای</string>
   <string name="onlineAndOfflinePlay">بازی کردن آنلاین وآفلاین</string>
   <string name="correspondenceAndUnlimited">مکاتبه ای و نامحدود</string>
@@ -608,11 +616,15 @@
   <string name="anonymous">ناشناس</string>
   <string name="language">زبان</string>
   <string name="background">زمینه</string>
+  <string name="light">روشن</string>
+  <string name="dark">تیره</string>
   <string name="boardGeometry">بعد صفحه</string>
   <string name="boardTheme">تم صفحه</string>
   <string name="boardSize">اندازه صفحه</string>
   <string name="pieceSet">نوع مهره</string>
   <string name="embedInYourWebsite">قرار دادن در سایت خود</string>
+  <string name="usernameUnacceptable">این نام کاربری قابل قبول نیست.</string>
+  <string name="coaches">مربی ها</string>
   <string name="error.min">باید بزرگتر یا مساوی باشه با %s</string>
   <string name="error.max">باید کمتر یا مساوی باشه با%s</string>
   <string name="error.unknown">خطا</string>
@@ -620,4 +632,9 @@
   <string name="notifications">گزارش</string>
   <string name="challenges">دعوت به مبارزه</string>
   <string name="perfRatingX">ریتینگ. %s</string>
+  <string name="whiteWinsGame">سفید برنده شد</string>
+  <string name="blackWinsGame">سیاه برنده شد</string>
+  <string name="next">بعدی</string>
+  <string name="findBetterMoveForWhite">یه حرکت بهتر برای سفید پیدا کنید</string>
+  <string name="findBetterMoveForBlack">یه حرکت بهتر برای سیاه پیدا کنید</string>
 </resources>

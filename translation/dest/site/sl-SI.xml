@@ -816,8 +816,6 @@ v %3$s</string>
   <string name="pieceSet">Figure</string>
   <string name="embedInYourWebsite">Vstavite na vašo internetno stran</string>
   <string name="usernameAlreadyUsed">Uporabniško ime je že v uporabi, prosimo izberite si drugo.</string>
-  <string name="usernameInvalid">Neveljavno uporabniško ime. Prosimo, uporabite le črke, številke, podčrtaj in pomišljaj.</string>
-  <string name="usernameStartNoNumber">Uporabniško ime ne sme začeti s številko.</string>
   <string name="usernameUnacceptable">To uporabniško ime ni sprejemljivo.</string>
   <string name="directlySupportLichess">Direktno pomagaj Lichess-u</string>
   <string name="playChessInStyle">Šahirajte v slogu</string>

@@ -308,7 +308,7 @@
   <string name="filterGames">条件で絞り込む</string>
   <string name="reset">リセット</string>
   <string name="apply">適用</string>
-  <string name="leaderboard">スコアボード</string>
+  <string name="leaderboard">ランキング</string>
   <string name="pasteTheFenStringHere">ここにFEN形式の局面をペースト</string>
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
   <string name="fromPosition">特定の局面から</string>
@@ -646,7 +646,7 @@
   <string name="returnToTournamentsHomepage">トーナメントトップに戻る</string>
   <string name="weeklyPerfTypeRatingDistribution">月別 %s レーティング分布</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="other">この 1 週間の %1$s 参加者 %2$s 人。</item>
+    <item quantity="other">この 1 週間の参加者 %1$s 人（%2$s）。</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">あなたの %1$s レーティングは %2$s です。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">あなたは全体の %1$s の%2$s参加者より上です。</string>
@@ -721,8 +721,9 @@
   <string name="pieceSet">駒のデザイン</string>
   <string name="embedInYourWebsite">自分のウェブサイトに埋め込む</string>
   <string name="usernameAlreadyUsed">このユーザー名は既に使用されています。別の名前にしてください。</string>
-  <string name="usernameInvalid">無効なユーザー名です。使えるのは英数字、アンダースコア、ダッシュだけです。</string>
-  <string name="usernameStartNoNumber">ユーザー名の最初は数字であってはいけません。</string>
+  <string name="usernamePrefixInvalid">ユーザー名の最初は英字でなくてはなりません。</string>
+  <string name="usernameSuffixInvalid">ユーザー名の最後は英字か数字でなくてはなりません。</string>
+  <string name="usernameCharsInvalid">ユーザー名に使えるのは英字、数字、アンダースコア、ハイフンだけです。</string>
   <string name="usernameUnacceptable">このユーザー名は認められません。</string>
   <string name="directlySupportLichess">Lichess を支援（寄付）</string>
   <string name="playChessInStyle">グッズ購入</string>

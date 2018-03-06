@@ -753,8 +753,9 @@ i %3$s</string>
   <string name="pieceSet">Brikkesett</string>
   <string name="embedInYourWebsite">Bygg inn i nettsida di</string>
   <string name="usernameAlreadyUsed">Dette brukarnamnet er allereie i bruk, ver venleg og prøv eit anna.</string>
-  <string name="usernameInvalid">Ugyldig brukarnamn. Ver venleg og berre bruk bokstavar, tal, understreking og bindestrek.</string>
-  <string name="usernameStartNoNumber">Brukarnamnet kan ikkje starta med eit tal.</string>
+  <string name="usernamePrefixInvalid">Det første teiknet i brukarnamnet må vera ein bokstav.</string>
+  <string name="usernameSuffixInvalid">Det siste teiknet i brukarnamnet må vera ein bokstav eller eit tal.</string>
+  <string name="usernameCharsInvalid">Brukarnamnet kan berre innehalde bokstavar, tal, understrekingsteikn og bindestrekar.</string>
   <string name="usernameUnacceptable">Dette brukarnamnet er ikkje akseptabelt.</string>
   <string name="directlySupportLichess">Støtt Lichess direkte</string>
   <string name="playChessInStyle">Spel sjakk med stil</string>

@@ -27,7 +27,7 @@ Você precisa de ambos!</string>
   <string name="theQueen">A dama</string>
   <string name="queenCombinesRookAndBishop">Dama = torre + bispo</string>
   <string name="queenIntro">Entra a mais poderosa das peças. Sua majestade, a rainha (dama)!</string>
-  <string name="queenComplete">Parabéns! A Dama não é segredos para você.</string>
+  <string name="queenComplete">Parabéns! A Dama não é segredo para você.</string>
   <string name="theKing">O rei</string>
   <string name="theMostImportantPiece">A peça mais importante</string>
   <string name="kingIntro">Você é o rei. Se cair em batalha, perderá o jogo.</string>
@@ -62,7 +62,7 @@ Não é necessário promover.</string>
   <string name="selectThePieceYouWant">Escolha a peça que desejar!</string>
   <string name="fundamentals">Fundamentos</string>
   <string name="capture">Capturar</string>
-  <string name="takeTheEnemyPieces">Tome as peças inimigas</string>
+  <string name="takeTheEnemyPieces">Capture as peças inimigas</string>
   <string name="captureIntro">Identifique as peças desprotegidas do adversário, e capture-as!</string>
   <string name="takeTheBlackPieces">Capture as peças pretas!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Capture as peças pretas!
@@ -105,7 +105,7 @@ ou bloqueie o ataque!</string>
   <string name="attackYourOpponentsKing">Ataque o rei adversário de uma maneira que ele não possa se defender!</string>
   <string name="mateInOneComplete">Parabéns! É assim que você vence jogos de xadrez!</string>
   <string name="intermediate">Intermediário</string>
-  <string name="boardSetup">Tabuleiro</string>
+  <string name="boardSetup">Posição inicial</string>
   <string name="howTheGameStarts">Como o jogo inicia</string>
   <string name="boardSetupIntro">Os dois exércitos se enfrentam, prontos para a batalha.</string>
   <string name="thisIsTheInitialPosition">Esta é a posição inicial de qualquer jogo de xadrez! Faça qualquer movimento para continuar.</string>
@@ -148,7 +148,7 @@ Mas antes você precisa retirar as peças do meio.</string>
   <string name="takeAllThePawnsEnPassant">Capture todos os peões en passant!</string>
   <string name="enPassantComplete">Parabéns! Você agora pode capturar en passant.</string>
   <string name="stalemate">Rei afogado</string>
-  <string name="theGameIsADraw">A partida fica empatada</string>
+  <string name="theGameIsADraw">O jogo terminou em empate</string>
   <string name="stalemateIntro">Quando um jogador não está em xeque e não pode fazer nenhum movimento legal, há um afogamento. O jogo termina em empate: ninguém ganha, ninguém perde.</string>
   <string name="stalemateGoal">Para afogar as pretas:
 - As pretas não podem mover-se para lugar algum

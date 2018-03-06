@@ -751,8 +751,6 @@
   <string name="pieceSet">Ŝakpecaro</string>
   <string name="embedInYourWebsite">Enkorpigi en via retejo</string>
   <string name="usernameAlreadyUsed">Ĉi tiu uzantnomo estas jam uzanta, bonvolu provi aliun.</string>
-  <string name="usernameInvalid">Nevalida uzantnomo. Bonvolu uzu nur leterojn, nombrojn, substrekon kaj streketon.</string>
-  <string name="usernameStartNoNumber">Ĉi tiu uzantnomo devas ne komenci kun numero.</string>
   <string name="usernameUnacceptable">Ĉi tiu uzantnomo estas malakceptata.</string>
   <string name="directlySupportLichess">Rekte subteni Lichess</string>
   <string name="playChessInStyle">Ludu ŝakon elegante</string>
