@@ -80,6 +80,14 @@
     <item quantity="one">Namate sa %s tunga nga lihok</item>
     <item quantity="other">Namate sa %s tunga nga mga lihok</item>
   </plurals>
+  <string name="noGameFound">Walay makita nga duwa</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Pwedeng mag-apil ug mga duwa gikan sa gustong menu?</string>
+  <string name="openingExplorer">Pag-abli sa explorer</string>
+  <string name="xOpeningExplorer">%s pag-abli sa explorer</string>
+  <string name="winPreventedBy50MoveRule">Ang pagkaog kay gi-alihan sa 50-lihok nga mando</string>
+  <string name="lossSavedBy50MoveRule">Pagkapildi kay nasalbar sa 50-lihok nga mando</string>
+  <string name="allSet">Nabutang na tanan!</string>
+  <string name="importPgn">Magkuha ug PGN</string>
   <string name="players">Mga manuwaay</string>
   <string name="minutesPerSide">Minuto kada side</string>
   <string name="variant">Nagkalahi-lahi</string>
