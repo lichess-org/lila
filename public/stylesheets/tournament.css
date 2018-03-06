@@ -485,7 +485,7 @@ div.side_box .game_infos.spotlight a {
 .defender::before {
   font-size: 1.6em;
   vertical-align: -0.26em;
-  margin-right: 0.15em;
+  margin: 0 0.15em 0 -0.15em;
 }
 div.side_box .conditions::before {
   opacity: 0.6;
