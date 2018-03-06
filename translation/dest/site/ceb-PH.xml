@@ -24,7 +24,16 @@
   <string name="blackIsVictorious">Itom ang nakadaog</string>
   <string name="kingInTheCenter">Ang hari naa sa tunga</string>
   <string name="threeChecks">Tulo ka mga check</string>
+  <string name="raceFinished">Nahuman na ang lumba</string>
+  <string name="variantEnding">Lahi-lahi nga pagkahuman</string>
+  <string name="newOpponent">Bag-ong kontra</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Ang imong kontra kay gusto moduwa ug bag-ong duwa sa imo</string>
+  <string name="joinTheGame">Apil sa duwa</string>
+  <string name="whitePlays">Puti ang moduwa</string>
+  <string name="blackPlays">Itom ang moduwa</string>
   <string name="opponentLeftChoices">Ang pikas nga magdudula kay nibiya sa dula. Mamahimo nimo dawaton ang kadaugan, tawagon ang dula isip tabla, o maghuwat.</string>
+  <string name="makeYourOpponentResign">Himoa nga imong kontra mo undang</string>
+  <string name="masterDbExplanation">Duha ka milyon nga mga dula sa OTB nga %1$s+ aduna\'y FIDE nga bili nga mga mandudula gikan sa %2$s ngadto sa %3$s</string>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Sunod dakpa o balhina ang pawn ngadto sa %s nagbalhin og katunga (Distansya Alang sa Pag-zero sa tig-ihap sa 50 ka lihok)
 
@@ -35,20 +44,26 @@ Sunod dakpa o balhina ang pawn ngadto sa %s nga nagbalhin og katunga (Distansya 
   <string name="siteDescription">Ang libre nga server sa online nga Chess. Magdula ug Chess karon nga naa sa limpyo nga interface. Wala\'y rehistrasyon, wala mga ad, wala nagkinahanglan og plugin. Pagdula ug Chess kauban ang kompyuter, mga higala o si bisan kinsa nga kaatbang.</string>
   <string name="importGameExplanation">Sa pagpapilit sa PGN sa dula makakuha ka og mamahimo nga ma-browse nga replay,
 usa ka pagtuki sa kompyuter, usa ka sultihanay sa dula ug usa URL na mamahimong mabahin-bahin.</string>
+  <string name="clickOnTheBoardToMakeYourMove">I-klik ang naa sa tabla aron sa paghimo sa imong lihok, ug pamatud-an nga ikaw usa ka tawo.</string>
   <string name="trainingSignupExplanation">Ang Lichess kay nakahatag ug mga sulbaronon nga matupngan ang imong abilidad, gibuhat alang sa mas maayo nga sesyon sa pagbansay-bansay.</string>
   <string name="reportDescriptionHelp">Ipapilit ang link sa (mga) dula ug ipasabut ang mga sayop mahitungod niini nga binuhatan sa magdudula. Dili lang moingon nga \"nanikas sila\", apan isugilon kanamo kung gi-unsa nimo pag-abot sa mao nga konklusyon. Ang imoha nga taho kay mas paspas nga ma-proseso kung nasulat kini sa Englis.</string>
   <string name="closeAccountExplanation">Sigurado ka ba nga gusto nimo sirhan ang imong account? Ang pagsira sa imong account kay usa ka permanenta nga desisyon. Dili kana mamahimong maka-login, ug ang pahina sa imong propayl dili na mamahimong sudlon.</string>
   <string name="biographyDescription">Suginli ako mahitungod ka nimo, unsa ang imong ganahan sa chess, ang imong paborito nga pagbukas, mga dula, mga mandudula…</string>
+  <string name="noInternetConnection">Wala\'y koneksyon sa internet. Mamahimo gihapon ka magdula sa offline gikan sa menu.</string>
+  <string name="aboutSimul">Ang mga simul kay naglangkit sa usa ka mandudula nga makig-atbang sa daghan nga mga magdudula sa dungan.</string>
   <string name="aboutSimulRealLife">Ang konsepto kay gikuha gikan sa tinuod nga panghitabo sa kalibutan. Sa tinuod nga kinabuhi, naglangkit kini sa pagbalhin-balhin sa tig-abiabi sa simul gikan sa usa ka lamisa ngadto sa pikas nga lamisa aron pa sa pagdula sa usa ka lihok.</string>
   <string name="aboutSimulRules">Sa panahon nga magsugod na ang simul, ang kada mandudula kay sundan sa pagdula kauban ang tig-abiabi, kung kinsa nga modula gamit ang puti nga mga piraso. Matapos ang simul human makompleto ang tanan nga mga dula.</string>
   <string name="aboutSimulSettings">Ang mga simul kay kanunay nga kaswal. Ang pakigdula og balik, pagbakwi ug ang \"dugang nga oras\" kay gibaldado.</string>
+  <string name="whenCreateSimul">Sa panahon nga nakabuhat ka og Simul, makadula naka uban sa daghang magdudula sa dungan.</string>
   <string name="simulVariantsHint">Kung mopili ka ug daghan nga mga variant, ang kada magdudula kay mamahimong makapili kung kinsa ang kontrahon.</string>
   <string name="simulClockHint">Ang setup nga Fischer Clock. Magkadaghan ang mga mandudula nga imong kontrahon, mas dako nga oras ang imong gikinahanglan.</string>
+  <string name="simulAddExtraTime">Mamahimong magdugang og mga pakapin nga oras sa imong orasan aton sa pagtabang sa pagsagubang kauban ang simul.</string>
   <string name="tournamentHomeDescription">Pagdula ug paspas kaayo nga mga torneyo sa chess! Apil sa usa ka opisyal nga torneyo, o paghimo og imoha nga kaugalingon. Paspas, Blitz, Klasikal, Chess960, Hari sa Bungtod, ug uban pa nga mga daghan nga kapilian ang anaa para sa wala\'y katapusan nga kalingawan.</string>
   <string name="tournamentMayHaveBeenCanceled">Mamahimo kini makansela, kung ang tanan nga mga mandudula kay nibiya niini sa wala pa nagsugod ang torneyo.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Nagpadala kami og email ka nimo. I-klik ang link sa email aron sa pag-aktibo sa imoha nga account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Kung ikaw kay wala makakita sa email, susiha kini sa mga lugar nga mamahimo niini nga mahimutangan, sama sa imong basuha, spam, sosyal, o uban pa nga mga polder.</string>
   <string name="weHaveSentYouAnEmailTo">Nagpadala kami og email ngadto kang %s. I-klik ang link sa email aron sa pagtakda ug balik sa imong password.</string>
+  <string name="analysisShapesHowTo">Idusok ang shift+klik o tuo nga klik aron sa pagdibuho og mga lingin ug mga udyong sa tabla.</string>
   <string name="kidModeExplanation">Nahitungod kani sa pagkaluwas. Sa moda nga pambata, ang komunikasyon sa tanan nga site kay gibaldado. Himoa kini alang sa imong mga anak ug nag-eskwela nga mga tinun-an, aron sa pagpanalipod nila gikan sa uban pa nga mga tiggamitan sa internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Sa moda nga pambata, ang logo sa lichess kay makakuha og usa ka %s nga aykon, aron makahibalo ka nga ang imong mga kabataan kay luwas.</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Mao kini ang listahan sa mga gamit nga imong gigamit sa pagsulod sa imohang account. Bawi-a ang bisan unsa nga sesyon kung wala kini nimo mailhi.</string>
