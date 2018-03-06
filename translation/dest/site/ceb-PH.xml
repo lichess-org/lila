@@ -7,4 +7,7 @@
   <string name="gameOver">Natapos na ang Dula</string>
   <string name="waitingForOpponent">Naghuwat sa kaatbang</string>
   <string name="waiting">Naghuwat</string>
+  <string name="computersAreNotAllowedToPlay">Ang mga kompyuter ug ang mga mandudula nga gitabangan sa kompyuter kay dili mamahimong makadula. Kung mamahimo ayaw pangayo og tabang gikan sa mga makina sa chess, mga database, o gikan sa uban pa nga mga magdudula samtang nagdula. Hinumduman usab nga ang pagbuhat ug daghan nga mga account kay wala gidasig ug ang pagdula gamit ang sobra ka daghan nga mga account kay musampot sa pagka-ban.</string>
+  <string name="reportDescriptionHelp">Ipapilit ang link sa (mga) dula ug ipasabut ang mga sayop mahitungod niini nga binuhatan sa magdudula. Dili lang moingon nga \"nanikas sila\", apan isugilon kanamo kung gi-unsa nimo pag-abot sa mao nga konklusyon. Ang imoha nga taho kay mas paspas nga ma-proseso kung nasulat kini sa Englis.</string>
+  <string name="tournamentHomeDescription">Pagdula ug paspas kaayo nga mga torneyo sa chess! Apil sa usa ka opisyal nga torneyo, o paghimo og imoha nga kaugalingon. Paspas, Blitz, Klasikal, Chess960, Hari sa Bungtod, ug uban pa nga mga daghan nga kapilian ang anaa para sa wala\'y katapusan nga kalingawan.</string>
 </resources>
