@@ -58,4 +58,27 @@
   <string name="toggleLocalEvaluation">Pagpuli sa lokal nga pagtuki</string>
   <string name="promoteVariation">Ipataas ang ranggo sa pagkalain-lain</string>
   <string name="makeMainLine">Maghimo ug unang linya</string>
+  <string name="deleteFromHere">Tanggala gikan diri</string>
+  <string name="move">Lihok</string>
+  <string name="variantLoss">Lahi-lahing pagkapildi</string>
+  <string name="variantWin">Lahi-lahing pagkapildi</string>
+  <string name="insufficientMaterial">Dili saktong materyales</string>
+  <string name="pawnMove">Lihok sa pawn</string>
+  <string name="capture">Dakpa</string>
+  <string name="close">Sirad-an</string>
+  <string name="winning">Dumadaog</string>
+  <string name="losing">Kapildihon</string>
+  <string name="drawn">Tabla</string>
+  <string name="unknown">Wala mailhi</string>
+  <string name="database">Database</string>
+  <string name="whiteDrawBlack">Puti / Tabla / Itom</string>
+  <string name="averageRatingX">Kasagarang grado: %s</string>
+  <string name="recentGames">Bag-ong mga duwa</string>
+  <string name="topGames">Unang duwa</string>
+  <string name="masterDbExplanation">Duha ka milyon nga mga OTB nga duwa sa %1$s + FIDE nga nagradohan nga manuwaay gikan sa %2$s padung sa %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Namate sa %s tunga nga lihok</item>
+    <item quantity="other">Namate sa %s tunga nga mga lihok</item>
+  </plurals>
+  <string name="players">Mga manuwaay</string>
 </resources>
