@@ -190,7 +190,7 @@ object Env {
     settingStore = lila.memo.Env.current.settingStore,
     tryOAuthServer = () => scala.concurrent.Future {
       lila.oauth.Env.current.server.some
-    }.withTimeoutDefault(50 millis, none)(system).thenPp recover {
+    }.withTimeoutDefault(50 millis, none)(system) recover {
       case e: Exception =>
         lila.log("security").warn("oauth", e)
         none

@@ -56,7 +56,7 @@ private[controllers] trait LilaController
   protected def Open[A](p: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       CSRF(req) {
-        reqToCtx(req) flatMap f
+        reqToCtx(req) flatMap f recover oauthFailure
       }
     }
 
@@ -66,7 +66,7 @@ private[controllers] trait LilaController
   protected def OpenBody[A](p: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       CSRF(req) {
-        reqToCtx(req) flatMap f
+        reqToCtx(req) flatMap f recover oauthFailure
       }
     }
 
@@ -78,7 +78,7 @@ private[controllers] trait LilaController
       CSRF(req) {
         reqToCtx(req) flatMap { ctx =>
           ctx.me.fold(authenticationFailed(ctx))(f(ctx))
-        }
+        } recover oauthFailure
       }
     }
 
@@ -90,7 +90,7 @@ private[controllers] trait LilaController
       CSRF(req) {
         reqToCtx(req) flatMap { ctx =>
           ctx.me.fold(authenticationFailed(ctx))(f(ctx))
-        }
+        } recover oauthFailure
       }
     }
 
@@ -169,6 +169,10 @@ private[controllers] trait LilaController
 
   protected def NoPlaybanOrCurrent(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     NoPlayban(NoCurrentGame(a))
+
+  private val oauthFailure: PartialFunction[Throwable, Result] = {
+    case e: lila.oauth.OauthException => Unauthorized(jsonError(e.message))
+  }
 
   protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a =>
     Ok(Json toJson a) as JSON

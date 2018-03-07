@@ -88,8 +88,8 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
     fua
   }
 
-  def mapFailure(f: Exception => Exception) = fua recover {
-    case cause: Exception => throw f(cause)
+  def mapFailure(f: Exception => Exception) = fua recoverWith {
+    case cause: Exception => fufail(f(cause))
   }
 
   def prefixFailure(p: => String) = mapFailure { e =>

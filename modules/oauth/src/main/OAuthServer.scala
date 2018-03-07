@@ -25,8 +25,10 @@ final class OAuthServer(
       json = Json.parse(jsonStr)
       accessToken = AccessTokenId((json str "jti" err s"Bad token json $json"))
       user <- activeUser(accessToken)
-    } yield user
+    } yield Some(user err "No user found for access token")
     case _ => fuccess(none)
+  } mapFailure { e =>
+    new OauthException { val message = e.getMessage }
   }
 
   def activeUser(token: AccessTokenId): Fu[Option[User]] =
