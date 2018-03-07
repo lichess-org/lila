@@ -404,9 +404,9 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="whiteWins">Brancas venceram</string>
   <string name="blackWins">Pretas venceram</string>
   <string name="draws">Empates</string>
-  <string name="nextXTournament">Próximo torneio de %s:</string>
+  <string name="nextXTournament">Próximo torneio %s:</string>
   <string name="viewMoreTournaments">Ver mais torneios</string>
-  <string name="averageOpponent">Oponente médio</string>
+  <string name="averageOpponent">Pontuação média adversários</string>
   <string name="membersOnly">Somente para membros</string>
   <string name="boardEditor">Editor de tabuleiro</string>
   <string name="setTheBoard">Arranje o tabuleiro</string>
@@ -420,7 +420,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="profileCompletion">Conclusão do perfil: %s</string>
   <string name="xRating">Classificação %s</string>
   <string name="ifNoneLeaveEmpty">Se nenhuma, deixe vazio</string>
-  <string name="gameCompletionRate">Taxa de conclusão do jogo: %s</string>
+  <string name="gameCompletionRate">Percentagem de partidas terminadas: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Primeiro nome</string>
