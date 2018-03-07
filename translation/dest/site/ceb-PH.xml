@@ -92,6 +92,8 @@
   <string name="deleteThisImportedGame">Tangtangon ni nga nakuha nga duwa?</string>
   <string name="replayMode">Mode sa pagbalik-balik</string>
   <string name="realtimeReplay">Tinoud nga oras</string>
+  <string name="byCPL">Gikan sa CPL</string>
+  <string name="openStudy">Abli nga Pagtoun</string>
   <string name="players">Mga manuwaay</string>
   <string name="minutesPerSide">Minuto kada side</string>
   <string name="variant">Nagkalahi-lahi</string>
