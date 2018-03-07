@@ -40,7 +40,7 @@ final class ShutupApi(
   private def record(userId: String, text: String, textType: TextType, source: Option[PublicSource] = None, toUserId: Option[String] = None): Funit =
     UserRepo isTroll userId flatMap {
       case true => funit
-      case false => toUserId ?? { follows(userId, _) } flatMap {
+      case false => toUserId ?? { follows(_, userId) } flatMap {
         case true => funit
         case false =>
           val analysed = Analyser(text)
