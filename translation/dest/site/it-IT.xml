@@ -171,7 +171,7 @@
   <string name="email">Email</string>
   <string name="passwordReset">Reimpostare la password</string>
   <string name="forgotPassword">Password dimenticata?</string>
-  <string name="rank">Livello</string>
+  <string name="rank">Posizione</string>
   <string name="rankX">Posizione: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">La posizione viene aggiornata ogni %s minuti</string>
   <plurals name="nbPuzzles">
@@ -388,8 +388,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="join">Unisciti</string>
   <string name="withdraw">Ritirati</string>
   <string name="points">Punti</string>
-  <string name="wins">Vinte</string>
-  <string name="losses">Perse</string>
+  <string name="wins">Vittorie</string>
+  <string name="losses">Sconfitte</string>
   <string name="winStreak">Vinte consecutivamente</string>
   <string name="createdBy">Creato da</string>
   <string name="tournamentIsStarting">Sta per iniziare il torneo</string>
@@ -409,7 +409,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="averageOpponent">Punteggio medio degli avversari</string>
   <string name="membersOnly">Solo per iscritti</string>
   <string name="boardEditor">Editor scacchiera</string>
-  <string name="setTheBoard">Prepara la scacchiera</string>
+  <string name="setTheBoard">Imposta la scacchiera</string>
   <string name="popularOpenings">Aperture popolari</string>
   <string name="startPosition">Posizione iniziale</string>
   <string name="clearBoard">Svuota scacchiera</string>
