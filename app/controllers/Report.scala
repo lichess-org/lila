@@ -15,7 +15,8 @@ object Report extends LilaController {
   private def api = env.api
 
   def list = Secure(_.SeeReport) { implicit ctx => me =>
-    renderList(env.modFilters.get(me).fold("all")(_.key))
+    if (Env.streamer.liveStreamApi.isStreaming(me.id)) fuccess(Forbidden(html.mod.streaming()))
+    else renderList(env.modFilters.get(me).fold("all")(_.key))
   }
 
   def listWithFilter(room: String) = Secure(_.SeeReport) { implicit ctx => me =>

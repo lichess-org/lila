@@ -240,7 +240,8 @@ object User extends LilaController {
   }
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx => me =>
-    OptionFuOk(UserRepo named username) { user =>
+    if (Env.streamer.liveStreamApi.isStreaming(me.id)) fuccess(Ok("Disabled while streaming"))
+    else OptionFuOk(UserRepo named username) { user =>
       UserRepo.emails(user.id) zip
         (Env.security userSpy user) zip
         Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) zip
