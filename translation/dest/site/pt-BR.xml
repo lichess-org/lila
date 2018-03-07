@@ -323,11 +323,11 @@
   <string name="teamRecentMembers">Últimos membros</string>
   <string name="xJoinedTeamY">%1$s juntou-se à equipe %2$s</string>
   <string name="xCreatedTeamY">%1$s criou a equipe %2$s</string>
-  <string name="averageElo">Pontuação média</string>
+  <string name="averageElo">Média de classificação</string>
   <string name="location">Localização</string>
   <string name="settings">Configurações</string>
   <string name="filterGames">Filtrar partidas</string>
-  <string name="reset">Voltar ao original</string>
+  <string name="reset">Reiniciar</string>
   <string name="apply">Aplicar</string>
   <string name="leaderboard">Classificação</string>
   <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
