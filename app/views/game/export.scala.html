@@ -1,11 +1,11 @@
-@(userId: String, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
+@(form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
 
 @auth.layout(
 title = trans.exportGames.txt()) {
 <div class="content_box small_box signup">
   <div class="signup_box">
     <h1 class="lichess_title">@trans.exportGames()</h1>
-    <form action="@routes.Game.exportConfirm(userId)" method="POST">
+    <form action="@routes.Game.exportConfirm" method="POST">
       <ul>
         <li>
           @base.captcha(form("move"), form("gameId"), captcha)

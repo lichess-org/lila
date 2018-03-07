@@ -15,8 +15,9 @@ GET   /games/search                    controllers.Search.index(page: Int ?= 1)
 GET   /games/export/search             controllers.Search.export
 
 # Game
-GET   /games/export-form/:user         controllers.Game.export(user: String)
-POST  /games/export/:user              controllers.Game.exportConfirm(user: String)
+GET   /games/export-form               controllers.Game.exportForm
+POST  /games/export/mine               controllers.Game.exportConfirm
+GET   /games/export/mine               controllers.Game.exportApi
 
 # TV
 GET   /tv                              controllers.Tv.index

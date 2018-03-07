@@ -20,31 +20,34 @@ object Game extends LilaController {
     }
   }
 
-  def export(user: String) = Auth { implicit ctx => _ =>
+  def exportForm = Auth { implicit ctx => me =>
     Env.security.forms.emptyWithCaptcha map {
-      case (form, captcha) => Ok(html.game.export(user, form, captcha))
+      case (form, captcha) => Ok(html.game.export(form, captcha))
     }
   }
 
-  def exportConfirm(user: String) = AuthBody { implicit ctx => me =>
+  def exportConfirm = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    val userId = user.toLowerCase
-    if (me.id == userId)
-      Env.security.forms.empty.bindFromRequest.fold(
-        err => Env.security.forms.anyCaptcha map { captcha =>
-          BadRequest(html.game.export(userId, err, captcha))
-        },
-        _ => fuccess {
-          import org.joda.time.DateTime
-          import org.joda.time.format.DateTimeFormat
-          val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-          Ok.chunked(Env.api.pgnDump exportUserGames userId).withHeaders(
-            CONTENT_TYPE -> pgnContentType,
-            CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${me.username}_$date.pgn")
-          )
-        }
-      )
-    else notFound
+    Env.security.forms.empty.bindFromRequest.fold(
+      err => Env.security.forms.anyCaptcha map { captcha =>
+        BadRequest(html.game.export(err, captcha))
+      },
+      _ => fuccess(streamGamesPgn(me))
+    )
+  }
+
+  def exportApi = Auth { implicit ctx => me =>
+    fuccess(streamGamesPgn(me))
+  }
+
+  private def streamGamesPgn(user: lila.user.User) = {
+    import org.joda.time.DateTime
+    import org.joda.time.format.DateTimeFormat
+    val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
+    Ok.chunked(Env.api.pgnDump exportUserGames user.id).withHeaders(
+      CONTENT_TYPE -> pgnContentType,
+      CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${user.username}_$date.pgn")
+    )
   }
 
   private[controllers] def preloadUsers(game: GameModel): Funit =
