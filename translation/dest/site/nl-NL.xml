@@ -194,6 +194,7 @@
   <string name="accept">Accepteren</string>
   <string name="decline">Afwijzen</string>
   <string name="playingRightNow">Nu aan het spelen</string>
+  <string name="eventInProgress">Nu aan het spelen</string>
   <string name="finished">Afgelopen</string>
   <string name="abortGame">Partij afbreken</string>
   <string name="gameAborted">Partij afgebroken</string>
@@ -202,6 +203,8 @@
   <string name="mode">Instelling</string>
   <string name="casual">Vrijblijvend</string>
   <string name="rated">Met rating</string>
+  <string name="casualTournament">Zonder rating</string>
+  <string name="ratedTournament">Met rating</string>
   <string name="thisGameIsRated">Deze partij telt mee voor rating</string>
   <string name="rematch">Opnieuw spelen</string>
   <string name="rematchOfferSent">Uitnodiging voor nieuwe partij verstuurd</string>
@@ -622,6 +625,7 @@
   <string name="videoLibrary">Videobibliotheek</string>
   <string name="mobileApp">Mobiele app</string>
   <string name="webmasters">Webmasters</string>
+  <string name="about">Over ons</string>
   <string name="contribute">Draag bij</string>
   <string name="contact">Contact</string>
   <string name="termsOfService">Algemene voorwaarden</string>
@@ -741,6 +745,9 @@
   <string name="pieceSet">Schaakstukken</string>
   <string name="embedInYourWebsite">Insluiten in uw website</string>
   <string name="usernameAlreadyUsed">Deze naam is al in gebruik, probeer a.u.b. een andere naam.</string>
+  <string name="usernamePrefixInvalid">De gebruikersnaam moet met een letter beginnen.</string>
+  <string name="usernameSuffixInvalid">De gebruikersnaam moet eindigen met een letter of een cijfer.</string>
+  <string name="usernameCharsInvalid">De gebruikersnaam mag alleen letters, cijfers, underscores, en koppeltekens bevatten.</string>
   <string name="usernameUnacceptable">Deze gebruikersnaam is niet acceptabel.</string>
   <string name="directlySupportLichess">Lichess direct ondersteunen</string>
   <string name="playChessInStyle">Speel schaken in stijl</string>
@@ -771,6 +778,7 @@
   <string name="whiteWinsGame">Wit wint</string>
   <string name="blackWinsGame">Zwart wint</string>
   <string name="learnFromYourMistakes">Leren van je fouten</string>
+  <string name="learnFromThisMistake">Leer van deze fout</string>
   <string name="skipThisMove">Deze zet overslaan</string>
   <string name="next">Volgende</string>
   <string name="xWasPlayed">%s werd gespeeld</string>
@@ -793,4 +801,6 @@
   <string name="opening">Opening</string>
   <string name="middlegame">Middenspel</string>
   <string name="endgame">Eindspel</string>
+  <string name="youCannotChallengeX">Je kan %s niet uitdagen.</string>
+  <string name="addCurrentVariation">Voeg huidige variant toe</string>
 </resources>
