@@ -56,7 +56,7 @@
   <string name="showThreat">Drohungen zeigen</string>
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
-  <string name="promoteVariation">Variante hervorheben</string>
+  <string name="promoteVariation">Variante aufwerten</string>
   <string name="makeMainLine">Zur Hauptvariante machen</string>
   <string name="deleteFromHere">Ab hier löschen</string>
   <string name="move">Zug</string>
