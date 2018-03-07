@@ -4,8 +4,8 @@ import reactivemongo.bson._
 
 import lila.db.dsl._
 import lila.game.GameRepo
-import lila.user.UserRepo
 import lila.hub.actorApi.shutup.PublicSource
+import lila.user.UserRepo
 
 final class ShutupApi(
     coll: Coll,
@@ -28,10 +28,10 @@ final class ShutupApi(
   def publicChat(userId: String, text: String, source: PublicSource) = record(userId, text, TextType.PublicChat, source.some)
 
   def privateChat(chatId: String, userId: String, text: String) =
-    GameRepo.getUserIds(chatId) map {
-      _ find (userId !=)
-    } flatMap {
-      record(userId, text, TextType.PrivateChat, none, _)
+    GameRepo.getSourceAndUserIds(chatId).thenPp flatMap {
+      case (source, _) if source.has(lila.game.Source.Friend) => funit // ignore challenges
+      case (_, userIds) =>
+        record(userId, text, TextType.PrivateChat, none, userIds find (userId !=))
     }
 
   def privateMessage(userId: String, toUserId: String, text: String) =

@@ -409,8 +409,13 @@ object GameRepo {
         F.createdAt $gt since
       )).list[Game](nb, ReadPreference.secondaryPreferred)
 
-  def getUserIds(id: ID): Fu[List[User.ID]] =
-    coll.primitiveOne[List[User.ID]]($id(id), F.playerUids) map (~_)
+  def getSourceAndUserIds(id: ID): Fu[(Option[Source], List[User.ID])] =
+    coll.uno[Bdoc]($id(id), $doc(F.playerUids -> true, F.source -> true)) map {
+      _.fold(none[Source] -> List.empty[User.ID]) { doc =>
+        (doc.getAs[Int](F.source) flatMap Source.apply,
+          ~doc.getAs[List[User.ID]](F.playerUids))
+      }
+    }
 
   def recentAnalysableGamesByUserId(userId: User.ID, nb: Int) =
     coll.find(
