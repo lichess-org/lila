@@ -1,5 +1,7 @@
 package controllers
 
+import scala.concurrent.duration._
+
 import lila.app._
 import lila.game.{ GameRepo, Game => GameModel }
 import views._
@@ -40,15 +42,23 @@ object Game extends LilaController {
     fuccess(streamGamesPgn(me))
   }
 
-  private def streamGamesPgn(user: lila.user.User) = {
-    import org.joda.time.DateTime
-    import org.joda.time.format.DateTimeFormat
-    val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-    Ok.chunked(Env.api.pgnDump exportUserGames user.id).withHeaders(
-      CONTENT_TYPE -> pgnContentType,
-      CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${user.username}_$date.pgn")
-    )
-  }
+  private val ExportRateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+    credits = 10,
+    duration = 1 day,
+    name = "game export per user",
+    key = "game_export.user"
+  )
+
+  private def streamGamesPgn(user: lila.user.User) =
+    ExportRateLimitPerUser(user.id, cost = 1) {
+      import org.joda.time.DateTime
+      import org.joda.time.format.DateTimeFormat
+      val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
+      Ok.chunked(Env.api.pgnDump exportUserGames user.id).withHeaders(
+        CONTENT_TYPE -> pgnContentType,
+        CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${user.username}_$date.pgn")
+      )
+    }
 
   private[controllers] def preloadUsers(game: GameModel): Funit =
     Env.user.lightUserApi preloadMany game.userIds
