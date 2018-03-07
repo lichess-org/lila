@@ -1,7 +1,7 @@
 package lila.chat
 
 import lila.user.User
-import lila.hub.actorApi.shutup.PublicSource
+import lila.hub.actorApi.shutup.Source
 
 sealed trait AnyChat {
   def id: Chat.Id
@@ -83,10 +83,10 @@ object Chat {
 
   case class Id(value: String) extends AnyVal with StringValue
 
-  case class Setup(id: Id, publicSource: PublicSource)
+  case class Setup(id: Id, publicSource: Source.PublicSource)
 
-  def tournamentSetup(tourId: String) = Setup(Id(tourId), PublicSource.Tournament(tourId))
-  def simulSetup(simulId: String) = Setup(Id(simulId), PublicSource.Simul(simulId))
+  def tournamentSetup(tourId: String) = Setup(Id(tourId), Source.Tournament(tourId))
+  def simulSetup(simulId: String) = Setup(Id(simulId), Source.Simul(simulId))
 
   // if restricted, only presets are available
   case class Restricted(chat: MixedChat, restricted: Boolean)

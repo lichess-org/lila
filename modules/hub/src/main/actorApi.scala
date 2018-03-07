@@ -58,15 +58,25 @@ package shutup {
   case class RecordPublicForumMessage(userId: String, text: String)
   case class RecordTeamForumMessage(userId: String, text: String)
   case class RecordPrivateMessage(userId: String, toUserId: String, text: String)
-  case class RecordPrivateChat(chatId: String, userId: String, text: String)
-  case class RecordPublicChat(userId: String, text: String, source: PublicSource)
+  case class RecordPlayerChat(chatId: String, userId: String, text: String)
+  case class RecordPublicChat(userId: String, text: String, source: Source.PublicSource)
 
-  sealed trait PublicSource
-  object PublicSource {
+  trait Source {
+    def isPublic: Boolean
+  }
+  object Source {
+    sealed trait PublicSource extends Source {
+      val isPublic = true
+    }
+    sealed trait PrivateSource extends Source {
+      val isPublic = false
+    }
     case class Tournament(id: String) extends PublicSource
     case class Simul(id: String) extends PublicSource
     case class Study(id: String) extends PublicSource
     case class Watcher(gameId: String) extends PublicSource
+    case object Player extends PrivateSource
+    case object PM extends PrivateSource
   }
 }
 

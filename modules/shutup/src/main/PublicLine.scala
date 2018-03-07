@@ -1,11 +1,11 @@
 package lila.shutup
 
 import org.joda.time.DateTime
-import lila.hub.actorApi.shutup.{ PublicSource => Source }
+import lila.hub.actorApi.shutup.Source
 
 case class PublicLine(
     text: String,
-    from: Option[Source],
+    from: Option[Source.PublicSource],
     date: Option[DateTime]
 )
 
@@ -16,15 +16,15 @@ object PublicLine {
 
   import reactivemongo.bson._
   import lila.db.dsl._
-  private implicit val SourceHandler = new BSONHandler[BSONString, Source] {
-    def read(bs: BSONString): Source = bs.value split ':' match {
+  private implicit val SourceHandler = new BSONHandler[BSONString, Source.PublicSource] {
+    def read(bs: BSONString): Source.PublicSource = bs.value split ':' match {
       case Array("t", id) => Source.Tournament(id)
       case Array("s", id) => Source.Simul(id)
       case Array("w", gameId) => Source.Watcher(gameId)
       case Array("u", id) => Source.Study(id)
       case a => sys error s"Invalid PublicLine source ${bs.value}"
     }
-    def write(x: Source) = BSONString {
+    def write(x: Source.PublicSource) = BSONString {
       x match {
         case Source.Tournament(id) => s"t:$id"
         case Source.Simul(id) => s"s:$id"

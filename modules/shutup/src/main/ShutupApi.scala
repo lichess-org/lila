@@ -5,7 +5,7 @@ import reactivemongo.bson._
 import lila.db.dsl._
 import lila.game.GameRepo
 import lila.user.UserRepo
-import lila.hub.actorApi.shutup.PublicSource
+import lila.hub.actorApi.shutup.Source
 
 final class ShutupApi(
     coll: Coll,
@@ -25,19 +25,19 @@ final class ShutupApi(
 
   def publicForumMessage(userId: String, text: String) = record(userId, text, TextType.PublicForumMessage)
   def teamForumMessage(userId: String, text: String) = record(userId, text, TextType.TeamForumMessage)
-  def publicChat(userId: String, text: String, source: PublicSource) = record(userId, text, TextType.PublicChat, source.some)
+  def publicChat(userId: String, text: String, source: Source.PublicSource) = record(userId, text, TextType.PublicChat, source.some)
 
   def privateChat(chatId: String, userId: String, text: String) =
     GameRepo.getUserIds(chatId) map {
       _ find (userId !=)
     } flatMap {
-      record(userId, text, TextType.PrivateChat, none, _)
+      record(userId, text, TextType.PrivateChat, Source.Player, _)
     }
 
   def privateMessage(userId: String, toUserId: String, text: String) =
-    record(userId, text, TextType.PrivateMessage, none, toUserId.some)
+    record(userId, text, TextType.PrivateMessage, Source.PM, toUserId.some)
 
-  private def record(userId: String, text: String, textType: TextType, source: Option[PublicSource] = None, toUserId: Option[String] = None): Funit =
+  private def record(userId: String, text: String, textType: TextType, source: Source, toUserId: Option[String] = None): Funit =
     UserRepo isTroll userId flatMap {
       case true => funit
       case false => toUserId ?? { follows(userId, _) } flatMap {
