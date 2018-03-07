@@ -424,7 +424,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Primeiro nome</string>
-  <string name="lastName">Último nome</string>
+  <string name="lastName">Sobrenome</string>
   <string name="biography">Biografia</string>
   <string name="country">País</string>
   <string name="preferences">Preferências</string>
@@ -439,7 +439,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="yourPuzzleRatingX">Sua classificação de quebra-cabeças: %s</string>
   <string name="findTheBestMoveForWhite">Procure o melhor lance para as brancas.</string>
   <string name="findTheBestMoveForBlack">Procure a melhor jogada para as pretas.</string>
-  <string name="toTrackYourProgress">Para acompanhar seu progresso</string>
+  <string name="toTrackYourProgress">Acompanhe seu progresso:</string>
   <string name="trainingSignupExplanation">O Lichess fornecerá quebra-cabeças que correspondem a sua habilidade, para fazer melhores sessões de treino.</string>
   <string name="puzzleId">Quebra-cabeça %s</string>
   <string name="puzzleOfTheDay">Quebra-cabeça do dia</string>
@@ -821,8 +821,8 @@ em %3$s</string>
   <string name="registerToSendChallenges">Por favor, registre-se para enviar desafios.</string>
   <string name="youCannotChallengeX">Você não pode desafiar %s.</string>
   <string name="xDoesNotAcceptChallenges">%s não aceita desafios.</string>
-  <string name="yourXRatingIsTooFarFromY">O seu %1$s rating está muito diferente de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Não pode desafiar devido ao rating provisório de %s.</string>
+  <string name="yourXRatingIsTooFarFromY">A sua classificação %1$s é muito diferente de %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Não pode desafiar devido a pontuação provisória de %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s só aceita desafios de amigos.</string>
   <string name="conditionalPremoves">Pré-lances condicionais</string>
   <string name="addCurrentVariation">Adicionar a variação atual</string>
