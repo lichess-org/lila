@@ -49,13 +49,15 @@
   <string name="computerAnalysisAvailable">Computeranalyse beschikbaar</string>
   <string name="analysis">Analyse</string>
   <string name="depthX">Diepte %s</string>
-  <string name="usingServerAnalysis">Met behulp van server-analyse</string>
+  <string name="usingServerAnalysis">Met serveranalyse</string>
   <string name="loadingEngine">Laden van computer...</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Dieper gaan</string>
   <string name="showThreat">Toon bedreiging</string>
   <string name="inLocalBrowser">in lokale browser</string>
   <string name="toggleLocalEvaluation">Lokale evaluatie aan-/uitzetten</string>
+  <string name="promoteVariation">Promoveer variant</string>
+  <string name="makeMainLine">Promoveer tot hoofdvariant</string>
   <string name="move">Zet</string>
   <string name="variantLoss">Variantverlies</string>
   <string name="variantWin">Variantoverwinning</string>
@@ -764,6 +766,10 @@
   <string name="notifications">Meldingen</string>
   <string name="challenges">Uitdagingen</string>
   <string name="perfRatingX">Rating: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s seconde om de eerste zet te spelen</item>
+    <item quantity="other">%s seconden om de eerste zet te spelen</item>
+  </plurals>
   <string name="practiceWithComputer">Oefen met de computer</string>
   <string name="anotherWasX">Een andere mogelijkheid was %s</string>
   <string name="bestWasX">De beste zet was %s</string>
@@ -798,9 +804,20 @@
   <string name="reviewWhiteMistakes">Bekijk fouten van wit</string>
   <string name="reviewBlackMistakes">Bekijk fouten van zwart</string>
   <string name="advantage">Voordeel</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s seconde</item>
+    <item quantity="other">%s seconden</item>
+  </plurals>
   <string name="opening">Opening</string>
   <string name="middlegame">Middenspel</string>
   <string name="endgame">Eindspel</string>
+  <string name="registerToSendChallenges">Gelieve te registreren om uitdagingen te versturen.</string>
   <string name="youCannotChallengeX">Je kan %s niet uitdagen.</string>
+  <string name="xDoesNotAcceptChallenges">%s accepteert geen uitdagingen.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan niet uitdagen vanwege de provisionele %s rating.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s accepteert alleen uitdagingen van vrienden.</string>
+  <string name="conditionalPremoves">Voorwaardelijke premoves</string>
   <string name="addCurrentVariation">Voeg huidige variant toe</string>
+  <string name="playVariationToCreateConditionalPremoves">Speel een variant om voorwaardelijke premoves te maken</string>
+  <string name="noConditionalPremoves">Geen voorwaardelijke premoves</string>
 </resources>
