@@ -604,6 +604,7 @@
   <string name="videoLibrary">チェスの動画集</string>
   <string name="mobileApp">モバイルアプリ</string>
   <string name="webmasters">ウェブ管理者</string>
+  <string name="about">Lichess概要</string>
   <string name="contribute">力を貸す</string>
   <string name="contact">連絡先</string>
   <string name="termsOfService">利用規約</string>
