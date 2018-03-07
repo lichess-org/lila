@@ -634,6 +634,7 @@ in %3$s</string>
   <string name="videoLibrary">Libreria video</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmasters</string>
+  <string name="about">Info su</string>
   <string name="contribute">Contribuisci</string>
   <string name="contact">Contattaci</string>
   <string name="termsOfService">Termini di Servizio</string>
@@ -753,6 +754,9 @@ in %3$s</string>
   <string name="pieceSet">Set pezzi</string>
   <string name="embedInYourWebsite">Incorpora nel tuo sito Web</string>
   <string name="usernameAlreadyUsed">Questo nome è già in uso. Prego sceglierne un altro.</string>
+  <string name="usernamePrefixInvalid">Il nome utente deve iniziare con una lettera.</string>
+  <string name="usernameSuffixInvalid">Il nome utente deve terminare con una lettera o un numero.</string>
+  <string name="usernameCharsInvalid">Il nome utente deve contenere solo lettere, numeri, underscore e trattini.</string>
   <string name="usernameUnacceptable">Questo nome utente non è permesso.</string>
   <string name="directlySupportLichess">Supporta direttamente Lichess</string>
   <string name="playChessInStyle">Gioca a scacchi con stile</string>
