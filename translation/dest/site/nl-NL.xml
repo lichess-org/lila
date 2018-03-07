@@ -58,6 +58,7 @@
   <string name="toggleLocalEvaluation">Lokale evaluatie aan-/uitzetten</string>
   <string name="promoteVariation">Promoveer variant</string>
   <string name="makeMainLine">Promoveer tot hoofdvariant</string>
+  <string name="deleteFromHere">Verwijder vanaf hier</string>
   <string name="move">Zet</string>
   <string name="variantLoss">Variantverlies</string>
   <string name="variantWin">Variantoverwinning</string>
@@ -84,7 +85,7 @@
     <item quantity="other">Volgende slag- of pionzet in %s halfzetten (afstand tot het herstellen van de vijftig zetten teller)</item>
   </plurals>
   <string name="noGameFound">Geen partij gevonden</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via de menu voorkeuren?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via het voorkeuren-menu?</string>
   <string name="openingExplorer">Openingverkenner &amp; tablebase</string>
   <string name="xOpeningExplorer">%s openingsverkenner</string>
   <string name="winPreventedBy50MoveRule">Winst voorkomen door vijftig-zetten regel</string>
@@ -272,6 +273,10 @@
   <string name="tournament">Toernooi</string>
   <string name="tournaments">Toernooien</string>
   <string name="tournamentPoints">Toernooipunten</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s toernooipunt</item>
+    <item quantity="other">%s toernooipunten</item>
+  </plurals>
   <string name="viewTournament">Bekijk het toernooi</string>
   <string name="backToTournament">Terug naar het toernooi</string>
   <string name="thematic">Thematisch</string>
@@ -472,17 +477,17 @@
   <string name="no">Nee</string>
   <string name="yes">Ja</string>
   <string name="help">Help:</string>
-  <string name="createANewTopic">Maak een nieuw topic</string>
-  <string name="topics">Topics</string>
+  <string name="createANewTopic">Maak een nieuw onderwerp</string>
+  <string name="topics">Onderwerpen</string>
   <string name="posts">Berichten</string>
   <string name="lastPost">Laatste bericht</string>
   <string name="views">Weergaven</string>
-  <string name="replies">Antwoorden</string>
-  <string name="replyToThisTopic">Beantwoord dit topic</string>
-  <string name="reply">Beantwoord</string>
+  <string name="replies">Reacties</string>
+  <string name="replyToThisTopic">Reageer op dit onderwerp</string>
+  <string name="reply">Reageer</string>
   <string name="message">Bericht</string>
-  <string name="createTheTopic">Creëer je topic</string>
-  <string name="reportAUser">Een gebruiker aangeven</string>
+  <string name="createTheTopic">Maak een nieuw onderwerp</string>
+  <string name="reportAUser">Gebruiker melden</string>
   <string name="user">Gebruiker</string>
   <string name="reason">Reden</string>
   <string name="whatIsIheMatter">Wat is er aan de hand?</string>
@@ -492,7 +497,7 @@
   <string name="other">Anders</string>
   <string name="reportDescriptionHelp">Plak de link naar de partij(en) en leg uit wat er mis is met het gedrag van de gebruiker. Zeg niet alleen \'hij speelt vals\', maar vertel ons hoe u bent gekomen op deze conclusie. Uw rapportage zal sneller worden verwerkt als het in het Engels is geschreven.</string>
   <string name="by">door %s</string>
-  <string name="thisTopicIsNowClosed">Dit topic is nu gesloten.</string>
+  <string name="thisTopicIsNowClosed">Dit onderwerp is nu gesloten.</string>
   <string name="theming">Thema</string>
   <string name="donate">Doneer</string>
   <string name="blog">Blog</string>
@@ -513,7 +518,7 @@
   <string name="newPassword">Nieuw wachtwoord</string>
   <string name="newPasswordAgain">Nieuw wachtwoord (opnieuw)</string>
   <string name="boardHighlights">Bord laten oplichten (laatste zet en schaak)</string>
-  <string name="pieceDestinations">Bestemming van het stuk (geldige zetten en vooraf-zetten)</string>
+  <string name="pieceDestinations">Bestemming van het stuk (geldige zetten en premoves)</string>
   <string name="boardCoordinates">Bordcoördinaten (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Zetnotatie zichtbaar tijdens partij</string>
   <string name="pgnPieceNotation">Stuknotatie in PGN</string>
