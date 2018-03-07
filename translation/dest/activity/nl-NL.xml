@@ -8,7 +8,7 @@
     <item quantity="other">Beoefend %1$s posities van %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">%s tactische puzzels opgelost</item>
+    <item quantity="one">%s tactische puzzel opgelost</item>
     <item quantity="other">%s tactische puzzels opgelost</item>
   </plurals>
   <plurals name="playedNbGames">
@@ -21,18 +21,18 @@
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Speelde %1$s zet in %2$s correspondentie partij(en)</item>
-    <item quantity="other">Speelde %1$s zettten in %2$s correspondentie partij(en)</item>
+    <item quantity="other">Speelde %1$s zetten in %2$s correspondentiepartij(en)</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Voltooide %s correspondentie partij</item>
-    <item quantity="other">Voltooide %s correspondentie partijen</item>
+    <item quantity="one">Voltooide %s correspondentiepartij</item>
+    <item quantity="other">Voltooide %s correspondentiepartijen</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Begon %s speler te volgen</item>
     <item quantity="other">Begon %s spelers te volgen</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">%s nieuwe volgers verworven</item>
+    <item quantity="one">%s nieuwe volger verworven</item>
     <item quantity="other">%s nieuwe volgers verworven</item>
   </plurals>
   <plurals name="hostedNbSimuls">
@@ -45,7 +45,7 @@
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">%s nieuwe studie aangemaakt</item>
-    <item quantity="other">%s nieuwe studie aangemaakt</item>
+    <item quantity="other">%s nieuwe studies aangemaakt</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Nam deel in %s toernooi</item>
@@ -55,7 +55,7 @@
     <item quantity="one">Eindigde #%1$s (top %2$s%%) met %3$s partij in %4$s</item>
     <item quantity="other">Eindigde #%1$s (top %2$s%%) met %3$s partijen in %4$s</item>
   </plurals>
-  <string name="signedUp">Registreerde op lichess.org</string>
+  <string name="signedUp">Geregistreerd op lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Sloot zich aan bij %s team</item>
     <item quantity="other">Sloot zich aan bij %s teams</item>
