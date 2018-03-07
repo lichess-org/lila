@@ -51,7 +51,7 @@ function podiumUsername(p) {
 function podiumStats(p, trans): VNode {
   const noarg = trans.noarg, nb = p.nb;
   return h('table.stats', [
-    p.performance ? h('tr', [h('th', 'Performance'), h('td', p.performance)]) : null,
+    p.performance ? h('tr', [h('th', noarg('performance')), h('td', p.performance)]) : null,
     h('tr', [h('th', noarg('gamesPlayed')), h('td', nb.game)]),
     ...(nb.game ? [
       h('tr', [h('th', noarg('winRate')), h('td', ratio2percent(nb.win / nb.game))]),
