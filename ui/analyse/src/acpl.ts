@@ -1,5 +1,5 @@
 import { h, thunk } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import { VNode, VNodeData } from 'snabbdom/vnode'
 import { AnalyseData, MaybeVNode } from './interfaces';
 import AnalyseCtrl from './ctrl';
 import { game } from 'game';
@@ -47,7 +47,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
     h('tbody',
       advices.map(a => {
         const nb: number = d.analysis![color][a[0]];
-        const attrs = nb ? {
+        const attrs: VNodeData = nb ? {
           'data-color': color,
           'data-symbol': a[2]
         } : {};
