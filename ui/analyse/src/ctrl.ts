@@ -120,11 +120,11 @@ export default class AnalyseCtrl {
     this.initialPath = treePath.root;
 
     if (opts.initialPly) {
-      const loc = window.location;
-      const locationHash = loc.hash;
-      const plyStr = opts.initialPly === 'url' ? (locationHash || '').replace(/#/, '') : opts.initialPly;
+      const loc = window.location,
+      intHash = parseInt(loc.hash.substr(1)),
+      plyStr = opts.initialPly === 'url' ? (intHash || '') : opts.initialPly;
       // remove location hash - http://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
-      if (locationHash) window.history.pushState("", document.title, loc.pathname + loc.search);
+      if (intHash) window.history.pushState("", document.title, loc.pathname + loc.search);
       const mainline = treeOps.mainlineNodeList(this.tree.root);
       if (plyStr === 'last') this.initialPath = treePath.fromNodeList(mainline);
       else {
