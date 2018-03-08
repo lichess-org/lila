@@ -124,8 +124,8 @@
   </plurals>
   <string name="currentGames">Lopende partijen</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Partij</item>
-    <item quantity="other">%s Partijen</item>
+    <item quantity="one">%s partij</item>
+    <item quantity="other">%s partijen</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Favoriet</item>
