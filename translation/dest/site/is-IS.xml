@@ -54,6 +54,8 @@
   <string name="cloudAnalysis">Greining í skýi</string>
   <string name="goDeeper">Fara dýpra</string>
   <string name="showThreat">Sýna ógn</string>
+  <string name="move">Færa</string>
+  <string name="unknown">Óþekktur</string>
   <string name="openingExplorer">Skoða opnanir</string>
   <string name="blunders">Afleikir</string>
   <string name="mistakes">Mistök</string>
@@ -323,6 +325,7 @@
   <string name="keepGoing">Haltu áfram...</string>
   <string name="puzzleFailed">Rangt svar</string>
   <string name="butYouCanKeepTrying">En þú getur haldið áfram að reyna.</string>
+  <string name="success">Árangur</string>
   <string name="wasThisPuzzleAnyGood">Var þessi þraut góð?</string>
   <string name="pleaseVotePuzzle">Hjálpaðu lichess að bæta sig með því að kjósa, notaðu upp og niður örvarnar:</string>
   <string name="thankYou">Takk fyrir!</string>
@@ -428,6 +431,7 @@
   <string name="xAnsweredY">%1$s svaraði %2$s</string>
   <string name="xCommentedY">%1$s skrifaði %2$s</string>
   <string name="victory">Sigur!</string>
+  <string name="defeat">Ósigur</string>
   <string name="timeline">Tímalína</string>
   <string name="seeAllTournaments">Sjá öll skákmót</string>
   <string name="starting">Hefst:</string>
@@ -454,6 +458,7 @@
   <string name="playOnTheBoardOffline">Yfir borðið</string>
   <string name="playOfflineComputer">Skáktölva</string>
   <string name="opponent">Andstæðingur</string>
+  <string name="learnMenu">Læra</string>
   <string name="community">Samfélag</string>
   <string name="tools">Tól</string>
   <string name="increment">Aukning</string>
@@ -568,4 +573,6 @@
     <item quantity="other">Til á %s tungumálum</item>
   </plurals>
   <string name="gameAnalysis">Leikgreining</string>
+  <string name="language">Tungumál</string>
+  <string name="error.unknown">Villa</string>
 </resources>
