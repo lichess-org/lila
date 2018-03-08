@@ -123,15 +123,8 @@ function studyButton(ctrl: AnalyseCtrl) {
 }
 
 export class Ctrl {
-  open: boolean;
-
-  constructor() {
-    this.open = location.hash === '#menu';
-  }
-
-  toggle(): void {
-    this.open = !this.open;
-  }
+  open: boolean = false;
+  toggle = () => this.open = !this.open;
 }
 
 export function view(ctrl: AnalyseCtrl): VNode {

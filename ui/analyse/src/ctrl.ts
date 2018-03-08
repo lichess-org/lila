@@ -143,6 +143,7 @@ export default class AnalyseCtrl {
     this.studyPractice = this.study ? this.study.practice : undefined;
 
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice)) this.togglePractice();
+    else if (location.hash === '#menu') li.requestIdleCallback(this.actionMenu.toggle);
 
     keyboard.bind(this);
 
