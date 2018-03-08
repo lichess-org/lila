@@ -61,7 +61,7 @@ object Environment
     lila.chat.Env.current.panic.enabled
 
   def NotForKids[Html](f: => Html)(implicit ctx: lila.api.Context) =
-    if (ctx.kid) Html("") else f
+    if (ctx.kid) emptyHtml else f
 
   def signalBars(v: Int) = Html {
     val bars = (1 to 4).map { b =>

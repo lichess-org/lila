@@ -10,7 +10,8 @@ trait StringHelper { self: NumberHelper =>
 
   def netDomain: String
 
-  implicit val LilaHtmlZero: Zero[Html] = Zero.instance(Html(""))
+  val emptyHtml = Html("")
+  implicit val LilaHtmlZero: Zero[Html] = Zero.instance(emptyHtml)
 
   val slugify = lila.common.String.slugify _
 

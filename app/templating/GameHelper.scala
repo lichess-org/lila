@@ -134,7 +134,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         val klass = userClass(user.id, cssClass, withOnline)
         val href = s"${routes.User show user.name}${if (mod) "?mod" else ""}"
         val content = playerUsername(player, withRating)
-        val diff = (player.ratingDiff ifTrue withDiff).fold(Html(""))(showRatingDiff)
+        val diff = (player.ratingDiff ifTrue withDiff).fold(emptyHtml)(showRatingDiff)
         val mark = engine ?? s"""<span class="engine_mark" title="${I18nKeys.thisPlayerUsesChessComputerAssistance()}"></span>"""
         val icon = withOnline ?? lineIcon(user)
         val space = if (withOnline) "&nbsp;" else ""
@@ -170,7 +170,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case chess.variant.RacingKings => I18nKeys.raceFinished()
       case _ => I18nKeys.variantEnding()
     }
-    case _ => Html("")
+    case _ => emptyHtml
   }
 
   private def gameTitle(game: Game, color: Color): String = {
