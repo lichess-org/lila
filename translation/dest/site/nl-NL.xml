@@ -128,8 +128,8 @@
     <item quantity="other">%s partijen</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Favoriet</item>
-    <item quantity="other">%s Favorieten</item>
+    <item quantity="one">%s favoriet</item>
+    <item quantity="other">%s favorieten</item>
   </plurals>
   <string name="viewInFullSize">Bekijk op volledige grootte</string>
   <string name="logOut">Afmelden</string>
