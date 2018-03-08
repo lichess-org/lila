@@ -1,13 +1,13 @@
 module.exports = function(cfg, element) {
   var pools = [{id:"1+0",lim:1,inc:0,perf:"Bullet"},{id:"2+1",lim:2,inc:1,perf:"Bullet"},{id:"3+0",lim:3,inc:0,perf:"Blitz"},{"id":"3+2","lim":3,"inc":2,"perf":"Blitz"},{id:"5+0",lim:5,inc:0,perf:"Blitz"},{"id":"5+3","lim":5,"inc":3,"perf":"Blitz"},{id:"10+0",lim:10,inc:0,perf:"Rapid"},{id:"15+15",lim:15,inc:15,perf:"Classical"}];
   var lobby;
-  var nbRoundSpread = $.spreadNumber(
+  var nbRoundSpread = spreadNumber(
     document.querySelector('#nb_games_in_play span'),
     8,
     function() {
       return lichess.socket.pingInterval();
     });
-  var nbUserSpread = $.spreadNumber(
+  var nbUserSpread = spreadNumber(
     document.querySelector('#nb_connected_players > strong'),
     10,
     function() {
@@ -475,4 +475,27 @@ module.exports = function(cfg, element) {
 
     history.replaceState(null, null, '/');
   }
+};
+
+function spreadNumber(el, nbSteps, getDuration) {
+  var previous, displayed;
+  var display = function(prev, cur, it) {
+    var val = lichess.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
+    if (val !== displayed) {
+      el.textContent = val;
+      displayed = val;
+    }
+  };
+  var timeouts = [];
+  return function(nb, overrideNbSteps) {
+    if (!el || (!nb && nb !== 0)) return;
+    if (overrideNbSteps) nbSteps = Math.abs(overrideNbSteps);
+    timeouts.forEach(clearTimeout);
+    timeouts = [];
+    var prev = previous === 0 ? 0 : (previous || nb);
+    previous = nb;
+    var interv = Math.abs(getDuration() / nbSteps);
+    for (var i = 0; i < nbSteps; i++)
+      timeouts.push(setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv)));
+  };
 };

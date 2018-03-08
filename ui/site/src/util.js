@@ -389,7 +389,7 @@ lichess.redirect = function(obj) {
 lichess.reload = function() {
   if (lichess.redirectInProgress) return;
   lichess.hasToReload = true;
-  if (window.location.hash) location.reload();
+  if (location.hash) location.reload();
   else location.href = location.href;
 };
 lichess.escapeHtml = function(str) {
@@ -419,29 +419,6 @@ lichess.toYouTubeEmbedUrl = function(url) {
   });
   var params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=' + start;
   return 'https://www.youtube.com/embed/' + m[1] + '?' + params;
-};
-$.spreadNumber = function(el, nbSteps, getDuration, previous) {
-  var previous = previous,
-    displayed;
-  var display = function(prev, cur, it) {
-    var val = lichess.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
-    if (val !== displayed) {
-      el.textContent = val;
-      displayed = val;
-    }
-  };
-  var timeouts = [];
-  return function(nb, overrideNbSteps) {
-    if (!el || (!nb && nb !== 0)) return;
-    if (overrideNbSteps) nbSteps = Math.abs(overrideNbSteps);
-    timeouts.forEach(clearTimeout);
-    timeouts = [];
-    var prev = previous === 0 ? 0 : (previous || nb);
-    previous = nb;
-    var interv = Math.abs(getDuration() / nbSteps);
-    for (var i = 0; i < nbSteps; i++)
-      timeouts.push(setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv)));
-  };
 };
 $.fn.scrollTo = function(target, offsetTop) {
   return this.each(function() {
