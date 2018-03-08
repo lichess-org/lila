@@ -33,8 +33,8 @@ final class Env(
 
   lazy val pgnEncodingSetting = settingStore[String](
     "pgnEncodingSetting",
-    default = "none",
-    text = "Use Huffman encoding for game PGN [none|beta|all]".some
+    default = "thibault|revoof|isaacly", // `[a-h].*` for users starting with a,b,c...h
+    text = "Use Huffman encoding for game PGN [none|all|regex]".some
   )
 
   lazy val gameColl = db(CollectionGame)

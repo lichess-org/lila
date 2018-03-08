@@ -73,12 +73,12 @@ private object PgnStorage {
       castles: Castles // irrelevant after game ends
   )
 
-  private val betaTesters = Set("thibault", "revoof", "isaacly")
   private def shouldUseHuffman(variant: Variant, playerUserIds: List[lila.user.User.ID]) = variant.standard && {
     try {
       lila.game.Env.current.pgnEncodingSetting.get() match {
         case "all" => true
-        case "beta" if playerUserIds.exists(betaTesters.contains) => true
+        case "none" => false
+        case regex if playerUserIds.exists(_ matches regex) => true
         case _ => false
       }
     } catch {
