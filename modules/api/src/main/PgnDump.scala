@@ -1,10 +1,12 @@
 package lila.api
 
+import play.api.libs.iteratee._
+import org.joda.time.DateTime
+
 import chess.format.pgn.Pgn
 import lila.game.Game
 import lila.game.PgnDump.WithFlags
 import lila.game.{ GameRepo, Query }
-import play.api.libs.iteratee._
 
 final class PgnDump(
     dumper: lila.game.PgnDump,
@@ -27,10 +29,13 @@ final class PgnDump(
       }
     }
 
-  def exportUserGames(userId: String): Enumerator[String] = {
+  def exportUserGames(userId: String, since: Option[DateTime]): Enumerator[String] = {
     import reactivemongo.play.iteratees.cursorProducer
-    GameRepo.sortedCursor(Query user userId, Query.sortCreated).
-      enumerator() &> toPgn
+    import lila.db.dsl._
+    GameRepo.sortedCursor(
+      Query.user(userId) ++ since.??(Query.createdSince),
+      Query.sortCreated
+    ).enumerator() &> toPgn
   }
 
   def exportGamesFromIds(ids: List[String]): Enumerator[String] =

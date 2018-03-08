@@ -111,7 +111,7 @@ object Query {
   )
 
   lazy val sinceHordePawnsAreWhite: Bdoc =
-    F.createdAt $gt Game.hordeWhitePawnsSince
+    createdSince(Game.hordeWhitePawnsSince)
 
   val notFromPosition: Bdoc =
     F.variant $ne chess.variant.FromPosition.id

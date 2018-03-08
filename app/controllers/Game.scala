@@ -1,6 +1,8 @@
 package controllers
 
 import scala.concurrent.duration._
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 
 import lila.app._
 import lila.game.{ GameRepo, Game => GameModel }
@@ -34,12 +36,13 @@ object Game extends LilaController {
       err => Env.security.forms.anyCaptcha map { captcha =>
         BadRequest(html.game.export(err, captcha))
       },
-      _ => fuccess(streamGamesPgn(me))
+      _ => fuccess(streamGamesPgn(me, since = none))
     )
   }
 
   def exportApi = Auth { implicit ctx => me =>
-    fuccess(streamGamesPgn(me))
+    val since = getLong("since") map { ts => new DateTime(ts) }
+    fuccess(streamGamesPgn(me, since))
   }
 
   private val ExportRateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
@@ -49,12 +52,10 @@ object Game extends LilaController {
     key = "game_export.user"
   )
 
-  private def streamGamesPgn(user: lila.user.User) =
+  private def streamGamesPgn(user: lila.user.User, since: Option[DateTime]) =
     ExportRateLimitPerUser(user.id, cost = 1) {
-      import org.joda.time.DateTime
-      import org.joda.time.format.DateTimeFormat
       val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-      Ok.chunked(Env.api.pgnDump exportUserGames user.id).withHeaders(
+      Ok.chunked(Env.api.pgnDump.exportUserGames(user.id, since)).withHeaders(
         CONTENT_TYPE -> pgnContentType,
         CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${user.username}_$date.pgn")
       )
