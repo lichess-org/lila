@@ -529,14 +529,17 @@
   <plurals name="availableInNbLanguages">
     <item quantity="other">se sabji bau %s da</item>
   </plurals>
+  <string name="xLikesY">la\'o zoi. %1$s .zoi nelci la\'o zoi. %2$s .zoi</string>
   <string name="quickPairing">selsutra jivna</string>
   <string name="lobby">lo depstu</string>
   <string name="anonymous">cmecau</string>
   <string name="yourScore">veljvilai do fa li %S</string>
   <string name="language">lo bangu</string>
+  <string name="background">lo vinti\'e</string>
   <string name="light">tolmanku</string>
   <string name="dark">manku</string>
   <string name="transparent">guskli</string>
+  <string name="backgroundImageUrl">lo .urli be lo vinti\'e pixra</string>
   <string name="pieceSet">keirmu\'u morna</string>
   <string name="usernamePrefixInvalid">sarcu fa lo nu lo japcme cu se tolfa\'o lo vlale\'u</string>
   <string name="usernameSuffixInvalid">sarcu fa lo nu lo japcme cu se fanmo lo vlale\'u .a lo nacle\'u</string>
@@ -546,18 +549,24 @@
   <string name="chessBasics">lo jicmu be lo caxmati</string>
   <string name="coaches">lo te\'ictu</string>
   <string name="error.unknown">srera da</string>
+  <string name="notifications">lo notci</string>
   <string name="practiceWithComputer">crezenrapzu\'e se pi\'o lo skami</string>
   <string name="resumePractice">di\'a crezenrapzu\'e</string>
   <string name="seeBestMove">viska lo xagrai se zukte</string>
   <string name="hideBestMove">te mipri lo xagrai se zukte</string>
   <string name="whiteWinsGame">lo nu la blabi cu jinga</string>
   <string name="blackWinsGame">lo nu la xekri cu jinga</string>
+  <string name="learnFromYourMistakes">cilre fo lo se srera be do</string>
+  <string name="learnFromThisMistake">cilre fo ti noi se srera</string>
   <string name="next">bavla\'i</string>
   <string name="resumeLearning">di\'a cilre</string>
+  <string name="youCanDoBetter">do ka\'e zukte lo xagmau</string>
   <string name="solution">lo danfu</string>
   <string name="noMistakesFoundForWhite">na facki lo se srera be la blabi</string>
   <string name="noMistakesFoundForBlack">na facki lo se srera be la xekri</string>
   <string name="doItAgain">za\'u re\'u zukte</string>
+  <string name="reviewWhiteMistakes">catlu lo se srera be la blabi</string>
+  <string name="reviewBlackMistakes">catlu lo se srera be la xekri</string>
   <string name="youCannotChallengeX">do na kakne lo ka talsa la\'o zoi. %s .zoi</string>
   <string name="playX">zukte la\'o zoi. %s .zoi</string>
 </resources>
