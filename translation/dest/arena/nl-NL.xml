@@ -23,16 +23,16 @@ Berserk is niet beschikbaar voor partijen met nul begintijd (0+1, 0+2).
 Berserk geeft je enkel een extra punt als je minstens 7 zetten speelt in de partij.</string>
   <string name="howIsTheWinnerDecided">Hoe wordt de winnaar bepaald?</string>
   <string name="howIsTheWinnerDecidedAnswer">De speler(s) met de meeste punten op het einde van de tijdslimiet van het toernooi zal (zullen) aangeduid worden als winnaar(s).</string>
-  <string name="howDoesPairingWork">Hoe werkt de koppeling?</string>
-  <string name="howDoesPairingWorkAnswer">Aan het begin van het toernooi worden spelers gekoppeld op basis van hun rating.
+  <string name="howDoesPairingWork">Hoe werkt de indeling?</string>
+  <string name="howDoesPairingWorkAnswer">Aan het begin van het toernooi worden spelers ingedeeld op basis van hun rating.
 Wanneer je een partij eindigt, keer terug naar de toernooilobby: je zult dan gekoppeld worden met een speler dicht bij uw rang in het toernooi. Dit zorgt voor zo min mogelijk wachttijd, maar het is mogelijk dat je niet tegen iedereen in het toernooi speelt.
 Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer punten te winnen.</string>
   <string name="howDoesItEnd">Hoe eindigt het?</string>
-  <string name="howDoesItEndAnswer">Het toernooi heeft een klok die naar beneden telt. Wanneer die nul bereikt, wordt het klassement van het toernooi bevroren en wordt de winnaar aangeduid.
-Partijen die nog aan de gang zijn, moeten uitgespeeld worden, maar ze tellen niet meer mee voor het toernooi.</string>
-  <string name="otherRules">Andere belangrijke regels.</string>
-  <string name="otherRulesAnswer">Je bent verplicht om je eerste zet te maken binnen 20 seconden van jouw beurt. Als je geen zet maakt binnen deze tijd, wint je tegenstander de partij.
-Een remise binnen de eerste 10 zetten van de partij zal geen enkele van de spelers punten geven.</string>
+  <string name="howDoesItEndAnswer">Het toernooi heeft een klok die aftelt. Wanneer die klok de nul bereikt, wordt het klassement van het toernooi bevroren en wordt de winnaar aangekondigd.
+Partijen die nog aan de gang zijn moeten uitgespeeld worden, maar tellen niet meer mee voor de rangschikking in het toernooi.</string>
+  <string name="otherRules">Andere belangrijke regels</string>
+  <string name="otherRulesAnswer">Je bent verplicht om je eerste zet te doen binnen 20 seconden van jouw eerste beurt. Als je geen zet doet binnen deze tijd, wint je tegenstander de partij.
+Een remise binnen de eerste 10 zetten van de partij zal geen van beide spelers punten opleveren.</string>
   <string name="thisIsPrivate">Dit is een privétoernooi</string>
   <string name="shareUrl">Deel deze URL om mensen deel te laten nemen: %s</string>
 </resources>

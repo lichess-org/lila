@@ -305,6 +305,7 @@
   <string name="whiteWins">parbi co nu la blabi cu jinga</string>
   <string name="blackWins">parbi co nu la xekri cu jinga</string>
   <string name="draws">parbi co nu no da cu jinga</string>
+  <string name="averageOpponent">lo se jivna nilcre cnano</string>
   <string name="membersOnly">lo cmima be la .litces. cu selte\'i</string>
   <string name="boardEditor">keltcini tiktci</string>
   <string name="startPosition">cfari keltcini</string>
@@ -418,6 +419,7 @@
   <string name="horizontalGreenProgressBars">pinta ke crino nilmulyuidje</string>
   <string name="soundWhenTimeGetsCritical">sance fi\'o se sinxa lo nu lo temci cu cmalu</string>
   <string name="gameBehavior">nunjvi seltra</string>
+  <string name="dragPiece">tolpu\'i lo keirmu\'u</string>
   <string name="bothClicksAndDrag">.a</string>
   <string name="premovesPlayingDuringOpponentTurn">muvycfapru</string>
   <string name="takebacksWithOpponentApproval">xruti be pa keimu\'u</string>
@@ -496,10 +498,14 @@
   <string name="whiteCastlingQueenside">lo blabi ka\'e pei nolraitru joi sonci barda bo kelka\'u muvgau</string>
   <string name="blackCastlingKingside">lo xekri ka\'e pei nolraitru joi sonci cmalu bo kelka\'u muvgau</string>
   <string name="blackCastlingQueenside">lo xekri ka\'e pei nolraitru joi sonci cmalu bo kelka\'u muvgau</string>
+  <string name="tpTimeSpentPlaying">jvikei ze\'a la\'o temci. %s .temci</string>
   <string name="watchGames">zgana lo selkei</string>
+  <string name="tpTimeSpentOnTV">jai se tivni ze\'a la\'o temci. %s .temci</string>
   <string name="watch">zgana</string>
   <string name="internationalEvents">lo gugykruca fasnu</string>
   <string name="videoLibrary">kinsro</string>
+  <string name="webmasters">lo kibystuja\'a</string>
+  <string name="about">srana la .litces.</string>
   <string name="termsOfService">lo pilno terbilga</string>
   <string name="simultaneousExhibitions">cabysi\'u nuntigni</string>
   <string name="hostColorX">lo ralkei cu skari lo ka %s</string>
@@ -507,6 +513,7 @@
   <string name="create">finti</string>
   <string name="tournamentFAQ">lo cafne se reisku preti be lo kelcrxarena zei grinunjvi</string>
   <string name="tournamentOfficial">ca\'iselzau</string>
+  <string name="newTournament">cnino grinunjvi</string>
   <string name="tournamentNotFound">na facki fi ti noi grinunjvi</string>
   <string name="tournamentDoesNotExist">ti noi grinunjvi cu na zasti</string>
   <string name="yourPerfTypeRatingIsRating">nilcre do la\'o zoi. %1$s .zoi fa li %2$s</string>
@@ -530,8 +537,12 @@
   <string name="light">tolmanku</string>
   <string name="dark">manku</string>
   <string name="transparent">guskli</string>
+  <string name="pieceSet">keirmu\'u morna</string>
+  <string name="usernamePrefixInvalid">sarcu fa lo nu lo japcme cu se tolfa\'o lo vlale\'u</string>
+  <string name="usernameSuffixInvalid">sarcu fa lo nu lo japcme cu se fanmo lo vlale\'u .a lo nacle\'u</string>
   <string name="usernameUnacceptable">ti noi japcme cu se tolzau</string>
   <string name="directlySupportLichess">sarji la .litces.</string>
+  <string name="playChessInStyle">selja\'i kelci lo caxmati</string>
   <string name="chessBasics">lo jicmu be lo caxmati</string>
   <string name="coaches">lo te\'ictu</string>
   <string name="error.unknown">srera da</string>
@@ -542,6 +553,11 @@
   <string name="whiteWinsGame">lo nu la blabi cu jinga</string>
   <string name="blackWinsGame">lo nu la xekri cu jinga</string>
   <string name="next">bavla\'i</string>
+  <string name="resumeLearning">di\'a cilre</string>
+  <string name="solution">lo danfu</string>
   <string name="noMistakesFoundForWhite">na facki lo se srera be la blabi</string>
   <string name="noMistakesFoundForBlack">na facki lo se srera be la xekri</string>
+  <string name="doItAgain">za\'u re\'u zukte</string>
+  <string name="youCannotChallengeX">do na kakne lo ka talsa la\'o zoi. %s .zoi</string>
+  <string name="playX">zukte la\'o zoi. %s .zoi</string>
 </resources>

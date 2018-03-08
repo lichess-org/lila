@@ -662,6 +662,7 @@
   <string name="videoLibrary">Video bibliotēka</string>
   <string name="mobileApp">Mobilā aplikācija</string>
   <string name="webmasters">Tīmekļa pārziņi</string>
+  <string name="about">Par</string>
   <string name="contribute">Dot ieguldījumu</string>
   <string name="contact">Kontakti</string>
   <string name="termsOfService">Noteikumi</string>
@@ -783,6 +784,9 @@
   <string name="pieceSet">Figūru komplekts</string>
   <string name="embedInYourWebsite">Iegult savā mājaslapā</string>
   <string name="usernameAlreadyUsed">Lietotājvārds ir aizņemts, lūdzu mēģiniet citu.</string>
+  <string name="usernamePrefixInvalid">Lietotājvārdam jāsākas ar burtu.</string>
+  <string name="usernameSuffixInvalid">Lietotājvārdam jābeidzas ar burtu vai ciparu.</string>
+  <string name="usernameCharsInvalid">Lietotājvārds drīkst saturēt tikai burtus, ciparus, pasvītras un defises.</string>
   <string name="usernameUnacceptable">Šāds lietotājvārds nav pieņemams.</string>
   <string name="directlySupportLichess">Tiešais Lichess atbalsts</string>
   <string name="playChessInStyle">Spēlē šahu stilīgi</string>

@@ -89,17 +89,17 @@
     <item quantity="other">%s ludi contemplati</item>
   </plurals>
   <string name="viewInFullSize">Integro modo vide</string>
-  <string name="logOut">Conventum claudere</string>
-  <string name="signIn">Conventum aperire</string>
+  <string name="logOut">Personam relinque</string>
+  <string name="signIn">Personam adsume</string>
   <string name="newToLichess">Lichessne novus tibi est?</string>
-  <string name="youNeedAnAccountToDoThat">Ut communices tibi inscribere opus est</string>
-  <string name="signUp">Inscribere</string>
+  <string name="youNeedAnAccountToDoThat">Tibi persona tenenda est ut illum agere possis</string>
+  <string name="signUp">Personam crea</string>
   <string name="computersAreNotAllowedToPlay">Non licet computatris vel lusoribus ab computatro auxiliatis ludere. Obsecramus vos adiutos non esse ab machina scacchica, vel tabulis datis, vel lusoribus alteris. Nota bene etiam multos creare codices minime hortatur atque si nimis multis codices habeatis, exsulatos estis.</string>
   <string name="games">Ludi</string>
-  <string name="forum">Forum eletronicum</string>
+  <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s nuntiavit in re %2$s</string>
   <string name="latestForumPosts">Recentes nuntii</string>
-  <string name="players">Scaccorum lusores</string>
+  <string name="players">Lusores</string>
   <string name="minutesPerSide">Minutae pro utriusque lusore</string>
   <string name="variant">Varietas</string>
   <string name="variants">variationes</string>
@@ -113,15 +113,15 @@
     <item quantity="other">%s dies</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s horae</item>
+    <item quantity="one">%s hora</item>
     <item quantity="other">%s horae</item>
   </plurals>
   <string name="time">Tempus</string>
-  <string name="rating">Status</string>
-  <string name="ratingStats">Ordinis informatio</string>
-  <string name="username">Usoris nomen</string>
-  <string name="usernameOrEmail">Usoris nomen vel email</string>
-  <string name="password">Tessera</string>
+  <string name="rating">Ordo</string>
+  <string name="ratingStats">Informatio ordinis</string>
+  <string name="username">Nomen interretiarii</string>
+  <string name="usernameOrEmail">Nomen interretiarii vel email</string>
+  <string name="password">Verba quae licet uno inire</string>
   <string name="haveAnAccount">Nonne inscriptus es?</string>
   <string name="changePassword">Tesseram mutare</string>
   <string name="changeEmail">Email mutare</string>

@@ -49,13 +49,16 @@
   <string name="computerAnalysisAvailable">Computeranalyse beschikbaar</string>
   <string name="analysis">Analyse</string>
   <string name="depthX">Diepte %s</string>
-  <string name="usingServerAnalysis">Met behulp van server-analyse</string>
+  <string name="usingServerAnalysis">Met serveranalyse</string>
   <string name="loadingEngine">Laden van computer...</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Dieper gaan</string>
   <string name="showThreat">Toon bedreiging</string>
   <string name="inLocalBrowser">in lokale browser</string>
   <string name="toggleLocalEvaluation">Lokale evaluatie aan-/uitzetten</string>
+  <string name="promoteVariation">Promoveer variant</string>
+  <string name="makeMainLine">Promoveer tot hoofdvariant</string>
+  <string name="deleteFromHere">Verwijder vanaf hier</string>
   <string name="move">Zet</string>
   <string name="variantLoss">Variantverlies</string>
   <string name="variantWin">Variantoverwinning</string>
@@ -82,7 +85,7 @@
     <item quantity="other">Volgende slag- of pionzet in %s halfzetten (afstand tot het herstellen van de vijftig zetten teller)</item>
   </plurals>
   <string name="noGameFound">Geen partij gevonden</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via de menu voorkeuren?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via het voorkeuren-menu?</string>
   <string name="openingExplorer">Openingverkenner &amp; tablebase</string>
   <string name="xOpeningExplorer">%s openingsverkenner</string>
   <string name="winPreventedBy50MoveRule">Winst voorkomen door vijftig-zetten regel</string>
@@ -91,18 +94,18 @@
   <string name="importPgn">PGN importeren</string>
   <string name="delete">Verwijderen</string>
   <string name="deleteThisImportedGame">Deze geïmporteerde partij verwijderen?</string>
-  <string name="replayMode">Herhaal modus</string>
+  <string name="replayMode">Terugspeelmodus</string>
   <string name="realtimeReplay">Realtime</string>
   <string name="byCPL">Door CPL</string>
   <string name="openStudy">Open Study</string>
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
-  <string name="evaluationGauge">Evaluatie meter</string>
+  <string name="evaluationGauge">Evaluatiemeter</string>
   <string name="multipleLines">Meerdere varianten</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Geheugen</string>
   <string name="infiniteAnalysis">Oneindige analyse</string>
-  <string name="removesTheDepthLimit">Verwijdert de diepte limiet, en houdt je computer warm</string>
+  <string name="removesTheDepthLimit">Verwijdert de dieptelimiet, en houdt je computer warm</string>
   <string name="blunder">Blunder</string>
   <string name="blunders">Blunders</string>
   <string name="mistake">Fout</string>
@@ -172,7 +175,7 @@
   <string name="rankX">Positie: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Positie wordt elke %s minuten bijgewerkt</string>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s puzzle</item>
+    <item quantity="one">%s puzzel</item>
     <item quantity="other">%s puzzels</item>
   </plurals>
   <string name="gamesPlayed">Gespeelde partijen</string>
@@ -194,6 +197,7 @@
   <string name="accept">Accepteren</string>
   <string name="decline">Afwijzen</string>
   <string name="playingRightNow">Nu aan het spelen</string>
+  <string name="eventInProgress">Nu aan het spelen</string>
   <string name="finished">Afgelopen</string>
   <string name="abortGame">Partij afbreken</string>
   <string name="gameAborted">Partij afgebroken</string>
@@ -202,6 +206,8 @@
   <string name="mode">Instelling</string>
   <string name="casual">Vrijblijvend</string>
   <string name="rated">Met rating</string>
+  <string name="casualTournament">Zonder rating</string>
+  <string name="ratedTournament">Met rating</string>
   <string name="thisGameIsRated">Deze partij telt mee voor rating</string>
   <string name="rematch">Opnieuw spelen</string>
   <string name="rematchOfferSent">Uitnodiging voor nieuwe partij verstuurd</string>
@@ -267,6 +273,10 @@
   <string name="tournament">Toernooi</string>
   <string name="tournaments">Toernooien</string>
   <string name="tournamentPoints">Toernooipunten</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s toernooipunt</item>
+    <item quantity="other">%s toernooipunten</item>
+  </plurals>
   <string name="viewTournament">Bekijk het toernooi</string>
   <string name="backToTournament">Terug naar het toernooi</string>
   <string name="thematic">Thematisch</string>
@@ -467,17 +477,17 @@
   <string name="no">Nee</string>
   <string name="yes">Ja</string>
   <string name="help">Help:</string>
-  <string name="createANewTopic">Maak een nieuw topic</string>
-  <string name="topics">Topics</string>
+  <string name="createANewTopic">Maak een nieuw onderwerp</string>
+  <string name="topics">Onderwerpen</string>
   <string name="posts">Berichten</string>
   <string name="lastPost">Laatste bericht</string>
   <string name="views">Weergaven</string>
-  <string name="replies">Antwoorden</string>
-  <string name="replyToThisTopic">Beantwoord dit topic</string>
-  <string name="reply">Beantwoord</string>
+  <string name="replies">Reacties</string>
+  <string name="replyToThisTopic">Reageer op dit onderwerp</string>
+  <string name="reply">Reageer</string>
   <string name="message">Bericht</string>
-  <string name="createTheTopic">Creëer je topic</string>
-  <string name="reportAUser">Een gebruiker aangeven</string>
+  <string name="createTheTopic">Maak een nieuw onderwerp</string>
+  <string name="reportAUser">Gebruiker melden</string>
   <string name="user">Gebruiker</string>
   <string name="reason">Reden</string>
   <string name="whatIsIheMatter">Wat is er aan de hand?</string>
@@ -487,7 +497,7 @@
   <string name="other">Anders</string>
   <string name="reportDescriptionHelp">Plak de link naar de partij(en) en leg uit wat er mis is met het gedrag van de gebruiker. Zeg niet alleen \'hij speelt vals\', maar vertel ons hoe u bent gekomen op deze conclusie. Uw rapportage zal sneller worden verwerkt als het in het Engels is geschreven.</string>
   <string name="by">door %s</string>
-  <string name="thisTopicIsNowClosed">Dit topic is nu gesloten.</string>
+  <string name="thisTopicIsNowClosed">Dit onderwerp is nu gesloten.</string>
   <string name="theming">Thema</string>
   <string name="donate">Doneer</string>
   <string name="blog">Blog</string>
@@ -508,7 +518,7 @@
   <string name="newPassword">Nieuw wachtwoord</string>
   <string name="newPasswordAgain">Nieuw wachtwoord (opnieuw)</string>
   <string name="boardHighlights">Bord laten oplichten (laatste zet en schaak)</string>
-  <string name="pieceDestinations">Bestemming van het stuk (geldige zetten en vooraf-zetten)</string>
+  <string name="pieceDestinations">Bestemming van het stuk (geldige zetten en premoves)</string>
   <string name="boardCoordinates">Bordcoördinaten (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Zetnotatie zichtbaar tijdens partij</string>
   <string name="pgnPieceNotation">Stuknotatie in PGN</string>
@@ -622,6 +632,7 @@
   <string name="videoLibrary">Videobibliotheek</string>
   <string name="mobileApp">Mobiele app</string>
   <string name="webmasters">Webmasters</string>
+  <string name="about">Over ons</string>
   <string name="contribute">Draag bij</string>
   <string name="contact">Contact</string>
   <string name="termsOfService">Algemene voorwaarden</string>
@@ -741,6 +752,9 @@
   <string name="pieceSet">Schaakstukken</string>
   <string name="embedInYourWebsite">Insluiten in uw website</string>
   <string name="usernameAlreadyUsed">Deze naam is al in gebruik, probeer a.u.b. een andere naam.</string>
+  <string name="usernamePrefixInvalid">De gebruikersnaam moet met een letter beginnen.</string>
+  <string name="usernameSuffixInvalid">De gebruikersnaam moet eindigen met een letter of een cijfer.</string>
+  <string name="usernameCharsInvalid">De gebruikersnaam mag alleen letters, cijfers, underscores, en koppeltekens bevatten.</string>
   <string name="usernameUnacceptable">Deze gebruikersnaam is niet acceptabel.</string>
   <string name="directlySupportLichess">Lichess direct ondersteunen</string>
   <string name="playChessInStyle">Speel schaken in stijl</string>
@@ -757,6 +771,10 @@
   <string name="notifications">Meldingen</string>
   <string name="challenges">Uitdagingen</string>
   <string name="perfRatingX">Rating: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s seconde om de eerste zet te spelen</item>
+    <item quantity="other">%s seconden om de eerste zet te spelen</item>
+  </plurals>
   <string name="practiceWithComputer">Oefen met de computer</string>
   <string name="anotherWasX">Een andere mogelijkheid was %s</string>
   <string name="bestWasX">De beste zet was %s</string>
@@ -771,6 +789,7 @@
   <string name="whiteWinsGame">Wit wint</string>
   <string name="blackWinsGame">Zwart wint</string>
   <string name="learnFromYourMistakes">Leren van je fouten</string>
+  <string name="learnFromThisMistake">Leer van deze fout</string>
   <string name="skipThisMove">Deze zet overslaan</string>
   <string name="next">Volgende</string>
   <string name="xWasPlayed">%s werd gespeeld</string>
@@ -790,7 +809,26 @@
   <string name="reviewWhiteMistakes">Bekijk fouten van wit</string>
   <string name="reviewBlackMistakes">Bekijk fouten van zwart</string>
   <string name="advantage">Voordeel</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s seconde</item>
+    <item quantity="other">%s seconden</item>
+  </plurals>
   <string name="opening">Opening</string>
   <string name="middlegame">Middenspel</string>
   <string name="endgame">Eindspel</string>
+  <string name="registerToSendChallenges">Gelieve te registreren om uitdagingen te versturen.</string>
+  <string name="youCannotChallengeX">Je kan %s niet uitdagen.</string>
+  <string name="xDoesNotAcceptChallenges">%s accepteert geen uitdagingen.</string>
+  <string name="yourXRatingIsTooFarFromY">Je %1$s-rating is te ver van %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan niet uitdagen vanwege de provisionele %s rating.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s accepteert alleen uitdagingen van vrienden.</string>
+  <string name="conditionalPremoves">Voorwaardelijke premoves</string>
+  <string name="addCurrentVariation">Voeg huidige variant toe</string>
+  <string name="playVariationToCreateConditionalPremoves">Speel een variant om voorwaardelijke premoves te maken</string>
+  <string name="noConditionalPremoves">Geen voorwaardelijke premoves</string>
+  <string name="playX">Speel %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">en bewaar %s premove-variant</item>
+    <item quantity="other">en bewaar %s premove-varianten</item>
+  </plurals>
 </resources>

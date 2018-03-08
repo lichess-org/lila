@@ -137,13 +137,13 @@
   <string name="newToLichess">Novo no Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Você precisa de uma conta para fazer isso</string>
   <string name="signUp">Registrar</string>
-  <string name="computersAreNotAllowedToPlay">O uso de engine não é permitido. Por favor, não utilize programas de xadrez, bancos de dados ou outros jogadores durante a partida. Além disso, a criação de contas múltiplas é fortemente desencorajada e sua prática excessiva acarretará banimento.</string>
+  <string name="computersAreNotAllowedToPlay">O uso de engine não é permitido. Por favor, não utilize programas de xadrez, bancos de dados ou o auxilio de outros jogadores durante a partida. Além disso, a criação de múltiplas contas é fortemente desaconselhada e sua prática excessiva acarretará banimento.</string>
   <string name="games">Partidas</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s postou em %2$s</string>
   <string name="latestForumPosts">Últimas postagens do forum</string>
   <string name="players">Jogadores</string>
-  <string name="minutesPerSide">Minutos por lado</string>
+  <string name="minutesPerSide">Minutos por jogador</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
   <string name="timeControl">Controle de Tempo</string>
@@ -193,7 +193,7 @@
   <string name="blackOffersDraw">Pretas oferecem empate</string>
   <string name="whiteDeclinesDraw">Brancas recusam empate</string>
   <string name="blackDeclinesDraw">Pretas recusam empate</string>
-  <string name="yourOpponentOffersADraw">Seu oponente propõe empate</string>
+  <string name="yourOpponentOffersADraw">Seu adversário propõe empate</string>
   <string name="accept">Aceitar</string>
   <string name="decline">Recusar</string>
   <string name="playingRightNow">Jogando agora</string>
@@ -281,11 +281,11 @@
   <string name="backToTournament">Voltar ao torneio</string>
   <string name="thematic">Temático</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s jogo valendo pontos</item>
+    <item quantity="one">≥ %s jogos valendo pontos</item>
     <item quantity="other">≥ %s jogos valendo pontos</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s partida valendo pontos</item>
+    <item quantity="one">≥ %1$s %2%s partidas valendo pontos</item>
     <item quantity="other">≥ %1$s %2%s partidas valendo pontos</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
@@ -293,8 +293,8 @@
     <item quantity="other">Você precisa jogar %1$s mais %2$s partidas valendo pontos</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Você precisa jogar %s mais partidas valendo pontos</item>
-    <item quantity="other">Você precisa jogar %s mais partidas valendo pontos</item>
+    <item quantity="one">Você precisa jogar ainda %s partidas valendo pontos</item>
+    <item quantity="other">Você precisa jogar ainda %s partidas valendo pontos</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Sua pontuação %s é provisória</string>
   <string name="yourPerfRatingIsTooHigh">Sua %1$s pontuação (%2$s) é muito alta</string>
@@ -303,7 +303,7 @@
   <string name="ratedMoreThanInPerf">Pontuação ≥ %1$s em %2$s</string>
   <string name="ratedLessThanInPerf">Pontuação ≤ %1$s em %2$s</string>
   <string name="backToGame">Retorne à partida</string>
-  <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou oponentes aleatórios.</string>
+  <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou adversários aleatórios.</string>
   <string name="teams">Equipes</string>
   <plurals name="nbMembers">
     <item quantity="one">%s membros</item>
@@ -327,7 +327,7 @@
   <string name="location">Localização</string>
   <string name="settings">Configurações</string>
   <string name="filterGames">Filtrar partidas</string>
-  <string name="reset">Voltar ao original</string>
+  <string name="reset">Reiniciar</string>
   <string name="apply">Aplicar</string>
   <string name="leaderboard">Classificação</string>
   <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
@@ -404,9 +404,9 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="whiteWins">Brancas venceram</string>
   <string name="blackWins">Pretas venceram</string>
   <string name="draws">Empates</string>
-  <string name="nextXTournament">Próximo torneio de %s:</string>
+  <string name="nextXTournament">Próximo torneio %s:</string>
   <string name="viewMoreTournaments">Ver mais torneios</string>
-  <string name="averageOpponent">Oponente médio</string>
+  <string name="averageOpponent">Pontuação média adversários</string>
   <string name="membersOnly">Somente para membros</string>
   <string name="boardEditor">Editor de tabuleiro</string>
   <string name="setTheBoard">Arranje o tabuleiro</string>
@@ -420,11 +420,11 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="profileCompletion">Conclusão do perfil: %s</string>
   <string name="xRating">Classificação %s</string>
   <string name="ifNoneLeaveEmpty">Se nenhuma, deixe vazio</string>
-  <string name="gameCompletionRate">Taxa de conclusão do jogo: %s</string>
+  <string name="gameCompletionRate">Percentagem de partidas terminadas: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Primeiro nome</string>
-  <string name="lastName">Último nome</string>
+  <string name="lastName">Sobrenome</string>
   <string name="biography">Biografia</string>
   <string name="country">País</string>
   <string name="preferences">Preferências</string>
@@ -439,7 +439,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="yourPuzzleRatingX">Sua classificação de quebra-cabeças: %s</string>
   <string name="findTheBestMoveForWhite">Procure o melhor lance para as brancas.</string>
   <string name="findTheBestMoveForBlack">Procure a melhor jogada para as pretas.</string>
-  <string name="toTrackYourProgress">Para acompanhar seu progresso</string>
+  <string name="toTrackYourProgress">Acompanhe seu progresso:</string>
   <string name="trainingSignupExplanation">O Lichess fornecerá quebra-cabeças que correspondem a sua habilidade, para fazer melhores sessões de treino.</string>
   <string name="puzzleId">Quebra-cabeça %s</string>
   <string name="puzzleOfTheDay">Quebra-cabeça do dia</string>
@@ -634,6 +634,7 @@ em %3$s</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="mobileApp">Aplicativo Móvel</string>
   <string name="webmasters">Webmasters</string>
+  <string name="about">Sobre</string>
   <string name="contribute">Contribuir</string>
   <string name="contact">Contato</string>
   <string name="termsOfService">Condições de uso</string>
@@ -820,8 +821,8 @@ em %3$s</string>
   <string name="registerToSendChallenges">Por favor, registre-se para enviar desafios.</string>
   <string name="youCannotChallengeX">Você não pode desafiar %s.</string>
   <string name="xDoesNotAcceptChallenges">%s não aceita desafios.</string>
-  <string name="yourXRatingIsTooFarFromY">O seu %1$s rating está muito diferente de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Não pode desafiar devido ao rating provisório de %s.</string>
+  <string name="yourXRatingIsTooFarFromY">A sua classificação %1$s é muito diferente de %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Não pode desafiar devido a pontuação provisória de %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s só aceita desafios de amigos.</string>
   <string name="conditionalPremoves">Pré-lances condicionais</string>
   <string name="addCurrentVariation">Adicionar a variação atual</string>
