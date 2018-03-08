@@ -65,10 +65,10 @@
 window.customWS = true;
 lichess_lobby = {
 data: @safeJson(data),
-playban: @playban.fold(Html("null")){ pb =>
+playban: @htmlOrNull(playban) { pb =>
 @safeJson(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3)))
 },
-currentGame: @currentGame.fold(Html("null")) { cg =>
+currentGame: @htmlOrNull(currentGame) { cg =>
 @safeJson(cg.json)
 },
 i18n: @jsI18n()
