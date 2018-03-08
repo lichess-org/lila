@@ -305,6 +305,7 @@
   <string name="whiteWins">parbi co nu la blabi cu jinga</string>
   <string name="blackWins">parbi co nu la xekri cu jinga</string>
   <string name="draws">parbi co nu no da cu jinga</string>
+  <string name="averageOpponent">lo se jivna nilcre cnano</string>
   <string name="membersOnly">lo cmima be la .litces. cu selte\'i</string>
   <string name="boardEditor">keltcini tiktci</string>
   <string name="startPosition">cfari keltcini</string>
@@ -418,6 +419,7 @@
   <string name="horizontalGreenProgressBars">pinta ke crino nilmulyuidje</string>
   <string name="soundWhenTimeGetsCritical">sance fi\'o se sinxa lo nu lo temci cu cmalu</string>
   <string name="gameBehavior">nunjvi seltra</string>
+  <string name="dragPiece">tolpu\'i lo keirmu\'u</string>
   <string name="bothClicksAndDrag">.a</string>
   <string name="premovesPlayingDuringOpponentTurn">muvycfapru</string>
   <string name="takebacksWithOpponentApproval">xruti be pa keimu\'u</string>
@@ -496,10 +498,14 @@
   <string name="whiteCastlingQueenside">lo blabi ka\'e pei nolraitru joi sonci barda bo kelka\'u muvgau</string>
   <string name="blackCastlingKingside">lo xekri ka\'e pei nolraitru joi sonci cmalu bo kelka\'u muvgau</string>
   <string name="blackCastlingQueenside">lo xekri ka\'e pei nolraitru joi sonci cmalu bo kelka\'u muvgau</string>
+  <string name="tpTimeSpentPlaying">jvikei ze\'a la\'o temci. %s .temci</string>
   <string name="watchGames">zgana lo selkei</string>
+  <string name="tpTimeSpentOnTV">jai se tivni ze\'a la\'o temci. %s .temci</string>
   <string name="watch">zgana</string>
   <string name="internationalEvents">lo gugykruca fasnu</string>
   <string name="videoLibrary">kinsro</string>
+  <string name="webmasters">lo kibystuja\'a</string>
+  <string name="about">srana la .litces.</string>
   <string name="termsOfService">lo pilno terbilga</string>
   <string name="simultaneousExhibitions">cabysi\'u nuntigni</string>
   <string name="hostColorX">lo ralkei cu skari lo ka %s</string>
