@@ -35,7 +35,15 @@ final class OAuthServer(
     tokenColl.primitiveOne[User.ID]($doc(
       "access_token_id" -> token,
       "expire_date" $gt DateTime.now
-    ), "user_id") flatMap { _ ?? UserRepo.byId }
+    ), "user_id") flatMap {
+      _ ?? { userId =>
+        setUsedNow(token)
+        UserRepo byId userId
+      }
+    }
+
+  private def setUsedNow(token: AccessTokenId): Unit =
+    tokenColl.updateFieldUnchecked($doc("access_token_id" -> token), "used_at", DateTime.now)
 }
 
 object OAuthServer {
