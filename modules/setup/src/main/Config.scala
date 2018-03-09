@@ -60,7 +60,7 @@ trait Positional { self: Config =>
   }
 
   def fenGame(builder: ChessGame => Game): Game = {
-    val baseState = fen ifTrue (variant == FromPosition) flatMap {
+    val baseState = fen ifTrue (variant.fromPosition) flatMap {
       Forsyth.<<<@(FromPosition, _)
     }
     val (chessGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {
