@@ -28,7 +28,7 @@ final class ShutupApi(
   def publicChat(userId: String, text: String, source: PublicSource) = record(userId, text, TextType.PublicChat, source.some)
 
   def privateChat(chatId: String, userId: String, text: String) =
-    GameRepo.getSourceAndUserIds(chatId).thenPp flatMap {
+    GameRepo.getSourceAndUserIds(chatId) flatMap {
       case (source, _) if source.has(lila.game.Source.Friend) => funit // ignore challenges
       case (_, userIds) =>
         record(userId, text, TextType.PrivateChat, none, userIds find (userId !=))
