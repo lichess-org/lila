@@ -57,7 +57,7 @@ final class Analyser(
       case true => fuccess(false)
       case _ => {
         import req._
-        val sender = Work.Sender(req.userId, none, false, false)
+        val sender = Work.Sender(req.userId, none, false, system = req.userId == "lichess")
         limiter(sender) flatMap { accepted =>
           accepted ?? {
             val work = makeWork(

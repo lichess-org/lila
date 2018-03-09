@@ -38,7 +38,7 @@ private final class Limiter(
   private val maxPerDay = 30
 
   private def perDayCheck(sender: Work.Sender) = sender match {
-    case Work.Sender(_, _, mod, system) if (mod || system) => fuccess(true)
+    case Work.Sender(_, _, mod, system) if mod || system => fuccess(true)
     case Work.Sender(Some(userId), _, _, _) => requesterApi.countToday(userId) map (_ < maxPerDay)
     case Work.Sender(_, Some(ip), _, _) => fuccess {
       RequestLimitPerIP(ip, cost = 1)(true)

@@ -105,13 +105,21 @@ private final class RelaySync(
     val chapterNewTags = tags.value.foldLeft(chapter.tags) {
       case (chapterTags, tag) => PgnTags(chapterTags + tag)
     }
-    (chapterNewTags != chapter.tags) ?? studyApi.setTags(
-      userId = chapter.ownerId,
-      studyId = study.id,
-      chapterId = chapter.id,
-      tags = chapterNewTags,
-      uid = socketUid
-    )
+    (chapterNewTags != chapter.tags) ?? {
+      studyApi.setTags(
+        userId = chapter.ownerId,
+        studyId = study.id,
+        chapterId = chapter.id,
+        tags = chapterNewTags,
+        uid = socketUid
+      ) >> {
+        chapterNewTags.resultColor.isDefined ?? studyApi.analysisRequest(
+          studyId = study.id,
+          chapterId = chapter.id,
+          userId = "lichess"
+        )
+      }
+    }
   }
 
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
