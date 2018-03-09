@@ -82,7 +82,6 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 * [Cloudflare](https://www.cloudflare.com/) to serve static assets
 * [Mailgun](https://www.mailgun.com/) for transactional email
 * [prismic.io](https://prismic.io/) for help/documentation pages and the blog
-* [Disqus](https://disqus.com/) for blog comments
 * [twitch](https://www.twitch.tv/) for featured livestreams
 * [YouTube](https://www.youtube.com) for featured livestreams and the [Video library](https://lichess.org/video)
 * [stripe](https://stripe.com/) and [PayPal](https://www.paypal.com) for [Patron donations](https://lichess.org/patron)
