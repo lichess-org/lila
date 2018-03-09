@@ -13,7 +13,9 @@ case class AccessToken(
     description: Option[String] = None, // for personal access tokens
     usedAt: Option[DateTime] = None,
     scopes: List[OAuthScope]
-)
+) {
+  def isBrandNew = createdAt.exists(DateTime.now.minusSeconds(5).isBefore)
+}
 
 object AccessToken {
 

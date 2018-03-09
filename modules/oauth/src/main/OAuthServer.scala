@@ -21,9 +21,12 @@ final class OAuthServer(
     req.headers get "Authorization" map (_.split(" ", 2))
   } ?? {
     case Array("Bearer", token) => for {
-      jsonStr <- Jwt.decodeRaw(token, jwtPublicKey.value, Seq(JwtAlgorithm.RS256)).future
-      json = Json.parse(jsonStr)
-      accessTokenId = AccessToken.Id((json str "jti" err s"Bad token json $json"))
+      accessTokenId <- Jwt.decodeRaw(token, jwtPublicKey.value, Seq(JwtAlgorithm.RS256)).future map { jsonStr =>
+        val json = Json.parse(jsonStr)
+        AccessToken.Id((json str "jti" err s"Bad token json $json"))
+      } recover {
+        case _: Exception => AccessToken.Id(token) // personal access token
+      }
       user <- activeUser(accessTokenId)
     } yield Some(user err "No user found for access token")
     case _ => fuccess(none)

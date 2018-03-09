@@ -8,13 +8,15 @@ import play.api.data.validation.Constraints._
 object AccessTokenForm {
 
   val form = Form(mapping(
-    "description" -> nonEmptyText(minLength = 3, maxLength = 140)
+    "description" -> nonEmptyText(minLength = 3, maxLength = 140),
+    "scopes" -> list(nonEmptyText.verifying(OAuthScope.byKey.contains _))
   )(Data.apply)(Data.unapply))
 
   def create = form
 
   case class Data(
-      description: String
+      description: String,
+      scopes: List[String]
   ) {
     def make(user: lila.user.User) = AccessToken(
       id = AccessToken.makeId,
@@ -23,7 +25,7 @@ object AccessTokenForm {
       expiresAt = DateTime.now plusYears 100,
       createdAt = DateTime.now.some,
       description = description.some,
-      scopes = Nil
+      scopes = scopes.flatMap(OAuthScope.byKey.get)
     )
   }
 }

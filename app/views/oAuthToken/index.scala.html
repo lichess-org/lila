@@ -3,7 +3,7 @@
 @title = @{ "Personal API access tokens" }
 
 @account.layout(title = title, active = "oauth") {
-<div class="content_box no_padding high oauth security">
+<div class="content_box no_padding small_box high oauth security">
   <div class="top">
     <h1>@title</h1>
     <form class="new_token" action="@routes.OAuthToken.create">
@@ -13,6 +13,17 @@
     </form>
   </div>
   <p class="explanation">Tokens you have generated that can be used to access the lichess API.</p>
+
+  @tokens.headOption.filter(_.isBrandNew).map { token =>
+  <div class="brand">
+    <i data-icon="E" class="is-green"></i>
+    <div>
+      <p>Make sure to copy your new personal access token now.<br />You won’t be able to see it again!</p>
+      <code>@token.id.value</code>
+    </div>
+  </div>
+  }
+
   <table class="slist">
     @tokens.map { t =>
     <tr>
@@ -30,7 +41,7 @@
       </td>
       <td class="action">
         <form action="@routes.OAuthToken.delete(t.id.value)" method="POST">
-          <button type="submit" class="button text hint--top" data-hint="Delete this access token">Delete</button>
+          <button type="submit" class="button text confirm hint--top" title="Delete this access token">Delete</button>
         </form>
       </td>
     </tr>
