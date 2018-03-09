@@ -578,10 +578,10 @@ export default class AnalyseCtrl {
         console.log('Local eval failed after depth ' + (ceval && ceval.depth), lastError);
         if (this.ceval.pnaclSupported) {
           if (ceval && ceval.depth >= 20 && !ceval.retried) {
-            console.log('Remain on native stockfish for now');
+            console.log('Remain on native Stockfish for now');
             ceval.retried = true;
           } else {
-            console.log('Fallback to ASMJS now');
+            console.log('Fallback to WASM/ASMJS now');
             this.instanciateCeval(true);
             this.startCeval();
           }
