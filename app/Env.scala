@@ -44,6 +44,7 @@ final class Env(
     relationApi = Env.relation.api,
     trophyApi = Env.user.trophyApi,
     shieldApi = Env.tournament.shieldApi,
+    revolutionApi = Env.tournament.revolutionApi,
     postApi = Env.forum.postApi,
     studyRepo = Env.study.studyRepo,
     getRatingChart = Env.history.ratingChartApi.apply,

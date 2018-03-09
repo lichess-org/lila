@@ -79,6 +79,11 @@ final class Env(
     asyncCache = asyncCache
   )
 
+  lazy val revolutionApi = new RevolutionApi(
+    coll = tournamentColl,
+    asyncCache = asyncCache
+  )
+
   private val duelStore = new DuelStore
 
   lazy val api = new TournamentApi(

@@ -17,9 +17,15 @@
 }
 @info.shields.map { shield =>
 <a
-  class="shield_trophy hint--left"
+  class="shield_trophy combo_trophy hint--left"
   data-hint="@shield.categ.name Shield"
   href="@routes.Tournament.shields">@shield.categ.iconChar</a>
+}
+@info.revolutions.map { revol =>
+<a
+  class="revol_trophy combo_trophy hint--left"
+  data-hint="@revol.variant.name Revolution"
+  href="@routes.Tournament.show(revol.tourId)">@revol.iconChar</a>
 }
 @info.allTrophies.find(_.kind == Kind.ZugMiracle).map { t =>
 <style type="text/css">

@@ -24,6 +24,7 @@ case class UserInfo(
     playTime: Option[User.PlayTime],
     trophies: Trophies,
     shields: List[lila.tournament.TournamentShield.Award],
+    revolutions: List[lila.tournament.Revolution.Award],
     teamIds: List[String],
     isStreamer: Boolean,
     isCoach: Boolean,
@@ -122,6 +123,7 @@ object UserInfo {
     relationApi: RelationApi,
     trophyApi: TrophyApi,
     shieldApi: lila.tournament.TournamentShieldApi,
+    revolutionApi: lila.tournament.RevolutionApi,
     postApi: PostApi,
     studyRepo: lila.study.StudyRepo,
     getRatingChart: User => Fu[Option[String]],
@@ -142,13 +144,14 @@ object UserInfo {
       studyRepo.countByOwner(user.id) zip
       trophyApi.findByUser(user) zip
       shieldApi.active(user) zip
+      revolutionApi.active(user) zip
       fetchTeamIds(user.id) zip
       fetchIsCoach(user) zip
       fetchIsStreamer(user) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       getPlayTime(user) zip
       completionRate(user.id) flatMap {
-        case ranks ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ shields ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
+        case ranks ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ shields ~ revols ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
           (nbs.playing > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
@@ -163,6 +166,7 @@ object UserInfo {
               playTime = playTime,
               trophies = trophies,
               shields = shields,
+              revolutions = revols,
               teamIds = teamIds,
               isStreamer = isStreamer,
               isCoach = isCoach,

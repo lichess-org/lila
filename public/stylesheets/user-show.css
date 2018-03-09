@@ -131,17 +131,27 @@
 .user_show .trophy.patron.hint--left:hover:after {
   transform: scale(-1, 1), translateX(8px);
 }
-.user_show .shield_trophy {
-  width: 50px;
+.user_show .combo_trophy {
+  width: 60px;
   height: 60px;
-  background: url(../images/trophy/shield-gold.png) no-repeat;
   background-size: contain;
   font-family: "lichess" !important;
+  text-align: center;
+}
+.user_show .shield_trophy {
+  width: 50px;
+  background-image: url(../images/trophy/shield-gold.png);
   font-size: 30px;
   line-height: 60px;
-  text-align: center;
   color: #333!important;
   text-shadow: 0 0 6px #fff;
+}
+.user_show .revol_trophy {
+  background-image: url(../images/trophy/round-star.png);
+  font-size: 24px;
+  line-height: 68px;
+  color: #fff!important;
+  text-shadow: 0 0 4px #444;
 }
 
 .user_show .honorific {
