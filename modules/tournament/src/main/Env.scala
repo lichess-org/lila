@@ -94,7 +94,10 @@ final class Env(
     autoPairing = autoPairing,
     clearJsonViewCache = jsonView.clearCache,
     clearWinnersCache = winners.clearCache,
-    clearShieldCache = () => shieldApi.clear,
+    clearTrophyCache = tour => {
+      if (tour.isShield) shieldApi.clear
+      else if (tour.isUnique) revolutionApi.clear
+    },
     renderer = hub.actor.renderer,
     timeline = hub.actor.timeline,
     socketHub = socketHub,

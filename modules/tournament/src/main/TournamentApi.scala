@@ -26,7 +26,7 @@ final class TournamentApi(
     autoPairing: AutoPairing,
     clearJsonViewCache: Tournament.ID => Unit,
     clearWinnersCache: Tournament => Unit,
-    clearShieldCache: () => Unit,
+    clearTrophyCache: Tournament => Unit,
     renderer: ActorSelection,
     timeline: ActorSelection,
     socketHub: ActorRef,
@@ -163,7 +163,7 @@ final class TournamentApi(
           awardTrophies(tour)
           indexLeaderboard(tour)
           clearWinnersCache(tour)
-          clearShieldCache()
+          clearTrophyCache(tour)
         }
       }
     }
