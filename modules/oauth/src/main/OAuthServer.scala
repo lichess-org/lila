@@ -5,7 +5,6 @@ import pdi.jwt.{ Jwt, JwtAlgorithm }
 import play.api.libs.json.Json
 import play.api.mvc.RequestHeader
 
-import lila.common.Iso
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
@@ -15,7 +14,8 @@ final class OAuthServer(
     jwtPublicKey: JWT.PublicKey
 ) {
 
-  private implicit val tokenIdHandler = stringAnyValHandler[AccessTokenId](_.value, AccessTokenId.apply)
+  import AccessToken.accessTokenIdHandler
+  import AccessToken.{ BSONFields => F }
 
   def activeUser(req: RequestHeader): Fu[Option[User]] = {
     req.headers get "Authorization" map (_.split(" ", 2))
@@ -23,27 +23,27 @@ final class OAuthServer(
     case Array("Bearer", token) => for {
       jsonStr <- Jwt.decodeRaw(token, jwtPublicKey.value, Seq(JwtAlgorithm.RS256)).future
       json = Json.parse(jsonStr)
-      accessToken = AccessTokenId((json str "jti" err s"Bad token json $json"))
-      user <- activeUser(accessToken)
+      accessTokenId = AccessToken.Id((json str "jti" err s"Bad token json $json"))
+      user <- activeUser(accessTokenId)
     } yield Some(user err "No user found for access token")
     case _ => fuccess(none)
   } mapFailure { e =>
     new OauthException { val message = e.getMessage }
   }
 
-  def activeUser(token: AccessTokenId): Fu[Option[User]] =
+  def activeUser(tokenId: AccessToken.Id): Fu[Option[User]] =
     tokenColl.primitiveOne[User.ID]($doc(
-      "access_token_id" -> token,
-      "expire_date" $gt DateTime.now
-    ), "user_id") flatMap {
+      F.id -> tokenId,
+      F.expiresAt $gt DateTime.now
+    ), F.userId) flatMap {
       _ ?? { userId =>
-        setUsedNow(token)
+        setUsedNow(tokenId)
         UserRepo byId userId
       }
     }
 
-  private def setUsedNow(token: AccessTokenId): Unit =
-    tokenColl.updateFieldUnchecked($doc("access_token_id" -> token), "used_at", DateTime.now)
+  private def setUsedNow(tokenId: AccessToken.Id): Unit =
+    tokenColl.updateFieldUnchecked($doc(F.id -> tokenId), F.usedAt, DateTime.now)
 }
 
 object OAuthServer {
