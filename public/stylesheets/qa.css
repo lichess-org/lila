@@ -81,8 +81,8 @@ div.side .questions a:hover {
   border-bottom: none;
 }
 #qa .previews td {
-  padding-top: 22px;
-  padding-bottom: 22px;
+  padding-top: 12px;
+  padding-bottom: 10px;
 }
 #qa .previews td:last-child {
   padding-right: 20px;
