@@ -42,6 +42,16 @@
   <logger name="akka" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
   <logger name="reactivemongo" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
 
+  <logger name="puzzle" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/puzzle.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/puzzle-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
   <logger name="relay" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
       <file>/var/log/lichess/relay.log</file>
