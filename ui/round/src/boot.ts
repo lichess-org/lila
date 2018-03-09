@@ -97,6 +97,6 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
     if (!data.player.spectator && data.game.status.id < 25) li.topMenuIntent();
     $('#zentog').click(round.toggleZen);
   };
-  if (window.navigator.userAgent.indexOf('Trident/') > -1) setTimeout(letsGo, 150);
+  if (li.isTrident) setTimeout(letsGo, 150);
   else letsGo();
 }

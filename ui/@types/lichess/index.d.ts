@@ -51,6 +51,7 @@ interface Lichess {
     (data: any, trans: Trans, el: HTMLElement): void;
   }
   dispatchEvent(el: HTMLElement, eventName: string): void;
+  isTrident: boolean;
 }
 
 interface Cookie {
