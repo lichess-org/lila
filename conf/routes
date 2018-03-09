@@ -67,22 +67,6 @@ GET   /player/top/week                 controllers.User.topWeek
 GET   /player/online                   controllers.User.online
 GET   /player/autocomplete             controllers.User.autocomplete
 
-# Account
-GET   /account/passwd                  controllers.Account.passwd
-POST  /account/passwd                  controllers.Account.passwdApply
-GET   /account/email                   controllers.Account.email
-POST  /account/email                   controllers.Account.emailApply
-GET   /account/email/confirm/:token    controllers.Account.emailConfirm(token: String)
-GET   /account/close                   controllers.Account.close
-POST  /account/closeConfirm            controllers.Account.closeConfirm
-GET   /account/profile                 controllers.Account.profile
-POST  /account/profile                 controllers.Account.profileApply
-GET   /account/kid                     controllers.Account.kid
-POST  /account/kidConfirm              controllers.Account.kidConfirm
-GET   /account/security                controllers.Account.security
-POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: String)
-GET   /account/info                    controllers.Account.info
-
 GET   /dasher                          controllers.Dasher.get
 
 # Site
@@ -510,6 +494,26 @@ GET   /api/socket                      controllers.Main.apiWebsocket
 POST  /api/game-stream                 controllers.Api.gameStream
 GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
+
+# Account
+GET   /account/passwd                  controllers.Account.passwd
+POST  /account/passwd                  controllers.Account.passwdApply
+GET   /account/email                   controllers.Account.email
+POST  /account/email                   controllers.Account.emailApply
+GET   /account/email/confirm/:token    controllers.Account.emailConfirm(token: String)
+GET   /account/close                   controllers.Account.close
+POST  /account/closeConfirm            controllers.Account.closeConfirm
+GET   /account/profile                 controllers.Account.profile
+POST  /account/profile                 controllers.Account.profileApply
+GET   /account/kid                     controllers.Account.kid
+POST  /account/kidConfirm              controllers.Account.kidConfirm
+GET   /account/security                controllers.Account.security
+POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: String)
+GET   /account/info                    controllers.Account.info
+GET   /account/token                   controllers.OAuthToken.index
+GET   /account/token/create            controllers.OAuthToken.create
+POST  /account/token/create            controllers.OAuthToken.createApply
+POST  /account/token/:id/delete        controllers.OAuthToken.delete(id: String)
 
 # Events
 GET   /event                           controllers.Event.index

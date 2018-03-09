@@ -15,13 +15,15 @@
 }
 }
 
+@title = @{ "Live tournament broadcasts [BETA]" }
+
 @base.layout(
-title = "Live tournament broadcasts",
+title = title,
 moreCss = cssTag("relay-list.css"),
 moreJs = jsTag("vendor/jquery.infinitescroll.min.js")) {
 <div class="content_box no_padding relays">
   <div class="top">
-    <h1>Live tournament broadcasts [BETA]</h1>
+    <h1>@title</h1>
     @if(isGranted(_.Beta)) {
     @newForm()
     }

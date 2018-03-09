@@ -1,0 +1,40 @@
+@(tokens: List[lila.oauth.AccessToken])(implicit ctx: Context)
+
+@title = @{ "Personal API access tokens" }
+
+@account.layout(title = title, active = "oauth") {
+<div class="content_box no_padding high oauth security">
+  <div class="top">
+    <h1>@title</h1>
+    <form class="new_token" action="@routes.OAuthToken.create">
+      <button type="submit" class="button frameless hint--top" data-hint="New access token">
+        <i data-icon="O"></i>
+      </button>
+    </form>
+  </div>
+  <p class="explanation">Tokens you have generated that can be used to access the lichess API.</p>
+  <table class="slist">
+    @tokens.map { t =>
+    <tr>
+      <td>
+        <strong>@t.description.getOrElse("Unnamed")</strong><br />
+        <em>@t.scopes.map(_.name).mkString(", ")</em>
+      </td>
+      <td class="date">
+        @t.createdAt.map { created =>
+        Created @momentFromNow(created)<br />
+        }
+        @t.usedAt.map { used =>
+        Last used @momentFromNow(used)
+        }
+      </td>
+      <td class="action">
+        <form action="@routes.OAuthToken.delete(t.id.value)" method="POST">
+          <button type="submit" class="button text hint--top" data-hint="Delete this access token">Delete</button>
+        </form>
+      </td>
+    </tr>
+    }
+  </table>
+</div>
+}

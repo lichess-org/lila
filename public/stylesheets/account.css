@@ -20,6 +20,28 @@
   color: #d59120;
 }
 
+.oauth .top {
+  display: flex;
+  align-items: center;
+}
+.oauth .top h1 {
+  flex: 1 1 100%;
+}
+.oauth .top .new_token {
+  white-space: nowrap;
+  margin-right: 10px;
+}
+.oauth .top .new_token .button i::before {
+  color: #759900;
+  font-size: 40px;
+}
+.oauth table .date {
+  font-size: 0.8em;
+}
+.oauth table .action {
+  text-align: right;
+}
+
 form.material.form {
   margin-top: 50px;
 }

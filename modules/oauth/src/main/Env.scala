@@ -21,12 +21,20 @@ final class Env(
   val baseUrl = config getString "base_url"
 
   private val db = new lila.db.Env("oauth", DbConfig, lifecycle)
+  private val tokenColl = db(CollectionAccessToken)
+  private val clientColl = db(CollectionClient)
 
   lazy val server = new OAuthServer(
-    tokenColl = db(CollectionAccessToken),
-    clientColl = db(CollectionClient),
+    tokenColl = tokenColl,
+    clientColl = clientColl,
     jwtPublicKey = JWT.PublicKey(JwtPublicKey)
   )
+
+  lazy val tokenApi = new PersonalTokenApi(
+    tokenColl = tokenColl
+  )
+
+  def forms = AccessTokenForm
 }
 
 object Env {

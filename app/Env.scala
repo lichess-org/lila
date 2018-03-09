@@ -225,5 +225,5 @@ object Env {
   def activity = lila.activity.Env.current
   def relay = lila.relay.Env.current
   def streamer = lila.streamer.Env.current
-  def oauth = lila.oauth.Env.current
+  def oAuth = lila.oauth.Env.current
 }

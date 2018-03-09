@@ -33,7 +33,7 @@ object Auth extends LilaController {
     referrer.nonEmpty &&
       referrer.stripPrefix("/") != "mobile" && {
         """(?:[\w@-]|(:?\/[\w@-]))*\/?""".r.matches(referrer) ||
-          referrer.startsWith(Env.oauth.baseUrl)
+          referrer.startsWith(Env.oAuth.baseUrl)
       }
   }
 

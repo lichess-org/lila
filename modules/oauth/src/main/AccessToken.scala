@@ -19,12 +19,15 @@ object AccessToken {
 
   case class Id(value: String) extends AnyVal
 
+  def makeId = Id(ornicar.scalalib.Random secureString 16)
+
   object BSONFields {
     val id = "access_token_id"
     val clientId = "client_id"
     val userId = "user_id"
     val createdAt = "create_date"
     val expiresAt = "expire_date"
+    val description = "description"
     val usedAt = "used_at"
     val scopes = "scopes"
   }
@@ -50,6 +53,8 @@ object AccessToken {
       clientId = r str clientId,
       userId = r str userId,
       expiresAt = r.get[DateTime](expiresAt),
+      createdAt = r.getO[DateTime](createdAt),
+      description = r strO description,
       usedAt = r.getO[DateTime](usedAt),
       scopes = r.get[List[OAuthScope]](scopes)
     )
@@ -59,6 +64,8 @@ object AccessToken {
       clientId -> o.clientId,
       userId -> o.userId,
       expiresAt -> o.expiresAt,
+      createdAt -> o.createdAt,
+      description -> o.description,
       usedAt -> o.usedAt,
       scopes -> o.scopes
     )

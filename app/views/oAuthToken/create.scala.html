@@ -1,0 +1,30 @@
+@(form: Form[_])(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("material.form.css")
+}
+
+@title = @{ "New personal API access token" }
+
+@account.layout(
+title = title,
+active = "oauth",
+evenMoreCss = moreCss
+) {
+<div class="token_form content_box small_box no_padding oauth security">
+  <h1 class="lichess_title">@title</h1>
+  <p class="explanation">
+    New personal access token
+    Personal access tokens function like ordinary lichess OAuth access tokens.
+    They can be used to authenticate to the API over Basic Authentication.
+  </p>
+  <form class="content_box_content material form" action="@routes.OAuthToken.create" method="POST">
+
+    @base.form.group(form("description"), Html("Token description")) {
+    @base.form.input(form("description"), required = true)
+    }
+
+    @base.form.submit()
+  </form>
+</div>
+}
