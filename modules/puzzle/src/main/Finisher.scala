@@ -79,11 +79,15 @@ private[puzzle] final class Finisher(
       rating = formerUserRating,
       ratingDiff = userPerf.intRating - formerUserRating
     )
-    bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating), 'finishPuzzle)
     (api.round add a) >>
-      UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf) inject
-      user.copy(perfs = user.perfs.copy(puzzle = userPerf))
+      UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf) >>-
+      bus.publish(
+        Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
+        'finishPuzzle
+      ) inject
+        user.copy(perfs = user.perfs.copy(puzzle = userPerf))
   } recover lila.db.recoverDuplicateKey { _ =>
+    logger.info(s"ratedUntrusted ${user.id} ${puzzle.id} duplicate round")
     user // has already been solved!
   }
 

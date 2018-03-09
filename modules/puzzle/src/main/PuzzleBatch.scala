@@ -20,7 +20,10 @@ private[puzzle] final class PuzzleBatch(
     _ <- data.solutions.lastOption ?? { lastSolution =>
       api.head.solved(user, lastSolution.id).void
     }
-  } yield ()
+  } yield for {
+    first <- puzzles.headOption.flatten
+    last <- puzzles.lastOption.flatten
+  } logger.info(s"Batch solve ${user.id} ${puzzles.size} ${first.id}->${last.id}")
 
   object select {
 
