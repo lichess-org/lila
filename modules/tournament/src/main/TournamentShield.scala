@@ -2,6 +2,7 @@ package lila.tournament
 
 import org.joda.time.DateTime
 import scala.concurrent.duration._
+import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._
 import lila.rating.PerfType
@@ -35,7 +36,7 @@ final class TournamentShieldApi(
     f = coll.find($doc(
       "schedule.freq" -> scheduleFreqHandler.write(Schedule.Freq.Shield),
       "status" -> statusBSONHandler.write(Status.Finished)
-    )).sort($sort asc "startsAt").list[Tournament]() map { tours =>
+    )).sort($sort asc "startsAt").list[Tournament](none, ReadPreference.secondaryPreferred) map { tours =>
       for {
         tour <- tours
         categ <- Category of tour

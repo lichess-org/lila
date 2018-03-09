@@ -2,6 +2,7 @@ package lila.tournament
 
 import org.joda.time.DateTime
 import scala.concurrent.duration._
+import reactivemongo.api.ReadPreference
 
 import chess.variant.Variant
 import lila.db.dsl._
@@ -27,7 +28,7 @@ final class RevolutionApi(
       "startsAt" $lt DateTime.now $gt DateTime.now.minusYears(1).minusDays(1),
       "name" -> $doc("$regex" -> """ Revolution #\d+$"""),
       "status" -> statusBSONHandler.write(Status.Finished)
-    ), $doc("winner" -> true, "variant" -> true)).list[Bdoc]() map { docOpt =>
+    ), $doc("winner" -> true, "variant" -> true)).list[Bdoc](none, ReadPreference.secondaryPreferred) map { docOpt =>
       val awards = for {
         doc <- docOpt
         winner <- doc.getAs[User.ID]("winner")
