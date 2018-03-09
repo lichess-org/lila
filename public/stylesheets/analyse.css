@@ -865,6 +865,10 @@ body.piece_letter .tablebase td:first-child {
   font-weight: normal;
   font-size: 1.3em;
 }
+.retro_box .instruction move {
+  display: inline;
+  cursor: default;
+}
 .retro_box .instruction glyph {
   font-weight: normal;
   opacity: 0.7;
@@ -990,7 +994,7 @@ body.dark .practice_box .comment {
   background: #dc322f;
   content: '✗';
 }
-.practice_box .comment a {
+.practice_box .comment move {
   margin-left: 5px;
   color: #3893E8;
   transition: 0.3s;
@@ -1236,14 +1240,14 @@ body.dark .aclocks .aclock.active {
   font-size: 16px;
   line-height: 1em;
 }
-.tview2 move {
+.lichess_ground move {
   font-family: 'ChessSansPiratf', sans-serif;
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
   cursor: pointer;
 }
-body.piece_letter .tview2 move {
+body.piece_letter .lichess_ground move {
   font-family: 'Noto Sans';
 }
 .tview2.column move {

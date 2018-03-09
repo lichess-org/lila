@@ -42,7 +42,7 @@ const feedback = {
       h('div.player', [
         h('div.no-square', h('piece.king.' + ctrl.color)),
         h('div.instruction', [
-          h('strong', ctrl.trans.vdom('xWasPlayed', h('span', renderIndexAndMove({
+          h('strong', ctrl.trans.vdom('xWasPlayed', h('move', renderIndexAndMove({
             withDots: true,
             showGlyphs: true,
             showEval: false
