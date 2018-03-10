@@ -51,7 +51,7 @@ private final class RatingRefund(
 
       def pointsToRefund(ref: Refund, curRating: Int, perfs: PerfStat): Int = {
         ref.diff - (ref.diff + curRating - ref.topRating atLeast 0) / 2 atMost
-          perfs.highest.fold(100) { _.int - curRating + 50 }
+          perfs.highest.fold(100) { _.int - curRating + 20 }
       } squeeze (0, 150)
 
       def refundPoints(victim: Victim, pt: PerfType, points: Int): Funit = {
