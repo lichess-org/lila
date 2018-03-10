@@ -5,6 +5,7 @@ import play.api.Play.current
 
 final class DisposableEmailDomain(
     providerUrl: String,
+    blacklistStr: () => String,
     busOption: Option[lila.common.Bus]
 ) {
 
@@ -41,7 +42,9 @@ final class DisposableEmailDomain(
   }
 
   def apply(domain: String) =
-    !DisposableEmailDomain.mainstreamDomains(domain.toLowerCase) && domains(domain)
+    !DisposableEmailDomain.mainstreamDomains(domain.toLowerCase) && {
+      domains.contains(domain) || blacklistStr().split(' ').contains(domain)
+    }
 }
 
 private object DisposableEmailDomain {

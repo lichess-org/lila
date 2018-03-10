@@ -148,8 +148,15 @@ final class Env(
 
   lazy val emailAddressValidator = new EmailAddressValidator(disposableEmailDomain)
 
+  lazy val emailBlacklistSetting = settingStore[String](
+    "emailBlacklist",
+    default = "",
+    text = "Blacklisted email domains separated by a space".some
+  )
+
   private lazy val disposableEmailDomain = new DisposableEmailDomain(
     providerUrl = DisposableEmailProviderUrl,
+    blacklistStr = emailBlacklistSetting.get,
     busOption = system.lilaBus.some
   )
 
