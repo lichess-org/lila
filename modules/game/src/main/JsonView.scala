@@ -47,9 +47,9 @@ object JsonView {
 
   implicit val crosstableWrites = OWrites[Crosstable] { c =>
     Json.obj(
-      "users" -> c.users
-    // "results" -> c.results,
-    // "nbGames" -> c.nbGames
+      "users" -> c.users,
+      "nbGames" -> c.nbGames
+    // "results" -> c.results
     )
   }
 
