@@ -801,5 +801,6 @@ in %3$s</string>
   <string name="endgame">Fin del joco</string>
   <string name="youCannotChallengeX">Tu non pote defiar %s.</string>
   <string name="xDoesNotAcceptChallenges">%s non accepta defias.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s solmente accepta defias de amicos.</string>
   <string name="playX">Joca %s</string>
 </resources>
