@@ -9,14 +9,14 @@ sealed trait Reason {
 
 object Reason {
 
-  case object Cheat extends Reason
-  case object CheatPrint extends Reason {
+  object Cheat extends Reason
+  object CheatPrint extends Reason {
     override def name = "Print"
   }
-  case object Insult extends Reason
-  case object Troll extends Reason
-  case object Boost extends Reason
-  case object Other extends Reason
+  object Insult extends Reason
+  object Troll extends Reason
+  object Boost extends Reason
+  object Other extends Reason
 
   val communication: Set[Reason] = Set(Insult, Troll, Other)
 
