@@ -57,6 +57,7 @@
   <string name="inLocalBrowser">in le navigator local</string>
   <string name="toggleLocalEvaluation">Activar/disactivar evalutation local</string>
   <string name="promoteVariation">Promover variante</string>
+  <string name="makeMainLine">Facer iste linea le principal</string>
   <string name="deleteFromHere">Deler ab iste puncto</string>
   <string name="move">Movimento</string>
   <string name="variantLoss">Perdita per variante</string>
@@ -196,6 +197,7 @@
   <string name="accept">Acceptar</string>
   <string name="decline">Declinar</string>
   <string name="playingRightNow">Jocante ora mesmo</string>
+  <string name="eventInProgress">Jocante ora mesmo</string>
   <string name="finished">Finite</string>
   <string name="abortGame">Cancellar partita</string>
   <string name="gameAborted">Partita cancellate</string>
@@ -771,10 +773,21 @@ in %3$s</string>
   <string name="notifications">Notificationes</string>
   <string name="challenges">Defias</string>
   <string name="perfRatingX">Classification: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s secunda pro jocar le prime movimento</item>
+    <item quantity="other">%s secundas pro jocar le prime movimento</item>
+  </plurals>
+  <string name="practiceWithComputer">Practicar con le computator</string>
+  <string name="anotherWasX">Un alternativa esserea %s</string>
+  <string name="bestWasX">Melior esserea %s</string>
   <string name="theGameIsADraw">Le partita es nulle.</string>
   <string name="seeBestMove">Vider le melior movimento</string>
   <string name="hideBestMove">Celar le melior movimento</string>
+  <string name="evaluatingYourMove">Evalutante tu movimento ...</string>
+  <string name="whiteWinsGame">Le blanco vince</string>
+  <string name="blackWinsGame">Le nigro vince</string>
   <string name="learnFromYourMistakes">Apprende ab tu errores</string>
+  <string name="learnFromThisMistake">Apprende ab iste error</string>
   <string name="next">Sequente</string>
   <string name="youCanDoBetter">Tu pote facer melio</string>
   <string name="solution">Solution</string>
@@ -784,6 +797,8 @@ in %3$s</string>
     <item quantity="other">%s secundas</item>
   </plurals>
   <string name="opening">Initio de joco</string>
+  <string name="middlegame">Medio del joco</string>
+  <string name="endgame">Fin del joco</string>
   <string name="youCannotChallengeX">Tu non pote defiar %s.</string>
   <string name="xDoesNotAcceptChallenges">%s non accepta defias.</string>
   <string name="playX">Joca %s</string>
