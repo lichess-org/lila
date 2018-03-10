@@ -46,7 +46,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
       sans => sans.copy(value = sans.value take maxPlies),
       Tags.empty
     ) map evenIncomplete map {
-        case replay @ Replay(setup, _, game) =>
+        case replay @ Replay(setup, _, state) =>
           val initBoard = parsed.tags.fen.map(_.value) flatMap Forsyth.<< map (_.board)
           val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.contains(FEN(Forsyth.initial))
           val variant = {
@@ -59,6 +59,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
             case chess.variant.FromPosition if parsed.tags.fen.isEmpty => chess.variant.Standard
             case v => v
           }
+          val game = state.copy(situation = state.situation withVariant variant)
           val initialFen = parsed.tags.fen.map(_.value) flatMap {
             Forsyth.<<<@(variant, _)
           } map Forsyth.>> map FEN.apply
@@ -87,7 +88,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           }
 
           val dbGame = Game.make(
-            chess = replay.state,
+            chess = game,
             whitePlayer = Player.make(chess.White, None) withName name(_.White, _.WhiteElo),
             blackPlayer = Player.make(chess.Black, None) withName name(_.Black, _.BlackElo),
             mode = Mode.Casual,
@@ -95,7 +96,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
             pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
           ).start
 
-          Preprocessed(dbGame, replay, result, initialFen, parsed)
+          Preprocessed(dbGame, replay.copy(state = game), result, initialFen, parsed)
       }
   }
 }
