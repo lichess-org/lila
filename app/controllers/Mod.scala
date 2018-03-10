@@ -82,7 +82,7 @@ object Mod extends LilaController {
   def closeAccount(username: String) = Secure(_.CloseAccount) { implicit ctx => me =>
     modApi.closeAccount(me.id, username) flatMap {
       _ ?? { user =>
-        Env.current.closeAccount(user.id)
+        Env.current.closeAccount(user.id, self = false)
       }
     } inject redirect(username)
   }

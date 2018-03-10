@@ -141,7 +141,7 @@ object Account extends LilaController {
     } { password =>
       Env.user.authenticator.authenticateById(me.id, ClearPassword(password)).map(_.isDefined) flatMap {
         case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
-        case true => Env.current.closeAccount(me.id) inject {
+        case true => Env.current.closeAccount(me.id, self = true) inject {
           Redirect(routes.User show me.username) withCookies LilaCookie.newSession
         }
       }

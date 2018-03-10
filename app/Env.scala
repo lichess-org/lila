@@ -74,7 +74,7 @@ final class Env(
         none
     }
 
-  def closeAccount(userId: lila.user.User.ID): Funit = for {
+  def closeAccount(userId: lila.user.User.ID, self: Boolean): Funit = for {
     user <- lila.user.UserRepo byId userId flatten s"No such user $userId"
     goodUser <- !user.lameOrTroll ?? { !Env.playban.api.hasCurrentBan(user.id) }
     _ <- lila.user.UserRepo.disable(user, keepEmail = !goodUser)
@@ -91,7 +91,7 @@ final class Env(
     _ <- Env.security.store.disconnect(user.id)
     _ <- Env.streamer.api.onClose(user)
     reports <- Env.report.api.processAndGetBySuspect(lila.report.Suspect(user))
-    _ <- Env.mod.logApi.selfCloseAccount(user.id, reports)
+    _ <- self ?? Env.mod.logApi.selfCloseAccount(user.id, reports)
   } yield {
     system.lilaBus.publish(lila.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
   }
@@ -100,7 +100,7 @@ final class Env(
     def receive = {
       case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
         system.scheduler.scheduleOnce(1 second) {
-          closeAccount(userId)
+          closeAccount(userId, self = false)
         }
     }
   })), 'garbageCollect)
