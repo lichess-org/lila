@@ -775,6 +775,7 @@ in %3$s</string>
   <string name="learnFromYourMistakes">Apprende ab tu errores</string>
   <string name="next">Sequente</string>
   <string name="youCanDoBetter">Tu pote facer melio</string>
+  <string name="solution">Solution</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s secunda</item>
     <item quantity="other">%s secundas</item>
