@@ -11,6 +11,7 @@ import lila.user.{ User, UserRepo }
 final class PlaybanApi(
     coll: Coll,
     sandbag: SandbagWatch,
+    feedback: PlaybanFeedback,
     bus: lila.common.Bus
 ) {
 
@@ -37,16 +38,22 @@ final class PlaybanApi(
     blameable(game) flatMap { _ ?? f }
 
   def abort(pov: Pov, isOnGame: Set[Color]): Funit = IfBlameable(pov.game) {
-    pov.player.userId.ifTrue(isOnGame(pov.opponent.color)) ?? save(Outcome.Abort)
+    pov.player.userId.ifTrue(isOnGame(pov.opponent.color)) ?? { userId =>
+      save(Outcome.Abort, userId) >>- feedback.abort(pov)
+    }
   }
 
   def noStart(pov: Pov): Funit = IfBlameable(pov.game) {
-    pov.player.userId ?? save(Outcome.NoPlay)
+    pov.player.userId ?? { userId =>
+      save(Outcome.NoPlay, userId) >>- feedback.noStart(pov)
+    }
   }
 
   def rageQuit(game: Game, quitterColor: Color): Funit =
     sandbag(game, quitterColor) >> IfBlameable(game) {
-      game.player(quitterColor).userId ?? save(Outcome.RageQuit)
+      game.player(quitterColor).userId ?? { userId =>
+        save(Outcome.RageQuit, userId) >>- feedback.rageQuit(Pov(game, quitterColor))
+      }
     }
 
   def flag(game: Game, flaggerColor: Color): Funit = {
@@ -61,7 +68,7 @@ final class PlaybanApi(
       seconds = nowSeconds - game.movedAt.getSeconds
       limit <- unreasonableTime
       if seconds >= limit
-    } yield save(Outcome.Sitting)(userId)
+    } yield save(Outcome.Sitting, userId) >>- feedback.sitting(Pov(game, flaggerColor))
 
     // flagged after waiting a short time;
     // but the previous move used a long time.
@@ -72,7 +79,7 @@ final class PlaybanApi(
       lastMovetime <- movetimes.lastOption
       limit <- unreasonableTime
       if lastMovetime.toSeconds >= limit
-    } yield save(Outcome.SitMoving)(userId)
+    } yield save(Outcome.SitMoving, userId) >>- feedback.sitting(Pov(game, flaggerColor))
 
     sandbag(game, flaggerColor) flatMap { isSandbag =>
       IfBlameable(game) {
@@ -90,15 +97,16 @@ final class PlaybanApi(
           w <- winner
           loserId <- game.player(!w).userId
         } yield {
-          if (Status.NoStart is status) save(Outcome.NoPlay)(loserId)
+          if (Status.NoStart is status) save(Outcome.NoPlay, loserId) >>- feedback.noStart(Pov(game, !w))
           else goodOrSandbag(game, !w, isSandbag)
         })
       }
     }
 
   private def goodOrSandbag(game: Game, color: Color, isSandbag: Boolean): Funit =
-    game.player(color).userId ?? {
-      save(if (isSandbag) Outcome.Sandbag else Outcome.Good)
+    game.player(color).userId ?? { userId =>
+      if (isSandbag) feedback.sandbag(Pov(game, color))
+      save(if (isSandbag) Outcome.Sandbag else Outcome.Good, userId)
     }
 
   def currentBan(userId: User.ID): Fu[Option[TempBan]] = coll.find(
@@ -135,7 +143,7 @@ final class PlaybanApi(
       }(scala.collection.breakOut)
     }
 
-  private def save(outcome: Outcome): User.ID => Funit = userId => {
+  private def save(outcome: Outcome, userId: User.ID): Funit = {
     lila.mon.playban.outcome(outcome.key)()
     coll.findAndUpdate(
       selector = $id(userId),

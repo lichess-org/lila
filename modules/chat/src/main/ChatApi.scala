@@ -90,10 +90,16 @@ final class ChatApi(
 
     def clear(chatId: Chat.Id) = coll.remove($id(chatId)).void
 
-    def system(chatId: Chat.Id, text: String) = {
+    def system(chatId: Chat.Id, text: String): Funit = {
       val line = UserLine(systemUserId, text, troll = false, deleted = false)
       pushLine(chatId, line) >>-
-        lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId)) inject line.some
+        lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
+    }
+
+    // like system, but not persisted.
+    def volatile(chatId: Chat.Id, text: String): Unit = {
+      val line = UserLine(systemUserId, text, troll = false, deleted = false)
+      lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
     }
 
     def timeout(chatId: Chat.Id, modId: String, userId: String, reason: ChatTimeout.Reason, local: Boolean): Funit =
