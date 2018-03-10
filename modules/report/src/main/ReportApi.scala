@@ -63,14 +63,20 @@ final class ReportApi(
     UserRepo named username map2 Suspect.apply
 
   def autoCheatPrintReport(userId: String): Funit =
-    getSuspect(userId) zip getLichessReporter flatMap {
-      case (Some(suspect), reporter) => create(Report.Candidate(
-        reporter = reporter,
-        suspect = suspect,
-        reason = Reason.CheatPrint,
-        text = "Shares print with known cheaters"
-      ))
-      case _ => funit
+    coll.exists($doc(
+      "user" -> userId,
+      "reason" -> Reason.CheatPrint.key
+    )) flatMap {
+      case true => funit // only report once
+      case _ => getSuspect(userId) zip getLichessReporter flatMap {
+        case (Some(suspect), reporter) => create(Report.Candidate(
+          reporter = reporter,
+          suspect = suspect,
+          reason = Reason.CheatPrint,
+          text = "Shares print with known cheaters"
+        ))
+        case _ => funit
+      }
     }
 
   def autoCheatReport(userId: String, text: String): Funit =
@@ -304,7 +310,7 @@ final class ReportApi(
   private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc = $doc(
     "atoms.0.at" $gt DateTime.now.minusDays(7),
     "user" -> suspect.value,
-    "reason" -> reason.key
+    "reason" -> reason
   )
 
   object inquiries {
