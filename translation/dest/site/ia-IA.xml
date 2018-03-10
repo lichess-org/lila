@@ -772,12 +772,19 @@ in %3$s</string>
   <string name="challenges">Defias</string>
   <string name="perfRatingX">Classification: %s</string>
   <string name="theGameIsADraw">Le partita es nulle.</string>
+  <string name="seeBestMove">Vider le melior movimento</string>
+  <string name="hideBestMove">Celar le melior movimento</string>
   <string name="learnFromYourMistakes">Apprende ab tu errores</string>
   <string name="next">Sequente</string>
   <string name="youCanDoBetter">Tu pote facer melio</string>
   <string name="solution">Solution</string>
+  <string name="advantage">Avantage</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s secunda</item>
     <item quantity="other">%s secundas</item>
   </plurals>
+  <string name="opening">Initio de joco</string>
+  <string name="youCannotChallengeX">Tu non pote defiar %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s non accepta defias.</string>
+  <string name="playX">Joca %s</string>
 </resources>
