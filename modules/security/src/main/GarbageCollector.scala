@@ -18,9 +18,14 @@ final class GarbageCollector(
   /* User just signed up and doesn't have security data yet,
    * so wait a bit */
   def delay(user: User, ip: IpAddress, email: EmailAddress): Unit =
-    if (checkable(user, email)) system.scheduler.scheduleOnce(5 seconds) {
-      apply(user, ip, email)
+    if (!recentlyChecked.get(user.id) && user.createdAt.isAfter(DateTime.now minusDays 3)) {
+      recentlyChecked put user.id
+      system.scheduler.scheduleOnce(5 seconds) {
+        apply(user, ip, email)
+      }
     }
+
+  private val recentlyChecked = new lila.memo.ExpireSetMemo(ttl = 5 minutes)
 
   private def apply(user: User, ip: IpAddress, email: EmailAddress): Funit =
     userSpy(user) flatMap { spy =>
@@ -54,9 +59,6 @@ final class GarbageCollector(
   private def isBadAccount(user: User) =
     (user.troll || user.engine) && !user.enabled
 
-  private def checkable(user: User, email: EmailAddress): Boolean =
-    user.createdAt.isAfter(DateTime.now minusDays 3)
-
   private def collect(user: User, email: EmailAddress, others: List[User], ipBan: Boolean): Funit = {
     val armed = isArmed()
     val wait = (30 + scala.util.Random.nextInt(300)).seconds
@@ -70,10 +72,9 @@ final class GarbageCollector(
     }
   }
 
-  private def doCollect(user: User, ipBan: Boolean): Unit = {
+  private def doCollect(user: User, ipBan: Boolean): Unit =
     system.lilaBus.publish(
       lila.hub.actorApi.security.GarbageCollect(user.id, ipBan),
       'garbageCollect
     )
-  }
 }
