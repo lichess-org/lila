@@ -56,6 +56,8 @@
   <string name="showThreat">Monstrar le menacia</string>
   <string name="inLocalBrowser">in le navigator local</string>
   <string name="toggleLocalEvaluation">Activar/disactivar evalutation local</string>
+  <string name="promoteVariation">Promover variante</string>
+  <string name="deleteFromHere">Deler ab iste puncto</string>
   <string name="move">Movimento</string>
   <string name="variantLoss">Perdita per variante</string>
   <string name="variantWin">Victoria per variante</string>
@@ -202,6 +204,8 @@
   <string name="mode">Modo</string>
   <string name="casual">Amical</string>
   <string name="rated">Classificatori</string>
+  <string name="casualTournament">Amical</string>
+  <string name="ratedTournament">Classificatori</string>
   <string name="thisGameIsRated">Iste partita vale punctos classificatori</string>
   <string name="rematch">Vindicar</string>
   <string name="rematchOfferSent">Proposition de vindicantia inviate</string>
@@ -267,6 +271,10 @@
   <string name="tournament">Torneo</string>
   <string name="tournaments">Torneos</string>
   <string name="tournamentPoints">Punctos ab torneos</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s puncto ab torneo</item>
+    <item quantity="other">%s punctos ab torneos</item>
+  </plurals>
   <string name="viewTournament">Vider torneo</string>
   <string name="backToTournament">Retro al torneo</string>
   <string name="thematic">Thematic</string>
@@ -625,6 +633,7 @@ in %3$s</string>
   <string name="videoLibrary">Videotheca</string>
   <string name="mobileApp">Application mobile</string>
   <string name="webmasters">Webmasters</string>
+  <string name="about">A proposito de</string>
   <string name="contribute">Contribuer</string>
   <string name="contact">Contacto</string>
   <string name="termsOfService">Terminos de servicio</string>
@@ -744,6 +753,8 @@ in %3$s</string>
   <string name="pieceSet">Stilo del pecias</string>
   <string name="embedInYourWebsite">Incorpora in tu sito web</string>
   <string name="usernameAlreadyUsed">Iste nomine de usator ja es usate, per favor, selectiona un altere.</string>
+  <string name="usernamePrefixInvalid">Le nomine de usator debe initiar con un littera.</string>
+  <string name="usernameSuffixInvalid">Le nomine de usator debe finir con un littera o un numero.</string>
   <string name="usernameUnacceptable">Iste nomine de usator non es acceptabile.</string>
   <string name="directlySupportLichess">Appoia directemente Lichess</string>
   <string name="playChessInStyle">Joca chacos con stilo</string>
