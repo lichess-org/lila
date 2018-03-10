@@ -46,7 +46,7 @@ final class GarbageCollector(
       .sortBy(-_.createdAt.getSeconds)
       .takeWhile(_.createdAt.isAfter(DateTime.now minusDays 7))
       .take(4)
-    (others.size > 1 && others.forall(isBadAccount)) option others
+    (others.size > 1 && others.forall(isBadAccount) && others.headOption.exists(_.disabled)) option others
   }
 
   private def isBadIp(ip: UserSpy.IPData): Fu[Boolean] = if (ip.blocked ||
@@ -56,8 +56,7 @@ final class GarbageCollector(
     ) fuccess(true)
   else ipIntel(ip.ip).map { 75 < _ }
 
-  private def isBadAccount(user: User) =
-    (user.troll || user.engine) && !user.enabled
+  private def isBadAccount(user: User) = user.troll || user.engine
 
   private def collect(user: User, email: EmailAddress, others: List[User], ipBan: Boolean): Funit = {
     val armed = isArmed()
