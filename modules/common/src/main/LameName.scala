@@ -20,7 +20,7 @@ object LameName {
     val extras = Map(
       'a' -> "4",
       'e' -> "38",
-      'g' -> "q",
+      'g' -> "q9",
       'i' -> "l1",
       'l' -> "I1",
       'o' -> "08",
