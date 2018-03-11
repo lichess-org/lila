@@ -43,13 +43,11 @@ private[security] final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll:
     infos ← Store.findInfoByUser(user.id)
     ips = infos.map(_.ip).distinct
     prints = infos.flatMap(_.fp).map(FingerHash(_)).distinct
-    blockedIps = ips map firewall.blocksIp
-    locations = ips map geoIP.orUnknown
     sharingIp ← exploreSimilar("ip")(user)(coll)
     sharingFingerprint ← exploreSimilar("fp")(user)(coll)
   } yield UserSpy(
-    ips = ips zip blockedIps zip locations map {
-      case ((ip, blocked), location) => IPData(ip, blocked, location)
+    ips = ips map { ip =>
+      IPData(ip, firewall blocksIp ip, geoIP orUnknown ip)
     },
     uas = infos.map(_.ua).distinct,
     prints = prints,
