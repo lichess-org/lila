@@ -90,7 +90,8 @@ export function render(ctrl: AnalyseCtrl): MaybeVNode {
 
   // don't cache until the analysis is complete!
   const buster = ctrl.data.analysis.partial ? Math.random() : '';
-  const cacheKey = '' + buster + !!ctrl.retro;
+  let cacheKey = '' + buster + !!ctrl.retro;
+  if (ctrl.study) cacheKey += ctrl.study.data.chapter.id;
 
   return thunk('div.advice_summary', doRender, [ctrl, cacheKey]);
 }
