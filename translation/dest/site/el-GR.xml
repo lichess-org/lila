@@ -428,6 +428,7 @@
   <string name="biography">Βιογραφικό</string>
   <string name="country">Χώρα</string>
   <string name="preferences">Προτιμήσεις</string>
+  <string name="inlineNotation">Ενσωματωμένη σημειογραφία</string>
   <string name="watchLichessTV">Παρακολουθήστε Lichess TV</string>
   <string name="previouslyOnLichessTV">Νωρίτερα στη Tηλεόραση Lichess</string>
   <string name="onlinePlayers">Συνδεδεμένοι παίκτες</string>
@@ -633,6 +634,7 @@
   <string name="videoLibrary">Βιβλιοθήκη τηλεοπτικού υλικού</string>
   <string name="mobileApp">Εφαρμογή για Κινητά</string>
   <string name="webmasters">Διαχειριστές</string>
+  <string name="about">Σχετικά με</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="contact">Επικοινωνία</string>
   <string name="termsOfService">Όροι χρήσης</string>
@@ -752,6 +754,9 @@
   <string name="pieceSet">Επιλογή πιονιών</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
   <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη ήδη χρησιμοποιείται, παρακαλώ δοκιμάστε ένα άλλο.</string>
+  <string name="usernamePrefixInvalid">Το όνομα χρήστη πρέπει να αρχίζει με ένα γράμμα.</string>
+  <string name="usernameSuffixInvalid">Το όνομα χρήστη πρέπει να τελειώνει με ένα γράμμα ή έναν αριθμό.</string>
+  <string name="usernameCharsInvalid">Το όνομα χρήστη πρέπει να περιέχει μόνο γράμματα, αριθμούς, κάτω παύλες και ενωτικά.</string>
   <string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>
   <string name="directlySupportLichess">Υποστηρίξτε άμεσα το Lichess</string>
   <string name="playChessInStyle">Παίξτε σκάκι με στυλ</string>
