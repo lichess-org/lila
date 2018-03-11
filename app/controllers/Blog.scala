@@ -44,6 +44,31 @@ object Blog extends LilaController {
     }
   }
 
+  def discuss(id: String) = Open { implicit ctx =>
+    val categSlug = "general-chess-discussion"
+    val topicSlug = s"blog-$id"
+    val redirect = Redirect(routes.ForumTopic.show(categSlug, topicSlug))
+    lila.forum.TopicRepo.existsByTree(categSlug, id) flatMap {
+      case true => fuccess(redirect)
+      case _ => blogApi context none flatMap { implicit prismic =>
+        blogApi.one(prismic.api, none, id) flatMap {
+          _ ?? { doc =>
+            lila.forum.CategRepo.bySlug(categSlug) flatMap {
+              _ ?? { categ =>
+                Env.forum.topicApi.makeBlogDiscuss(
+                  categ = categ,
+                  slug = topicSlug,
+                  name = doc.getText("blog.title") | "New blog post",
+                  url = s"${Env.api.Net.BaseUrl}${routes.Blog.show(doc.id, doc.slug)}"
+                )
+              }
+            } inject redirect
+          }
+        }
+      }
+    }
+  }
+
   // -- Helper: Check if the slug is valid and redirect to the most recent version id needed
   private def checkSlug(document: Option[Document], slug: String)(callback: Either[String, Document] => Result)(implicit ctx: lila.api.Context) =
     document.collect {

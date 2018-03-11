@@ -74,6 +74,7 @@ GET   /socket                          controllers.Main.websocket
 
 # Blog
 GET   /blog                            controllers.Blog.index(ref: Option[String] ?= None)
+GET   /blog/discuss/:id                controllers.Blog.discuss(id: String)
 GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
 GET   /blog.atom                       controllers.Blog.atom(ref: Option[String] ?= None)
 

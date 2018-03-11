@@ -87,6 +87,35 @@ private[forum] final class TopicApi(
           } inject topic
     }
 
+  def makeBlogDiscuss(categ: Categ, slug: String, name: String, url: String): Funit = {
+    val topic = Topic.make(
+      categId = categ.slug,
+      slug = slug,
+      name = name,
+      troll = false,
+      hidden = false
+    )
+    val post = Post.make(
+      topicId = topic.id,
+      author = none,
+      userId = "lichess".some,
+      ip = none,
+      troll = false,
+      hidden = false,
+      text = s"Comments on $url",
+      lang = none,
+      number = 1,
+      categId = categ.id,
+      modIcon = true.some
+    )
+    env.postColl.insert(post) >>
+      env.topicColl.insert(topic withPost post) >>
+      env.categColl.update($id(categ.id), categ withTopic post) >>-
+      (indexer ! InsertPost(post)) >>-
+      env.recent.invalidate >>-
+      bus.publish(actorApi.CreatePost(post, topic), 'forumPost) void
+  }
+
   def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = {
     val adapter = new Adapter[Topic](
       collection = env.topicColl,

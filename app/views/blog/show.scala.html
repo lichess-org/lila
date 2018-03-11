@@ -29,5 +29,14 @@ description = ~doc.getText("blog.shortlede")).some) {
   <div class="body embed_analyse">
     @doc.getHtml("blog.body", prismic.linkResolver).map(lila.blog.Youtube.fixStartTimes).map(lila.blog.ProtocolFix.remove).map(Html.apply)
   </div>
+  @NotForKids {
+  <div class="footer">
+    @if(prismic.maybeRef.isEmpty) {
+    <a href="@routes.Blog.discuss(doc.id)" class="button text discuss" data-icon="d">Discuss this blog post in the forum</a>
+    } else {
+    <p>This is a preview.</p>
+    }
+  </div>
+  }
 </div>
 }
