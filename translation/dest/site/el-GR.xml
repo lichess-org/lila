@@ -800,9 +800,14 @@
   <string name="resumeLearning">Συνεχίστε την μάθηση</string>
   <string name="youCanDoBetter">Μπορείτε και καλύτερα</string>
   <string name="tryAnotherMoveForWhite">Δοκιμάστε μια άλλη κίνηση για τα λευκά</string>
+  <string name="tryAnotherMoveForBlack">Δοκιμάστε μια άλλη κίνηση για τα μαύρα</string>
   <string name="solution">Λύση</string>
+  <string name="waitingForAnalysis">Αναμονή για την ανάλυση</string>
   <string name="noMistakesFoundForWhite">Δεν βρέθηκαν λάθη για τα λευκά</string>
   <string name="noMistakesFoundForBlack">Δεν βρέθηκαν λάθη για τα μαύρα</string>
+  <string name="doneReviewingWhiteMistakes">Έγινε έλεγχος λαθών για τα λευκά</string>
+  <string name="doneReviewingBlackMistakes">Έγινε έλεγχος λαθών για τα μαύρα</string>
+  <string name="doItAgain">Κάντε το ξανά</string>
   <string name="advantage">Πλεονέκτημα</string>
   <string name="opening">Άνοιγμα</string>
   <string name="endgame">Φινάλε</string>
