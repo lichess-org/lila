@@ -1,7 +1,8 @@
 import { h, thunk } from 'snabbdom'
 import { VNode, VNodeData } from 'snabbdom/vnode'
-import { AnalyseData, MaybeVNode } from './interfaces';
+import { MaybeVNode } from './interfaces';
 import AnalyseCtrl from './ctrl';
+import { findTag } from './study/studyChapters';
 import { game } from 'game';
 import { defined } from 'common';
 import { bind, dataIcon } from './util';
@@ -13,15 +14,19 @@ function renderRatingDiff(rd: number | undefined): VNode | undefined {
   return;
 }
 
-function renderPlayer(data: AnalyseData, color: Color): VNode {
-  const p = game.getPlayer(data, color);
+function renderPlayer(ctrl: AnalyseCtrl, color: Color): VNode {
+  const p = game.getPlayer(ctrl.data, color);
   if (p.user) return h('a.user_link.ulpt', {
     attrs: { href: '/@/' + p.user.username }
   }, [
     h('span', p.user.username),
     renderRatingDiff(p.ratingDiff)
   ]);
-  return h('span', p.name || (p.ai ? 'Stockfish level ' + p.ai : 'Anonymous'));
+  return h('span', p.name || (p.ai && 'Stockfish level ' + p.ai) || studyPlayerName(ctrl, color) || 'Anonymous');
+}
+
+function studyPlayerName(ctrl: AnalyseCtrl, color: Color): string | undefined {
+  return ctrl.study && findTag(ctrl.study.data.chapter.tags, color);
 }
 
 const advices = [
@@ -42,7 +47,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
   }, [
     h('thead', h('tr', [
       h('td', h('i.is.color-icon.' + color)),
-      h('th', renderPlayer(d, color))
+      h('th', renderPlayer(ctrl, color))
     ])),
     h('tbody',
       advices.map(a => {
