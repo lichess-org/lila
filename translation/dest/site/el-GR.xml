@@ -808,9 +808,18 @@
   <string name="doneReviewingWhiteMistakes">Έγινε έλεγχος λαθών για τα λευκά</string>
   <string name="doneReviewingBlackMistakes">Έγινε έλεγχος λαθών για τα μαύρα</string>
   <string name="doItAgain">Κάντε το ξανά</string>
+  <string name="reviewWhiteMistakes">Έλεγχος λαθών λευκών</string>
+  <string name="reviewBlackMistakes">Έλεγχος λαθών μαύρων</string>
   <string name="advantage">Πλεονέκτημα</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s δευτερόλεπτο</item>
+    <item quantity="other">%s δευτερόλεπτα</item>
+  </plurals>
   <string name="opening">Άνοιγμα</string>
+  <string name="middlegame">Μέση φάση παιχνιδιού</string>
   <string name="endgame">Φινάλε</string>
   <string name="registerToSendChallenges">Παρακαλώ εγγραφείτε για να στείλετε προκλήσεις.</string>
+  <string name="youCannotChallengeX">Δεν μπορείτε να προκαλέσετε %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s δεν δέχεται προκλήσεις.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s δέχεται προκλήσεις μόνο από φίλους.</string>
 </resources>
