@@ -3,6 +3,7 @@ package lila.study
 import play.api.libs.json._
 
 import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
+import chess.format.pgn.Glyphs
 import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.hub.actorApi.map.Tell
@@ -55,13 +56,18 @@ object ServerEval {
                       Comment.Id.make,
                       Comment.Text(adv.makeComment(false, true)),
                       Comment.Author.Lichess
-                    )) >> {
-                      chapter.root.nodeAt(path).flatMap { parent =>
-                        analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
-                          parent.addChild(child).children.get(child.id)
+                    )) >>
+                      chapterRepo.setGlyphs(
+                        chapter,
+                        path + node,
+                        node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
+                      ) >> {
+                          chapter.root.nodeAt(path).flatMap { parent =>
+                            analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
+                              parent.addChild(child).children.get(child.id)
+                            }
+                          } ?? { chapterRepo.setChild(chapter, path, _) }
                         }
-                      } ?? { chapterRepo.setChild(chapter, path, _) }
-                    }
                   }
               } inject path + node
             } void
