@@ -56,6 +56,8 @@
   <string name="showThreat">Εμφάνιση απειλής</string>
   <string name="inLocalBrowser">σε τοπικό περιηγητή</string>
   <string name="toggleLocalEvaluation">Εναλλαγή τοπικής αξιολόγησης</string>
+  <string name="promoteVariation">Προώθηση παραλλαγής</string>
+  <string name="makeMainLine">Δημιουργήστε κύρια γραμμή</string>
   <string name="deleteFromHere">Διαγραφή</string>
   <string name="move">Κίνηση</string>
   <string name="variantLoss">Ήττα εκδοχής</string>
@@ -271,6 +273,10 @@
   <string name="tournament">Πρωτάθλημα</string>
   <string name="tournaments">Πρωταθλήματα</string>
   <string name="tournamentPoints">Πόντοι από πρωταθλήματα</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s πόντος πρωταθλήματος</item>
+    <item quantity="other">%s πόντοι πρωταθλήματος</item>
+  </plurals>
   <string name="viewTournament">Παρακολούθηση πρωταθλήματος</string>
   <string name="backToTournament">Επιστροφή στο πρωτάθλημα</string>
   <string name="thematic">Θεματικό</string>
