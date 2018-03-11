@@ -22,11 +22,11 @@ function renderPlayer(ctrl: AnalyseCtrl, color: Color): VNode {
     h('span', p.user.username),
     renderRatingDiff(p.ratingDiff)
   ]);
-  return h('span', p.name || (p.ai && 'Stockfish level ' + p.ai) || studyPlayerName(ctrl, color) || 'Anonymous');
-}
-
-function studyPlayerName(ctrl: AnalyseCtrl, color: Color): string | undefined {
-  return ctrl.study && findTag(ctrl.study.data.chapter.tags, color);
+  return h('span', 
+    p.name || 
+    (p.ai && 'Stockfish level ' + p.ai) || 
+    (ctrl.study && findTag(ctrl.study.data.chapter.tags, color)) || 
+    'Anonymous');
 }
 
 const advices = [
