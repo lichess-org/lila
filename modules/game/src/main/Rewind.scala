@@ -48,7 +48,7 @@ object Rewind {
             val moveTimes = BinaryFormat.moveTime.read(binary, game.playedTurns)
             BinaryFormat.moveTime.write(moveTimes.dropRight(1))
           },
-          loadClockHistory = () => game.clockHistory.map(_.update(rewindedSituation.color, _.dropRight(1))),
+          loadClockHistory = _ => game.clockHistory.map(_.update(rewindedSituation.color, _.dropRight(1))),
           movedAt = DateTime.now
         )
         Progress(game, newGame)

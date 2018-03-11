@@ -20,6 +20,7 @@ case class Game(
     blackPlayer: Player,
     draughts: DraughtsGame,
     pdnStorage: PdnStorage,
+    loadClockHistory: Clock => Option[ClockHistory] = _ => Game.someEmptyClockHistory,
     status: Status,
     daysPerTurn: Option[Int],
     binaryMoveTimes: Option[ByteArray] = None,
@@ -32,7 +33,7 @@ case class Game(
     metadata: Metadata
 ) {
 
-  lazy val clockHistory = loadClockHistory()
+  lazy val clockHistory = draughts.clock flatMap loadClockHistory
 
   def situation = draughts.situation
   def board = draughts.situation.board
@@ -239,6 +240,13 @@ case class Game(
     moveMetrics: MoveMetrics = MoveMetrics()
   ): Progress = {
 
+    // This must be computed eagerly
+    // because it depends on the current time
+    val newClockHistory = for {
+      clk <- game.clock
+      ch <- clockHistory
+    } yield ch.record(turnColor, clk)
+
     def copyPlayer(player: Player) =
       if (blur && move.color == player.color)
         player.copy(
@@ -257,10 +265,7 @@ case class Game(
           } :+ Centis(nowCentis - movedAt.getCentis).nonNeg
         }
       },
-      loadClockHistory = () => for {
-        clk <- game.clock
-        ch <- clockHistory
-      } yield ch.record(turnColor, clk),
+      loadClockHistory = _ => newClockHistory,
       status = game.situation.status | status,
       movedAt = DateTime.now
     )
@@ -417,7 +422,7 @@ case class Game(
       val newClock = c goBerserk color
       Progress(this, copy(
         draughts = draughts.copy(clock = Some(newClock)),
-        loadClockHistory = () => loadClockHistory().map(history => {
+        loadClockHistory = _ => clockHistory.map(history => {
           if (history(color).isEmpty) history
           else history.reset(color).record(color, newClock)
         })
@@ -441,10 +446,7 @@ case class Game(
         whitePlayer = whitePlayer.finish(winner contains White),
         blackPlayer = blackPlayer.finish(winner contains Black),
         draughts = draughts.copy(clock = newClock),
-        loadClockHistory = () => for {
-          clk <- clock
-          history <- clockHistory
-        } yield {
+        loadClockHistory = clk => clockHistory map { history =>
           // If not already finished, we're ending due to an event
           // in the middle of a turn, such as resignation or draw
           // acceptance. In these cases, record a final clock time
@@ -695,6 +697,8 @@ object Game {
   def takePlayerId(fullId: String) = fullId drop gameIdSize
 
   private[game] val emptyKingMoves = KingMoves(0, 0)
+
+  private[game] val someEmptyClockHistory = Some(ClockHistory())
 
   def make(
     draughts: DraughtsGame,

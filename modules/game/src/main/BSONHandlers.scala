@@ -92,8 +92,7 @@ object BSONHandlers {
         whitePlayer = light.whitePlayer,
         blackPlayer = light.blackPlayer,
         draughts = draughtsGame,
-        loadClockHistory = () => for {
-          clk <- draughtsGame.clock
+        loadClockHistory = clk => for {
           bw <- r bytesO F.whiteClockHistory
           bb <- r bytesO F.blackClockHistory
           history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, (light.status == Status.Outoftime).option(decodedSituation.color))
