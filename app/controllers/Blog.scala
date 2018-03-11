@@ -48,7 +48,7 @@ object Blog extends LilaController {
     val categSlug = "general-chess-discussion"
     val topicSlug = s"blog-$id"
     val redirect = Redirect(routes.ForumTopic.show(categSlug, topicSlug))
-    lila.forum.TopicRepo.existsByTree(categSlug, id) flatMap {
+    lila.forum.TopicRepo.existsByTree(categSlug, topicSlug) flatMap {
       case true => fuccess(redirect)
       case _ => blogApi context none flatMap { implicit prismic =>
         blogApi.one(prismic.api, none, id) flatMap {
