@@ -89,9 +89,6 @@ object BSONHandlers {
       val createdAt = r date F.createdAt
       val status = r.get[Status](F.status)
 
-      val pgnFormat =
-        if (r contains F.huffmanPgn) PgnStorage.Huffman else PgnStorage.OldBin
-
       lila.mon.game.fetch()
 
       val loadChess: () => chess.Game = () => {
@@ -148,7 +145,6 @@ object BSONHandlers {
           bb <- r bytesO F.blackClockHistory
           history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, (status == Status.Outoftime).option(turnColor))
         } yield history,
-        pgnStorage = pgnFormat,
         status = status,
         daysPerTurn = r intO F.daysPerTurn,
         binaryMoveTimes = r bytesO F.moveTimes,
@@ -195,8 +191,11 @@ object BSONHandlers {
       F.tvAt -> o.metadata.tvAt.map(w.date),
       F.analysed -> w.boolO(o.metadata.analysed)
     ) ++ {
-        o.pgnStorage match {
-          case f @ PgnStorage.OldBin => $doc(
+        if (o.variant.standard)
+          $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.pgnMoves take Game.maxPlies))
+        else {
+          val f = PgnStorage.OldBin
+          $doc(
             F.oldPgn -> f.encode(o.pgnMoves take Game.maxPlies),
             F.binaryPieces -> BinaryFormat.piece.write(o.board.pieces),
             F.positionHashes -> o.history.positionHashes,
@@ -205,12 +204,8 @@ object BSONHandlers {
               castles = o.history.castles,
               lastMove = o.history.lastMove
             )),
-            // since variants are always OldBin
             F.checkCount -> o.history.checkCount.nonEmpty.option(o.history.checkCount),
             F.crazyData -> o.board.crazyData
-          )
-          case f @ PgnStorage.Huffman => $doc(
-            F.huffmanPgn -> f.encode(o.pgnMoves take Game.maxPlies)
           )
         }
       }

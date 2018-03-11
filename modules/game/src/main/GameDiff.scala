@@ -55,20 +55,19 @@ private[game] object GameDiff {
 
     val w = lila.db.BSON.writer
 
-    a.pgnStorage match {
-      case f @ PgnStorage.OldBin =>
-        d(oldPgn, _.pgnMoves, writeBytes compose f.encode)
-        d(binaryPieces, _.board.pieces, writeBytes compose BinaryFormat.piece.write)
-        d(positionHashes, _.history.positionHashes, w.bytes)
-        d(unmovedRooks, _.history.unmovedRooks, writeBytes compose BinaryFormat.unmovedRooks.write)
-        d(castleLastMove, makeCastleLastMove, CastleLastMove.castleLastMoveBSONHandler.write)
-        // since variants are always OldBin
-        if (a.variant.threeCheck)
-          dOpt(checkCount, _.history.checkCount, (o: CheckCount) => o.nonEmpty option { BSONHandlers.checkCountWriter write o })
-        if (a.variant.crazyhouse)
-          dOpt(crazyData, _.board.crazyData, (o: Option[chess.variant.Crazyhouse.Data]) => o map BSONHandlers.crazyhouseDataBSONHandler.write)
-      case f @ PgnStorage.Huffman =>
-        d(huffmanPgn, _.pgnMoves, writeBytes compose f.encode)
+    if (a.variant.standard) d(huffmanPgn, _.pgnMoves, writeBytes compose PgnStorage.Huffman.encode)
+    else {
+      val f = PgnStorage.OldBin
+      d(oldPgn, _.pgnMoves, writeBytes compose f.encode)
+      d(binaryPieces, _.board.pieces, writeBytes compose BinaryFormat.piece.write)
+      d(positionHashes, _.history.positionHashes, w.bytes)
+      d(unmovedRooks, _.history.unmovedRooks, writeBytes compose BinaryFormat.unmovedRooks.write)
+      d(castleLastMove, makeCastleLastMove, CastleLastMove.castleLastMoveBSONHandler.write)
+      // since variants are always OldBin
+      if (a.variant.threeCheck)
+        dOpt(checkCount, _.history.checkCount, (o: CheckCount) => o.nonEmpty option { BSONHandlers.checkCountWriter write o })
+      if (a.variant.crazyhouse)
+        dOpt(crazyData, _.board.crazyData, (o: Option[chess.variant.Crazyhouse.Data]) => o map BSONHandlers.crazyhouseDataBSONHandler.write)
     }
     d(turns, _.turns, w.int)
     dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o map ByteArrayBSONHandler.write)
