@@ -98,7 +98,7 @@ final class Env(
 
   lazy val garbageCollector = new GarbageCollector(
     userSpyApi,
-    ipIntel,
+    ipTrust,
     slack,
     ugcArmedSetting.get,
     system
@@ -166,6 +166,8 @@ final class Env(
   lazy val tor = new Tor(TorProviderUrl)
   scheduler.once(30 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
+
+  lazy val ipTrust = new IpTrust(ipIntel, geoIP, tor, firewall)
 
   lazy val api = new SecurityApi(storeColl, firewall, geoIP, authenticator, emailAddressValidator, tryOAuthServer)
 

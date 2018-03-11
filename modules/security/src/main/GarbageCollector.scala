@@ -9,14 +9,13 @@ import lila.user.{ User, UserRepo }
 // codename UGC
 final class GarbageCollector(
     userSpy: UserSpyApi,
-    ipIntel: IpIntel,
+    ipTrust: IpTrust,
     slack: lila.slack.SlackApi,
     isArmed: () => Boolean,
     system: akka.actor.ActorSystem
 ) {
 
-  /* User just signed up and doesn't have security data yet,
-   * so wait a bit */
+  // User just signed up and doesn't have security data yet, so wait a bit
   def delay(user: User, ip: IpAddress, email: EmailAddress): Unit =
     if (!recentlyChecked.get(user.id) && user.createdAt.isAfter(DateTime.now minusDays 3)) {
       recentlyChecked put user.id
@@ -25,12 +24,12 @@ final class GarbageCollector(
       }
     }
 
-  private val recentlyChecked = new lila.memo.ExpireSetMemo(ttl = 5 minutes)
+  private val recentlyChecked = new lila.memo.ExpireSetMemo(ttl = 3 seconds)
 
   private def apply(user: User, ip: IpAddress, email: EmailAddress): Funit =
     userSpy(user) flatMap { spy =>
       badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
-        lila.common.Future.exists(spy.ips)(isBadIp).map {
+        lila.common.Future.exists(spy.ips)(ipTrust.isSuspicious).map {
           _ ?? {
             val ipBan = spy.usersSharingIp.forall { u =>
               isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
@@ -48,13 +47,6 @@ final class GarbageCollector(
       .take(4)
     (others.size > 1 && others.forall(isBadAccount) && others.headOption.exists(_.disabled)) option others
   }
-
-  private def isBadIp(ip: UserSpy.IPData): Fu[Boolean] = if (ip.blocked ||
-    ip.location == Location.unknown ||
-    ip.location == Location.tor ||
-    ip.location.shortCountry == "Iran" // some undetected proxies
-    ) fuccess(true)
-  else ipIntel(ip.ip).map { 75 < _ }
 
   private def isBadAccount(user: User) = user.troll || user.engine
 
