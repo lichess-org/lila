@@ -56,6 +56,9 @@
   <string name="showThreat">Monstrar le menacia</string>
   <string name="inLocalBrowser">in le navigator local</string>
   <string name="toggleLocalEvaluation">Activar/disactivar evalutation local</string>
+  <string name="promoteVariation">Promover variante</string>
+  <string name="makeMainLine">Facer iste linea le principal</string>
+  <string name="deleteFromHere">Deler ab iste puncto</string>
   <string name="move">Movimento</string>
   <string name="variantLoss">Perdita per variante</string>
   <string name="variantWin">Victoria per variante</string>
@@ -194,6 +197,7 @@
   <string name="accept">Acceptar</string>
   <string name="decline">Declinar</string>
   <string name="playingRightNow">Jocante ora mesmo</string>
+  <string name="eventInProgress">Jocante ora mesmo</string>
   <string name="finished">Finite</string>
   <string name="abortGame">Cancellar partita</string>
   <string name="gameAborted">Partita cancellate</string>
@@ -202,6 +206,8 @@
   <string name="mode">Modo</string>
   <string name="casual">Amical</string>
   <string name="rated">Classificatori</string>
+  <string name="casualTournament">Amical</string>
+  <string name="ratedTournament">Classificatori</string>
   <string name="thisGameIsRated">Iste partita vale punctos classificatori</string>
   <string name="rematch">Vindicar</string>
   <string name="rematchOfferSent">Proposition de vindicantia inviate</string>
@@ -267,6 +273,10 @@
   <string name="tournament">Torneo</string>
   <string name="tournaments">Torneos</string>
   <string name="tournamentPoints">Punctos ab torneos</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s puncto ab torneo</item>
+    <item quantity="other">%s punctos ab torneos</item>
+  </plurals>
   <string name="viewTournament">Vider torneo</string>
   <string name="backToTournament">Retro al torneo</string>
   <string name="thematic">Thematic</string>
@@ -625,6 +635,7 @@ in %3$s</string>
   <string name="videoLibrary">Videotheca</string>
   <string name="mobileApp">Application mobile</string>
   <string name="webmasters">Webmasters</string>
+  <string name="about">A proposito de</string>
   <string name="contribute">Contribuer</string>
   <string name="contact">Contacto</string>
   <string name="termsOfService">Terminos de servicio</string>
@@ -744,6 +755,8 @@ in %3$s</string>
   <string name="pieceSet">Stilo del pecias</string>
   <string name="embedInYourWebsite">Incorpora in tu sito web</string>
   <string name="usernameAlreadyUsed">Iste nomine de usator ja es usate, per favor, selectiona un altere.</string>
+  <string name="usernamePrefixInvalid">Le nomine de usator debe initiar con un littera.</string>
+  <string name="usernameSuffixInvalid">Le nomine de usator debe finir con un littera o un numero.</string>
   <string name="usernameUnacceptable">Iste nomine de usator non es acceptabile.</string>
   <string name="directlySupportLichess">Appoia directemente Lichess</string>
   <string name="playChessInStyle">Joca chacos con stilo</string>
@@ -760,12 +773,34 @@ in %3$s</string>
   <string name="notifications">Notificationes</string>
   <string name="challenges">Defias</string>
   <string name="perfRatingX">Classification: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s secunda pro jocar le prime movimento</item>
+    <item quantity="other">%s secundas pro jocar le prime movimento</item>
+  </plurals>
+  <string name="practiceWithComputer">Practicar con le computator</string>
+  <string name="anotherWasX">Un alternativa esserea %s</string>
+  <string name="bestWasX">Melior esserea %s</string>
   <string name="theGameIsADraw">Le partita es nulle.</string>
+  <string name="seeBestMove">Vider le melior movimento</string>
+  <string name="hideBestMove">Celar le melior movimento</string>
+  <string name="evaluatingYourMove">Evalutante tu movimento ...</string>
+  <string name="whiteWinsGame">Le blanco vince</string>
+  <string name="blackWinsGame">Le nigro vince</string>
   <string name="learnFromYourMistakes">Apprende ab tu errores</string>
+  <string name="learnFromThisMistake">Apprende ab iste error</string>
   <string name="next">Sequente</string>
   <string name="youCanDoBetter">Tu pote facer melio</string>
+  <string name="solution">Solution</string>
+  <string name="advantage">Avantage</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s secunda</item>
     <item quantity="other">%s secundas</item>
   </plurals>
+  <string name="opening">Initio de joco</string>
+  <string name="middlegame">Medio del joco</string>
+  <string name="endgame">Fin del joco</string>
+  <string name="youCannotChallengeX">Tu non pote defiar %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s non accepta defias.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s solmente accepta defias de amicos.</string>
+  <string name="playX">Joca %s</string>
 </resources>
