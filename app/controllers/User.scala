@@ -313,7 +313,7 @@ object User extends LilaController {
   }
 
   def autocomplete = Open { implicit ctx =>
-    get("term", ctx.req).filter(_.nonEmpty) match {
+    get("term", ctx.req).filter(_.nonEmpty).filter(lila.user.User.couldBeUsername) match {
       case None => BadRequest("No search term provided").fuccess
       case Some(term) if getBool("exists") => UserRepo nameExists term map { r => Ok(JsBoolean(r)) }
       case Some(term) => {
