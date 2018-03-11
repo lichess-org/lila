@@ -773,13 +773,22 @@
   <string name="notifications">Ειδοποιήσεις</string>
   <string name="challenges">Προκλήσεις</string>
   <string name="perfRatingX">Βαθμολογία: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s δευτερόλεπτο για να παιχτεί η πρώτη κίνηση</item>
+    <item quantity="other">%s δευτερόλεπτα για να παιχτεί η πρώτη κίνηση</item>
+  </plurals>
+  <string name="practiceWithComputer">Εξάσκηση με τον υπολογιστή</string>
   <string name="anotherWasX">Εναλλακτική ήταν %s</string>
   <string name="bestWasX">Το καλύτερο ήταν %s</string>
+  <string name="youBrowsedAway">Απομακρυνθήκατε</string>
   <string name="resumePractice">Συνεχίσετε την πρακτική</string>
   <string name="theGameIsADraw">Η παρτίδα είναι ισόπαλη.</string>
   <string name="computerThinking">Ο υπολογιστής σκέφτεται ...</string>
   <string name="seeBestMove">Δείτε την καλύτερη κίνηση</string>
   <string name="hideBestMove">Απόκρυψη καλύτερης κίνησης</string>
+  <string name="getAHint">Λάβετε μια υπόδειξη</string>
+  <string name="evaluatingYourMove">Αξιολογώντας την κίνηση σας...</string>
+  <string name="whiteWinsGame">Κερδίζουν τα λευκά</string>
   <string name="blackWinsGame">Τα μαύρα νικούν</string>
   <string name="learnFromYourMistakes">Μάθετε από τα λάθη σας</string>
   <string name="findBetterMoveForWhite">Βρες μια καλύτερη κίνηση για τα λευκά</string>
