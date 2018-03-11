@@ -104,6 +104,7 @@ final class Env(
   lazy val jsonView = new JsonView(
     assessApi = assessApi,
     relationApi = relationApi,
+    reportApi = reportApi,
     userJson = userJson
   )
 

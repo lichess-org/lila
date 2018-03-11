@@ -12,6 +12,7 @@ import lila.user.User
 final class JsonView(
     assessApi: AssessApi,
     relationApi: lila.relation.RelationApi,
+    reportApi: lila.report.ReportApi,
     userJson: lila.user.JsonView
 ) {
 
@@ -29,6 +30,7 @@ final class JsonView(
           allGamesWithFenAndAnalysis = allGamesWithFen zip analysis map {
             case ((game, fen), analysis) => (game, fen, analysis)
           }
+          reportScore <- reportApi.currentCheatScore(lila.report.Suspect(user))
         } yield Json.obj(
           "user" -> userJson(user),
           "assessment" -> pag,
@@ -39,7 +41,7 @@ final class JsonView(
               )
             }
           })
-        ).some
+        ).add("reportScore" -> reportScore.map(_.value)).some
       }
     }
 

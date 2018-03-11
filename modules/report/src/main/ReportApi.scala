@@ -209,6 +209,13 @@ final class ReportApi(
     about <- recent(Suspect(user), nb, ReadPreference.secondaryPreferred)
   } yield Report.ByAndAbout(by, about)
 
+  def currentCheatScore(suspect: Suspect): Fu[Option[Report.Score]] =
+    coll.primitiveOne[Report.Score]($doc(
+      "user" -> suspect.user.id,
+      "room" -> Room.Cheat.key,
+      "open" -> true
+    ), "score")
+
   def recentReportersOf(sus: Suspect): Fu[List[User.ID]] =
     coll.distinctWithReadPreference[String, List](
       "atoms.by",
