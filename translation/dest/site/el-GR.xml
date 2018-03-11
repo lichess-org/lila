@@ -791,8 +791,15 @@
   <string name="whiteWinsGame">Κερδίζουν τα λευκά</string>
   <string name="blackWinsGame">Τα μαύρα νικούν</string>
   <string name="learnFromYourMistakes">Μάθετε από τα λάθη σας</string>
+  <string name="learnFromThisMistake">Μάθετε από αυτό το λάθος</string>
+  <string name="skipThisMove">Παραλείψτε αυτό το βήμα</string>
+  <string name="next">Επόμενο</string>
+  <string name="xWasPlayed">%s παίχτηκε</string>
   <string name="findBetterMoveForWhite">Βρες μια καλύτερη κίνηση για τα λευκά</string>
   <string name="findBetterMoveForBlack">Βρες μια καλύτερη κίνηση για τα μαύρα</string>
+  <string name="resumeLearning">Συνεχίστε την μάθηση</string>
+  <string name="youCanDoBetter">Μπορείτε και καλύτερα</string>
+  <string name="tryAnotherMoveForWhite">Δοκιμάστε μια άλλη κίνηση για τα λευκά</string>
   <string name="solution">Λύση</string>
   <string name="noMistakesFoundForWhite">Δεν βρέθηκαν λάθη για τα λευκά</string>
   <string name="noMistakesFoundForBlack">Δεν βρέθηκαν λάθη για τα μαύρα</string>
