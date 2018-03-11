@@ -821,5 +821,8 @@
   <string name="registerToSendChallenges">Παρακαλώ εγγραφείτε για να στείλετε προκλήσεις.</string>
   <string name="youCannotChallengeX">Δεν μπορείτε να προκαλέσετε %s.</string>
   <string name="xDoesNotAcceptChallenges">%s δεν δέχεται προκλήσεις.</string>
+  <string name="yourXRatingIsTooFarFromY">Η %1$s βαθμολογία σας απέχει πολύ από τα %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Δεν είναι δυνατή η πρόκληση λόγω της προσωρινής %s βαθμολογίας.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s δέχεται προκλήσεις μόνο από φίλους.</string>
+  <string name="conditionalPremoves">Υποθετικές προκινήσεις</string>
 </resources>
