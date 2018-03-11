@@ -283,6 +283,10 @@ object mon {
       val mark = inc(s"mod.report.irwin.mark")
       def ownerReport(name: String) = inc(s"mod.irwin.owner_report.$name")
       def streamEventType(name: String) = inc(s"mod.irwin.streama.event_type.$name")
+      object assessment {
+        val count = inc("mod.irwin.assessment.count")
+        val time = rec("mod.irwin.assessment.time")
+      }
     }
   }
   object relay {

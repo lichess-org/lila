@@ -31,10 +31,11 @@ object Irwin extends LilaController {
   def assessment(username: String) = Open { implicit ctx =>
     ModExternalBot {
       OptionFuResult(UserRepo named username) { user =>
-        Env.mod.assessApi.refreshAssessByUsername(user.id) >>
+        lila.mon.mod.irwin.assessment.count()
+        (Env.mod.assessApi.refreshAssessByUsername(user.id) >>
           Env.mod.jsonView(user) map {
             _.fold[Result](NotFound) { obj => Ok(obj) as JSON }
-          }
+          }).chronometer.mon(_.mod.irwin.assessment.time).result
       }
     }
   }
