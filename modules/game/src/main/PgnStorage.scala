@@ -73,23 +73,6 @@ private object PgnStorage {
       castles: Castles // irrelevant after game ends
   )
 
-  private def shouldUseHuffman(variant: Variant, playerUserIds: List[lila.user.User.ID]) = variant.standard && {
-    try {
-      lila.game.Env.current.pgnEncodingSetting.get() match {
-        case "all" => true
-        case "none" => false
-        case regex if playerUserIds.exists(_ matches regex) => true
-        case _ => false
-      }
-    } catch {
-      case e: Throwable =>
-        println(e)
-        false // breaks in tests. The shouldUseHuffman function is temporary anyway
-    }
-  }
-  private[game] def apply(variant: Variant, playerUserIds: List[lila.user.User.ID]): PgnStorage =
-    if (shouldUseHuffman(variant, playerUserIds)) Huffman else OldBin
-
   private def monitor[A](mon: lila.mon.game.pgn.Protocol)(f: => A): A = {
     mon.count()
     lila.mon.measureRec(mon.time)(f)

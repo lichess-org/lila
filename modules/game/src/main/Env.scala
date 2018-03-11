@@ -31,12 +31,6 @@ final class Env(
   }
   import settings._
 
-  lazy val pgnEncodingSetting = settingStore[String](
-    "pgnEncodingSetting",
-    default = "all",
-    text = "Use Huffman encoding for game PGN [none|all|regex]".some
-  )
-
   lazy val gameColl = db(CollectionGame)
 
   lazy val pngExport = new PngExport(PngUrl, PngSize)
