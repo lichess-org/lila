@@ -17,7 +17,7 @@ case class Game(
     whitePlayer: Player,
     blackPlayer: Player,
     loadChess: () => ChessGame,
-    loadClockHistory: () => Option[ClockHistory] = () => Some(ClockHistory()),
+    loadClockHistory: Clock => Option[ClockHistory] = _ => Game.someEmptyClockHistory,
     status: Status,
     daysPerTurn: Option[Int],
     binaryMoveTimes: Option[ByteArray] = None,
@@ -30,7 +30,7 @@ case class Game(
 ) {
 
   lazy val chess = loadChess()
-  lazy val clockHistory = loadClockHistory()
+  lazy val clockHistory = chess.clock flatMap loadClockHistory
 
   def situation = chess.situation
   def board = chess.situation.board
@@ -189,7 +189,7 @@ case class Game(
           } :+ Centis(nowCentis - movedAt.getCentis).nonNeg
         }
       },
-      loadClockHistory = () => newClockHistory,
+      loadClockHistory = _ => newClockHistory,
       status = game.situation.status | status,
       movedAt = DateTime.now
     )
@@ -333,7 +333,7 @@ case class Game(
       val newClock = c goBerserk color
       Progress(this, copy(
         loadChess = () => chess.copy(clock = Some(newClock)),
-        loadClockHistory = () => loadClockHistory().map(history => {
+        loadClockHistory = _ => clockHistory.map(history => {
           if (history(color).isEmpty) history
           else history.reset(color).record(color, newClock)
         })
@@ -357,10 +357,7 @@ case class Game(
         whitePlayer = whitePlayer.finish(winner contains White),
         blackPlayer = blackPlayer.finish(winner contains Black),
         loadChess = () => chess.copy(clock = newClock),
-        loadClockHistory = () => for {
-          clk <- clock
-          history <- clockHistory
-        } yield {
+        loadClockHistory = clk => clockHistory map { history =>
           // If not already finished, we're ending due to an event
           // in the middle of a turn, such as resignation or draw
           // acceptance. In these cases, record a final clock time
@@ -623,6 +620,8 @@ object Game {
   def takePlayerId(fullId: String) = fullId drop gameIdSize
 
   private[game] val emptyCheckCount = CheckCount(0, 0)
+
+  private[game] val someEmptyClockHistory = Some(ClockHistory())
 
   def make(
     chess: ChessGame,

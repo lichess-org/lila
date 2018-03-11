@@ -139,8 +139,7 @@ object BSONHandlers {
         whitePlayer = wPlayer,
         blackPlayer = bPlayer,
         loadChess = loadChess,
-        loadClockHistory = () => for {
-          clk <- loadChess().clock
+        loadClockHistory = clk => for {
           bw <- r bytesO F.whiteClockHistory
           bb <- r bytesO F.blackClockHistory
           history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, (status == Status.Outoftime).option(turnColor))
