@@ -16,6 +16,9 @@ object AnalysisRepo {
 
   def byId(id: ID): Fu[Option[Analysis]] = coll.byId[Analysis](id)
 
+  def byGame(game: Game): Fu[Option[Analysis]] =
+    game.metadata.analysed ?? byId(game.id)
+
   def byIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] =
     coll.optionsByOrderedIds[Analysis, Analysis.ID](ids)(_.id)
 

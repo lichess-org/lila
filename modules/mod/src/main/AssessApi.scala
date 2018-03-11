@@ -7,8 +7,8 @@ import lila.db.dsl._
 import lila.evaluation.Statistics
 import lila.evaluation.{ AccountAction, Analysed, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
 import lila.game.{ Game, Player, GameRepo, Source, Pov }
-import lila.user.{ User, UserRepo }
 import lila.report.{ SuspectId, ModId }
+import lila.user.{ User, UserRepo }
 
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
@@ -81,9 +81,8 @@ final class AssessApi(
   def refreshAssessByUsername(username: String): Funit = withUser(username) { user =>
     (GameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
       (gs map { g =>
-        AnalysisRepo.byId(g.id) flatMap {
-          case Some(a) => onAnalysisReady(g, a, false)
-          case _ => funit
+        AnalysisRepo.byGame(g) flatMap {
+          _ ?? { onAnalysisReady(g, _, false) }
         }
       }).sequenceFu.void
     }) >> assessUser(user.id)
