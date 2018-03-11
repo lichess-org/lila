@@ -130,6 +130,7 @@ final class ChatApi(
           if (isMod(mod)) modLog ! lila.hub.actorApi.mod.ChatTimeout(
             mod = mod.id, user = user.id, reason = reason.key
           )
+          else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
         }
     }
 
