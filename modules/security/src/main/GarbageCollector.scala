@@ -17,18 +17,18 @@ final class GarbageCollector(
 
   // User just signed up and doesn't have security data yet, so wait a bit
   def delay(user: User, ip: IpAddress, email: EmailAddress): Unit =
-    if (!recentlyChecked.get(user.id) && user.createdAt.isAfter(DateTime.now minusDays 3)) {
-      recentlyChecked put user.id
+    if (user.createdAt.isAfter(DateTime.now minusDays 3)) {
+      debug(email, s"${user.username} $email $ip", "pre")
       system.scheduler.scheduleOnce(5 seconds) {
         apply(user, ip, email)
       }
     }
 
-  private val recentlyChecked = new lila.memo.ExpireSetMemo(ttl = 3 seconds)
-
   private def apply(user: User, ip: IpAddress, email: EmailAddress): Funit =
     userSpy(user) flatMap { spy =>
+      debug(email, spy, "spy")
       badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
+        debug(email, others.map(_.id), "others")
         lila.common.Future.exists(spy.ips)(ipTrust.isSuspicious).map {
           _ ?? {
             val ipBan = spy.usersSharingIp.forall { u =>
@@ -39,6 +39,9 @@ final class GarbageCollector(
         }
       }
     }
+
+  private def debug(email: EmailAddress, stuff: Any, as: String = "-") =
+    if (email.value contains "iralas".reverse) logger.info(s"GC debug $as: $stuff")
 
   private def badOtherAccounts(accounts: Set[User]): Option[List[User]] = {
     val others = accounts.toList
