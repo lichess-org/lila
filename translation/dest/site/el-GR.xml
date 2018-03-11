@@ -58,7 +58,7 @@
   <string name="toggleLocalEvaluation">Εναλλαγή τοπικής αξιολόγησης</string>
   <string name="promoteVariation">Προώθηση παραλλαγής</string>
   <string name="makeMainLine">Δημιουργήστε κύρια γραμμή</string>
-  <string name="deleteFromHere">Διαγραφή</string>
+  <string name="deleteFromHere">Διαγραφή από εδώ</string>
   <string name="move">Κίνηση</string>
   <string name="variantLoss">Ήττα εκδοχής</string>
   <string name="variantWin">Νίκη εκδοχής</string>
@@ -825,4 +825,12 @@
   <string name="cannotChallengeDueToProvisionalXRating">Δεν είναι δυνατή η πρόκληση λόγω της προσωρινής %s βαθμολογίας.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s δέχεται προκλήσεις μόνο από φίλους.</string>
   <string name="conditionalPremoves">Υποθετικές προκινήσεις</string>
+  <string name="addCurrentVariation">Προσθέστε τρέχουσα παραλλαγή</string>
+  <string name="playVariationToCreateConditionalPremoves">Παίξτε μια παραλλαγή για να δημιουργήσετε υποθετικές προκινήσεις</string>
+  <string name="noConditionalPremoves">Καμία υποθετική προκίνηση</string>
+  <string name="playX">Παίξτε %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">και αποθηκεύστε %s γραμμή προκίνησης</item>
+    <item quantity="other">και αποθηκεύστε %s γραμμές προκίνησης</item>
+  </plurals>
 </resources>
