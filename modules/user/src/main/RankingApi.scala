@@ -26,7 +26,6 @@ final class RankingApi(
 
   def save(userId: User.ID, perfType: PerfType, perf: Perf): Funit =
     (perf.nb >= 2) ?? coll.update($id(makeId(userId, perfType)), $doc(
-      "user" -> userId,
       "perf" -> perfType.id,
       "rating" -> perf.intRating,
       "prog" -> perf.progress,
@@ -88,11 +87,12 @@ final class RankingApi(
     private def compute(perfId: Perf.ID): Fu[Map[User.ID, Rank]] =
       coll.find(
         $doc("perf" -> perfId, "stable" -> true),
-        $doc("user" -> true, "_id" -> false)
+        $doc("_id" -> false)
       ).sort($doc("rating" -> -1)).cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred).
         fold(1 -> Map.newBuilder[User.ID, Rank]) {
           case (state @ (rank, b), doc) =>
-            doc.getAs[User.ID]("user").fold(state) { user =>
+            doc.getAs[String]("_id").fold(state) { id =>
+              val user = id takeWhile (":" !=)
               b += (user -> rank)
               (rank + 1) -> b
             }
