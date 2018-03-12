@@ -795,8 +795,8 @@
   <string name="skipThisMove">Παραλείψτε αυτό το βήμα</string>
   <string name="next">Επόμενο</string>
   <string name="xWasPlayed">%s παίχτηκε</string>
-  <string name="findBetterMoveForWhite">Βρες μια καλύτερη κίνηση για τα λευκά</string>
-  <string name="findBetterMoveForBlack">Βρες μια καλύτερη κίνηση για τα μαύρα</string>
+  <string name="findBetterMoveForWhite">Βρείτε μια καλύτερη κίνηση για τα λευκά</string>
+  <string name="findBetterMoveForBlack">Βρείτε μια καλύτερη κίνηση για τα μαύρα</string>
   <string name="resumeLearning">Συνεχίστε την μάθηση</string>
   <string name="youCanDoBetter">Μπορείτε και καλύτερα</string>
   <string name="tryAnotherMoveForWhite">Δοκιμάστε μια άλλη κίνηση για τα λευκά</string>
