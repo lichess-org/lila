@@ -26,9 +26,9 @@ final class GarbageCollector(
 
   private def apply(user: User, ip: IpAddress, email: EmailAddress): Funit =
     userSpy(user) flatMap { spy =>
-      debug(email, spy, "spy")
+      debug(email, spy, s"spy ${user.username}")
       badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
-        debug(email, others.map(_.id), "others")
+        debug(email, others.map(_.id), s"others ${user.username}")
         lila.common.Future.exists(spy.ips)(ipTrust.isSuspicious).map {
           _ ?? {
             val ipBan = spy.usersSharingIp.forall { u =>
