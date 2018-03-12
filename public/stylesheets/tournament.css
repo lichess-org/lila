@@ -859,10 +859,6 @@ body.dark .scheduled_tournaments a:hover {
 .scheduled_tournaments a:hover::before {
   opacity: 1;
 }
-.scheduled_tournaments a.marathon {
-  background: #fff;
-  box-shadow: 0 0 9px rgba(0,0,0,0.2);
-}
 
 #tournament_schedule {
   min-height: 400px;
