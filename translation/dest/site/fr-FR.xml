@@ -633,6 +633,7 @@ en %3$s</string>
   <string name="videoLibrary">Vidéothèque</string>
   <string name="mobileApp">L\'application</string>
   <string name="webmasters">Webmestres</string>
+  <string name="about">À propos de</string>
   <string name="contribute">Contribuer</string>
   <string name="contact">Nous contacter</string>
   <string name="termsOfService">Conditions d\'utilisation</string>
@@ -752,6 +753,9 @@ en %3$s</string>
   <string name="pieceSet">Jeu de pièces</string>
   <string name="embedInYourWebsite">Intégrer dans votre site web</string>
   <string name="usernameAlreadyUsed">Ce nom d\'utilisateur existe déjà. Merci d\'en choisir un autre.</string>
+  <string name="usernamePrefixInvalid">Le nom d\'utilisateur doit commencer par une lettre.</string>
+  <string name="usernameSuffixInvalid">Le nom d’utilisateur doit se terminer par une lettre ou un chiffre.</string>
+  <string name="usernameCharsInvalid">Le nom d\'utilisateur doit contenir uniquement des lettres, des chiffres, des tirets.</string>
   <string name="usernameUnacceptable">Ce nom d\'utilisateur existe déjà ou est insultant.</string>
   <string name="directlySupportLichess">Financer Lichess</string>
   <string name="playChessInStyle">Jouez aux échecs avec classe</string>
