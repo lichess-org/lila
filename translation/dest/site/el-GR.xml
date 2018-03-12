@@ -258,7 +258,7 @@
   </plurals>
   <string name="giveMoreTime">Προσθέστε περισσότερο χρόνο</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ο παίκτης χρησιμοποιεί υποβοήθηση υπολογιστή</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Αυτός ο παίκτης αυξάνει/μειώνει τεχνητά τη βαθμολογία</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ο παίκτης αυξάνει/μειώνει τεχνητά την βαθμολογία</string>
   <string name="openingExplorerAndTablebase">Εξερευνητής ανοιγμάτων &amp; τελειωμάτων</string>
   <string name="takeback">Ανάκληση κίνησης</string>
   <string name="proposeATakeback">Προσφέρετε ανάκληση της προηγούμενης κίνησης</string>
@@ -580,8 +580,8 @@
     <item quantity="other">Όριο: %s χαρακτήρες.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s αποκλείσεις</item>
-    <item quantity="other">%s αποκλείσεις</item>
+    <item quantity="one">%s αποκλεισμός</item>
+    <item quantity="other">%s αποκλεισμοί</item>
   </plurals>
   <string name="listBlockedPlayers">Κατάλογος παικτών που έχετε αποκλείσει</string>
   <string name="human">Άνθρωπος</string>
