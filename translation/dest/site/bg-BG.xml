@@ -273,6 +273,10 @@
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турнири</string>
   <string name="tournamentPoints">Точки от турнири</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s точка от турнира</item>
+    <item quantity="other">%s точки от турнира</item>
+  </plurals>
   <string name="viewTournament">Виж турнира</string>
   <string name="backToTournament">Продължи турнира</string>
   <string name="thematic">Тематичен</string>
