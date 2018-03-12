@@ -39,7 +39,7 @@ final class RevolutionApi(
         variant = variant,
         tourId = id
       )
-      awards.groupBy(_.owner).pp
+      awards.groupBy(_.owner)
     }
   )
 }
