@@ -71,6 +71,9 @@ final class ChapterRepo(coll: Coll) {
   def setRelay(chapterId: Chapter.Id, relay: Chapter.Relay) =
     coll.updateField($id(chapterId), "relay", relay).void
 
+  def setRelayPath(chapterId: Chapter.Id, path: Path) =
+    coll.updateField($id(chapterId), "relay.path", path).void
+
   def setTagsFor(chapter: Chapter) =
     coll.updateField($id(chapter.id), "tags", chapter.tags).void
 
