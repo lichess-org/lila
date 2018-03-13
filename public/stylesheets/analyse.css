@@ -1271,6 +1271,7 @@ body.piece_letter .lichess_ground move {
 }
 .tview2 move.active {
   color: #d85000;
+  font-style: italic;
 }
 .tview2 move.nongame {
   font-style: italic;
