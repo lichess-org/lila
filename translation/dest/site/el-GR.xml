@@ -774,8 +774,8 @@
   <string name="challenges">Προκλήσεις</string>
   <string name="perfRatingX">Βαθμολογία: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="one">%s δευτερόλεπτο για να παιχτεί η πρώτη κίνηση</item>
-    <item quantity="other">%s δευτερόλεπτα για να παιχτεί η πρώτη κίνηση</item>
+    <item quantity="one">%s δευτερόλεπτο για την πρώτη κίνηση</item>
+    <item quantity="other">%s δευτερόλεπτα για την πρώτη κίνηση</item>
   </plurals>
   <string name="practiceWithComputer">Εξάσκηση με τον υπολογιστή</string>
   <string name="anotherWasX">Εναλλακτική ήταν %s</string>
