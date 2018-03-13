@@ -32,6 +32,7 @@
   </appender>
 
   <!-- uncapped stacktraces for error logs - looking for stack overflows -->
+  <!-- requires -XX:MaxJavaStackTraceDepth=100000 -->
   <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
     <file>/var/log/lichess/error.log</file>
