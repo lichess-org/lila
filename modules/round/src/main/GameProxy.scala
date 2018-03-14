@@ -4,7 +4,7 @@ import chess.Color
 import lila.game.{ Game, Progress, Pov, GameRepo }
 import ornicar.scalalib.Zero
 
-private final class GameProxy(id: String) {
+private final class GameProxy(id: Game.ID) {
 
   def game: Fu[Option[Game]] = cache
 
