@@ -57,10 +57,11 @@ object Report extends LilaController {
       case _ => false
     }
     inquiry match {
-      case None =>
-        goTo.fold(Redirect(routes.Report.list).fuccess) { s =>
-          User.modZoneOrRedirect(s.user.username, me)
-        }
+      case None => {
+        goTo.fold(Redirect(routes.Report.list)) { s =>
+          Mod.redirect(s.user.username)
+        }.fuccess
+      }
       case Some(prev) =>
         def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
         if (autoNext) api.next(prev.room) flatMap {
@@ -70,7 +71,7 @@ object Report extends LilaController {
             }
           }
         }
-        else if (force) User.modZoneOrRedirect(prev.user, me)
+        else if (force) Redirect(s"${routes.User.show(prev.user)}?mod").fuccess
         else api.inquiries.toggle(AsMod(me), prev.id) map {
           _.fold(redirectToList)(onInquiryStart)
         }
