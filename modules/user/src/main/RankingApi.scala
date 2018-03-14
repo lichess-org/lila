@@ -87,12 +87,12 @@ final class RankingApi(
     private def compute(perfId: Perf.ID): Fu[Map[User.ID, Rank]] =
       coll.find(
         $doc("perf" -> perfId, "stable" -> true),
-        $doc("_id" -> false)
-      ).sort($doc("rating" -> -1)).cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred).
-        fold(1 -> Map.newBuilder[User.ID, Rank]) {
+        $doc("_id" -> true)
+      ).sort($doc("rating" -> -1)).cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
+        .fold(1 -> Map.newBuilder[User.ID, Rank]) {
           case (state @ (rank, b), doc) =>
             doc.getAs[String]("_id").fold(state) { id =>
-              val user = id takeWhile (":" !=)
+              val user = id takeWhile (':' !=)
               b += (user -> rank)
               (rank + 1) -> b
             }
@@ -147,5 +147,7 @@ final class RankingApi(
 
 object RankingApi {
 
-  private case class Ranking(user: String, rating: Int, prog: Option[Int])
+  private case class Ranking(_id: String, rating: Int, prog: Option[Int]) {
+    def user = _id.takeWhile(':' !=)
+  }
 }
