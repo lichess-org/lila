@@ -94,6 +94,7 @@ case class SocketStatus(
   def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
 }
 case class SetGame(game: Option[lila.game.Game])
+case object GetGame
 
 package round {
 
