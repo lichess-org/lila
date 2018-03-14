@@ -77,8 +77,10 @@ export function view(ctrl: ServerEvalCtrl): VNode {
         ctrl.lastPly(false);
         li.requestIdleCallback(() => {
           li.loadScript('/assets/javascripts/chart/acpl.js').then(() => {
-            li.advantageChart(ctrl.root.data, ctrl.root.trans, vnode.elm as HTMLElement);
-            ctrl.chartEl(vnode.elm as HTMLElement);
+            if (ctrl.root.data.analysis) {
+              li.advantageChart(ctrl.root.data, ctrl.root.trans, vnode.elm as HTMLElement);
+              ctrl.chartEl(vnode.elm as HTMLElement);
+            }
           });
         });
       }
