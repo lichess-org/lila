@@ -13,7 +13,6 @@ class SpamTest extends Specification {
   "spam" should {
     "detect" in {
       detect(foobar) must beFalse
-      detect(_vc) must beTrue
       detect(_c2) must beTrue
       detect(_cb) must beTrue
     }
