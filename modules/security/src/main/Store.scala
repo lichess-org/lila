@@ -22,7 +22,8 @@ object Store {
     userId: User.ID,
     req: RequestHeader,
     apiVersion: Option[ApiVersion],
-    up: Boolean
+    up: Boolean,
+    fp: Option[FingerPrint]
   ): Funit =
     coll.insert($doc(
       "_id" -> sessionId,
@@ -31,7 +32,8 @@ object Store {
       "ua" -> HTTPRequest.userAgent(req).|("?"),
       "date" -> DateTime.now,
       "up" -> up,
-      "api" -> apiVersion.map(_.value)
+      "api" -> apiVersion.map(_.value),
+      "fp" -> fp.flatMap(FingerHash.apply)
     )).void
 
   private val userIdFingerprintProjection = $doc(
