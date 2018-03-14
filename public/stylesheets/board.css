@@ -428,7 +428,7 @@ body.piece_letter .lichess_ground .replay move {
 }
 .lichess_ground .replay move.active,
 .lichess_ground .replay move.active::after {
-  color: #d85000!important;
+  color: #e79666!important;
   font-weight: bold;
 }
 .lichess_ground .result_wrap {
