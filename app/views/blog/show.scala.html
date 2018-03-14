@@ -32,7 +32,7 @@ description = ~doc.getText("blog.shortlede")).some) {
   @NotForKids {
   <div class="footer">
     @if(prismic.maybeRef.isEmpty) {
-    @if(doc.getDate("blog.date").exists(org.joda.time.DateTime.now.minusWeeks(2).isAfter)) {
+    @if(doc.getDate("blog.date").exists(_.value.toDateTimeAtStartOfDay isAfter org.joda.time.DateTime.now.minusWeeks(2))) {
     <a href="@routes.Blog.discuss(doc.id)" class="button text discuss" data-icon="d">Discuss this blog post in the forum</a>
     }
     } else {
