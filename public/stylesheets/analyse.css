@@ -1270,7 +1270,8 @@ body.piece_letter .lichess_ground move {
   border: 1px solid #d85000!important;
 }
 .tview2 move.active {
-  color: #d85000;
+  font-weight: bold;
+  background: rgba(56,147,232,0.2);
 }
 .tview2 move.nongame {
   font-style: italic;
@@ -1501,9 +1502,6 @@ body.dark .tview2 > index {
 }
 body.dark .tview2 move {
   color: #aaa;
-}
-body.dark .tview2 move.active {
-  color: #ff7729;
 }
 body.dark .tview2.column comment {
   color: #999;
