@@ -41,10 +41,10 @@
   <string name="blackResigned">الأسود استسلم</string>
   <string name="whiteLeftTheGame">الأبيض ترك المباراة</string>
   <string name="blackLeftTheGame">الأسود ترك المباراة</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">شارك هذا الرابط لمن يريد مشاهدة المباراة</string>
-  <string name="theComputerAnalysisHasFailed">فشل تحليل الحاسوب</string>
-  <string name="viewTheComputerAnalysis">عرض تحليل الحاسوب</string>
-  <string name="requestAComputerAnalysis">طلب تحليل الحاسوب</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">شارك هذا الرابط ليرى المشاهدون المباراة</string>
+  <string name="theComputerAnalysisHasFailed">فشل تحليل الحاسب</string>
+  <string name="viewTheComputerAnalysis">عرض تحليل الحاسب</string>
+  <string name="requestAComputerAnalysis">اطلب تحليل حاسب</string>
   <string name="computerAnalysis">تحليل الحاسوب</string>
   <string name="computerAnalysisAvailable">تحليل الحاسوب متاح</string>
   <string name="analysis">لوحة التحليل</string>
