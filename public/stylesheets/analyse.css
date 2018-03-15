@@ -1257,7 +1257,6 @@ body.piece_letter .lichess_ground move {
 .tview2.inline move {
   padding: 0.25em 0.17em;
   white-space: nowrap;
-  font-weight: bold;
 }
 .tview2 move.parent,
 .tview2 comment a {
@@ -1271,6 +1270,8 @@ body.piece_letter .lichess_ground move {
 }
 .tview2 move.active {
   color: #d85000;
+  font-weight: bold;
+  background: #e5e5e5;
 }
 .tview2 move.nongame {
   font-style: italic;
