@@ -107,6 +107,7 @@
   <string name="findAWayToCastleKingSide">پیدا کردن راهی برای قلعه سمت شاه!</string>
   <string name="findAWayToCastleQueenSide">پیدا کردن راهی برای قلعه سمت وزیر!</string>
   <string name="castlingComplete">تبریک میگم! شما تقریبا همیشه باید در بازی قلعه بروید.</string>
+  <string name="enPassant">گرفتن در حین عبور</string>
   <string name="next">بعدی</string>
   <string name="backToMenu">برگشت به منو</string>
   <string name="retry">تلاش مجدد</string>
