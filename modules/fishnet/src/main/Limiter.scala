@@ -11,8 +11,8 @@ private final class Limiter(
     requesterApi: lila.analyse.RequesterApi
 ) {
 
-  def apply(sender: Work.Sender): Fu[Boolean] =
-    concurrentCheck(sender) flatMap {
+  def apply(sender: Work.Sender, ignoreConcurrentCheck: Boolean): Fu[Boolean] =
+    (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender)) flatMap {
       case false => fuccess(false)
       case true => perDayCheck(sender)
     }

@@ -23,7 +23,7 @@ final class Analyser(
       case true => fuccess(false)
       case _ if Game.isOldHorde(game) => fuccess(false)
       case _ =>
-        limiter(sender) flatMap { accepted =>
+        limiter(sender, ignoreConcurrentCheck = false) flatMap { accepted =>
           accepted ?? {
             makeWork(game, sender) flatMap { work =>
               sequencer {
@@ -58,7 +58,7 @@ final class Analyser(
       case _ => {
         import req._
         val sender = Work.Sender(req.userId, none, false, system = req.userId == "lichess")
-        limiter(sender) flatMap { accepted =>
+        limiter(sender, ignoreConcurrentCheck = true) flatMap { accepted =>
           accepted ?? {
             val work = makeWork(
               game = Work.Game(
