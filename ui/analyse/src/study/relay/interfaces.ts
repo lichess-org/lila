@@ -11,6 +11,7 @@ export interface RelaySync {
 }
 
 export interface LogEvent {
+  id: string;
   moves: number;
   error?: string;
   at: number;

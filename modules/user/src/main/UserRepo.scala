@@ -426,7 +426,6 @@ object UserRepo {
       F.enabled -> true,
       F.createdAt -> DateTime.now,
       F.createdWithApiVersion -> mobileApiVersion.map(_.value),
-      F.seenAt -> DateTime.now,
       F.playTime -> User.PlayTime(0, 0)
     ) ++ {
         if (blind) $doc("blind" -> true) else $empty

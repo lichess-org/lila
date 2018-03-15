@@ -113,14 +113,18 @@ private final class RelaySync(
         tags = chapterNewTags,
         uid = socketUid
       ) >> {
-        chapterNewTags.resultColor.isDefined ?? studyApi.analysisRequest(
-          studyId = study.id,
-          chapterId = chapter.id,
-          userId = "lichess"
-        )
+        chapterNewTags.resultColor.isDefined ?? onChapterEnd(study.id, chapter.id)
       }
     }
   }
+
+  private def onChapterEnd(studyId: Study.Id, chapterId: Chapter.Id): Funit =
+    chapterRepo.setRelayPath(chapterId, Path.root) >>
+      studyApi.analysisRequest(
+        studyId = studyId,
+        chapterId = chapterId,
+        userId = "lichess"
+      )
 
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
     chapterRepo.nextOrderByStudy(study.id) flatMap { order =>

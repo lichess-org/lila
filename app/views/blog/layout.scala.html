@@ -1,9 +1,14 @@
-@(title: String, side: Option[Html] = None, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
+@(title: String, side: Option[Html] = None, openGraph: Option[lila.app.ui.OpenGraph] = None, moreJs: Html = emptyHtml)(body: Html)(implicit ctx: Context)
+
+@pageJs = {
+@moreJs
+@jsTag("embed-analyse.js")
+}
 
 @base.layout(
 title = title,
 moreCss = cssTag("blog.css"),
-moreJs = jsTag("embed-analyse.js"),
+moreJs = pageJs,
 side = side,
 openGraph = openGraph) {
 <div id="lichess_blog" class="content_box">

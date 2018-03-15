@@ -380,7 +380,7 @@ body.piece_letter .pv_box .pv span {
   display: block;
   cursor: pointer;
   padding: 0 15px;
-  display: flex;
+  display: flex!important;
   border-bottom: 1px solid #e4e4e4;
 }
 body.piece_letter .fork move {

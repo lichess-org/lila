@@ -43,6 +43,7 @@ export default class RelayCtrl {
       this.redraw();
     },
     relayLog: (event: LogEvent) => {
+      if (event.id !== this.data.id) return;
       this.data.sync.log.push(event);
       this.data.sync.log = this.data.sync.log.slice(-20);
       this.cooldown = true;

@@ -693,6 +693,7 @@ v %3$s</string>
   <string name="videoLibrary">Videoteka</string>
   <string name="mobileApp">Mobilna aplikacija</string>
   <string name="webmasters">Razvijalci</string>
+  <string name="about">O</string>
   <string name="contribute">Prispevaj</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Pogoji uporabe</string>
@@ -816,6 +817,9 @@ v %3$s</string>
   <string name="pieceSet">Figure</string>
   <string name="embedInYourWebsite">Vstavite na vašo internetno stran</string>
   <string name="usernameAlreadyUsed">Uporabniško ime je že v uporabi, prosimo izberite si drugo.</string>
+  <string name="usernamePrefixInvalid">Uporabniško ime se mora začeti s črko.</string>
+  <string name="usernameSuffixInvalid">Uporabniško ime se mora končati s črko ali s številko.</string>
+  <string name="usernameCharsInvalid">Uporabniško ime sme vsebovati le črke, številke, podčrtaje in vezaje.</string>
   <string name="usernameUnacceptable">To uporabniško ime ni sprejemljivo.</string>
   <string name="directlySupportLichess">Direktno pomagaj Lichess-u</string>
   <string name="playChessInStyle">Šahirajte v slogu</string>

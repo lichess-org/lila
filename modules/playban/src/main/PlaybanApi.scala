@@ -35,7 +35,9 @@ final class PlaybanApi(
     }
 
   private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
-    blameable(game) flatMap { _ ?? f }
+    lila.common.PlayApp.startedSinceMinutes(10) ?? {
+      blameable(game) flatMap { _ ?? f }
+    }
 
   def abort(pov: Pov, isOnGame: Set[Color]): Funit = IfBlameable(pov.game) {
     pov.player.userId.ifTrue(isOnGame(pov.opponent.color)) ?? { userId =>

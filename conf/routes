@@ -73,10 +73,10 @@ GET   /dasher                          controllers.Dasher.get
 GET   /socket                          controllers.Main.websocket
 
 # Blog
-GET   /blog                            controllers.Blog.index(ref: Option[String] ?= None)
+GET   /blog                            controllers.Blog.index(page: Int ?= 1, ref: Option[String] ?= None)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id: String)
 GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
-GET   /blog.atom                       controllers.Blog.atom(ref: Option[String] ?= None)
+GET   /blog.atom                       controllers.Blog.atom
 
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home
@@ -95,7 +95,11 @@ POST  /training/batch                  controllers.Puzzle.batchSolve
 GET   /training/:id                    controllers.Puzzle.show(id: Int)
 GET   /training/:id/load               controllers.Puzzle.load(id: Int)
 POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
+POST  /training/:id/round              controllers.Puzzle.round(id: Int)
+# new UI
 POST  /training/:id/round2             controllers.Puzzle.round2(id: Int)
+# mobile app BC
+POST  /training/:id/attempt            controllers.Puzzle.round(id: Int)
 
 # User Analysis
 GET   /analysis/socket                 controllers.UserAnalysis.socket

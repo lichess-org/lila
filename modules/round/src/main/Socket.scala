@@ -26,10 +26,10 @@ private[round] final class Socket(
     gameId: Game.ID,
     history: History,
     lightUser: LightUser.Getter,
-    uidTimeout: Duration,
-    socketTimeout: Duration,
-    disconnectTimeout: Duration,
-    ragequitTimeout: Duration,
+    uidTimeout: FiniteDuration,
+    socketTimeout: FiniteDuration,
+    disconnectTimeout: FiniteDuration,
+    ragequitTimeout: FiniteDuration,
     simulActor: ActorSelection
 ) extends SocketActor[Member](uidTimeout) {
 

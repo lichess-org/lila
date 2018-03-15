@@ -157,7 +157,7 @@ object User {
 
   val newUsernameChars = """(?i)[\w-]*""".r
 
-  def couldBeUsername(str: User.ID) = historicalUsernameRegex.pattern.matcher(str).matches
+  def couldBeUsername(str: User.ID) = historicalUsernameRegex.pattern.matcher(str).matches && str.size < 30
 
   def normalize(username: String) = username.toLowerCase
 

@@ -2,10 +2,10 @@
 
 @side = {
 <br />
-<a href="@routes.Blog.index(prismic.maybeRef)" data-icon="I" class="text">Return to blog</a>
+<a href="@routes.Blog.index(1, prismic.maybeRef)" data-icon="I" class="text">Return to blog</a>
 <br />
 <br />
-<a href="@routes.Blog.atom(prismic.maybeRef)" data-icon="3" class="text">Subscribe</a>
+<a href="@routes.Blog.atom" data-icon="3" class="text">Subscribe</a>
 }
 
 @layout(
@@ -32,7 +32,9 @@ description = ~doc.getText("blog.shortlede")).some) {
   @NotForKids {
   <div class="footer">
     @if(prismic.maybeRef.isEmpty) {
+    @if(doc.getDate("blog.date").exists(_.value.toDateTimeAtStartOfDay isAfter org.joda.time.DateTime.now.minusWeeks(2))) {
     <a href="@routes.Blog.discuss(doc.id)" class="button text discuss" data-icon="d">Discuss this blog post in the forum</a>
+    }
     } else {
     <p>This is a preview.</p>
     }
