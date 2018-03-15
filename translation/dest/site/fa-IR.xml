@@ -56,6 +56,9 @@
   <string name="showThreat">تهدید را نشان بده</string>
   <string name="inLocalBrowser">در مرورگر موضعی</string>
   <string name="toggleLocalEvaluation">ارزیابی موضعی تغییر وضعیت</string>
+  <string name="promoteVariation">ارتقای واریانت</string>
+  <string name="makeMainLine">شاخه اصلی</string>
+  <string name="deleteFromHere">از اینجا به بعد را پاک کن</string>
   <string name="move">حرکت کن</string>
   <string name="variantLoss">حرکت باخت</string>
   <string name="variantWin">حرکت برد</string>
@@ -78,7 +81,9 @@
     <item quantity="other">مات در %s نیمه حرکت</item>
   </plurals>
   <string name="noGameFound">بازیی یافت نشد</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">شاید لازم است که بازی های بیشتری را از منوی مرجع لحاظ کنید?</string>
   <string name="openingExplorer">باز کردن جستجوگر</string>
+  <string name="xOpeningExplorer">جستجوگر گشایش %s</string>
   <string name="realtimeReplay">زمان واقعی</string>
   <string name="blunder">اشتباه جدی</string>
   <string name="blunders">اشتباهات جدی</string>
