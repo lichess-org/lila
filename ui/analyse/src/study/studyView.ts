@@ -92,7 +92,7 @@ function buttons(root: AnalyseCtrl): VNode {
         tab: 'serverEval',
         hint: root.trans.noarg('computerAnalysis'),
         icon: iconTag(''),
-        count: '✓'
+        count: root.data.analysis && '✓'
       }),
       toolButton({
         ctrl,
