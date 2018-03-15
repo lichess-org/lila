@@ -54,6 +54,8 @@
   <string name="cloudAnalysis">Greining í skýi</string>
   <string name="goDeeper">Fara dýpra</string>
   <string name="showThreat">Sýna ógn</string>
+  <string name="inLocalBrowser">í vafra</string>
+  <string name="toggleLocalEvaluation">Kveikja á greiningu</string>
   <string name="move">Færa</string>
   <string name="unknown">Óþekktur</string>
   <string name="openingExplorer">Skoða opnanir</string>
