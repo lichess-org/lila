@@ -69,18 +69,18 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
 
 export function view(ctrl: ServerEvalCtrl): VNode {
 
-  if (!ctrl.root.data.analysis) return ctrl.requested() ? requested() : requestButton(ctrl);
+  const analysis = ctrl.root.data.analysis;
 
-  return h('div.server_eval.ready.' + ctrl.chapterId(), {
+  if (!analysis) return ctrl.requested() ? requested() : requestButton(ctrl);
+
+  return h('div.server_eval.ready.' + analysis.id, {
     hook: {
       insert(vnode) {
         ctrl.lastPly(false);
         li.requestIdleCallback(() => {
           li.loadScript('/assets/javascripts/chart/acpl.js').then(() => {
-            if (ctrl.root.data.analysis) {
-              li.advantageChart(ctrl.root.data, ctrl.root.trans, vnode.elm as HTMLElement);
-              ctrl.chartEl(vnode.elm as HTMLElement);
-            }
+            li.advantageChart(ctrl.root.data, ctrl.root.trans, vnode.elm as HTMLElement);
+            ctrl.chartEl(vnode.elm as HTMLElement);
           });
         });
       }
