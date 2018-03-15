@@ -85,6 +85,7 @@
   <string name="captureAndDefendPieces">زدن و دفاع کردن مهره ها</string>
   <string name="combatIntro">یه جنگجوی خوب هم حمله بلده هم دفاع!</string>
   <string name="combatComplete">تبریک! شما بلدید چطور با مهره های شطرنج بجنگید!</string>
+  <string name="checkInOne">کیش در یک حرکت</string>
   <string name="attackTheOpponentsKing">به شاه حریف حمله کن</string>
   <string name="checkInOneIntro">برای کیش دادن به حریف، به شاهش حمله کن. اون باید دفاع کنه!</string>
   <string name="outOfCheck">خارج از کیش</string>
