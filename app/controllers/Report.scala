@@ -88,6 +88,16 @@ object Report extends LilaController {
     api.moveToXfiles(id) inject Redirect(routes.Report.list)
   }
 
+  def currentCheatInquiry(username: String) = Secure(_.Hunter) { implicit ctx => me =>
+    OptionFuResult(UserRepo named username) { user =>
+      env.api.currentCheatReport(lila.report.Suspect(user)) flatMap {
+        _ ?? { report =>
+          env.api.inquiries.toggle(lila.report.Mod(me), report.id)
+        } inject Mod.redirect(username, true)
+      }
+    }
+  }
+
   def form = Auth { implicit ctx => implicit me =>
     get("username") ?? UserRepo.named flatMap { user =>
       env.forms.createWithCaptcha map {

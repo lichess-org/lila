@@ -216,6 +216,13 @@ final class ReportApi(
       "open" -> true
     ), "score")
 
+  def currentCheatReport(suspect: Suspect): Fu[Option[Report]] =
+    coll.uno[Report]($doc(
+      "user" -> suspect.user.id,
+      "room" -> Room.Cheat.key,
+      "open" -> true
+    ))
+
   def recentReportersOf(sus: Suspect): Fu[List[User.ID]] =
     coll.distinctWithReadPreference[String, List](
       "atoms.by",
