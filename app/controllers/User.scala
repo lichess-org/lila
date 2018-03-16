@@ -246,7 +246,10 @@ object User extends LilaController {
   protected[controllers] def modZoneOrRedirect(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
     if (HTTPRequest isSynchronousHttp ctx.req) fuccess(Mod.redirect(username))
     else if (Env.streamer.liveStreamApi.isStreaming(me.id)) fuccess(Ok("Disabled while streaming"))
-    else OptionFuOk(UserRepo named username) { user =>
+    else renderModZone(username, me)
+
+  protected[controllers] def renderModZone(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
+    OptionFuOk(UserRepo named username) { user =>
       UserRepo.emails(user.id) zip
         (Env.security userSpy user) zip
         Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) zip

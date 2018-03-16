@@ -44,8 +44,9 @@ final class ModApi(
     }
   } yield ()
 
-  def setBooster(mod: Mod, prev: Suspect, v: Boolean): Funit = (prev.user.booster != v) ?? {
-    for {
+  def setBooster(mod: Mod, prev: Suspect, v: Boolean): Fu[Suspect] =
+    if (prev.user.booster == v) fuccess(prev)
+    else for {
       _ <- UserRepo.setBooster(prev.user.id, v)
       sus = prev.set(_.copy(booster = v))
       _ <- reportApi.process(mod, sus, Set(Room.Other))
@@ -55,13 +56,13 @@ final class ModApi(
         lilaBus.publish(lila.hub.actorApi.mod.MarkBooster(sus.user.id), 'adjustBooster)
         notifier.reporters(mod, sus)
       }
+      sus
     }
-  }
 
   def autoBooster(winnerId: User.ID, loserId: User.ID): Funit =
     logApi.wasUnbooster(loserId) map {
       case false => reporter ! lila.hub.actorApi.report.Booster(winnerId, loserId)
-      case true =>
+      case true => ()
     }
 
   def setTroll(mod: Mod, prev: Suspect, value: Boolean): Fu[Suspect] = {

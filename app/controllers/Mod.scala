@@ -36,9 +36,13 @@ object Mod extends LilaController {
     }
   }
 
-  def booster(username: String, v: Boolean) = Secure(_.MarkBooster) { implicit ctx => me =>
-    withSuspect(username) { sus =>
-      modApi.setBooster(AsMod(me), sus, v) >> User.modZoneOrRedirect(username, me)
+  def booster(username: String, v: Boolean) = SecureBody(_.MarkBooster) { implicit ctx => me =>
+    withSuspect(username) { prev =>
+      for {
+        inquiry <- Env.report.api.inquiries ofModId me.id
+        suspect <- modApi.setBooster(AsMod(me), prev, v)
+        res <- Report.onInquiryClose(inquiry, me, suspect.some)
+      } yield res
     }
   }
 
