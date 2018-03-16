@@ -477,7 +477,7 @@ export default class AnalyseCtrl {
   addNode(node: Tree.Node, path: Tree.Path) {
     const newPath = this.tree.addNode(node, path);
     if (!newPath) {
-      console.log('Cannot addNode', node, path);
+      console.log("Can't addNode", node, path);
       return this.redraw();
     }
     this.jump(newPath);

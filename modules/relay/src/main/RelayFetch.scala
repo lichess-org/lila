@@ -137,7 +137,7 @@ private object RelayFetch {
   private def dgtOneFile(file: String, max: Int): Fu[MultiPgn] =
     httpGet(file).flatMap {
       case res if res.status == 200 => fuccess(splitPgn(res.body, max))
-      case res => fufail(s"Cannot fetch $file (error ${res.status})")
+      case res => fufail(s"[${res.status}] $file")
     }
 
   import play.api.libs.json._
