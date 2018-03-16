@@ -240,7 +240,12 @@ object User extends LilaController {
   }
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx => me =>
-    if (Env.streamer.liveStreamApi.isStreaming(me.id)) fuccess(Ok("Disabled while streaming"))
+    modZoneOrRedirect(username, me)
+  }
+
+  protected[controllers] def modZoneOrRedirect(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
+    if (HTTPRequest isSynchronousHttp ctx.req) fuccess(Mod.redirect(username))
+    else if (Env.streamer.liveStreamApi.isStreaming(me.id)) fuccess(Ok("Disabled while streaming"))
     else OptionFuOk(UserRepo named username) { user =>
       UserRepo.emails(user.id) zip
         (Env.security userSpy user) zip
@@ -262,7 +267,6 @@ object User extends LilaController {
               }
         }
     }
-  }
 
   def writeNote(username: String) = AuthBody { implicit ctx => me =>
     OptionFuResult(UserRepo named username) { user =>
