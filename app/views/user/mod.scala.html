@@ -77,12 +77,12 @@
   @if(isGranted(_.SetTitle)) {
   <br />
   <br />
-  <form class="fide_title xhr" method="post" action="@routes.Mod.setTitle(u.username)">
+  <form class="fide_title" method="post" action="@routes.Mod.setTitle(u.username)">
     @base.form.select(lila.user.DataForm.title.fill(u.title)("title"), lila.user.User.titles, "No title".some)
   </form>
   }
   @if(isGranted(_.SetEmail)) {
-  <form class="email xhr" method="post" action="@routes.Mod.setEmail(u.username)">
+  <form class="email" method="post" action="@routes.Mod.setEmail(u.username)">
     <input type="email" value="@emails.current" name="email" placeholder="Email address" />
     <button type="submit" class="thin button" data-icon="E"></button>
   </form>

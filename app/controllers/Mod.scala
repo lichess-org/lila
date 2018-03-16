@@ -38,8 +38,8 @@ object Mod extends LilaController {
 
   def booster(username: String, v: Boolean) = Secure(_.MarkBooster) { implicit ctx => me =>
     withSuspect(username) { sus =>
-      modApi.setBooster(AsMod(me), sus, v)
-    } >> User.modZoneOrRedirect(username, me)
+      modApi.setBooster(AsMod(me), sus, v) >> User.modZoneOrRedirect(username, me)
+    }
   }
 
   def troll(username: String, v: Boolean) = SecureBody(_.MarkTroll) { implicit ctx => me =>
@@ -68,23 +68,24 @@ object Mod extends LilaController {
 
   def ban(username: String, v: Boolean) = Secure(_.IpBan) { implicit ctx => me =>
     withSuspect(username) { sus =>
-      modApi.setBan(AsMod(me), sus, v)
-    } >> User.modZoneOrRedirect(username, me)
+      modApi.setBan(AsMod(me), sus, v) >> User.modZoneOrRedirect(username, me)
+    }
   }
 
   def deletePmsAndChats(username: String) = Secure(_.MarkTroll) { implicit ctx => me =>
     withSuspect(username) { sus =>
       Env.mod.publicChat.delete(sus) >>
-        Env.message.api.deleteThreadsBy(sus.user)
-    } >> User.modZoneOrRedirect(username, me)
+        Env.message.api.deleteThreadsBy(sus.user) >>
+        User.modZoneOrRedirect(username, me)
+    }
   }
 
   def closeAccount(username: String) = Secure(_.CloseAccount) { implicit ctx => me =>
     modApi.closeAccount(me.id, username).flatMap {
-      _ ?? { user =>
+      _.?? { user =>
         Env.current.closeAccount(user.id, self = false)
-      }
-    } >> User.modZoneOrRedirect(username, me)
+      } >> User.modZoneOrRedirect(username, me)
+    }
   }
 
   def reopenAccount(username: String) = Secure(_.ReopenAccount) { implicit ctx => me =>
@@ -93,14 +94,14 @@ object Mod extends LilaController {
 
   def reportban(username: String, v: Boolean) = Secure(_.ReportBan) { implicit ctx => me =>
     withSuspect(username) { sus =>
-      modApi.setReportban(AsMod(me), sus, v)
-    } >> User.modZoneOrRedirect(username, me)
+      modApi.setReportban(AsMod(me), sus, v) >> User.modZoneOrRedirect(username, me)
+    }
   }
 
   def rankban(username: String, v: Boolean) = Secure(_.RemoveRanking) { implicit ctx => me =>
     withSuspect(username) { sus =>
-      modApi.setRankban(AsMod(me), sus, v)
-    } >> User.modZoneOrRedirect(username, me)
+      modApi.setRankban(AsMod(me), sus, v) >> User.modZoneOrRedirect(username, me)
+    }
   }
 
   def impersonate(username: String) = Auth { implicit ctx => me =>
@@ -141,8 +142,8 @@ object Mod extends LilaController {
 
   def notifySlack(username: String) = Auth { implicit ctx => me =>
     OptionFuResult(UserRepo named username) { user =>
-      Env.slack.api.userMod(user = user, mod = me)
-    } >> User.modZoneOrRedirect(username, me)
+      Env.slack.api.userMod(user = user, mod = me) >> User.modZoneOrRedirect(username, me)
+    }
   }
 
   def log = Secure(_.SeeReport) { implicit ctx => me =>

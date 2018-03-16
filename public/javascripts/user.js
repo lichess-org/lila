@@ -4,7 +4,7 @@ $(function() {
 
     function start($mod) {
       $mod.find('form.xhr').submit(function() {
-        $mod.html(lichess.spinnerHtml).show();
+        $(this).find('input').attr('disabled', true);
         $.ajax({
           url: $(this).attr('action'),
           method: $(this).attr('method'),
