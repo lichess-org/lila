@@ -68,10 +68,8 @@ private[round] final class Socket(
       simulActor ? lila.hub.actorApi.simul.GetHostIds mapTo manifest[Set[String]] map (_ contains u)
     }
 
-    def isGone =
-      if (time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis))
-        !isHostingSimul
-      else fuccess(false)
+    def isGone: Fu[Boolean] =
+      (time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis)) ?? !isHostingSimul
   }
 
   private val whitePlayer = new Player(White)
@@ -122,6 +120,7 @@ private[round] final class Socket(
         tournamentId = tourId.some
         buscriptions.tournament
       }
+    case SetGame(None) => self ! PoisonPill // should never happen but eh
 
     // from lilaBus 'startGame
     // sets definitive user ids
@@ -150,8 +149,6 @@ private[round] final class Socket(
       else if (!hasAi) Color.all foreach { c =>
         playerGet(c, _.isGone) foreach { _ ?? notifyGone(c, true) }
       }
-
-    case GetVersion => sender ! history.getVersion
 
     case IsGone(color) => playerGet(color, _.isGone) pipeTo sender
 

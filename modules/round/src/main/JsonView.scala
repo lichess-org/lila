@@ -19,7 +19,7 @@ import actorApi.SocketStatus
 final class JsonView(
     noteApi: NoteApi,
     userJsonView: lila.user.JsonView,
-    getSocketStatus: String => Fu[SocketStatus],
+    getSocketStatus: Game.ID => Fu[SocketStatus],
     canTakeback: Game => Fu[Boolean],
     divider: lila.game.Divider,
     evalCache: lila.evalCache.EvalCacheApi,

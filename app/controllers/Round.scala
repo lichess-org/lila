@@ -107,7 +107,7 @@ object Round extends LilaController with TheftPrevention {
     }
 
   def whatsNext(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo pov fullId) { currentPov =>
+    OptionFuResult(proxyPov(fullId)) { currentPov =>
       if (currentPov.isMyTurn) fuccess {
         Ok(Json.obj("nope" -> true))
       }

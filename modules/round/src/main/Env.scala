@@ -10,7 +10,6 @@ import actorApi.{ GetSocketStatus, SocketStatus }
 import lila.game.{ Game, Pov }
 import lila.hub.actorApi.HasUserId
 import lila.hub.actorApi.map.{ Ask, Tell }
-import lila.socket.actorApi.GetVersion
 import makeTimeout.large
 
 final class Env(
@@ -184,9 +183,6 @@ final class Env(
   lazy val messenger = new Messenger(
     chat = hub.actor.chat
   )
-
-  def version(gameId: String): Fu[Int] =
-    socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]
 
   private def getSocketStatus(gameId: String): Fu[SocketStatus] =
     socketHub ? Ask(gameId, GetSocketStatus) mapTo manifest[SocketStatus]
