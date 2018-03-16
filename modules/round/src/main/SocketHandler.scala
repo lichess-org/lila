@@ -10,8 +10,9 @@ import chess.{ Centis, MoveMetrics, Color }
 import play.api.libs.json.{ JsObject, Json }
 
 import actorApi._, round._
+import lila.chat.Chat
 import lila.common.IpAddress
-import lila.game.{ Pov, PovRef, GameRepo, Game }
+import lila.game.{ Pov, PovRef, Game }
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.Berserk
 import lila.hub.actorApi.shutup.PublicSource
@@ -19,7 +20,6 @@ import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.socket.Socket.Uid
 import lila.user.User
-import lila.chat.Chat
 import makeTimeout.short
 
 private[round] final class SocketHandler(
@@ -116,16 +116,12 @@ private[round] final class SocketHandler(
   }
 
   def watcher(
-    gameId: String,
-    colorName: String,
+    pov: Pov,
     uid: Uid,
     user: Option[User],
     ip: IpAddress,
     userTv: Option[String]
-  ): Fu[Option[JsSocketHandler]] =
-    GameRepo.pov(gameId, colorName) flatMap {
-      _ ?? { join(_, none, uid, user, ip, userTv = userTv) map some }
-    }
+  ): Fu[JsSocketHandler] = join(pov, none, uid, user, ip, userTv = userTv)
 
   def player(
     pov: Pov,

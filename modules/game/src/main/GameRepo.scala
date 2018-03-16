@@ -55,10 +55,8 @@ object GameRepo {
     Color(color) ?? (pov(gameId, _))
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
-    coll.byId[Game](playerRef.gameId) map { gameOption =>
-      gameOption flatMap { game =>
-        game player playerRef.playerId map { Pov(game, _) }
-      }
+    coll.byId[Game](playerRef.gameId) map {
+      _ flatMap { _ playerIdPov playerRef.playerId }
     }
 
   def pov(fullId: ID): Fu[Option[Pov]] = pov(PlayerRef(fullId))

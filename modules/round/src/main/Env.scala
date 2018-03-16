@@ -42,7 +42,7 @@ final class Env(
     val PlayerDisconnectTimeout = config duration "player.disconnect.timeout"
     val PlayerRagequitTimeout = config duration "player.ragequit.timeout"
     val AnimationDuration = config duration "animation.duration"
-    val Moretime = config duration "moretime"
+    val MoretimeDuration = config duration "moretime"
     val SocketName = config getString "socket.name"
     val SocketTimeout = config duration "socket.timeout"
     val NetDomain = config getString "net.domain"
@@ -74,7 +74,7 @@ final class Env(
       forecastApi = forecastApi,
       socketHub = socketHub,
       awakeWith = tell(id),
-      moretimeDuration = Moretime,
+      moretimeDuration = MoretimeDuration,
       activeTtl = ActiveTtl
     )
     def tell(id: Game.ID)(msg: Any): Unit = self ! Tell(id, msg)
@@ -84,6 +84,9 @@ final class Env(
         bus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
     }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
+
+  def roundProxyGame(gameId: String): Fu[Option[Game]] =
+    roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Option[Game]]
 
   private var nbRounds = 0
   def count() = nbRounds
@@ -199,7 +202,7 @@ final class Env(
     divider = divider,
     evalCache = evalCache,
     baseAnimationDuration = AnimationDuration,
-    moretimeSeconds = Moretime.toSeconds.toInt
+    moretimeSeconds = MoretimeDuration.toSeconds.toInt
   )
 
   lazy val noteApi = new NoteApi(db(CollectionNote))

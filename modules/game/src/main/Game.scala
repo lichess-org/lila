@@ -552,6 +552,7 @@ case class Game(
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }
 
   def pov(c: Color) = Pov(this, c)
+  def playerIdPov(playerId: String): Option[Pov] = player(playerId) map { Pov(this, _) }
   def whitePov = pov(White)
   def blackPov = pov(Black)
   def playerPov(p: Player) = pov(p.color)

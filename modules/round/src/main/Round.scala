@@ -254,13 +254,13 @@ private[round] final class Round(
     }
 
   private def scheduleExpiration: Funit = proxy.game map {
-    _ ?? { game =>
+    case None => self ! PoisonPill
+    case Some(game) =>
       game.timeBeforeExpiration foreach { centis =>
         context.system.scheduler.scheduleOnce((centis.millis + 1000).millis) {
           awakeWith(NoStart)
         }
       }
-    }
   }
 
   private def handle[A](op: Game => Fu[Events]): Funit =
