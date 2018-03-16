@@ -20,8 +20,8 @@ final class Analyser(
 
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
     AnalysisRepo exists game.id flatMap {
-      case true => fuccess(false)
-      case _ if Game.isOldHorde(game) => fuccess(false)
+      case true => fuFalse
+      case _ if Game.isOldHorde(game) => fuFalse
       case _ =>
         limiter(sender, ignoreConcurrentCheck = false) flatMap { accepted =>
           accepted ?? {
@@ -54,7 +54,7 @@ final class Analyser(
 
   def study(req: lila.hub.actorApi.fishnet.StudyChapterRequest): Fu[Boolean] =
     AnalysisRepo exists req.chapterId flatMap {
-      case true => fuccess(false)
+      case true => fuFalse
       case _ => {
         import req._
         val sender = Work.Sender(req.userId, none, false, system = req.userId == "lichess")

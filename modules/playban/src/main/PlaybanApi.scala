@@ -30,7 +30,7 @@ final class PlaybanApi(
 
   private def blameable(game: Game): Fu[Boolean] =
     (game.source.exists(s => blameableSources(s)) && game.hasClock) ?? {
-      if (game.rated) fuccess(true)
+      if (game.rated) fuTrue
       else UserRepo.containsEngine(game.userIds) map (!_)
     }
 

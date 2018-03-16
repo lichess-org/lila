@@ -25,7 +25,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
     for {
       lastOpponents <- PairingRepo.lastOpponents(tour.id, users.all, Math.min(120, users.size * 4))
       onlyTwoActivePlayers <- (tour.nbPlayers > 20).fold(
-        fuccess(false),
+        fuFalse,
         PlayerRepo.countActive(tour.id).map(2==)
       )
       data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)

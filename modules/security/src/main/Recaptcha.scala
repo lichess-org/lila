@@ -14,7 +14,7 @@ trait Recaptcha {
 
 object RecaptchaSkip extends Recaptcha {
 
-  def verify(response: String, req: RequestHeader) = fuccess(true)
+  def verify(response: String, req: RequestHeader) = fuTrue
 }
 
 final class RecaptchaGoogle(

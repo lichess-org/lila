@@ -18,11 +18,11 @@ trait Granter {
 
   def isGrantedWrite(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
     ctx.me.filter(isOldEnoughToForum) ?? { me =>
-      if (Master(Permission.StaffForum)(me)) fuccess(true)
+      if (Master(Permission.StaffForum)(me)) fuTrue
       else categSlug match {
-        case Categ.staffId => fuccess(false)
+        case Categ.staffId => fuFalse
         case TeamSlugPattern(teamId) => userBelongsToTeam(teamId, me.id)
-        case _ => fuccess(true)
+        case _ => fuTrue
       }
     }
 
@@ -32,9 +32,9 @@ trait Granter {
 
   def isGrantedMod(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
     categSlug match {
-      case _ if (ctx.me ?? Master(Permission.ModerateForum)) => fuccess(true)
+      case _ if (ctx.me ?? Master(Permission.ModerateForum)) => fuTrue
       case TeamSlugPattern(teamId) =>
         ctx.me ?? { me => userOwnsTeam(teamId, me.id) }
-      case _ => fuccess(false)
+      case _ => fuFalse
     }
 }
