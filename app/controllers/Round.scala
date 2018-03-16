@@ -16,6 +16,7 @@ object Round extends LilaController with TheftPrevention {
 
   private def env = Env.round
   private def analyser = Env.analyse.analyser
+  private val logger = lila.log("round")
 
   def websocketWatcher(gameId: String, color: String) = SocketOption[JsValue] { implicit ctx =>
     proxyPov(gameId, color) flatMap {
@@ -165,7 +166,7 @@ object Round extends LilaController with TheftPrevention {
     playablePovForReq(pov.game) match {
       case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
       case _ => Game.preloadUsers(pov.game) >> negotiate(
-        html = {
+        html = env.getSocketStatus(pov.game.id).flatMap { socketStatusPre =>
           if (getBool("sudo") && isGranted(_.SuperAdmin)) Redirect(routes.Round.player(pov.fullId)).fuccess
           else if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
           else if (HTTPRequest.isHuman(ctx.req))
@@ -180,6 +181,9 @@ object Round extends LilaController with TheftPrevention {
               ) zip
                 Env.bookmark.api.exists(pov.game, ctx.me) map {
                   case tour ~ simul ~ chat ~ crosstable ~ data ~ bookmarked =>
+                    (data \ "player" \ "version").asOpt[Int].fold(logger.warn(s"watch JSON no socket version $pov")) { v =>
+                      if (v != socketStatusPre.version) logger.warn(s"watch JSON socket version doesn't match $pov $v $socketStatusPre")
+                    }
                     Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv, chatOption = chat, bookmarked = bookmarked))
                 }
           else for { // web crawlers don't need the full thing

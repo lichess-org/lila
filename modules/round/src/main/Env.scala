@@ -184,7 +184,7 @@ final class Env(
     chat = hub.actor.chat
   )
 
-  private def getSocketStatus(gameId: String): Fu[SocketStatus] =
+  def getSocketStatus(gameId: Game.ID): Fu[SocketStatus] =
     socketHub ? Ask(gameId, GetSocketStatus) mapTo manifest[SocketStatus]
 
   private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
