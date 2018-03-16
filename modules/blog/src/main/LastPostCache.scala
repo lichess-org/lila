@@ -22,9 +22,9 @@ final class LastPostCache(
 
   private def fetch: Fu[List[MiniPost]] = {
     api.prismicApi flatMap { prismic =>
-      api.recent(prismic, none, 3) map {
+      api.recent(prismic, none, page = 1, lila.common.MaxPerPage(3)) map {
         _ ?? {
-          _.results.toList flatMap MiniPost.fromDocument(collection)
+          _.currentPageResults.toList flatMap MiniPost.fromDocument(collection)
         }
       }
     }

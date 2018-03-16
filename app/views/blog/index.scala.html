@@ -1,14 +1,15 @@
-@(pager: io.prismic.Response)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context)
+@(pager: Paginator[io.prismic.Document])(implicit ctx: Context, prismic: lila.blog.BlogApi.Context)
 
-@layout(title = "Blog") {
+@layout(title = "Blog",
+moreJs = jsTag("vendor/jquery.infinitescroll.min.js")) {
 
 <h1 class="lichess_title" data-icon="6">
-  <a class="atom" href="@routes.Blog.atom(prismic.maybeRef)" data-icon="3"></a>
+  <a class="atom" href="@routes.Blog.atom" data-icon="3"></a>
   Lichess Official Blog
 </h1>
-<div class="list">
-  @pager.results.map { doc =>
-  <article>
+<div class="list infinitescroll">
+  @pager.currentPageResults.map { doc =>
+  <article class="paginated_element">
     @doc.getText("blog.title").map { title =>
     <h1 class="blog_title"><a href="@routes.Blog.show(doc.id, doc.slug, prismic.maybeRef)">@title</a></h1>
     }
@@ -28,6 +29,11 @@
       </p>
     </div>
   </article>
+  }
+  @pager.nextPage.map { np =>
+  <div class="pager none">
+    <a rel="next" href="@routes.Blog.index(np, none)">Next</a>
+  </div>
   }
 </div>
 }

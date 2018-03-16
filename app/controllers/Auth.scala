@@ -134,7 +134,8 @@ object Auth extends LilaController {
   private object MustConfirmEmail {
 
     case object Nope extends MustConfirmEmail(false)
-    case object YesBecausePrint extends MustConfirmEmail(true)
+    case object YesBecausePrintExists extends MustConfirmEmail(true)
+    case object YesBecausePrintMissing extends MustConfirmEmail(true)
     case object YesBecauseIpExists extends MustConfirmEmail(true)
     case object YesBecauseIpSusp extends MustConfirmEmail(true)
     case object YesBecauseMobile extends MustConfirmEmail(true)
@@ -144,10 +145,12 @@ object Auth extends LilaController {
       val ip = HTTPRequest lastRemoteAddress ctx.req
       api.recentByIpExists(ip) flatMap { ipExists =>
         if (ipExists) fuccess(YesBecauseIpExists)
-        else print.??(api.recentByPrintExists) flatMap { printExists =>
-          if (printExists) fuccess(YesBecausePrint)
-          else if (HTTPRequest weirdUA ctx.req) fuccess(YesBecauseUA)
-          else Env.security.ipTrust.isSuspicious(ip).map { _.fold(YesBecauseIpSusp, Nope) }
+        else if (HTTPRequest weirdUA ctx.req) fuccess(YesBecauseUA)
+        else print.fold[Fu[MustConfirmEmail]](fuccess(YesBecausePrintMissing)) { fp =>
+          api.recentByPrintExists(fp) flatMap { printFound =>
+            if (printFound) fuccess(YesBecausePrintExists)
+            else Env.security.ipTrust.isSuspicious(ip).map { _.fold(YesBecauseIpSusp, Nope) }
+          }
         }
       }
     }
@@ -174,7 +177,6 @@ object Auth extends LilaController {
                   authLog(data.username, s"fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
                   lila.mon.user.register.website()
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.value)()
-                  authLog(data.username, s"Signup website must confirm email: $mustConfirm")
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
                   val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
                   UserRepo.create(data.username, passwordHash, email, ctx.blindMode, none,
@@ -184,7 +186,7 @@ object Auth extends LilaController {
                       case (user, email) if mustConfirm.value =>
                         env.emailConfirm.send(user, email) >> {
                           if (env.emailConfirm.effective)
-                            api.saveSignup(user.id, ctx.mobileApiVersion) inject
+                            api.saveSignup(user.id, ctx.mobileApiVersion, data.fingerPrint) inject
                               Redirect(routes.Auth.checkYourEmail(user.username))
                           else welcome(user, email) >> redirectNewUser(user)
                         }

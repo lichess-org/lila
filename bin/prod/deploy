@@ -102,7 +102,7 @@ fi
 FS_WARMUP="cat $REMOTE_DIR/lib/* > /dev/null && cat $REMOTE_DIR/bin/lila > /dev/null"
 
 # start dropping packets. Run `bin/prod/iptables-drop 0` on the server to resume normal traffic.
-START_DROPPING="$REMOTE_DIR/bin/prod/iptables-drop 0.97"
+START_DROPPING="$REMOTE_DIR/bin/prod/iptables-drop 0.93"
 
 if [ $mode = "main" ]; then
   lilalog "Restart lichess"

@@ -3,16 +3,21 @@ package lila.blog
 import io.prismic._
 import scala.concurrent.duration._
 
+import lila.common.MaxPerPage
+import lila.common.paginator._
+
 final class BlogApi(
     asyncCache: lila.memo.AsyncCache.Builder,
     prismicUrl: String,
     collection: String
 ) {
 
-  def recent(api: Api, ref: Option[String], nb: Int): Fu[Option[Response]] =
+  def recent(api: Api, ref: Option[String], page: Int, maxPerPage: MaxPerPage): Fu[Option[Paginator[Document]]] =
     api.forms(collection).ref(resolveRef(api)(ref) | api.master.ref)
       .orderings(s"[my.$collection.date desc]")
-      .pageSize(nb).page(1).submit().fold(_ => none, some _)
+      .pageSize(maxPerPage.value).page(page).submit().fold(_ => none, some _) map2 { (res: Response) =>
+        PrismicPaginator(res, page, maxPerPage)
+      }
 
   def one(api: Api, ref: Option[String], id: String) =
     api.forms(collection)

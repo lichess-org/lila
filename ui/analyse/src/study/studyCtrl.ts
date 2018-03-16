@@ -170,10 +170,10 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
 
     const merge = !vm.mode.write && sameChapter;
     ctrl.reloadData(d.analysis, merge);
+    vm.gamebookOverride = undefined;
     configureAnalysis();
     vm.loading = false;
 
-    vm.gamebookOverride = undefined;
     instanciateGamebookPlay();
     if (relay) relay.applyChapterRelay(data.chapter, s.chapter.relay);
 

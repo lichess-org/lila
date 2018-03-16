@@ -73,10 +73,10 @@ GET   /dasher                          controllers.Dasher.get
 GET   /socket                          controllers.Main.websocket
 
 # Blog
-GET   /blog                            controllers.Blog.index(ref: Option[String] ?= None)
+GET   /blog                            controllers.Blog.index(page: Int ?= 1, ref: Option[String] ?= None)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id: String)
 GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
-GET   /blog.atom                       controllers.Blog.atom(ref: Option[String] ?= None)
+GET   /blog.atom                       controllers.Blog.atom
 
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home
@@ -456,6 +456,7 @@ GET   /report/list/:room               controllers.Report.listWithFilter(room: S
 POST  /report/:id/inquiry              controllers.Report.inquiry(id: String)
 POST  /report/:id/process              controllers.Report.process(id: String)
 POST  /report/:id/xfiles               controllers.Report.xfiles(id: String)
+GET   /report/:username/cheat-inquiry  controllers.Report.currentCheatInquiry(username: String)
 
 # QA
 GET    /qa                         controllers.QaQuestion.index(page: Option[Int] ?= None)

@@ -1,30 +1,13 @@
 $(function() {
 
   $('div.user_show .mod_zone_toggle').each(function() {
-
-    function start($mod) {
-      $mod.find('form.xhr').submit(function() {
-        $mod.html(lichess.spinnerHtml).show();
-        $.ajax({
-          url: $(this).attr('action'),
-          method: $(this).attr('method'),
-          success: function(html) {
-            start($mod.html(html));
-          }
-        })
-        return false;
-      });
-    }
-
     $(this).click(function() {
       var $zone = $('div.user_show .mod_zone');
       if ($zone.is(':visible')) $zone.hide();
       else {
         $zone.html(lichess.spinnerHtml).show();
         lichess.loadCss('/assets/stylesheets/user-mod.css');
-        $zone.load($(this).attr('href'), function() {
-          start($zone);
-        });
+        $zone.load($(this).attr('href'));
       }
       return false;
     });

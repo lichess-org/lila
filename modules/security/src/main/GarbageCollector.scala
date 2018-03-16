@@ -19,7 +19,7 @@ final class GarbageCollector(
   def delay(user: User, ip: IpAddress, email: EmailAddress): Unit =
     if (user.createdAt.isAfter(DateTime.now minusDays 3)) {
       debug(email, s"${user.username} $email $ip", "pre")
-      system.scheduler.scheduleOnce(5 seconds) {
+      system.scheduler.scheduleOnce(1 minute) {
         apply(user, ip, email)
       }
     }
