@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
 import GamebookPlayCtrl from './gamebookPlayCtrl';
-import { bind, dataIcon, enrichText, innerHTML } from '../../util';
+import { bind, dataIcon, iconTag, enrichText, innerHTML } from '../../util';
 import { State } from './gamebookPlayCtrl';
 
 const defaultComments = {
@@ -53,14 +53,14 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
   if (fb === 'bad') return h('div.feedback.act.bad' + (state.comment ? '.com' : ''), {
     hook: bind('click', ctrl.retry)
   }, [
-    h('i', { attrs: dataIcon('P') }),
+    iconTag('P'),
     h('span', 'Retry')
   ]);
   if (fb === 'good' && state.comment) return h('div.feedback.act.good.com', {
     hook: bind('click', ctrl.next)
   }, [
-    h('i', { attrs: dataIcon('G') }),
-    h('span', 'Next')
+    h('span.text', { attrs: dataIcon('G') }, 'Next'),
+    h('kbd', '<space>')
   ]);
   if (fb === 'end') return renderEnd(ctrl);
   return h('div.feedback.info.' + fb + (state.init ? '.init' : ''),
