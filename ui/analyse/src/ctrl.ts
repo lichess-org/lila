@@ -721,6 +721,7 @@ export default class AnalyseCtrl {
   }
 
   mergeAnalysisData(data: ServerEvalData): void {
+    if (this.study && this.study.data.chapter.id !== data.ch) return;
     this.tree.merge(data.tree);
     if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
