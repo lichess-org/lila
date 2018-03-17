@@ -1,6 +1,10 @@
-@(u: User)(implicit ctx: Context)
+@(u: User, email: lila.common.EmailAddress)(implicit ctx: Context)
 
-@auth.layout(title = "Check your email") {
+@moreJs = {
+lichess.storage.set('email_confirm', email.value);
+}
+
+@auth.layout(title = "Check your email", moreJs = moreJs) {
 <div class="content_box small_box signup">
   <div class="signup_box">
     <h1 class="lichess_title is-green text" data-icon="E">@trans.checkYourEmail()</h1>

@@ -59,10 +59,11 @@ object Auth extends LilaController {
   }
 
   private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
-    case lila.security.SecurityApi.MustConfirmEmail(userId) => UserRepo byId userId map {
-      case Some(user) => BadRequest(html.auth.checkYourEmail(user))
-      case None => BadRequest
-    }
+    case lila.security.SecurityApi.MustConfirmEmail(userId) =>
+      UserRepo.byId(userId) zip UserRepo.email(userId) map {
+        case Some(user) ~ Some(email) => BadRequest(html.auth.checkYourEmail(user, email))
+        case _ => BadRequest
+      }
   }
 
   def login = Open { implicit ctx =>
@@ -236,8 +237,10 @@ object Auth extends LilaController {
     Env.security.garbageCollector.delay(user, HTTPRequest lastRemoteAddress ctx.req, email)
 
   def checkYourEmail(name: String) = Open { implicit ctx =>
-    OptionOk(UserRepo named name) { user =>
-      html.auth.checkYourEmail(user)
+    OptionFuResult(UserRepo.named(name)) { user =>
+      UserRepo.email(user.id) map {
+        _ ?? { email => Ok(html.auth.checkYourEmail(user, email)) }
+      }
     }
   }
 
