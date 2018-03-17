@@ -10,7 +10,6 @@ import actorApi.{ GetSocketStatus, SocketStatus }
 import lila.game.{ Game, Pov }
 import lila.hub.actorApi.HasUserId
 import lila.hub.actorApi.map.{ Ask, Tell }
-import makeTimeout.large
 
 final class Env(
     config: Config,
@@ -84,8 +83,16 @@ final class Env(
     }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
 
-  def roundProxyGame(gameId: String): Fu[Option[Game]] =
+  def roundProxyGame(gameId: String): Fu[Option[Game]] = lila.game.GameRepo game gameId
+
+  def actualRoundProxyGame(gameId: String): Fu[Option[Game]] = {
+    import makeTimeout.short
     roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Option[Game]]
+    // } recoverWith {
+    //   case e: akka.pattern.AskTimeoutException =>
+    //     logger.info(s"roundProxyGame timeout https://lichess.org/$gameId")
+    //     lila.game.GameRepo game gameId
+  }
 
   private var nbRounds = 0
   def count() = nbRounds
@@ -184,11 +191,15 @@ final class Env(
     chat = hub.actor.chat
   )
 
-  def getSocketStatus(gameId: Game.ID): Fu[SocketStatus] =
+  def getSocketStatus(gameId: Game.ID): Fu[SocketStatus] = {
+    import makeTimeout.large
     socketHub ? Ask(gameId, GetSocketStatus) mapTo manifest[SocketStatus]
+  }
 
-  private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
+  private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] = {
+    import makeTimeout.large
     socketHub ? Ask(game.id, HasUserId(userId)) mapTo manifest[Boolean]
+  }
 
   lazy val jsonView = new JsonView(
     noteApi = noteApi,

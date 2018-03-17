@@ -191,6 +191,7 @@ object mon {
     object expiration {
       val count = inc("round.expiration.count")
     }
+    def proxyGameWatcher(result: String) = inc(s"round.proxy_game.watcher.$result")
   }
   object playban {
     def outcome(out: String) = inc(s"playban.outcome.$out")

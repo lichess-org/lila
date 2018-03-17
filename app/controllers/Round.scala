@@ -133,6 +133,10 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def watcher(gameId: String, color: String) = Open { implicit ctx =>
+    env.actualRoundProxyGame(gameId).effectFold(
+      _ => lila.mon.round.proxyGameWatcher("exception")(),
+      g => lila.mon.round.proxyGameWatcher(g.isDefined.toString)()
+    )
     proxyPov(gameId, color) flatMap {
       case Some(pov) => get("pov") match {
         case Some(requestedPov) => (pov.player.userId, pov.opponent.userId) match {
