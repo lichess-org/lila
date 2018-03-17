@@ -176,7 +176,7 @@ object Auth extends LilaController {
                 MustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
                   authLog(data.username, s"fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
                   lila.mon.user.register.website()
-                  lila.mon.user.register.mustConfirmEmail(mustConfirm.value)()
+                  lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
                   val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
                   UserRepo.create(data.username, passwordHash, email, ctx.blindMode, none,
@@ -204,7 +204,7 @@ object Auth extends LilaController {
             data => HasherRateLimit(data.username, ctx.req) { _ =>
               fuccess(MustConfirmEmail.YesBecauseMobile) flatMap { mustConfirm =>
                 lila.mon.user.register.mobile()
-                lila.mon.user.register.mustConfirmEmail(mustConfirm.value)()
+                lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
                 authLog(data.username, s"Signup mobile must confirm email: $mustConfirm")
                 val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
                 val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
