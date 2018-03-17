@@ -246,7 +246,7 @@ object mon {
     object register {
       val website = inc("user.register.website")
       val mobile = inc("user.register.mobile")
-      def mustConfirmEmail(v: Boolean) = inc(s"user.register.must_confirm_email.$v")
+      def mustConfirmEmail(v: String) = inc(s"user.register.must_confirm_email.$v")
       def confirmEmailResult(v: Boolean) = inc(s"user.register.confirm_email.$v")
       val modConfirmEmail = inc(s"user.register.mod_confirm_email")
     }
