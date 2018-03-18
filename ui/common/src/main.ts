@@ -105,3 +105,14 @@ export function throttle(delay: number, callback: (...args: any[]) => void): (..
     else timer = setTimeout(exec, delay - elapsed);
   };
 }
+
+const movePattern = /\b(\d+)\s?(\.+)\s?(?:[o0-]+|[NBRQK]*[a-h]?[1-8]?x?@?[a-h][0-9]=?[NBRQK]?)\+?\#?[!\?=]*/gi;
+function moveReplacer(match: string, turn: number, dots: string) {
+  if (turn < 1 || turn > 200) return match;
+  const ply = turn * 2 - (dots.length > 1 ? 0 : 1);
+  return '<a class="jump" data-ply="' + ply + '">' + match + '</a>';
+}
+
+export function addPlies(html: string) {
+  return html.replace(movePattern, moveReplacer);
+}

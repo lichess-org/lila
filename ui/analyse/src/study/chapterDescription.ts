@@ -56,7 +56,7 @@ export function view(study: StudyCtrl): VNode | undefined {
     isEmpty ? h('a.text.empty.button', {
       hook: bind('click', _ => { desc.edit = true; }, desc.redraw)
     }, title) : h('div.text', {
-      hook: innerHTML(desc.text, text => enrichText(text, true))
+      hook: innerHTML(desc.text, text => enrichText(text, true, false))
     })
   ]);
 }
