@@ -6,7 +6,7 @@ import AnalyseCtrl from '../ctrl';
 import contextMenu from './contextMenu';
 import { MaybeVNodes, ConcealOf } from '../interfaces';
 import { authorText as commentAuthorText } from '../study/studyComments';
-import { enrichText, innerHTML } from '../util';
+import { richHTMLWithJumpEvents } from '../util';
 import { path as treePath } from 'tree';
 import column from './columnView';
 import inline from './inlineView';
@@ -93,7 +93,7 @@ export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
     const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
     truncated = truncateComment(comment.text, 300, ctx);
     return h('comment', {
-      hook: innerHTML(truncated, text => by + enrichText(text, true))
+      hook: richHTMLWithJumpEvents(truncated, by)
     });
   }).filter(nonEmpty);
 }

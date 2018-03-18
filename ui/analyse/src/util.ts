@@ -3,6 +3,7 @@ import { Hooks } from 'snabbdom/hooks'
 import { Attrs } from 'snabbdom/modules/attributes'
 import { fixCrazySan } from 'chess';
 import { AnalyseData } from './interfaces';
+import { addPlies } from 'common';
 
 export function plyColor(ply: number): Color {
   return (ply % 2 === 0) ? 'white' : 'black';
@@ -112,8 +113,9 @@ function toLink(url: string) {
   return '<a target="_blank" rel="nofollow" href="' + url + '">' + show + '</a>';
 }
 
-export function enrichText(text: string, allowNewlines: boolean): string {
-  let html = autolink(window.lichess.escapeHtml(text), toLink);
+export function enrichText(text: string, allowNewlines: boolean, plies: boolean): string {
+  let linked = autolink(window.lichess.escapeHtml(text), toLink);
+  let html = plies ? addPlies(linked) : linked;
   if (allowNewlines) html = html.replace(newLineRegex, '<br>');
   return html;
 }
@@ -132,4 +134,22 @@ export function option(value: string, current: string | undefined, name: string)
       selected: value === current
     },
   }, name);
+}
+
+export function richHTMLWithJumpEvents(text: string, prepend?: string): Hooks {
+  return {
+    insert(vnode) {
+      (vnode.elm as HTMLElement).innerHTML = (prepend || '') + enrichText(text, true, true);
+      vnode.data!.cachedA = text;
+      $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
+        window.lichess.pubsub.emit('jump')((e.target as HTMLElement).getAttribute('data-ply'));
+      });
+    },
+    postpatch(old, vnode) {
+      if (old.data!.cachedA !== text) {
+        (vnode.elm as HTMLElement).innerHTML = (prepend || '') + enrichText(text, true, true);
+      }
+      vnode.data!.cachedA = text;
+    }
+  };
 }

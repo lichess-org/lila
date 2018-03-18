@@ -88,5 +88,5 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
 }
 
 function richHTML(text: string): Hooks {
-  return innerHTML(text, text => enrichText(text, true));
+  return innerHTML(text, text => enrichText(text, true, false));
 }

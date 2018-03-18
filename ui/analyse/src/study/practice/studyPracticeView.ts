@@ -73,7 +73,7 @@ export function underboard(ctrl: StudyCtrl): VNode {
      h('div.feedback.ongoing', [
        h('div.goal', [renderGoal(p, p.goal().moves! - p.nbMoves())]),
        p.comment() ? h('div.comment', {
-         hook: innerHTML(p.comment(), text => enrichText(text!, true))
+         hook: innerHTML(p.comment(), text => enrichText(text!, true, false))
        }) : null
      ]),
      boolSetting({
