@@ -17,7 +17,7 @@ final class CrudApi {
     clockIncrement = tour.clock.incrementSeconds,
     minutes = tour.minutes,
     variant = tour.variant.id,
-    position = tour.position.eco,
+    position = tour.position.fen,
     date = tour.startsAt,
     image = ~tour.spotlight.flatMap(_.iconImg),
     headline = tour.spotlight.??(_.headline),
