@@ -95,6 +95,7 @@
   <string name="outOfCheckIntro">شما دارد در کیش قرار دارید و یا باید فرار و یا از حمله جلوگیری کنید.</string>
   <string name="escapeWithTheKing">فرار با شاه!</string>
   <string name="theKingCannotEscapeButBlock">شاه نمی تواند فرار کند اما شما می توانید از حمله جلوگیری کنید!</string>
+  <string name="youCanGetOutOfCheckByTaking">شما می توانید با زدن مهره ای که شما را کیش کرده، از کیش خارج شوید.</string>
   <string name="mateInOne">مات در یک</string>
   <string name="defeatTheOpponentsKing">شاه حریف را شکست بده</string>
   <string name="mateInOneIntro">شما زمانی برنده می شوید که حریفتان در برابر کیش نمی تواند از خودش دفاع کند.</string>
