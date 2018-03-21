@@ -368,6 +368,7 @@
   <string name="standByX">%s, खिलाड़ियों, बाँधना द्वारा खड़े हो जाओ तैयार हो जाओ!</string>
   <string name="youArePlaying">आप खेल रहे हैं!</string>
   <string name="winRate">जीत दर</string>
+  <string name="berserkRate">समय की कमी की दर</string>
   <string name="performance">प्रदर्शन</string>
   <string name="tournamentComplete">टूर्नामेंट पूर्ण</string>
   <string name="movesPlayed">चालें चलायीं</string>
@@ -715,6 +716,7 @@
   <string name="pieceSet">मोहरे</string>
   <string name="embedInYourWebsite">अपनी वेबसाइट में एम्बेड करें</string>
   <string name="usernameAlreadyUsed">यह उपयोगकर्ता नाम पहले से उपयोग में है, कृपया एक दूसरे का प्रयास करें।</string>
+  <string name="usernameCharsInvalid">जो नाम आप उपयोग करते, उनमें सिर्फ पत्र, संख्या, अंडरस्कोर और हाइफ़न होना चाहिए</string>
   <string name="usernameUnacceptable">यह उपयोगकर्ता नाम स्वीकार्य नहीं है।</string>
   <string name="directlySupportLichess">Lichess का समर्थन करें</string>
   <string name="playChessInStyle">शैली में शतरंज खेलें</string>
@@ -731,7 +733,13 @@
   <string name="notifications">सूचनाएँ</string>
   <string name="challenges">चुनौतियाँ</string>
   <string name="perfRatingX">रेटिंग: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s सेकंड का समय पहला चाल के लिए</item>
+    <item quantity="other">%s सेकंड का समय पहला चाल के लिए</item>
+  </plurals>
   <string name="practiceWithComputer">कंप्यूटर के साथ अभ्यास</string>
+  <string name="anotherWasX">%s भी अच्छे कदम थे</string>
+  <string name="youBrowsedAway">आप किसी और वेबसाइट को गया</string>
   <string name="theGameIsADraw">खेल ड्रॉ है ।</string>
   <string name="computerThinking">कंप्यूटर सोच...</string>
   <string name="seeBestMove">सबसे अच्छा कदम देखें</string>
