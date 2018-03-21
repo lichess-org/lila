@@ -56,11 +56,13 @@
   <string name="showThreat">खतरे को दिखाएं</string>
   <string name="inLocalBrowser">स्थानीय ब्राउज़र में</string>
   <string name="toggleLocalEvaluation">स्थानीय मूल्यांकन को टॉगल करें</string>
+  <string name="promoteVariation">इन भिन्नता को उत्थान करें</string>
   <string name="makeMainLine">मुख्य लाइन बनाओ</string>
   <string name="deleteFromHere">यहां से हटाएं</string>
   <string name="move">चाल</string>
   <string name="variantLoss">भिन् न हानि</string>
   <string name="variantWin">भिन् न जीत</string>
+  <string name="insufficientMaterial">मात के लिए शतरंज के टुकड़े नहीं हैं</string>
   <string name="pawnMove">प्यादा कदम</string>
   <string name="capture">कब्जा</string>
   <string name="close">बंद करें</string>
@@ -665,6 +667,7 @@
   <string name="confirmResignationAndDrawOffers">इस्तीफे की पुष्टि करें और ड्रा ऑफर करें</string>
   <string name="inputMovesWithTheKeyboard">कंप्यूटर कीबोर्ड के साथ इनपुट करें</string>
   <string name="letOtherPlayersMessageYou">अन्य खिलाड़ियों को आपको संदेश देने दें</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">आप कैसे कैंसिल करना चाहते हो?</string>
   <string name="castleByMovingTwoSquares">राजा दो चौकों ले जाएँ</string>
   <string name="castleByMovingOntoTheRook">राजा हाथी पर ले जाएँ</string>
   <string name="shareYourInsightsData">अपने इनसाइट डेटा साझा करें</string>
@@ -718,8 +721,9 @@
   <string name="pieceSet">मोहरे</string>
   <string name="embedInYourWebsite">अपनी वेबसाइट में एम्बेड करें</string>
   <string name="usernameAlreadyUsed">यह उपयोगकर्ता नाम पहले से उपयोग में है, कृपया एक दूसरे का प्रयास करें।</string>
+  <string name="usernamePrefixInvalid">जो नाम आप उपयोग करते, वह किसी अक्षर से शुरू होना चाहिए।</string>
   <string name="usernameSuffixInvalid">जो नाम आप उपयोग करते, वह किसी अक्षर या संख्या के साथ समाप्त होना चाहिए ।</string>
-  <string name="usernameCharsInvalid">जो नाम आप उपयोग करते, उनमें सिर्फ पत्र, संख्या, अंडरस्कोर और हाइफ़न होना चाहिए</string>
+  <string name="usernameCharsInvalid">जो नाम आप उपयोग करते, उनमें सिर्फ पत्र, संख्या, अंडरस्कोर और हाइफ़न होना चाहिए ।</string>
   <string name="usernameUnacceptable">यह उपयोगकर्ता नाम स्वीकार्य नहीं है।</string>
   <string name="directlySupportLichess">Lichess का समर्थन करें</string>
   <string name="playChessInStyle">शैली में शतरंज खेलें</string>
@@ -749,7 +753,7 @@
   <string name="seeBestMove">सबसे अच्छा कदम देखें</string>
   <string name="hideBestMove">सबसे अच्छा कदम छिपाएं</string>
   <string name="getAHint">एक संकेत प्राप्त करें</string>
-  <string name="evaluatingYourMove">कंप्यूटर आपके कदम का मूल्यांकन कर रहे हैं</string>
+  <string name="evaluatingYourMove">कंप्यूटर आपके कदम का मूल्यांकन कर रहे हैं..</string>
   <string name="whiteWinsGame">सफेद जीत</string>
   <string name="blackWinsGame">काला विजयी</string>
   <string name="learnFromYourMistakes">अपनी गलतियों से सीखें</string>
