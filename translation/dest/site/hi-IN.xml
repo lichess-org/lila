@@ -269,6 +269,7 @@
   <string name="tournamentPoints">प्रतियोगिता के अंक</string>
   <string name="viewTournament">प्रतियोगिता देखें</string>
   <string name="backToTournament">प्रतियोगिता पर वापिस जाएँ</string>
+  <string name="thematic">कथ्यपरक</string>
   <string name="yourPerfRatingIsProvisional">आपके %s रेटिंग अनंतिम है</string>
   <string name="yourPerfRatingIsTooHigh">आपके %1$s रेटिंग (%2$s) बहुत अधिक है</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">अपने शीर्ष साप्ताहिक %1$s रेटिंग (%2$s) बहुत अधिक है</string>
@@ -716,6 +717,7 @@
   <string name="pieceSet">मोहरे</string>
   <string name="embedInYourWebsite">अपनी वेबसाइट में एम्बेड करें</string>
   <string name="usernameAlreadyUsed">यह उपयोगकर्ता नाम पहले से उपयोग में है, कृपया एक दूसरे का प्रयास करें।</string>
+  <string name="usernameSuffixInvalid">जो नाम आप उपयोग करते, वह किसी अक्षर या संख्या के साथ समाप्त होना चाहिए ।</string>
   <string name="usernameCharsInvalid">जो नाम आप उपयोग करते, उनमें सिर्फ पत्र, संख्या, अंडरस्कोर और हाइफ़न होना चाहिए</string>
   <string name="usernameUnacceptable">यह उपयोगकर्ता नाम स्वीकार्य नहीं है।</string>
   <string name="directlySupportLichess">Lichess का समर्थन करें</string>
@@ -739,15 +741,18 @@
   </plurals>
   <string name="practiceWithComputer">कंप्यूटर के साथ अभ्यास</string>
   <string name="anotherWasX">%s भी अच्छे कदम थे</string>
+  <string name="bestWasX">सही चाल %s थे</string>
   <string name="youBrowsedAway">आप किसी और वेबसाइट को गया</string>
   <string name="theGameIsADraw">खेल ड्रॉ है ।</string>
   <string name="computerThinking">कंप्यूटर सोच...</string>
   <string name="seeBestMove">सबसे अच्छा कदम देखें</string>
   <string name="hideBestMove">सबसे अच्छा कदम छिपाएं</string>
   <string name="getAHint">एक संकेत प्राप्त करें</string>
+  <string name="evaluatingYourMove">कंप्यूटर आपके कदम का मूल्यांकन कर रहे हैं</string>
   <string name="whiteWinsGame">सफेद जीत</string>
   <string name="blackWinsGame">काला विजयी</string>
   <string name="learnFromYourMistakes">अपनी गलतियों से सीखें</string>
+  <string name="learnFromThisMistake">इस गलती से सीखें</string>
   <string name="skipThisMove">इस चाल को छोड़ें</string>
   <string name="next">अगला</string>
   <string name="xWasPlayed">%s खेला गया</string>
@@ -761,4 +766,6 @@
   <string name="noMistakesFoundForWhite">श्वेता के लिए नहीं मिली कोई गलतियां</string>
   <string name="doItAgain">इसे फिर से करो</string>
   <string name="advantage">लाभ</string>
+  <string name="noConditionalPremoves">सक्रिय कदम का अवश्य नहीं है</string>
+  <string name="playX">%s खेलें</string>
 </resources>
