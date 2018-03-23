@@ -88,11 +88,26 @@ object Round extends LilaController with TheftPrevention {
   ) map NoCache
 
   def player(fullId: String) = Open { implicit ctx =>
+    proxyBench(1000)
     OptionFuResult(proxyPov(fullId)) { pov =>
       env.checkOutoftime(pov.game)
       renderPlayer(pov)
     }
   }
+
+  private def proxyBench(nb: Int)(implicit ctx: Context): Funit =
+    ctx.me.?? { me =>
+      import lila.db.dsl._
+      GameRepo.coll.find($empty, $id(true)).skip(scala.util.Random nextInt 9000).list[Bdoc](nb).flatMap {
+        _.map { doc =>
+          doc.getAs[String]("_id") ?? { id =>
+            proxyPov(id, "white")
+          }
+        }.sequenceFu
+      }
+    }.map { povs =>
+      println(s"proxyBench ${povs.size}")
+    }
 
   private def otherPovs(game: GameModel)(implicit ctx: Context) = ctx.me ?? { user =>
     GameRepo urgentGames user map {
