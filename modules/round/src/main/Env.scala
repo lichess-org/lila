@@ -71,11 +71,10 @@ final class Env(
       drawer = drawer,
       forecastApi = forecastApi,
       socketHub = socketHub,
-      awakeWith = tell(id),
+      awakeWith = msg => self ! Tell(id, msg),
       moretimeDuration = MoretimeDuration,
       activeTtl = ActiveTtl
     )
-    def tell(id: Game.ID)(msg: Any): Unit = self ! Tell(id, msg)
     def receive: Receive = ({
       case actorApi.GetNbRounds =>
         nbRounds = size
