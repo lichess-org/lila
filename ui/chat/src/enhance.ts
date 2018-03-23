@@ -5,7 +5,7 @@ export default function(text: string, parseMoves: boolean): string {
   return plied;
 }
 
-const linkPattern = /\b(https?:\/\/|lichess\.org\/)[-\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|]/gi;
+const linkPattern = /\b(https?:\/\/|lichess\.org\/)[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|]/gi;
 
 function linkReplace(url: string, scheme: string) {
   if (url.indexOf('&quot;') !== -1) return url;
@@ -26,7 +26,7 @@ function autoLink(html: string) {
   return html.replace(userPattern, userLinkReplace).replace(linkPattern, linkReplace);
 }
 
-const movePattern = /\b(\d+)\s*(\.+)\s*(?:[o0-]+|[NBRQK]*[a-h]?[1-8]?x?@?[a-h][1-8]=?[NBRQK]?)\+?\#?[!\?=]*/gi;
+const movePattern = /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQKP]?[a-h]?[1-8]?[x@]?[a-z][1-8](?:=[NBRQK])?)\+?\#?[!\?=]{0,5}/gi;
 function moveReplacer(match: string, turn: number, dots: string) {
   if (turn < 1 || turn > 200) return match;
   const ply = turn * 2 - (dots.length > 1 ? 0 : 1);
