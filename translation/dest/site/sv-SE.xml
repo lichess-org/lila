@@ -632,6 +632,7 @@
   <string name="videoLibrary">Videobibliotek</string>
   <string name="mobileApp">Mobilapp</string>
   <string name="webmasters">Webbmasters</string>
+  <string name="about">Om Lichess</string>
   <string name="contribute">Hjälp till</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Användarvillkor</string>
@@ -751,6 +752,9 @@
   <string name="pieceSet">Pjäsuppsättning</string>
   <string name="embedInYourWebsite">Integrera i din webbplats</string>
   <string name="usernameAlreadyUsed">Användarnamnet är upptaget, vänligen försök med ett annat.</string>
+  <string name="usernamePrefixInvalid">Användarnamnet måste börja med en bokstav.</string>
+  <string name="usernameSuffixInvalid">Användarnamnet måste sluta med en bokstav eller ett nummer.</string>
+  <string name="usernameCharsInvalid">Användarnamnet får bara innehålla bokstäver, siffror, understrykningstecken och bindestreck.</string>
   <string name="usernameUnacceptable">Detta användarnamn är inte acceptabelt.</string>
   <string name="directlySupportLichess">Stöd Lichess</string>
   <string name="playChessInStyle">Spela schack med stil</string>
