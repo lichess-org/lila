@@ -3,5 +3,11 @@
 <resources>
   <string name="activity">Aktivita</string>
   <string name="supportedNbMonths">Podporuje lichess %1$s měsíců jako %2$s</string>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Vyřešena %s taktická úloha</item>
+    <item quantity="few">Vyřešeny %s taktické úlohy</item>
+    <item quantity="many">Vyřešeno %s taktických úloh</item>
+    <item quantity="other">Vyřešeno %s taktických úloh</item>
+  </plurals>
   <string name="signedUp">Vytvořen účet na lichess</string>
 </resources>
