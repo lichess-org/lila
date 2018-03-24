@@ -633,6 +633,7 @@ in %3$s</string>
   <string name="videoLibrary">വീഡിയോ ശേഖരം</string>
   <string name="mobileApp">മൊബൈൽ ആപ്പ്</string>
   <string name="webmasters">വെബ് മാസ്റ്റേഴ്സ്</string>
+  <string name="about">ഇതിനെ കുറിച്ച്</string>
   <string name="contribute">സംഭാവന</string>
   <string name="contact">സമ്പര്‍ക്കം</string>
   <string name="termsOfService">സേവന വ്യവസ്ഥകൾ</string>
@@ -752,6 +753,9 @@ in %3$s</string>
   <string name="pieceSet">വിവിധ കരുക്കൾ</string>
   <string name="embedInYourWebsite">നിങ്ങളുടെ വെബ്‌സൈറ്റിലേക്ക് എംബെഡ് ചെയ്യുക</string>
   <string name="usernameAlreadyUsed">ഈ യൂസർനെയിം ഇപ്പോൾ ലഭ്യമല്ല, ദയവു ചെയ്ത് മറ്റൊരു യൂസർനെയിം ഉപയോഗിക്കുക.</string>
+  <string name="usernamePrefixInvalid">യൂസർനെയിം ഒരു സംഖ്യയിൽ തുടങ്ങരുത്.</string>
+  <string name="usernameSuffixInvalid">അക്ഷരങ്ങൾ, സംഖ്യകൾ തുടങ്ങിയവയിൽ മാത്രമേ യൂസർനെയിം അവസാനിക്കാൻ പാടുള്ളൂ.</string>
+  <string name="usernameCharsInvalid">സംഖ്യകൾ, അക്ഷരങ്ങൾ, അണ്ടർസ്കോർ, ഹൈഫൻ തുടങ്ങിയവ മാത്രമേ യൂസർനെയിമിൽ പാടുള്ളൂ.</string>
   <string name="usernameUnacceptable">ഈ ഇമെയിൽ വിലാസം സ്വീകാര്യമല്ല.</string>
   <string name="directlySupportLichess">നേരിട്ട് lichess -നെ പിൻതങ്ങാം</string>
   <string name="playChessInStyle">അടിപൊളി സ്റ്റൈലിൽ ചെസ്സ് കളിക്കൂ</string>
