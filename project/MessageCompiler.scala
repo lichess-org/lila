@@ -33,7 +33,8 @@ object MessageCompiler {
             printToFile(compileToFile)(render(db, locale, file))
           }
           Some(compileToFile)
-        } else None
+        }
+        else None
       }
     } yield compilable
     writeRegistry(db, compileTo, translatedLocales) :: res
@@ -56,7 +57,7 @@ import play.api.i18n.Lang
 // format: OFF
 private[i18n] object Registry {
 
-  def load = Map[Lang, scala.collection.mutable.AnyRefMap[MessageKey, Translation]]($content)
+  def load = Map[Lang, java.util.HashMap[MessageKey, Translation]]($content)
 }
 """
     }
@@ -77,7 +78,8 @@ private[i18n] object Registry {
   private def render(db: String, locale: String, file: File): String = {
     val xml = try {
       XML.loadFile(file)
-    } catch {
+    }
+    catch {
       case e: Exception => println(file); throw e;
     }
     def quote(msg: String) = s"""""\"$msg""\""""
@@ -85,12 +87,12 @@ private[i18n] object Registry {
       case e if e.label == "string" =>
         val safe = escape(e.text)
         val escaped = escapeHtmlOption(safe).fold("None")(e => s"""Some(\"\"\"$e\"\"\")""")
-        s"""(${toKey(e)},new Literal(\"\"\"$safe\"\"\",$escaped))"""
+        s"""m.put(${toKey(e)},new Literal(\"\"\"$safe\"\"\",$escaped))"""
       case e if e.label == "plurals" =>
         val items = e.child.filter(_.label == "item").map { i =>
           s"""${ucfirst(i.\("@quantity").toString)}->\"\"\"${escape(i.text)}\"\"\""""
         }
-        s"""(${toKey(e)},new Plurals(Map(${items mkString ","})))"""
+        s"""m.put(${toKey(e)},new Plurals(Map(${items mkString ","})))"""
     }
     s"""package lila.i18n
 package db.$db
@@ -100,7 +102,11 @@ import I18nQuantity._
 // format: OFF
 private object `$locale` {
 
-  def load = scala.collection.mutable.AnyRefMap[MessageKey, Translation](\n${content mkString ",\n"})
+  def load: java.util.HashMap[MessageKey, Translation] = {
+    val m = new java.util.HashMap[MessageKey, Translation](${content.size + 1}, 1f)
+${content mkString "\n"}
+    m
+  }
 }
 """
   }
