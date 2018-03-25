@@ -257,7 +257,7 @@
     <item quantity="other">Lisa %s sekundit</item>
   </plurals>
   <string name="giveMoreTime">Anna lisaaega</string>
-  <string name="thisPlayerUsesChessComputerAssistance">See mängija kasutab maletates arvuti abi</string>
+  <string name="thisPlayerUsesChessComputerAssistance">See mängija kasutab maletades arvuti abi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">See mängija tõstab kunstlikult / vähendab oma reitingut</string>
   <string name="openingExplorerAndTablebase">Avangute uurija &amp; lõppmängude andmebaas</string>
   <string name="takeback">Tagasivõtt</string>

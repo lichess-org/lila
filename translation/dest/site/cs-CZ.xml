@@ -76,6 +76,12 @@
   <string name="recentGames">Nedávné hry</string>
   <string name="topGames">Top hry</string>
   <string name="masterDbExplanation">Dva miliony her hráčů Ela FIDE %1$s+ od let %2$s do %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mat v %s půltahu</item>
+    <item quantity="few">Mat v %s půltazích</item>
+    <item quantity="many">Mat v %s půltazích</item>
+    <item quantity="other">Mat v %s půltazích</item>
+  </plurals>
   <string name="noGameFound">Žádná hra nenalezena</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možná zkuste vybrat více her z menu preferencí?</string>
   <string name="openingExplorer">Průzkumník zahájení</string>
@@ -131,6 +137,12 @@
   <string name="correspondence">Korespondenčně</string>
   <string name="daysPerTurn">Dnů na tah</string>
   <string name="oneDay">Jeden den</string>
+  <plurals name="nbHours">
+    <item quantity="one">%s hodina</item>
+    <item quantity="few">%s hodiny</item>
+    <item quantity="many">%s hodin</item>
+    <item quantity="other">%s hodin</item>
+  </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Statistiky hodnocení</string>
@@ -146,6 +158,12 @@
   <string name="rank">Pořadí</string>
   <string name="rankX">Pořadí: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Pořadí je aktualizováno každých %s minut</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s taktická úloha</item>
+    <item quantity="few">%s taktické úlohy</item>
+    <item quantity="many">%s taktických úloh</item>
+    <item quantity="other">%s taktických úloh</item>
+  </plurals>
   <string name="gamesPlayed">Odehraných partií</string>
   <string name="cancel">Zrušit</string>
   <string name="timeOut">Čas vypršel</string>
@@ -194,6 +212,12 @@
   <string name="incrementInSeconds">Bonus za tah (v sekundách)</string>
   <string name="freeOnlineChess">Šachy online zdarma</string>
   <string name="spectators">Diváci:</string>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s právě hraje</item>
+    <item quantity="few">%s právě hraje</item>
+    <item quantity="many">%s právě hraje</item>
+    <item quantity="other">%s právě hraje</item>
+  </plurals>
   <string name="exportGames">Exportovat partie</string>
   <string name="ratingRange">Síla hráče</string>
   <string name="giveMoreTime">Přidej čas</string>
@@ -271,6 +295,12 @@
   <string name="unblock">Odblokovat</string>
   <string name="followsYou">Vás sleduje</string>
   <string name="xStartedFollowingY">%1$s začal sledovat %2$s</string>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s sleduje</item>
+    <item quantity="few">%s sleduje</item>
+    <item quantity="many">%s sleduje</item>
+    <item quantity="other">%s sleduje</item>
+  </plurals>
   <string name="more">Více</string>
   <string name="memberSince">Členem od</string>
   <string name="lastSeenActive">Poslední přihlášení %s</string>
@@ -513,6 +543,7 @@ v %3$s</string>
   <string name="videoLibrary">Video knihovna</string>
   <string name="mobileApp">Mobilní aplikace</string>
   <string name="webmasters">Správci webu</string>
+  <string name="about">O</string>
   <string name="contribute">Přispějte</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Podmínky používání</string>
