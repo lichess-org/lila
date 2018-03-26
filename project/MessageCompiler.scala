@@ -89,10 +89,10 @@ private[i18n] object Registry {
         val escaped = escapeHtmlOption(safe).fold("None")(e => s"""Some(\"\"\"$e\"\"\")""")
         s"""m.put(${toKey(e)},new Literal(\"\"\"$safe\"\"\",$escaped))"""
       case e if e.label == "plurals" =>
-        val items = e.child.filter(_.label == "item").map { i =>
-          s"""${ucfirst(i.\("@quantity").toString)}->\"\"\"${escape(i.text)}\"\"\""""
-        }
-        s"""m.put(${toKey(e)},new Plurals(Map(${items mkString ","})))"""
+        val items: Map[String, String] = e.child.filter(_.label == "item").map { i =>
+          ucfirst(i.\("@quantity").toString) -> s"""\"\"\"${escape(i.text)}\"\"\""""
+        }.toMap
+        s"""m.put(${toKey(e)},new Plurals(${pluralMap(items)}))"""
     }
     s"""package lila.i18n
 package db.$db
@@ -110,6 +110,10 @@ ${content mkString "\n"}
 }
 """
   }
+
+  private def pluralMap(items: Map[String, String]): String =
+    if (items.size > 4) s"""Map(${items.map { case (k, v) => s"$k->$v" } mkString ","})"""
+    else s"""new Map.Map${items.size}(${items.map { case (k, v) => s"$k,$v" } mkString ","})"""
 
   private def nl2br(html: String) =
     html.replace("\r\n", "<br />").replace("\n", "<br />")
