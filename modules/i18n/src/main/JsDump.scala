@@ -58,7 +58,8 @@ object JsDump {
   private type JsTrans = Iterable[(String, JsString)]
 
   private def translatedJs(k: String, t: Translation, lang: Lang): JsTrans = t match {
-    case literal: Literal => List(k -> JsString(literal.message))
+    case literal: Simple => List(k -> JsString(literal.message))
+    case literal: Escaped => List(k -> JsString(literal.message))
     case plurals: Plurals => plurals.messages.map {
       case (quantity, msg) => k + quantitySuffix(quantity) -> JsString(msg)
     }

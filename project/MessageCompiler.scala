@@ -86,8 +86,11 @@ private[i18n] object Registry {
     val content = xml.child.collect {
       case e if e.label == "string" =>
         val safe = escape(e.text)
-        val escaped = escapeHtmlOption(safe).fold("None")(e => s"""Some(\"\"\"$e\"\"\")""")
-        s"""m.put(${toKey(e)},new Literal(\"\"\"$safe\"\"\",$escaped))"""
+        val translation = escapeHtmlOption(safe) match {
+          case None => s"""new Simple(\"\"\"$safe\"\"\")"""
+          case Some(escaped) => s"""new Escaped(\"\"\"$safe\"\"\",\"\"\"$escaped\"\"\")"""
+        }
+        s"""m.put(${toKey(e)},$translation)"""
       case e if e.label == "plurals" =>
         val items: Map[String, String] = e.child.filter(_.label == "item").map { i =>
           ucfirst(i.\("@quantity").toString) -> s"""\"\"\"${escape(i.text)}\"\"\""""
