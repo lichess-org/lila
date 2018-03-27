@@ -160,8 +160,8 @@ final class TournamentApi(
           PlayerRepo withPoints tour.id foreach {
             _ foreach { p => UserRepo.incToints(p.userId, p.score) }
           }
-          awardTrophies(tour)
-          indexLeaderboard(tour)
+          awardTrophies(tour).logFailure(logger, _ => s"${tour.id} awardTrophies")
+          indexLeaderboard(tour).logFailure(logger, _ => s"${tour.id} indexLeaderboard")
           clearWinnersCache(tour)
           clearTrophyCache(tour)
         }
