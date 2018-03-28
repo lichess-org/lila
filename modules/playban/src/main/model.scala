@@ -24,7 +24,7 @@ case class UserRecord(
   def badOutcomeRatio: Float = if (bans.size < 3) 0.4f else 0.3f
 
   def shouldWarn: Boolean =
-    badOutcomeScore >= (badOutcomeRatio - .2f) * nbOutcomes atLeast 2
+    badOutcomeScore >= ((badOutcomeRatio - .2f) * nbOutcomes atLeast 2)
 
   def minBadOutcomes: Int = bans.size match {
     case 0 | 1 => 4
