@@ -15,8 +15,7 @@ $(function() {
     var html = '<a class="blocker button" href="'+url+'">' +
       '<img src="https://raw.githubusercontent.com/gorhill/uBlock/master/doc/img/icon38@2x.png" width=76 height=76 />' +
       '<strong>Install a malware blocker!</strong>' +
-      'This page may include ads or trackers.<br />' +
-      'We recommend uBlock Origin.' +
+      'This page may include ads or trackers. We recommend uBlock Origin.' +
       '</a>';
     if (lichess.needBlocker) $('#site_header').append(html);
   });
