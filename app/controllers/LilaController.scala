@@ -390,5 +390,8 @@ private[controllers] trait LilaController
     json validate jsonGlobalErrorRenamer getOrElse json
   }
 
+  protected def pageHit(implicit ctx: lila.api.Context) =
+    if (HTTPRequest isHuman ctx.req) lila.mon.http.request.path(ctx.req.path)()
+
   protected val pgnContentType = "application/x-chess-pgn"
 }

@@ -17,16 +17,19 @@ object Practice extends LilaController {
   private def studyEnv = Env.study
 
   def index = Open { implicit ctx =>
+    pageHit
     env.api.get(ctx.me) flatMap { up =>
       NoCache(Ok(html.practice.index(up))).fuccess
     }
   }
 
   def show(sectionId: String, studySlug: String, studyId: String) = Open { implicit ctx =>
+    pageHit
     OptionFuResult(env.api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
   }
 
   def showChapter(sectionId: String, studySlug: String, studyId: String, chapterId: String) = Open { implicit ctx =>
+    pageHit
     OptionFuResult(env.api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
   }
 

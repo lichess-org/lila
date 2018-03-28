@@ -54,6 +54,7 @@ object Relay extends LilaController {
   }
 
   def show(slug: String, id: String) = Open { implicit ctx =>
+    pageHit
     WithRelay(slug, id) { relay =>
       val sc =
         if (relay.sync.ongoing) Env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap { chapters =>

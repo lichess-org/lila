@@ -6,6 +6,7 @@ import views._
 object Page extends LilaController {
 
   private def bookmark(name: String) = Open { implicit ctx =>
+    pageHit
     OptionOk(Prismic getBookmark name) {
       case (doc, resolver) => views.html.site.page(doc, resolver)
     }
@@ -26,6 +27,7 @@ object Page extends LilaController {
   def about = bookmark("about")
 
   def swag = Open { implicit ctx =>
+    pageHit
     OptionOk(Prismic getBookmark "swag") {
       case (doc, resolver) => views.html.site.swag(doc, resolver)
     }

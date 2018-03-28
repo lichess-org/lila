@@ -32,6 +32,7 @@ object Tournament extends LilaController {
   def home(page: Int) = Open { implicit ctx =>
     negotiate(
       html = Reasonable(page, 20) {
+        pageHit
         val finishedPaginator = repo.finishedPaginator(lila.common.MaxPerPage(30), page = page)
         if (HTTPRequest isXhr ctx.req) for {
           pag <- finishedPaginator

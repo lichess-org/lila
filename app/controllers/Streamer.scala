@@ -12,6 +12,7 @@ object Streamer extends LilaController {
   private def api = Env.streamer.api
 
   def index(page: Int) = Open { implicit ctx =>
+    pageHit
     val requests = getBool("requests") && isGranted(_.Streamers)
     for {
       liveStreams <- Env.streamer.liveStreamApi.all

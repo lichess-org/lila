@@ -11,6 +11,7 @@ import views._
 object QaQuestion extends QaController {
 
   def index(page: Option[Int] = None) = Open { implicit ctx =>
+    pageHit
     for {
       pag <- api.question.recentPaginator(page getOrElse 1, lila.common.MaxPerPage(20))
       popular <- fetchPopular
