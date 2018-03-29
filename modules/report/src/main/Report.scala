@@ -69,6 +69,13 @@ case class Report(
 
   def isRecentComm = room == Room.Coms && open
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
+
+  def boostWith: Option[User.ID] = (reason == Reason.Boost) ?? {
+    atoms.toList.filter(_.byLidraughts).map(_.text).flatMap(_.lines).collectFirst {
+      case Report.farmWithRegex(userId) => userId
+      case Report.sandbagWithRegex(userId) => userId
+    }
+  }
 }
 
 object Report {
@@ -93,7 +100,9 @@ object Report {
   ) {
     def simplifiedText = text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
 
-    def byHuman = by != ReporterId.Lidraughts && by != ReporterId.Irwin
+    def byHuman = !byLidraughts && by != ReporterId.Irwin
+
+    def byLidraughts = by == ReporterId.Lidraughts
   }
 
   case class Inquiry(mod: User.ID, seenAt: DateTime)
@@ -148,4 +157,7 @@ object Report {
         processedBy = none
       )
   }
+
+  private val farmWithRegex = s""".+ points from @(${User.historicalUsernameRegex.pattern}) .*""".r
+  private val sandbagWithRegex = s""".+ winning player @(${User.historicalUsernameRegex.pattern}) .*""".r
 }
