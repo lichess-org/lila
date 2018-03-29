@@ -15,8 +15,9 @@ final class EmailChange(
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
     tokener make TokenPayload(user.id, email).some flatMap { token =>
-      lila.mon.email.resetPassword()
+      lila.mon.email.change()
       val url = s"$baseUrl/account/email/confirm/$token"
+      lila.log("auth").info(s"Change email URL ${user.username} $email $url")
       mailgun send Mailgun.Message(
         to = email,
         subject = trans.emailChange_subject.literalTxtTo(lang, List(user.username)),

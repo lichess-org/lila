@@ -118,7 +118,6 @@ object Account extends LilaController {
       } { data =>
         val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.realEmail)
         controllers.Auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
-          lila.mon.email.change()
           Env.security.emailChange.send(me, newUserEmail.email) inject Redirect {
             s"${routes.Account.email}?check=1"
           }

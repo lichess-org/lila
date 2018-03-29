@@ -254,10 +254,11 @@ object Auth extends LilaController {
                 val newUserEmail = userEmail.copy(email = EmailAddress(email))
                 EmailConfirmRateLimit(newUserEmail, ctx.req) {
                   lila.mon.email.fix()
-                  env.emailConfirm.send(user, newUserEmail.email) inject {
-                    Redirect(routes.Auth.checkYourEmail) withCookies
-                      lila.security.EmailConfirm.cookie.make(user, newUserEmail.email)(ctx.req)
-                  }
+                  UserRepo.email(user.id, newUserEmail.email) >>
+                    env.emailConfirm.send(user, newUserEmail.email) inject {
+                      Redirect(routes.Auth.checkYourEmail) withCookies
+                        lila.security.EmailConfirm.cookie.make(user, newUserEmail.email)(ctx.req)
+                    }
                 }
             }
           }
