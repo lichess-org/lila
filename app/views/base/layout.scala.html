@@ -88,6 +88,9 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(isStage) {
     <div id="stage">This is an empty lidraughts preview website for developers. <a href="https://lidraughts.org">Go to lidraughts.org instead</a></div>
     }
+    @lidraughts.security.EmailConfirm.cookie.get(ctx.req).map { email =>
+    @auth.emailConfirmBanner(email)
+    }
     @if(playing) { <a data-icon="E" id="zentog" class="text fbt active@if(!ctx.pref.isZen){ none}">ZEN MODE</a> }
     <div id="top" class="is2d">
       @topmenu()
