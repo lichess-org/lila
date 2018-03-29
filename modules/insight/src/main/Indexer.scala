@@ -4,6 +4,7 @@ import akka.actor.ActorRef
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import reactivemongo.bson._
+import reactivemongo.api.ReadPreference
 
 import lidraughts.db.dsl._
 import lidraughts.db.dsl._
@@ -45,20 +46,18 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
   // private val maxGames = 1 * 10
   private val maxGames = 10 * 1000
 
-  private def fetchFirstGame(user: User): Fu[Option[Game]] = {
-    logger.info(s"fetchFirstGame: $user")
+  private def fetchFirstGame(user: User): Fu[Option[Game]] =
     if (user.count.rated == 0) fuccess(none)
     else {
       (user.count.rated >= maxGames) ?? GameRepo.coll
         .find(gameQuery(user))
         .sort(Query.sortCreated)
         .skip(maxGames - 1)
-        .uno[Game]
+        .uno[Game](readPreference = ReadPreference.secondaryPreferred)
     } orElse GameRepo.coll
       .find(gameQuery(user))
       .sort(Query.sortChronological)
-      .uno[Game]
-  }
+      .uno[Game](readPreference = ReadPreference.secondaryPreferred)
 
   private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit = {
     import reactivemongo.play.iteratees.cursorProducer
