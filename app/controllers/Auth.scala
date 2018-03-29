@@ -49,14 +49,17 @@ object Auth extends LidraughtsController {
               routes.Lobby.home.url
           }.fuccess,
           api = _ => mobileUserOk(u)
-        ) map {
-            _ withCookies LidraughtsCookie.withSession { session =>
-              session + ("sessionId" -> sessionId) - api.AccessUri
-            }
-          }
+        ) map authenticateCookie(sessionId)
       } recoverWith authRecovery
     )
   }
+
+  private def authenticateCookie(sessionId: String)(result: Result)(implicit req: RequestHeader) =
+    result.withCookies(
+      LidraughtsCookie.withSession { _ + ("sessionId" -> sessionId) - api.AccessUri }
+    ).discardingCookies(
+        LidraughtsCookie.discard(lidraughts.security.EmailConfirm.cookie.name)
+      )
 
   private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
     case lidraughts.security.SecurityApi.MustConfirmEmail(_) => BadRequest(Account.renderCheckYourEmail).fuccess
@@ -285,9 +288,7 @@ object Auth extends LidraughtsController {
       negotiate(
         html = Redirect(routes.User.show(user.username)).fuccess,
         api = _ => mobileUserOk(user)
-      ) map {
-        _ withCookies LidraughtsCookie.session("sessionId", sessionId)
-      }
+      ) map authenticateCookie(sessionId)
     } recoverWith authRecovery
   }
 
