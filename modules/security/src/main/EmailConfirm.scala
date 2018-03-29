@@ -4,8 +4,8 @@ import play.api.i18n.Lang
 import play.twirl.api.Html
 
 import lila.common.EmailAddress
-import lila.user.{ User, UserRepo }
 import lila.i18n.I18nKeys.{ emails => trans }
+import lila.user.{ User, UserRepo }
 
 trait EmailConfirm {
 
@@ -83,4 +83,62 @@ ${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
     secret = tokenerSecret,
     getCurrentValue = id => UserRepo email id map (_.??(_.value))
   )
+}
+
+object EmailConfirm {
+
+  case class UserEmail(username: String, email: EmailAddress)
+
+  object cookie {
+
+    import play.api.mvc.{ Cookie, RequestHeader }
+
+    val name = "email_confirm"
+    val sep = ":"
+
+    def get(req: RequestHeader): Option[UserEmail] = req.session get name map (_.split(sep, 2)) collect {
+      case Array(username, email) => UserEmail(username, EmailAddress(email))
+    }
+
+    def make(user: User, email: EmailAddress)(implicit req: RequestHeader): Cookie = lila.common.LilaCookie.session(
+      name = name,
+      value = s"${user.username}$sep${email.value}"
+    )
+  }
+
+  import scala.concurrent.duration._
+  import play.api.mvc.RequestHeader
+  import ornicar.scalalib.Zero
+  import lila.memo.RateLimit
+  import lila.common.{ IpAddress, HTTPRequest }
+
+  private lazy val rateLimitPerIP = new RateLimit[IpAddress](
+    credits = 30,
+    duration = 1 hour,
+    name = "Confirm emails per IP",
+    key = "email.confirms.ip"
+  )
+
+  private lazy val rateLimitPerUser = new RateLimit[String](
+    credits = 3,
+    duration = 1 hour,
+    name = "Confirm emails per user",
+    key = "email.confirms.user"
+  )
+
+  private lazy val rateLimitPerEmail = new RateLimit[String](
+    credits = 3,
+    duration = 1 hour,
+    name = "Confirm emails per email",
+    key = "email.confirms.email"
+  )
+
+  def rateLimit[A: Zero](userEmail: UserEmail, req: RequestHeader)(run: => Fu[A]): Fu[A] =
+    rateLimitPerUser(userEmail.username, cost = 1) {
+      rateLimitPerEmail(userEmail.email.value, cost = 1) {
+        rateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
+          run
+        }
+      }
+    }
 }

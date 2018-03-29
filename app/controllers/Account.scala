@@ -101,15 +101,14 @@ object Account extends LilaController {
   }
 
   def email = Auth { implicit ctx => me =>
-    if (getBool("check")) UserRepo.email(me.id) map {
-      _ ?? { email =>
-        Ok(html.auth.checkYourEmail(me, email))
-      }
-    }
+    if (getBool("check")) Ok(renderCheckYourEmail).fuccess
     else emailForm(me) map { form =>
       Ok(html.account.email(me, form))
     }
   }
+
+  def renderCheckYourEmail(implicit ctx: Context) =
+    html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
 
   def emailApply = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
@@ -117,8 +116,11 @@ object Account extends LilaController {
       FormFuResult(form) { err =>
         fuccess(html.account.email(me, err))
       } { data =>
-        Env.security.emailChange.send(me, data.realEmail) inject Redirect {
-          s"${routes.Account.email}?check=1"
+        val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.realEmail)
+        controllers.Auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
+          Env.security.emailChange.send(me, newUserEmail.email) inject Redirect {
+            s"${routes.Account.email}?check=1"
+          }
         }
       }
     }

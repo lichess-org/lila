@@ -79,7 +79,7 @@ export interface StudyData {
   position: Position;
   ownerId: string;
   settings: StudySettings;
-  visibility: 'public' | 'private';
+  visibility: 'public' | 'unlisted' | 'private';
   createdAt: number;
   from: string;
   likes: number;
@@ -91,11 +91,13 @@ export interface StudyData {
   secondsSinceUpdate: number;
 }
 
+type UserSelection = 'nobody' | 'owner' | 'contributor' | 'member' | 'everyone';
+
 export interface StudySettings {
-  computer: string;
-  explorer: string;
-  cloneable: string;
-  chat: string;
+  computer: UserSelection;
+  explorer: UserSelection;
+  cloneable: UserSelection;
+  chat: UserSelection;
   sticky: Boolean;
 }
 

@@ -3,7 +3,7 @@ package lila.common
 import java.util.regex.Matcher.quoteReplacement
 
 import ornicar.scalalib.Random
-import play.api.mvc.{ Cookie, Session, RequestHeader }
+import play.api.mvc.{ Cookie, DiscardingCookie, Session, RequestHeader }
 
 object LilaCookie {
 
@@ -36,4 +36,7 @@ object LilaCookie {
     Session.secure || req.headers.get("X-Forwarded-Proto").contains("https"),
     httpOnly | Session.httpOnly
   )
+
+  def discard(name: String)(implicit req: RequestHeader) =
+    DiscardingCookie(name, "/", domain(req).some, Session.httpOnly)
 }

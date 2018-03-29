@@ -101,6 +101,10 @@ final class DataForm(
     ))
   }
 
+  def fixEmail(old: EmailAddress) = Form(
+    single("email" -> acceptableUniqueEmail(none).verifying(emailValidator differentConstraint old.some))
+  ).fill(old.value)
+
   def modEmail(user: User) = Form(single("email" -> acceptableUniqueEmail(user.some)))
 
   val closeAccount = Form(single("passwd" -> nonEmptyText))
