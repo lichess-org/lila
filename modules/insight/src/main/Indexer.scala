@@ -4,6 +4,7 @@ import akka.actor.ActorRef
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import reactivemongo.bson._
+import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._
 import lila.db.dsl._
@@ -53,11 +54,11 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
         .find(gameQuery(user))
         .sort(Query.sortCreated)
         .skip(maxGames - 1)
-        .uno[Game]
+        .uno[Game](readPreference = ReadPreference.secondaryPreferred)
     } orElse GameRepo.coll
       .find(gameQuery(user))
       .sort(Query.sortChronological)
-      .uno[Game]
+      .uno[Game](readPreference = ReadPreference.secondaryPreferred)
 
   private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit = {
     import reactivemongo.play.iteratees.cursorProducer
