@@ -59,10 +59,7 @@ object Auth extends LilaController {
   }
 
   private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
-    case lila.security.SecurityApi.MustConfirmEmail(userId) => UserRepo byId userId map {
-      case Some(user) => BadRequest(html.auth.checkYourEmail(user))
-      case None => BadRequest
-    }
+    case lila.security.SecurityApi.MustConfirmEmail(_) => BadRequest(Account.renderCheckYourEmail).fuccess
   }
 
   def login = Open { implicit ctx =>
@@ -186,8 +183,10 @@ object Auth extends LilaController {
                       case (user, email) if mustConfirm.value =>
                         env.emailConfirm.send(user, email) >> {
                           if (env.emailConfirm.effective)
-                            api.saveSignup(user.id, ctx.mobileApiVersion, data.fingerPrint) inject
-                              Redirect(routes.Auth.checkYourEmail(user.username))
+                            api.saveSignup(user.id, ctx.mobileApiVersion, data.fingerPrint) inject {
+                              Redirect(routes.Auth.checkYourEmail) withCookies
+                                lila.security.EmailConfirm.cookie.make(email)(ctx.req)
+                            }
                           else welcome(user, email) >> redirectNewUser(user)
                         }
                       case (user, email) => welcome(user, email) >> redirectNewUser(user)
@@ -202,24 +201,23 @@ object Auth extends LilaController {
               fuccess(BadRequest(jsonError(errorsAsJson(err))))
             },
             data => HasherRateLimit(data.username, ctx.req) { _ =>
-              fuccess(MustConfirmEmail.YesBecauseMobile) flatMap { mustConfirm =>
-                lila.mon.user.register.mobile()
-                lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
-                authLog(data.username, s"Signup mobile must confirm email: $mustConfirm")
-                val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
-                val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
-                UserRepo.create(data.username, passwordHash, email, false, apiVersion.some,
-                  mustConfirmEmail = mustConfirm.value)
-                  .flatten(s"No user could be created for ${data.username}")
-                  .map(_ -> email).flatMap {
-                    case (user, email) if mustConfirm.value =>
-                      env.emailConfirm.send(user, email) >> {
-                        if (env.emailConfirm.effective) Ok(Json.obj("email_confirm" -> true)).fuccess
-                        else welcome(user, email) >> authenticateUser(user)
-                      }
-                    case (user, _) => welcome(user, email) >> authenticateUser(user)
-                  }
-              }
+              val mustConfirm = MustConfirmEmail.YesBecauseMobile
+              lila.mon.user.register.mobile()
+              lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
+              authLog(data.username, s"Signup mobile must confirm email: $mustConfirm")
+              val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
+              val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
+              UserRepo.create(data.username, passwordHash, email, false, apiVersion.some,
+                mustConfirmEmail = mustConfirm.value)
+                .flatten(s"No user could be created for ${data.username}")
+                .map(_ -> email).flatMap {
+                  case (user, email) if mustConfirm.value =>
+                    env.emailConfirm.send(user, email) >> {
+                      if (env.emailConfirm.effective) Ok(Json.obj("email_confirm" -> true)).fuccess
+                      else welcome(user, email) >> authenticateUser(user)
+                    }
+                  case (user, _) => welcome(user, email) >> authenticateUser(user)
+                }
             }
           )
         )
@@ -235,10 +233,8 @@ object Auth extends LilaController {
   private def garbageCollect(user: UserModel, email: EmailAddress)(implicit ctx: Context) =
     Env.security.garbageCollector.delay(user, HTTPRequest lastRemoteAddress ctx.req, email)
 
-  def checkYourEmail(name: String) = Open { implicit ctx =>
-    OptionOk(UserRepo named name) { user =>
-      html.auth.checkYourEmail(user)
-    }
+  def checkYourEmail = Open { implicit ctx =>
+    fuccess(Account.renderCheckYourEmail)
   }
 
   def signupConfirmEmail(token: String) = Open { implicit ctx =>

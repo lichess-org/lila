@@ -101,11 +101,14 @@ object Account extends LilaController {
   }
 
   def email = Auth { implicit ctx => me =>
-    if (getBool("check")) Ok(html.auth.checkYourEmail(me)).fuccess
+    if (getBool("check")) Ok(renderCheckYourEmail).fuccess
     else emailForm(me) map { form =>
       Ok(html.account.email(me, form))
     }
   }
+
+  def renderCheckYourEmail(implicit ctx: Context) =
+    html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
 
   def emailApply = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body

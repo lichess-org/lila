@@ -1,16 +1,34 @@
-@(u: User)(implicit ctx: Context)
+@(cookEmail: Option[lila.common.EmailAddress])(implicit ctx: Context)
 
 @auth.layout(title = "Check your email") {
-<div class="content_box small_box signup">
+<div class="content_box small_box signup email_confirm">
   <div class="signup_box">
     <h1 class="lichess_title is-green text" data-icon="E">@trans.checkYourEmail()</h1>
     <p>@trans.weHaveSentYouAnEmailClickTheLink()</p>
-    <p>@trans.ifYouDoNotSeeTheEmailCheckOtherPlaces()</p>
-    <p>
-      Not receiving it?
-      Ask @contactEmailLink and we'll confirm your email for you.
-      Don't forget to mention your username.
-    </p>
+    <h2>Not receiving it?</h2>
+    <ol>
+      <li>
+        @trans.ifYouDoNotSeeTheEmailCheckOtherPlaces()
+      </li>
+      @cookEmail.map { email =>
+      <li>
+        <h3>Make sure your email address is correct:</h3><br />
+        <form>
+          <input name="email" value="@email.value" />
+          <button type="submit">Change it</button>
+        </form>
+      </li>
+      }
+      <li>
+        <h3>Wait up to 5 minutes.</h3><br />
+        Depending on your email provider, it can take a while to arrive.
+      </li>
+      <li>
+        <h3>Still not getting it?</h3><br />
+        Ask @contactEmailLink and we'll confirm your email for you.<br />
+        <strong>Don't forget to mention your username.</strong>
+      </li>
+    </ol>
     <br />
     <br />
   </div>

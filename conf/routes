@@ -342,7 +342,7 @@ GET   /logout                          controllers.Auth.logoutGet
 POST  /logout                          controllers.Auth.logout
 GET   /signup                          controllers.Auth.signup
 POST  /signup                          controllers.Auth.signupPost
-GET   /signup/check-your-email/:name   controllers.Auth.checkYourEmail(name: String)
+GET   /signup/check-your-email         controllers.Auth.checkYourEmail
 GET   /signup/confirm/:token           controllers.Auth.signupConfirmEmail(token: String)
 GET   /password/reset                  controllers.Auth.passwordReset
 POST  /password/reset/send             controllers.Auth.passwordResetApply

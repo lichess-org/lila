@@ -4,8 +4,8 @@ import play.api.i18n.Lang
 import play.twirl.api.Html
 
 import lila.common.EmailAddress
-import lila.user.{ User, UserRepo }
 import lila.i18n.I18nKeys.{ emails => trans }
+import lila.user.{ User, UserRepo }
 
 trait EmailConfirm {
 
@@ -83,4 +83,23 @@ ${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
     secret = tokenerSecret,
     getCurrentValue = id => UserRepo email id map (_.??(_.value))
   )
+}
+
+object EmailConfirm {
+
+  object cookie {
+
+    import play.api.mvc.{ Cookie, RequestHeader }
+
+    val name = "email_confirm"
+
+    def get(req: RequestHeader): Option[EmailAddress] = req.cookies get name map (_.value) map EmailAddress.apply
+
+    def make(email: EmailAddress)(implicit req: RequestHeader): Cookie = lila.common.LilaCookie.cookie(
+      name = name,
+      value = email.value,
+      maxAge = (3600 * 24 * 3).some,
+      httpOnly = true.some
+    )
+  }
 }

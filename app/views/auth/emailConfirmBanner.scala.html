@@ -1,10 +1,13 @@
+@(email: lila.common.EmailAddress)
+
+<style type="text/css">
 body {
   margin-top: 45px;
 }
 
-#impersonate {
+#email_confirm {
   height: 40px;
-  background: #7f1010;
+  background: #3893E8;
   color: #fff!important;
   font-size: 1.3em;
   display: flex;
@@ -19,12 +22,14 @@ body {
   right: 0;
   z-index: 100;
 }
-#impersonate a,
-#impersonate .fbt {
+#email_confirm a {
   color: #fff!important;
+  text-decoration: underline;
+  margin-left: 1em;
 }
-#impersonate .actions {
-  margin-left: 2em;
-  border-left: 1px solid #f0f0f0;
-  padding-left: 2em;
-}
+</style>
+
+<div id="email_confirm">
+  Check your email (@email.value) for signup confirmation.
+  <a href="@routes.Auth.checkYourEmail">Click here for help</a>
+</div>

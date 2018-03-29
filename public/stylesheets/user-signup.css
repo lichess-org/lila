@@ -74,3 +74,27 @@ div.checkmateCaptcha label {
   width: 250px;
   text-align: left;
 }
+
+.email_confirm p {
+  margin: 1em 0;
+}
+
+.email_confirm h2 {
+  font-size: 1.5em;
+  margin-top: 2em;
+}
+.email_confirm h3 {
+  font-size: 1.3em;
+  display: inline;
+}
+
+.email_confirm ol {
+  font-size: 1.1em;
+}
+.email_confirm ol li {
+  margin: 2em 0;
+  list-style: decimal inside;
+}
+#email_confirm a {
+  display: none;
+}
