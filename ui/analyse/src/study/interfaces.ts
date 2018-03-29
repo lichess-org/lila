@@ -79,7 +79,7 @@ export interface StudyData {
   position: Position;
   ownerId: string;
   settings: StudySettings;
-  visibility: 'public' | 'private';
+  visibility: 'public' | 'unlisted' | 'private';
   createdAt: number;
   from: string;
   likes: number;
