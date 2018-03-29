@@ -36,7 +36,7 @@ object CrudForm {
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
     variant = chess.variant.Standard.id,
-    position = StartingPosition.initial.eco,
+    position = StartingPosition.initial.fen,
     date = DateTime.now plusDays 7,
     image = "",
     headline = "",

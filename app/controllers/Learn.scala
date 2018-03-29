@@ -14,6 +14,7 @@ object Learn extends LilaController {
   import lila.learn.JSONHandlers._
 
   def index = Open { implicit ctx =>
+    pageHit
     ctx.me.?? { me =>
       env.api.get(me) map { Json.toJson(_) } map some
     }.map { progress =>

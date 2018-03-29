@@ -218,7 +218,7 @@ export default class LobbyController {
     setTimeout(() => {
       this.redirecting = false;
       this.redraw();
-    }, 3000);
+    }, 4000);
     this.redraw();
   };
 

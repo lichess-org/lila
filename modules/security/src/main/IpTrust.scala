@@ -2,7 +2,7 @@ package lila.security
 
 import lila.common.IpAddress
 
-case class IpTrust(intelApi: IpIntel, geoApi: GeoIP, torApi: Tor, firewallApi: Firewall) {
+final class IpTrust(intelApi: IpIntel, geoApi: GeoIP, torApi: Tor, firewallApi: Firewall) {
 
   def isSuspicious(ip: IpAddress): Fu[Boolean] =
     if (IpIntel isBlacklisted ip) fuTrue

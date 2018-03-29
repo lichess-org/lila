@@ -49,19 +49,19 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=${ctx.pageData.assetVersion}")" type="text/css" rel="stylesheet"/>
     <meta content="@openGraph.fold(trans.siteDescription.txt())(o => o.description)" name="description">
     <link id="favicon" rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
-    @if(!robots) {
-    <meta content="noindex, nofollow" name="robots">
-    }
+    <link rel="mask-icon" href="@staticUrl("favicon.svg")" color="black">
+    <link rel="icon" type="image/png" href="@staticUrl("favicon.256.png")" sizes="256x256"/><link rel="icon" type="image/png" href="@staticUrl("favicon.128.png")" sizes="128x128"/><link rel="icon" type="image/png" href="@staticUrl("favicon.64.png")" sizes="64x64"/>
+    @if(!robots) {<meta content="noindex, nofollow" name="robots">}
     <meta name="google" content="notranslate" />
     @openGraph.map(_.html)
     @atom.getOrElse {
     <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="@trans.blog()" />
     }
-    <link rel="mask-icon" href="@staticUrl("favicon.svg")" color="black">
     @ctx.transpBgImg.map { img =>
     <style type="text/css" id="bg-data">body.transp::before{background-image:url('@img');}</style>
     }
     <link rel="preload" href="@staticUrl("font80/fonts/lichess.woff")" as="font" type="font/woff" crossorigin/>
+    <link rel="manifest" href="manifest.json" />
     <meta name="twitter:site" content="@@lichess" />
   </head>
   <body class="preload base @List(
@@ -150,7 +150,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
         <div id="notifications"></div>
         <div class="board_left">
           <h1>
-            <a id="site_title" href="@routes.Lobby.home">@if(ctx.kid){<span title="@trans.kidMode()" class="kiddo">😊</span>}lichess<span class="extension">.org</span></a>
+            <a id="site_title" href="@routes.Lobby.home">@if(ctx.kid){<span title="@trans.kidMode()" class="kiddo">😊</span>}lichess<span class="extension">@if(isProd){.org}else{ dev}</span></a>
           </h1>
           @baseline
           @menu.map { sideMenu =>

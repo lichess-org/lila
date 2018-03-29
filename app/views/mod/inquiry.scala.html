@@ -71,8 +71,12 @@
     </div>
   </div>
   <div class="links">
+    @in.report.boostWith.map { userId =>
+    <a href="@routes.User.games(in.user.id, "search")?players.b=@userId">View<br />Games</a>
+    }.getOrElse {
     @in.report.bestAtomByHuman.map { atom =>
     <a href="@routes.User.games(in.user.id, "search")?players.b=@atom.by.value">View<br />Games</a>
+    }
     }
     @if(isGranted(_.MarkTroll)) {
     <a href="@routes.Mod.communicationPublic(in.user.id)">View<br />Comms</a>

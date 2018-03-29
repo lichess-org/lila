@@ -663,6 +663,7 @@
   <string name="videoLibrary">Librărie video</string>
   <string name="mobileApp">Aplicație mobilă</string>
   <string name="webmasters">Webmasteri</string>
+  <string name="about">Despre</string>
   <string name="contribute">Contribuie</string>
   <string name="contact">Contact</string>
   <string name="termsOfService">Termeni și condiții</string>
@@ -784,6 +785,9 @@
   <string name="pieceSet">Set de piese</string>
   <string name="embedInYourWebsite">Incorporează în site-ul tău</string>
   <string name="usernameAlreadyUsed">Nume deja folosit, te rugam să încerci altul.</string>
+  <string name="usernamePrefixInvalid">Numele de utilizator trebuie să înceapă cu o literă.</string>
+  <string name="usernameSuffixInvalid">Numele de utilizator trebuie să se termine cu o literă sau o cifră.</string>
+  <string name="usernameCharsInvalid">Numele de utilizator poate conține doar litere, cifre, linii de subliniere și cratime.</string>
   <string name="usernameUnacceptable">Numele de utilizator nu e acceptabil.</string>
   <string name="directlySupportLichess">Susține în mod direct Lichess</string>
   <string name="playChessInStyle">Joacă șah cu stil</string>

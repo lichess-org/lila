@@ -3,7 +3,8 @@ import { Eval } from 'ceval';
 import { path as treePath } from 'tree';
 import { detectThreefold } from '../nodeFinder';
 import AnalyseCtrl from '../ctrl';
-import { prop } from 'common';
+import { Redraw } from '../interfaces';
+import { prop, Prop } from 'common';
 
 export interface Comment {
   prev: Tree.Node;
@@ -22,7 +23,25 @@ interface Hinting {
 }
 
 export interface PracticeCtrl {
-  [key: string]: any; // #TODO
+    onCeval(): void;
+    onJump(): void;
+    isMyTurn(): boolean;
+    comment: Prop<Comment | null>;
+    running,
+    hovering,
+    hinting,
+    resume,
+    playableDepth,
+    reset(): void;
+    preUserJump(from: Tree.Path, to: Tree.Path): void;
+    postUserJump(from: Tree.Path, to: Tree.Path): void;
+    onUserMove(): void;
+    playCommentBest(): void;
+    commentShape(enable: boolean): void;
+    hint(): void;
+    currentNode(): Tree.Node;
+    bottomColor(): Color;
+    redraw: Redraw
 }
 
 export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCtrl {
@@ -160,13 +179,13 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       comment(null);
       hinting(null);
     },
-    preUserJump(from: Ply, to: Ply) {
+    preUserJump(from: Tree.Path, to: Tree.Path) {
       if (from !== to) {
         running(false);
         comment(null);
       }
     },
-    postUserJump(from: Ply, to: Ply) {
+    postUserJump(from: Tree.Path, to: Tree.Path) {
       if (from !== to && isMyTurn()) resume();
     },
     onUserMove() {

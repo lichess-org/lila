@@ -5,6 +5,7 @@ import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 final class PlanApi(
@@ -83,7 +84,7 @@ final class PlanApi(
     }
 
   def onPaypalCharge(
-    userId: Option[String],
+    userId: Option[User.ID],
     email: Option[Patron.PayPal.Email],
     subId: Option[Patron.PayPal.SubId],
     cents: Cents,
@@ -237,12 +238,13 @@ final class PlanApi(
   private val topPatronUserIdsNb = 120
   private val topPatronUserIdsCache = asyncCache.single[List[User.ID]](
     name = "plan.topPatronUserIds",
-    f = chargeColl.aggregate(
+    f = chargeColl.aggregateWithReadPreference(
       Match($doc("userId" $exists true)), List(
         GroupField("userId")("total" -> SumField("cents")),
         Sort(Descending("total")),
         Limit(topPatronUserIdsNb * 3 / 2)
-      )
+      ),
+      readPreference = ReadPreference.secondaryPreferred
     ).map {
         _.firstBatch.flatMap { _.getAs[User.ID]("_id") }
       } flatMap filterUserIds map (_ take topPatronUserIdsNb),

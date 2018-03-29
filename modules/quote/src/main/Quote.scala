@@ -249,7 +249,7 @@ object Quote {
     new Quote("It is always better to sacrifice your opponent’s men.", "Savielly Tartakower"),
     new Quote("In chess, as it is played by masters, chance is practically eliminated.", "Emanuel Lasker"),
     new Quote("You know you’re going to lose. Even when I was ahead I knew I was going to lose  --on playing against Fischer.", "Andrew Soltis"),
-    new Quote("I won’t play with you anymore. You have insulted my friend --when an opponent cursed himself for a blunder.", "Miguel Najdorf"),
+    new Quote("I won’t play with you anymore. You have insulted my friend! --when an opponent cursed himself for a blunder.", "Miguel Najdorf"),
     new Quote("You know, comrade Pachman, I don’t enjoy being a Minister, I would rather play chess like you.", "Che Guevara"),
     new Quote("It began to feel as though you were playing against chess itself --on playing against Robert Fischer.", "Walter Shipman"),
     new Quote("Checkers is for tramps.", "Paul Morphy"),

@@ -12,6 +12,7 @@ object mon {
     object request {
       val all = inc("http.request.all")
       val ipv6 = inc("http.request.ipv6")
+      def path(p: String) = inc(s"http.request.path.$p")
     }
     object response {
       val code400 = inc("http.response.4.00")
@@ -191,6 +192,7 @@ object mon {
     object expiration {
       val count = inc("round.expiration.count")
     }
+    def proxyGameWatcher(result: String) = inc(s"round.proxy_game.watcher.$result")
   }
   object playban {
     def outcome(out: String) = inc(s"playban.outcome.$out")

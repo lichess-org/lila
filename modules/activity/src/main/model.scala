@@ -41,6 +41,7 @@ object model {
         res = pov.game.wonBy(pov.color),
         rp = RatingProg.make(pov.player)
       )
+      case (score, _) => score
     }
   }
   implicit val ScoreZero = Zero.instance(Score(0, 0, 0, none))
