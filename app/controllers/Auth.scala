@@ -56,10 +56,10 @@ object Auth extends LilaController {
 
   private def authenticateCookie(sessionId: String)(result: Result)(implicit req: RequestHeader) =
     result.withCookies(
-      LilaCookie.withSession { _ + ("sessionId" -> sessionId) - api.AccessUri }
-    ).discardingCookies(
-        LilaCookie.discard(lila.security.EmailConfirm.cookie.name)
-      )
+      LilaCookie.withSession {
+        _ + ("sessionId" -> sessionId) - api.AccessUri - lila.security.EmailConfirm.cookie.name
+      }
+    )
 
   private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
     case lila.security.SecurityApi.MustConfirmEmail(_) => BadRequest(Account.renderCheckYourEmail).fuccess

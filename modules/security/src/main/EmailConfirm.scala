@@ -96,15 +96,13 @@ object EmailConfirm {
     val name = "email_confirm"
     val sep = ":"
 
-    def get(req: RequestHeader): Option[UserEmail] = req.cookies get name map (_.value.split(sep, 2)) collect {
+    def get(req: RequestHeader): Option[UserEmail] = req.session get name map (_.split(sep, 2)) collect {
       case Array(username, email) => UserEmail(username, EmailAddress(email))
     }
 
-    def make(user: User, email: EmailAddress)(implicit req: RequestHeader): Cookie = lila.common.LilaCookie.cookie(
+    def make(user: User, email: EmailAddress)(implicit req: RequestHeader): Cookie = lila.common.LilaCookie.session(
       name = name,
-      value = s"${user.username}$sep${email.value}",
-      maxAge = (3600 * 24 * 3).some,
-      httpOnly = true.some
+      value = s"${user.username}$sep${email.value}"
     )
   }
 
