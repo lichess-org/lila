@@ -49,14 +49,17 @@ object Auth extends LilaController {
               routes.Lobby.home.url
           }.fuccess,
           api = _ => mobileUserOk(u)
-        ) map {
-            _ withCookies LilaCookie.withSession { session =>
-              session + ("sessionId" -> sessionId) - api.AccessUri
-            }
-          }
+        ) map authenticateCookie(sessionId)
       } recoverWith authRecovery
     )
   }
+
+  private def authenticateCookie(sessionId: String)(result: Result)(implicit req: RequestHeader) =
+    result.withCookies(
+      LilaCookie.withSession { _ + ("sessionId" -> sessionId) - api.AccessUri }
+    ).discardingCookies(
+        LilaCookie.discard(lila.security.EmailConfirm.cookie.name)
+      )
 
   private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
     case lila.security.SecurityApi.MustConfirmEmail(_) => BadRequest(Account.renderCheckYourEmail).fuccess
@@ -285,9 +288,7 @@ object Auth extends LilaController {
       negotiate(
         html = Redirect(routes.User.show(user.username)).fuccess,
         api = _ => mobileUserOk(user)
-      ) map {
-        _ withCookies LilaCookie.session("sessionId", sessionId)
-      }
+      ) map authenticateCookie(sessionId)
     } recoverWith authRecovery
   }
 
