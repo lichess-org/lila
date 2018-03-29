@@ -62,6 +62,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     <style type="text/css" id="bg-data">body.transp::before{background-image:url('@img');}</style>
     }
     <link rel="preload" href="@staticUrl("font80/fonts/lichess.woff")" as="font" type="font/woff" crossorigin/>
+    <link rel="manifest" href="manifest.json" />
     <meta name="twitter:site" content="@@lichess" />
   </head>
   <body class="preload base @List(
