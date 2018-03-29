@@ -321,6 +321,8 @@ object mon {
   }
   object email {
     val resetPassword = inc("email.reset_password")
+    val fix = inc("email.fix")
+    val change = inc("email.change")
     val confirmation = inc("email.confirmation")
     val disposableDomain = rec("email.disposable_domain")
   }

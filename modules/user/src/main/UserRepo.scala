@@ -401,10 +401,10 @@ object UserRepo {
   def containsEngine(userIds: List[User.ID]): Fu[Boolean] =
     coll.exists($inIds(userIds) ++ engineSelect(true))
 
-  def mustConfirmEmail(id: String): Fu[Boolean] =
+  def mustConfirmEmail(id: User.ID): Fu[Boolean] =
     coll.exists($id(id) ++ $doc(F.mustConfirmEmail $exists true))
 
-  def setEmailConfirmed(id: String): Funit = coll.update($id(id), $unset(F.mustConfirmEmail)).void
+  def setEmailConfirmed(id: User.ID): Funit = coll.update($id(id), $unset(F.mustConfirmEmail)).void
 
   private def newUser(
     username: String,
@@ -430,6 +430,7 @@ object UserRepo {
       F.enabled -> true,
       F.createdAt -> DateTime.now,
       F.createdWithApiVersion -> mobileApiVersion.map(_.value),
+      F.seenAt -> DateTime.now,
       F.playTime -> User.PlayTime(0, 0)
     ) ++ {
         if (blind) $doc("blind" -> true) else $empty

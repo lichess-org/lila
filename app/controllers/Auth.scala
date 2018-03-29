@@ -185,7 +185,7 @@ object Auth extends LidraughtsController {
                           if (env.emailConfirm.effective)
                             api.saveSignup(user.id, ctx.mobileApiVersion, data.fingerPrint) inject {
                               Redirect(routes.Auth.checkYourEmail) withCookies
-                                lidraughts.security.EmailConfirm.cookie.make(email)(ctx.req)
+                                lidraughts.security.EmailConfirm.cookie.make(user, email)(ctx.req)
                             }
                           else welcome(user, email) >> redirectNewUser(user)
                         }
@@ -235,6 +235,32 @@ object Auth extends LidraughtsController {
 
   def checkYourEmail = Open { implicit ctx =>
     fuccess(Account.renderCheckYourEmail)
+  }
+
+  // after signup and before confirmation
+  def fixEmail = OpenBody { implicit ctx =>
+    lidraughts.security.EmailConfirm.cookie.get(ctx.req) ?? { userEmail =>
+      implicit val req = ctx.body
+      forms.fixEmail(userEmail.email).bindFromRequest.fold(
+        err => BadRequest(html.auth.checkYourEmail(userEmail.some, err.some)).fuccess,
+        email => UserRepo.named(userEmail.username) flatMap {
+          _.fold(Redirect(routes.Auth.signup).fuccess) { user =>
+            UserRepo.mustConfirmEmail(user.id) flatMap {
+              case false => Redirect(routes.Auth.login).fuccess
+              case _ =>
+                val newUserEmail = userEmail.copy(email = EmailAddress(email))
+                EmailConfirmRateLimit(newUserEmail, ctx.req) {
+                  lidraughts.mon.email.fix()
+                  env.emailConfirm.send(user, newUserEmail.email) inject {
+                    Redirect(routes.Auth.checkYourEmail) withCookies
+                      lidraughts.security.EmailConfirm.cookie.make(user, newUserEmail.email)(ctx.req)
+                  }
+                }
+            }
+          }
+        }
+      )
+    }
   }
 
   def signupConfirmEmail(token: String) = Open { implicit ctx =>
@@ -374,4 +400,6 @@ object Auth extends LidraughtsController {
   private implicit val limitedDefault = Zero.instance[Result](TooManyRequest)
 
   private[controllers] def HasherRateLimit = lidraughts.user.PasswordHasher.rateLimit[Result] _
+
+  private[controllers] def EmailConfirmRateLimit = lidraughts.security.EmailConfirm.rateLimit[Result] _
 }
