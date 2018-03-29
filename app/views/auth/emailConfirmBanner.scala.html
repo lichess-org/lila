@@ -1,4 +1,4 @@
-@(email: lila.common.EmailAddress)
+@(userEmail: lila.security.EmailConfirm.UserEmail)
 
 <style type="text/css">
 body {
@@ -30,6 +30,6 @@ body {
 </style>
 
 <div id="email_confirm">
-  Check your email (@email.value) for signup confirmation.
+  Almost there, @userEmail.username! Now check your email (@userEmail.email.value) for signup confirmation.
   <a href="@routes.Auth.checkYourEmail">Click here for help</a>
 </div>

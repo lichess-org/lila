@@ -91,9 +91,30 @@ div.checkmateCaptcha label {
 .email_confirm ol {
   font-size: 1.1em;
 }
+.email_confirm form input#new_email {
+  width: 70%;
+}
+@keyframes appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 .email_confirm ol li {
   margin: 2em 0;
+  opacity: 0;
   list-style: decimal inside;
+  animation: appear 2s forwards;
+}
+.email_confirm ol li:nth-child(1) {
+  animation-delay: 1s;
+}
+.email_confirm ol li:nth-child(2) {
+  animation-delay: 4s;
+}
+.email_confirm ol li:nth-child(3) {
+  animation-delay: 7s;
+}
+.email_confirm ol li:nth-child(4) {
+  animation-delay: 10s;
 }
 #email_confirm a {
   display: none;

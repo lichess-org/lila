@@ -116,8 +116,12 @@ object Account extends LilaController {
       FormFuResult(form) { err =>
         fuccess(html.account.email(me, err))
       } { data =>
-        Env.security.emailChange.send(me, data.realEmail) inject Redirect {
-          s"${routes.Account.email}?check=1"
+        val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.realEmail)
+        controllers.Auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
+          lila.mon.email.change()
+          Env.security.emailChange.send(me, newUserEmail.email) inject Redirect {
+            s"${routes.Account.email}?check=1"
+          }
         }
       }
     }

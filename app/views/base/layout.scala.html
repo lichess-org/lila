@@ -92,9 +92,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(isStage) {
     <div id="stage">This is an empty lichess preview website for developers. <a href="https://lichess.org">Go to lichess.org instead</a></div>
     }
-    @lila.security.EmailConfirm.cookie.get(ctx.req).map { email =>
-    @auth.emailConfirmBanner(email)
-    }
+    @lila.security.EmailConfirm.cookie.get(ctx.req).map(auth.emailConfirmBanner(_))
     @if(playing) { <a data-icon="E" id="zentog" class="text fbt active@if(!ctx.pref.isZen){ none}">ZEN MODE</a> }
     <div id="top" class="@ctx.pref.is3d.fold("is3d", "is2d")">
       @topmenu()
