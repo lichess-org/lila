@@ -103,20 +103,20 @@ div.checkmateCaptcha label {
   margin: 2em 0;
   list-style: decimal inside;
 }
-.email_confirm h2,
-.email_confirm ol li {
+.email_confirm.anim h2,
+.email_confirm.anim ol li {
   opacity: 0;
   transform: translateY(100px);
   animation: appear 3s forwards;
   animation-delay: 2s;
 }
-.email_confirm ol li:nth-child(2) {
+.email_confirm.anim ol li:nth-child(2) {
   animation-delay: 6s;
 }
-.email_confirm ol li:nth-child(3) {
+.email_confirm.anim ol li:nth-child(3) {
   animation-delay: 10s;
 }
-.email_confirm ol li:nth-child(4) {
+.email_confirm.anim ol li:nth-child(4) {
   animation-delay: 14s;
 }
 #email_confirm a {

@@ -1,7 +1,7 @@
 @(userEmail: Option[lila.security.EmailConfirm.UserEmail], form: Option[Form[_]] = None)(implicit ctx: Context)
 
 @auth.layout(title = "Check your email") {
-<div class="content_box small_box signup email_confirm">
+<div class="content_box small_box signup email_confirm @if(form.exists(_.hasErrors)){error}else{anim}">
   <div class="signup_box">
     <h1 class="lichess_title is-green text" data-icon="E">@trans.checkYourEmail()</h1>
     <p>@trans.weHaveSentYouAnEmailClickTheLink()</p>
