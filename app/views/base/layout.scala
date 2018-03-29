@@ -21,6 +21,9 @@ object layout {
   ).mkString)
   private val noTranslate = raw("""<meta name="google" content="notranslate" />""")
   private val fontPreload = raw(s"""<link rel="preload" href="${staticUrl(s"font$fontVersion/fonts/lidraughts.woff")}" as="font" type="font/woff" crossorigin/>""")
+  private val manifests = raw(List(
+    """<link rel="manifest" href="/manifest.json" />"""
+  ).mkString)
 
   private val favicons = raw {
     List(256, 128, 64) map { px =>
@@ -140,7 +143,8 @@ object layout {
         ctx.transpBgImg map { img =>
           raw(s"""<style type="text/css" id="bg-data">body.transp::before{background-image:url('$img');}</style>""")
         },
-        fontPreload
+        fontPreload,
+        manifests
       ),
       st.body(
         cls := List(
