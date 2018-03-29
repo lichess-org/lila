@@ -101,7 +101,11 @@ object Account extends LilaController {
   }
 
   def email = Auth { implicit ctx => me =>
-    if (getBool("check")) Ok(html.auth.checkYourEmail(me)).fuccess
+    if (getBool("check")) UserRepo.email(me.id) map {
+      _ ?? { email =>
+        Ok(html.auth.checkYourEmail(me, email))
+      }
+    }
     else emailForm(me) map { form =>
       Ok(html.account.email(me, form))
     }
