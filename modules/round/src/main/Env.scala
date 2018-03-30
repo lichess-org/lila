@@ -61,8 +61,7 @@ final class Env(
   lazy val eventHistory = History(db(CollectionHistory)) _
 
   val roundMap = system.actorOf(Props(new lidraughts.hub.ActorMap {
-    def mkActor(id: String) = new Round(
-      gameId = id,
+    private lazy val dependencies = Round.Dependencies(
       messenger = messenger,
       takebacker = takebacker,
       finisher = finisher,
@@ -71,17 +70,24 @@ final class Env(
       drawer = drawer,
       forecastApi = forecastApi,
       socketHub = socketHub,
-      awakeWith = msg => self ! Tell(id, msg),
       moretimeDuration = MoretimeDuration,
       activeTtl = ActiveTtl
     )
     def tell(id: Game.ID)(msg: Any): Unit = self ! Tell(id, msg)
+    def mkActor(id: String) = new Round(
+      dependencies = dependencies,
+      gameId = id,
+      awakeWith = msg => self ! Tell(id, msg)
+    )
     def receive: Receive = ({
       case actorApi.GetNbRounds =>
         nbRounds = size
         bus.publish(lidraughts.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
     }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
+
+  private var nbRounds = 0
+  def count() = nbRounds
 
   def roundProxyGame(gameId: String): Fu[Option[Game]] = {
     import makeTimeout.halfSecond
@@ -90,13 +96,17 @@ final class Env(
     lidraughts.mon.round.proxyGameWatcherCount(g.isDefined.toString)()
   } recoverWith {
     case e: akka.pattern.AskTimeoutException =>
+      // weird. monitor and try again.
       lidraughts.mon.round.proxyGameWatcherCount("exception")()
-      logger.info(s"roundProxyGame timeout https://lidraughts.org/$gameId")
-      lidraughts.game.GameRepo game gameId
+      import makeTimeout.halfSecond
+      roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Option[Game]] recoverWith {
+        case e: akka.pattern.AskTimeoutException =>
+          // again? monitor, log and fallback on DB
+          lidraughts.mon.round.proxyGameWatcherCount("double_exception")()
+          logger.info(s"roundProxyGame double timeout https://lidraughts.org/$gameId")
+          lidraughts.game.GameRepo game gameId
+      }
   }
-
-  private var nbRounds = 0
-  def count() = nbRounds
 
   private val socketHub = {
     val actor = system.actorOf(
