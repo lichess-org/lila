@@ -104,7 +104,9 @@
   <string name="infiniteAnalysis">Sonsuz təhlil</string>
   <string name="removesTheDepthLimit">Dərinlik limitini ləğv edir və kompüterinizi isti saxlayır</string>
   <string name="blunders">Kobud səhvlər</string>
+  <string name="mistake">Yalnış</string>
   <string name="mistakes">Səhvlər</string>
+  <string name="inaccuracy">Qeyri-dəqiqlik</string>
   <string name="inaccuracies">Qeyri-dəqiqliklər</string>
   <string name="moveTimes">gedişin müddəti</string>
   <string name="flipBoard">Taxtanı firlat</string>
@@ -191,6 +193,7 @@
   <string name="accept">Qəbul et</string>
   <string name="decline">Rədd et</string>
   <string name="playingRightNow">İndi oyna</string>
+  <string name="eventInProgress">Hal-hazırda oynayır</string>
   <string name="finished">Bitdi</string>
   <string name="abortGame">Oyunu ləğv et</string>
   <string name="gameAborted">Oyun ləğv olundu</string>
@@ -199,6 +202,7 @@
   <string name="mode">Növ</string>
   <string name="casual">Adi oyun</string>
   <string name="rated">Reytinqli oyun</string>
+  <string name="ratedTournament">Reytingli oyun</string>
   <string name="thisGameIsRated">Bu, reytinqli oyundur</string>
   <string name="rematch">Əvəzçıxma</string>
   <string name="rematchOfferSent">Əvəzçıxma təklifi göndərildi</string>
