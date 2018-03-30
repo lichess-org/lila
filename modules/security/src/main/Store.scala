@@ -47,7 +47,7 @@ object Store {
     coll.primitiveOne[User.ID]($doc("_id" -> sessionId, "up" -> true), "user")
 
   case class UserIdAndFingerprint(user: User.ID, fp: Option[String], date: DateTime) {
-    def isOld = date isBefore DateTime.now.minusDays(1)
+    def isOld = date isBefore DateTime.now.minusHours(12)
   }
   private implicit val UserIdAndFingerprintBSONReader = Macros.reader[UserIdAndFingerprint]
 
