@@ -35,6 +35,7 @@ object ForumPost extends LidraughtsController with ForumController {
         OptionFuResult(topicApi.show(categSlug, slug, page, ctx.troll)) {
           case (categ, topic, posts) =>
             if (topic.closed) fuccess(BadRequest("This topic is closed"))
+            else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
             else forms.post.bindFromRequest.fold(
               err => for {
                 captcha <- forms.anyCaptcha
