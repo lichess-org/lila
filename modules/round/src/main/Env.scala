@@ -61,8 +61,7 @@ final class Env(
   lazy val eventHistory = History(db(CollectionHistory)) _
 
   val roundMap = system.actorOf(Props(new lila.hub.ActorMap {
-    def mkActor(id: String) = new Round(
-      gameId = id,
+    private lazy val dependencies = Round.Dependencies(
       messenger = messenger,
       takebacker = takebacker,
       finisher = finisher,
@@ -71,9 +70,13 @@ final class Env(
       drawer = drawer,
       forecastApi = forecastApi,
       socketHub = socketHub,
-      awakeWith = msg => self ! Tell(id, msg),
       moretimeDuration = MoretimeDuration,
       activeTtl = ActiveTtl
+    )
+    def mkActor(id: String) = new Round(
+      dependencies = dependencies,
+      gameId = id,
+      awakeWith = msg => self ! Tell(id, msg)
     )
     def receive: Receive = ({
       case actorApi.GetNbRounds =>
@@ -82,6 +85,9 @@ final class Env(
     }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
 
+  private var nbRounds = 0
+  def count() = nbRounds
+
   def roundProxyGame(gameId: String): Fu[Option[Game]] = {
     import makeTimeout.halfSecond
     roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Option[Game]]
@@ -89,13 +95,17 @@ final class Env(
     lila.mon.round.proxyGameWatcherCount(g.isDefined.toString)()
   } recoverWith {
     case e: akka.pattern.AskTimeoutException =>
+      // weird. monitor and try again.
       lila.mon.round.proxyGameWatcherCount("exception")()
-      logger.info(s"roundProxyGame timeout https://lichess.org/$gameId")
-      lila.game.GameRepo game gameId
+      import makeTimeout.halfSecond
+      roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Option[Game]] recoverWith {
+        case e: akka.pattern.AskTimeoutException =>
+          // again? monitor, log and fallback on DB
+          lila.mon.round.proxyGameWatcherCount("double_exception")()
+          logger.info(s"roundProxyGame double timeout https://lichess.org/$gameId")
+          lila.game.GameRepo game gameId
+      }
   }
-
-  private var nbRounds = 0
-  def count() = nbRounds
 
   private val socketHub = {
     val actor = system.actorOf(

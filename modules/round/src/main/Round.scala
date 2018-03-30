@@ -16,22 +16,15 @@ import lila.socket.UserLagCache
 import makeTimeout.large
 
 private[round] final class Round(
+    dependencies: Round.Dependencies,
     gameId: String,
-    messenger: Messenger,
-    takebacker: Takebacker,
-    finisher: Finisher,
-    rematcher: Rematcher,
-    player: Player,
-    drawer: Drawer,
-    forecastApi: ForecastApi,
-    socketHub: ActorRef,
     /* Send a message to self,
      * but by going through the actor map,
      * so this actor is spawned again if it had died/expired */
-    awakeWith: Any => Unit,
-    moretimeDuration: FiniteDuration,
-    activeTtl: Duration
+    awakeWith: Any => Unit
 ) extends SequentialActor {
+
+  import dependencies._
 
   context setReceiveTimeout activeTtl
 
@@ -315,6 +308,19 @@ private[round] final class Round(
 }
 
 object Round {
+
+  private[round] case class Dependencies(
+      messenger: Messenger,
+      takebacker: Takebacker,
+      finisher: Finisher,
+      rematcher: Rematcher,
+      player: Player,
+      drawer: Drawer,
+      forecastApi: ForecastApi,
+      socketHub: ActorRef,
+      moretimeDuration: FiniteDuration,
+      activeTtl: Duration
+  )
 
   case class TakebackSituation(
       nbDeclined: Int = 0,
