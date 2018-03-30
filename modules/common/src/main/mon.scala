@@ -165,8 +165,9 @@ object mon {
       }
       object lag {
         val compDeviation = rec("round.move.lag.comp_deviation")
-        def uncomped(key: String) = rec(s"round.move.lag.uncomped.$key")
-        val uncompedAll = rec(s"round.move.lag.uncomped.all")
+        def uncomped(key: String) = rec(s"round.move.lag.uncomped_ms.$key")
+        val uncompedAll = rec(s"round.move.lag.uncomped_ms.all")
+        def uncompStdDev(key: String) = rec(s"round.move.lag.uncomp_stdev_ms.$key")
         val stdDev = rec(s"round.move.lag.stddev_ms")
         val mean = rec(s"round.move.lag.mean_ms")
         val coefVar = rec(s"round.move.lag.coef_var_1000")
