@@ -112,7 +112,10 @@ object Store {
 
   def chronoInfoByUser(userId: User.ID): Fu[List[Info]] =
     coll.find(
-      $doc("user" -> userId),
+      $doc(
+        "user" -> userId,
+        "date" $gt Datetime.now.minusYears(2)
+      ),
       $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true)
     ).sort($sort desc "date").list[Info]()
 
