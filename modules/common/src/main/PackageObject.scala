@@ -65,7 +65,10 @@ trait PackageObject extends Lilaisms {
     implicit val larger = seconds(30)
     implicit val veryLarge = minutes(5)
 
+    implicit val halfSecond = millis(500)
+
     def apply(duration: FiniteDuration) = Timeout(duration)
+    def millis(s: Int): Timeout = Timeout(s.millis)
     def seconds(s: Int): Timeout = Timeout(s.seconds)
     def minutes(m: Int): Timeout = Timeout(m.minutes)
   }
