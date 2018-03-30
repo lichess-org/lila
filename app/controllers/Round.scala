@@ -166,10 +166,6 @@ object Round extends LidraughtsController with TheftPrevention {
   }
 
   def watcher(gameId: String, color: String) = Open { implicit ctx =>
-    env.actualRoundProxyGame(gameId).chronometer.mon(_.round.proxyGameWatcherTime).result.effectFold(
-      _ => lidraughts.mon.round.proxyGameWatcherCount("exception")(),
-      g => lidraughts.mon.round.proxyGameWatcherCount(g.isDefined.toString)()
-    )
     proxyPov(gameId, color) flatMap {
       case Some(pov) => get("pov") match {
         case Some(requestedPov) => (pov.player.userId, pov.opponent.userId) match {

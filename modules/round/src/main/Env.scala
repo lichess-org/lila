@@ -83,15 +83,16 @@ final class Env(
     }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
 
-  def roundProxyGame(gameId: String): Fu[Option[Game]] = lidraughts.game.GameRepo game gameId
-
-  def actualRoundProxyGame(gameId: String): Fu[Option[Game]] = {
-    import makeTimeout.short
+  def roundProxyGame(gameId: String): Fu[Option[Game]] = {
+    import makeTimeout.halfSecond
     roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Option[Game]]
-    // } recoverWith {
-    //   case e: akka.pattern.AskTimeoutException =>
-    //     logger.info(s"roundProxyGame timeout https://lidraughts.org/$gameId")
-    //     lidraughts.game.GameRepo game gameId
+  }.chronometer.mon(_.round.proxyGameWatcherTime).result addEffect { g =>
+    lidraughts.mon.round.proxyGameWatcherCount(g.isDefined.toString)()
+  } recoverWith {
+    case e: akka.pattern.AskTimeoutException =>
+      lidraughts.mon.round.proxyGameWatcherCount("exception")()
+      logger.info(s"roundProxyGame timeout https://lidraughts.org/$gameId")
+      lidraughts.game.GameRepo game gameId
   }
 
   private var nbRounds = 0
