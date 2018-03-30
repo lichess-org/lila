@@ -114,7 +114,7 @@ object Store {
     coll.find(
       $doc(
         "user" -> userId,
-        "date" $gt Datetime.now.minusYears(2)
+        "date" $gt DateTime.now.minusYears(2)
       ),
       $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true)
     ).sort($sort desc "date").list[Info]()
