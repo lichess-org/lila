@@ -26,21 +26,21 @@ private final class LeaderboardIndexer(
         case (number, entries) =>
           if (number % 10000 == 0)
             logger.info(s"Generating leaderboards... $number")
-          saveEntries(entries) inject (number + entries.size)
+          saveEntries("-")(entries) inject (number + entries.size)
       }
   }.void
 
   def indexOne(tour: Tournament): Funit =
     leaderboardColl.remove($doc("t" -> tour.id)) >>
-      generateTour(tour) flatMap saveEntries
+      generateTour(tour) flatMap saveEntries(tour.id)
 
-  private def saveEntries(entries: Seq[Entry]): Funit =
+  private def saveEntries(tourId: String)(entries: Seq[Entry]): Funit =
     entries.nonEmpty ?? {
       leaderboardColl.bulkInsert(
         documents = entries.map(BSONHandlers.leaderboardEntryHandler.write).toStream,
         ordered = false
       ) map { res =>
-        logger.info(s"Inserted ${res.upserted} of ${entries.size} leaderboard entries")
+        logger.info(s"Inserted ${res.n} of ${entries.size} leaderboard entries for #$tourId")
       }
     }
 
