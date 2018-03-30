@@ -104,7 +104,9 @@
   <string name="infiniteAnalysis">Sonsuz təhlil</string>
   <string name="removesTheDepthLimit">Dərinlik limitini ləğv edir və kompüterinizi isti saxlayır</string>
   <string name="blunders">Kobud səhvlər</string>
+  <string name="mistake">Yalnış</string>
   <string name="mistakes">Səhvlər</string>
+  <string name="inaccuracy">Qeyri-dəqiqlik</string>
   <string name="inaccuracies">Qeyri-dəqiqliklər</string>
   <string name="moveTimes">gedişin müddəti</string>
   <string name="flipBoard">Taxtanı firlat</string>
@@ -191,6 +193,7 @@
   <string name="accept">Qəbul et</string>
   <string name="decline">Rədd et</string>
   <string name="playingRightNow">İndi oyna</string>
+  <string name="eventInProgress">Hal-hazırda oynayır</string>
   <string name="finished">Bitdi</string>
   <string name="abortGame">Oyunu ləğv et</string>
   <string name="gameAborted">Oyun ləğv olundu</string>
@@ -199,6 +202,7 @@
   <string name="mode">Növ</string>
   <string name="casual">Adi oyun</string>
   <string name="rated">Reytinqli oyun</string>
+  <string name="ratedTournament">Reytingli oyun</string>
   <string name="thisGameIsRated">Bu, reytinqli oyundur</string>
   <string name="rematch">Əvəzçıxma</string>
   <string name="rematchOfferSent">Əvəzçıxma təklifi göndərildi</string>
@@ -390,6 +394,7 @@
   <string name="keepGoing">Davam edin</string>
   <string name="puzzleFailed">Tapmaca həll olunmadı</string>
   <string name="butYouCanKeepTrying">Bəxtinizi bir daha sınayın</string>
+  <string name="success">Müvəffəqiyyət</string>
   <string name="wasThisPuzzleAnyGood">Bu tapmaca sizə yararlı oldu?</string>
   <string name="pleaseVotePuzzle">Lichess inkişafına tövhə vermək üçün səs verin, yuxarı və aşağı oxlardan istifadə edin.</string>
   <string name="thankYou">Təşşəkkür edirik!</string>
@@ -452,6 +457,7 @@
   <string name="closeAccountExplanation">Hesabınızı bağlamaq istədiyinizdən əminsinizmi ? Hesab bağlamaq geri dönüşü olmayan bir əməliyyatdır. Təkrar daxil bilməzsiniz və profil səhifəsinə girişiniz qalmayacaq .</string>
   <string name="thisAccountIsClosed">Hesab bağlanıldı.</string>
   <string name="invalidUsernameOrPassword">Yanlış istifadəçi adı və parol</string>
+  <string name="incorrectPassword">Yanlış şifrə</string>
   <string name="emailMeALink">E-Mail ilə daxil linki göndər</string>
   <string name="currentPassword">Cari şifre</string>
   <string name="newPassword">Yeni şifrə</string>
@@ -460,6 +466,9 @@
   <string name="pieceDestinations">Daş istiqamətlərə (qaydalara uyğun hücumlar)</string>
   <string name="boardCoordinates">Taxta kordinatları</string>
   <string name="moveListWhilePlaying">Oynarken siyahısı keçin</string>
+  <string name="pgnPieceNotation">Gediş qeydi</string>
+  <string name="chessPieceSymbol">Şaxmat fiqur simvolu</string>
+  <string name="pgnLetter">Hərf (K, Q, R, B, N)</string>
   <string name="chessClock">Şahmat saat</string>
   <string name="tenthsOfSeconds">Son 10 saniyə</string>
   <string name="never">Ǝsla</string>
@@ -467,6 +476,7 @@
   <string name="horizontalGreenProgressBars">Yaşıl üfüqi tərəqqi bar</string>
   <string name="soundWhenTimeGetsCritical">Zaman azaldığında səslə xəbərdarlıq</string>
   <string name="gameBehavior">Oyun vəziyyəti</string>
+  <string name="howDoYouMovePieces">Fiqurlarla gediş necə edilir?</string>
   <string name="premovesPlayingDuringOpponentTurn">Ön hücumlar (Rəqib hücum etmədən hücum təyin)</string>
   <string name="takebacksWithOpponentApproval">Geri Alma (rəqib razılığı ilə)</string>
   <string name="promoteToQueenAutomatically">Avtomatik Queen təşviq</string>
