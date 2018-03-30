@@ -16,5 +16,5 @@ final class IpTrust(intelApi: IpIntel, geoApi: GeoIP, torApi: Tor, firewallApi: 
       else intelApi(ip).map { 75 < _ }
     }
 
-  def isSuspicious(ipData: UserSpy.IPData): Fu[Boolean] = isSuspicious(ipData.ip)
+  def isSuspicious(ipData: UserSpy.IPData): Fu[Boolean] = isSuspicious(ipData.ip.value)
 }

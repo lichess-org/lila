@@ -99,16 +99,22 @@ object Store {
       case Some(hash) => coll.updateField($doc("_id" -> id), "fp", hash) inject hash
     }
 
-  case class Info(ip: IpAddress, ua: String, fp: Option[String]) {
-    def fingerprint = fp.map(_.toString)
+  case class Info(ip: IpAddress, ua: String, fp: Option[FingerHash], date: DateTime) {
+    def datedIp = Dated(ip, date)
+    def datedFp = fp.map { Dated(_, date) }
+    def datedUa = Dated(ua, date)
   }
   private implicit val InfoReader = Macros.reader[Info]
 
-  def findInfoByUser(userId: User.ID): Fu[List[Info]] =
+  case class Dated[V](value: V, date: DateTime) extends Ordered[Dated[V]] {
+    def compare(other: Dated[V]) = other.date.getMillis compare date.getMillis
+  }
+
+  def chronoInfoByUser(userId: User.ID): Fu[List[Info]] =
     coll.find(
       $doc("user" -> userId),
-      $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true)
-    ).list[Info]()
+      $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true)
+    ).sort($sort desc "date").list[Info]()
 
   private case class DedupInfo(_id: String, ip: String, ua: String) {
     def compositeKey = s"$ip $ua"
