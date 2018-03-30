@@ -43,8 +43,8 @@ object Export extends LilaController {
   private val PngRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 120,
     duration = 1 minute,
-    name = "export PGN global",
-    key = "export.pgn.global"
+    name = "export PNG global",
+    key = "export.png.global"
   )
 
   def png(id: String) = Open { implicit ctx =>
