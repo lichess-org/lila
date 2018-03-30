@@ -41,7 +41,7 @@ object Export extends LidraughtsController {
   }
 
   private val PngRateLimitGlobal = new lidraughts.memo.RateLimit[String](
-    credits = 120,
+    credits = 240,
     duration = 1 minute,
     name = "export PNG global",
     key = "export.png.global"
