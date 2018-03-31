@@ -66,6 +66,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   max-height: 180px;
+  white-space: nowrap;
 }
 .relay_edit .relay .log > div {
   margin: 4px 0;
