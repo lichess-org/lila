@@ -61,16 +61,14 @@ object Tv extends LidraughtsController {
   def games = gamesChannel(lidraughts.tv.Tv.Channel.Best.key)
 
   def gamesChannel(chanKey: String) = Open { implicit ctx =>
-    (lidraughts.tv.Tv.Channel.byKey get chanKey).fold(notFound)(lidraughtsGames)
-  }
-
-  private def lidraughtsGames(channel: lidraughts.tv.Tv.Channel)(implicit ctx: Context) =
-    Env.tv.tv.getChampions zip
-      Env.tv.tv.getGames(channel, 9) map {
+    (lidraughts.tv.Tv.Channel.byKey get chanKey) ?? { channel =>
+      Env.tv.tv.getChampions zip Env.tv.tv.getGames(channel, 9) map {
         case (champs, games) => NoCache {
           Ok(html.tv.games(channel, games map lidraughts.game.Pov.first, champs))
         }
       }
+    }
+  }
 
   def feed = Action.async {
     import makeTimeout.short
