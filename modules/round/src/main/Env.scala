@@ -91,7 +91,7 @@ final class Env(
   def roundProxyGame(gameId: Game.ID): Fu[Option[Game]] = {
     import makeTimeout.halfSecond
     roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Option[Game]]
-  }.chronometer.mon(_.round.proxyGameWatcherTime).result addEffect { g =>
+  }.mon(_.round.proxyGameWatcherTime) addEffect { g =>
     lila.mon.round.proxyGameWatcherCount(g.isDefined.toString)()
   } recoverWith {
     case e: akka.pattern.AskTimeoutException =>

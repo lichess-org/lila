@@ -91,7 +91,7 @@ final class Syncache[K, V](
       duration = resultTimeout,
       error = lila.base.LilaException(s"Syncache $name $k timed out after $resultTimeout")
     )
-      .chronometer.mon(_ => recComputeNanos).result // monitoring: record async time
+      .mon(_ => recComputeNanos) // monitoring: record async time
       .addEffects(
         err => {
           logger.branch(name).warn(s"$err key=$k")

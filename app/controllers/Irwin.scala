@@ -35,7 +35,7 @@ object Irwin extends LilaController {
         (Env.mod.assessApi.refreshAssessByUsername(user.id) >>
           Env.mod.jsonView(user) map {
             _.fold[Result](NotFound) { obj => Ok(obj) as JSON }
-          }).chronometer.mon(_.mod.irwin.assessment.time).result
+          }).mon(_.mod.irwin.assessment.time)
       }
     }
   }

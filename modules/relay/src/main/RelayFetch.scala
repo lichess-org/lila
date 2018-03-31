@@ -45,34 +45,31 @@ private final class RelayFetch(
           logger.info(s"Finish by lack of activity $relay")
           api.update(relay)(_.finish)
         } else fuccess(relay)
-      }.sequenceFu.chronometer
-        .mon(_.relay.sync.duration.total)
-        .result addEffectAnyway scheduleNext
+      }.sequenceFu.mon(_.relay.sync.duration.total) addEffectAnyway scheduleNext
     }
   }
 
   // no writing the relay; only reading!
   def processRelay(relay: Relay): Fu[Relay] =
     if (!relay.sync.playing) fuccess(relay.withSync(_.play))
-    else RelayFetch(relay)
-      .chronometer.mon(_.relay.fetch.duration.each).result flatMap { games =>
-        sync(relay, games)
-          .chronometer.mon(_.relay.sync.duration.each).result
-          .withTimeout(500 millis, SyncResult.Timeout)(context.system) map { res =>
-            res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
-          }
-      } recover {
-        case e: Exception => (e match {
-          case res @ SyncResult.Timeout =>
-            logger.info(s"Sync timeout $relay")
-            res
-          case _ =>
-            logger.info(s"Sync error $relay", e)
-            SyncResult.Error(e.getMessage)
-        }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
-      } flatMap {
-        case (result, newRelay) => afterSync(result, newRelay)
-      }
+    else RelayFetch(relay).mon(_.relay.fetch.duration.each) flatMap { games =>
+      sync(relay, games)
+        .chronometer.mon(_.relay.sync.duration.each).result
+        .withTimeout(500 millis, SyncResult.Timeout)(context.system) map { res =>
+          res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
+        }
+    } recover {
+      case e: Exception => (e match {
+        case res @ SyncResult.Timeout =>
+          logger.info(s"Sync timeout $relay")
+          res
+        case _ =>
+          logger.info(s"Sync error $relay", e)
+          SyncResult.Error(e.getMessage)
+      }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
+    } flatMap {
+      case (result, newRelay) => afterSync(result, newRelay)
+    }
 
   def afterSync(result: SyncResult, relay: Relay): Fu[Relay] = {
     lila.mon.relay.sync.result(result.reportKey)()
