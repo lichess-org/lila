@@ -191,7 +191,7 @@ lazy val gameSearch = module("gameSearch", Seq(common, hub, search, game)).setti
   )
 )
 
-lazy val tv = module("tv", Seq(common, db, hub, socket, game, user)).settings(
+lazy val tv = module("tv", Seq(common, db, hub, socket, game, round, user)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver, hasher)
 )
 

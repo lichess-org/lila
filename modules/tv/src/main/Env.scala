@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.db.dsl._
+import lila.game.Game
 
 import scala.concurrent.duration._
 
@@ -12,6 +13,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     lightUser: lila.common.LightUser.GetterSync,
+    roundProxyGame: Game.ID => Fu[Option[Game]],
     system: ActorSystem,
     scheduler: lila.common.Scheduler
 ) {
@@ -21,7 +23,7 @@ final class Env(
 
   private val selectChannel = system.actorOf(Props(classOf[lila.socket.Channel]), name = ChannelSelect)
 
-  lazy val tv = new Tv(tvActor)
+  lazy val tv = new Tv(tvActor, roundProxyGame)
 
   private val tvActor =
     system.actorOf(
@@ -45,6 +47,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     lightUser = lila.user.Env.current.lightUserSync,
+    roundProxyGame = lila.round.Env.current.roundProxyGame _,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler
   )
