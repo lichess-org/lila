@@ -88,7 +88,7 @@ final class Env(
   private var nbRounds = 0
   def count() = nbRounds
 
-  def roundProxyGame(gameId: String): Fu[Option[Game]] = {
+  def roundProxyGame(gameId: Game.ID): Fu[Option[Game]] = {
     import makeTimeout.halfSecond
     roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Option[Game]]
   }.chronometer.mon(_.round.proxyGameWatcherTime).result addEffect { g =>
