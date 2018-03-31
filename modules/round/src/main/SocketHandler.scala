@@ -32,7 +32,8 @@ private[round] final class SocketHandler(
     messenger: Messenger,
     evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler,
     selfReport: SelfReport,
-    bus: lidraughts.common.Bus
+    bus: lidraughts.common.Bus,
+    isRecentTv: Game.ID => Boolean
 ) {
 
   import SocketHandler._
@@ -153,8 +154,7 @@ private[round] final class SocketHandler(
       Handler.forActor(hub, socket, uid, join) {
         case Connected(enum, member) =>
           // register to the TV channel when watching TV
-          if (playerId.isEmpty && pov.game.isRecentTv)
-            hub.channel.tvSelect ! lidraughts.socket.Channel.Sub(member)
+          if (playerId.isEmpty && isRecentTv(pov.game.id)) hub.channel.tvSelect ! lidraughts.socket.Channel.Sub(member)
           (controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user), enum, member)
       }
     }

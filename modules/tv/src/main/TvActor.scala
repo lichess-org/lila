@@ -6,13 +6,14 @@ import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 import lidraughts.common.LightUser
-import lidraughts.game.GameRepo
+import lidraughts.game.{ Game, GameRepo }
 
 private[tv] final class TvActor(
     rendererActor: ActorSelection,
     roundSocket: ActorSelection,
     selectChannel: ActorRef,
-    lightUser: LightUser.GetterSync
+    lightUser: LightUser.GetterSync,
+    onSelect: Game => Unit
 ) extends Actor {
 
   import TvActor._
@@ -58,6 +59,7 @@ private[tv] final class TvActor(
       (user |@| player.rating) apply {
         case (u, r) => channelChampions += (channel -> Tv.Champion(u, r, game.id))
       }
+      onSelect(game)
       selectChannel ! lidraughts.socket.Channel.Publish(makeMessage("tvSelect", Json.obj(
         "channel" -> channel.key,
         "id" -> game.id,
@@ -83,7 +85,6 @@ private[tv] final class TvActor(
             )
             context.system.lidraughtsBus.publish(event, 'changeFeaturedGame)
         }
-      GameRepo setTv game.id
   }
 }
 
@@ -95,7 +96,7 @@ private[tv] object TvActor {
   case class GetGameIdAndHistory(channel: Tv.Channel) extends AnyVal
 
   case object Select
-  case class Selected(channel: Tv.Channel, game: lidraughts.game.Game, previousId: Option[String])
+  case class Selected(channel: Tv.Channel, game: Game, previousId: Option[Game.ID])
 
   case object GetChampions
 }

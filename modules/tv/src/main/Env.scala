@@ -15,7 +15,8 @@ final class Env(
     lightUser: lidraughts.common.LightUser.GetterSync,
     roundProxyGame: Game.ID => Fu[Option[Game]],
     system: ActorSystem,
-    scheduler: lidraughts.common.Scheduler
+    scheduler: lidraughts.common.Scheduler,
+    onSelect: Game => Unit
 ) {
 
   private val FeaturedSelect = config duration "featured.select"
@@ -23,13 +24,11 @@ final class Env(
 
   private val selectChannel = system.actorOf(Props(classOf[lidraughts.socket.Channel]), name = ChannelSelect)
 
-  lazy val tv = new Tv(tvActor, roundProxyGame)
+  private val tvActor = system.actorOf(
+    Props(new TvActor(hub.actor.renderer, hub.socket.round, selectChannel, lightUser, onSelect))
+  )
 
-  private val tvActor =
-    system.actorOf(
-      Props(new TvActor(hub.actor.renderer, hub.socket.round, selectChannel, lightUser)),
-      name = "tv"
-    )
+  lazy val tv = new Tv(tvActor, roundProxyGame)
 
   {
     import scala.concurrent.duration._
@@ -49,6 +48,7 @@ object Env {
     lightUser = lidraughts.user.Env.current.lightUserSync,
     roundProxyGame = lidraughts.round.Env.current.roundProxyGame _,
     system = lidraughts.common.PlayApp.system,
-    scheduler = lidraughts.common.PlayApp.scheduler
+    scheduler = lidraughts.common.PlayApp.scheduler,
+    onSelect = lidraughts.round.Env.current.recentTvGames.put _
   )
 }

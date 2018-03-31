@@ -637,8 +637,6 @@ case class Game(
 
   def synthetic = id == Game.syntheticId
 
-  def isRecentTv = metadata.tvAt.??(DateTime.now.minusMinutes(30).isBefore)
-
   def isWithinTimeOut = metadata.timeOutUntil ?? DateTime.now.isBefore
   def timeOutRemaining = isWithinTimeOut ?? { metadata.timeOutUntil ?? { secondsBetween(DateTime.now, _).getSeconds } }
 
@@ -729,7 +727,6 @@ object Game {
         tournamentId = none,
         simulId = none,
         simulPairing = none,
-        tvAt = none,
         timeOutUntil = none,
         drawLimit = drawLimit,
         analysed = false

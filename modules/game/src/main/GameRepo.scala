@@ -221,13 +221,6 @@ object GameRepo {
   def unsetTimeOut(id: ID) =
     coll.update($id(id), $unset(F.timeOutUntil), writeConcern = GetLastError.Unacknowledged)
 
-  def setTv(id: ID) = coll.updateFieldUnchecked($id(id), F.tvAt, DateTime.now)
-
-  def onTv(nb: Int): Fu[List[Game]] = coll.find($doc(F.tvAt $exists true))
-    .sort($sort desc F.tvAt)
-    .cursor[Game]()
-    .gather[List](nb)
-
   def setAnalysed(id: ID): Unit = {
     coll.updateFieldUnchecked($id(id), F.analysed, true)
   }
@@ -447,13 +440,6 @@ object GameRepo {
     .sort(Query.sortCreated)
     .skip(Random nextInt 1000)
     .uno[Game]
-
-  def hydrateTvAt(game: Game): Fu[Game] =
-    coll.primitiveOne[DateTime]($id(game.id), F.tvAt).map {
-      _.fold(game) { tvAt =>
-        game.copy(metadata = game.metadata.copy(tvAt = tvAt.some))
-      }
-    }
 
   def findPdnImport(pdn: String): Fu[Option[Game]] = coll.uno[Game](
     $doc(s"${F.pdnImport}.h" -> PdnImport.hash(pdn))

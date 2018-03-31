@@ -193,13 +193,13 @@ private[round] final class Socket(
         )
       } pipeTo sender
 
-    case Join(uid, user, color, playerId, ip, userTv, version) =>
+    case Join(uid, user, color, playerId, ip, onTv, version) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, color, playerId, ip, userTv.map(_.userId))
+      val member = Member(channel, user, color, playerId, ip, onTv.map(_.userId))
       addMember(uid, member)
       notifyCrowd
       if (playerId.isDefined) playerDo(color, _.ping)
-      val reloadTvEvent = userTv ?? {
+      val reloadTvEvent = onTv ?? {
         case UserTv(_, reload) => reload map {
           case true => makeMessage("resync").some
           case false =>
@@ -252,7 +252,7 @@ private[round] final class Socket(
     case TvSelect(msg) => foreachWatcher(_ push msg)
 
     case UserStartGame(userId, game) => foreachWatcher { m =>
-      if (m.onUserTv(userId) && m.userId.fold(true)(id => !game.userIds.contains(id)))
+      if (m.onUserTv(userId) && !m.userId.exists(game.userIds.contains))
         m push makeMessage("resync")
     }
 
