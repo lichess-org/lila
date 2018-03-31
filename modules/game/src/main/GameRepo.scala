@@ -176,6 +176,8 @@ object GameRepo {
       Query.notFromPosition
   ).sort(Query.sortAntiChronological).uno[Game]
 
+  def setTv(id: ID) = coll.updateFieldUnchecked($id(id), F.tvAt, DateTime.now)
+
   def setAnalysed(id: ID): Unit = {
     coll.updateFieldUnchecked($id(id), F.analysed, true)
   }

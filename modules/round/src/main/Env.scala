@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 import actorApi.{ GetSocketStatus, SocketStatus }
 
-import lila.game.{ Game, Pov }
+import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.HasUserId
 import lila.hub.actorApi.map.{ Ask, Tell }
 
@@ -148,7 +148,10 @@ final class Env(
     val fast = new lila.memo.ExpireSetMemo(7 minutes)
     val slow = new lila.memo.ExpireSetMemo(2 hours)
     def get(gameId: Game.ID) = fast.get(gameId) || slow.get(gameId)
-    def put(game: Game) = (if (game.speed <= chess.Speed.Bullet) fast else slow) put game.id
+    def put(game: Game) = {
+      GameRepo.setTv(game.id)
+      (if (game.speed <= chess.Speed.Bullet) fast else slow) put game.id
+    }
   }
 
   lazy val socketHandler = new SocketHandler(
