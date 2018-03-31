@@ -46,9 +46,7 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
     }
   }
 
-  def elect(gameOption: Option[Game]): Unit = {
-    gameOption foreach { self ! SetGame(_) }
-  }
+  def elect(gameOption: Option[Game]): Unit = gameOption foreach { self ! SetGame(_) }
 
   def wayBetter(game: Game, candidates: List[Game]) = feature(candidates) map {
     case Some(next) if isWayBetter(game, next) => next.some
