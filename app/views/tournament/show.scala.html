@@ -46,7 +46,13 @@ s"${usernameOrId(winnerId)} takes the prize home!"
 ).some) {
 <div id="tournament" @tour.schedule.map { sched =>
   class="scheduled @sched.freq.name @sched.speed.name @sched.variant.key id_@tour.id"
-  }></div>
+  }>
+  <div class="content_box no_padding tournament_box tournament_show">
+    <div class="content_box_content">
+      @base.spinner("init".some)
+    </div>
+  </div>
+</div>
 @if(tour.isCreated) {
 <div id="tournament_faq" class="none">
   @faq(tour.mode.rated.some, tour.system.some, tour.`private`.option(tour.id))

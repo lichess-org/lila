@@ -14,7 +14,7 @@ import view from './view/main';
 
 export function start(opts: TournamentOpts) {
 
-  opts.classes = (opts.element.getAttribute('class') || '').replace(' ', '.');
+  opts.classes = (opts.element.getAttribute('class') || '');
 
   let vnode: VNode, ctrl: TournamentController;
 
