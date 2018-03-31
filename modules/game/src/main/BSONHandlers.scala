@@ -157,7 +157,6 @@ object BSONHandlers {
           pgnImport = r.getO[PgnImport](F.pgnImport)(PgnImport.pgnImportBSONHandler),
           tournamentId = r strO F.tournamentId,
           simulId = r strO F.simulId,
-          tvAt = r dateO F.tvAt,
           analysed = r boolD F.analysed
         )
       )
@@ -187,7 +186,6 @@ object BSONHandlers {
       F.pgnImport -> o.metadata.pgnImport,
       F.tournamentId -> o.metadata.tournamentId,
       F.simulId -> o.metadata.simulId,
-      F.tvAt -> o.metadata.tvAt.map(w.date),
       F.analysed -> w.boolO(o.metadata.analysed)
     ) ++ {
         if (o.variant.standard)

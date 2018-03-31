@@ -547,8 +547,6 @@ case class Game(
 
   def synthetic = id == Game.syntheticId
 
-  def isRecentTv = metadata.tvAt.??(DateTime.now.minusMinutes(30).isBefore)
-
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }
 
   def pov(c: Color) = Pov(this, c)
@@ -647,7 +645,6 @@ object Game {
         pgnImport = pgnImport,
         tournamentId = none,
         simulId = none,
-        tvAt = none,
         analysed = false
       ),
       createdAt = createdAt,

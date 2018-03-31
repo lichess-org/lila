@@ -15,7 +15,8 @@ private[round] final class Finisher(
     notifier: RoundNotifier,
     crosstableApi: lila.game.CrosstableApi,
     bus: lila.common.Bus,
-    getSocketStatus: Game.ID => Fu[actorApi.SocketStatus]
+    getSocketStatus: Game.ID => Fu[actorApi.SocketStatus],
+    isRecentTv: Game.ID => Boolean
 ) {
 
   def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = apply(pov.game, _.Aborted, None) >>- {
@@ -112,13 +113,8 @@ private[round] final class Finisher(
       UserRepo.pair(
         g.whitePlayer.userId,
         g.blackPlayer.userId
-      ).zip {
-          // because the game comes from the round GameProxy,
-          // it doesn't have the tvAt field set
-          // so we fetch it from the DB
-          GameRepo hydrateTvAt g
-        } flatMap {
-          case ((whiteO, blackO), g) => {
+      ).flatMap {
+          case (whiteO, blackO) => {
             val finish = FinishGame(g, whiteO, blackO)
             updateCountAndPerfs(finish) map { ratingDiffs =>
               message foreach { messenger.system(g, _) }
@@ -147,7 +143,7 @@ private[round] final class Finisher(
 
   private def incNbGames(game: Game)(user: User): Funit = game.finished ?? {
     val totalTime = (game.hasClock && user.playTime.isDefined) ?? game.durationSeconds
-    val tvTime = totalTime ifTrue game.metadata.tvAt.isDefined
+    val tvTime = totalTime ifTrue isRecentTv(game.id)
     val result =
       if (game.winnerUserId has user.id) 1
       else if (game.loserUserId has user.id) -1

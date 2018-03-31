@@ -144,6 +144,13 @@ final class Env(
 
   lazy val selfReport = new SelfReport(roundMap)
 
+  lazy val recentTvGames = new {
+    val fast = new lila.memo.ExpireSetMemo(7 minutes)
+    val slow = new lila.memo.ExpireSetMemo(2 hours)
+    def get(gameId: Game.ID) = fast.get(gameId) || slow.get(gameId)
+    def put(game: Game) = (if (game.speed <= chess.Speed.Bullet) fast else slow) put game.id
+  }
+
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     roundMap = roundMap,
@@ -151,7 +158,8 @@ final class Env(
     messenger = messenger,
     evalCacheHandler = evalCacheHandler,
     selfReport = selfReport,
-    bus = bus
+    bus = bus,
+    isRecentTv = recentTvGames get _
   )
 
   lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi)
@@ -174,7 +182,8 @@ final class Env(
     notifier = notifier,
     playban = playban,
     bus = bus,
-    getSocketStatus = getSocketStatus
+    getSocketStatus = getSocketStatus,
+    isRecentTv = recentTvGames get _
   )
 
   private lazy val rematcher = new Rematcher(
