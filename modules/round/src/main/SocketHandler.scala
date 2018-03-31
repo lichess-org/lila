@@ -29,7 +29,8 @@ private[round] final class SocketHandler(
     messenger: Messenger,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     selfReport: SelfReport,
-    bus: lila.common.Bus
+    bus: lila.common.Bus,
+    isRecentTv: Game.ID => Boolean
 ) {
 
   private def controller(
@@ -120,8 +121,8 @@ private[round] final class SocketHandler(
     uid: Uid,
     user: Option[User],
     ip: IpAddress,
-    userTv: Option[String]
-  ): Fu[JsSocketHandler] = join(pov, none, uid, user, ip, userTv = userTv)
+    userTv: Option[User.ID]
+  ): Fu[JsSocketHandler] = join(pov, none, uid, user, ip, userTv)
 
   def player(
     pov: Pov,
@@ -137,7 +138,7 @@ private[round] final class SocketHandler(
     uid: Uid,
     user: Option[User],
     ip: IpAddress,
-    userTv: Option[String]
+    userTv: Option[User.ID]
   ): Fu[JsSocketHandler] = {
     val join = Join(
       uid = uid,
@@ -155,8 +156,7 @@ private[round] final class SocketHandler(
       Handler(hub, socket, uid, join) {
         case Connected(enum, member) =>
           // register to the TV channel when watching TV
-          if (playerId.isEmpty && pov.game.isRecentTv)
-            hub.channel.tvSelect ! lila.socket.Channel.Sub(member)
+          if (playerId.isEmpty && isRecentTv(pov.game.id)) hub.channel.tvSelect ! lila.socket.Channel.Sub(member)
           (controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user), enum, member)
       }
     }
