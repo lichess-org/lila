@@ -77,17 +77,17 @@ object PairingRepo {
     coll.count(selectTour(tourId).some)
 
   private[tournament] def countByTourIdAndUserIds(tourId: Tournament.ID): Fu[Map[User.ID, Int]] = {
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Cursor => _, _ }
-    import reactivemongo.api.Cursor
-    coll.aggregate1[Bdoc](
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+    coll.aggregateList(
       Match(selectTour(tourId)),
       List(
         Project($doc("u" -> true, "_id" -> false)),
         UnwindField("u"),
         GroupField("u")("nb" -> SumValue(1)),
         Sort(Descending("nb"))
-      )
-    ).collect[List](maxDocs = 10000, Cursor.FailOnError[List[Bdoc]]()).map {
+      ),
+      maxDocs = 10000
+    ).map {
         _.flatMap { doc =>
           doc.getAs[Game.ID]("_id") flatMap { uid =>
             doc.getAs[Int]("nb") map { uid -> _ }
@@ -143,7 +143,7 @@ object PairingRepo {
 
   private[tournament] def rawStats(tourId: Tournament.ID): Fu[List[Bdoc]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    coll.aggregate(
+    coll.aggregateList(
       Match(selectTour(tourId)),
       List(
         Project($doc(
@@ -159,7 +159,8 @@ object PairingRepo {
           "b1" -> SumField("b1"),
           "b2" -> SumField("b2")
         )
-      )
-    ).map { _.firstBatch }
+      ),
+      maxDocs = 3
+    )
   }
 }

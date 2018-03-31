@@ -238,15 +238,16 @@ final class PlanApi(
   private val topPatronUserIdsNb = 120
   private val topPatronUserIdsCache = asyncCache.single[List[User.ID]](
     name = "plan.topPatronUserIds",
-    f = chargeColl.aggregateWithReadPreference(
+    f = chargeColl.aggregateList(
       Match($doc("userId" $exists true)), List(
         GroupField("userId")("total" -> SumField("cents")),
         Sort(Descending("total")),
         Limit(topPatronUserIdsNb * 3 / 2)
       ),
+      maxDocs = topPatronUserIdsNb * 2,
       readPreference = ReadPreference.secondaryPreferred
     ).map {
-        _.firstBatch.flatMap { _.getAs[User.ID]("_id") }
+        _.flatMap { _.getAs[User.ID]("_id") }
       } flatMap filterUserIds map (_ take topPatronUserIdsNb),
     expireAfter = _.ExpireAfterWrite(1 hour)
   )

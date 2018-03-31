@@ -351,24 +351,29 @@ object GameRepo {
 
   private[game] def bestOpponents(userId: String, limit: Int): Fu[List[(User.ID, Int)]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    coll.aggregateWithReadPreference(Match($doc(F.playerUids -> userId)), List(
-      Match($doc(F.playerUids -> $doc("$size" -> 2))),
-      Sort(Descending(F.createdAt)),
-      Limit(1000), // only look in the last 1000 games
-      Project($doc(
-        F.playerUids -> true,
-        F.id -> false
-      )),
-      UnwindField(F.playerUids),
-      Match($doc(F.playerUids -> $doc("$ne" -> userId))),
-      GroupField(F.playerUids)("gs" -> SumValue(1)),
-      Sort(Descending("gs")),
-      Limit(limit)
-    ), ReadPreference.secondaryPreferred).map(_.firstBatch.flatMap { obj =>
-      obj.getAs[String]("_id") flatMap { id =>
-        obj.getAs[Int]("gs") map { id -> _ }
-      }
-    })
+    coll.aggregateList(
+      Match($doc(F.playerUids -> userId)),
+      List(
+        Match($doc(F.playerUids -> $doc("$size" -> 2))),
+        Sort(Descending(F.createdAt)),
+        Limit(1000), // only look in the last 1000 games
+        Project($doc(
+          F.playerUids -> true,
+          F.id -> false
+        )),
+        UnwindField(F.playerUids),
+        Match($doc(F.playerUids -> $doc("$ne" -> userId))),
+        GroupField(F.playerUids)("gs" -> SumValue(1)),
+        Sort(Descending("gs")),
+        Limit(limit)
+      ),
+      maxDocs = limit,
+      ReadPreference.secondaryPreferred
+    ).map(_.flatMap { obj =>
+        obj.getAs[String]("_id") flatMap { id =>
+          obj.getAs[Int]("gs") map { id -> _ }
+        }
+      })
   }
 
   def random: Fu[Option[Game]] = coll.find($empty)

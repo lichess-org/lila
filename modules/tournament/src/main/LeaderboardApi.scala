@@ -32,12 +32,13 @@ final class LeaderboardApi(
   def chart(user: User): Fu[ChartData] = {
     import reactivemongo.bson._
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    coll.aggregateWithReadPreference(
+    coll.aggregateList(
       Match($doc("u" -> user.id)),
       List(GroupField("v")("nb" -> SumValue(1), "points" -> PushField("s"), "ratios" -> PushField("w"))),
+      maxDocs = Int.MaxValue,
       ReadPreference.secondaryPreferred
     ).map {
-        _.firstBatch map leaderboardAggregationResultBSONHandler.read
+        _ map leaderboardAggregationResultBSONHandler.read
       }.map { aggs =>
         ChartData {
           aggs.flatMap { agg =>
