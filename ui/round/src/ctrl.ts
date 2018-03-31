@@ -481,8 +481,7 @@ export default class RoundController {
     this.redraw();
     this.autoScroll();
     this.onChange();
-    // #HACKFIX #TODO #REMOVEME
-    if (d.tv) setTimeout(li.reload, 5000);
+    if (d.tv) setTimeout(li.reload, 8000);
   };
 
   challengeRematch = (): void => {
