@@ -153,7 +153,10 @@ final class Env(
     val fast = new lidraughts.memo.ExpireSetMemo(7 minutes)
     val slow = new lidraughts.memo.ExpireSetMemo(2 hours)
     def get(gameId: Game.ID) = fast.get(gameId) || slow.get(gameId)
-    def put(game: Game) = (if (game.speed <= draughts.Speed.Bullet) fast else slow) put game.id
+    def put(game: Game) = {
+      GameRepo.setTv(game.id)
+      (if (game.speed <= draughts.Speed.Bullet) fast else slow) put game.id
+    }
   }
 
   lazy val socketHandler = new SocketHandler(

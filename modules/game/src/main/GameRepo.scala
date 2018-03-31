@@ -221,6 +221,8 @@ object GameRepo {
   def unsetTimeOut(id: ID) =
     coll.update($id(id), $unset(F.timeOutUntil), writeConcern = GetLastError.Unacknowledged)
 
+  def setTv(id: ID) = coll.updateFieldUnchecked($id(id), F.tvAt, DateTime.now)
+
   def setAnalysed(id: ID): Unit = {
     coll.updateFieldUnchecked($id(id), F.analysed, true)
   }
