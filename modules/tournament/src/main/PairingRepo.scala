@@ -6,8 +6,8 @@ import scala.collection.breakOut
 
 import BSONHandlers._
 import lila.db.dsl._
-import lila.user.User
 import lila.game.Game
+import lila.user.User
 
 object PairingRepo {
 
@@ -77,16 +77,18 @@ object PairingRepo {
     coll.count(selectTour(tourId).some)
 
   private[tournament] def countByTourIdAndUserIds(tourId: Tournament.ID): Fu[Map[User.ID, Int]] = {
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    coll.aggregate(
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Cursor => _, _ }
+    import reactivemongo.api.Cursor
+    coll.aggregate1[Bdoc](
       Match(selectTour(tourId)),
       List(
         Project($doc("u" -> true, "_id" -> false)),
         UnwindField("u"),
-        GroupField("u")("nb" -> SumValue(1))
+        GroupField("u")("nb" -> SumValue(1)),
+        Sort(Descending("nb"))
       )
-    ).map {
-        _.firstBatch.flatMap { doc =>
+    ).collect[List](maxDocs = 10000, Cursor.FailOnError[List[Bdoc]]()).map {
+        _.flatMap { doc =>
           doc.getAs[Game.ID]("_id") flatMap { uid =>
             doc.getAs[Int]("nb") map { uid -> _ }
           }
