@@ -137,7 +137,7 @@ private object RelayFetch {
   private def dgtOneFile(file: String, max: Int): Fu[MultiPdn] =
     httpGet(file).flatMap {
       case res if res.status == 200 => fuccess(splitPdn(res.body, max))
-      case res => fufail(s"[${res.status}] $file")
+      case res => fufail(res.status.toString)
     }
 
   import play.api.libs.json._
@@ -156,13 +156,13 @@ private object RelayFetch {
           val gameUrl = s"$dir/game-$number.pdn"
           httpGet(gameUrl).flatMap {
             case res if res.status == 200 => fuccess(number -> res.body)
-            case res => fufail(s"Cannot fetch $gameUrl (error ${res.status})")
+            case res => fufail(s"[${res.status}] game-$number.pdn")
           }
         }.sequenceFu map { results =>
           MultiPdn(results.sortBy(_._1).map(_._2).toList)
         }
       }
-      case res => fufail(s"Cannot fetch $roundUrl (error ${res.status})")
+      case res => fufail(s"[${res.status}] round.json")
     }
   }
 
