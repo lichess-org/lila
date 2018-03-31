@@ -40,7 +40,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
       ws.onopen = function() {
         debug("connected to " + fullUrl);
         onSuccess();
-        $('body').removeClass('offline');
+        $('body').removeClass('offline').addClass('online').addClass(nbConnects > 1 ? 'reconnected' : '');
         pingNow();
         lidraughts.pubsub.emit('socket.open')();
         ackable.resend();
@@ -91,7 +91,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
     clearTimeout(pingSchedule);
     clearTimeout(connectSchedule);
     connectSchedule = setTimeout(function() {
-      $('body').addClass('offline');
+      $('body').addClass('offline').removeClass('online');
       tryOtherUrl = true;
       connect();
     }, delay);
