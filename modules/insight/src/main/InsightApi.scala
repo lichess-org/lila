@@ -25,8 +25,8 @@ final class InsightApi(
   }
 
   def ask[X](question: Question[X], user: User): Fu[Answer[X]] =
-    storage.aggregate(pipeline(question, user.id)).flatMap { res =>
-      val clusters = AggregationClusters(question, res)
+    storage.aggregate(pipeline(question, user.id)).flatMap { aggDocs =>
+      val clusters = AggregationClusters(question, aggDocs)
       val gameIds = scala.util.Random.shuffle(clusters.flatMap(_.gameIds)) take 4
       GameRepo.userPovsByGameIds(gameIds, user) map { povs =>
         Answer(question, clusters, povs)

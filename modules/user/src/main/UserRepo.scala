@@ -370,13 +370,13 @@ object UserRepo {
   def langOf(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), "lang")
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] =
-    ids.nonEmpty ?? coll.aggregateWithReadPreference(
+    ids.nonEmpty ?? coll.aggregateOne(
       Match($inIds(ids)),
       List(Group(BSONNull)(F.toints -> SumField(F.toints))),
       ReadPreference.secondaryPreferred
-    ).map(
-        _.firstBatch.headOption flatMap { _.getAs[Int](F.toints) }
-      ).map(~_)
+    ).map {
+        _ flatMap { _.getAs[Int](F.toints) }
+      }.map(~_)
 
   def filterByEngine(userIds: Iterable[User.ID]): Fu[Set[User.ID]] =
     coll.distinctWithReadPreference[String, Set](

@@ -14,8 +14,13 @@ private final class Storage(coll: Coll) {
   import BSONHandlers._
   import Entry.{ BSONFields => F }
 
-  def aggregate(operators: NonEmptyList[PipelineOperator]): Fu[AggregationResult] =
-    coll.aggregate(operators.head, operators.tail.toList, allowDiskUse = true)
+  def aggregate(operators: NonEmptyList[PipelineOperator]): Fu[List[Bdoc]] =
+    coll.aggregateList(
+      operators.head,
+      operators.tail.toList,
+      maxDocs = Int.MaxValue,
+      allowDiskUse = true
+    )
 
   def fetchFirst(userId: String): Fu[Option[Entry]] =
     coll.find(selectUserId(userId)).sort(sortChronological).uno[Entry]
@@ -44,11 +49,12 @@ private final class Storage(coll: Coll) {
   def ecos(userId: String): Fu[Set[String]] =
     coll.distinct[String, Set](F.eco, selectUserId(userId).some)
 
-  def nbByPerf(userId: String): Fu[Map[PerfType, Int]] = coll.aggregate(
+  def nbByPerf(userId: String): Fu[Map[PerfType, Int]] = coll.aggregateList(
     Match(BSONDocument(F.userId -> userId)),
-    List(GroupField(F.perf)("nb" -> SumValue(1)))
+    List(GroupField(F.perf)("nb" -> SumValue(1))),
+    maxDocs = 50
   ).map {
-      _.firstBatch.flatMap { doc =>
+      _.flatMap { doc =>
         for {
           perfType <- doc.getAs[PerfType]("_id")
           nb <- doc.getAs[Int]("nb")
