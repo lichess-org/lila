@@ -42,13 +42,9 @@ object AccessToken {
   import lila.db.BSON
   import lila.db.dsl._
   import BSON.BSONJodaDateTimeHandler
+  import OAuthScope.scopeHandler
 
   private[oauth] implicit val accessTokenIdHandler = stringAnyValHandler[Id](_.value, Id.apply)
-
-  private[oauth] implicit val scopeHandler = new BSONHandler[BSONString, OAuthScope] {
-    def read(b: BSONString): OAuthScope = OAuthScope.byKey.get(b.value) err s"No such scope: ${b.value}"
-    def write(s: OAuthScope) = BSONString(s.key)
-  }
 
   implicit val ForAuthBSONReader = new BSONDocumentReader[ForAuth] {
     def read(doc: BSONDocument) = ForAuth(
@@ -73,7 +69,7 @@ object AccessToken {
       scopes = r.get[List[OAuthScope]](scopes)
     )
 
-    def writes(w: BSON.Writer, o: AccessToken) = BSONDocument(
+    def writes(w: BSON.Writer, o: AccessToken) = $doc(
       id -> o.id,
       clientId -> o.clientId,
       userId -> o.userId,

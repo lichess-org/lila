@@ -27,4 +27,11 @@ object OAuthScope {
   def keyList(scopes: Iterable[OAuthScope]) = scopes.map(_.key) mkString ", "
 
   def select(selectors: Iterable[OAuthScope.type => OAuthScope]) = selectors.map(_(OAuthScope)).toList
+
+  import reactivemongo.bson._
+  import lila.db.dsl._
+  private[oauth] implicit val scopeHandler = new BSONHandler[BSONString, OAuthScope] {
+    def read(b: BSONString): OAuthScope = OAuthScope.byKey.get(b.value) err s"No such scope: ${b.value}"
+    def write(s: OAuthScope) = BSONString(s.key)
+  }
 }

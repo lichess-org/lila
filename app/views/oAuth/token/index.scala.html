@@ -2,11 +2,11 @@
 
 @title = @{ "Personal API access tokens" }
 
-@account.layout(title = title, active = "oauth") {
+@account.layout(title = title, active = "oauth.token") {
 <div class="content_box no_padding small_box high oauth security">
   <div class="top">
     <h1>@title</h1>
-    <form class="new_token" action="@routes.OAuthToken.create">
+    <form class="new_obj" action="@routes.OAuthToken.create">
       <button type="submit" class="button frameless hint--top" data-hint="New access token">
         <i data-icon="O"></i>
       </button>

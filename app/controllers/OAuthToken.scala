@@ -14,18 +14,18 @@ object OAuthToken extends LilaController {
 
   def index = Auth { implicit ctx => me =>
     env.tokenApi.list(me) map { tokens =>
-      Ok(html.oAuthToken.index(tokens))
+      Ok(html.oAuth.token.index(tokens))
     }
   }
 
   def create = Auth { implicit ctx => me =>
-    Ok(html.oAuthToken.create(env.forms.create)).fuccess
+    Ok(html.oAuth.token.create(env.forms.token.create)).fuccess
   }
 
   def createApply = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    env.forms.create.bindFromRequest.fold(
-      err => BadRequest(html.oAuthToken.create(err)).fuccess,
+    env.forms.token.create.bindFromRequest.fold(
+      err => BadRequest(html.oAuth.token.create(err)).fuccess,
       setup => env.tokenApi.create(setup make me) inject
         Redirect(routes.OAuthToken.index)
     )

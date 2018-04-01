@@ -10,7 +10,6 @@ import lila.user.{ User, UserRepo }
 
 final class OAuthServer(
     tokenColl: Coll,
-    clientColl: Coll,
     jwtPublicKey: JWT.PublicKey
 ) {
 
