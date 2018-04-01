@@ -40,8 +40,7 @@ object OAuthForm {
       "name" -> nonEmptyText(minLength = 3, maxLength = 90),
       "description" -> optional(nonEmptyText(maxLength = 400)),
       "homepageUri" -> nonEmptyText,
-      "redirectUri" -> nonEmptyText,
-      "scopes" -> scopesField
+      "redirectUri" -> nonEmptyText
     )(Data.apply)(Data.unapply))
 
     def create = form
@@ -52,15 +51,13 @@ object OAuthForm {
         name: String,
         description: Option[String],
         homepageUri: String,
-        redirectUri: String,
-        scopes: List[String]
+        redirectUri: String
     ) {
       def make(user: lila.user.User) = OAuthApp(
         name = name,
         description = description,
         homepageUri = homepageUri,
         redirectUri = redirectUri,
-        scopes = scopes.flatMap(OAuthScope.byKey.get),
         clientId = OAuthApp.makeId,
         clientSecret = OAuthApp.makeSecret,
         author = user.id,
@@ -71,8 +68,7 @@ object OAuthForm {
         name = name,
         description = description,
         homepageUri = homepageUri,
-        redirectUri = redirectUri,
-        scopes = scopes.flatMap(OAuthScope.byKey.get)
+        redirectUri = redirectUri
       )
     }
 
@@ -82,8 +78,7 @@ object OAuthForm {
         name = app.name,
         description = app.description,
         homepageUri = app.homepageUri,
-        redirectUri = app.redirectUri,
-        scopes = app.scopes.map(_.key)
+        redirectUri = app.redirectUri
       )
     }
   }

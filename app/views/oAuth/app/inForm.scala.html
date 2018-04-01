@@ -18,15 +18,4 @@
   }
 </div>
 
-<h2>Scopes required:</h2>
-
-<div class="scopes">
-  @lila.oauth.OAuthScope.all.map { scope =>
-  <label>
-    <input type="checkbox" name="@{form("scopes").name}[]" value="@scope.key" @if(form("scopes").value.contains(scope.key)){checked} />
-    @scope.name
-  </label>
-  }
-</div>
-
 @base.form.submit()

@@ -12,7 +12,6 @@ case class OAuthApp(
     redirectUri: String,
     author: User.ID,
     createdAt: DateTime,
-    scopes: List[OAuthScope],
     description: Option[String] = None
 )
 
@@ -32,7 +31,6 @@ object OAuthApp {
     val redirectUri = "redirect_uri"
     val author = "author"
     val createdAt = "create_date"
-    val scopes = "scopes"
     val description = "description"
   }
 
@@ -40,7 +38,6 @@ object OAuthApp {
   import lila.db.BSON
   import lila.db.dsl._
   import BSON.BSONJodaDateTimeHandler
-  import OAuthScope.scopeHandler
 
   private[oauth] implicit val AppIdHandler = stringAnyValHandler[Id](_.value, Id.apply)
   private[oauth] implicit val AppSecretHandler = stringAnyValHandler[Secret](_.value, Secret.apply)
@@ -57,7 +54,6 @@ object OAuthApp {
       redirectUri = r.get[List[String]](redirectUri).headOption err "Missing OAuthApp.redirectUri array",
       author = r str author,
       createdAt = r.get[DateTime](createdAt),
-      scopes = r.get[List[OAuthScope]](scopes),
       description = r strO description
     )
 
@@ -69,7 +65,6 @@ object OAuthApp {
       redirectUri -> $arr(o.redirectUri),
       author -> o.author,
       createdAt -> o.createdAt,
-      scopes -> o.scopes,
       description -> o.description
     )
   }
