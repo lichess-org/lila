@@ -95,8 +95,8 @@ final class Env(
     clearJsonViewCache = jsonView.clearCache,
     clearWinnersCache = winners.clearCache,
     clearTrophyCache = tour => {
-      if (tour.isShield) shieldApi.clear
-      else if (tour.isUnique) revolutionApi.clear
+      if (tour.isShield) scheduler.once(10 seconds)(shieldApi.clear)
+      else if (Revolution is tour) scheduler.once(10 seconds)(revolutionApi.clear)
     },
     renderer = hub.actor.renderer,
     timeline = hub.actor.timeline,
