@@ -54,6 +54,12 @@ object Account extends LidraughtsController {
     )
   }
 
+  def me = Scoped() { _ => me =>
+    Env.api.userApi.one(me, me.some) map { json =>
+      Ok(json) as JSON
+    }
+  }
+
   def dasher = Auth { implicit ctx => me =>
     negotiate(
       html = notFound,
