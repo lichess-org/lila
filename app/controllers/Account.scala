@@ -27,50 +27,43 @@ object Account extends LilaController {
     }
   }
 
-  def info = Open { implicit ctx =>
+  def info = Auth { implicit ctx => me =>
     negotiate(
       html = notFound,
-      api = _ => ctx.me match {
-        case None => fuccess(unauthorizedApiResult)
-        case Some(me) =>
-          relationEnv.api.countFollowers(me.id) zip
-            relationEnv.api.countFollowing(me.id) zip
-            Env.pref.api.getPref(me) zip
-            lila.game.GameRepo.urgentGames(me) zip
-            Env.challenge.api.countInFor.get(me.id) map {
-              case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges =>
-                Env.current.system.lilaBus.publish(lila.user.User.Active(me), 'userActive)
-                Ok {
-                  import play.api.libs.json._
-                  import lila.pref.JsonView._
-                  Env.user.jsonView(me) ++ Json.obj(
-                    "prefs" -> prefs,
-                    "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
-                    "nbFollowing" -> nbFollowing,
-                    "nbFollowers" -> nbFollowers,
-                    "nbChallenges" -> nbChallenges
-                  ).add("kid" -> me.kid)
-                    .add("troll" -> me.troll)
-                }
+      api = _ => relationEnv.api.countFollowers(me.id) zip
+        relationEnv.api.countFollowing(me.id) zip
+        Env.pref.api.getPref(me) zip
+        lila.game.GameRepo.urgentGames(me) zip
+        Env.challenge.api.countInFor.get(me.id) map {
+          case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges =>
+            Env.current.system.lilaBus.publish(lila.user.User.Active(me), 'userActive)
+            Ok {
+              import play.api.libs.json._
+              import lila.pref.JsonView._
+              Env.user.jsonView(me) ++ Json.obj(
+                "prefs" -> prefs,
+                "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
+                "nbFollowing" -> nbFollowing,
+                "nbFollowers" -> nbFollowers,
+                "nbChallenges" -> nbChallenges
+              ).add("kid" -> me.kid)
+                .add("troll" -> me.troll)
             }
-      }
-    ) map ensureSessionId(ctx.req)
+        }
+    )
   }
 
-  def dasher = Open { implicit ctx =>
+  def dasher = Auth { implicit ctx => me =>
     negotiate(
       html = notFound,
-      api = _ => ctx.me match {
-        case None => fuccess(unauthorizedApiResult)
-        case Some(me) => Env.pref.api.getPref(me) map { prefs =>
-          Ok {
-            import play.api.libs.json._
-            import lila.pref.JsonView._
-            lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
-              "coach" -> isGranted(_.Coach),
-              "prefs" -> prefs
-            )
-          }
+      api = _ => Env.pref.api.getPref(me) map { prefs =>
+        Ok {
+          import play.api.libs.json._
+          import lila.pref.JsonView._
+          lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
+            "coach" -> isGranted(_.Coach),
+            "prefs" -> prefs
+          )
         }
       }
     )

@@ -11,6 +11,7 @@ import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest, ApiVersion }
 import lila.notify.Notification.Notifies
+import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ Permission, Granter, FingerprintedUser }
 import lila.user.{ UserContext, User => UserModel }
 
@@ -56,7 +57,7 @@ private[controllers] trait LilaController
   protected def Open[A](p: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       CSRF(req) {
-        reqToCtx(req) flatMap f recover oauthFailure
+        reqToCtx(req) flatMap f
       }
     }
 
@@ -66,7 +67,7 @@ private[controllers] trait LilaController
   protected def OpenBody[A](p: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       CSRF(req) {
-        reqToCtx(req) flatMap f recover oauthFailure
+        reqToCtx(req) flatMap f
       }
     }
 
@@ -78,7 +79,7 @@ private[controllers] trait LilaController
       CSRF(req) {
         reqToCtx(req) flatMap { ctx =>
           ctx.me.fold(authenticationFailed(ctx))(f(ctx))
-        } recover oauthFailure
+        }
       }
     }
 
@@ -90,7 +91,7 @@ private[controllers] trait LilaController
       CSRF(req) {
         reqToCtx(req) flatMap { ctx =>
           ctx.me.fold(authenticationFailed(ctx))(f(ctx))
-        } recover oauthFailure
+        }
       }
     }
 
@@ -117,6 +118,22 @@ private[controllers] trait LilaController
 
   protected def SecureBody(perm: Permission.type => Permission)(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
     SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(f)
+
+  protected def Scoped(selectors: OAuthScope.Selector*)(f: RequestHeader => UserModel => Fu[Result]): Action[Unit] =
+    Scoped(BodyParsers.parse.empty)(selectors)(f)
+
+  protected def Scoped[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(f: RequestHeader => UserModel => Fu[Result]): Action[A] = {
+    val scopes = OAuthScope select selectors
+    Action.async(parser) { req =>
+      Env.security.api.oauthScoped(req, scopes) flatMap {
+        case Left(e @ lila.oauth.OAuthServer.MissingScope(available)) => OAuthServer.responseHeaders(scopes, available) {
+          Unauthorized(jsonError(e.message))
+        }.fuccess
+        case Left(e) => OAuthServer.responseHeaders(scopes, Nil) { Unauthorized(jsonError(e.message)) }.fuccess
+        case Right(scoped) => f(req)(scoped.user) map OAuthServer.responseHeaders(scopes, scoped.scopes)
+      } map { _ as JSON }
+    }
+  }
 
   protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     if (Env.security.firewall accepts ctx.req) a
@@ -169,10 +186,6 @@ private[controllers] trait LilaController
 
   protected def NoPlaybanOrCurrent(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     NoPlayban(NoCurrentGame(a))
-
-  private val oauthFailure: PartialFunction[Throwable, Result] = {
-    case e: lila.oauth.OauthException => Unauthorized(jsonError(e.message))
-  }
 
   protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a =>
     Ok(Json toJson a) as JSON
@@ -255,10 +268,10 @@ private[controllers] trait LilaController
         implicit val req = ctx.req
         Redirect(routes.Auth.signup) withCookies LilaCookie.session(Env.security.api.AccessUri, req.uri)
       },
-      api = _ => unauthorizedApiResult.fuccess
+      api = _ => ensureSessionId(ctx.req) {
+        Unauthorized(jsonError("Login required"))
+      }.fuccess
     )
-
-  protected val unauthorizedApiResult = Unauthorized(jsonError("Login required"))
 
   protected def authorizationFailed(implicit ctx: Context): Fu[Result] = negotiate(
     html =

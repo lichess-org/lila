@@ -77,13 +77,13 @@ final class SecurityApi(
             }
           }
         }
-      } orElse lila.oauth.OAuthServer.appliesTo(req).?? {
-        tryOauthServer().flatMap {
-          _ ?? {
-            _.activeUser(req).map2 { (u: User) => FingerprintedUser(u, false) }
-          }
-        }
       }
+    }
+
+  def oauthScoped(req: RequestHeader, scopes: List[lila.oauth.OAuthScope]): Fu[lila.oauth.OAuthServer.AuthResult] =
+    tryOauthServer().flatMap {
+      case None => fuccess(Left(lila.oauth.OAuthServer.ServerOffline))
+      case Some(server) => server.auth(req, scopes)
     }
 
   def locatedOpenSessions(userId: User.ID, nb: Int): Fu[List[LocatedSession]] =

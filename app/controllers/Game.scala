@@ -1,8 +1,8 @@
 package controllers
 
-import scala.concurrent.duration._
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import scala.concurrent.duration._
 
 import lila.app._
 import lila.game.{ GameRepo, Game => GameModel }
@@ -40,8 +40,8 @@ object Game extends LilaController {
     )
   }
 
-  def exportApi = Auth { implicit ctx => me =>
-    val since = getLong("since") map { ts => new DateTime(ts) }
+  def exportApi = Scoped(_.Game.Read) { req => me =>
+    val since = getLong("since", req) map { ts => new DateTime(ts) }
     fuccess(streamGamesPgn(me, since))
   }
 
