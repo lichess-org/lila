@@ -518,6 +518,7 @@ POST  /account/kidConfirm              controllers.Account.kidConfirm
 GET   /account/security                controllers.Account.security
 POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: String)
 GET   /account/info                    controllers.Account.info
+GET   /account/me                      controllers.Account.me
 
 # OAuth
 GET   /account/oauth/token             controllers.OAuthToken.index
