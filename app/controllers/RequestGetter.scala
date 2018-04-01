@@ -25,6 +25,9 @@ trait RequestGetter {
   protected def getLong(name: String)(implicit ctx: UserContext) =
     get(name) flatMap parseLongOption
 
+  protected def getLong(name: String, req: RequestHeader) =
+    get(name, req) flatMap parseLongOption
+
   protected def getBool(name: String)(implicit ctx: UserContext) =
     getInt(name) contains 1
 

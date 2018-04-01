@@ -323,6 +323,7 @@ GET   /draughtsnet/status                         controllers.Draughtsnet.status
 # Pref
 POST  /pref/zoom                       controllers.Pref.setZoom
 POST  /pref/:name                      controllers.Pref.set(name: String)
+GET   /account/preferences             controllers.Pref.get
 GET   /account/preferences/:categ      controllers.Pref.form(categ: String)
 POST  /account/preferences             controllers.Pref.formApply
 POST  /account/preferences/tag/:name/:value controllers.Pref.saveTag(name: String, value: String)

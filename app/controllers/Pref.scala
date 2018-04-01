@@ -12,6 +12,16 @@ object Pref extends LidraughtsController {
   private def api = Env.pref.api
   private def forms = lidraughts.pref.DataForm
 
+  def get = Scoped(_.Preference.Read) { _ => me =>
+    Env.pref.api.getPref(me) map { prefs =>
+      Ok {
+        import play.api.libs.json._
+        import lidraughts.pref.JsonView._
+        Json.obj("prefs" -> prefs)
+      }
+    }
+  }
+
   def form(categSlug: String) = Auth { implicit ctx => me =>
     lidraughts.pref.PrefCateg(categSlug) match {
       case None => notFound

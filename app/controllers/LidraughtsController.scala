@@ -11,6 +11,7 @@ import lidraughts.api.{ PageData, Context, HeaderContext, BodyContext }
 import lidraughts.app._
 import lidraughts.common.{ LidraughtsCookie, HTTPRequest, ApiVersion }
 import lidraughts.notify.Notification.Notifies
+import lidraughts.oauth.{ OAuthScope, OAuthServer }
 import lidraughts.security.{ Permission, Granter, FingerprintedUser }
 import lidraughts.user.{ UserContext, User => UserModel }
 
@@ -56,7 +57,7 @@ private[controllers] trait LidraughtsController
   protected def Open[A](p: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       CSRF(req) {
-        reqToCtx(req) flatMap f recover oauthFailure
+        reqToCtx(req) flatMap f
       }
     }
 
@@ -66,7 +67,7 @@ private[controllers] trait LidraughtsController
   protected def OpenBody[A](p: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       CSRF(req) {
-        reqToCtx(req) flatMap f recover oauthFailure
+        reqToCtx(req) flatMap f
       }
     }
 
@@ -78,7 +79,7 @@ private[controllers] trait LidraughtsController
       CSRF(req) {
         reqToCtx(req) flatMap { ctx =>
           ctx.me.fold(authenticationFailed(ctx))(f(ctx))
-        } recover oauthFailure
+        }
       }
     }
 
@@ -90,7 +91,7 @@ private[controllers] trait LidraughtsController
       CSRF(req) {
         reqToCtx(req) flatMap { ctx =>
           ctx.me.fold(authenticationFailed(ctx))(f(ctx))
-        } recover oauthFailure
+        }
       }
     }
 
@@ -123,6 +124,22 @@ private[controllers] trait LidraughtsController
     or: => Fu[Result] = fuccess(Redirect(routes.Lobby.home()))
   )(implicit ctx: Context): Fu[Result] =
     if (Env.security.firewall accepts ctx.req) a else or
+
+  protected def Scoped(selectors: OAuthScope.Selector*)(f: RequestHeader => UserModel => Fu[Result]): Action[Unit] =
+    Scoped(BodyParsers.parse.empty)(selectors)(f)
+
+  protected def Scoped[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(f: RequestHeader => UserModel => Fu[Result]): Action[A] = {
+    val scopes = OAuthScope select selectors
+    Action.async(parser) { req =>
+      Env.security.api.oauthScoped(req, scopes) flatMap {
+        case Left(e @ lidraughts.oauth.OAuthServer.MissingScope(available)) => OAuthServer.responseHeaders(scopes, available) {
+          Unauthorized(jsonError(e.message))
+        }.fuccess
+        case Left(e) => OAuthServer.responseHeaders(scopes, Nil) { Unauthorized(jsonError(e.message)) }.fuccess
+        case Right(scoped) => f(req)(scoped.user) map OAuthServer.responseHeaders(scopes, scoped.scopes)
+      } map { _ as JSON }
+    }
+  }
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
     if (Env.security.tor isExitNode HTTPRequest.lastRemoteAddress(ctx.req))
@@ -171,10 +188,6 @@ private[controllers] trait LidraughtsController
 
   protected def NoPlaybanOrCurrent(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     NoPlayban(NoCurrentGame(a))
-
-  private val oauthFailure: PartialFunction[Throwable, Result] = {
-    case e: lidraughts.oauth.OauthException => Unauthorized(jsonError(e.message))
-  }
 
   protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a =>
     Ok(Json toJson a) as JSON
@@ -257,10 +270,10 @@ private[controllers] trait LidraughtsController
         implicit val req = ctx.req
         Redirect(routes.Auth.signup) withCookies LidraughtsCookie.session(Env.security.api.AccessUri, req.uri)
       },
-      api = _ => unauthorizedApiResult.fuccess
+      api = _ => ensureSessionId(ctx.req) {
+        Unauthorized(jsonError("Login required"))
+      }.fuccess
     )
-
-  protected val unauthorizedApiResult = Unauthorized(jsonError("Login required"))
 
   protected def authorizationFailed(implicit ctx: Context): Fu[Result] = negotiate(
     html =
