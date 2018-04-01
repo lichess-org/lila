@@ -1,0 +1,32 @@
+@(form: Form[_])(implicit ctx: Context)
+
+@base.form.group(form("name"), Html("App name")) {
+@base.form.input(form("name"), required = true)
+}
+
+@defining(form("description")) { field =>
+@base.form.group(field, Html("App description")) {
+<textarea name="@field.name" id="@field.id">@field.value</textarea>
+}
+}
+<div>
+  @base.form.group(form("homepageUri"), Html("Homepage URL"), half = true) {
+  @base.form.input(form("homepageUri"), required = true)
+  }
+  @base.form.group(form("redirectUri"), Html("Callback URL"), half = true) {
+  @base.form.input(form("redirectUri"), required = true)
+  }
+</div>
+
+<h2>Scopes required:</h2>
+
+<div class="scopes">
+  @lila.oauth.OAuthScope.all.map { scope =>
+  <label>
+    <input type="checkbox" name="@{form("scopes").name}[]" value="@scope.key" @if(form("scopes").value.contains(scope.key)){checked} />
+    @scope.name
+  </label>
+  }
+</div>
+
+@base.form.submit()

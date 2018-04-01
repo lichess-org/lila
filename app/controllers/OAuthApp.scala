@@ -31,6 +31,22 @@ object OAuthApp extends LilaController {
     )
   }
 
+  def edit(id: String) = Auth { implicit ctx => me =>
+    OptionFuResult(env.appApi.findBy(App.Id(id), me)) { app =>
+      Ok(html.oAuth.app.edit(app, env.forms.app.edit(app))).fuccess
+    }
+  }
+
+  def update(id: String) = AuthBody { implicit ctx => me =>
+    OptionFuResult(env.appApi.findBy(App.Id(id), me)) { app =>
+      implicit val req = ctx.body
+      env.forms.app.edit(app).bindFromRequest.fold(
+        err => BadRequest(html.oAuth.app.edit(app, err)).fuccess,
+        data => env.appApi.update(app) { data.update(_) } map { r => Redirect(routes.OAuthApp.edit(app.clientId.value)) }
+      )
+    }
+  }
+
   def delete(id: String) = Auth { implicit ctx => me =>
     env.appApi.deleteBy(App.Id(id), me) inject
       Redirect(routes.OAuthApp.index)

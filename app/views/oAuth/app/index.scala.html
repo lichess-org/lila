@@ -12,7 +12,11 @@
       </button>
     </form>
   </div>
-  <p class="explanation">Want to build something that integrates with and extends Lichess? Register a new OAuth App to get started developing on the Lichess API.</p>
+  <p class="explanation">
+    Want to build something that integrates with and extends Lichess? Register a new OAuth App to get started developing on the Lichess API.<br />
+    Here's a <a class="blue" href="https://github.com/lichess-org/api/tree/master/example/oauth">lichess OAuth app example</a>,
+    and the <a class="blue" href="https://github.com/lichess-org/api/tree/master">API documentation</a>.
+  </p>
 
   <table class="slist">
     @apps.map { t =>
@@ -27,8 +31,9 @@
         Created @momentFromNow(t.createdAt)<br />
       </td>
       <td class="action">
+        <a href="@routes.OAuthApp.edit(t.clientId.value)" class="button hint--top" title="Edit this app"><i data-icon="m"></i></a>
         <form action="@routes.OAuthApp.delete(t.clientId.value)" method="POST">
-          <button type="submit" class="button text confirm hint--top" title="Delete this app">Delete</button>
+          <button type="submit" class="button confirm hint--top" title="Delete this app"><i data-icon="q"></i></button>
         </form>
       </td>
     </tr>

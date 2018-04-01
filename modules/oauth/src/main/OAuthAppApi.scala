@@ -16,6 +16,18 @@ final class OAuthAppApi(appColl: Coll) {
 
   def create(app: OAuthApp) = appColl insert app void
 
+  def findBy(clientId: OAuthApp.Id, user: User): Fu[Option[OAuthApp]] =
+    appColl.uno[OAuthApp]($doc(
+      F.clientId -> clientId,
+      F.author -> user.id
+    ))
+
+  def update(from: OAuthApp)(f: OAuthApp => OAuthApp): Fu[OAuthApp] = {
+    val app = f(from)
+    if (app == from) fuccess(app)
+    else appColl.update($doc(F.clientId -> app.clientId), app) inject app
+  }
+
   def deleteBy(clientId: OAuthApp.Id, user: User) =
     appColl.remove($doc(
       F.clientId -> clientId,

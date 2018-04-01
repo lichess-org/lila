@@ -46,6 +46,8 @@ object OAuthForm {
 
     def create = form
 
+    def edit(app: OAuthApp) = form fill Data.make(app)
+
     case class Data(
         name: String,
         description: Option[String],
@@ -63,6 +65,25 @@ object OAuthForm {
         clientSecret = OAuthApp.makeSecret,
         author = user.id,
         createdAt = DateTime.now
+      )
+
+      def update(app: OAuthApp) = app.copy(
+        name = name,
+        description = description,
+        homepageUri = homepageUri,
+        redirectUri = redirectUri,
+        scopes = scopes.flatMap(OAuthScope.byKey.get)
+      )
+    }
+
+    object Data {
+
+      def make(app: OAuthApp) = Data(
+        name = app.name,
+        description = app.description,
+        homepageUri = app.homepageUri,
+        redirectUri = app.redirectUri,
+        scopes = app.scopes.map(_.key)
       )
     }
   }

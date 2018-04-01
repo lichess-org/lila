@@ -518,6 +518,8 @@ POST  /account/kidConfirm              controllers.Account.kidConfirm
 GET   /account/security                controllers.Account.security
 POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: String)
 GET   /account/info                    controllers.Account.info
+
+# OAuth
 GET   /account/oauth/token             controllers.OAuthToken.index
 GET   /account/oauth/token/create      controllers.OAuthToken.create
 POST  /account/oauth/token/create      controllers.OAuthToken.createApply
@@ -525,6 +527,8 @@ POST  /account/oauth/token/:id/delete  controllers.OAuthToken.delete(id: String)
 GET   /account/oauth/app               controllers.OAuthApp.index
 GET   /account/oauth/app/create        controllers.OAuthApp.create
 POST  /account/oauth/app/create        controllers.OAuthApp.createApply
+GET   /account/oauth/app/:id/edit      controllers.OAuthApp.edit(id: String)
+POST  /account/oauth/app/:id/edit      controllers.OAuthApp.update(id: String)
 POST  /account/oauth/app/:id/delete    controllers.OAuthApp.delete(id: String)
 
 # Events
