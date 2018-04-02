@@ -21,6 +21,12 @@ function cache(view, dataToKey) {
 }
 
 var renderMeat = cache(function(ctrl) {
+  if (ctrl.vm.broken) return m('div.broken', [
+    m('i[data-icon=j]'),
+    'Insights are unavailable.',
+    m('br'),
+    'Please try again later.'
+  ]);
   if (!ctrl.vm.answer) return;
   return m('div', [
     chart(ctrl),
@@ -29,7 +35,7 @@ var renderMeat = cache(function(ctrl) {
   ]);
 }, function(ctrl) {
   var q = ctrl.vm.answer ? ctrl.vm.answer.question : null;
-  return q ? ctrl.makeUrl(q.dimension, q.metric, q.filters) : '';
+  return q ? ctrl.makeUrl(q.dimension, q.metric, q.filters) : ctrl.vm.broken;
 });
 
 module.exports = function(ctrl) {

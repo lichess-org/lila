@@ -30,6 +30,7 @@ module.exports = function(env, domElement) {
     dimension: findDimension(env.initialQuestion.dimension),
     filters: env.initialQuestion.filters,
     loading: true,
+    broken: false,
     answer: null,
     panel: Object.keys(env.initialQuestion.filters).length ? 'filter' : 'preset'
   };
@@ -50,6 +51,7 @@ module.exports = function(env, domElement) {
     if (!this.validCombinationCurrent()) reset();
     this.pushState();
     this.vm.loading = true;
+    this.vm.broken = false;
     m.redraw();
     setTimeout(function() {
       m.request({
@@ -59,10 +61,17 @@ module.exports = function(env, domElement) {
           metric: this.vm.metric.key,
           dimension: this.vm.dimension.key,
           filters: this.vm.filters
+        },
+        deserialize: function(d) {
+          try {return JSON.parse(d)} catch (e) {throw new Error(d)}
         }
       }).then(function(answer) {
         this.vm.answer = answer;
         this.vm.loading = false;
+      }.bind(this)).catch(function(e) {
+        this.vm.loading = false;
+        this.vm.broken = true;
+        m.redraw();
       }.bind(this));
     }.bind(this), 1);
   }.bind(this));
