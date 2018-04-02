@@ -24,8 +24,13 @@ help = Html("Feature on /broadcast - for admins only").some) {
 @base.form.group(form("syncType"), Html("Source format")) {
 @base.form.select(form("syncType"), lila.relay.RelayForm.syncTypes)
 }
-@base.form.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), help = Html("Optional, if you know when the event starts").some) {
+<div>
+@base.form.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), help = Html("Optional, if you know when the event starts").some, half = true) {
 @base.form.flatpickr(form("startsAt"))
 }
+@base.form.group(form("throttle"), Html("Throttle in seconds"), help = Html("Optional, to manually throttle requests. Max 60s.").some, half = true) {
+@base.form.input(form("throttle"), typ = "number")
+}
+</div>
 
 @base.form.submit()
