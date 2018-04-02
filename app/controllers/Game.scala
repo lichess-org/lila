@@ -43,7 +43,8 @@ object Game extends LidraughtsController {
   def exportApi = Scoped(_.Game.Read) { req => me =>
     val since = getLong("since", req) map { ts => new DateTime(ts) }
     val until = getLong("until", req) map { ts => new DateTime(ts) }
-    fuccess(streamGamesPdn(me, since, until, lidraughts.pref.Pref.default.draughtsResult))
+    val max = getInt("max", req)
+    fuccess(streamGamesPdn(me, since, until, lidraughts.pref.Pref.default.draughtsResult, max))
   }
 
   private val ExportRateLimitPerUser = new lidraughts.memo.RateLimit[lidraughts.user.User.ID](
@@ -53,10 +54,10 @@ object Game extends LidraughtsController {
     key = "game_export.user"
   )
 
-  private def streamGamesPdn(user: lidraughts.user.User, since: Option[DateTime], until: Option[DateTime], draughtsResult: Boolean) =
+  private def streamGamesPdn(user: lidraughts.user.User, since: Option[DateTime], until: Option[DateTime], draughtsResult: Boolean, max: Option[Int] = None) =
     ExportRateLimitPerUser(user.id, cost = 1) {
       val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-      Ok.chunked(Env.api.pdnDump.exportUserGames(user.id, since, until, draughtsResult)).withHeaders(
+      Ok.chunked(Env.api.pdnDump.exportUserGames(user.id, since, until, max | Int.MaxValue, draughtsResult)).withHeaders(
         CONTENT_TYPE -> pdnContentType,
         CONTENT_DISPOSITION -> ("attachment; filename=" + s"lidraughts_${user.username}_$date.pdn")
       )
