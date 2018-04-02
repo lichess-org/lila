@@ -103,7 +103,7 @@ final class Env(
         case e: akka.pattern.AskTimeoutException =>
           // again? monitor, log and fallback on DB
           lidraughts.mon.round.proxyGameWatcherCount("double_exception")()
-          logger.info(s"roundProxyGame double timeout https://lidraughts.org/$gameId")
+          logger.warn(s"roundProxyGame double timeout https://lidraughts.org/$gameId")
           lidraughts.game.GameRepo game gameId
       }
   }
