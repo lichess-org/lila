@@ -32,7 +32,7 @@ final class OAuthServer(
           case Some(at) if !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
           case Some(at) =>
             setUsedNow(accessTokenId)
-            UserRepo byId at.userId flatMap {
+            UserRepo enabledById at.userId flatMap {
               case None => fufail(NoSuchUser)
               case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
             }
