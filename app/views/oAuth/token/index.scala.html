@@ -12,7 +12,20 @@
       </button>
     </form>
   </div>
-  <p class="explanation">Tokens you have generated that can be used to access the lichess API.</p>
+  <p class="explanation">
+    You can make OAuth requests without going through the authorization code flow.<br />
+    <br />
+    Instead, <a class="blue" href="@routes.OAuthToken.create">generate a personal token</a> that you can directly use in API requests.<br />
+    <br />
+    Be careful, these tokens are like passwords so you should guard them carefully.<br />
+    The advantage to using a token over putting your password into a script is that a token can be revoked,
+    and you can generate lots of them.<br />
+    <br />
+    Here's an
+    <a class="blue" href="https://github.com/lichess-org/api/tree/master/example/oauth-personal-token">
+      example of an app that connects to lichess API using a personal token.
+    </a>
+  </p>
 
   @tokens.headOption.filter(_.isBrandNew).map { token =>
   <div class="brand">
