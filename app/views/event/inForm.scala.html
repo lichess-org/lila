@@ -1,34 +1,32 @@
 @(form: Form[_])(implicit ctx: Context)
 
-@base.form.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), half = true) {
-@base.form.flatpickr(form("startsAt"))
+@base.form.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), half = true) { field =>
+@base.form.flatpickr(field)
 }
-@base.form.group(form("finishesAt"), Html("End date <strong>UTC</strong>"), half = true) {
-@base.form.flatpickr(form("finishesAt"))
+@base.form.group(form("finishesAt"), Html("End date <strong>UTC</strong>"), half = true) { field =>
+@base.form.flatpickr(field)
 }
-@base.form.group(form("title"), Html("Short title")) {
-@base.form.input(form("title"))
+@base.form.group(form("title"), Html("Short title")) { field =>
+@base.form.input(field)
 }
-@base.form.group(form("headline"), Html("Short headline")) {
-@base.form.input(form("headline"))
+@base.form.group(form("headline"), Html("Short headline")) { field =>
+@base.form.input(field)
 }
-@defining(form("description")) { field =>
-@base.form.group(field, Html("Possibly long description")) {
+@base.form.group(form("description"), Html("Possibly long description")) { field =>
 <textarea name="@field.name" id="@field.id">@field.value</textarea>
 }
+@base.form.group(form("url"), Html("External URL")) { field =>
+@base.form.input(field)
 }
-@base.form.group(form("url"), Html("External URL")) {
-@base.form.input(form("url"))
-}
-@base.form.group(form("lang"), Html("Language")) {
-@base.form.select(form("lang"), lila.i18n.LangList.choices)
+@base.form.group(form("lang"), Html("Language")) { field =>
+@base.form.select(field, lila.i18n.LangList.choices)
 }
 <div>
-  @base.form.group(form("enabled"), Html("Enabled"), half = true) {
-  @base.form.select(form("enabled"), booleanChoices)
+  @base.form.group(form("enabled"), Html("Enabled"), half = true) { field =>
+  @base.form.select(field, booleanChoices)
   }
-  @base.form.group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true) {
-  @base.form.input(form("homepageHours"), "Ask first!".some)
+  @base.form.group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true) { field =>
+  @base.form.input(field, "Ask first!".some)
   }
 </div>
 

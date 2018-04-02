@@ -1,20 +1,18 @@
 @(form: Form[_])(implicit ctx: Context)
 
-@base.form.group(form("name"), Html("App name")) {
-@base.form.input(form("name"), required = true)
+@base.form.group(form("name"), Html("App name")) { field =>
+@base.form.input(field, required = true)
 }
 
-@defining(form("description")) { field =>
-@base.form.group(field, Html("App description")) {
+@base.form.group(form("description"), Html("App description")) { field =>
 <textarea name="@field.name" id="@field.id">@field.value</textarea>
 }
-}
 <div>
-  @base.form.group(form("homepageUri"), Html("Homepage URL"), half = true) {
-  @base.form.input(form("homepageUri"), required = true)
+  @base.form.group(form("homepageUri"), Html("Homepage URL"), half = true) { field =>
+  @base.form.input(field, required = true)
   }
-  @base.form.group(form("redirectUri"), Html("Callback URL"), half = true) {
-  @base.form.input(form("redirectUri"), required = true)
+  @base.form.group(form("redirectUri"), Html("Callback URL"), half = true) { field =>
+  @base.form.input(field, required = true)
   }
 </div>
 

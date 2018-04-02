@@ -12,36 +12,36 @@ evenMoreCss =cssTag("material.form.css")) {
     <form class="material form" action="@routes.Account.profileApply" method="POST">
       <div class="form-group">@trans.allInformationIsPublicAndOptional()</div>
       <div>
-        @base.form.group(form("country"), trans.country(), klass = "half") {
-        @base.form.select(form("country"), lila.user.Countries.allPairs, default = "".some)
+        @base.form.group(form("country"), trans.country(), klass = "half") { field =>
+        @base.form.select(field, lila.user.Countries.allPairs, default = "".some)
         }
-        @base.form.group(form("location"), trans.location(), klass = "half") {
-        @base.form.input(form("location"))
+        @base.form.group(form("location"), trans.location(), klass = "half") { field =>
+        @base.form.input(field)
         }
       </div>
       @NotForKids {
-      @base.form.group(form("bio"), Html(s"${trans.biography.txt()}")) {
-      <textarea name="@form("bio").name" id="@form("bio").id" rows=5 maxlength=600>@form("bio").value</textarea>
+      @base.form.group(form("bio"), Html(s"${trans.biography.txt()}")) { field =>
+      <textarea name="@field.name" id="@field.id" rows=5 maxlength=600>@field.value</textarea>
       <p class="form-help">@trans.biographyDescription()</p>
       }
       <div>
-        @base.form.group(form("firstName"), trans.firstName(), klass = "half") {
-        @base.form.input(form("firstName"))
+        @base.form.group(form("firstName"), trans.firstName(), klass = "half") { field =>
+        @base.form.input(field)
         }
-        @base.form.group(form("lastName"), trans.lastName(), klass = "half") {
-        @base.form.input(form("lastName"))
+        @base.form.group(form("lastName"), trans.lastName(), klass = "half") { field =>
+        @base.form.input(field)
         }
       </div>
       }
       <div>
         @List("fide", "uscf", "ecf").map { rn =>
-        @base.form.group(form(s"${rn}Rating"), trans.xRating(rn.toUpperCase), help=trans.ifNoneLeaveEmpty().some, klass = "third") {
-        @base.form.input(form(s"${rn}Rating"), typ="number")
+        @base.form.group(form(s"${rn}Rating"), trans.xRating(rn.toUpperCase), help=trans.ifNoneLeaveEmpty().some, klass = "third") { field =>
+        @base.form.input(field, typ="number")
         }
         }
       </div>
-      @base.form.group(form("links"), Html("Social media links ")) {
-      <textarea name="@form("links").name" id="@form("links").id" rows=5 maxlength=600>@form("links").value</textarea>
+      @base.form.group(form("links"), Html("Social media links ")) { field =>
+      <textarea name="@field.name" id="@field.id" rows=5 maxlength=600>@field.value</textarea>
       <p class="form-help">
         Such as Twitter, Facebook, Github, Chess.com, ...<br />
         One URL per line.

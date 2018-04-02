@@ -3,7 +3,7 @@
 @import play.api.data.Field
 
 @textarea(field: Field, name: Html, help: Option[Html] = None) = {
-@base.form.group(field, name, half = false, help = help) {
+@base.form.group(field, name, half = false, help = help) { _ =>
 <textarea name="@field.name" id="@field.id">@field.value</textarea>
 }
 }
@@ -62,22 +62,22 @@ side = side.some) {
     <div class="panels">
       <div class="panel basics active">
         <div>
-          @base.form.group(form("listed"), Html("Publish on the coaches list"), help = Html("Set to Yes when your profile is ready").some, half = true) {
-          @base.form.select(form("listed"), booleanChoices)
+          @base.form.group(form("listed"), Html("Publish on the coaches list"), help = Html("Set to Yes when your profile is ready").some, half = true) { field =>
+          @base.form.select(field, booleanChoices)
           }
-          @base.form.group(form("available"), Html("Currently available for lessons"), help = Html("Set to Yes to get more students").some, half = true) {
-          @base.form.select(form("available"), booleanChoices)
+          @base.form.group(form("available"), Html("Currently available for lessons"), help = Html("Set to Yes to get more students").some, half = true) { field =>
+          @base.form.select(field, booleanChoices)
           }
         </div>
-        @base.form.group(form("profile.headline"), Html("Short and inspiring headline"), help = Html("Just one sentence to make students want to choose you").some) {
-        @base.form.input(form("profile.headline"), maxLength = 170)
+        @base.form.group(form("profile.headline"), Html("Short and inspiring headline"), help = Html("Just one sentence to make students want to choose you").some) { field =>
+        @base.form.input(field, maxLength = 170)
         }
         <div>
-          @base.form.group(form("profile.languages"), Html("Languages spoken"), help = Html("Which languages can you give lessons in?").some, half = true) {
-          @base.form.input(form("profile.languages"), maxLength = 140)
+          @base.form.group(form("profile.languages"), Html("Languages spoken"), help = Html("Which languages can you give lessons in?").some, half = true) { field =>
+          @base.form.input(field, maxLength = 140)
           }
-          @base.form.group(form("profile.hourlyRate"), Html("Hourly rate"), help = Html("Indicative, non-contractual").some, half = true) {
-          @base.form.input(form("profile.hourlyRate"), maxLength = 140)
+          @base.form.group(form("profile.hourlyRate"), Html("Hourly rate"), help = Html("Indicative, non-contractual").some, half = true) { field =>
+          @base.form.input(field, maxLength = 140)
           }
         </div>
       </div>
@@ -91,8 +91,8 @@ side = side.some) {
       </div>
       <div class="panel contents">
         @textarea(form("profile.publicStudies"), Html("Featured public lichess studies"), help = Html("Up to 6 lichess study URLs, one per line").some)
-        @base.form.group(form("profile.youtubeChannel"), Html("URL of your Youtube channel")) {
-        @base.form.input(form("profile.youtubeChannel"))
+        @base.form.group(form("profile.youtubeChannel"), Html("URL of your Youtube channel")) { field =>
+        @base.form.input(field)
         }
         @textarea(form("profile.youtubeVideos"), Html("Featured youtube videos"), help = Html("Up to 6 Youtube video URLs, one per line").some)
       </div>
