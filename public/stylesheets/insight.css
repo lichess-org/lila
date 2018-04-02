@@ -15,7 +15,7 @@
   flex-flow: column;
   align-items: center;
   text-align: center;
-  margin: 200px auto;
+  padding: 200px 0;
   width: 100%;
 }
 #insight .broken i {
