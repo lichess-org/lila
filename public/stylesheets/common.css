@@ -1825,7 +1825,7 @@ div.lichess_overboard .close:hover {
 }
 input.cmn-toggle-round + label {
   padding: 1px;
-  width: 40px;
+  width: 34px;
   height: 20px;
   background-color: #aaa;
   border-radius: 20px;
@@ -1841,7 +1841,7 @@ input.cmn-toggle-round + label::after {
 }
 input.cmn-toggle-round + label::before {
   right: 1px;
-  background-color: #ddd;
+  background-color: #ccc;
   border-radius: 20px;
 }
 input.cmn-toggle-round:hover + label::before {
@@ -1857,10 +1857,10 @@ input.cmn-toggle-round:hover + label::after {
   transition: margin 0.2s;
 }
 input.cmn-toggle-round:checked + label::before {
-  background-color: rgba(117, 153, 0, 0.7)!important;
+  background-color: rgba(117, 153, 0, 0.4)!important;
 }
 input.cmn-toggle-round:checked + label::after {
-  margin-left: 20px;
+  margin-left: 14px;
 }
 .hopscotch-content a {
   text-decoration: underline;
