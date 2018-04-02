@@ -18,9 +18,7 @@ private[api] final class UserApi(
 ) {
 
   def pager(pag: Paginator[User]): JsObject =
-    Json.obj("paginator" -> PaginatorJson(pag.mapResults { u =>
-      jsonView(u) ++ Json.obj("url" -> makeUrl(s"@/${u.username}"))
-    }))
+    Json.obj("paginator" -> PaginatorJson(pag.mapResults(jsonView(_))))
 
   def one(username: String, as: Option[User]): Fu[Option[JsObject]] = UserRepo named username flatMap {
     _ ?? { one(_, as) map some }
@@ -50,7 +48,6 @@ private[api] final class UserApi(
             isFollowed ~ nbBookmarks ~ nbPlaying ~ nbImported ~ completionRate =>
             jsonView(u) ++ {
               Json.obj(
-                "url" -> makeUrl(s"@/${u.username}"),
                 "playing" -> gameOption.map(g => makeUrl(s"${g.gameId}/${g.color.name}")),
                 "nbFollowing" -> following,
                 "nbFollowers" -> followers,
