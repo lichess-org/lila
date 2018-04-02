@@ -102,7 +102,7 @@ final class Env(
         case e: akka.pattern.AskTimeoutException =>
           // again? monitor, log and fallback on DB
           lila.mon.round.proxyGameWatcherCount("double_exception")()
-          logger.info(s"roundProxyGame double timeout https://lichess.org/$gameId")
+          logger.warn(s"roundProxyGame double timeout https://lichess.org/$gameId")
           lila.game.GameRepo game gameId
       }
   }

@@ -115,7 +115,7 @@
       </rollingPolicy>
     </appender>
   </logger>
-  <logger name="round" level="ERROR">
+  <logger name="round" level="WARN">
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
       <file>/var/log/lichess/round.log</file>
       <encoder><pattern>%date %-5level %logger{30} %message%n%xException{3}</pattern></encoder>
