@@ -1273,13 +1273,16 @@ body.piece_letter .lichess_ground move {
   font-weight: bold;
   background: rgba(56,147,232,0.2);
 }
+.tview2.inline move.active {
+  border-radius: 3px;
+}
 .tview2 move.nongame {
   font-style: italic;
 }
 .tview2 move:not(.empty):hover,
 .tview2 move:not(.empty):hover index,
 .tview2 move:not(.empty):hover eval {
-  background: #3893e8;
+  background: #3893e8!important;
   color: #fff!important;
 }
 .tview2.inline move:hover {
@@ -1502,6 +1505,10 @@ body.dark .tview2 > index {
 }
 body.dark .tview2 move {
   color: #aaa;
+}
+body.dark .tview2 move.active {
+  background: rgba(56,147,232,0.4);
+  color: #dfdfdf;
 }
 body.dark .tview2.column comment {
   color: #999;
