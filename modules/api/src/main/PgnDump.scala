@@ -29,13 +29,13 @@ final class PgnDump(
       }
     }
 
-  def exportUserGames(userId: String, since: Option[DateTime], until: Option[DateTime]): Enumerator[String] = {
+  def exportUserGames(userId: String, since: Option[DateTime], until: Option[DateTime], max: Int): Enumerator[String] = {
     import reactivemongo.play.iteratees.cursorProducer
     import lila.db.dsl._
     GameRepo.sortedCursor(
       Query.user(userId) ++ Query.createdBetween(since, until),
       Query.sortCreated
-    ).enumerator() &> toPgn
+    ).enumerator(maxDocs = max) &> toPgn
   }
 
   def exportGamesFromIds(ids: List[String]): Enumerator[String] =

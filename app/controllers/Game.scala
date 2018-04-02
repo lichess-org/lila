@@ -43,7 +43,8 @@ object Game extends LilaController {
   def exportApi = Scoped(_.Game.Read) { req => me =>
     val since = getLong("since", req) map { ts => new DateTime(ts) }
     val until = getLong("until", req) map { ts => new DateTime(ts) }
-    fuccess(streamGamesPgn(me, since, until))
+    val max = getInt("max", req)
+    fuccess(streamGamesPgn(me, since, until, max))
   }
 
   private val ExportRateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
@@ -53,10 +54,10 @@ object Game extends LilaController {
     key = "game_export.user"
   )
 
-  private def streamGamesPgn(user: lila.user.User, since: Option[DateTime], until: Option[DateTime]) =
+  private def streamGamesPgn(user: lila.user.User, since: Option[DateTime], until: Option[DateTime], max: Option[Int] = None) =
     ExportRateLimitPerUser(user.id, cost = 1) {
       val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-      Ok.chunked(Env.api.pgnDump.exportUserGames(user.id, since, until)).withHeaders(
+      Ok.chunked(Env.api.pgnDump.exportUserGames(user.id, since, until, max | Int.MaxValue)).withHeaders(
         CONTENT_TYPE -> pgnContentType,
         CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${user.username}_$date.pgn")
       )
