@@ -486,6 +486,7 @@ POST   /qa/:id/:c/rm-comment       controllers.QaComment.remove(id: Int, c: Stri
 GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf: String)
 
 # API
+GET   /api                             controllers.Api.index
 GET   /api/user                        controllers.Api.users
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/user/:name                  controllers.Api.user(name: String)

@@ -41,6 +41,10 @@ object Api extends LilaController {
     Ok(apiStatusJson.add("mustUpgrade", mustUpgrade)) as JSON
   }
 
+  def index = Action {
+    Ok(views.html.base.api())
+  }
+
   def user(name: String) = ApiRequest { implicit ctx =>
     userApi.one(name, ctx.me) map toApiResult
   }
