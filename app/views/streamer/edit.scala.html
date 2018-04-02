@@ -3,7 +3,7 @@
 @import play.api.data.Field
 
 @textarea(field: Field, name: Html, help: Option[Html] = None) = {
-@base.form.group(field, name, half = false, help = help) {
+@base.form.group(field, name, half = false, help = help) { _ =>
 <textarea name="@field.name" id="@field.id">@field.value</textarea>
 }
 }
@@ -72,48 +72,48 @@ menu = menu("edit", s.withoutStream.some).some) {
     @errMsgMaterial(form.errors)
     @if(isGranted(_.Streamers)) {
     <div class="mod">
-      @base.form.group(form("approval.granted"), Html("Publish on the streamers list"), help = Html("Moderators only").some, half = true) {
-      @base.form.select(form("approval.granted"), booleanChoices)
+      @base.form.group(form("approval.granted"), Html("Publish on the streamers list"), help = Html("Moderators only").some, half = true) { field =>
+      @base.form.select(field, booleanChoices)
       }
-      @base.form.group(form("approval.requested"), Html("Active approval request"), help = Html("Moderators only").some, half = true) {
-      @base.form.select(form("approval.requested"), booleanChoices)
+      @base.form.group(form("approval.requested"), Html("Active approval request"), help = Html("Moderators only").some, half = true) { field =>
+      @base.form.select(field, booleanChoices)
       }
-      @base.form.group(form("approval.chat"), Html("Embed stream chat too"), help = Html("Moderators only").some, half = true) {
-      @base.form.select(form("approval.chat"), booleanChoices)
+      @base.form.group(form("approval.chat"), Html("Embed stream chat too"), help = Html("Moderators only").some, half = true) { field =>
+      @base.form.select(field, booleanChoices)
       }
       @if(granted) {
-      @base.form.group(form("approval.featured"), Html("Feature on lidraughts homepage"), help = Html("Moderators only").some, half = true) {
-      @base.form.select(form("approval.featured"), booleanChoices)
+      @base.form.group(form("approval.featured"), Html("Feature on lidraughts homepage"), help = Html("Moderators only").some, half = true) { field =>
+      @base.form.select(field, booleanChoices)
       }
       } else {
-      @base.form.group(form("approval.ignored"), Html("Ignore further approval requests"), help = Html("Moderators only").some, half = true) {
-      @base.form.select(form("approval.ignored"), booleanChoices)
+      @base.form.group(form("approval.ignored"), Html("Ignore further approval requests"), help = Html("Moderators only").some, half = true) { field =>
+      @base.form.select(field, booleanChoices)
       }
       }
       @base.form.submit()
     </div>
     }
     <div>
-      @base.form.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some, half = true) {
-      @base.form.input(form("twitch"))
+      @base.form.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some, half = true) { field =>
+      @base.form.input(field)
       }
-      @base.form.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none.").some, half = true) {
-      @base.form.input(form("youTube"))
+      @base.form.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none.").some, half = true) { field =>
+      @base.form.input(field)
       }
     </div>
     <div>
-      @base.form.group(form("name"), Html("Your streamer name on lidraughts"), help = Html("Keep it short: 20 characters max").some, half = true) {
-      @base.form.input(form("name"), maxLength = 20)
+      @base.form.group(form("name"), Html("Your streamer name on lidraughts"), help = Html("Keep it short: 20 characters max").some, half = true) { field =>
+      @base.form.input(field, maxLength = 20)
       }
-      @base.form.group(form("listed"), Html("Visible on the streamers page"), help = Html("When approved by moderators").some, half = true) {
-      @base.form.select(form("listed"), booleanChoices)
+      @base.form.group(form("listed"), Html("Visible on the streamers page"), help = Html("When approved by moderators").some, half = true) { field =>
+      @base.form.select(field, booleanChoices)
       }
     </div>
-    @base.form.group(form("headline"), Html("Headline"), help = Html("In one sentence, what is your stream about?").some) {
-    @base.form.input(form("headline"), maxLength = 300)
+    @base.form.group(form("headline"), Html("Headline"), help = Html("In one sentence, what is your stream about?").some) { field =>
+    @base.form.input(field, maxLength = 300)
     }
-    @base.form.group(form("description"), Html("Long description")) {
-    <textarea name="description" id="description" maxlength="50000">@form("description").value</textarea>
+    @base.form.group(form("description"), Html("Long description")) { field =>
+    <textarea name="description" id="description" maxlength="50000">@field.value</textarea>
     }
     @base.form.submit()
   </form> *@
