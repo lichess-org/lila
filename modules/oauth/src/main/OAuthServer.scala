@@ -29,7 +29,7 @@ final class OAuthServer(
         scoped <- tokenColl.uno[ForAuth]($doc(F.id -> accessTokenId)) flatMap {
           case None => fufail(NoSuchToken)
           case Some(at) if at.isExpired => fufail(ExpiredToken)
-          case Some(at) if !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
+          case Some(at) if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
           case Some(at) =>
             setUsedNow(accessTokenId)
             UserRepo enabledById at.userId flatMap {
