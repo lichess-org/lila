@@ -36,13 +36,14 @@ object Game extends LilaController {
       err => Env.security.forms.anyCaptcha map { captcha =>
         BadRequest(html.game.export(err, captcha))
       },
-      _ => fuccess(streamGamesPgn(me, since = none))
+      _ => fuccess(streamGamesPgn(me, since = none, until = none))
     )
   }
 
   def exportApi = Scoped(_.Game.Read) { req => me =>
     val since = getLong("since", req) map { ts => new DateTime(ts) }
-    fuccess(streamGamesPgn(me, since))
+    val until = getLong("until", req) map { ts => new DateTime(ts) }
+    fuccess(streamGamesPgn(me, since, until))
   }
 
   private val ExportRateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
@@ -52,10 +53,10 @@ object Game extends LilaController {
     key = "game_export.user"
   )
 
-  private def streamGamesPgn(user: lila.user.User, since: Option[DateTime]) =
+  private def streamGamesPgn(user: lila.user.User, since: Option[DateTime], until: Option[DateTime]) =
     ExportRateLimitPerUser(user.id, cost = 1) {
       val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-      Ok.chunked(Env.api.pgnDump.exportUserGames(user.id, since)).withHeaders(
+      Ok.chunked(Env.api.pgnDump.exportUserGames(user.id, since, until)).withHeaders(
         CONTENT_TYPE -> pgnContentType,
         CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${user.username}_$date.pgn")
       )

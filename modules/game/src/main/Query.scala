@@ -119,6 +119,13 @@ object Query {
   def createdSince(d: DateTime): Bdoc =
     F.createdAt $gt d
 
+  def createdBetween(since: Option[DateTime], until: Option[DateTime]): Bdoc = (since, until) match {
+    case (Some(since), None) => createdSince(since)
+    case (None, Some(until)) => F.createdAt $lt until
+    case (Some(since), Some(until)) => F.createdAt $gt since $lt until
+    case _ => $empty
+  }
+
   val sortCreated: Bdoc = $sort desc F.createdAt
   val sortChronological: Bdoc = $sort asc F.createdAt
   val sortAntiChronological: Bdoc = $sort desc F.createdAt
