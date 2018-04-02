@@ -542,10 +542,13 @@ body.offline #reconnecting,
 }
 @keyframes reconnected {
   0% { opacity: 1; color: #759900; }
-  100% { opacity: 0; color: #759900; transform: translateY(-10px); }
+  100% { opacity: 0; color: #759900; transform: translateY(-15px); }
 }
 body.online.reconnected #reconnecting {
   animation: reconnected 2s ease-out 1s backwards;
+}
+body.online #reconnecting::before {
+  content: 'J'
 }
 
 #clinput {
