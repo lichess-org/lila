@@ -30,11 +30,11 @@ final class PdnDump(
       }
     }
 
-  def exportUserGames(userId: String, since: Option[DateTime], draughtsResult: Boolean): Enumerator[String] = {
+  def exportUserGames(userId: String, since: Option[DateTime], until: Option[DateTime], draughtsResult: Boolean): Enumerator[String] = {
     import reactivemongo.play.iteratees.cursorProducer
     import lidraughts.db.dsl._
     GameRepo.sortedCursor(
-      Query.user(userId) ++ since.??(Query.createdSince),
+      Query.user(userId) ++ Query.createdBetween(since, until),
       Query.sortCreated
     ).enumerator() &> toPdn(draughtsResult)
   }
