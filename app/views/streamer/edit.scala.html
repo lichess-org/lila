@@ -67,6 +67,9 @@ menu = menu("edit", s.withoutStream.some).some) {
     }
     }
   </div>
+  <div class="status">
+    <strong>If your stream is in another language than English</strong>, include the correct language tag (2-letter ISO 639-1 code enclosed in square brackets LINK) in your stream title. As examples, include "[RU]" for Russian, "[TR]" for Turkish, "[FR]" for French, etc. If your stream is in English, there is no need to include a language tag.
+  </div>
   }
   <form class="content_box_content material form" action="@routes.Streamer.edit@if(!ctx.is(s.user)){?u=@s.user.id}" method="POST">
     @errMsgMaterial(form.errors)
