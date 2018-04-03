@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import pdi.jwt.{ Jwt, JwtAlgorithm }
 import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
+import play.api.http.HeaderNames.AUTHORIZATION
 
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
@@ -18,7 +19,7 @@ final class OAuthServer(
   import OAuthServer._
 
   def auth(req: RequestHeader, scopes: List[OAuthScope]): Fu[AuthResult] = {
-    req.headers.get("Authorization").map(_.split(" ", 2)) match {
+    req.headers.get(AUTHORIZATION).map(_.split(" ", 2)) match {
       case Some(Array("Bearer", tokenStr)) => for {
         accessTokenId <- Jwt.decodeRaw(tokenStr, jwtPublicKey.value, Seq(JwtAlgorithm.RS256)).future map { jsonStr =>
           val json = Json.parse(jsonStr)

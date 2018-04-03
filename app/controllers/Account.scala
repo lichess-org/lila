@@ -1,6 +1,7 @@
 package controllers
 
 import play.api.mvc._
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app._
@@ -153,12 +154,18 @@ object Account extends LilaController {
     }
   }
 
-  def kid = Auth { implicit ctx => me =>
-    Ok(html.account.kid(me)).fuccess
+  def kid = AuthOrScoped(_.Preference.Read)(
+    auth = implicit ctx => me => Ok(html.account.kid(me)).fuccess,
+    scoped = _ => me => Ok(Json.obj("kid" -> me.kid)).fuccess
+  )
+
+  // App BC
+  def kidToggle = Auth { ctx => me =>
+    UserRepo.setKid(me, !me.kid) inject Ok
   }
 
-  def kidConfirm = Auth { ctx => me =>
-    (UserRepo toggleKid me) inject Redirect(routes.Account.kid)
+  def kidPost = Auth { ctx => me =>
+    UserRepo.setKid(me, getBool("v", ctx.req)) inject Redirect(routes.Account.kid)
   }
 
   private def currentSessionId(implicit ctx: Context) =

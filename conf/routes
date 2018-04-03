@@ -515,7 +515,9 @@ POST  /account/closeConfirm            controllers.Account.closeConfirm
 GET   /account/profile                 controllers.Account.profile
 POST  /account/profile                 controllers.Account.profileApply
 GET   /account/kid                     controllers.Account.kid
-POST  /account/kidConfirm              controllers.Account.kidConfirm
+POST  /account/kid                     controllers.Account.kidPost
+# App BC
+POST  /account/kidConfirm              controllers.Account.kidToggle
 GET   /account/security                controllers.Account.security
 POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: String)
 GET   /account/info                    controllers.Account.info

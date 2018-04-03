@@ -283,7 +283,7 @@ object UserRepo {
 
   def setIpBan(id: ID, v: Boolean) = coll.updateField($id(id), "ipBan", v).void
 
-  def toggleKid(user: User) = coll.updateField($id(user.id), "kid", !user.kid)
+  def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), "kid", v)
 
   def isKid(id: ID) = coll.exists($id(id) ++ $doc("kid" -> true))
 

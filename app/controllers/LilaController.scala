@@ -76,10 +76,26 @@ private[controllers] trait LilaController
 
   protected def Auth[A](p: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
-      CSRF(req) {
-        reqToCtx(req) flatMap { ctx =>
-          ctx.me.fold(authenticationFailed(ctx))(f(ctx))
-        }
+      handleAuth(f, req)
+    }
+
+  protected def AuthOrScoped(selectors: OAuthScope.Selector*)(
+    auth: Context => UserModel => Fu[Result],
+    scoped: RequestHeader => UserModel => Fu[Result]
+  ): Action[Unit] = AuthOrScoped(BodyParsers.parse.empty)(selectors)(auth, scoped)
+
+  protected def AuthOrScoped[A](p: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
+    auth: Context => UserModel => Fu[Result],
+    scoped: RequestHeader => UserModel => Fu[Result]
+  ): Action[A] = Action.async(p) { req =>
+    if (HTTPRequest isOAuth req) handleScoped(selectors, scoped)(req)
+    else handleAuth(auth, req)
+  }
+
+  private def handleAuth(f: Context => UserModel => Fu[Result], req: RequestHeader): Fu[Result] =
+    CSRF(req) {
+      reqToCtx(req) flatMap { ctx =>
+        ctx.me.fold(authenticationFailed(ctx))(f(ctx))
       }
     }
 
@@ -123,16 +139,18 @@ private[controllers] trait LilaController
     Scoped(BodyParsers.parse.empty)(selectors)(f)
 
   protected def Scoped[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(f: RequestHeader => UserModel => Fu[Result]): Action[A] = {
+    Action.async(parser)(handleScoped(selectors, f))
+  }
+
+  private def handleScoped(selectors: Seq[OAuthScope.Selector], f: RequestHeader => UserModel => Fu[Result])(req: RequestHeader): Fu[Result] = {
     val scopes = OAuthScope select selectors
-    Action.async(parser) { req =>
-      Env.security.api.oauthScoped(req, scopes) flatMap {
-        case Left(e @ lila.oauth.OAuthServer.MissingScope(available)) => OAuthServer.responseHeaders(scopes, available) {
-          Unauthorized(jsonError(e.message))
-        }.fuccess
-        case Left(e) => OAuthServer.responseHeaders(scopes, Nil) { Unauthorized(jsonError(e.message)) }.fuccess
-        case Right(scoped) => f(req)(scoped.user) map OAuthServer.responseHeaders(scopes, scoped.scopes)
-      } map { _ as JSON }
-    }
+    Env.security.api.oauthScoped(req, scopes) flatMap {
+      case Left(e @ lila.oauth.OAuthServer.MissingScope(available)) => OAuthServer.responseHeaders(scopes, available) {
+        Unauthorized(jsonError(e.message))
+      }.fuccess
+      case Left(e) => OAuthServer.responseHeaders(scopes, Nil) { Unauthorized(jsonError(e.message)) }.fuccess
+      case Right(scoped) => f(req)(scoped.user) map OAuthServer.responseHeaders(scopes, scoped.scopes)
+    } map { _ as JSON }
   }
 
   protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
