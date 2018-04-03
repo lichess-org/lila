@@ -71,4 +71,6 @@ object HTTPRequest {
   def printClient(req: RequestHeader) = s"${lastRemoteAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${~userAgent(req)}"
 
   def isOAuth(req: RequestHeader) = req.headers.toMap.contains(HeaderNames.AUTHORIZATION)
+
+  def isHttp10(req: RequestHeader) = req.version == "HTTP/1.0"
 }
