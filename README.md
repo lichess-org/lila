@@ -72,6 +72,7 @@ Please do not automate computer analysis requests. They're very expensive.
   "url": "https://lichess.org/@/thibault",   // profile url
   "online": true,                            // is the player currently using lichess?
   "playing": "https://lichess.org/abcdefgh", // game being played, if any
+  "streaming": "https://lichess.org/streamer/thibault", // ongoing stream, if any
   "engine": false,                           // true if the user is known to use a chess engine
   "language": "en",                          // preferred language
   "profile": {

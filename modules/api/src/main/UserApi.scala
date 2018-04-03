@@ -14,6 +14,7 @@ private[api] final class UserApi(
     playBanApi: lila.playban.PlaybanApi,
     gameCache: lila.game.Cached,
     prefApi: lila.pref.PrefApi,
+    isStreaming: User.ID => Boolean,
     makeUrl: String => String
 ) {
 
@@ -70,7 +71,7 @@ private[api] final class UserApi(
                   "import" -> nbImported,
                   "me" -> nbGamesWithMe
                 )
-              ) ++ as.isDefined.??(Json.obj(
+              ).add("streaming", isStreaming(u.id) option makeUrl(s"streamer/${u.username}")) ++ as.isDefined.??(Json.obj(
                   "followable" -> followable,
                   "following" -> relation.has(true),
                   "blocking" -> relation.has(false),

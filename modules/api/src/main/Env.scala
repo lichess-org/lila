@@ -29,6 +29,7 @@ final class Env(
     getSimul: Simul.ID => Fu[Option[Simul]],
     getSimulName: Simul.ID => Fu[Option[String]],
     getTournamentName: String => Option[String],
+    isStreaming: lila.user.User.ID => Boolean,
     pools: List[lila.pool.PoolConfig],
     val isProd: Boolean
 ) {
@@ -87,6 +88,7 @@ final class Env(
     crosstableApi = crosstableApi,
     playBanApi = playBanApi,
     gameCache = gameCache,
+    isStreaming = isStreaming,
     prefApi = prefApi
   )
 
@@ -163,6 +165,7 @@ object Env {
     gameCache = lila.game.Env.current.cached,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
+    isStreaming = lila.streamer.Env.current.liveStreamApi.isStreaming,
     pools = lila.pool.Env.current.api.configs,
     isProd = lila.common.PlayApp.isProd
   )
