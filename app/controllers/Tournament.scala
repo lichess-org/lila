@@ -169,7 +169,7 @@ object Tournament extends LidraughtsController {
           },
           api = _ => OptionFuResult(repo enterableById id) { tour =>
             env.api.joinWithResult(tour.id, me, password, getUserTeamIds) map { result =>
-              if (result) Ok(jsonOkBody)
+              if (result) jsonOkResult
               else BadRequest(Json.obj("joined" -> false))
             }
           }
