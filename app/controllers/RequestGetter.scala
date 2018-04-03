@@ -29,10 +29,10 @@ trait RequestGetter {
     get(name, req) flatMap parseLongOption
 
   protected def getBool(name: String)(implicit ctx: UserContext) =
-    getInt(name) contains 1
+    getInt(name).contains(1) || get(name).contains("true")
 
   protected def getBool(name: String, req: RequestHeader) =
-    getInt(name, req) contains 1
+    getInt(name, req).contains(1) || get(name, req).contains("true")
 
   protected def getBoolOpt(name: String)(implicit ctx: UserContext) =
     getInt(name) map (1==)

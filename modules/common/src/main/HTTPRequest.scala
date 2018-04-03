@@ -69,4 +69,6 @@ object HTTPRequest {
   def printReq(req: RequestHeader) = s"${req.method} ${req.domain}${req.uri}"
 
   def printClient(req: RequestHeader) = s"${lastRemoteAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${~userAgent(req)}"
+
+  def isOAuth(req: RequestHeader) = req.headers.toMap.contains(HeaderNames.AUTHORIZATION)
 }
