@@ -1,19 +1,23 @@
 package lidraughts.api
 
-import play.api.libs.iteratee._
 import org.joda.time.DateTime
+import play.api.libs.iteratee._
+import scala.concurrent.duration._
 
 import draughts.format.pdn.Pdn
+import lidraughts.common.MaxPerSecond
 import lidraughts.game.Game
 import lidraughts.game.PdnDump.WithFlags
 import lidraughts.game.{ GameRepo, Query }
-import play.api.libs.iteratee._
 
 final class PdnDump(
     dumper: lidraughts.game.PdnDump,
     getSimulName: String => Fu[Option[String]],
-    getTournamentName: String => Option[String]
+    getTournamentName: String => Option[String],
+    system: akka.actor.ActorSystem
 ) {
+
+  import PdnDump._
 
   def apply(game: Game, initialFen: Option[String], flags: WithFlags, draughtsResult: Boolean): Fu[Pdn] =
     (game.simulId ?? getSimulName) map { simulName =>
@@ -30,13 +34,23 @@ final class PdnDump(
       }
     }
 
-  def exportUserGames(userId: String, since: Option[DateTime], until: Option[DateTime], max: Int, draughtsResult: Boolean): Enumerator[String] = {
+  private def delay[A](duration: FiniteDuration): Enumeratee[A, A] =
+    Enumeratee.mapM[A].apply[A] { as =>
+      lidraughts.common.Future.delay[A](duration)(fuccess(as))(system)
+    }
+
+  private def throttle[A]: Enumeratee[Iterator[A], A] =
+    delay[Iterator[A]](1 second) ><>
+      Enumeratee.mapConcat[Iterator[A]].apply[A](_.toSeq)
+
+  def exportUserGames(config: Config): Enumerator[String] = {
     import reactivemongo.play.iteratees.cursorProducer
     import lidraughts.db.dsl._
     GameRepo.sortedCursor(
-      Query.user(userId) ++ Query.createdBetween(since, until),
-      Query.sortCreated
-    ).enumerator(maxDocs = max) &> toPdn(draughtsResult)
+      Query.user(config.user.id) ++ Query.createdBetween(config.since, config.until),
+      Query.sortCreated,
+      batchSize = config.perSecond.value
+    ).bulkEnumerator(maxDocs = config.max | Int.MaxValue) &> throttle &> toPdn(config.draughtsResult)
   }
 
   def exportGamesFromIds(ids: List[String], draughtsResult: Boolean): Enumerator[String] =
@@ -44,4 +58,16 @@ final class PdnDump(
       Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.gamesFromSecondary) &>
       Enumeratee.mapConcat(identity) &>
       toPdn(draughtsResult)
+}
+
+object PdnDump {
+
+  case class Config(
+      user: lidraughts.user.User,
+      since: Option[DateTime] = None,
+      until: Option[DateTime] = None,
+      max: Option[Int] = None,
+      perSecond: MaxPerSecond,
+      draughtsResult: Boolean
+  )
 }

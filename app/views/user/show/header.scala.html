@@ -61,7 +61,7 @@
     }
     }
     @if(ctx is u) {
-    <a class="button hint--top-left" href="@routes.Game.exportForm" data-hint="@trans.exportGames()"><span data-icon="x"></span></a>
+    <a class="button hint--top-left" href="@routes.Game.export(u.username)" data-hint="@trans.exportGames()"><span data-icon="x"></span></a>
     }
   </div>
 </div>

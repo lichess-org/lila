@@ -2,10 +2,12 @@ package controllers
 
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import scala.concurrent.duration._
 import play.api.mvc.RequestHeader
+import scala.concurrent.duration._
 
+import lidraughts.api.PdnDump
 import lidraughts.app._
+import lidraughts.common.MaxPerSecond
 import lidraughts.game.{ GameRepo, Game => GameModel }
 import views._
 
@@ -25,28 +27,34 @@ object Game extends LidraughtsController {
     }
   }
 
-  def exportForm = Auth { implicit ctx => me =>
-    Env.security.forms.emptyWithCaptcha map {
-      case (form, captcha) => Ok(html.game.export(form, captcha))
+  def export(username: String) = OpenOrScoped()(
+    open = ctx => handleExport(username, ctx.me, ctx.req, ctx.pref.draughtsResult),
+    scoped = req => me => handleExport(username, me.some, req, lidraughts.pref.Pref.default.draughtsResult)
+  )
+
+  private def handleExport(username: String, me: Option[lidraughts.user.User], req: RequestHeader, draughtsResult: Boolean) =
+    lidraughts.user.UserRepo named username flatMap {
+      _ ?? { user =>
+        RequireHttp11(req) {
+          ExportRateLimitPerUser(user.id, cost = 1) {
+            val since = getLong("since", req) map { ts => new DateTime(ts) }
+            val until = getLong("until", req) map { ts => new DateTime(ts) }
+            val max = getInt("max", req)
+            val perSecond = MaxPerSecond(me match {
+              case None => 10
+              case Some(m) if m is user.id => 50
+              case Some(_) => 20
+            })
+            val config = PdnDump.Config(user, since, until, max, perSecond, draughtsResult)
+            val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
+            Ok.chunked(Env.api.pdnDump.exportUserGames(config)).withHeaders(
+              CONTENT_TYPE -> pdnContentType,
+              CONTENT_DISPOSITION -> ("attachment; filename=" + s"lidraughts_${user.username}_$date.pdn")
+            ).fuccess
+          }
+        }
+      }
     }
-  }
-
-  def exportConfirm = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    Env.security.forms.empty.bindFromRequest.fold(
-      err => Env.security.forms.anyCaptcha map { captcha =>
-        BadRequest(html.game.export(err, captcha))
-      },
-      _ => streamGamesPdn(req, me, since = none, until = none, ctx.pref.draughtsResult)
-    )
-  }
-
-  def exportApi = Scoped(_.Game.Read) { req => me =>
-    val since = getLong("since", req) map { ts => new DateTime(ts) }
-    val until = getLong("until", req) map { ts => new DateTime(ts) }
-    val max = getInt("max", req)
-    streamGamesPdn(req, me, since, until, lidraughts.pref.Pref.default.draughtsResult, max)
-  }
 
   private val ExportRateLimitPerUser = new lidraughts.memo.RateLimit[lidraughts.user.User.ID](
     credits = 10,
@@ -54,17 +62,6 @@ object Game extends LidraughtsController {
     name = "game export per user",
     key = "game_export.user"
   )
-
-  private def streamGamesPdn(req: RequestHeader, user: lidraughts.user.User, since: Option[DateTime], until: Option[DateTime], draughtsResult: Boolean, max: Option[Int] = None) =
-    RequireHttp11(req) {
-      ExportRateLimitPerUser(user.id, cost = 1) {
-        val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-        Ok.chunked(Env.api.pdnDump.exportUserGames(user.id, since, until, max | Int.MaxValue, draughtsResult)).withHeaders(
-          CONTENT_TYPE -> pdnContentType,
-          CONTENT_DISPOSITION -> ("attachment; filename=" + s"lidraughts_${user.username}_$date.pdn")
-        )
-      } fuccess
-    }
 
   private[controllers] def preloadUsers(game: GameModel): Funit =
     Env.user.lightUserApi preloadMany game.userIds

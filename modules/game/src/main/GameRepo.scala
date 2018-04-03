@@ -111,9 +111,12 @@ object GameRepo {
   def sortedCursor(
     selector: Bdoc,
     sort: Bdoc,
+    batchSize: Int = 0,
     readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(implicit cp: CursorProducer[Game]) =
-    coll.find(selector).sort(sort).cursor[Game](readPreference)
+  )(implicit cp: CursorProducer[Game]) = {
+    val query = coll.find(selector).sort(sort)
+    query.copy(options = query.options.batchSize(batchSize)).cursor[Game](readPreference)
+  }
 
   def goBerserk(pov: Pov): Funit =
     coll.update($id(pov.gameId), $set(
