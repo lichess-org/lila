@@ -1068,6 +1068,7 @@ body.dark .practice_box .comment {
   display: flex;
   flex-flow: column;
   justify-content: center;
+  text-transform: none;
 }
 .action_menu .tools form .fbt {
   width: 100%;
