@@ -370,6 +370,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="winner">Winnaar</string>
   <string name="standing">Ranglijst</string>
   <string name="createANewTournament">Start een nieuw toernooi</string>
+  <string name="tournamentCalendar">Toernooi kalender</string>
   <string name="join">Neem deel</string>
   <string name="withdraw">Trek terug</string>
   <string name="points">Punten</string>

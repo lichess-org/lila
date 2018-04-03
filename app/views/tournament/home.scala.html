@@ -55,11 +55,12 @@ url = s"$netBaseUrl${routes.Tournament.home().url}",
 title = s"${trans.tournamentHomeTitle()}",
 description = s"${trans.tournamentHomeDescription()}").some) {
 <div class="content_box tournament_box no_padding">
-  @if(ctx.isAuth) {
   <div class="create_tournament">
+    <a href="/tournament/calendar" class="action button text">@trans.tournamentCalendar()</a>
+      @if(ctx.isAuth) {
     <a href="@routes.Tournament.form()" class="action button text">@trans.createANewTournament()</a>
-  </div>
   }
+  </div>
   <h1>@trans.tournaments()</h1>
   <div id="tournament_schedule"></div>
   <div id="tournament_list">
