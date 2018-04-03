@@ -150,11 +150,17 @@ private[controllers] trait LilaController
   private def handleScoped(selectors: Seq[OAuthScope.Selector], f: RequestHeader => UserModel => Fu[Result])(req: RequestHeader): Fu[Result] = {
     val scopes = OAuthScope select selectors
     Env.security.api.oauthScoped(req, scopes) flatMap {
-      case Left(e @ lila.oauth.OAuthServer.MissingScope(available)) => OAuthServer.responseHeaders(scopes, available) {
-        Unauthorized(jsonError(e.message))
-      }.fuccess
-      case Left(e) => OAuthServer.responseHeaders(scopes, Nil) { Unauthorized(jsonError(e.message)) }.fuccess
-      case Right(scoped) => f(req)(scoped.user) map OAuthServer.responseHeaders(scopes, scoped.scopes)
+      case Left(e @ lila.oauth.OAuthServer.MissingScope(available)) =>
+        lila.mon.user.oauth.usage.failure()
+        OAuthServer.responseHeaders(scopes, available) {
+          Unauthorized(jsonError(e.message))
+        }.fuccess
+      case Left(e) =>
+        lila.mon.user.oauth.usage.failure()
+        OAuthServer.responseHeaders(scopes, Nil) { Unauthorized(jsonError(e.message)) }.fuccess
+      case Right(scoped) =>
+        lila.mon.user.oauth.usage.success()
+        f(req)(scoped.user) map OAuthServer.responseHeaders(scopes, scoped.scopes)
     } map { _ as JSON }
   }
 

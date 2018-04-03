@@ -263,6 +263,12 @@ object mon {
       def passwordResetRequest(s: String) = inc(s"user.auth.password_reset_request.$s")
       def passwordResetConfirm(s: String) = inc(s"user.auth.password_reset_confirm.$s")
     }
+    object oauth {
+      object usage {
+        val success = inc("user.oauth.usage.success")
+        val failure = inc("user.oauth.usage.success")
+      }
+    }
   }
   object socket {
     val member = rec("socket.count")
