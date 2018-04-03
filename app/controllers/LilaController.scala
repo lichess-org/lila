@@ -56,11 +56,7 @@ private[controllers] trait LilaController
     Open(BodyParsers.parse.empty)(f)
 
   protected def Open[A](p: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
-    Action.async(p) { req =>
-      CSRF(req) {
-        reqToCtx(req) flatMap f
-      }
-    }
+    Action.async(p)(handleOpen(f, _))
 
   protected def OpenBody(f: BodyContext[_] => Fu[Result]): Action[AnyContent] =
     OpenBody(BodyParsers.parse.anyContent)(f)
@@ -70,6 +66,24 @@ private[controllers] trait LilaController
       CSRF(req) {
         reqToCtx(req) flatMap f
       }
+    }
+
+  protected def OpenOrScoped(selectors: OAuthScope.Selector*)(
+    open: Context => Fu[Result],
+    scoped: RequestHeader => UserModel => Fu[Result]
+  ): Action[Unit] = OpenOrScoped(BodyParsers.parse.empty)(selectors)(open, scoped)
+
+  protected def OpenOrScoped[A](p: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
+    open: Context => Fu[Result],
+    scoped: RequestHeader => UserModel => Fu[Result]
+  ): Action[A] = Action.async(p) { req =>
+    if (HTTPRequest isOAuth req) handleScoped(selectors, scoped)(req)
+    else handleOpen(open, req)
+  }
+
+  private def handleOpen(f: Context => Fu[Result], req: RequestHeader): Fu[Result] =
+    CSRF(req) {
+      reqToCtx(req) flatMap f
     }
 
   protected def Auth(f: Context => UserModel => Fu[Result]): Action[Unit] =

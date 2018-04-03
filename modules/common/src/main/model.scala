@@ -10,6 +10,8 @@ case class AssetVersion(value: Int) extends AnyVal with IntValue
 
 case class MaxPerPage(value: Int) extends AnyVal with IntValue
 
+case class MaxPerSecond(value: Int) extends AnyVal with IntValue
+
 case class IpAddress(value: String) extends AnyVal with StringValue
 
 object IpAddress {

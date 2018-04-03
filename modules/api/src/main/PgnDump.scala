@@ -1,9 +1,11 @@
 package lila.api
 
-import play.api.libs.iteratee._
 import org.joda.time.DateTime
+import play.api.libs.iteratee._
+import scala.concurrent.duration._
 
 import chess.format.pgn.Pgn
+import lila.common.MaxPerSecond
 import lila.game.Game
 import lila.game.PgnDump.WithFlags
 import lila.game.{ GameRepo, Query }
@@ -11,8 +13,11 @@ import lila.game.{ GameRepo, Query }
 final class PgnDump(
     dumper: lila.game.PgnDump,
     getSimulName: String => Fu[Option[String]],
-    getTournamentName: String => Option[String]
+    getTournamentName: String => Option[String],
+    system: akka.actor.ActorSystem
 ) {
+
+  import PgnDump._
 
   def apply(game: Game, initialFen: Option[String], flags: WithFlags): Fu[Pgn] =
     (game.simulId ?? getSimulName) map { simulName =>
@@ -29,13 +34,23 @@ final class PgnDump(
       }
     }
 
-  def exportUserGames(userId: String, since: Option[DateTime], until: Option[DateTime], max: Int): Enumerator[String] = {
+  private def delay[A](duration: FiniteDuration): Enumeratee[A, A] =
+    Enumeratee.mapM[A].apply[A] { as =>
+      lila.common.Future.delay[A](duration)(fuccess(as))(system)
+    }
+
+  private def throttle[A]: Enumeratee[Iterator[A], A] =
+    delay[Iterator[A]](1 second) ><>
+      Enumeratee.mapConcat[Iterator[A]].apply[A](_.toSeq)
+
+  def exportUserGames(config: Config): Enumerator[String] = {
     import reactivemongo.play.iteratees.cursorProducer
     import lila.db.dsl._
     GameRepo.sortedCursor(
-      Query.user(userId) ++ Query.createdBetween(since, until),
-      Query.sortCreated
-    ).enumerator(maxDocs = max) &> toPgn
+      Query.user(config.user.id) ++ Query.createdBetween(config.since, config.until),
+      Query.sortCreated,
+      batchSize = config.perSecond.value
+    ).bulkEnumerator(maxDocs = config.max | Int.MaxValue) &> throttle &> toPgn
   }
 
   def exportGamesFromIds(ids: List[String]): Enumerator[String] =
@@ -43,4 +58,15 @@ final class PgnDump(
       Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.gamesFromSecondary) &>
       Enumeratee.mapConcat(identity) &>
       toPgn
+}
+
+object PgnDump {
+
+  case class Config(
+      user: lila.user.User,
+      since: Option[DateTime] = None,
+      until: Option[DateTime] = None,
+      max: Option[Int] = None,
+      perSecond: MaxPerSecond
+  )
 }

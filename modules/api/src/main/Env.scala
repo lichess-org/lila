@@ -77,7 +77,8 @@ final class Env(
   val pgnDump = new PgnDump(
     dumper = gamePgnDump,
     getSimulName = getSimulName,
-    getTournamentName = getTournamentName
+    getTournamentName = getTournamentName,
+    system = system
   )
 
   val userApi = new UserApi(
