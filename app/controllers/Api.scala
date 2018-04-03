@@ -282,9 +282,11 @@ object Api extends LilaController {
     } map toApiResult
   }
 
-  def gameStream = Action(parse.tolerantText) { req =>
-    val userIds = req.body.split(',').take(300).toSet map lila.user.User.normalize
-    Ok.chunked(Env.game.stream.startedByUserIds(userIds))
+  def gameStream = Action.async(parse.tolerantText) { req =>
+    RequireHttp11(req) {
+      val userIds = req.body.split(',').take(300).toSet map lila.user.User.normalize
+      Ok.chunked(Env.game.stream.startedByUserIds(userIds)).fuccess
+    }
   }
 
   def activity(name: String) = ApiRequest { implicit ctx =>

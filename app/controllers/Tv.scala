@@ -70,15 +70,17 @@ object Tv extends LilaController {
     }
   }
 
-  def feed = Action.async {
-    import makeTimeout.short
-    import akka.pattern.ask
-    import lila.round.TvBroadcast
-    import play.api.libs.EventSource
-    Env.round.tvBroadcast ? TvBroadcast.GetEnumerator mapTo
-      manifest[TvBroadcast.EnumeratorType] map { enum =>
-        Ok.chunked(enum &> EventSource()).as("text/event-stream")
-      }
+  def feed = Action.async { req =>
+    RequireHttp11(req) {
+      import makeTimeout.short
+      import akka.pattern.ask
+      import lila.round.TvBroadcast
+      import play.api.libs.EventSource
+      Env.round.tvBroadcast ? TvBroadcast.GetEnumerator mapTo
+        manifest[TvBroadcast.EnumeratorType] map { enum =>
+          Ok.chunked(enum &> EventSource()).as("text/event-stream")
+        }
+    }
   }
 
   def embed = Action { req =>

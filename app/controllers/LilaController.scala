@@ -410,6 +410,12 @@ private[controllers] trait LilaController
     else if (HTTPRequest isBot ctx.req) fuccess(NotFound)
     else result
 
+  protected def RequireHttp11(result: => Fu[Result])(implicit ctx: lila.api.Context): Fu[Result] =
+    RequireHttp11(ctx.req)(result)
+  protected def RequireHttp11(req: RequestHeader)(result: => Fu[Result]): Fu[Result] =
+    if (HTTPRequest isHttp10 req) BadRequest("Requires HTTP 1.1").fuccess
+    else result
+
   private val jsonGlobalErrorRenamer = {
     import play.api.libs.json._
     __.json update (
