@@ -170,7 +170,7 @@ object Tournament extends LilaController {
           },
           api = _ => OptionFuResult(repo enterableById id) { tour =>
             env.api.joinWithResult(tour.id, me, password) map { result =>
-              if (result) Ok(jsonOkBody)
+              if (result) jsonOkResult
               else BadRequest(Json.obj("joined" -> false))
             }
           }

@@ -35,11 +35,12 @@ private[controllers] trait LilaController
   protected implicit def LilaHtmlToResult(content: Html): Result = Ok(content)
 
   protected val jsonOkBody = Json.obj("ok" -> true)
+  protected val jsonOkResult = Ok(jsonOkBody) as JSON
 
   protected implicit def LilaFunitToResult(funit: Funit)(implicit ctx: Context): Fu[Result] =
     negotiate(
       html = fuccess(Ok("ok")),
-      api = _ => fuccess(Ok(jsonOkBody) as JSON)
+      api = _ => fuccess(jsonOkResult)
     )
 
   implicit def lang(implicit ctx: Context) = ctx.lang
@@ -83,6 +84,10 @@ private[controllers] trait LilaController
     auth: Context => UserModel => Fu[Result],
     scoped: RequestHeader => UserModel => Fu[Result]
   ): Action[Unit] = AuthOrScoped(BodyParsers.parse.empty)(selectors)(auth, scoped)
+
+  protected def AuthOrScopedTupple(selectors: OAuthScope.Selector*)(
+    handlers: (Context => UserModel => Fu[Result], RequestHeader => UserModel => Fu[Result])
+  ): Action[Unit] = AuthOrScoped(BodyParsers.parse.empty)(selectors)(handlers._1, handlers._2)
 
   protected def AuthOrScoped[A](p: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
     auth: Context => UserModel => Fu[Result],

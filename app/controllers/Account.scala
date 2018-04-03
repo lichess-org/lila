@@ -1,7 +1,7 @@
 package controllers
 
+import play.api.libs.json._
 import play.api.mvc._
-import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app._
@@ -39,7 +39,6 @@ object Account extends LilaController {
           case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges =>
             Env.current.system.lilaBus.publish(lila.user.User.Active(me), 'userActive)
             Ok {
-              import play.api.libs.json._
               import lila.pref.JsonView._
               Env.user.jsonView(me) ++ Json.obj(
                 "prefs" -> prefs,
@@ -65,7 +64,6 @@ object Account extends LilaController {
       html = notFound,
       api = _ => Env.pref.api.getPref(me) map { prefs =>
         Ok {
-          import play.api.libs.json._
           import lila.pref.JsonView._
           lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
             "coach" -> isGranted(_.Coach),
@@ -164,8 +162,12 @@ object Account extends LilaController {
     UserRepo.setKid(me, !me.kid) inject Ok
   }
 
-  def kidPost = Auth { ctx => me =>
-    UserRepo.setKid(me, getBool("v", ctx.req)) inject Redirect(routes.Account.kid)
+  def kidPost = AuthOrScopedTupple(_.Preference.Write) {
+    def set(me: UserModel, req: RequestHeader) = UserRepo.setKid(me, getBool("v", req))
+    (
+      ctx => me => set(me, ctx.req) inject Redirect(routes.Account.kid),
+      req => me => set(me, req) inject jsonOkResult
+    )
   }
 
   private def currentSessionId(implicit ctx: Context) =
