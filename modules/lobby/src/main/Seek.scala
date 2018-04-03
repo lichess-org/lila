@@ -102,7 +102,7 @@ object Seek {
     createdAt = DateTime.now
   )
 
-  import reactivemongo.bson._
+  import reactivemongo.bson.{ MapReader => _, MapWriter => _, _ }
   import lila.db.BSON.MapValue.MapHandler
   import lila.db.BSON.BSONJodaDateTimeHandler
   implicit val lobbyPerfBSONHandler = new BSONHandler[BSONInteger, LobbyPerf] {

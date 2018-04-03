@@ -36,10 +36,7 @@ private final class LeaderboardIndexer(
 
   private def saveEntries(tourId: String)(entries: Seq[Entry]): Funit =
     entries.nonEmpty ?? {
-      leaderboardColl.bulkInsert(
-        documents = entries.map(BSONHandlers.leaderboardEntryHandler.write).toStream,
-        ordered = false
-      ) map { res =>
+      leaderboardColl.insert[Entry](ordered = false).many(entries) map { res =>
         logger.info(s"Inserted ${res.n} of ${entries.size} leaderboard entries for #$tourId")
       }
     }

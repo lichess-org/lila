@@ -143,18 +143,19 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       maxDocs: Int,
       readPreference: ReadPreference = ReadPreference.primary,
       allowDiskUse: Boolean = false
-    ): Fu[List[Bdoc]] = coll.aggregate1[Bdoc](
+    ): Fu[List[Bdoc]] = coll.aggregatorContext[Bdoc](
       firstOperator,
       otherOperators,
       readPreference = readPreference
-    ).collect[List](maxDocs = maxDocs, Cursor.FailOnError[List[Bdoc]]())
+    ).prepared[Cursor](CursorProducer.defaultCursorProducer[Bdoc]).cursor.collect[List](maxDocs = maxDocs, Cursor.FailOnError[List[Bdoc]]())
 
     def aggregateOne(
       firstOperator: AggregationFramework.PipelineOperator,
       otherOperators: List[AggregationFramework.PipelineOperator] = Nil,
       readPreference: ReadPreference = ReadPreference.primary
     ): Fu[Option[Bdoc]] =
-      coll.aggregate1[Bdoc](firstOperator, otherOperators, readPreference = readPreference).headOption
+      coll.aggregatorContext[Bdoc](firstOperator, otherOperators, readPreference = readPreference)
+        .prepared[Cursor](CursorProducer.defaultCursorProducer[Bdoc]).cursor.headOption
 
     def distinctWithReadPreference[T, M[_] <: Iterable[_]](
       key: String,
