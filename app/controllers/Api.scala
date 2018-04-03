@@ -100,12 +100,13 @@ object Api extends LilaController {
       val actualIds = users.map(_.id)
       val onlineIds = Env.user.onlineUserIdMemo intersect actualIds
       val playingIds = Env.relation.online.playing intersect actualIds
+      val streamingIds = Env.streamer.liveStreamApi.userIds
       toApiResult {
         users.map { u =>
-          lila.common.LightUser.lightUserWrites.writes(u) ++ Json.obj(
-            "online" -> onlineIds.contains(u.id),
-            "playing" -> playingIds.contains(u.id)
-          )
+          lila.common.LightUser.lightUserWrites.writes(u)
+            .add("online" -> onlineIds(u.id))
+            .add("playing" -> playingIds(u.id))
+            .add("streaming" -> streamingIds(u.id))
         }
       }
     }
