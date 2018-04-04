@@ -90,15 +90,15 @@ final class Env(
 
   def roundProxyGame(gameId: Game.ID): Fu[Option[Game]] = {
     import makeTimeout.halfSecond
-    roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Fu[Option[Game]]]
-  }.flatMap(identity).mon(_.round.proxyGameWatcherTime) addEffect { g =>
+    roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Option[Game]]
+  }.mon(_.round.proxyGameWatcherTime) addEffect { g =>
     lila.mon.round.proxyGameWatcherCount(g.isDefined.toString)()
   } recoverWith {
     case e: akka.pattern.AskTimeoutException =>
       // weird. monitor and try again.
       lila.mon.round.proxyGameWatcherCount("exception")()
       import makeTimeout.halfSecond
-      roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Fu[Option[Game]]] flatMap identity recoverWith {
+      roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Option[Game]] recoverWith {
         case e: akka.pattern.AskTimeoutException =>
           // again? monitor, log and fallback on DB
           lila.mon.round.proxyGameWatcherCount("double_exception")()

@@ -218,9 +218,7 @@ private[round] final class Round(
       game.timeBeforeExpiration.exists(_.centis == 0) ?? finisher.noStart(game)
     }
 
-    case GetGame => fuccess {
-      sender ! proxy.game
-    }
+    case GetGame => proxy.game map sender.!
   }
 
   private def giveMoretime(game: Game, colors: List[Color], duration: FiniteDuration): Progress =
