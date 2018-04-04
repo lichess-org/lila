@@ -45,6 +45,9 @@ final class Env(
     onlineUserIds
   )
 
+  def isPlaying(userId: lila.user.User.ID): Boolean =
+    online.playing.get(userId)
+
   private[relation] val actor = system.actorOf(Props(new RelationActor(
     lightUser = lightUserApi.sync,
     api = api,

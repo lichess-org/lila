@@ -4,7 +4,7 @@ import lila.rating.{ Perf, PerfType }
 import play.api.libs.json._
 import User.{ PlayTime, LightPerf }
 
-final class JsonView(isOnline: String => Boolean) {
+final class JsonView(isOnline: User.ID => Boolean) {
 
   import JsonView._
   private implicit val profileWrites = Json.writes[Profile]

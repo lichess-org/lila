@@ -30,6 +30,7 @@ final class Env(
     getSimulName: Simul.ID => Fu[Option[String]],
     getTournamentName: String => Option[String],
     isStreaming: lila.user.User.ID => Boolean,
+    isPlaying: lila.user.User.ID => Boolean,
     pools: List[lila.pool.PoolConfig],
     val isProd: Boolean
 ) {
@@ -77,9 +78,8 @@ final class Env(
   val pgnDump = new PgnDump(
     dumper = gamePgnDump,
     getSimulName = getSimulName,
-    getTournamentName = getTournamentName,
-    system = system
-  )
+    getTournamentName = getTournamentName
+  )(system)
 
   val userApi = new UserApi(
     jsonView = userEnv.jsonView,
@@ -90,6 +90,7 @@ final class Env(
     playBanApi = playBanApi,
     gameCache = gameCache,
     isStreaming = isStreaming,
+    isPlaying = isPlaying,
     prefApi = prefApi
   )
 
@@ -167,6 +168,7 @@ object Env {
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     isStreaming = lila.streamer.Env.current.liveStreamApi.isStreaming,
+    isPlaying = lila.relation.Env.current.online.isPlaying,
     pools = lila.pool.Env.current.api.configs,
     isProd = lila.common.PlayApp.isProd
   )

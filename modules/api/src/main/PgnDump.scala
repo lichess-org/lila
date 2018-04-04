@@ -13,9 +13,8 @@ import lila.game.{ GameRepo, Query }
 final class PgnDump(
     dumper: lila.game.PgnDump,
     getSimulName: String => Fu[Option[String]],
-    getTournamentName: String => Option[String],
-    system: akka.actor.ActorSystem
-) {
+    getTournamentName: String => Option[String]
+)(implicit system: akka.actor.ActorSystem) {
 
   import PgnDump._
 
@@ -36,15 +35,6 @@ final class PgnDump(
       }
     }
 
-  private def delay[A](duration: FiniteDuration): Enumeratee[A, A] =
-    Enumeratee.mapM[A].apply[A] { as =>
-      lila.common.Future.delay[A](duration)(fuccess(as))(system)
-    }
-
-  private def throttle[A]: Enumeratee[Iterator[A], A] =
-    delay[Iterator[A]](1 second) ><>
-      Enumeratee.mapConcat[Iterator[A]].apply[A](_.toSeq)
-
   def exportUserGames(config: Config): Enumerator[String] = {
     import reactivemongo.play.iteratees.cursorProducer
     import lila.db.dsl._
@@ -52,7 +42,10 @@ final class PgnDump(
       Query.user(config.user.id) ++ Query.createdBetween(config.since, config.until),
       Query.sortCreated,
       batchSize = config.perSecond.value
-    ).bulkEnumerator(maxDocs = config.max | Int.MaxValue) &> throttle &> toPgn(config.flags)
+    ).bulkEnumerator(maxDocs = config.max | Int.MaxValue) &>
+      lila.common.Iteratee.delay(1 second) &>
+      Enumeratee.mapConcat(_.toSeq) &>
+      toPgn(config.flags)
   }
 
   def exportGamesFromIds(ids: List[String]): Enumerator[String] =

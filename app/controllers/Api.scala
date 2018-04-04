@@ -2,6 +2,7 @@ package controllers
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
+import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -16,7 +17,7 @@ object Api extends LilaController {
   private val userApi = Env.api.userApi
   private val gameApi = Env.api.gameApi
 
-  private implicit val limitedDefault = Zero.instance[ApiResult](Limited)
+  private[controllers] implicit val limitedDefault = Zero.instance[ApiResult](Limited)
 
   private lazy val apiStatusJson = {
     val api = lila.api.Mobile.Api
@@ -46,39 +47,22 @@ object Api extends LilaController {
   }
 
   def user(name: String) = ApiRequest { implicit ctx =>
-    userApi.one(name, ctx.me) map toApiResult
+    userApi.extended(name, ctx.me) map toApiResult
   }
 
-  private val UsersRateLimitGlobal = new lila.memo.RateLimit[String](
+  private[controllers] val UsersRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 1000,
     duration = 1 minute,
     name = "team users API global",
     key = "team_users.api.global"
   )
 
-  private val UsersRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private[controllers] val UsersRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 1000,
     duration = 10 minutes,
     name = "team users API per IP",
     key = "team_users.api.ip"
   )
-
-  def users = ApiRequest { implicit ctx =>
-    val page = (getInt("page") | 1) atLeast 1 atMost 50
-    val nb = (getInt("nb") | 10) atLeast 1 atMost 50
-    val cost = page * nb + 10
-    val ip = HTTPRequest lastRemoteAddress ctx.req
-    UsersRateLimitPerIP(ip, cost = cost) {
-      UsersRateLimitGlobal("-", cost = cost, msg = ip.value) {
-        lila.mon.api.teamUsers.cost(cost)
-        (get("team") ?? Env.team.api.team).flatMap {
-          _ ?? { team =>
-            Env.team.pager(team, page, MaxPerPage(nb)) map userApi.pager map some
-          }
-        } map toApiResult
-      }
-    }
-  }
 
   def usersByIds = OpenBody(parse.tolerantText) { implicit ctx =>
     val usernames = ctx.body.body.split(',').take(300).toList
@@ -306,11 +290,13 @@ object Api extends LilaController {
 
   sealed trait ApiResult
   case class Data(json: JsValue) extends ApiResult
+  case class JsonStream(value: Enumerator[JsObject]) extends ApiResult
   case object NoData extends ApiResult
   case object Limited extends ApiResult
   case class Custom(result: Result) extends ApiResult
   def toApiResult(json: Option[JsValue]): ApiResult = json.fold[ApiResult](NoData)(Data.apply)
   def toApiResult(json: Seq[JsValue]): ApiResult = Data(JsArray(json))
+  def toApiResult(stream: Enumerator[JsObject]): ApiResult = JsonStream(stream)
 
   def ApiRequest(js: Context => Fu[ApiResult]) = Open { implicit ctx =>
     js(ctx) map toHttp
@@ -322,6 +308,12 @@ object Api extends LilaController {
     case Limited => tooManyRequests
     case NoData => NotFound
     case Custom(result) => result
+    case JsonStream(stream) =>
+      Ok.chunked {
+        stream &> Enumeratee.map { o =>
+          Json.stringify(o) + "\n"
+        }
+      }.withHeaders(CONTENT_TYPE -> "application/x-ndjson")
     case Data(json) => get("callback") match {
       case None => Ok(json) as JSON
       case Some(callback) => Ok(s"$callback($json)") as JAVASCRIPT

@@ -15,19 +15,24 @@ private[api] final class UserApi(
     gameCache: lila.game.Cached,
     prefApi: lila.pref.PrefApi,
     isStreaming: User.ID => Boolean,
+    isPlaying: User.ID => Boolean,
     makeUrl: String => String
 ) {
 
-  def pager(pag: Paginator[User]): JsObject =
-    Json.obj("paginator" -> PaginatorJson(pag mapResults { u =>
-      jsonView(u) ++ Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
-    }))
+  def pagerJson(pag: Paginator[User]): JsObject =
+    Json.obj("paginator" -> PaginatorJson(pag mapResults one))
 
-  def one(username: String, as: Option[User]): Fu[Option[JsObject]] = UserRepo named username flatMap {
-    _ ?? { one(_, as) map some }
+  def one(u: User): JsObject =
+    jsonView(u)
+      .add("playing", isPlaying(u.id))
+      .add("streaming", isStreaming(u.id)) ++
+      Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
+
+  def extended(username: String, as: Option[User]): Fu[Option[JsObject]] = UserRepo named username flatMap {
+    _ ?? { extended(_, as) map some }
   }
 
-  def one(u: User, as: Option[User]): Fu[JsObject] =
+  def extended(u: User, as: Option[User]): Fu[JsObject] =
     if (u.disabled) fuccess {
       Json.obj(
         "id" -> u.id,
@@ -71,7 +76,8 @@ private[api] final class UserApi(
                   "import" -> nbImported,
                   "me" -> nbGamesWithMe
                 )
-              ).add("streaming", isStreaming(u.id) option makeUrl(s"streamer/${u.username}")) ++ as.isDefined.??(Json.obj(
+              ).add("streaming", isStreaming(u.id)) ++
+                as.isDefined.??(Json.obj(
                   "followable" -> followable,
                   "following" -> relation.has(true),
                   "blocking" -> relation.has(false),

@@ -16,6 +16,8 @@ final class OnlineDoing(
 
   val playing = new lila.memo.ExpireSetMemo(4 hours)
 
+  def isPlaying(userId: User.ID) = playing get userId
+
   // people with write access in public studies
   val studying: Cache[ID, StudyId] =
     Scaffeine().expireAfterAccess(20 minutes).build[ID, StudyId]
