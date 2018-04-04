@@ -16,9 +16,10 @@ $(function() {
     $('#site_header').append('<a class="blocker button" href="'+url+'">' +
       '<i data-icon=""></i>' +
       '<strong>Install a malware blocker!</strong>' +
-      'Be safe from ads and trackers.<br />' +
+      'Be safe from ads and trackers<br />' +
+      'infesting Twitch and YouTube.<br />' +
       'We recommend uBlock Origin<br />' +
-      'which is both free & open-source.' +
+      'which is free and open-source.' +
       '</a>');
   }, 1000);
 });
