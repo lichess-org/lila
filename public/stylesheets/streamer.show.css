@@ -109,7 +109,8 @@ div.content_box.streamer h1 {
   text-align: center;
   font-weight: normal!important;
 }
-.blocker img {
+.blocker i {
+  font-size: 40px;
   margin-bottom: 10px;
 }
 
