@@ -384,6 +384,7 @@
   <string name="winner">Győztes</string>
   <string name="standing">Állás</string>
   <string name="createANewTournament">Új verseny létrehozása</string>
+  <string name="tournamentCalendar">Versenynaptár</string>
   <string name="join">Csatlakozás</string>
   <string name="withdraw">Visszavon</string>
   <string name="points">Pontok</string>
