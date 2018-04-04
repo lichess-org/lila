@@ -19,18 +19,18 @@ final class PdnDump(
 
   import PdnDump._
 
-  def apply(game: Game, initialFen: Option[String], flags: WithFlags, draughtsResult: Boolean): Fu[Pdn] =
+  def apply(game: Game, initialFen: Option[String], flags: WithFlags): Fu[Pdn] =
     (game.simulId ?? getSimulName) map { simulName =>
-      val pdn = dumper(game, initialFen, flags, draughtsResult)
+      val pdn = dumper(game, initialFen, flags)
       simulName.orElse(game.tournamentId flatMap getTournamentName).fold(pdn)(pdn.withEvent)
     }
 
   def filename(game: Game) = dumper filename game
 
-  private def toPdn(draughtsResult: Boolean) =
+  private def toPdn(flags: WithFlags) =
     Enumeratee.mapM[Game].apply[String] { game =>
       GameRepo initialFen game flatMap { initialFen =>
-        apply(game, initialFen, WithFlags(), draughtsResult).map(pdn => s"$pdn\n\n\n")
+        apply(game, initialFen, flags).map(pdn => s"$pdn\n\n\n")
       }
     }
 
@@ -50,14 +50,14 @@ final class PdnDump(
       Query.user(config.user.id) ++ Query.createdBetween(config.since, config.until),
       Query.sortCreated,
       batchSize = config.perSecond.value
-    ).bulkEnumerator(maxDocs = config.max | Int.MaxValue) &> throttle &> toPdn(config.draughtsResult)
+    ).bulkEnumerator(maxDocs = config.max | Int.MaxValue) &> throttle &> toPdn(config.flags)
   }
 
   def exportGamesFromIds(ids: List[String], draughtsResult: Boolean): Enumerator[String] =
     Enumerator.enumerate(ids grouped 50) &>
       Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.gamesFromSecondary) &>
       Enumeratee.mapConcat(identity) &>
-      toPdn(draughtsResult)
+      toPdn(WithFlags(draughtsResult = draughtsResult))
 }
 
 object PdnDump {
@@ -67,7 +67,7 @@ object PdnDump {
       since: Option[DateTime] = None,
       until: Option[DateTime] = None,
       max: Option[Int] = None,
-      perSecond: MaxPerSecond,
-      draughtsResult: Boolean
+      flags: WithFlags,
+      perSecond: MaxPerSecond
   )
 }

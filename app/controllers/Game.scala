@@ -39,13 +39,17 @@ object Game extends LidraughtsController {
           ExportRateLimitPerUser(user.id, cost = 1) {
             val since = getLong("since", req) map { ts => new DateTime(ts) }
             val until = getLong("until", req) map { ts => new DateTime(ts) }
-            val max = getInt("max", req)
+            val moves = getBoolOpt("moves", req) | true
+            val tags = getBoolOpt("tags", req) | true
+            val clocks = getBoolOpt("clocks", req) | true
+            val max = getInt("max", req) map (_ atLeast 1)
             val perSecond = MaxPerSecond(me match {
               case None => 10
               case Some(m) if m is user.id => 50
               case Some(_) => 20
             })
-            val config = PdnDump.Config(user, since, until, max, perSecond, draughtsResult)
+            val formatFlags = lidraughts.game.PdnDump.WithFlags(moves = moves, tags = tags, clocks = clocks, draughtsResult = draughtsResult)
+            val config = PdnDump.Config(user, since, until, max, formatFlags, perSecond)
             val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
             Ok.chunked(Env.api.pdnDump.exportUserGames(config)).withHeaders(
               CONTENT_TYPE -> pdnContentType,

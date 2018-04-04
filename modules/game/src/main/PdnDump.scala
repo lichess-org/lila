@@ -14,19 +14,21 @@ final class PdnDump(
 
   import PdnDump._
 
-  def apply(game: Game, initialFen: Option[String], flags: WithFlags, draughtsResult: Boolean): Pdn = {
+  def apply(game: Game, initialFen: Option[String], flags: WithFlags): Pdn = {
     val imported = game.pdnImport.flatMap { pdni =>
       Parser.full(pdni.pdn).toOption
     }
-    val ts = tags(game, initialFen, imported, draughtsResult)
-    val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
-    val moves2 = fenSituation.??(_.situation.color.black).fold(".." +: game.pdnMovesConcat, game.pdnMovesConcat)
-    val turns = makeTurns(
-      moves2,
-      fenSituation.map(_.fullMoveNumber) | 1,
-      flags.clocks ?? ~game.bothClockStates,
-      game.startColor
-    )
+    val ts = if (flags.tags) tags(game, initialFen, imported, flags.draughtsResult) else Tags(Nil)
+    val turns = flags.moves ?? {
+      val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
+      val moves2 = fenSituation.??(_.situation.color.black).fold(".." +: game.pdnMovesConcat, game.pdnMovesConcat)
+      makeTurns(
+        moves2,
+        fenSituation.map(_.fullMoveNumber) | 1,
+        flags.clocks ?? ~game.bothClockStates,
+        game.startColor
+      )
+    }
     Pdn(ts, turns)
   }
 
@@ -141,7 +143,10 @@ final class PdnDump(
 object PdnDump {
 
   case class WithFlags(
-      clocks: Boolean = true
+      clocks: Boolean = true,
+      moves: Boolean = true,
+      tags: Boolean = true,
+      draughtsResult: Boolean = true
   )
 
   def result(game: Game, draughtsResult: Boolean) =
