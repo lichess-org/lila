@@ -434,6 +434,7 @@
   <string name="winner">Победитель</string>
   <string name="standing">Турнирная таблица</string>
   <string name="createANewTournament">Создать турнир</string>
+  <string name="tournamentCalendar">Календарь турнира</string>
   <string name="join">Участвовать</string>
   <string name="withdraw">Покинуть</string>
   <string name="points">Очки</string>
