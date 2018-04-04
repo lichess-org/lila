@@ -12,7 +12,6 @@ POST  /timeline/unsub/:channel         controllers.Timeline.unsub(channel: Strin
 
 # Search
 GET   /games/search                    controllers.Search.index(page: Int ?= 1)
-GET   /games/export/search             controllers.Search.export
 
 # Game export
 GET   /games/export/:username          controllers.Game.export(username: String)
