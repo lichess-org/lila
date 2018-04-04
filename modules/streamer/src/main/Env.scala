@@ -55,9 +55,10 @@ final class Env(
   system.lidraughtsBus.subscribe(
     system.actorOf(Props(new Actor {
       def receive = {
-        case lidraughts.user.User.Active(user) if !user.seenRecently => api.setSeenAt(user)
+        case lidraughts.user.User.Active(user) if !user.seenRecently => api setSeenAt user
+        case lidraughts.hub.actorApi.mod.MarkCheater(userId, true) => api demote userId
       }
-    })), 'userActive
+    })), 'userActive, 'adjustCheater
   )
 }
 
