@@ -4,7 +4,7 @@ import lila.rating.Perf
 import lila.user.{ User, Perfs }
 
 private[tournament] case class Player(
-    _id: String, // random
+    _id: Player.ID, // random
     tourId: Tournament.ID,
     userId: User.ID,
     rating: Int,
@@ -19,7 +19,7 @@ private[tournament] case class Player(
 
   def active = !withdraw
 
-  def is(uid: String): Boolean = uid == userId
+  def is(uid: User.ID): Boolean = uid == userId
   def is(user: User): Boolean = is(user.id)
   def is(other: Player): Boolean = is(other.userId)
 
@@ -33,9 +33,11 @@ private[tournament] case class Player(
 
 private[tournament] object Player {
 
+  type ID = String
+
   case class WithUser(player: Player, user: User)
 
-  private[tournament] def make(tourId: String, user: User, perfLens: Perfs => Perf): Player = new Player(
+  private[tournament] def make(tourId: Tournament.ID, user: User, perfLens: Perfs => Perf): Player = new Player(
     _id = lila.game.IdGenerator.game,
     tourId = tourId,
     userId = user.id,

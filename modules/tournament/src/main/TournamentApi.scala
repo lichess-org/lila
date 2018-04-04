@@ -235,7 +235,10 @@ final class TournamentApi(
     }
   }
 
-  def withdraw(tourId: Tournament.ID, userId: User.ID): Unit = {
+  def selfPause(tourId: Tournament.ID, userId: User.ID): Unit =
+    withdraw(tourId, userId)
+
+  private def withdraw(tourId: Tournament.ID, userId: User.ID): Unit = {
     Sequencing(tourId)(TournamentRepo.enterableById) {
       case tour if tour.isCreated =>
         PlayerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) >>- socketReload(tour.id) >>- publish()

@@ -179,10 +179,10 @@ object Tournament extends LilaController {
     }
   }
 
-  def withdraw(id: String) = Auth { implicit ctx => me =>
+  def pause(id: String) = Auth { implicit ctx => me =>
     OptionResult(repo byId id) { tour =>
-      env.api.withdraw(tour.id, me.id)
-      if (HTTPRequest.isXhr(ctx.req)) Ok(Json.obj("ok" -> true)) as JSON
+      env.api.selfPause(tour.id, me.id)
+      if (HTTPRequest.isXhr(ctx.req)) jsonOkResult
       else Redirect(routes.Tournament.show(tour.id))
     }
   }
