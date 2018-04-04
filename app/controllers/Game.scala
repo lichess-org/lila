@@ -39,13 +39,17 @@ object Game extends LilaController {
           ExportRateLimitPerUser(user.id, cost = 1) {
             val since = getLong("since", req) map { ts => new DateTime(ts) }
             val until = getLong("until", req) map { ts => new DateTime(ts) }
-            val max = getInt("max", req)
+            val moves = getBoolOpt("moves", req) | true
+            val tags = getBoolOpt("tags", req) | true
+            val clocks = getBoolOpt("clocks", req) | true
+            val max = getInt("max", req) map (_ atLeast 1)
             val perSecond = MaxPerSecond(me match {
               case None => 10
               case Some(m) if m is user.id => 50
               case Some(_) => 20
             })
-            val config = PgnDump.Config(user, since, until, max, perSecond)
+            val formatFlags = lila.game.PgnDump.WithFlags(moves = moves, tags = tags, clocks = clocks)
+            val config = PgnDump.Config(user, since, until, max, formatFlags, perSecond)
             val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
             Ok.chunked(Env.api.pgnDump.exportUserGames(config)).withHeaders(
               CONTENT_TYPE -> pgnContentType,

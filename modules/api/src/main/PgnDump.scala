@@ -27,10 +27,10 @@ final class PgnDump(
 
   def filename(game: Game) = dumper filename game
 
-  private val toPgn =
+  private def toPgn(flags: WithFlags) =
     Enumeratee.mapM[Game].apply[String] { game =>
       GameRepo initialFen game flatMap { initialFen =>
-        apply(game, initialFen, WithFlags()).map(pgn => s"$pgn\n\n\n")
+        apply(game, initialFen, flags).map(pgn => s"$pgn\n\n\n")
       }
     }
 
@@ -50,14 +50,14 @@ final class PgnDump(
       Query.user(config.user.id) ++ Query.createdBetween(config.since, config.until),
       Query.sortCreated,
       batchSize = config.perSecond.value
-    ).bulkEnumerator(maxDocs = config.max | Int.MaxValue) &> throttle &> toPgn
+    ).bulkEnumerator(maxDocs = config.max | Int.MaxValue) &> throttle &> toPgn(config.flags)
   }
 
   def exportGamesFromIds(ids: List[String]): Enumerator[String] =
     Enumerator.enumerate(ids grouped 50) &>
       Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.gamesFromSecondary) &>
       Enumeratee.mapConcat(identity) &>
-      toPgn
+      toPgn(WithFlags())
 }
 
 object PgnDump {
@@ -67,6 +67,7 @@ object PgnDump {
       since: Option[DateTime] = None,
       until: Option[DateTime] = None,
       max: Option[Int] = None,
+      flags: WithFlags,
       perSecond: MaxPerSecond
   )
 }
