@@ -41,7 +41,7 @@ object Game extends LilaController {
             val until = getLong("until", req) map { ts => new DateTime(ts) }
             val moves = getBoolOpt("moves", req) | true
             val tags = getBoolOpt("tags", req) | true
-            val clocks = getBoolOpt("clocks", req) | true
+            val clocks = getBoolOpt("clocks", req) | false
             val max = getInt("max", req) map (_ atLeast 1)
             val perSecond = MaxPerSecond(me match {
               case None => 10
