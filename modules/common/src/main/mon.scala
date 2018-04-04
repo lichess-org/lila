@@ -568,9 +568,6 @@ object mon {
     object activity {
       val cost = incX("api.activity.cost")
     }
-    object hit {
-      def path(p: String) = inc(s"api.hit.path.$p")
-    }
   }
   object export {
     object pgn {

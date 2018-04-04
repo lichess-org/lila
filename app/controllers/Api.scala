@@ -304,22 +304,19 @@ object Api extends LilaController {
 
   private val tooManyRequests = TooManyRequest(jsonError("Try again later"))
 
-  private def toHttp(result: ApiResult)(implicit ctx: Context): Result = {
-    lila.mon.api.hit.path(ctx.req.path)()
-    result match {
-      case Limited => tooManyRequests
-      case NoData => NotFound
-      case Custom(result) => result
-      case JsonStream(stream) =>
-        Ok.chunked {
-          stream &> Enumeratee.map { o =>
-            Json.stringify(o) + "\n"
-          }
-        }.withHeaders(CONTENT_TYPE -> "application/x-ndjson")
-      case Data(json) => get("callback") match {
-        case None => Ok(json) as JSON
-        case Some(callback) => Ok(s"$callback($json)") as JAVASCRIPT
-      }
+  private def toHttp(result: ApiResult)(implicit ctx: Context): Result = result match {
+    case Limited => tooManyRequests
+    case NoData => NotFound
+    case Custom(result) => result
+    case JsonStream(stream) =>
+      Ok.chunked {
+        stream &> Enumeratee.map { o =>
+          Json.stringify(o) + "\n"
+        }
+      }.withHeaders(CONTENT_TYPE -> "application/x-ndjson")
+    case Data(json) => get("callback") match {
+      case None => Ok(json) as JSON
+      case Some(callback) => Ok(s"$callback($json)") as JAVASCRIPT
     }
   }
 }
