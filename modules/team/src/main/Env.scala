@@ -32,7 +32,7 @@ final class Env(
 
   lazy val forms = new DataForm(colls.team, hub.actor.captcher)
 
-  lazy val pager = new MemberPager(colls.member)
+  lazy val pager = new MemberPager(colls.member)(system)
 
   lazy val api = new TeamApi(
     coll = colls,

@@ -29,6 +29,8 @@ final class Env(
     getSimul: Simul.ID => Fu[Option[Simul]],
     getSimulName: Simul.ID => Fu[Option[String]],
     getTournamentName: String => Option[String],
+    isStreaming: lidraughts.user.User.ID => Boolean,
+    isPlaying: lidraughts.user.User.ID => Boolean,
     pools: List[lidraughts.pool.PoolConfig],
     val isProd: Boolean
 ) {
@@ -76,9 +78,8 @@ final class Env(
   val pdnDump = new PdnDump(
     dumper = gamePdnDump,
     getSimulName = getSimulName,
-    getTournamentName = getTournamentName,
-    system = system
-  )
+    getTournamentName = getTournamentName
+  )(system)
 
   val userApi = new UserApi(
     jsonView = userEnv.jsonView,
@@ -88,6 +89,8 @@ final class Env(
     crosstableApi = crosstableApi,
     playBanApi = playBanApi,
     gameCache = gameCache,
+    isStreaming = isStreaming,
+    isPlaying = isPlaying,
     prefApi = prefApi
   )
 
@@ -164,6 +167,8 @@ object Env {
     gameCache = lidraughts.game.Env.current.cached,
     system = lidraughts.common.PlayApp.system,
     scheduler = lidraughts.common.PlayApp.scheduler,
+    isStreaming = lidraughts.streamer.Env.current.liveStreamApi.isStreaming,
+    isPlaying = lidraughts.relation.Env.current.online.isPlaying,
     pools = lidraughts.pool.Env.current.api.configs,
     isProd = lidraughts.common.PlayApp.isProd
   )

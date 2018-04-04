@@ -13,9 +13,8 @@ import lidraughts.game.{ GameRepo, Query }
 final class PdnDump(
     dumper: lidraughts.game.PdnDump,
     getSimulName: String => Fu[Option[String]],
-    getTournamentName: String => Option[String],
-    system: akka.actor.ActorSystem
-) {
+    getTournamentName: String => Option[String]
+)(implicit system: akka.actor.ActorSystem) {
 
   import PdnDump._
 
@@ -36,15 +35,6 @@ final class PdnDump(
       }
     }
 
-  private def delay[A](duration: FiniteDuration): Enumeratee[A, A] =
-    Enumeratee.mapM[A].apply[A] { as =>
-      lidraughts.common.Future.delay[A](duration)(fuccess(as))(system)
-    }
-
-  private def throttle[A]: Enumeratee[Iterator[A], A] =
-    delay[Iterator[A]](1 second) ><>
-      Enumeratee.mapConcat[Iterator[A]].apply[A](_.toSeq)
-
   def exportUserGames(config: Config): Enumerator[String] = {
     import reactivemongo.play.iteratees.cursorProducer
     import lidraughts.db.dsl._
@@ -52,7 +42,10 @@ final class PdnDump(
       Query.user(config.user.id) ++ Query.createdBetween(config.since, config.until),
       Query.sortCreated,
       batchSize = config.perSecond.value
-    ).bulkEnumerator(maxDocs = config.max | Int.MaxValue) &> throttle &> toPdn(config.flags)
+    ).bulkEnumerator(maxDocs = config.max | Int.MaxValue) &>
+      lidraughts.common.Iteratee.delay(1 second) &>
+      Enumeratee.mapConcat(_.toSeq) &>
+      toPdn(config.flags)
   }
 
   def exportGamesFromIds(ids: List[String], draughtsResult: Boolean): Enumerator[String] =
