@@ -384,6 +384,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="winner">Winner</string>
   <string name="standing">Standing</string>
   <string name="createANewTournament">Create a new tournament</string>
+  <string name="tournamentCalendar">Tournament calendar</string>
   <string name="join">Join</string>
   <string name="withdraw">Withdraw</string>
   <string name="points">Points</string>
