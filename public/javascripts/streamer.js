@@ -8,16 +8,17 @@ $(function() {
     });
   });
   setTimeout(function() {
+    if (!lichess.needBlocker) return;
     var url = 'https://github.com/gorhill/uBlock#installation';
     if (lichess.isChrome) url = 'https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm';
     else if (navigator.userAgent.indexOf(' Firefox/') > -1) url = 'https://addons.mozilla.org/addon/ublock-origin/';
     else if (navigator.userAgent.indexOf(' Edge/') > -1) url = 'https://www.microsoft.com/store/p/app/9nblggh444l4';
-    var html = '<a class="blocker button" href="'+url+'">' +
-      '<img src="https://raw.githubusercontent.com/gorhill/uBlock/master/doc/img/icon38@2x.png" width=76 height=76 />' +
+    $('#site_header').append('<a class="blocker button" href="'+url+'">' +
+      '<i data-icon=""></i>' +
       '<strong>Install a malware blocker!</strong>' +
       'Be safe from ads and trackers.<br />' +
-      'We recommend uBlock Origin.' +
-      '</a>';
-    if (lichess.needBlocker) $('#site_header').append(html);
-  });
+      'We recommend uBlock Origin<br />' +
+      'which is both free & open-source.' +
+      '</a>');
+  }, 1000);
 });
