@@ -79,7 +79,7 @@ object Api extends LilaController {
   }
 
   def usersStatus = ApiRequest { implicit ctx =>
-    val ids = get("ids").??(_.split(',').take(40).toList map lila.user.User.normalize)
+    val ids = get("ids").??(_.split(',').take(50).toList map lila.user.User.normalize)
     Env.user.lightUserApi asyncMany ids dmap (_.flatten) map { users =>
       val actualIds = users.map(_.id)
       val onlineIds = Env.user.onlineUserIdMemo intersect actualIds
