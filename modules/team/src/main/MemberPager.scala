@@ -9,10 +9,10 @@ import lila.user.{ User, UserRepo }
 
 final class MemberPager(coll: Coll)(implicit system: akka.actor.ActorSystem) {
 
-  def stream(team: Team, max: Option[Int]): Enumerator[User] =
-    coll.find($doc("team" -> team.id), $doc("user" -> true))
+  def stream(team: Team, max: Option[Int]): Enumerator[User] = {
+    val query = coll.find($doc("team" -> team.id), $doc("user" -> true))
       .sort($sort desc "date")
-      .batchSize(20)
+    query.copy(options = query.options.batchSize(20))
       .cursor[Bdoc]()
       .bulkEnumerator(maxDocs = max | Int.MaxValue) &>
       lila.common.Iteratee.delay(1 second) &>
@@ -20,4 +20,5 @@ final class MemberPager(coll: Coll)(implicit system: akka.actor.ActorSystem) {
         UserRepo usersFromSecondary docs.toSeq.flatMap(_.getAs[String]("user"))
       } &>
       Enumeratee.mapConcat(_.toSeq)
+  }
 }

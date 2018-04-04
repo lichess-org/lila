@@ -1,6 +1,6 @@
 package lila.learn
 
-import reactivemongo.bson.{ MapReader => _, MapWriter => _, _ }
+import reactivemongo.bson._
 
 import lila.db.BSON
 import lila.db.dsl._

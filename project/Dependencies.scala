@@ -44,7 +44,7 @@ object Dependencies {
   val jwt = "com.pauldijou" %% "jwt-core" % "0.14.1"
 
   object reactivemongo {
-    val version = "0.12.7"
+    val version = "0.12.2"
     val driver = ("org.reactivemongo" %% "reactivemongo" % version)
       .exclude("com.typesafe.akka", "*") // provided by Play
       .exclude("com.typesafe.play", "*")
