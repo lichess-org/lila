@@ -19,11 +19,13 @@ final class PdnDump(
 
   import PdnDump._
 
-  def apply(game: Game, initialFen: Option[String], flags: WithFlags): Fu[Pdn] =
-    (game.simulId ?? getSimulName) map { simulName =>
-      val pdn = dumper(game, initialFen, flags)
+  def apply(game: Game, initialFen: Option[String], flags: WithFlags): Fu[Pdn] = {
+    val pdn = dumper(game, initialFen, flags)
+    if (flags.tags) (game.simulId ?? getSimulName) map { simulName =>
       simulName.orElse(game.tournamentId flatMap getTournamentName).fold(pdn)(pdn.withEvent)
     }
+    else fuccess(pdn)
+  }
 
   def filename(game: Game) = dumper filename game
 
