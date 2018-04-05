@@ -16,7 +16,7 @@ case class Game(
     id: Game.ID,
     whitePlayer: Player,
     blackPlayer: Player,
-    loadChess: () => ChessGame,
+    chess: ChessGame,
     loadClockHistory: Clock => Option[ClockHistory] = _ => Game.someEmptyClockHistory,
     status: Status,
     daysPerTurn: Option[Int],
@@ -28,8 +28,6 @@ case class Game(
     movedAt: DateTime = DateTime.now,
     metadata: Metadata
 ) {
-
-  lazy val chess = loadChess()
   lazy val clockHistory = chess.clock flatMap loadClockHistory
 
   def situation = chess.situation
@@ -178,7 +176,7 @@ case class Game(
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
       blackPlayer = copyPlayer(blackPlayer),
-      loadChess = () => game,
+      chess = game,
       binaryMoveTimes = (!isPgnImport && !chess.clock.isDefined).option {
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
@@ -329,7 +327,7 @@ case class Game(
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>
       val newClock = c goBerserk color
       Progress(this, copy(
-        loadChess = () => chess.copy(clock = Some(newClock)),
+        chess = chess.copy(clock = Some(newClock)),
         loadClockHistory = _ => clockHistory.map(history => {
           if (history(color).isEmpty) history
           else history.reset(color).record(color, newClock)
@@ -353,7 +351,7 @@ case class Game(
         status = status,
         whitePlayer = whitePlayer.finish(winner contains White),
         blackPlayer = blackPlayer.finish(winner contains Black),
-        loadChess = () => chess.copy(clock = newClock),
+        chess = chess.copy(clock = newClock),
         loadClockHistory = clk => clockHistory map { history =>
           // If not already finished, we're ending due to an event
           // in the middle of a turn, such as resignation or draw
@@ -438,7 +436,7 @@ case class Game(
 
   def isClockRunning = clock ?? (_.isRunning)
 
-  def withClock(c: Clock) = Progress(this, copy(loadChess = () => chess.copy(clock = Some(c))))
+  def withClock(c: Clock) = Progress(this, copy(chess = chess.copy(clock = Some(c))))
 
   def correspondenceGiveTime = Progress(this, copy(movedAt = DateTime.now))
 
@@ -535,7 +533,7 @@ case class Game(
   def isPgnImport = pgnImport.isDefined
 
   def resetTurns = copy(
-    loadChess = () => chess.copy(turns = 0, startedAtTurn = 0)
+    chess = chess.copy(turns = 0, startedAtTurn = 0)
   )
 
   lazy val opening: Option[FullOpening.AtPly] =
@@ -633,7 +631,7 @@ object Game {
       id = IdGenerator.game,
       whitePlayer = whitePlayer,
       blackPlayer = blackPlayer,
-      loadChess = () => chess,
+      chess = chess,
       status = Status.Created,
       daysPerTurn = daysPerTurn,
       mode = mode,

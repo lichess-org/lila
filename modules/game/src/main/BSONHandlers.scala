@@ -76,57 +76,52 @@ object BSONHandlers {
       val turnColor = Color.fromPly(plies)
       val createdAt = r date F.createdAt
 
-      val loadChess: () => chess.Game = () => {
+      val playedPlies = plies - startedAtTurn
+      val gameVariant = Variant(r intD F.variant) | chess.variant.Standard
 
-        lila.mon.game.decode()
-
-        val playedPlies = plies - startedAtTurn
-        val gameVariant = Variant(r intD F.variant) | chess.variant.Standard
-
-        val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, playedPlies) } | {
-          val clm = r.get[CastleLastMove](F.castleLastMove)
-          PgnStorage.Decoded(
-            pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, playedPlies),
-            pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
-            positionHashes = r.getO[chess.PositionHash](F.positionHashes) | Array.empty,
-            unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
-            lastMove = clm.lastMove,
-            castles = clm.castles
-          )
-        }
-        ChessGame(
-          situation = chess.Situation(
-            chess.Board(
-              pieces = decoded.pieces,
-              history = ChessHistory(
-                lastMove = decoded.lastMove,
-                castles = decoded.castles,
-                positionHashes = decoded.positionHashes,
-                unmovedRooks = decoded.unmovedRooks,
-                checkCount = if (gameVariant.threeCheck) {
-                  val counts = r.intsD(F.checkCount)
-                  CheckCount(~counts.headOption, ~counts.lastOption)
-                } else Game.emptyCheckCount
-              ),
-              variant = gameVariant,
-              crazyData = gameVariant.crazyhouse option r.get[Crazyhouse.Data](F.crazyData)
-            ),
-            color = turnColor
-          ),
-          pgnMoves = decoded.pgnMoves,
-          clock = r.getO[Color => Clock](F.clock) {
-            clockBSONReader(createdAt, light.whitePlayer.berserk, light.blackPlayer.berserk)
-          } map (_(turnColor)),
-          turns = plies,
-          startedAtTurn = startedAtTurn
+      val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, playedPlies) } | {
+        val clm = r.get[CastleLastMove](F.castleLastMove)
+        PgnStorage.Decoded(
+          pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, playedPlies),
+          pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
+          positionHashes = r.getO[chess.PositionHash](F.positionHashes) | Array.empty,
+          unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
+          lastMove = clm.lastMove,
+          castles = clm.castles
         )
       }
+      val chessGame = ChessGame(
+        situation = chess.Situation(
+          chess.Board(
+            pieces = decoded.pieces,
+            history = ChessHistory(
+              lastMove = decoded.lastMove,
+              castles = decoded.castles,
+              positionHashes = decoded.positionHashes,
+              unmovedRooks = decoded.unmovedRooks,
+              checkCount = if (gameVariant.threeCheck) {
+                val counts = r.intsD(F.checkCount)
+                CheckCount(~counts.headOption, ~counts.lastOption)
+              } else Game.emptyCheckCount
+            ),
+            variant = gameVariant,
+            crazyData = gameVariant.crazyhouse option r.get[Crazyhouse.Data](F.crazyData)
+          ),
+          color = turnColor
+        ),
+        pgnMoves = decoded.pgnMoves,
+        clock = r.getO[Color => Clock](F.clock) {
+          clockBSONReader(createdAt, light.whitePlayer.berserk, light.blackPlayer.berserk)
+        } map (_(turnColor)),
+        turns = plies,
+        startedAtTurn = startedAtTurn
+      )
 
       Game(
         id = r str F.id,
         whitePlayer = light.whitePlayer,
         blackPlayer = light.blackPlayer,
-        loadChess = loadChess,
+        chess = chessGame,
         loadClockHistory = clk => for {
           bw <- r bytesO F.whiteClockHistory
           bb <- r bytesO F.blackClockHistory
