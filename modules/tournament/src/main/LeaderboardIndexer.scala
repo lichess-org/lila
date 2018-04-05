@@ -35,14 +35,10 @@ private final class LeaderboardIndexer(
       generateTour(tour) flatMap saveEntries(tour.id)
 
   private def saveEntries(tourId: String)(entries: Seq[Entry]): Funit =
-    entries.nonEmpty ?? {
-      leaderboardColl.bulkInsert(
-        documents = entries.map(BSONHandlers.leaderboardEntryHandler.write).toStream,
-        ordered = false
-      ) map { res =>
-        logger.info(s"Inserted ${res.n} of ${entries.size} leaderboard entries for #$tourId")
-      }
-    }
+    entries.nonEmpty ?? leaderboardColl.bulkInsert(
+      documents = entries.map(BSONHandlers.leaderboardEntryHandler.write).toStream,
+      ordered = false
+    ).void
 
   private def generateTour(tour: Tournament): Fu[List[Entry]] = for {
     nbGames <- PairingRepo.countByTourIdAndUserIds(tour.id)
