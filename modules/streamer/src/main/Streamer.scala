@@ -109,4 +109,6 @@ object Streamer {
     def withoutStream = WithUser(streamer, user)
     def titleName = withoutStream.titleName
   }
+
+  case class ModChange(list: Option[Boolean], feature: Option[Boolean])
 }

@@ -57,8 +57,12 @@ object Streamer extends LidraughtsController {
         implicit val req = ctx.body
         StreamerForm.userForm(sws.streamer).bindFromRequest.fold(
           error => BadRequest(html.streamer.edit(sws, error)).fuccess,
-          data => api.update(sws.streamer, data, isGranted(_.Streamers)) inject Redirect {
-            s"" //${routes.Streamer.edit().url}${if (sws.streamer is me) "" else "?u=" + sws.user.id}"
+          data => api.update(sws.streamer, data, isGranted(_.Streamers)) map { change =>
+            change.list foreach { Env.mod.logApi.streamerList(lidraughts.report.Mod(me), s.user.id, _) }
+            change.feature foreach { Env.mod.logApi.streamerFeature(lidraughts.report.Mod(me), s.user.id, _) }
+            Redirect {
+              s"${routes.Streamer.edit().url}${if (sws.streamer is me) "" else "?u=" + sws.user.id}"
+            }
           }
         )
       }
