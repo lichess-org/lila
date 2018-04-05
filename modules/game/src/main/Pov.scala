@@ -1,6 +1,7 @@
 package lidraughts.game
 
 import draughts.Color
+import lidraughts.user.User
 
 case class Pov(game: Game, color: Color) {
 
@@ -54,13 +55,13 @@ object Pov {
 
   def apply(game: Game, player: Player) = new Pov(game, player.color)
 
-  def apply(game: Game, playerId: String): Option[Pov] =
+  def apply(game: Game, playerId: Player.ID): Option[Pov] =
     game player playerId map { apply(game, _) }
 
-  def apply(game: Game, user: lidraughts.user.User): Option[Pov] =
+  def apply(game: Game, user: User): Option[Pov] =
     game player user map { apply(game, _) }
 
-  def ofUserId(game: Game, userId: String): Option[Pov] =
+  def ofUserId(game: Game, userId: User.ID): Option[Pov] =
     game playerByUserId userId map { apply(game, _) }
 
   def opponentOfUserId(game: Game, userId: String): Option[Player] =
@@ -86,14 +87,14 @@ object Pov {
     else isFresher(a, b)
 }
 
-case class PovRef(gameId: String, color: Color) {
+case class PovRef(gameId: Game.ID, color: Color) {
 
   def unary_! = PovRef(gameId, !color)
 
   override def toString = s"$gameId/${color.name}"
 }
 
-case class PlayerRef(gameId: String, playerId: String)
+case class PlayerRef(gameId: Game.ID, playerId: String)
 
 object PlayerRef {
 

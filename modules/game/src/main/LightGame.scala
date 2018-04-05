@@ -7,11 +7,11 @@ case class LightGame(
     id: Game.ID,
     whitePlayer: Player,
     blackPlayer: Player,
-    status: Status,
-    tournamentId: Option[String]
+    status: Status
 ) {
   def playable = status < Status.Aborted
   def player(color: Color): Player = color.fold(whitePlayer, blackPlayer)
+  def player(playerId: Player.ID): Option[Player] = players find (_.id == playerId)
   def players = List(whitePlayer, blackPlayer)
   def playerByUserId(userId: String): Option[Player] = players.find(_.userId contains userId)
   def winner = players find (_.wins)
@@ -26,7 +26,6 @@ object LightGame {
     F.whitePlayer -> true,
     F.blackPlayer -> true,
     F.winnerColor -> true,
-    F.status -> true,
-    F.tournamentId -> true
+    F.status -> true
   )
 }
