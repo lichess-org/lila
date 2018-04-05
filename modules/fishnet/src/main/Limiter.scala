@@ -25,7 +25,7 @@ private final class Limiter(
   )
 
   private def concurrentCheck(sender: Work.Sender) = sender match {
-    case Work.Sender(_, _, mod, system) if (mod || system) => fuTrue
+    case Work.Sender(_, _, mod, system) if mod || system => fuTrue
     case Work.Sender(Some(userId), _, _, _) => !analysisColl.exists($doc(
       "sender.userId" -> userId
     ))

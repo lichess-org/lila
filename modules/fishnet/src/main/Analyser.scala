@@ -59,6 +59,7 @@ final class Analyser(
         import req._
         val sender = Work.Sender(req.userId, none, false, system = req.userId == "lichess")
         limiter(sender, ignoreConcurrentCheck = true) flatMap { accepted =>
+          if (!accepted) logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
           accepted ?? {
             val work = makeWork(
               game = Work.Game(
