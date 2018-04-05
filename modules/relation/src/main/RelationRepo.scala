@@ -17,16 +17,15 @@ private[relation] object RelationRepo {
 
   def followersFromSecondary(userId: ID) = relaters(userId, Follow, ReadPreference.secondaryPreferred)
 
-  def followingLike(userId: ID, term: String): Fu[List[ID]] = {
-    val id = term.toLowerCase
-    if (id.isEmpty) fuccess(Nil)
-    else coll.distinctWithReadPreference[String, List]("u2", $doc(
-      "u1" -> userId,
-      "u2".$regex("^" + id + ".*$", ""),
-      "r" -> Follow
-    ).some,
-      ReadPreference.secondaryPreferred)
-  }
+  def followingLike(userId: ID, term: String): Fu[List[ID]] =
+    lila.user.User.couldBeUsername(term) ?? {
+      coll.distinctWithReadPreference[ID, List]("u2", $doc(
+        "u1" -> userId,
+        "u2" $startsWith term.toLowerCase,
+        "r" -> Follow
+      ).some,
+        ReadPreference.secondaryPreferred)
+    }
 
   private def relaters(userId: ID, relation: Relation, rp: ReadPreference = ReadPreference.primary): Fu[Set[ID]] =
     coll.distinctWithReadPreference[String, Set]("u1", $doc(

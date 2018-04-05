@@ -254,19 +254,18 @@ object UserRepo {
   def existingUsernameIds(usernames: Set[String]): Fu[List[User.ID]] =
     coll.primitive[String]($inIds(usernames.map(normalize)), F.id)
 
-  def userIdsLike(text: String, max: Int = 10): Fu[List[User.ID]] = {
-    val id = normalize(text)
-    if (!User.idPattern.matcher(id).matches) fuccess(Nil)
-    else coll.find(
-      $doc(F.id.$regex("^" + id + ".*$", "")) ++ enabledSelect,
-      $doc(F.id -> true)
-    )
-      .sort($doc("len" -> 1))
-      .cursor[Bdoc](ReadPreference.secondaryPreferred).gather[List](max)
-      .map {
-        _ flatMap { _.getAs[String](F.id) }
-      }
-  }
+  def userIdsLike(text: String, max: Int = 10): Fu[List[User.ID]] =
+    User.couldBeUsername(text) ?? {
+      coll.find(
+        $doc(F.id $startsWith normalize(text)) ++ enabledSelect,
+        $doc(F.id -> true)
+      )
+        .sort($doc("len" -> 1))
+        .cursor[Bdoc](ReadPreference.secondaryPreferred).gather[List](max)
+        .map {
+          _ flatMap { _.getAs[String](F.id) }
+        }
+    }
 
   def toggleEngine(id: ID): Funit =
     coll.fetchUpdate[User]($id(id)) { u =>

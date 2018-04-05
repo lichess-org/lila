@@ -161,10 +161,15 @@ object PlayerRepo {
       }.result
 
   def searchPlayers(tourId: Tournament.ID, term: String, nb: Int): Fu[List[User.ID]] =
-    term.nonEmpty ?? coll.primitive[User.ID](
-      selector = $doc("tid" -> tourId, "uid".$regex("^" + term.toLowerCase + ".*$", "")),
-      sort = $sort desc "m",
-      nb = nb,
-      field = "uid"
-    )
+    User.couldBeUsername(term) ?? {
+      term.nonEmpty ?? coll.primitive[User.ID](
+        selector = $doc(
+          "tid" -> tourId,
+          "uid" $startsWith term.toLowerCase
+        ),
+        sort = $sort desc "m",
+        nb = nb,
+        field = "uid"
+      )
+    }
 }

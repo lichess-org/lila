@@ -38,7 +38,7 @@ private final class FishnetRepo(
   )).cursor[Client]().gather[List]()
   def lichessClients = clientColl.find($doc(
     "enabled" -> true,
-    "userId" -> $doc("$regex" -> "^lichess-")
+    "userId" $startsWith "lichess-"
   )).cursor[Client]().gather[List]()
 
   def addAnalysis(ana: Work.Analysis) = analysisColl.insert(ana).void
