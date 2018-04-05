@@ -4,49 +4,59 @@ import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
+import lila.user.User
+
 /*
  * Computes the delay before a player can rejoin a tournament after pausing.
- * The first pause results in a delay of gameTotalTime / 5 (e.g. 60 seconds for 5+0)
- * with a minimum of 30 seconds and a maximum of 120 seconds.
- * Following pauses accumulate delays (2x delay, 3x delay, etc...).
- * After 20 minutes without a pause, the delay is reinitialized.
+ * The first pause results in a delay of 10 seconds.
+ * Next delays durations increase linearly as `pauses * gameTotalTime / 15`
+ * (e.g. 20 seconds for second pause in 5+0) with maximum of 120 seconds.
+ * After 20 minutes without any pause, the delay is reinitialized to 10s.
  */
-private final class Pauser {
+private final class Pause {
 
-  import Pauser._
+  import Pause._
 
-  private val cache: Cache[Player.ID, Record] = Scaffeine()
+  private val cache: Cache[User.ID, Record] = Scaffeine()
     .expireAfterWrite(20 minutes)
-    .build[Player.ID, Record]
+    .build[User.ID, Record]
 
-  private def initialDelayOf(tour: Tournament) = Delay {
-    (tour.clock.estimateTotalSeconds / 5) atLeast 30 atMost 120
+  private def baseDelayOf(tour: Tournament) = Delay {
+    (tour.clock.estimateTotalSeconds / 15)
   }
 
-  def add(player: Player, tour: Tournament): Delay = {
-    val record = cache.getIfPresent(player.id).fold(Record(1, DateTime.now))(_.add)
-    initialDelayOf(tour) * record
+  private def delayOf(record: Record, tour: Tournament) = Delay {
+    // 10s for first pause
+    // next ones increasing linearly until 120s
+    baseDelayOf(tour).seconds * (record.pauses - 1) atLeast 10 atMost 120
   }
 
-  def remainingDelay(player: Player, tour: Tournament): Option[Delay] =
-    cache.getIfPresent(player.id) flatMap { record =>
-      val seconds = record.pausedAt.getSeconds - nowSeconds + (initialDelayOf(tour) * record).seconds
+  def add(userId: User.ID, tour: Tournament): Unit =
+    cache.put(
+      userId,
+      cache.getIfPresent(userId).fold(newRecord)(_.add)
+    )
+
+  def remainingDelay(userId: User.ID, tour: Tournament): Option[Delay] =
+    cache getIfPresent userId flatMap { record =>
+      val seconds = record.pausedAt.getSeconds - nowSeconds + delayOf(record, tour).seconds
       seconds > 1 option Delay(seconds.toInt)
     }
+
+  def canJoin(userId: User.ID, tour: Tournament): Boolean =
+    remainingDelay(userId, tour).isEmpty
 }
 
-object Pauser {
+object Pause {
 
-  case class Record(count: Int, pausedAt: DateTime) {
+  case class Record(pauses: Int, pausedAt: DateTime) {
     def add = copy(
-      count = count + 1,
+      pauses = pauses + 1,
       pausedAt = DateTime.now
     )
   }
+  val newRecord = Record(1, DateTime.now)
 
   // pause counter of a player
-  case class Delay(seconds: Int) extends AnyVal {
-    def *(record: Record) = copy(seconds = seconds * record.count)
-    def isEmpty = seconds < 1
-  }
+  case class Delay(seconds: Int) extends AnyVal
 }

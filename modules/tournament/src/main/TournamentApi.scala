@@ -37,6 +37,7 @@ final class TournamentApi(
     verify: Condition.Verify,
     indexLeaderboard: Tournament => Funit,
     duelStore: DuelStore,
+    pause: Pause,
     asyncCache: lila.memo.AsyncCache.Builder,
     lightUserApi: lila.user.LightUserApi
 ) {
@@ -196,10 +197,12 @@ final class TournamentApi(
       if (tour.password == p) {
         verdicts(tour, me.some) flatMap {
           _.accepted ?? {
-            PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
-              withdrawOtherTournaments(tour.id, me.id)
-              socketReload(tour.id)
-              publish()
+            pause.canJoin(me.id, tour) ?? {
+              PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
+                withdrawOtherTournaments(tour.id, me.id)
+                socketReload(tour.id)
+                publish()
+              }
             }
           }
         }
@@ -229,21 +232,27 @@ final class TournamentApi(
     TournamentRepo toursToWithdrawWhenEntering tourId foreach {
       _ foreach { other =>
         PlayerRepo.exists(other.id, userId) foreach {
-          _ ?? withdraw(other.id, userId)
+          _ ?? withdraw(other.id, userId, isPause = false)
         }
       }
     }
   }
 
   def selfPause(tourId: Tournament.ID, userId: User.ID): Unit =
-    withdraw(tourId, userId)
+    withdraw(tourId, userId, isPause = true)
 
-  private def withdraw(tourId: Tournament.ID, userId: User.ID): Unit = {
+  private def withdraw(tourId: Tournament.ID, userId: User.ID, isPause: Boolean): Unit = {
     Sequencing(tourId)(TournamentRepo.enterableById) {
       case tour if tour.isCreated =>
         PlayerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) >>- socketReload(tour.id) >>- publish()
-      case tour if tour.isStarted =>
-        PlayerRepo.withdraw(tour.id, userId) >>- socketReload(tour.id) >>- publish()
+      case tour if tour.isStarted => for {
+        _ <- PlayerRepo.withdraw(tour.id, userId)
+        pausable <- isPause ?? cached.ranking(tour).map { _ get userId exists (7>) }
+      } yield {
+        if (pausable) pause.add(userId, tour)
+        socketReload(tour.id)
+        publish()
+      }
       case _ => funit
     }
   }
@@ -252,7 +261,7 @@ final class TournamentApi(
     TournamentRepo.nonEmptyEnterable foreach {
       _ foreach { tour =>
         PlayerRepo.exists(tour.id, user.id) foreach {
-          _ ?? withdraw(tour.id, user.id)
+          _ ?? withdraw(tour.id, user.id, isPause = false)
         }
       }
     }
@@ -331,7 +340,7 @@ final class TournamentApi(
     if game.status == chess.Status.NoStart
     player <- game.playerWhoDidNotMove
     userId <- player.userId
-  } withdraw(tourId, userId)
+  } withdraw(tourId, userId, isPause = false)
 
   def pausePlaybanned(userId: User.ID) =
     TournamentRepo.started.flatMap {

@@ -254,6 +254,25 @@ div.create_tournament {
   justify-content: space-between;
   position: relative;
 }
+@keyframes delay {
+  0% {
+    width: 0%;
+  } 100% {
+    width: 100%;
+  }
+}
+#tournament .delay {
+  background: rgba(117, 153, 0, 0.5);
+  width: 0%;
+}
+#tournament .delay button {
+  opacity: 0.7;
+  color: #666;
+  mix-blend-mode: luminosity;
+}
+body.dark #tournament .delay button {
+  color: #aaa;
+}
 #tournament .highlight {
   position: absolute;
   right: 5px;
