@@ -366,11 +366,14 @@ div.underboard .notif.error {
 }
 .study_box .chapter.active .status,
 .study_box .chapter:active,
-.study_box .chapter:active .status,
-.study_box .chapter.loading,
-.study_box .chapter.loading .status {
+.study_box .chapter:active .status {
   color: #fff!important;
   background: #3893E8!important;
+}
+.study_box .chapter .ddloader {
+  height: auto;
+  background-size: cover;
+  color: transparent;
 }
 .study_box .chapter.add .status {
   width: 23px;

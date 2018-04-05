@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { prop, Prop } from 'common';
-import { bind, dataIcon } from '../util';
+import { bind, dataIcon, iconTag } from '../util';
 import { ctrl as chapterNewForm } from './chapterNewForm';
 import { ctrl as chapterEditForm } from './chapterEditForm';
 import AnalyseCtrl from '../ctrl';
@@ -126,7 +126,7 @@ export function view(ctrl: StudyCtrl): VNode {
       attrs: { 'data-id': chapter.id },
       class: { active, editing, loading }
     }, [
-      h('span.status', i + 1),
+      h('span.status', loading ? h('span.ddloader', i + 1) : i + 1),
       h('h3', chapter.name),
       configButton
     ]);
@@ -134,7 +134,7 @@ export function view(ctrl: StudyCtrl): VNode {
     ctrl.members.canContribute() ? h('div.elem.chapter.add', {
       hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw)
     }, [
-      h('span.status', h('i', { attrs: dataIcon('O') })),
+      h('span.status', iconTag('O')),
       h('h3.add_text', 'Add a new chapter')
     ]) : null
   ]));
