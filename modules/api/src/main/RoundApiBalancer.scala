@@ -16,7 +16,8 @@ import lila.user.User
 private[api] final class RoundApiBalancer(
     system: ActorSystem,
     api: RoundApi,
-    nbActors: Int
+    nbActors: Int,
+    enabled: () => Boolean
 ) {
 
   private val logger = lila.log("round").branch("balancer")
@@ -66,8 +67,11 @@ private[api] final class RoundApiBalancer(
   import implementation._
 
   def player(pov: Pov, apiVersion: ApiVersion)(implicit ctx: Context): Fu[JsObject] = {
-    router ? Player(pov, apiVersion, ctx) mapTo manifest[JsObject] addFailureEffect { e =>
+    if (enabled()) router ? Player(pov, apiVersion, ctx) mapTo manifest[JsObject] addFailureEffect { e =>
       logger.error(pov.toString, e)
+    }
+    else api.player(pov, apiVersion)(ctx) addFailureEffect { e =>
+      logger.error(s"player ${pov.toString}", e)
     }
   }.chronometer
     .mon(_.round.api.player)
@@ -76,7 +80,8 @@ private[api] final class RoundApiBalancer(
 
   def watcher(pov: Pov, apiVersion: ApiVersion, tv: Option[lila.round.OnTv],
     initialFenO: Option[Option[FEN]] = None)(implicit ctx: Context): Fu[JsObject] = {
-    router ? Watcher(pov, apiVersion, tv, initialFenO, ctx) mapTo manifest[JsObject]
+    if (enabled()) router ? Watcher(pov, apiVersion, tv, initialFenO, ctx) mapTo manifest[JsObject]
+    else api.watcher(pov, apiVersion, tv, initialFenO)(ctx)
   }.mon(_.round.api.watcher)
 
   def review(pov: Pov, apiVersion: ApiVersion,
@@ -84,12 +89,15 @@ private[api] final class RoundApiBalancer(
     analysis: Option[Analysis] = None,
     initialFenO: Option[Option[FEN]] = None,
     withFlags: WithFlags)(implicit ctx: Context): Fu[JsObject] = {
-    router ? Review(pov, apiVersion, tv, analysis, initialFenO, withFlags, ctx) mapTo manifest[JsObject]
+    if (enabled()) router ? Review(pov, apiVersion, tv, analysis, initialFenO, withFlags, ctx) mapTo manifest[JsObject]
+    else api.review(pov, apiVersion, tv, analysis, initialFenO, withFlags)(ctx)
   }.mon(_.round.api.watcher)
 
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: chess.Color, owner: Boolean, me: Option[User]): Fu[JsObject] =
-    router ? UserAnalysis(pov, pref, initialFen, orientation, owner, me) mapTo manifest[JsObject]
+    if (enabled()) router ? UserAnalysis(pov, pref, initialFen, orientation, owner, me) mapTo manifest[JsObject]
+    else api.userAnalysisJson(pov, pref, initialFen, orientation, owner, me)
 
   def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: chess.Color, me: Option[User]): Fu[JsObject] =
-    router ? FreeStudy(pov, pref, initialFen, orientation, me) mapTo manifest[JsObject]
+    if (enabled()) router ? FreeStudy(pov, pref, initialFen, orientation, me) mapTo manifest[JsObject]
+    else fuccess(api.freeStudyJson(pov, pref, initialFen, orientation, me))
 }
