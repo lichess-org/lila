@@ -55,7 +55,7 @@ final class StreamerApi(
 
   def setLiveNow(ids: List[Streamer.Id]): Funit =
     coll.update($doc("_id" $in ids), $set("liveAt" -> DateTime.now), multi = true).void
-  
+
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
     coll.update($id(streamer.id), streamer) inject {

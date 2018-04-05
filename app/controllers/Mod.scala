@@ -150,7 +150,7 @@ object Mod extends LidraughtsController {
     }
   }
 
-  def log = Secure(_.SeeReport) { implicit ctx => me =>
+  def log = Secure(_.ModLog) { implicit ctx => me =>
     modLogApi.recent map { html.mod.log(_) }
   }
 
