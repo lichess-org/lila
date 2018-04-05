@@ -42,10 +42,7 @@ case class Game(
 
   val players = List(whitePlayer, blackPlayer)
 
-  def player(color: Color): Player = color match {
-    case White => whitePlayer
-    case Black => blackPlayer
-  }
+  def player(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
   def player(playerId: String): Option[Player] =
     players find (_.id == playerId)
@@ -411,9 +408,9 @@ case class Game(
 
   def loserUserId: Option[String] = loser flatMap (_.userId)
 
-  def wonBy(c: Color): Option[Boolean] = winnerColor map (_ == c)
+  def wonBy(c: Color): Option[Boolean] = winner map (_.color == c)
 
-  def lostBy(c: Color): Option[Boolean] = winnerColor map (_ != c)
+  def lostBy(c: Color): Option[Boolean] = winner map (_.color != c)
 
   def drawn = finished && winner.isEmpty
 

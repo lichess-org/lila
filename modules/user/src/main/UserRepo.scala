@@ -58,7 +58,7 @@ object UserRepo {
     }
 
   def byOrderedIds(ids: Seq[ID], readPreference: ReadPreference): Fu[List[User]] =
-    coll.byOrderedIds[User, User.ID](ids, readPreference)(_.id)
+    coll.byOrderedIds[User, User.ID](ids, readPreference = readPreference)(_.id)
 
   def idsMap(ids: Seq[ID], readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[Map[User.ID, User]] =
     coll.idsMap[User, User.ID](ids, readPreference)(_.id)

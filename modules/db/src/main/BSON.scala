@@ -1,23 +1,32 @@
 package lila.db
 
-import ornicar.scalalib.Zero
 import org.joda.time.DateTime
+import ornicar.scalalib.Zero
 import reactivemongo.bson._
 
 import dsl._
 import lila.common.Iso
 
 abstract class BSON[T]
-  extends BSONHandler[Bdoc, T]
+  extends BSONReadOnly[T]
+  with BSONHandler[Bdoc, T]
   with BSONDocumentReader[T]
   with BSONDocumentWriter[T] {
+
+  import BSON._
+
+  def writes(writer: Writer, obj: T): Bdoc
+
+  def write(obj: T): Bdoc = writes(writer, obj)
+}
+
+abstract class BSONReadOnly[T] extends BSONDocumentReader[T] {
 
   val logMalformed = true
 
   import BSON._
 
   def reads(reader: Reader): T
-  def writes(writer: Writer, obj: T): Bdoc
 
   def read(doc: Bdoc): T = if (logMalformed) try {
     reads(new Reader(doc))
@@ -27,8 +36,6 @@ abstract class BSON[T]
       throw e
   }
   else reads(new Reader(doc))
-
-  def write(obj: T): Bdoc = writes(writer, obj)
 }
 
 object BSON extends Handlers {

@@ -98,3 +98,20 @@ object PlayerRef {
 
   def apply(fullId: String): PlayerRef = PlayerRef(Game takeGameId fullId, Game takePlayerId fullId)
 }
+
+case class LightPov(game: LightGame, color: Color) {
+
+  def player = game player color
+
+  def opponent = game player !color
+
+  def win = game wonBy color
+}
+
+object LightPov {
+
+  def apply(game: LightGame, player: Player) = new LightPov(game, player.color)
+
+  def ofUserId(game: LightGame, userId: String): Option[LightPov] =
+    game playerByUserId userId map { apply(game, _) }
+}

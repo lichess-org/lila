@@ -58,42 +58,30 @@ object BSONHandlers {
     )
   }
 
+  import Player.playerBSONHandler
+  private val emptyPlayerBuilder = playerBSONHandler.read($empty)
+
   implicit val gameBSONHandler: BSON[Game] = new BSON[Game] {
 
     import Game.{ BSONFields => F }
     import PgnImport.pgnImportBSONHandler
-    import Player.playerBSONHandler
-
-    private val emptyPlayerBuilder = playerBSONHandler.read(BSONDocument())
 
     def reads(r: BSON.Reader): Game = {
 
-      val gameVariant = Variant(r intD F.variant) | chess.variant.Standard
+      lila.mon.game.fetch()
+
+      val light = lightGameBSONHandler.reads(r)
       val startedAtTurn = r intD F.startedAtTurn
       val plies = r int F.turns atMost Game.maxPlies // unlimited can cause StackOverflowError
-      val playedPlies = plies - startedAtTurn
       val turnColor = Color.fromPly(plies)
-
-      val winC = r boolO F.winnerColor map Color.apply
-      val uids = ~r.getO[List[String]](F.playerUids)
-      val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
-      def makePlayer(field: String, color: Color, id: Player.Id, uid: Player.UserId): Player = {
-        val builder = r.getO[Player.Builder](field)(playerBSONHandler) | emptyPlayerBuilder
-        val win = winC map (_ == color)
-        builder(color)(id)(uid)(win)
-      }
-      val (whiteId, blackId) = r str F.playerIds splitAt 4
-      val wPlayer = makePlayer(F.whitePlayer, White, whiteId, whiteUid)
-      val bPlayer = makePlayer(F.blackPlayer, Black, blackId, blackUid)
-
       val createdAt = r date F.createdAt
-      val status = r.get[Status](F.status)
-
-      lila.mon.game.fetch()
 
       val loadChess: () => chess.Game = () => {
 
         lila.mon.game.decode()
+
+        val playedPlies = plies - startedAtTurn
+        val gameVariant = Variant(r intD F.variant) | chess.variant.Standard
 
         val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, playedPlies) } | {
           val clm = r.get[CastleLastMove](F.castleLastMove)
@@ -127,7 +115,7 @@ object BSONHandlers {
           ),
           pgnMoves = decoded.pgnMoves,
           clock = r.getO[Color => Clock](F.clock) {
-            clockBSONReader(createdAt, wPlayer.berserk, bPlayer.berserk)
+            clockBSONReader(createdAt, light.whitePlayer.berserk, light.blackPlayer.berserk)
           } map (_(turnColor)),
           turns = plies,
           startedAtTurn = startedAtTurn
@@ -136,15 +124,15 @@ object BSONHandlers {
 
       Game(
         id = r str F.id,
-        whitePlayer = wPlayer,
-        blackPlayer = bPlayer,
+        whitePlayer = light.whitePlayer,
+        blackPlayer = light.blackPlayer,
         loadChess = loadChess,
         loadClockHistory = clk => for {
           bw <- r bytesO F.whiteClockHistory
           bb <- r bytesO F.blackClockHistory
-          history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, (status == Status.Outoftime).option(turnColor))
+          history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, (light.status == Status.Outoftime).option(turnColor))
         } yield history,
-        status = status,
+        status = light.status,
         daysPerTurn = r intO F.daysPerTurn,
         binaryMoveTimes = r bytesO F.moveTimes,
         mode = Mode(r boolD F.rated),
@@ -166,8 +154,8 @@ object BSONHandlers {
       F.id -> o.id,
       F.playerIds -> (o.whitePlayer.id + o.blackPlayer.id),
       F.playerUids -> w.strListO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
-      F.whitePlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.Id) => (_: Player.UserId) => (_: Player.Win) => o.whitePlayer)),
-      F.blackPlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.Id) => (_: Player.UserId) => (_: Player.Win) => o.blackPlayer)),
+      F.whitePlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.whitePlayer)),
+      F.blackPlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.blackPlayer)),
       F.status -> o.status,
       F.turns -> o.chess.turns,
       F.startedAtTurn -> w.intO(o.chess.startedAtTurn),
@@ -206,6 +194,33 @@ object BSONHandlers {
           )
         }
       }
+  }
+
+  implicit val lightGameBSONHandler = new lila.db.BSONReadOnly[LightGame] {
+
+    import Game.{ BSONFields => F }
+    import Player.playerBSONHandler
+
+    def reads(r: BSON.Reader): LightGame = {
+
+      lila.mon.game.fetchLight()
+
+      val winC = r boolO F.winnerColor map Color.apply
+      val uids = ~r.getO[List[String]](F.playerUids)
+      val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
+      def makePlayer(field: String, color: Color, id: Player.ID, uid: Player.UserId): Player = {
+        val builder = r.getO[Player.Builder](field)(playerBSONHandler) | emptyPlayerBuilder
+        val win = winC map (_ == color)
+        builder(color)(id)(uid)(win)
+      }
+
+      LightGame(
+        id = r str F.id,
+        whitePlayer = makePlayer(F.whitePlayer, White, "", whiteUid),
+        blackPlayer = makePlayer(F.blackPlayer, Black, "", blackUid),
+        status = r.get[Status](F.status)
+      )
+    }
   }
 
   private def clockHistory(color: Color, clockHistory: Option[ClockHistory], clock: Option[Clock], flagged: Option[Color]) =
