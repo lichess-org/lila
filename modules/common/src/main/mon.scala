@@ -453,7 +453,7 @@ object mon {
     }
     val fetch = inc("game.fetch.count")
     val fetchLight = inc("game.fetchLight.count")
-    val decode = inc("game.decode.count")
+    val loadClockHistory = inc("game.loadClockHistory.count")
     object pdn {
       final class Protocol(name: String) {
         val count = inc(s"game.pdn.$name.count")

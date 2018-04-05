@@ -101,6 +101,7 @@ object BSONHandlers {
           bw <- r bytesO F.whiteClockHistory
           bb <- r bytesO F.blackClockHistory
           history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, (light.status == Status.Outoftime).option(decodedSituation.color))
+          _ = lidraughts.mon.game.loadClockHistory()
         } yield history,
         mode = Mode(r boolD F.rated),
         next = r strO F.next,
