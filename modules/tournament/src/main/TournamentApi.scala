@@ -268,7 +268,7 @@ final class TournamentApi(
   }
 
   def berserk(gameId: Game.ID, userId: User.ID): Unit = {
-    GameRepo game gameId foreach {
+    GameRepo.light game gameId foreach {
       _.flatMap(_.tournamentId) foreach { tourId =>
         Sequencing(tourId)(TournamentRepo.startedById) { tour =>
           PairingRepo.findPlaying(tour.id, userId) flatMap {
