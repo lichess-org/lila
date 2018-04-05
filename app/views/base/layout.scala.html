@@ -74,6 +74,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(!isProd){data-dev="true"}
     @ctx.userId.map {id => data-user="@id"}
     data-sound-set="@ctx.currentSoundSet"
+    data-socket-domain="@socketDomain"
     data-asset-url="@assetBaseUrl"
     data-asset-version="@ctx.pageData.assetVersion"
     @ctx.zoom.map { zoom => data-zoom="@zoom" }>
@@ -185,10 +186,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(ctx.requiresFingerprint) { @fingerprintTag }
     @jsAt(s"compiled/lidraughts.site${isProd??".min"}.js", async = asyncJs)
     @moreJs
-    @embedJs {
-    lidraughts.quantity=@i18nJsQuantityFunction;@timeagoLocaleScript;
-    lidraughts.socketDomain= "@socketDomain";
-    }
+    @embedJs {lidraughts.quantity=@i18nJsQuantityFunction;@timeagoLocaleScript;}
     @if(ctx.pageData.inquiry.isDefined) { @jsTag("inquiry.js", async = asyncJs) }
   </body>
 </html>

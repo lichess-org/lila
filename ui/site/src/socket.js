@@ -276,7 +276,7 @@ lidraughts.StrongSocket.defaults = {
     pingDelay: 2000, // time between pong and ping
     autoReconnectDelay: 2000,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
-    domain: lidraughts.socketDomain,
+    domain: document.body.getAttribute('data-socket-domain'),
     onFirstConnect: $.noop
   }
 };
