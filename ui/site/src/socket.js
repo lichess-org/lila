@@ -24,7 +24,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
   var connect = function() {
     destroy();
     autoReconnect = true;
-    var fullUrl = options.protocol + '//socket.' + document.domain + url + "?" + $.param(settings.params);
+    var fullUrl = options.protocol + '//' + settings.options.domain + url + "?" + $.param(settings.params);
     debug("connection attempt to " + fullUrl);
     try {
       ws = new WebSocket(fullUrl);
@@ -276,6 +276,7 @@ lidraughts.StrongSocket.defaults = {
     pingDelay: 2000, // time between pong and ping
     autoReconnectDelay: 2000,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
+    domain: lidraughts.socketDomain,
     onFirstConnect: $.noop
   }
 };

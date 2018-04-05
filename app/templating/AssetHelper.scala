@@ -12,6 +12,7 @@ trait AssetHelper { self: I18nHelper =>
   def isProd: Boolean
 
   val assetDomain = lidraughts.api.Env.current.Net.AssetDomain
+  val socketDomain = lidraughts.api.Env.current.Net.SocketDomain
 
   val assetBaseUrl = s"//$assetDomain"
 

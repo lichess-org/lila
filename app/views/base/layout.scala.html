@@ -185,7 +185,10 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(ctx.requiresFingerprint) { @fingerprintTag }
     @jsAt(s"compiled/lidraughts.site${isProd??".min"}.js", async = asyncJs)
     @moreJs
-    @embedJs {lidraughts.quantity=@i18nJsQuantityFunction;@timeagoLocaleScript;}
+    @embedJs {
+    lidraughts.quantity=@i18nJsQuantityFunction;@timeagoLocaleScript;
+    lidraughts.socketDomain= "@socketDomain";
+    }
     @if(ctx.pageData.inquiry.isDefined) { @jsTag("inquiry.js", async = asyncJs) }
   </body>
 </html>
