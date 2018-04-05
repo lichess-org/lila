@@ -29,6 +29,11 @@ trait SetupHelper { self: I18nHelper =>
     (Mode.Rated.id.toString, I18nKeys.rated.txt(), none)
   )
 
+  def translatedModeChoicesTournament(implicit ctx: Context) = List(
+    (Mode.Casual.id.toString, I18nKeys.casualTournament.txt(), none),
+    (Mode.Rated.id.toString, I18nKeys.ratedTournament.txt(), none)
+  )
+
   def translatedSystemChoices(implicit ctx: Context) = List(
     System.Arena.id.toString -> "Arena"
   )
