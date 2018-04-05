@@ -12,6 +12,7 @@ trait AssetHelper { self: I18nHelper =>
   def isProd: Boolean
 
   val assetDomain = lila.api.Env.current.Net.AssetDomain
+  val socketDomain = lila.api.Env.current.Net.SocketDomain
 
   val assetBaseUrl = s"//$assetDomain"
 

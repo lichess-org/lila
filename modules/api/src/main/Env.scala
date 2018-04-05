@@ -47,6 +47,7 @@ final class Env(
     val BaseUrl = config getString "net.base_url"
     val Port = config getInt "http.port"
     val AssetDomain = config getString "net.asset.domain"
+    val SocketDomain = config getString "net.socket.domain"
     val Email = config getString "net.email"
     val Crawlable = config getBoolean "net.crawlable"
   }

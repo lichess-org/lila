@@ -189,7 +189,10 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(ctx.requiresFingerprint) { @fingerprintTag }
     @jsAt(s"compiled/lichess.site${isProd??".min"}.js", async = asyncJs)
     @moreJs
-    @embedJs {lichess.quantity=@i18nJsQuantityFunction;@timeagoLocaleScript;}
+    @embedJs {
+    lichess.quantity=@i18nJsQuantityFunction;@timeagoLocaleScript;
+    lichess.socketDomain= "@socketDomain";
+    }
     @if(ctx.pageData.inquiry.isDefined) { @jsTag("inquiry.js", async = asyncJs) }
   </body>
 </html>
