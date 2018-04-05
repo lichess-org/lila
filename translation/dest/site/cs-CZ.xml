@@ -314,6 +314,7 @@
   <string name="winner">Vítěz</string>
   <string name="standing">Umístění</string>
   <string name="createANewTournament">Vytvořit turnaj</string>
+  <string name="tournamentCalendar">Kalendář turnajů</string>
   <string name="join">Přidat se</string>
   <string name="withdraw">Odhlásit se</string>
   <string name="points">Body</string>
