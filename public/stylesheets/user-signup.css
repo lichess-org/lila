@@ -119,6 +119,9 @@ div.checkmateCaptcha label {
 .email_confirm.anim ol li:nth-child(4) {
   animation-delay: 14s;
 }
+.email_confirm.anim ol li:nth-child(5) {
+  animation-delay: 18s;
+}
 #email_confirm a {
   display: none;
 }

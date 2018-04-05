@@ -28,13 +28,17 @@ object IpAddress {
   } option IpAddress(str)
 }
 
-case class EmailAddress(value: String) extends AnyVal with StringValue
+case class EmailAddress(value: String) extends AnyVal with StringValue {
+  def isHotmail = EmailAddress.hotmailPattern.matcher(value).find
+}
 
 object EmailAddress {
 
-  private val regex =
-    """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
+  private val pattern =
+    """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r.pattern
 
   def from(str: String): Option[EmailAddress] =
-    regex.matches(str) option EmailAddress(str)
+    pattern.matcher(str).find option EmailAddress(str)
+
+  private val hotmailPattern = """(.*)@(live|hotmail)\.(.*)""".r.pattern
 }
