@@ -101,8 +101,8 @@ object Seek {
     ratingRange = seek.ratingRange,
     createdAt = DateTime.now
   )
-
-  import reactivemongo.bson._
+  
+  import reactivemongo.bson.{ MapReader => _, MapWriter => _, _ }
   import lidraughts.db.BSON.MapValue.MapHandler
   import lidraughts.db.BSON.BSONJodaDateTimeHandler
   implicit val lobbyPerfBSONHandler = new BSONHandler[BSONInteger, LobbyPerf] {
