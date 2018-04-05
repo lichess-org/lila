@@ -126,6 +126,7 @@ object BSONHandlers {
           bw <- r bytesO F.whiteClockHistory
           bb <- r bytesO F.blackClockHistory
           history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, (light.status == Status.Outoftime).option(turnColor))
+          _ = lila.mon.game.loadClockHistory()
         } yield history,
         status = light.status,
         daysPerTurn = r intO F.daysPerTurn,
