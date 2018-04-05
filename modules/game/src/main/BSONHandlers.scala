@@ -214,8 +214,7 @@ object BSONHandlers {
         id = r str F.id,
         whitePlayer = makePlayer(F.whitePlayer, White, "", whiteUid),
         blackPlayer = makePlayer(F.blackPlayer, Black, "", blackUid),
-        status = r.get[Status](F.status),
-        tournamentId = r strO F.tournamentId
+        status = r.get[Status](F.status)
       )
     }
   }

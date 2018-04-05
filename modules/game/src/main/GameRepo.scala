@@ -38,6 +38,11 @@ object GameRepo {
 
     def game(gameId: ID): Fu[Option[LightGame]] = coll.byId[LightGame](gameId, LightGame.projection)
 
+    def pov(gameId: ID, color: Color): Fu[Option[LightPov]] =
+      game(gameId) map2 { (game: LightGame) => LightPov(game, game player color) }
+
+    def pov(ref: PovRef): Fu[Option[LightPov]] = pov(ref.gameId, ref.color)
+
     def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[LightGame]] =
       coll.byOrderedIds[LightGame, Game.ID](gameIds, projection = LightGame.projection.some)(_.id)
   }
@@ -63,9 +68,7 @@ object GameRepo {
     Color(color) ?? (pov(gameId, _))
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
-    coll.byId[Game](playerRef.gameId) map {
-      _ flatMap { _ playerIdPov playerRef.playerId }
-    }
+    game(playerRef.gameId) map { _ flatMap { _ playerIdPov playerRef.playerId } }
 
   def pov(fullId: ID): Fu[Option[Pov]] = pov(PlayerRef(fullId))
 
@@ -199,12 +202,14 @@ object GameRepo {
   def isAnalysed(id: ID): Fu[Boolean] =
     coll.exists($id(id) ++ Query.analysed(true))
 
-  def filterAnalysed(ids: Seq[String]): Fu[Set[String]] =
-    coll.distinct[String, Set]("_id", ($inIds(ids) ++ $doc(
+  def filterAnalysed(ids: Seq[Game.ID]): Fu[Set[Game.ID]] =
+    coll.distinct[Game.ID, Set]("_id", ($inIds(ids) ++ $doc(
       F.analysed -> true
     )).some)
 
-  def exists(id: String) = coll.exists($id(id))
+  def exists(id: Game.ID) = coll.exists($id(id))
+
+  def tournamentId(id: Game.ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.tournamentId)
 
   def incBookmarks(id: ID, value: Int) =
     coll.update($id(id), $inc(F.bookmarks -> value)).void

@@ -42,7 +42,7 @@ case class Game(
 
   def player(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
-  def player(playerId: String): Option[Player] =
+  def player(playerId: Player.ID): Option[Player] =
     players find (_.id == playerId)
 
   def player(user: User): Option[Player] =
@@ -545,7 +545,7 @@ case class Game(
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }
 
   def pov(c: Color) = Pov(this, c)
-  def playerIdPov(playerId: String): Option[Pov] = player(playerId) map { Pov(this, _) }
+  def playerIdPov(playerId: Player.ID): Option[Pov] = player(playerId) map { Pov(this, _) }
   def whitePov = pov(White)
   def blackPov = pov(Black)
   def playerPov(p: Player) = pov(p.color)

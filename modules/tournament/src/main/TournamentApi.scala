@@ -267,9 +267,9 @@ final class TournamentApi(
     }
   }
 
-  def berserk(gameId: Game.ID, userId: User.ID): Unit = {
-    GameRepo.light game gameId foreach {
-      _.flatMap(_.tournamentId) foreach { tourId =>
+  def berserk(gameId: Game.ID, userId: User.ID): Unit =
+    GameRepo tournamentId gameId foreach {
+      _ foreach { tourId =>
         Sequencing(tourId)(TournamentRepo.startedById) { tour =>
           PairingRepo.findPlaying(tour.id, userId) flatMap {
             case Some(pairing) if !pairing.berserkOf(userId) =>
@@ -287,7 +287,6 @@ final class TournamentApi(
         }
       }
     }
-  }
 
   def finishGame(game: Game): Unit =
     game.tournamentId foreach { tourId =>
