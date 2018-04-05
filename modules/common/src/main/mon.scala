@@ -452,6 +452,7 @@ object mon {
       def mode(v: String) = inc(s"game.create.mode.$v")
     }
     val fetch = inc("game.fetch.count")
+    val fetchLight = inc("game.fetchLight.count")
     val decode = inc("game.decode.count")
     object pdn {
       final class Protocol(name: String) {

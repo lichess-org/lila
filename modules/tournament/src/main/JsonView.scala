@@ -7,7 +7,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lidraughts.common.LightUser
-import lidraughts.game.{ GameRepo, Pov, Game }
+import lidraughts.game.{ GameRepo, LightPov, Game }
 import lidraughts.hub.tournamentTeam._
 import lidraughts.quote.Quote.quoteWriter
 import lidraughts.rating.PerfType
@@ -115,7 +115,7 @@ final class JsonView(
   } yield info match {
     case PlayerInfoExt(tour, user, player, povs) =>
       val isPlaying = povs.headOption.??(_.game.playable)
-      val povScores: List[(Pov, Option[Score])] = povs zip {
+      val povScores: List[(LightPov, Option[Score])] = povs zip {
         (isPlaying ?? List(none[Score])) ::: sheet.scores.map(some)
       }
       Json.obj(
@@ -134,7 +134,7 @@ final class JsonView(
           .add("withdraw" -> player.withdraw),
         "pairings" -> povScores.map {
           case (pov, score) => Json.obj(
-            "id" -> pov.gameId,
+            "id" -> pov.game.id,
             "color" -> pov.color.name,
             "op" -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
             "win" -> pov.win,

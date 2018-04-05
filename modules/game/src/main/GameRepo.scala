@@ -34,6 +34,11 @@ object GameRepo {
   def gameOptionsFromSecondary(gameIds: Seq[ID]): Fu[List[Option[Game]]] =
     coll.optionsByOrderedIds[Game, Game.ID](gameIds, ReadPreference.secondaryPreferred)(_.id)
 
+  object light {
+    def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[LightGame]] =
+      coll.byOrderedIds[LightGame, Game.ID](gameIds, projection = LightGame.projection.some)(_.id)
+  }
+
   def finished(gameId: ID): Fu[Option[Game]] =
     coll.uno[Game]($id(gameId) ++ Query.finished)
 

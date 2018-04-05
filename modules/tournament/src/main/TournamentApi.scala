@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 
 import actorApi._
 import lidraughts.common.Debouncer
-import lidraughts.game.{ Game, GameRepo, Pov }
+import lidraughts.game.{ Game, LightGame, GameRepo, Pov, LightPov }
 import lidraughts.hub.actorApi.lobby.ReloadTournaments
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.timeline.{ Propagate, TourJoin }
@@ -448,14 +448,13 @@ final class TournamentApi(
     TournamentRepo.calendar(from = from, to = from plusYears 1)
   }
 
-  private def fetchGames(tour: Tournament, ids: Seq[String]) =
-    if (tour.isFinished) GameRepo gamesFromSecondary ids
-    else GameRepo gamesFromPrimary ids
+  private def fetchGames(tour: Tournament, ids: Seq[Game.ID]): Fu[List[LightGame]] =
+    GameRepo.light gamesFromPrimary ids
 
-  private def playerPovs(tour: Tournament, userId: User.ID, nb: Int): Fu[List[Pov]] =
+  private def playerPovs(tour: Tournament, userId: User.ID, nb: Int): Fu[List[LightPov]] =
     PairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap { ids =>
       fetchGames(tour, ids) map {
-        _.flatMap { Pov.ofUserId(_, userId) }
+        _.flatMap { LightPov.ofUserId(_, userId) }
       }
     }
 
