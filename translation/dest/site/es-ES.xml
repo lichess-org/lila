@@ -384,6 +384,7 @@
   <string name="winner">Ganador</string>
   <string name="standing">Posición</string>
   <string name="createANewTournament">Crear un nuevo torneo</string>
+  <string name="tournamentCalendar">Calendario del torneo</string>
   <string name="join">Unirse</string>
   <string name="withdraw">Abandonar</string>
   <string name="points">Puntos</string>
@@ -816,7 +817,7 @@
   <string name="opening">Apertura</string>
   <string name="middlegame">Medio juego</string>
   <string name="endgame">Final</string>
-  <string name="registerToSendChallenges">Por favor regístrese para enviar desafíos.</string>
+  <string name="registerToSendChallenges">Regístrate para desafiar a otros.</string>
   <string name="youCannotChallengeX">No puedes desafiar a %s.</string>
   <string name="xDoesNotAcceptChallenges">%s no acepta desafíos.</string>
   <string name="yourXRatingIsTooFarFromY">Tu puntuación de %1$s está demasiado lejos de la de %2$s.</string>
