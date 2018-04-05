@@ -38,7 +38,7 @@ private final class DraughtsnetRepo(
   )).cursor[Client]().gather[List]()
   def lidraughtsClients = clientColl.find($doc(
     "enabled" -> true,
-    "userId" -> $doc("$regex" -> "^lidraughts-")
+    "userId" $startsWith "lidraughts-"
   )).cursor[Client]().gather[List]()
 
   def addAnalysis(ana: Work.Analysis) = analysisColl.insert(ana).void
