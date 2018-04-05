@@ -26,8 +26,7 @@ private[puzzle] final class Finisher(
           val puzzlePerf = puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating)
           val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
           val a = new Round(
-            puzzleId = puzzle.id,
-            userId = user.id,
+            id = Round.Id(user.id, puzzle.id),
             date = date,
             result = result,
             rating = formerUserRating,
@@ -44,8 +43,7 @@ private[puzzle] final class Finisher(
       case _ =>
         incPuzzleAttempts(puzzle)
         val a = new Round(
-          puzzleId = puzzle.id,
-          userId = user.id,
+          id = Round.Id(user.id, puzzle.id),
           date = DateTime.now,
           result = result,
           rating = formerUserRating,
@@ -72,8 +70,7 @@ private[puzzle] final class Finisher(
     val date = DateTime.now
     val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
     val a = new Round(
-      puzzleId = puzzle.id,
-      userId = user.id,
+      id = Round.Id(user.id, puzzle.id),
       date = date,
       result = result,
       rating = formerUserRating,

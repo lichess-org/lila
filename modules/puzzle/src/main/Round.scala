@@ -5,8 +5,7 @@ import org.joda.time.DateTime
 import lila.user.User
 
 case class Round(
-    puzzleId: PuzzleId,
-    userId: User.ID,
+    id: Round.Id,
     date: DateTime,
     result: Result,
     rating: Int,
@@ -18,15 +17,12 @@ case class Round(
 
 object Round {
 
-  case class Mini(puzzleId: Int, ratingDiff: Int, rating: Int)
+  case class Id(userId: User.ID, puzzleId: PuzzleId)
 
   object BSONFields {
-    val puzzleId = "p"
-    val userId = "u"
+    val id = "_id"
     val date = "a"
-    val result = "w"
-    val rating = "r"
-    val ratingDiff = "d"
+    val magic = "m"
   }
 
   import reactivemongo.bson._
@@ -36,35 +32,57 @@ object Round {
 
   private implicit val ResultBSONHandler = booleanAnyValHandler[Result](_.win, Result.apply)
 
+  implicit val roundIdHandler: BSONHandler[BSONString, Id] = new BSONHandler[BSONString, Id] {
+    private val sep = ':'
+    /* We shift the puzzle ID by -60000
+     * Because the initial puzzle is 60000 and something.
+     * This way the lowest puzzle ID is 00000
+     * and it allows us to sort rounds by ID: userId:puzzleId
+     * because all puzzle IDs have the same length */
+    private val shift = 60000
+    def read(bs: BSONString) = bs.value split sep match {
+      case Array(userId, puzzleId) => Id(userId, Integer.parseInt(puzzleId) + shift)
+      case _ => sys error s"Invalid puzzle round id ${bs.value}"
+    }
+    def write(id: Id) = {
+      val puzzleId = "%05d".format(id.puzzleId - shift)
+      BSONString(s"${id.userId}$sep$puzzleId")
+    }
+  }
+
   implicit val RoundBSONHandler = new BSON[Round] {
 
     import BSONFields._
 
-    def reads(r: BSON.Reader): Round = Round(
-      puzzleId = r int puzzleId,
-      userId = r str userId,
-      date = r.get[DateTime](date),
-      result = r.get[Result](result),
-      rating = r int rating,
-      ratingDiff = r int ratingDiff
-    )
+    /* `magic` field stores;
+     * - win: boolean     | 1 bit
+     * - ratingDiff: int  | 15 bits
+     * - rating: int      | 16 bits
+     */
+
+    private val winBit = 1 << 31
+    private val cancelWinBit = ((1 << 30) - 1)
+
+    def reads(r: BSON.Reader): Round = {
+      val m = r int magic
+      val win = (m >>> 31) == 1
+      Round(
+        id = r.get[Id](id),
+        date = r.get[DateTime](date),
+        result = Result(win),
+        rating = m << 16 >>> 16,
+        ratingDiff = ((m & cancelWinBit) >> 16) * (if (win) 1 else -1)
+      )
+    }
 
     def writes(w: BSON.Writer, o: Round) = BSONDocument(
-      puzzleId -> o.puzzleId,
-      userId -> o.userId,
+      id -> o.id,
       date -> o.date,
-      result -> o.result,
-      rating -> w.int(o.rating),
-      ratingDiff -> w.int(o.ratingDiff)
-    )
-  }
-
-  private[puzzle] implicit val RoundMiniBSONReader = new BSONDocumentReader[Mini] {
-    import BSONFields._
-    def read(doc: Bdoc): Mini = Mini(
-      puzzleId = doc.getAs[Int](puzzleId) err "RoundMini no puzzleId",
-      rating = doc.getAs[Int](rating) err "RoundMini no rating",
-      ratingDiff = doc.getAs[Int](ratingDiff) err "RoundMini no ratingDiff"
+      magic -> {
+        (o.result.win ?? winBit) +
+          (Math.abs(o.ratingDiff) << 16) +
+          o.rating
+      }
     )
   }
 }
