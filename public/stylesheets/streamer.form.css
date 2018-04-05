@@ -58,15 +58,15 @@
   font-size: 1.4em;
   margin-bottom: 1em;
 }
-.streamer-new ul li,
-.streamer.edit ul li {
+.streamer-new .rules li,
+.streamer.edit .rules li {
   font-size: 1.2em;
   margin: 1em 0 1em 2.2em;
   line-height: 1.6em;
   text-indent: -2.2em;
 }
-.streamer-new ul li::before,
-.streamer.edit ul li::before {
+.streamer-new .rules li::before,
+.streamer.edit .rules li::before {
   font-family: 'lichess';
   content: 'E';
   font-size: 1.5em;

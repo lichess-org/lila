@@ -47,7 +47,9 @@ object Streamer extends LilaController {
   def edit = Auth { implicit ctx => me =>
     AsStreamer { s =>
       Env.streamer.liveStreamApi of s flatMap { sws =>
-        NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer))).fuccess
+        isGranted(_.ModLog).??(Env.mod.logApi.userHistory(s.user.id) map some) map { modLog =>
+          NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, modLog)))
+        }
       }
     }
   }
@@ -57,7 +59,10 @@ object Streamer extends LilaController {
       Env.streamer.liveStreamApi of s flatMap { sws =>
         implicit val req = ctx.body
         StreamerForm.userForm(sws.streamer).bindFromRequest.fold(
-          error => BadRequest(html.streamer.edit(sws, error)).fuccess,
+          error =>
+            isGranted(_.ModLog).??(Env.mod.logApi.userHistory(s.user.id) map some) map { modLog =>
+              BadRequest(html.streamer.edit(sws, error, modLog))
+            },
           data => api.update(sws.streamer, data, isGranted(_.Streamers)) map { change =>
             change.list foreach { Env.mod.logApi.streamerList(lila.report.Mod(me), s.user.id, _) }
             change.feature foreach { Env.mod.logApi.streamerFeature(lila.report.Mod(me), s.user.id, _) }

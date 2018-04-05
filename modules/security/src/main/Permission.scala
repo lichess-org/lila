@@ -26,6 +26,7 @@ object Permission {
   case object SetTitle extends Permission("ROLE_SET_TITLE", List(UserSpy))
   case object SetEmail extends Permission("ROLE_SET_EMAIL", List(UserSpy))
   case object SeeReport extends Permission("ROLE_SEE_REPORT")
+  case object ModLog extends Permission("ROLE_MOD_LOG")
   case object SeeInsight extends Permission("ROLE_SEE_INSIGHT")
   case object StreamConfig extends Permission("ROLE_STREAM_CONFIG")
   case object PracticeConfig extends Permission("ROLE_PRACTICE_CONFIG")
@@ -54,7 +55,7 @@ object Permission {
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
-    UserSpy, UserEvaluate, SeeReport, SeeInsight,
+    UserSpy, UserEvaluate, SeeReport, ModLog, SeeInsight,
     UserSearch, ModNote, RemoveRanking, ModMessage
   ))
 
