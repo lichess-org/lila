@@ -29,6 +29,7 @@
   <string name="capture">kavbu</string>
   <string name="takeTheEnemyPieces">ko lebna lo keirmu\'u pe lo bradi</string>
   <string name="protection">nunbandu</string>
+  <string name="keepYourPiecesSafe">ko gasnu lo nu lo keirmu\'u pe do cu snura</string>
   <string name="checkInOne">gasnu lo nu ckape lo bradi kei ba\'o pa nunmu\'u</string>
   <string name="attackTheOpponentsKing">ko gunta lo noltrunau pe lo se jivna</string>
   <string name="outOfCheck">rivbi lo nu ckape lo noltrunau</string>
@@ -53,6 +54,7 @@
   <string name="practice">crezenrapzu\'e</string>
   <string name="learnCommonChessPositions">cilre lo kampu be lo\'i morna pe lo caxmati</string>
   <string name="videos">lo skina</string>
+  <string name="playPeople">jivna lo prenu</string>
   <string name="playMachine">jivna lo minji</string>
   <string name="awesome">xautce</string>
   <string name="excellent">xautce</string>
