@@ -70,7 +70,7 @@ object BSONHandlers {
 
       lila.mon.game.fetch()
 
-      val light = lightGameBSONHandler.reads(r)
+      val light = lightGameBSONHandler.readsWithPlayerIds(r, r str F.playerIds)
       val startedAtTurn = r intD F.startedAtTurn
       val plies = r int F.turns atMost Game.maxPlies // unlimited can cause StackOverflowError
       val turnColor = Color.fromPly(plies)
@@ -198,9 +198,12 @@ object BSONHandlers {
     import Player.playerBSONHandler
 
     def reads(r: BSON.Reader): LightGame = {
-
       lila.mon.game.fetchLight()
+      readsWithPlayerIds(r, "")
+    }
 
+    def readsWithPlayerIds(r: BSON.Reader, playerIds: String): LightGame = {
+      val (whiteId, blackId) = playerIds splitAt 4
       val winC = r boolO F.winnerColor map Color.apply
       val uids = ~r.getO[List[String]](F.playerUids)
       val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
@@ -209,11 +212,10 @@ object BSONHandlers {
         val win = winC map (_ == color)
         builder(color)(id)(uid)(win)
       }
-
       LightGame(
         id = r str F.id,
-        whitePlayer = makePlayer(F.whitePlayer, White, "", whiteUid),
-        blackPlayer = makePlayer(F.blackPlayer, Black, "", blackUid),
+        whitePlayer = makePlayer(F.whitePlayer, White, whiteId, whiteUid),
+        blackPlayer = makePlayer(F.blackPlayer, Black, blackId, blackUid),
         status = r.get[Status](F.status)
       )
     }
