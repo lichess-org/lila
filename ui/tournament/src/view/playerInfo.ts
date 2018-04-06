@@ -41,10 +41,10 @@ export default function(ctrl: TournamentController): VNode {
   pairingsLen = data.pairings.length,
   avgOp = pairingsLen ? Math.round(data.pairings.reduce(function(a, b) {
     return a + b.op.rating;
-  }, 0) / pairingsLen) : null;
-  return h('div.box.player', {
+  }, 0) / pairingsLen) : undefined;
+  return h('div.player.box', {
     hook: {
-      insert: vnode => setup(vnode),
+      insert: setup,
       postpatch(_, vnode) { setup(vnode) }
     }
   }, [
