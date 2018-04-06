@@ -382,7 +382,7 @@ lidraughts.redirect = function(obj) {
       document.cookie = cookie;
     }
   }
-  var href = '//' + location.hostname + '/' + url.replace(/^\//, '');
+  var href = '//' + location.host + '/' + url.replace(/^\//, '');
   lidraughts.redirectInProgress = href;
   location.href = href;
 };
