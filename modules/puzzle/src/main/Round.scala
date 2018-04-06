@@ -60,18 +60,16 @@ object Round {
      * - rating: int      | 16 bits
      */
 
-    private val winBit = 1 << 31
-    private val cancelWinBit = ((1 << 30) - 1)
-
     def reads(r: BSON.Reader): Round = {
       val m = r int magic
-      val win = (m >>> 31) == 1
+      val win = m >>> 31 != 0
+      val ratingDiff = (m << 1) >>> 17
       Round(
         id = r.get[Id](id),
         date = r.get[DateTime](date),
         result = Result(win),
-        rating = m << 16 >>> 16,
-        ratingDiff = ((m & cancelWinBit) >> 16) * (if (win) 1 else -1)
+        rating = m & (-1 >>> 16),
+        ratingDiff = if (win) ratingDiff else -ratingDiff
       )
     }
 
@@ -79,8 +77,8 @@ object Round {
       id -> o.id,
       date -> o.date,
       magic -> {
-        (o.result.win ?? winBit) +
-          (Math.abs(o.ratingDiff) << 16) +
+        (o.result.win ?? 1 << 31) |
+          (Math.abs(o.ratingDiff) << 16) |
           o.rating
       }
     )
