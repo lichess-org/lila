@@ -16,7 +16,7 @@ private object BSONHandlers {
   import activities._
   import model._
 
-  def regexId(userId: User.ID) = "_id" $startsWith s"$userId:"
+  def regexId(userId: User.ID): Bdoc = "_id" $startsWith s"$userId:"
 
   implicit val activityIdHandler: BSONHandler[BSONString, Id] = new BSONHandler[BSONString, Id] {
     private val sep = ':'
