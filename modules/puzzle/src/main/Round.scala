@@ -77,7 +77,7 @@ object Round {
       id -> o.id,
       date -> o.date,
       magic -> {
-        (o.result.win ?? 1 << 31) |
+        (o.result.win ?? (1 << 31)) |
           (Math.abs(o.ratingDiff) << 16) |
           o.rating
       }
