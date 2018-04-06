@@ -204,11 +204,13 @@ object Auth extends LilaController {
               fuccess(BadRequest(jsonError(errorsAsJson(err))))
             },
             data => HasherRateLimit(data.username, ctx.req) { _ =>
-              val mustConfirm = MustConfirmEmail.YesBecauseMobile
+              val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
+              val mustConfirm =
+                if (email.isHotmail) MustConfirmEmail.Nope // until better email sender is setup
+                else MustConfirmEmail.YesBecauseMobile
               lila.mon.user.register.mobile()
               lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
               authLog(data.username, s"Signup mobile must confirm email: $mustConfirm")
-              val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
               val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
               UserRepo.create(data.username, passwordHash, email, false, apiVersion.some,
                 mustConfirmEmail = mustConfirm.value)
