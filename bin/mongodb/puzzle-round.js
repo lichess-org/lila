@@ -1,4 +1,4 @@
-db.puzzle_round2.drop();
+// db.puzzle_round2.drop();
 
 var shift = 60000, o = {}, m = 0, n = 0, total = db.puzzle_round.count();
 
@@ -26,10 +26,14 @@ db.puzzle_round.find().sort({$natural:-1}).forEach(r => {
   // printjson(r);
   // printjson(o);
   // print(win, rating, diff);
-  if (win !== r.w) throw "bad win";
-  if (rating !== r.r) throw "bad rating";
-  if (diff !== r.d) throw "bad diff";
-  db.puzzle_round2.insert(o);
+  try {
+    if (win !== r.w) throw "bad win";
+    if (rating !== r.r) throw "bad rating";
+    if (diff !== r.d) throw "bad diff";
+    db.puzzle_round2.insert(o);
+  } catch(e) {
+    print(e, r._id);
+  }
   n++;
   if (n % 10000 === 0) print(`${n}/${total}`);
 });
