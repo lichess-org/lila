@@ -17,7 +17,7 @@ private[controllers] trait TheftPrevention { self: LidraughtsController =>
       case (Some(playerId), Some(userId)) => playerId != userId
       case (None, _) =>
         !lidraughts.api.Mobile.Api.requested(ctx.req) &&
-          !ctx.req.cookies.get(AnonCookie.name).map(_.value).contains(pov.playerId)
+          !ctx.req.cookies.get(AnonCookie.name).exists(_.value == pov.playerId)
     }
   }
 
