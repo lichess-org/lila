@@ -63,7 +63,7 @@ export function player(p, asLink: boolean, withRating: boolean, defender: boolea
   ]);
 }
 
-export function numberRow(name: string, value, typ?: string) {
+export function numberRow(name: string, value: any, typ?: string) {
   return h('tr', [h('th', name), h('td',
     typ === 'raw' ? value : (typ === 'percent' ? (
       value[1] > 0 ? ratio2percent(value[0] / value[1]) : 0
