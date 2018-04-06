@@ -434,6 +434,7 @@
   <string name="winner">Победитель</string>
   <string name="standing">Турнирная таблица</string>
   <string name="createANewTournament">Создать турнир</string>
+  <string name="tournamentCalendar">Турнирный календарь</string>
   <string name="join">Участвовать</string>
   <string name="withdraw">Покинуть</string>
   <string name="points">Очки</string>
@@ -671,7 +672,7 @@
   <string name="moveConfirmation">Подтвердить ход</string>
   <string name="inCorrespondenceGames">В дневной игре</string>
   <string name="ifRatingIsPlusMinusX">Если их рейтинг ± %s</string>
-  <string name="onlyFriends">Только друзья</string>
+  <string name="onlyFriends">Только друзьям</string>
   <string name="menu">Меню</string>
   <string name="castling">Рокировка</string>
   <string name="whiteCastlingKingside">Белые О-О</string>

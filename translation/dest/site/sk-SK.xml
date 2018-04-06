@@ -434,6 +434,7 @@
   <string name="winner">Víťaz</string>
   <string name="standing">Pozícia</string>
   <string name="createANewTournament">Vytvoriť nový turnaj</string>
+  <string name="tournamentCalendar">Kalendár turnajov</string>
   <string name="join">Pripojiť</string>
   <string name="withdraw">Odstúpiť</string>
   <string name="points">Bodov</string>
@@ -692,6 +693,7 @@
   <string name="videoLibrary">Video knižnica</string>
   <string name="mobileApp">Mobilná aplikácia</string>
   <string name="webmasters">Správcovia</string>
+  <string name="about">Viac o</string>
   <string name="contribute">Prispieť</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Podmienky služby</string>

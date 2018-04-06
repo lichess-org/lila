@@ -285,6 +285,7 @@
   <string name="winner">Переможець</string>
   <string name="standing">Турнірна таблиця</string>
   <string name="createANewTournament">Створити новий турнір</string>
+  <string name="tournamentCalendar">Календар турніру</string>
   <string name="join">Грати</string>
   <string name="withdraw">Відмовитися</string>
   <string name="points">Очки</string>

@@ -285,6 +285,7 @@
   <string name="winner">Пераможца</string>
   <string name="standing">Турнірная табліца</string>
   <string name="createANewTournament">Стварыць  новы турнір</string>
+  <string name="tournamentCalendar">Каляндар турніру</string>
   <string name="join">Далучыцца</string>
   <string name="withdraw">Выйсьці</string>
   <string name="points">Балы</string>
