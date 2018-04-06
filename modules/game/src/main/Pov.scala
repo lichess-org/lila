@@ -113,6 +113,6 @@ object LightPov {
 
   def apply(game: LightGame, player: Player) = new LightPov(game, player.color)
 
-  def ofUserId(game: LightGame, userId: String): Option[LightPov] =
+  def ofUserId(game: LightGame, userId: User.ID): Option[LightPov] =
     game playerByUserId userId map { apply(game, _) }
 }

@@ -3,6 +3,8 @@ package lila.game
 import chess.{ Color, Status, Mode }
 import org.joda.time.DateTime
 
+import lila.user.User
+
 case class LightGame(
     id: Game.ID,
     whitePlayer: Player,
@@ -13,7 +15,7 @@ case class LightGame(
   def player(color: Color): Player = color.fold(whitePlayer, blackPlayer)
   def player(playerId: Player.ID): Option[Player] = players find (_.id == playerId)
   def players = List(whitePlayer, blackPlayer)
-  def playerByUserId(userId: String): Option[Player] = players.find(_.userId contains userId)
+  def playerByUserId(userId: User.ID): Option[Player] = players.find(_.userId contains userId)
   def winner = players find (_.wins)
   def wonBy(c: Color): Option[Boolean] = winner.map(_.color == c)
 }
@@ -25,6 +27,7 @@ object LightGame {
   def projection = lila.db.dsl.$doc(
     F.whitePlayer -> true,
     F.blackPlayer -> true,
+    F.playerUids -> true,
     F.winnerColor -> true,
     F.status -> true
   )
