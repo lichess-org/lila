@@ -32,7 +32,7 @@ private[puzzle] final class Finisher(
             rating = formerUserRating,
             ratingDiff = userPerf.intRating - formerUserRating
           )
-          (api.round add round) >> {
+          (api.round upsert round) >> {
             puzzleColl.update(
               $id(puzzle.id),
               $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
@@ -40,9 +40,6 @@ private[puzzle] final class Finisher(
             ) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
           } inject {
             bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating), 'finishPuzzle)
-            round -> Mode.Rated
-          } recover lila.db.recoverDuplicateKey { _ =>
-            // logger.info(s"finisher.apply ${user.id} ${puzzle.id} duplicate round")
             round -> Mode.Rated
           }
         }

@@ -56,6 +56,8 @@ private[puzzle] final class PuzzleApi(
   object round {
 
     def add(a: Round) = roundColl insert a
+
+    def upsert(a: Round) = roundColl.update($id(a.id), a, upsert = true)
   }
 
   object vote {
