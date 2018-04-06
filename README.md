@@ -33,7 +33,7 @@ All rated standard games are published in a [free PGN database](https://database
 Browser testing done with [![](https://raw.githubusercontent.com/ornicar/lila/master/public/images/browserstack.png)](https://www.browserstack.com).
 Please help us [translate lichess with Crowdin](https://crowdin.com/project/lichess).
 
-[Join us on discord](https://discord.gg/hy5jqSs) or in the #lichess freenode IRC channel for more info.
+[Join us on discord](https://discord.gg/hy5jqSs) for more info.
 Use [GitHub issues](https://github.com/ornicar/lila/issues) for bug reports and feature requests.
 
 Installation
