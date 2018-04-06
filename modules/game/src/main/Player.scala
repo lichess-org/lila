@@ -15,7 +15,7 @@ case class Player(
     isOfferingRematch: Boolean = false,
     lastDrawOffer: Option[Int] = None,
     proposeTakebackAt: Int = 0, // ply when takeback was proposed
-    userId: Option[String] = None,
+    userId: Player.UserId = None,
     rating: Option[Int] = None,
     ratingDiff: Option[Int] = None,
     provisional: Boolean = false,
