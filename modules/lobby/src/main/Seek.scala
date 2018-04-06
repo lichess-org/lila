@@ -101,7 +101,7 @@ object Seek {
     ratingRange = seek.ratingRange,
     createdAt = DateTime.now
   )
-  
+
   import reactivemongo.bson.{ MapReader => _, MapWriter => _, _ }
   import lidraughts.db.BSON.MapValue.MapHandler
   import lidraughts.db.BSON.BSONJodaDateTimeHandler
