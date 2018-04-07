@@ -551,6 +551,9 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     explorerGame(gameId: string, insert: boolean) {
       makeChange('explorerGame', withPosition({ gameId, insert }));
     },
+    onPremoveSet() {
+      if (gamebookPlay) gamebookPlay.onPremoveSet();
+    },
     redraw,
     trans: ctrl.trans,
     socketHandler: (t: string, d: any) => {

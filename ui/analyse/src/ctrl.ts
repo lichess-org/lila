@@ -287,7 +287,7 @@ export default class AnalyseCtrl {
       config.movable!.color = color;
     }
     config.premovable = {
-      enabled: config.movable!.color && config.turnColor !== config.movable!.color && !this.gamebookPlay()
+      enabled: config.movable!.color && config.turnColor !== config.movable!.color
     };
     this.cgConfig = config;
     return config;
@@ -472,6 +472,10 @@ export default class AnalyseCtrl {
         enabled: true
       }
     });
+  }
+
+  onPremoveSet = () => {
+    if (this.study) this.study.onPremoveSet();
   }
 
   addNode(node: Tree.Node, path: Tree.Path) {

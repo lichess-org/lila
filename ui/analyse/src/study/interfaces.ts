@@ -49,6 +49,7 @@ export interface StudyCtrl {
   isUpdatedRecently(): boolean;
   setGamebookOverride(o: GamebookOverride): void;
   explorerGame(gameId: string, insert: boolean): void;
+  onPremoveSet(): void;
   redraw: Redraw;
   trans: Trans;
 }

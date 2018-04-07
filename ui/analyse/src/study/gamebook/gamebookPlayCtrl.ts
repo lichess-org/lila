@@ -93,9 +93,13 @@ export default class GamebookPlayCtrl {
           if (c) s.setChapter(c.id);
         }
         break;
- default:
-   this.next();
+      default:
+        this.next();
     }
+  }
+
+  onPremoveSet = () => {
+    this.next();
   }
 
   hint = () => {
@@ -109,7 +113,11 @@ export default class GamebookPlayCtrl {
 
   canJumpTo = (path: Tree.Path) => treePath.contains(this.root.path, path);
 
-  onJump = this.makeState;
+  onJump = () => {
+    this.makeState();
+    // wait for the root ctrl to make the move
+    setTimeout(() => this.root.withCg(cg => cg.playPremove()), 100);
+  }
 
   onShapeChange = shapes => {
     const node = this.root.node;
