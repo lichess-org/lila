@@ -116,7 +116,7 @@ private[api] final class RoundApi(
 
   private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[FEN], withFlags: WithFlags, iteratedCapts: Boolean = false)(obj: JsObject) =
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(lidraughts.round.TreeBuilder(
-      id = pov.game.id,
+      id = pov.gameId,
       pdnmoves = pov.game.pdnMoves,
       variant = pov.game.variant,
       analysis = analysis,
@@ -128,7 +128,7 @@ private[api] final class RoundApi(
 
   private def withSteps(pov: Pov, initialFen: Option[FEN])(obj: JsObject) =
     obj + ("steps" -> lidraughts.round.StepBuilder(
-      id = pov.game.id,
+      id = pov.gameId,
       pdnmoves = pov.game.pdnMoves,
       variant = pov.game.variant,
       initialFen = initialFen.fold(pov.game.variant.initialFen)(_.value)

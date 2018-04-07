@@ -218,7 +218,7 @@ object Setup extends LidraughtsController with TheftPrevention {
 
   private[controllers] def redirectPov(pov: Pov)(implicit ctx: Context) = {
     implicit val req = ctx.req
-    val redir = Redirect(routes.Round.watcher(pov.game.id, "white"))
+    val redir = Redirect(routes.Round.watcher(pov.gameId, "white"))
     if (ctx.isAuth) redir
     else redir withCookies LidraughtsCookie.cookie(
       AnonCookie.name,

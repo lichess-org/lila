@@ -41,12 +41,12 @@ private final class StudyMaker(
 
   private def createFromPov(data: StudyMaker.Data, pov: Pov, initialFen: Option[FEN], user: User, draughtsResult: Boolean): Fu[Study.WithChapter] =
     chapterMaker.game2root(pov.game, initialFen, draughtsResult) map { root =>
-      val study = Study.make(user, Study.From.Game(pov.game.id), data.id, Study.Name("Game study").some)
+      val study = Study.make(user, Study.From.Game(pov.gameId), data.id, Study.Name("Game study").some)
       val chapter: Chapter = Chapter.make(
         studyId = study.id,
         name = Chapter.Name(Namer.gameVsText(pov.game, withRatings = false)(lightUser)),
         setup = Chapter.Setup(
-          gameId = pov.game.id.some,
+          gameId = pov.gameId.some,
           variant = pov.game.variant,
           orientation = pov.color
         ),

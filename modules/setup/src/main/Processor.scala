@@ -21,7 +21,7 @@ private[setup] final class Processor(
     val pov = config pov ctx.me
     saveConfig(_ withAi config) >>
       (GameRepo insertDenormalized pov.game) >>-
-      onStart(pov.game.id) >> {
+      onStart(pov.gameId) >> {
         pov.game.player.isAi ?? draughtsnetPlayer(pov.game)
       } inject pov
   }

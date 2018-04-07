@@ -136,7 +136,7 @@ private final class PushApi(
 
   private def corresGameJson(pov: Pov, typ: String) = Json.obj(
     "type" -> typ,
-    "gameId" -> pov.game.id,
+    "gameId" -> pov.gameId,
     "fullId" -> pov.fullId,
     "color" -> pov.color.name,
     "fen" -> Forsyth.exportBoard(pov.game.board),

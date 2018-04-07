@@ -48,7 +48,7 @@ object Chart {
 
     def games = povs.map { pov =>
       Json.obj(
-        "id" -> pov.game.id,
+        "id" -> pov.gameId,
         "fen" -> (draughts.format.Forsyth exportBoard pov.game.board),
         "color" -> pov.player.color.name,
         "lastMove" -> ~pov.game.lastMoveKeys,

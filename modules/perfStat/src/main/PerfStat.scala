@@ -154,7 +154,7 @@ object RatingAt {
     pov.player.stableRatingAfter.filter { r =>
       cur.fold(true) { c => r.compare(c.int) == comp }
     }.map {
-      RatingAt(_, pov.game.movedAt, pov.game.id)
+      RatingAt(_, pov.game.movedAt, pov.gameId)
     } orElse cur
 }
 
@@ -171,7 +171,7 @@ case class Results(results: List[Result]) extends AnyVal {
             opInt,
             UserId(~pov.opponent.userId),
             pov.game.movedAt,
-            pov.game.id
+            pov.gameId
           ) :: results).sortBy(_.opInt * comp) take Results.nb
         )
       }

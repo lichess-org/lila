@@ -135,7 +135,7 @@ object Tournament extends LidraughtsController {
 
   def userGameNbShow(id: String, user: String, nb: Int) = Open { implicit ctx =>
     withUserGameNb(id, user, nb) { pov =>
-      Redirect(routes.Round.watcher(pov.game.id, pov.color.name))
+      Redirect(routes.Round.watcher(pov.gameId, pov.color.name))
     }
   }
 

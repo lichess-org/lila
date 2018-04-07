@@ -99,7 +99,7 @@ object Round extends LidraughtsController with TheftPrevention {
   private def otherPovs(game: GameModel)(implicit ctx: Context) = ctx.me ?? { user =>
     GameRepo urgentGames user map {
       _ filter { pov =>
-        pov.game.id != game.id && pov.game.isSwitchable && pov.game.isSimul == game.isSimul
+        pov.gameId != game.id && pov.game.isSwitchable && pov.game.isSimul == game.isSimul
       }
     }
   }
@@ -217,13 +217,13 @@ object Round extends LidraughtsController with TheftPrevention {
                     Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv, chatOption = chat, bookmarked = bookmarked))
                 }
           else for { // web crawlers don't need the full thing
-            initialFen <- GameRepo.initialFen(pov.game.id)
+            initialFen <- GameRepo.initialFen(pov.gameId)
             pdn <- Env.api.pdnDump(pov.game, initialFen, PdnDump.WithFlags(clocks = false, draughtsResult = ctx.pref.draughtsResult))
           } yield Ok(html.round.watcherBot(pov, initialFen, pdn))
         }.mon(_.http.response.watcher.website),
         api = apiVersion => for {
           data <- Env.api.roundApi.watcher(pov, apiVersion, tv = none)
-          analysis <- pov.game.metadata.analysed.??(analyser get pov.game.id)
+          analysis <- pov.game.metadata.analysed.??(analyser get pov.gameId)
           chat <- getWatcherChat(pov.game)
         } yield Ok {
           data

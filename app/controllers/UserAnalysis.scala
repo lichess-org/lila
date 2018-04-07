@@ -107,7 +107,7 @@ object UserAnalysis extends LidraughtsController with TheftPrevention {
   }
 
   private def mobileAnalysis(pov: Pov, apiVersion: lidraughts.common.ApiVersion)(implicit ctx: Context): Fu[Result] =
-    GameRepo initialFen pov.game.id flatMap { initialFen =>
+    GameRepo initialFen pov.gameId flatMap { initialFen =>
       Game.preloadUsers(pov.game) zip
         (Env.analyse.analyser get pov.game) zip
         Env.game.crosstableApi(pov.game) zip

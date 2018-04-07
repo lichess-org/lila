@@ -55,8 +55,8 @@ final class JsonView(
     playerUser: Option[User],
     initialFen: Option[FEN],
     withFlags: WithFlags
-  ): Fu[JsObject] = {
-    getSocketStatus(pov.game.id) zip
+  ): Fu[JsObject] =
+    getSocketStatus(pov.gameId) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
       canTakeback(pov.game) map {
         case ((socket, opponentUser), takebackable) =>
@@ -121,7 +121,6 @@ final class JsonView(
               )
             })
       }
-  }
 
   private def commonWatcherJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
     Json.obj(
@@ -146,7 +145,7 @@ final class JsonView(
     initialFen: Option[FEN] = None,
     withFlags: WithFlags
   ) =
-    getSocketStatus(pov.game.id) zip
+    getSocketStatus(pov.gameId) zip
       UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
         case (socket, (playerUser, opponentUser)) =>
           import pov._
