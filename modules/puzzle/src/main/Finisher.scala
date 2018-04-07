@@ -82,7 +82,7 @@ private[puzzle] final class Finisher(
       ) inject
         user.copy(perfs = user.perfs.copy(puzzle = userPerf))
   } recover lila.db.recoverDuplicateKey { _ =>
-    logger.info(s"ratedUntrusted ${user.id} ${puzzle.id} duplicate round")
+    // logger.info(s"ratedUntrusted ${user.id} ${puzzle.id} duplicate round")
     user // has already been solved!
   }
 
