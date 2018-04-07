@@ -317,7 +317,7 @@
             @ips.map { ip =>
             <li class="ip">
               <a class="address @if(ip.blocked){blocked}" href="@{routes.Mod.search}?q=@ip.ip.value">
-                @ip.ip.value.value @momentFromNow(ip.ip.date)
+                <ip>@ip.ip.value.value</ip> @momentFromNow(ip.ip.date)
               </a>
             </li>
             }
