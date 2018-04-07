@@ -193,7 +193,7 @@ object Round extends LilaController with TheftPrevention {
           chat <- getWatcherChat(pov.game)
         } yield Ok {
           data
-            .add("c" -> chat.map(c => lila.chat.JsonView(c.chat)))
+            .add("chat" -> chat.map(c => lila.chat.JsonView(c.chat)))
             .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
         }
       ) map NoCache
