@@ -19,7 +19,7 @@ private[puzzle] final class Selector(
     lidraughts.mon.puzzle.selector.count()
     me match {
       case None => anonPuzzle(variant) flatMap {
-        case p @ Some(puzzle) => fuccess(p)
+        case p @ Some(_) => fuccess(p)
         case _ =>
           logger.warn(s"Retry ${variant.key} puzzle for anonymous")
           anonPuzzle(variant)
@@ -27,7 +27,7 @@ private[puzzle] final class Selector(
       case Some(user) => api.head.find(user, variant) flatMap {
         case head @ Some(PuzzleHead(_, Some(c), _)) =>
           api.puzzle.find(c, variant) flatMap {
-            case p @ Some(puzzle) => fuccess(p)
+            case p @ Some(_) => fuccess(p)
             case _ =>
               logger.warn(s"Retry ${variant.key} puzzle $c for ${user.username}")
               newPuzzleForUser(user, variant, head) flatMap { next =>
@@ -55,8 +55,9 @@ private[puzzle] final class Selector(
       .uno[Puzzle]
 
   private def newPuzzleForUser(user: User, variant: Variant, headOption: Option[PuzzleHead]): Fu[Option[Puzzle]] = {
-    val rating = user.perfs.puzzle(variant).intRating min 2300 max 900
-    val step = toleranceStepFor(rating)
+    val perf = user.perfs.puzzle(variant)
+    val rating = perf.intRating min 2300 max 900
+    val step = toleranceStepFor(rating, perf.nb)
     val skipMax = if (variant.frisian) 40 else 80
     val idStep = if (variant.frisian) 20 else 40
     api.puzzle.cachedLastId(variant).get flatMap { maxId =>
@@ -84,10 +85,9 @@ private[puzzle] final class Selector(
     rating = rating,
     tolerance = tolerance,
     idRange = idRange
-  )).uno[Puzzle] flatMap {
+  )).sort($sort asc F.id).uno[Puzzle] flatMap {
     case None if (tolerance + step) <= toleranceMax =>
-      tryRange(variant, rating, tolerance + step, step,
-        idRange = Range(idRange.min, idRange.max + 20)) //original + 100
+      tryRange(variant, rating, tolerance + step, step, Range(idRange.min, idRange.max + 20)) //original + 100
     case res => fuccess(res)
   }
 }
@@ -98,20 +98,23 @@ private final object Selector {
 
   val anonSkipMax: Map[Variant, Int] = Map(Standard -> 500, Frisian -> 250)
 
-  def toleranceStepFor(rating: Int) =
+  def toleranceStepFor(rating: Int, nbPuzzles: Int) = {
     math.abs(1500 - rating) match {
       case d if d >= 500 => 300
       case d if d >= 300 => 250
       case d => 200
     }
+  } * {
+    // increase rating tolerance for puzzle blitzers,
+    // so they get more puzzles to play
+    if (nbPuzzles > 2500) 2
+    else if (nbPuzzles > 1000) 3 / 2
+    else 1
+  }
 
   def rangeSelector(rating: Int, tolerance: Int, idRange: Range) = $doc(
-    F.id $gt
-      idRange.min $lt
-      idRange.max,
-    F.rating $gt
-      (rating - tolerance) $lt
-      (rating + tolerance),
+    F.id $gt idRange.min $lt idRange.max,
+    F.rating $gt (rating - tolerance) $lt (rating + tolerance),
     $or(
       F.voteRatio $gt AggregateVote.minRatio,
       F.voteNb $lt AggregateVote.minVotes
