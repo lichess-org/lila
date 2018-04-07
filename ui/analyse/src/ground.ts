@@ -63,7 +63,10 @@ function makeConfig(ctrl: AnalyseCtrl): CgConfig {
         premovable: {
             enabled: opts.premovable!.enabled,
             showDests: pref.destination,
-            variant: d.game.variant.key
+            variant: d.game.variant.key,
+            events: {
+              set: ctrl.onPremoveSet
+            }
         },
         drawable: {
             enabled: !ctrl.embed,
