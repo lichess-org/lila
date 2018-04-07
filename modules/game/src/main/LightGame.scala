@@ -18,6 +18,7 @@ case class LightGame(
   def playerByUserId(userId: User.ID): Option[Player] = players.find(_.userId contains userId)
   def winner = players find (_.wins)
   def wonBy(c: Color): Option[Boolean] = winner.map(_.color == c)
+  def finished = status >= Status.Mate
 }
 
 object LightGame {

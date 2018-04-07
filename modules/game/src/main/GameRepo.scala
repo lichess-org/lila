@@ -19,20 +19,18 @@ object GameRepo {
   // dirty
   val coll = Env.current.gameColl
 
-  type ID = String
-
   import BSONHandlers._
-  import Game.{ BSONFields => F }
+  import Game.{ ID, BSONFields => F }
 
   def game(gameId: ID): Fu[Option[Game]] = coll.byId[Game](gameId)
 
-  def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[Game]] = coll.byOrderedIds[Game, Game.ID](gameIds)(_.id)
+  def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[Game]] = coll.byOrderedIds[Game, ID](gameIds)(_.id)
 
   def gamesFromSecondary(gameIds: Seq[ID]): Fu[List[Game]] =
-    coll.byOrderedIds[Game, Game.ID](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
+    coll.byOrderedIds[Game, ID](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
 
   def gameOptionsFromSecondary(gameIds: Seq[ID]): Fu[List[Option[Game]]] =
-    coll.optionsByOrderedIds[Game, Game.ID](gameIds, ReadPreference.secondaryPreferred)(_.id)
+    coll.optionsByOrderedIds[Game, ID](gameIds, ReadPreference.secondaryPreferred)(_.id)
 
   object light {
 
@@ -44,7 +42,10 @@ object GameRepo {
     def pov(ref: PovRef): Fu[Option[LightPov]] = pov(ref.gameId, ref.color)
 
     def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[LightGame]] =
-      coll.byOrderedIds[LightGame, Game.ID](gameIds, projection = LightGame.projection.some)(_.id)
+      coll.byOrderedIds[LightGame, ID](gameIds, projection = LightGame.projection.some)(_.id)
+
+    def gamesFromSecondary(gameIds: Seq[ID]): Fu[List[LightGame]] =
+      coll.byOrderedIds[LightGame, ID](gameIds, projection = LightGame.projection.some, readPreference = ReadPreference.secondaryPreferred)(_.id)
   }
 
   def finished(gameId: ID): Fu[Option[Game]] =
@@ -77,7 +78,7 @@ object GameRepo {
   def remove(id: ID) = coll.remove($id(id)).void
 
   def userPovsByGameIds(gameIds: List[String], user: User, readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[List[Pov]] =
-    coll.byOrderedIds[Game, Game.ID](gameIds)(_.id) map { _.flatMap(g => Pov(g, user)) }
+    coll.byOrderedIds[Game, ID](gameIds)(_.id) map { _.flatMap(g => Pov(g, user)) }
 
   def recentPovsByUserFromSecondary(user: User, nb: Int): Fu[List[Pov]] =
     coll.find(Query user user)
@@ -202,14 +203,14 @@ object GameRepo {
   def isAnalysed(id: ID): Fu[Boolean] =
     coll.exists($id(id) ++ Query.analysed(true))
 
-  def filterAnalysed(ids: Seq[Game.ID]): Fu[Set[Game.ID]] =
-    coll.distinct[Game.ID, Set]("_id", ($inIds(ids) ++ $doc(
+  def filterAnalysed(ids: Seq[ID]): Fu[Set[ID]] =
+    coll.distinct[ID, Set]("_id", ($inIds(ids) ++ $doc(
       F.analysed -> true
     )).some)
 
-  def exists(id: Game.ID) = coll.exists($id(id))
+  def exists(id: ID) = coll.exists($id(id))
 
-  def tournamentId(id: Game.ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.tournamentId)
+  def tournamentId(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.tournamentId)
 
   def incBookmarks(id: ID, value: Int) =
     coll.update($id(id), $inc(F.bookmarks -> value)).void

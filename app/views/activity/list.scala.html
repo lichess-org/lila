@@ -97,7 +97,7 @@ case (pt, score) => {
 </div>
 }
 
-@renderCorresEnds(score: Score, povs: List[Pov]) = {
+@renderCorresEnds(score: Score, povs: List[lila.game.LightPov]) = {
 <div class="entry">
   <i data-icon=";"></i>
   <div>
@@ -106,7 +106,7 @@ case (pt, score) => {
     @scoreHtml(score)
     <div class="sub">
       @povs.map { pov =>
-      <a class="glpt" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+      <a class="glpt" href="@routes.Round.watcher(pov.game.id, pov.color.name)">
         @pov.game.wonBy(pov.color) match {
         case Some(true) => {Victory}
         case Some(false) => {Defeat}
