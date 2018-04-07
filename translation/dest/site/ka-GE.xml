@@ -80,8 +80,11 @@
   <string name="enable">ჯონჯოლი</string>
   <string name="memory">მეხსიერება</string>
   <string name="infiniteAnalysis">უსასრულო ანალიზი</string>
+  <string name="blunder">უხეში შეცდომა</string>
   <string name="blunders">დაუკვირვებლობები</string>
+  <string name="mistake">შეცდომა</string>
   <string name="mistakes">შეცდომები</string>
+  <string name="inaccuracy">უზუსტობა</string>
   <string name="inaccuracies">უზუსტობები</string>
   <string name="moveTimes">სვლის დრო</string>
   <string name="flipBoard">დაფის შემობრუნება</string>
@@ -143,6 +146,12 @@
   <string name="passwordReset">პაროლის აღდგენა</string>
   <string name="forgotPassword">დაგავიწყდათ პაროლი?</string>
   <string name="rank">რანგი</string>
+  <string name="rankX">რეიტინგი: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">რეიტინგი ახლდება ყოველ %s წუთში</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s ეტიუდი</item>
+    <item quantity="other">%s ეტიუდები</item>
+  </plurals>
   <string name="gamesPlayed">დასრულებული თამაშები</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s თამაშები თქვენ წინააღმდეგ</item>
@@ -162,6 +171,7 @@
   <string name="accept">დათანხმება</string>
   <string name="decline">უარყოფა</string>
   <string name="playingRightNow">თამაშობს ამ დროს</string>
+  <string name="eventInProgress">თამაშობს ამ დროს</string>
   <string name="finished">დამთავრებული</string>
   <string name="abortGame">თამაშის შეწყვეტა</string>
   <string name="gameAborted">თამაში შეწყვეტილია</string>
@@ -170,6 +180,7 @@
   <string name="mode">რეჟიმი</string>
   <string name="casual">ჩვეულებრივი</string>
   <string name="rated">შეფასებული</string>
+  <string name="casualTournament">ურეიტინგო</string>
   <string name="thisGameIsRated">ეს თამაში ფასდება</string>
   <string name="rematch">რევანში</string>
   <string name="rematchOfferSent">რევანშის შეთავაზება გაგზავნილია</string>
@@ -181,6 +192,8 @@
   <string name="play">თამაშის დაწყება</string>
   <string name="inbox">მიღებული</string>
   <string name="chatRoom">სასაუბრო ოთახი</string>
+  <string name="loginToChat">შედით ჩათისთვის</string>
+  <string name="youHaveBeenTimedOut">თქვენ გამოსული ხართ სისტემიდან.</string>
   <string name="spectatorRoom">მაყურებელთა ოთახი</string>
   <string name="composeMessage">შეტყობინების შექმნა</string>
   <string name="noNewMessages">ახალი შეტყობინება არ არის</string>
