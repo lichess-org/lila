@@ -1,12 +1,12 @@
 @(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context)
 <div class="meta">
   @doc.getDate("blog.date").map { date =>
-  <span data-icon="p"> @semanticDate(date.value.toDateTimeAtStartOfDay)</span>
+  <span data-icon="p">@semanticDate(date.value.toDateTimeAtStartOfDay)</span>
   }
   @doc.getText("blog.author").map { author =>
-  <span data-icon="r"> @author</span>
+  <span class="text" data-icon="r">@richText(author)</span>
   }
   @doc.getText("blog.category").map { categ =>
-  <span data-icon="t"> @categ</span>
+  <span class="text" data-icon="t">@categ</span>
   }
 </div>
