@@ -106,6 +106,9 @@ private[puzzle] final class PuzzleApi(
 
     def addNew(user: User, puzzleId: PuzzleId) = set(PuzzleHead(user.id, puzzleId.some, puzzleId))
 
+    def currentPuzzleId(user: User): Fu[Option[PuzzleId]] =
+      headColl.primitiveOne[PuzzleId]($id(user.id), "current")
+
     def solved(user: User, id: PuzzleId) = head find user flatMap {
       case Some(PuzzleHead(_, Some(c), n)) if c == id && c > n => set {
         PuzzleHead(user.id, none, id)
