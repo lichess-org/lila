@@ -218,10 +218,16 @@ object User extends LilaController {
     }
   }
 
-  def top200(perfKey: String) = Open { implicit ctx =>
-    PerfType(perfKey).fold(notFound) { perfType =>
-      env.cached top200Perf perfType.id map { users =>
-        Ok(html.user.top200(perfType, users))
+  def topNb(nb: Int, perfKey: String) = Open { implicit ctx =>
+    PerfType(perfKey) ?? { perfType =>
+      env.cached top200Perf perfType.id map { _ take (nb atLeast 1 atMost 200) } flatMap { users =>
+        negotiate(
+          html = Ok(html.user.top(perfType, users)).fuccess,
+          api = _ => fuccess {
+            implicit val lpWrites = OWrites[UserModel.LightPerf](env.jsonView.lightPerfIsOnline)
+            Ok(Json.obj("users" -> users))
+          }
+        )
       }
     }
   }

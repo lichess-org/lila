@@ -59,7 +59,7 @@ GET   /@/:username                     controllers.User.show(username: String)
 GET   /player/myself                   controllers.User.myself
 GET   /player/opponents                controllers.User.opponents
 GET   /player                          controllers.User.list
-GET   /player/top/200/:perfKey         controllers.User.top200(perfKey: String)
+GET   /player/top/:nb/:perfKey         controllers.User.topNb(nb: Int, perfKey: String)
 GET   /player/top/week                 controllers.User.topWeek
 GET   /player/online                   controllers.User.online
 GET   /player/autocomplete             controllers.User.autocomplete
