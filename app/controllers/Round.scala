@@ -227,7 +227,7 @@ object Round extends LidraughtsController with TheftPrevention {
           chat <- getWatcherChat(pov.game)
         } yield Ok {
           data
-            .add("c" -> chat.map(c => lidraughts.chat.JsonView(c.chat)))
+            .add("chat" -> chat.map(c => lidraughts.chat.JsonView(c.chat)))
             .add("analysis" -> analysis.map(a => lidraughts.analyse.JsonView.mobile(pov.game, a)))
         }
       ) map NoCache
