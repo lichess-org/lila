@@ -68,7 +68,7 @@ export default function(ctrl: TournamentController): VNode {
       ])
     ]),
     h('div.scroll-shadow-soft', [
-      data.pairings.length ?  h('table.pairings', {
+      h('table.pairings', {
         hook: bind('click', e => {
           const href = ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-href');
           if (href) window.open(href, '_blank');
@@ -88,11 +88,7 @@ export default function(ctrl: TournamentController): VNode {
           h('td.is.color-icon.' + p.color),
           h('td', res)
         ]);
-      })) : h('div', {
-        attrs: {
-          style: 'padding: 1em'
-        }
-      }, 'Sorry, player pairings are temporarily unavailable.')
+      }))
     ])
   ]);
 };
