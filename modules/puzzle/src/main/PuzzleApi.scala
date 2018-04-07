@@ -58,6 +58,10 @@ private[puzzle] final class PuzzleApi(
     def add(a: Round) = roundColl insert a
 
     def upsert(a: Round) = roundColl.update($id(a.id), a, upsert = true)
+
+    def reset(user: User) = roundColl.remove($doc(
+      Round.BSONFields.id $startsWith s"${user.id}:"
+    ))
   }
 
   object vote {

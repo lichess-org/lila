@@ -3,8 +3,8 @@ package lila.puzzle
 import scala.util.Random
 
 import lila.db.dsl._
-import lila.user.User
 import lila.rating.Perf
+import lila.user.User
 import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class Selector(
@@ -28,7 +28,7 @@ private[puzzle] final class Selector(
         api.head.find(user) flatMap {
           case Some(PuzzleHead(_, Some(c), _)) => api.puzzle.find(c)
           case headOption =>
-            newPuzzleForUser(user.perfs.puzzle, headOption) flatMap { next =>
+            newPuzzleForUser(user, headOption) flatMap { next =>
               next.?? { p => api.head.addNew(user, p.id) } inject next
             }
         }
@@ -40,20 +40,25 @@ private[puzzle] final class Selector(
       lila.mon.puzzle.selector.vote(puzzle.vote.sum)
   }
 
-  private def newPuzzleForUser(perf: Perf, headOption: Option[PuzzleHead]): Fu[Option[Puzzle]] = {
-    val rating = perf.intRating atMost 2300 atLeast 900
-    val step = toleranceStepFor(rating, perf.nb)
+  private def newPuzzleForUser(user: User, headOption: Option[PuzzleHead]): Fu[Option[Puzzle]] = {
+    val rating = user.perfs.puzzle.intRating atMost 2300 atLeast 900
+    val step = toleranceStepFor(rating, user.perfs.puzzle.nb)
     api.puzzle.cachedLastId.get flatMap { maxId =>
-      val lastId = headOption match {
-        case Some(PuzzleHead(_, _, l)) if l < maxId - 300 => l
-        case _ => puzzleIdMin
+      (headOption match {
+        // user played all puzzles. Reset rounds and start anew.
+        case Some(PuzzleHead(_, _, l)) if l > maxId - 300 => api.round.reset(user) inject puzzleIdMin
+        // we have a head. Use it.
+        case Some(PuzzleHead(_, _, l)) => fuccess(l)
+        // new player
+        case _ => fuccess(puzzleIdMin)
+      }) flatMap { lastId =>
+        tryRange(
+          rating = rating,
+          tolerance = step,
+          step = step,
+          idRange = Range(lastId, lastId + 200)
+        )
       }
-      tryRange(
-        rating = rating,
-        tolerance = step,
-        step = step,
-        idRange = Range(lastId, lastId + 200)
-      )
     }
   }
 
