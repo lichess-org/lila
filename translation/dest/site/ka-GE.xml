@@ -78,6 +78,8 @@
   <string name="deleteThisImportedGame">წაიშალოს ეს იმპორტირებული თამაში?</string>
   <string name="replayMode">გამეორების რეჟიმი</string>
   <string name="enable">ჯონჯოლი</string>
+  <string name="memory">მეხსიერება</string>
+  <string name="infiniteAnalysis">უსასრულო ანალიზი</string>
   <string name="blunders">დაუკვირვებლობები</string>
   <string name="mistakes">შეცდომები</string>
   <string name="inaccuracies">უზუსტობები</string>
