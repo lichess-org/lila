@@ -258,6 +258,7 @@
     <item quantity="one">თქვენ უნდა ითამაშოთ კიდევ %s რეიტინგული პარტია</item>
     <item quantity="other">თქვენ უნდა ითამაშოთ კიდევ %s რეიტინგული პარტია</item>
   </plurals>
+  <string name="yourPerfRatingIsProvisional">თქვნი რეიტინგი %s არის პირობითი</string>
   <string name="backToGame">თამაშში დაბრუნება</string>
   <string name="siteDescription">უფასო ონლაინ ჭადრაკი. ითამაშე ჭადრაკი სუფთა, სადა ინტერფეისით. არანაირი რეგისტრაცია, არანაირი რეკლამა, არანაირი პლაგინი საჭირო არ არის. ეთამაშე ჭადრაკი კომპიუტერს, მეგობარს ან შემთხვევით ოპონენტს</string>
   <string name="teams">გუნდები</string>
@@ -489,6 +490,7 @@
   <string name="xAnsweredY">%1$s-მ(ა) უპასუხა %2$s-ს</string>
   <string name="xCommentedY">%1$s-მ(ა) კომენტარი გაუკეთა %2$s-ს</string>
   <string name="victory">გამარჯვება!</string>
+  <string name="defeat">მარცხი</string>
   <string name="timeline">ისტორია</string>
   <string name="seeAllTournaments">ყველა ტურნირის ნახვა</string>
   <string name="starting">დასაწყისი:</string>
@@ -515,6 +517,7 @@
   <string name="playOnTheBoardOffline">ადგილობრივი თამაში</string>
   <string name="playOfflineComputer">ეთამაშეთ რობოტს</string>
   <string name="opponent">მოწინააღმდეგე</string>
+  <string name="learnMenu">შესწავლა</string>
   <string name="community">საზოგადოება</string>
   <string name="tools">ინსტრუმენთა პანელი</string>
   <string name="increment">დანამატი</string>
@@ -550,6 +553,7 @@
   <string name="videoLibrary">ვიდეოთეკა</string>
   <string name="mobileApp">მობილური აპლიკაცია</string>
   <string name="webmasters">ვებმასტერები</string>
+  <string name="about">შესახებ</string>
   <string name="contribute">წვლილის შეტანა</string>
   <string name="contact">კონტაქტი</string>
   <string name="termsOfService">მომსახურების პირობები</string>
@@ -593,7 +597,18 @@
   <string name="checkYourEmail">შეამოწმეთ ელ.ფოსტა</string>
   <string name="weHaveSentYouAnEmailClickTheLink">გამოგიგზავნით იმეილზე ლინკას, დააკლიკეთ და გაააქტიურეთ თქვენი ექაუნთი</string>
   <string name="networkLagBetweenYouAndLichess">ქსელი გარკვეული შუალედი შორის თქვენ და Lichess</string>
+  <string name="downloadAnnotated">ანოტირებულის ჩამოტვირთვა</string>
+  <string name="downloadRaw">სუფთას ჩამოტვირთვა</string>
+  <string name="downloadImported">იმპორტირებულის ჩამოტვირთვა</string>
   <string name="crosstable">ჯვრის მაგიდა</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">როქის მეთოდი</string>
+  <string name="castleByMovingTwoSquares">მეფის ორი უჯრით გადაადგილება</string>
+  <string name="castleByMovingOntoTheRook">მეფის ეტლზე მიტანა</string>
+  <string name="shareYourInsightsData">საჭადრაკო ანალიზის სტატისტიკის გაზიარება</string>
+  <string name="withNobody">არავის</string>
+  <string name="withFriends">მეგობრებს</string>
+  <string name="withEverybody">ყველას</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">ელექტრონული ფოსტა %s უკვე დაარეგისტრირეთ</string>
   <string name="kidMode">ბავშვის რეჟიმი</string>
   <string name="playChessEverywhere">ითამაშე ჭადრაკი ყველგან</string>
   <string name="phoneAndTablet">ტელეფონი და ტაბლეტი</string>
