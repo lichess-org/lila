@@ -24,7 +24,7 @@ $zone.find('li.ip').slice(0, 2).each(function() {
   var $li = $(this);
   $(this).one('mouseover', function() {
     $.ajax({
-      url: '/mod/ip-intel?ip=' + $(this).find('.address').text(),
+      url: '/mod/ip-intel?ip=' + $(this).find('.address ip').text(),
       success: function(res) {
         $li.append($('<span class="intel">' + res + '% proxy</span>'));
       }
