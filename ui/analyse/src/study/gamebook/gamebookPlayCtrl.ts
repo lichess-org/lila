@@ -82,8 +82,20 @@ export default class GamebookPlayCtrl {
   }
 
   onSpace = () => {
-    if (this.state.feedback === 'bad') this.retry();
-    else this.next();
+    switch (this.state.feedback) {
+      case 'bad':
+        this.retry();
+        break;
+      case 'end':
+        const s = this.root.study;
+        if (s) {
+          const c = s.nextChapter();
+          if (c) s.setChapter(c.id);
+        }
+        break;
+ default:
+   this.next();
+    }
   }
 
   hint = () => {
