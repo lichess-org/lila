@@ -54,7 +54,7 @@ private[round] final class Rematcher(
         _ ← (GameRepo insertDenormalized nextGame) >>
           GameRepo.saveNext(pov.game, nextGame.id) >>-
           messenger.system(pov.game, _.rematchOfferAccepted) >>- {
-            if (pov.game.variant == Chess960 && !rematch960Cache.get(pov.game.id))
+            if (pov.game.variant == Chess960 && !rematch960Cache.get(pov.gameId))
               rematch960Cache.put(nextGame.id)
           }
       } yield {
@@ -74,7 +74,7 @@ private[round] final class Rematcher(
     situation = initialFen flatMap Forsyth.<<<
     pieces = pov.game.variant match {
       case Chess960 =>
-        if (rematch960Cache.get(pov.game.id)) Chess960.pieces
+        if (rematch960Cache.get(pov.gameId)) Chess960.pieces
         else situation.fold(Chess960.pieces)(_.situation.board.pieces)
       case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
       case variant => variant.pieces

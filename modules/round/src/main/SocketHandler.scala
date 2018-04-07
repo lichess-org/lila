@@ -156,7 +156,7 @@ private[round] final class SocketHandler(
       Handler(hub, socket, uid, join) {
         case Connected(enum, member) =>
           // register to the TV channel when watching TV
-          if (playerId.isEmpty && isRecentTv(pov.game.id)) hub.channel.tvSelect ! lila.socket.Channel.Sub(member)
+          if (playerId.isEmpty && isRecentTv(pov.gameId)) hub.channel.tvSelect ! lila.socket.Channel.Sub(member)
           (controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user), enum, member)
       }
     }

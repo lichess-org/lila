@@ -89,7 +89,7 @@ final class ChallengeApi(
             color = (!pov.color).name,
             challenger = Right(challenger),
             destUser = Some(destUser),
-            rematchOf = pov.game.id.some
+            rematchOf = pov.gameId.some
           )) inject true
         }
       } yield success

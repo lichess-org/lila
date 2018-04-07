@@ -113,7 +113,7 @@ private final class ChapterMaker(
             Chapter.Name(Namer.gameVsText(pov.game, withRatings = false)(lightUser.sync))
           else data.name,
         setup = Chapter.Setup(
-          !pov.game.synthetic option pov.game.id,
+          !pov.game.synthetic option pov.gameId,
           pov.game.variant,
           data.realOrientation
         ),

@@ -131,7 +131,7 @@ final class JsonView(
           .add("withdraw" -> player.withdraw),
         "pairings" -> povScores.map {
           case (pov, score) => Json.obj(
-            "id" -> pov.game.id,
+            "id" -> pov.gameId,
             "color" -> pov.color.name,
             "op" -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
             "win" -> pov.win,

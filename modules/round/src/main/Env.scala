@@ -267,9 +267,9 @@ final class Env(
 
   def resign(pov: Pov): Unit = {
     if (pov.game.abortable)
-      roundMap ! Tell(pov.game.id, actorApi.round.Abort(pov.playerId))
+      roundMap ! Tell(pov.gameId, actorApi.round.Abort(pov.playerId))
     else if (pov.game.playable)
-      roundMap ! Tell(pov.game.id, actorApi.round.Resign(pov.playerId))
+      roundMap ! Tell(pov.gameId, actorApi.round.Resign(pov.playerId))
   }
 }
 

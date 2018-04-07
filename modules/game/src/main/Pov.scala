@@ -101,11 +101,9 @@ object PlayerRef {
 }
 
 case class LightPov(game: LightGame, color: Color) {
-
+  def gameId = game.id
   def player = game player color
-
   def opponent = game player !color
-
   def win = game wonBy color
 }
 
