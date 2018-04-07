@@ -2,7 +2,7 @@ package lidraughts.activity
 
 import org.joda.time.Interval
 
-import lidraughts.game.{ Pov, LightPov }
+import lidraughts.game.LightPov
 import lidraughts.practice.PracticeStudy
 import lidraughts.simul.Simul
 import lidraughts.study.Study
@@ -20,7 +20,7 @@ case class ActivityView(
     simuls: Option[List[Simul]] = None,
     patron: Option[Patron] = None,
     posts: Option[Map[lidraughts.forum.Topic, List[lidraughts.forum.Post]]] = None,
-    corresMoves: Option[(Int, List[Pov])] = None,
+    corresMoves: Option[(Int, List[LightPov])] = None,
     corresEnds: Option[(Score, List[LightPov])] = None,
     follows: Option[Follows] = None,
     studies: Option[List[Study.IdName]] = None,
