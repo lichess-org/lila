@@ -4,6 +4,7 @@ import scala.util.Random
 
 import lila.db.dsl._
 import lila.user.User
+import lila.rating.Perf
 import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class Selector(
@@ -27,7 +28,7 @@ private[puzzle] final class Selector(
         api.head.find(user) flatMap {
           case Some(PuzzleHead(_, Some(c), _)) => api.puzzle.find(c)
           case headOption =>
-            newPuzzleForUser(user, headOption) flatMap { next =>
+            newPuzzleForUser(user.perfs.puzzle, headOption) flatMap { next =>
               next.?? { p => api.head.addNew(user, p.id) } inject next
             }
         }
@@ -39,12 +40,12 @@ private[puzzle] final class Selector(
       lila.mon.puzzle.selector.vote(puzzle.vote.sum)
   }
 
-  private def newPuzzleForUser(user: User, headOption: Option[PuzzleHead]): Fu[Option[Puzzle]] = {
-    val rating = user.perfs.puzzle.intRating min 2300 max 900
-    val step = toleranceStepFor(rating)
+  private def newPuzzleForUser(perf: Perf, headOption: Option[PuzzleHead]): Fu[Option[Puzzle]] = {
+    val rating = perf.intRating atMost 2300 atLeast 900
+    val step = toleranceStepFor(rating, perf.nb)
     api.puzzle.cachedLastId.get flatMap { maxId =>
       val lastId = headOption match {
-        case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l
+        case Some(PuzzleHead(_, _, l)) if l < maxId - 300 => l
         case _ => puzzleIdMin
       }
       tryRange(
@@ -65,10 +66,9 @@ private[puzzle] final class Selector(
     rating = rating,
     tolerance = tolerance,
     idRange = idRange
-  )).uno[Puzzle] flatMap {
+  )).sort($sort asc F.id).uno[Puzzle] flatMap {
     case None if (tolerance + step) <= toleranceMax =>
-      tryRange(rating, tolerance + step, step,
-        idRange = Range(idRange.min, idRange.max + 100))
+      tryRange(rating, tolerance + step, step, Range(idRange.min, idRange.max + 100))
     case res => fuccess(res)
   }
 }
@@ -79,20 +79,23 @@ private final object Selector {
 
   val anonSkipMax = 5000
 
-  def toleranceStepFor(rating: Int) =
+  def toleranceStepFor(rating: Int, nbPuzzles: Int) = {
     math.abs(1500 - rating) match {
       case d if d >= 500 => 300
       case d if d >= 300 => 250
       case d => 200
     }
+  } * {
+    // increase rating tolerance for puzzle blitzers,
+    // so they get more puzzles to play
+    if (nbPuzzles > 10000) 2
+    else if (nbPuzzles > 5000) 3 / 2
+    else 1
+  }
 
   def rangeSelector(rating: Int, tolerance: Int, idRange: Range) = $doc(
-    F.id $gt
-      idRange.min $lt
-      idRange.max,
-    F.rating $gt
-      (rating - tolerance) $lt
-      (rating + tolerance),
+    F.id $gt idRange.min $lt idRange.max,
+    F.rating $gt (rating - tolerance) $lt (rating + tolerance),
     $or(
       F.voteRatio $gt AggregateVote.minRatio,
       F.voteNb $lt AggregateVote.minVotes
