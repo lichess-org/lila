@@ -78,6 +78,8 @@ case class Chapter(
 
   def withoutChildren = copy(root = root.withoutChildren)
 
+  def withoutChildrenIfPractice = if (isPractice) copy(root = root.withoutChildren) else this
+
   def relayAndTags = relay map { Chapter.RelayAndTags(id, _, tags) }
 
   def isOverweight = root.children.countRecursive >= Chapter.maxNodes

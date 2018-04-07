@@ -6,6 +6,7 @@ import { readOnlyProp } from '../../util';
 import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
 import { StudyData } from '../interfaces';
 import AnalyseCtrl from '../../ctrl';
+import GamebookPlayCtrl from '../gamebook/gamebookPlayCtrl';
 
 export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPracticeData): StudyPracticeCtrl {
 
@@ -44,7 +45,16 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     return Math.ceil(plies / 2);
   }
 
+  function getGamebook(): GamebookPlayCtrl | undefined {
+    return root.study!.gamebookPlay();
+  }
+
   function checkSuccess(): void {
+    const gamebook = getGamebook();
+    if (gamebook) {
+      if (gamebook.state.feedback === 'end') onVictory();
+      return;
+    }
     if (success() !== null) return;
     nbMoves(computeNbMoves());
     const res = success(makeSuccess(root, goal(), nbMoves()));
@@ -90,7 +100,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     comment,
     nbMoves,
     reset() {
-      root.tree.root.children = [];
+      if (!getGamebook()) root.tree.root.children = [];
       root.userJump('');
       root.practice!.reset();
       onLoad();
