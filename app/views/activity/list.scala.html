@@ -4,6 +4,8 @@
 @import lila.activity.activities._
 @import lila.activity.model._
 
+@subCount(count: Int) = @{ if (count >= maxSubEntries) s"$count+" else s"$count" }
+
 @renderPatron(p: Patron) = {
 <div class="entry plan">
   <i data-icon=""></i>
@@ -78,7 +80,7 @@ case (pt, score) => {
 <div class="entry">
   <i data-icon=";"></i>
   <div>
-    @trans.activity.playedNbMoves.plural(nb, nb, povs.size)
+    @trans.activity.playedNbMoves.plural(nb, nb, subCount(povs.size))
     <div class="sub">
       @povs.map { pov =>
       <a class="glpt" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
@@ -99,7 +101,7 @@ case (pt, score) => {
 <div class="entry">
   <i data-icon=";"></i>
   <div>
-    @trans.activity.completedNbGames.pluralSame(score.size)
+    @trans.activity.completedNbGames.plural(score.size, subCount(score.size))
     @score.rp.filterNot(_.isEmpty).map(ratingProgHtml)
     @scoreHtml(score)
     <div class="sub">
