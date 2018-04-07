@@ -38,21 +38,6 @@ $(function() {
     if (location.search.indexOf('note') != -1) $(this).click();
   });
 
-  $('form.autosubmit').each(function() {
-    var $form = $(this);
-    $form.find('input').change(function() {
-      $.ajax({
-        url: $form.attr('action'),
-        method: $form.attr('method'),
-        data: $form.serialize(),
-        success: function() {
-          $form.find('.saved').fadeIn();
-          lichess.reloadOtherTabs();
-        }
-      });
-    });
-  });
-
   $("div.user_show .claim_title_zone").each(function() {
     var $zone = $(this);
     $zone.find('.actions a').click(function() {
