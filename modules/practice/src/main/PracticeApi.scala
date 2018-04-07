@@ -40,7 +40,7 @@ final class PracticeApi(
     rawSc <- studyOption
     sc = rawSc.copy(
       study = rawSc.study.rewindTo(rawSc.chapter).withoutMembers,
-      chapter = rawSc.chapter.withoutChildren
+      chapter = rawSc.chapter.withoutChildrenIfPractice
     )
     practiceStudy <- up.structure study sc.study.id
     section <- up.structure findSection sc.study.id
