@@ -40,5 +40,5 @@ object EmailAddress {
   def from(str: String): Option[EmailAddress] =
     pattern.matcher(str).find option EmailAddress(str)
 
-  private val hotmailPattern = """(.*)@(live|hotmail)\.(.*)""".r.pattern
+  private val hotmailPattern = """(.*)@(live|hotmail|outlook)\.(.*)""".r.pattern
 }
