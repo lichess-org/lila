@@ -9,7 +9,7 @@ import model._
 
 object activities {
 
-  val maxSubEntries = 10
+  val maxSubEntries = 15
 
   case class Games(value: Map[PerfType, Score]) extends AnyVal {
     def add(pt: PerfType, score: Score) = copy(
