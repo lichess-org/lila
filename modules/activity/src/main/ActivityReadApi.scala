@@ -3,7 +3,7 @@ package lila.activity
 import org.joda.time.{ DateTime, Interval }
 
 import lila.db.dsl._
-import lila.game.{ Pov, LightPov, GameRepo }
+import lila.game.{ LightPov, GameRepo }
 import lila.practice.PracticeStructure
 import lila.user.User
 
@@ -49,7 +49,7 @@ final class ActivityReadApi(
       }
     } filter (_.nonEmpty)
     corresMoves <- a.corres ?? { corres =>
-      getPovs(a.id.userId, corres.movesIn) dmap {
+      getLightPovs(a.id.userId, corres.movesIn) dmap {
         _.map(corres.moves -> _)
       }
     }
@@ -103,12 +103,6 @@ final class ActivityReadApi(
         signup = true
       )
     else views
-  }
-
-  private def getPovs(userId: User.ID, gameIds: List[GameId]): Fu[Option[List[Pov]]] = gameIds.nonEmpty ?? {
-    GameRepo.gamesFromSecondary(gameIds.map(_.value)).dmap {
-      _.flatMap { Pov.ofUserId(_, userId) }.some.filter(_.nonEmpty)
-    }
   }
 
   private def getLightPovs(userId: User.ID, gameIds: List[GameId]): Fu[Option[List[LightPov]]] = gameIds.nonEmpty ?? {

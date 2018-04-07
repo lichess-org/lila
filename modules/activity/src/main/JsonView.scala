@@ -78,18 +78,6 @@ final class JsonView(
         .add("user" -> p.userId)
         .add("rating" -> p.rating)
     }
-    implicit val povWrites = OWrites[Pov] { p =>
-      Json.obj(
-        "id" -> p.gameId,
-        "color" -> p.color,
-        "url" -> s"/${p.gameId}/${p.color.name}",
-        "variant" -> p.game.variant,
-        "speed" -> p.game.speed.key,
-        "perf" -> lila.game.PerfPicker.key(p.game),
-        "rated" -> p.game.rated,
-        "opponent" -> p.opponent
-      )
-    }
     implicit val lightPovWrites = OWrites[LightPov] { p =>
       Json.obj(
         "id" -> p.game.id,
