@@ -3,7 +3,7 @@ package lidraughts.activity
 import org.joda.time.{ DateTime, Interval }
 
 import lidraughts.db.dsl._
-import lidraughts.game.{ Pov, GameRepo }
+import lidraughts.game.{ Pov, LightPov, GameRepo }
 import lidraughts.practice.PracticeStructure
 import lidraughts.user.User
 
@@ -54,7 +54,7 @@ final class ActivityReadApi(
       }
     }
     corresEnds <- a.corres ?? { corres =>
-      getPovs(a.id.userId, corres.end) dmap {
+      getLightPovs(a.id.userId, corres.end) dmap {
         _.map { povs =>
           Score.make(povs) -> povs
         }
@@ -108,9 +108,13 @@ final class ActivityReadApi(
 
   private def getPovs(userId: User.ID, gameIds: List[GameId]): Fu[Option[List[Pov]]] = gameIds.nonEmpty ?? {
     GameRepo.gamesFromSecondary(gameIds.map(_.value)).dmap {
-      _.flatMap {
-        Pov.ofUserId(_, userId)
-      }.some.filter(_.nonEmpty)
+      _.flatMap { Pov.ofUserId(_, userId) }.some.filter(_.nonEmpty)
+    }
+  }
+
+  private def getLightPovs(userId: User.ID, gameIds: List[GameId]): Fu[Option[List[LightPov]]] = gameIds.nonEmpty ?? {
+    GameRepo.light.gamesFromSecondary(gameIds.map(_.value)).dmap {
+      _.flatMap { LightPov.ofUserId(_, userId) }.some.filter(_.nonEmpty)
     }
   }
 

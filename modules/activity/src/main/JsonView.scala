@@ -6,7 +6,7 @@ import play.api.libs.json._
 import lidraughts.common.Iso
 import lidraughts.common.PimpedJson._
 import lidraughts.game.JsonView.colorWrites
-import lidraughts.game.Pov
+import lidraughts.game.{ Pov, LightPov }
 import lidraughts.rating.PerfType
 import lidraughts.simul.Simul
 import lidraughts.study.JsonView.studyIdNameWrites
@@ -87,6 +87,14 @@ final class JsonView(
         "speed" -> p.game.speed.key,
         "perf" -> lidraughts.game.PerfPicker.key(p.game),
         "rated" -> p.game.rated,
+        "opponent" -> p.opponent
+      )
+    }
+    implicit val lightPovWrites = OWrites[LightPov] { p =>
+      Json.obj(
+        "id" -> p.game.id,
+        "color" -> p.color,
+        "url" -> s"/${p.game.id}/${p.color.name}",
         "opponent" -> p.opponent
       )
     }
