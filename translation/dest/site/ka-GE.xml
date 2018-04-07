@@ -181,6 +181,7 @@
   <string name="casual">ჩვეულებრივი</string>
   <string name="rated">შეფასებული</string>
   <string name="casualTournament">ურეიტინგო</string>
+  <string name="ratedTournament">რეიტინგიანი</string>
   <string name="thisGameIsRated">ეს თამაში ფასდება</string>
   <string name="rematch">რევანში</string>
   <string name="rematchOfferSent">რევანშის შეთავაზება გაგზავნილია</string>
@@ -221,8 +222,10 @@
     <item quantity="one">მიეცით %s წამი</item>
     <item quantity="other">მიეცით %s წამი</item>
   </plurals>
+  <string name="giveMoreTime">მომეცი მეტი დრო</string>
   <string name="thisPlayerUsesChessComputerAssistance">ეს მოთამაშე იყენებს კომპიუტერულ ასისტენტს</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">აღნიშნული მოთამაშე ხელოვნურად ზრდის/ამცირებს საკუთარ რეიტინგს</string>
+  <string name="openingExplorerAndTablebase">დებიუტის გზამკვლევი &amp; ცხრილ-ბაზა</string>
   <string name="takeback">სვლის დაბრუნება</string>
   <string name="proposeATakeback">სვლის დაბრუნების შეთავაზება</string>
   <string name="takebackPropositionSent">სვლის დაბრუნება შეთავაზებული</string>
@@ -238,6 +241,23 @@
   <string name="tournamentPoints">სატურნირო ქულები</string>
   <string name="viewTournament">ნახეთ ტურნირი</string>
   <string name="backToTournament">ტურნირში დაბრუნება</string>
+  <string name="thematic">თემატური</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s რეიტინგული პარტია</item>
+    <item quantity="other">≥ %s რეიტინგიანი პარტია</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s რეიტინგული პარტია</item>
+    <item quantity="other">≥ %1$s %2$s რეიტინგიანი თამაში</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">თქვენ უნდა ითამაშოთ კიდევ %1$s %2$s რეიტინგული პარტია</item>
+    <item quantity="other">თქვენ უნდა ითამაშოთ კიდევ %1$s %2$s რეიტინგული პარტია</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">თქვენ უნდა ითამაშოთ კიდევ %s რეიტინგული პარტია</item>
+    <item quantity="other">თქვენ უნდა ითამაშოთ კიდევ %s რეიტინგული პარტია</item>
+  </plurals>
   <string name="backToGame">თამაშში დაბრუნება</string>
   <string name="siteDescription">უფასო ონლაინ ჭადრაკი. ითამაშე ჭადრაკი სუფთა, სადა ინტერფეისით. არანაირი რეგისტრაცია, არანაირი რეკლამა, არანაირი პლაგინი საჭირო არ არის. ეთამაშე ჭადრაკი კომპიუტერს, მეგობარს ან შემთხვევით ოპონენტს</string>
   <string name="teams">გუნდები</string>
