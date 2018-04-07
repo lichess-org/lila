@@ -16,7 +16,11 @@ export default class GamebookPlayCtrl {
 
   state: State;
 
-  constructor(readonly root: AnalyseCtrl, readonly chapterId: string, readonly redraw: () => void) {
+  constructor(
+    readonly root: AnalyseCtrl,
+    readonly chapterId: string,
+    readonly trans: Trans,
+    readonly redraw: () => void) {
 
     // ensure all original nodes have a gamebook entry,
     // so we can differentiate original nodes from user-made ones

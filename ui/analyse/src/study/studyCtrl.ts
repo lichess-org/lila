@@ -233,7 +233,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   function instanciateGamebookPlay() {
     if (!isGamebookPlay()) return gamebookPlay = undefined;
     if (gamebookPlay && gamebookPlay.chapterId === vm.chapterId) return;
-    gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId, redraw);
+    gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId, ctrl.trans, redraw);
     vm.mode.sticky = false;
   }
   instanciateGamebookPlay();

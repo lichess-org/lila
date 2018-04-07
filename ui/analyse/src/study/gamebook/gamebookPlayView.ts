@@ -49,7 +49,8 @@ function hintZone(ctrl: GamebookPlayCtrl) {
 }
 
 function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
-  const fb = state.feedback;
+  const fb = state.feedback,
+  color = ctrl.root.turnColor();
   if (fb === 'bad') return h('div.feedback.act.bad' + (state.comment ? '.com' : ''), {
     hook: bind('click', ctrl.retry)
   }, [
@@ -64,7 +65,13 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
   ]);
   if (fb === 'end') return renderEnd(ctrl);
   return h('div.feedback.info.' + fb + (state.init ? '.init' : ''),
-    h('span', fb === 'play' ? 'Your turn' : 'Good move!')
+    h('div', fb === 'play' ? [
+      h('div.no-square', h('piece.king.' + color)),
+      h('div.instruction', [
+        h('strong', ctrl.trans.noarg('yourTurn')),
+        h('em', ctrl.trans.noarg(color === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'))
+      ])
+    ] : [ 'Good move!' ])
   );
 }
 
