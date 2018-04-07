@@ -191,26 +191,21 @@ object User extends LidraughtsController {
 
   def list = Open { implicit ctx =>
     val nb = 10
-    for {
-      leaderboards <- env.cached.leaderboards
-      nbAllTime ← env.cached topNbGame nb
-      nbDay ← fuccess(Nil)
-      // Env.game.cached activePlayerUidsDay nb map {
-      //   _ flatMap { pair =>
-      //     env lightUser pair.userId map { UserModel.LightCount(_, pair.nb) }
-      //   }
-      // }
-      tourneyWinners ← Env.tournament.winners.all.map(_.top)
-      online ← env.cached.getTop50Online
-      _ <- Env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
-      res <- negotiate(
-        html = fuccess(Ok(html.user.list(
+    env.cached.leaderboards flatMap { leaderboards =>
+      negotiate(
+        html = for {
+          nbAllTime ← env.cached topNbGame nb
+          nbDay ← fuccess(Nil)
+          tourneyWinners ← Env.tournament.winners.all.map(_.top)
+          online ← env.cached.getTop50Online
+          _ <- Env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
+        } yield Ok(html.user.list(
           tourneyWinners = tourneyWinners,
           online = online,
           leaderboards = leaderboards,
           nbDay = nbDay,
           nbAllTime = nbAllTime
-        ))),
+        )),
         api = _ => fuccess {
           implicit val lpWrites = OWrites[UserModel.LightPerf](env.jsonView.lightPerfIsOnline)
           Ok(Json.obj(
@@ -218,6 +213,7 @@ object User extends LidraughtsController {
             "blitz" -> leaderboards.blitz,
             "rapid" -> leaderboards.rapid,
             "classical" -> leaderboards.classical,
+            "ultraBullet" -> leaderboards.ultraBullet,
             "frisian" -> leaderboards.frisian,
             "frysk" -> leaderboards.frysk,
             "antidraughts" -> leaderboards.antidraughts,
@@ -225,7 +221,7 @@ object User extends LidraughtsController {
           ))
         }
       )
-    } yield res
+    }
   }
 
   def top200(perfKey: String) = Open { implicit ctx =>

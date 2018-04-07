@@ -41,11 +41,8 @@ final class JsonView(isOnline: User.ID => Boolean) {
     })
     .add("patron" -> u.isPatron)
 
-  def lightPerfIsOnline(lp: LightPerf) = {
-    val json = lightPerfWrites.writes(lp)
-    if (isOnline(lp.user.id)) json ++ Json.obj("online" -> true)
-    else json
-  }
+  def lightPerfIsOnline(lp: LightPerf) =
+    lightPerfWrites.writes(lp).add("online", isOnline(lp.user.id))
 }
 
 object JsonView {
