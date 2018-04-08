@@ -6,6 +6,7 @@ import draughts.format.Forsyth
 import lidraughts.common.LightUser
 import lidraughts.common.paginator.Paginator
 import lidraughts.game.{ Game, PerfPicker }
+import lidraughts.user.User
 
 final class UserGameApi(
     bookmarkApi: lidraughts.bookmark.BookmarkApi,
@@ -18,14 +19,14 @@ final class UserGameApi(
   def jsPaginator(pag: Paginator[Game])(implicit ctx: Context): Fu[JsObject] =
     bookmarkApi.filterGameIdsBookmarkedBy(pag.currentPageResults, ctx.me) map { bookmarkedIds =>
       implicit val gameWriter = Writes[Game] { g =>
-        write(g, bookmarkedIds(g.id))
+        write(g, bookmarkedIds(g.id), ctx.me)
       }
       Json.obj(
         "paginator" -> lidraughts.common.paginator.PaginatorJson(pag)
       )
     }
 
-  private def write(g: Game, bookmarked: Boolean) = Json.obj(
+  private def write(g: Game, bookmarked: Boolean, as: Option[User]) = Json.obj(
     "id" -> g.id,
     "rated" -> g.rated,
     "variant" -> g.variant,
@@ -40,7 +41,9 @@ final class UserGameApi(
         "user" -> p.userId.flatMap(lightUser),
         "userId" -> p.userId, // for BC
         "name" -> p.name
-      ).add("aiLevel" -> p.aiLevel)
+      )
+        .add("id" -> as.exists(p.isUser).option(p.id))
+        .add("aiLevel" -> p.aiLevel)
         .add("rating" -> p.rating)
         .add("ratingDiff" -> p.ratingDiff)
     }),
