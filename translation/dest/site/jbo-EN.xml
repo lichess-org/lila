@@ -310,6 +310,7 @@
   <string name="whiteWins">parbi co nu la blabi cu jinga</string>
   <string name="blackWins">parbi co nu la xekri cu jinga</string>
   <string name="draws">parbi co nu no da cu jinga</string>
+  <string name="viewMoreTournaments">zgana za\'u xo grinunjvi</string>
   <string name="averageOpponent">lo se jivna nilcre cnano</string>
   <string name="membersOnly">lo cmima be la .litces. cu selte\'i</string>
   <string name="boardEditor">keltcini tiktci</string>
@@ -533,9 +534,11 @@
   <string name="security">kamnu\'a</string>
   <string name="playChessEverywhere">fe\'e ro roi ku jvikei lo caxmati</string>
   <string name="asFreeAsLichess">nonseldi\'a du\'i la .litces.</string>
+  <string name="everybodyGetsAllFeaturesForFree">ro prenu cu te sabji ro tcila fi\'o nonseldi\'a</string>
   <string name="zeroAdvertisement">no gubnoi</string>
   <string name="correspondenceChess">lo masno caxmati</string>
   <string name="viewTheSolution">viska lo danfu</string>
+  <string name="followAndChallengeFriends">catlu gi\'e talsa lo pendo</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">se sabji bau %s da</item>
   </plurals>
@@ -560,6 +563,7 @@
   <string name="coaches">lo te\'ictu</string>
   <string name="error.unknown">srera da</string>
   <string name="notifications">lo notci</string>
+  <string name="challenges">lo talsa</string>
   <string name="practiceWithComputer">crezenrapzu\'e se pi\'o lo skami</string>
   <string name="resumePractice">di\'a crezenrapzu\'e</string>
   <string name="seeBestMove">viska lo xagrai se zukte</string>
