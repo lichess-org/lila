@@ -38,6 +38,7 @@ final class UserGameApi(
     "source" -> g.source.map(_.name),
     "players" -> JsObject(g.players map { p =>
       p.color.name -> Json.obj(
+        "id" -> p.id,
         "user" -> p.userId.flatMap(lightUser),
         "userId" -> p.userId, // for BC
         "name" -> p.name
