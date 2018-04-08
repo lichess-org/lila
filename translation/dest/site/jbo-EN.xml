@@ -301,6 +301,7 @@
   <string name="winStreak">lo se pormei be lo te lamji be lo nunji\'a</string>
   <string name="createdBy">fi\'e la\'oi</string>
   <string name="tournamentIsStarting">le torneio ca\'o cfari</string>
+  <string name="standByX">ko denpa doi la\'oi %s .i zi\'o ca\'o zbasu lo re mei be fi lo jvikei .i ko bredi</string>
   <string name="youArePlaying">do ca\'o jivna</string>
   <string name="winRate">lo parbi be lo se rapli be lo nunji\'a</string>
   <string name="berserkRate">lo parbi be lo se rapli be lo nunsutytcebilga</string>
