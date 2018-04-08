@@ -83,6 +83,7 @@ final class StreamerApi(
     coll.update(
       $id(userId),
       $set(
+        "approval.requested" -> false,
         "approval.granted" -> false,
         "approval.autoFeatured" -> false
       )
