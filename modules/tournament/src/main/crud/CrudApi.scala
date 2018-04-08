@@ -2,7 +2,6 @@ package lidraughts.tournament
 package crud
 
 import lidraughts.user.User
-import lidraughts.user.UserRepo.lidraughtsId
 
 final class CrudApi {
 
@@ -37,7 +36,7 @@ final class CrudApi {
   }
 
   private def empty = Tournament.make(
-    by = Left(lidraughtsId),
+    by = Left(User.lidraughtsId),
     name = none,
     clock = draughts.Clock.Config(0, 0),
     minutes = 0,

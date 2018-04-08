@@ -140,8 +140,7 @@ object UserRepo {
   def incColor(userId: User.ID, value: Int): Unit =
     coll.update($id(userId), $inc(F.colorIt -> value), writeConcern = GetLastError.Unacknowledged)
 
-  val lidraughtsId = "lidraughts"
-  def Lidraughts = byId(lidraughtsId)
+  def Lidraughts = byId(User.lidraughtsId)
 
   val irwinId = "irwin"
   def irwin = byId(irwinId)

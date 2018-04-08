@@ -124,6 +124,7 @@ object User {
   }
 
   val anonymous = "Anonymous"
+  val lidraughtsId = "lidraughts"
 
   val idPattern = """^[\w-]{3,20}$""".r.pattern
 

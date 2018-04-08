@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 
 import lidraughts.db.dsl._
 import lidraughts.report.Room
-import lidraughts.user.UserRepo.lidraughtsId
+import lidraughts.user.User.lidraughtsId
 
 final class Gamify(
     logColl: Coll,

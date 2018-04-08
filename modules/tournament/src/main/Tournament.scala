@@ -8,7 +8,6 @@ import draughts.{ Speed, Mode, StartingPosition }
 import lidraughts.game.PerfPicker
 import lidraughts.rating.PerfType
 import lidraughts.user.User
-import lidraughts.user.UserRepo.lidraughtsId
 
 case class Tournament(
     id: Tournament.ID,
@@ -117,7 +116,7 @@ case class Tournament(
     )
   }
 
-  def nonLidraughtsCreatedBy = (createdBy != lidraughtsId) option createdBy
+  def nonLidraughtsCreatedBy = (createdBy != User.lidraughtsId) option createdBy
 
   def ratingVariant = if (variant.fromPosition) draughts.variant.Standard else variant
 
@@ -176,7 +175,7 @@ object Tournament {
     system = System.default,
     clock = Schedule clockFor sched,
     minutes = minutes,
-    createdBy = lidraughtsId,
+    createdBy = User.lidraughtsId,
     createdAt = DateTime.now,
     nbPlayers = 0,
     variant = sched.variant,

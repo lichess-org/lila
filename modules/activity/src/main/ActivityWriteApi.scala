@@ -4,7 +4,6 @@ import lidraughts.db.dsl._
 import lidraughts.game.Game
 import lidraughts.study.Study
 import lidraughts.user.User
-import lidraughts.user.UserRepo.lidraughtsId
 
 final class ActivityWriteApi(
     coll: Coll,
@@ -33,7 +32,7 @@ final class ActivityWriteApi(
     } yield Unit
   }.sequenceFu.void
 
-  def forumPost(post: lidraughts.forum.Post, topic: lidraughts.forum.Topic): Funit = post.userId.filter(lidraughtsId !=) ?? { userId =>
+  def forumPost(post: lidraughts.forum.Post, topic: lidraughts.forum.Topic): Funit = post.userId.filter(User.lidraughtsId !=) ?? { userId =>
     getOrCreate(userId) flatMap { a =>
       coll.update(
         $id(a.id),

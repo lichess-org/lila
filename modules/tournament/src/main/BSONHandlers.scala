@@ -6,7 +6,7 @@ import draughts.{ Mode, StartingPosition }
 import lidraughts.db.BSON
 import lidraughts.db.dsl._
 import lidraughts.rating.PerfType
-import lidraughts.user.UserRepo.lidraughtsId
+import lidraughts.user.User.lidraughtsId
 import reactivemongo.bson._
 
 object BSONHandlers {
