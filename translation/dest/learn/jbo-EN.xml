@@ -46,6 +46,7 @@
   <string name="takeAllThePawnsEnPassant">ko kavbu ro lo sonci fau lo lamgresoinunmu\'u</string>
   <string name="stalemate">caxpata</string>
   <string name="theGameIsADraw">lo nunji\'a cu se jalge lo nu no da cu jinga</string>
+  <string name="stalemateComplete">.ui\'o .i lo nu se caxpata cu xagmau lo nu se caxmata</string>
   <string name="pieceValue">lo vamji be lo keirmu\'u</string>
   <string name="checkInTwo">gasnu lo nu ckape lo bradi kei ba\'o re nunmu\'u</string>
   <string name="whatNext">ma se lidne</string>
