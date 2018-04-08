@@ -50,6 +50,14 @@ function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
 export function underboard(ctrl: StudyCtrl): VNode {
   if (ctrl.vm.loading) return h('div.feedback', spinner());
   const p = ctrl.practice!;
+  const gb = ctrl.gamebookPlay();
+  if (gb) return h('div', [
+    h('div.feedback.ongoing', [
+      p.comment() ? h('div.comment', {
+        hook: innerHTML(p.comment(), text => enrichText(text!, true))
+      }) : null
+    ])
+  ]);
   switch (p.success()) {
     case true:
       const next = ctrl.nextChapter();
