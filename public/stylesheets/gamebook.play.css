@@ -107,7 +107,7 @@
 .gb_play .feedback.play > div {
   display: flex;
   align-items: center;
-  margin-left: 10px;
+  margin: 0 10px;
 }
 .gb_play .feedback.play .no-square {
   flex: 0 0 64px;
