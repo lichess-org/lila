@@ -85,7 +85,8 @@ final class RelayApi(
 
   private[relay] def autoStart: Funit =
     repo.coll.find($doc(
-      "startsAt" $lt DateTime.now.plusMinutes(10), // start 10 minutes early to fetch boards
+      "startsAt" $lt DateTime.now.plusMinutes(30) // start 30 minutes early to fetch boards
+        $gt DateTime.now.minusDays(1), // bit late now
       "startedAt" $exists false,
       "sync.until" $exists false
     )).list[Relay]() flatMap {

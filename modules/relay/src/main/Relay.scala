@@ -48,6 +48,11 @@ case class Relay(
 
   def hasStarted = startedAt.isDefined
 
+  def shouldGiveUp = !hasStarted && (startsAt match {
+    case Some(at) => at.isBefore(DateTime.now minusHours 3)
+    case None => createdAt.isBefore(DateTime.now minusDays 1)
+  })
+
   def withSync(f: Relay.Sync => Relay.Sync) = copy(sync = f(sync))
 
   override def toString = s"""relay #$id "$name" $sync"""
