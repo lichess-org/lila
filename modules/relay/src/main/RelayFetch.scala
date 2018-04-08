@@ -48,14 +48,14 @@ private final class RelayFetch(
           logger.info(s"Finish for lack of start $relay")
           api.update(relay)(_.finish)
         } else fuccess(relay)
-      }.sequenceFu.mon(_.relay.sync.duration.total) addEffectAnyway scheduleNext
+      }.sequenceFu addEffectAnyway scheduleNext
     }
   }
 
   // no writing the relay; only reading!
   def processRelay(relay: Relay): Fu[Relay] =
     if (!relay.sync.playing) fuccess(relay.withSync(_.play))
-    else RelayFetch(relay).mon(_.relay.fetch.duration.each) flatMap { games =>
+    else RelayFetch(relay) flatMap { games =>
       sync(relay, games)
         .chronometer.mon(_.relay.sync.duration.each).result
         .withTimeout(1 second, SyncResult.Timeout)(context.system) map { res =>
