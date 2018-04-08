@@ -26,8 +26,10 @@ object OAuthApp extends LilaController {
     implicit val req = ctx.body
     env.forms.app.create.bindFromRequest.fold(
       err => BadRequest(html.oAuth.app.create(err)).fuccess,
-      setup => env.appApi.create(setup make me) inject
-        Redirect(routes.OAuthApp.index)
+      setup => {
+        val app = setup make me
+        env.appApi.create(app) inject Redirect(routes.OAuthApp.edit(app.clientId.value))
+      }
     )
   }
 
