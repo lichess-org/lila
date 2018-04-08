@@ -43,7 +43,7 @@ object Api extends LilaController {
   }
 
   def index = Action {
-    Ok(views.html.base.api())
+    Ok(views.html.site.api())
   }
 
   def user(name: String) = ApiRequest { implicit ctx =>
