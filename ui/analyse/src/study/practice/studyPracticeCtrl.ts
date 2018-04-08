@@ -100,7 +100,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     comment,
     nbMoves,
     reset() {
-      if (!getGamebook()) root.tree.root.children = [];
+      root.tree.root.children = [];
       root.userJump('');
       root.practice!.reset();
       onLoad();
