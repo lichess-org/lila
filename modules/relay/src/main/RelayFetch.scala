@@ -35,7 +35,7 @@ private final class RelayFetch(
       logger.error(msg)
       throw new RuntimeException(msg)
 
-    case Tick => api.toSync.flatMap { relays =>
+    case Tick => api.toSync.map(_ take 1).flatMap { relays =>
       lila.mon.relay.ongoing(relays.size)
       relays.map { relay =>
         if (relay.sync.ongoing) processRelay(relay) flatMap { newRelay =>
@@ -43,6 +43,9 @@ private final class RelayFetch(
         }
         else if (relay.hasStarted) {
           logger.info(s"Finish by lack of activity $relay")
+          api.update(relay)(_.finish)
+        } else if (relay.shouldGiveUp) {
+          logger.info(s"Finish for lack of start $relay")
           api.update(relay)(_.finish)
         } else fuccess(relay)
       }.sequenceFu.mon(_.relay.sync.duration.total) addEffectAnyway scheduleNext
@@ -64,7 +67,7 @@ private final class RelayFetch(
           logger.info(s"Sync timeout $relay")
           res
         case _ =>
-          logger.info(s"Sync error $relay", e)
+          logger.info(s"Sync error $relay ${e.getMessage take 80}")
           SyncResult.Error(e.getMessage)
       }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
     } flatMap {
