@@ -223,15 +223,15 @@ final class ReportApi(
       "open" -> true
     ))
 
-  def recentReportersOf(sus: Suspect): Fu[List[User.ID]] =
-    coll.distinctWithReadPreference[String, List](
+  def recentReportersOf(sus: Suspect): Fu[List[ReporterId]] =
+    coll.distinctWithReadPreference[ReporterId, List](
       "atoms.by",
       $doc(
         "user" -> sus.user.id,
         "atoms.0.at" $gt DateTime.now.minusDays(3)
       ).some,
       ReadPreference.secondaryPreferred
-    ) map (_ filterNot UserRepo.lichessId.==)
+    ) map (_ filterNot ReporterId.lichess.==)
 
   def openAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithSuspect]] = for {
     opens <- findBest(nb, openAvailableSelect ++ roomSelect(room) ++ scoreThresholdSelect)

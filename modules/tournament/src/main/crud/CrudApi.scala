@@ -2,7 +2,6 @@ package lila.tournament
 package crud
 
 import lila.user.User
-import lila.user.UserRepo.lichessId
 
 final class CrudApi {
 
@@ -36,7 +35,7 @@ final class CrudApi {
   }
 
   private def empty = Tournament.make(
-    by = Left(lichessId),
+    by = Left(User.lichessId),
     name = none,
     clock = chess.Clock.Config(0, 0),
     minutes = 0,

@@ -4,7 +4,6 @@ import lila.db.dsl._
 import lila.game.Game
 import lila.study.Study
 import lila.user.User
-import lila.user.UserRepo.lichessId
 
 final class ActivityWriteApi(
     coll: Coll,
@@ -33,7 +32,7 @@ final class ActivityWriteApi(
     } yield Unit
   }.sequenceFu.void
 
-  def forumPost(post: lila.forum.Post, topic: lila.forum.Topic): Funit = post.userId.filter(lichessId !=) ?? { userId =>
+  def forumPost(post: lila.forum.Post, topic: lila.forum.Topic): Funit = post.userId.filter(User.lichessId !=) ?? { userId =>
     getOrCreate(userId) flatMap { a =>
       coll.update(
         $id(a.id),

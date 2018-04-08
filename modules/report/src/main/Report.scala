@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import scalaz.NonEmptyList
 
-import lila.user.UserRepo.lichessId
 import lila.user.{ User, Note }
 
 case class Report(
@@ -126,7 +125,7 @@ object Report {
       text: String
   ) extends Reason.WithReason {
     def scored(score: Score) = Candidate.Scored(this, score)
-    def isAutomatic = reporter.user.id == lichessId
+    def isAutomatic = reporter.id == ReporterId.lichess
     def isAutoComm = isAutomatic && isTrollOrInsult
   }
 

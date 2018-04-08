@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.report.Room
-import lila.user.UserRepo.lichessId
+import lila.user.User.lichessId
 
 final class Gamify(
     logColl: Coll,

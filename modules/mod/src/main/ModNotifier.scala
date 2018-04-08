@@ -10,9 +10,9 @@ private final class ModNotifier(
 
   def reporters(mod: Mod, sus: Suspect): Funit =
     reportApi.recentReportersOf(sus) flatMap {
-      _.filter(mod.user.id !=).map { reporterId =>
+      _.filter(r => mod.user.id != r.value).map { reporterId =>
         notifyApi.addNotification(Notification.make(
-          notifies = Notification.Notifies(reporterId),
+          notifies = Notification.Notifies(reporterId.value),
           content = lila.notify.ReportedBanned
         ))
       }.sequenceFu.void
