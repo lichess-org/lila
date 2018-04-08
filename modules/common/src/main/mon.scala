@@ -305,12 +305,6 @@ object mon {
       def result(res: String) = inc(s"relay.sync.result.$res")
       object duration {
         val each = rec("relay.sync.duration.each")
-        val total = rec("relay.sync.duration.total")
-      }
-    }
-    object fetch {
-      object duration {
-        val each = rec("relay.sync.duration.each")
       }
     }
   }
