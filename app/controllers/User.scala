@@ -88,17 +88,15 @@ object User extends LilaController {
               me = ctx.me,
               page = page
             )(ctx.body)
-            res <- {
-              if (HTTPRequest.isSynchronousHttp(ctx.req)) for {
-                info ← Env.current.userInfo(u, nbs, ctx)
-                _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
-                _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
-                _ <- Env.team.cached.nameCache preloadMany info.teamIds
-                social ← Env.current.socialInfo(u, ctx)
-                searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
-              } yield html.user.show.games(u, info, pag, filters, searchForm, social)
-              else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
-            }
+            _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+            _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
+            res <- if (HTTPRequest.isSynchronousHttp(ctx.req)) for {
+              info ← Env.current.userInfo(u, nbs, ctx)
+              _ <- Env.team.cached.nameCache preloadMany info.teamIds
+              social ← Env.current.socialInfo(u, ctx)
+              searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
+            } yield html.user.show.games(u, info, pag, filters, searchForm, social)
+            else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
           } yield res,
           api = _ => apiGames(u, filter, page)
         )
