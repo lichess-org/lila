@@ -32,7 +32,7 @@
   <string name="whitePlays">la blabi pu\'o zukte</string>
   <string name="blackPlays">la xekri pu\'o zukte</string>
   <string name="opponentLeftChoices">si\'au lo se jivna be do co\'u jundi ti .i ko zukte .e\'a pa me lo ka xusra lo du\'u do jinga kei kei jo\'u lo ka xusra tu\'a co\'u je mo\'u nai kei jo\'u lo ka denpa</string>
-  <string name="makeYourOpponentResign">gau ku ge lo nunjvi cu tolcfa gi do jai se xusra fai lo du\'u ke\'a jinga</string>
+  <string name="makeYourOpponentResign">gau ku ge lo nunjvi cu tolcfa gi zo\'e xusra lo du\'u do jinga</string>
   <string name="forceResignation">karxusa lo ka jinga</string>
   <string name="forceDraw">xusra tu\'a co\'u je mo\'u nai</string>
   <string name="talkInChat">.e\'u do ga nai tavla gi xendo</string>
@@ -54,6 +54,7 @@
   <string name="move">kelka\'u</string>
   <string name="variantLoss">lo drata javni gunma nuntolji\'a</string>
   <string name="variantWin">lo drata javni gunma nunji\'a</string>
+  <string name="insufficientMaterial">lo\'i cabna keirmu\'u na banzu</string>
   <string name="capture">kavbu</string>
   <string name="close">cliva</string>
   <string name="winning">jivna kelka\'u</string>
