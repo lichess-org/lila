@@ -110,15 +110,15 @@ export function main(ctrl: StudyCtrl): VNode {
     h('div.list.chapters', {
       hook: bind('click', e => {
         e.preventDefault();
-        const target = e.target as HTMLElement;
-        const id = (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
+        const target = e.target as HTMLElement,
+        id = (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
         if (id) ctrl.setChapter(id, true);
         return false;
       })
     }, ctrl.chapters.list().map(function(chapter) {
-      const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId;
-      const active = !ctrl.vm.loading && current && current.id === chapter.id;
-      const completion = data.completion[chapter.id] ? 'done' : 'ongoing';
+      const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
+      active = !ctrl.vm.loading && current && current.id === chapter.id,
+      completion = data.completion[chapter.id] >= 0 ? 'done' : 'ongoing';
       return [
         h('a.elem.chapter', {
           key: chapter.id,
@@ -136,7 +136,7 @@ export function main(ctrl: StudyCtrl): VNode {
           h('h3', chapter.name)
         ])
       ];
-    }).reduce(function(a, b) { return a.concat(b); }, [])),
+    }).reduce((a, b) => a.concat(b), [])),
     h('div.finally', [
       h('a.back', {
         attrs: {
