@@ -40,8 +40,9 @@ object MessageCompiler {
     writeRegistry(db, compileTo, translatedLocales) :: res
   }
 
-  private def isFileEmpty(f: File) =
-    Source.fromFile(f).getLines.drop(2).next == "<resources></resources>"
+  private def isFileEmpty(f: File) = {
+    Source.fromFile(f, "UTF-8").getLines.drop(2).next == "<resources></resources>"
+  }
 
   private def writeRegistry(db: String, compileTo: File, locales: Iterable[String]) = {
     val file = compileTo / "Registry.scala"
