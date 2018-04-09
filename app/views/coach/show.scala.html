@@ -41,7 +41,7 @@ $('.review-form form').show();
 }
 }
 
-@coachName = @{ s"${c.user.title.map(t => s" $t")}${c.user.realNameOrUsername}" }
+@coachName = @{ s"${c.user.title.??(t => s"$t ")}${c.user.realNameOrUsername}" }
 @title = @{ s"$coachName coaches chess students" }
 
 @base.layout(title = title,
