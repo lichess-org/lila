@@ -19,12 +19,13 @@ final class UserInfosApi(roundColl: Coll, currentPuzzleId: User => Fu[Option[Puz
     rounds <- fetchRounds(user.id, current)
   } yield new UserInfos(user, rounds)
 
-  private def fetchRounds(userId: User.ID, currentPuzzleId: Option[PuzzleId]): Fu[List[Round]] =
-    roundColl.find(
-      $doc(Round.BSONFields.id $startsWith s"$userId:") ++
-        currentPuzzleId.??(id => $doc(Round.BSONFields.id $lte s"$userId:$id"))
-    ).sort($sort desc Round.BSONFields.id)
+  private def fetchRounds(userId: User.ID, currentPuzzleId: Option[PuzzleId]): Fu[List[Round]] = {
+    val idSelector = $doc("$regex" -> BSONRegex(s"^$userId:", "")) ++
+      currentPuzzleId.?? { id => $doc("$lte" -> s"$userId:$id") }
+    roundColl.find($doc(Round.BSONFields.id -> idSelector))
+      .sort($sort desc Round.BSONFields.id)
       .cursor[Round]()
       .gather[List](historySize atLeast chartSize)
       .map(_.reverse)
+  }
 }
