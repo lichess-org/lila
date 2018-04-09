@@ -486,8 +486,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     onJump() {
       chapters.localPaths[vm.chapterId] = ctrl.path;
-      if (practice) practice.onJump();
       if (gamebookPlay) gamebookPlay.onJump();
+      if (practice) practice.onJump();
     },
     withPosition,
     setPath(path, node, playedMyself) {
