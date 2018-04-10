@@ -485,8 +485,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         ctrl.tree.lastMainlineNode(path).ply <= data.chapter.conceal!;
     },
     onJump() {
-      chapters.localPaths[vm.chapterId] = ctrl.path;
       if (gamebookPlay) gamebookPlay.onJump();
+      else chapters.localPaths[vm.chapterId] = ctrl.path; // don't remember position on gamebook
       if (practice) practice.onJump();
     },
     withPosition,
