@@ -97,7 +97,9 @@
   <string name="enable">فعالسازی</string>
   <string name="bestMoveArrow">فلش نشان دهنده بهترین حرکت</string>
   <string name="evaluationGauge">معیار ارزیابی</string>
+  <string name="multipleLines">شاخه های متعدد</string>
   <string name="cpus">پردازنده</string>
+  <string name="memory">حافظه</string>
   <string name="infiniteAnalysis">تجزیه و تحلیل بی نهایت</string>
   <string name="removesTheDepthLimit">محدودیت عمق را بر می دارد و کامپیوتر شما را داغ نگه می دارد</string>
   <string name="blunder">اشتباه جدی</string>
@@ -166,6 +168,7 @@
   <string name="passwordReset">باز نشانی پسورد</string>
   <string name="forgotPassword">آیا رمز عبور را فراموش کرده اید؟</string>
   <string name="rank">رتبه</string>
+  <string name="rankX">رتبه</string>
   <string name="rankIsUpdatedEveryXMinutes">رتبه بندی در هر %s دقیقه به روز می شود</string>
   <string name="gamesPlayed">بازی های انجام شده</string>
   <plurals name="nbGamesWithYou">
