@@ -53,13 +53,13 @@ export function underboard(ctrl: StudyCtrl): VNode | undefined {
   const p = ctrl.practice!,
   gb = ctrl.gamebookPlay(),
   pinned = ctrl.data.chapter.description;
-  if (gb) return h('div', [
+  if (gb) return pinned ? h('div', [
     h('div.feedback.ongoing', [
       pinned ? h('div.comment', {
         hook: innerHTML(pinned, text => enrichText(text!, true))
       }) : null
     ])
-  ]);
+  ]) : undefined;
   else if (!ctrl.data.chapter.practice) return descView(ctrl);
   switch (p.success()) {
     case true:
