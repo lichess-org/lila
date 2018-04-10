@@ -259,6 +259,7 @@
   <string name="tournamentPoints">مجموع امتیازات مسابقات</string>
   <string name="viewTournament">مشاهده مسابقات</string>
   <string name="backToTournament">برگشت به مسابقه</string>
+  <string name="thematic">واریانتی</string>
   <string name="backToGame">بازگشت به بازی</string>
   <string name="siteDescription">بازی شطرنج آنلاین رایگان. همین حالا شطرنج بازی کنید. بدون نیاز به ثبت نام، بدون تبلیغات، بدون نیاز به افزونه. بازی با کامپیوتر، دوستان و یا حریفان تصادفی.</string>
   <string name="teams">تیم‌ها</string>
@@ -298,6 +299,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">این یک کپچای [کد امنیتی] شطرنجی است</string>
   <string name="clickOnTheBoardToMakeYourMove">برای اثبات اینکه انسان هستید روی تخته کلیک کنید تا حرکت خود را انجام دهید</string>
+  <string name="captcha.fail">لطفا captcha را حل کنید.</string>
   <string name="notACheckmate">این یک کیش و مات نیست</string>
   <string name="colorPlaysCheckmateInOne">%s بازی میکند در یک حرکت کیش و مات کنید</string>
   <string name="retry">تلاش دوباره</string>
@@ -339,6 +341,7 @@
   <string name="winner">برنده</string>
   <string name="standing">رتبه بندی</string>
   <string name="createANewTournament">درست کردن یک مسابقه ی جدید</string>
+  <string name="tournamentCalendar">برنامه ی مسابقات</string>
   <string name="join">وارد شدن</string>
   <string name="withdraw">منصرف شدن</string>
   <string name="points">امتیازها</string>
@@ -347,10 +350,14 @@
   <string name="winStreak">برد متوالی</string>
   <string name="createdBy">ساخته شده توسط</string>
   <string name="tournamentIsStarting">مسابقه در حال شروع است</string>
+  <string name="tournamentPairingsAreNowClosed">تعین حریف به اتمام رسیده است.</string>
   <string name="youArePlaying">شما بازی میکنید!</string>
   <string name="winRate">درصد برد</string>
   <string name="berserkRate">درصد برزرک</string>
   <string name="performance">عملکرد</string>
+  <string name="tournamentComplete">مسابقه به اتمام رسید</string>
+  <string name="movesPlayed">حرکات انجام شده</string>
+  <string name="whiteWins">پیروزی با مهره سفید</string>
   <string name="blackWins">سیاه برنده شد</string>
   <string name="draws">مساوی</string>
   <string name="viewMoreTournaments">تورنومنت های بیشتری نشان بده</string>
