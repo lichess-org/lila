@@ -225,8 +225,8 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   }
   return [
     notifView(study.notif),
+    descView(study),
     buttons(ctrl),
-    panel,
-    descView(study)
+    panel
   ];
 }
