@@ -10,19 +10,12 @@ import AnalyseCtrl from '../../ctrl';
 export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPracticeData): StudyPracticeCtrl {
 
   const goal = prop<Goal>(root.data.practiceGoal!),
-  comment = prop<string | undefined>(undefined),
   nbMoves = prop(0),
   // null = ongoing, true = win, false = fail
   success = prop<boolean | null>(null),
   sound = makeSound(),
   analysisUrl = prop(''),
   autoNext = storedProp('practice-auto-next', true);
-
-  function makeComment(treeRoot: Tree.Node) {
-    if (!treeRoot.comments) return;
-    comment(treeRoot.comments[0].text);
-    delete treeRoot.comments;
-  }
 
   function onLoad() {
     root.showAutoShapes = readOnlyProp(true);
@@ -31,7 +24,6 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     goal(root.data.practiceGoal!);
     nbMoves(0);
     success(null);
-    makeComment(root.tree.root);
     const chapter = studyData.chapter;
     history.replaceState(null, chapter.name, data.url + '/' + chapter.id);
     analysisUrl('/analysis/standard/' + root.node.fen.replace(/ /g, '_') + '?color=' + root.bottomColor());
@@ -90,10 +82,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
   }
 
   return {
-    onReload() {
-      comment('');
-      onLoad();
-    },
+    onReload: onLoad,
     onJump() {
       // reset failure state if no failed move found in mainline history
       if (success() === false && !root.nodeList.find(n => !!n.fail)) success(null);
@@ -103,7 +92,6 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     data,
     goal,
     success,
-    comment,
     nbMoves,
     reset() {
       root.tree.root.children = [];
