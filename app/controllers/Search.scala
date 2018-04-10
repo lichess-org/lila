@@ -25,12 +25,6 @@ object Search extends LidraughtsController {
     key = "search.games.ip"
   )
 
-  private val LinearLimitPerIP = new lidraughts.memo.LinearLimit(
-    name = "search games per IP",
-    key = "search.games.ip",
-    ttl = 5 minutes
-  )
-
   def index(p: Int) = OpenBody { implicit ctx =>
     NotForBots {
       val page = p atLeast 1
@@ -39,7 +33,14 @@ object Search extends LidraughtsController {
         val cost = scala.math.sqrt(page).toInt
         implicit def req = ctx.body
         Env.game.cached.nbTotal flatMap { nbGames =>
-          LinearLimitPerIP(ip.value) {
+          def limited = fuccess {
+            val form = searchForm.bindFromRequest.withError(
+              key = "",
+              message = "Please only send one request at a time per IP address"
+            )
+            TooManyRequest(html.search.index(form, none, nbGames))
+          }
+          Api.GlobalLinearLimitPerIP(ip, limited = limited) {
             RateLimitPerIP(ip, cost = cost) {
               RateLimitGlobal("-", cost = cost) {
                 negotiate(
@@ -67,12 +68,6 @@ object Search extends LidraughtsController {
                 )
               }
             }
-          } | fuccess {
-            val form = searchForm.bindFromRequest.withError(
-              key = "",
-              message = "Please only send one request at a time per IP address"
-            )
-            TooManyRequest(html.search.index(form, none, nbGames))
           }
         }
       }

@@ -288,6 +288,21 @@ object Api extends LidraughtsController {
     }
   }
 
+  private[controllers] val GlobalLinearLimitPerIP = new lidraughts.memo.LinearLimit[IpAddress](
+    name = "linear API per IP",
+    key = "api.ip",
+    ttl = 6 hours
+  )
+  private[controllers] val GlobalLinearLimitPerUser = new lidraughts.memo.LinearLimit[lidraughts.user.User.ID](
+    name = "linear API per user",
+    key = "api.user",
+    ttl = 6 hours
+  )
+  private[controllers] def GlobalLinearLimitPerUserOption(user: Option[lidraughts.user.User])(f: Fu[Result]): Fu[Result] =
+    user.fold(f) { u =>
+      GlobalLinearLimitPerUser(u.id)(f)
+    }
+
   sealed trait ApiResult
   case class Data(json: JsValue) extends ApiResult
   case class JsonStream(value: Enumerator[JsObject]) extends ApiResult
@@ -302,7 +317,7 @@ object Api extends LidraughtsController {
     js(ctx) map toHttp
   }
 
-  private val tooManyRequests = TooManyRequest(jsonError("Try again later"))
+  private[controllers] val tooManyRequests = TooManyRequest(jsonError("Try again later"))
 
   private def toHttp(result: ApiResult)(implicit ctx: Context): Result = result match {
     case Limited => tooManyRequests
