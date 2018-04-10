@@ -38,7 +38,6 @@ export interface StudyPracticeCtrl {
   data: StudyPracticeData;
   goal: Prop<Goal>;
   success: Prop<boolean | null>;
-  comment: Prop<string | undefined>;
   nbMoves: Prop<number>;
   reset(): void;
   isWhite(): boolean;

@@ -50,12 +50,13 @@ function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
 
 export function underboard(ctrl: StudyCtrl): VNode | undefined {
   if (ctrl.vm.loading) return h('div.feedback', spinner());
-  const p = ctrl.practice!;
-  const gb = ctrl.gamebookPlay();
+  const p = ctrl.practice!,
+  gb = ctrl.gamebookPlay(),
+  pinned = ctrl.data.chapter.description;
   if (gb) return h('div', [
     h('div.feedback.ongoing', [
-      p.comment() ? h('div.comment', {
-        hook: innerHTML(p.comment(), text => enrichText(text!, true))
+      pinned ? h('div.comment', {
+        hook: innerHTML(pinned, text => enrichText(text!, true))
       }) : null
     ])
   ]);
@@ -82,8 +83,8 @@ export function underboard(ctrl: StudyCtrl): VNode | undefined {
    return h('div', [
      h('div.feedback.ongoing', [
        h('div.goal', [renderGoal(p, p.goal().moves! - p.nbMoves())]),
-       p.comment() ? h('div.comment', {
-         hook: innerHTML(p.comment(), text => enrichText(text!, true))
+       pinned ? h('div.comment', {
+         hook: innerHTML(pinned, text => enrichText(text!, true))
        }) : null
      ]),
      boolSetting({
