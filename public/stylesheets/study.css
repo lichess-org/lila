@@ -125,7 +125,7 @@ div.underboard .notif.error {
 }
 
 .chapter_desc {
-  margin: 10px 0;
+  margin-bottom: 10px;
   text-align: left;
   font-size: 1.2em;
   position: relative;
@@ -145,7 +145,7 @@ div.underboard .notif.error {
   margin-left: 8px;
 }
 .chapter_desc_form {
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .chapter_desc_form textarea {
   height: 15em!important;
