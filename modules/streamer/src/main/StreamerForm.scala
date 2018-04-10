@@ -72,8 +72,6 @@ object StreamerForm {
             ignored = m.ignored && !m.granted,
             chatEnabled = m.chat
           )
-          case None if streamer.twitch != newStreamer.twitch || streamer.youTube != newStreamer.youTube =>
-            streamer.approval.copy(granted = false)
           case None => streamer.approval
         }
       )
