@@ -170,6 +170,10 @@
   <string name="rank">رتبه</string>
   <string name="rankX">رتبه:%s</string>
   <string name="rankIsUpdatedEveryXMinutes">رتبه در هر %s دقیقه به روز رسانی می شود</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s پازل</item>
+    <item quantity="other">%s پازل</item>
+  </plurals>
   <string name="gamesPlayed">تعداد بازی های انجام شده</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s بازی با شما</item>
@@ -222,6 +226,10 @@
   <string name="incrementInSeconds">افزایش در ثانیه</string>
   <string name="freeOnlineChess">شطرنج آنلاین رایگان</string>
   <string name="spectators">تماشاگران :</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s بازی رسمی</item>
+    <item quantity="other">%s بازی رسمی</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s برد</item>
     <item quantity="other">%s برد</item>
@@ -654,6 +662,10 @@
   <string name="tournamentMayHaveBeenCanceled">ممکن است مسابقه لغو شده باشد,شاید همه ی بازیکنان مسابقه را قبل از شروع ترک کرده باشند</string>
   <string name="returnToTournamentsHomepage">بازگشت به صفحه اصلی مسابقات</string>
   <string name="weeklyPerfTypeRatingDistribution">%s توزیع ریتینگ ماهیانه</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">در هفته گذشته،%1$s بازیکن در واریانت %2$s فعال بود.</item>
+    <item quantity="other">در هفته گذشته،%1$s بازیکن در واریانت %2$s فعال بودند.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">.است %1$s شما %2$s ریتینگ</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">شما بهتر از %1$s بازیکن ها در %2$s هستید.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">. ندارید %s چرا شما ریتینگ پایدار برای</string>
@@ -711,6 +723,7 @@
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">لابی</string>
   <string name="anonymous">ناشناس</string>
+  <string name="yourScore">امتیاز شما:%s</string>
   <string name="language">زبان</string>
   <string name="background">زمینه</string>
   <string name="light">روشن</string>
@@ -776,4 +789,23 @@
   <string name="noMistakesFoundForWhite">هیچ اشتباهی برای سفید مشاهده نشد</string>
   <string name="noMistakesFoundForBlack">هیچ اشتباهی برای سیاه مشاهده نشد</string>
   <string name="doneReviewingWhiteMistakes">اشتباهات سفید بررسی شد</string>
+  <string name="doneReviewingBlackMistakes">اشتباهات سیاه بررسی شد.</string>
+  <string name="doItAgain">دوباره</string>
+  <string name="reviewWhiteMistakes">بررسی اشتباهات سفید</string>
+  <string name="reviewBlackMistakes">بررسی اشتباهات سیاه</string>
+  <string name="advantage">برتری</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s ثانیه</item>
+    <item quantity="other">%s ثانیه</item>
+  </plurals>
+  <string name="opening">گشایش</string>
+  <string name="middlegame">وسط بازی</string>
+  <string name="endgame">آخر بازی</string>
+  <string name="registerToSendChallenges">برای ارسال درخواست بازی باید وارد حساب کاربری شوید.</string>
+  <string name="youCannotChallengeX">شما نمی توانید به %s درخواست بازی بدهید.</string>
+  <string name="xDoesNotAcceptChallenges">%s درخواست بازی را نمی پذیرد.</string>
+  <string name="yourXRatingIsTooFarFromY">امتیاز %1$s شما فاصله زیادی با %2$s دارد؛بنابراین نمی توانید در خواست بازی بدهید.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">به علت امتیاز %s غیر قطعی،امکان ارسال درخواست بازی وجود ندارد.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s فقط درخواست بازی دوستان را می پذیرد.</string>
+  <string name="playX">%s را انجام دهید</string>
 </resources>
