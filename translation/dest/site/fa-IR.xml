@@ -647,9 +647,21 @@
   <string name="confirmResignationAndDrawOffers">نیاز به تایید دوباره؛ زمانی که تسلیم می شوید یا پیشنهاد تساوی می دهید</string>
   <string name="inputMovesWithTheKeyboard">ورود حرکات با استفاده از صفحه کلید</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">روش انجام شاه قلعه</string>
+  <string name="castleByMovingTwoSquares">به وسیله ی دو خانه حرکت دادن شاه</string>
+  <string name="castleByMovingOntoTheRook">به وسیله ی حرکت دادن شاه روی خانه رخ</string>
   <string name="shareYourInsightsData">اشتراک گذاشتن داده های شما</string>
+  <string name="withNobody">هیچکس</string>
+  <string name="withFriends">با دوستان</string>
+  <string name="withEverybody">با همه</string>
   <string name="youHaveAlreadyRegisteredTheEmail">این ایمیل %s قبلا برای نام نویسی استفاده شده است</string>
   <string name="kidMode">حالت کودکان</string>
+  <string name="kidModeExplanation">این گزینه،امنیتی است.با فعال کردن حالت ((کودکانه))،همه ی ارتباطات(چت کردن و...)غیر فعال می شوند.با فعال کردن این گزینه،کودکان خود را محافطت کنید.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">در حالت کودکانه،به نماد لیچس،یک 😊 اضافه می شود تا شما از فعال بودن آن مطلع شوید.</string>
+  <string name="enableKidMode">فعال کردن حالت کودکانه</string>
+  <string name="disableKidMode">غیر فعال کردن حالت کودکانه</string>
+  <string name="security">امنیت</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">این لیستی از تمامی دستگاه هایی است که وارد حساب کاربری شما شده اند.مواردی را که نمی شناسید،باطل کنید.</string>
   <string name="playChessEverywhere">همه جا شطرنج بازی کنید</string>
   <string name="asFreeAsLichess">رایگان به مانند لیچس</string>
   <string name="builtForTheLoveOfChessNotMoney">ساخته شده با عشق به شطرنج نه پول</string>
