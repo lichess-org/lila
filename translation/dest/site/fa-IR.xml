@@ -260,6 +260,28 @@
   <string name="viewTournament">مشاهده مسابقات</string>
   <string name="backToTournament">برگشت به مسابقه</string>
   <string name="thematic">واریانتی</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">بیشتر از %s بازی رسمی</item>
+    <item quantity="other">بیشتر از %s بازی رسمی</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">بیشتر از%1$s بازی رسمی%2$s</item>
+    <item quantity="other">بیشتر از%1$s بازی رسمی%2$s</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">شما باید%1$s بازی رسمی%2$s انجام دهید.</item>
+    <item quantity="other">شما باید%1$s بازی رسمی%2$s انجام دهید.</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">شما باید%s بازی رسمی دیگر انجام دهید.</item>
+    <item quantity="other">شما باید%s بازی رسمی دیگر انجام دهید.</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">امتیاز%s شما قطعی نشده است.</string>
+  <string name="yourPerfRatingIsTooHigh">امتیاز %1$s شما (%2$s) بیشتر از حد مجاز است!</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">امتیاز %1$s شما(%2$s) بیشتر از حد مجاز است.</string>
+  <string name="yourPerfRatingIsTooLow">امتیاز%1$s شما(%2$s) کمتر از حد مجاز است.</string>
+  <string name="ratedMoreThanInPerf">امتیاز %2$s بالاتر از %1$s لازم است.</string>
+  <string name="ratedLessThanInPerf">برای ورود،امتیاز%2$s شما باید کمتر از%1$s باشد.</string>
   <string name="backToGame">بازگشت به بازی</string>
   <string name="siteDescription">بازی شطرنج آنلاین رایگان. همین حالا شطرنج بازی کنید. بدون نیاز به ثبت نام، بدون تبلیغات، بدون نیاز به افزونه. بازی با کامپیوتر، دوستان و یا حریفان تصادفی.</string>
   <string name="teams">تیم‌ها</string>
@@ -293,6 +315,7 @@
   <string name="fromPosition">از موقعیت</string>
   <string name="continueFromHere">ادامه از اینجا</string>
   <string name="importGame">بارگزاری بازی</string>
+  <string name="importGameExplanation">در صورت بارگذاری فایل PGN،آنالیز کامپیوتری و لینک قابل به اشتراک گذاری در اختیار شما قرار خواهد گرفت.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s بارگزاری شده</item>
     <item quantity="other">%s بارگزاری شده</item>
