@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">بازی با دوستان</string>
   <string name="playWithTheMachine">بازی با رایانه</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کردن حریف این آدرس سایت را برای او بفرستید</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کردن حریف این لینک را برای او بفرستید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">منتظر حریف</string>
   <string name="waiting">انتظار</string>
@@ -723,9 +723,30 @@
   <string name="practiceWithComputer">تمرین با کامپیوتر</string>
   <string name="anotherWasX">حرکت مناسب دیگر %s بود</string>
   <string name="bestWasX">بهترین حرکت %s بود</string>
+  <string name="youBrowsedAway">پوزیشن را به هم زدید!</string>
+  <string name="resumePractice">ادامه تمرین</string>
+  <string name="theGameIsADraw">بازی مساوی است.</string>
+  <string name="computerThinking">کامپیوتر در حال محاسبه است...</string>
+  <string name="seeBestMove">مشاهده بهترین حرکت</string>
+  <string name="hideBestMove">پنهان کردن بهترین حرکت</string>
+  <string name="getAHint">راهنمایی</string>
+  <string name="evaluatingYourMove">در حال بررسی حرکت شما...</string>
   <string name="whiteWinsGame">سفید برنده شد</string>
   <string name="blackWinsGame">سیاه برنده شد</string>
+  <string name="learnFromYourMistakes">از اشتباهات خود درس بگیرید</string>
+  <string name="learnFromThisMistake">از این اشتباه درس بگیرید</string>
+  <string name="skipThisMove">رد کردن این حرکت</string>
   <string name="next">بعدی</string>
+  <string name="xWasPlayed">%s بازی شد</string>
   <string name="findBetterMoveForWhite">یه حرکت بهتر برای سفید پیدا کنید</string>
   <string name="findBetterMoveForBlack">یه حرکت بهتر برای سیاه پیدا کنید</string>
+  <string name="resumeLearning">ادامه یادگیری</string>
+  <string name="youCanDoBetter">شما می توانید حرکت بهتری انجام دهید!</string>
+  <string name="tryAnotherMoveForWhite">برای سفید،حرکت دیگری را امتحان کنید</string>
+  <string name="tryAnotherMoveForBlack">برای سیاه،حرکت دیگری را امتحان کنید</string>
+  <string name="solution">راه حل</string>
+  <string name="waitingForAnalysis">در انتظار برای آنالیز</string>
+  <string name="noMistakesFoundForWhite">هیچ اشتباهی برای سفید مشاهده نشد</string>
+  <string name="noMistakesFoundForBlack">هیچ اشتباهی برای سیاه مشاهده نشد</string>
+  <string name="doneReviewingWhiteMistakes">اشتباهات سفید بررسی شد</string>
 </resources>
