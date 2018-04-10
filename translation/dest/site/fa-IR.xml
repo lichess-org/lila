@@ -361,8 +361,10 @@
   <string name="blackWins">سیاه برنده شد</string>
   <string name="draws">مساوی</string>
   <string name="viewMoreTournaments">تورنومنت های بیشتری نشان بده</string>
+  <string name="averageOpponent">میانگین امتیاز حریف ها</string>
   <string name="membersOnly">فقط اعضا</string>
   <string name="boardEditor">صفحه ویرایشگر</string>
+  <string name="setTheBoard">پوزیشن را انتخاب کنید</string>
   <string name="popularOpenings">گشایش های معروف</string>
   <string name="startPosition">موقعیت شروع</string>
   <string name="clearBoard">پاک کردن صفحه</string>
@@ -370,6 +372,10 @@
   <string name="loadPosition">بارگذاری موقعیت</string>
   <string name="isPrivate">خصوصی</string>
   <string name="reportXToModerators">گزارش %s به مدیران سایت</string>
+  <string name="profileCompletion">میزان تکمیل حساب کاربری:s%</string>
+  <string name="xRating">ریتینگ s%</string>
+  <string name="ifNoneLeaveEmpty">اگر ندارید،خالی بگذارید</string>
+  <string name="gameCompletionRate">میزان به اتمام رساندن بازی ها:s%</string>
   <string name="profile">پروفایل</string>
   <string name="editProfile">ویرایش پروفایل</string>
   <string name="firstName">نام</string>
@@ -398,6 +404,7 @@
   <string name="keepGoing">ادامه دهید</string>
   <string name="puzzleFailed">مسئله را باختید</string>
   <string name="butYouCanKeepTrying">اما می‌توانید باز هم تلاش کنید</string>
+  <string name="success">پیروزی</string>
   <string name="wasThisPuzzleAnyGood">این جدول چقدر خوب بود؟</string>
   <string name="pleaseVotePuzzle">با رای دادن مثبت یا منفی به پیشرفت لیچس کمک کنید</string>
   <string name="thankYou">ممنون!</string>
@@ -469,6 +476,7 @@
   <string name="pieceDestinations">مقصد مهره(حرکت معتبر و پیش حرکت )</string>
   <string name="boardCoordinates">مختصات صفحه(A-H، 1-8)</string>
   <string name="moveListWhilePlaying">لیست حرکات هنگام بازی کردن</string>
+  <string name="chessPieceSymbol">نماد مهره</string>
   <string name="pgnLetter">حرف (K, Q, R, B, N)</string>
   <string name="chessClock">ساعت شطرنج</string>
   <string name="tenthsOfSeconds">دهم ثانیه</string>
@@ -477,6 +485,8 @@
   <string name="horizontalGreenProgressBars">نمودار زمان سبز رنگ افقی</string>
   <string name="soundWhenTimeGetsCritical">صدا در هنگام زمان بحرانی زده می شود</string>
   <string name="gameBehavior">رفتار بازی</string>
+  <string name="howDoYouMovePieces">تمایل دارید که چگونه مهره ها را حرکت دهید؟</string>
+  <string name="clickTwoSquares">انتخاب دو مربع مبدا و مقصد</string>
   <string name="dragPiece">کشیدن یک مهره</string>
   <string name="bothClicksAndDrag">هر دو</string>
   <string name="premovesPlayingDuringOpponentTurn">پیش حرکت (بازی در نوبت حریف)</string>
@@ -634,6 +644,8 @@
   <string name="crosstable">تابلو امتیازات</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">شما  می توانید برای حرکت در بازی از صفحه استفاده کنید</string>
   <string name="analysisShapesHowTo">و کلیک کنید یا راست کلیک کنید تا دایره یا فلش در صفحه بکشید shift</string>
+  <string name="confirmResignationAndDrawOffers">نیاز به تایید دوباره؛ زمانی که تسلیم می شوید یا پیشنهاد تساوی می دهید</string>
+  <string name="inputMovesWithTheKeyboard">ورود حرکات با استفاده از صفحه کلید</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
   <string name="shareYourInsightsData">اشتراک گذاشتن داده های شما</string>
   <string name="youHaveAlreadyRegisteredTheEmail">این ایمیل %s قبلا برای نام نویسی استفاده شده است</string>
