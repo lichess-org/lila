@@ -150,7 +150,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   function configurePractice() {
     if (!data.chapter.practice && ctrl.practice) ctrl.togglePractice();
     if (data.chapter.practice) ctrl.restartPractice();
-    if (practice) practice.onReload();
+    if (practice) practice.onLoad();
   };
 
   function onReload(d: ReloadData) {

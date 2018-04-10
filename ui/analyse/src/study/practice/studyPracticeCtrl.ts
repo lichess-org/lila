@@ -82,7 +82,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
   }
 
   return {
-    onReload: onLoad,
+    onLoad,
     onJump() {
       // reset failure state if no failed move found in mainline history
       if (success() === false && !root.nodeList.find(n => !!n.fail)) success(null);
