@@ -4,6 +4,7 @@ import { plural, bind, spinner, innerHTML, enrichText, option } from '../../util
 import { StudyCtrl } from '../interfaces';
 import { StudyPracticeData, StudyPracticeCtrl } from './interfaces';
 import { boolSetting } from '../../boolSetting';
+import { view as descView } from '../chapterDescription';
 
 function selector(data: StudyPracticeData) {
   return h('select.selector', {
@@ -47,7 +48,7 @@ function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
   }
 }
 
-export function underboard(ctrl: StudyCtrl): VNode {
+export function underboard(ctrl: StudyCtrl): VNode | undefined {
   if (ctrl.vm.loading) return h('div.feedback', spinner());
   const p = ctrl.practice!;
   const gb = ctrl.gamebookPlay();
@@ -58,6 +59,7 @@ export function underboard(ctrl: StudyCtrl): VNode {
       }) : null
     ])
   ]);
+  else if (!ctrl.data.chapter.practice) return descView(ctrl);
   switch (p.success()) {
     case true:
       const next = ctrl.nextChapter();

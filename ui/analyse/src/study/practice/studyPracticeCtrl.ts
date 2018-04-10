@@ -4,9 +4,8 @@ import makeSuccess from './studyPracticeSuccess';
 import makeSound from './sound';
 import { readOnlyProp } from '../../util';
 import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
-import { StudyData } from '../interfaces';
+import { StudyData, StudyCtrl } from '../interfaces';
 import AnalyseCtrl from '../../ctrl';
-import GamebookPlayCtrl from '../gamebook/gamebookPlayCtrl';
 
 export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPracticeData): StudyPracticeCtrl {
 
@@ -45,15 +44,18 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     return Math.ceil(plies / 2);
   }
 
-  function getGamebook(): GamebookPlayCtrl | undefined {
-    return root.study!.gamebookPlay();
+  function getStudy(): StudyCtrl {
+    return root.study!;
   }
 
   function checkSuccess(): void {
-    const gamebook = getGamebook();
+    const gamebook = getStudy().gamebookPlay();
     if (gamebook) {
       if (gamebook.state.feedback === 'end') onVictory();
       return;
+    }
+    if (!getStudy().data.chapter.practice) {
+      return saveNbMoves();
     }
     if (success() !== null) return;
     nbMoves(computeNbMoves());
@@ -63,19 +65,23 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
   }
 
   function onVictory(): void {
-    const chapterId = root.study!.currentChapter().id,
+    saveNbMoves();
+    sound.success();
+    if (autoNext()) setTimeout(goToNext, 1000);
+  }
+
+  function saveNbMoves(): void {
+    const chapterId = getStudy().currentChapter().id,
     former = data.completion[chapterId] || 999;
     if (nbMoves() < former) {
       data.completion[chapterId] = nbMoves();
       xhr.practiceComplete(chapterId, nbMoves());
     }
-    sound.success();
-    if (autoNext()) setTimeout(goToNext, 1000);
   }
 
   function goToNext() {
-    const next = root.study!.nextChapter();
-    if (next) root.study!.setChapter(next.id);
+    const next = getStudy().nextChapter();
+    if (next) getStudy().setChapter(next.id);
   }
 
   function onFailure(): void {
