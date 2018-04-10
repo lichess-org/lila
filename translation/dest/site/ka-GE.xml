@@ -56,6 +56,8 @@
   <string name="showThreat">საფრთხეების ჩვენება</string>
   <string name="inLocalBrowser">ლოკალურ ბრაუზერში</string>
   <string name="toggleLocalEvaluation">ლოკალური შეფასების ბერკეტი</string>
+  <string name="makeMainLine">გახადე მთავარი ხაზი</string>
+  <string name="deleteFromHere">წაშალე აქედან</string>
   <string name="move">სვლა</string>
   <string name="insufficientMaterial">არასაკმარისი ფიგურები</string>
   <string name="pawnMove">პაიკის სვლა</string>
@@ -71,7 +73,7 @@
   <string name="recentGames">ახლანდელი თამაშები</string>
   <string name="topGames">ტოპ თამაშები</string>
   <string name="noGameFound">თამაში ვერ მოიძებნა</string>
-  <string name="openingExplorer">ეტიუდების გზამკვლევი</string>
+  <string name="openingExplorer">დებიუტების გზამკვლევი</string>
   <string name="allSet">ყველაფერი მზადაა!</string>
   <string name="importPgn">PGN-ის იმპორტი</string>
   <string name="delete">წაშლა</string>
@@ -615,4 +617,10 @@
   <string name="correspondenceChess">მიმოწერით</string>
   <string name="viewTheSolution">სანახავად გადაწყვეტა</string>
   <string name="gameAnalysis">თამაშის ანალიზი</string>
+  <string name="chessBasics">ჭადრაკის საფუძვლები</string>
+  <string name="coaches">მწვრთნელები</string>
+  <string name="practiceWithComputer">ვარჯიში კომპიუტერთან</string>
+  <string name="anotherWasX">შეიძლებოდა %s</string>
+  <string name="bestWasX">საუკეთესო იყო %s</string>
+  <string name="resumePractice">ვარჯიშის გაგრძელება</string>
 </resources>

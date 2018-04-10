@@ -9,7 +9,7 @@
   <string name="howAreScoresCalculated">¿Cómo se calculan las puntuaciones?</string>
   <string name="howAreScoresCalculatedAnswer">De entrada, las victorias valen 2 puntos, las tablas 1 punto y las derrotas 0 puntos.
 
-Si ganas dos partidas seguidas, comenzarás una racha de puntuación doble, representada por un icono de una llama. A partir de ese momento y hasta que pierdas una partida, cada partida valdrá el doble; esto es, las victorias 4 puntos y las tablas 2 puntos. Una derrota termina la racha de puntuación doble.
+Si ganas dos partidas seguidas, comenzarás una racha de puntuación doble, representada por un icono de una llama. A partir de ese momento y mientras sigas ganando, cada partida valdrá el doble; esto es, las victorias 4 puntos y las tablas 2 puntos. Una derrota seguirá valiendo cero puntos.
 
 Por ejemplo:
 Tres victorias seguidas valen 8 puntos: 2 + 2 + (2×2)
