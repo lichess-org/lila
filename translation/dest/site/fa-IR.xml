@@ -43,8 +43,8 @@
   <string name="blackLeftTheGame">بازیکن سیاه بازی را ترک کرد</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">این لینک را با تماشاگران به اشتراک بگذارید تا بازی را ببینند‌.</string>
   <string name="theComputerAnalysisHasFailed">تحلیل رایانه ای با مشکل مواجه شد</string>
-  <string name="viewTheComputerAnalysis">نمایش تحلیل رایانه</string>
-  <string name="requestAComputerAnalysis">درخواست یک تحلیل رایانه ای</string>
+  <string name="viewTheComputerAnalysis">نمایش تحلیل رایانه ای</string>
+  <string name="requestAComputerAnalysis">درخواست تحلیل رایانه ای</string>
   <string name="computerAnalysis">تجزيه تحليل رایانه ای</string>
   <string name="computerAnalysisAvailable">تحلیل کامپیوتری در دسترس است.</string>
   <string name="analysis">تحلیل</string>
@@ -242,6 +242,10 @@
     <item quantity="one">%s مساوی</item>
     <item quantity="other">%s مساوی</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s بازی در حال انجام</item>
+    <item quantity="other">%s بازی در حال انجام</item>
+  </plurals>
   <string name="exportGames">لیست بازیها را بفرست</string>
   <string name="ratingRange">حدود ریتینگ</string>
   <plurals name="giveNbSeconds">
@@ -265,6 +269,10 @@
   <string name="tournament">مسابقه</string>
   <string name="tournaments">مسابقات</string>
   <string name="tournamentPoints">مجموع امتیازات مسابقات</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">مجموع امتیازات مسابقات:%s</item>
+    <item quantity="other">مجموع امتیازات مسابقات:%s</item>
+  </plurals>
   <string name="viewTournament">مشاهده مسابقات</string>
   <string name="backToTournament">برگشت به مسابقه</string>
   <string name="thematic">واریانتی</string>
