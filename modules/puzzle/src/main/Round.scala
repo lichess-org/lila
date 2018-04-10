@@ -32,20 +32,23 @@ object Round {
 
   private implicit val ResultBSONHandler = booleanAnyValHandler[Result](_.win, Result.apply)
 
-  implicit val roundIdHandler: BSONHandler[BSONString, Id] = new BSONHandler[BSONString, Id] {
-    private val sep = ':'
-    /* We shift the puzzle ID by -60000
+  /* We shift the puzzle ID by -60000
      * Because the initial puzzle is 60000 and something.
      * This way the lowest puzzle ID is 00000
      * and it allows us to sort rounds by ID: userId:puzzleId
      * because all puzzle IDs have the same length */
-    private val shift = 60000
+  private val shiftValue = -60000
+  def encode(puzzleId: PuzzleId) = puzzleId + shiftValue
+  def decode(puzzleId: PuzzleId) = puzzleId - shiftValue
+
+  implicit val roundIdHandler: BSONHandler[BSONString, Id] = new BSONHandler[BSONString, Id] {
+    private val sep = ':'
     def read(bs: BSONString) = bs.value split sep match {
-      case Array(userId, puzzleId) => Id(userId, Integer.parseInt(puzzleId) + shift)
+      case Array(userId, puzzleId) => Id(userId, decode(Integer parseInt puzzleId))
       case _ => sys error s"Invalid puzzle round id ${bs.value}"
     }
     def write(id: Id) = {
-      val puzzleId = "%05d".format(id.puzzleId - shift)
+      val puzzleId = "%05d".format(encode(id.puzzleId))
       BSONString(s"${id.userId}$sep$puzzleId")
     }
   }
