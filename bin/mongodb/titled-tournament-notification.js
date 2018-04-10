@@ -1,5 +1,5 @@
-var tournamentId = 'GToVqkC9';
-var text = 'With a prize found of $1000!';
+var tournamentId = 'qkdW41M2';
+var text = 'With a prize pool of $3200!';
 
 var userIds = db.user4.distinct('_id', {
   enabled: true,
@@ -8,6 +8,7 @@ var userIds = db.user4.distinct('_id', {
     $ne: 'LM'
   }
 });
+'thibault arex'.split(' ').forEach(u => userIds.push(u));
 
 print('Inviting ' + userIds.join(', '));
 
