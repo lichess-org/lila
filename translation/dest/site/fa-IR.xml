@@ -85,13 +85,17 @@
   <string name="openingExplorer">باز کردن جستجوگر</string>
   <string name="xOpeningExplorer">جستجوگر گشایش %s</string>
   <string name="winPreventedBy50MoveRule">قانون 50 حرکت مانع از برد شد</string>
+  <string name="lossSavedBy50MoveRule">قانون ۵۰ حرکت از شکست جلوگیری کرد</string>
   <string name="allSet">همه چیز آماده است!</string>
   <string name="importPgn">PGN را وارد کن</string>
   <string name="delete">پاک کردن</string>
+  <string name="deleteThisImportedGame">آیا این بازی بارگذاری شده حذف شود؟</string>
   <string name="replayMode">حالت پخش</string>
   <string name="realtimeReplay">زمان واقعی</string>
   <string name="byCPL">توسط CPL</string>
+  <string name="openStudy">شروع مطالعه</string>
   <string name="enable">فعالسازی</string>
+  <string name="bestMoveArrow">فلش نشان دهنده بهترین حرکت</string>
   <string name="evaluationGauge">معیار ارزیابی</string>
   <string name="cpus">پردازنده</string>
   <string name="infiniteAnalysis">تجزیه و تحلیل بی نهایت</string>
