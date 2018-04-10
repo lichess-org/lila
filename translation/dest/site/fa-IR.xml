@@ -705,6 +705,10 @@
   <string name="chessBasics">اصول شطرنج</string>
   <string name="coaches">مربی ها</string>
   <string name="invalidPgn">فایل PGN نامعتبر است</string>
+  <string name="invalidFen">
+پوزیشن وارد شده نامعتبر است</string>
+  <string name="error.minLength">حداقل تعداد حروف وارد شده %s است</string>
+  <string name="error.maxLength">حداکثر تعداد حروف وارد شده %s است</string>
   <string name="error.min">باید بزرگتر یا مساوی باشه با %s</string>
   <string name="error.max">باید کمتر یا مساوی باشه با%s</string>
   <string name="error.unknown">خطا</string>
@@ -712,6 +716,13 @@
   <string name="notifications">گزارش</string>
   <string name="challenges">دعوت به مبارزه</string>
   <string name="perfRatingX">ریتینگ. %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
+    <item quantity="other">%s ثانیه برای شروع اولین حرکت</item>
+  </plurals>
+  <string name="practiceWithComputer">تمرین با کامپیوتر</string>
+  <string name="anotherWasX">حرکت مناسب دیگر %s بود</string>
+  <string name="bestWasX">بهترین حرکت %s بود</string>
   <string name="whiteWinsGame">سفید برنده شد</string>
   <string name="blackWinsGame">سیاه برنده شد</string>
   <string name="next">بعدی</string>
