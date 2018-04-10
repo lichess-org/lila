@@ -288,6 +288,21 @@ object Api extends LilaController {
     }
   }
 
+  private[controllers] val GlobalLinearLimitPerIP = new lila.memo.LinearLimit[IpAddress](
+    name = "linear API per IP",
+    key = "api.ip",
+    ttl = 6 hours
+  )
+  private[controllers] val GlobalLinearLimitPerUser = new lila.memo.LinearLimit[lila.user.User.ID](
+    name = "linear API per user",
+    key = "api.user",
+    ttl = 6 hours
+  )
+  private[controllers] def GlobalLinearLimitPerUserOption(user: Option[lila.user.User])(f: Fu[Result]): Fu[Result] =
+    user.fold(f) { u =>
+      GlobalLinearLimitPerUser(u.id)(f)
+    }
+
   sealed trait ApiResult
   case class Data(json: JsValue) extends ApiResult
   case class JsonStream(value: Enumerator[JsObject]) extends ApiResult
@@ -302,7 +317,7 @@ object Api extends LilaController {
     js(ctx) map toHttp
   }
 
-  private val tooManyRequests = TooManyRequest(jsonError("Try again later"))
+  private[controllers] val tooManyRequests = TooManyRequest(jsonError("Try again later"))
 
   private def toHttp(result: ApiResult)(implicit ctx: Context): Result = result match {
     case Limited => tooManyRequests
