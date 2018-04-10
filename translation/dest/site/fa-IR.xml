@@ -374,6 +374,7 @@
   <string name="createdBy">ساخته شده توسط</string>
   <string name="tournamentIsStarting">مسابقه در حال شروع است</string>
   <string name="tournamentPairingsAreNowClosed">تعین حریف به اتمام رسیده است.</string>
+  <string name="standByX">حریف %s است،آماده باشید!</string>
   <string name="youArePlaying">شما بازی میکنید!</string>
   <string name="winRate">درصد برد</string>
   <string name="berserkRate">درصد برزرک</string>
@@ -383,6 +384,7 @@
   <string name="whiteWins">پیروزی با مهره سفید</string>
   <string name="blackWins">سیاه برنده شد</string>
   <string name="draws">مساوی</string>
+  <string name="nextXTournament">مسابقه ی %s بعدی:</string>
   <string name="viewMoreTournaments">تورنومنت های بیشتری نشان بده</string>
   <string name="averageOpponent">میانگین امتیاز حریف ها</string>
   <string name="membersOnly">فقط اعضا</string>
@@ -499,6 +501,7 @@
   <string name="pieceDestinations">مقصد مهره(حرکت معتبر و پیش حرکت )</string>
   <string name="boardCoordinates">مختصات صفحه(A-H، 1-8)</string>
   <string name="moveListWhilePlaying">لیست حرکات هنگام بازی کردن</string>
+  <string name="pgnPieceNotation">نمایش حرکات</string>
   <string name="chessPieceSymbol">نماد مهره</string>
   <string name="pgnLetter">حرف (K, Q, R, B, N)</string>
   <string name="chessClock">ساعت شطرنج</string>
@@ -543,6 +546,7 @@
   <string name="xCommentedY">%1$s به %2$s پیام داد.</string>
   <string name="victory">پیروزی!</string>
   <string name="defeat">شکست!</string>
+  <string name="xVsYinZ">%1$s %3$s در مقابل %2$s</string>
   <string name="timeline">جدول زمانی</string>
   <string name="seeAllTournaments">دیدن تمام مسابقات</string>
   <string name="starting">شروع</string>
