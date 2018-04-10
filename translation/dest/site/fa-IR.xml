@@ -94,16 +94,16 @@
   <string name="realtimeReplay">زمان واقعی</string>
   <string name="byCPL">حرکات مهم</string>
   <string name="openStudy">شروع مطالعه</string>
-  <string name="enable">فعالسازی</string>
+  <string name="enable">فعال سازی</string>
   <string name="bestMoveArrow">فلش نشان دهنده بهترین حرکت</string>
-  <string name="evaluationGauge">معیار ارزیابی</string>
+  <string name="evaluationGauge">درجه ی نشان دهنده برتری</string>
   <string name="multipleLines">شاخه های متعدد</string>
-  <string name="cpus">پردازنده</string>
+  <string name="cpus">پردازنده(ها)</string>
   <string name="memory">حافظه</string>
-  <string name="infiniteAnalysis">تجزیه و تحلیل بی نهایت</string>
-  <string name="removesTheDepthLimit">محدودیت عمق را بر می دارد و کامپیوتر شما را داغ نگه می دارد</string>
-  <string name="blunder">اشتباه جدی</string>
-  <string name="blunders">اشتباهات جدی</string>
+  <string name="infiniteAnalysis">آنالیز بی پایان</string>
+  <string name="removesTheDepthLimit">محدودیت عمق بررسی را بر می دارد که به گرم شدن کامپیوتر شما منجر می شود</string>
+  <string name="blunder">اشتباه فاحش</string>
+  <string name="blunders">اشتباهات فاحش</string>
   <string name="mistake">اشتباه</string>
   <string name="mistakes">اشتباهات</string>
   <string name="inaccuracy">بی دقتی</string>
@@ -115,10 +115,10 @@
   <string name="offerDraw">پیشنهاد مساوی</string>
   <string name="draw">مساوی</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s نفر بازیکنان حاضر</item>
+    <item quantity="one">%s نفر بازیکن حاضر</item>
     <item quantity="other">%s نفر بازیکنان حاضر</item>
   </plurals>
-  <string name="currentGames">بازیهای جاری</string>
+  <string name="currentGames">بازی های در جریان</string>
   <plurals name="nbGames">
     <item quantity="one">%s بازی</item>
     <item quantity="other">%s بازی</item>
@@ -127,10 +127,10 @@
     <item quantity="one">%s بازی مورد علاقه</item>
     <item quantity="other">%s بازی مورد علاقه</item>
   </plurals>
-  <string name="viewInFullSize">تماشا کردن در اندازه کامل</string>
+  <string name="viewInFullSize">نمایش در اندازه کامل</string>
   <string name="logOut">خروج</string>
   <string name="signIn">ورود</string>
-  <string name="newToLichess">آیا در لایچس تازه واردید؟</string>
+  <string name="newToLichess">آیا در لیچس حساب کاربری ندارید؟</string>
   <string name="youNeedAnAccountToDoThat">شما برای انجام این کار به یک حساب کاربری نیاز دارید.</string>
   <string name="signUp">نام نویسی</string>
   <string name="computersAreNotAllowedToPlay">كامپيوتر و بازيكناني كه از كامپيوتر كمك مي گيرند اجازه بازي نخواهند داشت.لطفا  از برنامه شطرنج يا ساختمان داده هاي شطرنج ويا بازيكنان ديگر كمك نگيريد. همچنین توجه کنید که داشتن چند حساب کاربری به شدت نهی شده است. استفاده فزاینده از چند حساب باعث مسدود شدن حساب شما خواهد شد.</string>
