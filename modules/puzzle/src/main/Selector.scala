@@ -18,48 +18,46 @@ private[puzzle] final class Selector(
   def apply(me: Option[User]): Fu[Puzzle] = {
     lila.mon.puzzle.selector.count()
     me match {
-      case None =>
-        puzzleColl // this query precisely matches a mongodb partial index
-          .find($doc(F.voteNb $gte 50))
-          .sort($sort desc F.voteRatio)
-          .skip(Random nextInt anonSkipMax)
-          .uno[Puzzle]
-      case Some(user) =>
-        api.head.find(user) flatMap {
-          case Some(PuzzleHead(_, Some(c), _)) => api.puzzle.find(c)
-          case headOption =>
-            newPuzzleForUser(user, headOption) flatMap { next =>
-              next.?? { p => api.head.addNew(user, p.id) } inject next
+      // anon
+      case None => puzzleColl // this query precisely matches a mongodb partial index
+        .find($doc(F.voteNb $gte 50))
+        .sort($sort desc F.voteRatio)
+        .skip(Random nextInt anonSkipMax)
+        .uno[Puzzle]
+      // user
+      case Some(user) => api.head find user flatMap {
+        // new player
+        case None => api.puzzle.find(puzzleIdMin)
+        // current puzzle
+        case Some(PuzzleHead(_, Some(current), _)) => api.puzzle find current
+        // find new based on last
+        case Some(PuzzleHead(_, _, last)) => newPuzzleForUser(user, last) flatMap {
+          // user played all puzzles. Reset rounds and start anew.
+          case None => api.puzzle.cachedLastId.get flatMap { maxId =>
+            (last > maxId - 1000) ?? {
+              api.round.reset(user) >> api.puzzle.find(puzzleIdMin)
             }
+          }
+          case Some(found) => api.head.addNew(user, found.id) inject found.some
         }
+      }
     }
-  }.mon(_.puzzle.selector.time) flatten "No puzzles available" addEffect { puzzle =>
+  }.mon(_.puzzle.selector.time) flattenWith NoPuzzlesAvailableException addEffect { puzzle =>
     if (puzzle.vote.sum < -1000)
       logger.warn(s"Select #${puzzle.id} vote.sum: ${puzzle.vote.sum} for ${me.fold("Anon")(_.username)} (${me.fold("?")(_.perfs.puzzle.intRating.toString)})")
     else
       lila.mon.puzzle.selector.vote(puzzle.vote.sum)
   }
 
-  private def newPuzzleForUser(user: User, headOption: Option[PuzzleHead]): Fu[Option[Puzzle]] = {
+  private def newPuzzleForUser(user: User, lastPlayed: PuzzleId): Fu[Option[Puzzle]] = {
     val rating = user.perfs.puzzle.intRating atMost 2300 atLeast 900
     val step = toleranceStepFor(rating, user.perfs.puzzle.nb)
-    api.puzzle.cachedLastId.get flatMap { maxId =>
-      (headOption match {
-        // user played all puzzles. Reset rounds and start anew.
-        case Some(PuzzleHead(_, _, l)) if l > maxId - 300 => api.round.reset(user) inject puzzleIdMin
-        // we have a head. Use it.
-        case Some(PuzzleHead(_, _, l)) => fuccess(l)
-        // new player
-        case _ => fuccess(puzzleIdMin)
-      }) flatMap { lastId =>
-        tryRange(
-          rating = rating,
-          tolerance = step,
-          step = step,
-          idRange = Range(lastId, lastId + 200)
-        )
-      }
-    }
+    tryRange(
+      rating = rating,
+      tolerance = step,
+      step = step,
+      idRange = Range(lastPlayed, lastPlayed + 200)
+    )
   }
 
   private def tryRange(
@@ -79,6 +77,10 @@ private[puzzle] final class Selector(
 }
 
 private final object Selector {
+
+  case object NoPuzzlesAvailableException extends lila.base.LilaException {
+    val message = "No puzzles available"
+  }
 
   val toleranceMax = 1000
 
