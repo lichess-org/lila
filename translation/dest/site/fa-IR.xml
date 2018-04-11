@@ -171,8 +171,8 @@
   <string name="rankX">رتبه:%s</string>
   <string name="rankIsUpdatedEveryXMinutes">رتبه در هر %s دقیقه به روز رسانی می شود</string>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s پازل</item>
-    <item quantity="other">%s پازل</item>
+    <item quantity="one">%s معما</item>
+    <item quantity="other">%s معما</item>
   </plurals>
   <string name="gamesPlayed">تعداد بازی های انجام شده</string>
   <plurals name="nbGamesWithYou">
