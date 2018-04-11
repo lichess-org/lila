@@ -221,6 +221,25 @@ final class PlanApi(
     }
   }
 
+  def isLifetime(user: User): Fu[Boolean] = userPatron(user) map {
+    _.exists(_.isLifetime)
+  }
+
+  def setLifetime(user: User): Funit = isLifetime(user) flatMap {
+    case true => funit
+    case _ => UserRepo.setPlan(user, lila.user.Plan(
+      months = user.plan.months | 1,
+      active = true,
+      since = user.plan.since orElse DateTime.now.some
+    )) >> patronColl.update(
+      $id(user.id),
+      $set(
+        "lastLevelUp" -> DateTime.now,
+        "lifetime" -> true
+      )
+    ).void >>- lightUserApi.invalidate(user.id)
+  }
+
   private val recentChargeUserIdsNb = 50
   private val recentChargeUserIdsCache = asyncCache.single[List[User.ID]](
     name = "plan.recentChargeUserIds",

@@ -257,6 +257,8 @@ object Mod extends LilaController {
           modApi.setPermissions(me.id, user.username, Permission(permissions)) >> {
             (Permission(permissions) diff Permission(user.roles) contains Permission.Coach) ??
               Env.security.automaticEmail.onBecomeCoach(user)
+          } >> {
+            Permission(permissions).exists(_ is Permission.SeeReport) ?? Env.plan.api.setLifetime(user)
           } inject redirect(user.username, true)
       )
     }
