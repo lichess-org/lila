@@ -23,7 +23,8 @@ final class DataForm {
     position = StartingPosition.initial.fen,
     `private` = None,
     password = None,
-    mode = Mode.Rated.id.some
+    mode = Mode.Rated.id.some,
+    conditions = Condition.DataForm.AllSetup.default
   )
 
   private val nameType = nonEmptyText.verifying(
@@ -45,7 +46,8 @@ final class DataForm {
     "position" -> nonEmptyText,
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
     "private" -> optional(text.verifying("on" == _)),
-    "password" -> optional(nonEmptyText)
+    "password" -> optional(nonEmptyText),
+    "conditions" -> Condition.DataForm.all
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
     .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
@@ -112,7 +114,8 @@ private[tournament] case class TournamentSetup(
     position: String,
     mode: Option[Int],
     `private`: Option[String],
-    password: Option[String]
+    password: Option[String],
+    conditions: Condition.DataForm.AllSetup
 ) {
 
   def validClock = (clockTime + clockIncrement) > 0
