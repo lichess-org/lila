@@ -6,9 +6,14 @@
 @moreJs = {
 @jsTag("tournamentForm.js")
 }
+@moreCss = {
+@cssTag("tournament.form.css")
+@cssTag("material.form.css")
+}
 
 @tournament.layout(
 title = s"${trans.newTournament()}",
+moreCss = moreCss,
 moreJs = moreJs) {
 <div id="tournament">
   <div class="content_box small_box tournament_box">
@@ -68,67 +73,24 @@ moreJs = moreJs) {
             <th><label for="@form("waitMinutes").id">@trans.timeBeforeTournamentStarts()</label></th>
             <td>@base.form.select(form("waitMinutes"), waitMinuteChoices)</td>
           </tr>
-          <tr>
-            <th></th>
-            <td>
-              <button type="submit" class="submit button" data-icon="g">
-                @trans.createANewTournament()
-              </button>
-              <br /><br />
-              <a href="@routes.Tournament.home()">@trans.cancel()</a>
-            </td>
-          </tr>
         </tbody>
       </table>
-      <fieldset>
-        <legend>Conditions of entry</legend>
+      <fieldset class="conditions">
+        <legend>&nbsp;Conditions of entry&nbsp;</legend>
         <p>
-          <strong>We recommend leaving these empty.<strong>
+          <strong data-icon="!" class="text">We recommend leaving these empty.</strong>
           If you set conditions of entry, your tournament will have fewer players.
+          <a class="show blue">Show conditions of entry</a>
         </p>
-        <table>
-          <tbody>
-            <tr>
-              <th><label for="@form("conditions.nbRatedGame.nb").id">Minimum rated games</label></th>
-              <td>@base.form.select(field, Condition.DataForm.nbRatedGameChoices)</td>
-            </tr>
-            <tr>
-              <th><label for="@form("conditions.nbRatedGame.nb").id">Minimum rated games</label></th>
-              <td>@base.form.select(field, Condition.DataForm.nbRatedGameChoices)</td>
-            </tr>
-            <tr>
-              <th><label for="@form("conditions.nbRatedGame.nb").id">Minimum rated games</label></th>
-              <td>@base.form.select(field, Condition.DataForm.nbRatedGameChoices)</td>
-            </tr>
-            <tr>
-              <th><label for="@form("conditions.nbRatedGame.nb").id">Minimum rated games</label></th>
-              <td>@base.form.select(field, Condition.DataForm.nbRatedGameChoices)</td>
-            </tr>
-        <div>
-          @base.form.group(form("conditions.nbRatedGame.nb"), Html("Minimum rated games"), half = true) { field =>
-          @base.form.select(field, Condition.DataForm.nbRatedGameChoices)
-          }
-          @base.form.group(form("conditions.nbRatedGame.perf"), Html("In variant"), half = true) { field =>
-          @base.form.select(field, ("", "Any") :: Condition.DataForm.perfChoices)
-          }
-        </div>
-        <div>
-          @base.form.group(form("conditions.maxRating.rating"), Html("Maximum top rating"), half = true) { field =>
-          @base.form.select(field, Condition.DataForm.maxRatingChoices)
-          }
-          @base.form.group(form("conditions.maxRating.perf"), Html("In variant"), half = true) { field =>
-          @base.form.select(field, Condition.DataForm.perfChoices)
-          }
-        </div>
-        <div>
-          @base.form.group(form("conditions.minRating.rating"), Html("Minimum top rating"), half = true) { field =>
-          @base.form.select(field, Condition.DataForm.minRatingChoices)
-          }
-          @base.form.group(form("conditions.minRating.perf"), Html("In variant"), half = true) { field =>
-          @base.form.select(field, Condition.DataForm.perfChoices)
-          }
+        <div class="material form">
+          @tournament.conditionForm(form)
         </div>
       </fieldset>
+      <button type="submit" class="submit button" data-icon="g">
+        @trans.createANewTournament()
+      </button>
+      <br /><br />
+      <a href="@routes.Tournament.home()">@trans.cancel()</a>
     </form>
     <div class="none private_time">
       @base.form.select(form("clockTime"), clockTimePrivateChoices)

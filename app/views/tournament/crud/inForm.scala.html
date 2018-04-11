@@ -2,7 +2,6 @@
 
 @import lidraughts.tournament.DataForm._
 @import lidraughts.tournament.crud.CrudForm._
-@import lidraughts.tournament.Condition
 @import lidraughts.rating.PerfType
 
 <div>
@@ -47,31 +46,5 @@
 @tournament.startingPosition(field)
 }
 <h2>Conditions of entry</h2>
-<div>
-  @base.form.group(form("conditions.nbRatedGame.nb"), Html("Minimum rated games"), half = true) { field =>
-  @base.form.select(field, Condition.DataForm.nbRatedGameChoices)
-  }
-  @base.form.group(form("conditions.nbRatedGame.perf"), Html("In variant"), half = true) { field =>
-  @base.form.select(field, ("", "Any") :: Condition.DataForm.perfChoices)
-  }
-</div>
-<div>
-  @base.form.group(form("conditions.maxRating.rating"), Html("Maximum top rating"), half = true) { field =>
-  @base.form.select(field, Condition.DataForm.maxRatingChoices)
-  }
-  @base.form.group(form("conditions.maxRating.perf"), Html("In variant"), half = true) { field =>
-  @base.form.select(field, Condition.DataForm.perfChoices)
-  }
-</div>
-<div>
-  @base.form.group(form("conditions.minRating.rating"), Html("Minimum top rating"), half = true) { field =>
-  @base.form.select(field, Condition.DataForm.minRatingChoices)
-  }
-  @base.form.group(form("conditions.minRating.perf"), Html("In variant"), half = true) { field =>
-  @base.form.select(field, Condition.DataForm.perfChoices)
-  }
-</div>
-@base.form.group(form("conditions.titled"), Html("Only titled players")) { field =>
-@base.form.select(field, booleanChoices)
-}
+@tournament.conditionForm(form)
 @base.form.submit()
