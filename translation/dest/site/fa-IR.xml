@@ -246,15 +246,15 @@
     <item quantity="one">%s بازی در حال انجام</item>
     <item quantity="other">%s بازی در حال انجام</item>
   </plurals>
-  <string name="exportGames">لیست بازیها را بفرست</string>
+  <string name="exportGames">استخراج بازی ها</string>
   <string name="ratingRange">حدود ریتینگ</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s ثانیه اضافه کن</item>
     <item quantity="other">%s ثانیه اضافه کن</item>
   </plurals>
-  <string name="giveMoreTime">زمان بیشتری بدهید</string>
-  <string name="thisPlayerUsesChessComputerAssistance">این بازیکن از رایانه کمک می گیرد</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">این بازیکن رتبه‌اش را به شکل مجازی بالا و پایین می‌کند</string>
+  <string name="giveMoreTime">افزایش زمان حریف</string>
+  <string name="thisPlayerUsesChessComputerAssistance">این بازیکن از رایانه کمک می گیرد.</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">این بازیکن امتیازش را به شکل مجازی افرایش/کاهش می دهد.</string>
   <string name="openingExplorerAndTablebase">جستجوگر گشایش ها و جدول های مرجع آخربازی</string>
   <string name="takeback">پس گرفتن حرکت</string>
   <string name="proposeATakeback">پیشنهاد پس گرفتن حرکت</string>
