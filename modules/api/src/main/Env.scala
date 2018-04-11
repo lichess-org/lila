@@ -67,7 +67,7 @@ final class Env(
   )
   val roundRouterSetting = settingStore[Boolean](
     "roundRouter",
-    default = true,
+    default = false,
     text = "enable round router".some
   )
 
