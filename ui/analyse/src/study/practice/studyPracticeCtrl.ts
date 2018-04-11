@@ -64,8 +64,8 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
 
   function saveNbMoves(): void {
     const chapterId = getStudy().currentChapter().id,
-    former = data.completion[chapterId] || 999;
-    if (nbMoves() < former) {
+    former = data.completion[chapterId];
+    if (typeof former === 'undefined' || nbMoves() < former) {
       data.completion[chapterId] = nbMoves();
       xhr.practiceComplete(chapterId, nbMoves());
     }
