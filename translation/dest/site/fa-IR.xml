@@ -223,7 +223,7 @@
   <string name="subject">عنوان</string>
   <string name="recipient">گیرنده</string>
   <string name="send">ارسال</string>
-  <string name="incrementInSeconds">افزایش در ثانیه</string>
+  <string name="incrementInSeconds">پاداش زمانی(به ثانیه)</string>
   <string name="freeOnlineChess">شطرنج آنلاین رایگان</string>
   <string name="spectators">تماشاگران :</string>
   <plurals name="nbRated">
@@ -253,7 +253,7 @@
     <item quantity="other">%s ثانیه اضافه کن</item>
   </plurals>
   <string name="giveMoreTime">افزایش زمان حریف</string>
-  <string name="thisPlayerUsesChessComputerAssistance">این بازیکن از رایانه کمک می گیرد.</string>
+  <string name="thisPlayerUsesChessComputerAssistance">این بازیکن از رایانه کمک می گیرد  :|</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">این بازیکن امتیازش را به شکل مجازی افرایش/کاهش می دهد.</string>
   <string name="openingExplorerAndTablebase">جستجوگر گشایش ها و جدول های مرجع آخربازی</string>
   <string name="takeback">پس گرفتن حرکت</string>
