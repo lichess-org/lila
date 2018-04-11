@@ -98,12 +98,19 @@ object Account extends LilaController {
     Env.security.forms.changeEmail(user, _)
   }
 
-  def email = Auth { implicit ctx => me =>
-    if (getBool("check")) Ok(renderCheckYourEmail).fuccess
-    else emailForm(me) map { form =>
-      Ok(html.account.email(me, form))
-    }
-  }
+  def email = AuthOrScoped(_.Email.Read)(
+    auth = implicit ctx => me =>
+      if (getBool("check")) Ok(renderCheckYourEmail).fuccess
+      else emailForm(me) map { form =>
+        Ok(html.account.email(me, form))
+      },
+    scoped = _ => me =>
+      UserRepo email me.id map {
+        _ ?? { email =>
+          Ok(Json.obj("email" -> email.value))
+        }
+      }
+  )
 
   def renderCheckYourEmail(implicit ctx: Context) =
     html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
