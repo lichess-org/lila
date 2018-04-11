@@ -19,7 +19,7 @@
   <string name="white">سفید</string>
   <string name="black">سیاه</string>
   <string name="randomColor">رنگ تصادفی</string>
-  <string name="createAGame">ایجاد یک بازی</string>
+  <string name="createAGame">ایجاد بازی</string>
   <string name="whiteIsVictorious">بازیکن سفید برنده است</string>
   <string name="blackIsVictorious">بازیکن سیاه برنده است</string>
   <string name="kingInTheCenter">شاه در مرکز</string>
@@ -35,7 +35,7 @@
   <string name="makeYourOpponentResign">ادعای پیروزی کنید</string>
   <string name="forceResignation">ادعای پیروزی</string>
   <string name="forceDraw">اعلام تساوی</string>
-  <string name="talkInChat">لطفا در گپ زدن مودب باشید</string>
+  <string name="talkInChat">لطفا در گپ زدن مودب باشید!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این لینک بیاید با شما بازی می کند</string>
   <string name="whiteResigned">بازیکن سفید تسلیم شد</string>
   <string name="blackResigned">بازیکن سیاه تسلیم شد</string>
@@ -91,7 +91,7 @@
   <string name="delete">حذف</string>
   <string name="deleteThisImportedGame">آیا این بازی بارگذاری شده حذف شود؟</string>
   <string name="replayMode">حالت پخش</string>
-  <string name="realtimeReplay">زمان واقعی</string>
+  <string name="realtimeReplay">بدون وقفه</string>
   <string name="byCPL">حرکات مهم</string>
   <string name="openStudy">شروع مطالعه</string>
   <string name="enable">فعال سازی</string>
