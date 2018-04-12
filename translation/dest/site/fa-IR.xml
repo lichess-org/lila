@@ -165,8 +165,8 @@
   <string name="changePassword">تغییر کلمه عبور</string>
   <string name="changeEmail">تغییر ایمیل</string>
   <string name="email">ایمیل</string>
-  <string name="passwordReset">بازیابی پسورد</string>
-  <string name="forgotPassword">آیا رمز عبور را فراموش کرده اید؟</string>
+  <string name="passwordReset">بازیابی کلمه عبور</string>
+  <string name="forgotPassword">آیا کلمه عبور را فراموش کرده اید؟</string>
   <string name="rank">رتبه</string>
   <string name="rankX">رتبه:%s</string>
   <string name="rankIsUpdatedEveryXMinutes">رتبه در هر %s دقیقه به روز رسانی می شود</string>
@@ -247,14 +247,14 @@
     <item quantity="other">%s بازی در حال انجام</item>
   </plurals>
   <string name="exportGames">استخراج بازی ها</string>
-  <string name="ratingRange">حدود ریتینگ</string>
+  <string name="ratingRange">محدوده ریتینگ</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s ثانیه اضافه کن</item>
     <item quantity="other">%s ثانیه اضافه کن</item>
   </plurals>
   <string name="giveMoreTime">افزایش زمان حریف</string>
-  <string name="thisPlayerUsesChessComputerAssistance">این بازیکن از رایانه کمک می گیرد  :|</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">این بازیکن امتیازش را به شکل مجازی افرایش/کاهش می دهد.</string>
+  <string name="thisPlayerUsesChessComputerAssistance">این بازیکن از رایانه کمک می گیرد  :/</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">این بازیکن امتیازش را به شکل مجازی تغییر می دهد.</string>
   <string name="openingExplorerAndTablebase">جستجوگر گشایش ها و جدول های مرجع آخربازی</string>
   <string name="takeback">پس گرفتن حرکت</string>
   <string name="proposeATakeback">پیشنهاد پس گرفتن حرکت</string>
@@ -262,8 +262,8 @@
   <string name="takebackPropositionDeclined">پیشنهاد پس گرفتن حرکت رد شد</string>
   <string name="takebackPropositionAccepted">پیشنهاد پس گرفتن حرکت پذیرفته شد</string>
   <string name="takebackPropositionCanceled">پیشنهاد پس گرفتن حرکت لغو شد</string>
-  <string name="yourOpponentProposesATakeback">حریف پیشنهاد پس گرفتن حرکت میدهد</string>
-  <string name="bookmarkThisGame">این بازی را نشانه گذاری کن</string>
+  <string name="yourOpponentProposesATakeback">حریف پیشنهاد پس گرفتن حرکت می دهد</string>
+  <string name="bookmarkThisGame">نشان گذاری بازی</string>
   <string name="search">جستجو</string>
   <string name="advancedSearch">جستجوی پیشرفته</string>
   <string name="tournament">مسابقه</string>
@@ -294,24 +294,24 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">امتیاز%s شما قطعی نشده است.</string>
   <string name="yourPerfRatingIsTooHigh">امتیاز %1$s شما (%2$s) بیشتر از حد مجاز است!</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">امتیاز %1$s شما(%2$s) بیشتر از حد مجاز است.</string>
-  <string name="yourPerfRatingIsTooLow">امتیاز%1$s شما(%2$s) کمتر از حد مجاز است.</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">امتیاز %1$s شما(%2$s) بیشتر از حد مجاز است!</string>
+  <string name="yourPerfRatingIsTooLow">امتیاز%1$s شما(%2$s) کمتر از حد مجاز است :/</string>
   <string name="ratedMoreThanInPerf">امتیاز %2$s بالاتر از %1$s لازم است.</string>
   <string name="ratedLessThanInPerf">برای ورود،امتیاز%2$s شما باید کمتر از%1$s باشد.</string>
   <string name="backToGame">بازگشت به بازی</string>
-  <string name="siteDescription">بازی شطرنج آنلاین رایگان. همین حالا شطرنج بازی کنید. بدون نیاز به ثبت نام، بدون تبلیغات، بدون نیاز به افزونه. بازی با کامپیوتر، دوستان و یا حریفان تصادفی.</string>
-  <string name="teams">تیم‌ها</string>
+  <string name="siteDescription">شطرنج آنلاین رایگان. همین حالا شطرنج بازی کنید. بدون نیاز به ثبت نام، بدون تبلیغات، بدون نیاز به افزونه. بازی با کامپیوتر، دوستان و یا حریفان تصادفی.</string>
+  <string name="teams">تیم‌ ها</string>
   <plurals name="nbMembers">
     <item quantity="one">%s عضو</item>
     <item quantity="other">%s عضو</item>
   </plurals>
-  <string name="allTeams">همه تیم‌ها</string>
-  <string name="newTeam">تیم جدید</string>
-  <string name="myTeams">تیم‌های من</string>
+  <string name="allTeams">همه تیم‌ ها</string>
+  <string name="newTeam">ایجاد تیم جدید</string>
+  <string name="myTeams">تیم‌ های من</string>
   <string name="noTeamFound">تیمی پیدا نشد</string>
   <string name="joinTeam">پیوستن به تیم</string>
-  <string name="quitTeam">خارج شدن از تیم</string>
-  <string name="anyoneCanJoin">هر کسی میتواند ملحق شود</string>
+  <string name="quitTeam">خروج از تیم</string>
+  <string name="anyoneCanJoin">هر کسی می تواند ملحق شود</string>
   <string name="aConfirmationIsRequiredToJoin">تایید مورد نیاز برای پیوستن به تیم</string>
   <string name="joiningPolicy">سیاست پیوستن</string>
   <string name="teamLeader">سر دسته تیم</string>
