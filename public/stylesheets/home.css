@@ -611,7 +611,7 @@ div.lichess_overboard .color_submits .spinner {
   background: #ddd;
   text-shadow: 0 1px 1px #fff;
 }
-.tour_spotlight.invert:not(.Yearly),
+.tour_spotlight.invert,
 .tour_spotlight.event_spotlight,
 .tour_spotlight:hover {
   color: #fff!important;
@@ -673,6 +673,7 @@ div.lichess_overboard .color_submits .spinner {
   font-size: 28px;
 }
 .tour_spotlight.little {
+  display: none;
   margin: 5px 0 2.5px -30px;
   padding: 5px;
 }
