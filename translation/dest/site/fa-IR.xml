@@ -413,10 +413,10 @@
   <string name="loadPosition">بارگذاری موقعیت</string>
   <string name="isPrivate">خصوصی</string>
   <string name="reportXToModerators">گزارش %s به مدیران سایت</string>
-  <string name="profileCompletion">میزان تکمیل حساب کاربری:s%</string>
-  <string name="xRating">ریتینگ s%</string>
+  <string name="profileCompletion">میزان تکمیل حساب کاربری:%s</string>
+  <string name="xRating">ریتینگ %s</string>
   <string name="ifNoneLeaveEmpty">اگر ندارید،خالی بگذارید</string>
-  <string name="gameCompletionRate">میزان به اتمام رساندن بازی ها:s%</string>
+  <string name="gameCompletionRate">میزان به اتمام رساندن بازی ها:%s</string>
   <string name="profile">پروفایل</string>
   <string name="editProfile">ویرایش پروفایل</string>
   <string name="firstName">نام</string>
