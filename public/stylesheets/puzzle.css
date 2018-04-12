@@ -182,7 +182,7 @@ body.dark #puzzle .feedback {
 }
 
 #puzzle .timeline {
-  display: none;
+  display: flex;
   margin-top: 10px;
 }
 #puzzle .timeline > * {
