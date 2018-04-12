@@ -347,26 +347,26 @@
   <string name="noFriendsOnline">هیچ دوستی آنلاین نیست</string>
   <string name="findFriends">پیدا کردن دوست</string>
   <string name="favoriteOpponents">رقبای مورد علاقه</string>
-  <string name="follow">دنبال کن</string>
-  <string name="following">دنبال میکنید</string>
-  <string name="unfollow">دنبال نکن</string>
+  <string name="follow">دنبال کردن</string>
+  <string name="following">افرادی که دنبال می کنید</string>
+  <string name="unfollow">لغو دنبال کردن</string>
   <string name="block">مسدود کن</string>
   <string name="blocked">مسدود شده</string>
-  <string name="unblock">مسدود نکن</string>
-  <string name="followsYou">شما را دنبال میکند</string>
-  <string name="xStartedFollowingY">%1$s کاربر %2$s را دنبال می‌کند</string>
+  <string name="unblock">لغو انسداد</string>
+  <string name="followsYou">افرادی که شما را دنبال می کنند</string>
+  <string name="xStartedFollowingY">%1$s %2$s را فالو کرد</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s دنبال کننده‌</item>
     <item quantity="other">%s دنبال کننده‌</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s دنبال میکند</item>
+    <item quantity="one">%s دنبال می کند</item>
     <item quantity="other">%s دنبال میکند</item>
   </plurals>
   <string name="more">بیشتر</string>
-  <string name="memberSince">عضویت</string>
+  <string name="memberSince">عضویت از تاریخ</string>
   <string name="lastSeenActive">آخرین ورود %s</string>
-  <string name="challengeToPlay">چالش برای بازی</string>
+  <string name="challengeToPlay">دعوت به بازی</string>
   <string name="player">بازیکن</string>
   <string name="list">لیست</string>
   <string name="graph">نمودار</string>
