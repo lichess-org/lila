@@ -38,7 +38,9 @@ private[puzzle] final class Selector(
               api.round.reset(user) >> api.puzzle.find(puzzleIdMin)
             }
           }
-          case Some(found) => api.head.addNew(user, found.id) inject found.some
+          case Some(found) => fuccess(found.some)
+        } flatMap { puzzleOption =>
+          puzzleOption ?? { p => api.head.addNew(user, p.id) } inject puzzleOption
         }
       }
     }
