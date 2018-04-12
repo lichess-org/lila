@@ -1,5 +1,5 @@
 const headers = {
-  'Accept': 'application/vnd.lichess.v2+json'
+  'Accept': 'application/vnd.lichess.v3+json'
 };
 
 export function seeks() {
@@ -11,7 +11,7 @@ export function seeks() {
 
 export function nowPlaying() {
   return $.ajax({
-    url: '/account/info',
+    url: '/account/now-playing',
     headers: headers
   }).then(function(o) {
     return o.nowPlaying;

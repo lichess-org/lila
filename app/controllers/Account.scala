@@ -53,6 +53,16 @@ object Account extends LilaController {
     )
   }
 
+  def nowPlaying = Auth { implicit ctx => me =>
+    negotiate(
+      html = notFound,
+      api = _ => lila.game.GameRepo.urgentGames(me) map { povs =>
+        val nb = getInt("nb") | 9
+        Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map Env.api.lobbyApi.nowPlaying)))
+      }
+    )
+  }
+
   def me = Scoped() { _ => me =>
     Env.api.userApi.extended(me, me.some) map { json =>
       Ok(json) as JSON

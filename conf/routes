@@ -518,6 +518,7 @@ POST  /account/kidConfirm              controllers.Account.kidToggle
 GET   /account/security                controllers.Account.security
 POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: String)
 GET   /account/info                    controllers.Account.info
+GET   /account/now-playing             controllers.Account.nowPlaying
 GET   /account/me                      controllers.Account.me
 
 # OAuth
