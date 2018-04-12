@@ -115,8 +115,8 @@
   <string name="offerDraw">پیشنهاد مساوی</string>
   <string name="draw">مساوی</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s نفر بازیکن حاضر</item>
-    <item quantity="other">%s نفر بازیکنان حاضر</item>
+    <item quantity="one">%s نفر بازیکن آنلاین</item>
+    <item quantity="other">%s نفر بازیکن آنلاین</item>
   </plurals>
   <string name="currentGames">بازی های در جریان</string>
   <plurals name="nbGames">
