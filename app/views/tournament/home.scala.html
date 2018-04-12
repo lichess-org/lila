@@ -3,7 +3,6 @@
 @moreJs = {
 @jsTag("vendor/jquery.infinitescroll.min.js")
 @jsAt(s"compiled/lichess.tournament-schedule${isProd??(".min")}.js")
-@jsAt("javascripts/vendor/dragscroll.js")
 @embedJs {
 var app = LichessTournamentSchedule.app(document.getElementById('tournament_schedule'), {
 data: @safeJson(json),

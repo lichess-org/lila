@@ -1227,6 +1227,10 @@ domain-browser@~1.1.0:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.1.7.tgz#867aa4b093faa05f1de08c06f4d7b21fdf8698bc"
 
+dragscroll@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/dragscroll/-/dragscroll-0.0.8.tgz#de4771e5f3a14d77b583ecef5d38bd9618f27563"
+
 duplexer2@0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/duplexer2/-/duplexer2-0.0.2.tgz#c614dcf67e2fb14995a91711e5a617e8a60a31db"
