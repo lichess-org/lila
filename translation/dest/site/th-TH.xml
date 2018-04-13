@@ -359,6 +359,7 @@
   <string name="winner">ผู้ชนะ</string>
   <string name="standing">อันดับ</string>
   <string name="createANewTournament">สร้างทัวร์นาเมนต์ใหม่</string>
+  <string name="tournamentCalendar">ปฏิทินทัวร์นาเมนต์</string>
   <string name="join">เข้าร่วม</string>
   <string name="withdraw">ถอนตัว</string>
   <string name="points">แต้ม</string>
