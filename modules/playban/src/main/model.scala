@@ -29,9 +29,21 @@ case class UserRecord(
     case _ => 2
   }
 
+  def badOutcomesStreakSize: Int = bans.size match {
+    case 0 => 6
+    case 1 | 2 => 5
+    case _ => 4
+  }
+
   def bannable: Option[TempBan] = {
-    outcomes.lastOption.exists(_ != Outcome.Good) &&
-      badOutcomeScore >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes)
+    outcomes.lastOption.exists(_ != Outcome.Good) && {
+      // too many bad overall
+      badOutcomeScore >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes) || {
+        // bad result streak
+        outcomes.size >= badOutcomesStreakSize &&
+          outcomes.takeRight(badOutcomesStreakSize).forall(Outcome.Good !=)
+      }
+    }
   } option TempBan.make(bans)
 }
 

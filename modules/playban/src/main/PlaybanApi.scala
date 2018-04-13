@@ -1,12 +1,11 @@
 package lidraughts.playban
 
-import reactivemongo.bson._
-
 import draughts.{ Status, Color }
 import lidraughts.db.BSON._
 import lidraughts.db.dsl._
 import lidraughts.game.{ Pov, Game, Player, Source }
 import lidraughts.user.{ User, UserRepo }
+import lidraughts.common.PlayApp.{ startedSinceMinutes, isDev }
 
 final class PlaybanApi(
     coll: Coll,
@@ -35,7 +34,7 @@ final class PlaybanApi(
     }
 
   private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
-    lidraughts.common.PlayApp.startedSinceMinutes(10) ?? {
+    (isDev || startedSinceMinutes(10)) ?? {
       blameable(game) flatMap { _ ?? f }
     }
 
