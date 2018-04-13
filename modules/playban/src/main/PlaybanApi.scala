@@ -7,6 +7,7 @@ import lila.db.BSON._
 import lila.db.dsl._
 import lila.game.{ Pov, Game, Player, Source }
 import lila.user.{ User, UserRepo }
+import lila.common.PlayApp.{ startedSinceMinutes, isDev }
 
 final class PlaybanApi(
     coll: Coll,
@@ -35,7 +36,7 @@ final class PlaybanApi(
     }
 
   private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
-    lila.common.PlayApp.startedSinceMinutes(10) ?? {
+    (isDev || startedSinceMinutes(10)) ?? {
       blameable(game) flatMap { _ ?? f }
     }
 
