@@ -55,7 +55,12 @@ final class StreamerApi(
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
-    coll.update($id(streamer.id), streamer) >>-
+    val writeConcern = reactivemongo.api.commands.GetLastError.ReplicaAcknowledged(
+      n = 3,
+      timeout = 3000,
+      journaled = false
+    )
+    coll.update($id(streamer.id), streamer, writeConcern = writeConcern) >>-
       listedIdsCache.refresh inject {
         val modChange = Streamer.ModChange(
           list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
