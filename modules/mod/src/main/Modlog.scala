@@ -36,7 +36,6 @@ case class Modlog(
     case Modlog.deleteQaQuestion => "delete Q&A question"
     case Modlog.deleteQaAnswer => "delete Q&A answer"
     case Modlog.deleteQaComment => "delete Q&A comment"
-    case Modlog.streamConfig => "update streams config"
     case Modlog.practiceConfig => "update practice config"
     case Modlog.deleteTeam => "delete team"
     case Modlog.terminateTournament => "terminate tournament"
@@ -54,6 +53,10 @@ case class Modlog(
     case Modlog.cheatDetected => "game lost by cheat detection"
     case Modlog.cli => "run CLI command"
     case Modlog.garbageCollect => "garbage collect"
+    case Modlog.streamerList => "list streamer"
+    case Modlog.streamerUnlist => "unlist streamer"
+    case Modlog.streamerFeature => "feature streamer"
+    case Modlog.streamerUnfeature => "unfeature streamer"
     case a => a
   }
 
@@ -96,7 +99,6 @@ object Modlog {
   val deleteQaQuestion = "deleteQaQuestion"
   val deleteQaAnswer = "deleteQaAnswer"
   val deleteQaComment = "deleteQaComment"
-  val streamConfig = "streamConfig"
   val practiceConfig = "practiceConfig"
   val deleteTeam = "deleteTeam"
   val terminateTournament = "terminateTournament "
@@ -111,4 +113,8 @@ object Modlog {
   val cheatDetected = "cheatDetected"
   val cli = "cli"
   val garbageCollect = "garbageCollect"
+  val streamerList = "streamerList"
+  val streamerUnlist = "streamerunlist"
+  val streamerFeature = "streamerFeature"
+  val streamerUnfeature = "streamerUnfeature"
 }

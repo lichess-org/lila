@@ -12,11 +12,14 @@ trait AssetHelper { self: I18nHelper =>
   def isProd: Boolean
 
   val assetDomain = lila.api.Env.current.Net.AssetDomain
+  val socketDomain = lila.api.Env.current.Net.SocketDomain
 
   val assetBaseUrl = s"//$assetDomain"
 
+  def assetRoute(path: String) = s"/assets/$path"
+
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
-  def staticUrl(path: String) = s"$assetBaseUrl${routes.Assets.at(path)}"
+  def staticUrl(path: String) = s"$assetBaseUrl${assetRoute(path)}"
 
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
@@ -27,7 +30,7 @@ trait AssetHelper { self: I18nHelper =>
     cssAt("vendor/" + name, staticDomain)
 
   def cssAt(path: String, staticDomain: Boolean, version: AssetVersion): Html = Html {
-    val href = if (staticDomain) staticUrl(path) else routes.Assets.at(path)
+    val href = if (staticDomain) staticUrl(path) else assetRoute(path)
     s"""<link href="$href?v=$version" type="text/css" rel="stylesheet"/>"""
   }
   def cssAt(path: String, staticDomain: Boolean = true)(implicit ctx: Context): Html =

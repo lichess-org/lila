@@ -22,16 +22,17 @@ final class LobbyApi(
       (ctx.me ?? GameRepo.urgentGames) zip
       getFilter(ctx) flatMap {
         case seeks ~ povs ~ filter =>
-          lightUserApi.preloadMany(povs.flatMap(_.opponent.userId)) inject {
+          val displayedPovs = povs take 9
+          lightUserApi.preloadMany(displayedPovs.flatMap(_.opponent.userId)) inject {
             Json.obj(
               "me" -> ctx.me.map { u =>
                 Json.obj("username" -> u.username)
               },
               "seeks" -> JsArray(seeks map (_.render)),
-              "nowPlaying" -> JsArray(povs take 9 map nowPlaying),
+              "nowPlaying" -> JsArray(displayedPovs map nowPlaying),
               "nbNowPlaying" -> povs.size,
               "filter" -> filter.render
-            ) -> povs
+            ) -> displayedPovs
           }
       }
 

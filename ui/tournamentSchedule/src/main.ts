@@ -4,8 +4,11 @@ import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
+import dragscroll from 'dragscroll';
 
 const patch = init([klass, attributes]);
+
+dragscroll // required to include the dependency :( :( :(
 
 export function app(element: HTMLElement, env: any) {
 

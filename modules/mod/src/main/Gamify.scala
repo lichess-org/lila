@@ -8,8 +8,8 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.user.UserRepo.lichessId
 import lila.report.Room
+import lila.user.User.lichessId
 
 final class Gamify(
     logColl: Coll,
@@ -88,20 +88,20 @@ final class Gamify(
   private val notLichess = $doc("$ne" -> lichessId)
 
   private def actionLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
-    logColl.aggregate(Match($doc(
+    logColl.aggregateList(Match($doc(
       "date" -> dateRange(after, before),
       "mod" -> notLichess
     )), List(
       GroupField("mod")("nb" -> SumValue(1)),
       Sort(Descending("nb"))
-    )).map {
-      _.firstBatch.flatMap { obj =>
+    ), maxDocs = 100).map {
+      _.flatMap { obj =>
         obj.getAs[String]("_id") |@| obj.getAs[Int]("nb") apply ModCount.apply
       }
     }
 
   private def reportLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
-    reportApi.coll.aggregateWithReadPreference(
+    reportApi.coll.aggregateList(
       Match($doc(
         "atoms.0.at" -> dateRange(after, before),
         "room" $in Room.all, // required to make use of the mongodb index room+atoms.0.at
@@ -110,9 +110,10 @@ final class Gamify(
         GroupField("processedBy")("nb" -> SumValue(1)),
         Sort(Descending("nb"))
       ),
+      maxDocs = Int.MaxValue,
       readPreference = ReadPreference.secondaryPreferred
     ).map {
-        _.firstBatch.flatMap { obj =>
+        _.flatMap { obj =>
           obj.getAs[String]("_id") |@| obj.getAs[Int]("nb") apply ModCount.apply
         }
       }

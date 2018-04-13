@@ -35,7 +35,7 @@ private final class RelayFetch(
       logger.error(msg)
       throw new RuntimeException(msg)
 
-    case Tick => api.toSync.flatMap { relays =>
+    case Tick => api.toSync.map(_ take 1).flatMap { relays =>
       lila.mon.relay.ongoing(relays.size)
       relays.map { relay =>
         if (relay.sync.ongoing) processRelay(relay) flatMap { newRelay =>
@@ -44,35 +44,35 @@ private final class RelayFetch(
         else if (relay.hasStarted) {
           logger.info(s"Finish by lack of activity $relay")
           api.update(relay)(_.finish)
+        } else if (relay.shouldGiveUp) {
+          logger.info(s"Finish for lack of start $relay")
+          api.update(relay)(_.finish)
         } else fuccess(relay)
-      }.sequenceFu.chronometer
-        .mon(_.relay.sync.duration.total)
-        .result addEffectAnyway scheduleNext
+      }.sequenceFu addEffectAnyway scheduleNext
     }
   }
 
   // no writing the relay; only reading!
   def processRelay(relay: Relay): Fu[Relay] =
     if (!relay.sync.playing) fuccess(relay.withSync(_.play))
-    else RelayFetch(relay)
-      .chronometer.mon(_.relay.fetch.duration.each).result flatMap { games =>
-        sync(relay, games)
-          .chronometer.mon(_.relay.sync.duration.each).result
-          .withTimeout(500 millis, SyncResult.Timeout)(context.system) map { res =>
-            res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
-          }
-      } recover {
-        case e: Exception => (e match {
-          case res @ SyncResult.Timeout =>
-            logger.info(s"Sync timeout $relay")
-            res
-          case _ =>
-            logger.info(s"Sync error $relay", e)
-            SyncResult.Error(e.getMessage)
-        }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
-      } flatMap {
-        case (result, newRelay) => afterSync(result, newRelay)
-      }
+    else RelayFetch(relay) flatMap { games =>
+      sync(relay, games)
+        .chronometer.mon(_.relay.sync.duration.each).result
+        .withTimeout(1 second, SyncResult.Timeout)(context.system) map { res =>
+          res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
+        }
+    } recover {
+      case e: Exception => (e match {
+        case res @ SyncResult.Timeout =>
+          logger.info(s"Sync timeout $relay")
+          res
+        case _ =>
+          logger.info(s"Sync error $relay ${e.getMessage take 80}")
+          SyncResult.Error(e.getMessage)
+      }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
+    } flatMap {
+      case (result, newRelay) => afterSync(result, newRelay)
+    }
 
   def afterSync(result: SyncResult, relay: Relay): Fu[Relay] = {
     lila.mon.relay.sync.result(result.reportKey)()
@@ -93,12 +93,12 @@ private final class RelayFetch(
     (if (r.sync.log.alwaysFails) fuccess(30) else (r.sync.delay match {
       case Some(delay) => fuccess(delay)
       case None => api.getNbViewers(r) map { nb =>
-        if (r.sync.upstream.heavy) (16 - nb) atLeast 6
-        else (11 - nb) atLeast 3
+        if (r.sync.upstream.heavy) (18 - nb) atLeast 8
+        else (13 - nb) atLeast 5
       }
     })) map { seconds =>
       r.withSync(_.copy(nextAt = DateTime.now plusSeconds {
-        seconds atLeast { if (r.sync.log.isOk) 3 else 10 }
+        seconds atLeast { if (r.sync.log.isOk) 5 else 15 }
       } some))
     }
 }
@@ -137,7 +137,7 @@ private object RelayFetch {
   private def dgtOneFile(file: String, max: Int): Fu[MultiPgn] =
     httpGet(file).flatMap {
       case res if res.status == 200 => fuccess(splitPgn(res.body, max))
-      case res => fufail(s"Cannot fetch $file (error ${res.status})")
+      case res => fufail(s"[${res.status}]")
     }
 
   import play.api.libs.json._
@@ -156,13 +156,13 @@ private object RelayFetch {
           val gameUrl = s"$dir/game-$number.pgn"
           httpGet(gameUrl).flatMap {
             case res if res.status == 200 => fuccess(number -> res.body)
-            case res => fufail(s"Cannot fetch $gameUrl (error ${res.status})")
+            case res => fufail(s"[${res.status}] game-$number.pgn")
           }
         }.sequenceFu map { results =>
           MultiPgn(results.sortBy(_._1).map(_._2).toList)
         }
       }
-      case res => fufail(s"Cannot fetch $roundUrl (error ${res.status})")
+      case res => fufail(s"[${res.status}] round.json")
     }
   }
 

@@ -98,7 +98,7 @@
   <string name="memory">Пам\'ять</string>
   <string name="infiniteAnalysis">Нескінченний аналіз</string>
   <string name="removesTheDepthLimit">Видаляє обмеження на глибину (ваш комп\'ютер буде гарячим)</string>
-  <string name="blunder">Позіх</string>
+  <string name="blunder">Груба помилка</string>
   <string name="blunders">Грубі помилки</string>
   <string name="mistake">Помилка</string>
   <string name="mistakes">Помилки</string>
@@ -285,6 +285,7 @@
   <string name="winner">Переможець</string>
   <string name="standing">Турнірна таблиця</string>
   <string name="createANewTournament">Створити новий турнір</string>
+  <string name="tournamentCalendar">Календар турніру</string>
   <string name="join">Грати</string>
   <string name="withdraw">Відмовитися</string>
   <string name="points">Очки</string>
@@ -691,6 +692,6 @@
   <string name="conditionalPremoves">Умовні предходи</string>
   <string name="addCurrentVariation">Додати поточний варіант</string>
   <string name="playVariationToCreateConditionalPremoves">Виконайте ходи на шахівниці, аби встановити умовні предходи</string>
-  <string name="noConditionalPremoves">Безумовні предходи</string>
+  <string name="noConditionalPremoves">Безумовні передходи</string>
   <string name="playX">Зіграти %s</string>
 </resources>

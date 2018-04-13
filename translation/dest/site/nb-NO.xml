@@ -71,7 +71,7 @@
   <string name="drawn">Remis</string>
   <string name="unknown">Ukjent</string>
   <string name="database">Database</string>
-  <string name="whiteDrawBlack">Hvit / Remis / Sort</string>
+  <string name="whiteDrawBlack">Hvit / Remis / Svart</string>
   <string name="averageRatingX">Gjennomsnittsrating: %s</string>
   <string name="recentGames">Nylige partier</string>
   <string name="topGames">Topp-partier</string>
@@ -181,7 +181,7 @@
   <string name="gamesPlayed">partier spilt</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partier mot deg</item>
-    <item quantity="other">%s partier med deg</item>
+    <item quantity="other">%s partier mot deg</item>
   </plurals>
   <string name="cancel">Avbryt</string>
   <string name="timeOut">Tiden er ute</string>
@@ -212,7 +212,7 @@
   <string name="rematch">Omkamp</string>
   <string name="rematchOfferSent">Tilbud om omkamp sendt</string>
   <string name="rematchOfferAccepted">Tilbud om omkamp godtatt</string>
-  <string name="rematchOfferCanceled">Tilbud om revansj trukket tilbake</string>
+  <string name="rematchOfferCanceled">Tilbud om omkamp trukket tilbake</string>
   <string name="rematchOfferDeclined">Tilbud om omkamp avslått</string>
   <string name="cancelRematchOffer">Avbryt tilbud om omkamp</string>
   <string name="viewRematch">Se omkamp</string>
@@ -385,6 +385,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="winner">Vinner</string>
   <string name="standing">Resultatliste</string>
   <string name="createANewTournament">Opprett en ny turnering</string>
+  <string name="tournamentCalendar">Turneringskalender</string>
   <string name="join">Bli med</string>
   <string name="withdraw">Trekk deg</string>
   <string name="points">Poeng</string>

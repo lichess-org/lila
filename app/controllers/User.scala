@@ -88,17 +88,15 @@ object User extends LilaController {
               me = ctx.me,
               page = page
             )(ctx.body)
-            res <- {
-              if (HTTPRequest.isSynchronousHttp(ctx.req)) for {
-                info ← Env.current.userInfo(u, nbs, ctx)
-                _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
-                _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
-                _ <- Env.team.cached.nameCache preloadMany info.teamIds
-                social ← Env.current.socialInfo(u, ctx)
-                searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
-              } yield html.user.show.games(u, info, pag, filters, searchForm, social)
-              else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
-            }
+            _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+            _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
+            res <- if (HTTPRequest.isSynchronousHttp(ctx.req)) for {
+              info ← Env.current.userInfo(u, nbs, ctx)
+              _ <- Env.team.cached.nameCache preloadMany info.teamIds
+              social ← Env.current.socialInfo(u, ctx)
+              searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
+            } yield html.user.show.games(u, info, pag, filters, searchForm, social)
+            else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
           } yield res,
           api = _ => apiGames(u, filter, page)
         )
@@ -181,26 +179,21 @@ object User extends LilaController {
 
   def list = Open { implicit ctx =>
     val nb = 10
-    for {
-      leaderboards <- env.cached.leaderboards
-      nbAllTime ← env.cached topNbGame nb
-      nbDay ← fuccess(Nil)
-      // Env.game.cached activePlayerUidsDay nb map {
-      //   _ flatMap { pair =>
-      //     env lightUser pair.userId map { UserModel.LightCount(_, pair.nb) }
-      //   }
-      // }
-      tourneyWinners ← Env.tournament.winners.all.map(_.top)
-      online ← env.cached.getTop50Online
-      _ <- Env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
-      res <- negotiate(
-        html = fuccess(Ok(html.user.list(
+    env.cached.leaderboards flatMap { leaderboards =>
+      negotiate(
+        html = for {
+          nbAllTime ← env.cached topNbGame nb
+          nbDay ← fuccess(Nil)
+          tourneyWinners ← Env.tournament.winners.all.map(_.top)
+          online ← env.cached.getTop50Online
+          _ <- Env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
+        } yield Ok(html.user.list(
           tourneyWinners = tourneyWinners,
           online = online,
           leaderboards = leaderboards,
           nbDay = nbDay,
           nbAllTime = nbAllTime
-        ))),
+        )),
         api = _ => fuccess {
           implicit val lpWrites = OWrites[UserModel.LightPerf](env.jsonView.lightPerfIsOnline)
           Ok(Json.obj(
@@ -208,6 +201,7 @@ object User extends LilaController {
             "blitz" -> leaderboards.blitz,
             "rapid" -> leaderboards.rapid,
             "classical" -> leaderboards.classical,
+            "ultraBullet" -> leaderboards.ultraBullet,
             "crazyhouse" -> leaderboards.crazyhouse,
             "chess960" -> leaderboards.chess960,
             "kingOfTheHill" -> leaderboards.kingOfTheHill,
@@ -219,13 +213,19 @@ object User extends LilaController {
           ))
         }
       )
-    } yield res
+    }
   }
 
-  def top200(perfKey: String) = Open { implicit ctx =>
-    PerfType(perfKey).fold(notFound) { perfType =>
-      env.cached top200Perf perfType.id map { users =>
-        Ok(html.user.top200(perfType, users))
+  def topNb(nb: Int, perfKey: String) = Open { implicit ctx =>
+    PerfType(perfKey) ?? { perfType =>
+      env.cached top200Perf perfType.id map { _ take (nb atLeast 1 atMost 200) } flatMap { users =>
+        negotiate(
+          html = Ok(html.user.top(perfType, users)).fuccess,
+          api = _ => fuccess {
+            implicit val lpWrites = OWrites[UserModel.LightPerf](env.jsonView.lightPerfIsOnline)
+            Ok(Json.obj("users" -> users))
+          }
+        )
       }
     }
   }
@@ -240,8 +240,16 @@ object User extends LilaController {
   }
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx => me =>
-    if (Env.streamer.liveStreamApi.isStreaming(me.id)) fuccess(Ok("Disabled while streaming"))
-    else OptionFuOk(UserRepo named username) { user =>
+    modZoneOrRedirect(username, me)
+  }
+
+  protected[controllers] def modZoneOrRedirect(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
+    if (HTTPRequest isSynchronousHttp ctx.req) fuccess(Mod.redirect(username))
+    else if (Env.streamer.liveStreamApi.isStreaming(me.id)) fuccess(Ok("Disabled while streaming"))
+    else renderModZone(username, me)
+
+  protected[controllers] def renderModZone(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
+    OptionFuOk(UserRepo named username) { user =>
       UserRepo.emails(user.id) zip
         (Env.security userSpy user) zip
         Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) zip
@@ -262,7 +270,6 @@ object User extends LilaController {
               }
         }
     }
-  }
 
   def writeNote(username: String) = AuthBody { implicit ctx => me =>
     OptionFuResult(UserRepo named username) { user =>

@@ -12,6 +12,7 @@ object mon {
     object request {
       val all = inc("http.request.all")
       val ipv6 = inc("http.request.ipv6")
+      def path(p: String) = inc(s"http.request.path.$p")
     }
     object response {
       val code400 = inc("http.response.4.00")
@@ -164,8 +165,9 @@ object mon {
       }
       object lag {
         val compDeviation = rec("round.move.lag.comp_deviation")
-        def uncomped(key: String) = rec(s"round.move.lag.uncomped.$key")
-        val uncompedAll = rec(s"round.move.lag.uncomped.all")
+        def uncomped(key: String) = rec(s"round.move.lag.uncomped_ms.$key")
+        val uncompedAll = rec(s"round.move.lag.uncomped_ms.all")
+        def uncompStdDev(key: String) = rec(s"round.move.lag.uncomp_stdev_ms.$key")
         val stdDev = rec(s"round.move.lag.stddev_ms")
         val mean = rec(s"round.move.lag.mean_ms")
         val coefVar = rec(s"round.move.lag.coef_var_1000")
@@ -191,6 +193,8 @@ object mon {
     object expiration {
       val count = inc("round.expiration.count")
     }
+    def proxyGameWatcherCount(result: String) = inc(s"round.proxy_game.watcher.$result")
+    val proxyGameWatcherTime = rec("round.proxy_game.watcher.time")
   }
   object playban {
     def outcome(out: String) = inc(s"playban.outcome.$out")
@@ -246,7 +250,7 @@ object mon {
     object register {
       val website = inc("user.register.website")
       val mobile = inc("user.register.mobile")
-      def mustConfirmEmail(v: Boolean) = inc(s"user.register.must_confirm_email.$v")
+      def mustConfirmEmail(v: String) = inc(s"user.register.must_confirm_email.$v")
       def confirmEmailResult(v: Boolean) = inc(s"user.register.confirm_email.$v")
       val modConfirmEmail = inc(s"user.register.mod_confirm_email")
     }
@@ -258,6 +262,12 @@ object mon {
 
       def passwordResetRequest(s: String) = inc(s"user.auth.password_reset_request.$s")
       def passwordResetConfirm(s: String) = inc(s"user.auth.password_reset_confirm.$s")
+    }
+    object oauth {
+      object usage {
+        val success = inc("user.oauth.usage.success")
+        val failure = inc("user.oauth.usage.success")
+      }
     }
   }
   object socket {
@@ -295,12 +305,6 @@ object mon {
       def result(res: String) = inc(s"relay.sync.result.$res")
       object duration {
         val each = rec("relay.sync.duration.each")
-        val total = rec("relay.sync.duration.total")
-      }
-    }
-    object fetch {
-      object duration {
-        val each = rec("relay.sync.duration.each")
       }
     }
   }
@@ -319,6 +323,8 @@ object mon {
   }
   object email {
     val resetPassword = inc("email.reset_password")
+    val fix = inc("email.fix")
+    val change = inc("email.change")
     val confirmation = inc("email.confirmation")
     val disposableDomain = rec("email.disposable_domain")
   }
@@ -442,7 +448,8 @@ object mon {
       def mode(v: String) = inc(s"game.create.mode.$v")
     }
     val fetch = inc("game.fetch.count")
-    val decode = inc("game.decode.count")
+    val fetchLight = inc("game.fetchLight.count")
+    val loadClockHistory = inc("game.loadClockHistory.count")
     object pgn {
       final class Protocol(name: String) {
         val count = inc(s"game.pgn.$name.count")

@@ -61,7 +61,10 @@ final class Env(
     puzzleIdMin = PuzzleIdMin
   )
 
-  lazy val userInfos = UserInfos(roundColl = roundColl)
+  lazy val userInfos = new UserInfosApi(
+    roundColl = roundColl,
+    currentPuzzleId = api.head.currentPuzzleId
+  )
 
   lazy val forms = DataForm
 

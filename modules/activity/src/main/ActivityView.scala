@@ -2,7 +2,7 @@ package lila.activity
 
 import org.joda.time.Interval
 
-import lila.game.Pov
+import lila.game.LightPov
 import lila.practice.PracticeStudy
 import lila.simul.Simul
 import lila.study.Study
@@ -19,8 +19,8 @@ case class ActivityView(
     simuls: Option[List[Simul]] = None,
     patron: Option[Patron] = None,
     posts: Option[Map[lila.forum.Topic, List[lila.forum.Post]]] = None,
-    corresMoves: Option[(Int, List[Pov])] = None,
-    corresEnds: Option[(Score, List[Pov])] = None,
+    corresMoves: Option[(Int, List[LightPov])] = None,
+    corresEnds: Option[(Score, List[LightPov])] = None,
     follows: Option[Follows] = None,
     studies: Option[List[Study.IdName]] = None,
     teams: Option[Teams] = None,

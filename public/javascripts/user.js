@@ -1,6 +1,7 @@
 $(function() {
 
   $('div.user_show .mod_zone_toggle').each(function() {
+
     $(this).click(function() {
       var $zone = $('div.user_show .mod_zone');
       if ($zone.is(':visible')) $zone.hide();
@@ -19,21 +20,6 @@ $(function() {
       $("div.user_show .note_zone").toggle();
     });
     if (location.search.indexOf('note') != -1) $(this).click();
-  });
-
-  $('form.autosubmit').each(function() {
-    var $form = $(this);
-    $form.find('input').change(function() {
-      $.ajax({
-        url: $form.attr('action'),
-        method: $form.attr('method'),
-        data: $form.serialize(),
-        success: function() {
-          $form.find('.saved').fadeIn();
-          lichess.reloadOtherTabs();
-        }
-      });
-    });
   });
 
   $("div.user_show .claim_title_zone").each(function() {

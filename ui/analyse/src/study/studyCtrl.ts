@@ -150,7 +150,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   function configurePractice() {
     if (!data.chapter.practice && ctrl.practice) ctrl.togglePractice();
     if (data.chapter.practice) ctrl.restartPractice();
-    if (practice) practice.onReload();
+    if (practice) practice.onLoad();
   };
 
   function onReload(d: ReloadData) {
@@ -170,10 +170,10 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
 
     const merge = !vm.mode.write && sameChapter;
     ctrl.reloadData(d.analysis, merge);
+    vm.gamebookOverride = undefined;
     configureAnalysis();
     vm.loading = false;
 
-    vm.gamebookOverride = undefined;
     instanciateGamebookPlay();
     if (relay) relay.applyChapterRelay(data.chapter, s.chapter.relay);
 
@@ -233,7 +233,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   function instanciateGamebookPlay() {
     if (!isGamebookPlay()) return gamebookPlay = undefined;
     if (gamebookPlay && gamebookPlay.chapterId === vm.chapterId) return;
-    gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId, redraw);
+    gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId, ctrl.trans, redraw);
     vm.mode.sticky = false;
   }
   instanciateGamebookPlay();
@@ -485,9 +485,9 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         ctrl.tree.lastMainlineNode(path).ply <= data.chapter.conceal!;
     },
     onJump() {
-      chapters.localPaths[vm.chapterId] = ctrl.path;
-      if (practice) practice.onJump();
       if (gamebookPlay) gamebookPlay.onJump();
+      else chapters.localPaths[vm.chapterId] = ctrl.path; // don't remember position on gamebook
+      if (practice) practice.onJump();
     },
     withPosition,
     setPath(path, node, playedMyself) {
@@ -550,6 +550,9 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     mutateCgConfig,
     explorerGame(gameId: string, insert: boolean) {
       makeChange('explorerGame', withPosition({ gameId, insert }));
+    },
+    onPremoveSet() {
+      if (gamebookPlay) gamebookPlay.onPremoveSet();
     },
     redraw,
     trans: ctrl.trans,

@@ -16,7 +16,7 @@ case class Game(
     id: Game.ID,
     whitePlayer: Player,
     blackPlayer: Player,
-    loadChess: () => ChessGame,
+    chess: ChessGame,
     loadClockHistory: Clock => Option[ClockHistory] = _ => Game.someEmptyClockHistory,
     status: Status,
     daysPerTurn: Option[Int],
@@ -28,8 +28,6 @@ case class Game(
     movedAt: DateTime = DateTime.now,
     metadata: Metadata
 ) {
-
-  lazy val chess = loadChess()
   lazy val clockHistory = chess.clock flatMap loadClockHistory
 
   def situation = chess.situation
@@ -42,12 +40,9 @@ case class Game(
 
   val players = List(whitePlayer, blackPlayer)
 
-  def player(color: Color): Player = color match {
-    case White => whitePlayer
-    case Black => blackPlayer
-  }
+  def player(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
-  def player(playerId: String): Option[Player] =
+  def player(playerId: Player.ID): Option[Player] =
     players find (_.id == playerId)
 
   def player(user: User): Option[Player] =
@@ -181,7 +176,7 @@ case class Game(
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
       blackPlayer = copyPlayer(blackPlayer),
-      loadChess = () => game,
+      chess = game,
       binaryMoveTimes = (!isPgnImport && !chess.clock.isDefined).option {
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
@@ -332,7 +327,7 @@ case class Game(
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>
       val newClock = c goBerserk color
       Progress(this, copy(
-        loadChess = () => chess.copy(clock = Some(newClock)),
+        chess = chess.copy(clock = Some(newClock)),
         loadClockHistory = _ => clockHistory.map(history => {
           if (history(color).isEmpty) history
           else history.reset(color).record(color, newClock)
@@ -356,7 +351,7 @@ case class Game(
         status = status,
         whitePlayer = whitePlayer.finish(winner contains White),
         blackPlayer = blackPlayer.finish(winner contains Black),
-        loadChess = () => chess.copy(clock = newClock),
+        chess = chess.copy(clock = newClock),
         loadClockHistory = clk => clockHistory map { history =>
           // If not already finished, we're ending due to an event
           // in the middle of a turn, such as resignation or draw
@@ -411,9 +406,9 @@ case class Game(
 
   def loserUserId: Option[String] = loser flatMap (_.userId)
 
-  def wonBy(c: Color): Option[Boolean] = winnerColor map (_ == c)
+  def wonBy(c: Color): Option[Boolean] = winner map (_.color == c)
 
-  def lostBy(c: Color): Option[Boolean] = winnerColor map (_ != c)
+  def lostBy(c: Color): Option[Boolean] = winner map (_.color != c)
 
   def drawn = finished && winner.isEmpty
 
@@ -441,7 +436,7 @@ case class Game(
 
   def isClockRunning = clock ?? (_.isRunning)
 
-  def withClock(c: Clock) = Progress(this, copy(loadChess = () => chess.copy(clock = Some(c))))
+  def withClock(c: Clock) = Progress(this, copy(chess = chess.copy(clock = Some(c))))
 
   def correspondenceGiveTime = Progress(this, copy(movedAt = DateTime.now))
 
@@ -538,7 +533,7 @@ case class Game(
   def isPgnImport = pgnImport.isDefined
 
   def resetTurns = copy(
-    loadChess = () => chess.copy(turns = 0, startedAtTurn = 0)
+    chess = chess.copy(turns = 0, startedAtTurn = 0)
   )
 
   lazy val opening: Option[FullOpening.AtPly] =
@@ -547,11 +542,10 @@ case class Game(
 
   def synthetic = id == Game.syntheticId
 
-  def isRecentTv = metadata.tvAt.??(DateTime.now.minusMinutes(30).isBefore)
-
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }
 
   def pov(c: Color) = Pov(this, c)
+  def playerIdPov(playerId: Player.ID): Option[Pov] = player(playerId) map { Pov(this, _) }
   def whitePov = pov(White)
   def blackPov = pov(Black)
   def playerPov(p: Player) = pov(p.color)
@@ -637,7 +631,7 @@ object Game {
       id = IdGenerator.game,
       whitePlayer = whitePlayer,
       blackPlayer = blackPlayer,
-      loadChess = () => chess,
+      chess = chess,
       status = Status.Created,
       daysPerTurn = daysPerTurn,
       mode = mode,
@@ -646,7 +640,6 @@ object Game {
         pgnImport = pgnImport,
         tournamentId = none,
         simulId = none,
-        tvAt = none,
         analysed = false
       ),
       createdAt = createdAt,

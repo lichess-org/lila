@@ -385,6 +385,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="winner">Winner</string>
   <string name="standing">Standing</string>
   <string name="createANewTournament">Create a new tournament</string>
+  <string name="tournamentCalendar">Tournament calendar</string>
   <string name="join">Join</string>
   <string name="withdraw">Withdraw</string>
   <string name="points">Points</string>
@@ -803,13 +804,13 @@ in %3$s</string>
   <string name="tryAnotherMoveForBlack">Try another move for black</string>
   <string name="solution">Solution</string>
   <string name="waitingForAnalysis">Waiting for analysis</string>
-  <string name="noMistakesFoundForWhite">No mistakes found for white</string>
-  <string name="noMistakesFoundForBlack">No mistakes found for black</string>
-  <string name="doneReviewingWhiteMistakes">Done reviewing white mistakes</string>
-  <string name="doneReviewingBlackMistakes">Done reviewing black mistakes</string>
+  <string name="noMistakesFoundForWhite">No significant mistakes found for White</string>
+  <string name="noMistakesFoundForBlack">No significant mistakes found for Black</string>
+  <string name="doneReviewingWhiteMistakes">Done reviewing White mistakes</string>
+  <string name="doneReviewingBlackMistakes">Done reviewing Black mistakes</string>
   <string name="doItAgain">Do it again</string>
-  <string name="reviewWhiteMistakes">Review white mistakes</string>
-  <string name="reviewBlackMistakes">Review black mistakes</string>
+  <string name="reviewWhiteMistakes">Review White mistakes</string>
+  <string name="reviewBlackMistakes">Review Black mistakes</string>
   <string name="advantage">Advantage</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s second</item>

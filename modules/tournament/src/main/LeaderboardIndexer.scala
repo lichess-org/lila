@@ -3,7 +3,7 @@ package lila.tournament
 import play.api.libs.iteratee._
 import reactivemongo.bson._
 
-import lila.db.dsl.Coll
+import lila.db.dsl._
 
 private final class LeaderboardIndexer(
     tournamentColl: Coll,
@@ -13,11 +13,11 @@ private final class LeaderboardIndexer(
   import LeaderboardApi._
   import BSONHandlers._
 
-  def generateAll: Funit = leaderboardColl.remove(BSONDocument()) >> {
+  def generateAll: Funit = leaderboardColl.remove($empty) >> {
     import reactivemongo.play.iteratees.cursorProducer
 
     tournamentColl.find(TournamentRepo.finishedSelect)
-      .sort(BSONDocument("startsAt" -> -1))
+      .sort($sort desc "startsAt")
       .cursor[Tournament]().enumerator(20 * 1000) &>
       Enumeratee.mapM[Tournament].apply[Seq[Entry]](generateTour) &>
       Enumeratee.mapConcat[Seq[Entry]].apply[Entry](identity) &>
@@ -26,15 +26,15 @@ private final class LeaderboardIndexer(
         case (number, entries) =>
           if (number % 10000 == 0)
             logger.info(s"Generating leaderboards... $number")
-          saveEntries(entries) inject (number + entries.size)
+          saveEntries("-")(entries) inject (number + entries.size)
       }
   }.void
 
   def indexOne(tour: Tournament): Funit =
-    leaderboardColl.remove(BSONDocument("t" -> tour.id)) >>
-      generateTour(tour) flatMap saveEntries
+    leaderboardColl.remove($doc("t" -> tour.id)) >>
+      generateTour(tour) flatMap saveEntries(tour.id)
 
-  private def saveEntries(entries: Seq[Entry]) =
+  private def saveEntries(tourId: String)(entries: Seq[Entry]): Funit =
     entries.nonEmpty ?? leaderboardColl.bulkInsert(
       documents = entries.map(BSONHandlers.leaderboardEntryHandler.write).toStream,
       ordered = false

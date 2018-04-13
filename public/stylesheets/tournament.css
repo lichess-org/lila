@@ -3,6 +3,10 @@ div.create_tournament {
   top: 26px;
   right: 15px;
 }
+#tournament .init.spinner {
+  padding-top: 200px;
+  margin: 0 auto 0 auto;
+}
 #tournament .header {
   display: flex;
   align-items: center;
@@ -249,6 +253,25 @@ div.create_tournament {
   display: flex;
   justify-content: space-between;
   position: relative;
+}
+@keyframes delay {
+  0% {
+    width: 0%;
+  } 100% {
+    width: 100%;
+  }
+}
+#tournament .delay {
+  background: rgba(117, 153, 0, 0.5);
+  width: 0%;
+}
+#tournament .delay button {
+  opacity: 0.7;
+  color: #666;
+  mix-blend-mode: luminosity;
+}
+body.dark #tournament .delay button {
+  color: #aaa;
 }
 #tournament .highlight {
   position: absolute;
@@ -858,10 +881,6 @@ body.dark .scheduled_tournaments a:hover {
 }
 .scheduled_tournaments a:hover::before {
   opacity: 1;
-}
-.scheduled_tournaments a.marathon {
-  background: #fff;
-  box-shadow: 0 0 9px rgba(0,0,0,0.2);
 }
 
 #tournament_schedule {

@@ -33,4 +33,9 @@ $(function() {
   };
   $variant.on('change', showPosition);
   showPosition();
+
+  $('.conditions a.show').on('click', function() {
+    $(this).remove();
+    $('.conditions .form').show();
+  });
 });

@@ -66,7 +66,7 @@ private final class CorresAlarm(
             }
           } >> coll.remove($id(alarm._id)) inject (count + 1)
         })
-        .chronometer.mon(_.round.alarm.time).result
+        .mon(_.round.alarm.time)
         .addEffect(c => lila.mon.round.alarm.count(c))
         .addEffectAnyway(scheduleNext)
 

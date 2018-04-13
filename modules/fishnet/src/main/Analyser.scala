@@ -20,10 +20,10 @@ final class Analyser(
 
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
     AnalysisRepo exists game.id flatMap {
-      case true => fuccess(false)
-      case _ if Game.isOldHorde(game) => fuccess(false)
+      case true => fuFalse
+      case _ if Game.isOldHorde(game) => fuFalse
       case _ =>
-        limiter(sender) flatMap { accepted =>
+        limiter(sender, ignoreConcurrentCheck = false) flatMap { accepted =>
           accepted ?? {
             makeWork(game, sender) flatMap { work =>
               sequencer {
@@ -54,11 +54,12 @@ final class Analyser(
 
   def study(req: lila.hub.actorApi.fishnet.StudyChapterRequest): Fu[Boolean] =
     AnalysisRepo exists req.chapterId flatMap {
-      case true => fuccess(false)
+      case true => fuFalse
       case _ => {
         import req._
         val sender = Work.Sender(req.userId, none, false, system = req.userId == "lichess")
-        limiter(sender) flatMap { accepted =>
+        limiter(sender, ignoreConcurrentCheck = true) flatMap { accepted =>
+          if (!accepted) logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
           accepted ?? {
             val work = makeWork(
               game = Work.Game(

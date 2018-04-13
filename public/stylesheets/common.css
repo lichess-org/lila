@@ -532,12 +532,23 @@ body > div.content {
   animation: pulse-once 1.5s linear;
 }
 #reconnecting {
-  display: none;
+  opacity: 0;
 }
 body.offline #reconnecting,
 #network_error {
   display: inline-block;
+  opacity: 1;
   color: #dc322f;
+}
+@keyframes reconnected {
+  0% { opacity: 1; color: #759900; }
+  100% { opacity: 0; color: #759900; transform: translateY(-15px); }
+}
+body.online.reconnected #reconnecting {
+  animation: reconnected 2s ease-out 1s backwards;
+}
+body.online #reconnecting::before {
+  content: 'J'
 }
 
 #clinput {
@@ -765,6 +776,7 @@ body.mobile div.side_box .game_infos .bookmark {
 }
 div.side_box .game_infos .setup {
   display: block;
+  white-space: nowrap
 }
 div.side_box .game_infos .variant-link {
   border-bottom: 1px dotted #747474;
@@ -1813,7 +1825,7 @@ div.lichess_overboard .close:hover {
 }
 input.cmn-toggle-round + label {
   padding: 1px;
-  width: 40px;
+  width: 34px;
   height: 20px;
   background-color: #aaa;
   border-radius: 20px;
@@ -1829,7 +1841,7 @@ input.cmn-toggle-round + label::after {
 }
 input.cmn-toggle-round + label::before {
   right: 1px;
-  background-color: #ddd;
+  background-color: #ccc;
   border-radius: 20px;
 }
 input.cmn-toggle-round:hover + label::before {
@@ -1845,10 +1857,10 @@ input.cmn-toggle-round:hover + label::after {
   transition: margin 0.2s;
 }
 input.cmn-toggle-round:checked + label::before {
-  background-color: rgba(117, 153, 0, 0.7)!important;
+  background-color: rgba(117, 153, 0, 0.4)!important;
 }
 input.cmn-toggle-round:checked + label::after {
-  margin-left: 20px;
+  margin-left: 14px;
 }
 .hopscotch-content a {
   text-decoration: underline;

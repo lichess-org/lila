@@ -25,39 +25,35 @@ private[puzzle] final class Finisher(
           val date = DateTime.now
           val puzzlePerf = puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating)
           val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
-          val a = new Round(
-            puzzleId = puzzle.id,
-            userId = user.id,
+          val round = new Round(
+            id = Round.Id(user.id, puzzle.id),
             date = date,
             result = result,
             rating = formerUserRating,
             ratingDiff = userPerf.intRating - formerUserRating
           )
-          (api.round add a) >> {
+          (api.round upsert round) >> {
             puzzleColl.update(
               $id(puzzle.id),
               $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
                 $set(Puzzle.BSONFields.perf -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
             ) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
-          } inject (a, Mode.Rated, formerUserRating, userPerf.intRating)
+          } inject {
+            bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating), 'finishPuzzle)
+            round -> Mode.Rated
+          }
         }
-      case _ =>
+      case _ => fuccess {
         incPuzzleAttempts(puzzle)
-        val a = new Round(
-          puzzleId = puzzle.id,
-          userId = user.id,
+        new Round(
+          id = Round.Id(user.id, puzzle.id),
           date = DateTime.now,
           result = result,
           rating = formerUserRating,
           ratingDiff = 0
-        )
-        fuccess(a, Mode.Casual, formerUserRating, formerUserRating)
+        ) -> Mode.Casual
+      }
     }
-  } map {
-    case (round, mode, ratingBefore, ratingAfter) =>
-      if (mode.rated)
-        bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, ratingBefore -> ratingAfter), 'finishPuzzle)
-      round -> mode
   }
 
   /* offline solving from the mobile API
@@ -72,8 +68,7 @@ private[puzzle] final class Finisher(
     val date = DateTime.now
     val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
     val a = new Round(
-      puzzleId = puzzle.id,
-      userId = user.id,
+      id = Round.Id(user.id, puzzle.id),
       date = date,
       result = result,
       rating = formerUserRating,
@@ -87,7 +82,7 @@ private[puzzle] final class Finisher(
       ) inject
         user.copy(perfs = user.perfs.copy(puzzle = userPerf))
   } recover lila.db.recoverDuplicateKey { _ =>
-    logger.info(s"ratedUntrusted ${user.id} ${puzzle.id} duplicate round")
+    // logger.info(s"ratedUntrusted ${user.id} ${puzzle.id} duplicate round")
     user // has already been solved!
   }
 

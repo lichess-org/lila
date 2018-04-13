@@ -24,7 +24,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var connect = function() {
     destroy();
     autoReconnect = true;
-    var fullUrl = options.protocol + '//socket.' + document.domain + url + "?" + $.param(settings.params);
+    var fullUrl = options.protocol + '//' + settings.options.domain + url + "?" + $.param(settings.params);
     debug("connection attempt to " + fullUrl);
     try {
       ws = new WebSocket(fullUrl);
@@ -40,7 +40,7 @@ lichess.StrongSocket = function(url, version, settings) {
       ws.onopen = function() {
         debug("connected to " + fullUrl);
         onSuccess();
-        $('body').removeClass('offline');
+        $('body').removeClass('offline').addClass('online').addClass(nbConnects > 1 ? 'reconnected' : '');
         pingNow();
         lichess.pubsub.emit('socket.open')();
         ackable.resend();
@@ -91,7 +91,7 @@ lichess.StrongSocket = function(url, version, settings) {
     clearTimeout(pingSchedule);
     clearTimeout(connectSchedule);
     connectSchedule = setTimeout(function() {
-      $('body').addClass('offline');
+      $('body').addClass('offline').removeClass('online');
       tryOtherUrl = true;
       connect();
     }, delay);
@@ -271,6 +271,7 @@ lichess.StrongSocket.defaults = {
     pingDelay: 2000, // time between pong and ping
     autoReconnectDelay: 2000,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
+    domain: document.body.getAttribute('data-socket-domain'),
     onFirstConnect: $.noop
   }
 };

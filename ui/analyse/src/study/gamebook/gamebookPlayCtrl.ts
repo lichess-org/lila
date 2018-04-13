@@ -16,7 +16,11 @@ export default class GamebookPlayCtrl {
 
   state: State;
 
-  constructor(readonly root: AnalyseCtrl, readonly chapterId: string, readonly redraw: () => void) {
+  constructor(
+    readonly root: AnalyseCtrl,
+    readonly chapterId: string,
+    readonly trans: Trans,
+    readonly redraw: () => void) {
 
     // ensure all original nodes have a gamebook entry,
     // so we can differentiate original nodes from user-made ones
@@ -78,8 +82,22 @@ export default class GamebookPlayCtrl {
   }
 
   onSpace = () => {
-    if (this.state.feedback === 'bad') this.retry();
-    else this.next();
+    switch (this.state.feedback) {
+      case 'bad':
+        this.retry();
+        break;
+      case 'end':
+        const s = this.root.study!,
+        c = s.nextChapter();
+        if (c) s.setChapter(c.id);
+        break;
+      default:
+        this.next();
+    }
+  }
+
+  onPremoveSet = () => {
+    this.next();
   }
 
   hint = () => {
@@ -93,7 +111,11 @@ export default class GamebookPlayCtrl {
 
   canJumpTo = (path: Tree.Path) => treePath.contains(this.root.path, path);
 
-  onJump = this.makeState;
+  onJump = () => {
+    this.makeState();
+    // wait for the root ctrl to make the move
+    setTimeout(() => this.root.withCg(cg => cg.playPremove()), 100);
+  }
 
   onShapeChange = shapes => {
     const node = this.root.node;

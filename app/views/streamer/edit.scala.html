@@ -1,9 +1,9 @@
-@(s: lila.streamer.Streamer.WithUserAndStream, form: Form[_])(implicit ctx: Context)
+@(s: lila.streamer.Streamer.WithUserAndStream, form: Form[_], modLog: Option[List[lila.mod.Modlog]])(implicit ctx: Context)
 
 @import play.api.data.Field
 
 @textarea(field: Field, name: Html, help: Option[Html] = None) = {
-@base.form.group(field, name, half = false, help = help) {
+@base.form.group(field, name, half = false, help = help) { _ =>
 <textarea name="@field.name" id="@field.id">@field.value</textarea>
 }
 }
@@ -67,53 +67,68 @@ menu = menu("edit", s.withoutStream.some).some) {
     }
     }
   </div>
+  <div class="status">
+    <strong>If your stream is in another language than English</strong>, include the correct language tag (<a class="blue" href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">2-letter ISO 639-1 code</a> enclosed in square brackets) in your stream title. As examples, include "[RU]" for Russian, "[TR]" for Turkish, "[FR]" for French, etc. If your stream is in English, there is no need to include a language tag.
+  </div>
+  }
+  @modLog.map { log =>
+  <div class="mod_log status">
+    <strong class="text" data-icon="!">Moderation history@if(log.isEmpty){: nothing to show.}</strong>
+    @if(log.nonEmpty) {
+    <ul>
+      @log.map { e =>
+      <li>@userIdLink(e.mod.some, withTitle=false) <b>@e.showAction</b> @e.details @momentFromNow(e.date)</li>
+      }
+    </ul>
+    }
+  </div>
   }
   <form class="content_box_content material form" action="@routes.Streamer.edit@if(!ctx.is(s.user)){?u=@s.user.id}" method="POST">
     @errMsgMaterial(form.errors)
     @if(isGranted(_.Streamers)) {
     <div class="mod">
-      @base.form.group(form("approval.granted"), Html("Publish on the streamers list"), help = Html("Moderators only").some, half = true) {
-      @base.form.select(form("approval.granted"), booleanChoices)
+      @base.form.group(form("approval.granted"), Html("Publish on the streamers list"), help = Html("Moderators only").some, half = true) { field =>
+      @base.form.select(field, booleanChoices)
       }
-      @base.form.group(form("approval.requested"), Html("Active approval request"), help = Html("Moderators only").some, half = true) {
-      @base.form.select(form("approval.requested"), booleanChoices)
+      @base.form.group(form("approval.requested"), Html("Active approval request"), help = Html("Moderators only").some, half = true) { field =>
+      @base.form.select(field, booleanChoices)
       }
-      @base.form.group(form("approval.chat"), Html("Embed stream chat too"), help = Html("Moderators only").some, half = true) {
-      @base.form.select(form("approval.chat"), booleanChoices)
+      @base.form.group(form("approval.chat"), Html("Embed stream chat too"), help = Html("Moderators only").some, half = true) { field =>
+      @base.form.select(field, booleanChoices)
       }
       @if(granted) {
-      @base.form.group(form("approval.featured"), Html("Feature on lichess homepage"), help = Html("Moderators only").some, half = true) {
-      @base.form.select(form("approval.featured"), booleanChoices)
+      @base.form.group(form("approval.featured"), Html("Feature on lichess homepage"), help = Html("Moderators only").some, half = true) { field =>
+      @base.form.select(field, booleanChoices)
       }
       } else {
-      @base.form.group(form("approval.ignored"), Html("Ignore further approval requests"), help = Html("Moderators only").some, half = true) {
-      @base.form.select(form("approval.ignored"), booleanChoices)
+      @base.form.group(form("approval.ignored"), Html("Ignore further approval requests"), help = Html("Moderators only").some, half = true) { field =>
+      @base.form.select(field, booleanChoices)
       }
       }
       @base.form.submit()
     </div>
     }
     <div>
-      @base.form.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some, half = true) {
-      @base.form.input(form("twitch"))
+      @base.form.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some, half = true) { field =>
+      @base.form.input(field)
       }
-      @base.form.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none.").some, half = true) {
-      @base.form.input(form("youTube"))
+      @base.form.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none.").some, half = true) { field =>
+      @base.form.input(field)
       }
     </div>
     <div>
-      @base.form.group(form("name"), Html("Your streamer name on lichess"), help = Html("Keep it short: 20 characters max").some, half = true) {
-      @base.form.input(form("name"), maxLength = 20)
+      @base.form.group(form("name"), Html("Your streamer name on lichess"), help = Html("Keep it short: 20 characters max").some, half = true) { field =>
+      @base.form.input(field, maxLength = 20)
       }
-      @base.form.group(form("listed"), Html("Visible on the streamers page"), help = Html("When approved by moderators").some, half = true) {
-      @base.form.select(form("listed"), booleanChoices)
+      @base.form.group(form("listed"), Html("Visible on the streamers page"), help = Html("When approved by moderators").some, half = true) { field =>
+      @base.form.select(field, booleanChoices)
       }
     </div>
-    @base.form.group(form("headline"), Html("Headline"), help = Html("In one sentence, what is your stream about?").some) {
-    @base.form.input(form("headline"), maxLength = 300)
+    @base.form.group(form("headline"), Html("Headline"), help = Html("In one sentence, what is your stream about?").some) { field =>
+    @base.form.input(field, maxLength = 300)
     }
-    @base.form.group(form("description"), Html("Long description")) {
-    <textarea name="description" id="description" maxlength="50000">@form("description").value</textarea>
+    @base.form.group(form("description"), Html("Long description")) { field =>
+    <textarea name="description" id="description" maxlength="50000">@field.value</textarea>
     }
     @base.form.submit()
   </form>

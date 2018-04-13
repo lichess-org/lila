@@ -4,25 +4,18 @@ import makeSuccess from './studyPracticeSuccess';
 import makeSound from './sound';
 import { readOnlyProp } from '../../util';
 import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
-import { StudyData } from '../interfaces';
+import { StudyData, StudyCtrl } from '../interfaces';
 import AnalyseCtrl from '../../ctrl';
 
 export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPracticeData): StudyPracticeCtrl {
 
   const goal = prop<Goal>(root.data.practiceGoal!),
-  comment = prop<string | undefined>(undefined),
   nbMoves = prop(0),
   // null = ongoing, true = win, false = fail
   success = prop<boolean | null>(null),
   sound = makeSound(),
   analysisUrl = prop(''),
   autoNext = storedProp('practice-auto-next', true);
-
-  function makeComment(treeRoot: Tree.Node) {
-    if (!treeRoot.comments) return;
-    comment(treeRoot.comments[0].text);
-    delete treeRoot.comments;
-  }
 
   function onLoad() {
     root.showAutoShapes = readOnlyProp(true);
@@ -31,7 +24,6 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     goal(root.data.practiceGoal!);
     nbMoves(0);
     success(null);
-    makeComment(root.tree.root);
     const chapter = studyData.chapter;
     history.replaceState(null, chapter.name, data.url + '/' + chapter.id);
     analysisUrl('/analysis/standard/' + root.node.fen.replace(/ /g, '_') + '?color=' + root.bottomColor());
@@ -44,7 +36,19 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     return Math.ceil(plies / 2);
   }
 
+  function getStudy(): StudyCtrl {
+    return root.study!;
+  }
+
   function checkSuccess(): void {
+    const gamebook = getStudy().gamebookPlay();
+    if (gamebook) {
+      if (gamebook.state.feedback === 'end') onVictory();
+      return;
+    }
+    if (!getStudy().data.chapter.practice) {
+      return saveNbMoves();
+    }
     if (success() !== null) return;
     nbMoves(computeNbMoves());
     const res = success(makeSuccess(root, goal(), nbMoves()));
@@ -53,19 +57,23 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
   }
 
   function onVictory(): void {
-    const chapterId = root.study!.currentChapter().id,
-    former = data.completion[chapterId] || 999;
-    if (nbMoves() < former) {
-      data.completion[chapterId] = nbMoves();
-      xhr.practiceComplete(chapterId, nbMoves());
-    }
+    saveNbMoves();
     sound.success();
     if (autoNext()) setTimeout(goToNext, 1000);
   }
 
+  function saveNbMoves(): void {
+    const chapterId = getStudy().currentChapter().id,
+    former = data.completion[chapterId];
+    if (typeof former === 'undefined' || nbMoves() < former) {
+      data.completion[chapterId] = nbMoves();
+      xhr.practiceComplete(chapterId, nbMoves());
+    }
+  }
+
   function goToNext() {
-    const next = root.study!.nextChapter();
-    if (next) root.study!.setChapter(next.id);
+    const next = getStudy().nextChapter();
+    if (next) getStudy().setChapter(next.id);
   }
 
   function onFailure(): void {
@@ -74,10 +82,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
   }
 
   return {
-    onReload() {
-      comment('');
-      onLoad();
-    },
+    onLoad,
     onJump() {
       // reset failure state if no failed move found in mainline history
       if (success() === false && !root.nodeList.find(n => !!n.fail)) success(null);
@@ -87,7 +92,6 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     data,
     goal,
     success,
-    comment,
     nbMoves,
     reset() {
       root.tree.root.children = [];

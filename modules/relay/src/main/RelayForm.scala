@@ -23,7 +23,8 @@ object RelayForm {
     "official" -> boolean,
     "syncType" -> text.verifying(syncTypes.map(_._1).contains _),
     "syncUrl" -> nonEmptyText,
-    "startsAt" -> optional(utcDate)
+    "startsAt" -> optional(utcDate),
+    "throttle" -> optional(number(min = 0, max = 60))
   )(Data.apply)(Data.unapply))
 
   def create = form
@@ -36,7 +37,8 @@ object RelayForm {
       official: Boolean,
       syncType: String,
       syncUrl: String,
-      startsAt: Option[DateTime]
+      startsAt: Option[DateTime],
+      throttle: Option[Int]
   ) {
 
     def cleanUrl = {
@@ -60,7 +62,7 @@ object RelayForm {
       },
       until = none,
       nextAt = none,
-      delay = none,
+      delay = throttle,
       log = SyncLog(Vector.empty)
     )
 
@@ -87,7 +89,8 @@ object RelayForm {
       official = relay.official,
       syncType = relay.sync.upstream.key,
       syncUrl = relay.sync.upstream.url,
-      startsAt = relay.startsAt
+      startsAt = relay.startsAt,
+      throttle = relay.sync.delay
     )
   }
 }

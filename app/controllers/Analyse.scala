@@ -30,10 +30,10 @@ object Analyse extends LilaController {
 
   def replay(pov: Pov, userTv: Option[lila.user.User])(implicit ctx: Context) =
     if (HTTPRequest isBot ctx.req) replayBot(pov)
-    else GameRepo initialFen pov.game.id flatMap { initialFen =>
+    else GameRepo initialFen pov.gameId flatMap { initialFen =>
       Game.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {
-        (env.analyser get pov.game.id) zip
-          Env.fishnet.api.prioritaryAnalysisInProgress(pov.game.id) zip
+        (env.analyser get pov.gameId) zip
+          Env.fishnet.api.prioritaryAnalysisInProgress(pov.gameId) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
           Round.getWatcherChat(pov.game) zip
           Env.game.crosstableApi.withMatchup(pov.game) zip
@@ -96,8 +96,8 @@ object Analyse extends LilaController {
     }
 
   private def replayBot(pov: Pov)(implicit ctx: Context) = for {
-    initialFen <- GameRepo initialFen pov.game.id
-    analysis <- env.analyser get pov.game.id
+    initialFen <- GameRepo initialFen pov.gameId
+    analysis <- env.analyser get pov.gameId
     simul <- pov.game.simulId ?? Env.simul.repo.find
     crosstable <- Env.game.crosstableApi.withMatchup(pov.game)
     pgn <- Env.api.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false))

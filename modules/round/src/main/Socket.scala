@@ -26,10 +26,10 @@ private[round] final class Socket(
     gameId: Game.ID,
     history: History,
     lightUser: LightUser.Getter,
-    uidTimeout: Duration,
-    socketTimeout: Duration,
-    disconnectTimeout: Duration,
-    ragequitTimeout: Duration,
+    uidTimeout: FiniteDuration,
+    socketTimeout: FiniteDuration,
+    disconnectTimeout: FiniteDuration,
+    ragequitTimeout: FiniteDuration,
     simulActor: ActorSelection
 ) extends SocketActor[Member](uidTimeout) {
 
@@ -68,10 +68,8 @@ private[round] final class Socket(
       simulActor ? lila.hub.actorApi.simul.GetHostIds mapTo manifest[Set[String]] map (_ contains u)
     }
 
-    def isGone =
-      if (time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis))
-        !isHostingSimul
-      else fuccess(false)
+    def isGone: Fu[Boolean] =
+      (time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis)) ?? !isHostingSimul
   }
 
   private val whitePlayer = new Player(White)
@@ -122,6 +120,7 @@ private[round] final class Socket(
         tournamentId = tourId.some
         buscriptions.tournament
       }
+    case SetGame(None) => self ! PoisonPill // should never happen but eh
 
     // from lilaBus 'startGame
     // sets definitive user ids
@@ -151,8 +150,6 @@ private[round] final class Socket(
         playerGet(c, _.isGone) foreach { _ ?? notifyGone(c, true) }
       }
 
-    case GetVersion => sender ! history.getVersion
-
     case IsGone(color) => playerGet(color, _.isGone) pipeTo sender
 
     case IsOnGame(color) => sender ! ownerIsHere(color)
@@ -168,9 +165,9 @@ private[round] final class Socket(
         )
       } pipeTo sender
 
-    case Join(uid, user, color, playerId, ip, userTv) =>
+    case Join(uid, user, color, playerId, ip, onTv) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, color, playerId, ip, userTv = userTv)
+      val member = Member(channel, user, color, playerId, ip, onTv)
       addMember(uid.value, member)
       notifyCrowd
       if (playerId.isDefined) playerDo(color, _.ping)
@@ -205,7 +202,7 @@ private[round] final class Socket(
     case TvSelect(msg) => foreachWatcher(_ push msg)
 
     case UserStartGame(userId, game) => foreachWatcher { m =>
-      if (m.onUserTv(userId) && m.userId.fold(true)(id => !game.userIds.contains(id)))
+      if (m.onUserTv(userId) && !m.userId.exists(game.userIds.contains))
         m push makeMessage("resync")
     }
 

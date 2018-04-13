@@ -258,7 +258,7 @@
   </plurals>
   <string name="giveMoreTime">Προσθέστε περισσότερο χρόνο</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ο παίκτης χρησιμοποιεί υποβοήθηση υπολογιστή</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Αυτός ο παίκτης αυξάνει/μειώνει τεχνητά τη βαθμολογία</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ο παίκτης αυξάνει/μειώνει τεχνητά την βαθμολογία</string>
   <string name="openingExplorerAndTablebase">Εξερευνητής ανοιγμάτων &amp; τελειωμάτων</string>
   <string name="takeback">Ανάκληση κίνησης</string>
   <string name="proposeATakeback">Προσφέρετε ανάκληση της προηγούμενης κίνησης</string>
@@ -580,8 +580,8 @@
     <item quantity="other">Όριο: %s χαρακτήρες.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s αποκλείσεις</item>
-    <item quantity="other">%s αποκλείσεις</item>
+    <item quantity="one">%s αποκλεισμός</item>
+    <item quantity="other">%s αποκλεισμοί</item>
   </plurals>
   <string name="listBlockedPlayers">Κατάλογος παικτών που έχετε αποκλείσει</string>
   <string name="human">Άνθρωπος</string>
@@ -774,8 +774,8 @@
   <string name="challenges">Προκλήσεις</string>
   <string name="perfRatingX">Βαθμολογία: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="one">%s δευτερόλεπτο για να παιχτεί η πρώτη κίνηση</item>
-    <item quantity="other">%s δευτερόλεπτα για να παιχτεί η πρώτη κίνηση</item>
+    <item quantity="one">%s δευτερόλεπτο για την πρώτη κίνηση</item>
+    <item quantity="other">%s δευτερόλεπτα για την πρώτη κίνηση</item>
   </plurals>
   <string name="practiceWithComputer">Εξάσκηση με τον υπολογιστή</string>
   <string name="anotherWasX">Εναλλακτική ήταν %s</string>
@@ -795,8 +795,8 @@
   <string name="skipThisMove">Παραλείψτε αυτό το βήμα</string>
   <string name="next">Επόμενο</string>
   <string name="xWasPlayed">%s παίχτηκε</string>
-  <string name="findBetterMoveForWhite">Βρες μια καλύτερη κίνηση για τα λευκά</string>
-  <string name="findBetterMoveForBlack">Βρες μια καλύτερη κίνηση για τα μαύρα</string>
+  <string name="findBetterMoveForWhite">Βρείτε μια καλύτερη κίνηση για τα λευκά</string>
+  <string name="findBetterMoveForBlack">Βρείτε μια καλύτερη κίνηση για τα μαύρα</string>
   <string name="resumeLearning">Συνεχίστε την μάθηση</string>
   <string name="youCanDoBetter">Μπορείτε και καλύτερα</string>
   <string name="tryAnotherMoveForWhite">Δοκιμάστε μια άλλη κίνηση για τα λευκά</string>
@@ -821,7 +821,7 @@
   <string name="registerToSendChallenges">Παρακαλώ εγγραφείτε για να στείλετε προκλήσεις.</string>
   <string name="youCannotChallengeX">Δεν μπορείτε να προκαλέσετε %s.</string>
   <string name="xDoesNotAcceptChallenges">%s δεν δέχεται προκλήσεις.</string>
-  <string name="yourXRatingIsTooFarFromY">Η %1$s βαθμολογία σας απέχει πολύ από τα %2$s.</string>
+  <string name="yourXRatingIsTooFarFromY">Η %1$s βαθμολογία σας απέχει πολύ από τον %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Δεν είναι δυνατή η πρόκληση λόγω της προσωρινής %s βαθμολογίας.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s δέχεται προκλήσεις μόνο από φίλους.</string>
   <string name="conditionalPremoves">Υποθετικές προκινήσεις</string>

@@ -9,8 +9,11 @@ final class ModlogApi(coll: Coll) {
   import lila.db.BSON.BSONJodaDateTimeHandler
   private implicit val ModlogBSONHandler = reactivemongo.bson.Macros.handler[Modlog]
 
-  def streamConfig(mod: String) = add {
-    Modlog(mod, none, Modlog.streamConfig)
+  def streamerList(mod: Mod, streamerId: String, v: Boolean) = add {
+    Modlog(mod.user.id, streamerId.some, if (v) Modlog.streamerList else Modlog.streamerUnlist)
+  }
+  def streamerFeature(mod: Mod, streamerId: String, v: Boolean) = add {
+    Modlog(mod.user.id, streamerId.some, if (v) Modlog.streamerFeature else Modlog.streamerUnfeature)
   }
 
   def practiceConfig(mod: String) = add {

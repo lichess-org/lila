@@ -17,6 +17,7 @@ object Simul extends LilaController {
   private def simulNotFound(implicit ctx: Context) = NotFound(html.simul.notFound())
 
   val home = Open { implicit ctx =>
+    pageHit
     fetchSimuls map {
       case ((created, started), finished) =>
         Ok(html.simul.home(created, started, finished))

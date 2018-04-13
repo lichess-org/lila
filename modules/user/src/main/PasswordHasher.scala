@@ -95,8 +95,8 @@ object PasswordHasher {
   )
 
   private lazy val rateLimitPerUser = new RateLimit[String](
-    credits = 6,
-    duration = 1.minute,
+    credits = 10,
+    duration = 1.hour,
     name = "Password hashes per user",
     key = "password.hashes.user"
   )

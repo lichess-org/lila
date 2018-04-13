@@ -17,9 +17,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def cdnUrl(path: String): String
 
   def povOpenGraph(pov: Pov) = lila.app.ui.OpenGraph(
-    image = cdnUrl(routes.Export.png(pov.game.id).url).some,
+    image = cdnUrl(routes.Export.png(pov.gameId).url).some,
     title = titleGame(pov.game),
-    url = s"$netBaseUrl${routes.Round.watcher(pov.game.id, pov.color.name).url}",
+    url = s"$netBaseUrl${routes.Round.watcher(pov.gameId, pov.color.name).url}",
     description = describePov(pov)
   )
 
@@ -228,12 +228,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def gameFenNoCtx(pov: Pov, tv: Boolean = false, blank: Boolean = false) = Html {
     val isLive = pov.game.isBeingPlayed
     val variant = pov.game.variant.key
-    s"""<a href="%s%s" title="%s" class="mini_board mini_board_${pov.game.id} parse_fen is2d %s $variant" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$miniBoardContent</a>""".format(
+    s"""<a href="%s%s" title="%s" class="mini_board mini_board_${pov.gameId} parse_fen is2d %s $variant" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$miniBoardContent</a>""".format(
       blank ?? netBaseUrl,
-      tv.fold(routes.Tv.index, routes.Round.watcher(pov.game.id, pov.color.name)),
+      tv.fold(routes.Tv.index, routes.Round.watcher(pov.gameId, pov.color.name)),
       gameTitle(pov.game, pov.color),
-      isLive ?? ("live live_" + pov.game.id),
-      isLive ?? pov.game.id,
+      isLive ?? ("live live_" + pov.gameId),
+      isLive ?? pov.gameId,
       pov.color.name,
       Forsyth exportBoard pov.game.board,
       ~pov.game.lastMoveKeys,

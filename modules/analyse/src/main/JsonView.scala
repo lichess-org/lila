@@ -34,11 +34,13 @@ object JsonView {
       }).add("acpl" -> lila.analyse.Accuracy.mean(pov, analysis)))
 
   def bothPlayers(game: Game, analysis: Analysis) = Json.obj(
+    "id" -> analysis.id,
     "white" -> player(game.whitePov)(analysis),
     "black" -> player(game.blackPov)(analysis)
   )
 
   def bothPlayers(pov: Accuracy.PovLike, analysis: Analysis) = Json.obj(
+    "id" -> analysis.id,
     "white" -> player(pov.copy(color = chess.White))(analysis),
     "black" -> player(pov.copy(color = chess.Black))(analysis)
   )

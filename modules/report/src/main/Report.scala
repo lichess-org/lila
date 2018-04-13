@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import scalaz.NonEmptyList
 
-import lila.user.UserRepo.lichessId
 import lila.user.{ User, Note }
 
 case class Report(
@@ -69,6 +68,13 @@ case class Report(
 
   def isRecentComm = room == Room.Coms && open
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
+
+  def boostWith: Option[User.ID] = (reason == Reason.Boost) ?? {
+    atoms.toList.filter(_.byLichess).map(_.text).flatMap(_.lines).collectFirst {
+      case Report.farmWithRegex(userId) => userId
+      case Report.sandbagWithRegex(userId) => userId
+    }
+  }
 }
 
 object Report {
@@ -93,7 +99,9 @@ object Report {
   ) {
     def simplifiedText = text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
 
-    def byHuman = by != ReporterId.lichess && by != ReporterId.irwin
+    def byHuman = !byLichess && by != ReporterId.irwin
+
+    def byLichess = by == ReporterId.lichess
   }
 
   case class Inquiry(mod: User.ID, seenAt: DateTime)
@@ -117,7 +125,7 @@ object Report {
       text: String
   ) extends Reason.WithReason {
     def scored(score: Score) = Candidate.Scored(this, score)
-    def isAutomatic = reporter.user.id == lichessId
+    def isAutomatic = reporter.id == ReporterId.lichess
     def isAutoComm = isAutomatic && isTrollOrInsult
   }
 
@@ -148,4 +156,7 @@ object Report {
         processedBy = none
       )
   }
+
+  private val farmWithRegex = s""".+ points from @(${User.historicalUsernameRegex.pattern}) .*""".r
+  private val sandbagWithRegex = s""".+ winning player @(${User.historicalUsernameRegex.pattern}) .*""".r
 }

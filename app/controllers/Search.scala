@@ -25,12 +25,6 @@ object Search extends LilaController {
     key = "search.games.ip"
   )
 
-  private val LinearLimitPerIP = new lila.memo.LinearLimit(
-    name = "search games per IP",
-    key = "search.games.ip",
-    ttl = 5 minutes
-  )
-
   def index(p: Int) = OpenBody { implicit ctx =>
     NotForBots {
       val page = p atLeast 1
@@ -39,7 +33,14 @@ object Search extends LilaController {
         val cost = scala.math.sqrt(page).toInt
         implicit def req = ctx.body
         Env.game.cached.nbTotal flatMap { nbGames =>
-          LinearLimitPerIP(ip.value) {
+          def limited = fuccess {
+            val form = searchForm.bindFromRequest.withError(
+              key = "",
+              message = "Please only send one request at a time per IP address"
+            )
+            TooManyRequest(html.search.index(form, none, nbGames))
+          }
+          Api.GlobalLinearLimitPerIP(ip, limited = limited) {
             RateLimitPerIP(ip, cost = cost) {
               RateLimitGlobal("-", cost = cost) {
                 negotiate(
@@ -67,37 +68,9 @@ object Search extends LilaController {
                 )
               }
             }
-          } | fuccess {
-            val form = searchForm.bindFromRequest.withError(
-              key = "",
-              message = "Please only send one request at a time per IP address"
-            )
-            TooManyRequest(html.search.index(form, none, nbGames))
           }
         }
       }
-    }
-  }
-
-  def export = OpenBody { implicit ctx =>
-    NotForBots {
-      implicit def req = ctx.body
-      searchForm.bindFromRequest.fold(
-        failure => Env.game.cached.nbTotal map { nbGames =>
-          Ok(html.search.index(failure, none, nbGames))
-        },
-        data => data.nonEmptyQuery ?? { query =>
-          env.api.ids(query, 5000) map { ids =>
-            import org.joda.time.DateTime
-            import org.joda.time.format.DateTimeFormat
-            val date = (DateTimeFormat forPattern "yyyy-MM-dd") print DateTime.now
-            Ok.chunked(Env.api.pgnDump exportGamesFromIds ids).withHeaders(
-              CONTENT_TYPE -> pgnContentType,
-              CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_search_$date.pgn")
-            )
-          }
-        }
-      )
     }
   }
 }

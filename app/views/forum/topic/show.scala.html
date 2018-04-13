@@ -101,6 +101,9 @@ description = shorten(posts.currentPageResults.headOption.??(_.text), 152)).some
   }
 
   <div class="topicReply">
+    @if(topic.isOld) {
+    <p>This topic has been archived and can no longer be replied to.</p>
+    } else {
     @formWithCaptcha.map {
     case (form, captcha) => {
     <h2 class="postNewTitle" id="reply">@trans.replyToThisTopic()</h2>
@@ -122,6 +125,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text), 152)).some
     @categ.team.map { teamId =>
     @if(!myTeam(teamId)) {
     <p><a href="@routes.Team.show(teamId)">Join the @teamIdToName(teamId) team</a> to post in this forum</p>
+    }
     }
     }
     }

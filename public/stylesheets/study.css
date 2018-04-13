@@ -125,7 +125,7 @@ div.underboard .notif.error {
 }
 
 .chapter_desc {
-  margin: 10px 0;
+  margin-bottom: 10px;
   text-align: left;
   font-size: 1.2em;
   position: relative;
@@ -145,7 +145,7 @@ div.underboard .notif.error {
   margin-left: 8px;
 }
 .chapter_desc_form {
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .chapter_desc_form textarea {
   height: 15em!important;
@@ -366,11 +366,14 @@ div.underboard .notif.error {
 }
 .study_box .chapter.active .status,
 .study_box .chapter:active,
-.study_box .chapter:active .status,
-.study_box .chapter.loading,
-.study_box .chapter.loading .status {
+.study_box .chapter:active .status {
   color: #fff!important;
   background: #3893E8!important;
+}
+.study_box .chapter .ddloader {
+  height: auto;
+  background-size: cover;
+  color: transparent;
 }
 .study_box .chapter.add .status {
   width: 23px;

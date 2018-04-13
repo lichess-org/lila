@@ -6,7 +6,7 @@ import chess.{ Mode, StartingPosition }
 import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.PerfType
-import lila.user.UserRepo.lichessId
+import lila.user.User.lichessId
 import reactivemongo.bson._
 
 object BSONHandlers {

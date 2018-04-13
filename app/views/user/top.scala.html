@@ -6,7 +6,7 @@
 title = title,
 openGraph = lila.app.ui.OpenGraph(
 title = s"Leaderboard of ${perfType.name}",
-url = s"$netBaseUrl${routes.User.top200(perfType.key).url}",
+url = s"$netBaseUrl${routes.User.topNb(200, perfType.key).url}",
 description = s"The 200 best chess players in ${perfType.name}, sorted by rating").some,
 withInfScroll = false) {
 <div class="content_box small_box">

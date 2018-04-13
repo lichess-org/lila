@@ -7,11 +7,9 @@ import scala.concurrent.duration._
 
 import actorApi.{ GetSocketStatus, SocketStatus }
 
-import lila.game.{ Game, Pov }
+import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.HasUserId
 import lila.hub.actorApi.map.{ Ask, Tell }
-import lila.socket.actorApi.GetVersion
-import makeTimeout.large
 
 final class Env(
     config: Config,
@@ -42,7 +40,7 @@ final class Env(
     val PlayerDisconnectTimeout = config duration "player.disconnect.timeout"
     val PlayerRagequitTimeout = config duration "player.ragequit.timeout"
     val AnimationDuration = config duration "animation.duration"
-    val Moretime = config duration "moretime"
+    val MoretimeDuration = config duration "moretime"
     val SocketName = config getString "socket.name"
     val SocketTimeout = config duration "socket.timeout"
     val NetDomain = config getString "net.domain"
@@ -63,8 +61,7 @@ final class Env(
   lazy val eventHistory = History(db(CollectionHistory)) _
 
   val roundMap = system.actorOf(Props(new lila.hub.ActorMap {
-    def mkActor(id: String) = new Round(
-      gameId = id,
+    private lazy val dependencies = Round.Dependencies(
       messenger = messenger,
       takebacker = takebacker,
       finisher = finisher,
@@ -73,11 +70,14 @@ final class Env(
       drawer = drawer,
       forecastApi = forecastApi,
       socketHub = socketHub,
-      awakeWith = tell(id),
-      moretimeDuration = Moretime,
+      moretimeDuration = MoretimeDuration,
       activeTtl = ActiveTtl
     )
-    def tell(id: Game.ID)(msg: Any): Unit = self ! Tell(id, msg)
+    def mkActor(id: String) = new Round(
+      dependencies = dependencies,
+      gameId = id,
+      awakeWith = msg => self ! Tell(id, msg)
+    )
     def receive: Receive = ({
       case actorApi.GetNbRounds =>
         nbRounds = size
@@ -87,6 +87,25 @@ final class Env(
 
   private var nbRounds = 0
   def count() = nbRounds
+
+  def roundProxyGame(gameId: Game.ID): Fu[Option[Game]] = {
+    import makeTimeout.halfSecond
+    roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Fu[Option[Game]]]
+  }.flatMap(identity).mon(_.round.proxyGameWatcherTime) addEffect { g =>
+    lila.mon.round.proxyGameWatcherCount(g.isDefined.toString)()
+  } recoverWith {
+    case e: akka.pattern.AskTimeoutException =>
+      // weird. monitor and try again.
+      lila.mon.round.proxyGameWatcherCount("exception")()
+      import makeTimeout.halfSecond
+      roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Fu[Option[Game]]] flatMap identity recoverWith {
+        case e: akka.pattern.AskTimeoutException =>
+          // again? monitor, log and fallback on DB
+          lila.mon.round.proxyGameWatcherCount("double_exception")()
+          logger.warn(s"roundProxyGame double timeout https://lichess.org/$gameId")
+          lila.game.GameRepo game gameId
+      }
+  }
 
   private val socketHub = {
     val actor = system.actorOf(
@@ -125,6 +144,16 @@ final class Env(
 
   lazy val selfReport = new SelfReport(roundMap)
 
+  lazy val recentTvGames = new {
+    val fast = new lila.memo.ExpireSetMemo(7 minutes)
+    val slow = new lila.memo.ExpireSetMemo(2 hours)
+    def get(gameId: Game.ID) = fast.get(gameId) || slow.get(gameId)
+    def put(game: Game) = {
+      GameRepo.setTv(game.id)
+      (if (game.speed <= chess.Speed.Bullet) fast else slow) put game.id
+    }
+  }
+
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     roundMap = roundMap,
@@ -132,7 +161,8 @@ final class Env(
     messenger = messenger,
     evalCacheHandler = evalCacheHandler,
     selfReport = selfReport,
-    bus = bus
+    bus = bus,
+    isRecentTv = recentTvGames get _
   )
 
   lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi)
@@ -155,7 +185,8 @@ final class Env(
     notifier = notifier,
     playban = playban,
     bus = bus,
-    getSocketStatus = getSocketStatus
+    getSocketStatus = getSocketStatus,
+    isRecentTv = recentTvGames get _
   )
 
   private lazy val rematcher = new Rematcher(
@@ -182,14 +213,15 @@ final class Env(
     chat = hub.actor.chat
   )
 
-  def version(gameId: String): Fu[Int] =
-    socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]
-
-  private def getSocketStatus(gameId: String): Fu[SocketStatus] =
+  def getSocketStatus(gameId: Game.ID): Fu[SocketStatus] = {
+    import makeTimeout.large
     socketHub ? Ask(gameId, GetSocketStatus) mapTo manifest[SocketStatus]
+  }
 
-  private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
+  private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] = {
+    import makeTimeout.large
     socketHub ? Ask(game.id, HasUserId(userId)) mapTo manifest[Boolean]
+  }
 
   lazy val jsonView = new JsonView(
     noteApi = noteApi,
@@ -199,7 +231,7 @@ final class Env(
     divider = divider,
     evalCache = evalCache,
     baseAnimationDuration = AnimationDuration,
-    moretimeSeconds = Moretime.toSeconds.toInt
+    moretimeSeconds = MoretimeDuration.toSeconds.toInt
   )
 
   lazy val noteApi = new NoteApi(db(CollectionNote))
@@ -235,9 +267,9 @@ final class Env(
 
   def resign(pov: Pov): Unit = {
     if (pov.game.abortable)
-      roundMap ! Tell(pov.game.id, actorApi.round.Abort(pov.playerId))
+      roundMap ! Tell(pov.gameId, actorApi.round.Abort(pov.playerId))
     else if (pov.game.playable)
-      roundMap ! Tell(pov.game.id, actorApi.round.Resign(pov.playerId))
+      roundMap ! Tell(pov.gameId, actorApi.round.Resign(pov.playerId))
   }
 }
 

@@ -20,12 +20,12 @@ sealed trait Member extends SocketMember {
   val playerIdOption: Option[String]
   val troll: Boolean
   val ip: IpAddress
-  val userTv: Option[String]
+  val userTv: Option[User.ID]
 
   def owner = playerIdOption.isDefined
   def watcher = !owner
 
-  def onUserTv(userId: String) = userTv has userId
+  def onUserTv(userId: User.ID) = userTv has userId
 }
 
 object Member {
@@ -35,7 +35,7 @@ object Member {
     color: Color,
     playerIdOption: Option[String],
     ip: IpAddress,
-    userTv: Option[String]
+    userTv: Option[User.ID]
   ): Member = {
     val userId = user map (_.id)
     val troll = user.??(_.troll)
@@ -47,7 +47,7 @@ object Member {
 
 case class Owner(
     channel: JsChannel,
-    userId: Option[String],
+    userId: Option[User.ID],
     playerId: String,
     color: Color,
     troll: Boolean,
@@ -60,11 +60,11 @@ case class Owner(
 
 case class Watcher(
     channel: JsChannel,
-    userId: Option[String],
+    userId: Option[User.ID],
     color: Color,
     troll: Boolean,
     ip: IpAddress,
-    userTv: Option[String]
+    userTv: Option[User.ID]
 ) extends Member {
 
   val playerIdOption = none
@@ -76,7 +76,7 @@ case class Join(
     color: Color,
     playerId: Option[String],
     ip: IpAddress,
-    userTv: Option[String]
+    userTv: Option[User.ID]
 )
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)
@@ -94,6 +94,7 @@ case class SocketStatus(
   def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
 }
 case class SetGame(game: Option[lila.game.Game])
+case object GetGame
 
 package round {
 

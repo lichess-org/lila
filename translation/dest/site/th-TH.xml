@@ -56,6 +56,7 @@
   <string name="showThreat">แสดงภัยคุกคาม</string>
   <string name="inLocalBrowser">ในเบราว์เซอร์ท้องถิ่น</string>
   <string name="toggleLocalEvaluation">เปิด/ปิดการประเมินท้องถิ่น</string>
+  <string name="promoteVariation">เลื่อนขั้นตัวแปร</string>
   <string name="makeMainLine">สร้างเส้นทางหลัก</string>
   <string name="deleteFromHere">ลบจากที่นี่</string>
   <string name="move">เดิน</string>
@@ -602,6 +603,7 @@
   <string name="videoLibrary">คลังวิดีโอ</string>
   <string name="mobileApp">แอปมือถือ</string>
   <string name="webmasters">เว็บมาสเตอร์</string>
+  <string name="about">เกี่ยวกับ</string>
   <string name="contribute">เอื้อเฟื้อ</string>
   <string name="contact">ติดต่อ</string>
   <string name="termsOfService">ข้อกำหนดการใช้</string>
@@ -719,6 +721,9 @@
   <string name="pieceSet">ชุดหมาก</string>
   <string name="embedInYourWebsite">ฝังในเว็บไซต์ของคุณ</string>
   <string name="usernameAlreadyUsed">ชื่อผู้ใช้นี้ถูกใช้ไปแล้ว, โปรดตั้งชื่อใหม่</string>
+  <string name="usernamePrefixInvalid">ชื่อผู้ใช้ต้องขึ้นต้นด้วยตัวอักษร</string>
+  <string name="usernameSuffixInvalid">ชื่อผู้ใช้ที่ต้องลงท้ายด้วยตัวอักษรหรือตัวเลข</string>
+  <string name="usernameCharsInvalid">ชื่อผู้ใช้ประกอบด้วยตัวอักษร, ตัวเลข, ขีดล่าง และเครื่องหมายขีด เท่านั้น</string>
   <string name="usernameUnacceptable">ไม่ยอมรับชื่อผู้ใช้นี้</string>
   <string name="directlySupportLichess">สนับสนุน Lichess โดยตรง</string>
   <string name="playChessInStyle">เล่นหมากรุกแบบมีสไตล์</string>

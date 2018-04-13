@@ -2,6 +2,7 @@ package lila.i18n
 
 import java.io._
 import scala.concurrent.Future
+import scala.collection.JavaConversions._
 
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsString, JsObject }
@@ -16,7 +17,7 @@ private[i18n] final class JsDump(path: String) {
 
   private val pathFile = new File(path)
 
-  private def dumpFromKey(keys: Iterable[String], lang: Lang): String =
+  private def dumpFromKey(keys: Set[String], lang: Lang): String =
     keys.map { key =>
       """"%s":"%s"""".format(key, escape(Translator.txt.literal(key, I18nDb.Site, Nil, lang)))
     }.mkString("{", ",", "}")
@@ -29,7 +30,7 @@ private[i18n] final class JsDump(path: String) {
   )
 
   private def writeFullJson = I18nDb.langs foreach { lang =>
-    val code = dumpFromKey(I18nDb.site(defaultLang).keys, lang)
+    val code = dumpFromKey(asScalaSet(I18nDb.site(defaultLang).keySet).toSet, lang)
     val file = new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code))
     writeFile(new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code)), code)
   }
@@ -57,7 +58,8 @@ object JsDump {
   private type JsTrans = Iterable[(String, JsString)]
 
   private def translatedJs(k: String, t: Translation, lang: Lang): JsTrans = t match {
-    case literal: Literal => List(k -> JsString(literal.message))
+    case literal: Simple => List(k -> JsString(literal.message))
+    case literal: Escaped => List(k -> JsString(literal.message))
     case plurals: Plurals => plurals.messages.map {
       case (quantity, msg) => k + quantitySuffix(quantity) -> JsString(msg)
     }
@@ -69,14 +71,14 @@ object JsDump {
     }
   }
 
-  val emptyMessages: MessageMap = scala.collection.mutable.AnyRefMap.empty
+  val emptyMessages: MessageMap = new java.util.HashMap()
 
   def dbToObject(ref: I18nDb.Ref, lang: Lang): JsObject =
     I18nDb(ref).get(defaultLang) ?? { defaultMsgs =>
       JsObject {
         val msgs = I18nDb(ref).get(lang) | emptyMessages
         defaultMsgs.flatMap {
-          case (k, v) => translatedJs(k, msgs get k getOrElse v, lang)
+          case (k, v) => translatedJs(k, msgs.getOrDefault(k, v), lang)
         }
       }
     }

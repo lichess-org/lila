@@ -23,6 +23,10 @@ object AccessToken {
 
   def makeId = Id(ornicar.scalalib.Random secureString 16)
 
+  case class ForAuth(userId: User.ID, expiresAt: DateTime, scopes: List[OAuthScope]) {
+    def isExpired = expiresAt isBefore DateTime.now
+  }
+
   object BSONFields {
     val id = "access_token_id"
     val clientId = "client_id"
@@ -38,12 +42,16 @@ object AccessToken {
   import lila.db.BSON
   import lila.db.dsl._
   import BSON.BSONJodaDateTimeHandler
+  import OAuthScope.scopeHandler
 
   private[oauth] implicit val accessTokenIdHandler = stringAnyValHandler[Id](_.value, Id.apply)
 
-  private[oauth] implicit val scopeHandler = new BSONHandler[BSONString, OAuthScope] {
-    def read(b: BSONString): OAuthScope = OAuthScope.byKey.get(b.value) err s"No such scope: ${b.value}"
-    def write(s: OAuthScope) = BSONString(s.key)
+  implicit val ForAuthBSONReader = new BSONDocumentReader[ForAuth] {
+    def read(doc: BSONDocument) = ForAuth(
+      userId = doc.getAs[User.ID](BSONFields.userId) err "ForAuth userId missing",
+      expiresAt = doc.getAs[DateTime](BSONFields.expiresAt) err "ForAuth expiresAt missing",
+      scopes = doc.getAs[List[OAuthScope]](BSONFields.scopes) err "ForAuth scopes missing"
+    )
   }
 
   implicit val AccessTokenBSONHandler = new BSON[AccessToken] {
@@ -61,7 +69,7 @@ object AccessToken {
       scopes = r.get[List[OAuthScope]](scopes)
     )
 
-    def writes(w: BSON.Writer, o: AccessToken) = BSONDocument(
+    def writes(w: BSON.Writer, o: AccessToken) = $doc(
       id -> o.id,
       clientId -> o.clientId,
       userId -> o.userId,

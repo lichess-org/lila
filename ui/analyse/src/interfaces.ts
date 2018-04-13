@@ -64,6 +64,7 @@ export interface Division {
 }
 
 export interface Analysis {
+  id: string;
   white: AnalysisSide;
   black: AnalysisSide;
   partial: boolean;

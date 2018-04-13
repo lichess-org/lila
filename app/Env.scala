@@ -89,7 +89,7 @@ final class Env(
     _ <- Env.plan.api.cancel(user).nevermind
     _ <- Env.lobby.seekApi.removeByUser(user)
     _ <- Env.security.store.disconnect(user.id)
-    _ <- Env.streamer.api.onClose(user)
+    _ <- Env.streamer.api.demote(user.id)
     reports <- Env.report.api.processAndGetBySuspect(lila.report.Suspect(user))
     _ <- self ?? Env.mod.logApi.selfCloseAccount(user.id, reports)
   } yield {

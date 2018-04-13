@@ -36,11 +36,12 @@ object model {
       draw = res.isEmpty ?? 1,
       rp = rp
     )
-    def make(povs: List[lila.game.Pov]): Score = povs.foldLeft(ScoreZero.zero) {
+    def make(povs: List[lila.game.LightPov]): Score = povs.foldLeft(ScoreZero.zero) {
       case (score, pov) if pov.game.finished => score + make(
         res = pov.game.wonBy(pov.color),
         rp = RatingProg.make(pov.player)
       )
+      case (score, _) => score
     }
   }
   implicit val ScoreZero = Zero.instance(Score(0, 0, 0, none))

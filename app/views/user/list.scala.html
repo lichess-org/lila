@@ -5,7 +5,7 @@
 @userTopPerf(users: List[User.LightPerf], perfType: PerfType) = {
 <div class="user_top">
   <h2 class="text" data-icon="@perfType.iconChar">
-    <a href="@routes.User.top200(perfType.key)">@perfType.name</a>
+    <a href="@routes.User.topNb(200, perfType.key)">@perfType.name</a>
   </h2>
   @users.map { l =>
   <div>

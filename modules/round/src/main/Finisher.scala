@@ -15,7 +15,8 @@ private[round] final class Finisher(
     notifier: RoundNotifier,
     crosstableApi: lila.game.CrosstableApi,
     bus: lila.common.Bus,
-    getSocketStatus: Game.ID => Fu[actorApi.SocketStatus]
+    getSocketStatus: Game.ID => Fu[actorApi.SocketStatus],
+    isRecentTv: Game.ID => Boolean
 ) {
 
   def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = apply(pov.game, _.Aborted, None) >>- {
@@ -67,7 +68,8 @@ private[round] final class Finisher(
     moves = lt.moves if moves > 4
     sd <- stats.stdDev
     mean = stats.mean if mean > 0
-    uncomp <- lt.totalUncomped / moves
+    uncompStats = lt.uncompStats
+    uncompAvg = Math.round(10 * uncompStats.mean)
     compEstStdErr <- lt.compEstStdErr
     quotaStr = f"${lt.quotaGain.centis / 10}%02d"
     compEstOvers = lt.compEstOvers.centis
@@ -77,8 +79,11 @@ private[round] final class Finisher(
     lRec.stdDev(Math.round(10 * sd))
     // wikipedia.org/wiki/Coefficient_of_variation#Estimation
     lRec.coefVar(Math.round((1000f + 250f / moves) * sd / mean))
-    lRec.uncomped(quotaStr)(uncomp.centis)
-    lRec.uncompedAll(uncomp.centis)
+    lRec.uncomped(quotaStr)(uncompAvg)
+    lRec.uncompedAll(uncompAvg)
+    uncompStats.stdDev foreach { v =>
+      lRec.uncompStdDev(quotaStr)(Math.round(10 * v))
+    }
     lt.lagEstimator match {
       case h: DecayingStats => lRec.compDeviation(h.deviation.toInt)
     }
@@ -108,13 +113,8 @@ private[round] final class Finisher(
       UserRepo.pair(
         g.whitePlayer.userId,
         g.blackPlayer.userId
-      ).zip {
-          // because the game comes from the round GameProxy,
-          // it doesn't have the tvAt field set
-          // so we fetch it from the DB
-          GameRepo hydrateTvAt g
-        } flatMap {
-          case ((whiteO, blackO), g) => {
+      ).flatMap {
+          case (whiteO, blackO) => {
             val finish = FinishGame(g, whiteO, blackO)
             updateCountAndPerfs(finish) map { ratingDiffs =>
               message foreach { messenger.system(g, _) }
@@ -143,7 +143,7 @@ private[round] final class Finisher(
 
   private def incNbGames(game: Game)(user: User): Funit = game.finished ?? {
     val totalTime = (game.hasClock && user.playTime.isDefined) ?? game.durationSeconds
-    val tvTime = totalTime ifTrue game.metadata.tvAt.isDefined
+    val tvTime = totalTime ifTrue isRecentTv(game.id)
     val result =
       if (game.winnerUserId has user.id) 1
       else if (game.loserUserId has user.id) -1

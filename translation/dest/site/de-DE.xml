@@ -384,6 +384,7 @@
   <string name="winner">Gewinner</string>
   <string name="standing">Tabelle</string>
   <string name="createANewTournament">Neues Turnier erstellen</string>
+  <string name="tournamentCalendar">Turnierkalender</string>
   <string name="join">Teilnehmen</string>
   <string name="withdraw">Verlassen</string>
   <string name="points">Punkte</string>
@@ -752,9 +753,9 @@
   <string name="pieceSet">Figurenstil</string>
   <string name="embedInYourWebsite">In Webseite einbetten</string>
   <string name="usernameAlreadyUsed">Dieser Benutzername ist bereits vergeben. Bitte versuche es mit einem anderen.</string>
-  <string name="usernamePrefixInvalid">Der Nutzername muss mit einem Buchstaben beginnen.</string>
-  <string name="usernameSuffixInvalid">Der Nutzername muss mit einem Buchstaben oder einer Zahl enden.</string>
-  <string name="usernameCharsInvalid">Der Nutzername darf nur Buchstaben, Zahlen, Unterstriche und Bindestriche beinhalten.</string>
+  <string name="usernamePrefixInvalid">Der Benutzername muss mit einem Buchstaben beginnen.</string>
+  <string name="usernameSuffixInvalid">Der Benutzername muss mit einem Buchstaben oder einer Zahl enden.</string>
+  <string name="usernameCharsInvalid">Der Benutzername darf nur Buchstaben, Zahlen, Unterstriche und Bindestriche beinhalten.</string>
   <string name="usernameUnacceptable">Dieser Benutzername ist nicht akzeptabel.</string>
   <string name="directlySupportLichess">Lichess direkt unterstützen</string>
   <string name="playChessInStyle">Schachspielen mit Style</string>
@@ -772,7 +773,7 @@
   <string name="challenges">Herausforderungen</string>
   <string name="perfRatingX">Wertung: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="one">%s Sekunde, um den ersten Zug zu ziehen</item>
+    <item quantity="one">%s Sekunde, um den ersten Zug zu machen</item>
     <item quantity="other">%s Sekunden, um den ersten Zug zu ziehen</item>
   </plurals>
   <string name="practiceWithComputer">Übe mit dem Computer</string>
@@ -826,9 +827,9 @@
   <string name="addCurrentVariation">Aktuelle Variante hinzufügen</string>
   <string name="playVariationToCreateConditionalPremoves">Spiele eine Variante, um bedingte Vorauszüge hinzuzufügen</string>
   <string name="noConditionalPremoves">Keine bedingten Vorauszüge</string>
-  <string name="playX">Ziehe %s</string>
+  <string name="playX">Spiele %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">und speichere %s Vorauszug</item>
+    <item quantity="one">und speichere %s Variante im Voraus</item>
     <item quantity="other">und speichere %s Vorauszüge</item>
   </plurals>
 </resources>

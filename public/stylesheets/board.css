@@ -413,23 +413,23 @@ div.table {
   box-sizing: border-box;
   font-family: 'ChessSansPiratf', sans-serif;
   font-size: 17px;
-  padding-left: 7px;
+  line-height: 28px;
+  padding-left: 8px;
 }
 body.piece_letter .lichess_ground .replay move {
   font-family: 'Noto Sans';
   font-size: 15px;
+  line-height: 25px;
 }
 .lichess_ground .replay move:not(.empty) {
   cursor: pointer;
-  transition: background-color 0.13s;
 }
 .lichess_ground .replay move:not(.empty):hover {
   background: #e6e6e6;
 }
-.lichess_ground .replay move.active,
-.lichess_ground .replay move.active::after {
-  color: #d85000!important;
+.lichess_ground .replay move.active {
   font-weight: bold;
+  background: rgba(56,147,232,0.1)!important;
 }
 .lichess_ground .result_wrap {
   width: 100%;

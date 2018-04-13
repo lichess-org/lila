@@ -32,6 +32,7 @@ object Tournament extends LilaController {
   def home(page: Int) = Open { implicit ctx =>
     negotiate(
       html = Reasonable(page, 20) {
+        pageHit
         val finishedPaginator = repo.finishedPaginator(lila.common.MaxPerPage(30), page = page)
         if (HTTPRequest isXhr ctx.req) for {
           pag <- finishedPaginator
@@ -135,7 +136,7 @@ object Tournament extends LilaController {
 
   def userGameNbShow(id: String, user: String, nb: Int) = Open { implicit ctx =>
     withUserGameNb(id, user, nb) { pov =>
-      Redirect(routes.Round.watcher(pov.game.id, pov.color.name))
+      Redirect(routes.Round.watcher(pov.gameId, pov.color.name))
     }
   }
 
@@ -169,7 +170,7 @@ object Tournament extends LilaController {
           },
           api = _ => OptionFuResult(repo enterableById id) { tour =>
             env.api.joinWithResult(tour.id, me, password) map { result =>
-              if (result) Ok(jsonOkBody)
+              if (result) jsonOkResult
               else BadRequest(Json.obj("joined" -> false))
             }
           }
@@ -178,10 +179,10 @@ object Tournament extends LilaController {
     }
   }
 
-  def withdraw(id: String) = Auth { implicit ctx => me =>
+  def pause(id: String) = Auth { implicit ctx => me =>
     OptionResult(repo byId id) { tour =>
-      env.api.withdraw(tour.id, me.id)
-      if (HTTPRequest.isXhr(ctx.req)) Ok(Json.obj("ok" -> true)) as JSON
+      env.api.selfPause(tour.id, me.id)
+      if (HTTPRequest.isXhr(ctx.req)) jsonOkResult
       else Redirect(routes.Tournament.show(tour.id))
     }
   }
@@ -200,15 +201,38 @@ object Tournament extends LilaController {
     }
   }
 
+  private val CreateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+    credits = 8,
+    duration = 24 hour,
+    name = "tournament per user",
+    key = "tournament.user"
+  )
+
+  private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
+    credits = 8,
+    duration = 24 hour,
+    name = "tournament per IP",
+    key = "tournament.ip"
+  )
+
+  private implicit val rateLimited = ornicar.scalalib.Zero.instance[Fu[Result]] {
+    fuccess(Redirect(routes.Tournament.home(1)))
+  }
+
   def create = AuthBody { implicit ctx => implicit me =>
     NoLame {
       implicit val req = ctx.body
       negotiate(
         html = env.forms(me).bindFromRequest.fold(
           err => BadRequest(html.tournament.form(err, env.forms, me)).fuccess,
-          setup => env.api.createTournament(setup, me) map { tour =>
-            Redirect(routes.Tournament.show(tour.id))
-          }
+          setup =>
+            CreateLimitPerUser(me.id, cost = 1) {
+              CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
+                env.api.createTournament(setup, me) map { tour =>
+                  Redirect(routes.Tournament.show(tour.id))
+                }
+              }
+            }
         ),
         api = _ => env.forms(me).bindFromRequest.fold(
           err => BadRequest(errorsAsJson(err)).fuccess,

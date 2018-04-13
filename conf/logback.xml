@@ -3,9 +3,7 @@
   <conversionRule conversionWord="coloredLevel" converterClass="play.api.Logger$ColoredLevel" />
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-      <level>INFO</level>
-    </filter>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>INFO</level></filter>
     <encoder><pattern>%coloredLevel %logger{25} - %message%n%xException{10}</pattern></encoder>
   </appender>
 
@@ -15,9 +13,18 @@
     <encoder><pattern>%date %-5level %logger{30} %message%n%xException{60}</pattern></encoder>
   </appender>
 
+  <!-- uncapped stacktraces for error logs - looking for stack overflows -->
+  <!-- requires -XX:MaxJavaStackTraceDepth=100000 -->
+  <appender name="ERROR_FILE" class="ch.qos.logback.core.FileAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+    <file>${application.home}/logs/error.log</file>
+    <encoder><pattern>%date %-5level %logger %message%n%xException</pattern></encoder>
+  </appender>
+
   <root level="INFO">
     <appender-ref ref="STDOUT" />
     <appender-ref ref="ALL_FILE" />
+    <appender-ref ref="ERROR_FILE" />
   </root>
 
   <!-- <logger name="timer" level="DEBUG"> -->

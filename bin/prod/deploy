@@ -55,6 +55,8 @@ if [ $mode = "main" ]; then
   ssh $REMOTE "echo $BACKUP_DIR && cp -r $REMOTE_DIR $BACKUP_DIR && rm $BACKUP_DIR/RUNNING_PID && chown -R lichess:lichess $BACKUP_DIR"
 fi
 
+# read -n 1 -p "Press [Enter] to rsync to $REMOTE:$REMOTE_DIR"
+
 RSYNC_OPTIONS=" \
   --archive \
   --no-o --no-g \
@@ -102,18 +104,18 @@ fi
 FS_WARMUP="cat $REMOTE_DIR/lib/* > /dev/null && cat $REMOTE_DIR/bin/lila > /dev/null"
 
 # start dropping packets. Run `bin/prod/iptables-drop 0` on the server to resume normal traffic.
-START_DROPPING="$REMOTE_DIR/bin/prod/iptables-drop 0.97"
+START_DROPPING="$REMOTE_DIR/bin/prod/iptables-drop 0.92"
+STOP_DROPPING="sleep 8 && $REMOTE_DIR/bin/prod/iptables-drop 0"
 
 if [ $mode = "main" ]; then
   lilalog "Restart lichess"
   RUN_DIR="/home/lichess"
-  SSH_COMMAND="$START_DROPPING && chown -R lichess:lichess $REMOTE_DIR && $FS_WARMUP && rm $RUN_DIR && ln -s $REMOTE_DIR $RUN_DIR && systemctl restart lichess"
+  SSH_COMMAND="$START_DROPPING && chown -R lichess:lichess $REMOTE_DIR && $FS_WARMUP && rm $RUN_DIR && ln -s $REMOTE_DIR $RUN_DIR && systemctl restart lichess && $STOP_DROPPING"
   echo $SSH_COMMAND
   ssh $REMOTE $SSH_COMMAND
 fi
 if [ $mode = "stage" ]; then
   lilalog "Restart lichess-stage"
-  STOP_DROPPING="$REMOTE_DIR/bin/prod/iptables-drop 0"
   SSH_COMMAND="$START_DROPPING && chown -R lichess:lichess $REMOTE_DIR && $FS_WARMUP && systemctl restart lichess-stage && $STOP_DROPPING"
   echo $SSH_COMMAND
   ssh $REMOTE $SSH_COMMAND

@@ -32,13 +32,12 @@ export interface PracticeStudy {
 }
 
 export interface StudyPracticeCtrl {
-  onReload(): void;
+  onLoad(): void;
   onJump(): void;
   onCeval(): void;
   data: StudyPracticeData;
   goal: Prop<Goal>;
   success: Prop<boolean | null>;
-  comment: Prop<string | undefined>;
   nbMoves: Prop<number>;
   reset(): void;
   isWhite(): boolean;

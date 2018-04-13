@@ -61,26 +61,26 @@ object Tv extends LilaController {
   def games = gamesChannel(lila.tv.Tv.Channel.Best.key)
 
   def gamesChannel(chanKey: String) = Open { implicit ctx =>
-    (lila.tv.Tv.Channel.byKey get chanKey).fold(notFound)(lichessGames)
-  }
-
-  private def lichessGames(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =
-    Env.tv.tv.getChampions zip
-      Env.tv.tv.getGames(channel, 9) map {
+    (lila.tv.Tv.Channel.byKey get chanKey) ?? { channel =>
+      Env.tv.tv.getChampions zip Env.tv.tv.getGames(channel, 9) map {
         case (champs, games) => NoCache {
           Ok(html.tv.games(channel, games map lila.game.Pov.first, champs))
         }
       }
+    }
+  }
 
-  def feed = Action.async {
-    import makeTimeout.short
-    import akka.pattern.ask
-    import lila.round.TvBroadcast
-    import play.api.libs.EventSource
-    Env.round.tvBroadcast ? TvBroadcast.GetEnumerator mapTo
-      manifest[TvBroadcast.EnumeratorType] map { enum =>
-        Ok.chunked(enum &> EventSource()).as("text/event-stream")
-      }
+  def feed = Action.async { req =>
+    RequireHttp11(req) {
+      import makeTimeout.short
+      import akka.pattern.ask
+      import lila.round.TvBroadcast
+      import play.api.libs.EventSource
+      Env.round.tvBroadcast ? TvBroadcast.GetEnumerator mapTo
+        manifest[TvBroadcast.EnumeratorType] map { enum =>
+          Ok.chunked(enum &> EventSource()).as("text/event-stream")
+        }
+    }
   }
 
   def embed = Action { req =>

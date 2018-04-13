@@ -32,8 +32,8 @@
   <string name="whitePlays">la blabi pu\'o zukte</string>
   <string name="blackPlays">la xekri pu\'o zukte</string>
   <string name="opponentLeftChoices">si\'au lo se jivna be do co\'u jundi ti .i ko zukte .e\'a pa me lo ka xusra lo du\'u do jinga kei kei jo\'u lo ka xusra tu\'a co\'u je mo\'u nai kei jo\'u lo ka denpa</string>
-  <string name="makeYourOpponentResign">gau ku ge lo nunjvi cu tolcfa gi do jai se xusra fai lo du\'u ke\'a jinga</string>
-  <string name="forceResignation">karxusa lo ka jinga</string>
+  <string name="makeYourOpponentResign">gau ku ge lo nunjvi cu tolcfa gi zo\'e xusra lo du\'u do jinga</string>
+  <string name="forceResignation">karxusra lo ka jinga</string>
   <string name="forceDraw">xusra tu\'a co\'u je mo\'u nai</string>
   <string name="talkInChat">.e\'u do ga nai tavla gi xendo</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">lo pa moi be lo vitke be tu\'a lo .urli ba jivna do</string>
@@ -48,11 +48,13 @@
   <string name="computerAnalysis">lo skami nunlanli te pruce</string>
   <string name="computerAnalysisAvailable">pu se lanli lo skami</string>
   <string name="analysis">lo lanli te pruce cartu</string>
+  <string name="depthX">secisni li %s</string>
   <string name="loadingEngine">ca\'o samymo\'i</string>
   <string name="goDeeper">zenba lo ka condi</string>
   <string name="move">kelka\'u</string>
   <string name="variantLoss">lo drata javni gunma nuntolji\'a</string>
   <string name="variantWin">lo drata javni gunma nunji\'a</string>
+  <string name="insufficientMaterial">lo\'i cabna keirmu\'u na banzu</string>
   <string name="capture">kavbu</string>
   <string name="close">cliva</string>
   <string name="winning">jivna kelka\'u</string>
@@ -62,7 +64,10 @@
   <string name="database">samdatni</string>
   <string name="whiteDrawBlack">labji\'a .e caxpati .e xekyji\'a</string>
   <string name="averageRatingX">nilcre cnano fa li %s</string>
+  <string name="topGames">lo crerai jvikei nunjvi</string>
   <string name="openingExplorer">cfari nunmu\'u ke lanli tutci je vreji</string>
+  <string name="winPreventedBy50MoveRule">lo nunji\'a cu se fanta lo javni be tu\'a lo nunmu\'u muno mei</string>
+  <string name="lossSavedBy50MoveRule">lo nuntolji\'a cu se zanfanta lo javni be tu\'a lo nunmu\'u muno mei</string>
   <string name="allSet">.i\'e</string>
   <string name="delete">vimcu</string>
   <string name="deleteThisImportedGame">xu vimcu ti noi se nerbe\'i nunjvi</string>
@@ -148,7 +153,7 @@
   <string name="eventInProgress">ca\'o jivna</string>
   <string name="finished">mo\'u fasnu</string>
   <string name="abortGame">tolcfagau je vimcu lo nu jivna</string>
-  <string name="gameAborted">lo nu jivna gau ge tolcfa gi ba se vimcu</string>
+  <string name="gameAborted">lo nu jivna ku gau ge tolcfa gi ba se vimcu</string>
   <string name="standard">lo fadni caxmati</string>
   <string name="unlimited">lo cimni temci</string>
   <string name="mode">nilcre cnegau pei</string>
@@ -296,6 +301,7 @@
   <string name="winStreak">lo se pormei be lo te lamji be lo nunji\'a</string>
   <string name="createdBy">fi\'e la\'oi</string>
   <string name="tournamentIsStarting">le torneio ca\'o cfari</string>
+  <string name="standByX">ko denpa doi la\'oi %s .i zi\'o ca\'o zbasu lo re mei be fi lo jvikei .i ko bredi</string>
   <string name="youArePlaying">do ca\'o jivna</string>
   <string name="winRate">lo parbi be lo se rapli be lo nunji\'a</string>
   <string name="berserkRate">lo parbi be lo se rapli be lo nunsutytcebilga</string>
@@ -305,6 +311,7 @@
   <string name="whiteWins">parbi co nu la blabi cu jinga</string>
   <string name="blackWins">parbi co nu la xekri cu jinga</string>
   <string name="draws">parbi co nu no da cu jinga</string>
+  <string name="viewMoreTournaments">zgana za\'u xo grinunjvi</string>
   <string name="averageOpponent">lo se jivna nilcre cnano</string>
   <string name="membersOnly">lo cmima be la .litces. cu selte\'i</string>
   <string name="boardEditor">keltcini tiktci</string>
@@ -511,6 +518,7 @@
   <string name="hostColorX">lo ralkei cu skari lo ka %s</string>
   <string name="noSimulExplanation">ti noi cabysi\'u nuntigni cu na zasti</string>
   <string name="create">finti</string>
+  <string name="lichessTournaments">lo grinunjvi be bu\'u la .litces.</string>
   <string name="tournamentFAQ">lo cafne se reisku preti be lo kelcrxarena zei grinunjvi</string>
   <string name="tournamentOfficial">ca\'iselzau</string>
   <string name="newTournament">cnino grinunjvi</string>
@@ -521,11 +529,17 @@
   <string name="checkYourEmail">ko catlu lo se samymri be fi do</string>
   <string name="inputMovesWithTheKeyboard">jarco tu\'a lo nunmu\'u se pi\'o lo batkyfoi</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">lo tadji be lo badydi\'ulujnunmu\'u</string>
+  <string name="withNobody">fi\'o te jarco no da</string>
+  <string name="withFriends">fi\'o te jarco lo pendo</string>
+  <string name="withEverybody">fi\'o te jarco ro da</string>
   <string name="security">kamnu\'a</string>
   <string name="playChessEverywhere">fe\'e ro roi ku jvikei lo caxmati</string>
   <string name="asFreeAsLichess">nonseldi\'a du\'i la .litces.</string>
+  <string name="everybodyGetsAllFeaturesForFree">ro prenu cu te sabji ro tcila fi\'o nonseldi\'a</string>
   <string name="zeroAdvertisement">no gubnoi</string>
+  <string name="correspondenceChess">lo masno caxmati</string>
   <string name="viewTheSolution">viska lo danfu</string>
+  <string name="followAndChallengeFriends">catlu gi\'e talsa lo pendo</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">se sabji bau %s da</item>
   </plurals>
@@ -550,6 +564,7 @@
   <string name="coaches">lo te\'ictu</string>
   <string name="error.unknown">srera da</string>
   <string name="notifications">lo notci</string>
+  <string name="challenges">lo talsa</string>
   <string name="practiceWithComputer">crezenrapzu\'e se pi\'o lo skami</string>
   <string name="resumePractice">di\'a crezenrapzu\'e</string>
   <string name="seeBestMove">viska lo xagrai se zukte</string>

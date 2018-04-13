@@ -74,3 +74,54 @@ div.checkmateCaptcha label {
   width: 250px;
   text-align: left;
 }
+
+.email_confirm p {
+  margin: 1em 0;
+}
+
+.email_confirm h2 {
+  font-size: 1.5em;
+  margin-top: 2em;
+}
+.email_confirm h3 {
+  font-size: 1.3em;
+  display: inline;
+}
+
+.email_confirm ol {
+  font-size: 1.1em;
+}
+.email_confirm form input#new_email {
+  width: 70%;
+}
+@keyframes appear {
+  from { opacity: 0; }
+  30% { transform: translateY(0); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.email_confirm ol li {
+  margin: 2em 0;
+  list-style: decimal inside;
+}
+.email_confirm.anim h2,
+.email_confirm.anim ol li {
+  opacity: 0;
+  transform: translateY(100px);
+  animation: appear 3s forwards;
+  animation-delay: 2s;
+}
+.email_confirm.anim ol li:nth-child(2) {
+  animation-delay: 6s;
+}
+.email_confirm.anim ol li:nth-child(3) {
+  animation-delay: 10s;
+}
+.email_confirm.anim ol li:nth-child(4) {
+  animation-delay: 14s;
+}
+.email_confirm.anim ol li:nth-child(5) {
+  animation-delay: 18s;
+}
+#email_confirm a {
+  display: none;
+}

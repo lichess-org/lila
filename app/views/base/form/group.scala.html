@@ -1,6 +1,6 @@
-@(field: play.api.data.Field, name: Html, klass: String = "", half: Boolean = false, help: Option[Html] = None)(html: Html)(implicit ctx: Context)
+@(field: play.api.data.Field, name: Html, klass: String = "", half: Boolean = false, help: Option[Html] = None)(html: play.api.data.Field => Html)(implicit ctx: Context)
 <div class="form-group@if(field.hasErrors){ has-error}@if(half){ half}@if(help.isDefined){ margin-bottom} @klass">
-  @html
+  @html(field)
   @help.map { h => <p class="form-help">@h</p> }
   <label for="@field.id" class="control-label">@name</label>
   <i class="bar"></i>

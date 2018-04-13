@@ -5,36 +5,27 @@ import reactivemongo.bson._
 import lila.db.dsl._
 import lila.user.User
 
-case class UserInfos(user: User, history: List[Round.Mini])
+case class UserInfos(user: User, history: List[Round])
 
-object UserInfos {
+final class UserInfosApi(roundColl: Coll, currentPuzzleId: User => Fu[Option[PuzzleId]]) {
 
-  private def historySize = 15
-  private def chartSize = 15
+  private val historySize = 15
+  private val chartSize = 15
 
-  import Round.RoundMiniBSONReader
+  def apply(user: Option[User]): Fu[Option[UserInfos]] = user ?? { apply(_) map (_.some) }
 
-  def apply(roundColl: Coll) = new {
+  def apply(user: User): Fu[UserInfos] = for {
+    current <- currentPuzzleId(user)
+    rounds <- fetchRounds(user.id, current)
+  } yield new UserInfos(user, rounds)
 
-    def apply(user: User): Fu[UserInfos] = fetchRoundMinis(user.id) map {
-      new UserInfos(user, _)
-    }
-
-    def apply(user: Option[User]): Fu[Option[UserInfos]] =
-      user ?? { apply(_) map (_.some) }
-
-    private def fetchRoundMinis(userId: String): Fu[List[Round.Mini]] =
-      roundColl.find(
-        $doc(Round.BSONFields.userId -> userId),
-        $doc(
-          "_id" -> false,
-          Round.BSONFields.puzzleId -> true,
-          Round.BSONFields.ratingDiff -> true,
-          Round.BSONFields.rating -> true
-        )
-      ).sort($sort desc Round.BSONFields.date)
-        .cursor[Round.Mini]()
-        .gather[List](historySize atLeast chartSize)
-        .map(_.reverse)
+  private def fetchRounds(userId: User.ID, currentPuzzleId: Option[PuzzleId]): Fu[List[Round]] = {
+    val idSelector = $doc("$regex" -> BSONRegex(s"^$userId:", "")) ++
+      currentPuzzleId.?? { id => $doc("$lte" -> s"$userId:${Round encode id}") }
+    roundColl.find($doc(Round.BSONFields.id -> idSelector))
+      .sort($sort desc Round.BSONFields.id)
+      .cursor[Round]()
+      .gather[List](historySize atLeast chartSize)
+      .map(_.reverse)
   }
 }

@@ -27,7 +27,7 @@ interface ToolButtonOpts {
   hint: string;
   icon: VNode;
   onClick?: () => void;
-  count?: number;
+  count?: number | string;
 }
 
 function toolButton(opts: ToolButtonOpts): VNode {
@@ -91,7 +91,8 @@ function buttons(root: AnalyseCtrl): VNode {
         ctrl,
         tab: 'serverEval',
         hint: root.trans.noarg('computerAnalysis'),
-        icon: iconTag('')
+        icon: iconTag(''),
+        count: root.data.analysis && '✓'
       }),
       toolButton({
         ctrl,
@@ -224,8 +225,8 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   }
   return [
     notifView(study.notif),
+    descView(study),
     buttons(ctrl),
-    panel,
-    descView(study)
+    panel
   ];
 }

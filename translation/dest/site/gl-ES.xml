@@ -385,6 +385,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="winner">Gañador</string>
   <string name="standing">Posición</string>
   <string name="createANewTournament">Crear un novo torneo</string>
+  <string name="tournamentCalendar">Calendario do torneo</string>
   <string name="join">Unirse</string>
   <string name="withdraw">Retirarse</string>
   <string name="points">Puntos</string>
@@ -634,6 +635,7 @@ en %3$s</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="mobileApp">Aplicación Móbil</string>
   <string name="webmasters">Administradores web</string>
+  <string name="about">Acerca de</string>
   <string name="contribute">Contribuír</string>
   <string name="contact">Contactar</string>
   <string name="termsOfService">Termos do Servizo</string>

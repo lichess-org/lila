@@ -25,7 +25,7 @@ case class PlayerInfoExt(
     tour: Tournament,
     user: lila.user.User,
     player: Player,
-    recentPovs: List[lila.game.Pov]
+    recentPovs: List[lila.game.LightPov]
 )
 
 case class TourAndRanks(

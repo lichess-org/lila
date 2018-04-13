@@ -22,9 +22,12 @@ object Stream {
 
   object Twitch {
     case class Channel(name: String, status: Option[String])
-    case class TwitchStream(channel: Channel)
+    case class TwitchStream(channel: Channel, stream_type: String) {
+      def isLive = stream_type == "live"
+    }
     case class Result(streams: Option[List[TwitchStream]]) {
-      def streams(keyword: Keyword, streamers: List[Streamer]): List[Stream] = (~streams).map(_.channel).collect {
+      def liveStreams = (~streams).filter(_.isLive)
+      def streams(keyword: Keyword, streamers: List[Streamer]): List[Stream] = liveStreams.map(_.channel).collect {
         case Channel(name, Some(status)) if status.toLowerCase contains keyword.toLowerCase =>
           streamers.find(s => s.twitch.exists(_.userId.toLowerCase == name.toLowerCase)) map { Stream(name, status, _) }
       }.flatten

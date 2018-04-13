@@ -76,7 +76,7 @@ object Preload {
           pov = pov,
           opponent = opponent,
           json = Json.obj(
-            "id" -> pov.game.id,
+            "id" -> pov.gameId,
             "color" -> pov.color.name,
             "opponent" -> opponent
           )

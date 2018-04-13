@@ -752,6 +752,7 @@
   <string name="videoLibrary">مكتبة الفيديو</string>
   <string name="mobileApp">تطبيق الجوال</string>
   <string name="webmasters">مدراء المواقع</string>
+  <string name="about">عن</string>
   <string name="contribute">ساهم</string>
   <string name="contact">اتصل بنا</string>
   <string name="termsOfService">شروط الخدمة</string>
@@ -879,6 +880,9 @@
   <string name="pieceSet">مجموعة القطع</string>
   <string name="embedInYourWebsite">تضمين في موقع الويب الخاص بك</string>
   <string name="usernameAlreadyUsed">اسم المستخدم الذي اخترته موجود بالفعل، الرجاء كتابة اسم آخر.</string>
+  <string name="usernamePrefixInvalid">اسم المستخدم يجب أن يبدأ بحرف.</string>
+  <string name="usernameSuffixInvalid">اسم المستخدم يجب أن ينتهي بحرف أو رقم.</string>
+  <string name="usernameCharsInvalid">اسم المستخدم يجب أن يحتوي فقط على حروف وأرقام،خط سفلي ، والواصلات.</string>
   <string name="usernameUnacceptable">اسم المستخدم هذا غير مقبول.</string>
   <string name="directlySupportLichess">دعم ليتشيس مباشرة</string>
   <string name="playChessInStyle">لعب الشطرنج في نمط</string>

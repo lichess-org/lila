@@ -56,12 +56,12 @@ final class SecurityApi(
       case true => fufail(SecurityApi MustConfirmEmail userId)
       case false =>
         val sessionId = Random secureString 12
-        Store.save(sessionId, userId, req, apiVersion, up = true) inject sessionId
+        Store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 
-  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion])(implicit req: RequestHeader): Funit = {
+  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(implicit req: RequestHeader): Funit = {
     val sessionId = Random secureString 8
-    Store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false)
+    Store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
   }
 
   def restoreUser(req: RequestHeader): Fu[Option[FingerprintedUser]] =
@@ -77,13 +77,13 @@ final class SecurityApi(
             }
           }
         }
-      } orElse lila.oauth.OAuthServer.appliesTo(req).?? {
-        tryOauthServer().flatMap {
-          _ ?? {
-            _.activeUser(req).map2 { (u: User) => FingerprintedUser(u, false) }
-          }
-        }
       }
+    }
+
+  def oauthScoped(req: RequestHeader, scopes: List[lila.oauth.OAuthScope]): Fu[lila.oauth.OAuthServer.AuthResult] =
+    tryOauthServer().flatMap {
+      case None => fuccess(Left(lila.oauth.OAuthServer.ServerOffline))
+      case Some(server) => server.auth(req, scopes)
     }
 
   def locatedOpenSessions(userId: User.ID, nb: Int): Fu[List[LocatedSession]] =

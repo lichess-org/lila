@@ -25,7 +25,7 @@ export default function(ctrl: LobbyController) {
             hook: {
               insert(vnode) {
                 const lm = pov.lastMove;
-                const config = {
+                Chessground(vnode.elm as HTMLElement, {
                   coordinates: false,
                   drawable: { enabled: false, visible: false },
                   resizable: false,
@@ -33,8 +33,7 @@ export default function(ctrl: LobbyController) {
                   orientation: pov.variant.key === 'racingKings' ? 'white' : pov.color,
                   fen: pov.fen,
                   lastMove: lm && [lm[0] + lm[1], lm[2] + lm[3]]
-                };
-                Chessground(vnode.elm as HTMLElement, config);
+                });
               }
             }
           }, [ h('div.cg-board') ])

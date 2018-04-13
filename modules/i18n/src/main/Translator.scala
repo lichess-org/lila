@@ -20,7 +20,8 @@ object Translator {
         val htmlArgs = escapeArgs(args)
         try {
           translation match {
-            case literal: Literal => Some(literal.formatHtml(htmlArgs))
+            case literal: Simple => Some(literal.formatHtml(htmlArgs))
+            case literal: Escaped => Some(literal.formatHtml(htmlArgs))
             case plurals: Plurals => plurals.formatHtml(quantity, htmlArgs)
           }
         } catch {
@@ -52,7 +53,8 @@ object Translator {
       findTranslation(key, db, lang) flatMap { translation =>
         try {
           translation match {
-            case literal: Literal => Some(literal.formatTxt(args))
+            case literal: Simple => Some(literal.formatTxt(args))
+            case literal: Escaped => Some(literal.formatTxt(args))
             case plurals: Plurals => plurals.formatTxt(quantity, args)
           }
         } catch {
@@ -67,6 +69,6 @@ object Translator {
   }
 
   private[i18n] def findTranslation(key: MessageKey, db: I18nDb.Ref, lang: Lang): Option[Translation] =
-    I18nDb(db).get(lang).flatMap(_ get key) orElse
-      I18nDb(db).get(defaultLang).flatMap(_ get key)
+    I18nDb(db).get(lang).flatMap(t => Option(t get key)) orElse
+      I18nDb(db).get(defaultLang).flatMap(t => Option(t get key))
 }

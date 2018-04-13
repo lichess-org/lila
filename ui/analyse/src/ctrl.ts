@@ -121,7 +121,7 @@ export default class AnalyseCtrl {
 
     if (opts.initialPly) {
       const loc = window.location,
-      intHash = parseInt(loc.hash.substr(1)),
+      intHash = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.substr(1)),
       plyStr = opts.initialPly === 'url' ? (intHash || '') : opts.initialPly;
       // remove location hash - http://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
       if (intHash) window.history.pushState("", document.title, loc.pathname + loc.search);
@@ -287,7 +287,7 @@ export default class AnalyseCtrl {
       config.movable!.color = color;
     }
     config.premovable = {
-      enabled: config.movable!.color && config.turnColor !== config.movable!.color && !this.gamebookPlay()
+      enabled: config.movable!.color && config.turnColor !== config.movable!.color
     };
     this.cgConfig = config;
     return config;
@@ -474,10 +474,14 @@ export default class AnalyseCtrl {
     });
   }
 
+  onPremoveSet = () => {
+    if (this.study) this.study.onPremoveSet();
+  }
+
   addNode(node: Tree.Node, path: Tree.Path) {
     const newPath = this.tree.addNode(node, path);
     if (!newPath) {
-      console.log('Cannot addNode', node, path);
+      console.log("Can't addNode", node, path);
       return this.redraw();
     }
     this.jump(newPath);
@@ -721,6 +725,7 @@ export default class AnalyseCtrl {
   }
 
   mergeAnalysisData(data: ServerEvalData): void {
+    if (this.study && this.study.data.chapter.id !== data.ch) return;
     this.tree.merge(data.tree);
     if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;

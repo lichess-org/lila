@@ -26,7 +26,7 @@ final class RevolutionApi(
     f = coll.find($doc(
       "schedule.freq" -> scheduleFreqHandler.write(Schedule.Freq.Unique),
       "startsAt" $lt DateTime.now $gt DateTime.now.minusYears(1).minusDays(1),
-      "name" -> $doc("$regex" -> """ Revolution #\d+$"""),
+      "name" $regex Revolution.namePattern,
       "status" -> statusBSONHandler.write(Status.Finished)
     ), $doc("winner" -> true, "variant" -> true)).list[Bdoc](none, ReadPreference.secondaryPreferred) map { docOpt =>
       val awards = for {
@@ -45,6 +45,11 @@ final class RevolutionApi(
 }
 
 object Revolution {
+
+  val namePattern = """ Revolution #\d+$"""
+  val nameRegex = namePattern.r
+
+  def is(tour: Tournament) = tour.isUnique && nameRegex.pattern.matcher(tour.name).find
 
   case class Award(
       owner: User.ID,

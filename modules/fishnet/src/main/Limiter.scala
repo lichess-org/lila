@@ -11,9 +11,9 @@ private final class Limiter(
     requesterApi: lila.analyse.RequesterApi
 ) {
 
-  def apply(sender: Work.Sender): Fu[Boolean] =
-    concurrentCheck(sender) flatMap {
-      case false => fuccess(false)
+  def apply(sender: Work.Sender, ignoreConcurrentCheck: Boolean): Fu[Boolean] =
+    (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender)) flatMap {
+      case false => fuFalse
       case true => perDayCheck(sender)
     }
 
@@ -25,24 +25,24 @@ private final class Limiter(
   )
 
   private def concurrentCheck(sender: Work.Sender) = sender match {
-    case Work.Sender(_, _, mod, system) if (mod || system) => fuccess(true)
+    case Work.Sender(_, _, mod, system) if mod || system => fuTrue
     case Work.Sender(Some(userId), _, _, _) => !analysisColl.exists($doc(
       "sender.userId" -> userId
     ))
     case Work.Sender(_, Some(ip), _, _) => !analysisColl.exists($doc(
       "sender.ip" -> ip
     ))
-    case _ => fuccess(false)
+    case _ => fuFalse
   }
 
   private val maxPerDay = 30
 
   private def perDayCheck(sender: Work.Sender) = sender match {
-    case Work.Sender(_, _, mod, system) if mod || system => fuccess(true)
+    case Work.Sender(_, _, mod, system) if mod || system => fuTrue
     case Work.Sender(Some(userId), _, _, _) => requesterApi.countToday(userId) map (_ < maxPerDay)
     case Work.Sender(_, Some(ip), _, _) => fuccess {
       RequestLimitPerIP(ip, cost = 1)(true)
     }
-    case _ => fuccess(false)
+    case _ => fuFalse
   }
 }

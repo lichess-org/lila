@@ -12,6 +12,7 @@ object Streamer extends LilaController {
   private def api = Env.streamer.api
 
   def index(page: Int) = Open { implicit ctx =>
+    pageHit
     val requests = getBool("requests") && isGranted(_.Streamers)
     for {
       liveStreams <- Env.streamer.liveStreamApi.all
@@ -46,7 +47,9 @@ object Streamer extends LilaController {
   def edit = Auth { implicit ctx => me =>
     AsStreamer { s =>
       Env.streamer.liveStreamApi of s flatMap { sws =>
-        NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer))).fuccess
+        isGranted(_.ModLog).??(Env.mod.logApi.userHistory(s.user.id) map some) map { modLog =>
+          NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, modLog)))
+        }
       }
     }
   }
@@ -56,9 +59,16 @@ object Streamer extends LilaController {
       Env.streamer.liveStreamApi of s flatMap { sws =>
         implicit val req = ctx.body
         StreamerForm.userForm(sws.streamer).bindFromRequest.fold(
-          error => BadRequest(html.streamer.edit(sws, error)).fuccess,
-          data => api.update(sws.streamer, data, isGranted(_.Streamers)) inject Redirect {
-            s"${routes.Streamer.edit().url}${if (sws.streamer is me) "" else "?u=" + sws.user.id}"
+          error =>
+            isGranted(_.ModLog).??(Env.mod.logApi.userHistory(s.user.id) map some) map { modLog =>
+              BadRequest(html.streamer.edit(sws, error, modLog))
+            },
+          data => api.update(sws.streamer, data, isGranted(_.Streamers)) map { change =>
+            change.list foreach { Env.mod.logApi.streamerList(lila.report.Mod(me), s.user.id, _) }
+            change.feature foreach { Env.mod.logApi.streamerFeature(lila.report.Mod(me), s.user.id, _) }
+            Redirect {
+              s"${routes.Streamer.edit().url}${if (sws.streamer is me) "" else "?u=" + sws.user.id}"
+            }
           }
         )
       }

@@ -58,7 +58,10 @@ function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     },
     premovable: {
       enabled: opts.premovable!.enabled,
-      showDests: pref.destination
+      showDests: pref.destination,
+      events: {
+        set: ctrl.onPremoveSet
+      }
     },
     drawable: {
       enabled: !ctrl.embed,

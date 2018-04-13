@@ -31,11 +31,11 @@ form.material.form {
 .oauth .top h1 {
   flex: 1 1 100%;
 }
-.oauth .top .new_token {
+.oauth .top .new_obj {
   white-space: nowrap;
   margin-right: 10px;
 }
-.oauth .top .new_token .button i::before {
+.oauth .top .new_obj .button i::before {
   color: #759900;
   font-size: 40px;
 }
@@ -44,7 +44,19 @@ form.material.form {
   font-size: 0.8em;
 }
 .oauth table .action {
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.oauth .codes {
+  display: block;
+  margin: 10px 20px 20px 20px;
+  padding: 10px 20px;
+  background: rgba(128,128,128,0.1);
+}
+.oauth .codes td {
+  padding: 0.5em 1em;
+  font-family: monospace;
 }
 
 .oauth .scopes {

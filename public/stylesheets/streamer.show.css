@@ -99,6 +99,21 @@ div.content_box.streamer h1 {
   font-size: 1.6em;
   margin-right: 0.1em;
 }
+
+.blocker {
+  margin-top: 30px;
+  padding: 15px 0!important;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  text-align: center;
+  font-weight: normal!important;
+}
+.blocker i {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
 body.dark .streamer .service svg path {
   fill: #aaa;
 }

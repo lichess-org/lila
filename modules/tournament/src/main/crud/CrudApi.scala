@@ -2,7 +2,6 @@ package lila.tournament
 package crud
 
 import lila.user.User
-import lila.user.UserRepo.lichessId
 
 final class CrudApi {
 
@@ -17,7 +16,7 @@ final class CrudApi {
     clockIncrement = tour.clock.incrementSeconds,
     minutes = tour.minutes,
     variant = tour.variant.id,
-    position = tour.position.eco,
+    position = tour.position.fen,
     date = tour.startsAt,
     image = ~tour.spotlight.flatMap(_.iconImg),
     headline = tour.spotlight.??(_.headline),
@@ -36,7 +35,7 @@ final class CrudApi {
   }
 
   private def empty = Tournament.make(
-    by = Left(lichessId),
+    by = Left(User.lichessId),
     name = none,
     clock = chess.Clock.Config(0, 0),
     minutes = 0,

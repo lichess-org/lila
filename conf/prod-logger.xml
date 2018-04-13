@@ -31,10 +31,23 @@
     <appender-ref ref="ALL_FILE" />
   </appender>
 
+  <!-- uncapped stacktraces for error logs - looking for stack overflows -->
+  <!-- requires -XX:MaxJavaStackTraceDepth=100000 -->
+  <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+    <file>/var/log/lichess/error.log</file>
+    <encoder><pattern>%date %-5level %logger %message%n%xException</pattern></encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>/var/log/lichess/error-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+      <maxHistory>14</maxHistory>
+    </rollingPolicy>
+  </appender>
+
   <!-- By default, write WARNs in STDOUT, and INFOs in the ALL file -->
   <root level="INFO">
     <appender-ref ref="ASYNC_ALL_FILE" />
     <appender-ref ref="STDOUT_WARN" />
+    <appender-ref ref="ERROR_FILE" />
   </root>
 
   <logger name="boot" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
@@ -102,7 +115,7 @@
       </rollingPolicy>
     </appender>
   </logger>
-  <logger name="round" level="ERROR">
+  <logger name="round" level="WARN">
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
       <file>/var/log/lichess/round.log</file>
       <encoder><pattern>%date %-5level %logger{30} %message%n%xException{3}</pattern></encoder>

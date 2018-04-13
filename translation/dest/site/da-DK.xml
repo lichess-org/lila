@@ -29,8 +29,8 @@
   <string name="newOpponent">Ny modstander</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Din modstander vil gerne spille et nyt spil</string>
   <string name="joinTheGame">Start spillet</string>
-  <string name="whitePlays">Hvid i trækket</string>
-  <string name="blackPlays">Sort i trækket</string>
+  <string name="whitePlays">Hvid til at spille</string>
+  <string name="blackPlays">Sort til at spille</string>
   <string name="opponentLeftChoices">Din modstander har forladt spillet. Du kan fremtvinge modstanderens kapitulation eller vente.</string>
   <string name="makeYourOpponentResign">Tving din modstander til at opgive</string>
   <string name="forceResignation">Kræv sejr</string>
@@ -384,6 +384,7 @@
   <string name="winner">Vinder</string>
   <string name="standing">Stilling</string>
   <string name="createANewTournament">Opret en ny turnering</string>
+  <string name="tournamentCalendar">Turneringskalender</string>
   <string name="join">Tilmeld</string>
   <string name="withdraw">Frameld</string>
   <string name="points">Points</string>

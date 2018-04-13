@@ -29,6 +29,8 @@ final class Env(
     getSimul: Simul.ID => Fu[Option[Simul]],
     getSimulName: Simul.ID => Fu[Option[String]],
     getTournamentName: String => Option[String],
+    isStreaming: lila.user.User.ID => Boolean,
+    isPlaying: lila.user.User.ID => Boolean,
     pools: List[lila.pool.PoolConfig],
     val isProd: Boolean
 ) {
@@ -45,6 +47,7 @@ final class Env(
     val BaseUrl = config getString "net.base_url"
     val Port = config getInt "http.port"
     val AssetDomain = config getString "net.asset.domain"
+    val SocketDomain = config getString "net.socket.domain"
     val Email = config getString "net.email"
     val Crawlable = config getBoolean "net.crawlable"
   }
@@ -62,6 +65,11 @@ final class Env(
     text = "Assets version. Increment to force all clients to load a new version of static assets. Decrement to serve a previous revision of static assets.".some,
     init = (config, db) => config.value max db.value
   )
+  val roundRouterSetting = settingStore[Boolean](
+    "roundRouter",
+    default = false,
+    text = "enable round router".some
+  )
 
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
@@ -77,7 +85,7 @@ final class Env(
     dumper = gamePgnDump,
     getSimulName = getSimulName,
     getTournamentName = getTournamentName
-  )
+  )(system)
 
   val userApi = new UserApi(
     jsonView = userEnv.jsonView,
@@ -87,6 +95,8 @@ final class Env(
     crosstableApi = crosstableApi,
     playBanApi = playBanApi,
     gameCache = gameCache,
+    isStreaming = isStreaming,
+    isPlaying = isPlaying,
     prefApi = prefApi
   )
 
@@ -112,6 +122,7 @@ final class Env(
       getTourAndRanks = getTourAndRanks,
       getSimul = getSimul
     ),
+    enabled = roundRouterSetting.get,
     system = system,
     nbActors = math.max(1, math.min(16, Runtime.getRuntime.availableProcessors - 1))
   )
@@ -163,6 +174,8 @@ object Env {
     gameCache = lila.game.Env.current.cached,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
+    isStreaming = lila.streamer.Env.current.liveStreamApi.isStreaming,
+    isPlaying = lila.relation.Env.current.online.isPlaying,
     pools = lila.pool.Env.current.api.configs,
     isProd = lila.common.PlayApp.isProd
   )

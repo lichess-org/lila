@@ -7,7 +7,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.common.LightUser
-import lila.game.{ GameRepo, Pov, Game }
+import lila.game.{ GameRepo, LightPov, Game }
 import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType
 import lila.user.User
@@ -20,6 +20,7 @@ final class JsonView(
     asyncCache: lila.memo.AsyncCache.Builder,
     verify: Condition.Verify,
     duelStore: DuelStore,
+    pause: Pause,
     startedSinceSeconds: Int => Boolean
 ) {
 
@@ -42,6 +43,7 @@ final class JsonView(
   ): Fu[JsObject] = for {
     data <- cachableData get tour.id
     myInfo <- me ?? { u => PlayerRepo.playerInfo(tour.id, u.id) }
+    pauseDelay = me flatMap { u => pause.remainingDelay(u.id, tour) }
     stand <- (myInfo, page) match {
       case (_, Some(p)) => standing(tour, p)
       case (Some(i), _) => standing(tour, i.page)
@@ -83,7 +85,7 @@ final class JsonView(
     .add("isRecentlyFinished" -> tour.isRecentlyFinished)
     .add("secondsToFinish" -> tour.isStarted.option(tour.secondsToFinish))
     .add("secondsToStart" -> tour.isCreated.option(tour.secondsToStart))
-    .add("me" -> myInfo.map(myInfoJson(me)))
+    .add("me" -> myInfo.map(myInfoJson(me, pauseDelay)))
     .add("featured" -> data.featured)
     .add("podium" -> data.podium)
     .add("playerInfo" -> playerInfoJson)
@@ -110,7 +112,7 @@ final class JsonView(
   } yield info match {
     case PlayerInfoExt(tour, user, player, povs) =>
       val isPlaying = povs.headOption.??(_.game.playable)
-      val povScores: List[(Pov, Option[Score])] = povs zip {
+      val povScores: List[(LightPov, Option[Score])] = povs zip {
         (isPlaying ?? List(none[Score])) ::: sheet.scores.map(some)
       }
       Json.obj(
@@ -241,11 +243,11 @@ final class JsonView(
     )
   }
 
-  private def myInfoJson(u: Option[User])(i: PlayerInfo) = Json.obj(
+  private def myInfoJson(u: Option[User], delay: Option[Pause.Delay])(i: PlayerInfo) = Json.obj(
     "rank" -> i.rank,
     "withdraw" -> i.withdraw,
     "username" -> u.map(_.titleUsername)
-  )
+  ).add("pauseDelay", delay.map(_.seconds))
 
   private def gameUserJson(userId: Option[String], rating: Option[Int]): JsObject = {
     val light = userId flatMap lightUserApi.sync

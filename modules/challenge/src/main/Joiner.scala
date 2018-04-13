@@ -43,7 +43,7 @@ private[challenge] final class Joiner(onStart: String => Unit) {
           ).copy(id = c.id).|> { g =>
               state.fold(g) {
                 case sit @ SituationPlus(Situation(board, _), _) => g.copy(
-                  loadChess = () => g.chess.copy(
+                  chess = g.chess.copy(
                     situation = g.situation.copy(
                       board = g.board.copy(
                         history = board.history,

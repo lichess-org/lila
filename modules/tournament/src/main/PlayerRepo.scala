@@ -103,11 +103,11 @@ object PlayerRepo {
 
   // freaking expensive (marathons)
   private[tournament] def computeRanking(tourId: String): Fu[Ranking] =
-    coll.aggregate(Match(selectTour(tourId)), List(
+    coll.aggregateOne(Match(selectTour(tourId)), List(
       Sort(Descending("m")),
       Group(BSONNull)("uids" -> PushField("uid"))
     )) map {
-      _.firstBatch.headOption.fold(Map.empty: Ranking) {
+      _ ?? {
         _ get "uids" match {
           case Some(BSONArray(uids)) =>
             // mutable optimized implementation
@@ -125,10 +125,10 @@ object PlayerRepo {
 
   // expensive, cache it
   private[tournament] def averageRating(tourId: String): Fu[Int] =
-    coll.aggregate(Match(selectTour(tourId)), List(
+    coll.aggregateOne(Match(selectTour(tourId)), List(
       Group(BSONNull)("rating" -> AvgField("r"))
     )) map {
-      ~_.firstBatch.headOption.flatMap(_.getAs[Double]("rating").map(_.toInt))
+      ~_.flatMap(_.getAs[Double]("rating").map(_.toInt))
     }
 
   def byTourAndUserIds(tourId: String, userIds: Iterable[String]): Fu[List[Player]] =
@@ -161,10 +161,15 @@ object PlayerRepo {
       }.result
 
   def searchPlayers(tourId: Tournament.ID, term: String, nb: Int): Fu[List[User.ID]] =
-    term.nonEmpty ?? coll.primitive[User.ID](
-      selector = $doc("tid" -> tourId, "uid".$regex("^" + term.toLowerCase + ".*$", "")),
-      sort = $sort desc "m",
-      nb = nb,
-      field = "uid"
-    )
+    User.couldBeUsername(term) ?? {
+      term.nonEmpty ?? coll.primitive[User.ID](
+        selector = $doc(
+          "tid" -> tourId,
+          "uid" $startsWith term.toLowerCase
+        ),
+        sort = $sort desc "m",
+        nb = nb,
+        field = "uid"
+      )
+    }
 }

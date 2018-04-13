@@ -33,7 +33,7 @@ case class Entry(
 
 case object Entry {
 
-  def povToId(pov: Pov) = pov.game.id + pov.color.letter
+  def povToId(pov: Pov) = pov.gameId + pov.color.letter
 
   object BSONFields {
     val id = "_id"

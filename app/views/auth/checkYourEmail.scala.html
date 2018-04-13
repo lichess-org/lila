@@ -1,16 +1,52 @@
-@(u: User)(implicit ctx: Context)
+@(userEmail: Option[lila.security.EmailConfirm.UserEmail], form: Option[Form[_]] = None)(implicit ctx: Context)
 
 @auth.layout(title = "Check your email") {
-<div class="content_box small_box signup">
+<div class="content_box small_box signup email_confirm @if(form.exists(_.hasErrors)){error}else{anim}">
   <div class="signup_box">
     <h1 class="lichess_title is-green text" data-icon="E">@trans.checkYourEmail()</h1>
     <p>@trans.weHaveSentYouAnEmailClickTheLink()</p>
-    <p>@trans.ifYouDoNotSeeTheEmailCheckOtherPlaces()</p>
-    <p>
-      Not receiving it?
-      Ask @contactEmailLink and we'll confirm your email for you.
-      Don't forget to mention your username.
-    </p>
+    <h2>Not receiving it?</h2>
+    <ol>
+      <li>
+        <h3>@trans.ifYouDoNotSeeTheEmailCheckOtherPlaces()</h3>
+      </li>
+      @userEmail.map(_.email).map { email =>
+      <li>
+        <h3>Make sure your email address is correct:</h3><br />
+        <form action="@routes.Auth.fixEmail" method="POST">
+          <input
+          id="new_email"
+          type="email"
+          required="required"
+          name="email"
+          value="@form.flatMap(_("email").value).getOrElse(email.value)"
+          pattern="^((?!^@{email.value}$).)*$" />
+          <script>
+            var email = document.getElementById("new_email");
+            var currentError = "This is already your current email.";
+            email.setCustomValidity(currentError);
+            email.addEventListener("input", function() {
+              email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
+            });
+          </script>
+          <button type="submit">Change it</button>
+          @form.map { f =>
+          @errMsg(f("email"))
+          }
+        </form>
+      </li>
+      }
+      <li>
+        <h3>Wait up to 5 minutes.</h3><br />
+        Depending on your email provider, it can take a while to arrive.
+      </li>
+      <li>
+        <h3>Still not getting it?</h3><br />
+        Did you make sure your email address is correct?<br />
+        Ask @contactEmailLink and we'll confirm your email for you.<br />
+        <strong>Don't forget to mention your username.</strong>
+      </li>
+    </ol>
     <br />
     <br />
   </div>

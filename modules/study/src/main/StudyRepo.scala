@@ -168,16 +168,16 @@ final class StudyRepo(private[study] val coll: Coll) {
   }
 
   private def countLikes(studyId: Study.Id): Fu[Option[(Study.Likes, DateTime)]] =
-    coll.aggregate(
+    coll.aggregateOne(
       Match($id(studyId)),
       List(Project($doc(
         "_id" -> false,
         "likes" -> $doc("$size" -> "$likers"),
         "createdAt" -> true
       )))
-    ).map { res =>
+    ).map { docOption =>
         for {
-          doc <- res.firstBatch.headOption
+          doc <- docOption
           likes <- doc.getAs[Study.Likes]("likes")
           createdAt <- doc.getAs[DateTime]("createdAt")
         } yield likes -> createdAt

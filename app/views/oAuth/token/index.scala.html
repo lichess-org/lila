@@ -2,17 +2,29 @@
 
 @title = @{ "Personal API access tokens" }
 
-@account.layout(title = title, active = "oauth") {
+@account.layout(title = title, active = "oauth.token") {
 <div class="content_box no_padding small_box high oauth security">
   <div class="top">
     <h1>@title</h1>
-    <form class="new_token" action="@routes.OAuthToken.create">
+    <form class="new_obj" action="@routes.OAuthToken.create">
       <button type="submit" class="button frameless hint--top" data-hint="New access token">
         <i data-icon="O"></i>
       </button>
     </form>
   </div>
-  <p class="explanation">Tokens you have generated that can be used to access the lichess API.</p>
+  <p class="explanation">
+    You can make OAuth requests without going through the authorization code flow.<br />
+    <br />
+    Instead, <a class="blue" href="@routes.OAuthToken.create">generate a personal token</a> that you can directly use in API requests.<br />
+    <br />
+    Be careful, these tokens are like passwords so you should guard them carefully.<br />
+    The advantage to using a token over putting your password into a script is that a token can be revoked,
+    and you can generate lots of them.<br />
+    <br />
+    Here's a
+    <a class="blue" href="https://github.com/lichess-org/api/tree/master/example/oauth-personal-token">personal token app example</a>,
+    and the <a class="blue" href="@routes.Api.index">API documentation</a>.
+  </p>
 
   @tokens.headOption.filter(_.isBrandNew).map { token =>
   <div class="brand">

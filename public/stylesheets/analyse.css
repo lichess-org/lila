@@ -380,7 +380,7 @@ body.piece_letter .pv_box .pv span {
   display: block;
   cursor: pointer;
   padding: 0 15px;
-  display: flex;
+  display: flex!important;
   border-bottom: 1px solid #e4e4e4;
 }
 body.piece_letter .fork move {
@@ -1068,6 +1068,7 @@ body.dark .practice_box .comment {
   display: flex;
   flex-flow: column;
   justify-content: center;
+  text-transform: none;
 }
 .action_menu .tools form .fbt {
   width: 100%;
@@ -1270,7 +1271,11 @@ body.piece_letter .lichess_ground move {
   border: 1px solid #d85000!important;
 }
 .tview2 move.active {
-  color: #d85000;
+  font-weight: bold;
+  background: rgba(56,147,232,0.2);
+}
+.tview2.inline move.active {
+  border-radius: 3px;
 }
 .tview2 move.nongame {
   font-style: italic;
@@ -1278,7 +1283,7 @@ body.piece_letter .lichess_ground move {
 .tview2 move:not(.empty):hover,
 .tview2 move:not(.empty):hover index,
 .tview2 move:not(.empty):hover eval {
-  background: #3893e8;
+  background: #3893e8!important;
   color: #fff!important;
 }
 .tview2.inline move:hover {
@@ -1503,7 +1508,8 @@ body.dark .tview2 move {
   color: #aaa;
 }
 body.dark .tview2 move.active {
-  color: #ff7729;
+  background: rgba(56,147,232,0.4);
+  color: #dfdfdf;
 }
 body.dark .tview2.column comment {
   color: #999;

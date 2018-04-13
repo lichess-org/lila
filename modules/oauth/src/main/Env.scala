@@ -13,7 +13,7 @@ final class Env(
   private val settings = new {
     val DbConfig = config getConfig "mongodb"
     val CollectionAccessToken = config getString "collection.access_token"
-    val CollectionClient = config getString "collection.client"
+    val CollectionApp = config getString "collection.app"
     val JwtPublicKey = config getString "jwt.public_key"
   }
   import settings._
@@ -22,11 +22,10 @@ final class Env(
 
   private val db = new lila.db.Env("oauth", DbConfig, lifecycle)
   private val tokenColl = db(CollectionAccessToken)
-  private val clientColl = db(CollectionClient)
+  private val appColl = db(CollectionApp)
 
   lazy val server = new OAuthServer(
     tokenColl = tokenColl,
-    clientColl = clientColl,
     jwtPublicKey = JWT.PublicKey(JwtPublicKey)
   )
 
@@ -34,7 +33,9 @@ final class Env(
     tokenColl = tokenColl
   )
 
-  def forms = AccessTokenForm
+  lazy val appApi = new OAuthAppApi(appColl)
+
+  def forms = OAuthForm
 }
 
 object Env {

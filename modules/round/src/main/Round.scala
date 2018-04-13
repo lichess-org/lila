@@ -16,22 +16,15 @@ import lila.socket.UserLagCache
 import makeTimeout.large
 
 private[round] final class Round(
+    dependencies: Round.Dependencies,
     gameId: String,
-    messenger: Messenger,
-    takebacker: Takebacker,
-    finisher: Finisher,
-    rematcher: Rematcher,
-    player: Player,
-    drawer: Drawer,
-    forecastApi: ForecastApi,
-    socketHub: ActorRef,
     /* Send a message to self,
      * but by going through the actor map,
      * so this actor is spawned again if it had died/expired */
-    awakeWith: Any => Unit,
-    moretimeDuration: FiniteDuration,
-    activeTtl: Duration
+    awakeWith: Any => Unit
 ) extends SequentialActor {
+
+  import dependencies._
 
   context setReceiveTimeout activeTtl
 
@@ -224,6 +217,10 @@ private[round] final class Round(
     case NoStart => handle { game =>
       game.timeBeforeExpiration.exists(_.centis == 0) ?? finisher.noStart(game)
     }
+
+    case GetGame => fuccess {
+      sender ! proxy.game
+    }
   }
 
   private def giveMoretime(game: Game, colors: List[Color], duration: FiniteDuration): Progress =
@@ -252,13 +249,13 @@ private[round] final class Round(
     }
 
   private def scheduleExpiration: Funit = proxy.game map {
-    _ ?? { game =>
+    case None => self ! PoisonPill
+    case Some(game) =>
       game.timeBeforeExpiration foreach { centis =>
         context.system.scheduler.scheduleOnce((centis.millis + 1000).millis) {
           awakeWith(NoStart)
         }
       }
-    }
   }
 
   private def handle[A](op: Game => Fu[Events]): Funit =
@@ -313,6 +310,19 @@ private[round] final class Round(
 }
 
 object Round {
+
+  private[round] case class Dependencies(
+      messenger: Messenger,
+      takebacker: Takebacker,
+      finisher: Finisher,
+      rematcher: Rematcher,
+      player: Player,
+      drawer: Drawer,
+      forecastApi: ForecastApi,
+      socketHub: ActorRef,
+      moretimeDuration: FiniteDuration,
+      activeTtl: Duration
+  )
 
   case class TakebackSituation(
       nbDeclined: Int = 0,

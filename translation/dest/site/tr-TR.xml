@@ -632,6 +632,7 @@
   <string name="videoLibrary">Video kütüphanesi</string>
   <string name="mobileApp">Mobil Uygulama</string>
   <string name="webmasters">Site Yöneticileri</string>
+  <string name="about">Hakkında</string>
   <string name="contribute">Katkıda bulun</string>
   <string name="contact">İletişim</string>
   <string name="termsOfService">Hizmet koşulları</string>
@@ -751,6 +752,9 @@
   <string name="pieceSet">Takım seti</string>
   <string name="embedInYourWebsite">Web sitende paylaş</string>
   <string name="usernameAlreadyUsed">Bu kullanıcı adı zaten kullanılıyor, lütfen başka bir kullanıcı adı deneyin.</string>
+  <string name="usernamePrefixInvalid">Kullanıcı adınız bir harfle başlamak zorundadır.</string>
+  <string name="usernameSuffixInvalid">Kullanıcı adı bir harf veya sayı ile bitmelidir.</string>
+  <string name="usernameCharsInvalid">Kullanıcı adı yalnızca harf, sayı, alt çizgi ve çizgi içerebilir.</string>
   <string name="usernameUnacceptable">Bu kullanıcı adı uygun değil.</string>
   <string name="directlySupportLichess">Lichess\'i destekleyin</string>
   <string name="playChessInStyle">Satrancı tarz ile oynayın</string>

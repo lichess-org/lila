@@ -8,7 +8,6 @@ import chess.{ Speed, Mode, StartingPosition }
 import lila.game.PerfPicker
 import lila.rating.PerfType
 import lila.user.User
-import lila.user.UserRepo.lichessId
 
 case class Tournament(
     id: Tournament.ID,
@@ -114,7 +113,7 @@ case class Tournament(
     )
   }
 
-  def nonLichessCreatedBy = (createdBy != lichessId) option createdBy
+  def nonLichessCreatedBy = (createdBy != User.lichessId) option createdBy
 
   def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
 
@@ -171,7 +170,7 @@ object Tournament {
     system = System.default,
     clock = Schedule clockFor sched,
     minutes = minutes,
-    createdBy = lichessId,
+    createdBy = User.lichessId,
     createdAt = DateTime.now,
     nbPlayers = 0,
     variant = sched.variant,

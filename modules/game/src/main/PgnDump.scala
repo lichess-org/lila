@@ -18,15 +18,17 @@ final class PgnDump(
     val imported = game.pgnImport.flatMap { pgni =>
       Parser.full(pgni.pgn).toOption
     }
-    val ts = tags(game, initialFen, imported)
-    val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
-    val moves2 = fenSituation.??(_.situation.color.black).fold(".." +: game.pgnMoves, game.pgnMoves)
-    val turns = makeTurns(
-      moves2,
-      fenSituation.map(_.fullMoveNumber) | 1,
-      flags.clocks ?? ~game.bothClockStates,
-      game.startColor
-    )
+    val ts = if (flags.tags) tags(game, initialFen, imported) else Tags(Nil)
+    val turns = flags.moves ?? {
+      val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
+      val moves2 = fenSituation.??(_.situation.color.black).fold(".." +: game.pgnMoves, game.pgnMoves)
+      makeTurns(
+        moves2,
+        fenSituation.map(_.fullMoveNumber) | 1,
+        flags.clocks ?? ~game.bothClockStates,
+        game.startColor
+      )
+    }
     Pgn(ts, turns)
   }
 
@@ -140,7 +142,9 @@ final class PgnDump(
 object PgnDump {
 
   case class WithFlags(
-      clocks: Boolean = true
+      clocks: Boolean = true,
+      moves: Boolean = true,
+      tags: Boolean = true
   )
 
   def result(game: Game) =

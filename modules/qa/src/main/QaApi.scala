@@ -307,14 +307,15 @@ final class QaApi(
     def all: Fu[List[Tag]] = cache.get
 
     private def fetch: Fu[List[Tag]] = {
-      val col = questionColl
       import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ AddFieldToSet, Group, Project, UnwindField }
-
-      col.aggregate(Project($doc("tags" -> true)), List(
-        UnwindField("tags"), Group(BSONBoolean(true))("tags" -> AddFieldToSet("tags"))
-      )).
-        map(_.firstBatch.headOption.flatMap(_.getAs[List[String]]("tags")).
-          getOrElse(List.empty[String]).map(_.toLowerCase).distinct)
+      questionColl.aggregateOne(
+        Project($doc("tags" -> true)),
+        List(
+          UnwindField("tags"), Group(BSONBoolean(true))("tags" -> AddFieldToSet("tags"))
+        )
+      ).map { doc =>
+          (~doc.flatMap(_.getAs[List[String]]("tags"))).map(_.toLowerCase).distinct
+        }
     }
   }
 

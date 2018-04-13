@@ -56,6 +56,8 @@
   <string name="showThreat">საფრთხეების ჩვენება</string>
   <string name="inLocalBrowser">ლოკალურ ბრაუზერში</string>
   <string name="toggleLocalEvaluation">ლოკალური შეფასების ბერკეტი</string>
+  <string name="makeMainLine">გახადე მთავარი ხაზი</string>
+  <string name="deleteFromHere">წაშალე აქედან</string>
   <string name="move">სვლა</string>
   <string name="insufficientMaterial">არასაკმარისი ფიგურები</string>
   <string name="pawnMove">პაიკის სვლა</string>
@@ -71,15 +73,20 @@
   <string name="recentGames">ახლანდელი თამაშები</string>
   <string name="topGames">ტოპ თამაშები</string>
   <string name="noGameFound">თამაში ვერ მოიძებნა</string>
-  <string name="openingExplorer">ეტიუდების გზამკვლევი</string>
+  <string name="openingExplorer">დებიუტების გზამკვლევი</string>
   <string name="allSet">ყველაფერი მზადაა!</string>
   <string name="importPgn">PGN-ის იმპორტი</string>
   <string name="delete">წაშლა</string>
   <string name="deleteThisImportedGame">წაიშალოს ეს იმპორტირებული თამაში?</string>
   <string name="replayMode">გამეორების რეჟიმი</string>
   <string name="enable">ჯონჯოლი</string>
+  <string name="memory">მეხსიერება</string>
+  <string name="infiniteAnalysis">უსასრულო ანალიზი</string>
+  <string name="blunder">უხეში შეცდომა</string>
   <string name="blunders">დაუკვირვებლობები</string>
+  <string name="mistake">შეცდომა</string>
   <string name="mistakes">შეცდომები</string>
+  <string name="inaccuracy">უზუსტობა</string>
   <string name="inaccuracies">უზუსტობები</string>
   <string name="moveTimes">სვლის დრო</string>
   <string name="flipBoard">დაფის შემობრუნება</string>
@@ -141,6 +148,12 @@
   <string name="passwordReset">პაროლის აღდგენა</string>
   <string name="forgotPassword">დაგავიწყდათ პაროლი?</string>
   <string name="rank">რანგი</string>
+  <string name="rankX">რეიტინგი: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">რეიტინგი ახლდება ყოველ %s წუთში</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s ეტიუდი</item>
+    <item quantity="other">%s ეტიუდები</item>
+  </plurals>
   <string name="gamesPlayed">დასრულებული თამაშები</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s თამაშები თქვენ წინააღმდეგ</item>
@@ -160,6 +173,7 @@
   <string name="accept">დათანხმება</string>
   <string name="decline">უარყოფა</string>
   <string name="playingRightNow">თამაშობს ამ დროს</string>
+  <string name="eventInProgress">თამაშობს ამ დროს</string>
   <string name="finished">დამთავრებული</string>
   <string name="abortGame">თამაშის შეწყვეტა</string>
   <string name="gameAborted">თამაში შეწყვეტილია</string>
@@ -168,6 +182,8 @@
   <string name="mode">რეჟიმი</string>
   <string name="casual">ჩვეულებრივი</string>
   <string name="rated">შეფასებული</string>
+  <string name="casualTournament">ურეიტინგო</string>
+  <string name="ratedTournament">რეიტინგიანი</string>
   <string name="thisGameIsRated">ეს თამაში ფასდება</string>
   <string name="rematch">რევანში</string>
   <string name="rematchOfferSent">რევანშის შეთავაზება გაგზავნილია</string>
@@ -179,6 +195,8 @@
   <string name="play">თამაშის დაწყება</string>
   <string name="inbox">მიღებული</string>
   <string name="chatRoom">სასაუბრო ოთახი</string>
+  <string name="loginToChat">შედით ჩათისთვის</string>
+  <string name="youHaveBeenTimedOut">თქვენ გამოსული ხართ სისტემიდან.</string>
   <string name="spectatorRoom">მაყურებელთა ოთახი</string>
   <string name="composeMessage">შეტყობინების შექმნა</string>
   <string name="noNewMessages">ახალი შეტყობინება არ არის</string>
@@ -206,8 +224,10 @@
     <item quantity="one">მიეცით %s წამი</item>
     <item quantity="other">მიეცით %s წამი</item>
   </plurals>
+  <string name="giveMoreTime">მომეცი მეტი დრო</string>
   <string name="thisPlayerUsesChessComputerAssistance">ეს მოთამაშე იყენებს კომპიუტერულ ასისტენტს</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">აღნიშნული მოთამაშე ხელოვნურად ზრდის/ამცირებს საკუთარ რეიტინგს</string>
+  <string name="openingExplorerAndTablebase">დებიუტის გზამკვლევი &amp; ცხრილ-ბაზა</string>
   <string name="takeback">სვლის დაბრუნება</string>
   <string name="proposeATakeback">სვლის დაბრუნების შეთავაზება</string>
   <string name="takebackPropositionSent">სვლის დაბრუნება შეთავაზებული</string>
@@ -223,6 +243,24 @@
   <string name="tournamentPoints">სატურნირო ქულები</string>
   <string name="viewTournament">ნახეთ ტურნირი</string>
   <string name="backToTournament">ტურნირში დაბრუნება</string>
+  <string name="thematic">თემატური</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s რეიტინგული პარტია</item>
+    <item quantity="other">≥ %s რეიტინგიანი პარტია</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s რეიტინგული პარტია</item>
+    <item quantity="other">≥ %1$s %2$s რეიტინგიანი თამაში</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">თქვენ უნდა ითამაშოთ კიდევ %1$s %2$s რეიტინგული პარტია</item>
+    <item quantity="other">თქვენ უნდა ითამაშოთ კიდევ %1$s %2$s რეიტინგული პარტია</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">თქვენ უნდა ითამაშოთ კიდევ %s რეიტინგული პარტია</item>
+    <item quantity="other">თქვენ უნდა ითამაშოთ კიდევ %s რეიტინგული პარტია</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">თქვნი რეიტინგი %s არის პირობითი</string>
   <string name="backToGame">თამაშში დაბრუნება</string>
   <string name="siteDescription">უფასო ონლაინ ჭადრაკი. ითამაშე ჭადრაკი სუფთა, სადა ინტერფეისით. არანაირი რეგისტრაცია, არანაირი რეკლამა, არანაირი პლაგინი საჭირო არ არის. ეთამაშე ჭადრაკი კომპიუტერს, მეგობარს ან შემთხვევით ოპონენტს</string>
   <string name="teams">გუნდები</string>
@@ -454,6 +492,7 @@
   <string name="xAnsweredY">%1$s-მ(ა) უპასუხა %2$s-ს</string>
   <string name="xCommentedY">%1$s-მ(ა) კომენტარი გაუკეთა %2$s-ს</string>
   <string name="victory">გამარჯვება!</string>
+  <string name="defeat">მარცხი</string>
   <string name="timeline">ისტორია</string>
   <string name="seeAllTournaments">ყველა ტურნირის ნახვა</string>
   <string name="starting">დასაწყისი:</string>
@@ -480,6 +519,7 @@
   <string name="playOnTheBoardOffline">ადგილობრივი თამაში</string>
   <string name="playOfflineComputer">ეთამაშეთ რობოტს</string>
   <string name="opponent">მოწინააღმდეგე</string>
+  <string name="learnMenu">შესწავლა</string>
   <string name="community">საზოგადოება</string>
   <string name="tools">ინსტრუმენთა პანელი</string>
   <string name="increment">დანამატი</string>
@@ -515,6 +555,7 @@
   <string name="videoLibrary">ვიდეოთეკა</string>
   <string name="mobileApp">მობილური აპლიკაცია</string>
   <string name="webmasters">ვებმასტერები</string>
+  <string name="about">შესახებ</string>
   <string name="contribute">წვლილის შეტანა</string>
   <string name="contact">კონტაქტი</string>
   <string name="termsOfService">მომსახურების პირობები</string>
@@ -558,11 +599,28 @@
   <string name="checkYourEmail">შეამოწმეთ ელ.ფოსტა</string>
   <string name="weHaveSentYouAnEmailClickTheLink">გამოგიგზავნით იმეილზე ლინკას, დააკლიკეთ და გაააქტიურეთ თქვენი ექაუნთი</string>
   <string name="networkLagBetweenYouAndLichess">ქსელი გარკვეული შუალედი შორის თქვენ და Lichess</string>
+  <string name="downloadAnnotated">ანოტირებულის ჩამოტვირთვა</string>
+  <string name="downloadRaw">სუფთას ჩამოტვირთვა</string>
+  <string name="downloadImported">იმპორტირებულის ჩამოტვირთვა</string>
   <string name="crosstable">ჯვრის მაგიდა</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">როქის მეთოდი</string>
+  <string name="castleByMovingTwoSquares">მეფის ორი უჯრით გადაადგილება</string>
+  <string name="castleByMovingOntoTheRook">მეფის ეტლზე მიტანა</string>
+  <string name="shareYourInsightsData">საჭადრაკო ანალიზის სტატისტიკის გაზიარება</string>
+  <string name="withNobody">არავის</string>
+  <string name="withFriends">მეგობრებს</string>
+  <string name="withEverybody">ყველას</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">ელექტრონული ფოსტა %s უკვე დაარეგისტრირეთ</string>
   <string name="kidMode">ბავშვის რეჟიმი</string>
   <string name="playChessEverywhere">ითამაშე ჭადრაკი ყველგან</string>
   <string name="phoneAndTablet">ტელეფონი და ტაბლეტი</string>
   <string name="correspondenceChess">მიმოწერით</string>
   <string name="viewTheSolution">სანახავად გადაწყვეტა</string>
   <string name="gameAnalysis">თამაშის ანალიზი</string>
+  <string name="chessBasics">ჭადრაკის საფუძვლები</string>
+  <string name="coaches">მწვრთნელები</string>
+  <string name="practiceWithComputer">ვარჯიში კომპიუტერთან</string>
+  <string name="anotherWasX">შეიძლებოდა %s</string>
+  <string name="bestWasX">საუკეთესო იყო %s</string>
+  <string name="resumePractice">ვარჯიშის გაგრძელება</string>
 </resources>

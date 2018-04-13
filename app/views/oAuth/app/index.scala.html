@@ -1,0 +1,44 @@
+@(apps: List[lila.oauth.OAuthApp])(implicit ctx: Context)
+
+@title = @{ "OAuth Apps" }
+
+@account.layout(title = title, active = "oauth.app") {
+<div class="content_box no_padding small_box high oauth security">
+  <div class="top">
+    <h1>@title</h1>
+    <form class="new_obj" action="@routes.OAuthApp.create">
+      <button type="submit" class="button frameless hint--top" data-hint="New app">
+        <i data-icon="O"></i>
+      </button>
+    </form>
+  </div>
+  <p class="explanation">
+    Want to build something that integrates with and extends Lichess? Register a new OAuth App to get started developing on the Lichess API.<br />
+    <br />
+    Here's a <a class="blue" href="https://github.com/lichess-org/api/tree/master/example/oauth-authorization-code">lichess OAuth app example</a>,
+    and the <a class="blue" href="@routes.Api.index">API documentation</a>.
+  </p>
+
+  <table class="slist">
+    @apps.map { t =>
+    <tr>
+      <td>
+        <strong>@t.name</strong><br />
+        @t.description.map { desc =>
+        <em>@desc</em>
+        }
+      </td>
+      <td class="date">
+        Created @momentFromNow(t.createdAt)<br />
+      </td>
+      <td class="action">
+        <a href="@routes.OAuthApp.edit(t.clientId.value)" class="button hint--top" title="Edit this app"><i data-icon="m"></i></a>
+        <form action="@routes.OAuthApp.delete(t.clientId.value)" method="POST">
+          <button type="submit" class="button confirm hint--top" title="Delete this app"><i data-icon="q"></i></button>
+        </form>
+      </td>
+    </tr>
+    }
+  </table>
+</div>
+}

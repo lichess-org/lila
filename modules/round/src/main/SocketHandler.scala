@@ -10,8 +10,9 @@ import chess.{ Centis, MoveMetrics, Color }
 import play.api.libs.json.{ JsObject, Json }
 
 import actorApi._, round._
+import lila.chat.Chat
 import lila.common.IpAddress
-import lila.game.{ Pov, PovRef, GameRepo, Game }
+import lila.game.{ Pov, PovRef, Game }
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.Berserk
 import lila.hub.actorApi.shutup.PublicSource
@@ -19,7 +20,6 @@ import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.socket.Socket.Uid
 import lila.user.User
-import lila.chat.Chat
 import makeTimeout.short
 
 private[round] final class SocketHandler(
@@ -29,7 +29,8 @@ private[round] final class SocketHandler(
     messenger: Messenger,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     selfReport: SelfReport,
-    bus: lila.common.Bus
+    bus: lila.common.Bus,
+    isRecentTv: Game.ID => Boolean
 ) {
 
   private def controller(
@@ -116,16 +117,12 @@ private[round] final class SocketHandler(
   }
 
   def watcher(
-    gameId: String,
-    colorName: String,
+    pov: Pov,
     uid: Uid,
     user: Option[User],
     ip: IpAddress,
-    userTv: Option[String]
-  ): Fu[Option[JsSocketHandler]] =
-    GameRepo.pov(gameId, colorName) flatMap {
-      _ ?? { join(_, none, uid, user, ip, userTv = userTv) map some }
-    }
+    userTv: Option[User.ID]
+  ): Fu[JsSocketHandler] = join(pov, none, uid, user, ip, userTv)
 
   def player(
     pov: Pov,
@@ -141,7 +138,7 @@ private[round] final class SocketHandler(
     uid: Uid,
     user: Option[User],
     ip: IpAddress,
-    userTv: Option[String]
+    userTv: Option[User.ID]
   ): Fu[JsSocketHandler] = {
     val join = Join(
       uid = uid,
@@ -159,8 +156,7 @@ private[round] final class SocketHandler(
       Handler(hub, socket, uid, join) {
         case Connected(enum, member) =>
           // register to the TV channel when watching TV
-          if (playerId.isEmpty && pov.game.isRecentTv)
-            hub.channel.tvSelect ! lila.socket.Channel.Sub(member)
+          if (playerId.isEmpty && isRecentTv(pov.gameId)) hub.channel.tvSelect ! lila.socket.Channel.Sub(member)
           (controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user), enum, member)
       }
     }

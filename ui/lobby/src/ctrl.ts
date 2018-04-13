@@ -189,14 +189,13 @@ export default class LobbyController {
     this.socket.poolIn(this.poolMember);
   };
 
-  gameActivity = (gameId) => {
-    if (this.data.nowPlaying.find(function(p) {
-      return p.gameId === gameId;
-    })) xhr.nowPlaying().then(povs => {
-      this.data.nowPlaying = povs;
-      this.startWatching();
-      this.redraw();
-    });
+  gameActivity = gameId => {
+    if (this.data.nowPlaying.find(p => p.gameId === gameId))
+      xhr.nowPlaying().then(povs => {
+        this.data.nowPlaying = povs;
+        this.startWatching();
+        this.redraw();
+      });
   };
 
   private startWatching() {
@@ -218,7 +217,7 @@ export default class LobbyController {
     setTimeout(() => {
       this.redirecting = false;
       this.redraw();
-    }, 3000);
+    }, 4000);
     this.redraw();
   };
 

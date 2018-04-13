@@ -55,9 +55,10 @@ final class Env(
   system.lilaBus.subscribe(
     system.actorOf(Props(new Actor {
       def receive = {
-        case lila.user.User.Active(user) if !user.seenRecently => api.setSeenAt(user)
+        case lila.user.User.Active(user) if !user.seenRecently => api setSeenAt user
+        case lila.hub.actorApi.mod.MarkCheater(userId, true) => api demote userId
       }
-    })), 'userActive
+    })), 'userActive, 'adjustCheater
   )
 }
 

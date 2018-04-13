@@ -7,6 +7,7 @@ import lila.db.BSON._
 import lila.db.dsl._
 import lila.game.{ Pov, Game, Player, Source }
 import lila.user.{ User, UserRepo }
+import lila.common.PlayApp.{ startedSinceMinutes, isDev }
 
 final class PlaybanApi(
     coll: Coll,
@@ -30,12 +31,12 @@ final class PlaybanApi(
 
   private def blameable(game: Game): Fu[Boolean] =
     (game.source.exists(s => blameableSources(s)) && game.hasClock) ?? {
-      if (game.rated) fuccess(true)
+      if (game.rated) fuTrue
       else UserRepo.containsEngine(game.userIds) map (!_)
     }
 
   private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
-    lila.common.PlayApp.startedSinceMinutes(10) ?? {
+    (isDev || startedSinceMinutes(10)) ?? {
       blameable(game) flatMap { _ ?? f }
     }
 

@@ -6,9 +6,14 @@
 @moreJs = {
 @jsTag("tournamentForm.js")
 }
+@moreCss = {
+@cssTag("tournament.form.css")
+@cssTag("material.form.css")
+}
 
 @tournament.layout(
 title = s"${trans.newTournament()}",
+moreCss = moreCss,
 moreJs = moreJs) {
 <div id="tournament">
   <div class="content_box small_box tournament_box">
@@ -18,66 +23,74 @@ moreJs = moreJs) {
       <input type="hidden" name="@form("system").id" value="1" />
       @globalError(form)
       <table>
-        <tr>
-          <th><label for="isprivate">@trans.isPrivate()</label></th>
-          <td><input type="checkbox" name="private" id="isprivate" @if(form("private").value.isDefined) { checked } /></td>
-        </tr>
-        <tr class="password">
-          <th><label for="@form("password").id">@trans.password()</label></th>
-          <td>@base.form.input(form("password"))</td>
-        </tr>
-        @if(lila.tournament.DataForm.canPickName(me)) {
-        <tr class="name">
-          <th><label for="@form("name").id">@trans.name()</label></th>
-          <td>
-            <style>.tournament_box form.create input[name=name] { width: 15em!important; }</style>
-            @base.form.input(form("name")) Arena<br />
-            @errMsg(form("name"))
-            Pick a <strong>very safe name</strong> for the tournament.<br />
-            Anything even <strong>slightly inappropriate</strong> could get your account closed.<br />
-            Leave empty to name the tournament after a random Grandmaster.
-          </td>
-        </tr>
-        }
-        <tr class="variant">
-          <th><label for="@form("variant").id">@trans.variant()</label></th>
-          <td>@base.form.select(form("variant"), translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))</td>
-        </tr>
-        <tr class="position">
-          <th><label for="@form("position").id">@trans.startPosition()</label></th>
-          <td>
-            @tournament.startingPosition(form("position"))
-          </td>
-        </tr>
-        <tr>
-          <th><label for="@form("mode").id">@trans.mode()</label></th>
-          <td>
-            @base.form.select(form("mode"), translatedModeChoices.map(x => x._1 -> x._2))
-          </td>
-        </tr>
-        <tr class="time">
-          <th><label>@trans.timeControl()</label></th>
-          <td class="inline"></td>
-        </tr>
-        <tr class="minutes">
-          <th><label for="@form("minutes").id">@trans.duration()</label></th>
-          <td></td>
-        </tr>
-        <tr>
-          <th><label for="@form("waitMinutes").id">@trans.timeBeforeTournamentStarts()</label></th>
-          <td>@base.form.select(form("waitMinutes"), waitMinuteChoices)</td>
-        </tr>
-        <tr>
-          <th></th>
-          <td>
-            <button type="submit" class="submit button" data-icon="g">
-              @trans.createANewTournament()
-            </button>
-            <br /><br />
-            <a href="@routes.Tournament.home()">@trans.cancel()</a>
-          </td>
-        </tr>
+        <tbody>
+          <tr>
+            <th><label for="isprivate">@trans.isPrivate()</label></th>
+            <td><input type="checkbox" name="private" id="isprivate" @if(form("private").value.isDefined) { checked } /></td>
+          </tr>
+          <tr class="password">
+            <th><label for="@form("password").id">@trans.password()</label></th>
+            <td>@base.form.input(form("password"))</td>
+          </tr>
+          @if(lila.tournament.DataForm.canPickName(me)) {
+          <tr class="name">
+            <th><label for="@form("name").id">@trans.name()</label></th>
+            <td>
+              <style>.tournament_box form.create input[name=name] { width: 15em!important; }</style>
+              @base.form.input(form("name")) Arena<br />
+              @errMsg(form("name"))
+              Pick a <strong>very safe name</strong> for the tournament.<br />
+              Anything even <strong>slightly inappropriate</strong> could get your account closed.<br />
+              Leave empty to name the tournament after a random Grandmaster.
+            </td>
+          </tr>
+          }
+          <tr class="variant">
+            <th><label for="@form("variant").id">@trans.variant()</label></th>
+            <td>@base.form.select(form("variant"), translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))</td>
+          </tr>
+          <tr class="position">
+            <th><label for="@form("position").id">@trans.startPosition()</label></th>
+            <td>
+              @tournament.startingPosition(form("position"))
+            </td>
+          </tr>
+          <tr>
+            <th><label for="@form("mode").id">@trans.mode()</label></th>
+            <td>
+              @base.form.select(form("mode"), translatedModeChoicesTournament.map(x => x._1 -> x._2))
+            </td>
+          </tr>
+          <tr class="time">
+            <th><label>@trans.timeControl()</label></th>
+            <td class="inline"></td>
+          </tr>
+          <tr class="minutes">
+            <th><label for="@form("minutes").id">@trans.duration()</label></th>
+            <td></td>
+          </tr>
+          <tr>
+            <th><label for="@form("waitMinutes").id">@trans.timeBeforeTournamentStarts()</label></th>
+            <td>@base.form.select(form("waitMinutes"), waitMinuteChoices)</td>
+          </tr>
+        </tbody>
       </table>
+      <fieldset class="conditions">
+        <legend>&nbsp;Conditions of entry&nbsp;</legend>
+        <p>
+          <strong data-icon="!" class="text">We recommend leaving these empty.</strong>
+          If you set conditions of entry, your tournament will have fewer players.
+          <a class="show blue">Show conditions of entry</a>
+        </p>
+        <div class="material form">
+          @tournament.conditionForm(form)
+        </div>
+      </fieldset>
+      <button type="submit" class="submit button" data-icon="g">
+        @trans.createANewTournament()
+      </button>
+      <br /><br />
+      <a href="@routes.Tournament.home()">@trans.cancel()</a>
     </form>
     <div class="none private_time">
       @base.form.select(form("clockTime"), clockTimePrivateChoices)

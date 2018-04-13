@@ -38,16 +38,8 @@
 }
 
 @moreJs = {
-@embedJs {
-$('button.follow').click(function() {
-var klass = 'active';
-$(this).toggleClass(klass);
-$.ajax({
-url: '/rel/' + ($(this).hasClass('active') ? 'follow/' : 'unfollow/') + $(this).data('user'),
-method:'post'
-});
-});
-}
+@jsTag("ads.js")
+@jsTag("streamer.js")
 }
 
 @title = @{ s"${s.titleName} streams chess" }

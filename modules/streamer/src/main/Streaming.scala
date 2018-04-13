@@ -96,7 +96,10 @@ private final class Streaming(
   def fetchTwitchStreams(streamers: List[Streamer]): Fu[List[Twitch.Stream]] = {
     val userIds = streamers.flatMap(_.twitch).map(_.userId.toLowerCase)
     userIds.nonEmpty ?? WS.url("https://api.twitch.tv/kraken/streams")
-      .withQueryString("channel" -> userIds.mkString(","))
+      .withQueryString(
+        "channel" -> userIds.mkString(","),
+        "stream_type" -> "live"
+      )
       .withHeaders(
         "Accept" -> "application/vnd.twitchtv.v3+json",
         "Client-ID" -> twitchClientId

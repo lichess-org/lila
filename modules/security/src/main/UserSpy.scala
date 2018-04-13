@@ -1,6 +1,8 @@
 package lila.security
 
+import scala.collection.breakOut
 import reactivemongo.api.ReadPreference
+import org.joda.time.DateTime
 
 import lila.common.IpAddress
 import lila.db.dsl._
@@ -8,18 +10,18 @@ import lila.user.{ User, UserRepo }
 
 case class UserSpy(
     ips: List[UserSpy.IPData],
-    uas: List[String],
-    prints: List[FingerHash],
+    uas: List[Store.Dated[String]],
+    prints: List[Store.Dated[FingerHash]],
     usersSharingIp: Set[User],
     usersSharingFingerprint: Set[User]
 ) {
 
   import UserSpy.OtherUser
 
-  def ipStrings = ips map (_.ip)
+  def rawIps = ips map (_.ip.value)
 
   def ipsByLocations: List[(Location, List[UserSpy.IPData])] =
-    ips.sortBy(_.ip.value).groupBy(_.location).toList.sortBy(_._1.comparable)
+    ips.sortBy(_.ip).groupBy(_.location).toList.sortBy(_._1.comparable)
 
   lazy val otherUsers: Set[OtherUser] = {
     usersSharingIp.map { u =>
@@ -40,16 +42,16 @@ private[security] final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll:
   import UserSpy._
 
   def apply(user: User): Fu[UserSpy] = for {
-    infos ← Store.findInfoByUser(user.id)
-    ips = infos.map(_.ip).distinct
-    prints = infos.flatMap(_.fp).map(FingerHash(_)).distinct
+    infos ← Store.chronoInfoByUser(user.id)
+    ips = distinctRecent(infos.map(_.datedIp))
+    prints = distinctRecent(infos.flatMap(_.datedFp))
     sharingIp ← exploreSimilar("ip")(user)(coll)
     sharingFingerprint ← exploreSimilar("fp")(user)(coll)
   } yield UserSpy(
     ips = ips map { ip =>
-      IPData(ip, firewall blocksIp ip, geoIP orUnknown ip)
+      IPData(ip, firewall blocksIp ip.value, geoIP orUnknown ip.value)
     },
-    uas = infos.map(_.ua).distinct,
+    uas = distinctRecent(infos.map(_.datedUa)),
     prints = prints,
     usersSharingIp = sharingIp,
     usersSharingFingerprint = sharingFingerprint
@@ -65,7 +67,7 @@ private[security] final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll:
       $doc("user" -> user.id),
       $doc(field -> true)
     ).cursor[Bdoc]().gather[List]() map {
-        _.flatMap(_.getAs[Value](field))(scala.collection.breakOut)
+        _.flatMap(_.getAs[Value](field))(breakOut)
       }
 
   private def nextUsers(field: String)(values: Set[Value], user: User)(implicit coll: Coll): Fu[Set[User]] =
@@ -85,10 +87,19 @@ private[security] final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll:
 
 object UserSpy {
 
+  import Store.Dated
+
   case class OtherUser(user: User, byIp: Boolean, byFingerprint: Boolean)
 
-  type Fingerprint = String
+  // distinct values, keeping the most recent of duplicated values
+  // assumes all is sorted by most recent first
+  def distinctRecent[V](all: List[Dated[V]]): List[Dated[V]] =
+    all.foldLeft(Map.empty[V, DateTime]) {
+      case (acc, Dated(v, _)) if acc.contains(v) => acc
+      case (acc, Dated(v, date)) => acc + (v -> date)
+    }.map { case (v, date) => Dated(v, date) }(breakOut)
+
   type Value = String
 
-  case class IPData(ip: IpAddress, blocked: Boolean, location: Location)
+  case class IPData(ip: Dated[IpAddress], blocked: Boolean, location: Location)
 }

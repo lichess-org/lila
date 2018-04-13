@@ -1,0 +1,30 @@
+@(app: lila.oauth.OAuthApp, form: Form[_])(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("material.form.css")
+}
+
+@title = @{ s"Edit ${app.name}" }
+
+@account.layout(
+title = title,
+active = "oauth.app",
+evenMoreCss = moreCss
+) {
+<div class="oauth_form content_box no_padding oauth security">
+  <div class="top"><h1>@title</h1></div>
+  <table class="codes">
+    <tbody>
+      <tr><th>Client ID</th><td>@app.clientId.value</td></tr>
+      <tr><th>Client Secret</th><td>@app.clientSecret.value</td></tr>
+    </tbody>
+  </table>
+  <p class="explanation">
+    Here's a <a class="blue" href="https://github.com/lichess-org/api/tree/master/example/oauth-authorization-code">lichess OAuth app example</a>,
+    and the <a class="blue" href="@routes.Api.index">API documentation</a>.
+  </p>
+  <form class="content_box_content material form" action="@routes.OAuthApp.update(app.clientId.value)" method="POST">
+    @inForm(form)
+  </form>
+</div>
+}

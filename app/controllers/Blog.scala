@@ -12,9 +12,10 @@ object Blog extends LilaController {
 
   import Prismic._
 
-  def index(ref: Option[String]) = Open { implicit ctx =>
+  def index(page: Int, ref: Option[String]) = Open { implicit ctx =>
+    pageHit
     blogApi context ref flatMap { implicit prismic =>
-      blogApi.recent(prismic.api, ref, 50) flatMap {
+      blogApi.recent(prismic.api, ref, page, lila.common.MaxPerPage(10)) flatMap {
         case Some(response) => fuccess(Ok(views.html.blog.index(response)))
         case _ => notFound
       }
@@ -22,6 +23,7 @@ object Blog extends LilaController {
   }
 
   def show(id: String, slug: String, ref: Option[String]) = Open { implicit ctx =>
+    pageHit
     blogApi context ref flatMap { implicit prismic =>
       blogApi.one(prismic.api, ref, id) flatMap { maybeDocument =>
         checkSlug(maybeDocument, slug) {
@@ -34,12 +36,12 @@ object Blog extends LilaController {
     }
   }
 
-  def atom(ref: Option[String]) = Action.async { implicit req =>
-    blogApi context ref flatMap { implicit prismic =>
-      blogApi.recent(prismic.api, ref, 50) map {
-        _ ?? (_.results)
-      } map { docs =>
-        Ok(views.xml.blog.atom(docs)) as XML
+  def atom = Action.async { implicit req =>
+    blogApi context none flatMap { implicit prismic =>
+      blogApi.recent(prismic.api, none, 1, lila.common.MaxPerPage(50)) map {
+        _ ?? { docs =>
+          Ok(views.xml.blog.atom(docs)) as XML
+        }
       }
     }
   }

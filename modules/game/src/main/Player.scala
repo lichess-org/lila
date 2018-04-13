@@ -7,7 +7,7 @@ import lila.user.User
 case class PlayerUser(id: String, rating: Int, ratingDiff: Option[Int])
 
 case class Player(
-    id: String,
+    id: Player.ID,
     color: Color,
     aiLevel: Option[Int],
     isWinner: Option[Boolean] = None,
@@ -15,7 +15,7 @@ case class Player(
     isOfferingRematch: Boolean = false,
     lastDrawOffer: Option[Int] = None,
     proposeTakebackAt: Int = 0, // ply when takeback was proposed
-    userId: Option[String] = None,
+    userId: Player.UserId = None,
     rating: Option[Int] = None,
     ratingDiff: Option[Int] = None,
     provisional: Boolean = false,
@@ -151,10 +151,10 @@ object Player {
   import reactivemongo.bson._
   import lila.db.BSON
 
-  type Id = String
+  type ID = String
   type UserId = Option[String]
   type Win = Option[Boolean]
-  type Builder = Color => Id => UserId => Win => Player
+  type Builder = Color => ID => UserId => Win => Player
 
   private def safeRange(range: Range, name: String)(userId: Option[String])(v: Int): Option[Int] =
     if (range contains v) Some(v)

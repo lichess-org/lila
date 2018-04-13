@@ -59,18 +59,21 @@ object Main extends LilaController {
   }
 
   def developers = Open { implicit ctx =>
+    pageHit
     fuccess {
       html.site.developers()
     }
   }
 
   def lag = Open { implicit ctx =>
+    pageHit
     fuccess {
       html.site.lag()
     }
   }
 
   def mobile = Open { implicit ctx =>
+    pageHit
     OptionOk(Prismic getBookmark "mobile-apk") {
       case (doc, resolver) => html.mobile.home(doc, resolver)
     }

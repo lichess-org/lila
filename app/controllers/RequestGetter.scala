@@ -25,15 +25,20 @@ trait RequestGetter {
   protected def getLong(name: String)(implicit ctx: UserContext) =
     get(name) flatMap parseLongOption
 
+  protected def getLong(name: String, req: RequestHeader) =
+    get(name, req) flatMap parseLongOption
+
   protected def getBool(name: String)(implicit ctx: UserContext) =
-    getInt(name) contains 1
+    (getInt(name) exists trueish) || (get(name) exists trueish)
 
   protected def getBool(name: String, req: RequestHeader) =
-    getInt(name, req) contains 1
+    (getInt(name, req) exists trueish) || (get(name, req) exists trueish)
 
   protected def getBoolOpt(name: String)(implicit ctx: UserContext) =
-    getInt(name) map (1==)
+    (getInt(name) map (trueish)) orElse (get(name) map trueish)
 
   protected def getBoolOpt(name: String, req: RequestHeader) =
-    getInt(name, req) map (1==)
+    (getInt(name, req) map (trueish)) orElse (get(name, req) map trueish)
+
+  private def trueish(v: Any) = v == 1 || v == "true"
 }

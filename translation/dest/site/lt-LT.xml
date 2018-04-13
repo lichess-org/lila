@@ -56,6 +56,7 @@
   <string name="showThreat">Rodyti grėsmę</string>
   <string name="inLocalBrowser">vietinėje naršyklėje</string>
   <string name="toggleLocalEvaluation">Perjungti vietinį įvertinimą</string>
+  <string name="promoteVariation">Paaukštinti variacija</string>
   <string name="makeMainLine">Padaryti pagrindine linija</string>
   <string name="deleteFromHere">Ištrinti nuo čia</string>
   <string name="move">Ėjimas</string>
@@ -284,6 +285,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="winner">Nugalėtojas</string>
   <string name="standing">Turmyrinė lentelė</string>
   <string name="createANewTournament">Sukurti naują turnyrą</string>
+  <string name="tournamentCalendar">Turnyrų kalendorius</string>
   <string name="join">Prisijungti</string>
   <string name="withdraw">Pasitraukti</string>
   <string name="points">Taškai</string>

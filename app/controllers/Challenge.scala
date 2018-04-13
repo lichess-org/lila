@@ -63,7 +63,7 @@ object Challenge extends LilaController {
     OptionFuResult(env.api byId id) { c =>
       isForMe(c) ?? env.api.accept(c, ctx.me).flatMap {
         case Some(pov) => negotiate(
-          html = Redirect(routes.Round.watcher(pov.game.id, "white")).fuccess,
+          html = Redirect(routes.Round.watcher(pov.gameId, "white")).fuccess,
           api = apiVersion => Env.api.roundApi.player(pov, apiVersion) map { Ok(_) }
         ) flatMap withChallengeAnonCookie(ctx.isAnon, c, false)
         case None => negotiate(

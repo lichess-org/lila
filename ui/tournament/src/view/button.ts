@@ -20,9 +20,13 @@ export function withdraw(ctrl: TournamentController): VNode {
 
 export function join(ctrl: TournamentController): VNode {
   return orJoinSpinner(ctrl, () => {
-    const joinable = ctrl.data.verdicts.accepted;
-    return h('button.fbt.text.' + (joinable ? 'highlight' : 'disabled'), {
-      attrs: dataIcon('G'),
+    const delay = ctrl.data.me && ctrl.data.me.pauseDelay;
+    const joinable = ctrl.data.verdicts.accepted && !delay;
+    const button = h('button.fbt.text' + (joinable ? '.highlight' : ''), {
+      attrs: {
+        disabled: !joinable,
+        'data-icon': 'G'
+      },
       hook: bind('click', _ => {
         if (ctrl.data.private) {
           const p = prompt(ctrl.trans.noarg('password'));
@@ -30,6 +34,24 @@ export function join(ctrl: TournamentController): VNode {
         } else ctrl.join();
       }, ctrl.redraw)
     }, ctrl.trans('join'));
+    return delay ? h('div.delay-wrap', {
+      attrs: { title: "Waiting to be able to re-join the tournament" }
+    }, [
+      h('div.delay', {
+        hook: {
+          insert(vnode) {
+            const el = vnode.elm as HTMLElement;
+            el.style.animation = `delay ${delay}s linear`;
+            setTimeout(() => {
+              if (delay === ctrl.data.me.pauseDelay) {
+                ctrl.data.me.pauseDelay = 0;
+                ctrl.redraw();
+              }
+            }, delay * 1000);
+          }
+        }
+      }, [button])
+    ]) : button;
   });
 }
 

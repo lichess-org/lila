@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.libs.json._
 import play.api.mvc._
 
 import lila.api.Context
@@ -27,50 +28,57 @@ object Account extends LilaController {
     }
   }
 
-  def info = Open { implicit ctx =>
+  def info = Auth { implicit ctx => me =>
     negotiate(
       html = notFound,
-      api = _ => ctx.me match {
-        case None => fuccess(unauthorizedApiResult)
-        case Some(me) =>
-          relationEnv.api.countFollowers(me.id) zip
-            relationEnv.api.countFollowing(me.id) zip
-            Env.pref.api.getPref(me) zip
-            lila.game.GameRepo.urgentGames(me) zip
-            Env.challenge.api.countInFor.get(me.id) map {
-              case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges =>
-                Env.current.system.lilaBus.publish(lila.user.User.Active(me), 'userActive)
-                Ok {
-                  import play.api.libs.json._
-                  import lila.pref.JsonView._
-                  Env.user.jsonView(me) ++ Json.obj(
-                    "prefs" -> prefs,
-                    "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
-                    "nbFollowing" -> nbFollowing,
-                    "nbFollowers" -> nbFollowers,
-                    "nbChallenges" -> nbChallenges
-                  ).add("kid" -> me.kid)
-                    .add("troll" -> me.troll)
-                }
+      api = _ => relationEnv.api.countFollowers(me.id) zip
+        relationEnv.api.countFollowing(me.id) zip
+        Env.pref.api.getPref(me) zip
+        lila.game.GameRepo.urgentGames(me) zip
+        Env.challenge.api.countInFor.get(me.id) map {
+          case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges =>
+            Env.current.system.lilaBus.publish(lila.user.User.Active(me), 'userActive)
+            Ok {
+              import lila.pref.JsonView._
+              Env.user.jsonView(me) ++ Json.obj(
+                "prefs" -> prefs,
+                "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
+                "nbFollowing" -> nbFollowing,
+                "nbFollowers" -> nbFollowers,
+                "nbChallenges" -> nbChallenges
+              ).add("kid" -> me.kid)
+                .add("troll" -> me.troll)
             }
-      }
-    ) map ensureSessionId(ctx.req)
+        }
+    )
   }
 
-  def dasher = Open { implicit ctx =>
+  def nowPlaying = Auth { implicit ctx => me =>
     negotiate(
       html = notFound,
-      api = _ => ctx.me match {
-        case None => fuccess(unauthorizedApiResult)
-        case Some(me) => Env.pref.api.getPref(me) map { prefs =>
-          Ok {
-            import play.api.libs.json._
-            import lila.pref.JsonView._
-            lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
-              "coach" -> isGranted(_.Coach),
-              "prefs" -> prefs
-            )
-          }
+      api = _ => lila.game.GameRepo.urgentGames(me) map { povs =>
+        val nb = getInt("nb") | 9
+        Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map Env.api.lobbyApi.nowPlaying)))
+      }
+    )
+  }
+
+  def me = Scoped() { _ => me =>
+    Env.api.userApi.extended(me, me.some) map { json =>
+      Ok(json) as JSON
+    }
+  }
+
+  def dasher = Auth { implicit ctx => me =>
+    negotiate(
+      html = notFound,
+      api = _ => Env.pref.api.getPref(me) map { prefs =>
+        Ok {
+          import lila.pref.JsonView._
+          lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
+            "coach" -> isGranted(_.Coach),
+            "prefs" -> prefs
+          )
         }
       }
     )
@@ -100,12 +108,22 @@ object Account extends LilaController {
     Env.security.forms.changeEmail(user, _)
   }
 
-  def email = Auth { implicit ctx => me =>
-    if (getBool("check")) Ok(html.auth.checkYourEmail(me)).fuccess
-    else emailForm(me) map { form =>
-      Ok(html.account.email(me, form))
-    }
-  }
+  def email = AuthOrScoped(_.Email.Read)(
+    auth = implicit ctx => me =>
+      if (getBool("check")) Ok(renderCheckYourEmail).fuccess
+      else emailForm(me) map { form =>
+        Ok(html.account.email(me, form))
+      },
+    scoped = _ => me =>
+      UserRepo email me.id map {
+        _ ?? { email =>
+          Ok(Json.obj("email" -> email.value))
+        }
+      }
+  )
+
+  def renderCheckYourEmail(implicit ctx: Context) =
+    html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
 
   def emailApply = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
@@ -113,8 +131,11 @@ object Account extends LilaController {
       FormFuResult(form) { err =>
         fuccess(html.account.email(me, err))
       } { data =>
-        Env.security.emailChange.send(me, data.realEmail) inject Redirect {
-          s"${routes.Account.email}?check=1"
+        val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.realEmail)
+        controllers.Auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
+          Env.security.emailChange.send(me, newUserEmail.email) inject Redirect {
+            s"${routes.Account.email}?check=1"
+          }
         }
       }
     }
@@ -148,12 +169,22 @@ object Account extends LilaController {
     }
   }
 
-  def kid = Auth { implicit ctx => me =>
-    Ok(html.account.kid(me)).fuccess
+  def kid = AuthOrScoped(_.Preference.Read)(
+    auth = implicit ctx => me => Ok(html.account.kid(me)).fuccess,
+    scoped = _ => me => Ok(Json.obj("kid" -> me.kid)).fuccess
+  )
+
+  // App BC
+  def kidToggle = Auth { ctx => me =>
+    UserRepo.setKid(me, !me.kid) inject Ok
   }
 
-  def kidConfirm = Auth { ctx => me =>
-    (UserRepo toggleKid me) inject Redirect(routes.Account.kid)
+  def kidPost = AuthOrScopedTupple(_.Preference.Write) {
+    def set(me: UserModel, req: RequestHeader) = UserRepo.setKid(me, getBool("v", req))
+    (
+      ctx => me => set(me, ctx.req) inject Redirect(routes.Account.kid),
+      req => me => set(me, req) inject jsonOkResult
+    )
   }
 
   private def currentSessionId(implicit ctx: Context) =

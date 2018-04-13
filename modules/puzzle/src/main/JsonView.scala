@@ -131,7 +131,7 @@ object JsonView {
     "rating" -> i.user.perfs.puzzle.intRating,
     "history" -> isOldMobile.option(i.history.map(_.rating)), // for mobile BC
     "recent" -> i.history.map { r =>
-      Json.arr(r.puzzleId, r.ratingDiff, r.rating)
+      Json.arr(r.id.puzzleId, r.ratingDiff, r.rating)
     }
   ).noNull
 

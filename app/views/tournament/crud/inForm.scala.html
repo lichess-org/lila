@@ -2,76 +2,49 @@
 
 @import lila.tournament.DataForm._
 @import lila.tournament.crud.CrudForm._
-@import lila.tournament.Condition
 @import lila.rating.PerfType
 
 <div>
-  @base.form.group(form("date"), Html("Start date <strong>UTC</strong>"), half = true) {
-  @base.form.flatpickr(form("date"))
+  @base.form.group(form("date"), Html("Start date <strong>UTC</strong>"), half = true) { field =>
+  @base.form.flatpickr(field)
   }
-  @base.form.group(form("name"), Html("Name"), half = true) {
-  @base.form.input(form("name"))
+  @base.form.group(form("name"), Html("Name"), half = true) { field =>
+  @base.form.input(field)
   }
 </div>
 <div>
-  @base.form.group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true) {
-  @base.form.input(form("homepageHours"), "Ask first!".some)
+  @base.form.group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true) { field =>
+  @base.form.input(field, "Ask first!".some)
   }
-  @base.form.group(form("image"), Html("Custom icon"), half = true) {
-  @base.form.select(form("image"), imageChoices)
+  @base.form.group(form("image"), Html("Custom icon"), half = true) { field =>
+  @base.form.select(field, imageChoices)
   }
 </div>
-@base.form.group(form("headline"), Html("Homepage headline")) {
-@base.form.input(form("headline"))
+@base.form.group(form("headline"), Html("Homepage headline")) { field =>
+@base.form.input(field)
 }
-@base.form.group(form("description"), Html("Full description | Link: [text](url)")) {
-<textarea name="@form("description").name" id="@form("description").id">@form("description").value</textarea>
+@base.form.group(form("description"), Html("Full description | Link: [text](url)")) { field =>
+<textarea name="@field.name" id="@field.id">@field.value</textarea>
 }
 <div>
-  @base.form.group(form("variant"), Html("Variant"), half = true) {
-  @base.form.select(form("variant"), translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
+  @base.form.group(form("variant"), Html("Variant"), half = true) { field =>
+  @base.form.select(field, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
   }
-  @base.form.group(form("minutes"), Html("Duration in minutes"), half = true) {
-  @base.form.input(form("minutes"))
+  @base.form.group(form("minutes"), Html("Duration in minutes"), half = true) { field =>
+  @base.form.input(field)
   }
 </div>
 <div>
-  @base.form.group(form("clockTime"), Html("Clock time"), half = true) {
-  @base.form.select(form("clockTime"), clockTimePrivateChoices)
+  @base.form.group(form("clockTime"), Html("Clock time"), half = true) { field =>
+  @base.form.select(field, clockTimePrivateChoices)
   }
-  @base.form.group(form("clockIncrement"), Html("Clock increment"), half = true) {
-  @base.form.select(form("clockIncrement"), clockIncrementPrivateChoices)
+  @base.form.group(form("clockIncrement"), Html("Clock increment"), half = true) { field =>
+  @base.form.select(field, clockIncrementPrivateChoices)
   }
 </div>
-@base.form.group(form("position"), trans.startPosition()) {
-@tournament.startingPosition(form("position"))
+@base.form.group(form("position"), trans.startPosition()) { field =>
+@tournament.startingPosition(field)
 }
 <h2>Conditions of entry</h2>
-<div>
-  @base.form.group(form("conditions.nbRatedGame.nb"), Html("Minimum rated games"), half = true) {
-  @base.form.select(form("conditions.nbRatedGame.nb"), Condition.DataForm.nbRatedGameChoices)
-  }
-  @base.form.group(form("conditions.nbRatedGame.perf"), Html("In variant"), half = true) {
-  @base.form.select(form("conditions.nbRatedGame.perf"), ("", "Any") :: Condition.DataForm.perfChoices)
-  }
-</div>
-<div>
-  @base.form.group(form("conditions.maxRating.rating"), Html("Maximum top rating"), half = true) {
-  @base.form.select(form("conditions.maxRating.rating"), Condition.DataForm.maxRatingChoices)
-  }
-  @base.form.group(form("conditions.maxRating.perf"), Html("In variant"), half = true) {
-  @base.form.select(form("conditions.maxRating.perf"), Condition.DataForm.perfChoices)
-  }
-</div>
-<div>
-  @base.form.group(form("conditions.minRating.rating"), Html("Minimum top rating"), half = true) {
-  @base.form.select(form("conditions.minRating.rating"), Condition.DataForm.minRatingChoices)
-  }
-  @base.form.group(form("conditions.minRating.perf"), Html("In variant"), half = true) {
-  @base.form.select(form("conditions.minRating.perf"), Condition.DataForm.perfChoices)
-  }
-</div>
-@base.form.group(form("conditions.titled"), Html("Only titled players")) {
-@base.form.select(form("conditions.titled"), booleanChoices)
-}
+@tournament.conditionForm(form)
 @base.form.submit()

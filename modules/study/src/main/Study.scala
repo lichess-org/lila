@@ -30,7 +30,8 @@ case class Study(
 
   def canChat(id: User.ID) = Settings.UserSelection.allows(settings.chat, this, id.some)
 
-  def canContribute(id: User.ID) = isOwner(id) || members.get(id).exists(_.canContribute)
+  def canContribute(id: User.ID) =
+    isOwner(id) || members.get(id).exists(_.canContribute) || id == User.lichessId
 
   def isCurrent(c: Chapter.Like) = c.id == position.chapterId
 

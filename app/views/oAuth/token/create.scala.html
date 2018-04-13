@@ -8,10 +8,10 @@
 
 @account.layout(
 title = title,
-active = "oauth",
+active = "oauth.token",
 evenMoreCss = moreCss
 ) {
-<div class="token_form content_box no_padding oauth security">
+<div class="oauth_form content_box no_padding oauth security">
   <div class="top">
     <h1>@title</h1>
   </div>
@@ -22,8 +22,8 @@ evenMoreCss = moreCss
   </p>
   <form class="material form" action="@routes.OAuthToken.create" method="POST">
 
-    @base.form.group(form("description"), Html("Token description")) {
-    @base.form.input(form("description"), required = true)
+    @base.form.group(form("description"), Html("Token description")) { field =>
+    @base.form.input(field, required = true)
     }
 
     <h2>Scopes define the access for personal tokens:</h2>

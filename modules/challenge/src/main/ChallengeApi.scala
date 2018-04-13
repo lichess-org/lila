@@ -28,7 +28,7 @@ final class ChallengeApi(
 
   // returns boolean success
   def create(c: Challenge): Fu[Boolean] = isLimitedByMaxPlaying(c) flatMap {
-    case true => fuccess(false)
+    case true => fuFalse
     case false => {
       repo like c flatMap { _ ?? repo.cancel }
     } >> (repo insert c) >>- {
@@ -89,7 +89,7 @@ final class ChallengeApi(
             color = (!pov.color).name,
             challenger = Right(challenger),
             destUser = Some(destUser),
-            rematchOf = pov.game.id.some
+            rematchOf = pov.gameId.some
           )) inject true
         }
       } yield success
@@ -108,7 +108,7 @@ final class ChallengeApi(
   }
 
   private def isLimitedByMaxPlaying(c: Challenge) =
-    if (c.hasClock) fuccess(false)
+    if (c.hasClock) fuFalse
     else c.userIds.map { userId =>
       gameCache.nbPlaying(userId) map (maxPlaying <=)
     }.sequenceFu.map(_ exists identity)

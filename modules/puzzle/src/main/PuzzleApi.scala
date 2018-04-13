@@ -56,6 +56,12 @@ private[puzzle] final class PuzzleApi(
   object round {
 
     def add(a: Round) = roundColl insert a
+
+    def upsert(a: Round) = roundColl.update($id(a.id), a, upsert = true)
+
+    def reset(user: User) = roundColl.remove($doc(
+      Round.BSONFields.id $startsWith s"${user.id}:"
+    ))
   }
 
   object vote {
@@ -99,6 +105,11 @@ private[puzzle] final class PuzzleApi(
     def set(h: PuzzleHead) = headColl.update($id(h.id), h, upsert = true) void
 
     def addNew(user: User, puzzleId: PuzzleId) = set(PuzzleHead(user.id, puzzleId.some, puzzleId))
+
+    def currentPuzzleId(user: User): Fu[Option[PuzzleId]] =
+      find(user) map2 { (h: PuzzleHead) =>
+        h.current | h.last
+      }
 
     def solved(user: User, id: PuzzleId) = head find user flatMap {
       case Some(PuzzleHead(_, Some(c), n)) if c == id && c > n => set {

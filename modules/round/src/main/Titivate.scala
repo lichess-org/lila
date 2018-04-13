@@ -81,7 +81,7 @@ private[round] final class Titivate(
             }
           } inject (count + 1)
         })
-        .chronometer.mon(_.round.titivate.time).result
+        .mon(_.round.titivate.time)
         .addEffect { count =>
           lila.mon.round.titivate.game(count)
           lila.mon.round.titivate.total(total)

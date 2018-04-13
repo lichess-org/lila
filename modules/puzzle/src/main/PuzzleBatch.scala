@@ -42,7 +42,7 @@ private[puzzle] final class PuzzleBatch(
 
     private def newPuzzlesForUser(user: User, headOption: Option[PuzzleHead], nb: Int): Fu[List[Puzzle]] = {
       val rating = user.perfs.puzzle.intRating min 2300 max 900
-      val step = toleranceStepFor(rating)
+      val step = toleranceStepFor(rating, user.perfs.puzzle.nb)
       api.puzzle.cachedLastId.get flatMap { maxId =>
         val lastId = headOption match {
           case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l

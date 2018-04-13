@@ -56,13 +56,18 @@ final class StreamerApi(
   def setLiveNow(ids: List[Streamer.Id]): Funit =
     coll.update($doc("_id" $in ids), $set("liveAt" -> DateTime.now), multi = true).void
 
-  def update(s: Streamer, data: StreamerForm.UserData, asMod: Boolean): Funit =
-    coll.update($id(s.id), data(s, asMod)).void >> {
+  def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
+    val streamer = data(prev, asMod)
+    coll.update($id(streamer.id), streamer) inject {
+      val modChange = Streamer.ModChange(
+        list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
+        feature = prev.approval.autoFeatured != streamer.approval.autoFeatured option streamer.approval.autoFeatured
+      )
       import lila.notify.Notification.Notifies
       import lila.notify.{ Notification, NotifyApi }
-      (!s.approval.granted && data.approval.exists(_.granted)) ??
+      ~modChange.list ??
         notifyApi.addNotification(Notification.make(
-          Notifies(s.userId),
+          Notifies(streamer.userId),
           lila.notify.GenericLink(
             url = s"/streamer/edit",
             title = "Listed on /streamer".some,
@@ -70,10 +75,19 @@ final class StreamerApi(
             icon = ""
           )
         ))
+      modChange
     }
+  }
 
-  def onClose(u: User): Funit =
-    coll.update($id(u.id), $set("approval.granted" -> false)).void
+  def demote(userId: User.ID): Funit =
+    coll.update(
+      $id(userId),
+      $set(
+        "approval.requested" -> false,
+        "approval.granted" -> false,
+        "approval.autoFeatured" -> false
+      )
+    ).void
 
   def create(u: User): Funit =
     isStreamer(u) flatMap { exists =>

@@ -434,6 +434,7 @@
   <string name="winner">Zwycięzca</string>
   <string name="standing">Pozycja</string>
   <string name="createANewTournament">Nowy turniej</string>
+  <string name="tournamentCalendar">Kalendarz turnieju</string>
   <string name="join">Dołącz</string>
   <string name="withdraw">Wycofaj się</string>
   <string name="points">Punkty</string>

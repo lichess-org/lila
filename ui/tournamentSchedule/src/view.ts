@@ -98,7 +98,7 @@ function tournamentClass(tour) {
     'major': tour.major,
     thematic: !!tour.position,
     short: tour.minutes <= 30,
-    'max-rating': tour.hasMaxRating
+    'max-rating': !userCreated && tour.hasMaxRating
   };
   if (tour.schedule) classes[tour.schedule.freq] = true;
   return classes;

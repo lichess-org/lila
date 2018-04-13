@@ -19,20 +19,34 @@ object GameRepo {
   // dirty
   val coll = Env.current.gameColl
 
-  type ID = String
-
   import BSONHandlers._
-  import Game.{ BSONFields => F }
+  import Game.{ ID, BSONFields => F }
 
   def game(gameId: ID): Fu[Option[Game]] = coll.byId[Game](gameId)
 
-  def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[Game]] = coll.byOrderedIds[Game, Game.ID](gameIds)(_.id)
+  def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[Game]] = coll.byOrderedIds[Game, ID](gameIds)(_.id)
 
   def gamesFromSecondary(gameIds: Seq[ID]): Fu[List[Game]] =
-    coll.byOrderedIds[Game, Game.ID](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
+    coll.byOrderedIds[Game, ID](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
 
   def gameOptionsFromSecondary(gameIds: Seq[ID]): Fu[List[Option[Game]]] =
-    coll.optionsByOrderedIds[Game, Game.ID](gameIds, ReadPreference.secondaryPreferred)(_.id)
+    coll.optionsByOrderedIds[Game, ID](gameIds, ReadPreference.secondaryPreferred)(_.id)
+
+  object light {
+
+    def game(gameId: ID): Fu[Option[LightGame]] = coll.byId[LightGame](gameId, LightGame.projection)
+
+    def pov(gameId: ID, color: Color): Fu[Option[LightPov]] =
+      game(gameId) map2 { (game: LightGame) => LightPov(game, game player color) }
+
+    def pov(ref: PovRef): Fu[Option[LightPov]] = pov(ref.gameId, ref.color)
+
+    def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[LightGame]] =
+      coll.byOrderedIds[LightGame, ID](gameIds, projection = LightGame.projection.some)(_.id)
+
+    def gamesFromSecondary(gameIds: Seq[ID]): Fu[List[LightGame]] =
+      coll.byOrderedIds[LightGame, ID](gameIds, projection = LightGame.projection.some, readPreference = ReadPreference.secondaryPreferred)(_.id)
+  }
 
   def finished(gameId: ID): Fu[Option[Game]] =
     coll.uno[Game]($id(gameId) ++ Query.finished)
@@ -55,11 +69,7 @@ object GameRepo {
     Color(color) ?? (pov(gameId, _))
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
-    coll.byId[Game](playerRef.gameId) map { gameOption =>
-      gameOption flatMap { game =>
-        game player playerRef.playerId map { Pov(game, _) }
-      }
-    }
+    game(playerRef.gameId) map { _ flatMap { _ playerIdPov playerRef.playerId } }
 
   def pov(fullId: ID): Fu[Option[Pov]] = pov(PlayerRef(fullId))
 
@@ -68,7 +78,7 @@ object GameRepo {
   def remove(id: ID) = coll.remove($id(id)).void
 
   def userPovsByGameIds(gameIds: List[String], user: User, readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[List[Pov]] =
-    coll.byOrderedIds[Game, Game.ID](gameIds)(_.id) map { _.flatMap(g => Pov(g, user)) }
+    coll.byOrderedIds[Game, ID](gameIds)(_.id) map { _.flatMap(g => Pov(g, user)) }
 
   def recentPovsByUserFromSecondary(user: User, nb: Int): Fu[List[Pov]] =
     coll.find(Query user user)
@@ -108,9 +118,12 @@ object GameRepo {
   def sortedCursor(
     selector: Bdoc,
     sort: Bdoc,
+    batchSize: Int = 0,
     readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(implicit cp: CursorProducer[Game]) =
-    coll.find(selector).sort(sort).cursor[Game](readPreference)
+  )(implicit cp: CursorProducer[Game]) = {
+    val query = coll.find(selector).sort(sort)
+    query.copy(options = query.options.batchSize(batchSize)).cursor[Game](readPreference)
+  }
 
   def goBerserk(pov: Pov): Funit =
     coll.update($id(pov.gameId), $set(
@@ -180,11 +193,6 @@ object GameRepo {
 
   def setTv(id: ID) = coll.updateFieldUnchecked($id(id), F.tvAt, DateTime.now)
 
-  def onTv(nb: Int): Fu[List[Game]] = coll.find($doc(F.tvAt $exists true))
-    .sort($sort desc F.tvAt)
-    .cursor[Game]()
-    .gather[List](nb)
-
   def setAnalysed(id: ID): Unit = {
     coll.updateFieldUnchecked($id(id), F.analysed, true)
   }
@@ -195,12 +203,14 @@ object GameRepo {
   def isAnalysed(id: ID): Fu[Boolean] =
     coll.exists($id(id) ++ Query.analysed(true))
 
-  def filterAnalysed(ids: Seq[String]): Fu[Set[String]] =
-    coll.distinct[String, Set]("_id", ($inIds(ids) ++ $doc(
+  def filterAnalysed(ids: Seq[ID]): Fu[Set[ID]] =
+    coll.distinct[ID, Set]("_id", ($inIds(ids) ++ $doc(
       F.analysed -> true
     )).some)
 
-  def exists(id: String) = coll.exists($id(id))
+  def exists(id: ID) = coll.exists($id(id))
+
+  def tournamentId(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.tournamentId)
 
   def incBookmarks(id: ID, value: Int) =
     coll.update($id(id), $inc(F.bookmarks -> value)).void
@@ -358,37 +368,35 @@ object GameRepo {
 
   private[game] def bestOpponents(userId: String, limit: Int): Fu[List[(User.ID, Int)]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    coll.aggregateWithReadPreference(Match($doc(F.playerUids -> userId)), List(
-      Match($doc(F.playerUids -> $doc("$size" -> 2))),
-      Sort(Descending(F.createdAt)),
-      Limit(1000), // only look in the last 1000 games
-      Project($doc(
-        F.playerUids -> true,
-        F.id -> false
-      )),
-      UnwindField(F.playerUids),
-      Match($doc(F.playerUids -> $doc("$ne" -> userId))),
-      GroupField(F.playerUids)("gs" -> SumValue(1)),
-      Sort(Descending("gs")),
-      Limit(limit)
-    ), ReadPreference.secondaryPreferred).map(_.firstBatch.flatMap { obj =>
-      obj.getAs[String]("_id") flatMap { id =>
-        obj.getAs[Int]("gs") map { id -> _ }
-      }
-    })
+    coll.aggregateList(
+      Match($doc(F.playerUids -> userId)),
+      List(
+        Match($doc(F.playerUids -> $doc("$size" -> 2))),
+        Sort(Descending(F.createdAt)),
+        Limit(1000), // only look in the last 1000 games
+        Project($doc(
+          F.playerUids -> true,
+          F.id -> false
+        )),
+        UnwindField(F.playerUids),
+        Match($doc(F.playerUids -> $doc("$ne" -> userId))),
+        GroupField(F.playerUids)("gs" -> SumValue(1)),
+        Sort(Descending("gs")),
+        Limit(limit)
+      ),
+      maxDocs = limit,
+      ReadPreference.secondaryPreferred
+    ).map(_.flatMap { obj =>
+        obj.getAs[String]("_id") flatMap { id =>
+          obj.getAs[Int]("gs") map { id -> _ }
+        }
+      })
   }
 
   def random: Fu[Option[Game]] = coll.find($empty)
     .sort(Query.sortCreated)
     .skip(Random nextInt 1000)
     .uno[Game]
-
-  def hydrateTvAt(game: Game): Fu[Game] =
-    coll.primitiveOne[DateTime]($id(game.id), F.tvAt).map {
-      _.fold(game) { tvAt =>
-        game.copy(metadata = game.metadata.copy(tvAt = tvAt.some))
-      }
-    }
 
   def findPgnImport(pgn: String): Fu[Option[Game]] = coll.uno[Game](
     $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))

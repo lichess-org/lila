@@ -8,7 +8,7 @@ import akka.pattern.ask
 import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov }
 
-final class Tv(actor: ActorRef) {
+final class Tv(actor: ActorRef, roundProxyGame: Game.ID => Fu[Option[Game]]) {
 
   import Tv._
 
@@ -19,7 +19,7 @@ final class Tv(actor: ActorRef) {
       case e: Exception =>
         logger.warn("Tv.getGame", e)
         none
-    } flatMap { _ ?? GameRepo.game }
+    } flatMap { _ ?? roundProxyGame }
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
     (actor ? TvActor.GetGameIdAndHistory(channel) mapTo
@@ -29,14 +29,14 @@ final class Tv(actor: ActorRef) {
           none
       } flatMap {
         case ChannelActor.GameIdAndHistory(gameId, historyIds) => for {
-          game <- gameId ?? GameRepo.game
-          games <- GameRepo gamesFromPrimary historyIds
+          game <- gameId ?? roundProxyGame
+          games <- historyIds.map(roundProxyGame).sequenceFu.map(_.flatten)
           history = games map Pov.first
         } yield game map (_ -> history)
       }
 
   def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =
-    (actor ? TvActor.GetGameIds(channel, max) mapTo manifest[List[String]]) recover {
+    (actor ? TvActor.GetGameIds(channel, max) mapTo manifest[List[Game.ID]]) recover {
       case e: Exception => Nil
     } flatMap GameRepo.gamesFromPrimary
 

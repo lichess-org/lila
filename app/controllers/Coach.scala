@@ -14,6 +14,7 @@ object Coach extends LilaController {
   def allDefault(page: Int) = all(CoachPager.Order.Login.key, page)
 
   def all(o: String, page: Int) = Open { implicit ctx =>
+    pageHit
     val order = CoachPager.Order(o)
     Env.coach.pager(order, page) map { pager =>
       Ok(html.coach.index(pager, order))

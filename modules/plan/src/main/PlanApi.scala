@@ -5,6 +5,7 @@ import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 final class PlanApi(
@@ -83,7 +84,7 @@ final class PlanApi(
     }
 
   def onPaypalCharge(
-    userId: Option[String],
+    userId: Option[User.ID],
     email: Option[Patron.PayPal.Email],
     subId: Option[Patron.PayPal.SubId],
     cents: Cents,
@@ -220,6 +221,25 @@ final class PlanApi(
     }
   }
 
+  def isLifetime(user: User): Fu[Boolean] = userPatron(user) map {
+    _.exists(_.isLifetime)
+  }
+
+  def setLifetime(user: User): Funit = isLifetime(user) flatMap {
+    case true => funit
+    case _ => UserRepo.setPlan(user, lila.user.Plan(
+      months = user.plan.months | 1,
+      active = true,
+      since = user.plan.since orElse DateTime.now.some
+    )) >> patronColl.update(
+      $id(user.id),
+      $set(
+        "lastLevelUp" -> DateTime.now,
+        "lifetime" -> true
+      )
+    ).void >>- lightUserApi.invalidate(user.id)
+  }
+
   private val recentChargeUserIdsNb = 50
   private val recentChargeUserIdsCache = asyncCache.single[List[User.ID]](
     name = "plan.recentChargeUserIds",
@@ -237,14 +257,16 @@ final class PlanApi(
   private val topPatronUserIdsNb = 120
   private val topPatronUserIdsCache = asyncCache.single[List[User.ID]](
     name = "plan.topPatronUserIds",
-    f = chargeColl.aggregate(
+    f = chargeColl.aggregateList(
       Match($doc("userId" $exists true)), List(
         GroupField("userId")("total" -> SumField("cents")),
         Sort(Descending("total")),
         Limit(topPatronUserIdsNb * 3 / 2)
-      )
+      ),
+      maxDocs = topPatronUserIdsNb * 2,
+      readPreference = ReadPreference.secondaryPreferred
     ).map {
-        _.firstBatch.flatMap { _.getAs[User.ID]("_id") }
+        _.flatMap { _.getAs[User.ID]("_id") }
       } flatMap filterUserIds map (_ take topPatronUserIdsNb),
     expireAfter = _.ExpireAfterWrite(1 hour)
   )

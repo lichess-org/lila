@@ -384,6 +384,7 @@
   <string name="winner">Ganador</string>
   <string name="standing">Posición</string>
   <string name="createANewTournament">Crear un nuevo torneo</string>
+  <string name="tournamentCalendar">Calendario del torneo</string>
   <string name="join">Unirse</string>
   <string name="withdraw">Abandonar</string>
   <string name="points">Puntos</string>
@@ -520,7 +521,7 @@
   <string name="boardHighlights">Destacar casillas del tablero (último movimiento y jaque)</string>
   <string name="pieceDestinations">Destino de las piezas (movimientos válidos y anticipados)</string>
   <string name="boardCoordinates">Coordenadas del tablero (A-H, 1-8)</string>
-  <string name="moveListWhilePlaying">Lista de movimientos de la partida</string>
+  <string name="moveListWhilePlaying">Lista de movimientos durante la partida</string>
   <string name="pgnPieceNotation">Notación de los movimientos</string>
   <string name="chessPieceSymbol">Símbolo de la pieza</string>
   <string name="pgnLetter">Inicial (en inglés) de la pieza (K, Q, R, B, N)</string>
@@ -816,13 +817,13 @@
   <string name="opening">Apertura</string>
   <string name="middlegame">Medio juego</string>
   <string name="endgame">Final</string>
-  <string name="registerToSendChallenges">Por favor regístrate para desafiar a otros.</string>
+  <string name="registerToSendChallenges">Regístrate para desafiar a otros.</string>
   <string name="youCannotChallengeX">No puedes desafiar a %s.</string>
   <string name="xDoesNotAcceptChallenges">%s no acepta desafíos.</string>
   <string name="yourXRatingIsTooFarFromY">Tu puntuación de %1$s está demasiado lejos de la de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">No puedes desafiar debido a tu elo %s provisional.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">No puedes desafiar debido a tu elo provisional de %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s sólo acepta desafíos de sus amigos.</string>
-  <string name="conditionalPremoves">Movimientos previos condicionales</string>
+  <string name="conditionalPremoves">Premovimientos condicionales</string>
   <string name="addCurrentVariation">Añadir la variante actual</string>
   <string name="playVariationToCreateConditionalPremoves">Juega una variación para crear premovimientos condicionales</string>
   <string name="noConditionalPremoves">Sin movimientos anticipados condicionales</string>

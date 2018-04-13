@@ -1,0 +1,35 @@
+@(userEmail: lila.security.EmailConfirm.UserEmail)
+
+<style type="text/css">
+body {
+  margin-top: 45px;
+}
+
+#email_confirm {
+  height: 40px;
+  background: #3893E8;
+  color: #fff!important;
+  font-size: 1.3em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #666;
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+#email_confirm a {
+  color: #fff!important;
+  text-decoration: underline;
+  margin-left: 1em;
+}
+</style>
+
+<div id="email_confirm">
+  Almost there, @userEmail.username! Now check your email (@userEmail.email.value) for signup confirmation.
+  <a href="@routes.Auth.checkYourEmail">Click here for help</a>
+</div>

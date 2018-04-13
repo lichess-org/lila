@@ -52,18 +52,20 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def exists(selector: Bdoc, readPreference: ReadPreference = ReadPreference.primary): Fu[Boolean] =
       countSel(selector, readPreference).dmap(0!=)
 
-    def byOrderedIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], readPreference: ReadPreference = ReadPreference.primary)(docId: D => I): Fu[List[D]] =
-      coll.find($inIds(ids)).cursor[D](readPreference = readPreference)
+    def byOrderedIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], projection: Option[Bdoc] = None, readPreference: ReadPreference = ReadPreference.primary)(docId: D => I): Fu[List[D]] =
+      projection.fold(coll.find($inIds(ids))) { proj =>
+        coll.find($inIds(ids), proj)
+      }.cursor[D](readPreference = readPreference)
         .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[D]]())
         .map { docs =>
           val docsMap: Map[I, D] = docs.map(u => docId(u) -> u)(breakOut)
           ids.flatMap(docsMap.get)(breakOut)
         }
 
-    // def byOrderedIds[A <: Identified[String]: TubeInColl](ids: Iterable[String]): Fu[List[A]] =
-    //   byOrderedIds[String, A](ids)
-
-    def optionsByOrderedIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], readPreference: ReadPreference = ReadPreference.primary)(docId: D => I): Fu[List[Option[D]]] =
+    def optionsByOrderedIds[D: BSONDocumentReader, I: BSONValueWriter](
+      ids: Iterable[I],
+      readPreference: ReadPreference = ReadPreference.primary
+    )(docId: D => I): Fu[List[Option[D]]] =
       byIds[D, I](ids, readPreference) map { docs =>
         val docsMap: Map[I, D] = docs.map(u => docId(u) -> u)(breakOut)
         ids.map(docsMap.get)(breakOut)
@@ -137,22 +139,25 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     // sadly we can't access the connection metadata
     private val mongoWireVersion = MongoWireVersion.V34
 
-    // because mongodb collection.aggregate doesn't have the readPreference argument!
-    def aggregateWithReadPreference(
+    def aggregateList(
       firstOperator: AggregationFramework.PipelineOperator,
       otherOperators: List[AggregationFramework.PipelineOperator] = Nil,
-      readPreference: ReadPreference
-    ): Fu[AggregationFramework.AggregationResult] = {
+      maxDocs: Int,
+      readPreference: ReadPreference = ReadPreference.primary,
+      allowDiskUse: Boolean = false
+    ): Fu[List[Bdoc]] = coll.aggregatorContext[Bdoc](
+      firstOperator,
+      otherOperators,
+      readPreference = readPreference
+    ).prepared[Cursor](CursorProducer.defaultCursorProducer[Bdoc]).cursor.collect[List](maxDocs = maxDocs, Cursor.FailOnError[List[Bdoc]]())
 
-      coll.runWithResponse(AggregationFramework.Aggregate(
-        firstOperator :: otherOperators,
-        allowDiskUse = false,
-        cursor = None,
-        wireVersion = mongoWireVersion,
-        bypassDocumentValidation = false,
-        readConcern = None
-      ), readPreference).map(_.value)
-    }
+    def aggregateOne(
+      firstOperator: AggregationFramework.PipelineOperator,
+      otherOperators: List[AggregationFramework.PipelineOperator] = Nil,
+      readPreference: ReadPreference = ReadPreference.primary
+    ): Fu[Option[Bdoc]] =
+      coll.aggregatorContext[Bdoc](firstOperator, otherOperators, readPreference = readPreference)
+        .prepared[Cursor](CursorProducer.defaultCursorProducer[Bdoc]).cursor.headOption
 
     def distinctWithReadPreference[T, M[_] <: Iterable[_]](
       key: String,

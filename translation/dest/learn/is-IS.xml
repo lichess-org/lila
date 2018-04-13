@@ -27,4 +27,9 @@ einn biskup fyrir svarta reiti.
   <string name="theQueen">Drottningin</string>
   <string name="queenCombinesRookAndBishop">Drottning = hrókur + biskup</string>
   <string name="queenIntro">Öflugasti maðurinn kemur til leiks. Hennar hátign drottningin!</string>
+  <string name="theKing">Kóngurinn</string>
+  <string name="theMostImportantPiece">Mikilvægasti maðurinn</string>
+  <string name="kingIntro">Þú ert kóngurinn. Ef þú deyrð á vígvellinum er leikurinn búinn.</string>
+  <string name="theKingIsSlow">Kóngurinn er hægfara.</string>
+  <string name="theKnight">Riddarinn</string>
 </resources>

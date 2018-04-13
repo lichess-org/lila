@@ -20,8 +20,8 @@
     <item quantity="other">A posté %1$s messages dans %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Jouer %1$s coup en %2$s partie(s) par correspondance</item>
-    <item quantity="other">Jouer %1$s coups en %2$s partie(s) par correspondance</item>
+    <item quantity="one">A joué %1$s coup dans %2$s partie(s) par correspondance</item>
+    <item quantity="other">A joué %1$s coups dans %2$s partie(s) par correspondance</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">%s partie par correspondance terminée</item>

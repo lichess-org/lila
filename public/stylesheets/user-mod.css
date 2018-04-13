@@ -44,6 +44,11 @@ body.dark .mod_zone .slist {
 .mod_zone .same {
   font-style: italic;
   font-weight: bold;
+  background: rgba(56,147,232,0.2)!important;
+  border-left: 3px solid rgba(56,147,232,0.8)!important;
+}
+.mod_zone time {
+  opacity: 0.7;
 }
 .mod_zone form {
   display: inline;

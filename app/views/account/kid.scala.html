@@ -10,7 +10,7 @@
     <br />
     <br />
     <br />
-    <form action="@routes.Account.kidConfirm" method="POST">
+    <form action="@routes.Account.kidPost?v=@(!u.kid)" method="POST">
       <input type="submit" class="submit button" value="@if(u.kid) {@trans.disableKidMode()} else {@trans.enableKidMode()}" />
     </form>
     <br />

@@ -14,6 +14,7 @@ object Plan extends LilaController {
   private val logger = lila.log("plan")
 
   def index = Open { implicit ctx =>
+    pageHit
     ctx.me.fold(indexAnon) { me =>
       import lila.plan.PlanApi.SyncResult._
       Env.plan.api.sync(me) flatMap {
@@ -67,6 +68,7 @@ object Plan extends LilaController {
     }
 
   def features = Open { implicit ctx =>
+    pageHit
     fuccess {
       html.plan.features()
     }

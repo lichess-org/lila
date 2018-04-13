@@ -1,10 +1,13 @@
 package controllers
 
-import scala.concurrent.duration._
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import play.api.mvc.RequestHeader
+import scala.concurrent.duration._
 
+import lila.api.PgnDump
 import lila.app._
+import lila.common.{ MaxPerSecond, HTTPRequest }
 import lila.game.{ GameRepo, Game => GameModel }
 import views._
 
@@ -24,41 +27,39 @@ object Game extends LilaController {
     }
   }
 
-  def exportForm = Auth { implicit ctx => me =>
-    Env.security.forms.emptyWithCaptcha map {
-      case (form, captcha) => Ok(html.game.export(form, captcha))
-    }
-  }
-
-  def exportConfirm = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    Env.security.forms.empty.bindFromRequest.fold(
-      err => Env.security.forms.anyCaptcha map { captcha =>
-        BadRequest(html.game.export(err, captcha))
-      },
-      _ => fuccess(streamGamesPgn(me, since = none))
-    )
-  }
-
-  def exportApi = Auth { implicit ctx => me =>
-    val since = getLong("since") map { ts => new DateTime(ts) }
-    fuccess(streamGamesPgn(me, since))
-  }
-
-  private val ExportRateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
-    credits = 10,
-    duration = 1 day,
-    name = "game export per user",
-    key = "game_export.user"
+  def export(username: String) = OpenOrScoped()(
+    open = ctx => handleExport(username, ctx.me, ctx.req),
+    scoped = req => me => handleExport(username, me.some, req)
   )
 
-  private def streamGamesPgn(user: lila.user.User, since: Option[DateTime]) =
-    ExportRateLimitPerUser(user.id, cost = 1) {
-      val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-      Ok.chunked(Env.api.pgnDump.exportUserGames(user.id, since)).withHeaders(
-        CONTENT_TYPE -> pgnContentType,
-        CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${user.username}_$date.pgn")
-      )
+  private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader) =
+    lila.user.UserRepo named username flatMap {
+      _ ?? { user =>
+        RequireHttp11(req) {
+          Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+            Api.GlobalLinearLimitPerUserOption(me) {
+              val since = getLong("since", req) map { ts => new DateTime(ts) }
+              val until = getLong("until", req) map { ts => new DateTime(ts) }
+              val moves = getBoolOpt("moves", req) | true
+              val tags = getBoolOpt("tags", req) | true
+              val clocks = getBoolOpt("clocks", req) | false
+              val max = getInt("max", req) map (_ atLeast 1)
+              val perSecond = MaxPerSecond(me match {
+                case None => 10
+                case Some(m) if m is user.id => 50
+                case Some(_) => 20
+              })
+              val formatFlags = lila.game.PgnDump.WithFlags(moves = moves, tags = tags, clocks = clocks)
+              val config = PgnDump.Config(user, since, until, max, formatFlags, perSecond)
+              val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
+              Ok.chunked(Env.api.pgnDump.exportUserGames(config)).withHeaders(
+                CONTENT_TYPE -> pgnContentType,
+                CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${user.username}_$date.pgn")
+              ).fuccess
+            }
+          }
+        }
+      }
     }
 
   private[controllers] def preloadUsers(game: GameModel): Funit =

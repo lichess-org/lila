@@ -22,7 +22,8 @@ object Store {
     userId: User.ID,
     req: RequestHeader,
     apiVersion: Option[ApiVersion],
-    up: Boolean
+    up: Boolean,
+    fp: Option[FingerPrint]
   ): Funit =
     coll.insert($doc(
       "_id" -> sessionId,
@@ -31,7 +32,8 @@ object Store {
       "ua" -> HTTPRequest.userAgent(req).|("?"),
       "date" -> DateTime.now,
       "up" -> up,
-      "api" -> apiVersion.map(_.value)
+      "api" -> apiVersion.map(_.value),
+      "fp" -> fp.flatMap(FingerHash.apply)
     )).void
 
   private val userIdFingerprintProjection = $doc(
@@ -45,7 +47,7 @@ object Store {
     coll.primitiveOne[User.ID]($doc("_id" -> sessionId, "up" -> true), "user")
 
   case class UserIdAndFingerprint(user: User.ID, fp: Option[String], date: DateTime) {
-    def isOld = date isBefore DateTime.now.minusDays(1)
+    def isOld = date isBefore DateTime.now.minusHours(12)
   }
   private implicit val UserIdAndFingerprintBSONReader = Macros.reader[UserIdAndFingerprint]
 
@@ -97,16 +99,25 @@ object Store {
       case Some(hash) => coll.updateField($doc("_id" -> id), "fp", hash) inject hash
     }
 
-  case class Info(ip: IpAddress, ua: String, fp: Option[String]) {
-    def fingerprint = fp.map(_.toString)
+  case class Info(ip: IpAddress, ua: String, fp: Option[FingerHash], date: DateTime) {
+    def datedIp = Dated(ip, date)
+    def datedFp = fp.map { Dated(_, date) }
+    def datedUa = Dated(ua, date)
   }
   private implicit val InfoReader = Macros.reader[Info]
 
-  def findInfoByUser(userId: User.ID): Fu[List[Info]] =
+  case class Dated[V](value: V, date: DateTime) extends Ordered[Dated[V]] {
+    def compare(other: Dated[V]) = other.date.getMillis compare date.getMillis
+  }
+
+  def chronoInfoByUser(userId: User.ID): Fu[List[Info]] =
     coll.find(
-      $doc("user" -> userId),
-      $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true)
-    ).list[Info]()
+      $doc(
+        "user" -> userId,
+        "date" $gt DateTime.now.minusYears(2)
+      ),
+      $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true)
+    ).sort($sort desc "date").list[Info]()
 
   private case class DedupInfo(_id: String, ip: String, ua: String) {
     def compositeKey = s"$ip $ua"
