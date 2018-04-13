@@ -19,6 +19,8 @@ final case class Centis(centis: Int) extends AnyVal with Ordered[Centis] {
   def +(other: Centis) = Centis(centis + other.centis)
   def -(other: Centis) = Centis(centis - other.centis)
   def *(scalar: Int) = Centis(scalar * centis)
+  def *~(scalar: Float) = Centis(scalar * centis)
+  def *~(scalar: Double) = Centis(scalar * centis)
   def /(div: Int) = div != 0 option Centis(centis / div)
   def unary_- = Centis(-centis)
 
@@ -41,6 +43,14 @@ object Centis {
 
   implicit final class CentisScalar(val scalar: Int) extends AnyVal {
     def *(o: Centis) = o * scalar
+  }
+
+  implicit final class CentisScalarF(val scalar: Float) extends AnyVal {
+    def *~(o: Centis) = o *~ scalar
+  }
+
+  implicit final class CentisScalarD(val scalar: Double) extends AnyVal {
+    def *~(o: Centis) = o *~ scalar
   }
 
   def apply(l: Long): Centis = Centis {

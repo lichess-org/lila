@@ -35,7 +35,7 @@ final case class LagTracker(
     copy(
       lagEstimator = e,
       compEstimate = Some {
-        Centis(e.mean - .6f * e.deviation).nonNeg atMost quota
+        Centis(e.mean - .8f * e.deviation).nonNeg atMost quota
       }
     )
   }
@@ -66,8 +66,8 @@ object LagTracker {
     LagTracker(
       quotaGain = quotaGain,
       quota = quotaGain * 3,
-      quotaMax = quotaGain * 6,
-      lagEstimator = EmptyDecayingStats(deviation = 6f, decay = 0.9f)
+      quotaMax = quotaGain * 7,
+      lagEstimator = EmptyDecayingStats(deviation = 4f, decay = 0.85f)
     )
   }
 }

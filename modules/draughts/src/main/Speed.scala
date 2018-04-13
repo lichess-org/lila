@@ -7,6 +7,7 @@ sealed abstract class Speed(
     val name: String,
     val title: String
 ) extends Ordered[Speed] {
+
   def compare(other: Speed) = id compare other.id
 }
 
