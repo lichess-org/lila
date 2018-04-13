@@ -56,9 +56,11 @@ final class TournamentApi(
       system = System.Arena,
       variant = setup.realVariant,
       position = DataForm.startingPosition(setup.position, setup.realVariant)
-    ).copy(
-        conditions = setup.conditions.convert
-      )
+    ) |> { tour =>
+        tour.perfType.fold(tour) { perfType =>
+          tour.copy(conditions = setup.conditions convert perfType)
+        }
+      }
     if (tour.name != me.titleUsername && lidraughts.common.LameName.anyNameButLidraughtsIsOk(tour.name)) {
       val msg = s"""@${me.username} created tournament "${tour.name} Arena" :kappa: https://lidraughts.org/tournament/${tour.id}"""
       logger warn msg

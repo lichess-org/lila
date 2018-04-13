@@ -73,8 +73,11 @@ final class CrudApi {
         iconFont = none,
         iconImg = image.some.filter(_.nonEmpty)
       ).some,
-      position = DataForm.startingPosition(data.position, v),
-      conditions = data.conditions.convert
-    )
+      position = DataForm.startingPosition(data.position, v)
+    ) |> { tour =>
+        tour.perfType.fold(tour) { perfType =>
+          tour.copy(conditions = data.conditions convert perfType)
+        }
+      }
   }
 }
