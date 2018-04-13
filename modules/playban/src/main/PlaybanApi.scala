@@ -1,5 +1,7 @@
 package lidraughts.playban
 
+import reactivemongo.bson._
+
 import draughts.{ Status, Color }
 import lidraughts.db.BSON._
 import lidraughts.db.dsl._
