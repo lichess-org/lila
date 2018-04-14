@@ -563,20 +563,20 @@ POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platf
 POST  /mobile/unregister               controllers.Main.mobileUnregister
 
 # Pages
-GET   /thanks                          controllers.Page.thanks
-GET   /terms-of-service                controllers.Page.tos
-GET   /privacy                         controllers.Page.privacy
-GET   /contact                         controllers.Page.contact
+GET   /thanks                          controllers.Page.bookmark(name = "thanks")
+GET   /terms-of-service                controllers.Page.bookmark(name = "tos")
+GET   /privacy                         controllers.Page.bookmark(name = "privacy")
+GET   /contact                         controllers.Page.bookmark(name = "contact")
+GET   /about                           controllers.Page.bookmark(name = "about")
 GET   /swag                            controllers.Page.swag
-GET   /about                           controllers.Page.about
 
 # Variants
 GET   /variant                         controllers.Page.variantHome
 GET   /variant/:key                    controllers.Page.variant(key)
 
 # Help
-GET   /help/contribute                 controllers.Page.contribute
-GET   /help/master                     controllers.Page.master
+GET   /help/contribute                 controllers.Page.bookmark(name = "help")
+GET   /help/master                     controllers.Page.bookmark(name = "master")
 
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
 POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
