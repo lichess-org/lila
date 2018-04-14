@@ -1,5 +1,5 @@
 const headers = {
-  'Accept': 'application/vnd.lichess.v2+json'
+  'Accept': 'application/vnd.lichess.v3+json'
 };
 
 export function reload(baseUrl: string, id: string, chapterId?: string) {
@@ -21,7 +21,7 @@ export function variants() {
 
 export function glyphs() {
   return $.ajax({
-    url: '/glyphs',
+    url: window.lichess.assetUrl('/assets/glyphs.json', { noVersion: true }),
     headers,
     cache: true
   });
