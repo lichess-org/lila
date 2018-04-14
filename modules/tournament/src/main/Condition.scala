@@ -246,6 +246,7 @@ object Condition {
       "minRating" -> minRating,
       "titled" -> boolean
     )(AllSetup.apply)(AllSetup.unapply)
+      .verifying("Invalid ratings", _.validRatings)
 
     case class AllSetup(
         nbRatedGame: NbRatedGameSetup,
@@ -253,6 +254,11 @@ object Condition {
         minRating: MinRatingSetup,
         titled: Boolean
     ) {
+
+      def validRatings = !maxRating.isDefined || !minRating.isDefined || {
+        maxRating.rating > minRating.rating
+      }
+
       def convert(perf: PerfType) = All(
         nbRatedGame convert perf,
         maxRating convert perf,
