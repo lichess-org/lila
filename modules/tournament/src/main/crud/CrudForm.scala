@@ -26,7 +26,8 @@ object CrudForm {
     "image" -> stringIn(imageChoices),
     "headline" -> nonEmptyText(minLength = 5, maxLength = 30),
     "description" -> nonEmptyText(minLength = 10, maxLength = 400),
-    "conditions" -> Condition.DataForm.all
+    "conditions" -> Condition.DataForm.all,
+    "berserkable" -> boolean
   )(CrudForm.Data.apply)(CrudForm.Data.unapply)
     .verifying("Invalid clock", _.validClock)
     .verifying("Increase tournament duration, or decrease game clock", _.validTiming)) fill CrudForm.Data(
@@ -41,7 +42,8 @@ object CrudForm {
     image = "",
     headline = "",
     description = "",
-    conditions = Condition.DataForm.AllSetup.default
+    conditions = Condition.DataForm.AllSetup.default,
+    berserkable = true
   )
 
   case class Data(
@@ -56,7 +58,8 @@ object CrudForm {
       image: String,
       headline: String,
       description: String,
-      conditions: Condition.DataForm.AllSetup
+      conditions: Condition.DataForm.AllSetup,
+      berserkable: Boolean
   ) {
 
     def validClock = (clockTime + clockIncrement) > 0

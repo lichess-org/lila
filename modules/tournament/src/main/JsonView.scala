@@ -76,7 +76,8 @@ final class JsonView(
     "startsAt" -> formatDate(tour.startsAt),
     "duels" -> data.duels,
     "standing" -> stand,
-    "socketVersion" -> socketVersion
+    "socketVersion" -> socketVersion,
+    "berserkable" -> tour.berserkable
   ).add("greatPlayer" -> GreatPlayer.wikiUrl(tour.name).map { url =>
       Json.obj("name" -> tour.name, "url" -> url)
     }).add("position" -> tour.position.some.filterNot(_.initial).map(positionJson))
