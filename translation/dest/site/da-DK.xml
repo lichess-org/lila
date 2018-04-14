@@ -385,6 +385,14 @@
   <string name="standing">Stilling</string>
   <string name="createANewTournament">Opret en ny turnering</string>
   <string name="tournamentCalendar">Turneringskalender</string>
+  <string name="conditionOfEntry">Betingelse for deltagelse:</string>
+  <string name="advancedSettings">Avancerede indstillinger</string>
+  <string name="safeTournamentName">Vælg et meget sikkert navn til turneringen.</string>
+  <string name="inappropriateNameWarning">Selv noget lidt upassende kan resultere i at din konto lukkes.</string>
+  <string name="emptyTournamentName">Lad stå tomt for at navngive turneringen efter en tilfældig stormester.</string>
+  <string name="recommendNotTouching">Vi anbefaler at ikke røre ved disse.</string>
+  <string name="fewerPlayers">Hvis du stiller betingelser for deltagelse, vil din turnering have færre spillere.</string>
+  <string name="showAdvancedSettings">Vis avancerede Indstillinger</string>
   <string name="join">Tilmeld</string>
   <string name="withdraw">Frameld</string>
   <string name="points">Points</string>
