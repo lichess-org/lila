@@ -10,7 +10,7 @@ case class SimulPairing(
     hostColor: draughts.Color
 ) {
 
-  def finished = status >= draughts.Status.Mate
+  def finished = status >= draughts.Status.Aborted
   def ongoing = !finished
 
   def is(userId: String): Boolean = player is userId
