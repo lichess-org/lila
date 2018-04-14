@@ -16,7 +16,7 @@ lichess.StrongSocket.defaults.events.reload = app.update;
 @side = {
 <div class="tournament_home_side">
   <div class="tournament_links">
-    <a href="@routes.Tournament.help("arena".some)">@trans.tournamentFAQ()</a>
+    <a data-icon="" class="text" href="@routes.Tournament.help("arena".some)">@trans.tournamentFAQ()</a>
   </div>
   <h2 class="leaderboard_title">
     <a href="@routes.Tournament.leaderboard">@trans.leaderboard()</a>
@@ -55,10 +55,10 @@ title = s"${trans.tournamentHomeTitle()}",
 description = s"${trans.tournamentHomeDescription()}").some) {
 <div class="content_box tournament_box no_padding">
   <div class="create_tournament">
-    <a href="/tournament/calendar" class="action button text">@trans.tournamentCalendar()</a>
-      @if(ctx.isAuth) {
-    <a href="@routes.Tournament.form()" class="action button text">@trans.createANewTournament()</a>
-  }
+    <a href="/tournament/calendar" class="blue">@trans.tournamentCalendar()</a>
+    @if(ctx.isAuth) {
+    <a href="@routes.Tournament.form()" class="button">@trans.createANewTournament()</a>
+    }
   </div>
   <h1>@trans.tournaments()</h1>
   <div id="tournament_schedule"></div>
