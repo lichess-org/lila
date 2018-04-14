@@ -27,7 +27,9 @@ private[puzzle] final class Selector(
       // user
       case Some(user) => api.head find user flatMap {
         // new player
-        case None => api.puzzle.find(puzzleIdMin)
+        case None => api.puzzle find puzzleIdMin flatMap { puzzleOption =>
+          puzzleOption ?? { p => api.head.addNew(user, p.id) } inject puzzleOption
+        }
         // current puzzle
         case Some(PuzzleHead(_, Some(current), _)) => api.puzzle find current
         // find new based on last
