@@ -409,6 +409,7 @@
   <string name="winner">Câștigător</string>
   <string name="standing">Clasament</string>
   <string name="createANewTournament">Creați un turneu nou</string>
+  <string name="tournamentCalendar">Calendarul competiției</string>
   <string name="join">Intră</string>
   <string name="withdraw">Retrage-te</string>
   <string name="points">Puncte</string>
