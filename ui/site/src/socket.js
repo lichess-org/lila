@@ -286,7 +286,7 @@ lichess.StrongSocket.defaults = {
     autoReconnectDelay: 2000,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
     baseUrls: (function(d) {
-      return [d].concat((d !== 'socket.lichess.org' ? [5, 6, 7, 8, 9] : []).map(function(port) {
+      return [d].concat((d === 'socket.lichess.org' ? [5, 6, 7, 8, 9] : []).map(function(port) {
         return d + ':' + (9020 + port);
       }));
     })(document.body.getAttribute('data-socket-domain')),
