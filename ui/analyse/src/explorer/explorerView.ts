@@ -25,13 +25,13 @@ function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
         el.addEventListener('mouseover', e => {
-          ctrl.explorer.setHovering($(el).attr('data-fen'), $(e.target).parents('tr').attr('data-uci'));
+          ctrl.explorer.setHovering($(el).attr('data-fen'), $(e.target as HTMLElement).parents('tr').attr('data-uci'));
         });
         el.addEventListener('mouseout', _ => {
           ctrl.explorer.setHovering($(el).attr('data-fen'), null);
         });
         el.addEventListener('mousedown', e => {
-          const uci = $(e.target).parents('tr').attr('data-uci');
+          const uci = $(e.target as HTMLElement).parents('tr').attr('data-uci');
           if (uci) ctrl.explorerMove(uci);
         });
       },
@@ -89,7 +89,7 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
     ]),
     h('tbody', {
       hook: bind('click', e => {
-        const $tr = $(e.target).parents('tr');
+        const $tr = $(e.target as HTMLElement).parents('tr');
         if (!$tr.length) return;
         const id = $tr.data('id');
         if (ctrl.study && ctrl.study.members.canContribute()) {
