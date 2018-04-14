@@ -21,7 +21,7 @@ export function variants() {
 
 export function glyphs() {
   return $.ajax({
-    url: '/glyphs',
+    url: window.lidraughts.assetUrl('/assets/glyphs.json', { noVersion: true }),
     headers,
     cache: true
   });
