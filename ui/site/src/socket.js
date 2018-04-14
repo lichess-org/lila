@@ -20,7 +20,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var tryOtherUrl = false;
   var autoReconnect = true;
   var nbConnects = 0;
-  var storage = lichess.storage.make(options.baseUrlKey);
+  var storage = lichess.storage.make('surl');
 
   var connect = function() {
     destroy();
@@ -227,8 +227,7 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var baseUrl = function() {
-    var urls = options.baseUrls;
-    var url = storage.get();
+    var urls = options.baseUrls, url = storage.get();
     if (!url) {
       url = urls[0];
       storage.set(url);
@@ -287,11 +286,10 @@ lichess.StrongSocket.defaults = {
     autoReconnectDelay: 2000,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
     baseUrls: (function(d) {
-      return [d].concat((d === 'socket.lichess.org' ? [9025, 9026, 9027, 9028, 9029] : []).map(function(port) {
-        return d + ':' + port;
+      return [d].concat((d !== 'socket.lichess.org' ? [5, 6, 7, 8, 9] : []).map(function(port) {
+        return d + ':' + (9020 + port);
       }));
-    })(settings.options.domain),
-    onFirstConnect: $.noop,
-    baseUrlKey: 'surl5'
+    })(document.body.getAttribute('data-socket-domain')),
+    onFirstConnect: $.noop
   }
 };
