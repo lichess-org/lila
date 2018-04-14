@@ -36,6 +36,11 @@
   }
   }
 </div>
-@base.form.group(form("conditions.titled"), Html("Only titled players")) { field =>
+<div>
+@base.form.group(form("conditions.titled"), Html("Only titled players"), half = true) { field =>
 @base.form.select(field, booleanChoices)
 }
+@base.form.group(form("berserkable"), Html("Allow Berserk"), half = true) { field =>
+@base.form.select(field, booleanChoices)
+}
+</div>

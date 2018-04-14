@@ -55,7 +55,8 @@ final class TournamentApi(
       password = setup.password.ifTrue(setup.isPrivate),
       system = System.Arena,
       variant = setup.realVariant,
-      position = DataForm.startingPosition(setup.position, setup.realVariant)
+      position = DataForm.startingPosition(setup.position, setup.realVariant),
+      berserkable = setup.berserkable
     ) |> { tour =>
         tour.perfType.fold(tour) { perfType =>
           tour.copy(conditions = setup.conditions convert perfType)
