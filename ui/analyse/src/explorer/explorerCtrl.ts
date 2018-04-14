@@ -1,6 +1,6 @@
 import { prop, storedProp } from 'common';
 import { controller as configCtrl } from './explorerConfig';
-import xhr = require('./openingXhr');
+import xhr = require('./explorerXhr');
 import { synthetic } from '../util';
 import { game as gameUtil } from 'game';
 import AnalyseCtrl from '../ctrl';
