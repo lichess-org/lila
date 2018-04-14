@@ -385,6 +385,10 @@
   <string name="standing">Classement</string>
   <string name="createANewTournament">Créer un nouveau tournoi</string>
   <string name="tournamentCalendar">Calendrier des tournois</string>
+  <string name="conditionOfEntry">Condition pour participer:</string>
+  <string name="advancedSettings">Paramètres avancés</string>
+  <string name="safeTournamentName">Choisissez un nom très sûr pour le tournoi.</string>
+  <string name="inappropriateNameWarning">Tout comportement, même légèrement inapproprié, pourrait aboutir à la fermeture de votre compte.</string>
   <string name="join">Rejoindre</string>
   <string name="withdraw">Renoncer</string>
   <string name="points">Points</string>
