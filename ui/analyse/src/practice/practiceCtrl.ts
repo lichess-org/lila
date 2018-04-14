@@ -79,7 +79,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     e8h8: 'e8g8'
   };
 
-  function makeComment(prev, node: Tree.Node, path: Tree.Path): Comment {
+  function makeComment(prev: Tree.Node, node: Tree.Node, path: Tree.Path): Comment {
     let verdict, best;
     const over = root.gameOver(node);
 
@@ -88,9 +88,9 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       const nodeEval: Eval = (node.threefold || over === 'draw') ? {
         cp: 0
       } : (node.ceval as Eval);
-      const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prev.ceval);
+      const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prev.ceval!);
 
-      best = prev.ceval.pvs[0].moves[0];
+      best = prev.ceval!.pvs[0].moves[0];
       if (best === node.uci || best === altCastles[node.uci!]) best = null;
 
       if (!best) verdict = 'goodMove';
