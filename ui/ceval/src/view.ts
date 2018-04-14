@@ -211,7 +211,7 @@ function getElFen(el: HTMLElement): string {
 }
 
 function getElUci(e: MouseEvent): string | undefined {
-  return $(e.target).closest('div.pv').attr('data-uci');
+  return $(e.target as HTMLElement).closest('div.pv').attr('data-uci');
 }
 
 function checkHover(el: HTMLElement, instance: CevalCtrl): void {
