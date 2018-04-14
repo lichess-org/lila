@@ -502,7 +502,10 @@ case class Game(
   def unplayed = !bothPlayersHaveMoved && (createdAt isBefore Game.unplayedDate)
 
   def abandoned = (status <= Status.Started) && {
-    movedAt isBefore hasAi.fold(Game.aiAbandonedDate, Game.abandonedDate)
+    movedAt isBefore {
+      if (hasAi && !hasCorrespondenceClock) Game.aiAbandonedDate
+      else Game.abandonedDate
+    }
   }
 
   def forecastable = started && playable && isCorrespondence && !hasAi
