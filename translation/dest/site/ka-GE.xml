@@ -351,6 +351,7 @@
   <string name="tournamentIsStarting">ტურნირი იწყება</string>
   <string name="tournamentPairingsAreNowClosed">ტურნირში დაწყვილებები დახურულია.</string>
   <string name="youArePlaying">თქვენ ახლა თამაშობთ!</string>
+  <string name="whiteWins">თეთრებმა მოიგეს</string>
   <string name="nextXTournament">ახალი ტურნირი:</string>
   <string name="viewMoreTournaments">ნახეთ ტურნირი</string>
   <string name="membersOnly">მხოლოდ წევრები</string>
@@ -362,6 +363,7 @@
   <string name="loadPosition">საწყისი პოზიცია</string>
   <string name="isPrivate">პირადი</string>
   <string name="reportXToModerators">შეტყობინება %s მოდერატორს</string>
+  <string name="xRating">რეიტინგი</string>
   <string name="profile">პროფილი</string>
   <string name="editProfile">პროფილის განახლება</string>
   <string name="firstName">სახელი</string>
