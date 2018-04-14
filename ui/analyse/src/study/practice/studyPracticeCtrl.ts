@@ -98,6 +98,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
       root.userJump('');
       root.practice!.reset();
       onLoad();
+      root.practice!.resume();
     },
     isWhite: root.bottomIsWhite,
     analysisUrl,
