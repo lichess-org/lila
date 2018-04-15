@@ -158,7 +158,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
 
 function showTablebase(ctrl: AnalyseCtrl, title: string, moves: TablebaseMoveStats[], fen: Fen): VNode[] {
   if (!moves.length) return [];
-  const stm = fen.split(/\s/)[1];
+  const stm = fen.split(' ')[1];
   return [
     h('div.title', title),
     h('table.tablebase', [
