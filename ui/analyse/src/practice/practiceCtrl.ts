@@ -81,9 +81,11 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   };
 
   function tbhitToEval(hit: Tree.TablebaseHit | undefined) {
-    return hit && hit.winner ? {
-      mate: hit.winner === 'white' ? 10 : -10
-    } : { cp: 0 };
+    return hit && (
+      hit.winner ? {
+        mate: hit.winner === 'white' ? 10 : -10
+      } : { cp: 0 }
+    );
   }
   function nodeBestUci(node: Tree.Node): Uci | undefined {
     return (node.tbhit && node.tbhit.best) || (node.ceval && node.ceval.pvs[0].moves[0]);
@@ -159,7 +161,6 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
         }
       }
       if (!played() && playable(node)) {
-        console.log(node.tbhit, 'playing tbhit');
         root.playUci(nodeBestUci(node)!);
         played(true);
       } else root.redraw();
