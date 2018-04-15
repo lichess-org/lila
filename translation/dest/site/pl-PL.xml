@@ -439,6 +439,7 @@
   <string name="advancedSettings">Ustawienia zaawansowane</string>
   <string name="safeTournamentName">Nadaj turniejowi neutralną nazwę.</string>
   <string name="inappropriateNameWarning">Nawet nieznacznie nieodpowiednia nazwa może spowodować zamknięcie Twojego konta.</string>
+  <string name="emptyTournamentName">Jeśli pozostawisz puste pole, turniej zostanie nazwany nazwiskiem losowo wybranego mistrza szachowego.</string>
   <string name="recommendNotTouching">Zalecamy nie zmieniać tych ustawień.</string>
   <string name="fewerPlayers">Jeśli je zmienisz, mniej osób będzie mogło przystąpić do turnieju.</string>
   <string name="showAdvancedSettings">Pokaż ustawienia zaawansowane</string>
