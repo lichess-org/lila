@@ -26,11 +26,17 @@ object Bot extends LilaController {
     }
   }
 
-  def move(id: String, uci: String) = Scoped(_.Bot.Play) { req => me =>
+  def move(id: String, uci: String) = Scoped(_.Bot.Play) { _ => me =>
     WithMyBotGame(id, me) { pov =>
       Env.bot.player(pov, uci) inject jsonOkResult recover {
         case e: Exception => BadRequest(jsonError(e.getMessage))
       }
+    }
+  }
+
+  def accountTransform = Scoped(_.Bot.Play) { _ => me =>
+    lila.user.UserRepo.setBot(me) inject jsonOkResult recover {
+      case e: Exception => BadRequest(jsonError(e.getMessage))
     }
   }
 

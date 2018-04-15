@@ -325,7 +325,7 @@ object UserRepo {
   def hasEmail(id: ID): Fu[Boolean] = email(id).map(_.isDefined)
 
   def setBot(user: User): Funit =
-    if (user.count.game > 0) fufail("You already have games played.")
+    if (user.count.game > 0) fufail("You already have games played. Make a new account.")
     else coll.updateField($id(user.id), F.bot, true).void
 
   def isBot(user: User): Fu[Boolean] =
