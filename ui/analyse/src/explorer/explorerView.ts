@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { view as renderConfig } from './explorerConfig';
 import { bind, dataIcon } from '../util';
-import { winner } from './explorerUtil';
+import { winnerOf } from './explorerUtil';
 import AnalyseCtrl from '../ctrl';
 import { isOpening, isTablebase, TablebaseMoveStats, OpeningMoveStats, OpeningGame } from './interfaces';
 
@@ -176,7 +176,7 @@ function showTablebase(ctrl: AnalyseCtrl, title: string, moves: TablebaseMoveSta
 }
 
 function showDtm(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats) {
-  if (move.dtm) return h('result.' + winner(fen, move), {
+  if (move.dtm) return h('result.' + winnerOf(fen, move), {
     attrs: {
       title: ctrl.trans.plural('mateInXHalfMoves', Math.abs(move.dtm)) + ' (Depth To Mate)'
     }
@@ -185,17 +185,17 @@ function showDtm(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats) {
 
 function showDtz(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats): VNode | null {
   const trans = ctrl.trans.noarg;
-  if (move.checkmate) return h('result.' + winner(fen, move), trans('checkmate'));
+  if (move.checkmate) return h('result.' + winnerOf(fen, move), trans('checkmate'));
   else if (move.stalemate) return h('result.draws', trans('stalemate'));
-  else if (move.variant_win) return h('result.' + winner(fen, move), trans('variantLoss'));
-  else if (move.variant_loss) return h('result.' + winner(fen, move), trans('variantWin'));
+  else if (move.variant_win) return h('result.' + winnerOf(fen, move), trans('variantLoss'));
+  else if (move.variant_loss) return h('result.' + winnerOf(fen, move), trans('variantWin'));
   else if (move.insufficient_material) return h('result.draws', trans('insufficientMaterial'));
   else if (move.dtz === null) return null;
   else if (move.dtz === 0) return h('result.draws', trans('draw'));
   else if (move.zeroing) return move.san.indexOf('x') !== -1 ?
-  h('result.' + winner(fen, move), trans('capture')) :
-  h('result.' + winner(fen, move), trans('pawnMove'));
-  return h('result.' + winner(fen, move), {
+  h('result.' + winnerOf(fen, move), trans('capture')) :
+  h('result.' + winnerOf(fen, move), trans('pawnMove'));
+  return h('result.' + winnerOf(fen, move), {
     attrs: {
       title: ctrl.trans.plural('nextCaptureOrPawnMoveInXHalfMoves', Math.abs(move.dtz))
     }
