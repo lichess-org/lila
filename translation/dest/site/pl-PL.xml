@@ -435,9 +435,12 @@
   <string name="standing">Pozycja</string>
   <string name="createANewTournament">Nowy turniej</string>
   <string name="tournamentCalendar">Kalendarz turnieju</string>
+  <string name="conditionOfEntry">Warunki przystąpienia:</string>
   <string name="advancedSettings">Ustawienia zaawansowane</string>
+  <string name="safeTournamentName">Nadaj turniejowi neutralną nazwę.</string>
+  <string name="inappropriateNameWarning">Nawet nieznacznie nieodpowiednia nazwa może spowodować zamknięcie Twojego konta.</string>
   <string name="recommendNotTouching">Zalecamy nie zmieniać tych ustawień.</string>
-  <string name="fewerPlayers">Jeśli je zmienisz, turniejem będzie zainteresowanych mniejsza liczba graczy.</string>
+  <string name="fewerPlayers">Jeśli je zmienisz, mniej osób będzie mogło przystąpić do turnieju.</string>
   <string name="showAdvancedSettings">Pokaż ustawienia zaawansowane</string>
   <string name="join">Dołącz</string>
   <string name="withdraw">Wycofaj się</string>
