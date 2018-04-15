@@ -193,6 +193,11 @@ declare namespace Tree {
     cp?: number;
   }
 
+  export interface TablebaseHit {
+    winner: Color | undefined;
+    best?: Uci;
+  }
+
   export interface Node {
     id: string;
     ply: Ply;
@@ -212,6 +217,7 @@ declare namespace Tree {
     threat?: ClientEval;
     ceval?: ClientEval;
     eval?: ServerEval;
+    tbhit?: TablebaseHit;
     opening?: Opening;
     glyphs?: Glyph[];
     clock?: Clock;
