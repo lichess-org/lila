@@ -434,6 +434,10 @@
   <string name="winner">Zmagovalec</string>
   <string name="standing">Stanje</string>
   <string name="createANewTournament">Ustvari turnir</string>
+  <string name="tournamentCalendar">Turnirski koledar</string>
+  <string name="conditionOfEntry">Vstopni pogoji:</string>
+  <string name="advancedSettings">Napredne nastavitve</string>
+  <string name="safeTournamentName">Izberite zelo varno ime za turnir.</string>
   <string name="join">Pridruži se</string>
   <string name="withdraw">Zapusti turnir</string>
   <string name="points">Točke</string>
