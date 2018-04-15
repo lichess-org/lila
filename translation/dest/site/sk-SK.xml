@@ -435,6 +435,9 @@
   <string name="standing">Pozícia</string>
   <string name="createANewTournament">Vytvoriť nový turnaj</string>
   <string name="tournamentCalendar">Kalendár turnajov</string>
+  <string name="conditionOfEntry">Podmienka vstupu:</string>
+  <string name="advancedSettings">Pokročilé nastavenia</string>
+  <string name="showAdvancedSettings">Zobraziť pokročilé nastavenia</string>
   <string name="join">Pripojiť</string>
   <string name="withdraw">Odstúpiť</string>
   <string name="points">Bodov</string>
