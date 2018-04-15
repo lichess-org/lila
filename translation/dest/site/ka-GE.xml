@@ -351,14 +351,19 @@
   <string name="tournamentIsStarting">ტურნირი იწყება</string>
   <string name="tournamentPairingsAreNowClosed">ტურნირში დაწყვილებები დახურულია.</string>
   <string name="youArePlaying">თქვენ ახლა თამაშობთ!</string>
+  <string name="whiteWins">თეთრებმა მოიგეს</string>
+  <string name="nextXTournament">ახალი ტურნირი:</string>
+  <string name="viewMoreTournaments">ნახეთ ტურნირი</string>
   <string name="membersOnly">მხოლოდ წევრები</string>
   <string name="boardEditor">დაფის რედაქტირება</string>
+  <string name="setTheBoard">ადგილობრივი თამაში</string>
   <string name="startPosition">საწყისი პოზიცია</string>
   <string name="clearBoard">გაასუფთავეთ დაფა</string>
   <string name="savePosition">პოზიციის დამახსოვრება</string>
   <string name="loadPosition">საწყისი პოზიცია</string>
   <string name="isPrivate">პირადი</string>
   <string name="reportXToModerators">შეტყობინება %s მოდერატორს</string>
+  <string name="xRating">რეიტინგი</string>
   <string name="profile">პროფილი</string>
   <string name="editProfile">პროფილის განახლება</string>
   <string name="firstName">სახელი</string>
@@ -387,6 +392,7 @@
   <string name="keepGoing">ასე გააგრძელე</string>
   <string name="puzzleFailed">ფაზლში დამარცხდი</string>
   <string name="butYouCanKeepTrying">ისევ შეგიძლია სცადო.</string>
+  <string name="success">წარმატება</string>
   <string name="wasThisPuzzleAnyGood">როგორ შეაფასებდი ამ ფაზლს?</string>
   <string name="pleaseVotePuzzle">გააუმჯობესეთ Lichess ხმის მიცემით ზემოთ ან ქვემოთ მიმართული ისრების მეშვეობით:</string>
   <string name="thankYou">გმადლობთ შეფასებისთვის!</string>
