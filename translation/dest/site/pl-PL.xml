@@ -434,7 +434,7 @@
   <string name="winner">Zwycięzca</string>
   <string name="standing">Pozycja</string>
   <string name="createANewTournament">Nowy turniej</string>
-  <string name="tournamentCalendar">Kalendarz turnieju</string>
+  <string name="tournamentCalendar">Kalendarz turniejów</string>
   <string name="conditionOfEntry">Warunki przystąpienia:</string>
   <string name="advancedSettings">Ustawienia zaawansowane</string>
   <string name="safeTournamentName">Nadaj turniejowi neutralną nazwę.</string>
