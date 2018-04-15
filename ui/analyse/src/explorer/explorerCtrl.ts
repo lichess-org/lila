@@ -139,7 +139,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
         const move = res.moves[0];
         return {
           fen: fen,
-          move: move && move.uci,
+          best: move && move.uci,
           winner: res.checkmate ? opposite(colorOf(fen)) : (
             res.stalemate ? undefined : winnerOf(fen, move!)
           )
