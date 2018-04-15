@@ -588,11 +588,11 @@
   <string name="chessPieceSymbol">Za pomocą symboli figur</string>
   <string name="pgnLetter">Za pomocą liter (K, Q, R, B, N)</string>
   <string name="chessClock">Zegar szachowy</string>
-  <string name="tenthsOfSeconds">Dziesiętne części sekundy</string>
+  <string name="tenthsOfSeconds">Pokaż dziesiętne części sekundy</string>
   <string name="never">Nigdy</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Kiedy na zegarze jest mniej niż 10 sekund</string>
-  <string name="horizontalGreenProgressBars">Poziomy zielony pasek pozostałego czasu na partię</string>
-  <string name="soundWhenTimeGetsCritical">Dźwięk, gdy zostało bardzo mało czasu</string>
+  <string name="horizontalGreenProgressBars">Pokaż poziomy zielony pasek odpowiadający czasowi gry</string>
+  <string name="soundWhenTimeGetsCritical">Powiadom dźwiękiem gdy zostało bardzo mało czasu</string>
   <string name="gameBehavior">Interfejs</string>
   <string name="howDoYouMovePieces">W jaki sposób wykonywać ruch?</string>
   <string name="clickTwoSquares">Klikając dwa pola</string>
