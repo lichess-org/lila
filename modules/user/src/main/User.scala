@@ -197,6 +197,7 @@ object User {
     val createdAt = "createdAt"
     val seenAt = "seenAt"
     val kid = "kid"
+    val bot = "bot"
     val createdWithApiVersion = "createdWithApiVersion"
     val lang = "lang"
     val title = "title"

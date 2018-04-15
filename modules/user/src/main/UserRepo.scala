@@ -324,6 +324,13 @@ object UserRepo {
 
   def hasEmail(id: ID): Fu[Boolean] = email(id).map(_.isDefined)
 
+  def setBot(user: User): Funit =
+    if (user.count.game > 0) fufail("You already have games played.")
+    else coll.updateField($id(user.id), F.bot, true).void
+
+  def isBot(user: User): Fu[Boolean] =
+    coll.primitiveOne[Boolean]($id(user.id), F.bot) map (~_)
+
   def getTitle(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.title)
 
   def setPlan(user: User, plan: Plan): Funit = {
