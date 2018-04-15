@@ -563,7 +563,6 @@ lidraughts.topMenuIntent = function() {
         else {
           $input = $(':focus');
           if ($input.length) $input.blur();
-          else $('#ham-plate').click();
         }
         return false;
       });
