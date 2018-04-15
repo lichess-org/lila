@@ -761,14 +761,15 @@ div.side_box .game_infos::before {
   opacity: 0.7;
 }
 div.side_box .game_infos .bookmark {
-  position: absolute;
-  right: 0;
+  float: right;
   z-index: 10;
-  display: none;
+  display: block;
+  visibility: hidden;
 }
 div.side_box .game_infos:hover .bookmark,
 body.mobile div.side_box .game_infos .bookmark {
   display: block;
+  visibility: visible;
 }
 .bookmark:not(.bookmarked) .on,
 .bookmark.bookmarked .off {
@@ -776,7 +777,6 @@ body.mobile div.side_box .game_infos .bookmark {
 }
 div.side_box .game_infos .setup {
   display: block;
-  white-space: nowrap
 }
 div.side_box .game_infos .variant-link {
   border-bottom: 1px dotted #747474;
