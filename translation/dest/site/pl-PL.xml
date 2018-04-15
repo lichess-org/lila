@@ -676,7 +676,7 @@
   <string name="error.email_unique">Podany adres email został już użyty</string>
   <string name="error.email_different">To już jest Twój adres e-mail</string>
   <string name="blindfoldChess">Gra na ślepo (figury niewidoczne)</string>
-  <string name="zenMode">Tryb Zen</string>
+  <string name="zenMode">Tryb Zen (ukryj zbędne elementy interface\'u)</string>
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ± %s</string>
