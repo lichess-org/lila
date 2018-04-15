@@ -435,6 +435,8 @@
   <string name="standing">Pozycja</string>
   <string name="createANewTournament">Nowy turniej</string>
   <string name="tournamentCalendar">Kalendarz turnieju</string>
+  <string name="advancedSettings">Ustawienia zaawansowane</string>
+  <string name="showAdvancedSettings">Pokaż ustawienia zaawansowane</string>
   <string name="join">Dołącz</string>
   <string name="withdraw">Wycofaj się</string>
   <string name="points">Punkty</string>
