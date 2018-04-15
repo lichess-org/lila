@@ -441,6 +441,8 @@
   <string name="inappropriateNameWarning">Все, что даже немного окажется неуместным, может привести к блокировке.</string>
   <string name="emptyTournamentName">Оставьте пустым, чтобы назвать турнир в честь случайного гроссмейстера.</string>
   <string name="recommendNotTouching">Мы рекомендуем не прикасаться к ним.</string>
+  <string name="fewerPlayers">Если вы зададите условия входа, то на ваш турнир явится меньше игроков.</string>
+  <string name="showAdvancedSettings">Показать дополнительные настройки</string>
   <string name="join">Участвовать</string>
   <string name="withdraw">Покинуть</string>
   <string name="points">Очки</string>
