@@ -11,10 +11,16 @@ final class IpTrust(intelApi: IpIntel, geoApi: GeoIP, torApi: Tor, firewallApi: 
     else {
       val location = geoApi orUnknown ip
       if (location == Location.unknown || location == Location.tor) fuTrue
-      else if (location.shortCountry == "Iran") fuTrue // some undetected proxies
-      else if (location.shortCountry == "United Arab Emirates") fuTrue // some undetected proxies
+      else if (isUndetectedProxy(location)) fuTrue
       else intelApi(ip).map { 75 < _ }
     }
 
   def isSuspicious(ipData: UserSpy.IPData): Fu[Boolean] = isSuspicious(ipData.ip.value)
+
+  /* lichess blacklist of proxies that ipintel doesn't know about */
+  private def isUndetectedProxy(location: Location): Boolean =
+    location.shortCountry == "Iran" ||
+      location.shortCountry == "United Arab Emirates" ||
+      location == Location("Poland", "Subcarpathian Voivodeship".some, "Stalowa Wola".some) ||
+      location == Location("Poland", "Lesser Poland Voivodeship".some, "Krakow".some)
 }
