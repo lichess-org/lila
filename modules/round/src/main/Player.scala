@@ -104,6 +104,10 @@ private[round] final class Player(
     // publish all moves
     bus.publish(moveEvent, 'moveEvent)
 
+    // for lila.bot.GameStateStream
+    // is this too slow? #TODO find a better way (like having a Game.metadata.hasBot flag)
+    bus.publish(moveEvent, Symbol(s"moveEvent:${game.id}"))
+
     // publish correspondence moves
     if (game.isCorrespondence && game.nonAi) bus.publish(
       CorresMoveEvent(

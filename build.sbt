@@ -63,7 +63,7 @@ lazy val modules = Seq(
   playban, insight, perfStat, slack, quote, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
-  activity, relay, streamer
+  activity, relay, streamer, bot
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -193,6 +193,10 @@ lazy val gameSearch = module("gameSearch", Seq(common, hub, search, game)).setti
 
 lazy val tv = module("tv", Seq(common, db, hub, socket, game, round, user)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver, hasher)
+)
+
+lazy val bot = module("bot", Seq(common, db, hub, game, round, user)).settings(
+  libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
 lazy val analyse = module("analyse", Seq(common, hub, game, user, notifyModule, evalCache)).settings(

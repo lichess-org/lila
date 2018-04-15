@@ -501,6 +501,10 @@ POST  /api/game-stream                 controllers.Api.gameStream
 GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
 
+# Bot API
+GET   /bot/game/$id<\w{8}>             controllers.Bot.gameState(id: String)
+GET   /bot/game/$id<\w{8}>/stream      controllers.Bot.gameStream(id: String)
+
 # Account
 GET   /account/passwd                  controllers.Account.passwd
 POST  /account/passwd                  controllers.Account.passwdApply
