@@ -1,12 +1,15 @@
 package lidraughts.round
 
 import scala.concurrent.duration._
+import scala.concurrent.Promise
+
 import draughts.format.{ FEN, Forsyth, Uci }
 import draughts.{ Centis, Color, Move, MoveMetrics, Status }
+
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
+import lidraughts.hub.actorApi.round.{ BotPlay, DraughtsnetPlay }
 import akka.actor._
 import lidraughts.game.{ Game, Pov, Progress, UciMemo }
-import lidraughts.hub.actorApi.round.DraughtsnetPlay
 
 private[round] final class Player(
     draughtsnetPlayer: lidraughts.draughtsnet.Player,
@@ -19,7 +22,7 @@ private[round] final class Player(
   private case object Flagged extends MoveResult
   private case class MoveApplied(progress: Progress, move: Move) extends MoveResult
 
-  def human(play: HumanPlay, round: ActorRef)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
+  private[round] def human(play: HumanPlay, round: ActorRef)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
     case p @ HumanPlay(playerId, uci, blur, lag, promiseOption, finalSquare) => pov match {
       case Pov(game, _) if game.turns > Game.maxPlies =>
         round ! TooManyPlies
@@ -28,18 +31,9 @@ private[round] final class Player(
         p.trace.segmentSync("applyUci", "logic")(applyUci(game, uci, blur, lag, finalSquare)).prefixFailuresWith(s"$pov ")
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case Flagged => finisher.outOfTime(game)
-            case MoveApplied(progress, moveOrDrop) => p.trace.segment("save", "db")(proxy save progress) >>- {
-              if (pov.game.hasAi) uciMemo.add(pov.game, moveOrDrop)
-              notifyMove(moveOrDrop, progress.game)
-            } >> progress.game.finished.fold(
-              moveFinish(progress.game, color) dmap { progress.events ::: _ }, {
-                if (progress.game.playableByAi) requestDraughtsnet(progress.game, round)
-                if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
-                if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
-                if (pov.game.forecastable) round ! ForecastPlay(moveOrDrop)
-                fuccess(progress.events)
-              }
-            ) >>- promiseOption.foreach(_.success(()))
+            case MoveApplied(progress, moveOrDrop) =>
+              p.trace.segment("save", "db")(proxy save progress) >>
+                proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop, promiseOption)
           } addFailureEffect { e =>
             promiseOption.foreach(_ failure e)
           }
@@ -50,7 +44,48 @@ private[round] final class Player(
     }
   }
 
-  def draughtsnet(game: Game, uci: Uci, currentFen: FEN, round: ActorRef, context: ActorContext, nextMove: Option[(Uci, String)] = None)(implicit proxy: GameProxy): Fu[Events] =
+  private[round] def bot(play: BotPlay, round: ActorRef)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
+    case p @ BotPlay(playerId, uci, promiseOption) => pov match {
+      case Pov(game, _) if game.turns > Game.maxPlies =>
+        round ! TooManyPlies
+        fuccess(Nil)
+      case Pov(game, color) if game playableBy color =>
+        applyUci(game, uci, false, botLag).prefixFailuresWith(s"$pov ")
+          .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
+            case Flagged => finisher.outOfTime(game)
+            case MoveApplied(progress, moveOrDrop) =>
+              proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop, promiseOption)
+          } addFailureEffect { e =>
+            promiseOption.foreach(_ failure e)
+          }
+      case Pov(game, _) if game.finished => fufail(ClientError(s"$pov game is finished"))
+      case Pov(game, _) if game.aborted => fufail(ClientError(s"$pov game is aborted"))
+      case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
+      case _ => fufail(ClientError(s"$pov move refused for some reason"))
+    }
+  }
+
+  private def postHumanOrBotPlay(
+    round: ActorRef,
+    pov: Pov,
+    progress: Progress,
+    moveOrDrop: Move,
+    promiseOption: Option[Promise[Unit]]
+  )(implicit proxy: GameProxy): Fu[Events] = {
+    if (pov.game.hasAi) uciMemo.add(pov.game, moveOrDrop)
+    notifyMove(moveOrDrop, progress.game)
+    progress.game.finished.fold(
+      moveFinish(progress.game, pov.color) dmap { progress.events ::: _ }, {
+        if (progress.game.playableByAi) requestDraughtsnet(progress.game, round)
+        if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
+        if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
+        if (pov.game.forecastable) round ! ForecastPlay(moveOrDrop)
+        fuccess(progress.events)
+      }
+    ) >>- promiseOption.foreach(_.success(()))
+  }
+
+  private[round] def draughtsnet(game: Game, uci: Uci, currentFen: FEN, round: ActorRef, context: ActorContext, nextMove: Option[(Uci, String)] = None)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi) {
       if (currentFen == FEN(Forsyth >> game.draughts))
         applyUci(game, uci, blur = false, metrics = draughtsnetLag)
@@ -86,6 +121,7 @@ private[round] final class Player(
   }
 
   private val draughtsnetLag = MoveMetrics(clientLag = Centis(5).some)
+  private val botLag = MoveMetrics(clientLag = Centis(100).some)
 
   private def applyUci(game: Game, uci: Uci, blur: Boolean, metrics: MoveMetrics, finalSquare: Boolean = false): Valid[MoveResult] =
     (uci match {

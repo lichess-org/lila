@@ -12,7 +12,7 @@ import draughts.format.Uci
 import lidraughts.game.{ Event, Game, Pov, Progress }
 import lidraughts.hub.actorApi.DeployPost
 import lidraughts.hub.actorApi.map._
-import lidraughts.hub.actorApi.round.DraughtsnetPlay
+import lidraughts.hub.actorApi.round.{ DraughtsnetPlay, BotPlay }
 import lidraughts.hub.SequentialActor
 import lidraughts.socket.UserLagCache
 import makeTimeout.large
@@ -63,6 +63,12 @@ private[round] final class Round(
         lidraughts.mon.round.move.full.count()
         scheduleExpiration
       }
+
+    case p: BotPlay =>
+      handleBotPlay(p) { pov =>
+        if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
+        else player.bot(p, self)(pov)
+      } >>- scheduleExpiration
 
     case DraughtsnetPlay(uci, taken, currentFen) => handle { game =>
       if (taken.length > 2) {
@@ -305,6 +311,9 @@ private[round] final class Round(
         proxy playerPov p.playerId
       }
     }(op)
+
+  private def handleBotPlay(p: BotPlay)(op: Pov => Fu[Events]): Funit =
+    handlePov(proxy playerPov p.playerId)(op)
 
   private def handle(color: Color)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy pov color)(op)

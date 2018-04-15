@@ -3,6 +3,7 @@ package actorApi
 
 import org.joda.time.DateTime
 import play.api.libs.json._
+import draughts.format.Uci
 
 case class SendTo(userId: String, message: JsObject)
 
@@ -210,7 +211,7 @@ package draughtsnet {
       chapterId: String,
       initialFen: Option[draughts.format.FEN],
       variant: draughts.variant.Variant,
-      moves: List[draughts.format.Uci],
+      moves: List[Uci],
       userId: Option[String]
   )
   case class CommentaryEvent(
@@ -249,9 +250,10 @@ package round {
   case class Berserk(gameId: String, userId: String)
   case class IsOnGame(color: draughts.Color)
   sealed trait SocketEvent
-  case class DraughtsnetPlay(uci: draughts.format.Uci, taken: String, currentFen: draughts.format.FEN)
   case class TourStanding(json: JsArray)
   case class SimulStanding(json: JsObject)
+  case class DraughtsnetPlay(uci: draughts.format.Uci, taken: String, currentFen: draughts.format.FEN)
+  case class BotPlay(playerId: String, uci: Uci, promise: Option[scala.concurrent.Promise[Unit]] = None)
 }
 
 package evaluation {

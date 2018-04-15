@@ -3,13 +3,13 @@ package actorApi
 
 import scala.concurrent.Promise
 
-import draughts.{ MoveMetrics, Color }
 import draughts.format.Uci
+import draughts.{ MoveMetrics, Color }
 
 import lidraughts.common.IpAddress
 import lidraughts.game.Event
-import lidraughts.socket.SocketMember
 import lidraughts.socket.Socket.Uid
+import lidraughts.socket.SocketMember
 import lidraughts.user.User
 
 case class EventList(events: List[Event])
