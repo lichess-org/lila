@@ -109,6 +109,9 @@ object String {
       case e: IllegalArgumentException =>
         lila.log("templating").error(s"addLinks($text)", e)
         text
+      case e: StackOverflowError =>
+        lila.log("templating").error(text take 10000, e)
+        text
     }
 
     private val imgUrlPattern = """.*\.(jpg|jpeg|png|gif)$""".r.pattern
