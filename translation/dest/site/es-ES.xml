@@ -837,7 +837,7 @@
   <string name="noConditionalPremoves">Sin movimientos anticipados condicionales</string>
   <string name="playX">Jugar %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">y ahorra %s variante de premovimientos</item>
+    <item quantity="one">y almacene %s líneas de premovimientos</item>
     <item quantity="other">y ahorra %s variantes de premovimientos</item>
   </plurals>
 </resources>
