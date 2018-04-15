@@ -25,4 +25,14 @@ object Bot extends LilaController {
       Ok.chunked(Env.bot.gameStateStream(id, Env.round.roundProxyGame _)).fuccess
     }
   }
+
+  def move(id: String, uci: String) = Scoped(_.Bot.Play) { req => me =>
+    Env.round.roundProxyGame(id) flatMap {
+      _ ?? { game =>
+        Env.bot.player(game, me, uci) inject jsonOkResult recover {
+          case e: Exception => BadRequest(jsonError(e.getMessage))
+        }
+      }
+    }
+  }
 }
