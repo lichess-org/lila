@@ -20,7 +20,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var tryOtherUrl = false;
   var autoReconnect = true;
   var nbConnects = 0;
-  var storage = lichess.storage.make('surl');
+  var storage = lichess.storage.make('surl6');
 
   var connect = function() {
     destroy();
