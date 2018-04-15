@@ -10,29 +10,39 @@ import lila.app._
 
 object Bot extends LilaController {
 
-  def gameState(id: String) = Open { _ =>
-    Env.round.roundProxyGame(id) flatMap {
-      _ ?? { game =>
-        Env.bot.jsonView.gameFull(game) map { json =>
-          Ok(json) as JSON
-        }
+  def gameState(id: String) = Scoped(_.Bot.Play) { _ => me =>
+    WithMyBotGame(id, me) { pov =>
+      Env.bot.jsonView.gameFull(pov.game) map { json =>
+        Ok(json) as JSON
       }
     }
   }
 
-  def gameStream(id: String) = Open { ctx =>
-    RequireHttp11(ctx.req) {
-      Ok.chunked(Env.bot.gameStateStream(id, Env.round.roundProxyGame _)).fuccess
+  def gameStream(id: String) = Scoped(_.Bot.Play) { req => me =>
+    WithMyBotGame(id, me) { pov =>
+      RequireHttp11(req) {
+        Ok.chunked(Env.bot.gameStateStream(pov.gameId, Env.round.roundProxyGame _)).fuccess
+      }
     }
   }
 
   def move(id: String, uci: String) = Scoped(_.Bot.Play) { req => me =>
-    Env.round.roundProxyGame(id) flatMap {
-      _ ?? { game =>
-        Env.bot.player(game, me, uci) inject jsonOkResult recover {
-          case e: Exception => BadRequest(jsonError(e.getMessage))
-        }
+    WithMyBotGame(id, me) { pov =>
+      Env.bot.player(pov, uci) inject jsonOkResult recover {
+        case e: Exception => BadRequest(jsonError(e.getMessage))
       }
     }
   }
+
+  private def WithMyBotGame(anyId: String, me: lila.user.User)(f: lila.game.Pov => Fu[Result]) =
+    lila.user.UserRepo.isBot(me) flatMap {
+      case false => BadRequest(jsonError("This endpoint only works for bot accounts.")).fuccess
+      case _ => Env.round.roundProxyGame(lila.game.Game takeGameId anyId) flatMap {
+        case None => NotFound(jsonError("No such game")).fuccess
+        case Some(game) => lila.game.Pov(game, me) match {
+          case None => NotFound(jsonError("Not your game")).fuccess
+          case Some(pov) => f(pov)
+        }
+      }
+    }
 }
