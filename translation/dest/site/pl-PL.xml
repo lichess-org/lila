@@ -436,6 +436,8 @@
   <string name="createANewTournament">Nowy turniej</string>
   <string name="tournamentCalendar">Kalendarz turnieju</string>
   <string name="advancedSettings">Ustawienia zaawansowane</string>
+  <string name="recommendNotTouching">Zalecamy nie zmieniać tych ustawień.</string>
+  <string name="fewerPlayers">Jeśli je zmienisz, turniejem będzie zainteresowanych mniejsza liczba graczy.</string>
   <string name="showAdvancedSettings">Pokaż ustawienia zaawansowane</string>
   <string name="join">Dołącz</string>
   <string name="withdraw">Wycofaj się</string>
