@@ -437,6 +437,8 @@
   <string name="tournamentCalendar">Kalendář turnajů</string>
   <string name="conditionOfEntry">Podmínka vstupu:</string>
   <string name="advancedSettings">Pokročilá nastavení</string>
+  <string name="safeTournamentName">Vyberte \"bezpečné\" jméno turnaje.</string>
+  <string name="inappropriateNameWarning">Cokoli i mírně nevhodného může způsobit uzavření vašeho účtu.</string>
   <string name="emptyTournamentName">Pokud jméno turnaje nevyplníte, bude pojmenován po náhodném velmistrovi.</string>
   <string name="recommendNotTouching">Doporučujeme tato nastavení neměnit.</string>
   <string name="fewerPlayers">Pokud nastavíte podmínky vstupu, zúčastní se vašeho turnaje méně hráčů.</string>
