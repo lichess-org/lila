@@ -36,7 +36,9 @@ object Bot extends LilaController {
 
   def eventStream = Scoped(_.Bot.Play) { req => me =>
     RequireHttp11(req) {
-      Ok.chunked(Env.bot.eventStream(me)).fuccess
+      lila.game.GameRepo.urgentGames(me) map { povs =>
+        Ok.chunked(Env.bot.eventStream(me, povs.map(_.game)))
+      }
     }
   }
 
