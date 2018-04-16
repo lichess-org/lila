@@ -1,4 +1,4 @@
-@(form: Form[_])(implicit ctx: Context)
+@(form: Form[_], me: User)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("material.form.css")
@@ -31,8 +31,9 @@ evenMoreCss = moreCss
         <div class="scopes">
             @lidraughts.oauth.OAuthScope.all.map { scope =>
             <label>
-                <input type="checkbox" name="@{form("scopes").name}[]" value="@scope.key" />
-                @scope.name
+              <input type="checkbox" name="@{form("scopes").name}[]" value="@scope.key"
+              @if(scope == lidraughts.oauth.OAuthScope.Bot.Play && me.count.game > 0) { disabled title="You already have played games!" } />
+              @scope.name
             </label>
             }
         </div>
