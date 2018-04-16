@@ -141,8 +141,7 @@ object BSONHandlers {
           pgnImport = r.getO[PgnImport](F.pgnImport)(PgnImport.pgnImportBSONHandler),
           tournamentId = r strO F.tournamentId,
           simulId = r strO F.simulId,
-          analysed = r boolD F.analysed,
-          bot = r boolD F.bot
+          analysed = r boolD F.analysed
         )
       )
     }
@@ -171,8 +170,7 @@ object BSONHandlers {
       F.pgnImport -> o.metadata.pgnImport,
       F.tournamentId -> o.metadata.tournamentId,
       F.simulId -> o.metadata.simulId,
-      F.analysed -> w.boolO(o.metadata.analysed),
-      F.bot -> w.boolO(o.metadata.bot)
+      F.analysed -> w.boolO(o.metadata.analysed)
     ) ++ {
         if (o.variant.standard)
           $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.pgnMoves take Game.maxPlies))

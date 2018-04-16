@@ -97,8 +97,7 @@ private[round] final class Rematcher(
     mode = if (users.exists(_.lame)) chess.Mode.Casual else pov.game.mode,
     source = pov.game.source | Source.Lobby,
     daysPerTurn = pov.game.daysPerTurn,
-    pgnImport = None,
-    bot = pov.game.isBot
+    pgnImport = None
   )
 
   private def returnPlayer(game: Game, color: ChessColor, users: List[User]): lila.game.Player =
