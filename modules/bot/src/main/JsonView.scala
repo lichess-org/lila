@@ -51,6 +51,7 @@ final class BotJsonView(
   private def playerJson(pov: Pov) = {
     val light = pov.player.userId flatMap lightUserApi.sync
     Json.obj()
+      .add("aiLevel" -> pov.player.aiLevel)
       .add("id" -> light.map(_.id))
       .add("name" -> light.map(_.name))
       .add("title" -> light.map(_.title))
