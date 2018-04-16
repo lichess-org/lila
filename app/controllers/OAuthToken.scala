@@ -19,20 +19,16 @@ object OAuthToken extends LilaController {
   }
 
   def create = Auth { implicit ctx => me =>
-    lila.user.UserRepo.isBot(me) map { isBot =>
-      Ok(html.oAuth.token.create(env.forms.token.create(isBot)))
-    }
+    Ok(html.oAuth.token.create(env.forms.token.create)).fuccess
   }
 
   def createApply = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    lila.user.UserRepo.isBot(me) flatMap { isBot =>
-      env.forms.token.create(isBot).bindFromRequest.fold(
-        err => BadRequest(html.oAuth.token.create(err)).fuccess,
-        setup => env.tokenApi.create(setup make me) inject
-          Redirect(routes.OAuthToken.index)
-      )
-    }
+    env.forms.token.create.bindFromRequest.fold(
+      err => BadRequest(html.oAuth.token.create(err)).fuccess,
+      setup => env.tokenApi.create(setup make me) inject
+        Redirect(routes.OAuthToken.index)
+    )
   }
 
   def delete(id: String) = Auth { implicit ctx => me =>
