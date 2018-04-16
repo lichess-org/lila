@@ -502,8 +502,9 @@ GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
 
 # Bot API
-GET   /bot/game/stream/:id             controllers.Bot.gameStream(id: String)
-POST  /bot/game/:id/move/:uci          controllers.Bot.move(id: String, uci: String)
+GET   /bot/stream/event                controllers.Bot.eventStream
+GET   /bot/stream/game/:id             controllers.Bot.gameStream(id: String)
+POST  /bot/move/:id/:uci               controllers.Bot.move(id: String, uci: String)
 POST  /bot/account/upgrade             controllers.Bot.accountUpgrade
 
 # Account

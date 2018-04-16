@@ -34,6 +34,12 @@ object Bot extends LilaController {
     }
   }
 
+  def eventStream = Scoped(_.Bot.Play) { req => me =>
+    RequireHttp11(req) {
+      Ok.chunked(Env.bot.eventStream(me)).fuccess
+    }
+  }
+
   private def WithMyBotGame(anyId: String, me: lila.user.User)(f: lila.game.Pov => Fu[Result]) =
     lila.user.UserRepo.isBot(me) flatMap {
       case false => BadRequest(jsonError("This endpoint only works for bot accounts. See https://lichess.org/api#operation/botAccountUpgrade")).fuccess
