@@ -9,7 +9,8 @@ private[game] case class Metadata(
     pgnImport: Option[PgnImport],
     tournamentId: Option[String],
     simulId: Option[String],
-    analysed: Boolean
+    analysed: Boolean,
+    bot: Boolean
 ) {
 
   def pgnDate = pgnImport flatMap (_.date)
@@ -21,7 +22,7 @@ private[game] case class Metadata(
 
 private[game] object Metadata {
 
-  val empty = Metadata(None, None, None, None, false)
+  val empty = Metadata(None, None, None, None, false, false)
 }
 
 case class PgnImport(

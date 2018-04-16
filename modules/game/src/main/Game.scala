@@ -545,6 +545,8 @@ case class Game(
 
   def synthetic = id == Game.syntheticId
 
+  def isBot = metadata.bot
+
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }
 
   def pov(c: Color) = Pov(this, c)
@@ -626,6 +628,7 @@ object Game {
     blackPlayer: Player,
     mode: Mode,
     source: Source,
+    bot: Boolean,
     pgnImport: Option[PgnImport],
     daysPerTurn: Option[Int] = None
   ): Game = {
@@ -643,7 +646,8 @@ object Game {
         pgnImport = pgnImport,
         tournamentId = none,
         simulId = none,
-        analysed = false
+        analysed = false,
+        bot = false
       ),
       createdAt = createdAt,
       movedAt = createdAt
@@ -690,6 +694,7 @@ object Game {
     val winnerId = "wid"
     val initialFen = "if"
     val checkAt = "ck"
+    val bot = "bot"
   }
 }
 
