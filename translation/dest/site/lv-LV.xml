@@ -410,6 +410,7 @@
   <string name="standing">Pozīcija</string>
   <string name="createANewTournament">Izveidot jaunu turnīru</string>
   <string name="tournamentCalendar">Turnīru kalendārs</string>
+  <string name="conditionOfEntry">Piedalīšanās noteikumi:</string>
   <string name="join">Pievienoties</string>
   <string name="withdraw">Izstāties</string>
   <string name="points">Punkti</string>
