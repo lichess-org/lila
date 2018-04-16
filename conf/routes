@@ -497,14 +497,14 @@ GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/status                      controllers.Api.status
 GET   /api/socket                      controllers.Main.apiWebsocket
-POST  /api/game-stream                 controllers.Api.gameStream
 GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
+POST  /api/stream/game                 controllers.Api.gameStream
+GET   /api/stream/event                controllers.Api.eventStream
 
 # Bot API
-GET   /bot/stream/event                controllers.Bot.eventStream
-GET   /bot/stream/game/:id             controllers.Bot.gameStream(id: String)
-POST  /bot/move/:id/:uci               controllers.Bot.move(id: String, uci: String)
+GET   /bot/game/stream/:id             controllers.Bot.gameStream(id: String)
+POST  /bot/game/:id/move/:uci          controllers.Bot.move(id: String, uci: String)
 # /bot/account/upgrade
 POST  /bot/*cmd                        controllers.Bot.command(cmd: String)
 

@@ -1,4 +1,4 @@
-package lila.bot
+package lila.api
 
 import akka.actor._
 import play.api.libs.iteratee._
@@ -9,12 +9,12 @@ import lila.game.Game
 import lila.user.User
 import lila.challenge.Challenge
 
-final class BotEventStream(
+final class EventStream(
     system: ActorSystem,
     challengeJsonView: lila.challenge.JsonView
 ) {
 
-  import BotStream._
+  import lila.common.HttpStream._
 
   def apply(me: User, gamesInProgress: List[Game], challenges: List[Challenge]): Enumerator[String] = {
 

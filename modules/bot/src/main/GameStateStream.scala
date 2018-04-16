@@ -16,7 +16,7 @@ final class GameStateStream(
     jsonView: BotJsonView
 ) {
 
-  import BotStream._
+  import lila.common.HttpStream._
 
   def apply(init: Game.WithInitialFen): Enumerator[String] = {
 
