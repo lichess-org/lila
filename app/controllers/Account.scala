@@ -35,9 +35,8 @@ object Account extends LilaController {
         relationEnv.api.countFollowing(me.id) zip
         Env.pref.api.getPref(me) zip
         lila.game.GameRepo.urgentGames(me) zip
-        lila.user.UserRepo.isBot(me) zip
         Env.challenge.api.countInFor.get(me.id) map {
-          case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ isBot ~ nbChallenges =>
+          case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges =>
             Env.current.system.lilaBus.publish(lila.user.User.Active(me), 'userActive)
             Ok {
               import lila.pref.JsonView._
@@ -48,7 +47,6 @@ object Account extends LilaController {
                 "nbFollowers" -> nbFollowers,
                 "nbChallenges" -> nbChallenges
               ).add("kid" -> me.kid)
-                .add("bot" -> isBot)
                 .add("troll" -> me.troll)
             }
         }
