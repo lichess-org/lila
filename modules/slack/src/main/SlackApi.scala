@@ -43,7 +43,7 @@ final class SlackApi(
       username = "Patron",
       icon = "four_leaf_clover",
       text = linkifyUsers(text),
-      channel = "general"
+      channel = "team"
     ))
 
     private def link(username: String) =
