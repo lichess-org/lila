@@ -141,7 +141,6 @@ final class Env(
     Env.draughtsnet, // required to schedule the cleaner
     Env.notifyModule, // required to load the actor
     Env.plan, // required to load the actor
-    Env.studySearch, // required to load the actor
     Env.event, // required to load the actor
     Env.activity, // required to load the actor
     Env.relay // you know the drill by now
@@ -149,8 +148,11 @@ final class Env(
     lidraughts.log.boot.info(s"${lap.millis}ms Preloading complete")
   }
 
-  scheduler.once(5 seconds) {
-    Env.slack.api.publishRestart
+  scheduler.once(5 seconds) { Env.slack.api.publishRestart }
+  scheduler.once(10 seconds) {
+    // delayed preloads
+    Env.oAuth
+    Env.studySearch
   }
 }
 
