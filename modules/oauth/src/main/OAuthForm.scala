@@ -7,16 +7,19 @@ import play.api.data.validation.Constraints._
 
 object OAuthForm {
 
-  private val scopesField = list(nonEmptyText.verifying(OAuthScope.byKey.contains _))
+  private def scopesField(isBot: Boolean) = list(nonEmptyText.verifying { scope =>
+    OAuthScope.byKey get scope exists {
+      case OAuthScope.Bot.Play => isBot
+      case _ => true
+    }
+  })
 
   object token {
 
-    val form = Form(mapping(
+    def create(isBot: Boolean) = Form(mapping(
       "description" -> nonEmptyText(minLength = 3, maxLength = 140),
-      "scopes" -> scopesField
+      "scopes" -> scopesField(isBot)
     )(Data.apply)(Data.unapply))
-
-    def create = form
 
     case class Data(
         description: String,
