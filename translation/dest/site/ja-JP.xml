@@ -141,7 +141,7 @@
   <string name="minutesPerSide">持ち時間</string>
   <string name="variant">バリアント</string>
   <string name="variants">変則チェス</string>
-  <string name="timeControl">持ち時間制限</string>
+  <string name="timeControl">持時間</string>
   <string name="realTime">実時間</string>
   <string name="correspondence">通信チェス</string>
   <string name="daysPerTurn">1手あたり日数</string>
@@ -395,7 +395,7 @@
   <string name="boardEditor">盤面入力</string>
   <string name="setTheBoard">盤面を指定</string>
   <string name="popularOpenings">人気のオープニング</string>
-  <string name="startPosition">開始局面にする</string>
+  <string name="startPosition">開始局面</string>
   <string name="clearBoard">盤面をクリアする</string>
   <string name="savePosition">盤面を保存</string>
   <string name="loadPosition">局面を読み込む</string>
