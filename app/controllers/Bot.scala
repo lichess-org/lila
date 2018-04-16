@@ -36,7 +36,7 @@ object Bot extends LilaController {
     }
   }
 
-  def accountTransform = Scoped(_.Bot.Play) { _ => me =>
+  def accountUpgrade = Scoped(_.Bot.Play) { _ => me =>
     lila.user.UserRepo.setBot(me) inject jsonOkResult recover {
       case e: Exception => BadRequest(jsonError(e.getMessage))
     }
