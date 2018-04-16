@@ -13,9 +13,13 @@ final class BotJsonView(
 
   def gameFull(game: Game): Fu[JsObject] = for {
     initialFen <- GameRepo.initialFen(game) map2 FEN.apply
-    immutable = gameImmutable(game, initialFen)
-    state <- gameState(game, initialFen)
-  } yield immutable + ("state" -> state)
+    full <- gameFull(game, initialFen)
+  } yield full
+
+  def gameFull(game: Game, initialFen: Option[FEN]): Fu[JsObject] =
+    gameState(game, initialFen) map { state =>
+      gameImmutable(game, initialFen) + ("state" -> state)
+    }
 
   def gameImmutable(game: Game, initialFen: Option[FEN]): JsObject = Json.obj(
     "id" -> game.id,
