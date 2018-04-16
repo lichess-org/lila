@@ -776,7 +776,6 @@ body.mobile div.side_box .game_infos .bookmark {
 }
 div.side_box .game_infos .setup {
   display: block;
-  white-space: nowrap
 }
 div.side_box .game_infos .variant-link {
   border-bottom: 1px dotted #747474;
