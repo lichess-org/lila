@@ -21,7 +21,9 @@ object Bot extends LilaController {
   def gameStream(id: String) = Scoped(_.Bot.Play) { req => me =>
     WithMyBotGame(id, me) { pov =>
       RequireHttp11(req) {
-        Ok.chunked(Env.bot.gameStateStream(pov.gameId, Env.round.roundProxyGame _)).fuccess
+        lila.game.GameRepo.withInitialFen(pov.game) map { wf =>
+          Ok.chunked(Env.bot.gameStateStream(wf))
+        }
       }
     }
   }

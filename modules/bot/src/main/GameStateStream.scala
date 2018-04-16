@@ -16,7 +16,9 @@ final class GameStateStream(
     jsonView: BotJsonView
 ) {
 
-  def apply(id: Game.ID, current: Game.ID => Fu[Option[Game]]): Enumerator[String] = {
+  def apply(init: Game.WithInitialFen): Enumerator[String] = {
+
+    val id = init.game.id
 
     var stream: Option[ActorRef] = None
 
@@ -24,27 +26,23 @@ final class GameStateStream(
       onStart = channel => {
         val actor = system.actorOf(Props(new Actor {
 
-          withFen foreach { wf =>
-            jsonView gameFull wf foreach { json =>
-              // prepend the full game JSON at the start of the stream
-              channel push json
-              // close stream if game is over
-              if (wf.game.finished) channel.eofAndEnd()
-            }
+          jsonView gameFull init foreach { json =>
+            // prepend the full game JSON at the start of the stream
+            channel push json
+            // close stream if game is over
+            if (init.game.finished) channel.eofAndEnd()
           }
 
           def receive = {
-            case MoveEvent(gameId, _, _) if gameId == id => pushState
-            case FinishGame(game, _, _) if game.id == id =>
-              pushState
-              channel.eofAndEnd()
+            case g: Game if g.id == id =>
+              pushState(g)
+            case FinishGame(g, _, _) if g.id == id =>
+              pushState(g) >>- channel.eofAndEnd()
           }
 
-          def pushState = withFen flatMap jsonView.gameState foreach channel.push
-
-          def withFen = current(id) flatten "No game found" flatMap GameRepo.withInitialFen
+          def pushState(g: Game) = jsonView gameState Game.WithInitialFen(g, init.fen) map channel.push
         }))
-        system.lilaBus.subscribe(actor, Symbol(s"moveEvent:$id"), 'finishGame)
+        system.lilaBus.subscribe(actor, Symbol(s"moveGame:$id"), 'finishGame)
         stream = actor.some
       },
       onComplete = {
