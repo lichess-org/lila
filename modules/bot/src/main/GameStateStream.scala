@@ -23,24 +23,26 @@ final class GameStateStream(
     val enumerator = Concurrent.unicast[JsObject](
       onStart = channel => {
         val actor = system.actorOf(Props(new Actor {
-          pushFull // prepend the full game JSON at the start of the stream
+
+          withFen foreach { wf =>
+            jsonView gameFull wf foreach { json =>
+              // prepend the full game JSON at the start of the stream
+              channel push json
+              // close stream if game is over
+              if (wf.game.finished) channel.eofAndEnd()
+            }
+          }
+
           def receive = {
             case MoveEvent(gameId, _, _) if gameId == id => pushState
-            case FinishGame(game, _, _) if game.id == id => pushState
+            case FinishGame(game, _, _) if game.id == id =>
+              pushState
+              channel.eofAndEnd()
           }
-          def pushState = for {
-            wf <- withFen
-            json <- jsonView.gameState(wf.game, wf.fen)
-          } channel push json
-          def pushFull = for {
-            wf <- withFen
-            json <- jsonView.gameFull(wf.game, wf.fen)
-          } channel push json
-          def withFen = for {
-            gameOption <- current(id)
-            game <- gameOption.fold[Fu[Game]](fufail("No game found"))(fuccess)
-            withFen <- GameRepo withInitialFen game
-          } yield withFen
+
+          def pushState = withFen flatMap jsonView.gameState foreach channel.push
+
+          def withFen = current(id) flatten "No game found" flatMap GameRepo.withInitialFen
         }))
         system.lilaBus.subscribe(actor, Symbol(s"moveEvent:$id"), 'finishGame)
         stream = actor.some
@@ -55,14 +57,6 @@ final class GameStateStream(
 
     enumerator &> stringify
   }
-
-  private val withInitialFen =
-    Enumeratee.mapM[Game].apply[Game.WithInitialFen](GameRepo.withInitialFen)
-
-  private val toJson =
-    Enumeratee.mapM[Game.WithInitialFen].apply[JsObject] {
-      case Game.WithInitialFen(game, initialFen) => jsonView.gameState(game, initialFen)
-    }
 
   private val stringify =
     Enumeratee.map[JsObject].apply[String] { js =>
