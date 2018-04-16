@@ -10,14 +10,6 @@ import lila.app._
 
 object Bot extends LilaController {
 
-  def gameState(id: String) = Scoped(_.Bot.Play) { _ => me =>
-    WithMyBotGame(id, me) { pov =>
-      Env.bot.jsonView.gameFull(pov.game) map { json =>
-        Ok(json) as JSON
-      }
-    }
-  }
-
   def gameStream(id: String) = Scoped(_.Bot.Play) { req => me =>
     WithMyBotGame(id, me) { pov =>
       RequireHttp11(req) {
