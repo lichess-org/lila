@@ -16,6 +16,8 @@ final class GameStateStream(
     jsonView: BotJsonView
 ) {
 
+  import BotStream._
+
   def apply(init: Game.WithInitialFen): Enumerator[String] = {
 
     val id = init.game.id
@@ -45,19 +47,9 @@ final class GameStateStream(
         system.lilaBus.subscribe(actor, Symbol(s"moveGame:$id"), 'finishGame)
         stream = actor.some
       },
-      onComplete = {
-        stream.foreach { actor =>
-          system.lilaBus.unsubscribe(actor)
-          actor ! PoisonPill
-        }
-      }
+      onComplete = onComplete(stream, system)
     )
 
     enumerator &> stringify
   }
-
-  private val stringify =
-    Enumeratee.map[JsObject].apply[String] { js =>
-      Json.stringify(js) + "\n"
-    }
 }

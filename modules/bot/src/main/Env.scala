@@ -12,6 +12,8 @@ final class Env(
 
   lazy val gameStateStream = new GameStateStream(system, jsonView)
 
+  lazy val eventStream = new BotEventStream(system, jsonView)
+
   lazy val player = new BotPlayer(
     roundMap = hub.actor.roundMap
   )
