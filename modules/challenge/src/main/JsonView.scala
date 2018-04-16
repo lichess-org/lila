@@ -1,16 +1,17 @@
 package lidraughts.challenge
 
-import play.api.libs.json._
 import play.api.i18n.Lang
+import play.api.libs.json._
 
-import lidraughts.socket.UserLagCache
 import lidraughts.i18n.{ I18nKeys => trans }
+import lidraughts.socket.UserLagCache
 
 final class JsonView(
     getLightUser: lidraughts.common.LightUser.GetterSync,
     isOnline: lidraughts.user.User.ID => Boolean
 ) {
 
+  import lidraughts.game.JsonView._
   import Challenge._
 
   def apply(a: AllChallenges, lang: Lang): JsObject = Json.obj(
@@ -24,18 +25,12 @@ final class JsonView(
     "socketVersion" -> socketVersion
   )
 
-  private def apply(direction: Option[Direction])(c: Challenge): JsObject = Json.obj(
+  def apply(direction: Option[Direction])(c: Challenge): JsObject = Json.obj(
     "id" -> c.id,
-    "direction" -> direction.map(_.name),
     "status" -> c.status.name,
     "challenger" -> c.challengerUser,
     "destUser" -> c.destUser,
-    "variant" -> Json.obj(
-      "key" -> c.variant.key,
-      "short" -> c.variant.shortName,
-      "name" -> c.variant.name
-    ),
-    "initialFen" -> c.initialFen,
+    "variant" -> c.variant,
     "rated" -> c.mode.rated,
     "timeControl" -> (c.timeControl match {
       case c @ TimeControl.Clock(clock) => Json.obj(
@@ -55,7 +50,8 @@ final class JsonView(
       "icon" -> iconChar(c).toString,
       "name" -> c.perfType.name
     )
-  )
+  ).add("direction" -> direction.map(_.name))
+    .add("initialFen" -> c.initialFen)
 
   private def iconChar(c: Challenge) =
     if (c.variant == draughts.variant.FromPosition) '*'
