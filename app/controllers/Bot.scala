@@ -28,16 +28,6 @@ object Bot extends LilaController {
     }
   }
 
-  def eventStream = Scoped(_.Bot.Play) { req => me =>
-    RequireHttp11(req) {
-      lila.game.GameRepo.urgentGames(me) flatMap { povs =>
-        Env.challenge.api.createdByDestId(me.id) map { challenges =>
-          Ok.chunked(Env.bot.eventStream(me, povs.map(_.game), challenges))
-        }
-      }
-    }
-  }
-
   def command(cmd: String) = Scoped(_.Bot.Play) { _ => me =>
     cmd.split('/') match {
       case Array("account", "upgrade") =>

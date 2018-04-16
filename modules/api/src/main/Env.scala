@@ -32,6 +32,7 @@ final class Env(
     isStreaming: lidraughts.user.User.ID => Boolean,
     isPlaying: lidraughts.user.User.ID => Boolean,
     pools: List[lidraughts.pool.PoolConfig],
+    challengeJsonView: lidraughts.challenge.JsonView,
     val isProd: Boolean
 ) {
 
@@ -134,6 +135,8 @@ final class Env(
     pools = pools
   )
 
+  lazy val eventStream = new EventStream(system, challengeJsonView)
+
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
   lazy val cli = new Cli(system.lidraughtsBus)
@@ -177,6 +180,7 @@ object Env {
     isStreaming = lidraughts.streamer.Env.current.liveStreamApi.isStreaming,
     isPlaying = lidraughts.relation.Env.current.online.isPlaying,
     pools = lidraughts.pool.Env.current.api.configs,
+    challengeJsonView = lidraughts.challenge.Env.current.jsonView,
     isProd = lidraughts.common.PlayApp.isProd
   )
 }

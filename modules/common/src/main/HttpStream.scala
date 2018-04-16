@@ -1,10 +1,10 @@
-package lila.bot
+package lila.common
 
 import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
-private object BotStream {
+object HttpStream {
 
   val stringify =
     Enumeratee.map[JsObject].apply[String] { js =>

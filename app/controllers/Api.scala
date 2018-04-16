@@ -274,6 +274,16 @@ object Api extends LidraughtsController {
     }
   }
 
+  def eventStream = Scoped() { req => me =>
+    RequireHttp11(req) {
+      lidraughts.game.GameRepo.urgentGames(me) flatMap { povs =>
+        Env.challenge.api.createdByDestId(me.id) map { challenges =>
+          Ok.chunked(Env.api.eventStream(me, povs.map(_.game), challenges))
+        }
+      }
+    }
+  }
+
   def activity(name: String) = ApiRequest { implicit ctx =>
     val cost = 50
     UserRateLimit(cost = cost) {
