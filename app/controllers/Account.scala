@@ -36,8 +36,9 @@ object Account extends LidraughtsController {
         relationEnv.api.countFollowing(me.id) zip
         Env.pref.api.getPref(me) zip
         lidraughts.game.GameRepo.urgentGames(me) zip
+        lidraughts.user.UserRepo.isBot(me) zip
         Env.challenge.api.countInFor.get(me.id) map {
-          case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges =>
+          case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ isBot ~ nbChallenges =>
             Env.current.system.lidraughtsBus.publish(lidraughts.user.User.Active(me), 'userActive)
             Ok {
               import lidraughts.pref.JsonView._
@@ -48,6 +49,7 @@ object Account extends LidraughtsController {
                 "nbFollowers" -> nbFollowers,
                 "nbChallenges" -> nbChallenges
               ).add("kid" -> me.kid)
+                .add("bot" -> isBot)
                 .add("troll" -> me.troll)
             }
         }
