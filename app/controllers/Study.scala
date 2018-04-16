@@ -1,13 +1,10 @@
 package controllers
 
-import play.api.libs.json._
-import play.api.mvc._
-import scala.concurrent.duration._
-
 import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.chat.Chat
 import lidraughts.common.{ IpAddress, HTTPRequest }
+import lidraughts.common.paginator.{ Paginator, PaginatorJson }
 import lidraughts.study.JsonView.JsData
 import lidraughts.study.Study.WithChapter
 import lidraughts.study.{ Chapter, Order, Study => StudyModel }
@@ -39,8 +36,11 @@ object Study extends LidraughtsController {
       Order(o) match {
         case Order.Oldest => Redirect(routes.Study.allDefault(page)).fuccess
         case order =>
-          env.pager.all(ctx.me, order, page) map { pag =>
-            Ok(html.study.all(pag, order))
+          env.pager.all(ctx.me, order, page) flatMap { pag =>
+            negotiate(
+              html = Ok(html.study.all(pag, order)).fuccess,
+              api = _ => apiStudies(pag)
+            )
           }
       }
     }
@@ -49,41 +49,70 @@ object Study extends LidraughtsController {
   def byOwnerDefault(username: String, page: Int) = byOwner(username, Order.default.key, page)
 
   def byOwner(username: String, order: String, page: Int) = Open { implicit ctx =>
-    OptionFuOk(lidraughts.user.UserRepo named username) { owner =>
-      env.pager.byOwner(owner, ctx.me, Order(order), page) map { pag =>
-        html.study.byOwner(pag, Order(order), owner)
+    lidraughts.user.UserRepo.named(username).flatMap {
+      _.fold(notFound(ctx)) { owner =>
+        env.pager.byOwner(owner, ctx.me, Order(order), page) flatMap { pag =>
+          negotiate(
+            html = Ok(html.study.byOwner(pag, Order(order), owner)).fuccess,
+            api = _ => apiStudies(pag)
+          )
+        }
       }
     }
   }
 
   def mine(order: String, page: Int) = Auth { implicit ctx => me =>
-    env.pager.mine(me, Order(order), page) map { pag =>
-      Ok(html.study.mine(pag, Order(order), me))
+    env.pager.mine(me, Order(order), page) flatMap { pag =>
+      negotiate(
+        html = Ok(html.study.mine(pag, Order(order), me)).fuccess,
+        api = _ => apiStudies(pag)
+      )
     }
   }
 
   def minePublic(order: String, page: Int) = Auth { implicit ctx => me =>
-    env.pager.minePublic(me, Order(order), page) map { pag =>
-      Ok(html.study.minePublic(pag, Order(order), me))
+    env.pager.minePublic(me, Order(order), page) flatMap { pag =>
+      negotiate(
+        html = Ok(html.study.minePublic(pag, Order(order), me)).fuccess,
+        api = _ => apiStudies(pag)
+      )
     }
   }
 
   def minePrivate(order: String, page: Int) = Auth { implicit ctx => me =>
-    env.pager.minePrivate(me, Order(order), page) map { pag =>
-      Ok(html.study.minePrivate(pag, Order(order), me))
+    env.pager.minePrivate(me, Order(order), page) flatMap { pag =>
+      negotiate(
+        html = Ok(html.study.minePrivate(pag, Order(order), me)).fuccess,
+        api = _ => apiStudies(pag)
+      )
     }
   }
 
   def mineMember(order: String, page: Int) = Auth { implicit ctx => me =>
-    env.pager.mineMember(me, Order(order), page) map { pag =>
-      Ok(html.study.mineMember(pag, Order(order), me))
+    env.pager.mineMember(me, Order(order), page) flatMap { pag =>
+      negotiate(
+        html = Ok(html.study.mineMember(pag, Order(order), me)).fuccess,
+        api = _ => apiStudies(pag)
+      )
     }
   }
 
   def mineLikes(order: String, page: Int) = Auth { implicit ctx => me =>
-    env.pager.mineLikes(me, Order(order), page) map { pag =>
-      Ok(html.study.mineLikes(pag, Order(order), me))
+    env.pager.mineLikes(me, Order(order), page) flatMap { pag =>
+      negotiate(
+        html = Ok(html.study.mineLikes(pag, Order(order), me)).fuccess,
+        api = _ => apiStudies(pag)
+      )
     }
+  }
+
+  private def apiStudies(pager: Paginator[StudyModel.WithChaptersAndLiked]) = {
+    implicit val pagerWriter = Writes[StudyModel.WithChaptersAndLiked] { s =>
+      Env.study.jsonView.pagerData(s)
+    }
+    Ok(Json.obj(
+      "paginator" -> PaginatorJson(pager)
+    )).fuccess
   }
 
   private def orRelay(id: String, chapterId: Option[String] = None)(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
