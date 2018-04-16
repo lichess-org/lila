@@ -28,12 +28,6 @@ object Bot extends LilaController {
     }
   }
 
-  def accountUpgrade = Scoped(_.Bot.Play) { _ => me =>
-    lila.user.UserRepo.setBot(me) inject jsonOkResult recover {
-      case e: Exception => BadRequest(jsonError(e.getMessage))
-    }
-  }
-
   def eventStream = Scoped(_.Bot.Play) { req => me =>
     RequireHttp11(req) {
       lila.game.GameRepo.urgentGames(me) flatMap { povs =>
@@ -41,6 +35,16 @@ object Bot extends LilaController {
           Ok.chunked(Env.bot.eventStream(me, povs.map(_.game), challenges))
         }
       }
+    }
+  }
+
+  def command(cmd: String) = Scoped(_.Bot.Play) { _ => me =>
+    cmd.split('/') match {
+      case Array("account", "upgrade") =>
+        lila.user.UserRepo.setBot(me) inject jsonOkResult recover {
+          case e: Exception => BadRequest(jsonError(e.getMessage))
+        }
+      case _ => notFoundJson("No such command")
     }
   }
 
