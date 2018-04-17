@@ -70,6 +70,8 @@ private[round] final class Socket(
 
     def isGone: Fu[Boolean] =
       (time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis)) ?? !isHostingSimul
+
+    def isOnline = time > nowMillis - uidTimeout.toMillis
   }
 
   private val whitePlayer = new Player(White)
@@ -141,7 +143,9 @@ private[round] final class Socket(
         (history getEventsSince v).fold(resyncNow(member))(batch(member, _))
       }
 
-    case BotPing(color) => playerDo(color.pp("bot ping"), _.ping)
+    case BotPing(color) =>
+      playerDo(color, _.ping)
+      notifyCrowd
 
     case Bye(color) => playerDo(color, _.setBye)
 
@@ -269,10 +273,7 @@ private[round] final class Socket(
       if (m.owner) m push makeMessage(t, data)
     }
 
-  def ownerIsHere(color: Color) =
-    members.values.exists { m =>
-      m.owner && m.color == color
-    }
+  def ownerIsHere(color: Color) = playerGet(color, _.isOnline)
 
   def ownerOf(uid: String): Option[Member] =
     members get uid filter (_.owner)
