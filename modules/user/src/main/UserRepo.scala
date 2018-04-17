@@ -328,7 +328,9 @@ object UserRepo {
     if (user.count.game > 0) fufail("You already have games played. Make a new account.")
     else coll.updateField($id(user.id), F.title, User.botTitle).void
 
-  private def botSelect(v: Boolean) = $doc(F.title -> v)
+  private def botSelect(v: Boolean) =
+    if (v) $doc(F.title -> User.botTitle)
+    else $doc(F.title -> $ne(User.botTitle))
 
   def getTitle(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.title)
 
