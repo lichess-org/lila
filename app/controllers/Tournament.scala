@@ -157,7 +157,7 @@ object Tournament extends LidraughtsController {
   }
 
   def join(id: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => implicit me =>
-    NoLame {
+    NoLameOrBot {
       NoPlayban {
         val password = ctx.body.body.\("p").asOpt[String]
         negotiate(
@@ -195,7 +195,7 @@ object Tournament extends LidraughtsController {
   }
 
   def form = Auth { implicit ctx => me =>
-    NoLame {
+    NoLameOrBot {
       teamsIBelongTo(me) flatMap { teams =>
         Ok(html.tournament.form(env.forms(me), env.forms, me, teams)).fuccess
       }
@@ -221,7 +221,7 @@ object Tournament extends LidraughtsController {
   }
 
   def create = AuthBody { implicit ctx => implicit me =>
-    NoLame {
+    NoLameOrBot {
       teamsIBelongTo(me) flatMap { teams =>
         implicit val req = ctx.body
         negotiate(

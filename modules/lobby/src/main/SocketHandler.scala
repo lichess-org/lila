@@ -33,8 +33,8 @@ private[lobby] final class SocketHandler(
       msg = s"$msg mobile=${member.mobile}"
     )(op)
 
-  private def controller(socket: ActorRef, member: Member): Handler.Controller = {
-    case ("join", o) => HookPoolLimit(member, cost = 5, msg = s"join $o") {
+  private def controller(socket: ActorRef, member: Member, isBot: Boolean): Handler.Controller = {
+    case ("join", o) if !isBot => HookPoolLimit(member, cost = 5, msg = s"join $o") {
       o str "d" foreach { id =>
         lobby ! BiteHook(id, member.uid, member.user)
       }
@@ -42,7 +42,7 @@ private[lobby] final class SocketHandler(
     case ("cancel", _) => HookPoolLimit(member, cost = 1, msg = "cancel") {
       lobby ! CancelHook(member.uid)
     }
-    case ("joinSeek", o) => HookPoolLimit(member, cost = 5, msg = s"joinSeek $o") {
+    case ("joinSeek", o) if !isBot => HookPoolLimit(member, cost = 5, msg = s"joinSeek $o") {
       for {
         id <- o str "d"
         user <- member.user
@@ -56,7 +56,7 @@ private[lobby] final class SocketHandler(
     }
     case ("idle", o) => socket ! SetIdle(member.uid, ~(o boolean "d"))
     // entering a pool
-    case ("poolIn", o) => HookPoolLimit(member, cost = 1, msg = s"poolIn $o") {
+    case ("poolIn", o) if !isBot => HookPoolLimit(member, cost = 1, msg = s"poolIn $o") {
       for {
         user <- member.user
         d <- o obj "d"
@@ -98,7 +98,7 @@ private[lobby] final class SocketHandler(
       val join = Join(uid, user = user, blocking = blockedUserIds, mobile = mobile)
       Handler(hub, socket, uid, join) {
         case Connected(enum, member) =>
-          (controller(socket, member), enum, member)
+          (controller(socket, member, isBot = user.exists(_.isBot)), enum, member)
       }
     }
 }

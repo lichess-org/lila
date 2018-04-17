@@ -26,7 +26,7 @@ final class LobbyApi(
           lightUserApi.preloadMany(displayedPovs.flatMap(_.opponent.userId)) inject {
             Json.obj(
               "me" -> ctx.me.map { u =>
-                Json.obj("username" -> u.username)
+                Json.obj("username" -> u.username).add("isBot" -> u.isBot)
               },
               "seeks" -> JsArray(seeks map (_.render)),
               "nowPlaying" -> JsArray(displayedPovs map nowPlaying),

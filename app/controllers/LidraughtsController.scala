@@ -198,6 +198,12 @@ private[controllers] trait LidraughtsController
   protected def NoLame[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     NoEngine(NoBooster(a))
 
+  protected def NoBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+    ctx.me.??(_.isBot).fold(Forbidden(views.html.site.noBot()).fuccess, a)
+
+  protected def NoLameOrBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+    NoLame(NoBot(a))
+
   protected def NoShadowban[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     ctx.me.??(_.troll).fold(notFound, a)
 
