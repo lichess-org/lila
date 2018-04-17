@@ -105,7 +105,10 @@ object Challenge extends LilaController {
       else notFound
     },
     scoped = _ => me => env.api.byIdFor(id, me) flatMap {
-      _.fold(notFoundJson()) { c => env.api.decline(c) inject jsonOkResult }
+      case None => Env.bot.player.rematchDecline(id, me) flatMap {
+        _.fold(jsonOkResult.fuccess, notFoundJson())
+      }
+      case Some(c) => env.api.decline(c) inject jsonOkResult
     }
   )
 
