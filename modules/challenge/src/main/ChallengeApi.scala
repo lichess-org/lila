@@ -39,7 +39,7 @@ final class ChallengeApi(
 
   def byId = repo byId _
 
-  def byIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest)
+  def activeByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).map(_.filter(_.active))
 
   val countInFor = asyncCache.clearable(
     name = "challenge.countInFor",
