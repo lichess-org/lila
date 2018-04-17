@@ -35,7 +35,7 @@
   <string name="makeYourOpponentResign">相手を投了させる</string>
   <string name="forceResignation">投了させる</string>
   <string name="forceDraw">引き分けにする</string>
-  <string name="talkInChat">チャットする</string>
+  <string name="talkInChat">チャットでは礼儀を忘れず</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">このURLを最初にクリックした人があなたと対局します。</string>
   <string name="whiteResigned">白が投了しました</string>
   <string name="blackResigned">黒が投了しました</string>
