@@ -46,7 +46,9 @@
   @showNonEmptyPerf(u.perfs.antidraughts, PerfType.Antidraughts)
   @showNonEmptyPerf(u.perfs.breakthrough, PerfType.Breakthrough)
   <br />
+  @if(u.noBot){
   @showPerf(u.perfs.puzzle(draughts.variant.Standard), PerfType.Puzzle)
   @showNonEmptyPerf(u.perfs.puzzle(draughts.variant.Frisian), PerfType.PuzzleFrisian)
+  }
   }
 </div>
