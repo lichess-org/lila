@@ -59,8 +59,8 @@ object Challenge extends LilaController {
   private def isForMe(challenge: ChallengeModel)(implicit ctx: Context) =
     challenge.destUserId.fold(true)(ctx.userId.contains)
 
-  def accept(id: String) = Open { implicit ctx =>
-    OptionFuResult(env.api byId id) { c =>
+  def accept(id: String) = OpenOrScoped()(
+    open = implicit ctx => OptionFuResult(env.api byId id) { c =>
       isForMe(c) ?? env.api.accept(c, ctx.me).flatMap {
         case Some(pov) => negotiate(
           html = Redirect(routes.Round.watcher(pov.gameId, "white")).fuccess,
@@ -71,8 +71,13 @@ object Challenge extends LilaController {
           api = _ => notFoundJson("Someone else accepted the challenge")
         )
       }
+    },
+    scoped = _ => me => env.api.byIdFor(id, me) flatMap {
+      _ ?? { env.api.accept(_, me.some) } map { res =>
+        res.isDefined ?? jsonOkResult
+      }
     }
-  }
+  )
 
   private def withChallengeAnonCookie(cond: Boolean, c: ChallengeModel, owner: Boolean)(res: Result)(implicit ctx: Context): Fu[Result] =
     cond ?? {
