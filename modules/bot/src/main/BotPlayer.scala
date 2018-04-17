@@ -6,7 +6,7 @@ import chess.format.Uci
 
 import lila.game.{ Game, Pov, GameRepo }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.{ BotPlay, RematchYes }
+import lila.hub.actorApi.round.{ BotPlay, RematchYes, RematchNo }
 import lila.user.User
 
 final class BotPlayer(roundMap: akka.actor.ActorSelection) {
@@ -25,6 +25,14 @@ final class BotPlayer(roundMap: akka.actor.ActorSelection) {
     GameRepo game id map {
       _.flatMap(Pov(_, me)).filter(_.opponent.isOfferingRematch) ?? { pov =>
         roundMap ! Tell(pov.gameId, RematchYes(pov.playerId))
+        true
+      }
+    }
+
+  def rematchDecline(id: Game.ID, me: User): Fu[Boolean] =
+    GameRepo game id map {
+      _.flatMap(Pov(_, me)).filter(_.opponent.isOfferingRematch) ?? { pov =>
+        roundMap ! Tell(pov.gameId, RematchNo(pov.playerId))
         true
       }
     }
