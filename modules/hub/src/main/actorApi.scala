@@ -252,6 +252,7 @@ package round {
   case class TourStanding(json: JsArray)
   case class FishnetPlay(uci: Uci, currentFen: chess.format.FEN)
   case class BotPlay(playerId: String, uci: Uci, promise: Option[scala.concurrent.Promise[Unit]] = None)
+  case class RematchOffer(gameId: String)
 }
 
 package evaluation {

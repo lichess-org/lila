@@ -192,7 +192,8 @@ final class Env(
   private lazy val rematcher = new Rematcher(
     messenger = messenger,
     onStart = onStart,
-    rematch960Cache = rematch960Cache
+    rematch960Cache = rematch960Cache,
+    bus = bus
   )
 
   private lazy val player: Player = new Player(
