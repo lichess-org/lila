@@ -138,9 +138,7 @@ final class ModApi(
   }
 
   def setRankban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.rankban != v) ?? {
-    if (v) {
-      lidraughtsBus.publish(lidraughts.hub.actorApi.mod.KickFromRankings(sus.user.id), 'kickFromRankings)
-    }
+    if (v) lidraughtsBus.publish(lidraughtsBus.hub.actorApi.mod.KickFromRankings(sus.user.id), 'kickFromRankings)
     UserRepo.setRankban(sus.user.id, v) >>- logApi.rankban(mod, sus, v)
   }
 
