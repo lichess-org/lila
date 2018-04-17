@@ -13,7 +13,7 @@ object Namer {
     p.aiLevel.fold(
       p.userId.flatMap(lightUser).fold(lila.user.User.anonymous) { user =>
         val title = (user.title ifTrue withTitle) ?? { t =>
-          s"""<span class="title" title="${User titleName t}">$t</span>&nbsp;"""
+          s"""<span class="title" data-title="$t" title="${User titleName t}">$t</span>&nbsp;"""
         }
         if (withRating) s"$title${user.name}&nbsp;(${ratingString(p)})"
         else s"$title${user.name}"

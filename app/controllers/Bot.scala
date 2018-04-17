@@ -39,14 +39,12 @@ object Bot extends LilaController {
   }
 
   private def WithMyBotGame(anyId: String, me: lila.user.User)(f: lila.game.Pov => Fu[Result]) =
-    lila.user.UserRepo.isBot(me) flatMap {
-      case false => BadRequest(jsonError("This endpoint only works for bot accounts. See https://lichess.org/api#operation/botAccountUpgrade")).fuccess
-      case _ => Env.round.roundProxyGame(lila.game.Game takeGameId anyId) flatMap {
-        case None => NotFound(jsonError("No such game")).fuccess
-        case Some(game) => lila.game.Pov(game, me) match {
-          case None => NotFound(jsonError("Not your game")).fuccess
-          case Some(pov) => f(pov)
-        }
+    if (!me.isBot) BadRequest(jsonError("This endpoint only works for bot accounts. See https://lichess.org/api#operation/botAccountUpgrade")).fuccess
+    else Env.round.roundProxyGame(lila.game.Game takeGameId anyId) flatMap {
+      case None => NotFound(jsonError("No such game")).fuccess
+      case Some(game) => lila.game.Pov(game, me) match {
+        case None => NotFound(jsonError("Not your game")).fuccess
+        case Some(pov) => f(pov)
       }
     }
 }

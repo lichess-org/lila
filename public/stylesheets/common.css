@@ -1036,6 +1036,9 @@ span.progress > .negative {
   color: #d59120;
   font-weight: bold;
 }
+.user_link span.title[data-title=BOT] {
+  color: #c320d5!important;
+}
 div.warning {
   padding: 5px;
   background: #f2dede;

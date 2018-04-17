@@ -326,10 +326,9 @@ object UserRepo {
 
   def setBot(user: User): Funit =
     if (user.count.game > 0) fufail("You already have games played. Make a new account.")
-    else coll.updateField($id(user.id), F.bot, true).void
+    else coll.updateField($id(user.id), F.title, User.botTitle).void
 
-  def isBot(user: User): Fu[Boolean] =
-    coll.primitiveOne[Boolean]($id(user.id), F.bot) map (~_)
+  private def botSelector(v: Boolean) = $doc(F.title -> v)
 
   def getTitle(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.title)
 

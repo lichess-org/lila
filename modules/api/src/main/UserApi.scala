@@ -51,10 +51,9 @@ private[api] final class UserApi(
         bookmarkApi.countByUser(u) zip
         gameCache.nbPlaying(u.id) zip
         gameCache.nbImportedBy(u.id) zip
-        lila.user.UserRepo.isBot(u) zip
         playBanApi.completionRate(u.id).map(_.map { cr => math.round(cr * 100) }) map {
           case gameOption ~ nbGamesWithMe ~ following ~ followers ~ followable ~ relation ~
-            isFollowed ~ nbBookmarks ~ nbPlaying ~ nbImported ~ isBot ~ completionRate =>
+            isFollowed ~ nbBookmarks ~ nbPlaying ~ nbImported ~ completionRate =>
             jsonView(u) ++ {
               Json.obj(
                 "url" -> makeUrl(s"@/${u.username}"), // for app BC
@@ -77,8 +76,7 @@ private[api] final class UserApi(
                   "import" -> nbImported,
                   "me" -> nbGamesWithMe
                 )
-              ).add("streaming", isStreaming(u.id))
-                .add("bot" -> isBot) ++
+              ).add("streaming", isStreaming(u.id)) ++
                 as.isDefined.??(Json.obj(
                   "followable" -> followable,
                   "following" -> relation.has(true),
