@@ -32,7 +32,7 @@ evenMoreCss = moreCss
             @lidraughts.oauth.OAuthScope.all.map { scope =>
             <label>
               <input type="checkbox" name="@{form("scopes").name}[]" value="@scope.key"
-              @if(scope == lidraughts.oauth.OAuthScope.Bot.Play && me.count.game > 0) { disabled title="You already have played games!" } />
+              @if(me.noBot && scope == lidraughts.oauth.OAuthScope.Bot.Play && me.count.game > 0) { disabled title="You already have played games!" } />
               @scope.name
             </label>
             }
