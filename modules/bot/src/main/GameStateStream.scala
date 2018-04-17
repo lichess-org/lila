@@ -6,7 +6,7 @@ import play.api.libs.json._
 
 import chess.format.FEN
 
-import lila.game.actorApi.FinishGame
+import lila.game.actorApi.{ FinishGame, AbortedBy }
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.round.MoveEvent
 import lila.user.User
@@ -36,15 +36,15 @@ final class GameStateStream(
           }
 
           def receive = {
-            case g: Game if g.id == id =>
-              pushState(g)
-            case FinishGame(g, _, _) if g.id == id =>
-              pushState(g) >>- channel.eofAndEnd()
+            case g: Game if g.id == id => pushState(g)
+            case FinishGame(g, _, _) if g.id == id => terminate
+            case AbortedBy(pov) if pov.gameId == id => terminate
           }
 
           def pushState(g: Game) = jsonView gameState Game.WithInitialFen(g, init.fen) map channel.push
+          def terminate = channel.eofAndEnd()
         }))
-        system.lilaBus.subscribe(actor, Symbol(s"moveGame:$id"), 'finishGame)
+        system.lilaBus.subscribe(actor, Symbol(s"moveGame:$id"), 'finishGame, 'abortGame)
         stream = actor.some
       },
       onComplete = onComplete(stream, system)
