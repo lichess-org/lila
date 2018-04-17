@@ -44,8 +44,9 @@ final class EventStream(
 
             case lila.challenge.Event.Create(c) if c.destUserId has me.id => pushChallenge(c)
 
+            // pretend like the rematch is a challenge
             case lila.hub.actorApi.round.RematchOffer(gameId) => ChallengeMaker.makeRematchFor(gameId, me) foreach {
-              _ foreach pushChallenge
+              _ foreach { c => pushChallenge(c.copy(_id = gameId)) }
             }
           }
 

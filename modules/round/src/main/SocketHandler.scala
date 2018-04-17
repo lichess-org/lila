@@ -14,7 +14,7 @@ import lidraughts.chat.Chat
 import lidraughts.common.IpAddress
 import lidraughts.game.{ Pov, PovRef, Game }
 import lidraughts.hub.actorApi.map._
-import lidraughts.hub.actorApi.round.Berserk
+import lidraughts.hub.actorApi.round.{ Berserk, RematchYes, RematchNo }
 import lidraughts.hub.actorApi.shutup.PublicSource
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Handler
