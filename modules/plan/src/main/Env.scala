@@ -61,6 +61,13 @@ final class Env(
   }
 
   def webhook = webhookHandler.apply _
+
+  def cli = new lila.common.Cli {
+    def process = {
+      case "patron" :: "lifetime" :: user :: Nil =>
+        lila.user.UserRepo named user flatMap { _ ?? api.setLifetime } inject "ok"
+    }
+  }
 }
 
 object Env {
