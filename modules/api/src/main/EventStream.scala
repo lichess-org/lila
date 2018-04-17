@@ -1,9 +1,9 @@
 package lila.api
 
-import scala.concurrent.duration._
 import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
+import scala.concurrent.duration._
 
 import lila.challenge.Challenge
 import lila.game.actorApi.UserStartGame
@@ -33,9 +33,10 @@ final class EventStream(
           def receive = {
 
             case SetOnline =>
-              println(nowSeconds, s"set online ${me.id}")
               setOnline(me.id)
               context.system.scheduler.scheduleOnce(6 second, self, SetOnline)
+              // gotta send a message to check if the client has disconnected
+              channel push Json.obj("up" -> true)
 
             case UserStartGame(userId, game) if userId == me.id => pushGameStart(game)
 
