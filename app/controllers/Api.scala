@@ -270,7 +270,7 @@ object Api extends LilaController {
   def gamesByUsersStream = Action.async(parse.tolerantText) { req =>
     RequireHttp11(req) {
       val userIds = req.body.split(',').take(300).toSet map lila.user.User.normalize
-      Ok.chunked(Env.game.stream.startedByUserIds(userIds)).fuccess
+      Ok.chunked(Env.game.gamesByUsersStream(userIds)).fuccess
     }
   }
 

@@ -135,7 +135,7 @@ final class Env(
     pools = pools
   )
 
-  lazy val eventStream = new EventStream(system, challengeJsonView)
+  lazy val eventStream = new EventStream(system, challengeJsonView, userEnv.onlineUserIdMemo.put)
 
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 

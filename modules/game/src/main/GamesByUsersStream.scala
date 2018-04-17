@@ -8,11 +8,12 @@ import actorApi.{ StartGame, FinishGame }
 import chess.format.FEN
 import lila.user.User
 
-final class GameStream(system: ActorSystem) {
+final class GamesByUsersStream(system: ActorSystem) {
 
-  import GameStream._
+  import GamesByUsersStream._
+  import lila.common.HttpStream._
 
-  def startedByUserIds(userIds: Set[User.ID]): Enumerator[String] = {
+  def apply(userIds: Set[User.ID]): Enumerator[String] = {
 
     def matches(game: Game) = game.userIds match {
       case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
@@ -31,12 +32,7 @@ final class GameStream(system: ActorSystem) {
         system.lilaBus.subscribe(actor, 'startGame, 'finishGame)
         stream = actor.some
       },
-      onComplete = {
-        stream.foreach { actor =>
-          system.lilaBus.unsubscribe(actor)
-          actor ! PoisonPill
-        }
-      }
+      onComplete = onComplete(stream, system)
     )
 
     enumerator &> withInitialFen &> toJson &> stringify
@@ -46,15 +42,10 @@ final class GameStream(system: ActorSystem) {
     Enumeratee.mapM[Game].apply[Game.WithInitialFen](GameRepo.withInitialFen)
 
   private val toJson =
-    Enumeratee.map[Game.WithInitialFen].apply[JsValue](gameWithInitialFenWriter.writes)
-
-  private val stringify =
-    Enumeratee.map[JsValue].apply[String] { js =>
-      Json.stringify(js) + "\n"
-    }
+    Enumeratee.map[Game.WithInitialFen].apply[JsObject](gameWithInitialFenWriter.writes)
 }
 
-object GameStream {
+object GamesByUsersStream {
 
   private implicit val fenWriter: Writes[FEN] = Writes[FEN] { f =>
     JsString(f.value)
