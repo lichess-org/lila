@@ -386,6 +386,9 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="standing">Aguardando</string>
   <string name="createANewTournament">Criar novo torneio</string>
   <string name="tournamentCalendar">Calendário do torneio</string>
+  <string name="conditionOfEntry">Condição de participação:</string>
+  <string name="advancedSettings">Configurações avançadas</string>
+  <string name="safeTournamentName">Escolha um nome seguro para o torneio.</string>
   <string name="join">Entrar</string>
   <string name="withdraw">Sair</string>
   <string name="points">Pontos</string>
