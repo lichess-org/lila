@@ -96,12 +96,15 @@ object Challenge extends LilaController {
       cookieOption.fold(res) { res.withCookies(_) }
     }
 
-  def decline(id: String) = Auth { implicit ctx => me =>
-    OptionFuResult(env.api byId id) { c =>
+  def decline(id: String) = AuthOrScoped()(
+    auth = implicit ctx => me => OptionFuResult(env.api byId id) { c =>
       if (isForMe(c)) env.api decline c
       else notFound
+    },
+    scoped = _ => me => env.api.byIdFor(id, me) flatMap {
+      _.fold(notFoundJson()) { c => env.api.decline(c) inject jsonOkResult }
     }
-  }
+  )
 
   def cancel(id: String) = Open { implicit ctx =>
     OptionFuResult(env.api byId id) { c =>
