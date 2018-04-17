@@ -24,11 +24,17 @@ object Study extends LilaController {
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
     Reasonable(page) {
       if (text.trim.isEmpty)
-        env.pager.all(ctx.me, Order.default, page) map { pag =>
-          Ok(html.study.all(pag, Order.default))
+        env.pager.all(ctx.me, Order.default, page) flatMap { pag =>
+          negotiate(
+            html = Ok(html.study.all(pag, Order.default)).fuccess,
+            api = _ => apiStudies(pag)
+          )
         }
-      else Env.studySearch(ctx.me)(text, page) map { pag =>
-        Ok(html.study.search(pag, text))
+      else Env.studySearch(ctx.me)(text, page) flatMap { pag =>
+        negotiate(
+          html = Ok(html.study.search(pag, text)).fuccess,
+          api = _ => apiStudies(pag)
+        )
       }
     }
   }
