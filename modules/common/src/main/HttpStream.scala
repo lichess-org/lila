@@ -16,4 +16,6 @@ object HttpStream {
       system.lilaBus.unsubscribe(actor)
       actor ! PoisonPill
     }
+
+  case object SetOnline
 }

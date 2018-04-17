@@ -1,17 +1,19 @@
 package lila.api
 
+import scala.concurrent.duration._
 import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
+import lila.challenge.Challenge
 import lila.game.actorApi.UserStartGame
 import lila.game.Game
 import lila.user.User
-import lila.challenge.Challenge
 
 final class EventStream(
     system: ActorSystem,
-    challengeJsonView: lila.challenge.JsonView
+    challengeJsonView: lila.challenge.JsonView,
+    setOnline: User.ID => Unit
 ) {
 
   import lila.common.HttpStream._
@@ -26,8 +28,14 @@ final class EventStream(
 
           gamesInProgress foreach pushGameStart
           challenges foreach pushChallenge
+          self ! SetOnline
 
           def receive = {
+
+            case SetOnline =>
+              println(nowSeconds, s"set online ${me.id}")
+              setOnline(me.id)
+              context.system.scheduler.scheduleOnce(6 second, self, SetOnline)
 
             case UserStartGame(userId, game) if userId == me.id => pushGameStart(game)
 
