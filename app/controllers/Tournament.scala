@@ -158,7 +158,7 @@ object Tournament extends LilaController {
   }
 
   def join(id: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => implicit me =>
-    NoLame {
+    NoLameOrBot {
       NoPlayban {
         val password = ctx.body.body.\("p").asOpt[String]
         negotiate(
@@ -196,7 +196,7 @@ object Tournament extends LilaController {
   }
 
   def form = Auth { implicit ctx => me =>
-    NoLame {
+    NoLameOrBot {
       Ok(html.tournament.form(env.forms(me), env.forms, me)).fuccess
     }
   }
@@ -220,7 +220,7 @@ object Tournament extends LilaController {
   }
 
   def create = AuthBody { implicit ctx => implicit me =>
-    NoLame {
+    NoLameOrBot {
       implicit val req = ctx.body
       negotiate(
         html = env.forms(me).bindFromRequest.fold(

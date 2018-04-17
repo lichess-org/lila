@@ -82,13 +82,13 @@ object Simul extends LilaController {
   }
 
   def form = Auth { implicit ctx => me =>
-    NoEngine {
+    NoLameOrBot {
       Ok(html.simul.form(env.forms.create, env.forms)).fuccess
     }
   }
 
   def create = AuthBody { implicit ctx => implicit me =>
-    NoEngine {
+    NoLameOrBot {
       implicit val req = ctx.body
       env.forms.create.bindFromRequest.fold(
         err => BadRequest(html.simul.form(err, env.forms)).fuccess,
@@ -100,7 +100,7 @@ object Simul extends LilaController {
   }
 
   def join(id: String, variant: String) = Auth { implicit ctx => implicit me =>
-    NoEngine {
+    NoLameOrBot {
       fuccess {
         env.api.addApplicant(id, me, variant)
         if (HTTPRequest isXhr ctx.req) Ok(Json.obj("ok" -> true)) as JSON

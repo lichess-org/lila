@@ -15,6 +15,7 @@ export default class LobbyController {
   data: LobbyData;
   playban: any;
   currentGame: any;
+  isBot: boolean;
   socket: LobbySocket;
   stores: Stores;
   tab: Tab;
@@ -40,6 +41,7 @@ export default class LobbyController {
     this.pools = opts.pools;
     this.playban = opts.playban;
     this.currentGame = opts.currentGame;
+    this.isBot = opts.data.me && opts.data.me.isBot;
     this.redraw = redraw;
 
     hookRepo.initAll(this);
@@ -47,7 +49,7 @@ export default class LobbyController {
     this.socket = new LobbySocket(opts.socketSend, this);
 
     this.stores = makeStores(this.data.me ? this.data.me.username.toLowerCase() : null);
-    this.tab = this.stores.tab.get(),
+    this.tab = this.isBot ? 'now_playing' : this.stores.tab.get(),
     this.mode = this.stores.mode.get(),
     this.sort = this.stores.sort.get(),
     this.trans = opts.trans;
