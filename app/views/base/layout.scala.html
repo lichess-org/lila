@@ -148,7 +148,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
         <div id="notifications"></div>
         <div class="board_left">
           <h1>
-            <a id="site_title" href="@routes.Lobby.home">@if(ctx.kid){<span title="@trans.kidMode()" class="kiddo">😊</span>}lidraughts<span class="extension">.org</span></a>
+            <a id="site_title" href="@routes.Lobby.home">@if(ctx.kid){<span title="@trans.kidMode()" class="kiddo">😊</span>}else{@if(ctx.isBot){<img src="@staticUrl("images/icons/bot.png")" title="Robot chess" style="display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;"/>}}lidraughts<span class="extension">.org</span></a>
           </h1>
           @baseline
           @menu.map { sideMenu =>
