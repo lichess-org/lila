@@ -18,7 +18,8 @@ final class Env(
   )
 
   lazy val player = new BotPlayer(
-    roundMap = hub.actor.roundMap
+    roundMap = hub.actor.roundMap,
+    system = system
   )
 }
 

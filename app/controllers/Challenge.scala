@@ -72,7 +72,7 @@ object Challenge extends LilaController {
         )
       }
     },
-    scoped = _ => me => env.api.byIdFor(id, me) flatMap {
+    scoped = _ => me => env.api.activeByIdFor(id, me) flatMap {
       _ ?? { env.api.accept(_, me.some) }
     } flatMap { res =>
       if (res.isDefined) jsonOkResult.fuccess
@@ -104,7 +104,7 @@ object Challenge extends LilaController {
       if (isForMe(c)) env.api decline c
       else notFound
     },
-    scoped = _ => me => env.api.byIdFor(id, me) flatMap {
+    scoped = _ => me => env.api.activeByIdFor(id, me) flatMap {
       case None => Env.bot.player.rematchDecline(id, me) flatMap {
         _.fold(jsonOkResult.fuccess, notFoundJson())
       }
