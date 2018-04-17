@@ -11,6 +11,7 @@ case class Connected[M <: SocketMember](
 )
 case class Sync(uid: String, friends: List[String])
 case class Ping(uid: String, version: Option[Int], lagCentis: Option[Centis])
+case class BotPing(color: chess.Color)
 
 object Ping {
   def apply(uid: Socket.Uid, o: JsObject): Ping =

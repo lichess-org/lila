@@ -141,6 +141,8 @@ private[round] final class Socket(
         (history getEventsSince v).fold(resyncNow(member))(batch(member, _))
       }
 
+    case BotPing(color) => playerDo(color.pp("bot ping"), _.ping)
+
     case Bye(color) => playerDo(color, _.setBye)
 
     case Broom =>

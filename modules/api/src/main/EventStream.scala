@@ -22,7 +22,7 @@ final class EventStream(
 
     var stream: Option[ActorRef] = None
 
-    val enumerator = Concurrent.unicast[JsObject](
+    val enumerator = Concurrent.unicast[Option[JsObject]](
       onStart = channel => {
         val actor = system.actorOf(Props(new Actor {
 
@@ -34,9 +34,11 @@ final class EventStream(
 
             case SetOnline =>
               setOnline(me.id)
-              context.system.scheduler.scheduleOnce(6 second, self, SetOnline)
-              // gotta send a message to check if the client has disconnected
-              channel push Json.obj("up" -> true)
+              context.system.scheduler.scheduleOnce(6 second) {
+                // gotta send a message to check if the client has disconnected
+                channel push None
+                self ! SetOnline
+              }
 
             case UserStartGame(userId, game) if userId == me.id => pushGameStart(game)
 
@@ -46,12 +48,12 @@ final class EventStream(
           def pushGameStart(game: Game) = channel push Json.obj(
             "type" -> "gameStart",
             "game" -> Json.obj("id" -> game.id)
-          )
+          ).some
 
           def pushChallenge(c: lila.challenge.Challenge) = channel push Json.obj(
             "type" -> "challenge",
             "challenge" -> challengeJsonView(none)(c)
-          )
+          ).some
         }))
         system.lilaBus.subscribe(actor, Symbol(s"userStartGame:${me.id}"), 'challenge)
         stream = actor.some
@@ -59,6 +61,6 @@ final class EventStream(
       onComplete = onComplete(stream, system)
     )
 
-    enumerator &> stringify
+    enumerator &> stringifyOrEmpty
   }
 }
