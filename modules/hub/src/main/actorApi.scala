@@ -254,6 +254,7 @@ package round {
   case class SimulStanding(json: JsObject)
   case class DraughtsnetPlay(uci: draughts.format.Uci, taken: String, currentFen: draughts.format.FEN)
   case class BotPlay(playerId: String, uci: Uci, promise: Option[scala.concurrent.Promise[Unit]] = None)
+  case class RematchOffer(gameId: String)
 }
 
 package evaluation {

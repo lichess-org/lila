@@ -142,7 +142,7 @@ object Challenge extends LidraughtsController {
             case Some(d) => BadRequest(jsonError {
               lidraughts.challenge.ChallengeDenied translated d
             }).fuccess
-            case _ => env.api.rematchOf(g, me) map {
+            case _ => env.api.sendRematchOf(g, me) map {
               _.fold(Ok, BadRequest(jsonError("Sorry, couldn't create the rematch.")))
             }
           }

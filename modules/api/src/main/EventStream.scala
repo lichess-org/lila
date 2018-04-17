@@ -5,7 +5,7 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lila.challenge.Challenge
+import lila.challenge.{ Challenge, ChallengeMaker }
 import lila.game.actorApi.UserStartGame
 import lila.game.Game
 import lila.user.User
@@ -43,6 +43,10 @@ final class EventStream(
             case UserStartGame(userId, game) if userId == me.id => pushGameStart(game)
 
             case lila.challenge.Event.Create(c) if c.destUserId has me.id => pushChallenge(c)
+
+            case lila.hub.actorApi.round.RematchOffer(gameId) => ChallengeMaker.makeRematchFor(gameId, me) foreach {
+              _ foreach pushChallenge
+            }
           }
 
           def pushGameStart(game: Game) = channel push Json.obj(
@@ -55,7 +59,12 @@ final class EventStream(
             "challenge" -> challengeJsonView(none)(c)
           ).some
         }))
-        system.lilaBus.subscribe(actor, Symbol(s"userStartGame:${me.id}"), 'challenge)
+        system.lilaBus.subscribe(
+          actor,
+          Symbol(s"userStartGame:${me.id}"),
+          Symbol(s"rematchFor:${me.id}"),
+          'challenge
+        )
         stream = actor.some
       },
       onComplete = onComplete(stream, system)
