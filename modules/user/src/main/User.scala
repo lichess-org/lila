@@ -110,6 +110,7 @@ case class User(
   def is(name: String) = id == User.normalize(name)
 
   def isBot = title has User.botTitle
+  def noBot = !isBot
 
   def rankable = !isBot && !rankban
 }
