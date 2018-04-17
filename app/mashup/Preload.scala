@@ -45,7 +45,7 @@ final class Preload(
       (ctx.userId ?? timelineEntries) zip
       leaderboard(()) zip
       tourneyWinners zip
-      dailyPuzzle() zip
+      (ctx.noBot ?? dailyPuzzle()) zip
       liveStreams().dmap(_.autoFeatured.withTitles(lightUserApi)) zip
       (ctx.userId ?? getPlayban) flatMap {
         case (data, povs) ~ posts ~ tours ~ events ~ simuls ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban =>

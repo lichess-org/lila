@@ -59,6 +59,7 @@ trait UserContextWrapper extends UserContext {
   val me = userContext.me
   val impersonatedBy = userContext.impersonatedBy
   def isBot = me.exists(_.isBot)
+  def noBot = !isBot
 }
 
 object UserContext {

@@ -18,11 +18,13 @@
 @events.map { e =>
 @event.homepageSpotlight(e)
 }
+@if(!ctx.isBot) {
 @lila.tournament.Spotlight.select(tours, ctx.me, 3).map { tour =>
 @tournament.homepageSpotlight(tour)
 }
 @simuls.find(_.spotlightable).take(2).map { s =>
 @simul.homepageSpotlight(s)
+}
 }
 @ctx.me.map { u =>
 <div id="timeline" data-href="@routes.Timeline.home">
@@ -111,6 +113,7 @@ asyncJs = true) {
   </div>
 </div>
 }
+@if(!ctx.isBot) {
 <div class="undertable">
   <div class="undertable_top">
     <a class="more hint--bottom" data-hint="@trans.seeAllTournaments()" href="@routes.Tournament.home()">@trans.more() »</a>
@@ -174,6 +177,7 @@ asyncJs = true) {
     </div>
   </div>
 </div>
+}
 @NotForKids {
 <div class="new_posts undertable" data-url="@routes.ForumPost.recent">
   <div class="undertable_top">

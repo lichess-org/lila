@@ -38,7 +38,7 @@
 <a href="@routes.Plan.index" style="color: #d59120; font-weight: bold;">Patron</a>
 <div class="sep"></div>
 <a class="@active.active("oauth.token")" href="@routes.OAuthToken.index">API Access tokens</a>
-<a class="@active.active("oauth.app")" href="@routes.OAuthApp.index">OAuth Apps</a>
+@if(ctx.noBot){<a class="@active.active("oauth.app")" href="@routes.OAuthApp.index">OAuth Apps</a>}
 <div class="sep"></div>
 <a class="@active.active("close")" href="@routes.Account.close()">
   @trans.closeAccount()
