@@ -227,7 +227,7 @@ final class PlanApi(
 
   def setLifetime(user: User): Funit = isLifetime(user) flatMap {
     case true => funit
-    case _ => UserRepo.setPlan(user, lila.user.Plan(
+    case _ => UserRepo.setPlan(user, lidraughts.user.Plan(
       months = user.plan.months | 1,
       active = true,
       since = user.plan.since orElse DateTime.now.some

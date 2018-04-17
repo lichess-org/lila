@@ -61,6 +61,13 @@ final class Env(
   }
 
   def webhook = webhookHandler.apply _
+
+  def cli = new lidraughts.common.Cli {
+    def process = {
+      case "patron" :: "lifetime" :: user :: Nil =>
+        lidraughts.user.UserRepo named user flatMap { _ ?? api.setLifetime } inject "ok"
+    }
+  }
 }
 
 object Env {

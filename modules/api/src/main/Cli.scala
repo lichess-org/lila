@@ -46,5 +46,6 @@ private[api] final class Cli(bus: lidraughts.common.Bus) extends lidraughts.comm
       lidraughts.report.Env.current.cli.process orElse
       lidraughts.game.Env.current.cli.process orElse
       lidraughts.gameSearch.Env.current.cli.process orElse
+      lidraughts.plan.Env.current.cli.process orElse
       process
 }
