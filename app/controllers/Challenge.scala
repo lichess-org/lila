@@ -73,8 +73,11 @@ object Challenge extends LilaController {
       }
     },
     scoped = _ => me => env.api.byIdFor(id, me) flatMap {
-      _ ?? { env.api.accept(_, me.some) } map { res =>
-        res.isDefined ?? jsonOkResult
+      _ ?? { env.api.accept(_, me.some) }
+    } flatMap { res =>
+      if (res.isDefined) jsonOkResult.fuccess
+      else Env.bot.player.rematchAccept(id, me) flatMap {
+        _.fold(jsonOkResult.fuccess, notFoundJson())
       }
     }
   )
