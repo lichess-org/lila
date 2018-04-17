@@ -10,7 +10,7 @@
     </div>
   </section>
   <section>
-    @if(ctx.noBot){<a href="@routes.Puzzle.home">@trans.learnMenu()</a>}
+    <a href="@routes.Puzzle.home">@trans.learnMenu()</a>
     <div>
       @if(ctx.noBot){<a href="@routes.Learn.index">@trans.chessBasics()</a>}
       @if(ctx.noBot){<a href="@routes.Puzzle.home">@trans.training()</a>}
