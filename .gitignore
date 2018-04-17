@@ -30,6 +30,7 @@ node_modules/
 local/
 ui/*/npm-debug.log
 hs_*.log
+.DS_Store
 
 RUNNING_PID
 
