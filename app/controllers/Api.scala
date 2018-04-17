@@ -267,7 +267,7 @@ object Api extends LidraughtsController {
     } map toApiResult
   }
 
-  def gameStream = Action.async(parse.tolerantText) { req =>
+  def gamesByUsersStream = Action.async(parse.tolerantText) { req =>
     RequireHttp11(req) {
       val userIds = req.body.split(',').take(300).toSet map lidraughts.user.User.normalize
       Ok.chunked(Env.game.stream.startedByUserIds(userIds)).fuccess
