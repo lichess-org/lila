@@ -31,7 +31,7 @@ object Bot extends LilaController {
   def command(cmd: String) = Scoped(_.Bot.Play) { _ => me =>
     cmd.split('/') match {
       case Array("account", "upgrade") =>
-        lila.user.UserRepo.setBot(me) inject jsonOkResult recover {
+        lila.user.UserRepo.setBot(me) >>- Env.user.lightUserApi.invalidate(me.id) inject jsonOkResult recover {
           case e: Exception => BadRequest(jsonError(e.getMessage))
         }
       case _ => notFoundJson("No such command")
