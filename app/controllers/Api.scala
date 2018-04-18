@@ -213,8 +213,15 @@ object Api extends LilaController {
     }
   }
 
+  private val CrosstableRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
+    credits = 30,
+    duration = 10 minutes,
+    name = "crosstable API per IP",
+    key = "crosstable.api.ip"
+  )
+
   def crosstable(u1: String, u2: String) = ApiRequest { implicit ctx =>
-    UserGamesRateLimit(cost = 200) {
+    CrosstableRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
       Env.game.crosstableApi(u1, u2, timeout = 15.seconds) map { ct =>
         toApiResult {
           ct map lila.game.JsonView.crosstableWrites.writes
