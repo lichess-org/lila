@@ -22,15 +22,11 @@ object Streamer extends LilaController {
   }
 
   def live = Api.ApiRequest { implicit ctx =>
-    val ids = Env.streamer.liveStreamApi.userIds
-    Env.user.lightUserApi asyncMany ids.toList dmap (_.flatten) map { users =>
-      val actualIds = users.map(_.id)
-      val onlineIds = Env.user.onlineUserIdMemo intersect actualIds
-      val playingIds = Env.relation.online.playing intersect actualIds
+    Env.user.lightUserApi asyncMany Env.streamer.liveStreamApi.userIds.toList dmap (_.flatten) map { users =>
+      val playingIds = Env.relation.online.playing intersect users.map(_.id)
       Api.toApiResult {
         users.map { u =>
-          lila.common.LightUser.lightUserWrites.writes(u)
-            .add("playing" -> playingIds(u.id))
+          lila.common.LightUser.lightUserWrites.writes(u).add("playing" -> playingIds(u.id))
         }
       }
     }
