@@ -100,7 +100,7 @@ private[round] final class Socket(
       lilaBus.subscribe(self, Symbol(s"userStartGame:$userId"))
     }
 
-    def chat = lilaBus.subscribe(self, Symbol(s"chat-${chatIds.priv}"), Symbol(s"chat-${chatIds.pub}"))
+    def chat = lilaBus.subscribe(self, Symbol(s"chat:${chatIds.priv}"), Symbol(s"chat:${chatIds.pub}"))
 
     def tournament = tournamentId foreach { id =>
       lilaBus.subscribe(self, Symbol(s"tour-standing-$id"))
