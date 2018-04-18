@@ -41,6 +41,10 @@ object Bot extends LilaController {
             Env.bot.player.chat(pov.gameId, me, res) inject jsonOkResult
           }
         )
+      case Array("game", id, "abort") =>
+        WithMyBotGame(id, me) { pov =>
+          Env.bot.player.abort(pov) inject jsonOkResult
+        }
       case _ => notFoundJson("No such command")
     }
   }

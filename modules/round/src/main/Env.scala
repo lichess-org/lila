@@ -9,6 +9,7 @@ import actorApi.{ GetSocketStatus, SocketStatus }
 
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.HasUserId
+import lila.hub.actorApi.round.Abort
 import lila.hub.actorApi.map.{ Ask, Tell }
 
 final class Env(
@@ -268,7 +269,7 @@ final class Env(
 
   def resign(pov: Pov): Unit = {
     if (pov.game.abortable)
-      roundMap ! Tell(pov.gameId, actorApi.round.Abort(pov.playerId))
+      roundMap ! Tell(pov.gameId, Abort(pov.playerId))
     else if (pov.game.playable)
       roundMap ! Tell(pov.gameId, actorApi.round.Resign(pov.playerId))
   }
