@@ -26,6 +26,7 @@ final class BotJsonView(
     Json.obj(
       "id" -> game.id,
       "variant" -> game.variant,
+      "clock" -> game.clock.map(_.config),
       "speed" -> game.speed.key,
       "perf" -> game.perfType.map { p =>
         Json.obj("name" -> p.name)
@@ -74,4 +75,11 @@ final class BotJsonView(
 
   private def millisOf(pov: Pov): Int =
     pov.game.clock.fold(Int.MaxValue)(_.remainingTime(pov.color).millis.toInt)
+
+  private implicit val clockConfigWriter: OWrites[chess.Clock.Config] = OWrites { c =>
+    Json.obj(
+      "initial" -> c.limit.millis,
+      "increment" -> c.increment.millis
+    )
+  }
 }
