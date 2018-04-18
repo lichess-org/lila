@@ -435,6 +435,14 @@
   <string name="standing">Турнирная таблица</string>
   <string name="createANewTournament">Создать турнир</string>
   <string name="tournamentCalendar">Турнирный календарь</string>
+  <string name="conditionOfEntry">Условие входа:</string>
+  <string name="advancedSettings">Дополнительные настройки</string>
+  <string name="safeTournamentName">Выберите для турнира как можно более безопасное название.</string>
+  <string name="inappropriateNameWarning">Если название хотя бы немного покажется неуместным, вас могут заблокировать.</string>
+  <string name="emptyTournamentName">Оставьте пустым, чтобы назвать турнир в честь случайного гроссмейстера.</string>
+  <string name="recommendNotTouching">Мы не рекомендуем задавать эти условия.</string>
+  <string name="fewerPlayers">Если вы зададите условия входа, то в вашем турнире примет участие меньше игроков.</string>
+  <string name="showAdvancedSettings">Показать дополнительные настройки</string>
   <string name="join">Участвовать</string>
   <string name="withdraw">Покинуть</string>
   <string name="points">Очки</string>

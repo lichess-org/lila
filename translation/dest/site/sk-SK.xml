@@ -435,6 +435,14 @@
   <string name="standing">Pozícia</string>
   <string name="createANewTournament">Vytvoriť nový turnaj</string>
   <string name="tournamentCalendar">Kalendár turnajov</string>
+  <string name="conditionOfEntry">Podmienka vstupu:</string>
+  <string name="advancedSettings">Pokročilé nastavenia</string>
+  <string name="safeTournamentName">Názov turnaja vyberajte s rozvahou!</string>
+  <string name="inappropriateNameWarning">Čokoľvek čo i len mierne nevhodné môže mať za následok uzavretie Vášho účtu.</string>
+  <string name="emptyTournamentName">Ak názov nevyplníte, turnaj bude pomenovaný po náhodnom veľmajstrovi.</string>
+  <string name="recommendNotTouching">Tieto nastavenia odporúčame ponechať nedotknuté.</string>
+  <string name="fewerPlayers">Ak nastavíte podmienky účasti, Váš turnaj bude mať menej hráčov.</string>
+  <string name="showAdvancedSettings">Zobraziť pokročilé nastavenia</string>
   <string name="join">Pripojiť</string>
   <string name="withdraw">Odstúpiť</string>
   <string name="points">Bodov</string>

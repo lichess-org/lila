@@ -410,6 +410,14 @@
   <string name="standing">Pozīcija</string>
   <string name="createANewTournament">Izveidot jaunu turnīru</string>
   <string name="tournamentCalendar">Turnīru kalendārs</string>
+  <string name="conditionOfEntry">Dalības noteikumi:</string>
+  <string name="advancedSettings">Uzstādījumi lietpratējiem</string>
+  <string name="safeTournamentName">Izvēlies drošu turnīra nosaukumu.</string>
+  <string name="inappropriateNameWarning">Jebkas kaut nedaudz nepiedienīgs var novest līdz tava konta slēgšanai.</string>
+  <string name="emptyTournamentName">Atstāj tukšu lai nosauktu turnīru nejauši izvēlēta šaha lielmeistara vārdā.</string>
+  <string name="recommendNotTouching">Mēs iesakām neko nemainīt šeit.</string>
+  <string name="fewerPlayers">Ja uzstādīsi dalības noteikumus, tad tavā turnīrā piedalīsies mazāk spēlētāju.</string>
+  <string name="showAdvancedSettings">Parādīt lietpratēju uzstādījumus</string>
   <string name="join">Pievienoties</string>
   <string name="withdraw">Izstāties</string>
   <string name="points">Punkti</string>

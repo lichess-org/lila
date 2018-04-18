@@ -286,6 +286,14 @@
   <string name="standing">Турнірная табліца</string>
   <string name="createANewTournament">Стварыць  новы турнір</string>
   <string name="tournamentCalendar">Каляндар турніру</string>
+  <string name="conditionOfEntry">Умовы ўваходу:</string>
+  <string name="advancedSettings">Дадатковыя налады</string>
+  <string name="safeTournamentName">Абярыце вельмі бяспечнае імя для турніру.</string>
+  <string name="inappropriateNameWarning">Усё, што нават крыху апынецца недарэчным, можа прывесці да блакавання.</string>
+  <string name="emptyTournamentName">Пакіньце пустым, каб назваць турнір у гонар выпадковага гросмайстра.</string>
+  <string name="recommendNotTouching">Мы рэкамендуем не датыкацца да іх.</string>
+  <string name="fewerPlayers">Калі вы задасце ўмовы ўваходу, то на ваш турнір з\'явіцца менш гульцоў.</string>
+  <string name="showAdvancedSettings">Паказаць дадатковыя налады</string>
   <string name="join">Далучыцца</string>
   <string name="withdraw">Выйсьці</string>
   <string name="points">Балы</string>
