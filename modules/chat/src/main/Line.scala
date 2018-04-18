@@ -38,6 +38,8 @@ case class PlayerLine(
 
 object Line {
 
+  val textMaxSize = 140
+
   import reactivemongo.bson.{ BSONHandler, BSONString }
 
   private val invalidLine = UserLine("", "[invalid character]", troll = false, deleted = true)

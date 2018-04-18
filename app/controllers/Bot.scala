@@ -28,12 +28,19 @@ object Bot extends LilaController {
     }
   }
 
-  def command(cmd: String) = Scoped(_.Bot.Play) { _ => me =>
+  def command(cmd: String) = ScopedBody(_.Bot.Play) { implicit req => me =>
     cmd.split('/') match {
       case Array("account", "upgrade") =>
         lila.user.UserRepo.setBot(me) >>- Env.user.lightUserApi.invalidate(me.id) inject jsonOkResult recover {
           case e: Exception => BadRequest(jsonError(e.getMessage))
         }
+      case Array("game", id, "chat") =>
+        Env.bot.form.chat.bindFromRequest.fold(
+          err => BadRequest(errorsAsJson(err)).fuccess,
+          res => WithMyBotGame(id, me) { pov =>
+            Env.bot.player.chat(pov.gameId, me, res) inject jsonOkResult
+          }
+        )
       case _ => notFoundJson("No such command")
     }
   }
