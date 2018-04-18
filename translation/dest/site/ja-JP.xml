@@ -35,7 +35,7 @@
   <string name="makeYourOpponentResign">相手を投了させる</string>
   <string name="forceResignation">投了させる</string>
   <string name="forceDraw">引き分けにする</string>
-  <string name="talkInChat">チャットする</string>
+  <string name="talkInChat">チャットでは礼儀を忘れず</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">このURLを最初にクリックした人があなたと対局します。</string>
   <string name="whiteResigned">白が投了しました</string>
   <string name="blackResigned">黒が投了しました</string>
@@ -141,7 +141,7 @@
   <string name="minutesPerSide">持ち時間</string>
   <string name="variant">バリアント</string>
   <string name="variants">変則チェス</string>
-  <string name="timeControl">持ち時間制限</string>
+  <string name="timeControl">持時間</string>
   <string name="realTime">実時間</string>
   <string name="correspondence">通信チェス</string>
   <string name="daysPerTurn">1手あたり日数</string>
@@ -361,6 +361,14 @@
   <string name="standing">順位</string>
   <string name="createANewTournament">新しいトーナメントを作る</string>
   <string name="tournamentCalendar">トーナメント・カレンダー</string>
+  <string name="conditionOfEntry">参加条件:</string>
+  <string name="advancedSettings">高度な設定</string>
+  <string name="safeTournamentName">トーナメントの名前は無難なものにしてください。</string>
+  <string name="inappropriateNameWarning">少しでも不適切な名前の場合、あなたのアカウントを閉鎖することがあります。</string>
+  <string name="emptyTournamentName">名前を空白にしておくと、自動でランダムな有名選手の名前がつきます。</string>
+  <string name="recommendNotTouching">ここは触らないことを推奨します。</string>
+  <string name="fewerPlayers">参加条件を決めると、当然参加者は少なくなります。</string>
+  <string name="showAdvancedSettings">「高度な設定」を表示</string>
   <string name="join">参加する</string>
   <string name="withdraw">棄権する</string>
   <string name="points">ポイント</string>
@@ -387,7 +395,7 @@
   <string name="boardEditor">盤面入力</string>
   <string name="setTheBoard">盤面を指定</string>
   <string name="popularOpenings">人気のオープニング</string>
-  <string name="startPosition">開始局面にする</string>
+  <string name="startPosition">開始局面</string>
   <string name="clearBoard">盤面をクリアする</string>
   <string name="savePosition">盤面を保存</string>
   <string name="loadPosition">局面を読み込む</string>
