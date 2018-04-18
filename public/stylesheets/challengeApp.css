@@ -112,12 +112,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-#challenge_app .challenge .title {
+#challenge_app .challenge .head {
   display: block;
   font-weight: bold;
   margin-bottom: 3px;
 }
-#challenge_app .challenge .title .user_link {
+#challenge_app .challenge .head .user_link {
   margin-left: -5px;
 }
 

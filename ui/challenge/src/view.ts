@@ -46,7 +46,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
       }
     }, [
       h('div.content', [
-        h('span.title', renderUser(dir === 'in' ? c.challenger : c.destUser)),
+        h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser)),
         h('span.desc', [
           ctrl.trans()(c.rated ? 'rated' : 'casual'),
           timeControl(c.timeControl),
@@ -131,10 +131,13 @@ function renderUser(u?: ChallengeUser): VNode {
     class: { online: !!u.online }
   }, [
     h('i.line' + (u.patron ? '.patron' : '')),
-    h('name', (u.title ? u.title + ' ' : '') + u.name + ' (' + rating + ') '),
-    h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map((i) => h('i', {
-      class: { off: u.lag! < i}
-    })))
+    h('name', [
+      u.title && h('span.title', { attrs: { 'data-title': u.title } }, u.title + ' '),
+      u.name + ' (' + rating + ') '
+    ]),
+      h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map((i) => h('i', {
+        class: { off: u.lag! < i}
+      })))
   ]);
 }
 
