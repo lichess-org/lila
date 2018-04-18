@@ -32,7 +32,7 @@ private[tournament] final class Socket(
 
   override def preStart(): Unit = {
     super.preStart()
-    lidraughtsBus.subscribe(self, Symbol(s"chat-$tournamentId"))
+    lidraughtsBus.subscribe(self, Symbol(s"chat:$tournamentId"))
     TournamentRepo byId tournamentId map SetTournament.apply pipeTo self
   }
 

@@ -196,7 +196,7 @@ lazy val analyse = module("analyse", Seq(common, hub, game, user, notifyModule, 
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
-lazy val bot = module("bot", Seq(common, db, hub, game, user, challenge)).settings(
+lazy val bot = module("bot", Seq(common, db, hub, game, user, challenge, chat)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 

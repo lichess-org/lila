@@ -22,7 +22,7 @@ private[simul] final class Socket(
 
   override def preStart(): Unit = {
     super.preStart()
-    lidraughtsBus.subscribe(self, Symbol(s"chat-$simulId"))
+    lidraughtsBus.subscribe(self, Symbol(s"chat:$simulId"))
   }
 
   override def postStop(): Unit = {

@@ -36,7 +36,7 @@ private final class Socket(
 
   override def preStart(): Unit = {
     super.preStart()
-    lidraughtsBus.subscribe(self, Symbol(s"chat-$studyId"))
+    lidraughtsBus.subscribe(self, Symbol(s"chat:$studyId"))
   }
 
   override def postStop(): Unit = {

@@ -145,7 +145,7 @@ final class ChatApi(
     private def isMod(user: User) = lidraughts.security.Granter(_.ChatTimeout)(user)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) = list.foreach { r =>
-      lidraughtsBus.publish(actorApi.OnReinstate(r.user), Symbol(s"chat-${r.chat}"))
+      lidraughtsBus.publish(actorApi.OnReinstate(r.user), Symbol(s"chat:${r.chat}"))
     }
 
     private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
@@ -202,7 +202,7 @@ final class ChatApi(
     upsert = true
   ).void >>- lidraughts.mon.chat.message()
 
-  private def channelOf(id: Chat.Id) = Symbol(s"chat-$id")
+  private def channelOf(id: Chat.Id) = Symbol(s"chat:$id")
 
   private object Writer {
 

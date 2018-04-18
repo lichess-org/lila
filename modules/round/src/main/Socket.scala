@@ -102,7 +102,7 @@ private[round] final class Socket(
       lidraughtsBus.subscribe(self, Symbol(s"userStartGame:$userId"), Symbol(s"simulNextGame:$userId"))
     }
 
-    def chat = lidraughtsBus.subscribe(self, Symbol(s"chat-${chatIds.priv}"), Symbol(s"chat-${chatIds.pub}"))
+    def chat = lidraughtsBus.subscribe(self, Symbol(s"chat:${chatIds.priv}"), Symbol(s"chat:${chatIds.pub}"))
 
     def tournament = tournamentId foreach { id =>
       lidraughtsBus.subscribe(self, Symbol(s"tour-standing-$id"))
