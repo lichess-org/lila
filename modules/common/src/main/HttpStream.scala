@@ -13,8 +13,7 @@ object HttpStream {
 
   val stringifyOrEmpty =
     Enumeratee.map[Option[JsObject]].apply[String] {
-      case None => "\n"
-      case Some(js) => Json.stringify(js) + "\n"
+      _ ?? Json.stringify + "\n"
     }
 
   def onComplete(stream: Option[ActorRef], system: ActorSystem) =
