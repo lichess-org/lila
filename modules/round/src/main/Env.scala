@@ -9,6 +9,7 @@ import actorApi.{ GetSocketStatus, SocketStatus }
 
 import lidraughts.game.{ Game, Pov }
 import lidraughts.hub.actorApi.HasUserId
+import lidraughts.hub.actorApi.round.Abort
 import lidraughts.hub.actorApi.map.{ Ask, Tell }
 
 final class Env(
@@ -257,7 +258,7 @@ final class Env(
 
   def resign(pov: Pov): Unit = {
     if (pov.game.abortable)
-      roundMap ! Tell(pov.gameId, actorApi.round.Abort(pov.playerId))
+      roundMap ! Tell(pov.gameId, Abort(pov.playerId))
     else if (pov.game.playable)
       roundMap ! Tell(pov.gameId, actorApi.round.Resign(pov.playerId))
   }

@@ -8,7 +8,7 @@ import chess.format.Uci
 
 import lila.game.{ Game, Pov, GameRepo }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.{ BotPlay, RematchYes, RematchNo }
+import lila.hub.actorApi.round.{ BotPlay, RematchYes, RematchNo, Abort }
 import lila.user.User
 
 final class BotPlayer(
@@ -52,5 +52,11 @@ final class BotPlayer(
         }(system)
         true
       }
+    }
+
+  def abort(pov: Pov): Funit =
+    if (!pov.game.abortable) fufail("This game can no longer be aborted")
+    else fuccess {
+      roundMap ! Tell(pov.gameId, Abort(pov.playerId))
     }
 }

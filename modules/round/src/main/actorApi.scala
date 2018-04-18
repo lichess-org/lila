@@ -112,7 +112,6 @@ package round {
 
   case class PlayResult(events: Events, fen: String, lastMove: Option[String])
 
-  case class Abort(playerId: String)
   case object AbortForMaintenance
   case object AbortForce
   case object Threefold

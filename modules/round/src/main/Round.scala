@@ -12,7 +12,7 @@ import draughts.format.Uci
 import lidraughts.game.{ Event, Game, Pov, Progress }
 import lidraughts.hub.actorApi.DeployPost
 import lidraughts.hub.actorApi.map._
-import lidraughts.hub.actorApi.round.{ DraughtsnetPlay, BotPlay, RematchYes, RematchNo }
+import lidraughts.hub.actorApi.round.{ DraughtsnetPlay, BotPlay, RematchYes, RematchNo, Aborty }
 import lidraughts.hub.SequentialActor
 import lidraughts.socket.UserLagCache
 import makeTimeout.large
