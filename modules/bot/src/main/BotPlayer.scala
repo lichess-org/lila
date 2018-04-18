@@ -11,7 +11,11 @@ import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ BotPlay, RematchYes, RematchNo }
 import lila.user.User
 
-final class BotPlayer(roundMap: ActorSelection, system: ActorSystem) {
+final class BotPlayer(
+    roundMap: ActorSelection,
+    chatActor: ActorSelection,
+    system: ActorSystem
+) {
 
   def apply(pov: Pov, uciStr: String): Funit =
     Uci(uciStr).fold(fufail[Unit](s"Invalid UCI: $uciStr")) { uci =>
@@ -23,11 +27,19 @@ final class BotPlayer(roundMap: ActorSelection, system: ActorSystem) {
       }
     }
 
-  def rematchAccept(id: Game.ID, me: User): Fu[Boolean] =
-    rematch(id, me, true)
+  def chat(gameId: Game.ID, me: User, d: BotForm.ChatData) = fuccess {
+    val chatId = lila.chat.Chat.Id {
+      if (d.room == "player") gameId else s"$gameId/w"
+    }
+    val source = d.room == "spectator" option {
+      lila.hub.actorApi.shutup.PublicSource.Watcher(gameId)
+    }
+    chatActor ! lila.chat.actorApi.UserTalk(chatId, me.id, d.text, publicSource = source)
+  }
 
-  def rematchDecline(id: Game.ID, me: User): Fu[Boolean] =
-    rematch(id, me, false)
+  def rematchAccept(id: Game.ID, me: User): Fu[Boolean] = rematch(id, me, true)
+
+  def rematchDecline(id: Game.ID, me: User): Fu[Boolean] = rematch(id, me, false)
 
   private def rematch(id: Game.ID, me: User, accept: Boolean): Fu[Boolean] =
     GameRepo game id map {

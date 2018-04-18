@@ -210,7 +210,7 @@ final class ChatApi(
 
     def preprocessUserInput(in: String) = multiline(noShouting(noPrivateUrl(in)))
 
-    def cut(text: String) = Some(text.trim take 140) filter (_.nonEmpty)
+    def cut(text: String) = Some(text.trim take Line.textMaxSize) filter (_.nonEmpty)
 
     private val domainRegex = netDomain.replace(".", """\.""")
     private val gameUrlRegex = (domainRegex + """\b/([\w]{8})[\w]{4}\b""").r
