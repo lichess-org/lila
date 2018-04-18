@@ -24,7 +24,9 @@ final class BotJsonView(
       "id" -> game.id,
       "variant" -> game.variant,
       "speed" -> game.speed.key,
-      "perf" -> lila.game.PerfPicker.key(game),
+      "perf" -> game.perfType.map { p =>
+        Json.obj("name" -> p.name)
+      },
       "rated" -> game.rated,
       "createdAt" -> game.createdAt,
       "white" -> playerJson(game.whitePov),
