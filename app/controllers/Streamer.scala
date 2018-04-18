@@ -21,6 +21,21 @@ object Streamer extends LilaController {
     } yield Ok(html.streamer.index(live, pager, requests))
   }
 
+  def live = Api.ApiRequest { implicit ctx =>
+    val ids = Env.streamer.liveStreamApi.userIds
+    Env.user.lightUserApi asyncMany ids.toList dmap (_.flatten) map { users =>
+      val actualIds = users.map(_.id)
+      val onlineIds = Env.user.onlineUserIdMemo intersect actualIds
+      val playingIds = Env.relation.online.playing intersect actualIds
+      Api.toApiResult {
+        users.map { u =>
+          lila.common.LightUser.lightUserWrites.writes(u)
+            .add("playing" -> playingIds(u.id))
+        }
+      }
+    }
+  }
+
   def show(username: String) = Open { implicit ctx =>
     OptionFuResult(api find username) { s =>
       WithVisibleStreamer(s) {
