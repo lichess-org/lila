@@ -210,6 +210,8 @@
   <string name="thisGameIsRated">This game is rated</string>
   <string name="rematch">Rematch</string>
   <string name="rematchOfferSent">Rematch offer sent</string>
+  <string name="rematchOfferSentWhite">White offers rematch</string>
+  <string name="rematchOfferSentBlack">Black offers rematch</string>
   <string name="rematchOfferAccepted">Rematch offer accepted</string>
   <string name="rematchOfferCanceled">Rematch offer cancelled</string>
   <string name="rematchOfferDeclined">Rematch offer declined</string>
