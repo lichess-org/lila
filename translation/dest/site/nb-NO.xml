@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Dette partiet er rangert</string>
   <string name="rematch">Omkamp</string>
   <string name="rematchOfferSent">Tilbud om omkamp sendt</string>
+  <string name="rematchOfferSentWhite">Hvit tilbyr omkamp</string>
+  <string name="rematchOfferSentBlack">Svart tilbyr omkamp</string>
   <string name="rematchOfferAccepted">Tilbud om omkamp godtatt</string>
   <string name="rematchOfferCanceled">Tilbud om omkamp trukket tilbake</string>
   <string name="rematchOfferDeclined">Tilbud om omkamp avslått</string>
@@ -386,6 +388,13 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="standing">Resultatliste</string>
   <string name="createANewTournament">Opprett en ny turnering</string>
   <string name="tournamentCalendar">Turneringskalender</string>
+  <string name="conditionOfEntry">Betingelse for å delta:</string>
+  <string name="advancedSettings">Avanserte innstillinger</string>
+  <string name="safeTournamentName">Velge et svært trygt navn for turneringa.</string>
+  <string name="inappropriateNameWarning">Upassende innhold kan føre til at brukerkontoen din blir stengt.</string>
+  <string name="emptyTournamentName">La stå tomt for at turneringa skal få navn etter en tilfeldig stormester.</string>
+  <string name="recommendNotTouching">Vi anbefaler å ikke endre disse.</string>
+  <string name="fewerPlayers">Om du stiller betingelser for å delta vil turneringa få færre deltakere.</string>
   <string name="join">Bli med</string>
   <string name="withdraw">Trekk deg</string>
   <string name="points">Poeng</string>
