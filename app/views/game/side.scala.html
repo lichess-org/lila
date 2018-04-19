@@ -23,14 +23,12 @@
           }.getOrElse {
           <span data-hint="@trans.unlimited()" class="hint--top">∞</span>
           }
-          } •
+          } • @game.rated.fold(trans.rated, trans.casual).txt() •
           @if(game.variant.exotic) {
           @variantLink(game.variant, (if (game.variant ==  chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top", initialFen = initialFen)
           } else {
-          @game.perfType.map { pt =>
-          <span class="hint--top" data-hint="@pt.title">@pt.name.toUpperCase</span>
+          @game.perfType.map { pt => <span class="hint--top" data-hint="@pt.title">@pt.shortName</span> }
           }
-          } • @game.rated.fold(trans.rated.txt(), trans.casual.txt()).toUpperCase
           }
         </span>
         @game.pgnImport.flatMap(_.date).getOrElse(

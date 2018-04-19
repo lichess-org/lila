@@ -24,7 +24,8 @@ final class DataForm {
     `private` = None,
     password = None,
     mode = Mode.Rated.id.some,
-    conditions = Condition.DataForm.AllSetup.default
+    conditionsOption = Condition.DataForm.AllSetup.default.some,
+    berserkable = true
   )
 
   private val nameType = nonEmptyText.verifying(
@@ -47,7 +48,8 @@ final class DataForm {
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
     "private" -> optional(text.verifying("on" == _)),
     "password" -> optional(nonEmptyText),
-    "conditions" -> Condition.DataForm.all
+    "conditions" -> optional(Condition.DataForm.all),
+    "berserkable" -> boolean
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
     .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
@@ -115,8 +117,11 @@ private[tournament] case class TournamentSetup(
     mode: Option[Int],
     `private`: Option[String],
     password: Option[String],
-    conditions: Condition.DataForm.AllSetup
+    conditionsOption: Option[Condition.DataForm.AllSetup],
+    berserkable: Boolean
 ) {
+
+  def conditions = conditionsOption | Condition.DataForm.AllSetup.default
 
   def validClock = (clockTime + clockIncrement) > 0
 

@@ -21,7 +21,9 @@ Berserk is not available for games with zero initial time (0+1, 0+2).
 
 Berserk only grants an extra point if you play at least 7 moves in the game.</string>
 <string name="howIsTheWinnerDecided">How is the winner decided?</string>
-<string name="howIsTheWinnerDecidedAnswer">The player(s) with the most points at the conclusion of the tournament's set time limit will be announced winner(s).</string>
+<string name="howIsTheWinnerDecidedAnswer">The player(s) with the most points at the conclusion of the tournament's set time limit will be announced winner(s).
+
+When two players have the same number of points, the tournament performance is the tie break.</string>
 <string name="howDoesPairingWork">How does the pairing work?</string>
 <string name="howDoesPairingWorkAnswer">At the beginning of the tournament, players are paired based on their rating.
 As soon as you finish a game, return to the tournament lobby: you will then be paired with a player close to your ranking. This ensures minimum wait time, however you may not face all other players in the tournament.

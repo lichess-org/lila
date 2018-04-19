@@ -2,8 +2,8 @@ package lila.hub
 package actorApi
 
 import org.joda.time.DateTime
-
 import play.api.libs.json._
+import chess.format.Uci
 
 case class SendTo(userId: String, message: JsObject)
 
@@ -215,7 +215,7 @@ package fishnet {
       chapterId: String,
       initialFen: Option[chess.format.FEN],
       variant: chess.variant.Variant,
-      moves: List[chess.format.Uci],
+      moves: List[Uci],
       userId: Option[String]
   )
 }
@@ -245,12 +245,16 @@ package round {
       opponentUserId: String
   )
   case class NbRounds(nb: Int)
-  case class Abort(gameId: String, byColor: String)
   case class Berserk(gameId: String, userId: String)
   case class IsOnGame(color: chess.Color)
   sealed trait SocketEvent
-  case class FishnetPlay(uci: chess.format.Uci, currentFen: chess.format.FEN)
   case class TourStanding(json: JsArray)
+  case class FishnetPlay(uci: Uci, currentFen: chess.format.FEN)
+  case class BotPlay(playerId: String, uci: Uci, promise: Option[scala.concurrent.Promise[Unit]] = None)
+  case class RematchOffer(gameId: String)
+  case class RematchYes(playerId: String)
+  case class RematchNo(playerId: String)
+  case class Abort(playerId: String)
 }
 
 package evaluation {

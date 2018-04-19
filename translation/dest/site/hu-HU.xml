@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Ez egy rangsorolt játszma</string>
   <string name="rematch">Visszavágó</string>
   <string name="rematchOfferSent">Visszavágó felajánlva</string>
+  <string name="rematchOfferSentWhite">Világos visszavágót szeretne</string>
+  <string name="rematchOfferSentBlack">Sötét visszavágót szeretne</string>
   <string name="rematchOfferAccepted">Visszavágó elfogadva</string>
   <string name="rematchOfferCanceled">Visszavágó ajánlat elvetve</string>
   <string name="rematchOfferDeclined">Visszavágót visszautasították</string>
@@ -385,6 +387,14 @@
   <string name="standing">Állás</string>
   <string name="createANewTournament">Új verseny létrehozása</string>
   <string name="tournamentCalendar">Versenynaptár</string>
+  <string name="conditionOfEntry">Feltétel:</string>
+  <string name="advancedSettings">Haladó beállítások</string>
+  <string name="safeTournamentName">Válassz egy nagyon biztonságos nevet a versenynek.</string>
+  <string name="inappropriateNameWarning">Akár a legkisebb pontatlanság is a fiókod zárolását eredményezheti.</string>
+  <string name="emptyTournamentName">Hagyd üresen, ha azt szeretnéd, hogy a verseny automatikusan kapjon nevet egy nagymesterről.</string>
+  <string name="recommendNotTouching">Azt javasoljuk, hogy ne változtass ezeken.</string>
+  <string name="fewerPlayers">Feltétel beállítása esetén kevesebb játékos lesz a versenyen.</string>
+  <string name="showAdvancedSettings">Haladó beállítások megjelenítése</string>
   <string name="join">Csatlakozás</string>
   <string name="withdraw">Visszavon</string>
   <string name="points">Pontok</string>

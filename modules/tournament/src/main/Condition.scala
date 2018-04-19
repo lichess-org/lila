@@ -182,7 +182,8 @@ object Condition {
   object DataForm {
     import play.api.data.Forms._
     import lila.common.Form._
-    val perfChoices = PerfType.nonPuzzle.map { pt =>
+    val perfAuto = "auto" -> "Auto"
+    val perfChoices = perfAuto :: PerfType.nonPuzzle.map { pt =>
       pt.key -> pt.name
     }
     val nbRatedGames = Seq(0, 5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200)
@@ -196,10 +197,13 @@ object Condition {
     )(NbRatedGameSetup.apply)(NbRatedGameSetup.unapply)
     case class NbRatedGameSetup(perf: Option[String], nb: Int) {
       def isDefined = nb > 0
-      def convert = isDefined option NbRatedGame(PerfType(~perf), nb)
+      def convert(tourPerf: PerfType) = isDefined option NbRatedGame(
+        if (perf has perfAuto._1) tourPerf.some else PerfType(~perf),
+        nb
+      )
     }
     object NbRatedGameSetup {
-      val default = NbRatedGameSetup(PerfType.Blitz.key.some, 0)
+      val default = NbRatedGameSetup(perfAuto._1.some, 0)
       def apply(x: NbRatedGame): NbRatedGameSetup = NbRatedGameSetup(x.perf.map(_.key), x.nb)
     }
     val maxRatings = List(9999, 2200, 2100, 2000, 1900, 1800, 1700, 1600, 1500, 1400, 1300, 1200, 1000)
@@ -213,10 +217,10 @@ object Condition {
     )(MaxRatingSetup.apply)(MaxRatingSetup.unapply)
     case class MaxRatingSetup(perf: String, rating: Int) {
       def isDefined = rating < 9000
-      def convert = isDefined option MaxRating(PerfType(perf) err s"perf $perf", rating)
+      def convert(tourPerf: PerfType) = isDefined option MaxRating(PerfType(perf) | tourPerf, rating)
     }
     object MaxRatingSetup {
-      val default = MaxRatingSetup(PerfType.Blitz.key, 9999)
+      val default = MaxRatingSetup(perfAuto._1, 9999)
       def apply(x: MaxRating): MaxRatingSetup = MaxRatingSetup(x.perf.key, x.rating)
     }
     val minRatings = List(0, 1600, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600)
@@ -230,10 +234,10 @@ object Condition {
     )(MinRatingSetup.apply)(MinRatingSetup.unapply)
     case class MinRatingSetup(perf: String, rating: Int) {
       def isDefined = rating > 0
-      def convert = isDefined option MinRating(PerfType(perf) err s"perf $perf", rating)
+      def convert(tourPerf: PerfType) = isDefined option MinRating(PerfType(perf) | tourPerf, rating)
     }
     object MinRatingSetup {
-      val default = MinRatingSetup(PerfType.Blitz.key, 0)
+      val default = MinRatingSetup(perfAuto._1, 0)
       def apply(x: MinRating): MinRatingSetup = MinRatingSetup(x.perf.key, x.rating)
     }
     val all = mapping(
@@ -242,6 +246,7 @@ object Condition {
       "minRating" -> minRating,
       "titled" -> boolean
     )(AllSetup.apply)(AllSetup.unapply)
+      .verifying("Invalid ratings", _.validRatings)
 
     case class AllSetup(
         nbRatedGame: NbRatedGameSetup,
@@ -249,10 +254,15 @@ object Condition {
         minRating: MinRatingSetup,
         titled: Boolean
     ) {
-      def convert = All(
-        nbRatedGame.convert,
-        maxRating.convert,
-        minRating.convert,
+
+      def validRatings = !maxRating.isDefined || !minRating.isDefined || {
+        maxRating.rating > minRating.rating
+      }
+
+      def convert(perf: PerfType) = All(
+        nbRatedGame convert perf,
+        maxRating convert perf,
+        minRating convert perf,
         titled option Titled
       )
     }

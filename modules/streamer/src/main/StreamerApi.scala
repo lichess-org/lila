@@ -44,9 +44,6 @@ final class StreamerApi(
   def allListed: Fu[List[Streamer]] =
     coll.find(selectListedApproved).list[Streamer]()
 
-  def save(s: Streamer): Funit =
-    coll.update($id(s.id), s, upsert = true).void
-
   def setSeenAt(user: User): Funit =
     listedIdsCache.get flatMap { ids =>
       ids.contains(Streamer.Id(user.id)) ??
@@ -58,25 +55,31 @@ final class StreamerApi(
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
-    coll.update($id(streamer.id), streamer) inject {
-      val modChange = Streamer.ModChange(
-        list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
-        feature = prev.approval.autoFeatured != streamer.approval.autoFeatured option streamer.approval.autoFeatured
-      )
-      import lila.notify.Notification.Notifies
-      import lila.notify.{ Notification, NotifyApi }
-      ~modChange.list ??
-        notifyApi.addNotification(Notification.make(
-          Notifies(streamer.userId),
-          lila.notify.GenericLink(
-            url = s"/streamer/edit",
-            title = "Listed on /streamer".some,
-            text = "Your streamer page is public".some,
-            icon = ""
-          )
-        ))
-      modChange
-    }
+    val writeConcern = reactivemongo.api.commands.GetLastError.ReplicaAcknowledged(
+      n = 3,
+      timeout = 3000,
+      journaled = false
+    )
+    coll.update($id(streamer.id), streamer, writeConcern = writeConcern) >>-
+      listedIdsCache.refresh inject {
+        val modChange = Streamer.ModChange(
+          list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
+          feature = prev.approval.autoFeatured != streamer.approval.autoFeatured option streamer.approval.autoFeatured
+        )
+        import lila.notify.Notification.Notifies
+        import lila.notify.{ Notification, NotifyApi }
+        ~modChange.list ??
+          notifyApi.addNotification(Notification.make(
+            Notifies(streamer.userId),
+            lila.notify.GenericLink(
+              url = s"/streamer/edit",
+              title = "Listed on /streamer".some,
+              text = "Your streamer page is public".some,
+              icon = ""
+            )
+          ))
+        modChange
+      }
   }
 
   def demote(userId: User.ID): Funit =

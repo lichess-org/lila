@@ -171,6 +171,7 @@ POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(
 
 # Streamer
 GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
+GET   /streamer/live                   controllers.Streamer.live
 GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply
@@ -497,9 +498,16 @@ GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/status                      controllers.Api.status
 GET   /api/socket                      controllers.Main.apiWebsocket
-POST  /api/game-stream                 controllers.Api.gameStream
 GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
+POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
+GET   /api/stream/event                controllers.Api.eventStream
+
+# Bot API
+GET   /bot/game/stream/:id             controllers.Bot.gameStream(id: String)
+POST  /bot/game/:id/move/:uci          controllers.Bot.move(id: String, uci: String)
+# /bot/account/upgrade
+POST  /bot/*cmd                        controllers.Bot.command(cmd: String)
 
 # Account
 GET   /account/passwd                  controllers.Account.passwd
@@ -563,26 +571,25 @@ POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platf
 POST  /mobile/unregister               controllers.Main.mobileUnregister
 
 # Pages
-GET   /thanks                          controllers.Page.thanks
-GET   /terms-of-service                controllers.Page.tos
-GET   /privacy                         controllers.Page.privacy
-GET   /contact                         controllers.Page.contact
+GET   /thanks                          controllers.Page.bookmark(name = "thanks")
+GET   /terms-of-service                controllers.Page.bookmark(name = "tos")
+GET   /privacy                         controllers.Page.bookmark(name = "privacy")
+GET   /contact                         controllers.Page.bookmark(name = "contact")
+GET   /about                           controllers.Page.bookmark(name = "about")
 GET   /swag                            controllers.Page.swag
-GET   /about                           controllers.Page.about
 
 # Variants
 GET   /variant                         controllers.Page.variantHome
 GET   /variant/:key                    controllers.Page.variant(key)
 
 # Help
-GET   /help/contribute                 controllers.Page.contribute
-GET   /help/master                     controllers.Page.master
+GET   /help/contribute                 controllers.Page.bookmark(name = "help")
+GET   /help/master                     controllers.Page.bookmark(name = "master")
 
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
 POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
 
 # Assets
-GET   /glyphs                          controllers.Main.glyphs
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)
 
 GET   /robots.txt                      controllers.Main.robots

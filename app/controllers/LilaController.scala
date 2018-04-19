@@ -55,14 +55,14 @@ private[controllers] trait LilaController
   protected def Open(f: Context => Fu[Result]): Action[Unit] =
     Open(BodyParsers.parse.empty)(f)
 
-  protected def Open[A](p: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
-    Action.async(p)(handleOpen(f, _))
+  protected def Open[A](parser: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
+    Action.async(parser)(handleOpen(f, _))
 
   protected def OpenBody(f: BodyContext[_] => Fu[Result]): Action[AnyContent] =
     OpenBody(BodyParsers.parse.anyContent)(f)
 
-  protected def OpenBody[A](p: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
-    Action.async(p) { req =>
+  protected def OpenBody[A](parser: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
+    Action.async(parser) { req =>
       CSRF(req) {
         reqToCtx(req) flatMap f
       }
@@ -73,10 +73,10 @@ private[controllers] trait LilaController
     scoped: RequestHeader => UserModel => Fu[Result]
   ): Action[Unit] = OpenOrScoped(BodyParsers.parse.empty)(selectors)(open, scoped)
 
-  protected def OpenOrScoped[A](p: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
+  protected def OpenOrScoped[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
     open: Context => Fu[Result],
     scoped: RequestHeader => UserModel => Fu[Result]
-  ): Action[A] = Action.async(p) { req =>
+  ): Action[A] = Action.async(parser) { req =>
     if (HTTPRequest isOAuth req) handleScoped(selectors, scoped)(req)
     else handleOpen(open, req)
   }
@@ -89,8 +89,8 @@ private[controllers] trait LilaController
   protected def Auth(f: Context => UserModel => Fu[Result]): Action[Unit] =
     Auth(BodyParsers.parse.empty)(f)
 
-  protected def Auth[A](p: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
-    Action.async(p) { req =>
+  protected def Auth[A](parser: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
+    Action.async(parser) { req =>
       handleAuth(f, req)
     }
 
@@ -103,10 +103,10 @@ private[controllers] trait LilaController
     handlers: (Context => UserModel => Fu[Result], RequestHeader => UserModel => Fu[Result])
   ): Action[Unit] = AuthOrScoped(BodyParsers.parse.empty)(selectors)(handlers._1, handlers._2)
 
-  protected def AuthOrScoped[A](p: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
+  protected def AuthOrScoped[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
     auth: Context => UserModel => Fu[Result],
     scoped: RequestHeader => UserModel => Fu[Result]
-  ): Action[A] = Action.async(p) { req =>
+  ): Action[A] = Action.async(parser) { req =>
     if (HTTPRequest isOAuth req) handleScoped(selectors, scoped)(req)
     else handleAuth(auth, req)
   }
@@ -121,8 +121,8 @@ private[controllers] trait LilaController
   protected def AuthBody(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
     AuthBody(BodyParsers.parse.anyContent)(f)
 
-  protected def AuthBody[A](p: BodyParser[A])(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
-    Action.async(p) { req =>
+  protected def AuthBody[A](parser: BodyParser[A])(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
+    Action.async(parser) { req =>
       CSRF(req) {
         reqToCtx(req) flatMap { ctx =>
           ctx.me.fold(authenticationFailed(ctx))(f(ctx))
@@ -136,8 +136,8 @@ private[controllers] trait LilaController
   protected def Secure(perm: Permission)(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
     Secure(BodyParsers.parse.anyContent)(perm)(f)
 
-  protected def Secure[A](p: BodyParser[A])(perm: Permission)(f: Context => UserModel => Fu[Result]): Action[A] =
-    Auth(p) { implicit ctx => me =>
+  protected def Secure[A](parser: BodyParser[A])(perm: Permission)(f: Context => UserModel => Fu[Result]): Action[A] =
+    Auth(parser) { implicit ctx => me =>
       isGranted(perm).fold(f(ctx)(me), authorizationFailed)
     }
 
@@ -146,22 +146,27 @@ private[controllers] trait LilaController
       s(me).fold(f(ctx)(me), authorizationFailed)
     }
 
-  protected def SecureBody[A](p: BodyParser[A])(perm: Permission)(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
-    AuthBody(p) { implicit ctx => me =>
+  protected def SecureBody[A](parser: BodyParser[A])(perm: Permission)(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
+    AuthBody(parser) { implicit ctx => me =>
       isGranted(perm).fold(f(ctx)(me), authorizationFailed)
     }
 
   protected def SecureBody(perm: Permission.type => Permission)(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
     SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(f)
 
+  protected def Scoped[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(f: RequestHeader => UserModel => Fu[Result]): Action[A] =
+    Action.async(parser)(handleScoped(selectors, f))
+
   protected def Scoped(selectors: OAuthScope.Selector*)(f: RequestHeader => UserModel => Fu[Result]): Action[Unit] =
     Scoped(BodyParsers.parse.empty)(selectors)(f)
 
-  protected def Scoped[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(f: RequestHeader => UserModel => Fu[Result]): Action[A] = {
+  protected def ScopedBody[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(f: Request[A] => UserModel => Fu[Result]): Action[A] =
     Action.async(parser)(handleScoped(selectors, f))
-  }
 
-  private def handleScoped(selectors: Seq[OAuthScope.Selector], f: RequestHeader => UserModel => Fu[Result])(req: RequestHeader): Fu[Result] = {
+  protected def ScopedBody(selectors: OAuthScope.Selector*)(f: Request[_] => UserModel => Fu[Result]): Action[AnyContent] =
+    ScopedBody(BodyParsers.parse.anyContent)(selectors)(f)
+
+  private def handleScoped[R <: RequestHeader](selectors: Seq[OAuthScope.Selector], f: R => UserModel => Fu[Result])(req: R): Fu[Result] = {
     val scopes = OAuthScope select selectors
     Env.security.api.oauthScoped(req, scopes) flatMap {
       case Left(e @ lila.oauth.OAuthServer.MissingScope(available)) =>
@@ -195,6 +200,12 @@ private[controllers] trait LilaController
 
   protected def NoLame[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     NoEngine(NoBooster(a))
+
+  protected def NoBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+    ctx.me.??(_.isBot).fold(Forbidden(views.html.site.noBot()).fuccess, a)
+
+  protected def NoLameOrBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+    NoLame(NoBot(a))
 
   protected def NoShadowban[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     ctx.me.??(_.troll).fold(notFound, a)

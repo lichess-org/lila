@@ -35,7 +35,7 @@
   <string name="makeYourOpponentResign">相手を投了させる</string>
   <string name="forceResignation">投了させる</string>
   <string name="forceDraw">引き分けにする</string>
-  <string name="talkInChat">チャットする</string>
+  <string name="talkInChat">チャットでは礼儀を忘れず</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">このURLを最初にクリックした人があなたと対局します。</string>
   <string name="whiteResigned">白が投了しました</string>
   <string name="blackResigned">黒が投了しました</string>
@@ -141,7 +141,7 @@
   <string name="minutesPerSide">持ち時間</string>
   <string name="variant">バリアント</string>
   <string name="variants">変則チェス</string>
-  <string name="timeControl">持ち時間制限</string>
+  <string name="timeControl">持時間</string>
   <string name="realTime">実時間</string>
   <string name="correspondence">通信チェス</string>
   <string name="daysPerTurn">1手あたり日数</string>
@@ -202,6 +202,8 @@
   <string name="thisGameIsRated">この対局はレート戦です</string>
   <string name="rematch">再対局</string>
   <string name="rematchOfferSent">再対局の申し込みを送信しました</string>
+  <string name="rematchOfferSentWhite">白が再戦を求めています</string>
+  <string name="rematchOfferSentBlack">黒が再戦を求めています</string>
   <string name="rematchOfferAccepted">再対局の申し込みを受け入れました</string>
   <string name="rematchOfferCanceled">再対局キャンセル</string>
   <string name="rematchOfferDeclined">再対局拒否</string>
@@ -281,7 +283,7 @@
   <string name="yourTopWeeklyPerfRatingIsTooHigh">%1$s の週間パフォーマンス (%2$s) が高すぎます</string>
   <string name="yourPerfRatingIsTooLow">%1$s レーティング (%2$s) が低すぎます</string>
   <string name="ratedMoreThanInPerf">%2$s のレーティング %1$s 以上</string>
-  <string name="ratedLessThanInPerf">%2$s のレーティング %1$s 以下</string>
+  <string name="ratedLessThanInPerf">%2$s レーティング %1$s 以下</string>
   <string name="backToGame">ゲームに戻る</string>
   <string name="siteDescription">無料オンラインチェス。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。AIと、友達と、知らない相手とも対局できます。</string>
   <string name="teams">チーム</string>
@@ -344,7 +346,7 @@
   <plurals name="nbFollowing">
     <item quantity="other">%s 人をフォロー</item>
   </plurals>
-  <string name="more">その他</string>
+  <string name="more">さらに表示</string>
   <string name="memberSince">登録日</string>
   <string name="lastSeenActive">最後のログイン %s</string>
   <string name="challengeToPlay">対戦を申し込む</string>
@@ -361,6 +363,14 @@
   <string name="standing">順位</string>
   <string name="createANewTournament">新しいトーナメントを作る</string>
   <string name="tournamentCalendar">トーナメント・カレンダー</string>
+  <string name="conditionOfEntry">参加条件:</string>
+  <string name="advancedSettings">高度な設定</string>
+  <string name="safeTournamentName">トーナメントの名前は無難なものにしてください。</string>
+  <string name="inappropriateNameWarning">少しでも不適切な名前の場合、あなたのアカウントを閉鎖することがあります。</string>
+  <string name="emptyTournamentName">名前を空白にしておくと、自動でランダムな有名選手の名前がつきます。</string>
+  <string name="recommendNotTouching">ここは触らないことを推奨します。</string>
+  <string name="fewerPlayers">参加条件を決めると、当然参加者は少なくなります。</string>
+  <string name="showAdvancedSettings">「高度な設定」を表示</string>
   <string name="join">参加する</string>
   <string name="withdraw">棄権する</string>
   <string name="points">ポイント</string>
@@ -387,7 +397,7 @@
   <string name="boardEditor">盤面入力</string>
   <string name="setTheBoard">盤面を指定</string>
   <string name="popularOpenings">人気のオープニング</string>
-  <string name="startPosition">開始局面にする</string>
+  <string name="startPosition">開始局面</string>
   <string name="clearBoard">盤面をクリアする</string>
   <string name="savePosition">盤面を保存</string>
   <string name="loadPosition">局面を読み込む</string>

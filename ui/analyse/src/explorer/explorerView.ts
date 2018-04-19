@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { view as renderConfig } from './explorerConfig';
 import { bind, dataIcon } from '../util';
+import { winnerOf } from './explorerUtil';
 import AnalyseCtrl from '../ctrl';
 import { isOpening, isTablebase, TablebaseMoveStats, OpeningMoveStats, OpeningGame } from './interfaces';
 
@@ -25,13 +26,13 @@ function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
         el.addEventListener('mouseover', e => {
-          ctrl.explorer.setHovering($(el).attr('data-fen'), $(e.target).parents('tr').attr('data-uci'));
+          ctrl.explorer.setHovering($(el).attr('data-fen'), $(e.target as HTMLElement).parents('tr').attr('data-uci'));
         });
         el.addEventListener('mouseout', _ => {
           ctrl.explorer.setHovering($(el).attr('data-fen'), null);
         });
         el.addEventListener('mousedown', e => {
-          const uci = $(e.target).parents('tr').attr('data-uci');
+          const uci = $(e.target as HTMLElement).parents('tr').attr('data-uci');
           if (uci) ctrl.explorerMove(uci);
         });
       },
@@ -89,7 +90,7 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
     ]),
     h('tbody', {
       hook: bind('click', e => {
-        const $tr = $(e.target).parents('tr');
+        const $tr = $(e.target as HTMLElement).parents('tr');
         if (!$tr.length) return;
         const id = $tr.data('id');
         if (ctrl.study && ctrl.study.members.canContribute()) {
@@ -158,7 +159,6 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
 
 function showTablebase(ctrl: AnalyseCtrl, title: string, moves: TablebaseMoveStats[], fen: Fen): VNode[] {
   if (!moves.length) return [];
-  const stm = fen.split(/\s/)[1];
   return [
     h('div.title', title),
     h('table.tablebase', [
@@ -168,41 +168,34 @@ function showTablebase(ctrl: AnalyseCtrl, title: string, moves: TablebaseMoveSta
           attrs: { 'data-uci': move.uci }
         }, [
           h('td', move.san),
-          h('td', [showDtz(ctrl, stm, move), showDtm(ctrl, stm, move)])
+          h('td', [showDtz(ctrl, fen, move), showDtm(ctrl, fen, move)])
         ]);
       }))
     ])
   ];
 }
 
-function winner(stm: string, move: TablebaseMoveStats): Color | undefined {
-  if ((stm[0] == 'w' && move.wdl! < 0) || (stm[0] == 'b' && move.wdl! > 0))
-    return 'white';
-  if ((stm[0] == 'b' && move.wdl! < 0) || (stm[0] == 'w' && move.wdl! > 0))
-    return 'black';
-}
-
-function showDtm(ctrl: AnalyseCtrl, stm: string, move: TablebaseMoveStats) {
-  if (move.dtm) return h('result.' + winner(stm, move), {
+function showDtm(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats) {
+  if (move.dtm) return h('result.' + winnerOf(fen, move), {
     attrs: {
       title: ctrl.trans.plural('mateInXHalfMoves', Math.abs(move.dtm)) + ' (Depth To Mate)'
     }
   }, 'DTM ' + Math.abs(move.dtm));
 }
 
-function showDtz(ctrl: AnalyseCtrl, stm: string, move: TablebaseMoveStats): VNode | null {
+function showDtz(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats): VNode | null {
   const trans = ctrl.trans.noarg;
-  if (move.checkmate) return h('result.' + winner(stm, move), trans('checkmate'));
+  if (move.checkmate) return h('result.' + winnerOf(fen, move), trans('checkmate'));
   else if (move.stalemate) return h('result.draws', trans('stalemate'));
-  else if (move.variant_win) return h('result.' + winner(stm, move), trans('variantLoss'));
-  else if (move.variant_loss) return h('result.' + winner(stm, move), trans('variantWin'));
+  else if (move.variant_win) return h('result.' + winnerOf(fen, move), trans('variantLoss'));
+  else if (move.variant_loss) return h('result.' + winnerOf(fen, move), trans('variantWin'));
   else if (move.insufficient_material) return h('result.draws', trans('insufficientMaterial'));
   else if (move.dtz === null) return null;
   else if (move.dtz === 0) return h('result.draws', trans('draw'));
   else if (move.zeroing) return move.san.indexOf('x') !== -1 ?
-  h('result.' + winner(stm, move), trans('capture')) :
-  h('result.' + winner(stm, move), trans('pawnMove'));
-  return h('result.' + winner(stm, move), {
+  h('result.' + winnerOf(fen, move), trans('capture')) :
+  h('result.' + winnerOf(fen, move), trans('pawnMove'));
+  return h('result.' + winnerOf(fen, move), {
     attrs: {
       title: ctrl.trans.plural('nextCaptureOrPawnMoveInXHalfMoves', Math.abs(move.dtz))
     }

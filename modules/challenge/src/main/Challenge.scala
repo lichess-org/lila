@@ -58,6 +58,8 @@ case class Challenge(
     destUser = toRegistered(variant, timeControl)(u).some
   )
 
+  def speed = speedOf(timeControl)
+
   lazy val perfType = perfTypeOf(variant, timeControl)
 }
 

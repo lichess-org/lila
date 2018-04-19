@@ -143,7 +143,6 @@ final class Env(
     Env.fishnet, // required to schedule the cleaner
     Env.notifyModule, // required to load the actor
     Env.plan, // required to load the actor
-    Env.studySearch, // required to load the actor
     Env.event, // required to load the actor
     Env.activity, // required to load the actor
     Env.relay // you know the drill by now
@@ -151,8 +150,11 @@ final class Env(
     lila.log.boot.info(s"${lap.millis}ms Preloading complete")
   }
 
-  scheduler.once(5 seconds) {
-    Env.slack.api.publishRestart
+  scheduler.once(5 seconds) { Env.slack.api.publishRestart }
+  scheduler.once(10 seconds) {
+    // delayed preloads
+    Env.oAuth
+    Env.studySearch
   }
 }
 
@@ -226,4 +228,5 @@ object Env {
   def relay = lila.relay.Env.current
   def streamer = lila.streamer.Env.current
   def oAuth = lila.oauth.Env.current
+  def bot = lila.bot.Env.current
 }

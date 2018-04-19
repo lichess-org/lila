@@ -1,18 +1,26 @@
 import { prop, storedProp } from 'common';
+import { opposite } from 'chessground/util';
 import { controller as configCtrl } from './explorerConfig';
-import xhr = require('./openingXhr');
+import xhr = require('./explorerXhr');
+import { winnerOf, colorOf } from './explorerUtil';
 import { synthetic } from '../util';
 import { game as gameUtil } from 'game';
 import AnalyseCtrl from '../ctrl';
-import { Hovering, ExplorerCtrl, ExplorerData, OpeningData } from './interfaces';
+import { Hovering, ExplorerCtrl, ExplorerData, OpeningData, TablebaseData, SimpleTablebaseHit } from './interfaces';
+
+function pieceCount(fen: Fen) {
+  const parts = fen.split(/\s/);
+  return parts[0].split(/[nbrqkp]/i).length - 1;
+}
+
+export function tablebaseGuaranteed(fen: Fen) {
+  return pieceCount(fen) <= 6;
+}
 
 function tablebaseRelevant(variant: string, fen: Fen) {
-  const parts = fen.split(/\s/);
-  const pieceCount = parts[0].split(/[nbrqkp]/i).length - 1;
-
-  if (variant === 'standard' || variant === 'chess960' || variant === 'atomic')
-    return pieceCount <= 7;
-  else if (variant === 'antichess') return pieceCount <= 6;
+  const count = pieceCount(fen);
+  if (variant === 'standard' || variant === 'chess960') return count <= 8;
+  else if (variant === 'atomic' || variant === 'antichess') return count <= 7;
   else return false;
 }
 
@@ -33,10 +41,10 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
     cache = {};
     setNode();
   }
-  const withGames = synthetic(root.data) || gameUtil.replayable(root.data) || !!root.data.opponent.ai;
-  const effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
-
-  const config = configCtrl(root.data.game, onConfigClose, root.trans, root.redraw);
+  const data = root.data,
+  withGames = synthetic(data) || gameUtil.replayable(data) || !!data.opponent.ai,
+  effectiveVariant = data.game.variant.key === 'fromPosition' ? 'standard' : data.game.variant.key,
+  config = configCtrl(data.game, onConfigClose, root.trans, root.redraw);
 
   const fetch = window.lichess.fp.debounce(function() {
     const fen = root.node.fen;
@@ -125,6 +133,18 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
           return res;
         });
       }
-    })()
+    })(),
+    fetchTablebaseHit(fen: Fen): JQueryPromise<SimpleTablebaseHit> {
+      return xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen).then((res: TablebaseData) => {
+        const move = res.moves[0];
+        return {
+          fen: fen,
+          best: move && move.uci,
+          winner: res.checkmate ? opposite(colorOf(fen)) : (
+            res.stalemate ? undefined : winnerOf(fen, move!)
+          )
+        } as SimpleTablebaseHit
+      });
+    }
   };
 };

@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Esta partida vale pontos</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Oferta de revanche enviada</string>
+  <string name="rematchOfferSentWhite">Brancas oferecem revanche</string>
+  <string name="rematchOfferSentBlack">Pretas oferecem revanche</string>
   <string name="rematchOfferAccepted">Oferta de revanche aceita</string>
   <string name="rematchOfferCanceled">Oferta de revanche cancelada</string>
   <string name="rematchOfferDeclined">Oferta de revanche recusada</string>
@@ -386,6 +388,14 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="standing">Aguardando</string>
   <string name="createANewTournament">Criar novo torneio</string>
   <string name="tournamentCalendar">Calendário do torneio</string>
+  <string name="conditionOfEntry">Condição de participação:</string>
+  <string name="advancedSettings">Configurações avançadas</string>
+  <string name="safeTournamentName">Escolha um nome seguro para o torneio.</string>
+  <string name="inappropriateNameWarning">Até mesmo a menor indecência poderia ensejar o encerramento de sua conta.</string>
+  <string name="emptyTournamentName">Deixe em branco para dar ao torneio o nome de um grande mestre aleatório.</string>
+  <string name="recommendNotTouching">Recomendamos não mexer nisso.</string>
+  <string name="fewerPlayers">Se você definir as condições de participação, haverá menos jogadores no torneio.</string>
+  <string name="showAdvancedSettings">Exibir configurações avançadas</string>
   <string name="join">Entrar</string>
   <string name="withdraw">Sair</string>
   <string name="points">Pontos</string>

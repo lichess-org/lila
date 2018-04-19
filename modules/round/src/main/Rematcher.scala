@@ -14,7 +14,8 @@ import lila.user.{ User, UserRepo }
 private[round] final class Rematcher(
     messenger: Messenger,
     onStart: String => Unit,
-    rematch960Cache: ExpireSetMemo
+    rematch960Cache: ExpireSetMemo,
+    bus: lila.common.Bus
 ) {
 
   private val rematchCreated: Cache[Game.ID, Game.ID] = Scaffeine()
@@ -66,6 +67,9 @@ private[round] final class Rematcher(
 
   private def rematchCreate(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = proxy.save {
     messenger.system(pov.game, _.rematchOfferSent)
+    pov.opponent.userId foreach { forId =>
+      bus.publish(lila.hub.actorApi.round.RematchOffer(pov.gameId), Symbol(s"rematchFor:$forId"))
+    }
     Progress(pov.game) map { g => g.updatePlayer(pov.color, _ offerRematch) }
   } inject List(Event.RematchOffer(by = pov.color.some))
 

@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Cette partie est classée</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Proposition de revanche envoyée</string>
+  <string name="rematchOfferSentWhite">Les Blancs proposent de rejouer</string>
+  <string name="rematchOfferSentBlack">Les Noirs proposent de rejouer</string>
   <string name="rematchOfferAccepted">Proposition de revanche acceptée</string>
   <string name="rematchOfferCanceled">Proposition de revanche annulée</string>
   <string name="rematchOfferDeclined">Proposition de revanche déclinée</string>
@@ -385,6 +387,14 @@
   <string name="standing">Classement</string>
   <string name="createANewTournament">Créer un nouveau tournoi</string>
   <string name="tournamentCalendar">Calendrier des tournois</string>
+  <string name="conditionOfEntry">Condition pour être admis:</string>
+  <string name="advancedSettings">Paramètres avancés</string>
+  <string name="safeTournamentName">Choisissez un nom très sûr pour le tournoi.</string>
+  <string name="inappropriateNameWarning">Tout comportement, même légèrement inapproprié, pourrait aboutir à la fermeture de votre compte.</string>
+  <string name="emptyTournamentName">Laissez vide pour que le tournoi soit nommé d\'après le nom d\'un grand maître au hasard.</string>
+  <string name="recommendNotTouching">Nous recommandons de ne pas modifier cela.</string>
+  <string name="fewerPlayers">Si vous définissez des conditions d\'admission, votre tournoi aura moins de joueurs.</string>
+  <string name="showAdvancedSettings">Afficher les paramètres avancés</string>
   <string name="join">Rejoindre</string>
   <string name="withdraw">Renoncer</string>
   <string name="points">Points</string>

@@ -100,6 +100,12 @@ export function isTablebase(m: ExplorerData): m is TablebaseData {
   return !!m.tablebase;
 }
 
+export interface SimpleTablebaseHit {
+  fen: Fen;
+  best?: Uci; // no move if checkmate/stalemate
+  winner: Color | undefined;
+}
+
 export interface ExplorerCtrl {
   allowed: Prop<boolean>;
   loading: Prop<boolean>;
@@ -115,5 +121,6 @@ export interface ExplorerCtrl {
   toggle();
   disable();
   setHovering(fen: Fen, uci: Uci | null);
-  fetchMasterOpening(fen: Fen): JQueryPromise<OpeningData>
+  fetchMasterOpening(fen: Fen): JQueryPromise<OpeningData>;
+  fetchTablebaseHit(fen: Fen): JQueryPromise<SimpleTablebaseHit>;
 }

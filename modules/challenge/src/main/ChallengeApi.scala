@@ -39,6 +39,8 @@ final class ChallengeApi(
 
   def byId = repo byId _
 
+  def activeByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).map(_.filter(_.active))
+
   val countInFor = asyncCache.clearable(
     name = "challenge.countInFor",
     f = repo.countCreatedByDestId,
@@ -70,30 +72,8 @@ final class ChallengeApi(
       } inject pov.some
     }
 
-  def rematchOf(game: Game, user: User): Fu[Boolean] =
-    Pov.ofUserId(game, user.id) ?? { pov =>
-      for {
-        initialFen <- GameRepo initialFen pov.game
-        challengerOption <- pov.player.userId ?? UserRepo.byId
-        destUserOption <- pov.opponent.userId ?? UserRepo.byId
-        success <- (destUserOption |@| challengerOption).tupled ?? {
-          case (destUser, challenger) => create(Challenge.make(
-            variant = pov.game.variant,
-            initialFen = initialFen,
-            timeControl = (pov.game.clock, pov.game.daysPerTurn) match {
-              case (Some(clock), _) => TimeControl.Clock(clock.config)
-              case (_, Some(days)) => TimeControl.Correspondence(days)
-              case _ => TimeControl.Unlimited
-            },
-            mode = pov.game.mode,
-            color = (!pov.color).name,
-            challenger = Right(challenger),
-            destUser = Some(destUser),
-            rematchOf = pov.gameId.some
-          )) inject true
-        }
-      } yield success
-    }
+  def sendRematchOf(game: Game, user: User): Fu[Boolean] =
+    ChallengeMaker.makeRematchOf(game, user) flatMap { _ ?? create }
 
   def setDestUser(c: Challenge, u: User): Funit = {
     val challenge = c setDestUser u

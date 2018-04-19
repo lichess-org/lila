@@ -59,8 +59,8 @@ object Challenge extends LilaController {
   private def isForMe(challenge: ChallengeModel)(implicit ctx: Context) =
     challenge.destUserId.fold(true)(ctx.userId.contains)
 
-  def accept(id: String) = Open { implicit ctx =>
-    OptionFuResult(env.api byId id) { c =>
+  def accept(id: String) = OpenOrScoped()(
+    open = implicit ctx => OptionFuResult(env.api byId id) { c =>
       isForMe(c) ?? env.api.accept(c, ctx.me).flatMap {
         case Some(pov) => negotiate(
           html = Redirect(routes.Round.watcher(pov.gameId, "white")).fuccess,
@@ -71,8 +71,16 @@ object Challenge extends LilaController {
           api = _ => notFoundJson("Someone else accepted the challenge")
         )
       }
+    },
+    scoped = _ => me => env.api.activeByIdFor(id, me) flatMap {
+      _ ?? { env.api.accept(_, me.some) }
+    } flatMap { res =>
+      if (res.isDefined) jsonOkResult.fuccess
+      else Env.bot.player.rematchAccept(id, me) flatMap {
+        _.fold(jsonOkResult.fuccess, notFoundJson())
+      }
     }
-  }
+  )
 
   private def withChallengeAnonCookie(cond: Boolean, c: ChallengeModel, owner: Boolean)(res: Result)(implicit ctx: Context): Fu[Result] =
     cond ?? {
@@ -91,12 +99,18 @@ object Challenge extends LilaController {
       cookieOption.fold(res) { res.withCookies(_) }
     }
 
-  def decline(id: String) = Auth { implicit ctx => me =>
-    OptionFuResult(env.api byId id) { c =>
+  def decline(id: String) = AuthOrScoped()(
+    auth = implicit ctx => me => OptionFuResult(env.api byId id) { c =>
       if (isForMe(c)) env.api decline c
       else notFound
+    },
+    scoped = _ => me => env.api.activeByIdFor(id, me) flatMap {
+      case None => Env.bot.player.rematchDecline(id, me) flatMap {
+        _.fold(jsonOkResult.fuccess, notFoundJson())
+      }
+      case Some(c) => env.api.decline(c) inject jsonOkResult
     }
-  }
+  )
 
   def cancel(id: String) = Open { implicit ctx =>
     OptionFuResult(env.api byId id) { c =>
@@ -134,7 +148,7 @@ object Challenge extends LilaController {
             case Some(d) => BadRequest(jsonError {
               lila.challenge.ChallengeDenied translated d
             }).fuccess
-            case _ => env.api.rematchOf(g, me) map {
+            case _ => env.api.sendRematchOf(g, me) map {
               _.fold(Ok, BadRequest(jsonError("Sorry, couldn't create the rematch.")))
             }
           }

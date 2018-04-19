@@ -21,7 +21,8 @@ final class CrudApi {
     image = ~tour.spotlight.flatMap(_.iconImg),
     headline = tour.spotlight.??(_.headline),
     description = tour.spotlight.??(_.description),
-    conditions = Condition.DataForm.AllSetup(tour.conditions)
+    conditions = Condition.DataForm.AllSetup(tour.conditions),
+    berserkable = !tour.noBerserk
   )
 
   def update(old: Tournament, data: CrudForm.Data) =
@@ -45,7 +46,8 @@ final class CrudApi {
     mode = chess.Mode.Rated,
     `private` = false,
     password = None,
-    waitMinutes = 0
+    waitMinutes = 0,
+    berserkable = true
   )
 
   private def updateTour(tour: Tournament, data: CrudForm.Data) = {
@@ -73,7 +75,11 @@ final class CrudApi {
         iconImg = image.some.filter(_.nonEmpty)
       ).some,
       position = DataForm.startingPosition(data.position, v),
-      conditions = data.conditions.convert
-    )
+      noBerserk = !data.berserkable
+    ) |> { tour =>
+        tour.perfType.fold(tour) { perfType =>
+          tour.copy(conditions = data.conditions convert perfType)
+        }
+      }
   }
 }

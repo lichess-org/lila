@@ -145,13 +145,13 @@ final class ChatApi(
     private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) = list.foreach { r =>
-      lilaBus.publish(actorApi.OnReinstate(r.user), Symbol(s"chat-${r.chat}"))
+      lilaBus.publish(actorApi.OnReinstate(r.user), Symbol(s"chat:${r.chat}"))
     }
 
     private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
       UserRepo.byId(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if !user.disabled => Writer cut t1 flatMap { t2 =>
-          flood.allowMessage(user.id, t2) option
+          (user.isBot || flood.allowMessage(user.id, t2)) option
             UserLine(user.username, Writer preprocessUserInput t2, troll = user.troll, deleted = false)
         }
         case _ => none
@@ -202,7 +202,7 @@ final class ChatApi(
     upsert = true
   ).void >>- lila.mon.chat.message()
 
-  private def channelOf(id: Chat.Id) = Symbol(s"chat-$id")
+  private def channelOf(id: Chat.Id) = Symbol(s"chat:$id")
 
   private object Writer {
 
@@ -210,7 +210,7 @@ final class ChatApi(
 
     def preprocessUserInput(in: String) = multiline(noShouting(noPrivateUrl(in)))
 
-    def cut(text: String) = Some(text.trim take 140) filter (_.nonEmpty)
+    def cut(text: String) = Some(text.trim take Line.textMaxSize) filter (_.nonEmpty)
 
     private val domainRegex = netDomain.replace(".", """\.""")
     private val gameUrlRegex = (domainRegex + """\b/([\w]{8})[\w]{4}\b""").r

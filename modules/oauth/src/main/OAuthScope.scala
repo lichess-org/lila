@@ -17,6 +17,10 @@ object OAuthScope {
     case object Read extends OAuthScope("email:read", "Read email address")
   }
 
+  object Bot {
+    case object Play extends OAuthScope("bot:play", "Play bot moves")
+  }
+
   case class Scoped(user: lila.user.User, scopes: List[OAuthScope])
 
   type Selector = OAuthScope.type => OAuthScope
@@ -24,7 +28,8 @@ object OAuthScope {
   val all = List(
     Game.Read,
     Preference.Read, Preference.Write,
-    Email.Read
+    Email.Read,
+    Bot.Play
   )
 
   val byKey: Map[String, OAuthScope] = all.map { s => s.key -> s } toMap

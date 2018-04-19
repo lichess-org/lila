@@ -38,12 +38,11 @@ object Global extends GlobalSettings {
       HTTPRequest.isSynchronousHttp(req) &&
       !HTTPRequest.hasFileExtension(req)
 
-  override def onHandlerNotFound(req: RequestHeader) = {
+  override def onHandlerNotFound(req: RequestHeader) =
     if (niceError(req)) {
       logHttp(404, req)
       controllers.Main.renderNotFound(req)
     } else fuccess(NotFound("404 - Resource not found"))
-  }
 
   override def onBadRequest(req: RequestHeader, error: String) = {
     logHttp(400, req)

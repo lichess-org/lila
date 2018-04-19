@@ -89,7 +89,7 @@ final class Cached(
 
   private val top50Online = asyncCache.single[List[User]](
     name = "user.top50online",
-    f = UserRepo.byIdsSortRating(onlineUserIdMemo.keys, 50),
+    f = UserRepo.byIdsSortRatingNoBot(onlineUserIdMemo.keys, 50),
     expireAfter = _.ExpireAfterWrite(10 seconds)
   )
 

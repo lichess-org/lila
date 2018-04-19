@@ -1,31 +1,46 @@
-@(form: Form[_])(implicit ctx: Context)
+@(form: Form[_], auto: Boolean)(implicit ctx: Context)
 
 @import lila.tournament.Condition
 
+@autoField(fieldName: String)(visible: Field => Html) = {
+@if(auto) { @base.form.hidden(form(fieldName)) } else { @visible(form(fieldName)) }
+}
+
 <div>
-  @base.form.group(form("conditions.nbRatedGame.nb"), Html("Minimum rated games"), half = true) { field =>
+  @base.form.group(form("conditions.nbRatedGame.nb"), Html("Minimum rated games"), half = !auto) { field =>
   @base.form.select(field, Condition.DataForm.nbRatedGameChoices)
   }
-  @base.form.group(form("conditions.nbRatedGame.perf"), Html("In variant"), half = true) { field =>
+  @autoField("conditions.nbRatedGame.perf") { field =>
+  @base.form.group(field, Html("In variant"), half = true) { field =>
   @base.form.select(field, ("", "Any") :: Condition.DataForm.perfChoices)
   }
-</div>
-<div>
-  @base.form.group(form("conditions.maxRating.rating"), Html("Maximum top rating"), half = true) { field =>
-  @base.form.select(field, Condition.DataForm.maxRatingChoices)
-  }
-  @base.form.group(form("conditions.maxRating.perf"), Html("In variant"), half = true) { field =>
-  @base.form.select(field, Condition.DataForm.perfChoices)
   }
 </div>
 <div>
-  @base.form.group(form("conditions.minRating.rating"), Html("Minimum top rating"), half = true) { field =>
+  @base.form.group(form("conditions.minRating.rating"), Html("Minimum rating"), half = !auto) { field =>
   @base.form.select(field, Condition.DataForm.minRatingChoices)
   }
-  @base.form.group(form("conditions.minRating.perf"), Html("In variant"), half = true) { field =>
+  @autoField("conditions.minRating.perf") { field =>
+  @base.form.group(field, Html("In variant"), half = true) { field =>
   @base.form.select(field, Condition.DataForm.perfChoices)
   }
+  }
 </div>
-@base.form.group(form("conditions.titled"), Html("Only titled players")) { field =>
+<div>
+  @base.form.group(form("conditions.maxRating.rating"), Html("Maximum weekly rating"), half = !auto) { field =>
+  @base.form.select(field, Condition.DataForm.maxRatingChoices)
+  }
+  @autoField("conditions.maxRating.perf") { field =>
+  @base.form.group(field, Html("In variant"), half = true) { field =>
+  @base.form.select(field, Condition.DataForm.perfChoices)
+  }
+  }
+</div>
+<div>
+@base.form.group(form("conditions.titled"), Html("Only titled players"), half = true) { field =>
 @base.form.select(field, booleanChoices)
 }
+@base.form.group(form("berserkable"), Html("Allow Berserk"), half = true) { field =>
+@base.form.select(field, booleanChoices)
+}
+</div>

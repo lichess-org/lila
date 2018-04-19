@@ -3,13 +3,13 @@ package actorApi
 
 import scala.concurrent.Promise
 
-import chess.{ MoveMetrics, Color }
 import chess.format.Uci
+import chess.{ MoveMetrics, Color }
 
 import lila.common.IpAddress
 import lila.game.Event
-import lila.socket.SocketMember
 import lila.socket.Socket.Uid
+import lila.socket.SocketMember
 import lila.user.User
 
 case class EventList(events: List[Event])
@@ -111,7 +111,6 @@ package round {
 
   case class PlayResult(events: Events, fen: String, lastMove: Option[String])
 
-  case class Abort(playerId: String)
   case object AbortForMaintenance
   case object AbortForce
   case object Threefold
@@ -122,8 +121,6 @@ package round {
   case class DrawClaim(playerId: String)
   case class DrawYes(playerId: String)
   case class DrawNo(playerId: String)
-  case class RematchYes(playerId: String)
-  case class RematchNo(playerId: String)
   case class TakebackYes(playerId: String)
   case class TakebackNo(playerId: String)
   case class Moretime(playerId: String)

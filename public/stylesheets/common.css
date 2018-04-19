@@ -776,7 +776,6 @@ body.mobile div.side_box .game_infos .bookmark {
 }
 div.side_box .game_infos .setup {
   display: block;
-  white-space: nowrap
 }
 div.side_box .game_infos .variant-link {
   border-bottom: 1px dotted #747474;
@@ -1036,6 +1035,9 @@ span.progress > .negative {
 .user_link span.title {
   color: #d59120;
   font-weight: bold;
+}
+.user_link span.title[data-title=BOT] {
+  color: #d756e6;
 }
 div.warning {
   padding: 5px;

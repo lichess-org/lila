@@ -385,6 +385,15 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="winner">Vincitore</string>
   <string name="standing">Classifica</string>
   <string name="createANewTournament">Crea un nuovo torneo</string>
+  <string name="tournamentCalendar">Calendario dei Tornei</string>
+  <string name="conditionOfEntry">Condizioni di accesso:</string>
+  <string name="advancedSettings">Impostazioni Avanzate</string>
+  <string name="safeTournamentName">Scegli un nome appropriato per il torneo.</string>
+  <string name="inappropriateNameWarning">Qualsiasi cosa anche solo lievemente inappropriata potrebbe comportare la chiusura del tuo account.</string>
+  <string name="emptyTournamentName">Lascia vuoto il \"nome del torneo\" per chiamarlo come un Granmaestro scelto casualmente.</string>
+  <string name="recommendNotTouching">Si consiglia di non toccare queste impostazioni.</string>
+  <string name="fewerPlayers">Se imponi condizioni d\'accesso il torneo avrà un minor numero di giocatori.</string>
+  <string name="showAdvancedSettings">Mostra impostazioni avanzate</string>
   <string name="join">Unisciti</string>
   <string name="withdraw">Ritirati</string>
   <string name="points">Punti</string>

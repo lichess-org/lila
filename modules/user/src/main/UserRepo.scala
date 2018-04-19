@@ -77,8 +77,8 @@ object UserRepo {
   def nameds(usernames: List[String]): Fu[List[User]] = coll.byIds[User](usernames.map(normalize))
 
   // expensive, send to secondary
-  def byIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User]] =
-    coll.find($inIds(ids) ++ goodLadSelectBson)
+  def byIdsSortRatingNoBot(ids: Iterable[ID], nb: Int): Fu[List[User]] =
+    coll.find($inIds(ids) ++ goodLadSelectBson ++ botSelect(false))
       .sort($sort desc "perfs.standard.gl.r")
       .list[User](nb, ReadPreference.secondaryPreferred)
 
@@ -323,6 +323,14 @@ object UserRepo {
     }
 
   def hasEmail(id: ID): Fu[Boolean] = email(id).map(_.isDefined)
+
+  def setBot(user: User): Funit =
+    if (user.count.game > 0) fufail("You already have games played. Make a new account.")
+    else coll.updateField($id(user.id), F.title, User.botTitle).void
+
+  private def botSelect(v: Boolean) =
+    if (v) $doc(F.title -> User.botTitle)
+    else $doc(F.title -> $ne(User.botTitle))
 
   def getTitle(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.title)
 

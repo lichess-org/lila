@@ -28,7 +28,7 @@
     @info.nbBlockers.map { nb =>
     <a class="intertab">@splitNumber(nb + " Blockers")</a>
     }
-    <a href="@routes.UserTournament.path(u.username, "recent")" class="intertab tournament_stats" data-toints="@u.toints">@splitNumber(trans.nbTournamentPoints.pluralSame(u.toints))</a>
+    @if(u.noBot){<a href="@routes.UserTournament.path(u.username, "recent")" class="intertab tournament_stats" data-toints="@u.toints">@splitNumber(trans.nbTournamentPoints.pluralSame(u.toints))</a>}
     <a href="@routes.Study.byOwnerDefault(u.username)" class="intertab">@splitNumber(info.nbStudies + " studies")</a>
     <a class="intertab" @NotForKids {
       href="@routes.ForumPost.search("user:" + u.username, 1)"

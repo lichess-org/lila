@@ -139,9 +139,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   ): Html = userIdLink(userId.some, cssClass)
 
   def titleTag(title: Option[String]) = Html {
-    title match {
-      case None => ""
-      case Some(t) => s"""<span class="title" title="${User titleName t}">$t</span>&nbsp;"""
+    title.fold("") { t =>
+      s"""<span class="title" data-title="$t" title="${User titleName t}">$t</span>&nbsp;"""
     }
   }
 

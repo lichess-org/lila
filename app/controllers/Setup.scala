@@ -107,11 +107,13 @@ object Setup extends LilaController with TheftPrevention {
   }
 
   def hookForm = Open { implicit ctx =>
-    if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {
-      env.forms.hookFilled(timeModeString = get("time")) map { html.setup.hook(_) }
-    }
-    else fuccess {
-      Redirect(routes.Lobby.home + "#hook")
+    NoBot {
+      if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {
+        env.forms.hookFilled(timeModeString = get("time")) map { html.setup.hook(_) }
+      }
+      else fuccess {
+        Redirect(routes.Lobby.home + "#hook")
+      }
     }
   }
 
@@ -126,36 +128,40 @@ object Setup extends LilaController with TheftPrevention {
   private val hookSaveOnlyResponse = Ok(Json.obj("ok" -> true))
 
   def hook(uid: String) = OpenBody { implicit ctx =>
-    implicit val req = ctx.body
-    PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-      NoPlaybanOrCurrent {
-        env.forms.hook(ctx).bindFromRequest.fold(
-          err => negotiate(
-            html = BadRequest(errorsAsJson(err).toString).fuccess,
-            api = _ => BadRequest(errorsAsJson(err)).fuccess
-          ),
-          config =>
-            if (getBool("pool")) env.processor.saveHookConfig(config) inject hookSaveOnlyResponse
-            else (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap {
-              blocking =>
-                env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse
-            }
-        )
+    NoBot {
+      implicit val req = ctx.body
+      PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+        NoPlaybanOrCurrent {
+          env.forms.hook(ctx).bindFromRequest.fold(
+            err => negotiate(
+              html = BadRequest(errorsAsJson(err).toString).fuccess,
+              api = _ => BadRequest(errorsAsJson(err)).fuccess
+            ),
+            config =>
+              if (getBool("pool")) env.processor.saveHookConfig(config) inject hookSaveOnlyResponse
+              else (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap {
+                blocking =>
+                  env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse
+              }
+          )
+        }
       }
     }
   }
 
   def like(uid: String, gameId: String) = Open { implicit ctx =>
-    PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-      NoPlaybanOrCurrent {
-        for {
-          config <- env.forms.hookConfig
-          game <- GameRepo.game(gameId)
-          blocking <- ctx.userId ?? Env.relation.api.fetchBlocking
-          hookConfig = game.fold(config)(config.updateFrom)
-          sameOpponents = game.??(_.userIds)
-          hookResult <- env.processor.hook(hookConfig, uid, HTTPRequest sid ctx.req, blocking ++ sameOpponents)
-        } yield hookResponse(hookResult)
+    NoBot {
+      PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+        NoPlaybanOrCurrent {
+          for {
+            config <- env.forms.hookConfig
+            game <- GameRepo.game(gameId)
+            blocking <- ctx.userId ?? Env.relation.api.fetchBlocking
+            hookConfig = game.fold(config)(config.updateFrom)
+            sameOpponents = game.??(_.userIds)
+            hookResult <- env.processor.hook(hookConfig, uid, HTTPRequest sid ctx.req, blocking ++ sameOpponents)
+          } yield hookResponse(hookResult)
+        }
       }
     }
   }

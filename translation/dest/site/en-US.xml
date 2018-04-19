@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">This game is rated</string>
   <string name="rematch">Rematch</string>
   <string name="rematchOfferSent">Rematch offer sent</string>
+  <string name="rematchOfferSentWhite">White offers rematch</string>
+  <string name="rematchOfferSentBlack">Black offers rematch</string>
   <string name="rematchOfferAccepted">Rematch offer accepted</string>
   <string name="rematchOfferCanceled">Rematch offer canceled</string>
   <string name="rematchOfferDeclined">Rematch offer declined</string>
@@ -386,6 +388,14 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="standing">Standing</string>
   <string name="createANewTournament">Create a new tournament</string>
   <string name="tournamentCalendar">Tournament calendar</string>
+  <string name="conditionOfEntry">Condition of entry:</string>
+  <string name="advancedSettings">Advanced settings</string>
+  <string name="safeTournamentName">Pick a very safe name for the tournament.</string>
+  <string name="inappropriateNameWarning">Anything even slightly inappropriate could get your account closed.</string>
+  <string name="emptyTournamentName">Leave empty to name the tournament after a random Grandmaster.</string>
+  <string name="recommendNotTouching">We recommend not touching these.</string>
+  <string name="fewerPlayers">If you set conditions of entry, your tournament will have fewer players.</string>
+  <string name="showAdvancedSettings">Show advanced settings</string>
   <string name="join">Join</string>
   <string name="withdraw">Withdraw</string>
   <string name="points">Points</string>

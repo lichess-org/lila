@@ -6,6 +6,7 @@ import views._
 object ForumCateg extends LilaController with ForumController {
 
   def index = Open { implicit ctx =>
+    pageHit
     NotForKids {
       for {
         teamIds <- ctx.userId ?? teamCache.teamIdsList

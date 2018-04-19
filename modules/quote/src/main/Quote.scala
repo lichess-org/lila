@@ -567,6 +567,7 @@ object Quote {
     new Quote("Playing long games online just takes too much time. It's fun to play blitz once in a while, where you can rely more on your intuition, your instincts rather than pure calculation and analysis.", "Magnus Carlsen"),
     new Quote("Fortune favors the lucky!", "Robert Houdart (Houdini author)"),
     new Quote("Gens una sumus; \"We are one people\"", "FIDE"),
+    new Quote("I don't berserk, I am not a caveman", "Magnus Carlsen"),
 
     // lichess facts
     new Quote("All features for free; for everyone; forever.", "lichess.org"),

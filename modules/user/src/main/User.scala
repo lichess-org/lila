@@ -108,6 +108,11 @@ case class User(
   def createdSinceDays(days: Int) = createdAt isBefore DateTime.now.minusDays(days)
 
   def is(name: String) = id == User.normalize(name)
+
+  def isBot = title has User.botTitle
+  def noBot = !isBot
+
+  def rankable = !isBot && !rankban
 }
 
 object User {
@@ -173,8 +178,11 @@ object User {
     "CM" -> "Candidate Master",
     "WCM" -> "Woman Candidate Master",
     "WNM" -> "Woman National Master",
-    "LM" -> "Lichess Master"
+    "LM" -> "Lichess Master",
+    "BOT" -> "Chess Robot"
   )
+
+  val botTitle = LightUser.botTitle
 
   val titlesMap = titles.toMap
 

@@ -1,4 +1,4 @@
-@(form: Form[_])(implicit ctx: Context)
+@(form: Form[_], me: User)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("material.form.css")
@@ -31,7 +31,8 @@ evenMoreCss = moreCss
     <div class="scopes">
       @lila.oauth.OAuthScope.all.map { scope =>
       <label>
-        <input type="checkbox" name="@{form("scopes").name}[]" value="@scope.key" />
+        <input type="checkbox" name="@{form("scopes").name}[]" value="@scope.key"
+        @if(me.noBot && scope == lila.oauth.OAuthScope.Bot.Play && me.count.game > 0) { disabled title="You already have played games!" } />
         @scope.name
       </label>
       }

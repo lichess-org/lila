@@ -1,16 +1,14 @@
 @(system: Option[lila.tournament.System])(implicit ctx: Context)
 
-@side = {
-<div class="tournament_home_side tournament_links">
-  <a href="@routes.Tournament.help("arena".some)">@trans.tournamentFAQ()</a>
-  <a href="@routes.Tournament.home()">@trans.returnToTournamentsHomepage()</a>
-</div>
-}
-
-@tournament.layout(title = "Tournament FAQ", side = side.some) {
+@tournament.layout(title = "Tournament FAQ") {
 <div id="tournament">
   <div class="content_box small_box">
-    <h1>@system Tournament FAQ</h1>
+    <h1>
+      <a href="@routes.Tournament.home()" class="blue">@system Tournament</a>
+      FAQ
+    </h1>
+    <br />
+    <br />
     @tournament.faq(system = system)
   </div>
 </div>

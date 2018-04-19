@@ -18,11 +18,13 @@
 @events.map { e =>
 @event.homepageSpotlight(e)
 }
+@if(!ctx.isBot) {
 @lila.tournament.Spotlight.select(tours, ctx.me, 3).map { tour =>
 @tournament.homepageSpotlight(tour)
 }
 @simuls.find(_.spotlightable).take(2).map { s =>
 @simul.homepageSpotlight(s)
+}
 }
 @ctx.me.map { u =>
 <div id="timeline" data-href="@routes.Timeline.home">
@@ -97,7 +99,7 @@ asyncJs = true) {
   <div id="hooks_wrap"></div>
   @playban.map(ban => playbanInfo(ban.remainingSeconds))
   <div id="start_buttons" class="lichess_ground">
-    <a class="fat button config_hook hint--bottom@if(playban.isDefined || currentGame.isDefined){ disabled}" href="@routes.Setup.hookForm" onclick="return false">@trans.createAGame()</a>
+    <a class="fat button config_hook hint--bottom@if(playban.isDefined || currentGame.isDefined || ctx.isBot){ disabled}" href="@routes.Setup.hookForm" onclick="return false">@trans.createAGame()</a>
     <a class="fat button config_friend hint--bottom@if(currentGame.isDefined){ disabled}" href="@routes.Setup.friendForm(none)" onclick="return false">@trans.playWithAFriend()</a>
     <a class="fat button config_ai hint--bottom@if(currentGame.isDefined){ disabled}" href="@routes.Setup.aiForm" onclick="return false">@trans.playWithTheMachine()</a>
   </div>
@@ -111,6 +113,7 @@ asyncJs = true) {
   </div>
 </div>
 }
+@if(!ctx.isBot) {
 <div class="undertable">
   <div class="undertable_top">
     <a class="more hint--bottom" data-hint="@trans.seeAllTournaments()" href="@routes.Tournament.home()">@trans.more() »</a>
@@ -174,6 +177,7 @@ asyncJs = true) {
     </div>
   </div>
 </div>
+}
 @NotForKids {
 <div class="new_posts undertable" data-url="@routes.ForumPost.recent">
   <div class="undertable_top">

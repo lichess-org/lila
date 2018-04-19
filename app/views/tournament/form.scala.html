@@ -39,9 +39,9 @@ moreJs = moreJs) {
               <style>.tournament_box form.create input[name=name] { width: 15em!important; }</style>
               @base.form.input(form("name")) Arena<br />
               @errMsg(form("name"))
-              Pick a <strong>very safe name</strong> for the tournament.<br />
-              Anything even <strong>slightly inappropriate</strong> could get your account closed.<br />
-              Leave empty to name the tournament after a random Grandmaster.
+              <strong>@trans.safeTournamentName()<br />
+              @trans.inappropriateNameWarning()</strong><br />
+              @trans.emptyTournamentName()
             </td>
           </tr>
           }
@@ -76,14 +76,15 @@ moreJs = moreJs) {
         </tbody>
       </table>
       <fieldset class="conditions">
-        <legend>&nbsp;Conditions of entry&nbsp;</legend>
+        <legend>&nbsp;@trans.advancedSettings()&nbsp;</legend>
+        @errMsg(form("conditions"))
         <p>
-          <strong data-icon="!" class="text">We recommend leaving these empty.</strong>
-          If you set conditions of entry, your tournament will have fewer players.
-          <a class="show blue">Show conditions of entry</a>
+          <strong data-icon="!" class="text">@trans.recommendNotTouching()</strong>
+          @trans.fewerPlayers()
+          <a class="show blue">@trans.showAdvancedSettings()</a>
         </p>
         <div class="material form">
-          @tournament.conditionForm(form)
+          @tournament.conditionForm(form, auto = true)
         </div>
       </fieldset>
       <button type="submit" class="submit button" data-icon="g">

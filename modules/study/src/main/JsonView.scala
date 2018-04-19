@@ -60,6 +60,17 @@ final class JsonView(
     "orientation" -> c.setup.orientation
   ).add("description", c.description) |> addChapterMode(c)
 
+  def pagerData(s: Study.WithChaptersAndLiked) = Json.obj(
+    "id" -> s.study.id.value,
+    "name" -> s.study.name.value,
+    "liked" -> s.liked,
+    "likes" -> s.study.likes.value,
+    "updatedAt" -> s.study.updatedAt,
+    "owner" -> lightUser(s.study.ownerId),
+    "chapters" -> s.chapters.take(4),
+    "members" -> s.study.members.members.values.take(4)
+  )
+
   private def addChapterMode(c: Chapter)(js: JsObject): JsObject =
     js.add("practice", c.isPractice)
       .add("gamebook", c.isGamebook)

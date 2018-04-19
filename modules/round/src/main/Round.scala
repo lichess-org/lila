@@ -10,7 +10,7 @@ import chess.Color
 import lila.game.{ Game, Progress, Pov, Event }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
-import lila.hub.actorApi.round.FishnetPlay
+import lila.hub.actorApi.round.{ FishnetPlay, BotPlay, RematchYes, RematchNo, Abort }
 import lila.hub.SequentialActor
 import lila.socket.UserLagCache
 import makeTimeout.large
@@ -61,6 +61,12 @@ private[round] final class Round(
         lila.mon.round.move.full.count()
         scheduleExpiration
       }
+
+    case p: BotPlay =>
+      handleBotPlay(p) { pov =>
+        if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
+        else player.bot(p, self)(pov)
+      } >>- scheduleExpiration
 
     case FishnetPlay(uci, currentFen) => handle { game =>
       player.fishnet(game, uci, currentFen, self)
@@ -270,6 +276,9 @@ private[round] final class Round(
         proxy playerPov p.playerId
       }
     }(op)
+
+  private def handleBotPlay(p: BotPlay)(op: Pov => Fu[Events]): Funit =
+    handlePov(proxy playerPov p.playerId)(op)
 
   private def handle(color: Color)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy pov color)(op)

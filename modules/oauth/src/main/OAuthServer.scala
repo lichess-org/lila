@@ -55,7 +55,7 @@ object OAuthServer {
   type AuthResult = Either[AuthError, OAuthScope.Scoped]
 
   sealed abstract class AuthError(val message: String) extends lila.base.LilaException
-  case object ServerOffline extends AuthError("OAuth server is offline")
+  case object ServerOffline extends AuthError("OAuth server is offline! Try again soon.")
   case object MissingAuthorizationHeader extends AuthError("Missing authorization header")
   case object InvalidAuthorizationHeader extends AuthError("Invalid authorization header")
   case object NoSuchToken extends AuthError("No such token")

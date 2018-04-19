@@ -385,6 +385,14 @@
   <string name="standing">Posición</string>
   <string name="createANewTournament">Crear un nuevo torneo</string>
   <string name="tournamentCalendar">Calendario del torneo</string>
+  <string name="conditionOfEntry">Condiciones de entrada:</string>
+  <string name="advancedSettings">Configuración avanzada</string>
+  <string name="safeTournamentName">Escoge un nombre muy seguro para el torneo.</string>
+  <string name="inappropriateNameWarning">Cualquier comportamiento inapropiado podría conllevar al cierre de su cuenta.</string>
+  <string name="emptyTournamentName">Deje en blanco para nombrar el torneo con un Gran Maestro al azar.</string>
+  <string name="recommendNotTouching">Se recomienda dejar como está.</string>
+  <string name="fewerPlayers">Si establece condiciones de entrada, el torneo tendrá menos jugadores.</string>
+  <string name="showAdvancedSettings">Mostrar configuración avanzada</string>
   <string name="join">Unirse</string>
   <string name="withdraw">Abandonar</string>
   <string name="points">Puntos</string>
@@ -829,7 +837,7 @@
   <string name="noConditionalPremoves">Sin movimientos anticipados condicionales</string>
   <string name="playX">Jugar %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">y ahorra %s variante de premovimientos</item>
+    <item quantity="one">y almacene %s líneas de premovimientos</item>
     <item quantity="other">y ahorra %s variantes de premovimientos</item>
   </plurals>
 </resources>

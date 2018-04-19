@@ -484,6 +484,7 @@
   <string name="winner">الفائز</string>
   <string name="standing">الترتيب</string>
   <string name="createANewTournament">ابدأ مسابقة جديدة</string>
+  <string name="tournamentCalendar">جدول البطولات</string>
   <string name="join">انضم</string>
   <string name="withdraw">انسحب</string>
   <string name="points">النقاط</string>

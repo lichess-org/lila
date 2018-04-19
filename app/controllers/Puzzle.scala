@@ -39,31 +39,39 @@ object Puzzle extends LilaController {
     }
 
   def daily = Open { implicit ctx =>
-    OptionFuResult(env.daily.get flatMap {
-      _.map(_.id) ?? env.api.puzzle.find
-    }) { puzzle =>
-      negotiate(
-        html = renderShow(puzzle, "play") map { Ok(_) },
-        api = _ => puzzleJson(puzzle) map { Ok(_) }
-      ) map { NoCache(_) }
+    NoBot {
+      OptionFuResult(env.daily.get flatMap {
+        _.map(_.id) ?? env.api.puzzle.find
+      }) { puzzle =>
+        negotiate(
+          html = renderShow(puzzle, "play") map { Ok(_) },
+          api = _ => puzzleJson(puzzle) map { Ok(_) }
+        ) map { NoCache(_) }
+      }
     }
   }
 
   def home = Open { implicit ctx =>
-    env.selector(ctx.me) flatMap { puzzle =>
-      renderShow(puzzle, ctx.isAuth.fold("play", "try")) map { Ok(_) }
+    NoBot {
+      env.selector(ctx.me) flatMap { puzzle =>
+        renderShow(puzzle, ctx.isAuth.fold("play", "try")) map { Ok(_) }
+      }
     }
   }
 
   def show(id: PuzzleId) = Open { implicit ctx =>
-    OptionFuOk(env.api.puzzle find id) { puzzle =>
-      renderShow(puzzle, "play")
+    NoBot {
+      OptionFuOk(env.api.puzzle find id) { puzzle =>
+        renderShow(puzzle, "play")
+      }
     }
   }
 
   def load(id: PuzzleId) = Open { implicit ctx =>
-    XhrOnly {
-      OptionFuOk(env.api.puzzle find id)(puzzleJson) map (_ as JSON)
+    NoBot {
+      XhrOnly {
+        OptionFuOk(env.api.puzzle find id)(puzzleJson) map (_ as JSON)
+      }
     }
   }
 
@@ -74,9 +82,11 @@ object Puzzle extends LilaController {
 
   // XHR load next play puzzle
   def newPuzzle = Open { implicit ctx =>
-    XhrOnly {
-      env.selector(ctx.me) flatMap puzzleJson map { json =>
-        Ok(json) as JSON
+    NoBot {
+      XhrOnly {
+        env.selector(ctx.me) flatMap puzzleJson map { json =>
+          Ok(json) as JSON
+        }
       }
     }
   }
@@ -118,48 +128,52 @@ object Puzzle extends LilaController {
 
   // new API
   def round2(id: PuzzleId) = OpenBody { implicit ctx =>
-    implicit val req = ctx.body
-    OptionFuResult(env.api.puzzle find id) { puzzle =>
-      if (puzzle.mate) lila.mon.puzzle.round.mate()
-      else lila.mon.puzzle.round.material()
-      env.forms.round.bindFromRequest.fold(
-        err => fuccess(BadRequest(errorsAsJson(err))),
-        resultInt => ctx.me match {
-          case Some(me) => for {
-            (round, mode) <- env.finisher(puzzle, me, Result(resultInt == 1))
-            me2 <- mode.rated.fold(UserRepo byId me.id map (_ | me), fuccess(me))
-            infos <- env userInfos me2
-            voted <- ctx.me.?? { env.api.vote.value(puzzle.id, _) }
-          } yield {
-            lila.mon.puzzle.round.user()
-            Ok(Json.obj(
-              "user" -> lila.puzzle.JsonView.infos(false)(infos),
-              "round" -> lila.puzzle.JsonView.round(round),
-              "voted" -> voted
-            ))
+    NoBot {
+      implicit val req = ctx.body
+      OptionFuResult(env.api.puzzle find id) { puzzle =>
+        if (puzzle.mate) lila.mon.puzzle.round.mate()
+        else lila.mon.puzzle.round.material()
+        env.forms.round.bindFromRequest.fold(
+          err => fuccess(BadRequest(errorsAsJson(err))),
+          resultInt => ctx.me match {
+            case Some(me) => for {
+              (round, mode) <- env.finisher(puzzle, me, Result(resultInt == 1))
+              me2 <- mode.rated.fold(UserRepo byId me.id map (_ | me), fuccess(me))
+              infos <- env userInfos me2
+              voted <- ctx.me.?? { env.api.vote.value(puzzle.id, _) }
+            } yield {
+              lila.mon.puzzle.round.user()
+              Ok(Json.obj(
+                "user" -> lila.puzzle.JsonView.infos(false)(infos),
+                "round" -> lila.puzzle.JsonView.round(round),
+                "voted" -> voted
+              ))
+            }
+            case None =>
+              lila.mon.puzzle.round.anon()
+              env.finisher.incPuzzleAttempts(puzzle)
+              Ok(Json.obj("user" -> false)).fuccess
           }
-          case None =>
-            lila.mon.puzzle.round.anon()
-            env.finisher.incPuzzleAttempts(puzzle)
-            Ok(Json.obj("user" -> false)).fuccess
-        }
-      ) map (_ as JSON)
+        ) map (_ as JSON)
+      }
     }
   }
 
   def vote(id: PuzzleId) = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    env.forms.vote.bindFromRequest.fold(
-      err => fuccess(BadRequest(errorsAsJson(err))),
-      vote => env.api.vote.find(id, me) flatMap {
-        v => env.api.vote.update(id, me, v, vote == 1)
-      } map {
-        case (p, a) =>
-          if (vote == 1) lila.mon.puzzle.vote.up()
-          else lila.mon.puzzle.vote.down()
-          Ok(Json.arr(a.value, p.vote.sum))
-      }
-    ) map (_ as JSON)
+    NoBot {
+      implicit val req = ctx.body
+      env.forms.vote.bindFromRequest.fold(
+        err => fuccess(BadRequest(errorsAsJson(err))),
+        vote => env.api.vote.find(id, me) flatMap {
+          v => env.api.vote.update(id, me, v, vote == 1)
+        } map {
+          case (p, a) =>
+            if (vote == 1) lila.mon.puzzle.vote.up()
+            else lila.mon.puzzle.vote.down()
+            Ok(Json.arr(a.value, p.vote.sum))
+        }
+      ) map (_ as JSON)
+    }
   }
 
   /* Mobile API: select a bunch of puzzles for offline use */
