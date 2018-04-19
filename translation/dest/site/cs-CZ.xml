@@ -229,6 +229,8 @@
   <string name="thisGameIsRated">Tato hra se započítává do hodnocení</string>
   <string name="rematch">Odveta</string>
   <string name="rematchOfferSent">Nabídka odvety byla odeslána</string>
+  <string name="rematchOfferSentWhite">Bílý nabízí odvetu</string>
+  <string name="rematchOfferSentBlack">Černý nabízí odvetu</string>
   <string name="rematchOfferAccepted">Nabídka odvety byla přijata</string>
   <string name="rematchOfferCanceled">Nabídka odvety byla zrušena</string>
   <string name="rematchOfferDeclined">Nabídka odvety byla odmítnuta</string>
