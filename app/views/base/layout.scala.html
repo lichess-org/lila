@@ -174,7 +174,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
       data-playing="@ctx.onlineFriends.playing.mkString(",")"
       data-patrons="@ctx.onlineFriends.patrons.mkString(",")"
       data-studying="@ctx.onlineFriends.studying.mkString(",")">
-      <div class="title"><strong class="online"> </strong> @trans.onlineFriends()</div>
+      <div class="title"><strong class="online"> </strong> @trans.onlineFriends.pluralSame(ctx.onlineFriends.users.size)</div>
       <div class="content_wrap">
         <div class="content list"></div>
         <div class="nobody@if(ctx.onlineFriends.users.nonEmpty){ none}">

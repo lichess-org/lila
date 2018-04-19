@@ -349,7 +349,10 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="colorPlaysCheckmateInOne">%s plays; checkmate in one move</string>
   <string name="retry">Retry</string>
   <string name="reconnecting">Reconnecting</string>
-  <string name="onlineFriends">Online friends</string>
+  <plurals name="onlineFriends">
+    <item quantity="one">online friend</item>
+    <item quantity="other">online friends</item>
+  </plurals>
   <string name="noFriendsOnline">No friends online</string>
   <string name="findFriends">Find friends</string>
   <string name="favoriteOpponents">Favourite opponents</string>
