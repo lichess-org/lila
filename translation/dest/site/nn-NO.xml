@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Dette partiet er rangert</string>
   <string name="rematch">Omkamp</string>
   <string name="rematchOfferSent">Tilbod om omkamp sendt</string>
+  <string name="rematchOfferSentWhite">Kvit tilbyr omkamp</string>
+  <string name="rematchOfferSentBlack">Svart tilbyr omkamp</string>
   <string name="rematchOfferAccepted">Tilbod om omkamp godteke</string>
   <string name="rematchOfferCanceled">Førespurnad om omkamp trekt tilbake</string>
   <string name="rematchOfferDeclined">Tilbod om omkamp avslått</string>
