@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Esta partida vale pontos</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Oferta de revanche enviada</string>
+  <string name="rematchOfferSentWhite">Brancas querem desforra</string>
+  <string name="rematchOfferSentBlack">Negras querem desforra</string>
   <string name="rematchOfferAccepted">Oferta de revanche aceita</string>
   <string name="rematchOfferCanceled">Oferta de revanche cancelada</string>
   <string name="rematchOfferDeclined">Oferta de revanche recusada</string>
@@ -384,6 +386,15 @@
   <string name="winner">Vencedor</string>
   <string name="standing">Aguardando</string>
   <string name="createANewTournament">Criar novo torneio</string>
+  <string name="tournamentCalendar">Calendário de torneios</string>
+  <string name="conditionOfEntry">Condições de participação:</string>
+  <string name="advancedSettings">Configurações avançadas</string>
+  <string name="safeTournamentName">Escolha um nome seguro para o torneio.</string>
+  <string name="inappropriateNameWarning">Qualquer linguagem ligeiramente inadequada poderia banir a sua conta.</string>
+  <string name="emptyTournamentName">Deixe em branco e o torneiro terá o nome aleatório de um Grande Mestre.</string>
+  <string name="recommendNotTouching">Nós recomendamos que não toque nestas opções.</string>
+  <string name="fewerPlayers">Se definires condições de participação, o teu torneio terá menos participantes.</string>
+  <string name="showAdvancedSettings">Mostrar configurações avançadas</string>
   <string name="join">Entrar</string>
   <string name="withdraw">Sair</string>
   <string name="points">Pontos</string>
