@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Esta partida es por puntos</string>
   <string name="rematch">Revancha</string>
   <string name="rematchOfferSent">Oferta de revancha enviada</string>
+  <string name="rematchOfferSentWhite">Las blancas ofrecen jugar de nuevo</string>
+  <string name="rematchOfferSentBlack">Las negras ofrecen jugar de nuevo</string>
   <string name="rematchOfferAccepted">Oferta de revancha aceptada</string>
   <string name="rematchOfferCanceled">Oferta de revancha cancelada</string>
   <string name="rematchOfferDeclined">Oferta de revancha rechazada</string>
