@@ -175,6 +175,8 @@
   <string name="thisGameIsRated">Гульня на рэйтынг</string>
   <string name="rematch">Перагуляць</string>
   <string name="rematchOfferSent">Прапанова перагуляць даслана</string>
+  <string name="rematchOfferSentWhite">Белыя прапануюць рэванш</string>
+  <string name="rematchOfferSentBlack">Чорныя прапануюць рэванш</string>
   <string name="rematchOfferAccepted">Прапанова перагуляць прынятая</string>
   <string name="rematchOfferCanceled">Прапанова перагуляць скасаваная</string>
   <string name="rematchOfferDeclined">Прапанова перагуляць адхіленая</string>
