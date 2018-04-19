@@ -121,7 +121,7 @@ private[tournament] case class TournamentSetup(
     berserkable: Boolean
 ) {
 
-  def conditions = conditionsOption.pp | Condition.DataForm.AllSetup.default
+  def conditions = conditionsOption | Condition.DataForm.AllSetup.default
 
   def validClock = (clockTime + clockIncrement) > 0
 
