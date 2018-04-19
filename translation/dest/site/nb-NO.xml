@@ -395,6 +395,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="emptyTournamentName">La stå tomt for at turneringa skal få navn etter en tilfeldig stormester.</string>
   <string name="recommendNotTouching">Vi anbefaler å ikke endre disse.</string>
   <string name="fewerPlayers">Om du stiller betingelser for å delta vil turneringa få færre deltakere.</string>
+  <string name="showAdvancedSettings">Vis avanserte innstillinger</string>
   <string name="join">Bli med</string>
   <string name="withdraw">Trekk deg</string>
   <string name="points">Poeng</string>
