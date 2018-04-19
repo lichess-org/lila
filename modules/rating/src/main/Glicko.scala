@@ -38,6 +38,12 @@ case class Glicko(
     volatility = volatility atMost Glicko.maxVolatility
   )
 
+  def average(other: Glicko) = Glicko(
+    rating = (rating + other.rating) / 2,
+    deviation = (deviation + other.deviation) / 2,
+    volatility = (volatility + other.volatility) / 2
+  )
+
   override def toString = s"$intRating $intDeviation"
 }
 
