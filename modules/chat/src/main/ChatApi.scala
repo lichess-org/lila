@@ -151,7 +151,7 @@ final class ChatApi(
     private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
       UserRepo.byId(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if !user.disabled => Writer cut t1 flatMap { t2 =>
-          flood.allowMessage(user.id, t2) option
+          (user.isBot || flood.allowMessage(user.id, t2)) option
             UserLine(user.username, Writer preprocessUserInput t2, troll = user.troll, deleted = false)
         }
         case _ => none
