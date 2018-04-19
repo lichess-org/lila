@@ -391,7 +391,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="conditionOfEntry">Vilkår for å delta:</string>
   <string name="advancedSettings">Avanserte innstillingar</string>
   <string name="safeTournamentName">Finn eit svært sikkert namn på turneringa.</string>
-  <string name="inappropriateNameWarning">Upassende innhald kan føre til at brukarkontoen din blir stengd.</string>
+  <string name="inappropriateNameWarning">Upassande innhald kan føre til at brukarkontoen din blir stengd.</string>
   <string name="emptyTournamentName">Lat stå tomt for at turneringa skal få namn etter ein tilfeldig stormester.</string>
   <string name="recommendNotTouching">Vi tilrår å ikkje endre desse.</string>
   <string name="fewerPlayers">Om du set opp vilkår for deltaking vil turneringa di få færre deltakarar.</string>
