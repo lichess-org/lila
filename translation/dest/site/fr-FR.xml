@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Cette partie est classée</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Proposition de revanche envoyée</string>
+  <string name="rematchOfferSentWhite">Les Blancs proposent de rejouer</string>
+  <string name="rematchOfferSentBlack">Les Noirs proposent de rejouer</string>
   <string name="rematchOfferAccepted">Proposition de revanche acceptée</string>
   <string name="rematchOfferCanceled">Proposition de revanche annulée</string>
   <string name="rematchOfferDeclined">Proposition de revanche déclinée</string>

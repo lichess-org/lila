@@ -229,6 +229,8 @@
   <string name="thisGameIsRated">Gra rankingowa</string>
   <string name="rematch">Rewanż</string>
   <string name="rematchOfferSent">Wysłano propozycję rewanżu</string>
+  <string name="rematchOfferSentWhite">Białe proponują rewanż</string>
+  <string name="rematchOfferSentBlack">Czarne proponują rewanż</string>
   <string name="rematchOfferAccepted">Propozycja rewanżu została przyjęta</string>
   <string name="rematchOfferCanceled">Propozycja rewanżu została anulowana</string>
   <string name="rematchOfferDeclined">Propozycja rewanżu została odrzucona</string>

@@ -385,6 +385,10 @@
   <string name="winner">Победител</string>
   <string name="standing">Място</string>
   <string name="createANewTournament">Създай нов турнир</string>
+  <string name="tournamentCalendar">Календар на турнирите</string>
+  <string name="advancedSettings">Разширени настройки</string>
+  <string name="recommendNotTouching">Препоръчваме да не пипате тези.</string>
+  <string name="showAdvancedSettings">Показване на разширените настройки</string>
   <string name="join">Включи се</string>
   <string name="withdraw">Напусни</string>
   <string name="points">Точки</string>

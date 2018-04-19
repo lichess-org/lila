@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Dette parti er ratet</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Tilbud om revanche sendt</string>
+  <string name="rematchOfferSentWhite">Hvid tilbyder revanche</string>
+  <string name="rematchOfferSentBlack">Sort tilbyder revanche</string>
   <string name="rematchOfferAccepted">Tilbud om revanche modtaget</string>
   <string name="rematchOfferCanceled">Tilbud om revanche trukket tilbage</string>
   <string name="rematchOfferDeclined">Tilbud om revanche afslået</string>
