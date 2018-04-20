@@ -28,12 +28,12 @@ final class OAuthServer(
             AccessToken.Id((json str "jti" err s"Bad token json $json"))
           }
         }
-        scoped <- tokenColl.uno[ForAuth]($doc(F.id -> accessTokenId)) flatMap {
+        scoped <- tokenColl.uno[ForAuth]($doc(F.id -> accessTokenId), AccessToken.forAuthProjection) flatMap {
           case None => fufail(NoSuchToken)
           case Some(at) if at.isExpired => fufail(ExpiredToken)
           case Some(at) if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
           case Some(at) =>
-            setUsedNow(accessTokenId)
+            if (!at.usedRecently) tokenColl.updateFieldUnchecked($doc(F.id -> accessTokenId), F.usedAt, DateTime.now)
             UserRepo enabledById at.userId flatMap {
               case None => fufail(NoSuchUser)
               case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
@@ -46,9 +46,6 @@ final class OAuthServer(
   } recover {
     case e: AuthError => Left(e)
   }
-
-  private def setUsedNow(tokenId: AccessToken.Id): Unit =
-    tokenColl.updateFieldUnchecked($doc(F.id -> tokenId), F.usedAt, DateTime.now)
 }
 
 object OAuthServer {
