@@ -22,18 +22,19 @@ final class Tv(actor: ActorRef, roundProxyGame: Game.ID => Fu[Option[Game]]) {
     } flatMap { _ ?? roundProxyGame }
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
-    (actor ? TvActor.GetGameIdAndHistory(channel) mapTo
-      manifest[ChannelActor.GameIdAndHistory]) recover {
-        case e: Exception =>
-          logger.warn("Tv.getGame", e)
-          none
-      } flatMap {
+    (actor ? TvActor.GetGameIdAndHistory(channel) mapTo manifest[ChannelActor.GameIdAndHistory]).map(some) recover {
+      case e: Exception =>
+        logger.warn("Tv.getGame", e)
+        none
+    } flatMap {
+      _ ?? {
         case ChannelActor.GameIdAndHistory(gameId, historyIds) => for {
           game <- gameId ?? roundProxyGame
           games <- historyIds.map(roundProxyGame).sequenceFu.map(_.flatten)
           history = games map Pov.first
         } yield game map (_ -> history)
       }
+    }
 
   def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =
     (actor ? TvActor.GetGameIds(channel, max) mapTo manifest[List[Game.ID]]) recover {
