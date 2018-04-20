@@ -175,6 +175,8 @@
   <string name="thisGameIsRated">Гра на рейтинґ</string>
   <string name="rematch">Повторна гра</string>
   <string name="rematchOfferSent">Запит на повторну гру...</string>
+  <string name="rematchOfferSentWhite">Білі пропонують реванш</string>
+  <string name="rematchOfferSentBlack">Чорні пропонують реванш</string>
   <string name="rematchOfferAccepted">Виклик прийнято</string>
   <string name="rematchOfferCanceled">Запит на повторну гру скасовано</string>
   <string name="rematchOfferDeclined">Запит на повторну гру відхилено</string>
