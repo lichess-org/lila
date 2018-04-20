@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Тази игра е с рейтинг</string>
   <string name="rematch">Повторна</string>
   <string name="rematchOfferSent">Предложението за повторна е изпратено</string>
+  <string name="rematchOfferSentWhite">Белите предлагат реванш</string>
+  <string name="rematchOfferSentBlack">Черните предлагат реванш</string>
   <string name="rematchOfferAccepted">Предложението за повторна е прието</string>
   <string name="rematchOfferCanceled">Предложението за повторна е отхвърлено</string>
   <string name="rematchOfferDeclined">Предложението за повторна е отказано</string>
@@ -386,7 +388,11 @@
   <string name="standing">Място</string>
   <string name="createANewTournament">Създай нов турнир</string>
   <string name="tournamentCalendar">Календар на турнирите</string>
+  <string name="conditionOfEntry">Условие за участие:</string>
   <string name="advancedSettings">Разширени настройки</string>
+  <string name="safeTournamentName">Изберете много сигурно име за турнира.</string>
+  <string name="inappropriateNameWarning">Нещо дори и леко неуместно може да доведе до затваряне на вашия акаунт.</string>
+  <string name="emptyTournamentName">Ако оставите празно името, тогава турнирът ще бъде кръстен на случайно избран гросмайстор.</string>
   <string name="recommendNotTouching">Препоръчваме да не пипате тези.</string>
   <string name="showAdvancedSettings">Показване на разширените настройки</string>
   <string name="join">Включи се</string>
