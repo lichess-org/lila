@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Deze partij telt mee voor rating</string>
   <string name="rematch">Opnieuw spelen</string>
   <string name="rematchOfferSent">Uitnodiging voor nieuwe partij verstuurd</string>
+  <string name="rematchOfferSentWhite">Wit vraagt revanche</string>
+  <string name="rematchOfferSentBlack">Zwart vraagt revanche</string>
   <string name="rematchOfferAccepted">Uitnodiging voor nieuwe partij geaccepteerd</string>
   <string name="rematchOfferCanceled">Uitnodiging voor nieuwe partij geannuleerd</string>
   <string name="rematchOfferDeclined">Uitnodiging voor nieuwe partij geweigerd</string>
@@ -384,6 +386,15 @@
   <string name="winner">Winnaar</string>
   <string name="standing">Ranglijst</string>
   <string name="createANewTournament">Start een nieuw toernooi</string>
+  <string name="tournamentCalendar">Toernooikalender</string>
+  <string name="conditionOfEntry">Voorwaarde voor deelname:</string>
+  <string name="advancedSettings">Geavanceerde instellingen</string>
+  <string name="safeTournamentName">Kies een zeer veilige naam voor het toernooi.</string>
+  <string name="inappropriateNameWarning">Uw account kan bij het kiezen van een misplaatste naam al gesloten worden.</string>
+  <string name="emptyTournamentName">Laat het veld leeg om het toernooi naar een willekeurige grootmeester te vernoemen.</string>
+  <string name="recommendNotTouching">Wij raden aan om deze niet aan te raken.</string>
+  <string name="fewerPlayers">Als u voorwaarden voor deelname instelt, zullen er minder spelers meedoen.</string>
+  <string name="showAdvancedSettings">Toon uitgebreide instellingen >></string>
   <string name="join">Neem deel</string>
   <string name="withdraw">Trek terug</string>
   <string name="points">Punten</string>
