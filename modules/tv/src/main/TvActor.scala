@@ -48,7 +48,11 @@ private[tv] final class TvActor(
     case Select =>
       GameRepo.featuredCandidates foreach { candidates =>
         channelActors foreach {
-          case (channel, actor) => actor forward ChannelActor.Select(candidates filter channel.filter)
+          case (channel, actor) => actor forward ChannelActor.Select {
+            val games = candidates filter channel.filter
+            if (channel == Tv.Channel.Bot) games filter hasBot
+            else games
+          }
         }
       }
 
@@ -85,6 +89,10 @@ private[tv] final class TvActor(
             )
             context.system.lilaBus.publish(event, 'changeFeaturedGame)
         }
+  }
+
+  def hasBot(g: Game) = g.userIds.exists { userId =>
+    lightUser(userId).exists(_.isBot)
   }
 }
 
