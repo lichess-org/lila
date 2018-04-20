@@ -394,6 +394,7 @@
   <string name="inappropriateNameWarning">Нещо дори и леко неуместно може да доведе до затваряне на вашия акаунт.</string>
   <string name="emptyTournamentName">Ако оставите празно името, тогава турнирът ще бъде кръстен на случайно избран гросмайстор.</string>
   <string name="recommendNotTouching">Препоръчваме да не пипате тези.</string>
+  <string name="fewerPlayers">Ако сте задали условия за влизане, вашият турнир ще има по-малко играчи.</string>
   <string name="showAdvancedSettings">Показване на разширените настройки</string>
   <string name="join">Включи се</string>
   <string name="withdraw">Напусни</string>
@@ -838,4 +839,9 @@
   <string name="addCurrentVariation">Добавяне на настоящата линия</string>
   <string name="playVariationToCreateConditionalPremoves">Изиграйте вариация за да създадете предварителни ходове под условие</string>
   <string name="noConditionalPremoves">Без предварителни ходове под условие</string>
+  <string name="playX">Играй %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">и запиши %s като предварителен ход</item>
+    <item quantity="other">и запиши %s като предварителен ход</item>
+  </plurals>
 </resources>
