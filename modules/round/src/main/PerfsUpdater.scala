@@ -108,8 +108,7 @@ final class PerfsUpdater(
     }
     try {
       system.updateRatings(results)
-    }
-    catch {
+    } catch {
       case e: Exception => logger.error("update ratings", e)
     }
   }
@@ -125,8 +124,7 @@ final class PerfsUpdater(
           val p = perf.addOrReset(_.round.error.glicko, s"game ${game.id}")(rating, game.movedAt)
           if (isHumanVsMachine) perf averageGlicko p // halve rating diffs for human
           else p
-        }
-        else perf
+        } else perf
       val perfs1 = perfs.copy(
         frisian = addRatingIf(game.ratingVariant.frisian, perfs.frisian, ratings.frisian),
         frysk = addRatingIf(game.ratingVariant.frysk, perfs.frysk, ratings.frysk),
