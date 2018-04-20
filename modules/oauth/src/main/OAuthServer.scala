@@ -2,9 +2,9 @@ package lila.oauth
 
 import org.joda.time.DateTime
 import pdi.jwt.{ Jwt, JwtAlgorithm }
+import play.api.http.HeaderNames.AUTHORIZATION
 import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
-import play.api.http.HeaderNames.AUTHORIZATION
 
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
@@ -21,11 +21,12 @@ final class OAuthServer(
   def auth(req: RequestHeader, scopes: List[OAuthScope]): Fu[AuthResult] = {
     req.headers.get(AUTHORIZATION).map(_.split(" ", 2)) match {
       case Some(Array("Bearer", tokenStr)) => for {
-        accessTokenId <- Jwt.decodeRaw(tokenStr, jwtPublicKey.value, Seq(JwtAlgorithm.RS256)).future map { jsonStr =>
-          val json = Json.parse(jsonStr)
-          AccessToken.Id((json str "jti" err s"Bad token json $json"))
-        } recover {
-          case _: Exception => AccessToken.Id(tokenStr) // personal access token
+        accessTokenId <- {
+          if (tokenStr.size == AccessToken.idSize) fuccess(AccessToken.Id(tokenStr))
+          else Jwt.decodeRaw(tokenStr, jwtPublicKey.value, Seq(JwtAlgorithm.RS256)).future map { jsonStr =>
+            val json = Json.parse(jsonStr)
+            AccessToken.Id((json str "jti" err s"Bad token json $json"))
+          }
         }
         scoped <- tokenColl.uno[ForAuth]($doc(F.id -> accessTokenId)) flatMap {
           case None => fufail(NoSuchToken)

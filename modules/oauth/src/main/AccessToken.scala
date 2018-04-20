@@ -19,9 +19,11 @@ case class AccessToken(
 
 object AccessToken {
 
+  val idSize = 16
+
   case class Id(value: String) extends AnyVal
 
-  def makeId = Id(ornicar.scalalib.Random secureString 16)
+  def makeId = Id(ornicar.scalalib.Random secureString idSize)
 
   case class ForAuth(userId: User.ID, expiresAt: DateTime, scopes: List[OAuthScope]) {
     def isExpired = expiresAt isBefore DateTime.now
