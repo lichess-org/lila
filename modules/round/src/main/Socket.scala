@@ -71,8 +71,10 @@ private[round] final class Socket(
       simulActor ? lidraughts.hub.actorApi.simul.GetHostIds mapTo manifest[Set[String]] map (_ contains u)
     }
 
-    def isGone: Fu[Boolean] =
-      (time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis)) ?? !isHostingSimul
+    def isGone: Fu[Boolean] = {
+      time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis) &&
+        !botConnected
+    } ?? !isHostingSimul
 
     def setBotConnected(v: Boolean) =
       botConnected = v
