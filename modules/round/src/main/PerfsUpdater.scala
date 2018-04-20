@@ -124,8 +124,7 @@ final class PerfsUpdater(
     }
     try {
       system.updateRatings(results)
-    }
-    catch {
+    } catch {
       case e: Exception => logger.error("update ratings", e)
     }
   }
@@ -141,8 +140,7 @@ final class PerfsUpdater(
           val p = perf.addOrReset(_.round.error.glicko, s"game ${game.id}")(rating, game.movedAt)
           if (isHumanVsMachine) perf averageGlicko p // halve rating diffs for human
           else p
-        }
-        else perf
+        } else perf
       val perfs1 = perfs.copy(
         chess960 = addRatingIf(game.ratingVariant.chess960, perfs.chess960, ratings.chess960),
         kingOfTheHill = addRatingIf(game.ratingVariant.kingOfTheHill, perfs.kingOfTheHill, ratings.kingOfTheHill),
