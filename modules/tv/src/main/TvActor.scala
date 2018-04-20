@@ -21,7 +21,7 @@ private[tv] final class TvActor(
   implicit private def timeout = makeTimeout(100 millis)
 
   val channelActors: Map[Tv.Channel, ActorRef] = Tv.Channel.all.map { c =>
-    c -> context.actorOf(Props(classOf[ChannelActor], c), name = c.toString)
+    c -> context.actorOf(Props(classOf[ChannelActor], c, lightUser), name = c.toString)
   }.toMap
 
   var channelChampions = Map[Tv.Channel, Tv.Champion]()
