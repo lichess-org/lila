@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Oyun puanlıdır</string>
   <string name="rematch">Yeniden oyna</string>
   <string name="rematchOfferSent">Yeniden oynama teklifi yollandı</string>
+  <string name="rematchOfferSentWhite">Beyaz yeni bir oyun teklif ediyor</string>
+  <string name="rematchOfferSentBlack">Siyah yeni bir oyun teklif ediyor</string>
   <string name="rematchOfferAccepted">Yeniden oynama teklifi kabul edildi</string>
   <string name="rematchOfferCanceled">Yeniden oynama teklifi iptal edildi</string>
   <string name="rematchOfferDeclined">Yeniden oynama teklifi reddedildi</string>
@@ -387,6 +389,12 @@
   <string name="tournamentCalendar">Turnuva takvimi</string>
   <string name="conditionOfEntry">Ön koşul:</string>
   <string name="advancedSettings">Diğer ayarlar</string>
+  <string name="safeTournamentName">Turnuva için oldukça güvenli bir isim seçin.</string>
+  <string name="inappropriateNameWarning">En hafif bir yakışıksız isim dahi hesabınızın kapatılmasına yol açabilir.</string>
+  <string name="emptyTournamentName">Turnuvaya rastgele bir Büyükustanın ismini vermek için kutuyu boş bırakın.</string>
+  <string name="recommendNotTouching">Bu ayarlara dokunmamanızı öneririz.</string>
+  <string name="fewerPlayers">Ön koşul eklediğiniz takdirde turnuvanıza daha az oyuncu katılabilecektir.</string>
+  <string name="showAdvancedSettings">Ayarları göster</string>
   <string name="join">Katıl</string>
   <string name="withdraw">Çekil</string>
   <string name="points">Puanlar</string>
