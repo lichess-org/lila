@@ -38,19 +38,23 @@ object Game extends LilaController {
         RequireHttp11(req) {
           Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
             Api.GlobalLinearLimitPerUserOption(me) {
-              val since = getLong("since", req) map { ts => new DateTime(ts) }
-              val until = getLong("until", req) map { ts => new DateTime(ts) }
-              val moves = getBoolOpt("moves", req) | true
-              val tags = getBoolOpt("tags", req) | true
-              val clocks = getBoolOpt("clocks", req) | false
-              val max = getInt("max", req) map (_ atLeast 1)
-              val perSecond = MaxPerSecond(me match {
-                case None => 10
-                case Some(m) if m is user.id => 50
-                case Some(_) => 20
-              })
-              val formatFlags = lila.game.PgnDump.WithFlags(moves = moves, tags = tags, clocks = clocks)
-              val config = PgnDump.Config(user, since, until, max, formatFlags, perSecond)
+              val config = PgnDump.Config(
+                user = user,
+                since = getLong("since", req) map { ts => new DateTime(ts) },
+                until = getLong("until", req) map { ts => new DateTime(ts) },
+                max = getInt("max", req) map (_ atLeast 1),
+                rated = getBoolOpt("rated", req),
+                flags = lila.game.PgnDump.WithFlags(
+                  moves = getBoolOpt("moves", req) | true,
+                  tags = getBoolOpt("tags", req) | true,
+                  clocks = getBoolOpt("clocks", req) | false
+                ),
+                perSecond = MaxPerSecond(me match {
+                  case None => 10
+                  case Some(m) if m is user.id => 50
+                  case Some(_) => 20
+                })
+              )
               val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
               Ok.chunked(Env.api.pgnDump.exportUserGames(config)).withHeaders(
                 CONTENT_TYPE -> pgnContentType,

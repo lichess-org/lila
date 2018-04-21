@@ -44,15 +44,15 @@ final class PgnDump(
       batchSize = config.perSecond.value
     ).bulkEnumerator(maxDocs = config.max | Int.MaxValue) &>
       lila.common.Iteratee.delay(1 second) &>
-      Enumeratee.mapConcat(_.toSeq) &>
+      Enumeratee.mapConcat(_.filter(config.postFilter).toSeq) &>
       toPgn(config.flags)
   }
 
-  def exportGamesFromIds(ids: List[String]): Enumerator[String] =
-    Enumerator.enumerate(ids grouped 50) &>
-      Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.gamesFromSecondary) &>
-      Enumeratee.mapConcat(identity) &>
-      toPgn(WithFlags())
+  // def exportGamesFromIds(ids: List[String]): Enumerator[String] =
+  //   Enumerator.enumerate(ids grouped 50) &>
+  //     Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.gamesFromSecondary) &>
+  //     Enumeratee.mapConcat(identity) &>
+  //     toPgn(WithFlags())
 }
 
 object PgnDump {
@@ -62,7 +62,10 @@ object PgnDump {
       since: Option[DateTime] = None,
       until: Option[DateTime] = None,
       max: Option[Int] = None,
+      rated: Option[Boolean] = None,
       flags: WithFlags,
       perSecond: MaxPerSecond
-  )
+  ) {
+    def postFilter(g: Game) = rated.fold(true)(g.rated ==)
+  }
 }
