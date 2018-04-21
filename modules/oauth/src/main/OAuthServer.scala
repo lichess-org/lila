@@ -5,13 +5,15 @@ import pdi.jwt.{ Jwt, JwtAlgorithm }
 import play.api.http.HeaderNames.AUTHORIZATION
 import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
+import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
 final class OAuthServer(
     tokenColl: Coll,
-    jwtPublicKey: JWT.PublicKey
+    jwtPublicKey: JWT.PublicKey,
+    asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
   import AccessToken.{ accessTokenIdHandler, ForAuth, ForAuthBSONReader }
@@ -28,24 +30,36 @@ final class OAuthServer(
             AccessToken.Id((json str "jti" err s"Bad token json $json"))
           }
         }
-        scoped <- tokenColl.uno[ForAuth]($doc(F.id -> accessTokenId), AccessToken.forAuthProjection) flatMap {
-          case None => fufail(NoSuchToken)
-          case Some(at) if at.isExpired => fufail(ExpiredToken)
-          case Some(at) if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
-          case Some(at) =>
-            if (!at.usedRecently) tokenColl.updateFieldUnchecked($doc(F.id -> accessTokenId), F.usedAt, DateTime.now)
+        accessToken <- {
+          if (accessTokenId.isPersonal) personalAccessTokenCache.get(accessTokenId)
+          else fetchAccessToken(accessTokenId)
+        }
+        scoped <- accessToken.fold[Fu[OAuthScope.Scoped]](fufail(NoSuchToken)) {
+          case at if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
+          case at if at.isExpired => fufail(ExpiredToken)
+          case at =>
+            tokenColl.updateFieldUnchecked($doc(F.id -> accessTokenId), F.usedAt, DateTime.now)
             UserRepo enabledById at.userId flatMap {
               case None => fufail(NoSuchUser)
               case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
             }
         }
       } yield Right(scoped)
-      case Some(_) => fuccess(Left(InvalidAuthorizationHeader))
-      case None => fuccess(Left(MissingAuthorizationHeader))
+      case Some(_) => fufail(InvalidAuthorizationHeader)
+      case None => fufail(MissingAuthorizationHeader)
     }
   } recover {
     case e: AuthError => Left(e)
   }
+
+  private val personalAccessTokenCache = asyncCache.multi[AccessToken.Id, Option[AccessToken.ForAuth]](
+    name = "oauth.server.personal_access_token",
+    f = fetchAccessToken,
+    expireAfter = _.ExpireAfterWrite(2 minutes)
+  )
+
+  private def fetchAccessToken(tokenId: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
+    tokenColl.uno[ForAuth]($doc(F.id -> tokenId), AccessToken.forAuthProjection)
 }
 
 object OAuthServer {
