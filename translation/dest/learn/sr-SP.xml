@@ -41,10 +41,10 @@
   <string name="itMovesInAnLShape">Креће се у L облику</string>
   <string name="knightIntro">Ево изазова за тебе. Скакач је... препредена фигура.</string>
   <string name="knightsHaveAFancyWay">Skakači imaju sklonost da skaču unaokolo!</string>
-  <string name="knightsCanJumpOverObstacles">Skakači mogu da preskaču prepreke! Da pobegnu i savladaju zvezde!</string>
+  <string name="knightsCanJumpOverObstacles">Skakači mogu da preskaču prepreke! Pobegni i savladaj zvezde!</string>
   <string name="knightComplete">Čestitamo! Savladao si skakača.</string>
-  <string name="thePawn">Pešak</string>
-  <string name="itMovesForwardOnly">Kreće se samo napred</string>
+  <string name="thePawn">Пешак</string>
+  <string name="itMovesForwardOnly">Креће се само напред</string>
   <string name="pawnIntro">Pešaci su slabi, ali imaju mnogo potencijala.</string>
   <string name="pawnsMoveOneSquareOnly">Pešaci se kreću samo ya jedno polje. Ali kada stignu na drugi kraj table, oni postaju jača figura!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">U većini slučajeva promocija u Damu je najbolje. Ali po nekad skakač dobro dođe!</string>
