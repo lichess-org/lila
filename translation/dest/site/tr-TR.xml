@@ -496,7 +496,7 @@
   <string name="troll">Trol</string>
   <string name="other">Diğer</string>
   <string name="reportDescriptionHelp">Oyunun (veya oyunların) linkini yapıştırın ve kullanıcı hakkındaki şikayetinizi açıklayın.</string>
-  <string name="by">%s kurdu</string>
+  <string name="by">%s yazdı</string>
   <string name="thisTopicIsNowClosed">Bu konu kapanmıştır.</string>
   <string name="theming">Ortam</string>
   <string name="donate">Bağış yap</string>
@@ -775,7 +775,7 @@
     <item quantity="one">İlk hamle için son %s saniye</item>
     <item quantity="other">İlk hamle için son %s saniye</item>
   </plurals>
-  <string name="practiceWithComputer">Bilgisayar ile pratik yapmak</string>
+  <string name="practiceWithComputer">Bilgisayar ile alıştırma yapın</string>
   <string name="anotherWasX">%s de olurdu</string>
   <string name="bestWasX">En iyi hamle %s</string>
   <string name="youBrowsedAway">Çok uzaklara gittiniz</string>
