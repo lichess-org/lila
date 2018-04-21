@@ -565,6 +565,9 @@
   <string name="error.unknown">srera da</string>
   <string name="notifications">lo notci</string>
   <string name="challenges">lo talsa</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">zukte .ei lo pa moi kelka\'u ba nu\'i la\'u lo snidu be li su\'e %s</item>
+  </plurals>
   <string name="practiceWithComputer">crezenrapzu\'e se pi\'o lo skami</string>
   <string name="resumePractice">di\'a crezenrapzu\'e</string>
   <string name="seeBestMove">viska lo xagrai se zukte</string>
