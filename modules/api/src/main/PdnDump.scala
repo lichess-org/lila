@@ -44,15 +44,15 @@ final class PdnDump(
       batchSize = config.perSecond.value
     ).bulkEnumerator(maxDocs = config.max | Int.MaxValue) &>
       lidraughts.common.Iteratee.delay(1 second) &>
-      Enumeratee.mapConcat(_.toSeq) &>
+      Enumeratee.mapConcat(_.filter(config.postFilter).toSeq) &>
       toPdn(config.flags)
   }
 
-  def exportGamesFromIds(ids: List[String], draughtsResult: Boolean): Enumerator[String] =
-    Enumerator.enumerate(ids grouped 50) &>
-      Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.gamesFromSecondary) &>
-      Enumeratee.mapConcat(identity) &>
-      toPdn(WithFlags(draughtsResult = draughtsResult))
+  // def exportGamesFromIds(ids: List[String], draughtsResult: Boolean): Enumerator[String] =
+  //   Enumerator.enumerate(ids grouped 50) &>
+  //     Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.gamesFromSecondary) &>
+  //     Enumeratee.mapConcat(identity) &>
+  //     toPdn(WithFlags(draughtsResult = draughtsResult))
 }
 
 object PdnDump {
@@ -62,7 +62,10 @@ object PdnDump {
       since: Option[DateTime] = None,
       until: Option[DateTime] = None,
       max: Option[Int] = None,
+      rated: Option[Boolean] = None,
       flags: WithFlags,
       perSecond: MaxPerSecond
-  )
+  ) {
+    def postFilter(g: Game) = rated.fold(true)(g.rated ==)
+  }
 }
