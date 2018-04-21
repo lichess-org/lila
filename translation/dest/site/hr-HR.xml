@@ -220,6 +220,8 @@
   <string name="thisGameIsRated">Ovo je partija za bodove</string>
   <string name="rematch">Revanš</string>
   <string name="rematchOfferSent">Ponuda za revanš poslana</string>
+  <string name="rematchOfferSentWhite">Bijeli nudi remi</string>
+  <string name="rematchOfferSentBlack">Crni nudi remi</string>
   <string name="rematchOfferAccepted">Ponuda za revanš prihvaćena</string>
   <string name="rematchOfferCanceled">Ponuda za revanš otkazana</string>
   <string name="rematchOfferDeclined">Ponuda za revanš odbijena</string>
@@ -410,6 +412,10 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="winner">Pobjednik</string>
   <string name="standing">Stanje</string>
   <string name="createANewTournament">Kreiraj novi turnir</string>
+  <string name="tournamentCalendar">Kalendar turnira</string>
+  <string name="conditionOfEntry">Uvjet za sudjelovanje:</string>
+  <string name="advancedSettings">Napredne postavke</string>
+  <string name="safeTournamentName">Odaberite veoma siguran naziv za turnir.</string>
   <string name="join">Pridruži se</string>
   <string name="withdraw">Odustani</string>
   <string name="points">Bodovi</string>
