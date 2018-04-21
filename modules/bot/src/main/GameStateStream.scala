@@ -49,7 +49,9 @@ final class GameStateStream(
 
           override def postStop(): Unit = {
             super.postStop()
-            roundSocketHub ! Tell(init.game.id, BotConnected(as, false))
+            context.system.scheduler.scheduleOnce(10 second) {
+              roundSocketHub ! Tell(init.game.id, BotConnected(as, false))
+            }
           }
 
           def receive = {
