@@ -132,7 +132,11 @@ object Main extends LilaController {
 
   val robots = Action {
     Ok {
-      if (Env.api.Net.Crawlable) "User-agent: *\nAllow: /\nDisallow: /game/export"
+      if (Env.api.Net.Crawlable) """User-agent: *
+Allow: /
+Disallow: /game/export
+Disallow: /games/export
+"""
       else "User-agent: *\nDisallow: /"
     }
   }
