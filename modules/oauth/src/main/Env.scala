@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 
 final class Env(
     config: Config,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     system: ActorSystem,
     lifecycle: play.api.inject.ApplicationLifecycle
 ) {
@@ -26,7 +27,8 @@ final class Env(
 
   lazy val server = new OAuthServer(
     tokenColl = tokenColl,
-    jwtPublicKey = JWT.PublicKey(JwtPublicKey)
+    jwtPublicKey = JWT.PublicKey(JwtPublicKey),
+    asyncCache = asyncCache
   )
 
   lazy val tokenApi = new PersonalTokenApi(
@@ -42,6 +44,7 @@ object Env {
 
   lazy val current = "oauth" boot new Env(
     config = lidraughts.common.PlayApp loadConfig "oauth",
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
     system = lidraughts.common.PlayApp.system,
     lifecycle = lidraughts.common.PlayApp.lifecycle
   )
