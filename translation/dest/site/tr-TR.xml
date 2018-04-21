@@ -384,6 +384,9 @@
   <string name="winner">Kazanan</string>
   <string name="standing">Sıralama</string>
   <string name="createANewTournament">Yeni turnuva oluştur</string>
+  <string name="tournamentCalendar">Turnuva takvimi</string>
+  <string name="conditionOfEntry">Ön koşul:</string>
+  <string name="advancedSettings">Diğer ayarlar</string>
   <string name="join">Katıl</string>
   <string name="withdraw">Çekil</string>
   <string name="points">Puanlar</string>
