@@ -33,6 +33,8 @@ final class GameStateStream(
       onStart = channel => {
         val actor = system.actorOf(Props(new Actor {
 
+          var gameOver = false
+
           override def preStart(): Unit = {
             super.preStart()
             system.lilaBus.subscribe(
@@ -43,19 +45,16 @@ final class GameStateStream(
               // prepend the full game JSON at the start of the stream
               channel push json.some
               // close stream if game is over
-              if (init.game.finished) channel.eofAndEnd()
-              else {
-                roundSocketHub ! Tell(init.game.id, BotConnected(as, true))
-                self ! SetOnline
-              }
+              if (init.game.finished) onGameOver
+              else self ! SetOnline
             }
           }
 
           override def postStop(): Unit = {
             super.postStop()
             system.lilaBus.unsubscribe(self)
-            context.system.scheduler.scheduleOnce(10 second) {
-              roundSocketHub ! Tell(init.game.id, BotConnected(as, false))
+            context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {
+              setConnected(false)
             }
           }
 
@@ -63,19 +62,26 @@ final class GameStateStream(
             case g: Game if g.id == id => pushState(g)
             case lila.chat.actorApi.ChatLine(chatId, UserLine(username, text, false, false)) =>
               pushChatLine(username, text, chatId.value.size == Game.gameIdSize)
-            case FinishGame(g, _, _) if g.id == id => terminate
-            case AbortedBy(pov) if pov.gameId == id => terminate
+            case FinishGame(g, _, _) if g.id == id => onGameOver
+            case AbortedBy(pov) if pov.gameId == id => onGameOver
 
-            case SetOnline => context.system.scheduler.scheduleOnce(6 second) {
-              // gotta send a message to check if the client has disconnected
-              channel push None
-              self ! SetOnline
-            }
+            case SetOnline =>
+              setConnected(true)
+              context.system.scheduler.scheduleOnce(6 second) {
+                // gotta send a message to check if the client has disconnected
+                channel push None
+                self ! SetOnline
+              }
           }
 
           def pushState(g: Game) = jsonView gameState Game.WithInitialFen(g, init.fen) map some map channel.push
           def pushChatLine(username: String, text: String, player: Boolean) = channel push jsonView.chatLine(username, text, player).some
-          def terminate = channel.eofAndEnd()
+          def onGameOver = {
+            gameOver = true
+            channel.eofAndEnd()
+          }
+          def setConnected(v: Boolean) =
+            roundSocketHub ! Tell(init.game.id, BotConnected(as, v))
         }))
         stream = actor.some
       },
