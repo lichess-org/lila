@@ -9,6 +9,7 @@ private[round] final class Drawer(
     messenger: Messenger,
     finisher: Finisher,
     prefApi: PrefApi,
+    isBotSync: lila.common.LightUser.IsBotSync,
     bus: lila.common.Bus
 ) {
 
@@ -19,7 +20,7 @@ private[round] final class Drawer(
       pref.autoThreefold == Pref.AutoThreefold.ALWAYS || {
         pref.autoThreefold == Pref.AutoThreefold.TIME &&
           game.clock ?? { _.remainingTime(pov.color) < Centis.ofSeconds(30) }
-      }
+      } || pov.player.userId.exists(isBotSync)
     } map (_ option pov)
   }.sequenceFu map (_.flatten.headOption)
 

@@ -33,6 +33,7 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     evalCache: lila.evalCache.EvalCacheApi,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
+    isBotSync: lila.common.LightUser.IsBotSync,
     scheduler: lila.common.Scheduler
 ) {
 
@@ -208,6 +209,7 @@ final class Env(
     prefApi = prefApi,
     messenger = messenger,
     finisher = finisher,
+    isBotSync = isBotSync,
     bus = bus
   )
 
@@ -298,6 +300,7 @@ object Env {
     historyApi = lila.history.Env.current.api,
     evalCache = lila.evalCache.Env.current.api,
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
+    isBotSync = lila.user.Env.current.lightUserApi.isBotSync,
     scheduler = lila.common.PlayApp.scheduler
   )
 }
