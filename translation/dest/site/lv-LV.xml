@@ -129,7 +129,7 @@
   <plurals name="nbGames">
     <item quantity="zero">Apskatīt visas %s spēles</item>
     <item quantity="one">Apskatīt %s spēli</item>
-    <item quantity="other">Apskatīt visas %s spēles</item>
+    <item quantity="other">%s spēles</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="zero">%s grāmatzīmes</item>
@@ -220,6 +220,8 @@
   <string name="thisGameIsRated">Šī spēle tiek vērtēta</string>
   <string name="rematch">Revanšēties</string>
   <string name="rematchOfferSent">Revanša piedāvājums nosūtīts</string>
+  <string name="rematchOfferSentWhite">Baltie piedāvā spēlēt vēlreiz</string>
+  <string name="rematchOfferSentBlack">Melnie piedāvā spēlēt vēlreiz</string>
   <string name="rematchOfferAccepted">Revanša piedāvājums pieņemts</string>
   <string name="rematchOfferCanceled">Revanša piedāvājums atcelts</string>
   <string name="rematchOfferDeclined">Revanša piedāvājums noraidīts</string>
