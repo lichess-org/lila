@@ -33,6 +33,7 @@ final class Env(
     historyApi: lidraughts.history.HistoryApi,
     evalCache: lidraughts.evalCache.EvalCacheApi,
     evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler,
+    isBotSync: lidraughts.common.LightUser.IsBotSync,
     scheduler: lidraughts.common.Scheduler
 ) {
 
@@ -197,6 +198,7 @@ final class Env(
     prefApi = prefApi,
     messenger = messenger,
     finisher = finisher,
+    isBotSync = isBotSync,
     bus = bus
   )
 
@@ -287,6 +289,7 @@ object Env {
     historyApi = lidraughts.history.Env.current.api,
     evalCache = lidraughts.evalCache.Env.current.api,
     evalCacheHandler = lidraughts.evalCache.Env.current.socketHandler,
+    isBotSync = lidraughts.user.Env.current.lightUserApi.isBotSync,
     scheduler = lidraughts.common.PlayApp.scheduler
   )
 }

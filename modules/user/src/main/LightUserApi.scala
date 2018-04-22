@@ -23,6 +23,8 @@ final class LightUserApi(coll: Coll)(implicit system: akka.actor.ActorSystem) {
   def preloadMany = cache preloadMany _
   def preloadUser(user: User) = cache.setOneIfAbsent(user.id, user.light.some)
 
+  def isBotSync(id: User.ID) = sync(id).exists(_.isBot)
+
   private val cache = new Syncache[User.ID, Option[LightUser]](
     name = "user.light",
     compute = id => coll.find($id(id), projection).uno[LightUser],
