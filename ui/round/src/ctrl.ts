@@ -624,7 +624,6 @@ export default class RoundController {
     return !d.opponent.ai &&
     !!d.clock &&
     d.opponent.isGone &&
-    !d.opponent.onGame && // hackfix online bot
     !game.isPlayerTurn(d) &&
     game.resignable(d);
   }
