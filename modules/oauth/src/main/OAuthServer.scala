@@ -38,7 +38,7 @@ final class OAuthServer(
           case at if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
           case at if at.isExpired => fufail(ExpiredToken)
           case at =>
-            tokenColl.updateFieldUnchecked($doc(F.id -> accessTokenId), F.usedAt, DateTime.now)
+            if (!at.usedRecently) tokenColl.updateFieldUnchecked($doc(F.id -> accessTokenId), F.usedAt, DateTime.now)
             UserRepo enabledById at.userId flatMap {
               case None => fufail(NoSuchUser)
               case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
