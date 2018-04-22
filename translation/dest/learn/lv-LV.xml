@@ -72,27 +72,28 @@ bet varat aizsargāties!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Neļaujiet viņiem nosist nevienu neaizsargātu figūru!</string>
   <string name="combat">Kauja</string>
   <string name="captureAndDefendPieces">Sitiet un aizsargājiet figūras</string>
-  <string name="combatIntro">Labs kareivis prot gan uzbrukt gan aizsargāties!</string>
-  <string name="combatComplete">Apsveicam! Tagad proti cīnīties ar šaha figūrām!</string>
-  <string name="checkInOne">Šahs vienā</string>
-  <string name="attackTheOpponentsKing">Uzbrūc pretinieka karalim</string>
-  <string name="checkInOneIntro">Lai pieteiktu šahu pretiniekam, uzbrūc viņa karalim. Viņam nāksies aizstāvēties!</string>
-  <string name="checkInOneGoal">Trāpi pretinieka karalim vienā gājienā!</string>
-  <string name="checkInOneComplete">Apsveicam! Tu pieteici šahu pretiniekam, piespiežot viņam aizstāvēt savu karali!</string>
-  <string name="outOfCheck">Prom no šaha</string>
-  <string name="defendYourKing">Aizsargā savu karali</string>
-  <string name="outOfCheckIntro">Tev pieteikts šahs! Tev jāpārvieto karalis vai jābloķē uzbrukums.</string>
-  <string name="escapeWithTheKing">Bēdz ar karali!</string>
+  <string name="combatIntro">Labs kareivis prot gan uzbrukt, gan aizsargāties!</string>
+  <string name="combatComplete">Apsveicam! Tagad protat cīnīties ar šaha figūrām!</string>
+  <string name="checkInOne">Šahs vienā gājienā</string>
+  <string name="attackTheOpponentsKing">Uzbrūciet pretinieka karalim</string>
+  <string name="checkInOneIntro">Lai pieteiktu šahu pretiniekam, uzbrūciet viņa karalim. Viņam nāksies aizstāvēties!</string>
+  <string name="checkInOneGoal">Uzbrūciet pretinieka karalim vienā gājienā!</string>
+  <string name="checkInOneComplete">Apsveicam! Jūs pieteicāt šahu pretiniekam, piespiežot viņam aizstāvēt savu karali!</string>
+  <string name="outOfCheck">Iziet no šaha</string>
+  <string name="defendYourKing">Aizsargājiet savu karali</string>
+  <string name="outOfCheckIntro">Jums pieteikts šahs! Jums jāpārvieto karalis vai jābloķē uzbrukums.</string>
+  <string name="escapeWithTheKing">Bēdziet ar karali!</string>
   <string name="theKingCannotEscapeButBlock">Karalis nevar izbēgt,
-bet tu vari bloķēt uzbrukumu!</string>
-  <string name="youCanGetOutOfCheckByTaking">Tu vari izvairīties no šaha, nositot uzbrūkošo figūru.</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">Šis zirdziņš piesaka šahu cauri tavai aizsardzībai!</string>
-  <string name="escapeOrBlock">Bēdz ar karali vai bloķē uzbrukumu!</string>
-  <string name="outOfCheckComplete">Apsveicam! Tavs karalis nekad nekritīs gūstā, bet pārliecinies vai varēsi aizstāvēties pret pieteikto šahu!</string>
-  <string name="mateInOne">Mats vienā</string>
-  <string name="defeatTheOpponentsKing">Sakauj pretinieka karali</string>
-  <string name="mateInOneIntro">Ja pretinieks nespēj aizstāvēties pret šahu, tu esi uzvarējis.</string>
-  <string name="attackYourOpponentsKing">Uzbrūc sava pretinieka karali tā lai viņš nevarētu aizstāvēties!</string>
+bet varat bloķēt uzbrukumu!</string>
+  <string name="youCanGetOutOfCheckByTaking">Jūs varat iziet no šaha,
+nositot uzbrūkošo figūru.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Šis zirdziņš piesaka šahu cauri jūsu aizsardzībai!</string>
+  <string name="escapeOrBlock">Bēdziet ar karali vai bloķē uzbrukumu!</string>
+  <string name="outOfCheckComplete">Apsveicam! Jūsu karalis nekad nekritīs gūstā, bet pārliecinieties, vai varēsiet aizstāvēties pret pieteikto šahu!</string>
+  <string name="mateInOne">Mats vienā gājienā</string>
+  <string name="defeatTheOpponentsKing">Sakaujiet pretinieka karali</string>
+  <string name="mateInOneIntro">Ja pretinieks nevar aizstāvēties pret šahu, esat uzvarējis.</string>
+  <string name="attackYourOpponentsKing">Uzbrūciet sava pretinieka karalim tā, lai viņš nevarētu aizstāvēties!</string>
   <string name="mateInOneComplete">Apsveicam! Lūk, kā var uzvarēt šaha spēles!</string>
   <string name="intermediate">Vidējs</string>
   <string name="boardSetup">Galdiņa uzstādīšana</string>
@@ -100,27 +101,27 @@ bet tu vari bloķēt uzbrukumu!</string>
   <string name="boardSetupIntro">Satiekas divas armijas, gatavas kaujai.</string>
   <string name="thisIsTheInitialPosition">Šī ir katras šaha spēles sākotnējā pozīcija!
 Izdari jebkādu gājienu lai turpinātu.</string>
-  <string name="firstPlaceTheRooks">Vispirms noliec torņus!
+  <string name="firstPlaceTheRooks">Vispirms nolieciet torņus!
 Tie jāliek stūros.</string>
-  <string name="thenPlaceTheKnights">Tad noliec zirdziņus!
+  <string name="thenPlaceTheKnights">Tad nolieciet zirdziņus!
 Tiem jābūt blakus torņiem.</string>
-  <string name="placeTheBishops">Noliec laidņus!
+  <string name="placeTheBishops">Nolieciet laidņus!
 Tie būs blakus zirdziņiem.</string>
   <string name="placeTheQueen">Vieta dāmai!
 Viņa iet uz savas krāsas lauciņa.</string>
-  <string name="placeTheKing">Noliec karali!
+  <string name="placeTheKing">Nolieciet karali!
 Tieši blakus dāmai.</string>
   <string name="pawnsFormTheFrontLine">Bandinieki veido priekšējo līniju.
-Veic jebkādu gājienu lai turpinātu.</string>
-  <string name="boardSetupComplete">Apveicam! Tagad tu zini kā uzstādīt šaha galdiņu.</string>
+Veiciet jebkādu gājienu lai turpinātu.</string>
+  <string name="boardSetupComplete">Apveicam! Tagad zinat kā uzstādīt šaha galdiņu.</string>
   <string name="castling">Rokāde</string>
   <string name="theSpecialKingMove">Īpašais karaļa gājiens</string>
-  <string name="castlingIntro">Nogādā karali drošībā un pārvieto torni uzbrukumā!</string>
-  <string name="castleKingSide">Pārvieto karali par diviem lauciņiem lai roķētu karaļa spārnā!</string>
-  <string name="castleQueenSide">Pārvieto karali par diviem lauciņiem lai roķētu dāmas spārnā!</string>
-  <string name="theKnightIsInTheWay">Zirdziņš ir ceļā! Pārvieto to, tad roķējies karaļa spārnā.</string>
-  <string name="castleKingSideMovePiecesFirst">Roķējies karaļa spārnā! Vispirms palaid ārā figūras.</string>
-  <string name="castleQueenSideMovePiecesFirst">Roķējies dāmas spārnā! Tev vajadzēs vispirms pārvietot figūras.</string>
+  <string name="castlingIntro">Nogādājiet karali drošībā un novietojiet torni uzbrukuma pozīcijā!</string>
+  <string name="castleKingSide">Pārvietojiet karali par diviem lauciņiem lai roķētu karaļa spārnā!</string>
+  <string name="castleQueenSide">Pārvietojiet karali par diviem lauciņiem lai roķētu dāmas spārnā!</string>
+  <string name="theKnightIsInTheWay">Zirdziņš ir ceļā! Pārvietojiet to, tad roķējies karaļa spārnā.</string>
+  <string name="castleKingSideMovePiecesFirst">Roķējieties karaļa spārnā! Vispirms nepieciešams izlaist ārā figūras.</string>
+  <string name="castleQueenSideMovePiecesFirst">Roķējieties dāmas spārnā! Vispirms vajadzēs izlaist figūras.</string>
   <string name="youCannotCastleIfMoved">Nedrīkst veikt rokādi, ja karalis ir jau izdarījis gājienu vai tornis ir izdarījis gājienu.</string>
   <string name="youCannotCastleIfAttacked">Nedrīkst veikt rokādi, ja pa ceļam karalis tiek apdraudēts. Nobloķē šahu un tad - rokāde!</string>
   <string name="findAWayToCastleKingSide">Atrodi veidu kā roķēties karaļa spārnā!</string>
