@@ -152,10 +152,10 @@
   <string name="variant">Variants</string>
   <string name="variants">Varianti</string>
   <string name="timeControl">Laika kontrole</string>
-  <string name="realTime">Klātiene</string>
-  <string name="correspondence">Korespondencšahs</string>
+  <string name="realTime">Reāllaikā</string>
+  <string name="correspondence">Ilgtermiņa</string>
   <string name="daysPerTurn">Dienu skaits uz gājienu</string>
-  <string name="oneDay">Viena diena</string>
+  <string name="oneDay">Vienu dienu</string>
   <plurals name="nbDays">
     <item quantity="zero">%s dienas</item>
     <item quantity="one">%s diena</item>
@@ -167,17 +167,17 @@
     <item quantity="other">%s stundas</item>
   </plurals>
   <string name="time">Laiks</string>
-  <string name="rating">Reitings</string>
-  <string name="ratingStats">Reitinga statistika</string>
+  <string name="rating">Vērtējums</string>
+  <string name="ratingStats">Vērtējumu statistika</string>
   <string name="username">Lietotājvārds</string>
-  <string name="usernameOrEmail">Lietotājvārds</string>
+  <string name="usernameOrEmail">Lietotājvārds vai e-pasta adrese</string>
   <string name="password">Parole</string>
-  <string name="haveAnAccount">Vai tev ir konts?</string>
+  <string name="haveAnAccount">Jau ir konts?</string>
   <string name="changePassword">Mainīt paroli</string>
   <string name="changeEmail">Mainīt e-pasta adresi</string>
   <string name="email">E-pasta adrese</string>
-  <string name="passwordReset">Atjaunot paroli</string>
-  <string name="forgotPassword">Neatceries paroli?</string>
+  <string name="passwordReset">Atiestatīt paroli</string>
+  <string name="forgotPassword">Aizmirsāt paroli?</string>
   <string name="rank">Rangs</string>
   <string name="rankX">Rangs: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Rangs tiek atjaunots ik pēc %s minūtēm</string>
