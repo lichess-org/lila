@@ -110,7 +110,7 @@ private[round] final class Player(
   }
 
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
-  private val botLag = MoveMetrics(clientLag = Centis(100).some)
+  private val botLag = MoveMetrics(clientLag = Centis(50).some)
 
   private def applyUci(game: Game, uci: Uci, blur: Boolean, metrics: MoveMetrics): Valid[MoveResult] =
     (uci match {
