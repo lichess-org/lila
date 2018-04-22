@@ -35,6 +35,10 @@ final class GameStateStream(
 
           override def preStart(): Unit = {
             super.preStart()
+            system.lilaBus.subscribe(
+              self,
+              Symbol(s"moveGame:$id"), 'finishGame, 'abortGame, Symbol(s"chat:$id"), Symbol(s"chat:$id/w")
+            )
             jsonView gameFull init foreach { json =>
               // prepend the full game JSON at the start of the stream
               channel push json.some
@@ -49,6 +53,7 @@ final class GameStateStream(
 
           override def postStop(): Unit = {
             super.postStop()
+            system.lilaBus.unsubscribe(self)
             context.system.scheduler.scheduleOnce(10 second) {
               roundSocketHub ! Tell(init.game.id, BotConnected(as, false))
             }
@@ -72,10 +77,6 @@ final class GameStateStream(
           def pushChatLine(username: String, text: String, player: Boolean) = channel push jsonView.chatLine(username, text, player).some
           def terminate = channel.eofAndEnd()
         }))
-        system.lilaBus.subscribe(
-          actor,
-          Symbol(s"moveGame:$id"), 'finishGame, 'abortGame, Symbol(s"chat:$id"), Symbol(s"chat:$id/w")
-        )
         stream = actor.some
       },
       onComplete = onComplete(stream, system)
