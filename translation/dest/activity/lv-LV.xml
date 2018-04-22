@@ -3,5 +3,20 @@
 <resources>
   <string name="activity">Aktivitāte</string>
   <string name="supportedNbMonths">Atbalstīja lichess.org uz %1$s mēnešiem kā %2$s</string>
+  <plurals name="practicedNbPositions">
+    <item quantity="zero">Mācījās no %1$s pozīcijām sadaļā %2$s</item>
+    <item quantity="one">Mācījās no %1$s pozīcijas sadaļā %2$s</item>
+    <item quantity="other">Mācījās no %1$s pozīcijām sadaļā %2$s</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="zero">Atrisinājā %s taktikas puzles</item>
+    <item quantity="one">Atrisināja %s taktikas puzli</item>
+    <item quantity="other">Atrisināja %s taktikas puzles</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="zero">Izspēlēja %1$s %2$s spēles</item>
+    <item quantity="one">Izspēlēja %1$s %2$s spēli</item>
+    <item quantity="other">Izspēlēja %1$s %2$s spēles</item>
+  </plurals>
   <string name="signedUp">Reģistrējās lichess.org</string>
 </resources>
