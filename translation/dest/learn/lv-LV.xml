@@ -34,44 +34,44 @@
   <string name="kingComplete">Tagad varat pavēlēt pavēlniekam!</string>
   <string name="theKnight">Zirdziņš</string>
   <string name="itMovesInAnLShape">Pārvietojas burta L veidā</string>
-  <string name="knightIntro">Lūk, tev izaicinājums. Zirdziņš ir... viltīga figūra.</string>
+  <string name="knightIntro">Lūk, izaicinājums jums. Zirdziņš ir... viltīga figūra.</string>
   <string name="knightsHaveAFancyWay">Zirdziņi var jocīgi lēkāt apkārt!</string>
-  <string name="knightsCanJumpOverObstacles">Zirdziņi var pārlēkt šķēršļiem! Izbēdz un pieveic zvaigznes!</string>
-  <string name="knightComplete">Apsveicam! Tagad esi zirdziņa lietpratējs.</string>
+  <string name="knightsCanJumpOverObstacles">Zirdziņi var pārlēkt šķēršļiem! Izbēdz un iegūsti zvaigznes!</string>
+  <string name="knightComplete">Apsveicam! Tagad esat zirdziņa lietpratējs.</string>
   <string name="thePawn">Bandinieks</string>
   <string name="itMovesForwardOnly">Pārvietojas tikai uz priekšu</string>
-  <string name="pawnIntro">Bandinieki ir vāji, bet tie slēpj milzu potenciālu.</string>
+  <string name="pawnIntro">Bandinieki ir vāji, bet tie slēpj milzu spēku.</string>
   <string name="pawnsMoveOneSquareOnly">Bandinieki pārvietojas pa vienam lauciņam. Bet, kad tie sasniedz galdiņa otru pusi, tie kļūst par stiprāku figūru!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Visbiežāk paaugstināt par dāmu ir vislabākais gājiens. Taču dažreiz var noderēt arī zirdziņš!</string>
   <string name="pawnsMoveForward">Bandinieki pārvietojas uz priekšu, bet sit pa diagonāli!</string>
-  <string name="captureThenPromote">Nosit, un paaugstini!</string>
-  <string name="useAllThePawns">Izmanto visus bandiniekus! Nevajag paaugstināt.</string>
-  <string name="aPawnOnTheSecondRank">Bandinieks uz otrās horizontāles var pārvietoties par 2 lauciņiem!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Savāc visas zvaigznes! Nevajag paugstināties.</string>
-  <string name="pawnComplete">Apsveicam! Bandinieki tev vairs nav noslēpums.</string>
+  <string name="captureThenPromote">Nositiet, un paaugstiniet!</string>
+  <string name="useAllThePawns">Izmantojiet visus bandiniekus! Nav nepieciešams tos paaugstināt.</string>
+  <string name="aPawnOnTheSecondRank">Bandinieki uz otrās horizontāles var iet 2 lauciņus reizē!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Iegūstiet visas zvaigznes! Nav nepieciešams paugstināties.</string>
+  <string name="pawnComplete">Apsveicam! Bandinieki jums vairs nav noslēpums.</string>
   <string name="pawnPromotion">Bandinieka paaugstināšana</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Tavs bandinieks ir sasniedzis galdiņa malu!</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Jūsu bandinieks ir sasniedzis galdiņa malu!</string>
   <string name="itNowPromotesToAStrongerPiece">Tagad tas paaugstinās par spēcīgāku figūru.</string>
-  <string name="selectThePieceYouWant">Ņem figūru kādu vien vēlies!</string>
+  <string name="selectThePieceYouWant">Ņemiet kādu figūru vien vēlaties!</string>
   <string name="fundamentals">Pamati</string>
   <string name="capture">Sitiens</string>
-  <string name="takeTheEnemyPieces">Paņem pretinieka figūras</string>
-  <string name="captureIntro">Saskati pretinieka neaizsargātās figūras un nosit tās!</string>
-  <string name="takeTheBlackPieces">Paņem melno figūras!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Paņem melno figūras!
-Un nepazaudē savas.</string>
-  <string name="captureComplete">Apsveicam! Tagad zini kā cīnīties ar šaha figūrām!</string>
+  <string name="takeTheEnemyPieces">Nositiet pretinieka figūras</string>
+  <string name="captureIntro">Saskatiet pretinieka neaizsargātās figūras un nositiet tās!</string>
+  <string name="takeTheBlackPieces">Paņemiet melno figūras!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Paņemiet melno figūras!
+Un nezaudējiet savas.</string>
+  <string name="captureComplete">Apsveicam! Tagad protat cīnīties ar šaha figūrām!</string>
   <string name="protection">Aizsargāšana</string>
-  <string name="keepYourPiecesSafe">Sargā savas figūras</string>
-  <string name="protectionIntro">Saskati figūras, kuras apdraud pretinieks un aizsargā tās!</string>
+  <string name="keepYourPiecesSafe">Sargājiet savas figūras</string>
+  <string name="protectionIntro">Saskatiet figūras, kuras apdraud pretinieks un aizsargājiet tās!</string>
   <string name="protectionComplete">Apsveicam! Figūra, kas nav pazaudēta, ir iegūta figūra!</string>
-  <string name="escape">Tev uzbrūk!
-Izvairies no draudiem!</string>
+  <string name="escape">Jums uzbrūk!
+Izvairieties no draudiem!</string>
   <string name="noEscape">Izbēgt nevar, 
-bet tu vari aizsargāties!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Neļauj viņiem nosist nevienu neaizsargātu figūru!</string>
+bet varat aizsargāties!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Neļaujiet viņiem nosist nevienu neaizsargātu figūru!</string>
   <string name="combat">Kauja</string>
-  <string name="captureAndDefendPieces">Sit un aizsargā figūras</string>
+  <string name="captureAndDefendPieces">Sitiet un aizsargājiet figūras</string>
   <string name="combatIntro">Labs kareivis prot gan uzbrukt gan aizsargāties!</string>
   <string name="combatComplete">Apsveicam! Tagad proti cīnīties ar šaha figūrām!</string>
   <string name="checkInOne">Šahs vienā</string>
