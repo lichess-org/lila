@@ -137,19 +137,19 @@
     <item quantity="other">%s grāmatzīmes</item>
   </plurals>
   <string name="viewInFullSize">Skatīt pilnā izmērā</string>
-  <string name="logOut">Atslēgties</string>
-  <string name="signIn">Pieslēgties</string>
+  <string name="logOut">Izrakstīties</string>
+  <string name="signIn">Ierakstīties</string>
   <string name="newToLichess">Jauns Lichess lietotājs?</string>
-  <string name="youNeedAnAccountToDoThat">Lai to izdarītu,Jums nepieciešams savs konts</string>
-  <string name="signUp">Reģistrēties</string>
-  <string name="computersAreNotAllowedToPlay">Datoriem un spēlētājiem, kuri izmanto datoru palīdzību, nav atļauts spēlēt. Lūdzu, spēlējot neizmanto šaha programmu, datubāžu vai citu spēlētāju palīdzību. Aicinām neizmantot vairākus kontus - tas var novest pie piekļuves pārtraukšanas.</string>
+  <string name="youNeedAnAccountToDoThat">Lai veiktu šo darbību, nepieciešams konts</string>
+  <string name="signUp">Izveidod kontu</string>
+  <string name="computersAreNotAllowedToPlay">Datoriem un spēlētājiem, kuri izmanto datoru palīdzību, nav atļauts spēlēt. Lūdzu, spēlējot neizmantojiet šaha programmu, datubāžu vai citu spēlētāju palīdzību. Aicinām neizmantot vairākus kontus - tas var novest pie piekļuves pārtraukšanas.</string>
   <string name="games">Spēles</string>
   <string name="forum">Forums</string>
   <string name="xPostedInForumY">%1$s ziņas publicētas forumā %2$s</string>
   <string name="latestForumPosts">Jaunākie foruma paziņojumi</string>
-  <string name="players">Šahisti</string>
-  <string name="minutesPerSide">Minūtes spēlei</string>
-  <string name="variant">Varianti</string>
+  <string name="players">Spēlētāji</string>
+  <string name="minutesPerSide">Minūtes katram spēlētājam</string>
+  <string name="variant">Variants</string>
   <string name="variants">Varianti</string>
   <string name="timeControl">Laika kontrole</string>
   <string name="realTime">Klātiene</string>
