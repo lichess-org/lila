@@ -84,14 +84,14 @@
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="zero">Nākamā sišana vai bandinieka gājiens pēc %s pusgājieniem (50 gājienu skaitītāja Nullēšanas Attālums)</item>
     <item quantity="one">Nākamā sišana vai bandinieka gājiens pēc %s pusgājiena (50 gājienu skaitītāja Nullēšanas Attālums)</item>
-    <item quantity="other">Nākamā sišana vai bandinieka gājiens pēc %s pusgājiena (50 gājienu skaitītāja Nullēšanas Attālums)</item>
+    <item quantity="other">Nākamā sišana vai bandinieka gājiens pēc %s pusgājieniem (50 gājienu skaitītāja Nullēšanas Attālums)</item>
   </plurals>
   <string name="noGameFound">Neviena spēle nav atrasta</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Varbūt iekļausiet vairāk spēļu no uzstādījumu izvēlnes?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Varbūt iekļaujiet vairāk spēļu uzstādījumu izvēlnē?</string>
   <string name="openingExplorer">Atklātņu pārlūks</string>
   <string name="xOpeningExplorer">%s atklātņu pārlūks</string>
-  <string name="winPreventedBy50MoveRule">Uzvarēt neļāva 50 gājienu noteikums</string>
-  <string name="lossSavedBy50MoveRule">Izglābties no zaudējuma palīdz 50 gājienu likums</string>
+  <string name="winPreventedBy50MoveRule">50 gājienu noteikums novirzīja no uzvaras</string>
+  <string name="lossSavedBy50MoveRule">50 gājienu likums novērš zaudējumu</string>
   <string name="allSet">Gatavs!</string>
   <string name="importPgn">Ielādēt PGN</string>
   <string name="delete">Dzēst</string>
@@ -101,8 +101,8 @@
   <string name="byCPL">Pēc CPL</string>
   <string name="openStudy">Atvērt izpēti</string>
   <string name="enable">Iespējot</string>
-  <string name="bestMoveArrow">Labākā gājiena bulta</string>
-  <string name="evaluationGauge">Novērtējuma mērītājs</string>
+  <string name="bestMoveArrow">Labāko gājienu bulta</string>
+  <string name="evaluationGauge">Novērtējuma rādītājs</string>
   <string name="multipleLines">Vairāki varianti</string>
   <string name="cpus">Procesori</string>
   <string name="memory">Atmiņa</string>
@@ -113,7 +113,7 @@
   <string name="mistake">Kļūda</string>
   <string name="mistakes">Kļūdas</string>
   <string name="inaccuracy">Neprecizitāte</string>
-  <string name="inaccuracies">Sīkas kļūdas</string>
+  <string name="inaccuracies">Neprecizitātes</string>
   <string name="moveTimes">Gājienu ilgumi</string>
   <string name="flipBoard">Apgriezt galdiņu</string>
   <string name="threefoldRepetition">Trīskārša atkārtošanās</string>
