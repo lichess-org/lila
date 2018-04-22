@@ -53,6 +53,8 @@ final class GameStateStream(
           override def postStop(): Unit = {
             super.postStop()
             system.lilaBus.unsubscribe(self)
+            // hang around if game is over
+            // so the opponent has a chance to rematch
             context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {
               setConnected(false)
             }
