@@ -125,7 +125,7 @@
     <item quantity="one">%s spēlētājs</item>
     <item quantity="other">%s spēlētāji</item>
   </plurals>
-  <string name="currentGames">Pašlaik spēlē</string>
+  <string name="currentGames">Pašreizējās spēles</string>
   <plurals name="nbGames">
     <item quantity="zero">Apskatīt visas %s spēles</item>
     <item quantity="one">Apskatīt %s spēli</item>
