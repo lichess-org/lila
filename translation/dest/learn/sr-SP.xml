@@ -41,15 +41,15 @@
   <string name="itMovesInAnLShape">Креће се у L облику</string>
   <string name="knightIntro">Ево изазова за тебе. Скакач је... препредена фигура.</string>
   <string name="knightsHaveAFancyWay">Skakači imaju sklonost da skaču unaokolo!</string>
-  <string name="knightsCanJumpOverObstacles">Skakači mogu da preskaču prepreke! Da pobegnu i savladaju zvezde!</string>
+  <string name="knightsCanJumpOverObstacles">Skakači mogu da preskaču prepreke! Pobegni i savladaj zvezde!</string>
   <string name="knightComplete">Čestitamo! Savladao si skakača.</string>
-  <string name="thePawn">Pešak</string>
-  <string name="itMovesForwardOnly">Kreće se samo napred</string>
+  <string name="thePawn">Пешак</string>
+  <string name="itMovesForwardOnly">Креће се само напред</string>
   <string name="pawnIntro">Pešaci su slabi, ali imaju mnogo potencijala.</string>
   <string name="pawnsMoveOneSquareOnly">Pešaci se kreću samo ya jedno polje. Ali kada stignu na drugi kraj table, oni postaju jača figura!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">U većini slučajeva promocija u Damu je najbolje. Ali po nekad skakač dobro dođe!</string>
   <string name="pawnsMoveForward">Pešaci se kreću napred, ali nose dijagonalno!</string>
-  <string name="captureThenPromote">Nosi, onda promovisi!</string>
+  <string name="captureThenPromote">Носи, онда промовиши!</string>
   <string name="useAllThePawns">Upotrebi sve pešake! Nema potrebe za promocijom.</string>
   <string name="aPawnOnTheSecondRank">Pešak na drugom redu može skočiti za dva polja!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Зграбите све звезде!
@@ -60,9 +60,9 @@
   <string name="itNowPromotesToAStrongerPiece">Сада се промовише у јачу фигуру.</string>
   <string name="selectThePieceYouWant">Изаберите фигуру коју желите!</string>
   <string name="fundamentals">Основе</string>
-  <string name="capture">Једење</string>
+  <string name="capture">Узимање фигура</string>
   <string name="takeTheEnemyPieces">Узми противничке фигуре</string>
-  <string name="captureIntro">Идентификујте противничке небрањене фигуре и поједите их!</string>
+  <string name="captureIntro">Идентификујте небрањене противничке фигуре, и узмите их!</string>
   <string name="takeTheBlackPieces">Узмите црне фигуре!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Узмите црне фигуре!
 И немојте изгубити своје.</string>

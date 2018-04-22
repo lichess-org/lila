@@ -48,7 +48,7 @@
   <string name="computerAnalysis">lo skami nunlanli te pruce</string>
   <string name="computerAnalysisAvailable">pu se lanli lo skami</string>
   <string name="analysis">lo lanli te pruce cartu</string>
-  <string name="depthX">secisni li %s</string>
+  <string name="depthX">se cisni li %s</string>
   <string name="loadingEngine">ca\'o samymo\'i</string>
   <string name="goDeeper">zenba lo ka condi</string>
   <string name="move">kelka\'u</string>
@@ -62,7 +62,7 @@
   <string name="drawn">no da cu jinga</string>
   <string name="unknown">narju\'odza</string>
   <string name="database">samdatni</string>
-  <string name="whiteDrawBlack">labji\'a .e caxpati .e xekyji\'a</string>
+  <string name="whiteDrawBlack">lo labnunji\'a fa\'u lo nunynorji\'a fa\'u lo xeknunji\'a</string>
   <string name="averageRatingX">nilcre cnano fa li %s</string>
   <string name="topGames">lo crerai jvikei nunjvi</string>
   <string name="openingExplorer">cfari nunmu\'u ke lanli tutci je vreji</string>
@@ -72,7 +72,7 @@
   <string name="delete">vimcu</string>
   <string name="deleteThisImportedGame">xu vimcu ti noi se nerbe\'i nunjvi</string>
   <string name="realtimeReplay">pu ca\'o</string>
-  <string name="openStudy">kalri lo seltadni</string>
+  <string name="openStudy">kargau lo seltadni</string>
   <string name="cpus">lo mijykemructerci\'e</string>
   <string name="blunders">lo nu srera sai</string>
   <string name="mistakes">lo nu srera na\'oi</string>
@@ -152,7 +152,7 @@
   <string name="playingRightNow">ca\'o jivna</string>
   <string name="eventInProgress">ca\'o jivna</string>
   <string name="finished">mo\'u fasnu</string>
-  <string name="abortGame">tolcfagau je vimcu lo nu jivna</string>
+  <string name="abortGame">tolcfagau gi\'e vimcu lo nu jivna</string>
   <string name="gameAborted">lo nu jivna ku gau ge tolcfa gi ba se vimcu</string>
   <string name="standard">lo fadni caxmati</string>
   <string name="unlimited">lo cimni temci</string>
@@ -565,6 +565,9 @@
   <string name="error.unknown">srera da</string>
   <string name="notifications">lo notci</string>
   <string name="challenges">lo talsa</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">zukte .ei lo pa moi kelka\'u ba nu\'i la\'u lo snidu be li su\'e %s</item>
+  </plurals>
   <string name="practiceWithComputer">crezenrapzu\'e se pi\'o lo skami</string>
   <string name="resumePractice">di\'a crezenrapzu\'e</string>
   <string name="seeBestMove">viska lo xagrai se zukte</string>

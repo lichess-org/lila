@@ -196,7 +196,7 @@
   <string name="yourOpponentOffersADraw">Il tuo avversario offre patta</string>
   <string name="accept">Accetta</string>
   <string name="decline">Rifiuta</string>
-  <string name="playingRightNow">Sta giocando in questo momento</string>
+  <string name="playingRightNow">Partita in corso</string>
   <string name="eventInProgress">In corso in questo momento</string>
   <string name="finished">Terminati</string>
   <string name="abortGame">Interrompi la partita</string>
@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Questa partita è classificata</string>
   <string name="rematch">Rivincita</string>
   <string name="rematchOfferSent">Offerta di rivincita inviata</string>
+  <string name="rematchOfferSentWhite">Il Bianco propone una nuova partita</string>
+  <string name="rematchOfferSentBlack">Il Nero propone una nuova partita</string>
   <string name="rematchOfferAccepted">Rivincita accettata</string>
   <string name="rematchOfferCanceled">Offerta di rivincita annullata</string>
   <string name="rematchOfferDeclined">Offerta di rivincita rifiutata</string>

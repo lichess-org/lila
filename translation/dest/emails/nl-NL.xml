@@ -7,7 +7,7 @@
   <string name="passwordReset_subject">Herstel uw lichess.org wachtwoord, %s</string>
   <string name="passwordReset_intro">We hebben een aanvraag ontvangen om het wachtwoord voor uw account te herstellen.</string>
   <string name="passwordReset_clickOrIgnore">Als u deze aanvraag heeft gedaan, klikt u op onderstaande link. U kunt deze e-mail anders negeren.</string>
-  <string name="emailChange_subject">Bevestig nieuw emailadres, %s</string>
+  <string name="emailChange_subject">Bevestig nieuw e-mailadres, %s</string>
   <string name="emailChange_intro">U heeft een aanvraag gedaan om uw e-mailadres te wijzigen.</string>
   <string name="emailChange_click">Om te bevestigen dat u toegang heeft tot deze e-mail, klikt u op onderstaande link:</string>
   <string name="welcome_subject">Welkom op lichess.org, %s</string>
