@@ -44,7 +44,7 @@ object Game extends LilaController {
                 until = getLong("until", req) map { ts => new DateTime(ts) },
                 max = getInt("max", req) map (_ atLeast 1),
                 rated = getBoolOpt("rated", req),
-                perfType = get("perfType", req) flatMap lila.rating.PerfType.apply,
+                perfType = ~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) } toSet,
                 flags = lila.game.PgnDump.WithFlags(
                   moves = getBoolOpt("moves", req) | true,
                   tags = getBoolOpt("tags", req) | true,
