@@ -308,6 +308,10 @@ object mon {
       }
     }
   }
+  object bot {
+    def moves(username: String) = inc(s"bot.moves.$username")
+    def chats(username: String) = inc(s"bot.chats.$username")
+  }
   object cheat {
     val cssBot = inc("cheat.css_bot")
     val holdAlert = inc("cheat.hold_alert")

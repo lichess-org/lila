@@ -17,8 +17,9 @@ final class BotPlayer(
     system: ActorSystem
 ) {
 
-  def apply(pov: Pov, uciStr: String): Funit =
+  def apply(pov: Pov, me: User, uciStr: String): Funit =
     Uci(uciStr).fold(fufail[Unit](s"Invalid UCI: $uciStr")) { uci =>
+      lila.mon.bot.moves(me.username)()
       if (!pov.isMyTurn) fufail("Not your turn, or game already over")
       else {
         val promise = Promise[Unit]
@@ -28,6 +29,7 @@ final class BotPlayer(
     }
 
   def chat(gameId: Game.ID, me: User, d: BotForm.ChatData) = fuccess {
+    lila.mon.bot.chats(me.username)()
     val chatId = lila.chat.Chat.Id {
       if (d.room == "player") gameId else s"$gameId/w"
     }

@@ -22,7 +22,7 @@ object Bot extends LilaController {
 
   def move(id: String, uci: String) = Scoped(_.Bot.Play) { _ => me =>
     WithMyBotGame(id, me) { pov =>
-      Env.bot.player(pov, uci) inject jsonOkResult recover {
+      Env.bot.player(pov, me, uci) inject jsonOkResult recover {
         case e: Exception => BadRequest(jsonError(e.getMessage))
       }
     }
