@@ -64,12 +64,15 @@ object PgnDump {
       max: Option[Int] = None,
       rated: Option[Boolean] = None,
       perfType: Set[lila.rating.PerfType],
+      color: Option[chess.Color],
       flags: WithFlags,
       perSecond: MaxPerSecond
   ) {
     def postFilter(g: Game) =
       rated.fold(true)(g.rated ==) && {
         perfType.isEmpty || g.perfType.exists(perfType.contains)
+      } && color.fold(true) { c =>
+        g.player(c).userId has user.id
       }
   }
 }

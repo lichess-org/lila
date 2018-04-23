@@ -45,6 +45,7 @@ object Game extends LilaController {
                 max = getInt("max", req) map (_ atLeast 1),
                 rated = getBoolOpt("rated", req),
                 perfType = ~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) } toSet,
+                color = get("color", req) flatMap chess.Color.apply,
                 flags = lila.game.PgnDump.WithFlags(
                   moves = getBoolOpt("moves", req) | true,
                   tags = getBoolOpt("tags", req) | true,
