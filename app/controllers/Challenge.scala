@@ -72,7 +72,7 @@ object Challenge extends LilaController {
         )
       }
     },
-    scoped = _ => me => env.api.activeByIdFor(id, me) flatMap {
+    scoped = _ => me => env.api.onlineByIdFor(id, me) flatMap {
       _ ?? { env.api.accept(_, me.some) }
     } flatMap { res =>
       if (res.isDefined) jsonOkResult.fuccess
