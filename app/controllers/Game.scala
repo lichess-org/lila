@@ -44,7 +44,7 @@ object Game extends LidraughtsController {
                 until = getLong("until", req) map { ts => new DateTime(ts) },
                 max = getInt("max", req) map (_ atLeast 1),
                 rated = getBoolOpt("rated", req),
-                perfType = get("perfType", req) flatMap lidraughts.rating.PerfType.apply,
+                perfType = ~get("perfType", req) split "," flatMap { lidraughts.rating.PerfType(_) } toSet,
                 flags = lidraughts.game.PdnDump.WithFlags(
                   moves = getBoolOpt("moves", req) | true,
                   tags = getBoolOpt("tags", req) | true,

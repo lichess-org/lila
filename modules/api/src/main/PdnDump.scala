@@ -63,12 +63,13 @@ object PdnDump {
       until: Option[DateTime] = None,
       max: Option[Int] = None,
       rated: Option[Boolean] = None,
-      perfType: Option[lidraughts.rating.PerfType],
+      perfType: Set[lidraughts.rating.PerfType],
       flags: WithFlags,
       perSecond: MaxPerSecond
   ) {
     def postFilter(g: Game) =
-      rated.fold(true)(g.rated ==) &&
-        perfType.fold(true)(g.perfType.has)
+      rated.fold(true)(g.rated ==) && {
+        perfType.isEmpty || g.perfType.exists(perfType.contains)
+      }
   }
 }
