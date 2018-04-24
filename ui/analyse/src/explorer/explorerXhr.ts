@@ -1,6 +1,6 @@
 import { OpeningData, TablebaseData } from './interfaces';
 
-export function opening(endpoint: string, variant: string, fen: Fen, config, withGames: boolean): JQueryPromise<OpeningData> {
+export function opening(endpoint: string, variant: VariantKey, fen: Fen, config, withGames: boolean): JQueryPromise<OpeningData> {
   let url: string;
   const params: any = {
     fen,
@@ -25,9 +25,10 @@ export function opening(endpoint: string, variant: string, fen: Fen, config, wit
   });
 }
 
-export function tablebase(endpoint: string, variant: string, fen: Fen): JQueryPromise<TablebaseData> {
+export function tablebase(endpoint: string, variant: VariantKey, fen: Fen): JQueryPromise<TablebaseData> {
+  const effectiveVariant = (variant === 'fromPosition' || variant === 'chess960') ? 'standard' : variant;
   return $.ajax({
-    url: endpoint + '/' + variant,
+    url: endpoint + '/' + effectiveVariant,
     data: { fen },
     cache: true
   }).then((data: Partial<TablebaseData>) => {
