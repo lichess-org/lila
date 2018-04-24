@@ -390,7 +390,7 @@
   <string name="conditionOfEntry">Teilnahmebedingung:</string>
   <string name="advancedSettings">Erweiterte Einstellungen</string>
   <string name="safeTournamentName">Wähle einen äußerst sicheren Namen für das Turnier.</string>
-  <string name="inappropriateNameWarning">Unangemessene Inhalte können zur Schließung des Benutzerkontos führen.</string>
+  <string name="inappropriateNameWarning">Sämtliche unangemessene Inhalte können zur Schließung deines Benutzerkontos führen.</string>
   <string name="emptyTournamentName">Frei lassen, um das Turnier nach einem zufälligen Großmeister zu benennen.</string>
   <string name="recommendNotTouching">Wir empfehlen, diese nicht zu ändern.</string>
   <string name="fewerPlayers">Falls du Teilnahmebedingungen setzt, wird das Turnier weniger Spieler haben.</string>
