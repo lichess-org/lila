@@ -47,7 +47,8 @@ export interface PracticeCtrl {
 
 export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCtrl {
 
-  const running = prop(true),
+  const variant = root.data.game.variant.key,
+  running = prop(true),
   comment = prop<Comment | null>(null),
   hovering = prop<any>(null),
   hinting = prop<Hinting | null>(null),
@@ -135,7 +136,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       comment(null);
       return root.redraw();
     }
-    if (tablebaseGuaranteed(node.fen) && !node.tbhit) return;
+    if (tablebaseGuaranteed(variant, node.fen) && !node.tbhit) return;
     ensureCevalRunning();
     if (isMyTurn()) {
       const h = hinting();
@@ -168,7 +169,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   };
 
   function checkCevalOrTablebase() {
-    if (tablebaseGuaranteed(root.node.fen)) root.explorer.fetchTablebaseHit(root.node.fen).then(hit => {
+    if (tablebaseGuaranteed(variant, root.node.fen)) root.explorer.fetchTablebaseHit(root.node.fen).then(hit => {
       if (hit && root.node.fen === hit.fen) root.node.tbhit = hit;
       checkCeval();
     });

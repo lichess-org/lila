@@ -14,14 +14,25 @@ function pieceCount(fen: Fen) {
     return fen.split(',').length + 1;
 }
 
-export function tablebaseGuaranteed(fen: Fen) {
-  return pieceCount(fen) <= 6;
+export function tablebaseGuaranteed(variant: VariantKey, fen: Fen) {
+  switch (variant) {
+    case 'standard':
+    case 'fromPosition':
+      return pieceCount(fen) <= 0;
+    default:
+      return false;
+  }
 }
 
-function tablebaseRelevant(variant: string, fen: Fen) {
+function tablebaseRelevant(variant: VariantKey, fen: Fen) {
   const count = pieceCount(fen);
-  if (variant === 'standard') return count <= 0;
-  else return false;
+  switch (variant) {
+    case 'standard':
+    case 'fromPosition':
+      return count <= 0;
+    default:
+      return false;
+  }
 }
 
 export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
