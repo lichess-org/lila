@@ -41,6 +41,12 @@
     </appender>
   </logger>
 
+  <logger name="round" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+      <file>${application.home}/logs/round.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+    </appender>
+  </logger>
   <logger name="relay" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
       <file>${application.home}/logs/relay.log</file>
