@@ -69,8 +69,8 @@ final class PerfsUpdater(
           UserRepo.setPerfs(black, perfsB, black.perfs) zip
           historyApi.add(white, game, perfsW) zip
           historyApi.add(black, game, perfsB) zip
-          (if (white.rankable) rankingApi.save(white.id, game.perfType, perfsW) else funit) zip
-          (if (black.rankable) rankingApi.save(black.id, game.perfType, perfsB) else funit) inject ratingDiffs.some
+          (white.rankable ?? rankingApi.save(white.id, game.perfType, perfsW)) zip
+          (black.rankable ?? rankingApi.save(black.id, game.perfType, perfsB)) inject ratingDiffs.some
       }
     }
 
@@ -138,7 +138,7 @@ final class PerfsUpdater(
       def addRatingIf(cond: Boolean, perf: Perf, rating: Rating) =
         if (cond) {
           val p = perf.addOrReset(_.round.error.glicko, s"game ${game.id}")(rating, game.movedAt)
-          if (isHumanVsMachine) perf averageGlicko p // halve rating diffs for human
+          if (isHumanVsMachine) p averageGlicko perf // halve rating diffs for human
           else p
         } else perf
       val perfs1 = perfs.copy(
