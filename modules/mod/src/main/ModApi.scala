@@ -36,10 +36,12 @@ final class ModApi(
   def autoMark(suspectId: SuspectId, modId: ModId): Funit = for {
     sus <- reportApi.getSuspect(suspectId.value) flatten s"No such suspect $suspectId"
     unengined <- logApi.wasUnengined(sus)
-    _ <- if (unengined) funit else reportApi.getMod(modId.value) flatMap {
-      _ ?? { mod =>
-        lila.mon.cheat.autoMark.count()
-        setEngine(mod, sus, true)
+    _ <- (!sus.user.isBot && !unengined) ?? {
+      reportApi.getMod(modId.value) flatMap {
+        _ ?? { mod =>
+          lila.mon.cheat.autoMark.count()
+          setEngine(mod, sus, true)
+        }
       }
     }
   } yield ()

@@ -50,22 +50,24 @@ final class AssessApi(
         a => PlayerAssessments(a._1, a._2)
       }
 
-  private def getPlayerAggregateAssessment(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment]] = {
-    val relatedUsers = userIdsSharingIp(userId)
-    UserRepo.byId(userId) zip
-      getPlayerAssessmentsByUserId(userId, nb) zip
-      relatedUsers zip
-      (relatedUsers flatMap UserRepo.filterByEngine) map {
-        case Some(user) ~ (assessedGamesHead :: assessedGamesTail) ~ relatedUs ~ relatedCheaters =>
-          Some(PlayerAggregateAssessment(
-            user,
-            assessedGamesHead :: assessedGamesTail,
-            relatedUs,
-            relatedCheaters
-          ))
-        case _ => none
+  private def getPlayerAggregateAssessment(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment]] =
+    UserRepo byId userId flatMap {
+      _.filter(_.noBot) ?? { user =>
+        val relatedUsers = userIdsSharingIp(userId)
+        getPlayerAssessmentsByUserId(userId, nb) zip
+          relatedUsers zip
+          (relatedUsers flatMap UserRepo.filterByEngine) map {
+            case (assessedGamesHead :: assessedGamesTail) ~ relatedUs ~ relatedCheaters =>
+              Some(PlayerAggregateAssessment(
+                user,
+                assessedGamesHead :: assessedGamesTail,
+                relatedUs,
+                relatedCheaters
+              ))
+            case _ => none
+          }
       }
-  }
+    }
 
   def withGames(pag: PlayerAggregateAssessment): Fu[PlayerAggregateAssessment.WithGames] =
     GameRepo gamesFromSecondary pag.playerAssessments.map(_.gameId) map {
@@ -79,7 +81,8 @@ final class AssessApi(
     }
 
   def refreshAssessByUsername(username: String): Funit = withUser(username) { user =>
-    (GameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
+    if (user.isBot) funit
+    else (GameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
       (gs map { g =>
         AnalysisRepo.byGame(g) flatMap {
           _ ?? { onAnalysisReady(g, _, false) }
