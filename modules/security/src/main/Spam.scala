@@ -31,7 +31,7 @@ object Spam {
   private val replacements = List(
     s"""chess24.com\\?ref=\\w+""" -> "chess24.com",
     s"""chess.com/register\\?refId=\\w+""" -> "chess.com",
-    s"""${protocol}${cb}(\\.com)?[^\\s]*""" -> tosUrl
+    s"""\b${protocol}${cb}(\\.com)?[^\\s]*""" -> tosUrl
   ).map {
       case (regex, replacement) => regex.r -> replacement
     }
