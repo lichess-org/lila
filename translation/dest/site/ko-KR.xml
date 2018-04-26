@@ -459,7 +459,7 @@
   <string name="pgnLetter">글자 (K, Q, R, B, N)</string>
   <string name="chessClock">체스 시계</string>
   <string name="tenthsOfSeconds">1/10초 단위</string>
-  <string name="never">설정하지 않음</string>
+  <string name="never">안 함</string>
   <string name="whenTimeRemainingLessThanTenSeconds">남은 시간이 10초 미만일 때</string>
   <string name="horizontalGreenProgressBars">녹색 수평 진행 바</string>
   <string name="soundWhenTimeGetsCritical">시간이 위태로울 때 소리 재생</string>
