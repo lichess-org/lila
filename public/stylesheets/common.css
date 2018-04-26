@@ -726,7 +726,7 @@ div.side_box .padded {
   padding: 7px;
 }
 @media (max-width: 1070px) {
-  div.side_box,
+  .side_box,
   #site_header a.stream {
     margin-left: 0!important;
     width: 196px!important;
@@ -837,15 +837,16 @@ div.side form.search input {
 #site_header div.side_menu .sep {
   margin: 10px;
 }
-.context-streamer {
+.context-streamer,
+.deep_link {
   display: block;
   padding: 5px;
   margin: 0 0 1px -30px;
   color: #fff!important;
   background: rgba(117,153,0,0.5);
-  border-radius: 0 0 3px 3px;
   overflow: hidden;
   white-space:nowrap;
+  border-radius: 0 0 3px 3px;
 }
 .context-streamer::before {
   font-size: 1.5em;

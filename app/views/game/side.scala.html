@@ -75,6 +75,10 @@
   <div class="side_box">
     <h2 class="top user_tv text" data-user-tv="@u.id" data-icon="1">@u.titleUsername</h2>
   </div>
+  }.getOrElse {
+  @if(lila.common.HTTPRequest.isMobile(ctx.req)) {
+  <a class="side_box text deep_link" data-icon="" href="lichess://analyse/@pov.gameId">Open with <strong>Mobile app</strong></a>
+  }
   }
 
   @tour.map { t =>
