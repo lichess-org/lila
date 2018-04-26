@@ -18,8 +18,8 @@ final class IrwinApi(
     mode: () => String
 ) {
 
-  val reportThreshold = 85
-  val markThreshold = 95
+  val reportThreshold = 65
+  val markThreshold = 93
 
   import BSONHandlers._
 
