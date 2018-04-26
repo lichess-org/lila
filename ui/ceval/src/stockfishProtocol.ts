@@ -63,9 +63,6 @@ export default class Protocol {
         elapsedMs: number = parseInt(matches[7]),
         moves = matches[8].split(' ');
 
-    // Sometimes we get #0. Let's just skip it.
-    if (isMate && !ev) return;
-
     // Track max pv index to determine when pv prints are done.
     if (this.expectedPvs < multiPv) this.expectedPvs = multiPv;
 
