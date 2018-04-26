@@ -700,7 +700,7 @@ en %3$s</string>
   <string name="analysisShapesHowTo">Pulsa Mays+clic ou fai clic dereito para debuxar círculos e frechas no taboleiro.</string>
   <string name="confirmResignationAndDrawOffers">Confirmar abandono e ofertas de táboas</string>
   <string name="inputMovesWithTheKeyboard">Introducción de movementos co teclado</string>
-  <string name="letOtherPlayersMessageYou">Deizar que outros xogadores te envíen mensaxes</string>
+  <string name="letOtherPlayersMessageYou">Permitir que outros xogadores te envíen mensaxes</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Método de enroque</string>
   <string name="castleByMovingTwoSquares">Movendo o rei dúas casillas</string>
   <string name="castleByMovingOntoTheRook">Movendo rei ata a torre</string>
