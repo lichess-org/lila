@@ -203,7 +203,7 @@ object Round extends LilaController with TheftPrevention {
     tourId ?? { Env.tournament.api.miniView(_, withTop) }
 
   private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = {
-    ctx.noKid && ctx.me.exists(Env.chat.panic.allowed)
+    ctx.noKid && ctx.me.exists(Env.chat.panic.allowed) && !ctx.userId.exists(game.userIds.contains)
   } ?? {
     Env.chat.api.userChat.findMineIf(Chat.Id(s"${game.id}/w"), ctx.me, !game.justCreated) flatMap { chat =>
       Env.user.lightUserApi.preloadMany(chat.chat.userIds) inject chat.some
