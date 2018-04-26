@@ -5,7 +5,7 @@ var userIds = db.user4.distinct('_id', {
   enabled: true,
   title: {
     $exists: true,
-    $ne: 'LM'
+    $nin: ['LM', 'BOT']
   }
 });
 'thibault arex'.split(' ').forEach(u => userIds.push(u));
