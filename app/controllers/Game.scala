@@ -28,12 +28,12 @@ object Game extends LidraughtsController {
   }
 
   def export(username: String) = OpenOrScoped()(
-    open = ctx => handleExport(username, ctx.me, ctx.req, ctx.pref.draughtsResult),
-    scoped = req => me => handleExport(username, me.some, req, lidraughts.pref.Pref.default.draughtsResult)
+    open = ctx => handleExport(username, ctx.me, ctx.req, ctx.pref.draughtsResult, oauth = false),
+    scoped = req => me => handleExport(username, me.some, req, lidraughts.pref.Pref.default.draughtsResult, oauth = true)
   )
 
-  private def handleExport(username: String, me: Option[lidraughts.user.User], req: RequestHeader, draughtsResult: Boolean) =
-    lidraughts.user.UserRepo named username flatMap {
+  private def handleExport(username: String, me: Option[lidraughts.user.User], req: RequestHeader, draughtsResult: Boolean, oauth: Boolean) =
+      lidraughts.user.UserRepo named username flatMap {
       _ ?? { user =>
         RequireHttp11(req) {
           Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
@@ -55,7 +55,7 @@ object Game extends LidraughtsController {
                 perSecond = MaxPerSecond(me match {
                   case None => 10
                   case Some(m) if m is user.id => 50
-                  case Some(_) => 20
+                  case Some(_) if oauth => 20 // bonus for oauth logged in only (not to XSRF)
                 })
               )
               val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
