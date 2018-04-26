@@ -63,7 +63,10 @@
   <string name="pawnMove">폰 이동</string>
   <string name="capture">Capture</string>
   <string name="close">닫기</string>
+  <string name="winning">이기는 수</string>
+  <string name="losing">지는 수</string>
   <string name="drawn">무승부</string>
+  <string name="unknown">알 수 없음</string>
   <string name="database">데이터베이스</string>
   <string name="whiteDrawBlack">백 : 무승부 : 흑</string>
   <string name="averageRatingX">평균 레이팅: %s</string>
@@ -88,6 +91,7 @@
   <string name="bestMoveArrow">화살표로 최상의 수 표시하기</string>
   <string name="memory">메모리</string>
   <string name="infiniteAnalysis">무한분석</string>
+  <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다.</string>
   <string name="blunders">치명적 실수</string>
   <string name="mistakes">실수</string>
   <string name="inaccuracies">사소한 실수</string>
@@ -169,6 +173,7 @@
   <string name="accept">승낙</string>
   <string name="decline">거절</string>
   <string name="playingRightNow">대국 중</string>
+  <string name="eventInProgress">지금 대국 중</string>
   <string name="finished">종료</string>
   <string name="abortGame">게임 중단</string>
   <string name="gameAborted">게임 중단됨</string>
@@ -177,9 +182,13 @@
   <string name="mode">모드</string>
   <string name="casual">캐주얼</string>
   <string name="rated">레이팅</string>
+  <string name="casualTournament">일반</string>
+  <string name="ratedTournament">레이팅</string>
   <string name="thisGameIsRated">이 게임은 레이팅 게임입니다</string>
   <string name="rematch">재대결</string>
   <string name="rematchOfferSent">재대결 요청을 보냈습니다</string>
+  <string name="rematchOfferSentWhite">흰색이 재대결을 신청했습니다</string>
+  <string name="rematchOfferSentBlack">검은색이 재대결을 신청했습니다</string>
   <string name="rematchOfferAccepted">재대결 요청이 승낙됐습니다</string>
   <string name="rematchOfferCanceled">재대결 요청이 취소됐습니다</string>
   <string name="rematchOfferDeclined">재대결 요청이 거절됐습니다</string>
@@ -316,6 +325,7 @@
   <string name="winner">승자</string>
   <string name="standing">순위</string>
   <string name="createANewTournament">새 토너먼트 생성</string>
+  <string name="advancedSettings">고급 설정</string>
   <string name="join">참가하기</string>
   <string name="withdraw">중단</string>
   <string name="points">포인트</string>
