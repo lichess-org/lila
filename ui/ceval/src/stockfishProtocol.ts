@@ -28,8 +28,9 @@ export default class Protocol {
     // get engine name/version
     send('uci');
 
-    // contempt 0 is more suitable for analysis (default is 20 since sf 9)
-    send('setoption name Contempt value 0');
+    // analyse without contempt
+    send('setoption name UCI_AnalyseMode value true');
+    send('setoption name Analysis Contempt value Off');
 
     if (opts.variant === 'fromPosition' || opts.variant === 'chess960')
       send('setoption name UCI_Chess960 value true');
