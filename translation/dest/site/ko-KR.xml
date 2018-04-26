@@ -475,7 +475,7 @@
   <string name="privacy">보안</string>
   <string name="letOtherPlayersFollowYou">다른 사람이 팔로우할 수 있게 함</string>
   <string name="letOtherPlayersChallengeYou">다른 사람이 나에게 도전할 수 있게 함</string>
-  <string name="letOtherPlayersInviteYouToStudy">다른 플레이어들이 공부 초대 설정</string>
+  <string name="letOtherPlayersInviteYouToStudy">다른 플레이어들이 나를 학습에 초대할 수 있음</string>
   <string name="sound">소리</string>
   <string name="yourPreferencesHaveBeenSaved">설정이 저장되었습니다.</string>
   <string name="none">없음</string>
