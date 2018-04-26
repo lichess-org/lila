@@ -173,6 +173,7 @@ div.create_tournament {
 }
 #tournament .podium .user_link {
   font-weight: bold;
+  letter-spacing: -1px;
 }
 #tournament .podium .stats {
   margin: 0.5em auto 0 auto;
