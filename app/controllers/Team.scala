@@ -52,13 +52,13 @@ object Team extends LilaController {
     _ <- Env.user.lightUserApi preloadMany info.userIds
   } yield html.team.show(team, members, info)
 
-  def users(teamId: String) = Api.ApiRequest { implicit ctx =>
+  def users(teamId: String) = Api.ApiRequest { req =>
     import Api.limitedDefault
     Env.team.api.team(teamId) flatMap {
       _ ?? { team =>
-        val max = getInt("max") map (_ atLeast 1)
+        val max = getInt("max", req) map (_ atLeast 1)
         val cost = 100
-        val ip = lila.common.HTTPRequest lastRemoteAddress ctx.req
+        val ip = lila.common.HTTPRequest lastRemoteAddress req
         Api.UsersRateLimitPerIP(ip, cost = cost) {
           Api.UsersRateLimitGlobal("-", cost = cost, msg = ip.value) {
             lila.mon.api.teamUsers.cost(cost)
