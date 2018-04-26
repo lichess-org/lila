@@ -695,4 +695,24 @@
   <string name="notifications">알림</string>
   <string name="challenges">도전</string>
   <string name="perfRatingX">레이팅: %s</string>
+  <string name="theGameIsADraw">무승부 게임입니다.</string>
+  <string name="computerThinking">컴퓨터 생각 중…</string>
+  <string name="seeBestMove">최상의 수 보기</string>
+  <string name="hideBestMove">최상의 수 숨기기</string>
+  <string name="getAHint">힌트 보기</string>
+  <string name="evaluatingYourMove">이동하신 수를 평가 중입니다…</string>
+  <string name="whiteWinsGame">하얀색 승리</string>
+  <string name="blackWinsGame">검은색 승리</string>
+  <string name="learnFromYourMistakes">실수에서 배우기</string>
+  <string name="learnFromThisMistake">이 실수에서 배우기</string>
+  <string name="skipThisMove">이 수 넘기기</string>
+  <string name="next">다음으로</string>
+  <string name="findBetterMoveForWhite">흰색에게 좀 더 나은 수를 찾아보세요</string>
+  <string name="findBetterMoveForBlack">검은색에게 좀 더 나은 수를 찾아보세요</string>
+  <string name="resumeLearning">학습 계속하기</string>
+  <string name="youCanDoBetter">더 잘할 수 있어요</string>
+  <string name="tryAnotherMoveForWhite">흰색에게 또 다른 수를 찾아보세요</string>
+  <string name="tryAnotherMoveForBlack">검은색에게 또 다른 수를 찾아보세요</string>
+  <string name="solution">해답</string>
+  <string name="waitingForAnalysis">분석을 기다리는 중</string>
 </resources>
