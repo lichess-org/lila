@@ -73,7 +73,7 @@ object Api extends LilaController {
         lila.mon.api.users.cost(cost)
         lila.user.UserRepo nameds usernames map {
           _.map { Env.user.jsonView(_, none) }
-        } map toApiResult map toHttp(req)
+        } map toApiResult map toHttp
       }
     }
   }
@@ -183,7 +183,7 @@ object Api extends LilaController {
       gameApi.many(
         ids = gameIds,
         withMoves = getBool("with_moves", req)
-      ) map toApiResult map toHttp(req)
+      ) map toApiResult map toHttp
     }(Zero.instance(tooManyRequests.fuccess))
   }
 
@@ -337,15 +337,15 @@ object Api extends LilaController {
   def toApiResult(stream: Enumerator[JsObject]): ApiResult = JsonStream(stream)
 
   def CookieBasedApiRequest(js: Context => Fu[ApiResult]) = Open { ctx =>
-    js(ctx) map toHttp(ctx.req)
+    js(ctx) map toHttp
   }
   def ApiRequest(js: RequestHeader => Fu[ApiResult]) = Action.async { req =>
-    js(req) map toHttp(req)
+    js(req) map toHttp
   }
 
   private[controllers] val tooManyRequests = TooManyRequest(jsonError("Try again later"))
 
-  private def toHttp(req: RequestHeader)(result: ApiResult): Result = result match {
+  private def toHttp(result: ApiResult): Result = result match {
     case Limited => tooManyRequests
     case NoData => NotFound
     case Custom(result) => result
@@ -355,9 +355,6 @@ object Api extends LilaController {
           Json.stringify(o) + "\n"
         }
       }.withHeaders(CONTENT_TYPE -> "application/x-ndjson")
-    case Data(json) => get("callback", req) match {
-      case None => Ok(json) as JSON
-      case Some(callback) => Ok(s"$callback($json)") as JAVASCRIPT
-    }
+    case Data(json) => Ok(json) as JSON
   }
 }

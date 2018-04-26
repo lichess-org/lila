@@ -169,8 +169,6 @@ Returns tournaments displayed on the schedule: https://lichess.org/tournament
 }
 ```
 
-JSONP is available.
-
 ### `GET /api/tournament/<tournamentId>` fetch one tournament
 
 Returns tournament info, and a page of the tournament standing
@@ -280,8 +278,6 @@ curl 'https://lichess.org/api/tournament/x5WNIngd?page=1'
 }
 ```
 
-JSONP is available.
-
 ### `GET /tv/channels` fetch current tournaments
 
 Returns the current game ID and best player for each TV channel: https://lichess.org/tv
@@ -289,5 +285,3 @@ Returns the current game ID and best player for each TV channel: https://lichess
 ```
 > curl https://lichess.org/tv/channels
 ```
-
-JSONP is available.
