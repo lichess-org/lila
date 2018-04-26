@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 
 import lidraughts.base.LidraughtsException
 import lidraughts.tree.Node.Comments
+import lidraughts.study.MultiPdn
 
 private final class RelayFetch(
     sync: RelaySync,
@@ -105,8 +106,6 @@ private final class RelayFetch(
 
 private object RelayFetch {
 
-  case class MultiPdn(value: List[String]) extends AnyVal
-
   import Relay.Sync.Upstream
   case class GamesSeenBy(games: Fu[RelayGames], seenBy: Set[Relay.Id])
 
@@ -136,7 +135,7 @@ private object RelayFetch {
 
   private def dgtOneFile(file: String, max: Int): Fu[MultiPdn] =
     httpGet(file).flatMap {
-      case res if res.status == 200 => fuccess(splitPdn(res.body, max))
+      case res if res.status == 200 => fuccess(MultiPdn.split(res.body, max))
       case res => fufail(s"[${res.status}]")
     }
 
@@ -167,13 +166,6 @@ private object RelayFetch {
   }
 
   private def httpGet(url: String) = WS.url(url).withRequestTimeout(4.seconds.toMillis).get()
-
-  private def splitPdn(str: String, max: Int) = MultiPdn {
-    """\n\n\[""".r.split(str.replace("\r\n", "\n")).toList take max match {
-      case first :: rest => first :: rest.map(t => s"[$t")
-      case Nil => Nil
-    }
-  }
 
   private object multiPdnToGames {
 

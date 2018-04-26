@@ -41,3 +41,12 @@ export function practiceComplete(chapterId: string, nbMoves: number) {
     headers
   });
 }
+
+export function importPdn(studyId: string, data: any) {
+  return $.ajax({
+    method: 'POST',
+    url: `/study/${studyId}/import-pdn`,
+    data: data,
+    headers
+  });
+}

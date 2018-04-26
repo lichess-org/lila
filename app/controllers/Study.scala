@@ -217,7 +217,7 @@ object Study extends LidraughtsController {
 
   def createAs = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    lidraughts.study.DataForm.form.bindFromRequest.fold(
+    lidraughts.study.DataForm.importGame.form.bindFromRequest.fold(
       err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
       data => for {
         owner <- env.studyRepo.recentByOwner(me.id, 50)
@@ -230,14 +230,14 @@ object Study extends LidraughtsController {
 
   def create = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    lidraughts.study.DataForm.form.bindFromRequest.fold(
+    lidraughts.study.DataForm.importGame.form.bindFromRequest.fold(
       err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
       data => createStudy(data, me)
     )
   }
 
-  private def createStudy(data: lidraughts.study.DataForm.Data, me: lidraughts.user.User)(implicit ctx: Context) =
-    env.api.create(lidraughts.study.StudyMaker.Data(data), me) flatMap {
+  private def createStudy(data: lidraughts.study.DataForm.importGame.Data, me: lidraughts.user.User)(implicit ctx: Context) =
+    env.api.importGame(lidraughts.study.StudyMaker.ImportGame(data), me) flatMap {
       _.fold(notFound) { sc =>
         Redirect(routes.Study.show(sc.study.id.value)).fuccess
       }
@@ -253,6 +253,14 @@ object Study extends LidraughtsController {
     env.api.isOwner(id, me) flatMap {
       _ ?? Env.chat.api.userChat.clear(Chat.Id(id))
     } inject Redirect(routes.Study.show(id))
+  }
+
+  def importPdn(id: String) = AuthBody { implicit ctx => me =>
+    implicit val req = ctx.body
+    lidraughts.study.DataForm.importPdn.form.bindFromRequest.fold(
+      err => BadRequest(errorsAsJson(err)).fuccess,
+      data => env.api.importPdns(me, StudyModel.Id(id), data.toChapterDatas, sticky = data.sticky)
+    )
   }
 
   def embed(id: String, chapterId: String) = Open { implicit ctx =>

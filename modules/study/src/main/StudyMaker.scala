@@ -10,7 +10,7 @@ private final class StudyMaker(
     chapterMaker: ChapterMaker
 ) {
 
-  def apply(data: StudyMaker.Data, user: User, draughtsResult: Boolean): Fu[Study.WithChapter] =
+  def apply(data: StudyMaker.ImportGame, user: User, draughtsResult: Boolean): Fu[Study.WithChapter] =
     (data.form.gameId ?? GameRepo.gameWithInitialFen).flatMap {
       case Some((game, initialFen)) => createFromPov(data, Pov(game, data.form.orientation), initialFen, user, draughtsResult)
       case None => createFromScratch(data, user, draughtsResult)
@@ -19,7 +19,7 @@ private final class StudyMaker(
       sc.copy(study = sc.study.copy(from = data.from | sc.study.from))
     }
 
-  private def createFromScratch(data: StudyMaker.Data, user: User, draughtsResult: Boolean): Fu[Study.WithChapter] = {
+  private def createFromScratch(data: StudyMaker.ImportGame, user: User, draughtsResult: Boolean): Fu[Study.WithChapter] = {
     val study = Study.make(user, Study.From.Scratch, data.id, data.name, data.settings)
     val c = chapterMaker.fromFenOrPdnOrBlank(study, ChapterMaker.Data(
       game = none,
@@ -39,8 +39,8 @@ private final class StudyMaker(
     }
   }
 
-  private def createFromPov(data: StudyMaker.Data, pov: Pov, initialFen: Option[FEN], user: User, draughtsResult: Boolean): Fu[Study.WithChapter] =
-    chapterMaker.game2root(pov.game, initialFen, draughtsResult) map { root =>
+  private def createFromPov(data: StudyMaker.ImportGame, pov: Pov, initialFen: Option[FEN], user: User, draughtsResult: Boolean): Fu[Study.WithChapter] =
+    chapterMaker.game2root(pov.game, initialFen) map { root =>
       val study = Study.make(user, Study.From.Game(pov.gameId), data.id, Study.Name("Game study").some)
       val chapter: Chapter = Chapter.make(
         studyId = study.id,
@@ -66,8 +66,8 @@ private final class StudyMaker(
 
 object StudyMaker {
 
-  case class Data(
-      form: DataForm.Data = DataForm.Data(),
+  case class ImportGame(
+      form: DataForm.importGame.Data = DataForm.importGame.Data(),
       id: Option[Study.Id] = None,
       name: Option[Study.Name] = None,
       settings: Option[Settings] = None,

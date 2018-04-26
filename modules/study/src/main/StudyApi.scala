@@ -89,15 +89,15 @@ final class StudyApi(
 
   def members(id: Study.Id): Fu[Option[StudyMembers]] = studyRepo membersById id
 
-  def create(data: StudyMaker.Data, user: User): Fu[Option[Study.WithChapter]] = (data.form.as match {
-    case DataForm.AsNewStudy =>
+  def importGame(data: StudyMaker.ImportGame, user: User): Fu[Option[Study.WithChapter]] = (data.form.as match {
+    case DataForm.importGame.AsNewStudy =>
       studyMaker(data, user, Pref.default.draughtsResult) flatMap { res =>
         studyRepo.insert(res.study) >>
           chapterRepo.insert(res.chapter) >>-
           indexStudy(res.study) >>-
           scheduleTimeline(res.study.id) inject res.some
       }
-    case DataForm.AsChapterOf(studyId) => byId(studyId) flatMap {
+    case DataForm.importGame.AsChapterOf(studyId) => byId(studyId) flatMap {
       case Some(study) if study.canContribute(user.id) =>
         import akka.pattern.ask
         import makeTimeout.short
@@ -114,7 +114,7 @@ final class StudyApi(
           made <- byIdWithChapter(studyId)
         } yield made
       case _ => fuccess(none)
-    } orElse { create(data.copy(form = data.form.copy(asStr = none)), user) }
+    } orElse importGame(data.copy(form = data.form.copy(asStr = none)), user)
   }) addEffect {
     _ ?? { sc =>
       bus.publish(actorApi.StartStudy(sc.study.id), 'startStudy)
@@ -516,7 +516,25 @@ final class StudyApi(
     }
   }
 
-  def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, uid: Uid) = {
+  def importPdns(byUser: User, studyId: Study.Id, datas: List[ChapterMaker.Data], sticky: Boolean) =
+    lidraughts.common.Future.applySequentially(datas) { data =>
+      sequenceStudy(studyId) { study =>
+        Contribute(byUser.id, study) {
+          chapterRepo.countByStudyId(study.id) flatMap { count =>
+            if (count >= Study.maxChapters) funit
+            else chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
+              chapterMaker(study, data, order, byUser.id) flatMap {
+                _ ?? { chapter =>
+                  doAddChapter(study, chapter, sticky = sticky, Uid(""))
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+  def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, uid: Uid) =
     chapterRepo.insert(chapter) >> {
       val newStudy = study withChapter chapter
       (sticky ?? studyRepo.updateSomeFields(newStudy)) >>-
@@ -524,7 +542,6 @@ final class StudyApi(
     } >>-
       studyRepo.updateNow(study) >>-
       indexStudy(study)
-  }
 
   def setChapter(byUserId: User.ID, studyId: Study.Id, chapterId: Chapter.Id, uid: Uid) = sequenceStudy(studyId) { study =>
     study.canContribute(byUserId) ?? doSetChapter(study, chapterId, uid)
