@@ -42,7 +42,8 @@ object Global extends GlobalSettings {
     if (niceError(req)) {
       logHttp(404, req)
       controllers.Main.renderNotFound(req)
-    } else fuccess(NotFound("404 - Resource not found"))
+    }
+    else fuccess(NotFound("404 - Resource not found"))
 
   override def onBadRequest(req: RequestHeader, error: String) = {
     logHttp(400, req)
@@ -51,7 +52,8 @@ object Global extends GlobalSettings {
     else if (niceError(req)) {
       lila.mon.http.response.code400()
       controllers.Lobby.handleStatus(req, Results.BadRequest)
-    } else fuccess(BadRequest(error))
+    }
+    else fuccess(BadRequest(error))
   }
 
   override def onError(req: RequestHeader, ex: Throwable) = {
@@ -62,7 +64,17 @@ object Global extends GlobalSettings {
         fuccess(InternalServerError(views.html.base.errorPage(ex) {
           lila.api.Context.error(req, lila.common.AssetVersion(lila.app.Env.api.assetVersionSetting.get()), lila.i18n.defaultLang)
         }))
-      } else super.onError(req, ex)
-    } else fuccess(InternalServerError(ex.getMessage))
+      }
+      else super.onError(req, ex)
+    }
+    else scala.concurrent.Future {
+      InternalServerError(ex.getMessage)
+    } recover {
+      // java.lang.NullPointerException: null
+      // at play.api.mvc.Codec$$anonfun$javaSupported$1.apply(Results.scala:320) ~[com.typesafe.play.play_2.11-2.4.11.jar:2.4.11]
+      case e: java.lang.NullPointerException =>
+        httpLogger.warn(s"""error handler exception on "${ex.getMessage}\"""", e)
+        InternalServerError("Something went wrong.")
+    }
   }
 }
