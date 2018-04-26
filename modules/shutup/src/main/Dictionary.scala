@@ -32,7 +32,6 @@ blumpkin
 bollock
 boner
 boob
-bot
 bugger
 buk?kake
 bull?shit
