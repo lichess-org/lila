@@ -68,7 +68,11 @@
   <div class="side_box">
     <h2 class="top user_tv text" data-user-tv="@u.id" data-icon="1">@u.titleUsername</h2>
   </div>
+  }.getOrElse {
+  @*@if(lidraughts.common.HTTPRequest.isMobile(ctx.req)) {
+  <a class="side_box text deep_link" data-icon="" href="lidraughts://analyse/@pov.gameId">Open with <strong>Mobile app</strong></a>
   }
+  }*@
 
   @tour.map { t =>
   <div class="game_tournament side_box no_padding scroll-shadow-soft">
