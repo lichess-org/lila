@@ -1,62 +1,77 @@
 package lila.common.base;
 
 public class StringUtils {
+    private static final char[] DIGITS = {
+        '0' , '1' , '2' , '3' , '4' , '5' ,
+        '6' , '7' , '8' , '9' , 'a' , 'b' ,
+        'c' , 'd' , 'e' , 'f'
+    };
+
     public static String safeJsonString(String s) {
         char[] sArr = s.toCharArray();
+        StringBuilder sb = null;
         int len = sArr.length;
-        int sizeGuess = len > 0 && sArr[0] <= '~' ? 1 : 6;
-        StringBuilder sb = new StringBuilder(sizeGuess * len + 2);
-
-        sb.append('"');
-        for (char c : sArr) {
-            boolean safe = c >= ' ' && c <= '~';
-            if (safe) switch(c) {
+        int safeIdx = 0;
+        for (int i = 0; i < len; i++) {
+            char c = sArr[i];
+            if (c >= ' ' && c <= '~') switch(c) {
                 case '<': case '>': case '&': case '"':
                 case '\'': case '\\': case '`':
-                  safe = false;
+                    break;  // cur char is bad, escape it
+                default:
+                    continue;  // char is OK, continue scan.
             }
-
-            if (safe) {
-                sb.append(c);
-            } else {
-                sb.append(c > '\u00ff' ?
-                    c > '\u0fff' ? "\\u" : "\\u0" :
-                    c > '\u000f' ? "\\u00" : "\\u000");
-                sb.append(Integer.toHexString(c));
+            // this code runs when char is either out of alphanumeric range OR
+            // char is restricted.
+            if (sb == null) {
+              sb = new StringBuilder(c <= '~' ? len + 22 : len * 6 + 2);
+              sb.append('"');
             }
+            sb.append(s, safeIdx, i);
+            sb.append(new char[] { '\\', 'u',
+                DIGITS[c >>> 12],
+                DIGITS[(c >>> 8) & 0xf],
+                DIGITS[(c >>> 4) & 0xf],
+                DIGITS[c & 0xf]
+            });
+            safeIdx = i + 1;
         }
+        if (sb == null) return "\"" + s + "\"";
+        sb.append(s, safeIdx, len);
         sb.append('"');
-
         return sb.toString();
     }
 
     public static String escapeHtml(String s) {
-        // Extensively profiled with jmh. It is faster to pass
-        // around the String reference than to reuse the char
-        // array.
-        for (char c : s.toCharArray()) {
-            switch (c) {
+        char[] sArr = s.toCharArray();
+        for (int i = 0, end = sArr.length; i < end; i++) {
+            switch (sArr[i]) {
                 case '<': case '>': case '&': case '"': case '\'':
-                  return reallyEscapeHtml(s);
+                  StringBuilder sb = new StringBuilder(end + 10);
+                  sb.append(s, 0, i);
+                  escapeHtml(sb, sArr, i, end);
+                  return sb.toString();
             }
         }
         return s;
     }
 
-    private static String reallyEscapeHtml(String s) {
-        char[] sArr = s.toCharArray();
-        StringBuilder sb = new StringBuilder(sArr.length + 10);
-        for (char c : sArr) {
-            switch (c) {
-                case '<': sb.append("&lt;"); continue;
-                case '>': sb.append("&gt;"); continue;
-                case '&': sb.append("&amp;"); continue;
-                case '"': sb.append("&quot;"); continue;
-                case '\'': sb.append("&#39;"); continue;
-                default: sb.append(c);
+    public static void escapeHtml(StringBuilder sb, char[] sArr, int start, int end) {
+        for (int i = start; i < end; i++) {
+            switch (sArr[i]) {
+                case '<': case '>': case '&': case '"': case '\'':
+                  sb.append(sArr, start, i - start);
+                  switch (sArr[i]) {
+                      case '<': sb.append("&lt;"); break;
+                      case '>': sb.append("&gt;"); break;
+                      case '&': sb.append("&amp;"); break;
+                      case '"': sb.append("&quot;"); break;
+                      case '\'': sb.append("&#39;");
+                  }
+                  start = i + 1;
             }
         }
-        return sb.toString();
+        sb.append(sArr, start, end - start);
     }
 
     /**
@@ -87,59 +102,39 @@ public class StringUtils {
      * @throws NullPointerException if s1 or s2 is null.
      */
     public static final int levenshtein(final String s1, final String s2) {
-        if (s1 == null) {
-            throw new NullPointerException("s1 must not be null");
-        }
+        int len1 = s1.length();
+        int len2 = s2.length();
 
-        if (s2 == null) {
-            throw new NullPointerException("s2 must not be null");
-        }
+        if (len1 == len2 && s1.equals(s2)) return 0;
+        if (len1 < len2) return levenshtein(s2, s1);
+        if (len2 == 0) return len1;
 
-        if (s1.equals(s2)) {
-            return 0;
-        }
-
-        if (s1.length() == 0) {
-            return s2.length();
-        }
-
-        if (s2.length() == 0) {
-            return s1.length();
-        }
+        char[] c1 = s1.toCharArray();
+        char[] c2 = s2.toCharArray();
 
         // create two work vectors of integer distances
-        int[] v0 = new int[s2.length() + 1];
-        int[] v1 = new int[s2.length() + 1];
+        int[] v0 = new int[len2 + 1];
+        int[] v1 = new int[len2 + 1];
         int[] vtemp;
 
         // initialize v0 (the previous row of distances)
         // this row is A[0][i]: edit distance for an empty s
         // the distance is just the number of characters to delete from t
-        for (int i = 0; i < v0.length; i++) {
-            v0[i] = i;
-        }
+        for (int i = 0; i <= len2; i++) v0[i] = i;
 
-        for (int i = 0; i < s1.length(); i++) {
+        for (int i = 0; i < len1; i++) {
             // calculate v1 (current row distances) from the previous row v0
             // first element of v1 is A[i+1][0]
             //   edit distance is delete (i+1) chars from s to match empty t
             v1[0] = i + 1;
 
             // use formula to fill in the rest of the row
-            for (int j = 0; j < s2.length(); j++) {
-                int cost = 1;
-                if (s1.charAt(i) == s2.charAt(j)) {
-                    cost = 0;
-                }
+            for (int j = 0; j < len2; j++)
                 v1[j + 1] = Math.min(
-                        v1[j] + 1,              // Cost of insertion
-                        Math.min(
-                                v0[j + 1] + 1,  // Cost of remove
-                                v0[j] + cost)); // Cost of substitution
-            }
+                    c1[i] == c2[j] ? v0[j] : v0[j] + 1, // substitute
+                    Math.min(v0[j + 1], v1[j]) + 1  // remove / insert
+                );
 
-            // copy v1 (current row) to v0 (previous row) for next iteration
-            //System.arraycopy(v1, 0, v0, 0, v0.length);
 
             // Flip references to current and previous row
             vtemp = v0;
@@ -148,6 +143,6 @@ public class StringUtils {
 
         }
 
-        return v0[s2.length()];
+        return v0[len2];
     }
 }
