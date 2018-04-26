@@ -7,7 +7,7 @@ import play.api.libs.json._
 import reactivemongo.bson._
 
 import lila.db.dsl._
-import lila.study.{ StudyApi, Study, Settings }
+import lila.study.{ StudyApi, Study, StudyMaker, Settings }
 import lila.user.User
 
 final class RelayApi(
@@ -51,7 +51,7 @@ final class RelayApi(
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
     repo.coll.insert(relay) >>
-      studyApi.create(lila.study.StudyMaker.Data(
+      studyApi.importGame(StudyMaker.ImportGame(
         id = relay.studyId.some,
         name = Study.Name(relay.name).some,
         settings = Settings.init.copy(

@@ -129,6 +129,7 @@ GET   /study/$id<\w{8}>/$chapterId<\w{8}>        controllers.Study.chapter(id: S
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>/meta   controllers.Study.chapterMeta(id: String, chapterId: String)
 GET   /study/embed/$id<\w{8}>/$chapterId<\w{8}>  controllers.Study.embed(id: String, chapterId: String)
 POST  /study/$id<\w{8}>/clear-chat     controllers.Study.clearChat(id: String)
+POST  /study/$id<\w{8}>/import-pgn     controllers.Study.importPgn(id: String)
 
 # Relay
 GET   /broadcast                           controllers.Relay.index(page: Int ?= 1)
