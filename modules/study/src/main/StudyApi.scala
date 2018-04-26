@@ -108,7 +108,6 @@ final class StudyApi(
             studyId = study.id,
             data = data.form.toChapterData,
             sticky = study.settings.sticky,
-            socket = socket,
             uid = Uid("") // the user is not in the study yet
           )
           made <- byIdWithChapter(studyId)
@@ -497,7 +496,7 @@ final class StudyApi(
     }
   }
 
-  def addChapter(byUserId: User.ID, studyId: Study.Id, data: ChapterMaker.Data, sticky: Boolean, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
+  def addChapter(byUserId: User.ID, studyId: Study.Id, data: ChapterMaker.Data, sticky: Boolean, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(byUserId, study) {
       chapterRepo.countByStudyId(study.id) flatMap { count =>
         if (count >= Study.maxChapters) funit
@@ -518,20 +517,7 @@ final class StudyApi(
 
   def importPdns(byUser: User, studyId: Study.Id, datas: List[ChapterMaker.Data], sticky: Boolean) =
     lidraughts.common.Future.applySequentially(datas) { data =>
-      sequenceStudy(studyId) { study =>
-        Contribute(byUser.id, study) {
-          chapterRepo.countByStudyId(study.id) flatMap { count =>
-            if (count >= Study.maxChapters) funit
-            else chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
-              chapterMaker(study, data, order, byUser.id) flatMap {
-                _ ?? { chapter =>
-                  doAddChapter(study, chapter, sticky = sticky, Uid(""))
-                }
-              }
-            }
-          }
-        }
-      }
+      addChapter(byUser.id, studyId, data, sticky, uid = Uid(""))
     }
 
   def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, uid: Uid) =
