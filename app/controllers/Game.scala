@@ -28,11 +28,11 @@ object Game extends LilaController {
   }
 
   def export(username: String) = OpenOrScoped()(
-    open = ctx => handleExport(username, ctx.me, ctx.req),
-    scoped = req => me => handleExport(username, me.some, req)
+    open = ctx => handleExport(username, ctx.me, ctx.req, oauth = false),
+    scoped = req => me => handleExport(username, me.some, req, oauth = true)
   )
 
-  private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader) =
+  private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) =
     lila.user.UserRepo named username flatMap {
       _ ?? { user =>
         RequireHttp11(req) {
@@ -54,7 +54,7 @@ object Game extends LilaController {
                 perSecond = MaxPerSecond(me match {
                   case None => 10
                   case Some(m) if m is user.id => 50
-                  case Some(_) => 20
+                  case Some(_) if oauth => 20 // bonus for oauth logged in only (not to XSRF)
                 })
               )
               val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime

@@ -108,19 +108,20 @@ object Account extends LilaController {
     Env.security.forms.changeEmail(user, _)
   }
 
-  def email = AuthOrScoped(_.Email.Read)(
-    auth = implicit ctx => me =>
-      if (getBool("check")) Ok(renderCheckYourEmail).fuccess
-      else emailForm(me) map { form =>
-        Ok(html.account.email(me, form))
-      },
-    scoped = _ => me =>
-      UserRepo email me.id map {
-        _ ?? { email =>
-          Ok(Json.obj("email" -> email.value))
-        }
+  def email = Auth { implicit ctx => me =>
+    if (getBool("check")) Ok(renderCheckYourEmail).fuccess
+    else emailForm(me) map { form =>
+      Ok(html.account.email(me, form))
+    }
+  }
+
+  def apiEmail = Scoped(_.Email.Read) { _ => me =>
+    UserRepo email me.id map {
+      _ ?? { email =>
+        Ok(Json.obj("email" -> email.value))
       }
-  )
+    }
+  }
 
   def renderCheckYourEmail(implicit ctx: Context) =
     html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
@@ -169,22 +170,23 @@ object Account extends LilaController {
     }
   }
 
-  def kid = AuthOrScoped(_.Preference.Read)(
-    auth = implicit ctx => me => Ok(html.account.kid(me)).fuccess,
-    scoped = _ => me => Ok(Json.obj("kid" -> me.kid)).fuccess
-  )
+  def kid = Auth { implicit ctx => me =>
+    Ok(html.account.kid(me)).fuccess
+  }
+  def apiKid = Scoped(_.Preference.Read) { _ => me =>
+    Ok(Json.obj("kid" -> me.kid)).fuccess
+  }
 
   // App BC
   def kidToggle = Auth { ctx => me =>
     UserRepo.setKid(me, !me.kid) inject Ok
   }
 
-  def kidPost = AuthOrScopedTupple(_.Preference.Write) {
-    def set(me: UserModel, req: RequestHeader) = UserRepo.setKid(me, getBool("v", req))
-    (
-      ctx => me => set(me, ctx.req) inject Redirect(routes.Account.kid),
-      req => me => set(me, req) inject jsonOkResult
-    )
+  def kidPost = Auth { implicit ctx => me =>
+    UserRepo.setKid(me, getBool("v")) inject Redirect(routes.Account.kid)
+  }
+  def apiKidPost = Scoped(_.Preference.Write) { req => me =>
+    UserRepo.setKid(me, getBool("v", req)) inject jsonOkResult
   }
 
   private def currentSessionId(implicit ctx: Context) =

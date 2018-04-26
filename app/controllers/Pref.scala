@@ -12,7 +12,7 @@ object Pref extends LilaController {
   private def api = Env.pref.api
   private def forms = lila.pref.DataForm
 
-  def get = Scoped(_.Preference.Read) { _ => me =>
+  def apiGet = Scoped(_.Preference.Read) { _ => me =>
     Env.pref.api.getPref(me) map { prefs =>
       Ok {
         import play.api.libs.json._
