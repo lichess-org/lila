@@ -386,6 +386,12 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="standing">Posición</string>
   <string name="createANewTournament">Crear un novo torneo</string>
   <string name="tournamentCalendar">Calendario do torneo</string>
+  <string name="advancedSettings">Axustes avanzados</string>
+  <string name="safeTournamentName">Escolla un nome seguro para o torneo.</string>
+  <string name="emptyTournamentName">Deixe en branco e o torneo terá o nome aleatorio de un Grande Mestre.</string>
+  <string name="recommendNotTouching">Nós recomendamos que non toque nestas opcións.</string>
+  <string name="fewerPlayers">Se estableces condicións de entrada, o teu torneo terá menos xogadores.</string>
+  <string name="showAdvancedSettings">Amosar axustes avanzados</string>
   <string name="join">Unirse</string>
   <string name="withdraw">Retirarse</string>
   <string name="points">Puntos</string>
