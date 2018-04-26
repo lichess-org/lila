@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import TournamentController from '../ctrl';
-import { player as renderPlayer, ratio2percent, bind, dataIcon } from './util';
+import { player as renderPlayer, ratio2percent, bind, dataIcon, playerName } from './util';
 import { MaybeVNodes } from '../interfaces';
 import * as button from './button';
 import * as pagination from '../pagination';
@@ -45,7 +45,7 @@ function playerTr(ctrl: TournamentController, player) {
 function podiumUsername(p) {
   return h('a.text.ulpt.user_link', {
     attrs: { href: '/@/' + p.name }
-  }, p.name);
+  }, playerName(p));
 }
 
 function podiumStats(p, trans): VNode {
