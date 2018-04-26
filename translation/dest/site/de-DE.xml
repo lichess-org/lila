@@ -211,8 +211,8 @@
   <string name="thisGameIsRated">Dieses Spiel wird gewertet</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Angebot zur Revanche gesendet</string>
-  <string name="rematchOfferSentWhite">Weiß bietet Rückspiel an</string>
-  <string name="rematchOfferSentBlack">Schwarz bietet Rückspiel an</string>
+  <string name="rematchOfferSentWhite">Weiß bietet ein Rückspiel an</string>
+  <string name="rematchOfferSentBlack">Schwarz bietet ein Rückspiel an</string>
   <string name="rematchOfferAccepted">Angebot zur Revanche angenommen</string>
   <string name="rematchOfferCanceled">Angebot zur Revanche zurückgezogen</string>
   <string name="rematchOfferDeclined">Angebot zur Revanche abgelehnt</string>
