@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Esta partida é puntuada</string>
   <string name="rematch">Desquite</string>
   <string name="rematchOfferSent">Oferta de desquite enviada</string>
+  <string name="rematchOfferSentWhite">As brancas ofrecen un desquite</string>
+  <string name="rematchOfferSentBlack">As negras ofrecen un desquite</string>
   <string name="rematchOfferAccepted">Oferta de desquite aceptada</string>
   <string name="rematchOfferCanceled">Oferta de desquite cancelada</string>
   <string name="rematchOfferDeclined">Oferta de desquite rexeitada</string>
@@ -386,6 +388,14 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="standing">Posición</string>
   <string name="createANewTournament">Crear un novo torneo</string>
   <string name="tournamentCalendar">Calendario do torneo</string>
+  <string name="conditionOfEntry">Condicións de participación:</string>
+  <string name="advancedSettings">Axustes avanzados</string>
+  <string name="safeTournamentName">Escolla un nome seguro para o torneo.</string>
+  <string name="inappropriateNameWarning">Calquera comportamento lixeiramente inadecuado podería levar ao peche da súa conta.</string>
+  <string name="emptyTournamentName">Deixe en branco e o torneo terá o nome aleatorio de un Grande Mestre.</string>
+  <string name="recommendNotTouching">Nós recomendamos que non toque nestas opcións.</string>
+  <string name="fewerPlayers">Se estableces condicións de entrada, o teu torneo terá menos xogadores.</string>
+  <string name="showAdvancedSettings">Amosar axustes avanzados</string>
   <string name="join">Unirse</string>
   <string name="withdraw">Retirarse</string>
   <string name="points">Puntos</string>
@@ -700,7 +710,7 @@ en %3$s</string>
   <string name="analysisShapesHowTo">Pulsa Mays+clic ou fai clic dereito para debuxar círculos e frechas no taboleiro.</string>
   <string name="confirmResignationAndDrawOffers">Confirmar abandono e ofertas de táboas</string>
   <string name="inputMovesWithTheKeyboard">Introducción de movementos co teclado</string>
-  <string name="letOtherPlayersMessageYou">Deizar que outros xogadores te envíen mensaxes</string>
+  <string name="letOtherPlayersMessageYou">Permitir que outros xogadores te envíen mensaxes</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Método de enroque</string>
   <string name="castleByMovingTwoSquares">Movendo o rei dúas casillas</string>
   <string name="castleByMovingOntoTheRook">Movendo rei ata a torre</string>
