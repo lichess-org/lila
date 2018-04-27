@@ -3,7 +3,7 @@
 @tour.spotlight.map { spot =>
 <a href="@routes.Tournament.show(tour.id)"
   class="tour_spotlight invert id_@tour.id @tour.schedule.map { sched =>
-  @sched.freq @sched.speed @sched.variant.key@if(sched.freq.isWeeklyOrBetter && tour.isNowOrSoon){ invert}
+  @sched.freq @sched.speed @sched.variant.key@if(sched.freq.isWeeklyOrBetter && tour.isNowOrSoon){ invert}@if(tour.isDistant){ distant little}
   }">
   @spot.iconImg.map { i =>
   <img class="img" src="@staticUrl(s"images/$i")" />
@@ -17,6 +17,9 @@
   }
   <span class="content">
     <span class="name">@tour.fullName</span>
+    @if(tour.isDistant) {
+    <span class="more">@momentFromNow(tour.startsAt)</span>
+    } else {
     <span class="headline">@spot.headline</span>
     <span class="more">
       @trans.nbPlayers.plural(tour.nbPlayers, tour.nbPlayers.localize) •
@@ -24,6 +27,7 @@
       finishes@momentFromNow(tour.finishesAt)
       } else { @momentFromNow(tour.startsAt) }
     </span>
+    }
   </span>
 </a>
 }.getOrElse {

@@ -14,9 +14,11 @@ object CrudForm {
   import DataForm._
   import lila.common.Form.UTCDate._
 
+  val maxHomepageHours = 72
+
   lazy val apply = Form(mapping(
     "name" -> nonEmptyText(minLength = 3, maxLength = 40),
-    "homepageHours" -> number(min = 0, max = 24),
+    "homepageHours" -> number(min = 0, max = maxHomepageHours),
     "clockTime" -> numberInDouble(clockTimePrivateChoices),
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> number(min = 20, max = 1440),

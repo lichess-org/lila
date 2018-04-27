@@ -79,6 +79,8 @@ case class Tournament(
 
   def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 15) && !isFinished
 
+  def isDistant = startsAt.isAfter(DateTime.now plusDays 1)
+
   def duration = new Duration(minutes * 60 * 1000)
 
   def interval = new Interval(startsAt, finishesAt)
