@@ -502,7 +502,7 @@ GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
 POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
 GET   /api/stream/event                controllers.Api.eventStream
-GET   /api/account                     controllers.Account.me
+GET   /api/account                     controllers.Account.apiMe
 GET   /api/account/email               controllers.Account.apiEmail
 GET   /api/account/kid                 controllers.Account.apiKid
 POST  /api/account/kid                 controllers.Account.apiKidPost
@@ -511,10 +511,10 @@ POST  /api/challenge/$id<\w{8}>/accept  controllers.Challenge.apiAccept(id: Stri
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)
 
 # Bot API
-GET   /bot/game/stream/:id             controllers.Bot.gameStream(id: String)
-POST  /bot/game/:id/move/:uci          controllers.Bot.move(id: String, uci: String)
+GET   /api/bot/game/stream/:id         controllers.Bot.gameStream(id: String)
+POST  /api/bot/game/:id/move/:uci      controllers.Bot.move(id: String, uci: String)
 # /bot/account/upgrade
-POST  /bot/*cmd                        controllers.Bot.command(cmd: String)
+POST  /api/bot/*cmd                    controllers.Bot.command(cmd: String)
 
 # Account
 GET   /account/passwd                  controllers.Account.passwd

@@ -63,7 +63,7 @@ object Account extends LilaController {
     )
   }
 
-  def me = Scoped() { _ => me =>
+  def apiMe = Scoped() { _ => me =>
     Env.api.userApi.extended(me, me.some) map { json =>
       Ok(json) as JSON
     }
