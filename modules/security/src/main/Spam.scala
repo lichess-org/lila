@@ -21,8 +21,8 @@ object Spam {
   private val protocol = """https?://"""
 
   private val replacements = List(
-    """chess24.com\\?ref=\\w+""".r -> "chess24.com",
-    """chess.com/register\\?refId=\\w+""".r -> "chess.com",
+    """chess24.com\?ref=\w+""".r -> "chess24.com",
+    """chess.com/register\?refId=\w+""".r -> "chess.com",
     """\bchess-bot(\.com)?[^\s]*""".r -> "[redacted]"
   )
 }
