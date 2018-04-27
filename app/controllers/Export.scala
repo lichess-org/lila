@@ -37,7 +37,7 @@ object Export extends LidraughtsController {
       case Some(i) => fuccess(i.pdn)
       case None => for {
         initialFen <- GameRepo initialFen game
-        pdn <- Env.api.pdnDump(game, initialFen, PdnDump.WithFlags(clocks = !asRaw, draughtsResult = draughtsResult))
+        pdn <- Env.api.pdnDump(game, initialFen, analysis = none, PdnDump.WithFlags(clocks = !asRaw, draughtsResult = draughtsResult))
         analysis ← !asRaw ?? (Env.analyse.analyser get game.id)
       } yield Env.analyse.annotator(pdn, analysis, game.opening, game.winnerColor, game.status, game.clock).toString
     })

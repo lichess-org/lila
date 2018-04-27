@@ -146,6 +146,7 @@ object PdnDump {
       clocks: Boolean = true,
       moves: Boolean = true,
       tags: Boolean = true,
+      evals: Boolean = true,
       draughtsResult: Boolean = true
   )
 

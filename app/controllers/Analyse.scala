@@ -32,13 +32,13 @@ object Analyse extends LidraughtsController {
     if (HTTPRequest isBot ctx.req) replayBot(pov)
     else GameRepo initialFen pov.gameId flatMap { initialFen =>
       Game.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {
-        (env.analyser get pov.gameId) zip
+        (env.analyser get pov.game) zip
           Env.draughtsnet.api.prioritaryAnalysisInProgress(pov.gameId) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
           Round.getWatcherChat(pov.game) zip
           Env.game.crosstableApi.withMatchup(pov.game) zip
           Env.bookmark.api.exists(pov.game, ctx.me) zip
-          Env.api.pdnDump(pov.game, initialFen, PdnDump.WithFlags(clocks = false, draughtsResult = ctx.pref.draughtsResult)) flatMap {
+          Env.api.pdnDump(pov.game, initialFen, analysis = none, PdnDump.WithFlags(clocks = false, draughtsResult = ctx.pref.draughtsResult)) flatMap {
             case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pdn =>
               Env.api.roundApi.review(pov, lidraughts.api.Mobile.Api.currentVersion,
                 tv = userTv.map { u => lidraughts.round.OnUserTv(u.id) },
@@ -97,10 +97,10 @@ object Analyse extends LidraughtsController {
 
   private def replayBot(pov: Pov)(implicit ctx: Context) = for {
     initialFen <- GameRepo initialFen pov.gameId
-    analysis <- env.analyser get pov.gameId
+    analysis <- env.analyser get pov.game
     simul <- pov.game.simulId ?? Env.simul.repo.find
     crosstable <- Env.game.crosstableApi.withMatchup(pov.game)
-    pdn <- Env.api.pdnDump(pov.game, initialFen, PdnDump.WithFlags(clocks = false, draughtsResult = ctx.pref.draughtsResult))
+    pdn <- Env.api.pdnDump(pov.game, initialFen, analysis, PdnDump.WithFlags(clocks = false, draughtsResult = ctx.pref.draughtsResult))
   } yield Ok(html.analyse.replayBot(
     pov,
     initialFen,

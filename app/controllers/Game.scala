@@ -50,6 +50,7 @@ object Game extends LidraughtsController {
                   moves = getBoolOpt("moves", req) | true,
                   tags = getBoolOpt("tags", req) | true,
                   clocks = getBoolOpt("clocks", req) | false,
+                  evals = getBoolOpt("evals", req) | false,
                   draughtsResult = draughtsResult
                 ),
                 perSecond = MaxPerSecond(me match {
