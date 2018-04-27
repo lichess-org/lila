@@ -1,5 +1,6 @@
 package lila.playban
 
+import play.api.libs.json._
 import org.joda.time.DateTime
 
 case class UserRecord(
@@ -63,6 +64,8 @@ case class TempBan(
 }
 
 object TempBan {
+  implicit val tempbanWrites = Json.writes[TempBan]
+
   private def make(minutes: Int) = TempBan(
     DateTime.now,
     minutes atMost 48 * 60
