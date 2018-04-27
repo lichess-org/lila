@@ -116,59 +116,6 @@ name | type | default | description
 --- | --- | --- | ---
 **with_moves** | 1 or 0 | 0 | include a list of PGN moves
 
-### `GET /api/tournament` fetch current tournaments
-
-Returns tournaments displayed on the schedule: https://lichess.org/tournament
-
-```
-> curl https://lichess.org/api/tournament
-```
-
-```javascript
-{
-  "created": [
-    {
-      "id": "f4wnl48m",
-      "createdBy": "thedave13213",
-      "system": "arena",
-      "minutes": 45,
-      "clock": {
-        "limit": 120,
-        "increment": 0
-      },
-      "position": null,
-      "rated": true,
-      "fullName": "Ulrich Arena",
-      "nbPlayers": 1,
-      "private": false,
-      "variant": {
-        "key": "standard",
-        "short": "Std",
-        "name": "Standard"
-      },
-      "secondsToStart": 38,
-      "startsAt": 1471257146633,
-      "finishesAt": 1471259846633,
-      "status": 10,
-      "schedule": null,
-      "winner": null,
-      "conditions": null,
-      "perf": {
-        "icon": "T",
-        "name": "Bullet",
-        "position": 0
-      }
-    }
-  ],
-  "started": [
-    ...
-  ],
-  "finished": [
-    ...
-  ]
-}
-```
-
 ### `GET /api/tournament/<tournamentId>` fetch one tournament
 
 Returns tournament info, and a page of the tournament standing
@@ -276,12 +223,4 @@ curl 'https://lichess.org/api/tournament/x5WNIngd?page=1'
     ]
   }
 }
-```
-
-### `GET /tv/channels` fetch current tournaments
-
-Returns the current game ID and best player for each TV channel: https://lichess.org/tv
-
-```
-> curl https://lichess.org/tv/channels
 ```
