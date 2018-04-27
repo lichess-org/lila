@@ -25,10 +25,12 @@ final class OAuthServer(
       case Some(Array("Bearer", tokenStr)) => for {
         accessTokenId <- {
           if (tokenStr.size == AccessToken.idSize) fuccess(AccessToken.Id(tokenStr))
-          else Jwt.decodeRaw(tokenStr, jwtPublicKey.value, Seq(JwtAlgorithm.RS256)).future map { jsonStr =>
-            val json = Json.parse(jsonStr)
-            AccessToken.Id((json str "jti" err s"Bad token json $json"))
-          }
+          else Jwt.decodeRaw(tokenStr, jwtPublicKey.value, Seq(JwtAlgorithm.RS256)).fold(
+            err => fufail(InvalidToken),
+            jsonStr => (Json.parse(jsonStr) str "jti").fold[Fu[AccessToken.Id]](fufail(InvalidToken)) { t =>
+              fuccess(AccessToken.Id(t))
+            }
+          )
         }
         accessToken <- {
           if (accessTokenId.isPersonal) personalAccessTokenCache.get(accessTokenId)
@@ -70,6 +72,7 @@ object OAuthServer {
   case object ServerOffline extends AuthError("OAuth server is offline! Try again soon.")
   case object MissingAuthorizationHeader extends AuthError("Missing authorization header")
   case object InvalidAuthorizationHeader extends AuthError("Invalid authorization header")
+  case object InvalidToken extends AuthError("Invalid token")
   case object NoSuchToken extends AuthError("No such token")
   case object ExpiredToken extends AuthError("Token has expired")
   case class MissingScope(scopes: List[OAuthScope]) extends AuthError("Missing scope")
