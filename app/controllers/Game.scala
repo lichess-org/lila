@@ -49,7 +49,8 @@ object Game extends LilaController {
                 flags = lila.game.PgnDump.WithFlags(
                   moves = getBoolOpt("moves", req) | true,
                   tags = getBoolOpt("tags", req) | true,
-                  clocks = getBoolOpt("clocks", req) | false
+                  clocks = getBoolOpt("clocks", req) | false,
+                  evals = getBoolOpt("evals", req) | false
                 ),
                 perSecond = MaxPerSecond(me match {
                   case None => 10

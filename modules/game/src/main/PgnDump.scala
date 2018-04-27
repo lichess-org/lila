@@ -144,7 +144,8 @@ object PgnDump {
   case class WithFlags(
       clocks: Boolean = true,
       moves: Boolean = true,
-      tags: Boolean = true
+      tags: Boolean = true,
+      evals: Boolean = true
   )
 
   def result(game: Game) =
