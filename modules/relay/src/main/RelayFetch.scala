@@ -36,7 +36,7 @@ private final class RelayFetch(
       logger.error(msg)
       throw new RuntimeException(msg)
 
-    case Tick => api.toSync.map(_ take 1).flatMap { relays =>
+    case Tick => api.toSync.flatMap { relays =>
       lila.mon.relay.ongoing(relays.size)
       relays.map { relay =>
         if (relay.sync.ongoing) processRelay(relay) flatMap { newRelay =>
