@@ -27,9 +27,9 @@ object AccessToken {
 
   def makeId = Id(ornicar.scalalib.Random secureString idSize)
 
-  case class ForAuth(userId: User.ID, expiresAt: DateTime, usedAt: DateTime, scopes: List[OAuthScope]) {
+  case class ForAuth(userId: User.ID, expiresAt: DateTime, usedAt: Option[DateTime], scopes: List[OAuthScope]) {
     def isExpired = expiresAt isBefore DateTime.now
-    def usedRecently = usedAt.isAfter(DateTime.now minusMinutes 5)
+    def usedRecently = usedAt.exists(_.isAfter(DateTime.now minusMinutes 5))
   }
 
   object BSONFields {
@@ -62,7 +62,7 @@ object AccessToken {
     def read(doc: BSONDocument) = ForAuth(
       userId = doc.getAs[User.ID](BSONFields.userId) err "ForAuth userId missing",
       expiresAt = doc.getAs[DateTime](BSONFields.expiresAt) err "ForAuth expiresAt missing",
-      usedAt = doc.getAs[DateTime](BSONFields.usedAt) err "ForAuth usedAt missing",
+      usedAt = doc.getAs[DateTime](BSONFields.usedAt),
       scopes = doc.getAs[List[OAuthScope]](BSONFields.scopes) err "ForAuth scopes missing"
     )
   }
