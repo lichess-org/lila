@@ -1,9 +1,4 @@
 include "base"
 
-net {
-  domain = "l.org"
-}
-
-geoip {
-  file = "data/GeoLite2-City.mmdb"
-}
+# copy to conf/application.conf, then
+# override values from base.conf here
