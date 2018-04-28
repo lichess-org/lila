@@ -320,25 +320,30 @@ group.radio input:checked + label {
 }
 #powerTip > .actions {
   width: 100%;
+  display: flex;
 }
 #powerTip > .actions a {
+  flex: 0 0 auto;
   margin: 0;
   border-radius: 0;
-  display: block;
   font-size: 0.9em;
   letter-spacing: -1px;
   text-align: center;
-  padding: 0 7px;
+  padding: 0 12px;
   height: 30px;
   line-height: 30px;
   cursor: pointer;
   border-width: 0 1px 0 0;
 }
-#powerTip > .actions a span::before {
-  font-size: 1.5em;
-}
-#powerTip > .actions td:last-child a {
+#powerTip > .actions a.relation {
+  flex: 1 1 100%;
   border-right: 0;
+}
+#powerTip > .actions i {
+  font-style: normal;
+}
+#powerTip > .actions i::before {
+  font-size: 1.5em;
 }
 #powerTip .confirm {
   margin-top: 10px;
@@ -1564,9 +1569,6 @@ div.user_actions {
 }
 div.user_actions .button {
   margin: 0 -3px 0 -3px;
-}
-div.relation_actions a.relation.processing {
-  opacity: 0.2
 }
 input.copyable,
 textarea.copyable {
