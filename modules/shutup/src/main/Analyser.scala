@@ -10,7 +10,8 @@ object Analyser {
   private def wordsRegexes =
     Dictionary.en.map { word => word + "e?[ds]?"
     } ++
-      Dictionary.ru
+      Dictionary.ru ++
+      Dictionary.youtubeIds
 
   private val bigRegex = {
     """(?i)\b""" +

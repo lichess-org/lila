@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicChat, RecordPrivateChat }
 import lila.user.{ User, UserRepo }
+import lila.security.Spam
 
 final class ChatApi(
     coll: Coll,
@@ -208,7 +209,7 @@ final class ChatApi(
 
     import java.util.regex.Matcher.quoteReplacement
 
-    def preprocessUserInput(in: String) = multiline(noShouting(noPrivateUrl(in)))
+    def preprocessUserInput(in: String) = multiline(Spam.replace(noShouting(noPrivateUrl(in))))
 
     def cut(text: String) = Some(text.trim take Line.textMaxSize) filter (_.nonEmpty)
 
