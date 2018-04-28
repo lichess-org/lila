@@ -3,17 +3,17 @@
 @relation match {
 case None if followable && !blocked=> {
 <a class="relation button" href="@routes.Relation.follow(userId)?mini=1">
-  <span data-icon="h">&nbsp;@trans.follow()</span>
+  <i data-icon="h">&nbsp;@trans.follow()</i>
 </a>
 }
 case Some(true) => {
 <a class="relation button hint--bottom" data-hint="@trans.unfollow()" href="@routes.Relation.unfollow(userId)?mini=1">
-  <span data-icon="h">&nbsp;@trans.following()</span>
+  <i data-icon="h">&nbsp;@trans.following()</i>
 </a>
 }
 case Some(false) => {
 <a class="relation button hint--bottom" data-hint="@trans.unblock()" class="hover_text" href="@routes.Relation.unblock(userId)?mini=1">
-  <span data-icon="k">&nbsp;@trans.blocked()</span>
+  <i data-icon="k">&nbsp;@trans.blocked()</i>
 </a>
 }
 case _ => {

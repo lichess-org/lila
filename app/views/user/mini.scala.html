@@ -43,30 +43,20 @@
 }
 
 @if(myId != u.id && u.enabled) {
-<table class="actions">
-  <tbody>
-    <tr>
-      <td>
-        <a class="button hint--bottom" data-hint="@trans.watchGames()" href="@routes.User.tv(u.username)">
-          <span data-icon="1"></span>
-        </a>
-      </td>
-      @if(!blocked) {
-      <td>
-        <a class="button hint--bottom" data-hint="@trans.chat()" href="@routes.Message.form()?user=@u.username">
-          <span data-icon="c"></span>
-        </a>
-      </td>
-      <td>
-        <a class="button hint--bottom" data-hint="@trans.challengeToPlay()" href="@routes.Lobby.home()?user=@u.username#friend">
-          <span data-icon="U"></span>
-        </a>
-      </td>
-      }
-      <td class="relation_actions">@relation.mini(u.id, blocked, followable, rel)</td>
-    </tr>
-  </tbody>
-</table>
+<div class="actions">
+  <a class="button hint--bottom" data-hint="@trans.watchGames()" href="@routes.User.tv(u.username)">
+    <i data-icon="1"></i>
+  </a>
+  @if(!blocked) {
+  <a class="button hint--bottom" data-hint="@trans.chat()" href="@routes.Message.form()?user=@u.username">
+    <i data-icon="c"></i>
+  </a>
+  <a class="button hint--bottom" data-hint="@trans.challengeToPlay()" href="@routes.Lobby.home()?user=@u.username#friend">
+    <i data-icon="U"></i>
+  </a>
+  }
+  @relation.mini(u.id, blocked, followable, rel)
+</div>
 }
 }
 

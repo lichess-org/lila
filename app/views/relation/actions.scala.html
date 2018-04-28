@@ -4,8 +4,8 @@
   @ctx.userId.map { myId =>
   @if(myId != userId) {
   @if(!blocked) {
-  <a data-hint="@trans.challengeToPlay()" href="@routes.Lobby.home()?user=@userId#friend" class="icon button hint--bottom" href="#"><span data-icon="U"></span></a>
-  <a data-hint="@trans.composeMessage()" href="@routes.Message.form()?user=@userId" class="icon button hint--bottom" href="#"><span data-icon="c"></span></a>
+  <a data-hint="@trans.challengeToPlay()" href="@routes.Lobby.home()?user=@userId#friend" class="icon button hint--bottom" href="#"><i data-icon="U"></i></a>
+  <a data-hint="@trans.composeMessage()" href="@routes.Message.form()?user=@userId" class="icon button hint--bottom" href="#"><i data-icon="c"></i></a>
   }
   @relation match {
   case None => {
@@ -13,23 +13,23 @@
   <a
     class="icon button relation hint--bottom"
     href="@routes.Relation.follow(userId)"
-    data-hint="@trans.follow()"><span data-icon="h"></span></a>
+    data-hint="@trans.follow()"><i data-icon="h"></i></a>
   }
   <a
     class="icon button relation hint--bottom"
     href="@routes.Relation.block(userId)"
-    data-hint="@trans.block()"><span data-icon="k"></span></a>
+    data-hint="@trans.block()"><i data-icon="k"></i></a>
   }
   case Some(true) => {
   <a class="button relation hover_text" href="@routes.Relation.unfollow(userId)">
-    <span data-icon="h" class="base">&nbsp;@trans.following()</span>
-    <span data-icon="h" class="hover">&nbsp;@trans.unfollow()</span>
+    <i data-icon="h" class="base text">@trans.following()</i>
+    <i data-icon="h" class="hover text">@trans.unfollow()</i>
   </a>
   }
   case Some(false) => {
   <a class="button relation hover_text" href="@routes.Relation.unblock(userId)">
-    <span data-icon="k" class="base">&nbsp;@trans.blocked()</span>
-    <span data-icon="k" class="hover">&nbsp;@trans.unblock()</span>
+    <i data-icon="k" class="base text">@trans.blocked()</i>
+    <i data-icon="k" class="hover text">@trans.unblock()</i>
   </a>
   }
   }
