@@ -73,7 +73,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
     ]),
     d.db.selected() === 'masters' ? h('div.masters.message', [
       h('i', { attrs: dataIcon('C') }),
-      h('p', ctrl.trans('masterDbExplanation', 2200, '1952', '2017'))
+      h('p', ctrl.trans('masterDbExplanation', 2200, '1952', '2018'))
     ]) : h('div', [
       h('section.rating', [
         h('label', ctrl.trans.noarg('averageElo')),
