@@ -12,7 +12,13 @@ object Spam {
     "chess.com/register?refId="
   )
 
-  private lazy val fullBlacklist = "chess-bot.com" :: referBlacklist
+  private val youtubeIds = List(
+    "7UpltimWY_E"
+  )
+
+  private lazy val fullBlacklist = List(
+    "chess-bot.com"
+  ) ::: youtubeIds ::: referBlacklist
 
   def replace(text: String) = replacements.foldLeft(text) {
     case (t, (regex, rep)) => regex.replaceAllIn(t, rep)
@@ -24,5 +30,7 @@ object Spam {
     """chess24.com\?ref=\w+""".r -> "chess24.com",
     """chess.com/register\?refId=\w+""".r -> "chess.com",
     """\bchess-bot(\.com)?[^\s]*""".r -> "[redacted]"
-  )
+  ) ::: youtubeIds.map { id =>
+      id.r -> "7orFjhLkcxA"
+    }
 }
