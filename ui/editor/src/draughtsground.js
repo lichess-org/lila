@@ -109,8 +109,8 @@ function onMouseEvent(ctrl) {
 function deleteOrHidePiece(ctrl, key, e) {
   if (e.type === 'touchstart') {
     if (ctrl.draughtsground.state.pieces[key]) {
+      ctrl.draughtsground.state.draggable.current.element.style.display = 'none';
       ctrl.draughtsground.cancelMove();
-      e.srcElement.style.display = 'none';
     }
 
     document.addEventListener('touchend', function() {

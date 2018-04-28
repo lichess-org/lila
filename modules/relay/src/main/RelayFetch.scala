@@ -35,7 +35,7 @@ private final class RelayFetch(
       val msg = "RelaySync timed out!"
       logger.error(msg)
       throw new RuntimeException(msg)
-      
+
     case Tick => api.toSync.flatMap { relays =>
       lidraughts.mon.relay.ongoing(relays.size)
       relays.map { relay =>
