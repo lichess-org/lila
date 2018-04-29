@@ -26,7 +26,6 @@ object OAuthForm {
         id = AccessToken.makeId,
         clientId = PersonalToken.clientId,
         userId = user.id,
-        expiresAt = DateTime.now plusYears 100,
         createdAt = DateTime.now.some,
         description = description.some,
         scopes = scopes.flatMap(OAuthScope.byKey.get)

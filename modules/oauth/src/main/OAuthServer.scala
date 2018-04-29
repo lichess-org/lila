@@ -38,7 +38,6 @@ final class OAuthServer(
         }
         scoped <- accessToken.fold[Fu[OAuthScope.Scoped]](fufail(NoSuchToken)) {
           case at if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
-          case at if at.isExpired => fufail(ExpiredToken)
           case at =>
             if (!at.usedRecently) tokenColl.updateFieldUnchecked($doc(F.id -> accessTokenId), F.usedAt, DateTime.now)
             UserRepo enabledById at.userId flatMap {
@@ -74,7 +73,6 @@ object OAuthServer {
   case object InvalidAuthorizationHeader extends AuthError("Invalid authorization header")
   case object InvalidToken extends AuthError("Invalid token")
   case object NoSuchToken extends AuthError("No such token")
-  case object ExpiredToken extends AuthError("Token has expired")
   case class MissingScope(scopes: List[OAuthScope]) extends AuthError("Missing scope")
   case object NoSuchUser extends AuthError("No such user")
 
