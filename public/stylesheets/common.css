@@ -276,6 +276,7 @@ group.radio input:checked + label {
   margin-right: 2px;
 }
 #powerTip > .title {
+  height: 62px;
   padding: 5px 3px;
   border-bottom: 1px solid #c0c0c0;
 }
@@ -359,7 +360,7 @@ group.radio input:checked + label {
   display: block;
   font-size: 1.2em;
   text-align: center;
-  border-bottom: 1px solid #c0c0c0;
+  border-top: 1px solid #c0c0c0;
   padding: 3px 0;
 }
 #powerTip > .info .title {
