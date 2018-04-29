@@ -8,7 +8,6 @@ case class AccessToken(
     id: AccessToken.Id,
     clientId: String,
     userId: User.ID,
-    expiresAt: DateTime,
     createdAt: Option[DateTime] = None, // for personal access tokens
     description: Option[String] = None, // for personal access tokens
     usedAt: Option[DateTime] = None,
@@ -27,8 +26,7 @@ object AccessToken {
 
   def makeId = Id(ornicar.scalalib.Random secureString idSize)
 
-  case class ForAuth(userId: User.ID, expiresAt: DateTime, usedAt: Option[DateTime], scopes: List[OAuthScope]) {
-    def isExpired = expiresAt isBefore DateTime.now
+  case class ForAuth(userId: User.ID, usedAt: Option[DateTime], scopes: List[OAuthScope]) {
     def usedRecently = usedAt.exists(_.isAfter(DateTime.now minusMinutes 5))
   }
 
@@ -37,7 +35,6 @@ object AccessToken {
     val clientId = "client_id"
     val userId = "user_id"
     val createdAt = "create_date"
-    val expiresAt = "expire_date"
     val description = "description"
     val usedAt = "used_at"
     val scopes = "scopes"
@@ -51,7 +48,6 @@ object AccessToken {
 
   private[oauth] val forAuthProjection = $doc(
     BSONFields.userId -> true,
-    BSONFields.expiresAt -> true,
     BSONFields.usedAt -> true,
     BSONFields.scopes -> true
   )
@@ -61,7 +57,6 @@ object AccessToken {
   implicit val ForAuthBSONReader = new BSONDocumentReader[ForAuth] {
     def read(doc: BSONDocument) = ForAuth(
       userId = doc.getAs[User.ID](BSONFields.userId) err "ForAuth userId missing",
-      expiresAt = doc.getAs[DateTime](BSONFields.expiresAt) err "ForAuth expiresAt missing",
       usedAt = doc.getAs[DateTime](BSONFields.usedAt),
       scopes = doc.getAs[List[OAuthScope]](BSONFields.scopes) err "ForAuth scopes missing"
     )
@@ -75,7 +70,6 @@ object AccessToken {
       id = r.get[Id](id),
       clientId = r str clientId,
       userId = r str userId,
-      expiresAt = r.get[DateTime](expiresAt),
       createdAt = r.getO[DateTime](createdAt),
       description = r strO description,
       usedAt = r.getO[DateTime](usedAt),
@@ -86,7 +80,6 @@ object AccessToken {
       id -> o.id,
       clientId -> o.clientId,
       userId -> o.userId,
-      expiresAt -> o.expiresAt,
       createdAt -> o.createdAt,
       description -> o.description,
       usedAt -> o.usedAt,
