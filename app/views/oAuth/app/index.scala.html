@@ -29,7 +29,8 @@
         }
       </td>
       <td class="date">
-        Created @momentFromNow(t.createdAt)<br />
+        @t.homepageUri<br />
+        Created @momentFromNow(t.createdAt)
       </td>
       <td class="action">
         <a href="@routes.OAuthApp.edit(t.clientId.value)" class="button hint--top" title="Edit this app"><i data-icon="m"></i></a>
