@@ -19,13 +19,13 @@ final class RankingApi(
   import RankingApi._
   private implicit val rankingBSONHandler = Macros.handler[Ranking]
 
-  def save(userId: User.ID, perfType: Option[PerfType], perfs: Perfs): Funit =
+  def save(user: User, perfType: Option[PerfType], perfs: Perfs): Funit =
     perfType ?? { pt =>
-      save(userId, pt, perfs(pt))
+      save(user, pt, perfs(pt))
     }
 
-  def save(userId: User.ID, perfType: PerfType, perf: Perf): Funit =
-    (perf.nb >= 2) ?? coll.update($id(makeId(userId, perfType)), $doc(
+  def save(user: User, perfType: PerfType, perf: Perf): Funit =
+    (user.rankable && perf.nb >= 2) ?? coll.update($id(makeId(user.id, perfType)), $doc(
       "perf" -> perfType.id,
       "rating" -> perf.intRating,
       "prog" -> perf.progress,
