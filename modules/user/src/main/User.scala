@@ -112,7 +112,7 @@ case class User(
   def isBot = title has User.botTitle
   def noBot = !isBot
 
-  def rankable = !isBot && !rankban
+  def rankable = noBot && !rankban
 }
 
 object User {
