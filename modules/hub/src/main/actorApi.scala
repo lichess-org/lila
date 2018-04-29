@@ -255,6 +255,7 @@ package round {
   case class RematchYes(playerId: String)
   case class RematchNo(playerId: String)
   case class Abort(playerId: String)
+  case class Resign(playerId: String)
 }
 
 package evaluation {

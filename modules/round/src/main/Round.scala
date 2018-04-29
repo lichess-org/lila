@@ -10,7 +10,7 @@ import chess.Color
 import lila.game.{ Game, Progress, Pov, Event }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
-import lila.hub.actorApi.round.{ FishnetPlay, BotPlay, RematchYes, RematchNo, Abort }
+import lila.hub.actorApi.round.{ FishnetPlay, BotPlay, RematchYes, RematchNo, Abort, Resign }
 import lila.hub.SequentialActor
 import lila.socket.UserLagCache
 import makeTimeout.large

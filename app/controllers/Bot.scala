@@ -49,6 +49,13 @@ object Bot extends LilaController {
           }
         }
       }
+      case Array("game", id, "resign") => WithBot(me) {
+        WithMyBotGame(id, me) { pov =>
+          Env.bot.player.resign(pov) inject jsonOkResult recover {
+            case e: lila.base.LilaException => BadRequest(e.getMessage)
+          }
+        }
+      }
       case _ => notFoundJson("No such command")
     }
   }

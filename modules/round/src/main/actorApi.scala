@@ -114,7 +114,6 @@ package round {
   case object AbortForMaintenance
   case object AbortForce
   case object Threefold
-  case class Resign(playerId: String)
   case object ResignAi
   case class ResignForce(playerId: String)
   case class DrawForce(playerId: String)
