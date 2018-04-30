@@ -220,6 +220,8 @@
   <string name="thisGameIsRated">Această partidă este oficială</string>
   <string name="rematch">Revanşă</string>
   <string name="rematchOfferSent">Propunerea de revanșă a fost trimisă</string>
+  <string name="rematchOfferSentWhite">Albul oferă remiză</string>
+  <string name="rematchOfferSentBlack">Negrul oferă remiză</string>
   <string name="rematchOfferAccepted">Propunerea de revanșă a fost acceptată</string>
   <string name="rematchOfferCanceled">Propunerea de revanșă a fost anulată</string>
   <string name="rematchOfferDeclined">Propunerea de revanșă a fost respinsă</string>
@@ -410,6 +412,10 @@
   <string name="standing">Clasament</string>
   <string name="createANewTournament">Creați un turneu nou</string>
   <string name="tournamentCalendar">Calendarul competiției</string>
+  <string name="conditionOfEntry">Condiție de admitere:</string>
+  <string name="advancedSettings">Setări avansate</string>
+  <string name="safeTournamentName">Alege un nume foarte sigur pentru turneu.</string>
+  <string name="inappropriateNameWarning">Orice nume care este chiar și ușor nepotrivit poate cauza închiderea contului tău.</string>
   <string name="join">Intră</string>
   <string name="withdraw">Retrage-te</string>
   <string name="points">Puncte</string>
