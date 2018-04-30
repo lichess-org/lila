@@ -15,7 +15,6 @@ final class Env(
     val DbConfig = config getConfig "mongodb"
     val CollectionAccessToken = config getString "collection.access_token"
     val CollectionApp = config getString "collection.app"
-    val JwtPublicKey = config getString "jwt.public_key"
   }
   import settings._
 
@@ -27,7 +26,6 @@ final class Env(
 
   lazy val server = new OAuthServer(
     tokenColl = tokenColl,
-    jwtPublicKey = JWT.PublicKey(JwtPublicKey),
     asyncCache = asyncCache
   )
 

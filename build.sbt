@@ -32,7 +32,7 @@ scriptClasspath := Seq("*")
 libraryDependencies ++= Seq(
   scalaz, compression, scalalib, hasher, typesafeConfig, findbugs,
   reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
-  maxmind, prismic, netty, guava, jwt,
+  maxmind, prismic, netty, guava,
   kamon.core, kamon.influxdb,
   java8compat, semver, scrimage, scalaConfigs, scaffeine
 )
@@ -237,7 +237,7 @@ lazy val draughtsnet = module("draughtsnet", Seq(common, game, analyse, db, eval
 )
 
 lazy val oauth = module("oauth", Seq(common, db, user)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, jwt)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
 lazy val security = module("security", Seq(common, hub, db, user, i18n, slack, oauth)).settings(
