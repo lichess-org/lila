@@ -122,8 +122,11 @@ public class RatingCalculator {
    * @return new rating deviation
    */
   public double previewDeviation(Rating player, DateTime ratingPeriodEndDate) {
-    Duration interval = new Duration(player.getLastRatingPeriodEndDate(), ratingPeriodEndDate);
-    double elapsedRatingPeriods = interval.getMillis() * ratingPeriodsPerMilli;
+    double elapsedRatingPeriods = 0;
+    if ( ratingPeriodsPerMilli != 0 && player.getLastRatingPeriodEndDate() != null ) {
+        Duration interval = new Duration(player.getLastRatingPeriodEndDate(), ratingPeriodEndDate);
+        elapsedRatingPeriods = interval.getMillis() * ratingPeriodsPerMilli;
+    }
     double newRD = calculateNewRD(player.getGlicko2RatingDeviation(), player.getVolatility(), elapsedRatingPeriods);
     return convertRatingDeviationToOriginalGlickoScale(newRD);
   }
