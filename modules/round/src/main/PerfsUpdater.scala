@@ -14,10 +14,6 @@ final class PerfsUpdater(
     rankingApi: RankingApi
 ) {
 
-  private val VOLATILITY = Glicko.default.volatility
-  private val TAU = 0.75d
-  private val system = new RatingCalculator(VOLATILITY, TAU, Glicko.ratingPeriodDays)
-
   // returns rating diffs
   def save(game: Game, white: User, black: User): Fu[Option[RatingDiffs]] =
     PerfPicker.main(game) ?? { mainPerf =>
@@ -26,13 +22,13 @@ final class PerfsUpdater(
         val ratingsB = mkRatings(black.perfs)
         val result = resultOf(game)
         def ur(white: Rating, black: Rating): Unit = {
-            updateRatings(white, black, result, system, game.movedAt)
+          updateRatings(white, black, result, game.movedAt)
         }
         game.ratingVariant match {
           case chess.variant.Chess960 => ur(ratingsW.chess960, ratingsB.chess960)
           case chess.variant.KingOfTheHill => ur(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill)
           case chess.variant.ThreeCheck => ur(ratingsW.threeCheck, ratingsB.threeCheck)
-          case chess.variant.Antichess =>  ur(ratingsW.antichess, ratingsB.antichess)
+          case chess.variant.Antichess => ur(ratingsW.antichess, ratingsB.antichess)
           case chess.variant.Atomic => ur(ratingsW.atomic, ratingsB.atomic)
           case chess.variant.Horde => ur(ratingsW.horde, ratingsB.horde)
           case chess.variant.RacingKings => ur(ratingsW.racingKings, ratingsB.racingKings)
@@ -105,7 +101,7 @@ final class PerfsUpdater(
       case None => Glicko.Result.Draw
     }
 
-  private def updateRatings(white: Rating, black: Rating, result: Glicko.Result, system: RatingCalculator, movedAt: DateTime): Unit = {
+  private def updateRatings(white: Rating, black: Rating, result: Glicko.Result, movedAt: DateTime): Unit = {
     val results = new RatingPeriodResults()
     result match {
       case Glicko.Result.Draw => results.addDraw(white, black)
@@ -113,7 +109,7 @@ final class PerfsUpdater(
       case Glicko.Result.Loss => results.addResult(black, white)
     }
     try {
-      system.updateRatings(results, movedAt)
+      Glicko.system.updateRatings(results, movedAt)
     } catch {
       case e: Exception => logger.error("update ratings", e)
     }

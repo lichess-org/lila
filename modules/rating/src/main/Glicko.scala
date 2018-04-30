@@ -1,5 +1,7 @@
 package lila.rating
 
+import org.goochjs.glicko2._
+import org.joda.time.DateTime
 import reactivemongo.bson.BSONDocument
 
 import lila.db.BSON
@@ -60,10 +62,15 @@ case object Glicko {
   // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
   val ratingPeriodDays = 4.665d
 
+  val tau = 0.75d
+  val system = new RatingCalculator(default.volatility, tau, ratingPeriodDays)
+
   def range(rating: Double, deviation: Double) = (
     rating - (deviation * 2),
     rating + (deviation * 2)
   )
+
+  def liveDeviation(p: Perf): Double = system.previewDeviation(p.toRating, new DateTime) atLeast minDeviation atMost maxDeviation
 
   implicit val glickoBSONHandler = new BSON[Glicko] {
 

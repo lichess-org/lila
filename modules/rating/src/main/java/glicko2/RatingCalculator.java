@@ -113,6 +113,20 @@ public class RatingCalculator {
     results.clear();
   }
 
+  /**
+   * This is the formula defined in step 6. It is also used for players
+   * who have not competed during the rating period.
+   *
+   * @param player
+   * @param ratingPeriodEndDate
+   * @return new rating deviation
+   */
+  public double previewDeviation(Rating player, DateTime ratingPeriodEndDate) {
+    Duration interval = new Duration(player.getLatest(), ratingPeriodEndDate);
+    double elapsedRatingPeriods = interval.getMillis() * ratingPeriodsPerMilli;
+    double newRD = calculateNewRD(player.getGlicko2RatingDeviation(), player.getVolatility(), elapsedRatingPeriods);
+    return convertRatingDeviationToOriginalGlickoScale(newRD);
+  }
 
   /**
    * This is the function processing described in step 5 of Glickman's paper.

@@ -60,15 +60,16 @@ object JsonView {
   private implicit val userWriter: OWrites[User] = OWrites { u =>
     Json.obj("name" -> u.username)
   }
-  implicit val glickoWriter: OWrites[Glicko] = OWrites { p =>
-    Json.obj(
-      "rating" -> round(p.rating),
-      "deviation" -> round(p.deviation),
-      "provisional" -> p.provisional
-    )
-  }
   implicit val perfWriter: OWrites[Perf] = OWrites { p =>
-    Json.obj("glicko" -> p.glicko, "nb" -> p.nb, "progress" -> p.progress)
+    Json.obj(
+      "glicko" -> Json.obj(
+        "rating" -> round(p.glicko.rating),
+        "deviation" -> round(Glicko.liveDeviation(p)),
+        "provisional" -> p.glicko.provisional
+      ),
+      "nb" -> p.nb,
+      "progress" -> p.progress
+    )
   }
   private implicit val avgWriter: Writes[Avg] = Writes { a =>
     JsNumber(round(a.avg))
