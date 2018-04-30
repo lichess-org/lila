@@ -415,7 +415,11 @@
   <string name="conditionOfEntry">Condiție de admitere:</string>
   <string name="advancedSettings">Setări avansate</string>
   <string name="safeTournamentName">Alege un nume foarte sigur pentru turneu.</string>
-  <string name="inappropriateNameWarning">Orice nume care este chiar și ușor nepotrivit poate cauza închiderea contului tău.</string>
+  <string name="inappropriateNameWarning">Orice nume care este chiar și ușor nepotrivit poate cauza închiderea contului dvs.</string>
+  <string name="emptyTournamentName">Lăsați necompletat pentru a numi turneul după un mare maestru oarecare.</string>
+  <string name="recommendNotTouching">Recomandăm să nu modificați aceste setări.</string>
+  <string name="fewerPlayers">Dacă stabiliți condiții de admitere, turneul dvs. va avea mai puțini jucători.</string>
+  <string name="showAdvancedSettings">Afișează setările avansate</string>
   <string name="join">Intră</string>
   <string name="withdraw">Retrage-te</string>
   <string name="points">Puncte</string>
