@@ -134,7 +134,11 @@ object UserRepo {
     }
 
   def incColor(userId: User.ID, value: Int): Unit =
-    coll.update($id(userId), $inc(F.colorIt -> value), writeConcern = GetLastError.Unacknowledged)
+    coll.update(
+      $id(userId) ++ (value < 0).??($doc("colorIt" $gt -3)),
+      $inc(F.colorIt -> value),
+      writeConcern = GetLastError.Unacknowledged
+    )
 
   def lichess = byId(User.lichessId)
 
