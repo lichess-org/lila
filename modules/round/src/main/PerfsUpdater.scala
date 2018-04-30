@@ -16,7 +16,7 @@ final class PerfsUpdater(
 
   private val VOLATILITY = Glicko.default.volatility
   private val TAU = 0.75d
-  private val system = new RatingCalculator(VOLATILITY, TAU)
+  private val system = new RatingCalculator(VOLATILITY, TAU, Glicko.ratingPeriodDays)
 
   // returns rating diffs
   def save(game: Game, white: User, black: User): Fu[Option[RatingDiffs]] =
@@ -113,7 +113,7 @@ final class PerfsUpdater(
       case Glicko.Result.Loss => results.addResult(black, white)
     }
     try {
-      system.updateRatings(results, movedAt, Glicko.ratingPeriodDays)
+      system.updateRatings(results, movedAt)
     } catch {
       case e: Exception => logger.error("update ratings", e)
     }

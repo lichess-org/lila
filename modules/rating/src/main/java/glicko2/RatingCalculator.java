@@ -30,6 +30,7 @@ public class RatingCalculator {
 
   private double tau; // constrains volatility over time
   private double defaultVolatility;
+  private double ratingPeriodsPerMilli;
 
 
   /**
@@ -40,19 +41,26 @@ public class RatingCalculator {
     defaultVolatility = DEFAULT_VOLATILITY;
   }
 
+  /**
+   *
+   * @param initVolatility  Initial volatility for new ratings
+   * @param tau             How volatility changes over time
+   */
+  public RatingCalculator(double initVolatility, double tau) {
+    this.defaultVolatility = initVolatility;
+    this.tau = tau;
+  }
 
   /**
    *
    * @param initVolatility  Initial volatility for new ratings
    * @param tau             How volatility changes over time
    */
-  public RatingCalculator(
-      double initVolatility,
-      double tau) {
-
+  public RatingCalculator(double initVolatility, double tau, double ratingPeriodDays) {
     this.defaultVolatility = initVolatility;
     this.tau = tau;
-      }
+    this.ratingPeriodsPerMilli = 1 / (ratingPeriodDays * MILLIS_PER_DAY);
+  }
 
 
   /**
@@ -64,7 +72,7 @@ public class RatingCalculator {
    * @param results
    */
   public void updateRatings(RatingPeriodResults results) {
-    updateRatings(results, null, 0);
+    updateRatings(results, null);
   }
 
   /**
@@ -77,12 +85,12 @@ public class RatingCalculator {
    * @param ratingPeriodEndDate
    * @param ratingPeriodLengthMillis
    */
-  public void updateRatings(RatingPeriodResults results, DateTime ratingPeriodEndDate, double ratingPeriodDays) {
+  public void updateRatings(RatingPeriodResults results, DateTime ratingPeriodEndDate) {
     for ( Rating player : results.getParticipants() ) {
       double elapsedRatingPeriods = 1;
-      if ( ratingPeriodEndDate != null && ratingPeriodDays != 0 && player.getLatest() != null ) {
+      if ( ratingPeriodEndDate != null && ratingPeriodsPerMilli != 0 && player.getLatest() != null ) {
         Duration interval = new Duration(player.getLatest(), ratingPeriodEndDate);
-        elapsedRatingPeriods = interval.getMillis() / (ratingPeriodDays * MILLIS_PER_DAY);
+        elapsedRatingPeriods = interval.getMillis() * ratingPeriodsPerMilli;
       }
       if ( results.getResults(player).size() > 0 ) {
         calculateNewRating(player, results.getResults(player), elapsedRatingPeriods);
