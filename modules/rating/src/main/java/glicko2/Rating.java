@@ -23,7 +23,7 @@ public class Rating {
 	private double ratingDeviation;
 	private double volatility;
 	private int numberOfResults; // the number of results from which the rating has been calculated
-	private DateTime latest;
+	private DateTime lastRatingPeriodEndDate;
 
 	 // the following variables are used to hold values temporarily whilst running calculations
 	private double workingRating;
@@ -34,12 +34,12 @@ public class Rating {
 		this(initRating, initRatingDeviation, initVolatility, nbResults, null);
 	}
 
-	public Rating(double initRating, double initRatingDeviation, double initVolatility, int nbResults, DateTime latest) {
+	public Rating(double initRating, double initRatingDeviation, double initVolatility, int nbResults, DateTime lastRatingPeriodEndDate) {
 		this.rating = initRating;
 		this.ratingDeviation = initRatingDeviation;
 		this.volatility = initVolatility;
 		this.numberOfResults = nbResults;
-		this.latest = latest;
+		this.lastRatingPeriodEndDate = lastRatingPeriodEndDate;
 	}
 
 	/**
@@ -90,12 +90,8 @@ public class Rating {
 		this.ratingDeviation = ratingDeviation;
 	}
 
-	public DateTime getLatest() {
-		return latest;
-	}
-
-	public void setLatest(DateTime latest) {
-		this.latest = latest;
+	public DateTime getLastRatingPeriodEndDate() {
+		return lastRatingPeriodEndDate;
 	}
 
 	/**

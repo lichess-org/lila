@@ -88,8 +88,8 @@ public class RatingCalculator {
   public void updateRatings(RatingPeriodResults results, DateTime ratingPeriodEndDate) {
     for ( Rating player : results.getParticipants() ) {
       double elapsedRatingPeriods = 1;
-      if ( ratingPeriodEndDate != null && ratingPeriodsPerMilli != 0 && player.getLatest() != null ) {
-        Duration interval = new Duration(player.getLatest(), ratingPeriodEndDate);
+      if ( ratingPeriodEndDate != null && ratingPeriodsPerMilli != 0 && player.getLastRatingPeriodEndDate() != null ) {
+        Duration interval = new Duration(player.getLastRatingPeriodEndDate(), ratingPeriodEndDate);
         elapsedRatingPeriods = interval.getMillis() * ratingPeriodsPerMilli;
       }
       if ( results.getResults(player).size() > 0 ) {
@@ -122,7 +122,7 @@ public class RatingCalculator {
    * @return new rating deviation
    */
   public double previewDeviation(Rating player, DateTime ratingPeriodEndDate) {
-    Duration interval = new Duration(player.getLatest(), ratingPeriodEndDate);
+    Duration interval = new Duration(player.getLastRatingPeriodEndDate(), ratingPeriodEndDate);
     double elapsedRatingPeriods = interval.getMillis() * ratingPeriodsPerMilli;
     double newRD = calculateNewRD(player.getGlicko2RatingDeviation(), player.getVolatility(), elapsedRatingPeriods);
     return convertRatingDeviationToOriginalGlickoScale(newRD);
