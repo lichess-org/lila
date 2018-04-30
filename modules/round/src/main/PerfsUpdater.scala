@@ -21,25 +21,36 @@ final class PerfsUpdater(
         val ratingsW = mkRatings(white.perfs)
         val ratingsB = mkRatings(black.perfs)
         val result = resultOf(game)
-        def ur(white: Rating, black: Rating): Unit = {
-          updateRatings(white, black, result, game.movedAt)
-        }
         game.ratingVariant match {
-          case chess.variant.Chess960 => ur(ratingsW.chess960, ratingsB.chess960)
-          case chess.variant.KingOfTheHill => ur(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill)
-          case chess.variant.ThreeCheck => ur(ratingsW.threeCheck, ratingsB.threeCheck)
-          case chess.variant.Antichess => ur(ratingsW.antichess, ratingsB.antichess)
-          case chess.variant.Atomic => ur(ratingsW.atomic, ratingsB.atomic)
-          case chess.variant.Horde => ur(ratingsW.horde, ratingsB.horde)
-          case chess.variant.RacingKings => ur(ratingsW.racingKings, ratingsB.racingKings)
-          case chess.variant.Crazyhouse => ur(ratingsW.crazyhouse, ratingsB.crazyhouse)
+          case chess.variant.Chess960 =>
+            updateRatings(ratingsW.chess960, ratingsB.chess960, result)
+          case chess.variant.KingOfTheHill =>
+            updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, result)
+          case chess.variant.ThreeCheck =>
+            updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, result)
+          case chess.variant.Antichess =>
+            updateRatings(ratingsW.antichess, ratingsB.antichess, result)
+          case chess.variant.Atomic =>
+            updateRatings(ratingsW.atomic, ratingsB.atomic, result)
+          case chess.variant.Horde =>
+            updateRatings(ratingsW.horde, ratingsB.horde, result)
+          case chess.variant.RacingKings =>
+            updateRatings(ratingsW.racingKings, ratingsB.racingKings, result)
+          case chess.variant.Crazyhouse =>
+            updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, result)
           case chess.variant.Standard => game.speed match {
-            case Speed.Bullet => ur(ratingsW.bullet, ratingsB.bullet)
-            case Speed.Blitz => ur(ratingsW.blitz, ratingsB.blitz)
-            case Speed.Rapid => ur(ratingsW.rapid, ratingsB.rapid)
-            case Speed.Classical => ur(ratingsW.classical, ratingsB.classical)
-            case Speed.Correspondence => ur(ratingsW.correspondence, ratingsB.correspondence)
-            case Speed.UltraBullet => ur(ratingsW.ultraBullet, ratingsB.ultraBullet)
+            case Speed.Bullet =>
+              updateRatings(ratingsW.bullet, ratingsB.bullet, result)
+            case Speed.Blitz =>
+              updateRatings(ratingsW.blitz, ratingsB.blitz, result)
+            case Speed.Rapid =>
+              updateRatings(ratingsW.rapid, ratingsB.rapid, result)
+            case Speed.Classical =>
+              updateRatings(ratingsW.classical, ratingsB.classical, result)
+            case Speed.Correspondence =>
+              updateRatings(ratingsW.correspondence, ratingsB.correspondence, result)
+            case Speed.UltraBullet =>
+              updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, result)
           }
           case _ =>
         }
@@ -101,7 +112,7 @@ final class PerfsUpdater(
       case None => Glicko.Result.Draw
     }
 
-  private def updateRatings(white: Rating, black: Rating, result: Glicko.Result, movedAt: DateTime): Unit = {
+  private def updateRatings(white: Rating, black: Rating, result: Glicko.Result): Unit = {
     val results = new RatingPeriodResults()
     result match {
       case Glicko.Result.Draw => results.addDraw(white, black)
@@ -109,7 +120,7 @@ final class PerfsUpdater(
       case Glicko.Result.Loss => results.addResult(black, white)
     }
     try {
-      Glicko.system.updateRatings(results, movedAt)
+      Glicko.system.updateRatings(results, true)
     } catch {
       case e: Exception => logger.error("update ratings", e)
     }

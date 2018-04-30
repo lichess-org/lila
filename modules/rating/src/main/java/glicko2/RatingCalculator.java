@@ -72,7 +72,7 @@ public class RatingCalculator {
    * @param results
    */
   public void updateRatings(RatingPeriodResults results) {
-    updateRatings(results, null);
+    updateRatings(results, false);
   }
 
   /**
@@ -85,13 +85,9 @@ public class RatingCalculator {
    * @param ratingPeriodEndDate
    * @param ratingPeriodLengthMillis
    */
-  public void updateRatings(RatingPeriodResults results, DateTime ratingPeriodEndDate) {
+  public void updateRatings(RatingPeriodResults results, boolean skipDeviationIncrease) {
     for ( Rating player : results.getParticipants() ) {
-      double elapsedRatingPeriods = 1;
-      if ( ratingPeriodEndDate != null && ratingPeriodsPerMilli != 0 && player.getLastRatingPeriodEndDate() != null ) {
-        Duration interval = new Duration(player.getLastRatingPeriodEndDate(), ratingPeriodEndDate);
-        elapsedRatingPeriods = interval.getMillis() * ratingPeriodsPerMilli;
-      }
+      double elapsedRatingPeriods = skipDeviationIncrease ? 0 : 1;
       if ( results.getResults(player).size() > 0 ) {
         calculateNewRating(player, results.getResults(player), elapsedRatingPeriods);
       } else {
@@ -119,13 +115,17 @@ public class RatingCalculator {
    *
    * @param player
    * @param ratingPeriodEndDate
+   * @param reverse
    * @return new rating deviation
    */
-  public double previewDeviation(Rating player, DateTime ratingPeriodEndDate) {
+  public double previewDeviation(Rating player, DateTime ratingPeriodEndDate, boolean reverse) {
     double elapsedRatingPeriods = 0;
     if ( ratingPeriodsPerMilli != 0 && player.getLastRatingPeriodEndDate() != null ) {
         Duration interval = new Duration(player.getLastRatingPeriodEndDate(), ratingPeriodEndDate);
         elapsedRatingPeriods = interval.getMillis() * ratingPeriodsPerMilli;
+    }
+    if (reverse) {
+        elapsedRatingPeriods = -elapsedRatingPeriods;
     }
     double newRD = calculateNewRD(player.getGlicko2RatingDeviation(), player.getVolatility(), elapsedRatingPeriods);
     return convertRatingDeviationToOriginalGlickoScale(newRD);

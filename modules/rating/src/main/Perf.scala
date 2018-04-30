@@ -80,15 +80,18 @@ case object Perf {
 
     import Glicko.glickoBSONHandler
 
-    def reads(r: BSON.Reader): Perf = Perf(
-      glicko = r.getO[Glicko]("gl") | Glicko.default,
-      nb = r intD "nb",
-      latest = r dateO "la",
-      recent = r intsD "re"
-    )
+    def reads(r: BSON.Reader): Perf = {
+      val p = Perf(
+        glicko = r.getO[Glicko]("gl") | Glicko.default,
+        nb = r intD "nb",
+        latest = r dateO "la",
+        recent = r intsD "re"
+      )
+      p.copy(glicko = p.glicko.copy(deviation = Glicko.system.previewDeviation(p.toRating, new DateTime, false)))
+    }
 
     def writes(w: BSON.Writer, o: Perf) = BSONDocument(
-      "gl" -> o.glicko,
+      "gl" -> o.glicko.copy(deviation = Glicko.system.previewDeviation(o.toRating, new DateTime, true)),
       "nb" -> w.int(o.nb),
       "re" -> w.listO(o.recent),
       "la" -> o.latest.map(w.date)
