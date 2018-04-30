@@ -70,6 +70,8 @@ case object Glicko {
     rating + (deviation * 2)
   )
 
+  def liveDeviation(p: Perf, reverse: Boolean): Double = system.previewDeviation(p.toRating, new DateTime, reverse) atLeast minDeviation atMost maxDeviation
+
   implicit val glickoBSONHandler = new BSON[Glicko] {
 
     def reads(r: BSON.Reader): Glicko = Glicko(
