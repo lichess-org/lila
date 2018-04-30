@@ -725,8 +725,8 @@
   <string name="downloadImported">Uvezeno preuzimanje</string>
   <string name="printFriendlyPDF">PDF spreman za štampu</string>
   <string name="crosstable">Uporedni pregled</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možete skrolovati preko table radi povčačenja poteza u partiji.</string>
-  <string name="analysisShapesHowTo">Pristisnite shifz-click ili desni klik za crtanje krugova i strelica na ploči.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можете скроловати преко табле ради повлачења потеза у партији.</string>
+  <string name="analysisShapesHowTo">Pитисните shif-click или десни клик за цртање кругова и стрелица на плочи.</string>
   <string name="confirmResignationAndDrawOffers">Потврда за предавање и предлагање ремија</string>
   <string name="inputMovesWithTheKeyboard">Уноеси потезе са тастатуром</string>
   <string name="letOtherPlayersMessageYou">Neka Vma drugi igrači poruče.</string>
