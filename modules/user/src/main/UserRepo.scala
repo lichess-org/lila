@@ -359,9 +359,8 @@ object UserRepo {
       }(scala.collection.breakOut)
     }
 
-  def setSeenAt(id: ID): Unit = {
+  def setSeenAt(id: ID): Unit =
     coll.updateFieldUnchecked($id(id), "seenAt", DateTime.now)
-  }
 
   def recentlySeenNotKidIdsCursor(since: DateTime)(implicit cp: CursorProducer[Bdoc]) =
     coll.find($doc(

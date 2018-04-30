@@ -1,7 +1,6 @@
 package lila.oauth
 
 import org.joda.time.DateTime
-import pdi.jwt.{ Jwt, JwtAlgorithm }
 import play.api.http.HeaderNames.AUTHORIZATION
 import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
@@ -12,7 +11,6 @@ import lila.user.{ User, UserRepo }
 
 final class OAuthServer(
     tokenColl: Coll,
-    jwtPublicKey: JWT.PublicKey,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
@@ -23,15 +21,7 @@ final class OAuthServer(
   def auth(req: RequestHeader, scopes: List[OAuthScope]): Fu[AuthResult] = {
     req.headers.get(AUTHORIZATION).map(_.split(" ", 2)) match {
       case Some(Array("Bearer", tokenStr)) => for {
-        accessTokenId <- {
-          if (tokenStr.size == AccessToken.idSize) fuccess(AccessToken.Id(tokenStr))
-          else Jwt.decodeRaw(tokenStr, jwtPublicKey.value, Seq(JwtAlgorithm.RS256)).fold(
-            err => fufail(InvalidToken),
-            jsonStr => (Json.parse(jsonStr) str "jti").fold[Fu[AccessToken.Id]](fufail(InvalidToken)) { t =>
-              fuccess(AccessToken.Id(t))
-            }
-          )
-        }
+        accessTokenId <- fuccess(AccessToken.Id(tokenStr))
         accessToken <- {
           if (accessTokenId.isPersonal) personalAccessTokenCache.get(accessTokenId)
           else fetchAccessToken(accessTokenId)
@@ -71,7 +61,6 @@ object OAuthServer {
   case object ServerOffline extends AuthError("OAuth server is offline! Try again soon.")
   case object MissingAuthorizationHeader extends AuthError("Missing authorization header")
   case object InvalidAuthorizationHeader extends AuthError("Invalid authorization header")
-  case object InvalidToken extends AuthError("Invalid token")
   case object NoSuchToken extends AuthError("No such token")
   case class MissingScope(scopes: List[OAuthScope]) extends AuthError("Missing scope")
   case object NoSuchUser extends AuthError("No such user")
