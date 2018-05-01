@@ -53,9 +53,9 @@ object Game extends LilaController {
                   evals = getBoolOpt("evals", req) | false
                 ),
                 perSecond = MaxPerSecond(me match {
-                  case None => 10
                   case Some(m) if m is user.id => 50
-                  case Some(_) if oauth => 20 // bonus for oauth logged in only (not to XSRF)
+                  case Some(_) if oauth => 20 // bonus for oauth logged in only (not for XSRF)
+                  case _ => 10
                 })
               )
               val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
