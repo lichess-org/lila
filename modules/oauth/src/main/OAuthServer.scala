@@ -20,22 +20,15 @@ final class OAuthServer(
 
   def auth(req: RequestHeader, scopes: List[OAuthScope]): Fu[AuthResult] = {
     req.headers.get(AUTHORIZATION).map(_.split(" ", 2)) match {
-      case Some(Array("Bearer", tokenStr)) => for {
-        accessTokenId <- fuccess(AccessToken.Id(tokenStr))
-        accessToken <- {
-          if (accessTokenId.isPersonal) personalAccessTokenCache.get(accessTokenId)
-          else fetchAccessToken(accessTokenId)
-        }
-        scoped <- accessToken.fold[Fu[OAuthScope.Scoped]](fufail(NoSuchToken)) {
+      case Some(Array("Bearer", tokenStr)) =>
+        val tokenId = AccessToken.Id(tokenStr)
+        accessTokenCache.get(tokenId) flattenWith NoSuchToken flatMap {
           case at if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
-          case at =>
-            if (!at.usedRecently) tokenColl.updateFieldUnchecked($doc(F.id -> accessTokenId), F.usedAt, DateTime.now)
-            UserRepo enabledById at.userId flatMap {
-              case None => fufail(NoSuchUser)
-              case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
-            }
-        }
-      } yield Right(scoped)
+          case at => UserRepo enabledById at.userId flatMap {
+            case None => fufail(NoSuchUser)
+            case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
+          }
+        } map Right.apply
       case Some(_) => fufail(InvalidAuthorizationHeader)
       case None => fufail(MissingAuthorizationHeader)
     }
@@ -43,14 +36,18 @@ final class OAuthServer(
     case e: AuthError => Left(e)
   }
 
-  private val personalAccessTokenCache = asyncCache.multi[AccessToken.Id, Option[AccessToken.ForAuth]](
+  private val accessTokenCache = asyncCache.multi[AccessToken.Id, Option[AccessToken.ForAuth]](
     name = "oauth.server.personal_access_token",
     f = fetchAccessToken,
-    expireAfter = _.ExpireAfterWrite(2 minutes)
+    expireAfter = _.ExpireAfterWrite(3 minutes)
   )
 
   private def fetchAccessToken(tokenId: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
-    tokenColl.uno[ForAuth]($doc(F.id -> tokenId), AccessToken.forAuthProjection)
+    tokenColl.findAndUpdate(
+      selector = $id(tokenId),
+      update = $set(F.usedAt -> DateTime.now),
+      fields = AccessToken.forAuthProjection.some
+    ).map(_.value) map2 AccessToken.ForAuthBSONReader.read
 }
 
 object OAuthServer {

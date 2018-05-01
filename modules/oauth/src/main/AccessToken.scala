@@ -26,9 +26,7 @@ object AccessToken {
 
   def makeId = Id(ornicar.scalalib.Random secureString idSize)
 
-  case class ForAuth(userId: User.ID, usedAt: Option[DateTime], scopes: List[OAuthScope]) {
-    def usedRecently = usedAt.exists(_.isAfter(DateTime.now minusMinutes 5))
-  }
+  case class ForAuth(userId: User.ID, scopes: List[OAuthScope])
 
   object BSONFields {
     val id = "access_token_id"
@@ -48,7 +46,6 @@ object AccessToken {
 
   private[oauth] val forAuthProjection = $doc(
     BSONFields.userId -> true,
-    BSONFields.usedAt -> true,
     BSONFields.scopes -> true
   )
 
@@ -57,7 +54,6 @@ object AccessToken {
   implicit val ForAuthBSONReader = new BSONDocumentReader[ForAuth] {
     def read(doc: BSONDocument) = ForAuth(
       userId = doc.getAs[User.ID](BSONFields.userId) err "ForAuth userId missing",
-      usedAt = doc.getAs[DateTime](BSONFields.usedAt),
       scopes = doc.getAs[List[OAuthScope]](BSONFields.scopes) err "ForAuth scopes missing"
     )
   }
