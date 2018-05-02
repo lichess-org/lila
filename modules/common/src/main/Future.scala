@@ -19,11 +19,12 @@ object Future {
       }
     }
 
-  def filterNot[A](list: List[A])(f: A => Fu[Boolean]): Fu[List[A]] = {
-    list.map {
-      element => !f(element) dmap (_ option element)
-    }.sequenceFu.dmap(_.flatten)
-  }
+  def filter[A](list: List[A])(f: A => Fu[Boolean]): Fu[List[A]] = list.map {
+    element => f(element) dmap (_ option element)
+  }.sequenceFu.dmap(_.flatten)
+
+  def filterNot[A](list: List[A])(f: A => Fu[Boolean]): Fu[List[A]] =
+    filter(list)(a => !f(a))
 
   def traverseSequentially[A, B](list: List[A])(f: A => Fu[B]): Fu[List[B]] =
     list match {
