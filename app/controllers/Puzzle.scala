@@ -200,7 +200,13 @@ object Puzzle extends LilaController {
       err => BadRequest(err.toString).fuccess,
       data => negotiate(
         html = notFound,
-        api = _ => env.batch.solve(me, data)
+        api = _ => for {
+          _ <- env.batch.solve(me, data)
+          me2 <- UserRepo byId me.id map (_ | me)
+          infos <- env userInfos me2
+        } yield Ok(Json.obj(
+          "user" -> lila.puzzle.JsonView.infos(false)(infos)
+        ))
       )
     )
   }
