@@ -234,8 +234,8 @@ final class TournamentApi(
     PlayerRepo count tourId flatMap { TournamentRepo.setNbPlayers(tourId, _) }
 
   private def withdrawOtherTournaments(tourId: Tournament.ID, userId: User.ID): Unit =
-    TournamentRepo tourIdsToWithdrawWhenEntering tourId foreach { tourIds =>
-      PlayerRepo.filterExists(tourIds, userId) foreach {
+    TournamentRepo tourIdsToWithdrawWhenEntering tourId foreach {
+      PlayerRepo.filterExists(_, userId) foreach {
         _ foreach {
           withdraw(_, userId, isPause = false)
         }
