@@ -259,7 +259,13 @@ object Puzzle extends LidraughtsController {
       err => BadRequest(err.toString).fuccess,
       data => negotiate(
         html = notFound,
-        api = _ => env.batch.solve(me, Standard, data)
+        api = _ => for {
+          _ <- env.batch.solve(me, Standard, data)
+          me2 <- UserRepo byId me.id map (_ | me)
+          infos <- env userInfos me2
+        } yield Ok(Json.obj(
+          "user" -> lidraughts.puzzle.JsonView.infos(false, Standard)(infos)
+        ))
       )
     )
   }
