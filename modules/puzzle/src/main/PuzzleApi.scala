@@ -111,15 +111,13 @@ private[puzzle] final class PuzzleApi(
         h.current | h.last
       }
 
-    def solved(user: User, id: PuzzleId) = head find user flatMap {
-      case Some(PuzzleHead(_, Some(c), n)) if c == id && c > n => set {
-        PuzzleHead(user.id, none, id)
+    private[puzzle] def solved(user: User, id: PuzzleId): Funit = head find user flatMap {
+      _ ?? {
+        case PuzzleHead(_, Some(c), last) => set {
+          PuzzleHead(user.id, none, c atLeast last)
+        }
+        case _ => funit
       }
-      case Some(PuzzleHead(_, Some(c), n)) if c == id => headColl update (
-        $id(user.id),
-        $unset(PuzzleHead.BSONFields.current)
-      )
-      case _ => fuccess(none)
     }
   }
 }

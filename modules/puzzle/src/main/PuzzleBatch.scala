@@ -34,9 +34,8 @@ private[puzzle] final class PuzzleBatch(
     def apply(user: User, nb: Int): Fu[List[Puzzle]] = {
       api.head.find(user) flatMap {
         newPuzzlesForUser(user, _, nb)
-      } flatMap { puzzles =>
+      } addEffect { puzzles =>
         lila.mon.puzzle.batch.selector.count(puzzles.size)
-        puzzles.lastOption.?? { p => api.head.addNew(user, p.id) } inject puzzles
       }
     }.mon(_.puzzle.batch.selector.time)
 
