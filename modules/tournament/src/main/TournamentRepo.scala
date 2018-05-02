@@ -35,9 +35,6 @@ object TournamentRepo {
   def uniqueById(id: String): Fu[Option[Tournament]] =
     coll.find($id(id) ++ selectUnique).uno[Tournament]
 
-  def recentAndNext: Fu[List[Tournament]] =
-    coll.find(sinceSelect(DateTime.now minusDays 1)).list[Tournament]()
-
   def byIdAndPlayerId(id: String, userId: String): Fu[Option[Tournament]] =
     coll.find(
       $id(id) ++ $doc("players.id" -> userId)
@@ -61,11 +58,11 @@ object TournamentRepo {
   def createdByIdAndCreator(id: String, userId: String): Fu[Option[Tournament]] =
     createdById(id) map (_ filter (_.createdBy == userId))
 
-  def allEnterable: Fu[List[Tournament]] =
-    coll.find(enterableSelect).cursor[Tournament]().gather[List]()
+  def allEnterableIds: Fu[List[Tournament.ID]] =
+    coll.primitive[Tournament.ID](enterableSelect, "_id")
 
   def nonEmptyEnterable: Fu[List[Tournament]] =
-    coll.find(enterableSelect ++ nonEmptySelect).cursor[Tournament]().gather[List]()
+    coll.find(enterableSelect ++ nonEmptySelect).list[Tournament]()
 
   def createdIncludingScheduled: Fu[List[Tournament]] = coll.find(createdSelect).list[Tournament](None)
 

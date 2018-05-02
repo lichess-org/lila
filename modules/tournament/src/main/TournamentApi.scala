@@ -357,17 +357,13 @@ final class TournamentApi(
       }.sequenceFu.void
     }
 
-  def ejectLame(userId: User.ID): Unit = {
-    TournamentRepo.recentAndNext foreach {
-      _ foreach { tour =>
-        PlayerRepo.exists(tour.id, userId) foreach {
-          _ ?? ejectLame(tour.id, userId)
-        }
-      }
-    }
-  }
+  def ejectLame(userId: User.ID, playedIds: List[Tournament.ID]): Unit = for {
+    enterableIds <- TournamentRepo.allEnterableIds
+    enteredIds <- lila.common.Future.filter(enterableIds) { PlayerRepo.exists(_, userId) }
+    allIds = enterableIds ++ playedIds
+  } allIds.foreach { ejectLame(_, userId) }
 
-  def ejectLame(tourId: Tournament.ID, userId: User.ID): Unit = {
+  def ejectLame(tourId: Tournament.ID, userId: User.ID): Unit =
     Sequencing(tourId)(TournamentRepo.byId) { tour =>
       PlayerRepo.remove(tour.id, userId) >> {
         if (tour.isStarted)
@@ -390,7 +386,6 @@ final class TournamentApi(
         updateNbPlayers(tour.id) >>-
         socketReload(tour.id) >>- publish()
     }
-  }
 
   private val tournamentTopCache = asyncCache.multi[Tournament.ID, TournamentTop](
     name = "tournament.top",

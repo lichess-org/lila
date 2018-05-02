@@ -54,6 +54,14 @@ final class LeaderboardApi(
       }
   }
 
+  def getAndDeleteRecent(userId: User.ID, since: DateTime): Fu[List[Tournament.ID]] =
+    coll.find($doc(
+      "u" -> userId,
+      "d" $gt since
+    )).list[Entry]() flatMap { entries =>
+      (entries.nonEmpty ?? coll.remove($inIds(entries.map(_.id))).void) inject entries.map(_.tourId)
+    }
+
   private def paginator(user: User, page: Int, sort: Bdoc): Fu[Paginator[TourEntry]] = Paginator(
     adapter = new Adapter[Entry](
       collection = coll,
