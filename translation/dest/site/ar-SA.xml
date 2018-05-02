@@ -488,6 +488,7 @@
   <string name="createANewTournament">ابدأ مسابقة جديدة</string>
   <string name="tournamentCalendar">جدول البطولات</string>
   <string name="conditionOfEntry">شروط الدخول:</string>
+  <string name="advancedSettings">إعدادات متقدمة</string>
   <string name="join">إشترك</string>
   <string name="withdraw">انسحاب</string>
   <string name="points">النقاط</string>
