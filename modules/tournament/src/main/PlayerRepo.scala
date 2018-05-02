@@ -47,8 +47,11 @@ object PlayerRepo {
   def remove(tourId: String, userId: String) =
     coll.remove(selectTourUser(tourId, userId)).void
 
-  def exists(tourId: String, userId: String) =
-    coll.exists(selectTourUser(tourId, userId))
+  def filterExists(tourIds: List[Tournament.ID], userId: String): Fu[List[Tournament.ID]] =
+    coll.primitive[Tournament.ID]($doc(
+      "tid" $in tourIds,
+      "uid" -> userId
+    ), "tid")
 
   def existsActive(tourId: String, userId: String) =
     coll.exists(selectTourUser(tourId, userId) ++ selectActive)
