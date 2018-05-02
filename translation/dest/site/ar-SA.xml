@@ -247,6 +247,8 @@
   <string name="thisGameIsRated">هذه اللعبة مقيّمة</string>
   <string name="rematch">العب مرة أخرى</string>
   <string name="rematchOfferSent">أُرسل طلب اللعب</string>
+  <string name="rematchOfferSentWhite">الأبيض يعرض اللعب ثانية</string>
+  <string name="rematchOfferSentBlack">الأسود يعرض اللعب ثانية</string>
   <string name="rematchOfferAccepted">قُبل طلب اللعب</string>
   <string name="rematchOfferCanceled">أُلغي طلب اللعب</string>
   <string name="rematchOfferDeclined">رُفض طلب اللعب</string>
