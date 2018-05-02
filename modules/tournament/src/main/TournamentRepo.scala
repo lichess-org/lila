@@ -58,16 +58,16 @@ object TournamentRepo {
   def createdByIdAndCreator(id: String, userId: String): Fu[Option[Tournament]] =
     createdById(id) map (_ filter (_.createdBy == userId))
 
-  def allEnterableIds: Fu[List[Tournament.ID]] =
-    coll.primitive[Tournament.ID](enterableSelect, "_id")
+  def nonEmptyEnterableIds: Fu[List[Tournament.ID]] =
+    coll.primitive[Tournament.ID](enterableSelect ++ nonEmptySelect, "_id")
 
-  def nonEmptyEnterable: Fu[List[Tournament]] =
-    coll.find(enterableSelect ++ nonEmptySelect).list[Tournament]()
+  def createdIncludingScheduled: Fu[List[Tournament]] = coll.find(createdSelect).list[Tournament]()
 
-  def createdIncludingScheduled: Fu[List[Tournament]] = coll.find(createdSelect).list[Tournament](None)
+  def startedTours: Fu[List[Tournament]] =
+    coll.find(startedSelect).sort($doc("createdAt" -> -1)).list[Tournament]()
 
-  def started: Fu[List[Tournament]] =
-    coll.find(startedSelect).sort($doc("createdAt" -> -1)).list[Tournament](None)
+  def startedIds: Fu[List[Tournament.ID]] =
+    coll.primitive[Tournament.ID](startedSelect, sort = $doc("createdAt" -> -1), "_id")
 
   def publicStarted: Fu[List[Tournament]] =
     coll.find(startedSelect ++ $doc("private" $exists false))
@@ -221,16 +221,15 @@ object TournamentRepo {
 
   def exists(id: String) = coll exists $id(id)
 
-  def toursToWithdrawWhenEntering(tourId: String): Fu[List[Tournament]] = {
-    coll.find(
-      enterableSelect ++
-        nonEmptySelect ++
-        $doc(
-          "_id" $ne tourId,
-          "startsAt" $lt DateTime.now
-        )
-    ).list[Tournament](none, ReadPreference.secondaryPreferred)
-  }
+  def tourIdsToWithdrawWhenEntering(tourId: Tournament.ID): Fu[List[Tournament.ID]] = coll.primitive[Tournament.ID](
+    enterableSelect ++
+      nonEmptySelect ++
+      $doc(
+        "_id" $ne tourId,
+        "startsAt" $lt DateTime.now
+      ),
+    "_id"
+  )
 
   def calendar(from: DateTime, to: DateTime): Fu[List[Tournament]] =
     coll.find($doc(
