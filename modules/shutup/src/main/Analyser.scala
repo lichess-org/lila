@@ -8,8 +8,7 @@ object Analyser {
   )
 
   private def wordsRegexes =
-    Dictionary.en.map { word => word + "e?[ds]?"
-    } ++
+    Dictionary.en.map { word => word + "e?[ds]?" } ++
       Dictionary.ru ++
       Dictionary.youtubeIds
 
