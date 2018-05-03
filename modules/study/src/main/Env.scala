@@ -183,6 +183,12 @@ final class Env(
       case "study" :: "rank" :: "reset" :: Nil => api.resetAllRanks.map { count => s"$count done" }
     }
   }
+
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+    def receive = {
+      case lila.user.User.GDPRErase(user) => api erase user
+    }
+  })), 'gdprErase)
 }
 
 object Env {

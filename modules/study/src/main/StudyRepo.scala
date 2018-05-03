@@ -71,6 +71,8 @@ final class StudyRepo(private[study] val coll: Coll) {
 
   def delete(s: Study): Funit = coll.remove($id(s.id)).void
 
+  def deleteByIds(ids: List[Study.Id]): Funit = coll.remove($inIds(ids)).void
+
   def membersById(id: Study.Id): Fu[Option[StudyMembers]] =
     coll.primitiveOne[StudyMembers]($id(id), "members")
 
@@ -115,12 +117,13 @@ final class StudyRepo(private[study] val coll: Coll) {
     coll.find($inIds(ids) ++ selectPublic, idNameProjection).list[Study.IdName]()
 
   def recentByOwner(userId: User.ID, nb: Int) =
-    coll.find(
-      selectOwnerId(userId),
-      idNameProjection
-    )
+    coll.find(selectOwnerId(userId), idNameProjection)
       .sort($sort desc "updatedAt")
       .list[Study.IdName](nb, ReadPreference.secondaryPreferred)
+
+  // heavy AF. Only use for GDPR.
+  private[study] def allIdsByOwner(userId: User.ID): Fu[List[Study.Id]] =
+    coll.distinct[Study.Id, List]("_id", selectOwnerId(userId).some)
 
   def recentByContributor(userId: User.ID, nb: Int) =
     coll.find(

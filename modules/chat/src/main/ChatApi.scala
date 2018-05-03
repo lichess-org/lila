@@ -192,6 +192,8 @@ final class ChatApi(
 
   private[chat] def remove(chatId: Chat.Id) = coll.remove($id(chatId)).void
 
+  private[chat] def removeAll(chatIds: List[Chat.Id]) = coll.remove($inIds(chatIds)).void
+
   private def pushLine(chatId: Chat.Id, line: Line): Funit = coll.update(
     $id(chatId),
     $doc("$push" -> $doc(
