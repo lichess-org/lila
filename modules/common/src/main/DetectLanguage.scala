@@ -19,7 +19,8 @@ final class DetectLanguage(url: String, key: String) {
   private val messageMaxLength = 2000
 
   def apply(message: String): Fu[Option[Lang]] =
-    WS.url(url).post(Map(
+    if (key.isEmpty) fuccess(Lang("en").some)
+    else WS.url(url).post(Map(
       "key" -> Seq(key),
       "q" -> Seq(message take messageMaxLength)
     )) map { response =>

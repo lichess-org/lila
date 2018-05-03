@@ -2,6 +2,7 @@ package lidraughts.qa
 
 import com.typesafe.config.Config
 import lidraughts.common.DetectLanguage
+import akka.actor._
 
 final class Env(
     config: Config,
@@ -10,6 +11,7 @@ final class Env(
     mongoCache: lidraughts.memo.MongoCache.Builder,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
     notifyApi: lidraughts.notify.NotifyApi,
+    system: akka.actor.ActorSystem,
     db: lidraughts.db.Env
 ) {
 
@@ -34,6 +36,15 @@ final class Env(
   lazy val search = new Search(questionColl)
 
   lazy val forms = new DataForm(hub.actor.captcher, detectLanguage)
+
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
+    def receive = {
+      case lidraughts.user.User.GDPRErase(user) => for {
+        _ <- api.question erase user
+        _ <- api.answer erase user
+      } yield ()
+    }
+  })), 'gdprErase)
 }
 
 object Env {
@@ -45,6 +56,7 @@ object Env {
     mongoCache = lidraughts.memo.Env.current.mongoCache,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
     notifyApi = lidraughts.notify.Env.current.api,
+    system = lila.common.PlayApp.system,
     db = lidraughts.db.Env.current
   )
 }

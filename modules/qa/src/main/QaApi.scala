@@ -148,6 +148,13 @@ final class QaApi(
         case None => $unset("locked")
         case Some(u) => $set("locked" -> Locked(by = u.id, at = DateTime.now))
       }).void
+
+    def erase(user: User) = questionColl.distinct[QuestionId, List]("_id", $doc("userId" -> user.id).some).flatMap { ids =>
+      (ids.nonEmpty) ?? {
+        questionColl.remove($inIds(ids)) >>
+          answerColl.remove($doc("questionId" $in ids)).void
+      }
+    }
   }
 
   object answer {
@@ -263,6 +270,8 @@ final class QaApi(
 
     def countByQuestionId(id: QuestionId) =
       answerColl.count(Some($doc("questionId" -> id)))
+
+    def erase(user: User) = answerColl.remove($doc("userId" -> user.id))
   }
 
   object comment {
