@@ -1,5 +1,6 @@
 package lila.message
 
+import reactivemongo.api.ReadPreference
 import lila.db.dsl._
 import lila.user.User
 
@@ -21,6 +22,13 @@ object ThreadRepo {
 
   def createdByUser(user: ID): Fu[List[Thread]] =
     coll.find(visibleByUserQuery(user) ++ $doc("creatorId" -> user)).list[Thread]()
+
+  // super heavy. For GDPR only.
+  private[message] def byAndForWithoutIndex(user: User): Fu[List[Thread]] =
+    coll.find($or(
+      $doc("creatorId" -> user.id),
+      $doc("invitedId" -> user.id)
+    )).list[Thread](999, readPreference = ReadPreference.secondaryPreferred)
 
   def setReadFor(user: User)(thread: Thread): Funit = {
     val indexes = thread.unreadIndexesBy(user)
