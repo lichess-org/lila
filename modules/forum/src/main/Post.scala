@@ -22,6 +22,7 @@ case class Post(
     editHistory: Option[List[OldVersion]] = None,
     createdAt: DateTime,
     updatedAt: Option[DateTime] = None,
+    erasedAt: Option[DateTime] = None,
     modIcon: Option[Boolean]
 ) {
 
@@ -32,7 +33,7 @@ case class Post(
 
   def showAuthor = (author map (_.trim) filter ("" !=)) | User.anonymous
 
-  def showUserIdOrAuthor = userId | showAuthor
+  def showUserIdOrAuthor = if (erased) lila.common.String.erased else userId | showAuthor
 
   def isTeam = categId startsWith teamSlug("")
 
@@ -40,9 +41,8 @@ case class Post(
 
   def updatedOrCreatedAt = updatedAt | createdAt
 
-  def canStillBeEdited() = {
+  def canStillBeEdited =
     updatedOrCreatedAt.plus(permitEditsFor.toMillis).isAfter(DateTime.now)
-  }
 
   def canBeEditedBy(editingId: String): Boolean = userId.fold(false)(editingId == _)
 
@@ -62,6 +62,8 @@ case class Post(
   def hasEdits = editHistory.isDefined
 
   def displayModIcon = ~modIcon
+
+  def erased = erasedAt.isDefined
 }
 
 object Post {

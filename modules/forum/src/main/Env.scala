@@ -71,9 +71,10 @@ final class Env(
     system.actorOf(Props(new Actor {
       def receive = {
         case CreateTeam(id, name, _) => categApi.makeTeam(id, name)
+        case lila.user.User.GDPRErase(user) => postApi erase user
       }
     })),
-    'team
+    'team, 'gdprErase
   )
 
   private[forum] lazy val categColl = db(CollectionCateg)
