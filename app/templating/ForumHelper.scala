@@ -33,7 +33,9 @@ trait ForumHelper { self: UserHelper with StringHelper =>
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
     modIcon: Boolean = false
-  ) = post.userId.fold(Html(lidraughts.user.User.anonymous)) { userId =>
-    userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
-  }
+  ) =
+    if (post.erased) Html(s"""<span class="author">${lidraughts.common.String.erasedHtml}</span>""")
+    else post.userId.fold(Html(lidraughts.user.User.anonymous)) { userId =>
+      userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
+    }
 }

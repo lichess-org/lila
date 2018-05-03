@@ -193,5 +193,4 @@ private[forum] final class TopicApi(
       updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
     )).void
   } yield ()
-
 }

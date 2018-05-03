@@ -146,6 +146,15 @@ div.post {
   margin-top: 1em;
   position: relative;
 }
+div.post.erased {
+  background: rgba(128,128,128,0.2);
+  opacity: 0.5;
+}
+div.post.erased .message {
+  font-style: italic;
+  text-align: center;
+  margin: 0;
+}
 div.post:last-child {
   border-bottom: 1px solid #D4D4D4;
   padding-bottom: 2em;

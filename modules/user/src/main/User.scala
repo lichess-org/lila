@@ -133,6 +133,8 @@ object User {
 
   val idPattern = """^[\w-]{3,20}$""".r.pattern
 
+  case class GDPRErase(user: User)
+
   case class LightPerf(user: LightUser, perfKey: String, rating: Int, progress: Int)
   case class LightCount(user: LightUser, count: Int)
 
