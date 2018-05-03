@@ -695,6 +695,12 @@ final class StudyApi(
       }
     }
 
+  def erase(user: User) = studyRepo.allIdsByOwner(user.id) flatMap { ids =>
+    chat ! lidraughts.chat.actorApi.RemoveAll(ids.map(id => Chat.Id(id.value)))
+    studyRepo.deleteByIds(ids) >>
+      chapterRepo.deleteByStudyIds(ids)
+  }
+
   private def sendStudyEnters(study: Study, userId: User.ID) = bus.publish(
     lidraughts.hub.actorApi.study.StudyDoor(
       userId = userId,

@@ -18,5 +18,7 @@ private[chat] final class FrontActor(api: ChatApi) extends Actor {
     case Timeout(chatId, modId, userId, reason, local) => api.userChat.timeout(chatId, modId, userId, reason, local)
 
     case Remove(chatId) => api remove chatId
+
+    case RemoveAll(chatIds) => api removeAll chatIds
   }
 }
