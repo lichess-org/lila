@@ -45,6 +45,12 @@ final class Env(
     blocks = blocks,
     getPref = getPref
   )
+
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
+    def receive = {
+      case lidraughts.user.User.GDPRErase(user) => api erase user
+    }
+  })), 'gdprErase)
 }
 
 object Env {

@@ -133,4 +133,10 @@ final class MessageApi(
         )
       )
     }
+
+  def erase(user: User) = ThreadRepo.byAndForWithoutIndex(user) flatMap { threads =>
+    lidraughts.common.Future.applySequentially(threads) { thread =>
+      coll.update($id(thread.id), thread erase user).void
+    }
+  }
 }
