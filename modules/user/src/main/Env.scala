@@ -56,6 +56,7 @@ final class Env(
       case User.Active(user) =>
         if (!user.seenRecently) UserRepo setSeenAt user.id
         onlineUserIdMemo put user.id
+      case User.GDPRErase(user) => UserRepo erase user
     }
   })), 'adjustCheater, 'adjustBooster, 'userActive, 'kickFromRankings)
 

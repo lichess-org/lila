@@ -411,6 +411,8 @@ object UserRepo {
 
   def setEmailConfirmed(id: User.ID): Funit = coll.update($id(id), $unset(F.mustConfirmEmail)).void
 
+  def erase(user: User): Funit = coll.update($id(user.id), $unset(F.profile)).void
+
   private def newUser(
     username: String,
     passwordHash: HashedPassword,
