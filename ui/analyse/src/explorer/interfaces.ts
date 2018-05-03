@@ -64,10 +64,14 @@ interface OpeningPlayer {
 
 export interface TablebaseData extends ExplorerData {
   moves: TablebaseMoveStats[];
+  wdl: number | null,
+  dtz: number | null,
+  dtm: number | null,
   checkmate: boolean;
   stalemate: boolean;
   variant_win: boolean;
   variant_loss: boolean;
+  insufficient_material: boolean;
 }
 
 export interface MoveStats {
@@ -84,7 +88,7 @@ export interface OpeningMoveStats extends MoveStats {
 export interface TablebaseMoveStats extends MoveStats {
   wdl: number | null;
   dtz: number | null;
-  dtm: number | undefined;
+  dtm: number | null;
   checkmate: boolean;
   stalemate: boolean;
   variant_win: boolean;
