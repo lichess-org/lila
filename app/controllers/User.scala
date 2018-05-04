@@ -257,13 +257,14 @@ object User extends LidraughtsController {
   protected[controllers] def renderModZone(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
     OptionFuOk(UserRepo named username) { user =>
       UserRepo.emails(user.id) zip
+        UserRepo.isErased(user) zip
         (Env.security userSpy user) zip
         Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) zip
         Env.mod.logApi.userHistory(user.id) zip
         Env.plan.api.recentChargesOf(user) zip
         Env.report.api.byAndAbout(user, 20) zip
         Env.pref.api.getPref(user) flatMap {
-          case emails ~ spy ~ assess ~ history ~ charges ~ reports ~ pref =>
+          case emails ~ erased ~ spy ~ assess ~ history ~ charges ~ reports ~ pref =>
             val familyUserIds = user.id :: spy.otherUserIds.toList
             Env.playban.api.bans(familyUserIds) zip
               Env.user.noteApi.forMod(familyUserIds) zip
@@ -271,7 +272,7 @@ object User extends LidraughtsController {
                 reports.userIds ::: assess.??(_.games).flatMap(_.userIds)
               } map {
                 case bans ~ notes ~ _ =>
-                  html.user.mod(user, emails, spy, assess, bans, history, charges, reports, pref, notes)
+                  html.user.mod(user, emails, spy, assess, bans, history, charges, reports, pref, notes, erased)
               }
         }
     }
