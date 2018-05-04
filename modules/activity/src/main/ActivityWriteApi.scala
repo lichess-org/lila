@@ -116,6 +116,8 @@ final class ActivityWriteApi(
   def streamStart(userId: User.ID) =
     update(userId) { _.copy(stream = true).some }
 
+  def erase(user: User) = coll.remove(regexId(user.id))
+
   private def simulParticipant(simul: lidraughts.simul.Simul, userId: String, host: Boolean) =
     update(userId) { a => a.copy(simuls = Some(~a.simuls + SimulId(simul.id))).some }
 

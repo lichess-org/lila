@@ -58,6 +58,7 @@ final class Env(
           system.scheduler.scheduleOnce(5 minutes) { write study id }
         case lidraughts.hub.actorApi.team.CreateTeam(id, _, userId) => write.team(id, userId)
         case lidraughts.hub.actorApi.team.JoinTeam(id, userId) => write.team(id, userId)
+        case lidraughts.user.User.GDPRErase(user) => write erase user
       }
     })),
     'finishGame, 'forumPost, 'finishPuzzle, 'finishPractice, 'team,
