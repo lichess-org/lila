@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Partida honek sailkapen-puntuei eragingo die</string>
   <string name="rematch">Errebantxa</string>
   <string name="rematchOfferSent">Errebantxa eskaria bidalita</string>
+  <string name="rematchOfferSentWhite">Zuriak errebantxa eskeintzen du</string>
+  <string name="rematchOfferSentBlack">Beltzak errebantxa eskaintzen du</string>
   <string name="rematchOfferAccepted">Errebantxa eskaria onartuta</string>
   <string name="rematchOfferCanceled">Errebantxa-eskaintza ezeztatu da</string>
   <string name="rematchOfferDeclined">Errebantxa-eskaintzari uko egin dio</string>
@@ -384,6 +386,15 @@
   <string name="winner">Irabazlea</string>
   <string name="standing">Sailkapen-taula</string>
   <string name="createANewTournament">Txapelketa berria sortu</string>
+  <string name="tournamentCalendar">Txapelketa-egutegia</string>
+  <string name="conditionOfEntry">Parte hartzeko baldintza:</string>
+  <string name="advancedSettings">Ezarpen aurreratuak</string>
+  <string name="safeTournamentName">Adeitasunezko izena hauta ezazu.</string>
+  <string name="inappropriateNameWarning">Errespetua galduz gero, zure kontua itxiko dugu.</string>
+  <string name="emptyTournamentName">Ez baduzu betetzen, txapelketak Maisu Handi baten izena hartuko du, ausaz.</string>
+  <string name="recommendNotTouching">Hobe ez ukitu hau.</string>
+  <string name="fewerPlayers">Parte hartzeko balditzak jartzen badituzu, jokalari gutxiago sartuko dira txapelketan.</string>
+  <string name="showAdvancedSettings">Ezarpen aurreratuak</string>
   <string name="join">Sartu</string>
   <string name="withdraw">Txapelketa utzi</string>
   <string name="points">Puntuak</string>

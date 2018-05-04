@@ -14,7 +14,7 @@
   <string name="toggleSound">Activa/Desactiva el so</string>
   <string name="chat">Xat</string>
   <string name="resign">Rendir-se</string>
-  <string name="checkmate">Has guanyat!</string>
+  <string name="checkmate">Escac i mat</string>
   <string name="stalemate">Empat</string>
   <string name="white">Blanques</string>
   <string name="black">Negres</string>

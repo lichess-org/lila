@@ -83,7 +83,7 @@ final class PostApi(
       post match {
         case Some((_, post)) if !post.canBeEditedBy(user.id) =>
           fufail("You are not authorized to modify this post.")
-        case Some((_, post)) if !post.canStillBeEdited() =>
+        case Some((_, post)) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
         case Some((_, post)) =>
           val spamEscapedTest = lila.security.Spam.replace(newText)
@@ -205,4 +205,11 @@ final class PostApi(
   def userIds(topic: Topic) = PostRepo userIdsByTopicId topic.id
 
   def userIds(topicId: String) = PostRepo userIdsByTopicId topicId
+
+  def erase(user: User) = env.postColl.update(
+    $doc("userId" -> user.id),
+    $unset("userId", "editHistory", "lang", "ip") ++
+      $set("text" -> "", "erasedAt" -> DateTime.now),
+    multi = true
+  )
 }

@@ -51,6 +51,8 @@ private[round] final class Socket(
     private var time: Long = nowMillis
     // wether the player closed the window intentionally
     private var bye: Int = 0
+    // connected as a bot
+    private var botConnected: Boolean = false
 
     var userId = none[String]
 
@@ -68,10 +70,15 @@ private[round] final class Socket(
       simulActor ? lila.hub.actorApi.simul.GetHostIds mapTo manifest[Set[String]] map (_ contains u)
     }
 
-    def isGone: Fu[Boolean] =
-      (time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis)) ?? !isHostingSimul
+    def isGone: Fu[Boolean] = {
+      time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis) &&
+        !botConnected
+    } ?? !isHostingSimul
 
-    def isOnline = time > nowMillis - uidTimeout.toMillis
+    def setBotConnected(v: Boolean) =
+      botConnected = v
+
+    def isBotConnected = botConnected
   }
 
   private val whitePlayer = new Player(White)
@@ -143,8 +150,8 @@ private[round] final class Socket(
         (history getEventsSince v).fold(resyncNow(member))(batch(member, _))
       }
 
-    case BotPing(color) =>
-      playerDo(color, _.ping)
+    case BotConnected(color, v) =>
+      playerDo(color, _ setBotConnected v)
       notifyCrowd
 
     case Bye(color) => playerDo(color, _.setBye)
@@ -273,7 +280,10 @@ private[round] final class Socket(
       if (m.owner) m push makeMessage(t, data)
     }
 
-  def ownerIsHere(color: Color) = playerGet(color, _.isOnline)
+  def ownerIsHere(color: Color) = playerGet(color, _.isBotConnected) ||
+    members.values.exists { m =>
+      m.owner && m.color == color
+    }
 
   def ownerOf(uid: String): Option[Member] =
     members get uid filter (_.owner)

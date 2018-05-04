@@ -32,7 +32,7 @@
   <string name="whitePlays">Weiß am Zug</string>
   <string name="blackPlays">Schwarz am Zug</string>
   <string name="opponentLeftChoices">Dein Gegner hat die Partie möglicherweise verlassen. Du kannst den Sieg beanspruchen, das Spiel Remis erklären oder auf deinen Gegner warten.</string>
-  <string name="makeYourOpponentResign">Zwinge deinen Gegener zur Aufgabe</string>
+  <string name="makeYourOpponentResign">Zwinge deinen Gegner zur Aufgabe</string>
   <string name="forceResignation">Sieg beanspruchen</string>
   <string name="forceDraw">Remis erklären</string>
   <string name="talkInChat">Bitte sei freundlich im Chat!</string>
@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Dieses Spiel wird gewertet</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Angebot zur Revanche gesendet</string>
+  <string name="rematchOfferSentWhite">Weiß bietet ein Rückspiel an</string>
+  <string name="rematchOfferSentBlack">Schwarz bietet ein Rückspiel an</string>
   <string name="rematchOfferAccepted">Angebot zur Revanche angenommen</string>
   <string name="rematchOfferCanceled">Angebot zur Revanche zurückgezogen</string>
   <string name="rematchOfferDeclined">Angebot zur Revanche abgelehnt</string>
@@ -388,7 +390,7 @@
   <string name="conditionOfEntry">Teilnahmebedingung:</string>
   <string name="advancedSettings">Erweiterte Einstellungen</string>
   <string name="safeTournamentName">Wähle einen äußerst sicheren Namen für das Turnier.</string>
-  <string name="inappropriateNameWarning">Unangemessene Inhalte können zur Schließung des Benutzerkontos führen.</string>
+  <string name="inappropriateNameWarning">Sämtliche unangemessene Inhalte können zur Schließung deines Benutzerkontos führen.</string>
   <string name="emptyTournamentName">Frei lassen, um das Turnier nach einem zufälligen Großmeister zu benennen.</string>
   <string name="recommendNotTouching">Wir empfehlen, diese nicht zu ändern.</string>
   <string name="fewerPlayers">Falls du Teilnahmebedingungen setzt, wird das Turnier weniger Spieler haben.</string>
@@ -782,7 +784,7 @@
   <string name="perfRatingX">Wertung: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekunde, um den ersten Zug zu machen</item>
-    <item quantity="other">%s Sekunden, um den ersten Zug zu ziehen</item>
+    <item quantity="other">%s Sekunden, um den ersten Zug zu spielen</item>
   </plurals>
   <string name="practiceWithComputer">Übe mit dem Computer</string>
   <string name="anotherWasX">Auch möglich war %s</string>

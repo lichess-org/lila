@@ -8,6 +8,9 @@ import lila.common.base.StringUtils
 
 object String {
 
+  val erased = "<deleted>"
+  val erasedHtml = Html("&lt;deleted&gt;")
+
   private val slugR = """[^\w-]""".r
   private val slugMultiDashRegex = """-{2,}""".r
 

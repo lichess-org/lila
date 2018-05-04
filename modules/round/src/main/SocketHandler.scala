@@ -14,7 +14,7 @@ import lila.chat.Chat
 import lila.common.IpAddress
 import lila.game.{ Pov, PovRef, Game }
 import lila.hub.actorApi.map._
-import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort }
+import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
 import lila.hub.actorApi.shutup.PublicSource
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler

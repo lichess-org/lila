@@ -35,7 +35,7 @@ private final class StartedOrganizer(
 
     case Tick =>
       val startAt = nowMillis
-      TournamentRepo.started.flatMap { started =>
+      TournamentRepo.startedTours.flatMap { started =>
         lila.common.Future.traverseSequentially(started) { tour =>
           PlayerRepo activeUserIds tour.id flatMap { activeUserIds =>
             val nb = activeUserIds.size

@@ -9,7 +9,7 @@ import actorApi.{ GetSocketStatus, SocketStatus }
 
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.HasUserId
-import lila.hub.actorApi.round.Abort
+import lila.hub.actorApi.round.{ Abort, Resign }
 import lila.hub.actorApi.map.{ Ask, Tell }
 
 final class Env(
@@ -33,6 +33,7 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     evalCache: lila.evalCache.EvalCacheApi,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
+    isBotSync: lila.common.LightUser.IsBotSync,
     scheduler: lila.common.Scheduler
 ) {
 
@@ -208,6 +209,7 @@ final class Env(
     prefApi = prefApi,
     messenger = messenger,
     finisher = finisher,
+    isBotSync = isBotSync,
     bus = bus
   )
 
@@ -267,12 +269,9 @@ final class Env(
       roundMap ! Tell(game.id, actorApi.round.QuietFlag)
   }
 
-  def resign(pov: Pov): Unit = {
-    if (pov.game.abortable)
-      roundMap ! Tell(pov.gameId, Abort(pov.playerId))
-    else if (pov.game.playable)
-      roundMap ! Tell(pov.gameId, actorApi.round.Resign(pov.playerId))
-  }
+  def resign(pov: Pov): Unit =
+    if (pov.game.abortable) roundMap ! Tell(pov.gameId, Abort(pov.playerId))
+    else if (pov.game.resignable) roundMap ! Tell(pov.gameId, Resign(pov.playerId))
 }
 
 object Env {
@@ -298,6 +297,7 @@ object Env {
     historyApi = lila.history.Env.current.api,
     evalCache = lila.evalCache.Env.current.api,
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
+    isBotSync = lila.user.Env.current.lightUserApi.isBotSync,
     scheduler = lila.common.PlayApp.scheduler
   )
 }

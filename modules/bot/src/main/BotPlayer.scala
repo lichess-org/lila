@@ -8,7 +8,7 @@ import chess.format.Uci
 
 import lila.game.{ Game, Pov, GameRepo }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.{ BotPlay, RematchYes, RematchNo, Abort }
+import lila.hub.actorApi.round.{ BotPlay, RematchYes, RematchNo, Abort, Resign }
 import lila.user.User
 
 final class BotPlayer(
@@ -17,8 +17,9 @@ final class BotPlayer(
     system: ActorSystem
 ) {
 
-  def apply(pov: Pov, uciStr: String): Funit =
+  def apply(pov: Pov, me: User, uciStr: String): Funit =
     Uci(uciStr).fold(fufail[Unit](s"Invalid UCI: $uciStr")) { uci =>
+      lila.mon.bot.moves(me.username)()
       if (!pov.isMyTurn) fufail("Not your turn, or game already over")
       else {
         val promise = Promise[Unit]
@@ -28,6 +29,7 @@ final class BotPlayer(
     }
 
   def chat(gameId: Game.ID, me: User, d: BotForm.ChatData) = fuccess {
+    lila.mon.bot.chats(me.username)()
     val chatId = lila.chat.Chat.Id {
       if (d.room == "player") gameId else s"$gameId/w"
     }
@@ -56,7 +58,10 @@ final class BotPlayer(
 
   def abort(pov: Pov): Funit =
     if (!pov.game.abortable) fufail("This game can no longer be aborted")
-    else fuccess {
-      roundMap ! Tell(pov.gameId, Abort(pov.playerId))
-    }
+    else fuccess { roundMap ! Tell(pov.gameId, Abort(pov.playerId)) }
+
+  def resign(pov: Pov): Funit =
+    if (pov.game.abortable) abort(pov)
+    else if (pov.game.resignable) fuccess { roundMap ! Tell(pov.gameId, Resign(pov.playerId)) }
+    else fufail("This game cannot be resigned")
 }

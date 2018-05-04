@@ -38,7 +38,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text), 152)).some
 
   <div class="forum_posts_list embed_analyse">
     @posts.currentPageResults.map { post =>
-    <div class="post" id="@post.number">
+    <div class="post@if(post.erased){ erased}" id="@post.number">
       <div class="metas clearfix">
         @defining(routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage) + s"#${post.number}") { url =>
         @authorLink(post=post, cssClass="author".some, modIcon=post.displayModIcon)
@@ -65,7 +65,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text), 152)).some
         }
         }
       </div>
-      <p class="message">@richText(post.text)</p>
+      <p class="message">@if(post.erased){@lila.common.String.erasedHtml}else{@richText(post.text)}</p>
       @if(ctx.userId.fold(false)(post.shouldShowEditForm(_))) {
       <form class="edit-post-form" method="post" action="@routes.ForumPost.edit(post.id)">
         <textarea data-topic="@topic.id" name="changes" class="post-text-area edit-post-box" minlength="3" required>@post.text</textarea>

@@ -45,6 +45,12 @@ final class Env(
     blocks = blocks,
     getPref = getPref
   )
+
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+    def receive = {
+      case lila.user.User.GDPRErase(user) => api erase user
+    }
+  })), 'gdprErase)
 }
 
 object Env {

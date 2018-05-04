@@ -107,10 +107,12 @@ lichess.powertip = (function() {
     return el && el.contains(contained);
   };
 
-  var onPowertipPreRender = function(id) {
+  var onPowertipPreRender = function(id, preload) {
     return function() {
+      var url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
+      if (preload) preload(url);
       $.ajax({
-        url: ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '') + '/mini',
+        url: url + '/mini',
         success: function(html) {
           $('#' + id).html(html);
           lichess.pubsub.emit('content_loaded')();
@@ -129,9 +131,17 @@ lichess.powertip = (function() {
       placement: pos,
       mouseOnToPopup: true,
       closeDelay: 200
-    }).on({
-      powerTipPreRender: onPowertipPreRender('powerTip')
-    }).data('powertip', lichess.spinnerHtml);
+    }).data('powertip', ' ').on({
+      powerTipRender: onPowertipPreRender('powerTip', function(url) {
+        var u = url.substr(3);
+        var preload = '<div class="title"><span class="user_link offline">' + $(el).html() + '</span></div><div class="actions">' +
+          '<a class="button" href="/@/' + u + '/tv"><i data-icon="1"></i></a>' +
+          '<a class="button" href="/inbox/new?user=' + u + '"><i data-icon="c"></i></a>' +
+          '<a class="button" href="/?user=' + u + '#friend"><i data-icon="U"></i></a>' +
+          '<a class="button relation" disabled></a></div>';
+        $('#powerTip').html(preload);
+      })
+    });
   };
 
   var gamePowertip = function(el) {

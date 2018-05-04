@@ -71,12 +71,7 @@ private[controllers] trait LilaController
   protected def OpenOrScoped(selectors: OAuthScope.Selector*)(
     open: Context => Fu[Result],
     scoped: RequestHeader => UserModel => Fu[Result]
-  ): Action[Unit] = OpenOrScoped(BodyParsers.parse.empty)(selectors)(open, scoped)
-
-  protected def OpenOrScoped[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
-    open: Context => Fu[Result],
-    scoped: RequestHeader => UserModel => Fu[Result]
-  ): Action[A] = Action.async(parser) { req =>
+  ): Action[Unit] = Action.async(BodyParsers.parse.empty) { req =>
     if (HTTPRequest isOAuth req) handleScoped(selectors, scoped)(req)
     else handleOpen(open, req)
   }
@@ -91,30 +86,10 @@ private[controllers] trait LilaController
 
   protected def Auth[A](parser: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
     Action.async(parser) { req =>
-      handleAuth(f, req)
-    }
-
-  protected def AuthOrScoped(selectors: OAuthScope.Selector*)(
-    auth: Context => UserModel => Fu[Result],
-    scoped: RequestHeader => UserModel => Fu[Result]
-  ): Action[Unit] = AuthOrScoped(BodyParsers.parse.empty)(selectors)(auth, scoped)
-
-  protected def AuthOrScopedTupple(selectors: OAuthScope.Selector*)(
-    handlers: (Context => UserModel => Fu[Result], RequestHeader => UserModel => Fu[Result])
-  ): Action[Unit] = AuthOrScoped(BodyParsers.parse.empty)(selectors)(handlers._1, handlers._2)
-
-  protected def AuthOrScoped[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
-    auth: Context => UserModel => Fu[Result],
-    scoped: RequestHeader => UserModel => Fu[Result]
-  ): Action[A] = Action.async(parser) { req =>
-    if (HTTPRequest isOAuth req) handleScoped(selectors, scoped)(req)
-    else handleAuth(auth, req)
-  }
-
-  private def handleAuth(f: Context => UserModel => Fu[Result], req: RequestHeader): Fu[Result] =
-    CSRF(req) {
-      reqToCtx(req) flatMap { ctx =>
-        ctx.me.fold(authenticationFailed(ctx))(f(ctx))
+      CSRF(req) {
+        reqToCtx(req) flatMap { ctx =>
+          ctx.me.fold(authenticationFailed(ctx))(f(ctx))
+        }
       }
     }
 

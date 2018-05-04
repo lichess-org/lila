@@ -229,6 +229,8 @@
   <string name="thisGameIsRated">Игра на рейтинг</string>
   <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Предложение реванша отправлено</string>
+  <string name="rematchOfferSentWhite">Белые предлагают реванш</string>
+  <string name="rematchOfferSentBlack">Чёрные предлагают реванш</string>
   <string name="rematchOfferAccepted">Предложение реванша принято</string>
   <string name="rematchOfferCanceled">Предложение реванша отменено</string>
   <string name="rematchOfferDeclined">Предложение реванша отклонено</string>

@@ -88,15 +88,15 @@ final class StudyApi(
 
   def members(id: Study.Id): Fu[Option[StudyMembers]] = studyRepo membersById id
 
-  def create(data: StudyMaker.Data, user: User): Fu[Option[Study.WithChapter]] = (data.form.as match {
-    case DataForm.AsNewStudy =>
+  def importGame(data: StudyMaker.ImportGame, user: User): Fu[Option[Study.WithChapter]] = (data.form.as match {
+    case DataForm.importGame.AsNewStudy =>
       studyMaker(data, user) flatMap { res =>
         studyRepo.insert(res.study) >>
           chapterRepo.insert(res.chapter) >>-
           indexStudy(res.study) >>-
           scheduleTimeline(res.study.id) inject res.some
       }
-    case DataForm.AsChapterOf(studyId) => byId(studyId) flatMap {
+    case DataForm.importGame.AsChapterOf(studyId) => byId(studyId) flatMap {
       case Some(study) if study.canContribute(user.id) =>
         import akka.pattern.ask
         import makeTimeout.short
@@ -107,13 +107,12 @@ final class StudyApi(
             studyId = study.id,
             data = data.form.toChapterData,
             sticky = study.settings.sticky,
-            socket = socket,
             uid = Uid("") // the user is not in the study yet
           )
           made <- byIdWithChapter(studyId)
         } yield made
       case _ => fuccess(none)
-    } orElse create(data.copy(form = data.form.copy(asStr = none)), user)
+    } orElse importGame(data.copy(form = data.form.copy(asStr = none)), user)
   }) addEffect {
     _ ?? { sc =>
       bus.publish(actorApi.StartStudy(sc.study.id), 'startStudy)
@@ -476,7 +475,7 @@ final class StudyApi(
     }
   }
 
-  def addChapter(byUserId: User.ID, studyId: Study.Id, data: ChapterMaker.Data, sticky: Boolean, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
+  def addChapter(byUserId: User.ID, studyId: Study.Id, data: ChapterMaker.Data, sticky: Boolean, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(byUserId, study) {
       chapterRepo.countByStudyId(study.id) flatMap { count =>
         if (count >= Study.maxChapters) funit
@@ -494,6 +493,11 @@ final class StudyApi(
       }
     }
   }
+
+  def importPgns(byUser: User, studyId: Study.Id, datas: List[ChapterMaker.Data], sticky: Boolean) =
+    lila.common.Future.applySequentially(datas) { data =>
+      addChapter(byUser.id, studyId, data, sticky, uid = Uid(""))
+    }
 
   def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, uid: Uid) =
     chapterRepo.insert(chapter) >> {
@@ -669,6 +673,12 @@ final class StudyApi(
         serverEvalRequester(study, chapter, userId)
       }
     }
+
+  def erase(user: User) = studyRepo.allIdsByOwner(user.id) flatMap { ids =>
+    chat ! lila.chat.actorApi.RemoveAll(ids.map(id => Chat.Id(id.value)))
+    studyRepo.deleteByIds(ids) >>
+      chapterRepo.deleteByStudyIds(ids)
+  }
 
   private def sendStudyEnters(study: Study, userId: User.ID) = bus.publish(
     lila.hub.actorApi.study.StudyDoor(

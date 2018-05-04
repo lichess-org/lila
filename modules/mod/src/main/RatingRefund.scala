@@ -58,7 +58,7 @@ private final class RatingRefund(
         val newPerf = victim.user.perfs(pt) refund points
         UserRepo.setPerf(victim.user.id, pt, newPerf) >>
           historyApi.setPerfRating(victim.user, pt, newPerf.intRating) >>
-          rankingApi.save(victim.user.id, pt, newPerf) >>
+          rankingApi.save(victim.user, pt, newPerf) >>
           notifier.refund(victim, pt, points)
       }
 

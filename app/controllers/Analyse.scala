@@ -32,13 +32,13 @@ object Analyse extends LilaController {
     if (HTTPRequest isBot ctx.req) replayBot(pov)
     else GameRepo initialFen pov.gameId flatMap { initialFen =>
       Game.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {
-        (env.analyser get pov.gameId) zip
+        (env.analyser get pov.game) zip
           Env.fishnet.api.prioritaryAnalysisInProgress(pov.gameId) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
           Round.getWatcherChat(pov.game) zip
           Env.game.crosstableApi.withMatchup(pov.game) zip
           Env.bookmark.api.exists(pov.game, ctx.me) zip
-          Env.api.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false)) flatMap {
+          Env.api.pgnDump(pov.game, initialFen, analysis = none, PgnDump.WithFlags(clocks = false)) flatMap {
             case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
               Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
                 tv = userTv.map { u => lila.round.OnUserTv(u.id) },
@@ -97,10 +97,10 @@ object Analyse extends LilaController {
 
   private def replayBot(pov: Pov)(implicit ctx: Context) = for {
     initialFen <- GameRepo initialFen pov.gameId
-    analysis <- env.analyser get pov.gameId
+    analysis <- env.analyser get pov.game
     simul <- pov.game.simulId ?? Env.simul.repo.find
     crosstable <- Env.game.crosstableApi.withMatchup(pov.game)
-    pgn <- Env.api.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false))
+    pgn <- Env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
   } yield Ok(html.analyse.replayBot(
     pov,
     initialFen,

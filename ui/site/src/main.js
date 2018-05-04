@@ -219,13 +219,14 @@ lichess.topMenuIntent = function() {
         }
       });
 
-      $('body').on('click', '.relation_actions a.relation', function() {
-        var $a = $(this).addClass('processing');
+      $('body').on('click', 'a.relation', function() {
+        var $a = $(this).addClass('processing').css('opacity', 0.3);
         $.ajax({
           url: $a.attr('href'),
           type: 'post',
           success: function(html) {
-            $a.parent().html(html);
+            if (html.indexOf('relation_actions') > -1) $a.parent().html(html);
+            else $a.replaceWith(html);
           }
         });
         return false;

@@ -251,6 +251,7 @@ object User extends LilaController {
   protected[controllers] def renderModZone(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
     OptionFuOk(UserRepo named username) { user =>
       UserRepo.emails(user.id) zip
+        UserRepo.isErased(user) zip
         (Env.security userSpy user) zip
         Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) zip
         Env.mod.logApi.userHistory(user.id) zip
@@ -258,7 +259,7 @@ object User extends LilaController {
         Env.report.api.byAndAbout(user, 20) zip
         Env.pref.api.getPref(user) zip
         Env.irwin.api.reports.withPovs(user) flatMap {
-          case emails ~ spy ~ assess ~ history ~ charges ~ reports ~ pref ~ irwin =>
+          case emails ~ erased ~ spy ~ assess ~ history ~ charges ~ reports ~ pref ~ irwin =>
             val familyUserIds = user.id :: spy.otherUserIds.toList
             Env.playban.api.bans(familyUserIds) zip
               Env.user.noteApi.forMod(familyUserIds) zip
@@ -266,7 +267,7 @@ object User extends LilaController {
                 reports.userIds ::: assess.??(_.games).flatMap(_.userIds)
               } map {
                 case bans ~ notes ~ _ =>
-                  html.user.mod(user, emails, spy, assess, bans, history, charges, reports, pref, irwin, notes)
+                  html.user.mod(user, emails, spy, assess, bans, history, charges, reports, pref, irwin, notes, erased)
               }
         }
     }

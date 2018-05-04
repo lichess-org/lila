@@ -12,3 +12,4 @@ case class Timeout(chatId: Chat.Id, mod: String, userId: String, reason: ChatTim
 case class OnTimeout(username: String)
 case class OnReinstate(userId: String)
 case class Remove(chatId: Chat.Id)
+case class RemoveAll(chatIds: List[Chat.Id])

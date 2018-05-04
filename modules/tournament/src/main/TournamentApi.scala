@@ -233,15 +233,14 @@ final class TournamentApi(
   private def updateNbPlayers(tourId: Tournament.ID) =
     PlayerRepo count tourId flatMap { TournamentRepo.setNbPlayers(tourId, _) }
 
-  private def withdrawOtherTournaments(tourId: Tournament.ID, userId: User.ID): Unit = {
-    TournamentRepo toursToWithdrawWhenEntering tourId foreach {
-      _ foreach { other =>
-        PlayerRepo.exists(other.id, userId) foreach {
-          _ ?? withdraw(other.id, userId, isPause = false)
+  private def withdrawOtherTournaments(tourId: Tournament.ID, userId: User.ID): Unit =
+    TournamentRepo tourIdsToWithdrawWhenEntering tourId foreach {
+      PlayerRepo.filterExists(_, userId) foreach {
+        _ foreach {
+          withdraw(_, userId, isPause = false)
         }
       }
     }
-  }
 
   def selfPause(tourId: Tournament.ID, userId: User.ID): Unit =
     withdraw(tourId, userId, isPause = true)
@@ -262,15 +261,14 @@ final class TournamentApi(
     }
   }
 
-  def withdrawAll(user: User): Unit = {
-    TournamentRepo.nonEmptyEnterable foreach {
-      _ foreach { tour =>
-        PlayerRepo.exists(tour.id, user.id) foreach {
-          _ ?? withdraw(tour.id, user.id, isPause = false)
+  def withdrawAll(user: User): Unit =
+    TournamentRepo.nonEmptyEnterableIds foreach {
+      PlayerRepo.filterExists(_, user.id) foreach {
+        _ foreach {
+          withdraw(_, user.id, isPause = false)
         }
       }
     }
-  }
 
   def berserk(gameId: Game.ID, userId: User.ID): Unit =
     GameRepo tournamentId gameId foreach {
@@ -347,27 +345,22 @@ final class TournamentApi(
   } withdraw(tourId, userId, isPause = false)
 
   def pausePlaybanned(userId: User.ID) =
-    TournamentRepo.started.flatMap {
-      _.map { tour =>
-        PlayerRepo.exists(tour.id, userId) flatMap {
-          _ ?? {
-            PlayerRepo.withdraw(tour.id, userId) >>- socketReload(tour.id) >>- publish()
-          }
-        }
-      }.sequenceFu.void
-    }
-
-  def ejectLame(userId: User.ID): Unit = {
-    TournamentRepo.recentAndNext foreach {
-      _ foreach { tour =>
-        PlayerRepo.exists(tour.id, userId) foreach {
-          _ ?? ejectLame(tour.id, userId)
-        }
+    TournamentRepo.startedIds flatMap {
+      PlayerRepo.filterExists(_, userId) flatMap {
+        _.map { tourId =>
+          PlayerRepo.withdraw(tourId, userId) >>- socketReload(tourId) >>- publish()
+        }.sequenceFu.void
       }
     }
-  }
 
-  def ejectLame(tourId: Tournament.ID, userId: User.ID): Unit = {
+  def ejectLame(userId: User.ID, playedIds: List[Tournament.ID]): Unit =
+    TournamentRepo.nonEmptyEnterableIds foreach {
+      PlayerRepo.filterExists(_, userId) foreach { enteredIds =>
+        (enteredIds ++ playedIds).foreach { ejectLame(_, userId) }
+      }
+    }
+
+  def ejectLame(tourId: Tournament.ID, userId: User.ID): Unit =
     Sequencing(tourId)(TournamentRepo.byId) { tour =>
       PlayerRepo.remove(tour.id, userId) >> {
         if (tour.isStarted)
@@ -390,7 +383,6 @@ final class TournamentApi(
         updateNbPlayers(tour.id) >>-
         socketReload(tour.id) >>- publish()
     }
-  }
 
   private val tournamentTopCache = asyncCache.multi[Tournament.ID, TournamentTop](
     name = "tournament.top",

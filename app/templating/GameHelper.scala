@@ -242,7 +242,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def challengeTitle(c: lila.challenge.Challenge)(implicit ctx: UserContext) = {
-    val speed = c.clock.map(_.config).fold(I18nKeys.unlimited.txt()) { clock =>
+    val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>
       s"${chess.Speed(clock).name} (${clock.show})"
     }
     val variant = c.variant.exotic ?? s" ${c.variant.name}"

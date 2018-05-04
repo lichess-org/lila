@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 
 import lila.base.LilaException
 import lila.tree.Node.Comments
+import lila.study.MultiPgn
 
 private final class RelayFetch(
     sync: RelaySync,
@@ -35,7 +36,7 @@ private final class RelayFetch(
       logger.error(msg)
       throw new RuntimeException(msg)
 
-    case Tick => api.toSync.map(_ take 1).flatMap { relays =>
+    case Tick => api.toSync.flatMap { relays =>
       lila.mon.relay.ongoing(relays.size)
       relays.map { relay =>
         if (relay.sync.ongoing) processRelay(relay) flatMap { newRelay =>
@@ -105,8 +106,6 @@ private final class RelayFetch(
 
 private object RelayFetch {
 
-  case class MultiPgn(value: List[String]) extends AnyVal
-
   import Relay.Sync.Upstream
   case class GamesSeenBy(games: Fu[RelayGames], seenBy: Set[Relay.Id])
 
@@ -136,7 +135,7 @@ private object RelayFetch {
 
   private def dgtOneFile(file: String, max: Int): Fu[MultiPgn] =
     httpGet(file).flatMap {
-      case res if res.status == 200 => fuccess(splitPgn(res.body, max))
+      case res if res.status == 200 => fuccess(MultiPgn.split(res.body, max))
       case res => fufail(s"[${res.status}]")
     }
 
@@ -167,13 +166,6 @@ private object RelayFetch {
   }
 
   private def httpGet(url: String) = WS.url(url).withRequestTimeout(4.seconds.toMillis).get()
-
-  private def splitPgn(str: String, max: Int) = MultiPgn {
-    """\n\n\[""".r.split(str.replace("\r\n", "\n")).toList take max match {
-      case first :: rest => first :: rest.map(t => s"[$t")
-      case Nil => Nil
-    }
-  }
 
   private object multiPgnToGames {
 

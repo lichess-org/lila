@@ -56,7 +56,7 @@
   <string name="showThreat">Rodyti grėsmę</string>
   <string name="inLocalBrowser">vietinėje naršyklėje</string>
   <string name="toggleLocalEvaluation">Perjungti vietinį įvertinimą</string>
-  <string name="promoteVariation">Paaukštinti variacija</string>
+  <string name="promoteVariation">Paaukštinti variaciją</string>
   <string name="makeMainLine">Padaryti pagrindine linija</string>
   <string name="deleteFromHere">Ištrinti nuo čia</string>
   <string name="move">Ėjimas</string>
@@ -128,7 +128,7 @@
   <string name="variants">Variantai</string>
   <string name="timeControl">Laiko kontrolė</string>
   <string name="realTime">Greitieji</string>
-  <string name="correspondence">Korespondenciniai</string>
+  <string name="correspondence">Korespondencija</string>
   <string name="daysPerTurn">Dienų ėjimui</string>
   <string name="oneDay">Viena diena</string>
   <string name="time">Laikas</string>
@@ -175,6 +175,8 @@
   <string name="thisGameIsRated">Ši partija yra vertinama</string>
   <string name="rematch">Revanšas</string>
   <string name="rematchOfferSent">Revanšo pasiūlymas išsiųstas</string>
+  <string name="rematchOfferSentWhite">Baltieji siūlo sužaisti dar</string>
+  <string name="rematchOfferSentBlack">Juodieji siūlo sužaisti dar</string>
   <string name="rematchOfferAccepted">Revanšo pasiūlymas priimtas</string>
   <string name="rematchOfferCanceled">Revanšo pasiūlymas atšauktas</string>
   <string name="rematchOfferDeclined">Revanšo pasiūlymas atmestas</string>
@@ -286,6 +288,14 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="standing">Turmyrinė lentelė</string>
   <string name="createANewTournament">Sukurti naują turnyrą</string>
   <string name="tournamentCalendar">Turnyrų kalendorius</string>
+  <string name="conditionOfEntry">Dalyvavimo sąlyga:</string>
+  <string name="advancedSettings">Papildomos nuostatos</string>
+  <string name="safeTournamentName">Pasirinkite labai saugų turnyro pavadinimą.</string>
+  <string name="inappropriateNameWarning">Kas nors bent kiek netinkamo gali lemti jūsų paskyros uždarymą.</string>
+  <string name="emptyTournamentName">Palikus tuščią, turnyras bus pavadintas pagal atsitiktinį didmeistrį.</string>
+  <string name="recommendNotTouching">Rekomenduojame šitų neliesti.</string>
+  <string name="fewerPlayers">Jeigu pridėsite dalyvavimo sąlygų, jūsų turnyre bus mažiau žaidėjų.</string>
+  <string name="showAdvancedSettings">Rodyti papildomas nuostatas</string>
   <string name="join">Prisijungti</string>
   <string name="withdraw">Pasitraukti</string>
   <string name="points">Taškai</string>

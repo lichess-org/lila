@@ -12,5 +12,5 @@ final class TimeBomb(delayDuration: Duration) {
     delayedAt = nowMillis
   }
 
-  def boom = ((delayedAt + delayMs) < nowMillis)
+  def boom = (delayedAt + delayMs) < nowMillis
 }

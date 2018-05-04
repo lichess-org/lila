@@ -112,7 +112,7 @@ case class User(
   def isBot = title has User.botTitle
   def noBot = !isBot
 
-  def rankable = !isBot && !rankban
+  def rankable = noBot && !rankban
 }
 
 object User {
@@ -132,6 +132,9 @@ object User {
   val lichessId = "lichess"
 
   val idPattern = """^[\w-]{3,20}$""".r.pattern
+
+  case class GDPRErase(user: User) extends AnyVal
+  case class Erased(value: Boolean) extends AnyVal
 
   case class LightPerf(user: LightUser, perfKey: String, rating: Int, progress: Int)
   case class LightCount(user: LightUser, count: Int)

@@ -28,29 +28,36 @@ object Game extends LilaController {
   }
 
   def export(username: String) = OpenOrScoped()(
-    open = ctx => handleExport(username, ctx.me, ctx.req),
-    scoped = req => me => handleExport(username, me.some, req)
+    open = ctx => handleExport(username, ctx.me, ctx.req, oauth = false),
+    scoped = req => me => handleExport(username, me.some, req, oauth = true)
   )
 
-  private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader) =
+  private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) =
     lila.user.UserRepo named username flatMap {
       _ ?? { user =>
         RequireHttp11(req) {
           Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
             Api.GlobalLinearLimitPerUserOption(me) {
-              val since = getLong("since", req) map { ts => new DateTime(ts) }
-              val until = getLong("until", req) map { ts => new DateTime(ts) }
-              val moves = getBoolOpt("moves", req) | true
-              val tags = getBoolOpt("tags", req) | true
-              val clocks = getBoolOpt("clocks", req) | false
-              val max = getInt("max", req) map (_ atLeast 1)
-              val perSecond = MaxPerSecond(me match {
-                case None => 10
-                case Some(m) if m is user.id => 50
-                case Some(_) => 20
-              })
-              val formatFlags = lila.game.PgnDump.WithFlags(moves = moves, tags = tags, clocks = clocks)
-              val config = PgnDump.Config(user, since, until, max, formatFlags, perSecond)
+              val config = PgnDump.Config(
+                user = user,
+                since = getLong("since", req) map { ts => new DateTime(ts) },
+                until = getLong("until", req) map { ts => new DateTime(ts) },
+                max = getInt("max", req) map (_ atLeast 1),
+                rated = getBoolOpt("rated", req),
+                perfType = ~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) } toSet,
+                color = get("color", req) flatMap chess.Color.apply,
+                flags = lila.game.PgnDump.WithFlags(
+                  moves = getBoolOpt("moves", req) | true,
+                  tags = getBoolOpt("tags", req) | true,
+                  clocks = getBoolOpt("clocks", req) | false,
+                  evals = getBoolOpt("evals", req) | false
+                ),
+                perSecond = MaxPerSecond(me match {
+                  case Some(m) if m is user.id => 50
+                  case Some(_) if oauth => 20 // bonus for oauth logged in only (not for XSRF)
+                  case _ => 10
+                })
+              )
               val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
               Ok.chunked(Env.api.pgnDump.exportUserGames(config)).withHeaders(
                 CONTENT_TYPE -> pgnContentType,

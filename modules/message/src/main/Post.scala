@@ -16,6 +16,8 @@ case class Post(
   def isUnRead = !isRead
 
   def similar(other: Post) = text == other.text && isByCreator == other.isByCreator
+
+  def erase = copy(text = "<deleted>")
 }
 
 object Post {

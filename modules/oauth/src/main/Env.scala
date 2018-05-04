@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 
 final class Env(
     config: Config,
+    asyncCache: lila.memo.AsyncCache.Builder,
     system: ActorSystem,
     lifecycle: play.api.inject.ApplicationLifecycle
 ) {
@@ -14,7 +15,6 @@ final class Env(
     val DbConfig = config getConfig "mongodb"
     val CollectionAccessToken = config getString "collection.access_token"
     val CollectionApp = config getString "collection.app"
-    val JwtPublicKey = config getString "jwt.public_key"
   }
   import settings._
 
@@ -26,7 +26,7 @@ final class Env(
 
   lazy val server = new OAuthServer(
     tokenColl = tokenColl,
-    jwtPublicKey = JWT.PublicKey(JwtPublicKey)
+    asyncCache = asyncCache
   )
 
   lazy val tokenApi = new PersonalTokenApi(
@@ -42,6 +42,7 @@ object Env {
 
   lazy val current = "oauth" boot new Env(
     config = lila.common.PlayApp loadConfig "oauth",
+    asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system,
     lifecycle = lila.common.PlayApp.lifecycle
   )

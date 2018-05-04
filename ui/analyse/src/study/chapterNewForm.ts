@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { prop, storedProp, Prop } from 'common';
 import { bind, bindSubmit, spinner, option } from '../util';
-import { variants as xhrVariants } from './studyXhr';
+import { variants as xhrVariants, importPgn } from './studyXhr';
 import * as dialog from './dialog';
 import { chapter as chapterTour } from './studyTour';
 import { StudyChapterMeta } from './interfaces';
@@ -45,58 +45,10 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
     vm.open = true;
     loadVariants();
     vm.initial(false);
-  };
+  }
   function close() {
     vm.open = false;
-  };
-
-  function identity<A>(x: A): A {
-    return x;
   }
-
-  function submitMultiPgn(d) {
-    if (d.pgn) {
-      const lines = d.pgn.split('\n');
-      const parts = lines.map(function(l, i) {
-        // ensure 2 spaces after each game
-        if (!l.trim() && i && lines[i - 1][0] !== '[') return '\n';
-        return l;
-      }).join('\n').split('\n\n\n').map(function(part) {
-        // remove empty lines in each game
-        return part.split('\n').filter(identity).join('\n');
-      }).filter(identity); // remove empty games
-      if (parts.length > 1) {
-        if (parts.length > multiPgnMax && !confirm('Import the first ' + multiPgnMax + ' of the ' + parts.length + ' games?')) return;
-        const step = function(ds) {
-          if (ds.length) {
-            send('addChapter', ds[0]);
-            setTimeout(function() {
-              step(ds.slice(1));
-            }, 600);
-          } else {}
-        };
-        const firstIt = vm.initial() ? 1 : (chapters().length + 1);
-        step(parts.slice(0, multiPgnMax).map(function(pgn, i) {
-          return {
-            initial: !i && vm.initial(),
-            mode: d.mode,
-            name: 'Chapter ' + (firstIt + i),
-            orientation: d.orientation,
-            pgn,
-            variant: d.variant,
-            sticky: root.study!.vm.mode.sticky
-          };
-        }));
-        return true;
-      }
-    }
-  };
-
-  function submitSingle(d) {
-    d.initial = vm.initial();
-    d.sticky = root.study!.vm.mode.sticky;
-    send("addChapter", d)
-  };
 
   return {
     vm,
@@ -112,7 +64,10 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
       else open();
     },
     submit(d) {
-      if (!submitMultiPgn(d)) submitSingle(d);
+      d.initial = vm.initial();
+      d.sticky = root.study!.vm.mode.sticky;
+      if (!d.pgn) send("addChapter", d);
+      else importPgn(root.study!.data.id, d);
       close();
       setTab();
     },

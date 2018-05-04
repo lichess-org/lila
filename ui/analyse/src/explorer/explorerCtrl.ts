@@ -13,15 +13,32 @@ function pieceCount(fen: Fen) {
   return parts[0].split(/[nbrqkp]/i).length - 1;
 }
 
-export function tablebaseGuaranteed(fen: Fen) {
-  return pieceCount(fen) <= 6;
+export function tablebaseGuaranteed(variant: VariantKey, fen: Fen) {
+  switch (variant) {
+    case 'standard':
+    case 'fromPosition':
+    case 'chess960':
+    case 'atomic':
+    case 'antichess':
+      return pieceCount(fen) <= 6;
+    default:
+      return false;
+  }
 }
 
-function tablebaseRelevant(variant: string, fen: Fen) {
+function tablebaseRelevant(variant: VariantKey, fen: Fen) {
   const count = pieceCount(fen);
-  if (variant === 'standard' || variant === 'chess960') return count <= 8;
-  else if (variant === 'atomic' || variant === 'antichess') return count <= 7;
-  else return false;
+  switch (variant) {
+    case 'standard':
+    case 'fromPosition':
+    case 'chess960':
+      return count <= 8;
+    case 'atomic':
+    case 'antichess':
+      return count <= 7;
+    default:
+      return false;
+  }
 }
 
 export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {

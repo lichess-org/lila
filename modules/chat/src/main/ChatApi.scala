@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicChat, RecordPrivateChat }
 import lila.user.{ User, UserRepo }
+import lila.security.Spam
 
 final class ChatApi(
     coll: Coll,
@@ -191,6 +192,8 @@ final class ChatApi(
 
   private[chat] def remove(chatId: Chat.Id) = coll.remove($id(chatId)).void
 
+  private[chat] def removeAll(chatIds: List[Chat.Id]) = coll.remove($inIds(chatIds)).void
+
   private def pushLine(chatId: Chat.Id, line: Line): Funit = coll.update(
     $id(chatId),
     $doc("$push" -> $doc(
@@ -208,7 +211,7 @@ final class ChatApi(
 
     import java.util.regex.Matcher.quoteReplacement
 
-    def preprocessUserInput(in: String) = multiline(noShouting(noPrivateUrl(in)))
+    def preprocessUserInput(in: String) = multiline(Spam.replace(noShouting(noPrivateUrl(in))))
 
     def cut(text: String) = Some(text.trim take Line.textMaxSize) filter (_.nonEmpty)
 

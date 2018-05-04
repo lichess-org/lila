@@ -184,12 +184,12 @@ object Round extends LilaController with TheftPrevention {
                 }
           else for { // web crawlers don't need the full thing
             initialFen <- GameRepo.initialFen(pov.gameId)
-            pgn <- Env.api.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false))
+            pgn <- Env.api.pgnDump(pov.game, initialFen, none, PgnDump.WithFlags(clocks = false))
           } yield Ok(html.round.watcherBot(pov, initialFen, pgn))
         }.mon(_.http.response.watcher.website),
         api = apiVersion => for {
           data <- Env.api.roundApi.watcher(pov, apiVersion, tv = none)
-          analysis <- pov.game.metadata.analysed.??(analyser get pov.gameId)
+          analysis <- analyser get pov.game
           chat <- getWatcherChat(pov.game)
         } yield Ok {
           data
@@ -203,7 +203,9 @@ object Round extends LilaController with TheftPrevention {
     tourId ?? { Env.tournament.api.miniView(_, withTop) }
 
   private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = {
-    ctx.noKid && ctx.me.exists(Env.chat.panic.allowed)
+    ctx.noKid && ctx.me.exists(Env.chat.panic.allowed) && {
+      game.finishedOrAborted || !ctx.userId.exists(game.userIds.contains)
+    }
   } ?? {
     Env.chat.api.userChat.findMineIf(Chat.Id(s"${game.id}/w"), ctx.me, !game.justCreated) flatMap { chat =>
       Env.user.lightUserApi.preloadMany(chat.chat.userIds) inject chat.some

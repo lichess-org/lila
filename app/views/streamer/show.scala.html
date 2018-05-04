@@ -30,6 +30,14 @@
 <div class="side_menu">
   @menu("show", s.withoutStream.some)
 </div>
+<a class="blocker button" href="https://getublockorigin.com">
+  <i data-icon=""></i>
+  <strong>Install a malware blocker!</strong>
+  Be safe from ads and trackers<br />
+  infesting Twitch and YouTube.<br />
+  We recommend uBlock Origin<br />
+  which is free and open-source.
+</a>
 }
 
 @moreCss = {
@@ -38,8 +46,18 @@
 }
 
 @moreJs = {
-@jsTag("ads.js")
-@jsTag("streamer.js")
+@embedJs {
+$(function() {
+$('button.follow').click(function() {
+var klass = 'active';
+$(this).toggleClass(klass);
+$.ajax({
+url: '/rel/' + ($(this).hasClass('active') ? 'follow/' : 'unfollow/') + $(this).data('user'),
+method:'post'
+});
+});
+});
+}
 }
 
 @title = @{ s"${s.titleName} streams chess" }

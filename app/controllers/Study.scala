@@ -164,7 +164,7 @@ object Study extends LilaController {
     _ <- Env.user.lightUserApi preloadMany study.members.ids.toList
     _ = if (HTTPRequest isSynchronousHttp ctx.req) Env.study.studyRepo.incViews(study)
     pov = UserAnalysis.makePov(chapter.root.fen.some, chapter.setup.variant)
-    analysis <- chapter.serverEval.exists(_.done) ?? Env.analyse.analyser.get(chapter.id.value)
+    analysis <- chapter.serverEval.exists(_.done) ?? Env.analyse.analyser.byId(chapter.id.value)
     division = analysis.isDefined option env.serverEvalMerger.divisionOf(chapter)
     baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.root.fen.some, chapter.setup.orientation,
       owner = false,
@@ -221,7 +221,7 @@ object Study extends LilaController {
 
   def createAs = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    lila.study.DataForm.form.bindFromRequest.fold(
+    lila.study.DataForm.importGame.form.bindFromRequest.fold(
       err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
       data => for {
         owner <- env.studyRepo.recentByOwner(me.id, 50)
@@ -234,14 +234,14 @@ object Study extends LilaController {
 
   def create = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    lila.study.DataForm.form.bindFromRequest.fold(
+    lila.study.DataForm.importGame.form.bindFromRequest.fold(
       err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
       data => createStudy(data, me)
     )
   }
 
-  private def createStudy(data: lila.study.DataForm.Data, me: lila.user.User)(implicit ctx: Context) =
-    env.api.create(lila.study.StudyMaker.Data(data), me) flatMap {
+  private def createStudy(data: lila.study.DataForm.importGame.Data, me: lila.user.User)(implicit ctx: Context) =
+    env.api.importGame(lila.study.StudyMaker.ImportGame(data), me) flatMap {
       _.fold(notFound) { sc =>
         Redirect(routes.Study.show(sc.study.id.value)).fuccess
       }
@@ -257,6 +257,14 @@ object Study extends LilaController {
     env.api.isOwner(id, me) flatMap {
       _ ?? Env.chat.api.userChat.clear(Chat.Id(id))
     } inject Redirect(routes.Study.show(id))
+  }
+
+  def importPgn(id: String) = AuthBody { implicit ctx => me =>
+    implicit val req = ctx.body
+    lila.study.DataForm.importPgn.form.bindFromRequest.fold(
+      err => BadRequest(errorsAsJson(err)).fuccess,
+      data => env.api.importPgns(me, StudyModel.Id(id), data.toChapterDatas, sticky = data.sticky)
+    )
   }
 
   def embed(id: String, chapterId: String) = Open { implicit ctx =>

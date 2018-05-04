@@ -63,6 +63,14 @@ object Global extends GlobalSettings {
           lila.api.Context.error(req, lila.common.AssetVersion(lila.app.Env.api.assetVersionSetting.get()), lila.i18n.defaultLang)
         }))
       } else super.onError(req, ex)
-    } else fuccess(InternalServerError(ex.getMessage))
+    } else scala.concurrent.Future {
+      InternalServerError(ex.getMessage)
+    } recover {
+      // java.lang.NullPointerException: null
+      // at play.api.mvc.Codec$$anonfun$javaSupported$1.apply(Results.scala:320) ~[com.typesafe.play.play_2.11-2.4.11.jar:2.4.11]
+      case e: java.lang.NullPointerException =>
+        httpLogger.warn(s"""error handler exception on "${ex.getMessage}\"""", e)
+        InternalServerError("Something went wrong.")
+    }
   }
 }

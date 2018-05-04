@@ -32,7 +32,6 @@ blumpkin
 bollock
 boner
 boob
-bot
 bugger
 buk?kake
 bull?shit
@@ -175,4 +174,6 @@ pid(a|o)r
 """)
 
   private def dict(words: String) = words.lines.filter(_.nonEmpty)
+
+  val youtubeIds = List("7UpltimWY_E")
 }

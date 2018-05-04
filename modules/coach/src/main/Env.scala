@@ -33,13 +33,14 @@ final class Env(
   system.lilaBus.subscribe(
     system.actorOf(Props(new Actor {
       def receive = {
-        case lila.hub.actorApi.mod.MarkCheater(userId, true) => api.reviews.deleteAllBy(userId)
-        case lila.user.User.Active(user) if !user.seenRecently => api.setSeenAt(user)
+        case lila.hub.actorApi.mod.MarkCheater(userId, true) => api.reviews deleteAllBy userId
+        case lila.user.User.Active(user) if !user.seenRecently => api setSeenAt user
         case lila.game.actorApi.FinishGame(game, white, black) if game.rated =>
           if (game.perfType.exists(lila.rating.PerfType.standard.contains)) {
             white ?? api.setRating
             black ?? api.setRating
           }
+        case lila.user.User.GDPRErase(user) => api.reviews deleteAllBy user.id
       }
     })),
     'adjustCheater, 'userActive, 'finishGame

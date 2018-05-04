@@ -134,7 +134,11 @@ object UserRepo {
     }
 
   def incColor(userId: User.ID, value: Int): Unit =
-    coll.update($id(userId), $inc(F.colorIt -> value), writeConcern = GetLastError.Unacknowledged)
+    coll.update(
+      $id(userId) ++ (value < 0).??($doc("colorIt" $gt -3)),
+      $inc(F.colorIt -> value),
+      writeConcern = GetLastError.Unacknowledged
+    )
 
   def lichess = byId(User.lichessId)
 
@@ -359,9 +363,8 @@ object UserRepo {
       }(scala.collection.breakOut)
     }
 
-  def setSeenAt(id: ID): Unit = {
+  def setSeenAt(id: ID): Unit =
     coll.updateFieldUnchecked($id(id), "seenAt", DateTime.now)
-  }
 
   def recentlySeenNotKidIdsCursor(since: DateTime)(implicit cp: CursorProducer[Bdoc]) =
     coll.find($doc(
@@ -407,6 +410,14 @@ object UserRepo {
     coll.exists($id(id) ++ $doc(F.mustConfirmEmail $exists true))
 
   def setEmailConfirmed(id: User.ID): Funit = coll.update($id(id), $unset(F.mustConfirmEmail)).void
+
+  def erase(user: User): Funit = coll.update(
+    $id(user.id),
+    $unset(F.profile) ++ $set("erasedAt" -> DateTime.now)
+  ).void
+
+  def isErased(user: User): Fu[User.Erased] =
+    coll.exists($id(user.id) ++ $doc("erasedAt" $exists true)) map User.Erased.apply
 
   private def newUser(
     username: String,

@@ -6,7 +6,10 @@ import scala.concurrent.duration._
 import chess.Color
 import lila.game.{ Game, GameRepo }
 
-private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
+private[tv] final class ChannelActor(
+    channel: Tv.Channel,
+    lightUser: lila.common.LightUser.GetterSync
+) extends Actor {
 
   import ChannelActor._
 
@@ -34,10 +37,10 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
       history = game.id :: history.take(2)
 
     case Select(candidates) => if (candidates.nonEmpty) {
-      oneId ?? GameRepo.game foreach {
-        case Some(game) if channel.filter(game) =>
-          wayBetter(game, candidates) orElse rematch(game) foreach elect
-        case Some(game) => rematch(game) orElse feature(candidates) foreach elect
+      oneId ?? GameRepo.game map2 Tv.toCandidate(lightUser) foreach {
+        case Some(current) if channel filter current =>
+          wayBetter(current.game, candidates) orElse rematch(current.game) foreach elect
+        case Some(current) => rematch(current.game) orElse feature(candidates) foreach elect
         case _ => feature(candidates) foreach elect
       }
       manyIds = candidates.sortBy { g =>

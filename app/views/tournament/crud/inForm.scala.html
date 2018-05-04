@@ -13,7 +13,7 @@
   }
 </div>
 <div>
-  @base.form.group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true) { field =>
+  @base.form.group(form("homepageHours"), Html(s"Hours on homepage (0 to $maxHomepageHours)"), half = true) { field =>
   @base.form.input(field, "Ask first!".some)
   }
   @base.form.group(form("image"), Html("Custom icon"), half = true) { field =>
