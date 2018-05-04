@@ -154,7 +154,7 @@ div.create_tournament {
 #tournament .podium .first .trophy {
   height: 150px;
   width: 195px;
-  background: url(../images/icons/trophy-1.png) no-repeat;
+  background: url(../images/icons/trophy-1.svg) no-repeat;
   background-size: cover;
 }
 #tournament .podium .second .trophy {
