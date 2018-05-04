@@ -262,7 +262,7 @@ object Puzzle extends LidraughtsController {
         api = _ => for {
           _ <- env.batch.solve(me, Standard, data)
           me2 <- UserRepo byId me.id map (_ | me)
-          infos <- env userInfos me2
+          infos <- env.userInfos(me2, Standard)
         } yield Ok(Json.obj(
           "user" -> lidraughts.puzzle.JsonView.infos(false, Standard)(infos)
         ))

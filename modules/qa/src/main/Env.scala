@@ -56,7 +56,7 @@ object Env {
     mongoCache = lidraughts.memo.Env.current.mongoCache,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
     notifyApi = lidraughts.notify.Env.current.api,
-    system = lila.common.PlayApp.system,
+    system = lidraughts.common.PlayApp.system,
     db = lidraughts.db.Env.current
   )
 }
