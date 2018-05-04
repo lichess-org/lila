@@ -411,7 +411,13 @@ object UserRepo {
 
   def setEmailConfirmed(id: User.ID): Funit = coll.update($id(id), $unset(F.mustConfirmEmail)).void
 
-  def erase(user: User): Funit = coll.update($id(user.id), $unset(F.profile)).void
+  def erase(user: User): Funit = coll.update(
+    $id(user.id),
+    $unset(F.profile) ++ $set("erasedAt" -> DateTime.now)
+  ).void
+
+  def isErased(user: User): Fu[User.Erased] =
+    coll.exists($id(user.id) ++ $doc("erasedAt" $exists true)) map User.Erased.apply
 
   private def newUser(
     username: String,

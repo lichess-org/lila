@@ -1,4 +1,4 @@
-@(u: User, emails: User.Emails, spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, irwinReport: Option[lila.irwin.IrwinReport.WithPovs], notes: List[lila.user.Note])(implicit ctx: Context)
+@(u: User, emails: User.Emails, spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, irwinReport: Option[lila.irwin.IrwinReport.WithPovs], notes: List[lila.user.Note], erased: User.Erased)(implicit ctx: Context)
 
 @import lila.evaluation.Display
 @import lila.pref.Pref
@@ -44,17 +44,21 @@
     <input class="button@when(u.ipBan, " active")" type="submit" value="IP ban @spy.ips.size" />
   </form>
   }
-  @if(!u.disabled) {
+  @if(u.enabled) {
   @if(isGranted(_.CloseAccount)) {
   <form method="post" action="@routes.Mod.closeAccount(u.username)" data-hint="Disables this account." class="hint--bottom-left xhr">
     <input class="button" type="submit" value="Close" />
   </form>
   }
   } else {
+  @if(erased.value) {
+  Erased
+  } else {
   @if(isGranted(_.ReopenAccount)) {
   <form method="post" action="@routes.Mod.reopenAccount(u.username)" data-hint="Re-activates this account." class="hint--bottom-left xhr">
     <input type="submit" class="button active" value="Closed" />
   </form>
+  }
   }
   }
   <div class="second_mod_button_row">
