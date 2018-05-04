@@ -84,4 +84,6 @@ final class NoteApi(
       ), 'userNote)
     }
   }
+
+  def erase(user: User) = coll.remove($doc("from" -> user.id))
 }
