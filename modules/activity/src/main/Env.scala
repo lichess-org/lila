@@ -59,6 +59,7 @@ final class Env(
         case lila.hub.actorApi.team.CreateTeam(id, _, userId) => write.team(id, userId)
         case lila.hub.actorApi.team.JoinTeam(id, userId) => write.team(id, userId)
         case lila.hub.actorApi.streamer.StreamStart(userId) => write.streamStart(userId)
+        case lila.user.User.GDPRErase(user) => write erase user
       }
     })),
     'finishGame, 'forumPost, 'finishPuzzle, 'finishPractice, 'team,
