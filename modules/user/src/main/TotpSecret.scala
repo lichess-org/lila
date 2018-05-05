@@ -9,7 +9,7 @@ case class TotpSecret(val secret: Array[Byte]) {
   override def toString = "TotpSecret(****************)"
 
   def base32: String = {
-    new String(BigInt(secret).toString.toCharArray.map(_.asDigit).map(TotpSecret.base(_)))
+    new String(BigInt(secret).toString(32).toCharArray.map(_.asDigit).map(TotpSecret.base(_)))
   }
 
   def totp(period: Long): String = {
@@ -32,10 +32,21 @@ case class TotpSecret(val secret: Array[Byte]) {
     val otp = binary % pow(10, TotpSecret.digits).toLong
     ("0" * TotpSecret.digits + otp.toString).takeRight(TotpSecret.digits)
   }
+
+  def verify(token: String): Boolean = {
+    val period = System.currentTimeMillis / 30000
+    (-TotpSecret.window to TotpSecret.window).map(skew => totp(period + skew)).contains(token)
+  }
 }
 
 object TotpSecret {
+  // requires clock precision of at least window * 30 seconds
+  private val window = 3
+
+  // number of digits in token
   private val digits = 6
+
+  // base32 encoding
   private val base = ('A' to 'Z') ++ ('2' to '7')
 
   def apply(base32: String) = new TotpSecret(base32.map(base.indexOf(_)).foldLeft(0: BigInt)((a, b) => a * 32 + b).toByteArray)

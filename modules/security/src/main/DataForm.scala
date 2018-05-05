@@ -106,7 +106,10 @@ final class DataForm(
       "secret" -> nonEmptyText,
       "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
       "token" -> nonEmptyText
-    )(TwoFactor.apply)(TwoFactor.unapply)).fill(TwoFactor(
+    )(TwoFactor.apply)(TwoFactor.unapply).verifying(
+        "invalid authentication token",
+        _.tokenValid
+      )).fill(TwoFactor(
       secret = TotpSecret.random.base32,
       passwd = "",
       token = ""
@@ -158,5 +161,7 @@ object DataForm {
     def realEmail = EmailAddress(email)
   }
 
-  case class TwoFactor(secret: String, passwd: String, token: String)
+  case class TwoFactor(secret: String, passwd: String, token: String) {
+    def tokenValid = TotpSecret(secret).verify(token)
+  }
 }
