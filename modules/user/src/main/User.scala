@@ -223,6 +223,7 @@ object User {
     val salt = "salt"
     val bpass = "bpass"
     val sha512 = "sha512"
+    val totpSecret = "totp"
   }
 
   import lidraughts.db.BSON

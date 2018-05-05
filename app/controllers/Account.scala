@@ -7,7 +7,7 @@ import controllers.Auth.HasherRateLimit
 import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.common.LidraughtsCookie
-import lidraughts.user.{ User => UserModel, UserRepo }
+import lidraughts.user.{ User => UserModel, UserRepo, TotpSecret }
 import UserModel.ClearPassword
 import views.html
 
@@ -156,8 +156,11 @@ object Account extends LidraughtsController {
   }
 
   def twoFactor = Auth { implicit ctx => me =>
-    Env.security.forms.setupTwoFactor(me) map { form =>
-      html.account.setupTwoFactor(me, form)
+    Env.user.authenticator.hasTotp(me.id) flatMap {
+      case false => Env.security.forms.setupTwoFactor(me) map { form =>
+        html.account.setupTwoFactor(me, form)
+      }
+      case true => Ok(html.account.disableTwoFactor(me)).fuccess
     }
   }
 
@@ -167,7 +170,8 @@ object Account extends LidraughtsController {
       FormFuResult(form) { err =>
         fuccess(html.account.setupTwoFactor(me, err))
       } { data =>
-        Ok(html.account.setupTwoFactor(me, form)).fuccess
+        Env.user.authenticator.setTotpSecret(me.id, TotpSecret(data.secret)) inject
+          Redirect(routes.Account.twoFactor)
       }
     }
   }
