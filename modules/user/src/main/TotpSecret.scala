@@ -1,4 +1,4 @@
-package lila.user
+package lidraughts.user
 
 import java.security.SecureRandom
 import javax.crypto.Mac
