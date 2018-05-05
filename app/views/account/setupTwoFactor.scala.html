@@ -2,7 +2,12 @@
 
 @title = @{ s"${u.username} - Two-factor authentication" }
 
-@account.layout(title = title, active = "twofactor", evenMoreCss = cssTag("material.form.css")) {
+@moreJs = {
+@jsAt("javascripts/vendor/qrcode.min.js")
+@jsTag("twofactor.form.js")
+}
+
+@account.layout(title = title, active = "twofactor", evenMoreCss = cssTag("material.form.css"), evenMoreJs = moreJs) {
 <div class="content_box small_box high">
   <div class="signup_box">
     <h1 class="lichess_title">Setup two-factor authentication</h1>
@@ -11,6 +16,7 @@
       provided by the app for confirmation.
     </p>
     <form class="material form" action="@routes.Account.setupTwoFactor" method="POST">
+      <div id="qrcode" style="width: 256px; height: 256px; margin: 1em auto;"></div>
       @base.form.hidden(form("secret"))
       @passwdFormField(form("passwd"), trans.password())
       @base.form.group(form("token"), Html("Token")) { field =>
