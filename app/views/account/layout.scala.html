@@ -1,4 +1,4 @@
-@(title: String, active: String, evenMoreCss: Html = emptyHtml)(body: Html)(implicit ctx: Context)
+@(title: String, active: String, evenMoreCss: Html = emptyHtml, evenMoreJs: Html = emptyHtml)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("account.css")
@@ -7,6 +7,7 @@
 @moreJs = {
 @jsTag("user.js")
 @jsTag("account.js")
+@evenMoreJs
 }
 
 @menu = {
