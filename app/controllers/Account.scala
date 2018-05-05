@@ -154,6 +154,23 @@ object Account extends LilaController {
     }
   }
 
+  def twoFactor = Auth { implicit ctx => me =>
+    Env.security.forms.setupTwoFactor(me) map { form =>
+      html.account.setupTwoFactor(me, form)
+    }
+  }
+
+  def setupTwoFactor = AuthBody { implicit ctx => me =>
+    implicit val req = ctx.body
+    Env.security.forms.setupTwoFactor(me) flatMap { form =>
+      FormFuResult(form) { err =>
+        fuccess(html.account.setupTwoFactor(me, err))
+      } { data =>
+        Ok(html.account.setupTwoFactor(me, form)).fuccess
+      }
+    }
+  }
+
   def close = Auth { implicit ctx => me =>
     Ok(html.account.close(me, Env.security.forms.closeAccount)).fuccess
   }

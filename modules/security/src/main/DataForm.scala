@@ -101,6 +101,14 @@ final class DataForm(
     ))
   }
 
+  def setupTwoFactor(u: User) = authenticator loginCandidate u map { candidate =>
+    Form(mapping(
+      "secret" -> nonEmptyText,
+      "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
+      "token" -> nonEmptyText
+    )(TwoFactor.apply)(TwoFactor.unapply))
+  }
+
   def fixEmail(old: EmailAddress) = Form(
     single("email" -> acceptableUniqueEmail(none).verifying(emailValidator differentConstraint old.some))
   ).fill(old.value)
@@ -145,4 +153,6 @@ object DataForm {
   case class ChangeEmail(passwd: String, email: String) {
     def realEmail = EmailAddress(email)
   }
+
+  case class TwoFactor(secret: String, passwd: String, token: String)
 }
