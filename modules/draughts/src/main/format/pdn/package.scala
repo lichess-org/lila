@@ -34,13 +34,12 @@ case class Pdn(
   )
 
   def render: String = {
-    val tagStr = tags.value mkString "\n"
     val initStr =
       if (initial.comments.nonEmpty) initial.comments.mkString("{ ", " } { ", " }\n")
       else ""
     val turnStr = turns mkString " "
     val endStr = tags(_.Result) | ""
-    s"$tagStr\n\n$initStr$turnStr $endStr"
+    s"$tags\n\n$initStr$turnStr $endStr"
   }.trim + "\n"
 
   override def toString = render

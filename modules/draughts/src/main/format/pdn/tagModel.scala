@@ -57,10 +57,23 @@ case class Tags(value: List[Tag]) extends AnyVal {
   def ++(tags: Tags) = tags.value.foldLeft(this)(_ + _)
 
   def +(tag: Tag) = Tags(value.filterNot(_.name == tag.name) :+ tag)
+
+  def sorted = copy(
+    value = value.sortBy { tag =>
+      Tags.tagIndex.getOrElse(tag.name, 999)
+    }
+  )
+
+  override def toString = sorted.value mkString "\n"
 }
 
 object Tags {
   val empty = Tags(Nil)
+
+  val sevenTagRoster = List(
+    Tag.Event, Tag.Site, Tag.Date, Tag.Round, Tag.White, Tag.Black, Tag.Result
+  )
+  val tagIndex: Map[TagType, Int] = sevenTagRoster.zipWithIndex.toMap
 
   private val DateRegex = """(\d{4}|\?{4})\.(\d\d|\?\?)\.(\d\d|\?\?)""".r
   private val GameTypeRegex = """([0-9]+)(,[WB],[0-9]+,[0-9]+,[ANS][0123](,[01])?)?""".r
