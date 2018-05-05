@@ -4,13 +4,12 @@ import java.security.SecureRandom
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 import scala.math.{ pow, BigInt }
+import org.apache.commons.codec.binary.Base32
 
 case class TotpSecret(val secret: Array[Byte]) {
   override def toString = "TotpSecret(****************)"
 
-  def base32: String = {
-    new String(BigInt(0.toByte +: secret).toString(32).pp("base32").toCharArray.map(_.asDigit).map(TotpSecret.base(_)))
-  }
+  def base32: String = new Base32().encodeAsString(secret)
 
   def totp(period: Long): String = {
     // Loosely based on scala-totp-auth:
@@ -42,17 +41,10 @@ case class TotpSecret(val secret: Array[Byte]) {
 object TotpSecret {
   // requires clock precision of at least window * 30 seconds
   private val window = 3
-
   // number of digits in token
   private val digits = 6
 
-  // base32 encoding
-  private val base = ('A' to 'Z') ++ ('2' to '7')
-
-  def apply(base32: String) = new TotpSecret(base32
-    .toUpperCase
-    .map(base.indexOf(_).atLeast(0))
-    .foldLeft(0: BigInt)((a, b) => a * 32 + b).toByteArray)
+  def apply(base32: String) = new TotpSecret(new Base32().decode(base32))
 
   def random: TotpSecret = {
     val secret = new Array[Byte](10)
