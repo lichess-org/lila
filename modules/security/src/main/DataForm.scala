@@ -5,7 +5,7 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints
 
 import lila.common.{ LameName, EmailAddress }
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, TotpSecret, UserRepo }
 import User.ClearPassword
 
 final class DataForm(
@@ -107,7 +107,7 @@ final class DataForm(
       "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
       "token" -> nonEmptyText
     )(TwoFactor.apply)(TwoFactor.unapply)).fill(TwoFactor(
-      secret = ornicar.scalalib.Random nextString 32,
+      secret = TotpSecret.random.base32,
       passwd = "",
       token = ""
     ))
