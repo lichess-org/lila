@@ -12,11 +12,11 @@
   <div class="signup_box">
     <h1 class="lichess_title">Setup two-factor authentication</h1>
     <p class="explanation">
-      Get a TOTP app, scan the QR code and enter your password and the token
-      provided by the app for confirmation.
+      Get an authenticator app, scan the QR code and enter your password and
+      the token provided by the app for confirmation.
     </p>
     <form class="material form" action="@routes.Account.setupTwoFactor" method="POST">
-      <div id="qrcode" style="width: 256px; height: 256px; margin: 1em auto;"></div>
+      <div id="qrcode" style="width: 256px; height: 256px; margin: 2em auto;"></div>
       @base.form.hidden(form("secret"))
       @passwdFormField(form("passwd"), trans.password())
       @base.form.group(form("token"), Html("Token")) { field =>
