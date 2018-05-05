@@ -106,7 +106,11 @@ final class DataForm(
       "secret" -> nonEmptyText,
       "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
       "token" -> nonEmptyText
-    )(TwoFactor.apply)(TwoFactor.unapply))
+    )(TwoFactor.apply)(TwoFactor.unapply)).fill(TwoFactor(
+      secret = ornicar.scalalib.Random nextString 32,
+      passwd = "",
+      token = ""
+    ))
   }
 
   def fixEmail(old: EmailAddress) = Form(
