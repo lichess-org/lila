@@ -9,7 +9,7 @@ case class TotpSecret(val secret: Array[Byte]) {
   override def toString = "TotpSecret(****************)"
 
   def base32: String = {
-    new String(BigInt(secret).toString(32).toCharArray.map(_.asDigit).map(TotpSecret.base(_)))
+    new String(BigInt(0.toByte +: secret).toString(32).pp("base32").toCharArray.map(_.asDigit).map(TotpSecret.base(_)))
   }
 
   def totp(period: Long): String = {
@@ -49,7 +49,10 @@ object TotpSecret {
   // base32 encoding
   private val base = ('A' to 'Z') ++ ('2' to '7')
 
-  def apply(base32: String) = new TotpSecret(base32.map(base.indexOf(_)).foldLeft(0: BigInt)((a, b) => a * 32 + b).toByteArray)
+  def apply(base32: String) = new TotpSecret(base32
+    .toUpperCase
+    .map(base.indexOf(_).atLeast(0))
+    .foldLeft(0: BigInt)((a, b) => a * 32 + b).toByteArray)
 
   def random: TotpSecret = {
     val secret = new Array[Byte](10)
