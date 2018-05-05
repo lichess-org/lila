@@ -12,12 +12,9 @@ case class TotpSecret(val secret: Array[Byte]) {
   def base32: String = new Base32().encodeAsString(secret)
 
   def totp(period: Long): String = {
-    // Loosely based on scala-totp-auth:
-    // https://github.com/marklister/scala-totp-auth/blob/master/src/main/scala/Authenticator.scala
-
     val msg = BigInt(period).toByteArray.reverse.padTo(8, 0.toByte).reverse
 
-    val hmac = Mac.getInstance("HmacSha1")
+    val hmac = Mac.getInstance("HMACSHA1")
     hmac.init(new SecretKeySpec(secret, "RAW"))
     val hash = hmac.doFinal(msg)
 
