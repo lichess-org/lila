@@ -1,0 +1,26 @@
+@(u: User, form: Form[_])(implicit ctx: Context)
+
+@title = @{ s"${u.username} - Two-factor authentication" }
+
+@account.layout(title = title, active = "twofactor", evenMoreCss = cssTag("material.form.css")) {
+<div class="content_box small_box high">
+  <div class="signup_box">
+    <h1 class="lichess_title">Setup two-factor authentication</h1>
+    <p class="explanation">
+      Get a TOTP app, scan the QR code and enter your password and the token
+      provided by the app for confirmation.
+    </p>
+    <form class="material form" action="@routes.Account.setupTwoFactor" method="POST">
+      @base.form.hidden(form("secret"))
+      @passwdFormField(form("passwd"), trans.password())
+      @base.form.group(form("token"), Html("Token")) { field =>
+      @base.form.input(field, typ = "text", required = true)
+      @errMsg(form("token"))
+      }
+      <div class="button-container">
+        <button type="submit" class="submit button text">Enable two-factor authentication</button>
+      </div>
+    </form>
+  </div>
+</div>
+}
