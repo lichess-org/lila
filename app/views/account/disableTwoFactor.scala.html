@@ -1,0 +1,11 @@
+@(u: User)(implicit ctx: Context)
+
+@title = @{ s"${u.username} - Two-factor authentication" }
+
+@account.layout(title = title, active = "twofactor", evenMoreCss = cssTag("material.form.css")) {
+<div class="content_box small_box high">
+  <div class="signup_box">
+    <h1 class="lichess_title">Two-factor authentication enabled</h1>
+  </div>
+</div>
+}
