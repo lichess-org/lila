@@ -5,7 +5,7 @@
   <string name="playWithTheMachine">Xogar contra a máquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
-  <string name="waitingForOpponent">Agardando ó rival</string>
+  <string name="waitingForOpponent">Agardando un rival</string>
   <string name="waiting">Agardando</string>
   <string name="yourTurn">A túa quenda</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
