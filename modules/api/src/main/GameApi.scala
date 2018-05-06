@@ -213,7 +213,7 @@ private[api] final class GameApi(
         })
         .add("analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color)))
     }),
-    "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves),
+    "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
     "moves" -> withFlags.moves.option(g.pdnMoves mkString " "),
     "opening" -> withFlags.opening.??(g.opening),
     "fens" -> (withFlags.fens && g.finished) ?? {

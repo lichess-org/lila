@@ -14,7 +14,7 @@ import lidraughts.game.{ Game, GameRepo, Query, PerfPicker }
 import lidraughts.user.User
 
 final class GameApiV2(
-    pdnDump: PdnDump
+    pdnDump: PdnDump,
     getLightUser: LightUser.Getter
 )(implicit system: akka.actor.ActorSystem) {
 
@@ -107,7 +107,7 @@ final class GameApiV2(
       .add("opening" -> g.opening.ifTrue(withFlags.opening))
       .add("moves" -> withFlags.moves.option(g.pdnMoves mkString " "))
       .add("daysPerTurn" -> g.daysPerTurn)
-      .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves))
+      .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves(_, withGlyph = false)))
       .add("clock" -> g.clock.map { clock =>
         Json.obj(
           "initial" -> clock.limitSeconds,
