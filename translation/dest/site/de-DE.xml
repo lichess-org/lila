@@ -840,6 +840,6 @@
   <string name="playX">Spiele %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">und speichere %s Variante im Voraus</item>
-    <item quantity="other">und speichere %s Vorauszüge</item>
+    <item quantity="other">und speichere %s Varianten im Voraus</item>
   </plurals>
 </resources>
