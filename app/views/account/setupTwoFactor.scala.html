@@ -10,9 +10,7 @@
 @account.layout(title = title, active = "twofactor", evenMoreCss = cssTag("material.form.css"), evenMoreJs = moreJs) {
 <div class="content_box small_box high twofactor">
   <h1 class="lichess_title">Setup two-factor authentication</h1>
-  <p class="explanation">
-    Two-factor authentication adds another layer of security to your account.
-  </p>
+  <p>Two-factor authentication adds another layer of security to your account.</p>
   <form class="material form" action="@routes.Account.setupTwoFactor" method="POST">
     <ol>
       <li>
