@@ -354,7 +354,7 @@ object Api extends LilaController {
         stream &> Enumeratee.map { o =>
           Json.stringify(o) + "\n"
         }
-      }.withHeaders(CONTENT_TYPE -> "application/x-ndjson")
+      }.withHeaders(CONTENT_TYPE -> ndJsonContentType)
     case Data(json) => Ok(json) as JSON
   }
 }

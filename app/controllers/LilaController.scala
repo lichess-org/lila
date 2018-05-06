@@ -442,4 +442,5 @@ private[controllers] trait LilaController
     if (HTTPRequest isHuman ctx.req) lila.mon.http.request.path(ctx.req.path)()
 
   protected val pgnContentType = "application/x-chess-pgn"
+  protected val ndJsonContentType = "application/x-ndjson"
 }

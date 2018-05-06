@@ -38,11 +38,10 @@ object Game extends LilaController {
         RequireHttp11(req) {
           Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
             Api.GlobalLinearLimitPerUserOption(me) {
+              val format = if (HTTPRequest acceptsNdJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN
               val config = GameApiV2.Config(
                 user = user,
-                format =
-                  if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON
-                  else GameApiV2.Format.PGN,
+                format = format,
                 since = getLong("since", req) map { ts => new DateTime(ts) },
                 until = getLong("until", req) map { ts => new DateTime(ts) },
                 max = getInt("max", req) map (_ atLeast 1),
@@ -65,8 +64,11 @@ object Game extends LilaController {
               )
               val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
               Ok.chunked(Env.api.gameApiV2.exportUserGames(config)).withHeaders(
-                CONTENT_TYPE -> pgnContentType,
-                CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${user.username}_$date.pgn")
+                CONTENT_TYPE -> (format match {
+                  case GameApiV2.Format.PGN => pgnContentType
+                  case GameApiV2.Format.JSON => ndJsonContentType
+                }),
+                CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${user.username}_$date.${format.toString.toLowerCase}")
               ).fuccess
             }
           }
