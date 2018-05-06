@@ -202,6 +202,8 @@
   <string name="thisGameIsRated">เกมนี้ถูกคิดคะแนน</string>
   <string name="rematch">เล่นอีกครั้ง</string>
   <string name="rematchOfferSent">ข้อเสนอเพื่อเล่นอีกครั้ง ถูกส่ง</string>
+  <string name="rematchOfferSentWhite">ขาวขอแข่งอีกครั้ง</string>
+  <string name="rematchOfferSentBlack">ดำขอแข่งอีกครั้ง</string>
   <string name="rematchOfferAccepted">ข้อเสนอเพื่อเล่นอีกครั้ง ถูกยอมรับ</string>
   <string name="rematchOfferCanceled">ข้อเสนอเพื่อเล่นอีกครั้ง ถูกยกเลิก</string>
   <string name="rematchOfferDeclined">ข้อเสนอเพื่อเล่นอีกครั้ง ถูกปฎิเสธ</string>
@@ -360,6 +362,11 @@
   <string name="standing">อันดับ</string>
   <string name="createANewTournament">สร้างทัวร์นาเมนต์ใหม่</string>
   <string name="tournamentCalendar">ปฏิทินทัวร์นาเมนต์</string>
+  <string name="conditionOfEntry">เงื่อนไขการเข้าร่วม:</string>
+  <string name="advancedSettings">การตั้งค่าขั้นสูง</string>
+  <string name="safeTournamentName">เลือกชื่อที่ปลอดภัยสุดสำหรับทัวร์นาเมนต์</string>
+  <string name="inappropriateNameWarning">อะไรที่ไม่เหมาะสมแม้เพียงเล็กน้อย ก็สามารถทำให้บัญชีของคุณถูกปิดได้</string>
+  <string name="recommendNotTouching">เราแนะนำว่าอย่าแตะต้องสิ่งเหล่านี้</string>
   <string name="join">เข้าร่วม</string>
   <string name="withdraw">ถอนตัว</string>
   <string name="points">แต้ม</string>
