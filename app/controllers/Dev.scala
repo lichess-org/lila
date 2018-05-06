@@ -53,31 +53,13 @@ object Dev extends LilaController {
     )
   }
 
-  private lazy val loginForm = Form(tuple(
-    "command" -> nonEmptyText,
-    "password" -> nonEmptyText
-  ))
-
-  def command = OpenBody { implicit ctx =>
-    implicit val req = ctx.body
-    loginForm.bindFromRequest.pp.fold(
-      err => fuccess(BadRequest("invalid cli call")), {
-        case (command, password) => CommandAuth(password) {
-          runAs(Env.api.CliUsername, command) map { res => Ok(res) }
-        }
-      }
-    )
+  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { implicit req => me =>
+    lila.security.Granter(_.Cli)(me) ?? {
+      runAs(me.id, req.body) map { res => Ok(res) }
+    }
   }
 
   private def runAs(user: lila.user.User.ID, command: String): Fu[String] =
     Env.mod.logApi.cli(user, command) >>
       Env.api.cli(command.split(" ").toList)
-
-  private def CommandAuth(password: String)(op: => Fu[Result]): Fu[Result] =
-    Env.user.authenticator.authenticateById(
-      Env.api.CliUsername,
-      lila.user.User.ClearPassword(password)
-    ).map(_.isDefined) flatMap {
-        _.fold(op, fuccess(Unauthorized))
-      }
 }
