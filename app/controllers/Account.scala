@@ -168,26 +168,30 @@ object Account extends LilaController {
   }
 
   def setupTwoFactor = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    val currentSessionId = ~Env.security.api.reqSessionId(ctx.req)
-    Env.security.forms.setupTwoFactor(me) flatMap { form =>
-      FormFuResult(form) { err =>
-        fuccess(html.account.setupTwoFactor(me, err))
-      } { data =>
-        UserRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
-          lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
-          Redirect(routes.Account.twoFactor)
+    controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
+      implicit val req = ctx.body
+      val currentSessionId = ~Env.security.api.reqSessionId(ctx.req)
+      Env.security.forms.setupTwoFactor(me) flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.setupTwoFactor(me, err))
+        } { data =>
+          UserRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
+            lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
+            Redirect(routes.Account.twoFactor)
+        }
       }
     }
   }
 
   def disableTwoFactor = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    Env.security.forms.disableTwoFactor(me) flatMap { form =>
-      FormFuResult(form) { err =>
-        fuccess(html.account.disableTwoFactor(me, err))
-      } { _ =>
-        UserRepo.disableTwoFactor(me.id) inject Redirect(routes.Account.twoFactor)
+    controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
+      implicit val req = ctx.body
+      Env.security.forms.disableTwoFactor(me) flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.disableTwoFactor(me, err))
+        } { _ =>
+          UserRepo.disableTwoFactor(me.id) inject Redirect(routes.Account.twoFactor)
+        }
       }
     }
   }
