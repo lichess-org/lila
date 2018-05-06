@@ -10,7 +10,7 @@
   </p>
   <form class="material form" action="@routes.Account.disableTwoFactor" method="POST">
     @passwdFormField(form("passwd"), trans.password())
-    @base.form.group(form("token"), Html("Token")) { field =>
+    @base.form.group(form("token"), Html("Authentication code")) { field =>
     @base.form.input(field, typ = "text", required = true)
     @errMsg(form("token"))
     }
