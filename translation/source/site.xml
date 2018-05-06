@@ -524,7 +524,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="thisAccountIsClosed">This account is closed.</string>
   <string name="invalidUsernameOrPassword">Invalid username or password</string>
   <string name="incorrectPassword">Incorrect password</string>
-  <string name="invalidAuthenticationToken">Invalid authentication token</string>
+  <string name="invalidAuthenticationCode">Invalid authentication code</string>
   <string name="emailMeALink">Email me a link</string>
   <string name="currentPassword">Current password</string>
   <string name="newPassword">New password</string>

@@ -107,7 +107,7 @@ final class DataForm(
       "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
       "token" -> nonEmptyText
     )(TwoFactor.apply)(TwoFactor.unapply).verifying(
-        "invalidAuthenticationToken",
+        "invalidAuthenticationCode",
         _.tokenValid
       )).fill(TwoFactor(
       secret = TotpSecret.random.base32,
