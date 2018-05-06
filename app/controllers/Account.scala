@@ -147,9 +147,9 @@ object Account extends LilaController {
   def emailConfirm(token: String) = Open { implicit ctx =>
     Env.security.emailChange.confirm(token) flatMap {
       _ ?? { user =>
-        controllers.Auth.authenticateUser(user, result = Redirect {
-          s"${routes.Account.email}?ok=1"
-        }.fuccess.some)
+        controllers.Auth.authenticateUser(user, result = Some { _ =>
+          Redirect(s"${routes.Account.email}?ok=1")
+        })
       }
     }
   }

@@ -37,17 +37,18 @@ object Auth extends LilaController {
       }
   }
 
-  def authenticateUser(u: UserModel, result: Option[Fu[Result]] = None)(implicit ctx: Context): Fu[Result] = {
+  def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit ctx: Context): Fu[Result] = {
     implicit val req = ctx.req
     u.ipBan.fold(
       fuccess(Redirect(routes.Lobby.home)),
       api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
         negotiate(
-          html = result | Redirect {
-            get("referrer").filter(goodReferrer) orElse
+          html = fuccess {
+            val redirectTo = get("referrer").filter(goodReferrer) orElse
               req.session.get(api.AccessUri) getOrElse
               routes.Lobby.home.url
-          }.fuccess,
+            result.fold(Redirect(redirectTo))(_(redirectTo))
+          },
           api = _ => mobileUserOk(u)
         ) map authenticateCookie(sessionId)
       } recoverWith authRecovery
@@ -94,7 +95,7 @@ object Auth extends LilaController {
                   UserRepo.email(u.id) foreach {
                     _ foreach { garbageCollect(u, _) }
                   }
-                  authenticateUser(u)
+                  authenticateUser(u, Some(redirectTo => Ok(redirectTo)))
               }
             )
           }
