@@ -14,12 +14,13 @@ moreJs = jsTag("login.js")) {
         </ul>
       </div>
       <div class="two-factor none">
-        <p class="error none">Invalid token.</p>
+        <p class="error none">Invalid code.</p>
         <ul>
           @defining(form("token")) { field =>
           <li class="token">
-            <label for="@field.name">2FA Token</label>
+            <label for="@field.name">Authentication code</label>
             <input type="text" id="@field.name" name="@field.name" />
+            <p class="help" data-icon="" style="font-size:0.8em;margin-top:1em">Open the two-factor authentication app on your device to view your authentication code and verify your identity.</p>
           </li>
           }
         </ul>
