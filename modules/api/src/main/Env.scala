@@ -86,7 +86,7 @@ final class Env(
     dumper = gamePgnDump,
     getSimulName = getSimulName,
     getTournamentName = getTournamentName
-  )(system)
+  )
 
   val userApi = new UserApi(
     jsonView = userEnv.jsonView,
@@ -108,6 +108,8 @@ final class Env(
     gameCache = gameCache,
     crosstableApi = crosstableApi
   )
+
+  val gameApiV2 = new GameApiV2(pgnDump)(system)
 
   val userGameApi = new UserGameApi(
     bookmarkApi = bookmarkApi,

@@ -40,6 +40,6 @@ final class UciMemo(ttl: Duration) {
 
   private def compute(game: Game, max: Int): Fu[UciVector] = for {
     fen ← GameRepo initialFen game
-    uciMoves ← UciDump(game.pgnMoves.take(max), fen, game.variant).future
+    uciMoves ← UciDump(game.pgnMoves.take(max), fen.map(_.value), game.variant).future
   } yield uciMoves.toVector
 }

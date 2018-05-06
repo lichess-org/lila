@@ -1,4 +1,4 @@
-@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable.WithMatchup], simul: Option[lila.simul.Simul], userTv: Option[User] = None, bookmarked: Boolean)(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[chess.format.FEN], tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable.WithMatchup], simul: Option[lila.simul.Simul], userTv: Option[User] = None, bookmarked: Boolean)(implicit ctx: Context)
 
 <div class="sides">
   @side(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked)

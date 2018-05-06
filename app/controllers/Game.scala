@@ -5,7 +5,7 @@ import org.joda.time.format.DateTimeFormat
 import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
-import lila.api.PgnDump
+import lila.api.GameApiV2
 import lila.app._
 import lila.common.{ MaxPerSecond, HTTPRequest }
 import lila.game.{ GameRepo, Game => GameModel }
@@ -38,8 +38,9 @@ object Game extends LilaController {
         RequireHttp11(req) {
           Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
             Api.GlobalLinearLimitPerUserOption(me) {
-              val config = PgnDump.Config(
+              val config = GameApiV2.Config(
                 user = user,
+                format = GameApiV2.Format.PGN,
                 since = getLong("since", req) map { ts => new DateTime(ts) },
                 until = getLong("until", req) map { ts => new DateTime(ts) },
                 max = getInt("max", req) map (_ atLeast 1),
@@ -51,7 +52,8 @@ object Game extends LilaController {
                   moves = getBoolOpt("moves", req) | true,
                   tags = getBoolOpt("tags", req) | true,
                   clocks = getBoolOpt("clocks", req) | false,
-                  evals = getBoolOpt("evals", req) | false
+                  evals = getBoolOpt("evals", req) | false,
+                  opening = getBoolOpt("opening", req) | false
                 ),
                 perSecond = MaxPerSecond(me match {
                   case Some(m) if m is user.id => 50
@@ -60,7 +62,7 @@ object Game extends LilaController {
                 })
               )
               val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-              Ok.chunked(Env.api.pgnDump.exportUserGames(config)).withHeaders(
+              Ok.chunked(Env.api.gameApiV2.exportUserGames(config)).withHeaders(
                 CONTENT_TYPE -> pgnContentType,
                 CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${user.username}_$date.pgn")
               ).fuccess

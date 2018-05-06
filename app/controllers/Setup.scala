@@ -5,6 +5,7 @@ import play.api.libs.json.Json
 import play.api.mvc.{ Result, Results }
 import scala.concurrent.duration._
 
+import chess.format.FEN
 import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.common.{ HTTPRequest, LilaCookie, IpAddress }
@@ -24,7 +25,7 @@ object Setup extends LilaController with TheftPrevention {
 
   def aiForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req) {
-      env.forms aiFilled get("fen") map { form =>
+      env.forms aiFilled get("fen").map(FEN) map { form =>
         html.setup.ai(
           form,
           Env.fishnet.aiPerfApi.intRatings,
@@ -42,7 +43,7 @@ object Setup extends LilaController with TheftPrevention {
 
   def friendForm(userId: Option[String]) = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req)
-      env.forms friendFilled get("fen") flatMap { form =>
+      env.forms friendFilled get("fen").map(FEN) flatMap { form =>
         val validFen = form("fen").value flatMap ValidFen(false)
         userId ?? UserRepo.named flatMap {
           case None => Ok(html.setup.friend(form, none, none, validFen)).fuccess
@@ -186,7 +187,7 @@ object Setup extends LilaController with TheftPrevention {
   def validateFen = Open { implicit ctx =>
     get("fen") flatMap ValidFen(getBool("strict")) match {
       case None => BadRequest.fuccess
-      case Some(v) => Ok(html.game.miniBoard(v.fen, v.color.name)).fuccess
+      case Some(v) => Ok(html.game.miniBoard(v.fen, v.color)).fuccess
     }
   }
 

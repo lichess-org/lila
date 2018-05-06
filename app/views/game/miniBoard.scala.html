@@ -1,3 +1,3 @@
-@(fen: String, color: String = "White")
+@(fen: chess.format.FEN, color: chess.Color = chess.White)
 
-<div class="mini_board parse_fen is2d" data-color="@color" data-fen="@fen">@miniBoardContent</div>
+<div class="mini_board parse_fen is2d" data-color="@color.name" data-fen="@fen">@miniBoardContent</div>

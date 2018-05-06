@@ -5,6 +5,7 @@ import reactivemongo.bson._
 import scala.collection.breakOut
 
 import chess.variant.{ Variant, Crazyhouse }
+import chess.format.FEN
 import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRooks, History => ChessHistory, Game => ChessGame }
 
 import lila.db.BSON
@@ -13,6 +14,8 @@ import lila.db.dsl._
 object BSONHandlers {
 
   import lila.db.ByteArray.ByteArrayBSONHandler
+
+  implicit val FENBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
 
   private[game] implicit val checkCountWriter = new BSONWriter[CheckCount, BSONArray] {
     def write(cc: CheckCount) = BSONArray(cc.white, cc.black)

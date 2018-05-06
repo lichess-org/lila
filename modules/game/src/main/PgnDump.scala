@@ -2,39 +2,43 @@ package lila.game
 
 import chess.format.Forsyth
 import chess.format.pgn.{ Pgn, Tag, Tags, TagType, Parser, ParsedPgn }
-import chess.format.{ pgn => chessPgn }
+import chess.format.{ FEN, pgn => chessPgn }
 import chess.{ Centis, Color }
 
 import lila.common.LightUser
 
 final class PgnDump(
     netBaseUrl: String,
-    getLightUser: LightUser.GetterSync
+    getLightUser: LightUser.Getter
 ) {
 
   import PgnDump._
 
-  def apply(game: Game, initialFen: Option[String], flags: WithFlags): Pgn = {
+  def apply(game: Game, initialFen: Option[FEN], flags: WithFlags): Fu[Pgn] = {
     val imported = game.pgnImport.flatMap { pgni =>
       Parser.full(pgni.pgn).toOption
     }
-    val ts = if (flags.tags) tags(game, initialFen, imported) else Tags(Nil)
-    val turns = flags.moves ?? {
-      val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
-      val moves2 = fenSituation.??(_.situation.color.black).fold(".." +: game.pgnMoves, game.pgnMoves)
-      makeTurns(
-        moves2,
-        fenSituation.map(_.fullMoveNumber) | 1,
-        flags.clocks ?? ~game.bothClockStates,
-        game.startColor
-      )
+    val tagsFuture =
+      if (flags.tags) tags(game, initialFen, imported, withOpening = flags.opening)
+      else fuccess(Tags(Nil))
+    tagsFuture map { ts =>
+      val turns = flags.moves ?? {
+        val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
+        val moves2 = fenSituation.??(_.situation.color.black).fold(".." +: game.pgnMoves, game.pgnMoves)
+        makeTurns(
+          moves2,
+          fenSituation.map(_.fullMoveNumber) | 1,
+          flags.clocks ?? ~game.bothClockStates,
+          game.startColor
+        )
+      }
+      Pgn(ts, turns)
     }
-    Pgn(ts, turns)
   }
 
   private val fileR = """[\s,]""".r
 
-  def filename(game: Game): String = gameLightUsers(game) match {
+  def filename(game: Game): Fu[String] = gameLightUsers(game) map {
     case (wu, bu) => fileR.replaceAllIn(
       "lichess_pgn_%s_%s_vs_%s.%s.pgn".format(
         Tag.UTCDate.format.print(game.createdAt),
@@ -47,8 +51,8 @@ final class PgnDump(
 
   private def gameUrl(id: String) = s"$netBaseUrl/$id"
 
-  private def gameLightUsers(game: Game): (Option[LightUser], Option[LightUser]) =
-    (game.whitePlayer.userId ?? getLightUser) -> (game.blackPlayer.userId ?? getLightUser)
+  private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
+    (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser)
 
   private def rating(p: Player) = p.rating.fold("?")(_.toString)
 
@@ -74,9 +78,10 @@ final class PgnDump(
 
   def tags(
     game: Game,
-    initialFen: Option[String],
-    imported: Option[ParsedPgn]
-  ): Tags = gameLightUsers(game) match {
+    initialFen: Option[FEN],
+    imported: Option[ParsedPgn],
+    withOpening: Boolean
+  ): Fu[Tags] = gameLightUsers(game) map {
     case (wu, bu) => Tags {
       val importedDate = imported.flatMap(_.tags(_.Date))
       List[Option[Tag]](
@@ -98,7 +103,7 @@ final class PgnDump(
         Tag(_.Variant, game.variant.name.capitalize).some,
         Tag.timeControl(game.clock.map(_.config)).some,
         Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,
-        Tag(_.Opening, game.opening.fold("?")(_.opening.name)).some,
+        withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.name)),
         Tag(_.Termination, {
           import chess.Status._
           game.status match {
@@ -111,7 +116,7 @@ final class PgnDump(
           }
         }).some
       ).flatten ::: customStartPosition(game.variant).??(List(
-          Tag(_.FEN, initialFen | "?"),
+          Tag(_.FEN, initialFen.fold("?")(_.value)),
           Tag("SetUp", "1")
         ))
     }
@@ -145,7 +150,8 @@ object PgnDump {
       clocks: Boolean = true,
       moves: Boolean = true,
       tags: Boolean = true,
-      evals: Boolean = true
+      evals: Boolean = true,
+      opening: Boolean = true
   )
 
   def result(game: Game) =

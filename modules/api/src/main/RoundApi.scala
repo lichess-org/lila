@@ -25,7 +25,7 @@ private[api] final class RoundApi(
 ) {
 
   def player(pov: Pov, apiVersion: ApiVersion)(implicit ctx: Context): Fu[JsObject] =
-    GameRepo.initialFen(pov.game) map2 FEN.apply flatMap { initialFen =>
+    GameRepo.initialFen(pov.game) flatMap { initialFen =>
       jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
         withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs)),
         initialFen = initialFen) zip
@@ -48,7 +48,7 @@ private[api] final class RoundApi(
 
   def watcher(pov: Pov, apiVersion: ApiVersion, tv: Option[lila.round.OnTv],
     initialFenO: Option[Option[FEN]] = None)(implicit ctx: Context): Fu[JsObject] =
-    initialFenO.fold(GameRepo initialFen pov.game map2 FEN)(fuccess) flatMap { initialFen =>
+    initialFenO.fold(GameRepo initialFen pov.game)(fuccess) flatMap { initialFen =>
       jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
         initialFen = initialFen,
         withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs))) zip
@@ -72,7 +72,7 @@ private[api] final class RoundApi(
     analysis: Option[Analysis] = None,
     initialFenO: Option[Option[FEN]] = None,
     withFlags: WithFlags)(implicit ctx: Context): Fu[JsObject] =
-    initialFenO.fold(GameRepo initialFen pov.game map2 FEN)(fuccess) flatMap { initialFen =>
+    initialFenO.fold(GameRepo initialFen pov.game)(fuccess) flatMap { initialFen =>
       jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
         initialFen = initialFen,
         withFlags = withFlags.copy(blurs = ctx.me ?? Granter(_.ViewBlurs))) zip

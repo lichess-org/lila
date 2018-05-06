@@ -140,7 +140,7 @@ private final class ChapterMaker(
     }
 
   def game2root(game: Game, initialFen: Option[FEN] = None): Fu[Node.Root] =
-    initialFen.fold(GameRepo initialFen game map2 FEN.apply) { fen =>
+    initialFen.fold(GameRepo initialFen game) { fen =>
       fuccess(fen.some)
     } map { GameToRoot(game, _, withClocks = true) }
 

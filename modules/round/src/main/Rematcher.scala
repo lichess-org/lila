@@ -75,10 +75,10 @@ private[round] final class Rematcher(
 
   private def returnGame(pov: Pov): Fu[Game] = for {
     initialFen <- GameRepo initialFen pov.game
-    situation = initialFen flatMap Forsyth.<<<
+    situation = initialFen flatMap { fen => Forsyth <<< fen.value }
     pieces = pov.game.variant match {
       case Chess960 =>
-        if (rematch960Cache.get(pov.gameId)) Chess960.pieces
+        if (rematch960Cache get pov.gameId) Chess960.pieces
         else situation.fold(Chess960.pieces)(_.situation.board.pieces)
       case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
       case variant => variant.pieces
