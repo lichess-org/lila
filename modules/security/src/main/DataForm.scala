@@ -6,7 +6,7 @@ import play.api.data.validation.Constraints
 
 import lila.common.{ LameName, EmailAddress }
 import lila.user.{ User, TotpSecret, UserRepo }
-import User.ClearPassword
+import User.{ ClearPassword, TotpToken }
 
 final class DataForm(
     val captcher: akka.actor.ActorSelection,
@@ -119,7 +119,7 @@ final class DataForm(
   def disableTwoFactor(u: User) = authenticator loginCandidate u map { candidate =>
     Form(tuple(
       "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
-      "token" -> nonEmptyText.verifying("invalidAuthenticationToken", t => u.totpSecret.map(_.verify(t)).getOrElse(false))
+      "token" -> nonEmptyText.verifying("invalidAuthenticationToken", t => u.totpSecret.??(_.verify(TotpToken(t))))
     ))
   }
 
@@ -169,6 +169,6 @@ object DataForm {
   }
 
   case class TwoFactor(secret: String, passwd: String, token: String) {
-    def tokenValid = TotpSecret(secret).verify(token)
+    def tokenValid = TotpSecret(secret).verify(User.TotpToken(token))
   }
 }

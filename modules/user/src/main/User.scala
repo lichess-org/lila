@@ -122,8 +122,10 @@ object User {
 
   type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck) {
-    def apply(p: ClearPassword): Option[User] = {
-      val res = check(p)
+    def apply(p: PasswordAndToken): Option[User] = {
+      val res = check(p.password) && user.totpSecret.fold(true) { tp =>
+        p.token ?? tp.verify
+      }
       lila.mon.user.auth.result(res)()
       res option user
     }
@@ -147,6 +149,10 @@ object User {
   case class ClearPassword(value: String) extends AnyVal {
     override def toString = "ClearPassword(****)"
   }
+  case class TotpToken(value: String) extends AnyVal {
+    override def toString = "TotpToken(****)"
+  }
+  case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period

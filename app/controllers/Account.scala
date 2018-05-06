@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.LilaCookie
 import lila.user.{ User => UserModel, UserRepo, TotpSecret }
-import UserModel.ClearPassword
+import UserModel.{ ClearPassword, TotpToken, PasswordAndToken }
 import views.html
 
 object Account extends LilaController {
@@ -197,12 +197,15 @@ object Account extends LilaController {
     FormFuResult(Env.security.forms.closeAccount) { err =>
       fuccess(html.account.close(me, err))
     } { password =>
-      Env.user.authenticator.authenticateById(me.id, ClearPassword(password)).map(_.isDefined) flatMap {
-        case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
-        case true => Env.current.closeAccount(me.id, self = true) inject {
-          Redirect(routes.User show me.username) withCookies LilaCookie.newSession
+      Env.user.authenticator.authenticateById(
+        me.id,
+        PasswordAndToken(ClearPassword(password), me.totpSecret.map(_.totpDefault))
+      ).map(_.isDefined) flatMap {
+          case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
+          case true => Env.current.closeAccount(me.id, self = true) inject {
+            Redirect(routes.User show me.username) withCookies LilaCookie.newSession
+          }
         }
-      }
     }
   }
 

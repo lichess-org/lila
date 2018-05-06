@@ -6,6 +6,8 @@ import play.api.mvc._
 import lila.app._
 import views._
 
+import lila.user.User.{ ClearPassword, TotpToken, PasswordAndToken }
+
 object Dev extends LilaController {
 
   private lazy val settingsList = List[lila.memo.SettingStore[_]](
@@ -76,7 +78,7 @@ object Dev extends LilaController {
   private def CommandAuth(password: String)(op: => Fu[Result]): Fu[Result] =
     Env.user.authenticator.authenticateById(
       Env.api.CliUsername,
-      lila.user.User.ClearPassword(password)
+      PasswordAndToken(ClearPassword(password), none)
     ).map(_.isDefined) flatMap {
         _.fold(op, fuccess(Unauthorized))
       }

@@ -7,13 +7,16 @@ import java.security.SecureRandom
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 import scala.math.{ pow, BigInt }
+import User.TotpToken
 
 case class TotpSecret(secret: Array[Byte]) extends AnyVal {
   override def toString = "TotpSecret(****************)"
 
   def base32: String = new Base32().encodeAsString(secret)
 
-  def totp(period: Long): String = {
+  def totpDefault = totp(System.currentTimeMillis / 30000)
+
+  def totp(period: Long): TotpToken = TotpToken {
     val msg = BigInt(period).toByteArray.reverse.padTo(8, 0.toByte).reverse
 
     val hmac = Mac.getInstance("HMACSHA1")
@@ -30,9 +33,9 @@ case class TotpSecret(secret: Array[Byte]) extends AnyVal {
     ("0" * TotpSecret.digits + otp.toString).takeRight(TotpSecret.digits)
   }
 
-  def verify(token: String): Boolean = {
+  def verify(token: TotpToken): Boolean = {
     val period = System.currentTimeMillis / 30000
-    (-TotpSecret.window to TotpSecret.window).map(skew => totp(period + skew)).contains(token)
+    (-TotpSecret.window to TotpSecret.window).map(skew => totp(period + skew)).contains(token.value)
   }
 }
 
