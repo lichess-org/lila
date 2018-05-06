@@ -82,12 +82,13 @@ menu = menu("edit", s.withoutStream.some).some) {
       }
     </ul>
     }
+    <br />
     <strong class="text" data-icon="!">Moderator notes@if(notes.isEmpty){: nothing to show.}</strong>
     @if(notes.nonEmpty) {
     <ul>
       @notes.map { note =>
       <li>
-        <p class="meta">@userIdLink(note.from.some)@momentFromNow(note.date)</p>
+        <p class="meta">@userIdLink(note.from.some) @momentFromNow(note.date)</p>
         <p class="text">@richText(note.text)</p>
       </li>
       }
