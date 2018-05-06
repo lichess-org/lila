@@ -6,7 +6,7 @@ import javax.crypto.spec.SecretKeySpec
 import scala.math.{ pow, BigInt }
 import org.apache.commons.codec.binary.Base32
 
-case class TotpSecret(val secret: Array[Byte]) {
+case class TotpSecret(secret: Array[Byte]) extends AnyVal {
   override def toString = "TotpSecret(****************)"
 
   def base32: String = new Base32().encodeAsString(secret)
