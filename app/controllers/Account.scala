@@ -159,7 +159,9 @@ object Account extends LilaController {
       case false => Env.security.forms.setupTwoFactor(me) map { form =>
         html.account.setupTwoFactor(me, form)
       }
-      case true => Ok(html.account.disableTwoFactor(me)).fuccess
+      case true => Env.security.forms.disableTwoFactor(me) map { form =>
+        html.account.disableTwoFactor(me, form)
+      }
     }
   }
 
@@ -170,6 +172,18 @@ object Account extends LilaController {
         fuccess(html.account.setupTwoFactor(me, err))
       } { data =>
         Env.user.authenticator.setTotpSecret(me.id, TotpSecret(data.secret)) inject
+          Redirect(routes.Account.twoFactor)
+      }
+    }
+  }
+
+  def disableTwoFactor = AuthBody { implicit ctx => me =>
+    implicit val req = ctx.body
+    Env.security.forms.disableTwoFactor(me) flatMap { form =>
+      FormFuResult(form) { err =>
+        fuccess(html.account.disableTwoFactor(me, err))
+      } { _ =>
+        Env.user.authenticator.unsetTotpSecret(me.id) inject
           Redirect(routes.Account.twoFactor)
       }
     }

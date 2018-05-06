@@ -107,7 +107,7 @@ final class DataForm(
       "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
       "token" -> nonEmptyText
     )(TwoFactor.apply)(TwoFactor.unapply).verifying(
-        "invalid authentication token",
+        "invalidAuthenticationToken",
         _.tokenValid
       )).fill(TwoFactor(
       secret = TotpSecret.random.base32,
@@ -115,6 +115,14 @@ final class DataForm(
       token = ""
     ))
   }
+
+  def disableTwoFactor(u: User) = for {
+    candidate <- authenticator loginCandidate u
+    totpSecret <- authenticator totpSecret u.id
+  } yield Form(tuple(
+    "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
+    "token" -> nonEmptyText.verifying("invalidAuthenticationToken", t => totpSecret.map(_.verify(t)).getOrElse(false))
+  ))
 
   def fixEmail(old: EmailAddress) = Form(
     single("email" -> acceptableUniqueEmail(none).verifying(emailValidator differentConstraint old.some))

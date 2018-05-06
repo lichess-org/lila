@@ -50,6 +50,15 @@ final class Authenticator(
       $set(F.totpSecret -> totp.secret)
     ).void
 
+  def unsetTotpSecret(id: User.ID): Funit =
+    userRepo.coll.update(
+      $id(id),
+      $unset(F.totpSecret)
+    ).void
+
+  def totpSecret(id: User.ID): Fu[Option[TotpSecret]] =
+    userRepo.coll.primitiveOne[Array[Byte]]($id(id), F.totpSecret).map(_ map TotpSecret.apply)
+
   def hasTotp(id: User.ID): Fu[Boolean] =
     userRepo.coll.exists($id(id) ++ $doc(F.totpSecret $exists true))
 

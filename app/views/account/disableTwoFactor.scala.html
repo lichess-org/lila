@@ -1,9 +1,22 @@
-@(u: User)(implicit ctx: Context)
+@(u: User, form: Form[_])(implicit ctx: Context)
 
 @title = @{ s"${u.username} - Two-factor authentication" }
 
 @account.layout(title = title, active = "twofactor", evenMoreCss = cssTag("material.form.css")) {
 <div class="content_box small_box high">
   <h1 class="lichess_title"><i data-icon="E" class="is-green"></i> Two-factor authentication enabled</h1>
+  <p class="explanation">
+    Your account is protected with two-factor authentication.
+  </p>
+  <form class="material form" action="@routes.Account.disableTwoFactor" method="POST">
+    @passwdFormField(form("passwd"), trans.password())
+    @base.form.group(form("token"), Html("Token")) { field =>
+    @base.form.input(field, typ = "text", required = true)
+    @errMsg(form("token"))
+    }
+    <div class="button-container">
+      <button type="submit" class="submit button text">Disable two-factor authentication</button>
+    </div>
+  </form>
 </div>
 }
