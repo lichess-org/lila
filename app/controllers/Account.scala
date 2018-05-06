@@ -130,15 +130,17 @@ object Account extends LidraughtsController {
     html.auth.checkYourEmail(lidraughts.security.EmailConfirm.cookie get ctx.req)
 
   def emailApply = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    emailForm(me) flatMap { form =>
-      FormFuResult(form) { err =>
-        fuccess(html.account.email(me, err))
-      } { data =>
-        val newUserEmail = lidraughts.security.EmailConfirm.UserEmail(me.username, data.realEmail)
-        controllers.Auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
-          Env.security.emailChange.send(me, newUserEmail.email) inject Redirect {
-            s"${routes.Account.email}?check=1"
+    controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
+      implicit val req = ctx.body
+      emailForm(me) flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.email(me, err))
+        } { data =>
+          val newUserEmail = lidraughts.security.EmailConfirm.UserEmail(me.username, data.realEmail)
+          controllers.Auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
+            Env.security.emailChange.send(me, newUserEmail.email) inject Redirect {
+              s"${routes.Account.email}?check=1"
+            }
           }
         }
       }
@@ -174,7 +176,7 @@ object Account extends LidraughtsController {
         fuccess(html.account.setupTwoFactor(me, err))
       } { data =>
         UserRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
-          lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
+          lidraughts.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
           Redirect(routes.Account.twoFactor)
       }
     }
