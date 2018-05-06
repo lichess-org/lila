@@ -54,11 +54,6 @@ final class NoteApi(
       .sort($doc("date" -> -1))
       .list[Note](50)
 
-  def byMod(ids: List[User.ID]): Fu[List[Note]] =
-    coll.find($doc("to" $in ids))
-      .sort($doc("date" -> -1))
-      .list[Note](ids.size * 5, ReadPreference.secondaryPreferred)
-
   def write(to: User, text: String, from: User, modOnly: Boolean) = {
 
     val note = Note(
