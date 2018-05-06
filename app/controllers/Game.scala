@@ -46,6 +46,7 @@ object Game extends LidraughtsController {
                 rated = getBoolOpt("rated", req),
                 perfType = ~get("perfType", req) split "," flatMap { lidraughts.rating.PerfType(_) } toSet,
                 color = get("color", req) flatMap draughts.Color.apply,
+                analysed = getBoolOpt("analysed", req),
                 flags = lidraughts.game.PdnDump.WithFlags(
                   moves = getBoolOpt("moves", req) | true,
                   tags = getBoolOpt("tags", req) | true,
