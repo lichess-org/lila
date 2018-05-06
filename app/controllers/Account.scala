@@ -199,7 +199,7 @@ object Account extends LilaController {
     } { password =>
       Env.user.authenticator.authenticateById(
         me.id,
-        PasswordAndToken(ClearPassword(password), me.totpSecret.map(_.totpDefault))
+        PasswordAndToken(ClearPassword(password), me.totpSecret.map(_.currentTotp))
       ).map(_.isDefined) flatMap {
           case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
           case true => Env.current.closeAccount(me.id, self = true) inject {

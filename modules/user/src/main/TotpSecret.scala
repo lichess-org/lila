@@ -14,9 +14,9 @@ case class TotpSecret(secret: Array[Byte]) extends AnyVal {
 
   def base32: String = new Base32().encodeAsString(secret)
 
-  def totpDefault = totp(System.currentTimeMillis / 30000)
+  def currentTotp = totp(System.currentTimeMillis / 30000)
 
-  def totp(period: Long): TotpToken = TotpToken {
+  private def totp(period: Long): TotpToken = TotpToken {
     val msg = BigInt(period).toByteArray.reverse.padTo(8, 0.toByte).reverse
 
     val hmac = Mac.getInstance("HMACSHA1")
