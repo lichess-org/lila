@@ -35,7 +35,7 @@ case class TotpSecret(secret: Array[Byte]) extends AnyVal {
 
   def verify(token: TotpToken): Boolean = {
     val period = System.currentTimeMillis / 30000
-    (-TotpSecret.window to TotpSecret.window).map(skew => totp(period + skew)).contains(token.value)
+    (-TotpSecret.window to TotpSecret.window).map(skew => totp(period + skew)).has(token)
   }
 }
 
