@@ -71,6 +71,8 @@ object Auth extends LilaController {
     Ok(html.auth.login(api.loginForm, referrer)).fuccess
   }
 
+  private val is2fa = Set("MissingTotpToken", "InvalidTotpToken")
+
   def authenticate = OpenBody { implicit ctx =>
     Firewall {
       implicit val req = ctx.body
@@ -88,7 +90,7 @@ object Auth extends LilaController {
                 negotiate(
                   html = fuccess {
                     err.errors match {
-                      case List(play.api.data.FormError("", List("MissingTotpToken" | "InvalidTotpToken"), _)) => Ok("2fa")
+                      case List(play.api.data.FormError("", List(err), _)) if is2fa(err) => Ok(err)
                       case _ => Unauthorized(html.auth.login(err, referrer))
                     }
                   },
@@ -101,7 +103,7 @@ object Auth extends LilaController {
                   UserRepo.email(u.id) foreach {
                     _ foreach { garbageCollect(u, _) }
                   }
-                  authenticateUser(u, Some(redirectTo => Ok(redirectTo)))
+                  authenticateUser(u, Some(redirectTo => Ok(s"ok:$redirectTo")))
               }
             )
           }

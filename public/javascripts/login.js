@@ -14,13 +14,15 @@ function load($f) {
         token: $f.find('.token input').val()
       },
       success: function(res) {
-        if (res === '2fa') {
+        if (res === 'MissingTotpToken' || res === 'InvalidTotpToken') {
           $f.find('.one-factor').hide();
           $f.find('.two-factor').show();
           $f.find('.token input').val('');
           $f.find('.submit').attr('disabled', false);
+          if (res === 'InvalidTotpToken') $f.find('.two-factor .error').show();
         }
-        else lichess.redirect(res);
+        else if (res.indexOf('ok:') === 0) lichess.redirect(res.substr(3));
+        else alert(res);
       },
       error: function(err) {
         $f.replaceWith($(err.responseText).find('form.login'));
