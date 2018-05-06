@@ -93,12 +93,12 @@ object Account extends LilaController {
   }
 
   def passwdApply = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    env.forms passwd me flatMap { form =>
-      FormFuResult(form) { err =>
-        fuccess(html.account.passwd(err))
-      } { data =>
-        controllers.Auth.HasherRateLimit(me.username, req) { _ =>
+    controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
+      implicit val req = ctx.body
+      env.forms passwd me flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.passwd(err))
+        } { data =>
           Env.user.authenticator.setPassword(me.id, ClearPassword(data.newPasswd1)) inject
             Redirect(s"${routes.Account.passwd}?ok=1")
         }
