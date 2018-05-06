@@ -33,9 +33,11 @@
 <a class="@active.active("email")" href="@routes.Account.email()">
   @trans.changeEmail()
 </a>
+@if(isGranted(_.Beta)) {
 <a class="@active.active("twofactor")" href="@routes.Account.twoFactor()">
   Two-factor authentication
 </a>
+}
 <a class="@active.active("security")" href="@routes.Account.security()">
   @trans.security()
 </a>
