@@ -167,11 +167,13 @@ object Account extends LilaController {
 
   def setupTwoFactor = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
+    val currentSessionId = ~Env.security.api.reqSessionId(ctx.req)
     Env.security.forms.setupTwoFactor(me) flatMap { form =>
       FormFuResult(form) { err =>
         fuccess(html.account.setupTwoFactor(me, err))
       } { data =>
-        UserRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) inject
+        UserRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
+          lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
           Redirect(routes.Account.twoFactor)
       }
     }
