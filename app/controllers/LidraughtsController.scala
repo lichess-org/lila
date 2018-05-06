@@ -441,4 +441,5 @@ private[controllers] trait LidraughtsController
   }
 
   protected val pdnContentType = "application/x-draughts-pdn"
+  protected val ndJsonContentType = "application/x-ndjson"
 }

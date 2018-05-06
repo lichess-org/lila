@@ -38,11 +38,10 @@ object Game extends LidraughtsController {
         RequireHttp11(req) {
           Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
             Api.GlobalLinearLimitPerUserOption(me) {
+              val format = if (HTTPRequest acceptsNdJson req) GameApiV2.Format.JSON else GameApiV2.Format.PDN
               val config = GameApiV2.Config(
                 user = user,
-                format =
-                  if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON
-                  else GameApiV2.Format.PDN,
+                format = format,
                 since = getLong("since", req) map { ts => new DateTime(ts) },
                 until = getLong("until", req) map { ts => new DateTime(ts) },
                 max = getInt("max", req) map (_ atLeast 1),
@@ -66,8 +65,11 @@ object Game extends LidraughtsController {
               )
               val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
               Ok.chunked(Env.api.gameApiV2.exportUserGames(config)).withHeaders(
-                CONTENT_TYPE -> pdnContentType,
-                CONTENT_DISPOSITION -> ("attachment; filename=" + s"lidraughts_${user.username}_$date.pdn")
+                CONTENT_TYPE -> (format match {
+                  case GameApiV2.Format.PDN => pdnContentType
+                  case GameApiV2.Format.JSON => ndJsonContentType
+                }),
+                CONTENT_DISPOSITION -> ("attachment; filename=" + s"lidraughts_${user.username}_$date.${format.toString.toLowerCase}")
               ).fuccess
             }
           }
