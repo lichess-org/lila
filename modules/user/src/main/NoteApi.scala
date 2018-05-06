@@ -50,7 +50,7 @@ final class NoteApi(
       .list[Note](20)
 
   def forMod(ids: List[User.ID]): Fu[List[Note]] =
-    coll.find($doc("to" -> $doc("$in" -> ids)))
+    coll.find($doc("to" $in ids))
       .sort($doc("date" -> -1))
       .list[Note](50)
 
