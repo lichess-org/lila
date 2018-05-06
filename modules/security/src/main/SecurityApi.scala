@@ -36,8 +36,9 @@ final class SecurityApi(
 
   private def loadedLoginForm(candidate: Option[User.LoginCandidate]) = Form(mapping(
     "username" -> nonEmptyText,
-    "password" -> nonEmptyText
-  )(authenticateCandidate(candidate))(_.map(u => (u.username, "")))
+    "password" -> nonEmptyText,
+    "token" -> optional(nonEmptyText)
+  )(authenticateCandidate(candidate))(_.map(u => (u.username, "", none)))
     .verifying("invalidUsernameOrPassword", _.isDefined))
 
   def loadLoginForm(str: String): Fu[Form[Option[User]]] = {
@@ -48,8 +49,13 @@ final class SecurityApi(
     }
   } map loadedLoginForm _
 
-  private def authenticateCandidate(candidate: Option[User.LoginCandidate])(username: String, password: String): Option[User] =
-    candidate ?? { _(User.ClearPassword(password)) }
+  private def authenticateCandidate(candidate: Option[User.LoginCandidate])(
+    username: String,
+    password: String,
+    token: Option[String]
+  ): Option[User] = candidate ?? {
+    _(User.PasswordAndToken(User.ClearPassword(password), token map User.TotpToken.apply))
+  }
 
   def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(implicit req: RequestHeader): Fu[String] =
     UserRepo mustConfirmEmail userId flatMap {

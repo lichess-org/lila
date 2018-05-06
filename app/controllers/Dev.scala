@@ -6,6 +6,8 @@ import play.api.mvc._
 import lidraughts.app._
 import views._
 
+import lidraughts.user.User.{ ClearPassword, TotpToken, PasswordAndToken }
+
 object Dev extends LidraughtsController {
 
   private lazy val settingsList = List[lidraughts.memo.SettingStore[_]](
@@ -76,7 +78,7 @@ object Dev extends LidraughtsController {
   private def CommandAuth(password: String)(op: => Fu[Result]): Fu[Result] =
     Env.user.authenticator.authenticateById(
       Env.api.CliUsername,
-      lidraughts.user.User.ClearPassword(password)
+      PasswordAndToken(ClearPassword(password), none)
     ).map(_.isDefined) flatMap {
         _.fold(op, fuccess(Unauthorized))
       }
