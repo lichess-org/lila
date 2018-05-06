@@ -109,7 +109,10 @@ final class Env(
     crosstableApi = crosstableApi
   )
 
-  val gameApiV2 = new GameApiV2(pdnDump)(system)
+  val gameApiV2 = new GameApiV2(
+    pdnDump = pdnDump,
+    getLightUser = userEnv.lightUser
+  )(system)
 
   val userGameApi = new UserGameApi(
     bookmarkApi = bookmarkApi,
