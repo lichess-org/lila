@@ -6,6 +6,8 @@ import play.api.mvc._
 import lila.app._
 import views._
 
+import lila.user.User.{ ClearPassword, TotpToken, PasswordAndToken }
+
 object Dev extends LilaController {
 
   private lazy val settingsList = List[lila.memo.SettingStore[_]](

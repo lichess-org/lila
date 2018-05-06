@@ -361,6 +361,7 @@ POST  /mod/:username/troll/:v          controllers.Mod.troll(username: String, v
 POST  /mod/:username/ban/:v            controllers.Mod.ban(username: String, v: Boolean)
 POST  /mod/:username/delete-pms-and-chats controllers.Mod.deletePmsAndChats(username: String)
 POST  /mod/:username/warn              controllers.Mod.warn(username: String, subject: String)
+POST  /mod/:username/disable-2fa       controllers.Mod.disableTwoFactor(username: String)
 POST  /mod/:username/close             controllers.Mod.closeAccount(username: String)
 POST  /mod/:username/reopen            controllers.Mod.reopenAccount(username: String)
 POST  /mod/:username/title             controllers.Mod.setTitle(username: String)
@@ -528,6 +529,9 @@ GET   /account/profile                 controllers.Account.profile
 POST  /account/profile                 controllers.Account.profileApply
 GET   /account/kid                     controllers.Account.kid
 POST  /account/kid                     controllers.Account.kidPost
+GET   /account/twofactor               controllers.Account.twoFactor
+POST  /account/twofactor/setup         controllers.Account.setupTwoFactor
+POST  /Account/twofactor/disable       controllers.Account.disableTwoFactor
 # App BC
 POST  /account/kidConfirm              controllers.Account.kidToggle
 GET   /account/security                controllers.Account.security

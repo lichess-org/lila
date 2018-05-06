@@ -1,0 +1,34 @@
+@(u: User, form: Form[_])(implicit ctx: Context)
+
+@title = @{ s"${u.username} - Two-factor authentication" }
+
+@moreJs = {
+@jsAt("javascripts/vendor/qrcode.min.js")
+@jsTag("twofactor.form.js")
+}
+
+@account.layout(title = title, active = "twofactor", evenMoreCss = cssTag("material.form.css"), evenMoreJs = moreJs) {
+<div class="content_box small_box high">
+  <h1 class="lichess_title">Setup two-factor authentication</h1>
+  <p class="explanation">
+    Get an authenticator app, scan the QR code and enter your password and
+    the token provided by the app for confirmation.
+  </p>
+  <form class="material form" action="@routes.Account.setupTwoFactor" method="POST">
+    <div style="width: 276px; height: 275px; padding: 10px; background: white; margin: 2em auto;">
+      <div id="qrcode" style="width: 256px; height: 256px;"></div>
+    </div>
+    @base.form.hidden(form("secret"))
+    @passwdFormField(form("passwd"), trans.password())
+    @base.form.group(form("token"), Html("Token")) { field =>
+    @base.form.input(field, typ = "text", required = true)
+    @errMsg(form("token"))
+    }
+    @errMsg(form)
+    <br><br>
+    <div class="button-container">
+      <button type="submit" class="submit button text">Enable two-factor authentication</button>
+    </div>
+  </form>
+</div>
+}

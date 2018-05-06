@@ -6,8 +6,8 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.common.LilaCookie
-import lila.user.{ User => UserModel, UserRepo }
-import UserModel.ClearPassword
+import lila.user.{ User => UserModel, UserRepo, TotpSecret }
+import UserModel.{ ClearPassword, TotpToken, PasswordAndToken }
 import views.html
 
 object Account extends LilaController {
@@ -147,9 +147,45 @@ object Account extends LilaController {
   def emailConfirm(token: String) = Open { implicit ctx =>
     Env.security.emailChange.confirm(token) flatMap {
       _ ?? { user =>
-        controllers.Auth.authenticateUser(user, result = Redirect {
-          s"${routes.Account.email}?ok=1"
-        }.fuccess.some)
+        controllers.Auth.authenticateUser(user, result = Some { _ =>
+          Redirect(s"${routes.Account.email}?ok=1")
+        })
+      }
+    }
+  }
+
+  def twoFactor = Auth { implicit ctx => me =>
+    if (me.totpSecret.isDefined)
+      Env.security.forms.disableTwoFactor(me) map { form =>
+        html.account.disableTwoFactor(me, form)
+      }
+    else
+      Env.security.forms.setupTwoFactor(me) map { form =>
+        html.account.setupTwoFactor(me, form)
+      }
+  }
+
+  def setupTwoFactor = AuthBody { implicit ctx => me =>
+    implicit val req = ctx.body
+    val currentSessionId = ~Env.security.api.reqSessionId(ctx.req)
+    Env.security.forms.setupTwoFactor(me) flatMap { form =>
+      FormFuResult(form) { err =>
+        fuccess(html.account.setupTwoFactor(me, err))
+      } { data =>
+        UserRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
+          lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
+          Redirect(routes.Account.twoFactor)
+      }
+    }
+  }
+
+  def disableTwoFactor = AuthBody { implicit ctx => me =>
+    implicit val req = ctx.body
+    Env.security.forms.disableTwoFactor(me) flatMap { form =>
+      FormFuResult(form) { err =>
+        fuccess(html.account.disableTwoFactor(me, err))
+      } { _ =>
+        UserRepo.disableTwoFactor(me.id) inject Redirect(routes.Account.twoFactor)
       }
     }
   }
@@ -163,12 +199,15 @@ object Account extends LilaController {
     FormFuResult(Env.security.forms.closeAccount) { err =>
       fuccess(html.account.close(me, err))
     } { password =>
-      Env.user.authenticator.authenticateById(me.id, ClearPassword(password)).map(_.isDefined) flatMap {
-        case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
-        case true => Env.current.closeAccount(me.id, self = true) inject {
-          Redirect(routes.User show me.username) withCookies LilaCookie.newSession
+      Env.user.authenticator.authenticateById(
+        me.id,
+        PasswordAndToken(ClearPassword(password), me.totpSecret.map(_.currentTotp))
+      ).map(_.isDefined) flatMap {
+          case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
+          case true => Env.current.closeAccount(me.id, self = true) inject {
+            Redirect(routes.User show me.username) withCookies LilaCookie.newSession
+          }
         }
-      }
     }
   }
 
