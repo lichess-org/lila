@@ -122,13 +122,28 @@ object User {
 
   type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck) {
-    def apply(p: PasswordAndToken): Option[User] = {
-      val res = check(p.password) && user.totpSecret.fold(true) { tp =>
-        p.token ?? tp.verify
-      }
-      lila.mon.user.auth.result(res)()
-      res option user
+    import LoginCandidate._
+    def apply(p: PasswordAndToken): Result = {
+      val res =
+        if (check(p.password)) user.totpSecret.fold[Result](Success(user)) { tp =>
+          p.token.fold[Result](MissingTotpToken) { token =>
+            if (tp verify token) Success(user) else InvalidTotpToken
+          }
+        }
+        else InvalidUsernameOrPassword
+      lila.mon.user.auth.result(res.success)()
+      res
     }
+    def option(p: PasswordAndToken): Option[User] = apply(p).toOption
+  }
+  object LoginCandidate {
+    sealed abstract class Result(val toOption: Option[User]) {
+      def success = toOption.isDefined
+    }
+    case class Success(user: User) extends Result(user.some)
+    case object InvalidUsernameOrPassword extends Result(none)
+    case object MissingTotpToken extends Result(none)
+    case object InvalidTotpToken extends Result(none)
   }
 
   val anonymous = "Anonymous"

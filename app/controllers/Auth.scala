@@ -86,10 +86,16 @@ object Auth extends LilaController {
               err => {
                 chargeIpLimiter(1)
                 negotiate(
-                  html = Unauthorized(html.auth.login(err, referrer)).fuccess,
+                  html = fuccess {
+                    err.errors match {
+                      case List(play.api.data.FormError("", List("MissingTotpToken" | "InvalidTotpToken"), _)) => Ok("2fa")
+                      case _ => Unauthorized(html.auth.login(err, referrer))
+                    }
+                  },
                   api = _ => Unauthorized(errorsAsJson(err)).fuccess
                 )
-              }, {
+              },
+              result => result.toOption match {
                 case None => InternalServerError("Authentication error").fuccess
                 case Some(u) =>
                   UserRepo.email(u.id) foreach {

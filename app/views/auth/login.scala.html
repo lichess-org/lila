@@ -8,11 +8,22 @@ moreJs = jsTag("login.js")) {
     <h1 class="lichess_title">@trans.signIn()</h1>
     <form class="login" action="@routes.Auth.authenticate@referrer.map { ref =>?referrer=@{java.net.URLEncoder.encode(ref, "US-ASCII")}}" method="POST">
       @globalError(form)
-      <ul>
+      <ul class="one-factor">
         @auth.formFields(form("username"), form("password"), none, register = false)
         <li>
           <button type="submit" class="submit button" data-icon="F"> @trans.signIn()</button>
         </li>
+      </ul>
+      <ul class="two-factor none">
+        @defining(form("token")) { field =>
+        <li class="token">
+          <label for="@field.name">2FA Token</label>
+          <input type="text" id="@field.name" name="@field.name" />
+        </li>
+        <li>
+          <button type="submit" class="submit button" data-icon="F"> @trans.signIn()</button>
+        </li>
+        }
       </ul>
     </form>
   </div>
