@@ -315,16 +315,16 @@
   <string name="backToTournament">Вернуться к турниру</string>
   <string name="thematic">Тематический</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s рейтинговой игры</item>
-    <item quantity="few">≥ %s рейтинговых игр</item>
-    <item quantity="many">≥ %s рейтинговых игр</item>
-    <item quantity="other">≥ %s рейтинговых игр</item>
+    <item quantity="one">Рейтинговых игр ≥ %s</item>
+    <item quantity="few">Рейтинговых игр ≥ %s</item>
+    <item quantity="many">Рейтинговых игр ≥ %s</item>
+    <item quantity="other">Рейтинговых игр ≥ %s</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s рейтинговая игра в %2$s</item>
-    <item quantity="few">≥ %1$s рейтинговых игр в %2$s</item>
-    <item quantity="many">≥ %1$s рейтинговых игр в %2$s</item>
-    <item quantity="other">≥ %1$s рейтинговых игр в %2$s</item>
+    <item quantity="one">Рейтинговых игр в %2$s ≥ %1$s</item>
+    <item quantity="few">Рейтинговых игр в %2$s ≥ %1$s</item>
+    <item quantity="many">Рейтинговых игр в %2$s ≥ %1$s</item>
+    <item quantity="other">Рейтинговых игр в %2$s ≥ %1$s</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Вы должны сыграть ещё %1$s рейтинговую игру в %2$s</item>
