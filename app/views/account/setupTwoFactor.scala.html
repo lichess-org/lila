@@ -27,7 +27,7 @@
         @base.form.hidden(form("secret"))
         @passwdFormField(form("passwd"), trans.password())
         @base.form.group(form("token"), Html("Authentication code")) { field =>
-        @base.form.input(field, typ = "text", required = true)
+        @base.form.input(field, typ = "text", required = true, autocomplete = false)
         @errMsg(form("token"))
         }
         @errMsg(form)
