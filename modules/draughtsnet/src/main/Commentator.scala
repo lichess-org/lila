@@ -49,7 +49,7 @@ final class Commentator(
           _id = Work.makeId,
           game = Work.Game(
             id = game.id,
-            initialFen = initialFen map FEN.apply,
+            initialFen = initialFen,
             studyId = none,
             simulId = game.simulId,
             variant = game.variant,

@@ -1,18 +1,21 @@
 package lidraughts.api
 
+import draughts.format.FEN
 import org.joda.time.DateTime
 import play.api.libs.json._
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
+import draughts.format.FEN
 import lidraughts.analyse.{ JsonView => analysisJson, AnalysisRepo, Analysis }
-import lidraughts.common.paginator.{ Paginator, PaginatorJson }
 import lidraughts.common.MaxPerPage
+import lidraughts.common.paginator.{ Paginator, PaginatorJson }
 import lidraughts.db.dsl._
 import lidraughts.db.paginator.{ Adapter, CachedAdapter }
 import lidraughts.game.BSONHandlers._
 import lidraughts.game.Game.{ BSONFields => G }
+import lidraughts.game.JsonView._
 import lidraughts.game.{ Game, GameRepo, PerfPicker, CrosstableApi }
 import lidraughts.user.User
 
@@ -25,7 +28,6 @@ private[api] final class GameApi(
 ) {
 
   import GameApi.WithFlags
-  import lidraughts.game.JsonView.openingWriter
 
   def byUser(
     user: User,
@@ -171,7 +173,7 @@ private[api] final class GameApi(
   private def gameToJson(
     g: Game,
     analysisOption: Option[Analysis],
-    initialFen: Option[String],
+    initialFen: Option[FEN],
     withFlags: WithFlags
   ) = Json.obj(
     "id" -> g.id,
@@ -217,7 +219,7 @@ private[api] final class GameApi(
     "fens" -> (withFlags.fens && g.finished) ?? {
       draughts.Replay.boards(
         moveStrs = g.pdnMoves,
-        initialFen = initialFen map draughts.format.FEN,
+        initialFen = initialFen,
         variant = g.variant
       ).toOption map { boards =>
         JsArray(boards map draughts.format.Forsyth.exportBoard map JsString.apply)

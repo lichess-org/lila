@@ -6,7 +6,7 @@ import scala.collection.breakOut
 
 import draughts.variant.Variant
 import draughts.{ KingMoves, Color, Clock, White, Black, Status, Mode, DraughtsHistory, DraughtsGame }
-import draughts.format.Uci
+import draughts.format.{ FEN, Uci }
 
 import lidraughts.db.BSON
 import lidraughts.db.dsl._
@@ -14,6 +14,8 @@ import lidraughts.db.dsl._
 object BSONHandlers {
 
   import lidraughts.db.ByteArray.ByteArrayBSONHandler
+
+  implicit val FENBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
 
   private[game] implicit val kingMovesWriter = new BSONWriter[KingMoves, BSONArray] {
     def write(km: KingMoves) = BSONArray(km.white, km.black, km.whiteKing.fold(0)(_.fieldNumber), km.blackKing.fold(0)(_.fieldNumber))

@@ -2,39 +2,43 @@ package lidraughts.game
 
 import draughts.format.Forsyth
 import draughts.format.pdn.{ Pdn, Tag, Tags, TagType, Parser, ParsedPdn }
-import draughts.format.{ pdn => draughtsPdn }
+import draughts.format.{ FEN, pdn => draughtsPdn }
 import draughts.{ Centis, Color }
 
 import lidraughts.common.LightUser
 
 final class PdnDump(
     netBaseUrl: String,
-    getLightUser: LightUser.GetterSync
+    getLightUser: LightUser.Getter
 ) {
 
   import PdnDump._
 
-  def apply(game: Game, initialFen: Option[String], flags: WithFlags): Pdn = {
+  def apply(game: Game, initialFen: Option[FEN], flags: WithFlags): Fu[Pdn] = {
     val imported = game.pdnImport.flatMap { pdni =>
       Parser.full(pdni.pdn).toOption
     }
-    val ts = if (flags.tags) tags(game, initialFen, imported, flags.draughtsResult) else Tags(Nil)
-    val turns = flags.moves ?? {
-      val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
-      val moves2 = fenSituation.??(_.situation.color.black).fold(".." +: game.pdnMovesConcat, game.pdnMovesConcat)
-      makeTurns(
-        moves2,
-        fenSituation.map(_.fullMoveNumber) | 1,
-        flags.clocks ?? ~game.bothClockStates,
-        game.startColor
-      )
+    val tagsFuture =
+      if (flags.tags) tags(game, initialFen, imported, flags.draughtsResult, withOpening = flags.opening)
+      else fuccess(Tags(Nil))
+    tagsFuture map { ts =>
+      val turns = flags.moves ?? {
+        val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
+        val moves2 = fenSituation.??(_.situation.color.black).fold(".." +: game.pdnMovesConcat, game.pdnMovesConcat)
+        makeTurns(
+          moves2,
+          fenSituation.map(_.fullMoveNumber) | 1,
+          flags.clocks ?? ~game.bothClockStates,
+          game.startColor
+        )
+      }
+      Pdn(ts, turns)
     }
-    Pdn(ts, turns)
   }
 
   private val fileR = """[\s,]""".r
 
-  def filename(game: Game): String = gameLightUsers(game) match {
+  def filename(game: Game): Fu[String] = gameLightUsers(game) map {
     case (wu, bu) => fileR.replaceAllIn(
       "lidraughts_pdn_%s_%s_vs_%s.%s.pdn".format(
         Tag.UTCDate.format.print(game.createdAt),
@@ -47,8 +51,8 @@ final class PdnDump(
 
   private def gameUrl(id: String) = s"$netBaseUrl/$id"
 
-  private def gameLightUsers(game: Game): (Option[LightUser], Option[LightUser]) =
-    (game.whitePlayer.userId ?? getLightUser) -> (game.blackPlayer.userId ?? getLightUser)
+  private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
+    (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser)
 
   private def rating(p: Player) = p.rating.fold("?")(_.toString)
 
@@ -73,10 +77,11 @@ final class PdnDump(
 
   def tags(
     game: Game,
-    initialFen: Option[String],
+    initialFen: Option[FEN],
     imported: Option[ParsedPdn],
-    draughtsResult: Boolean
-  ): Tags = gameLightUsers(game) match {
+    draughtsResult: Boolean,
+    withOpening: Boolean
+  ): Fu[Tags] = gameLightUsers(game) map {
     case (wu, bu) => Tags {
       val importedDate = imported.flatMap(_.tags(_.Date))
       List[Option[Tag]](
@@ -97,7 +102,7 @@ final class PdnDump(
         bu.flatMap(_.title).map { t => Tag(_.BlackTitle, t) },
         Tag(_.GameType, game.variant.gameType).some,
         Tag.timeControl(game.clock.map(_.config)).some,
-        Tag(_.Opening, game.opening.fold("?")(_.opening.name)).some,
+        withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.name)),
         Tag(_.Termination, {
           import draughts.Status._
           game.status match {
@@ -110,7 +115,7 @@ final class PdnDump(
           }
         }).some
       ).flatten ::: customStartPosition(game.variant).??(List(
-          Tag(_.FEN, initialFen | "?")
+          Tag(_.FEN, initialFen.fold("?")(_.value))
         //Tag("SetUp", "1")
         ))
     }
@@ -147,6 +152,7 @@ object PdnDump {
       moves: Boolean = true,
       tags: Boolean = true,
       evals: Boolean = true,
+      opening: Boolean = true,
       draughtsResult: Boolean = true
   )
 

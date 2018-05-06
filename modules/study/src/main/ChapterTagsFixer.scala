@@ -18,9 +18,9 @@ private final class ChapterTagsFixer(
     }
 
   private def makeNewTags(c: Chapter, draughtsResult: Boolean): Fu[Option[Tags]] =
-    c.setup.gameId.??(GameRepo.gameWithInitialFen) map {
-      _ map {
-        case (game, fen) => PdnTags(gamePdnDump.tags(game, fen.map(_.value), none, draughtsResult))
+    c.setup.gameId.??(GameRepo.gameWithInitialFen) flatMap {
+      _ ?? {
+        case (game, fen) => gamePdnDump.tags(game, fen, none, draughtsResult, withOpening = true) map PdnTags.apply map some
       }
     }
 }

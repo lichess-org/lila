@@ -1,5 +1,6 @@
 package lidraughts.challenge
 
+import draughts.format.FEN
 import draughts.variant.{ Variant, FromPosition }
 import draughts.{ Mode, Speed }
 import org.joda.time.DateTime
@@ -13,7 +14,7 @@ case class Challenge(
     _id: String,
     status: Challenge.Status,
     variant: Variant,
-    initialFen: Option[String],
+    initialFen: Option[FEN],
     timeControl: Challenge.TimeControl,
     mode: Mode,
     colorChoice: Challenge.ColorChoice,
@@ -133,7 +134,7 @@ object Challenge {
 
   def make(
     variant: Variant,
-    initialFen: Option[String],
+    initialFen: Option[FEN],
     timeControl: TimeControl,
     mode: Mode,
     color: String,
@@ -155,8 +156,8 @@ object Challenge {
       status = Status.Created,
       variant = variant,
       initialFen = (variant == FromPosition).fold(
-        initialFen.flatMap(fen => Forsyth << fen).map(sit => Forsyth >> sit.withoutGhosts),
-        Some(variant.initialFen).ifFalse(variant.standardInitialPosition)
+        initialFen.flatMap(fen => Forsyth << fen.value).map(sit => FEN(Forsyth >> sit.withoutGhosts)),
+        !variant.standardInitialPosition option FEN(variant.initialFen)
       ),
       timeControl = timeControl,
       mode = finalMode,

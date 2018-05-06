@@ -2,6 +2,7 @@ package lidraughts.setup
 
 import draughts.{ DraughtsGame, Situation, Clock, Speed }
 import draughts.variant.FromPosition
+import draughts.format.FEN
 
 import lidraughts.game.Game
 import lidraughts.lobby.Color
@@ -51,21 +52,21 @@ trait Positional { self: Config =>
 
   import draughts.format.Forsyth, Forsyth.SituationPlus
 
-  def fen: Option[String]
+  def fen: Option[FEN]
 
   def strictFen: Boolean
 
   lazy val validFen = variant != FromPosition || {
-    fen ?? { f => ~(Forsyth <<< f).map(_.situation playable strictFen) }
+    fen ?? { f => ~(Forsyth <<< f.value).map(_.situation playable strictFen) }
   }
 
   lazy val validKingCount = variant != FromPosition || {
-    fen ?? { Forsyth.countKings(_) <= 30 }
+    fen ?? { f => Forsyth.countKings(f.value) <= 30 }
   }
 
   def fenGame(builder: DraughtsGame => Game): Game = {
-    val baseState = fen ifTrue (variant.fromPosition) flatMap {
-      Forsyth.<<<@(FromPosition, _)
+    val baseState = fen ifTrue (variant.fromPosition) flatMap { f =>
+      Forsyth.<<<@(FromPosition, f.value)
     }
     val (draughtsGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {
       case sit @ SituationPlus(s, _) =>

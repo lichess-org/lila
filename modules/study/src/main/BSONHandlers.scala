@@ -13,6 +13,7 @@ import lidraughts.db.dsl._
 import lidraughts.tree.Eval
 import lidraughts.tree.Eval.Score
 import lidraughts.tree.Node.{ Shape, Shapes, Comment, Comments, Gamebook }
+import lidraughts.game.BSONHandlers.FENBSONHandler
 
 import lidraughts.common.Iso
 import lidraughts.common.Iso._
@@ -77,8 +78,6 @@ object BSONHandlers {
 
   import Uci.WithSan
   private implicit val UciWithSanBSONHandler = Macros.handler[WithSan]
-
-  private implicit val FenBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
 
   implicit val ShapesBSONHandler: BSONHandler[BSONArray, Shapes] =
     isoHandler[Shapes, List[Shape], BSONArray](

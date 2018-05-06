@@ -1,4 +1,4 @@
-@(pov: Pov, initialFen: Option[String], pdn: draughts.format.pdn.Pdn)(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[draughts.format.FEN], pdn: draughts.format.pdn.Pdn)(implicit ctx: Context)
 
 @title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in ${pov.gameId}" }
 

@@ -13,7 +13,7 @@ object JsonView {
     "speed" -> game.speed.key,
     "perf" -> PerfPicker.key(game),
     "rated" -> game.rated,
-    "initialFen" -> initialFen.fold(draughts.format.Forsyth.initial)(_.value),
+    "initialFen" -> initialFen.|(FEN(draughts.format.Forsyth.initial)),
     "fen" -> (Forsyth >> game.draughts),
     "player" -> game.turnColor,
     "turns" -> game.turns,
@@ -114,5 +114,9 @@ object JsonView {
 
   implicit val colorWrites: Writes[Color] = Writes { c =>
     JsString(c.name)
+  }
+
+  implicit val fenWrites: Writes[FEN] = Writes { f =>
+    JsString(f.value)
   }
 }

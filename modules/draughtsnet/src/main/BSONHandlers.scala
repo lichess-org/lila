@@ -2,6 +2,7 @@ package lidraughts.draughtsnet
 
 import lidraughts.db.BSON.{ BSONJodaDateTimeHandler, stringAnyValHandler }
 import lidraughts.common.IpAddress
+import lidraughts.game.BSONHandlers.FENBSONHandler
 import reactivemongo.bson._
 
 import draughts.format.FEN
@@ -33,7 +34,6 @@ private object BSONHandlers {
     def read(b: BSONInteger): Variant = Variant(b.value) err s"No such variant: ${b.value}"
     def write(x: Variant) = BSONInteger(x.id)
   }
-  private implicit val FENBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
 
   implicit val WorkIdBSONHandler = stringAnyValHandler[Work.Id](_.value, Work.Id.apply)
   import Work.Acquired

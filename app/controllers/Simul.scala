@@ -9,7 +9,8 @@ import org.joda.time.format.DateTimeFormat
 import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.common.HTTPRequest
-import lidraughts.game.{ GameRepo, Pov }
+import lidraughts.game.GameRepo
+import lidraughts.game.PdnDump.WithFlags
 import lidraughts.simul.{ Simul => Sim }
 import lidraughts.simul.DataForm.{ empty => emptyForm }
 import lidraughts.chat.Chat
@@ -207,7 +208,7 @@ object Simul extends LidraughtsController {
   private def streamGamesPdn(user: lidraughts.user.User, gameIds: List[String], simulId: String, draughtsResult: Boolean) =
     ExportRateLimitPerUser(user.id, cost = 1) {
       val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-      Ok.chunked(Env.api.pdnDump.exportGamesFromIds(gameIds, draughtsResult)).withHeaders(
+      Ok.chunked(Env.api.gameApiV2.exportGamesFromIds(gameIds, WithFlags(draughtsResult = draughtsResult))).withHeaders(
         CONTENT_TYPE -> pdnContentType,
         CONTENT_DISPOSITION -> ("attachment; filename=" + s"lidraughts_simul_$simulId.pdn")
       )

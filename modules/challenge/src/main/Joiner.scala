@@ -17,8 +17,8 @@ private[challenge] final class Joiner(onStart: String => Unit) {
           def makeDraughts(variant: draughts.variant.Variant): draughts.DraughtsGame =
             draughts.DraughtsGame(situation = Situation(variant), clock = c.clock.map(_.config.toClock))
 
-          val baseState = c.initialFen.ifTrue(c.variant.fromPosition) flatMap {
-            Forsyth.<<<@(draughts.variant.FromPosition, _)
+          val baseState = c.initialFen.ifTrue(c.variant.fromPosition) flatMap { fen =>
+            Forsyth.<<<@(draughts.variant.FromPosition, fen.value)
           }
           val (draughtsGame, state) = baseState.fold(makeDraughts(c.variant) -> none[SituationPlus]) {
             case sit @ SituationPlus(s, _) =>

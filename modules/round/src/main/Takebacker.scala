@@ -79,7 +79,7 @@ private[round] final class Takebacker(
         }
     }
 
-  private def rewindPly(game: Game, fen: Option[String], initialPly: Int, takeBacker: draughts.Color, targetPly: Int, prog: Progress, rewinds: Int)(implicit proxy: GameProxy): Fu[Events] = {
+  private def rewindPly(game: Game, fen: Option[draughts.format.FEN], initialPly: Int, takeBacker: draughts.Color, targetPly: Int, prog: Progress, rewinds: Int)(implicit proxy: GameProxy): Fu[Events] = {
     if (rewinds > 10) {
       logger.info(s"rewindPly $rewinds - initialPly: $initialPly, takeBacker: $takeBacker, targetPly: $targetPly, fen: $fen")
       logger.info(s"rewindPly $rewinds - turns: ${prog.game.turns}, ghosts: ${prog.game.situation.ghosts}")

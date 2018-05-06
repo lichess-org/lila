@@ -5,6 +5,7 @@ import play.api.libs.json.Json
 import play.api.mvc.{ Result, Results }
 import scala.concurrent.duration._
 
+import draughts.format.FEN
 import lidraughts.api.{ Context, BodyContext }
 import lidraughts.app._
 import lidraughts.common.{ HTTPRequest, LidraughtsCookie, IpAddress }
@@ -24,7 +25,7 @@ object Setup extends LidraughtsController with TheftPrevention {
 
   def aiForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req) {
-      env.forms aiFilled get("fen") map { form =>
+      env.forms aiFilled get("fen").map(FEN) map { form =>
         html.setup.ai(
           form,
           Env.draughtsnet.aiPerfApi.intRatings,
@@ -42,7 +43,7 @@ object Setup extends LidraughtsController with TheftPrevention {
 
   def friendForm(userId: Option[String]) = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req)
-      env.forms friendFilled get("fen") flatMap { form =>
+      env.forms friendFilled get("fen").map(FEN) flatMap { form =>
         val validFen = form("fen").value flatMap ValidFen(false)
         userId ?? UserRepo.named flatMap {
           case None => Ok(html.setup.friend(form, none, none, validFen)).fuccess
@@ -190,7 +191,7 @@ object Setup extends LidraughtsController with TheftPrevention {
     get("fen") flatMap ValidFen(getBool("strict")) match {
       case None => BadRequest.fuccess
       case Some(v) if getBool("kings") && v.tooManyKings => BadRequest.fuccess
-      case Some(v) => Ok(html.game.miniBoard(v.fen, v.color.name)).fuccess
+      case Some(v) => Ok(html.game.miniBoard(v.fen, v.color)).fuccess
     }
   }
 
@@ -198,7 +199,7 @@ object Setup extends LidraughtsController with TheftPrevention {
     get("fen") flatMap ValidFen(getBool("strict")) match {
       case None => Ok("<p class=\"errortext\">Invalid position</p>").fuccess
       case Some(v) if getBool("kings") && v.tooManyKings => Ok("<p class=\"errortext\">" + lidraughts.i18n.I18nKeys.tooManyKings.txt() + "</p>").fuccess
-      case Some(v) => Ok(html.game.miniBoard(v.fen, v.color.name)).fuccess
+      case Some(v) => Ok(html.game.miniBoard(v.fen, v.color)).fuccess
     }
   }
 

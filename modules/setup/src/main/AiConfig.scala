@@ -1,5 +1,6 @@
 package lidraughts.setup
 
+import draughts.format.FEN
 import lidraughts.game.{ Game, Player, Source, Pov }
 import lidraughts.lobby.Color
 import lidraughts.user.User
@@ -12,12 +13,12 @@ case class AiConfig(
     days: Int,
     level: Int,
     color: Color,
-    fen: Option[String] = None
+    fen: Option[FEN] = None
 ) extends Config with Positional {
 
   val strictFen = true
 
-  def >> = (variant.id, timeMode.id, time, increment, days, level, color.name, fen).some
+  def >> = (variant.id, timeMode.id, time, increment, days, level, color.name, fen.map(_.value)).some
 
   def game(user: Option[User]) = fenGame { draughtsGame =>
     val perfPicker = lidraughts.game.PerfPicker.mainOrDefault(
@@ -55,7 +56,7 @@ object AiConfig extends BaseConfig {
     days = d,
     level = level,
     color = Color(c) err "Invalid color " + c,
-    fen = fen
+    fen = fen map FEN
   )
 
   val default = AiConfig(
@@ -74,6 +75,7 @@ object AiConfig extends BaseConfig {
 
   import lidraughts.db.BSON
   import lidraughts.db.dsl._
+  import lidraughts.game.BSONHandlers.FENBSONHandler
 
   private[setup] implicit val aiConfigBSONHandler = new BSON[AiConfig] {
 
@@ -87,7 +89,7 @@ object AiConfig extends BaseConfig {
       days = r int "d",
       level = r int "l",
       color = Color.White,
-      fen = r strO "f" filter (_.nonEmpty)
+      fen = r.getO[FEN]("f") filter (_.value.nonEmpty)
     )
 
     def writes(w: BSON.Writer, o: AiConfig) = $doc(

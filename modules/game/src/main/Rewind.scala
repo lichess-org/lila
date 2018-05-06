@@ -3,19 +3,19 @@ package lidraughts.game
 import org.joda.time.DateTime
 import scalaz.Validation.FlatMap._
 
-import draughts.format.{ pdn => draughtsPdn }
+import draughts.format.{ FEN, pdn => draughtsPdn }
 import draughts.Situation
 
 object Rewind {
 
-  private def createTags(fen: Option[String], game: Game) = {
+  private def createTags(fen: Option[FEN], game: Game) = {
     val variantTag = Some(draughtsPdn.Tag(_.GameType, game.variant.gameType))
-    val fenTag = fen map (fenString => draughtsPdn.Tag(_.FEN, fenString))
+    val fenTag = fen map (f => draughtsPdn.Tag(_.FEN, f.value))
 
     draughtsPdn.Tags(List(variantTag, fenTag).flatten)
   }
 
-  def apply(game: Game, initialFen: Option[String], initialPly: Int, takeBacker: draughts.Color, chokeCapture: Boolean = false): Valid[Progress] = {
+  def apply(game: Game, initialFen: Option[FEN], initialPly: Int, takeBacker: draughts.Color, chokeCapture: Boolean = false): Valid[Progress] = {
     draughtsPdn.Reader.movesWithSans(
       moveStrs = game.pdnMoves,
       op = sans => draughtsPdn.Sans(sans.value.dropRight(1)),
@@ -59,7 +59,7 @@ object Rewind {
     if (game.situation.ghosts == 0) fuccess(game.situation)
     else GameRepo initialFen game map { fen => rewindCapture(game, fen) getOrElse game.situation }
 
-  def rewindCapture(game: Game, initialFen: Option[String]): Option[Situation] =
+  def rewindCapture(game: Game, initialFen: Option[FEN]): Option[Situation] =
     if (game.situation.ghosts == 0) game.situation.some
     else draughtsPdn.Reader.movesWithSans(
       moveStrs = game.pdnMoves,

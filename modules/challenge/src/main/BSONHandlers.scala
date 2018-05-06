@@ -82,5 +82,7 @@ private object BSONHandlers {
     )
   }
 
+  import lidraughts.game.BSONHandlers.FENBSONHandler
+
   implicit val ChallengeBSONHandler = Macros.handler[Challenge]
 }

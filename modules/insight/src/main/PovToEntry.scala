@@ -1,6 +1,7 @@
 package lidraughts.insight
 
 import draughts.{ Role, Board }
+import draughts.format.FEN
 import lidraughts.analyse.{ Accuracy, Advice }
 import lidraughts.game.{ Game, Pov, GameRepo }
 import scalaz.NonEmptyList
@@ -12,7 +13,7 @@ object PovToEntry {
   case class RichPov(
       pov: Pov,
       provisional: Boolean,
-      initialFen: Option[String],
+      initialFen: Option[FEN],
       analysis: Option[lidraughts.analyse.Analysis],
       division: draughts.Division,
       moveAccuracy: Option[List[Int]],
@@ -42,7 +43,7 @@ object PovToEntry {
           case (fen, an) => for {
             boards <- draughts.Replay.boards(
               moveStrs = game.pdnMoves,
-              initialFen = fen map draughts.format.FEN,
+              initialFen = fen,
               variant = game.variant
             ).toOption.flatMap(_.toNel)
             movetimes <- game.moveTimes(pov.color).flatMap(_.map(_.roundTenths).toNel)

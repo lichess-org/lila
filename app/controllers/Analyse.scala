@@ -43,7 +43,7 @@ object Analyse extends LidraughtsController {
               Env.api.roundApi.review(pov, lidraughts.api.Mobile.Api.currentVersion,
                 tv = userTv.map { u => lidraughts.round.OnUserTv(u.id) },
                 analysis,
-                initialFenO = initialFen.map(FEN).some,
+                initialFenO = initialFen.some,
                 withFlags = WithFlags(
                   movetimes = true,
                   clocks = true,
@@ -81,11 +81,11 @@ object Analyse extends LidraughtsController {
     }
   }
 
-  private def RedirectAtFen(pov: Pov, initialFen: Option[String])(or: => Fu[Result])(implicit ctx: Context) =
+  private def RedirectAtFen(pov: Pov, initialFen: Option[FEN])(or: => Fu[Result])(implicit ctx: Context) =
     get("fen").fold(or) { atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
       fuccess {
-        draughts.Replay.plyAtFen(pov.game.pdnMoves, initialFen, pov.game.variant, atFen).fold(
+        draughts.Replay.plyAtFen(pov.game.pdnMoves, initialFen.map(_.value), pov.game.variant, atFen).fold(
           err => {
             lidraughts.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")
             Redirect(url)

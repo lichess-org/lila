@@ -5,7 +5,7 @@ import org.joda.time.format.DateTimeFormat
 import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
-import lidraughts.api.PdnDump
+import lidraughts.api.GameApiV2
 import lidraughts.app._
 import lidraughts.common.{ MaxPerSecond, HTTPRequest }
 import lidraughts.game.{ GameRepo, Game => GameModel }
@@ -38,8 +38,9 @@ object Game extends LidraughtsController {
         RequireHttp11(req) {
           Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
             Api.GlobalLinearLimitPerUserOption(me) {
-              val config = PdnDump.Config(
+              val config = GameApiV2.Config(
                 user = user,
+                format = GameApiV2.Format.PDN,
                 since = getLong("since", req) map { ts => new DateTime(ts) },
                 until = getLong("until", req) map { ts => new DateTime(ts) },
                 max = getInt("max", req) map (_ atLeast 1),
@@ -52,6 +53,7 @@ object Game extends LidraughtsController {
                   tags = getBoolOpt("tags", req) | true,
                   clocks = getBoolOpt("clocks", req) | false,
                   evals = getBoolOpt("evals", req) | false,
+                  opening = getBoolOpt("opening", req) | false,
                   draughtsResult = draughtsResult
                 ),
                 perSecond = MaxPerSecond(me match {
@@ -61,7 +63,7 @@ object Game extends LidraughtsController {
                 })
               )
               val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-              Ok.chunked(Env.api.pdnDump.exportUserGames(config)).withHeaders(
+              Ok.chunked(Env.api.gameApiV2.exportUserGames(config)).withHeaders(
                 CONTENT_TYPE -> pdnContentType,
                 CONTENT_DISPOSITION -> ("attachment; filename=" + s"lidraughts_${user.username}_$date.pdn")
               ).fuccess

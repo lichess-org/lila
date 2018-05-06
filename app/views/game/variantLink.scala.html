@@ -1,8 +1,8 @@
-@(variant: draughts.variant.Variant, name: String, hintAsTitle: Boolean = false, cssClass: String = "hint--bottom", initialFen: Option[String] = None)
+@(variant: draughts.variant.Variant, name: String, hintAsTitle: Boolean = false, cssClass: String = "hint--bottom", initialFen: Option[draughts.format.FEN] = None)
 @url = {
 @variant match {
 case draughts.variant.Standard => {https://en.wikipedia.org/wiki/International_draughts}
-case draughts.variant.FromPosition => {@routes.Editor.index?fen=@initialFen.map(_.replace(" ", "_"))}
+case draughts.variant.FromPosition => {@routes.Editor.index?fen=@initialFen.map(_.value.replace(" ", "_"))}
 case v => {@routes.Page.variant(v.key)}
 }
 }

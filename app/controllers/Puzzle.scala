@@ -205,7 +205,7 @@ object Puzzle extends LidraughtsController {
       Env.game.recentGoodGameActor ? true mapTo manifest[Option[String]] flatMap {
         _ ?? lidraughts.game.GameRepo.gameWithInitialFen flatMap {
           case Some((game, initialFen)) =>
-            Env.api.pdnDump(game, initialFen.map(_.value), none, PdnDump.WithFlags(clocks = false, draughtsResult = lidraughts.pref.Pref.default.draughtsResult)) map { pdn =>
+            Env.api.pdnDump(game, initialFen, none, PdnDump.WithFlags(clocks = false, draughtsResult = lidraughts.pref.Pref.default.draughtsResult)) map { pdn =>
               Ok(pdn.render)
             }
           case _ =>

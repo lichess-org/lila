@@ -366,30 +366,26 @@ object GameRepo {
       )
   ).void
 
-  def initialFen(gameId: ID): Fu[Option[String]] =
-    coll.primitiveOne[String]($id(gameId), F.initialFen)
+  def initialFen(gameId: ID): Fu[Option[FEN]] =
+    coll.primitiveOne[FEN]($id(gameId), F.initialFen)
 
-  def initialFen(game: Game): Fu[Option[String]] =
+  def initialFen(game: Game): Fu[Option[FEN]] =
     if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id)
     else fuccess(none)
 
   def gameWithInitialFen(gameId: ID): Fu[Option[(Game, Option[FEN])]] = game(gameId) flatMap {
     _ ?? { game =>
       initialFen(game) map { fen =>
-        (game -> fen.map(FEN.apply)).some
+        Option(game -> fen)
       }
     }
   }
 
   def withInitialFen(game: Game): Fu[Game.WithInitialFen] =
-    initialFen(game) map { fen =>
-      Game.WithInitialFen(game, fen.map(FEN.apply))
-    }
+    initialFen(game) map { Game.WithInitialFen(game, _) }
 
   def withInitialFens(games: List[Game]): Fu[List[(Game, Option[FEN])]] = games.map { game =>
-    initialFen(game) map { fen =>
-      game -> fen.map(FEN.apply)
-    }
+    initialFen(game) map { game -> _ }
   }.sequenceFu
 
   def featuredCandidates: Fu[List[Game]] = coll.list[Game](

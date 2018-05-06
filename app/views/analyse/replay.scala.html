@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pdn: String, analysis: Option[lidraughts.analyse.Analysis], analysisInProgress: Option[lidraughts.draughtsnet.Work.InProgress], simul: Option[lidraughts.simul.Simul], cross: Option[lidraughts.game.Crosstable.WithMatchup], userTv: Option[User], chatOption: Option[lidraughts.chat.UserChat.Mine], bookmarked: Boolean)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[draughts.format.FEN], pdn: String, analysis: Option[lidraughts.analyse.Analysis], analysisInProgress: Option[lidraughts.draughtsnet.Work.InProgress], simul: Option[lidraughts.simul.Simul], cross: Option[lidraughts.game.Crosstable.WithMatchup], userTv: Option[User], chatOption: Option[lidraughts.chat.UserChat.Mine], bookmarked: Boolean)(implicit ctx: Context)
 
 @import pov._
 

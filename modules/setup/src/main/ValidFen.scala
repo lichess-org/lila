@@ -1,14 +1,14 @@
 package lidraughts.setup
 
-import draughts.format.Forsyth
+import draughts.format.{ FEN, Forsyth }
 
 case class ValidFen(
-    fen: String,
+    fen: FEN,
     situation: draughts.Situation
 ) {
 
   def color = situation.color
-  def tooManyKings = Forsyth.countKings(fen) > 30
+  def tooManyKings = Forsyth.countKings(fen.value) > 30
 }
 
 object ValidFen {
@@ -16,5 +16,5 @@ object ValidFen {
     parsed ← Forsyth <<< fen
     if (parsed.situation playable strict)
     validated = Forsyth >> parsed
-  } yield ValidFen(validated, parsed.situation)
+  } yield ValidFen(FEN(validated), parsed.situation)
 }
