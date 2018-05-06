@@ -24,6 +24,13 @@ form.material.form {
   color: #d59120;
 }
 
+.twofactor ol li {
+  list-style: decimal;
+}
+.twofactor p.explanation {
+  margin-bottom: 2em;
+}
+
 .oauth .top {
   display: flex;
   align-items: center;
