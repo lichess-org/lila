@@ -15,7 +15,9 @@
     the token provided by the app for confirmation.
   </p>
   <form class="material form" action="@routes.Account.setupTwoFactor" method="POST">
-    <div id="qrcode" style="width: 256px; height: 256px; margin: 2em auto;"></div>
+    <div style="width: 276px; height: 275px; padding: 10px; background: white; margin: 2em auto;">
+      <div id="qrcode" style="width: 256px; height: 256px;"></div>
+    </div>
     @base.form.hidden(form("secret"))
     @passwdFormField(form("passwd"), trans.password())
     @base.form.group(form("token"), Html("Token")) { field =>
