@@ -44,6 +44,11 @@
     <input class="button@when(u.ipBan, " active")" type="submit" value="IP ban @spy.ips.size" />
   </form>
   }
+  @if(u.totpSecret.isDefined && isGranted(_.DisableTwoFactor)) {
+  <form method="post" action="@routes.Mod.disableTwoFactor(u.username)" data-hint="Disables two-factor authentication for this account." class="hint--bottom-left xhr">
+    <input class="button confirm" type="submit" value="Disable 2FA" />
+  </form>
+  }
   @if(u.enabled) {
   @if(isGranted(_.CloseAccount)) {
   <form method="post" action="@routes.Mod.closeAccount(u.username)" data-hint="Disables this account." class="hint--bottom-left xhr">

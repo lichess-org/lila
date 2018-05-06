@@ -5,7 +5,7 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints
 
 import lila.common.{ LameName, EmailAddress }
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, TotpSecret, UserRepo }
 import User.ClearPassword
 
 final class DataForm(
@@ -101,6 +101,28 @@ final class DataForm(
     ))
   }
 
+  def setupTwoFactor(u: User) = authenticator loginCandidate u map { candidate =>
+    Form(mapping(
+      "secret" -> nonEmptyText,
+      "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
+      "token" -> nonEmptyText
+    )(TwoFactor.apply)(TwoFactor.unapply).verifying(
+        "invalidAuthenticationToken",
+        _.tokenValid
+      )).fill(TwoFactor(
+      secret = TotpSecret.random.base32,
+      passwd = "",
+      token = ""
+    ))
+  }
+
+  def disableTwoFactor(u: User) = authenticator loginCandidate u map { candidate =>
+    Form(tuple(
+      "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
+      "token" -> nonEmptyText.verifying("invalidAuthenticationToken", t => u.totpSecret.map(_.verify(t)).getOrElse(false))
+    ))
+  }
+
   def fixEmail(old: EmailAddress) = Form(
     single("email" -> acceptableUniqueEmail(none).verifying(emailValidator differentConstraint old.some))
   ).fill(old.value)
@@ -144,5 +166,9 @@ object DataForm {
 
   case class ChangeEmail(passwd: String, email: String) {
     def realEmail = EmailAddress(email)
+  }
+
+  case class TwoFactor(secret: String, passwd: String, token: String) {
+    def tokenValid = TotpSecret(secret).verify(token)
   }
 }

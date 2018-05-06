@@ -6,7 +6,7 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.common.LilaCookie
-import lila.user.{ User => UserModel, UserRepo }
+import lila.user.{ User => UserModel, UserRepo, TotpSecret }
 import UserModel.ClearPassword
 import views.html
 
@@ -150,6 +150,40 @@ object Account extends LilaController {
         controllers.Auth.authenticateUser(user, result = Redirect {
           s"${routes.Account.email}?ok=1"
         }.fuccess.some)
+      }
+    }
+  }
+
+  def twoFactor = Auth { implicit ctx => me =>
+    if (me.totpSecret.isDefined)
+      Env.security.forms.disableTwoFactor(me) map { form =>
+        html.account.disableTwoFactor(me, form)
+      }
+    else
+      Env.security.forms.setupTwoFactor(me) map { form =>
+        html.account.setupTwoFactor(me, form)
+      }
+  }
+
+  def setupTwoFactor = AuthBody { implicit ctx => me =>
+    implicit val req = ctx.body
+    Env.security.forms.setupTwoFactor(me) flatMap { form =>
+      FormFuResult(form) { err =>
+        fuccess(html.account.setupTwoFactor(me, err))
+      } { data =>
+        UserRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) inject
+          Redirect(routes.Account.twoFactor)
+      }
+    }
+  }
+
+  def disableTwoFactor = AuthBody { implicit ctx => me =>
+    implicit val req = ctx.body
+    Env.security.forms.disableTwoFactor(me) flatMap { form =>
+      FormFuResult(form) { err =>
+        fuccess(html.account.disableTwoFactor(me, err))
+      } { _ =>
+        UserRepo.disableTwoFactor(me.id) inject Redirect(routes.Account.twoFactor)
       }
     }
   }

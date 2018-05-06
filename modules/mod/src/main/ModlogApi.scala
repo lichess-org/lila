@@ -36,6 +36,10 @@ final class ModlogApi(coll: Coll) {
     Modlog.make(mod, sus, if (sus.user.ipBan) Modlog.ipban else Modlog.ipunban)
   }
 
+  def disableTwoFactor(mod: String, user: String) = add {
+    Modlog(mod, user.some, Modlog.disableTwoFactor)
+  }
+
   def closeAccount(mod: String, user: String) = add {
     Modlog(mod, user.some, Modlog.closeAccount)
   }
