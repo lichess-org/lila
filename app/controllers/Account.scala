@@ -155,14 +155,14 @@ object Account extends LilaController {
   }
 
   def twoFactor = Auth { implicit ctx => me =>
-    Env.user.authenticator.hasTotp(me.id) flatMap {
-      case false => Env.security.forms.setupTwoFactor(me) map { form =>
-        html.account.setupTwoFactor(me, form)
-      }
-      case true => Env.security.forms.disableTwoFactor(me) map { form =>
+    if (me.totpSecret.isDefined)
+      Env.security.forms.disableTwoFactor(me) map { form =>
         html.account.disableTwoFactor(me, form)
       }
-    }
+    else
+      Env.security.forms.setupTwoFactor(me) map { form =>
+        html.account.setupTwoFactor(me, form)
+      }
   }
 
   def setupTwoFactor = AuthBody { implicit ctx => me =>
@@ -171,7 +171,7 @@ object Account extends LilaController {
       FormFuResult(form) { err =>
         fuccess(html.account.setupTwoFactor(me, err))
       } { data =>
-        Env.user.authenticator.setTotpSecret(me.id, TotpSecret(data.secret)) inject
+        UserRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) inject
           Redirect(routes.Account.twoFactor)
       }
     }
@@ -183,8 +183,7 @@ object Account extends LilaController {
       FormFuResult(form) { err =>
         fuccess(html.account.disableTwoFactor(me, err))
       } { _ =>
-        Env.user.authenticator.unsetTotpSecret(me.id) inject
-          Redirect(routes.Account.twoFactor)
+        UserRepo.disableTwoFactor(me.id) inject Redirect(routes.Account.twoFactor)
       }
     }
   }

@@ -84,6 +84,10 @@ object Mod extends LilaController {
     }
   }
 
+  def disableTwoFactor(username: String) = Secure(_.DisableTwoFactor) { implicit ctx => me =>
+    modApi.disableTwoFactor(me.id, username) >> User.modZoneOrRedirect(username, me)
+  }
+
   def closeAccount(username: String) = Secure(_.CloseAccount) { implicit ctx => me =>
     modApi.closeAccount(me.id, username).flatMap {
       _.?? { user =>
