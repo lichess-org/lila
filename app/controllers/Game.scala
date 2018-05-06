@@ -40,7 +40,9 @@ object Game extends LilaController {
             Api.GlobalLinearLimitPerUserOption(me) {
               val config = GameApiV2.Config(
                 user = user,
-                format = GameApiV2.Format.PGN,
+                format =
+                  if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON
+                  else GameApiV2.Format.PGN,
                 since = getLong("since", req) map { ts => new DateTime(ts) },
                 until = getLong("until", req) map { ts => new DateTime(ts) },
                 max = getInt("max", req) map (_ atLeast 1),

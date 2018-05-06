@@ -7,13 +7,16 @@ import scala.concurrent.duration._
 
 import chess.format.FEN
 import lila.analyse.{ AnalysisRepo, JsonView => analysisJson, Analysis }
-import lila.common.MaxPerSecond
+import lila.common.{ LightUser, MaxPerSecond }
 import lila.game.JsonView._
 import lila.game.PgnDump.WithFlags
 import lila.game.{ Game, GameRepo, Query, PerfPicker }
 import lila.user.User
 
-final class GameApiV2(pgnDump: PgnDump)(implicit system: akka.actor.ActorSystem) {
+final class GameApiV2(
+    pgnDump: PgnDump,
+    getLightUser: LightUser.Getter
+)(implicit system: akka.actor.ActorSystem) {
 
   import GameApiV2._
 
@@ -56,9 +59,10 @@ final class GameApiV2(pgnDump: PgnDump)(implicit system: akka.actor.ActorSystem)
   }
 
   private def jsonFormatter(flags: WithFlags) =
-    Enumeratee.map[(Game, Option[FEN], Option[Analysis])].apply[String] {
-      case (game, initialFen, analysis) =>
-        s"${Json.stringify(toJson(game, analysis, initialFen, flags))}\n"
+    Enumeratee.mapM[(Game, Option[FEN], Option[Analysis])].apply[String] {
+      case (game, initialFen, analysis) => toJson(game, analysis, initialFen, flags) map { json =>
+        s"${Json.stringify(json)}\n"
+      }
     }
 
   private def toJson(
@@ -66,38 +70,45 @@ final class GameApiV2(pgnDump: PgnDump)(implicit system: akka.actor.ActorSystem)
     analysisOption: Option[Analysis],
     initialFen: Option[FEN],
     withFlags: WithFlags
-  ) = Json.obj(
-    "id" -> g.id,
-    "rated" -> g.rated,
-    "variant" -> g.variant.key,
-    "speed" -> g.speed.key,
-    "perf" -> PerfPicker.key(g),
-    "createdAt" -> g.createdAt,
-    "lastMoveAt" -> g.movedAt,
-    "status" -> g.status.name,
-    "players" -> JsObject(g.players map { p =>
-      p.color.name -> Json.obj(
-        "userId" -> p.userId,
-        "rating" -> p.rating,
-        "ratingDiff" -> p.ratingDiff
-      ).add("name", p.name)
-        .add("provisional" -> p.provisional)
+  ): Fu[JsObject] = gameLightUsers(g) map { lightUsers =>
+    Json.obj(
+      "id" -> g.id,
+      "rated" -> g.rated,
+      "variant" -> g.variant.key,
+      "speed" -> g.speed.key,
+      "perf" -> PerfPicker.key(g),
+      "createdAt" -> g.createdAt,
+      "lastMoveAt" -> g.movedAt,
+      "status" -> g.status.name,
+      "players" -> JsObject(g.players zip lightUsers map {
+        case (p, user) => p.color.name -> Json.obj()
+          .add("user", user)
+          .add("rating", p.rating)
+          .add("ratingDiff", p.ratingDiff)
+          .add("name", p.name)
+          .add("provisional" -> p.provisional)
+          .add("analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color)))
         // .add("moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)))
-        .add("analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color)))
-    })
-  ).add("initialFen" -> initialFen.map(_.value))
-    .add("winner" -> g.winnerColor.map(_.name))
-    .add("opening" -> g.opening.ifTrue(withFlags.opening))
-    .add("moves" -> withFlags.moves.option(g.pgnMoves mkString " "))
-    .add("daysPerTurn" -> g.daysPerTurn)
-    .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves))
-    .add("clock" -> g.clock.map { clock =>
-      Json.obj(
-        "initial" -> clock.limitSeconds,
-        "increment" -> clock.incrementSeconds,
-        "totalTime" -> clock.estimateTotalSeconds
-      )
-    })
+      })
+    ).add("initialFen" -> initialFen.map(_.value))
+      .add("winner" -> g.winnerColor.map(_.name))
+      .add("opening" -> g.opening.ifTrue(withFlags.opening))
+      .add("moves" -> withFlags.moves.option(g.pgnMoves mkString " "))
+      .add("daysPerTurn" -> g.daysPerTurn)
+      .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves))
+      .add("clock" -> g.clock.map { clock =>
+        Json.obj(
+          "initial" -> clock.limitSeconds,
+          "increment" -> clock.incrementSeconds,
+          "totalTime" -> clock.estimateTotalSeconds
+        )
+      })
+  }
+
+  private def gameLightUsers(game: Game): Fu[List[Option[LightUser]]] =
+    (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser) map {
+      case (wu, bu) => List(wu, bu)
+    }
 }
 
 object GameApiV2 {
