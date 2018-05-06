@@ -30,8 +30,7 @@
         @base.form.input(field, typ = "text", required = true, autocomplete = false)
         @errMsg(form("token"))
         }
-        @errMsg(form)
-        <br><br>
+        @errMsgMaterial(form.errors)
         <div class="button-container">
           <button type="submit" class="submit button text">Enable two-factor authentication</button>
         </div>
