@@ -28,7 +28,8 @@ case class User(
     lang: Option[String],
     plan: Plan,
     reportban: Boolean = false,
-    rankban: Boolean = false
+    rankban: Boolean = false,
+    totpSecret: Option[TotpSecret] = None
 ) extends Ordered[User] {
 
   override def equals(other: Any) = other match {
@@ -236,6 +237,7 @@ object User {
     private implicit def profileHandler = Profile.profileBSONHandler
     private implicit def perfsHandler = Perfs.perfsBSONHandler
     private implicit def planHandler = Plan.planBSONHandler
+    private implicit def totpSecretHandler = TotpSecret.totpSecretBSONHandler
 
     def reads(r: BSON.Reader): User = User(
       id = r str id,
@@ -258,7 +260,8 @@ object User {
       title = r strO title,
       plan = r.getO[Plan](plan) | Plan.empty,
       reportban = r boolD reportban,
-      rankban = r boolD rankban
+      rankban = r boolD rankban,
+      totpSecret = r.getO[TotpSecret](totpSecret)
     )
 
     def writes(w: BSON.Writer, o: User) = BSONDocument(
@@ -282,7 +285,8 @@ object User {
       title -> o.title,
       plan -> o.plan.nonEmpty,
       reportban -> w.boolO(o.reportban),
-      rankban -> w.boolO(o.rankban)
+      rankban -> w.boolO(o.rankban),
+      totpSecret -> o.totpSecret
     )
   }
 }

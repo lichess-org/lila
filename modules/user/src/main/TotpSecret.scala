@@ -1,10 +1,12 @@
 package lila.user
 
+import org.apache.commons.codec.binary.Base32
+import reactivemongo.bson._
+
 import java.security.SecureRandom
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 import scala.math.{ pow, BigInt }
-import org.apache.commons.codec.binary.Base32
 
 case class TotpSecret(secret: Array[Byte]) extends AnyVal {
   override def toString = "TotpSecret(****************)"
@@ -46,5 +48,10 @@ object TotpSecret {
     val secret = new Array[Byte](10)
     new SecureRandom().nextBytes(secret)
     apply(secret)
+  }
+
+  private[user] val totpSecretBSONHandler = new BSONHandler[BSONBinary, TotpSecret] {
+    def read(bin: BSONBinary): TotpSecret = TotpSecret(bin.byteArray)
+    def write(s: TotpSecret): BSONBinary = BSONBinary(s.secret, Subtype.GenericBinarySubtype)
   }
 }
