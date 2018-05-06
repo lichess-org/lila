@@ -85,7 +85,7 @@
     <item quantity="other">Prossima cattura o mossa di pedone in %s semi-mosse (distanza dall\'azzeramento del conteggio delle 50 mosse)</item>
   </plurals>
   <string name="noGameFound">Nessun partita trovata</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Includere più partite dal menù delle preferenze?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova ad includere più partite dal menu Preferenze.</string>
   <string name="openingExplorer">Esplora aperture</string>
   <string name="xOpeningExplorer">%s explorer delle aperture</string>
   <string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
