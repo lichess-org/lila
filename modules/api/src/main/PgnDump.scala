@@ -58,14 +58,23 @@ final class PgnDump(
   def exportUserGames(config: Config): Enumerator[String] = {
     import reactivemongo.play.iteratees.cursorProducer
     import lila.db.dsl._
-    GameRepo.sortedCursor(
+    val infinitePgns = GameRepo.sortedCursor(
       Query.user(config.user.id) ++ Query.createdBetween(config.since, config.until),
       Query.sortCreated,
       batchSize = config.perSecond.value
-    ).bulkEnumerator(maxDocs = config.max | Int.MaxValue) &>
+    ).bulkEnumerator() &>
       lila.common.Iteratee.delay(1 second) &>
       Enumeratee.mapConcat(_.filter(config.postFilter).toSeq) &>
       toPgn(config.flags)
+    config.max.fold(infinitePgns) { max =>
+      // I couldn't figure out how to do it properly :( :( :(
+      var nb = 0
+      infinitePgns &> Enumeratee.mapInput { in =>
+        nb = nb + 1
+        if (nb <= max) in
+        else Input.EOF
+      }
+    }
   }
 
   // def exportGamesFromIds(ids: List[String]): Enumerator[String] =
