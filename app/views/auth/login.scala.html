@@ -13,14 +13,17 @@ moreJs = jsTag("login.js")) {
           @auth.formFields(form("username"), form("password"), none, register = false)
         </ul>
       </div>
-      <ul class="two-factor none">
-        @defining(form("token")) { field =>
-        <li class="token">
-          <label for="@field.name">2FA Token</label>
-          <input type="text" id="@field.name" name="@field.name" />
-        </li>
-        }
-      </ul>
+      <div class="two-factor none">
+        <p class="error none">Invalid token.</p>
+        <ul>
+          @defining(form("token")) { field =>
+          <li class="token">
+            <label for="@field.name">2FA Token</label>
+            <input type="text" id="@field.name" name="@field.name" />
+          </li>
+          }
+        </ul>
+      </div>
       <button type="submit" class="submit button" data-icon="F"> @trans.signIn()</button>
     </form>
   </div>
