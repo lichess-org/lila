@@ -59,14 +59,23 @@ final class PdnDump(
   def exportUserGames(config: Config): Enumerator[String] = {
     import reactivemongo.play.iteratees.cursorProducer
     import lidraughts.db.dsl._
-    GameRepo.sortedCursor(
+    val infinitePdns = GameRepo.sortedCursor(
       Query.user(config.user.id) ++ Query.createdBetween(config.since, config.until),
       Query.sortCreated,
       batchSize = config.perSecond.value
-    ).bulkEnumerator(maxDocs = config.max | Int.MaxValue) &>
+    ).bulkEnumerator() &>
       lidraughts.common.Iteratee.delay(1 second) &>
       Enumeratee.mapConcat(_.filter(config.postFilter).toSeq) &>
       toPdn(config.flags)
+    config.max.fold(infinitePdns) { max =>
+      // I couldn't figure out how to do it properly :( :( :(
+      var nb = 0
+      infinitePdns &> Enumeratee.mapInput { in =>
+        nb = nb + 1
+        if (nb <= max) in
+        else Input.EOF
+      }
+    }
   }
 
   def exportGamesFromIds(ids: List[String], draughtsResult: Boolean): Enumerator[String] =

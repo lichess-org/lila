@@ -56,7 +56,7 @@ object Dev extends LidraughtsController {
   }
 
   def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { implicit req => me =>
-    lila.security.Granter(_.Cli)(me) ?? {
+    lidraughts.security.Granter(_.Cli)(me) ?? {
       runAs(me.id, req.body) map { res => Ok(res) }
     }
   }
