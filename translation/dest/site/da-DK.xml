@@ -524,6 +524,7 @@
   <string name="thisAccountIsClosed">Denne konto er lukket.</string>
   <string name="invalidUsernameOrPassword">Ugyldigt brugernavn eller adgangskode</string>
   <string name="incorrectPassword">Forkert adgangskode</string>
+  <string name="invalidAuthenticationCode">Ugyldig godkendelseskode</string>
   <string name="emailMeALink">Email mig et link</string>
   <string name="currentPassword">Nuværende adgangskode</string>
   <string name="newPassword">Ny adgangskode</string>
