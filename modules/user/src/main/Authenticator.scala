@@ -44,24 +44,6 @@ final class Authenticator(
       $set(F.bpass -> passEnc(p).bytes) ++ $unset(F.salt, F.sha512)
     ).void
 
-  def setTotpSecret(id: User.ID, totp: TotpSecret): Funit =
-    userRepo.coll.update(
-      $id(id) ++ (F.totpSecret $exists false), // never overwrite existing secret
-      $set(F.totpSecret -> totp.secret)
-    ).void
-
-  def unsetTotpSecret(id: User.ID): Funit =
-    userRepo.coll.update(
-      $id(id),
-      $unset(F.totpSecret)
-    ).void
-
-  def totpSecret(id: User.ID): Fu[Option[TotpSecret]] =
-    userRepo.coll.primitiveOne[Array[Byte]]($id(id), F.totpSecret).map(_ map TotpSecret.apply)
-
-  def hasTotp(id: User.ID): Fu[Boolean] =
-    userRepo.coll.exists($id(id) ++ $doc(F.totpSecret $exists true))
-
   private def authWithBenefits(auth: AuthData)(p: ClearPassword): Boolean = {
     val res = compare(auth, p)
     if (res && auth.salt.isDefined)
