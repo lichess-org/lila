@@ -3,15 +3,14 @@
 @title = @{ s"${u.username} - Two-factor authentication" }
 
 @account.layout(title = title, active = "twofactor", evenMoreCss = cssTag("material.form.css")) {
-<div class="content_box small_box high">
+<div class="content_box small_box high twofactor">
   <h1 class="lichess_title"><i data-icon="E" class="is-green"></i> Two-factor authentication enabled</h1>
-  <p class="explanation">
-    Your account is protected with two-factor authentication.
-  </p>
+  <p class="explanation">Your account is protected with two-factor authentication.</p>
   <form class="material form" action="@routes.Account.disableTwoFactor" method="POST">
+    <p class="explanation">You need your password and an authentication code from your authenticator app to disable two-factor authentication.</p>
     @passwdFormField(form("passwd"), trans.password())
-    @base.form.group(form("token"), Html("Token")) { field =>
-    @base.form.input(field, typ = "text", required = true)
+    @base.form.group(form("token"), Html("Authentication code")) { field =>
+    @base.form.input(field, typ = "text", required = true, autocomplete = false)
     @errMsg(form("token"))
     }
     <div class="button-container">
