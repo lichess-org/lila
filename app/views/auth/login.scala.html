@@ -19,7 +19,7 @@ moreJs = jsTag("login.js")) {
           @defining(form("token")) { field =>
           <li class="token">
             <label for="@field.name">Authentication code</label>
-            <input type="text" id="@field.name" name="@field.name" autocomplete="off" />
+            <input type="text" id="@field.name" name="@field.name" autocomplete="off" pattern="[0-9]{6}" />
             <p class="help" data-icon="" style="font-size:0.8em;margin-top:1em">Open the two-factor authentication app on your device to view your authentication code and verify your identity.</p>
           </li>
           }
