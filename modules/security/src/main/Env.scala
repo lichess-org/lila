@@ -54,12 +54,6 @@ final class Env(
 
   val RecaptchaPublicKey = config getString "recaptcha.public_key"
 
-  val cspHeaderSetting = settingStore[String](
-    "cspHeader",
-    default = config getString "csp_header",
-    text = "Send content security policy in this header".some
-  )
-
   lazy val firewall = new Firewall(
     coll = firewallColl,
     cookieName = FirewallCookieName.some filter (_ => FirewallCookieEnabled),
