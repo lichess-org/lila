@@ -20,6 +20,16 @@ case class ContentSecurityPolicy(
     childSrc = "https://*.stripe.com" :: childSrc
   )
 
+  def withSpreadshirt = copy(
+    defaultSrc = Nil,
+    connectSrc = "https://shop.spreadshirt.com" :: "https://api.spreadshirt.com" :: connectSrc,
+    styleSrc = Nil,
+    fontSrc = Nil,
+    childSrc = Nil,
+    imgSrc = Nil,
+    scriptSrc = Nil
+  )
+
   override def toString: String =
     List(
       "default-src " -> defaultSrc,

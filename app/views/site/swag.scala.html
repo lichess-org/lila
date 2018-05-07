@@ -13,7 +13,8 @@ title = "Lichess Swag",
 openGraph = lila.app.ui.OpenGraph(
 title = "Lichess merch store",
 description = "Great chess deserves great T-shirts! Get yourself some swag and help pay for the servers.",
-url = s"$netBaseUrl${routes.Page.swag}").some) {
+url = s"$netBaseUrl${routes.Page.swag}").some,
+csp = defaultCsp.withSpreadshirt.some) {
 
 <div class="content_box swag no_padding">
   <div id="myShop">
@@ -27,7 +28,7 @@ url = s"$netBaseUrl${routes.Page.swag}").some) {
     var spread_shop_config = {
       shopName: 'lichess-org',
         locale: 'us_US',
-        prefix: '//shop.spreadshirt.com',
+        prefix: 'https://shop.spreadshirt.com',
         baseId: 'myShop'
     };
   }
