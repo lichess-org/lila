@@ -1,7 +1,5 @@
 package lila.common
 
-import java.security.SecureRandom
-
 import ornicar.scalalib.Random
 
 case class Nonce(value: String) extends AnyVal {
@@ -10,9 +8,5 @@ case class Nonce(value: String) extends AnyVal {
 }
 
 object Nonce {
-  def random: Nonce = {
-    val bytes = new Array[Byte](15)
-    new SecureRandom().nextBytes(bytes)
-    Nonce(bytes.toBase64)
-  }
+  def random: Nonce = Nonce(Random.secureString(20))
 }
