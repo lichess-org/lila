@@ -10,6 +10,8 @@ case class ContentSecurityPolicy(
     scriptSrc: List[String]
 ) {
 
+  def withScriptSrc(source: String) = copy(scriptSrc = source :: scriptSrc)
+
   override def toString: String =
     List(
       "default-src " -> defaultSrc,
