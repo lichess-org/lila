@@ -103,7 +103,7 @@ trait AssetHelper { self: I18nHelper =>
 
   def defaultCsp(implicit ctx: Context): ContentSecurityPolicy = {
     implicit val req = ctx.req
-    basicCsp.withScriptSrc(ctx.nonce.scriptSrc)
+    basicCsp.withNonce(ctx.nonce)
   }
 
   def embedJsUnsafe(js: String)(implicit ctx: Context): Html = Html {

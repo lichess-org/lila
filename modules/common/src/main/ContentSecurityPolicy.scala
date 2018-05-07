@@ -10,7 +10,15 @@ case class ContentSecurityPolicy(
     scriptSrc: List[String]
 ) {
 
-  def withScriptSrc(source: String) = copy(scriptSrc = source :: scriptSrc)
+  private def withScriptSrc(source: String) = copy(scriptSrc = source :: scriptSrc)
+
+  def withNonce(nonce: Nonce) = withScriptSrc(nonce.scriptSrc)
+
+  def withStripe = copy(
+    connectSrc = "https://*.stripe.com" :: connectSrc,
+    scriptSrc = "https://*.stripe.com" :: scriptSrc,
+    childSrc = "https://*.stripe.com" :: childSrc
+  )
 
   override def toString: String =
     List(
