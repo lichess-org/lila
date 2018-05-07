@@ -50,6 +50,12 @@ final class Env(
   }
   import settings._
 
+  val cspHeaderSetting = settingStore[String](
+    "cspHeader",
+    default = config getString "csp_header",
+    text = "Send content security policy in this header".some
+  )
+
   val recaptchaPublicConfig = RecaptchaPublicConfig(
     key = config getString "recaptcha.public_key",
     enabled = config getBoolean "recaptcha.enabled"
