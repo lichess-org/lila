@@ -91,7 +91,7 @@ trait AssetHelper { self: I18nHelper =>
     val socket = (if (ctx.req.secure) "wss://" else "ws://") + socketDomain
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assets),
-      connectSrc = List("'self'", assets, socket),
+      connectSrc = List("'self'", assets, socket, lidraughts.api.Env.current.ExplorerEndpoint, lidraughts.api.Env.current.TablebaseEndpoint),
       styleSrc = List("'self'", "'unsafe-inline'", assets, "https://fonts.googleapis.com"),
       fontSrc = List("'self'", assetDomain, "https://fonts.gstatic.com"),
       childSrc = List("'self'", "https://youtube.com"),
