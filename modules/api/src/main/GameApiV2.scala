@@ -51,7 +51,9 @@ final class GameApiV2(
     import lidraughts.db.dsl._
 
     val infiniteGames = GameRepo.sortedCursor(
-      Query.user(config.user.id) ++ Query.createdBetween(config.since, config.until),
+      config.vs.fold(Query.user(config.user.id)) { vs =>
+        Query.opponents(config.user, vs)
+      } ++ Query.createdBetween(config.since, config.until),
       Query.sortCreated,
       batchSize = config.perSecond.value
     ).bulkEnumerator() &>
@@ -168,7 +170,8 @@ object GameApiV2 {
   ) extends Config
 
   case class ByUserConfig(
-      user: lidraughts.user.User,
+      user: User,
+      vs: Option[User],
       format: Format,
       since: Option[DateTime] = None,
       until: Option[DateTime] = None,
