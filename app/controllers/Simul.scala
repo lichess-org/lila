@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
-import lidraughts.api.Context
+import lidraughts.api.{ Context, GameApiV2 }
 import lidraughts.app._
 import lidraughts.common.HTTPRequest
 import lidraughts.game.GameRepo
@@ -186,7 +186,12 @@ object Simul extends LidraughtsController {
         BadRequest(html.simul.export(err, captcha, id))
       },
       _ => env.repo.find(id) flatMap {
-        case Some(simul) if simul.isFinished => fuccess(streamGamesPdn(me, simul.gameIds, id, ctx.pref.draughtsResult))
+        case Some(simul) if simul.isFinished =>
+          streamGamesPdn(me, id, GameApiV2.ManyConfig(
+            ids = simul.gameIds,
+            format = GameApiV2.Format.PDN,
+            flags = WithFlags(draughtsResult = ctx.pref.draughtsResult)
+          )).fuccess
         case _ => fuccess(BadRequest)
       }
     )
@@ -205,12 +210,12 @@ object Simul extends LidraughtsController {
     key = "simul_export.user"
   )
 
-  private def streamGamesPdn(user: lidraughts.user.User, gameIds: List[String], simulId: String, draughtsResult: Boolean) =
+  private def streamGamesPdn(user: lidraughts.user.User, simulId: String, config: GameApiV2.ManyConfig) =
     ExportRateLimitPerUser(user.id, cost = 1) {
       val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-      Ok.chunked(Env.api.gameApiV2.exportGamesFromIds(gameIds, WithFlags(draughtsResult = draughtsResult))).withHeaders(
-        CONTENT_TYPE -> pdnContentType,
-        CONTENT_DISPOSITION -> ("attachment; filename=" + s"lidraughts_simul_$simulId.pdn")
+      Ok.chunked(Env.api.gameApiV2.exportGamesByIds(config)).withHeaders(
+        CONTENT_TYPE -> gameContentType(config),
+        CONTENT_DISPOSITION -> ("attachment; filename=" + s"lidraughts_simul_$simulId.${config.format.toString.toLowerCase}")
       )
     }
 
@@ -234,4 +239,9 @@ object Simul extends LidraughtsController {
       case Some(simul) if ctx.userId.exists(simul.isArbiter) => f(simul)
       case _ => fuccess(Unauthorized)
     }
+
+  private def gameContentType(config: GameApiV2.Config) = config.format match {
+    case GameApiV2.Format.PDN => pdnContentType
+    case GameApiV2.Format.JSON => ndJsonContentType
+  }
 }

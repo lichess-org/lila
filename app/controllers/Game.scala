@@ -27,7 +27,29 @@ object Game extends LidraughtsController {
     }
   }
 
-  def export(username: String) = OpenOrScoped()(
+  def exportOne(id: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo game id) { game =>
+      if (game.playable) BadRequest("Can't export PDN of game in progress").fuccess
+      else {
+        val config = GameApiV2.OneConfig(
+          format = if (HTTPRequest acceptsJson ctx.req) GameApiV2.Format.JSON else GameApiV2.Format.PDN,
+          imported = getBool("imported"),
+          flags = requestPdnFlags(ctx.req, ctx.pref.draughtsResult)
+        )
+        lidraughts.mon.export.pdn.game()
+        Env.api.gameApiV2.exportOne(game, config) flatMap { content =>
+          Env.api.gameApiV2.filename(game, config.format) map { filename =>
+            Ok(content).withHeaders(
+              CONTENT_TYPE -> gameContentType(config),
+              CONTENT_DISPOSITION -> s"attachment; filename=$filename"
+            )
+          }
+        }
+      }
+    }
+  }
+
+  def exportByUser(username: String) = OpenOrScoped()(
     open = ctx => handleExport(username, ctx.me, ctx.req, ctx.pref.draughtsResult, oauth = false),
     scoped = req => me => handleExport(username, me.some, req, lidraughts.pref.Pref.default.draughtsResult, oauth = true)
   )
@@ -39,7 +61,7 @@ object Game extends LidraughtsController {
           Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
             Api.GlobalLinearLimitPerUserOption(me) {
               val format = if (HTTPRequest acceptsNdJson req) GameApiV2.Format.JSON else GameApiV2.Format.PDN
-              val config = GameApiV2.Config(
+              val config = GameApiV2.ByUserConfig(
                 user = user,
                 format = format,
                 since = getLong("since", req) map { ts => new DateTime(ts) },
@@ -49,14 +71,7 @@ object Game extends LidraughtsController {
                 perfType = ~get("perfType", req) split "," flatMap { lidraughts.rating.PerfType(_) } toSet,
                 color = get("color", req) flatMap draughts.Color.apply,
                 analysed = getBoolOpt("analysed", req),
-                flags = lidraughts.game.PdnDump.WithFlags(
-                  moves = getBoolOpt("moves", req) | true,
-                  tags = getBoolOpt("tags", req) | true,
-                  clocks = getBoolOpt("clocks", req) | false,
-                  evals = getBoolOpt("evals", req) | false,
-                  opening = getBoolOpt("opening", req) | false,
-                  draughtsResult = draughtsResult
-                ),
+                flags = requestPdnFlags(req, draughtsResult),
                 perSecond = MaxPerSecond(me match {
                   case Some(m) if m is user.id => 50
                   case Some(_) if oauth => 20 // bonus for oauth logged in only (not for XSRF)
@@ -64,18 +79,34 @@ object Game extends LidraughtsController {
                 })
               )
               val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-              Ok.chunked(Env.api.gameApiV2.exportUserGames(config)).withHeaders(
-                CONTENT_TYPE -> (format match {
-                  case GameApiV2.Format.PDN => pdnContentType
-                  case GameApiV2.Format.JSON => ndJsonContentType
-                }),
-                CONTENT_DISPOSITION -> ("attachment; filename=" + s"lidraughts_${user.username}_$date.${format.toString.toLowerCase}")
+              Ok.chunked(Env.api.gameApiV2.exportByUser(config)).withHeaders(
+                CONTENT_TYPE -> gameContentType(config),
+                CONTENT_DISPOSITION -> s"attachment; filename=lidraughts_${user.username}_$date.${format.toString.toLowerCase}"
               ).fuccess
             }
           }
         }
       }
     }
+
+  private def requestPdnFlags(req: RequestHeader, draughtsResult: Boolean) =
+    lidraughts.game.PdnDump.WithFlags(
+      moves = getBoolOpt("moves", req) | true,
+      tags = getBoolOpt("tags", req) | true,
+      clocks = getBoolOpt("clocks", req) | false,
+      evals = getBoolOpt("evals", req) | false,
+      opening = getBoolOpt("opening", req) | false,
+      draughtsResult = draughtsResult
+    )
+
+  private def gameContentType(config: GameApiV2.Config) = config.format match {
+    case GameApiV2.Format.PDN => pdnContentType
+    case GameApiV2.Format.JSON => config match {
+      case _: GameApiV2.ByUserConfig => ndJsonContentType
+      case _: GameApiV2.ManyConfig => ndJsonContentType
+      case _: GameApiV2.OneConfig => JSON
+    }
+  }
 
   private[controllers] def preloadUsers(game: GameModel): Funit =
     Env.user.lightUserApi preloadMany game.userIds

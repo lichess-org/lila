@@ -12,7 +12,7 @@ import lidraughts.game.PdnDump.WithFlags
 import lidraughts.game.{ Game, GameRepo, Query }
 
 final class PdnDump(
-    dumper: lidraughts.game.PdnDump,
+    val dumper: lidraughts.game.PdnDump,
     getSimulName: String => Fu[Option[String]],
     getTournamentName: String => Option[String]
 ) {
@@ -38,17 +38,16 @@ final class PdnDump(
       }))
   }
 
-  def filename(game: Game) = dumper filename game
-
   def formatter(flags: WithFlags) =
     Enumeratee.mapM[(Game, Option[FEN], Option[Analysis])].apply[String] {
-      case (game, initialFen, analysis) =>
-        apply(game, initialFen, analysis, flags).map { pdn =>
-          // merge analysis & eval comments
-          // 1. 32-27 {[%eval 0.17]} {[%clk 0:00:30]}
-          // 1. 32-27 {[%eval 0.17] [%clk 0:00:30]}
-          s"$pdn\n\n\n".replace("]} {[", "] [")
-        }
+      case (game, initialFen, analysis) => toPdnString(game, initialFen, analysis, flags)
     }
 
+  def toPdnString(game: Game, initialFen: Option[FEN], analysis: Option[Analysis], flags: WithFlags) =
+    apply(game, initialFen, analysis, flags).map { pdn =>
+      // merge analysis & eval comments
+      // 1. 32-27 {[%eval 0.17]} {[%clk 0:00:30]}
+      // 1. 32-27 {[%eval 0.17] [%clk 0:00:30]}
+      s"$pdn\n\n\n".replace("]} {[", "] [")
+    }
 }

@@ -12,37 +12,6 @@ object Export extends LidraughtsController {
 
   private def env = Env.game
 
-  def pdn(id: String) = Open { implicit ctx =>
-    lidraughts.mon.export.pdn.game()
-    OptionFuResult(GameRepo game id) { game =>
-      gameToPdn(
-        game,
-        asImported = get("as") contains "imported",
-        asRaw = get("as").contains("raw"),
-        draughtsResult = ctx.pref.draughtsResult
-      ) map { content =>
-          Ok(content).withHeaders(
-            CONTENT_TYPE -> pdnContentType,
-            CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.api.pdnDump filename game))
-          )
-        } recover {
-          case err => NotFound(err.getMessage)
-        }
-    }
-  }
-
-  private def gameToPdn(from: GameModel, asImported: Boolean, asRaw: Boolean, draughtsResult: Boolean): Fu[String] = from match {
-    case game if game.playable => fufail("Can't export PDN of game in progress")
-    case game => (game.pdnImport.ifTrue(asImported) match {
-      case Some(i) => fuccess(i.pdn)
-      case None => for {
-        initialFen <- GameRepo initialFen game
-        pdn <- Env.api.pdnDump(game, initialFen, analysis = none, PdnDump.WithFlags(clocks = !asRaw, draughtsResult = draughtsResult))
-        analysis ← !asRaw ?? (Env.analyse.analyser get game)
-      } yield Env.analyse.annotator(pdn, analysis, game.opening, game.winnerColor, game.status, game.clock).toString
-    })
-  }
-
   private val PngRateLimitGlobal = new lidraughts.memo.RateLimit[String](
     credits = 240,
     duration = 1 minute,
