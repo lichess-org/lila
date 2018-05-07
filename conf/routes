@@ -14,6 +14,7 @@ POST  /timeline/unsub/:channel         controllers.Timeline.unsub(channel: Strin
 GET   /games/search                    controllers.Search.index(page: Int ?= 1)
 
 # Game export
+POST  /games/export/_ids               controllers.Game.exportByIds
 GET   /games/export/:username          controllers.Game.exportByUser(username: String)
 
 # TV
@@ -493,7 +494,6 @@ GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/activity         controllers.Api.activity(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
 GET   /api/games/team/:teamId          controllers.Api.gamesVsTeam(teamId: String)
-POST  /api/games                       controllers.Api.games
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/status                      controllers.Api.status

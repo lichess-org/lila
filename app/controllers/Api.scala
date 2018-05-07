@@ -176,18 +176,6 @@ object Api extends LilaController {
     }
   }
 
-  def games = Action.async(parse.tolerantText) { req =>
-    val gameIds = req.body.split(',').take(300)
-    val ip = HTTPRequest lastRemoteAddress req
-    GameRateLimitPerIP(ip, cost = gameIds.size / 4) {
-      lila.mon.api.game.cost(1)
-      gameApi.many(
-        ids = gameIds,
-        withMoves = getBool("with_moves", req)
-      ) map toApiResult map toHttp
-    }(Zero.instance(tooManyRequests.fuccess))
-  }
-
   private val CrosstableRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 30,
     duration = 10 minutes,

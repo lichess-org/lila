@@ -6,19 +6,6 @@
 
 Parameters and result are similar to the users games API.
 
-### `POST /api/games` fetch many games by ID
-
-```
-> curl --data "x2kpaixn,gtSLJGOK" 'https://lichess.org/api/games'
-```
-
-Games are returned in the order same order as the ids.
-All parameters are optional.
-
-name | type | default | description
---- | --- | --- | ---
-**with_moves** | 1 or 0 | 0 | include a list of PGN moves
-
 ### `GET /api/tournament/<tournamentId>` fetch one tournament
 
 Returns tournament info, and a page of the tournament standing

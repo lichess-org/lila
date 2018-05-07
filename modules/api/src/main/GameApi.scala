@@ -75,11 +75,6 @@ private[api] final class GameApi(
       }
     }
 
-  def many(ids: Seq[String], withMoves: Boolean): Fu[Seq[JsObject]] =
-    GameRepo gamesFromPrimary ids flatMap {
-      gamesJson(WithFlags(moves = withMoves)) _
-    }
-
   def byUsersVs(
     users: (User, User),
     rated: Option[Boolean],
