@@ -29,6 +29,10 @@ object Global extends GlobalSettings {
   override def onRouteRequest(req: RequestHeader): Option[Handler] = {
     lidraughts.mon.http.request.all()
     if (req.remoteAddress contains ":") lidraughts.mon.http.request.ipv6()
+    if (HTTPRequest isXhr req) lidraughts.mon.http.request.xhr()
+    else if (HTTPRequest isSocket req) lidraughts.mon.http.request.ws()
+    else if (HTTPRequest isBot req) lidraughts.mon.http.request.bot()
+    else lidraughts.mon.http.request.page()
     lidraughts.i18n.Env.current.subdomainKiller(req) orElse
       super.onRouteRequest(req)
   }
