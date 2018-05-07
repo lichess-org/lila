@@ -328,13 +328,11 @@ object Api extends LilaController {
 
   sealed trait ApiResult
   case class Data(json: JsValue) extends ApiResult
-  case class JsonStream(value: Enumerator[JsObject]) extends ApiResult
   case object NoData extends ApiResult
   case object Limited extends ApiResult
   case class Custom(result: Result) extends ApiResult
   def toApiResult(json: Option[JsValue]): ApiResult = json.fold[ApiResult](NoData)(Data.apply)
   def toApiResult(json: Seq[JsValue]): ApiResult = Data(JsArray(json))
-  def toApiResult(stream: Enumerator[JsObject]): ApiResult = JsonStream(stream)
 
   def CookieBasedApiRequest(js: Context => Fu[ApiResult]) = Open { ctx =>
     js(ctx) map toHttp
@@ -345,16 +343,16 @@ object Api extends LilaController {
 
   private[controllers] val tooManyRequests = TooManyRequest(jsonError("Error 429: Too many requests! Try again later."))
 
-  private def toHttp(result: ApiResult): Result = result match {
+  def toHttp(result: ApiResult): Result = result match {
     case Limited => tooManyRequests
     case NoData => NotFound
     case Custom(result) => result
-    case JsonStream(stream) =>
-      Ok.chunked {
-        stream &> Enumeratee.map { o =>
-          Json.stringify(o) + "\n"
-        }
-      }.withHeaders(CONTENT_TYPE -> ndJsonContentType)
     case Data(json) => Ok(json) as JSON
   }
+
+  def jsonStream(stream: Enumerator[JsObject]) = Ok.chunked {
+    stream &> Enumeratee.map { o =>
+      Json.stringify(o) + "\n"
+    }
+  }.withHeaders(CONTENT_TYPE -> ndJsonContentType)
 }

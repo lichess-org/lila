@@ -2,6 +2,7 @@ package controllers
 
 import lila.api.Context
 import lila.app._
+import lila.common.{ HTTPRequest, MaxPerSecond }
 import lila.security.Granter
 import lila.team.{ Joined, Motivate, Team => TeamModel, TeamRepo, MemberRepo }
 import lila.user.{ User => UserModel }
@@ -52,18 +53,15 @@ object Team extends LilaController {
     _ <- Env.user.lightUserApi preloadMany info.userIds
   } yield html.team.show(team, members, info)
 
-  def users(teamId: String) = Api.ApiRequest { req =>
-    import Api.limitedDefault
-    Env.team.api.team(teamId) flatMap {
-      _ ?? { team =>
-        val cost = 100
-        val ip = lila.common.HTTPRequest lastRemoteAddress req
-        Api.UsersRateLimitPerIP(ip, cost = cost) {
-          Api.UsersRateLimitGlobal("-", cost = cost, msg = ip.value) {
-            lila.mon.api.teamUsers.cost(cost)
+  def users(teamId: String) = Action.async { req =>
+    RequireHttp11(req) {
+      import Api.limitedDefault
+      Env.team.api.team(teamId) flatMap {
+        _ ?? { team =>
+          Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
             import play.api.libs.iteratee._
-            Api.toApiResult {
-              Env.team.memberStream(team, lila.common.MaxPerSecond(20)) &>
+            Api.jsonStream {
+              Env.team.memberStream(team, MaxPerSecond(20)) &>
                 Enumeratee.map(Env.api.userApi.one)
             } |> fuccess
           }

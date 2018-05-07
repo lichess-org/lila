@@ -556,9 +556,6 @@ object mon {
     }
   }
   object api {
-    object teamUsers {
-      val cost = incX("api.team-users.cost")
-    }
     object userGames {
       val cost = incX("api.user-games.cost")
     }
