@@ -14,12 +14,14 @@ openGraph: Option[lila.app.ui.OpenGraph] = None,
 atom: Option[Html] = None,
 chessground: Boolean = true,
 zoomable: Boolean = false,
-asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
+asyncJs: Boolean = false,
+csp: Option[String] = None)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <!-- Lichess is open source! See https://github.com/ornicar/lila -->
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="@csp.getOrElse(defaultCsp)">
     @if(isProd) {
     <title>@fullTitle.getOrElse{@title • lichess.org}</title>
     <link href='//fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300' rel='stylesheet'>

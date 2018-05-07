@@ -5,7 +5,7 @@ import controllers.routes
 import play.twirl.api.Html
 
 import lila.api.Context
-import lila.common.AssetVersion
+import lila.common.{ AssetVersion, ContentSecurityPolicy }
 
 trait AssetHelper { self: I18nHelper =>
 
@@ -84,6 +84,20 @@ trait AssetHelper { self: I18nHelper =>
       s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local">\\x3C/script>')</script>"""
     else
       s"""<script src="$local"></script>"""
+  }
+
+  def defaultCsp(implicit ctx: Context): ContentSecurityPolicy = {
+    val assets = if (ctx.req.secure) "https://" + assetDomain else assetDomain
+    val socket = (if (ctx.req.secure) "wss://" else "ws://") + socketDomain
+    ContentSecurityPolicy(
+      defaultSrc = List("'self'", assets),
+      connectSrc = List("'self'", assets, socket),
+      styleSrc = List("'self'", "'unsafe-inline'", assets, "https://fonts.googleapis.com"),
+      fontSrc = List("'self'", assetDomain, "https://fonts.gstatic.com"),
+      childSrc = List("'self'", "https://youtube.com"),
+      imgSrc = List("data:", "*"),
+      scriptSrc = List("'self'", assets, "https://cdnjs.cloudflare.com", ctx.nonce.scriptSrc)
+    )
   }
 
   def embedJsUnsafe(js: String)(implicit ctx: Context): Html = Html {
