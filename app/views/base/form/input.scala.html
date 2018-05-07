@@ -1,4 +1,4 @@
-@(field: play.api.data.Field, placeholder: Option[String] = None, typ: String = "text", required: Boolean = false, minLength: Int = 0, maxLength: Int = 0, autocomplete: Boolean = true)
+@(field: play.api.data.Field, placeholder: Option[String] = None, typ: String = "text", required: Boolean = false, minLength: Int = 0, maxLength: Int = 0, autocomplete: Boolean = true, pattern: Option[String] = None)
 
 <input @placeholder.map { p =>
 placeholder="@p"
@@ -6,4 +6,7 @@ placeholder="@p"
 @if(required){ required}
 @if(minLength > 0){minlength=@minLength}
 @if(maxLength > 0){maxlength=@maxLength}
-@if(!autocomplete){autocomplete="off"}/>
+@if(!autocomplete){autocomplete="off"}
+@pattern.map { p =>
+pattern="@p"
+}/>
