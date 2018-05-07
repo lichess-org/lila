@@ -29,7 +29,7 @@ object Game extends LilaController {
 
   def exportOne(id: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo game id) { game =>
-      if (game.playable) BadRequest("Can't export PGN of game in progress").fuccess
+      if (game.playable) BadRequest("Only bots can access their games in progress. See https://lichess.org/api#tag/Chess-Bot").fuccess
       else {
         val config = GameApiV2.OneConfig(
           format = if (HTTPRequest acceptsJson ctx.req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
@@ -60,7 +60,7 @@ object Game extends LilaController {
         RequireHttp11(req) {
           Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
             Api.GlobalLinearLimitPerUserOption(me) {
-              val format = if (HTTPRequest acceptsNdJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN
+              val format = GameApiV2.Format byRequest req
               WithVs(req) { vs =>
                 val config = GameApiV2.ByUserConfig(
                   user = user,
@@ -92,6 +92,23 @@ object Game extends LilaController {
       }
     }
 
+  def exportByIds = Action.async(parse.tolerantText) { req =>
+    RequireHttp11(req) {
+      Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+        val format = GameApiV2.Format byRequest req
+        val config = GameApiV2.ByIdsConfig(
+          ids = req.body.split(',').take(300),
+          format = GameApiV2.Format byRequest req,
+          flags = requestPgnFlags(req, extended = false),
+          perSecond = MaxPerSecond(20)
+        )
+        Ok.chunked(Env.api.gameApiV2.exportByIds(config)).withHeaders(
+          CONTENT_TYPE -> gameContentType(config)
+        ).fuccess
+      }
+    }
+  }
+
   private def WithVs(req: RequestHeader)(f: Option[lila.user.User] => Fu[Result]): Fu[Result] =
     get("vs", req) match {
       case None => f(none)
@@ -113,8 +130,8 @@ object Game extends LilaController {
   private def gameContentType(config: GameApiV2.Config) = config.format match {
     case GameApiV2.Format.PGN => pgnContentType
     case GameApiV2.Format.JSON => config match {
-      case _: GameApiV2.ByUserConfig => ndJsonContentType
       case _: GameApiV2.OneConfig => JSON
+      case _ => ndJsonContentType
     }
   }
 

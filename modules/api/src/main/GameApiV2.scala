@@ -3,12 +3,14 @@ package lila.api
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import play.api.libs.json._
+import reactivemongo.play.iteratees.cursorProducer
 import scala.concurrent.duration._
 
 import chess.format.FEN
 import chess.format.pgn.Tag
 import lila.analyse.{ AnalysisRepo, JsonView => analysisJson, Analysis }
-import lila.common.{ LightUser, MaxPerSecond }
+import lila.common.{ LightUser, MaxPerSecond, HTTPRequest }
+import lila.db.dsl._
 import lila.game.JsonView._
 import lila.game.PgnDump.WithFlags
 import lila.game.{ Game, GameRepo, Query, PerfPicker }
@@ -47,13 +49,10 @@ final class GameApiV2(
 
   def exportByUser(config: ByUserConfig): Enumerator[String] = {
 
-    import reactivemongo.play.iteratees.cursorProducer
-    import lila.db.dsl._
-
     val infiniteGames = GameRepo.sortedCursor(
       config.vs.fold(Query.user(config.user.id)) { vs =>
         Query.opponents(config.user, vs)
-      } ++ Query.createdBetween(config.since, config.until),
+      } ++ Query.createdBetween(config.since, config.until) ++ Query.finished,
       Query.sortCreated,
       batchSize = config.perSecond.value
     ).bulkEnumerator() &>
@@ -70,13 +69,19 @@ final class GameApiV2(
       }
     }
 
-    val formatter = config.format match {
-      case Format.PGN => pgnDump.formatter(config.flags)
-      case Format.JSON => jsonFormatter(config.flags)
-    }
-
-    games &> Enumeratee.mapM(enrich(config.flags)) &> formatter
+    games &> Enumeratee.mapM(enrich(config.flags)) &> formatterFor(config)
   }
+
+  def exportByIds(config: ByIdsConfig): Enumerator[String] =
+    GameRepo.sortedCursor(
+      $inIds(config.ids) ++ Query.finished,
+      Query.sortCreated,
+      batchSize = config.perSecond.value
+    ).bulkEnumerator() &>
+      lila.common.Iteratee.delay(1 second) &>
+      Enumeratee.mapConcat(_.toSeq) &>
+      Enumeratee.mapM(enrich(config.flags)) &>
+      formatterFor(config)
 
   private def enrich(flags: WithFlags)(game: Game) =
     GameRepo initialFen game flatMap { initialFen =>
@@ -84,6 +89,11 @@ final class GameApiV2(
         (game, initialFen, analysis)
       }
     }
+
+  private def formatterFor(config: Config) = config.format match {
+    case Format.PGN => pgnDump.formatter(config.flags)
+    case Format.JSON => jsonFormatter(config.flags)
+  }
 
   private def jsonFormatter(flags: WithFlags) =
     Enumeratee.mapM[(Game, Option[FEN], Option[Analysis])].apply[String] {
@@ -144,10 +154,12 @@ object GameApiV2 {
   object Format {
     case object PGN extends Format
     case object JSON extends Format
+    def byRequest(req: play.api.mvc.RequestHeader) = if (HTTPRequest acceptsNdJson req) JSON else PGN
   }
 
   sealed trait Config {
     val format: Format
+    val flags: WithFlags
   }
 
   case class OneConfig(
@@ -177,4 +189,11 @@ object GameApiV2 {
         g.player(c).userId has user.id
       } && analysed.fold(true)(g.metadata.analysed ==)
   }
+
+  case class ByIdsConfig(
+      ids: Seq[Game.ID],
+      format: Format,
+      flags: WithFlags,
+      perSecond: MaxPerSecond
+  ) extends Config
 }
