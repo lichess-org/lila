@@ -9,7 +9,7 @@ import play.twirl.api.Html
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
-import lila.common.{ LilaCookie, HTTPRequest, ApiVersion }
+import lila.common.{ LilaCookie, HTTPRequest, ApiVersion, Nonce }
 import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ Permission, Granter, FingerprintedUser }
@@ -358,7 +358,8 @@ private[controllers] trait LilaController
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerprint,
             assetVersion = getAssetVersion,
-            inquiry = inquiry)
+            inquiry = inquiry,
+            nonce = Nonce.random)
       }
     }
 
