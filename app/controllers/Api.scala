@@ -186,33 +186,7 @@ object Api extends LidraughtsController {
       ) map toApiResult map toHttp
     }(Zero.instance(tooManyRequests.fuccess))
   }
-
-  def gamesVs(u1: String, u2: String) = ApiRequest { req =>
-    val page = (getInt("page", req) | 1) atLeast 1 atMost 200
-    val nb = (getInt("nb", req) | 10) atLeast 1 atMost 100
-    val cost = page * nb * 2 + 10
-    UserGamesRateLimit(cost, req) {
-      lidraughts.mon.api.userGames.cost(cost)
-      for {
-        usersO <- lidraughts.user.UserRepo.pair(
-          lidraughts.user.User.normalize(u1),
-          lidraughts.user.User.normalize(u2)
-        )
-        res <- usersO.?? { users =>
-          gameApi.byUsersVs(
-            users = users,
-            rated = getBoolOpt("rated", req),
-            playing = getBoolOpt("playing", req),
-            analysed = getBoolOpt("analysed", req),
-            withFlags = gameFlagsFromRequest(req),
-            nb = MaxPerPage(nb),
-            page = page
-          ) map some
-        }
-      } yield toApiResult(res)
-    }
-  }
-
+  
   private val CrosstableRateLimitPerIP = new lidraughts.memo.RateLimit[IpAddress](
     credits = 30,
     duration = 10 minutes,
