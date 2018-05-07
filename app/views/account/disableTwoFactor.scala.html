@@ -10,7 +10,7 @@
     <p class="explanation">You need your password and an authentication code from your authenticator app to disable two-factor authentication.</p>
     @passwdFormField(form("passwd"), trans.password())
     @base.form.group(form("token"), Html("Authentication code")) { field =>
-    @base.form.input(field, typ = "text", required = true, autocomplete = false)
+    @base.form.input(field, typ = "text", pattern = "[0-9]{6}".some, required = true, autocomplete = false)
     @errMsg(form("token"))
     }
     <div class="button-container">
