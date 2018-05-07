@@ -393,7 +393,7 @@
   <string name="inappropriateNameWarning">Cualquier comportamiento inapropiado podría conllevar al cierre de su cuenta.</string>
   <string name="emptyTournamentName">Deje en blanco para nombrar el torneo con un Gran Maestro al azar.</string>
   <string name="recommendNotTouching">Se recomienda dejar como está.</string>
-  <string name="fewerPlayers">Si establece condiciones de entrada, el torneo tendrá menos jugadores.</string>
+  <string name="fewerPlayers">Si impones condiciones de entrada, el torneo tendrá menos jugadores.</string>
   <string name="showAdvancedSettings">Mostrar configuración avanzada</string>
   <string name="join">Unirse</string>
   <string name="withdraw">Abandonar</string>
