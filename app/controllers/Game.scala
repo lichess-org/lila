@@ -34,7 +34,7 @@ object Game extends LilaController {
         val config = GameApiV2.OneConfig(
           format = if (HTTPRequest acceptsJson ctx.req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
           imported = getBool("imported"),
-          flags = requestPgnFlags(ctx.req)
+          flags = requestPgnFlags(ctx.req, extended = true)
         )
         lila.mon.export.pgn.game()
         Env.api.gameApiV2.exportOne(game, config) flatMap { content =>
@@ -71,7 +71,7 @@ object Game extends LilaController {
                 perfType = ~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) } toSet,
                 color = get("color", req) flatMap chess.Color.apply,
                 analysed = getBoolOpt("analysed", req),
-                flags = requestPgnFlags(req),
+                flags = requestPgnFlags(req, extended = false),
                 perSecond = MaxPerSecond(me match {
                   case Some(m) if m is user.id => 50
                   case Some(_) if oauth => 20 // bonus for oauth logged in only (not for XSRF)
@@ -89,13 +89,13 @@ object Game extends LilaController {
       }
     }
 
-  private def requestPgnFlags(req: RequestHeader) =
+  private def requestPgnFlags(req: RequestHeader, extended: Boolean) =
     lila.game.PgnDump.WithFlags(
       moves = getBoolOpt("moves", req) | true,
       tags = getBoolOpt("tags", req) | true,
-      clocks = getBoolOpt("clocks", req) | false,
-      evals = getBoolOpt("evals", req) | false,
-      opening = getBoolOpt("opening", req) | false
+      clocks = getBoolOpt("clocks", req) | extended,
+      evals = getBoolOpt("evals", req) | extended,
+      opening = getBoolOpt("opening", req) | extended
     )
 
   private def gameContentType(config: GameApiV2.Config) = config.format match {
