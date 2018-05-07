@@ -138,7 +138,8 @@ object Api extends LilaController {
       token = get("token", req)
     )
 
-  def userGames(name: String) = ApiRequest { req =>
+  // for mobile app
+  def userGames(name: String) = MobileApiRequest { req =>
     val page = (getInt("page", req) | 1) atLeast 1 atMost 200
     val nb = (getInt("nb", req) | 10) atLeast 1 atMost 100
     val cost = page * nb + 10
@@ -313,6 +314,10 @@ object Api extends LilaController {
   }
   def ApiRequest(js: RequestHeader => Fu[ApiResult]) = Action.async { req =>
     js(req) map toHttp
+  }
+  def MobileApiRequest(js: RequestHeader => Fu[ApiResult]) = Action.async { req =>
+    if (lila.api.Mobile.Api requested req) js(req) map toHttp
+    else fuccess(NotFound)
   }
 
   private[controllers] val tooManyRequests = TooManyRequest(jsonError("Error 429: Too many requests! Try again later."))
