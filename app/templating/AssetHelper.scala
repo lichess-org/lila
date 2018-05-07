@@ -86,6 +86,9 @@ trait AssetHelper { self: I18nHelper =>
       s"""<script src="$local"></script>"""
   }
 
-  def embedJsUnsafe(js: String): Html = Html(s"""<script>$js</script>""")
-  def embedJs(js: Html): Html = embedJsUnsafe(js.body)
+  def embedJsUnsafe(js: String)(implicit ctx: Context): Html = Html {
+    s"""<script nonce="${ctx.nonce}">$js</script>"""
+  }
+
+  def embedJs(js: Html)(implicit ctx: Context): Html = embedJsUnsafe(js.body)
 }
