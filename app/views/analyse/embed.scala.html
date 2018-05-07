@@ -5,6 +5,7 @@
 <!doctype html>
 <html lang="@lang.language">
   <head>
+    <meta charset="utf-8">
     <title>@title</title>
     <link href='//fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300' rel='stylesheet'>
     @ctx.currentBg match {
@@ -17,7 +18,6 @@
     @cssTag("analyse.css")
     @cssTag("analyse-embed.css")
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=@ctx.pageData.assetVersion")" type="text/css" rel="stylesheet"/>
-    <meta charset="utf-8">
   </head>
   <body class="base highlight @List(
     ctx.currentTheme.cssClass,
