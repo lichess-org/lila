@@ -2,7 +2,7 @@ package controllers
 
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import play.api.mvc.RequestHeader
+import play.api.mvc._
 import scala.concurrent.duration._
 
 import lila.api.GameApiV2
@@ -61,31 +61,43 @@ object Game extends LilaController {
           Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
             Api.GlobalLinearLimitPerUserOption(me) {
               val format = if (HTTPRequest acceptsNdJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN
-              val config = GameApiV2.ByUserConfig(
-                user = user,
-                format = format,
-                since = getLong("since", req) map { ts => new DateTime(ts) },
-                until = getLong("until", req) map { ts => new DateTime(ts) },
-                max = getInt("max", req) map (_ atLeast 1),
-                rated = getBoolOpt("rated", req),
-                perfType = ~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) } toSet,
-                color = get("color", req) flatMap chess.Color.apply,
-                analysed = getBoolOpt("analysed", req),
-                flags = requestPgnFlags(req, extended = false),
-                perSecond = MaxPerSecond(me match {
-                  case Some(m) if m is user.id => 50
-                  case Some(_) if oauth => 20 // bonus for oauth logged in only (not for XSRF)
-                  case _ => 10
-                })
-              )
-              val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-              Ok.chunked(Env.api.gameApiV2.exportByUser(config)).withHeaders(
-                CONTENT_TYPE -> gameContentType(config),
-                CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}_$date.${format.toString.toLowerCase}"
-              ).fuccess
+              WithVs(req) { vs =>
+                val config = GameApiV2.ByUserConfig(
+                  user = user,
+                  format = format,
+                  vs = vs,
+                  since = getLong("since", req) map { ts => new DateTime(ts) },
+                  until = getLong("until", req) map { ts => new DateTime(ts) },
+                  max = getInt("max", req) map (_ atLeast 1),
+                  rated = getBoolOpt("rated", req),
+                  perfType = ~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) } toSet,
+                  color = get("color", req) flatMap chess.Color.apply,
+                  analysed = getBoolOpt("analysed", req),
+                  flags = requestPgnFlags(req, extended = false),
+                  perSecond = MaxPerSecond(me match {
+                    case Some(m) if m is user.id => 50
+                    case Some(_) if oauth => 20 // bonus for oauth logged in only (not for XSRF)
+                    case _ => 10
+                  })
+                )
+                val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
+                Ok.chunked(Env.api.gameApiV2.exportByUser(config)).withHeaders(
+                  CONTENT_TYPE -> gameContentType(config),
+                  CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}_$date.${format.toString.toLowerCase}"
+                ).fuccess
+              }
             }
           }
         }
+      }
+    }
+
+  private def WithVs(req: RequestHeader)(f: Option[lila.user.User] => Fu[Result]): Fu[Result] =
+    get("vs", req) match {
+      case None => f(none)
+      case Some(name) => lila.user.UserRepo named name flatMap {
+        case None => notFoundJson(s"No such opponent: $name")
+        case Some(user) => f(user.some)
       }
     }
 
