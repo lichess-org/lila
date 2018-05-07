@@ -524,6 +524,7 @@
   <string name="thisAccountIsClosed">Esta cuenta está cerrada.</string>
   <string name="invalidUsernameOrPassword">Nombre de usuario o contraseña erróneo</string>
   <string name="incorrectPassword">Contraseña incorrecta</string>
+  <string name="invalidAuthenticationCode">Código de autenticación inválido</string>
   <string name="emailMeALink">Envíame un enlace por correo electrónico</string>
   <string name="currentPassword">Contraseña actual</string>
   <string name="newPassword">Nueva contraseña</string>
