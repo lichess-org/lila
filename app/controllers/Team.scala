@@ -2,6 +2,7 @@ package controllers
 
 import lidraughts.api.Context
 import lidraughts.app._
+import lidraughts.common.{ HTTPRequest, MaxPerSecond }
 import lidraughts.security.Granter
 import lidraughts.team.{ Joined, Motivate, Team => TeamModel, TeamRepo, MemberRepo }
 import lidraughts.user.{ User => UserModel }
@@ -52,18 +53,15 @@ object Team extends LidraughtsController {
     _ <- Env.user.lightUserApi preloadMany info.userIds
   } yield html.team.show(team, members, info)
 
-  def users(teamId: String) = Api.ApiRequest { req =>
-    import Api.limitedDefault
-    Env.team.api.team(teamId) flatMap {
-      _ ?? { team =>
-        val cost = 100
-        val ip = lidraughts.common.HTTPRequest lastRemoteAddress req
-        Api.UsersRateLimitPerIP(ip, cost = cost) {
-          Api.UsersRateLimitGlobal("-", cost = cost, msg = ip.value) {
-            lidraughts.mon.api.teamUsers.cost(cost)
+  def users(teamId: String) = Action.async { req =>
+    RequireHttp11(req) {
+      import Api.limitedDefault
+      Env.team.api.team(teamId) flatMap {
+        _ ?? { team =>
+          Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
             import play.api.libs.iteratee._
-            Api.toApiResult {
-              Env.team.memberStream(team, lila.common.MaxPerSecond(20)) &>
+            Api.jsonStream {
+              Env.team.memberStream(team, MaxPerSecond(20)) &>
                 Enumeratee.map(Env.api.userApi.one)
             } |> fuccess
           }
