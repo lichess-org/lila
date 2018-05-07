@@ -176,18 +176,6 @@ object Api extends LidraughtsController {
     }
   }
 
-  def games = Action.async(parse.tolerantText) { req =>
-    val gameIds = req.body.split(',').take(300)
-    val ip = HTTPRequest lastRemoteAddress req
-    GameRateLimitPerIP(ip, cost = gameIds.size / 4) {
-      lidraughts.mon.api.game.cost(1)
-      gameApi.many(
-        ids = gameIds,
-        withMoves = getBool("with_moves", req)
-      ) map toApiResult map toHttp
-    }(Zero.instance(tooManyRequests.fuccess))
-  }
-  
   private val CrosstableRateLimitPerIP = new lidraughts.memo.RateLimit[IpAddress](
     credits = 30,
     duration = 10 minutes,
@@ -316,7 +304,7 @@ object Api extends LidraughtsController {
     js(req) map toHttp
   }
   def MobileApiRequest(js: RequestHeader => Fu[ApiResult]) = Action.async { req =>
-    if (lila.api.Mobile.Api requested req) js(req) map toHttp
+    if (lidraughts.api.Mobile.Api requested req) js(req) map toHttp
     else fuccess(NotFound)
   }
 

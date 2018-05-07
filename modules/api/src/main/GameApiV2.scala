@@ -3,12 +3,14 @@ package lidraughts.api
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import play.api.libs.json._
+import reactivemongo.play.iteratees.cursorProducer
 import scala.concurrent.duration._
 
 import draughts.format.FEN
 import draughts.format.pdn.Tag
 import lidraughts.analyse.{ AnalysisRepo, JsonView => analysisJson, Analysis }
-import lidraughts.common.{ LightUser, MaxPerSecond }
+import lidraughts.common.{ LightUser, MaxPerSecond, HTTPRequest }
+import lidraughts.db.dsl._
 import lidraughts.game.JsonView._
 import lidraughts.game.PdnDump.WithFlags
 import lidraughts.game.{ Game, GameRepo, Query, PerfPicker }
@@ -47,13 +49,10 @@ final class GameApiV2(
 
   def exportByUser(config: ByUserConfig): Enumerator[String] = {
 
-    import reactivemongo.play.iteratees.cursorProducer
-    import lidraughts.db.dsl._
-
     val infiniteGames = GameRepo.sortedCursor(
       config.vs.fold(Query.user(config.user.id)) { vs =>
         Query.opponents(config.user, vs)
-      } ++ Query.createdBetween(config.since, config.until),
+      } ++ Query.createdBetween(config.since, config.until) ++ Query.finished,
       Query.sortCreated,
       batchSize = config.perSecond.value
     ).bulkEnumerator() &>
@@ -70,20 +69,19 @@ final class GameApiV2(
       }
     }
 
-    val formatter = config.format match {
-      case Format.PDN => pdnDump.formatter(config.flags)
-      case Format.JSON => jsonFormatter(config.flags)
-    }
-
-    games &> Enumeratee.mapM(enrich(config.flags)) &> formatter
+    games &> Enumeratee.mapM(enrich(config.flags)) &> formatterFor(config)
   }
 
-  def exportGamesByIds(config: ManyConfig): Enumerator[String] =
-    Enumerator.enumerate(config.ids grouped 50) &>
-      Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.gamesFromSecondary) &>
-      Enumeratee.mapConcat(identity) &>
+  def exportByIds(config: ByIdsConfig): Enumerator[String] =
+    GameRepo.sortedCursor(
+      $inIds(config.ids) ++ Query.finished,
+      Query.sortCreated,
+      batchSize = config.perSecond.value
+    ).bulkEnumerator() &>
+      lidraughts.common.Iteratee.delay(1 second) &>
+      Enumeratee.mapConcat(_.toSeq) &>
       Enumeratee.mapM(enrich(config.flags)) &>
-      pdnDump.formatter(config.flags)
+      formatterFor(config)
 
   private def enrich(flags: WithFlags)(game: Game) =
     GameRepo initialFen game flatMap { initialFen =>
@@ -91,6 +89,11 @@ final class GameApiV2(
         (game, initialFen, analysis)
       }
     }
+
+  private def formatterFor(config: Config) = config.format match {
+    case Format.PDN => pdnDump.formatter(config.flags)
+    case Format.JSON => jsonFormatter(config.flags)
+  }
 
   private def jsonFormatter(flags: WithFlags) =
     Enumeratee.mapM[(Game, Option[FEN], Option[Analysis])].apply[String] {
@@ -151,21 +154,17 @@ object GameApiV2 {
   object Format {
     case object PDN extends Format
     case object JSON extends Format
+    def byRequest(req: play.api.mvc.RequestHeader) = if (HTTPRequest acceptsNdJson req) JSON else PDN
   }
 
   sealed trait Config {
     val format: Format
+    val flags: WithFlags
   }
 
   case class OneConfig(
       format: Format,
       imported: Boolean,
-      flags: WithFlags
-  ) extends Config
-
-  case class ManyConfig(
-      ids: List[Game.ID],
-      format: Format,
       flags: WithFlags
   ) extends Config
 
@@ -190,4 +189,11 @@ object GameApiV2 {
         g.player(c).userId has user.id
       } && analysed.fold(true)(g.metadata.analysed ==)
   }
+
+  case class ByIdsConfig(
+      ids: Seq[Game.ID],
+      format: Format,
+      flags: WithFlags,
+      perSecond: MaxPerSecond
+  ) extends Config
 }

@@ -60,7 +60,7 @@ object Game extends LidraughtsController {
         RequireHttp11(req) {
           Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
             Api.GlobalLinearLimitPerUserOption(me) {
-              val format = if (HTTPRequest acceptsNdJson req) GameApiV2.Format.JSON else GameApiV2.Format.PDN
+              val format = GameApiV2.Format byRequest req
               WithVs(req) { vs =>
                 val config = GameApiV2.ByUserConfig(
                   user = user,
@@ -92,6 +92,23 @@ object Game extends LidraughtsController {
       }
     }
 
+  def exportByIds = Action.async(parse.tolerantText) { req =>
+    RequireHttp11(req) {
+      Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+        val format = GameApiV2.Format byRequest req
+        val config = GameApiV2.ByIdsConfig(
+          ids = req.body.split(',').take(300),
+          format = GameApiV2.Format byRequest req,
+          flags = requestPdnFlags(req, lidraughts.pref.Pref.default.draughtsResult, extended = false),
+          perSecond = MaxPerSecond(20)
+        )
+        Ok.chunked(Env.api.gameApiV2.exportByIds(config)).withHeaders(
+          CONTENT_TYPE -> gameContentType(config)
+        ).fuccess
+      }
+    }
+  }
+
   private def WithVs(req: RequestHeader)(f: Option[lidraughts.user.User] => Fu[Result]): Fu[Result] =
     get("vs", req) match {
       case None => f(none)
@@ -114,9 +131,8 @@ object Game extends LidraughtsController {
   private def gameContentType(config: GameApiV2.Config) = config.format match {
     case GameApiV2.Format.PDN => pdnContentType
     case GameApiV2.Format.JSON => config match {
-      case _: GameApiV2.ByUserConfig => ndJsonContentType
-      case _: GameApiV2.ManyConfig => ndJsonContentType
       case _: GameApiV2.OneConfig => JSON
+      case _ => ndJsonContentType
     }
   }
 
