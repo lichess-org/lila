@@ -30,6 +30,16 @@ case class ContentSecurityPolicy(
     scriptSrc = Nil
   )
 
+  def withTwitch = copy(
+    defaultSrc = Nil,
+    connectSrc = "https://www.twitch.tv" :: "https://www-cdn.jtvnw.net" :: connectSrc,
+    styleSrc = Nil,
+    fontSrc = Nil,
+    childSrc = Nil,
+    imgSrc = Nil,
+    scriptSrc = Nil
+  )
+
   override def toString: String =
     List(
       "default-src " -> defaultSrc,
