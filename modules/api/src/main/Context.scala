@@ -3,7 +3,7 @@ package lidraughts.api
 import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
 
-import lidraughts.common.{ HTTPRequest, AssetVersion }
+import lidraughts.common.{ HTTPRequest, AssetVersion, Nonce }
 import lidraughts.pref.Pref
 import lidraughts.relation.actorApi.OnlineFriends
 import lidraughts.user.{ UserContext, HeaderUserContext, BodyUserContext }
@@ -45,6 +45,7 @@ sealed trait Context extends lidraughts.user.UserContextWrapper {
 
   val userContext: UserContext
   val pageData: PageData
+  val nonce: Nonce
 
   def lang = userContext.lang
 
@@ -79,30 +80,33 @@ sealed trait Context extends lidraughts.user.UserContextWrapper {
 
 sealed abstract class BaseContext(
     val userContext: lidraughts.user.UserContext,
-    val pageData: PageData
+    val pageData: PageData,
+    val nonce: Nonce
 ) extends Context
 
 final class BodyContext[A](
     val bodyContext: BodyUserContext[A],
-    data: PageData
-) extends BaseContext(bodyContext, data) {
+    data: PageData,
+    nonce: Nonce
+) extends BaseContext(bodyContext, data, nonce) {
 
   def body = bodyContext.body
 }
 
 final class HeaderContext(
     headerContext: HeaderUserContext,
-    data: PageData
-) extends BaseContext(headerContext, data)
+    data: PageData,
+    nonce: Nonce
+) extends BaseContext(headerContext, data, nonce)
 
 object Context {
 
   def error(req: RequestHeader, v: AssetVersion, lang: Lang): HeaderContext =
-    new HeaderContext(UserContext(req, none, none, lang), PageData.error(req, v))
+    new HeaderContext(UserContext(req, none, none, lang), PageData.error(req, v), Nonce.random)
 
   def apply(userContext: HeaderUserContext, pageData: PageData): HeaderContext =
-    new HeaderContext(userContext, pageData)
+    new HeaderContext(userContext, pageData, Nonce.random)
 
   def apply[A](userContext: BodyUserContext[A], pageData: PageData): BodyContext[A] =
-    new BodyContext(userContext, pageData)
+    new BodyContext(userContext, pageData, Nonce.random)
 }
