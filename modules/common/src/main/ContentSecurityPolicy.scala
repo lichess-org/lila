@@ -49,11 +49,8 @@ case class ContentSecurityPolicy(
       "child-src " -> childSrc,
       "img-src " -> imgSrc,
       "script-src " -> scriptSrc
-    ) filter {
-        case (_, sources) =>
-          sources.nonEmpty
-      } map {
-        case (directive, sources) =>
+    ) collect {
+        case (directive, sources) if sources.nonEmpty =>
           sources.mkString(directive, " ", ";")
       } mkString (" ")
 }
