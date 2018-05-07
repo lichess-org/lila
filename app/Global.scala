@@ -29,6 +29,10 @@ object Global extends GlobalSettings {
   override def onRouteRequest(req: RequestHeader): Option[Handler] = {
     lila.mon.http.request.all()
     if (req.remoteAddress contains ":") lila.mon.http.request.ipv6()
+    if (HTTPRequest isXhr req) lila.mon.http.request.xhr()
+    else if (HTTPRequest isSocket req) lila.mon.http.request.ws()
+    else if (HTTPRequest isBot req) lila.mon.http.request.bot()
+    else lila.mon.http.request.page()
     lila.i18n.Env.current.subdomainKiller(req) orElse
       super.onRouteRequest(req)
   }

@@ -12,6 +12,10 @@ object mon {
     object request {
       val all = inc("http.request.all")
       val ipv6 = inc("http.request.ipv6")
+      val xhr = inc("http.request.xhr")
+      val ws = inc("http.request.ws")
+      val bot = inc("http.request.bot")
+      val page = inc("http.request.page")
       def path(p: String) = inc(s"http.request.path.$p")
     }
     object response {
