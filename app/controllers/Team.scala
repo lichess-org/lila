@@ -56,7 +56,6 @@ object Team extends LilaController {
     import Api.limitedDefault
     Env.team.api.team(teamId) flatMap {
       _ ?? { team =>
-        val max = getInt("max", req) map (_ atLeast 1)
         val cost = 100
         val ip = lila.common.HTTPRequest lastRemoteAddress req
         Api.UsersRateLimitPerIP(ip, cost = cost) {
@@ -64,7 +63,7 @@ object Team extends LilaController {
             lila.mon.api.teamUsers.cost(cost)
             import play.api.libs.iteratee._
             Api.toApiResult {
-              Env.team.pager.stream(team, max = max) &>
+              Env.team.memberStream(team, lila.common.MaxPerSecond(20)) &>
                 Enumeratee.map(Env.api.userApi.one)
             } |> fuccess
           }
