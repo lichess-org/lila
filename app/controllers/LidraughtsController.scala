@@ -9,7 +9,7 @@ import play.twirl.api.Html
 
 import lidraughts.api.{ PageData, Context, HeaderContext, BodyContext }
 import lidraughts.app._
-import lidraughts.common.{ LidraughtsCookie, HTTPRequest, ApiVersion }
+import lidraughts.common.{ LidraughtsCookie, HTTPRequest, ApiVersion, Nonce }
 import lidraughts.notify.Notification.Notifies
 import lidraughts.oauth.{ OAuthScope, OAuthServer }
 import lidraughts.security.{ Permission, Granter, FingerprintedUser }
@@ -360,7 +360,8 @@ private[controllers] trait LidraughtsController
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerprint,
             assetVersion = getAssetVersion,
-            inquiry = inquiry)
+            inquiry = inquiry,
+            nonce = Nonce.random)
       }
     }
 
