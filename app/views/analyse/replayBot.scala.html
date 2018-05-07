@@ -54,14 +54,14 @@ chessground = false) {
     <div class="panel fen_pgn">
       <p><strong>FEN</strong><input readonly="true" spellcheck="false" class="copyable autoselect fen" /></p>
       <p><strong>PGN</strong>
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)"> @trans.downloadAnnotated()</a>
+        <a data-icon="x" rel="nofollow" href="@routes.Game.exportOne(game.id)?evals=1&clocks=1&opening=1"> @trans.downloadAnnotated()</a>
         @if(analysis.isDefined) {
         /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw"> @trans.downloadRaw()</a>
+        <a data-icon="x" rel="nofollow" href="@routes.Game.exportOne(game.id)"> @trans.downloadRaw()</a>
         }
         @if(game.isPgnImport) {
         /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported"> @trans.downloadImported()</a>
+        <a data-icon="x" rel="nofollow" href="@routes.Game.exportOne(game.id)?imported=1"> @trans.downloadImported()</a>
         }
       </p>
       <div class="pgn">@pgn</div>

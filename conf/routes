@@ -14,7 +14,7 @@ POST  /timeline/unsub/:channel         controllers.Timeline.unsub(channel: Strin
 GET   /games/search                    controllers.Search.index(page: Int ?= 1)
 
 # Game export
-GET   /games/export/:username          controllers.Game.export(username: String)
+GET   /games/export/:username          controllers.Game.exportByUser(username: String)
 
 # TV
 GET   /tv                              controllers.Tv.index
@@ -283,7 +283,8 @@ GET   /team/:id/users                         controllers.Team.users(id: String)
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: String)
 
-GET   /game/export/$gameId<\w{8}>.pgn         controllers.Export.pgn(gameId: String)
+GET   /game/export/$gameId<\w{8}>             controllers.Game.exportOne(gameId: String)
+GET   /game/export/$gameId<\w{8}>.pgn         controllers.Game.exportOne(gameId: String)
 GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: String)
 
 # Fishnet

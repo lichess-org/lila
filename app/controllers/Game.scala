@@ -27,7 +27,29 @@ object Game extends LilaController {
     }
   }
 
-  def export(username: String) = OpenOrScoped()(
+  def exportOne(id: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo game id) { game =>
+      if (game.playable) BadRequest("Can't export PGN of game in progress").fuccess
+      else {
+        val config = GameApiV2.OneConfig(
+          format = if (HTTPRequest acceptsJson ctx.req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
+          imported = getBool("imported"),
+          flags = requestPgnFlags(ctx.req)
+        )
+        lila.mon.export.pgn.game()
+        Env.api.gameApiV2.exportOne(game, config) flatMap { content =>
+          Env.api.gameApiV2.filename(game, config.format) map { filename =>
+            Ok(content).withHeaders(
+              CONTENT_TYPE -> gameContentType(config),
+              CONTENT_DISPOSITION -> s"attachment; filename=$filename"
+            )
+          }
+        }
+      }
+    }
+  }
+
+  def exportByUser(username: String) = OpenOrScoped()(
     open = ctx => handleExport(username, ctx.me, ctx.req, oauth = false),
     scoped = req => me => handleExport(username, me.some, req, oauth = true)
   )
@@ -39,7 +61,7 @@ object Game extends LilaController {
           Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
             Api.GlobalLinearLimitPerUserOption(me) {
               val format = if (HTTPRequest acceptsNdJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN
-              val config = GameApiV2.Config(
+              val config = GameApiV2.ByUserConfig(
                 user = user,
                 format = format,
                 since = getLong("since", req) map { ts => new DateTime(ts) },
@@ -49,13 +71,7 @@ object Game extends LilaController {
                 perfType = ~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) } toSet,
                 color = get("color", req) flatMap chess.Color.apply,
                 analysed = getBoolOpt("analysed", req),
-                flags = lila.game.PgnDump.WithFlags(
-                  moves = getBoolOpt("moves", req) | true,
-                  tags = getBoolOpt("tags", req) | true,
-                  clocks = getBoolOpt("clocks", req) | false,
-                  evals = getBoolOpt("evals", req) | false,
-                  opening = getBoolOpt("opening", req) | false
-                ),
+                flags = requestPgnFlags(req),
                 perSecond = MaxPerSecond(me match {
                   case Some(m) if m is user.id => 50
                   case Some(_) if oauth => 20 // bonus for oauth logged in only (not for XSRF)
@@ -63,18 +79,32 @@ object Game extends LilaController {
                 })
               )
               val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-              Ok.chunked(Env.api.gameApiV2.exportUserGames(config)).withHeaders(
-                CONTENT_TYPE -> (format match {
-                  case GameApiV2.Format.PGN => pgnContentType
-                  case GameApiV2.Format.JSON => ndJsonContentType
-                }),
-                CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${user.username}_$date.${format.toString.toLowerCase}")
+              Ok.chunked(Env.api.gameApiV2.exportByUser(config)).withHeaders(
+                CONTENT_TYPE -> gameContentType(config),
+                CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}_$date.${format.toString.toLowerCase}"
               ).fuccess
             }
           }
         }
       }
     }
+
+  private def requestPgnFlags(req: RequestHeader) =
+    lila.game.PgnDump.WithFlags(
+      moves = getBoolOpt("moves", req) | true,
+      tags = getBoolOpt("tags", req) | true,
+      clocks = getBoolOpt("clocks", req) | false,
+      evals = getBoolOpt("evals", req) | false,
+      opening = getBoolOpt("opening", req) | false
+    )
+
+  private def gameContentType(config: GameApiV2.Config) = config.format match {
+    case GameApiV2.Format.PGN => pgnContentType
+    case GameApiV2.Format.JSON => config match {
+      case _: GameApiV2.ByUserConfig => ndJsonContentType
+      case _: GameApiV2.OneConfig => JSON
+    }
+  }
 
   private[controllers] def preloadUsers(game: GameModel): Funit =
     Env.user.lightUserApi preloadMany game.userIds

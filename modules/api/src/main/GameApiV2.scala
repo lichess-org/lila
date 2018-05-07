@@ -6,6 +6,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import chess.format.FEN
+import chess.format.pgn.Tag
 import lila.analyse.{ AnalysisRepo, JsonView => analysisJson, Analysis }
 import lila.common.{ LightUser, MaxPerSecond }
 import lila.game.JsonView._
@@ -20,7 +21,31 @@ final class GameApiV2(
 
   import GameApiV2._
 
-  def exportUserGames(config: Config): Enumerator[String] = {
+  def exportOne(game: Game, config: OneConfig): Fu[String] =
+    game.pgnImport ifTrue config.imported match {
+      case Some(imported) => fuccess(imported.pgn)
+      case None => enrich(config.flags)(game) flatMap {
+        case (game, initialFen, analysis) => config.format match {
+          case Format.JSON => toJson(game, initialFen, analysis, config.flags) map Json.stringify
+          case Format.PGN => pgnDump.toPgnString(game, initialFen, analysis, config.flags)
+        }
+      }
+    }
+
+  private val fileR = """[\s,]""".r
+  def filename(game: Game, format: Format): Fu[String] = gameLightUsers(game) map {
+    case List(wu, bu) => fileR.replaceAllIn(
+      "lichess_pgn_%s_%s_vs_%s.%s.%s".format(
+        Tag.UTCDate.format.print(game.createdAt),
+        pgnDump.dumper.player(game.whitePlayer, wu),
+        pgnDump.dumper.player(game.blackPlayer, bu),
+        game.id,
+        format.toString.toLowerCase
+      ), "_"
+    )
+  }
+
+  def exportByUser(config: ByUserConfig): Enumerator[String] = {
 
     import reactivemongo.play.iteratees.cursorProducer
     import lila.db.dsl._
@@ -48,27 +73,27 @@ final class GameApiV2(
       case Format.JSON => jsonFormatter(config.flags)
     }
 
-    games &>
-      Enumeratee.mapM { game =>
-        GameRepo initialFen game flatMap { initialFen =>
-          (config.flags.evals ?? AnalysisRepo.byGame(game)) map { analysis =>
-            (game, initialFen, analysis)
-          }
-        }
-      } &> formatter
+    games &> Enumeratee.mapM(enrich(config.flags)) &> formatter
   }
+
+  private def enrich(flags: WithFlags)(game: Game) =
+    GameRepo initialFen game flatMap { initialFen =>
+      (flags.evals ?? AnalysisRepo.byGame(game)) map { analysis =>
+        (game, initialFen, analysis)
+      }
+    }
 
   private def jsonFormatter(flags: WithFlags) =
     Enumeratee.mapM[(Game, Option[FEN], Option[Analysis])].apply[String] {
-      case (game, initialFen, analysis) => toJson(game, analysis, initialFen, flags) map { json =>
+      case (game, initialFen, analysis) => toJson(game, initialFen, analysis, flags) map { json =>
         s"${Json.stringify(json)}\n"
       }
     }
 
   private def toJson(
     g: Game,
-    analysisOption: Option[Analysis],
     initialFen: Option[FEN],
+    analysisOption: Option[Analysis],
     withFlags: WithFlags
   ): Fu[JsObject] = gameLightUsers(g) map { lightUsers =>
     Json.obj(
@@ -119,7 +144,17 @@ object GameApiV2 {
     case object JSON extends Format
   }
 
-  case class Config(
+  sealed trait Config {
+    val format: Format
+  }
+
+  case class OneConfig(
+      format: Format,
+      imported: Boolean,
+      flags: WithFlags
+  ) extends Config
+
+  case class ByUserConfig(
       user: lila.user.User,
       format: Format,
       since: Option[DateTime] = None,
@@ -131,7 +166,7 @@ object GameApiV2 {
       color: Option[chess.Color],
       flags: WithFlags,
       perSecond: MaxPerSecond
-  ) {
+  ) extends Config {
     def postFilter(g: Game) =
       rated.fold(true)(g.rated ==) && {
         perfType.isEmpty || g.perfType.exists(perfType.contains)

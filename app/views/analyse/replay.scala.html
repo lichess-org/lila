@@ -69,12 +69,12 @@ atom = atom.some) {
       <div class="pgn_options">
         <strong>PGN</strong>
         <div>
-          <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)">@trans.downloadAnnotated()</a>
+          <a data-icon="x" class="text" rel="nofollow" href="@routes.Game.exportOne(game.id)?evals=1&clocks=1&opening=1">@trans.downloadAnnotated()</a>
           @if(analysis.isDefined) {
-          <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw">@trans.downloadRaw()</a>
+          <a data-icon="x" class="text" rel="nofollow" href="@routes.Game.exportOne(game.id)">@trans.downloadRaw()</a>
           }
           @if(game.isPgnImport) {
-          <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported">@trans.downloadImported()</a>
+          <a data-icon="x" class="text" rel="nofollow" href="@routes.Game.exportOne(game.id)?imported=1">@trans.downloadImported()</a>
           }
           <a data-icon="=" class="text embed_howto" target="_blank">@trans.embedInYourWebsite()</a>
         </div>

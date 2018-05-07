@@ -36,19 +36,6 @@ final class PgnDump(
     }
   }
 
-  private val fileR = """[\s,]""".r
-
-  def filename(game: Game): Fu[String] = gameLightUsers(game) map {
-    case (wu, bu) => fileR.replaceAllIn(
-      "lichess_pgn_%s_%s_vs_%s.%s.pgn".format(
-        Tag.UTCDate.format.print(game.createdAt),
-        player(game.whitePlayer, wu),
-        player(game.blackPlayer, bu),
-        game.id
-      ), "_"
-    )
-  }
-
   private def gameUrl(id: String) = s"$netBaseUrl/$id"
 
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
@@ -56,7 +43,7 @@ final class PgnDump(
 
   private def rating(p: Player) = p.rating.fold("?")(_.toString)
 
-  private def player(p: Player, u: Option[LightUser]) =
+  def player(p: Player, u: Option[LightUser]) =
     p.aiLevel.fold(u.fold(p.name | lila.user.User.anonymous)(_.name))("lichess AI level " + _)
 
   private val customStartPosition: Set[chess.variant.Variant] =

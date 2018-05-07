@@ -11,7 +11,7 @@ import lila.game.PgnDump.WithFlags
 import lila.game.{ Game, GameRepo, Query }
 
 final class PgnDump(
-    dumper: lila.game.PgnDump,
+    val dumper: lila.game.PgnDump,
     getSimulName: String => Fu[Option[String]],
     getTournamentName: String => Option[String]
 ) {
@@ -37,17 +37,17 @@ final class PgnDump(
       }))
   }
 
-  def filename(game: Game) = dumper filename game
-
   def formatter(flags: WithFlags) =
     Enumeratee.mapM[(Game, Option[FEN], Option[Analysis])].apply[String] {
-      case (game, initialFen, analysis) =>
-        apply(game, initialFen, analysis, flags).map { pgn =>
-          // merge analysis & eval comments
-          // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }
-          // 1. e4 { [%eval 0.17] [%clk 0:00:30] }
-          s"$pgn\n\n\n".replace("] } { [", "] [")
-        }
+      case (game, initialFen, analysis) => toPgnString(game, initialFen, analysis, flags)
+    }
+
+  def toPgnString(game: Game, initialFen: Option[FEN], analysis: Option[Analysis], flags: WithFlags) =
+    apply(game, initialFen, analysis, flags).map { pgn =>
+      // merge analysis & eval comments
+      // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }
+      // 1. e4 { [%eval 0.17] [%clk 0:00:30] }
+      s"$pgn\n\n\n".replace("] } { [", "] [")
     }
 
   // def exportGamesFromIds(ids: List[String]): Enumerator[String] =
