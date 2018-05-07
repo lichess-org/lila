@@ -2,6 +2,7 @@ package lila.app
 package templating
 
 import controllers.routes
+import play.api.mvc.RequestHeader
 import play.twirl.api.Html
 
 import lila.api.Context
@@ -86,9 +87,9 @@ trait AssetHelper { self: I18nHelper =>
       s"""<script src="$local"></script>"""
   }
 
-  def defaultCsp(implicit ctx: Context): ContentSecurityPolicy = {
-    val assets = if (ctx.req.secure) "https://" + assetDomain else assetDomain
-    val socket = (if (ctx.req.secure) "wss://" else "ws://") + socketDomain
+  def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
+    val assets = if (req.secure) "https://" + assetDomain else assetDomain
+    val socket = (if (req.secure) "wss://" else "ws://") + socketDomain
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assets),
       connectSrc = List("'self'", assets, socket, lila.api.Env.current.ExplorerEndpoint, lila.api.Env.current.TablebaseEndpoint),
@@ -96,8 +97,13 @@ trait AssetHelper { self: I18nHelper =>
       fontSrc = List("'self'", assetDomain, "https://fonts.gstatic.com"),
       childSrc = List("'self'", "https://youtube.com"),
       imgSrc = List("data:", "*"),
-      scriptSrc = List("'self'", assets, "https://cdnjs.cloudflare.com", ctx.nonce.scriptSrc)
+      scriptSrc = List("'self'", assets, "https://cdnjs.cloudflare.com")
     )
+  }
+
+  def defaultCsp(implicit ctx: Context): ContentSecurityPolicy = {
+    implicit val req = ctx.req
+    basicCsp.withScriptSrc(ctx.nonce.scriptSrc)
   }
 
   def embedJsUnsafe(js: String)(implicit ctx: Context): Html = Html {

@@ -1,9 +1,10 @@
-@(pov: Pov, bg: String, theme: String, assetVersion: lila.common.AssetVersion)
+@(pov: Pov, bg: String, theme: String, assetVersion: lila.common.AssetVersion)(implicit req: RequestHeader)
 
 <!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="Content-Security-Policy" content="@basicCsp">
     <title>lichess.org TV</title>
     @if(bg == "dark") {
     @cssAt("stylesheets/dark.css", true, assetVersion)

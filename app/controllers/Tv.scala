@@ -92,7 +92,7 @@ object Tv extends LilaController {
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 
-  def frame = Action.async { req =>
+  def frame = Action.async { implicit req =>
     Env.tv.tv.getBestGame map {
       case None => NotFound
       case Some(game) => Ok(views.html.tv.embed(
