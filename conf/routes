@@ -490,7 +490,6 @@ GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf:
 GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/user/:name                  controllers.Api.user(name: String)
-GET   /api/user/:name/games            controllers.Api.userGames(name: String)
 GET   /api/user/:name/activity         controllers.Api.activity(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
 GET   /api/games/team/:teamId          controllers.Api.gamesVsTeam(teamId: String)
@@ -510,6 +509,9 @@ POST  /api/account/kid                 controllers.Account.apiKidPost
 GET   /api/account/preferences         controllers.Pref.apiGet
 POST  /api/challenge/$id<\w{8}>/accept  controllers.Challenge.apiAccept(id: String)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)
+
+# Mobile API only
+GET   /api/user/:name/games            controllers.Api.userGames(name: String)
 
 # Bot API
 GET   /api/bot/game/stream/:id         controllers.Bot.gameStream(id: String)
