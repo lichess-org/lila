@@ -34,7 +34,7 @@ object Game extends LidraughtsController {
         val config = GameApiV2.OneConfig(
           format = if (HTTPRequest acceptsJson ctx.req) GameApiV2.Format.JSON else GameApiV2.Format.PDN,
           imported = getBool("imported"),
-          flags = requestPdnFlags(ctx.req, ctx.pref.draughtsResult)
+          flags = requestPdnFlags(ctx.req, ctx.pref.draughtsResult, extended = true)
         )
         lidraughts.mon.export.pdn.game()
         Env.api.gameApiV2.exportOne(game, config) flatMap { content =>
@@ -71,7 +71,7 @@ object Game extends LidraughtsController {
                 perfType = ~get("perfType", req) split "," flatMap { lidraughts.rating.PerfType(_) } toSet,
                 color = get("color", req) flatMap draughts.Color.apply,
                 analysed = getBoolOpt("analysed", req),
-                flags = requestPdnFlags(req, draughtsResult),
+                flags = requestPdnFlags(req, draughtsResult, extended = false),
                 perSecond = MaxPerSecond(me match {
                   case Some(m) if m is user.id => 50
                   case Some(_) if oauth => 20 // bonus for oauth logged in only (not for XSRF)
@@ -89,13 +89,13 @@ object Game extends LidraughtsController {
       }
     }
 
-  private def requestPdnFlags(req: RequestHeader, draughtsResult: Boolean) =
+  private def requestPdnFlags(req: RequestHeader, draughtsResult: Boolean, extended: Boolean) =
     lidraughts.game.PdnDump.WithFlags(
       moves = getBoolOpt("moves", req) | true,
       tags = getBoolOpt("tags", req) | true,
-      clocks = getBoolOpt("clocks", req) | false,
-      evals = getBoolOpt("evals", req) | false,
-      opening = getBoolOpt("opening", req) | false,
+      clocks = getBoolOpt("clocks", req) | extended,
+      evals = getBoolOpt("evals", req) | extended,
+      opening = getBoolOpt("opening", req) | extended,
       draughtsResult = draughtsResult
     )
 
