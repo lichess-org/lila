@@ -15,7 +15,7 @@ atom: Option[Html] = None,
 chessground: Boolean = true,
 zoomable: Boolean = false,
 asyncJs: Boolean = false,
-csp: Option[String] = None)(body: Html)(implicit ctx: Context)
+csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <!-- Lichess is open source! See https://github.com/ornicar/lila -->
