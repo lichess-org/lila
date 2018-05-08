@@ -86,7 +86,7 @@ Jednak czasami bardziej przydatny może być skoczek!</string>
   <string name="outOfCheckIntro">Zostałeś zaszachowany! Musisz uciec lub odeprzeć atak.</string>
   <string name="escapeWithTheKing">Uciekaj królem!</string>
   <string name="theKingCannotEscapeButBlock">Król nie może uciec, ale możesz zablokować atak!</string>
-  <string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem zbijając bierkę atakującą króla.</string>
+  <string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem bijąc atakującą króla figurę.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ten skoczek szachuje króla poprzez Twoją obronę!</string>
   <string name="escapeOrBlock">Ucieknij królem lub odeprzyj atak!</string>
   <string name="outOfCheckComplete">Gratulacje! Twój król jest niepokonany, sprawdź czy potrafisz bronić się przed szachem!</string>
