@@ -54,14 +54,14 @@ private final class PasswordHasher(
   import org.mindrot.BCrypt
   import User.ClearPassword
 
+  private val prng = new SecureRandom()
   private val aes = new Aes(secret)
   private def bHash(salt: Array[Byte], p: ClearPassword) =
     hashTimer(BCrypt.hashpwRaw(p.value.sha512, 'a', logRounds, salt))
 
   def hash(p: ClearPassword): HashedPassword = {
     val salt = new Array[Byte](16)
-    new SecureRandom().nextBytes(salt)
-
+    prng.nextBytes(salt)
     HashedPassword(salt ++ aes.encrypt(Aes.iv(salt), bHash(salt, p)))
   }
 
