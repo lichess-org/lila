@@ -55,28 +55,27 @@ object GamesByUsersStream {
     case Game.WithInitialFen(g, initialFen) =>
       Json.obj(
         "id" -> g.id,
-        "initialFen" -> initialFen,
         "rated" -> g.rated,
         "variant" -> g.variant.key,
         "speed" -> g.speed.key,
         "perf" -> PerfPicker.key(g),
         "createdAt" -> g.createdAt,
         "status" -> g.status.id,
-        "clock" -> g.clock.map { clock =>
+        "players" -> JsObject(g.players.zipWithIndex map {
+          case (p, i) => p.color.name -> Json.obj(
+            "userId" -> p.userId,
+            "rating" -> p.rating
+          ).add("provisional" -> p.provisional)
+            .add("name" -> p.name)
+        })
+      ).add("initialFen" -> initialFen)
+        .add("clock" -> g.clock.map { clock =>
           Json.obj(
             "initial" -> clock.limitSeconds,
             "increment" -> clock.incrementSeconds,
             "totalTime" -> clock.estimateTotalSeconds
           )
-        },
-        "daysPerTurn" -> g.daysPerTurn,
-        "players" -> JsObject(g.players.zipWithIndex map {
-          case (p, i) => p.color.name -> Json.obj(
-            "userId" -> p.userId,
-            "name" -> p.name,
-            "rating" -> p.rating
-          ).add("provisional" -> p.provisional)
         })
-      ).noNull
+        .add("daysPerTurn" -> g.daysPerTurn)
   }
 }
