@@ -10,7 +10,7 @@ case class Nonce(value: String) extends AnyVal with StringValue {
 object Nonce {
 
   def forRequest(req: RequestHeader): Option[Nonce] =
-    HTTPRequest.isSynchronousHttp(req) ?? random.some
+    HTTPRequest.isSynchronousHttp(req) option random
 
   private def random: Nonce = Nonce(Random.secureString(20))
 }
