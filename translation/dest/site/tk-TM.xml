@@ -51,6 +51,7 @@
   <string name="depthX">Çuňlyk %s</string>
   <string name="usingServerAnalysis">Serwer derňewi ulanylýar</string>
   <string name="loadingEngine">Küşt motory ýüklenýär ...</string>
+  <string name="cloudAnalysis">Bulut derňewi</string>
   <string name="goDeeper">Has çuňlaşdyr</string>
   <string name="showThreat">Howpy görkez</string>
   <string name="inLocalBrowser">ýerli browzerde</string>
@@ -74,6 +75,10 @@
   <string name="recentGames">Ýakyndaky oýunlar</string>
   <string name="topGames">Naýbaşy oýunlar</string>
   <string name="masterDbExplanation">%2$s we %3$s arasyndaky %1$s+ FIDE reýtingli küştçilerden iki million TB oýunlar</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">%s ýarym-göçümde mat</item>
+    <item quantity="other">%s ýarym-göçümde mat</item>
+  </plurals>
   <string name="openingExplorer">Açylyşlar eksploreri &amp; tablisasy</string>
   <string name="blunders">Säwlikler</string>
   <string name="mistakes">Ýalňyşlar</string>
