@@ -64,7 +64,12 @@ object Global extends GlobalSettings {
       if (lila.common.PlayApp.isProd) {
         lila.mon.http.response.code500()
         fuccess(InternalServerError(views.html.base.errorPage(ex) {
-          lila.api.Context.error(req, lila.common.AssetVersion(lila.app.Env.api.assetVersionSetting.get()), lila.i18n.defaultLang)
+          lila.api.Context.error(
+            req,
+            lila.common.AssetVersion(lila.app.Env.api.assetVersionSetting.get()),
+            lila.i18n.defaultLang,
+            lila.common.Nonce forRequest req
+          )
         }))
       } else super.onError(req, ex)
     } else scala.concurrent.Future {

@@ -9,7 +9,7 @@ import play.twirl.api.Html
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
-import lila.common.{ LilaCookie, HTTPRequest, ApiVersion }
+import lila.common.{ LilaCookie, HTTPRequest, ApiVersion, Nonce }
 import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ Permission, Granter, FingerprintedUser }
@@ -337,10 +337,11 @@ private[controllers] trait LilaController
         pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
     }
 
-  private def pageDataBuilder(ctx: UserContext, hasFingerprint: Boolean): Fu[PageData] =
-    ctx.me.fold(fuccess(PageData.anon(ctx.req, getAssetVersion, blindMode(ctx)))) { me =>
+  private def pageDataBuilder(ctx: UserContext, hasFingerprint: Boolean): Fu[PageData] = {
+    val isPage = HTTPRequest isSynchronousHttp ctx.req
+    val nonce = isPage option Nonce.random
+    ctx.me.fold(fuccess(PageData.anon(ctx.req, getAssetVersion, nonce, blindMode(ctx)))) { me =>
       import lila.relation.actorApi.OnlineFriends
-      val isPage = HTTPRequest.isSynchronousHttp(ctx.req)
       Env.pref.api.getPref(me, ctx.req) zip {
         if (isPage) {
           Env.user.lightUserApi preloadUser me
@@ -358,9 +359,11 @@ private[controllers] trait LilaController
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerprint,
             assetVersion = getAssetVersion,
-            inquiry = inquiry)
+            inquiry = inquiry,
+            nonce = nonce)
       }
     }
+  }
 
   protected def getAssetVersion = lila.common.AssetVersion(Env.api.assetVersionSetting.get())
 
