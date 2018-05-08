@@ -69,7 +69,7 @@ object Global extends GlobalSettings {
             req,
             lila.common.AssetVersion(lila.app.Env.api.assetVersionSetting.get()),
             lila.i18n.defaultLang,
-            lila.common.Nonce forRequest req
+            HTTPRequest.isSynchronousHttp(req) option lila.common.Nonce.random
           )
         }))
       } else super.onError(req, ex)

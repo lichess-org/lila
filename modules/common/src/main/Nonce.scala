@@ -1,6 +1,5 @@
 package lila.common
 
-import play.api.mvc.RequestHeader
 import ornicar.scalalib.Random
 
 case class Nonce(value: String) extends AnyVal with StringValue {
@@ -8,9 +7,6 @@ case class Nonce(value: String) extends AnyVal with StringValue {
 }
 
 object Nonce {
-
-  def forRequest(req: RequestHeader): Option[Nonce] =
-    HTTPRequest.isSynchronousHttp(req) option random
 
   def random: Nonce = Nonce(Random.secureString(20))
 }
