@@ -51,7 +51,9 @@ object HTTPRequest {
       userAgent(req) ?? { ua => pattern.matcher(ua).find }
   }
 
-  def isHuman(req: RequestHeader) = !isBot(req)
+  def isFishnet(req: RequestHeader) = req.path startsWith "/fishnet/"
+
+  def isHuman(req: RequestHeader) = !isBot(req) && !isFishnet(req)
 
   def isFacebookOrTwitterBot(req: RequestHeader) = userAgent(req) ?? { ua =>
     ua.contains("facebookexternalhit/") || ua.contains("twitterbot/")

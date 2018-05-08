@@ -15,6 +15,7 @@ object mon {
       val xhr = inc("http.request.xhr")
       val ws = inc("http.request.ws")
       val bot = inc("http.request.bot")
+      val fishnet = inc("http.request.fishnet")
       val page = inc("http.request.page")
       def path(p: String) = inc(s"http.request.path.$p")
     }
