@@ -9,9 +9,8 @@ case class Nonce(value: String) extends AnyVal with StringValue {
 
 object Nonce {
 
-  def get(real: Boolean): Nonce = if (real) random else stub
-  def get(req: RequestHeader): Nonce = get(HTTPRequest isSynchronousHttp req)
+  def forRequest(req: RequestHeader): Option[Nonce] =
+    HTTPRequest.isSynchronousHttp(req) ?? random.some
 
   private def random: Nonce = Nonce(Random.secureString(20))
-  private val stub: Nonce = Nonce("stub")
 }

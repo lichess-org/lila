@@ -68,7 +68,7 @@ object Global extends GlobalSettings {
             req,
             lila.common.AssetVersion(lila.app.Env.api.assetVersionSetting.get()),
             lila.i18n.defaultLang,
-            lila.common.Nonce get req
+            lila.common.Nonce forRequest req
           )
         }))
       } else super.onError(req, ex)

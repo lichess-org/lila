@@ -85,7 +85,7 @@ csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx:
     data-socket-domain="@socketDomain"
     data-asset-url="@assetBaseUrl"
     data-asset-version="@ctx.pageData.assetVersion"
-    data-nonce="@ctx.nonce"
+    @ctx.nonce.map { nonce => data-nonce="@nonce" }
     @ctx.zoom.map { zoom => data-zoom="@zoom" }>
     <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST"><input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" /><input type="hidden" name="redirect" value="@ctx.req.path" /><button type="submit">Accessibility: @ctx.blindMode.fold("Disable", "Enable") blind mode</button></form>
     <div id="site_description">@trans.siteDescription()</div>
