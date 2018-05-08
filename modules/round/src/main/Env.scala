@@ -155,7 +155,7 @@ final class Env(
     evalCacheHandler = evalCacheHandler,
     selfReport = selfReport,
     bus = bus
-  )
+  )(system)
 
   lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi)
 
