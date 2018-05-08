@@ -216,7 +216,7 @@ object Tournament extends LidraughtsController {
     key = "tournament.ip"
   )
 
-  private implicit val rateLimited = ornicar.scalalib.Zero.instance[Fu[Result]] {
+  private val rateLimited = ornicar.scalalib.Zero.instance[Fu[Result]] {
     fuccess(Redirect(routes.Tournament.home(1)))
   }
 
@@ -233,8 +233,8 @@ object Tournament extends LidraughtsController {
                   env.api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
                     Redirect(routes.Tournament.show(tour.id))
                   }
-                }
-              }
+                }(rateLimited)
+              }(rateLimited)
           ),
           api = _ => env.forms(me).bindFromRequest.fold(
             err => BadRequest(errorsAsJson(err)).fuccess,
