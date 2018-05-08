@@ -551,6 +551,7 @@
   <string name="thisAccountIsClosed">Contul este închis.</string>
   <string name="invalidUsernameOrPassword">Nume sau parolă invalidă</string>
   <string name="incorrectPassword">Parolă greșită</string>
+  <string name="invalidAuthenticationCode">Cod de autentificare incorect</string>
   <string name="emailMeALink">Trimite-mi un email cu link-ul</string>
   <string name="currentPassword">Parola curentă</string>
   <string name="newPassword">Noua parolă</string>
