@@ -6,7 +6,7 @@ import play.api.mvc.RequestHeader
 object HTTPRequest {
 
   def isXhr(req: RequestHeader): Boolean =
-    (req.headers get "X-Requested-With") contains "XMLHttpRequest"
+    req.headers get "X-Requested-With" contains "XMLHttpRequest"
 
   def isSocket(req: RequestHeader): Boolean =
     (req.headers get HeaderNames.UPGRADE).exists(_.toLowerCase == "websocket")

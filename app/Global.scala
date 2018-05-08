@@ -64,7 +64,12 @@ object Global extends GlobalSettings {
       if (lidraughts.common.PlayApp.isProd) {
         lidraughts.mon.http.response.code500()
         fuccess(InternalServerError(views.html.base.errorPage(ex) {
-          lidraughts.api.Context.error(req, lidraughts.common.AssetVersion(lidraughts.app.Env.api.assetVersionSetting.get()), lidraughts.i18n.defaultLang)
+          lidraughts.api.Context.error(
+            req,
+            lidraughts.common.AssetVersion(lidraughts.app.Env.api.assetVersionSetting.get()),
+            lidraughts.i18n.defaultLang,
+            lidraughts.common.Nonce get req
+          )
         }))
       } else super.onError(req, ex)
     } else scala.concurrent.Future {
