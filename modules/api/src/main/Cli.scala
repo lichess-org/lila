@@ -15,6 +15,7 @@ private[api] final class Cli(bus: lidraughts.common.Bus) extends lidraughts.comm
   }
 
   def process = {
+    case "uptime" :: Nil => fuccess(lidraughts.common.PlayApp.uptime.toStandardSeconds.getSeconds.toString)
     case "deploy" :: "pre" :: Nil => remindDeploy(lidraughts.hub.actorApi.DeployPre)
     case "deploy" :: "post" :: Nil => remindDeploy(lidraughts.hub.actorApi.DeployPost)
     case "gdpr" :: "erase" :: username :: "forever" :: Nil =>
