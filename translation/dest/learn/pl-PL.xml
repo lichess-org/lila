@@ -105,7 +105,7 @@ Jednak czasami bardziej przydatny może być skoczek!</string>
   <string name="placeTheBishops">Ustaw gońce! Umieść je obok skoczków.</string>
   <string name="placeTheQueen">Ustaw hetmana! Umieść go na polu jego własnego koloru.</string>
   <string name="placeTheKing">Ustaw króla! Umieść go obok hetmana.</string>
-  <string name="pawnsFormTheFrontLine">Pionki tworzą linię frontu. Zrób dowolny ruch aby kontynuować.</string>
+  <string name="pawnsFormTheFrontLine">Piony tworzą linię frontu. Zrób dowolny ruch aby kontynuować.</string>
   <string name="boardSetupComplete">Gratulacje! Wiesz jak ustawiać figury na szachownicy.</string>
   <string name="castling">Roszada</string>
   <string name="theSpecialKingMove">Specjalny ruch króla</string>
@@ -121,33 +121,33 @@ Jednak czasami bardziej przydatny może być skoczek!</string>
   <string name="findAWayToCastleQueenSide">Znajdź sposób aby wykonać długą roszadę!</string>
   <string name="castlingComplete">Gratulacje! Powinieneś roszować w prawie każdej partii.</string>
   <string name="enPassant">Bicie w przelocie</string>
-  <string name="theSpecialPawnMove">Specjalny ruch pionka</string>
-  <string name="enPassantIntro">Kiedy pionek przeciwnika poruszył się o dwa pola, możesz zbić go tak jakby poruszył się o jedno pole.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Czarne właśnie ruszyły się pionkiem o dwa pola! Zbij go w przelocie.</string>
-  <string name="enPassantOnlyWorksImmediately">Bicie w przelocie działa tylko bezpośrednio po tym jak przeciwnik ruszył pionkiem.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Bicie w przelocie działa tylko wtedy, gdy Twój pionek jest na 5. linii.</string>
-  <string name="takeAllThePawnsEnPassant">Zbij wszystkie pionki w przelocie!</string>
+  <string name="theSpecialPawnMove">Specjalny ruch piona</string>
+  <string name="enPassantIntro">Kiedy pion przeciwnika poruszył się o dwa pola do przodu, możesz zbić go tak jakby poruszył się tylko o jedno pole.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Czarne właśnie ruszyły się pionem o dwa pola do przodu! Zbij go biciem w przelocie.</string>
+  <string name="enPassantOnlyWorksImmediately">Bicie w przelocie działa tylko od razu po ruchu przeciwnika pionem.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Bicie w przelocie działa tylko wtedy gdy pion jest na 5 linii.</string>
+  <string name="takeAllThePawnsEnPassant">Zbij wszystkie piony biciem w przelocie!</string>
   <string name="enPassantComplete">Gratulacje! Potrafisz teraz wykonać bicie w przelocie.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Partia zakończona remisem</string>
   <string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie może zrobić żadnego prawidłowego ruchu to jest to pat. Partia jest zakończona remisem: nikt nie wygrywa, nikt nie przegrywa.</string>
-  <string name="stalemateGoal">Czarne będą zapatowane gdy:
-- nie będą mogły się nigdzie ruszyć
-- nie będzie szacha.</string>
-  <string name="stalemateComplete">Gratulacje! Lepiej zostać zapatowanym niż zamatowanym!</string>
+  <string name="stalemateGoal">Czarne dostaną pata gdy:
+- nie będą mogły się ruszyć
+- nie będą szachowane</string>
+  <string name="stalemateComplete">Gratulacje! Lepiej dostać pata niż mata!</string>
   <string name="advanced">Zaawansowane</string>
-  <string name="pieceValue">Wartości bierek</string>
-  <string name="evaluatePieceStrength">Oceń siłę bierek</string>
-  <string name="pieceValueIntro">Bierki z dużymi możliwościami poruszania się mają większą wartość!
+  <string name="pieceValue">Wartości figur</string>
+  <string name="evaluatePieceStrength">Oceń siłę każdej figury</string>
+  <string name="pieceValueIntro">Figury mające większe możliwości poruszania się warte są więcej!
 Hetman = 9
 Wieża = 5
 Goniec = 3
 Skoczek = 3
-Pionek = 1
-Król jest bezcenny! Utrata króla oznacza przegranie partii.</string>
-  <string name="queenOverBishop">Zbij bierkę o największej wartości!
+Pion = 1
+Król jest bezcenny! Tracąc króla przegrywasz partię.</string>
+  <string name="queenOverBishop">Zbij figurę o największej wartości!
 hetman &gt; goniec</string>
-  <string name="takeThePieceWithTheHighestValue">Zbij bierkę o najwyższej wartości!</string>
+  <string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
   <string name="pieceValueComplete">Gratulacje! Znasz wartość materiału!
 Hetman = 9
 Wieża = 5
