@@ -578,6 +578,7 @@
   <string name="thisAccountIsClosed">Tento účet je zrušen.</string>
   <string name="invalidUsernameOrPassword">Špatné jméno nebo heslo</string>
   <string name="incorrectPassword">Nesprávné heslo</string>
+  <string name="invalidAuthenticationCode">Neplatný ověřovací kód</string>
   <string name="emailMeALink">Pošlete mi odkaz e-mailem</string>
   <string name="currentPassword">Současné heslo</string>
   <string name="newPassword">Nové heslo</string>

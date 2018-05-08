@@ -525,6 +525,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="thisAccountIsClosed">Questo account è stato chiuso.</string>
   <string name="invalidUsernameOrPassword">Nome utente o password non validi</string>
   <string name="incorrectPassword">Password errata</string>
+  <string name="invalidAuthenticationCode">Codice di autenticazione non valido</string>
   <string name="emailMeALink">Inviami il link via email</string>
   <string name="currentPassword">Password attuale</string>
   <string name="newPassword">Nuova password</string>
