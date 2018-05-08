@@ -85,7 +85,7 @@ final class Env(
     moveDb = moveDb,
     uciMemo = uciMemo,
     maxPlies = MovePlies
-  )
+  )(system)
 
   private val limiter = new Limiter(
     analysisColl = analysisColl,
