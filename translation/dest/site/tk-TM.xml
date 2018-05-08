@@ -79,7 +79,19 @@
     <item quantity="one">%s ýarym-göçümde mat</item>
     <item quantity="other">%s ýarym-göçümde mat</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">%s ýarym-göçümde nobatdaky iýme ýa-da pyýada göçümi (50 göçüm sanawyny nollamaga bolan aralyk)</item>
+    <item quantity="other">%s ýarym-göçümde nobatdaky iýme ýa-da pyýada göçümi (50 göçüm sanawyny nollamaga bolan aralyk)</item>
+  </plurals>
+  <string name="noGameFound">Oýun tapylmady</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belkäm ileri tutmalar menýusyndan has köp oýun importirlenmeli?</string>
   <string name="openingExplorer">Açylyşlar eksploreri &amp; tablisasy</string>
+  <string name="xOpeningExplorer">%s açylyşlar eksploreri</string>
+  <string name="winPreventedBy50MoveRule">50-göçüm düzgüni zerarly gabzalan ýeňiş</string>
+  <string name="lossSavedBy50MoveRule">50-göçüm düzgüni zerarly halas edilen utulyş</string>
+  <string name="allSet">Ählisi sazlandy!</string>
+  <string name="delete">Öçür</string>
+  <string name="realtimeReplay">Hakyky wagt</string>
   <string name="blunders">Säwlikler</string>
   <string name="mistakes">Ýalňyşlar</string>
   <string name="inaccuracies">Bitakyklyklar</string>
