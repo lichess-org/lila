@@ -32,7 +32,7 @@ object Bot extends LidraughtsController {
     cmd.split('/') match {
       case Array("account", "upgrade") =>
         lidraughts.user.UserRepo.setBot(me) >>- Env.user.lightUserApi.invalidate(me.id) inject jsonOkResult recover {
-          case e: Exception => BadRequest(jsonError(e.getMessage))
+          case e: lidraughts.base.LidraughtsException => BadRequest(jsonError(e.getMessage))
         }
       case Array("game", id, "chat") => WithBot(me) {
         Env.bot.form.chat.bindFromRequest.fold(
