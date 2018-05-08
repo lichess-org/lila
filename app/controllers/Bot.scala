@@ -14,7 +14,7 @@ object Bot extends LidraughtsController {
     WithMyBotGame(id, me) { pov =>
       RequireHttp11(req) {
         lidraughts.game.GameRepo.withInitialFen(pov.game) map { wf =>
-          Ok.chunked(Env.bot.gameStateStream(me, wf, pov.color))
+          Api.jsonOptionStream(Env.bot.gameStateStream(me, wf, pov.color))
         }
       }
     }

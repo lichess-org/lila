@@ -240,7 +240,7 @@ object Api extends LidraughtsController {
   def gamesByUsersStream = Action.async(parse.tolerantText) { req =>
     RequireHttp11(req) {
       val userIds = req.body.split(',').take(300).toSet map lidraughts.user.User.normalize
-      Ok.chunked(Env.game.gamesByUsersStream(userIds)).fuccess
+      jsonStream(Env.game.gamesByUsersStream(userIds)).fuccess
     }
   }
 
@@ -248,7 +248,7 @@ object Api extends LidraughtsController {
     RequireHttp11(req) {
       lidraughts.game.GameRepo.urgentGames(me) flatMap { povs =>
         Env.challenge.api.createdByDestId(me.id) map { challenges =>
-          Ok.chunked(Env.api.eventStream(me, povs.map(_.game), challenges))
+          jsonOptionStream(Env.api.eventStream(me, povs.map(_.game), challenges))
         }
       }
     }
@@ -310,16 +310,21 @@ object Api extends LidraughtsController {
 
   private[controllers] val tooManyRequests = TooManyRequest(jsonError("Error 429: Too many requests! Try again later."))
 
-  def toHttp(result: ApiResult): Result = result match {
+  private[controllers] def toHttp(result: ApiResult): Result = result match {
     case Limited => tooManyRequests
     case NoData => NotFound
     case Custom(result) => result
     case Data(json) => Ok(json) as JSON
   }
 
-  def jsonStream(stream: Enumerator[JsObject]) = Ok.chunked {
-    stream &> Enumeratee.map { o =>
-      Json.stringify(o) + "\n"
-    }
-  }.withHeaders(CONTENT_TYPE -> ndJsonContentType)
+  private[controllers] def jsonStream(stream: Enumerator[JsObject]): Result = jsonStringStream {
+    stream &> Enumeratee.map { o => Json.stringify(o) + "\n" }
+  }
+
+  private[controllers] def jsonOptionStream(stream: Enumerator[Option[JsObject]]): Result = jsonStringStream {
+    stream &> Enumeratee.map { _ ?? Json.stringify + "\n" }
+  }
+
+  private def jsonStringStream(stream: Enumerator[String]): Result =
+    Ok.chunked(stream).withHeaders(CONTENT_TYPE -> ndJsonContentType)
 }
