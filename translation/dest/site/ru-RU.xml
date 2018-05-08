@@ -631,7 +631,7 @@
   <string name="xAnsweredY">%1$s ответил на вопрос %2$s</string>
   <string name="xCommentedY">%1$s прокомментировал вопрос %2$s</string>
   <string name="victory">Победа</string>
-  <string name="defeat">Поражения</string>
+  <string name="defeat">Поражение</string>
   <string name="xVsYinZ">%1$s в %3$s с %2$s</string>
   <string name="timeline">Хронология</string>
   <string name="seeAllTournaments">Посмотреть все турниры</string>
