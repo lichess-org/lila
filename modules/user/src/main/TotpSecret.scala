@@ -45,11 +45,13 @@ object TotpSecret {
   // number of digits in token
   private val digits = 6
 
+  private val secureRandom = new SecureRandom()
+
   def apply(base32: String) = new TotpSecret(new Base32().decode(base32))
 
   def random: TotpSecret = {
     val secret = new Array[Byte](10)
-    new SecureRandom().nextBytes(secret)
+    secureRandom.nextBytes(secret)
     apply(secret)
   }
 
