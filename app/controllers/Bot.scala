@@ -14,7 +14,7 @@ object Bot extends LilaController {
     WithMyBotGame(id, me) { pov =>
       RequireHttp11(req) {
         lila.game.GameRepo.withInitialFen(pov.game) map { wf =>
-          Ok.chunked(Env.bot.gameStateStream(me, wf, pov.color))
+          Api.jsonOptionStream(Env.bot.gameStateStream(me, wf, pov.color))
         }
       }
     }

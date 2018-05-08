@@ -13,7 +13,7 @@ final class GamesByUsersStream(system: ActorSystem) {
   import GamesByUsersStream._
   import lila.common.HttpStream._
 
-  def apply(userIds: Set[User.ID]): Enumerator[String] = {
+  def apply(userIds: Set[User.ID]): Enumerator[JsObject] = {
 
     def matches(game: Game) = game.userIds match {
       case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
@@ -35,7 +35,7 @@ final class GamesByUsersStream(system: ActorSystem) {
       onComplete = onComplete(stream, system)
     )
 
-    enumerator &> withInitialFen &> toJson &> stringify
+    enumerator &> withInitialFen &> toJson
   }
 
   private val withInitialFen =

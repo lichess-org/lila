@@ -18,11 +18,11 @@ final class EventStream(
 
   import lila.common.HttpStream._
 
-  def apply(me: User, gamesInProgress: List[Game], challenges: List[Challenge]): Enumerator[String] = {
+  def apply(me: User, gamesInProgress: List[Game], challenges: List[Challenge]): Enumerator[Option[JsObject]] = {
 
     var stream: Option[ActorRef] = None
 
-    val enumerator = Concurrent.unicast[Option[JsObject]](
+    Concurrent.unicast[Option[JsObject]](
       onStart = channel => {
         val actor = system.actorOf(Props(new Actor {
 
@@ -70,7 +70,5 @@ final class EventStream(
       },
       onComplete = onComplete(stream, system)
     )
-
-    enumerator &> stringifyOrEmpty
   }
 }
