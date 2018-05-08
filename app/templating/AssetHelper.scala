@@ -101,11 +101,14 @@ trait AssetHelper { self: I18nHelper =>
     )
   }
 
-  def defaultCsp(implicit ctx: Context): ContentSecurityPolicy =
-    basicCsp(ctx.req).withNonce(ctx.nonce)
+  def defaultCsp(implicit ctx: Context): ContentSecurityPolicy = {
+    val csp = basicCsp(ctx.req)
+    ctx.nonce.fold(csp)(csp.withNonce(_))
+  }
 
   def embedJsUnsafe(js: String)(implicit ctx: Context): Html = Html {
-    s"""<script nonce="${ctx.nonce}">$js</script>"""
+    val nonce = ctx.nonce ?? { nonce => s""" nonce="$nonce"""" }
+    s"""<script$nonce>$js</script>"""
   }
 
   def embedJs(js: Html)(implicit ctx: Context): Html = embedJsUnsafe(js.body)

@@ -68,7 +68,7 @@ object Global extends GlobalSettings {
             req,
             lidraughts.common.AssetVersion(lidraughts.app.Env.api.assetVersionSetting.get()),
             lidraughts.i18n.defaultLang,
-            lidraughts.common.Nonce get req
+            lidraughts.common.Nonce forRequest req
           )
         }))
       } else super.onError(req, ex)
