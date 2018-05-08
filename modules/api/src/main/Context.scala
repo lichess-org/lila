@@ -24,7 +24,7 @@ case class PageData(
 
 object PageData {
 
-  def anon(req: RequestHeader, v: AssetVersion, blindMode: Boolean = false) = PageData(
+  def anon(req: RequestHeader, v: AssetVersion, nonce: Nonce, blindMode: Boolean = false) = PageData(
     OnlineFriends.empty,
     teamNbRequests = 0,
     nbChallenges = 0,
@@ -34,10 +34,10 @@ object PageData {
     hasFingerprint = false,
     assetVersion = v,
     inquiry = none,
-    nonce = Nonce.random
+    nonce = nonce
   )
 
-  def error(req: RequestHeader, v: AssetVersion) = anon(req, v).copy(error = true)
+  def error(req: RequestHeader, v: AssetVersion, nonce: Nonce) = anon(req, v, nonce).copy(error = true)
 }
 
 sealed trait Context extends lila.user.UserContextWrapper {
@@ -101,8 +101,8 @@ final class HeaderContext(
 
 object Context {
 
-  def error(req: RequestHeader, v: AssetVersion, lang: Lang): HeaderContext =
-    new HeaderContext(UserContext(req, none, none, lang), PageData.error(req, v))
+  def error(req: RequestHeader, v: AssetVersion, lang: Lang, nonce: Nonce): HeaderContext =
+    new HeaderContext(UserContext(req, none, none, lang), PageData.error(req, v, nonce))
 
   def apply(userContext: HeaderUserContext, pageData: PageData): HeaderContext =
     new HeaderContext(userContext, pageData)
