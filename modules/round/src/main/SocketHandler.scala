@@ -1,13 +1,14 @@
 package lila.round
 
 import scala.concurrent.Promise
+import scala.concurrent.duration._
 import scala.util.Try
 
 import akka.actor._
 import akka.pattern.ask
 import chess.format.Uci
 import chess.{ Centis, MoveMetrics, Color }
-import play.api.libs.json.{ JsObject, Json }
+import play.api.libs.json.{ JsObject, JsNumber, Json }
 
 import actorApi._, round._
 import lila.chat.Chat
@@ -31,7 +32,7 @@ private[round] final class SocketHandler(
     selfReport: SelfReport,
     bus: lila.common.Bus,
     isRecentTv: Game.ID => Boolean
-) {
+)(system: akka.actor.ActorSystem) {
 
   private def controller(
     gameId: Game.ID,
@@ -61,12 +62,21 @@ private[round] final class SocketHandler(
         case ("p", o) => socket ! Ping(uid, o)
         case ("move", o) => parseMove(o) foreach {
           case (move, blur, lag) =>
-            val promise = Promise[Unit]
-            promise.future onFailure {
-              case _: Exception => socket ! Resync(uid.value)
+            if (util.Random.nextBoolean) {
+              println("oops, lost a move!")
+            } else {
+              val promise = Promise[Unit]
+              promise.future onFailure {
+                case _: Exception => socket ! Resync(uid.value)
+              }
+              send(HumanPlay(playerId, move, blur, lag, promise.some))
+              println("move hack")
+              member push ackEvent
+              system.scheduler.scheduleOnce(2 seconds) {
+                println("move extra hack")
+                member push ackEvent
+              }
             }
-            send(HumanPlay(playerId, move, blur, lag, promise.some))
-            member push ackEvent
         }
         case ("drop", o) => parseDrop(o) foreach {
           case (drop, blur, lag) =>
@@ -192,4 +202,5 @@ private[round] final class SocketHandler(
     o str "d" flatMap Color.apply map { ClientFlag(_, playerId) }
 
   private val ackEvent = Json.obj("t" -> "ack")
+  private def ackEventWithPly(ply: Int) = ackEvent + ("d" -> JsNumber(ply))
 }

@@ -165,7 +165,7 @@ final class Env(
     selfReport = selfReport,
     bus = bus,
     isRecentTv = recentTvGames get _
-  )
+  )(system)
 
   lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi)
 
