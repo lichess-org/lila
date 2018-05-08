@@ -215,7 +215,7 @@ object Tournament extends LilaController {
     key = "tournament.ip"
   )
 
-  private implicit val rateLimited = ornicar.scalalib.Zero.instance[Fu[Result]] {
+  private val rateLimited = ornicar.scalalib.Zero.instance[Fu[Result]] {
     fuccess(Redirect(routes.Tournament.home(1)))
   }
 
@@ -231,8 +231,8 @@ object Tournament extends LilaController {
                 env.api.createTournament(setup, me) map { tour =>
                   Redirect(routes.Tournament.show(tour.id))
                 }
-              }
-            }
+              }(rateLimited)
+            }(rateLimited)
         ),
         api = _ => env.forms(me).bindFromRequest.fold(
           err => BadRequest(errorsAsJson(err)).fuccess,
