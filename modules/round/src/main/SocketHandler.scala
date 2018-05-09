@@ -69,7 +69,7 @@ private[round] final class SocketHandler(
               case _: Exception => socket ! Resync(uid.value)
             }
             send(HumanPlay(playerId, move, blur, lag, promise.some))
-            member.push(ackId.fold(ackEmpty)(ackWithId))
+            member.push(ackMessage(ackId))
         }
         case ("drop", o) => parseDrop(o) foreach {
           case (drop, blur, lag, ackId) =>
@@ -78,7 +78,7 @@ private[round] final class SocketHandler(
               case _: Exception => socket ! Resync(uid.value)
             }
             send(HumanPlay(playerId, drop, blur, lag, promise.some))
-            member.push(ackId.fold(ackEmpty)(ackWithId))
+            member.push(ackMessage(ackId))
         }
         case ("rematch-yes", _) => send(RematchYes(playerId))
         case ("rematch-no", _) => send(RematchNo(playerId))
@@ -101,9 +101,9 @@ private[round] final class SocketHandler(
           mean ← d int "mean"
           sd ← d int "sd"
         } send(HoldAlert(playerId, mean, sd, member.ip))
-        case ("berserk", _) => member.userId foreach { userId =>
+        case ("berserk", o) => member.userId foreach { userId =>
           hub.actor.tournamentApi ! Berserk(gameId, userId)
-          member push ackEmpty
+          member.push(ackMessage((o \ "d" \ "a").asOpt[AckId]))
         }
         case ("rep", o) => for {
           d ← o obj "d"
@@ -197,7 +197,9 @@ private[round] final class SocketHandler(
     o str "d" flatMap Color.apply map { ClientFlag(_, playerId) }
 
   private val ackEmpty = Json.obj("t" -> "ack")
-  private def ackWithId(id: AckId) = ackEmpty + ("d" -> JsNumber(id.value))
+  private def ackMessage(id: Option[AckId]) = id.fold(ackEmpty) { ackId =>
+    ackEmpty + ("d" -> JsNumber(ackId.value))
+  }
 }
 
 private object SocketHandler {

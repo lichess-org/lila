@@ -71,7 +71,10 @@ lichess.StrongSocket = function(url, version, settings) {
       if (o.millis >= 0) d.s = Math.round(o.millis * 0.1).toString(36);
       msg.d = d;
     }
-    if (o.ackable) ackable.register(t, d); // adds d.a, the ack ID we expect to get back
+    if (o.ackable) {
+      msg.d = msg.d || {}; // can't ack message without data
+      ackable.register(t, msg.d); // adds d.a, the ack ID we expect to get back
+    }
     var message = JSON.stringify(msg);
     debug("send " + message);
     try {
@@ -80,7 +83,7 @@ lichess.StrongSocket = function(url, version, settings) {
       // maybe sent before socket opens,
       // try again a second later.
       if (!noRetry) setTimeout(function() {
-        send(t, d, o, true);
+        send(t, msg.d, o, true);
       }, 1000);
     }
   };
