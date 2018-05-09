@@ -1,16 +1,16 @@
 @(pov: Pov)(ctxOption: Option[Context])
 <div class="vstext clearfix">
-<div class="left">
+<div class="left user_link">
 @playerUsername(pov.player, withRating = false, withTitle = false)
 <br />
-@lightUser(pov.player.userId).flatMap(_.title).map(_ + " ")
+@titleTag(lightUser(pov.player.userId).flatMap(_.title))
 @pov.player.rating@if(pov.player.provisional){?}
 </div>
-<div class="right">
+<div class="right user_link">
 @playerUsername(pov.opponent, withRating = false, withTitle = false)
 <br />
 @pov.opponent.rating@if(pov.opponent.provisional){?}
-@lightUser(pov.opponent.userId).flatMap(_.title).map(" " + _)
+@titleTag(lightUser(pov.opponent.userId).flatMap(_.title))
 </div>
 @pov.game.clock.map { c =>
 <div class="center"><span data-icon="p"> @shortClockName(c.config)</span></div>
