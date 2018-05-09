@@ -23,7 +23,7 @@ final class Env(
     gamePdnDump: lidraughts.game.PdnDump,
     gameCache: lidraughts.game.Cached,
     userEnv: lidraughts.user.Env,
-    analyseEnv: lidraughts.analyse.Env,
+    annotator: lidraughts.analyse.Annotator,
     lobbyEnv: lidraughts.lobby.Env,
     setupEnv: lidraughts.setup.Env,
     getSimul: Simul.ID => Fu[Option[Simul]],
@@ -84,6 +84,7 @@ final class Env(
 
   val pdnDump = new PdnDump(
     dumper = gamePdnDump,
+    annotator = annotator,
     getSimulName = getSimulName,
     getTournamentName = getTournamentName
   )
@@ -163,7 +164,7 @@ object Env {
     settingStore = lidraughts.memo.Env.current.settingStore,
     renderer = lidraughts.hub.Env.current.actor.renderer,
     userEnv = lidraughts.user.Env.current,
-    analyseEnv = lidraughts.analyse.Env.current,
+    annotator = lidraughts.analyse.Env.current.annotator,
     lobbyEnv = lidraughts.lobby.Env.current,
     setupEnv = lidraughts.setup.Env.current,
     getSimul = lidraughts.simul.Env.current.repo.find,

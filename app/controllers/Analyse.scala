@@ -54,7 +54,7 @@ object Analyse extends LidraughtsController {
                     pov,
                     data,
                     initialFen,
-                    Env.analyse.annotator(pdn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
+                    Env.analyse.annotator(pdn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status).toString,
                     analysis,
                     analysisInProgress,
                     simul,
@@ -104,7 +104,7 @@ object Analyse extends LidraughtsController {
   } yield Ok(html.analyse.replayBot(
     pov,
     initialFen,
-    Env.analyse.annotator(pdn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
+    Env.analyse.annotator(pdn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status).toString,
     analysis,
     simul,
     crosstable

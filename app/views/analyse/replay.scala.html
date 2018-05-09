@@ -69,7 +69,7 @@ atom = atom.some) {
       <div class="pdn_options">
         <strong>PDN</strong>
         <div>
-          <a data-icon="x" class="text" rel="nofollow" href="@routes.Game.exportOne(game.id)">@trans.downloadAnnotated()</a>
+          <a data-icon="x" class="text" rel="nofollow" href="@routes.Game.exportOne(game.id)?literate=1">@trans.downloadAnnotated()</a>
           <a data-icon="x" class="text" rel="nofollow" href="@routes.Game.exportOne(game.id)?evals=0&clocks=0">@trans.downloadRaw()</a>
           @if(game.isPdnImport) {
           <a data-icon="x" class="text" rel="nofollow" href="@routes.Game.exportOne(game.id)?imported=1">@trans.downloadImported()</a>

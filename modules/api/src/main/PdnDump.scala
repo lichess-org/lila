@@ -13,6 +13,7 @@ import lidraughts.game.{ Game, GameRepo, Query }
 
 final class PdnDump(
     val dumper: lidraughts.game.PdnDump,
+    annotator: Annotator,
     getSimulName: String => Fu[Option[String]],
     getTournamentName: String => Option[String]
 ) {
@@ -24,7 +25,9 @@ final class PdnDump(
       }
       else fuccess(pdn)
     } map { pdn =>
-      analysis.ifTrue(flags.evals).fold(pdn)(addEvals(pdn, _))
+      val evaled = analysis.ifTrue(flags.evals).fold(pdn)(addEvals(pdn, _))
+      if (flags.literate) annotator(evaled, analysis, game.opening, game.winnerColor, game.status)
+      else evaled
     }
 
   private def addEvals(p: Pdn, analysis: Analysis): Pdn = analysis.infos.foldLeft(p) {

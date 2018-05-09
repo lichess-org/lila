@@ -140,6 +140,7 @@ object PdnDump {
       tags: Boolean = true,
       evals: Boolean = true,
       opening: Boolean = true,
+      literate: Boolean = false,
       draughtsResult: Boolean = true
   )
 
