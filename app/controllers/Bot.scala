@@ -12,10 +12,8 @@ object Bot extends LidraughtsController {
 
   def gameStream(id: String) = Scoped(_.Bot.Play) { req => me =>
     WithMyBotGame(id, me) { pov =>
-      RequireHttp11(req) {
-        lidraughts.game.GameRepo.withInitialFen(pov.game) map { wf =>
-          Api.jsonOptionStream(Env.bot.gameStateStream(me, wf, pov.color))
-        }
+      lidraughts.game.GameRepo.withInitialFen(pov.game) map { wf =>
+        Api.jsonOptionStream(Env.bot.gameStateStream(me, wf, pov.color))
       }
     }
   }
