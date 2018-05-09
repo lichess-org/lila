@@ -12,6 +12,7 @@ import lila.game.{ Game, GameRepo, Query }
 
 final class PgnDump(
     val dumper: lila.game.PgnDump,
+    annotator: Annotator,
     getSimulName: String => Fu[Option[String]],
     getTournamentName: String => Option[String]
 ) {
@@ -23,7 +24,9 @@ final class PgnDump(
       }
       else fuccess(pgn)
     } map { pgn =>
-      analysis.ifTrue(flags.evals).fold(pgn)(addEvals(pgn, _))
+      val evaled = analysis.ifTrue(flags.evals).fold(pgn)(addEvals(pgn, _))
+      if (flags.literate) annotator(evaled, analysis, game.opening, game.winnerColor, game.status)
+      else evaled
     }
 
   private def addEvals(p: Pgn, analysis: Analysis): Pgn = analysis.infos.foldLeft(p) {

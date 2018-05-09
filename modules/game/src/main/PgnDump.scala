@@ -138,7 +138,8 @@ object PgnDump {
       moves: Boolean = true,
       tags: Boolean = true,
       evals: Boolean = true,
-      opening: Boolean = true
+      opening: Boolean = true,
+      literate: Boolean = false
   )
 
   def result(game: Game) =

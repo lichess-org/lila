@@ -23,7 +23,7 @@ final class Env(
     gamePgnDump: lila.game.PgnDump,
     gameCache: lila.game.Cached,
     userEnv: lila.user.Env,
-    analyseEnv: lila.analyse.Env,
+    annotator: lila.analyse.Annotator,
     lobbyEnv: lila.lobby.Env,
     setupEnv: lila.setup.Env,
     getSimul: Simul.ID => Fu[Option[Simul]],
@@ -84,6 +84,7 @@ final class Env(
 
   val pgnDump = new PgnDump(
     dumper = gamePgnDump,
+    annotator = annotator,
     getSimulName = getSimulName,
     getTournamentName = getTournamentName
   )
@@ -163,7 +164,7 @@ object Env {
     settingStore = lila.memo.Env.current.settingStore,
     renderer = lila.hub.Env.current.actor.renderer,
     userEnv = lila.user.Env.current,
-    analyseEnv = lila.analyse.Env.current,
+    annotator = lila.analyse.Env.current.annotator,
     lobbyEnv = lila.lobby.Env.current,
     setupEnv = lila.setup.Env.current,
     getSimul = lila.simul.Env.current.repo.find,

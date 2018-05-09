@@ -72,14 +72,16 @@ object Game extends LilaController {
                 perfType = ~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) } toSet,
                 color = get("color", req) flatMap chess.Color.apply,
                 analysed = getBoolOpt("analysed", req),
-                flags = requestPgnFlags(req, extended = false),
+                flags = requestPgnFlags(req, extended = false).copy(
+                  literate = false
+                ),
                 perSecond = MaxPerSecond(me match {
                   case Some(m) if m is user.id => 50
                   case Some(_) if oauth => 20 // bonus for oauth logged in only (not for XSRF)
                   case _ => 10
                 })
               )
-              val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
+              val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
               Ok.chunked(Env.api.gameApiV2.exportByUser(config)).withHeaders(
                 CONTENT_TYPE -> gameContentType(config),
                 CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}_$date.${format.toString.toLowerCase}"
@@ -120,7 +122,8 @@ object Game extends LilaController {
       tags = getBoolOpt("tags", req) | true,
       clocks = getBoolOpt("clocks", req) | extended,
       evals = getBoolOpt("evals", req) | extended,
-      opening = getBoolOpt("opening", req) | extended
+      opening = getBoolOpt("opening", req) | extended,
+      literate = getBoolOpt("literate", req) | false
     )
 
   private def gameContentType(config: GameApiV2.Config) = config.format match {
