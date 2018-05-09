@@ -203,16 +203,14 @@ private[round] final class Round(
     case DeployPost => handle { game =>
       game.playable ?? {
         val freeTime = 15.seconds
-        messenger.system(game, (_.untranslated("Lichess has been updated")))
-        messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
+        messenger.system(game, (_.untranslated("Lichess has been updated! Sorry for the inconvenience.")))
         val progress = giveMoretime(game, Color.all, freeTime)
         proxy save progress inject progress.events
       }
     }
 
     case AbortForMaintenance => handle { game =>
-      messenger.system(game, (_.untranslated("Game aborted for server maintenance")))
-      messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
+      messenger.system(game, (_.untranslated("Game aborted for server maintenance. Sorry for the inconvenience!")))
       game.playable ?? finisher.other(game, _.Aborted, None)
     }
 
