@@ -498,6 +498,14 @@ body > div.content {
 #top > * {
   position: relative;
 }
+#top .reports i {
+  border-radius: 50%;
+  position: absolute;
+  right: 5px;
+  width: 12px;
+  height: 12px;
+  background-image: linear-gradient(#d85000, #b34100);
+}
 #top .dropdown {
   display: none;
   position: absolute;

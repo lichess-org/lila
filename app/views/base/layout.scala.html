@@ -147,7 +147,7 @@ csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx:
       </a>
       }
       @if(isGranted(_.SeeReport)) {
-      <a class="link text data-count" href="@routes.Report.list" data-count="@reportNbOpen" data-icon=""></a>
+      <a class="link text reports" href="@routes.Report.list" data-icon=""><i></i></a>
       }
       <div id="clinput"><a class="link"><span data-icon="y"></span></a><input spellcheck="false" placeholder="@trans.search()"/></div>
       <a id="reconnecting" class="link text" onclick="window.location.reload()" data-icon="B">@trans.reconnecting()</a>
