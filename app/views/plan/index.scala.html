@@ -37,9 +37,13 @@ csp = defaultCsp.withStripe.some) {
     <i data-icon="@patronIconChar"></i>
     <div>
       <h1>Thank you for your donation!</h1>
+      @if(p.isLifetime) {
+      You have a lifetime Patron account. That's pretty awesome!
+      } else {
       @p.expiresAt.map { expires =>
       You have a Patron account until @showDate(expires).<br />
       If not renewed, you will then be downgraded to free.
+      }
       }
     </div>
     <i data-icon="@patronIconChar"></i>
