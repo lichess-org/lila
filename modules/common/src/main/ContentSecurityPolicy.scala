@@ -40,6 +40,12 @@ case class ContentSecurityPolicy(
     scriptSrc = Nil
   )
 
+  def withTwitter = copy(
+    scriptSrc = "https://platform.twitter.com" :: "https://*.twimg.com" :: scriptSrc,
+    childSrc = "https://platform.twitter.com" :: childSrc,
+    styleSrc = "https://platform.twitter.com" :: styleSrc
+  )
+
   override def toString: String =
     List(
       "default-src " -> defaultSrc,

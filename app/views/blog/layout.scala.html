@@ -10,7 +10,8 @@ title = title,
 moreCss = cssTag("blog.css"),
 moreJs = pageJs,
 side = side,
-openGraph = openGraph) {
+openGraph = openGraph,
+csp = defaultCsp.withTwitter.some) {
 <div id="lichess_blog" class="content_box">
   @body
 </div>
