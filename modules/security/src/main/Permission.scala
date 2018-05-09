@@ -66,7 +66,7 @@ object Permission {
     Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount, ViewPrivateComms,
     ChatTimeout, MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
     MessageAnyone, CloseTeam, TerminateTournament, ManageTournament, ManageEvent, ManageSimul,
-    PracticeConfig, RemoveRanking, ReportBan, Beta, DisapproveCoachReview,
+    PracticeConfig, RemoveRanking, ReportBan, DisapproveCoachReview,
     Relay, Streamers, CreatePuzzles, DisableTwoFactor
   ))
 
