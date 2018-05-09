@@ -23,6 +23,8 @@ final class SocketHub extends Actor {
 
     case Close(socket) => sockets -= socket
 
+    case lila.hub.actorApi.DeployPre => // ignore
+
     case msg => sockets foreach (_ ! msg)
   }
 }
