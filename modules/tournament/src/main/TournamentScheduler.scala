@@ -306,9 +306,10 @@ Thank you all, you rock!"""
         (0 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
-          val speed = hour % 3 match {
-            case 0 => SuperBlitz
-            case 1 => Blitz
+          val speed = hour % 4 match {
+            case 0 => Bullet
+            case 1 => SuperBlitz
+            case 2 => Blitz
             case _ => Rapid
           }
           List(
@@ -324,9 +325,16 @@ Thank you all, you rock!"""
                   minRating = none,
                   titled = none
                 )
-                at(date, hour) map { date =>
+                at(date, hour) ?? { date =>
                   val finalDate = date plusHours hourDelay
-                  Schedule(Hourly, speed, Standard, std, finalDate, conditions).plan
+                  if (speed == Bullet) List(
+                    Schedule(Hourly, speed, Standard, std, finalDate, conditions).plan,
+                    Schedule(Hourly, speed, Standard, std, finalDate plusMinutes 30, conditions)
+                      .plan(_.copy(clock = chess.Clock.Config(60, 1)))
+                  )
+                  else List(
+                    Schedule(Hourly, speed, Standard, std, finalDate, conditions).plan
+                  )
                 }
             }
         },
