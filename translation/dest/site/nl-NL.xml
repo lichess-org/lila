@@ -524,6 +524,7 @@
   <string name="thisAccountIsClosed">Dit account is gesloten.</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
   <string name="incorrectPassword">Onjuist wachtwoord</string>
+  <string name="invalidAuthenticationCode">Ongeldige authenticatie</string>
   <string name="emailMeALink">Email me een link</string>
   <string name="currentPassword">Huidig wachtwoord</string>
   <string name="newPassword">Nieuw wachtwoord</string>
