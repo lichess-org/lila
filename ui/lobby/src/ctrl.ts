@@ -64,7 +64,9 @@ export default class LobbyController {
 
     this.startWatching();
 
-    if (this.playban) setTimeout(li.reload, this.playban.remainingSeconds * 1000);
+    if (this.playban) {
+      if (this.playban.remainingSecond < 86400) setTimeout(li.reload, this.playban.remainingSeconds * 1000);
+    }
     else {
       setInterval(() => {
         if (this.poolMember) this.poolIn();
