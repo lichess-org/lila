@@ -148,10 +148,19 @@ object Study extends LilaController {
               sVersion <- env.version(sc.study.id)
               streams <- streamsOf(sc.study)
             } yield Ok(html.study.show(sc.study, data, chat, sVersion, streams)),
-            api = _ => Ok(Json.obj(
-              "study" -> data.study,
-              "analysis" -> data.analysis
-            )).fuccess
+            api = _ => chatOf(sc.study).map { chatOpt =>
+              Ok(
+                Json.obj(
+                  "study" -> data.study.add("chat" -> chatOpt.map { c =>
+                    lila.chat.JsonView.mobile(
+                      chat = c.chat,
+                      writeable = ctx.userId.??(sc.study.canChat)
+                    )
+                  }),
+                  "analysis" -> data.analysis
+                )
+              )
+            }
           )
         } yield res
       }
