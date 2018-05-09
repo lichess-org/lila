@@ -152,7 +152,6 @@ object mon {
   object round {
     object api {
       val player = rec("round.api.player")
-      val playerInner = rec("round.api.player_inner")
       val watcher = rec("round.api.watcher")
     }
     object actor {
