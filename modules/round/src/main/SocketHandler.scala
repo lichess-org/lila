@@ -1,14 +1,14 @@
 package lidraughts.round
 
-import scala.concurrent.Promise
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 import scala.util.Try
 
 import akka.actor._
 import akka.pattern.ask
 import draughts.format.Uci
 import draughts.{ Centis, MoveMetrics, Color }
-import play.api.libs.json.{ JsObject, JsNumber, Json }
+import play.api.libs.json.{ JsObject, JsNumber, Json, Reads }
 
 import actorApi._, round._
 import lidraughts.chat.Chat
@@ -33,6 +33,8 @@ private[round] final class SocketHandler(
     selfReport: SelfReport,
     bus: lidraughts.common.Bus
 )(system: akka.actor.ActorSystem) {
+
+  import SocketHandler._
 
   private def controller(
     gameId: Game.ID,
@@ -61,7 +63,7 @@ private[round] final class SocketHandler(
       ({
         case ("p", o) => socket ! Ping(uid, o)
         case ("move", o) => parseMove(o) foreach {
-          case (move, blur, lag) =>
+          case (move, blur, lag, ackId) =>
             if (util.Random.nextBoolean) {
               println("oops, lost a move!")
             } else {
@@ -70,11 +72,12 @@ private[round] final class SocketHandler(
                 case _: Exception => socket ! Resync(uid.value)
               }
               send(HumanPlay(playerId, move, blur, lag, promise.some))
-              println("move hack")
-              member push ackEvent
+              println(s"move ack $move")
+              def ackNow = member.push(ackId.fold(ackEmpty)(ackWithId))
+              ackNow
               system.scheduler.scheduleOnce(2 seconds) {
-                println("move extra hack")
-                member push ackEvent
+                println(s"move extra ack $move")
+                ackNow
               }
             }
         }
@@ -101,7 +104,7 @@ private[round] final class SocketHandler(
         } send(HoldAlert(playerId, mean, sd, member.ip))
         case ("berserk", _) => member.userId foreach { userId =>
           hub.actor.tournamentApi ! Berserk(gameId, userId)
-          member push ackEvent
+          member push ackEmpty
         }
         case ("rep", o) => for {
           d ← o obj "d"
@@ -168,7 +171,8 @@ private[round] final class SocketHandler(
     d ← o obj "d"
     move <- d str "u" flatMap Uci.Move.apply orElse parseOldMove(d)
     blur = d int "b" contains 1
-  } yield (move, blur, parseLag(d))
+    ackId = d.get[AckId]("a")
+  } yield (move, blur, parseLag(d), ackId)
 
   private def parseOldMove(d: JsObject) = for {
     orig ← d str "from"
@@ -185,6 +189,11 @@ private[round] final class SocketHandler(
   private def clientFlag(o: JsObject, playerId: Option[String]) =
     o str "d" flatMap Color.apply map { ClientFlag(_, playerId) }
 
-  private val ackEvent = Json.obj("t" -> "ack")
-  private def ackEventWithPly(ply: Int) = ackEvent + ("d" -> JsNumber(ply))
+  private val ackEmpty = Json.obj("t" -> "ack")
+  private def ackWithId(id: AckId) = ackEmpty + ("d" -> JsNumber(id.value))
+}
+
+private object SocketHandler {
+  case class AckId(value: Int)
+  implicit val ackIdReads: Reads[AckId] = Reads.of[Int] map AckId.apply
 }

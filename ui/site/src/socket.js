@@ -71,7 +71,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
       if (o.millis >= 0) d.s = Math.round(o.millis * 0.1).toString(36);
       msg.d = d;
     }
-    if (o.ackable) ackable.register(t, d);
+    if (o.ackable) ackable.register(t, d); // adds d.a, the ack ID we expect to get back
     var message = JSON.stringify(msg);
     debug("send " + message);
     try {
@@ -166,7 +166,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
             lidraughts.redirect(location.href.slice(user, tv + 3) + '/' + m.d);
         break;
       case 'ack':
-        ackable.gotAck();
+        ackable.gotAck(m.d);
         break;
       default:
         lidraughts.pubsub.emit('socket.in.' + m.t)(m.d);

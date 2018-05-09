@@ -1,5 +1,7 @@
 module.exports = function(send) {
 
+  var currentId = 1; // increment with each ackable message sent
+
   var messages = [];
 
   function resend() {
@@ -14,14 +16,17 @@ module.exports = function(send) {
   return {
     resend: resend,
     register: function(t, d) {
+      d.a = currentId++;
       messages.push({
         t: t,
         d: d,
         at: Date.now()
       });
     },
-    gotAck: function() {
-      messages = [];
+    gotAck: function(id) {
+      messages = messages.filter(function(m) {
+        return m.d.a !== id;
+      });
     }
   };
 }
