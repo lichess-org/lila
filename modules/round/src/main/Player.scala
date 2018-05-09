@@ -32,7 +32,7 @@ private[round] final class Player(
             case Flagged => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop) =>
               p.trace.segment("save", "db")(proxy save progress) >>
-                proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop, promiseOption)
+                postHumanOrBotPlay(round, pov, progress, moveOrDrop, promiseOption)
           } addFailureEffect { e =>
             promiseOption.foreach(_ failure e)
           }
