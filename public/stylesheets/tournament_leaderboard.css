@@ -1,3 +1,6 @@
+.content_box {
+  position: relative;
+}
 .content_box h1 {
   text-align: center;
 }
