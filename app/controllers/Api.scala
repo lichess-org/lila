@@ -239,7 +239,7 @@ object Api extends LidraughtsController {
 
   def gamesByUsersStream = Action.async(parse.tolerantText) { req =>
     val userIds = req.body.split(',').take(300).toSet map lidraughts.user.User.normalize
-    jsonStream(Env.game.gamesByUsersStream(userIds)).fuccess
+    jsonStream(Env.game.gamesByUsersStream(userIds)).fuccessmodules/round/src/main/Player.scala
   }
 
   def eventStream = Scoped() { req => me =>
