@@ -32,7 +32,7 @@ private[round] final class SocketHandler(
     selfReport: SelfReport,
     bus: lila.common.Bus,
     isRecentTv: Game.ID => Boolean
-)(system: akka.actor.ActorSystem) {
+) {
 
   import SocketHandler._
 
@@ -64,22 +64,12 @@ private[round] final class SocketHandler(
         case ("p", o) => socket ! Ping(uid, o)
         case ("move", o) => parseMove(o) foreach {
           case (move, blur, lag, ackId) =>
-            if (util.Random.nextBoolean) {
-              println("oops, lost a move!")
-            } else {
-              val promise = Promise[Unit]
-              promise.future onFailure {
-                case _: Exception => socket ! Resync(uid.value)
-              }
-              send(HumanPlay(playerId, move, blur, lag, promise.some))
-              println(s"move ack $move")
-              def ackNow = member.push(ackId.fold(ackEmpty)(ackWithId))
-              ackNow
-              system.scheduler.scheduleOnce(2 seconds) {
-                println(s"move extra ack $move")
-                ackNow
-              }
+            val promise = Promise[Unit]
+            promise.future onFailure {
+              case _: Exception => socket ! Resync(uid.value)
             }
+            send(HumanPlay(playerId, move, blur, lag, promise.some))
+            member.push(ackId.fold(ackEmpty)(ackWithId))
         }
         case ("drop", o) => parseDrop(o) foreach {
           case (drop, blur, lag, ackId) =>
