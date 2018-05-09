@@ -72,7 +72,7 @@ csp = defaultCsp.withStripe.some) {
       </div>
       <div class="content">
 
-        <div class="plan_checkout" data-email="@email">
+        <div class="plan_checkout" data-email="@email" data-lifetime-usd="@lila.plan.Cents.lifetime.usd" data-lifetime-cents="@lila.plan.Cents.lifetime.value">
           <form class="stripe_checkout none" action="@routes.Plan.charge" method="POST">
             <input type="hidden" class="token" name="token" />
             <input type="hidden" class="email" name="email" />
@@ -111,37 +111,73 @@ csp = defaultCsp.withStripe.some) {
             <input type="hidden" name="lc" value="US">
             <input type="hidden" name="currency_code" value="USD">
           </form>
+          <form class="paypal_checkout lifetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="custom" value="@ctx.userId">
+            <input type="hidden" name="amount" class="amount" value="">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" value="Q3H72BENTXL4G">
+            <input type="hidden" name="item_name" value="lichess.org lifetime">
+            <input type="hidden" name="button_subtype" value="services">
+            <input type="hidden" name="no_note" value="1">
+            <input type="hidden" name="no_shipping" value="1">
+            <input type="hidden" name="rm" value="1">
+            <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
+            <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
+            <input type="hidden" name="lc" value="US">
+            <input type="hidden" name="currency_code" value="USD">
+          </form>
           <group class="radio buttons freq">
-          <div>
-            <input type="radio" name="freq" id="freq_monthly" checked value="monthly" />
-            <label for="freq_monthly">Monthly</label>
-          </div>
-          <div>
-            <input type="radio" name="freq" id="freq_onetime" value="onetime" />
-            <label for="freq_onetime">One-time</label>
-          </div>
+            @defining(s"Pay ${lila.plan.Cents.lifetime.usd} once. Be a Lichess Patron forever!") { info =>
+            <div data-hint="@info" class="hint--top-left">
+              <input type="radio" name="freq" id="freq_lifetime" @if(patron.exists(_.isLifetime)){disabled} value="lifetime" />
+              <label for="freq_lifetime">Lifetime</label>
+            </div>
+            }
+            @defining("Recurring billing, renewing your Patron Wings every month.") { info =>
+            <div data-hint="@info" class="hint--top-left">
+              <input type="radio" name="freq" id="freq_monthly" @if(patron.exists(_.isLifetime)){disabled}else{checked} value="monthly" />
+              <label for="freq_monthly">Monthly</label>
+            </div>
+            }
+            @defining("A single donation that grants you the Patron Wings for one month.") { info =>
+            <div data-hint="@info" class="hint--top-left">
+              <input type="radio" name="freq" id="freq_onetime" @if(patron.exists(_.isLifetime)){checked} value="onetime" />
+              <label for="freq_onetime">One-time</label>
+            </div>
+            }
           </group>
-          <group class="radio buttons amount">
-          @lila.plan.StripePlan.defaultAmounts.map { cents =>
-          @defining(s"plan_${cents.value}") { id =>
-          <div>
-            <input type="radio" name="plan"
-            id="plan_@cents.value"
-            @if(cents.usd.value == 10) { checked }
-            value="@cents.value"
-            data-usd="@cents.usd"
-            data-amount="@cents.value" />
-            <label for="plan_@cents.value">@cents.usd</label>
+          <div class="amount_choice">
+            <group class="radio buttons amount">
+              @lila.plan.StripePlan.defaultAmounts.map { cents =>
+              @defining(s"plan_${cents.value}") { id =>
+              <div>
+                <input type="radio" name="plan"
+                id="plan_@cents.value"
+                @if(cents.usd.value == 10) { checked }
+                value="@cents.value"
+                data-usd="@cents.usd"
+                data-amount="@cents.value" />
+                <label for="plan_@cents.value">@cents.usd</label>
+              </div>
+              }
+              }
+              <div class="other">
+                <input type="radio" name="plan"
+                id="plan_other"
+                value="other" />
+                <label for="plan_other">Other</label>
+              </div>
+            </group>
           </div>
-          }
-          }
-          <div class="other">
-            <input type="radio" name="plan"
-            id="plan_other"
-            value="other" />
-            <label for="plan_other">Other</label>
+          <div class="amount_fixed none">
+            <group class="radio buttons amount">
+              <div>
+                @defining(lila.plan.Cents.lifetime) { cents =>
+                <label for="plan_@cents.value">@cents.usd</label>
+                }
+              </div>
+            </group>
           </div>
-          </group>
           <div class="service">
             <button class="stripe button">Use your credit card</button>
             <button class="paypal button">Use PayPal</button>
@@ -171,7 +207,7 @@ csp = defaultCsp.withStripe.some) {
           Yes, at any time, from this page.<br />
           Or you can <a href="@routes.Page.bookmark("contact")" target="_blank">contact lichess support</a>.
         </dd>
-        <dt>Other methods of payment?</dt>
+        <dt>Other methods of donation?</dt>
         <dd>
           We also accept <a href="@staticUrl("doc/iban_LICHESS_ORG_00022031601.pdf")" target="_blank">bank transfers</a>.<br />
           And here's our bitcoin address: <code>15ZA4bBki3uu3yR2ENC2WYa9baVGUZ8Cf8</code>
