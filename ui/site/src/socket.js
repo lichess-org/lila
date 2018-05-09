@@ -291,7 +291,7 @@ lidraughts.StrongSocket.defaults = {
     idle: false,
     pingMaxLag: 8000, // time to wait for pong before reseting the connection
     pingDelay: 2000, // time between pong and ping
-    autoReconnectDelay: 2000,
+    autoReconnectDelay: 3000,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
     baseUrls: (function(d) {
       return [d].concat((d === 'socket.lidraughts.org' ? [5, 6, 7, 8, 9] : []).map(function(port) {
