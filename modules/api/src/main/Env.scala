@@ -66,11 +66,6 @@ final class Env(
     text = "Assets version. Increment to force all clients to load a new version of static assets. Decrement to serve a previous revision of static assets.".some,
     init = (config, db) => config.value max db.value
   )
-  val roundRouterSetting = settingStore[Boolean](
-    "roundRouter",
-    default = false,
-    text = "enable round router".some
-  )
 
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
@@ -120,18 +115,13 @@ final class Env(
     lightUser = userEnv.lightUserSync
   )
 
-  val roundApi = new RoundApiBalancer(
-    api = new RoundApi(
-      jsonView = roundJsonView,
-      noteApi = noteApi,
-      forecastApi = forecastApi,
-      bookmarkApi = bookmarkApi,
-      getTourAndRanks = getTourAndRanks,
-      getSimul = getSimul
-    ),
-    enabled = roundRouterSetting.get,
-    system = system,
-    nbActors = math.max(1, math.min(16, Runtime.getRuntime.availableProcessors - 1))
+  val roundApi = new RoundApi(
+    jsonView = roundJsonView,
+    noteApi = noteApi,
+    forecastApi = forecastApi,
+    bookmarkApi = bookmarkApi,
+    getTourAndRanks = getTourAndRanks,
+    getSimul = getSimul
   )
 
   val lobbyApi = new LobbyApi(
