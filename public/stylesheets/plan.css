@@ -111,11 +111,12 @@ table.all .thanks {
 }
 .plan .text,
 .plan .content {
-  flex: 0 0 47%;
+  flex: 0 0 50%;
   display: flex;
   align-items: center;
 }
 .plan .text {
+  flex: 0 0 46%;
   flex-flow: column nowrap;
 }
 .plan .text p {
@@ -133,16 +134,18 @@ table.all .thanks {
 .plan .plan_checkout group {
   font-size: 1.1em;
   margin-bottom: 20px;
+  overflow: visible;
 }
-.plan .plan_checkout group input:checked + label {
+.plan .plan_checkout group input:checked + label,
+.plan .plan_checkout .amount_fixed label {
   background: #639B24!important;
   border-color: #ccc!important;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
 }
-body.dark .plan .plan_checkout group input:checked + label {
+body.dark .plan .plan_checkout group input:checked + label,
+body.dark .plan .plan_checkout .amount_fixed label {
   border-color: #555!important;
-}
-.plan .plan_checkout group.freq > div {
-  flex: 0 0 50%;
+  color: #fff!important;
 }
 .plan .plan_checkout group.freq input:checked + label::before {
   content: "✓";
