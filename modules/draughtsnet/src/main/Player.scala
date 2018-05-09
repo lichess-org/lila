@@ -24,8 +24,7 @@ final class Player(
     case e: Exception => logger.info(e.getMessage)
   }
 
-  // private val delayFactor = 0.01f
-  private val delayFactor = 0f
+  private val delayFactor = 0.005f
   private val defaultClock = Clock(300, 0)
 
   private def delayFor(g: Game): Option[FiniteDuration] = for {
@@ -34,7 +33,7 @@ final class Player(
     clock = g.clock | defaultClock
     delay = (clock.remainingTime(pov.color).centis atMost clock.estimateTotalTime.centis) * delayFactor
     accel = 1 - ((g.turns - 20) atLeast 0 atMost 100) / 150f
-    sleep = (delay * accel) atMost 500
+    sleep = (delay * accel) atMost 400
     if (sleep > 30)
     millis = sleep * 10
     randomized = approximatly(0.5f)(millis)
