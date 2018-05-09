@@ -54,17 +54,15 @@ object Team extends LilaController {
   } yield html.team.show(team, members, info)
 
   def users(teamId: String) = Action.async { req =>
-    RequireHttp11(req) {
-      import Api.limitedDefault
-      Env.team.api.team(teamId) flatMap {
-        _ ?? { team =>
-          Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
-            import play.api.libs.iteratee._
-            Api.jsonStream {
-              Env.team.memberStream(team, MaxPerSecond(20)) &>
-                Enumeratee.map(Env.api.userApi.one)
-            } |> fuccess
-          }
+    import Api.limitedDefault
+    Env.team.api.team(teamId) flatMap {
+      _ ?? { team =>
+        Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+          import play.api.libs.iteratee._
+          Api.jsonStream {
+            Env.team.memberStream(team, MaxPerSecond(20)) &>
+              Enumeratee.map(Env.api.userApi.one)
+          } |> fuccess
         }
       }
     }

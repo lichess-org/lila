@@ -12,10 +12,8 @@ object Bot extends LilaController {
 
   def gameStream(id: String) = Scoped(_.Bot.Play) { req => me =>
     WithMyBotGame(id, me) { pov =>
-      RequireHttp11(req) {
-        lila.game.GameRepo.withInitialFen(pov.game) map { wf =>
-          Api.jsonOptionStream(Env.bot.gameStateStream(me, wf, pov.color))
-        }
+      lila.game.GameRepo.withInitialFen(pov.game) map { wf =>
+        Api.jsonOptionStream(Env.bot.gameStateStream(me, wf, pov.color))
       }
     }
   }

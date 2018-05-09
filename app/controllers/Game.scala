@@ -57,35 +57,33 @@ object Game extends LilaController {
   private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) =
     lila.user.UserRepo named username flatMap {
       _ ?? { user =>
-        RequireHttp11(req) {
-          Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
-            Api.GlobalLinearLimitPerUserOption(me) {
-              val format = GameApiV2.Format byRequest req
-              WithVs(req) { vs =>
-                val config = GameApiV2.ByUserConfig(
-                  user = user,
-                  format = format,
-                  vs = vs,
-                  since = getLong("since", req) map { ts => new DateTime(ts) },
-                  until = getLong("until", req) map { ts => new DateTime(ts) },
-                  max = getInt("max", req) map (_ atLeast 1),
-                  rated = getBoolOpt("rated", req),
-                  perfType = ~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) } toSet,
-                  color = get("color", req) flatMap chess.Color.apply,
-                  analysed = getBoolOpt("analysed", req),
-                  flags = requestPgnFlags(req, extended = false),
-                  perSecond = MaxPerSecond(me match {
-                    case Some(m) if m is user.id => 50
-                    case Some(_) if oauth => 20 // bonus for oauth logged in only (not for XSRF)
-                    case _ => 10
-                  })
-                )
-                val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-                Ok.chunked(Env.api.gameApiV2.exportByUser(config)).withHeaders(
-                  CONTENT_TYPE -> gameContentType(config),
-                  CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}_$date.${format.toString.toLowerCase}"
-                ).fuccess
-              }
+        Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+          Api.GlobalLinearLimitPerUserOption(me) {
+            val format = GameApiV2.Format byRequest req
+            WithVs(req) { vs =>
+              val config = GameApiV2.ByUserConfig(
+                user = user,
+                format = format,
+                vs = vs,
+                since = getLong("since", req) map { ts => new DateTime(ts) },
+                until = getLong("until", req) map { ts => new DateTime(ts) },
+                max = getInt("max", req) map (_ atLeast 1),
+                rated = getBoolOpt("rated", req),
+                perfType = ~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) } toSet,
+                color = get("color", req) flatMap chess.Color.apply,
+                analysed = getBoolOpt("analysed", req),
+                flags = requestPgnFlags(req, extended = false),
+                perSecond = MaxPerSecond(me match {
+                  case Some(m) if m is user.id => 50
+                  case Some(_) if oauth => 20 // bonus for oauth logged in only (not for XSRF)
+                  case _ => 10
+                })
+              )
+              val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
+              Ok.chunked(Env.api.gameApiV2.exportByUser(config)).withHeaders(
+                CONTENT_TYPE -> gameContentType(config),
+                CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}_$date.${format.toString.toLowerCase}"
+              ).fuccess
             }
           }
         }
@@ -93,19 +91,17 @@ object Game extends LilaController {
     }
 
   def exportByIds = Action.async(parse.tolerantText) { req =>
-    RequireHttp11(req) {
-      Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
-        val format = GameApiV2.Format byRequest req
-        val config = GameApiV2.ByIdsConfig(
-          ids = req.body.split(',').take(300),
-          format = GameApiV2.Format byRequest req,
-          flags = requestPgnFlags(req, extended = false),
-          perSecond = MaxPerSecond(20)
-        )
-        Ok.chunked(Env.api.gameApiV2.exportByIds(config)).withHeaders(
-          CONTENT_TYPE -> gameContentType(config)
-        ).fuccess
-      }
+    Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+      val format = GameApiV2.Format byRequest req
+      val config = GameApiV2.ByIdsConfig(
+        ids = req.body.split(',').take(300),
+        format = GameApiV2.Format byRequest req,
+        flags = requestPgnFlags(req, extended = false),
+        perSecond = MaxPerSecond(20)
+      )
+      Ok.chunked(Env.api.gameApiV2.exportByIds(config)).withHeaders(
+        CONTENT_TYPE -> gameContentType(config)
+      ).fuccess
     }
   }
 

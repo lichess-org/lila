@@ -238,18 +238,14 @@ object Api extends LilaController {
   }
 
   def gamesByUsersStream = Action.async(parse.tolerantText) { req =>
-    RequireHttp11(req) {
-      val userIds = req.body.split(',').take(300).toSet map lila.user.User.normalize
-      jsonStream(Env.game.gamesByUsersStream(userIds)).fuccess
-    }
+    val userIds = req.body.split(',').take(300).toSet map lila.user.User.normalize
+    jsonStream(Env.game.gamesByUsersStream(userIds)).fuccess
   }
 
   def eventStream = Scoped() { req => me =>
-    RequireHttp11(req) {
-      lila.game.GameRepo.urgentGames(me) flatMap { povs =>
-        Env.challenge.api.createdByDestId(me.id) map { challenges =>
-          jsonOptionStream(Env.api.eventStream(me, povs.map(_.game), challenges))
-        }
+    lila.game.GameRepo.urgentGames(me) flatMap { povs =>
+      Env.challenge.api.createdByDestId(me.id) map { challenges =>
+        jsonOptionStream(Env.api.eventStream(me, povs.map(_.game), challenges))
       }
     }
   }

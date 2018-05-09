@@ -19,16 +19,14 @@ object Export extends LilaController {
 
   def png(id: String) = Open { implicit ctx =>
     OnlyHumansAndFacebookOrTwitter {
-      RequireHttp11 {
-        PngRateLimitGlobal("-", msg = s"${HTTPRequest.lastRemoteAddress(ctx.req).value} ${~HTTPRequest.userAgent(ctx.req)}") {
-          lila.mon.export.png.game()
-          OptionFuResult(GameRepo game id) { game =>
-            env.pngExport fromGame game map { stream =>
-              Ok.chunked(stream).withHeaders(
-                CONTENT_TYPE -> "image/png",
-                CACHE_CONTROL -> "max-age=7200"
-              )
-            }
+      PngRateLimitGlobal("-", msg = s"${HTTPRequest.lastRemoteAddress(ctx.req).value} ${~HTTPRequest.userAgent(ctx.req)}") {
+        lila.mon.export.png.game()
+        OptionFuResult(GameRepo game id) { game =>
+          env.pngExport fromGame game map { stream =>
+            Ok.chunked(stream).withHeaders(
+              CONTENT_TYPE -> "image/png",
+              CACHE_CONTROL -> "max-age=7200"
+            )
           }
         }
       }
@@ -37,23 +35,21 @@ object Export extends LilaController {
 
   def puzzlePng(id: Int) = Open { implicit ctx =>
     OnlyHumansAndFacebookOrTwitter {
-      RequireHttp11 {
-        PngRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
-          lila.mon.export.png.puzzle()
-          OptionFuResult(Env.puzzle.api.puzzle find id) { puzzle =>
-            env.pngExport(
-              fen = chess.format.FEN(puzzle.fenAfterInitialMove | puzzle.fen),
-              lastMove = puzzle.initialMove.uci.some,
-              check = none,
-              orientation = puzzle.color.some,
-              logHint = s"puzzle $id"
-            ) map { stream =>
-                Ok.chunked(stream).withHeaders(
-                  CONTENT_TYPE -> "image/png",
-                  CACHE_CONTROL -> "max-age=7200"
-                )
-              }
-          }
+      PngRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
+        lila.mon.export.png.puzzle()
+        OptionFuResult(Env.puzzle.api.puzzle find id) { puzzle =>
+          env.pngExport(
+            fen = chess.format.FEN(puzzle.fenAfterInitialMove | puzzle.fen),
+            lastMove = puzzle.initialMove.uci.some,
+            check = none,
+            orientation = puzzle.color.some,
+            logHint = s"puzzle $id"
+          ) map { stream =>
+              Ok.chunked(stream).withHeaders(
+                CONTENT_TYPE -> "image/png",
+                CACHE_CONTROL -> "max-age=7200"
+              )
+            }
         }
       }
     }
