@@ -684,4 +684,32 @@ trong %3$s</string>
   <string name="usernameCharsInvalid">Username chỉ được chứa ký tự, số, dấu gạch chân và dấu gạch dưới.</string>
   <string name="usernameUnacceptable">Username này không được chấp nhận.</string>
   <string name="directlySupportLichess">Ủng hộ trực tiếp Lichess</string>
+  <string name="playChessInStyle">Chơi cờ phong cách</string>
+  <string name="chessBasics">Cờ cơ bản</string>
+  <string name="coaches">Huấn luyện viên</string>
+  <string name="invalidPgn">PGN không hợp lệ</string>
+  <string name="invalidFen">PEN không hợp lệ</string>
+  <string name="error.minLength">Độ dài tối thiểu là %s</string>
+  <string name="error.maxLength">Độ dài tối đa là %s</string>
+  <string name="error.min">Phải lớn hơn hoặc bằng %s</string>
+  <string name="error.max">Phải nhỏ hơn hoặc bằng %s</string>
+  <string name="error.unknown">Lỗi</string>
+  <string name="custom">Tuỳ biến</string>
+  <string name="notifications">Thông báo</string>
+  <string name="challenges">Thách đấu</string>
+  <string name="perfRatingX">Rating: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">Thời gian còn lại để đi nước đầu tiên: %s</item>
+  </plurals>
+  <string name="practiceWithComputer">Luyện với máy tính</string>
+  <string name="anotherWasX">Nước đi khác %s</string>
+  <string name="bestWasX">Nước đi tốt nhất %s</string>
+  <string name="youBrowsedAway">Bạn thử biến quá khác</string>
+  <string name="resumePractice">Tiếp tục luyện</string>
+  <string name="theGameIsADraw">Cờ hoà.</string>
+  <string name="computerThinking">Máy đang nghĩ...</string>
+  <string name="seeBestMove">Xem nước đi tốt nhất</string>
+  <string name="hideBestMove">Ẩn nước đi tốt nhất</string>
+  <string name="getAHint">Xem gợi ý</string>
+  <string name="evaluatingYourMove">Đánh giá nước đi của bạn...</string>
 </resources>
