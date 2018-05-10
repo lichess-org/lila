@@ -16,7 +16,7 @@ case class TotpSecret(secret: Array[Byte]) extends AnyVal {
 
   def currentTotp = totp(System.currentTimeMillis / 30000)
 
-  private def totp(period: Long): TotpToken = TotpToken {
+  def totp(period: Long): TotpToken = TotpToken {
     val msg = ByteBuffer.allocate(8).putLong(0, period).array
 
     val hmac = Mac.getInstance("HMACSHA1")
@@ -43,7 +43,7 @@ object TotpSecret {
   // requires clock precision of at least window * 30 seconds
   private final val window = 3
   // pad token with 0s
-  private def otpString(otp: Int) = f"$otp%06d"
+  private def otpString(otp: Int) = f"$otp%06d".takeRight(6)
 
   private[this] val secureRandom = new SecureRandom()
 
