@@ -68,7 +68,10 @@ object Setup extends LidraughtsController with TheftPrevention {
         ), {
           case config => userId ?? UserRepo.byId flatMap { destUser =>
             destUser ?? { Env.challenge.granter(ctx.me, _, config.perfType) } flatMap {
-              case Some(denied) => BadRequest(html.challenge.denied(denied)).fuccess
+              case Some(denied) => negotiate(
+                html = BadRequest(html.challenge.denied(denied)).fuccess,
+                api = _ => BadRequest(jsonError(lidraughts.challenge.ChallengeDenied.translated(denied))).fuccess
+              )
               case None =>
                 import lidraughts.challenge.Challenge._
                 val challenge = lidraughts.challenge.Challenge.make(

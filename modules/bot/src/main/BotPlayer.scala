@@ -17,7 +17,7 @@ final class BotPlayer(
 )(implicit system: ActorSystem) {
 
   def apply(pov: Pov, me: User, uciStr: String): Funit =
-        lidraughts.common.Future.delay((pov.game.hasAi ?? 500) millis) {
+    lidraughts.common.Future.delay((pov.game.hasAi ?? 500) millis) {
       Uci(uciStr).fold(fufail[Unit](s"Invalid UCI: $uciStr")) { uci =>
         lidraughts.mon.bot.moves(me.username)()
         if (!pov.isMyTurn) fufail("Not your turn, or game already over")
