@@ -210,7 +210,7 @@ object Tournament extends LidraughtsController {
   )
 
   private val CreateLimitPerIP = new lidraughts.memo.RateLimit[lidraughts.common.IpAddress](
-    credits = 8,
+    credits = 12,
     duration = 24 hour,
     name = "tournament per IP",
     key = "tournament.ip"
@@ -227,14 +227,16 @@ object Tournament extends LidraughtsController {
         negotiate(
           html = env.forms(me).bindFromRequest.fold(
             err => BadRequest(html.tournament.form(err, env.forms, me, teams)).fuccess,
-            setup =>
-              CreateLimitPerUser(me.id, cost = 1) {
+            setup => {
+              val cost = if (me.hasTitle || Env.streamer.liveStreamApi.isStreaming(me.id)) 1 else 4
+              CreateLimitPerUser(me.id, cost) {
                 CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
                   env.api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
                     Redirect(routes.Tournament.show(tour.id))
                   }
                 }(rateLimited)
               }(rateLimited)
+            }
           ),
           api = _ => doApiCreate(me, teams)
         )
