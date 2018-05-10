@@ -21,7 +21,7 @@ final class DataForm {
     waitMinutes = waitMinuteDefault,
     variant = chess.variant.Standard.key,
     position = StartingPosition.initial.fen,
-    `private` = None,
+    `private` = false,
     password = None,
     mode = Mode.Rated.id.some,
     conditionsOption = Condition.DataForm.AllSetup.default.some,
@@ -46,7 +46,7 @@ final class DataForm {
     "variant" -> nonEmptyText.verifying(v => guessVariant(v).isDefined),
     "position" -> nonEmptyText,
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
-    "private" -> optional(text.verifying("on" == _)),
+    "private" -> tolerantBoolean,
     "password" -> optional(nonEmptyText),
     "conditions" -> optional(Condition.DataForm.all),
     "berserkable" -> boolean
@@ -117,7 +117,7 @@ private[tournament] case class TournamentSetup(
     variant: String,
     position: String,
     mode: Option[Int],
-    `private`: Option[String],
+    `private`: Boolean,
     password: Option[String],
     conditionsOption: Option[Condition.DataForm.AllSetup],
     berserkable: Boolean
@@ -129,7 +129,7 @@ private[tournament] case class TournamentSetup(
 
   def validTiming = (minutes * 60) >= (3 * estimatedGameDuration)
 
-  def validPublic = isPrivate || {
+  def validPublic = `private` || {
     DataForm.clockTimes.contains(clockTime) &&
       DataForm.clockIncrements.contains(clockIncrement) &&
       DataForm.minutes.contains(minutes)
@@ -144,8 +144,6 @@ private[tournament] case class TournamentSetup(
   def validRatedUltraBulletVariant =
     realMode == Mode.Casual ||
       lila.game.Game.allowRated(realVariant, clockConfig)
-
-  def isPrivate = `private`.isDefined
 
   private def estimatedGameDuration = 60 * clockTime + 30 * clockIncrement
 }

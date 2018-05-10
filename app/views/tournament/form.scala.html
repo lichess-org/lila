@@ -26,7 +26,7 @@ moreJs = moreJs) {
         <tbody>
           <tr>
             <th><label for="isprivate">@trans.isPrivate()</label></th>
-            <td><input type="checkbox" name="private" id="isprivate" @if(form("private").value.isDefined) { checked } /></td>
+            <td><input type="checkbox" name="private" id="isprivate" @if(form("private").value.exists(lila.common.Form.trueish)) { checked } /></td>
           </tr>
           <tr class="password">
             <th><label for="@form("password").id">@trans.password()</label></th>
