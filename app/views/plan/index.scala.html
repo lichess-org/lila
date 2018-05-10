@@ -126,6 +126,9 @@ csp = defaultCsp.withStripe.some) {
             <input type="hidden" name="lc" value="US">
             <input type="hidden" name="currency_code" value="USD">
           </form>
+
+          @if(patron.exists(_.isLifetime)) { <p style="text-align:center;margin-bottom:1em">Make an extra donation?</p>  }
+
           <group class="radio buttons freq">
             @defining(s"Pay ${lila.plan.Cents.lifetime.usd} once. Be a Lichess Patron forever!") { info =>
             <div data-hint="@info" class="hint--top-left">
