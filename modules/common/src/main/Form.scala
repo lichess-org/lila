@@ -32,8 +32,12 @@ object Form {
   def stringIn(choices: Iterable[(String, String)]) =
     text.verifying(hasKey(choices, _))
 
+  def tolerantBoolean = of[Boolean](formatter.tolerantBooleanFormatter)
+
   def hasKey[A](choices: Iterable[(A, _)], key: A) =
     choices.map(_._1).toList contains key
+
+  def trueish(v: Any) = v == 1 || v == "1" || v == "true" || v == "on" || v == "yes"
 
   private def pluralize(pattern: String, nb: Int) =
     pattern.replace("{s}", (nb != 1).fold("s", ""))
@@ -46,6 +50,14 @@ object Form {
     def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] = new Formatter[A] {
       def bind(key: String, data: Map[String, String]) = intFormat.bind(key, data).right map to
       def unbind(key: String, value: A) = intFormat.unbind(key, from(value))
+    }
+    val tolerantBooleanFormatter: Formatter[Boolean] = new Formatter[Boolean] {
+      override val format = Some(("format.boolean", Nil))
+      def bind(key: String, data: Map[String, String]) =
+        Right(data.get(key).getOrElse("false")).right.flatMap { v =>
+          Right(trueish(v))
+        }
+      def unbind(key: String, value: Boolean) = Map(key -> value.toString)
     }
   }
 
