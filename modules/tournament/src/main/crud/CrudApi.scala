@@ -15,7 +15,7 @@ final class CrudApi {
     clockTime = tour.clock.limitInMinutes,
     clockIncrement = tour.clock.incrementSeconds,
     minutes = tour.minutes,
-    variant = tour.variant.id,
+    variant = tour.variant.key,
     position = tour.position.fen,
     date = tour.startsAt,
     image = ~tour.spotlight.flatMap(_.iconImg),
@@ -53,17 +53,16 @@ final class CrudApi {
   private def updateTour(tour: Tournament, data: CrudForm.Data) = {
     import data._
     val clock = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
-    val v = chess.variant.Variant.orDefault(variant)
     tour.copy(
       name = name,
       clock = clock,
       minutes = minutes,
-      variant = v,
+      variant = realVariant,
       startsAt = date,
       schedule = Schedule(
         freq = Schedule.Freq.Unique,
         speed = Schedule.Speed.fromClock(clock),
-        variant = v,
+        variant = realVariant,
         position = chess.StartingPosition.initial,
         at = date
       ).some,
@@ -74,7 +73,7 @@ final class CrudApi {
         iconFont = none,
         iconImg = image.some.filter(_.nonEmpty)
       ).some,
-      position = DataForm.startingPosition(data.position, v),
+      position = DataForm.startingPosition(data.position, realVariant),
       noBerserk = !data.berserkable
     ) |> { tour =>
         tour.perfType.fold(tour) { perfType =>

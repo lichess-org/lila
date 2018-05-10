@@ -219,7 +219,7 @@ object Tournament extends LilaController {
     fuccess(Redirect(routes.Tournament.home(1)))
   }
 
-  def create = AuthBody { implicit ctx => implicit me =>
+  def create = AuthBody { implicit ctx => me =>
     NoLameOrBot {
       implicit val req = ctx.body
       negotiate(
@@ -234,15 +234,22 @@ object Tournament extends LilaController {
               }(rateLimited)
             }(rateLimited)
         ),
-        api = _ => env.forms(me).bindFromRequest.fold(
-          err => BadRequest(errorsAsJson(err)).fuccess,
-          setup => env.api.createTournament(setup, me) map { tour =>
-            Ok(Json.obj("id" -> tour.id))
-          }
-        )
+        api = _ => doApiCreate(me)
       )
     }
   }
+
+  def apiCreate = ScopedBody() { implicit req => me =>
+    doApiCreate(me)
+  }
+
+  private def doApiCreate(me: lila.user.User)(implicit req: Request[_]): Fu[Result] =
+    env.forms(me).bindFromRequest.fold(
+      err => BadRequest(errorsAsJson(err)).fuccess,
+      setup => env.api.createTournament(setup, me) flatMap { tour =>
+        Env.tournament.jsonView(tour, none, none, none, none, lila.i18n.defaultLang)
+      } map { Ok(_) }
+    )
 
   def limitedInvitation = Auth { implicit ctx => me =>
     for {

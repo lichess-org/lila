@@ -19,7 +19,7 @@ final class DataForm {
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
     waitMinutes = waitMinuteDefault,
-    variant = chess.variant.Standard.id,
+    variant = chess.variant.Standard.key,
     position = StartingPosition.initial.fen,
     `private` = None,
     password = None,
@@ -43,7 +43,7 @@ final class DataForm {
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> numberIn(minutePrivateChoices),
     "waitMinutes" -> numberIn(waitMinuteChoices),
-    "variant" -> number.verifying(validVariantIds contains _),
+    "variant" -> nonEmptyText.verifying(v => guessVariant(v).isDefined),
     "position" -> nonEmptyText,
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
     "private" -> optional(text.verifying("on" == _)),
@@ -100,7 +100,9 @@ object DataForm {
 
   val validVariants = List(Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse)
 
-  val validVariantIds = validVariants.map(_.id).toSet
+  def guessVariant(from: String): Option[Variant] = validVariants.find { v =>
+    v.key == from || parseIntOption(from).exists(v.id ==)
+  }
 
   def startingPosition(fen: String, variant: Variant): StartingPosition =
     Thematic.byFen(fen).ifTrue(variant.standard) | StartingPosition.initial
@@ -112,7 +114,7 @@ private[tournament] case class TournamentSetup(
     clockIncrement: Int,
     minutes: Int,
     waitMinutes: Int,
-    variant: Int,
+    variant: String,
     position: String,
     mode: Option[Int],
     `private`: Option[String],
@@ -135,7 +137,7 @@ private[tournament] case class TournamentSetup(
 
   def realMode = mode.fold(Mode.default)(Mode.orDefault)
 
-  def realVariant = chess.variant.Variant orDefault variant
+  def realVariant = DataForm.guessVariant(variant) | chess.variant.Standard
 
   def clockConfig = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
 
