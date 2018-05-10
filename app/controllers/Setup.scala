@@ -68,7 +68,10 @@ object Setup extends LilaController with TheftPrevention {
         ), {
           case config => userId ?? UserRepo.byId flatMap { destUser =>
             destUser ?? { Env.challenge.granter(ctx.me, _, config.perfType) } flatMap {
-              case Some(denied) => BadRequest(html.challenge.denied(denied)).fuccess
+              case Some(denied) => negotiate(
+                html = BadRequest(html.challenge.denied(denied)).fuccess,
+                api = _ => BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
+              )
               case None =>
                 import lila.challenge.Challenge._
                 val challenge = lila.challenge.Challenge.make(
