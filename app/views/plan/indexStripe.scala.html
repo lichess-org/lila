@@ -6,7 +6,7 @@ moreCss = cssTag("plan.css"),
 moreJs = jsTag("plan.js")) {
 
 <div class="content_box plan">
-  <h1>@userLink(me) • lichess Patron for @pluralize("month", me.plan.months)</h1>
+  <h1>@userLink(me) • Lichess Patron for @pluralize("month", me.plan.months)</h1>
   <table class="all">
     <tbody>
       <tr>
@@ -29,14 +29,14 @@ moreJs = jsTag("plan.js")) {
         <td class="change">
           <a data-form="switch">Change the monthly amount (@info.subscription.plan.usd)</a> or <a data-form="cancel">cancel your support</a>
           <form class="switch" action="@routes.Plan.switch" method="POST">
-            <p>Decide what lichess is worth to you:</p>
+            <p>Decide what Lichess is worth to you:</p>
             USD $ <input type="number" min=1 max=100000 step="0.01" name="usd" value="@info.subscription.plan.usd.value" />
             <button type="submit" class="button">@trans.apply()</button>
             <a data-form="switch">Nevermind</a>
           </form>
           <form class="cancel" action="@routes.Plan.cancel" method="POST">
             <p>Withdraw your credit card and stop payments:</p>
-            <button type="submit" class="button">No longer support lichess</button>
+            <button type="submit" class="button">No longer support Lichess</button>
             <a data-form="cancel">Nevermind :)</a>
           </form>
         </td>
@@ -71,7 +71,7 @@ moreJs = jsTag("plan.js")) {
       <tr>
         <th></th>
         <td>
-          <a href="@routes.Plan.list">View other lichess patrons</a>
+          <a href="@routes.Plan.list">View other Lichess Patrons</a>
         </td>
       </tr>
     </tbody>
