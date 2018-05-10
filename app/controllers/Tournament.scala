@@ -209,7 +209,7 @@ object Tournament extends LilaController {
   )
 
   private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
-    credits = 8,
+    credits = 12,
     duration = 24 hour,
     name = "tournament per IP",
     key = "tournament.ip"
@@ -225,7 +225,8 @@ object Tournament extends LilaController {
       negotiate(
         html = env.forms(me).bindFromRequest.fold(
           err => BadRequest(html.tournament.form(err, env.forms, me)).fuccess,
-          setup =>
+          setup => {
+            val cost = if (me.hasTitle || Env.streamer.liveStreamApi.isStreaming(me.id)) 1 else 4
             CreateLimitPerUser(me.id, cost = 1) {
               CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
                 env.api.createTournament(setup, me) map { tour =>
@@ -233,6 +234,7 @@ object Tournament extends LilaController {
                 }
               }(rateLimited)
             }(rateLimited)
+          }
         ),
         api = _ => doApiCreate(me)
       )
