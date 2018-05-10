@@ -13,18 +13,19 @@ import lidraughts.user.User
 
 final class BotPlayer(
     roundMap: ActorSelection,
-    chatActor: ActorSelection,
-    system: ActorSystem
-) {
+    chatActor: ActorSelection
+)(implicit system: ActorSystem) {
 
   def apply(pov: Pov, me: User, uciStr: String): Funit =
-    Uci(uciStr).fold(fufail[Unit](s"Invalid UCI: $uciStr")) { uci =>
-      lidraughts.mon.bot.moves(me.username)()
-      if (!pov.isMyTurn) fufail("Not your turn, or game already over")
-      else {
-        val promise = Promise[Unit]
-        roundMap ! Tell(pov.gameId, BotPlay(pov.playerId, uci, promise.some))
-        promise.future
+        lidraughts.common.Future.delay((pov.game.hasAi ?? 500) millis) {
+      Uci(uciStr).fold(fufail[Unit](s"Invalid UCI: $uciStr")) { uci =>
+        lidraughts.mon.bot.moves(me.username)()
+        if (!pov.isMyTurn) fufail("Not your turn, or game already over")
+        else {
+          val promise = Promise[Unit]
+          roundMap ! Tell(pov.gameId, BotPlay(pov.playerId, uci, promise.some))
+          promise.future
+        }
       }
     }
 
