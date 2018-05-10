@@ -50,14 +50,14 @@ final class TournamentApi(
       name = DataForm.canPickName(me) ?? setup.name,
       clock = setup.clockConfig,
       minutes = setup.minutes,
-      waitMinutes = setup.waitMinutes,
+      waitMinutes = setup.waitMinutes | DataForm.waitMinuteDefault,
       mode = setup.realMode,
       `private` = setup.`private`,
       password = setup.password ifTrue setup.`private`,
       system = System.Arena,
       variant = setup.realVariant,
-      position = DataForm.startingPosition(setup.position, setup.realVariant),
-      berserkable = setup.berserkable
+      position = DataForm.startingPosition(setup.position | chess.StartingPosition.initial.fen, setup.realVariant),
+      berserkable = setup.berserkable | true
     ) |> { tour =>
         tour.perfType.fold(tour) { perfType =>
           tour.copy(conditions = setup.conditions convert perfType)

@@ -18,14 +18,14 @@ final class DataForm {
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
-    waitMinutes = waitMinuteDefault,
-    variant = chess.variant.Standard.key,
-    position = StartingPosition.initial.fen,
+    waitMinutes = waitMinuteDefault.some,
+    variant = chess.variant.Standard.key.some,
+    position = StartingPosition.initial.fen.some,
     `private` = false,
     password = None,
     mode = Mode.Rated.id.some,
     conditionsOption = Condition.DataForm.AllSetup.default.some,
-    berserkable = true
+    berserkable = true.some
   )
 
   private val nameType = nonEmptyText.verifying(
@@ -42,14 +42,14 @@ final class DataForm {
     "clockTime" -> numberInDouble(clockTimePrivateChoices),
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> numberIn(minutePrivateChoices),
-    "waitMinutes" -> numberIn(waitMinuteChoices),
-    "variant" -> nonEmptyText.verifying(v => guessVariant(v).isDefined),
-    "position" -> nonEmptyText,
+    "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
+    "variant" -> optional(nonEmptyText.verifying(v => guessVariant(v).isDefined)),
+    "position" -> optional(nonEmptyText),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
     "private" -> tolerantBoolean,
     "password" -> optional(nonEmptyText),
     "conditions" -> optional(Condition.DataForm.all),
-    "berserkable" -> boolean
+    "berserkable" -> optional(boolean)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
     .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
@@ -113,14 +113,14 @@ private[tournament] case class TournamentSetup(
     clockTime: Double,
     clockIncrement: Int,
     minutes: Int,
-    waitMinutes: Int,
-    variant: String,
-    position: String,
+    waitMinutes: Option[Int],
+    variant: Option[String],
+    position: Option[String],
     mode: Option[Int],
     `private`: Boolean,
     password: Option[String],
     conditionsOption: Option[Condition.DataForm.AllSetup],
-    berserkable: Boolean
+    berserkable: Option[Boolean]
 ) {
 
   def conditions = conditionsOption | Condition.DataForm.AllSetup.default
@@ -137,7 +137,7 @@ private[tournament] case class TournamentSetup(
 
   def realMode = mode.fold(Mode.default)(Mode.orDefault)
 
-  def realVariant = DataForm.guessVariant(variant) | chess.variant.Standard
+  def realVariant = variant.flatMap(DataForm.guessVariant) | chess.variant.Standard
 
   def clockConfig = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
 
