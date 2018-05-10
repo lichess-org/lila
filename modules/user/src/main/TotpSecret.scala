@@ -6,7 +6,8 @@ import reactivemongo.bson._
 import java.security.SecureRandom
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
-import scala.math.{ pow, BigInt }
+import java.nio.ByteBuffer
+import scala.math.pow
 import User.TotpToken
 
 case class TotpSecret(secret: Array[Byte]) extends AnyVal {
@@ -17,7 +18,7 @@ case class TotpSecret(secret: Array[Byte]) extends AnyVal {
   def currentTotp = totp(System.currentTimeMillis / 30000)
 
   private def totp(period: Long): TotpToken = TotpToken {
-    val msg = BigInt(period).toByteArray.reverse.padTo(8, 0.toByte).reverse
+    val msg = ByteBuffer.allocate(8).putLong(0, period).array
 
     val hmac = Mac.getInstance("HMACSHA1")
     hmac.init(new SecretKeySpec(secret, "RAW"))
@@ -25,12 +26,12 @@ case class TotpSecret(secret: Array[Byte]) extends AnyVal {
 
     val offset = hash(hash.length - 1) & 0xf
 
-    val otp = ((hash(offset) & 0x7f) << 24 |
+    otpString {
+      (hash(offset) & 0x7f) << 24 |
       (hash(offset + 1) & 0xff) << 16 |
       (hash(offset + 2) & 0xff) << 8 |
-      (hash(offset + 3) & 0xff))
-
-    ("0" * TotpSecret.digits + otp.toString).takeRight(TotpSecret.digits)
+      (hash(offset + 3) & 0xff)
+    }
   }
 
   def verify(token: TotpToken): Boolean = {
@@ -41,11 +42,11 @@ case class TotpSecret(secret: Array[Byte]) extends AnyVal {
 
 object TotpSecret {
   // requires clock precision of at least window * 30 seconds
-  private val window = 3
-  // number of digits in token
-  private val digits = 6
+  private final val window = 3
+  // pad token with 0s
+  private def otpString(otp: Int) = f"$otp%06d"
 
-  private val secureRandom = new SecureRandom()
+  private[this] val secureRandom = new SecureRandom()
 
   def apply(base32: String) = new TotpSecret(new Base32().decode(base32))
 
