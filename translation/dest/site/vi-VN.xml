@@ -56,6 +56,9 @@
   <string name="showThreat">Hiện những bước đi sai lầm</string>
   <string name="inLocalBrowser">ở trình duyệt địa phương</string>
   <string name="toggleLocalEvaluation">Kích hoạt đánh giá địa phương</string>
+  <string name="promoteVariation">Thay đổi biến</string>
+  <string name="makeMainLine">Biến chính</string>
+  <string name="deleteFromHere">Xoá từ đây</string>
   <string name="move">Các nước đi</string>
   <string name="variantLoss">Bước đi sai lầm dẫn đến chiếu hết</string>
   <string name="variantWin">Bước đi chiếu hết</string>
@@ -185,6 +188,7 @@
   <string name="accept">Đồng ý</string>
   <string name="decline">Từ chối</string>
   <string name="playingRightNow">Ván đấu đang đánh</string>
+  <string name="eventInProgress">Chơi từ đây</string>
   <string name="finished">Hoàn thành</string>
   <string name="abortGame">Hủy ván cờ</string>
   <string name="gameAborted">Ván cờ đã bị hủy bỏ</string>
@@ -193,9 +197,13 @@
   <string name="mode">Chế độ</string>
   <string name="casual">Không tính elo</string>
   <string name="rated">Tính elo</string>
+  <string name="casualTournament">Giao hữu</string>
+  <string name="ratedTournament">Có tính rate</string>
   <string name="thisGameIsRated">Ván cờ đã được đánh giá</string>
   <string name="rematch">Đấu lại</string>
   <string name="rematchOfferSent">Yêu cầu đấu lại đã được gửi</string>
+  <string name="rematchOfferSentWhite">Trắng đề nghị đánh ván khác</string>
+  <string name="rematchOfferSentBlack">Đen đề nghị đánh ván khác</string>
   <string name="rematchOfferAccepted">Yêu cầu đấu lại được chấp nhận</string>
   <string name="rematchOfferCanceled">Hủy chơi lại</string>
   <string name="rematchOfferDeclined">Không chấp nhận chơi lại</string>
@@ -252,8 +260,30 @@
   <string name="tournament">Giải đấu</string>
   <string name="tournaments">Giải đấu</string>
   <string name="tournamentPoints">Điểm giải đấu</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="other">%s điểm giải đấu</item>
+  </plurals>
   <string name="viewTournament">Xem giải đấu</string>
   <string name="backToTournament">Quay lại giải</string>
+  <string name="thematic">Theo chủ đề</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="other">≥ %s ván có rate</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="other">≥ %1$s %2$s ván rated</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="other">Bạn cần chơi %1$s %2$s ván rated</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="other">Bạn cần chơi %s ván nữa</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Rate của bạn %s là tạm thời</string>
+  <string name="yourPerfRatingIsTooHigh">Rate của bạn %1$s (%2$s) quá cao</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Rate theo tuần %1$s (%2$s) của bạn quá cao</string>
+  <string name="yourPerfRatingIsTooLow">Rate của bạn %1$s (%2$s) quá thấp</string>
+  <string name="ratedMoreThanInPerf">Rate ≥ %1$s trong %2$s</string>
+  <string name="ratedLessThanInPerf">Rate ≤ %1$s trong %2$s</string>
   <string name="backToGame">Quay lại ván đấu</string>
   <string name="siteDescription">Chơi Cờ Vua online miễn phí. Chơi Cờ Vua với giao diện đẹp. Không cần đăng ký, không quảng cáo, không yêu cầu plugin. Chơi Cờ Vua với máy tính, bạn bè hoặc đấu thủ.</string>
   <string name="teams">Đội</string>
