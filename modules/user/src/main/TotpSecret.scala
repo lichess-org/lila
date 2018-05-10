@@ -7,7 +7,6 @@ import java.security.SecureRandom
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 import java.nio.ByteBuffer
-import scala.math.pow
 import User.TotpToken
 
 case class TotpSecret(secret: Array[Byte]) extends AnyVal {
@@ -26,11 +25,11 @@ case class TotpSecret(secret: Array[Byte]) extends AnyVal {
 
     val offset = hash(hash.length - 1) & 0xf
 
-    otpString {
+    TotpSecret.otpString {
       (hash(offset) & 0x7f) << 24 |
-      (hash(offset + 1) & 0xff) << 16 |
-      (hash(offset + 2) & 0xff) << 8 |
-      (hash(offset + 3) & 0xff)
+        (hash(offset + 1) & 0xff) << 16 |
+        (hash(offset + 2) & 0xff) << 8 |
+        (hash(offset + 3) & 0xff)
     }
   }
 
