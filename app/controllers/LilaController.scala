@@ -379,6 +379,10 @@ private[controllers] trait LilaController
       _ ifTrue (HTTPRequest isSynchronousHttp req) foreach { d =>
         Env.current.system.lilaBus.publish(lila.user.User.Active(d.user), 'userActive)
       }
+    } dmap {
+      case Some(d) if !lila.common.PlayApp.isProd =>
+        Some(d.copy(user = d.user.addRole(lila.security.Permission.Beta.name)))
+      case d => d
     } flatMap {
       case None => fuccess(None -> None)
       case Some(d) => lila.mod.Impersonate.impersonating(d.user) map {
