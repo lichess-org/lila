@@ -42,8 +42,8 @@ final class ReportApi(
   }
 
   private def monitorOpen =
-    coll.countSel(openAvailableSelect ++ roomSelect(none)) foreach {
-      lila.mon.mod.report.unprocessed(_)
+    coll.countSel(openAvailableSelect ++ roomSelect(none) ++ scoreThresholdSelect) foreach {
+      lila.mon.mod.report.unprocessed _
     }
 
   private def isAlreadySlain(candidate: Report.Candidate) =
