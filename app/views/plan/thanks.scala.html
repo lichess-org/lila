@@ -11,7 +11,7 @@ title = "Thank you for your support!") {
   <div class="body">
     <br />
     <p>
-      Thank you for helping us build lidraughts. <strong>You rock!</strong>
+      Thank you for helping us build Lidraughts. <strong>You rock!</strong>
     </p>
     <p>
       Your transaction has been completed,
@@ -35,15 +35,23 @@ title = "Thank you for your support!") {
       But worry not, we received your donation! Thanks again!
     </p>
     } else {
+    @if(p.isLifetime) {
     <p>
-      You are now a lidraughts Patron for one month!<br />
+      You are now a lifetime Lidraughts Patron!<br />
+      @ctx.me.map { me =>
+      Check out your <a href="@routes.User.show(me.username)">profile page</a>.
+      }
+    </p>
+    } else {
+    <p>
+      You are now a Lidraughts Patron for one month!<br />
       @ctx.me.map { me =>
       Check out your <a href="@routes.User.show(me.username)">profile page</a>.
       }
     </p>
     <p>
       In one month, you will <strong>not</strong> be charged again,
-      and your lidraughts account will be downgraded to free.
+      and your Lidraughts account will be downgraded to free.
     </p>
     <p>
       To get a permanent Patron account, please consider making a
@@ -52,8 +60,9 @@ title = "Thank you for your support!") {
     }
     }
     }
+    }
     <p>
-      Success! <a href="@routes.Lobby.home">Return to lidraughts homepage</a>.
+      Success! <a href="@routes.Lobby.home">Return to Lidraughts homepage</a>.
     </p>
   </div>
 </div>

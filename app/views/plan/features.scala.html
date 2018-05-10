@@ -37,7 +37,7 @@
 @side = {
 <div class="features_side">
   <h2>Free draughts for everyone, forever!</h2>
-  @*<a href="@routes.Plan.index" class="button">Support lidraughts</a>*@
+  @*<a href="@routes.Plan.index" class="button">Support Lidraughts</a>*@
 </div>
 }
 
@@ -50,7 +50,7 @@ moreCss = cssTag("features.css"),
 openGraph = lidraughts.app.ui.OpenGraph(
 title = title,
 url = s"$netBaseUrl${routes.Plan.index.url}",
-description = "All of lidraughts features are free for all and forever. We do it for draughts!").some) {
+description = "All of Lidraughts features are free for all and forever. We do it for draughts!").some) {
 
 <div class="content_box features">
   <table>
@@ -104,7 +104,7 @@ description = "All of lidraughts features are free for all and forever. We do it
       Download/Upload any game as PDN
       }
       @tr(unlimited) {
-      <a href="@routes.Search.index(1)">Advanced search</a> through lidraughts games
+      <a href="@routes.Search.index(1)">Advanced search</a> through Lidraughts games
       }
       @tr(unlimited) {
       @* <a href="@routes.Video.index">Draughts video library</a> *@
@@ -164,11 +164,11 @@ description = "All of lidraughts features are free for all and forever. We do it
       }
     </tbody>
     @thead {
-    <h1>Support lidraughts</h1>
+    <h1>Support Lidraughts</h1>
     }
     <tbody class="support">
       <tr>
-        <th>Contribute to lidraughts.org and<br />get a cool looking Patron icon</th>
+        <th>Contribute to Lidraughts and<br />get a cool looking Patron icon</th>
         <td>-</td>
         <td><span data-icon="@patronIconChar" class="is is-green text check">Yes</span></td>
       </tr>
@@ -182,12 +182,12 @@ description = "All of lidraughts features are free for all and forever. We do it
   <p class="explanation">
     <strong>Yes, both accounts have the same features!</strong>
     <br />
-    That is because lidraughts is built for the love of draughts.<br />
+    That is because Lidraughts is built for the love of draughts.<br />
     We believe every draughts player deserves the best, and so:
     <br /><br />
     <strong>all features are free for everybody, forever!</strong>
     <br />
-    If you love lidraughts, <a class="button" href="@routes.Plan.index">support us with a Patron account!</a>
+    If you love Lidraughts, <a class="button" href="@routes.Plan.index">support us with a Patron account!</a>
   </p>
 </div>
 }
