@@ -220,7 +220,7 @@ object Tournament extends LidraughtsController {
     fuccess(Redirect(routes.Tournament.home(1)))
   }
 
-  def create = AuthBody { implicit ctx => implicit me =>
+  def create = AuthBody { implicit ctx => me =>
     NoLameOrBot {
       teamsIBelongTo(me) flatMap { teams =>
         implicit val req = ctx.body
@@ -236,18 +236,23 @@ object Tournament extends LidraughtsController {
                 }(rateLimited)
               }(rateLimited)
           ),
-          api = _ => env.forms(me).bindFromRequest.fold(
-            err => BadRequest(errorsAsJson(err)).fuccess,
-            setup => teamsIBelongTo(me) flatMap { teams =>
-              env.api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
-                Ok(Json.obj("id" -> tour.id))
-              }
-            }
-          )
+          api = _ => doApiCreate(me, teams)
         )
       }
     }
   }
+
+  def apiCreate = ScopedBody() { implicit req => me =>
+    teamsIBelongTo(me) flatMap { teams => doApiCreate(me, teams) }
+  }
+
+  private def doApiCreate(me: lidraughts.user.User, teams: TeamIdsWithNames)(implicit req: Request[_]): Fu[Result] =
+    env.forms(me).bindFromRequest.fold(
+      err => BadRequest(errorsAsJson(err)).fuccess,
+      setup => env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
+        Env.tournament.jsonView(tour, none, none, getUserTeamIds, none, none, lidraughts.i18n.defaultLang)
+      } map { Ok(_) }
+    )
 
   def limitedInvitation = Auth { implicit ctx => me =>
     for {
