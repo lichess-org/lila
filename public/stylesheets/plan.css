@@ -141,11 +141,12 @@ table.all .thanks {
   background: #639B24!important;
   border-color: #ccc!important;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
+  color: #fff!important;
+  text-shadow: 0 1px 0 #000 !important;
 }
 body.dark .plan .plan_checkout group input:checked + label,
 body.dark .plan .plan_checkout .amount_fixed label {
   border-color: #555!important;
-  color: #fff!important;
 }
 .plan .plan_checkout group.freq input:checked + label::before {
   content: "✓";
