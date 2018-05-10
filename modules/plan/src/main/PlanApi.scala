@@ -77,7 +77,9 @@ final class PlanApi(
                 stripe = Patron.Stripe(stripeCharge.customer).some
               ).levelUpIfPossible
               patronColl.update($id(patron.id), p2) >>
-                setDbUserPlanOnCharge(user, patron)
+                setDbUserPlanOnCharge(user, p2) >> {
+                  stripeCharge.lifetimeWorthy ?? setLifetime(user)
+                }
             }
         }
       }
@@ -128,7 +130,9 @@ final class PlanApi(
                   payPal = payPal.some
                 ).levelUpIfPossible.expireInOneMonth
                 patronColl.update($id(patron.id), p2) >>
-                  setDbUserPlanOnCharge(user, patron)
+                  setDbUserPlanOnCharge(user, p2)
+            } >> {
+              charge.lifetimeWorthy ?? setLifetime(user)
             } >>- logger.info(s"Charged ${user.username} with paypal: $cents")
           }
         }

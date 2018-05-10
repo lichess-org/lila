@@ -21,6 +21,8 @@ case class Charge(
     if (isStripe) "stripe"
     else if (isPayPal) "paypal"
     else "???"
+
+  def lifetimeWorthy = cents >= Cents.lifetime
 }
 
 object Charge {

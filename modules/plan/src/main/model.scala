@@ -82,7 +82,9 @@ case class StripeCustomer(
   def renew = firstSubscription ?? (_.renew)
 }
 
-case class StripeCharge(id: ChargeId, amount: Cents, customer: CustomerId)
+case class StripeCharge(id: ChargeId, amount: Cents, customer: CustomerId) {
+  def lifetimeWorthy = amount >= Cents.lifetime
+}
 
 case class StripeInvoice(
     id: Option[String],
