@@ -114,6 +114,8 @@ case class User(
   def noBot = !isBot
 
   def rankable = noBot && !rankban
+
+  def addRole(role: String) = copy(roles = role :: roles)
 }
 
 object User {

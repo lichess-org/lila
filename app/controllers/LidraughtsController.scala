@@ -381,6 +381,10 @@ private[controllers] trait LidraughtsController
       _ ifTrue (HTTPRequest isSynchronousHttp req) foreach { d =>
         Env.current.system.lidraughtsBus.publish(lidraughts.user.User.Active(d.user), 'userActive)
       }
+    } dmap {
+      case Some(d) if !lidraughts.common.PlayApp.isProd =>
+        Some(d.copy(user = d.user.addRole(lidraughts.security.Permission.Beta.name)))
+      case d => d
     } flatMap {
       case None => fuccess(None -> None)
       case Some(d) => lidraughts.mod.Impersonate.impersonating(d.user) map {
