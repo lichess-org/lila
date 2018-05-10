@@ -802,7 +802,7 @@ in %3$s</string>
   <string name="evaluatingYourMove">Valutando la tua mossa...</string>
   <string name="whiteWinsGame">Il Bianco vince</string>
   <string name="blackWinsGame">Il Nero vince</string>
-  <string name="learnFromYourMistakes">Impara dagli errori</string>
+  <string name="learnFromYourMistakes">Impara dai tuoi errori</string>
   <string name="learnFromThisMistake">Impara da questo errore</string>
   <string name="skipThisMove">Salta questa mossa</string>
   <string name="next">Successivo</string>
