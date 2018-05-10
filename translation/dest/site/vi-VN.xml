@@ -674,6 +674,14 @@ trong %3$s</string>
   <string name="viewTheSolution">Xem lời giải</string>
   <string name="followAndChallengeFriends">Theo dõi và thách thức bạn bè</string>
   <string name="gameAnalysis">Phân tích trận đấu</string>
+  <string name="lobby">Phòng chờ</string>
+  <string name="anonymous">Ẩn danh</string>
+  <string name="yourScore">Điểm của bạn: %s</string>
+  <string name="language">Ngôn ngữ</string>
+  <string name="background">Nền</string>
+  <string name="light">Sáng</string>
+  <string name="dark">Tối</string>
+  <string name="transparent">Trong suốt</string>
   <string name="boardTheme">Theme bàn cờ</string>
   <string name="boardSize">Cỡ bàn cờ</string>
   <string name="pieceSet">Bộ cờ</string>
@@ -712,4 +720,18 @@ trong %3$s</string>
   <string name="hideBestMove">Ẩn nước đi tốt nhất</string>
   <string name="getAHint">Xem gợi ý</string>
   <string name="evaluatingYourMove">Đánh giá nước đi của bạn...</string>
+  <string name="whiteWinsGame">Trắng thắng</string>
+  <string name="blackWinsGame">Đen thắng</string>
+  <string name="learnFromYourMistakes">Học từ lỗi của mình</string>
+  <string name="learnFromThisMistake">Học từ sai lầm này</string>
+  <string name="skipThisMove">Bỏ qua nước này</string>
+  <string name="next">Tiếp</string>
+  <string name="xWasPlayed">Đã chơi %s</string>
+  <string name="findBetterMoveForWhite">Tìm nước đi tốt hơn cho trắng</string>
+  <string name="findBetterMoveForBlack">Tìm nước đi tốt hơn cho đen</string>
+  <string name="resumeLearning">Tiếp tục học</string>
+  <string name="youCanDoBetter">Bạn có thể đi tốt hơn</string>
+  <string name="tryAnotherMoveForWhite">Tìm nước đi khác cho trắng</string>
+  <string name="tryAnotherMoveForBlack">Tìm nước đi khách cho đen</string>
+  <string name="solution">Lời giải</string>
 </resources>
