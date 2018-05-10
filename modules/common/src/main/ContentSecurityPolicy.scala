@@ -46,6 +46,10 @@ case class ContentSecurityPolicy(
     styleSrc = "https://platform.twitter.com" :: styleSrc
   )
 
+  def withGoogleForm = copy(
+    childSrc = "https://docs.google.com" :: childSrc
+  )
+
   override def toString: String =
     List(
       "default-src " -> defaultSrc,
