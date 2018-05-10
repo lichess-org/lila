@@ -24,7 +24,7 @@ final class Player(
     case e: Exception => logger.info(e.getMessage)
   }
 
-  private val delayFactor = 0.008f
+  private val delayFactor = 0.01f
   private val defaultClock = Clock(300, 0)
 
   private def delayFor(g: Game): Option[FiniteDuration] = for {
