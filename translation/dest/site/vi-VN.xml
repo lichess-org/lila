@@ -316,11 +316,13 @@
   <string name="fromPosition">Từ thế trận</string>
   <string name="continueFromHere">Tiếp tục từ đây</string>
   <string name="importGame">Nhập ván cờ</string>
+  <string name="importGameExplanation">Khi paste PGN vào đây, bạn replay được ván cờ trên trình duyệt, phân tích bởi máy tính, chat trong game và URL share được.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s các ván cờ đã nhập</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Đây là mã CAPTCHA cờ vua</string>
   <string name="clickOnTheBoardToMakeYourMove">Bấm vào bàn cờ để di chuyển, chứng minh bạn là con người</string>
+  <string name="captcha.fail">Hãy giải đố captcha.</string>
   <string name="notACheckmate">Không phải là một nước chiếu hết</string>
   <string name="colorPlaysCheckmateInOne">%s chơi; chiếu vua trong một nước đi</string>
   <string name="retry">Thử lại</string>
@@ -328,6 +330,7 @@
   <string name="onlineFriends">Bạn bè đang online</string>
   <string name="noFriendsOnline">Không có bạn bè đang online</string>
   <string name="findFriends">Tìm bạn</string>
+  <string name="favoriteOpponents">Đối thủ yêu thích</string>
   <string name="follow">Theo dõi</string>
   <string name="following">Đang theo dõi</string>
   <string name="unfollow">Bỏ theo dõi</string>
@@ -358,6 +361,13 @@
   <string name="winner">Người chiến thắng</string>
   <string name="standing">Đang suy nghĩ</string>
   <string name="createANewTournament">Tạo giải đấu mới</string>
+  <string name="tournamentCalendar">Lịch giải đấu</string>
+  <string name="conditionOfEntry">Điều kiện tham gia:</string>
+  <string name="advancedSettings">Thiết lập cao cấp</string>
+  <string name="safeTournamentName">Hãy chọn tên cho giải đấu.</string>
+  <string name="inappropriateNameWarning">Chỉ một hành động dù không thích hợp, tài khoản của bạn có thể bị khoá.</string>
+  <string name="emptyTournamentName">Hãy để trống tên giải đấy để lấy tên theo một grandmaster nào đó.</string>
+  <string name="recommendNotTouching">Chúng tôi khuyến nghị không nên thay đổi.</string>
   <string name="join">Tham gia</string>
   <string name="points">Điểm</string>
   <string name="wins">Thắng</string>
