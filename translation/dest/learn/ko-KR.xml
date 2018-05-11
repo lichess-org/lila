@@ -34,7 +34,18 @@
   <string name="kingComplete">이제 지휘관에게 명령 할 수 있습니다!</string>
   <string name="theKnight">나이트</string>
   <string name="itMovesInAnLShape">L자 모양으로 움직입니다</string>
+  <string name="knightIntro">이번엔 어려울 수도 있어요. 나이트는.. 좀 까다로운 말이거든요.</string>
+  <string name="knightsHaveAFancyWay">나이트는 독특한 행마를 선보입니다!</string>
+  <string name="knightsCanJumpOverObstacles">나이트는 장애물을 뛰어넘을 수 있습니다!
+탈출하고 별들을 획득하세요!</string>
+  <string name="knightComplete">축하합니다! 나이트를 다 익히셨군요!</string>
   <string name="thePawn">폰</string>
+  <string name="itMovesForwardOnly">이 말은 앞쪽으로만 움직입니다.</string>
+  <string name="pawnIntro">폰은 약하지만, 엄청난 잠재력을 가지고 있습니다.</string>
+  <string name="pawnsMoveOneSquareOnly">폰은 한 칸씩만 움직일 수 있습니다.
+하지만 폰이 보드의 반대편 끝에 도달하면, 더 강한 말로 변합니다!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">대부분은 퀸으로 승급하는것이 가장 좋습니다.
+하지만 때로는 나이트도 괜찮은 선택이에요!</string>
   <string name="pawnPromotion">폰 진급</string>
   <string name="yourPawnReachedTheEndOfTheBoard">당신의 폰이 보드 끝을 도달하였습니다!</string>
   <string name="fundamentals">기본</string>
