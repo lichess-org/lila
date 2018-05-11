@@ -12,7 +12,7 @@ import User.TotpToken
 case class TotpSecret(secret: Array[Byte]) extends AnyVal {
   import TotpSecret._
 
-  override def toString = "TotpSecret(****************)"
+  override def toString = "TotpSecret(****)"
 
   def base32: String = new Base32().encodeAsString(secret)
 
@@ -50,7 +50,7 @@ object TotpSecret {
   def apply(base32: String) = new TotpSecret(new Base32().decode(base32))
 
   def random: TotpSecret = {
-    val secret = new Array[Byte](10)
+    val secret = new Array[Byte](20)
     secureRandom.nextBytes(secret)
     TotpSecret(secret)
   }
