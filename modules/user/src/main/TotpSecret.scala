@@ -25,8 +25,7 @@ case class TotpSecret(secret: Array[Byte]) extends AnyVal {
     hmac.init(new SecretKeySpec(secret, "RAW"))
     val hash = hmac.doFinal(msg)
 
-    val offset = hash(19) & 0xf
-
+    val offset = hash.last & 0xf
     otpString(ByteBuffer.wrap(hash).getInt(offset) & 0x7fffffff)
   }
 
@@ -37,11 +36,8 @@ case class TotpSecret(secret: Array[Byte]) extends AnyVal {
 }
 
 object TotpSecret {
-  // requires clock precision of at least window * 30 seconds
-  private final val window = 3
-
-  // valid 'skews' in rough order of likelihood
-  private val skewList = (0 to window).flatMap(i => Set(-i, i)).toList
+  // clock skews in rough order of likelihood
+  private val skewList = List(0, 1, -1, 2, -2, 3, -3)
 
   private def otpString(otp: Int) = {
     val s = (otp % 1000000).toString
