@@ -78,7 +78,24 @@
   <string name="captureAndDefendPieces">공격하면서 방어하세요</string>
   <string name="combatIntro">좋은 병사는 공격과 방어 어느 하나 빠지지 않죠!</string>
   <string name="combatComplete">축하합니다! 당신은 체스 기물을 이용해 싸울 수 있습니다!</string>
+  <string name="checkInOne">한 수 안에 체크하기</string>
+  <string name="attackTheOpponentsKing">상대의 킹 공격하기</string>
+  <string name="checkInOneIntro">킹을 공격하세요. 상대는 방어할 수밖에 없을 거에요!</string>
+  <string name="checkInOneGoal">한 수 안에 상대의 킹을 위험에 빠뜨리세요</string>
+  <string name="checkInOneComplete">축하합니다! 역시 강요는 재밌죠?</string>
+  <string name="outOfCheck">체크에서 벗어나기</string>
   <string name="defendYourKing">킹을 보호하라</string>
+  <string name="outOfCheckIntro">체크당했습니다! 도망치거나 공격을 막으세요.</string>
+  <string name="escapeWithTheKing">킹 폐하를 피신시키십시오!</string>
+  <string name="theKingCannotEscapeButBlock">킹이 움직일 수 없더라도,
+공격을 막을 수는 있습니다!</string>
+  <string name="youCanGetOutOfCheckByTaking">최선의 방어는 공격입니다.
+폐하를 공격하는 말을 공격하세요!</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">나이트가 방어를 뚫고 공격합니다!</string>
+  <string name="escapeOrBlock">폐하를 피신시키거나
+공격을 막으세요!</string>
+  <string name="outOfCheckComplete">축하합니다! 폐하가 잡힐 순 없으니 잘 보호하세요!</string>
+  <string name="mateInOne">한 수 안에 체크메이트하기</string>
   <string name="intermediate">중급</string>
   <string name="boardSetup">보드 준비</string>
   <string name="castling">캐슬링</string>
