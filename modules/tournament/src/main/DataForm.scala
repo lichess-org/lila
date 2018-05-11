@@ -1,5 +1,6 @@
 package lidraughts.tournament
 
+import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
@@ -7,6 +8,7 @@ import play.api.data.validation.Constraints
 import draughts.Mode
 import draughts.StartingPosition
 import lidraughts.common.Form._
+import lidraughts.common.Form.ISODate._
 import lidraughts.user.User
 
 final class DataForm {
@@ -19,6 +21,7 @@ final class DataForm {
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
     waitMinutes = waitMinuteDefault.some,
+    startDate = none,
     variant = draughts.variant.Standard.key.some,
     position = StartingPosition.initial.fen.some,
     `private` = false,
@@ -43,6 +46,7 @@ final class DataForm {
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> numberIn(minutePrivateChoices),
     "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
+    "startDate" -> optional(isoDate),
     "variant" -> optional(nonEmptyText.verifying(v => guessVariant(v).isDefined)),
     "position" -> optional(nonEmptyText),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
@@ -114,6 +118,7 @@ private[tournament] case class TournamentSetup(
     clockIncrement: Int,
     minutes: Int,
     waitMinutes: Option[Int],
+    startDate: Option[DateTime],
     variant: Option[String],
     position: Option[String],
     mode: Option[Int],

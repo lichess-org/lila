@@ -4,11 +4,11 @@ $(function() {
   var $minutes = $('#tournament tr.minutes td');
 
   function replace($el, $paste) {
-      var prvVal = $el.children().first().val();
-      $el.html($paste.html());
-      if (prvVal) {
-        $el.children().first().val(prvVal);
-      }
+    var prvVal = $el.children().first().val();
+    $el.html($paste.html());
+    if (prvVal) {
+      $el.children().first().val(prvVal);
+    }
   }
 
   function showPrivate() {
@@ -37,5 +37,15 @@ $(function() {
   $('.conditions a.show').on('click', function() {
     $(this).remove();
     $('.conditions .form').show();
+  });
+    $('.conditions .form').show();
+
+  $(".flatpickr").flatpickr({
+    enableTime: true,
+    minDate: 'today',
+    maxDate: new Date().fp_incr(31),
+    dateFormat: 'Z',
+    altInput: true,
+    altFormat: 'Y-m-d h:i K'
   });
 });

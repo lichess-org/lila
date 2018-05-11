@@ -143,6 +143,7 @@ object Tournament {
     `private`: Boolean,
     password: Option[String],
     waitMinutes: Int,
+    startDate: Option[DateTime],
     berserkable: Boolean
   ) = Tournament(
     id = Random nextString 8,
@@ -165,7 +166,9 @@ object Tournament {
     conditions = Condition.All.empty,
     noBerserk = !berserkable,
     schedule = None,
-    startsAt = DateTime.now plusMinutes waitMinutes
+    startsAt = startDate | {
+      DateTime.now plusMinutes waitMinutes
+    }
   )
 
   def schedule(sched: Schedule, minutes: Int) = Tournament(
