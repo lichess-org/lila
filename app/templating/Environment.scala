@@ -57,6 +57,8 @@ object Environment
   def reportNbOpen: Int =
     lidraughts.report.Env.current.api.nbOpen.awaitOrElse(10.millis, 0)
 
+  def cspEnabled = apiEnv.cspEnabledSetting.get _
+
   def isChatPanicEnabled =
     lidraughts.chat.Env.current.panic.enabled
 

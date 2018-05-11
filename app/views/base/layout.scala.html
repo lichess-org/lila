@@ -21,7 +21,7 @@ csp: Option[lidraughts.common.ContentSecurityPolicy] = None)(body: Html)(implici
   <!-- Lidraughts is open source, a fork of Lichess! See https://github.com/roepstoep/lidraughts -->
   <head>
     <meta charset="utf-8">
-    @if(isGranted(_.Beta)) {
+    @if(cspEnabled()) {
     <meta http-equiv="Content-Security-Policy" content="@csp.getOrElse(defaultCsp)">
     }
     @if(isProd) {
