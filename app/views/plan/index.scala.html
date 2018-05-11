@@ -38,7 +38,7 @@ csp = defaultCsp.withStripe.some) {
     <div>
       <h1>Thank you for your donation!</h1>
       @if(p.isLifetime) {
-      You have a lifetime Patron account. That's pretty awesome!
+      You have a <strong>Lifetime Patron</strong> account. That's pretty awesome!
       } else {
       @p.expiresAt.map { expires =>
       You have a Patron account until @showDate(expires).<br />
