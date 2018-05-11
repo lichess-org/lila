@@ -120,7 +120,24 @@
 아무 수나 두어 진행하십시오.</string>
   <string name="boardSetupComplete">축하합니다! 이제 당신도 체스판을 구성할 수 있게 되었네요!</string>
   <string name="castling">캐슬링</string>
+  <string name="theSpecialKingMove">왕의 특혜</string>
+  <string name="castlingIntro">왕을 안전하게 피신시키고, 룩을 세워 공격 태세를 갖춥니다.</string>
+  <string name="castleKingSide">킹 사이드 캐슬링을 하려면 킹을 두 칸 움직이세요.</string>
+  <string name="castleQueenSide">퀸 사이드 캐슬링도 킹이 두 칸 움직입니다.</string>
+  <string name="theKnightIsInTheWay">이런, 나이트가 길을 막고있네요!
+나이트를 치우고, 킹 사이드로 캐슬링합시다.</string>
+  <string name="castleKingSideMovePiecesFirst">킹 사이드 캐슬링을 하세요!
+캐슬링 전에 킹과 룩 사이의 기물들을 치워야 합니다.</string>
+  <string name="castleQueenSideMovePiecesFirst">이번엔 퀸 사이드 캐슬링을 하세요!
+캐슬링 전에 킹과 룩 사이의 기물들을 치워야 합니다.</string>
+  <string name="youCannotCastleIfMoved">이미 킹이나 룩이 이동한 적이 있었다면 캐슬링을 할 수 없습니다.</string>
+  <string name="youCannotCastleIfAttacked">또한 행로 도중 공격받을 수 있다면 캐슬링을 할 수 없습니다.
+공격을 막고 캐슬링하세요!</string>
+  <string name="findAWayToCastleKingSide">킹 사이드 캐슬링을 할 방법을 찾아내세요!</string>
+  <string name="findAWayToCastleQueenSide">퀸 사이드 캐슬링을 할 방법을 찾아내세요!</string>
+  <string name="castlingComplete">축하합니다! 이제 거의 모든 게임에서 캐슬링을 하겠네요!</string>
   <string name="enPassant">앙 파상</string>
+  <string name="theSpecialPawnMove">폰의 예외적 이동</string>
   <string name="stalemate">스테일메이트</string>
   <string name="theGameIsADraw">게임이 무승부입니다</string>
   <string name="advanced">상급</string>
