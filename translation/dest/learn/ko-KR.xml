@@ -190,7 +190,9 @@
   <string name="puzzles">퍼즐</string>
   <string name="exerciseYourTacticalSkills">당신의 전략을 더 향상시키세요</string>
   <string name="videos">동영상</string>
+  <string name="watchInstructiveChessVideos">유익한 체스 동영상을 보세요</string>
   <string name="playPeople">사람들이랑 플레이</string>
+  <string name="opponentsFromAroundTheWorld">전세계인들과 체스를 두세요</string>
   <string name="playMachine">컴퓨터랑 게임하기</string>
   <string name="testYourSkillsWithTheComputer">컴퓨터로 실력 평가하기</string>
   <string name="letsGo">시작하기</string>
@@ -205,6 +207,7 @@
   <string name="youreGoodAtThis">잘 하시네요!</string>
   <string name="nailedIt">바로 그거에요.</string>
   <string name="rightOn">맞습니다!</string>
+  <string name="stageXComplete">%s번 퍼즐 완료</string>
   <string name="yourScore">당신의 점수</string>
   <string name="next">다음</string>
   <string name="backToMenu">다시 메뉴로</string>
