@@ -27,12 +27,12 @@ class TotpTest extends Specification {
     "reference" in {
       // https://tools.ietf.org/html/rfc6238#appendix-B
       val secret = TotpSecret("12345678901234567890".getBytes)
-      secret.totp(59 / 30).value must_== "287082"
-      secret.totp(1111111109L / 30).value must_== "081804"
-      secret.totp(1111111111L / 30).value must_== "050471"
-      secret.totp(1234567890L / 30).value must_== "005924"
-      secret.totp(2000000000L / 30).value must_== "279037"
-      secret.totp(20000000000L / 30).value must_== "353130"
+      secret.totp(59 / 30) must_== TotpToken("287082")
+      secret.totp(1111111109L / 30) must_== TotpToken("081804")
+      secret.totp(1111111111L / 30) must_== TotpToken("050471")
+      secret.totp(1234567890L / 30) must_== TotpToken("005924")
+      secret.totp(2000000000L / 30) must_== TotpToken("279037")
+      secret.totp(20000000000L / 30) must_== TotpToken("353130")
     }
   }
 }
