@@ -80,18 +80,6 @@ module.exports = function(cfg, element) {
           $("#enterable_simuls").html(data).parent().toggle($('#enterable_simuls tr').length > 0);
           lichess.pubsub.emit('content_loaded')();
         },
-        reload_forum: function() {
-          var $newposts = $("div.new_posts");
-          setTimeout(function() {
-            $.ajax({
-              url: $newposts.data('url'),
-              success: function(data) {
-                $newposts.find('ol').html(data).end().scrollTop(0);
-                lichess.pubsub.emit('content_loaded')();
-              }
-            });
-          }, Math.round(Math.random() * 5000));
-        },
         fen: function(e) {
           lichess.StrongSocket.defaults.events.fen(e);
           lobby.gameActivity(e.id);

@@ -401,7 +401,6 @@ POST  /bookmark/$gameId<\w{8}>     controllers.Bookmark.toggle(gameId: String)
 
 # Forum
 GET   /forum                           controllers.ForumCateg.index
-GET   /forum/recent                    controllers.ForumPost.recent
 GET   /forum/search                    controllers.ForumPost.search(text: String ?= "", page: Int ?= 1)
 GET   /forum/:slug                     controllers.ForumCateg.show(slug: String, page: Int ?= 1)
 GET   /forum/:categSlug/form           controllers.ForumTopic.form(categSlug: String)
