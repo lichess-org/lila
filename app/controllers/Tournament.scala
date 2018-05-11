@@ -226,7 +226,9 @@ object Tournament extends LilaController {
         html = env.forms(me).bindFromRequest.fold(
           err => BadRequest(html.tournament.form(err, env.forms, me)).fuccess,
           setup => {
-            val cost = if (me.hasTitle || Env.streamer.liveStreamApi.isStreaming(me.id)) 1 else 4
+            val cost = if (me.hasTitle ||
+              Env.streamer.liveStreamApi.isStreaming(me.id) ||
+              isGranted(_.ManageTournament)) 1 else 4
             CreateLimitPerUser(me.id, cost = 1) {
               CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
                 env.api.createTournament(setup, me) map { tour =>

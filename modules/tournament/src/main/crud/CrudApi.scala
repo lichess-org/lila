@@ -47,6 +47,7 @@ final class CrudApi {
     `private` = false,
     password = None,
     waitMinutes = 0,
+    startDate = none,
     berserkable = true
   )
 

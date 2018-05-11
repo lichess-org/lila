@@ -4,11 +4,13 @@
 @import lila.tournament.DataForm._
 
 @moreJs = {
+@flatpickrTag
 @jsTag("tournamentForm.js")
 }
 @moreCss = {
-@cssTag("tournament.form.css")
+@cssTag("flatpickr.css")
 @cssTag("material.form.css")
+@cssTag("tournament.form.css")
 }
 
 @tournament.layout(
@@ -40,7 +42,7 @@ moreJs = moreJs) {
               @base.form.input(form("name")) Arena<br />
               @errMsg(form("name"))
               <strong>@trans.safeTournamentName()<br />
-              @trans.inappropriateNameWarning()</strong><br />
+                @trans.inappropriateNameWarning()</strong><br />
               @trans.emptyTournamentName()
             </td>
           </tr>
@@ -85,6 +87,9 @@ moreJs = moreJs) {
         </p>
         <div class="material form">
           @tournament.conditionForm(form, auto = true)
+          @base.form.group(form("startDate"), Html("Custom start date"), help = Html("""This overrides the "Time before tournament starts" setting""").some) { field =>
+          @base.form.flatpickr(field)
+          }
         </div>
       </fieldset>
       <button type="submit" class="submit button" data-icon="g">

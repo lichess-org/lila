@@ -51,6 +51,7 @@ final class TournamentApi(
       clock = setup.clockConfig,
       minutes = setup.minutes,
       waitMinutes = setup.waitMinutes | DataForm.waitMinuteDefault,
+      startDate = setup.startDate,
       mode = setup.realMode,
       `private` = setup.`private`,
       password = setup.password ifTrue setup.`private`,
