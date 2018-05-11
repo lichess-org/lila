@@ -147,6 +147,10 @@ body.dark .plan .plan_checkout .amount_fixed label {
   border-color: #555!important;
   color: #fff!important;
 }
+.plan .plan_checkout group input:disabled + label {
+  opacity: 0.5;
+  pointer: default;
+}
 .plan .plan_checkout group.freq input:checked + label::before {
   content: "✓";
   padding-right: 5px;
