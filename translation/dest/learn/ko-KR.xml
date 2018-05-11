@@ -138,9 +138,37 @@
   <string name="castlingComplete">축하합니다! 이제 거의 모든 게임에서 캐슬링을 하겠네요!</string>
   <string name="enPassant">앙 파상</string>
   <string name="theSpecialPawnMove">폰의 예외적 이동</string>
+  <string name="enPassantIntro">상대 폰이 두 칸씩 움직였다 하더라도 폰이 한 칸만 움직인 상황처럼 잡을 수 있습니다.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">상대가 방금 폰을 두 칸 움직였습니다!
+지나가던 폰을 잡아봅시다.
+앙파상을 시도해보세요!</string>
+  <string name="enPassantOnlyWorksImmediately">앙파상은 방금 움직인 폰에 한해서만 적용됩니다.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">또한 앙파상은 당신의 폰이 잡을 상대의 폰과 같은 가로줄에 있을 때에만 할 수 있습니다.</string>
+  <string name="takeAllThePawnsEnPassant">모든 폰들을 앙파상으로 잡으세요!</string>
+  <string name="enPassantComplete">축하합니다! 이제 지나가던 폰을 놓치진 않겠네요!</string>
   <string name="stalemate">스테일메이트</string>
   <string name="theGameIsADraw">게임이 무승부입니다</string>
+  <string name="stalemateIntro">체크에 걸리지도 않았지만 움직일 수 있는 수가 없는 상황은 무승부, 스테일메이트입니다.</string>
+  <string name="stalemateGoal">흑을 스테일메이트시키려면:
+- 흑은 어느 곳으로도 이동할 수 없어야 합니다.
+- 체크에 걸려서도 안됩니다.</string>
+  <string name="stalemateComplete">축하합니다! 무승부가 패배보다야 낫겠죠!</string>
   <string name="advanced">상급</string>
+  <string name="pieceValue">기물의 가치</string>
+  <string name="evaluatePieceStrength">기물의 중요성을 대략 예상해봅시다</string>
+  <string name="pieceValueIntro">높은 기동성은 더 높은 가치를 뜻합니다!
+
+퀸 = 9
+룩 = 5
+비숍 = 3
+나이트 = 3
+폰 = 1
+킹은 값어치를 잴 수 없습니다. 킹이 잡힌다는 것은 게임에서 패배한다는 것이니까요. 굳이 따지자면 무한대입니다.</string>
+  <string name="queenOverBishop">가장 높은 가치의 기물을 잡으세요!
+
+힌트: 
+퀸 &gt; 비숍</string>
+  <string name="takeThePieceWithTheHighestValue">가장 높은 가치의 기물을 잡으세요!</string>
   <string name="register">회원가입</string>
   <string name="getAFreeLichessAccount">무료 Lichess 계정 받기</string>
   <string name="practice">연습</string>
