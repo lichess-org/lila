@@ -35,7 +35,7 @@ final class Player(
     if totalTime > 30 * 100
     delay = (clock.remainingTime(pov.color).centis atMost totalTime) * delayFactor
     accel = 1 - ((g.turns - 20) atLeast 0 atMost 100) / 150f
-    sleep = (delay * accel) atMost 400
+    sleep = (delay * accel) atMost 500
     if sleep > 30
     millis = sleep * 10
     randomized = approximatly(0.5f)(millis)
