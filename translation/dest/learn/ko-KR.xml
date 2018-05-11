@@ -40,16 +40,34 @@
 탈출하고 별들을 획득하세요!</string>
   <string name="knightComplete">축하합니다! 나이트를 다 익히셨군요!</string>
   <string name="thePawn">폰</string>
-  <string name="itMovesForwardOnly">이 말은 앞쪽으로만 움직입니다.</string>
+  <string name="itMovesForwardOnly">이 말은 앞쪽으로만 전진할 수 있습니다.</string>
   <string name="pawnIntro">폰은 약하지만, 엄청난 잠재력을 가지고 있습니다.</string>
-  <string name="pawnsMoveOneSquareOnly">폰은 한 칸씩만 움직일 수 있습니다.
+  <string name="pawnsMoveOneSquareOnly">폰은 한 칸씩만 전진할 수 있습니다.
 하지만 폰이 보드의 반대편 끝에 도달하면, 더 강한 말로 변합니다!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">대부분은 퀸으로 승급하는것이 가장 좋습니다.
 하지만 때로는 나이트도 괜찮은 선택이에요!</string>
+  <string name="pawnsMoveForward">폰은 앞으로만 움직이지만,
+다른 말을 잡을 땐 대각선으로 움직입니다.</string>
+  <string name="captureThenPromote">다른 말을 잡고, 승급하세요!</string>
+  <string name="useAllThePawns">모든 폰을 사용하세요!
+승급시킬 필요는 없습니다.</string>
+  <string name="aPawnOnTheSecondRank">아직 사용하지 않은 폰은 한번에 두 칸까지도 전진할 수 있습니다!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">모든 별을 잡으세요! 
+승급시킬 필요는 없습니다.</string>
+  <string name="pawnComplete">축하합니다! 이제 폰에 대한 모든 걸 알게 되셨네요.</string>
   <string name="pawnPromotion">폰 진급</string>
   <string name="yourPawnReachedTheEndOfTheBoard">당신의 폰이 보드 끝을 도달하였습니다!</string>
+  <string name="itNowPromotesToAStrongerPiece">이제 더 강한 기물로 승급합니다.</string>
+  <string name="selectThePieceYouWant">원하는 말을 고르세요!</string>
   <string name="fundamentals">기본</string>
+  <string name="capture">공격</string>
+  <string name="takeTheEnemyPieces">상대의 말을 잡으세요</string>
+  <string name="captureIntro">상대방의 방어되지 않는 기물을 찾아내고, 공격하세요!</string>
+  <string name="takeTheBlackPieces">상대의 말을 잡으세요!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">당신의 말을 보호하면서 상대의 말을 잡으세요!</string>
+  <string name="captureComplete">축하합니다! 당신은 체스 기물을 이용해 싸울 수 있습니다!</string>
   <string name="protection">보호</string>
+  <string name="keepYourPiecesSafe">당신의 기물을 보호하세요</string>
   <string name="combatComplete">축하합니다! 당신은 체스 기물을 이용해 싸울 수 있습니다!</string>
   <string name="defendYourKing">킹을 보호하라</string>
   <string name="intermediate">중급</string>
