@@ -10,7 +10,9 @@ import java.nio.ByteBuffer
 import User.TotpToken
 
 case class TotpSecret(secret: Array[Byte]) extends AnyVal {
-  override def toString = "TotpSecret(****************)"
+  import TotpSecret._
+
+  override def toString = "TotpSecret(****)"
 
   def base32: String = new Base32().encodeAsString(secret)
 
@@ -23,36 +25,34 @@ case class TotpSecret(secret: Array[Byte]) extends AnyVal {
     hmac.init(new SecretKeySpec(secret, "RAW"))
     val hash = hmac.doFinal(msg)
 
-    val offset = hash(hash.length - 1) & 0xf
-
-    TotpSecret.otpString {
-      (hash(offset) & 0x7f) << 24 |
-        (hash(offset + 1) & 0xff) << 16 |
-        (hash(offset + 2) & 0xff) << 8 |
-        (hash(offset + 3) & 0xff)
-    }
+    val offset = hash.last & 0xf
+    otpString(ByteBuffer.wrap(hash).getInt(offset) & 0x7fffffff)
   }
 
   def verify(token: TotpToken): Boolean = {
     val period = System.currentTimeMillis / 30000
-    (-TotpSecret.window to TotpSecret.window).map(skew => totp(period + skew)).has(token)
+    skewList.exists(skew => totp(period + skew) == token)
   }
 }
 
 object TotpSecret {
-  // requires clock precision of at least window * 30 seconds
-  private final val window = 3
-  // pad token with 0s
-  private def otpString(otp: Int) = f"$otp%06d".takeRight(6)
+  // clock skews in rough order of likelihood
+  private val skewList = List(0, 1, -1, 2, -2, 3, -3)
+
+  private def otpString(otp: Int) = {
+    val s = (otp % 1000000).toString
+    if (s.length == 6) s
+    else "0" * (6 - s.length) + s
+  }
 
   private[this] val secureRandom = new SecureRandom()
 
   def apply(base32: String) = new TotpSecret(new Base32().decode(base32))
 
   def random: TotpSecret = {
-    val secret = new Array[Byte](10)
+    val secret = new Array[Byte](20)
     secureRandom.nextBytes(secret)
-    apply(secret)
+    TotpSecret(secret)
   }
 
   private[user] val totpSecretBSONHandler = new BSONHandler[BSONBinary, TotpSecret] {
