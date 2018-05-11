@@ -56,6 +56,7 @@
   <string name="showThreat">위험요소 표시하기</string>
   <string name="inLocalBrowser">브라우저에서</string>
   <string name="toggleLocalEvaluation">개인 컴퓨터에서 분석하기</string>
+  <string name="promoteVariation">게임 분석 후에 어떤 수에 대한 예상결과들을 확인하고 싶다면</string>
   <string name="move">수</string>
   <string name="variantLoss">변형 체스에서 패배</string>
   <string name="variantWin">변형 체스에서 승리</string>
@@ -92,8 +93,11 @@
   <string name="memory">메모리</string>
   <string name="infiniteAnalysis">무한분석</string>
   <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다.</string>
+  <string name="blunder">심각한 실수</string>
   <string name="blunders">치명적 실수</string>
+  <string name="mistake">실수</string>
   <string name="mistakes">실수</string>
+  <string name="inaccuracy">잘못된 판단</string>
   <string name="inaccuracies">사소한 실수</string>
   <string name="moveTimes">이동 횟수</string>
   <string name="flipBoard">보드 돌리기</string>
@@ -208,6 +212,9 @@
   <string name="incrementInSeconds">턴 당 추가 시간(초)</string>
   <string name="freeOnlineChess">무료 온라인 체스</string>
   <string name="spectators">관전자:</string>
+  <plurals name="nbRated">
+    <item quantity="other">%s번의 레이팅 대국</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s번 승리</item>
   </plurals>
@@ -216,6 +223,9 @@
   </plurals>
   <plurals name="nbDraws">
     <item quantity="other">%s번 비김</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="other">플레이 중인 게임 %s개</item>
   </plurals>
   <string name="exportGames">게임 내보내기</string>
   <string name="ratingRange">ELO 범위</string>
