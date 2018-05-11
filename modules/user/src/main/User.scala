@@ -166,9 +166,7 @@ object User {
   case class ClearPassword(value: String) extends AnyVal {
     override def toString = "ClearPassword(****)"
   }
-  case class TotpToken(value: String) extends AnyVal {
-    override def toString = "TotpToken(****)"
-  }
+  case class TotpToken(value: String) extends AnyVal
   case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
   case class PlayTime(total: Int, tv: Int) {
