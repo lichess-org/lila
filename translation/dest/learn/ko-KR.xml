@@ -62,12 +62,21 @@
   <string name="fundamentals">기본</string>
   <string name="capture">공격</string>
   <string name="takeTheEnemyPieces">상대의 말을 잡으세요</string>
-  <string name="captureIntro">상대방의 방어되지 않는 기물을 찾아내고, 공격하세요!</string>
+  <string name="captureIntro">보호되지 않는 말을 공격하세요!</string>
   <string name="takeTheBlackPieces">상대의 말을 잡으세요!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">당신의 말을 보호하면서 상대의 말을 잡으세요!</string>
   <string name="captureComplete">축하합니다! 당신은 체스 기물을 이용해 싸울 수 있습니다!</string>
   <string name="protection">보호</string>
   <string name="keepYourPiecesSafe">당신의 기물을 보호하세요</string>
+  <string name="protectionIntro">공격받고 있는 말을 보호하세요!</string>
+  <string name="protectionComplete">축하합니다! 이제 무의미하게 기물을 잃지 않겠네요!</string>
+  <string name="escape">공격받고 있습니다!
+위협에서 벗어나세요!</string>
+  <string name="noEscape">벗어나기는 불가능하더라도 방어는 가능합니다!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">모든 말들을 보호하세요!</string>
+  <string name="combat">전투</string>
+  <string name="captureAndDefendPieces">공격하면서 방어하세요</string>
+  <string name="combatIntro">좋은 병사는 공격과 방어 어느 하나 빠지지 않죠!</string>
   <string name="combatComplete">축하합니다! 당신은 체스 기물을 이용해 싸울 수 있습니다!</string>
   <string name="defendYourKing">킹을 보호하라</string>
   <string name="intermediate">중급</string>
