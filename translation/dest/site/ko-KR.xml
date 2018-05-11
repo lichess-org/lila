@@ -705,6 +705,8 @@
   <string name="notifications">알림</string>
   <string name="challenges">도전</string>
   <string name="perfRatingX">레이팅: %s</string>
+  <string name="bestWasX">최선의 수는 %s</string>
+  <string name="youBrowsedAway">중간에 그만두셨습니다</string>
   <string name="theGameIsADraw">무승부 게임입니다.</string>
   <string name="computerThinking">컴퓨터 생각 중…</string>
   <string name="seeBestMove">최상의 수 보기</string>
@@ -725,4 +727,12 @@
   <string name="tryAnotherMoveForBlack">검은색에게 또 다른 수를 찾아보세요</string>
   <string name="solution">해답</string>
   <string name="waitingForAnalysis">분석을 기다리는 중</string>
+  <string name="reviewBlackMistakes">흑의 말의 실수 탐색하기</string>
+  <string name="advantage">이득</string>
+  <plurals name="nbSeconds">
+    <item quantity="other">%s초</item>
+  </plurals>
+  <string name="opening">발단</string>
+  <string name="middlegame">전개</string>
+  <string name="endgame">절정</string>
 </resources>
