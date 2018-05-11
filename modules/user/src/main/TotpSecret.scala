@@ -37,7 +37,7 @@ case class TotpSecret(secret: Array[Byte]) extends AnyVal {
 
 object TotpSecret {
   // clock skews in rough order of likelihood
-  private val skewList = List(0, 1, -1, 2, -2, 3, -3)
+  private val skewList = List(0, -1, 1, -2, 2, -3, 3)
 
   private def otpString(otp: Int) = {
     val s = (otp % 1000000).toString
