@@ -80,6 +80,10 @@ trait AssetHelper { self: I18nHelper =>
     s"""<script async defer src="${staticUrl("javascripts/vendor/fp2.min.js")}"></script>"""
   }
 
+  val flatpickrTag = Html {
+    s"""<script async defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
+  }
+
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
     if (isProd)
       s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local">\\x3C/script>')</script>"""
