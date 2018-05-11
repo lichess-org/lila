@@ -169,10 +169,26 @@
 힌트: 
 퀸 &gt; 비숍</string>
   <string name="takeThePieceWithTheHighestValue">가장 높은 가치의 기물을 잡으세요!</string>
+  <string name="pieceValueComplete">축하드립니다! 이제 기물의 가치를 아시네요!
+킹 = ∞
+퀸 = 9
+룩 = 5
+비숍 = 3
+나이트 = 3
+폰 = 1</string>
+  <string name="checkInTwo">두 수 안에 체크하기</string>
+  <string name="twoMovesToGiveCheck">두 수 만에 위협하기</string>
+  <string name="checkInTwoIntro">두 수 만에 상대의 킹을 체크시킬 방법을 찾아내세요!</string>
+  <string name="checkInTwoGoal">두 수 안에 킹을 위협하세요!</string>
+  <string name="checkInTwoComplete">축하합니다! 상대방을 체크시키면 상대가 둘 수는 제한적으로 변합니다!</string>
+  <string name="whatNext">더 나아가기</string>
+  <string name="youKnowHowToPlayChess">축하드립니다, 이제 기본적인 체스 방법을 익히셨네요! 더 강한 체스가 두고 싶으신가요?</string>
   <string name="register">회원가입</string>
   <string name="getAFreeLichessAccount">무료 Lichess 계정 받기</string>
   <string name="practice">연습</string>
+  <string name="learnCommonChessPositions">일반적인 기보법을 배워봅시다</string>
   <string name="puzzles">퍼즐</string>
+  <string name="exerciseYourTacticalSkills">당신의 전략을 더 향상시키세요</string>
   <string name="videos">동영상</string>
   <string name="playPeople">사람들이랑 플레이</string>
   <string name="playMachine">컴퓨터랑 게임하기</string>
