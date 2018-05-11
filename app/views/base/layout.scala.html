@@ -21,7 +21,7 @@ csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx:
   <!-- Lichess is open source! See https://github.com/ornicar/lila -->
   <head>
     <meta charset="utf-8">
-    @if(isGranted(_.Beta)) {
+    @if(cspEnabled()) {
     <meta http-equiv="Content-Security-Policy" content="@csp.getOrElse(defaultCsp)">
     }
     @if(isProd) {

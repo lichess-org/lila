@@ -54,6 +54,8 @@ object Environment
 
   def contactEmailLink = Html(s"""<a href="mailto:$contactEmail">$contactEmail</a>""")
 
+  def cspEnabled = apiEnv.cspEnabledSetting.get _
+
   def isChatPanicEnabled =
     lila.chat.Env.current.panic.enabled
 

@@ -67,6 +67,12 @@ final class Env(
     init = (config, db) => config.value max db.value
   )
 
+  val cspEnabledSetting = settingStore[Boolean](
+    "cspEnabled",
+    default = true,
+    text = "Enable CSP for everyone.".some
+  )
+
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
     val blindCookieMaxAge = config getInt "accessibility.blind.cookie.max_age"
