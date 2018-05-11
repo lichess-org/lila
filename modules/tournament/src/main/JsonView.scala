@@ -44,7 +44,7 @@ final class JsonView(
     lang: Lang
   ): Fu[JsObject] = for {
     data <- cachableData get tour.id
-    myInfo <- me ?? { u => PlayerRepo.playerInfo(tour.id, u.id) }
+    myInfo <- me ?? { playerInfo(tour, _) }
     pauseDelay = me flatMap { u => pause.remainingDelay(u.id, tour) }
     stand <- (myInfo, page) match {
       case (_, Some(p)) => standing(tour, p)
@@ -52,7 +52,7 @@ final class JsonView(
       case _ => standing(tour, 1)
     }
     playerInfoJson <- playerInfoExt ?? { pie =>
-      playerInfo(pie).map(_.some)
+      playerInfoExtended(pie).map(_.some)
     }
     verdicts <- me match {
       case None => fuccess(tour.conditions.accepted)
@@ -109,7 +109,18 @@ final class JsonView(
     cachableData invalidate id
   }
 
-  def playerInfo(info: PlayerInfoExt): Fu[JsObject] = for {
+  def playerInfo(tour: Tournament, user: User): Fu[Option[PlayerInfo]] =
+    PlayerRepo.find(tour.id, user.id) flatMap {
+      _ ?? { player =>
+        cached ranking tour map { ranking =>
+          ranking get user.id map { rank =>
+            PlayerInfo(rank + 1, player.withdraw)
+          }
+        }
+      }
+    }
+
+  def playerInfoExtended(info: PlayerInfoExt): Fu[JsObject] = for {
     ranking <- cached ranking info.tour
     sheet <- cached.sheet(info.tour, info.user.id)
   } yield info match {
