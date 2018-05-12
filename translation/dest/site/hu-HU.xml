@@ -524,6 +524,7 @@
   <string name="thisAccountIsClosed">Ez a fiók zárolva van</string>
   <string name="invalidUsernameOrPassword">Érvénytelen felhasználónév vagy jelszó</string>
   <string name="incorrectPassword">Hibás jelszó</string>
+  <string name="invalidAuthenticationCode">Érvénytelen hitelesítő kód</string>
   <string name="emailMeALink">Link küldése e-mailben</string>
   <string name="currentPassword">Jelenlegi jelszó</string>
   <string name="newPassword">Új jelszó</string>
