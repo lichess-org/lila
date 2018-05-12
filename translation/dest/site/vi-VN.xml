@@ -664,8 +664,16 @@ trong %3$s</string>
   <string name="downloadRaw">Tải bản thô</string>
   <string name="downloadImported">Tải tệp đã được nhập</string>
   <string name="printFriendlyPDF">Bản PDF thân thiện với in ấn</string>
+  <string name="crosstable">Crosstable</string>
   <string name="letOtherPlayersMessageYou">Để nhửng người chơi khác gửi tin nhắn cho bạn</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Cách nhập thành</string>
+  <string name="castleByMovingTwoSquares">Di chuyển vua 2 nước</string>
+  <string name="castleByMovingOntoTheRook">Di chuyển vua vào xe</string>
   <string name="shareYourInsightsData">chia sẻ insights của bạn</string>
+  <string name="withNobody">Không chia sẻ</string>
+  <string name="withFriends">Với bạn bè</string>
+  <string name="withEverybody">Với mọi người</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Bạn đã đăng ký với email: %s</string>
   <string name="kidMode">Chế độ trẻ em</string>
   <string name="playChessEverywhere">Chơi cờ ở bất cứ đâu</string>
   <string name="builtForTheLoveOfChessNotMoney">Xây dựng trên nền tảng tình yêu dành cho cờ vua, không phải vì tiền bạc</string>
