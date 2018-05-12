@@ -164,7 +164,6 @@ body.dark .material.form .form-group select option {
 }
 .material.form .form-group select ~ .control-label,
 .material.form .form-group input:focus ~ .control-label,
-.material.form .form-group input.flatpickr ~ .control-label,
 .material.form .form-group input:valid ~ .control-label,
 .material.form .form-group input.form-file ~ .control-label,
 .material.form .form-group input.has-value ~ .control-label,
