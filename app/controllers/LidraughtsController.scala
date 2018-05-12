@@ -129,12 +129,6 @@ private[controllers] trait LidraughtsController
   protected def SecureBody(perm: Permission.type => Permission)(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
     SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(f)
 
-  protected def Firewall[A <: Result](
-    a: => Fu[A],
-    or: => Fu[Result] = fuccess(Redirect(routes.Lobby.home()))
-  )(implicit ctx: Context): Fu[Result] =
-    if (Env.security.firewall accepts ctx.req) a else or
-
   protected def Scoped[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(f: RequestHeader => UserModel => Fu[Result]): Action[A] =
     Action.async(parser)(handleScoped(selectors, f))
 
@@ -163,6 +157,12 @@ private[controllers] trait LidraughtsController
         f(req)(scoped.user) map OAuthServer.responseHeaders(scopes, scoped.scopes)
     } map { _ as JSON }
   }
+
+  protected def Firewall[A <: Result](
+    a: => Fu[A],
+    or: => Fu[Result] = fuccess(Redirect(routes.Lobby.home()))
+  )(implicit ctx: Context): Fu[Result] =
+    if (Env.security.firewall accepts ctx.req) a else or
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
     if (Env.security.tor isExitNode HTTPRequest.lastRemoteAddress(ctx.req))
