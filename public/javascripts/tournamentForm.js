@@ -38,10 +38,8 @@ $(function() {
     $(this).remove();
     $('.conditions .form').show();
   });
-    $('.conditions .form').show();
 
   $(".flatpickr").flatpickr({
-    enableTime: true,
     minDate: 'today',
     maxDate: new Date().fp_incr(31),
     dateFormat: 'Z',
