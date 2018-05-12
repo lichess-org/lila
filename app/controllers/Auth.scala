@@ -74,7 +74,7 @@ object Auth extends LilaController {
   private val is2fa = Set("MissingTotpToken", "InvalidTotpToken")
 
   def authenticate = OpenBody { implicit ctx =>
-    Firewall {
+    Firewall({
       implicit val req = ctx.body
       val referrer = get("referrer")
       api.usernameForm.bindFromRequest.fold(
@@ -109,7 +109,7 @@ object Auth extends LilaController {
           }
         }
       )
-    }
+    }, Ok(s"ok:/").fuccess)
   }
 
   def logout = Open { implicit ctx =>

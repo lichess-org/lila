@@ -158,9 +158,11 @@ private[controllers] trait LilaController
     } map { _ as JSON }
   }
 
-  protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (Env.security.firewall accepts ctx.req) a
-    else fuccess(Redirect(routes.Lobby.home()))
+  protected def Firewall[A <: Result](
+    a: => Fu[A],
+    or: => Fu[Result] = fuccess(Redirect(routes.Lobby.home()))
+  )(implicit ctx: Context): Fu[Result] =
+    if (Env.security.firewall accepts ctx.req) a else or
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
     if (Env.security.tor isExitNode HTTPRequest.lastRemoteAddress(ctx.req))
