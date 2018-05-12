@@ -591,6 +591,7 @@ trong %3$s</string>
   <string name="error.email_acceptable">Địa chỉ email này không được chấp nhận</string>
   <string name="error.email_unique">Địa chỉ email này đã được sử dụng</string>
   <string name="blindfoldChess">Cờ tưởng (quân cờ vô hình)</string>
+  <string name="zenMode">Chế độ Zen</string>
   <string name="moveConfirmation">Xác nhận nước đi</string>
   <string name="inCorrespondenceGames">Cờ thư tín</string>
   <string name="ifRatingIsPlusMinusX">Nếu điểm hệ số thứ hạng trong phạm vi ± %s</string>
@@ -612,12 +613,14 @@ trong %3$s</string>
   <string name="videoLibrary">Thư viện video</string>
   <string name="mobileApp">Ứng dụng Điện thoại</string>
   <string name="webmasters">Các quản trị</string>
+  <string name="about">Giới thiệu</string>
   <string name="contribute">Đóng góp</string>
   <string name="contact">Liên hệ</string>
   <string name="termsOfService">Điều khoản dịch vụ</string>
   <string name="sourceCode">Mã Nguồn</string>
   <string name="simultaneousExhibitions">Đấu cờ đồng loạt</string>
   <string name="host">Người chủ trì</string>
+  <string name="hostColorX">Màu chủ nhà: %s</string>
   <string name="createdSimuls">Cờ đồng loạt mới tạo</string>
   <string name="hostANewSimul">Chủ trì một ván cờ đồng loạt mới</string>
   <string name="noSimulFound">Không tìm thấy ván cờ đồng loạt</string>
@@ -658,6 +661,9 @@ trong %3$s</string>
   <string name="checkYourEmail">Kiểm tra Email của bạn</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Chúng tôi gửi cho bạn một Email. Nhấn vào link trong Email để kích hoạt tài khoản của bạn</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nếu bạn không thấy ở trong Email, kiểm tra lại ở các nơi khác có thể có, như rác, thư rác, xã hội hay các thư mục khác</string>
+  <string name="downloadRaw">Tải bản thô</string>
+  <string name="downloadImported">Tải tệp đã được nhập</string>
+  <string name="printFriendlyPDF">Bản PDF thân thiện với in ấn</string>
   <string name="letOtherPlayersMessageYou">Để nhửng người chơi khác gửi tin nhắn cho bạn</string>
   <string name="shareYourInsightsData">chia sẻ insights của bạn</string>
   <string name="kidMode">Chế độ trẻ em</string>
