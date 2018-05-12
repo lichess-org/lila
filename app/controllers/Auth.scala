@@ -71,7 +71,7 @@ object Auth extends LidraughtsController {
   }
 
   def authenticate = OpenBody { implicit ctx =>
-    Firewall {
+    Firewall({
       implicit val req = ctx.body
       val referrer = get("referrer")
       api.usernameForm.bindFromRequest.fold(
@@ -100,7 +100,7 @@ object Auth extends LidraughtsController {
           }
         }
       )
-    }
+    }, Ok(s"ok:/").fuccess)
   }
 
   def logout = Open { implicit ctx =>
