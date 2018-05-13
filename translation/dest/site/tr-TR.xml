@@ -524,6 +524,7 @@
   <string name="thisAccountIsClosed">Hesap kapatılmıştır.</string>
   <string name="invalidUsernameOrPassword">Hatalı kullanıcı adı ya da şifre</string>
   <string name="incorrectPassword">Şifre yanlış</string>
+  <string name="invalidAuthenticationCode">Geçersiz kimlik doğrulama kodu</string>
   <string name="emailMeALink">E-Posta ile giriş linki yolla</string>
   <string name="currentPassword">Geçerli şifre</string>
   <string name="newPassword">Yeni şifre</string>
