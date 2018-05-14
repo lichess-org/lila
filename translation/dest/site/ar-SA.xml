@@ -36,7 +36,7 @@
   <string name="forceResignation">إعلن فوزك</string>
   <string name="forceDraw">إعلن التعادل</string>
   <string name="talkInChat">كن حسن الخلق في الدردشة!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">أول من يأتي لهذا الرابط سيكون خصمك</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">أول من يأتي لهذا الرابط. سيلعب معك.</string>
   <string name="whiteResigned">الأبيض استسلم</string>
   <string name="blackResigned">الأسود استسلم</string>
   <string name="whiteLeftTheGame">الأبيض ترك المباراة</string>
@@ -489,6 +489,12 @@
   <string name="tournamentCalendar">جدول البطولات</string>
   <string name="conditionOfEntry">شروط الدخول:</string>
   <string name="advancedSettings">إعدادات متقدمة</string>
+  <string name="safeTournamentName">اختر اسماً ملائماً لهذه البطولة.</string>
+  <string name="inappropriateNameWarning">أي شيء غير مناسب ولو حتى قليلاً يمكن أن يعرّض حسابك للإغلاق.</string>
+  <string name="emptyTournamentName">أترك الحقل فارغاً وسيتم تسمية البطولة باسم غراند ماستر عشوائي.</string>
+  <string name="recommendNotTouching">نوصي بعدم تغيير هذه الخيارات.</string>
+  <string name="fewerPlayers">إذا قمت بتعيين شروط دخول للبطولة فقد يكون لديك عدد لاعبين أقل.</string>
+  <string name="showAdvancedSettings">إظهار الإعدادات المتقدمة</string>
   <string name="join">إشترك</string>
   <string name="withdraw">انسحاب</string>
   <string name="points">النقاط</string>
@@ -626,6 +632,7 @@
   <string name="thisAccountIsClosed">تم إغلاق هذا الحساب.</string>
   <string name="invalidUsernameOrPassword">اسم المستخدم خطأ أو كلمة المرور غير صحيحة</string>
   <string name="incorrectPassword">كلمة المرور غير صحيحة</string>
+  <string name="invalidAuthenticationCode">رمز مصادقة غير صحيح</string>
   <string name="emailMeALink">أرسل لي الرابط بالبريد الإلكتروني</string>
   <string name="currentPassword">كلمة المرور الحالية</string>
   <string name="newPassword">كلمة المرور الجديدة</string>
