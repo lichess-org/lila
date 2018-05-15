@@ -752,6 +752,7 @@
   <string name="pieceSet">Ŝakpecaro</string>
   <string name="embedInYourWebsite">Enkorpigi en via retejo</string>
   <string name="usernameAlreadyUsed">Ĉi tiu uzantnomo estas jam uzanta, bonvolu provi aliun.</string>
+  <string name="usernameSuffixInvalid">La salutnomo devas finanta kun letero aux numero.</string>
   <string name="usernameUnacceptable">Ĉi tiu uzantnomo estas malakceptata.</string>
   <string name="directlySupportLichess">Rekte subteni Lichess</string>
   <string name="playChessInStyle">Ludu ŝakon elegante</string>
@@ -798,7 +799,10 @@
   <string name="tryAnotherMoveForBlack">Provi por nigra alian movon</string>
   <string name="solution">Solvo</string>
   <string name="waitingForAnalysis">Atendante analizon</string>
+  <string name="noMistakesFoundForWhite">Ne eraroj trovinta por blanko</string>
+  <string name="noMistakesFoundForBlack">Ne eraroj trovinta por nigro</string>
   <string name="doItAgain">Fari ĝin denove</string>
   <string name="advantage">Avantaĝo</string>
   <string name="endgame">Finalo</string>
+  <string name="playX">Ludu %s</string>
 </resources>
