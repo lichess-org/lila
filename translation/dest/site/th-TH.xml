@@ -497,6 +497,7 @@
   <string name="thisAccountIsClosed">บัญชีนี้ถูกปิดแล้ว</string>
   <string name="invalidUsernameOrPassword">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
   <string name="incorrectPassword">รหัสผ่านไม่ถูกต้อง</string>
+  <string name="invalidAuthenticationCode">โค้ดยืนยันตัวตนไม่ถูกต้อง</string>
   <string name="emailMeALink">ส่งลิงค์ให้ฉันทางอีเมล</string>
   <string name="currentPassword">รหัสผ่านปัจจุบัน</string>
   <string name="newPassword">รหัสผ่านใหม่</string>
