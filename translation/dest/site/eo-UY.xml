@@ -632,6 +632,7 @@
   <string name="videoLibrary">Filmaro</string>
   <string name="mobileApp">Poŝtelefona Aplikaĵo</string>
   <string name="webmasters">Retejestroj</string>
+  <string name="about">Pri</string>
   <string name="contribute">Kontribui</string>
   <string name="contact">Kontakto</string>
   <string name="termsOfService">Uzkondiĉojn</string>
@@ -799,4 +800,5 @@
   <string name="waitingForAnalysis">Atendante analizon</string>
   <string name="doItAgain">Fari ĝin denove</string>
   <string name="advantage">Avantaĝo</string>
+  <string name="endgame">Finalo</string>
 </resources>
