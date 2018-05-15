@@ -799,8 +799,8 @@
   <string name="tryAnotherMoveForBlack">Provi por nigra alian movon</string>
   <string name="solution">Solvo</string>
   <string name="waitingForAnalysis">Atendante analizon</string>
-  <string name="noMistakesFoundForWhite">Ne eraroj trovita por blanko</string>
-  <string name="noMistakesFoundForBlack">Ne eraroj trovita por nigro</string>
+  <string name="noMistakesFoundForWhite">Neniu eraroj trovita por blanko</string>
+  <string name="noMistakesFoundForBlack">Neniu eraroj trovita por nigro</string>
   <string name="doItAgain">Fari ĝin denove</string>
   <string name="advantage">Avantaĝo</string>
   <string name="endgame">Finalo</string>
