@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Tämä peli on pisteytetty</string>
   <string name="rematch">Revanssi</string>
   <string name="rematchOfferSent">Revanssipyyntö lähetetty</string>
+  <string name="rematchOfferSentWhite">Valkea ehdottaa revanssia</string>
+  <string name="rematchOfferSentBlack">Musta ehdottaa revanssia</string>
   <string name="rematchOfferAccepted">Revanssipyyntö hyväksytty</string>
   <string name="rematchOfferCanceled">Revanssipyyntö peruttu</string>
   <string name="rematchOfferDeclined">Revanssipyyntö hylätty</string>
@@ -273,6 +275,10 @@
   <string name="tournament">Turnaus</string>
   <string name="tournaments">Turnaukset</string>
   <string name="tournamentPoints">Turnauspisteet</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turnauspiste</item>
+    <item quantity="other">%s turnauspistettä</item>
+  </plurals>
   <string name="viewTournament">Katso turnausta</string>
   <string name="backToTournament">Takaisin turnaukseen</string>
   <string name="thematic">Teemallinen</string>
@@ -380,6 +386,11 @@
   <string name="winner">Voittaja</string>
   <string name="standing">Sija</string>
   <string name="createANewTournament">Luo uusi turnaus</string>
+  <string name="tournamentCalendar">Turnauskalenteri</string>
+  <string name="conditionOfEntry">Liittymisehto:</string>
+  <string name="advancedSettings">Lisäasetukset</string>
+  <string name="safeTournamentName">Valitse asiallinen nimi turnaukselle.</string>
+  <string name="inappropriateNameWarning">Hiemankin epäasiallinen voi aiheuttaa tunnuksesi sulkemisen.</string>
   <string name="join">Liity</string>
   <string name="withdraw">Peru osallistuminen</string>
   <string name="points">Pisteet</string>
