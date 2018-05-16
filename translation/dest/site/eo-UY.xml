@@ -803,6 +803,7 @@
   <string name="noMistakesFoundForBlack">Neniu eraroj trovita por nigro</string>
   <string name="doItAgain">Fari ĝin denove</string>
   <string name="advantage">Avantaĝo</string>
+  <string name="opening">Malfermadoj</string>
   <string name="endgame">Finalo</string>
   <string name="playX">Ludu %s</string>
 </resources>
