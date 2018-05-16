@@ -57,6 +57,8 @@
   <string name="inLocalBrowser">paikallisesta selaimesta</string>
   <string name="toggleLocalEvaluation">Paikallinen analyysi päälle/päältä</string>
   <string name="promoteVariation">Nosta muunnelmaa</string>
+  <string name="makeMainLine">Päämuunnelmaksi</string>
+  <string name="deleteFromHere">Poista tästä alkaen</string>
   <string name="move">Siirto</string>
   <string name="variantLoss">Variantin tappio</string>
   <string name="variantWin">Variantin voitto</string>
@@ -104,8 +106,11 @@
   <string name="memory">Muistia</string>
   <string name="infiniteAnalysis">Loputon analyysi</string>
   <string name="removesTheDepthLimit">Poistaa syvyysrajoituksen ja pitää koneesi lämpöisenä</string>
+  <string name="blunder">Vakava virhe</string>
   <string name="blunders">Vakavat virheet</string>
+  <string name="mistake">Virhe</string>
   <string name="mistakes">Virheet</string>
+  <string name="inaccuracy">Epätarkkuus</string>
   <string name="inaccuracies">Epätarkkuudet</string>
   <string name="moveTimes">Siirtoihin käytetty aika</string>
   <string name="flipBoard">Käännä lauta</string>
@@ -192,6 +197,7 @@
   <string name="accept">Hyväksy</string>
   <string name="decline">Hylkää</string>
   <string name="playingRightNow">Pelaamassa juuri nyt</string>
+  <string name="eventInProgress">Pelataan paraikaa</string>
   <string name="finished">Päättynyt</string>
   <string name="abortGame">Keskeytä peli</string>
   <string name="gameAborted">Peli keskeytetty</string>
@@ -200,6 +206,8 @@
   <string name="mode">Tyyppi</string>
   <string name="casual">Rento</string>
   <string name="rated">Pisteytetty</string>
+  <string name="casualTournament">Rento</string>
+  <string name="ratedTournament">Pisteytetty</string>
   <string name="thisGameIsRated">Tämä peli on pisteytetty</string>
   <string name="rematch">Revanssi</string>
   <string name="rematchOfferSent">Revanssipyyntö lähetetty</string>
