@@ -803,7 +803,11 @@
   <string name="noMistakesFoundForBlack">Neniu eraroj trovita por nigro</string>
   <string name="doItAgain">Fari ĝin denove</string>
   <string name="advantage">Avantaĝo</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekundo</item>
+    <item quantity="other">%s sekundoj</item>
+  </plurals>
   <string name="opening">Malfermadoj</string>
-  <string name="endgame">Finalo</string>
+  <string name="endgame">Finaĵo</string>
   <string name="playX">Ludu %s</string>
 </resources>
