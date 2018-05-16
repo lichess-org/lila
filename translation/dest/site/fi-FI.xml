@@ -56,6 +56,7 @@
   <string name="showThreat">Näytä uhka</string>
   <string name="inLocalBrowser">paikallisesta selaimesta</string>
   <string name="toggleLocalEvaluation">Paikallinen analyysi päälle/päältä</string>
+  <string name="promoteVariation">Nosta muunnelmaa</string>
   <string name="move">Siirto</string>
   <string name="variantLoss">Variantin tappio</string>
   <string name="variantWin">Variantin voitto</string>
