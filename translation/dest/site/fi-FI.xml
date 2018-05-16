@@ -391,6 +391,10 @@
   <string name="advancedSettings">Lisäasetukset</string>
   <string name="safeTournamentName">Valitse asiallinen nimi turnaukselle.</string>
   <string name="inappropriateNameWarning">Hiemankin epäasiallinen voi aiheuttaa tunnuksesi sulkemisen.</string>
+  <string name="emptyTournamentName">Jos jätät tyhjäksi, turnaus nimetään jonkun suurmestarin mukaan.</string>
+  <string name="recommendNotTouching">Emme suosittele näihin koskemista.</string>
+  <string name="fewerPlayers">Jos asetat liittymisehtoja, turnauksessasi tulee olemaan vähemmän pelaajia.</string>
+  <string name="showAdvancedSettings">Näytä lisäasetukset</string>
   <string name="join">Liity</string>
   <string name="withdraw">Peru osallistuminen</string>
   <string name="points">Pisteet</string>
