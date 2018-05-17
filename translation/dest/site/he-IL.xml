@@ -690,6 +690,14 @@
   <string name="light">בהיר</string>
   <string name="dark">כהה</string>
   <string name="transparent">שקוף</string>
+  <string name="backgroundImageUrl">כתובת תמונת רקע (URL):</string>
+  <string name="boardGeometry">גיאומטרית לוח</string>
+  <string name="boardTheme">עיצוב הלוח</string>
+  <string name="boardSize">גודל הלוח</string>
+  <string name="pieceSet">סט חלקים</string>
+  <string name="embedInYourWebsite">התמאה באתרך</string>
+  <string name="usernameAlreadyUsed">שם המשתמש הזה כבר קיים, אנא נסה שם משתמש אחר.</string>
+  <string name="usernamePrefixInvalid">שם המשתמש חייב להתחיל באות.</string>
   <string name="error.unknown">שגיאה</string>
   <string name="skipThisMove">דלג/י על מהלך זה</string>
   <string name="solution">פתרון</string>
