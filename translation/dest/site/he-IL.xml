@@ -698,6 +698,17 @@
   <string name="embedInYourWebsite">התמאה באתרך</string>
   <string name="usernameAlreadyUsed">שם המשתמש הזה כבר קיים, אנא נסה שם משתמש אחר.</string>
   <string name="usernamePrefixInvalid">שם המשתמש חייב להתחיל באות.</string>
+  <string name="usernameSuffixInvalid">שם המשתמש חייב להסתיים באות או מספר.</string>
+  <string name="usernameCharsInvalid">שם המשתמש חייב להכיל רק אותיות, מספרים, מקפים תחתונים ומקפים.</string>
+  <string name="usernameUnacceptable">שם המשתמש הזה לא מקובל.</string>
+  <string name="directlySupportLichess">תמוך ישירות ב-Lichess</string>
+  <string name="playChessInStyle">שחק שחמט בסגנון</string>
+  <string name="chessBasics">יסודות השחמט</string>
+  <string name="coaches">מאמנים</string>
+  <string name="invalidPgn">PGN לא חוקי</string>
+  <string name="invalidFen">FEN לא חוקי</string>
+  <string name="error.minLength">האורך המינימלי הוא %s</string>
+  <string name="error.maxLength">האורך המקסימלי הוא %s</string>
   <string name="error.unknown">שגיאה</string>
   <string name="skipThisMove">דלג/י על מהלך זה</string>
   <string name="solution">פתרון</string>
