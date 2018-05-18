@@ -645,6 +645,7 @@
   <string name="videoLibrary">Videokirjasto</string>
   <string name="mobileApp">Mobiilisovellus</string>
   <string name="webmasters">Ylläpitäjät</string>
+  <string name="about">Tietoa sivustosta</string>
   <string name="contribute">Osallistu</string>
   <string name="contact">Kontakti</string>
   <string name="termsOfService">Käyttöehdot</string>
@@ -764,6 +765,9 @@
   <string name="pieceSet">Nappuloiden tyyli</string>
   <string name="embedInYourWebsite">Upota sivustollesi</string>
   <string name="usernameAlreadyUsed">Käyttäjänimi varattu, kokeile jotain toista.</string>
+  <string name="usernamePrefixInvalid">Käyttäjänimen täytyy alkaa kirjaimella.</string>
+  <string name="usernameSuffixInvalid">Käyttäjänimen täytyy loppua kirjaimeen tai numeroon.</string>
+  <string name="usernameCharsInvalid">Käyttäjänimi voi sisältää vain kirjaimia, numeroita, alaviivoja ja väliviivoja.</string>
   <string name="usernameUnacceptable">Käyttäjänimi ei kelpaa.</string>
   <string name="directlySupportLichess">Lahjoita Lichessille</string>
   <string name="playChessInStyle">Tyylikästä shakinpeluuta</string>
@@ -780,4 +784,29 @@
   <string name="notifications">Ilmoitukset</string>
   <string name="challenges">Haasteet</string>
   <string name="perfRatingX">Vahvuusluku: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekuntia aikaa pelata ensimmäinen siirto</item>
+    <item quantity="other">%s sekuntia aikaa pelata ensimmäinen siirto</item>
+  </plurals>
+  <string name="practiceWithComputer">Harjoittele tietokonetta vastaan</string>
+  <string name="anotherWasX">Oli myös %s</string>
+  <string name="bestWasX">Paras oli %s</string>
+  <string name="youBrowsedAway">Selailit pois</string>
+  <string name="resumePractice">Jatka harjoitusta</string>
+  <string name="theGameIsADraw">Peli on tasapeli.</string>
+  <string name="computerThinking">Tietokone miettii...</string>
+  <string name="seeBestMove">Katso paras siirto</string>
+  <string name="hideBestMove">Piilota paras siirto</string>
+  <string name="getAHint">Haluan vihjeen</string>
+  <string name="evaluatingYourMove">Siirtoasi arvioidaan...</string>
+  <string name="whiteWinsGame">Valkea voittaa</string>
+  <string name="blackWinsGame">Musta voittaa</string>
+  <string name="learnFromYourMistakes">Opi virheistäsi</string>
+  <string name="learnFromThisMistake">Opi tästä virheestä</string>
+  <string name="skipThisMove">Ohita tämä siirto</string>
+  <string name="next">Seuraava</string>
+  <string name="xWasPlayed">%s pelattiin</string>
+  <string name="findBetterMoveForWhite">Löydä parempi siirto valkealle</string>
+  <string name="findBetterMoveForBlack">Löydä parempi siirto mustalle</string>
+  <string name="resumeLearning">Jatka oppimista</string>
 </resources>
