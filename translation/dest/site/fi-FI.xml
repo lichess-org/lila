@@ -809,4 +809,5 @@
   <string name="findBetterMoveForWhite">Löydä parempi siirto valkealle</string>
   <string name="findBetterMoveForBlack">Löydä parempi siirto mustalle</string>
   <string name="resumeLearning">Jatka oppimista</string>
+  <string name="youCanDoBetter">Parempikin löytyy</string>
 </resources>
