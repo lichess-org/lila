@@ -438,6 +438,7 @@
   <string name="biography">Kuvaus</string>
   <string name="country">Maa</string>
   <string name="preferences">Asetukset</string>
+  <string name="inlineNotation">Rivinsisäinen kommentointi</string>
   <string name="watchLichessTV">Katso Lichess TV:tä</string>
   <string name="previouslyOnLichessTV">Viimeksi Lichess TV:ssä</string>
   <string name="onlinePlayers">Paikalla olevat pelaajat</string>
@@ -523,6 +524,7 @@
   <string name="thisAccountIsClosed">Tämä tili on suljettu.</string>
   <string name="invalidUsernameOrPassword">Virheellinen käyttäjätunnus tai salasana</string>
   <string name="incorrectPassword">Salasana ei kelpaa</string>
+  <string name="invalidAuthenticationCode">Todennuskoodi ei kelpaa</string>
   <string name="emailMeALink">Lähetä minulle linkki</string>
   <string name="currentPassword">Nykyinen salasana</string>
   <string name="newPassword">Uusi salasana</string>
