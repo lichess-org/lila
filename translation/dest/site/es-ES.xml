@@ -56,7 +56,7 @@
   <string name="showThreat">Mostrar amenaza</string>
   <string name="inLocalBrowser">en el navegador local</string>
   <string name="toggleLocalEvaluation">Evaluación local</string>
-  <string name="promoteVariation">Promover variante</string>
+  <string name="promoteVariation">Promocionar variante</string>
   <string name="makeMainLine">Convertir en línea principal</string>
   <string name="deleteFromHere">Borrar a partir de aquí</string>
   <string name="move">Movimiento</string>
@@ -840,7 +840,7 @@
   <string name="noConditionalPremoves">Sin movimientos condicionales</string>
   <string name="playX">Jugar %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">y guarde %s línea de premovimientos</item>
-    <item quantity="other">y guarde %s líneas de premovimientos</item>
+    <item quantity="one">y ahorra %s línea de premovimiento</item>
+    <item quantity="other">y ahorra %s líneas de premovimiento</item>
   </plurals>
 </resources>
