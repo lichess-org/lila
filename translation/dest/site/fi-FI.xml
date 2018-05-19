@@ -810,4 +810,10 @@
   <string name="findBetterMoveForBlack">Löydä parempi siirto mustalle</string>
   <string name="resumeLearning">Jatka oppimista</string>
   <string name="youCanDoBetter">Parempikin löytyy</string>
+  <string name="tryAnotherMoveForWhite">Etsi toinen siirto valkealle</string>
+  <string name="tryAnotherMoveForBlack">Etsi toinen siirto mustalle</string>
+  <string name="solution">Ratkaisu</string>
+  <string name="waitingForAnalysis">Analyysi käynnissä</string>
+  <string name="noMistakesFoundForWhite">Ei löytynyt valkean virheitä</string>
+  <string name="noMistakesFoundForBlack">Ei löytynyt mustan virheitä</string>
 </resources>
