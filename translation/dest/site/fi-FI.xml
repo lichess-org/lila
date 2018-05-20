@@ -816,4 +816,6 @@
   <string name="waitingForAnalysis">Analyysi käynnissä</string>
   <string name="noMistakesFoundForWhite">Ei löytynyt valkean virheitä</string>
   <string name="noMistakesFoundForBlack">Ei löytynyt mustan virheitä</string>
+  <string name="doneReviewingWhiteMistakes">Olen tutkinut valkean virheitä kylliksi</string>
+  <string name="doneReviewingBlackMistakes">Olen tutkinut mustan virheitä kylliksi</string>
 </resources>
