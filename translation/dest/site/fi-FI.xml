@@ -115,20 +115,20 @@
   <string name="moveTimes">Siirtoihin käytetty aika</string>
   <string name="flipBoard">Käännä lauta</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
-  <string name="claimADraw">Vaadi tasapeliä</string>
+  <string name="claimADraw">Vaadi tasapeli</string>
   <string name="offerDraw">Ehdota tasapeliä</string>
   <string name="draw">Tasapeli</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s pelaajaa paikalla</item>
-    <item quantity="other">%s pelaajaa paikalla</item>
+    <item quantity="one">%s pelaaja</item>
+    <item quantity="other">%s pelaajaa</item>
   </plurals>
-  <string name="currentGames">Tällä hetkellä pelattavat pelit</string>
+  <string name="currentGames">Pelit meneillään</string>
   <plurals name="nbGames">
     <item quantity="one">%s peliä pelattu</item>
     <item quantity="other">%s peliä pelattu</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s omaa kirjanmerkkiä</item>
+    <item quantity="one">%s oma kirjanmerkki</item>
     <item quantity="other">%s omaa kirjanmerkkiä</item>
   </plurals>
   <string name="viewInFullSize">Näytä täysikokoisena</string>
@@ -137,9 +137,9 @@
   <string name="newToLichess">Ensimmäistä kertaa Lichessissä?</string>
   <string name="youNeedAnAccountToDoThat">Tämä toiminto vaatii käyttäjätunnuksen</string>
   <string name="signUp">Rekisteröidy</string>
-  <string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneavusteiset pelaajat eivät ole tervetulleita. Kun pelaat, älä käytä apunasi toisia pelaajia, shakkiohjelmia tai -tietokantoja. Ota myös huomioon, että useamman tilin luomista ei katsota hyvällä ja johtaa ääritapauksissa porttikieltoon.</string>
+  <string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneavusteiset pelaajat eivät ole tervetulleita. Kun pelaat, älä käytä apunasi shakkiohjelmia tai -tietokantoja äläkä toisten pelaajien vinkkejä. Ota myös huomioon, että useamman tilin luomista ei katsota yhtään hyvällä ja johtaa ääritapauksissa porttikieltoon.</string>
   <string name="games">Pelit</string>
-  <string name="forum">Keskustelualue</string>
+  <string name="forum">Foorumi</string>
   <string name="xPostedInForumY">%1$s lähetti viestin alueelle %2$s</string>
   <string name="latestForumPosts">Uusimmat viestit</string>
   <string name="players">Pelaajat</string>
