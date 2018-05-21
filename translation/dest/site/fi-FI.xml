@@ -140,14 +140,14 @@
   <string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneavusteiset pelaajat eivät ole tervetulleita. Kun pelaat, älä käytä apunasi shakkiohjelmia tai -tietokantoja äläkä toisten pelaajien vinkkejä. Ota myös huomioon, että useamman tilin luomista ei katsota yhtään hyvällä ja johtaa ääritapauksissa porttikieltoon.</string>
   <string name="games">Pelit</string>
   <string name="forum">Foorumi</string>
-  <string name="xPostedInForumY">%1$s lähetti viestin alueelle %2$s</string>
-  <string name="latestForumPosts">Uusimmat viestit</string>
+  <string name="xPostedInForumY">%1$s lähetti viestin ketjuun %2$s</string>
+  <string name="latestForumPosts">Uusimmat foorumiviestit</string>
   <string name="players">Pelaajat</string>
   <string name="minutesPerSide">Minuuttia per puoli</string>
   <string name="variant">Variantti</string>
   <string name="variants">Variantit</string>
-  <string name="timeControl">Ajan hallinta</string>
-  <string name="realTime">Reaaliaikainen</string>
+  <string name="timeControl">Aikajärjestelmä</string>
+  <string name="realTime">Pikapeli</string>
   <string name="correspondence">Kirjeshakki</string>
   <string name="daysPerTurn">Päivää per vuoro</string>
   <string name="oneDay">Yksi päivä</string>
@@ -634,8 +634,8 @@
   <string name="blackCastlingKingside">Musta O-O</string>
   <string name="blackCastlingQueenside">Musta O-O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s Foorumiviestiä</item>
-    <item quantity="other">%s Foorumiviestiä</item>
+    <item quantity="one">%s foorumiviesti</item>
+    <item quantity="other">%s foorumiviestiä</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Pelaamiseen käytetty aika: %s</string>
   <string name="watchGames">Katso pelejä</string>
