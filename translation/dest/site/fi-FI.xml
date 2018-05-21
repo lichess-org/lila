@@ -88,8 +88,8 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voisit sisällyttää lisää pelejä asetusvalikosta?</string>
   <string name="openingExplorer">Avaus- ja loppupelitietokanta</string>
   <string name="xOpeningExplorer">%s avausten tutkiskeluohjelma</string>
-  <string name="winPreventedBy50MoveRule">50 siirron sääntö esti voiton</string>
-  <string name="lossSavedBy50MoveRule">50 siirron sääntö esti tappion</string>
+  <string name="winPreventedBy50MoveRule">50 siirron sääntö estää voiton</string>
+  <string name="lossSavedBy50MoveRule">50 siirron sääntö estää tappion</string>
   <string name="allSet">Valmis!</string>
   <string name="importPgn">Tuo PGN</string>
   <string name="delete">Poista</string>
