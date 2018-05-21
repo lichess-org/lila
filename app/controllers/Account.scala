@@ -59,10 +59,7 @@ object Account extends LidraughtsController {
   def nowPlaying = Auth { implicit ctx => me =>
     negotiate(
       html = notFound,
-      api = _ => lidraughts.game.GameRepo.urgentGames(me) map { povs =>
-        val nb = getInt("nb") | 9
-        Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map Env.api.lobbyApi.nowPlaying)))
-      }
+      api = _ => doNowPlaying(me, ctx.req)
     )
   }
 
@@ -71,6 +68,16 @@ object Account extends LidraughtsController {
       Ok(json) as JSON
     }
   }
+
+  def apiNowPlaying = Scoped() { req => me =>
+    doNowPlaying(me, req)
+  }
+
+  private def doNowPlaying(me: lidraughts.user.User, req: RequestHeader) =
+    lidraughts.game.GameRepo.urgentGames(me) map { povs =>
+      val nb = getInt("nb", req) | 9
+      Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map Env.api.lobbyApi.nowPlaying)))
+    }
 
   def dasher = Auth { implicit ctx => me =>
     negotiate(
