@@ -71,7 +71,7 @@
   <string name="drawn">Tasapeli</string>
   <string name="unknown">Tuntematon</string>
   <string name="database">Tietokanta</string>
-  <string name="whiteDrawBlack">Valkoinen / Tasapeli / Musta</string>
+  <string name="whiteDrawBlack">Valkea / Tasapeli / Musta</string>
   <string name="averageRatingX">Vahvuuslukukeskiarvo %s</string>
   <string name="recentGames">Viimeaikaiset pelit</string>
   <string name="topGames">Huippupelit</string>
@@ -189,9 +189,9 @@
   <string name="drawOfferDeclined">Tasapeliehdotus hylätty</string>
   <string name="drawOfferAccepted">Tasapeliehdotus hyväksytty</string>
   <string name="drawOfferCanceled">Tasapeliehdotus peruttu</string>
-  <string name="whiteOffersDraw">Valkoinen ehdottaa tasapeliä</string>
+  <string name="whiteOffersDraw">Valkea ehdottaa tasapeliä</string>
   <string name="blackOffersDraw">Musta ehdottaa tasapeliä</string>
-  <string name="whiteDeclinesDraw">Valkoinen kieltäytyy tasapelistä</string>
+  <string name="whiteDeclinesDraw">Valkea kieltäytyy tasapelistä</string>
   <string name="blackDeclinesDraw">Musta kieltäytyy tasapelistä</string>
   <string name="yourOpponentOffersADraw">Vastustajasi ehdottaa tasapeliä</string>
   <string name="accept">Hyväksy</string>
@@ -447,7 +447,7 @@
   <string name="bewareTheGameIsRatedButHasNoClock">Huomaa, että peli on pisteytetty, vaikka siinä ei olekaan aikarajoitetta!</string>
   <string name="training">Harjoittelu</string>
   <string name="yourPuzzleRatingX">Tehtävävahvuuslukusi: %s</string>
-  <string name="findTheBestMoveForWhite">Etsi paras siirto valkoiselle.</string>
+  <string name="findTheBestMoveForWhite">Etsi valkean paras siirto.</string>
   <string name="findTheBestMoveForBlack">Etsi paras siirto mustalle.</string>
   <string name="toTrackYourProgress">Seurataksesi edistymistäsi:</string>
   <string name="trainingSignupExplanation">Lichess tarjoaa tehtäviä jotka vastaavat kykyjäsi, luoden sopivampia harjoittelutuokioita.</string>
@@ -629,8 +629,8 @@
   <string name="onlyFriends">Vain ystäville</string>
   <string name="menu">Valikko</string>
   <string name="castling">Linnoitus</string>
-  <string name="whiteCastlingKingside">Valkoinen O-O</string>
-  <string name="whiteCastlingQueenside">Valkoinen O-O-O</string>
+  <string name="whiteCastlingKingside">Valkea O-O</string>
+  <string name="whiteCastlingQueenside">Valkea O-O-O</string>
   <string name="blackCastlingKingside">Musta O-O</string>
   <string name="blackCastlingQueenside">Musta O-O-O</string>
   <plurals name="nbForumPosts">
@@ -661,7 +661,7 @@
   <string name="aboutSimul">Simultaaneissa yksi pelaaja pelaa useampaa pelaajaa vastaan samanaikaisesti.</string>
   <string name="aboutSimulImage">50:stä vastustajastaan Fischer voitti 47, pelasi kahden kanssa tasan ja hävisi yhdelle.</string>
   <string name="aboutSimulRealLife">Simultaanien käsite on otettu netin ulkopuolisista tapahtumista; niissä simultaaninäytöksen antaja liikkuu pöydältä toiselle pelaten siirron kerrallaan.</string>
-  <string name="aboutSimulRules">Kun simultaani alkaa, kaikki pelaajat aloittavat pelin isännän kanssa; isäntä pelaa valkoisilla nappuloilla. Näytös loppuu kun kaikki pelit ovat loppuneet.</string>
+  <string name="aboutSimulRules">Kun simultaani alkaa, kaikki pelaajat aloittavat pelin isännän kanssa; isäntä pelaa valkeilla nappuloilla. Näytös loppuu kun kaikki pelit ovat loppuneet.</string>
   <string name="aboutSimulSettings">Simultaanit ovat aina rentoja. Revanssit, siirtojen perumiset ja ajan lisääminen ovat pois käytöstä.</string>
   <string name="create">Luo</string>
   <string name="whenCreateSimul">Jos luot simultaanin, sinun täytyy pelata useita pelaajia vastaan kerralla.</string>
@@ -806,12 +806,12 @@
   <string name="skipThisMove">Ohita tämä siirto</string>
   <string name="next">Seuraava</string>
   <string name="xWasPlayed">%s pelattiin</string>
-  <string name="findBetterMoveForWhite">Löydä parempi siirto valkealle</string>
+  <string name="findBetterMoveForWhite">Mieti parempi siirto valkealle</string>
   <string name="findBetterMoveForBlack">Löydä parempi siirto mustalle</string>
   <string name="resumeLearning">Jatka oppimista</string>
   <string name="youCanDoBetter">Parempikin löytyy</string>
-  <string name="tryAnotherMoveForWhite">Etsi toinen siirto valkealle</string>
-  <string name="tryAnotherMoveForBlack">Etsi toinen siirto mustalle</string>
+  <string name="tryAnotherMoveForWhite">Kokeile muuta valkean siirtoa</string>
+  <string name="tryAnotherMoveForBlack">Kokeile muuta mustan siirtoa</string>
   <string name="solution">Ratkaisu</string>
   <string name="waitingForAnalysis">Analyysi käynnissä</string>
   <string name="noMistakesFoundForWhite">Ei löytynyt valkean virheitä</string>
