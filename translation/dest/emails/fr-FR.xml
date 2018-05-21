@@ -5,10 +5,10 @@
   <string name="emailConfirm_click">Cliquer sur le lien pour activer votre compte lichess :</string>
   <string name="emailConfirm_ignore">Si vous ne vous êtes pas enregistré sur lichess.org, vous pouvez ignorer ce message.</string>
   <string name="passwordReset_subject">Réinitialiser votre mot de passe lichess.org, %s</string>
-  <string name="passwordReset_intro">Nous avons reçu une demande de réinitialisation de votre compte.</string>
+  <string name="passwordReset_intro">Nous avons reçu une demande de réinitialisation du mot de passe de votre compte.</string>
   <string name="passwordReset_clickOrIgnore">Si vous avez effectué cette demande, cliquer sur le lien ci-dessous. Sinon, vous pouvez ignorer ce message.</string>
-  <string name="emailChange_subject">Confirmez votre nouvel email, %s</string>
-  <string name="emailChange_intro">Vous avez demandé à modifier cotre adresse email.</string>
+  <string name="emailChange_subject">Confirmez votre nouvelle adresse email, %s</string>
+  <string name="emailChange_intro">Vous avez demandé à changer votre adresse email.</string>
   <string name="emailChange_click">Pour confirmer que vous avez accès à cet email, veuillez cliquer sur le lien ci-dessous :</string>
   <string name="welcome_subject">Bienvenue sur lichess.org, %s</string>
   <string name="welcome_text">Vous avez correctement créé votre compte sur https://lichess.org.
