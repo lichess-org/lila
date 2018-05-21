@@ -152,11 +152,11 @@
   <string name="daysPerTurn">Päivää per vuoro</string>
   <string name="oneDay">Yksi päivä</string>
   <plurals name="nbDays">
-    <item quantity="one">%s päivää</item>
+    <item quantity="one">%s päivä</item>
     <item quantity="other">%s päivää</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s tuntia</item>
+    <item quantity="one">%s tunti</item>
     <item quantity="other">%s tuntia</item>
   </plurals>
   <string name="time">Aika</string>
