@@ -75,7 +75,7 @@ object Account extends LidraughtsController {
 
   private def doNowPlaying(me: lidraughts.user.User, req: RequestHeader) =
     lidraughts.game.GameRepo.urgentGames(me) map { povs =>
-      val nb = getInt("nb", req) | 9
+      val nb = (getInt("nb", req) | 9) atMost 50
       Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map Env.api.lobbyApi.nowPlaying)))
     }
 
