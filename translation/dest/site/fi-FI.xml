@@ -818,4 +818,18 @@
   <string name="noMistakesFoundForBlack">Ei löytynyt mustan virheitä</string>
   <string name="doneReviewingWhiteMistakes">Olen tutkinut valkean virheitä kylliksi</string>
   <string name="doneReviewingBlackMistakes">Olen tutkinut mustan virheitä kylliksi</string>
+  <string name="doItAgain">Sama uudelleen</string>
+  <string name="reviewWhiteMistakes">Tutki valkean virheitä</string>
+  <string name="reviewBlackMistakes">Tutki mustan virheitä</string>
+  <string name="advantage">Etu</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekunti</item>
+    <item quantity="other">%s sekuntia</item>
+  </plurals>
+  <string name="opening">Avausvaihe</string>
+  <string name="middlegame">Keskipeli</string>
+  <string name="endgame">Loppupeli</string>
+  <string name="registerToSendChallenges">Rekisteröidy niin voit lähettää haasteita.</string>
+  <string name="youCannotChallengeX">Et voi haastaa pelaajaa %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s ei ota haasteita vastaan.</string>
 </resources>
