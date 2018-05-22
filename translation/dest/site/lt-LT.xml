@@ -417,6 +417,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="thisAccountIsClosed">Ši paskyra uždaryta.</string>
   <string name="invalidUsernameOrPassword">Neteisingas prisijungimo vardas arba slaptažodis</string>
   <string name="incorrectPassword">Neteisingas slaptažodis</string>
+  <string name="invalidAuthenticationCode">Neteisingas patvirtinimo kodas</string>
   <string name="emailMeALink">Atsiųsti nuorodą el. paštu</string>
   <string name="currentPassword">Esamas slaptažodis</string>
   <string name="newPassword">Naujas slaptažodis</string>

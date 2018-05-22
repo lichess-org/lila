@@ -56,8 +56,8 @@
   <string name="showThreat">Mostrar amenaza</string>
   <string name="inLocalBrowser">en el navegador local</string>
   <string name="toggleLocalEvaluation">Evaluación local</string>
-  <string name="promoteVariation">Promover variante</string>
-  <string name="makeMainLine">Hacer la línea principal</string>
+  <string name="promoteVariation">Promocionar variante</string>
+  <string name="makeMainLine">Convertir en línea principal</string>
   <string name="deleteFromHere">Borrar a partir de aquí</string>
   <string name="move">Movimiento</string>
   <string name="variantLoss">Variante perdedora</string>
@@ -836,11 +836,11 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s sólo acepta desafíos de sus amigos.</string>
   <string name="conditionalPremoves">Premovimientos condicionales</string>
   <string name="addCurrentVariation">Añadir la variante actual</string>
-  <string name="playVariationToCreateConditionalPremoves">Juega una variación para crear premovimientos condicionales</string>
-  <string name="noConditionalPremoves">Sin movimientos anticipados condicionales</string>
+  <string name="playVariationToCreateConditionalPremoves">Juega una variación para crear movimientos condicionales</string>
+  <string name="noConditionalPremoves">Sin movimientos condicionales</string>
   <string name="playX">Jugar %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">y almacene %s líneas de premovimientos</item>
-    <item quantity="other">y ahorra %s variantes de premovimientos</item>
+    <item quantity="one">y ahorra %s línea de premovimiento</item>
+    <item quantity="other">y ahorra %s líneas de premovimiento</item>
   </plurals>
 </resources>

@@ -13,7 +13,7 @@
   <string name="itMovesInStraightLines">Düz gider</string>
   <string name="rookIntro">Kale güçlü bir taştır. Onu yönetmeye hazır mısın?</string>
   <string name="rookGoal">Kaleyi yıldızlı yere ulaştırmak için üzerine tıkla!</string>
-  <string name="grabAllTheStars">Tüm yıldızları topla!</string>
+  <string name="grabAllTheStars">Bütün yıldızları topla!</string>
   <string name="theFewerMoves">Ne kadar az hamlede bitirirsen o kadar fazla puan kazanırsın!</string>
   <string name="useTwoRooks">İşleri kolaylaştırmak için iki kaleyi de kullan!</string>
   <string name="rookComplete">Tebrikler! Kaleyi iyice öğrendin.</string>
@@ -48,7 +48,7 @@
   <string name="useAllThePawns">Tüm piyonlarını kullan!
 Terfiye gerek yok.</string>
   <string name="aPawnOnTheSecondRank">Başlangıç noktasındaki bir piyon 2 kare ilerleyebilir!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Tüm yıldızları topla! Terfi ettirmene gerek yok.</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Bütün yıldızları topla! Terfi ettirmene gerek yok.</string>
   <string name="pawnComplete">Tebrikler! Artık piyonların da senden bir gizlisi saklısı yok.</string>
   <string name="pawnPromotion">Piyon terfisi</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Piyonun tahtanın sonuna ulaştı!</string>
@@ -122,7 +122,7 @@ Terfiye gerek yok.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Rakibin siyah piyonu iki kare sürdü! Piyonu geçerken al.</string>
   <string name="enPassantOnlyWorksImmediately">Geçerken almayı yalnızca rakip piyon sürüldükten hemen sonra yapabilirsin.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Geçerken almayı sadece piyonun 5. sıradayken yapabilirsin.</string>
-  <string name="takeAllThePawnsEnPassant">Tüm piyonları geçerken al!</string>
+  <string name="takeAllThePawnsEnPassant">Bütün piyonları geçerken al!</string>
   <string name="enPassantComplete">Çok güzel! Artık geçerken alma kuralını biliyorsun.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Beraberlik</string>

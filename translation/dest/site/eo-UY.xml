@@ -632,6 +632,7 @@
   <string name="videoLibrary">Filmaro</string>
   <string name="mobileApp">Poŝtelefona Aplikaĵo</string>
   <string name="webmasters">Retejestroj</string>
+  <string name="about">Pri</string>
   <string name="contribute">Kontribui</string>
   <string name="contact">Kontakto</string>
   <string name="termsOfService">Uzkondiĉojn</string>
@@ -751,6 +752,7 @@
   <string name="pieceSet">Ŝakpecaro</string>
   <string name="embedInYourWebsite">Enkorpigi en via retejo</string>
   <string name="usernameAlreadyUsed">Ĉi tiu uzantnomo estas jam uzanta, bonvolu provi aliun.</string>
+  <string name="usernameSuffixInvalid">La salutnomo devas finanta kun letero aux numero.</string>
   <string name="usernameUnacceptable">Ĉi tiu uzantnomo estas malakceptata.</string>
   <string name="directlySupportLichess">Rekte subteni Lichess</string>
   <string name="playChessInStyle">Ludu ŝakon elegante</string>
@@ -797,6 +799,15 @@
   <string name="tryAnotherMoveForBlack">Provi por nigra alian movon</string>
   <string name="solution">Solvo</string>
   <string name="waitingForAnalysis">Atendante analizon</string>
+  <string name="noMistakesFoundForWhite">Neniu eraroj trovita por blanko</string>
+  <string name="noMistakesFoundForBlack">Neniu eraroj trovita por nigro</string>
   <string name="doItAgain">Fari ĝin denove</string>
   <string name="advantage">Avantaĝo</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekundo</item>
+    <item quantity="other">%s sekundoj</item>
+  </plurals>
+  <string name="opening">Malfermadoj</string>
+  <string name="endgame">Finaĵo</string>
+  <string name="playX">Ludu %s</string>
 </resources>

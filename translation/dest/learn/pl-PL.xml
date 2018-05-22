@@ -41,29 +41,29 @@ Potrzebujesz ich obu!</string>
   <string name="knightsCanJumpOverObstacles">Skoczki mogą przeskakiwać przez przeszkody!
 Skacz i zbieraj gwiazdki!</string>
   <string name="knightComplete">Gratulacje! Opanowałeś poruszanie się skoczkiem.</string>
-  <string name="thePawn">Pionek</string>
+  <string name="thePawn">Pion</string>
   <string name="itMovesForwardOnly">Porusza się tylko do przodu</string>
-  <string name="pawnIntro">Pionki są słabe, ale mają w sobie duży potencjał.</string>
-  <string name="pawnsMoveOneSquareOnly">Pionki poruszają się tylko o jedno pole. 
-Ale kiedy dojdą do końca planszy zmieniają się w silniejszą bierkę!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować pionka na hetmana. 
-Jednak czasami bardziej przydatny może być skoczek!</string>
-  <string name="pawnsMoveForward">Pionki poruszają się naprzód ale biją po skosie!</string>
+  <string name="pawnIntro">Piony są słabe, ale mają w sobie duży potencjał.</string>
+  <string name="pawnsMoveOneSquareOnly">Piony poruszają się tylko o jedno pole. 
+Ale jeśli dojdą do ostatniej linii mogą zamienić się w silniejszą figurę!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować piona na hetmana. 
+Jednak czasem bardziej przydatny może być skoczek!</string>
+  <string name="pawnsMoveForward">Piony poruszają się do przodu ale biją po przekątnej!</string>
   <string name="captureThenPromote">Zbijaj, a później promuj!</string>
-  <string name="useAllThePawns">Użyj wszystkich pionków! Nie ma potrzeby promowania.</string>
-  <string name="aPawnOnTheSecondRank">Pionek stojący na drugiej linii może poruszyć się o 2 pola na raz!</string>
+  <string name="useAllThePawns">Użyj wszystkich swoich pionów! Nie ma potrzeby promowania.</string>
+  <string name="aPawnOnTheSecondRank">Pion będący na drugiej linii może poruszyć się o 2 pola do przodu!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Zbierz wszystkie gwiazdki! Nie ma potrzeby promowania.</string>
-  <string name="pawnComplete">Gratulacje! Pionki nie mają przed Tobą tajemnic.</string>
-  <string name="pawnPromotion">Promocja pionka</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Twój pionek dotarł do końca planszy!</string>
-  <string name="itNowPromotesToAStrongerPiece">Teraz zostaje promowany na silniejszą bierkę.</string>
+  <string name="pawnComplete">Gratulacje! Piony nie mają przed Tobą tajemnic.</string>
+  <string name="pawnPromotion">Promocja piona</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Twój pion dotarł do ostatniej linii!</string>
+  <string name="itNowPromotesToAStrongerPiece">Teraz zostaje promowany do silniejszej figury.</string>
   <string name="selectThePieceYouWant">Wybierz figurę, którą chcesz!</string>
   <string name="fundamentals">Podstawy</string>
   <string name="capture">Bicie</string>
-  <string name="takeTheEnemyPieces">Zbij bierki przeciwnika</string>
-  <string name="captureIntro">Znajdź niebronione bierki przeciwnika i zbij je!</string>
-  <string name="takeTheBlackPieces">Zbij czarne bierki!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Zbij czarne bierki! Nie strać swojej.</string>
+  <string name="takeTheEnemyPieces">Zbij figury przeciwnika</string>
+  <string name="captureIntro">Znajdź niebronione figury przeciwnika i zbij je!</string>
+  <string name="takeTheBlackPieces">Zbij czarne figury!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Zbij czarne figury! Nie strać żadnej swojej.</string>
   <string name="captureComplete">Gratulacje! Wiesz jak rozprawić się z figurami przeciwnika!</string>
   <string name="protection">Obrona</string>
   <string name="keepYourPiecesSafe">Zabezpiecz swoje figury</string>
