@@ -52,7 +52,9 @@ final class PlanApi(
         customer.firstSubscription match {
           case None => fufail(s"Can't cancel non-existent subscription of ${user.id}")
           case Some(sub) => stripeClient.cancelSubscription(sub) >>
-            setDbUserPlan(user, user.plan.disable) >>
+            isLifetime(user).flatMap { lifetime =>
+              !lifetime ?? setDbUserPlan(user, user.plan.disable)
+            } >>
             patronColl.update($id(user.id), $unset("stripe", "payPal", "expiresAt")).void >>-
             logger.info(s"Canceled subscription $sub of ${user.username}")
         }
