@@ -6,7 +6,13 @@ moreCss = cssTag("plan.css"),
 moreJs = jsTag("plan.js")) {
 
 <div class="content_box plan">
-  <h1>@userLink(me) • lidraughts Patron for @pluralize("month", me.plan.months)</h1>
+  <h1>@userLink(me) •
+    @if(patron.isLifetime) {
+    <strong>Lifetime Lidraughts Patron</strong>
+    } else {
+    Lidraughts Patron for @pluralize("month", me.plan.months)
+    }
+  </h1>
   <table class="all">
     <tbody>
       <tr>
