@@ -14,6 +14,7 @@ import lila.common.{ ApiVersion, IpAddress, EmailAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
+import lila.oauth.OAuthServer
 import User.LoginCandidate
 
 final class SecurityApi(
@@ -23,7 +24,7 @@ final class SecurityApi(
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
     tryOauthServer: lila.oauth.OAuthServer.Try
-) {
+)(implicit system: akka.actor.ActorSystem) {
 
   val AccessUri = "access_uri"
 
@@ -96,9 +97,13 @@ final class SecurityApi(
       }
     }
 
-  def oauthScoped(req: RequestHeader, scopes: List[lila.oauth.OAuthScope]): Fu[lila.oauth.OAuthServer.AuthResult] =
+  def oauthScoped(req: RequestHeader, scopes: List[lila.oauth.OAuthScope], retries: Int = 2): Fu[lila.oauth.OAuthServer.AuthResult] =
     tryOauthServer().flatMap {
-      case None => fuccess(Left(lila.oauth.OAuthServer.ServerOffline))
+      case None if retries > 0 =>
+        lila.common.Future.delay(2 seconds) {
+          oauthScoped(req, scopes, retries - 1)
+        }
+      case None => fuccess(Left(OAuthServer.ServerOffline))
       case Some(server) => server.auth(req, scopes)
     }
 
