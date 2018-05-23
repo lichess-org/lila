@@ -194,8 +194,6 @@ final class PlanApi(
 
     case None => fuccess(Synced(none, none))
 
-    case Some(patron) if patron.isLifetime => fuccess(Synced(patron.some, none))
-
     case Some(patron) => (patron.stripe, patron.payPal) match {
 
       case (Some(stripe), _) => stripeClient.getCustomer(stripe.customerId) flatMap {
@@ -217,6 +215,8 @@ final class PlanApi(
           setDbUserPlan(user, user.plan.enable) inject ReloadUser
         } else fuccess(Synced(patron.some, none))
 
+      case (None, None) if patron.isLifetime => fuccess(Synced(patron.some, none))
+
       case (None, None) if user.plan.active =>
         logger.warn(s"${user.username} sync: disable plan of patron with no paypal or stripe")
         setDbUserPlan(user, user.plan.disable) inject ReloadUser
@@ -229,20 +229,17 @@ final class PlanApi(
     _.exists(_.isLifetime)
   }
 
-  def setLifetime(user: User): Funit = isLifetime(user) flatMap {
-    case true => funit
-    case _ => UserRepo.setPlan(user, lidraughts.user.Plan(
-      months = user.plan.months | 1,
-      active = true,
-      since = user.plan.since orElse DateTime.now.some
-    )) >> patronColl.update(
-      $id(user.id),
-      $set(
-        "lastLevelUp" -> DateTime.now,
-        "lifetime" -> true
-      )
-    ).void >>- lightUserApi.invalidate(user.id)
-  }
+  def setLifetime(user: User): Funit = UserRepo.setPlan(user, lidraughts.user.Plan(
+    months = user.plan.months | 1,
+    active = true,
+    since = user.plan.since orElse DateTime.now.some
+  )) >> patronColl.update(
+    $id(user.id),
+    $set(
+      "lastLevelUp" -> DateTime.now,
+      "lifetime" -> true
+    )
+  ).void >>- lightUserApi.invalidate(user.id)
 
   private val recentChargeUserIdsNb = 50
   private val recentChargeUserIdsCache = asyncCache.single[List[User.ID]](
