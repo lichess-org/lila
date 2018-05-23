@@ -14,6 +14,7 @@ import lidraughts.common.{ ApiVersion, IpAddress, EmailAddress }
 import lidraughts.db.BSON.BSONJodaDateTimeHandler
 import lidraughts.db.dsl._
 import lidraughts.user.{ User, UserRepo }
+import lidraughts.oauth.OAuthServer
 import User.LoginCandidate
 
 final class SecurityApi(
@@ -23,7 +24,7 @@ final class SecurityApi(
     authenticator: lidraughts.user.Authenticator,
     emailValidator: EmailAddressValidator,
     tryOauthServer: lidraughts.oauth.OAuthServer.Try
-) {
+)(implicit system: akka.actor.ActorSystem) {
 
   val AccessUri = "access_uri"
 
@@ -96,9 +97,13 @@ final class SecurityApi(
       }
     }
 
-  def oauthScoped(req: RequestHeader, scopes: List[lidraughts.oauth.OAuthScope]): Fu[lidraughts.oauth.OAuthServer.AuthResult] =
+  def oauthScoped(req: RequestHeader, scopes: List[lidraughts.oauth.OAuthScope], retries: Int = 2): Fu[lidraughts.oauth.OAuthServer.AuthResult] =
     tryOauthServer().flatMap {
-      case None => fuccess(Left(lidraughts.oauth.OAuthServer.ServerOffline))
+      case None if retries > 0 =>
+        lidraughts.common.Future.delay(2 seconds) {
+          oauthScoped(req, scopes, retries - 1)
+        }
+      case None => fuccess(Left(OAuthServer.ServerOffline))
       case Some(server) => server.auth(req, scopes)
     }
 
