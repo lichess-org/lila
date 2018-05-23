@@ -137,7 +137,8 @@ table.all .thanks {
   overflow: visible;
 }
 .plan .plan_checkout group input:checked + label,
-.plan .plan_checkout .amount_fixed label {
+.plan .plan_checkout .amount_fixed label,
+.plan .plan_checkout .lifetime-check input + label {
   background: #639B24!important;
   border-color: #ccc!important;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
@@ -149,11 +150,17 @@ body.dark .plan .plan_checkout .amount_fixed label {
 }
 .plan .plan_checkout group input:disabled + label {
   opacity: 0.5;
-  pointer: default;
+  cursor: default;
 }
-.plan .plan_checkout group.freq input:checked + label::before {
+.plan .plan_checkout group.freq input:checked + label::before,
+.plan .plan_checkout group .lifetime-check input + label::before {
   content: "✓";
   padding-right: 5px;
+}
+.plan .plan_checkout group .lifetime-check input + label {
+  background: #d59120!important;
+  opacity: 0.8;
+  cursor: default;
 }
 .plan .plan_checkout .service {
   display: flex;

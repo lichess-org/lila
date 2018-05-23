@@ -130,20 +130,20 @@ description = "Free draughts for everyone, forever!").some) {
 
           <group class="radio buttons freq">
             @defining(s"Pay ${lidraughts.plan.Cents.lifetime.usd} once. Be a Lidraughts Patron forever!") { info =>
-            <div data-hint="@info" class="hint--top-left">
+            <div data-hint="@info" class="hint--top-left@if(patron.exists(_.isLifetime)){ lifetime-check}">
               <input type="radio" name="freq" id="freq_lifetime" @if(patron.exists(_.isLifetime)){disabled} value="lifetime" />
               <label for="freq_lifetime">Lifetime</label>
             </div>
             }
             @defining("Recurring billing, renewing your Patron Wings every month.") { info =>
             <div data-hint="@info" class="hint--top-left">
-              <input type="radio" name="freq" id="freq_monthly" @if(patron.exists(_.isLifetime)){disabled}else{checked} value="monthly" />
+              <input type="radio" name="freq" id="freq_monthly" checked value="monthly" />
               <label for="freq_monthly">Monthly</label>
             </div>
             }
             @defining("A single donation that grants you the Patron Wings for one month.") { info =>
             <div data-hint="@info" class="hint--top-left">
-              <input type="radio" name="freq" id="freq_onetime" @if(patron.exists(_.isLifetime)){checked} value="onetime" />
+              <input type="radio" name="freq" id="freq_onetime" value="onetime" />
               <label for="freq_onetime">One-time</label>
             </div>
             }
