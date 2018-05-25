@@ -21,8 +21,7 @@ function load($f) {
           $f.find('.submit').attr('disabled', false);
           if (res === 'InvalidTotpToken') $f.find('.two-factor .error').show();
         }
-        else if (res.indexOf('ok:') === 0) lichess.redirect(res.substr(3));
-        else alert(res);
+        else lichess.redirect(res.indexOf('ok:') === 0 ? res.substr(3) '/');
       },
       error: function(err) {
         $f.replaceWith($(err.responseText).find('form.login'));
