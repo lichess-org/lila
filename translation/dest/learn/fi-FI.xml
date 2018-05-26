@@ -6,7 +6,7 @@
   <string name="menu">Valikko</string>
   <string name="progressX">Edistyminen: %s</string>
   <string name="resetMyProgress">Nollaa edistymiseni</string>
-  <string name="youWillLoseAllYourProgress">Menetät koko edistymisesi!</string>
+  <string name="youWillLoseAllYourProgress">Menetät kaiken edistymisesi!</string>
   <string name="play">pelaa!</string>
   <string name="chessPieces">Shakkinappulat</string>
   <string name="theRook">Torni</string>
@@ -53,7 +53,7 @@ Mutta jos sotilas pääsee laudan toiseen päähän, siitä tulee vahvempi nappu
   <string name="mostOfTheTimePromotingToAQueenIsBest">Useimmiten daamiksi korottaminen on järkevintä. Mutta joskus ratsukin tulee tarpeen!</string>
   <string name="pawnsMoveForward">Sotilaat liikkuvat suoraan eteenpäin,
 mutta syövät viistoon!</string>
-  <string name="captureThenPromote">Syö ja sitten korota!</string>
+  <string name="captureThenPromote">Lyö ja sitten korota!</string>
   <string name="useAllThePawns">Käytä kaikkia sotilaita!
 Ei tarvitse korottaa.</string>
   <string name="aPawnOnTheSecondRank">Toisella rivillä oleva sotilas voi liikkua kaksi ruutua kerralla!</string>
