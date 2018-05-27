@@ -211,6 +211,9 @@ div.lichess_board > svg {
 }
 /* 2D boards */
 
+.blue-inline .is2d .cg-board {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:x='http://www.w3.org/1999/xlink' viewBox='0 0 8 8' shape-rendering='geometricPrecision'> <rect width='8' height='8' fill='%233f6687'/> <g id='a'> <g id='b'> <g id='c'> <g id='d'> <rect width='1' height='1' fill='%236b879d' id='e'/> <use x='2' href='%23e' x:href='%23e'/> </g> <use x='4' href='%23d' x:href='%23d'/> </g> <use x='1' y='1' href='%23c' x:href='%23c'/> </g> <use y='2' href='%23b' x:href='%23b'/> </g> <use y='4' href='%23a' x:href='%23a'/> </svg> ");
+}
 .blue .is2d .cg-board {
   background-image: url(../images/board/svg/blue.svg);
 }
