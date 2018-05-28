@@ -74,13 +74,14 @@ trait DateHelper { self: I18nHelper =>
   def isoDate(date: DateTime): String = isoFormatter print date
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
-  def momentFromNow(date: DateTime, alwaysRelative: Boolean = false) = Html {
+  def momentFromNow(date: DateTime, alwaysRelative: Boolean = false, once: Boolean = false) = Html {
     if (!alwaysRelative && (date.getMillis - nowMillis) > oneDayMillis) absClientDateTime(date)
-    s"""<time class="timeago" datetime="${isoDate(date)}"></time>"""
+    s"""<time class="timeago${if (once) " once" else ""}" datetime="${isoDate(date)}"></time>"""
   }
   def absClientDateTime(date: DateTime) = Html {
     s"""<time class="timeago abs" datetime="${isoDate(date)}"></time>"""
   }
+  def momentFromNowOnce(date: DateTime) = momentFromNow(date, once = true)
 
   def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false)(implicit ctx: Context) =
     momentFromNow(DateTime.now plusSeconds seconds, alwaysRelative)
