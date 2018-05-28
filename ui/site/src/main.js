@@ -276,14 +276,17 @@ lidraughts.topMenuIntent = function() {
 
       document.body.addEventListener('mouseover', lidraughts.powertip.mouseover);
 
-      function setTimeago() {
-        lidraughts.raf(function() {
+      function renderTimeago() {
           lidraughts.timeago.render(document.getElementsByClassName('timeago'));
+      }
+      function setTimeago(interval) {
+        lidraughts.requestIdleCallback(function() {
+          renderTimeago();
+          setTimeout(function() { setTimeago(interval * 1.1); }, interval);
         });
       }
-      setTimeago();
-      lidraughts.pubsub.on('content_loaded', setTimeago);
-      setInterval(setTimeago, 2000);
+      setTimeago(2000);
+      lidraughts.pubsub.on('content_loaded', renderTimeago);
 
       if ($('body').hasClass('blind_mode')) {
         var setBlindMode = function() {
