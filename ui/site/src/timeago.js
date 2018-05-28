@@ -63,21 +63,21 @@ lichess.timeago = (function() {
    **/
    return {
      render: function(nodes) {
-       var node, cl, abs, set;
+       var node, cl, abs, set, date, str;
        for (var i = 0; i < nodes.length; i++) {
          node = nodes[i],
          cl = node.classList,
          abs = cl.contains('abs'),
          set = cl.contains('set');
          if (set && abs) continue;
-         var date = toDate(node.getAttribute('datetime'));
+         node.date = node.date || toDate(node.getAttribute('datetime'));
          if (!set) {
-           var str = formatter()(date);
+           str = formatter()(node.date);
            if (abs) node.textContent = str;
            else node.setAttribute('title', str);
            node.classList.add('set');
          }
-         if (!abs) node.textContent = formatDiff(diffSec(date));
+         if (!abs) node.textContent = formatDiff(diffSec(node.date));
        }
      },
      // relative
