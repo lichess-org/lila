@@ -276,14 +276,17 @@ lichess.topMenuIntent = function() {
 
       document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
-      function setTimeago() {
-        lichess.raf(function() {
+      function renderTimeago() {
           lichess.timeago.render(document.getElementsByClassName('timeago'));
+      }
+      function setTimeago(interval) {
+        lichess.requestIdleCallback(function() {
+          renderTimeago();
+          setTimeout(function() { setTimeago(interval * 1.1); }, interval);
         });
       }
-      setTimeago();
-      lichess.pubsub.on('content_loaded', setTimeago);
-      setInterval(setTimeago, 2000);
+      setTimeago(2000);
+      lichess.pubsub.on('content_loaded', renderTimeago);
 
       if ($('body').hasClass('blind_mode')) {
         var setBlindMode = function() {
