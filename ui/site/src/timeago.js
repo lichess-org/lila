@@ -5,18 +5,11 @@ lichess.timeago = (function() {
   var SEC_ARRAY = [60, 60, 24, 7, 365/7/12, 12],
     SEC_ARRAY_LEN = 6;
 
-  var intR = /^\d+$/;
-
   // format Date / string / timestamp to Date instance.
   function toDate(input) {
-    if (input instanceof Date) return input;
-    if (!isNaN(input)) return new Date(parseInt(input));
-    if (intR.test(input)) return new Date(parseInt(input));
-    input = (input || '').trim().replace(/\.\d+/, '') // remove milliseconds
-      .replace(/-/, '/').replace(/-/, '/')
-      .replace(/(\d)T(\d)/, '$1 $2').replace(/Z/, ' UTC') // 2017-2-5T3:57:52Z -> 2017-2-5 3:57:52UTC
-      .replace(/([\+\-]\d\d)\:?(\d\d)/, ' $1$2'); // -04:00 -> -0400
-    return new Date(input);
+    return input instanceof Date ? input : (
+      new Date(isNaN(input) ? input : parseInt(input))
+    );
   }
 
   // format the diff second to *** time ago
@@ -85,8 +78,8 @@ lichess.timeago = (function() {
      format: function(date) {
        return formatDiff(diffSec(date));
      },
-     absolute: function(d) {
-       return formatter()(toDate(d));
+     absolute: function(date) {
+       return formatter()(toDate(date));
      }
    };
 })();
