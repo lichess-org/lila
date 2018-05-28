@@ -75,7 +75,8 @@ lichess.timeago = (function() {
            str = formatter()(node.date);
            if (abs) node.textContent = str;
            else node.setAttribute('title', str);
-           node.classList.add('set');
+           cl.add('set');
+           if (cl.contains('once')) cl.remove('timeago');
          }
          if (!abs) node.textContent = formatDiff(diffSec(node.date));
        }
