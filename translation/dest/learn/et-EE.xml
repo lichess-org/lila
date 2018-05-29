@@ -148,10 +148,36 @@ lossi kuninga poolele!</string>
   <string name="enPassant">Kõrvalmärkusena</string>
   <string name="theSpecialPawnMove">Eriline etturi liigutus</string>
   <string name="enPassantIntro">Kui vastase ettur on liikunud kahe ruudu võrra, siis sa saad seda kui ühe ruuduna võtta.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Must liikus etturiga
+kaks ruutu edasi!
+Võta see en passant käiguga.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant töötab ainult
+kohe pärast seda, kui vastane
+käis etturiga.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant töötab ainult juhul,
+kui sinu ettur on 5. real.</string>
+  <string name="takeAllThePawnsEnPassant">Löö kõik etturid en passant käiguga!</string>
+  <string name="enPassantComplete">Õnnitlused! Oskad nüüd en passant käiku.</string>
   <string name="stalemate">Patt</string>
   <string name="theGameIsADraw">See mäng on viik</string>
   <string name="stalemateIntro">Kui mängija ei ole tules ning tal ei ole ühtegi legaalset käiku, siis tegemist on patiga. Tulemus on viik: kumbki ei võida ega kaota.</string>
+  <string name="stalemateGoal">Musta patti viimine:
+- Must ei saa käia kuhugile
+- Must ei ole tules.</string>
+  <string name="stalemateComplete">Õnnitlused! Parem on olla patis kui matis!</string>
+  <string name="advanced">Edasijõudnud</string>
   <string name="pieceValue">Viguri väärtus</string>
+  <string name="evaluatePieceStrength">Hinda viguri tugevust</string>
+  <string name="pieceValueIntro">Vigurid suurema liikuvusega on väärtuslikumad!
+Lipp = 9
+Vanker = 5
+Oda = 3
+Ratsu = 3
+Ettur = 1
+Kuningas on hindamatu! Sellest ilma jäämine on võrdne kaotusega.</string>
+  <string name="queenOverBishop">Löö vigur
+kõrgeima väärtusega!
+Lipp &gt; Oda</string>
   <string name="register">Registreeru</string>
   <string name="getAFreeLichessAccount">Lichess konto loomine on tasuta</string>
   <string name="practice">Harjuta</string>
@@ -173,7 +199,12 @@ lossi kuninga poolele!</string>
   <string name="wayToGo">Väga hea!</string>
   <string name="yesYesYes">Jah, jah, jah!</string>
   <string name="youreGoodAtThis">Sa oled hea selles!</string>
+  <string name="nailedIt">Fantastiline.</string>
+  <string name="rightOn">Just nii!</string>
+  <string name="stageXComplete">Etapp %s läbitud</string>
+  <string name="yourScore">Sinu skoor</string>
   <string name="next">Järgmine</string>
   <string name="backToMenu">Tagasi menüüsse</string>
+  <string name="puzzleFailed">Kukkusid läbi!</string>
   <string name="retry">Uuesti</string>
 </resources>
