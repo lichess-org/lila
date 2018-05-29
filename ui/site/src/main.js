@@ -277,13 +277,13 @@ lidraughts.topMenuIntent = function() {
       document.body.addEventListener('mouseover', lidraughts.powertip.mouseover);
 
       function renderTimeago() {
+        lidraughts.raf(function() {
           lidraughts.timeago.render(document.getElementsByClassName('timeago'));
+        });
       }
       function setTimeago(interval) {
-        lidraughts.requestIdleCallback(function() {
-          renderTimeago();
-          setTimeout(function() { setTimeago(interval * 1.1); }, interval);
-        });
+        renderTimeago();
+        setTimeout(function() { setTimeago(interval * 1.1); }, interval);
       }
       setTimeago(2000);
       lidraughts.pubsub.on('content_loaded', renderTimeago);
