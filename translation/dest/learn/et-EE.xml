@@ -178,9 +178,26 @@ Kuningas on hindamatu! Sellest ilma jäämine on võrdne kaotusega.</string>
   <string name="queenOverBishop">Löö vigur
 kõrgeima väärtusega!
 Lipp &gt; Oda</string>
+  <string name="takeThePieceWithTheHighestValue">Löö vigur
+kõrgeima väärtusega!</string>
+  <string name="pieceValueComplete">Õnnitlused! Sa tead vigurite väärtust!
+Lipp = 9
+Vanker = 5
+Oda = 3
+Ratsu = 3
+Ettur = 1</string>
+  <string name="checkInTwo">Tuli kahega</string>
+  <string name="twoMovesToGiveCheck">Kaks käiku, et anda tuld</string>
+  <string name="checkInTwoIntro">Leia õige kombinatsioon käikudest, mille tulemusena jääb vastase kuningas tulle!</string>
+  <string name="checkInTwoGoal">Ohusta vastase kuningat
+kahe käiguga!</string>
+  <string name="checkInTwoComplete">Õnnitlused! Andsid vastasele tuld, sundides teda ohule reageerima!</string>
+  <string name="whatNext">Mis edasi?</string>
+  <string name="youKnowHowToPlayChess">Sa oskad malet mängida, õnnitlused! Kas sa tahad saada tugevaks mängijaks?</string>
   <string name="register">Registreeru</string>
   <string name="getAFreeLichessAccount">Lichess konto loomine on tasuta</string>
   <string name="practice">Harjuta</string>
+  <string name="learnCommonChessPositions">Õpi tuntud male seise</string>
   <string name="puzzles">Pusled</string>
   <string name="exerciseYourTacticalSkills">Harjuta oma taktikalist taipu</string>
   <string name="videos">Videod</string>
