@@ -277,13 +277,13 @@ lichess.topMenuIntent = function() {
       document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
       function renderTimeago() {
+        lichess.raf(function() {
           lichess.timeago.render(document.getElementsByClassName('timeago'));
+        });
       }
       function setTimeago(interval) {
-        lichess.requestIdleCallback(function() {
-          renderTimeago();
-          setTimeout(function() { setTimeago(interval * 1.1); }, interval);
-        });
+        renderTimeago();
+        setTimeout(function() { setTimeago(interval * 1.1); }, interval);
       }
       setTimeago(2000);
       lichess.pubsub.on('content_loaded', renderTimeago);
