@@ -389,6 +389,11 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="createANewTournament">Loo uus turniir</string>
   <string name="tournamentCalendar">Turniiride kalender</string>
   <string name="conditionOfEntry">Sisenemise tingimus:</string>
+  <string name="advancedSettings">Täpsemad seaded</string>
+  <string name="inappropriateNameWarning">Isegi pisut kohatu nimi võib tähendada sinu konto sulgemist.</string>
+  <string name="recommendNotTouching">Me ei soovita neid muuta.</string>
+  <string name="fewerPlayers">Kui sa lisad osalemiseks tingimusi, siis osaleb turniiril vähem inimesi.</string>
+  <string name="showAdvancedSettings">Näita täpsemaid sätteid</string>
   <string name="join">Liitu</string>
   <string name="withdraw">Loobu</string>
   <string name="points">Punkte</string>
@@ -518,6 +523,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="thisAccountIsClosed">See konto on suletud.</string>
   <string name="invalidUsernameOrPassword">Vale kasutajanimi või parool</string>
   <string name="incorrectPassword">Vale parool</string>
+  <string name="invalidAuthenticationCode">Väär autentimise kood</string>
   <string name="emailMeALink">Saada mulle link</string>
   <string name="currentPassword">Praegune salasõna</string>
   <string name="newPassword">Uus salasõna</string>
@@ -752,6 +758,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="pieceSet">Malendite kujundus</string>
   <string name="embedInYourWebsite">Lubad oma veebilehel</string>
   <string name="usernameAlreadyUsed">See kasutajanimi on juba olemas, proovige midagi muud.</string>
+  <string name="usernamePrefixInvalid">Kasutajanimi peab algama tähega.</string>
+  <string name="usernameSuffixInvalid">Kasutajanimi peab lõppema numbriga või tähega.</string>
+  <string name="usernameCharsInvalid">Kasutajanimi peab sisaldama ainult tähti, numbreid, allkriipse ja sidekriipse.</string>
   <string name="usernameUnacceptable">Selline kasutajanimi ei ole lubatud.</string>
   <string name="directlySupportLichess">Toeta Lichess-i</string>
   <string name="playChessInStyle">Mängi malet stiiliga</string>
