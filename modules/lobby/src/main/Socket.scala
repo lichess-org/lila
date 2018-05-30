@@ -65,8 +65,6 @@ private[lobby] final class Socket(
 
     case ReloadSimuls(html) => notifyAllActive(makeMessage("simuls", html))
 
-    case NewForumPost => notifyAllActive(makeMessage("reload_forum"))
-
     case ReloadTimeline(userId) =>
       membersByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
 

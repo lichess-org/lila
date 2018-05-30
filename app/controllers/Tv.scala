@@ -71,16 +71,14 @@ object Tv extends LilaController {
   }
 
   def feed = Action.async { req =>
-    RequireHttp11(req) {
-      import makeTimeout.short
-      import akka.pattern.ask
-      import lila.round.TvBroadcast
-      import play.api.libs.EventSource
-      Env.round.tvBroadcast ? TvBroadcast.GetEnumerator mapTo
-        manifest[TvBroadcast.EnumeratorType] map { enum =>
-          Ok.chunked(enum &> EventSource()).as("text/event-stream")
-        }
-    }
+    import makeTimeout.short
+    import akka.pattern.ask
+    import lila.round.TvBroadcast
+    import play.api.libs.EventSource
+    Env.round.tvBroadcast ? TvBroadcast.GetEnumerator mapTo
+      manifest[TvBroadcast.EnumeratorType] map { enum =>
+        Ok.chunked(enum &> EventSource()).as("text/event-stream")
+      }
   }
 
   def embed = Action { req =>
@@ -92,7 +90,7 @@ object Tv extends LilaController {
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 
-  def frame = Action.async { req =>
+  def frame = Action.async { implicit req =>
     Env.tv.tv.getBestGame map {
       case None => NotFound
       case Some(game) => Ok(views.html.tv.embed(

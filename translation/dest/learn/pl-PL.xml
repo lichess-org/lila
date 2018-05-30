@@ -41,29 +41,29 @@ Potrzebujesz ich obu!</string>
   <string name="knightsCanJumpOverObstacles">Skoczki mogą przeskakiwać przez przeszkody!
 Skacz i zbieraj gwiazdki!</string>
   <string name="knightComplete">Gratulacje! Opanowałeś poruszanie się skoczkiem.</string>
-  <string name="thePawn">Pionek</string>
+  <string name="thePawn">Pion</string>
   <string name="itMovesForwardOnly">Porusza się tylko do przodu</string>
-  <string name="pawnIntro">Pionki są słabe, ale mają w sobie duży potencjał.</string>
-  <string name="pawnsMoveOneSquareOnly">Pionki poruszają się tylko o jedno pole. 
-Ale kiedy dojdą do końca planszy zmieniają się w silniejszą bierkę!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować pionka na hetmana. 
-Jednak czasami bardziej przydatny może być skoczek!</string>
-  <string name="pawnsMoveForward">Pionki poruszają się naprzód ale biją po skosie!</string>
+  <string name="pawnIntro">Piony są słabe, ale mają w sobie duży potencjał.</string>
+  <string name="pawnsMoveOneSquareOnly">Piony poruszają się tylko o jedno pole. 
+Ale jeśli dojdą do ostatniej linii mogą zamienić się w silniejszą figurę!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować piona na hetmana. 
+Jednak czasem bardziej przydatny może być skoczek!</string>
+  <string name="pawnsMoveForward">Piony poruszają się do przodu ale biją po przekątnej!</string>
   <string name="captureThenPromote">Zbijaj, a później promuj!</string>
-  <string name="useAllThePawns">Użyj wszystkich pionków! Nie ma potrzeby promowania.</string>
-  <string name="aPawnOnTheSecondRank">Pionek stojący na drugiej linii może poruszyć się o 2 pola na raz!</string>
+  <string name="useAllThePawns">Użyj wszystkich swoich pionów! Nie ma potrzeby promowania.</string>
+  <string name="aPawnOnTheSecondRank">Pion będący na drugiej linii może poruszyć się o 2 pola do przodu!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Zbierz wszystkie gwiazdki! Nie ma potrzeby promowania.</string>
-  <string name="pawnComplete">Gratulacje! Pionki nie mają przed Tobą tajemnic.</string>
-  <string name="pawnPromotion">Promocja pionka</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Twój pionek dotarł do końca planszy!</string>
-  <string name="itNowPromotesToAStrongerPiece">Teraz zostaje promowany na silniejszą bierkę.</string>
+  <string name="pawnComplete">Gratulacje! Piony nie mają przed Tobą tajemnic.</string>
+  <string name="pawnPromotion">Promocja piona</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Twój pion dotarł do ostatniej linii!</string>
+  <string name="itNowPromotesToAStrongerPiece">Teraz zostaje promowany do silniejszej figury.</string>
   <string name="selectThePieceYouWant">Wybierz figurę, którą chcesz!</string>
   <string name="fundamentals">Podstawy</string>
   <string name="capture">Bicie</string>
-  <string name="takeTheEnemyPieces">Zbij bierki przeciwnika</string>
-  <string name="captureIntro">Znajdź niebronione bierki przeciwnika i zbij je!</string>
-  <string name="takeTheBlackPieces">Zbij czarne bierki!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Zbij czarne bierki! Nie strać swojej.</string>
+  <string name="takeTheEnemyPieces">Zbij figury przeciwnika</string>
+  <string name="captureIntro">Znajdź niebronione figury przeciwnika i zbij je!</string>
+  <string name="takeTheBlackPieces">Zbij czarne figury!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Zbij czarne figury! Nie strać żadnej swojej.</string>
   <string name="captureComplete">Gratulacje! Wiesz jak rozprawić się z figurami przeciwnika!</string>
   <string name="protection">Obrona</string>
   <string name="keepYourPiecesSafe">Zabezpiecz swoje figury</string>
@@ -86,7 +86,7 @@ Jednak czasami bardziej przydatny może być skoczek!</string>
   <string name="outOfCheckIntro">Zostałeś zaszachowany! Musisz uciec lub odeprzeć atak.</string>
   <string name="escapeWithTheKing">Uciekaj królem!</string>
   <string name="theKingCannotEscapeButBlock">Król nie może uciec, ale możesz zablokować atak!</string>
-  <string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem zbijając bierkę atakującą króla.</string>
+  <string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem bijąc atakującą króla figurę.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ten skoczek szachuje króla poprzez Twoją obronę!</string>
   <string name="escapeOrBlock">Ucieknij królem lub odeprzyj atak!</string>
   <string name="outOfCheckComplete">Gratulacje! Twój król jest niepokonany, sprawdź czy potrafisz bronić się przed szachem!</string>
@@ -105,7 +105,7 @@ Jednak czasami bardziej przydatny może być skoczek!</string>
   <string name="placeTheBishops">Ustaw gońce! Umieść je obok skoczków.</string>
   <string name="placeTheQueen">Ustaw hetmana! Umieść go na polu jego własnego koloru.</string>
   <string name="placeTheKing">Ustaw króla! Umieść go obok hetmana.</string>
-  <string name="pawnsFormTheFrontLine">Pionki tworzą linię frontu. Zrób dowolny ruch aby kontynuować.</string>
+  <string name="pawnsFormTheFrontLine">Piony tworzą linię frontu. Zrób dowolny ruch aby kontynuować.</string>
   <string name="boardSetupComplete">Gratulacje! Wiesz jak ustawiać figury na szachownicy.</string>
   <string name="castling">Roszada</string>
   <string name="theSpecialKingMove">Specjalny ruch króla</string>
@@ -121,33 +121,33 @@ Jednak czasami bardziej przydatny może być skoczek!</string>
   <string name="findAWayToCastleQueenSide">Znajdź sposób aby wykonać długą roszadę!</string>
   <string name="castlingComplete">Gratulacje! Powinieneś roszować w prawie każdej partii.</string>
   <string name="enPassant">Bicie w przelocie</string>
-  <string name="theSpecialPawnMove">Specjalny ruch pionka</string>
-  <string name="enPassantIntro">Kiedy pionek przeciwnika poruszył się o dwa pola, możesz zbić go tak jakby poruszył się o jedno pole.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Czarne właśnie ruszyły się pionkiem o dwa pola! Zbij go w przelocie.</string>
-  <string name="enPassantOnlyWorksImmediately">Bicie w przelocie działa tylko bezpośrednio po tym jak przeciwnik ruszył pionkiem.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Bicie w przelocie działa tylko wtedy, gdy Twój pionek jest na 5. linii.</string>
-  <string name="takeAllThePawnsEnPassant">Zbij wszystkie pionki w przelocie!</string>
+  <string name="theSpecialPawnMove">Specjalny ruch piona</string>
+  <string name="enPassantIntro">Kiedy pion przeciwnika poruszył się o dwa pola do przodu, możesz zbić go tak jakby poruszył się tylko o jedno pole.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Czarne właśnie ruszyły się pionem o dwa pola do przodu! Zbij go biciem w przelocie.</string>
+  <string name="enPassantOnlyWorksImmediately">Bicie w przelocie działa tylko od razu po ruchu przeciwnika pionem.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Bicie w przelocie działa tylko wtedy gdy pion jest na 5 linii.</string>
+  <string name="takeAllThePawnsEnPassant">Zbij wszystkie piony biciem w przelocie!</string>
   <string name="enPassantComplete">Gratulacje! Potrafisz teraz wykonać bicie w przelocie.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Partia zakończona remisem</string>
   <string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie może zrobić żadnego prawidłowego ruchu to jest to pat. Partia jest zakończona remisem: nikt nie wygrywa, nikt nie przegrywa.</string>
-  <string name="stalemateGoal">Czarne będą zapatowane gdy:
-- nie będą mogły się nigdzie ruszyć
-- nie będzie szacha.</string>
-  <string name="stalemateComplete">Gratulacje! Lepiej zostać zapatowanym niż zamatowanym!</string>
+  <string name="stalemateGoal">Czarne dostaną pata gdy:
+- nie będą mogły się ruszyć
+- nie będą szachowane</string>
+  <string name="stalemateComplete">Gratulacje! Lepiej dostać pata niż mata!</string>
   <string name="advanced">Zaawansowane</string>
-  <string name="pieceValue">Wartości bierek</string>
-  <string name="evaluatePieceStrength">Oceń siłę bierek</string>
-  <string name="pieceValueIntro">Bierki z dużymi możliwościami poruszania się mają większą wartość!
+  <string name="pieceValue">Wartości figur</string>
+  <string name="evaluatePieceStrength">Oceń siłę każdej figury</string>
+  <string name="pieceValueIntro">Figury mające większe możliwości poruszania się warte są więcej!
 Hetman = 9
 Wieża = 5
 Goniec = 3
 Skoczek = 3
-Pionek = 1
-Król jest bezcenny! Utrata króla oznacza przegranie partii.</string>
-  <string name="queenOverBishop">Zbij bierkę o największej wartości!
+Pion = 1
+Król jest bezcenny! Tracąc króla przegrywasz partię.</string>
+  <string name="queenOverBishop">Zbij figurę o największej wartości!
 hetman &gt; goniec</string>
-  <string name="takeThePieceWithTheHighestValue">Zbij bierkę o najwyższej wartości!</string>
+  <string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
   <string name="pieceValueComplete">Gratulacje! Znasz wartość materiału!
 Hetman = 9
 Wieża = 5
@@ -169,7 +169,7 @@ Pionek = 1</string>
   <string name="exerciseYourTacticalSkills">Ćwicz swoje umiejętności taktyczne</string>
   <string name="videos">Filmy</string>
   <string name="watchInstructiveChessVideos">Oglądaj filmy instruktażowe</string>
-  <string name="playPeople">Graj z ludźmi</string>
+  <string name="playPeople">Graj z innymi</string>
   <string name="opponentsFromAroundTheWorld">Przeciwnicy z całego świata</string>
   <string name="playMachine">Graj z maszyną</string>
   <string name="testYourSkillsWithTheComputer">Sprawdź się z komputerem</string>

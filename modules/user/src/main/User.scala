@@ -28,7 +28,8 @@ case class User(
     lang: Option[String],
     plan: Plan,
     reportban: Boolean = false,
-    rankban: Boolean = false
+    rankban: Boolean = false,
+    totpSecret: Option[TotpSecret] = None
 ) extends Ordered[User] {
 
   override def equals(other: Any) = other match {
@@ -113,6 +114,8 @@ case class User(
   def noBot = !isBot
 
   def rankable = noBot && !rankban
+
+  def addRole(role: String) = copy(roles = role :: roles)
 }
 
 object User {
@@ -121,11 +124,28 @@ object User {
 
   type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck) {
-    def apply(p: ClearPassword): Option[User] = {
-      val res = check(p)
-      lila.mon.user.auth.result(res)()
-      res option user
+    import LoginCandidate._
+    def apply(p: PasswordAndToken): Result = {
+      val res =
+        if (check(p.password)) user.totpSecret.fold[Result](Success(user)) { tp =>
+          p.token.fold[Result](MissingTotpToken) { token =>
+            if (tp verify token) Success(user) else InvalidTotpToken
+          }
+        }
+        else InvalidUsernameOrPassword
+      lila.mon.user.auth.result(res.success)()
+      res
     }
+    def option(p: PasswordAndToken): Option[User] = apply(p).toOption
+  }
+  object LoginCandidate {
+    sealed abstract class Result(val toOption: Option[User]) {
+      def success = toOption.isDefined
+    }
+    case class Success(user: User) extends Result(user.some)
+    case object InvalidUsernameOrPassword extends Result(none)
+    case object MissingTotpToken extends Result(none)
+    case object InvalidTotpToken extends Result(none)
   }
 
   val anonymous = "Anonymous"
@@ -146,6 +166,8 @@ object User {
   case class ClearPassword(value: String) extends AnyVal {
     override def toString = "ClearPassword(****)"
   }
+  case class TotpToken(value: String) extends AnyVal
+  case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period
@@ -222,6 +244,7 @@ object User {
     val salt = "salt"
     val bpass = "bpass"
     val sha512 = "sha512"
+    val totpSecret = "totp"
   }
 
   import lila.db.BSON
@@ -235,6 +258,7 @@ object User {
     private implicit def profileHandler = Profile.profileBSONHandler
     private implicit def perfsHandler = Perfs.perfsBSONHandler
     private implicit def planHandler = Plan.planBSONHandler
+    private implicit def totpSecretHandler = TotpSecret.totpSecretBSONHandler
 
     def reads(r: BSON.Reader): User = User(
       id = r str id,
@@ -257,7 +281,8 @@ object User {
       title = r strO title,
       plan = r.getO[Plan](plan) | Plan.empty,
       reportban = r boolD reportban,
-      rankban = r boolD rankban
+      rankban = r boolD rankban,
+      totpSecret = r.getO[TotpSecret](totpSecret)
     )
 
     def writes(w: BSON.Writer, o: User) = BSONDocument(
@@ -281,7 +306,8 @@ object User {
       title -> o.title,
       plan -> o.plan.nonEmpty,
       reportban -> w.boolO(o.reportban),
-      rankban -> w.boolO(o.rankban)
+      rankban -> w.boolO(o.rankban),
+      totpSecret -> o.totpSecret
     )
   }
 }

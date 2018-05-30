@@ -14,6 +14,8 @@ export function subscribe(ctrl: RoundController): void {
   if (ctrl.data.opponent.ai) return;
   // allow registered players to use assistance in casual games
   if (!ctrl.data.game.rated && ctrl.opts.userId) return;
+  // bots can cheat alright
+  if (ctrl.data.player.user && ctrl.data.player.user.title === 'BOT') return;
   li.storage.make('ceval.fen').listen(ev => {
     const v = ev.newValue;
     if (!v) return;

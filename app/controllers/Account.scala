@@ -6,8 +6,8 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.common.LilaCookie
-import lila.user.{ User => UserModel, UserRepo }
-import UserModel.ClearPassword
+import lila.user.{ User => UserModel, UserRepo, TotpSecret }
+import UserModel.{ ClearPassword, TotpToken, PasswordAndToken }
 import views.html
 
 object Account extends LilaController {
@@ -58,10 +58,7 @@ object Account extends LilaController {
   def nowPlaying = Auth { implicit ctx => me =>
     negotiate(
       html = notFound,
-      api = _ => lila.game.GameRepo.urgentGames(me) map { povs =>
-        val nb = getInt("nb") | 9
-        Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map Env.api.lobbyApi.nowPlaying)))
-      }
+      api = _ => doNowPlaying(me, ctx.req)
     )
   }
 
@@ -70,6 +67,16 @@ object Account extends LilaController {
       Ok(json) as JSON
     }
   }
+
+  def apiNowPlaying = Scoped() { req => me =>
+    doNowPlaying(me, req)
+  }
+
+  private def doNowPlaying(me: lila.user.User, req: RequestHeader) =
+    lila.game.GameRepo.urgentGames(me) map { povs =>
+      val nb = (getInt("nb", req) | 9) atMost 50
+      Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map Env.api.lobbyApi.nowPlaying)))
+    }
 
   def dasher = Auth { implicit ctx => me =>
     negotiate(
@@ -93,12 +100,12 @@ object Account extends LilaController {
   }
 
   def passwdApply = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    env.forms passwd me flatMap { form =>
-      FormFuResult(form) { err =>
-        fuccess(html.account.passwd(err))
-      } { data =>
-        controllers.Auth.HasherRateLimit(me.username, req) { _ =>
+    controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
+      implicit val req = ctx.body
+      env.forms passwd me flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.passwd(err))
+        } { data =>
           Env.user.authenticator.setPassword(me.id, ClearPassword(data.newPasswd1)) inject
             Redirect(s"${routes.Account.passwd}?ok=1")
         }
@@ -129,15 +136,17 @@ object Account extends LilaController {
     html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
 
   def emailApply = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    emailForm(me) flatMap { form =>
-      FormFuResult(form) { err =>
-        fuccess(html.account.email(me, err))
-      } { data =>
-        val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.realEmail)
-        controllers.Auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
-          Env.security.emailChange.send(me, newUserEmail.email) inject Redirect {
-            s"${routes.Account.email}?check=1"
+    controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
+      implicit val req = ctx.body
+      emailForm(me) flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.email(me, err))
+        } { data =>
+          val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.realEmail)
+          controllers.Auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
+            Env.security.emailChange.send(me, newUserEmail.email) inject Redirect {
+              s"${routes.Account.email}?check=1"
+            }
           }
         }
       }
@@ -147,9 +156,49 @@ object Account extends LilaController {
   def emailConfirm(token: String) = Open { implicit ctx =>
     Env.security.emailChange.confirm(token) flatMap {
       _ ?? { user =>
-        controllers.Auth.authenticateUser(user, result = Redirect {
-          s"${routes.Account.email}?ok=1"
-        }.fuccess.some)
+        controllers.Auth.authenticateUser(user, result = Some { _ =>
+          Redirect(s"${routes.Account.email}?ok=1")
+        })
+      }
+    }
+  }
+
+  def twoFactor = Auth { implicit ctx => me =>
+    if (me.totpSecret.isDefined)
+      Env.security.forms.disableTwoFactor(me) map { form =>
+        html.account.disableTwoFactor(me, form)
+      }
+    else
+      Env.security.forms.setupTwoFactor(me) map { form =>
+        html.account.setupTwoFactor(me, form)
+      }
+  }
+
+  def setupTwoFactor = AuthBody { implicit ctx => me =>
+    controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
+      implicit val req = ctx.body
+      val currentSessionId = ~Env.security.api.reqSessionId(ctx.req)
+      Env.security.forms.setupTwoFactor(me) flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.setupTwoFactor(me, err))
+        } { data =>
+          UserRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
+            lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
+            Redirect(routes.Account.twoFactor)
+        }
+      }
+    }
+  }
+
+  def disableTwoFactor = AuthBody { implicit ctx => me =>
+    controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
+      implicit val req = ctx.body
+      Env.security.forms.disableTwoFactor(me) flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.disableTwoFactor(me, err))
+        } { _ =>
+          UserRepo.disableTwoFactor(me.id) inject Redirect(routes.Account.twoFactor)
+        }
       }
     }
   }
@@ -163,12 +212,15 @@ object Account extends LilaController {
     FormFuResult(Env.security.forms.closeAccount) { err =>
       fuccess(html.account.close(me, err))
     } { password =>
-      Env.user.authenticator.authenticateById(me.id, ClearPassword(password)).map(_.isDefined) flatMap {
-        case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
-        case true => Env.current.closeAccount(me.id, self = true) inject {
-          Redirect(routes.User show me.username) withCookies LilaCookie.newSession
+      Env.user.authenticator.authenticateById(
+        me.id,
+        PasswordAndToken(ClearPassword(password), me.totpSecret.map(_.currentTotp))
+      ).map(_.isDefined) flatMap {
+          case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
+          case true => Env.current.closeAccount(me.id, self = true) inject {
+            Redirect(routes.User show me.username) withCookies LilaCookie.newSession
+          }
         }
-      }
     }
   }
 

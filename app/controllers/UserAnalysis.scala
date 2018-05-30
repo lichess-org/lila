@@ -70,7 +70,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
           if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).fuccess
           else for {
             initialFen <- GameRepo initialFen game.id
-            data <- Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen map FEN, pov.color, owner = isMyPov(pov), me = ctx.me)
+            data <- Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov), me = ctx.me)
           } yield NoCache(Ok(html.board.userAnalysis(data, pov))),
         api = apiVersion => mobileAnalysis(pov, apiVersion)
       )
@@ -88,7 +88,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
             Env.api.roundApi.review(pov, apiVersion,
               tv = none,
               analysis,
-              initialFenO = initialFen.map(FEN).some,
+              initialFenO = initialFen.some,
               withFlags = WithFlags(division = true, opening = true, clocks = true, movetimes = true)) map { data =>
                 Ok(data.add("crosstable", crosstable))
               }

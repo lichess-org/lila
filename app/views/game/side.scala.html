@@ -1,4 +1,4 @@
-@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.Tournament], simul: Option[lila.simul.Simul], userTv: Option[User] = None, bookmarked: Boolean)(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[chess.format.FEN], tour: Option[lila.tournament.Tournament], simul: Option[lila.simul.Simul], userTv: Option[User] = None, bookmarked: Boolean)(implicit ctx: Context)
 
 @import pov._
 
@@ -60,7 +60,7 @@
     }
     @if(game.variant.chess960) {
     @initialFen.map { fen =>
-    @chess.variant.Chess960.positionNumber(fen).map { number =>
+    @chess.variant.Chess960.positionNumber(fen.value).map { number =>
     Chess960 start position: <strong>@number</strong>
     }
     }

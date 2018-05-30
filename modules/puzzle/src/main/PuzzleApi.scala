@@ -111,12 +111,9 @@ private[puzzle] final class PuzzleApi(
         h.current | h.last
       }
 
-    private[puzzle] def solved(user: User, id: PuzzleId): Funit = head find user flatMap {
-      _ ?? {
-        case PuzzleHead(_, Some(c), last) => set {
-          PuzzleHead(user.id, none, c atLeast last)
-        }
-        case _ => funit
+    private[puzzle] def solved(user: User, id: PuzzleId): Funit = head find user flatMap { headOption =>
+      set {
+        PuzzleHead(user.id, none, headOption.fold(id)(head => id atLeast head.last))
       }
     }
   }

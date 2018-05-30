@@ -417,6 +417,7 @@
   <string name="thisAccountIsClosed">Цей обліковий запис закрито.</string>
   <string name="invalidUsernameOrPassword">Недійсне ім\'я користувача або пароль</string>
   <string name="incorrectPassword">Невірний пароль</string>
+  <string name="invalidAuthenticationCode">Недійсний код автентифікації</string>
   <string name="emailMeALink">Надішліть мені посилання</string>
   <string name="currentPassword">Поточний пароль</string>
   <string name="newPassword">Новий пароль</string>

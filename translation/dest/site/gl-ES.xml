@@ -5,7 +5,7 @@
   <string name="playWithTheMachine">Xogar contra a máquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
-  <string name="waitingForOpponent">Agardando ó rival</string>
+  <string name="waitingForOpponent">Agardando un rival</string>
   <string name="waiting">Agardando</string>
   <string name="yourTurn">A túa quenda</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
@@ -525,6 +525,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="thisAccountIsClosed">Esta conta está pechada.</string>
   <string name="invalidUsernameOrPassword">Nome de usuario ou contrasinal non válidos</string>
   <string name="incorrectPassword">Contrasinal incorrecto</string>
+  <string name="invalidAuthenticationCode">Código de autenticación inválido</string>
   <string name="emailMeALink">Mándame unha ligazón por correo</string>
   <string name="currentPassword">Contrasinal actual</string>
   <string name="newPassword">Novo contrasinal</string>

@@ -94,6 +94,7 @@ div.mchat .messages li {
   padding: 0.4em 0 0.4em 5px;
   line-height: 14px;
   margin: 0;
+  overflow-y: hidden;
 }
 body.no-select div.mchat .messages li {
   -moz-user-select: text;

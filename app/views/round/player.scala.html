@@ -41,7 +41,7 @@ chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, p
 
 @round.layout(
 title = title,
-side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour.map(_.tour), simul, bookmarked = bookmarked),
+side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String].map(chess.format.FEN), tour.map(_.tour), simul, bookmarked = bookmarked),
 chat = chatOption.isDefined.option(chat.dom()),
 underchat = underchat.some,
 moreJs = moreJs,

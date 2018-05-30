@@ -27,5 +27,8 @@ private final class Expiration(patronColl: Coll, notifier: PlanNotifier) {
     }
 
   private def getExpired =
-    patronColl.list[Patron]($doc("expiresAt" $lt DateTime.now), 50)
+    patronColl.list[Patron]($doc(
+      "expiresAt" $lt DateTime.now,
+      "lifetime" $ne true
+    ), 50)
 }

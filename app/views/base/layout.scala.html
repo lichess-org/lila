@@ -14,16 +14,20 @@ openGraph: Option[lila.app.ui.OpenGraph] = None,
 atom: Option[Html] = None,
 chessground: Boolean = true,
 zoomable: Boolean = false,
-asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
+asyncJs: Boolean = false,
+csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <!-- Lichess is open source! See https://github.com/ornicar/lila -->
   <head>
     <meta charset="utf-8">
+    @if(cspEnabled()) {
+    <meta http-equiv="Content-Security-Policy" content="@csp.getOrElse(defaultCsp)">
+    }
     @if(isProd) {
     <title>@fullTitle.getOrElse{@title • lichess.org}</title>
-    <link href='//fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300' rel='stylesheet'>
-    <link href="//fonts.googleapis.com/css?family=Roboto+Mono:500&text=0123456789:." rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500&text=0123456789:." rel="stylesheet">
     } else {
     <title>[dev] @fullTitle.getOrElse{@title • lichess.org}</title>
     @cssAt("offline/font.noto.css")
@@ -81,6 +85,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     data-socket-domain="@socketDomain"
     data-asset-url="@assetBaseUrl"
     data-asset-version="@ctx.pageData.assetVersion"
+    @ctx.nonce.map { nonce => data-nonce="@nonce" }
     @ctx.zoom.map { zoom => data-zoom="@zoom" }>
     <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST"><input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" /><input type="hidden" name="redirect" value="@ctx.req.path" /><button type="submit">Accessibility: @ctx.blindMode.fold("Disable", "Enable") blind mode</button></form>
     <div id="site_description">@trans.siteDescription()</div>
@@ -142,7 +147,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
       </a>
       }
       @if(isGranted(_.SeeReport)) {
-      <a class="link text data-count" href="@routes.Report.list" data-count="@reportNbOpen" data-icon=""></a>
+      <a class="link text reports" href="@routes.Report.list" data-icon=""><i></i></a>
       }
       <div id="clinput"><a class="link"><span data-icon="y"></span></a><input spellcheck="false" placeholder="@trans.search()"/></div>
       <a id="reconnecting" class="link text" onclick="window.location.reload()" data-icon="B">@trans.reconnecting()</a>

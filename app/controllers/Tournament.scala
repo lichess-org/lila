@@ -152,7 +152,7 @@ object Tournament extends LilaController {
   def player(id: String, userId: String) = Open { implicit ctx =>
     JsonOk {
       env.api.playerInfo(id, userId) flatMap {
-        _ ?? env.jsonView.playerInfo
+        _ ?? env.jsonView.playerInfoExtended
       }
     }
   }
@@ -209,40 +209,51 @@ object Tournament extends LilaController {
   )
 
   private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
-    credits = 8,
+    credits = 12,
     duration = 24 hour,
     name = "tournament per IP",
     key = "tournament.ip"
   )
 
-  private implicit val rateLimited = ornicar.scalalib.Zero.instance[Fu[Result]] {
+  private val rateLimited = ornicar.scalalib.Zero.instance[Fu[Result]] {
     fuccess(Redirect(routes.Tournament.home(1)))
   }
 
-  def create = AuthBody { implicit ctx => implicit me =>
+  def create = AuthBody { implicit ctx => me =>
     NoLameOrBot {
       implicit val req = ctx.body
       negotiate(
         html = env.forms(me).bindFromRequest.fold(
           err => BadRequest(html.tournament.form(err, env.forms, me)).fuccess,
-          setup =>
+          setup => {
+            val cost = if (me.hasTitle ||
+              Env.streamer.liveStreamApi.isStreaming(me.id) ||
+              isGranted(_.ManageTournament)) 1 else 4
             CreateLimitPerUser(me.id, cost = 1) {
               CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
                 env.api.createTournament(setup, me) map { tour =>
                   Redirect(routes.Tournament.show(tour.id))
                 }
-              }
-            }
-        ),
-        api = _ => env.forms(me).bindFromRequest.fold(
-          err => BadRequest(errorsAsJson(err)).fuccess,
-          setup => env.api.createTournament(setup, me) map { tour =>
-            Ok(Json.obj("id" -> tour.id))
+              }(rateLimited)
+            }(rateLimited)
           }
-        )
+        ),
+        api = _ => doApiCreate(me)
       )
     }
   }
+
+  def apiCreate = ScopedBody() { implicit req => me =>
+    doApiCreate(me)
+  }
+
+  private def doApiCreate(me: lila.user.User)(implicit req: Request[_]): Fu[Result] =
+    env.forms(me).bindFromRequest.fold(
+      err => BadRequest(errorsAsJson(err)).fuccess,
+      setup => env.api.createTournament(setup, me) flatMap { tour =>
+        Env.tournament.jsonView(tour, none, none, none, none, lila.i18n.defaultLang)
+      } map { Ok(_) }
+    )
 
   def limitedInvitation = Auth { implicit ctx => me =>
     for {

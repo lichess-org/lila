@@ -524,6 +524,7 @@
   <string name="thisAccountIsClosed">Dieses Benutzerkonto ist geschlossen.</string>
   <string name="invalidUsernameOrPassword">Ungültiger Benutzername oder Passwort</string>
   <string name="incorrectPassword">Falsches Passwort</string>
+  <string name="invalidAuthenticationCode">Ungültiger Authentifizierungscode</string>
   <string name="emailMeALink">Schicke mir einen Link per E-Mail</string>
   <string name="currentPassword">Derzeitiges Passwort</string>
   <string name="newPassword">Neues Passwort</string>
@@ -840,6 +841,6 @@
   <string name="playX">Spiele %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">und speichere %s Variante im Voraus</item>
-    <item quantity="other">und speichere %s Vorauszüge</item>
+    <item quantity="other">und speichere %s Varianten im Voraus</item>
   </plurals>
 </resources>

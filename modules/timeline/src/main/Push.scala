@@ -3,7 +3,6 @@ package lila.timeline
 import akka.actor._
 import org.joda.time.DateTime
 
-import lila.hub.actorApi.lobby.NewForumPost
 import lila.hub.actorApi.timeline.propagation._
 import lila.hub.actorApi.timeline.{ Propagate, Atom, ForumPost, ReloadTimeline }
 import lila.security.{ Granter, Permission }
@@ -21,10 +20,6 @@ private[timeline] final class Push(
   def receive = {
 
     case Propagate(data, propagations) =>
-      data match {
-        case _: ForumPost => lobbySocket ! NewForumPost
-        case _ =>
-      }
       propagate(propagations) flatMap { users =>
         unsubApi.filterUnsub(data.channel, users)
       } foreach { users =>

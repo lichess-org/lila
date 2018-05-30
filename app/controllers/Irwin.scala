@@ -54,9 +54,7 @@ object Irwin extends LilaController {
 
   def eventStream = Open { implicit ctx =>
     ModExternalBot {
-      RequireHttp11 {
-        Ok.chunked(Env.irwin.stream.enumerator).fuccess
-      }
+      Ok.chunked(Env.irwin.stream.enumerator).fuccess
     }
   }
 

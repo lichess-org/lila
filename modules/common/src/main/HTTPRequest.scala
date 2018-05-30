@@ -6,7 +6,7 @@ import play.api.mvc.RequestHeader
 object HTTPRequest {
 
   def isXhr(req: RequestHeader): Boolean =
-    (req.headers get "X-Requested-With") contains "XMLHttpRequest"
+    req.headers get "X-Requested-With" contains "XMLHttpRequest"
 
   def isSocket(req: RequestHeader): Boolean =
     (req.headers get HeaderNames.UPGRADE).exists(_.toLowerCase == "websocket")
@@ -51,7 +51,9 @@ object HTTPRequest {
       userAgent(req) ?? { ua => pattern.matcher(ua).find }
   }
 
-  def isHuman(req: RequestHeader) = !isBot(req)
+  def isFishnet(req: RequestHeader) = req.path startsWith "/fishnet/"
+
+  def isHuman(req: RequestHeader) = !isBot(req) && !isFishnet(req)
 
   def isFacebookOrTwitterBot(req: RequestHeader) = userAgent(req) ?? { ua =>
     ua.contains("facebookexternalhit/") || ua.contains("twitterbot/")
@@ -73,4 +75,7 @@ object HTTPRequest {
   def isOAuth(req: RequestHeader) = req.headers.toMap.contains(HeaderNames.AUTHORIZATION)
 
   def isHttp10(req: RequestHeader) = req.version == "HTTP/1.0"
+
+  def acceptsNdJson(req: RequestHeader) = req.headers get HeaderNames.ACCEPT contains "application/x-ndjson"
+  def acceptsJson(req: RequestHeader) = req.headers get HeaderNames.ACCEPT contains "application/json"
 }

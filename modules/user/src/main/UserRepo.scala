@@ -297,6 +297,14 @@ object UserRepo {
 
   def setRoles(id: ID, roles: List[String]) = coll.updateField($id(id), "roles", roles)
 
+  def disableTwoFactor(id: ID) = coll.update($id(id), $unset(F.totpSecret))
+
+  def setupTwoFactor(id: ID, totp: TotpSecret): Funit =
+    coll.update(
+      $id(id) ++ (F.totpSecret $exists false), // never overwrite existing secret
+      $set(F.totpSecret -> totp.secret)
+    ).void
+
   def enable(id: ID) = coll.updateField($id(id), F.enabled, true)
 
   def disable(user: User, keepEmail: Boolean) = coll.update(

@@ -56,8 +56,8 @@
   <string name="showThreat">Mostrar amenaza</string>
   <string name="inLocalBrowser">en el navegador local</string>
   <string name="toggleLocalEvaluation">Evaluación local</string>
-  <string name="promoteVariation">Promover variante</string>
-  <string name="makeMainLine">Hacer la línea principal</string>
+  <string name="promoteVariation">Promocionar variante</string>
+  <string name="makeMainLine">Convertir en línea principal</string>
   <string name="deleteFromHere">Borrar a partir de aquí</string>
   <string name="move">Movimiento</string>
   <string name="variantLoss">Variante perdedora</string>
@@ -197,7 +197,7 @@
   <string name="accept">Aceptar</string>
   <string name="decline">Rechazar</string>
   <string name="playingRightNow">Jugando ahora</string>
-  <string name="eventInProgress">Jugando ahora</string>
+  <string name="eventInProgress">Se está jugando ahora</string>
   <string name="finished">Terminado</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
@@ -206,7 +206,7 @@
   <string name="mode">Modo</string>
   <string name="casual">Amistosa</string>
   <string name="rated">Por puntos</string>
-  <string name="casualTournament">Amistoso</string>
+  <string name="casualTournament">Amistosa</string>
   <string name="ratedTournament">Por puntos</string>
   <string name="thisGameIsRated">Esta partida es por puntos</string>
   <string name="rematch">Revancha</string>
@@ -386,14 +386,14 @@
   <string name="winner">Ganador</string>
   <string name="standing">Posición</string>
   <string name="createANewTournament">Crear un nuevo torneo</string>
-  <string name="tournamentCalendar">Calendario del torneo</string>
-  <string name="conditionOfEntry">Condiciones de entrada:</string>
+  <string name="tournamentCalendar">Calendario de torneos</string>
+  <string name="conditionOfEntry">Requisito de entrada:</string>
   <string name="advancedSettings">Configuración avanzada</string>
   <string name="safeTournamentName">Escoge un nombre muy seguro para el torneo.</string>
-  <string name="inappropriateNameWarning">Cualquier comportamiento inapropiado podría conllevar al cierre de su cuenta.</string>
-  <string name="emptyTournamentName">Deje en blanco para nombrar el torneo con un Gran Maestro al azar.</string>
+  <string name="inappropriateNameWarning">Cualquier comportamiento mínimamente inapropiado podría conllevar al cierre de tu cuenta.</string>
+  <string name="emptyTournamentName">Déjalo en blanco para poner al torneo el nombre de un Gran Maestro al azar.</string>
   <string name="recommendNotTouching">Se recomienda dejar como está.</string>
-  <string name="fewerPlayers">Si establece condiciones de entrada, el torneo tendrá menos jugadores.</string>
+  <string name="fewerPlayers">Si impones condiciones de entrada, el torneo tendrá menos jugadores.</string>
   <string name="showAdvancedSettings">Mostrar configuración avanzada</string>
   <string name="join">Unirse</string>
   <string name="withdraw">Abandonar</string>
@@ -524,6 +524,7 @@
   <string name="thisAccountIsClosed">Esta cuenta está cerrada.</string>
   <string name="invalidUsernameOrPassword">Nombre de usuario o contraseña erróneo</string>
   <string name="incorrectPassword">Contraseña incorrecta</string>
+  <string name="invalidAuthenticationCode">Código de autenticación inválido</string>
   <string name="emailMeALink">Envíame un enlace por correo electrónico</string>
   <string name="currentPassword">Contraseña actual</string>
   <string name="newPassword">Nueva contraseña</string>
@@ -835,11 +836,11 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s sólo acepta desafíos de sus amigos.</string>
   <string name="conditionalPremoves">Premovimientos condicionales</string>
   <string name="addCurrentVariation">Añadir la variante actual</string>
-  <string name="playVariationToCreateConditionalPremoves">Juega una variación para crear premovimientos condicionales</string>
-  <string name="noConditionalPremoves">Sin movimientos anticipados condicionales</string>
+  <string name="playVariationToCreateConditionalPremoves">Juega una variación para crear movimientos condicionales</string>
+  <string name="noConditionalPremoves">Sin movimientos condicionales</string>
   <string name="playX">Jugar %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">y almacene %s líneas de premovimientos</item>
-    <item quantity="other">y ahorra %s variantes de premovimientos</item>
+    <item quantity="one">y ahorra %s línea de premovimiento</item>
+    <item quantity="other">y ahorra %s líneas de premovimiento</item>
   </plurals>
 </resources>

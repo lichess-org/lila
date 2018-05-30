@@ -7,33 +7,39 @@ import play.api.data.Forms._
 
 object Form {
 
-  def options(it: Iterable[Int], pattern: String) = it map { d =>
+  type Options[A] = Iterable[(A, String)]
+
+  def options(it: Iterable[Int], pattern: String): Options[Int] = it map { d =>
     d -> (pluralize(pattern, d) format d)
   }
 
-  def options(it: Iterable[Int], transformer: Int => Int, pattern: String) = it map { d =>
+  def options(it: Iterable[Int], transformer: Int => Int, pattern: String): Options[Int] = it map { d =>
     d -> (pluralize(pattern, transformer(d)) format transformer(d))
   }
 
-  def options(it: Iterable[Int], code: String, pattern: String) = it map { d =>
+  def options(it: Iterable[Int], code: String, pattern: String): Options[String] = it map { d =>
     (d + code) -> (pluralize(pattern, d) format d)
   }
 
-  def optionsDouble(it: Iterable[Double], format: Double => String) = it map { d =>
+  def optionsDouble(it: Iterable[Double], format: Double => String): Options[Double] = it map { d =>
     d -> format(d)
   }
 
-  def numberIn(choices: Iterable[(Int, String)]) =
+  def numberIn(choices: Options[Int]) =
     number.verifying(hasKey(choices, _))
 
-  def numberInDouble(choices: Iterable[(Double, String)]) =
+  def numberInDouble(choices: Options[Double]) =
     of[Double].verifying(hasKey(choices, _))
 
-  def stringIn(choices: Iterable[(String, String)]) =
+  def stringIn(choices: Options[String]) =
     text.verifying(hasKey(choices, _))
 
-  def hasKey[A](choices: Iterable[(A, _)], key: A) =
+  def tolerantBoolean = of[Boolean](formatter.tolerantBooleanFormatter)
+
+  def hasKey[A](choices: Options[A], key: A) =
     choices.map(_._1).toList contains key
+
+  def trueish(v: Any) = v == 1 || v == "1" || v == "true" || v == "on" || v == "yes"
 
   private def pluralize(pattern: String, nb: Int) =
     pattern.replace("{s}", (nb != 1).fold("s", ""))
@@ -47,11 +53,24 @@ object Form {
       def bind(key: String, data: Map[String, String]) = intFormat.bind(key, data).right map to
       def unbind(key: String, value: A) = intFormat.unbind(key, from(value))
     }
+    val tolerantBooleanFormatter: Formatter[Boolean] = new Formatter[Boolean] {
+      override val format = Some(("format.boolean", Nil))
+      def bind(key: String, data: Map[String, String]) =
+        Right(data.get(key).getOrElse("false")).right.flatMap { v =>
+          Right(trueish(v))
+        }
+      def unbind(key: String, value: Boolean) = Map(key -> value.toString)
+    }
   }
 
   object UTCDate {
     val dateTimePattern = "yyyy-MM-dd HH:mm"
     val utcDate = jodaDate(dateTimePattern, DateTimeZone.UTC)
+    implicit val dateTimeFormat = jodaDateTimeFormat(dateTimePattern)
+  }
+  object ISODate {
+    val dateTimePattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    val isoDate = jodaDate(dateTimePattern, DateTimeZone.UTC)
     implicit val dateTimeFormat = jodaDateTimeFormat(dateTimePattern)
   }
 }

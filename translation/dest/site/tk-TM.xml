@@ -51,6 +51,7 @@
   <string name="depthX">Çuňlyk %s</string>
   <string name="usingServerAnalysis">Serwer derňewi ulanylýar</string>
   <string name="loadingEngine">Küşt motory ýüklenýär ...</string>
+  <string name="cloudAnalysis">Bulut derňewi</string>
   <string name="goDeeper">Has çuňlaşdyr</string>
   <string name="showThreat">Howpy görkez</string>
   <string name="inLocalBrowser">ýerli browzerde</string>
@@ -74,9 +75,38 @@
   <string name="recentGames">Ýakyndaky oýunlar</string>
   <string name="topGames">Naýbaşy oýunlar</string>
   <string name="masterDbExplanation">%2$s we %3$s arasyndaky %1$s+ FIDE reýtingli küştçilerden iki million TB oýunlar</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">%s ýarym-göçümde mat</item>
+    <item quantity="other">%s ýarym-göçümde mat</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">%s ýarym-göçümde nobatdaky iýme ýa-da pyýada göçümi (50 göçüm sanawyny nollamaga bolan aralyk)</item>
+    <item quantity="other">%s ýarym-göçümde nobatdaky iýme ýa-da pyýada göçümi (50 göçüm sanawyny nollamaga bolan aralyk)</item>
+  </plurals>
+  <string name="noGameFound">Oýun tapylmady</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belkäm ileri tutmalar menýusyndan has köp oýun importirlenmeli?</string>
   <string name="openingExplorer">Açylyşlar eksploreri &amp; tablisasy</string>
+  <string name="xOpeningExplorer">%s açylyşlar eksploreri</string>
+  <string name="winPreventedBy50MoveRule">50-göçüm düzgüni zerarly gabzalan ýeňiş</string>
+  <string name="lossSavedBy50MoveRule">50-göçüm düzgüni zerarly halas edilen utulyş</string>
+  <string name="allSet">Ählisi sazlandy!</string>
+  <string name="importPgn">PGN importirle</string>
+  <string name="delete">Öçür</string>
+  <string name="deleteThisImportedGame">Bu importirlenen oýuny öçürmekçi?</string>
+  <string name="replayMode">Gaýta-oýnama mody</string>
+  <string name="realtimeReplay">Hakyky wagt</string>
+  <string name="openStudy">Öwrenmäni aç</string>
+  <string name="bestMoveArrow">Iň gowy göçüm peýkamy</string>
+  <string name="multipleLines">Birnäçe liniýa</string>
+  <string name="cpus">CPU-lar</string>
+  <string name="memory">Huş</string>
+  <string name="infiniteAnalysis">Çäksiz derňew</string>
+  <string name="removesTheDepthLimit">Derňew çägini öçürýär we kompýuteriňizi ýyly saklaýar</string>
+  <string name="blunder">Säwlik</string>
   <string name="blunders">Säwlikler</string>
+  <string name="mistake">Ýalňyşlyk</string>
   <string name="mistakes">Ýalňyşlar</string>
+  <string name="inaccuracy">Bitakyklyk</string>
   <string name="inaccuracies">Bitakyklyklar</string>
   <string name="moveTimes">Göçüm wagtlary</string>
   <string name="flipBoard">Tagtany öwür</string>
@@ -112,6 +142,7 @@
   <string name="minutesPerSide">Her tarapyň minuty</string>
   <string name="variant">Wariant</string>
   <string name="variants">Wariantlar</string>
+  <string name="timeControl">Wagt dolandyrmasy</string>
   <string name="realTime">Hakyky wagt</string>
   <string name="correspondence">Günlük</string>
   <string name="daysPerTurn">Göçüm üçin gün</string>
@@ -135,6 +166,15 @@
   <string name="changeEmail">Email üýtget</string>
   <string name="email">Email</string>
   <string name="passwordReset">Açarsöz nollama</string>
+  <string name="forgotPassword">Açarsözi unutdyňyz?</string>
+  <string name="rank">Orun</string>
+  <string name="rankX">Orun: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Orunlar her %s minutdan täzelenýär</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s tapmaça</item>
+    <item quantity="other">%s tapmaça</item>
+  </plurals>
+  <string name="gamesPlayed">Oýnalan oýun sany</string>
   <string name="exportGames">Oýunlary eksport et</string>
   <string name="ratingRange">Reýting aralygy</string>
   <plurals name="giveNbSeconds">

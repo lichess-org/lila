@@ -551,6 +551,7 @@
   <string name="thisAccountIsClosed">Konts slēgts.</string>
   <string name="invalidUsernameOrPassword">Nepareizs lietotājvārds vai parole</string>
   <string name="incorrectPassword">Nepareiza parole</string>
+  <string name="invalidAuthenticationCode">Nederīgs autentifikācijas kods</string>
   <string name="emailMeALink">Atsūtīt saiti uz epastu</string>
   <string name="currentPassword">Esošā parole</string>
   <string name="newPassword">Jaunā parole</string>

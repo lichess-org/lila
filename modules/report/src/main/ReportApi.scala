@@ -41,12 +41,10 @@ final class ReportApi(
     }
   }
 
-  private def monitorOpen = {
-    nbOpenCache.refresh
-    nbOpen foreach { nb =>
-      lila.mon.mod.report.unprocessed(nb)
+  private def monitorOpen =
+    coll.countSel(openAvailableSelect ++ roomSelect(none) ++ scoreThresholdSelect) foreach {
+      lila.mon.mod.report.unprocessed(_)
     }
-  }
 
   private def isAlreadySlain(candidate: Report.Candidate) =
     (candidate.isCheat && candidate.suspect.user.engine) ||
@@ -187,14 +185,6 @@ final class ReportApi(
 
   private def roomSelect(room: Option[Room]): Bdoc =
     room.fold($doc("room" $ne Room.Xfiles.key)) { r => $doc("room" -> r) }
-
-  val nbOpenCache = asyncCache.single[Int](
-    name = "report.nbOpen",
-    f = coll.countSel(openAvailableSelect ++ roomSelect(none) ++ scoreThresholdSelect),
-    expireAfter = _.ExpireAfterWrite(1 hour)
-  )
-
-  def nbOpen = nbOpenCache.get
 
   def recent(suspect: Suspect, nb: Int, readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[List[Report]] =
     coll.find($doc("user" -> suspect.id)).sort(sortLastAtomAt).list[Report](nb, readPreference)

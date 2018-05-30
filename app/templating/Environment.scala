@@ -54,8 +54,7 @@ object Environment
 
   def contactEmailLink = Html(s"""<a href="mailto:$contactEmail">$contactEmail</a>""")
 
-  def reportNbOpen: Int =
-    lila.report.Env.current.api.nbOpen.awaitOrElse(10.millis, 0)
+  def cspEnabled = apiEnv.cspEnabledSetting.get _
 
   def isChatPanicEnabled =
     lila.chat.Env.current.panic.enabled

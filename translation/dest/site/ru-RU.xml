@@ -315,16 +315,16 @@
   <string name="backToTournament">Вернуться к турниру</string>
   <string name="thematic">Тематический</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s рейтинговой игры</item>
-    <item quantity="few">≥ %s рейтинговых игр</item>
-    <item quantity="many">≥ %s рейтинговых игр</item>
-    <item quantity="other">≥ %s рейтинговых игр</item>
+    <item quantity="one">Рейтинговых игр ≥ %s</item>
+    <item quantity="few">Рейтинговых игр ≥ %s</item>
+    <item quantity="many">Рейтинговых игр ≥ %s</item>
+    <item quantity="other">Рейтинговых игр ≥ %s</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s рейтинговая игра в %2$s</item>
-    <item quantity="few">≥ %1$s рейтинговых игр в %2$s</item>
-    <item quantity="many">≥ %1$s рейтинговых игр в %2$s</item>
-    <item quantity="other">≥ %1$s рейтинговых игр в %2$s</item>
+    <item quantity="one">Рейтинговых игр в %2$s ≥ %1$s</item>
+    <item quantity="few">Рейтинговых игр в %2$s ≥ %1$s</item>
+    <item quantity="many">Рейтинговых игр в %2$s ≥ %1$s</item>
+    <item quantity="other">Рейтинговых игр в %2$s ≥ %1$s</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Вы должны сыграть ещё %1$s рейтинговую игру в %2$s</item>
@@ -437,13 +437,13 @@
   <string name="standing">Турнирная таблица</string>
   <string name="createANewTournament">Создать турнир</string>
   <string name="tournamentCalendar">Турнирный календарь</string>
-  <string name="conditionOfEntry">Условие входа:</string>
+  <string name="conditionOfEntry">Условия участия:</string>
   <string name="advancedSettings">Дополнительные настройки</string>
   <string name="safeTournamentName">Выберите для турнира как можно более безопасное название.</string>
   <string name="inappropriateNameWarning">Если название хотя бы немного покажется неуместным, вас могут заблокировать.</string>
   <string name="emptyTournamentName">Оставьте пустым, чтобы назвать турнир в честь случайного гроссмейстера.</string>
   <string name="recommendNotTouching">Мы не рекомендуем задавать эти условия.</string>
-  <string name="fewerPlayers">Если вы зададите условия входа, то в вашем турнире примет участие меньше игроков.</string>
+  <string name="fewerPlayers">Если вы зададите условия участия, то в вашем турнире сможет принять участие меньше игроков.</string>
   <string name="showAdvancedSettings">Показать дополнительные настройки</string>
   <string name="join">Участвовать</string>
   <string name="withdraw">Покинуть</string>
@@ -578,6 +578,7 @@
   <string name="thisAccountIsClosed">Профиль этого игрока удалён.</string>
   <string name="invalidUsernameOrPassword">Неверное имя пользователя или пароль</string>
   <string name="incorrectPassword">Неверный пароль</string>
+  <string name="invalidAuthenticationCode">Неверный код аутентификации</string>
   <string name="emailMeALink">Прислать ссылку мне на почту</string>
   <string name="currentPassword">Текущий пароль</string>
   <string name="newPassword">Новый пароль</string>
@@ -630,7 +631,7 @@
   <string name="xAnsweredY">%1$s ответил на вопрос %2$s</string>
   <string name="xCommentedY">%1$s прокомментировал вопрос %2$s</string>
   <string name="victory">Победа</string>
-  <string name="defeat">Поражения</string>
+  <string name="defeat">Поражение</string>
   <string name="xVsYinZ">%1$s в %3$s с %2$s</string>
   <string name="timeline">Хронология</string>
   <string name="seeAllTournaments">Посмотреть все турниры</string>

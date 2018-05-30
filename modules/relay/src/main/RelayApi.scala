@@ -9,6 +9,7 @@ import reactivemongo.bson._
 import lila.db.dsl._
 import lila.study.{ StudyApi, Study, StudyMaker, Settings }
 import lila.user.User
+import lila.security.Granter
 
 final class RelayApi(
     repo: RelayRepo,
@@ -24,7 +25,7 @@ final class RelayApi(
 
   def byIdAndContributor(id: Relay.Id, me: User) = byIdWithStudy(id) map {
     _ collect {
-      case Relay.WithStudy(relay, study) if study canContribute me.id => relay
+      case Relay.WithStudy(relay, study) if study.canContribute(me.id) || Granter(_.Beta)(me) => relay
     }
   }
 

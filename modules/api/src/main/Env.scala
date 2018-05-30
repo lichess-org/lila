@@ -23,7 +23,7 @@ final class Env(
     gamePgnDump: lila.game.PgnDump,
     gameCache: lila.game.Cached,
     userEnv: lila.user.Env,
-    analyseEnv: lila.analyse.Env,
+    annotator: lila.analyse.Annotator,
     lobbyEnv: lila.lobby.Env,
     setupEnv: lila.setup.Env,
     getSimul: Simul.ID => Fu[Option[Simul]],
@@ -66,10 +66,11 @@ final class Env(
     text = "Assets version. Increment to force all clients to load a new version of static assets. Decrement to serve a previous revision of static assets.".some,
     init = (config, db) => config.value max db.value
   )
-  val roundRouterSetting = settingStore[Boolean](
-    "roundRouter",
-    default = false,
-    text = "enable round router".some
+
+  val cspEnabledSetting = settingStore[Boolean](
+    "cspEnabled",
+    default = true,
+    text = "Enable CSP for everyone.".some
   )
 
   object Accessibility {
@@ -84,9 +85,10 @@ final class Env(
 
   val pgnDump = new PgnDump(
     dumper = gamePgnDump,
+    annotator = annotator,
     getSimulName = getSimulName,
     getTournamentName = getTournamentName
-  )(system)
+  )
 
   val userApi = new UserApi(
     jsonView = userEnv.jsonView,
@@ -109,23 +111,23 @@ final class Env(
     crosstableApi = crosstableApi
   )
 
+  val gameApiV2 = new GameApiV2(
+    pgnDump = pgnDump,
+    getLightUser = userEnv.lightUser
+  )(system)
+
   val userGameApi = new UserGameApi(
     bookmarkApi = bookmarkApi,
     lightUser = userEnv.lightUserSync
   )
 
-  val roundApi = new RoundApiBalancer(
-    api = new RoundApi(
-      jsonView = roundJsonView,
-      noteApi = noteApi,
-      forecastApi = forecastApi,
-      bookmarkApi = bookmarkApi,
-      getTourAndRanks = getTourAndRanks,
-      getSimul = getSimul
-    ),
-    enabled = roundRouterSetting.get,
-    system = system,
-    nbActors = math.max(1, math.min(16, Runtime.getRuntime.availableProcessors - 1))
+  val roundApi = new RoundApi(
+    jsonView = roundJsonView,
+    noteApi = noteApi,
+    forecastApi = forecastApi,
+    bookmarkApi = bookmarkApi,
+    getTourAndRanks = getTourAndRanks,
+    getSimul = getSimul
   )
 
   val lobbyApi = new LobbyApi(
@@ -158,7 +160,7 @@ object Env {
     settingStore = lila.memo.Env.current.settingStore,
     renderer = lila.hub.Env.current.actor.renderer,
     userEnv = lila.user.Env.current,
-    analyseEnv = lila.analyse.Env.current,
+    annotator = lila.analyse.Env.current.annotator,
     lobbyEnv = lila.lobby.Env.current,
     setupEnv = lila.setup.Env.current,
     getSimul = lila.simul.Env.current.repo.find,

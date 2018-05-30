@@ -93,7 +93,7 @@ final class Analyser(
       case (initialFen, moves) => makeWork(
         game = Work.Game(
           id = game.id,
-          initialFen = initialFen map FEN.apply,
+          initialFen = initialFen,
           studyId = none,
           variant = game.variant,
           moves = moves take maxPlies mkString " "

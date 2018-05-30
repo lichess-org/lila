@@ -525,6 +525,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="thisAccountIsClosed">Esta conta foi encerrada.</string>
   <string name="invalidUsernameOrPassword">Nome de usuário ou senha incorretos</string>
   <string name="incorrectPassword">Senha incorreta</string>
+  <string name="invalidAuthenticationCode">Código de verificação inválido</string>
   <string name="emailMeALink">Envie-me um link</string>
   <string name="currentPassword">Senha atual</string>
   <string name="newPassword">Nova senha</string>

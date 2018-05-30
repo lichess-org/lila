@@ -390,8 +390,8 @@
   <string name="conditionOfEntry">Condition pour être admis:</string>
   <string name="advancedSettings">Paramètres avancés</string>
   <string name="safeTournamentName">Choisissez un nom très sûr pour le tournoi.</string>
-  <string name="inappropriateNameWarning">Tout comportement, même légèrement inapproprié, pourrait aboutir à la fermeture de votre compte.</string>
-  <string name="emptyTournamentName">Laissez vide pour que le tournoi soit nommé d\'après le nom d\'un grand maître au hasard.</string>
+  <string name="inappropriateNameWarning">Toute conduite inappropriée aboutira à la fermeture de votre compte.</string>
+  <string name="emptyTournamentName">Laissez vide pour que le tournoi ait le nom d\'un grand maître au hasard.</string>
   <string name="recommendNotTouching">Nous recommandons de ne pas modifier cela.</string>
   <string name="fewerPlayers">Si vous définissez des conditions d\'admission, votre tournoi aura moins de joueurs.</string>
   <string name="showAdvancedSettings">Afficher les paramètres avancés</string>
@@ -524,6 +524,7 @@
   <string name="thisAccountIsClosed">Ce compte a été fermé.</string>
   <string name="invalidUsernameOrPassword">Nom d\'utilisateur ou mot de passe invalide</string>
   <string name="incorrectPassword">Mot de passe incorrect</string>
+  <string name="invalidAuthenticationCode">Code d\'authentification non valide</string>
   <string name="emailMeALink">Envoyez-moi un lien</string>
   <string name="currentPassword">Mot de passe actuel</string>
   <string name="newPassword">Nouveau mot de passe</string>

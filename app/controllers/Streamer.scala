@@ -55,11 +55,16 @@ object Streamer extends LilaController {
     }
   }
 
+  private def modData(user: lila.user.User)(implicit ctx: Context) = isGranted(_.ModLog) ?? {
+    Env.mod.logApi.userHistory(user.id) zip
+      Env.user.noteApi.forMod(user.id) map some
+  }
+
   def edit = Auth { implicit ctx => me =>
     AsStreamer { s =>
       Env.streamer.liveStreamApi of s flatMap { sws =>
-        isGranted(_.ModLog).??(Env.mod.logApi.userHistory(s.user.id) map some) map { modLog =>
-          NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, modLog)))
+        modData(s.user) map { forMod =>
+          NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, forMod)))
         }
       }
     }
@@ -70,10 +75,9 @@ object Streamer extends LilaController {
       Env.streamer.liveStreamApi of s flatMap { sws =>
         implicit val req = ctx.body
         StreamerForm.userForm(sws.streamer).bindFromRequest.fold(
-          error =>
-            isGranted(_.ModLog).??(Env.mod.logApi.userHistory(s.user.id) map some) map { modLog =>
-              BadRequest(html.streamer.edit(sws, error, modLog))
-            },
+          error => modData(s.user) map { forMod =>
+            BadRequest(html.streamer.edit(sws, error, forMod))
+          },
           data => api.update(sws.streamer, data, isGranted(_.Streamers)) map { change =>
             change.list foreach { Env.mod.logApi.streamerList(lila.report.Mod(me), s.user.id, _) }
             change.feature foreach { Env.mod.logApi.streamerFeature(lila.report.Mod(me), s.user.id, _) }

@@ -14,7 +14,8 @@ POST  /timeline/unsub/:channel         controllers.Timeline.unsub(channel: Strin
 GET   /games/search                    controllers.Search.index(page: Int ?= 1)
 
 # Game export
-GET   /games/export/:username          controllers.Game.export(username: String)
+POST  /games/export/_ids               controllers.Game.exportByIds
+GET   /games/export/:username          controllers.Game.exportByUser(username: String)
 
 # TV
 GET   /tv                              controllers.Tv.index
@@ -283,7 +284,8 @@ GET   /team/:id/users                         controllers.Team.users(id: String)
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: String)
 
-GET   /game/export/$gameId<\w{8}>.pgn         controllers.Export.pgn(gameId: String)
+GET   /game/export/$gameId<\w{8}>             controllers.Game.exportOne(gameId: String)
+GET   /game/export/$gameId<\w{8}>.pgn         controllers.Game.exportOne(gameId: String)
 GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: String)
 
 # Fishnet
@@ -361,6 +363,7 @@ POST  /mod/:username/troll/:v          controllers.Mod.troll(username: String, v
 POST  /mod/:username/ban/:v            controllers.Mod.ban(username: String, v: Boolean)
 POST  /mod/:username/delete-pms-and-chats controllers.Mod.deletePmsAndChats(username: String)
 POST  /mod/:username/warn              controllers.Mod.warn(username: String, subject: String)
+POST  /mod/:username/disable-2fa       controllers.Mod.disableTwoFactor(username: String)
 POST  /mod/:username/close             controllers.Mod.closeAccount(username: String)
 POST  /mod/:username/reopen            controllers.Mod.reopenAccount(username: String)
 POST  /mod/:username/title             controllers.Mod.setTitle(username: String)
@@ -398,7 +401,6 @@ POST  /bookmark/$gameId<\w{8}>     controllers.Bookmark.toggle(gameId: String)
 
 # Forum
 GET   /forum                           controllers.ForumCateg.index
-GET   /forum/recent                    controllers.ForumPost.recent
 GET   /forum/search                    controllers.ForumPost.search(text: String ?= "", page: Int ?= 1)
 GET   /forum/:slug                     controllers.ForumCateg.show(slug: String, page: Int ?= 1)
 GET   /forum/:categSlug/form           controllers.ForumTopic.form(categSlug: String)
@@ -488,14 +490,12 @@ GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf:
 GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/user/:name                  controllers.Api.user(name: String)
-GET   /api/user/:name/games            controllers.Api.userGames(name: String)
 GET   /api/user/:name/activity         controllers.Api.activity(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
-GET   /api/games/vs/:u1/:u2            controllers.Api.gamesVs(u1: String, u2: String)
 GET   /api/games/team/:teamId          controllers.Api.gamesVsTeam(teamId: String)
-POST  /api/games                       controllers.Api.games
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
+POST  /api/tournament                  controllers.Tournament.apiCreate
 GET   /api/status                      controllers.Api.status
 GET   /api/socket                      controllers.Main.apiWebsocket
 GET   /api/users/status                controllers.Api.usersStatus
@@ -503,6 +503,7 @@ GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2
 POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
 GET   /api/stream/event                controllers.Api.eventStream
 GET   /api/account                     controllers.Account.apiMe
+GET   /api/account/playing             controllers.Account.apiNowPlaying
 GET   /api/account/email               controllers.Account.apiEmail
 GET   /api/account/kid                 controllers.Account.apiKid
 POST  /api/account/kid                 controllers.Account.apiKidPost
@@ -510,10 +511,12 @@ GET   /api/account/preferences         controllers.Pref.apiGet
 POST  /api/challenge/$id<\w{8}>/accept  controllers.Challenge.apiAccept(id: String)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)
 
+# Mobile API only
+GET   /api/user/:name/games            controllers.Api.userGames(name: String)
+
 # Bot API
 GET   /api/bot/game/stream/:id         controllers.Bot.gameStream(id: String)
 POST  /api/bot/game/:id/move/:uci      controllers.Bot.move(id: String, uci: String)
-# /bot/account/upgrade
 POST  /api/bot/*cmd                    controllers.Bot.command(cmd: String)
 
 # Account
@@ -528,6 +531,9 @@ GET   /account/profile                 controllers.Account.profile
 POST  /account/profile                 controllers.Account.profileApply
 GET   /account/kid                     controllers.Account.kid
 POST  /account/kid                     controllers.Account.kidPost
+GET   /account/twofactor               controllers.Account.twoFactor
+POST  /account/twofactor/setup         controllers.Account.setupTwoFactor
+POST  /Account/twofactor/disable       controllers.Account.disableTwoFactor
 # App BC
 POST  /account/kidConfirm              controllers.Account.kidToggle
 GET   /account/security                controllers.Account.security

@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.validation.{ Constraint, Valid => FormValid, Invalid, ValidationError }
 import play.api.mvc.RequestHeader
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
@@ -13,6 +14,8 @@ import lila.common.{ ApiVersion, IpAddress, EmailAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
+import lila.oauth.OAuthServer
+import User.LoginCandidate
 
 final class SecurityApi(
     coll: Coll,
@@ -21,7 +24,7 @@ final class SecurityApi(
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
     tryOauthServer: lila.oauth.OAuthServer.Try
-) {
+)(implicit system: akka.actor.ActorSystem) {
 
   val AccessUri = "access_uri"
 
@@ -34,13 +37,22 @@ final class SecurityApi(
     "password" -> nonEmptyText
   ))
 
-  private def loadedLoginForm(candidate: Option[User.LoginCandidate]) = Form(mapping(
+  private def loadedLoginForm(candidate: Option[LoginCandidate]) = Form(mapping(
     "username" -> nonEmptyText,
-    "password" -> nonEmptyText
-  )(authenticateCandidate(candidate))(_.map(u => (u.username, "")))
-    .verifying("invalidUsernameOrPassword", _.isDefined))
+    "password" -> nonEmptyText,
+    "token" -> optional(nonEmptyText)
+  )(authenticateCandidate(candidate)) {
+      case LoginCandidate.Success(user) => (user.username, "", none).some
+      case _ => none
+    }.verifying(Constraint { (t: LoginCandidate.Result) =>
+      t match {
+        case LoginCandidate.Success(_) => FormValid
+        case LoginCandidate.InvalidUsernameOrPassword => Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
+        case err => Invalid(Seq(ValidationError(err.toString)))
+      }
+    }))
 
-  def loadLoginForm(str: String): Fu[Form[Option[User]]] = {
+  def loadLoginForm(str: String): Fu[Form[LoginCandidate.Result]] = {
     emailValidator.validate(EmailAddress(str)) match {
       case Some(email) => authenticator.loginCandidateByEmail(email)
       case None if User.couldBeUsername(str) => authenticator.loginCandidateById(User normalize str)
@@ -48,8 +60,13 @@ final class SecurityApi(
     }
   } map loadedLoginForm _
 
-  private def authenticateCandidate(candidate: Option[User.LoginCandidate])(username: String, password: String): Option[User] =
-    candidate ?? { _(User.ClearPassword(password)) }
+  private def authenticateCandidate(candidate: Option[LoginCandidate])(
+    username: String,
+    password: String,
+    token: Option[String]
+  ): LoginCandidate.Result = candidate.fold[LoginCandidate.Result](LoginCandidate.InvalidUsernameOrPassword) {
+    _(User.PasswordAndToken(User.ClearPassword(password), token map User.TotpToken.apply))
+  }
 
   def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(implicit req: RequestHeader): Fu[String] =
     UserRepo mustConfirmEmail userId flatMap {
@@ -80,9 +97,13 @@ final class SecurityApi(
       }
     }
 
-  def oauthScoped(req: RequestHeader, scopes: List[lila.oauth.OAuthScope]): Fu[lila.oauth.OAuthServer.AuthResult] =
+  def oauthScoped(req: RequestHeader, scopes: List[lila.oauth.OAuthScope], retries: Int = 2): Fu[lila.oauth.OAuthServer.AuthResult] =
     tryOauthServer().flatMap {
-      case None => fuccess(Left(lila.oauth.OAuthServer.ServerOffline))
+      case None if retries > 0 =>
+        lila.common.Future.delay(2 seconds) {
+          oauthScoped(req, scopes, retries - 1)
+        }
+      case None => fuccess(Left(OAuthServer.ServerOffline))
       case Some(server) => server.auth(req, scopes)
     }
 

@@ -1,5 +1,6 @@
 package lila.challenge
 
+import chess.format.FEN
 import chess.variant.{ Variant, FromPosition }
 import chess.{ Mode, Speed }
 import org.joda.time.DateTime
@@ -12,7 +13,7 @@ case class Challenge(
     _id: String,
     status: Challenge.Status,
     variant: Variant,
-    initialFen: Option[String],
+    initialFen: Option[FEN],
     timeControl: Challenge.TimeControl,
     mode: Mode,
     colorChoice: Challenge.ColorChoice,
@@ -132,7 +133,7 @@ object Challenge {
 
   def make(
     variant: Variant,
-    initialFen: Option[String],
+    initialFen: Option[FEN],
     timeControl: TimeControl,
     mode: Mode,
     color: String,
@@ -155,7 +156,7 @@ object Challenge {
       variant = variant,
       initialFen = (variant == FromPosition).fold(
         initialFen,
-        Some(variant.initialFen).ifFalse(variant.standardInitialPosition)
+        !variant.standardInitialPosition option FEN(variant.initialFen)
       ),
       timeControl = timeControl,
       mode = finalMode,

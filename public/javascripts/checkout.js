@@ -1,11 +1,15 @@
 lichess.checkout = function(publicKey) {
 
   var $checkout = $('div.plan_checkout');
+  var lifetime = {
+    cents: parseInt($checkout.data('lifetime-cents')),
+    usd: $checkout.data('lifetime-usd')
+  };
   var $stripeForm = $checkout.find('form.stripe_checkout');
-  var min = 100,
-    max = 100 * 100000
+  var min = 100, max = 100 * 100000;
 
   if (location.hash === '#onetime') $('#freq_onetime').click();
+  if (location.hash === '#lifetime') $('#freq_lifetime').click();
 
   var getFreq = function() {
     return $checkout.find('group.freq input:checked').val();
@@ -13,8 +17,17 @@ lichess.checkout = function(publicKey) {
 
   // Other is selected but no amount specified
   // happens with backward button
-  if (!$checkout.find('group.amount input:checked').data('amount'))
-    $checkout.find('#plan_monthly_1000').click();
+  if (!$checkout.find('.amount_choice group.amount input:checked').data('amount'))
+  $checkout.find('#plan_monthly_1000').click();
+
+  var selectAmountGroup = function() {
+    var freq = getFreq();
+    $checkout.find('.amount_fixed').toggle(freq == 'lifetime');
+    $checkout.find('.amount_choice').toggle(freq != 'lifetime');
+  }
+  selectAmountGroup();
+
+  $checkout.find('group.freq input').on('change', selectAmountGroup);
 
   $checkout.find('group.amount .other label').on('click', function() {
     var amount;
@@ -38,7 +51,12 @@ lichess.checkout = function(publicKey) {
   });
 
   $checkout.find('button.paypal').on('click', function() {
-    var cents = parseInt($checkout.find('group.amount input:checked').data('amount'));
+    var freq = getFreq(), cents;
+    if (freq == 'lifetime') {
+      cents = lifetime.cents;
+    } else {
+      var cents = parseInt($checkout.find('group.amount input:checked').data('amount'));
+    }
     if (!cents || cents < min || cents > max) return;
     var amount = cents / 100;
     var $form = $checkout.find('form.paypal_checkout.' + getFreq());
@@ -48,10 +66,15 @@ lichess.checkout = function(publicKey) {
   });
 
   $checkout.find('button.stripe').on('click', function() {
-    var $input = $checkout.find('group.amount input:checked');
-    var usd = $input.data('usd');
-    var amount = parseInt($input.data('amount'));
-    var freq = getFreq();
+    var freq = getFreq(), usd, amount;
+    if (freq == 'lifetime') {
+      usd = lifetime.usd;
+      amount = lifetime.cents;
+    } else {
+      var $input = $checkout.find('group.amount input:checked');
+      usd = $input.data('usd');
+      amount = parseInt($input.data('amount'));
+    }
     if (amount < min || amount > max) return;
     $stripeForm.find('.amount').val(amount);
     $stripeForm.find('.freq').val(freq);

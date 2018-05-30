@@ -12,10 +12,8 @@ object Bot extends LilaController {
 
   def gameStream(id: String) = Scoped(_.Bot.Play) { req => me =>
     WithMyBotGame(id, me) { pov =>
-      RequireHttp11(req) {
-        lila.game.GameRepo.withInitialFen(pov.game) map { wf =>
-          Ok.chunked(Env.bot.gameStateStream(me, wf, pov.color))
-        }
+      lila.game.GameRepo.withInitialFen(pov.game) map { wf =>
+        Api.jsonOptionStream(Env.bot.gameStateStream(me, wf, pov.color))
       }
     }
   }
@@ -32,7 +30,7 @@ object Bot extends LilaController {
     cmd.split('/') match {
       case Array("account", "upgrade") =>
         lila.user.UserRepo.setBot(me) >>- Env.user.lightUserApi.invalidate(me.id) inject jsonOkResult recover {
-          case e: Exception => BadRequest(jsonError(e.getMessage))
+          case e: lila.base.LilaException => BadRequest(jsonError(e.getMessage))
         }
       case Array("game", id, "chat") => WithBot(me) {
         Env.bot.form.chat.bindFromRequest.fold(

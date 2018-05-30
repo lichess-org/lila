@@ -7,7 +7,7 @@ import lila.tree.Eval.JsonHandlers._
 
 object JsonView {
 
-  def moves(analysis: Analysis) = JsArray(analysis.infoAdvices map {
+  def moves(analysis: Analysis, withGlyph: Boolean = true) = JsArray(analysis.infoAdvices map {
     case ((info, adviceOption)) => Json.obj()
       .add("eval" -> info.cp)
       .add("mate" -> info.mate)
@@ -15,13 +15,12 @@ object JsonView {
       .add("variation" -> info.variation.nonEmpty.option(info.variation mkString " "))
       .add("judgment" -> adviceOption.map { a =>
         Json.obj(
-          "glyph" -> Json.obj(
-            "name" -> a.judgment.glyph.name,
-            "symbol" -> a.judgment.glyph.symbol
-          ),
           "name" -> a.judgment.name,
           "comment" -> a.makeComment(false, true)
-        )
+        ).add("glyph" -> withGlyph.option(Json.obj(
+            "name" -> a.judgment.glyph.name,
+            "symbol" -> a.judgment.glyph.symbol
+          )))
       })
   })
 

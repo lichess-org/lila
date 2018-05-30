@@ -3,6 +3,8 @@
 <!doctype html>
 <html lang="@lang.language">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="@defaultCsp">
     <title>lichess.org training</title>
     @ctx.currentBg match {
     case "dark" => { @cssTag("dark.css") }
@@ -12,7 +14,6 @@
     @cssTag(s"piece/merida.css")
     @cssTag("common.css")
     @cssTag("board.css")
-    <meta charset="utf-8">
   </head>
   <body
     class="base highlight

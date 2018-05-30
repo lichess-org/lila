@@ -417,6 +417,7 @@
   <string name="thisAccountIsClosed">Гэты акаўнт закрыты.</string>
   <string name="invalidUsernameOrPassword">Няправільнае імя карыстальніка або пароль</string>
   <string name="incorrectPassword">Няслушны пароль</string>
+  <string name="invalidAuthenticationCode">Няслушны код аўтэнтыфікацыі</string>
   <string name="emailMeALink">Дашлеце мне спасылку на імэйл</string>
   <string name="currentPassword">Дзейны пароль</string>
   <string name="newPassword">Новы пароль</string>

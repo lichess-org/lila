@@ -30,6 +30,7 @@ module.exports = function(cfg, element) {
     langs = langs.map(function(l) {
       return l.slice(0, 2).toLowerCase();
     });
+    langs.push($('html').attr('lang'));
     $('#streams_on_air').find('a').each(function() {
       var match = $(this).text().match(/\[(\w{2})\]/mi);
       if (match && langs.indexOf(match[1].toLowerCase()) === -1) $(this).hide();
@@ -78,18 +79,6 @@ module.exports = function(cfg, element) {
         simuls: function(data) {
           $("#enterable_simuls").html(data).parent().toggle($('#enterable_simuls tr').length > 0);
           lichess.pubsub.emit('content_loaded')();
-        },
-        reload_forum: function() {
-          var $newposts = $("div.new_posts");
-          setTimeout(function() {
-            $.ajax({
-              url: $newposts.data('url'),
-              success: function(data) {
-                $newposts.find('ol').html(data).end().scrollTop(0);
-                lichess.pubsub.emit('content_loaded')();
-              }
-            });
-          }, Math.round(Math.random() * 5000));
         },
         fen: function(e) {
           lichess.StrongSocket.defaults.events.fen(e);

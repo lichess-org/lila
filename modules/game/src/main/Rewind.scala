@@ -3,18 +3,18 @@ package lila.game
 import org.joda.time.DateTime
 import scalaz.Validation.FlatMap._
 
-import chess.format.{ pgn => chessPgn }
+import chess.format.{ FEN, pgn => chessPgn }
 
 object Rewind {
 
-  private def createTags(fen: Option[String], game: Game) = {
+  private def createTags(fen: Option[FEN], game: Game) = {
     val variantTag = Some(chessPgn.Tag(_.Variant, game.variant.name))
-    val fenTag = fen map (fenString => chessPgn.Tag(_.FEN, fenString))
+    val fenTag = fen map (f => chessPgn.Tag(_.FEN, f.value))
 
     chessPgn.Tags(List(variantTag, fenTag).flatten)
   }
 
-  def apply(game: Game, initialFen: Option[String]): Valid[Progress] = chessPgn.Reader.movesWithSans(
+  def apply(game: Game, initialFen: Option[FEN]): Valid[Progress] = chessPgn.Reader.movesWithSans(
     moveStrs = game.pgnMoves,
     op = sans => chessPgn.Sans(sans.value.dropRight(1)),
     tags = createTags(initialFen, game)

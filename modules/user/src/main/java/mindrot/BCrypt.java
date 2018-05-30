@@ -66,6 +66,8 @@ import java.util.Arrays;
  * @version 0.4
  */
 public final class BCrypt {
+  private static final SecureRandom PRNG = new SecureRandom();
+
   // BCrypt parameters
   private static final int GENSALT_DEFAULT_LOG2_ROUNDS = 10;
   private static final int BCRYPT_SALT_LEN = 16;
@@ -724,12 +726,11 @@ public final class BCrypt {
    * @param log_rounds  the log2 of the number of rounds of
    * hashing to apply - the work factor therefore increases as
    * 2**log_rounds.
-   * @param random    an instance of SecureRandom to use
    * @return  an encoded salt value
    */
-  public static String gensalt(int log_rounds, SecureRandom random) {
+  public static String gensalt(int log_rounds) {
     StringBuilder rs = new StringBuilder();
-    byte rnd[] = gensaltRaw(random);
+    byte rnd[] = gensaltRaw();
 
     rs.append("$" + LATEST_VERSION + "$");
     if (log_rounds < 10)
@@ -744,26 +745,10 @@ public final class BCrypt {
     return rs.toString();
   }
 
-  public static byte[] gensaltRaw(SecureRandom random) {
-    byte rnd[] = new byte[BCRYPT_SALT_LEN];
-    random.nextBytes(rnd);
-    return rnd;
-  }
-
   public static byte[] gensaltRaw() {
-    return gensaltRaw(new SecureRandom());
-  }
-
-
-  /**
-   * Generate a salt for use with the BCrypt.hashpw() method
-   * @param log_rounds  the log2 of the number of rounds of
-   * hashing to apply - the work factor therefore increases as
-   * 2**log_rounds.
-   * @return  an encoded salt value
-   */
-  public static String gensalt(int log_rounds) {
-    return gensalt(log_rounds, new SecureRandom());
+    byte rnd[] = new byte[BCRYPT_SALT_LEN];
+    PRNG.nextBytes(rnd);
+    return rnd;
   }
 
   /**

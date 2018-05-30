@@ -1,5 +1,6 @@
 package lila.round
 
+import scala.concurrent.duration._
 import scala.concurrent.Promise
 import scala.util.Try
 
@@ -7,7 +8,7 @@ import akka.actor._
 import akka.pattern.ask
 import chess.format.Uci
 import chess.{ Centis, MoveMetrics, Color }
-import play.api.libs.json.{ JsObject, Json }
+import play.api.libs.json.{ JsObject, JsNumber, Json, Reads }
 
 import actorApi._, round._
 import lila.chat.Chat
@@ -32,6 +33,8 @@ private[round] final class SocketHandler(
     bus: lila.common.Bus,
     isRecentTv: Game.ID => Boolean
 ) {
+
+  import SocketHandler._
 
   private def controller(
     gameId: Game.ID,
@@ -60,22 +63,22 @@ private[round] final class SocketHandler(
       ({
         case ("p", o) => socket ! Ping(uid, o)
         case ("move", o) => parseMove(o) foreach {
-          case (move, blur, lag) =>
+          case (move, blur, lag, ackId) =>
             val promise = Promise[Unit]
             promise.future onFailure {
               case _: Exception => socket ! Resync(uid.value)
             }
             send(HumanPlay(playerId, move, blur, lag, promise.some))
-            member push ackEvent
+            member.push(ackMessage(ackId))
         }
         case ("drop", o) => parseDrop(o) foreach {
-          case (drop, blur, lag) =>
+          case (drop, blur, lag, ackId) =>
             val promise = Promise[Unit]
             promise.future onFailure {
               case _: Exception => socket ! Resync(uid.value)
             }
             send(HumanPlay(playerId, drop, blur, lag, promise.some))
-            member push ackEvent
+            member.push(ackMessage(ackId))
         }
         case ("rematch-yes", _) => send(RematchYes(playerId))
         case ("rematch-no", _) => send(RematchNo(playerId))
@@ -98,9 +101,9 @@ private[round] final class SocketHandler(
           mean ← d int "mean"
           sd ← d int "sd"
         } send(HoldAlert(playerId, mean, sd, member.ip))
-        case ("berserk", _) => member.userId foreach { userId =>
+        case ("berserk", o) => member.userId foreach { userId =>
           hub.actor.tournamentApi ! Berserk(gameId, userId)
-          member push ackEvent
+          member.push(ackMessage((o \ "d" \ "a").asOpt[AckId]))
         }
         case ("rep", o) => for {
           d ← o obj "d"
@@ -166,7 +169,8 @@ private[round] final class SocketHandler(
     d ← o obj "d"
     move <- d str "u" flatMap Uci.Move.apply orElse parseOldMove(d)
     blur = d int "b" contains 1
-  } yield (move, blur, parseLag(d))
+    ackId = d.get[AckId]("a")
+  } yield (move, blur, parseLag(d), ackId)
 
   private def parseOldMove(d: JsObject) = for {
     orig ← d str "from"
@@ -181,7 +185,8 @@ private[round] final class SocketHandler(
     pos ← d str "pos"
     drop <- Uci.Drop.fromStrings(role, pos)
     blur = d int "b" contains 1
-  } yield (drop, blur, parseLag(d))
+    ackId = d.get[AckId]("a")
+  } yield (drop, blur, parseLag(d), ackId)
 
   private def parseLag(d: JsObject) = MoveMetrics(
     d.int("l") orElse d.int("lag") map Centis.ofMillis,
@@ -191,5 +196,13 @@ private[round] final class SocketHandler(
   private def clientFlag(o: JsObject, playerId: Option[String]) =
     o str "d" flatMap Color.apply map { ClientFlag(_, playerId) }
 
-  private val ackEvent = Json.obj("t" -> "ack")
+  private val ackEmpty = Json.obj("t" -> "ack")
+  private def ackMessage(id: Option[AckId]) = id.fold(ackEmpty) { ackId =>
+    ackEmpty + ("d" -> JsNumber(ackId.value))
+  }
+}
+
+private object SocketHandler {
+  case class AckId(value: Int)
+  implicit val ackIdReads: Reads[AckId] = Reads.of[Int] map AckId.apply
 }

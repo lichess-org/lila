@@ -17,6 +17,10 @@ object OAuthScope {
     case object Read extends OAuthScope("email:read", "Read email address")
   }
 
+  object Tournament {
+    case object Write extends OAuthScope("tournament:write", "Create tournaments")
+  }
+
   object Bot {
     case object Play extends OAuthScope("bot:play", "Play bot moves")
   }
@@ -29,6 +33,7 @@ object OAuthScope {
     Game.Read,
     Preference.Read, Preference.Write,
     Email.Read,
+    Tournament.Write,
     Bot.Play
   )
 

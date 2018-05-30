@@ -169,7 +169,7 @@ final class Env(
 
   lazy val ipTrust = new IpTrust(ipIntel, geoIP, tor, firewall)
 
-  lazy val api = new SecurityApi(storeColl, firewall, geoIP, authenticator, emailAddressValidator, tryOAuthServer)
+  lazy val api = new SecurityApi(storeColl, firewall, geoIP, authenticator, emailAddressValidator, tryOAuthServer)(system)
 
   lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain)
 

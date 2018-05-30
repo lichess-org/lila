@@ -1,5 +1,6 @@
 package lila.tournament
 
+import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
@@ -7,6 +8,7 @@ import play.api.data.validation.Constraints
 import chess.Mode
 import chess.StartingPosition
 import lila.common.Form._
+import lila.common.Form.ISODate._
 import lila.user.User
 
 final class DataForm {
@@ -18,14 +20,15 @@ final class DataForm {
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
-    waitMinutes = waitMinuteDefault,
-    variant = chess.variant.Standard.id,
-    position = StartingPosition.initial.fen,
-    `private` = None,
+    waitMinutes = waitMinuteDefault.some,
+    startDate = none,
+    variant = chess.variant.Standard.key.some,
+    position = StartingPosition.initial.fen.some,
+    `private` = false,
     password = None,
     mode = Mode.Rated.id.some,
     conditionsOption = Condition.DataForm.AllSetup.default.some,
-    berserkable = true
+    berserkable = true.some
   )
 
   private val nameType = nonEmptyText.verifying(
@@ -42,14 +45,15 @@ final class DataForm {
     "clockTime" -> numberInDouble(clockTimePrivateChoices),
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> numberIn(minutePrivateChoices),
-    "waitMinutes" -> numberIn(waitMinuteChoices),
-    "variant" -> number.verifying(validVariantIds contains _),
-    "position" -> nonEmptyText,
+    "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
+    "startDate" -> optional(isoDate),
+    "variant" -> optional(nonEmptyText.verifying(v => guessVariant(v).isDefined)),
+    "position" -> optional(nonEmptyText),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
-    "private" -> optional(text.verifying("on" == _)),
+    "private" -> tolerantBoolean,
     "password" -> optional(nonEmptyText),
     "conditions" -> optional(Condition.DataForm.all),
-    "berserkable" -> boolean
+    "berserkable" -> optional(boolean)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
     .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
@@ -100,7 +104,9 @@ object DataForm {
 
   val validVariants = List(Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse)
 
-  val validVariantIds = validVariants.map(_.id).toSet
+  def guessVariant(from: String): Option[Variant] = validVariants.find { v =>
+    v.key == from || parseIntOption(from).exists(v.id ==)
+  }
 
   def startingPosition(fen: String, variant: Variant): StartingPosition =
     Thematic.byFen(fen).ifTrue(variant.standard) | StartingPosition.initial
@@ -111,14 +117,15 @@ private[tournament] case class TournamentSetup(
     clockTime: Double,
     clockIncrement: Int,
     minutes: Int,
-    waitMinutes: Int,
-    variant: Int,
-    position: String,
+    waitMinutes: Option[Int],
+    startDate: Option[DateTime],
+    variant: Option[String],
+    position: Option[String],
     mode: Option[Int],
-    `private`: Option[String],
+    `private`: Boolean,
     password: Option[String],
     conditionsOption: Option[Condition.DataForm.AllSetup],
-    berserkable: Boolean
+    berserkable: Option[Boolean]
 ) {
 
   def conditions = conditionsOption | Condition.DataForm.AllSetup.default
@@ -127,7 +134,7 @@ private[tournament] case class TournamentSetup(
 
   def validTiming = (minutes * 60) >= (3 * estimatedGameDuration)
 
-  def validPublic = isPrivate || {
+  def validPublic = `private` || {
     DataForm.clockTimes.contains(clockTime) &&
       DataForm.clockIncrements.contains(clockIncrement) &&
       DataForm.minutes.contains(minutes)
@@ -135,15 +142,13 @@ private[tournament] case class TournamentSetup(
 
   def realMode = mode.fold(Mode.default)(Mode.orDefault)
 
-  def realVariant = chess.variant.Variant orDefault variant
+  def realVariant = variant.flatMap(DataForm.guessVariant) | chess.variant.Standard
 
   def clockConfig = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
 
   def validRatedUltraBulletVariant =
     realMode == Mode.Casual ||
       lila.game.Game.allowRated(realVariant, clockConfig)
-
-  def isPrivate = `private`.isDefined
 
   private def estimatedGameDuration = 60 * clockTime + 30 * clockIncrement
 }

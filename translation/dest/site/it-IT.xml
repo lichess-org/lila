@@ -85,7 +85,7 @@
     <item quantity="other">Prossima cattura o mossa di pedone in %s semi-mosse (distanza dall\'azzeramento del conteggio delle 50 mosse)</item>
   </plurals>
   <string name="noGameFound">Nessun partita trovata</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Includere più partite dal menù delle preferenze?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova ad includere più partite dal menu Preferenze.</string>
   <string name="openingExplorer">Esplora aperture</string>
   <string name="xOpeningExplorer">%s explorer delle aperture</string>
   <string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
@@ -525,6 +525,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="thisAccountIsClosed">Questo account è stato chiuso.</string>
   <string name="invalidUsernameOrPassword">Nome utente o password non validi</string>
   <string name="incorrectPassword">Password errata</string>
+  <string name="invalidAuthenticationCode">Codice di autenticazione non valido</string>
   <string name="emailMeALink">Inviami il link via email</string>
   <string name="currentPassword">Password attuale</string>
   <string name="newPassword">Nuova password</string>
@@ -801,7 +802,7 @@ in %3$s</string>
   <string name="evaluatingYourMove">Valutando la tua mossa...</string>
   <string name="whiteWinsGame">Il Bianco vince</string>
   <string name="blackWinsGame">Il Nero vince</string>
-  <string name="learnFromYourMistakes">Impara dagli errori</string>
+  <string name="learnFromYourMistakes">Impara dai tuoi errori</string>
   <string name="learnFromThisMistake">Impara da questo errore</string>
   <string name="skipThisMove">Salta questa mossa</string>
   <string name="next">Successivo</string>

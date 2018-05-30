@@ -37,17 +37,18 @@ object Auth extends LilaController {
       }
   }
 
-  def authenticateUser(u: UserModel, result: Option[Fu[Result]] = None)(implicit ctx: Context): Fu[Result] = {
+  def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit ctx: Context): Fu[Result] = {
     implicit val req = ctx.req
     u.ipBan.fold(
       fuccess(Redirect(routes.Lobby.home)),
       api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
         negotiate(
-          html = result | Redirect {
-            get("referrer").filter(goodReferrer) orElse
+          html = fuccess {
+            val redirectTo = get("referrer").filter(goodReferrer) orElse
               req.session.get(api.AccessUri) getOrElse
               routes.Lobby.home.url
-          }.fuccess,
+            result.fold(Redirect(redirectTo))(_(redirectTo))
+          },
           api = _ => mobileUserOk(u)
         ) map authenticateCookie(sessionId)
       } recoverWith authRecovery
@@ -70,8 +71,10 @@ object Auth extends LilaController {
     Ok(html.auth.login(api.loginForm, referrer)).fuccess
   }
 
+  private val is2fa = Set("MissingTotpToken", "InvalidTotpToken")
+
   def authenticate = OpenBody { implicit ctx =>
-    Firewall {
+    Firewall({
       implicit val req = ctx.body
       val referrer = get("referrer")
       api.usernameForm.bindFromRequest.fold(
@@ -85,22 +88,28 @@ object Auth extends LilaController {
               err => {
                 chargeIpLimiter(1)
                 negotiate(
-                  html = Unauthorized(html.auth.login(err, referrer)).fuccess,
+                  html = fuccess {
+                    err.errors match {
+                      case List(play.api.data.FormError("", List(err), _)) if is2fa(err) => Ok(err)
+                      case _ => Unauthorized(html.auth.login(err, referrer))
+                    }
+                  },
                   api = _ => Unauthorized(errorsAsJson(err)).fuccess
                 )
-              }, {
+              },
+              result => result.toOption match {
                 case None => InternalServerError("Authentication error").fuccess
                 case Some(u) =>
                   UserRepo.email(u.id) foreach {
                     _ foreach { garbageCollect(u, _) }
                   }
-                  authenticateUser(u)
+                  authenticateUser(u, Some(redirectTo => Ok(s"ok:$redirectTo")))
               }
             )
           }
         }
       )
-    }
+    }, Ok(s"ok:/").fuccess)
   }
 
   def logout = Open { implicit ctx =>

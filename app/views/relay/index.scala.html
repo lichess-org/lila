@@ -24,9 +24,7 @@ moreJs = jsTag("vendor/jquery.infinitescroll.min.js")) {
 <div class="content_box no_padding relays">
   <div class="top">
     <h1>@title</h1>
-    @if(isGranted(_.Beta)) {
     @newForm()
-    }
   </div>
   @fresh.map { f =>
   @sublist("Ongoing", f.started)

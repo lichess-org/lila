@@ -9,7 +9,7 @@ import play.twirl.api.Html
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
-import lila.common.{ LilaCookie, HTTPRequest, ApiVersion }
+import lila.common.{ LilaCookie, HTTPRequest, ApiVersion, Nonce }
 import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ Permission, Granter, FingerprintedUser }
@@ -158,9 +158,11 @@ private[controllers] trait LilaController
     } map { _ as JSON }
   }
 
-  protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (Env.security.firewall accepts ctx.req) a
-    else fuccess(Redirect(routes.Lobby.home()))
+  protected def Firewall[A <: Result](
+    a: => Fu[A],
+    or: => Fu[Result] = fuccess(Redirect(routes.Lobby.home()))
+  )(implicit ctx: Context): Fu[Result] =
+    if (Env.security.firewall accepts ctx.req) a else or
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
     if (Env.security.tor isExitNode HTTPRequest.lastRemoteAddress(ctx.req))
@@ -337,10 +339,11 @@ private[controllers] trait LilaController
         pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
     }
 
-  private def pageDataBuilder(ctx: UserContext, hasFingerprint: Boolean): Fu[PageData] =
-    ctx.me.fold(fuccess(PageData.anon(ctx.req, getAssetVersion, blindMode(ctx)))) { me =>
+  private def pageDataBuilder(ctx: UserContext, hasFingerprint: Boolean): Fu[PageData] = {
+    val isPage = HTTPRequest isSynchronousHttp ctx.req
+    val nonce = isPage option Nonce.random
+    ctx.me.fold(fuccess(PageData.anon(ctx.req, getAssetVersion, nonce, blindMode(ctx)))) { me =>
       import lila.relation.actorApi.OnlineFriends
-      val isPage = HTTPRequest.isSynchronousHttp(ctx.req)
       Env.pref.api.getPref(me, ctx.req) zip {
         if (isPage) {
           Env.user.lightUserApi preloadUser me
@@ -358,9 +361,11 @@ private[controllers] trait LilaController
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerprint,
             assetVersion = getAssetVersion,
-            inquiry = inquiry)
+            inquiry = inquiry,
+            nonce = nonce)
       }
     }
+  }
 
   protected def getAssetVersion = lila.common.AssetVersion(Env.api.assetVersionSetting.get())
 
@@ -376,6 +381,10 @@ private[controllers] trait LilaController
       _ ifTrue (HTTPRequest isSynchronousHttp req) foreach { d =>
         Env.current.system.lilaBus.publish(lila.user.User.Active(d.user), 'userActive)
       }
+    } dmap {
+      case Some(d) if !lila.common.PlayApp.isProd =>
+        Some(d.copy(user = d.user.addRole(lila.security.Permission.Beta.name)))
+      case d => d
     } flatMap {
       case None => fuccess(None -> None)
       case Some(d) => lila.mod.Impersonate.impersonating(d.user) map {
@@ -416,12 +425,6 @@ private[controllers] trait LilaController
     else if (HTTPRequest isBot ctx.req) fuccess(NotFound)
     else result
 
-  protected def RequireHttp11(result: => Fu[Result])(implicit ctx: lila.api.Context): Fu[Result] =
-    RequireHttp11(ctx.req)(result)
-  protected def RequireHttp11(req: RequestHeader)(result: => Fu[Result]): Fu[Result] =
-    if (HTTPRequest isHttp10 req) BadRequest("Requires HTTP 1.1").fuccess
-    else result
-
   private val jsonGlobalErrorRenamer = {
     import play.api.libs.json._
     __.json update (
@@ -442,4 +445,5 @@ private[controllers] trait LilaController
     if (HTTPRequest isHuman ctx.req) lila.mon.http.request.path(ctx.req.path)()
 
   protected val pgnContentType = "application/x-chess-pgn"
+  protected val ndJsonContentType = "application/x-ndjson"
 }

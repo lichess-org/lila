@@ -13,6 +13,7 @@ import lila.db.dsl._
 import lila.tree.Eval
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Shape, Shapes, Comment, Comments, Gamebook }
+import lila.game.BSONHandlers.FENBSONHandler
 
 import lila.common.Iso
 import lila.common.Iso._
@@ -77,8 +78,6 @@ object BSONHandlers {
 
   import Uci.WithSan
   private implicit val UciWithSanBSONHandler = Macros.handler[WithSan]
-
-  private implicit val FenBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
 
   implicit val ShapesBSONHandler: BSONHandler[BSONArray, Shapes] =
     isoHandler[Shapes, List[Shape], BSONArray](

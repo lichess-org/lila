@@ -37,7 +37,7 @@
 @side = {
 <div class="features_side">
   <h2>Free chess for everyone, forever!</h2>
-  <a href="@routes.Plan.index" class="button">Support lichess</a>
+  <a href="@routes.Plan.index" class="button">Support Lichess</a>
 </div>
 }
 
@@ -50,7 +50,7 @@ moreCss = cssTag("features.css"),
 openGraph = lila.app.ui.OpenGraph(
 title = title,
 url = s"$netBaseUrl${routes.Plan.features.url}",
-description = "All of lichess features are free for all and forever. We do it for chess!").some) {
+description = "All of Lichess features are free for all and forever. We do it for chess!").some) {
 
 <div class="content_box features">
   <table>
@@ -104,7 +104,7 @@ description = "All of lichess features are free for all and forever. We do it fo
       Download/Upload any game as PGN
       }
       @tr(unlimited) {
-      <a href="@routes.Search.index(1)">Advanced search</a> through lichess 500 million games
+      <a href="@routes.Search.index(1)">Advanced search</a> through Lichess 800 million games
       }
       @tr(unlimited) {
       <a href="@routes.Video.index">Chess video library</a>
@@ -164,11 +164,11 @@ description = "All of lichess features are free for all and forever. We do it fo
       }
     </tbody>
     @thead {
-    <h1>Support lichess</h1>
+    <h1>Support Lichess</h1>
     }
     <tbody class="support">
       <tr>
-        <th>Contribute to lichess.org and<br />get a cool looking Patron icon</th>
+        <th>Contribute to Lichess and<br />get a cool looking Patron icon</th>
         <td>-</td>
         <td><span data-icon="@patronIconChar" class="is is-green text check">Yes</span></td>
       </tr>
@@ -182,12 +182,12 @@ description = "All of lichess features are free for all and forever. We do it fo
   <p class="explanation">
     <strong>Yes, both accounts have the same features!</strong>
     <br />
-    That is because lichess is built for the love of chess.<br />
+    That is because Lichess is built for the love of chess.<br />
     We believe every chess player deserves the best, and so:
     <br /><br />
     <strong>all features are free for everybody, forever!</strong>
     <br />
-    If you love lichess, <a class="button" href="@routes.Plan.index">support us with a Patron account!</a>
+    If you love Lichess, <a class="button" href="@routes.Plan.index">support us with a Patron account!</a>
   </p>
 </div>
 }

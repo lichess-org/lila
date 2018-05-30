@@ -24,8 +24,7 @@ final class UserInfosApi(roundColl: Coll, currentPuzzleId: User => Fu[Option[Puz
       currentPuzzleId.?? { id => $doc("$lte" -> s"$userId:${Round encode id}") }
     roundColl.find($doc(Round.BSONFields.id -> idSelector))
       .sort($sort desc Round.BSONFields.id)
-      .cursor[Round]()
-      .gather[List](historySize atLeast chartSize)
+      .list[Round](historySize atLeast chartSize)
       .map(_.reverse)
   }
 }

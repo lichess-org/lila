@@ -13,7 +13,7 @@ final class GamesByUsersStream(system: ActorSystem) {
   import GamesByUsersStream._
   import lila.common.HttpStream._
 
-  def apply(userIds: Set[User.ID]): Enumerator[String] = {
+  def apply(userIds: Set[User.ID]): Enumerator[JsObject] = {
 
     def matches(game: Game) = game.userIds match {
       case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
@@ -35,7 +35,7 @@ final class GamesByUsersStream(system: ActorSystem) {
       onComplete = onComplete(stream, system)
     )
 
-    enumerator &> withInitialFen &> toJson &> stringify
+    enumerator &> withInitialFen &> toJson
   }
 
   private val withInitialFen =
@@ -55,28 +55,27 @@ object GamesByUsersStream {
     case Game.WithInitialFen(g, initialFen) =>
       Json.obj(
         "id" -> g.id,
-        "initialFen" -> initialFen,
         "rated" -> g.rated,
         "variant" -> g.variant.key,
         "speed" -> g.speed.key,
         "perf" -> PerfPicker.key(g),
         "createdAt" -> g.createdAt,
         "status" -> g.status.id,
-        "clock" -> g.clock.map { clock =>
+        "players" -> JsObject(g.players.zipWithIndex map {
+          case (p, i) => p.color.name -> Json.obj(
+            "userId" -> p.userId,
+            "rating" -> p.rating
+          ).add("provisional" -> p.provisional)
+            .add("name" -> p.name)
+        })
+      ).add("initialFen" -> initialFen)
+        .add("clock" -> g.clock.map { clock =>
           Json.obj(
             "initial" -> clock.limitSeconds,
             "increment" -> clock.incrementSeconds,
             "totalTime" -> clock.estimateTotalSeconds
           )
-        },
-        "daysPerTurn" -> g.daysPerTurn,
-        "players" -> JsObject(g.players.zipWithIndex map {
-          case (p, i) => p.color.name -> Json.obj(
-            "userId" -> p.userId,
-            "name" -> p.name,
-            "rating" -> p.rating
-          ).add("provisional" -> p.provisional)
         })
-      ).noNull
+        .add("daysPerTurn" -> g.daysPerTurn)
   }
 }

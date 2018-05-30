@@ -12,6 +12,11 @@ object mon {
     object request {
       val all = inc("http.request.all")
       val ipv6 = inc("http.request.ipv6")
+      val xhr = inc("http.request.xhr")
+      val ws = inc("http.request.ws")
+      val bot = inc("http.request.bot")
+      val fishnet = inc("http.request.fishnet")
+      val page = inc("http.request.page")
       def path(p: String) = inc(s"http.request.path.$p")
     }
     object response {
@@ -147,7 +152,6 @@ object mon {
   object round {
     object api {
       val player = rec("round.api.player")
-      val playerInner = rec("round.api.player_inner")
       val watcher = rec("round.api.watcher")
     }
     object actor {
@@ -552,9 +556,6 @@ object mon {
     }
   }
   object api {
-    object teamUsers {
-      val cost = incX("api.team-users.cost")
-    }
     object userGames {
       val cost = incX("api.user-games.cost")
     }

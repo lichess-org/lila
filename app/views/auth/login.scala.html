@@ -1,17 +1,31 @@
 @(form: Form[_], referrer: Option[String])(implicit ctx: Context)
 
-@auth.layout(title = trans.signIn.txt()) {
+@auth.layout(
+title = trans.signIn.txt(),
+moreJs = jsTag("login.js")) {
 <div class="content_box login">
   <div class="signup_box">
     <h1 class="lichess_title">@trans.signIn()</h1>
-    <form action="@routes.Auth.authenticate@referrer.map { ref =>?referrer=@{java.net.URLEncoder.encode(ref, "US-ASCII")}}" method="POST">
-      @globalError(form)
-      <ul>
-        @auth.formFields(form("username"), form("password"), none, register = false)
-        <li>
-          <button type="submit" class="submit button" data-icon="F"> @trans.signIn()</button>
-        </li>
-      </ul>
+    <form class="login" action="@routes.Auth.authenticate@referrer.map { ref =>?referrer=@{java.net.URLEncoder.encode(ref, "US-ASCII")}}" method="POST">
+      <div class="one-factor">
+        @globalError(form)
+        <ul>
+          @auth.formFields(form("username"), form("password"), none, register = false)
+        </ul>
+      </div>
+      <div class="two-factor none">
+        <p class="error none">Invalid code.</p>
+        <ul>
+          @defining(form("token")) { field =>
+          <li class="token">
+            <label for="@field.name">Authentication code</label>
+            <input type="text" id="@field.name" name="@field.name" autocomplete="off" pattern="[0-9]{6}" />
+            <p class="help" data-icon="" style="font-size:0.8em;margin-top:1em">Open the two-factor authentication app on your device to view your authentication code and verify your identity.</p>
+          </li>
+          }
+        </ul>
+      </div>
+      <button type="submit" class="submit button" data-icon="F"> @trans.signIn()</button>
     </form>
   </div>
   <div class="alternative">

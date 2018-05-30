@@ -1,6 +1,7 @@
 package lila.insight
 
 import chess.{ Role, Board }
+import chess.format.FEN
 import lila.analyse.{ Accuracy, Advice }
 import lila.game.{ Game, Pov, GameRepo }
 import scalaz.NonEmptyList
@@ -12,7 +13,7 @@ object PovToEntry {
   case class RichPov(
       pov: Pov,
       provisional: Boolean,
-      initialFen: Option[String],
+      initialFen: Option[FEN],
       analysis: Option[lila.analyse.Analysis],
       division: chess.Division,
       moveAccuracy: Option[List[Int]],
@@ -42,7 +43,7 @@ object PovToEntry {
           case (fen, an) => for {
             boards <- chess.Replay.boards(
               moveStrs = game.pgnMoves,
-              initialFen = fen map chess.format.FEN,
+              initialFen = fen,
               variant = game.variant
             ).toOption.flatMap(_.toNel)
             movetimes <- game.moveTimes(pov.color).flatMap(_.map(_.roundTenths).toNel)

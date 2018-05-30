@@ -23,13 +23,13 @@ final class GameStateStream(
 
   import lila.common.HttpStream._
 
-  def apply(me: User, init: Game.WithInitialFen, as: chess.Color): Enumerator[String] = {
+  def apply(me: User, init: Game.WithInitialFen, as: chess.Color): Enumerator[Option[JsObject]] = {
 
     val id = init.game.id
 
     var stream: Option[ActorRef] = None
 
-    val enumerator = Concurrent.unicast[Option[JsObject]](
+    Concurrent.unicast[Option[JsObject]](
       onStart = channel => {
         val actor = system.actorOf(Props(new Actor {
 
@@ -89,7 +89,5 @@ final class GameStateStream(
       },
       onComplete = onComplete(stream, system)
     )
-
-    enumerator &> stringifyOrEmpty
   }
 }

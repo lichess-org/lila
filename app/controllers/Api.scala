@@ -138,7 +138,8 @@ object Api extends LilaController {
       token = get("token", req)
     )
 
-  def userGames(name: String) = ApiRequest { req =>
+  // for mobile app
+  def userGames(name: String) = MobileApiRequest { req =>
     val page = (getInt("page", req) | 1) atLeast 1 atMost 200
     val nb = (getInt("nb", req) | 10) atLeast 1 atMost 100
     val cost = page * nb + 10
@@ -172,44 +173,6 @@ object Api extends LilaController {
     GameRateLimitPerIP(ip, cost = 1) {
       lila.mon.api.game.cost(1)
       gameApi.one(id take lila.game.Game.gameIdSize, gameFlagsFromRequest(req)) map toApiResult
-    }
-  }
-
-  def games = Action.async(parse.tolerantText) { req =>
-    val gameIds = req.body.split(',').take(300)
-    val ip = HTTPRequest lastRemoteAddress req
-    GameRateLimitPerIP(ip, cost = gameIds.size / 4) {
-      lila.mon.api.game.cost(1)
-      gameApi.many(
-        ids = gameIds,
-        withMoves = getBool("with_moves", req)
-      ) map toApiResult map toHttp
-    }(Zero.instance(tooManyRequests.fuccess))
-  }
-
-  def gamesVs(u1: String, u2: String) = ApiRequest { req =>
-    val page = (getInt("page", req) | 1) atLeast 1 atMost 200
-    val nb = (getInt("nb", req) | 10) atLeast 1 atMost 100
-    val cost = page * nb * 2 + 10
-    UserGamesRateLimit(cost, req) {
-      lila.mon.api.userGames.cost(cost)
-      for {
-        usersO <- lila.user.UserRepo.pair(
-          lila.user.User.normalize(u1),
-          lila.user.User.normalize(u2)
-        )
-        res <- usersO.?? { users =>
-          gameApi.byUsersVs(
-            users = users,
-            rated = getBoolOpt("rated", req),
-            playing = getBoolOpt("playing", req),
-            analysed = getBoolOpt("analysed", req),
-            withFlags = gameFlagsFromRequest(req),
-            nb = MaxPerPage(nb),
-            page = page
-          ) map some
-        }
-      } yield toApiResult(res)
     }
   }
 
@@ -275,18 +238,14 @@ object Api extends LilaController {
   }
 
   def gamesByUsersStream = Action.async(parse.tolerantText) { req =>
-    RequireHttp11(req) {
-      val userIds = req.body.split(',').take(300).toSet map lila.user.User.normalize
-      Ok.chunked(Env.game.gamesByUsersStream(userIds)).fuccess
-    }
+    val userIds = req.body.split(',').take(300).toSet map lila.user.User.normalize
+    jsonStream(Env.game.gamesByUsersStream(userIds)).fuccess
   }
 
   def eventStream = Scoped() { req => me =>
-    RequireHttp11(req) {
-      lila.game.GameRepo.urgentGames(me) flatMap { povs =>
-        Env.challenge.api.createdByDestId(me.id) map { challenges =>
-          Ok.chunked(Env.api.eventStream(me, povs.map(_.game), challenges))
-        }
+    lila.game.GameRepo.urgentGames(me) flatMap { povs =>
+      Env.challenge.api.createdByDestId(me.id) map { challenges =>
+        jsonOptionStream(Env.api.eventStream(me, povs.map(_.game), challenges))
       }
     }
   }
@@ -328,13 +287,11 @@ object Api extends LilaController {
 
   sealed trait ApiResult
   case class Data(json: JsValue) extends ApiResult
-  case class JsonStream(value: Enumerator[JsObject]) extends ApiResult
   case object NoData extends ApiResult
   case object Limited extends ApiResult
   case class Custom(result: Result) extends ApiResult
   def toApiResult(json: Option[JsValue]): ApiResult = json.fold[ApiResult](NoData)(Data.apply)
   def toApiResult(json: Seq[JsValue]): ApiResult = Data(JsArray(json))
-  def toApiResult(stream: Enumerator[JsObject]): ApiResult = JsonStream(stream)
 
   def CookieBasedApiRequest(js: Context => Fu[ApiResult]) = Open { ctx =>
     js(ctx) map toHttp
@@ -342,19 +299,28 @@ object Api extends LilaController {
   def ApiRequest(js: RequestHeader => Fu[ApiResult]) = Action.async { req =>
     js(req) map toHttp
   }
+  def MobileApiRequest(js: RequestHeader => Fu[ApiResult]) = Action.async { req =>
+    if (lila.api.Mobile.Api requested req) js(req) map toHttp
+    else fuccess(NotFound)
+  }
 
-  private[controllers] val tooManyRequests = TooManyRequest(jsonError("Try again later"))
+  private[controllers] val tooManyRequests = TooManyRequest(jsonError("Error 429: Too many requests! Try again later."))
 
-  private def toHttp(result: ApiResult): Result = result match {
+  private[controllers] def toHttp(result: ApiResult): Result = result match {
     case Limited => tooManyRequests
     case NoData => NotFound
     case Custom(result) => result
-    case JsonStream(stream) =>
-      Ok.chunked {
-        stream &> Enumeratee.map { o =>
-          Json.stringify(o) + "\n"
-        }
-      }.withHeaders(CONTENT_TYPE -> "application/x-ndjson")
     case Data(json) => Ok(json) as JSON
   }
+
+  private[controllers] def jsonStream(stream: Enumerator[JsObject]): Result = jsonStringStream {
+    stream &> Enumeratee.map { o => Json.stringify(o) + "\n" }
+  }
+
+  private[controllers] def jsonOptionStream(stream: Enumerator[Option[JsObject]]): Result = jsonStringStream {
+    stream &> Enumeratee.map { _ ?? Json.stringify + "\n" }
+  }
+
+  private def jsonStringStream(stream: Enumerator[String]): Result =
+    Ok.chunked(stream).withHeaders(CONTENT_TYPE -> ndJsonContentType)
 }

@@ -97,6 +97,10 @@ final class ModApi(
     _ <- ipBan ?? setBan(mod, sus, true)
   } yield logApi.garbageCollect(mod, sus)
 
+  def disableTwoFactor(mod: String, username: String): Funit = withUser(username) { user =>
+    (UserRepo disableTwoFactor user.id) >> logApi.disableTwoFactor(mod, user.id)
+  }
+
   def closeAccount(mod: String, username: String): Fu[Option[User]] = withUser(username) { user =>
     user.enabled ?? {
       logApi.closeAccount(mod, user.id) inject user.some
