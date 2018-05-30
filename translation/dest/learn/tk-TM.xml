@@ -39,4 +39,13 @@ Ikisem gerekli size!</string>
   <string name="kingComplete">Mundan beýläk serkerdä höküm edip bilýäňiz!</string>
   <string name="theKnight">At</string>
   <string name="itMovesInAnLShape">L şeklinde göçýär</string>
+  <string name="knightIntro">Ine size synag. At biraz çylşyrymly çöpdür.</string>
+  <string name="knightsHaveAFancyWay">Atlaryň ätlemek üçin
+ýakymly usuly bar!</string>
+  <string name="knightsCanJumpOverObstacles">Atlar böwetleriň üstünden ätläp bilýär!
+Böwetleri geç we ýyldyzlara ýet!</string>
+  <string name="knightComplete">Gutlaýarys! Siz indi at ussady.</string>
+  <string name="thePawn">Pyýada</string>
+  <string name="itMovesForwardOnly">Bu diňe öňe tarap göçýär</string>
+  <string name="pawnIntro">Pyýadalar ejizdir emma olaryň potensialy uludyr.</string>
 </resources>
