@@ -101,4 +101,36 @@ garşydaş şany nyşana alyň!</string>
 emma hüjüm gabzalyp bilner!</string>
   <string name="youCanGetOutOfCheckByTaking">Şahdan çykyp bilersiňiz
 hüjüm edýän çöpi iýmek bilen.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Bu at şah berýär
+goragyňyzyň bar bolmagyna garamazdan!</string>
+  <string name="escapeOrBlock">Şany gaçyryň
+ýa-da hüjümi gabzaň!</string>
+  <string name="outOfCheckComplete">Gutlaýarys! Şaňyz asla ele geçirilmez, şaha garşy häzir boluň!</string>
+  <string name="mateInOne">1 göçümde mat</string>
+  <string name="defeatTheOpponentsKing">Garşydaşyň şasyny ýeňiň</string>
+  <string name="mateInOneIntro">Garşydaşyňyz şahdan goranyp bilmeýän wagty ýeňiş gazanýaňyz.</string>
+  <string name="attackYourOpponentsKing">Garşydaş şa hüjüm ediň
+goranyp bolmajak şekilde!</string>
+  <string name="mateInOneComplete">Gutlaýarys! Oýunlarda şeýle ýeňiş gazanarsyňyz!</string>
+  <string name="intermediate">Ortaça</string>
+  <string name="boardSetup">Tagta düzülişi</string>
+  <string name="howTheGameStarts">Oýun nähili başlaýar</string>
+  <string name="boardSetupIntro">Söweşe taýyn 2 goşun garşylaşýar.</string>
+  <string name="thisIsTheInitialPosition">Bu her bir küşt oýnunyň
+başlangyç pozisiýasydyr!
+Dowam etmek üçin bir göçüm ediň.</string>
+  <string name="firstPlaceTheRooks">Ilki ruhlary ýerleşdiriň!
+Olar burçda bolmaly.</string>
+  <string name="thenPlaceTheKnights">Soňra atlary ýerleşdiriň!
+Olar ruhlaryň ýanynda durmaly.</string>
+  <string name="placeTheBishops">Pilleri ýerleşdiriň!
+Olar atlaryň ýanynda durmaly.</string>
+  <string name="placeTheQueen">Weziri ýerleşdiriň!
+Wezir öz reňkinde durmaly.</string>
+  <string name="placeTheKing">Öz weziriniň ýanyna,
+Şany ýerleşdiriň!</string>
+  <string name="playPeople">Garşydaş tap</string>
+  <string name="opponentsFromAroundTheWorld">Dünýäniň dürli künjünden garşydaşlar</string>
+  <string name="playMachine">Kompýutere garşy oýun</string>
+  <string name="testYourSkillsWithTheComputer">Ukybyňyzy kompýutere garşy barlaň</string>
 </resources>
