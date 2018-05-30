@@ -57,4 +57,26 @@ gytaklygyna iýýär!</string>
   <string name="captureThenPromote">Iý, soňra beýgelt!</string>
   <string name="useAllThePawns">Ähli pyýadalary ulanyň!
 Beýgeltmek gerek däl.</string>
+  <string name="aPawnOnTheSecondRank">2-nji setirdäki pyýadalar bir bada 2 öýjük süýşüp biler!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Ähli ýyldyzlary ýygna!
+Beýgeltmek gerek däl.</string>
+  <string name="pawnComplete">Gutlaýarys! Indi pyýada hakda bilmeýän zadyňyz ýok.</string>
+  <string name="pawnPromotion">Pyýada beýgeltme</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Pyýadaňyz tagtanyň soňuna ýetdi!</string>
+  <string name="itNowPromotesToAStrongerPiece">Indi pyýada has güýçli çöpe öwrüler.</string>
+  <string name="selectThePieceYouWant">Isleýän çöpüňizi saýlaň!</string>
+  <string name="fundamentals">Başlangyç</string>
+  <string name="capture">Iýmek</string>
+  <string name="takeTheEnemyPieces">Duşman çöplerini ele geçiriň</string>
+  <string name="captureIntro">Garşydaşyň goragsyz çöplerini kesgitläň we olary iýiň!</string>
+  <string name="takeTheBlackPieces">Gara çöpleri alyň!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Gara çöpleri alyň!
+Özüňiziňkileri elden gidermäň.</string>
+  <string name="captureComplete">Gutlaýarys! Çöplere garşy göreşmegi bilýäňiz!</string>
+  <string name="protection">Gorag</string>
+  <string name="keepYourPiecesSafe">Çöpleriňizi abadan saklaň</string>
+  <string name="protectionIntro">Garşydaşyňyzyň hüjüm edýän çöplerini anyklaň we olara esewan boluň!</string>
+  <string name="protectionComplete">Gutlaýarys! Elden gidermedik çöpüňiz siziň üçin utuşdyr!</string>
+  <string name="escape">Hüjüm astyndasyňyz!
+Apatdan gutulyň!</string>
 </resources>
