@@ -19,4 +19,28 @@
     <item quantity="one">%2$s sahypasynda %1$s ýazgy neşir etdi</item>
     <item quantity="other">%2$s sahypasynda %1$s ýazgy neşir etdi</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%2$s günlük oýunda %1$s göçüm göçdi</item>
+    <item quantity="other">%2$s günlük oýunda %1$s göçüm göçdi</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">%s günlük oýun tamamlady</item>
+    <item quantity="other">%s günlük oýun tamamlady</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">%s oýunçyny yzarlamaga başlady</item>
+    <item quantity="other">%s oýunçyny yzarlamaga başlady</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">%s täze yzarlaýjy gazandy</item>
+    <item quantity="other">%s täze yzarlaýjy gazandy</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">%s sany birwagtly sergi gurnady</item>
+    <item quantity="other">%s birwagtly sergi gurnady</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">%s sany birwagtly sergä gatnaşdy</item>
+    <item quantity="other">%s sany birwagtly sergä gatnaşdy</item>
+  </plurals>
 </resources>
