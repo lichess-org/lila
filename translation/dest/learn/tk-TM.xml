@@ -79,4 +79,26 @@ Beýgeltmek gerek däl.</string>
   <string name="protectionComplete">Gutlaýarys! Elden gidermedik çöpüňiz siziň üçin utuşdyr!</string>
   <string name="escape">Hüjüm astyndasyňyz!
 Apatdan gutulyň!</string>
+  <string name="noEscape">Gaçyş ýok,
+ýöne goranmak mümkin!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Hiç bir goragsyz çöpi
+almaklaryna rugsat bermäň!</string>
+  <string name="combat">Jeň</string>
+  <string name="captureAndDefendPieces">Çöpleri iýiň we goraň</string>
+  <string name="combatIntro">Gowy söweşiji hüjüm etmegi we goramagy başarýandyr!</string>
+  <string name="combatComplete">Gutlaýarys! Çöplere garşy göreşmegi bilýäňiz!</string>
+  <string name="checkInOne">1 göçümde şah</string>
+  <string name="attackTheOpponentsKing">Garşydaşyň şasyna hüjüm</string>
+  <string name="checkInOneIntro">Şah bermek üçin garşydaşyň şasyna hüjüm ediň. Olar şasyny goramaly!</string>
+  <string name="checkInOneGoal">1 göçümde
+garşydaş şany nyşana alyň!</string>
+  <string name="checkInOneComplete">Gutlaýarys! Garşydaşa şah berdiňiz we goranmaga mejbur etdiňiz!</string>
+  <string name="outOfCheck">Şahdan gutulyş</string>
+  <string name="defendYourKing">Şaňyzy goraň</string>
+  <string name="outOfCheckIntro">Şah astyndasyňyz! Gaçmalysyňyz ýa-da hüjümi gabzamalysyňyz.</string>
+  <string name="escapeWithTheKing">Şany gaçyryň!</string>
+  <string name="theKingCannotEscapeButBlock">Şa gaçyp bilenok
+emma hüjüm gabzalyp bilner!</string>
+  <string name="youCanGetOutOfCheckByTaking">Şahdan çykyp bilersiňiz
+hüjüm edýän çöpi iýmek bilen.</string>
 </resources>
