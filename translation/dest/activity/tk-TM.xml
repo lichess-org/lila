@@ -56,4 +56,8 @@
     <item quantity="other">%3$s oýun bilen %4$s bäsleşiginde %1$s. orun aldy (naýbaşy %2$s%%)</item>
   </plurals>
   <string name="signedUp">Lichess.org-a agza boldy</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">%s topara agza boldy</item>
+    <item quantity="other">%s topara agza boldy</item>
+  </plurals>
 </resources>
