@@ -26,7 +26,7 @@ tijikmek üçin!</string>
   <string name="youNeedBothBishops">Bir açyk-reňkli pil,
 bir doýgun-reňkli pil.
 Ikisem gerekli size!</string>
-  <string name="bishopComplete">Gutlaýarys! Pile höküm edip bilýäňiz.</string>
+  <string name="bishopComplete">Gutlaýarys! Pile höküm etmegi doly bilýäňiz.</string>
   <string name="theQueen">Wezir</string>
   <string name="queenCombinesRookAndBishop">Wezir = ruh + pil</string>
   <string name="queenIntro">Ine-de iň güýçli küşt çöpi. Onuň aly hezretleri, wezir!</string>
@@ -36,7 +36,7 @@ Ikisem gerekli size!</string>
   <string name="kingIntro">Siz şasyňyz. Söweşde siz çökseňiz onda oýunda utuldyňyz.</string>
   <string name="theKingIsSlow">Şa haýaldyr.</string>
   <string name="lastOne">Iň soňky!</string>
-  <string name="kingComplete">Mundan beýläk serkerdä höküm edip bilýäňiz!</string>
+  <string name="kingComplete">Mundan beýläk serkerdä höküm etmegi doly bilýäňiz!</string>
   <string name="theKnight">At</string>
   <string name="itMovesInAnLShape">L şeklinde göçýär</string>
   <string name="knightIntro">Ine size synag. At biraz çylşyrymly çöpdür.</string>
@@ -72,7 +72,7 @@ Beýgeltmek gerek däl.</string>
   <string name="takeTheBlackPieces">Gara çöpleri alyň!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Gara çöpleri alyň!
 Özüňiziňkileri elden gidermäň.</string>
-  <string name="captureComplete">Gutlaýarys! Çöplere garşy göreşmegi bilýäňiz!</string>
+  <string name="captureComplete">Gutlaýarys! Çöplere garşy göreşmegi doly bilýäňiz!</string>
   <string name="protection">Gorag</string>
   <string name="keepYourPiecesSafe">Çöpleriňizi abadan saklaň</string>
   <string name="protectionIntro">Garşydaşyňyzyň hüjüm edýän çöplerini anyklaň we olara esewan boluň!</string>
@@ -86,7 +86,7 @@ almaklaryna rugsat bermäň!</string>
   <string name="combat">Jeň</string>
   <string name="captureAndDefendPieces">Çöpleri iýiň we goraň</string>
   <string name="combatIntro">Gowy söweşiji hüjüm etmegi we goramagy başarýandyr!</string>
-  <string name="combatComplete">Gutlaýarys! Çöplere garşy göreşmegi bilýäňiz!</string>
+  <string name="combatComplete">Gutlaýarys! Çöplere garşy göreşmegi doly bilýäňiz!</string>
   <string name="checkInOne">1 göçümde şah</string>
   <string name="attackTheOpponentsKing">Garşydaşyň şasyna hüjüm</string>
   <string name="checkInOneIntro">Şah bermek üçin garşydaşyň şasyna hüjüm ediň. Olar şasyny goramaly!</string>
@@ -131,7 +131,7 @@ Wezir öz reňkinde durmaly.</string>
 Şany ýerleşdiriň!</string>
   <string name="pawnsFormTheFrontLine">Pyýadalar öňdäki setirde.
 Dowam etmek üçin bir göçüm ediň.</string>
-  <string name="boardSetupComplete">Gutlaýarys! Küşt tagtasy düzülişini bilýäňiz.</string>
+  <string name="boardSetupComplete">Gutlaýarys! Küşt tagtasy düzülişini doly bilýäňiz.</string>
   <string name="castling">Rakirowka</string>
   <string name="theSpecialKingMove">Şanyň aýratyn göçümi</string>
   <string name="castlingIntro">Şaňyzy asudalyga getiriň we ruhyňyzy hüjüm üçin öňe sürüň!</string>
@@ -145,6 +145,30 @@ wezirtarap rakirowka üçin!</string>
 Ilki çöpleri ýoldan aýyrmaly.</string>
   <string name="castleQueenSideMovePiecesFirst">Wezirtarapa rakirowka etmeli!
 Ilki çöpleri ýoldan aýyrmaly.</string>
+  <string name="youCannotCastleIfMoved">Rakirowka edip bilmersiňiz
+eger-de şa eýýäm gozgalan bolsa
+ýa-da ruh eýýäm gozgalan bolsa.</string>
+  <string name="youCannotCastleIfAttacked">Rakirowka edip bilmersiňiz
+eger-de şa şah astynda bolsa.
+Şahy gabzaň soňra rakirowka!</string>
+  <string name="findAWayToCastleKingSide">Bir ýol tapyň
+şatarap rakirowka üçin!</string>
+  <string name="findAWayToCastleQueenSide">Bir ýol tapyň
+wezirtarap rakirowka üçin!</string>
+  <string name="castlingComplete">Gutlaýarys! Hemişe diýen ýaly rakirowka etmelisiňiz.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">Pyýadanyň aýratyn göçümi</string>
+  <string name="enPassantIntro">Garşydaşyňyzyň pyýadasy 2 öýjük süýşende 1 öýjük süýşen dek iýip bilersiňiz.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Garalar edil şu wagt
+pyýadasyny 2 öýjük göçdi!
+En passant alyň.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant diňe
+göçüm yz ýany bilen
+mümkindir.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant diňe pyýadaňyz
+5-nji setirdekä mümkindir.</string>
+  <string name="takeAllThePawnsEnPassant">Ähli pyýadalary en passant alyň!</string>
+  <string name="enPassantComplete">Gutlaýarys! En passant almagy doly bilýäňiz.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Oýun deňedeň</string>
   <string name="stalemateIntro">Oýunçy şah astynda däl wagty we göçümi ýok bolsa onda bu patdyr. Oýun deňedeňdir: ýeňiji ýok, utulan ýok.</string>
@@ -167,7 +191,7 @@ Pyýada = 1
 Wezir &gt; Pil</string>
   <string name="takeThePieceWithTheHighestValue">Iň ýokary hümmetli
 çöpi alyň!</string>
-  <string name="pieceValueComplete">Gutlaýarys! Materiallaryň hümmetini bilýäňiz!
+  <string name="pieceValueComplete">Gutlaýarys! Materiallaryň hümmetini doly bilýäňiz!
 Wezir = 9
 Ruh = 5
 Pil = 3
@@ -180,7 +204,7 @@ Pyýada = 1</string>
 bimaza ediň!</string>
   <string name="checkInTwoComplete">Gutlaýarys! Garşydaşa şah berdiňiz we goranmaga mejbur etdiňiz!</string>
   <string name="whatNext">Nobatdaky näme?</string>
-  <string name="youKnowHowToPlayChess">Küşt nähili oýnalýandygyny bilýäňiz, gutlaýarys! Has güýçli küştçi bolmak isleýäňizmi?</string>
+  <string name="youKnowHowToPlayChess">Küşt nähili oýnalýandygyny doly bilýäňiz, gutlaýarys! Has güýçli küştçi bolmak isleýäňizmi?</string>
   <string name="register">Registrasiýa</string>
   <string name="getAFreeLichessAccount">Mugt Lichess hasaby ediniň</string>
   <string name="practice">Türgenleşik</string>
@@ -188,6 +212,7 @@ bimaza ediň!</string>
   <string name="puzzles">Tapmaçalar</string>
   <string name="exerciseYourTacticalSkills">Taktiki ukybyňyzy türgenleşdiriň</string>
   <string name="videos">Wideolar</string>
+  <string name="watchInstructiveChessVideos">Öwrediji küşt wideolara tomaşa ediň</string>
   <string name="playPeople">Garşydaş tap</string>
   <string name="opponentsFromAroundTheWorld">Dünýäniň dürli künjünden garşydaşlar</string>
   <string name="playMachine">Kompýutere garşy oýun</string>
