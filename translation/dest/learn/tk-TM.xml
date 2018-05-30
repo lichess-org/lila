@@ -29,4 +29,14 @@ Ikisem gerekli size!</string>
   <string name="bishopComplete">Gutlaýarys! Pile höküm edip bilýäňiz.</string>
   <string name="theQueen">Wezir</string>
   <string name="queenCombinesRookAndBishop">Wezir = ruh + pil</string>
+  <string name="queenIntro">Ine-de iň güýçli küşt çöpi. Onuň aly hezretleri, wezir!</string>
+  <string name="queenComplete">Gutlaýarys! Indi wezir hakda bilmeýän zadyňyz ýok.</string>
+  <string name="theKing">Şa</string>
+  <string name="theMostImportantPiece">Iň ähmiýetli çöp</string>
+  <string name="kingIntro">Siz şasyňyz. Söweşde siz çökseňiz onda oýunda utuldyňyz.</string>
+  <string name="theKingIsSlow">Şa haýaldyr.</string>
+  <string name="lastOne">Iň soňky!</string>
+  <string name="kingComplete">Mundan beýläk serkerdä höküm edip bilýäňiz!</string>
+  <string name="theKnight">At</string>
+  <string name="itMovesInAnLShape">L şeklinde göçýär</string>
 </resources>
