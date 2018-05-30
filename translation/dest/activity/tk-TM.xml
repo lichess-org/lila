@@ -37,10 +37,23 @@
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">%s sany birwagtly sergi gurnady</item>
-    <item quantity="other">%s birwagtly sergi gurnady</item>
+    <item quantity="other">%s sany birwagtly sergi gurnady</item>
   </plurals>
   <plurals name="joinedNbSimuls">
     <item quantity="one">%s sany birwagtly sergä gatnaşdy</item>
     <item quantity="other">%s sany birwagtly sergä gatnaşdy</item>
   </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">%s täze türgenleşik döretdi</item>
+    <item quantity="other">%s täze türgenleşik döretdi</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">%s bäsleşige gatnaşdy</item>
+    <item quantity="other">%s bäsleşige gatnaşdy</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">%3$s oýun bilen %4$s bäsleşiginde %1$s. orun aldy (naýbaşy %2$s%%)</item>
+    <item quantity="other">%3$s oýun bilen %4$s bäsleşiginde %1$s. orun aldy (naýbaşy %2$s%%)</item>
+  </plurals>
+  <string name="signedUp">Lichess.org-a agza boldy</string>
 </resources>
