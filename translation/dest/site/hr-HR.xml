@@ -552,6 +552,7 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="thisAccountIsClosed">Račun je zatvoren.</string>
   <string name="invalidUsernameOrPassword">Pogrešno korisničko ime ili lozinka</string>
   <string name="incorrectPassword">Netočna lozinka</string>
+  <string name="invalidAuthenticationCode">Nevažeći kod autentičnosti</string>
   <string name="emailMeALink">Pošalji mi email</string>
   <string name="currentPassword">Trenutna lozinka</string>
   <string name="newPassword">Nova lozinka</string>
