@@ -52,4 +52,9 @@ Böwetleri geç we ýyldyzlara ýet!</string>
 Ýöne olar tagtanyň aňyrky tarapynda ýetende olar has güýçli çöpe öwrülýärler!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Köplenjine wezirlige beýgeltmek iň gowusydyr,
 Ýöne käte at derkar bolýar!</string>
+  <string name="pawnsMoveForward">Pyýadalar öňe göçýär,
+gytaklygyna iýýär!</string>
+  <string name="captureThenPromote">Iý, soňra beýgelt!</string>
+  <string name="useAllThePawns">Ähli pyýadalary ulanyň!
+Beýgeltmek gerek däl.</string>
 </resources>
