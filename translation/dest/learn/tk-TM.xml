@@ -129,12 +129,50 @@ Olar atlaryň ýanynda durmaly.</string>
 Wezir öz reňkinde durmaly.</string>
   <string name="placeTheKing">Öz weziriniň ýanyna,
 Şany ýerleşdiriň!</string>
+  <string name="pawnsFormTheFrontLine">Pyýadalar öňdäki setirde.
+Dowam etmek üçin bir göçüm ediň.</string>
+  <string name="boardSetupComplete">Gutlaýarys! Küşt tagtasy düzülişini bilýäňiz.</string>
+  <string name="castling">Rakirowka</string>
+  <string name="theSpecialKingMove">Şanyň aýratyn göçümi</string>
+  <string name="castlingIntro">Şaňyzy asudalyga getiriň we ruhyňyzy hüjüm üçin öňe sürüň!</string>
+  <string name="castleKingSide">Şaňyzy 2 öýjük süýşüriň
+şatarap rakirowka üçin!</string>
+  <string name="castleQueenSide">Şaňyzy 2 öýjük süýşüriň
+wezirtarap rakirowka üçin!</string>
+  <string name="theKnightIsInTheWay">At ýolugrunda!
+Ýoldan sowuň we şatarap rakirowka ediň.</string>
+  <string name="castleKingSideMovePiecesFirst">Şatarapa rakirowka etmeli!
+Ilki çöpleri ýoldan aýyrmaly.</string>
+  <string name="castleQueenSideMovePiecesFirst">Wezirtarapa rakirowka etmeli!
+Ilki çöpleri ýoldan aýyrmaly.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Oýun deňedeň</string>
   <string name="stalemateIntro">Oýunçy şah astynda däl wagty we göçümi ýok bolsa onda bu patdyr. Oýun deňedeňdir: ýeňiji ýok, utulan ýok.</string>
   <string name="stalemateGoal">Garalar pat bolmagy üçin:
 - Garalaryň düzgüne laýyk göçümi galmadyk bolmaly
 - Garalar şah astynda däl bolmaly.</string>
+  <string name="stalemateComplete">Gutlaýarys! Matdan pat ýagşy!</string>
+  <string name="advanced">Ýokary dereje</string>
+  <string name="pieceValue">Çöp hümmeti</string>
+  <string name="evaluatePieceStrength">Çöpleriň güýjüni hasaplama</string>
+  <string name="pieceValueIntro">Göçüm mümkinçiligi köp bolan çöpleriň hümmeti has beýikdir!
+Wezir = 9
+Ruh = 5
+Pil = 3
+At = 3
+Pyýada = 1
+Şa bahasyzdyr! Şany elden gidermek oýunda utulmakdyr.</string>
+  <string name="queenOverBishop">Iň ýokary hümmetli
+çöpi alyň!
+Wezir &gt; Pil</string>
+  <string name="takeThePieceWithTheHighestValue">Iň ýokary hümmetli
+çöpi alyň!</string>
+  <string name="pieceValueComplete">Gutlaýarys! Materiallaryň hümmetini bilýäňiz!
+Wezir = 9
+Ruh = 5
+Pil = 3
+At = 3
+Pyýada = 1</string>
   <string name="checkInTwo">2 göçümde şah</string>
   <string name="twoMovesToGiveCheck">Şah bermek üçin 2 göçüm</string>
   <string name="checkInTwoIntro">Garşydaşa şah berýän 2 göçümlik kombinasiýany tapyň!</string>
