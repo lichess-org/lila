@@ -129,8 +129,47 @@ Olar atlaryň ýanynda durmaly.</string>
 Wezir öz reňkinde durmaly.</string>
   <string name="placeTheKing">Öz weziriniň ýanyna,
 Şany ýerleşdiriň!</string>
+  <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">Oýun deňedeň</string>
+  <string name="stalemateIntro">Oýunçy şah astynda däl wagty we göçümi ýok bolsa onda bu patdyr. Oýun deňedeňdir: ýeňiji ýok, utulan ýok.</string>
+  <string name="stalemateGoal">Garalar pat bolmagy üçin:
+- Garalaryň düzgüne laýyk göçümi galmadyk bolmaly
+- Garalar şah astynda däl bolmaly.</string>
+  <string name="checkInTwo">2 göçümde şah</string>
+  <string name="twoMovesToGiveCheck">Şah bermek üçin 2 göçüm</string>
+  <string name="checkInTwoIntro">Garşydaşa şah berýän 2 göçümlik kombinasiýany tapyň!</string>
+  <string name="checkInTwoGoal">Garşydaş şany 2 göçümde
+bimaza ediň!</string>
+  <string name="checkInTwoComplete">Gutlaýarys! Garşydaşa şah berdiňiz we goranmaga mejbur etdiňiz!</string>
+  <string name="whatNext">Nobatdaky näme?</string>
+  <string name="youKnowHowToPlayChess">Küşt nähili oýnalýandygyny bilýäňiz, gutlaýarys! Has güýçli küştçi bolmak isleýäňizmi?</string>
+  <string name="register">Registrasiýa</string>
+  <string name="getAFreeLichessAccount">Mugt Lichess hasaby ediniň</string>
+  <string name="practice">Türgenleşik</string>
+  <string name="learnCommonChessPositions">Adaty küşt pozisiýalaryny öwreniň</string>
+  <string name="puzzles">Tapmaçalar</string>
+  <string name="exerciseYourTacticalSkills">Taktiki ukybyňyzy türgenleşdiriň</string>
+  <string name="videos">Wideolar</string>
   <string name="playPeople">Garşydaş tap</string>
   <string name="opponentsFromAroundTheWorld">Dünýäniň dürli künjünden garşydaşlar</string>
   <string name="playMachine">Kompýutere garşy oýun</string>
   <string name="testYourSkillsWithTheComputer">Ukybyňyzy kompýutere garşy barlaň</string>
+  <string name="letsGo">Gitdik!</string>
+  <string name="stageX">Tapgyr %s</string>
+  <string name="awesome">Ajaýyp!</string>
+  <string name="excellent">Ajaýyp!</string>
+  <string name="greatJob">Berekella!</string>
+  <string name="perfect">Kämil!</string>
+  <string name="outstanding">Parlak!</string>
+  <string name="wayToGo">Tüýs şeýle!</string>
+  <string name="yesYesYes">Hawa, hawa, hawa!</string>
+  <string name="youreGoodAtThis">Muňa ökdesiňiz!</string>
+  <string name="nailedIt">Tüýs özi.</string>
+  <string name="rightOn">Edil şeýle!</string>
+  <string name="stageXComplete">Tapgyr %s tamamlandy</string>
+  <string name="yourScore">Utugyňyz</string>
+  <string name="next">Indiki</string>
+  <string name="backToMenu">Menýuwa dolan</string>
+  <string name="puzzleFailed">Tapmaça çözülmedi!</string>
+  <string name="retry">Gaýtadan</string>
 </resources>
