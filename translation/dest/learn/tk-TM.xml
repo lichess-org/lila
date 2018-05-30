@@ -48,4 +48,8 @@ Böwetleri geç we ýyldyzlara ýet!</string>
   <string name="thePawn">Pyýada</string>
   <string name="itMovesForwardOnly">Bu diňe öňe tarap göçýär</string>
   <string name="pawnIntro">Pyýadalar ejizdir emma olaryň potensialy uludyr.</string>
+  <string name="pawnsMoveOneSquareOnly">Pyýadalar diňe 1 öýjük göçýär.
+Ýöne olar tagtanyň aňyrky tarapynda ýetende olar has güýçli çöpe öwrülýärler!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Köplenjine wezirlige beýgeltmek iň gowusydyr,
+Ýöne käte at derkar bolýar!</string>
 </resources>
