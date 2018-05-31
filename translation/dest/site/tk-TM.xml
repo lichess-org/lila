@@ -225,12 +225,39 @@
   <string name="spectatorRoom">Tomaşaçy otagy</string>
   <string name="composeMessage">Hat ýaz</string>
   <string name="noNewMessages">Täze hat ýok</string>
+  <string name="subject">Mowzugy</string>
+  <string name="recipient">Kabul ediji</string>
+  <string name="send">Iber</string>
+  <string name="incrementInSeconds">Sekunt gatanjy</string>
+  <string name="freeOnlineChess">Tölegsiz onlaýn küşt</string>
+  <string name="spectators">Tomaşaçylar:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s reýtingli</item>
+    <item quantity="other">%s reýtingli</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s ýeňiş</item>
+    <item quantity="other">%s ýeňiş</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s utulyş</item>
+    <item quantity="other">%s utulyş</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s deňlik</item>
+    <item quantity="other">%s deňlik</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s progressiýada</item>
+    <item quantity="other">%s progressiýada</item>
+  </plurals>
   <string name="exportGames">Oýunlary eksport et</string>
   <string name="ratingRange">Reýting aralygy</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s sekunt goş</item>
     <item quantity="other">%s sekunt goş</item>
   </plurals>
+  <string name="giveMoreTime">Has köp wagt ber</string>
   <string name="thisPlayerUsesChessComputerAssistance">Bu oýunçy kompýuter ýardamly</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oýunçy emeli usul bilen reýtingini artdyrýar/kemeldýär</string>
   <string name="takeback">Yzyna al</string>
