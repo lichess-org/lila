@@ -260,6 +260,7 @@
   <string name="giveMoreTime">Has köp wagt ber</string>
   <string name="thisPlayerUsesChessComputerAssistance">Bu oýunçy kompýuter ýardamly</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oýunçy emeli usul bilen reýtingini artdyrýar/kemeldýär</string>
+  <string name="openingExplorerAndTablebase">Açylyşlar eksploreri &amp; tablisasy</string>
   <string name="takeback">Yzyna al</string>
   <string name="proposeATakeback">Yza alma hödürle</string>
   <string name="takebackPropositionSent">Yza alma iberildi</string>
@@ -273,8 +274,17 @@
   <string name="tournament">Bäsleşik</string>
   <string name="tournaments">Bäsleşikler</string>
   <string name="tournamentPoints">Bäsleşik utuklary</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s bäsleşik utugy</item>
+    <item quantity="other">%s bäsleşik utugy</item>
+  </plurals>
   <string name="viewTournament">Bäsleşige tomaşa et</string>
   <string name="backToTournament">Bäsleşige dolan</string>
+  <string name="thematic">Tematiç</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ reýtingli %s oýun</item>
+    <item quantity="other">≥ reýtingli %s oýun</item>
+  </plurals>
   <string name="backToGame">Oýuna dolan</string>
   <string name="siteDescription">Mugt onlaýn Küşt serweri. Dury gurşawda küşt oýnaň. Registrasiýa ýok, mahabat ýok, goşundy ýok. Kompýutere garşy ýa-da dostlaryňyza ýa-da çem gelen birine garşy küşt oýnaň.</string>
   <string name="teams">Toparlar</string>
