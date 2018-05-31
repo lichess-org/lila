@@ -285,6 +285,14 @@
     <item quantity="one">≥ reýtingli %s oýun</item>
     <item quantity="other">≥ reýtingli %s oýun</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ reýtingli %1$s sany %2$s oýun</item>
+    <item quantity="other">≥ reýtingli %1$s sany %2$s oýun</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Ýene reýtingli %1$s sany %2$s oýun oýnamagyňyz gerek</item>
+    <item quantity="other">Ýene reýtingli %1$s sany %2$s oýun oýnamagyňyz gerek</item>
+  </plurals>
   <string name="backToGame">Oýuna dolan</string>
   <string name="siteDescription">Mugt onlaýn Küşt serweri. Dury gurşawda küşt oýnaň. Registrasiýa ýok, mahabat ýok, goşundy ýok. Kompýutere garşy ýa-da dostlaryňyza ýa-da çem gelen birine garşy küşt oýnaň.</string>
   <string name="teams">Toparlar</string>
