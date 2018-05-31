@@ -9,7 +9,7 @@
   <string name="howAreScoresCalculated">Jak punktowane są poszczególne partie?</string>
   <string name="howAreScoresCalculatedAnswer">Zwycięstwo to 2 punkty, remis to 1 punkt, przegrana bez punktów. 
 Jeśli wygrasz dwie partie pod rząd rozpocznie się seria podwójnego punktowania, reprezentowana graficznie przez ikonę płomienia. 
-Dopóki będziesz wygrywał, za każdą następną partię będziesz otrzymywał podwójne punkty. 
+Dopóki nie przegrasz, za każdą następną partię będziesz otrzymywał podwójne punkty. 
 Oznacza to, że wygrana będzie warta 4 punkty, a remis 2 punkty, przegrana pozostaje bez punktów. 
 
 Przykład: dwie wygrane partie, a po nich remis będą warte 6 punktów: 2 + 2 + (2 x 1)</string>
