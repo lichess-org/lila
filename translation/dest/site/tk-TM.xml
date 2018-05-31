@@ -95,8 +95,11 @@
   <string name="deleteThisImportedGame">Bu importirlenen oýuny öçürmekçi?</string>
   <string name="replayMode">Gaýta-oýnama mody</string>
   <string name="realtimeReplay">Hakyky wagt</string>
+  <string name="byCPL">SPÝ bilen</string>
   <string name="openStudy">Öwrenmäni aç</string>
+  <string name="enable">Işlet</string>
   <string name="bestMoveArrow">Iň gowy göçüm peýkamy</string>
+  <string name="evaluationGauge">Hasaplama düwmesi</string>
   <string name="multipleLines">Birnäçe liniýa</string>
   <string name="cpus">CPU-lar</string>
   <string name="memory">Huş</string>
@@ -175,6 +178,12 @@
     <item quantity="other">%s tapmaça</item>
   </plurals>
   <string name="gamesPlayed">Oýnalan oýun sany</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">Size garşy %s oýun</item>
+    <item quantity="other">Size garşy %s oýun</item>
+  </plurals>
+  <string name="cancel">Goýbolsun et</string>
+  <string name="timeOut">Gijikme</string>
   <string name="exportGames">Oýunlary eksport et</string>
   <string name="ratingRange">Reýting aralygy</string>
   <plurals name="giveNbSeconds">
