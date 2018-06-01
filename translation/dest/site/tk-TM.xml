@@ -301,6 +301,8 @@
   <string name="yourPerfRatingIsTooHigh">%1$s reýtingiňiz (%2$s) aşa ýokary</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Hepdelik %1$s reýtingiňiz (%2$s) aşa ýokary</string>
   <string name="yourPerfRatingIsTooLow">%1$s reýtingiňiz (%2$s) aşa pes</string>
+  <string name="ratedMoreThanInPerf">%2$s reýtingi ≥ %1$s bolmaly</string>
+  <string name="ratedLessThanInPerf">%2$s reýtingi ≤ %1$s bolmaly</string>
   <string name="backToGame">Oýuna dolan</string>
   <string name="siteDescription">Mugt onlaýn Küşt serweri. Dury gurşawda küşt oýnaň. Registrasiýa ýok, mahabat ýok, goşundy ýok. Kompýutere garşy ýa-da dostlaryňyza ýa-da çem gelen birine garşy küşt oýnaň.</string>
   <string name="teams">Toparlar</string>
@@ -332,4 +334,16 @@
   <string name="pasteTheFenStringHere">FEN tekstini şu taýa ýelmäň</string>
   <string name="pasteThePgnStringHere">PGN tekstini şu taýa ýelmäň</string>
   <string name="fromPosition">Aýratyn pozisiýadan</string>
+  <string name="continueFromHere">Şu ýerden dowam et</string>
+  <string name="importGame">Oýun import et</string>
+  <string name="importGameExplanation">Oýun PGN-si ýükläniňizde göz aýlap boljak replay,
+kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s import edilen oýun</item>
+    <item quantity="other">%s import edilen oýun</item>
+  </plurals>
+  <string name="thisIsAChessCaptcha">Bu küşt CAPTCHA-sy.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Göçmek we ynsandygyňyzy subut etmek üçin tagta tyklaň.</string>
+  <string name="captcha.fail">Küşt captcha-syny çözüň.</string>
+  <string name="notACheckmate">Mat däl</string>
 </resources>
