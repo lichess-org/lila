@@ -388,9 +388,34 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="createANewTournament">Täze bäsleşik döret</string>
   <string name="tournamentCalendar">Bäsleşik kalendary</string>
   <string name="conditionOfEntry">Gatnaşma şerti:</string>
-  <string name="advancedSettings">Giňişleýin sazlamalar</string>
+  <string name="advancedSettings">Çuňlaşdyrylan sazlamalar</string>
   <string name="safeTournamentName">Bäsleşik üçin diýseň howpsuz at saýlaň.</string>
   <string name="inappropriateNameWarning">Sähelçe bijaý zat hem hasabyňyzyň ýapylmagyna eltip biler.</string>
   <string name="emptyTournamentName">Bäsleşigi çem gelen bir grossmeýster şanyna atlandyrmak üçin bu bölümi boş goýuň.</string>
   <string name="recommendNotTouching">Muny ellemezligi ündeýäs.</string>
+  <string name="fewerPlayers">Gatnaşma şertleri goýsaňyz bäsleşigiňize az oýunçy gatnaşar.</string>
+  <string name="showAdvancedSettings">Çuňlaşdyrylan sazlamalary görkez</string>
+  <string name="join">Gatnaş</string>
+  <string name="withdraw">Çekil</string>
+  <string name="points">Utuklar</string>
+  <string name="wins">Ýeňiş</string>
+  <string name="losses">Utulyş</string>
+  <string name="winStreak">Ýeňiş seriýasy</string>
+  <string name="createdBy">Dörediji:</string>
+  <string name="tournamentIsStarting">Bäsleşik başlaýar</string>
+  <string name="tournamentPairingsAreNowClosed">Bäsleşik jübütleşdirmeleri indi ýapyk.</string>
+  <string name="error.minLength">Bolmaly minimum uzynlyk %s</string>
+  <string name="xDoesNotAcceptChallenges">%s erşikleri kabul edenok.</string>
+  <string name="yourXRatingIsTooFarFromY">%1$s reýtingiňiz %2$s agzadan diýseň daş.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Wagtlaýyn %s reýting dowamynda erşip bolmaz.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s diňe dostlaryndan gelen erşikleri kabul edýär.</string>
+  <string name="conditionalPremoves">Şertli öň-göçümler</string>
+  <string name="addCurrentVariation">Häzirki warianty goş</string>
+  <string name="playVariationToCreateConditionalPremoves">Şertli öň-göçümleri goşmak üçin bir wariant oýnaň</string>
+  <string name="noConditionalPremoves">Şertli öň-göçüm ýok</string>
+  <string name="playX">%s göçümini oýna</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">we %s öň-göçüm liniýasyny huşda sakla</item>
+    <item quantity="other">we %s öň-göçüm liniýasyny huşda sakla</item>
+  </plurals>
 </resources>
