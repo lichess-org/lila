@@ -420,6 +420,19 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="tournamentNotFound">Beýle bäsleşik tapylmady</string>
   <string name="tournamentDoesNotExist">Beýle bäsleşik ýok.</string>
   <string name="tournamentMayHaveBeenCanceled">Eger ähli gatnaşyjylar bäsleşik başlamanka bäsleşigi terketse bäsleşik ýatyrlan bolup biler.</string>
+  <string name="returnToTournamentsHomepage">Bäsleşikler baş sahypasyna dolan</string>
+  <string name="weeklyPerfTypeRatingDistribution">Hepdelik %s reýting paýlanşygy</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">Bu hepde %1$s sany %2$s oýunçysy.</item>
+    <item quantity="other">Bu hepde %1$s sany %2$s oýunçysy.</item>
+  </plurals>
+  <string name="yourPerfTypeRatingIsRating">%1$s reýtingiňiz %2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">%2$s oýunçynyň %1$s sanysyndan öňdesiňiz.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Esaslandyrylan %s reýtingiňiz ýok.</string>
+  <string name="checkYourEmail">Emailiňizi barlaň</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Size email iberdik. Aktiwasiýa üçin emaildäki çelgä tyklaň.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Email ýok bolsa bolup biljek spam, sosial, zyňyndy ýaly bukjalara serediň.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Registrasiýa etmek bilen biziň %s şertlerine eýermegi kabul edýäňiz.</string>
   <string name="enableKidMode">Çaga moduny işlet</string>
   <string name="disableKidMode">Çaga moduny bekle</string>
   <string name="security">Howpsuzlyk</string>
