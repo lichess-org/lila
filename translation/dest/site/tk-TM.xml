@@ -404,6 +404,12 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="createdBy">Dörediji:</string>
   <string name="tournamentIsStarting">Bäsleşik başlaýar</string>
   <string name="tournamentPairingsAreNowClosed">Bäsleşik jübütleşdirmeleri indi ýapyk.</string>
+  <string name="enableKidMode">Çaga moduny işlet</string>
+  <string name="disableKidMode">Çaga moduny bekle</string>
+  <string name="security">Howpsuzlyk</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ynha hasabyňyza giriş amala aşyrlan enjamlaryň sanawy. Size degişli däl sessiýalary ýapyň.</string>
+  <string name="alternativelyYouCanX">Bolmasa %s hem mümkin.</string>
+  <string name="revokeAllSessions">ähli sessiýalary ýapmak</string>
   <string name="error.minLength">Bolmaly minimum uzynlyk %s</string>
   <string name="error.maxLength">Bolmaly maksimum uzynlyk %s</string>
   <string name="error.min">Iň az %s ýa-da ondan has köp bolmaly</string>
@@ -445,6 +451,21 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="waitingForAnalysis">Derňewe garaşylýar</string>
   <string name="noMistakesFoundForWhite">Aklaryň ýalňyşy tapylmady</string>
   <string name="noMistakesFoundForBlack">Garalaryň ýalňyşy tapylmady</string>
+  <string name="doneReviewingWhiteMistakes">Aklaryň ýalňyşlarynyň derňewi tamamlandy</string>
+  <string name="doneReviewingBlackMistakes">Garalaryň ýalňyşlarynyň derňewi tamamlandy</string>
+  <string name="doItAgain">Gaýta synanyş</string>
+  <string name="reviewWhiteMistakes">Aklaryň ýalňyşlarynyna göz aýla</string>
+  <string name="reviewBlackMistakes">Garalaryň ýalňyşlarynyna göz aýla</string>
+  <string name="advantage">Öňdelik</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekunt</item>
+    <item quantity="other">%s sekunt</item>
+  </plurals>
+  <string name="opening">Açylyş</string>
+  <string name="middlegame">Oýun ortasy</string>
+  <string name="endgame">Oýun ahyry</string>
+  <string name="registerToSendChallenges">Erişmek üçin registrasiýa ediň.</string>
+  <string name="youCannotChallengeX">%s agza erşip bilmersiňiz.</string>
   <string name="xDoesNotAcceptChallenges">%s erşikleri kabul edenok.</string>
   <string name="yourXRatingIsTooFarFromY">%1$s reýtingiňiz %2$s agzadan diýseň daş.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Wagtlaýyn %s reýting dowamynda erşip bolmaz.</string>
