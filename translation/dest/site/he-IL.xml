@@ -709,7 +709,12 @@
   <string name="invalidFen">FEN לא חוקי</string>
   <string name="error.minLength">האורך המינימלי הוא %s</string>
   <string name="error.maxLength">האורך המקסימלי הוא %s</string>
+  <string name="error.min">חייב להיות גדול או שווה ל%s</string>
+  <string name="error.max">חייב להיות פחות או שווה ל%s</string>
   <string name="error.unknown">שגיאה</string>
+  <string name="practiceWithComputer">התאמן עם המחשב</string>
+  <string name="anotherWasX">מהלך טוב נוסף היה %s</string>
+  <string name="bestWasX">המהלך הטוב ביותר היה %s</string>
   <string name="skipThisMove">דלג/י על מהלך זה</string>
   <string name="solution">פתרון</string>
   <string name="noMistakesFoundForWhite">אף טעות לא נמצאה עבור הלבן</string>
