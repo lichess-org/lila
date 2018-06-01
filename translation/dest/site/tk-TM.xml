@@ -293,6 +293,14 @@
     <item quantity="one">Ýene reýtingli %1$s sany %2$s oýun oýnamagyňyz gerek</item>
     <item quantity="other">Ýene reýtingli %1$s sany %2$s oýun oýnamagyňyz gerek</item>
   </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Ýene %s reýtingli oýun oýnamalysyňyz</item>
+    <item quantity="other">Ýene %s reýtingli oýun oýnamalysyňyz</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">%s reýtingiňiz wagtlaýyn</string>
+  <string name="yourPerfRatingIsTooHigh">%1$s reýtingiňiz (%2$s) aşa ýokary</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Hepdelik %1$s reýtingiňiz (%2$s) aşa ýokary</string>
+  <string name="yourPerfRatingIsTooLow">%1$s reýtingiňiz (%2$s) aşa pes</string>
   <string name="backToGame">Oýuna dolan</string>
   <string name="siteDescription">Mugt onlaýn Küşt serweri. Dury gurşawda küşt oýnaň. Registrasiýa ýok, mahabat ýok, goşundy ýok. Kompýutere garşy ýa-da dostlaryňyza ýa-da çem gelen birine garşy küşt oýnaň.</string>
   <string name="teams">Toparlar</string>
