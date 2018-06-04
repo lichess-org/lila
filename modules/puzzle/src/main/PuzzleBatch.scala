@@ -32,23 +32,23 @@ private[puzzle] final class PuzzleBatch(
 
     import Selector._
 
-    def apply(user: User, variant: Variant, nb: Int): Fu[List[Puzzle]] = {
+    def apply(user: User, variant: Variant, nb: Int, after: Option[PuzzleId]): Fu[List[Puzzle]] = {
       api.head.find(user, variant) flatMap {
-        newPuzzlesForUser(user, variant, _, nb)
+        newPuzzlesForUser(user, variant, _, nb, after)
       } flatMap { puzzles =>
         lidraughts.mon.puzzle.batch.selector.count(puzzles.size)
         puzzles.lastOption.?? { p => api.head.addNew(user, p.id, variant) } inject puzzles
       }
     }.mon(_.puzzle.batch.selector.time)
 
-    private def newPuzzlesForUser(user: User, variant: Variant, headOption: Option[PuzzleHead], nb: Int): Fu[List[Puzzle]] = {
+    private def newPuzzlesForUser(user: User, variant: Variant, headOption: Option[PuzzleHead], nb: Int, after: Option[PuzzleId]): Fu[List[Puzzle]] = {
       val perf = user.perfs.puzzle(variant)
       val rating = perf.intRating min 2300 max 900
       val step = toleranceStepFor(rating, perf.nb)
       val idStep = nb * (if (variant.frisian) 5 else 10)
       api.puzzle.cachedLastId(variant).get flatMap { maxId =>
-        val lastId = headOption match {
-          case Some(PuzzleHead(_, _, l)) if l < maxId - idStep => l
+        val fromId = headOption match {
+          case Some(PuzzleHead(_, _, l)) if l < maxId - idStep => after.fold(l)(_ atLeast l)
           case _ => puzzleIdMin
         }
         tryRange(
@@ -56,7 +56,7 @@ private[puzzle] final class PuzzleBatch(
           rating = rating,
           tolerance = step,
           step = step,
-          idRange = Range(lastId, lastId + idStep),
+          idRange = Range(fromId, fromId + idStep),
           nb = nb
         )
       }

@@ -247,7 +247,11 @@ object Puzzle extends LidraughtsController {
       api = _ => Variant(key) match {
         case Some(variant) if puzzleVariants.contains(variant) =>
           for {
-            puzzles <- env.batch.select(me, variant, getInt("nb") getOrElse 50 atLeast 1 atMost 100)
+            puzzles <- env.batch.select(
+              me, variant,
+              nb = getInt("nb") getOrElse 50 atLeast 1 atMost 100,
+              after = getInt("after")
+            )
             userInfo <- env.userInfos(me, variant)
             json <- env.jsonView.batch(puzzles, userInfo)
           } yield Ok(json) as JSON
