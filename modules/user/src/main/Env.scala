@@ -50,7 +50,9 @@ final class Env(
 
   system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lidraughts.hub.actorApi.mod.MarkCheater(userId, true) => rankingApi remove userId
+      case lidraughts.hub.actorApi.mod.MarkCheater(userId, true) =>
+        rankingApi remove userId
+        UserRepo.setRoles(userId, Nil)
       case lidraughts.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
       case lidraughts.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
       case User.Active(user) =>
