@@ -207,6 +207,8 @@
   <string name="thisGameIsRated">این بازی رسمی است</string>
   <string name="rematch">بازی دوباره</string>
   <string name="rematchOfferSent">درخواست بازی دوباره فرستاده شد</string>
+  <string name="rematchOfferSentWhite">سفید درخواست بازی دوباره را می دهد</string>
+  <string name="rematchOfferSentBlack">سیاه درخواست بازی دوباره را می دهد</string>
   <string name="rematchOfferAccepted">درخواست بازی دوباره پذیرفته شد</string>
   <string name="rematchOfferCanceled">پیشنهاد بازی دوباره لغو شد</string>
   <string name="rematchOfferDeclined">پیشنهاد بازی دوباره رد شد</string>
@@ -381,6 +383,9 @@
   <string name="standing">رتبه بندی</string>
   <string name="createANewTournament">درست کردن یک مسابقه ی جدید</string>
   <string name="tournamentCalendar">برنامه ی مسابقات</string>
+  <string name="conditionOfEntry">شرایط ورود:</string>
+  <string name="advancedSettings">تنظیمات پیشرفته</string>
+  <string name="safeTournamentName">یک نام بسیار امن برای مسابقات انتخاب کنید.</string>
   <string name="join">وارد شدن</string>
   <string name="withdraw">منصرف شدن</string>
   <string name="points">امتیازها</string>
