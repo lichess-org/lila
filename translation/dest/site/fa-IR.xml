@@ -386,6 +386,11 @@
   <string name="conditionOfEntry">شرایط ورود:</string>
   <string name="advancedSettings">تنظیمات پیشرفته</string>
   <string name="safeTournamentName">یک نام بسیار امن برای مسابقات انتخاب کنید.</string>
+  <string name="inappropriateNameWarning">هرچیز حتی کمی نامناسب ممکن است باعث بسته شدن حساب کاربری شما بشود.</string>
+  <string name="emptyTournamentName">این مکان را خالی بگذارید تا به صورت تصادفی اسم یک استاد بزرگ برای مسابقات انتخاب شود.</string>
+  <string name="recommendNotTouching">توصیه میکنیم که تنظیمات پیشرفته را تغییر ندهید.</string>
+  <string name="fewerPlayers">اگر برای مسابقات شرایط ورود تعیین کنید بازیکنان کمتری وارد می شوند.</string>
+  <string name="showAdvancedSettings">نمایش تنظیمات پیشرفته</string>
   <string name="join">وارد شدن</string>
   <string name="withdraw">منصرف شدن</string>
   <string name="points">امتیازها</string>
@@ -429,6 +434,7 @@
   <string name="biography">زندگی نامه</string>
   <string name="country">کشور</string>
   <string name="preferences">تنظیمات عملکرد</string>
+  <string name="inlineNotation">نمایش اطلاعات درون خطها</string>
   <string name="watchLichessTV">تلویزیون لیچس را ببین</string>
   <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
   <string name="onlinePlayers">بازکنان آنلاین</string>
@@ -514,6 +520,7 @@
   <string name="thisAccountIsClosed">این حساب بسته شده است</string>
   <string name="invalidUsernameOrPassword">نام کاربری یا رمز عبور نادرست است</string>
   <string name="incorrectPassword">رمزعبور اشتباه</string>
+  <string name="invalidAuthenticationCode">کد اصالت سنجی نامعتبر</string>
   <string name="emailMeALink">یک لینک به من ایمیل کنید</string>
   <string name="currentPassword">رمز جاری</string>
   <string name="newPassword">رمز جدید</string>
@@ -714,6 +721,7 @@
   <string name="disableKidMode">غیر فعال کردن حالت کودکانه</string>
   <string name="security">امنیت</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">این لیستی از تمامی دستگاه هایی است که وارد حساب کاربری شما شده اند.مواردی را که نمی شناسید،باطل کنید.</string>
+  <string name="alternativelyYouCanX">همچنین شما میتوانید %s.</string>
   <string name="revokeAllSessions">باطل کردن تمامی موارد</string>
   <string name="playChessEverywhere">همه جا شطرنج بازی کنید</string>
   <string name="asFreeAsLichess">رایگان به مانند لیچس</string>
@@ -733,6 +741,7 @@
     <item quantity="other">در %s  زبان‌ها موجود است</item>
   </plurals>
   <string name="gameAnalysis">تجزیه و تحلیلِ بازی</string>
+  <string name="xHostsY">%1$s میزبان ها %2$s</string>
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">لابی</string>
   <string name="anonymous">ناشناس</string>
