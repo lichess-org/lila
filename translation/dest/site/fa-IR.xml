@@ -721,7 +721,7 @@
   <string name="disableKidMode">غیر فعال کردن حالت کودکانه</string>
   <string name="security">امنیت</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">این لیستی از تمامی دستگاه هایی است که وارد حساب کاربری شما شده اند.مواردی را که نمی شناسید،باطل کنید.</string>
-  <string name="alternativelyYouCanX">همچنین شما میتوانید %s.</string>
+  <string name="alternativelyYouCanX">همچنین شما می توانید %s.</string>
   <string name="revokeAllSessions">باطل کردن تمامی موارد</string>
   <string name="playChessEverywhere">همه جا شطرنج بازی کنید</string>
   <string name="asFreeAsLichess">رایگان به مانند لیچس</string>
@@ -742,6 +742,8 @@
   </plurals>
   <string name="gameAnalysis">تجزیه و تحلیلِ بازی</string>
   <string name="xHostsY">%1$s میزبان ها %2$s</string>
+  <string name="xJoinsY">%1$s وارد می شود %2$s</string>
+  <string name="xLikesY">%1$s می پسندد %2$s</string>
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">لابی</string>
   <string name="anonymous">ناشناس</string>
@@ -829,5 +831,13 @@
   <string name="yourXRatingIsTooFarFromY">امتیاز %1$s شما فاصله زیادی با %2$s دارد؛بنابراین نمی توانید در خواست بازی بدهید.</string>
   <string name="cannotChallengeDueToProvisionalXRating">به علت امتیاز %s غیر قطعی،امکان ارسال درخواست بازی وجود ندارد.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s فقط درخواست بازی دوستان را می پذیرد.</string>
+  <string name="conditionalPremoves">پیش حرکت های شرطی</string>
+  <string name="addCurrentVariation">اضافه کردن این نوع حرکات</string>
+  <string name="playVariationToCreateConditionalPremoves">یک نوع حرکات را بازی کنید تا پیش حرکت های شرطی را بسازید</string>
+  <string name="noConditionalPremoves">فاقد پیش حرکت های شرطی</string>
   <string name="playX">%s را انجام دهید</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">و پیش حرکت %s را حفظ کنید</item>
+    <item quantity="other">و پیش حرکت های %s را حفظ کنید</item>
+  </plurals>
 </resources>
