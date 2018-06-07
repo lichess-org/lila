@@ -19,7 +19,7 @@ final class Analyser(
   val maxPlies = 200
 
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
-    AnalysisRepo exists game.id flatMap {
+    (game.metadata.analysed ?? AnalysisRepo.exists(game.id)) flatMap {
       case true => fuFalse
       case _ =>
         limiter(sender, ignoreConcurrentCheck = false) flatMap { accepted =>
