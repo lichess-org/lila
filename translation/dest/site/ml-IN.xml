@@ -524,6 +524,7 @@
   <string name="thisAccountIsClosed">ഈ അക്കൗണ്ട് അവസാനിപ്പിച്ചിരിക്കുന്നു.</string>
   <string name="invalidUsernameOrPassword">യൂസർ നെയിം അല്ലെങ്കിൽ പാസ്സ്‌വേർഡ്‌ അസാധുവാണ്</string>
   <string name="incorrectPassword">തെറ്റായ രഹസ്യപദം</string>
+  <string name="invalidAuthenticationCode">തെറ്റായ ഓതെന്റിക്കേഷൻ കോഡ്</string>
   <string name="emailMeALink">ഒരു ലിങ്ക് ഇമെയിൽ ചെയ്യൂ</string>
   <string name="currentPassword">നിലവിലുള്ള രഹസ്യപദം</string>
   <string name="newPassword">പുതിയ രഹസ്യപദം</string>

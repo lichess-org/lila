@@ -229,6 +229,8 @@
   <string name="thisGameIsRated">Igra je rangirana</string>
   <string name="rematch">Revanša</string>
   <string name="rematchOfferSent">Ponudba za revanšo poslana</string>
+  <string name="rematchOfferSentWhite">Beli ponudi revanšo</string>
+  <string name="rematchOfferSentBlack">Beli ponudi revanšo</string>
   <string name="rematchOfferAccepted">Ponudba za revanšo sprejeta</string>
   <string name="rematchOfferCanceled">Ponudba za revanšo prekinjena</string>
   <string name="rematchOfferDeclined">Ponudba za revanšo zavnjena</string>
@@ -576,6 +578,7 @@
   <string name="thisAccountIsClosed">Račun je zaprt.</string>
   <string name="invalidUsernameOrPassword">Napačno uporabniško ime ali geslo</string>
   <string name="incorrectPassword">Nepravilno geslo</string>
+  <string name="invalidAuthenticationCode">Nepravilna avtentikacijska koda</string>
   <string name="emailMeALink">Pošlji mi povezavo po elektronski pošti</string>
   <string name="currentPassword">Trenutno geslo</string>
   <string name="newPassword">Novo geslo</string>
