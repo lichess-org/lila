@@ -446,6 +446,8 @@ module.exports = function(cfg, element) {
     $(this).addClass('active').siblings().removeClass('active');
     $('.lichess_overboard').remove();
     return false;
+  }).on('click', function() {
+    return false;
   });
 
   if (['#ai', '#friend', '#hook'].indexOf(location.hash) !== -1) {
