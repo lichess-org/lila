@@ -38,7 +38,7 @@ side = side.some) {
   <div class="history">
     @history.map { e =>
     <div>
-      @userIdLink(e.mod.some) <b>@e.showAction</b> @u.username @e.details @momentFromNow(e.date)
+      @userIdLink(e.mod.some) <b>@e.showAction</b> @u.username @e.details @momentFromNowOnce(e.date)
     </div>
     }
   </div>
@@ -49,7 +49,7 @@ side = side.some) {
   <div class="notes">
     @notes.map { note =>
     <div>
-      @userIdLink(note.from.some) @momentFromNow(note.date): @richText(note.text)
+      @userIdLink(note.from.some) @momentFromNowOnce(note.date): @richText(note.text)
     </div>
     }
   </div>
@@ -62,7 +62,7 @@ side = side.some) {
   <ul class="public_chats">
     @publicLines.reverse.map { line =>
     <li>
-      @line.date.map(momentFromNow(_)).getOrElse("[OLD]")
+      @line.date.map(momentFromNowOnce(_)).getOrElse("[OLD]")
       @line.from.map {
       case PublicSource.Tournament(id) => { @tournamentLink(id) }
       case PublicSource.Simul(id) => { @simulLink(id) }
@@ -88,7 +88,7 @@ side = side.some) {
           class="title"
         }
         >
-        @usernameOrAnon(pov.opponent.userId) – @momentFromNow(pov.game.movedAt)
+        @usernameOrAnon(pov.opponent.userId) – @momentFromNowOnce(pov.game.movedAt)
       </a>
       <div class="chat">
         @chat.lines.map { line =>
@@ -109,7 +109,7 @@ side = side.some) {
     <div class="thread">
       <p class="title">
         <strong>@thread.name</strong>
-        @momentFromNow(thread.createdAt)
+        @momentFromNowOnce(thread.createdAt)
         @userIdLink(thread.creatorId.some) -&gt; @userIdLink(thread.invitedId.some)
       </p>
       @thread.posts.map { post =>
@@ -154,7 +154,7 @@ side = side.some) {
           </td>
           <td>@if(o.ipBan){IPBAN}</td>
           <td>@if(o.disabled){CLOSED}</td>
-          <td>@momentFromNow(o.createdAt)</td>
+          <td>@momentFromNowOnce(o.createdAt)</td>
         </tr>
         }
         }
