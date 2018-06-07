@@ -147,7 +147,7 @@ object Challenge {
       case _ => ColorChoice.Random -> chess.Color(scala.util.Random.nextBoolean)
     }
     val finalMode = timeControl match {
-      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(variant, clock) => Mode.Casual
+      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(variant, clock.some) => Mode.Casual
       case _ => mode
     }
     new Challenge(

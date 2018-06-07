@@ -44,7 +44,7 @@ case class HookConfig(
         uid = uid,
         variant = variant,
         clock = clock,
-        mode = lila.game.Game.allowRated(variant, clock).fold(mode, Mode.Casual),
+        mode = lila.game.Game.allowRated(variant, clock.some).fold(mode, Mode.Casual),
         color = color.name,
         user = user,
         blocking = blocking,

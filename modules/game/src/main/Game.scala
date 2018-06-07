@@ -596,8 +596,9 @@ object Game {
     game.variant == chess.variant.Horde &&
       game.createdAt.isBefore(Game.hordeWhitePawnsSince)
 
-  def allowRated(variant: Variant, clock: Clock.Config) =
-    variant.standard || clock.estimateTotalTime >= Centis(3000)
+  def allowRated(variant: Variant, clock: Option[Clock.Config]) = variant.standard || {
+    clock ?? { _.estimateTotalTime >= Centis(3000) }
+  }
 
   val gameIdSize = 8
   val playerIdSize = 4

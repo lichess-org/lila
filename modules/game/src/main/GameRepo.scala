@@ -265,7 +265,7 @@ object GameRepo {
     .uno[Game]
 
   def insertDenormalized(g: Game, initialFen: Option[chess.format.FEN] = None): Funit = {
-    val g2 = if (g.rated && g.userIds.distinct.size != 2 || (g.variant.exotic && g.isCorrespondence))
+    val g2 = if (g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))))
       g.copy(mode = chess.Mode.Casual)
     else g
     val userIds = g2.userIds.distinct
