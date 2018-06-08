@@ -56,6 +56,9 @@
   <string name="showThreat">Shiko rrezikun</string>
   <string name="inLocalBrowser">browser lokal</string>
   <string name="toggleLocalEvaluation">Celesi i kalkulimit</string>
+  <string name="promoteVariation">Promovoni variacionet</string>
+  <string name="makeMainLine">Bëni variantin kryesor</string>
+  <string name="deleteFromHere">Fshij nga këtu</string>
   <string name="move">Levizjet</string>
   <string name="variantLoss">Varianti humbes</string>
   <string name="variantWin">Varianti fitues</string>
@@ -103,8 +106,11 @@
   <string name="memory">Memorja</string>
   <string name="infiniteAnalysis">Analize e pafundme</string>
   <string name="removesTheDepthLimit">Heq limitin e thellesise, dhe e mban kompjuterin e ngrohte</string>
+  <string name="blunder">Gabim trashanik</string>
   <string name="blunders">Gafat</string>
+  <string name="mistake">Gabim</string>
   <string name="mistakes">Gabimet</string>
+  <string name="inaccuracy">Mungesë saktësie</string>
   <string name="inaccuracies">Pasaktësitë</string>
   <string name="moveTimes">Koha e lëvizjeve</string>
   <string name="flipBoard">Kthe fushën</string>
@@ -191,6 +197,7 @@
   <string name="accept">Pranoje</string>
   <string name="decline">Refuzoje</string>
   <string name="playingRightNow">Luaj tani</string>
+  <string name="eventInProgress">Tash po luan</string>
   <string name="finished">Përfunduar</string>
   <string name="abortGame">Ndërprit lojën</string>
   <string name="gameAborted">Loja u ndërpre</string>
@@ -199,9 +206,13 @@
   <string name="mode">Lloji</string>
   <string name="casual">E pa vlerësuar</string>
   <string name="rated">E vlerësuar</string>
+  <string name="casualTournament">Pa klasifikim</string>
+  <string name="ratedTournament">Me klasifikim</string>
   <string name="thisGameIsRated">Kjo lojë është  e vlerësuar</string>
   <string name="rematch">Revansh</string>
   <string name="rematchOfferSent">Oferta për revansh u dërgua</string>
+  <string name="rematchOfferSentWhite">Barddh ofron revansh</string>
+  <string name="rematchOfferSentBlack">Zezë ofron revansh</string>
   <string name="rematchOfferAccepted">Oferta për revansh u pranua</string>
   <string name="rematchOfferCanceled">Oferta për revanshim u anulua</string>
   <string name="rematchOfferDeclined">Oferta për revansh u refuzua</string>
@@ -371,6 +382,7 @@
   <string name="winner">Fituesi</string>
   <string name="standing">Pozicionet</string>
   <string name="createANewTournament">Krijo turne të ri</string>
+  <string name="tournamentCalendar">Kalendari i turneut</string>
   <string name="join">Bashkohu</string>
   <string name="withdraw">Tërhiqu</string>
   <string name="points">Pikët</string>
