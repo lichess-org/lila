@@ -784,6 +784,10 @@ ne %3$s</string>
   <string name="notifications">Njoftime</string>
   <string name="challenges">Sfida</string>
   <string name="perfRatingX">Vleresimi: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekonda te besh levizjen e pare</item>
+    <item quantity="other">%s sekonda për të luajtur lëvizjen e parë</item>
+  </plurals>
   <string name="practiceWithComputer">Luaj me kompjuter</string>
   <string name="anotherWasX">Një tjetër ishte %s</string>
   <string name="bestWasX">Më së miri ishte %s</string>
@@ -835,4 +839,5 @@ ne %3$s</string>
   <string name="addCurrentVariation">Shtoni variacion</string>
   <string name="playVariationToCreateConditionalPremoves">Luaj një variant për të krijuar variacione</string>
   <string name="noConditionalPremoves">Nuk ka premove condicionale</string>
+  <string name="playX">Luaj %s</string>
 </resources>
