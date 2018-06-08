@@ -783,6 +783,7 @@ ne %3$s</string>
   <string name="practiceWithComputer">Luaj me kompjuter</string>
   <string name="anotherWasX">Një tjetër ishte %s</string>
   <string name="bestWasX">Më së miri ishte %s</string>
+  <string name="youBrowsedAway">Levizja jote është shumë larg</string>
   <string name="resumePractice">Vazhdoni praktikën</string>
   <string name="theGameIsADraw">Loja është një remis.</string>
   <string name="computerThinking">Computeri po mendon ...</string>
@@ -802,4 +803,20 @@ ne %3$s</string>
   <string name="resumeLearning">Vazhdoj mësim</string>
   <string name="youCanDoBetter">Por mundesh më mirë</string>
   <string name="tryAnotherMoveForWhite">Gjej lëvizjen më të mirë për të bardhin</string>
+  <string name="tryAnotherMoveForBlack">Provo një levizja tjetër për të zezë</string>
+  <string name="solution">Zgjidhje</string>
+  <string name="waitingForAnalysis">Pritur për analizë</string>
+  <string name="noMistakesFoundForWhite">Nuk ka gabime të gjetura për të bardha</string>
+  <string name="noMistakesFoundForBlack">Nuk ka gabime të gjetura për të ziun</string>
+  <string name="doneReviewingWhiteMistakes">Shqyrtimi i gabimeve të bardh është e përfunduar</string>
+  <string name="doneReviewingBlackMistakes">Shqyrtimi i gabimeve të ziun është e përfunduar</string>
+  <string name="doItAgain">Provo përsëri</string>
+  <string name="reviewWhiteMistakes">Kontrolloni gabimet e bardha</string>
+  <string name="reviewBlackMistakes">Kontrolloni gabimet e ziun</string>
+  <string name="advantage">Përfitim</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekonda</item>
+    <item quantity="other">%s sekondë</item>
+  </plurals>
+  <string name="opening">Hapjet</string>
 </resources>
