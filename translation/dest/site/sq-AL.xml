@@ -783,4 +783,23 @@ ne %3$s</string>
   <string name="practiceWithComputer">Luaj me kompjuter</string>
   <string name="anotherWasX">Një tjetër ishte %s</string>
   <string name="bestWasX">Më së miri ishte %s</string>
+  <string name="resumePractice">Vazhdoni praktikën</string>
+  <string name="theGameIsADraw">Loja është një remis.</string>
+  <string name="computerThinking">Computeri po mendon ...</string>
+  <string name="seeBestMove">Më tregoni masën më të mirë</string>
+  <string name="hideBestMove">Mos më trego masën më të mirë</string>
+  <string name="getAHint">Më tregoni një aluzion</string>
+  <string name="evaluatingYourMove">Vlerësimi i masës tuaj ...</string>
+  <string name="whiteWinsGame">Bardhë ka fituar</string>
+  <string name="blackWinsGame">E zezë ka fituar</string>
+  <string name="learnFromYourMistakes">Mësoni nga gabimet tuaja</string>
+  <string name="learnFromThisMistake">Mësoni nga gabimet tuaja</string>
+  <string name="skipThisMove">Shmang kte hap</string>
+  <string name="next">I ardhshëm</string>
+  <string name="xWasPlayed">%s u luajt</string>
+  <string name="findBetterMoveForWhite">Gjej lëvizjen më të mirë për të bardhin</string>
+  <string name="findBetterMoveForBlack">Gjej lëvizjen më të mirë për të ziun</string>
+  <string name="resumeLearning">Vazhdoj mësim</string>
+  <string name="youCanDoBetter">Por mundesh më mirë</string>
+  <string name="tryAnotherMoveForWhite">Gjej lëvizjen më të mirë për të bardhin</string>
 </resources>
