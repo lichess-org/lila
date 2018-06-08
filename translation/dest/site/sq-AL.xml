@@ -383,6 +383,14 @@
   <string name="standing">Pozicionet</string>
   <string name="createANewTournament">Krijo turne të ri</string>
   <string name="tournamentCalendar">Kalendari i turneut</string>
+  <string name="conditionOfEntry">Conditione i hyrjes:</string>
+  <string name="advancedSettings">Më shumë konfigurim</string>
+  <string name="safeTournamentName">Zgjidh një emër shumë të sigurt për turneun.</string>
+  <string name="inappropriateNameWarning">Çdo gjë edhe pak e papërshtatshme mund të mbyllë accountin tënde.</string>
+  <string name="emptyTournamentName">Lëreni bosh për të emëruar automatikisht turneun pas një grandmaster.</string>
+  <string name="recommendNotTouching">Ne rekomandojmë që këto të mos ndryshohen.</string>
+  <string name="fewerPlayers">Nëse vendosni konfiguruar kushtet e hyrjes, turneu juaj do të ketë më pak lojtarë.</string>
+  <string name="showAdvancedSettings">Më shumë konfigurim</string>
   <string name="join">Bashkohu</string>
   <string name="withdraw">Tërhiqu</string>
   <string name="points">Pikët</string>
@@ -512,6 +520,7 @@
   <string name="thisAccountIsClosed">Kjo llogari është e mbyllur</string>
   <string name="invalidUsernameOrPassword">Emri e përdoruesit ose fjalëkalim i pavlefshëm</string>
   <string name="incorrectPassword">Fjalekalim i gabuar</string>
+  <string name="invalidAuthenticationCode">Kodi i autentifikimit eshte pavlefshëm</string>
   <string name="emailMeALink">Më dërgo lidhjen në email</string>
   <string name="currentPassword">Fjalëkalimi i tanishëm</string>
   <string name="newPassword">Fjalëkalimi i ri</string>
@@ -632,6 +641,7 @@ ne %3$s</string>
   <string name="videoLibrary">Videoteka</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmaster</string>
+  <string name="about">Info</string>
   <string name="contribute">Ndihmo</string>
   <string name="contact">Kontakto</string>
   <string name="termsOfService">Kushtet e përdorimit</string>
@@ -751,6 +761,9 @@ ne %3$s</string>
   <string name="pieceSet">Vendosja e figurave</string>
   <string name="embedInYourWebsite">Fut ne faqen tuaj te webit</string>
   <string name="usernameAlreadyUsed">Ky emër përdoruesi ekziston tashmë, ju lutem zgjidhni një tjetër.</string>
+  <string name="usernamePrefixInvalid">Emri i perdoruesit nuk duhet te filloje me numer.</string>
+  <string name="usernameSuffixInvalid">Username duhet të përfundojë me një letër ose një numër.</string>
+  <string name="usernameCharsInvalid">Username duhet të përmbajë vetëm letra, numra, nënvizime dhe hyfe.</string>
   <string name="usernameUnacceptable">Emri i perdoruesit nuk eshte i pranueshem.</string>
   <string name="directlySupportLichess">Mbeshtet Lichess ne menyre te drejtperdrejte</string>
   <string name="playChessInStyle">Luaj shah ne stil</string>
@@ -767,4 +780,7 @@ ne %3$s</string>
   <string name="notifications">Njoftime</string>
   <string name="challenges">Sfida</string>
   <string name="perfRatingX">Vleresimi: %s</string>
+  <string name="practiceWithComputer">Luaj me kompjuter</string>
+  <string name="anotherWasX">Një tjetër ishte %s</string>
+  <string name="bestWasX">Më së miri ishte %s</string>
 </resources>
