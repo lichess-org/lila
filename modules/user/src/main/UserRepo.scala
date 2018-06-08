@@ -313,7 +313,7 @@ object UserRepo {
 
   def disable(user: User, keepEmail: Boolean) = coll.update(
     $id(user.id),
-    $set(F.enabled -> false) ++ {
+    $set(F.enabled -> false) ++ $unset(F.roles) ++ {
       if (keepEmail) $empty
       else $doc("$rename" -> $doc(F.email -> F.prevEmail))
     }
