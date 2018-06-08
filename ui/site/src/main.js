@@ -278,14 +278,14 @@ lidraughts.topMenuIntent = function() {
 
       function renderTimeago() {
         lidraughts.raf(function() {
-          lidraughts.timeago.render(document.getElementsByClassName('timeago'));
+          lidraughts.timeago.render([].slice.call(document.getElementsByClassName('timeago'), 0, 99));
         });
       }
       function setTimeago(interval) {
         renderTimeago();
         setTimeout(function() { setTimeago(interval * 1.1); }, interval);
       }
-      setTimeago(2000);
+      setTimeago(1200);
       lidraughts.pubsub.on('content_loaded', renderTimeago);
 
       if ($('body').hasClass('blind_mode')) {
@@ -568,8 +568,7 @@ lidraughts.topMenuIntent = function() {
       });
 
       // minimal touchscreen support for topmenu
-      if ('ontouchstart' in window)
-      $('#topmenu').on('click', 'section > a', function() {
+      if ('ontouchstart' in window) $('#topmenu').on('click', 'section > a', function() {
         return false;
       });
 
