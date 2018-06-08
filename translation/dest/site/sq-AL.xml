@@ -275,6 +275,10 @@
   <string name="tournament">Turneu</string>
   <string name="tournaments">Turne</string>
   <string name="tournamentPoints">Piket e turneut</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s piket e turneut</item>
+    <item quantity="other">%s piket e turneut</item>
+  </plurals>
   <string name="viewTournament">Shiko turneun</string>
   <string name="backToTournament">Kthehu në turne</string>
   <string name="thematic">Tematike</string>
@@ -819,4 +823,16 @@ ne %3$s</string>
     <item quantity="other">%s sekondë</item>
   </plurals>
   <string name="opening">Hapjet</string>
+  <string name="middlegame">Lojë e mesme</string>
+  <string name="endgame">Fund-lojët</string>
+  <string name="registerToSendChallenges">Ju lutemi regjistrohuni për të ftoj sfidën.</string>
+  <string name="youCannotChallengeX">Ju nuk mund ta ftoni %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s nuk pranon ftesa.</string>
+  <string name="yourXRatingIsTooFarFromY">Vlerësimi juaj %1$s është shumë larg %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nuk mund të sfidoj për shkak të vlerësimit të përkohshëm %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s vetëm pranon ftesa nga miqtë.</string>
+  <string name="conditionalPremoves">Condizionale lëvizje</string>
+  <string name="addCurrentVariation">Shtoni variacion</string>
+  <string name="playVariationToCreateConditionalPremoves">Luaj një variant për të krijuar variacione</string>
+  <string name="noConditionalPremoves">Nuk ka premove condicionale</string>
 </resources>
