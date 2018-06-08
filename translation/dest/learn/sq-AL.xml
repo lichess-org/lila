@@ -6,4 +6,19 @@
   <string name="menu">Menu</string>
   <string name="progressX">Progres: %s</string>
   <string name="resetMyProgress">Rivendos progresin tim</string>
+  <string name="youWillLoseAllYourProgress">Ju do të humbni të gjithë progresin tuaj!</string>
+  <string name="play">luaj!</string>
+  <string name="chessPieces">Copa shahu</string>
+  <string name="theRook">Rroka</string>
+  <string name="itMovesInStraightLines">Ajo lëviz të drejta</string>
+  <string name="rookIntro">Rroka është një copë e fuqishme. A jeni gati ta komandoni?</string>
+  <string name="rookGoal">Klikoni në rroka
+për të marrë yllin!</string>
+  <string name="grabAllTheStars">Grab të gjitha stars!</string>
+  <string name="theFewerMoves">Më pak lëvizje që bëni,
+aq më shumë pikë fitoni!</string>
+  <string name="useTwoRooks">Përdorni dy rooks
+për të shpejtuar gjërat!</string>
+  <string name="theBishop">Peshkopi</string>
+  <string name="itMovesDiagonally">Ajo lëviz diagonalisht</string>
 </resources>
