@@ -15,11 +15,11 @@ Mağlup olana veya berabere kalana kadar yapılan maçlardan iki katı puan kaza
   <string name="berserk">Divane Modu</string>
   <string name="berserkAnswer">Oyunun başında Berserk tuşuna tıklayan oyuncu süresinin yarısından feragat eder ancak maçı kazandığı takdirde ek 1 turnuva puanı alır.
 
-Hamle başına süre eklenen oyunlarda Berserk modu açan oyuncuya hamle sonrası süre ilave edilmez. (1+2 bir istisnadır, bu modda süre 1+0 olur)
+Süre eklemeli oyunlarda Divane modu açan oyuncuya hamle sonrası süre ilave edilmez. (1+2 bir istisnadır, bu tempoda süre 1+0 olur)
 
-Sıfır dakika ile başlayan oyunlarda Berserk modu mevcut değildir. (0+1, 0+2).
+Sıfır dakika ile başlayan oyunlarda Divane modu mevcut değildir. (0+1, 0+2).
 
-Berserk modu açılan bir oyun en az 7 hamle oynanmadan bitmiş ise ek puan geçerli değildir.</string>
+Divane modu açılan bir oyun en az 7 hamle oynanmadan bitmiş ise ek puan geçerli değildir.</string>
   <string name="howIsTheWinnerDecided">Kazanan nasıl belirleniyor?</string>
   <string name="howIsTheWinnerDecidedAnswer">Turnuva sona erdiğinde en fazla puana sahip oyuncu(lar) galip ilan edilir.</string>
   <string name="howDoesPairingWork">Eşleştirme nasıl yapılıyor?</string>
