@@ -12,7 +12,7 @@
 Mağlup olana veya berabere kalana kadar yapılan maçlardan iki katı puan kazanırsınız. Yani seride iken bir galibiyet 4 puan, beraberlik 2 puan getirirken kaybedilen oyundan hiçbir puan alınmaz.
 
 Örneğin; üst üste kazanılan iki oyun ve ardından alınan bir beraberlik 6 puan değerindedir: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Berserk Modu</string>
+  <string name="berserk">Divane Modu</string>
   <string name="berserkAnswer">Oyunun başında Berserk tuşuna tıklayan oyuncu süresinin yarısından feragat eder ancak maçı kazandığı takdirde ek 1 turnuva puanı alır.
 
 Hamle başına süre eklenen oyunlarda Berserk modu açan oyuncuya hamle sonrası süre ilave edilmez. (1+2 bir istisnadır, bu modda süre 1+0 olur)
