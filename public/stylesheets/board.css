@@ -852,18 +852,6 @@ div.control .button.disabled {
   text-transform: uppercase;
   transition: height 0.5s ease;
 }
-.lidraughts_ground .rematch.button span {
-  transition: opacity 0.5s ease;
-}
-.lidraughts_ground .rematch.disabled {
-  height: 0;
-  overflow: hidden;
-  transition: height 0.5s ease;
-}
-.lidraughts_ground .rematch.disabled span {
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
 .lidraughts_ground .rematch.me {
   background: rgba(56,147,232,0.8);
 }
@@ -883,7 +871,7 @@ div.control .button.disabled {
 .lidraughts_ground .rematch.them span {
   animation: rubberBand 5s infinite;
 }
-.lidraughts_ground .rematch.button:hover {
+.lidraughts_ground .rematch.button:not(.disabled):hover {
   background: rgba(56,147,232,0.8);
   color: #fff!important;
   animation: none;
