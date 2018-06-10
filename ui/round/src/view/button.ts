@@ -43,7 +43,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
       class: {
         me,
         them,
-        disabled: !(d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user))
+        disabled: !me && !(d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user))
       },
       attrs: {
         title: them ? ctrl.trans.noarg('yourOpponentWantsToPlayANewGameWithYou') : (
