@@ -3,11 +3,11 @@
 <resources>
   <string name="emailConfirm_subject">Потврдите ваш налог на lichess.org, %s</string>
   <string name="emailConfirm_click">Кликните на линк да активирате ваш Lichess налог:</string>
-  <string name="emailConfirm_ignore">Уколико се нисте регистровали на Lichess, можете безбедно занемарити ову поруку.</string>
+  <string name="emailConfirm_ignore">Уколико се нисте регистровали за Lichess, можете безбедно занемарити ову поруку.</string>
   <string name="passwordReset_subject">Измените вашу лозинку за lichess.org, %s</string>
   <string name="passwordReset_intro">Примили смо захтев за измену лозинке вашег налога.</string>
   <string name="passwordReset_clickOrIgnore">Ако сте направили овај захтев, кликните линк испод. Ако нисте, игноришите ово.</string>
-  <string name="emailChange_subject">Потврдите нову е-адресу: %s</string>
+  <string name="emailChange_subject">Потврдите нову адресу е-поште: %s</string>
   <string name="emailChange_intro">Затражили сте промену ваше е-адресе.</string>
   <string name="emailChange_click">Да би потврдили да имате приступ овој е-адреси, кликните линк испод:</string>
   <string name="welcome_subject">Добродошли у lichess.org, %s</string>
