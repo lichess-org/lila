@@ -45,6 +45,7 @@ div.game_control .jumps {
 }
 .pocket piece {
   flex: 0 1 56px;
+  height: 100%!important;
   background-size: contain;
   background-repeat: no-repeat;
 }
