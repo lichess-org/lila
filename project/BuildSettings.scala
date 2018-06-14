@@ -5,14 +5,14 @@ object BuildSettings {
 
   import Dependencies._
 
-  val globalScalaVersion = "2.12.3"
+  val globalScalaVersion = "2.12.6"
 
   def buildSettings = Defaults.coreDefaultSettings ++ Seq(
     organization := "org.lichess",
     scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
     scalacOptions := compilerOptions,
-    incOptions := incOptions.value.withNameHashing(true),
+    // incOptions := incOptions.value.withNameHashing(true),
     updateOptions := updateOptions.value.withCachedResolution(true),
     sources in doc in Compile := List(),
     // disable publishing the main API jar

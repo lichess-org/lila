@@ -50,7 +50,7 @@ object Dependencies {
   }
 
   object play {
-    val version = "2.6.3"
+    val version = "2.6.15"
     val api = "com.typesafe.play" %% "play" % version
     val jodaForms = "com.typesafe.play" %% "play-joda-forms" % version
     val test = "com.typesafe.play" %% "play-test" % version
@@ -58,7 +58,7 @@ object Dependencies {
     val streams = "com.typesafe.play" %% "play-iteratees-reactive-streams" % "2.6.1"
   }
   object akka {
-    val version = "2.5.4"
+    val version = "2.5.13"
     val actor = "com.typesafe.akka" %% "akka-actor" % version
     // val slf4j = "com.typesafe.akka" %% "akka-slf4j" % version
   }

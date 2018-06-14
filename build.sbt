@@ -15,7 +15,7 @@ lazy val root = Project("lila", file(".")).dependsOn(api).aggregate(api)
 scalaVersion := globalScalaVersion
 resolvers ++= Dependencies.Resolvers.commons
 scalacOptions := compilerOptions
-incOptions := incOptions.value.withNameHashing(true)
+/* incOptions := incOptions.value.withNameHashing(true) */
 updateOptions := updateOptions.value.withCachedResolution(true)
 sources in doc in Compile := List()
 // disable publishing the main API jar

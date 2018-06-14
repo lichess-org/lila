@@ -1,5 +1,5 @@
 resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.3")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.15")
 
 addSbtPlugin("org.scalariform" % "sbt-scalariform" % "1.8.0")
