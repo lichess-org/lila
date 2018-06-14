@@ -12,6 +12,7 @@ private final class FishnetRepo(
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
+  import Work.Analysis
   import BSONHandlers._
 
   private val clientCache = asyncCache.clearable[Client.Key, Option[Client]](
@@ -42,7 +43,7 @@ private final class FishnetRepo(
   )).cursor[Client]().gather[List]()
 
   def addAnalysis(ana: Work.Analysis) = analysisColl.insert(ana).void
-  def getAnalysis(id: Work.Id) = analysisColl.find(selectWork(id)).uno[Work.Analysis]
+  def getAnalysis(id: Work.Id) = analysisColl.find(selectWork(id)).uno[Analysis]
   def updateAnalysis(ana: Work.Analysis) = analysisColl.update(selectWork(ana.id), ana).void
   def deleteAnalysis(ana: Work.Analysis) = analysisColl.remove(selectWork(ana.id)).void
   def giveUpAnalysis(ana: Work.Analysis) = deleteAnalysis(ana) >>- logger.warn(s"Give up on analysis $ana")
@@ -55,10 +56,10 @@ private final class FishnetRepo(
   ).some)
   def getAnalysisByGameId(gameId: String) = analysisColl.find($doc(
     "game.id" -> gameId
-  )).uno[Work.Analysis]
+  )).uno[Analysis]
 
-  def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Work.Analysis]] =
-    analysisColl.find($doc("game.id" -> work.game.id)).uno[Work.Analysis]
+  def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Analysis]] =
+    analysisColl.find($doc("game.id" -> work.game.id)).uno[Analysis]
 
   def selectWork(id: Work.Id) = $id(id.value)
   def selectClient(key: Client.Key) = $id(key.value)

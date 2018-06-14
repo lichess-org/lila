@@ -61,6 +61,7 @@ final class FishnetApi(
     moveDb.acquire(client) map { _ map JsonApi.moveFromWork }
 
   private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
+    import Work.Analysis
     analysisColl.find(
       $doc("acquired" $exists false) ++ {
         !client.offline ?? $doc("lastTryByKey" $ne client.key) // client alternation
@@ -68,7 +69,7 @@ final class FishnetApi(
     ).sort($doc(
         "sender.system" -> 1, // user requests first, then lichess auto analysis
         "createdAt" -> 1 // oldest requests first
-      )).uno[Work.Analysis].flatMap {
+      )).uno[Analysis].flatMap {
         _ ?? { work =>
           repo.updateAnalysis(work assignTo client) inject work.some
         }

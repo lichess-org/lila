@@ -9,6 +9,7 @@ import lila.user.User
 
 final class StudyRepo(private[study] val coll: Coll) {
 
+  import Study.{ LightStudy, IdName }
   import BSONHandlers._
 
   private[study] val projection = $doc(
@@ -29,7 +30,7 @@ final class StudyRepo(private[study] val coll: Coll) {
   def byOrderedIds(ids: Seq[Study.Id]) = coll.byOrderedIds[Study, Study.Id](ids)(_.id)
 
   def lightById(id: Study.Id): Fu[Option[Study.LightStudy]] =
-    coll.find($id(id), lightProjection).uno[Study.LightStudy]
+    coll.find($id(id), lightProjection).uno[LightStudy]
 
   def cursor(
     selector: Bdoc,
@@ -110,8 +111,8 @@ final class StudyRepo(private[study] val coll: Coll) {
 
   private val idNameProjection = $doc("name" -> true)
 
-  def publicIdNames(ids: List[Study.Id]): Fu[List[Study.IdName]] =
-    coll.find($inIds(ids) ++ selectPublic, idNameProjection).list[Study.IdName]()
+  def publicIdNames(ids: List[Study.Id]): Fu[List[IdName]] =
+    coll.find($inIds(ids) ++ selectPublic, idNameProjection).list[IdName]()
 
   def recentByOwner(userId: User.ID, nb: Int) =
     coll.find(
@@ -119,7 +120,7 @@ final class StudyRepo(private[study] val coll: Coll) {
       idNameProjection
     )
       .sort($sort desc "updatedAt")
-      .list[Study.IdName](nb, ReadPreference.secondaryPreferred)
+      .list[IdName](nb, ReadPreference.secondaryPreferred)
 
   def recentByContributor(userId: User.ID, nb: Int) =
     coll.find(
@@ -127,7 +128,7 @@ final class StudyRepo(private[study] val coll: Coll) {
       idNameProjection
     )
       .sort($sort desc "updatedAt")
-      .list[Study.IdName](nb, ReadPreference.secondaryPreferred)
+      .list[IdName](nb, ReadPreference.secondaryPreferred)
 
   def isContributor(studyId: Study.Id, userId: User.ID) =
     coll.exists($id(studyId) ++ $doc(s"members.$userId.role" -> "w"))

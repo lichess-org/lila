@@ -6,6 +6,7 @@ import lila.db.dsl._
 
 final class ChapterRepo(coll: Coll) {
 
+  import Chapter.Metadata
   import BSONHandlers._
 
   val maxChapters = 64
@@ -17,9 +18,6 @@ final class ChapterRepo(coll: Coll) {
   def studyIdOf(chapterId: Chapter.Id): Fu[Option[Study.Id]] =
     coll.primitiveOne[Study.Id]($id(chapterId), "studyId")
 
-  // def metadataById(id: Chapter.Id): Fu[Option[Chapter.Metadata]] =
-  // coll.find($id(id), noRootProjection).one[Chapter.Metadata]
-
   def deleteByStudy(s: Study): Funit = coll.remove($studyId(s.id)).void
 
   def byIdAndStudy(id: Chapter.Id, studyId: Study.Id): Fu[Option[Chapter]] =
@@ -28,11 +26,11 @@ final class ChapterRepo(coll: Coll) {
   def firstByStudy(studyId: Study.Id): Fu[Option[Chapter]] =
     coll.find($studyId(studyId)).sort($sort asc "order").one[Chapter]
 
-  def orderedMetadataByStudy(studyId: Study.Id): Fu[List[Chapter.Metadata]] =
+  def orderedMetadataByStudy(studyId: Study.Id): Fu[List[Metadata]] =
     coll.find(
       $studyId(studyId),
       noRootProjection
-    ).sort($sort asc "order").list[Chapter.Metadata](maxChapters)
+    ).sort($sort asc "order").list[Metadata](maxChapters)
 
   // loads all study chapters in memory! only used for search indexing and cloning
   def orderedByStudy(studyId: Study.Id): Fu[List[Chapter]] =
