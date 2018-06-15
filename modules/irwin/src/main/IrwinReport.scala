@@ -1,23 +1,20 @@
 package lila.irwin
 
-import lila.game.{ Game, Pov }
-
 import org.joda.time.DateTime
+
+import lila.game.{ Game, Pov }
+import lila.report.{ SuspectId, ReporterId }
 
 case class IrwinReport(
     _id: String, // user id
-    isLegit: Option[Boolean],
     activation: Int, // 0 = clean, 100 = cheater
     games: List[IrwinReport.GameReport],
-    pv0ByAmbiguity: List[Option[Int]],
+    owner: String, // thread sending the report, for monitoring
     date: DateTime
 ) {
 
-  def id = _id
-  def userId = _id
+  def suspectId = SuspectId(_id)
 }
-
-case class IrwinStatus(report: Option[IrwinReport.WithPovs], request: Option[IrwinRequest])
 
 object IrwinReport {
 

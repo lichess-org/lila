@@ -8,6 +8,7 @@ final class Env(
     config: Config,
     uciMemo: lila.game.UciMemo,
     requesterApi: lila.analyse.RequesterApi,
+    evalCacheApi: lila.evalCache.EvalCacheApi,
     hub: lila.hub.Env,
     db: lila.db.Env,
     system: ActorSystem,
@@ -48,9 +49,14 @@ final class Env(
 
   private val monitor = new Monitor(moveDb, repo, sequencer, scheduler)
 
+  private val evalCache = new FishnetEvalCache(evalCacheApi)
+
+  private val analysisBuilder = new AnalysisBuilder(evalCache)
+
   val api = new FishnetApi(
     repo = repo,
     moveDb = moveDb,
+    analysisBuilder = analysisBuilder,
     analysisColl = analysisColl,
     sequencer = sequencer,
     monitor = monitor,
@@ -70,7 +76,7 @@ final class Env(
     moveDb = moveDb,
     uciMemo = uciMemo,
     maxPlies = MovePlies
-  )
+  )(system)
 
   private val limiter = new Limiter(
     analysisColl = analysisColl,
@@ -81,6 +87,7 @@ final class Env(
     repo = repo,
     uciMemo = uciMemo,
     sequencer = sequencer,
+    evalCache = evalCache,
     limiter = limiter
   )
 
@@ -105,21 +112,25 @@ final class Env(
     def receive = {
       case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
         analyser(gameId, Work.Sender(userId = none, ip = none, mod = false, system = true))
+      case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser study req
     }
   }), name = ActorName)
 
   def cli = new lila.common.Cli {
     def process = {
       case "fishnet" :: "client" :: "create" :: userId :: skill :: Nil =>
-        api.createClient(Client.UserId(userId), skill) map (_.key.value)
+        api.createClient(Client.UserId(userId.toLowerCase), skill) map { client =>
+          bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), 'fishnet)
+          s"Created key: ${(client.key.value)} for: $userId"
+        }
       case "fishnet" :: "client" :: "delete" :: key :: Nil =>
-        repo.deleteClient(Client.Key(key)) inject "done!"
+        repo toKey key flatMap repo.deleteClient inject "done!"
       case "fishnet" :: "client" :: "enable" :: key :: Nil =>
-        repo.enableClient(Client.Key(key), true) inject "done!"
+        repo toKey key flatMap { repo.enableClient(_, true) } inject "done!"
       case "fishnet" :: "client" :: "disable" :: key :: Nil =>
-        repo.enableClient(Client.Key(key), false) inject "done!"
+        repo toKey key flatMap { repo.enableClient(_, false) } inject "done!"
       case "fishnet" :: "client" :: "skill" :: key :: skill :: Nil =>
-        api.setClientSkill(Client.Key(key), skill) inject "done!"
+        repo toKey key flatMap { api.setClientSkill(_, skill) } inject "done!"
     }
   }
 }
@@ -127,14 +138,15 @@ final class Env(
 object Env {
 
   lazy val current: Env = "fishnet" boot new Env(
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     uciMemo = lila.game.Env.current.uciMemo,
     requesterApi = lila.analyse.Env.current.requesterApi,
+    evalCacheApi = lila.evalCache.Env.current.api,
     hub = lila.hub.Env.current,
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "fishnet",
     scheduler = lila.common.PlayApp.scheduler,
-    bus = old.play.Env.actorSystem.lilaBus,
+    bus = lila.common.PlayApp.system.lilaBus,
     asyncCache = lila.memo.Env.current.asyncCache,
     sink = lila.analyse.Env.current.analyser
   )

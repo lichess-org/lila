@@ -16,7 +16,7 @@ object QaAuth {
 
   def canAsk(implicit ctx: UserContext) = noKid(noTroll(isNotN00b))
 
-  def canAnswer(q: Question)(implicit ctx: UserContext) = noKid(noTroll(isNotN00b))
+  def canAnswer(q: Question)(implicit ctx: UserContext) = noLock(q)(noKid(noTroll(isNotN00b)))
 
   def canVote(implicit ctx: UserContext) = noKid(noTroll(isNotN00b))
 
@@ -30,4 +30,7 @@ object QaAuth {
   private def isNotN00b(u: User) = !isN00b(u)
 
   def isN00b(u: User) = u.createdAt isAfter DateTime.now.minusWeeks(1)
+
+  def noLock(q: Question)(res: => Boolean)(implicit ctx: UserContext) =
+    (!q.isLocked || ctx.me.??(Granter(_.ModerateQa))) && res
 }

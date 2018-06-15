@@ -8,14 +8,14 @@ import actorApi._
 import lila.hub.actorApi.map.Ask
 import makeTimeout.short
 
-private[tournament] final class StartedOrganizer(
+private final class StartedOrganizer(
     api: TournamentApi,
     reminder: ActorRef,
     isOnline: String => Boolean,
     socketHub: ActorRef
 ) extends Actor {
 
-  override def preStart {
+  override def preStart: Unit = {
     pairingLogger.info("Start StartedOrganizer")
     context setReceiveTimeout 15.seconds
     scheduleNext
@@ -35,12 +35,12 @@ private[tournament] final class StartedOrganizer(
 
     case Tick =>
       val startAt = nowMillis
-      TournamentRepo.started.flatMap { started =>
+      TournamentRepo.startedTours.flatMap { started =>
         lila.common.Future.traverseSequentially(started) { tour =>
           PlayerRepo activeUserIds tour.id flatMap { activeUserIds =>
             val nb = activeUserIds.size
             val result: Funit =
-              if (tour.secondsToFinish == 0) fuccess(api finish tour)
+              if (tour.secondsToFinish <= 0) fuccess(api finish tour)
               else if (!tour.isScheduled && nb < 2) fuccess(api finish tour)
               else if (!tour.pairingsClosed) startPairing(tour, activeUserIds, startAt)
               else funit

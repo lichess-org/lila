@@ -29,7 +29,7 @@ final class Env(
 
   private lazy val paginatorBuilder = new lila.search.PaginatorBuilder[lila.team.Team, Query](
     searchApi = api,
-    maxPerPage = PaginatorMaxPerPage
+    maxPerPage = lila.common.MaxPerPage(PaginatorMaxPerPage)
   )
 
   system.actorOf(Props(new Actor {
@@ -46,6 +46,6 @@ object Env {
   lazy val current = "teamSearch" boot new Env(
     config = lila.common.PlayApp loadConfig "teamSearch",
     makeClient = lila.search.Env.current.makeClient,
-    system = old.play.Env.actorSystem
+    system = lila.common.PlayApp.system
   )
 }

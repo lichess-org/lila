@@ -6,8 +6,9 @@ const headers = {
 };
 
 // when the tournament no longer exists
-function reloadPage() {
-  window.lichess.reload();
+function onFail(_1, _2, errorMessage) {
+  if (errorMessage === 'Forbidden') location.href = '/';
+  else window.lichess.reload();
 }
 
 function join(ctrl: TournamentController, password?: string) {
@@ -17,7 +18,7 @@ function join(ctrl: TournamentController, password?: string) {
     data: JSON.stringify({ p: password || null }),
     contentType: 'application/json; charset=utf-8',
     headers
-  }).fail(reloadPage);
+  }).fail(onFail);
 }
 
 function withdraw(ctrl: TournamentController) {
@@ -25,7 +26,7 @@ function withdraw(ctrl: TournamentController) {
     method: 'POST',
     url: '/tournament/' + ctrl.data.id + '/withdraw',
     headers
-  }).fail(reloadPage);
+  }).fail(onFail);
 }
 
 function loadPage(ctrl: TournamentController, p: number) {
@@ -35,7 +36,14 @@ function loadPage(ctrl: TournamentController, p: number) {
   }).then(data => {
     ctrl.loadPage(data);
     ctrl.redraw();
-  }, reloadPage);
+  }, onFail);
+}
+
+function loadPageOf(ctrl: TournamentController, userId: string): JQueryXHR {
+  return $.ajax({
+    url: '/tournament/' + ctrl.data.id + '/page-of/' + userId,
+    headers
+  });
 }
 
 function reloadTournament(ctrl: TournamentController) {
@@ -49,7 +57,7 @@ function reloadTournament(ctrl: TournamentController) {
   }).then(data => {
     ctrl.reload(data);
     ctrl.redraw();
-  }, reloadPage);
+  }, onFail);
 }
 
 function playerInfo(ctrl: TournamentController, userId: string) {
@@ -59,13 +67,14 @@ function playerInfo(ctrl: TournamentController, userId: string) {
   }).then(data => {
     ctrl.setPlayerInfoData(data);
     ctrl.redraw();
-  }, reloadPage);
+  }, onFail);
 }
 
 export default {
-  join: throttle(1000, false, join),
-  withdraw: throttle(1000, false, withdraw),
-  loadPage: throttle(1000, false, loadPage),
-  reloadTournament: throttle(2000, false, reloadTournament),
+  join: throttle(1000, join),
+  withdraw: throttle(1000, withdraw),
+  loadPage: throttle(1000, loadPage),
+  loadPageOf,
+  reloadTournament: throttle(2000, reloadTournament),
   playerInfo
 };

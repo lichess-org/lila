@@ -55,7 +55,7 @@
   <string name="selectThePieceYouWant">Wähle die gewünschte Figur aus!</string>
   <string name="fundamentals">Grundlagen</string>
   <string name="capture">Schlagen</string>
-  <string name="takeTheEnemyPieces">Nimm die gegnerischen Figuren</string>
+  <string name="takeTheEnemyPieces">Schlage die gegnerischen Figuren</string>
   <string name="captureIntro">Finde die ungedeckten Figuren deines Gegners und schlage sie!</string>
   <string name="takeTheBlackPieces">Schlage die schwarzen Figuren!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Schlage die schwarzen Figuren! Und verliere deine nicht.</string>
@@ -65,12 +65,12 @@
   <string name="protectionIntro">Finde die Figuren, die dein Gegner angreift und beschütze sie!</string>
   <string name="protectionComplete">Herzlichen Glückwunsch! Eine nicht verlorene Figur ist eine gewonnene Figur!</string>
   <string name="escape">Du wirst angegriffen! Entkomme der Bedrohung!</string>
-  <string name="noEscape">Es gibt keinen Ausweg, aber du kannst dich verteidigen!</string>
+  <string name="noEscape">Es gibt kein Entrinnen, aber du kannst dich verteidigen!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Lasse nicht zu, dass eine ungedeckte Figur geschlagen wird!</string>
   <string name="combat">Kampf</string>
   <string name="captureAndDefendPieces">Schlage und verteidige die Figuren</string>
-  <string name="combatIntro">Ein guter Krieger kennt beides: Angriff und Verteidigung!</string>
-  <string name="combatComplete">Herzlichen Glückwunsch! Du weißt jetzt wie man mit Schachfiguren kämpft!</string>
+  <string name="combatIntro">Ein guter Krieger beherrscht Angriff und Verteidigung gleichermaßen!</string>
+  <string name="combatComplete">Herzlichen Glückwunsch! Du weißt jetzt, wie man mit Schachfiguren kämpft!</string>
   <string name="checkInOne">Schach in 1</string>
   <string name="attackTheOpponentsKing">Greife den gegnerischen König an</string>
   <string name="checkInOneIntro">Um deinen Gegner Schach zu setzen, greife seinen König an. Er muss ihn verteidigen!</string>
@@ -90,7 +90,7 @@
   <string name="mateInOneIntro">Du gewinnst, wenn sich dein Gegner nicht gegen ein Schach verteidigen kann.</string>
   <string name="attackYourOpponentsKing">Greife den gegnerischen König so an, dass er sich nicht verteidigen kann!</string>
   <string name="mateInOneComplete">Herzlichen Glückwunsch! So gewinnt man im Schach!</string>
-  <string name="intermediate">Fortgeschrittener Anfänger</string>
+  <string name="intermediate">Mittleres Niveau</string>
   <string name="boardSetup">Aufstellung</string>
   <string name="howTheGameStarts">Wie das Spiel beginnt</string>
   <string name="boardSetupIntro">Die beiden Armeen stehen einander gegenüber, bereit für die Schlacht.</string>
@@ -192,6 +192,6 @@ Bauer = 1</string>
   <string name="yourScore">Deine Punktzahl</string>
   <string name="next">Als Nächstes</string>
   <string name="backToMenu">Zurück zum Menü</string>
-  <string name="puzzleFailed">Aufgabe nicht gelöst!</string>
+  <string name="puzzleFailed">Aufgabe misslungen!</string>
   <string name="retry">Erneut versuchen</string>
 </resources>

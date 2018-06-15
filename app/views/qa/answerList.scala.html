@@ -37,7 +37,7 @@
           @if(lila.qa.QaAuth canEdit a) {
           <a class="thin button toggle-edit-answer" data-icon="m"> Edit</a>
           }
-          @nope("Remove", routes.QaAnswer.remove(q.id, a.id), "thin")
+          @nope("Remove", routes.QaAnswer.remove(q.id, a.id), "q", "thin")
           @if(isGranted(_.ModerateQa)) {
           <br />
           <form class="mod" action="@routes.QaAnswer.moveTo(q.id, a.id)" method="post">
@@ -58,7 +58,7 @@
           </form>
           }
         </div>
-        <div class="body">@autoLink(a.body)</div>
+        <div class="body">@richText(a.body)</div>
         @if(lila.qa.QaAuth canEdit a) {
         <form class="edit-answer" action="@routes.QaAnswer.doEdit(q.id, a.id)" method="post">
           <textarea class="answer-body" name="body">@a.body</textarea>
@@ -66,7 +66,7 @@
         </form>
         }
         <div class="comments" id="answer-@a.id-comments">
-          @views.html.qa.commentList(q, a.comments, routes.QaComment.answer(q.id, a.id).url)
+          @views.html.qa.commentList(q, a.comments.sorted, routes.QaComment.answer(q.id, a.id).url)
         </div>
       </div>
     </div>

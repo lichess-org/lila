@@ -10,8 +10,10 @@ private[study] object CommentParser {
   private val circlesRemoveRegex = """\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]""".r
   private val arrowsRegex = """(?s).*\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\].*""".r
   private val arrowsRemoveRegex = """\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]""".r
-  private val clockRegex = """(?s).*\[\%clk[\s\r\n]+([\d:]+)\].*""".r
-  private val clockRemoveRegex = """\[\%clk[\s\r\n]+[\d:]+\]""".r
+  private val clockRegex = """(?s).*\[\%clk[\s\r\n]+([\d:\.]+)\].*""".r
+  private val clockRemoveRegex = """\[\%clk[\s\r\n]+[\d:\.]+\]""".r
+  private val tcecClockRegex = """(?s).*tl=([\d:\.]+).*""".r
+  private val tcecClockRemoveRegex = """tl=[\d:\.]+""".r
 
   case class ParsedComment(
       shapes: Shapes,
@@ -34,14 +36,18 @@ private[study] object CommentParser {
     s <- parseIntOption(seconds)
   } yield Centis(h * 360000 + m * 6000 + s * 100)
 
-  def readCentis(str: String): Option[Centis] = str.split(':') match {
-    case Array(minutes, seconds) => readCentis("0", minutes, seconds)
-    case Array(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
+  private val clockHourMinuteRegex = """^(\d+):(\d+)$""".r
+  private val clockHourMinuteSecondRegex = """^(\d+):(\d+)[:\.](\d+)$""".r
+
+  def readCentis(str: String): Option[Centis] = str match {
+    case clockHourMinuteRegex(hours, minutes) => readCentis(hours, minutes, "0")
+    case clockHourMinuteSecondRegex(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
     case _ => none
   }
 
   private def parseClock(comment: String): ClockAndComment = comment match {
     case clockRegex(str) => readCentis(str) -> clockRemoveRegex.replaceAllIn(comment, "").trim
+    case tcecClockRegex(str) => readCentis(str) -> tcecClockRemoveRegex.replaceAllIn(comment, "").trim
     case _ => None -> comment
   }
 

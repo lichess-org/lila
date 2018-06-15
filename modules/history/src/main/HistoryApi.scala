@@ -31,6 +31,7 @@ final class HistoryApi(coll: Coll) {
       (isStd && game.speed == Speed.UltraBullet).option("ultraBullet" -> perfs.ultraBullet),
       (isStd && game.speed == Speed.Bullet).option("bullet" -> perfs.bullet),
       (isStd && game.speed == Speed.Blitz).option("blitz" -> perfs.blitz),
+      (isStd && game.speed == Speed.Rapid).option("rapid" -> perfs.rapid),
       (isStd && game.speed == Speed.Classical).option("classical" -> perfs.classical),
       (isStd && game.speed == Speed.Correspondence).option("correspondence" -> perfs.correspondence)
     ).flatten.map {

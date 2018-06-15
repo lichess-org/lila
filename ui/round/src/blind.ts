@@ -4,7 +4,7 @@ import RoundController from './ctrl';
 
 let element: HTMLElement;
 
-export const reload = throttle(1000, false, (ctrl: RoundController) => {
+export const reload = throttle(1000, (ctrl: RoundController) => {
   $.ajax({
     url: (ctrl.data.player.spectator ?
       router.game(ctrl.data, ctrl.data.player.color) :

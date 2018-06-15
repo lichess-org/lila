@@ -34,9 +34,10 @@ final class StudyRepo(private[study] val coll: Coll) {
 
   def cursor(
     selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred,
+    sort: Bdoc = $empty
   )(implicit cp: CursorProducer[Study]) =
-    coll.find(selector).cursor[Study](readPreference)
+    coll.find(selector).sort(sort).cursor[Study](readPreference)
 
   def exists(id: Study.Id) = coll.exists($id(id))
 
@@ -70,6 +71,8 @@ final class StudyRepo(private[study] val coll: Coll) {
   )).void
 
   def delete(s: Study): Funit = coll.remove($id(s.id)).void
+
+  def deleteByIds(ids: List[Study.Id]): Funit = coll.remove($inIds(ids)).void
 
   def membersById(id: Study.Id): Fu[Option[StudyMembers]] =
     coll.primitiveOne[StudyMembers]($id(id), "members")
@@ -115,12 +118,13 @@ final class StudyRepo(private[study] val coll: Coll) {
     coll.find($inIds(ids) ++ selectPublic, idNameProjection).list[IdName]()
 
   def recentByOwner(userId: User.ID, nb: Int) =
-    coll.find(
-      selectOwnerId(userId),
-      idNameProjection
-    )
+    coll.find(selectOwnerId(userId), idNameProjection)
       .sort($sort desc "updatedAt")
       .list[IdName](nb, ReadPreference.secondaryPreferred)
+
+  // heavy AF. Only use for GDPR.
+  private[study] def allIdsByOwner(userId: User.ID): Fu[List[Study.Id]] =
+    coll.distinct[Study.Id, List]("_id", selectOwnerId(userId).some)
 
   def recentByContributor(userId: User.ID, nb: Int) =
     coll.find(
@@ -168,16 +172,16 @@ final class StudyRepo(private[study] val coll: Coll) {
   }
 
   private def countLikes(studyId: Study.Id): Fu[Option[(Study.Likes, DateTime)]] =
-    coll.aggregate(
+    coll.aggregateOne(
       Match($id(studyId)),
       List(Project($doc(
         "_id" -> false,
         "likes" -> $doc("$size" -> "$likers"),
         "createdAt" -> true
       )))
-    ).map { res =>
+    ).map { docOption =>
         for {
-          doc <- res.firstBatch.headOption
+          doc <- docOption
           likes <- doc.getAs[Study.Likes]("likes")
           createdAt <- doc.getAs[DateTime]("createdAt")
         } yield likes -> createdAt

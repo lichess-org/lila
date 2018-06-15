@@ -7,7 +7,7 @@ import reactivemongo.bson.utils.Converters
 
 case class ByteArray(value: Array[Byte]) extends AnyVal {
 
-  def isEmpty = value.isEmpty
+  def isEmpty = value.size == 0
 
   def toHexStr = Converters hex2Str value
 

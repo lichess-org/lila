@@ -11,8 +11,9 @@ import views._
 object QaQuestion extends QaController {
 
   def index(page: Option[Int] = None) = Open { implicit ctx =>
+    pageHit
     for {
-      pag <- api.question.recentPaginator(page getOrElse 1, 20)
+      pag <- api.question.recentPaginator(page getOrElse 1, lila.common.MaxPerPage(20))
       popular <- fetchPopular
       _ <- preloadUsers(pag.currentPageResults)
     } yield Ok(html.qa.index(pag, popular))
@@ -109,6 +110,13 @@ object QaQuestion extends QaController {
       (api.question remove q.id) >>
         Env.mod.logApi.deleteQaQuestion(me.id, q.userId, q.title) inject
         Redirect(routes.QaQuestion.index())
+    }
+  }
+
+  def lock(questionId: QuestionId) = Secure(_.ModerateQa) { implicit ctx => me =>
+    WithQuestion(questionId) { q =>
+      (api.question.lock(q.id, !q.isLocked option me)) inject
+        Redirect(routes.QaQuestion.show(q.id, q.slug))
     }
   }
 }

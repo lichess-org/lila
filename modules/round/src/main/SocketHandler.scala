@@ -8,19 +8,19 @@ import akka.actor._
 import akka.pattern.ask
 import chess.format.Uci
 import chess.{ Centis, MoveMetrics, Color }
-import play.api.libs.json.{ JsObject, Json }
+import play.api.libs.json.{ JsObject, JsNumber, Json, Reads }
 
 import actorApi._, round._
-import lila.common.PimpedJson._
+import lila.chat.Chat
 import lila.common.IpAddress
-import lila.game.{ Pov, PovRef, GameRepo, Game }
+import lila.game.{ Pov, PovRef, Game }
 import lila.hub.actorApi.map._
-import lila.hub.actorApi.round.Berserk
+import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
+import lila.hub.actorApi.shutup.PublicSource
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.socket.Socket.Uid
 import lila.user.User
-import lila.chat.Chat
 import makeTimeout.short
 
 private[round] final class SocketHandler(
@@ -30,12 +30,15 @@ private[round] final class SocketHandler(
     messenger: Messenger,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     selfReport: SelfReport,
-    bus: lila.common.Bus
+    bus: lila.common.Bus,
+    isRecentTv: Game.ID => Boolean
 ) {
+
+  import SocketHandler._
 
   private def controller(
     gameId: Game.ID,
-    chatId: Option[Chat.Id], // if using a non-game chat (tournament, simul, ...)
+    chat: Option[Chat.Setup], // if using a non-game chat (tournament, simul, ...)
     socket: ActorRef,
     uid: Uid,
     ref: PovRef,
@@ -43,7 +46,7 @@ private[round] final class SocketHandler(
     me: Option[User]
   ): Handler.Controller = {
 
-    def send(msg: Any) { roundMap ! Tell(gameId, msg) }
+    def send(msg: Any): Unit = { roundMap ! Tell(gameId, msg) }
 
     member.playerIdOption.fold[Handler.Controller](({
       case ("p", o) => socket ! Ping(uid, o)
@@ -54,23 +57,28 @@ private[round] final class SocketHandler(
       chatId = Chat.Id(s"$gameId/w"),
       member = member,
       socket = socket,
-      chat = messenger.chat
+      chat = messenger.chat,
+      publicSource = PublicSource.Watcher(gameId).some
     )) { playerId =>
       ({
         case ("p", o) => socket ! Ping(uid, o)
         case ("move", o) => parseMove(o) foreach {
-          case (move, blur, lag) =>
+          case (move, blur, lag, ackId) =>
             val promise = Promise[Unit]
-            promise.future addFailureEffect { _ => socket ! Resync(uid.value) }
+            promise.future onFailure {
+              case _: Exception => socket ! Resync(uid.value)
+            }
             send(HumanPlay(playerId, move, blur, lag, promise.some))
-            member push ackEvent
+            member.push(ackMessage(ackId))
         }
         case ("drop", o) => parseDrop(o) foreach {
-          case (drop, blur, lag) =>
+          case (drop, blur, lag, ackId) =>
             val promise = Promise[Unit]
-            promise.future addFailureEffect { _ => socket ! Resync(uid.value) }
+            promise.future onFailure {
+              case _: Exception => socket ! Resync(uid.value)
+            }
             send(HumanPlay(playerId, drop, blur, lag, promise.some))
-            member push ackEvent
+            member.push(ackMessage(ackId))
         }
         case ("rematch-yes", _) => send(RematchYes(playerId))
         case ("rematch-no", _) => send(RematchNo(playerId))
@@ -87,22 +95,23 @@ private[round] final class SocketHandler(
         case ("outoftime", _) => send(QuietFlag) // mobile app BC
         case ("flag", o) => clientFlag(o, playerId.some) foreach send
         case ("bye2", _) => socket ! Bye(ref.color)
-        case ("talk", o) if chatId.isEmpty => o str "d" foreach { messenger.owner(gameId, member, _) }
+        case ("talk", o) if chat.isEmpty => o str "d" foreach { messenger.owner(gameId, member, _) }
         case ("hold", o) => for {
           d ← o obj "d"
           mean ← d int "mean"
           sd ← d int "sd"
         } send(HoldAlert(playerId, mean, sd, member.ip))
-        case ("berserk", _) => member.userId foreach { userId =>
+        case ("berserk", o) => member.userId foreach { userId =>
           hub.actor.tournamentApi ! Berserk(gameId, userId)
-          member push ackEvent
+          member.push(ackMessage((o \ "d" \ "a").asOpt[AckId]))
         }
         case ("rep", o) => for {
           d ← o obj "d"
           name ← d str "n"
         } selfReport(member.userId, member.ip, s"$gameId$playerId", name)
       }: Handler.Controller) orElse lila.chat.Socket.in(
-        chatId = chatId | Chat.Id(gameId),
+        chatId = chat.fold(Chat.Id(gameId))(_.id),
+        publicSource = chat.map(_.publicSource),
         member = member,
         socket = socket,
         chat = messenger.chat
@@ -111,16 +120,12 @@ private[round] final class SocketHandler(
   }
 
   def watcher(
-    gameId: String,
-    colorName: String,
+    pov: Pov,
     uid: Uid,
     user: Option[User],
     ip: IpAddress,
-    userTv: Option[String]
-  ): Fu[Option[JsSocketHandler]] =
-    GameRepo.pov(gameId, colorName) flatMap {
-      _ ?? { join(_, none, uid, user, ip, userTv = userTv) map some }
-    }
+    userTv: Option[User.ID]
+  ): Fu[JsSocketHandler] = join(pov, none, uid, user, ip, userTv)
 
   def player(
     pov: Pov,
@@ -136,7 +141,7 @@ private[round] final class SocketHandler(
     uid: Uid,
     user: Option[User],
     ip: IpAddress,
-    userTv: Option[String]
+    userTv: Option[User.ID]
   ): Fu[JsSocketHandler] = {
     val join = Join(
       uid = uid,
@@ -147,16 +152,15 @@ private[round] final class SocketHandler(
       userTv = userTv
     )
     // non-game chat, for tournament or simul games; only for players
-    val publicChatId = playerId.isDefined ?? {
-      pov.game.tournamentId.map(Chat.Id) orElse pov.game.simulId.map(Chat.Id)
+    val chatSetup = playerId.isDefined ?? {
+      pov.game.tournamentId.map(Chat.tournamentSetup) orElse pov.game.simulId.map(Chat.simulSetup)
     }
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
       Handler(hub, socket, uid, join) {
         case Connected(enum, member) =>
           // register to the TV channel when watching TV
-          if (playerId.isEmpty && pov.game.isRecentTv)
-            hub.channel.tvSelect ! lila.socket.Channel.Sub(member)
-          (controller(pov.gameId, publicChatId, socket, uid, pov.ref, member, user), enum, member)
+          if (playerId.isEmpty && isRecentTv(pov.gameId)) hub.channel.tvSelect ! lila.socket.Channel.Sub(member)
+          (controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user), enum, member)
       }
     }
   }
@@ -165,7 +169,8 @@ private[round] final class SocketHandler(
     d ← o obj "d"
     move <- d str "u" flatMap Uci.Move.apply orElse parseOldMove(d)
     blur = d int "b" contains 1
-  } yield (move, blur, parseLag(d))
+    ackId = d.get[AckId]("a")
+  } yield (move, blur, parseLag(d), ackId)
 
   private def parseOldMove(d: JsObject) = for {
     orig ← d str "from"
@@ -180,7 +185,8 @@ private[round] final class SocketHandler(
     pos ← d str "pos"
     drop <- Uci.Drop.fromStrings(role, pos)
     blur = d int "b" contains 1
-  } yield (drop, blur, parseLag(d))
+    ackId = d.get[AckId]("a")
+  } yield (drop, blur, parseLag(d), ackId)
 
   private def parseLag(d: JsObject) = MoveMetrics(
     d.int("l") orElse d.int("lag") map Centis.ofMillis,
@@ -190,5 +196,13 @@ private[round] final class SocketHandler(
   private def clientFlag(o: JsObject, playerId: Option[String]) =
     o str "d" flatMap Color.apply map { ClientFlag(_, playerId) }
 
-  private val ackEvent = Json.obj("t" -> "ack")
+  private val ackEmpty = Json.obj("t" -> "ack")
+  private def ackMessage(id: Option[AckId]) = id.fold(ackEmpty) { ackId =>
+    ackEmpty + ("d" -> JsNumber(ackId.value))
+  }
+}
+
+private object SocketHandler {
+  case class AckId(value: Int)
+  implicit val ackIdReads: Reads[AckId] = Reads.of[Int] map AckId.apply
 }

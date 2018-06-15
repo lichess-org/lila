@@ -2,7 +2,6 @@ var defined = require('common').defined;
 
 module.exports = function(element, cfg) {
   var data = cfg.data;
-  lichess.openInMobileApp('/analyse/' + data.game.id);
   var $watchers = $('#site_header div.watchers').watchers();
   var analyse, $panels;
   lichess.socket = lichess.StrongSocket(
@@ -37,41 +36,46 @@ module.exports = function(element, cfg) {
       point.select(false);
     });
   };
-  var lastFen, lastPly;
-  cfg.onChange = function(fen, path, mainlinePly) {
-    if (lastPly === mainlinePly) return;
-    lastPly = typeof mainlinePly === 'undefined' ? lastPly : mainlinePly;
+  var lastFen;
+
+  lichess.pubsub.on('analysis.change', function(fen, path, mainlinePly) {
     var chart, point, $chart = $("#adv_chart");
     if (fen && fen !== lastFen) {
       inputFen.value = fen;
       lastFen = fen;
     }
-    if ($chart.length) try {
-      chart = $chart.highcharts();
+    if ($chart.length) {
+      chart = window.Highcharts && $chart.highcharts();
       if (chart) {
-        if (lastPly === false) unselect(chart);
-        else {
-          point = chart.series[0].data[lastPly - 1 - cfg.data.game.startedAtTurn];
-          if (defined(point)) point.select();
-          else unselect(chart);
+        if (mainlinePly != chart.lastPly) {
+          if (mainlinePly === false) unselect(chart);
+          else {
+            point = chart.series[0].data[mainlinePly - 1 - cfg.data.game.startedAtTurn];
+            if (defined(point)) point.select();
+            else unselect(chart);
+          }
         }
+        chart.lastPly = mainlinePly;
       }
-    } catch (e) {}
-    if ($timeChart.length) try {
+    }
+    if ($timeChart.length) {
       chart = window.Highcharts && $timeChart.highcharts();
       if (chart) {
-        if (lastPly === false) unselect(chart);
-        else {
-          var white = lastPly % 2 !== 0;
-          var serie = white ? 0 : 1;
-          var turn = Math.floor((lastPly - 1 - cfg.data.game.startedAtTurn) / 2);
-          point = chart.series[serie].data[turn];
-          if (defined(point)) point.select();
-          else unselect(chart);
+        if (mainlinePly != chart.lastPly) {
+          if (mainlinePly === false) unselect(chart);
+          else {
+            var white = mainlinePly % 2 !== 0;
+            var serie = white ? 0 : 1;
+            var turn = Math.floor((mainlinePly - 1 - cfg.data.game.startedAtTurn) / 2);
+            point = chart.series[serie].data[turn];
+            if (defined(point)) point.select();
+            else unselect(chart);
+          }
         }
+        chart.lastPly = mainlinePly;
       }
-    } catch (e) {}
-  };
+    }
+  });
   cfg.onToggleComputer = function(v) {
     setTimeout(function() {
       if (v) $('div.analysis_menu a.computer_analysis').mousedown();
@@ -94,9 +98,9 @@ module.exports = function(element, cfg) {
 
   var chartLoader = function() {
     return '<div id="adv_chart_loader">' +
-      '<span>' + lichess.engineName + '<br>server analysis</span>' +
-      lichess.spinnerHtml +
-      '</div>'
+    '<span>' + lichess.engineName + '<br>server analysis</span>' +
+    lichess.spinnerHtml +
+    '</div>'
   };
   var startAdvantageChart = function() {
     if (lichess.advantageChart) return;
@@ -105,7 +109,7 @@ module.exports = function(element, cfg) {
     if (!$("#adv_chart").length) $panel.html('<div id="adv_chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$("#adv_chart_loader").length) $panel.append(chartLoader());
     lichess.loadScript('/assets/javascripts/chart/acpl.js').then(function() {
-      lichess.advantageChart(data);
+      lichess.advantageChart(data, cfg.trans, $("#adv_chart")[0]);
     });
   };
 
@@ -117,7 +121,7 @@ module.exports = function(element, cfg) {
     $panels.removeClass('active').filter('.' + panel).addClass('active');
     if (panel === 'move_times' && !lichess.movetimeChart) try {
       lichess.loadScript('/assets/javascripts/chart/movetime.js').then(function() {
-        lichess.movetimeChart(data);
+        lichess.movetimeChart(data, cfg.trans);
       });
     } catch (e) {}
     if (panel === 'computer_analysis' && $("#adv_chart").length)

@@ -1,14 +1,13 @@
 package controllers
 
 import play.api.libs.json._
-import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
 import lila.practice.JsonView._
 import lila.practice.{ UserStudy, PracticeSection, PracticeStudy }
 import lila.study.Study.WithChapter
-import lila.study.{ Chapter, Order, Study => StudyModel }
+import lila.study.{ Chapter, Study => StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views._
 
@@ -18,16 +17,19 @@ object Practice extends LilaController {
   private def studyEnv = Env.study
 
   def index = Open { implicit ctx =>
+    pageHit
     env.api.get(ctx.me) flatMap { up =>
       NoCache(Ok(html.practice.index(up))).fuccess
     }
   }
 
   def show(sectionId: String, studySlug: String, studyId: String) = Open { implicit ctx =>
+    pageHit
     OptionFuResult(env.api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
   }
 
   def showChapter(sectionId: String, studySlug: String, studyId: String, chapterId: String) = Open { implicit ctx =>
+    pageHit
     OptionFuResult(env.api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
   }
 
@@ -71,7 +73,7 @@ object Practice extends LilaController {
   private def analysisJson(us: UserStudy)(implicit ctx: Context): Fu[(JsObject, JsObject)] = us match {
     case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
       studyEnv.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>
-        val initialFen = chapter.root.fen.value.some
+        val initialFen = chapter.root.fen.some
         val pov = UserAnalysis.makePov(initialFen, chapter.setup.variant)
         val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation, owner = false, me = ctx.me)
         val analysis = baseData ++ Json.obj(
@@ -105,7 +107,7 @@ object Practice extends LilaController {
       FormFuResult(form) { err =>
         env.api.structure.get map { html.practice.config(_, err) }
       } { text =>
-        env.api.config.set(text).valueOr(_ => funit) >>-
+        ~env.api.config.set(text).right.toOption >>-
           env.api.structure.clear >>
           Env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config)
       }

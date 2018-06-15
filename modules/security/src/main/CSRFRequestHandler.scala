@@ -4,13 +4,14 @@ import play.api.mvc.RequestHeader
 
 import lila.common.HTTPRequest._
 
-final class CSRFRequestHandler(domain: String, enabled: Boolean) {
+final class CSRFRequestHandler(domain: String) {
 
   private def logger = lila.log("csrf")
 
   def check(req: RequestHeader): Boolean = {
-    if (isXhr(req) || (isSafe(req) && !isSocket(req))) true
-    else origin(req).orElse(referer(req) flatMap refererToOrigin) match {
+    if (isXhr(req)) true // cross origin xhr not allowed by browsers
+    else if (isSafe(req) && !isSocket(req)) true
+    else origin(req) match {
       case None =>
         lila.mon.http.csrf.missingOrigin()
         logger.debug(print(req))
@@ -27,7 +28,7 @@ final class CSRFRequestHandler(domain: String, enabled: Boolean) {
           lila.mon.http.csrf.forbidden()
           logger.info(print(req))
         }
-        !enabled // ignore if disabled
+        false
     }
   }
 
@@ -38,12 +39,4 @@ final class CSRFRequestHandler(domain: String, enabled: Boolean) {
   // domain = "lichess.org"
   private def isSubdomain(origin: String) =
     origin.endsWith(subDomain) || origin.endsWith(topDomain)
-
-  // input  = "https://lichess.org/some/path?a=b&c=d"
-  // output = "https://lichess.org"
-  private val RefererToOriginRegex = """^([^:]+://[^/]+).*""".r // a.k.a. pokemon face regex
-  private def refererToOrigin(r: String): Option[String] = r match {
-    case RefererToOriginRegex(origin) => origin.some
-    case _ => none
-  }
 }

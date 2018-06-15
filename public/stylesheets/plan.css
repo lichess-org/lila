@@ -73,15 +73,15 @@ table.all .thanks {
   display: block;
 }
 
-.motivation a {
+.plan a {
   color: #3893E8!important;
 }
 
-.motivation {
+.plan {
   line-height: 2em;
 }
 
-.motivation .banner {
+.plan .banner {
   margin-bottom: 60px;
   background: #639B24;
   color: #fff;
@@ -92,86 +92,101 @@ table.all .thanks {
   align-items: center;
   justify-content: space-between;
 }
-.motivation .banner > i {
+.plan .banner > i {
   font-size: 80px;
   margin: 0 20px;
 }
-.motivation .banner > i:last-child {
+.plan .banner > i:last-child {
   transform: scale(-1, 1);
 }
-.motivation .banner h1 {
+.plan .banner h1 {
   margin: 0 0 20px 0;
   padding: 0!important;
 }
-.motivation .wrapper {
+.plan .wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 1.3em;
 }
-.motivation .text,
-.motivation .content {
-  flex: 0 0 47%;
+.plan .text,
+.plan .content {
+  flex: 0 0 50%;
   display: flex;
   align-items: center;
 }
-.motivation .text {
+.plan .text {
+  flex: 0 0 46%;
   flex-flow: column nowrap;
 }
-.motivation .text p {
+.plan .text p {
   margin-bottom: 1em;
 }
-.motivation .plan_checkout {
+.plan .plan_checkout {
   width: 100%;
 }
-.motivation .plan_checkout h3 {
+.plan .plan_checkout h3 {
   font-family: Roboto;
   display: block;
   text-transform: uppercase;
   margin: 0;
 }
-.motivation .plan_checkout group {
+.plan .plan_checkout group {
   font-size: 1.1em;
   margin-bottom: 20px;
+  overflow: visible;
 }
-.motivation .plan_checkout group input:checked + label {
+.plan .plan_checkout group input:checked + label,
+.plan .plan_checkout .amount_fixed label,
+.plan .plan_checkout .lifetime-check input + label {
   background: #639B24!important;
   border-color: #ccc!important;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
+  color: #fff!important;
+  text-shadow: 0 1px 0 #000 !important;
 }
-body.dark .motivation .plan_checkout group input:checked + label {
+body.dark .plan .plan_checkout group input:checked + label,
+body.dark .plan .plan_checkout .amount_fixed label {
   border-color: #555!important;
 }
-.motivation .plan_checkout group.freq > div {
-  flex: 0 0 50%;
+.plan .plan_checkout group input:disabled + label {
+  opacity: 0.5;
+  cursor: default;
 }
-.motivation .plan_checkout group.freq input:checked + label::before {
+.plan .plan_checkout group.freq input:checked + label::before,
+.plan .plan_checkout group .lifetime-check input + label::before {
   content: "✓";
   padding-right: 5px;
 }
-.motivation .plan_checkout .service {
+.plan .plan_checkout group .lifetime-check input + label {
+  background: #d59120!important;
+  opacity: 0.8;
+  cursor: default;
+}
+.plan .plan_checkout .service {
   display: flex;
   justify-content: space-between;
   font-size: 1.1em;
 }
-.motivation .plan_checkout .service button {
+.plan .plan_checkout .service button {
   flex: 1 1 auto;
   font-weight: normal;
   padding: 20px 0;
   border-color: #bbb!important;
   box-shadow: 0 0 7px rgba(0,0,0,0.5);
 }
-.motivation .plan_checkout .service button:first-child {
+.plan .plan_checkout .service button:first-child {
   margin-right: 25px;
 }
-body.dark .motivation .plan_checkout .service button {
+body.dark .plan .plan_checkout .service button {
   border-color: #555!important;
   box-shadow: 0 0 7px rgba(255,255,255,0.5);
 }
-.motivation .small_team {
+.plan .small_team {
   text-align: center;
   font-style: italic;
   font-size: 1.3em;
-  margin-top: 30px;
+  margin-top: 40px;
 }
 .faq {
   margin: 50px 0 40px 0;
@@ -180,6 +195,7 @@ body.dark .motivation .plan_checkout .service button {
   border-bottom: 1px solid #ccc;
   display: flex;
   justify-content: space-between;
+  line-height: 1.8em;
 }
 body.dark .faq {
   border-color: #555;
@@ -193,6 +209,9 @@ body.dark .faq {
 .faq dt {
   font-size: 1.3em;
   margin-bottom: 1em;
+}
+.faq dt:nth-of-type(2) {
+  margin-top: 1.5em;
 }
 .faq dd {
   margin: 0;

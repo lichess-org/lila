@@ -4,6 +4,7 @@ import reactivemongo.bson._
 
 import lila.db.dsl._
 import lila.game.GameRepo
+import lila.hub.actorApi.shutup.PublicSource
 import lila.user.UserRepo
 
 final class ShutupApi(
@@ -14,42 +15,43 @@ final class ShutupApi(
 
   private implicit val doubleListHandler = bsonArrayToListHandler[Double]
   private implicit val UserRecordBSONHandler = Macros.handler[UserRecord]
+  import PublicLine.PublicLineBSONHandler
 
-  def getPublicLines(userId: String): Fu[List[String]] =
+  def getPublicLines(userId: String): Fu[List[PublicLine]] =
     coll.find($doc("_id" -> userId), $doc("pub" -> 1))
       .uno[Bdoc].map {
-        ~_.flatMap(_.getAs[List[String]]("pub"))
+        ~_.flatMap(_.getAs[List[PublicLine]]("pub"))
       }
 
   def publicForumMessage(userId: String, text: String) = record(userId, text, TextType.PublicForumMessage)
   def teamForumMessage(userId: String, text: String) = record(userId, text, TextType.TeamForumMessage)
-  def publicChat(chatId: String, userId: String, text: String) = record(userId, text, TextType.PublicChat)
+  def publicChat(userId: String, text: String, source: PublicSource) = record(userId, text, TextType.PublicChat, source.some)
 
   def privateChat(chatId: String, userId: String, text: String) =
-    GameRepo.getUserIds(chatId) map {
-      _ find (userId !=)
-    } flatMap {
-      record(userId, text, TextType.PrivateChat, _)
+    GameRepo.getSourceAndUserIds(chatId) flatMap {
+      case (source, _) if source.has(lila.game.Source.Friend) => funit // ignore challenges
+      case (_, userIds) =>
+        record(userId, text, TextType.PrivateChat, none, userIds find (userId !=))
     }
 
   def privateMessage(userId: String, toUserId: String, text: String) =
-    record(userId, text, TextType.PrivateMessage, toUserId.some)
+    record(userId, text, TextType.PrivateMessage, none, toUserId.some)
 
-  private def record(userId: String, text: String, textType: TextType, toUserId: Option[String] = None): Funit =
+  private def record(userId: String, text: String, textType: TextType, source: Option[PublicSource] = None, toUserId: Option[String] = None): Funit =
     UserRepo isTroll userId flatMap {
       case true => funit
-      case false => toUserId ?? { follows(userId, _) } flatMap {
+      case false => toUserId ?? { follows(_, userId) } flatMap {
         case true => funit
         case false =>
           val analysed = Analyser(text)
-          val pushPublicLine =
-            if (textType == TextType.PublicChat && analysed.nbBadWords > 0) $doc(
+          val pushPublicLine = source.ifTrue(analysed.nbBadWords > 0) ?? { source =>
+            $doc(
               "pub" -> $doc(
-                "$each" -> List(text),
+                "$each" -> List(PublicLine.make(text, source)),
                 "$slice" -> -20
               )
             )
-            else $empty
+          }
           val push = $doc(
             textType.key -> $doc(
               "$each" -> List(BSONDouble(analysed.ratio)),

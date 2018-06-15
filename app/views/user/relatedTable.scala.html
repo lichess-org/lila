@@ -9,11 +9,11 @@
       <td>
         @r.nbGames.filter(_ > 0).map { nbGames =>
         <a href="@routes.User.games(u.username, "search")?players.b=@r.user.username" class="hint--bottom" data-hint="Games count over your last 1000 games">
-          @nbGames @trans.games()
+          @trans.nbGames.pluralSame(nbGames)
         </a>
         }
       </td>
-      <td><div class="relation_actions">@relation.actions(r.user.id, r.relation, followable = r.followable, blocked = false)</div></td>
+      <td>@relation.actions(r.user.id, r.relation, followable = r.followable, blocked = false)</td>
     </tr>
     }
   </tbody>

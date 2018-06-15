@@ -14,9 +14,7 @@ final class RateLimit[K](
     name: String,
     key: String
 ) {
-
-  private type Cost = Int
-  private type ClearAt = Long
+  import RateLimit._
 
   private val storage = Scaffeine()
     .expireAfterWrite(duration)
@@ -28,6 +26,9 @@ final class RateLimit[K](
   private val monitor = lila.mon.security.rateLimit.generic(key)
 
   logger.info(s"[start] $name ($credits/$duration)")
+
+  def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: Charge => A)(implicit default: Zero[A]): A =
+    apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg")(())) }
 
   def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(implicit default: Zero[A]): A =
     storage getIfPresent k match {
@@ -45,4 +46,12 @@ final class RateLimit[K](
         monitor()
         default.zero
     }
+}
+
+object RateLimit {
+
+  type Charge = Cost => Unit
+  type Cost = Int
+
+  private type ClearAt = Long
 }

@@ -18,7 +18,7 @@ export function mandatory(data: GameData): boolean {
 }
 
 export function playedTurns(data: GameData): number {
-  return data.game.turns - data.game.startedAtTurn;
+  return data.game.turns - (data.game.startedAtTurn || 0);
 }
 
 export function bothPlayersHavePlayed(data: GameData): boolean {
@@ -84,7 +84,7 @@ export function getPlayer(data: GameData, color?: Color): Player | null {
 }
 
 export function hasAi(data: GameData): boolean {
-  return data.player.ai || data.opponent.ai;
+  return !!(data.player.ai || data.opponent.ai);
 }
 
 export function userAnalysable(data: GameData): boolean {
@@ -97,7 +97,7 @@ export function isCorrespondence(data: GameData): boolean {
 
 export function setOnGame(data: GameData, color: Color, onGame: boolean): void {
   var player = getPlayer(data, color);
-  onGame = onGame || player.ai;
+  onGame = onGame || !!player.ai;
   player.onGame = onGame;
   if (onGame) setIsGone(data, color, false);
 }

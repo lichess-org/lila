@@ -5,10 +5,12 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints
 
 import lila.common.{ LameName, EmailAddress }
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, TotpSecret, UserRepo }
+import User.{ ClearPassword, TotpToken }
 
 final class DataForm(
     val captcher: akka.actor.ActorSelection,
+    authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator
 ) extends lila.hub.CaptchedForm {
 
@@ -35,8 +37,16 @@ final class DataForm(
       Constraints minLength 2,
       Constraints maxLength 20,
       Constraints.pattern(
-        regex = User.newUsernameRegex,
-        error = "usernameInvalid"
+        regex = User.newUsernamePrefix,
+        error = "usernamePrefixInvalid"
+      ),
+      Constraints.pattern(
+        regex = User.newUsernameSuffix,
+        error = "usernameSuffixInvalid"
+      ),
+      Constraints.pattern(
+        regex = User.newUsernameChars,
+        error = "usernameCharsInvalid"
       )
     ).verifying("usernameUnacceptable", u => !LameName.username(u))
       .verifying("usernameAlreadyUsed", u => !UserRepo.nameExists(u).awaitSeconds(4))
@@ -81,15 +91,41 @@ final class DataForm(
       _.samePasswords
     ))
 
-  def changeEmail(u: User, old: Option[EmailAddress]) = UserRepo loginCandidate u map { candidate =>
+  def changeEmail(u: User, old: Option[EmailAddress]) = authenticator loginCandidate u map { candidate =>
     Form(mapping(
-      "passwd" -> nonEmptyText.verifying("incorrectPassword", candidate.check),
+      "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
       "email" -> acceptableUniqueEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
     )(ChangeEmail.apply)(ChangeEmail.unapply)).fill(ChangeEmail(
       passwd = "",
       email = old.??(_.value)
     ))
   }
+
+  def setupTwoFactor(u: User) = authenticator loginCandidate u map { candidate =>
+    Form(mapping(
+      "secret" -> nonEmptyText,
+      "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
+      "token" -> nonEmptyText
+    )(TwoFactor.apply)(TwoFactor.unapply).verifying(
+        "invalidAuthenticationCode",
+        _.tokenValid
+      )).fill(TwoFactor(
+      secret = TotpSecret.random.base32,
+      passwd = "",
+      token = ""
+    ))
+  }
+
+  def disableTwoFactor(u: User) = authenticator loginCandidate u map { candidate =>
+    Form(tuple(
+      "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
+      "token" -> nonEmptyText.verifying("invalidAuthenticationToken", t => u.totpSecret.??(_.verify(TotpToken(t))))
+    ))
+  }
+
+  def fixEmail(old: EmailAddress) = Form(
+    single("email" -> acceptableUniqueEmail(none).verifying(emailValidator differentConstraint old.some))
+  ).fill(old.value)
 
   def modEmail(user: User) = Form(single("email" -> acceptableUniqueEmail(user.some)))
 
@@ -130,5 +166,9 @@ object DataForm {
 
   case class ChangeEmail(passwd: String, email: String) {
     def realEmail = EmailAddress(email)
+  }
+
+  case class TwoFactor(secret: String, passwd: String, token: String) {
+    def tokenValid = TotpSecret(secret).verify(User.TotpToken(token))
   }
 }

@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.db.Photographer
 import lila.notify.{ Notification, NotifyApi }
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
@@ -12,21 +13,12 @@ final class CoachApi(
     coachColl: Coll,
     reviewColl: Coll,
     photographer: Photographer,
-    asyncCache: lila.memo.AsyncCache.Builder,
     notifyApi: NotifyApi
 ) {
 
   import BsonHandlers._
 
-  private val cache = asyncCache.single[List[Coach]](
-    name = "coach.list",
-    f = coachColl.find($empty).list[Coach](),
-    expireAfter = _.ExpireAfterWrite(30 minutes)
-  )
-
-  private def all = cache.get
-
-  def byId(id: Coach.Id): Fu[Option[Coach]] = all.map(_.find(_.id == id))
+  def byId(id: Coach.Id): Fu[Option[Coach]] = coachColl.byId[Coach](id.value)
 
   def find(username: String): Fu[Option[Coach.WithUser]] =
     UserRepo named username flatMap { _ ?? find }
@@ -38,20 +30,21 @@ final class CoachApi(
   def findOrInit(user: User): Fu[Option[Coach.WithUser]] = Granter(_.Coach)(user) ?? {
     find(user) orElse {
       val c = Coach.WithUser(Coach make user, user)
-      coachColl.insert(c.coach) >>- cache.refresh inject c.some
+      coachColl insert c.coach inject c.some
     }
   }
 
   def isListedCoach(user: User): Fu[Boolean] =
-    Granter(_.Coach)(user) ?? all.map(_.exists { c =>
-      c.is(user) && c.isListed
-    })
+    Granter(_.Coach)(user) ?? coachColl.exists($doc("listed" -> true))
 
-  def listedWithUserList: Fu[List[Coach.WithUser]] =
-    all.map(_.filter(_.isListed)) flatMap { coaches =>
-      UserRepo.byIdsSecondary(coaches.map(_.id.value)) map { users =>
-        coaches.flatMap { coach =>
-          users find coach.is filter Granter(_.Coach) map { Coach.WithUser(coach, _) }
+  def setSeenAt(user: User): Funit =
+    Granter(_.Coach)(user) ?? coachColl.update($id(user.id), $set("user.seenAt" -> DateTime.now)).void
+
+  def setRating(userPre: User): Funit =
+    Granter(_.Coach)(userPre) ?? {
+      UserRepo.byId(userPre.id) flatMap {
+        _ ?? { user =>
+          coachColl.update($id(user.id), $set("user.rating" -> user.perfs.bestStandardRating)).void
         }
       }
     }
@@ -61,10 +54,10 @@ final class CoachApi(
       $id(c.coach.id),
       data(c.coach),
       upsert = true
-    ).void >>- cache.refresh
+    ).void
 
   def setNbReviews(id: Coach.Id, nb: Int): Funit =
-    coachColl.update($id(id), $set("nbReviews" -> nb)).void >>- cache.refresh
+    coachColl.update($id(id), $set("nbReviews" -> nb)).void
 
   private[coach] def toggleApproved(username: String, value: Boolean): Fu[String] =
     find(username) flatMap {
@@ -72,19 +65,20 @@ final class CoachApi(
       case Some(c) => coachColl.update(
         $id(c.coach.id),
         $set("approved" -> value)
-      ) >>- cache.refresh inject "Done!"
+      ) inject "Done!"
     }
 
+  def remove(userId: User.ID) = coachColl.updateField($id(userId), "listed", false)
+
   def uploadPicture(c: Coach.WithUser, picture: Photographer.Uploaded): Funit =
-    photographer(c.coach.id, picture).flatMap { pic =>
+    photographer(c.coach.id.value, picture).flatMap { pic =>
       coachColl.update($id(c.coach.id), $set("picturePath" -> pic.path)).void
-    } >>- cache.refresh
+    }
 
   def deletePicture(c: Coach.WithUser): Funit =
-    coachColl.update($id(c.coach.id), $unset("picturePath")).void >>- cache.refresh
+    coachColl.update($id(c.coach.id), $unset("picturePath")).void
 
-  private def withUser(user: User)(coach: Coach): Coach.WithUser =
-    Coach.WithUser(coach, user)
+  private def withUser(user: User)(coach: Coach) = Coach.WithUser(coach, user)
 
   object reviews {
 
@@ -121,15 +115,21 @@ final class CoachApi(
 
     def byId(id: String) = reviewColl.byId[CoachReview](id)
 
-    def isPending(user: User, coach: Coach): Fu[Boolean] =
-      reviewColl.exists(
-        $id(CoachReview.makeId(user, coach)) ++ $doc("approved" -> false)
-      )
+    def mine(user: User, coach: Coach): Fu[Option[CoachReview]] =
+      reviewColl.byId[CoachReview](CoachReview.makeId(user, coach))
 
     def approve(r: CoachReview, v: Boolean) = {
-      if (v) reviewColl.update($id(r.id), $set("approved" -> v)).void
+      if (v) reviewColl.update(
+        $id(r.id),
+        $set("approved" -> v) ++ $unset("moddedAt")
+      ).void
       else reviewColl.remove($id(r.id)).void
     } >> refreshCoachNbReviews(r.coachId)
+
+    def mod(r: CoachReview) = reviewColl.update($id(r.id), $set(
+      "approved" -> false,
+      "moddedAt" -> DateTime.now
+    )) >> refreshCoachNbReviews(r.coachId)
 
     private def refreshCoachNbReviews(id: Coach.Id): Funit =
       reviewColl.countSel($doc("coachId" -> id.value, "approved" -> true)) flatMap {

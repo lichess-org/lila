@@ -76,7 +76,10 @@ function userBox(ctrl: Controller) {
       diff = '+' + diff;
       if (diff > 0) klass = 'up';
     } else if (diff === 0) diff = '+0';
-    else klass = 'down';
+    else {
+      diff = '−' + (-diff);
+      klass = 'down';
+    }
     ratingHtml += ' <span class="rp ' + klass + '">' + diff + '</span>';
   }
   const hash = ctrl.recentHash();
@@ -107,7 +110,8 @@ function drawRatingChart(ctrl: Controller, vnode: VNode) {
     width: '224px',
     height: '80px',
     lineColor: dark ? '#4444ff' : '#0000ff',
-    fillColor: dark ? '#222255' : '#ccccff'
+    fillColor: dark ? '#222255' : '#ccccff',
+    numberFormatter: (x: number) => { return x; }
   });
 }
 

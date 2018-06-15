@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 . bin/lilarc
 
 mode=$1
@@ -26,3 +26,5 @@ lilalog "Rsync scripts"
 rsync --archive --no-o --no-g --progress public $REMOTE:$REMOTE_DIR
 
 lilalog "Deploy complete"
+
+xdg-open https://lichess.org/dev/settings

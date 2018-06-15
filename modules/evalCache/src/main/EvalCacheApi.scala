@@ -4,11 +4,9 @@ import org.joda.time.DateTime
 import play.api.libs.json.JsObject
 import scala.concurrent.duration._
 
-import chess.format.{ FEN, Uci, Forsyth }
+import chess.format.{ FEN, Forsyth }
 import chess.variant.Variant
 import lila.db.dsl._
-import lila.socket.Handler.Controller
-import lila.user.User
 
 final class EvalCacheApi(
     coll: Coll,
@@ -35,6 +33,11 @@ final class EvalCacheApi(
 
   def shouldPut = truster shouldPut _
 
+  def getSinglePvEval(variant: Variant, fen: FEN): Fu[Option[Eval]] = getEval(
+    id = Id(variant, SmallFen.make(variant, fen)),
+    multiPv = 1
+  )
+
   private[evalCache] def drop(variant: Variant, fen: FEN): Funit = {
     val id = Id(chess.variant.Standard, SmallFen.make(variant, fen))
     coll.remove($id(id)).void >>- cache.put(id, none)
@@ -59,7 +62,7 @@ final class EvalCacheApi(
 
   private def put(trustedUser: TrustedUser, input: Input): Funit = Validator(input) match {
     case Some(error) =>
-      logger.warn(s"Invalid from ${trustedUser.user.username} $error ${input.fen}")
+      logger.info(s"Invalid from ${trustedUser.user.username} $error ${input.fen}")
       funit
     case None => getEntry(input.id) map {
       case None =>

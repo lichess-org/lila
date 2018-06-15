@@ -46,10 +46,32 @@
   <string name="viewTheComputerAnalysis">Skoða tölvugreiningu</string>
   <string name="requestAComputerAnalysis">Biðja um tölvugreiningu</string>
   <string name="computerAnalysis">Tölvugreining</string>
+  <string name="computerAnalysisAvailable">Tölvugreining í boði</string>
   <string name="analysis">Greining</string>
+  <string name="depthX">Dýpt %s</string>
+  <string name="usingServerAnalysis">Greining frá þjóni</string>
+  <string name="loadingEngine">Hleð inn vél...</string>
+  <string name="cloudAnalysis">Greining í skýi</string>
+  <string name="goDeeper">Fara dýpra</string>
+  <string name="showThreat">Sýna ógn</string>
+  <string name="inLocalBrowser">í vafra</string>
+  <string name="toggleLocalEvaluation">Kveikja á greiningu</string>
+  <string name="deleteFromHere">Eyða héðan</string>
+  <string name="move">Færa</string>
+  <string name="unknown">Óþekktur</string>
   <string name="openingExplorer">Skoða opnanir</string>
+  <string name="winPreventedBy50MoveRule">Enginn sigur vegna 50 leikja reglu</string>
+  <string name="lossSavedBy50MoveRule">Bjargað frá tapi með 50 leikja reglu</string>
+  <string name="importPgn">Hlaða inn PGN</string>
+  <string name="delete">Eyða</string>
+  <string name="deleteThisImportedGame">Eyða þessum innhlaðna leik?</string>
+  <string name="realtimeReplay">Rauntími</string>
+  <string name="memory">Minni</string>
+  <string name="blunder">Afleikur</string>
   <string name="blunders">Afleikir</string>
+  <string name="mistake">Mistök</string>
   <string name="mistakes">Mistök</string>
+  <string name="inaccuracy">Ónákvæmni</string>
   <string name="inaccuracies">Ónákvæmni</string>
   <string name="moveTimes">leiktími</string>
   <string name="flipBoard">Snúa borði</string>
@@ -108,7 +130,6 @@
   <string name="changePassword">Skipta um lykilorð</string>
   <string name="changeEmail">Breyta tölvupóstfangi</string>
   <string name="email">Tölvupóstfang</string>
-  <string name="emailIsOptional">Tölvupóstfang er valkvætt. Lichess mun nota það til þess að senda þér nýtt lykilorð ef þú týnir þínu.</string>
   <string name="passwordReset">Breyta lykilorði</string>
   <string name="forgotPassword">Gleymdirðu lykilorðinu?</string>
   <string name="rank">Staða</string>
@@ -131,6 +152,7 @@
   <string name="accept">Samþykkja</string>
   <string name="decline">Hafna</string>
   <string name="playingRightNow">Spilandi núna</string>
+  <string name="eventInProgress">Spilandi þessa stundina</string>
   <string name="finished">Lokið</string>
   <string name="abortGame">Hverfa frá leik</string>
   <string name="gameAborted">Horfið frá leik</string>
@@ -240,6 +262,7 @@
   <string name="onlineFriends">Tengdir vinir</string>
   <string name="noFriendsOnline">Engir vinir tengdir</string>
   <string name="findFriends">Finna vini</string>
+  <string name="favoriteOpponents">Uppáhalds andstæðingar</string>
   <string name="follow">Fylgja</string>
   <string name="following">Fylgir</string>
   <string name="unfollow">Affylgja</string>
@@ -281,8 +304,14 @@
   <string name="winStreak">Vinnings rák</string>
   <string name="createdBy">Búið til af</string>
   <string name="tournamentIsStarting">Mótin eru að byrja</string>
+  <string name="whiteWins">Hvítur vinnur</string>
+  <string name="blackWins">Svartur vinnur</string>
+  <string name="draws">Jafntefli</string>
+  <string name="nextXTournament">Næsta %smót:</string>
+  <string name="viewMoreTournaments">Skoða önnur mót</string>
   <string name="membersOnly">Aðeins meðlimir</string>
   <string name="boardEditor">Borð ritill</string>
+  <string name="popularOpenings">Vinsælar opnanir</string>
   <string name="startPosition">Byrjunar staða</string>
   <string name="clearBoard">Hreinsa borð</string>
   <string name="savePosition">Vista stöðu</string>
@@ -317,6 +346,7 @@
   <string name="keepGoing">Haltu áfram...</string>
   <string name="puzzleFailed">Rangt svar</string>
   <string name="butYouCanKeepTrying">En þú getur haldið áfram að reyna.</string>
+  <string name="success">Árangur</string>
   <string name="wasThisPuzzleAnyGood">Var þessi þraut góð?</string>
   <string name="pleaseVotePuzzle">Hjálpaðu lichess að bæta sig með því að kjósa, notaðu upp og niður örvarnar:</string>
   <string name="thankYou">Takk fyrir!</string>
@@ -330,10 +360,6 @@
   <string name="retryThisPuzzle">Reyna aftur við þessa þraut</string>
   <string name="thisPuzzleIsCorrect">Þessi þraut er rétt og áhugaverð</string>
   <string name="thisPuzzleIsWrong">Þessi þraut er röng eða leiðinleg</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Þú hefur %s sekúndur til þess að leika fyrsta leik!</item>
-    <item quantity="other">Þú hefur %s sekúndur til þess að leika fyrsta leik!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s leikir í gangi</item>
     <item quantity="other">%s leikir í gangi</item>
@@ -426,6 +452,7 @@
   <string name="xAnsweredY">%1$s svaraði %2$s</string>
   <string name="xCommentedY">%1$s skrifaði %2$s</string>
   <string name="victory">Sigur!</string>
+  <string name="defeat">Ósigur</string>
   <string name="timeline">Tímalína</string>
   <string name="seeAllTournaments">Sjá öll skákmót</string>
   <string name="starting">Hefst:</string>
@@ -452,6 +479,7 @@
   <string name="playOnTheBoardOffline">Yfir borðið</string>
   <string name="playOfflineComputer">Skáktölva</string>
   <string name="opponent">Andstæðingur</string>
+  <string name="learnMenu">Læra</string>
   <string name="community">Samfélag</string>
   <string name="tools">Tól</string>
   <string name="increment">Aukning</string>
@@ -533,8 +561,6 @@
   <string name="checkYourEmail">Gáðu í tölvupóstinn þinn</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Við sendum þér tölvupóst. Fylgdu hlekknum þar til þess að virkja aðganginn þinn.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ef þú sérð ekki póstinn, gáðu þá betur svo sem í ruslakistunni, ruslpóstinum eða öðrum möppum.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Ertu viss um að hafa skráð þig á lichess áður?</string>
-  <string name="itWasNotRequiredForYourRegistration">Þess var ekki þörf við skráningu yðar</string>
   <string name="weHaveSentYouAnEmailTo">Við sendum póst á %s. Fylgdu hlekknum þar til þess að skipta um lykilorð.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Með því að skrá þig, þá samþykkir þú %s okkar.</string>
   <string name="networkLagBetweenYouAndLichess">Hik í tengingu á milli þín og lichess</string>
@@ -568,4 +594,6 @@
     <item quantity="other">Til á %s tungumálum</item>
   </plurals>
   <string name="gameAnalysis">Leikgreining</string>
+  <string name="language">Tungumál</string>
+  <string name="error.unknown">Villa</string>
 </resources>

@@ -1,11 +1,13 @@
 package lila.chat
 
-import scala.concurrent.duration._
 import chess.Color
 import reactivemongo.api.ReadPreference
+import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicChat, RecordPrivateChat }
 import lila.user.{ User, UserRepo }
+import lila.security.Spam
 
 final class ChatApi(
     coll: Coll,
@@ -71,15 +73,16 @@ final class ChatApi(
       }
     }
 
-    def write(chatId: Chat.Id, userId: String, text: String, public: Boolean): Funit =
+    def write(chatId: Chat.Id, userId: String, text: String, publicSource: Option[PublicSource]): Funit =
       makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>
           pushLine(chatId, line) >>- {
-            if (public) cached invalidate chatId
+            if (publicSource.isDefined) cached invalidate chatId
             shutup ! {
-              import lila.hub.actorApi.shutup._
-              if (public) RecordPublicChat(chatId.value, userId, text)
-              else RecordPrivateChat(chatId.value, userId, text)
+              publicSource match {
+                case Some(source) => RecordPublicChat(userId, text, source)
+                case _ => RecordPrivateChat(chatId.value, userId, text)
+              }
             }
             lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
           }
@@ -88,10 +91,16 @@ final class ChatApi(
 
     def clear(chatId: Chat.Id) = coll.remove($id(chatId)).void
 
-    def system(chatId: Chat.Id, text: String) = {
+    def system(chatId: Chat.Id, text: String): Funit = {
       val line = UserLine(systemUserId, text, troll = false, deleted = false)
       pushLine(chatId, line) >>-
-        lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId)) inject line.some
+        lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
+    }
+
+    // like system, but not persisted.
+    def volatile(chatId: Chat.Id, text: String): Unit = {
+      val line = UserLine(systemUserId, text, troll = false, deleted = false)
+      lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
     }
 
     def timeout(chatId: Chat.Id, modId: String, userId: String, reason: ChatTimeout.Reason, local: Boolean): Funit =
@@ -122,19 +131,28 @@ final class ChatApi(
           if (isMod(mod)) modLog ! lila.hub.actorApi.mod.ChatTimeout(
             mod = mod.id, user = user.id, reason = reason.key
           )
+          else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
         }
+    }
+
+    def delete(c: UserChat, user: User): Funit = {
+      val chat = c.markDeleted(user)
+      coll.update($id(chat.id), chat).void >>- {
+        cached invalidate chat.id
+        lilaBus.publish(actorApi.OnTimeout(user.username), channelOf(chat.id))
+      }
     }
 
     private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) = list.foreach { r =>
-      lilaBus.publish(actorApi.OnReinstate(r.user), Symbol(s"chat-${r.chat}"))
+      lilaBus.publish(actorApi.OnReinstate(r.user), Symbol(s"chat:${r.chat}"))
     }
 
     private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
       UserRepo.byId(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if !user.disabled => Writer cut t1 flatMap { t2 =>
-          flood.allowMessage(user.id, t2) option
+          (user.isBot || flood.allowMessage(user.id, t2)) option
             UserLine(user.username, Writer preprocessUserInput t2, troll = user.troll, deleted = false)
         }
         case _ => none
@@ -174,6 +192,8 @@ final class ChatApi(
 
   private[chat] def remove(chatId: Chat.Id) = coll.remove($id(chatId)).void
 
+  private[chat] def removeAll(chatIds: List[Chat.Id]) = coll.remove($inIds(chatIds)).void
+
   private def pushLine(chatId: Chat.Id, line: Line): Funit = coll.update(
     $id(chatId),
     $doc("$push" -> $doc(
@@ -185,15 +205,15 @@ final class ChatApi(
     upsert = true
   ).void >>- lila.mon.chat.message()
 
-  private def channelOf(id: Chat.Id) = Symbol(s"chat-$id")
+  private def channelOf(id: Chat.Id) = Symbol(s"chat:$id")
 
   private object Writer {
 
     import java.util.regex.Matcher.quoteReplacement
 
-    def preprocessUserInput(in: String) = multiline(noShouting(noPrivateUrl(in)))
+    def preprocessUserInput(in: String) = multiline(Spam.replace(noShouting(noPrivateUrl(in))))
 
-    def cut(text: String) = Some(text.trim take 140) filter (_.nonEmpty)
+    def cut(text: String) = Some(text.trim take Line.textMaxSize) filter (_.nonEmpty)
 
     private val domainRegex = netDomain.replace(".", """\.""")
     private val gameUrlRegex = (domainRegex + """\b/([\w]{8})[\w]{4}\b""").r

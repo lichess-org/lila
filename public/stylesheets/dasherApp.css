@@ -16,6 +16,7 @@
   padding: 5px 10px;
   transition: 0.13s;
   white-space: nowrap;
+  overflow: hidden;
 }
 #dasher_app .links a:hover,
 #dasher_app .links button:hover,
@@ -399,6 +400,9 @@
 }
 #dasher_app piece.companion {
   background-image: url(../piece/companion/wN.svg);
+}
+#dasher_app piece.riohacha {
+  background-image: url(../piece/riohacha/wN.svg);
 }
 
 body.dark #dasher_app .subs,

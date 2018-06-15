@@ -35,9 +35,6 @@ object TournamentRepo {
   def uniqueById(id: String): Fu[Option[Tournament]] =
     coll.find($id(id) ++ selectUnique).uno[Tournament]
 
-  def recentAndNext: Fu[List[Tournament]] =
-    coll.find(sinceSelect(DateTime.now minusDays 1)).list[Tournament]()
-
   def byIdAndPlayerId(id: String, userId: String): Fu[Option[Tournament]] =
     coll.find(
       $id(id) ++ $doc("players.id" -> userId)
@@ -61,16 +58,16 @@ object TournamentRepo {
   def createdByIdAndCreator(id: String, userId: String): Fu[Option[Tournament]] =
     createdById(id) map (_ filter (_.createdBy == userId))
 
-  def allEnterable: Fu[List[Tournament]] =
-    coll.find(enterableSelect).cursor[Tournament]().gather[List]()
+  def nonEmptyEnterableIds: Fu[List[Tournament.ID]] =
+    coll.primitive[Tournament.ID](enterableSelect ++ nonEmptySelect, "_id")
 
-  def nonEmptyEnterable: Fu[List[Tournament]] =
-    coll.find(enterableSelect ++ nonEmptySelect).cursor[Tournament]().gather[List]()
+  def createdIncludingScheduled: Fu[List[Tournament]] = coll.find(createdSelect).list[Tournament]()
 
-  def createdIncludingScheduled: Fu[List[Tournament]] = coll.find(createdSelect).list[Tournament](None)
+  def startedTours: Fu[List[Tournament]] =
+    coll.find(startedSelect).sort($doc("createdAt" -> -1)).list[Tournament]()
 
-  def started: Fu[List[Tournament]] =
-    coll.find(startedSelect).sort($doc("createdAt" -> -1)).list[Tournament](None)
+  def startedIds: Fu[List[Tournament.ID]] =
+    coll.primitive[Tournament.ID](startedSelect, sort = $doc("createdAt" -> -1), "_id")
 
   def publicStarted: Fu[List[Tournament]] =
     coll.find(startedSelect ++ $doc("private" $exists false))
@@ -91,14 +88,14 @@ object TournamentRepo {
   def finishedNotable(limit: Int): Fu[List[Tournament]] =
     coll.find(finishedSelect ++ $doc(
       "$or" -> $arr(
-        $doc("nbPlayers" $gte 15),
+        $doc("nbPlayers" $gte 30),
         scheduledSelect
       )
     ))
       .sort($doc("startsAt" -> -1))
       .list[Tournament](limit)
 
-  def finishedPaginator(maxPerPage: Int, page: Int) = Paginator(
+  def finishedPaginator(maxPerPage: lila.common.MaxPerPage, page: Int) = Paginator(
     adapter = new CachedAdapter(
       new Adapter[Tournament](
         collection = coll,
@@ -157,8 +154,9 @@ object TournamentRepo {
   private def isPromotable(tour: Tournament) = tour.startsAt isBefore DateTime.now.plusMinutes {
     import Schedule.Freq._
     tour.schedule.map(_.freq) map {
+      case Unique => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)(60*)
       case Unique | Yearly | Marathon => 24 * 60
-      case Monthly => 6 * 60
+      case Monthly | Shield => 6 * 60
       case Weekly | Weekend => 3 * 60
       case Daily => 1 * 60
       case _ => 30
@@ -166,7 +164,7 @@ object TournamentRepo {
   }
 
   private[tournament] def promotable: Fu[List[Tournament]] =
-    stillWorthEntering zip publicCreatedSorted(24 * 60) map {
+    stillWorthEntering zip publicCreatedSorted(crud.CrudForm.maxHomepageHours * 60) map {
       case (started, created) => (started ::: created).foldLeft(List.empty[Tournament]) {
         case (acc, tour) if !isPromotable(tour) => acc
         case (acc, tour) if acc.exists(_ similarTo tour) => acc
@@ -223,14 +221,19 @@ object TournamentRepo {
 
   def exists(id: String) = coll exists $id(id)
 
-  def toursToWithdrawWhenEntering(tourId: String): Fu[List[Tournament]] = {
-    coll.find(
-      enterableSelect ++
-        nonEmptySelect ++
-        $doc(
-          "_id" $ne tourId,
-          "startsAt" $lt DateTime.now
-        )
-    ).list[Tournament](none, ReadPreference.secondaryPreferred)
-  }
+  def tourIdsToWithdrawWhenEntering(tourId: Tournament.ID): Fu[List[Tournament.ID]] = coll.primitive[Tournament.ID](
+    enterableSelect ++
+      nonEmptySelect ++
+      $doc(
+        "_id" $ne tourId,
+        "startsAt" $lt DateTime.now
+      ),
+    "_id"
+  )
+
+  def calendar(from: DateTime, to: DateTime): Fu[List[Tournament]] =
+    coll.find($doc(
+      "startsAt" $gte from $lte to,
+      "schedule.freq" $in Schedule.Freq.all.filter(_.isWeeklyOrBetter)
+    )).sort($sort asc "startsAt").list[Tournament](none, ReadPreference.secondaryPreferred)
 }

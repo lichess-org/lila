@@ -1,6 +1,6 @@
 #!/bin/bash -ea
 target=${1-dev}
-mode=${2-build}
+mode=${2-build} # use "upgrade" to upgrade all deps
 
 echo "building ui modules with target=$target and mode=$mode"
 
@@ -10,29 +10,25 @@ mkdir -p public/compiled
 
 ts_apps1="common chess"
 ts_apps2="ceval game tree chat"
-apps="site chat challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule simul perfStat dasher"
+apps="site chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul perfStat dasher"
 
-YARN_MUTEX="${TMPDIR-/tmp}/.yarn-mutex"
+if [ $mode == "upgrade" ]; then
+  yarn upgrade --non-interactive
+else
+  yarn install --non-interactive
+fi
+
 build_ts() {
   echo "build_ts" "$@"
   set -ev
   cd ui/$1
-  yarn install --non-interactive --mutex file:$YARN_MUTEX
-  if [ $mode == "upgrade" ]; then
-    yarn upgrade --non-interactive --mutex file:$YARN_MUTEX
-  fi
-  yarn run compile --non-interactive
+  yarn run compile
 }
 
 build() {
   echo "build" "$@"
   set -ev
-  app=$1
-  cd ui/$app
-  yarn install --non-interactive --mutex file:$YARN_MUTEX
-  if [ $mode == "upgrade" ]; then
-    yarn upgrade --non-interactive --mutex file:$YARN_MUTEX
-  fi
+  cd ui/$1
   gulp $target
 }
 

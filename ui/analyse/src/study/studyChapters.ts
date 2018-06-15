@@ -1,11 +1,11 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { prop, Prop } from 'common';
-import { bind, dataIcon } from '../util';
+import { bind, dataIcon, iconTag } from '../util';
 import { ctrl as chapterNewForm } from './chapterNewForm';
 import { ctrl as chapterEditForm } from './chapterEditForm';
 import AnalyseCtrl from '../ctrl';
-import { StudyCtrl, StudyChapterMeta, LocalPaths } from './interfaces';
+import { StudyCtrl, StudyChapterMeta, LocalPaths, StudyChapter, TagArray } from './interfaces';
 
 export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab: () => void, chapterConfig, root: AnalyseCtrl) {
 
@@ -40,6 +40,25 @@ export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab:
     },
     localPaths
   };
+}
+
+export function isFinished(c: StudyChapter) {
+  const result = findTag(c.tags, 'result');
+  return result && result !== '*';
+}
+
+export function findTag(tags: TagArray[], name: string): string | undefined {
+  const t = tags.find(t => t[0].toLowerCase() === name);
+  return t && t[1];
+}
+
+export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined {
+  switch(findTag(tags, 'result')) {
+    case '1-0': return isWhite ? '1' : '0';
+    case '0-1': return isWhite ? '0' : '1';
+    case '1/2-1/2': return '1/2';
+    default: return;
+  }
 }
 
 export function view(ctrl: StudyCtrl): VNode {
@@ -107,7 +126,7 @@ export function view(ctrl: StudyCtrl): VNode {
       attrs: { 'data-id': chapter.id },
       class: { active, editing, loading }
     }, [
-      h('span.status', i + 1),
+      h('span.status', loading ? h('span.ddloader', i + 1) : i + 1),
       h('h3', chapter.name),
       configButton
     ]);
@@ -115,7 +134,7 @@ export function view(ctrl: StudyCtrl): VNode {
     ctrl.members.canContribute() ? h('div.elem.chapter.add', {
       hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw)
     }, [
-      h('span.status', h('i', { attrs: dataIcon('O') })),
+      h('span.status', iconTag('O')),
       h('h3.add_text', 'Add a new chapter')
     ]) : null
   ]));

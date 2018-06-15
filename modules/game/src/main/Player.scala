@@ -7,7 +7,7 @@ import lila.user.User
 case class PlayerUser(id: String, rating: Int, ratingDiff: Option[Int])
 
 case class Player(
-    id: String,
+    id: Player.ID,
     color: Color,
     aiLevel: Option[Int],
     isWinner: Option[Boolean] = None,
@@ -15,7 +15,7 @@ case class Player(
     isOfferingRematch: Boolean = false,
     lastDrawOffer: Option[Int] = None,
     proposeTakebackAt: Int = 0, // ply when takeback was proposed
-    userId: Option[String] = None,
+    userId: Player.UserId = None,
     rating: Option[Int] = None,
     ratingDiff: Option[Int] = None,
     provisional: Boolean = false,
@@ -28,12 +28,6 @@ case class Player(
   def playerUser = userId flatMap { uid =>
     rating map { PlayerUser(uid, _, ratingDiff) }
   }
-
-  def withUser(id: User.ID, perf: lila.rating.Perf): Player = copy(
-    userId = id.some,
-    rating = perf.intRating.some,
-    provisional = perf.glicko.provisional
-  )
 
   def isAi = aiLevel.isDefined
 
@@ -100,16 +94,32 @@ object Player {
 
   def make(
     color: Color,
-    aiLevel: Option[Int]
+    aiLevel: Option[Int] = None
   ): Player = Player(
     id = IdGenerator.player,
     color = color,
     aiLevel = aiLevel
   )
 
-  def white = make(Color.White, None)
+  def make(
+    color: Color,
+    userPerf: (User.ID, lila.rating.Perf)
+  ): Player = Player(
+    id = IdGenerator.player,
+    color = color,
+    aiLevel = none,
+    userId = userPerf._1.some,
+    rating = userPerf._2.intRating.some,
+    provisional = userPerf._2.glicko.provisional
+  )
 
-  def black = make(Color.Black, None)
+  def make(
+    color: Color,
+    user: Option[User],
+    perfPicker: lila.user.Perfs => lila.rating.Perf
+  ): Player = user.fold(make(color)) { u =>
+    make(color, (u.id, perfPicker(u.perfs)))
+  }
 
   case class HoldAlert(ply: Int, mean: Int, sd: Int) {
 
@@ -141,10 +151,10 @@ object Player {
   import reactivemongo.bson._
   import lila.db.BSON
 
-  type Id = String
+  type ID = String
   type UserId = Option[String]
   type Win = Option[Boolean]
-  type Builder = Color => Id => UserId => Win => Player
+  type Builder = Color => ID => UserId => Win => Player
 
   private def safeRange(range: Range, name: String)(userId: Option[String])(v: Int): Option[Int] =
     if (range contains v) Some(v)

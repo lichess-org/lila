@@ -23,8 +23,6 @@ final class Cached(
 
   val rematch960 = new ExpireSetMemo(3.hours)
 
-  val isRematch = new ExpireSetMemo(10 minutes)
-
   private val countShortTtl = asyncCache.multi[Bdoc, Int](
     name = "game.countShortTtl",
     f = coll.countSel(_),

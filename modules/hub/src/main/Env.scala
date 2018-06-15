@@ -26,6 +26,7 @@ final class Env(config: Config, system: ActorSystem) {
     val moveBroadcast = select("actor.move_broadcast")
     val userRegister = select("actor.user_register")
     val notification = select("actor.notify")
+    val study = select("actor.study")
   }
 
   object channel {
@@ -50,6 +51,6 @@ object Env {
 
   lazy val current = "hub" boot new Env(
     config = lila.common.PlayApp loadConfig "hub",
-    system = old.play.Env.actorSystem
+    system = lila.common.PlayApp.system
   )
 }

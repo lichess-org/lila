@@ -99,6 +99,11 @@ object TeamJoined {
 
 case object LimitedTournamentInvitation extends NotificationContent("u")
 
+case class TitledTournamentInvitation(
+    id: String,
+    text: String
+) extends NotificationContent("titledTourney")
+
 case class GameEnd(
     gameId: GameEnd.GameId,
     opponentId: Option[GameEnd.OpponentId],
@@ -128,3 +133,10 @@ case class CorresAlarm(
 case class IrwinDone(
     userId: lila.user.User.ID
 ) extends NotificationContent("irwinDone")
+
+case class GenericLink(
+    url: String,
+    title: Option[String],
+    text: Option[String],
+    icon: String
+) extends NotificationContent("genericLink")

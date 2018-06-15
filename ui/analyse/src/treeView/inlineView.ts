@@ -5,7 +5,7 @@ import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
-import { mainHook, nodeClasses, renderInlineCommentsOf, retroLine } from './treeView';
+import { mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, retroLine } from './treeView';
 import { Ctx, Opts } from './treeView';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
@@ -24,7 +24,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
         isMainline: true,
         withIndex: opts.withIndex
       }),
-      ...renderInlineCommentsOf(ctx, main, true),
+      ...renderInlineCommentsOf(ctx, main),
       h('interrupt', renderLines(ctx, cs.slice(1), {
         parentPath: opts.parentPath,
         isMainline: true
@@ -65,7 +65,7 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
 
 function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes {
   const path = opts.parentPath + node.id,
-  comments = renderInlineCommentsOf(ctx, node, true);
+  comments = renderInlineCommentsOf(ctx, node);
   if (opts.truncate === 0) return [
     h('move', { attrs: { p: path } }, '[...]')
   ];
@@ -97,7 +97,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
   return h('move', {
     attrs: { p: path },
-    class: nodeClasses(ctx.ctrl, path)
+    class: nodeClasses(ctx, path)
   }, content);
 }
 
@@ -108,9 +108,10 @@ export default function(ctrl: AnalyseCtrl): VNode {
     truncateComments: false,
     showComputer: ctrl.showComputer() && !ctrl.retro,
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
-    showEval: !!ctrl.study || ctrl.showComputer()
+    showEval: !!ctrl.study || ctrl.showComputer(),
+    currentPath: findCurrentPath(ctrl)
   };
-  const commentTags = renderInlineCommentsOf(ctx, root, true);
+  const commentTags = renderInlineCommentsOf(ctx, root);
   return h('div.tview2.inline', {
     hook: mainHook(ctrl)
   }, [

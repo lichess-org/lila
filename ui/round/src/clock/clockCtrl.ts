@@ -65,11 +65,11 @@ export class ClockController {
     }
   };
 
-  showTenths: TenthsPref;
+  showTenths: (millis: Millis) => boolean;
   showBar: boolean;
   times: Times;
 
-  timePercentDivisor: number
+  timeRatioDivisor: number
   emergMs: Millis;
 
   elements = {
@@ -77,31 +77,40 @@ export class ClockController {
     black: {}
   } as ColorMap<ClockElements>;
 
+  private tickCallback?: number;
+
   constructor(d: RoundData, public opts: ClockOpts) {
     const cdata = d.clock!;
 
-    this.showTenths = cdata.showTenths;
+    if (cdata.showTenths === 0) this.showTenths = () => false;
+    else {
+      const cutoff = cdata.showTenths === 1 ? 10000 : 3600000;
+      this.showTenths = (time) => time < cutoff;
+    }
+
     this.showBar = cdata.showBar;
-    this.timePercentDivisor = .1 / (Math.max(cdata.initial, 2) + 5 * cdata.increment);
+    this.timeRatioDivisor = .001 / (Math.max(cdata.initial, 2) + 5 * cdata.increment);
 
     this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * .125));
 
     this.setClock(d, cdata.white, cdata.black);
   }
 
-  timePercent = (millis: number): number =>
-    Math.max(0, Math.min(100, millis * this.timePercentDivisor));
+  timeRatio = (millis: number): number =>
+    Math.max(0, Math.min(1, millis * this.timeRatioDivisor));
 
   setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0) => {
-    const isClockRunning = game.playable(d) &&
-           ((d.game.turns - d.game.startedAtTurn) > 1 || d.clock!.running);
+    const isClockRunning = game.playable(d) && (game.playedTurns(d) > 1 || d.clock!.running),
+    delayMs = delay * 10;
 
     this.times = {
       white: white * 1000,
       black: black * 1000,
       activeColor: isClockRunning ? d.game.player : undefined,
-      lastUpdate: nowFun() + delay * 10
+      lastUpdate: nowFun() + delayMs
     };
+
+    if (isClockRunning) this.scheduleTick(this.times[d.game.player], delayMs);
   };
 
   addTime = (color: Color, time: Centis): void => {
@@ -118,9 +127,21 @@ export class ClockController {
     }
   }
 
-  tick = (): void => {
+  hardStopClock = (): void => this.times.activeColor = undefined;
+
+  scheduleTick = (time: Millis, extraDelay: Millis) => {
+    if (this.tickCallback !== undefined) clearTimeout(this.tickCallback);
+    this.tickCallback = setTimeout(
+      this.tick,
+      time % (this.showTenths(time) ? 100 : 500) + 1 + extraDelay);
+  }
+
+  // Should only be involked by scheduleTick.
+  private tick = (): void => {
+    this.tickCallback = undefined;
+
     const color = this.times.activeColor;
-    if (!color) return;
+    if (color === undefined) return;
 
     const now = nowFun();
     const millis = this.times[color] - this.elapsed(now);
@@ -139,6 +160,8 @@ export class ClockController {
         this.emergSound.playable[color] = true;
       }
     }
+
+    this.scheduleTick(millis, 0);
   };
 
   elapsed = (now = nowFun()) => Math.max(0, now - this.times.lastUpdate);
@@ -147,4 +170,6 @@ export class ClockController {
      Math.max(0, this.times[color] - this.elapsed()) :
      this.times[color]
   );
+
+  isRunning = () => this.times.activeColor !== undefined;
 }

@@ -55,6 +55,9 @@
   <string name="showThreat">Show threat</string>
   <string name="inLocalBrowser">in local browser</string>
   <string name="toggleLocalEvaluation">Toggle local evaluation</string>
+  <string name="promoteVariation">Promote variation</string>
+  <string name="makeMainLine">Make main line</string>
+  <string name="deleteFromHere">Delete from here</string>
   <string name="move">Move</string>
   <string name="variantLoss">Variant loss</string>
   <string name="variantWin">Variant win</string>
@@ -102,8 +105,11 @@
   <string name="memory">Memory</string>
   <string name="infiniteAnalysis">Infinite analysis</string>
   <string name="removesTheDepthLimit">Removes the depth limit, and keeps your computer warm</string>
+  <string name="blunder">Blunder</string>
   <string name="blunders">Blunders</string>
+  <string name="mistake">Mistake</string>
   <string name="mistakes">Mistakes</string>
+  <string name="inaccuracy">Inaccuracy</string>
   <string name="inaccuracies">Inaccuracies</string>
   <string name="moveTimes">Move times</string>
   <string name="flipBoard">Flip board</string>
@@ -162,7 +168,6 @@
   <string name="changePassword">Change password</string>
   <string name="changeEmail">Change email</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Email is optional. Lichess will use your email address to reset your password if you forget it.</string>
   <string name="passwordReset">Password reset</string>
   <string name="forgotPassword">Forgot password?</string>
   <string name="rank">Rank</string>
@@ -191,6 +196,7 @@
   <string name="accept">Accept</string>
   <string name="decline">Decline</string>
   <string name="playingRightNow">Playing right now</string>
+  <string name="eventInProgress">Playing right now</string>
   <string name="finished">Finished</string>
   <string name="abortGame">Abort game</string>
   <string name="gameAborted">Game aborted</string>
@@ -199,9 +205,13 @@
   <string name="mode">Mode</string>
   <string name="casual">Casual</string>
   <string name="rated">Rated</string>
+  <string name="casualTournament">Casual</string>
+  <string name="ratedTournament">Rated</string>
   <string name="thisGameIsRated">This game is rated</string>
   <string name="rematch">Rematch</string>
   <string name="rematchOfferSent">Rematch offer sent</string>
+  <string name="rematchOfferSentWhite">White offers rematch</string>
+  <string name="rematchOfferSentBlack">Black offers rematch</string>
   <string name="rematchOfferAccepted">Rematch offer accepted</string>
   <string name="rematchOfferCanceled">Rematch offer cancelled</string>
   <string name="rematchOfferDeclined">Rematch offer declined</string>
@@ -264,6 +274,10 @@
   <string name="tournament">Tournament</string>
   <string name="tournaments">Tournaments</string>
   <string name="tournamentPoints">Tournament points</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s tournament point</item>
+    <item quantity="other">%s tournament points</item>
+  </plurals>
   <string name="viewTournament">View tournament</string>
   <string name="backToTournament">Back to tournament</string>
   <string name="thematic">Thematic</string>
@@ -372,6 +386,15 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="winner">Winner</string>
   <string name="standing">Standing</string>
   <string name="createANewTournament">Create a new tournament</string>
+  <string name="tournamentCalendar">Tournament calendar</string>
+  <string name="conditionOfEntry">Condition of entry:</string>
+  <string name="advancedSettings">Advanced settings</string>
+  <string name="safeTournamentName">Pick a very safe name for the tournament.</string>
+  <string name="inappropriateNameWarning">Anything even slightly inappropriate could get your account closed.</string>
+  <string name="emptyTournamentName">Leave empty to name the tournament after a random Grandmaster.</string>
+  <string name="recommendNotTouching">We recommend not touching these.</string> 
+  <string name="fewerPlayers">If you set conditions of entry, your tournament will have fewer players.</string> 
+  <string name="showAdvancedSettings">Show advanced settings</string>  
   <string name="join">Join</string>
   <string name="withdraw">Withdraw</string>
   <string name="points">Points</string>
@@ -415,6 +438,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="biography">Biography</string>
   <string name="country">Country</string>
   <string name="preferences">Preferences</string>
+  <string name="inlineNotation">Inline notation</string>
   <string name="watchLichessTV">Watch Lichess TV</string>
   <string name="previouslyOnLichessTV">Previously on Lichess TV</string>
   <string name="onlinePlayers">Online players</string>
@@ -450,10 +474,6 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="retryThisPuzzle">Retry this puzzle</string>
   <string name="thisPuzzleIsCorrect">This puzzle is correct and interesting</string>
   <string name="thisPuzzleIsWrong">This puzzle is wrong or boring</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">You have %s second to make your first move!</item>
-    <item quantity="other">You have %s seconds to make your first move!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s game in play</item>
     <item quantity="other">%s games in play</item>
@@ -504,6 +524,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="thisAccountIsClosed">This account is closed.</string>
   <string name="invalidUsernameOrPassword">Invalid username or password</string>
   <string name="incorrectPassword">Incorrect password</string>
+  <string name="invalidAuthenticationCode">Invalid authentication code</string>
   <string name="emailMeALink">Email me a link</string>
   <string name="currentPassword">Current password</string>
   <string name="newPassword">New password</string>
@@ -624,6 +645,7 @@ in %3$s</string>
   <string name="videoLibrary">Video library</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmasters</string>
+  <string name="about">About</string>
   <string name="contribute">Contribute</string>
   <string name="contact">Contact</string>
   <string name="termsOfService">Terms of Service</string>
@@ -675,8 +697,6 @@ in %3$s</string>
   <string name="checkYourEmail">Check your Email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">We've sent you an email. Click the link in the email to activate your account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">If you don't see the email, check other places it might be, like your junk, spam, social, or other folders.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Are you sure you even registered your email on lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">It was not required for your registration.</string>
   <string name="weHaveSentYouAnEmailTo">We've sent an email to %s. Click the link in the email to reset your password.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">By registering, you agree to be bound by our %s.</string>
   <string name="networkLagBetweenYouAndLichess">Network lag between you and lichess</string>
@@ -745,8 +765,9 @@ in %3$s</string>
   <string name="pieceSet">Piece set</string>
   <string name="embedInYourWebsite">Embed in your website</string>
   <string name="usernameAlreadyUsed">This username is already in use, please try another one.</string>
-  <string name="usernameInvalid">Invalid username. Please use only letters, numbers, underscore and dash.</string>
-  <string name="usernameStartNoNumber">The username must not start with a number.</string>
+  <string name="usernamePrefixInvalid">The username must start with a letter.</string>
+  <string name="usernameSuffixInvalid">The username must end with a letter or a number.</string>
+  <string name="usernameCharsInvalid">The username must only contain letters, numbers, underscores, and hyphens.</string>
   <string name="usernameUnacceptable">This username is not acceptable.</string>
   <string name="directlySupportLichess">Directly support Lichess</string>
   <string name="playChessInStyle">Play chess in style</string>
@@ -763,4 +784,64 @@ in %3$s</string>
   <string name="notifications">Notifications</string>
   <string name="challenges">Challenges</string>
   <string name="perfRatingX">Rating: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s second to play the first move</item>
+    <item quantity="other">%s seconds to play the first move</item>
+  </plurals>
+  <string name="practiceWithComputer">Practice with computer</string>
+  <string name="anotherWasX">Another was %s</string>
+  <string name="bestWasX">Best was %s</string>
+  <string name="youBrowsedAway">You browsed away</string>
+  <string name="resumePractice">Resume practice</string>
+  <string name="theGameIsADraw">The game is a draw.</string>
+  <string name="computerThinking">Computer thinking ...</string>
+  <string name="seeBestMove">See best move</string>
+  <string name="hideBestMove">Hide best move</string>
+  <string name="getAHint">Get a hint</string>
+  <string name="evaluatingYourMove">Evaluating your move ...</string>
+  <string name="whiteWinsGame">White wins</string>
+  <string name="blackWinsGame">Black wins</string>
+  <string name="learnFromYourMistakes">Learn from your mistakes</string>
+  <string name="learnFromThisMistake">Learn from this mistake</string>
+  <string name="skipThisMove">Skip this move</string>
+  <string name="next">Next</string>
+  <string name="xWasPlayed">%s was played</string>
+  <string name="findBetterMoveForWhite">Find a better move for white</string>
+  <string name="findBetterMoveForBlack">Find a better move for black</string>
+  <string name="resumeLearning">Resume learning</string>
+  <string name="youCanDoBetter">You can do better</string>
+  <string name="tryAnotherMoveForWhite">Try another move for white</string>
+  <string name="tryAnotherMoveForBlack">Try another move for black</string>
+  <string name="solution">Solution</string>
+  <string name="waitingForAnalysis">Waiting for analysis</string>
+  <string name="noMistakesFoundForWhite">No mistakes found for white</string>
+  <string name="noMistakesFoundForBlack">No mistakes found for black</string>
+  <string name="doneReviewingWhiteMistakes">Done reviewing white mistakes</string>
+  <string name="doneReviewingBlackMistakes">Done reviewing black mistakes</string>
+  <string name="doItAgain">Do it again</string>
+  <string name="reviewWhiteMistakes">Review white mistakes</string>
+  <string name="reviewBlackMistakes">Review black mistakes</string>
+  <string name="advantage">Advantage</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s second</item>
+    <item quantity="other">%s seconds</item>
+  </plurals>
+  <string name="opening">Opening</string>
+  <string name="middlegame">Middlegame</string>
+  <string name="endgame">Endgame</string>
+  <string name="registerToSendChallenges">Please register to send challenges.</string>
+  <string name="youCannotChallengeX">You cannot challenge %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s does not accept challenges.</string>
+  <string name="yourXRatingIsTooFarFromY">Your %1$s rating is too far from %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Cannot challenge due to provisional %s rating.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s only accepts challenges from friends.</string>
+  <string name="conditionalPremoves">Conditional premoves</string>
+  <string name="addCurrentVariation">Add current variation</string>
+  <string name="playVariationToCreateConditionalPremoves">Play a variation to create conditional premoves</string>
+  <string name="noConditionalPremoves">No conditional premoves</string>
+  <string name="playX">Play %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">and save %s premove line</item>
+    <item quantity="other">and save %s premove lines</item>
+  </plurals>
 </resources>

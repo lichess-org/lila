@@ -12,9 +12,10 @@ object Blog extends LilaController {
 
   import Prismic._
 
-  def index(ref: Option[String]) = Open { implicit ctx =>
+  def index(page: Int, ref: Option[String]) = Open { implicit ctx =>
+    pageHit
     blogApi context ref flatMap { implicit prismic =>
-      blogApi.recent(prismic.api, ref, 50) flatMap {
+      blogApi.recent(prismic.api, ref, page, lila.common.MaxPerPage(10)) flatMap {
         case Some(response) => fuccess(Ok(views.html.blog.index(response)))
         case _ => notFound
       }
@@ -22,6 +23,7 @@ object Blog extends LilaController {
   }
 
   def show(id: String, slug: String, ref: Option[String]) = Open { implicit ctx =>
+    pageHit
     blogApi context ref flatMap { implicit prismic =>
       blogApi.one(prismic.api, ref, id) flatMap { maybeDocument =>
         checkSlug(maybeDocument, slug) {
@@ -34,12 +36,37 @@ object Blog extends LilaController {
     }
   }
 
-  def atom(ref: Option[String]) = Action.async { implicit req =>
-    blogApi context ref flatMap { implicit prismic =>
-      blogApi.recent(prismic.api, ref, 50) map {
-        _ ?? (_.results)
-      } map { docs =>
-        Ok(views.xml.blog.atom(docs)) as XML
+  def atom = Action.async { implicit req =>
+    blogApi context none flatMap { implicit prismic =>
+      blogApi.recent(prismic.api, none, 1, lila.common.MaxPerPage(50)) map {
+        _ ?? { docs =>
+          Ok(views.xml.blog.atom(docs)) as XML
+        }
+      }
+    }
+  }
+
+  def discuss(id: String) = Open { implicit ctx =>
+    val categSlug = "general-chess-discussion"
+    val topicSlug = s"blog-$id"
+    val redirect = Redirect(routes.ForumTopic.show(categSlug, topicSlug))
+    lila.forum.TopicRepo.existsByTree(categSlug, topicSlug) flatMap {
+      case true => fuccess(redirect)
+      case _ => blogApi context none flatMap { implicit prismic =>
+        blogApi.one(prismic.api, none, id) flatMap {
+          _ ?? { doc =>
+            lila.forum.CategRepo.bySlug(categSlug) flatMap {
+              _ ?? { categ =>
+                Env.forum.topicApi.makeBlogDiscuss(
+                  categ = categ,
+                  slug = topicSlug,
+                  name = doc.getText("blog.title") | "New blog post",
+                  url = s"${Env.api.Net.BaseUrl}${routes.Blog.show(doc.id, doc.slug)}"
+                )
+              }
+            } inject redirect
+          }
+        }
       }
     }
   }

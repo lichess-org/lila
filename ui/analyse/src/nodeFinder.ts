@@ -42,8 +42,8 @@ function threefoldFen(fen) {
 export function detectThreefold(nodeList, node): void {
   if (defined(node.threefold)) return;
   const currentFen = threefoldFen(node.fen);
-  let nbSimilarPositions = 0;
-  for (var i in nodeList)
+  let nbSimilarPositions = 0, i;
+  for (i in nodeList)
     if (threefoldFen(nodeList[i].fen) === currentFen)
       nbSimilarPositions++;
   node.threefold = nbSimilarPositions > 2;

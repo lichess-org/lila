@@ -27,14 +27,31 @@ body {
   width: 160px;
   margin: -80px 0 0 -80px;
   background: #484541 no-repeat url(../images/icons/octopus.svg);
-  background-size: 37% 37%;
-  background-position: 82% 82%;
+  background-size: 35% 35%;
+  background-position: 81% 81%;
   border-radius: 0 0 50% 0;
   border: 2px solid #666;
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
 #inquiry > .costello:hover {
   animation: octopus 0.5s ease-in-out;
+}
+#inquiry.hidden {
+  transition: height 0.3s;
+  height: 0;
+  border: none;
+}
+#inquiry.hidden > div {
+  display: none;
+}
+#inquiry.hidden > .costello {
+  transition: opacity 0.3s;
+  opacity: 0.5;
+}
+body.no-inquiry {
+  transition: margin 0.3s;
+  margin-top: 0;
 }
 #inquiry a {
   color: #f0f0f0!important;
@@ -53,16 +70,16 @@ body {
   position: relative;
   flex: 0 0 43%;
   height: 100%;
-  margin: 0 20px;
+  margin-left: 10px;
   overflow: hidden;
   color: #ccc;
 }
-#inquiry .docs.reports {
+#inquiry .reports {
   flex: 4 1 auto;
 }
-#inquiry .docs.notes {
-  margin: 0;
-  flex: 3 1 auto;
+#inquiry .counter {
+  margin-left: 0.3em;
+  flex: 0 0 auto;
 }
 #inquiry .docs .expendable {
   padding: 4px 20px 20px 20px;
@@ -93,6 +110,36 @@ body {
 }
 #inquiry .doc h3 {
   margin: 0;
+}
+#inquiry .report .atom {
+  margin-bottom: 0.8em;
+  border-bottom: 1px solid #777;
+  padding-bottom: 0.8em;
+}
+#inquiry .report .atom:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+#inquiry .score {
+  display: inline-block;
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 0.9em;
+  padding: 0.1em 0.5em;
+  border-radius: 0.3em;
+}
+#inquiry .score.green {
+  /* actually blue */
+  background-color: rgba(32, 119, 192, 0.4);
+}
+#inquiry .score.yellow {
+  background-color: rgba(221, 207, 63, 0.4);
+}
+#inquiry .score.orange {
+  background-color: rgba(231, 155, 100, 0.4);
+}
+#inquiry .score.red {
+  background-color: rgba(231, 59, 56, 0.4);
 }
 #inquiry form.note textarea {
   width: 100%;
@@ -130,7 +177,8 @@ body {
 #inquiry .fbt:hover {
   background: rgba(56,147,232,0.8);
 }
-#inquiry .fbt.icon::before {
+#inquiry .fbt.icon::before,
+#inquiry .warn span::before {
   font-size: 1.7em;
 }
 #inquiry .fbt.active {
@@ -166,14 +214,13 @@ body {
 #inquiry .dropper {
   position: relative;
   height: 100%;
-  line-height: 40px;
 }
 #inquiry .dropper > span {
   display: block;
   height: 100%;
   padding: 0 10px;
 }
-#inquiry .dropper div {
+#inquiry .dropper > div {
   display: none;
   position: absolute;
   top: 100%;
@@ -191,10 +238,59 @@ body {
   width: 100%;
   text-align: left;
 }
-#inquiry .dropper.warn form {
-  line-height: 1em;
+#inquiry .dropper > span.icon {
+  line-height: 40px;
 }
 #inquiry .dropper.warn input {
-  padding: 6px 10px;
+  padding: 6px 20px;
   text-transform: initial;
+}
+
+#inquiry .dropper.counter > span {
+  font-family: Roboto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+#inquiry .dropper.counter.empty > span {
+  opacity: 0.5;
+}
+#inquiry .dropper.counter:not(.empty) > span {
+  background: #555;
+}
+#inquiry .dropper.counter > span count {
+  font-size: 1.2em;
+  display: block;
+  height: 1.1em;
+}
+#inquiry .dropper.counter > div {
+  padding: 4px 20px 20px 20px;
+}
+#inquiry .dropper.counter > div,
+#inquiry .dropper.warn > div {
+  box-sizing: border-box;
+  width: 360px;
+  right: -155px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+#inquiry .history li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 6px 0;
+}
+
+#inquiry .switcher {
+  margin-left: -10px;
+}
+#inquiry .switcher label {
+  transform: scale(0.6);
+}
+#inquiry .switcher label::before {
+  background-color: #999;
+}
+#inquiry .switcher .cmn-toggle-round:checked + label::before {
+  background-color: rgba(117, 153, 0, 1)!important;
 }

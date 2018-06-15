@@ -56,6 +56,9 @@
   <string name="showThreat">Tehdidi göster</string>
   <string name="inLocalBrowser">yerel tarayıcı üzerinde</string>
   <string name="toggleLocalEvaluation">Yerel analizi aç/kapat</string>
+  <string name="promoteVariation">Bu varyanttan devam et</string>
+  <string name="makeMainLine">Ana devam yolu yap</string>
+  <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
   <string name="move">Hamle</string>
   <string name="variantLoss">Kayıp devam yolu</string>
   <string name="variantWin">Kazanç devam yolu</string>
@@ -103,8 +106,11 @@
   <string name="memory">Ayrılan hafıza</string>
   <string name="infiniteAnalysis">Sonsuz analiz</string>
   <string name="removesTheDepthLimit">Derinlik sınırını kaldırır ve bilgisayarınızı sıcacık tutar</string>
+  <string name="blunder">Vahim hata</string>
   <string name="blunders">Vahim hatalar</string>
+  <string name="mistake">Hata</string>
   <string name="mistakes">Hatalar</string>
+  <string name="inaccuracy">Kusurlu hamle</string>
   <string name="inaccuracies">Kusurlu hamleler</string>
   <string name="moveTimes">Hamle zamanları</string>
   <string name="flipBoard">Tahtayı döndür</string>
@@ -163,7 +169,6 @@
   <string name="changePassword">Şifre değiştir</string>
   <string name="changeEmail">E-posta adresini değiştir</string>
   <string name="email">E-posta</string>
-  <string name="emailIsOptional">E-posta isteğe bağlıdır. Lichess, e-posta adresinizi şifrenizi unutursanız onu yenilemeniz için kullanacaktır.</string>
   <string name="passwordReset">Şifreyi yenile</string>
   <string name="forgotPassword">Şifremi unuttum</string>
   <string name="rank">Sıralama</string>
@@ -192,6 +197,7 @@
   <string name="accept">Kabul et</string>
   <string name="decline">Reddet</string>
   <string name="playingRightNow">Şu an oynanıyor</string>
+  <string name="eventInProgress">Şu an oynanıyor</string>
   <string name="finished">Bitti</string>
   <string name="abortGame">Oyunu iptal et</string>
   <string name="gameAborted">Oyun iptal edildi</string>
@@ -200,9 +206,13 @@
   <string name="mode">Mod</string>
   <string name="casual">Puansız</string>
   <string name="rated">Puanlı</string>
+  <string name="casualTournament">Puansız</string>
+  <string name="ratedTournament">Puanlı</string>
   <string name="thisGameIsRated">Oyun puanlıdır</string>
   <string name="rematch">Yeniden oyna</string>
   <string name="rematchOfferSent">Yeniden oynama teklifi yollandı</string>
+  <string name="rematchOfferSentWhite">Beyaz yeni bir oyun teklif ediyor</string>
+  <string name="rematchOfferSentBlack">Siyah yeni bir oyun teklif ediyor</string>
   <string name="rematchOfferAccepted">Yeniden oynama teklifi kabul edildi</string>
   <string name="rematchOfferCanceled">Yeniden oynama teklifi iptal edildi</string>
   <string name="rematchOfferDeclined">Yeniden oynama teklifi reddedildi</string>
@@ -265,6 +275,10 @@
   <string name="tournament">Turnuva</string>
   <string name="tournaments">Turnuvalar</string>
   <string name="tournamentPoints">Turnuvada alınan puanlar</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s Turnuva Puanı</item>
+    <item quantity="other">%s Turnuva Puanı</item>
+  </plurals>
   <string name="viewTournament">Turnuvayı izle</string>
   <string name="backToTournament">Turnuvaya dön</string>
   <string name="thematic">Tematik</string>
@@ -372,6 +386,15 @@
   <string name="winner">Kazanan</string>
   <string name="standing">Sıralama</string>
   <string name="createANewTournament">Yeni turnuva oluştur</string>
+  <string name="tournamentCalendar">Turnuva takvimi</string>
+  <string name="conditionOfEntry">Ön koşul:</string>
+  <string name="advancedSettings">Diğer ayarlar</string>
+  <string name="safeTournamentName">Turnuva için oldukça güvenli bir isim seçin.</string>
+  <string name="inappropriateNameWarning">En hafif bir yakışıksız isim dahi hesabınızın kapatılmasına yol açabilir.</string>
+  <string name="emptyTournamentName">Turnuvaya rastgele bir Büyükustanın ismini vermek için kutuyu boş bırakın.</string>
+  <string name="recommendNotTouching">Bu ayarlara dokunmamanızı öneririz.</string>
+  <string name="fewerPlayers">Ön koşul eklediğiniz takdirde turnuvanıza daha az oyuncu katılabilecektir.</string>
+  <string name="showAdvancedSettings">Ayarları göster</string>
   <string name="join">Katıl</string>
   <string name="withdraw">Çekil</string>
   <string name="points">Puanlar</string>
@@ -415,6 +438,7 @@
   <string name="biography">Biyografi</string>
   <string name="country">Ülke</string>
   <string name="preferences">Seçenekler</string>
+  <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="watchLichessTV">Lichess TV İzle</string>
   <string name="previouslyOnLichessTV">Daha Önce Lichess TV\'de</string>
   <string name="onlinePlayers">Çevrimiçi oyuncular</string>
@@ -450,10 +474,6 @@
   <string name="retryThisPuzzle">Bu bulmacayı yeniden dene</string>
   <string name="thisPuzzleIsCorrect">Bu bulmaca doğru ve ilginç</string>
   <string name="thisPuzzleIsWrong">Bu bulmaca yanlış veya sıkıcı</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">İlk hamleni yapman için %s saniyen kaldı!</item>
-    <item quantity="other">İlk hamleni yapman için %s saniyen kaldı!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">Şu anda %s oyun oynanıyor</item>
     <item quantity="other">Şu anda %s oyun oynanıyor</item>
@@ -487,7 +507,7 @@
   <string name="troll">Trol</string>
   <string name="other">Diğer</string>
   <string name="reportDescriptionHelp">Oyunun (veya oyunların) linkini yapıştırın ve kullanıcı hakkındaki şikayetinizi açıklayın.</string>
-  <string name="by">%s kurdu</string>
+  <string name="by">%s yazdı</string>
   <string name="thisTopicIsNowClosed">Bu konu kapanmıştır.</string>
   <string name="theming">Ortam</string>
   <string name="donate">Bağış yap</string>
@@ -504,6 +524,7 @@
   <string name="thisAccountIsClosed">Hesap kapatılmıştır.</string>
   <string name="invalidUsernameOrPassword">Hatalı kullanıcı adı ya da şifre</string>
   <string name="incorrectPassword">Şifre yanlış</string>
+  <string name="invalidAuthenticationCode">Geçersiz kimlik doğrulama kodu</string>
   <string name="emailMeALink">E-Posta ile giriş linki yolla</string>
   <string name="currentPassword">Geçerli şifre</string>
   <string name="newPassword">Yeni şifre</string>
@@ -623,6 +644,7 @@
   <string name="videoLibrary">Video kütüphanesi</string>
   <string name="mobileApp">Mobil Uygulama</string>
   <string name="webmasters">Site Yöneticileri</string>
+  <string name="about">Hakkında</string>
   <string name="contribute">Katkıda bulun</string>
   <string name="contact">İletişim</string>
   <string name="termsOfService">Hizmet koşulları</string>
@@ -674,8 +696,6 @@
   <string name="checkYourEmail">E-postanızı kontrol edin</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Size e-posta yolladık. Hesabınızı aktifleştirmek için e-postanızdaki linke tıklayın.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Eğer e-postayı görmüyorsanız, diğer yerlere bakın: çöp kutusu, spam, sosyal ya da diğer klasörler</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Bu e-posta adresiyle kaydolduğunuzdan emin misiniz?</string>
-  <string name="itWasNotRequiredForYourRegistration">Kaydınız için gerekli değildir.</string>
   <string name="weHaveSentYouAnEmailTo">%s adresine e-posta yolladık. Şifrenizi tekrar ayarlamak için e-postadaki linke tıklayın.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Kaydolarak, %s \'ı kabul etmiş sayılırsınız.</string>
   <string name="networkLagBetweenYouAndLichess">Siz ve lichess arasındaki ağda gecikme</string>
@@ -744,11 +764,12 @@
   <string name="pieceSet">Takım seti</string>
   <string name="embedInYourWebsite">Web sitende paylaş</string>
   <string name="usernameAlreadyUsed">Bu kullanıcı adı zaten kullanılıyor, lütfen başka bir kullanıcı adı deneyin.</string>
-  <string name="usernameInvalid">Geçersiz kullanıcı adı. Lütfen yalnızca harf, sayı, alt tire ve tire kullanın.</string>
-  <string name="usernameStartNoNumber">Kullanıcı adı bir sayı ile başlayamaz.</string>
+  <string name="usernamePrefixInvalid">Kullanıcı adınız bir harfle başlamak zorundadır.</string>
+  <string name="usernameSuffixInvalid">Kullanıcı adı bir harf veya sayı ile bitmelidir.</string>
+  <string name="usernameCharsInvalid">Kullanıcı adı yalnızca harf, sayı, alt çizgi ve çizgi içerebilir.</string>
   <string name="usernameUnacceptable">Bu kullanıcı adı uygun değil.</string>
-  <string name="directlySupportLichess">Lichess\'e doğrudan destek verin</string>
-  <string name="playChessInStyle">Tarzınızla satranç oynayın</string>
+  <string name="directlySupportLichess">Lichess\'i destekleyin</string>
+  <string name="playChessInStyle">Satrancı tarz ile oynayın</string>
   <string name="chessBasics">Satrancın temel prensipleri</string>
   <string name="coaches">Eğitmenler</string>
   <string name="invalidPgn">Geçersiz PGN</string>
@@ -762,4 +783,64 @@
   <string name="notifications">Bildirimler</string>
   <string name="challenges">Meydan okumalar</string>
   <string name="perfRatingX">Puan: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">İlk hamle için son %s saniye</item>
+    <item quantity="other">İlk hamle için son %s saniye</item>
+  </plurals>
+  <string name="practiceWithComputer">Bilgisayar ile alıştırma yapın</string>
+  <string name="anotherWasX">%s de olurdu</string>
+  <string name="bestWasX">En iyi hamle %s</string>
+  <string name="youBrowsedAway">Çok uzaklara gittiniz</string>
+  <string name="resumePractice">Alıştırmaya devam edin</string>
+  <string name="theGameIsADraw">Beraberlik.</string>
+  <string name="computerThinking">Bilgisayar düşünüyor...</string>
+  <string name="seeBestMove">En iyi hamleye bak</string>
+  <string name="hideBestMove">En iyi hamleyi gizle</string>
+  <string name="getAHint">İpucu</string>
+  <string name="evaluatingYourMove">Hamleniz değerlendiriliyor...</string>
+  <string name="whiteWinsGame">Beyaz kazandı</string>
+  <string name="blackWinsGame">Siyah kazandı</string>
+  <string name="learnFromYourMistakes">Hatalarından ders al</string>
+  <string name="learnFromThisMistake">Hatalarından ders al</string>
+  <string name="skipThisMove">Bu hamleyi geç</string>
+  <string name="next">Sonraki</string>
+  <string name="xWasPlayed">%s oynandı</string>
+  <string name="findBetterMoveForWhite">Beyaz için en iyi hamleyi bulun</string>
+  <string name="findBetterMoveForBlack">Siyah için en iyi hamleyi bulun</string>
+  <string name="resumeLearning">Kaldığınız yerden devam edin</string>
+  <string name="youCanDoBetter">Daha iyisini yapabilirsin</string>
+  <string name="tryAnotherMoveForWhite">Beyaz için başka bir hamle dene</string>
+  <string name="tryAnotherMoveForBlack">Siyah için başka bir hamle dene</string>
+  <string name="solution">Çözüm</string>
+  <string name="waitingForAnalysis">Analiz bekleniyor</string>
+  <string name="noMistakesFoundForWhite">Beyazın bir hatası bulunamadı</string>
+  <string name="noMistakesFoundForBlack">Siyahın bir hatası bulunamadı</string>
+  <string name="doneReviewingWhiteMistakes">Beyazın hataları analiz edildi</string>
+  <string name="doneReviewingBlackMistakes">Siyahın hataları analiz edildi</string>
+  <string name="doItAgain">Tekrar yapın</string>
+  <string name="reviewWhiteMistakes">Beyazın hatalarını gözden geçirin</string>
+  <string name="reviewBlackMistakes">Siyahın hatalarını gözden geçirin</string>
+  <string name="advantage">Avantaj</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s saniye</item>
+    <item quantity="other">%s saniye</item>
+  </plurals>
+  <string name="opening">Açılış</string>
+  <string name="middlegame">Oyunortası</string>
+  <string name="endgame">Oyunsonu</string>
+  <string name="registerToSendChallenges">Oyun daveti göndermek için üye olun.</string>
+  <string name="youCannotChallengeX">%s adlı oyuncuya oyun daveti gönderemezsiniz.</string>
+  <string name="xDoesNotAcceptChallenges">%s oyun davetlerini kabul etmiyor.</string>
+  <string name="yourXRatingIsTooFarFromY">%1$s puanın %2$s den çok uzak.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Geçici %s puanı sırasında meydan okunamaz.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s sadece arkadaşlarından gelen meydan okumaları kabul ediyor.</string>
+  <string name="conditionalPremoves">Şartlı ön hamle</string>
+  <string name="addCurrentVariation">Geçerli varyasyon ekle</string>
+  <string name="playVariationToCreateConditionalPremoves">Koşullu ön hamleler yapmak için bir varyasyon oynayın</string>
+  <string name="noConditionalPremoves">Koşullu ön hamle yok</string>
+  <string name="playX">%s oyna</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">ve %s önceki varyantları kaydedin</item>
+    <item quantity="other">ve %s önceki varyantları kaydedin</item>
+  </plurals>
 </resources>

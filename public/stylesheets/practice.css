@@ -130,6 +130,18 @@ body.dark .underboard .feedback {
 .underboard .feedback .comment iframe {
   margin: 10px 0;
 }
+.underboard .setting {
+  margin-top: 15px;
+  text-align: left;
+  line-height: 22px;
+  display: flex;
+}
+.underboard .setting > label {
+  order: 1;
+  flex: 1 0;
+  cursor: pointer;
+  margin-left: 10px;
+}
 
 #practice_app .section {
   width: 742px;
@@ -424,4 +436,13 @@ i.\39 c6GrCTk {
 }
 i.Z1DKk4Rl {
   background-image: url('/assets/images/practice/stone-crafting.svg');
+}
+i.ByhlXnmM {
+  background-image: url('/assets/images/practice/ghost-ally.svg');
+}
+i.pt20yRkT {
+  background-image: url('/assets/images/practice/stone-tower.svg');
+}
+i.MkDViieT {
+  background-image: url('/assets/images/practice/guarded-tower.svg');
 }

@@ -1,4 +1,6 @@
 package lila
 
-package object socket
-  extends PackageObject with WithPlay with socket.WithSocket
+package object socket extends PackageObject with socket.WithSocket {
+
+  val logger = lila.log("socket")
+}

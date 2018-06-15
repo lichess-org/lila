@@ -6,8 +6,8 @@ import ornicar.scalalib.Random
 import chess.Clock.{ Config => ClockConfig }
 import chess.{ Speed, Mode, StartingPosition }
 import lila.game.PerfPicker
+import lila.rating.PerfType
 import lila.user.User
-import lila.user.UserRepo.lichessId
 
 case class Tournament(
     id: Tournament.ID,
@@ -22,6 +22,7 @@ case class Tournament(
     `private`: Boolean,
     password: Option[String] = None,
     conditions: Condition.All,
+    noBerserk: Boolean = false,
     schedule: Option[Schedule],
     nbPlayers: Int,
     createdAt: DateTime,
@@ -38,17 +39,21 @@ case class Tournament(
 
   def isPrivate = `private`
 
-  def fullName =
-    if (isMarathonOrUnique) name
-    else if (isScheduled && clock.hasIncrement) s"$name Inc $system"
-    else s"$name $system"
+  def fullName = schedule.map(_.freq).fold(s"$name $system") {
+    case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon | Schedule.Freq.Unique => name
+    case Schedule.Freq.Shield => s"$name $system"
+    case _ if clock.hasIncrement => s"$name Inc $system"
+    case _ => s"$name $system"
+  }
 
   def isMarathon = schedule.map(_.freq) exists {
     case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true
     case _ => false
   }
 
-  def isUnique = schedule.map(_.freq) contains Schedule.Freq.Unique
+  def isShield = schedule.map(_.freq) has Schedule.Freq.Shield
+
+  def isUnique = schedule.map(_.freq) has Schedule.Freq.Unique
 
   def isMarathonOrUnique = isMarathon || isUnique
 
@@ -74,6 +79,8 @@ case class Tournament(
 
   def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 15) && !isFinished
 
+  def isDistant = startsAt.isAfter(DateTime.now plusDays 1)
+
   def duration = new Duration(minutes * 60 * 1000)
 
   def interval = new Interval(startsAt, finishesAt)
@@ -87,14 +94,14 @@ case class Tournament(
 
   def speed = Speed(clock)
 
-  def perfType = PerfPicker.perfType(speed, variant, none)
+  def perfType: Option[PerfType] = PerfPicker.perfType(speed, variant, none)
   def perfLens = PerfPicker.mainOrDefault(speed, variant, none)
 
   def durationString =
     if (minutes < 60) s"${minutes}m"
     else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
 
-  def berserkable = system.berserkable && clock.berserkable
+  def berserkable = !noBerserk && system.berserkable && clock.berserkable
 
   def clockStatus = secondsToFinish |> { s => "%02d:%02d".format(s / 60, s % 60) }
 
@@ -109,7 +116,9 @@ case class Tournament(
     )
   }
 
-  def nonLichessCreatedBy = (createdBy != lichessId) option createdBy
+  def nonLichessCreatedBy = (createdBy != User.lichessId) option createdBy
+
+  def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
 
   override def toString = s"$id $startsAt $fullName $minutes minutes, $clock"
 }
@@ -133,7 +142,9 @@ object Tournament {
     mode: Mode,
     `private`: Boolean,
     password: Option[String],
-    waitMinutes: Int
+    waitMinutes: Int,
+    startDate: Option[DateTime],
+    berserkable: Boolean
   ) = Tournament(
     id = Random nextString 8,
     name = name | {
@@ -153,8 +164,11 @@ object Tournament {
     `private` = `private`,
     password = password,
     conditions = Condition.All.empty,
+    noBerserk = !berserkable,
     schedule = None,
-    startsAt = DateTime.now plusMinutes waitMinutes
+    startsAt = startDate | {
+      DateTime.now plusMinutes waitMinutes
+    }
   )
 
   def schedule(sched: Schedule, minutes: Int) = Tournament(
@@ -164,7 +178,7 @@ object Tournament {
     system = System.default,
     clock = Schedule clockFor sched,
     minutes = minutes,
-    createdBy = lichessId,
+    createdBy = User.lichessId,
     createdAt = DateTime.now,
     nbPlayers = 0,
     variant = sched.variant,

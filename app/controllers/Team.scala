@@ -2,6 +2,7 @@ package controllers
 
 import lila.api.Context
 import lila.app._
+import lila.common.{ HTTPRequest, MaxPerSecond }
 import lila.security.Granter
 import lila.team.{ Joined, Motivate, Team => TeamModel, TeamRepo, MemberRepo }
 import lila.user.{ User => UserModel }
@@ -51,6 +52,21 @@ object Team extends LilaController {
     members <- paginator.teamMembers(team, page)
     _ <- Env.user.lightUserApi preloadMany info.userIds
   } yield html.team.show(team, members, info)
+
+  def users(teamId: String) = Action.async { req =>
+    import Api.limitedDefault
+    Env.team.api.team(teamId) flatMap {
+      _ ?? { team =>
+        Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+          import play.api.libs.iteratee._
+          Api.jsonStream {
+            Env.team.memberStream(team, MaxPerSecond(20)) &>
+              Enumeratee.map(Env.api.userApi.one)
+          } |> fuccess
+        }
+      }
+    }
+  }
 
   def edit(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(api team id) { team =>
@@ -145,6 +161,7 @@ object Team extends LilaController {
   }
 
   def requests = Auth { implicit ctx => me =>
+    Env.team.cached.nbRequests invalidate me.id
     api requestsWithUsers me map { html.team.allRequests(_) }
   }
 

@@ -3,8 +3,8 @@ package lila.forum
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.common.DetectLanguage
-import lila.common.PimpedConfig._
+import lila.common.{ DetectLanguage, MaxPerPage }
+
 import lila.hub.actorApi.team.CreateTeam
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
@@ -31,8 +31,8 @@ final class Env(
     val CollectionCateg = config getString "collection.categ"
     val CollectionTopic = config getString "collection.topic"
     val CollectionPost = config getString "collection.post"
-    import scala.collection.JavaConverters._
-    val PublicCategIds = (config getStringList "public_categ_ids").asScala.toList
+    import scala.collection.JavaConversions._
+    val PublicCategIds = (config getStringList "public_categ_ids").toList
   }
   import settings._
 
@@ -43,7 +43,7 @@ final class Env(
   lazy val topicApi = new TopicApi(
     env = this,
     indexer = hub.actor.forumSearch,
-    maxPerPage = TopicMaxPerPage,
+    maxPerPage = MaxPerPage(TopicMaxPerPage),
     modLog = modLog,
     shutup = shutup,
     timeline = hub.actor.timeline,
@@ -55,7 +55,7 @@ final class Env(
   lazy val postApi = new PostApi(
     env = this,
     indexer = hub.actor.forumSearch,
-    maxPerPage = PostMaxPerPage,
+    maxPerPage = MaxPerPage(PostMaxPerPage),
     modLog = modLog,
     shutup = shutup,
     timeline = hub.actor.timeline,
@@ -71,9 +71,10 @@ final class Env(
     system.actorOf(Props(new Actor {
       def receive = {
         case CreateTeam(id, name, _) => categApi.makeTeam(id, name)
+        case lila.user.User.GDPRErase(user) => postApi erase user
       }
     })),
-    'team
+    'team, 'gdprErase
   )
 
   private[forum] lazy val categColl = db(CollectionCateg)
@@ -93,6 +94,6 @@ object Env {
     notifyApi = lila.notify.Env.current.api,
     relationApi = lila.relation.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = old.play.Env.actorSystem
+    system = lila.common.PlayApp.system
   )
 }

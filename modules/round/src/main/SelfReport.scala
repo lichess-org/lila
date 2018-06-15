@@ -1,9 +1,8 @@
 package lila.round
 
 import akka.actor._
-import play.api.mvc.RequestHeader
 
-import lila.common.{ IpAddress, HTTPRequest }
+import lila.common.IpAddress
 import lila.user.{ User, UserRepo }
 
 final class SelfReport(roundMap: ActorRef) {
@@ -23,8 +22,7 @@ final class SelfReport(roundMap: ActorRef) {
       def doLog = lila.log("cheat").branch("jslog").info(
         s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
       )
-      if (fullId == "________") fuccess(doLog)
-      else lila.game.GameRepo pov fullId map {
+      lila.game.GameRepo pov fullId map {
         _ ?? { pov =>
           if (!known) doLog
           if (Set("ceval", "rcb", "ccs")(name)) fuccess {

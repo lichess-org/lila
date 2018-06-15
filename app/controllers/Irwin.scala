@@ -19,7 +19,7 @@ object Irwin extends LilaController {
 
   def saveReport = OpenBody(parse.json) { implicit ctx =>
     ModExternalBot {
-      UserRepo.irwin err "Missing irwin user" flatMap { irwin =>
+      UserRepo.irwin.flatten("Missing irwin user") flatMap { irwin =>
         ctx.body.body.validate[lila.irwin.IrwinReport].fold(
           err => fuccess(BadRequest(err.toString)),
           report => Env.irwin.api.reports.insert(report) inject Ok
@@ -28,25 +28,14 @@ object Irwin extends LilaController {
     }
   }
 
-  def getRequest = Open { implicit ctx =>
-    ModExternalBot {
-      Env.irwin.api.requests.getAndStart map {
-        case None => NotFound
-        case Some(req) => Ok(req.id)
-      }
-    }
-  }
-
   def assessment(username: String) = Open { implicit ctx =>
     ModExternalBot {
       OptionFuResult(UserRepo named username) { user =>
-        Env.mod.assessApi.refreshAssessByUsername(user.id) >>
-          Env.mod.jsonView(user).flatMap {
-            case None => NotFound.fuccess
-            case Some(data) => Env.mod.userHistory(user) map { history =>
-              Ok(data + ("history" -> history))
-            }
-          }.map(_ as JSON)
+        lila.mon.mod.irwin.assessment.count()
+        (Env.mod.assessApi.refreshAssessByUsername(user.id) >>
+          Env.mod.jsonView(user) map {
+            _.fold[Result](NotFound) { obj => Ok(obj) as JSON }
+          }).mon(_.mod.irwin.assessment.time)
       }
     }
   }

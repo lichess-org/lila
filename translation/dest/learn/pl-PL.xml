@@ -24,10 +24,10 @@
 jeden czarnopolowy goniec.
 Potrzebujesz ich obu!</string>
   <string name="bishopComplete">Gratulacje! Potrafisz poruszać się gońcem.</string>
-  <string name="theQueen">Królowa</string>
-  <string name="queenCombinesRookAndBishop">Królowa = wieża + goniec</string>
-  <string name="queenIntro">Czas na najpotężniejszą szachową figurę. Jej wysokość Królowa!</string>
-  <string name="queenComplete">Gratulacje! Królowa nie ma dla Ciebie tajemnic.</string>
+  <string name="theQueen">Hetman</string>
+  <string name="queenCombinesRookAndBishop">Hetman = wieża + goniec</string>
+  <string name="queenIntro">Czas na najpotężniejszą szachową figurę. Hetman!</string>
+  <string name="queenComplete">Gratulacje! Hetman nie ma dla Ciebie tajemnic.</string>
   <string name="theKing">Król</string>
   <string name="theMostImportantPiece">Najważniejsza figura</string>
   <string name="kingIntro">To Ty jesteś królem. Jeśli polegniesz w bitwie, przegrasz.</string>
@@ -46,10 +46,10 @@ Skacz i zbieraj gwiazdki!</string>
   <string name="pawnIntro">Piony są słabe, ale mają w sobie duży potencjał.</string>
   <string name="pawnsMoveOneSquareOnly">Piony poruszają się tylko o jedno pole. 
 Ale jeśli dojdą do ostatniej linii mogą zamienić się w silniejszą figurę!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować piona do królowej. 
+  <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować piona na hetmana. 
 Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="pawnsMoveForward">Piony poruszają się do przodu ale biją po przekątnej!</string>
-  <string name="captureThenPromote">Zbij, a później promuj piona!</string>
+  <string name="captureThenPromote">Zbijaj, a później promuj!</string>
   <string name="useAllThePawns">Użyj wszystkich swoich pionów! Nie ma potrzeby promowania.</string>
   <string name="aPawnOnTheSecondRank">Pion będący na drugiej linii może poruszyć się o 2 pola do przodu!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Zbierz wszystkie gwiazdki! Nie ma potrzeby promowania.</string>
@@ -67,59 +67,59 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="captureComplete">Gratulacje! Wiesz jak rozprawić się z figurami przeciwnika!</string>
   <string name="protection">Obrona</string>
   <string name="keepYourPiecesSafe">Zabezpiecz swoje figury</string>
-  <string name="protectionIntro">Znajdź figury które są atakowane i obroń je!</string>
+  <string name="protectionIntro">Znajdź figury które przeciwnik atakuje i obroń je!</string>
   <string name="protectionComplete">Gratulacje! Figura nie stracona to figura wygrana!</string>
   <string name="escape">Jesteś atakowany! Uciekaj przed zagrożeniem!</string>
   <string name="noEscape">Nie ma możliwości ucieczki ale można się obronić!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Nie pozwól, aby zbito niebronione figury!</string>
   <string name="combat">Walka</string>
   <string name="captureAndDefendPieces">Bicie i obrona figur</string>
-  <string name="combatIntro">Dobry wojownik wie jak atakować i bronić się!</string>
-  <string name="combatComplete">Gratulacje! Wiesz jak rozprawić się z figurami przeciwnika!</string>
+  <string name="combatIntro">Dobry wojownik wie jak atakować i jak bronić!</string>
+  <string name="combatComplete">Gratulacje! Wiesz jak walczyć z figurami szachowymi!</string>
   <string name="checkInOne">Szach w 1 ruchu</string>
   <string name="attackTheOpponentsKing">Zaatakuj króla przeciwnika</string>
   <string name="checkInOneIntro">Aby zaszachować swojego przeciwnika, zaatakuj jego króla. Będzie musiał go obronić!</string>
   <string name="checkInOneGoal">Zaatakuj króla przeciwnika w jednym ruchu!</string>
-  <string name="checkInOneComplete">Gratulacje! Zaszachowałeś króla przeciwnika, zmuszając go do obrony!</string>
-  <string name="outOfCheck">Obrona króla</string>
+  <string name="checkInOneComplete">Gratulacje! Zaszachowałeś przeciwnika, zmuszając go do obrony króla!</string>
+  <string name="outOfCheck">Obrona przed szachem</string>
   <string name="defendYourKing">Chroń swojego króla</string>
-  <string name="outOfCheckIntro">Zostałeś zaszachowany! Musisz uciekać lub obronić się przed atakiem.</string>
-  <string name="escapeWithTheKing">Odejdź królem!</string>
-  <string name="theKingCannotEscapeButBlock">Król nie może uciec, ale możesz zablokować ten atak!</string>
+  <string name="outOfCheckIntro">Zostałeś zaszachowany! Musisz uciec lub odeprzeć atak.</string>
+  <string name="escapeWithTheKing">Uciekaj królem!</string>
+  <string name="theKingCannotEscapeButBlock">Król nie może uciec, ale możesz zablokować atak!</string>
   <string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem bijąc atakującą króla figurę.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ten skoczek szachuje króla poprzez Twoją obronę!</string>
-  <string name="escapeOrBlock">Odejdź królem lub zablokuj atak!</string>
+  <string name="escapeOrBlock">Ucieknij królem lub odeprzyj atak!</string>
   <string name="outOfCheckComplete">Gratulacje! Twój król jest niepokonany, sprawdź czy potrafisz bronić się przed szachem!</string>
   <string name="mateInOne">Mat w 1 ruchu</string>
   <string name="defeatTheOpponentsKing">Pokonaj króla przeciwnika</string>
-  <string name="mateInOneIntro">Wygrasz jeśli Twój przeciwnik nie będzie mógł obronić się przed szachem.</string>
+  <string name="mateInOneIntro">Wygrasz kiedy Twój przeciwnik nie może obronić się przed szachem.</string>
   <string name="attackYourOpponentsKing">Zaatakuj króla przeciwnika w taki sposób aby nie mógł się obronić!</string>
   <string name="mateInOneComplete">Gratulacje! Tak wygrywa się w szachy!</string>
   <string name="intermediate">Średnio zaawansowane</string>
-  <string name="boardSetup">Ustawienie</string>
+  <string name="boardSetup">Ustawienie początkowe</string>
   <string name="howTheGameStarts">Od czego zacząć</string>
-  <string name="boardSetupIntro">Dwie armie stają naprzeciw siebie, gotowe do walki.</string>
-  <string name="thisIsTheInitialPosition">To jest początkowe ustawienie każdej gry w szachy! Zrób dowolny ruch aby kontynuować.</string>
-  <string name="firstPlaceTheRooks">Najpierw umieścić na szachownicy wieże! Ustaw je w rogach.</string>
-  <string name="thenPlaceTheKnights">Następnie rozmieść skoczki! Postaw je obok wież.</string>
-  <string name="placeTheBishops">Teraz ustaw gońce. Postaw je obok skoczków.</string>
-  <string name="placeTheQueen">Ustaw królową. Pamiętaj - królowa zawsze trzyma się własnego koloru!</string>
-  <string name="placeTheKing">Ustaw króla - postaw go obok królowej.</string>
+  <string name="boardSetupIntro">Dwie armie stają naprzeciwko siebie, gotowe na bitwę.</string>
+  <string name="thisIsTheInitialPosition">To jest początkowa pozycja każdej partii szachów! Zrób dowolny ruch aby kontynuować.</string>
+  <string name="firstPlaceTheRooks">Najpierw ustaw wieże! Umieść je w rogach.</string>
+  <string name="thenPlaceTheKnights">Następnie ustaw skoczki! Umieść je obok wież.</string>
+  <string name="placeTheBishops">Ustaw gońce! Umieść je obok skoczków.</string>
+  <string name="placeTheQueen">Ustaw hetmana! Umieść go na polu jego własnego koloru.</string>
+  <string name="placeTheKing">Ustaw króla! Umieść go obok hetmana.</string>
   <string name="pawnsFormTheFrontLine">Piony tworzą linię frontu. Zrób dowolny ruch aby kontynuować.</string>
-  <string name="boardSetupComplete">Gratulacje! Wiesz jak prawidłowo ustawić figury na szachownicy.</string>
+  <string name="boardSetupComplete">Gratulacje! Wiesz jak ustawiać figury na szachownicy.</string>
   <string name="castling">Roszada</string>
   <string name="theSpecialKingMove">Specjalny ruch króla</string>
   <string name="castlingIntro">Zabezpiecz swojego króla i wprowadź do gry wieżę!</string>
   <string name="castleKingSide">Przesuń króla o dwa pola aby wykonać krótką roszadę!</string>
   <string name="castleQueenSide">Przesuń króla o dwa pola aby wykonać długą roszadę!</string>
   <string name="theKnightIsInTheWay">Skoczek przeszkadza w roszadzie! Rusz się nim, a następnie zrób roszadę.</string>
-  <string name="castleKingSideMovePiecesFirst">Wykonaj krótką roszadę. Musisz umożliwić ją odchodząc przeszkadzającymi figurami.</string>
-  <string name="castleQueenSideMovePiecesFirst">Wykonaj długą roszadę. Musisz umożliwić ją odchodząc przeszkadzającymi figurami.</string>
+  <string name="castleKingSideMovePiecesFirst">Wykonaj krótką roszadę. Musisz najpierw odejść figurami.</string>
+  <string name="castleQueenSideMovePiecesFirst">Wykonaj długą roszadę. Musisz najpierw wyjść figurami.</string>
   <string name="youCannotCastleIfMoved">Nie możesz roszować jeśli król lub wieża ruszyła się wcześniej.</string>
   <string name="youCannotCastleIfAttacked">Nie możesz roszować jeśli król jest szachowany. Najpierw zasłoń króla i wtedy zrób roszadę!</string>
   <string name="findAWayToCastleKingSide">Znajdź sposób aby wykonać krótką roszadę!</string>
   <string name="findAWayToCastleQueenSide">Znajdź sposób aby wykonać długą roszadę!</string>
-  <string name="castlingComplete">Gratulacje! Pamiętaj - powinieneś roszować w prawie każdej grze.</string>
+  <string name="castlingComplete">Gratulacje! Powinieneś roszować w prawie każdej partii.</string>
   <string name="enPassant">Bicie w przelocie</string>
   <string name="theSpecialPawnMove">Specjalny ruch piona</string>
   <string name="enPassantIntro">Kiedy pion przeciwnika poruszył się o dwa pola do przodu, możesz zbić go tak jakby poruszył się tylko o jedno pole.</string>
@@ -129,8 +129,8 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="takeAllThePawnsEnPassant">Zbij wszystkie piony biciem w przelocie!</string>
   <string name="enPassantComplete">Gratulacje! Potrafisz teraz wykonać bicie w przelocie.</string>
   <string name="stalemate">Pat</string>
-  <string name="theGameIsADraw">Gra zakończona remisem</string>
-  <string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie ma możliwości ruchu to jest to pat. Ogłaszany jest remis: nikt nie wygrywa i nikt nie przegrywa.</string>
+  <string name="theGameIsADraw">Partia zakończona remisem</string>
+  <string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie może zrobić żadnego prawidłowego ruchu to jest to pat. Partia jest zakończona remisem: nikt nie wygrywa, nikt nie przegrywa.</string>
   <string name="stalemateGoal">Czarne dostaną pata gdy:
 - nie będą mogły się ruszyć
 - nie będą szachowane</string>
@@ -139,34 +139,34 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="pieceValue">Wartości figur</string>
   <string name="evaluatePieceStrength">Oceń siłę każdej figury</string>
   <string name="pieceValueIntro">Figury mające większe możliwości poruszania się warte są więcej!
-Królowa = 9
+Hetman = 9
 Wieża = 5
 Goniec = 3
 Skoczek = 3
 Pion = 1
-Król jest bezcenny! Tracąc króla przegrywasz grę.</string>
+Król jest bezcenny! Tracąc króla przegrywasz partię.</string>
   <string name="queenOverBishop">Zbij figurę o największej wartości!
-królowa &gt; goniec</string>
+hetman &gt; goniec</string>
   <string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
-  <string name="pieceValueComplete">Gratulacje! Znasz wartości poszczególnych figur!
-Królowa = 9
+  <string name="pieceValueComplete">Gratulacje! Znasz wartość materiału!
+Hetman = 9
 Wieża = 5
 Goniec = 3
 Skoczek = 3
-Pion = 1</string>
+Pionek = 1</string>
   <string name="checkInTwo">Szach w 2 ruchach</string>
-  <string name="twoMovesToGiveCheck">Dwa ruchy i szach</string>
+  <string name="twoMovesToGiveCheck">Dwa ruchy aby dać szacha</string>
   <string name="checkInTwoIntro">Znajdź właściwą kombinację dwóch ruchów, tak aby zaszachować króla przeciwnika!</string>
   <string name="checkInTwoGoal">Zaatakuj króla przeciwnika w dwóch ruchach!</string>
-  <string name="checkInTwoComplete">Gratulacje! Zaszachowałeś króla przeciwnika, zmuszając go do obrony!</string>
+  <string name="checkInTwoComplete">Gratulacje! Zaszachowałeś przeciwnika, zmuszając go do obrony króla!</string>
   <string name="whatNext">Co dalej?</string>
   <string name="youKnowHowToPlayChess">Gratulacje! Wiesz już jak grać w szachy. Czy chcesz stać się silniejszym graczem?</string>
   <string name="register">Rejestracja</string>
   <string name="getAFreeLichessAccount">Załóż darmowe konto Lichess</string>
   <string name="practice">Praktyka</string>
   <string name="learnCommonChessPositions">Poznaj częste pozycje szachowe</string>
-  <string name="puzzles">Łamigłówki</string>
-  <string name="exerciseYourTacticalSkills">Ćwicz umiejętności taktyczne</string>
+  <string name="puzzles">Zadania szachowe</string>
+  <string name="exerciseYourTacticalSkills">Ćwicz swoje umiejętności taktyczne</string>
   <string name="videos">Filmy</string>
   <string name="watchInstructiveChessVideos">Oglądaj filmy instruktażowe</string>
   <string name="playPeople">Graj z innymi</string>

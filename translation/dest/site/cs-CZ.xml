@@ -56,6 +56,9 @@
   <string name="showThreat">Zobrazit hrozbu</string>
   <string name="inLocalBrowser">v lokálním prohlížeči</string>
   <string name="toggleLocalEvaluation">Lokální analýza</string>
+  <string name="promoteVariation">Povýšit variantu</string>
+  <string name="makeMainLine">Povýšit na hlavní variantu</string>
+  <string name="deleteFromHere">Smazat odsud</string>
   <string name="move">Tah</string>
   <string name="variantLoss">Prohra</string>
   <string name="variantWin">Výhra</string>
@@ -76,11 +79,13 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat v %s půltahu</item>
     <item quantity="few">Mat v %s půltazích</item>
+    <item quantity="many">Mat v %s půltazích</item>
     <item quantity="other">Mat v %s půltazích</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">%s půltahu do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
+    <item quantity="one">%s půltah do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
     <item quantity="few">%s půltahy do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
+    <item quantity="many">%s půltahů do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
     <item quantity="other">%s půltahů do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
   </plurals>
   <string name="noGameFound">Žádná hra nenalezena</string>
@@ -105,8 +110,11 @@
   <string name="memory">Paměť</string>
   <string name="infiniteAnalysis">Nekonečná analýza</string>
   <string name="removesTheDepthLimit">Zapne nekonečnou analýzu a odstraní omezení hloubky propočtu</string>
+  <string name="blunder">Hrubá chyba</string>
   <string name="blunders">Hrubky</string>
+  <string name="mistake">Chyba</string>
   <string name="mistakes">Omyly</string>
+  <string name="inaccuracy">Nepřesnost</string>
   <string name="inaccuracies">Nepřesnosti</string>
   <string name="moveTimes">Čas na tah</string>
   <string name="flipBoard">Otočit šachovnici</string>
@@ -117,17 +125,20 @@
   <plurals name="nbPlayers">
     <item quantity="one">%s hráč online</item>
     <item quantity="few">%s hráči online</item>
+    <item quantity="many">%s hráčů online</item>
     <item quantity="other">%s hráčů online</item>
   </plurals>
   <string name="currentGames">Právě probíhající partie</string>
   <plurals name="nbGames">
     <item quantity="one">%s partie</item>
-    <item quantity="few">Zobrazit všech %s partií</item>
+    <item quantity="few">%s partie</item>
+    <item quantity="many">%s partií</item>
     <item quantity="other">%s partií</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s záložka</item>
-    <item quantity="few">Záložky: %s</item>
+    <item quantity="few">%s záložky</item>
+    <item quantity="many">%s záložek</item>
     <item quantity="other">%s záložek</item>
   </plurals>
   <string name="viewInFullSize">Zobrazit v plné velikosti</string>
@@ -153,11 +164,13 @@
   <plurals name="nbDays">
     <item quantity="one">%s den</item>
     <item quantity="few">%s dny</item>
+    <item quantity="many">%s dnů</item>
     <item quantity="other">%s dnů</item>
   </plurals>
   <plurals name="nbHours">
     <item quantity="one">%s hodina</item>
     <item quantity="few">%s hodiny</item>
+    <item quantity="many">%s hodin</item>
     <item quantity="other">%s hodin</item>
   </plurals>
   <string name="time">Tempo</string>
@@ -170,7 +183,6 @@
   <string name="changePassword">Změnit heslo</string>
   <string name="changeEmail">Změnit email</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Email je dobrovolný. Lichess ho použije pro resetování hesla, když ho zapomenete.</string>
   <string name="passwordReset">Změna hesla</string>
   <string name="forgotPassword">Zapomněl jste heslo?</string>
   <string name="rank">Pořadí</string>
@@ -179,13 +191,15 @@
   <plurals name="nbPuzzles">
     <item quantity="one">%s taktická úloha</item>
     <item quantity="few">%s taktické úlohy</item>
+    <item quantity="many">%s taktických úloh</item>
     <item quantity="other">%s taktických úloh</item>
   </plurals>
   <string name="gamesPlayed">Odehraných partií</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s hra s Vámi</item>
-    <item quantity="few">%s hry s Vámi</item>
-    <item quantity="other">%s her s Vámi</item>
+    <item quantity="one">%s partie s Vámi</item>
+    <item quantity="few">%s partie s Vámi</item>
+    <item quantity="many">%s partií s Vámi</item>
+    <item quantity="other">%s partií s Vámi</item>
   </plurals>
   <string name="cancel">Zrušit</string>
   <string name="timeOut">Čas vypršel</string>
@@ -201,6 +215,7 @@
   <string name="accept">Přijmout</string>
   <string name="decline">Odmítnout</string>
   <string name="playingRightNow">Právě se hraje</string>
+  <string name="eventInProgress">Právě se hraje</string>
   <string name="finished">Dokončeno</string>
   <string name="abortGame">Zrušit hru</string>
   <string name="gameAborted">Hra byla zrušena</string>
@@ -209,9 +224,13 @@
   <string name="mode">Režim hry</string>
   <string name="casual">Jen tak</string>
   <string name="rated">Hodnocená</string>
+  <string name="casualTournament">Jen tak</string>
+  <string name="ratedTournament">Hodnocená</string>
   <string name="thisGameIsRated">Tato hra se započítává do hodnocení</string>
   <string name="rematch">Odveta</string>
   <string name="rematchOfferSent">Nabídka odvety byla odeslána</string>
+  <string name="rematchOfferSentWhite">Bílý nabízí odvetu</string>
+  <string name="rematchOfferSentBlack">Černý nabízí odvetu</string>
   <string name="rematchOfferAccepted">Nabídka odvety byla přijata</string>
   <string name="rematchOfferCanceled">Nabídka odvety byla zrušena</string>
   <string name="rematchOfferDeclined">Nabídka odvety byla odmítnuta</string>
@@ -234,26 +253,31 @@
   <plurals name="nbRated">
     <item quantity="one">%s hodnocená</item>
     <item quantity="few">%s hodnocené</item>
+    <item quantity="many">%s hodnocených</item>
     <item quantity="other">%s hodnocených</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s výhra</item>
     <item quantity="few">%s výhry</item>
+    <item quantity="many">%s výher</item>
     <item quantity="other">%s výher</item>
   </plurals>
   <plurals name="nbLosses">
     <item quantity="one">%s prohra</item>
     <item quantity="few">%s prohry</item>
+    <item quantity="many">%s proher</item>
     <item quantity="other">%s proher</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s remíza</item>
     <item quantity="few">%s remízy</item>
+    <item quantity="many">%s remíz</item>
     <item quantity="other">%s remíz</item>
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s právě hraje</item>
     <item quantity="few">%s právě hraje</item>
+    <item quantity="many">%s právě hraje</item>
     <item quantity="other">%s právě hraje</item>
   </plurals>
   <string name="exportGames">Exportovat partie</string>
@@ -261,6 +285,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="one">Přidat %s sekundu</item>
     <item quantity="few">Přidat %s sekundy</item>
+    <item quantity="many">Přidat %s sekund</item>
     <item quantity="other">Přidat %s sekund</item>
   </plurals>
   <string name="giveMoreTime">Přidej čas</string>
@@ -280,27 +305,37 @@
   <string name="tournament">Turnaj</string>
   <string name="tournaments">Turnaje</string>
   <string name="tournamentPoints">Turnajové body</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turnajový bod</item>
+    <item quantity="few">%s turnajové body</item>
+    <item quantity="many">%s turnajových bodů</item>
+    <item quantity="other">%s turnajových bodů</item>
+  </plurals>
   <string name="viewTournament">Zobrazit turnaj</string>
   <string name="backToTournament">Zpět k turnaji</string>
   <string name="thematic">Tématický</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s hodnocená hra</item>
     <item quantity="few">≥ %s hodnocené hry</item>
+    <item quantity="many">≥ %s hodnocených her</item>
     <item quantity="other">≥ %s hodnocených her</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2%s hodnocená hra</item>
     <item quantity="few">≥ %1$s %2%s hodnocené hry</item>
+    <item quantity="many">≥ %1$s %2%s hodnocených her</item>
     <item quantity="other">≥ %1$s %2%s hodnocených her</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Potřebujete odehrát ještě %1$s %2$s hodnocenou partii</item>
     <item quantity="few">Potřebujete odehrát ještě %1$s %2$s hodnocené partie</item>
+    <item quantity="many">Potřebujete odehrát ještě %1$s %2$s hodnocených partií</item>
     <item quantity="other">Potřebujete odehrát ještě %1$s %2$s hodnocených partií</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Potřebujete odehrát ještě %s hodnocenou partii</item>
     <item quantity="few">Potřebujete odehrát ještě %s hodnocené partie</item>
+    <item quantity="many">Potřebujete odehrát ještě %s hodnocených partií</item>
     <item quantity="other">Potřebujete odehrát ještě %s hodnocených partií</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Váš rating %s je provizorní</string>
@@ -315,6 +350,7 @@
   <plurals name="nbMembers">
     <item quantity="one">%s člen</item>
     <item quantity="few">%s členi</item>
+    <item quantity="many">%s členů</item>
     <item quantity="other">%s členů</item>
   </plurals>
   <string name="allTeams">Všechny týmy</string>
@@ -347,6 +383,7 @@
   <plurals name="nbImportedGames">
     <item quantity="one">%s importovaná</item>
     <item quantity="few">%s importované</item>
+    <item quantity="many">%s importovaných</item>
     <item quantity="other">%s importovaných</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Toto je šachové CAPTCHA.</string>
@@ -370,12 +407,14 @@
   <string name="xStartedFollowingY">%1$s začal sledovat %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s následovník</item>
-    <item quantity="few">%s následovníků</item>
+    <item quantity="few">%s následovníci</item>
+    <item quantity="many">%s následovníků</item>
     <item quantity="other">%s následovníků</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s sleduje</item>
     <item quantity="few">%s sleduje</item>
+    <item quantity="many">%s sleduje</item>
     <item quantity="other">%s sleduje</item>
   </plurals>
   <string name="more">Více</string>
@@ -388,6 +427,7 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Méně než %s minuta</item>
     <item quantity="few">Méně než %s minuty</item>
+    <item quantity="many">Méně než %s minut</item>
     <item quantity="other">Méně než %s minut</item>
   </plurals>
   <string name="required">Vyžadováno.</string>
@@ -396,6 +436,15 @@
   <string name="winner">Vítěz</string>
   <string name="standing">Umístění</string>
   <string name="createANewTournament">Vytvořit turnaj</string>
+  <string name="tournamentCalendar">Kalendář turnajů</string>
+  <string name="conditionOfEntry">Podmínka vstupu:</string>
+  <string name="advancedSettings">Pokročilá nastavení</string>
+  <string name="safeTournamentName">Vyberte \"bezpečné\" jméno turnaje.</string>
+  <string name="inappropriateNameWarning">Cokoli i mírně nevhodného může způsobit uzavření vašeho účtu.</string>
+  <string name="emptyTournamentName">Pokud jméno turnaje nevyplníte, bude pojmenován po náhodném velmistrovi.</string>
+  <string name="recommendNotTouching">Doporučujeme tato nastavení neměnit.</string>
+  <string name="fewerPlayers">Pokud nastavíte podmínky vstupu, zúčastní se vašeho turnaje méně hráčů.</string>
+  <string name="showAdvancedSettings">Zobrazit pokročilá nastavení</string>
   <string name="join">Přidat se</string>
   <string name="withdraw">Odhlásit se</string>
   <string name="points">Body</string>
@@ -439,6 +488,7 @@
   <string name="biography">O mně</string>
   <string name="country">Země</string>
   <string name="preferences">Předvolby</string>
+  <string name="inlineNotation">Notace v řádcích</string>
   <string name="watchLichessTV">Sledujte Lichess TV</string>
   <string name="previouslyOnLichessTV">Dříve na Lichess TV</string>
   <string name="onlinePlayers">Hráči online</string>
@@ -468,6 +518,7 @@
   <plurals name="playedXTimes">
     <item quantity="one">Hráno %skrát</item>
     <item quantity="few">Hráno %skrát</item>
+    <item quantity="many">Hráno %skrát</item>
     <item quantity="other">Hráno %skrát</item>
   </plurals>
   <string name="fromGameLink">Z partie %s</string>
@@ -475,14 +526,10 @@
   <string name="retryThisPuzzle">Znovu zkusit tuto úlohu</string>
   <string name="thisPuzzleIsCorrect">Tato úloha je správná a zajímavá</string>
   <string name="thisPuzzleIsWrong">Tato úloha je špatná nebo nudná</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Máte %s sekundu na provedení prvního tahu!</item>
-    <item quantity="few">Máte %s sekundy na provedení prvního tahu!</item>
-    <item quantity="other">Máte %s sekund na provedení prvního tahu!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s rozehraná hra</item>
     <item quantity="few">%s rozehrané hry</item>
+    <item quantity="many">%s rozehraných her</item>
     <item quantity="other">%s rozehraných her</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticky přejdi k další hře po tahu</string>
@@ -531,6 +578,7 @@
   <string name="thisAccountIsClosed">Tento účet je zrušen.</string>
   <string name="invalidUsernameOrPassword">Špatné jméno nebo heslo</string>
   <string name="incorrectPassword">Nesprávné heslo</string>
+  <string name="invalidAuthenticationCode">Neplatný ověřovací kód</string>
   <string name="emailMeALink">Pošlete mi odkaz e-mailem</string>
   <string name="currentPassword">Současné heslo</string>
   <string name="newPassword">Nové heslo</string>
@@ -595,11 +643,13 @@ v %3$s</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s znak.</item>
     <item quantity="few">Maximum: %s znaky.</item>
+    <item quantity="many">Maximum: %s znaků.</item>
     <item quantity="other">Maximum: %s znaků.</item>
   </plurals>
   <plurals name="blocks">
     <item quantity="one">%s zablokovaný hráč</item>
     <item quantity="few">%s zablokovaní hráči</item>
+    <item quantity="many">%s zablokovaných hráčů</item>
     <item quantity="other">%s zablokovaných hráčů</item>
   </plurals>
   <string name="listBlockedPlayers">Seznam hráčů, které jste zablokoval(a).</string>
@@ -643,7 +693,8 @@ v %3$s</string>
   <string name="blackCastlingQueenside">Černá O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s příspěvek na fóru</item>
-    <item quantity="few">%s Příspěvků na fóru</item>
+    <item quantity="few">%s příspěvky na fóru</item>
+    <item quantity="many">%s příspěvků na fóru</item>
     <item quantity="other">%s příspěvků na fóru</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Čas strávený hraním %s</string>
@@ -654,6 +705,7 @@ v %3$s</string>
   <string name="videoLibrary">Video knihovna</string>
   <string name="mobileApp">Mobilní aplikace</string>
   <string name="webmasters">Správci webu</string>
+  <string name="about">O</string>
   <string name="contribute">Přispějte</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Podmínky používání</string>
@@ -698,6 +750,7 @@ v %3$s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s hráč hrál %2$s tento týden.</item>
     <item quantity="few">%1$s hráči hráli %2$s tento týden.</item>
+    <item quantity="many">%1$s hráčů hrálo %2$s tento týden.</item>
     <item quantity="other">%1$s hráčů hrálo %2$s tento týden.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Vaše %1$s hodnocení je %2$s.</string>
@@ -706,8 +759,6 @@ v %3$s</string>
   <string name="checkYourEmail">Zkontrolujte svoji emailovou složku</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Zaslali jsme vám email. Klikněte na odkaz v emailu pro aktivaci vašeho účtu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Pokud email nenaleznete v doručené poště, zkontrolujte další místa, kde by mohl být, jako spam, zprávy ze sociálních sítí, koš nebo jiné složky.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Jste si jistí, že jste se pod touto emailovou adresou registrovali na lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Nebylo vyžadováno k vaší registraci.</string>
   <string name="weHaveSentYouAnEmailTo">Zaslali jsme vám email na %s. Klikněte na odkaz v emailu pro přenastavení vašeho hesla.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registrací berete na vědomí naše %s.</string>
   <string name="networkLagBetweenYouAndLichess">Síťové zpoždění mezi vámi a lichess</string>
@@ -755,6 +806,7 @@ v %3$s</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dostupné v %s jazyku!</item>
     <item quantity="few">Dostupné v %s jazycích!</item>
+    <item quantity="many">Dostupné v %s jazycích!</item>
     <item quantity="other">Dostupné v %s jazycích!</item>
   </plurals>
   <string name="gameAnalysis">Analýza hry</string>
@@ -777,8 +829,9 @@ v %3$s</string>
   <string name="pieceSet">Vzhled figur</string>
   <string name="embedInYourWebsite">Vložit na web</string>
   <string name="usernameAlreadyUsed">Toto uživatelské jméno již existuje. Zvol, prosím, jiné.</string>
-  <string name="usernameInvalid">Neplatné uživatelské jméno. Použijte pouze písmena, číslice, podtržítka a pomlčky.</string>
-  <string name="usernameStartNoNumber">Uživatelské jméno nesmí začínat číslem.</string>
+  <string name="usernamePrefixInvalid">Uživatelské jméno musí začínat písmenem.</string>
+  <string name="usernameSuffixInvalid">Uživatelské jméno musí končit písmenem nebo číslem.</string>
+  <string name="usernameCharsInvalid">Uživatelské jméno musí obsahovat pouze písmena, číslice, podtržítka a pomlčky.</string>
   <string name="usernameUnacceptable">Toto uživatelské jméno není přijatelné.</string>
   <string name="directlySupportLichess">Podpořte Lichess přímo</string>
   <string name="playChessInStyle">Hrajte šachy stylově</string>
@@ -795,4 +848,70 @@ v %3$s</string>
   <string name="notifications">Oznámení</string>
   <string name="challenges">Výzvy</string>
   <string name="perfRatingX">Rating: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekunda na první tah</item>
+    <item quantity="few">%s sekundy na první tah</item>
+    <item quantity="many">%s sekund na první tah</item>
+    <item quantity="other">%s sekund na první tah</item>
+  </plurals>
+  <string name="practiceWithComputer">Procvičit s počítačem</string>
+  <string name="anotherWasX">Další možnost je %s</string>
+  <string name="bestWasX">Nejlepší tah byl %s</string>
+  <string name="youBrowsedAway">Procvičování přerušeno</string>
+  <string name="resumePractice">Pokračovat v procvičování</string>
+  <string name="theGameIsADraw">Hra končí remízou.</string>
+  <string name="computerThinking">Počítač přemýšlí...</string>
+  <string name="seeBestMove">Ukázat nejlepší tah</string>
+  <string name="hideBestMove">Skrýt nejlepší tah</string>
+  <string name="getAHint">Získat nápovědu</string>
+  <string name="evaluatingYourMove">Hodnotím tvůj tah...</string>
+  <string name="whiteWinsGame">Bílý vyhrál</string>
+  <string name="blackWinsGame">Černý vyhrál</string>
+  <string name="learnFromYourMistakes">Poučte se ze svých chyb</string>
+  <string name="learnFromThisMistake">Poučte se z této chyby</string>
+  <string name="skipThisMove">Přeskočit tento krok</string>
+  <string name="next">Další</string>
+  <string name="xWasPlayed">Bylo zahráno %s</string>
+  <string name="findBetterMoveForWhite">Najděte lepší tah bílého</string>
+  <string name="findBetterMoveForBlack">Najděte lepší tah černého</string>
+  <string name="resumeLearning">Pokračovat v učení</string>
+  <string name="youCanDoBetter">Máte lepší tah</string>
+  <string name="tryAnotherMoveForWhite">Zkuste jiný tah bílého</string>
+  <string name="tryAnotherMoveForBlack">Zkuste jiný tah černého</string>
+  <string name="solution">Řešení</string>
+  <string name="waitingForAnalysis">Čekání na analýzu</string>
+  <string name="noMistakesFoundForWhite">Žádné bílého chyby nenalezeny</string>
+  <string name="noMistakesFoundForBlack">Žádné černého chyby nenalezeny</string>
+  <string name="doneReviewingWhiteMistakes">Procházení bílého chyb dokončeno</string>
+  <string name="doneReviewingBlackMistakes">Procházení černého chyb dokončeno</string>
+  <string name="doItAgain">Udělat znovu</string>
+  <string name="reviewWhiteMistakes">Projít chyby bílého</string>
+  <string name="reviewBlackMistakes">Projít chyby černého</string>
+  <string name="advantage">Výhoda</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekunda</item>
+    <item quantity="few">%s sekundy</item>
+    <item quantity="many">%s sekund</item>
+    <item quantity="other">%s sekund</item>
+  </plurals>
+  <string name="opening">Zahájení</string>
+  <string name="middlegame">Střední hra</string>
+  <string name="endgame">Koncovka</string>
+  <string name="registerToSendChallenges">Pro poslání výzvy se musíte zaregistrovat.</string>
+  <string name="youCannotChallengeX">Nemůžete vyzvat %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s nepřijímá výzvy.</string>
+  <string name="yourXRatingIsTooFarFromY">Vaše %1$s elo je příliš daleko od %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nelze vyzvat kvůli prozatimnímu %s elu.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s přijímá výzvy pouze od přátel.</string>
+  <string name="conditionalPremoves">Podmíněné předtahy</string>
+  <string name="addCurrentVariation">Přidat současnou variantu</string>
+  <string name="playVariationToCreateConditionalPremoves">Hrajte variantu k vytvoření podmíněných předtahů</string>
+  <string name="noConditionalPremoves">Žádné podmíněné předtahy</string>
+  <string name="playX">Hrajte %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">a uložit %s předtaženou variantu</item>
+    <item quantity="few">a uložit %s předtažené varianty</item>
+    <item quantity="many">a uložit %s předtažených variant</item>
+    <item quantity="other">a uložit %s předtažených variant</item>
+  </plurals>
 </resources>

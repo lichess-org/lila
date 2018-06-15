@@ -3,6 +3,8 @@ import { VNode } from 'snabbdom/vnode'
 import { plural, bind, spinner, innerHTML, enrichText, option } from '../../util';
 import { StudyCtrl } from '../interfaces';
 import { StudyPracticeData, StudyPracticeCtrl } from './interfaces';
+import { boolSetting } from '../../boolSetting';
+import { view as descView } from '../chapterDescription';
 
 function selector(data: StudyPracticeData) {
   return h('select.selector', {
@@ -46,16 +48,29 @@ function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
   }
 }
 
-export function underboard(ctrl: StudyCtrl): VNode {
+export function underboard(ctrl: StudyCtrl): VNode | undefined {
   if (ctrl.vm.loading) return h('div.feedback', spinner());
-  const p = ctrl.practice!;
+  const p = ctrl.practice!,
+  gb = ctrl.gamebookPlay(),
+  pinned = ctrl.data.chapter.description;
+  if (gb) return pinned ? h('div', [
+    h('div.feedback.ongoing', [
+      pinned ? h('div.comment', {
+        hook: innerHTML(pinned, text => enrichText(text!, true))
+      }) : null
+    ])
+  ]) : undefined;
+  else if (!ctrl.data.chapter.practice) return descView(ctrl);
   switch (p.success()) {
     case true:
-      return h('a.feedback.win', {
+      const next = ctrl.nextChapter();
+      return h('a.feedback.win', next ? {
+        hook: bind('click', p.goToNext)
+      } : {
         attrs: { href: '/practice' }
       }, [
         h('span', 'Success!'),
-        ctrl.nextChapter() ? null : 'Back to practice menu'
+        ctrl.nextChapter() ? 'Go to next exercise' : 'Back to practice menu'
       ]);
  case false:
    return h('a.feedback.fail', {
@@ -65,11 +80,19 @@ export function underboard(ctrl: StudyCtrl): VNode {
      h('strong', 'Click to retry')
    ]);
  default:
-   return h('div.feedback.ongoing', [
-     h('div.goal', [renderGoal(p, p.goal().moves! - p.nbMoves())]),
-     p.comment() ? h('div.comment', {
-       hook: innerHTML(p.comment(), text => enrichText(text!, true))
-     }) : null
+   return h('div', [
+     h('div.feedback.ongoing', [
+       h('div.goal', [renderGoal(p, p.goal().moves! - p.nbMoves())]),
+       pinned ? h('div.comment', {
+         hook: innerHTML(pinned, text => enrichText(text!, true))
+       }) : null
+     ]),
+     boolSetting({
+       name: 'Load next exercise immediately',
+       id: 'autoNext',
+       checked: p.autoNext(),
+       change: p.autoNext
+     }, ctrl.trans, ctrl.redraw)
    ]);
   }
 }
@@ -90,15 +113,15 @@ export function main(ctrl: StudyCtrl): VNode {
     h('div.list.chapters', {
       hook: bind('click', e => {
         e.preventDefault();
-        const target = e.target as HTMLElement;
-        const id = (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
+        const target = e.target as HTMLElement,
+        id = (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
         if (id) ctrl.setChapter(id, true);
         return false;
       })
     }, ctrl.chapters.list().map(function(chapter) {
-      const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId;
-      const active = !ctrl.vm.loading && current && current.id === chapter.id;
-      const completion = data.completion[chapter.id] ? 'done' : 'ongoing';
+      const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
+      active = !ctrl.vm.loading && current && current.id === chapter.id,
+      completion = data.completion[chapter.id] >= 0 ? 'done' : 'ongoing';
       return [
         h('a.elem.chapter', {
           key: chapter.id,
@@ -116,7 +139,7 @@ export function main(ctrl: StudyCtrl): VNode {
           h('h3', chapter.name)
         ])
       ];
-    }).reduce(function(a, b) { return a.concat(b); }, [])),
+    }).reduce((a, b) => a.concat(b), [])),
     h('div.finally', [
       h('a.back', {
         attrs: {

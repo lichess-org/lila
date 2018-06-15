@@ -4,21 +4,27 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.validation.{ Constraint, Valid => FormValid, Invalid, ValidationError }
 import play.api.mvc.RequestHeader
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
+import scala.concurrent.duration._
 
 import lila.common.{ ApiVersion, IpAddress, EmailAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
+import lila.oauth.OAuthServer
+import User.LoginCandidate
 
 final class SecurityApi(
     coll: Coll,
     firewall: Firewall,
     geoIP: GeoIP,
-    emailValidator: EmailAddressValidator
-) {
+    authenticator: lila.user.Authenticator,
+    emailValidator: EmailAddressValidator,
+    tryOauthServer: lila.oauth.OAuthServer.Try
+)(implicit system: akka.actor.ActorSystem) {
 
   val AccessUri = "access_uri"
 
@@ -31,47 +37,74 @@ final class SecurityApi(
     "password" -> nonEmptyText
   ))
 
-  private def loadedLoginForm(candidate: Option[User.LoginCandidate]) = Form(mapping(
+  private def loadedLoginForm(candidate: Option[LoginCandidate]) = Form(mapping(
     "username" -> nonEmptyText,
-    "password" -> nonEmptyText
-  )(authenticateCandidate(candidate))(_.map(u => (u.username, "")))
-    .verifying("invalidUsernameOrPassword", _.isDefined))
+    "password" -> nonEmptyText,
+    "token" -> optional(nonEmptyText)
+  )(authenticateCandidate(candidate)) {
+      case LoginCandidate.Success(user) => (user.username, "", none).some
+      case _ => none
+    }.verifying(Constraint { (t: LoginCandidate.Result) =>
+      t match {
+        case LoginCandidate.Success(_) => FormValid
+        case LoginCandidate.InvalidUsernameOrPassword => Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
+        case err => Invalid(Seq(ValidationError(err.toString)))
+      }
+    }))
 
-  def loadLoginForm(str: String): Fu[Form[Option[User]]] = {
+  def loadLoginForm(str: String): Fu[Form[LoginCandidate.Result]] = {
     emailValidator.validate(EmailAddress(str)) match {
-      case Some(email) => UserRepo.loginCandidateByEmail(email)
-      case None if User.couldBeUsername(str) => UserRepo.loginCandidateById(User normalize str)
+      case Some(email) => authenticator.loginCandidateByEmail(email)
+      case None if User.couldBeUsername(str) => authenticator.loginCandidateById(User normalize str)
       case _ => fuccess(none)
     }
   } map loadedLoginForm _
 
-  private def authenticateCandidate(candidate: Option[User.LoginCandidate])(username: String, password: String): Option[User] =
-    candidate ?? { _(password) }
+  private def authenticateCandidate(candidate: Option[LoginCandidate])(
+    username: String,
+    password: String,
+    token: Option[String]
+  ): LoginCandidate.Result = candidate.fold[LoginCandidate.Result](LoginCandidate.InvalidUsernameOrPassword) {
+    _(User.PasswordAndToken(User.ClearPassword(password), token map User.TotpToken.apply))
+  }
 
   def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(implicit req: RequestHeader): Fu[String] =
     UserRepo mustConfirmEmail userId flatMap {
       case true => fufail(SecurityApi MustConfirmEmail userId)
       case false =>
         val sessionId = Random secureString 12
-        Store.save(sessionId, userId, req, apiVersion) inject sessionId
+        Store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 
+  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(implicit req: RequestHeader): Funit = {
+    val sessionId = Random secureString 8
+    Store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
+  }
+
   def restoreUser(req: RequestHeader): Fu[Option[FingerprintedUser]] =
-    firewall accepts req flatMap {
-      _ ?? {
-        reqSessionId(req) ?? { sessionId =>
-          Store userIdAndFingerprint sessionId flatMap {
-            _ ?? { d =>
-              if (d.isOld) Store.setDateToNow(sessionId)
-              UserRepo.byId(d.user) map {
-                _ map {
-                  FingerprintedUser(_, d.fp.isDefined)
-                }
+    firewall.accepts(req) ?? {
+      reqSessionId(req).?? { sessionId =>
+        Store userIdAndFingerprint sessionId flatMap {
+          _ ?? { d =>
+            if (d.isOld) Store.setDateToNow(sessionId)
+            UserRepo.byId(d.user) map {
+              _ map {
+                FingerprintedUser(_, d.fp.isDefined)
               }
             }
           }
         }
       }
+    }
+
+  def oauthScoped(req: RequestHeader, scopes: List[lila.oauth.OAuthScope], retries: Int = 2): Fu[lila.oauth.OAuthServer.AuthResult] =
+    tryOauthServer().flatMap {
+      case None if retries > 0 =>
+        lila.common.Future.delay(2 seconds) {
+          oauthScoped(req, scopes, retries - 1)
+        }
+      case None => fuccess(Left(OAuthServer.ServerOffline))
+      case Some(server) => server.auth(req, scopes)
     }
 
   def locatedOpenSessions(userId: User.ID, nb: Int): Fu[List[LocatedSession]] =
@@ -117,16 +150,15 @@ final class SecurityApi(
   def recentUserIdsByIp(ip: IpAddress) = recentUserIdsByField("ip")(ip.value)
 
   def shareIpOrPrint(u1: User.ID, u2: User.ID): Fu[Boolean] =
-    Store.ipsAndFps(List(u1, u2), max = 100) map {
-      _.foldLeft(Set.empty[String] -> false) {
-        case ((u1s, true), _) => u1s -> true
-        case ((u1s, _), entry) if u1 == entry.user =>
-          val newU1s = u1s + entry.ip.value
-          entry.fp.fold(newU1s)(newU1s +) -> false
-        case ((u1s, _), entry) if u2 == entry.user => u1s -> {
-          u1s(entry.ip.value) || entry.fp.??(u1s.contains)
+    Store.ipsAndFps(List(u1, u2), max = 100) map { ipsAndFps =>
+      val u1s: Set[String] = ipsAndFps.filter(_.user == u1).flatMap { x =>
+        List(x.ip.value, ~x.fp)
+      }.toSet
+      ipsAndFps.exists { x =>
+        x.user == u2 && {
+          u1s(x.ip.value) || x.fp.??(u1s.contains)
         }
-      }._2
+      }
     }
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[User.ID]] =

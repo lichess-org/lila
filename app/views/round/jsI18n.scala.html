@@ -1,5 +1,6 @@
 @(g: Game)(implicit ctx: Context)
-@Html(J.stringify(i18nJsObject(
+@import play.api.libs.json.Json
+@safeJson(i18nJsObject(
 trans.flipBoard,
 trans.aiNameLevelAiLevel,
 trans.yourTurn,
@@ -19,7 +20,6 @@ trans.accept,
 trans.decline,
 trans.takebackPropositionSent,
 trans.yourOpponentProposesATakeback,
-trans.youHaveNbSecondsToMakeYourFirstMove,
 trans.thisPlayerUsesChessComputerAssistance,
 trans.gameAborted,
 trans.checkmate,
@@ -32,9 +32,6 @@ trans.draw,
 trans.timeOut,
 trans.whiteIsVictorious,
 trans.blackIsVictorious,
-trans.kingInTheCenter,
-trans.threeChecks,
-trans.variantEnding,
 trans.withdraw,
 trans.rematch,
 trans.rematchOfferSent,
@@ -50,12 +47,19 @@ trans.giveNbSeconds,
 trans.giveMoreTime,
 trans.gameOver,
 trans.analysis,
-trans.yourOpponentWantsToPlayANewGameWithYou,
+trans.yourOpponentWantsToPlayANewGameWithYou
+) ++ g.isCorrespondence.fold(i18nJsObject(
 trans.oneDay,
 trans.nbDays,
 trans.nbHours
-) ++ g.isTournament.fold(i18nJsObject(
+), i18nJsObject(
+trans.nbSecondsToPlayTheFirstMove
+)) ++ g.variant.exotic.fold(i18nJsObject(
+trans.kingInTheCenter,
+trans.threeChecks,
+trans.variantEnding
+), Json.obj()) ++ g.isTournament.fold(i18nJsObject(
 trans.backToTournament,
 trans.viewTournament,
 trans.standing
-), J.obj())))
+), Json.obj()))

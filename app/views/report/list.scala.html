@@ -1,10 +1,10 @@
-@(reports: List[lila.report.Report.WithUserAndNotes], filter: String, counts: lila.report.Room.Counts)(implicit ctx: Context)
+@(reports: List[lila.report.Report.WithSuspect], filter: String, counts: lila.report.Room.Counts, streamers: Int)(implicit ctx: Context)
 
-@import lila.report.Report.{WithUser,WithUserAndNotes}
+@import lila.report.Report.WithSuspect
 
 @title = @{ "Reports" }
 
-@tab(reports: List[WithUserAndNotes], room: lila.report.Room) = {
+@tab(reports: List[WithSuspect], room: lila.report.Room) = {
 <a href="@routes.Report.listWithFilter(room.key)"
   class="@when(counts.value.contains(room), "new") @filter.active(room.key)">
   <count>@counts.get(room)</count>@room.name</a>
@@ -25,40 +25,44 @@ moreCss = cssTag("report.css")) {
       @lila.report.Room.all.map { r =>
       @tab(reports, r)
       }
+      @if(streamers > 0) {
+      <a href="@routes.Streamer.index()?requests=1" class="new">
+        <count>@streamers</count>Streamers
+      </a>
+      }
     </span>
   </div>
   <table class="slist see">
     <thead>
       <tr>
-        <th>Author</th>
-        <th>Reported</th>
-        <th>For</th>
+        <th>Report</th>
+        <th>By</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
       @reports.map {
-      case WithUserAndNotes(WithUser(r, u, _, accuracy), notes) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
-      <tr class="@r.unprocessed.fold("new", "")">
+      case WithSuspect(r, sus, _) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
+      <tr class="@r.open.fold("new", "")">
         <td>
-          @userIdLink(r.createdBy.some)<br />
-          @momentFromNow(r.createdAt)
-          @if(accuracy.isDefined) {
-          <br /><strong>@accuracy%</strong> accuracy
-          }
+          @reportScore(r.score)
+          <strong>@r.reason.name.capitalize</strong><br />
+          @userLink(sus.user, params = "?mod")<br />
+          <p class="perfs">@showBestPerfs(sus.user, 2)</p>
+          @user.userMarks(sus.user, none)
         </td>
-        <td>@userLink(u, params = "?mod")<br />@showBestPerf(u)</td>
-        <td>
-          <div class="text@if(r.text.size > 200 || r.text.lines.size > 5){ large}">
-            <strong>@r.reason.name.capitalize</strong>
-            - @autoLink(r.text)
-            @if(notes.nonEmpty) {
-            <br />
-            <a href="@routes.User.show(u.username)?notes=1">
-              <strong>@pluralize("note", notes.size) by @notes.map(_.from).map(usernameOrId).mkString(", ")</strong>
-            </a>
-            }
+        <td class="atoms">
+          @r.bestAtoms(3).map { atom =>
+          <div class="atom">
+            <span class="head">@reportScore(atom.score) @userIdLink(atom.by.value.some), @momentFromNowOnce(r.recentAtom.at)</span>
+            <p class="text@if(atom.text.size > 100 || atom.text.lines.size > 3){ large}">
+              @shorten(atom.text, 200)
+            </p>
           </div>
+          }
+          @if(r.atoms.size > 3) {
+          <i class="more">And @{r.atoms.size - 3} more</i>
+          }
         </td>
         <td>@r.processedBy.map { u =>
           <form action="@routes.Report.inquiry(r.id)" method="post" class="reopen">

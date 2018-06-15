@@ -29,8 +29,8 @@
     "watchify": "^3"
   },
   "dependencies": {
-    "chat": "link:../chat",
-    "game": "link:../game",
+    "chat": "2.0.0",
+    "game": "1.0.0",
     "mithril": "github:ornicar/mithril.js#lila-1"
   }
 }

@@ -56,6 +56,9 @@
   <string name="showThreat">แสดงภัยคุกคาม</string>
   <string name="inLocalBrowser">ในเบราว์เซอร์ท้องถิ่น</string>
   <string name="toggleLocalEvaluation">เปิด/ปิดการประเมินท้องถิ่น</string>
+  <string name="promoteVariation">เลื่อนขั้นตัวแปร</string>
+  <string name="makeMainLine">สร้างเส้นทางหลัก</string>
+  <string name="deleteFromHere">ลบจากที่นี่</string>
   <string name="move">เดิน</string>
   <string name="variantLoss">ตัวแปรฯที่แพ้</string>
   <string name="variantWin">ตัวแปรฯที่ชนะ</string>
@@ -96,13 +99,16 @@
   <string name="enable">เปิดใช้งาน</string>
   <string name="bestMoveArrow">ศรการเดินที่ดีที่สุด</string>
   <string name="evaluationGauge">เครื่องวัดการประเมิน</string>
-  <string name="multipleLines">หลายบรรทัด</string>
+  <string name="multipleLines">หลายเส้นทาง</string>
   <string name="cpus">ซีพียู</string>
   <string name="memory">หน่วยความจำ</string>
   <string name="infiniteAnalysis">การวิเคราะห์อนันต์</string>
   <string name="removesTheDepthLimit">เอาข้อจำกัดความลึกออก และทำให้คอมพิวเตอร์ของคุณอุ่น</string>
+  <string name="blunder">ความผิดพลาดมหันต์</string>
   <string name="blunders">ความผิดพลาดมหันต์</string>
+  <string name="mistake">ความผิดพลาด</string>
   <string name="mistakes">ความผิดพลาด</string>
+  <string name="inaccuracy">ความไม่ถูกต้อง</string>
   <string name="inaccuracies">ความไม่ถูกต้อง</string>
   <string name="moveTimes">เวลาการเดิน</string>
   <string name="flipBoard">พลิกกระดาน</string>
@@ -156,7 +162,6 @@
   <string name="changePassword">เปลี่ยนรหัสผ่าน</string>
   <string name="changeEmail">เปลี่ยนอีเมล</string>
   <string name="email">อีเมล</string>
-  <string name="emailIsOptional">อีเมลเป็นตัวเลือกซึ่ง Lichess จะใช้เพื่อการตั้งรหัสผ่านของคุณใหม่ในกรณีที่คุณลืมมัน</string>
   <string name="passwordReset">ตั้งรหัสผ่านใหม่</string>
   <string name="forgotPassword">ลืมรหัสผ่าน?</string>
   <string name="rank">อันดับ</string>
@@ -183,6 +188,7 @@
   <string name="accept">ยอมรับ</string>
   <string name="decline">ปฏิเสธ</string>
   <string name="playingRightNow">กำลังเล่นในขณะนี้</string>
+  <string name="eventInProgress">กำลังเล่นในขณะนี้</string>
   <string name="finished">จบแล้ว</string>
   <string name="abortGame">ยกเลิกเกม</string>
   <string name="gameAborted">เกมถูกยกเลิก</string>
@@ -191,14 +197,18 @@
   <string name="mode">แบบการเล่น</string>
   <string name="casual">ธรรมดา</string>
   <string name="rated">คิดคะแนน</string>
+  <string name="casualTournament">ธรรมดา</string>
+  <string name="ratedTournament">คิดคะแนน</string>
   <string name="thisGameIsRated">เกมนี้ถูกคิดคะแนน</string>
-  <string name="rematch">เล่นอีกครั้ง</string>
-  <string name="rematchOfferSent">ข้อเสนอเพื่อเล่นอีกครั้ง ถูกส่ง</string>
-  <string name="rematchOfferAccepted">ข้อเสนอเพื่อเล่นอีกครั้ง ถูกยอมรับ</string>
-  <string name="rematchOfferCanceled">ข้อเสนอเพื่อเล่นอีกครั้ง ถูกยกเลิก</string>
-  <string name="rematchOfferDeclined">ข้อเสนอเพื่อเล่นอีกครั้ง ถูกปฎิเสธ</string>
-  <string name="cancelRematchOffer">ยกเลิกการขอเล่นอีกครั้ง</string>
-  <string name="viewRematch">ดูการเล่นอีกครั้ง</string>
+  <string name="rematch">แข่งอีกครั้ง</string>
+  <string name="rematchOfferSent">ข้อเสนอเพื่อแข่งอีกครั้ง ถูกส่ง</string>
+  <string name="rematchOfferSentWhite">ขาวขอแข่งอีกครั้ง</string>
+  <string name="rematchOfferSentBlack">ดำขอแข่งอีกครั้ง</string>
+  <string name="rematchOfferAccepted">ข้อเสนอเพื่อแข่งอีกครั้ง ถูกยอมรับ</string>
+  <string name="rematchOfferCanceled">ข้อเสนอเพื่อแข่งอีกครั้ง ถูกยกเลิก</string>
+  <string name="rematchOfferDeclined">ข้อเสนอเพื่อแข่งอีกครั้ง ถูกปฎิเสธ</string>
+  <string name="cancelRematchOffer">ยกเลิกการขอแข่งอีกครั้ง</string>
+  <string name="viewRematch">ดูการแข่งอีกครั้ง</string>
   <string name="play">เล่น</string>
   <string name="inbox">กล่องเข้า</string>
   <string name="chatRoom">กรอบแชท</string>
@@ -250,8 +260,30 @@
   <string name="tournament">ทัวร์นาเมนต์</string>
   <string name="tournaments">ทัวร์นาเมนต์</string>
   <string name="tournamentPoints">แต้มทัวร์นาเมนต์</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="other">%s แต้มทัวร์นาเมนต์</item>
+  </plurals>
   <string name="viewTournament">ดูทัวร์นาเมนต์</string>
   <string name="backToTournament">กลับสู่ทัวร์นาเมนต์</string>
+  <string name="thematic">ธีมาติก</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="other">≥ %s เกมที่คิดคะแนน</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="other">≥ %1$s เกม %2$s ที่คิดคะแนน</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="other">คุณจำเป็นต้องเล่น %1$s มากกว่า %2$s เกมที่คิดคะแนน</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="other">คุณจำเป็นต้องเล่นเกม %s ที่คิดคะแนนเพิ่มเติม</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">ระดับคะแนน %s ของคุณเป็นแบบชั่วคราว</string>
+  <string name="yourPerfRatingIsTooHigh">ระดับคะแนน %1$s ของคุณ (%2$s) สูงเกินไป</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">ระดับคะแนน %1$s รายสัปดาห์ของคุณ (%2$s) สูงเกินไป</string>
+  <string name="yourPerfRatingIsTooLow">ระดับคะแนน %1$s ของคุณ (%2$s) ต่ำเกินไป</string>
+  <string name="ratedMoreThanInPerf">ระดับคะแนน ≥ %1$s สำหรับ %2$s</string>
+  <string name="ratedLessThanInPerf">ระดับคะแนน ≤ %1$s สำหรับ %2$s</string>
   <string name="backToGame">กลับสู่เกม</string>
   <string name="siteDescription">เกมหมากรุกสากลออนไลน์ฟรี เล่นได้ทันทีในรูปลักษณ์ที่สะอาดตา โดยไม่จำเป็นต้องลงทะเบียน, ไม่มีโฆษณา, ไม่ต้องการปลั๊กอิน, เล่นหมากรุกกับคอมพิวเตอร์หรือเพื่อน หรือสุ่มคู่แข่งก็ได้</string>
   <string name="teams">ทีม</string>
@@ -329,6 +361,15 @@
   <string name="winner">ผู้ชนะ</string>
   <string name="standing">อันดับ</string>
   <string name="createANewTournament">สร้างทัวร์นาเมนต์ใหม่</string>
+  <string name="tournamentCalendar">ปฏิทินทัวร์นาเมนต์</string>
+  <string name="conditionOfEntry">เงื่อนไขการเข้าร่วม:</string>
+  <string name="advancedSettings">การตั้งค่าขั้นสูง</string>
+  <string name="safeTournamentName">เลือกชื่อที่ปลอดภัยสุดสำหรับทัวร์นาเมนต์</string>
+  <string name="inappropriateNameWarning">อะไรที่ไม่เหมาะสมแม้เพียงเล็กน้อย ก็สามารถทำให้บัญชีของคุณถูกปิดได้</string>
+  <string name="emptyTournamentName">ปล่อยว่างไว้เพื่อตั้งชื่อทัวร์นาเมนต์หลังจากสุ่มแกรนด์มาสเตอร์</string>
+  <string name="recommendNotTouching">เราแนะนำว่าอย่าแตะต้องสิ่งเหล่านี้</string>
+  <string name="fewerPlayers">ถ้าคุณตั้งค่าเงื่อนไขการเข้าร่วม ทัวร์นาเมนต์ของคุณจะมีผู้เข้าเล่นได้น้อยลง</string>
+  <string name="showAdvancedSettings">แสดงการตั้งค่าขั้นสูง</string>
   <string name="join">เข้าร่วม</string>
   <string name="withdraw">ถอนตัว</string>
   <string name="points">แต้ม</string>
@@ -372,6 +413,7 @@
   <string name="biography">ชีวประวัติ</string>
   <string name="country">ประเทศ</string>
   <string name="preferences">การตั้งค่า</string>
+  <string name="inlineNotation">สัญกรณ์ในบรรทัด</string>
   <string name="watchLichessTV">ดู Lichess TV</string>
   <string name="previouslyOnLichessTV">Lichess TV ก่อนหน้า</string>
   <string name="onlinePlayers">ผู้เล่นออนไลน์</string>
@@ -406,9 +448,6 @@
   <string name="retryThisPuzzle">ลองแก้ปริศนานี้อีกครั้ง</string>
   <string name="thisPuzzleIsCorrect">ปริศนานี้ถูกต้อง และน่าสนใจ</string>
   <string name="thisPuzzleIsWrong">ปริศนานี้ไม่ถูกต้อง หรือน่าเบื่อ</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="other">คุณมีเวลา %s วินาที ในการเริ่มเดินตาแรกของคุณ!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s เกมที่กำลังเล่น</item>
   </plurals>
@@ -458,6 +497,7 @@
   <string name="thisAccountIsClosed">บัญชีนี้ถูกปิดแล้ว</string>
   <string name="invalidUsernameOrPassword">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
   <string name="incorrectPassword">รหัสผ่านไม่ถูกต้อง</string>
+  <string name="invalidAuthenticationCode">โค้ดยืนยันตัวตนไม่ถูกต้อง</string>
   <string name="emailMeALink">ส่งลิงค์ให้ฉันทางอีเมล</string>
   <string name="currentPassword">รหัสผ่านปัจจุบัน</string>
   <string name="newPassword">รหัสผ่านใหม่</string>
@@ -466,9 +506,9 @@
   <string name="pieceDestinations">เส้นทางของหมาก (ช่องที่เดินได้ และการเดินล่วงหน้า)</string>
   <string name="boardCoordinates">พิกัดกระดาน</string>
   <string name="moveListWhilePlaying">แสดงรายชื่อตาที่เดินในขณะที่เล่น</string>
-  <string name="pgnPieceNotation">สัญลักษณ์หมาก PGN</string>
+  <string name="pgnPieceNotation">สัญกรณ์การเดิน</string>
   <string name="chessPieceSymbol">สัญลักษณ์ตัวหมากรุก</string>
-  <string name="pgnLetter">อักษร PGN (K, Q, R, B, N)</string>
+  <string name="pgnLetter">ตัวอักษร (K, Q, R, B, N)</string>
   <string name="chessClock">นาฬิกาหมากรุก</string>
   <string name="tenthsOfSeconds">ทศนิยมของวินาที</string>
   <string name="never">ไม่ต้อง</string>
@@ -575,6 +615,7 @@
   <string name="videoLibrary">คลังวิดีโอ</string>
   <string name="mobileApp">แอปมือถือ</string>
   <string name="webmasters">เว็บมาสเตอร์</string>
+  <string name="about">เกี่ยวกับ</string>
   <string name="contribute">เอื้อเฟื้อ</string>
   <string name="contact">ติดต่อ</string>
   <string name="termsOfService">ข้อกำหนดการใช้</string>
@@ -625,13 +666,11 @@
   <string name="checkYourEmail">ตรวจสอบอีเมลของคุณ</string>
   <string name="weHaveSentYouAnEmailClickTheLink">เราได้ส่งอีเมลให้คุณแล้ว คลิกลิงค์ในอีเมลนั้นเพื่อให้บัญชีของคุณพร้อมใช้งาน</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">ถ้าคุณไม่พบอีเมล ลองตรวจดูในหมวดอื่นๆ เช่น ถังขยะ สแปม โซเชียล หรือโฟลเดอร์อื่นๆ</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">คุณแน่ใจนะว่าได้ลงทะเบียนอีเมลของคุณไว้กับ lichess แล้ว?</string>
-  <string name="itWasNotRequiredForYourRegistration">คุณไม่จำเป็นต้องลงทะเบียนก็ได้</string>
   <string name="weHaveSentYouAnEmailTo">เราได้ส่งอีเมลไปที่ %s แล้ว คลิกลิงค์ในอีเมลเพื่อตั้งรหัสผ่านใหม่</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">โดยการลงทะเบียน คุณยอมรับที่จะผูกพันธ์ด้วย %s ของเรา</string>
   <string name="networkLagBetweenYouAndLichess">เครือข่ายล่าช้าระหว่างคุณกับ lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">เวลาเพื่อทำการเดินหนึ่งครั้งบนเซิร์ฟเวอร์ของ lichess</string>
-  <string name="downloadAnnotated">ดาวน์โหลดพร้อมตัวอธิบาย</string>
+  <string name="downloadAnnotated">ดาวน์โหลดพร้อมสัญกรณ์</string>
   <string name="downloadRaw">ดาวน์โหลดข้อมูลดิบ</string>
   <string name="downloadImported">ดาวน์โหลดสิ่งที่นำเข้า</string>
   <string name="printFriendlyPDF">พิมพ์เป็นแฟ้ม PDF</string>
@@ -694,8 +733,9 @@
   <string name="pieceSet">ชุดหมาก</string>
   <string name="embedInYourWebsite">ฝังในเว็บไซต์ของคุณ</string>
   <string name="usernameAlreadyUsed">ชื่อผู้ใช้นี้ถูกใช้ไปแล้ว, โปรดตั้งชื่อใหม่</string>
-  <string name="usernameInvalid">ชื่อผู้ใช้ไม่ถูกต้อง โปรดใช้เฉพาะตัวอักษร, ตัวเลข, ขีด หรือขีดล่าง</string>
-  <string name="usernameStartNoNumber">ชื่อผู้ใช้ต้องไม่เริ่มต้นด้วยตัวเลข</string>
+  <string name="usernamePrefixInvalid">ชื่อผู้ใช้ต้องขึ้นต้นด้วยตัวอักษร</string>
+  <string name="usernameSuffixInvalid">ชื่อผู้ใช้ที่ต้องลงท้ายด้วยตัวอักษรหรือตัวเลข</string>
+  <string name="usernameCharsInvalid">ชื่อผู้ใช้ประกอบด้วยตัวอักษร, ตัวเลข, ขีดล่าง และเครื่องหมายขีด เท่านั้น</string>
   <string name="usernameUnacceptable">ไม่ยอมรับชื่อผู้ใช้นี้</string>
   <string name="directlySupportLichess">สนับสนุน Lichess โดยตรง</string>
   <string name="playChessInStyle">เล่นหมากรุกแบบมีสไตล์</string>
@@ -712,4 +752,61 @@
   <string name="notifications">การแจ้งเตือน</string>
   <string name="challenges">การท้าดวล</string>
   <string name="perfRatingX">ระดับคะแนน: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">%s วินาทีต้องเริ่มเดินตาแรก</item>
+  </plurals>
+  <string name="practiceWithComputer">ฝึกหัดกับคอมพิวเตอร์</string>
+  <string name="anotherWasX">อีกที่คือ %s</string>
+  <string name="bestWasX">ดีที่สุดคือ %s</string>
+  <string name="youBrowsedAway">คุณได้หลุดออกไป</string>
+  <string name="resumePractice">ฝึกหัดต่อ</string>
+  <string name="theGameIsADraw">เกมเสมอกัน</string>
+  <string name="computerThinking">คอมพิวเตอร์กำลังคิด...</string>
+  <string name="seeBestMove">ดูการเดินที่ดีที่สุด</string>
+  <string name="hideBestMove">ซ่อนการเดินที่ดีที่สุด</string>
+  <string name="getAHint">ขอคำใบ้</string>
+  <string name="evaluatingYourMove">กำลังประเมินการเดินของคุณ...</string>
+  <string name="whiteWinsGame">ขาวชนะ</string>
+  <string name="blackWinsGame">ดำชนะ</string>
+  <string name="learnFromYourMistakes">เรียนรู้จากความผิดพลาดของคุณ</string>
+  <string name="learnFromThisMistake">เรียนรู้จากความผิดพลาดนี้</string>
+  <string name="skipThisMove">ข้ามการเดินนี้</string>
+  <string name="next">ถัดไป</string>
+  <string name="xWasPlayed">%s ถูกเล่น</string>
+  <string name="findBetterMoveForWhite">หาการเดินที่ดีกว่าสำหรับขาว</string>
+  <string name="findBetterMoveForBlack">หาการเดินที่ดีกว่าสำหรับดำ</string>
+  <string name="resumeLearning">เรียนรู้ต่อ</string>
+  <string name="youCanDoBetter">คุณทำได้ดีกว่านี้</string>
+  <string name="tryAnotherMoveForWhite">ลองเดินที่จุดอื่นสำหรับขาว</string>
+  <string name="tryAnotherMoveForBlack">ลองเดินที่จุดอื่นสำหรับดำ</string>
+  <string name="solution">เฉลย</string>
+  <string name="waitingForAnalysis">กำลังรอวิเคราะห์</string>
+  <string name="noMistakesFoundForWhite">ไม่พบความผิดพลาดสำหรับขาว</string>
+  <string name="noMistakesFoundForBlack">ไม่พบความผิดพลาดสำหรับดำ</string>
+  <string name="doneReviewingWhiteMistakes">ทบทวนความผิดพลาดของขาวแล้ว</string>
+  <string name="doneReviewingBlackMistakes">ทบทวนความผิดพลาดของดำแล้ว</string>
+  <string name="doItAgain">ทำอีกครั้ง</string>
+  <string name="reviewWhiteMistakes">ทบทวนความผิดพลาดของขาว</string>
+  <string name="reviewBlackMistakes">ทบทวนความผิดพลาดของดำ</string>
+  <string name="advantage">ความได้เปรียบ</string>
+  <plurals name="nbSeconds">
+    <item quantity="other">%s วินาที</item>
+  </plurals>
+  <string name="opening">การเปิดเกม</string>
+  <string name="middlegame">กลางเกม</string>
+  <string name="endgame">ท้ายเกม</string>
+  <string name="registerToSendChallenges">กรุณาลงทะเบียนเพื่อส่งคำท้าดวล</string>
+  <string name="youCannotChallengeX">คุณไม่สามารถท้า %s</string>
+  <string name="xDoesNotAcceptChallenges">%s ไม่รับคำท้า</string>
+  <string name="yourXRatingIsTooFarFromY">ระดับคะแนน %1$s ของคุณห่างจาก %2$s เกินไป</string>
+  <string name="cannotChallengeDueToProvisionalXRating">ไม่สามารถท้าได้เนื่องจากระดับคะแนน %s ชั่วคราว</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s รับคำท้าจากเพื่อนเท่านั้น</string>
+  <string name="conditionalPremoves">การเดินล่วงหน้าแบบมีเงื่อนไข</string>
+  <string name="addCurrentVariation">เพิ่มการแปรผันปัจจุบัน</string>
+  <string name="playVariationToCreateConditionalPremoves">เล่นหนึ่งการแปรผัน เพื่อสร้างการเดินล่วงหน้าแบบมีเงื่อนไข</string>
+  <string name="noConditionalPremoves">ไม่มีการเดินล่วงหน้าแบบมีเงื่อนไข</string>
+  <string name="playX">เล่น %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="other">และบันทึก %s เส้นทางเดินล่วงหน้า</item>
+  </plurals>
 </resources>

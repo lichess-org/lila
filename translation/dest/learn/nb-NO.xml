@@ -39,34 +39,34 @@ Du trenger begge!</string>
   <string name="knightIntro">Dette blir en utfordring. Springeren er en... vanskelig brikke.</string>
   <string name="knightsHaveAFancyWay">Springere har en fancy måte å hoppe rundt på!</string>
   <string name="knightsCanJumpOverObstacles">Springere kan hoppe over hindringer! 
-Flykt og beseir stjernene!</string>
+Flykt og beseire stjernene!</string>
   <string name="knightComplete">Gratulerer! Du har mestret springeren.</string>
   <string name="thePawn">Bonden</string>
   <string name="itMovesForwardOnly">Den går bare fremover</string>
   <string name="pawnIntro">Bonder er svake, men de innehar en masse potensial.</string>
-  <string name="pawnsMoveOneSquareOnly">Bonder beveger seg kun én rute av gangen,
+  <string name="pawnsMoveOneSquareOnly">Bønder beveger seg kun én rute av gangen,
 men når de når den andre siden av brettet,
 blir de en sterkere brikke!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Vanligvis er det best å gjøre den om til en dronning,
 men noen ganger kan en springer være fin å ha!</string>
-  <string name="pawnsMoveForward">Bonder går fremover, men fanger andre brikker diagonalt!</string>
-  <string name="captureThenPromote">Fang, så promoter!</string>
-  <string name="useAllThePawns">Bruk alle bondene!
-Ingen grunn til å promotere.</string>
+  <string name="pawnsMoveForward">Bønder går fremover, men fanger andre brikker diagonalt!</string>
+  <string name="captureThenPromote">Slå ut, så forvandle!</string>
+  <string name="useAllThePawns">Bruk alle bøndene!
+Ingen grunn til å forvandle.</string>
   <string name="aPawnOnTheSecondRank">En bonde på andreraden kan flytte 2 ruter samtidig!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Ta alle stjernene!
-Ingen grunn til å promotere.</string>
-  <string name="pawnComplete">Gratulerer! Bondene holder ingen hemmeligheter for deg.</string>
+Ingen grunn til å forvandle.</string>
+  <string name="pawnComplete">Gratulerer! Bøndene holder ingen hemmeligheter for deg.</string>
   <string name="pawnPromotion">Bondeforvandling</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Din bonde nådde enden av brettet!</string>
   <string name="itNowPromotesToAStrongerPiece">Nå kan den forvandles til en sterkere brikke.</string>
   <string name="selectThePieceYouWant">Velg hvilken brikke du vil ha!</string>
   <string name="fundamentals">Grunnleggende</string>
-  <string name="capture">Slå brikker</string>
-  <string name="takeTheEnemyPieces">Slå motstanderens brikker</string>
-  <string name="captureIntro">Identifiser motstanderens uforsvarte brikker, å slå dem!</string>
-  <string name="takeTheBlackPieces">Slå de svarte brikkene!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Slå de svarte brikkene! Og ikke miste dine egne.</string>
+  <string name="capture">Slå ut brikker</string>
+  <string name="takeTheEnemyPieces">Slå ut motstanderens brikker</string>
+  <string name="captureIntro">Identifiser motstanderens uforsvarte brikker, å slå dem ut!</string>
+  <string name="takeTheBlackPieces">Slå ut de svarte brikkene!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Slå ut de svarte brikkene! Og ikke miste dine egne.</string>
   <string name="captureComplete">Gratulerer! Du vet hvordan man kjemper med sjakkbrikker!</string>
   <string name="protection">Beskyttelse</string>
   <string name="keepYourPiecesSafe">Hold dine brikker trygge</string>
@@ -83,9 +83,9 @@ men du kan forsvare!</string>
   <string name="checkInOne">Sjakk i ett trekk</string>
   <string name="attackTheOpponentsKing">Angrip motspillerens konge</string>
   <string name="checkInOneIntro">Angrip og sjakk motspillerens konge, for den må forsvares!</string>
-  <string name="checkInOneGoal">Gå etter motspillerens konge ett trekk!</string>
+  <string name="checkInOneGoal">Gå etter motspillerens konge på ett trekk!</string>
   <string name="checkInOneComplete">Gratulerer! Du satte motspilleren i sjakk og tvang med det fram et forsvar av kongen!</string>
-  <string name="outOfCheck">Ut av sjakkingen</string>
+  <string name="outOfCheck">Ut av sjakk</string>
   <string name="defendYourKing">Forsvar kongen din</string>
   <string name="outOfCheckIntro">Du står i sjakk! Du må flykte fra trusselen eller blokkere angrepet.</string>
   <string name="escapeWithTheKing">Få kongen vekk!</string>
@@ -150,7 +150,7 @@ Springer = 3
 Bonde = 1
 Kongen er uvurderlig! Mister du den er spillet tapt.</string>
   <string name="queenOverBishop">Slå ut brikken 
-med med høyest verdi!
+med høyest verdi!
 Dronning &gt; løper</string>
   <string name="takeThePieceWithTheHighestValue">Slå ut brikken
 med høyest verdi!</string>
@@ -171,7 +171,7 @@ Bonde = 1</string>
   <string name="getAFreeLichessAccount">Få en gratis brukerkonto hos Lichess</string>
   <string name="practice">Øv</string>
   <string name="learnCommonChessPositions">Lær deg de oftest forekommende sjakkstillingene</string>
-  <string name="puzzles">Taktikkoppgaver</string>
+  <string name="puzzles">Sjakknøtter</string>
   <string name="exerciseYourTacticalSkills">Øv opp dine taktiske ferdigheter</string>
   <string name="videos">Videoer</string>
   <string name="watchInstructiveChessVideos">Se instruktive sjakkvideoer</string>

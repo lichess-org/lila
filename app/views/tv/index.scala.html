@@ -5,9 +5,10 @@
 @moreJs = {
 @roundTag
 @embedJs {
+window.customWS = true;
 window.onload = function() {
 LichessRound.boot({
-data: @Html(J.stringify(data)),
+data: @safeJson(data),
 i18n: @round.jsI18n(pov.game)
 }, document.getElementById('lichess'));
 };
@@ -16,7 +17,7 @@ i18n: @round.jsI18n(pov.game)
 
 @round.layout(
 title = title,
-side = side(channel, champions, "/tv", pov.some, streams = Nil),
+side = side(channel, champions, "/tv", pov.some),
 underchat = game.watchers().some,
 moreJs = moreJs,
 moreCss = cssTag("tv.css"),
@@ -25,7 +26,8 @@ openGraph = lila.app.ui.OpenGraph(
 title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",
 description = s"Sit back, relax, and watch the best ${channel.name.toLowerCase} lichess players compete on lichess TV",
 url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
-).some) {
+).some,
+robots = true) {
 <div class="round cg-512">
   @board.domPreload(pov.some)
   <div class="underboard"><div class="center">

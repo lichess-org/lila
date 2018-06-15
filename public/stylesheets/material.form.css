@@ -23,7 +23,6 @@
   border: none;
 }
 
-.material.form .form-radio,
 .material.form .form-group {
   position: relative;
   margin-bottom: 3.5rem;
@@ -69,21 +68,12 @@
   opacity: 0.4;
   font-size: 0.8rem;
 }
-.material.form .checkbox .form-help, .form-radio .form-help, .form-group .form-help {
+.form-group .form-help {
   text-align: left;
   position: absolute;
   left: 0;
   width: 100%;
 }
-.material.form .checkbox .form-help {
-  position: relative;
-  margin-bottom: 1rem;
-}
-.material.form .form-radio .form-help {
-  padding-top: 0.25rem;
-  margin-top: -1rem;
-}
-
 .material.form .form-group input:not([type="checkbox"]) {
   height: 1.9rem;
 }
@@ -199,138 +189,14 @@ body.dark .material.form .form-group select option {
   left: 0;
 }
 
-.material.form .checkbox label,
-.material.form .form-radio label {
-  position: relative;
-  cursor: pointer;
-  padding-left: 2rem;
-  text-align: left;
-  display: block;
-}
-.material.form .checkbox input,
-.material.form .form-radio input {
-  width: auto;
-  opacity: 0.00000001;
-  position: absolute;
-  left: 0;
-}
-
-.material.form .radio {
-  margin-bottom: 1rem;
-}
-.material.form .radio .helper {
-  position: absolute;
-  top: -0.25rem;
-  left: -0.25rem;
-  cursor: pointer;
-  display: block;
-  font-size: 1rem;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  opacity: 0.6;
-}
-.material.form .radio .helper::before, .radio .helper::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  margin: 0.25rem;
-  width: 1rem;
-  height: 1rem;
-  transition: transform 0.28s ease;
-  border-radius: 50%;
-  border: 0.125rem solid currentColor;
-}
-.material.form .radio .helper::after {
-  transform: scale(0);
-  background-color: #3893E8;
-  border-color: #3893E8;
-}
-.material.form .radio label:hover .helper {
-  color: #3893E8;
-}
-.material.form .radio input:checked ~ .helper::after {
-  transform: scale(0.5);
-}
-.material.form .radio input:checked ~ .helper::before {
-  color: #3893E8;
-}
-
-.material.form .checkbox {
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-}
-.material.form .checkbox .helper {
-  opacity: 0.6;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1rem;
-  height: 1rem;
-  z-index: 0;
-  border: 0.125rem solid currentColor;
-  border-radius: 0.0625rem;
-  transition: border-color 0.28s ease;
-}
-.material.form .checkbox .helper::before, .checkbox .helper::after {
-  position: absolute;
-  height: 0;
-  width: 0.2rem;
-  background-color: #3893E8;
-  display: block;
-  transform-origin: left top;
-  border-radius: 0.25rem;
-  content: '';
-  transition: opacity 0.28s ease, height 0s linear 0.28s;
-  opacity: 0;
-}
-.material.form .checkbox .helper::before {
-  top: 0.65rem;
-  left: 0.38rem;
-  transform: rotate(-135deg);
-  box-shadow: 0 0 0 0.0625rem #fff;
-}
-.material.form .checkbox .helper::after {
-  top: 0.3rem;
-  left: 0;
-  transform: rotate(-45deg);
-}
-.material.form .checkbox label:hover .helper {
-  color: #3893E8;
-}
-.material.form .checkbox input:checked ~ .helper {
-  color: #3893E8;
-}
-.material.form .checkbox input:checked ~ .helper::after, .checkbox input:checked ~ .helper::before {
-  opacity: 1;
-  transition: height 0.28s ease;
-}
-.material.form .checkbox input:checked ~ .helper::after {
-  height: 0.5rem;
-}
-.material.form .checkbox input:checked ~ .helper::before {
-  height: 1.2rem;
-  transition-delay: 0.28s;
-}
-
-.material.form .radio + .radio,
-.material.form .checkbox + .checkbox {
-  margin-top: 1rem;
-}
-
 .material.form .has-error .legend.legend,
-.material.form .has-error .error,
+body.base .material.form .has-error .error,
 .has-error.form-group .control-label.control-label {
   color: #d9534f;
 }
 .material.form .has-error.form-group .form-help,
 .material.form .has-error.form-group label strong,
-.material.form .has-error.form-group .helper, .has-error.checkbox .form-help,
-.material.form .has-error.checkbox .helper, .has-error.radio .form-help,
-.material.form .has-error.radio .helper, .has-error.form-radio .form-help,
-.material.form .has-error.form-radio .helper {
+.material.form .has-error.form-group .helper {
   color: #d9534f;
 }
 .material.form .has-error .bar::before {

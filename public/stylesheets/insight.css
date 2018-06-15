@@ -10,6 +10,17 @@
 #insight .loading .spinner {
   display: block;
 }
+#insight .broken {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  text-align: center;
+  padding: 200px 0;
+  width: 100%;
+}
+#insight .broken i {
+  font-size: 50px;
+}
 
 #insight .chart {
   width: 850px;

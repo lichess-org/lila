@@ -5,6 +5,7 @@ import { game, status, Player }  from 'game';
 import { renderClock } from '../clock/clockView';
 import renderCorresClock from '../corresClock/corresClockView';
 import renderReplay from './replay';
+import renderExpiration from './expiration';
 import * as renderUser from './user';
 import * as button from './button';
 import RoundController from '../ctrl';
@@ -24,7 +25,7 @@ function bottomPlayer(ctrl: RoundController) {
 function renderPlayer(ctrl: RoundController, player: Player) {
   return player.ai ? h('div.username.user_link.online', [
     h('i.line'),
-    h('name', renderUser.aiName(ctrl, player))
+    h('name', renderUser.aiName(ctrl, player.ai))
   ]) :
   renderUser.userHtml(ctrl, player);
 }
@@ -55,13 +56,6 @@ function renderTableWatch(ctrl: RoundController) {
   ]);
 }
 
-function tournamentStartWarning(ctrl: RoundController) {
-  return h('div.suggestion', [
-    h('div.text', { attrs: {'data-icon': 'j'} },
-      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', ctrl.data.tournament!.nbSecondsForFirstMove))
-  ]);
-}
-
 function renderTablePlay(ctrl: RoundController) {
   const d = ctrl.data,
   loading = isLoading(ctrl),
@@ -78,8 +72,7 @@ function renderTablePlay(ctrl: RoundController) {
     button.cancelDrawOffer(ctrl),
     button.answerOpponentDrawOffer(ctrl),
     button.cancelTakebackProposition(ctrl),
-    button.answerOpponentTakebackProposition(ctrl),
-    (d.tournament && game.nbMoves(d, d.player.color) === 0) ? tournamentStartWarning(ctrl) : null
+    button.answerOpponentTakebackProposition(ctrl)
   ]);
   return [
     renderReplay(ctrl),
@@ -114,17 +107,23 @@ function anyClock(ctrl: RoundController, position: Position) {
 }
 
 export default function(ctrl: RoundController): VNode {
-  const contents: MaybeVNodes = [
+  const playable = game.playable(ctrl.data),
+  contents: MaybeVNodes = [
     renderPlayer(ctrl, topPlayer(ctrl)),
     h('div.table_inner',
       ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
-        game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
+        playable ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
       )
     )
-  ];
-  return h('div.table_wrap', [
+  ],
+  expiration = playable && renderExpiration(ctrl);
+  return h('div.table_wrap', {
+    class: { with_expiration: !!expiration }
+  }, [
     anyClock(ctrl, 'top'),
+    expiration && !expiration[1] ? expiration[0] : null,
     h('div.table', contents),
+    expiration && expiration[1] ? expiration[0] : null,
     anyClock(ctrl, 'bottom')
   ]);
 };

@@ -19,15 +19,15 @@
 <div class="coach-add coach-side">
   <p>
     Are you a great chess coach?<br />
-    Do you want to be part of this list?<br />
+    Do you have a FIDE title?<br />
     Send us an email at @contactEmailLink<br />
     and we will review your application.
   </p>
 </div>
 }
 
-@layout(title = "Lichess coaches",
-moreCss = cssTag("coachList.css"),
+@base.layout(title = "Lichess coaches",
+moreCss = cssTag("coach.list.css"),
 moreJs = jsTag("vendor/jquery.infinitescroll.min.js"),
 side = side.some) {
 <div class="content_box no_padding coaches">
@@ -47,13 +47,8 @@ side = side.some) {
   </div>
   <div class="list infinitescroll">
     @pager.currentPageResults.map { c =>
-    <div class="coach paginated_element">
+    <div class="coach paginated_element" data-dedup="@c.coach.id">
       @widget(c)
-    </div>
-    }
-    @if(pager.nbResults <= pager.maxPerPage) {
-    <div class="few_results">
-      This list is very new, come back soon for more coaches!
     </div>
     }
     @pager.nextPage.map { np =>

@@ -5,7 +5,7 @@ import chess.variant.Variant
 import org.joda.time.DateTime
 import scalaz.NonEmptyList
 
-import lila.tree.Eval.{ Score }
+import lila.tree.Eval.Score
 
 case class EvalCacheEntry(
     _id: EvalCacheEntry.Id,
@@ -69,11 +69,22 @@ object EvalCacheEntry {
     def depthAboveMin = (depth - MIN_DEPTH) atLeast 0
   }
 
-  case class Knodes(value: Int) extends AnyVal
+  case class Knodes(value: Int) extends AnyVal {
+
+    def intNodes: Int = {
+      val nodes = value * 1000d
+      if (nodes.toInt == nodes) nodes.toInt
+      else if (nodes > 0) Integer.MAX_VALUE
+      else Integer.MIN_VALUE
+    }
+  }
 
   case class Pv(score: Score, moves: Moves) {
 
-    def looksValid = score.mateFound || moves.value.size > MIN_PV_SIZE
+    def looksValid = score.mate match {
+      case None => moves.value.size > MIN_PV_SIZE
+      case Some(mate) => mate.value != 0 // sometimes we get #0. Dunno why.
+    }
 
     def truncate = copy(moves = moves.truncate)
   }

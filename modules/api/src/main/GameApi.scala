@@ -1,5 +1,6 @@
 package lila.api
 
+import chess.format.FEN
 import org.joda.time.DateTime
 import play.api.libs.json._
 import reactivemongo.api.ReadPreference
@@ -7,12 +8,13 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.analyse.{ JsonView => analysisJson, AnalysisRepo, Analysis }
+import lila.common.MaxPerPage
 import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.common.PimpedJson._
 import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.game.BSONHandlers._
 import lila.game.Game.{ BSONFields => G }
+import lila.game.JsonView._
 import lila.game.{ Game, GameRepo, PerfPicker, CrosstableApi }
 import lila.user.User
 
@@ -25,7 +27,6 @@ private[api] final class GameApi(
 ) {
 
   import GameApi.WithFlags
-  import lila.game.JsonView.openingWriter
 
   def byUser(
     user: User,
@@ -33,7 +34,7 @@ private[api] final class GameApi(
     playing: Option[Boolean],
     analysed: Option[Boolean],
     withFlags: WithFlags,
-    nb: Int,
+    nb: MaxPerPage,
     page: Int
   ): Fu[JsObject] = Paginator(
     adapter = new CachedAdapter(
@@ -74,18 +75,13 @@ private[api] final class GameApi(
       }
     }
 
-  def many(ids: Seq[String], withMoves: Boolean): Fu[Seq[JsObject]] =
-    GameRepo gamesFromPrimary ids flatMap {
-      gamesJson(WithFlags(moves = withMoves)) _
-    }
-
   def byUsersVs(
     users: (User, User),
     rated: Option[Boolean],
     playing: Option[Boolean],
     analysed: Option[Boolean],
     withFlags: WithFlags,
-    nb: Int,
+    nb: MaxPerPage,
     page: Int
   ): Fu[JsObject] = Paginator(
     adapter = new CachedAdapter(
@@ -123,7 +119,7 @@ private[api] final class GameApi(
     analysed: Option[Boolean],
     withFlags: WithFlags,
     since: DateTime,
-    nb: Int,
+    nb: MaxPerPage,
     page: Int
   ): Fu[JsObject] = Paginator(
     adapter = new Adapter[Game](
@@ -171,7 +167,7 @@ private[api] final class GameApi(
   private def gameToJson(
     g: Game,
     analysisOption: Option[Analysis],
-    initialFen: Option[String],
+    initialFen: Option[FEN],
     withFlags: WithFlags
   ) = Json.obj(
     "id" -> g.id,
@@ -196,10 +192,10 @@ private[api] final class GameApi(
     "players" -> JsObject(g.players map { p =>
       p.color.name -> Json.obj(
         "userId" -> p.userId,
-        "name" -> p.name,
         "rating" -> p.rating,
         "ratingDiff" -> p.ratingDiff
-      ).add("provisional" -> p.provisional)
+      ).add("name", p.name)
+        .add("provisional" -> p.provisional)
         .add("moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)))
         .add("blurs" -> withFlags.blurs.option(p.blurs.nb))
         .add("hold" -> p.holdAlert.ifTrue(withFlags.hold).map { h =>
@@ -211,13 +207,13 @@ private[api] final class GameApi(
         })
         .add("analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color)))
     }),
-    "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves),
+    "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
     "moves" -> withFlags.moves.option(g.pgnMoves mkString " "),
     "opening" -> withFlags.opening.??(g.opening),
     "fens" -> (withFlags.fens && g.finished) ?? {
       chess.Replay.boards(
         moveStrs = g.pgnMoves,
-        initialFen = initialFen map chess.format.FEN,
+        initialFen = initialFen,
         variant = g.variant
       ).toOption map { boards =>
         JsArray(boards map chess.format.Forsyth.exportBoard map JsString.apply)

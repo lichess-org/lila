@@ -43,12 +43,13 @@ final class Env(
         def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
       } mapFutureList studyEnv.pager.withChapters mapFutureList studyEnv.pager.withLiking(me),
       currentPage = page,
-      maxPerPage = MaxPerPage
+      maxPerPage = lila.common.MaxPerPage(MaxPerPage)
     )
 
   def cli = new lila.common.Cli {
     def process = {
-      case "study" :: "search" :: "reset" :: Nil => api.reset inject "done"
+      case "study" :: "search" :: "reset" :: Nil => api.reset("reset", system) inject "done"
+      case "study" :: "search" :: "index" :: since :: Nil => api.reset(since, system) inject "done"
     }
   }
 
@@ -67,6 +68,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "studySearch",
     studyEnv = lila.study.Env.current,
     makeClient = lila.search.Env.current.makeClient,
-    system = old.play.Env.actorSystem
+    system = lila.common.PlayApp.system
   )
 }

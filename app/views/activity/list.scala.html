@@ -4,6 +4,8 @@
 @import lila.activity.activities._
 @import lila.activity.model._
 
+@subCount(count: Int) = @{ if (count >= maxSubEntries) s"$count+" else s"$count" }
+
 @renderPatron(p: Patron) = {
 <div class="entry plan">
   <i data-icon=""></i>
@@ -60,7 +62,7 @@ case (pt, score) => {
   <div>
     @posts.map {
     case (topic, posts) => {
-    @trans.activity.postedNbMessages.plural(posts.size, posts.size, Html(s"""<a href="${routes.ForumTopic.show(topic.categId, topic.slug)}">${shorten(topic.name, 70)}</a>"""))
+    @trans.activity.postedNbMessages.plural(posts.size, posts.size, Html(s"""<a href="${routes.ForumTopic.show(topic.categId, topic.slug)}">${escapeHtml(shorten(topic.name, 70))}</a>"""))
     <div class="sub">
       @posts.map { post =>
       <div class="line">
@@ -74,20 +76,14 @@ case (pt, score) => {
 </div>
 }
 
-@renderCorresMoves(nb: Int, povs: List[Pov]) = {
+@renderCorresMoves(nb: Int, povs: List[lila.game.LightPov]) = {
 <div class="entry">
   <i data-icon=";"></i>
   <div>
-    @trans.activity.playedNbMoves.plural(nb, nb, povs.size)
+    @trans.activity.playedNbMoves.plural(nb, nb, subCount(povs.size))
     <div class="sub">
       @povs.map { pov =>
-      <a class="glpt" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-        @if(pov.game.variant.exotic) {
-        @pov.game.variant.name
-        } else {
-        @pov.game.opening.fold("Game")(_.opening.name)
-        }
-      </a> vs
+      <a class="glpt" href="@routes.Round.watcher(pov.gameId, pov.color.name)">Game</a> vs
       @playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true)<br />
       }
     </div>
@@ -95,11 +91,11 @@ case (pt, score) => {
 </div>
 }
 
-@renderCorresEnds(score: Score, povs: List[Pov]) = {
+@renderCorresEnds(score: Score, povs: List[lila.game.LightPov]) = {
 <div class="entry">
   <i data-icon=";"></i>
   <div>
-    @trans.activity.completedNbGames.pluralSame(score.size)
+    @trans.activity.completedNbGames.plural(score.size, subCount(score.size))
     @score.rp.filterNot(_.isEmpty).map(ratingProgHtml)
     @scoreHtml(score)
     <div class="sub">
@@ -168,7 +164,7 @@ case (pt, score) => {
 
 @renderStudies(studies: List[lila.study.Study.IdName]) = {
 <div class="entry">
-  <i data-icon=""></i>
+  <i data-icon="4"></i>
   <div>
     @trans.activity.createdNbStudies.pluralSame(studies.size)
     <div class="sub">
@@ -212,6 +208,13 @@ case (pt, score) => {
 </div>
 }
 
+@renderStream() = {
+<div class="entry">
+  <i data-icon=""></i>
+  Hosted a <a href="@routes.Streamer.show(u.username)">live stream</a>
+</div>
+}
+
 @renderSignup() = {
 <div class="entry">
   <i data-icon="s"></i>
@@ -242,6 +245,7 @@ case (pt, score) => {
       @a.studies.map(renderStudies)
       @a.tours.map(renderTours)
       @a.teams.map(renderTeams)
+      @if(a.stream) { @renderStream() }
       @if(a.signup) { @renderSignup() }
     </div>
   </section>

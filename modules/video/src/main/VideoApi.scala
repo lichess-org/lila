@@ -38,7 +38,7 @@ private[video] final class VideoApi(
 
   object video {
 
-    private val maxPerPage = 18
+    private val maxPerPage = lila.common.MaxPerPage(18)
 
     def find(id: Video.ID): Fu[Option[Video]] =
       videoColl.find($id(id)).uno[Video]
@@ -122,7 +122,7 @@ private[video] final class VideoApi(
 
     def similar(user: Option[User], video: Video, max: Int): Fu[Seq[VideoView]] = {
       import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-      videoColl.aggregateWithReadPreference(
+      videoColl.aggregateList(
         Match($doc(
           "tags" $in video.tags,
           "_id" $ne video.id
@@ -140,8 +140,9 @@ private[video] final class VideoApi(
           ),
           Limit(max)
         ),
+        maxDocs = max,
         ReadPreference.secondaryPreferred
-      ).map(_.firstBatch.flatMap(_.asOpt[Video])) flatMap videoViews(user)
+      ).map(_.flatMap(_.asOpt[Video])) flatMap videoViews(user)
     }
 
     object count {
@@ -188,7 +189,7 @@ private[video] final class VideoApi(
 
     private val max = 25
 
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, GroupField, Match, Project, UnwindField, Sort, SumAll }
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, GroupField, Match, Project, UnwindField, Sort, SumValue }
 
     private val pathsCache = asyncCache.clearable[List[Tag], List[TagNb]](
       name = "video.paths",
@@ -197,14 +198,13 @@ private[video] final class VideoApi(
           if (filterTags.isEmpty) allPopular map { tags =>
             tags.filterNot(_.isNumeric)
           }
-          else videoColl.aggregateWithReadPreference(
+          else videoColl.aggregateList(
             Match($doc("tags" $all filterTags)),
             List(Project($doc("tags" -> true)), UnwindField("tags"),
-              GroupField("tags")("nb" -> SumAll)),
+              GroupField("tags")("nb" -> SumValue(1))),
+            maxDocs = Int.MaxValue,
             ReadPreference.secondaryPreferred
-          ).map(
-              _.firstBatch.flatMap(_.asOpt[TagNb])
-            )
+          ).map { _.flatMap(_.asOpt[TagNb]) }
 
         allPopular zip allPaths map {
           case (all, paths) =>
@@ -228,15 +228,16 @@ private[video] final class VideoApi(
 
     private val popularCache = asyncCache.single[List[TagNb]](
       name = "video.popular",
-      f = videoColl.aggregateWithReadPreference(
+      f = videoColl.aggregateList(
         Project($doc("tags" -> true)), List(
-          UnwindField("tags"), GroupField("tags")("nb" -> SumAll),
+          UnwindField("tags"), GroupField("tags")("nb" -> SumValue(1)),
           Sort(Descending("nb"))
         ),
+        maxDocs = Int.MaxValue,
         readPreference = ReadPreference.secondaryPreferred
-      ).map(
-          _.firstBatch.flatMap(_.asOpt[TagNb])
-        ),
+      ).map {
+          _.flatMap(_.asOpt[TagNb])
+        },
       expireAfter = _.ExpireAfterWrite(1.day)
     )
   }

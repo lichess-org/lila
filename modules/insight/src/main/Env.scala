@@ -57,7 +57,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "insight",
     getPref = lila.pref.Env.current.api.getPrefById,
     areFriends = lila.relation.Env.current.api.fetchAreFriends,
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     lifecycle = lila.common.PlayApp.lifecycle
   )
 }

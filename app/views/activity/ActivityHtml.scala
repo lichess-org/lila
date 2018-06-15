@@ -2,13 +2,12 @@ package views.html.activity
 
 import play.twirl.api.Html
 
-import lila.activity.activities._
 import lila.activity.model._
 import lila.api.Context
 import lila.i18n.{ I18nKey, I18nKeys => trans }
 import lila.app.templating.Environment._
 
-object ActivityHtml extends lila.Steroids {
+object ActivityHtml extends lila.Lilaisms {
 
   def scoreHtml(s: Score)(implicit ctx: Context) = Html {
     s"""<score>${scorePart("win", s.win, trans.nbWins)}${scorePart("draw", s.draw, trans.nbDraws)}${scorePart("loss", s.loss, trans.nbLosses)}</score>"""

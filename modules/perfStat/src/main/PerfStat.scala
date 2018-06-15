@@ -154,23 +154,27 @@ object RatingAt {
     pov.player.stableRatingAfter.filter { r =>
       cur.fold(true) { c => r.compare(c.int) == comp }
     }.map {
-      RatingAt(_, pov.game.movedAt, pov.game.id)
+      RatingAt(_, pov.game.movedAt, pov.gameId)
     } orElse cur
 }
 
 case class Result(opInt: Int, opId: UserId, at: DateTime, gameId: String)
 
 case class Results(results: List[Result]) extends AnyVal {
-  def agg(pov: Pov, comp: Int) = pov.opponent.rating.ifTrue(pov.game.rated).fold(this) { opInt =>
-    Results(
-      (Result(
-        opInt,
-        UserId(~pov.opponent.userId),
-        pov.game.movedAt,
-        pov.game.id
-      ) :: results).sortBy(_.opInt * comp) take Results.nb
-    )
-  }
+  def agg(pov: Pov, comp: Int) =
+    pov.opponent.stableRating
+      .ifTrue(pov.game.rated)
+      .ifTrue(pov.game.bothPlayersHaveMoved)
+      .fold(this) { opInt =>
+        Results(
+          (Result(
+            opInt,
+            UserId(~pov.opponent.userId),
+            pov.game.movedAt,
+            pov.gameId
+          ) :: results).sortBy(_.opInt * comp) take Results.nb
+        )
+      }
   def userIds = results.map(_.opId)
 }
 object Results {

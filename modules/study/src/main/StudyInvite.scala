@@ -6,7 +6,7 @@ import akka.pattern.ask
 import lila.hub.actorApi.HasUserId
 import lila.notify.{ InvitedToStudy, NotifyApi, Notification }
 import lila.pref.Pref
-import lila.relation.{ Relation, Block, Follow, RelationApi }
+import lila.relation.{ Block, Follow }
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
 
@@ -22,8 +22,8 @@ private final class StudyInvite(
   def apply(byUserId: User.ID, study: Study, invitedUsername: String, socket: ActorRef): Funit = for {
     _ <- !study.isOwner(byUserId) ?? fufail[Unit]("Only study owner can invite")
     _ <- (study.nbMembers >= maxMembers) ?? fufail[Unit](s"Max study members reached: $maxMembers")
-    inviter <- UserRepo.named(byUserId) err "No such inviter"
-    invited <- UserRepo.named(invitedUsername) err "No such invited"
+    inviter <- UserRepo.named(byUserId) flatten "No such inviter"
+    invited <- UserRepo.named(invitedUsername).map(_.filterNot(_.id == User.lichessId)) flatten "No such invited"
     _ <- study.members.contains(invited) ?? fufail[Unit]("Already a member")
     relation <- getRelation(invited.id, byUserId)
     _ <- relation.has(Block) ?? fufail[Unit]("This user does not want to join")

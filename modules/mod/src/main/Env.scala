@@ -4,17 +4,19 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.security.{ Firewall, UserSpy }
+import lila.user.User
 
 final class Env(
     config: Config,
     db: lila.db.Env,
     hub: lila.hub.Env,
+    perfStat: lila.perfStat.Env,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     firewall: Firewall,
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
-    userSpy: String => Fu[UserSpy],
+    userSpy: User => Fu[UserSpy],
     securityApi: lila.security.SecurityApi,
     tournamentApi: lila.tournament.TournamentApi,
     simulEnv: lila.simul.Env,
@@ -53,14 +55,18 @@ final class Env(
     notifier = notifier,
     historyApi = historyApi,
     rankingApi = rankingApi,
-    wasUnengined = logApi.wasUnengined
+    wasUnengined = logApi.wasUnengined,
+    perfStatter = perfStat.get _
   )
+
+  lazy val publicChat = new PublicChat(chatApi, tournamentApi, simulEnv)
 
   lazy val api = new ModApi(
     logApi = logApi,
     userSpy = userSpy,
     firewall = firewall,
     reporter = hub.actor.report,
+    reportApi = reportApi,
     lightUserApi = lightUserApi,
     notifier = notifier,
     refunder = ratingRefund,
@@ -90,8 +96,6 @@ final class Env(
     historyColl = db(CollectionGamingHistory)
   )
 
-  lazy val publicChat = new PublicChat(chatApi, tournamentApi, simulEnv)
-
   lazy val search = new UserSearch(
     securityApi = securityApi,
     emailValidator = emailValidator
@@ -100,15 +104,11 @@ final class Env(
   lazy val jsonView = new JsonView(
     assessApi = assessApi,
     relationApi = relationApi,
+    reportApi = reportApi,
     userJson = userJson
   )
 
-  lazy val userHistory = new UserHistory(
-    logApi = logApi,
-    reportApi = reportApi
-  )
-
-  lazy val inquiryApi = new InquiryApi(reportApi, noteApi)
+  lazy val inquiryApi = new InquiryApi(reportApi, noteApi, logApi)
 
   // api actor
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
@@ -120,9 +120,15 @@ final class Env(
           case (whiteUser, blackUser) => boosting.check(game, whiteUser, blackUser) >>
             assessApi.onGameReady(game, whiteUser, blackUser)
         }
+        if (game.status == chess.Status.Cheat)
+          game.loserUserId foreach { logApi.cheatDetected(_, game.id) }
       case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason) => logApi.chatTimeout(mod, user, reason)
+      case lila.hub.actorApi.security.GarbageCollect(userId, ipBan) =>
+        reportApi getSuspect userId flatten s"No such suspect $userId" flatMap { sus =>
+          api.garbageCollect(sus, ipBan) >> publicChat.delete(sus)
+        }
     }
-  }), name = ActorName), 'finishGame, 'analysisReady)
+  }), name = ActorName), 'finishGame, 'analysisReady, 'garbageCollect)
 }
 
 object Env {
@@ -131,7 +137,8 @@ object Env {
     config = lila.common.PlayApp loadConfig "mod",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
-    system = old.play.Env.actorSystem,
+    perfStat = lila.perfStat.Env.current,
+    system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     firewall = lila.security.Env.current.firewall,
     reportApi = lila.report.Env.current.api,

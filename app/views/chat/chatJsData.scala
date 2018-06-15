@@ -4,7 +4,6 @@ import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.common.PimpedJson._
 import lila.i18n.I18nKeys
 
 object ChatJsData {

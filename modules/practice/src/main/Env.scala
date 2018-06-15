@@ -2,9 +2,6 @@ package lila.practice
 
 import akka.actor._
 import com.typesafe.config.Config
-import scala.concurrent.duration._
-
-import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
@@ -41,6 +38,6 @@ object Env {
     studyApi = lila.study.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
     db = lila.db.Env.current,
-    system = old.play.Env.actorSystem
+    system = lila.common.PlayApp.system
   )
 }

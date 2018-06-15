@@ -4,7 +4,6 @@ window.onload = function() {
   var element = document.getElementById('challenge');
   var challenge = opts.data.challenge;
   var accepting;
-  if (!opts.owner) lichess.openInMobileApp('/challenge/' + challenge.id);
   lichess.socket = new lichess.StrongSocket(
     opts.socketUrl,
     opts.data.socketVersion, {
@@ -45,6 +44,7 @@ window.onload = function() {
       lichess.userAutocomplete($input, {
         focus: 1,
         friend: 1,
+        tag: 'span',
         onSelect: function() {
           $input.parents('form').submit();
         }
@@ -63,6 +63,7 @@ window.onload = function() {
 
   var ground = Chessground(element.querySelector('.lichess_board'), {
     viewOnly: true,
+    drawable: { enabled: false, visible: false },
     fen: challenge.initialFen,
     orientation: (opts.owner ^ challenge.color === 'black') ? 'white' : 'black',
     coordinates: false,

@@ -2,6 +2,8 @@ package lila.mod
 
 import org.joda.time.DateTime
 
+import lila.report.{ Mod, Suspect }
+
 case class Modlog(
     mod: String,
     user: Option[String],
@@ -19,7 +21,9 @@ case class Modlog(
     case Modlog.ban => "ban user"
     case Modlog.ipban => "ban IPs"
     case Modlog.ipunban => "unban IPs"
+    case Modlog.disableTwoFactor => "disable 2fa"
     case Modlog.closeAccount => "close account"
+    case Modlog.selfCloseAccount => "self close account"
     case Modlog.reopenAccount => "reopen account"
     case Modlog.openTopic => "reopen topic"
     case Modlog.closeTopic => "close topic"
@@ -33,7 +37,6 @@ case class Modlog(
     case Modlog.deleteQaQuestion => "delete Q&A question"
     case Modlog.deleteQaAnswer => "delete Q&A answer"
     case Modlog.deleteQaComment => "delete Q&A comment"
-    case Modlog.streamConfig => "update streams config"
     case Modlog.practiceConfig => "update practice config"
     case Modlog.deleteTeam => "delete team"
     case Modlog.terminateTournament => "terminate tournament"
@@ -44,7 +47,17 @@ case class Modlog(
     case Modlog.kickFromRankings => "kick from rankings"
     case Modlog.reportban => "reportban"
     case Modlog.unreportban => "un-reportban"
+    case Modlog.rankban => "rankban"
+    case Modlog.unrankban => "un-rankban"
     case Modlog.modMessage => "send message"
+    case Modlog.coachReview => "disapprove coach review"
+    case Modlog.cheatDetected => "game lost by cheat detection"
+    case Modlog.cli => "run CLI command"
+    case Modlog.garbageCollect => "garbage collect"
+    case Modlog.streamerList => "list streamer"
+    case Modlog.streamerUnlist => "unlist streamer"
+    case Modlog.streamerFeature => "feature streamer"
+    case Modlog.streamerUnfeature => "unfeature streamer"
     case a => a
   }
 
@@ -52,6 +65,14 @@ case class Modlog(
 }
 
 object Modlog {
+
+  def make(mod: Mod, sus: Suspect, action: String, details: Option[String] = None): Modlog =
+    Modlog(
+      mod = mod.user.id,
+      user = sus.user.id.some,
+      action = action,
+      details = details
+    )
 
   val engine = "engine"
   val unengine = "unengine"
@@ -62,7 +83,9 @@ object Modlog {
   val permissions = "permissions"
   val ban = "ban"
   val ipban = "ipban"
+  val disableTwoFactor = "disableTwoFactor"
   val closeAccount = "closeAccount"
+  val selfCloseAccount = "selfCloseAccount"
   val reopenAccount = "reopenAccount"
   val ipunban = "ipunban"
   val deletePost = "deletePost"
@@ -78,7 +101,6 @@ object Modlog {
   val deleteQaQuestion = "deleteQaQuestion"
   val deleteQaAnswer = "deleteQaAnswer"
   val deleteQaComment = "deleteQaComment"
-  val streamConfig = "streamConfig"
   val practiceConfig = "practiceConfig"
   val deleteTeam = "deleteTeam"
   val terminateTournament = "terminateTournament "
@@ -86,5 +108,15 @@ object Modlog {
   val kickFromRankings = "kickFromRankings"
   val reportban = "reportban"
   val unreportban = "unreportban"
+  val rankban = "rankban"
+  val unrankban = "unrankban"
   val modMessage = "modMessage"
+  val coachReview = "coachReview"
+  val cheatDetected = "cheatDetected"
+  val cli = "cli"
+  val garbageCollect = "garbageCollect"
+  val streamerList = "streamerList"
+  val streamerUnlist = "streamerunlist"
+  val streamerFeature = "streamerFeature"
+  val streamerUnfeature = "streamerUnfeature"
 }

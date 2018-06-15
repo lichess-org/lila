@@ -11,9 +11,11 @@ object ModPreset {
    */
   val all = List("""
 
-Warning: Leaving games / stalling on time
+Warning: Offensive language
 
-In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning. This can be very annoying for your opponents. If this behavior continues to happen, your account will be terminated.
+On Lichess, you *must* be nice when communicating with other players. At all times.
+
+Lichess is intended to be a fun and friendly environment for everyone. Please note that repeated violation of chat policy will result in loss of chat privileges.
 
 """, /* ---------------------------------------------------------------*/ """
 
@@ -32,26 +34,6 @@ In your game history, you have several games where the opponent clearly has inte
 Warning: Excessive draw offers
 
 Offering an excessive amount of draws in order to distract or annoy an opponent is not acceptable on Lichess. If this behavior continues to happen, your account will be terminated.
-
-""", /* ---------------------------------------------------------------*/ """
-
-Warning: Excessive cheat reports
-
-You have reported a significant number of players for cheating. However, none or very few of these cheat reports have turned out to be accurate. Please remember that these reports have to be checked manually by Lichess moderators. Before reporting anyone for cheating, please make sure that you have requested computer analysis of the relevant game(s) and do your absolute best to avoid false reports.
-
-""", /* ---------------------------------------------------------------*/ """
-
-Warning: Aborting games
-
-In your game history, you have many games where you aborted the game before play started. Repeatedly aborting games can be very annoying for your opponents. If this behavior continues to happen, your account will be terminated.
-
-""", /* ---------------------------------------------------------------*/ """
-
-Warning: Offensive language
-
-On Lichess, you *must* be nice when communicating with other players. At all times.
-
-Lichess is intended to be a fun and friendly environment for everyone. Please note that repeated violation of chat policy will result in loss of chat privileges.
 
 """, /* ---------------------------------------------------------------*/ """
 
@@ -105,6 +87,14 @@ Our cheating detection algorithms have marked your account for using computer as
         logger.warn(s"Invalid mod message preset $txt")
         none
     }
+
+  lazy val sandbagAuto = ModPreset(
+    subject = "Warning: possible sandbagging",
+    text = """You have lost a couple games after a few moves. Please note that you MUST try to win every rated game.
+Losing rated games on purpose is called "sandbagging", and is not allowed on lichess.
+
+Thank you for your understanding."""
+  )
 
   lazy val asJson = play.api.libs.json.Json.toJson {
     all.map { p =>

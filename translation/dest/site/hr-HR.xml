@@ -56,6 +56,9 @@
   <string name="showThreat">Pokaži prijetnju</string>
   <string name="inLocalBrowser">u lokalnom pregledniku</string>
   <string name="toggleLocalEvaluation">Prekidač za lokalnu evaluaciju</string>
+  <string name="promoteVariation">Promicanje varijacija</string>
+  <string name="makeMainLine">Napravi glavnu liniju</string>
+  <string name="deleteFromHere">Obriši s popisa</string>
   <string name="move">Potez</string>
   <string name="variantLoss">Poraz varijante</string>
   <string name="variantWin">Pobjeda varijante</string>
@@ -105,8 +108,11 @@
   <string name="memory">Memorija</string>
   <string name="infiniteAnalysis">Neprekidna analiza</string>
   <string name="removesTheDepthLimit">Uklanja granicu do koje računalo može analizirati, i održava tvoje računalo toplim</string>
+  <string name="blunder">Gruba greška</string>
   <string name="blunders">Previdi</string>
+  <string name="mistake">Pogreška</string>
   <string name="mistakes">Greške</string>
+  <string name="inaccuracy">Netočnost</string>
   <string name="inaccuracies">Nepreciznosti</string>
   <string name="moveTimes">Vrijeme za potez</string>
   <string name="flipBoard">Okreni ploču</string>
@@ -170,7 +176,6 @@
   <string name="changePassword">Promijeni lozinku</string>
   <string name="changeEmail">Promijeni email</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Email je neobavezan. Lichess će koristiti tvoj email kako bi ti resetirao lozinku ako ju zaboraviš.</string>
   <string name="passwordReset">Resetiraj lozinku</string>
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
   <string name="rank">Rang</string>
@@ -201,6 +206,7 @@
   <string name="accept">Prihvati</string>
   <string name="decline">Odbij</string>
   <string name="playingRightNow">Upravo igraju</string>
+  <string name="eventInProgress">Upravo igraju</string>
   <string name="finished">Završeno</string>
   <string name="abortGame">Prekini igru</string>
   <string name="gameAborted">Igra prekinuta</string>
@@ -209,9 +215,13 @@
   <string name="mode">Način</string>
   <string name="casual">Prijateljska</string>
   <string name="rated">Za bodove</string>
+  <string name="casualTournament">Prijateljska</string>
+  <string name="ratedTournament">Za bodove</string>
   <string name="thisGameIsRated">Ovo je partija za bodove</string>
   <string name="rematch">Revanš</string>
   <string name="rematchOfferSent">Ponuda za revanš poslana</string>
+  <string name="rematchOfferSentWhite">Bijeli nudi remi</string>
+  <string name="rematchOfferSentBlack">Crni nudi remi</string>
   <string name="rematchOfferAccepted">Ponuda za revanš prihvaćena</string>
   <string name="rematchOfferCanceled">Ponuda za revanš otkazana</string>
   <string name="rematchOfferDeclined">Ponuda za revanš odbijena</string>
@@ -280,6 +290,11 @@
   <string name="tournament">Turnir</string>
   <string name="tournaments">Turniri</string>
   <string name="tournamentPoints">Turnirski bodovi</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turnirski bod</item>
+    <item quantity="few">%s turnirskih bodova</item>
+    <item quantity="other">%s turnirskih bodova</item>
+  </plurals>
   <string name="viewTournament">Pogledaj turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
   <string name="thematic">Tematski</string>
@@ -288,6 +303,16 @@
     <item quantity="few">≥ %s partije za bodove</item>
     <item quantity="other">≥ %s partija za bodove</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s partije</item>
+    <item quantity="few">≥ %1$s %2$s partije</item>
+    <item quantity="other">≥ %1$s %2$s partija</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Trebaš igrati još %1$s %2$s partija za bodove</item>
+    <item quantity="few">Trebaš igrati još %1$s %2$s partije za bodove</item>
+    <item quantity="other">Trebaš igrati još %1$s %2$s partija za bodove</item>
+  </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Trebaš odigrati još jednu partiju za bodove</item>
     <item quantity="few">Trebaš odigrati još %s partije za bodove</item>
@@ -295,10 +320,10 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vaš %s rejting je privremen</string>
   <string name="yourPerfRatingIsTooHigh">Tvoj %1$s rejting (%2$s) je previsok</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tvoj najvisi tjedni %1$s rejting %2$s je previsok</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Vaš najviši tjedni %1$s rejting (%2$s) je previsok</string>
   <string name="yourPerfRatingIsTooLow">Vaš %1$s rejting (%2$s) je prenizak</string>
   <string name="ratedMoreThanInPerf">%2$s rejting ≥ %1$s</string>
-  <string name="ratedLessThanInPerf">Rangirano  %1$s u %2$s</string>
+  <string name="ratedLessThanInPerf">Rangirano %1$s u %2$s</string>
   <string name="backToGame">Natrag na partiju</string>
   <string name="siteDescription">Besplatni internetski šah. Igrajte odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igrajte šah protiv računala, prijatelja ili nasumičnih protivnika.</string>
   <string name="teams">Ekipe</string>
@@ -387,6 +412,15 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="winner">Pobjednik</string>
   <string name="standing">Stanje</string>
   <string name="createANewTournament">Kreiraj novi turnir</string>
+  <string name="tournamentCalendar">Kalendar turnira</string>
+  <string name="conditionOfEntry">Uvjet za sudjelovanje:</string>
+  <string name="advancedSettings">Napredne postavke</string>
+  <string name="safeTournamentName">Odaberite veoma siguran naziv za turnir.</string>
+  <string name="inappropriateNameWarning">I najmanja nakarada može trajno zatvoriti vaš profil.</string>
+  <string name="emptyTournamentName">Ako ostavite prazno, turnir će se nazvati po nasumičnom velemajstoru.</string>
+  <string name="recommendNotTouching">Preporučamo da ne dirate ovo.</string>
+  <string name="fewerPlayers">Ako postavite uvjet za sudjelovanje, vaš turnir će imati manje igrača.</string>
+  <string name="showAdvancedSettings">Prikaži napredne postavke</string>
   <string name="join">Pridruži se</string>
   <string name="withdraw">Odustani</string>
   <string name="points">Bodovi</string>
@@ -430,6 +464,7 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="biography">Životopis</string>
   <string name="country">Zemlja</string>
   <string name="preferences">Postavke</string>
+  <string name="inlineNotation">Kompaktnija notacija</string>
   <string name="watchLichessTV">Gledaj Lichess TV</string>
   <string name="previouslyOnLichessTV">Prethodno na Lichess TV-u</string>
   <string name="onlinePlayers">Online igrači</string>
@@ -466,11 +501,6 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="retryThisPuzzle">Pokušaj ponovo ovaj problem</string>
   <string name="thisPuzzleIsCorrect">Ovaj problem je točan i zanimljiv</string>
   <string name="thisPuzzleIsWrong">Ovaj problem je pogrešan ili dosadan</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Imaš %s sekundi da napraviš svoj prvi potez!</item>
-    <item quantity="few">Imaš %s sekundi da napraviš svoj prvi potez!</item>
-    <item quantity="other">Imaš %s sekundi da napraviš svoj prvi potez!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partija u tijeku</item>
     <item quantity="few">%s partija u tijeku</item>
@@ -522,6 +552,7 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="thisAccountIsClosed">Račun je zatvoren.</string>
   <string name="invalidUsernameOrPassword">Pogrešno korisničko ime ili lozinka</string>
   <string name="incorrectPassword">Netočna lozinka</string>
+  <string name="invalidAuthenticationCode">Nevažeći kod autentičnosti</string>
   <string name="emailMeALink">Pošalji mi email</string>
   <string name="currentPassword">Trenutna lozinka</string>
   <string name="newPassword">Nova lozinka</string>
@@ -645,6 +676,7 @@ u %3$s</string>
   <string name="videoLibrary">Video knjižnica</string>
   <string name="mobileApp">Mobilna aplikacija</string>
   <string name="webmasters">Webmasteri</string>
+  <string name="about">O</string>
   <string name="contribute">Doprinesi</string>
   <string name="contact">Kontaktiraj</string>
   <string name="termsOfService">Uvjeti pružanja usluge</string>
@@ -687,21 +719,19 @@ u %3$s</string>
   <string name="returnToTournamentsHomepage">Povratak na početnu stranicu turnira</string>
   <string name="weeklyPerfTypeRatingDistribution">Mjesečna %s distribucija rejtinga</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">Jedan %2$s igrač ovaj tjedan.</item>
+    <item quantity="one">%1$s %2$s igrača ovog tjedna.</item>
     <item quantity="few">%1$s %2$s igrača ovog tjedna.</item>
     <item quantity="other">%1$s %2$s igrača ovog tjedna.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rejting je %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji si od %1$s od %2$s igrača.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji si od %1$s %2$s igrača.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemaš službeni %s rejting.</string>
   <string name="checkYourEmail">Provjeri svoj e-mail.</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Poslali smo ti e-mail. Klikni na link u e-mailu da se aktivira tvoj račun.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidiš email, možda se nalazi u drugim mapama: smeće, neželjena pošta, društvene mreže ili druge mape.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Jesi li siguran/sigurna da si uopće registrirao/la svoj email na lichess-u?</string>
-  <string name="itWasNotRequiredForYourRegistration">nije traženo za tvoju registraciju</string>
-  <string name="weHaveSentYouAnEmailTo">Poslali smo email na %s. Klikni na link u emailu da se resetia lozinka.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvaćaš naše %s.</string>
-  <string name="networkLagBetweenYouAndLichess">mrežno kašnjenje između tebe i lichess-a</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Poslali smo ti e-mail. Klikni na link u e-mailu da aktiviraš svoj račun.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidiš email, pogledaj na drugim mjestima (otpad/smeće, neželjena pošta, društvene mreže ili druge mape).</string>
+  <string name="weHaveSentYouAnEmailTo">Poslali smo email na %s. Klikni link u emailu da resetiraš lozinku.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvaćaš %s</string>
+  <string name="networkLagBetweenYouAndLichess">Mrežno kašnjenje između tebe i lichess-a</string>
   <string name="timeToProcessAMoveOnLichessServer">Vrijeme obrade poteza na lichess serveru</string>
   <string name="downloadAnnotated">Preuzmi s bilješkama</string>
   <string name="downloadRaw">Preuzmi bez bilješki</string>
@@ -768,8 +798,9 @@ u %3$s</string>
   <string name="pieceSet">Set figura</string>
   <string name="embedInYourWebsite">Ugradi u svoju stranicu</string>
   <string name="usernameAlreadyUsed">Ovo korisničko ime je već u uporabi, molimo probaj s drugim.</string>
-  <string name="usernameInvalid">Nevaljano korisničko ime. Molimo koristi samo slova, brojeve, donju crtu i povlaku.</string>
-  <string name="usernameStartNoNumber">Korisničko ime ne smije započeti brojem.</string>
+  <string name="usernamePrefixInvalid">Korisničko ime mora započeti sa slovom.</string>
+  <string name="usernameSuffixInvalid">Korisničko ime mora završiti sa slovom ili brojem.</string>
+  <string name="usernameCharsInvalid">Korisničko ime može sadržavati samo slova, brojeve, podvlake i crtice.</string>
   <string name="usernameUnacceptable">Ovo korisničko ime nije prihvatljivo.</string>
   <string name="directlySupportLichess">Direktno podrži Lichess</string>
   <string name="playChessInStyle">Igraj šah u stilu</string>
@@ -786,4 +817,67 @@ u %3$s</string>
   <string name="notifications">Obavijesti</string>
   <string name="challenges">Izazovi</string>
   <string name="perfRatingX">Rejting: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekunda da odigrate prvi potez</item>
+    <item quantity="few">%s sekundi da odigrate prvi potez</item>
+    <item quantity="other">%s sekundi da odigrate prvi potez</item>
+  </plurals>
+  <string name="practiceWithComputer">Vježbaj sa kompjuterom</string>
+  <string name="anotherWasX">Drugi potez je %s</string>
+  <string name="bestWasX">Najbolji potez je %s</string>
+  <string name="youBrowsedAway">Odsurfali ste</string>
+  <string name="resumePractice">Nastavi vježbu</string>
+  <string name="theGameIsADraw">Partija završava remijem.</string>
+  <string name="computerThinking">Kompjuter razmišlja ...</string>
+  <string name="seeBestMove">Vidi najbolji potez</string>
+  <string name="hideBestMove">Sakrij najbolji potez</string>
+  <string name="getAHint">Dobiti savjet</string>
+  <string name="evaluatingYourMove">Procijenjivanje vašeg poteza ...</string>
+  <string name="whiteWinsGame">Bijeli pobjeđuje</string>
+  <string name="blackWinsGame">Crni pobjeđuje</string>
+  <string name="learnFromYourMistakes">Uči iz svojih grešaka</string>
+  <string name="learnFromThisMistake">Nauči od ove greške</string>
+  <string name="skipThisMove">Preskoči ovaj potez</string>
+  <string name="next">Dalje</string>
+  <string name="xWasPlayed">%s je odigran</string>
+  <string name="findBetterMoveForWhite">Pronađi bolji potez za bijelog</string>
+  <string name="findBetterMoveForBlack">Pronađi bolji potez za crnog</string>
+  <string name="resumeLearning">Nastavi učenje</string>
+  <string name="youCanDoBetter">Možeš bolje</string>
+  <string name="tryAnotherMoveForWhite">Probaj drugi potez za bijelog</string>
+  <string name="tryAnotherMoveForBlack">Probaj drugi potez za crnog</string>
+  <string name="solution">Rješenje</string>
+  <string name="waitingForAnalysis">Analiza u tijeku</string>
+  <string name="noMistakesFoundForWhite">Nisu pronađene greške bijelog</string>
+  <string name="noMistakesFoundForBlack">Nisu pronađene greške crnog</string>
+  <string name="doneReviewingWhiteMistakes">Završeno pregledavanje grešaka bijelog</string>
+  <string name="doneReviewingBlackMistakes">Završeno pregledavanje grešaka crnog</string>
+  <string name="doItAgain">Pokušaj ponovo</string>
+  <string name="reviewWhiteMistakes">Pregled grešaka bjelog</string>
+  <string name="reviewBlackMistakes">Pregled grešaka crnog</string>
+  <string name="advantage">Prednost</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekundi</item>
+    <item quantity="few">%s sekunda</item>
+    <item quantity="other">%s sekundi</item>
+  </plurals>
+  <string name="opening">Otvaranje</string>
+  <string name="middlegame">Središnjica</string>
+  <string name="endgame">Završnica</string>
+  <string name="registerToSendChallenges">Za slanje izazova morate se registrirati.</string>
+  <string name="youCannotChallengeX">Ne možete izazvati %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s ne prihvaća izazove.</string>
+  <string name="yourXRatingIsTooFarFromY">Prevelika je razlika između vašeg %1$s rejtinga i onog %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nemogu izazvati zbog privremenog (%s) rejtinga.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s samo prihvaća izazove od prijatelja.</string>
+  <string name="conditionalPremoves">Uvjetni predpotezi</string>
+  <string name="addCurrentVariation">Dodajte trenutnu varijantu</string>
+  <string name="playVariationToCreateConditionalPremoves">Odigraj varijantu da stvoriš predpotez</string>
+  <string name="noConditionalPremoves">Nema uvjetnih predpoteza</string>
+  <string name="playX">Igraj %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">i uštedi %s predpotez</item>
+    <item quantity="few">i uštedi %s predpoteza</item>
+    <item quantity="other">i uštedi %s predpoteza</item>
+  </plurals>
 </resources>

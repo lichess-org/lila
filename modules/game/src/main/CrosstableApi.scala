@@ -14,7 +14,7 @@ final class CrosstableApi(
     system: akka.actor.ActorSystem
 ) {
 
-  import Crosstable.{ Matchup, Result, Users, User }
+  import Crosstable.{ Matchup, Result }
   import Crosstable.{ BSONFields => F }
   import Game.{ BSONFields => GF }
 
@@ -110,7 +110,7 @@ final class CrosstableApi(
 
         gameColl.find(selector, winnerProjection)
           .sort($doc(GF.createdAt -> -1))
-          .cursor[Bdoc](readPreference = ReadPreference.secondary)
+          .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
           .gather[List]().map { docs =>
 
             val (s1, s2) = docs.foldLeft(0 -> 0) {

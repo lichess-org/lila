@@ -12,6 +12,9 @@ h1.lichess_title span {
   margin-top: 10px;
   text-transform: uppercase;
 }
+h1.lichess_title a {
+  color: #ddd!important;
+}
 .tour_crud.edit h1.lichess_title {
   background: #303F9F;
   color: #ddd;

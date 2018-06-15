@@ -1,6 +1,6 @@
 package lila
 
-package object game extends PackageObject with WithPlay {
+package object game extends PackageObject {
 
   type PgnMoves = Vector[String]
   type RatingDiffs = chess.Color.Map[Int]

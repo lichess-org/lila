@@ -1,4 +1,4 @@
-import { Prop } from 'common';
+import { Prop, StoredBooleanProp } from 'common';
 
 export interface Goal {
   result: string;
@@ -32,15 +32,16 @@ export interface PracticeStudy {
 }
 
 export interface StudyPracticeCtrl {
-  onReload(): void;
+  onLoad(): void;
   onJump(): void;
   onCeval(): void;
   data: StudyPracticeData;
   goal: Prop<Goal>;
   success: Prop<boolean | null>;
-  comment: Prop<string | undefined>;
   nbMoves: Prop<number>;
   reset(): void;
   isWhite(): boolean;
   analysisUrl: Prop<string>;
+  autoNext: StoredBooleanProp;
+  goToNext(): void;
 }

@@ -61,7 +61,7 @@ object Fishnet extends LilaController {
   }
 
   private def ClientAction[A <: JsonApi.Request](f: A => lila.fishnet.Client => Fu[Either[Result, Option[JsonApi.Work]]])(implicit reads: Reads[A]) =
-    Action.async(parse.tolerantJson) { req =>
+    Action.async(BodyParsers.parse.tolerantJson) { req =>
       req.body.validate[A].fold(
         err => {
           logger.warn(s"Malformed request: $err\n${req.body}")

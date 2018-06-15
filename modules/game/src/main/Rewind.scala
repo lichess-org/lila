@@ -1,24 +1,24 @@
 package lila.game
 
 import org.joda.time.DateTime
+import scalaz.Validation.FlatMap._
 
-import chess.{ Color, White, Black }
-import chess.format.{ pgn => chessPgn }
+import chess.format.{ FEN, pgn => chessPgn }
 
 object Rewind {
 
-  private def createTags(fen: Option[String], game: Game) = {
+  private def createTags(fen: Option[FEN], game: Game) = {
     val variantTag = Some(chessPgn.Tag(_.Variant, game.variant.name))
-    val fenTag = fen map (fenString => chessPgn.Tag(_.FEN, fenString))
+    val fenTag = fen map (f => chessPgn.Tag(_.FEN, f.value))
 
-    List(variantTag, fenTag).flatten
+    chessPgn.Tags(List(variantTag, fenTag).flatten)
   }
 
-  def apply(game: Game, initialFen: Option[String]): Valid[Progress] = chessPgn.Reader.movesWithSans(
+  def apply(game: Game, initialFen: Option[FEN]): Valid[Progress] = chessPgn.Reader.movesWithSans(
     moveStrs = game.pgnMoves,
-    op = _.dropRight(1),
+    op = sans => chessPgn.Sans(sans.value.dropRight(1)),
     tags = createTags(initialFen, game)
-  ) map { replay =>
+  ).flatMap(_.valid) map { replay =>
       val rewindedGame = replay.state
       val rewindedHistory = rewindedGame.board.history
       val rewindedSituation = rewindedGame.situation
@@ -32,25 +32,12 @@ object Rewind {
       val newGame = game.copy(
         whitePlayer = rewindPlayer(game.whitePlayer),
         blackPlayer = rewindPlayer(game.blackPlayer),
-        binaryPieces = BinaryFormat.piece write rewindedGame.board.pieces,
-        binaryPgn = BinaryFormat.pgn write rewindedGame.pgnMoves,
-        turns = rewindedGame.turns,
-        positionHashes = rewindedHistory.positionHashes,
-        checkCount = rewindedHistory.checkCount,
-        castleLastMoveTime = CastleLastMoveTime(
-          castles = rewindedHistory.castles,
-          lastMove = rewindedHistory.lastMove.map(_.origDest),
-          check = if (rewindedSituation.check) rewindedSituation.kingPos else None
-        ),
-        unmovedRooks = rewindedGame.board.unmovedRooks,
+        chess = rewindedGame.copy(clock = newClock),
         binaryMoveTimes = game.binaryMoveTimes.map { binary =>
           val moveTimes = BinaryFormat.moveTime.read(binary, game.playedTurns)
           BinaryFormat.moveTime.write(moveTimes.dropRight(1))
         },
-        clockHistory = game.clockHistory.map(_.update(!color, _.dropRight(1))),
-        crazyData = rewindedSituation.board.crazyData,
-        status = game.status,
-        clock = newClock,
+        loadClockHistory = _ => game.clockHistory.map(_.update(!color, _.dropRight(1))),
         movedAt = DateTime.now
       )
       Progress(game, newGame)

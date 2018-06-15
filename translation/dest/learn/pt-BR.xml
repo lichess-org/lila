@@ -5,7 +5,7 @@
   <string name="byPlaying">jogando!</string>
   <string name="menu">Menu</string>
   <string name="progressX">Progresso: %s</string>
-  <string name="resetMyProgress">Redefinir meu progresso</string>
+  <string name="resetMyProgress">Reiniciar meu progresso</string>
   <string name="youWillLoseAllYourProgress">Você vai perder todo o seu progresso!</string>
   <string name="play">jogar!</string>
   <string name="chessPieces">As peças do xadrez</string>
@@ -27,7 +27,7 @@ Você precisa de ambos!</string>
   <string name="theQueen">A dama</string>
   <string name="queenCombinesRookAndBishop">Dama = torre + bispo</string>
   <string name="queenIntro">Entra a mais poderosa das peças. Sua majestade, a rainha (dama)!</string>
-  <string name="queenComplete">Parabéns! Damas (rainhas) não têm segredos para você.</string>
+  <string name="queenComplete">Parabéns! A Dama não é segredo para você.</string>
   <string name="theKing">O rei</string>
   <string name="theMostImportantPiece">A peça mais importante</string>
   <string name="kingIntro">Você é o rei. Se cair em batalha, perderá o jogo.</string>
@@ -52,7 +52,7 @@ Mas às vezes um cavalo pode ser útil!</string>
   <string name="captureThenPromote">Capture, e então promova!</string>
   <string name="useAllThePawns">Use todos os peões! 
 Não é necessário promover.</string>
-  <string name="aPawnOnTheSecondRank">Um peão na segunda fileira pode mover-se duas posições de uma vez!</string>
+  <string name="aPawnOnTheSecondRank">Um peão na segunda fileira pode mover-se duas casas de uma vez!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Pegue todas as estrelas!
 Não é necessário promover.</string>
   <string name="pawnComplete">Parabéns! Peões não têm segredos para você.</string>
@@ -62,14 +62,14 @@ Não é necessário promover.</string>
   <string name="selectThePieceYouWant">Escolha a peça que desejar!</string>
   <string name="fundamentals">Fundamentos</string>
   <string name="capture">Capturar</string>
-  <string name="takeTheEnemyPieces">Tome as peças inimigas</string>
+  <string name="takeTheEnemyPieces">Capture as peças inimigas</string>
   <string name="captureIntro">Identifique as peças desprotegidas do adversário, e capture-as!</string>
   <string name="takeTheBlackPieces">Capture as peças pretas!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Capture as peças pretas!
 E não perca as suas.</string>
   <string name="captureComplete">Parabéns! Você já sabe como lutar com peças de xadrez!</string>
   <string name="protection">Defender</string>
-  <string name="keepYourPiecesSafe">Proteja suas peças</string>
+  <string name="keepYourPiecesSafe">Mantenha suas peças em segurança</string>
   <string name="protectionIntro">Identifique as peças que seu oponente está atacando e defenda-as!</string>
   <string name="protectionComplete">Parabéns! Cada peça que você não perde é uma peça que você ganha!</string>
   <string name="escape">Você está sob ataque!
@@ -105,7 +105,7 @@ ou bloqueie o ataque!</string>
   <string name="attackYourOpponentsKing">Ataque o rei adversário de uma maneira que ele não possa se defender!</string>
   <string name="mateInOneComplete">Parabéns! É assim que você vence jogos de xadrez!</string>
   <string name="intermediate">Intermediário</string>
-  <string name="boardSetup">Tabuleiro</string>
+  <string name="boardSetup">Posição inicial</string>
   <string name="howTheGameStarts">Como o jogo inicia</string>
   <string name="boardSetupIntro">Os dois exércitos se enfrentam, prontos para a batalha.</string>
   <string name="thisIsTheInitialPosition">Esta é a posição inicial de qualquer jogo de xadrez! Faça qualquer movimento para continuar.</string>
@@ -128,8 +128,8 @@ Faça qualquer movimento para continuar.</string>
   <string name="castleKingSide">Mova o rei duas casas para fazer o roque curto!</string>
   <string name="castleQueenSide">Mova o rei duas casas
 para fazer o roque longo!</string>
-  <string name="theKnightIsInTheWay">Os cavalos estão no caminho!
-Mova-os, e então faça um roque.</string>
+  <string name="theKnightIsInTheWay">O cavalo está no caminho!
+Mova-o, e então faça um roque.</string>
   <string name="castleKingSideMovePiecesFirst">Faça um roque curto!
 Mas antes você precisa retirar as peças do meio.</string>
   <string name="castleQueenSideMovePiecesFirst">Faça um roque longo!
@@ -148,7 +148,7 @@ Mas antes você precisa retirar as peças do meio.</string>
   <string name="takeAllThePawnsEnPassant">Capture todos os peões en passant!</string>
   <string name="enPassantComplete">Parabéns! Você agora pode capturar en passant.</string>
   <string name="stalemate">Rei afogado</string>
-  <string name="theGameIsADraw">A partida fica empatada</string>
+  <string name="theGameIsADraw">O jogo terminou em empate</string>
   <string name="stalemateIntro">Quando um jogador não está em xeque e não pode fazer nenhum movimento legal, há um afogamento. O jogo termina em empate: ninguém ganha, ninguém perde.</string>
   <string name="stalemateGoal">Para afogar as pretas:
 - As pretas não podem mover-se para lugar algum

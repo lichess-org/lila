@@ -1,75 +1,87 @@
-@(u: User, emails: User.Emails, spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, irwinStatus: lila.irwin.IrwinStatus, notes: List[lila.user.Note])(implicit ctx: Context)
+@(u: User, emails: User.Emails, spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, irwinReport: Option[lila.irwin.IrwinReport.WithPovs], notes: List[lila.user.Note], erased: User.Erased)(implicit ctx: Context)
 
 @import lila.evaluation.Display
 @import lila.pref.Pref
 
-@cssTag("user-mod.css")
-
 <div class="actions clearfix">
   @if(isGranted(_.UserEvaluate)) {
   <form method="post" action="@routes.Mod.spontaneousInquiry(u.username)" data-hint="Start an inquiry" class="hint--bottom">
-    <button class="button inquiry" type="submit"></button>
+    <button class="button inquiry" type="submit"><i></i></button>
   </form>
-  <form method="post" action="@routes.Mod.refreshUserAssess(u.username)" data-hint="Collect data and analyze if the user is suspicious." class="hint--bottom">
+  <form method="post" action="@routes.Mod.refreshUserAssess(u.username)" data-hint="Collect data and analyze if the user is suspicious." class="hint--bottom xhr">
     <input class="button" type="submit" value="Evaluate" />
   </form>
   @if(isGranted(_.MarkTroll)) {
   <a class="button hint--bottom" href="@routes.Mod.communicationPublic(u.id)" data-hint="View communications">Comms</a>
   }
-  <form method="post" action="@routes.Mod.notifySlack(u.id)" data-hint="Notify slack #tavern" class="hint--bottom">
+  <form method="post" action="@routes.Mod.notifySlack(u.id)" data-hint="Notify slack #tavern" class="hint--bottom xhr">
     <input class="button" type="submit" value="Slack" />
   </form>
   •
   }
   @if(isGranted(_.MarkEngine)) {
-  <form method="post" action="@routes.Mod.engine(u.username)" data-hint="This user is clearly cheating." class="hint--bottom">
+  <form method="post" action="@routes.Mod.engine(u.username, !u.engine)" data-hint="This user is clearly cheating." class="hint--bottom xhr">
     <input class="button@when(u.engine, " active")" type="submit" value="Engine" />
   </form>
   }
   @if(isGranted(_.MarkBooster)) {
-  <form method="post" action="@routes.Mod.booster(u.username)" data-hint="Marks the user as a booster or sandbagger." class="hint--bottom">
+  <form method="post" action="@routes.Mod.booster(u.username, !u.booster)" data-hint="Marks the user as a booster or sandbagger." class="hint--bottom xhr">
     <input class="button@when(u.booster, " active")" type="submit" value="Booster" />
   </form>
   }
   @if(isGranted(_.MarkTroll)) {
-  <form method="post" action="@routes.Mod.troll(u.username)?set=@(if (u.troll){0}else{1})" data-hint="@if(u.troll){En}else{Dis}able communication features for this user." class="hint--bottom">
+  <form method="post" action="@routes.Mod.troll(u.username, !u.troll)" data-hint="@if(u.troll){En}else{Dis}able communication features for this user." class="hint--bottom xhr">
     <input class="button@when(u.troll, " active")" type="submit" value="Shadowban" />
   </form>
+  @if(u.troll) {
+  <form method="post" action="@routes.Mod.deletePmsAndChats(u.username)" data-hint="Delete all PMs and public chat messages" class="hint--bottom xhr">
+    <input class="button confirm" type="submit" value="Clear PMs & chats" />
+  </form>
+  }
   }
   @if(isGranted(_.IpBan)) {
-  <form method="post" action="@routes.Mod.ban(u.username)" data-hint="Bans all @spy.ips.size IPs under this account from logging into this site." class="hint--bottom-left">
+  <form method="post" action="@routes.Mod.ban(u.username, !u.ipBan)" data-hint="Bans all @spy.ips.size IPs under this account from logging into this site." class="hint--bottom-left xhr">
     <input class="button@when(u.ipBan, " active")" type="submit" value="IP ban @spy.ips.size" />
   </form>
   }
-  @if(!u.disabled) {
+  @if(u.totpSecret.isDefined && isGranted(_.DisableTwoFactor)) {
+  <form method="post" action="@routes.Mod.disableTwoFactor(u.username)" data-hint="Disables two-factor authentication for this account." class="hint--bottom-left xhr">
+    <input class="button confirm" type="submit" value="Disable 2FA" />
+  </form>
+  }
+  @if(u.enabled) {
   @if(isGranted(_.CloseAccount)) {
-  <form method="post" action="@routes.Mod.closeAccount(u.username)" data-hint="Disables this account." class="hint--bottom-left">
+  <form method="post" action="@routes.Mod.closeAccount(u.username)" data-hint="Disables this account." class="hint--bottom-left xhr">
     <input class="button" type="submit" value="Close" />
   </form>
   }
   } else {
+  @if(erased.value) {
+  Erased
+  } else {
   @if(isGranted(_.ReopenAccount)) {
-  <form method="post" action="@routes.Mod.reopenAccount(u.username)" data-hint="Re-activates this account." class="hint--bottom-left">
+  <form method="post" action="@routes.Mod.reopenAccount(u.username)" data-hint="Re-activates this account." class="hint--bottom-left xhr">
     <input type="submit" class="button active" value="Closed" />
   </form>
   }
   }
+  }
   <div class="second_mod_button_row">
-  @if(isGranted(_.RemoveRanking)) {
-  <form method="post" action="@routes.Mod.kickFromRankings(u.username)" data-hint="Excludes this user from the rankings during the next calculation." class="hint--bottom-left">
-    <input class="button" type="submit" value="Kick from ranking" />
-  </form>
-  }
-  @if(isGranted(_.ReportBan)) {
-  <form method="post" action="@routes.Mod.reportban(u.username)" data-hint="@if(u.reportban){En}else{Dis}able the report feature for this user." class="hint--bottom-left">
-    <input class="button@when(u.reportban, " active")" type="submit" value="Reportban" />
-  </form>
-  }
-  @if(isGranted(_.Impersonate)) {
-  <form method="post" action="@routes.Mod.impersonate(u.username)">
-    <input class="button" type="submit" value="Impersonate" />
-  </form>
-  }
+    @if(isGranted(_.RemoveRanking)) {
+    <form method="post" action="@routes.Mod.rankban(u.username, !u.rankban)" data-hint="@if(u.rankban){In}else{Ex}cludes this user @if(u.rankban){from}else{in} the rankings." class="hint--bottom-left xhr">
+      <input class="button@when(u.rankban, " active")" type="submit" value="Ban from ranking" />
+    </form>
+    }
+    @if(isGranted(_.ReportBan)) {
+    <form method="post" action="@routes.Mod.reportban(u.username, !u.reportban)" data-hint="@if(u.reportban){En}else{Dis}able the report feature for this user." class="hint--bottom-left xhr">
+      <input class="button@when(u.reportban, " active")" type="submit" value="Reportban" />
+    </form>
+    }
+    @if(isGranted(_.Impersonate)) {
+    <form method="post" action="@routes.Mod.impersonate(u.username)">
+      <input class="button" type="submit" value="Impersonate" />
+    </form>
+    }
   </div>
   @if(isGranted(_.SetTitle)) {
   <br />
@@ -102,13 +114,8 @@
     <strong class="text inline" data-icon="%">Notable preferences:</strong>
     @if(pref.keyboardMove != Pref.KeyboardMove.NO) { [keyboard moves] } else { none }
   </div>
-  @irwinStatus.report.map { report =>
-  @views.html.irwin.irwinReport(report, irwinStatus.request)
-  }.getOrElse {
-  @irwinStatus.request.map { request =>
-  <strong class="inline text" data-icon="">Irwin request:</strong>
-  in progress, requested @momentFromNow(request.createdAt) by: @request.origin
-  }
+  @irwinReport.map { report =>
+  @views.html.irwin.irwinReport(report)
   }
   @optionAggregateAssessment.map { pag =>
   <div class="evaluation results">
@@ -203,23 +210,30 @@
     </table>
   </div>
   }
+  @charges.headOption.map { firstCharge =>
   <div class="plan_charges">
-    <strong class="text" data-icon="@patronIconChar">Patron payments@if(charges.isEmpty){: none.}</strong>
-    @if(charges.nonEmpty) {
+    <strong class="text" data-icon="@patronIconChar">
+      Patron payments
+      @if(isGranted(_.PayPal)) {
+      @firstCharge.payPal.flatMap(_.subId).map { subId =>
+      - <a href="https://www.paypal.com/fr/cgi-bin/webscr?cmd=_profile-recurring-payments&encrypted_profile_id=@subId">[PayPal sub]</a>
+      }
+      }
+    </strong>
     <ul>
       @charges.map { c =>
       <li>@c.cents.usd with @c.serviceName on @absClientDateTime(c.date)</li>
       }
     </ul>
     <br />
-    }
   </div>
+  }
   <div class="mod_log">
     <strong class="text" data-icon="!">Moderation history@if(history.isEmpty){: nothing to show.}</strong>
     @if(history.nonEmpty) {
     <ul>
       @history.map { e =>
-      <li>@userIdLink(e.mod.some) <b>@e.showAction</b> @u.username @e.details @momentFromNow(e.date)</li>
+      <li>@userIdLink(e.mod.some, withTitle=false) <b>@e.showAction</b> @e.details @momentFromNowOnce(e.date)</li>
       }
     </ul>
     <br />
@@ -230,12 +244,17 @@
       <strong class="text" data-icon="!">Reports sent by @u.username@if(reports.by.isEmpty){: nothing to show.}</strong>
       @if(reports.by.nonEmpty) {
       @reports.by.map { r =>
+      @r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
       <form action="@routes.Report.inquiry(r.id)" method="post">
-        @userIdLink(r.user.some) for
-        <button type="submit">
-          <strong>@r.reason.name</strong> @momentFromNow(r.createdAt) @shorten(r.text, 200)
-        </button>
+        <button type="submit">@reportScore(r.score) <strong>@r.reason.name</strong></button>
+        @userIdLink(r.user.some)
+        <div class="atoms">
+          <div class="atom">
+            @userIdLink(r.user.some), @momentFromNowOnce(atom.at): @shorten(atom.text, 200)
+          </div>
+        </div>
       </form>
+      }
       }
       <br />
       }
@@ -245,10 +264,15 @@
       @if(reports.about.nonEmpty) {
       @reports.about.map { r =>
       <form action="@routes.Report.inquiry(r.id)" method="post">
-        @userIdLink(r.createdBy.some) for
-        <button type="submit">
-          <strong>@r.reason.name</strong> @momentFromNow(r.createdAt) @shorten(r.text, 200)
-        </button>
+        <button type="submit">@reportScore(r.score) <strong>@r.reason.name</strong></button>
+        <div class="atoms">
+          @r.bestAtoms(3).map { atom =>
+          <div class="atom">
+            By @userIdLink(atom.by.value.some), @momentFromNowOnce(atom.at): @shorten(atom.text, 200)
+          </div>
+          }
+          @if(r.atoms.size > 3) { (and @{r.atoms.size - 3} more) }
+        </div>
       </form>
       }
       <br />
@@ -258,7 +282,7 @@
   <table class="others slist">
     <thead>
       <tr>
-        <th>@spy.otherUsers.size user(s) on these IPs</th>
+        <th>@spy.otherUsers.size similar user(s)</th>
         <th>Same</th>
         <th data-sort-method="number">Games</th>
         <th>Status</th>
@@ -267,7 +291,7 @@
       </tr>
     </thead>
     <tbody>
-      @spy.otherUsers.map {
+      @spy.withMeSorted(u).map {
       case lila.security.UserSpy.OtherUser(o, byIp, byFp) => {
       <tr @if(o == u){class="same"}>
         <td data-sort="@o.id">@userLink(o, withBestRating = true, params = "?mod")</td>
@@ -283,16 +307,10 @@
           <a href="@routes.User.show(o.username)?notes"><i title="Notes from @ns.map(_.from).map(usernameOrId).mkString(", ")" data-icon="m" class="is-green"></i>@ns.size</a>
           }
           }
-          @bans.get(o.id).map { nb => <i title="Playban" data-icon="p"></i>@nb }
-          @if(o.troll){<i title="Shadowban" data-icon="c"></i>}
-          @if(o.booster){<i title="Boosting" data-icon="9"></i>}
-          @if(o.engine){<i title="Engine" data-icon="n"></i>}
-          @if(o.ipBan){<i title="IP ban" data-icon="2" class="is-red"></i>}
-          @if(o.disabled){<i title="Closed" data-icon="k"></i>}
-          @if(o.reportban){<i title="Reportban" data-icon="!"></i>}
+          @userMarks(o, bans.get(o.id))
         </td>
-        <td data-sort="@o.createdAt.getMillis">@momentFromNow(o.createdAt)</td>
-        <td data-sort="@o.seenAt.map(_.getMillis)">@o.seenAt.map(momentFromNow(_))</td>
+        <td data-sort="@o.createdAt.getMillis">@momentFromNowOnce(o.createdAt)</td>
+        <td data-sort="@o.seenAt.map(_.getMillis)">@o.seenAt.map(momentFromNowOnce)</td>
       </tr>
       }
       }
@@ -307,7 +325,9 @@
           <ul>
             @ips.map { ip =>
             <li class="ip">
-              <a class="address @if(ip.blocked){blocked}" href="@{routes.Mod.search}?q=@ip.ip">@ip.ip</a>
+              <a class="address @if(ip.blocked){blocked}" href="@{routes.Mod.search}?q=@ip.ip.value">
+                <ip>@ip.ip.value.value</ip> @momentFromNowOnce(ip.ip.date)
+              </a>
             </li>
             }
           </ul>
@@ -318,8 +338,20 @@
     </div>
     <div class="spy_uas">
       <strong>@spy.uas.size User agent(s)</strong> <ul>@spy.uas.sorted.map { ua =>
-        <li>@ua</li>
+        <li>
+          @ua.value @momentFromNowOnce(ua.date)
+        </li>
         }</ul>
+    </div>
+    <div class="spy_fps">
+      <strong>@pluralize("Fingerprint", spy.prints.size)</strong> <ul>@spy.prints.sorted.map { fp =>
+        <li>
+          <a href="@{routes.Mod.search}?q=@{java.net.URLEncoder.encode(fp.value.value, "US-ASCII")}">
+            @fp.value.value @momentFromNowOnce(fp.date)
+          </a>
+        </li>
+        }
+      </ul>
     </div>
   </div>
 </div>

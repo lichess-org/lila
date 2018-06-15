@@ -1,6 +1,7 @@
 package lila.event
 
 import org.joda.time.DateTime
+import play.api.i18n.Lang
 
 case class Event(
     _id: String,
@@ -9,6 +10,7 @@ case class Event(
     description: Option[String],
     homepageHours: Int,
     url: String,
+    lang: Lang,
     enabled: Boolean,
     createdBy: Event.UserId,
     createdAt: DateTime,

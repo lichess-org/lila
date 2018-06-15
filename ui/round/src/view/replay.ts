@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode, VNodeData } from 'snabbdom/vnode'
 import * as round from '../round';
-import { dropThrottle } from 'common';
+import { throttle } from 'common';
 import { game, status, router, view as gameView } from 'game';
 import * as util from '../util';
 import RoundController from '../ctrl';
@@ -14,21 +14,17 @@ function nullMove() {
   return h('move.empty', '');
 }
 
-const scrollThrottle = dropThrottle(100);
-
-function autoScroll(el: HTMLElement, ctrl: RoundController) {
-  scrollThrottle(function() {
-    if (ctrl.data.steps.length < 7) return;
-    let st: number | undefined = undefined;
-    if (ctrl.ply < 3) st = 0;
-    else if (ctrl.ply >= round.lastPly(ctrl.data) - 1) st = 9999;
-    else {
-      const plyEl = el.querySelector('.active') as HTMLElement | undefined;
-      if (plyEl) st = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
-    }
-    if (st !== undefined) el.scrollTop = st;
-  });
-}
+const autoScroll = throttle(100, (el: HTMLElement, ctrl: RoundController) => {
+  if (ctrl.data.steps.length < 7) return;
+  let st: number | undefined = undefined;
+  if (ctrl.ply < 3) st = 0;
+  else if (ctrl.ply >= round.lastPly(ctrl.data) - 1) st = 9999;
+  else {
+    const plyEl = el.querySelector('.active') as HTMLElement | undefined;
+    if (plyEl) st = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
+  }
+  if (st !== undefined) el.scrollTop = st;
+});
 
 function renderMove(step: Step, curPly: number, orEmpty?: boolean) {
   if (!step) return orEmpty ? emptyMove() : nullMove();

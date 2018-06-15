@@ -30,7 +30,7 @@ export const title = 'Chapter pinned comment';
 export function view(study: StudyCtrl): VNode | undefined {
   const desc = study.desc,
   contrib = study.members.canContribute() && !study.gamebookPlay();
-  if (desc.edit) return edit(desc);
+  if (desc.edit) return edit(desc, study.data.chapter.id);
   const isEmpty = desc.text === '-';
   if (!desc.text || (isEmpty && !contrib)) return;
   return h('div.chapter_desc', [
@@ -61,7 +61,7 @@ export function view(study: StudyCtrl): VNode | undefined {
   ]);
 }
 
-function edit(ctrl: ChapterDescriptionCtrl): VNode {
+function edit(ctrl: ChapterDescriptionCtrl, chapterId: string): VNode {
   return h('div.chapter_desc_form.underboard_form', {
     hook: {
       insert: _ => window.lichess.loadCss('/assets/stylesheets/material.form.css')
@@ -79,7 +79,7 @@ function edit(ctrl: ChapterDescriptionCtrl): VNode {
     ]),
     h('form.material.form', [
       h('div.form-group', [
-        h('textarea#desc-text', {
+        h('textarea#desc-text.' + chapterId, {
           hook: {
             insert(vnode: VNode) {
               const el = vnode.elm as HTMLInputElement;

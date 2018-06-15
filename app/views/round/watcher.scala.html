@@ -8,7 +8,7 @@
 window.customWS = true;
 window.onload = function() {
 LichessRound.boot({
-data: @Html(J.stringify(data)),
+data: @safeJson(data),
 i18n: @jsI18n(pov.game),
 chat: @jsOrNull(chatOption map { c =>
 chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
@@ -22,11 +22,17 @@ chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeo
 <link href="@routes.Round.atom(pov.gameId, pov.color.name)" type="application/atom+xml" rel="alternate" title="Game feed" />
 }
 
+@underchat = {
+@views.html.game.watchers()
+@round.blurs(pov.game)
+@round.holdAlerts(pov.game)
+}
+
 @round.layout(
 title = title,
-side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked),
+side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String].map(chess.format.FEN), tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked),
 chat = chat.dom().some,
-underchat = views.html.game.watchers().some,
+underchat = underchat.some,
 moreJs = moreJs,
 moreCss = cssTag("chat.css"),
 openGraph = povOpenGraph(pov).some,

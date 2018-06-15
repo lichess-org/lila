@@ -17,11 +17,11 @@ final class Env(
 
   private lazy val client = makeClient(Index(IndexName))
 
-  lazy val api = new GameSearchApi(client)
+  lazy val api = new GameSearchApi(client, system)
 
   lazy val paginator = new PaginatorBuilder[lila.game.Game, Query](
     searchApi = api,
-    maxPerPage = PaginatorMaxPerPage
+    maxPerPage = lila.common.MaxPerPage(PaginatorMaxPerPage)
   )
 
   lazy val forms = new DataForm
@@ -38,20 +38,13 @@ final class Env(
       case InsertGame(game) => api store game
     }
   }), name = ActorName), 'finishGame)
-
-  def cli = new lila.common.Cli {
-    def process = {
-      case "game" :: "search" :: "index" :: "all" :: Nil => api.indexAll inject "done"
-      case "game" :: "search" :: "index" :: since :: Nil => api.indexSince(since) inject "done"
-    }
-  }
 }
 
 object Env {
 
   lazy val current = "gameSearch" boot new Env(
     config = lila.common.PlayApp loadConfig "gameSearch",
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     makeClient = lila.search.Env.current.makeClient
   )
 }

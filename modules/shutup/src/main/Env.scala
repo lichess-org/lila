@@ -37,8 +37,8 @@ final class Env(
         api.privateMessage(userId, toUserId, text)
       case RecordPrivateChat(chatId, userId, text) =>
         api.privateChat(chatId, userId, text)
-      case RecordPublicChat(chatId, userId, text) =>
-        api.publicChat(chatId, userId, text)
+      case RecordPublicChat(userId, text, source) =>
+        api.publicChat(userId, text, source)
     }
   }), name = ActorName)
 }
@@ -48,7 +48,7 @@ object Env {
   lazy val current: Env = "shutup" boot new Env(
     config = lila.common.PlayApp loadConfig "shutup",
     reporter = lila.hub.Env.current.actor.report,
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     follows = lila.relation.Env.current.api.fetchFollows _,
     db = lila.db.Env.current
   )

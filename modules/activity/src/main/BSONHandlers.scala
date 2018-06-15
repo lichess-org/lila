@@ -3,11 +3,11 @@ package lila.activity
 import reactivemongo.bson._
 
 import lila.common.Iso
+import lila.db.BSON.{ MapDocument, MapValue }
 import lila.db.dsl._
-import lila.rating.BSONHandlers.perfTypeKeyHandler
+import lila.rating.BSONHandlers.perfTypeKeyIso
 import lila.rating.PerfType
 import lila.study.Study
-import lila.study.BSONHandlers.StudyIdBSONHandler
 import lila.user.User
 
 private object BSONHandlers {
@@ -15,6 +15,8 @@ private object BSONHandlers {
   import Activity._
   import activities._
   import model._
+
+  def regexId(userId: User.ID): Bdoc = "_id" $startsWith s"$userId:"
 
   implicit val activityIdHandler: BSONHandler[BSONString, Id] = new BSONHandler[BSONString, Id] {
     private val sep = ':'
@@ -55,6 +57,7 @@ private object BSONHandlers {
     )
   }
 
+  private implicit val gamesMapHandler = MapDocument.MapHandler[PerfType, Score]
   implicit val gamesHandler = isoHandler[Games, Map[PerfType, Score], Bdoc]((g: Games) => g.value, Games.apply _)
 
   private implicit val gameIdHandler = stringAnyValHandler[GameId](_.value, GameId.apply)
@@ -66,9 +69,12 @@ private object BSONHandlers {
 
   implicit val puzzlesHandler = isoHandler[Puzzles, Score, Bdoc]((p: Puzzles) => p.score, Puzzles.apply _)
 
-  private implicit val learnStageHandler = stringIsoHandler(Iso.string[Learn.Stage](Learn.Stage.apply, _.value))
+  private implicit val learnStageIso = Iso.string[Learn.Stage](Learn.Stage.apply, _.value)
+  private implicit val learnMapHandler = MapValue.MapHandler[Learn.Stage, Int]
   private implicit val learnHandler = isoHandler[Learn, Map[Learn.Stage, Int], Bdoc]((l: Learn) => l.value, Learn.apply _)
 
+  private implicit val studyIdIso = Iso.string[Study.Id](Study.Id.apply, _.value)
+  private implicit val practiceMapHandler = MapValue.MapHandler[Study.Id, Int]
   private implicit val practiceHandler = isoHandler[Practice, Map[Study.Id, Int], Bdoc]((p: Practice) => p.value, Practice.apply _)
 
   private implicit val simulIdHandler = stringAnyValHandler[SimulId](_.value, SimulId.apply)
@@ -83,8 +89,8 @@ private object BSONHandlers {
 
   private implicit val followsHandler = new lila.db.BSON[Follows] {
     def reads(r: lila.db.BSON.Reader) = Follows(
-      in = r.getO[FollowList]("i"),
-      out = r.getO[FollowList]("o")
+      in = r.getO[FollowList]("i").filterNot(_.isEmpty),
+      out = r.getO[FollowList]("o").filterNot(_.isEmpty)
     )
     def writes(w: lila.db.BSON.Writer, o: Follows) = BSONDocument(
       "i" -> o.in,
@@ -92,6 +98,7 @@ private object BSONHandlers {
     )
   }
 
+  private implicit val studyIdHandler = isoHandler(studyIdIso)
   private implicit val studyIdsHandler = bsonArrayToListHandler[Study.Id]
   private implicit val studiesHandler = isoHandler[Studies, List[Study.Id], Barr]((s: Studies) => s.value, Studies.apply _)
   private implicit val teamsHandler = isoHandler[Teams, List[String], Barr]((s: Teams) => s.value, Teams.apply _)
@@ -109,6 +116,7 @@ private object BSONHandlers {
     val follows = "f"
     val studies = "t"
     val teams = "e"
+    val stream = "st"
   }
 
   implicit val activityHandler = new lila.db.BSON[Activity] {
@@ -125,9 +133,10 @@ private object BSONHandlers {
       simuls = r.getO[Simuls](simuls),
       corres = r.getO[Corres](corres),
       patron = r.getO[Patron](patron),
-      follows = r.getO[Follows](follows),
+      follows = r.getO[Follows](follows).filterNot(_.isEmpty),
       studies = r.getO[Studies](studies),
-      teams = r.getO[Teams](teams)
+      teams = r.getO[Teams](teams),
+      stream = r.getD[Boolean](stream)
     )
 
     def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
@@ -142,7 +151,8 @@ private object BSONHandlers {
       patron -> o.patron,
       follows -> o.follows,
       studies -> o.studies,
-      teams -> o.teams
+      teams -> o.teams,
+      stream -> o.stream.option(true)
     )
   }
 }

@@ -11,16 +11,14 @@ import views._
 
 object Editor extends LilaController {
 
-  private lazy val positionsJson = Html {
-    Json stringify {
-      JsArray(chess.StartingPosition.all map { p =>
-        Json.obj(
-          "eco" -> p.eco,
-          "name" -> p.name,
-          "fen" -> p.fen
-        )
-      })
-    }
+  private lazy val positionsJson = lila.common.String.html.safeJson {
+    JsArray(chess.StartingPosition.all map { p =>
+      Json.obj(
+        "eco" -> p.eco,
+        "name" -> p.name,
+        "fen" -> p.fen
+      )
+    })
   }
 
   def index = load("")
@@ -58,7 +56,7 @@ object Editor extends LilaController {
     OptionResult(GameRepo game id) { game =>
       Redirect {
         if (game.playable) routes.Round.watcher(game.id, "white")
-        else routes.Editor.load(get("fen") | (chess.format.Forsyth >> game.toChess))
+        else routes.Editor.load(get("fen") | (chess.format.Forsyth >> game.chess))
       }
     }
   }

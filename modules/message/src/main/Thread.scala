@@ -11,9 +11,9 @@ case class Thread(
     createdAt: DateTime,
     updatedAt: DateTime,
     posts: List[Post],
-    creatorId: String,
-    invitedId: String,
-    visibleByUserIds: List[String],
+    creatorId: User.ID,
+    invitedId: User.ID,
+    visibleByUserIds: List[User.ID],
     mod: Option[Boolean]
 ) {
 
@@ -40,6 +40,8 @@ case class Thread(
   def nbPosts = posts.size
 
   def isTooBig = nbPosts > 200
+
+  def firstPost: Option[Post] = posts.headOption
 
   def firstPostUnreadBy(user: User): Option[Post] = posts find isPostUnreadBy(user)
 
@@ -87,6 +89,14 @@ case class Thread(
   def hasPostsWrittenBy(userId: User.ID) = posts exists (_.isByCreator == (creatorId == userId))
 
   def endsWith(post: Post) = posts.lastOption ?? post.similar
+
+  def erase(user: User) = copy(
+    posts = posts.map {
+      case p if p.isByCreator && user.id == creatorId => p.erase
+      case p if !p.isByCreator && user.id == invitedId => p.erase
+      case p => p
+    }
+  )
 }
 
 object Thread {

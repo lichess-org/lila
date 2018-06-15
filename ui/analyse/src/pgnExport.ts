@@ -3,7 +3,12 @@ import { h } from 'snabbdom'
 import { initialFen, fixCrazySan } from 'chess';
 import { MaybeVNodes } from './interfaces';
 
-function renderNodesTxt(nodes: Tree.Node[]): string {
+interface PgnNode {
+  ply: Ply;
+  san?: San;
+}
+
+function renderNodesTxt(nodes: PgnNode[]): string {
   if (!nodes[0]) return '';
   if (!nodes[0].san) nodes = nodes.slice(1);
   if (!nodes[0]) return '';
@@ -32,7 +37,7 @@ export function renderFullTxt(ctrl: AnalyseCtrl): string {
   return txt;
 }
 
-export function renderNodesHtml(nodes: Tree.Node[]): MaybeVNodes {
+export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
   if (!nodes[0]) return [];
   if (!nodes[0].san) nodes = nodes.slice(1);
   if (!nodes[0]) return [];

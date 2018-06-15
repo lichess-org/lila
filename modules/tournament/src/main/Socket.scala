@@ -30,13 +30,13 @@ private[tournament] final class Socket(
 
   private var waitingUsers = WaitingUsers.empty
 
-  override def preStart() {
+  override def preStart(): Unit = {
     super.preStart()
-    lilaBus.subscribe(self, Symbol(s"chat-$tournamentId"))
+    lilaBus.subscribe(self, Symbol(s"chat:$tournamentId"))
     TournamentRepo byId tournamentId map SetTournament.apply pipeTo self
   }
 
-  override def postStop() {
+  override def postStop(): Unit = {
     super.postStop()
     lilaBus.unsubscribe(self)
   }
@@ -101,14 +101,14 @@ private[tournament] final class Socket(
     send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
   )
 
-  def notifyCrowd {
+  def notifyCrowd: Unit = {
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
       context.system.scheduler.scheduleOnce(1000 millis, self, NotifyCrowd)
     }
   }
 
-  def notifyReload {
+  def notifyReload: Unit = {
     if (!delayedReloadNotification) {
       delayedReloadNotification = true
       // keep the delay low for immediate response to join/withdraw,

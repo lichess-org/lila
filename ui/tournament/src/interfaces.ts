@@ -27,3 +27,15 @@ export interface PlayerInfo {
   player?: any;
   data?: any;
 }
+
+export interface Duel {
+  id: string;
+  p: [DuelPlayer, DuelPlayer]
+}
+
+export interface DuelPlayer {
+  n: string; // name
+  r: number // rating
+  k: number // rank
+  t?: string // title
+}

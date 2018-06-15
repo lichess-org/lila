@@ -4,21 +4,20 @@ import chess.format.pgn.{ Pgn, Tag, Turn, Move, Glyphs }
 import chess.opening._
 import chess.{ Status, Color, Clock }
 
-private[analyse] final class Annotator(netDomain: String) {
+final class Annotator(netDomain: String) {
 
   def apply(
     p: Pgn,
     analysis: Option[Analysis],
     opening: Option[FullOpening.AtPly],
     winner: Option[Color],
-    status: Status,
-    clock: Option[Clock]
+    status: Status
   ): Pgn =
     annotateStatus(winner, status) {
       annotateOpening(opening) {
         annotateTurns(p, analysis ?? (_.advices))
       }.copy(
-        tags = p.tags :+ Tag("Annotator", netDomain)
+        tags = p.tags + Tag(_.Annotator, netDomain)
       )
     }
 
@@ -38,7 +37,7 @@ private[analyse] final class Annotator(netDomain: String) {
         turn.update(advice.color, move =>
           move.copy(
             glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
-            comments = List(advice.makeComment(true, true)),
+            comments = advice.makeComment(true, true) :: move.comments,
             variations = makeVariation(turn, advice) :: Nil
           )))
     }

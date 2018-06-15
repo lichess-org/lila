@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 . bin/lilarc
 
 mode=$1
@@ -11,10 +11,6 @@ elif [ $mode = "main" ]; then
   CLI="bin/cli-prod"
 elif [ $mode = "stage" ]; then
   REMOTE="khiaw"
-  REMOTE_DIR="/home/lichess-stage"
-  CLI="bin/cli-stage"
-elif [ $mode = "koala" ]; then
-  REMOTE="koala"
   REMOTE_DIR="/home/lichess-stage"
   CLI="bin/cli-stage"
 elif [ $mode = "local" ]; then
@@ -41,12 +37,12 @@ if [ "$2" = "asset" ]; then
 fi
 
 if [ $mode = "main" ]; then
-  lilalog "Notify users of pre deploy"
+  lilalog "Notify pre deploy"
   $CLI deploy pre
 fi
 
 SBT_OPTS=""
-export JAVA_OPTS="-Xms1024M -Xmx1024M -XX:ReservedCodeCacheSize=64m -XX:+UseConcMarkSweepGC"
+export JAVA_OPTS="-Xms2048m -Xmx2560m -XX:ReservedCodeCacheSize=64m -XX:+UseConcMarkSweepGC"
 sbt stage exit
 if [ $? != 0 ]; then
   lilalog "Deploy canceled"
@@ -58,6 +54,8 @@ if [ $mode = "main" ]; then
   BACKUP_DIR=/home/backup/lichess-$(date +%Y-%m-%d_%H-%M)
   ssh $REMOTE "echo $BACKUP_DIR && cp -r $REMOTE_DIR $BACKUP_DIR && rm $BACKUP_DIR/RUNNING_PID && chown -R lichess:lichess $BACKUP_DIR"
 fi
+
+# read -n 1 -p "Press [Enter] to rsync to $REMOTE:$REMOTE_DIR"
 
 RSYNC_OPTIONS=" \
   --archive \
@@ -74,8 +72,7 @@ RSYNC_OPTIONS=" \
   --exclude '*.h' \
   --exclude '*.cpp' \
   --exclude '.git/' \
-  --exclude bin/.translate_version
-  --exclude bin/node_modules"
+  --exclude node_modules"
 
 if [ $mode != "main" ] && [ $mode != "stage" ] && [ $mode != "koala" ]; then
   RSYNC_OPTIONS="$RSYNC_OPTIONS \
@@ -98,22 +95,31 @@ fi
 read -n 1 -p "Press [Enter] to complete deployment to $mode server $REMOTE:$REMOTE_DIR"
 
 if [ $mode = "main" ]; then
-  lilalog "Notify users of post deploy"
+  lilalog "Notify post deploy"
   $CLI deploy post
+  sleep 1
 fi
+
+# ensure FS cache is ready before booting (slow hard drives)
+FS_WARMUP="cat $REMOTE_DIR/lib/* > /dev/null && cat $REMOTE_DIR/bin/lila > /dev/null"
+
+# start dropping packets. Run `bin/prod/iptables-drop 0` on the server to resume normal traffic.
+START_DROPPING="$REMOTE_DIR/bin/prod/iptables-drop 0.92"
+STOP_DROPPING="sleep 8 && $REMOTE_DIR/bin/prod/iptables-drop 0"
+# STOP_DROPPING="echo \"not resuming traffic\""
 
 if [ $mode = "main" ]; then
   lilalog "Restart lichess"
   RUN_DIR="/home/lichess"
-  ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && rm $RUN_DIR && ln -s $REMOTE_DIR $RUN_DIR && service lichess restart"
+  SSH_COMMAND="$START_DROPPING && chown -R lichess:lichess $REMOTE_DIR && $FS_WARMUP && rm $RUN_DIR && ln -s $REMOTE_DIR $RUN_DIR && systemctl restart lichess && $STOP_DROPPING"
+  echo $SSH_COMMAND
+  ssh $REMOTE $SSH_COMMAND
 fi
 if [ $mode = "stage" ]; then
   lilalog "Restart lichess-stage"
-  ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && service lichess-stage restart"
-fi
-if [ $mode = "koala" ]; then
-  lilalog "Restart lichess-stage"
-  ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && service lichess-stage restart"
+  SSH_COMMAND="$START_DROPPING && chown -R lichess:lichess $REMOTE_DIR && $FS_WARMUP && systemctl restart lichess-stage && $STOP_DROPPING"
+  echo $SSH_COMMAND
+  ssh $REMOTE $SSH_COMMAND
 fi
 
 lilalog "Deploy complete"

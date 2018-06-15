@@ -6,10 +6,9 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.chat.Chat
-import lila.common.PimpedJson._
-import lila.common.{ HTTPRequest, ApiVersion }
-import lila.game.{ Pov, GameRepo, Game => GameModel, PgnDump }
-import lila.tournament.TourMiniView
+import lila.common.HTTPRequest
+import lila.game.{ Pov, GameRepo, Game => GameModel, PgnDump, PlayerRef }
+import lila.tournament.{ TourMiniView, Tournament => Tour }
 import lila.user.{ User => UserModel }
 import views._
 
@@ -18,21 +17,24 @@ object Round extends LilaController with TheftPrevention {
   private def env = Env.round
   private def analyser = Env.analyse.analyser
 
-  def websocketWatcher(gameId: String, color: String) = SocketOption { implicit ctx =>
-    getSocketUid("sri") ?? { uid =>
-      env.socketHandler.watcher(
-        gameId = gameId,
-        colorName = color,
-        uid = uid,
-        user = ctx.me,
-        ip = ctx.ip,
-        userTv = get("userTv")
-      )
+  def websocketWatcher(gameId: String, color: String) = SocketOption[JsValue] { implicit ctx =>
+    proxyPov(gameId, color) flatMap {
+      _ ?? { pov =>
+        getSocketUid("sri") ?? { uid =>
+          env.socketHandler.watcher(
+            pov = pov,
+            uid = uid,
+            user = ctx.me,
+            ip = ctx.ip,
+            userTv = get("userTv")
+          ) map some
+        }
+      }
     }
   }
 
-  def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither { implicit ctx =>
-    GameRepo pov fullId flatMap {
+  def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither[JsValue] { implicit ctx =>
+    proxyPov(fullId) flatMap {
       case Some(pov) =>
         if (isTheft(pov)) fuccess(Left(theftResponse))
         else getSocketUid("sri") match {
@@ -50,24 +52,25 @@ object Round extends LilaController with TheftPrevention {
   private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] = negotiate(
     html = pov.game.started.fold(
       PreventTheft(pov) {
-        Game.preloadUsers(pov.game) zip
-          myTour(pov.game.tournamentId, true) zip
-          (pov.game.simulId ?? Env.simul.repo.find) zip
-          getPlayerChat(pov.game) zip
-          Env.game.crosstableApi.withMatchup(pov.game) zip // probably what raises page mean time?
-          (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
-          Env.bookmark.api.exists(pov.game, ctx.me) zip
-          Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map {
-            case _ ~ tour ~ simul ~ chatOption ~ crosstable ~ playing ~ bookmarked ~ data =>
-              simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
-              Ok(html.round.player(pov, data,
-                tour = tour,
-                simul = simul,
-                cross = crosstable,
-                playing = playing,
-                chatOption = chatOption,
-                bookmarked = bookmarked))
-          }
+        myTour(pov.game.tournamentId, true) flatMap { tour =>
+          Game.preloadUsers(pov.game) zip
+            (pov.game.simulId ?? Env.simul.repo.find) zip
+            getPlayerChat(pov.game, tour.map(_.tour)) zip
+            Env.game.crosstableApi.withMatchup(pov.game) zip // probably what raises page mean time?
+            (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
+            Env.bookmark.api.exists(pov.game, ctx.me) zip
+            Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map {
+              case _ ~ simul ~ chatOption ~ crosstable ~ playing ~ bookmarked ~ data =>
+                simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
+                Ok(html.round.player(pov, data,
+                  tour = tour,
+                  simul = simul.filter(_ isHost ctx.me),
+                  cross = crosstable,
+                  playing = playing,
+                  chatOption = chatOption,
+                  bookmarked = bookmarked))
+            }
+        }
       }.mon(_.http.response.player.website),
       notFound
     ),
@@ -75,7 +78,7 @@ object Round extends LilaController with TheftPrevention {
       if (isTheft(pov)) fuccess(theftResponse)
       else Game.preloadUsers(pov.game) zip
         Env.api.roundApi.player(pov, apiVersion) zip
-        getPlayerChat(pov.game) map {
+        getPlayerChat(pov.game, none) map {
           case _ ~ data ~ chat => Ok {
             data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))
           }
@@ -84,7 +87,7 @@ object Round extends LilaController with TheftPrevention {
   ) map NoCache
 
   def player(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo pov fullId) { pov =>
+    OptionFuResult(proxyPov(fullId)) { pov =>
       env.checkOutoftime(pov.game)
       renderPlayer(pov)
     }
@@ -93,7 +96,7 @@ object Round extends LilaController with TheftPrevention {
   private def otherPovs(game: GameModel)(implicit ctx: Context) = ctx.me ?? { user =>
     GameRepo urgentGames user map {
       _ filter { pov =>
-        pov.game.id != game.id && pov.game.isSwitchable && pov.game.isSimul == game.isSimul
+        pov.gameId != game.id && pov.game.isSwitchable && pov.game.isSimul == game.isSimul
       }
     }
   }
@@ -103,16 +106,8 @@ object Round extends LilaController with TheftPrevention {
       pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
     }
 
-  def others(gameId: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo game gameId) { currentGame =>
-      otherPovs(currentGame) map { povs =>
-        Ok(html.round.others(povs))
-      }
-    }
-  }
-
   def whatsNext(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo pov fullId) { currentPov =>
+    OptionFuResult(proxyPov(fullId)) { currentPov =>
       if (currentPov.isMyTurn) fuccess {
         Ok(Json.obj("nope" -> true))
       }
@@ -137,7 +132,7 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def watcher(gameId: String, color: String) = Open { implicit ctx =>
-    GameRepo.pov(gameId, color) flatMap {
+    proxyPov(gameId, color) flatMap {
       case Some(pov) => get("pov") match {
         case Some(requestedPov) => (pov.player.userId, pov.opponent.userId) match {
           case (Some(_), Some(opponent)) if opponent == requestedPov =>
@@ -153,6 +148,16 @@ object Round extends LilaController with TheftPrevention {
         }
       }
       case None => Challenge showId gameId
+    }
+  }
+
+  private def proxyPov(gameId: String, color: String): Fu[Option[Pov]] = chess.Color(color) ?? { c =>
+    env.roundProxyGame(gameId) map2 { (g: GameModel) => g pov c }
+  }
+  private def proxyPov(fullId: String): Fu[Option[Pov]] = {
+    val ref = PlayerRef(fullId)
+    env.roundProxyGame(ref.gameId) map {
+      _ flatMap { _ playerIdPov ref.playerId }
     }
   }
 
@@ -178,17 +183,17 @@ object Round extends LilaController with TheftPrevention {
                     Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv, chatOption = chat, bookmarked = bookmarked))
                 }
           else for { // web crawlers don't need the full thing
-            initialFen <- GameRepo.initialFen(pov.game.id)
-            pgn <- Env.api.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false))
+            initialFen <- GameRepo.initialFen(pov.gameId)
+            pgn <- Env.api.pgnDump(pov.game, initialFen, none, PgnDump.WithFlags(clocks = false))
           } yield Ok(html.round.watcherBot(pov, initialFen, pgn))
         }.mon(_.http.response.watcher.website),
         api = apiVersion => for {
           data <- Env.api.roundApi.watcher(pov, apiVersion, tv = none)
-          analysis <- pov.game.metadata.analysed.??(analyser get pov.game.id)
+          analysis <- analyser get pov.game
           chat <- getWatcherChat(pov.game)
         } yield Ok {
           data
-            .add("c" -> chat.map(c => lila.chat.JsonView(c.chat)))
+            .add("chat" -> chat.map(c => lila.chat.JsonView(c.chat)))
             .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
         }
       ) map NoCache
@@ -197,15 +202,21 @@ object Round extends LilaController with TheftPrevention {
   private def myTour(tourId: Option[String], withTop: Boolean): Fu[Option[TourMiniView]] =
     tourId ?? { Env.tournament.api.miniView(_, withTop) }
 
-  private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = ctx.noKid ?? {
+  private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = {
+    ctx.noKid && ctx.me.exists(Env.chat.panic.allowed) && {
+      game.finishedOrAborted || !ctx.userId.exists(game.userIds.contains)
+    }
+  } ?? {
     Env.chat.api.userChat.findMineIf(Chat.Id(s"${game.id}/w"), ctx.me, !game.justCreated) flatMap { chat =>
       Env.user.lightUserApi.preloadMany(chat.chat.userIds) inject chat.some
     }
   }
 
-  private[controllers] def getPlayerChat(game: GameModel)(implicit ctx: Context): Fu[Option[Chat.GameOrEvent]] = ctx.noKid ?? {
+  private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour])(implicit ctx: Context): Fu[Option[Chat.GameOrEvent]] = ctx.noKid ?? {
     (game.tournamentId, game.simulId) match {
-      case (Some(tid), _) => ctx.me.??(Tournament.canHaveChat(game.variant, _)) ??
+      case (Some(tid), _) => {
+        ctx.isAuth && tour.fold(true)(Tournament.canHaveChat)
+      } ??
         Env.chat.api.userChat.cached.findMine(Chat.Id(tid), ctx.me).map { chat =>
           Chat.GameOrEvent(Right(chat truncate 50)).some
         }
@@ -269,7 +280,7 @@ object Round extends LilaController with TheftPrevention {
     OptionResult(GameRepo game id) { game =>
       Redirect("%s?fen=%s#%s".format(
         routes.Lobby.home(),
-        get("fen") | (chess.format.Forsyth >> game.toChess),
+        get("fen") | (chess.format.Forsyth >> game.chess),
         mode
       ))
     }
@@ -283,7 +294,7 @@ object Round extends LilaController with TheftPrevention {
       } else {
         env resign pov
         import scala.concurrent.duration._
-        val scheduler = old.play.Env.actorSystem.scheduler
+        val scheduler = lila.common.PlayApp.system.scheduler
         akka.pattern.after(500 millis, scheduler)(fuccess(routes.Lobby.home))
       }
     }
@@ -301,11 +312,12 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def atom(gameId: String, color: String) = old.play.Env.actionBuilder.async { implicit req =>
+  def atom(gameId: String, color: String) = Action.async { implicit req =>
     GameRepo.pov(gameId, color) flatMap {
-      case Some(pov) => GameRepo initialFen pov.game map { initialFen =>
-        val pgn = Env.game.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false))
-        Ok(views.xml.round.atom(pov, pgn)) as XML
+      case Some(pov) => GameRepo initialFen pov.game flatMap { initialFen =>
+        Env.game.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false)) map { pgn =>
+          Ok(views.xml.round.atom(pov, pgn)) as XML
+        }
       }
       case _ => NotFound("no such game").fuccess
     }

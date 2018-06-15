@@ -4,8 +4,6 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.common.PimpedConfig._
-
 final class Env(
     config: Config,
     db: lila.db.Env,
@@ -47,6 +45,9 @@ final class Env(
     onlineUserIds
   )
 
+  def isPlaying(userId: lila.user.User.ID): Boolean =
+    online.playing.get(userId)
+
   private[relation] val actor = system.actorOf(Props(new RelationActor(
     lightUser = lightUserApi.sync,
     api = api,
@@ -69,7 +70,7 @@ object Env {
     onlineUserIds = lila.user.Env.current.onlineUserIdMemo,
     lightUserApi = lila.user.Env.current.lightUserApi,
     followable = lila.pref.Env.current.api.followable _,
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler
   )

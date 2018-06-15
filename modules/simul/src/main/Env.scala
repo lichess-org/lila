@@ -5,7 +5,6 @@ import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
 import lila.hub.{ ActorMap, Sequencer }
 import lila.socket.actorApi.GetVersion
@@ -125,7 +124,7 @@ object Env {
 
   lazy val current = "simul" boot new Env(
     config = lila.common.PlayApp loadConfig "simul",
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,

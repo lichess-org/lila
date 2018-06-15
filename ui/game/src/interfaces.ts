@@ -15,7 +15,7 @@ export interface Game {
   status: Status;
   player: Color;
   turns: number;
-  startedAtTurn: number;
+  startedAtTurn?: number;
   source: Source;
   speed: Speed;
   variant: Variant;
@@ -50,7 +50,7 @@ export interface Player {
   proposingTakeback?: boolean;
   offeringRematch?: boolean;
   offeringDraw?: boolean;
-  ai: boolean;
+  ai: number | null;
   onGame: boolean;
   isGone: boolean;
   blurs?: Blurs;
@@ -97,6 +97,7 @@ export interface CorrespondenceClock {
 export type Source = 'import' | 'lobby' | 'pool';
 
 export interface PlayerUser {
+  id: string;
   online: boolean;
   username: string;
   patron?: boolean;

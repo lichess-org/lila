@@ -61,8 +61,8 @@ body.dark .undertable td,
 body.dark .study_invite input,
 body.dark div.side_box,
 body.dark div.side_box .top,
-body.dark div.box,
-body.dark div.box .top,
+body.dark .box,
+body.dark .box .top,
 body.dark div.table,
 body.dark div.table_wrap > div.clock > div.time,
 body.dark #tournament_schedule .schedule,
@@ -215,6 +215,7 @@ body.dark #hooks_wrap div.tabs a {
   color: #b0b0b0;
 }
 body.dark #top a.toggle:hover,
+body.dark #clinput a.link:hover,
 body.dark #top a.signin,
 body.dark #hooks_wrap .hook_filter .checkable {
   color: #c0c0c0;
@@ -230,6 +231,9 @@ body.dark .undertable_top span.title {
 body.dark .user_link span.title {
   color: #bf811d;
 }
+body.dark .user_link span.title[data-title=BOT] {
+  color: #9e1aad;
+}
 body.dark .user_show .fire_trophy {
   color: #666;
 }
@@ -240,7 +244,7 @@ body.dark .areplay,
 body.dark .explorer_box tr:nth-child(even),
 body.dark div.mchat .messages,
 body.dark div.side_box,
-body.dark div.box,
+body.dark .box,
 body.dark div.table,
 body.dark div.table_wrap > div.clock > div.time,
 body.dark #friend_box .content a:hover,
@@ -451,7 +455,9 @@ body.dark div.user_show div.user-infos.scroll-shadow-hard {
 }
 body.dark div.game_row:hover,
 body.dark .studies .study:hover,
-body.dark .coaches .coach:hover {
+body.dark .relays .relay:hover,
+body.dark .coaches .coach:hover,
+body.dark .streamers .streamer:hover {
   background: rgba(27, 51, 68, 0.5)!important;
 }
 body.dark .color-icon.white::before {
@@ -465,10 +471,6 @@ body.dark ::-webkit-input-placeholder {
 }
 body.dark :-ms-input-placeholder {
   color: #777;
-}
-body.dark #lobby_playban,
-body.dark #lobby_current_game {
-  background: rgba(0,0,0,0.7);
 }
 body.dark #topmenu section > a {
   color: #777;
@@ -525,6 +527,9 @@ body.dark input.cmn-toggle-round + label:after {
 }
 body.dark signal > i.off {
   background-color: #555;
+}
+body.dark .context-streamer {
+  color: #ccc!important;
 }
 body.dark .ddloader {
   background-image: url(../images/loader/whitex1.png);

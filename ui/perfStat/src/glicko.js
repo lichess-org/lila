@@ -41,12 +41,7 @@ module.exports = function(d) {
       m('strong', {
         title: 'Lower value means the rating is more stable. Above 110, the rating is considered provisional.'
       }, d.perf.glicko.deviation),
-      '. ',
-      'Rating volatility: ',
-      m('strong', {
-        title: 'Lower value means the player is more consistent.'
-      }, d.perf.glicko.volatility),
-      '.'
+      '. '
     ])
   ];
 };

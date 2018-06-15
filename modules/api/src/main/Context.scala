@@ -3,7 +3,7 @@ package lila.api
 import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
 
-import lila.common.{ HTTPRequest, AssetVersion }
+import lila.common.{ HTTPRequest, AssetVersion, Nonce }
 import lila.pref.Pref
 import lila.relation.actorApi.OnlineFriends
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
@@ -17,15 +17,14 @@ case class PageData(
     blindMode: Boolean,
     hasFingerprint: Boolean,
     assetVersion: AssetVersion,
-    inquiry: Option[lila.mod.Inquiry]
+    inquiry: Option[lila.mod.Inquiry],
+    nonce: Option[Nonce],
+    error: Boolean = false
 )
 
 object PageData {
 
-  def empty(v: AssetVersion) =
-    PageData(OnlineFriends.empty, 0, 0, 0, Pref.default, false, false, v, none)
-
-  def anon(req: RequestHeader, v: AssetVersion, blindMode: Boolean = false) = PageData(
+  def anon(req: RequestHeader, v: AssetVersion, nonce: Option[Nonce], blindMode: Boolean = false) = PageData(
     OnlineFriends.empty,
     teamNbRequests = 0,
     nbChallenges = 0,
@@ -34,8 +33,11 @@ object PageData {
     blindMode = blindMode,
     hasFingerprint = false,
     assetVersion = v,
-    none
+    inquiry = none,
+    nonce = nonce
   )
+
+  def error(req: RequestHeader, v: AssetVersion, nonce: Option[Nonce]) = anon(req, v, nonce).copy(error = true)
 }
 
 sealed trait Context extends lila.user.UserContextWrapper {
@@ -52,6 +54,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def nbNotifications = pageData.nbNotifications
   def pref = pageData.pref
   def blindMode = pageData.blindMode
+  def nonce = pageData.nonce
 
   def currentTheme = lila.pref.Theme(pref.theme)
 
@@ -98,8 +101,8 @@ final class HeaderContext(
 
 object Context {
 
-  def apply(req: RequestHeader, v: AssetVersion, lang: Lang): HeaderContext =
-    new HeaderContext(UserContext(req, none, none, lang), PageData.anon(req, v))
+  def error(req: RequestHeader, v: AssetVersion, lang: Lang, nonce: Option[Nonce]): HeaderContext =
+    new HeaderContext(UserContext(req, none, none, lang), PageData.error(req, v, nonce))
 
   def apply(userContext: HeaderUserContext, pageData: PageData): HeaderContext =
     new HeaderContext(userContext, pageData)

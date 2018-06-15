@@ -19,7 +19,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
       attrs: { 'data-href': '/@/' + seek.username }
     }, seek.username) : 'Anonymous'),
     seek.rating + (seek.provisional ? '?' : ''),
-    seek.days ? ctrl.trans(seek.days === 1 ? 'oneDay' : 'nbDays', seek.days) : '∞',
+    seek.days ? ctrl.trans.plural('nbDays', seek.days) : '∞',
     h('span', [
       h('span.varicon', {
         attrs: { 'data-icon': seek.perf.icon }
@@ -35,6 +35,7 @@ function createSeek(ctrl: LobbyController): VNode | undefined {
       attrs: { href: '/?time=correspondence#hook' }
     }, ctrl.trans('createAGame'))
   ]);
+  return;
 }
 
 export default function(ctrl: LobbyController): MaybeVNodes {

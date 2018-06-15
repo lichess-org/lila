@@ -19,6 +19,7 @@ case class Perfs(
     ultraBullet: Perf,
     bullet: Perf,
     blitz: Perf,
+    rapid: Perf,
     classical: Perf,
     correspondence: Perf,
     puzzle: Perf
@@ -37,6 +38,7 @@ case class Perfs(
     "ultraBullet" -> ultraBullet,
     "bullet" -> bullet,
     "blitz" -> blitz,
+    "rapid" -> rapid,
     "classical" -> classical,
     "correspondence" -> correspondence,
     "puzzle" -> puzzle
@@ -51,6 +53,12 @@ case class Perfs(
       }
       case (ro, _) => ro
     }
+  }
+
+  def bestPerfs(nb: Int): List[(PerfType, Perf)] = {
+    val ps = PerfType.nonPuzzle map { pt => pt -> apply(pt) }
+    val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 15)
+    ps.filter(p => p._2.nb >= minNb).sortBy(-_._2.intRating) take nb
   }
 
   def bestPerfType: Option[PerfType] = bestPerf.map(_._1)
@@ -98,6 +106,7 @@ case class Perfs(
     "ultraBullet" -> ultraBullet,
     "bullet" -> bullet,
     "blitz" -> blitz,
+    "rapid" -> rapid,
     "classical" -> classical,
     "correspondence" -> correspondence,
     "puzzle" -> puzzle
@@ -114,6 +123,7 @@ case class Perfs(
     case PerfType.UltraBullet => ultraBullet
     case PerfType.Bullet => bullet
     case PerfType.Blitz => blitz
+    case PerfType.Rapid => rapid
     case PerfType.Classical => classical
     case PerfType.Correspondence => correspondence
     case PerfType.Chess960 => chess960
@@ -133,7 +143,7 @@ case class Perfs(
 
   def updateStandard = copy(
     standard = {
-      val subs = List(bullet, blitz, classical, correspondence)
+      val subs = List(bullet, blitz, rapid, classical, correspondence)
       subs.maxBy(_.latest.fold(0l)(_.getMillis)).latest.fold(standard) { date =>
         val nb = subs.map(_.nb).sum
         val glicko = Glicko(
@@ -163,7 +173,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p)
   }
 
   def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] = variant match {
@@ -182,6 +192,7 @@ case object Perfs {
   def speedLens(speed: Speed): Perfs => Perf = speed match {
     case Speed.Bullet => perfs => perfs.bullet
     case Speed.Blitz => perfs => perfs.blitz
+    case Speed.Rapid => perfs => perfs.rapid
     case Speed.Classical => perfs => perfs.classical
     case Speed.Correspondence => perfs => perfs.correspondence
     case Speed.UltraBullet => perfs => perfs.ultraBullet
@@ -206,6 +217,7 @@ case object Perfs {
         ultraBullet = perf("ultraBullet"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
+        rapid = perf("rapid"),
         classical = perf("classical"),
         correspondence = perf("correspondence"),
         puzzle = perf("puzzle")
@@ -227,6 +239,7 @@ case object Perfs {
       "ultraBullet" -> notNew(o.ultraBullet),
       "bullet" -> notNew(o.bullet),
       "blitz" -> notNew(o.blitz),
+      "rapid" -> notNew(o.rapid),
       "classical" -> notNew(o.classical),
       "correspondence" -> notNew(o.correspondence),
       "puzzle" -> notNew(o.puzzle)
@@ -237,6 +250,7 @@ case object Perfs {
       ultraBullet: List[User.LightPerf],
       bullet: List[User.LightPerf],
       blitz: List[User.LightPerf],
+      rapid: List[User.LightPerf],
       classical: List[User.LightPerf],
       crazyhouse: List[User.LightPerf],
       chess960: List[User.LightPerf],

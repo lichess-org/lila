@@ -18,12 +18,15 @@ case class Activity(
     patron: Option[Patron] = None,
     follows: Option[Follows] = None,
     studies: Option[Studies] = None,
-    teams: Option[Teams] = None
+    teams: Option[Teams] = None,
+    stream: Boolean = false
 ) {
 
   def date = Activity.Day.genesis plusDays id.day.value
 
   def interval = new Interval(date, date plusDays 1)
+
+  def isEmpty = !stream && List(games, posts, puzzles, learn, practice, simuls, corres, patron, follows, studies, teams).forall(_.isEmpty)
 }
 
 object Activity {

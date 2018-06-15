@@ -3,8 +3,6 @@ package lila.chat
 import akka.actor.{ ActorSystem, Props, ActorSelection }
 import com.typesafe.config.Config
 
-import lila.common.PimpedConfig._
-
 final class Env(
     config: Config,
     db: lila.db.Env,
@@ -43,6 +41,8 @@ final class Env(
     netDomain = NetDomain
   )
 
+  val panic = new ChatPanic
+
   system.scheduler.schedule(TimeoutCheckEvery, TimeoutCheckEvery) {
     timeout.checkExpired foreach api.userChat.reinstate
   }
@@ -62,6 +62,6 @@ object Env {
     shutup = lila.hub.Env.current.actor.shutup,
     modLog = lila.hub.Env.current.actor.mod,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = old.play.Env.actorSystem
+    system = lila.common.PlayApp.system
   )
 }

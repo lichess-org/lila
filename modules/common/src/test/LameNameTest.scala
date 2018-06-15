@@ -30,6 +30,8 @@ class LameNameTest extends Specification {
       test("d0uchebag") must beTrue
       test("urcunt-blah") must beTrue
       test("urcuntblah") must beTrue
+      test("fuckster") must beTrue
+      test("fuuckster") must beTrue
     }
   }
   "allow" should {

@@ -1,8 +1,8 @@
 package lila.study
 
-import chess.{ Color, Centis }
-import chess.format.pgn.{ Glyph, Tag }
+import chess.format.pgn.{ Glyph, Tag, Tags }
 import chess.variant.Variant
+import chess.{ Color, Centis }
 import org.joda.time.DateTime
 
 import chess.opening.{ FullOpening, FullOpeningDB }
@@ -15,13 +15,15 @@ case class Chapter(
     name: Chapter.Name,
     setup: Chapter.Setup,
     root: Node.Root,
-    tags: List[Tag],
+    tags: Tags,
     order: Int,
     ownerId: User.ID,
     conceal: Option[Chapter.Ply] = None,
     practice: Option[Boolean] = None,
     gamebook: Option[Boolean] = None,
     description: Option[String] = None,
+    relay: Option[Chapter.Relay] = None,
+    serverEval: Option[Chapter.ServerEval] = None,
     createdAt: DateTime
 ) extends Chapter.Like {
 
@@ -30,9 +32,11 @@ case class Chapter(
       copy(root = newRoot)
     }
 
-  def addNode(node: Node, path: Path): Option[Chapter] =
-    updateRoot { root =>
-      root.withChildren(_.addNodeAt(node, path))
+  def addNode(node: Node, path: Path, newRelay: Option[Chapter.Relay] = None): Option[Chapter] =
+    updateRoot {
+      _.withChildren(_.addNodeAt(node, path))
+    } map {
+      _.copy(relay = newRelay orElse relay)
     }
 
   def setShapes(shapes: Shapes, path: Path): Option[Chapter] =
@@ -68,18 +72,24 @@ case class Chapter(
 
   def metadata = Chapter.Metadata(_id = _id, name = name, setup = setup)
 
-  def setTag(tag: Tag) = copy(
-    tags = PgnTags(tag :: tags.filterNot(_.name == tag.name))
-  )
-
   def isPractice = ~practice
   def isGamebook = ~gamebook
   def isConceal = conceal.isDefined
 
   def withoutChildren = copy(root = root.withoutChildren)
+
+  def withoutChildrenIfPractice = if (isPractice) copy(root = root.withoutChildren) else this
+
+  def relayAndTags = relay map { Chapter.RelayAndTags(id, _, tags) }
+
+  def isOverweight = root.children.countRecursive >= Chapter.maxNodes
 }
 
 object Chapter {
+
+  // I've seen chapters with 35,000 nodes on prod.
+  // It works but could be used for DoS.
+  val maxNodes = 3000
 
   case class Id(value: String) extends AnyVal with StringValue
   implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
@@ -105,6 +115,29 @@ object Chapter {
     def isFromFen = ~fromFen
   }
 
+  case class Relay(
+      index: Int, // game index in the source URL
+      path: Path,
+      lastMoveAt: DateTime
+  ) {
+    def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.getSeconds).toInt
+  }
+
+  case class ServerEval(path: Path, done: Boolean)
+
+  case class RelayAndTags(id: Id, relay: Relay, tags: Tags) {
+
+    def looksAlive =
+      tags.resultColor.isEmpty &&
+        relay.lastMoveAt.isAfter {
+          DateTime.now.minusMinutes {
+            tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
+          }
+        }
+
+    def looksOver = !looksAlive
+  }
+
   case class Metadata(
       _id: Chapter.Id,
       name: Chapter.Name,
@@ -128,7 +161,7 @@ object Chapter {
 
   def makeId = Id(scala.util.Random.alphanumeric take idSize mkString)
 
-  def make(studyId: Study.Id, name: Name, setup: Setup, root: Node.Root, tags: List[Tag], order: Int, ownerId: User.ID, practice: Boolean, gamebook: Boolean, conceal: Option[Ply]) = Chapter(
+  def make(studyId: Study.Id, name: Name, setup: Setup, root: Node.Root, tags: Tags, order: Int, ownerId: User.ID, practice: Boolean, gamebook: Boolean, conceal: Option[Ply], relay: Option[Relay] = None) = Chapter(
     _id = makeId,
     studyId = studyId,
     name = fixName(name),
@@ -140,6 +173,7 @@ object Chapter {
     practice = practice option true,
     gamebook = gamebook option true,
     conceal = conceal,
+    relay = relay,
     createdAt = DateTime.now
   )
 }

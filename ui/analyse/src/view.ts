@@ -25,6 +25,10 @@ import { view as forkView } from './fork'
 import { render as acplView } from './acpl'
 import AnalyseCtrl from './ctrl';
 import { ConcealOf } from './interfaces';
+import relayManager from './study/relay/relayManagerView';
+import renderPlayerBars from './study/playerBars';
+
+const li = window.lichess;
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   let result: string | undefined;
@@ -120,16 +124,18 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
   ]);
 }
 
-function visualBoard(ctrl: AnalyseCtrl) {
-  return h('div.lichess_board_wrap', [
+function visualBoard(ctrl: AnalyseCtrl, playerBars: VNode[] | undefined) {
+  return h('div.lichess_board_wrap' + (playerBars ? '.' + ctrl.bottomColor() : ''), [
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
+    playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
     h('div.lichess_board.' + ctrl.data.game.variant.key, {
       hook: ctrl.gamebookPlay() ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
       chessground.render(ctrl),
       renderPromotion(ctrl)
     ]),
+    playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
     cevalView.renderGauge(ctrl)
   ]);
 }
@@ -181,7 +187,7 @@ function buttons(ctrl: AnalyseCtrl) {
     ctrl.embed ? null : h('div.features', ctrl.studyPractice ? [
       h('a.hint--bottom', {
         attrs: {
-          'data-hint': ctrl.trans.noarg('analysisBoard'),
+          'data-hint': ctrl.trans.noarg('analysis'),
           target: '_blank',
           href: ctrl.studyPractice.analysisUrl()
         }
@@ -199,7 +205,7 @@ function buttons(ctrl: AnalyseCtrl) {
       }, [iconTag(']')]),
       ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button.hint--bottom', {
         attrs: {
-          'data-hint': 'Practice with computer',
+          'data-hint': ctrl.trans.noarg('practiceWithComputer'),
           'data-act': 'practice'
         },
         class: {
@@ -239,40 +245,63 @@ function renderChapterName(ctrl: AnalyseCtrl) {
   if (ctrl.embed && ctrl.study) return h('div.chapter_name', ctrl.study.currentChapter().name);
 }
 
+const innerCoordsCss = '/assets/stylesheets/board.coords.inner.css';
+
+function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
+  const pref = ctrl.data.pref.coords;
+  if (!pref) return;
+  if (v) li.loadCss(innerCoordsCss);
+  else if (pref === 2) li.unloadCss(innerCoordsCss);
+}
+
 let firstRender = true;
 
 export default function(ctrl: AnalyseCtrl): VNode {
   const concealOf = makeConcealOf(ctrl),
+  study = ctrl.study,
   showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
   menuIsOpen = ctrl.actionMenu.open,
-  chapter = ctrl.study && ctrl.study.data.chapter,
-  studyStateClass = chapter ? chapter.id + ctrl.study!.vm.loading : 'nostudy',
+  chapter = study && study.data.chapter,
+  studyStateClass = chapter ? chapter.id + study!.vm.loading : 'nostudy',
   gamebookPlay = ctrl.gamebookPlay(),
   gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
-  gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined;
+  gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
+  relayEdit = study && study.relay && relayManager(study.relay),
+  playerBars = renderPlayerBars(ctrl),
+  gaugeDisplayed = ctrl.showEvalGauge(),
+  needsInnerCoords = !!gaugeDisplayed || !!playerBars;
   return h('div.analyse.cg-512', [
     h('div.' + studyStateClass, {
       hook: {
         insert: _ => {
-          if (firstRender) firstRender = false;
-          else window.lichess.pubsub.emit('reset_zoom')();
+          if (firstRender) {
+            firstRender = false;
+            if (ctrl.data.pref.coords === 1) li.loadedCss[innerCoordsCss] = true;
+          }
+          else li.pubsub.emit('reset_zoom')();
+          forceInnerCoords(ctrl, needsInnerCoords);
+        },
+        update(_, _2) {
+          forceInnerCoords(ctrl, needsInnerCoords);
         }
       },
       class: {
-        'gauge_displayed': ctrl.showEvalGauge(),
+        'gauge_displayed': gaugeDisplayed,
         'no_computer': !ctrl.showComputer(),
         'gb_edit': !!gamebookEditView,
-        'gb_play': !!gamebookPlayView
+        'gb_play': !!gamebookPlayView,
+        'relay_edit': !!relayEdit,
+        'player_bars': !!playerBars,
       }
     }, [
       h('div.lichess_game', {
         hook: {
-          insert: _ => window.lichess.pubsub.emit('content_loaded')()
+          insert: _ => li.pubsub.emit('content_loaded')()
         }
       }, [
-        visualBoard(ctrl),
+        visualBoard(ctrl, playerBars),
         h('div.lichess_ground', gamebookPlayView || [
-          menuIsOpen ? null : renderClocks(ctrl),
+          menuIsOpen || playerBars ? null : renderClocks(ctrl),
           menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
           ...(menuIsOpen ? [actionMenu(ctrl)] : [
             cevalView.renderCeval(ctrl),
@@ -283,7 +312,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
           ]),
           menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
           buttons(ctrl),
-          gamebookEditView
+          gamebookEditView || relayEdit
         ])
       ])
     ]),
@@ -294,7 +323,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       h('div.right', [acplView(ctrl)])
     ]),
     ctrl.embed || synthetic(ctrl.data) ? null : h('div.analeft', [
-      ctrl.forecast ? forecastView(ctrl) : null,
+      ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
       game.playable(ctrl.data) ? h('div.back_to_game',
         h('a.button.text', {
           attrs: {

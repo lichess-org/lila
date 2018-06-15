@@ -33,7 +33,16 @@ case class Glicko(
       volatility > 0 &&
       volatility < (Glicko.maxVolatility * 2)
 
-  def cap = copy(volatility = volatility min Glicko.maxVolatility)
+  def cap = copy(
+    rating = rating atLeast Glicko.minRating,
+    volatility = volatility atMost Glicko.maxVolatility
+  )
+
+  def average(other: Glicko) = Glicko(
+    rating = (rating + other.rating) / 2,
+    deviation = (deviation + other.deviation) / 2,
+    volatility = (volatility + other.volatility) / 2
+  )
 
   override def toString = s"$intRating $intDeviation"
 }

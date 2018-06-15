@@ -49,7 +49,7 @@ private final class TournamentInviter private (
 object TournamentInviter {
 
   val minGames = 20
-  val perfs = List(PerfType.Blitz, PerfType.Classical)
+  val perfs = List(PerfType.Blitz, PerfType.Rapid)
 
   def bestRating(user: User) = user.perfs.bestRatingInWithMinGames(perfs, minGames)
 

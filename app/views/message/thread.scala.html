@@ -18,18 +18,20 @@ title = thread.name) {
     <span class="infos">
       @userIdLink(thread.visibleSenderOf(post), none) <span data-icon="H"></span> @userIdLink(thread.visibleReceiverOf(post), "inline".some) - @momentFromNow(post.createdAt)
     </span>
-    <div class="thread_message_body">@autoLink(post.text)</div>
+    <div class="thread_message_body">@richText(post.text)</div>
   </div>
   }
 
   <div class="answer" id="bottom">
     @if(blocks) {
-    <p class="end">@userIdLink(thread.otherUserId(me).some) blocks you. You cannot answer.</p>
+    <p class="end">@userIdLink(thread.visibleOtherUserId(me).some) blocks you. You cannot answer.</p>
     } else {
     @if(!thread.isVisibleByOther(me) && !me.troll) {
     <p class="end">
-      @userIdLink(thread.otherUserId(me).some) has closed this thread.
-      <a href="@routes.Message.form?user=@thread.otherUserId(me)" class="button">Create a new one</a>
+      @userIdLink(thread.visibleOtherUserId(me).some) has closed this thread.
+      @if(!thread.asMod){
+        <a href="@routes.Message.form?user=@thread.otherUserId(me)" class="button">Create a new one</a>
+      }
     </p>
     } else {
     @form.map { f =>

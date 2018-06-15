@@ -4,6 +4,9 @@ import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
+import play.api.i18n.Lang
+
+import lila.i18n.LangList
 
 object EventForm {
 
@@ -15,10 +18,21 @@ object EventForm {
     "description" -> optional(nonEmptyText(minLength = 5, maxLength = 4000)),
     "homepageHours" -> number(min = 0, max = 24),
     "url" -> nonEmptyText,
+    "lang" -> nonEmptyText.verifying(l => LangList.choices.exists(_._1 == l)),
     "enabled" -> boolean,
     "startsAt" -> utcDate,
     "finishesAt" -> utcDate
-  )(Data.apply)(Data.unapply))
+  )(Data.apply)(Data.unapply)) fill Data(
+    title = "",
+    headline = "",
+    description = none,
+    homepageHours = 0,
+    url = "",
+    lang = lila.i18n.enLang.language,
+    enabled = true,
+    startsAt = DateTime.now,
+    finishesAt = DateTime.now
+  )
 
   case class Data(
       title: String,
@@ -26,6 +40,7 @@ object EventForm {
       description: Option[String],
       homepageHours: Int,
       url: String,
+      lang: String,
       enabled: Boolean,
       startsAt: DateTime,
       finishesAt: DateTime
@@ -37,6 +52,7 @@ object EventForm {
       description = description,
       homepageHours = homepageHours,
       url = url,
+      lang = Lang(lang),
       enabled = enabled,
       startsAt = startsAt,
       finishesAt = finishesAt
@@ -49,6 +65,7 @@ object EventForm {
       description = description,
       homepageHours = homepageHours,
       url = url,
+      lang = Lang(lang),
       enabled = enabled,
       startsAt = startsAt,
       finishesAt = finishesAt,
@@ -65,6 +82,7 @@ object EventForm {
       description = event.description,
       homepageHours = event.homepageHours,
       url = event.url,
+      lang = event.lang.language,
       enabled = event.enabled,
       startsAt = event.startsAt,
       finishesAt = event.finishesAt

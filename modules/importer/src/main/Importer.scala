@@ -19,28 +19,18 @@ final class Importer(
     def gameExists(processing: => Fu[Game]): Fu[Game] =
       GameRepo.findPgnImport(data.pgn) flatMap { _.fold(processing)(fuccess) }
 
-    def applyResult(game: Game, result: Option[Result], situation: Situation): Game =
+    def applyResult(game: Game, result: Result, situation: Situation): Game =
       if (game.finished) game
       else situation.status match {
-        case Some(status) => game.finish(status, situation.winner).game
-        case _ => result.fold(game) {
-          case Result(Status.Started, winner) => game.finish(Status.Started, winner).game
-          case Result(Status.Aborted, winner) => game.finish(Status.Aborted, winner).game
-          case Result(Status.Resign, winner) => game.finish(Status.Resign, winner).game
-          case Result(Status.Timeout, winner) => game.finish(Status.Timeout, winner).game
-          case Result(Status.Draw, _) => game.finish(Status.Draw, None).game
-          case Result(Status.Outoftime, winner) => game.finish(Status.Outoftime, winner).game
-          case Result(Status.Cheat, winner) => game.finish(Status.Cheat, winner).game
-          case Result(Status.UnknownFinish, winner) => game.finish(Status.UnknownFinish, winner).game
-          case _ => game
-        }
+        case Some(situationStatus) => game.finish(situationStatus, situation.winner).game
+        case _ if result.status <= Status.Started => game
+        case _ => game.finish(result.status, result.winner).game
       }
 
     gameExists {
       (data preprocess user).future flatMap {
         case Preprocessed(g, replay, result, initialFen, _) =>
-          val started = forceId.fold(g)(g.withId).start
-          val game = applyResult(started, result, replay.state.situation)
+          val game = applyResult(forceId.fold(g)(g.withId), result, replay.state.situation)
           (GameRepo.insertDenormalized(game, initialFen = initialFen)) >> {
             game.pgnImport.flatMap(_.user).isDefined ?? GameRepo.setImportCreatedAt(game)
           } >> {

@@ -7,7 +7,6 @@ import akka.pattern.ask
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
-import chess.format.FEN
 import chess.format.pgn.Glyph
 import lila.chat.Chat
 import lila.common.PimpedJson._
@@ -20,7 +19,7 @@ import lila.tree.Node.{ Shape, Shapes, Comment, Gamebook }
 import lila.user.User
 import makeTimeout.short
 
-private[study] final class SocketHandler(
+final class SocketHandler(
     hub: lila.hub.Env,
     socketHub: ActorRef,
     chat: ActorSelection,
@@ -62,28 +61,7 @@ private[study] final class SocketHandler(
       }
     }
 
-  private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
-    o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
-
-  private implicit val chapterIdReader = stringIsoReader(Chapter.idIso)
-  private case class AtPosition(path: String, chapterId: Chapter.Id) {
-    def ref = Position.Ref(chapterId, Path(path))
-  }
-  private implicit val atPositionReader = (
-    (__ \ "path").read[String] and
-    (__ \ "ch").read[Chapter.Id]
-  )(AtPosition.apply _)
-  private case class SetRole(userId: String, role: String)
-  private implicit val chapterNameReader = stringIsoReader(Chapter.nameIso)
-  private implicit val setRoleReader = Json.reads[SetRole]
-  private implicit val chapterDataReader = Json.reads[ChapterMaker.Data]
-  private implicit val chapterEditDataReader = Json.reads[ChapterMaker.EditData]
-  private implicit val chapterDescDataReader = Json.reads[ChapterMaker.DescData]
-  private implicit val studyDataReader = Json.reads[Study.Data]
-  private implicit val setTagReader = Json.reads[actorApi.SetTag]
-  private implicit val gamebookReader = Json.reads[Gamebook]
-
-  private def controller(
+  def makeController(
     socket: ActorRef,
     studyId: Study.Id,
     uid: Uid,
@@ -158,52 +136,47 @@ private[study] final class SocketHandler(
         } api.setShapes(userId, studyId, position.ref, Shapes(shapes take 32), uid)
       }
 
-    case ("setClock", o) =>
-      import chess.Centis
-      import MoveOpts.clockReader
-      reading[AtPosition](o) { position =>
-        val clock = (o \ "d" \ "clock").asOpt[Centis]
-        member.userId foreach { userId =>
-          api.setClock(userId, studyId, position.ref, clock, uid)
-        }
-      }
-
     case ("addChapter", o) =>
       reading[ChapterMaker.Data](o) { data =>
         member.userId foreach { byUserId =>
           val sticky = o.obj("d").flatMap(_.boolean("sticky")) | true
-          api.addChapter(byUserId, studyId, data, sticky = sticky, socket, uid)
+          api.addChapter(byUserId, studyId, data, sticky = sticky, uid)
         }
       }
 
     case ("setChapter", o) => for {
       byUserId <- member.userId
       chapterId <- o.get[Chapter.Id]("d")
-    } api.setChapter(byUserId, studyId, chapterId, socket, uid)
+    } api.setChapter(byUserId, studyId, chapterId, uid)
 
     case ("editChapter", o) =>
       reading[ChapterMaker.EditData](o) { data =>
         member.userId foreach {
-          api.editChapter(_, studyId, data, socket, uid)
+          api.editChapter(_, studyId, data, uid)
         }
       }
 
     case ("descChapter", o) =>
       reading[ChapterMaker.DescData](o) { data =>
         member.userId foreach {
-          api.descChapter(_, studyId, data, socket, uid)
+          api.descChapter(_, studyId, data, uid)
         }
       }
 
     case ("deleteChapter", o) => for {
       byUserId <- member.userId
       id <- o.get[Chapter.Id]("d")
-    } api.deleteChapter(byUserId, studyId, id, socket, uid)
+    } api.deleteChapter(byUserId, studyId, id, uid)
+
+    case ("clearAnnotations", o) => for {
+      byUserId <- member.userId
+      id <- o.get[Chapter.Id]("d")
+    } api.clearAnnotations(byUserId, studyId, id, uid)
 
     case ("sortChapters", o) => for {
       byUserId <- member.userId
       ids <- o.get[List[Chapter.Id]]("d")
-    } api.sortChapters(byUserId, studyId, ids, socket, uid)
+    } api.sortChapters(byUserId, studyId, ids, uid)
 
     case ("editStudy", o) => for {
       byUserId <- member.userId
@@ -249,28 +222,79 @@ private[study] final class SocketHandler(
         } api.toggleGlyph(userId, studyId, position.ref, glyph, uid)
       }
 
+    case ("explorerGame", o) =>
+      reading[actorApi.ExplorerGame](o) { data =>
+        member.userId foreach { byUserId =>
+          api.explorerGame(byUserId, studyId, data, uid)
+        }
+      }
+
+    case ("relaySync", o) =>
+      (o \ "d").asOpt[Boolean]
+
     case ("like", o) => for {
       byUserId <- member.userId
       v <- (o \ "d" \ "liked").asOpt[Boolean]
-    } api.like(studyId, byUserId, v, socket, uid)
+    } api.like(studyId, byUserId, v, uid)
+
+    case ("requestAnalysis", o) => for {
+      byUserId <- member.userId
+      chapterId <- o.get[Chapter.Id]("d")
+    } api.analysisRequest(studyId, chapterId, byUserId)
+
   }: Handler.Controller) orElse evalCacheHandler(member, user) orElse lila.chat.Socket.in(
     chatId = Chat.Id(studyId.value),
     member = member,
     socket = socket,
     chat = chat,
-    canTimeout = Some(() => user.?? { u => api.isContributor(studyId, u.id) })
+    canTimeout = Some(() => user.?? { u => api.isContributor(studyId, u.id) }),
+    publicSource = none // the "talk" event is handled by the study API
   )
+
+  private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
+    o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
+
+  private case class AtPosition(path: String, chapterId: Chapter.Id) {
+    def ref = Position.Ref(chapterId, Path(path))
+  }
+  private implicit val chapterIdReader = stringIsoReader(Chapter.idIso)
+  private implicit val chapterNameReader = stringIsoReader(Chapter.nameIso)
+  private implicit val atPositionReader = (
+    (__ \ "path").read[String] and
+    (__ \ "ch").read[Chapter.Id]
+  )(AtPosition.apply _)
+  private case class SetRole(userId: String, role: String)
+  private implicit val SetRoleReader = Json.reads[SetRole]
+  private implicit val ChapterDataReader = Json.reads[ChapterMaker.Data]
+  private implicit val ChapterEditDataReader = Json.reads[ChapterMaker.EditData]
+  private implicit val ChapterDescDataReader = Json.reads[ChapterMaker.DescData]
+  private implicit val StudyDataReader = Json.reads[Study.Data]
+  private implicit val setTagReader = Json.reads[actorApi.SetTag]
+  private implicit val gamebookReader = Json.reads[Gamebook]
+  private implicit val explorerGame = Json.reads[actorApi.ExplorerGame]
+
+  def getSocket(id: Study.Id): Fu[ActorRef] =
+    socketHub ? Get(id.value) mapTo manifest[ActorRef]
 
   def join(
     studyId: Study.Id,
     uid: Uid,
     user: Option[User]
-  ): Fu[Option[JsSocketHandler]] = for {
-    socket ← socketHub ? Get(studyId.value) mapTo manifest[ActorRef]
-    join = Socket.Join(uid = uid, userId = user.map(_.id), troll = user.??(_.troll))
-    handler ← Handler(hub, socket, uid, join) {
-      case Socket.Connected(enum, member) =>
-        (controller(socket, studyId, uid, member, user = user), enum, member)
+  ): Fu[Option[JsSocketHandler]] =
+    getSocket(studyId) flatMap { socket =>
+      join(studyId, uid, user, socket, member => makeController(socket, studyId, uid, member, user = user))
     }
-  } yield handler.some
+
+  def join(
+    studyId: Study.Id,
+    uid: Uid,
+    user: Option[User],
+    socket: ActorRef,
+    controller: Socket.Member => Handler.Controller
+  ): Fu[Option[JsSocketHandler]] = {
+    val join = Socket.Join(uid = uid, userId = user.map(_.id), troll = user.??(_.troll))
+    Handler(hub, socket, uid, join) {
+      case Socket.Connected(enum, member) => (controller(member), enum, member)
+    } map some
+  }
 }

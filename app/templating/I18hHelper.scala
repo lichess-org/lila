@@ -1,13 +1,10 @@
 package lila.app
 package templating
 
-import scala.collection.breakOut
-
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import play.twirl.api.Html
 
-import lila.i18n.Env.{ current => i18nEnv }
 import lila.i18n.{ LangList, I18nKey, Translator, JsQuantity, I18nDb, JsDump, TimeagoLocales }
 import lila.user.UserContext
 

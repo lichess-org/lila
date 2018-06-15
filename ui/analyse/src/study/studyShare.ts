@@ -1,6 +1,5 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import * as dialog from './dialog';
 import { bind } from '../util';
 import { prop } from 'common';
 import { renderIndexAndMove } from '../moveView';
@@ -26,17 +25,12 @@ function fromPly(ctrl): VNode {
 }
 
 export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, currentNode: () => Tree.Node, redraw: () => void) {
-  const open = prop(false);
   const withPly = prop(false);
   return {
-    open,
-    toggle() {
-      open(!open());
-    },
     studyId: data.id,
     chapter: currentChapter,
-    isPublic() {
-      return data.visibility === 'public';
+    isPrivate() {
+      return data.visibility === 'private';
     },
     currentNode,
     withPly,
@@ -45,98 +39,93 @@ export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, cu
   }
 }
 
-export function view(ctrl): VNode | undefined {
-  if (!ctrl.open()) return;
-  const studyId = ctrl.studyId;
-  const chapter = ctrl.chapter();
+export function view(ctrl): VNode {
+  const studyId = ctrl.studyId, chapter = ctrl.chapter();
   let fullUrl = baseUrl + studyId + '/' + chapter.id;
   let embedUrl = baseUrl + 'embed/' + studyId + '/' + chapter.id;
-  const isPublic = ctrl.isPublic();
+  const isPrivate = ctrl.isPrivate();
   if (ctrl.withPly()) {
     const p = ctrl.currentNode().ply;
     fullUrl += '#' + p;
     embedUrl += '#' + p;
   }
-  return dialog.form({
-    onClose: function() {
-      ctrl.open(false);
-      ctrl.redraw();
-    },
-    content: [
-      h('h2', 'Share & export'),
-      h('form.material.form.share', [
-        h('div.form-group.little-margin-bottom', [
-          h('input.has-value.autoselect', {
-            attrs: {
-              readonly: true,
-              value: baseUrl + studyId
-            }
-          }),
-          h('label.control-label', 'Study URL'),
-          h('i.bar')
-        ]),
-        h('div.form-group', [
-          h('input.has-value.autoselect', {
-            attrs: {
-              readonly: true,
-              value: fullUrl
-            }
-          }),
+  return h('div.study_share.underboard_form.box', {
+    hook: {
+      insert() { window.lichess.loadCss('/assets/stylesheets/material.form.css') }
+    }
+  }, [
+    h('div.downloads', [
+      ctrl.cloneable ? h('a.button.text', {
+        attrs: {
+          'data-icon': '4',
+          href: '/study/' + studyId + '/clone'
+        }
+      }, 'Clone') : null,
+      h('a.button.text', {
+        attrs: {
+          'data-icon': 'x',
+          href: '/study/' + studyId + '.pgn'
+        }
+      }, 'Study PGN'),
+      h('a.button.text', {
+        attrs: {
+          'data-icon': 'x',
+          href: '/study/' + studyId + '/' + chapter.id + '.pgn'
+        }
+      }, 'Chapter PGN')
+    ]),
+    h('form.material.form', [
+      h('div.form-group.little-margin-bottom', [
+        h('input.has-value.autoselect', {
+          attrs: {
+            readonly: true,
+            value: baseUrl + studyId
+          }
+        }),
+        h('label.control-label', 'Study URL'),
+        h('i.bar')
+      ]),
+      h('div.form-group', [
+        h('input.has-value.autoselect', {
+          attrs: {
+            readonly: true,
+            value: fullUrl
+          }
+        }),
+        fromPly(ctrl),
+        !isPrivate ? h('p.form-help.text', {
+          attrs: { 'data-icon': '' }
+        }, 'You can paste this in the forum to embed the chapter.') : null,
+        h('label.control-label', 'Current chapter URL'),
+        h('i.bar')
+      ]),
+      h('div.form-group', [
+        h('input.has-value.autoselect', {
+          attrs: {
+            readonly: true,
+            disabled: isPrivate,
+            value: !isPrivate ? '<iframe width=600 height=371 src="' + embedUrl + '" frameborder=0></iframe>' : 'Only public studies can be embedded!'
+          }
+        })
+      ].concat(
+        !isPrivate ? [
           fromPly(ctrl),
-          isPublic ? h('p.form-help.text', {
-            attrs: { 'data-icon': '' }
-          }, 'You can paste this in the forum to embed the chapter.') : null,
-          h('label.control-label', 'Current chapter URL'),
-          h('i.bar')
-        ]),
-        h('div.form-group', [
-          h('input.has-value.autoselect', {
+          h('a.form-help.text', {
             attrs: {
-              readonly: true,
-              disabled: !isPublic,
-              value: isPublic ? '<iframe width=600 height=371 src="' + embedUrl + '" frameborder=0></iframe>' : 'Only public studies can be embedded!'
+              href: '/developers#embed-study',
+              target: '_blank',
+              'data-icon': ''
             }
-          })
-        ].concat(
-          isPublic ? [
-            fromPly(ctrl),
-            h('a.form-help.text', {
-              attrs: {
-                href: '/developers#embed-study',
-                target: '_blank',
-                'data-icon': ''
-              }
-            }, 'Read more about embedding a study chapter'),
-            h('label.control-label', 'Embed current chapter in your website or blog')
-          ] : []).concat(h('i.bar'))
-        ),
-        h('div.fen', {
-          attrs: { title: 'FEN - click to select' },
-          hook: bind('click', e => {
-            window.getSelection().selectAllChildren((e.target as HTMLElement))
-          })
-        }, ctrl.currentNode().fen),
-        h('div.downloads', [
-          ctrl.cloneable ? h('a.button.text', {
-            attrs: {
-              'data-icon': '',
-              href: '/study/' + studyId + '/clone'
-            }
-          }, 'Clone') : null,
-          h('a.button.text', {
-            attrs: {
-              'data-icon': 'x',
-              href: '/study/' + studyId + '.pgn'
-            }
-          }, 'Study PGN'),
-          h('a.button.text', {
-            attrs: {
-              'data-icon': 'x',
-              href: '/study/' + studyId + '/' + chapter.id + '.pgn'
-            }
-          }, 'Chapter PGN')
-        ])
-      ])
-    ]
-  });
+          }, 'Read more about embedding a study chapter'),
+          h('label.control-label', 'Embed current chapter in your website or blog')
+        ] : []).concat(h('i.bar'))
+      ),
+      h('div.fen', {
+        attrs: { title: 'FEN - click to select' },
+        hook: bind('click', e => {
+          window.getSelection().selectAllChildren((e.target as HTMLElement))
+        })
+      }, ctrl.currentNode().fen)
+    ])
+  ]);
 }

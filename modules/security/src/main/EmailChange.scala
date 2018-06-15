@@ -1,6 +1,7 @@
 package lila.security
 
 import play.api.i18n.Lang
+import play.twirl.api.Html
 
 import lila.common.EmailAddress
 import lila.user.{ User, UserRepo }
@@ -14,8 +15,9 @@ final class EmailChange(
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
     tokener make TokenPayload(user.id, email).some flatMap { token =>
-      lila.mon.email.resetPassword()
+      lila.mon.email.change()
       val url = s"$baseUrl/account/email/confirm/$token"
+      lila.log("auth").info(s"Change email URL ${user.username} $email $url")
       mailgun send Mailgun.Message(
         to = email,
         subject = trans.emailChange_subject.literalTxtTo(lang, List(user.username)),
@@ -29,7 +31,7 @@ ${trans.common_orPaste.literalTxtTo(lang)}
 
 ${Mailgun.txt.serviceNote}
 """,
-        htmlBody = s"""
+        htmlBody = Html(s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
   <p itemprop="description">${trans.emailChange_intro.literalHtmlTo(lang)}</p>
   <p>${trans.emailChange_click.literalHtmlTo(lang)}</p>
@@ -38,7 +40,7 @@ ${Mailgun.txt.serviceNote}
     ${Mailgun.html.url(url)}
   </div>
   ${Mailgun.html.serviceNote}
-</div>""".some
+</div>""").some
       )
     }
 

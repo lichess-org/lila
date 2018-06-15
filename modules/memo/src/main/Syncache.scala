@@ -89,9 +89,9 @@ final class Syncache[K, V](
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = compute(k).withTimeout(
       duration = resultTimeout,
-      error = lila.common.LilaException(s"Syncache $name $k timed out after $resultTimeout")
+      error = lila.base.LilaException(s"Syncache $name $k timed out after $resultTimeout")
     )
-      .chronometer.mon(_ => recComputeNanos).result // monitoring: record async time
+      .mon(_ => recComputeNanos) // monitoring: record async time
       .addEffects(
         err => {
           logger.branch(name).warn(s"$err key=$k")
@@ -129,7 +129,7 @@ object Syncache {
   sealed trait Strategy
   case object NeverWait extends Strategy
   case class AlwaysWait(duration: FiniteDuration) extends Strategy
-  case class WaitAfterUptime(duration: FiniteDuration, uptimeSeconds: Int = 12) extends Strategy
+  case class WaitAfterUptime(duration: FiniteDuration, uptimeSeconds: Int = 20) extends Strategy
 
   sealed trait ExpireAfter
   case class ExpireAfterAccess(duration: FiniteDuration) extends ExpireAfter

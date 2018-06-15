@@ -1,11 +1,9 @@
 package lila.activity
 
-import lila.analyse.Analysis
 import lila.db.dsl._
 import lila.game.Game
 import lila.study.Study
 import lila.user.User
-import lila.user.UserRepo.lichessId
 
 final class ActivityWriteApi(
     coll: Coll,
@@ -34,7 +32,7 @@ final class ActivityWriteApi(
     } yield Unit
   }.sequenceFu.void
 
-  def forumPost(post: lila.forum.Post, topic: lila.forum.Topic): Funit = post.userId.filter(lichessId !=) ?? { userId =>
+  def forumPost(post: lila.forum.Post, topic: lila.forum.Topic): Funit = post.userId.filter(User.lichessId !=) ?? { userId =>
     getOrCreate(userId) flatMap { a =>
       coll.update(
         $id(a.id),
@@ -86,6 +84,16 @@ final class ActivityWriteApi(
         a.copy(follows = Some(~a.follows addIn from)).some
       }
 
+  def unfollowAll(from: User, following: Set[User.ID]) = {
+    logger.info(s"${from.id} unfollow ${following.size} users")
+    following.map { userId =>
+      coll.update(
+        regexId(userId) ++ $doc("f.i.ids" -> from.id),
+        $pull("f.i.ids" -> from.id)
+      )
+    }.sequenceFu.void
+  }
+
   def study(id: Study.Id) = studyApi byId id flatMap {
     _.filter(_.isPublic) ?? { s =>
       update(s.ownerId) { a =>
@@ -94,10 +102,15 @@ final class ActivityWriteApi(
     }
   }
 
-  def team(id: String, userId: String) =
+  def team(id: String, userId: User.ID) =
     update(userId) { a =>
       a.copy(teams = Some(~a.teams + id)).some
     }
+
+  def streamStart(userId: User.ID) =
+    update(userId) { _.copy(stream = true).some }
+
+  def erase(user: User) = coll.remove(regexId(user.id))
 
   private def simulParticipant(simul: lila.simul.Simul, userId: String, host: Boolean) =
     update(userId) { a => a.copy(simuls = Some(~a.simuls + SimulId(simul.id))).some }

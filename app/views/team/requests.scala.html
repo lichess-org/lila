@@ -16,7 +16,7 @@
       } else {
       <td>@userLink(request.user)</td>
       }
-      <td>@autoLink(request.message)</td>
+      <td>@richText(request.message)</td>
       <td>@momentFromNow(request.date)</td>
       <td class="process">
         <form class="process-request" action="@routes.Team.requestProcess(request.id)" method="post">

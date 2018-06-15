@@ -1,11 +1,9 @@
 <configuration>
 
-  <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel" />
+  <conversionRule conversionWord="coloredLevel" converterClass="play.api.Logger$ColoredLevel" />
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-      <level>INFO</level>
-    </filter>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>INFO</level></filter>
     <encoder><pattern>%coloredLevel %logger{25} - %message%n%xException{10}</pattern></encoder>
   </appender>
 
@@ -15,17 +13,26 @@
     <encoder><pattern>%date %-5level %logger{30} %message%n%xException{60}</pattern></encoder>
   </appender>
 
-  <logger name="play" level="INFO" />
-  <logger name="application" level="DEBUG" />
-
-  <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF" />
-  <!-- https://hibernate.atlassian.net/browse/HV-1323 -->
-  <logger name="org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator" level="ERROR" />
+  <!-- uncapped stacktraces for error logs - looking for stack overflows -->
+  <!-- requires -XX:MaxJavaStackTraceDepth=100000 -->
+  <appender name="ERROR_FILE" class="ch.qos.logback.core.FileAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+    <file>${application.home}/logs/error.log</file>
+    <encoder><pattern>%date %-5level %logger %message%n%xException</pattern></encoder>
+  </appender>
 
   <root level="INFO">
     <appender-ref ref="STDOUT" />
     <appender-ref ref="ALL_FILE" />
+    <appender-ref ref="ERROR_FILE" />
   </root>
+
+  <!-- <logger name="timer" level="DEBUG"> -->
+  <!--   <appender name="FILE" class="ch.qos.logback.core.FileAppender"> -->
+  <!--     <file>${application.home}/logs/timer.log</file> -->
+  <!--     <encoder><pattern>%date [%level] %message%n</pattern></encoder> -->
+  <!--   </appender> -->
+  <!-- </logger> -->
 
   <logger name="reactivemongo" level="INFO">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
@@ -34,6 +41,18 @@
     </appender>
   </logger>
 
+  <logger name="round" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+      <file>${application.home}/logs/round.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+    </appender>
+  </logger>
+  <logger name="relay" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+      <file>${application.home}/logs/relay.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+    </appender>
+  </logger>
   <logger name="lobby" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
       <file>${application.home}/logs/lobby.log</file>
@@ -83,5 +102,13 @@
     </appender>
   </logger>
 
+  <!-- <logger name="java.io.IOException" level="OFF" /> -->
+  <!-- <logger name="java.nio.channels.ClosedChannelException" level="OFF" /> -->
+
+  <!-- Off these ones as they are annoying, and anyway we manage configuration ourself -->
+  <!-- <logger name="com.avaje.ebean.config.PropertyMapLoader" level="OFF" /> -->
+  <!-- <logger name="com.avaje.ebeaninternal.server.core.XmlConfigLoader" level="OFF" /> -->
+  <!-- <logger name="com.avaje.ebeaninternal.server.lib.BackgroundThread" level="OFF" /> -->
+  <!-- <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF" /> -->
 
 </configuration>

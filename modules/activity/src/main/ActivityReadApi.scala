@@ -2,12 +2,10 @@ package lila.activity
 
 import org.joda.time.{ DateTime, Interval }
 
-import lila.analyse.Analysis
 import lila.db.dsl._
-import lila.game.{ Game, Pov, GameRepo }
+import lila.game.{ LightPov, GameRepo }
 import lila.practice.PracticeStructure
 import lila.user.User
-import lila.user.UserRepo.lichessId
 
 final class ActivityReadApi(
     coll: Coll,
@@ -20,19 +18,19 @@ final class ActivityReadApi(
 
   import Activity._
   import BSONHandlers._
-  import activities._
   import model._
 
   private val recentNb = 7
 
-  def recent(u: User): Fu[Vector[ActivityView]] = for {
-    as <- coll.find($doc("_id" -> $doc("$regex" -> s"^${u.id}:")))
+  def recent(u: User, nb: Int = recentNb): Fu[Vector[ActivityView]] = for {
+    allActivities <- coll.find(regexId(u.id))
       .sort($sort desc "_id")
-      .gather[Activity, Vector](recentNb)
-    practiceStructure <- as.exists(_.practice.isDefined) ?? {
+      .gather[Activity, Vector](nb)
+    activities = allActivities.filterNot(_.isEmpty)
+    practiceStructure <- activities.exists(_.practice.isDefined) ?? {
       practiceApi.structure.get map some
     }
-    views <- as.map { one(u, practiceStructure) _ }.sequenceFu
+    views <- activities.map { one(u, practiceStructure) _ }.sequenceFu
   } yield addSignup(u.createdAt, views)
 
   private def one(u: User, practiceStructure: Option[PracticeStructure])(a: Activity): Fu[ActivityView] = for {
@@ -51,12 +49,12 @@ final class ActivityReadApi(
       }
     } filter (_.nonEmpty)
     corresMoves <- a.corres ?? { corres =>
-      getPovs(a.id.userId, corres.movesIn) dmap {
+      getLightPovs(a.id.userId, corres.movesIn) dmap {
         _.map(corres.moves -> _)
       }
     }
     corresEnds <- a.corres ?? { corres =>
-      getPovs(a.id.userId, corres.end) dmap {
+      getLightPovs(a.id.userId, corres.end) dmap {
         _.map { povs =>
           Score.make(povs) -> povs
         }
@@ -90,7 +88,8 @@ final class ActivityReadApi(
     follows = a.follows,
     studies = studies,
     teams = a.teams,
-    tours = tours
+    tours = tours,
+    stream = a.stream
   )
 
   private def addSignup(at: DateTime, recent: Vector[ActivityView]) = {
@@ -106,11 +105,9 @@ final class ActivityReadApi(
     else views
   }
 
-  private def getPovs(userId: User.ID, gameIds: List[GameId]): Fu[Option[List[Pov]]] = gameIds.nonEmpty ?? {
-    GameRepo.gamesFromSecondary(gameIds.map(_.value)).dmap {
-      _.flatMap {
-        Pov.ofUserId(_, userId)
-      }.some.filter(_.nonEmpty)
+  private def getLightPovs(userId: User.ID, gameIds: List[GameId]): Fu[Option[List[LightPov]]] = gameIds.nonEmpty ?? {
+    GameRepo.light.gamesFromSecondary(gameIds.map(_.value)).dmap {
+      _.flatMap { LightPov.ofUserId(_, userId) }.some.filter(_.nonEmpty)
     }
   }
 

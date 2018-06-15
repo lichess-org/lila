@@ -115,6 +115,14 @@ final class TeamApi(
       doJoin(team, user.id) >>- notifier.acceptRequest(team, request))
   } yield ()
 
+  def deleteRequestsByUserId(userId: lila.user.User.ID) =
+    RequestRepo.getByUserId(userId) flatMap {
+      _.map { request =>
+        RequestRepo.remove(request.id) >>
+          TeamRepo.creatorOf(request.team).map { _ ?? cached.nbRequests.invalidate }
+      }.sequenceFu
+    }
+
   def doJoin(team: Team, userId: String): Funit = !belongsTo(team.id, userId) flatMap {
     _ ?? {
       MemberRepo.add(team.id, userId) >>

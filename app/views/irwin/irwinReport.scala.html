@@ -1,4 +1,4 @@
-@(report: lila.irwin.IrwinReport.WithPovs, request: Option[lila.irwin.IrwinRequest])(implicit ctx: Context)
+@(report: lila.irwin.IrwinReport.WithPovs)(implicit ctx: Context)
 
 @percentClass(percent: Int) = { @percent match {
 case p if p < 30 => {green}
@@ -16,28 +16,6 @@ case _ => {red}
     </a>
     <div class="infos">
       <p>Updated @momentFromNow(report.report.date)</p>
-      @request.map { r =>
-      <p>New update is in progress</p>
-      <p>Requested @momentFromNow(r.createdAt) by: @r.origin</p>
-      }.getOrElse {
-      <p>Hit "Evaluate" to update</p>
-      }
-    </div>
-    <div class="pv0">
-      <h3>PV 0 Rate by Ambiguity</h3>
-      <div class="rates text">
-        @report.report.pv0ByAmbiguity.zipWithIndex.map {
-        case (vo, i) => {
-        <div>
-          @vo.map { v =>
-          <strong class="@percentClass(v)">@v%</strong>
-          }.getOrElse {
-          <strong>-</strong>
-          } @(i + 1)
-        </div>
-        }
-        }
-      </div>
     </div>
     <div class="assess text">
       <strong class="@percentClass(report.report.activation)">@report.report.activation%</strong>
@@ -61,7 +39,7 @@ case _ => {red}
             @if(pov.game.isTournament) { <span data-icon="g"></span> }
             @pov.game.perfType.map { pt => <span data-icon="@pt.iconChar"></span> }
             @shortClockName(pov.game.clock.map(_.config)) -
-            @momentFromNow(pov.game.createdAt)
+            @momentFromNowOnce(pov.game.createdAt)
           </a>
         </td>
         <td>

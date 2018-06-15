@@ -3,7 +3,6 @@ package templating
 
 import controllers.routes
 import lila.simul.Simul
-import lila.simul.Env.{ current => simulEnv }
 
 import play.twirl.api.Html
 

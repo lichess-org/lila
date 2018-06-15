@@ -15,6 +15,7 @@ export default class LobbyController {
   data: LobbyData;
   playban: any;
   currentGame: any;
+  isBot: boolean;
   socket: LobbySocket;
   stores: Stores;
   tab: Tab;
@@ -40,6 +41,7 @@ export default class LobbyController {
     this.pools = opts.pools;
     this.playban = opts.playban;
     this.currentGame = opts.currentGame;
+    this.isBot = opts.data.me && opts.data.me.isBot;
     this.redraw = redraw;
 
     hookRepo.initAll(this);
@@ -47,7 +49,7 @@ export default class LobbyController {
     this.socket = new LobbySocket(opts.socketSend, this);
 
     this.stores = makeStores(this.data.me ? this.data.me.username.toLowerCase() : null);
-    this.tab = this.stores.tab.get(),
+    this.tab = this.isBot ? 'now_playing' : this.stores.tab.get(),
     this.mode = this.stores.mode.get(),
     this.sort = this.stores.sort.get(),
     this.trans = opts.trans;
@@ -62,7 +64,9 @@ export default class LobbyController {
 
     this.startWatching();
 
-    if (this.playban) setTimeout(li.reload, this.playban.remainingSeconds * 1000);
+    if (this.playban) {
+      if (this.playban.remainingSecond < 86400) setTimeout(li.reload, this.playban.remainingSeconds * 1000);
+    }
     else {
       setInterval(() => {
         if (this.poolMember) this.poolIn();
@@ -189,14 +193,13 @@ export default class LobbyController {
     this.socket.poolIn(this.poolMember);
   };
 
-  gameActivity = (gameId) => {
-    if (this.data.nowPlaying.find(function(p) {
-      return p.gameId === gameId;
-    })) xhr.nowPlaying().then(povs => {
-      this.data.nowPlaying = povs;
-      this.startWatching();
-      this.redraw();
-    });
+  gameActivity = gameId => {
+    if (this.data.nowPlaying.find(p => p.gameId === gameId))
+      xhr.nowPlaying().then(povs => {
+        this.data.nowPlaying = povs;
+        this.startWatching();
+        this.redraw();
+      });
   };
 
   private startWatching() {
@@ -215,7 +218,11 @@ export default class LobbyController {
 
   setRedirecting = () => {
     this.redirecting = true;
-    setTimeout(() => this.redirecting = false, 2000);
+    setTimeout(() => {
+      this.redirecting = false;
+      this.redraw();
+    }, 4000);
+    this.redraw();
   };
 
   awake = () => {
@@ -233,9 +240,9 @@ export default class LobbyController {
   // after click on round "new opponent" button
   private onNewOpponent() {
     if (location.hash.indexOf('#pool/') === 0) {
-      const regex = /^#pool\/(\d+\+\d+)$/,
+      const regex = /^#pool\/(\d+\+\d+)(?:\/(.+))?$/,
       match = regex.exec(location.hash),
-      member: any = { id: match![1] },
+      member: any = { id: match![1], blocking: match![2] },
       range = poolRangeStorage.get(member.id);
       if (range) member.range = range;
       if (match) {

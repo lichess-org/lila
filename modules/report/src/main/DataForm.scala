@@ -37,5 +37,11 @@ private[report] case class ReportSetup(
     move: String
 ) {
 
+  def suspect = Suspect(user)
+
   def export = (user.username, reason, text, gameId, move)
+
+  def candidate(reporter: Reporter) = {
+    Report.Candidate(reporter, suspect, Reason(reason) err s"Invalid report reason ${reason}", text)
+  }
 }

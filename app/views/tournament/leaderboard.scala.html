@@ -2,6 +2,11 @@
 
 @import lila.rating.PerfType
 
+@moreCss = {
+@cssTag("tournament_leaderboard.css")
+@cssTag("user-list.css")
+}
+
 @freqWinner(w: lila.tournament.Winner, freq: String) = {
 <li>
   @userIdLink(w.userId.some)
@@ -51,8 +56,9 @@
 
 @base.layout(
 title = "Tournament leaderboard",
-moreCss = cssTag("tournament_leaderboard.css")) {
+moreCss = moreCss) {
 <div class="content_box no_padding tournament_leaderboard">
+  @user.communityTabs("tournament")
   <h1>Tournament winners</h1>
   <div class="winner_lists">
     @eliteWinners
@@ -60,7 +66,7 @@ moreCss = cssTag("tournament_leaderboard.css")) {
     @freqWinners(winners.bullet, PerfType.Bullet, "Bullet")
     @freqWinners(winners.superblitz, PerfType.Blitz, "SuperBlitz")
     @freqWinners(winners.blitz, PerfType.Blitz, "Blitz")
-    @freqWinners(winners.classical, PerfType.Classical, "Classical")
+    @freqWinners(winners.rapid, PerfType.Rapid, "Rapid")
     @marathonWinners
     @lila.tournament.WinnersApi.variants.map { v =>
     @PerfType.byVariant(v).map { pt =>

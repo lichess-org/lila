@@ -25,10 +25,9 @@ object JSONHandlers {
 
   implicit val reportReader: Reads[IrwinReport] = (
     (__ \ "userId").read[String] and
-    (__ \ "isLegit").readNullable[Boolean] and
     (__ \ "activation").read[Int] and
     (__ \ "games").read[List[GameReport]] and
-    (__ \ "pv0ByAmbiguity").read[List[Option[Int]]] and
+    (__ \ "owner").read[String] and
     Reads(_ => JsSuccess(DateTime.now))
   )(IrwinReport.apply _)
 }

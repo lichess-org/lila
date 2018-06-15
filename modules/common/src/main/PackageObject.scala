@@ -1,22 +1,11 @@
 package lila
 
-import scala.concurrent.duration.{ Duration, FiniteDuration, MILLISECONDS }
-import scala.concurrent.Future
+import scala.util.Try
 
-import ornicar.scalalib
 import scalaz.{ Monad, Monoid, OptionT, ~> }
 
-trait PackageObject extends Steroids with WithFuture {
-
-  // case object Key(value: String) extends AnyVal with StringValue
-  trait StringValue extends Any {
-    def value: String
-    override def toString = value
-  }
-  trait IntValue extends Any {
-    def value: Int
-    override def toString = value.toString
-  }
+trait PackageObject extends Lilaisms {
+  implicit lazy val playExecutionContext = play.api.libs.concurrent.Execution.defaultContext
 
   def !![A](msg: String): Valid[A] = msg.failureNel[A]
 
@@ -31,52 +20,31 @@ trait PackageObject extends Steroids with WithFuture {
     def apply[A](a: M[Option[A]]) = new OptionT[M, A](a)
   }
 
+  implicit def fuMonoid[A: Monoid]: Monoid[Fu[A]] =
+    Monoid.instance((x, y) => x zip y map {
+      case (a, b) => a ⊹ b
+    }, fuccess(∅[A]))
+
+  implicit lazy val monadFu = new Monad[Fu] {
+    override def map[A, B](fa: Fu[A])(f: A => B) = fa map f
+    def point[A](a: => A) = fuccess(a)
+    def bind[A, B](fa: Fu[A])(f: A => Fu[B]) = fa flatMap f
+  }
+
   type ~[+A, +B] = Tuple2[A, B]
   object ~ {
     def apply[A, B](x: A, y: B) = Tuple2(x, y)
     def unapply[A, B](x: Tuple2[A, B]): Option[Tuple2[A, B]] = Some(x)
   }
 
-  implicit final class LilaPimpedString(s: String) {
+  def parseIntOption(str: String): Option[Int] =
+    Try(java.lang.Integer.parseInt(str)).toOption
 
-    def boot[A](v: => A): A = lila.common.Chronometer.syncEffect(v) { lap =>
-      lila.log.boot.info(s"${lap.millis}ms $s")
-    }
-  }
+  def parseFloatOption(str: String): Option[Float] =
+    Try(java.lang.Float.parseFloat(str)).toOption
 
-  implicit final class LilaPimpedValid[A](v: Valid[A]) {
-
-    def future: Fu[A] = v fold (errs => fufail(errs.shows), fuccess)
-  }
-
-  implicit final class LilaPimpedTry[A](v: scala.util.Try[A]) {
-
-    def fold[B](fe: Exception => B, fa: A => B): B = v match {
-      case scala.util.Failure(e: Exception) => fe(e)
-      case scala.util.Failure(e) => throw e
-      case scala.util.Success(a) => fa(a)
-    }
-
-    def future: Fu[A] = fold(Future.failed, fuccess)
-  }
-
-  def parseIntOption(str: String): Option[Int] = try {
-    Some(java.lang.Integer.parseInt(str))
-  } catch {
-    case e: NumberFormatException => None
-  }
-
-  def parseFloatOption(str: String): Option[Float] = try {
-    Some(java.lang.Float.parseFloat(str))
-  } catch {
-    case e: NumberFormatException => None
-  }
-
-  def parseLongOption(str: String): Option[Long] = try {
-    Some(java.lang.Long.parseLong(str))
-  } catch {
-    case e: NumberFormatException => None
-  }
+  def parseLongOption(str: String): Option[Long] =
+    Try(java.lang.Long.parseLong(str)).toOption
 
   def intBox(in: Range.Inclusive)(v: Int): Int =
     math.max(in.start, math.min(v, in.end))
@@ -86,123 +54,6 @@ trait PackageObject extends Steroids with WithFuture {
 
   def doubleBox(in: Range.Inclusive)(v: Double): Double =
     math.max(in.start, math.min(v, in.end))
-}
-
-trait WithFuture extends scalalib.Validation {
-
-  type Fu[+A] = Future[A]
-  type Funit = Fu[Unit]
-
-  def fuccess[A](a: A) = Future successful a
-  def fufail[A <: Throwable, B](a: A): Fu[B] = Future failed a
-  def fufail[A](a: String): Fu[A] = fufail(common.LilaException(a))
-  def fufail[A](a: Failures): Fu[A] = fufail(common.LilaException(a))
-  val funit = fuccess(())
-}
-
-trait WithPlay { self: PackageObject =>
-
-  import play.api.libs.json._
-  import scalalib.Zero
-
-  implicit def playExecutionContext = old.play.Env.defaultContext
-  val directEC = lila.PimpedFuture.DirectExecutionContext
-
-  implicit val LilaFutureMonad = new Monad[Fu] {
-    override def map[A, B](fa: Fu[A])(f: A => B) = fa map f
-    def point[A](a: => A) = fuccess(a)
-    def bind[A, B](fa: Fu[A])(f: A => Fu[B]) = fa flatMap f
-  }
-
-  implicit def LilaFuMonoid[A: Monoid]: Monoid[Fu[A]] =
-    Monoid.instance((x, y) => x zip y map {
-      case (a, b) => a ⊹ b
-    }, fuccess(∅[A]))
-
-  implicit def LilaFuZero[A: Zero]: Zero[Fu[A]] =
-    Zero.instance(fuccess(zero[A]))
-
-  implicit val LilaJsObjectZero: Zero[JsObject] =
-    Zero.instance(JsObject(Seq.empty))
-
-  implicit def LilaJsResultZero[A]: Zero[JsResult[A]] =
-    Zero.instance(JsError(Seq.empty))
-
-  implicit final class LilaTraversableFuture[A, M[X] <: TraversableOnce[X]](t: M[Fu[A]]) {
-
-    def sequenceFu(implicit cbf: scala.collection.generic.CanBuildFrom[M[Fu[A]], A, M[A]]) =
-      Future sequence t
-  }
-
-  implicit def LilaPimpedFuture[A](fua: Fu[A]): PimpedFuture.LilaPimpedFuture[A] =
-    new PimpedFuture.LilaPimpedFuture(fua)
-
-  implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {
-
-    def nevermind: Fu[A] = fua recover {
-      case e: lila.common.LilaException => zero[A]
-      case e: java.util.concurrent.TimeoutException => zero[A]
-      case e: Exception =>
-        lila.log("common").warn("Future.nevermind", e)
-        zero[A]
-    }
-  }
-
-  implicit final class LilaPimpedFutureOption[A](fua: Fu[Option[A]]) {
-
-    def err(msg: => String): Fu[A] = fua flatMap {
-      _.fold[Fu[A]](fufail(msg))(fuccess(_))
-    }
-
-    def orElse(other: => Fu[Option[A]]): Fu[Option[A]] = fua flatMap {
-      _.fold(other) { x => fuccess(x.some) }
-    }
-
-    def getOrElse(other: => Fu[A]): Fu[A] = fua flatMap { _.fold(other)(fuccess) }
-  }
-
-  implicit final class LilaPimpedFutureValid[A](fua: Fu[Valid[A]]) {
-
-    def flatten: Fu[A] = fua flatMap { _.fold[Fu[A]](fufail(_), fuccess(_)) }
-  }
-
-  implicit final class LilaPimpedFutureBoolean(fua: Fu[Boolean]) {
-
-    def >>&(fub: => Fu[Boolean]): Fu[Boolean] =
-      fua flatMap { _.fold(fub, fuccess(false)) }
-
-    def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
-      fua flatMap { _.fold(fuccess(true), fub) }
-
-    def unary_! = fua dmap (!_)
-  }
-
-  implicit final class LilaPimpedBooleanWithFuture(self: Boolean) {
-
-    def optionFu[A](v: => Fu[A]): Fu[Option[A]] = if (self) v map (_.some) else fuccess(none)
-  }
-
-  implicit final class LilaPimpedActorSystem(self: akka.actor.ActorSystem) {
-
-    def lilaBus = lila.common.Bus(self)
-  }
-
-  implicit final class LilaPimpedFiniteDuration(self: FiniteDuration) {
-
-    def toCentis = chess.Centis {
-      // divide by Double, then round, to avoid rounding issues with just `/10`!
-      math.round {
-        if (self.unit eq MILLISECONDS) self.length / 10d
-        else self.toMillis / 10d
-      }
-    }
-
-    def abs = if (self.length < 0) -self else self
-  }
-
-  implicit val LilaFiniteDurationZero: Zero[FiniteDuration] = Zero.instance(Duration.Zero)
-
-  implicit val LilaCentisZero: Zero[chess.Centis] = Zero instance chess.Centis(0)
 
   object makeTimeout {
 
@@ -214,7 +65,10 @@ trait WithPlay { self: PackageObject =>
     implicit val larger = seconds(30)
     implicit val veryLarge = minutes(5)
 
+    implicit val halfSecond = millis(500)
+
     def apply(duration: FiniteDuration) = Timeout(duration)
+    def millis(s: Int): Timeout = Timeout(s.millis)
     def seconds(s: Int): Timeout = Timeout(s.seconds)
     def minutes(m: Int): Timeout = Timeout(m.minutes)
   }

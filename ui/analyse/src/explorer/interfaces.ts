@@ -5,9 +5,9 @@ export interface Hovering {
   uci: Uci;
 }
 
-export type ExplorerDb = 'lichess' | 'masters' | 'watkins';
+export type ExplorerDb = 'lichess' | 'masters';
 
-export type ExplorerSpeed = 'bullet' | 'blitz' | 'classical';
+export type ExplorerSpeed = 'bullet' | 'blitz' | 'rapid' | 'classical';
 
 export interface ExplorerConfigData {
   open: Prop<boolean>;
@@ -38,8 +38,76 @@ export interface ExplorerConfigCtrl {
 
 export interface ExplorerData {
   fen: Fen;
-  moves: any;
-  // TODO
+  moves: MoveStats[];
+  opening?: true;
+  tablebase?: true;
+}
+
+export interface OpeningData extends ExplorerData {
+  moves: OpeningMoveStats[];
+  topGames?: OpeningGame[];
+  recentGames?: OpeningGame[];
+}
+
+export interface OpeningGame {
+  id: string;
+  white: OpeningPlayer;
+  black: OpeningPlayer;
+  winner?: Color;
+  year?: string;
+}
+
+interface OpeningPlayer {
+  name: string;
+  rating: number;
+}
+
+export interface TablebaseData extends ExplorerData {
+  moves: TablebaseMoveStats[];
+  wdl: number | null,
+  dtz: number | null,
+  dtm: number | null,
+  checkmate: boolean;
+  stalemate: boolean;
+  variant_win: boolean;
+  variant_loss: boolean;
+  insufficient_material: boolean;
+}
+
+export interface MoveStats {
+  uci: Uci;
+  san: San;
+}
+
+export interface OpeningMoveStats extends MoveStats {
+  white: number;
+  black: number;
+  draws: number;
+  averageRating: number;
+}
+export interface TablebaseMoveStats extends MoveStats {
+  wdl: number | null;
+  dtz: number | null;
+  dtm: number | null;
+  checkmate: boolean;
+  stalemate: boolean;
+  variant_win: boolean;
+  variant_loss: boolean;
+  insufficient_material: boolean;
+  zeroing: boolean;
+}
+
+export function isOpening(m: ExplorerData): m is OpeningData {
+  return !!m.opening;
+}
+export function isTablebase(m: ExplorerData): m is TablebaseData {
+  return !!m.tablebase;
+}
+
+export interface SimpleTablebaseHit {
+  fen: Fen;
+  best?: Uci; // no move if checkmate/stalemate
+  winner: Color | undefined;
 }
 
 export interface ExplorerCtrl {
@@ -50,11 +118,13 @@ export interface ExplorerCtrl {
   movesAway: Prop<number>;
   config: ExplorerConfigCtrl;
   withGames: boolean;
-  current(): ExplorerData
+  gameMenu: Prop<string | null>;
+  current(): ExplorerData | undefined;
   hovering: Prop<Hovering | null>;
   setNode();
   toggle();
   disable();
   setHovering(fen: Fen, uci: Uci | null);
-  fetchMasterOpening(fen: Fen): JQueryPromise<ExplorerData>
+  fetchMasterOpening(fen: Fen): JQueryPromise<OpeningData>;
+  fetchTablebaseHit(fen: Fen): JQueryPromise<SimpleTablebaseHit>;
 }

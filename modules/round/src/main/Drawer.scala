@@ -9,6 +9,7 @@ private[round] final class Drawer(
     messenger: Messenger,
     finisher: Finisher,
     prefApi: PrefApi,
+    isBotSync: lila.common.LightUser.IsBotSync,
     bus: lila.common.Bus
 ) {
 
@@ -19,13 +20,13 @@ private[round] final class Drawer(
       pref.autoThreefold == Pref.AutoThreefold.ALWAYS || {
         pref.autoThreefold == Pref.AutoThreefold.TIME &&
           game.clock ?? { _.remainingTime(pov.color) < Centis.ofSeconds(30) }
-      }
+      } || pov.player.userId.exists(isBotSync)
     } map (_ option pov)
   }.sequenceFu map (_.flatten.headOption)
 
   def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
-    case pov if pov.game.toChessHistory.threefoldRepetition =>
-      finisher.other(pov.game, _.Draw)
+    case pov if pov.game.history.threefoldRepetition =>
+      finisher.other(pov.game, _.Draw, None)
     case pov if pov.opponent.isOfferingDraw =>
       finisher.other(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
     case Pov(g, color) if g playerCanOfferDraw color => proxy.save {
@@ -48,7 +49,7 @@ private[round] final class Drawer(
   }
 
   def claim(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
-    (pov.game.playable && pov.game.toChessHistory.threefoldRepetition) ?? finisher.other(pov.game, _.Draw)
+    (pov.game.playable && pov.game.history.threefoldRepetition) ?? finisher.other(pov.game, _.Draw, None)
 
   def force(game: Game)(implicit proxy: GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
 

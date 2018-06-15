@@ -25,16 +25,15 @@ export default function(ctrl: LobbyController) {
             hook: {
               insert(vnode) {
                 const lm = pov.lastMove;
-                const config = {
+                Chessground(vnode.elm as HTMLElement, {
                   coordinates: false,
-                  drawable: { enabled: false },
+                  drawable: { enabled: false, visible: false },
                   resizable: false,
                   viewOnly: true,
                   orientation: pov.variant.key === 'racingKings' ? 'white' : pov.color,
                   fen: pov.fen,
                   lastMove: lm && [lm[0] + lm[1], lm[2] + lm[3]]
-                };
-                Chessground(vnode.elm as HTMLElement, config);
+                });
               }
             }
           }, [ h('div.cg-board') ])
@@ -43,7 +42,7 @@ export default function(ctrl: LobbyController) {
           pov.opponent.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', pov.opponent.ai) : pov.opponent.username,
           h('span.indicator',
             pov.isMyTurn ?
-            (pov.secondsLeft ? timer(pov) : ctrl.trans('yourTurn')) :
+            (pov.secondsLeft ? timer(pov) : [ctrl.trans.noarg('yourTurn')]) :
             h('span', {
               hook: {
                 insert(vnode) {

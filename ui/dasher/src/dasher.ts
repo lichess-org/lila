@@ -6,7 +6,6 @@ import { BoardCtrl, BoardData, PublishZoom, ctrl as boardCtrl } from './board'
 import { ThemeCtrl, ThemeData, ctrl as themeCtrl } from './theme'
 import { PieceCtrl, PieceData, ctrl as pieceCtrl } from './piece'
 import { Redraw, Prop, prop } from './util'
-import { get } from './xhr'
 
 export interface DasherData {
   user?: LightUser;
@@ -24,6 +23,7 @@ export interface DasherData {
   zen: 0 | 1;
   kid: boolean;
   coach: boolean;
+  streamer: boolean;
   i18n: any;
 }
 

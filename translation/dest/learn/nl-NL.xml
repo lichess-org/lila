@@ -38,7 +38,7 @@ Je hebt beiden nodig!</string>
   <string name="lastOne">De laatste!</string>
   <string name="kingComplete">Je kunt nu de aanvoerder aanvoeren!</string>
   <string name="theKnight">Het paard</string>
-  <string name="itMovesInAnLShape">Hij beweegt in een L-vorm</string>
+  <string name="itMovesInAnLShape">Het beweegt in een L-vorm</string>
   <string name="knightIntro">Hier is een uitdaging voor jou. Het paard is... een lastig stuk.</string>
   <string name="knightsHaveAFancyWay">Paarden hebben een mooie manier
 om rond de springen!</string>
@@ -61,7 +61,7 @@ Promoveren is niet nodig.</string>
   <string name="grabAllTheStarsNoNeedToPromote">Grijp al de sterren!
 Promoveren is niet nodig.</string>
   <string name="pawnComplete">Gefeliciteerd! Pionnen hebben geen geheimen voor jou.</string>
-  <string name="pawnPromotion">Promotie</string>
+  <string name="pawnPromotion">Pionpromotie</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Je pion heeft het einde van het bord bereikt!</string>
   <string name="itNowPromotesToAStrongerPiece">Nu promoveert het in een sterker stuk.</string>
   <string name="selectThePieceYouWant">Selecteer het gewenste stuk!</string>
@@ -175,7 +175,7 @@ Dame = 9
 Toren = 5
 Loper = 3
 Paard = 3
-Pion = 3
+Pion = 1
 De koning is onbetaalbaar! Als je hem verliest, verlies je de partij.</string>
   <string name="queenOverBishop">Sla het stuk met
 de hoogste waarde!

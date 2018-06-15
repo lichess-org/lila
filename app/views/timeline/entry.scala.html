@@ -67,6 +67,9 @@ case PlanStart(userId) => {
 case BlogPost(id, slug, title) => {
 <a data-icon="6" class="text" href="@routes.Blog.show(id, slug)">@title</a>
 }
+case StreamStart(id, name) => {
+<a data-icon="" class="text" href="@routes.Streamer.show(id)">@name started streaming</a>
+}
 }
 @momentFromNow(e.date)
 }

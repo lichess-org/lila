@@ -20,12 +20,12 @@ private[simul] final class Socket(
     socketTimeout: Duration
 ) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 
-  override def preStart() {
+  override def preStart(): Unit = {
     super.preStart()
-    lilaBus.subscribe(self, Symbol(s"chat-$simulId"))
+    lilaBus.subscribe(self, Symbol(s"chat:$simulId"))
   }
 
-  override def postStop() {
+  override def postStop(): Unit = {
     super.postStop()
     lilaBus.unsubscribe(self)
   }
@@ -34,7 +34,7 @@ private[simul] final class Socket(
 
   private var delayedCrowdNotification = false
 
-  private def redirectPlayer(game: lila.game.Game, colorOption: Option[chess.Color]) {
+  private def redirectPlayer(game: lila.game.Game, colorOption: Option[chess.Color]): Unit = {
     colorOption foreach { color =>
       val player = game player color
       player.userId foreach { userId =>
@@ -100,7 +100,7 @@ private[simul] final class Socket(
     send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
   )
 
-  def notifyCrowd {
+  def notifyCrowd: Unit = {
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
       context.system.scheduler.scheduleOnce(500 millis, self, NotifyCrowd)

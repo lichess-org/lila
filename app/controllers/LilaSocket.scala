@@ -1,11 +1,8 @@
 package controllers
 
-import akka.stream.scaladsl._
 import play.api.libs.iteratee._
 import play.api.mvc._
-// import play.api.mvc.WebSocket.FrameFormatter
-import play.api.http.websocket.{ Message => Msg }
-import play.api.libs.json._
+import play.api.mvc.WebSocket.FrameFormatter
 
 import lila.api.Context
 import lila.app._
@@ -13,69 +10,59 @@ import lila.common.{ HTTPRequest, IpAddress }
 
 trait LilaSocket { self: LilaController =>
 
-  private type IterateeWs = (Iteratee[JsValue, _], Enumerator[JsValue])
-  private type FlowWs = Flow[JsValue, JsValue, _]
-  private type AcceptType = Context => Fu[Either[Result, IterateeWs]]
+  private type Pipe[A] = (Iteratee[A, _], Enumerator[A])
 
   private val notFoundResponse = NotFound(jsonError("socket resource not found"))
 
-  // protected def SocketEither[A: FrameFormatter](f: Context => Fu[Either[Result, Pipe[A]]]) =
-  protected def SocketEither(f: AcceptType) =
-    WebSocket.acceptOrResult[JsValue, JsValue] { req =>
+  protected def SocketEither[A: FrameFormatter](f: Context => Fu[Either[Result, Pipe[A]]]) =
+    WebSocket.tryAccept[A] { req =>
       SocketCSRF(req) {
-        reqToCtx(req) flatMap { ctx =>
-          f(ctx).map(_.right map iterateeToFlow)
-        }
+        reqToCtx(req) flatMap f
       }
     }
 
-  private def iterateeToFlow(i: IterateeWs): FlowWs = iterateeToSinkAndSource(i) match {
-    case (sink, source) => Flow.fromSinkAndSource(sink, source)
-    // .watchTermination()((_, f) => f.onComplete {
-    //   case cause => println(s"WS stream terminated $cause")
-    // })
-  }
-
-  private def iterateeToSinkAndSource(i: IterateeWs) = i match {
-    case (iteratee, enumerator) =>
-      import play.api.libs.iteratee.streams.IterateeStreams
-      val publisher = IterateeStreams.enumeratorToPublisher(enumerator)
-      val (subscriber, _) = IterateeStreams.iterateeToSubscriber(iteratee)
-      Sink.fromSubscriber(subscriber) -> Source.fromPublisher(publisher)
-  }
-
-  // protected def Socket[A: FrameFormatter](f: Context => Fu[Pipe[A]]) =
-  protected def Socket(f: Context => Fu[IterateeWs]) =
-    SocketEither { ctx =>
+  protected def Socket[A: FrameFormatter](f: Context => Fu[Pipe[A]]) =
+    SocketEither[A] { ctx =>
       f(ctx) map scala.util.Right.apply
     }
 
-  // protected def SocketOption[A: FrameFormatter](f: Context => Fu[Option[Pipe[A]]]) =
-  protected def SocketOption(f: Context => Fu[Option[IterateeWs]]) =
-    SocketEither { ctx =>
+  protected def SocketOption[A: FrameFormatter](f: Context => Fu[Option[Pipe[A]]]) =
+    SocketEither[A] { ctx =>
       f(ctx).map(_ toRight notFoundResponse)
     }
 
-  protected def SocketOptionLimited(limiter: lila.memo.RateLimit[IpAddress], name: String)(f: Context => Fu[Option[IterateeWs]]) =
-    rateLimitedSocket(limiter, name) { ctx =>
+  protected def SocketOptionLimited[A: FrameFormatter](limiter: lila.memo.RateLimit[IpAddress], name: String)(f: Context => Fu[Option[Pipe[A]]]) =
+    rateLimitedSocket[A](limiter, name) { ctx =>
       f(ctx).map(_ toRight notFoundResponse)
     }
+
+  private type AcceptType[A] = Context => Fu[Either[Result, Pipe[A]]]
 
   private val rateLimitLogger = lila.log("ratelimit")
 
-  private def rateLimitedSocket(limiter: lila.memo.RateLimit[IpAddress], name: String)(f: AcceptType) =
-    WebSocket.acceptOrResult[JsValue, JsValue] { req =>
+  private def rateLimitedSocket[A: FrameFormatter](limiter: lila.memo.RateLimit[IpAddress], name: String)(f: AcceptType[A]): WebSocket[A, A] =
+    WebSocket[A, A] { req =>
       SocketCSRF(req) {
         reqToCtx(req) flatMap { ctx =>
+          val ip = HTTPRequest lastRemoteAddress req
+          def userInfo = {
+            val sri = get("sri", req) | "none"
+            val username = ctx.usernameOrAnon
+            s"user:$username sri:$sri"
+          }
           f(ctx).map { resultOrSocket =>
-            resultOrSocket.right map iterateeToSinkAndSource map {
-              case (sink, source) =>
-                val canPass = limiter[Boolean](HTTPRequest lastRemoteAddress req, 1) _
-                val limiterFlow = Flow[JsValue].filter { _ => canPass(true) }
-                Flow.fromSinkAndSource(
-                  limiterFlow to sink,
-                  source
-                )
+            resultOrSocket.right.map {
+              case (readIn, writeOut) => (e: Enumerator[A], i: Iteratee[A, Unit]) => {
+                writeOut |>> i
+                e &> Enumeratee.mapInput { in =>
+                  if (limiter(ip, 1)(true)) in
+                  else {
+                    rateLimitLogger.info(s"socket:$name socket close $ip $userInfo $in")
+                    Input.EOF
+                  }
+                } |>> readIn
+                ()
+              }
             }
           }
         }

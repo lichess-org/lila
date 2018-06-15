@@ -1,5 +1,3 @@
-/// <reference types="types/lichess" />
-
 import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
 

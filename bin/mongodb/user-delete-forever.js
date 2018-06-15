@@ -1,4 +1,4 @@
-var username = 'robert';
+var username = 'jamesflynn';
 var userId = username.toLowerCase();
 var user = db.user4.findOne({
   _id: userId
@@ -82,6 +82,26 @@ print(db.security.remove({
 print('Delete team membership');
 print(db.team_member.remove({
   user: userId
+}).nRemoved + ' done');
+
+print('Delete playbans');
+print(db.playban.remove({
+  _id: userId
+}).nRemoved + ' done');
+
+print('Delete perf stats');
+print(db.perf_stat.remove({
+  _id: new RegExp('^' + userId + '/')
+}).nRemoved + ' done');
+
+print('Delete activity');
+print(db.activity.remove({
+  _id: new RegExp('^' + userId + ':')
+}).nRemoved + ' done');
+
+print('Delete assessments');
+print(db.player_assessment.remove({
+  userId: userId
 }).nRemoved + ' done');
 
 print('Delete user');

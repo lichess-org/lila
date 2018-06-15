@@ -62,7 +62,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     if (c) {
       req.ch = c;
       if (isWrite) {
-        if (ctrl.study!.vm.mode.write) {
+        if (ctrl.study!.isWriting()) {
           if (!ctrl.study!.vm.mode.sticky) req.sticky = false;
         }
         else req.write = false;
@@ -145,14 +145,12 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
 
   return {
     receive(type: string, data: any): boolean {
-      if (handlers[type]) {
-        handlers[type](data);
-        return true;
-      } else if (ctrl.study && ctrl.study.socketHandlers[type]) {
-        ctrl.study.socketHandlers[type](data);
+      const handler = handlers[type];
+      if (handler) {
+        handler(data);
         return true;
       }
-      return false;
+      return !!ctrl.study && ctrl.study.socketHandler(type, data);
     },
     sendAnaMove,
     sendAnaDrop,

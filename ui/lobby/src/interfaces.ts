@@ -39,7 +39,8 @@ export interface LobbyData extends Untyped {
 
 export interface PoolMember {
   id: PoolId;
-  range?: PoolRange
+  range?: PoolRange;
+  blocking?: string;
 }
 
 export type PoolId = string;

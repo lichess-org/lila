@@ -47,6 +47,9 @@
   <string name="requestAComputerAnalysis">Gofyn am ddadansoddiad cyfrifiadurol</string>
   <string name="computerAnalysis">Dadansoddiad cyfrifiadurol</string>
   <string name="analysis">Bwrdd dadansoddi</string>
+  <string name="depthX">Dyfnder%s</string>
+  <string name="goDeeper">Mynd yn ddyfnach</string>
+  <string name="move">Symudiad</string>
   <string name="openingExplorer">Porwr agoriadau a thabl terfyniad</string>
   <string name="blunders">o gamgymeriadau difrifol</string>
   <string name="mistakes">o gamgymeriadau</string>
@@ -88,10 +91,10 @@
   <string name="changePassword">Newid cyfrinair</string>
   <string name="changeEmail">Newid cyfeiriad e-bost</string>
   <string name="email">Cyfeiriad e-bost</string>
-  <string name="emailIsOptional">Mae cyfeiriad e-bost yn ddiorfod. Defnydd Lichess eich cyfeiriad e-bost i ailosod eich cyfrinair os ydych chi wedi\'i anghofio.</string>
   <string name="passwordReset">Ailosod y cyfrinair</string>
   <string name="forgotPassword">Wedi anghofio\'r cyfrinair?</string>
   <string name="rank">Graddfa</string>
+  <string name="rankX">Sefyllfa: %s</string>
   <string name="gamesPlayed">Gêmau wedi\'u chwarae</string>
   <string name="cancel">Canslo</string>
   <string name="timeOut">Amser wedi dod i\'w ben</string>
@@ -354,6 +357,7 @@
   <string name="xAnsweredY">Atebodd %1$s i %2$s</string>
   <string name="xCommentedY">Gadawodd %1$s sylw ar gyfer</string>
   <string name="victory">Buddugoliaeth!</string>
+  <string name="defeat">Colled</string>
   <string name="timeline">Llinell amser</string>
   <string name="seeAllTournaments">Gweld y cystadleuaethau i gyd</string>
   <string name="starting">Cychwyn:</string>
@@ -372,6 +376,7 @@
   <string name="playOnTheBoardOffline">Dros y bwrdd</string>
   <string name="playOfflineComputer">Cyfrifiadur</string>
   <string name="opponent">Gwrthwynebydd</string>
+  <string name="learnMenu">Dysgu</string>
   <string name="community">Cymdeithas</string>
   <string name="tools">Offer</string>
   <string name="increment">Cynyddiad</string>
@@ -449,8 +454,6 @@
   <string name="checkYourEmail">Gwiria dy e-bost</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Anfonwyd e-bost atoch. Cliciwch y dolen yn y neges e-bost i ysgogi eich cyfrif.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Os nad ydych yn gweld y neges, gwiriwch llefydd arall fel y sbwriel, spam ac ati.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Ydych chi\'n siwr eich bod wedi cofrestru eich cyfeiriad e-bost gan lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Dim angen i gofrestru.</string>
   <string name="weHaveSentYouAnEmailTo">Anfonwyd neges e-bost at %s. Cliciwch ar y dolen yn y neges i ailosod eich cyfrinair.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Gan gofrestru, ydych yn cytuno ar ein %s.</string>
   <string name="networkLagBetweenYouAndLichess">Oediad rhwng lichess a chi</string>
@@ -464,6 +467,9 @@
   <string name="analysisShapesHowTo">Gwasgwch shift a chliciwch neu dde-gliciwch i dynnu cylchau a saithau ar y bwrdd.</string>
   <string name="letOtherPlayersMessageYou">Cael negeseuon gan chwaraewyr arall</string>
   <string name="shareYourInsightsData">Cyfrannu data mewnwelediadau</string>
+  <string name="withNobody">Gyda neb</string>
+  <string name="withFriends">Gyda ffrindiau</string>
+  <string name="withEverybody">Gyda pawb</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Cyfeiriad wedi\'i cofrestru yn barod: %s</string>
   <string name="kidMode">Dull plentyn</string>
   <string name="playChessEverywhere">Chwarae gwyddbwyll ym mhobman</string>
@@ -480,4 +486,6 @@
   <string name="viewTheSolution">Gweld yr ateb</string>
   <string name="followAndChallengeFriends">Dilyn ac herio ffrindiau</string>
   <string name="gameAnalysis">Dadansoddiad gêm</string>
+  <string name="light">Golau</string>
+  <string name="dark">Tywyll</string>
 </resources>

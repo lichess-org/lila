@@ -82,7 +82,7 @@
       }
     </div>
     @if(g.turns > 0) {
-    @defining(g openingPgnMoves 20) { pgnMoves =>
+    @defining(g.pgnMoves take 20) { pgnMoves =>
     @if(!g.fromPosition) {
     @g.opening.map { opening =>
     <div class="opening">@opening.opening.ecoName</div>

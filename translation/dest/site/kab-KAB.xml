@@ -4,7 +4,7 @@
   <string name="playWithAFriend">Urar yed umddakul</string>
   <string name="playWithTheMachine">Urar mgal aselkim</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Blik ad-snnefteghed yiwen ad urar, fka-s tuqqna agi</string>
-  <string name="gameOver">Timlilit ikfa</string>
+  <string name="gameOver">Tekfa tiremt</string>
   <string name="waitingForOpponent">S taganit sɣuṛ afna</string>
   <string name="waiting">S taganit</string>
   <string name="yourTurn">D nnuva-k</string>
@@ -24,6 +24,8 @@
   <string name="blackIsVictorious">Iverkanen ulken</string>
   <string name="kingInTheCenter">Agellid deg tlemmast</string>
   <string name="threeChecks">kraḍ n yiciken</string>
+  <string name="raceFinished">Tekfa tamzizla</string>
+  <string name="variantEnding">Taggara n talmest</string>
   <string name="newOpponent">Afna amaynu</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Afna inek ibɣa a d‑yurar slal amaynu akk yidek</string>
   <string name="joinTheGame">Sdukel aslal</string>
@@ -44,6 +46,16 @@
   <string name="viewTheComputerAnalysis">Walli tasleṭ tawurmant</string>
   <string name="requestAComputerAnalysis">Setter tasleḍt taymanit</string>
   <string name="computerAnalysis">Tasleṭ n uselkim</string>
+  <string name="computerAnalysisAvailable">Tasleṭ n uselkim tehga</string>
+  <string name="analysis">Tafelwit n tesleḍt</string>
+  <string name="depthX">Tadrut %s</string>
+  <string name="usingServerAnalysis">Tasleḍt iteddun n useqdac</string>
+  <string name="loadingEngine">Iteddu usali...</string>
+  <string name="inLocalBrowser">deg iminig andigan</string>
+  <string name="move">Asembiwel</string>
+  <string name="capture">Tuṭfa</string>
+  <string name="close">Mdel</string>
+  <string name="delete">Kkes</string>
   <string name="blunders">Tuccd\'iwin</string>
   <string name="mistakes">Tiguliwin</string>
   <string name="inaccuracies">War tiseddi</string>
@@ -296,7 +308,7 @@
   <string name="bestMove">Tiyita Tamawayt</string>
   <string name="keepGoing">Kemmel...</string>
   <string name="puzzleFailed">Aεewwiq ixeṣren</string>
-  <string name="butYouCanKeepTrying">Maca tzemred  at ɛawdeɣ tikkelt niḍen</string>
+  <string name="butYouCanKeepTrying">Maca tzemṛed ad tɛawdeḍ tikkelt niḍen.</string>
   <string name="wasThisPuzzleAnyGood">I sɣa azal ugur agi</string>
   <string name="pleaseVotePuzzle">All Lichess a d-i sileɣ s dɣeṛ s innecaben</string>
   <string name="thankYou">Tanemmirt!</string>
@@ -312,4 +324,6 @@
   <string name="thisPuzzleIsWrong">Ugur agi inezri neɣ d amessas</string>
   <string name="closeAccount">Mdel amiḍan</string>
   <string name="victory">Tarennawt!</string>
+  <string name="host">Asenneftaɣ</string>
+  <string name="hostColorX">Ini n usenneftaɣ: %s</string>
 </resources>

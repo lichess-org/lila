@@ -1,14 +1,16 @@
 package lila.team
 
 import com.typesafe.config.Config
+import akka.actor._
 
 import lila.notify.NotifyApi
+import lila.common.MaxPerPage
 
 final class Env(
     config: Config,
     hub: lila.hub.Env,
     notifyApi: NotifyApi,
-    system: akka.actor.ActorSystem,
+    system: ActorSystem,
     asyncCache: lila.memo.AsyncCache.Builder,
     db: lila.db.Env
 ) {
@@ -30,7 +32,7 @@ final class Env(
 
   lazy val forms = new DataForm(colls.team, hub.actor.captcher)
 
-  lazy val pager = new MemberPager(colls.member)
+  lazy val memberStream = new TeamMemberStream(colls.member)(system)
 
   lazy val api = new TeamApi(
     coll = colls,
@@ -43,8 +45,8 @@ final class Env(
 
   lazy val paginator = new PaginatorBuilder(
     coll = colls,
-    maxPerPage = PaginatorMaxPerPage,
-    maxUserPerPage = PaginatorMaxUserPerPage
+    maxPerPage = MaxPerPage(PaginatorMaxPerPage),
+    maxUserPerPage = MaxPerPage(PaginatorMaxUserPerPage)
   )
 
   lazy val cli = new Cli(api, colls)
@@ -52,6 +54,12 @@ final class Env(
   lazy val cached = new Cached(asyncCache)(system)
 
   private lazy val notifier = new Notifier(notifyApi = notifyApi)
+
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+    def receive = {
+      case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
+    }
+  })), 'shadowban)
 }
 
 object Env {
@@ -60,7 +68,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "team",
     hub = lila.hub.Env.current,
     notifyApi = lila.notify.Env.current.api,
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     asyncCache = lila.memo.Env.current.asyncCache,
     db = lila.db.Env.current
   )

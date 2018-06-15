@@ -4,24 +4,22 @@ package templating
 import ornicar.scalalib.Zero
 import play.twirl.api.Html
 
-import lila.user.{ User, UserContext }
+import lila.user.UserContext
 
 trait StringHelper { self: NumberHelper =>
 
   def netDomain: String
 
-  implicit val LilaHtmlZero: Zero[Html] = Zero.instance(Html(""))
-
-  implicit val LilaHtmlMonoid = scalaz.Monoid.instance[Html](
-    (a, b) => Html(a.body + b.body),
-    LilaHtmlZero.zero
-  )
+  val emptyHtml = Html("")
+  implicit val LilaHtmlZero: Zero[Html] = Zero.instance(emptyHtml)
 
   val slugify = lila.common.String.slugify _
 
+  def shorten(text: String, length: Int, sep: String = "…") = lila.common.String.shorten(text, length, sep)
+
   def pluralize(s: String, n: Int) = s"$n $s${if (n > 1) "s" else ""}"
 
-  def repositionTooltip(link: Html, position: String) = Html {
+  def repositionTooltipUnsafe(link: Html, position: String) = Html {
     link.body.replace("<a ", s"""<a data-pt-pos="$position" """)
   }
 
@@ -32,8 +30,6 @@ trait StringHelper { self: NumberHelper =>
   }
 
   def when(cond: Boolean, str: String) = cond ?? str
-  def strong(x: Int): String = strong(x.toString)
-  def strong(x: String): String = s"<strong>$x</strong>"
 
   private val NumberFirstRegex = """^(\d+)\s(.+)$""".r
   private val NumberLastRegex = """^(.+)\s(\d+)$""".r

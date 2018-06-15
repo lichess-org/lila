@@ -28,13 +28,14 @@
   "devDependencies": {
     "@types/jquery": "^2.0",
     "@types/nodeunit": "0.0.30",
+    "@types/lichess": "1.0.0",
+    "@types/defer-promise": "1.0.0",
     "nodeunit": "^0.11.0",
-    "types": "link:../types",
     "typescript": "^2"
   },
   "dependencies": {
-    "chess": "link:../chess",
-    "common": "link:../common",
+    "chess": "1.0.0",
+    "common": "1.0.0",
     "defer-promise": "^1.0.1",
     "snabbdom": "ornicar/snabbdom#lichess"
   }

@@ -30,7 +30,7 @@ sealed trait Node {
   def dropFirstChild: Node
   def clock: Option[Centis]
 
-  // implementation dependant
+  // implementation dependent
   def idOption: Option[UciCharPair]
   def moveOption: Option[Uci.WithSan]
 
@@ -164,6 +164,7 @@ object Node {
       value.filterNot(_.id == commentId)
     }
     def +(comment: Comment) = Comments(comment :: value)
+    def ++(comments: Comments) = Comments(value ::: comments.value)
 
     def filterEmpty = Comments(value.filter(_.text.value.nonEmpty))
   }
@@ -241,36 +242,42 @@ object Node {
   implicit val gamebookWriter = Json.writes[Node.Gamebook]
   import Eval.JsonHandlers.evalWrites
 
+  @inline implicit private def toPimpedJsObject(jo: JsObject) = new lila.base.PimpedJsObject(jo)
+
   def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] = Writes { node =>
     import node._
-    val comments = node.comments.list.flatMap(_.removeMeta)
-    (
-      add("id", idOption.map(_.toString)) _ compose
-      add("uci", moveOption.map(_.uci.uci)) _ compose
-      add("san", moveOption.map(_.san)) _ compose
-      add("check", true, check) _ compose
-      add("eval", eval.filterNot(_.isEmpty)) _ compose
-      add("comments", comments, comments.nonEmpty) _ compose
-      add("gamebook", gamebook) _ compose
-      add("glyphs", glyphs.nonEmpty) _ compose
-      add("shapes", shapes.list, shapes.list.nonEmpty) _ compose
-      add("opening", opening) _ compose
-      add("dests", dests.map {
-        _.map {
-          case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
-        }.mkString(" ")
-      }) _ compose
-      add("drops", drops.map { drops =>
-        JsString(drops.map(_.key).mkString)
-      }) _ compose
-      add("clock", clock) _ compose
-      add("crazy", crazyData) _ compose
-      add("comp", true, comp) _ compose
-      add("children", children, alwaysChildren || children.nonEmpty)
-    )(Json.obj(
+    try {
+      val comments = node.comments.list.flatMap(_.removeMeta)
+      Json.obj(
         "ply" -> ply,
         "fen" -> fen
-      ))
+      ).add("id", idOption.map(_.toString))
+        .add("uci", moveOption.map(_.uci.uci))
+        .add("san", moveOption.map(_.san))
+        .add("check", check)
+        .add("eval", eval.filterNot(_.isEmpty))
+        .add("comments", if (comments.nonEmpty) Some(comments) else None)
+        .add("gamebook", gamebook)
+        .add("glyphs", glyphs.nonEmpty)
+        .add("shapes", if (shapes.list.nonEmpty) Some(shapes.list) else None)
+        .add("opening", opening)
+        .add("dests", dests.map {
+          _.map {
+            case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
+          }.mkString(" ")
+        })
+        .add("drops", drops.map { drops =>
+          JsString(drops.map(_.key).mkString)
+        })
+        .add("clock", clock)
+        .add("crazy", crazyData)
+        .add("comp", comp)
+        .add("children", if (alwaysChildren || children.nonEmpty) Some(children) else None)
+    } catch {
+      case e: StackOverflowError =>
+        e.printStackTrace
+        sys error s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)"
+    }
   }
 
   implicit val defaultNodeJsonWriter: Writes[Node] =
@@ -284,10 +291,4 @@ object Node {
       node.mainlineNodeList.map(minimalNodeJsonWriter.writes)
     }
   }
-
-  private def add[A](k: String, v: A, cond: Boolean)(o: JsObject)(implicit writes: Writes[A]): JsObject =
-    if (cond) o + (k -> writes.writes(v)) else o
-
-  private def add[A: Writes](k: String, v: Option[A]): JsObject => JsObject =
-    v.fold(identity[JsObject] _) { add(k, _, true) _ }
 }

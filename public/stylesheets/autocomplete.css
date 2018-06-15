@@ -13,33 +13,36 @@
   width: 20px;
   height: 20px;
 }
-.tt-suggestion {
-  color: #444;
-  padding: 5px 0 5px 10px;
+a.tt-suggestion,
+span.tt-suggestion {
+  color: #555;
+  padding: 5px 0 5px 5px;
   line-height: 24px;
   display: block;
-  border-bottom: 1px solid #ddd;
   cursor: pointer;
 }
 .tt-suggestion:hover {
   background: rgba(56,147,232,0.2);
-  /* color: #fff; */
 }
 .tt-suggestion.tt-cursor {
   background: #3893E8!important;
   color: #fff!important;
 }
+.tt-suggestion.user_link i {
+  margin-right: 3px;
+}
 .tt-hint {
   color: #aaa;
 }
-.tt-highlight {
-  opacity: 0.5;
-}
+/* .tt-highlight { */
+/*   font-weight: bold; */
+  /* opacity: 0.5; */
+/* } */
 body.dark .tt-menu {
   border-color: #3d3d3d;
   background: #343434;
 }
-body.dark .tt-suggestion {
-  color: #9c9c9c;
-  border-color: #3d3d3d;
+body.dark a.tt-suggestion,
+body.dark span.tt-suggestion {
+  color: #aaa;
 }

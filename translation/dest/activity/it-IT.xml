@@ -28,12 +28,12 @@
     <item quantity="other">%s partite per corrispondenza</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Seguito da %s giocatore</item>
-    <item quantity="other">Seguito da %s giocatori</item>
+    <item quantity="one">Ha iniziato a seguire %s giocatore</item>
+    <item quantity="other">Ha iniziato a seguire %s giocatori</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Nuovi follower guadagnati %s</item>
-    <item quantity="other">Nuovi follower guadagnati %s</item>
+    <item quantity="one">Nuovi followers guadagnati %s</item>
+    <item quantity="other">Nuovi followers guadagnati %s</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Ospitato %s esibizione simultanea</item>
@@ -45,14 +45,14 @@
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Studi creati %s</item>
-    <item quantity="other">Studi creati %s</item>
+    <item quantity="other">Creato %s studi</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Gareggiato in %s torneo</item>
     <item quantity="other">Gareggiato in %s tornei</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">Classificato #%1$s (top %2$s%%) con %3$s partite in %4$s</item>
+    <item quantity="one">Classificato #%1$s (top %2$s%%) con %3$s partita in %4$s</item>
     <item quantity="other">Classificato #%1$s (top %2$s%%) con %3$s partite in %4$s</item>
   </plurals>
   <string name="signedUp">Registrato su lichess</string>

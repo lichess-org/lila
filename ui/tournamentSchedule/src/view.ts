@@ -98,10 +98,14 @@ function tournamentClass(tour) {
     'major': tour.major,
     thematic: !!tour.position,
     short: tour.minutes <= 30,
-    'max-rating': tour.hasMaxRating
+    'max-rating': !userCreated && tour.hasMaxRating
   };
   if (tour.schedule) classes[tour.schedule.freq] = true;
   return classes;
+}
+
+function iconOf(tour, perfIcon) {
+  return (tour.schedule && tour.schedule.freq === 'shield') ? '5' : perfIcon;
 }
 
 function renderTournament(ctrl, tour) {
@@ -123,7 +127,7 @@ function renderTournament(ctrl, tour) {
       }, [
         h('span.icon', tour.perf ? {
           attrs: {
-            'data-icon': tour.perf.icon,
+            'data-icon': iconOf(tour, tour.perf.icon),
             title: tour.perf.name
           }
         } : {}),
@@ -134,7 +138,7 @@ function renderTournament(ctrl, tour) {
               displayClock(tour.clock) + ' ',
               tour.variant.key === 'standard' ? null : tour.variant.name + ' ',
               tour.position ? 'Thematic ' : null,
-              tour.rated ? ctrl.trans('rated') : ctrl.trans('casual')
+              tour.rated ? ctrl.trans('ratedTournament') : ctrl.trans('casualTournament')
             ]),
             tour.nbPlayers ? h('span.nb-players', {
               attrs: { 'data-icon': 'r' }

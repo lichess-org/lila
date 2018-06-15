@@ -33,6 +33,10 @@
   text-shadow: none!important;
   white-space: nowrap;
 }
+.coach .top h1.large {
+  letter-spacing: 2px;
+  font-size: 30px;
+}
 .coach .top .headline {
   font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
   font-size: 16px;
@@ -117,7 +121,6 @@ body.dark .coach .studies h1 {
 }
 
 .review-form {
-  margin-top: 30px;
   text-align: center;
 }
 .review-form .toggle {
@@ -188,6 +191,10 @@ body.dark .coach .studies h1 {
     margin-left: 0!important;
     width: 196px!important;
   }
+}
+.coach-side .profile {
+  text-align: right;
+  margin-bottom: 1em;
 }
 
 /* review score */

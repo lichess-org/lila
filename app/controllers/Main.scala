@@ -6,6 +6,7 @@ import play.api.libs.json._
 import play.api.mvc._
 
 import lila.app._
+import lila.api.Context
 import lila.common.HTTPRequest
 import lila.hub.actorApi.captcha.ValidCaptcha
 import makeTimeout.large
@@ -41,10 +42,9 @@ object Main extends LilaController {
     }
   }
 
-  def apiWebsocket = TODO
-  // WebSocket.tryAccept { req =>
-  //   Env.site.apiSocketHandler.apply map Right.apply
-  // }
+  def apiWebsocket = WebSocket.tryAccept { req =>
+    Env.site.apiSocketHandler.apply map Right.apply
+  }
 
   def captchaCheck(id: String) = Open { implicit ctx =>
     Env.hub.actor.captcher ? ValidCaptcha(id, ~get("solution")) map {
@@ -59,18 +59,21 @@ object Main extends LilaController {
   }
 
   def developers = Open { implicit ctx =>
+    pageHit
     fuccess {
       html.site.developers()
     }
   }
 
   def lag = Open { implicit ctx =>
+    pageHit
     fuccess {
       html.site.lag()
     }
   }
 
   def mobile = Open { implicit ctx =>
+    pageHit
     OptionOk(Prismic getBookmark "mobile-apk") {
       case (doc, resolver) => html.mobile.home(doc, resolver)
     }
@@ -94,6 +97,15 @@ object Main extends LilaController {
     NoContent.fuccess
   }
 
+  /**
+   * Event monitoring endpoint
+   */
+  def jsmon(event: String) = Action {
+    if (event == "socket_gap") lila.mon.jsmon.socketGap()
+    else lila.mon.jsmon.unknown()
+    NoContent
+  }
+
   private lazy val glyphsResult: Result = {
     import chess.format.pgn.Glyph
     import lila.tree.Node.glyphWriter
@@ -103,40 +115,39 @@ object Main extends LilaController {
       "observation" -> Glyph.Observation.display
     )) as JSON
   }
-  def glyphs = Action { req =>
-    glyphsResult
-  }
+  val glyphs = Action(glyphsResult)
 
   def image(id: String, hash: String, name: String) = Action.async { req =>
     Env.db.image.fetch(id) map {
       case None => NotFound
       case Some(image) =>
-        lila.log("image").info(s"Serving ${image.path} from database")
+        lila.log("image").info(s"Serving ${image.path} to ${HTTPRequest printClient req}")
         Ok(image.data).withHeaders(
+          CONTENT_TYPE -> image.contentType.getOrElse("image/jpeg"),
           CONTENT_DISPOSITION -> image.name,
           CONTENT_LENGTH -> image.size.toString
-        ) as image.contentType.getOrElse("image/jpeg")
+        )
     }
   }
 
-  val robots = Action { _ =>
+  val robots = Action {
     Ok {
-      if (Env.api.Net.Crawlable) "User-agent: *\nAllow: /\nDisallow: /game/export"
+      if (Env.api.Net.Crawlable) """User-agent: *
+Allow: /
+Disallow: /game/export
+Disallow: /games/export
+"""
       else "User-agent: *\nDisallow: /"
     }
   }
 
-  def notFound(req: RequestHeader): Fu[Result] =
-    reqToCtx(req) map { implicit ctx =>
-      lila.mon.http.response.code404()
-      NotFound(html.base.notFound())
-    }
+  def renderNotFound(req: RequestHeader): Fu[Result] =
+    reqToCtx(req) map renderNotFound
 
-  def authFailed(req: RequestHeader): Fu[Result] =
-    reqToCtx(req) map { implicit ctx =>
-      lila.mon.http.response.code403()
-      Forbidden(html.base.authFailed())
-    }
+  def renderNotFound(ctx: Context): Result = {
+    lila.mon.http.response.code404()
+    NotFound(html.base.notFound()(ctx))
+  }
 
   def fpmenu = Open { implicit ctx =>
     Ok(html.base.fpmenu()).fuccess

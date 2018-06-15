@@ -37,6 +37,10 @@ export abstract class AbstractWorker {
     return !!this.protocol.sync && this.protocol.sync.isComputing();
   }
 
+  engineName(): string | undefined {
+    return this.protocol.sync && this.protocol.sync.engineName;
+  }
+
   abstract boot(): Promise<Protocol>;
   abstract send(cmd: string): void;
   abstract destroy(): void;
@@ -163,7 +167,7 @@ export default class Pool {
   }
 
   start(work: Work) {
-    window.lichess.storage.set('ceval.pool.start', '1');
+    window.lichess.storage.set('ceval.pool.start', Date.now().toString());
     this.getWorker().then(function(worker) {
       worker.start(work);
     });
@@ -171,5 +175,9 @@ export default class Pool {
 
   isComputing(): boolean {
     return !!this.workers.length && this.workers[this.token].isComputing();
+  }
+
+  engineName(): string | undefined {
+    return this.workers[this.token] && this.workers[this.token].engineName();
   }
 }

@@ -21,20 +21,20 @@
   "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
     "@types/jquery": "^2.0",
+    "@types/lichess": "1.0.0",
     "browserify": "^14",
     "gulp": "^3",
     "gulp-uglify": "^3",
     "gulp-util": "^3",
     "tsify": "^3",
-    "types": "link:../types",
     "typescript": "^2",
     "vinyl-buffer": "^1",
     "vinyl-source-stream": "^1",
     "watchify": "^3"
   },
   "dependencies": {
-    "chessground": "^7.1.3",
-    "common": "link:../common",
+    "chessground": "^7.3",
+    "common": "1.0.0",
     "snabbdom": "ornicar/snabbdom#lichess"
   }
 }

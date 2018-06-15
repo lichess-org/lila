@@ -37,6 +37,7 @@
   @showNonEmptyPerf(u.perfs.ultraBullet, PerfType.UltraBullet)
   @showPerf(u.perfs.bullet, PerfType.Bullet)
   @showPerf(u.perfs.blitz, PerfType.Blitz)
+  @showPerf(u.perfs.rapid, PerfType.Rapid)
   @showPerf(u.perfs.classical, PerfType.Classical)
   @showPerf(u.perfs.correspondence, PerfType.Correspondence)
   <br />
@@ -49,6 +50,6 @@
   @showNonEmptyPerf(u.perfs.horde, PerfType.Horde)
   @showNonEmptyPerf(u.perfs.racingKings, PerfType.RacingKings)
   <br />
-  @showPerf(u.perfs.puzzle, PerfType.Puzzle)
+  @if(u.noBot){@showPerf(u.perfs.puzzle, PerfType.Puzzle)}
   }
 </div>

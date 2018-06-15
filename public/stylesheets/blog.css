@@ -41,7 +41,7 @@
 #lichess_blog .body {
   font-size: 1.4em;
   line-height: 1.6;
-  margin: 20px 0 80px 0;
+  margin: 20px 0 60px 0;
   cursor: initial;
 }
 #lichess_blog .body p {
@@ -102,4 +102,9 @@
 }
 #lichess_blog .list .more {
   text-align: center;
+}
+#lichess_blog .footer {
+  text-align: center;
+  font-size: 1.3em;
+  margin-bottom: 40px;
 }

@@ -28,7 +28,7 @@ másik sötét mezős futó.
 Mindkettőre szükséged van!</string>
   <string name="bishopComplete">Gratulálunk! Most már tudod hogyan irányíts egy futót.</string>
   <string name="theQueen">A vezér</string>
-  <string name="queenCombinesRookAndBishop">Vezér= bástya + futó</string>
+  <string name="queenCombinesRookAndBishop">Vezér = bástya + futó</string>
   <string name="queenIntro">Színre lép a legerősebb sakkfigura. Őméltósága a vezér!</string>
   <string name="queenComplete">Gratulálunk! Kiismerted a vezér rejtelmeit.</string>
   <string name="theKing">A király</string>
@@ -133,7 +133,7 @@ A vezér mellett áll.</string>
 A folytatáshoz lépj bármit.</string>
   <string name="boardSetupComplete">Gratulálunk! Most már tudod hogyan kell fölállítani a sakktáblát.</string>
   <string name="castling">Sáncolás</string>
-  <string name="theSpecialKingMove">A király egyik speciális lépése</string>
+  <string name="theSpecialKingMove">A király speciális lépése</string>
   <string name="castlingIntro">Helyezd a királyod biztonságba, és mozgósítsd a bástyádat!</string>
   <string name="castleKingSide">Lépj a királyoddal két mezőt,
 a király-szárnyra sáncoláshoz!</string>

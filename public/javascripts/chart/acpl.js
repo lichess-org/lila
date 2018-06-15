@@ -1,16 +1,14 @@
 function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
-lichess.advantageChart = function(data) {
+lichess.advantageChart = function(data, trans, el) {
   lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
     lichess.loadScript('/assets/javascripts/chart/division.js').done(function() {
       lichess.chartCommon('highchart').done(function() {
 
         lichess.advantageChart.update = function(d, partial) {
-          $elem.highcharts().series[0].setData(makeSerieData(d, partial));
+          $(el).highcharts().series[0].setData(makeSerieData(d, partial));
         };
-
-        var $elem = $('#adv_chart');
 
         var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
         if (data.player.color === 'white') blurs.reverse();
@@ -18,15 +16,15 @@ lichess.advantageChart = function(data) {
         var makeSerieData = function(d, partial) {
           return d.treeParts.slice(1).map(function(node, i) {
 
-            var color = node.ply & 1;
+            var color = node.ply & 1, cp;
 
             if (node.eval && node.eval.mate) {
-              var cp = node.eval.mate > 0 ? Infinity : -Infinity;
+              cp = node.eval.mate > 0 ? Infinity : -Infinity;
             } else if (node.san.indexOf('#') > 0) {
-              var cp = color === 1 ? Infinity : -Infinity;
+              cp = color === 1 ? Infinity : -Infinity;
               if (d.game.variant.key === 'antichess') cp = -cp;
             } else if (node.eval && typeof node.eval.cp !== 'undefined') {
-              var cp = node.eval.cp;
+              cp = node.eval.cp;
             } else return {
               y: null
             };
@@ -58,11 +56,11 @@ lichess.advantageChart = function(data) {
           text: null
         };
         var serieData = makeSerieData(data);
-        var chart = $elem.highcharts({
+        var chart = $(el).highcharts({
           credits: disabled,
           legend: disabled,
           series: [{
-            name: 'Advantage',
+            name: trans('advantage'),
             data: serieData
           }],
           chart: {
@@ -91,7 +89,7 @@ lichess.advantageChart = function(data) {
                 click: function(event) {
                   if (event.point) {
                     event.point.select();
-                    lichess.analyse.jumpToIndex(event.point.x);
+                    lichess.pubsub.emit('analysis.chart.click')(event.point.x);
                   }
                 }
               },
@@ -112,7 +110,7 @@ lichess.advantageChart = function(data) {
           },
           tooltip: {
             pointFormatter: function(format) {
-              format = format.replace('{series.name}', 'Advantage');
+              format = format.replace('{series.name}', trans('advantage'));
               var eval = data.treeParts[this.x + 1].eval;
               if (!eval) return;
               else if (eval.mate) return format.replace('{point.y}', '#' + eval.mate);
@@ -129,7 +127,7 @@ lichess.advantageChart = function(data) {
             labels: disabled,
             lineWidth: 0,
             tickWidth: 0,
-            plotLines: lichess.divisionLines(data.game.division)
+            plotLines: lichess.divisionLines(data.game.division, trans)
           },
           yAxis: {
             title: noText,
@@ -147,7 +145,7 @@ lichess.advantageChart = function(data) {
             }]
           }
         });
-        lichess.analyse.onChange();
+        lichess.pubsub.emit('analysis.change.trigger')();
       });
     });
   });

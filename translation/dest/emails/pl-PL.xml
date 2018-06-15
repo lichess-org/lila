@@ -6,7 +6,7 @@
   <string name="emailConfirm_ignore">Jeśli nie rejestrowałeś się na lichess.org zignoruj ten komunikat.</string>
   <string name="passwordReset_subject">Zresetuj swoje hasło na lichess.org, %s</string>
   <string name="passwordReset_intro">Otrzymaliśmy prośbę o zmianę hasła do Twojego konta.</string>
-  <string name="passwordReset_clickOrIgnore">Jeśli to Ty prosiłeś o to, kliknij link poniżej. W przeciwnym razie zignoruj ten e-mail.</string>
+  <string name="passwordReset_clickOrIgnore">Jeśli Ty ją wysłałeś, kliknij link poniżej. W przeciwnym razie zignoruj ten e-mail.</string>
   <string name="emailChange_subject">Potwierdź proszę nowy adres e-mail, %s</string>
   <string name="emailChange_intro">Zażądałeś zmianę swojego adresu e-mail.</string>
   <string name="emailChange_click">Aby potwierdzić, że masz dostęp do tego e-maila, kliknij poniższy link:</string>

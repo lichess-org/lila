@@ -35,7 +35,7 @@
   <string name="makeYourOpponentResign">相手を投了させる</string>
   <string name="forceResignation">投了させる</string>
   <string name="forceDraw">引き分けにする</string>
-  <string name="talkInChat">チャットする</string>
+  <string name="talkInChat">チャットでは礼儀を忘れず</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">このURLを最初にクリックした人があなたと対局します。</string>
   <string name="whiteResigned">白が投了しました</string>
   <string name="blackResigned">黒が投了しました</string>
@@ -56,6 +56,9 @@
   <string name="showThreat">狙いを表示</string>
   <string name="inLocalBrowser">ローカル ブラウザ内で</string>
   <string name="toggleLocalEvaluation">ローカル評価値のオン/オフ</string>
+  <string name="promoteVariation">変化を主手順にする</string>
+  <string name="makeMainLine">主手順にする</string>
+  <string name="deleteFromHere">ここから削除</string>
   <string name="move">手</string>
   <string name="variantLoss">バリアント負け</string>
   <string name="variantWin">バリアント勝ち</string>
@@ -101,8 +104,11 @@
   <string name="memory">メモリ</string>
   <string name="infiniteAnalysis">無限解析</string>
   <string name="removesTheDepthLimit">探索手数の制限をなくし最大限の解析を行なう</string>
+  <string name="blunder">大悪手</string>
   <string name="blunders">大悪手</string>
+  <string name="mistake">悪手</string>
   <string name="mistakes">悪手</string>
+  <string name="inaccuracy">疑問手</string>
   <string name="inaccuracies">疑問手</string>
   <string name="moveTimes">消費時間</string>
   <string name="flipBoard">盤を反転させる</string>
@@ -135,7 +141,7 @@
   <string name="minutesPerSide">持ち時間</string>
   <string name="variant">バリアント</string>
   <string name="variants">変則チェス</string>
-  <string name="timeControl">持ち時間制限</string>
+  <string name="timeControl">持時間</string>
   <string name="realTime">実時間</string>
   <string name="correspondence">通信チェス</string>
   <string name="daysPerTurn">1手あたり日数</string>
@@ -156,7 +162,6 @@
   <string name="changePassword">パスワードの変更</string>
   <string name="changeEmail">メールアドレスの変更</string>
   <string name="email">メールアドレス</string>
-  <string name="emailIsOptional">メールアドレスは必須ではありません。lichessではパスワードをリセットするために利用します</string>
   <string name="passwordReset">パスワードをリセットする</string>
   <string name="forgotPassword">パスワードを忘れた方はこちら</string>
   <string name="rank">ランク</string>
@@ -165,7 +170,7 @@
   <plurals name="nbPuzzles">
     <item quantity="other">%s タクティクス</item>
   </plurals>
-  <string name="gamesPlayed">局をプレイ</string>
+  <string name="gamesPlayed">対局数</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">あなたと %s 局対局</item>
   </plurals>
@@ -183,6 +188,7 @@
   <string name="accept">承諾</string>
   <string name="decline">拒否</string>
   <string name="playingRightNow">対局中</string>
+  <string name="eventInProgress">対局中</string>
   <string name="finished">終了したトーナメント</string>
   <string name="abortGame">対局を中止する</string>
   <string name="gameAborted">対局を中止しました</string>
@@ -191,9 +197,13 @@
   <string name="mode">モード</string>
   <string name="casual">非レート戦</string>
   <string name="rated">レート戦</string>
+  <string name="casualTournament">非レート戦</string>
+  <string name="ratedTournament">レート戦</string>
   <string name="thisGameIsRated">この対局はレート戦です</string>
   <string name="rematch">再対局</string>
   <string name="rematchOfferSent">再対局の申し込みを送信しました</string>
+  <string name="rematchOfferSentWhite">白が再戦を求めています</string>
+  <string name="rematchOfferSentBlack">黒が再戦を求めています</string>
   <string name="rematchOfferAccepted">再対局の申し込みを受け入れました</string>
   <string name="rematchOfferCanceled">再対局キャンセル</string>
   <string name="rematchOfferDeclined">再対局拒否</string>
@@ -250,6 +260,9 @@
   <string name="tournament">トーナメント</string>
   <string name="tournaments">トーナメント</string>
   <string name="tournamentPoints">トーナメントポイント</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="other">%s トーナメントポイント</item>
+  </plurals>
   <string name="viewTournament">トーナメントを見る</string>
   <string name="backToTournament">トーナメントに戻る</string>
   <string name="thematic">局面指定</string>
@@ -270,7 +283,7 @@
   <string name="yourTopWeeklyPerfRatingIsTooHigh">%1$s の週間パフォーマンス (%2$s) が高すぎます</string>
   <string name="yourPerfRatingIsTooLow">%1$s レーティング (%2$s) が低すぎます</string>
   <string name="ratedMoreThanInPerf">%2$s のレーティング %1$s 以上</string>
-  <string name="ratedLessThanInPerf">%2$s のレーティング %1$s 以下</string>
+  <string name="ratedLessThanInPerf">%2$s レーティング %1$s 以下</string>
   <string name="backToGame">ゲームに戻る</string>
   <string name="siteDescription">無料オンラインチェス。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。AIと、友達と、知らない相手とも対局できます。</string>
   <string name="teams">チーム</string>
@@ -297,12 +310,12 @@
   <string name="filterGames">条件で絞り込む</string>
   <string name="reset">リセット</string>
   <string name="apply">適用</string>
-  <string name="leaderboard">スコアボード</string>
-  <string name="pasteTheFenStringHere">ここにFEN形式の棋譜をペースト</string>
+  <string name="leaderboard">ランキング</string>
+  <string name="pasteTheFenStringHere">ここにFEN形式の局面をペースト</string>
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
   <string name="fromPosition">特定の局面から</string>
   <string name="continueFromHere">中断した所から再開</string>
-  <string name="importGame">ゲームをインポート</string>
+  <string name="importGame">棋譜をインポート</string>
   <string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザ上でのリプレイ、
 コンピュータ解析、ゲームチャット、共有可能 URL が得られます。</string>
   <plurals name="nbImportedGames">
@@ -333,7 +346,7 @@
   <plurals name="nbFollowing">
     <item quantity="other">%s 人をフォロー</item>
   </plurals>
-  <string name="more">その他</string>
+  <string name="more">さらに表示</string>
   <string name="memberSince">登録日</string>
   <string name="lastSeenActive">最後のログイン %s</string>
   <string name="challengeToPlay">対戦を申し込む</string>
@@ -349,6 +362,15 @@
   <string name="winner">優勝者</string>
   <string name="standing">順位</string>
   <string name="createANewTournament">新しいトーナメントを作る</string>
+  <string name="tournamentCalendar">トーナメント・カレンダー</string>
+  <string name="conditionOfEntry">参加条件:</string>
+  <string name="advancedSettings">高度な設定</string>
+  <string name="safeTournamentName">トーナメントの名前は無難なものにしてください。</string>
+  <string name="inappropriateNameWarning">少しでも不適切な名前の場合、あなたのアカウントを閉鎖することがあります。</string>
+  <string name="emptyTournamentName">名前を空白にしておくと、自動でランダムな有名選手の名前がつきます。</string>
+  <string name="recommendNotTouching">ここは触らないことを推奨します。</string>
+  <string name="fewerPlayers">参加条件を決めると、当然参加者は少なくなります。</string>
+  <string name="showAdvancedSettings">「高度な設定」を表示</string>
   <string name="join">参加する</string>
   <string name="withdraw">棄権する</string>
   <string name="points">ポイント</string>
@@ -375,7 +397,7 @@
   <string name="boardEditor">盤面入力</string>
   <string name="setTheBoard">盤面を指定</string>
   <string name="popularOpenings">人気のオープニング</string>
-  <string name="startPosition">開始局面にする</string>
+  <string name="startPosition">開始局面</string>
   <string name="clearBoard">盤面をクリアする</string>
   <string name="savePosition">盤面を保存</string>
   <string name="loadPosition">局面を読み込む</string>
@@ -392,6 +414,7 @@
   <string name="biography">自己紹介</string>
   <string name="country">国</string>
   <string name="preferences">設定</string>
+  <string name="inlineNotation">棋譜を行書き</string>
   <string name="watchLichessTV">Lichess TV を観戦</string>
   <string name="previouslyOnLichessTV">過去の Lichess TV 対局</string>
   <string name="onlinePlayers">接続中のプレイヤー</string>
@@ -408,7 +431,7 @@
   <string name="puzzleOfTheDay">今日の問題</string>
   <string name="clickToSolve">問題を解く</string>
   <string name="goodMove">次善手</string>
-  <string name="butYouCanDoBetter">より良い手があります。</string>
+  <string name="butYouCanDoBetter">もっといい手があります。</string>
   <string name="bestMove">最善手！</string>
   <string name="keepGoing">続ける</string>
   <string name="puzzleFailed">不正解</string>
@@ -426,9 +449,6 @@
   <string name="retryThisPuzzle">この問題に再挑戦する</string>
   <string name="thisPuzzleIsCorrect">この問題は正しく、おもしろい。</string>
   <string name="thisPuzzleIsWrong">この問題はおかしい／つまらない</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="other">%s 秒以内に初手を指してください</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s 局プレイ中</item>
   </plurals>
@@ -478,6 +498,7 @@
   <string name="thisAccountIsClosed">このアカウントは停止されました</string>
   <string name="invalidUsernameOrPassword">無効なユーザー名 または パスワード</string>
   <string name="incorrectPassword">パスワードが違います</string>
+  <string name="invalidAuthenticationCode">無効な認証コード</string>
   <string name="emailMeALink">リンクをメールで送る</string>
   <string name="currentPassword">現在のパスワード</string>
   <string name="newPassword">新しいパスワード</string>
@@ -595,6 +616,7 @@
   <string name="videoLibrary">チェスの動画集</string>
   <string name="mobileApp">モバイルアプリ</string>
   <string name="webmasters">ウェブ管理者</string>
+  <string name="about">Lichess概要</string>
   <string name="contribute">力を貸す</string>
   <string name="contact">連絡先</string>
   <string name="termsOfService">利用規約</string>
@@ -637,7 +659,7 @@
   <string name="returnToTournamentsHomepage">トーナメントトップに戻る</string>
   <string name="weeklyPerfTypeRatingDistribution">月別 %s レーティング分布</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="other">この 1 週間の %1$s 参加者 %2$s 人。</item>
+    <item quantity="other">この 1 週間の参加者 %1$s 人（%2$s）。</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">あなたの %1$s レーティングは %2$s です。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">あなたは全体の %1$s の%2$s参加者より上です。</string>
@@ -645,8 +667,6 @@
   <string name="checkYourEmail">メールを確認してください</string>
   <string name="weHaveSentYouAnEmailClickTheLink">メールを送信しました。リンクをクリックしてアカウントの作成を完了してください。</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">メールが見つからない場合は、他の場所（スパムフォルダなど）を確認してください。</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">ほんとうに以前にメールアドレスを登録しましたか？</string>
-  <string name="itWasNotRequiredForYourRegistration">メールアドレスは登録に必須ではありません。</string>
   <string name="weHaveSentYouAnEmailTo">%sにメールを送信しました。リンクをクリックしてパスワードの変更を完了してください。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">登録するとあなたは %s に従うと同意したことになります。</string>
   <string name="networkLagBetweenYouAndLichess">あなたと Lichess の間のネットワークラグ</string>
@@ -714,8 +734,9 @@
   <string name="pieceSet">駒のデザイン</string>
   <string name="embedInYourWebsite">自分のウェブサイトに埋め込む</string>
   <string name="usernameAlreadyUsed">このユーザー名は既に使用されています。別の名前にしてください。</string>
-  <string name="usernameInvalid">無効なユーザー名です。使えるのは英数字、アンダースコア、ダッシュだけです。</string>
-  <string name="usernameStartNoNumber">ユーザー名の最初は数字であってはいけません。</string>
+  <string name="usernamePrefixInvalid">ユーザー名の最初は英字でなくてはなりません。</string>
+  <string name="usernameSuffixInvalid">ユーザー名の最後は英字か数字でなくてはなりません。</string>
+  <string name="usernameCharsInvalid">ユーザー名に使えるのは英字、数字、アンダースコア、ハイフンだけです。</string>
   <string name="usernameUnacceptable">このユーザー名は認められません。</string>
   <string name="directlySupportLichess">Lichess を支援（寄付）</string>
   <string name="playChessInStyle">グッズ購入</string>
@@ -732,4 +753,61 @@
   <string name="notifications">通知</string>
   <string name="challenges">チャレンジ</string>
   <string name="perfRatingX">レーティング: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">あと %s 秒以内に初手を指してください</item>
+  </plurals>
+  <string name="practiceWithComputer">コンピューターと練習する</string>
+  <string name="anotherWasX">別の手は %s</string>
+  <string name="bestWasX">最善手は %s</string>
+  <string name="youBrowsedAway">ページを離れました</string>
+  <string name="resumePractice">練習を続ける</string>
+  <string name="theGameIsADraw">ドロー（引き分け）です。</string>
+  <string name="computerThinking">コンピューター思考中…</string>
+  <string name="seeBestMove">最善手を見る</string>
+  <string name="hideBestMove">最善手をかくす</string>
+  <string name="getAHint">ヒントを見る</string>
+  <string name="evaluatingYourMove">あなたの手を評価中…</string>
+  <string name="whiteWinsGame">白勝ち</string>
+  <string name="blackWinsGame">黒勝ち</string>
+  <string name="learnFromYourMistakes">自分の悪手に学ぼう</string>
+  <string name="learnFromThisMistake">この悪手に学ぶ</string>
+  <string name="skipThisMove">この手を飛ばす</string>
+  <string name="next">次</string>
+  <string name="xWasPlayed">指されたのは %s</string>
+  <string name="findBetterMoveForWhite">白のもっといい手を見つけてください</string>
+  <string name="findBetterMoveForBlack">黒のもっといい手を見つけてください</string>
+  <string name="resumeLearning">学習を続ける</string>
+  <string name="youCanDoBetter">もっといい手があります</string>
+  <string name="tryAnotherMoveForWhite">白の別の手を考えてください</string>
+  <string name="tryAnotherMoveForBlack">黒の別の手を考えてください</string>
+  <string name="solution">答え</string>
+  <string name="waitingForAnalysis">解析を待っています</string>
+  <string name="noMistakesFoundForWhite">白に悪手はありませんでした</string>
+  <string name="noMistakesFoundForBlack">黒に悪手はありませんでした</string>
+  <string name="doneReviewingWhiteMistakes">白の悪手チェックが終了</string>
+  <string name="doneReviewingBlackMistakes">黒の悪手チェックが終了</string>
+  <string name="doItAgain">もう一度どうぞ</string>
+  <string name="reviewWhiteMistakes">白の悪手をチェックする</string>
+  <string name="reviewBlackMistakes">黒の悪手をチェックする</string>
+  <string name="advantage">優位</string>
+  <plurals name="nbSeconds">
+    <item quantity="other">%s 秒</item>
+  </plurals>
+  <string name="opening">序盤</string>
+  <string name="middlegame">中盤</string>
+  <string name="endgame">終盤</string>
+  <string name="registerToSendChallenges">チャレンジを送るには登録が必要です。</string>
+  <string name="youCannotChallengeX">%s にチャレンジできません。</string>
+  <string name="xDoesNotAcceptChallenges">%s はチャレンジを受け付けていません。</string>
+  <string name="yourXRatingIsTooFarFromY">%1$s レーティングが %2$s と離れすぎです。</string>
+  <string name="cannotChallengeDueToProvisionalXRating">%s が仮レーティングのためチャレンジできません。</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s は友達からのチャレンジしか受け付けません。</string>
+  <string name="conditionalPremoves">コンディショナルムーブ</string>
+  <string name="addCurrentVariation">現在の変化を追加する</string>
+  <string name="playVariationToCreateConditionalPremoves">駒を動かしてコンディショナルムーブを設定します</string>
+  <string name="noConditionalPremoves">コンディショナルムーブなし</string>
+  <string name="playX">指し手は %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="other">%s 種のコンディショナルムーブを設定</item>
+  </plurals>
 </resources>

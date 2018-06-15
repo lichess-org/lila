@@ -83,8 +83,6 @@ private final class PoolActor(
       if (pairings.nonEmpty)
         gameStarter(config, pairings).mon(_.lobby.pool.gameStart.duration(monId))
 
-      logger.debug(s"${config.id.value} wave: ${pairings.size} pairings, ${members.size} missed")
-
       monitor.wave.candidates(monId)(candidates.size)
       monitor.wave.paired(monId)(pairedMembers.size)
       monitor.wave.missed(monId)(members.size)

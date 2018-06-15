@@ -1,4 +1,4 @@
-@(form: Form[_], reqUser: Option[User], reqTitle: Option[String], reqMod: Boolean, canMessage: Boolean)(implicit ctx: Context)
+@(form: Form[_], reqUser: Option[User], reqTitle: Option[String], reqMod: Boolean, canMessage: Boolean, oldEnough: Boolean)(implicit ctx: Context)
 
 @message.layout(
 title = trans.composeMessage.txt()) {
@@ -6,12 +6,13 @@ title = trans.composeMessage.txt()) {
   <div class="message_new">
     <h1>@trans.composeMessage()</h1>
     @reqUser.ifFalse(canMessage).map { u =>
-    <br />
-    <br />
-    <hr />
-    <br />
+    <br /> <br /> <hr /> <br />
     <p>Sorry, @u.username doesn't accept new messages.</p>
     }.getOrElse {
+    @if(!oldEnough) {
+    <br /> <br /> <hr /> <br />
+    <p>Sorry, you cannot start conversations yet.</p>
+    } else {
     <div class="center form">
       <form action="@routes.Message.create()@reqUser.map(u => "?username=" + u.username)" method="post">
         <div class="field_to">
@@ -30,7 +31,8 @@ title = trans.composeMessage.txt()) {
           name="@form("username").name"
           id="@form("username").id"
           value="@form("username").value"
-          autofocus="1">
+          autofocus="1"
+          data-tag="span">
           @errMsg(form("username"))
           }
         </div>
@@ -85,6 +87,7 @@ title = trans.composeMessage.txt()) {
         </div>
       </form>
     </div>
+    }
     }
   </div>
 </div>

@@ -1,16 +1,12 @@
 package lila.relation
 
 import akka.actor.Actor
-import akka.pattern.pipe
-import scala.concurrent.duration._
 import scala.collection.breakOut
 
 import actorApi._
 import lila.common.LightUser
 import lila.hub.actorApi.relation._
 import lila.hub.actorApi.{ SendTo, SendTos }
-
-import play.api.libs.json.Json
 
 private[relation] final class RelationActor(
     lightUser: LightUser.GetterSync,

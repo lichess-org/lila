@@ -8,7 +8,7 @@ import { MaybeVNodes } from '../interfaces';
 
 function renderTitle(root: AnalyseCtrl): VNode {
   return h('div.title', [
-    h('span', 'Practice with the computer'),
+    h('span', root.trans.noarg('practiceWithComputer')),
     root.studyPractice ? null : h('span.close', {
       attrs: { 'data-icon': 'L' },
       hook: bind('click', root.togglePractice, root.redraw)
@@ -16,23 +16,10 @@ function renderTitle(root: AnalyseCtrl): VNode {
   ]);
 }
 
-const commentText = {
-  good: 'Good move',
-  inaccuracy: 'Inaccuracy',
-  mistake: 'Mistake',
-  blunder: 'Blunder'
-};
-
-const endText = {
-  checkmate: 'Checkmate!',
-  threefold: 'Threefold repetition',
-  draw: 'Draw.'
-};
-
-function commentBest(c: Comment, ctrl: PracticeCtrl): MaybeVNodes {
-  return c.best ? [
-    c.verdict === 'good' ? 'Another was' : 'Best was',
-    h('a', {
+function commentBest(c: Comment, root: AnalyseCtrl, ctrl: PracticeCtrl): MaybeVNodes {
+  return c.best ? root.trans.vdom(
+    c.verdict === 'goodMove' ? 'anotherWasX' : 'bestWasX',
+    h('move', {
       hook: {
         insert: vnode => {
           const el = vnode.elm as HTMLElement;
@@ -44,31 +31,31 @@ function commentBest(c: Comment, ctrl: PracticeCtrl): MaybeVNodes {
       }
     },
     c.best.san)
-  ] : [];
+  ) : [];
 }
 
-function renderOffTrack(ctrl: PracticeCtrl): VNode {
+function renderOffTrack(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
   return h('div.player.off', [
     h('div.icon.off', '!'),
     h('div.instruction', [
-      h('strong', 'You browsed away'),
+      h('strong', root.trans.noarg('youBrowsedAway')),
       h('div.choices', [
-        h('a', { hook: bind('click', ctrl.resume, ctrl.redraw) }, 'Resume practice')
+        h('a', { hook: bind('click', ctrl.resume, ctrl.redraw) }, root.trans.noarg('resumePractice'))
       ])
     ])
   ]);
 }
 
-function renderEnd(color: Color, end: string): VNode {
-  if (end === 'checkmate') color = opposite(color);
+function renderEnd(root: AnalyseCtrl, end: string): VNode {
+  const isMate = end === 'checkmate';
+  const color = isMate ? opposite(root.turnColor()) : root.turnColor();
   return h('div.player', [
     color ? h('div.no-square', h('piece.king.' + color)) : h('div.icon.off', '!'),
     h('div.instruction', [
-      h('strong', endText[end]),
-      h('em', end === 'checkmate' ? [
-        h('color', color),
-        ' wins.'
-      ] : ['The game is a draw.'])
+      h('strong', root.trans.noarg(end)),
+      isMate ?
+        h('em', h('color', root.trans.noarg(color === 'white' ? 'whiteWinsGame' : 'blackWinsGame'))) :
+        h('em', root.trans.noarg('theGameIsADraw'))
     ])
   ]);
 }
@@ -88,13 +75,13 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
   return h('div.player.running', [
     h('div.no-square', h('piece.king.' + root.turnColor())),
     h('div.instruction',
-      (ctrl.isMyTurn() ? [h('strong', 'Your move')] : [
-        h('strong', 'Computer thinking...'),
+      (ctrl.isMyTurn() ? [h('strong', root.trans.noarg('yourTurn'))] : [
+        h('strong', root.trans.noarg('computerThinking')),
         renderEvalProgress(ctrl.currentNode(), ctrl.playableDepth())
       ]).concat(h('div.choices', [
         ctrl.isMyTurn() ? h('a', {
           hook: bind('click', () => root.practice!.hint(), ctrl.redraw)
-        }, hint ? (hint.mode === 'piece' ? 'See best move' : 'Hide best move') : 'Get a hint') : ''
+        }, root.trans.noarg(hint ? (hint.mode === 'piece' ? 'seeBestMove' : 'hideBestMove') : 'getAHint')) : ''
       ])))
   ]);
 }
@@ -104,14 +91,14 @@ export default function(root: AnalyseCtrl): VNode | undefined {
   if (!ctrl) return;
   const comment: Comment | null = ctrl.comment();
   const running: boolean = ctrl.running();
-  const end = ctrl.currentNode().threefold ? 'threefold' : root.gameOver();
+  const end = ctrl.currentNode().threefold ? 'threefoldRepetition' : root.gameOver();
   return h('div.practice_box.' + (comment ? comment.verdict : 'no-verdict'), [
     renderTitle(root),
-    h('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(root.turnColor(), end) : renderRunning(root, ctrl))),
+    h('div.feedback', !running ? renderOffTrack(root, ctrl) : (end ? renderEnd(root, end) : renderRunning(root, ctrl))),
     running ? h('div.comment', comment ? ([
-      h('span.verdict', commentText[comment.verdict]),
+      h('span.verdict', root.trans.noarg(comment.verdict)),
       ' '
-    ] as MaybeVNodes).concat(commentBest(comment, ctrl)) : [ctrl.isMyTurn() || end ? '' : h('span.wait', 'Evaluating your move...')]) : (
+    ] as MaybeVNodes).concat(commentBest(comment, root, ctrl)) : [ctrl.isMyTurn() || end ? '' : h('span.wait', root.trans.noarg('evaluatingYourMove'))]) : (
       running ? h('div.comment') : null
     )
   ]);

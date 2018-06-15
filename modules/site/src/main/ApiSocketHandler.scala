@@ -4,7 +4,6 @@ import actorApi._
 import lila.socket._
 import lila.socket.actorApi.StartWatching
 
-import lila.common.PimpedJson._
 import ornicar.scalalib.Random
 
 private[site] final class ApiSocketHandler(

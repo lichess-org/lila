@@ -29,7 +29,7 @@ private final class CorresAlarm(
 
   private implicit val AlarmHandler = reactivemongo.bson.Macros.handler[Alarm]
 
-  override def preStart() {
+  override def preStart(): Unit = {
     scheduleNext
     context setReceiveTimeout 1.minute
   }
@@ -66,7 +66,7 @@ private final class CorresAlarm(
             }
           } >> coll.remove($id(alarm._id)) inject (count + 1)
         })
-        .chronometer.mon(_.round.alarm.time).result
+        .mon(_.round.alarm.time)
         .addEffect(c => lila.mon.round.alarm.count(c))
         .addEffectAnyway(scheduleNext)
 

@@ -8,7 +8,8 @@ case class Profile(
     lastName: Option[String] = None,
     fideRating: Option[Int] = None,
     uscfRating: Option[Int] = None,
-    ecfRating: Option[Int] = None
+    ecfRating: Option[Int] = None,
+    links: Option[String] = None
 ) {
 
   def nonEmptyRealName = List(ne(firstName), ne(lastName)).flatten match {
@@ -31,6 +32,8 @@ case class Profile(
     100 * c.count(_.isDefined) / c.size
   }
 
+  def actualLinks: List[Link] = links ?? Links.make
+
   import Profile.OfficialRating
 
   def officialRating: Option[OfficialRating] =
@@ -47,5 +50,6 @@ object Profile {
 
   val default = Profile()
 
-  private[user] val profileBSONHandler = reactivemongo.bson.Macros.handler[Profile]
+  import reactivemongo.bson.Macros
+  private[user] val profileBSONHandler = Macros.handler[Profile]
 }

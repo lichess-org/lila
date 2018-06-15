@@ -24,11 +24,19 @@ object Room {
 
   def apply(key: String): Option[Room] = byKey get key
 
-  def apply(reason: Reason) = reason match {
+  def apply(reason: Reason): Room = reason match {
     case Reason.Cheat => Cheat
     case Reason.CheatPrint => Print
     case Reason.Troll | Reason.Insult => Coms
     case Reason.Boost | Reason.Other => Other
+  }
+
+  def toReasons(room: Room): Set[Reason] = room match {
+    case Cheat => Set(Reason.Cheat)
+    case Print => Set(Reason.CheatPrint)
+    case Coms => Set(Reason.Troll, Reason.Insult)
+    case Other => Set(Reason.Boost, Reason.Other)
+    case Xfiles => Set.empty
   }
 
   case class Counts(value: Map[Room, Int]) {

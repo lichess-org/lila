@@ -18,6 +18,10 @@ div.game_config group.radio {
 div.game_config group.radio label {
   padding: 5px;
 }
+div.game_config group.radio label.disabled {
+  opacity: 0.4;
+  cursor: default;
+}
 div.game_config div.ui-slider {
   font-size: 1.3em;
   margin: 0 15px;

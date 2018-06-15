@@ -22,7 +22,8 @@ export function render(ctrl: AnalyseCtrl): VNode {
   let content: MaybeVNodes;
 
   const commentHook: Hooks = bind('click', () => {
-    study.commentForm.open(study.vm.chapterId, ctrl.path, ctrl.node);
+    study.commentForm.set(study.vm.chapterId, ctrl.path, ctrl.node);
+    study.vm.toolTab('comments');
     window.lichess.requestIdleCallback(() => $('#comment-text').focus());
   }, ctrl.redraw);
 
@@ -125,7 +126,7 @@ function renderHint(ctrl: AnalyseCtrl): VNode {
   ]);
 }
 
-const saveNode = throttle(500, false, (ctrl: AnalyseCtrl, gamebook: Tree.Gamebook) => {
+const saveNode = throttle(500, (ctrl: AnalyseCtrl, gamebook: Tree.Gamebook) => {
   ctrl.socket.send('setGamebook', {
     path: ctrl.path,
     ch: ctrl.study!.vm.chapterId,

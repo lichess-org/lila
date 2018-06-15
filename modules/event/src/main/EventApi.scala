@@ -1,10 +1,10 @@
 package lila.event
 
 import org.joda.time.DateTime
+import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.memo._
 
 final class EventApi(
     coll: Coll,
@@ -13,7 +13,17 @@ final class EventApi(
 
   import BsonHandlers._
 
-  val promotable = asyncCache.single(
+  def promoteTo(req: RequestHeader): Fu[List[Event]] =
+    promotable.get map {
+      _.filter { event =>
+        event.lang.language == lila.i18n.enLang.language ||
+          lila.i18n.I18nLangPicker.allFromRequestHeaders(req).exists {
+            _.language == event.lang.language
+          }
+      }
+    }
+
+  private val promotable = asyncCache.single(
     name = "event.promotable",
     fetchPromotable,
     expireAfter = _.ExpireAfterWrite(5 minutes)

@@ -1,11 +1,25 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import * as xhr from './studyXhr';
-import { prop, throttle } from 'common';
-import { bind, nodeFullName, spinner } from '../util';
+import { prop, throttle, Prop } from 'common';
+import { bind, spinner } from '../util';
 import AnalyseCtrl from '../ctrl';
 
-function renderGlyph(ctrl, node) {
+interface AllGlyphs {
+  move: Tree.Glyph[];
+  observation: Tree.Glyph[];
+  position: Tree.Glyph[];
+}
+
+export interface GlyphCtrl {
+  root: AnalyseCtrl;
+  all: Prop<AllGlyphs>;
+  loadGlyphs(): void;
+  toggleGlyph(id: Tree.GlyphId): void;
+  redraw(): void;
+}
+
+function renderGlyph(ctrl: GlyphCtrl, node: Tree.Node) {
   return function(glyph) {
     return h('a', {
       hook: bind('click', _ => {
@@ -13,9 +27,7 @@ function renderGlyph(ctrl, node) {
         return false;
       }, ctrl.redraw),
       class: {
-        active: (node.glyphs && node.glyphs.find(function(g) {
-          return g.id === glyph.id;
-        }))
+        active: !!node.glyphs && !!node.glyphs.find(g => g.id === glyph.id)
       }
     }, [
       h('i', {
@@ -27,63 +39,48 @@ function renderGlyph(ctrl, node) {
 }
 
 export function ctrl(root: AnalyseCtrl) {
-  const isOpen = prop(false),
-  all = prop<any | null>(null);
+
+  const all = prop<any | null>(null);
 
   function loadGlyphs() {
-    if (!all()) xhr.glyphs().then(function(gs) {
+    if (!all()) xhr.glyphs().then(gs => {
       all(gs);
       root.redraw();
     });
   };
 
-  const toggleGlyph = throttle(500, false, function(id) {
+  const toggleGlyph = throttle(500, (id: string) => {
     root.study!.makeChange('toggleGlyph', root.study!.withPosition({
       id
     }));
   });
 
-  function open() {
-    loadGlyphs();
-    isOpen(true);
-  };
-
   return {
     root,
     all,
-    open,
-    isOpen,
-    toggle() {
-      if (isOpen()) isOpen(false);
-      else open();
-    },
+    loadGlyphs,
     toggleGlyph,
     redraw: root.redraw
   };
 }
 
-export function view(ctrl): VNode | undefined {
+export function viewDisabled(why: string): VNode {
+  return h('div.study_glyph_form', [
+    h('div.message', h('span', why))
+  ]);
+}
 
-  if (!ctrl.isOpen()) return;
-  const all = ctrl.all();
-  const node = ctrl.root.node;
+export function view(ctrl: GlyphCtrl): VNode {
 
-  return h('div.study_glyph_form.underboard_form', [
-    h('p.title', [
-      h('button.button.frameless.close', {
-        attrs: {
-          'data-icon': 'L',
-          title: 'Close'
-        },
-        hook: bind('click', () => ctrl.isOpen(false), ctrl.redraw)
-      }),
-      'Annotating position after ',
-      h('strong', nodeFullName(node))
-    ]),
+  const all = ctrl.all(), node = ctrl.root.node;
+
+  return h('div.study_glyph_form.underboard_form', {
+    hook: { insert: ctrl.loadGlyphs }
+  }, [
     all ? h('div.glyph_form', [
       h('div.move', all.move.map(renderGlyph(ctrl, node))),
       h('div.position', all.position.map(renderGlyph(ctrl, node))),
       h('div.observation', all.observation.map(renderGlyph(ctrl, node)))
-    ]) : spinner()
+    ]) : h('div.message', spinner())
   ]);
 }

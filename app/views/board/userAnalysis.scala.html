@@ -14,8 +14,10 @@
 @embedJs {
 lichess = lichess || {};
 lichess.user_analysis = {
-data: @Html(play.api.libs.json.Json.stringify(data)),
-i18n: @userAnalysisI18n(),
+data: @safeJson(data),
+i18n: @userAnalysisI18n(
+withForecast = !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined
+),
 explorer: {
 endpoint: "@explorerEndpoint",
 tablebaseEndpoint: "@tablebaseEndpoint"
@@ -33,7 +35,7 @@ tablebaseEndpoint: "@tablebaseEndpoint"
   </div>
   <div class="list">
     @chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map { v =>
-    <a data-icon="@iconByVariant(v)" href="@routes.UserAnalysis.parseUri(v.key)">@v.name</a>
+    <a data-icon="@iconByVariant(v)" href="@routes.UserAnalysis.parse(v.key)">@v.name</a>
     }
   </div>
 </div>

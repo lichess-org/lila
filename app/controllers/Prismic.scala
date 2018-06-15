@@ -16,15 +16,11 @@ object Prismic {
     case _ => logger info message
   }
 
-  private implicit val httpClient = old.play.Env.standaloneWSClient
-
-  private val prismicApiCache = {
-    Env.memo.asyncCache.single[PrismicApi](
-      name = "prismic.fetchPrismicApi",
-      f = PrismicApi.get(Env.api.PrismicApiUrl, logger = prismicLogger),
-      expireAfter = _.ExpireAfterWrite(1 minute)
-    )
-  }
+  private val prismicApiCache = Env.memo.asyncCache.single[PrismicApi](
+    name = "prismic.fetchPrismicApi",
+    f = PrismicApi.get(Env.api.PrismicApiUrl, logger = prismicLogger),
+    expireAfter = _.ExpireAfterWrite(1 minute)
+  )
 
   def prismicApi = prismicApiCache.get
 
@@ -38,7 +34,7 @@ object Prismic {
     api.forms("everything")
       .query(s"""[[:d = at(document.id, "$id")]]""")
       .ref(api.master.ref)
-      .submit map {
+      .submit() map {
         _.results.headOption
       }
   }
@@ -58,7 +54,7 @@ object Prismic {
     api.forms("variant")
       .query(s"""[[:d = at(my.variant.key, "${variant.key}")]]""")
       .ref(api.master.ref)
-      .submit map {
+      .submit() map {
         _.results.headOption map (_ -> makeLinkResolver(api))
       }
   }

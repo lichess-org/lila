@@ -22,14 +22,6 @@ object ForumPost extends LilaController with ForumController {
     }
   }
 
-  def recent = Open { implicit ctx =>
-    NotForKids {
-      Env.forum.recent(ctx.me, teamCache.teamIdsList) map { posts =>
-        html.forum.post.recent(posts)
-      }
-    }
-  }
-
   def create(categSlug: String, slug: String, page: Int) = OpenBody { implicit ctx =>
     CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
       CategGrantWrite(categSlug) {
@@ -37,6 +29,7 @@ object ForumPost extends LilaController with ForumController {
         OptionFuResult(topicApi.show(categSlug, slug, page, ctx.troll)) {
           case (categ, topic, posts) =>
             if (topic.closed) fuccess(BadRequest("This topic is closed"))
+            else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
             else forms.post.bindFromRequest.fold(
               err => for {
                 captcha <- forms.anyCaptcha

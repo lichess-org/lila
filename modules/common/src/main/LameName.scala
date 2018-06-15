@@ -7,16 +7,23 @@ object LameName {
 
   def anyName(name: String) = lameWords.matcher(name).find
 
+  def anyNameButLichessIsOk(name: String) = lameWords.matcher {
+    lichessRegex.replaceAllIn(name, "")
+  }.find
+
+  private val lichessRegex = "(?i)lichess".r
+
   private val lameTitlePrefix =
     "[Ww]?[NCFIGl1L]M|(?i:w?[ncfigl1])m[-_A-Z0-9]".r.pattern
 
   private val lameWords = {
     val extras = Map(
       'a' -> "4",
-      'e' -> "3",
+      'e' -> "38",
+      'g' -> "q9",
       'i' -> "l1",
       'l' -> "I1",
-      'o' -> "0",
+      'o' -> "08",
       's' -> "5",
       'z' -> "2"
     )
@@ -25,9 +32,10 @@ object LameName {
       c => c -> s"[$c${c.toUpper}${~extras.get(c)}]"
     } toMap
 
-    (List(
+    List(
       "hitler",
       "fuck",
+      "fouck",
       "penis",
       "vagin",
       "anus",
@@ -38,13 +46,14 @@ object LameName {
       "cunt",
       "kunt",
       "douche",
-      "faggot",
+      "fag",
+      "golam",
       "jerk",
       "nigg",
       "coon",
       "piss",
       "poon",
-      "prick",
+      "poop",
       "pussy",
       "slut",
       "whore",
@@ -58,7 +67,12 @@ object LameName {
       "administrator",
       "cock",
       "dick",
-      "fart"
-    ) map { _ map subs mkString } mkString "|" r).pattern
+      "wanker",
+      "feces",
+      "fart",
+      "cuck"
+    ).map {
+        _.map(subs).map(_ + "+").mkString
+      }.mkString("|").r.pattern
   }
 }

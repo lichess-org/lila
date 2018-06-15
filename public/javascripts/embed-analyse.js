@@ -2,7 +2,7 @@ $(function() {
 
   var studyRegex = /lichess\.org\/study\/(?:embed\/)?(\w{8})\/(\w{8})(#\d+)?\b/;
   var gameRegex = /lichess\.org\/(?:embed\/)?(\w{8})(?:(?:\/(white|black))|\w{4}|)(#\d+)?\b/;
-  var notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password'];
+  var notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer'];
 
   var parseLink = function(a) {
     var yt = lichess.toYouTubeEmbedUrl(a.href);
@@ -144,13 +144,13 @@ lichess.startEmbeddedAnalyse = function(opts) {
     var boardSize = h - 26;
     var gr = 1.618;
     if (boardSize > w / gr) boardSize = w / gr;
-    var groundSize = Math.min(500, Math.max(120, w - boardSize));
+    var groundSize = Math.min(700, Math.max(120, w - boardSize));
     board.style.width = boardSize + 'px';
     board.style.height = boardSize + 'px';
     ground.style.width = groundSize + 'px';
     ground.style.maxWidth = groundSize + 'px';
     ground.style.height = boardSize + 'px';
-    document.body.dispatchEvent(new Event('chessground.resize'));
+    lichess.dispatchEvent(document.body, 'chessground.resize');
   };
   onResize();
   window.addEventListener('resize', onResize);

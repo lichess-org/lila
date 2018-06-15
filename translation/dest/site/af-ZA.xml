@@ -108,7 +108,6 @@
   <string name="changePassword">Verander wagwoord</string>
   <string name="changeEmail">Verander e-pos</string>
   <string name="email">E-pos</string>
-  <string name="emailIsOptional">E-pos is nie verpligtend. Lichess gebruik jou e-pos address om jou wagwoord te verstel, sou jy dit vergeet.</string>
   <string name="passwordReset">Wagwoord herstel</string>
   <string name="forgotPassword">vergeet my waagword</string>
   <string name="rank">Vlak</string>
@@ -330,10 +329,6 @@
   <string name="retryThisPuzzle">Probeer kopkrapper weer</string>
   <string name="thisPuzzleIsCorrect">Hierdie kopkrapper is korrek en interessant</string>
   <string name="thisPuzzleIsWrong">Hierdie kopkrapper is foutief of vervelig</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Jy het %s sekondes om jou eerste skuif te maak!</item>
-    <item quantity="other">Jy het %s sekondes om jou eerste skuif te maak!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s spelle aan die gang</item>
     <item quantity="other">%s spelle aan die gang</item>
@@ -530,7 +525,6 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jy vaar beter as %1$s van %2$s spelers.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Jy het die \'n gevestigde %s gradering nie</string>
   <string name="checkYourEmail">Kyk na jou epos</string>
-  <string name="itWasNotRequiredForYourRegistration">Dit is nie nodig om jou aansoek.</string>
   <string name="networkLagBetweenYouAndLichess">Netwerk lag tussen jou en lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tyd om \'n skuif op lichess bediener verwerk</string>
   <string name="downloadAnnotated">aflaai geannoteerde</string>

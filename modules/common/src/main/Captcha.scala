@@ -2,7 +2,6 @@ package lila.common
 
 // import scalaz.NonEmptyList
 import scalaz._
-import Scalaz._
 
 case class Captcha(
     gameId: String,

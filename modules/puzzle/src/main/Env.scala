@@ -3,8 +3,6 @@ package lila.puzzle
 import akka.actor.{ ActorSelection, ActorSystem }
 import com.typesafe.config.Config
 
-import lila.common.PimpedConfig._
-
 final class Env(
     config: Config,
     renderer: ActorSelection,
@@ -56,7 +54,17 @@ final class Env(
     puzzleIdMin = PuzzleIdMin
   )
 
-  lazy val userInfos = UserInfos(roundColl = roundColl)
+  lazy val batch = new PuzzleBatch(
+    puzzleColl = puzzleColl,
+    api = api,
+    finisher = finisher,
+    puzzleIdMin = PuzzleIdMin
+  )
+
+  lazy val userInfos = new UserInfosApi(
+    roundColl = roundColl,
+    currentPuzzleId = api.head.currentPuzzleId
+  )
 
   lazy val forms = DataForm
 
@@ -88,7 +96,7 @@ object Env {
     renderer = lila.hub.Env.current.actor.renderer,
     lightUserApi = lila.user.Env.current.lightUserApi,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     lifecycle = lila.common.PlayApp.lifecycle
   )
 }

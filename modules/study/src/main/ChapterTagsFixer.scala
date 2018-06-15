@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.Tag
+import chess.format.pgn.Tags
 import lila.game.GameRepo
 
 private final class ChapterTagsFixer(
@@ -9,7 +9,7 @@ private final class ChapterTagsFixer(
 ) {
 
   def apply(chapter: Chapter): Fu[Chapter] =
-    if (chapter.tags.nonEmpty) fuccess(chapter)
+    if (chapter.tags.value.nonEmpty) fuccess(chapter)
     else makeNewTags(chapter) flatMap {
       _.fold(fuccess(chapter)) { newTags =>
         val c2 = chapter.copy(tags = newTags)
@@ -17,10 +17,10 @@ private final class ChapterTagsFixer(
       }
     }
 
-  private def makeNewTags(c: Chapter): Fu[Option[List[Tag]]] =
-    c.setup.gameId.??(GameRepo.gameWithInitialFen) map {
-      _ map {
-        case (game, fen) => PgnTags(gamePgnDump.tags(game, fen.map(_.value), none))
+  private def makeNewTags(c: Chapter): Fu[Option[Tags]] =
+    c.setup.gameId.??(GameRepo.gameWithInitialFen) flatMap {
+      _ ?? {
+        case (game, fen) => gamePgnDump.tags(game, fen, none, withOpening = true) map PgnTags.apply map some
       }
     }
 }

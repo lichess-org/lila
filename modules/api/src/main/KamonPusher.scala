@@ -13,7 +13,7 @@ private final class KamonPusher(
 
   import KamonPusher._
 
-  override def preStart() {
+  override def preStart(): Unit = {
     scheduleTick
   }
 

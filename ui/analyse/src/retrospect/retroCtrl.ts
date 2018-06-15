@@ -2,11 +2,13 @@ import { evalSwings } from '../nodeFinder';
 import { winningChances } from 'ceval';
 import { path as treePath } from 'tree';
 import { empty, prop } from 'common';
+import { OpeningData } from '../explorer/interfaces';
 import AnalyseCtrl from '../ctrl';
 
 export interface RetroCtrl {
   isSolving(): boolean
-  [key: string]: any;
+  trans: Trans
+  [key: string]: any
 }
 
 type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view';
@@ -29,7 +31,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
   };
 
   function findNextNode(): Tree.Node | undefined {
-    const colorModulo = root.bottomColor() === 'white' ? 1 : 0;
+    const colorModulo = root.bottomIsWhite() ? 1 : 0;
     candidateNodes = evalSwings(root.mainline, function(n) {
       return n.ply % 2 === colorModulo && !contains(explorerCancelPlies, n.ply);
     });
@@ -64,7 +66,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
     });
     // fetch opening explorer moves
     if (game.variant.key === 'standard' && game.division && (!game.division.middle || fault.node.ply < game.division.middle)) {
-      root.explorer.fetchMasterOpening(prev.node.fen).then(function(res) {
+      root.explorer.fetchMasterOpening(prev.node.fen).then((res: OpeningData) => {
         const cur = current();
         const ucis: Uci[] = [];
         res!.moves.forEach(function(m) {

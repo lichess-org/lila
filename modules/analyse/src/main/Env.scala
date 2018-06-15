@@ -3,15 +3,12 @@ package lila.analyse
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.common.PimpedConfig._
-
 final class Env(
     config: Config,
     db: lila.db.Env,
     system: ActorSystem,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     hub: lila.hub.Env,
-    roundSocket: ActorSelection,
     indexer: ActorSelection
 ) {
 
@@ -28,7 +25,8 @@ final class Env(
   lazy val analyser = new Analyser(
     indexer = indexer,
     requesterApi = requesterApi,
-    roundSocket = roundSocket,
+    roundSocket = hub.socket.round,
+    studyActor = hub.actor.study,
     bus = system.lilaBus
   )
 
@@ -46,10 +44,9 @@ object Env {
   lazy val current = "analyse" boot new Env(
     config = lila.common.PlayApp loadConfig "analyse",
     db = lila.db.Env.current,
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     hub = lila.hub.Env.current,
-    roundSocket = lila.hub.Env.current.socket.round,
     indexer = lila.hub.Env.current.actor.gameSearch
   )
 }

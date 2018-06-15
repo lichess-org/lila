@@ -19,13 +19,13 @@ env:
   global:
    - secure: "VkgJ78marLdG8JQrWV3UhcxXyWmdy6BV3gYLTyXpK2ltPA4vGkFilZDc8hMx2VhYeeTXyvXB+PM4xkB40PUnDlmNXIWQlG7IxKIb/zxwUVS+WcvAzM6yqEV9B/UbZO+Mgp2Hl4/F1lMoIpdQ0tkRvHmfw01L9VDrQs4Otdmd38o=" # GITHUB_API_TOKEN
 
-git:
-  depth: 3
-  submodules: false
-
 branches:
   except:
    - l10n_master
+
+git:
+  depth: 3
+  submodules: false
 
 install: ./bin/submodule-setup.sh
 
@@ -34,7 +34,9 @@ jobs:
     # Build server
     - stage: test
       language: scala
-      jdk: oraclejdk8
+      jdk: openjdk8
+      before_install:
+       - echo "autoformat=false" > $HOME/.scalariform.conf
       script: sbt test:compile test stage
       after_success:
        - git log -n 1 --pretty=oneline > commit.txt
@@ -64,9 +66,6 @@ jobs:
       language: node_js
       node_js: "4"
       before_install:
-       - yarn --version
-       - curl -sSL https://yarnpkg.com/install.sh | bash
-       - export PATH=$HOME/.yarn/bin:$PATH
        - yarn --version
        - yarn global add gulp-cli
       script: ./ui/build prod

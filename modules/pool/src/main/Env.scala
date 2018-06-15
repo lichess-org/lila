@@ -35,7 +35,7 @@ object Env {
   lazy val current: Env = "pool" boot new Env(
     lobbyActor = lila.hub.Env.current.actor.lobby,
     playbanApi = lila.playban.Env.current.api,
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     onStart = lila.game.Env.current.onStart
   )
 }

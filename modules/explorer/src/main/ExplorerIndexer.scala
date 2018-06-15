@@ -2,11 +2,12 @@ package lila.explorer
 
 import scala.util.Random.nextFloat
 import scala.util.{ Try, Success, Failure }
-
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.iteratee._
-import old.play.Env.WS
+import play.api.libs.ws.WS
+import play.api.Play.current
+import chess.format.pgn.Tag
 
 import lila.db.dsl._
 import lila.game.BSONHandlers.gameBSONHandler
@@ -20,7 +21,6 @@ private final class ExplorerIndexer(
 
   private val maxGames = Int.MaxValue
   private val batchSize = 50
-  private val maxPlies = 50
   private val separator = "\n\n\n"
   private val datePattern = "yyyy-MM-dd"
   private val dateFormatter = DateTimeFormat forPattern datePattern
@@ -40,7 +40,7 @@ private final class ExplorerIndexer(
         Query.createdSince(since) ++
           Query.rated ++
           Query.finished ++
-          Query.turnsMoreThan(8) ++
+          Query.turnsGt(8) ++
           Query.noProvisional ++
           Query.bothRatingsGreaterThan(1501)
 
@@ -86,7 +86,7 @@ private final class ExplorerIndexer(
   private object flowBuffer {
     private val max = 30
     private val buf = scala.collection.mutable.ArrayBuffer.empty[String]
-    def apply(pgn: String) {
+    def apply(pgn: String): Unit = {
       buf += pgn
       val startAt = nowMillis
       if (buf.size >= max) {
@@ -120,9 +120,9 @@ private final class ExplorerIndexer(
     import lila.rating.PerfType._
     game.perfType ?? {
       case Correspondence => 1
-      case Classical if rating >= 2000 => 1
-      case Classical if rating >= 1800 => 2 / 5f
-      case Classical => 1 / 8f
+      case Rapid | Classical if rating >= 2000 => 1
+      case Rapid | Classical if rating >= 1800 => 2 / 5f
+      case Rapid | Classical => 1 / 8f
       case Blitz if rating >= 2000 => 1
       case Blitz if rating >= 1800 => 1 / 4f
       case Blitz => 1 / 15f
@@ -153,7 +153,7 @@ private final class ExplorerIndexer(
         usernames.find(_.toLowerCase == id)
       } orElse game.player(color).userId getOrElse "?"
       val fenTags = initialFen.?? { fen => List(s"[FEN $fen]") }
-      val timeControl = game.clock.fold("-") { c => s"${c.limit}+${c.increment}" }
+      val timeControl = Tag.timeControl(game.clock.map(_.config)).value
       val otherTags = List(
         s"[LichessID ${game.id}]",
         s"[Variant ${game.variant.name}]",

@@ -12,7 +12,7 @@ export function userLink(u: string) {
     attrs: {
       href: '/@/' + split[split.length === 1 ? 0 : 1]
     }
-  }, u.substring(0, 14));
+  }, u.substring(0, 14) + " ");
 }
 
 export function spinner() {

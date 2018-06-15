@@ -3,7 +3,6 @@ package lila.simul
 import play.api.libs.json._
 
 import lila.common.LightUser
-import lila.common.PimpedJson._
 import lila.game.{ Game, GameRepo }
 
 final class JsonView(getLightUser: LightUser.Getter) {
@@ -23,6 +22,7 @@ final class JsonView(getLightUser: LightUser.Getter) {
       Json.obj(
         "id" -> host.id,
         "username" -> host.name,
+        "patron" -> host.isPatron,
         "title" -> host.title,
         "rating" -> simul.hostRating,
         "gameId" -> simul.hostGameId
@@ -68,8 +68,8 @@ final class JsonView(getLightUser: LightUser.Getter) {
   private def gameJson(hostId: String)(g: Game) = Json.obj(
     "id" -> g.id,
     "status" -> g.status.id,
-    "fen" -> (chess.format.Forsyth exportBoard g.toChess.board),
-    "lastMove" -> ~g.castleLastMoveTime.lastMoveString,
+    "fen" -> (chess.format.Forsyth exportBoard g.board),
+    "lastMove" -> ~g.lastMoveKeys,
     "orient" -> g.playerByUserId(hostId).map(_.color)
   )
 

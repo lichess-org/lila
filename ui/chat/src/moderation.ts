@@ -49,7 +49,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     },
     shadowban() {
       loading = true;
-      data && $.post('/mod/' + data.id + '/troll?set=1').then(() => data && open(data.username));
+      data && $.post('/mod/' + data.id + '/troll/true').then(() => data && open(data.username));
       opts.redraw();
     }
   };

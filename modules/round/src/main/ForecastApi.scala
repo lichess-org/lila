@@ -5,7 +5,6 @@ import reactivemongo.bson._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import org.joda.time.DateTime
-import scala.concurrent.duration.Duration
 import scala.concurrent.Promise
 
 import chess.format.Uci
@@ -51,7 +50,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
     if (!pov.isMyTurn) funit
     else Uci.Move(uciMove).fold[Funit](fufail(s"Invalid move $uciMove on $pov")) { uci =>
       val promise = Promise[Unit]
-      roundMap ! Tell(pov.game.id, actorApi.round.HumanPlay(
+      roundMap ! Tell(pov.gameId, actorApi.round.HumanPlay(
         playerId = pov.playerId,
         uci = uci,
         blur = true,

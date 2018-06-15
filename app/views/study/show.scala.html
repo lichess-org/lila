@@ -1,12 +1,12 @@
-@(s: lila.study.Study, data: lila.study.JsonView.JsData, chatOption: Option[lila.chat.UserChat.Mine], socketVersion: Int)(implicit ctx: Context)
+@(s: lila.study.Study, data: lila.study.JsonView.JsData, chatOption: Option[lila.chat.UserChat.Mine], socketVersion: Int, streams: List[lila.streamer.Stream])(implicit ctx: Context)
 
 @moreJs = {
 @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
 @embedJs {
 lichess = lichess || {};
 lichess.study = {
-study: @Html(J.stringify(data.study)),
-data: @Html(J.stringify(data.analysis)),
+study: @safeJson(data.study),
+data: @safeJson(data.analysis),
 i18n: @board.userAnalysisI18n(),
 tagTypes: '@lila.study.PgnTags.typesToString',
 userId: @jsUserId,
@@ -37,6 +37,9 @@ socketVersion: @socketVersion
 
 @side = {
 <div class="side_box study_box"></div>
+@streams.map { s =>
+<a href="@routes.Streamer.show(s.streamer.userId)" class="context-streamer text side_box" data-icon="">@usernameOrId(s.streamer.userId) is streaming</a>
+}
 }
 
 @base.layout(

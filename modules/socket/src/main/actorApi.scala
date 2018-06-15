@@ -4,7 +4,6 @@ package actorApi
 import play.api.libs.json.JsObject
 
 import chess.Centis
-import lila.common.PimpedJson._
 
 case class Connected[M <: SocketMember](
     enumerator: JsEnumerator,
@@ -12,6 +11,7 @@ case class Connected[M <: SocketMember](
 )
 case class Sync(uid: String, friends: List[String])
 case class Ping(uid: String, version: Option[Int], lagCentis: Option[Centis])
+case class BotConnected(color: chess.Color, v: Boolean)
 
 object Ping {
   def apply(uid: Socket.Uid, o: JsObject): Ping =

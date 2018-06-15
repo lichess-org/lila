@@ -18,7 +18,7 @@ Set-Cookie: lila2="3b5cc8c80f0af258a31dc4fd1b5381cabe7388c7-sessionId=80q7V5stkK
   "title": null,                            // chess title like FM or LM (lichess master)
   "online": true,                           // is the player currently using lichess?
   "engine": false,                          // true if the user is known to use a chess engine
-  "language": "en",                         // prefered language
+  "language": "en",                         // preferred language
   "profile": {
     "bio": "Developer of lichess",
     "country": "FR",

@@ -2,5 +2,5 @@
 
 <label>
   @text
-  <input type="checkbox" id="@field.id" name="@field.name" value="@value" @((field.value == Some(value.toString)).fold("checked", "")) />
+  <input type="checkbox" id="@field.id" name="@field.name" value="@value" @if(field.value.has(value.toString)){"checked"} />
 </label>

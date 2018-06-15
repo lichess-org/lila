@@ -1,7 +1,7 @@
-@(tour: Tournament, verdicts: lila.tournament.Condition.All.WithVerdicts, data: play.api.libs.json.JsObject, chatOption: Option[lila.chat.UserChat.Mine])(implicit ctx: Context)
+@(tour: Tournament, verdicts: lila.tournament.Condition.All.WithVerdicts, data: play.api.libs.json.JsObject, chatOption: Option[lila.chat.UserChat.Mine], streamers: Set[User.ID], shieldOwner: Option[lila.tournament.TournamentShield.OwnerId])(implicit ctx: Context)
 
 @underchat = {
-<div class="watchers hidden" data-icon="v">
+<div class="watchers hidden">
   <span class="list inline_userlist"></span>
 </div>
 }
@@ -11,7 +11,7 @@
 @embedJs {
 lichess = lichess || {};
 lichess.tournament = {
-data: @Html(play.api.libs.json.Json.stringify(data)),
+data: @safeJson(data),
 i18n: @jsI18n(),
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>
@@ -28,7 +28,7 @@ chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, p
 
 @tournament.layout(
 title = s"${tour.fullName} #${tour.id}",
-side = tournament.side(tour, verdicts).some,
+side = tournament.side(tour, verdicts, streamers, shieldOwner).some,
 chat = chat.dom().some,
 underchat = underchat.some,
 moreJs = moreJs,
@@ -46,7 +46,13 @@ s"${usernameOrId(winnerId)} takes the prize home!"
 ).some) {
 <div id="tournament" @tour.schedule.map { sched =>
   class="scheduled @sched.freq.name @sched.speed.name @sched.variant.key id_@tour.id"
-  }></div>
+  }>
+  <div class="content_box no_padding tournament_box tournament_show">
+    <div class="content_box_content">
+      @base.spinner("init".some)
+    </div>
+  </div>
+</div>
 @if(tour.isCreated) {
 <div id="tournament_faq" class="none">
   @faq(tour.mode.rated.some, tour.system.some, tour.`private`.option(tour.id))

@@ -6,7 +6,6 @@ import chess.variant.Variant
 import play.api.libs.json._
 import scalaz.Validation.FlatMap._
 
-import lila.common.PimpedJson._
 import lila.tree.Branch
 
 trait AnaAny {

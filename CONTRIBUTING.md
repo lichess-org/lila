@@ -4,9 +4,9 @@ Contributing
 ## I want to contribute code to Lichess
 
 - [Set up your development environment](https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding).
-- [Pick a GitHub issue to work on](https://github.com/ornicar/lila/issues). The [basic](https://github.com/ornicar/lila/issues?q=is%3Aissue+is%3Aopen+label%3Abasic) and [no scala](https://github.com/ornicar/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22no+scala%22) tags might be useful.
+- [Pick a GitHub issue to work on](https://github.com/ornicar/lila/issues). The [good first issue](https://github.com/ornicar/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) and [no scala](https://github.com/ornicar/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22no+scala%22) tags might be useful.
 - Communicate with other devs on the #lichess IRC channel on freenode
-  or [discord](https://discord.gg/AWSze7n).
+  or [Discord](https://discord.gg/hy5jqSs).
 
 ## I want to report a bug or a problem about Lichess
 
@@ -15,6 +15,8 @@ Contributing
 1. You list the steps to reproduce the problem to show that other users may experience it as well, if the issue is not self-descriptive.
 2. Search to make sure it isn't a duplicate. [The advanced search syntax](https://help.github.com/articles/searching-issues/) may come in handy.
 3. It is not a trivial problem or demand unrealistic dev time to fix.
+
+Report mobile-only bugs to [Lichess mobile](https://github.com/veloce/lichobile/).
 
 ## I want to suggest a feature for Lichess
 

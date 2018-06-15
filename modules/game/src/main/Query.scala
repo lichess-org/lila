@@ -28,17 +28,13 @@ object Query {
 
   val mate: Bdoc = status(Status.Mate)
 
-  val draw: Bdoc = F.status $in List(Status.Draw.id, Status.Stalemate.id)
-
-  def draw(u: String): Bdoc = user(u) ++ draw
+  def draw(u: String): Bdoc = user(u) ++ finished ++ F.winnerId.$exists(false)
 
   val finished: Bdoc = F.status $gte Status.Mate.id
 
   val notFinished: Bdoc = F.status $lte Status.Started.id
 
   def analysed(an: Boolean): Bdoc = F.analysed $eq an
-
-  def turnsMoreThan(length: Int): Bdoc = F.turns $eq $gte(length)
 
   val frozen: Bdoc = F.status $gte Status.Mate.id
 
@@ -76,7 +72,10 @@ object Query {
 
   def loss(u: String) = user(u) ++ $doc(
     F.status $in Status.finishedWithWinner.map(_.id),
-    F.winnerId $ne u
+    F.winnerId -> $doc(
+      "$exists" -> true,
+      "$ne" -> u
+    )
   )
 
   def opponents(u1: User, u2: User) =
@@ -112,13 +111,20 @@ object Query {
   )
 
   lazy val sinceHordePawnsAreWhite: Bdoc =
-    F.createdAt $gt Game.hordeWhitePawnsSince
+    createdSince(Game.hordeWhitePawnsSince)
 
   val notFromPosition: Bdoc =
     F.variant $ne chess.variant.FromPosition.id
 
   def createdSince(d: DateTime): Bdoc =
     F.createdAt $gt d
+
+  def createdBetween(since: Option[DateTime], until: Option[DateTime]): Bdoc = (since, until) match {
+    case (Some(since), None) => createdSince(since)
+    case (None, Some(until)) => F.createdAt $lt until
+    case (Some(since), Some(until)) => F.createdAt $gt since $lt until
+    case _ => $empty
+  }
 
   val sortCreated: Bdoc = $sort desc F.createdAt
   val sortChronological: Bdoc = $sort asc F.createdAt

@@ -4,7 +4,6 @@ import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework
 import reactivemongo.bson._
 
 import BSONHandlers._
-import lila.db.BSON._
 import lila.db.dsl._
 import lila.rating.Perf
 import lila.user.{ User, Perfs }
@@ -48,8 +47,11 @@ object PlayerRepo {
   def remove(tourId: String, userId: String) =
     coll.remove(selectTourUser(tourId, userId)).void
 
-  def exists(tourId: String, userId: String) =
-    coll.exists(selectTourUser(tourId, userId))
+  def filterExists(tourIds: List[Tournament.ID], userId: String): Fu[List[Tournament.ID]] =
+    coll.primitive[Tournament.ID]($doc(
+      "tid" $in tourIds,
+      "uid" -> userId
+    ), "tid")
 
   def existsActive(tourId: String, userId: String) =
     coll.exists(selectTourUser(tourId, userId) ++ selectActive)
@@ -64,31 +66,19 @@ object PlayerRepo {
     coll.find(selectTourUser(tourId, userId)).uno[Player]
 
   def update(tourId: String, userId: String)(f: Player => Fu[Player]) =
-    find(tourId, userId) err s"No such player: $tourId/$userId" flatMap f flatMap { player =>
+    find(tourId, userId) flatten s"No such player: $tourId/$userId" flatMap f flatMap { player =>
       coll.update(selectId(player._id), player).void
     }
 
-  def playerInfo(tourId: String, userId: String): Fu[Option[PlayerInfo]] = find(tourId, userId) flatMap {
-    _ ?? { player =>
-      coll.countSel(selectTour(tourId) ++ $doc(
-        "m" -> $doc("$gt" -> player.magicScore)
-      )) map { n =>
-        PlayerInfo((n + 1), player.withdraw).some
-      }
-    }
-  }
-
   def join(tourId: String, user: User, perfLens: Perfs => Perf) =
     find(tourId, user.id) flatMap {
-      case Some(p) if p.withdraw => coll.update(selectId(p._id), $doc("$unset" -> $doc("w" -> true)))
+      case Some(p) if p.withdraw => coll.update(selectId(p._id), $unset("w"))
       case Some(p) => funit
       case None => coll.insert(Player.make(tourId, user, perfLens))
     } void
 
-  def withdraw(tourId: String, userId: String) = coll.update(
-    selectTourUser(tourId, userId),
-    $doc("$set" -> $doc("w" -> true))
-  ).void
+  def withdraw(tourId: String, userId: String) =
+    coll.update(selectTourUser(tourId, userId), $set("w" -> true)).void
 
   private[tournament] def withPoints(tourId: String): Fu[List[Player]] =
     coll.find(
@@ -108,11 +98,11 @@ object PlayerRepo {
 
   // freaking expensive (marathons)
   private[tournament] def computeRanking(tourId: String): Fu[Ranking] =
-    coll.aggregate(Match(selectTour(tourId)), List(
+    coll.aggregateOne(Match(selectTour(tourId)), List(
       Sort(Descending("m")),
       Group(BSONNull)("uids" -> PushField("uid"))
     )) map {
-      _.firstBatch.headOption.fold(Map.empty: Ranking) {
+      _ ?? {
         _ get "uids" match {
           case Some(BSONArray(uids)) =>
             // mutable optimized implementation
@@ -130,10 +120,10 @@ object PlayerRepo {
 
   // expensive, cache it
   private[tournament] def averageRating(tourId: String): Fu[Int] =
-    coll.aggregate(Match(selectTour(tourId)), List(
+    coll.aggregateOne(Match(selectTour(tourId)), List(
       Group(BSONNull)("rating" -> AvgField("r"))
     )) map {
-      ~_.firstBatch.headOption.flatMap(_.getAs[Double]("rating").map(_.toInt))
+      ~_.flatMap(_.getAs[Double]("rating").map(_.toInt))
     }
 
   def byTourAndUserIds(tourId: String, userIds: Iterable[String]): Fu[List[Player]] =
@@ -164,4 +154,17 @@ object PlayerRepo {
       .logIfSlow(200, logger) { players =>
         s"PlayerRepo.rankedByTourAndUserIds $tourId ${userIds.size} user IDs, ${ranking.size} ranking, ${players.size} players"
       }.result
+
+  def searchPlayers(tourId: Tournament.ID, term: String, nb: Int): Fu[List[User.ID]] =
+    User.couldBeUsername(term) ?? {
+      term.nonEmpty ?? coll.primitive[User.ID](
+        selector = $doc(
+          "tid" -> tourId,
+          "uid" $startsWith term.toLowerCase
+        ),
+        sort = $sort desc "m",
+        nb = nb,
+        field = "uid"
+      )
+    }
 }

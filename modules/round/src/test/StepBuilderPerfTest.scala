@@ -3,7 +3,6 @@ package lila.round
 import org.specs2.mutable.Specification
 
 import chess._
-import Pos._
 
 class StepBuilderPerfTest extends Specification {
 
@@ -19,7 +18,7 @@ class StepBuilderPerfTest extends Specification {
 
   def runOne(moves: Vector[String]) =
     StepBuilder("abcd1234", moves, chess.variant.Standard, format.Forsyth.initial)
-  def run() { gameMoves foreach runOne }
+  def run(): Unit = { gameMoves foreach runOne }
 
   def runTests() = {
     runOne(gameMoves.head)

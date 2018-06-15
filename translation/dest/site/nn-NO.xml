@@ -56,6 +56,9 @@
   <string name="showThreat">Vis trussel</string>
   <string name="inLocalBrowser">i lokal nettlesar</string>
   <string name="toggleLocalEvaluation">Lokal analyse av/på</string>
+  <string name="promoteVariation">Forfremjingsvariant</string>
+  <string name="makeMainLine">Gjer til hovudline</string>
+  <string name="deleteFromHere">Slett herifrå</string>
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
   <string name="variantWin">Variant siger</string>
@@ -103,8 +106,11 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Uendeleg analyse</string>
   <string name="removesTheDepthLimit">Tar bort avgrensing i søke-djupna, og varmar opp maskina</string>
+  <string name="blunder">Bukk</string>
   <string name="blunders">Bukkar</string>
+  <string name="mistake">Mistak</string>
   <string name="mistakes">Mistak</string>
+  <string name="inaccuracy">Småfeil</string>
   <string name="inaccuracies">Småfeil</string>
   <string name="moveTimes">Tidsbruk per trekk</string>
   <string name="flipBoard">Snu brettet</string>
@@ -163,7 +169,6 @@
   <string name="changePassword">Endre passord</string>
   <string name="changeEmail">Endre e-postadresse</string>
   <string name="email">E-post</string>
-  <string name="emailIsOptional">E-postadresse er valfri. Lichess vil nytta den til å setja passordet på ny om du gløymer det.</string>
   <string name="passwordReset">Sett passordet på nytt.</string>
   <string name="forgotPassword">Har du gløymt passordet?</string>
   <string name="rank">Rangering</string>
@@ -192,6 +197,7 @@
   <string name="accept">Godta</string>
   <string name="decline">Avslå</string>
   <string name="playingRightNow">Spelast nett no</string>
+  <string name="eventInProgress">Spelast nett no</string>
   <string name="finished">Slutt</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet blei avbrote</string>
@@ -200,9 +206,13 @@
   <string name="mode">Modus</string>
   <string name="casual">Ikkje rangert</string>
   <string name="rated">Rangert</string>
+  <string name="casualTournament">Ikkje rangert</string>
+  <string name="ratedTournament">Rangert</string>
   <string name="thisGameIsRated">Dette partiet er rangert</string>
   <string name="rematch">Omkamp</string>
   <string name="rematchOfferSent">Tilbod om omkamp sendt</string>
+  <string name="rematchOfferSentWhite">Kvit tilbyr omkamp</string>
+  <string name="rematchOfferSentBlack">Svart tilbyr omkamp</string>
   <string name="rematchOfferAccepted">Tilbod om omkamp godteke</string>
   <string name="rematchOfferCanceled">Førespurnad om omkamp trekt tilbake</string>
   <string name="rematchOfferDeclined">Tilbod om omkamp avslått</string>
@@ -265,6 +275,10 @@
   <string name="tournament">Turnering</string>
   <string name="tournaments">Turneringar</string>
   <string name="tournamentPoints">Turneringspoeng</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turneringspoeng</item>
+    <item quantity="other">%s turneringspoeng</item>
+  </plurals>
   <string name="viewTournament">Vis turnering</string>
   <string name="backToTournament">Tilbake til turneringa</string>
   <string name="thematic">Tematisk</string>
@@ -373,6 +387,15 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="winner">Vinnar</string>
   <string name="standing">Stilling</string>
   <string name="createANewTournament">Lag ei ny turnering</string>
+  <string name="tournamentCalendar">Turneringskalender</string>
+  <string name="conditionOfEntry">Vilkår for å delta:</string>
+  <string name="advancedSettings">Avanserte innstillingar</string>
+  <string name="safeTournamentName">Finn eit svært sikkert namn på turneringa.</string>
+  <string name="inappropriateNameWarning">Upassande innhald kan føre til at brukarkontoen din blir stengd.</string>
+  <string name="emptyTournamentName">Lat stå tomt for at turneringa skal få namn etter ein tilfeldig stormester.</string>
+  <string name="recommendNotTouching">Vi tilrår å ikkje endre desse.</string>
+  <string name="fewerPlayers">Om du set opp vilkår for deltaking vil turneringa di få færre deltakarar.</string>
+  <string name="showAdvancedSettings">Vis avanserte innstillingar</string>
   <string name="join">Bli med</string>
   <string name="withdraw">Trekk deg</string>
   <string name="points">Poeng</string>
@@ -416,6 +439,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="biography">Biografi</string>
   <string name="country">Land</string>
   <string name="preferences">Preferansar</string>
+  <string name="inlineNotation">Innbygd notasjon</string>
   <string name="watchLichessTV">Sjå på Lichess TV</string>
   <string name="previouslyOnLichessTV">Tidlegare på Lichess TV</string>
   <string name="onlinePlayers">Innlogga spelarar</string>
@@ -451,10 +475,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="retryThisPuzzle">Prøv om att</string>
   <string name="thisPuzzleIsCorrect">Denne oppgåva er korrekt og interessant</string>
   <string name="thisPuzzleIsWrong">Denne oppgåva er feil eller keisam</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Du har %s sekund på å gjera ditt første trekk!</item>
-    <item quantity="other">Du har %s sekund på å gjera ditt første trekk!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti spelast</item>
     <item quantity="other">%s parti spelast</item>
@@ -505,6 +525,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="thisAccountIsClosed">Denne kontoen er stengd.</string>
   <string name="invalidUsernameOrPassword">Feil brukarnamn eller passord</string>
   <string name="incorrectPassword">Feil passord</string>
+  <string name="invalidAuthenticationCode">Ugyldig godkjenningskode</string>
   <string name="emailMeALink">Send lekkje til meg på epost</string>
   <string name="currentPassword">Gjeldande passord</string>
   <string name="newPassword">Nytt passord</string>
@@ -625,6 +646,7 @@ i %3$s</string>
   <string name="videoLibrary">Videobibliotek</string>
   <string name="mobileApp">Mobilapp</string>
   <string name="webmasters">Webadministratorar</string>
+  <string name="about">Om</string>
   <string name="contribute">Bidra</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Brukarvilkår</string>
@@ -660,7 +682,7 @@ i %3$s</string>
   <string name="keyEnterOrExitVariation">gå inn i/gå ut av varianten</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturnering med varierande tid og sjakkvariantar</string>
-  <string name="tournamentHomeDescription">Spel fartsfylde sjakkturneringar! Delta i offisielle, faste turneringar eller lag dine eigne. Lynsjakk, hurtigsjakk, og andre variantar er tilgjengeleg for endelaus sjakkunderhaldning.</string>
+  <string name="tournamentHomeDescription">Spel fartsfylde sjakkturneringar! Delta i offisielle, planlagde turneringar eller lag dine eigne. Lynsjakk, snøggsjakk, og andre variantar er tilgjengeleg for endelaus sjakkmoro.</string>
   <string name="tournamentNotFound">Kan ikke finne turneringa</string>
   <string name="tournamentDoesNotExist">Denna turneringa finst ikkje.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blitt avbroten om alle spelarane trakk seg før turneringa starta.</string>
@@ -676,8 +698,6 @@ i %3$s</string>
   <string name="checkYourEmail">Sjekk e-posten din</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har sendt deg ein e-post. Trykk på lenka i e-posten for å aktivere kontoen din.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikkje ser e-posten, sjekk om den ligg i mappene spam, søppel, sosialt eller liknande.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Er du heilt sikker på at du registrerte e-posten din på lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Det var ikke naudsynt for registreringa.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Trykk på lenka i e-posten for å tilbakestille passordet ditt.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrere deg godtek du å binda deg til våre %s.</string>
   <string name="networkLagBetweenYouAndLichess">Nettverksforseinking mellom deg og lichess</string>
@@ -730,7 +750,7 @@ i %3$s</string>
   <string name="xHostsY">%1$s er vert for %2$s</string>
   <string name="xJoinsY">%1$s tar del i %2$s</string>
   <string name="xLikesY">%1$s liker %2$s</string>
-  <string name="quickPairing">Hurtig samankopling</string>
+  <string name="quickPairing">Snøgt parti</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
   <string name="yourScore">Din poengsum: %s</string>
@@ -746,8 +766,9 @@ i %3$s</string>
   <string name="pieceSet">Brikkesett</string>
   <string name="embedInYourWebsite">Bygg inn i nettsida di</string>
   <string name="usernameAlreadyUsed">Dette brukarnamnet er allereie i bruk, ver venleg og prøv eit anna.</string>
-  <string name="usernameInvalid">Ugyldig brukarnamn. Ver venleg og berre bruk bokstavar, tal, understreking og bindestrek.</string>
-  <string name="usernameStartNoNumber">Brukarnamnet kan ikkje starta med eit tal.</string>
+  <string name="usernamePrefixInvalid">Det første teiknet i brukarnamnet må vera ein bokstav.</string>
+  <string name="usernameSuffixInvalid">Det siste teiknet i brukarnamnet må vera ein bokstav eller eit tal.</string>
+  <string name="usernameCharsInvalid">Brukarnamnet kan berre innehalde bokstavar, tal, understrekingsteikn og bindestrekar.</string>
   <string name="usernameUnacceptable">Dette brukarnamnet er ikkje akseptabelt.</string>
   <string name="directlySupportLichess">Støtt Lichess direkte</string>
   <string name="playChessInStyle">Spel sjakk med stil</string>
@@ -764,4 +785,64 @@ i %3$s</string>
   <string name="notifications">Meldingar</string>
   <string name="challenges">Utfordringar</string>
   <string name="perfRatingX">Rating: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekund til å ta det første trekket</item>
+    <item quantity="other">%s sekund til å ta det første trekket</item>
+  </plurals>
+  <string name="practiceWithComputer">Øv med computer</string>
+  <string name="anotherWasX">Eit anna var %s</string>
+  <string name="bestWasX">Best var %s</string>
+  <string name="youBrowsedAway">Du bladde deg vekk</string>
+  <string name="resumePractice">Ta opp att øving</string>
+  <string name="theGameIsADraw">Partiet endar med remis.</string>
+  <string name="computerThinking">Computer tenker...</string>
+  <string name="seeBestMove">Sjå beste trekk</string>
+  <string name="hideBestMove">Skjul beste trekk</string>
+  <string name="getAHint">Få eit hint</string>
+  <string name="evaluatingYourMove">Vurderer trekket ditt...</string>
+  <string name="whiteWinsGame">Kvit vinn</string>
+  <string name="blackWinsGame">Svart vinn</string>
+  <string name="learnFromYourMistakes">Lær av feila dine</string>
+  <string name="learnFromThisMistake">Lær av dette mistaket</string>
+  <string name="skipThisMove">Hopp over dette trekket</string>
+  <string name="next">Neste</string>
+  <string name="xWasPlayed">%s vart spela</string>
+  <string name="findBetterMoveForWhite">Finn eit betre trekk for kvit</string>
+  <string name="findBetterMoveForBlack">Finn eit betre trekk for svart</string>
+  <string name="resumeLearning">Hald fram med læring</string>
+  <string name="youCanDoBetter">Du kan gjera det betre</string>
+  <string name="tryAnotherMoveForWhite">Prøv eit anna trekk for kvit</string>
+  <string name="tryAnotherMoveForBlack">Prøv eit anna trekk for svart</string>
+  <string name="solution">Løysing</string>
+  <string name="waitingForAnalysis">Ventar på analyse</string>
+  <string name="noMistakesFoundForWhite">Ingen feil funne for kvit</string>
+  <string name="noMistakesFoundForBlack">Ingen feil funne for svart</string>
+  <string name="doneReviewingWhiteMistakes">Ferdig med å gå gjennom kvit sine feil</string>
+  <string name="doneReviewingBlackMistakes">Ferdig med å gå gjennom svart sine feil</string>
+  <string name="doItAgain">Gjer om att</string>
+  <string name="reviewWhiteMistakes">Gå gjennom kvit sine feil</string>
+  <string name="reviewBlackMistakes">Gå gjennom svart sine feil</string>
+  <string name="advantage">Fordel</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekund</item>
+    <item quantity="other">%s sekund</item>
+  </plurals>
+  <string name="opening">Opning</string>
+  <string name="middlegame">Midtspel</string>
+  <string name="endgame">Sluttspel</string>
+  <string name="registerToSendChallenges">Opprett ein konto om du vil utforde andre.</string>
+  <string name="youCannotChallengeX">Du kan ikkje utfordre %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s tek ikkje i mot utfordringar.</string>
+  <string name="yourXRatingIsTooFarFromY">Din %1$s rating er for langt frå %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan ikkje utfordre på grunn av mellombels %s rating.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s tek berre mot utfordringar frå vener.</string>
+  <string name="conditionalPremoves">Vilkårsbundne førehandstrekk</string>
+  <string name="addCurrentVariation">Legg til gjeldande variant</string>
+  <string name="playVariationToCreateConditionalPremoves">Spel ein variant for å lage vilkårsbundne førehandstrekk</string>
+  <string name="noConditionalPremoves">Ingen vilkårsbundne førehandstrekk</string>
+  <string name="playX">Spel %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">og lagra %s line med førehandstrekk</item>
+    <item quantity="other">og lagra %s liner med førehandstrekk</item>
+  </plurals>
 </resources>

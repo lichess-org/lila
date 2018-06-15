@@ -1,5 +1,5 @@
 const headers = {
-  'Accept': 'application/vnd.lichess.v2+json'
+  'Accept': 'application/vnd.lichess.v3+json'
 };
 
 export function reload(baseUrl: string, id: string, chapterId?: string) {
@@ -21,7 +21,7 @@ export function variants() {
 
 export function glyphs() {
   return $.ajax({
-    url: '/glyphs',
+    url: window.lichess.assetUrl('/assets/glyphs.json', { noVersion: true }),
     headers,
     cache: true
   });
@@ -38,6 +38,15 @@ export function practiceComplete(chapterId: string, nbMoves: number) {
   return $.ajax({
     method: 'POST',
     url: ['/practice/complete', chapterId, nbMoves].join('/'),
+    headers
+  });
+}
+
+export function importPgn(studyId: string, data: any) {
+  return $.ajax({
+    method: 'POST',
+    url: `/study/${studyId}/import-pgn`,
+    data: data,
     headers
   });
 }

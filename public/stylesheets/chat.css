@@ -94,6 +94,7 @@ div.mchat .messages li {
   padding: 0.4em 0 0.4em 5px;
   line-height: 14px;
   margin: 0;
+  overflow-y: hidden;
 }
 body.no-select div.mchat .messages li {
   -moz-user-select: text;
@@ -112,10 +113,15 @@ div.mchat .messages .system {
 }
 div.mchat .messages span,
 div.mchat .messages .user_link {
-  font-family: 'Roboto';
+  font-weight: bold;
   padding: 0;
-  margin-right: 6px;
-  opacity: 0.8;
+  color: #888;
+  word-spacing: 0.3em;
+  letter-spacing: -1px;
+}
+body.dark div.mchat .messages span,
+body.dark div.mchat .messages .user_link {
+  color: #777;
 }
 div.mchat .messages a:not(.user_link) {
   font-family: 'Roboto';

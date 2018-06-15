@@ -1,6 +1,6 @@
 package lila
 
-package object relation extends PackageObject with WithPlay {
+package object relation extends PackageObject {
 
   type Relation = Boolean
   val Follow: Relation = true

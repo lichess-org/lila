@@ -22,13 +22,13 @@ private final class Monitor(
     result.stockfish.options.hashInt foreach { monitor.hash(_) }
     result.stockfish.options.threadsInt foreach { monitor.threads(_) }
 
-    monitor.totalSecond(sumOf(result.analysis)(_.time) * threads.|(1) / 1000)
-    monitor.totalMeganode(sumOf(result.analysis) { eval =>
+    monitor.totalSecond(sumOf(result.evaluations)(_.time) * threads.|(1) / 1000)
+    monitor.totalMeganode(sumOf(result.evaluations) { eval =>
       eval.nodes ifFalse eval.mateFound
     } / 1000000)
-    monitor.totalPosition(result.analysis.size)
+    monitor.totalPosition(result.evaluations.size)
 
-    val metaMovesSample = sample(result.analysis.drop(6).filterNot(_.mateFound), 100)
+    val metaMovesSample = sample(result.evaluations.drop(6).filterNot(_.mateFound), 100)
     def avgOf(f: JsonApi.Request.Evaluation => Option[Int]): Option[Int] = {
       val (sum, nb) = metaMovesSample.foldLeft(0 -> 0) {
         case ((sum, nb), move) => f(move).fold(sum -> nb) { v =>
@@ -41,10 +41,10 @@ private final class Monitor(
     avgOf(_.nodes) foreach { monitor.node(_) }
     avgOf(_.cappedNps) foreach { monitor.nps(_) }
     avgOf(_.depth) foreach { monitor.depth(_) }
-    avgOf(_.pvList.size.some) foreach { monitor.pvSize(_) }
+    avgOf(_.pv.size.some) foreach { monitor.pvSize(_) }
 
     val significantPvSizes =
-      result.analysis.filterNot(_.mateFound).filterNot(_.deadDraw).map(_.pvList.size)
+      result.evaluations.filterNot(_.mateFound).filterNot(_.deadDraw).map(_.pv.size)
 
     monitor.pvTotal(significantPvSizes.size)
     monitor.pvShort(significantPvSizes.count(_ < 3))

@@ -50,7 +50,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "notify",
     getLightUser = lila.user.Env.current.lightUserSync,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = old.play.Env.actorSystem
+    system = lila.common.PlayApp.system
   )
 
 }

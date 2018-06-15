@@ -8,7 +8,6 @@ import play.api.libs.json._
 import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.user.User
-import lila.common.PimpedJson._
 
 // correspondence chess, persistent
 case class Seek(
@@ -103,7 +102,8 @@ object Seek {
     createdAt = DateTime.now
   )
 
-  import reactivemongo.bson._
+  import reactivemongo.bson.{ MapReader => _, MapWriter => _, _ }
+  import lila.db.BSON.MapValue.MapHandler
   import lila.db.BSON.BSONJodaDateTimeHandler
   implicit val lobbyPerfBSONHandler = new BSONHandler[BSONInteger, LobbyPerf] {
     def read(b: BSONInteger) = LobbyPerf(b.value.abs, b.value < 0)

@@ -35,7 +35,7 @@ private final class Cleaner(
     "acquired.date" -> BSONDocument("$lt" -> durationAgo(analysisTimeoutBase))
   )).sort(BSONDocument("acquired.date" -> 1)).cursor[Work.Analysis]().gather[List](100).flatMap {
     _.filter { ana =>
-      ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbPly)))
+      ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbMoves)))
     }.map { ana =>
       repo.updateOrGiveUpAnalysis(ana.timeout) >>-
         logger.info(s"Timeout analysis $ana") >>-

@@ -9,11 +9,12 @@ import views._
 
 object Coach extends LilaController {
 
-  private val api = Env.coach.api
+  private def api = Env.coach.api
 
   def allDefault(page: Int) = all(CoachPager.Order.Login.key, page)
 
   def all(o: String, page: Int) = Open { implicit ctx =>
+    pageHit
     val order = CoachPager.Order(o)
     Env.coach.pager(order, page) map { pager =>
       Ok(html.coach.index(pager, order))
@@ -27,9 +28,9 @@ object Coach extends LilaController {
           c.coach.profile.studyIds.map(_.value).map(lila.study.Study.Id.apply)
         } flatMap Env.study.pager.withChaptersAndLiking(ctx.me) flatMap { studies =>
           api.reviews.approvedByCoach(c.coach) flatMap { reviews =>
-            ctx.me.?? { api.reviews.isPending(_, c.coach) } map { isPending =>
+            ctx.me.?? { api.reviews.mine(_, c.coach) } map { myReview =>
               lila.mon.coach.pageView.profile(c.coach.id.value)()
-              Ok(html.coach.show(c, reviews, studies, reviewApproval = isPending))
+              Ok(html.coach.show(c, reviews, studies, myReview))
             }
           }
         }
@@ -44,12 +45,12 @@ object Coach extends LilaController {
         lila.coach.CoachReviewForm.form.bindFromRequest.fold(
           err => Redirect(routes.Coach.show(c.user.username)).fuccess,
           data => {
-            if (data.score < 4) Env.report.api.create(lila.report.Report.make(
-              user = c.user,
+            if (data.score < 4) Env.report.api.create(lila.report.Report.Candidate(
+              reporter = lila.report.Reporter(me),
+              suspect = lila.report.Suspect(c.user),
               reason = lila.report.Reason.Other,
-              text = s"[COACH REVIEW rating=${data.score}/5] ${data.text}",
-              createdBy = me
-            ), c.user, me)
+              text = s"[COACH REVIEW rating=${data.score}/5] ${data.text}"
+            ))
             api.reviews.add(me, c.coach, data) map { review =>
               Redirect(routes.Coach.show(c.user.username))
             }
@@ -65,6 +66,13 @@ object Coach extends LilaController {
         case false => notFound
         case true => api.reviews.approve(review, getBool("v")) inject Ok
       }
+    }
+  }
+
+  def modReview(id: String) = SecureBody(_.DisapproveCoachReview) { implicit ctx => me =>
+    OptionFuResult(api.reviews byId id) { review =>
+      Env.mod.logApi.coachReview(me.id, review.coachId.value, review.userId) >>
+        api.reviews.mod(review) inject Redirect(routes.Coach.show(review.coachId.value))
     }
   }
 
@@ -96,11 +104,11 @@ object Coach extends LilaController {
     }
   }
 
-  def pictureApply = AuthBody(parse.multipartFormData) { implicit ctx => me =>
+  def pictureApply = AuthBody(BodyParsers.parse.multipartFormData) { implicit ctx => me =>
     OptionFuResult(api findOrInit me) { c =>
       ctx.body.body.file("picture") match {
         case Some(pic) => api.uploadPicture(c, pic) recover {
-          case e: lila.common.LilaException => BadRequest(html.coach.picture(c, e.message.some))
+          case e: lila.base.LilaException => BadRequest(html.coach.picture(c, e.message.some))
         } inject Redirect(routes.Coach.edit)
         case None => fuccess(Redirect(routes.Coach.edit))
       }

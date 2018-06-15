@@ -1,7 +1,6 @@
 package lila.socket
 
 import scala.concurrent.duration._
-import scala.concurrent.Future
 import scala.util.Random
 
 import akka.actor.{ Deploy => _, _ }
@@ -26,7 +25,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // to ensure the listener is ready (sucks, I know)
   val startsOnApplicationBoot: Boolean = false
 
-  override def preStart {
+  override def preStart: Unit = {
     if (startsOnApplicationBoot)
       context.system.scheduler.scheduleOnce(1 second) {
         lilaBus.publish(lila.socket.SocketHub.Open(self), 'socket)
@@ -34,7 +33,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     else lilaBus.publish(lila.socket.SocketHub.Open(self), 'socket)
   }
 
-  override def postStop() {
+  override def postStop(): Unit = {
     super.postStop()
     lilaBus.publish(lila.socket.SocketHub.Close(self), 'socket)
     members foreachKey eject
@@ -76,15 +75,15 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
       if (condition(member)) member push msg
     }
 
-  def notifyMember[A: Writes](t: String, data: A)(member: M) {
+  def notifyMember[A: Writes](t: String, data: A)(member: M): Unit = {
     member push makeMessage(t, data)
   }
 
-  def notifyUid[A: Writes](t: String, data: A)(uid: Socket.Uid) {
+  def notifyUid[A: Writes](t: String, data: A)(uid: Socket.Uid): Unit = {
     withMember(uid.value)(_ push makeMessage(t, data))
   }
 
-  def ping(uid: String, lagCentis: Option[Centis]) {
+  def ping(uid: String, lagCentis: Option[Centis]): Unit = {
     setAlive(uid)
     withMember(uid) { member =>
       member push pong
@@ -95,55 +94,67 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     }
   }
 
-  def broom {
+  private val monitoredTimeout = Set("jannlee", "yasser-seirawan", "isaacly", "thibault")
+
+  def broom: Unit = {
     members.keys foreach { uid =>
-      if (!aliveUids.get(uid)) eject(uid)
+      if (!aliveUids.get(uid)) {
+        for { // Does people time out here?
+          member <- members get uid
+          userId <- member.userId
+          if monitoredTimeout(userId)
+        } {
+          lila.mon.socket.eject(userId)
+          lila.mon.socket.ejectAll()
+        }
+        eject(uid)
+      }
     }
   }
 
-  def eject(uid: String) {
+  def eject(uid: String): Unit = {
     withMember(uid) { member =>
       member.end
       quit(uid)
     }
   }
 
-  def quit(uid: String) {
+  def quit(uid: String): Unit = {
     members get uid foreach { member =>
       members -= uid
       lilaBus.publish(SocketLeave(uid, member), 'socketDoor)
     }
   }
 
-  def onDeploy(d: Deploy) {
+  def onDeploy(d: Deploy): Unit = {
     notifyAll(makeMessage(d.key))
   }
 
   private val resyncMessage = makeMessage("resync")
 
-  protected def resync(member: M) {
+  protected def resync(member: M): Unit = {
     import scala.concurrent.duration._
     context.system.scheduler.scheduleOnce((Random nextInt 2000).milliseconds) {
       resyncNow(member)
     }
   }
 
-  protected def resync(uid: String) {
+  protected def resync(uid: String): Unit = {
     withMember(uid)(resync)
   }
 
-  protected def resyncNow(member: M) {
+  protected def resyncNow(member: M): Unit = {
     member push resyncMessage
   }
 
-  def addMember(uid: String, member: M) {
+  def addMember(uid: String, member: M): Unit = {
     eject(uid)
     members += (uid -> member)
     setAlive(uid)
     lilaBus.publish(SocketEnter(uid, member), 'socketDoor)
   }
 
-  def setAlive(uid: String) { aliveUids put uid }
+  def setAlive(uid: String): Unit = { aliveUids put uid }
 
   def membersByUserId(userId: String): Iterable[M] = members collect {
     case (_, member) if member.userId.contains(userId) => member
@@ -155,30 +166,29 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def uidToUserId(uid: Socket.Uid): Option[String] = members get uid.value flatMap (_.userId)
 
-  val maxSpectatorUsers = 10
+  val maxSpectatorUsers = 15
 
-  def showSpectators(lightUser: LightUser.Getter)(watchers: Iterable[SocketMember]): Fu[JsValue] = {
+  def showSpectators(lightUser: LightUser.Getter)(watchers: Iterable[SocketMember]): Fu[JsValue] = watchers.size match {
+    case 0 => fuccess(JsNull)
+    case s if s > maxSpectatorUsers => fuccess(Json.obj("nb" -> s))
+    case s => {
+      val userIdsWithDups = watchers.toSeq.flatMap(_.userId)
+      val anons = s - userIdsWithDups.size
+      val userIds = userIdsWithDups.distinct
 
-    val (total, anons, userIds) = watchers.foldLeft((0, 0, Set.empty[String])) {
-      case ((total, anons, userIds), member) => member.userId match {
-        case Some(userId) if !userIds(userId) && userIds.size < maxSpectatorUsers => (total + 1, anons, userIds + userId)
-        case Some(_) => (total + 1, anons, userIds)
-        case _ => (total + 1, anons + 1, userIds)
+      val total = anons + userIds.size
+
+      userIds.map(lightUser).sequenceFu.map { users =>
+        Json.obj(
+          "nb" -> total,
+          "users" -> users.flatten.map(_.titleName),
+          "anons" -> anons
+        )
       }
-    }
-
-    if (total == 0) fuccess(JsNull)
-    else if (userIds.size >= maxSpectatorUsers) fuccess(Json.obj("nb" -> total))
-    else userIds.map(lightUser).sequenceFu.map { users =>
-      Json.obj(
-        "nb" -> total,
-        "users" -> users.flatten.map(_.titleName),
-        "anons" -> anons
-      )
     }
   }
 
-  def withMember(uid: String)(f: M => Unit) {
+  def withMember(uid: String)(f: M => Unit): Unit = {
     members get uid foreach f
   }
 }

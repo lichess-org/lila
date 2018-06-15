@@ -1,3 +1,3 @@
 package lila
 
-package object perfStat extends PackageObject with WithPlay
+package object perfStat extends PackageObject

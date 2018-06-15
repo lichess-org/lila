@@ -1,0 +1,14 @@
+#tournament form fieldset {
+  margin: 1.5em 0;
+  border-color: rgba(128,128,128,0.3);
+}
+#tournament form fieldset legend {
+  text-align: center;
+}
+#tournament form fieldset p {
+  margin: 20px;
+}
+#tournament form fieldset .material {
+  display: none;
+  margin: 40px 20px -20px 20px;
+}

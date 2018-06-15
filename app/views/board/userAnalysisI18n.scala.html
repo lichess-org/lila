@@ -1,5 +1,6 @@
-@(withCeval: Boolean = true, withExplorer: Boolean = true)(implicit ctx: Context)
-@Html(J.stringify(i18nJsObject(
+@(withCeval: Boolean = true, withExplorer: Boolean = true, withForecast: Boolean = false)(implicit ctx: Context)
+@import play.api.libs.json.Json
+@safeJson(i18nJsObject(
 trans.analysis,
 trans.flipBoard,
 trans.backToGame,
@@ -22,6 +23,15 @@ trans.whitePlays,
 trans.blackPlays,
 trans.gameOver,
 trans.importPgn,
+trans.requestAComputerAnalysis,
+trans.computerAnalysis,
+trans.learnFromYourMistakes,
+trans.averageCentipawnLoss,
+trans.inaccuracies,
+trans.mistakes,
+trans.blunders,
+trans.goodMove,
+trans.viewTheSolution,
 // action menu
 trans.menu,
 trans.boardEditor,
@@ -29,10 +39,39 @@ trans.continueFromHere,
 trans.playWithTheMachine,
 trans.playWithAFriend,
 trans.openStudy,
+trans.preferences,
+trans.inlineNotation,
 trans.replayMode,
 trans.slow,
 trans.fast,
-trans.realtimeReplay
+trans.realtimeReplay,
+// context menu
+trans.promoteVariation,
+trans.makeMainLine,
+trans.deleteFromHere,
+// practice (also uses checkmate, draw)
+trans.practiceWithComputer,
+trans.goodMove,
+trans.inaccuracy,
+trans.mistake,
+trans.blunder,
+trans.threefoldRepetition,
+trans.anotherWasX,
+trans.bestWasX,
+trans.youBrowsedAway,
+trans.resumePractice,
+trans.whiteWinsGame,
+trans.blackWinsGame,
+trans.theGameIsADraw,
+trans.yourTurn,
+trans.computerThinking,
+trans.seeBestMove,
+trans.hideBestMove,
+trans.getAHint,
+trans.evaluatingYourMove,
+// gamebook
+trans.findTheBestMoveForWhite,
+trans.findTheBestMoveForBlack
 ) ++ withCeval.fold(i18nJsObject(
 // ceval (also uses gameOver)
 trans.depthX,
@@ -53,7 +92,7 @@ trans.removesTheDepthLimit,
 trans.multipleLines,
 trans.cpus,
 trans.memory
-), J.obj()) ++ withExplorer.fold(i18nJsObject(
+), Json.obj()) ++ withExplorer.fold(i18nJsObject(
 // explorer (also uses gameOver, checkmate, stalemate, draw, variantEnding)
 trans.openingExplorerAndTablebase,
 trans.openingExplorer,
@@ -85,4 +124,12 @@ trans.maybeIncludeMoreGamesFromThePreferencesMenu,
 trans.winPreventedBy50MoveRule,
 trans.lossSavedBy50MoveRule,
 trans.allSet
-), J.obj())))
+), Json.obj()) ++ withForecast.fold(i18nJsObject(
+// forecast
+trans.conditionalPremoves,
+trans.addCurrentVariation,
+trans.playVariationToCreateConditionalPremoves,
+trans.noConditionalPremoves,
+trans.playX,
+trans.andSaveNbPremoveLines
+), Json.obj()))

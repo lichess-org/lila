@@ -99,6 +99,9 @@ lichess.chartCommon = function(type) {
             color: text.strong
           }
         },
+        lang: {
+  	      thousandsSep: ''
+        },
         tooltip: {
           backgroundColor: {
             linearGradient: {

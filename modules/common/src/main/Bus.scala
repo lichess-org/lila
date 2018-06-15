@@ -10,7 +10,7 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
   type Classifier = Symbol
   type Subscriber = ActorRef
 
-  def publish(payload: Any, channel: Classifier) {
+  def publish(payload: Any, channel: Classifier): Unit = {
     publish(Bus.Event(payload, channel))
   }
 
@@ -40,7 +40,7 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
   /**
    * Attempts to deregister the subscriber from all Classifiers it may be subscribed to
    */
-  def unsubscribe(subscriber: Subscriber) {
+  def unsubscribe(subscriber: Subscriber): Unit = {
     // log(s"[UN]subscribe ALL $subscriber")
     bus unsubscribe subscriber
   }
@@ -48,7 +48,7 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
   /**
    * Publishes the specified Event to this bus
    */
-  def publish(event: Event) {
+  def publish(event: Event): Unit = {
     // log(event.toString)
     bus publish event
   }

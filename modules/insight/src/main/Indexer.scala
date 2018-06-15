@@ -4,6 +4,7 @@ import akka.actor.ActorRef
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import reactivemongo.bson._
+import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._
 import lila.db.dsl._
@@ -39,7 +40,7 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
   private def gameQuery(user: User) = Query.user(user.id) ++
     Query.rated ++
     Query.finished ++
-    Query.turnsMoreThan(2) ++
+    Query.turnsGt(2) ++
     Query.notFromPosition ++
     Query.notHordeOrSincePawnsAreWhite
 
@@ -53,11 +54,11 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
         .find(gameQuery(user))
         .sort(Query.sortCreated)
         .skip(maxGames - 1)
-        .uno[Game]
+        .uno[Game](readPreference = ReadPreference.secondaryPreferred)
     } orElse GameRepo.coll
       .find(gameQuery(user))
       .sort(Query.sortChronological)
-      .uno[Game]
+      .uno[Game](readPreference = ReadPreference.secondaryPreferred)
 
   private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit = {
     import reactivemongo.play.iteratees.cursorProducer
@@ -70,7 +71,7 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
         PovToEntry(game, user.id, provisional = nb < 10).addFailureEffect { e =>
           println(e)
           e.printStackTrace
-        } map (_.toOption)
+        } map (_.right.toOption)
       }
       val query = gameQuery(user) ++ $doc(Game.BSONFields.createdAt $gte from)
       GameRepo.sortedCursor(query, Query.sortChronological)

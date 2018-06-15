@@ -23,6 +23,7 @@ object Video extends LilaController {
   }
 
   def index = Open { implicit ctx =>
+    pageHit
     WithUserControl { control =>
       control.query match {
         case Some(query) => env.api.video.search(ctx.me, query, getInt("page") | 1) map { videos =>

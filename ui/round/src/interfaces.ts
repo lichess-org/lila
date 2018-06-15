@@ -17,6 +17,7 @@ export interface Untyped {
 
 export interface SocketOpts {
   ackable: boolean;
+  withLag?: boolean;
   millis?: number;
 }
 
@@ -55,6 +56,13 @@ export interface RoundData extends GameData {
   userTv?: {
     id: string;
   };
+  expiration?: Expiration;
+}
+
+export interface Expiration {
+  idleMillis: number;
+  movedAt: number;
+  millisToMove: number;
 }
 
 export interface Tv {

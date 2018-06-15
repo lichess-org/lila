@@ -3,7 +3,7 @@ import * as button from '../view/button';
 import { bind, justIcon } from '../util';
 import { game } from 'game';
 import RoundController from '../ctrl';
-import { ClockElements, ClockController, TenthsPref, Millis } from './clockCtrl';
+import { ClockElements, ClockController, Millis } from './clockCtrl';
 import { Player } from 'game';
 import { Position } from '../interfaces';
 
@@ -16,7 +16,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
     const els = clock.elements[player.color]
     els.time = el;
     els.clock = el.parentElement!;
-    el.innerHTML = formatClockTime(clock.showTenths, millis, isRunning);
+    el.innerHTML = formatClockTime(millis, clock.showTenths(millis), isRunning);
   }
   return h('div.clock.clock_' + player.color + '.clock_' + position, {
     class: {
@@ -45,7 +45,7 @@ function pad2(num: number): string {
 const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
 
-function formatClockTime(showTenths: TenthsPref, time: Millis, isRunning: boolean) {
+function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean) {
   const date = new Date(time),
   millis = date.getUTCMilliseconds(),
   sep = (isRunning && millis < 500) ? sepLow : sepHigh,
@@ -53,38 +53,35 @@ function formatClockTime(showTenths: TenthsPref, time: Millis, isRunning: boolea
   if (time >= 3600000) {
     const hours = pad2(Math.floor(time / 3600000));
     return hours + sepHigh + baseStr;
-  } else if (time >= 10000 && showTenths !== 2 || showTenths === 0) {
-    return baseStr;
-  } else {
+  } else if (showTenths) {
     let tenthsStr = Math.floor(millis / 100).toString();
     if (!isRunning && time < 1000) {
       tenthsStr += '<huns>' + (Math.floor(millis / 10) % 10) + '</huns>';
     }
 
     return baseStr + '<tenths><sep>.</sep>' + tenthsStr + '</tenths>';
+  } else {
+    return baseStr;
   }
 }
 
 function showBar(ctrl: ClockController, els: ClockElements, millis: Millis, berserk: boolean) {
   const update = (el: HTMLElement) => {
     els.bar = el;
-    el.style.width = ctrl.timePercent(millis) + '%';
+    el.style.transform = "scale(" + ctrl.timeRatio(millis) + ",1)";
   };
   return ctrl.showBar ? h('div.bar', {
-    class: { berserk }
-  }, [
-    h('span', {
-      hook: {
+    class: { berserk },
+    hook: {
         insert: vnode => update(vnode.elm as HTMLElement),
         postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
-      }
-    })
-  ]) : null;
+    }
+  }) : null;
 }
 
 export function updateElements(clock: ClockController, els: ClockElements, millis: Millis) {
-  if (els.time) els.time.innerHTML = formatClockTime(clock.showTenths, millis, true);
-  if (els.bar) els.bar.style.width = clock.timePercent(millis) + '%';
+  if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true);
+  if (els.bar) els.bar.style.transform = "scale(" + clock.timeRatio(millis) + ",1)";
   if (els.clock) {
     if (millis < clock.emergMs) els.clock.classList.add("emerg");
     else els.clock.classList.remove("emerg");

@@ -71,7 +71,7 @@ final class StudyPager(
         new CachedAdapter(adapter, nb)
       },
       currentPage = page,
-      maxPerPage = maxPerPage.value
+      maxPerPage = maxPerPage
     )
   }
 

@@ -4,17 +4,15 @@ import org.joda.time.{ DateTime, Interval }
 import play.api.libs.json._
 
 import lila.common.Iso
-import lila.common.PimpedJson.{ jodaDateWrites => _, _ }
+import lila.common.PimpedJson._
 import lila.game.JsonView.colorWrites
-import lila.game.Pov
+import lila.game.{ Pov, LightPov }
 import lila.rating.PerfType
 import lila.simul.Simul
 import lila.study.JsonView.studyIdNameWrites
 import lila.team.Team
-import lila.tournament.JsonView._
 import lila.tournament.LeaderboardApi.{ Entry => TourEntry, Ratio => TourRatio }
 import lila.tournament.Tournament
-import lila.tournament.{ Cached => TourCached }
 import lila.user.User
 
 import activities._
@@ -80,15 +78,11 @@ final class JsonView(
         .add("user" -> p.userId)
         .add("rating" -> p.rating)
     }
-    implicit val povWrites = OWrites[Pov] { p =>
+    implicit val lightPovWrites = OWrites[LightPov] { p =>
       Json.obj(
-        "id" -> p.gameId,
+        "id" -> p.game.id,
         "color" -> p.color,
-        "url" -> s"/${p.gameId}/${p.color.name}",
-        "variant" -> p.game.variant,
-        "speed" -> p.game.speed.key,
-        "perf" -> lila.game.PerfPicker.key(p.game),
-        "rated" -> p.game.rated,
+        "url" -> s"/${p.game.id}/${p.color.name}",
         "opponent" -> p.opponent
       )
     }
@@ -138,5 +132,6 @@ final class JsonView(
         )
       }))
       .add("patron" -> a.patron)
+      .add("stream" -> a.stream)
   }
 }

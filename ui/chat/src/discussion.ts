@@ -83,6 +83,11 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
   });
 }
 
+function hasTeamUrl(txt: string) {
+  return !!txt.match(teamUrlRegex);
+}
+const teamUrlRegex = /lichess\.org\/team\//
+
 function sameLines(l1: Line, l2: Line) {
   return l1.d && l2.d && l1.u === l2.u;
 }
@@ -137,9 +142,4 @@ function renderLine(ctrl: Ctrl, line: Line) {
     userNode,
     textNode
   ] : [userNode, textNode]);
-}
-
-const teamUrlRegex = /lichess\.org\/team\//;
-function hasTeamUrl(txt: string) {
-  return !!txt.match(teamUrlRegex);
 }

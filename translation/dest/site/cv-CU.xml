@@ -101,7 +101,6 @@
   <string name="changePassword">Кӗме сӑмах улӑштарни</string>
   <string name="changeEmail">Ел. пуштӑ улӑштарни</string>
   <string name="email">Ел. пуштӑ</string>
-  <string name="emailIsOptional">Ел. пуштӑ тивӗҫлӗ мар. Кӗме сӑмахна манса кайсан, ҫӗнӗ кӗме сӑмах лартас тесе Lichess сан пуштӑпа усӑ курӗ.</string>
   <string name="passwordReset">Кӗме сӑмах улӑштарасси</string>
   <string name="forgotPassword">Кӗме сӑмаха мансан</string>
   <string name="rank">Хаклав</string>
@@ -311,9 +310,6 @@
   <string name="retryThisPuzzle">Лартӑм ҫӗнерен шутла</string>
   <string name="thisPuzzleIsCorrect">Ку лартӑм тӗрӗс тата кӑсӑклӑ</string>
   <string name="thisPuzzleIsWrong">Ку лартӑм тӗрӗс мар йе йӑлӑхтармӑш</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="other">Пӗрремӗш утӑм тумашкӑн %s ҫеккунт йулчӗ!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s вӑйӑ пырать</item>
   </plurals>
@@ -387,7 +383,7 @@
   <string name="none">Унсӑр</string>
   <string name="fast">Хӑвӑрт</string>
   <string name="normal">Виҫеллӗ</string>
-  <string name="slow">Вӑрах</string>
+  <string name="slow">Вӑрах вӑйӑ</string>
   <string name="insideTheBoard">Хӑма ӑшӗнче</string>
   <string name="outsideTheBoard">Хӑма тулӗнче</string>
   <string name="onSlowGames">Вӑрах вӑйӑра</string>
@@ -428,6 +424,7 @@
   <string name="playOnTheBoardOffline">Пӗр хӑма ҫинче</string>
   <string name="playOfflineComputer">Компйутӑр</string>
   <string name="opponent">Ӑмӑртуҫӑ</string>
+  <string name="learnMenu">Вӗренӳ</string>
   <string name="community">Пӗрлешӳ</string>
   <string name="tools">Мехел</string>
   <string name="increment">Инкремент</string>
@@ -441,6 +438,7 @@
   <string name="error.email_acceptable">Ку ел. пуштӑна йышӑнма ҫук</string>
   <string name="error.email_unique">Ҫак ел. пуштӑпа усӑ кураҫҫӗ ӗнтӗ</string>
   <string name="blindfoldChess">Суккӑр шахмат (курӑнман кӗлетке)</string>
+  <string name="zenMode">Дсӑн решимӗ</string>
   <string name="moveConfirmation">Куҫӑма ҫирӗплетесси</string>
   <string name="inCorrespondenceGames">Куҫӑн мар вӑйӑсем</string>
   <string name="ifRatingIsPlusMinusX">Рейтингӗ ± %s пулсан</string>
@@ -499,8 +497,6 @@
   <string name="checkYourEmail">Ел. пуштуна тӗрӗсле</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Епир сан патна ел. ҫыру йатӑмӑр. Аккаунтна тапратас тесе ҫырури каҫӑ ҫине пус.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ҫырӑвӗ курӑнмасть пулсан, вӑл пурри-ҫуккине спам папкинче йе ытти папкӑра тӗрӗсле.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Хӑвӑн ел. пуштӑна Lichess сайтра чӑн та регистратсиленӗ-и?</string>
-  <string name="itWasNotRequiredForYourRegistration">Есӗ регистратсиленнӗ чухне ку адресне ҫырса кӑтартман.</string>
   <string name="weHaveSentYouAnEmailTo">Епир %s ҫине ҫыру йатӑмӑр. Вӑрттӑн сӑмахна улӑштарас тесе ҫырури каҫӑ ҫине пус.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистратсилесси пирӗн %s килӗшессине пӗлтерет.</string>
   <string name="networkLagBetweenYouAndLichess">Санпа Lichess хушшинче тетел чӑрмантарса тӑни пур</string>
@@ -532,4 +528,20 @@
     <item quantity="other">%s чӗлхене куҫарнӑ!</item>
   </plurals>
   <string name="gameAnalysis">Вӑййа тишкересси</string>
+  <string name="quickPairing">Хӑвӑрт пуҫласси</string>
+  <string name="lobby">Суйласси</string>
+  <string name="anonymous">Йатсӑр ҫын</string>
+  <string name="language">Чӗлхе</string>
+  <string name="background">Фон</string>
+  <string name="light">Ҫутӑ</string>
+  <string name="dark">Тӗттӗм</string>
+  <string name="transparent">Витӗр курӑнакан</string>
+  <string name="backgroundImageUrl">Фонри ӳкерчӗк каҫҫи:</string>
+  <string name="boardGeometry">Хӑма геометрийӗ</string>
+  <string name="boardTheme">Хӑма теми</string>
+  <string name="boardSize">Хӑма калӑпӑшӗ</string>
+  <string name="pieceSet">Кӗлетке пуххи</string>
+  <string name="chessBasics">Шахмат никӗсӗсем</string>
+  <string name="coaches">Хӑнӑхтаруҫӑ</string>
+  <string name="challenges">Чӗнтерӳ</string>
 </resources>

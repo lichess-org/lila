@@ -1,5 +1,6 @@
 package lila.challenge
 
+import chess.format.FEN
 import chess.variant.{ Variant, FromPosition }
 import chess.{ Mode, Speed }
 import org.joda.time.DateTime
@@ -12,7 +13,7 @@ case class Challenge(
     _id: String,
     status: Challenge.Status,
     variant: Variant,
-    initialFen: Option[String],
+    initialFen: Option[FEN],
     timeControl: Challenge.TimeControl,
     mode: Mode,
     colorChoice: Challenge.ColorChoice,
@@ -50,13 +51,16 @@ case class Challenge(
   def hasClock = clock.isDefined
 
   def openDest = destUser.isEmpty
-  def active = status == Status.Created || status == Status.Offline
+  def online = status == Status.Created
+  def active = online || status == Status.Offline
   def declined = status == Status.Declined
   def accepted = status == Status.Accepted
 
   def setDestUser(u: User) = copy(
     destUser = toRegistered(variant, timeControl)(u).some
   )
+
+  def speed = speedOf(timeControl)
 
   lazy val perfType = perfTypeOf(variant, timeControl)
 }
@@ -129,7 +133,7 @@ object Challenge {
 
   def make(
     variant: Variant,
-    initialFen: Option[String],
+    initialFen: Option[FEN],
     timeControl: TimeControl,
     mode: Mode,
     color: String,
@@ -143,7 +147,7 @@ object Challenge {
       case _ => ColorChoice.Random -> chess.Color(scala.util.Random.nextBoolean)
     }
     val finalMode = timeControl match {
-      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(variant, clock) => Mode.Casual
+      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(variant, clock.some) => Mode.Casual
       case _ => mode
     }
     new Challenge(
@@ -152,7 +156,7 @@ object Challenge {
       variant = variant,
       initialFen = (variant == FromPosition).fold(
         initialFen,
-        Some(variant.initialFen).ifFalse(variant.standardInitialPosition)
+        !variant.standardInitialPosition option FEN(variant.initialFen)
       ),
       timeControl = timeControl,
       mode = finalMode,

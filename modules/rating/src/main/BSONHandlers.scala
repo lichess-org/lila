@@ -1,7 +1,5 @@
 package lila.rating
 
-import reactivemongo.bson._
-
 import lila.db.dsl._
 import lila.common.Iso
 

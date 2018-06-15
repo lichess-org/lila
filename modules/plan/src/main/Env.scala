@@ -61,6 +61,13 @@ final class Env(
   }
 
   def webhook = webhookHandler.apply _
+
+  def cli = new lila.common.Cli {
+    def process = {
+      case "patron" :: "lifetime" :: user :: Nil =>
+        lila.user.UserRepo named user flatMap { _ ?? api.setLifetime } inject "ok"
+    }
+  }
 }
 
 object Env {
@@ -71,7 +78,7 @@ object Env {
     hub = lila.hub.Env.current,
     notifyApi = lila.notify.Env.current.api,
     lightUserApi = lila.user.Env.current.lightUserApi,
-    bus = old.play.Env.actorSystem.lilaBus,
+    bus = lila.common.PlayApp.system.lilaBus,
     asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler
   )

@@ -109,7 +109,6 @@
   <string name="changePassword">இரகசிய இலக்கத்தை மாற்று</string>
   <string name="changeEmail">மின்னஞ்சலை மாற்று</string>
   <string name="email">மின்னஞ்சல்</string>
-  <string name="emailIsOptional">மின்னஞ்சல் விருப்பமாகும்.  உங்கள் கடவுச்சொல்லை நீங்கள் மறந்து விட்டால் அதை மீட்டமைக்க உங்கள் மின்னஞ்சல் முகவரியை Lichess பயன்படுத்தும்.</string>
   <string name="passwordReset">கடவுச்சொல்லை மீட்டமை</string>
   <string name="forgotPassword">கடவுச்சொல்லை மறந்து விட்டீர்களா?</string>
   <string name="rank">வரிசை</string>
@@ -333,10 +332,6 @@
   <string name="retryThisPuzzle">இப்புதிரை மீண்டும் முயற்சிக்கவும்</string>
   <string name="thisPuzzleIsCorrect">இப்புதிர் சரியானது மற்றும் சுவாரசியமானது</string>
   <string name="thisPuzzleIsWrong">இப்புதிர் தவறானது மற்றும் சலிப்பூட்டுவது</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">நீங்கள் உங்கள் முதல் காயை நகர்த்த %s விநாடிகளே உள்ளது!</item>
-    <item quantity="other">நீங்கள் உங்கள் முதல் காயை நகர்த்த %s விநாடிகளே உள்ளது!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s விளையாட்டுக்கள்</item>
     <item quantity="other">%s விளையாட்டுக்கள்</item>

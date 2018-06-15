@@ -11,6 +11,18 @@ object Chronometer {
       if (millis >= threshold) logger.debug(s"<${millis}ms> ${msg(result)}")
       this
     }
+
+    def pp: A = {
+      println(s"chrono $showDuration")
+      result
+    }
+
+    def pp(msg: String): A = {
+      println(s"chrono $msg - $showDuration")
+      result
+    }
+
+    def showDuration: String = if (millis >= 1) f"$millis%.2f ms" else s"$micros micros"
   }
 
   case class FuLap[A](lap: Fu[Lap[A]]) extends AnyVal {
@@ -27,15 +39,9 @@ object Chronometer {
       this
     }
 
-    def pp: Fu[A] = lap dmap { l =>
-      println(s"chrono ${l.micros} micros")
-      l.result
-    }
+    def pp: Fu[A] = lap dmap (_.pp)
 
-    def pp(msg: String): Fu[A] = lap dmap { l =>
-      println(s"chrono $msg - ${l.micros} micros")
-      l.result
-    }
+    def pp(msg: String): Fu[A] = lap dmap (_ pp msg)
 
     def result = lap.dmap(_.result)
   }
@@ -55,5 +61,12 @@ object Chronometer {
     val lap = sync(f)
     effect(lap)
     lap.result
+  }
+
+  def syncMon[A](f: => A)(path: lila.mon.RecPath): A = {
+    val start = nowNanos
+    val res = f
+    lila.mon.recPath(path)(nowNanos - start)
+    res
   }
 }

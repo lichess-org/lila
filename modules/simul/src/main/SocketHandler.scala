@@ -4,7 +4,6 @@ import akka.actor._
 import akka.pattern.ask
 
 import actorApi._
-import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
@@ -49,6 +48,7 @@ private[simul] final class SocketHandler(
     chatId = Chat.Id(simId),
     member = member,
     socket = socket,
-    chat = chat
+    chat = chat,
+    publicSource = lila.hub.actorApi.shutup.PublicSource.Simul(simId).some
   )
 }

@@ -1,7 +1,6 @@
 package lila.insight
 
 import lila.common.LightUser
-import lila.common.PimpedJson._
 import play.api.libs.json._
 
 case class Chart(
@@ -49,10 +48,10 @@ object Chart {
 
     def games = povs.map { pov =>
       Json.obj(
-        "id" -> pov.game.id,
-        "fen" -> (chess.format.Forsyth exportBoard pov.game.toChess.board),
+        "id" -> pov.gameId,
+        "fen" -> (chess.format.Forsyth exportBoard pov.game.board),
         "color" -> pov.player.color.name,
-        "lastMove" -> ~pov.game.castleLastMoveTime.lastMoveString,
+        "lastMove" -> ~pov.game.lastMoveKeys,
         "user1" -> gameUserJson(pov.player),
         "user2" -> gameUserJson(pov.opponent)
       )

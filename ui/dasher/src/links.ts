@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import { DasherCtrl, DasherData, Mode } from './dasher'
+import { DasherCtrl, Mode } from './dasher'
 import { view as pingView } from './ping'
 import { bind } from './util'
 
@@ -30,6 +30,11 @@ export default function(ctrl: DasherCtrl): VNode {
         'a.text',
         linkCfg('/coach/edit', ':'),
         'Coach manager'),
+
+      !d.streamer ? null : h(
+        'a.text',
+        linkCfg('/streamer/edit', ''),
+        'Streamer manager'),
 
       h('form', {
         attrs: { method: 'post', action: '/logout' }

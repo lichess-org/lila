@@ -7,7 +7,6 @@ const li = window.lichess;
 
 export default function(opts: RoundOpts, element: HTMLElement): void {
   const data: RoundData = opts.data;
-  li.openInMobileApp(data.game.id);
   let round: RoundApi, chat: ChatCtrl | undefined;
   if (data.tournament) $('body').data('tournament-id', data.tournament.id);
   li.socket = li.StrongSocket(
@@ -93,14 +92,11 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
       li.hasToReload = true;
       return true;
     });
-    $('#now_playing').find('.zen input').change(function() {
-      li.loadCss('/assets/stylesheets/zen.css');
-      $('body').toggleClass('zen');
-    });
     if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
       history.replaceState(null, '', '/' + data.game.id);
     if (!data.player.spectator && data.game.status.id < 25) li.topMenuIntent();
+    $('#zentog').click(round.toggleZen);
   };
-  if (window.navigator.userAgent.indexOf('Trident/') > -1) setTimeout(letsGo, 150);
+  if (li.isTrident) setTimeout(letsGo, 150);
   else letsGo();
 }

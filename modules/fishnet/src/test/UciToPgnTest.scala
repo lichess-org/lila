@@ -1,12 +1,9 @@
 package lila.fishnet
 
-import chess.format.pgn.Reader
-import chess.Pos._
 import chess.Replay
+import chess.format.pgn.Reader
 import org.specs2.mutable._
 import org.specs2.matcher.ValidationMatchers
-import org.specs2.specification._
-import scalaz.{ Validation => V }
 
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
@@ -16,9 +13,14 @@ final class UciToPgnTest extends Specification with ValidationMatchers {
 
   private val now = org.joda.time.DateTime.now
 
+  private def evenIncomplete(result: Reader.Result): Replay = result match {
+    case Reader.Result.Complete(replay) => replay
+    case Reader.Result.Incomplete(replay, _) => replay
+  }
+
   "convert UCI analysis to PGN" should {
     "work :)" in {
-      val uciAnalysis = Analysis("ke5ssdgj", List(
+      val uciAnalysis = Analysis("ke5ssdgj", None, List(
         Info(1, Eval(Some(Cp(12)), None, None), List()),
         Info(2, Eval(Some(Cp(36)), None, None), List()),
         Info(3, Eval(Some(Cp(22)), None, None), List("g1f3", "g8f6", "e2e3", "e7e6", "f1e2", "b8c6", "e1g1", "f8d6", "b1c3", "e8g8", "c3b5", "f6e4", "b5d6", "d8d6")),
@@ -51,15 +53,15 @@ final class UciToPgnTest extends Specification with ValidationMatchers {
       ), 0, None, None, now)
 
       val pgn = "d4 d5 f3 e6 f4 g6 g3 Bg7 Nf3 Nf6 e3 O-O Bh3 Nc6 g4 h6 g5 hxg5 Nxg5 Ne4 Bxe6 fxe6 Nxe6 Bxe6 Rg1 Qh4+ Ke2 Qxh2+ Kd3 Nb4#"
-      val rep = Replay(pgn.split(' ').toList, None, chess.variant.Standard).toOption.get
+      val rep = Replay(pgn.split(' ').toList, None, chess.variant.Standard).map(evenIncomplete).toOption.get
       UciToPgn(rep, uciAnalysis) match {
         case (a, errs) => errs must beEmpty
       }
     }
     "even in KotH" in {
       val pgn = List("e4", "e5", "d4", "Nc6", "Ke2", "Nxd4+", "Ke3", "Ne6", "f4", "Bc5+", "Kf3", "Nf6", "fxe5", "Qe7", "Be3", "d6", "Bxc5", "Nxc5", "exf6", "Qxf6+", "Ke3", "Qe5", "Qd4", "Qg5+", "Kf3", "f5", "exf5", "O-O", "Qxc5", "Bxf5", "Qc4+", "Kh8", "Qf4", "Qg6", "g4", "Be4+", "Ke3", "c5", "Bd3", "Bxd3", "Qg3", "Bxc2", "Nf3", "Rae8+", "Kf2", "Qd3", "Kg2", "Re2+", "Kh3", "Rxf3", "Kh4", "Rxg3", "hxg3", "h6", "g5", "Qf5", "g4", "Re4", "Kg3", "Qf4+", "Kh3", "Re3+", "Kh4", "Qxg5#")
-      val rep = Replay(pgn, None, chess.variant.KingOfTheHill).toOption.get
-      val uciAnalysis = Analysis("g5hX8efz", Nil, 0, None, None, now)
+      val rep = Replay(pgn, None, chess.variant.KingOfTheHill).map(evenIncomplete).toOption.get
+      val uciAnalysis = Analysis("g5hX8efz", None, Nil, 0, None, None, now)
       UciToPgn(rep, uciAnalysis) match {
         case (a, errs) => errs must beEmpty
       }

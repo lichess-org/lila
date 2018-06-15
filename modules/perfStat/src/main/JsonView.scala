@@ -1,16 +1,33 @@
 package lila.perfStat
 
-import org.joda.time.DateTime
-import org.joda.time.format.ISODateTimeFormat
-import play.api.libs.json._
-
 import lila.common.LightUser
 import lila.rating.{ PerfType, Perf, Glicko }
 import lila.user.User
 
+import org.joda.time.DateTime
+import org.joda.time.format.ISODateTimeFormat
+import play.api.libs.json._
+
 final class JsonView(getLightUser: LightUser.GetterSync) {
 
   import JsonView._
+
+  def apply(
+    user: User,
+    stat: PerfStat,
+    rank: Option[Int],
+    ratingDistribution: Option[List[Int]]
+  ) = Json.obj(
+    "user" -> user,
+    "perf" -> user.perfs(stat.perfType),
+    "rank" -> rank,
+    "percentile" -> ratingDistribution.map { distrib =>
+      lila.user.Stat.percentile(distrib, user.perfs(stat.perfType).intRating) match {
+        case (under, sum) => Math.round(under * 1000.0 / sum) / 10.0
+      }
+    },
+    "stat" -> stat.copy(playStreak = stat.playStreak.checkCurrent)
+  )
 
   private implicit val userIdWriter: OWrites[UserId] = OWrites { u =>
     val light = getLightUser(u.value)
@@ -30,23 +47,6 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
   implicit val resultStreakWrites = Json.writes[ResultStreak]
   implicit val countWrites = Json.writes[Count]
   implicit val perfStatWrites = Json.writes[PerfStat]
-
-  def apply(
-    user: User,
-    stat: PerfStat,
-    rank: Option[Int],
-    ratingDistribution: Option[List[Int]]
-  ) = Json.obj(
-    "user" -> user,
-    "perf" -> user.perfs(stat.perfType),
-    "rank" -> rank,
-    "percentile" -> ratingDistribution.map { distrib =>
-      lila.user.Stat.percentile(distrib, user.perfs(stat.perfType).intRating) match {
-        case (under, sum) => Math.round(under * 1000.0 / sum) / 10.0
-      }
-    },
-    "stat" -> stat.copy(playStreak = stat.playStreak.checkCurrent)
-  )
 }
 
 object JsonView {
@@ -64,7 +64,6 @@ object JsonView {
     Json.obj(
       "rating" -> round(p.rating),
       "deviation" -> round(p.deviation),
-      "volatility" -> round(p.volatility, 3),
       "provisional" -> p.provisional
     )
   }

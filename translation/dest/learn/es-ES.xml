@@ -22,10 +22,10 @@
   <string name="bishopIntro">¡A continuación, vamos a aprender como se mueve un alfil!</string>
   <string name="youNeedBothBishops">Un alfil de casillas blancas y un alfil de casillas negras ¡ambos son necesarios!</string>
   <string name="bishopComplete">¡Felicidades! Sabes mover el alfil.</string>
-  <string name="theQueen">La reina</string>
-  <string name="queenCombinesRookAndBishop">Reina = torre + alfil</string>
-  <string name="queenIntro">Y ahora, la pieza más poderosa del ajedrez; ¡su majestad la reina!</string>
-  <string name="queenComplete">¡Felicidades! La reina no tiene secretos para ti.</string>
+  <string name="theQueen">La Dama</string>
+  <string name="queenCombinesRookAndBishop">Dama = torre + alfil</string>
+  <string name="queenIntro">Y ahora, la pieza más poderosa del ajedrez; ¡su majestad la dama!</string>
+  <string name="queenComplete">¡Felicidades! La dama no tiene secretos para ti.</string>
   <string name="theKing">El rey</string>
   <string name="theMostImportantPiece">La pieza más importante</string>
   <string name="kingIntro">Eres el rey. Si caes en batalla, se pierde la partida.</string>
@@ -42,7 +42,7 @@
   <string name="itMovesForwardOnly">Sólo mueve hacia adelante</string>
   <string name="pawnIntro">Peones son débiles, pero encierran mucho potencial.</string>
   <string name="pawnsMoveOneSquareOnly">Los peones sólo pueden mover una casilla, pero cuando alcanzan el otro extremo del tablero ¡promocionan a una pieza más fuerte!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">La mayoría de las veces, lo mejor es promocionar a reina pero ¡hay ocasiones en que un caballo puede ser útil!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">La mayoría de las veces, lo mejor es promocionar a dama pero ¡hay ocasiones en que un caballo puede ser útil!</string>
   <string name="pawnsMoveForward">Los peones avanzan en línea recta, ¡pero capturan en diagonal!</string>
   <string name="captureThenPromote">¡Captura, y luego promociona el peón!</string>
   <string name="useAllThePawns">¡Utiliza todos los peones! No hace falta promocionar.</string>
@@ -99,8 +99,8 @@ Y no pierdas las tuyas.</string>
   <string name="firstPlaceTheRooks">Primero, coloca las torres. Van en las esquinas.</string>
   <string name="thenPlaceTheKnights">Luego, coloca los caballos. Van al lado de las torres.</string>
   <string name="placeTheBishops">Coloca los alfiles. Van al lado de los caballos.</string>
-  <string name="placeTheQueen">Coloca la reina. Va en su propio color.</string>
-  <string name="placeTheKing">Coloca el rey. Al lado de la reina.</string>
+  <string name="placeTheQueen">Coloca la dama. Va en su propio color.</string>
+  <string name="placeTheKing">Coloca el rey. Al lado de la dama.</string>
   <string name="pawnsFormTheFrontLine">Los peones forman la línea delantera. Mueve cualquier pieza para continuar.</string>
   <string name="boardSetupComplete">¡Felicidades! Ya sabes cómo colocar las piezas en el tablero.</string>
   <string name="castling">Enroque</string>
@@ -135,17 +135,17 @@ Y no pierdas las tuyas.</string>
   <string name="pieceValue">Valor de las piezas</string>
   <string name="evaluatePieceStrength">Sopesa la fuerza de tus piezas</string>
   <string name="pieceValueIntro">¡Las piezas con más movilidad valen más!
-Reina = 9
+Dama = 9
 Torre = 5
 Alfil = 3
 Caballo = 3
 Peón = 1
 ¡El rey es precioso! Perderlo significa perder la partida.</string>
   <string name="queenOverBishop">¡Captura la pieza más valiosa!
-Reina &gt; Alfil</string>
+Dama &gt; Alfil</string>
   <string name="takeThePieceWithTheHighestValue">¡Captura la pieza más valiosa!</string>
   <string name="pieceValueComplete">¡Felicidades! ¡Conoces el valor de las piezas!
-Reina = 9
+Dama = 9
 Torre = 5
 Alfil = 3
 Caballo = 3

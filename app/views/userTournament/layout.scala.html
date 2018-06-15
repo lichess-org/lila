@@ -1,4 +1,4 @@
-@(u: User, title: String, path: String, moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
+@(u: User, title: String, path: String, moreJs: Html = emptyHtml)(body: Html)(implicit ctx: Context)
 
 @menu = {
 <a class="@path.active("recent")" href="@routes.UserTournament.path(u.username, "recent")">

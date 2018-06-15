@@ -82,6 +82,7 @@
     <a href="/blog">@trans.blog()</a> ı
     @NotForKids {
     <a href="/developers">@trans.webmasters()</a> ı
+    <a href="/about">@trans.about()</a> ı
     <a href="/help/contribute">@trans.contribute()</a> ı
     }
     <a href="/thanks">@trans.thankYou()</a><br />
@@ -89,8 +90,8 @@
     <a href="/patron">@trans.donate()</a> ı
     }
     <a href="/contact">@trans.contact()</a> ı
-    <a href="@routes.Page.tos">@trans.termsOfService()</a> ı
-    <a href="@routes.Page.privacy">@trans.privacy()</a>
+    <a href="@routes.Page.bookmark("tos")">@trans.termsOfService()</a> ı
+    <a href="@routes.Page.bookmark("privacy")">@trans.privacy()</a>
     @NotForKids {
     ı <a href="https://database.lichess.org/" target="_blank">@trans.database()</a>
     ı <a href="https://github.com/ornicar/lila" target="_blank">@trans.sourceCode()</a>

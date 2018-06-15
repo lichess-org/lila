@@ -10,9 +10,9 @@ lichess.StrongSocket = function(url, version, settings) {
   var version = version;
   var versioned = version !== false;
   var options = settings.options;
-  var ws = null;
-  var pingSchedule = null;
-  var connectSchedule = null;
+  var ws;
+  var pingSchedule;
+  var connectSchedule;
   var ackable = makeAckable(function(t, d) { send(t, d) });
   var lastPingTime = now();
   var pongCount = 0;
@@ -20,8 +20,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var tryOtherUrl = false;
   var autoReconnect = true;
   var nbConnects = 0;
-  var storage = lichess.storage.make(options.baseUrlKey);
-  if (options.resetUrl) storage.remove();
+  var storage = lichess.storage.make('surl6');
 
   var connect = function() {
     destroy();
@@ -42,7 +41,7 @@ lichess.StrongSocket = function(url, version, settings) {
       ws.onopen = function() {
         debug("connected to " + fullUrl);
         onSuccess();
-        $('body').removeClass('offline');
+        $('body').removeClass('offline').addClass('online').addClass(nbConnects > 1 ? 'reconnected' : '');
         pingNow();
         lichess.pubsub.emit('socket.open')();
         ackable.resend();
@@ -68,10 +67,14 @@ lichess.StrongSocket = function(url, version, settings) {
     o = o || {};
     var msg = { t: t };
     if (d !== undefined) {
+      if (o.withLag) d.l = Math.round(averageLag);
       if (o.millis >= 0) d.s = Math.round(o.millis * 0.1).toString(36);
       msg.d = d;
     }
-    if (o.ackable) ackable.register(t, d);
+    if (o.ackable) {
+      msg.d = msg.d || {}; // can't ack message without data
+      ackable.register(t, msg.d); // adds d.a, the ack ID we expect to get back
+    }
     var message = JSON.stringify(msg);
     debug("send " + message);
     try {
@@ -80,7 +83,7 @@ lichess.StrongSocket = function(url, version, settings) {
       // maybe sent before socket opens,
       // try again a second later.
       if (!noRetry) setTimeout(function() {
-        send(t, d, o, true);
+        send(t, msg.d, o, true);
       }, 1000);
     }
   };
@@ -92,7 +95,7 @@ lichess.StrongSocket = function(url, version, settings) {
     clearTimeout(pingSchedule);
     clearTimeout(connectSchedule);
     connectSchedule = setTimeout(function() {
-      $('body').addClass('offline');
+      $('body').addClass('offline').removeClass('online');
       tryOtherUrl = true;
       connect();
     }, delay);
@@ -161,7 +164,7 @@ lichess.StrongSocket = function(url, version, settings) {
         lichess.reload();
         break;
       case 'ack':
-        ackable.gotAck();
+        ackable.gotAck(m.d);
         break;
       default:
         lichess.pubsub.emit('socket.in.' + m.t)(m.d);
@@ -227,8 +230,7 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var baseUrl = function() {
-    var urls = options.baseUrls;
-    var url = storage.get();
+    var urls = options.baseUrls, url = storage.get();
     if (!url) {
       url = urls[0];
       storage.set(url);
@@ -260,7 +262,7 @@ lichess.StrongSocket = function(url, version, settings) {
     }
   };
 };
-lichess.StrongSocket.sri = Math.random().toString(36).substring(2).slice(0, 10);
+lichess.StrongSocket.sri = Math.random().toString(36).slice(2, 12);
 lichess.StrongSocket.available = window.WebSocket || window.MozWebSocket;
 lichess.StrongSocket.defaults = {
   events: {
@@ -284,21 +286,13 @@ lichess.StrongSocket.defaults = {
     idle: false,
     pingMaxLag: 8000, // time to wait for pong before reseting the connection
     pingDelay: 2000, // time between pong and ping
-    autoReconnectDelay: 2000,
+    autoReconnectDelay: 3000,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
-    baseUrls: (function(domain) {
-      var main = 'socket.' + domain;
-      var isProduction = /lichess\.org/.test(main);
-      var extraPorts = [];
-      if (isProduction) {
-        if (location.protocol === 'https:') extraPorts = [9025, 9026, 9027, 9028, 9029];
-        else extraPorts = [9021, 9022, 9023, 9024];
-      }
-      return [main].concat(extraPorts.map(function(port) {
-        return main + ':' + port;
+    baseUrls: (function(d) {
+      return [d].concat((d === 'socket.lichess.org' ? [5, 6, 7, 8, 9] : []).map(function(port) {
+        return d + ':' + (9020 + port);
       }));
-    })(document.domain),
-    onFirstConnect: $.noop,
-    baseUrlKey: 'surl5'
+    })(document.body.getAttribute('data-socket-domain')),
+    onFirstConnect: $.noop
   }
 };

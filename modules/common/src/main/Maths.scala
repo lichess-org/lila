@@ -1,6 +1,5 @@
 package lila.common
 
-import scala.annotation._
 import scala.Numeric.Implicits._
 import scala.reflect.ClassTag
 import scala.util.Sorting

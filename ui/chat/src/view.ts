@@ -49,6 +49,7 @@ function tabName(ctrl: Ctrl, tab: Tab) {
       })
     })
   ];
-  if (tab === 'note') return ctrl.trans.noarg('notes');
-  if (ctrl.plugin && tab === ctrl.plugin.tab.key) return ctrl.plugin.tab.name;
+  if (tab === 'note') return [ctrl.trans.noarg('notes')];
+  if (ctrl.plugin && tab === ctrl.plugin.tab.key) return [ctrl.plugin.tab.name];
+  return [];
 }

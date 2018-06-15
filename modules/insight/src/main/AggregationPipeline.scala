@@ -73,12 +73,12 @@ private final class AggregationPipeline {
     List(dimensionGrouping(d) match {
       case Grouping.Group => Group(dimensionGroupId(d))(
         "v" -> f,
-        "nb" -> SumAll,
+        "nb" -> SumValue(1),
         "ids" -> AddFieldToSet("_id")
       )
       case Grouping.BucketAuto(buckets, granularity) => BucketAuto(dimensionGroupId(d), buckets, granularity)(
         "v" -> f,
-        "nb" -> SumAll,
+        "nb" -> SumValue(1),
         "ids" -> AddFieldToSet("_id") // AddFieldToSet crashes mongodb 3.4.1 server
       )
     }) map { Option(_) }
@@ -87,7 +87,7 @@ private final class AggregationPipeline {
     (dimensionGrouping(d) match {
       case Grouping.Group => List[PipelineOperator](
         Group($doc("dimension" -> dimensionGroupId(d), "metric" -> s"$$$metricDbKey"))(
-          "v" -> SumAll,
+          "v" -> SumValue(1),
           "ids" -> AddFieldToSet("_id")
         ),
         regroupStacked,
@@ -102,7 +102,7 @@ private final class AggregationPipeline {
         ),
         UnwindField("doc"),
         Group($doc("dimension" -> "$_id", "metric" -> "$doc.metric"))(
-          "v" -> SumAll,
+          "v" -> SumValue(1),
           "ids" -> AddFieldToSet("doc.id")
         ),
         regroupStacked,
@@ -176,7 +176,7 @@ private final class AggregationPipeline {
             matchMoves(),
             sampleMoves
           ) :::
-            group(dimension, SumAll) :::
+            group(dimension, SumValue(1)) :::
             List(
               Project($doc(
                 "v" -> true,

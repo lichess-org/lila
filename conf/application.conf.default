@@ -1,0 +1,4 @@
+include "base"
+
+# copy to conf/application.conf, then
+# override values from base.conf here

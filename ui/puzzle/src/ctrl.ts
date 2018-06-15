@@ -139,7 +139,7 @@ export default function(opts, redraw: () => void): Controller {
     socket.sendAnaMove(move);
   };
 
-  var getDests = throttle(800, false, function() {
+  var getDests = throttle(800, function() {
     if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath))
     socket.sendAnaDests({
       fen: vm.node.fen,
@@ -304,7 +304,7 @@ export default function(opts, redraw: () => void): Controller {
     if (ceval.enabled() && canUseCeval()) doStartCeval();
   };
 
-  const doStartCeval = throttle(800, false, function() {
+  const doStartCeval = throttle(800, function() {
     ceval.start(vm.path, vm.nodeList, threatMode());
   });
 
@@ -419,7 +419,7 @@ export default function(opts, redraw: () => void): Controller {
 
   const callToVote = () => parseInt(nbToVoteCall()) < 1;
 
-  const vote = throttle(1000, false, function(v) {
+  const vote = throttle(1000, function(v) {
     if (callToVote()) thanksUntil = Date.now() + 2000;
     nbToVoteCall(5);
     vm.voted = v;

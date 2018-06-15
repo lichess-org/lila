@@ -10,12 +10,44 @@
     "url": "https://github.com/ornicar/lila.git"
   },
   "keywords": [
-    "chess"
+    "chess",
+    "lichess"
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/ornicar/lila/issues"
   },
-  "homepage": "https://lichess.org"
+  "homepage": "https://lichess.org",
+  "dependencies": {
+    "fs-extra": "^4.0.2",
+    "xml2js": "^0.4.19"
+  },
+  "private": true,
+  "workspaces": [
+    "ui/analyse",
+    "ui/ceval",
+    "ui/challenge",
+    "ui/chat",
+    "ui/chess",
+    "ui/cli",
+    "ui/common",
+    "ui/dasher",
+    "ui/editor",
+    "ui/game",
+    "ui/insight",
+    "ui/learn",
+    "ui/lobby",
+    "ui/notify",
+    "ui/perfStat",
+    "ui/puzzle",
+    "ui/round",
+    "ui/simul",
+    "ui/site",
+    "ui/tournament",
+    "ui/tournamentSchedule",
+    "ui/tournamentCalendar",
+    "ui/tree",
+    "ui/@types/lichess"
+  ]
 }

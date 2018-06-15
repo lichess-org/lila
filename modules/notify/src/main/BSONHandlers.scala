@@ -44,12 +44,15 @@ private object BSONHandlers {
   implicit val GameEndWinHandler = booleanAnyValHandler[GameEnd.Win](_.value, GameEnd.Win.apply)
   implicit val GameEndHandler = Macros.handler[GameEnd]
 
+  implicit val TitledTournamentInvitationHandler = Macros.handler[TitledTournamentInvitation]
+
   implicit val PlanStartHandler = Macros.handler[PlanStart]
   implicit val PlanExpireHandler = Macros.handler[PlanExpire]
 
   implicit val RatingRefundHandler = Macros.handler[RatingRefund]
   implicit val CorresAlarmHandler = Macros.handler[CorresAlarm]
   implicit val IrwinDoneHandler = Macros.handler[IrwinDone]
+  implicit val GenericLinkHandler = Macros.handler[GenericLink]
 
   implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, chess.Color] {
     def read(b: BSONBoolean) = chess.Color(b.value)
@@ -68,6 +71,7 @@ private object BSONHandlers {
         case q: QaAnswer => QaAnswerHandler.write(q)
         case t: TeamJoined => TeamJoinedHandler.write(t)
         case LimitedTournamentInvitation => $empty
+        case x: TitledTournamentInvitation => TitledTournamentInvitationHandler.write(x)
         case x: GameEnd => GameEndHandler.write(x)
         case x: PlanStart => PlanStartHandler.write(x)
         case x: PlanExpire => PlanExpireHandler.write(x)
@@ -76,6 +80,7 @@ private object BSONHandlers {
         case CoachReview => $empty
         case x: CorresAlarm => CorresAlarmHandler.write(x)
         case x: IrwinDone => IrwinDoneHandler.write(x)
+        case x: GenericLink => GenericLinkHandler.write(x)
       }
     } ++ $doc("type" -> notificationContent.key)
 
@@ -104,6 +109,7 @@ private object BSONHandlers {
       case "qaAnswer" => QaAnswerHandler read reader.doc
       case "teamJoined" => TeamJoinedHandler read reader.doc
       case "u" => LimitedTournamentInvitation
+      case "titledTourney" => TitledTournamentInvitationHandler read reader.doc
       case "gameEnd" => GameEndHandler read reader.doc
       case "planStart" => PlanStartHandler read reader.doc
       case "planExpire" => PlanExpireHandler read reader.doc
@@ -112,6 +118,7 @@ private object BSONHandlers {
       case "coachReview" => CoachReview
       case "corresAlarm" => CorresAlarmHandler read reader.doc
       case "irwinDone" => IrwinDoneHandler read reader.doc
+      case "genericLink" => GenericLinkHandler read reader.doc
     }
 
     def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = writeNotificationContent(n)

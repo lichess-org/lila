@@ -1,9 +1,9 @@
 package lila.puzzle
 
 case class PuzzleHead(
-    _id: String, // userId
-    current: Option[PuzzleId],
-    last: PuzzleId
+    _id: lila.user.User.ID,
+    current: Option[PuzzleId], // current puzzle assigned to user (rated)
+    last: PuzzleId // last puzzle assigned to user
 ) {
 
   def id = _id

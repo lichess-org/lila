@@ -1,10 +1,7 @@
 package lila.game
 
-import scala.concurrent.duration._
-
-import chess.{ Centis, Clock, White, Black }
+import chess.{ Centis, Clock, White }
 import org.specs2.mutable._
-import org.specs2.specification._
 
 import lila.db.ByteArray
 
@@ -63,19 +60,21 @@ class BinaryClockTest extends Specification {
     }
     "isomorphism" in {
 
-      isomorphism(clock) must_== clock
+      "without berserk" in {
+        isomorphism(clock) must_== clock
 
-      val c2 = clock.giveTime(White, Centis.ofSeconds(15))
-      isomorphism(c2) must_== c2
+        val c2 = clock.giveTime(White, Centis.ofSeconds(15))
+        isomorphism(c2) must_== c2
 
-      val c3 = clock.giveTime(chess.Black, Centis.ofSeconds(5))
-      isomorphism(c3) must_== c3
+        val c3 = clock.giveTime(chess.Black, Centis.ofSeconds(5))
+        isomorphism(c3) must_== c3
 
-      val c4 = clock.start
-      isomorphism(c4).timer.get.value must beCloseTo(c4.timer.get.value, 10)
+        val c4 = clock.start
+        isomorphism(c4).timer.get.value must beCloseTo(c4.timer.get.value, 10)
 
-      Clock(120, 60) |> { c =>
-        isomorphism(c) must_== c
+        Clock(120, 60) |> { c =>
+          isomorphism(c) must_== c
+        }
       }
 
       "with berserk" in {

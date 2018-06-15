@@ -65,6 +65,7 @@ public/piece-src/companion | David L. Brown | ["freeware"](http://www.enpassant.
 public/piece-src/fantasy | [Maurizio Monge](http://poisson.phc.unipi.it/~monge/chess_art.php) | "give credit in a suitable way"
 public/piece-src/spatial | [Maurizio Monge](http://poisson.phc.unipi.it/~monge/chess_art.php) | "give credit in a suitable way"
 public/piece-src/reillycraig | [Reilly Craig](https://instagram.com/fader_) |
+public/piece-src/riohacha | |
 public/piece/other | [Twitch](http://lazythunk.com/kappa/) |
 public/images/staunton/staunton/Staunton | [Eden Murs](https://userstyles.org/styles/134558/lichess-pieces-3d-staunton) (?) |
 
@@ -81,7 +82,6 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 * [Cloudflare](https://www.cloudflare.com/) to serve static assets
 * [Mailgun](https://www.mailgun.com/) for transactional email
 * [prismic.io](https://prismic.io/) for help/documentation pages and the blog
-* [Disqus](https://disqus.com/) for blog comments
 * [twitch](https://www.twitch.tv/) for featured livestreams
 * [YouTube](https://www.youtube.com) for featured livestreams and the [Video library](https://lichess.org/video)
 * [stripe](https://stripe.com/) and [PayPal](https://www.paypal.com) for [Patron donations](https://lichess.org/patron)

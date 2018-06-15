@@ -1,17 +1,17 @@
 package lila.game
 
-import akka.stream.scaladsl.{ Source => StreamSource }
-import akka.util.ByteString
-import old.play.Env.WS
+import play.api.libs.iteratee._
+import play.api.libs.ws.WS
+import play.api.Play.current
 
-import chess.format.{ Forsyth, FEN }
+import chess.format.{ Forsyth, FEN, Uci }
 
 final class PngExport(url: String, size: Int) {
 
-  def fromGame(game: Game): Fu[StreamSource[ByteString, _]] = apply(
-    fen = FEN(Forsyth >> game.toChess),
-    lastMove = game.castleLastMoveTime.lastMoveString,
-    check = game.toChess.situation.checkSquare,
+  def fromGame(game: Game): Fu[Enumerator[Array[Byte]]] = apply(
+    fen = FEN(Forsyth >> game.chess),
+    lastMove = game.lastMoveKeys,
+    check = game.situation.checkSquare,
     orientation = game.firstColor.some,
     logHint = s"game ${game.id}"
   )
@@ -22,7 +22,7 @@ final class PngExport(url: String, size: Int) {
     check: Option[chess.Pos],
     orientation: Option[chess.Color],
     logHint: => String
-  ): Fu[StreamSource[ByteString, _]] = {
+  ): Fu[Enumerator[Array[Byte]]] = {
 
     val queryString = List(
       "fen" -> fen.value.takeWhile(' ' !=),
@@ -33,11 +33,11 @@ final class PngExport(url: String, size: Int) {
         orientation.map { "orientation" -> _.name }
       ).flatten
 
-    WS.url(url).addQueryStringParameters(queryString: _*).stream() flatMap {
-      case (res) if res.status != 200 =>
+    WS.url(url).withQueryString(queryString: _*).getStream() flatMap {
+      case (res, body) if res.status != 200 =>
         logger.warn(s"PgnExport $logHint ${fen.value} ${res.status}")
         fufail(res.status.toString)
-      case res => fuccess(res.bodyAsSource)
+      case (_, body) => fuccess(body)
     }
   }
 }

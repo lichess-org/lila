@@ -2,94 +2,161 @@ package lila.report
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
+import scalaz.NonEmptyList
 
 import lila.user.{ User, Note }
 
 case class Report(
-    _id: String, // also the url slug
+    _id: Report.ID, // also the url slug
     user: User.ID, // the reportee
     reason: Reason,
     room: Room,
-    text: String,
+    atoms: NonEmptyList[Report.Atom], // most recent first
+    score: Report.Score,
     inquiry: Option[Report.Inquiry],
-    processedBy: Option[User.ID],
-    createdAt: DateTime,
-    createdBy: User.ID
-) {
+    open: Boolean,
+    processedBy: Option[User.ID]
+) extends Reason.WithReason {
+
+  import Report.{ Atom, Score }
 
   def id = _id
   def slug = _id
 
-  def isCreator(user: User.ID) = user == createdBy
+  def closed = !open
+  def suspect = SuspectId(user)
 
-  def isCheat = reason == Reason.Cheat
-  def isOther = reason == Reason.Other
-  def isTroll = reason == Reason.Troll
-  def isInsult = reason == Reason.Insult
-  def isTrollOrInsult = reason == Reason.Troll || reason == Reason.Insult
+  def add(atom: Atom) = atomBy(atom.by).fold(copy(atoms = atom <:: atoms)) { existing =>
+    val newAtom = existing.copy(
+      at = atom.at,
+      score = atom.score,
+      text = s"${existing.text}\n\n${atom.text}"
+    )
+    copy(
+      atoms = {
+        newAtom :: atoms.toList.filterNot(_.by == atom.by)
+      }.toNel | atoms
+    )
+  }.recomputeScore
 
-  def unprocessedCheat = unprocessed && isCheat
-  def unprocessedOther = unprocessed && isOther
-  def unprocessedTroll = unprocessed && isTroll
-  def unprocessedInsult = unprocessed && isInsult
-  def unprocessedTrollOrInsult = unprocessed && isTrollOrInsult
+  def recomputeScore = copy(
+    score = atoms.toList.foldLeft(Score(0))(_ + _.score)
+  )
 
-  def isCommunication = Reason.communication contains reason
+  def recentAtom: Atom = atoms.head
+  def oldestAtom: Atom = atoms.last
+  def bestAtom: Atom = bestAtoms(1).headOption | recentAtom
+  def bestAtoms(nb: Int): List[Atom] = atoms.toList.sortBy { a =>
+    (-a.score.value, -a.at.getSeconds)
+  } take nb
+  def onlyAtom: Option[Atom] = atoms.tail.isEmpty option atoms.head
+  def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
+  def bestAtomByHuman: Option[Atom] = bestAtoms(10).toList.find(_.byHuman)
 
-  def isAutomatic = createdBy == "lichess"
-  def isManual = !isAutomatic
+  def unprocessedCheat = open && isCheat
+  def unprocessedOther = open && isOther
+  def unprocessedTroll = open && isTroll
+  def unprocessedInsult = open && isInsult
+  def unprocessedTrollOrInsult = open && isTrollOrInsult
 
-  def process(by: User) = copy(processedBy = by.id.some)
+  def process(by: User) = copy(
+    open = false,
+    processedBy = by.id.some
+  )
 
-  def unprocessed = processedBy.isEmpty
-  def processed = processedBy.isDefined
+  def userIds: List[User.ID] = user :: atoms.toList.map(_.by.value)
 
-  def userIds = List(user, createdBy)
+  def isRecentComm = room == Room.Coms && open
+  def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
 
-  def simplifiedText = text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
+  def boostWith: Option[User.ID] = (reason == Reason.Boost) ?? {
+    atoms.toList.filter(_.byLichess).map(_.text).flatMap(_.lines).collectFirst {
+      case Report.farmWithRegex(userId) => userId
+      case Report.sandbagWithRegex(userId) => userId
+    }
+  }
 }
 
 object Report {
 
-  case class Inquiry(mod: User.ID, seenAt: DateTime)
+  type ID = String
 
-  case class WithUser(report: Report, user: User, isOnline: Boolean, accuracy: Option[Int]) {
+  case class Score(value: Double) extends AnyVal {
+    def +(s: Score) = Score(s.value + value)
+    def color =
+      if (value >= 150) "red"
+      else if (value >= 100) "orange"
+      else if (value >= 50) "yellow"
+      else "green"
+  }
+  implicit val scoreIso = lila.common.Iso.double[Score](Score.apply, _.value)
 
-    def urgency: Int =
-      (nowSeconds - report.createdAt.getSeconds).toInt +
-        (isOnline ?? (86400 * 5)) +
-        (report.processed ?? Int.MinValue)
+  case class Atom(
+      by: ReporterId,
+      text: String,
+      score: Score,
+      at: DateTime
+  ) {
+    def simplifiedText = text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
+
+    def byHuman = !byLichess && by != ReporterId.irwin
+
+    def byLichess = by == ReporterId.lichess
   }
 
-  case class WithUserAndNotes(withUser: WithUser, notes: List[Note]) {
-    def report = withUser.report
-    def user = withUser.user
-    def hasLichessNote = notes.exists(_.from == "lichess")
-    def hasIrwinNote = notes.exists(_.from == "irwin")
+  case class Inquiry(mod: User.ID, seenAt: DateTime)
 
-    def userIds = report.userIds ::: notes.flatMap(_.userIds)
+  case class WithSuspect(report: Report, suspect: Suspect, isOnline: Boolean) {
+
+    def urgency: Int =
+      report.score.value.toInt +
+        (isOnline ?? 1000) +
+        (report.closed ?? Int.MinValue)
   }
 
   case class ByAndAbout(by: List[Report], about: List[Report]) {
     def userIds = by.flatMap(_.userIds) ::: about.flatMap(_.userIds)
   }
 
+  case class Candidate(
+      reporter: Reporter,
+      suspect: Suspect,
+      reason: Reason,
+      text: String
+  ) extends Reason.WithReason {
+    def scored(score: Score) = Candidate.Scored(this, score)
+    def isAutomatic = reporter.id == ReporterId.lichess
+    def isAutoComm = isAutomatic && isTrollOrInsult
+  }
+
+  object Candidate {
+    case class Scored(candidate: Candidate, score: Score) {
+      def atom = Atom(
+        by = candidate.reporter.id,
+        text = candidate.text,
+        score = score,
+        at = DateTime.now
+      )
+    }
+  }
+
   private[report] val spontaneousText = "Spontaneous inquiry"
 
-  def make(
-    user: User,
-    reason: Reason,
-    text: String,
-    createdBy: User
-  ): Report = new Report(
-    _id = Random nextString 8,
-    user = user.id,
-    reason = reason,
-    room = Room(reason),
-    text = text,
-    inquiry = none,
-    processedBy = none,
-    createdAt = DateTime.now,
-    createdBy = createdBy.id
-  )
+  def make(c: Candidate.Scored, existing: Option[Report]) = c match {
+    case c @ Candidate.Scored(candidate, score) =>
+      existing.map(_ add c.atom) | Report(
+        _id = Random nextString 8,
+        user = candidate.suspect.user.id,
+        reason = candidate.reason,
+        room = Room(candidate.reason),
+        atoms = NonEmptyList(c.atom),
+        score = score,
+        inquiry = none,
+        open = true,
+        processedBy = none
+      )
+  }
+
+  private val farmWithRegex = s""".+ points from @(${User.historicalUsernameRegex.pattern}) .*""".r
+  private val sandbagWithRegex = s""".+ winning player @(${User.historicalUsernameRegex.pattern}) .*""".r
 }

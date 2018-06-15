@@ -18,7 +18,7 @@ function splitNumber(s) {
 }
 
 function trans(ctrl, key, cond) {
-  return splitNumber(ctrl.trans(key, ctrl.data.pairings.filter(cond).length));
+  return splitNumber(ctrl.trans.plural(key, ctrl.data.pairings.filter(cond).length));
 }
 
 module.exports = function(ctrl) {

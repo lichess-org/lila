@@ -1,16 +1,14 @@
 package lila.game
 
 import chess.{ Color, White, Black, Clock, CheckCount, UnmovedRooks }
-import chess.variant.Crazyhouse
 import Game.BSONFields._
-import org.joda.time.DateTime
 import reactivemongo.bson._
 
+import Blurs.BlursBSONWriter
+import chess.Centis
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.ByteArray.ByteArrayBSONHandler
-import Blurs.BlursBSONWriter
-import chess.Centis
 
 private[game] object GameDiff {
 
@@ -24,7 +22,7 @@ private[game] object GameDiff {
     val setBuilder = scala.collection.mutable.ListBuffer[Set]()
     val unsetBuilder = scala.collection.mutable.ListBuffer[Unset]()
 
-    def d[A, B <: BSONValue](name: String, getter: Game => A, toBson: A => B) {
+    def d[A, B <: BSONValue](name: String, getter: Game => A, toBson: A => B): Unit = {
       val (va, vb) = (getter(a), getter(b))
       if (va != vb) {
         if (vb == None || vb == null || vb == "") unsetBuilder += (name -> bTrue)
@@ -32,7 +30,7 @@ private[game] object GameDiff {
       }
     }
 
-    def dOpt[A, B <: BSONValue](name: String, getter: Game => A, toBson: A => Option[B]) {
+    def dOpt[A, B <: BSONValue](name: String, getter: Game => A, toBson: A => Option[B]): Unit = {
       val (va, vb) = (getter(a), getter(b))
       if (va != vb) {
         if (vb == None || vb == null || vb == "") unsetBuilder += (name -> bTrue)
@@ -57,22 +55,27 @@ private[game] object GameDiff {
 
     val w = lila.db.BSON.writer
 
-    d(binaryPieces, _.binaryPieces, ByteArrayBSONHandler.write)
-    d(binaryPgn, _.binaryPgn, ByteArrayBSONHandler.write)
-    d(status, _.status.id, w.int)
+    if (a.variant.standard) d(huffmanPgn, _.pgnMoves, writeBytes compose PgnStorage.Huffman.encode)
+    else {
+      val f = PgnStorage.OldBin
+      d(oldPgn, _.pgnMoves, writeBytes compose f.encode)
+      d(binaryPieces, _.board.pieces, writeBytes compose BinaryFormat.piece.write)
+      d(positionHashes, _.history.positionHashes, w.bytes)
+      d(unmovedRooks, _.history.unmovedRooks, writeBytes compose BinaryFormat.unmovedRooks.write)
+      d(castleLastMove, makeCastleLastMove, CastleLastMove.castleLastMoveBSONHandler.write)
+      // since variants are always OldBin
+      if (a.variant.threeCheck)
+        dOpt(checkCount, _.history.checkCount, (o: CheckCount) => o.nonEmpty option { BSONHandlers.checkCountWriter write o })
+      if (a.variant.crazyhouse)
+        dOpt(crazyData, _.board.crazyData, (o: Option[chess.variant.Crazyhouse.Data]) => o map BSONHandlers.crazyhouseDataBSONHandler.write)
+    }
     d(turns, _.turns, w.int)
-    d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)
-    d(unmovedRooks, _.unmovedRooks, (x: UnmovedRooks) => ByteArrayBSONHandler.write(BinaryFormat.unmovedRooks write x))
     dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o map ByteArrayBSONHandler.write)
     dOpt(whiteClockHistory, getClockHistory(White), clockHistoryToBytes)
     dOpt(blackClockHistory, getClockHistory(Black), clockHistoryToBytes)
-    dOpt(positionHashes, _.positionHashes, w.bytesO)
     dOpt(clock, _.clock, (o: Option[Clock]) => o map { c =>
       BSONHandlers.clockBSONWrite(a.createdAt, c)
     })
-    dOpt(checkCount, _.checkCount, (o: CheckCount) => o.nonEmpty option { BSONHandlers.checkCountWriter write o })
-    if (a.variant == Crazyhouse)
-      dOpt(crazyData, _.crazyData, (o: Option[Crazyhouse.Data]) => o map BSONHandlers.crazyhouseDataBSONHandler.write)
     for (i ← 0 to 1) {
       import Player.BSONFields._
       val name = s"p$i."
@@ -89,4 +92,11 @@ private[game] object GameDiff {
   }
 
   private val bTrue = BSONBoolean(true)
+
+  private val writeBytes = ByteArrayBSONHandler.write _
+
+  private def makeCastleLastMove(g: Game) = CastleLastMove(
+    lastMove = g.history.lastMove,
+    castles = g.history.castles
+  )
 }

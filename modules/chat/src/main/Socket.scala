@@ -3,8 +3,8 @@ package lila.chat
 import akka.actor._
 import play.api.libs.json._
 
-import lila.common.PimpedJson._
 import lila.socket.{ Handler, SocketMember }
+import lila.hub.actorApi.shutup.PublicSource
 
 object Socket {
 
@@ -13,13 +13,14 @@ object Socket {
     member: SocketMember,
     socket: ActorRef,
     chat: ActorSelection,
+    publicSource: Option[PublicSource],
     canTimeout: Option[() => Fu[Boolean]] = None
   ): Handler.Controller = {
 
     case ("talk", o) => for {
       text <- o str "d"
       userId <- member.userId
-    } chat ! actorApi.UserTalk(chatId, userId, text)
+    } chat ! actorApi.UserTalk(chatId, userId, text, publicSource)
 
     case ("timeout", o) => for {
       data ← o obj "d"

@@ -12,19 +12,20 @@ case class CoachReview(
     text: String,
     approved: Boolean,
     createdAt: DateTime,
-    updatedAt: DateTime
+    updatedAt: DateTime,
+    moddedAt: Option[DateTime] = None // a mod disapproved it
 ) {
 
   def id = _id
+
+  def pendingApproval = !approved && moddedAt.isEmpty
 }
 
 object CoachReview {
 
   def makeId(user: User, coach: Coach) = s"${user.id}:${coach.id.value}"
 
-  case class Score(value: Double) extends AnyVal {
-
-  }
+  case class Score(value: Double) extends AnyVal
 
   case class Reviews(list: List[CoachReview]) {
 

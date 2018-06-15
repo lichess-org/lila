@@ -7,7 +7,6 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import actorApi._
-import lila.common.PimpedJson._
 import lila.game.{ Game, AnonCookie }
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
@@ -23,14 +22,14 @@ private[lobby] final class Socket(
 
   case object Cleanup
 
-  override def preStart() {
+  override def preStart(): Unit = {
     super.preStart()
     context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'poolGame)
     context.system.scheduler.scheduleOnce(3 seconds, self, SendHookRemovals)
     context.system.scheduler.schedule(1 minute, 1 minute, self, Cleanup)
   }
 
-  override def postStop() {
+  override def postStop(): Unit = {
     super.postStop()
     context.system.lilaBus.unsubscribe(self)
   }
@@ -65,8 +64,6 @@ private[lobby] final class Socket(
     case ReloadTournaments(html) => notifyAllActive(makeMessage("tournaments", html))
 
     case ReloadSimuls(html) => notifyAllActive(makeMessage("simuls", html))
-
-    case NewForumPost => notifyAllActive(makeMessage("reload_forum"))
 
     case ReloadTimeline(userId) =>
       membersByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
@@ -133,7 +130,7 @@ private[lobby] final class Socket(
         withActiveMember(uid)(_ push msg)
       }
 
-    case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
+    case lila.hub.actorApi.streamer.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
 
     case NbMembers(nb) => pong = pong + ("d" -> JsNumber(nb))
     case lila.hub.actorApi.round.NbRounds(nb) =>
@@ -166,11 +163,11 @@ private[lobby] final class Socket(
       case (uid, member) => if (!idleUids(uid)) member push msg
     }
 
-  def withActiveMember(uid: String)(f: Member => Unit) {
+  def withActiveMember(uid: String)(f: Member => Unit): Unit = {
     if (!idleUids(uid)) members get uid foreach f
   }
 
-  override def quit(uid: String) {
+  override def quit(uid: String): Unit = {
     super.quit(uid)
     idleUids -= uid
     hookSubscriberUids -= uid

@@ -1,10 +1,9 @@
 package lila.forumSearch
 
-import play.api.libs.json._
-
 import lila.forum.{ Post, PostView, PostLiteView, PostApi, PostRepo }
 import lila.search._
-import lila.common.PimpedJson.jodaDateWrites
+
+import play.api.libs.json._
 
 final class ForumSearchApi(
     client: ESClient,

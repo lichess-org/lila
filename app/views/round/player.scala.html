@@ -10,7 +10,7 @@
 window.customWS = true;
 window.onload = function() {
 LichessRound.boot({
-data: @Html(J.stringify(data)),
+data: @safeJson(data),
 i18n: @jsI18n(pov.game),
 userId: @jsUserId,
 @tour.map { t =>
@@ -33,11 +33,17 @@ chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, p
 <link href="@routes.Round.atom(pov.gameId, pov.color.name)" type="application/atom+xml" rel="alternate" title="Game feed" />
 }
 
+@underchat = {
+@views.html.game.watchers()
+@round.blurs(pov.game)
+@round.holdAlerts(pov.game)
+}
+
 @round.layout(
 title = title,
-side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour.map(_.tour), simul, bookmarked = bookmarked),
+side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String].map(chess.format.FEN), tour.map(_.tour), simul, bookmarked = bookmarked),
 chat = chatOption.isDefined.option(chat.dom()),
-underchat = views.html.game.watchers().some,
+underchat = underchat.some,
 moreJs = moreJs,
 moreCss = cssTag("chat.css"),
 openGraph = povOpenGraph(pov).some,
@@ -54,9 +60,9 @@ atom = atom.some) {
       }
   </div></div>
 </div>
-@if(playing.nonEmpty) {
-<div id="now_playing" class="other_games @if(ctx.pref.isBlindfold){blindfold}" data-reload-url="@routes.Round.others(pov.gameId)">
-  @others(playing)
+@if(playing.nonEmpty || simul.nonEmpty) {
+<div id="now_playing" class="other_games @if(ctx.pref.isBlindfold){blindfold}">
+  @others(playing, simul)
 </div>
 }
 }

@@ -1,13 +1,14 @@
 package lila.game
 
 import lila.common.paginator._
+import lila.common.MaxPerPage
 import lila.db.dsl._
 import lila.db.paginator._
 
 private[game] final class PaginatorBuilder(
     coll: Coll,
     cached: Cached,
-    maxPerPage: Int
+    maxPerPage: MaxPerPage
 ) {
 
   private val readPreference = reactivemongo.api.ReadPreference.secondaryPreferred

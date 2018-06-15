@@ -1,5 +1,3 @@
-/// <reference types="types/lichess" />
-/// <reference types="types/lichess-jquery" />
 import { h } from 'snabbdom';
 import { bind } from '../util';
 import LobbyController from '../../ctrl';
@@ -22,7 +20,7 @@ function initialize(ctrl: LobbyController, el) {
 
   function changeRatingRange(values) {
     $ratingRange.find('input').val(values[0] + "-" + values[1]);
-    $ratingRange.siblings('.range').text(values[0] + " - " + values[1]);
+    $ratingRange.siblings('.range').text(values[0] + "–" + values[1]);
     save();
   }
   $div.find('input').change(save);
@@ -48,7 +46,7 @@ function initialize(ctrl: LobbyController, el) {
       var min = $input.data("min");
       var max = $input.data("max");
       var values = $input.val() ? $input.val().split("-") : [min, max];
-      $span.text(values.join(' - '));
+      $span.text(values.join('–'));
       $this.slider({
         range: true,
         min: min,

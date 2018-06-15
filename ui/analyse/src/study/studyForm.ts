@@ -5,6 +5,7 @@ import { prop, Prop } from 'common';
 import { bind, bindSubmit } from '../util';
 import { StudyData } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
+import RelayCtrl from './relay/relayCtrl';
 
 export interface StudyFormCtrl {
   open: Prop<boolean>;
@@ -13,6 +14,7 @@ export interface StudyFormCtrl {
   getData(): StudyData;
   isNew(): boolean;
   redraw(): void;
+  relay?: RelayCtrl;
 }
 
 interface FormData {
@@ -57,7 +59,7 @@ function select(s: Select): MaybeVNodes {
   ];
 };
 
-export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: () => StudyData, redraw: () => void): StudyFormCtrl {
+export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: () => StudyData, redraw: () => void, relay?: RelayCtrl): StudyFormCtrl {
 
   const initAt = Date.now();
 
@@ -79,7 +81,8 @@ export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: ()
     },
     getData,
     isNew,
-    redraw
+    redraw,
+    relay
   };
 }
 
@@ -95,22 +98,24 @@ export function view(ctrl: StudyFormCtrl): VNode {
     }
   }
   return dialog.form({
+    class: 'study-edit',
     onClose: function() {
       ctrl.open(false);
       ctrl.redraw();
     },
     content: [
-      h('h2', (isNew ? 'Create' : 'Edit') + ' study'),
+      h('h2', ctrl.relay ? 'Configure live broadcast' : (isNew ? 'Create' : 'Edit') + ' study'),
       h('form.material.form.align-left', {
         hook: bindSubmit(e => {
           const obj: FormData = {};
           'name visibility computer explorer cloneable chat sticky'.split(' ').forEach(n => {
-            obj[n] = ((e.target as HTMLElement).querySelector('#study-' + n) as HTMLInputElement).value;
+            const el = ((e.target as HTMLElement).querySelector('#study-' + n) as HTMLInputElement);
+            if (el) obj[n] = el.value;
           });
           ctrl.save(obj, isNew);
         }, ctrl.redraw)
       }, [
-        h('div.form-group', [
+        h('div.form-group' + (ctrl.relay ? '.none' : ''), [
           h('input#study-name', {
             attrs: {
               minlength: 3,
@@ -163,7 +168,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
               ['false', 'No: let people browse freely']
             ],
             selected: '' + data.settings.sticky
-          })),
+          }))
         ]),
         dialog.button(isNew ? 'Start' : 'Save')
       ]),

@@ -2,12 +2,12 @@ package lila.api
 
 import akka.actor._
 import com.typesafe.config.Config
-import lila.common.PimpedConfig._
+
 import lila.simul.Simul
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
+    settingStore: lila.memo.SettingStore.Builder,
     renderer: ActorSelection,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
@@ -19,16 +19,20 @@ final class Env(
     getTourAndRanks: lila.game.Game => Fu[Option[lila.tournament.TourAndRanks]],
     crosstableApi: lila.game.CrosstableApi,
     prefApi: lila.pref.PrefApi,
+    playBanApi: lila.playban.PlaybanApi,
     gamePgnDump: lila.game.PgnDump,
     gameCache: lila.game.Cached,
     userEnv: lila.user.Env,
-    analyseEnv: lila.analyse.Env,
+    annotator: lila.analyse.Annotator,
     lobbyEnv: lila.lobby.Env,
     setupEnv: lila.setup.Env,
     getSimul: Simul.ID => Fu[Option[Simul]],
     getSimulName: Simul.ID => Fu[Option[String]],
     getTournamentName: String => Option[String],
+    isStreaming: lila.user.User.ID => Boolean,
+    isPlaying: lila.user.User.ID => Boolean,
     pools: List[lila.pool.PoolConfig],
+    challengeJsonView: lila.challenge.JsonView,
     val isProd: Boolean
 ) {
 
@@ -36,12 +40,15 @@ final class Env(
 
   val apiToken = config getString "api.token"
 
+  val isStage = config getBoolean "app.stage"
+
   object Net {
     val Domain = config getString "net.domain"
     val Protocol = config getString "net.protocol"
     val BaseUrl = config getString "net.base_url"
     val Port = config getInt "http.port"
     val AssetDomain = config getString "net.asset.domain"
+    val SocketDomain = config getString "net.socket.domain"
     val Email = config getString "net.email"
     val Crawlable = config getBoolean "net.crawlable"
   }
@@ -53,10 +60,18 @@ final class Env(
   private val InfluxEventEndpoint = config getString "api.influx_event.endpoint"
   private val InfluxEventEnv = config getString "api.influx_event.env"
 
-  val assetVersion = new AssetVersionApi(
-    initialVersion = lila.common.AssetVersion(config getInt "net.asset.version"),
-    coll = db("flag")
-  )(system)
+  val assetVersionSetting = settingStore[Int](
+    "assetVersion",
+    default = config getInt "net.asset.version",
+    text = "Assets version. Increment to force all clients to load a new version of static assets. Decrement to serve a previous revision of static assets.".some,
+    init = (config, db) => config.value max db.value
+  )
+
+  val cspEnabledSetting = settingStore[Boolean](
+    "cspEnabled",
+    default = true,
+    text = "Enable CSP for everyone.".some
+  )
 
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
@@ -70,6 +85,7 @@ final class Env(
 
   val pgnDump = new PgnDump(
     dumper = gamePgnDump,
+    annotator = annotator,
     getSimulName = getSimulName,
     getTournamentName = getTournamentName
   )
@@ -80,7 +96,10 @@ final class Env(
     relationApi = relationApi,
     bookmarkApi = bookmarkApi,
     crosstableApi = crosstableApi,
+    playBanApi = playBanApi,
     gameCache = gameCache,
+    isStreaming = isStreaming,
+    isPlaying = isPlaying,
     prefApi = prefApi
   )
 
@@ -92,22 +111,23 @@ final class Env(
     crosstableApi = crosstableApi
   )
 
+  val gameApiV2 = new GameApiV2(
+    pgnDump = pgnDump,
+    getLightUser = userEnv.lightUser
+  )(system)
+
   val userGameApi = new UserGameApi(
     bookmarkApi = bookmarkApi,
     lightUser = userEnv.lightUserSync
   )
 
-  val roundApi = new RoundApiBalancer(
-    api = new RoundApi(
-      jsonView = roundJsonView,
-      noteApi = noteApi,
-      forecastApi = forecastApi,
-      bookmarkApi = bookmarkApi,
-      getTourAndRanks = getTourAndRanks,
-      getSimul = getSimul
-    ),
-    system = system,
-    nbActors = math.max(1, math.min(16, Runtime.getRuntime.availableProcessors - 1))
+  val roundApi = new RoundApi(
+    jsonView = roundJsonView,
+    noteApi = noteApi,
+    forecastApi = forecastApi,
+    bookmarkApi = bookmarkApi,
+    getTourAndRanks = getTourAndRanks,
+    getSimul = getSimul
   )
 
   val lobbyApi = new LobbyApi(
@@ -117,9 +137,11 @@ final class Env(
     pools = pools
   )
 
+  lazy val eventStream = new EventStream(system, challengeJsonView, userEnv.onlineUserIdMemo.put)
+
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
-  lazy val cli = new Cli(system.lilaBus, renderer)
+  lazy val cli = new Cli(system.lilaBus)
 
   KamonPusher.start(system) {
     new KamonPusher(countUsers = () => userEnv.onlineUserIdMemo.count)
@@ -135,10 +157,10 @@ object Env {
 
   lazy val current = "api" boot new Env(
     config = lila.common.PlayApp.loadConfig,
-    db = lila.db.Env.current,
+    settingStore = lila.memo.Env.current.settingStore,
     renderer = lila.hub.Env.current.actor.renderer,
     userEnv = lila.user.Env.current,
-    analyseEnv = lila.analyse.Env.current,
+    annotator = lila.analyse.Env.current.annotator,
     lobbyEnv = lila.lobby.Env.current,
     setupEnv = lila.setup.Env.current,
     getSimul = lila.simul.Env.current.repo.find,
@@ -151,12 +173,16 @@ object Env {
     bookmarkApi = lila.bookmark.Env.current.api,
     getTourAndRanks = lila.tournament.Env.current.tourAndRanks,
     crosstableApi = lila.game.Env.current.crosstableApi,
+    playBanApi = lila.playban.Env.current.api,
     prefApi = lila.pref.Env.current.api,
     gamePgnDump = lila.game.Env.current.pgnDump,
     gameCache = lila.game.Env.current.cached,
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
+    isStreaming = lila.streamer.Env.current.liveStreamApi.isStreaming,
+    isPlaying = lila.relation.Env.current.online.isPlaying,
     pools = lila.pool.Env.current.api.configs,
+    challengeJsonView = lila.challenge.Env.current.jsonView,
     isProd = lila.common.PlayApp.isProd
   )
 }

@@ -1,32 +1,32 @@
 export default function(text: string, parseMoves: boolean): string {
-  const escaped = escapeHtml(text);
+  const escaped = window.lichess.escapeHtml(text);
   const linked = autoLink(escaped);
   const plied = parseMoves && linked === escaped ? addPlies(linked) : linked;
   return plied;
 }
 
-const linkPattern = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?):\/\/|lichess\.org\/)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
+const linkPattern = /\b(https?:\/\/|lichess\.org\/)[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|]/gi;
 
-function linkReplace(_: string, before: string, url: string) {
-  const fullUrl = url.indexOf('http') === 0 ? url : 'https://' + url;
-  const minUrl = url.replace(/^(?:https:\/\/)?(.+)$/, '$1');
-  return before + '<a target="_blank" rel="nofollow" href="' + fullUrl + '">' + minUrl + '</a>';
+function linkReplace(url: string, scheme: string) {
+  if (url.indexOf('&quot;') !== -1) return url;
+  const fullUrl = scheme === 'lichess.org/' ? 'https://' + url : url;
+  const minUrl = url.replace(/^https:\/\//, '');
+  return '<a target="_blank" rel="nofollow" href="' + fullUrl + '">' + minUrl + '</a>';
+}
+
+const userPattern = /(^|[^\w@#/])(@|(?:https:\/\/)?lichess\.org\/@\/)([\w-]{2,})/g;
+const pawnDropPattern = /^[a-h][2-7]$/;
+
+function userLinkReplace(orig: string, prefix: String, scheme: String, user: string) {
+  if (user.length > 20 || (scheme === '@' && user.match(pawnDropPattern))) return orig;
+  return prefix + '<a href="/@/' + user + '">@' + user + "</a>";
 }
 
 function autoLink(html: string) {
-  return html.replace(linkPattern, linkReplace);
+  return html.replace(userPattern, userLinkReplace).replace(linkPattern, linkReplace);
 }
 
-function escapeHtml(html: string) {
-  return html
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
-const movePattern = /\b(\d+)\s?(\.+)\s?(?:[o0-]+|[NBRQK]*[a-h]?[1-8]?x?@?[a-h][0-9]=?[NBRQK]?)\+?\#?[!\?=]*/gi;
+const movePattern = /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQKP]?[a-h]?[1-8]?[x@]?[a-z][1-8](?:=[NBRQK])?)\+?\#?[!\?=]{0,5}/gi;
 function moveReplacer(match: string, turn: number, dots: string) {
   if (turn < 1 || turn > 200) return match;
   const ply = turn * 2 - (dots.length > 1 ? 0 : 1);

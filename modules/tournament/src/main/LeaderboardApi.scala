@@ -13,7 +13,7 @@ import lila.user.User
 
 final class LeaderboardApi(
     coll: Coll,
-    maxPerPage: Int
+    maxPerPage: lila.common.MaxPerPage
 ) {
 
   import LeaderboardApi._
@@ -32,12 +32,13 @@ final class LeaderboardApi(
   def chart(user: User): Fu[ChartData] = {
     import reactivemongo.bson._
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    coll.aggregateWithReadPreference(
+    coll.aggregateList(
       Match($doc("u" -> user.id)),
-      List(GroupField("v")("nb" -> SumAll, "points" -> PushField("s"), "ratios" -> PushField("w"))),
+      List(GroupField("v")("nb" -> SumValue(1), "points" -> PushField("s"), "ratios" -> PushField("w"))),
+      maxDocs = Int.MaxValue,
       ReadPreference.secondaryPreferred
     ).map {
-        _.firstBatch map leaderboardAggregationResultBSONHandler.read
+        _ map leaderboardAggregationResultBSONHandler.read
       }.map { aggs =>
         ChartData {
           aggs.flatMap { agg =>
@@ -52,6 +53,14 @@ final class LeaderboardApi(
         }
       }
   }
+
+  def getAndDeleteRecent(userId: User.ID, since: DateTime): Fu[List[Tournament.ID]] =
+    coll.find($doc(
+      "u" -> userId,
+      "d" $gt since
+    )).list[Entry]() flatMap { entries =>
+      (entries.nonEmpty ?? coll.remove($inIds(entries.map(_.id))).void) inject entries.map(_.tourId)
+    }
 
   private def paginator(user: User, page: Int, sort: Bdoc): Fu[Paginator[TourEntry]] = Paginator(
     adapter = new Adapter[Entry](

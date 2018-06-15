@@ -13,7 +13,7 @@ import lila.user.{ User, UserContext }
 private[forum] final class TopicApi(
     env: Env,
     indexer: ActorSelection,
-    maxPerPage: Int,
+    maxPerPage: lila.common.MaxPerPage,
     modLog: lila.mod.ModlogApi,
     shutup: ActorSelection,
     timeline: ActorSelection,
@@ -49,7 +49,7 @@ private[forum] final class TopicApi(
           slug = slug,
           name = data.name,
           troll = ctx.troll,
-          hidden = categ.quiet
+          hidden = categ.quiet || data.looksLikeVenting
         )
         val post = Post.make(
           topicId = topic.id,
@@ -86,6 +86,35 @@ private[forum] final class TopicApi(
             bus.publish(actorApi.CreatePost(post, topic), 'forumPost)
           } inject topic
     }
+
+  def makeBlogDiscuss(categ: Categ, slug: String, name: String, url: String): Funit = {
+    val topic = Topic.make(
+      categId = categ.slug,
+      slug = slug,
+      name = name,
+      troll = false,
+      hidden = false
+    )
+    val post = Post.make(
+      topicId = topic.id,
+      author = none,
+      userId = "lichess".some,
+      ip = none,
+      troll = false,
+      hidden = false,
+      text = s"Comments on $url",
+      lang = none,
+      number = 1,
+      categId = categ.id,
+      modIcon = true.some
+    )
+    env.postColl.insert(post) >>
+      env.topicColl.insert(topic withPost post) >>
+      env.categColl.update($id(categ.id), categ withTopic post) >>-
+      (indexer ! InsertPost(post)) >>-
+      env.recent.invalidate >>-
+      bus.publish(actorApi.CreatePost(post, topic), 'forumPost) void
+  }
 
   def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = {
     val adapter = new Adapter[Topic](
@@ -164,5 +193,4 @@ private[forum] final class TopicApi(
       updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
     )).void
   } yield ()
-
 }

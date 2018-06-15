@@ -33,10 +33,10 @@ final class Env(
   lazy val api = new MessageApi(
     coll = threadColl,
     shutup = shutup,
-    maxPerPage = ThreadMaxPerPage,
+    maxPerPage = lila.common.MaxPerPage(ThreadMaxPerPage),
     blocks = blocks,
     notifyApi = notifyApi,
-    follows = follows,
+    security = security,
     lilaBus = system.lilaBus
   )
 
@@ -45,6 +45,12 @@ final class Env(
     blocks = blocks,
     getPref = getPref
   )
+
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+    def receive = {
+      case lila.user.User.GDPRErase(user) => api erase user
+    }
+  })), 'gdprErase)
 }
 
 object Env {
@@ -57,7 +63,7 @@ object Env {
     blocks = lila.relation.Env.current.api.fetchBlocks,
     follows = lila.relation.Env.current.api.fetchFollows,
     getPref = lila.pref.Env.current.api.getPref,
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     isOnline = lila.user.Env.current.isOnline,
     lightUser = lila.user.Env.current.lightUserSync
   )

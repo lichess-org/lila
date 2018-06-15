@@ -8,11 +8,11 @@ import lila.hub.actorApi.round.MoveEvent
 
 private final class MoveBroadcast extends Actor {
 
-  override def preStart() {
+  override def preStart(): Unit = {
     context.system.lilaBus.subscribe(self, 'moveEvent, 'socketDoor)
   }
 
-  override def postStop() {
+  override def postStop(): Unit = {
     super.postStop()
     context.system.lilaBus.unsubscribe(self)
   }

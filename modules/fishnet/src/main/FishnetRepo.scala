@@ -39,7 +39,7 @@ private final class FishnetRepo(
   )).cursor[Client]().gather[List]()
   def lichessClients = clientColl.find($doc(
     "enabled" -> true,
-    "userId" -> $doc("$regex" -> "^lichess-")
+    "userId" $startsWith "lichess-"
   )).cursor[Client]().gather[List]()
 
   def addAnalysis(ana: Work.Analysis) = analysisColl.insert(ana).void
@@ -63,4 +63,10 @@ private final class FishnetRepo(
 
   def selectWork(id: Work.Id) = $id(id.value)
   def selectClient(key: Client.Key) = $id(key.value)
+
+  private[fishnet] def toKey(keyOrUser: String): Fu[Client.Key] =
+    clientColl.primitiveOne[String]($or(
+      "_id" $eq keyOrUser,
+      "userId" $eq keyOrUser
+    ), "_id") flatten "client not found" map Client.Key.apply
 }

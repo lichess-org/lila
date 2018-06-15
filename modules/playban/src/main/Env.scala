@@ -4,7 +4,10 @@ import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    isRematch: String => Boolean,
+    messenger: lila.message.MessageApi,
+    chatApi: lila.chat.ChatApi,
+    lightUser: lila.common.LightUser.Getter,
+    bus: lila.common.Bus,
     db: lila.db.Env
 ) {
 
@@ -13,14 +16,27 @@ final class Env(
   }
   import settings._
 
-  lazy val api = new PlaybanApi(coll = db(CollectionPlayban), isRematch = isRematch)
+  private lazy val feedback = new PlaybanFeedback(
+    chatApi = chatApi,
+    lightUser = lightUser
+  )
+
+  lazy val api = new PlaybanApi(
+    coll = db(CollectionPlayban),
+    sandbag = new SandbagWatch(messenger),
+    feedback = feedback,
+    bus = bus
+  )
 }
 
 object Env {
 
   lazy val current: Env = "playban" boot new Env(
     config = lila.common.PlayApp loadConfig "playban",
-    isRematch = lila.game.Env.current.cached.isRematch.get _,
+    messenger = lila.message.Env.current.api,
+    chatApi = lila.chat.Env.current.api,
+    lightUser = lila.user.Env.current.lightUserApi.async,
+    bus = lila.common.PlayApp.system.lilaBus,
     db = lila.db.Env.current
   )
 }

@@ -3,6 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
 import { MaybeVNodes } from './interfaces';
 import { AutoplayDelay } from './autoplay';
+import { boolSetting, BoolSetting } from './boolSetting';
 import AnalyseCtrl from './ctrl';
 import { router } from 'game';
 import { synthetic, bind, dataIcon } from './util';
@@ -94,7 +95,7 @@ function studyButton(ctrl: AnalyseCtrl) {
     }
   }, [
     h('i.icon', {
-      attrs: dataIcon('')
+      attrs: dataIcon('4')
     }),
     ctrl.trans.noarg('openStudy')
   ]);
@@ -115,41 +116,29 @@ function studyButton(ctrl: AnalyseCtrl) {
     hiddenInput('variant', ctrl.data.game.variant.key),
     hiddenInput('fen', ctrl.tree.root.fen),
     h('button.fbt', { attrs: { type: 'submit' } }, [
-      h('i.icon', { attrs: dataIcon('') }),
+      h('i.icon', { attrs: dataIcon('4') }),
       'Study'
     ])
   ]);
 }
 
 export class Ctrl {
-  open: boolean;
-
-  constructor() {
-    this.open = location.hash === '#menu';
-  }
-
-  toggle(): void {
-    this.open = !this.open;
-  }
+  open: boolean = false;
+  toggle = () => this.open = !this.open;
 }
 
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
-  noarg = ctrl.trans.noarg;
-
-  const flipOpts = d.userAnalysis ? {
-    hook: bind('click', ctrl.flip)
-  } : {
-    attrs: { href: router.game(d, d.opponent.color, ctrl.embed) + '#' + ctrl.node.ply }
-  };
-
-  const canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard';
-  const ceval = ctrl.getCeval();
-  const mandatoryCeval = ctrl.mandatoryCeval();
+  noarg = ctrl.trans.noarg,
+  canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard',
+  ceval = ctrl.getCeval(),
+  mandatoryCeval = ctrl.mandatoryCeval();
 
   const tools: MaybeVNodes = [
     h('div.tools', [
-      h('a.fbt', flipOpts, [
+      h('a.fbt', {
+    hook: bind('click', ctrl.flip)
+  }, [
         h('i.icon', { attrs: dataIcon('B') }),
         noarg('flipBoard')
       ]),
@@ -178,36 +167,36 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const cevalConfig: MaybeVNodes = (ceval && ceval.possible && ceval.allowed()) ? ([
     h('h2', noarg('computerAnalysis'))
   ] as MaybeVNodes).concat([
-    boolSetting(ctrl, {
+    ctrlBoolSetting({
       name: 'enable',
       title: mandatoryCeval ? "Required by practice mode" : window.lichess.engineName,
       id: 'all',
       checked: ctrl.showComputer(),
       disabled: mandatoryCeval,
       change: ctrl.toggleComputer
-    })
+    }, ctrl)
   ]).concat(
     ctrl.showComputer() ? [
-      boolSetting(ctrl, {
+      ctrlBoolSetting({
         name: 'bestMoveArrow',
-        title: 'Keyboard: a',
+        title: 'a',
         id: 'shapes',
         checked: ctrl.showAutoShapes(),
         change: ctrl.toggleAutoShapes
-      }),
-      boolSetting(ctrl, {
+      }, ctrl),
+      ctrlBoolSetting({
         name: 'evaluationGauge',
         id: 'gauge',
         checked: ctrl.showGauge(),
         change: ctrl.toggleGauge
-      }),
-      boolSetting(ctrl, {
+      }, ctrl),
+      ctrlBoolSetting({
         name: 'infiniteAnalysis',
         title: 'removesTheDepthLimit',
         id: 'infinite',
         checked: ceval.infinite(),
         change: ctrl.cevalSetInfinite
-      }),
+      }, ctrl),
       (id => {
         const max = 5;
         return h('div.setting', [
@@ -265,16 +254,16 @@ export function view(ctrl: AnalyseCtrl): VNode {
 
     const notationConfig = [
       h('h2', noarg('preferences')),
-      boolSetting(ctrl, {
-        name: 'Inline notation',
-        title: 'Keyboard: Shift+I',
+      ctrlBoolSetting({
+        name: noarg('inlineNotation'),
+        title: 'Shift+I',
         id: 'inline',
         checked: ctrl.treeView.inline(),
         change(v) {
           ctrl.treeView.set(v);
           ctrl.actionMenu.toggle();
         }
-      })
+      }, ctrl)
     ];
 
     return h('div.action_menu',
@@ -303,30 +292,6 @@ export function view(ctrl: AnalyseCtrl): VNode {
     );
 }
 
-interface BoolSetting {
-  name: string,
-  title?: string,
-  id: string,
-  checked: boolean;
-  disabled?: boolean;
-  change(v: boolean): void;
-}
-
-function boolSetting(ctrl: AnalyseCtrl, o: BoolSetting) {
-  const fullId = 'abset-' + o.id;
-  return h('div.setting', o.title ? {
-    attrs: { title: ctrl.trans.noarg(o.title) }
-  } : {}, [
-    h('label', { attrs: { 'for': fullId } }, ctrl.trans.noarg(o.name)),
-    h('div.switch', [
-      h('input#' + fullId + '.cmn-toggle.cmn-toggle-round', {
-        attrs: {
-          type: 'checkbox',
-          checked: o.checked
-        },
-        hook: bind('change', e => o.change((e.target as HTMLInputElement).checked), ctrl.redraw)
-      }),
-      h('label', { attrs: { 'for': fullId } })
-    ])
-  ]);
+function ctrlBoolSetting(o: BoolSetting, ctrl: AnalyseCtrl) {
+  return boolSetting(o, ctrl.trans, ctrl.redraw);
 }

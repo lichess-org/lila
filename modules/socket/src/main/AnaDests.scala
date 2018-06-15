@@ -5,7 +5,6 @@ import play.api.libs.json._
 import chess.format.FEN
 import chess.opening._
 import chess.variant.Variant
-import lila.common.PimpedJson._
 import lila.tree.Node.openingWriter
 
 case class AnaDests(

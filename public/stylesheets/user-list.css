@@ -80,15 +80,12 @@ div.user_lists div.user_top div div {
   line-height: 22px;
   white-space: nowrap;
 }
-div.user_lists div.user_top div div:first-child {
+div.user_lists div.user_top .user_link {
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-right: 5px;
 }
-#site_header div.user_lists div.user_top div div {
+#site_header div.user_lists .user_link {
   max-width: 160px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 div.big_user_list > a {

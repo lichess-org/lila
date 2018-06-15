@@ -1,21 +1,26 @@
 package lila.app
 package templating
 
+import controllers.routes
+import play.api.mvc.RequestHeader
 import play.twirl.api.Html
 
 import lila.api.Context
-import lila.common.AssetVersion
+import lila.common.{ AssetVersion, ContentSecurityPolicy }
 
 trait AssetHelper { self: I18nHelper =>
 
   def isProd: Boolean
 
   val assetDomain = lila.api.Env.current.Net.AssetDomain
+  val socketDomain = lila.api.Env.current.Net.SocketDomain
 
   val assetBaseUrl = s"//$assetDomain"
 
+  def assetRoute(path: String) = s"/assets/$path"
+
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
-  def staticUrl(path: String) = s"$assetBaseUrl/assets/$path"
+  def staticUrl(path: String) = s"$assetBaseUrl${assetRoute(path)}"
 
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
@@ -26,7 +31,7 @@ trait AssetHelper { self: I18nHelper =>
     cssAt("vendor/" + name, staticDomain)
 
   def cssAt(path: String, staticDomain: Boolean, version: AssetVersion): Html = Html {
-    val href = if (staticDomain) staticUrl(path) else s"/assets/$path"
+    val href = if (staticDomain) staticUrl(path) else assetRoute(path)
     s"""<link href="$href?v=$version" type="text/css" rel="stylesheet"/>"""
   }
   def cssAt(path: String, staticDomain: Boolean = true)(implicit ctx: Context): Html =
@@ -51,36 +56,32 @@ trait AssetHelper { self: I18nHelper =>
   def roundTag(implicit ctx: Context) =
     jsAt(s"compiled/lichess.round${isProd ?? (".min")}.js", async = true)
 
-  val highchartsTag = cdnOrLocal(
-    cdn = "//code.highcharts.com/4.1.4/highcharts.js",
-    test = "window.Highcharts",
-    local = staticUrl("vendor/highcharts4/highcharts.js")
-  )
-
-  val highchartsLatestTag = cdnOrLocal(
-    cdn = "//code.highcharts.com/4.2/highcharts.js",
-    test = "window.Highcharts",
-    local = staticUrl("vendor/highcharts-4.2.5/highcharts.js")
-  )
+  val highchartsLatestTag = Html {
+    s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts.js")}"></script>"""
+  }
 
   val highchartsMoreTag = Html {
-    """<script src="//code.highcharts.com/4.1.4/highcharts-more.js"></script>"""
+    s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts-more.js")}"></script>"""
   }
 
   val tagmanagerTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",
+    cdn = "https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",
     test = "$.tagsManager",
     local = staticUrl("vendor/tagmanager/tagmanager.js")
   )
 
   val typeaheadTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js",
+    cdn = "https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js",
     test = "$.typeahead",
     local = staticUrl("javascripts/vendor/typeahead.bundle.min.js")
   )
 
   val fingerprintTag = Html {
     s"""<script async defer src="${staticUrl("javascripts/vendor/fp2.min.js")}"></script>"""
+  }
+
+  val flatpickrTag = Html {
+    s"""<script async defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
 
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
@@ -90,9 +91,29 @@ trait AssetHelper { self: I18nHelper =>
       s"""<script src="$local"></script>"""
   }
 
-  def embedJs(js: String): Html = Html {
-    val escaped = js.replace("</script", "<|script")
-    s"""<script>$escaped</script>"""
+  def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
+    val assets = if (req.secure) "https://" + assetDomain else assetDomain
+    val socket = (if (req.secure) "wss://" else "ws://") + socketDomain
+    ContentSecurityPolicy(
+      defaultSrc = List("'self'", assets),
+      connectSrc = List("'self'", assets, socket, socket + ":*", lila.api.Env.current.ExplorerEndpoint, lila.api.Env.current.TablebaseEndpoint),
+      styleSrc = List("'self'", "'unsafe-inline'", assets, "https://fonts.googleapis.com"),
+      fontSrc = List("'self'", assetDomain, "https://fonts.gstatic.com"),
+      childSrc = List("'self'", assets, "https://www.youtube.com"),
+      imgSrc = List("data:", "*"),
+      scriptSrc = List("'self'", assets, "https://cdnjs.cloudflare.com")
+    )
   }
-  def embedJs(js: Html): Html = embedJs(js.body)
+
+  def defaultCsp(implicit ctx: Context): ContentSecurityPolicy = {
+    val csp = basicCsp(ctx.req)
+    ctx.nonce.fold(csp)(csp.withNonce(_))
+  }
+
+  def embedJsUnsafe(js: String)(implicit ctx: Context): Html = Html {
+    val nonce = ctx.nonce ?? { nonce => s""" nonce="$nonce"""" }
+    s"""<script$nonce>$js</script>"""
+  }
+
+  def embedJs(js: Html)(implicit ctx: Context): Html = embedJsUnsafe(js.body)
 }

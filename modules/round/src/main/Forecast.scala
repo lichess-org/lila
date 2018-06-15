@@ -6,7 +6,6 @@ import play.api.libs.json._
 import chess.format.Uci
 import chess.Move
 import lila.game.Game
-import lila.common.PimpedJson.jodaDateWrites
 
 case class Forecast(
     _id: String, // player full id
@@ -57,7 +56,7 @@ object Forecast {
 
   implicit val forecastJsonWriter = Json.writes[Forecast]
 
-  case object OutOfSync extends lila.common.LilaException {
+  case object OutOfSync extends lila.base.LilaException {
     val message = "Forecast out of sync"
   }
 }

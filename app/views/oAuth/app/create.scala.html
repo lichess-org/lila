@@ -1,0 +1,23 @@
+@(form: Form[_])(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("material.form.css")
+}
+
+@title = @{ "New OAuth App" }
+
+@account.layout(
+title = title,
+active = "oauth.app",
+evenMoreCss = moreCss
+) {
+<div class="oauth_form content_box no_padding oauth security">
+  <div class="top"><h1>@title</h1></div>
+  <p class="explanation">
+    Want to build something that integrates with and extends Lichess? Register a new OAuth App to get started developing on the Lichess API.
+  </p>
+  <form class="material form" action="@routes.OAuthApp.create" method="POST">
+    @inForm(form)
+  </form>
+</div>
+}

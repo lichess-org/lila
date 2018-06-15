@@ -2,15 +2,10 @@ package lila.security
 
 import scala.concurrent.duration._
 
-import java.net.InetAddress
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
-import play.api.mvc.Results.Redirect
-import play.api.mvc.{ RequestHeader, Action, Cookies }
-import reactivemongo.api.commands.GetLastError
-import reactivemongo.api.ReadPreference
+import play.api.mvc.{ RequestHeader, Cookies }
 
-import lila.common.{ IpAddress, LilaCookie }
+import lila.common.IpAddress
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
@@ -18,57 +13,43 @@ final class Firewall(
     coll: Coll,
     cookieName: Option[String],
     enabled: Boolean,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    cachedIpsTtl: FiniteDuration
+    system: akka.actor.ActorSystem
 ) {
 
-  private val ipsCache = asyncCache.single[Set[String]](
-    name = "firewall.ips",
-    f = coll.distinctWithReadPreference[String, Set]("_id", none, ReadPreference.secondaryPreferred).addEffect { ips =>
-      lila.mon.security.firewall.ip(ips.size)
-    },
-    expireAfter = _.ExpireAfterWrite(cachedIpsTtl)
-  )
+  private var current: Set[String] = Set.empty
 
-  private def ipOf(req: RequestHeader) =
-    lila.common.HTTPRequest lastRemoteAddress req
+  system.scheduler.scheduleOnce(10 seconds)(loadFromDb)
 
-  def blocks(req: RequestHeader): Fu[Boolean] = if (enabled) {
-    cookieName.fold(blocksIp(ipOf(req))) { cn =>
-      blocksIp(ipOf(req)) map (_ || blocksCookies(req.cookies, cn))
-    } addEffect { v =>
-      if (v) lila.mon.security.firewall.block()
+  def blocksIp(ip: IpAddress): Boolean = current contains ip.value
+
+  def blocks(req: RequestHeader): Boolean = enabled && {
+    val v = blocksIp {
+      lila.common.HTTPRequest lastRemoteAddress req
+    } || cookieName.?? { blocksCookies(req.cookies, _) }
+    if (v) lila.mon.security.firewall.block()
+    v
+  }
+
+  def accepts(req: RequestHeader): Boolean = !blocks(req)
+
+  def blockIps(ips: List[IpAddress]): Funit = ips.map { ip =>
+    validIp(ip) ?? {
+      coll.update(
+        $id(ip),
+        $doc("_id" -> ip, "date" -> DateTime.now),
+        upsert = true
+      ).void
     }
-  } else fuccess(false)
+  }.sequenceFu >> loadFromDb
 
-  def accepts(req: RequestHeader): Fu[Boolean] = blocks(req) map (!_)
+  def unblockIps(ips: Iterable[IpAddress]): Funit =
+    coll.remove($inIds(ips.filter(validIp))).void >>- loadFromDb
 
-  // since we'll read from secondary right after writing
-  private val writeConcern = GetLastError.ReplicaAcknowledged(
-    n = 2,
-    timeout = 5000,
-    journaled = false
-  )
-
-  def blockIp(ip: IpAddress): Funit = validIp(ip) ?? {
-    coll.update(
-      $id(ip),
-      $doc("_id" -> ip, "date" -> DateTime.now),
-      upsert = true,
-      writeConcern = writeConcern
-    ).void >>- ipsCache.refresh
-    funit // do not wait for the replica aknowledgement, return right away
-  }
-
-  def unblockIps(ips: Iterable[IpAddress]): Funit = {
-    coll.remove(
-      $inIds(ips.filter(validIp)),
-      writeConcern = writeConcern
-    ).void >>- ipsCache.refresh
-    funit // do not wait for the replica aknowledgement, return right away
-  }
-
-  def blocksIp(ip: IpAddress): Fu[Boolean] = ipsCache.get.dmap(_ contains ip.value)
+  private def loadFromDb: Funit =
+    coll.distinct[String, Set]("_id", none).map { ips =>
+      current = ips
+      lila.mon.security.firewall.ip(ips.size)
+    }
 
   private def blocksCookies(cookies: Cookies, name: String) =
     (cookies get name).isDefined

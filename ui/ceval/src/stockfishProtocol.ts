@@ -13,8 +13,10 @@ export default class Protocol {
   private work: Work | null = null;
   private curEval: Tree.ClientEval | null = null;
   private expectedPvs = 1;
-  private stopped: Deferred<void> | null;
+  private stopped: DeferPromise.Deferred<void> | null;
   private opts: WorkerOpts;
+
+  public engineName: string | undefined;
 
   constructor(send: (cmd: string) => void, opts: WorkerOpts) {
     this.send = send;
@@ -22,6 +24,13 @@ export default class Protocol {
 
     this.stopped = defer<void>();
     this.stopped.resolve();
+
+    // get engine name/version
+    send('uci');
+
+    // analyse without contempt
+    send('setoption name UCI_AnalyseMode value true');
+    send('setoption name Analysis Contempt value Off');
 
     if (opts.variant === 'fromPosition' || opts.variant === 'chess960')
       send('setoption name UCI_Chess960 value true');
@@ -31,12 +40,11 @@ export default class Protocol {
       send('setoption name UCI_Variant value 3check');
     else if (opts.variant !== 'standard')
       send('setoption name UCI_Variant value ' + opts.variant.toLowerCase());
-    else
-      send('isready'); // warm up the webworker
   }
 
   received(text: string) {
-    if (text.indexOf('bestmove ') === 0) {
+    if (text.indexOf('id name ') === 0) this.engineName = text.substring('id name '.length);
+    else if (text.indexOf('bestmove ') === 0) {
       if (!this.stopped) this.stopped = defer<void>();
       this.stopped.resolve();
       if (this.work && this.curEval) this.work.emit(this.curEval);
@@ -55,6 +63,9 @@ export default class Protocol {
         nodes = parseInt(matches[6]),
         elapsedMs: number = parseInt(matches[7]),
         moves = matches[8].split(' ');
+
+    // Sometimes we get #0. Let's just skip it.
+    if (isMate && !ev) return;
 
     // Track max pv index to determine when pv prints are done.
     if (this.expectedPvs < multiPv) this.expectedPvs = multiPv;

@@ -1,5 +1,4 @@
 import { renderIndexAndMove } from '../moveView';
-import { opposite } from 'chessground/util';
 import { RetroCtrl } from './retroCtrl';
 import AnalyseCtrl from '../ctrl';
 import { bind, dataIcon, spinner } from '../util';
@@ -13,7 +12,7 @@ function skipOrViewSolution(ctrl: RetroCtrl) {
     }, ctrl.trans.noarg('viewTheSolution')),
     h('a', {
       hook: bind('click', ctrl.skip)
-    }, 'Skip this move')
+    }, ctrl.trans.noarg('skipThisMove'))
   ]);
 }
 
@@ -22,7 +21,7 @@ function jumpToNext(ctrl: RetroCtrl) {
     hook: bind('click', ctrl.jumpToNext)
   }, [
     h('i', { attrs: dataIcon('G') }),
-    'Next'
+    ctrl.trans.noarg('next')
   ]);
 }
 
@@ -43,15 +42,12 @@ const feedback = {
       h('div.player', [
         h('div.no-square', h('piece.king.' + ctrl.color)),
         h('div.instruction', [
-          h('strong', [
-            ...renderIndexAndMove({
-              withDots: true,
-              showGlyphs: true,
-              showEval: false
-            }, ctrl.current().fault.node),
-            ' was played'
-          ]),
-          h('em', 'Find a better move for ' + ctrl.color),
+          h('strong', ctrl.trans.vdom('xWasPlayed', h('move', renderIndexAndMove({
+            withDots: true,
+            showGlyphs: true,
+            showEval: false
+          }, ctrl.current().fault.node)))),
+          h('em', ctrl.trans.noarg(ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack')),
           skipOrViewSolution(ctrl)
         ])
       ])
@@ -63,11 +59,11 @@ const feedback = {
       h('div.player', [
         h('div.icon.off', '!'),
         h('div.instruction', [
-          h('strong', 'You browsed away'),
+          h('strong', ctrl.trans.noarg('youBrowsedAway')),
           h('div.choices.off', [
             h('a', {
               hook: bind('click', ctrl.jumpToNext)
-            }, 'Resume learning')
+            }, ctrl.trans.noarg('resumeLearning'))
           ])
         ])
       ])
@@ -78,8 +74,8 @@ const feedback = {
       h('div.player', [
         h('div.icon', '✗'),
         h('div.instruction', [
-          h('strong', 'You can do better'),
-          h('em', 'Try another move for ' + ctrl.color),
+          h('strong', ctrl.trans.noarg('youCanDoBetter')),
+          h('em', ctrl.trans.noarg(ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack')),
           skipOrViewSolution(ctrl)
         ])
       ])
@@ -102,15 +98,11 @@ const feedback = {
         h('div.player', [
           h('div.icon', '✓'),
           h('div.instruction', [
-            h('strong', 'Solution:'),
-            h('em', [
-              'Best move was ',
-              h('strong', renderIndexAndMove({
-                withDots: true,
-                showEval: false
-              }, ctrl.current().solution.node)
-              )
-            ])
+            h('strong', ctrl.trans.noarg('solution')),
+            h('em', ctrl.trans.vdom('bestWasX', h('strong', renderIndexAndMove({
+              withDots: true,
+              showEval: false
+            }, ctrl.current().solution.node))))
           ])
         ])
       ),
@@ -122,7 +114,7 @@ const feedback = {
       h('div.half.top',
         h('div.player.center', [
           h('div.instruction', [
-            h('strong', 'Evaluating your move'),
+            h('strong', ctrl.trans.noarg('evaluatingYourMove')),
             renderEvalProgress(ctrl.node())
           ])
         ])
@@ -134,7 +126,7 @@ const feedback = {
       h('div.half.top',
         h('div.player', [
           h('div.icon', spinner()),
-          h('div.instruction', 'Waiting for analysis...')
+          h('div.instruction', ctrl.trans.noarg('waitingForAnalysis'))
         ])
       )
     ];
@@ -144,15 +136,15 @@ const feedback = {
         h('div.no-square', h('piece.king.' + ctrl.color)),
         h('div.instruction', [
           h('em', nothing ?
-            'No mistakes found for ' + ctrl.color :
-            'Done reviewing ' + ctrl.color + ' mistakes'),
+            ctrl.trans.noarg(ctrl.color === 'white' ? 'noMistakesFoundForWhite' : 'noMistakesFoundForBlack') :
+            ctrl.trans.noarg(ctrl.color === 'white' ? 'doneReviewingWhiteMistakes' : 'doneReviewingBlackMistakes')),
           h('div.choices.end', [
             nothing ? null : h('a', {
               hook: bind('click', ctrl.reset)
-            }, 'Do it again'),
+            }, ctrl.trans.noarg('doItAgain')),
             h('a', {
               hook: bind('click', flip)
-            }, 'Review ' + opposite(ctrl.color) + ' mistakes')
+            }, ctrl.trans.noarg(ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'))
           ])
         ])
       ])
@@ -173,7 +165,7 @@ function renderFeedback(root: AnalyseCtrl, fb) {
 function renderTitle(ctrl: RetroCtrl): VNode {
   var completion = ctrl.completion();
   return h('div.title', [
-    h('span', 'Learn from your mistakes'),
+    h('span', ctrl.trans.noarg('learnFromYourMistakes')),
     h('span', Math.min(completion[0] + 1, completion[1]) + ' / ' + completion[1]),
     h('span.close', {
       attrs: dataIcon('L'),

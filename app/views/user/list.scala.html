@@ -5,7 +5,7 @@
 @userTopPerf(users: List[User.LightPerf], perfType: PerfType) = {
 <div class="user_top">
   <h2 class="text" data-icon="@perfType.iconChar">
-    <a href="@routes.User.top200(perfType.key)">@perfType.name</a>
+    <a href="@routes.User.topNb(200, perfType.key)">@perfType.name</a>
   </h2>
   @users.map { l =>
   <div>
@@ -31,7 +31,7 @@
 @side = {
 <div class="side">
   <form class="search public">
-    <input placeholder="@trans.search()" class="search_user user-autocomplete-jump" autofocus />
+    <input placeholder="@trans.search()" class="search_user user-autocomplete" />
   </form>
   @if(isGranted(_.UserSearch)) {
   <form class="search" action="@routes.Mod.search" method="GET">
@@ -58,7 +58,7 @@ side = side.some,
 openGraph = lila.app.ui.OpenGraph(
 title = "Chess players and leaderboards",
 url = s"$netBaseUrl${routes.User.list.url}",
-description = "Best chess players in bullet, blitz, classical, Chess960 and more chess variants").some,
+description = "Best chess players in bullet, blitz, rapid, classical, Chess960 and more chess variants").some,
 withInfScroll = false) {
 <div class="content_box community">
   @communityTabs("leaderboard")
@@ -82,14 +82,15 @@ withInfScroll = false) {
     @userTopPerf(leaderboards.chess960, PerfType.Chess960)
     @userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some)
 
-    @userTopPerf(leaderboards.classical, PerfType.Classical)
+    @userTopPerf(leaderboards.rapid, PerfType.Rapid)
     @userTopPerf(leaderboards.threeCheck, PerfType.ThreeCheck)
     @userTopPerf(leaderboards.antichess, PerfType.Antichess)
 
-    @userTopPerf(leaderboards.ultraBullet, PerfType.UltraBullet)
+    @userTopPerf(leaderboards.classical, PerfType.Classical)
     @userTopPerf(leaderboards.kingOfTheHill, PerfType.KingOfTheHill)
     @userTopPerf(leaderboards.horde, PerfType.Horde)
 
+    @userTopPerf(leaderboards.ultraBullet, PerfType.UltraBullet)
     @userTopPerf(leaderboards.atomic, PerfType.Atomic)
     @userTopPerf(leaderboards.racingKings, PerfType.RacingKings)
   </div>

@@ -2,30 +2,56 @@ import { winningChances, pv2san } from 'ceval';
 import { Eval } from 'ceval';
 import { path as treePath } from 'tree';
 import { detectThreefold } from '../nodeFinder';
+import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
 import AnalyseCtrl from '../ctrl';
-import { prop } from 'common';
+import { Redraw } from '../interfaces';
+import { prop, Prop } from 'common';
 
 export interface Comment {
   prev: Tree.Node;
   node: Tree.Node;
   path: Tree.Path;
-  verdict: 'good' | 'inaccuracy' | 'mistake' | 'blunder';
+  verdict: 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
   best?: {
     uci: Uci;
     san: San;
   }
 }
 
+interface Hinting {
+  mode: 'move' | 'piece';
+  uci: Uci;
+}
+
 export interface PracticeCtrl {
-  [key: string]: any; // #TODO
+  onCeval(): void;
+  onJump(): void;
+  isMyTurn(): boolean;
+  comment: Prop<Comment | null>;
+  running,
+  hovering,
+  hinting,
+  resume,
+  playableDepth,
+  reset(): void;
+  preUserJump(from: Tree.Path, to: Tree.Path): void;
+  postUserJump(from: Tree.Path, to: Tree.Path): void;
+  onUserMove(): void;
+  playCommentBest(): void;
+  commentShape(enable: boolean): void;
+  hint(): void;
+  currentNode(): Tree.Node;
+  bottomColor(): Color;
+  redraw: Redraw
 }
 
 export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCtrl {
 
-  const running = prop(true),
+  const variant = root.data.game.variant.key,
+  running = prop(true),
   comment = prop<Comment | null>(null),
   hovering = prop<any>(null),
-  hinting = prop<any>(null),
+  hinting = prop<Hinting | null>(null),
   played = prop(false);
 
   function ensureCevalRunning() {
@@ -35,7 +61,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   }
 
   function commentable(node: Tree.Node, bonus: number = 0): boolean {
-    if (root.gameOver(node)) return true;
+    if (root.gameOver(node) || node.tbhit) return true;
     const ceval = node.ceval;
     return ceval ? ((ceval.depth + bonus) >= 15 || (ceval.depth >= 13 && ceval.millis > 3000)) : false;
   }
@@ -44,7 +70,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     const ceval = node.ceval;
     return ceval ? (
       ceval.depth >= Math.min(ceval.maxDepth || 99, playableDepth()) ||
-      (ceval.depth >= 15 && ceval.millis > 5000)
+      (ceval.depth >= 15 && (ceval.cloud || ceval.millis > 5000))
     ) : false;
   };
 
@@ -55,22 +81,34 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     e8h8: 'e8g8'
   };
 
-  function makeComment(prev, node: Tree.Node, path: Tree.Path): Comment {
+  function tbhitToEval(hit: Tree.TablebaseHit | undefined) {
+    return hit && (
+      hit.winner ? {
+        mate: hit.winner === 'white' ? 10 : -10
+      } : { cp: 0 }
+    );
+  }
+  function nodeBestUci(node: Tree.Node): Uci | undefined {
+    return (node.tbhit && node.tbhit.best) || (node.ceval && node.ceval.pvs[0].moves[0]);
+  }
+
+  function makeComment(prev: Tree.Node, node: Tree.Node, path: Tree.Path): Comment {
     let verdict, best;
     const over = root.gameOver(node);
 
-    if (over === 'checkmate') verdict = 'good';
+    if (over === 'checkmate') verdict = 'goodMove';
     else {
-      const nodeEval: Eval = (node.threefold || over === 'draw') ? {
-        cp: 0
-      } : (node.ceval as Eval);
-      const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prev.ceval);
+      const nodeEval: Eval = tbhitToEval(node.tbhit) || (
+        (node.threefold || over === 'draw') ? { cp: 0 } : node.ceval as Eval
+      );
+      const prevEval: Eval = tbhitToEval(prev.tbhit) || prev.ceval!;
+      const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
 
-      best = prev.ceval.pvs[0].moves[0];
-      if (best === node.uci || best === altCastles[node.uci]) best = null;
+      best = nodeBestUci(prev)!;
+      if (best === node.uci || best === altCastles[node.uci!]) best = null;
 
-      if (!best) verdict = 'good';
-      else if (shift < 0.025) verdict = 'good';
+      if (!best) verdict = 'goodMove';
+      else if (shift < 0.025) verdict = 'goodMove';
       else if (shift < 0.06) verdict = 'inaccuracy';
       else if (shift < 0.14) verdict = 'mistake';
       else verdict = 'blunder';
@@ -83,7 +121,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       verdict,
       best: best ? {
         uci: best,
-        san: pv2san(root.data.game.variant.key, prev.fen, false, [best])
+        san: pv2san(variant, prev.fen, false, [best])
       } : undefined
     };
   }
@@ -98,33 +136,52 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       comment(null);
       return root.redraw();
     }
+    if (tablebaseGuaranteed(variant, node.fen) && !node.tbhit) return;
     ensureCevalRunning();
     if (isMyTurn()) {
       const h = hinting();
-      if (h && node.ceval) {
-        h.uci = node.ceval.pvs[0].moves[0];
+      if (h) {
+        h.uci = nodeBestUci(node) || h.uci;
         root.setAutoShapes();
       }
     } else {
       comment(null);
       if (node.san && commentable(node)) {
         const parentNode = root.tree.parentNode(root.path);
-        if (commentable(parentNode, +1))
-        comment(makeComment(parentNode, node, root.path));
+        if (commentable(parentNode, +1)) comment(makeComment(parentNode, node, root.path));
+        else {
+          /*
+           * Looks like the parent node didn't get enough analysis time
+           * to be commentable :-/ it can happen if the player premoves
+           * or just makes a move before the position is sufficiently analysed.
+           * In this case, fall back to comparing to the position before,
+           * Since computer moves are supposed to preserve eval anyway.
+           */
+          const olderNode = root.tree.parentNode(treePath.init(root.path));
+          if (commentable(olderNode, +1)) comment(makeComment(olderNode, node, root.path));
+        }
       }
       if (!played() && playable(node)) {
-        root.playUci(node.ceval!.pvs[0].moves[0]);
+        root.playUci(nodeBestUci(node)!);
         played(true);
-      }
+      } else root.redraw();
     }
   };
 
-  function resume() {
-    running(true);
-    checkCeval();
+  function checkCevalOrTablebase() {
+    if (tablebaseGuaranteed(variant, root.node.fen)) root.explorer.fetchTablebaseHit(root.node.fen).then(hit => {
+      if (hit && root.node.fen === hit.fen) root.node.tbhit = hit;
+      checkCeval();
+    });
+    else checkCeval();
   }
 
-  window.lichess.requestIdleCallback(checkCeval);
+  function resume() {
+    running(true);
+    checkCevalOrTablebase();
+  }
+
+  window.lichess.requestIdleCallback(checkCevalOrTablebase);
 
   return {
     onCeval: checkCeval,
@@ -132,7 +189,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       played(false);
       hinting(null);
       detectThreefold(root.nodeList, root.node);
-      checkCeval();
+      checkCevalOrTablebase();
     },
     isMyTurn,
     comment,
@@ -145,13 +202,13 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       comment(null);
       hinting(null);
     },
-    preUserJump(from: Ply, to: Ply) {
+    preUserJump(from: Tree.Path, to: Tree.Path) {
       if (from !== to) {
         running(false);
         comment(null);
       }
     },
-    postUserJump(from: Ply, to: Ply) {
+    postUserJump(from: Tree.Path, to: Tree.Path) {
       if (from !== to && isMyTurn()) resume();
     },
     onUserMove() {

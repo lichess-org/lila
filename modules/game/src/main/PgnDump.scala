@@ -1,58 +1,49 @@
 package lila.game
 
 import chess.format.Forsyth
-import chess.format.pgn.{ Pgn, Tag, TagType, Parser, ParsedPgn }
-import chess.format.{ pgn => chessPgn }
+import chess.format.pgn.{ Pgn, Tag, Tags, TagType, Parser, ParsedPgn }
+import chess.format.{ FEN, pgn => chessPgn }
 import chess.{ Centis, Color }
-import org.joda.time.DateTimeZone
-import org.joda.time.format.DateTimeFormat
 
 import lila.common.LightUser
 
 final class PgnDump(
     netBaseUrl: String,
-    getLightUser: LightUser.GetterSync
+    getLightUser: LightUser.Getter
 ) {
 
   import PgnDump._
 
-  def apply(game: Game, initialFen: Option[String], flags: WithFlags): Pgn = {
+  def apply(game: Game, initialFen: Option[FEN], flags: WithFlags): Fu[Pgn] = {
     val imported = game.pgnImport.flatMap { pgni =>
       Parser.full(pgni.pgn).toOption
     }
-    val ts = tags(game, initialFen, imported)
-    val fenSituation = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) => Forsyth <<< fen }
-    val moves2 = fenSituation.??(_.situation.color.black).fold(".." +: game.pgnMoves, game.pgnMoves)
-    val turns = makeTurns(
-      moves2,
-      fenSituation.map(_.fullMoveNumber) | 1,
-      flags.clocks ?? ~game.bothClockStates,
-      game.startColor
-    )
-    Pgn(ts, turns)
-  }
-
-  private val fileR = """[\s,]""".r
-
-  def filename(game: Game): String = gameLightUsers(game) match {
-    case (wu, bu) => fileR.replaceAllIn(
-      "lichess_pgn_%s_%s_vs_%s.%s.pgn".format(
-        Tag.UTCDate.format.print(game.createdAt),
-        player(game.whitePlayer, wu),
-        player(game.blackPlayer, bu),
-        game.id
-      ), "_"
-    )
+    val tagsFuture =
+      if (flags.tags) tags(game, initialFen, imported, withOpening = flags.opening)
+      else fuccess(Tags(Nil))
+    tagsFuture map { ts =>
+      val turns = flags.moves ?? {
+        val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
+        val moves2 = fenSituation.??(_.situation.color.black).fold(".." +: game.pgnMoves, game.pgnMoves)
+        makeTurns(
+          moves2,
+          fenSituation.map(_.fullMoveNumber) | 1,
+          flags.clocks ?? ~game.bothClockStates,
+          game.startColor
+        )
+      }
+      Pgn(ts, turns)
+    }
   }
 
   private def gameUrl(id: String) = s"$netBaseUrl/$id"
 
-  private def gameLightUsers(game: Game): (Option[LightUser], Option[LightUser]) =
-    (game.whitePlayer.userId ?? getLightUser) -> (game.blackPlayer.userId ?? getLightUser)
+  private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
+    (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser)
 
   private def rating(p: Player) = p.rating.fold("?")(_.toString)
 
-  private def player(p: Player, u: Option[LightUser]) =
+  def player(p: Player, u: Option[LightUser]) =
     p.aiLevel.fold(u.fold(p.name | lila.user.User.anonymous)(_.name))("lichess AI level " + _)
 
   private val customStartPosition: Set[chess.variant.Variant] =
@@ -74,21 +65,22 @@ final class PgnDump(
 
   def tags(
     game: Game,
-    initialFen: Option[String],
-    imported: Option[ParsedPgn]
-  ): List[Tag] = gameLightUsers(game) match {
-    case (wu, bu) =>
-      val importedDate = imported.flatMap(_ tag "date")
+    initialFen: Option[FEN],
+    imported: Option[ParsedPgn],
+    withOpening: Boolean
+  ): Fu[Tags] = gameLightUsers(game) map {
+    case (wu, bu) => Tags {
+      val importedDate = imported.flatMap(_.tags(_.Date))
       List[Option[Tag]](
-        Tag(_.Event, imported.flatMap(_ tag "event") | { if (game.imported) "Import" else eventOf(game) }).some,
+        Tag(_.Event, imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) }).some,
         Tag(_.Site, gameUrl(game.id)).some,
         Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
-        Tag(_.Round, imported.flatMap(_ tag "round") | "-").some,
+        Tag(_.Round, imported.flatMap(_.tags(_.Round)) | "-").some,
         Tag(_.White, player(game.whitePlayer, wu)).some,
         Tag(_.Black, player(game.blackPlayer, bu)).some,
         Tag(_.Result, result(game)).some,
-        importedDate.isEmpty option Tag(_.UTCDate, imported.flatMap(_ tag "utcdate") | Tag.UTCDate.format.print(game.createdAt)),
-        importedDate.isEmpty option Tag(_.UTCTime, imported.flatMap(_ tag "utctime") | Tag.UTCTime.format.print(game.createdAt)),
+        importedDate.isEmpty option Tag(_.UTCDate, imported.flatMap(_.tags(_.UTCDate)) | Tag.UTCDate.format.print(game.createdAt)),
+        importedDate.isEmpty option Tag(_.UTCTime, imported.flatMap(_.tags(_.UTCTime)) | Tag.UTCTime.format.print(game.createdAt)),
         Tag(_.WhiteElo, rating(game.whitePlayer)).some,
         Tag(_.BlackElo, rating(game.blackPlayer)).some,
         ratingDiffTag(game.whitePlayer, _.WhiteRatingDiff),
@@ -96,9 +88,9 @@ final class PgnDump(
         wu.flatMap(_.title).map { t => Tag(_.WhiteTitle, t) },
         bu.flatMap(_.title).map { t => Tag(_.BlackTitle, t) },
         Tag(_.Variant, game.variant.name.capitalize).some,
-        Tag(_.TimeControl, game.clock.fold("-") { c => s"${c.limit.roundSeconds}+${c.increment.roundSeconds}" }).some,
+        Tag.timeControl(game.clock.map(_.config)).some,
         Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,
-        Tag(_.Opening, game.opening.fold("?")(_.opening.name)).some,
+        withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.name)),
         Tag(_.Termination, {
           import chess.Status._
           game.status match {
@@ -111,9 +103,10 @@ final class PgnDump(
           }
         }).some
       ).flatten ::: customStartPosition(game.variant).??(List(
-          Tag(_.FEN, initialFen | "?"),
+          Tag(_.FEN, initialFen.fold("?")(_.value)),
           Tag("SetUp", "1")
         ))
+    }
   }
 
   private def makeTurns(moves: Seq[String], from: Int, clocks: Vector[Centis], startColor: Color): List[chessPgn.Turn] =
@@ -141,10 +134,15 @@ final class PgnDump(
 object PgnDump {
 
   case class WithFlags(
-      clocks: Boolean = true
+      clocks: Boolean = true,
+      moves: Boolean = true,
+      tags: Boolean = true,
+      evals: Boolean = true,
+      opening: Boolean = true,
+      literate: Boolean = false
   )
 
   def result(game: Game) =
-    if (game.finished) game.winnerColor.fold("1/2-1/2")(_.fold("1-0", "0-1"))
+    if (game.finished) Color.showResult(game.winnerColor)
     else "*"
 }

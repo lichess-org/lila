@@ -1,3 +1,3 @@
 package lila
 
-package object importer extends PackageObject with WithPlay
+package object importer extends PackageObject

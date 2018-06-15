@@ -115,7 +115,6 @@
   <string name="changePassword">परवलीचा शब्द बदला</string>
   <string name="changeEmail">ई-मेल बदला</string>
   <string name="email">ई-मेल</string>
-  <string name="emailIsOptional">ई-मेल देणे ऐच्छिक आहे. Lichess आपल्या ई-मेलचा वापर  परवलीचा शब्द(Password) बदलायचा झाल्यास करेल</string>
   <string name="passwordReset">पासवर्ड रिसेट</string>
   <string name="forgotPassword">परवलीचा शब्द विसरलात?</string>
   <string name="rank">मानांकन</string>

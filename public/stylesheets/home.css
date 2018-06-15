@@ -32,7 +32,12 @@ div.lobby_and_ground {
   width: 512px;
   height: 512px;
   text-align: center;
-  background: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.8);
+  font-size: 1.1em;
+}
+body.dark #lobby_playban,
+body.dark #lobby_current_game {
+  background: rgba(0,0,0,0.8);
 }
 #lobby_playban h2,
 #lobby_current_game h2 {
@@ -42,6 +47,15 @@ div.lobby_and_ground {
 }
 #lobby_playban a {
   color: #3893E8;
+}
+#lobby_playban ul {
+  margin: 10px auto;
+  display: inline-block;
+  text-align: left;
+}
+#lobby_playban ul li {
+  list-style: disc outside;
+  font-size: 1.1em;
 }
 .current_game #hooks_wrap {
   visibility: hidden;
@@ -90,6 +104,8 @@ body.dark #hooks_wrap {
   border: 1px solid #ccc;
   background: #dadada;
   transition: 0.13s;
+  white-space: nowrap;
+  overflow: hidden;
 }
 #hooks_wrap .tabs a:hover {
   background: #f0f0f0;
@@ -145,7 +161,7 @@ body.dark #hooks_wrap .hook_filter {
   white-space: nowrap;
 }
 #hooks_wrap .hook_filter td {
-  padding: 25px 0;
+  padding: 20px 0;
 }
 #hooks_wrap .hook_filter td:first-child {
   font-size: 1.1em;
@@ -356,6 +372,15 @@ body.dark #hooks_wrap .hook_filter {
 #hook .opponent,
 #hook span {
   display: block;
+}
+
+#hooks_wrap .redir {
+  background: rgba(128,128,128,0.5);
+  display: flex;
+}
+#hooks_wrap .redir .spinner {
+  width: 100px;
+  height: 100px;
 }
 /*********** POOLS *********/
 
@@ -570,7 +595,7 @@ div.lichess_overboard .color_submits .spinner {
   color: #d59120;
 }
 #streams_on_air a.stream span:before {
-  vertical-align: -3px;
+  font-size: 1.5em;
 }
 .tour_spotlight {
   display: flex;
@@ -607,7 +632,6 @@ div.lichess_overboard .color_submits .spinner {
 }
 .tour_spotlight img.img {
   width: 40px;
-  heigth: 40px;
   filter: brightness(9);
   filter: brightness(9);
 }
@@ -723,6 +747,9 @@ body.dark .tour_spotlight:hover .img {
   font-weight: normal;
   display: block;
 }
+.about-side {
+  margin-top: 15px;
+}
 .donation {
   display: flex;
   font-size: 1.3em;
@@ -788,4 +815,10 @@ body.dark .tour_spotlight:hover .img {
 }
 .donation a:hover i::before {
   opacity: 1;
+}
+.about-footer {
+  width: 512px;
+  margin-top: 15px;
+  text-align: center;
+  opacity: 0.8;
 }

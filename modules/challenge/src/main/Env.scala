@@ -5,7 +5,6 @@ import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.common.PimpedConfig._
 import lila.user.User
 import lila.hub.actorApi.map.Ask
 import lila.socket.actorApi.GetVersion
@@ -91,7 +90,7 @@ object Env {
 
   lazy val current: Env = "challenge" boot new Env(
     config = lila.common.PlayApp loadConfig "challenge",
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     onStart = lila.game.Env.current.onStart,
     hub = lila.hub.Env.current,
     gameCache = lila.game.Env.current.cached,

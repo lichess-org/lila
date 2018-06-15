@@ -14,7 +14,10 @@ private[coach] object BsonHandlers {
   implicit val CoachProfileRichTextBSONHandler = stringAnyValHandler[CoachProfile.RichText](_.value, CoachProfile.RichText.apply)
   implicit val CoachProfileBSONHandler = Macros.handler[CoachProfile]
 
-  implicit val CoachBSONHandler = Macros.handler[Coach]
+  import Coach.User
+  implicit val CoachUserBSONHandler = Macros.handler[User]
+
+  implicit val CoachBSONHandler = lila.db.BSON.LoggingHandler[Coach](logger)(Macros.handler[Coach])
 
   implicit val CoachReviewBSONHandler = Macros.handler[CoachReview]
 }

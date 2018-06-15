@@ -222,7 +222,7 @@ trait dsl extends LowPriorityDsl {
   //**********************************************************************************************//
 
   /**
-   * Represents the inital state of the expression which has only the name of the field.
+   * Represents the initial state of the expression which has only the name of the field.
    * It does not know the value of the expression.
    */
   trait ElementBuilder {
@@ -325,13 +325,14 @@ trait dsl extends LowPriorityDsl {
   }
 
   trait EvaluationOperators { self: ElementBuilder =>
-    def $mod(divisor: Int, remainder: Int): SimpleExpression[BSONDocument] = {
+    def $mod(divisor: Int, remainder: Int): SimpleExpression[BSONDocument] =
       SimpleExpression(field, $doc("$mod" -> BSONArray(divisor, remainder)))
-    }
 
-    def $regex(value: String, options: String): SimpleExpression[BSONRegex] = {
+    def $regex(value: String, options: String = ""): SimpleExpression[BSONRegex] =
       SimpleExpression(field, BSONRegex(value, options))
-    }
+
+    def $startsWith(value: String): SimpleExpression[BSONRegex] =
+      $regex(s"^$value", "")
   }
 
   trait ArrayOperators { self: ElementBuilder =>

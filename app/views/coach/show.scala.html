@@ -1,4 +1,4 @@
-@(c: lila.coach.Coach.WithUser, coachReviews: lila.coach.CoachReview.Reviews, studies: Seq[lila.study.Study.WithChaptersAndLiked], reviewApproval: Boolean)(implicit ctx: Context)
+@(c: lila.coach.Coach.WithUser, coachReviews: lila.coach.CoachReview.Reviews, studies: Seq[lila.study.Study.WithChaptersAndLiked], myReview: Option[lila.coach.CoachReview])(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("coach.css")
@@ -21,29 +21,45 @@ $('.review-form form').show();
 }
 
 @side = {
-@reviewForm(c, reviewApproval)
-@reviews(c, coachReviews)
+<div class="coach-side">
+  <div class="profile">
+    <a class="blue" href="@routes.User.show(c.user.username)">View @c.user.username lichess profile</a>
+  </div>
+  @if(ctx.me.exists(_.id != c.user.id)) {
+  @reviewForm(c, myReview)
+  }
+  @reviews(c, coachReviews)
+</div>
 }
 
 @section(title: String, text: Option[lila.coach.CoachProfile.RichText]) = {
 @text.map { t =>
 <section>
   <h1>@title</h1>
-  <div class="content">@autoLink(t.value)</div>
+  <div class="content">@richText(t.value)</div>
 </section>
 }
 }
 
-@layout(title = c.user.titleUsername,
+@coachName = @{ s"${c.user.title.??(t => s"$t ")}${c.user.realNameOrUsername}" }
+@title = @{ s"$coachName coaches chess students" }
+
+@base.layout(title = title,
 side = side.some,
 moreJs = moreJs,
-moreCss = moreCss) {
+moreCss = moreCss,
+openGraph = lila.app.ui.OpenGraph(
+title = title,
+description = shorten(~(c.coach.profile.headline), 152),
+url = s"$netBaseUrl${routes.Coach.show(c.user.username)}",
+`type` = "profile",
+image = c.coach.picturePath.map(p => dbImageUrl(p.value))).some) {
 <div class="content_box no_padding coach">
   <div class="top">
     @pic(c, 250)
     @defining(c.user.profileOrDefault) { profile =>
     <div class="overview">
-      <h1>
+      <h1 class="@if(c.user.realNameOrUsername.size > 20) { large }">
         @c.user.title.map { t => @t }@c.user.realNameOrUsername
       </h1>
       @c.coach.profile.headline.map { h =>
@@ -97,7 +113,7 @@ moreCss = moreCss) {
               }
             </td>
           </tr>
-          @if(ctx.me.??(c.coach.is) || isGranted(_.PreviewCoach)) {
+          @if(ctx.me.??(c.coach.is)) {
           <tr class="edit">
             <th>Admin</th>
             <td>

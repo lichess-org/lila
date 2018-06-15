@@ -1,8 +1,8 @@
-@(data: lila.study.DataForm.Data, owner: List[lila.study.Study.IdName], contrib: List[lila.study.Study.IdName])(implicit ctx: Context)
+@(data: lila.study.DataForm.importGame.Data, owner: List[lila.study.Study.IdName], contrib: List[lila.study.Study.IdName])(implicit ctx: Context)
 
 @site.message(
-title = s"Study",
-icon = Some(Html("")),
+title = "Study",
+icon = Some(Html("4")),
 back = true,
 moreCss = cssTag("study-create.css").some) {
 <form action="@routes.Study.create" method="POST">
@@ -14,7 +14,7 @@ moreCss = cssTag("study-create.css").some) {
   <h2>So, where do you want to study that?</h2>
   <p>
     <button name="as" value="study"
-      type="submit" class="submit button large new text" data-icon="">New study</button>
+      type="submit" class="submit button large new text" data-icon="4">New study</button>
   </p>
   <div class="studies">
     <div>

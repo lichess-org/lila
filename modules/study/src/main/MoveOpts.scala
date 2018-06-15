@@ -2,18 +2,18 @@ package lila.study
 
 import chess.Centis
 
-private case class MoveOpts(
+case class MoveOpts(
     write: Boolean,
     sticky: Boolean,
     promoteToMainline: Boolean,
     clock: Option[Centis]
 )
 
-private object MoveOpts {
+object MoveOpts {
 
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
-  import lila.common.PimpedJson._
+  import play.api.data.validation.{ ValidationError => Err }
 
   private val default = MoveOpts(
     write = true,
@@ -27,10 +27,10 @@ private object MoveOpts {
   implicit val clockReader = Reads[Centis] {
     case JsNumber(centis) => JsSuccess(Centis(centis.toInt))
     case JsString(str) => CommentParser.readCentis(str) match {
-      case None => JsError(JsonValidationError(s"Cannot parse clock from $str"))
+      case None => JsError(Err(s"Cannot parse clock from $str"))
       case Some(centis) => JsSuccess(centis)
     }
-    case x => JsError(JsonValidationError(s"Cannot read clock from $x"))
+    case x => JsError(Err(s"Cannot read clock from $x"))
   }
 
   private implicit val moveOptsReader: Reads[MoveOpts] = (

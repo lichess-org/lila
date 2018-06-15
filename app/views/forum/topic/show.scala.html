@@ -16,7 +16,7 @@ moreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(
 title = s"Forum: ${categ.name} / ${topic.name} page ${posts.currentPage}",
 url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug).url}",
-description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n", ""), 152).body).some) {
+description = shorten(posts.currentPageResults.headOption.??(_.text), 152)).some) {
 <div class="topic">
   @categ.team.map { team =>
   <ol class="crumbs">
@@ -38,7 +38,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
 
   <div class="forum_posts_list embed_analyse">
     @posts.currentPageResults.map { post =>
-    <div class="post" id="@post.number">
+    <div class="post@if(post.erased){ erased}" id="@post.number">
       <div class="metas clearfix">
         @defining(routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage) + s"#${post.number}") { url =>
         @authorLink(post=post, cssClass="author".some, modIcon=post.displayModIcon)
@@ -65,7 +65,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
         }
         }
       </div>
-      <p class="message">@autoLink(post.text)</p>
+      <p class="message">@if(post.erased){@lila.common.String.erasedHtml}else{@richText(post.text)}</p>
       @if(ctx.userId.fold(false)(post.shouldShowEditForm(_))) {
       <form class="edit-post-form" method="post" action="@routes.ForumPost.edit(post.id)">
         <textarea data-topic="@topic.id" name="changes" class="post-text-area edit-post-box" minlength="3" required>@post.text</textarea>
@@ -101,6 +101,9 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
   }
 
   <div class="topicReply">
+    @if(topic.isOld) {
+    <p>This topic has been archived and can no longer be replied to.</p>
+    } else {
     @formWithCaptcha.map {
     case (form, captcha) => {
     <h2 class="postNewTitle" id="reply">@trans.replyToThisTopic()</h2>
@@ -122,6 +125,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
     @categ.team.map { teamId =>
     @if(!myTeam(teamId)) {
     <p><a href="@routes.Team.show(teamId)">Join the @teamIdToName(teamId) team</a> to post in this forum</p>
+    }
     }
     }
     }

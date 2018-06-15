@@ -22,8 +22,10 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
   <h1 class="title">@trans.advancedSearch()</h1>
   <form rel="nofollow" class="search" action="@routes.Search.index()" method="get"
     data-req-winner="@form("players")("winner").value"
+    data-req-loser="@form("players")("loser").value"
     data-req-white="@form("players")("white").value"
     data-req-black="@form("players")("black").value">
+    @globalError(form)
     <table>
       <tr>
         <th>
@@ -54,6 +56,16 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
         </th>
         <td class="single">
           <select id="@form("players")("winner").id" name="@form("players")("winner").name">
+            <option class="blank" value=""></option>
+          </select>
+        </td>
+      </tr>
+      <tr class="loser user_row none">
+        <th>
+          <label for="@form("players")("loser").id">Loser</label>
+        </th>
+        <td class="single">
+          <select id="@form("players")("loser").id" name="@form("players")("loser").name">
             <option class="blank" value=""></option>
           </select>
         </td>

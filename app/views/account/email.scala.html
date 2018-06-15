@@ -11,8 +11,8 @@
     </h1>
     <form class="material form" action="@routes.Account.emailApply" method="POST">
       @passwdFormField(form("passwd"), trans.password())
-      @base.form.group(form("email"), trans.email()) {
-      @base.form.input(form("email"), typ = "email", required = true)
+      @base.form.group(form("email"), trans.email()) { field =>
+      @base.form.input(field, typ = "email", required = true)
       @errMsg(form("email"))
       }
       @base.form.submit()

@@ -2,7 +2,6 @@ package controllers
 
 import play.api.data._
 import play.api.data.Forms._
-import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.app._

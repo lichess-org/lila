@@ -1,9 +1,15 @@
 var lichess = window.lichess = window.lichess || {};
 
-lichess.engineName = 'Stockfish 8';
+lichess.engineName = 'Stockfish 9+';
 
 lichess.raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
 lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
+lichess.dispatchEvent = function(el, eventName) {
+  // compability for ie 11 instead of el.dispatchEvent(new Event(eventName)))
+  var ev = document.createEvent('Event');
+  ev.initEvent(eventName, false, false);
+  el.dispatchEvent(ev);
+};
 lichess.storage = (function() {
   try {
     // just accessing localStorage can throw an exception...
@@ -73,6 +79,27 @@ lichess.once = function(key, mod) {
   }
   return false;
 };
+lichess.fp = {};
+lichess.fp.contains = function(list, needle) {
+  return list.indexOf(needle) !== -1;
+};
+lichess.fp.debounce = function(func, wait, immediate) {
+  var timeout;
+  var lastBounce = 0;
+  return function() {
+    var context = this,
+      args = arguments,
+      elapsed = Date.now() - lastBounce;
+    lastBounce = Date.now();
+    var later = function() {
+      timeout = null;
+      func.apply(context, args);
+    };
+    clearTimeout(timeout);
+    if (immediate && elapsed > wait) func.apply(context, args);
+    else timeout = setTimeout(later, wait);
+  };
+};
 lichess.powertip = (function() {
 
   var elementIdContains = function(id, contained) {
@@ -80,10 +107,12 @@ lichess.powertip = (function() {
     return el && el.contains(contained);
   };
 
-  var onPowertipPreRender = function(id) {
+  var onPowertipPreRender = function(id, preload) {
     return function() {
+      var url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
+      if (preload) preload(url);
       $.ajax({
-        url: ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '') + '/mini',
+        url: url + '/mini',
         success: function(html) {
           $('#' + id).html(html);
           lichess.pubsub.emit('content_loaded')();
@@ -102,9 +131,17 @@ lichess.powertip = (function() {
       placement: pos,
       mouseOnToPopup: true,
       closeDelay: 200
-    }).on({
-      powerTipPreRender: onPowertipPreRender('powerTip')
-    }).data('powertip', lichess.spinnerHtml);
+    }).data('powertip', ' ').on({
+      powerTipRender: onPowertipPreRender('powerTip', function(url) {
+        var u = url.substr(3);
+        var preload = '<div class="title"><span class="user_link offline">' + $(el).html() + '</span></div><div class="actions">' +
+          '<a class="button" href="/@/' + u + '/tv"><i data-icon="1"></i></a>' +
+          '<a class="button" href="/inbox/new?user=' + u + '"><i data-icon="c"></i></a>' +
+          '<a class="button" href="/?user=' + u + '#friend"><i data-icon="U"></i></a>' +
+          '<a class="button relation" disabled></a></div>';
+        $('#powerTip').html(preload);
+      })
+    });
   };
 
   var gamePowertip = function(el) {
@@ -125,6 +162,12 @@ lichess.powertip = (function() {
     $.powerTip.show(el, ev);
   };
 
+  function onIdleForAll(par, sel, fun) {
+    lichess.requestIdleCallback(function() {
+      Array.prototype.forEach.call(par.querySelectorAll(sel), fun);
+    });
+  }
+
   return {
     mouseover: function(e) {
       var t = e.target,
@@ -133,16 +176,10 @@ lichess.powertip = (function() {
       else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
     },
     manualGameIn: function(parent) {
-      lichess.requestIdleCallback(function() {
-        Array.prototype.forEach.call(parent.querySelectorAll('.glpt'), gamePowertip);
-      });
+      onIdleForAll(parent, '.glpt', gamePowertip);
     },
     manualUserIn: function(parent) {
-      lichess.requestIdleCallback(function() {
-        Array.prototype.forEach.call(parent.querySelectorAll('.ulpt'), function(el) {
-          userPowertip(el);
-        });
-      });
+      onIdleForAll(parent, '.ulpt', function(el) { userPowertip(el) });
     }
   };
 })();
@@ -188,6 +225,14 @@ lichess.loadCss = function(url) {
   lichess.loadedCss[url] = true;
   $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
 };
+lichess.unloadCss = function(url) {
+  if (lichess.loadedCss[url]) {
+    lichess.loadedCss[url]  = false;
+    $('head link[rel=stylesheet]')
+      .filter(function() { return this.href.indexOf(url) >= 0 })
+      .remove();
+  }
+}
 lichess.loadScript = function(url, opts) {
   return $.ajax({
     dataType: "script",
@@ -331,16 +376,41 @@ lichess.pubsub = (function() {
 })();
 lichess.hasToReload = false;
 lichess.redirectInProgress = false;
+lichess.redirect = function(obj) {
+  var url;
+  if (typeof obj == "string") url = obj;
+  else {
+    url = obj.url;
+    if (obj.cookie) {
+      var domain = document.domain.replace(/^.+(\.[^\.]+\.[^\.]+)$/, '$1');
+      var cookie = [
+        encodeURIComponent(obj.cookie.name) + '=' + obj.cookie.value,
+        '; max-age=' + obj.cookie.maxAge,
+        '; path=/',
+        '; domain=' + domain
+      ].join('');
+      document.cookie = cookie;
+    }
+  }
+  var href = '//' + location.host + '/' + url.replace(/^\//, '');
+  lichess.redirectInProgress = href;
+  location.href = href;
+};
 lichess.reload = function() {
   if (lichess.redirectInProgress) return;
   lichess.hasToReload = true;
-  if (window.location.hash) location.reload();
+  if (location.hash) location.reload();
   else location.href = location.href;
 };
-lichess.escapeHtml = function(html) {
-  var div = document.createElement('div');
-  div.appendChild(document.createTextNode(html));
-  return div.innerHTML;
+lichess.escapeHtml = function(str) {
+  return /[&<>\"\']/.test(str) ?
+  str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/'/g, '&#39;')
+    .replace(/"/g, '&quot;') :
+    str;
 };
 lichess.toYouTubeEmbedUrl = function(url) {
   if (!url) return;
@@ -359,29 +429,6 @@ lichess.toYouTubeEmbedUrl = function(url) {
   });
   var params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=' + start;
   return 'https://www.youtube.com/embed/' + m[1] + '?' + params;
-};
-$.spreadNumber = function(el, nbSteps, getDuration, previous) {
-  var previous = previous,
-    displayed;
-  var display = function(prev, cur, it) {
-    var val = lichess.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
-    if (val !== displayed) {
-      el.textContent = val;
-      displayed = val;
-    }
-  };
-  var timeouts = [];
-  return function(nb, overrideNbSteps) {
-    if (!el || (!nb && nb !== 0)) return;
-    if (overrideNbSteps) nbSteps = Math.abs(overrideNbSteps);
-    timeouts.forEach(clearTimeout);
-    timeouts = [];
-    var prev = previous === 0 ? 0 : (previous || nb);
-    previous = nb;
-    var interv = Math.abs(getDuration() / nbSteps);
-    for (var i = 0; i < nbSteps; i++)
-      timeouts.push(setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv)));
-  };
 };
 $.fn.scrollTo = function(target, offsetTop) {
   return this.each(function() {

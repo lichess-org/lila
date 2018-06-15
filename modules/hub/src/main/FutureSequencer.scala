@@ -29,7 +29,7 @@ object FutureSequencer {
 
   import scala.util.Try
 
-  case class Timeout(duration: FiniteDuration) extends lila.common.LilaException {
+  case class Timeout(duration: FiniteDuration) extends lila.base.LilaException {
     val message = s"FutureSequencer timed out after $duration"
   }
 
@@ -65,7 +65,7 @@ object FutureSequencer {
 
     private case object Done
 
-    private def processThenDone(work: Any) {
+    private def processThenDone(work: Any): Unit = {
       work match {
         case ReceiveTimeout => self ! PoisonPill
         case FSequencer.Work(run, promise, timeoutOption) =>

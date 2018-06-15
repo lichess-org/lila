@@ -4,9 +4,11 @@ import scala.concurrent.Future
 
 import akka.actor._
 import akka.pattern.pipe
+import chess.format.pgn.{ Tags, Sans }
 import chess.format.{ Forsyth, pgn }
 import chess.{ Game => ChessGame }
 import scalaz.{ NonEmptyList, OptionT }
+import scalaz.Validation.FlatMap._
 
 import lila.common.Captcha
 import lila.hub.actorApi.captcha._
@@ -35,14 +37,16 @@ private final class Captcher extends Actor {
 
     def current = challenges.head
 
-    def refresh = createFromDb foreach { _ ?? add }
+    def refresh = createFromDb onSuccess {
+      case Some(captcha) => add(captcha)
+    }
 
     // Private stuff
 
     private val capacity = 512
     private var challenges: NonEmptyList[Captcha] = NonEmptyList(Captcha.default)
 
-    private def add(c: Captcha) {
+    private def add(c: Captcha): Unit = {
       find(c.gameId) ifNone {
         challenges = NonEmptyList.nel(c, challenges.list take capacity)
       }
@@ -87,7 +91,11 @@ private final class Captcher extends Actor {
       } toNel
 
     private def rewind(game: Game, moves: PgnMoves): Option[ChessGame] =
-      pgn.Reader.movesWithSans(moves, safeInit, tags = Nil) map (_.state) toOption
+      pgn.Reader.movesWithSans(
+        moves,
+        sans => Sans(safeInit(sans.value)),
+        tags = Tags.empty
+      ).flatMap(_.valid) map (_.state) toOption
 
     private def safeInit[A](list: List[A]): List[A] = list match {
       case x :: Nil => Nil

@@ -1,6 +1,6 @@
 package lila
 
-package object history extends PackageObject with WithPlay {
+package object history extends PackageObject {
 
   private[history] type ID = String
 

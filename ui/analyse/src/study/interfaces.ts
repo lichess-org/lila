@@ -1,22 +1,27 @@
 import { Prop } from 'common';
 import { NotifCtrl } from './notif';
-import { AnalyseData } from '../interfaces';
+import { AnalyseData, Redraw } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';
 import { ChapterDescriptionCtrl } from './chapterDescription';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
+import { GlyphCtrl } from './studyGlyph';
+import RelayCtrl from './relay/relayCtrl';
+import { ServerEvalCtrl } from './serverEval';
 
 export interface StudyCtrl {
   data: StudyData;
   currentChapter(): StudyChapterMeta;
-  socketHandlers: { [key: string]: any };
+  socketHandler(t: string, d: any): boolean;
   vm: StudyVm;
+  relay?: RelayCtrl;
   form: any;
   members: any;
   chapters: any;
   notif: NotifCtrl;
   commentForm: any;
-  glyphForm: any;
+  glyphForm: GlyphCtrl;
+  serverEval: ServerEvalCtrl;
   share: any;
   tags: any;
   desc: ChapterDescriptionCtrl;
@@ -26,12 +31,13 @@ export interface StudyCtrl {
   canJumpTo(path: Tree.Path): boolean;
   onJump(): void;
   withPosition(obj: any): any;
-  setPath(path: Tree.Path, node: Tree.Node): void;
+  setPath(path: Tree.Path, node: Tree.Node, playedMyself: boolean): void;
   deleteNode(path: Tree.Path): void;
   promote(path: Tree.Path, toMainline: boolean): void;
   setChapter(id: string, force?: boolean): void;
   toggleSticky(): void;
   toggleWrite(): void;
+  isWriting(): boolean;
   makeChange(t: string, d: any): boolean;
   startTour(): void;
   userJump(path: Tree.Path): void;
@@ -42,16 +48,21 @@ export interface StudyCtrl {
   mutateCgConfig(config: any): void;
   isUpdatedRecently(): boolean;
   setGamebookOverride(o: GamebookOverride): void;
-  redraw(): void;
+  explorerGame(gameId: string, insert: boolean): void;
+  onPremoveSet(): void;
+  redraw: Redraw;
+  trans: Trans;
 }
 
 export type Tab = 'members' | 'chapters';
+export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share';
 
 export interface StudyVm {
   loading: boolean;
   nextChapterId?: string;
   justSetChapterId?: string;
   tab: Prop<Tab>;
+  toolTab: Prop<ToolTab>;
   chapterId: string;
   mode: {
     sticky: boolean;
@@ -69,7 +80,7 @@ export interface StudyData {
   position: Position;
   ownerId: string;
   settings: StudySettings;
-  visibility: 'public' | 'private';
+  visibility: 'public' | 'unlisted' | 'private';
   createdAt: number;
   from: string;
   likes: number;
@@ -81,11 +92,13 @@ export interface StudyData {
   secondsSinceUpdate: number;
 }
 
+type UserSelection = 'nobody' | 'owner' | 'contributor' | 'member' | 'everyone';
+
 export interface StudySettings {
-  computer: string;
-  explorer: string;
-  cloneable: string;
-  chat: string;
+  computer: UserSelection;
+  explorer: UserSelection;
+  cloneable: UserSelection;
+  chat: UserSelection;
   sticky: Boolean;
 }
 
@@ -121,6 +134,13 @@ export interface StudyChapter {
   gamebook: boolean;
   features: StudyChapterFeatures;
   description?: string;
+  relay?: StudyChapterRelay;
+}
+
+export interface StudyChapterRelay {
+  path: Tree.Path;
+  secondsSinceLastMove?: number;
+  lastMoveAt?: number;
 }
 
 interface StudyChapterSetup {

@@ -7,10 +7,10 @@ import ornicar.scalalib.Random.{ approximatly, nextString }
 
 final class Scheduler(scheduler: akka.actor.Scheduler, enabled: Boolean, debug: Boolean) {
 
-  def throttle[A](delay: FiniteDuration)(batch: Seq[A])(op: A => Unit) {
+  def throttle[A](delay: FiniteDuration)(batch: Seq[A])(op: A => Unit): Unit = {
     batch.zipWithIndex foreach {
       case (a, i) => try {
-        scheduler.scheduleOnce((1 + i) * delay) { op(a) }
+        scheduler.scheduleOnce((1 + i) * delay) { op(a) }: Unit
       } catch {
         case e: java.lang.IllegalStateException =>
         // the actor system is being stopped, can't schedule
@@ -18,21 +18,21 @@ final class Scheduler(scheduler: akka.actor.Scheduler, enabled: Boolean, debug: 
     }
   }
 
-  def message(freq: FiniteDuration)(to: => (ActorRef, Any)) {
+  def message(freq: FiniteDuration)(to: => (ActorRef, Any)): Unit = {
     enabled ! scheduler.schedule(freq, randomize(freq), to._1, to._2)
   }
 
-  def messageToSelection(freq: FiniteDuration)(to: => (ActorSelection, Any)) {
+  def messageToSelection(freq: FiniteDuration)(to: => (ActorSelection, Any)): Unit = {
     enabled ! scheduler.schedule(freq, randomize(freq)) {
       to._1 ! to._2
     }
   }
 
-  def effect(freq: FiniteDuration, name: String)(op: => Unit) {
+  def effect(freq: FiniteDuration, name: String)(op: => Unit): Unit = {
     enabled ! future(freq, name)(fuccess(op))
   }
 
-  def future(freq: FiniteDuration, name: String)(op: => Funit) {
+  def future(freq: FiniteDuration, name: String)(op: => Funit): Unit = {
     enabled ! {
       val f = randomize(freq)
       val doDebug = debug && freq > 5.seconds
@@ -49,7 +49,7 @@ final class Scheduler(scheduler: akka.actor.Scheduler, enabled: Boolean, debug: 
     }
   }
 
-  def once(delay: FiniteDuration)(op: => Unit) {
+  def once(delay: FiniteDuration)(op: => Unit): Unit = {
     enabled ! scheduler.scheduleOnce(delay)(op)
   }
 

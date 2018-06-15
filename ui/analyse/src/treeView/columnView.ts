@@ -7,7 +7,8 @@ import * as moveView from '../moveView';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes, ConcealOf, Conceal } from '../interfaces';
-import { nonEmpty, mainHook, nodeClasses, renderInlineCommentsOf, truncateComment, retroLine } from './treeView';
+import { nonEmpty, mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, truncateComment, retroLine } from './treeView';
+import { enrichText, innerHTML } from '../util';
 import { Ctx as BaseCtx, Opts as BaseOpts } from './treeView';
 
 interface Ctx extends BaseCtx {
@@ -106,7 +107,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 
 function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
-  classes = nodeClasses(ctx.ctrl, path);
+  classes = nodeClasses(ctx, path);
   if (opts.conceal) classes[opts.conceal as string] = true;
   return h('move', {
     attrs: { p: path },
@@ -121,7 +122,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
     withIndex ? moveView.renderIndex(node.ply, true) : null,
     fixCrazySan(node.san!)
   ],
-  classes = nodeClasses(ctx.ctrl, path);
+  classes = nodeClasses(ctx, path);
   if (opts.conceal) classes[opts.conceal as string] = true;
   if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
   return h('move', {
@@ -171,10 +172,11 @@ function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, w
     else if (comment.text.indexOf('Mistake.') === 0) sel += '.mistake';
     else if (comment.text.indexOf('Blunder.') === 0) sel += '.blunder';
     if (conceal) sel += '.' + conceal;
-    return h(sel, [
-      node.comments![1] ? h('span.by', commentAuthorText(comment.by)) : null,
-      truncateComment(comment.text, 400, ctx)
-    ]);
+    const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
+    truncated = truncateComment(comment.text, 400, ctx);
+    return h(sel, {
+      hook: innerHTML(truncated, text => by + enrichText(text, true))
+    });
   });
 }
 
@@ -190,7 +192,8 @@ export default function(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     concealOf: concealOf || emptyConcealOf,
     showComputer: ctrl.showComputer() && !ctrl.retro,
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
-    showEval: !!ctrl.study || ctrl.showComputer()
+    showEval: !!ctrl.study || ctrl.showComputer(),
+    currentPath: findCurrentPath(ctrl)
   };
   const commentTags = renderMainlineCommentsOf(ctx, root, false, false);
   return h('div.tview2.column', {

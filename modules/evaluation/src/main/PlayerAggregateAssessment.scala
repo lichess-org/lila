@@ -117,13 +117,11 @@ case class PlayerAggregateAssessment(
 
   def isNewRatedUser = user.count.rated < 10
 
-  def isWorthLookingAt = {
-    user.perfs.bestRating > 1600 && user.count.rated >= 2
-  } || user.perfs.bestProgress > 200
+  def isWorthLookingAt = user.count.rated >= 2
 
   def reportText(reason: String, maxGames: Int = 10): String = {
     val gameLinks: String = (playerAssessments.sortBy(-_.assessment.id).take(maxGames).map { a =>
-      a.assessment.emoticon + " //lichess.org/" + a.gameId + "/" + a.color.name
+      a.assessment.emoticon + " lichess.org/" + a.gameId + "/" + a.color.name
     }).mkString("\n")
 
     s"""[AUTOREPORT] $reason

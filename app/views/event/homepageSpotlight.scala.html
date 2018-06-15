@@ -7,7 +7,7 @@
     <span class="name">@e.title</span>
     <span class="headline">@e.headline</span>
     <span class="more">
-      @if(e.isNow) { @trans.playingRightNow() } else { @momentFromNow(e.startsAt) }
+      @if(e.isNow) { @trans.eventInProgress() } else { @momentFromNow(e.startsAt) }
     </span>
   </span>
 </a>

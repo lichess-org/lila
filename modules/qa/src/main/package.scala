@@ -1,6 +1,6 @@
 package lila
 
-package object qa extends PackageObject with WithPlay {
+package object qa extends PackageObject {
 
   type Tag = String
   type QuestionId = Int

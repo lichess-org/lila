@@ -1,21 +1,22 @@
 import { drag } from './crazyCtrl';
 import { h } from 'snabbdom'
 import { MouchEvent } from 'chessground/types';
+import AnalyseCtrl from '../ctrl';
 
 const eventNames = ['mousedown', 'touchstart'];
 const oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
-export default function(ctrl, color, position) {
+type Position = 'top' | 'bottom';
+
+export default function(ctrl: AnalyseCtrl, color: Color, position: Position) {
   if (!ctrl.node.crazy) return;
   const pocket = ctrl.node.crazy.pockets[color === 'white' ? 0 : 1];
   const dropped = ctrl.justDropped;
   let captured = ctrl.justCaptured;
-  if (captured) {
-    captured = captured.promoted ? 'pawn' : captured.role;
-  }
+  if (captured) captured.role = captured.promoted ? 'pawn' : captured.role;
   const activeColor = color === ctrl.turnColor();
   const usable = !ctrl.embed && activeColor;
-  return h('div.pocket.is2d.' + position, {
+  return h(`div.pocket.is2d.${position}.pos-${ctrl.bottomColor()}`, {
     class: { usable },
     hook: {
       insert: vnode => {
@@ -29,7 +30,7 @@ export default function(ctrl, color, position) {
     let nb = pocket[role] || 0;
     if (activeColor) {
       if (dropped === role) nb--;
-      if (captured === role) nb++;
+      if (captured && captured.role === role) nb++;
     }
     return h('piece.' + role + '.' + color, {
       attrs: {

@@ -129,11 +129,12 @@ export function build(root: Tree.Node): TreeWrapper {
 
   // returns new path
   function addNode(node: Tree.Node, path: Tree.Path): Tree.Path | undefined {
-    const newPath = path + node.id;
-    var existing = nodeAtPathOrNull(newPath);
+    const newPath = path + node.id,
+    existing = nodeAtPathOrNull(newPath);
     if (existing) {
-      if (defined(node.dests) && !defined(existing.dests)) existing.dests = node.dests;
-      if (defined(node.drops) && !defined(existing.drops)) existing.drops = node.drops;
+      (['dests', 'drops', 'clock'] as Array<keyof Tree.Node>).forEach(key => {
+        if (defined(node[key]) && !defined(existing[key])) existing[key] = node[key];
+      });
       return newPath;
     }
     return updateAt(path, function(parent: Tree.Node) {

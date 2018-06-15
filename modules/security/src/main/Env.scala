@@ -1,21 +1,26 @@
 package lila.security
 
+import lila.oauth.OAuthServer
+
+import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.common.PimpedConfig._
-
 final class Env(
     config: Config,
-    captcher: akka.actor.ActorSelection,
-    system: akka.actor.ActorSystem,
-    scheduler: lila.common.Scheduler,
+    captcher: ActorSelection,
+    authenticator: lila.user.Authenticator,
+    slack: lila.slack.SlackApi,
     asyncCache: lila.memo.AsyncCache.Builder,
-    db: lila.db.Env
+    settingStore: lila.memo.SettingStore.Builder,
+    tryOAuthServer: OAuthServer.Try,
+    system: ActorSystem,
+    scheduler: lila.common.Scheduler,
+    db: lila.db.Env,
+    lifecycle: play.api.inject.ApplicationLifecycle
 ) {
 
   private val settings = new {
-    val NetBaseUrl = config getString "net.base_url"
     val MailgunApiUrl = config getString "mailgun.api.url"
     val MailgunApiKey = config getString "mailgun.api.key"
     val MailgunSender = config getString "mailgun.sender"
@@ -25,7 +30,6 @@ final class Env(
     val FirewallCookieName = config getString "firewall.cookie.name"
     val FirewallCookieEnabled = config getBoolean "firewall.cookie.enabled"
     val FirewallCollectionFirewall = config getString "firewall.collection.firewall"
-    val FirewallCachedIpsTtl = config duration "firewall.cached.ips.ttl"
     val FloodDuration = config duration "flood.duration"
     val GeoIPFile = config getString "geoip.file"
     val GeoIPCacheTtl = config duration "geoip.cache_ttl"
@@ -40,33 +44,37 @@ final class Env(
     val DisposableEmailRefreshDelay = config duration "disposable_email.refresh_delay"
     val RecaptchaPrivateKey = config getString "recaptcha.private_key"
     val RecaptchaEndpoint = config getString "recaptcha.endpoint"
-    val RecaptchaEnabled = config getBoolean "recaptcha.enabled"
+    val NetBaseUrl = config getString "net.base_url"
     val NetDomain = config getString "net.domain"
-    val CsrfEnabled = config getBoolean "csrf.enabled"
+    val NetEmail = config getString "net.email"
   }
   import settings._
 
-  val RecaptchaPublicKey = config getString "recaptcha.public_key"
+  val recaptchaPublicConfig = RecaptchaPublicConfig(
+    key = config getString "recaptcha.public_key",
+    enabled = config getBoolean "recaptcha.enabled"
+  )
 
   lazy val firewall = new Firewall(
     coll = firewallColl,
     cookieName = FirewallCookieName.some filter (_ => FirewallCookieEnabled),
     enabled = FirewallEnabled,
-    asyncCache = asyncCache,
-    cachedIpsTtl = FirewallCachedIpsTtl
+    system = system
   )
 
   lazy val flood = new Flood(FloodDuration)
 
   lazy val recaptcha: Recaptcha =
-    if (RecaptchaEnabled) new RecaptchaGoogle(
+    if (recaptchaPublicConfig.enabled) new RecaptchaGoogle(
       privateKey = RecaptchaPrivateKey,
-      endpoint = RecaptchaEndpoint
+      endpoint = RecaptchaEndpoint,
+      lichessHostname = NetDomain
     )
     else RecaptchaSkip
 
   lazy val forms = new DataForm(
     captcher = captcher,
+    authenticator = authenticator,
     emailValidator = emailAddressValidator
   )
 
@@ -75,9 +83,26 @@ final class Env(
     cacheTtl = GeoIPCacheTtl
   )
 
-  lazy val userSpy = UserSpy(firewall, geoIP)(storeColl) _
+  lazy val userSpyApi = new UserSpyApi(firewall, geoIP, storeColl)
+  def userSpy = userSpyApi.apply _
 
   def store = Store
+
+  lazy val ipIntel = new IpIntel(asyncCache, NetEmail)
+
+  lazy val ugcArmedSetting = settingStore[Boolean](
+    "ugcArmed",
+    default = true,
+    text = "Enable the user garbage collector".some
+  )
+
+  lazy val garbageCollector = new GarbageCollector(
+    userSpyApi,
+    ipTrust,
+    slack,
+    ugcArmedSetting.get,
+    system
+  )
 
   private lazy val mailgun = new Mailgun(
     apiUrl = MailgunApiUrl,
@@ -116,25 +141,46 @@ final class Env(
     baseUrl = NetBaseUrl
   )
 
+  lazy val automaticEmail = new AutomaticEmail(
+    mailgun = mailgun,
+    baseUrl = NetBaseUrl
+  )
+
   lazy val emailAddressValidator = new EmailAddressValidator(disposableEmailDomain)
+
+  lazy val emailBlacklistSetting = settingStore[String](
+    "emailBlacklist",
+    default = "",
+    text = "Blacklisted email domains separated by a space".some
+  )
 
   private lazy val disposableEmailDomain = new DisposableEmailDomain(
     providerUrl = DisposableEmailProviderUrl,
+    blacklistStr = emailBlacklistSetting.get,
     busOption = system.lilaBus.some
   )
 
-  scheduler.once(10 seconds)(disposableEmailDomain.refresh)
+  scheduler.once(15 seconds)(disposableEmailDomain.refresh)
   scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmailDomain.refresh)
 
   lazy val tor = new Tor(TorProviderUrl)
   scheduler.once(30 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
-  lazy val api = new SecurityApi(storeColl, firewall, geoIP, emailAddressValidator)
+  lazy val ipTrust = new IpTrust(ipIntel, geoIP, tor, firewall)
 
-  lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain, enabled = CsrfEnabled)
+  lazy val api = new SecurityApi(storeColl, firewall, geoIP, authenticator, emailAddressValidator, tryOAuthServer)(system)
+
+  lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain)
 
   def cli = new Cli
+
+  // api actor
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+    def receive = {
+      case lila.hub.actorApi.fishnet.NewKey(userId, key) => automaticEmail.onFishnetKey(userId, key)
+    }
+  })), 'fishnet)
 
   private[security] lazy val storeColl = db(CollectionSecurity)
   private[security] lazy val firewallColl = db(FirewallCollectionFirewall)
@@ -142,12 +188,25 @@ final class Env(
 
 object Env {
 
+  private lazy val system = lila.common.PlayApp.system
+
   lazy val current = "security" boot new Env(
     config = lila.common.PlayApp loadConfig "security",
     db = lila.db.Env.current,
-    system = old.play.Env.actorSystem,
-    scheduler = lila.common.PlayApp.scheduler,
+    authenticator = lila.user.Env.current.authenticator,
+    slack = lila.slack.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
-    captcher = lila.hub.Env.current.actor.captcher
+    settingStore = lila.memo.Env.current.settingStore,
+    tryOAuthServer = () => scala.concurrent.Future {
+      lila.oauth.Env.current.server.some
+    }.withTimeoutDefault(50 millis, none)(system) recover {
+      case e: Exception =>
+        lila.log("security").warn("oauth", e)
+        none
+    },
+    system = system,
+    scheduler = lila.common.PlayApp.scheduler,
+    captcher = lila.hub.Env.current.actor.captcher,
+    lifecycle = lila.common.PlayApp.lifecycle
   )
 }

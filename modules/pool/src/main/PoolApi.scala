@@ -3,7 +3,6 @@ package lila.pool
 import akka.actor._
 
 import lila.game.Game
-import lila.playban.PlaybanApi
 import lila.rating.RatingRange
 import lila.socket.Socket.{ Uid => SocketId }
 import lila.user.User

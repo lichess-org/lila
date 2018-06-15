@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { currentComments } from './studyComments';
 import { nodeFullName, bind } from '../util';
 import { prop, throttle, Prop } from 'common';
 import AnalyseCtrl from '../ctrl';
@@ -10,17 +11,15 @@ interface Current {
   node: Tree.Node;
 }
 
-interface CommentForm {
+export interface CommentForm {
   root: AnalyseCtrl;
   current: Prop<Current | null>;
   focus: Prop<boolean>;
   opening: Prop<boolean>;
-  open(chapterId: string, path: Tree.Path, node: Tree.Node): void;
-  close(): void;
   submit(text: string): void;
-  onSetPath(path: Tree.Path, node: Tree.Node): void;
+  start(chapterId: string, path: Tree.Path, node: Tree.Node): void;
+  onSetPath(chapterId: string, path: Tree.Path, node: Tree.Node, playedMyself: boolean): void;
   redraw(): void;
-  toggle(chapterId: string, path: Tree.Path, node: Tree.Node): void;
   delete(chapterId: string, path: Tree.Path, id: string): void;
 }
 
@@ -35,7 +34,7 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
     doSubmit(text);
   };
 
-  const doSubmit = throttle(500, false, (text: string) => {
+  const doSubmit = throttle(500, (text: string) => {
     const cur = current();
     if (cur) root.study!.makeChange('setComment', {
       ch: cur.chapterId,
@@ -44,7 +43,7 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
     });
   });
 
-  function open(chapterId: string, path: Tree.Path, node: Tree.Node): void {
+  function start(chapterId: string, path: Tree.Path, node: Tree.Node): void {
     opening(true);
     current({
       chapterId,
@@ -54,32 +53,25 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
     root.userJump(path);
   };
 
-  function close() {
-    current(null);
-  };
-
   return {
     root,
     current,
     focus,
     opening,
-    open,
-    close,
     submit,
-    onSetPath(path: Tree.Path, node: Tree.Node): void {
-      const cur = current();
-      if (cur && cur.path !== path && !focus()) {
-        cur.path = path;
-        cur.node = node;
-        current(cur);
-        root.redraw();
-      }
+    start,
+    onSetPath(chapterId: string, path: Tree.Path, node: Tree.Node, playedMyself: boolean): void {
+      setTimeout(() => {
+        const cur = current();
+        if (cur && (path !== cur.path || chapterId !== cur.chapterId) && (!focus() || playedMyself)) {
+          cur.chapterId = chapterId;
+          cur.path = path;
+          cur.node = node;
+          root.redraw();
+        }
+      }, 100);
     },
     redraw: root.redraw,
-    toggle(chapterId: string, path: Tree.Path, node: Tree.Node) {
-      if (current()) close();
-      else open(chapterId, path, node);
-    },
     delete(chapterId: string, path: Tree.Path, id: string) {
       root.study!.makeChange('deleteComment', {
         ch: chapterId,
@@ -90,10 +82,17 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
   };
 }
 
-export function view(ctrl: CommentForm): VNode | undefined {
+export function viewDisabled(root: AnalyseCtrl, why: string): VNode {
+  return h('div.study_comment_form', [
+    currentComments(root, true),
+    h('div.message', h('span', why))
+  ]);
+}
 
-  const current = ctrl.current();
-  if (!current) return;
+export function view(root: AnalyseCtrl): VNode {
+
+  const study = root.study!, ctrl = study.commentForm, current = ctrl.current();
+  if (!current) return viewDisabled(root, 'Select a move to comment');
 
   function setupTextarea(vnode: VNode) {
     const el = vnode.elm as HTMLInputElement,
@@ -101,7 +100,7 @@ export function view(ctrl: CommentForm): VNode | undefined {
       return c.by && c.by.id && c.by.id === ctrl.root.opts.userId;
     });
     el.value = mine ? mine.text : '';
-    if (ctrl.opening() || ctrl.focus()) el.focus();
+    if (ctrl.opening() || ctrl.focus()) window.lichess.raf(() => el.focus());
     ctrl.opening(false);
   }
 
@@ -110,20 +109,13 @@ export function view(ctrl: CommentForm): VNode | undefined {
       insert: _ => window.lichess.loadCss('/assets/stylesheets/material.form.css')
     }
   }, [
-    h('p.title', [
-      h('button.button.frameless.close', {
-        attrs: {
-          'data-icon': 'L',
-          title: 'Close'
-        },
-        hook: bind('click', ctrl.close, ctrl.redraw)
-      }),
+    currentComments(root, !study.members.canContribute()),
+    ctrl.focus() && ctrl.root.path !== current.path ? h('p.title', [
       'Commenting position after ',
       h('button.button', {
-        class: { active: ctrl.root.path === current.path },
-        hook: bind('click', _ => ctrl.root.userJump(current.path), ctrl.redraw)
+        hook: bind('mousedown', () => ctrl.root.userJump(current.path), ctrl.redraw)
       }, nodeFullName(current.node))
-    ]),
+    ]) : null,
     h('form.material.form', [
       h('div.form-group', [
         h('textarea#comment-text', {
@@ -143,20 +135,14 @@ export function view(ctrl: CommentForm): VNode | undefined {
               };
               el.onblur = function() {
                 ctrl.focus(false);
-                ctrl.redraw();
               };
-              const trap = window.Mousetrap(el);
-              trap.bind(['ctrl+enter', 'command+enter'], ctrl.close);
-              trap.stopCallback = () => false;
-              vnode.data!.trap = trap;
-              vnode.data!.path = current.path;
+              vnode.data!.hash = current.chapterId + current.path;
             },
             postpatch(old, vnode) {
-              if (old.data!.path !== current.path) setupTextarea(vnode);
-              vnode.data!.path = current.path;
-              vnode.data!.trap = old.data!.trap;
-            },
-            destroy: vnode => vnode.data!.trap.reset()
+              const newKey = current.chapterId + current.path;
+              if (old.data!.path !== newKey) setupTextarea(vnode);
+              vnode.data!.path = newKey;
+            }
           }
         }),
         h('i.bar')

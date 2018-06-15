@@ -2,8 +2,9 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { standing } from './arena';
 import header from './header';
-import pairings from './pairings';
+import tourSide from './side';
 import playerInfo from './playerInfo';
+import { dataIcon } from './util';
 import * as pagination from '../pagination';
 import * as tour from '../tournament';
 import TournamentController from '../ctrl';
@@ -15,7 +16,7 @@ function joinTheGame(ctrl: TournamentController, gameId: string) {
   }, [
     ctrl.trans('youArePlaying'),
     h('span.text', {
-      attrs: { 'data-icon': 'G' }
+      attrs: dataIcon('G')
     }, ctrl.trans('joinTheGame'))
   ]);
 }
@@ -27,7 +28,7 @@ function notice(ctrl: TournamentController): VNode {
 }
 
 export function main(ctrl: TournamentController): MaybeVNodes {
-  const gameId = tour.myCurrentGameId(ctrl);
+  const gameId = ctrl.data.myGameId;
   return [
     header(ctrl),
     gameId ? joinTheGame(ctrl, gameId) : (tour.isIn(ctrl) ? notice(ctrl) : null),
@@ -36,5 +37,5 @@ export function main(ctrl: TournamentController): MaybeVNodes {
 }
 
 export function side(ctrl: TournamentController): MaybeVNodes {
-  return ctrl.playerInfo.id ? [playerInfo(ctrl)] : pairings(ctrl);
+  return ctrl.playerInfo.id ? [playerInfo(ctrl)] : tourSide(ctrl);
 }

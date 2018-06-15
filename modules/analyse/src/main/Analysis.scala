@@ -1,11 +1,13 @@
 package lila.analyse
 
 import chess.Color
+import chess.format.Uci
 
 import org.joda.time.DateTime
 
 case class Analysis(
-    id: String,
+    id: String, // game ID, or chapter ID if studyId is set
+    studyId: Option[String],
     infos: List[Info],
     startPly: Int,
     uid: Option[String], // requester lichess ID
@@ -28,11 +30,6 @@ case class Analysis(
   }.toList
 
   lazy val advices: List[Advice] = infoAdvices.flatMap(_._2)
-
-  // ply -> UCI
-  def bestMoves: Map[Int, String] = infos.flatMap { i =>
-    i.best map { b => i.ply -> b.keys }
-  }(scala.collection.breakOut)
 
   def summary: List[(Color, List[(Advice.Judgment, Int)])] = Color.all map { color =>
     color -> (Advice.Judgment.all map { judgment =>
@@ -61,6 +58,7 @@ object Analysis {
       val raw = r str "data"
       Analysis(
         id = r str "_id",
+        studyId = r strO "studyId",
         infos = Info.decodeList(raw, startPly) err s"Invalid analysis data $raw",
         startPly = startPly,
         uid = r strO "uid",
@@ -70,6 +68,7 @@ object Analysis {
     }
     def writes(w: BSON.Writer, o: Analysis) = BSONDocument(
       "_id" -> o.id,
+      "studyId" -> o.studyId,
       "data" -> Info.encodeList(o.infos),
       "ply" -> w.intO(o.startPly),
       "uid" -> o.uid,

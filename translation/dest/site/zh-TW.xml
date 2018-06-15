@@ -103,7 +103,6 @@
   <string name="changePassword">修改密码</string>
   <string name="changeEmail">更换电子邮件</string>
   <string name="email">电邮</string>
-  <string name="emailIsOptional">电子邮件可选填。若您忘记了密码，Lichess将会以电子邮件的方式重置密码。</string>
   <string name="passwordReset">重置密码</string>
   <string name="forgotPassword">忘记密码？</string>
   <string name="rank">排名</string>
@@ -314,9 +313,6 @@
   <string name="retryThisPuzzle">重试本题</string>
   <string name="thisPuzzleIsCorrect">本题正确有趣</string>
   <string name="thisPuzzleIsWrong">本题错误无味</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="other">你还剩%s秒来走第一步！</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s场对局正在进行中</item>
   </plurals>
@@ -512,8 +508,6 @@
   <string name="checkYourEmail">请查看您的电子邮件</string>
   <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发到您的邮箱. 点击邮件中的链接以激活您的账号.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果您没有收到我们的邮件, 请检查您的其他收件箱, 例如垃圾箱, 广告, 社交等.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">您确定您登记过您的（电子）邮箱吗？</string>
-  <string name="itWasNotRequiredForYourRegistration">登记时是没有需要的。</string>
   <string name="weHaveSentYouAnEmailTo">我们给您的邮箱（%s）发了从新设密码的链接。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">您一登记，我们就假设您同意尊重我们的使用规则（%s）。</string>
   <string name="networkLagBetweenYouAndLichess">你和 lichess 之间的网络时滞</string>

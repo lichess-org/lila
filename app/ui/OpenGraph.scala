@@ -1,7 +1,7 @@
 package lila.app
 package ui
 
-import lila.common.String.html.escapeHtmlUnsafe
+import lila.common.String.html.escapeHtml
 import play.twirl.api.Html
 
 case class OpenGraph(
@@ -19,7 +19,7 @@ case class OpenGraph(
   object og {
 
     private def tag(name: String, value: String) =
-      s"""<meta property="og:$name" content="${escapeHtmlUnsafe(value)}"/>"""
+      s"""<meta property="og:$name" content="${escapeHtml(value)}"/>"""
 
     private val tupledTag = (tag _).tupled
 
@@ -37,7 +37,7 @@ case class OpenGraph(
   object twitter {
 
     private def tag(name: String, value: String) =
-      s"""<meta name="twitter:$name" content="${escapeHtmlUnsafe(value)}"/>"""
+      s"""<meta name="twitter:$name" content="${escapeHtml(value)}"/>"""
 
     private val tupledTag = (tag _).tupled
 

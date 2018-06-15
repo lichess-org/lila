@@ -43,7 +43,7 @@ final class SlackApi(
       username = "Patron",
       icon = "four_leaf_clover",
       text = linkifyUsers(text),
-      channel = "general"
+      channel = "team"
     ))
 
     private def link(username: String) =
@@ -70,6 +70,22 @@ final class SlackApi(
       s"while investigating a report created by ${userLink(by)}"
     },
     channel = "commlog"
+  ))
+
+  def chatPanicLink = "<https://lichess.org/mod/chat-panic|Chat Panic>"
+
+  def chatPanic(mod: User, v: Boolean): Funit = client(SlackMessage(
+    username = mod.username,
+    icon = if (v) "anger" else "information_source",
+    text = s"${if (v) "Enabled" else "Disabled"} $chatPanicLink",
+    channel = "tavern"
+  ))
+
+  def garbageCollector(message: String): Funit = client(SlackMessage(
+    username = "lichess",
+    icon = "put_litter_in_its_place",
+    text = linkifyUsers(message),
+    channel = "tavern"
   ))
 
   def publishError(msg: String): Funit = client(SlackMessage(
@@ -112,9 +128,10 @@ final class SlackApi(
   private def userLink(name: String) = s"<https://lichess.org/@/$name?mod|$name>"
   private def userNotesLink(name: String) = s"<https://lichess.org/@/$name?notes|notes>"
 
-  private val userRegex = """(^|\s)@(\w[-_\w]+)\b""".r.pattern
+  val userRegex = lila.common.String.atUsernameRegex.pattern
+
   private def linkifyUsers(msg: String) =
-    userRegex matcher msg replaceAll "$1<https://lichess.org/@/$2?mod|@$2>"
+    userRegex matcher msg replaceAll "<https://lichess.org/@/$1?mod|@$1>"
 
   def userMod(user: User, mod: User): Funit = client(SlackMessage(
     username = mod.username,

@@ -4,14 +4,15 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 import scala.util.{ Try, Success, Failure }
 
-import lila.common.IpAddress
 import Client.Skill
+import lila.common.IpAddress
 import lila.db.dsl._
 import lila.hub.FutureSequencer
 
 final class FishnetApi(
     repo: FishnetRepo,
     moveDb: MoveDB,
+    analysisBuilder: AnalysisBuilder,
     analysisColl: Coll,
     sequencer: FutureSequencer,
     monitor: Monitor,
@@ -92,22 +93,20 @@ final class FishnetApi(
             if (complete.weak && work.game.variant.standard) {
               Monitor.weak(work, client, complete)
               repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis)
-            } else AnalysisBuilder(client, work, complete.analysis) flatMap { analysis =>
+            } else analysisBuilder(client, work, complete.analysis) flatMap { analysis =>
               monitor.analysis(work, client, complete)
               repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
             }
           } recoverWith {
-            case e: AnalysisBuilder.GameIsGone =>
-              logger.warn(s"Game ${work.game.id} was deleted by ${work.sender} before analysis completes")
-              monitor.analysis(work, client, complete)
-              repo.deleteAnalysis(work) >> fufail(GameNotFound)
             case e: Exception =>
               Monitor.failure(work, client)
               repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)
           }
-          case partial: PartialAnalysis => socketExists(work.game.id) flatMap {
+          case partial: PartialAnalysis => {
+            fuccess(work.game.studyId.isDefined) >>| socketExists(work.game.id)
+          } flatMap {
             case true =>
-              AnalysisBuilder.partial(client, work, partial.analysis) map { analysis =>
+              analysisBuilder.partial(client, work, partial.analysis) map { analysis =>
                 PostAnalysisResult.Partial(analysis)
               }
             case false => fuccess(PostAnalysisResult.UnusedPartial)
@@ -164,7 +163,7 @@ final class FishnetApi(
 
   private[fishnet] def setClientSkill(key: Client.Key, skill: String) =
     Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>
-      repo getClient key err s"No client with key $key" flatMap { client =>
+      repo getClient key flatten s"No client with key $key" flatMap { client =>
         repo updateClient client.copy(skill = sk)
       }
     }
@@ -172,7 +171,7 @@ final class FishnetApi(
 
 object FishnetApi {
 
-  import lila.common.LilaException
+  import lila.base.LilaException
 
   case object WeakAnalysis extends LilaException {
     val message = "Analysis nodes per move is too low"

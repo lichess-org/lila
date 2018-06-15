@@ -7,24 +7,27 @@ menu: Option[Html] = None,
 chat: Option[Html] = None,
 underchat: Option[Html] = None,
 robots: Boolean = isGloballyCrawlable,
-moreCss: Html = Html(""),
-moreJs: Html = Html(""),
-zen: Boolean = false,
+moreCss: Html = emptyHtml,
+moreJs: Html = emptyHtml,
 playing: Boolean = false,
 openGraph: Option[lila.app.ui.OpenGraph] = None,
 atom: Option[Html] = None,
 chessground: Boolean = true,
 zoomable: Boolean = false,
-asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
+asyncJs: Boolean = false,
+csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
-  <!-- lichess.org is open source! Checkout the github repo: https://github.com/ornicar/lila -->
+  <!-- Lichess is open source! See https://github.com/ornicar/lila -->
   <head>
     <meta charset="utf-8">
+    @if(cspEnabled()) {
+    <meta http-equiv="Content-Security-Policy" content="@csp.getOrElse(defaultCsp)">
+    }
     @if(isProd) {
     <title>@fullTitle.getOrElse{@title • lichess.org}</title>
-    <link href='//fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300' rel='stylesheet'>
-    <link href="//fonts.googleapis.com/css?family=Roboto+Mono:500&text=0123456789:." rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500&text=0123456789:." rel="stylesheet">
     } else {
     <title>[dev] @fullTitle.getOrElse{@title • lichess.org}</title>
     @cssAt("offline/font.noto.css")
@@ -45,23 +48,24 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(ctx.pref.coords == 1) { @cssTag("board.coords.inner.css") }
     @if(ctx.pageData.inquiry.isDefined) { @cssTag("inquiry.css") }
     @if(ctx.userContext.impersonatedBy.isDefined) { @cssTag("impersonate.css") }
+    @if(isStage) { @cssTag("stage.css") }
     @moreCss
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=${ctx.pageData.assetVersion}")" type="text/css" rel="stylesheet"/>
-    <meta content="@openGraph.fold(trans.siteDescription())(o => escapeHtml(o.description))" name="description">
+    <meta content="@openGraph.fold(trans.siteDescription.txt())(o => o.description)" name="description">
     <link id="favicon" rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
-    @if(!robots) {
-    <meta content="noindex, nofollow" name="robots">
-    }
+    <link rel="mask-icon" href="@staticUrl("favicon.svg")" color="black">
+    <link rel="icon" type="image/png" href="@staticUrl("favicon.256.png")" sizes="256x256"/><link rel="icon" type="image/png" href="@staticUrl("favicon.128.png")" sizes="128x128"/><link rel="icon" type="image/png" href="@staticUrl("favicon.64.png")" sizes="64x64"/>
+    @if(!robots) {<meta content="noindex, nofollow" name="robots">}
     <meta name="google" content="notranslate" />
     @openGraph.map(_.html)
     @atom.getOrElse {
     <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="@trans.blog()" />
     }
-    <link rel="mask-icon" href="@staticUrl("favicon.svg")" color="black">
     @ctx.transpBgImg.map { img =>
     <style type="text/css" id="bg-data">body.transp::before{background-image:url('@img');}</style>
     }
-    <link rel="preload" href="@staticUrl("font74/fonts/lichess.woff")" as="font" type="font/woff" crossorigin/>
+    <link rel="preload" href="@staticUrl("font80/fonts/lichess.woff")" as="font" type="font/woff" crossorigin/>
+    <link rel="manifest" href="/manifest.json" />
     <meta name="twitter:site" content="@@lichess" />
   </head>
   <body class="preload base @List(
@@ -78,14 +82,12 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(!isProd){data-dev="true"}
     @ctx.userId.map {id => data-user="@id"}
     data-sound-set="@ctx.currentSoundSet"
+    data-socket-domain="@socketDomain"
     data-asset-url="@assetBaseUrl"
     data-asset-version="@ctx.pageData.assetVersion"
+    @ctx.nonce.map { nonce => data-nonce="@nonce" }
     @ctx.zoom.map { zoom => data-zoom="@zoom" }>
-    <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST">
-      <input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" />
-      <input type="hidden" name="redirect" value="@ctx.req.path" />
-      <button type="submit">Accessibility: @ctx.blindMode.fold("Disable", "Enable") blind mode</button>
-    </form>
+    <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST"><input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" /><input type="hidden" name="redirect" value="@ctx.req.path" /><button type="submit">Accessibility: @ctx.blindMode.fold("Disable", "Enable") blind mode</button></form>
     <div id="site_description">@trans.siteDescription()</div>
     @ctx.pageData.inquiry.map { inquiry =>
     @mod.inquiry(inquiry)
@@ -93,6 +95,11 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @ctx.me.map { me =>
     @if(ctx.userContext.impersonatedBy.isDefined) { @mod.impersonate(me) }
     }
+    @if(isStage) {
+    <div id="stage">This is an empty lichess preview website for developers. <a href="https://lichess.org">Go to lichess.org instead</a></div>
+    }
+    @lila.security.EmailConfirm.cookie.get(ctx.req).map(auth.emailConfirmBanner(_))
+    @if(playing) { <a data-icon="E" id="zentog" class="text fbt active@if(!ctx.pref.isZen){ none}">ZEN MODE</a> }
     <div id="top" class="@ctx.pref.is3d.fold("is3d", "is2d")">
       @topmenu()
       <div id="ham-plate" class="link hint--bottom" data-hint="@trans.menu()">
@@ -120,6 +127,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
         <div id="notify_app" class="dropdown"></div>
       </div>
       }.getOrElse {
+      @if(!ctx.pageData.error) {
       <div class="dasher">
         <a class="toggle anon">
           <span class="hint--bottom-left" data-hint="@trans.preferences()">
@@ -130,7 +138,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
       </div>
       <a href="@routes.Auth.login?referrer=@currentPath" class="signin button text">@trans.signIn()</a>
       }
-      @if(!zen) {
+      }
       @if(ctx.teamNbRequests > 0) {
       <a class="link data-count" href="@routes.Team.requests()" data-count="@ctx.teamNbRequests">
         <span class="hint--bottom-left" data-hint="@trans.teams()">
@@ -139,21 +147,21 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
       </a>
       }
       @if(isGranted(_.SeeReport)) {
-      <a class="link text data-count" href="@routes.Report.list" data-count="@reportNbUnprocessed" data-icon=""></a>
+      <a class="link text reports" href="@routes.Report.list" data-icon=""><i></i></a>
       }
-      }
-      <a id="reconnecting" class="link" onclick="window.location.reload()" data-icon="B">&nbsp;@trans.reconnecting()</a>
+      <div id="clinput"><a class="link"><span data-icon="y"></span></a><input spellcheck="false" placeholder="@trans.search()"/></div>
+      <a id="reconnecting" class="link text" onclick="window.location.reload()" data-icon="B">@trans.reconnecting()</a>
     </div>
     <div class="content @ctx.pref.is3d.fold("is3d", "is2d")">
       <div id="site_header">
         <div id="notifications"></div>
         <div class="board_left">
           <h1>
-            <a id="site_title" href="@routes.Lobby.home">@if(ctx.kid){<span title="@trans.kidMode()" class="kiddo">😊</span>}lichess<span class="extension">.org</span></a>
+            <a id="site_title" href="@routes.Lobby.home">@if(ctx.kid){<span title="@trans.kidMode()" class="kiddo">😊</span>}else{@if(ctx.isBot){<img src="@staticUrl("images/icons/bot.png")" title="Robot chess" style="display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;"/>}}lichess<span class="extension">@if(isProd){.org}else{ dev}</span></a>
           </h1>
           @baseline
-          @menu.map { side =>
-          <div class="side_menu">@side</div>
+          @menu.map { sideMenu =>
+          <div class="side_menu">@sideMenu</div>
           }
           @side
           @chat
@@ -187,9 +195,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(ctx.requiresFingerprint) { @fingerprintTag }
     @jsAt(s"compiled/lichess.site${isProd??".min"}.js", async = asyncJs)
     @moreJs
-    @embedJs {
-    lichess.quantity=@i18nJsQuantityFunction;
-    @timeagoLocaleScript;
-    }
+    @embedJs {lichess.quantity=@i18nJsQuantityFunction;@timeagoLocaleScript;}
+    @if(ctx.pageData.inquiry.isDefined) { @jsTag("inquiry.js", async = asyncJs) }
   </body>
 </html>

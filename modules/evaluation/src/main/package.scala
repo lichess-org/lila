@@ -1,3 +1,3 @@
 package lila
 
-package object evaluation extends PackageObject with WithPlay
+package object evaluation extends PackageObject

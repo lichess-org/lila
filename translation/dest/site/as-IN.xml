@@ -15,6 +15,12 @@
   <string name="whiteIsVictorious">বগা দল বিজয়ী</string>
   <string name="blackIsVictorious">ক’লা দল বিজয়ী</string>
   <string name="kingInTheCenter">ৰজা আহিল মাজ\'লৈ</string>
+  <string name="joinTheGame">খেলখনত ভাগ লোৱা</string>
   <string name="whitePlays">বগা দলৰ পাল</string>
   <string name="blackPlays">ক’লা দলৰ পাল</string>
+  <string name="forceResignation">জয় লাভ কৰক</string>
+  <string name="talkInChat">চেতত ভাল বাবে কথা পাতিব!</string>
+  <string name="whiteLeftTheGame">বগা খেলোৱৈয়ে খেলখন এৰি গ\'ল</string>
+  <string name="blackLeftTheGame">ক\'লা খেলোৱৈয়ে খেলখন এৰি গ\'ল</string>
+  <string name="close">বন্ধ</string>
 </resources>

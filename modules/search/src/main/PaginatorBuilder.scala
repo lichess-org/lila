@@ -1,12 +1,13 @@
 package lila.search
 
+import lila.common.MaxPerPage
 import lila.common.paginator._
 
 import play.api.libs.json.Writes
 
 final class PaginatorBuilder[A, Q: Writes](
     searchApi: SearchReadApi[A, Q],
-    maxPerPage: Int
+    maxPerPage: MaxPerPage
 ) {
 
   def apply(query: Q, page: Int): Fu[Paginator[A]] = Paginator(

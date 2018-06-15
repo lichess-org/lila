@@ -53,8 +53,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font74/fonts/lichess.eot");
-  src: url("../font74/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font74/fonts/lichess.woff") format("woff"), url("../font74/fonts/lichess.ttf") format("truetype");
+  src: url("../font80/fonts/lichess.eot");
+  src: url("../font80/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font80/fonts/lichess.woff") format("woff"), url("../font80/fonts/lichess.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -62,7 +62,7 @@ time {
   font-family: 'PT Serif';
   font-style: italic;
   font-weight: 400;
-  src: local('PT Serif Italic'), local('PTSerif-Italic'), url(//fonts.gstatic.com/s/ptserif/v8/03aPdn7fFF3H6ngCgAlQzPk_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
+  src: local('PT Serif Italic'), local('PTSerif-Italic'), url(https://fonts.gstatic.com/s/ptserif/v8/03aPdn7fFF3H6ngCgAlQzPk_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 .is::before,
@@ -83,7 +83,7 @@ time {
 }
 .is.text::before,
 .text[data-icon]::before {
-  margin-right: 5px;
+  margin-right: 0.27em;
 }
 [data-icon].is2::before {
   font-size: 20px;
@@ -276,6 +276,7 @@ group.radio input:checked + label {
   margin-right: 2px;
 }
 #powerTip > .title {
+  height: 62px;
   padding: 5px 3px;
   border-bottom: 1px solid #c0c0c0;
 }
@@ -286,6 +287,23 @@ group.radio input:checked + label {
 }
 #powerTip a.mini_board {
   border-width: 0 0 1px 0;
+}
+#powerTip .mod_info_box {
+  position: relative;
+  padding: 5px;
+  background: #888;
+  color: #eee;
+  white-space: nowrap;
+}
+#powerTip .mod_marks {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 3px 5px;
+  background: #dc322f;
+}
+#powerTip .mod_marks i {
+  padding: 0px;
 }
 #powerTip .country {
   float: right;
@@ -303,25 +321,30 @@ group.radio input:checked + label {
 }
 #powerTip > .actions {
   width: 100%;
+  display: flex;
 }
 #powerTip > .actions a {
+  flex: 0 0 auto;
   margin: 0;
   border-radius: 0;
-  display: block;
   font-size: 0.9em;
   letter-spacing: -1px;
   text-align: center;
-  padding: 0 7px;
+  padding: 0 12px;
   height: 30px;
   line-height: 30px;
   cursor: pointer;
   border-width: 0 1px 0 0;
 }
-#powerTip > .actions a span::before {
-  font-size: 1.5em;
-}
-#powerTip > .actions td:last-child a {
+#powerTip > .actions a.relation {
+  flex: 1 1 100%;
   border-right: 0;
+}
+#powerTip > .actions i {
+  font-style: normal;
+}
+#powerTip > .actions i::before {
+  font-size: 1.5em;
 }
 #powerTip .confirm {
   margin-top: 10px;
@@ -337,7 +360,7 @@ group.radio input:checked + label {
   display: block;
   font-size: 1.2em;
   text-align: center;
-  border-bottom: 1px solid #c0c0c0;
+  border-top: 1px solid #c0c0c0;
   padding: 3px 0;
 }
 #powerTip > .info .title {
@@ -475,6 +498,14 @@ body > div.content {
 #top > * {
   position: relative;
 }
+#top .reports i {
+  border-radius: 50%;
+  position: absolute;
+  right: 5px;
+  width: 12px;
+  height: 12px;
+  background-image: linear-gradient(#d85000, #b34100);
+}
 #top .dropdown {
   display: none;
   position: absolute;
@@ -495,7 +526,7 @@ body > div.content {
   height: 28px;
 }
 #top .signin {
-  margin: 3px 0.5em 0 0;
+  margin: 3px .5em 0 .5em;
   border-color: #d85000;
   padding: 1px 5px;
   height: 17px;
@@ -515,12 +546,51 @@ body > div.content {
   animation: pulse-once 1.5s linear;
 }
 #reconnecting {
-  display: none;
+  opacity: 0;
 }
 body.offline #reconnecting,
 #network_error {
   display: inline-block;
+  opacity: 1;
   color: #dc322f;
+}
+@keyframes reconnected {
+  0% { opacity: 1; color: #759900; }
+  100% { opacity: 0; color: #759900; transform: translateY(-15px); }
+}
+body.online.reconnected #reconnecting {
+  animation: reconnected 2s ease-out 1s backwards;
+}
+body.online #reconnecting::before {
+  content: 'J'
+}
+
+#clinput {
+  display: flex;
+  height: 24px;
+}
+#clinput a.link:hover {
+  color: #303030;
+}
+#clinput input {
+  border: 0;
+  border: none;
+  border-bottom: 1px solid #888;
+  background: transparent;
+  font-size: 14px;
+  color: #555;
+  line-height: 24px;
+  margin-right: 14px;
+  display: none;
+}
+#clinput.shown input {
+  display: inline-block;
+}
+#clinput input:focus {
+  outline: none;
+}
+body.dark #clinput input {
+  color: #aaa;
 }
 
 #site_description {
@@ -575,9 +645,6 @@ div.content_box.no_padding {
 div.content_box.no_padding h1 {
   display: block;
   padding: 20px 25px;
-}
-div.content_box .content_box_title {
-  padding: 20px 20px 0 20px;
 }
 div.content_box_top {
   padding: 10px 0 0 20px;
@@ -649,7 +716,7 @@ div.side h2 {
   text-align: center;
   font-size: 1.5em;
 }
-div.side_box {
+.side_box {
   margin-top: 12px;
   margin-left: -30px;
   width: 226px;
@@ -673,7 +740,7 @@ div.side_box .padded {
   padding: 7px;
 }
 @media (max-width: 1070px) {
-  div.side_box,
+  .side_box,
   #site_header a.stream {
     margin-left: 0!important;
     width: 196px!important;
@@ -783,6 +850,23 @@ div.side form.search input {
 }
 #site_header div.side_menu .sep {
   margin: 10px;
+}
+.context-streamer,
+.deep_link {
+  display: block;
+  padding: 5px;
+  margin: 0 0 1px -30px;
+  color: #fff!important;
+  background: rgba(117,153,0,0.5);
+  overflow: hidden;
+  white-space:nowrap;
+  border-radius: 0 0 3px 3px;
+}
+.context-streamer::before {
+  font-size: 1.5em;
+}
+.context-streamer:hover {
+  background: rgba(117,153,0,0.7);
 }
 
 #ham-plate {
@@ -967,6 +1051,9 @@ span.progress > .negative {
   color: #d59120;
   font-weight: bold;
 }
+.user_link span.title[data-title=BOT] {
+  color: #d756e6;
+}
 div.warning {
   padding: 5px;
   background: #f2dede;
@@ -1037,7 +1124,6 @@ group.radio label:hover {
 a.button:active {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
 }
-.button:focus {outline:0;}
 
 /* active gradient */
 
@@ -1087,7 +1173,7 @@ div.pagination span.current,
   animation: none;
 }
 .fbt:not(:disabled):active,
-.fbt.active {
+body.base .fbt.active {
   background: #3893E8!important;
   color: #fff;
 }
@@ -1297,34 +1383,10 @@ div.vstext .right {
   display: flex;
   flex-flow: row wrap;
 }
-#now_playing.other_games {
-  width: 512px;
-}
-#now_playing h3 {
-  font-size: 1.4em;
-  flex: 0 0 100%;
-  display: flex;
-  justify-content: space-between;
-}
 #now_playing > a {
   padding: 4px;
   transition: background 0.13s;
   background: rgba(255, 255, 255, 0.6);
-}
-#now_playing .switcher {
-  font-size: 0.7em;
-  display: flex;
-  height: 1.5em;
-  line-height: 22px;
-}
-#now_playing .switcher label {
-  cursor: pointer;
-}
-#now_playing .switcher .switch {
-  margin-left: 10px;
-}
-#now_playing.other_games > a {
-  padding: 5px;
 }
 #now_playing > a:hover {
   background: rgba(191, 231, 255, 0.7);
@@ -1516,9 +1578,6 @@ div.user_actions {
 }
 div.user_actions .button {
   margin: 0 -3px 0 -3px;
-}
-div.relation_actions a.relation.processing {
-  opacity: 0.2
 }
 input.copyable,
 textarea.copyable {
@@ -1729,45 +1788,6 @@ div.lichess_overboard .close:hover {
   background: #f0f0f0;
 }
 
-#deeplink {
-  width: 100%;
-  display: flex;
-  flex-flow: row wrap;
-  background: #fff;
-  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.3);
-  margin-bottom: 10px;
-}
-#deeplink h1 {
-  flex: 0 0 100%;
-  font-size: 2em;
-  height: 80px;
-  line-height: 80px;
-  text-align: center;
-  background: #444;
-  color: #fff;
-}
-#deeplink a {
-  flex: 0 0 50%;
-  font-size: 5em;
-  padding-top: 65px;
-  height: 300px;
-  text-align: center;
-  text-transform: uppercase;
-  box-sizing: border-box;
-  color: #3893E8;
-  line-height: 90px;
-}
-#deeplink a:nth-child(2) {
-  padding-top: 45px;
-  background: #3893E8;
-  color: #fff;
-}
-#deeplink strong {
-  display: block;
-  font-size: 2em;
-  line-height: 90px;
-}
-
 @keyframes fire {
   0% {
     text-shadow: 0 0 6.66px #fefcc9,
@@ -1819,7 +1839,7 @@ div.lichess_overboard .close:hover {
 }
 input.cmn-toggle-round + label {
   padding: 1px;
-  width: 40px;
+  width: 34px;
   height: 20px;
   background-color: #aaa;
   border-radius: 20px;
@@ -1835,7 +1855,7 @@ input.cmn-toggle-round + label::after {
 }
 input.cmn-toggle-round + label::before {
   right: 1px;
-  background-color: #ddd;
+  background-color: #ccc;
   border-radius: 20px;
 }
 input.cmn-toggle-round:hover + label::before {
@@ -1851,10 +1871,10 @@ input.cmn-toggle-round:hover + label::after {
   transition: margin 0.2s;
 }
 input.cmn-toggle-round:checked + label::before {
-  background-color: rgba(117, 153, 0, 0.7)!important;
+  background-color: rgba(117, 153, 0, 0.4)!important;
 }
 input.cmn-toggle-round:checked + label::after {
-  margin-left: 20px;
+  margin-left: 14px;
 }
 .hopscotch-content a {
   text-decoration: underline;

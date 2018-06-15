@@ -18,18 +18,12 @@ private[setup] final class Processor(
     saveConfig(_ withFilter config)
 
   def ai(config: AiConfig)(implicit ctx: UserContext): Fu[Pov] = {
-    val pov = blamePov(config.pov, ctx.me)
+    val pov = config pov ctx.me
     saveConfig(_ withAi config) >>
       (GameRepo insertDenormalized pov.game) >>-
-      onStart(pov.game.id) >> {
+      onStart(pov.gameId) >> {
         pov.game.player.isAi ?? fishnetPlayer(pov.game)
       } inject pov
-  }
-
-  private def blamePov(pov: Pov, user: Option[User]): Pov = pov withGame {
-    user.fold(pov.game) { u =>
-      pov.game.updatePlayer(pov.color, _.withUser(u.id, PerfPicker.mainOrDefault(pov.game)(u.perfs)))
-    }
   }
 
   def hook(

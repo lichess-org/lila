@@ -3,23 +3,12 @@ package templating
 
 import scala.concurrent.duration._
 
-import ornicar.scalalib
 import play.twirl.api.Html
 
 import lila.api.Env.{ current => apiEnv }
 
 object Environment
-  extends scalaz.syntax.ToIdOps
-  with scalaz.std.OptionInstances
-  with scalaz.std.OptionFunctions
-  with scalaz.std.StringInstances
-  with scalaz.syntax.std.ToOptionIdOps
-  with scalalib.OrnicarMonoid.Instances
-  with scalalib.Zero.Instances
-  with scalalib.OrnicarOption
-  with lila.BooleanSteroids
-  with lila.OptionSteroids
-  with lila.JodaTimeSteroids
+  extends lila.Lilaisms
   with StringHelper
   with JsonHelper
   with AssetHelper
@@ -41,13 +30,19 @@ object Environment
   with SimulHelper
   with ChessgroundHelper {
 
+  implicit val LilaHtmlMonoid = scalaz.Monoid.instance[Html](
+    (a, b) => Html(a.body + b.body),
+    LilaHtmlZero.zero
+  )
+
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 
   def netDomain = apiEnv.Net.Domain
   def netBaseUrl = apiEnv.Net.BaseUrl
-  lazy val isGloballyCrawlable = apiEnv.Net.Crawlable
+  val isGloballyCrawlable = apiEnv.Net.Crawlable
 
   def isProd = apiEnv.isProd
+  def isStage = apiEnv.isStage
 
   def apiVersion = lila.api.Mobile.Api.currentVersion
 
@@ -59,15 +54,13 @@ object Environment
 
   def contactEmailLink = Html(s"""<a href="mailto:$contactEmail">$contactEmail</a>""")
 
-  def globalCasualOnlyMessage = Env.setup.CasualOnly option {
-    "Due to temporary maintenance on the servers, only casual games are available."
-  }
+  def cspEnabled = apiEnv.cspEnabledSetting.get _
 
-  def reportNbUnprocessed: Int =
-    lila.report.Env.current.api.nbUnprocessed.awaitOrElse(10.millis, 0)
+  def isChatPanicEnabled =
+    lila.chat.Env.current.panic.enabled
 
   def NotForKids[Html](f: => Html)(implicit ctx: lila.api.Context) =
-    if (ctx.kid) Html("") else f
+    if (ctx.kid) emptyHtml else f
 
   def signalBars(v: Int) = Html {
     val bars = (1 to 4).map { b =>

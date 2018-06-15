@@ -35,16 +35,19 @@ square {
   left: 0;
   width: 12.5%;
   height: 12.5%;
+  pointer-events: none;
 }
 .cg-board square.move-dest {
   background: radial-gradient(rgba(20, 85, 30, 0.3) 17%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
   cursor: pointer;
+  pointer-events: auto;
 }
 .cg-board square.oc.move-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
 }
 .cg-board square.premove-dest {
   background: radial-gradient(rgba(20, 30, 85, 0.2) 17%, #203085 0, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0) 0);
+  pointer-events: auto;
 }
 .cg-board square.oc.premove-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
@@ -83,11 +86,13 @@ piece {
   top: 0;
   left: 0;
   background-size: cover;
-  z-index: 2;
-  /* no less than 2 */
+  z-index: 2; /* no less than 2 */
+  pointer-events: none;
 }
 .cg-512 piece {
-  will-change: transform;
+  will-change: transform, opacity;
+  transform: opacity .1s;
+  transition-timing-function: linear;
 }
 .mini_board piece {
   z-index: initial;
@@ -114,10 +119,6 @@ piece.ghost {
 piece.fading {
   z-index: 2!important;
   opacity: 0.5;
-}
-.cg-board-wrap .over {
-  will-change: transform;
-  background-color: rgba(20, 85, 30, 0.2);
 }
 .cg-board-wrap svg {
   overflow: hidden;
@@ -181,7 +182,6 @@ div.lichess_game {
 }
 div.lichess_game div.lichess_board_wrap {
   position: relative;
-  flex: 0 0 512px;
 }
 body.blind_mode .cg-board-wrap {
   display: none;
@@ -334,22 +334,6 @@ div.lichess_overboard {
 div.lichess_overboard.padded {
   padding: 15px;
 }
-#challenge_await .spinner {
-  width: 90px;
-  height: 90px;
-}
-#ping_challenge .spinner {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 20px;
-}
-#lichess_id_input {
-  margin-top: 10px;
-  width: 80%;
-  text-align: center;
-  font-size: 1.2em;
-  padding: 1em 0;
-}
 #promotion_choice {
   position: absolute;
   top: 0;
@@ -368,6 +352,9 @@ div.lichess_overboard.padded {
   box-shadow: inset 0 0 25px 3px #808080;
   box-sizing: border-box;
   transition: 0.2s;
+}
+#promotion_choice piece {
+  pointer-events: auto;
 }
 .is2d #promotion_choice piece {
   width: 100%;
@@ -426,23 +413,23 @@ div.table {
   box-sizing: border-box;
   font-family: 'ChessSansPiratf', sans-serif;
   font-size: 17px;
-  padding-left: 7px;
+  line-height: 28px;
+  padding-left: 8px;
 }
 body.piece_letter .lichess_ground .replay move {
   font-family: 'Noto Sans';
   font-size: 15px;
+  line-height: 25px;
 }
 .lichess_ground .replay move:not(.empty) {
   cursor: pointer;
-  transition: background-color 0.13s;
 }
 .lichess_ground .replay move:not(.empty):hover {
   background: #e6e6e6;
 }
-.lichess_ground .replay move.active,
-.lichess_ground .replay move.active::after {
-  color: #d85000!important;
+.lichess_ground .replay move.active {
   font-weight: bold;
+  background: rgba(56,147,232,0.1)!important;
 }
 .lichess_ground .result_wrap {
   width: 100%;
@@ -501,6 +488,7 @@ body.piece_letter .lichess_ground .replay move {
 }
 .pocket.usable piece {
   cursor: pointer;
+  pointer-events: auto;
 }
 .pocket.usable piece:hover {
   background-color: #999;
@@ -609,17 +597,19 @@ div.table_wrap .clock_top .bar {
 div.table_wrap .clock_bottom .bar {
   top: -4px;
 }
-div.table_wrap .clock .bar span {
+div.table_wrap .clock .bar {
   display: block;
   height: 4px;
-  width: 0;
   background: #759900;
+  transform-origin: left;
 }
-div.table_wrap .clock .bar.berserk span {
+div.table_wrap .clock .bar.berserk {
   background: #dc322f;
 }
+div.table_wrap.with_expiration .clock .bar {
+  display: none;
+}
 div.table_wrap .clock > .time {
-  display: inline-block;
   border: 1px solid #ccc;
   padding: 0 8px;
   font-size: 38px;
@@ -640,7 +630,13 @@ div.table_wrap .clock huns {
   font-size: 80%;
 }
 div.table_wrap .clock sep {
-  opacity: 0.6;
+  opacity: 0.5;
+  font-size: 0.8em;
+  vertical-align: 4px;
+  margin-left: -1px;
+}
+div.table_wrap .clock tenths sep {
+  vertical-align: baseline;
 }
 div.table_wrap .clock sep.low {
   opacity: 0.15;
@@ -759,7 +755,7 @@ div.control .button.disabled {
 .lichess_ground .suggestion,
 .lichess_ground .pending,
 .lichess_ground .negotiation {
-  padding: 10px 7px;
+  padding: 8px 7px;
   background: #d0d0d0;
 }
 .lichess_ground .suggestion p {
@@ -767,6 +763,19 @@ div.control .button.disabled {
 }
 .lichess_ground .suggestion .button {
   display: block;
+}
+.lichess_ground .expiration.emerg {
+  background: #dc322f!important;
+  color: #fff!important;
+}
+.lichess_ground .expiration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.lichess_ground .expiration strong {
+  font-size: 1.3em;
+  margin-right: .3em;
 }
 .lichess_ground .pending {
   display: flex;
@@ -839,6 +848,7 @@ div.control .button.disabled {
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
+  transition: height 0.5s ease;
 }
 .variant_crazyhouse .lichess_ground .rematch.button {
   height: 60px;
@@ -862,7 +872,7 @@ div.control .button.disabled {
 .lichess_ground .rematch.them span {
   animation: rubberBand 5s infinite;
 }
-.lichess_ground .rematch.button:hover {
+.lichess_ground .rematch.button:not(.disabled):hover {
   background: rgba(56,147,232,0.8);
   color: #fff!important;
   animation: none;
@@ -908,6 +918,7 @@ div.cemetery {
   white-space: nowrap;
   line-height: 0;
   height: 32px;
+  max-height: 32px; /* or else firefox bumps to 35px when adding <score> */
 }
 div.cemetery:first-child {
   margin-bottom: 5px;
@@ -950,7 +961,8 @@ div.under_chat .watchers {
   margin-top: 10px;
   opacity: 0.65;
   transition: 0.13s;
-  height: 9em;
+  min-height: 5em;
+  max-height: 9em;
   overflow: hidden;
 }
 div.under_chat .watchers.hidden {
@@ -1052,6 +1064,44 @@ div.underboard a {
   display: inline-block;
 }
 
+#now_playing.other_games {
+  width: 512px;
+}
+#now_playing .switcher {
+  font-size: 0.7em;
+  display: flex;
+  height: 1.5em;
+  line-height: 22px;
+}
+#now_playing .switcher label {
+  cursor: pointer;
+}
+#now_playing .switcher .switch {
+  margin-left: 10px;
+}
+#now_playing.other_games > a {
+  padding: 5px;
+}
+#now_playing h3 {
+  font-size: 1.4em;
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: space-between;
+}
+#now_playing .simul span {
+  font-weight: bold;
+  margin: 0 .5em;
+}
+#now_playing .simul .win {
+  color: #759900;
+}
+#now_playing .simul .draw {
+  color: #bf811d;
+}
+#now_playing .simul .loss {
+  color: #ac524f;
+}
+
 body.playing.zen .table {
   padding: 0;
 }
@@ -1066,35 +1116,38 @@ body.playing.zen .table .moves,
 body.playing.zen .table .username,
 body.playing.zen rating,
 body.playing.zen .tournament_rank,
-body.playing.zen #friend_box {
-  display: none!important;
-}
+body.playing.zen #friend_box,
 body.playing.zen .board_left .side,
 body.playing.zen #chat,
-body.playing.zen .underboard,
-body.playing.zen .other_games,
-body.playing.zen .table .replay .buttons,
+body.playing.zen .underboard .center .crosstable,
+body.playing.zen #now_playing,
 body.playing.zen .clock .moretime,
-body.playing.zen #top > * {
-  opacity: 0;
-  transition: 1s;
+body.playing.zen #top > *,
+body.playing.zen #site_title,
+#zentog {
+  display: none;
 }
-body.playing.zen.offline #reconnecting,
-body.playing.zen .board_left:hover .side,
-body.playing.zen .board_left:hover #chat,
-body.playing.zen .board_left:hover #site_title,
-body.playing.zen .table:hover .replay .buttons,
-body.playing.zen .clock:hover .moretime,
-body.playing.zen .underboard:hover,
-body.playing.zen .other_games:hover,
-body.playing.zen #top:hover > *,
-body.playing.zen .dasher {
+body.playing.zen .table_wrap .replay .buttons,
+body.playing.zen.offline #reconnecting {
+  opacity: 0!important;
+}
+body.playing.zen .table_wrap:hover .replay .buttons,
+body.playing.zen.offline #reconnecting {
   opacity: 1!important;
 }
-@media (hover) {
-  body.playing.zen #site_title,
-  body.playing.zen .dasher:not(.shown):not(:hover) {
-    opacity: 0!important;
-    transition: 1s;
-  }
+#zentog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 15px;
+  opacity: 0.5;
+}
+body.playing.zen #zentog {
+  display: block;
+}
+#zentog::before {
+  font-size: 1.3em;
+}
+#zentog:hover {
+  opacity: 1;
 }

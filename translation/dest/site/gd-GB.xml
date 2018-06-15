@@ -85,7 +85,6 @@
   <string name="changePassword">Atharraich am facal-faire</string>
   <string name="changeEmail">Atharraich am post-d</string>
   <string name="email">Post-d</string>
-  <string name="emailIsOptional">Tha am post-d roghainneil. cleachdaich Lichess an seòladh puist-d agad gus am facal-faire agad ath-shuidheachadh ma dhìochuimhnicheas tu e.</string>
   <string name="passwordReset">Ath-shuidheachadh an fhacail-fhaire</string>
   <string name="forgotPassword">An do dhìochuimhnich thu am facal-faire?</string>
   <string name="rank">Inbhe</string>
@@ -402,8 +401,6 @@
   <string name="checkYourEmail">Thoir sùil air a\' phost-d agad</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Tha sinn air post-d a chur thugad. Briog air a\' cheangal sa phost-d gus an cunntas agad a ghnìomhachadh.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Mura faic thu am post-d, thoir sùil air ionadan eile far a bheil e ma dh\'fhaoidte, can pasgan a\' phuist-truilleis, spama, sòisealta no pasgan sam bith eile.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">A bheil thu cinnteach gun do chlàraich thu am post-d agad air lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Cha robh e riatanach airson a\' chlàraidh agad.</string>
   <string name="weHaveSentYouAnEmailTo">Tha sinn air post-d a chur gu %s. Briog air a\' cheangal sa phost-d gus am facal-faire agad ath-shuidheachadh.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Nuair a chlàraicheas tu, aontaichidh tu gum bi thu fo bhuaidh %s.</string>
   <string name="kidMode">Modh cloinne</string>

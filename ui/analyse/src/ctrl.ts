@@ -12,7 +12,8 @@ import * as util from './util';
 import * as chessUtil from 'chess';
 import { storedProp, throttle, defined, prop, Prop, StoredBooleanProp } from 'common';
 import { make as makeSocket, Socket } from './socket';
-import { make as makeForecast, ForecastCtrl } from './forecast/forecastCtrl';
+import { ForecastCtrl } from './forecast/interfaces';
+import { make as makeForecast } from './forecast/forecastCtrl';
 import { ctrl as cevalCtrl, isEvalBetter, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
 import explorerCtrl from './explorer/explorerCtrl';
 import { ExplorerCtrl } from './explorer/interfaces';
@@ -27,7 +28,7 @@ import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { nextGlyphSymbol } from './nodeFinder';
-import { AnalyseOpts, AnalyseData, AnalyseDataWithTree, Key, CgDests, JustCaptured } from './interfaces';
+import { AnalyseOpts, AnalyseData, ServerEvalData, Key, CgDests, JustCaptured } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 
@@ -78,12 +79,12 @@ export default class AnalyseCtrl {
   flipped: boolean = false;
   embed: boolean;
   showComments: boolean = true; // whether to display comments in the move tree
-  showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
+    showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
   showGauge: StoredBooleanProp = storedProp('show-gauge', true);
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
-  treeView: TreeView = treeViewCtrl();
+  treeView: TreeView;
   cgVersion = {
     js: 1, // increment to recreate chessground
     dom: 1
@@ -105,8 +106,8 @@ export default class AnalyseCtrl {
     this.element = opts.element;
     this.embed = opts.embed;
     this.redraw = redraw;
-
     this.trans = opts.trans;
+    this.treeView = treeViewCtrl(opts.embed ? 'inline' : 'column');
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
 
@@ -119,15 +120,15 @@ export default class AnalyseCtrl {
     this.initialPath = treePath.root;
 
     if (opts.initialPly) {
-      const loc = window.location;
-      const locationHash = loc.hash;
-      const plyStr = opts.initialPly === 'url' ? (locationHash || '').replace(/#/, '') : opts.initialPly;
+      const loc = window.location,
+      intHash = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.substr(1)),
+      plyStr = opts.initialPly === 'url' ? (intHash || '') : opts.initialPly;
       // remove location hash - http://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
-      if (locationHash) window.history.pushState("", document.title, loc.pathname + loc.search);
+      if (intHash) window.history.pushState("", document.title, loc.pathname + loc.search);
       const mainline = treeOps.mainlineNodeList(this.tree.root);
       if (plyStr === 'last') this.initialPath = treePath.fromNodeList(mainline);
       else {
-        var ply = parseInt(plyStr as string);
+        const ply = parseInt(plyStr as string);
         if (ply) this.initialPath = treeOps.takePathWhile(mainline, n => n.ply <= ply);
       }
     }
@@ -138,10 +139,11 @@ export default class AnalyseCtrl {
     this.onToggleComputer();
     this.startCeval();
     this.explorer.setNode();
-    this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice) : undefined;
+    this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay) : undefined;
     this.studyPractice = this.study ? this.study.practice : undefined;
 
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice)) this.togglePractice();
+    else if (location.hash === '#menu') li.requestIdleCallback(this.actionMenu.toggle);
 
     keyboard.bind(this);
 
@@ -156,6 +158,12 @@ export default class AnalyseCtrl {
           this.music = window.lichessReplayMusic();
         });
         if (this.music && set !== 'music') this.music = null;
+    });
+
+    li.pubsub.on('analysis.change.trigger', this.onChange);
+    li.pubsub.on('analysis.chart.click', index => {
+      this.jumpToIndex(index);
+      this.redraw()
     });
   }
 
@@ -173,7 +181,7 @@ export default class AnalyseCtrl {
     if (this.socket) this.socket.clearCache();
     else this.socket = makeSocket(this.opts.socketSend, this);
     this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
-    this.gamePath = (this.synthetic || this.ongoing) ? undefined :
+    this.gamePath = this.synthetic || this.ongoing ? undefined :
       treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
   }
@@ -207,6 +215,8 @@ export default class AnalyseCtrl {
     return this.flipped ? opposite(this.data.orientation) : this.data.orientation;
   }
 
+  bottomIsWhite = () => this.bottomColor() === 'white';
+
   getOrientation(): Color { // required by ui/ceval
     return this.bottomColor();
   }
@@ -223,7 +233,7 @@ export default class AnalyseCtrl {
     this.actionMenu.open = false;
   }
 
-  private uciToLastMove(uci: Uci): Key[] | undefined {
+  private uciToLastMove(uci?: Uci): Key[] | undefined {
     if (!uci) return;
     if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)] as Key[];
     return [uci.substr(0, 2), uci.substr(2, 2)] as Key[];
@@ -239,7 +249,7 @@ export default class AnalyseCtrl {
     });
   }
 
-  getDests: () => void = throttle(800, false, () => {
+  getDests: () => void = throttle(800, () => {
     if (!this.embed && !defined(this.node.dests)) this.socket.sendAnaDests({
       variant: this.data.game.variant.key,
       fen: this.node.fen,
@@ -277,45 +287,46 @@ export default class AnalyseCtrl {
       config.movable!.color = color;
     }
     config.premovable = {
-      enabled: config.movable!.color && config.turnColor !== config.movable!.color && !this.gamebookPlay()
+      enabled: config.movable!.color && config.turnColor !== config.movable!.color
     };
     this.cgConfig = config;
     return config;
   }
 
   private sound = li.sound ? {
-    move: throttle(50, false, li.sound.move),
-    capture: throttle(50, false, li.sound.capture),
-    check: throttle(50, false, li.sound.check)
+    move: throttle(50, li.sound.move),
+    capture: throttle(50, li.sound.capture),
+    check: throttle(50, li.sound.check)
   } : {
     move: $.noop,
     capture: $.noop,
     check: $.noop
   };
 
-  private onChange: () => void = throttle(300, false, () => {
-    if (this.opts.onChange) {
-      const mainlinePly = this.onMainline ? this.node.ply : false;
-      this.opts.onChange!(this.node.fen, this.path, mainlinePly);
-    }
+  private onChange: () => void = throttle(300, () => {
+    li.pubsub.emit('analysis.change')(this.node.fen, this.path, this.onMainline ? this.node.ply : false);
   });
 
-  private updateHref: () => void = throttle(750, false, () => {
+  private updateHref: () => void = li.fp.debounce(() => {
     if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
-  }, false);
+  }, 750);
 
   autoScroll(): void {
     this.autoScrollRequested = true;
   }
+
+  playedLastMoveMyself = () =>
+    !!this.justPlayed && !!this.node.uci && this.node.uci.indexOf(this.justPlayed) === 0;
 
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path;
     this.setPath(path);
     this.showGround();
     if (pathChanged) {
-      if (this.study) this.study.setPath(path, this.node);
+      const playedMyself = this.playedLastMoveMyself();
+      if (this.study) this.study.setPath(path, this.node, playedMyself);
       if (!this.node.uci) this.sound.move(); // initial position
-      else if (!this.justPlayed || this.node.uci.indexOf(this.justPlayed) !== 0) {
+      else if (!playedMyself) {
         if (this.node.san!.indexOf('x') !== -1) this.sound.capture();
         else this.sound.move();
       }
@@ -366,8 +377,8 @@ export default class AnalyseCtrl {
     this.userJump(this.mainlinePathToPly(ply));
   }
 
-  jumpToIndex(index: number): void {
-    this.jumpToMain(index + 1 + this.data.game.startedAtTurn);
+  jumpToIndex = (index: number): void => {
+    this.jumpToMain(index + 1 + this.tree.root.ply);
   }
 
   jumpToGlyphSymbol(color: Color, symbol: string): void {
@@ -394,6 +405,7 @@ export default class AnalyseCtrl {
       success: (data: AnalyseData) => {
         this.reloadData(data, false);
         this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
+        this.redraw();
       },
       error: error => {
         console.log(error);
@@ -462,10 +474,14 @@ export default class AnalyseCtrl {
     });
   }
 
+  onPremoveSet = () => {
+    if (this.study) this.study.onPremoveSet();
+  }
+
   addNode(node: Tree.Node, path: Tree.Path) {
     const newPath = this.tree.addNode(node, path);
     if (!newPath) {
-      console.log('Cannot addNode', node, path);
+      console.log("Can't addNode", node, path);
       return this.redraw();
     }
     this.jump(newPath);
@@ -566,10 +582,10 @@ export default class AnalyseCtrl {
         console.log('Local eval failed after depth ' + (ceval && ceval.depth), lastError);
         if (this.ceval.pnaclSupported) {
           if (ceval && ceval.depth >= 20 && !ceval.retried) {
-            console.log('Remain on native stockfish for now');
+            console.log('Remain on native Stockfish for now');
             ceval.retried = true;
           } else {
-            console.log('Fallback to ASMJS now');
+            console.log('Fallback to WASM/ASMJS now');
             this.instanciateCeval(true);
             this.startCeval();
           }
@@ -599,7 +615,7 @@ export default class AnalyseCtrl {
     return !this.gameOver() && !this.node.threefold;
   }
 
-  startCeval = throttle(800, false, () => {
+  startCeval = throttle(800, () => {
     if (this.ceval.enabled()) {
       if (this.canUseCeval()) {
         this.ceval.start(this.path, this.nodeList, this.threatMode(), false);
@@ -675,7 +691,7 @@ export default class AnalyseCtrl {
   }
 
   hasFullComputerAnalysis = (): boolean => {
-    return this.mainline[0].eval ? Object.keys(this.mainline[0].eval).length > 0 : false;
+    return Object.keys(this.mainline[0].eval || {}).length > 0;
   }
 
   private resetAutoShapes() {
@@ -688,7 +704,7 @@ export default class AnalyseCtrl {
     this.resetAutoShapes();
   }
 
-  toggleGauge() {
+  toggleGauge = () => {
     this.showGauge(!this.showGauge());
   }
 
@@ -708,11 +724,15 @@ export default class AnalyseCtrl {
     this.onToggleComputer();
   }
 
-  mergeAnalysisData(data: AnalyseDataWithTree): void {
+  mergeAnalysisData(data: ServerEvalData): void {
+    if (this.study && this.study.data.chapter.id !== data.ch) return;
     this.tree.merge(data.tree);
     if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
+    if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(data.tree, n => !n.eval);
+    if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
+    if (this.study) this.study.serverEval.onMergeAnalysisData();
     this.redraw();
   }
 
@@ -739,7 +759,7 @@ export default class AnalyseCtrl {
     if (uci) this.playUci(uci);
   }
 
-  canEvalGet = (node: Tree.Node): boolean => this.opts.study || node.ply < 10;
+  canEvalGet = (node: Tree.Node): boolean => this.opts.study || node.ply < 15;
 
   instanciateEvalCache() {
     this.evalCache = makeEvalCache({
@@ -748,7 +768,7 @@ export default class AnalyseCtrl {
       canPut: (node: Tree.Node) => {
         return this.data.evalPut && this.canEvalGet(node) && (
           // if not in study, only put decent opening moves
-          this.opts.study || (node.ply < 10 && !node.ceval!.mate && Math.abs(node.ceval!.cp!) < 99)
+          this.opts.study || (!node.ceval!.mate && Math.abs(node.ceval!.cp!) < 99)
         );
       },
       getNode: () => this.node,

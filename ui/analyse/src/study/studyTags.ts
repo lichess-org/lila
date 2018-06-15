@@ -7,6 +7,7 @@ import { StudyCtrl, StudyChapter } from './interfaces';
 
 function editable(value: string, submit: (v: string, el: HTMLInputElement) => void): VNode {
   return h('input', {
+    key: value, // force to redraw on change, to visibly update the input value
     attrs: {
       spellcheck: false,
       value
@@ -85,7 +86,7 @@ function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
 
 export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types) {
 
-  const submit = throttle(500, false, function(name, value) {
+  const submit = throttle(500, function(name, value) {
     root.study!.makeChange('setTag', {
       chapterId: getChapter().id,
       name,
@@ -110,6 +111,7 @@ function doRender(root: StudyCtrl): VNode {
 
 export function view(root: StudyCtrl): VNode {
   const chapter = root.tags.getChapter(),
-  key = chapter.id + root.data.name + chapter.name + root.data.likes + chapter.tags + root.vm.mode.write;
+  tagKey = chapter.tags.map(t => t[1]).join(','),
+  key = chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
   return thunk('div.undertable_inner.' + chapter.id, doRender, [root, key]);
 }

@@ -32,6 +32,10 @@ case class Cents(value: Int) extends AnyVal with Ordered[Cents] {
   override def toString = usd.toString
 }
 
+object Cents {
+  val lifetime = Cents(25000)
+}
+
 case class StripeSubscriptions(data: List[StripeSubscription])
 
 case class StripePlan(id: String, name: String, amount: Cents) {
@@ -78,7 +82,9 @@ case class StripeCustomer(
   def renew = firstSubscription ?? (_.renew)
 }
 
-case class StripeCharge(id: ChargeId, amount: Cents, customer: CustomerId)
+case class StripeCharge(id: ChargeId, amount: Cents, customer: CustomerId) {
+  def lifetimeWorthy = amount >= Cents.lifetime
+}
 
 case class StripeInvoice(
     id: Option[String],

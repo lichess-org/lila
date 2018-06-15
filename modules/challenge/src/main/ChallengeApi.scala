@@ -28,7 +28,7 @@ final class ChallengeApi(
 
   // returns boolean success
   def create(c: Challenge): Fu[Boolean] = isLimitedByMaxPlaying(c) flatMap {
-    case true => fuccess(false)
+    case true => fuFalse
     case false => {
       repo like c flatMap { _ ?? repo.cancel }
     } >> (repo insert c) >>- {
@@ -38,6 +38,10 @@ final class ChallengeApi(
   }
 
   def byId = repo byId _
+
+  def activeByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).map(_.filter(_.active))
+
+  def onlineByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).map(_.filter(_.online))
 
   val countInFor = asyncCache.clearable(
     name = "challenge.countInFor",
@@ -70,30 +74,8 @@ final class ChallengeApi(
       } inject pov.some
     }
 
-  def rematchOf(game: Game, user: User): Fu[Boolean] =
-    Pov.ofUserId(game, user.id) ?? { pov =>
-      for {
-        initialFen <- GameRepo initialFen pov.game
-        challengerOption <- pov.player.userId ?? UserRepo.byId
-        destUserOption <- pov.opponent.userId ?? UserRepo.byId
-        success <- (destUserOption |@| challengerOption).tupled ?? {
-          case (destUser, challenger) => create(Challenge.make(
-            variant = pov.game.variant,
-            initialFen = initialFen,
-            timeControl = (pov.game.clock, pov.game.daysPerTurn) match {
-              case (Some(clock), _) => TimeControl.Clock(clock.config)
-              case (_, Some(days)) => TimeControl.Correspondence(days)
-              case _ => TimeControl.Unlimited
-            },
-            mode = pov.game.mode,
-            color = (!pov.color).name,
-            challenger = Right(challenger),
-            destUser = Some(destUser),
-            rematchOf = pov.game.id.some
-          )) inject true
-        }
-      } yield success
-    }
+  def sendRematchOf(game: Game, user: User): Fu[Boolean] =
+    ChallengeMaker.makeRematchOf(game, user) flatMap { _ ?? create }
 
   def setDestUser(c: Challenge, u: User): Funit = {
     val challenge = c setDestUser u
@@ -108,7 +90,7 @@ final class ChallengeApi(
   }
 
   private def isLimitedByMaxPlaying(c: Challenge) =
-    if (c.hasClock) fuccess(false)
+    if (c.hasClock) fuFalse
     else c.userIds.map { userId =>
       gameCache.nbPlaying(userId) map (maxPlaying <=)
     }.sequenceFu.map(_ exists identity)

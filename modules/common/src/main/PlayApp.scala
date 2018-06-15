@@ -4,7 +4,7 @@ import com.typesafe.config.Config
 import org.joda.time.{ DateTime, Period }
 import play.api.i18n.Lang
 import play.api.{ Play, Application, Mode }
-import scala.collection.JavaConverters._
+import scala.collection.JavaConversions._
 
 object PlayApp {
 
@@ -24,28 +24,28 @@ object PlayApp {
   def loadConfig(prefix: String): Config = loadConfig getConfig prefix
 
   def withApp[A](op: Application => A): A =
-    op(old.play.Env.application)
+    Play.maybeApplication map op err "Play application is not started!"
 
-  // def system = withApp { implicit app =>
-  //   old.play.api.libs.concurrent.Akka.system
-  // }
+  def system = withApp { implicit app =>
+    play.api.libs.concurrent.Akka.system
+  }
 
-  lazy val langs = loadConfig.getStringList("play.i18n.langs").asScala.map(Lang.apply)(scala.collection.breakOut)
+  lazy val langs = loadConfig.getStringList("play.i18n.langs").map(Lang.apply)(scala.collection.breakOut)
 
   private def enableScheduler = !(loadConfig getBoolean "app.scheduler.disabled")
 
   lazy val scheduler = new Scheduler(
-    old.play.Env.actorSystem.scheduler,
+    system.scheduler,
     enabled = enableScheduler && isServer,
     debug = loadConfig getBoolean "app.scheduler.debug"
   )
 
-  def lifecycle = old.play.Env.lifecycle
+  def lifecycle = withApp(_.injector.instanceOf[play.api.inject.ApplicationLifecycle])
 
   lazy val isDev = isMode(_.Dev)
   lazy val isTest = isMode(_.Test)
-  lazy val isProd = isMode(_.Prod) && !loadConfig.getBoolean("forcedev")
+  lazy val isProd = isMode(_.Prod) && !loadConfig.getBoolean("app.forcedev")
   def isServer = !isTest
 
-  def isMode(f: Mode.type => Mode) = withApp { _.mode == f(Mode) }
+  def isMode(f: Mode.type => Mode.Mode) = withApp { _.mode == f(Mode) }
 }

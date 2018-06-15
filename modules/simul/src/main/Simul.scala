@@ -109,7 +109,8 @@ case class Simul(
 
   def variantRich = variants.size > 3
 
-  def isHost(userOption: Option[User]) = userOption ?? (_.id == hostId)
+  def isHost(userOption: Option[User]): Boolean = userOption ?? isHost
+  def isHost(user: User): Boolean = user.id == hostId
 
   def playingPairings = pairings filterNot (_.finished)
 
@@ -130,6 +131,7 @@ case class Simul(
   def wins = pairings.count(p => p.finished && p.wins.has(false))
   def draws = pairings.count(p => p.finished && p.wins.isEmpty)
   def losses = pairings.count(p => p.finished && p.wins.has(true))
+  def ongoing = pairings.count(_.ongoing)
 }
 
 object Simul {

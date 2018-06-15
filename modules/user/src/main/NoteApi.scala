@@ -50,14 +50,9 @@ final class NoteApi(
       .list[Note](20)
 
   def forMod(ids: List[User.ID]): Fu[List[Note]] =
-    coll.find($doc("to" -> $doc("$in" -> ids)))
-      .sort($doc("date" -> -1))
-      .list[Note](50)
-
-  def byMod(ids: List[User.ID]): Fu[List[Note]] =
     coll.find($doc("to" $in ids))
       .sort($doc("date" -> -1))
-      .list[Note](ids.size * 5, ReadPreference.secondaryPreferred)
+      .list[Note](50)
 
   def write(to: User, text: String, from: User, modOnly: Boolean) = {
 
@@ -84,4 +79,6 @@ final class NoteApi(
       ), 'userNote)
     }
   }
+
+  def erase(user: User) = coll.remove($doc("from" -> user.id))
 }

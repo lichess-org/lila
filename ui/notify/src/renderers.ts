@@ -3,7 +3,18 @@ import { VNode } from 'snabbdom/vnode'
 
 import { Notification, Renderers } from './interfaces'
 
+// function generic(n: Notification, url: string | undefined, icon: string, content: VNode[]): VNode {
 export const renderers: Renderers = {
+  genericLink: {
+    html: n => generic(n, n.content.url, n.content.icon, [
+      h('span', [
+        h('strong', n.content.title),
+        drawTime(n)
+      ]),
+      h('span', n.content.text)
+    ]),
+    text: n => n.content.title || n.content.text
+  },
   mention: {
     html: n => generic(n, "/forum/redirect/post/" + n.content.postId, 'd', [
       h('span', [
@@ -15,7 +26,7 @@ export const renderers: Renderers = {
     text: n => userFullName(n.content.mentionedBy) + ' mentioned you in « ' + n.content.topic + ' ».'
   },
   invitedStudy: {
-    html: n => generic(n, "/study/" + n.content.studyId, '', [
+    html: n => generic(n, "/study/" + n.content.studyId, '4', [
       h('span', [
         h('strong', userFullName(n.content.invitedBy)),
         drawTime(n)
@@ -57,13 +68,23 @@ export const renderers: Renderers = {
     ]),
     text: n => "You have joined  « " + n.content.name + "  »."
   },
-  limitedTournamentInvitation: {
+  u: {
     html: n => generic(n, '/tournament/limited-invitation', 'g', [
       h('span', [
-        h('strong', 'Low rated tournament'),
+        h('strong', 'Rating limited tournament'),
         drawTime(n)
       ]),
-      h('span', 'A tournament you can win!')
+      h('span', 'An event you can win!')
+    ]),
+    text: n => 'Game with ' + n.content.opponentName + '.'
+  },
+  titledTourney: {
+    html: n => generic(n, '/tournament/' + n.content.id, 'g', [
+      h('span', [
+        h('strong', 'Lichess Titled Tournament'),
+        drawTime(n)
+      ]),
+      h('span', n.content.text)
     ]),
     text: n => 'Game with ' + n.content.opponentName + '.'
   },

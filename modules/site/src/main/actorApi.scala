@@ -12,9 +12,7 @@ case class Member(
 
   val troll = false
 
-  def hasFlag(f: String) = flag has f
-
-  def isApi = hasFlag("api")
+  def isApi = flag has "api"
 }
 
 case class Join(uid: Uid, userId: Option[String], flag: Option[String])

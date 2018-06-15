@@ -64,7 +64,7 @@ export function make(opts): EvalCache {
     return fenFetched.indexOf(node.fen) !== -1;
   };
   return {
-    onCeval: throttle(500, false, function() {
+    onCeval: throttle(500, function() {
       const node = opts.getNode(), ev = node.ceval;
       if (ev && !ev.cloud && hasFetched(node) && qualityCheck(ev) && opts.canPut(node)) {
         opts.send("evalPut", toPutData(opts.variant, ev));
@@ -80,7 +80,7 @@ export function make(opts): EvalCache {
         path
       };
       if (opts.variant !== 'standard') obj.variant = opts.variant;
-      if (multiPv > 1 || true) obj.mpv = multiPv;
+      if (multiPv > 1) obj.mpv = multiPv;
       opts.send("evalGet", obj);
     },
     onCloudEval(serverEval): void {

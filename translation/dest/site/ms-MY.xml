@@ -44,4 +44,8 @@
   <string name="forceDraw">Paksa seri</string>
   <string name="talkInChat">Sila jadi baik di ruangan sembang</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Orang pertama yang datang ke URL ini akan bermain dengan anda.</string>
+  <string name="whiteResigned">Putih telah menyerah kalah</string>
+  <string name="blackResigned">Hitam telah menyerah kalah</string>
+  <string name="whiteLeftTheGame">Putih telah meninggalkan perlawanan</string>
+  <string name="blackLeftTheGame">Hitam telah meninggalkan perlawanan</string>
 </resources>

@@ -3,7 +3,7 @@
 @layout(title = tour.fullName) {
 <div class="tour_crud edit content_box small_box no_padding">
   <h1 class="lichess_title">
-    @tour.fullName
+    <a href="@routes.Tournament.show(tour.id)">@tour.fullName</a>
     <span>Created by @usernameOrId(tour.createdBy) on @showDate(tour.createdAt)</span>
   </h1>
   <form class="content_box_content material form" action="@routes.TournamentCrud.update(tour.id)" method="POST">

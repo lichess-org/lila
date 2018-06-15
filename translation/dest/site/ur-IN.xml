@@ -108,7 +108,6 @@
   <string name="changePassword">خفیہ کلمہ تبدیل کریں</string>
   <string name="changeEmail">ای میل تبدیل کریں</string>
   <string name="email">ای میل</string>
-  <string name="emailIsOptional">ای میل غیرضروری ہے، مگر خفیہ کلمہ بھولنے کی صورت میں ای میل کے ذریعے نیا کلمہ اختیار کیا جا سکتا ہے۔</string>
   <string name="passwordReset">خفیہ کلمہ پھر سے داخل کریں</string>
   <string name="forgotPassword">خفیہ کلمہ یاد نہیں؟</string>
   <string name="rank">درجہ</string>
@@ -330,10 +329,6 @@
   <string name="retryThisPuzzle">دوبارہ کوشش کریں</string>
   <string name="thisPuzzleIsCorrect">یہ معمہ صحیح اور دلچسپ ہے</string>
   <string name="thisPuzzleIsWrong">یہ معمہ غلط یا بیکار ہے</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">آپ کے پاس چال چلنے کیلیے %s سیکنڈ ہیں</item>
-    <item quantity="other">آپ کے پاس چال چلنے کیلیے %s سیکنڈ ہیں</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s جاری مقابلے</item>
     <item quantity="other">%s جاری مقابلے</item>

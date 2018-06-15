@@ -380,7 +380,7 @@ body.piece_letter .pv_box .pv span {
   display: block;
   cursor: pointer;
   padding: 0 15px;
-  display: flex;
+  display: flex!important;
   border-bottom: 1px solid #e4e4e4;
 }
 body.piece_letter .fork move {
@@ -412,15 +412,9 @@ body.piece_letter .fork move {
 
 @media (min-width: 1050px) {
 
-  #puzzle div.lichess_game div.lichess_ground {
-    width: 280px;
-    min-width: 280px;
-  }
-  #puzzle .fork { left: 90px; }
-
   div.analyse div.lichess_game div.lichess_ground {
-    width: 25vw;
-    min-width: 25vw;
+    flex: 0 0 25vw;
+    max-width: 25vw;
   }
   div.analyse .fork { left: 90px; }
 
@@ -608,8 +602,35 @@ body.dark .explorer_box .black {
   text-align: center;
   padding: 3px 5px;
   border-radius: 3px;
-  font-family: 'Roboto Mono', 'Roboto';
   font-size: 0.9em;
+}
+.explorer_box td.game_menu {
+  background: #759900;
+  cursor: default;
+  padding: 0;
+}
+.explorer_box .game_menu .game_title {
+  text-align: center;
+  color: #fff;
+  margin: 3px 0 1px 0;
+}
+.explorer_box .game_menu .menu {
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+}
+.explorer_box .game_menu .menu a {
+  color: #fff;
+  padding: 4px 8px;
+}
+.explorer_box .game_menu .menu a:hover {
+  background: rgba(255,255,255,0.2);
+}
+@media (max-width: 1120px) {
+.explorer_box .game_menu {
+  font-size: 0.8em;
+  letter-spacing: 0;
+}
 }
 .explorer_box .tablebase {
   width: 100%;
@@ -844,6 +865,10 @@ body.piece_letter .tablebase td:first-child {
   font-weight: normal;
   font-size: 1.3em;
 }
+.retro_box .instruction move {
+  display: inline;
+  cursor: default;
+}
 .retro_box .instruction glyph {
   font-weight: normal;
   opacity: 0.7;
@@ -894,9 +919,6 @@ body.dark .practice_box .feedback .progress {
   -moz-user-select: none;
   -ms-user-select: none;
 }
-.practice_box .feedback color {
-  text-transform: capitalize;
-}
 .practice_box .comment {
   flex: 0 0 30px;
   display: flex;
@@ -913,8 +935,8 @@ body.dark .practice_box .comment {
 .practice_box .progress div {
   background: #aaa;
 }
-.practice_box.good .title,
-.practice_box.good .progress div {
+.practice_box.goodMove .title,
+.practice_box.goodMove .progress div {
   background: #759900!important;
   color: #fff!important;
 }
@@ -948,10 +970,10 @@ body.dark .practice_box .comment {
   font-size: 1.4em;
   font-weight: normal;
 }
-.practice_box.good .verdict {
+.practice_box.goodMove .verdict {
   color: #759900;
 }
-.practice_box.good .verdict::before {
+.practice_box.goodMove .verdict::before {
   background: #759900;
   content: '✓';
   font-size: 1.7em;
@@ -972,7 +994,7 @@ body.dark .practice_box .comment {
   background: #dc322f;
   content: '✗';
 }
-.practice_box .comment a {
+.practice_box .comment move {
   margin-left: 5px;
   color: #3893E8;
   transition: 0.3s;
@@ -1046,6 +1068,7 @@ body.dark .practice_box .comment {
   display: flex;
   flex-flow: column;
   justify-content: center;
+  text-transform: none;
 }
 .action_menu .tools form .fbt {
   width: 100%;
@@ -1173,7 +1196,7 @@ body.dark .action_menu input[type=range]::-ms-fill-upper {
   box-sizing: border-box;
   line-height: 20px;
 }
-.aclock {
+.aclocks .aclock {
   height: 20px;
   line-height: 20px;
   padding: 5px 0;
@@ -1181,26 +1204,26 @@ body.dark .action_menu input[type=range]::-ms-fill-upper {
   border: 1px solid #ccc;
 }
 
-.aclock:first-child {
+.aclocks .aclock:first-child {
   border-width: 1px 1px 1px 0;
   border-radius: 0 4px 0 0;
 }
-.aclock:last-child {
+.aclocks .aclock:last-child {
   border-width: 0 1px 1px 0;
   border-radius: 0 0 4px 0;
 }
-.aclock.active {
+.aclocks .aclock.active {
   background: #fafafa;
   font-weight: bold;
 }
-.aclock tenths {
+.aclocks .aclock tenths {
   font-size: 80%;
 }
 
-body.dark .aclock {
+body.dark .aclocks .aclock {
   border-color: #3d3d3d;
 }
-body.dark .aclock.active {
+body.dark .aclocks .aclock.active {
   background: #303030;
 }
 
@@ -1215,17 +1238,17 @@ body.dark .aclock.active {
 }
 .tview2.inline {
   padding: 7px 3px 7px 7px;
-  font-size: 18px;
-  line-height: 1.05em;
+  font-size: 16px;
+  line-height: 1em;
 }
-.tview2 move {
+.lichess_ground move {
   font-family: 'ChessSansPiratf', sans-serif;
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
   cursor: pointer;
 }
-body.piece_letter .tview2 move {
+body.piece_letter .lichess_ground move {
   font-family: 'Noto Sans';
 }
 .tview2.column move {
@@ -1237,14 +1260,22 @@ body.piece_letter .tview2 move {
   white-space: nowrap;
   font-weight: bold;
 }
-.tview2 move.parent {
+.tview2 move.parent,
+.tview2 comment a {
   color: #3893e8!important;
+}
+.tview2 comment a {
+  vertical-align: top;
 }
 .tview2 move.current {
   border: 1px solid #d85000!important;
 }
 .tview2 move.active {
-  color: #d85000;
+  font-weight: bold;
+  background: rgba(56,147,232,0.2);
+}
+.tview2.inline move.active {
+  border-radius: 3px;
 }
 .tview2 move.nongame {
   font-style: italic;
@@ -1252,7 +1283,7 @@ body.piece_letter .tview2 move {
 .tview2 move:not(.empty):hover,
 .tview2 move:not(.empty):hover index,
 .tview2 move:not(.empty):hover eval {
-  background: #3893e8;
+  background: #3893e8!important;
   color: #fff!important;
 }
 .tview2.inline move:hover {
@@ -1477,7 +1508,8 @@ body.dark .tview2 move {
   color: #aaa;
 }
 body.dark .tview2 move.active {
-  color: #ff7729;
+  background: rgba(56,147,232,0.4);
+  color: #dfdfdf;
 }
 body.dark .tview2.column comment {
   color: #999;
@@ -1726,14 +1758,4 @@ body.piece_letter #analyse-cm .title {
 }
 #analyse-cm .action:hover {
   background: #fff;
-}
-
-.gauge_displayed .cg-board-wrap coords.ranks {
-  color: #fff;
-  text-shadow: 0 1px 2px #000;
-  right: -4px;
-  text-align: left;
-}
-.gauge_displayed .cg-board-wrap coords.ranks coord {
-  transform: none;
 }

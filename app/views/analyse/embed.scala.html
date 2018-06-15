@@ -3,10 +3,12 @@
 @title = @{ s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)} in ${pov.gameId} : ${pov.game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}" }
 
 <!doctype html>
-<html>
+<html lang="@lang.language">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="@defaultCsp">
     <title>@title</title>
-    <link href='//fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300" rel="stylesheet">
     @ctx.currentBg match {
     case "dark" => { @cssTag("dark.css") }
     case "transp" => { @cssTag("dark.css")@cssTag("transp.css") }
@@ -17,7 +19,6 @@
     @cssTag("analyse.css")
     @cssTag("analyse-embed.css")
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=@ctx.pageData.assetVersion")" type="text/css" rel="stylesheet"/>
-    <meta charset="utf-8">
   </head>
   <body class="base highlight @List(
     ctx.currentTheme.cssClass,
@@ -43,7 +44,7 @@
     @embedJs {
     lichess.startEmbeddedAnalyse({
     element: document.querySelector('.embedded_analyse'),
-    data: @Html(J.stringify(data)),
+    data: @safeJson(data),
     embed: true,
     i18n: @board.userAnalysisI18n(withCeval = false, withExplorer = false)
     });

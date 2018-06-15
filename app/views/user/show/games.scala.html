@@ -9,7 +9,7 @@
 @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
 @info.ratingChart.map { ratingChart =>
 @jsTag("chart/ratingHistory.js")
-@embedJs(s"lichess.ratingHistoryChart($ratingChart);")
+@embedJsUnsafe(s"lichess.ratingHistoryChart($ratingChart);")
 }
 }
 }

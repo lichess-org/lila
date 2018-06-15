@@ -5,7 +5,7 @@ import chess.format.Uci
 case class Eval(
     cp: Option[Eval.Cp],
     mate: Option[Eval.Mate],
-    best: Option[Uci.Move]
+    best: Option[Uci]
 ) {
 
   def isEmpty = cp.isEmpty && mate.isEmpty
@@ -13,6 +13,8 @@ case class Eval(
   def dropBest = copy(best = None)
 
   def invert = copy(cp = cp.map(_.invert), mate = mate.map(_.invert))
+
+  def score: Option[Eval.Score] = cp.map(Eval.Score.cp) orElse mate.map(Eval.Score.mate)
 }
 
 object Eval {
@@ -27,6 +29,8 @@ object Eval {
 
     def invert = copy(value = value.left.map(_.invert).right.map(_.invert))
     def invertIf(cond: Boolean) = if (cond) invert else this
+
+    def eval = Eval(cp, mate, None)
   }
 
   object Score {
@@ -86,7 +90,7 @@ object Eval {
   object JsonHandlers {
     import play.api.libs.json._
 
-    private implicit val uciWrites: Writes[Uci.Move] = Writes { uci =>
+    private implicit val uciWrites: Writes[Uci] = Writes { uci =>
       JsString(uci.uci)
     }
     implicit val cpFormat: Format[Cp] = Format[Cp](

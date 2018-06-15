@@ -2,9 +2,9 @@
   "compilerOptions": {
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noEmitOnError": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noEmitOnError": true,
     "alwaysStrict": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,

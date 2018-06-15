@@ -2,17 +2,18 @@ package lila.insight
 
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
+import lila.db.dsl._
 
 object AggregationClusters {
 
-  def apply[X](question: Question[X], res: AggregationResult): List[Cluster[X]] =
+  def apply[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
     postSort(question) {
-      if (Metric isStacked question.metric) stacked(question, res)
-      else single(question, res)
+      if (Metric isStacked question.metric) stacked(question, aggDocs)
+      else single(question, aggDocs)
     }
 
-  private def single[X](question: Question[X], res: AggregationResult): List[Cluster[X]] = {
-    res.firstBatch.flatMap { doc =>
+  private def single[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
+    aggDocs flatMap { doc =>
       for {
         x <- doc.getAs[X]("_id")(question.dimension.bson)
         value <- doc.getAs[BSONNumberLike]("v")
@@ -20,13 +21,12 @@ object AggregationClusters {
         ids <- doc.getAs[List[String]]("ids")
       } yield Cluster(x, Insight.Single(Point(value.toDouble)), nb, ids)
     }
-  }
 
   private case class StackEntry(metric: BSONValue, v: BSONNumberLike)
   private implicit val StackEntryBSONReader = Macros.reader[StackEntry]
 
-  private def stacked[X](question: Question[X], res: AggregationResult): List[Cluster[X]] =
-    res.firstBatch.flatMap { doc =>
+  private def stacked[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
+    aggDocs flatMap { doc =>
       val metricValues = Metric valuesOf question.metric
       // println(lila.db.BSON debug doc)
       for {

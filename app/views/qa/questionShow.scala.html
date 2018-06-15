@@ -11,7 +11,7 @@ side = side.some,
 openGraph = lila.app.ui.OpenGraph(
 title = q.title,
 url = s"$netBaseUrl${routes.QaQuestion.show(q.id, q.slug).url}",
-description = shorten(q.body.replace("\n", ""), 152).body).some) {
+description = shorten(q.body, 152)).some) {
 
 <div class="question">
   <div class="content_box_top">
@@ -24,7 +24,8 @@ description = shorten(q.body.replace("\n", ""), 152).body).some) {
       @if(lila.qa.QaAuth canEdit q) {
       <a class="button" data-icon="m" href="@routes.QaQuestion.edit(q.id, q.slug)"> Edit question</a>
       }
-      @nope("Delete", routes.QaQuestion.remove(q.id))
+      @nope(q.isLocked.fold("Unlock", "Lock"), routes.QaQuestion.lock(q.id), "a")
+      @nope("Delete", routes.QaQuestion.remove(q.id), "q")
     </div>
     <table>
       <tbody>
@@ -52,10 +53,10 @@ description = shorten(q.body.replace("\n", ""), 152).body).some) {
       </div>
       <div class="content">
         <div class="body">
-          @autoLink(q.body)
+          @richText(q.body)
         </div>
         <div class="comments" id="question-@q.id-comments">
-          @views.html.qa.commentList(q, q.comments, routes.QaComment.question(q.id).url)
+          @views.html.qa.commentList(q, q.comments.sorted, routes.QaComment.question(q.id).url)
         </div>
       </div>
     </div>
@@ -77,13 +78,19 @@ description = shorten(q.body.replace("\n", ""), 152).body).some) {
         @base.captcha(form("move"), form("gameId"), captcha)
         <button class="pure submit button" type="submit">Post your answer</button>
         @if(isGranted(_.PublicMod)){
-          <button class="pure button" type="submit" data-icon="" name="modIcon" value="true"> Answer as mod</button>
+        <button class="pure button" type="submit" data-icon="" name="modIcon" value="true"> Answer as mod</button>
         }
       </form>
     </div>
     }
     case _ => {
-    You cannot answer this question.
+    <p class="title answers-header content_box_inter">
+      @q.locked.map { l =>
+      @userIdLink(l.by.some) locked this question @momentFromNow(l.at)
+      }.getOrElse {
+      You cannot answer this question.
+      }
+    </p>
     }
     }
     }

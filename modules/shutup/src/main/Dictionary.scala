@@ -25,14 +25,13 @@ ball
 bastard?
 bewb
 bimbo
-bitch
+bit?ch
 blow
 blowjob
 blumpkin
 bollock
 boner
 boob
-bot
 bugger
 buk?kake
 bull?shit
@@ -86,6 +85,7 @@ jerk
 jizz?(um|)
 kaffir
 kike
+kys
 labia
 lesbo
 masturbat(e|ion|ing)
@@ -169,8 +169,11 @@ wog
 сука
 пизда
 пидор
+пидераст
 pid(a|o)r
 """)
 
   private def dict(words: String) = words.lines.filter(_.nonEmpty)
+
+  val youtubeIds = List("7UpltimWY_E", "J_bzfjZZnjU")
 }

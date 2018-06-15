@@ -19,6 +19,7 @@ export default class TournamentController {
   joinSpinner: boolean = false;
   playerInfo: PlayerInfo = {};
   disableClicks: boolean = true;
+  searching: boolean = false;
   redraw: () => void;
 
   private watchingGameId: string;
@@ -42,7 +43,6 @@ export default class TournamentController {
   }
 
   reload = (data: TournamentData): void => {
-    // if (this.data.isStarted !== data.isStarted) m.redraw.strategy('all');
     this.data = data;
     if (data.playerInfo && data.playerInfo.player.id === this.playerInfo.id)
       this.playerInfo.data = data.playerInfo;
@@ -56,8 +56,7 @@ export default class TournamentController {
   };
 
   private redirectToMyGame() {
-    const gameId = tour.myCurrentGameId(this);
-    if (gameId) this.redirectFirst(gameId);
+    if (this.data.myGameId) this.redirectFirst(this.data.myGameId);
   }
 
   redirectFirst = (gameId: string, rightNow?: boolean) => {
@@ -65,7 +64,7 @@ export default class TournamentController {
     setTimeout(() => {
       if (this.lastStorage.get() !== gameId) {
         this.lastStorage.set(gameId);
-        location.href = '/' + gameId;
+        window.lichess.redirect('/' + gameId);
       }
     }, delay);
   };
@@ -78,6 +77,16 @@ export default class TournamentController {
     this.page = page;
     xhr.loadPage(this, page);
   };
+
+  jumpToPageOf = (userId: string) => {
+    xhr.loadPageOf(this, userId).then(data => {
+      this.loadPage(data);
+      this.page = data.page;
+      this.searching = false;
+      this.pages[this.page].filter(p => p.name.toLowerCase() == userId).forEach(this.showPlayerInfo);
+      this.redraw();
+    });
+  }
 
   userSetPage = (page: number) => {
     this.focusOnMe = false;
@@ -136,4 +145,6 @@ export default class TournamentController {
     if (data.player.id !== this.playerInfo.id) return;
     this.playerInfo.data = data;
   };
+
+  toggleSearch = () => this.searching = !this.searching;
 }

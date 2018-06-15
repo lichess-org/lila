@@ -19,7 +19,7 @@ final class BookmarkApi(
 
   def exists(game: Game, user: User): Fu[Boolean] =
     if (game.bookmarks > 0) exists(game.id, user.id)
-    else fuccess(false)
+    else fuFalse
 
   def exists(game: Game, user: Option[User]): Fu[Boolean] =
     user.?? { exists(game, _) }

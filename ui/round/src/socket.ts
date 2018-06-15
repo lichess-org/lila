@@ -138,9 +138,9 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
   return {
     send,
     handlers,
-    moreTime: throttle(300, false, () => send('moretime')),
-    outoftime: throttle(500, false, () => send('flag', ctrl.data.game.player)),
-    berserk: throttle(200, false, () => send('berserk', null, { ackable: true })),
+    moreTime: throttle(300, () => send('moretime')),
+    outoftime: throttle(500, () => send('flag', ctrl.data.game.player)),
+    berserk: throttle(200, () => send('berserk', null, { ackable: true })),
     sendLoading(typ: string, data?: any) {
       ctrl.setLoading(true);
       send(typ, data);

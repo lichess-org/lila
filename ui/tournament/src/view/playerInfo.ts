@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
-import { spinner, bind, numberRow, player as renderPlayer } from './util';
+import { spinner, bind, numberRow, playerName, dataIcon, player as renderPlayer } from './util';
 import { status } from 'game';
 import TournamentController from '../ctrl';
 
@@ -18,20 +18,20 @@ function result(win, stat): string {
 function playerTitle(player) {
   return h('h2', [
     h('span.rank', player.rank + '. '),
-    renderPlayer(player, true)
+    renderPlayer(player, true, false, false)
   ]);
 }
 
 function setup(vnode: VNode) {
-  const el = vnode.elm as HTMLElement;
-  window.lichess.powertip.manualUserIn(el);
-  window.lichess.powertip.manualGameIn(el);
+  const el = vnode.elm as HTMLElement, p = window.lichess.powertip;
+  p.manualUserIn(el);
+  p.manualGameIn(el);
 }
 
 export default function(ctrl: TournamentController): VNode {
   const data = ctrl.playerInfo.data;
   var noarg = ctrl.trans.noarg;
-  if (!data || data.player.id !== ctrl.playerInfo.id) return h('div.player', [
+  if (!data || data.player.id !== ctrl.playerInfo.id) return h('div.player.box', [
     h('div.stats', [
       playerTitle(ctrl.playerInfo.player),
       spinner()
@@ -41,27 +41,30 @@ export default function(ctrl: TournamentController): VNode {
   pairingsLen = data.pairings.length,
   avgOp = pairingsLen ? Math.round(data.pairings.reduce(function(a, b) {
     return a + b.op.rating;
-  }, 0) / pairingsLen) : null;
-  return h('div.box.player', {
+  }, 0) / pairingsLen) : undefined;
+  return h('div.player.box', {
     hook: {
-      insert: vnode => setup(vnode),
+      insert: setup,
       postpatch(_, vnode) { setup(vnode) }
     }
   }, [
     h('close', {
-      attrs: { 'data-icon': 'L' },
+      attrs: dataIcon('L'),
       hook: bind('click', () => ctrl.showPlayerInfo(data.player), ctrl.redraw)
     }),
     h('div.stats', [
       playerTitle(data.player),
       h('table', [
-        data.player.performance ? numberRow(noarg('performance'), data.player.performance, 'raw') : null,
-        numberRow(noarg('gamesPlayed'), nb.game),
-        ...(nb.game ? [
-          numberRow(noarg('winRate'), [nb.win, nb.game], 'percent'),
-          numberRow(noarg('berserkRate'), [nb.berserk, nb.game], 'percent'),
-          numberRow(noarg('averageOpponent'), avgOp, 'raw')
-        ] : [])
+        data.player.performance ? numberRow(
+          noarg('performance'),
+          data.player.performance + (nb.game < 3 ? '?' : ''),
+          'raw') : null,
+          numberRow(noarg('gamesPlayed'), nb.game),
+          ...(nb.game ? [
+            numberRow(noarg('winRate'), [nb.win, nb.game], 'percent'),
+            numberRow(noarg('berserkRate'), [nb.berserk, nb.game], 'percent'),
+            numberRow(noarg('averageOpponent'), avgOp, 'raw')
+          ] : [])
       ])
     ]),
     h('div.scroll-shadow-soft', [
@@ -80,7 +83,7 @@ export default function(ctrl: TournamentController): VNode {
           }
         }, [
           h('th', '' + (Math.max(nb.game, pairingsLen) - i)),
-          h('td', (p.op.title ? p.op.title + ' ' : '') + p.op.name),
+          h('td', playerName(p.op)),
           h('td', p.op.rating),
           h('td.is.color-icon.' + p.color),
           h('td', res)

@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import TournamentController from '../ctrl';
-import { player as renderPlayer, ratio2percent, bind } from './util';
+import { player as renderPlayer, ratio2percent, bind, dataIcon, playerName } from './util';
 import { MaybeVNodes } from '../interfaces';
 import * as button from './button';
 import * as pagination from '../pagination';
@@ -20,7 +20,8 @@ function playerTr(ctrl: TournamentController, player) {
     class: {
       me: ctrl.opts.userId === userId,
       long: nbScores > 35,
-      xlong: nbScores > 80
+      xlong: nbScores > 80,
+      active: ctrl.playerInfo.id === userId
     },
     hook: bind('click', _ => ctrl.showPlayerInfo(player), ctrl.redraw)
   }, [
@@ -30,12 +31,12 @@ function playerTr(ctrl: TournamentController, player) {
         'title': ctrl.trans.noarg('pause')
       }
     }) : player.rank),
-    h('td.player', renderPlayer(player)),
+    h('td.player', renderPlayer(player, false, true, userId === ctrl.data.defender)),
     h('td.sheet', player.sheet.scores.map(scoreTag)),
     h('td.total', [
       h('strong',
-        player.sheet.fire ?
-        h('strong.is-gold', { attrs: { 'data-icon': 'Q' } }, player.sheet.total) :
+        player.sheet.fire && !ctrl.data.isFinished ?
+        h('strong.is-gold', { attrs: dataIcon('Q') }, player.sheet.total) :
         h('strong', player.sheet.total))
     ])
   ]);
@@ -44,41 +45,26 @@ function playerTr(ctrl: TournamentController, player) {
 function podiumUsername(p) {
   return h('a.text.ulpt.user_link', {
     attrs: { href: '/@/' + p.name }
-  }, p.name);
+  }, playerName(p));
 }
 
-function podiumStats(p, trans): MaybeVNodes {
-  let ratingDiff;
-  var noarg = trans.noarg;
-  if (p.ratingDiff === 0) ratingDiff = h('span', ' =');
-  else if (p.ratingDiff > 0) ratingDiff = h('span.positive', {
-    attrs: { 'data-icon': 'N' }
-  }, p.ratingDiff);
-  else if (p.ratingDiff < 0) ratingDiff = h('span.negative', {
-    attrs: { 'data-icon': 'M' }
-  }, '' + -p.ratingDiff);
-  const nb = p.nb;
-  return [
-    h('span.rating.progress', [
-      p.rating + p.ratingDiff,
-      ratingDiff
-    ]),
-    h('table.stats', [
-      h('tr', [h('th', noarg('gamesPlayed')), h('td', nb.game)]),
-      ...(nb.game ? [
-        h('tr', [h('th', noarg('winRate')), h('td', ratio2percent(nb.win / nb.game))]),
-        h('tr', [h('th', noarg('berserkRate')), h('td', ratio2percent(nb.berserk / nb.game))])
-      ] : []),
-      p.performance ? h('tr', [h('th', 'Performance'), h('td', p.performance)]) : null
-    ])
-  ];
+function podiumStats(p, trans): VNode {
+  const noarg = trans.noarg, nb = p.nb;
+  return h('table.stats', [
+    p.performance ? h('tr', [h('th', noarg('performance')), h('td', p.performance)]) : null,
+    h('tr', [h('th', noarg('gamesPlayed')), h('td', nb.game)]),
+    ...(nb.game ? [
+      h('tr', [h('th', noarg('winRate')), h('td', ratio2percent(nb.win / nb.game))]),
+      h('tr', [h('th', noarg('berserkRate')), h('td', ratio2percent(nb.berserk / nb.game))])
+    ] : [])
+  ]);
 }
 
 function podiumPosition(p, pos, trans): VNode | undefined {
   if (p) return h('div.' + pos, [
     h('div.trophy'),
     podiumUsername(p),
-    ...podiumStats(p, trans)
+    podiumStats(p, trans)
   ]);
 }
 
@@ -90,6 +76,10 @@ export function podium(ctrl: TournamentController) {
     podiumPosition(ctrl.data.podium[0], 'first', ctrl.trans),
     podiumPosition(ctrl.data.podium[2], 'third', ctrl.trans)
   ]);
+}
+
+function preloadUserTips(el: HTMLElement) {
+  window.lichess.powertip.manualUserIn(el);
 }
 
 export function standing(ctrl: TournamentController, pag, klass?: string) {
@@ -106,7 +96,8 @@ export function standing(ctrl: TournamentController, pag, klass?: string) {
     }, [
       h('tbody', {
         hook: {
-          insert: vnode => window.lichess.powertip.manualUserIn(vnode.elm as HTMLElement)
+          insert: vnode => preloadUserTips(vnode.elm as HTMLElement),
+          update(_, vnode) { preloadUserTips(vnode.elm as HTMLElement) }
         }
       }, tableBody)
     ])

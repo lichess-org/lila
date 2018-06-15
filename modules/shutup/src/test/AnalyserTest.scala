@@ -1,7 +1,6 @@
 package lila.shutup
 
 import org.specs2.mutable._
-import org.specs2.specification._
 
 class DetectTest extends Specification {
 

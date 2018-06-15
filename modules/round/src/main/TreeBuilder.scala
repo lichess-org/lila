@@ -1,12 +1,12 @@
 package lila.round
 
+import chess.Centis
 import chess.format.pgn.Glyphs
-import chess.format.{ Forsyth, Uci, UciCharPair }
+import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
 import JsonView.WithFlags
 import lila.analyse.{ Analysis, Info, Advice }
-import chess.Centis
 import lila.tree._
 
 object TreeBuilder {
@@ -23,7 +23,7 @@ object TreeBuilder {
   def apply(
     game: lila.game.Game,
     analysis: Option[Analysis],
-    initialFen: String,
+    initialFen: FEN,
     withFlags: WithFlags
   ): Root = apply(
     id = game.id,
@@ -40,12 +40,12 @@ object TreeBuilder {
     pgnMoves: Vector[String],
     variant: Variant,
     analysis: Option[Analysis],
-    initialFen: String,
+    initialFen: FEN,
     withFlags: WithFlags,
     clocks: Option[Vector[Centis]]
   ): Root = {
     val withClocks = withFlags.clocks ?? clocks
-    chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match {
+    chess.Replay.gameMoveWhileValid(pgnMoves, initialFen.value, variant) match {
       case (init, games, error) =>
         error foreach logChessError(id)
         val openingOf: OpeningOf =
@@ -93,7 +93,7 @@ object TreeBuilder {
           advices.get(g.turns + 1).flatMap { adv =>
             games.lift(index - 1).map {
               case (fromGame, _) =>
-                val fromFen = Forsyth >> fromGame
+                val fromFen = FEN(Forsyth >> fromGame)
                 withAnalysisChild(id, branch, variant, fromFen, openingOf)(adv.info)
             }
           } getOrElse branch
@@ -107,7 +107,7 @@ object TreeBuilder {
     }
   }
 
-  private def withAnalysisChild(id: String, root: Branch, variant: Variant, fromFen: String, openingOf: OpeningOf)(info: Info): Branch = {
+  private def withAnalysisChild(id: String, root: Branch, variant: Variant, fromFen: FEN, openingOf: OpeningOf)(info: Info): Branch = {
     def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
       val fen = Forsyth >> g
       Branch(
@@ -121,7 +121,7 @@ object TreeBuilder {
         eval = none
       )
     }
-    chess.Replay.gameMoveWhileValid(info.variation take 20, fromFen, variant) match {
+    chess.Replay.gameMoveWhileValid(info.variation take 20, fromFen.value, variant) match {
       case (init, games, error) =>
         error foreach logChessError(id)
         games.zipWithIndex.reverse match {

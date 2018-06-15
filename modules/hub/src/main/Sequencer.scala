@@ -38,14 +38,14 @@ final class Sequencer(
 
   private case object Done
 
-  private def processThenDone(work: Any) {
+  private def processThenDone(work: Any): Unit = {
     work match {
       case ReceiveTimeout => self ! PoisonPill
       case Sequencer.Work(run, promiseOption, timeoutOption) =>
         val future = timeoutOption.orElse(executionTimeout).fold(run()) { timeout =>
           run().withTimeout(
             duration = timeout,
-            error = lila.common.LilaException(s"Sequencer timed out after $timeout")
+            error = lila.base.LilaException(s"Sequencer timed out after $timeout")
           )(context.system)
         } addEffectAnyway {
           self ! Done

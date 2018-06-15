@@ -11,7 +11,7 @@
 
 Til dømes gjev to sigrar med ein remis etterpå seks poeng: 2 + 2 + (2 *1)</string>
   <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">Om ein spelar klikkar på Berserk-knappen når spelet startar, vert klokktida halvert, men ein eventuell seier gjev eitt ekstra turneringspoeng. For tidkontrollar med tidtillegg vil det å gå Berserk dessutan innebere at ein tapar tidtillegge. 
+  <string name="berserkAnswer">Om ein spelar klikkar på Berserk-knappen når spelet startar, vert klokktida halvert, men ein eventuell seier gjev eitt ekstra turneringspoeng. For tidkontrollar med tidtillegg vil det å gå Berserk dessutan innebere at ein tapar tidtillegget. 
 (Unntak for 1+2, det gir 1+0)
 
 Det er ikkje mogleg å gå Berserk i part med null i starttid (0+1, 0+2).

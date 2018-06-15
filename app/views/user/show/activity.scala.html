@@ -5,7 +5,7 @@
 @evenMoreJs = {
 @info.ratingChart.map { ratingChart =>
 @jsTag("chart/ratingHistory.js")
-@embedJs(s"lichess.ratingHistoryChart($ratingChart);")
+@embedJsUnsafe(s"lichess.ratingHistoryChart($ratingChart);")
 }
 }
 

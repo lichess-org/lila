@@ -1,8 +1,11 @@
 package lila.studySearch
 
 import akka.actor.ActorRef
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 import play.api.libs.iteratee._
 import play.api.libs.json._
+import scala.concurrent._
 import scala.concurrent.duration._
 
 import chess.format.pgn.Tag
@@ -38,7 +41,8 @@ final class StudySearchApi(
     getChapters(study) flatMap { s =>
       client.store(Id(s.study.id.value), toDoc(s))
     }
-  }.mon(_.study.search.index.time) >>- lila.mon.study.search.index.count()
+  }.prefixFailure(study.id.value)
+    .mon(_.study.search.index.time) >>- lila.mon.study.search.index.count()
 
   private def toDoc(s: Study.WithActualChapters) = Json.obj(
     Fields.name -> s.study.name.value,
@@ -47,7 +51,7 @@ final class StudySearchApi(
     Fields.chapterNames -> s.chapters.collect {
       case c if !Chapter.isDefaultName(c.name) => c.name.value
     }.mkString(" "),
-    Fields.chapterTexts -> noMultiSpace(s.chapters.map(chapterText).mkString(" ")),
+    Fields.chapterTexts -> noMultiSpace(s.chapters.flatMap(chapterText).mkString(" ")),
     // Fields.createdAt -> study.createdAt)
     // Fields.updatedAt -> study.updatedAt,
     Fields.likes -> s.study.likes.value,
@@ -60,11 +64,11 @@ final class StudySearchApi(
     Tag.ECO, Tag.Opening, Tag.Annotator
   )
 
-  private def chapterText(c: Chapter): String = {
-    nodeText(c.root) :: c.tags.collect {
+  private def chapterText(c: Chapter): List[String] = {
+    nodeText(c.root) :: c.tags.value.collect {
       case Tag(name, value) if relevantPgnTags.contains(name) => value
-    } :: extraText(c)
-  }.mkString(" ").trim
+    } ::: extraText(c)
+  }
 
   private def extraText(c: Chapter): List[String] = List(
     c.isPractice option "practice",
@@ -86,18 +90,42 @@ final class StudySearchApi(
   private def noMultiSpace(text: String) = multiSpaceRegex.replaceAllIn(text, " ")
 
   import reactivemongo.play.iteratees.cursorProducer
-  def reset = client match {
-    case c: ESClientHttp => c.putMapping >> {
-      logger.info(s"Index to ${c.index.name}")
+  def reset(sinceStr: String, system: akka.actor.ActorSystem) = client match {
+    case c: ESClientHttp => {
+      val sinceOption: Either[Unit, Option[DateTime]] =
+        if (sinceStr == "reset") Left(()) else Right(parseDate(sinceStr))
+      val since = sinceOption match {
+        case Right(None) => sys error "Missing since date argument"
+        case Right(Some(date)) =>
+          logger.info(s"Resume since $date")
+          date
+        case _ =>
+          logger.info("Reset study index")
+          Await.result(c.putMapping, 20 seconds)
+          parseDate("2011-01-01").get
+      }
+      logger.info(s"Index to ${c.index.name} since $since")
+      val retryLogger = logger.branch("index")
       import lila.db.dsl._
-      studyRepo.cursor($empty).enumerator() |>>>
-        Iteratee.foldM[Study, Int](0) {
-          case (nb, study) => doStore(study) inject {
-            if (nb % 100 == 0) logger.info(s"Indexed $nb studies")
-            nb + 1
+      studyRepo.cursor($doc("createdAt" $gte since), sort = $sort asc "createdAt").enumerator() &>
+        Enumeratee.grouped(Iteratee takeUpTo 12) |>>>
+        Iteratee.foldM[Seq[Study], Int](0) {
+          case (nb, studies) => studies.map { study =>
+            lila.common.Future.retry(doStore(study), 5 seconds, 10, retryLogger)(system)
+          }.sequenceFu inject {
+            studies.headOption.ifTrue(nb % 100 == 0) foreach { study =>
+              logger.info(s"Indexed $nb studies - ${study.createdAt}")
+            }
+            nb + studies.size
           }
         }
     } >> client.refresh
     case _ => funit
+  }
+
+  private def parseDate(str: String): Option[DateTime] = {
+    val datePattern = "yyyy-MM-dd"
+    val dateFormatter = DateTimeFormat forPattern datePattern
+    scala.util.Try(dateFormatter parseDateTime str).toOption
   }
 }

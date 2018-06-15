@@ -3,7 +3,7 @@ package lila
 import lila.game.Event
 import lila.socket.WithSocket
 
-package object round extends PackageObject with WithPlay with WithSocket {
+package object round extends PackageObject with WithSocket {
 
   private[round] type Events = List[Event]
 
@@ -14,7 +14,7 @@ package object round extends PackageObject with WithPlay with WithSocket {
 
 package round {
 
-  private[round] sealed trait BenignError extends lila.common.LilaException
+  private[round] sealed trait BenignError extends lila.base.LilaException
   private[round] case class ClientError(message: String) extends BenignError
   private[round] case class FishnetError(message: String) extends BenignError
 

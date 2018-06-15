@@ -106,6 +106,10 @@
 .user_show .trophy.icon3d:not(.patron):hover {
   transform: translateY(-3px);
 }
+.user_show .trophy.streaming {
+  color: #d59120!important;
+  animation: fire 1.25s ease-in-out infinite alternate;
+}
 .user_show .trophy.patron {
   font-size: 60px;
   margin: -30px 10px 0 25px!important;
@@ -127,6 +131,29 @@
 .user_show .trophy.patron.hint--left:hover:after {
   transform: scale(-1, 1), translateX(8px);
 }
+.user_show .combo_trophy {
+  width: 60px;
+  height: 60px;
+  background-size: contain;
+  font-family: "lichess" !important;
+  text-align: center;
+}
+.user_show .shield_trophy {
+  width: 50px;
+  background-image: url(../images/trophy/shield-gold.png);
+  font-size: 30px;
+  line-height: 60px;
+  color: #333!important;
+  text-shadow: 0 0 6px #fff;
+}
+.user_show .revol_trophy {
+  background-image: url(../images/trophy/round-star.png);
+  font-size: 24px;
+  line-height: 68px;
+  color: #fff!important;
+  text-shadow: 0 0 4px #444;
+}
+
 .user_show .honorific {
   display: inline-block;
   margin-top: 1em;
@@ -299,16 +326,28 @@ div.sub_ratings h3 {
 .user_show .bio,
 .user_show .stats,
 .user_show .tournament_points,
+.user_show .social_links,
 .user_show .teams {
   display: block;
   margin-top: 16px;
 }
+.user_show .col2 {
+  display: flex;
+  flex-flow: row wrap;
+  line-height: 1.7em;
+}
+.user_show .col2 > a {
+  flex: 0 0 50%;
+  color: #3893E8!important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.user_show .teams {
+  margin-bottom: 10px;
+}
 .user_show .bio {
   font-style: italic;
-}
-.user_show .teams a {
-  display: block;
-  margin: 5px 0;
 }
 .user_show div.games {
   padding-top: 10px;
@@ -360,6 +399,9 @@ div.sub_ratings h3 {
 .user_show .note_zone p.text {
   min-height: 2.7em;
 }
+.user_show .note_zone p.text a {
+  color: #3893E8;
+}
 .user_show div.content_box_inter.tabs {
   margin-left: -8px;
   padding-left: 30px;
@@ -368,6 +410,9 @@ div.sub_ratings h3 {
 }
 .mod_zone {
   display: none;
+}
+.mod_zone .spinner {
+  margin: 100px auto;
 }
 div.crosstable {
   margin: 25px 10px 15px 10px;

@@ -4,18 +4,18 @@
   <section>
     <a href="/">@trans.play()</a>
     <div>
-      <a href="/?any#hook">@trans.createAGame()</a>
-      <a href="@routes.Tournament.home()">@trans.tournament()</a>
-      <a href="@routes.Simul.home">@trans.simultaneousExhibitions()</a>
+      @if(ctx.noBot){<a href="/?any#hook">@trans.createAGame()</a>}else{<a href="/?any#friend">@trans.playWithAFriend()</a>}
+      @if(ctx.noBot){<a href="@routes.Tournament.home()">@trans.tournament()</a>}
+      @if(ctx.noBot){<a href="@routes.Simul.home">@trans.simultaneousExhibitions()</a>}
     </div>
   </section>
   <section>
     <a href="@routes.Puzzle.home">@trans.learnMenu()</a>
     <div>
-      <a href="@routes.Learn.index">@trans.chessBasics()</a>
-      <a href="@routes.Puzzle.home">@trans.training()</a>
-      <a href="@routes.Practice.index">Practice</a>
-      <a href="@routes.Coordinate.home">@trans.coordinates.coordinates()</a>
+      @if(ctx.noBot){<a href="@routes.Learn.index">@trans.chessBasics()</a>}
+      @if(ctx.noBot){<a href="@routes.Puzzle.home">@trans.training()</a>}
+      @if(ctx.noBot){<a href="@routes.Practice.index">Practice</a>}
+      @if(ctx.noBot){<a href="@routes.Coordinate.home">@trans.coordinates.coordinates()</a>}
       <a href="@routes.Study.allDefault(1)">Study</a>
       <a href="@routes.Coach.allDefault(1)">@trans.coaches()</a>
     </div>
@@ -25,7 +25,9 @@
     <div>
       <a href="@routes.Tv.index">Lichess TV</a>
       <a href="@routes.Tv.games">@trans.currentGames()</a>
-      <a href="@routes.Video.index">@trans.videoLibrary()</a>
+      <a href="@routes.Streamer.index()">Streamers</a>
+      <a href="@routes.Relay.index()">Broadcasts (beta)</a>
+      @if(ctx.noBot){<a href="@routes.Video.index">@trans.videoLibrary()</a>}
     </div>
   </section>
   <section>
@@ -43,6 +45,7 @@
     <a href="@routes.UserAnalysis.index">@trans.tools()</a>
     <div>
       <a href="@routes.UserAnalysis.index">@trans.analysis()</a>
+      <a href="@routes.UserAnalysis.index#explorer">@trans.openingExplorer()</a>
       <a href="@routes.Editor.index">@trans.boardEditor()</a>
       <a href="@routes.Importer.importGame">@trans.importGame()</a>
       <a href="@routes.Search.index()">@trans.advancedSearch()</a>

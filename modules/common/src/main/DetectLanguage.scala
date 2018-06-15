@@ -2,7 +2,8 @@ package lila.common
 
 import play.api.i18n.Lang
 import play.api.libs.json._
-import old.play.Env.WS
+import play.api.libs.ws.WS
+import play.api.Play.current
 
 // http://detectlanguage.com
 final class DetectLanguage(url: String, key: String) {
@@ -18,7 +19,8 @@ final class DetectLanguage(url: String, key: String) {
   private val messageMaxLength = 2000
 
   def apply(message: String): Fu[Option[Lang]] =
-    WS.url(url).post(Map(
+    if (key.isEmpty) fuccess(Lang("en").some)
+    else WS.url(url).post(Map(
       "key" -> Seq(key),
       "q" -> Seq(message take messageMaxLength)
     )) map { response =>

@@ -48,7 +48,7 @@ private[round] final class History(
     vevs.reverse
   }
 
-  private def waitForLoadedEvents {
+  private def waitForLoadedEvents: Unit = {
     if (events == null) {
       events = load awaitSeconds 3
     }
@@ -56,7 +56,7 @@ private[round] final class History(
 
   private var persistenceEnabled = withPersistence
 
-  def enablePersistence {
+  def enablePersistence: Unit = {
     if (!persistenceEnabled) {
       persistenceEnabled = true
       if (events != null) persist(events)
@@ -80,7 +80,7 @@ private[round] object History {
     coll.byId[Bdoc](gameId).map {
       _.flatMap(_.getAs[VersionedEvents]("e")) ?? (_.reverse)
     } addEffect {
-      case events if events.nonEmpty && !withPersistence => coll.remove($doc("_id" -> gameId)).void
+      case events if events.nonEmpty && !withPersistence => coll.remove($id(gameId)).void
       case _ =>
     }
 

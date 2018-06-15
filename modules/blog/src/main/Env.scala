@@ -2,8 +2,6 @@ package lila.blog
 
 import com.typesafe.config.Config
 
-import lila.common.PimpedConfig._
-
 final class Env(
     config: Config,
     scheduler: lila.common.Scheduler,
@@ -44,6 +42,6 @@ object Env {
     asyncCache = lila.memo.Env.current.asyncCache,
     timelineApi = lila.timeline.Env.current.entryApi
   )(
-    old.play.Env.actorSystem
+    lila.common.PlayApp.system
   )
 }

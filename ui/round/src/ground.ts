@@ -2,7 +2,6 @@ import { Chessground } from 'chessground';
 import * as cg from 'chessground/types';
 import { Api as CgApi } from 'chessground/api';
 import { Config } from 'chessground/config'
-import { game } from 'game';
 import * as util from './util';
 import { plyStep } from './round';
 import RoundController from './ctrl';
@@ -13,7 +12,7 @@ import { h } from 'snabbdom'
 function makeConfig(ctrl: RoundController): Config {
   const data = ctrl.data, hooks = ctrl.makeCgHooks(),
   step = plyStep(data, ctrl.ply),
-  playing = game.isPlayerPlaying(data);
+  playing = ctrl.isPlaying();
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),

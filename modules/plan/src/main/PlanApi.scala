@@ -1,11 +1,11 @@
 package lila.plan
 
 import lila.db.dsl._
-import lila.memo._
 import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 final class PlanApi(
@@ -52,7 +52,9 @@ final class PlanApi(
         customer.firstSubscription match {
           case None => fufail(s"Can't cancel non-existent subscription of ${user.id}")
           case Some(sub) => stripeClient.cancelSubscription(sub) >>
-            setDbUserPlan(user, user.plan.disable) >>
+            isLifetime(user).flatMap { lifetime =>
+              !lifetime ?? setDbUserPlan(user, user.plan.disable)
+            } >>
             patronColl.update($id(user.id), $unset("stripe", "payPal", "expiresAt")).void >>-
             logger.info(s"Canceled subscription $sub of ${user.username}")
         }
@@ -72,19 +74,21 @@ final class PlanApi(
             funit
           case Some(patron) =>
             logger.info(s"Charged $charge $patron")
-            UserRepo byId patron.userId err s"Missing user for $patron" flatMap { user =>
+            UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
               val p2 = patron.copy(
                 stripe = Patron.Stripe(stripeCharge.customer).some
               ).levelUpIfPossible
               patronColl.update($id(patron.id), p2) >>
-                setDbUserPlanOnCharge(user, patron)
+                setDbUserPlanOnCharge(user, p2) >> {
+                  stripeCharge.lifetimeWorthy ?? setLifetime(user)
+                }
             }
         }
       }
     }
 
   def onPaypalCharge(
-    userId: Option[String],
+    userId: Option[User.ID],
     email: Option[Patron.PayPal.Email],
     subId: Option[Patron.PayPal.SubId],
     cents: Cents,
@@ -128,7 +132,9 @@ final class PlanApi(
                   payPal = payPal.some
                 ).levelUpIfPossible.expireInOneMonth
                 patronColl.update($id(patron.id), p2) >>
-                  setDbUserPlanOnCharge(user, patron)
+                  setDbUserPlanOnCharge(user, p2)
+            } >> {
+              charge.lifetimeWorthy ?? setLifetime(user)
             } >>- logger.info(s"Charged ${user.username} with paypal: $cents")
           }
         }
@@ -147,8 +153,11 @@ final class PlanApi(
       case None =>
         logger.warn(s"Deleted subscription of unknown patron $sub")
         funit
+      case Some(patron) if patron.isLifetime =>
+        logger.info(s"Ignore sub end for lifetime patron $patron")
+        funit
       case Some(patron) =>
-        UserRepo byId patron.userId err s"Missing user for $patron" flatMap { user =>
+        UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
           setDbUserPlan(user, user.plan.disable) >>
             patronColl.update($id(user.id), patron.removeStripe).void >>
             notifier.onExpire(user) >>-
@@ -187,8 +196,6 @@ final class PlanApi(
 
     case None => fuccess(Synced(none, none))
 
-    case Some(patron) if patron.isLifetime => fuccess(Synced(patron.some, none))
-
     case Some(patron) => (patron.stripe, patron.payPal) match {
 
       case (Some(stripe), _) => stripeClient.getCustomer(stripe.customerId) flatMap {
@@ -210,6 +217,8 @@ final class PlanApi(
           setDbUserPlan(user, user.plan.enable) inject ReloadUser
         } else fuccess(Synced(patron.some, none))
 
+      case (None, None) if patron.isLifetime => fuccess(Synced(patron.some, none))
+
       case (None, None) if user.plan.active =>
         logger.warn(s"${user.username} sync: disable plan of patron with no paypal or stripe")
         setDbUserPlan(user, user.plan.disable) inject ReloadUser
@@ -217,6 +226,22 @@ final class PlanApi(
       case _ => fuccess(Synced(patron.some, none))
     }
   }
+
+  def isLifetime(user: User): Fu[Boolean] = userPatron(user) map {
+    _.exists(_.isLifetime)
+  }
+
+  def setLifetime(user: User): Funit = UserRepo.setPlan(user, lila.user.Plan(
+    months = user.plan.months | 1,
+    active = true,
+    since = user.plan.since orElse DateTime.now.some
+  )) >> patronColl.update(
+    $id(user.id),
+    $set(
+      "lastLevelUp" -> DateTime.now,
+      "lifetime" -> true
+    )
+  ).void >>- lightUserApi.invalidate(user.id)
 
   private val recentChargeUserIdsNb = 50
   private val recentChargeUserIdsCache = asyncCache.single[List[User.ID]](
@@ -235,14 +260,16 @@ final class PlanApi(
   private val topPatronUserIdsNb = 120
   private val topPatronUserIdsCache = asyncCache.single[List[User.ID]](
     name = "plan.topPatronUserIds",
-    f = chargeColl.aggregate(
+    f = chargeColl.aggregateList(
       Match($doc("userId" $exists true)), List(
         GroupField("userId")("total" -> SumField("cents")),
         Sort(Descending("total")),
         Limit(topPatronUserIdsNb * 3 / 2)
-      )
+      ),
+      maxDocs = topPatronUserIdsNb * 2,
+      readPreference = ReadPreference.secondaryPreferred
     ).map {
-        _.firstBatch.flatMap { _.getAs[User.ID]("_id") }
+        _.flatMap { _.getAs[User.ID]("_id") }
       } flatMap filterUserIds map (_ take topPatronUserIdsNb),
     expireAfter = _.ExpireAfterWrite(1 hour)
   )

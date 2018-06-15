@@ -12,11 +12,8 @@ div.lichess_game {
   height: 100%;
   flex-flow: row nowrap;
 }
-div.lichess_game div.lichess_board_wrap {
-  flex: 1 1 100%;
-}
 div.lichess_game div.lichess_ground {
-  flex: 1 1 100%;
+  flex: 1 1 100%!important;
   padding-left: 0;
   width: auto;
 }
@@ -48,6 +45,7 @@ div.game_control .jumps {
 }
 .pocket piece {
   flex: 0 1 56px;
+  height: 100%!important;
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -118,6 +116,9 @@ body.dark .action_menu {
 body.dark footer {
   border-color: #3d3d3d;
   background: #3a3a3a;
+}
+.tview2.inline {
+  font-size: 15px;
 }
 @media (max-width: 699px) {
   body,

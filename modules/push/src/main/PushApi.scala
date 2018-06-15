@@ -14,7 +14,6 @@ import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lila.message.{ Thread, Post }
 
 private final class PushApi(
-    googlePush: GooglePush,
     oneSignalPush: OneSignalPush,
     implicit val lightUser: LightUser.GetterSync,
     roundSocketHub: ActorSelection,
@@ -41,8 +40,8 @@ private final class PushApi(
                 "gameId" -> game.id,
                 "fullId" -> pov.fullId,
                 "color" -> pov.color.name,
-                "fen" -> Forsyth.exportBoard(game.toChess.board),
-                "lastMove" -> game.castleLastMoveTime.lastMoveString,
+                "fen" -> Forsyth.exportBoard(game.board),
+                "lastMove" -> game.lastMoveKeys,
                 "win" -> pov.win
               )
             )
@@ -137,11 +136,11 @@ private final class PushApi(
 
   private def corresGameJson(pov: Pov, typ: String) = Json.obj(
     "type" -> typ,
-    "gameId" -> pov.game.id,
+    "gameId" -> pov.gameId,
     "fullId" -> pov.fullId,
     "color" -> pov.color.name,
-    "fen" -> Forsyth.exportBoard(pov.game.toChess.board),
-    "lastMove" -> pov.game.castleLastMoveTime.lastMoveString,
+    "fen" -> Forsyth.exportBoard(pov.game.board),
+    "lastMove" -> pov.game.lastMoveKeys,
     "secondsLeft" -> pov.remainingSeconds
   )
 
@@ -201,16 +200,11 @@ private final class PushApi(
 
   private type MonitorType = lila.mon.push.send.type => (String => Unit)
 
-  private def pushToAll(userId: String, monitor: MonitorType, data: PushApi.Data) = {
+  private def pushToAll(userId: String, monitor: MonitorType, data: PushApi.Data): Funit =
     oneSignalPush(userId) {
       monitor(lila.mon.push.send)("onesignal")
       data
     }
-    googlePush(userId) {
-      monitor(lila.mon.push.send)("android")
-      data
-    }
-  }
 
   private def describeChallenge(c: Challenge) = {
     import lila.challenge.Challenge.TimeControl._

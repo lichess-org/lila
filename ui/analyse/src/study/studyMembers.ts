@@ -143,7 +143,6 @@ export function ctrl(opts: Opts) {
     isOnline(userId: string) {
       return online[userId];
     },
-    titleNameToId,
     hasOnlineContributor() {
       const members = dict();
       for (let i in members) if (online[i] && members[i].role === 'w') return true;
@@ -173,7 +172,7 @@ export function view(ctrl: StudyCtrl): VNode {
       },
       attrs: { title: contrib ? 'Contributor' : 'Viewer' },
     }, [
-      h('i', { attrs: dataIcon(contrib ? '' : 'v') })
+      h('i', { attrs: dataIcon(contrib ? 'r' : 'v') })
     ]);
   };
 

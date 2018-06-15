@@ -6,13 +6,14 @@ import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 import lila.common.LightUser
-import lila.game.GameRepo
+import lila.game.{ Game, GameRepo }
 
 private[tv] final class TvActor(
     rendererActor: ActorSelection,
     roundSocket: ActorSelection,
     selectChannel: ActorRef,
-    lightUser: LightUser.GetterSync
+    lightUser: LightUser.GetterSync,
+    onSelect: Game => Unit
 ) extends Actor {
 
   import TvActor._
@@ -20,7 +21,7 @@ private[tv] final class TvActor(
   implicit private def timeout = makeTimeout(100 millis)
 
   val channelActors: Map[Tv.Channel, ActorRef] = Tv.Channel.all.map { c =>
-    c -> context.actorOf(Props(classOf[ChannelActor], c), name = c.toString)
+    c -> context.actorOf(Props(classOf[ChannelActor], c, lightUser), name = c.toString)
   }.toMap
 
   var channelChampions = Map[Tv.Channel, Tv.Champion]()
@@ -45,9 +46,11 @@ private[tv] final class TvActor(
     case GetChampions => sender ! Tv.Champions(channelChampions)
 
     case Select =>
-      GameRepo.featuredCandidates foreach { candidates =>
+      GameRepo.featuredCandidates map (_ map Tv.toCandidate(lightUser)) foreach { candidates =>
         channelActors foreach {
-          case (channel, actor) => actor forward ChannelActor.Select(candidates filter channel.filter)
+          case (channel, actor) => actor forward ChannelActor.Select {
+            candidates filter channel.filter map (_.game)
+          }
         }
       }
 
@@ -56,8 +59,9 @@ private[tv] final class TvActor(
       val player = game.firstPlayer
       val user = player.userId flatMap lightUser
       (user |@| player.rating) apply {
-        case (u, r) => channelChampions += (channel -> Tv.Champion(u, r))
+        case (u, r) => channelChampions += (channel -> Tv.Champion(u, r, game.id))
       }
+      onSelect(game)
       selectChannel ! lila.socket.Channel.Publish(makeMessage("tvSelect", Json.obj(
         "channel" -> channel.key,
         "id" -> game.id,
@@ -71,7 +75,7 @@ private[tv] final class TvActor(
         }
       )))
       if (channel == Tv.Channel.Best)
-        rendererActor ? actorApi.RenderFeaturedJs(game) foreach {
+        rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
           case html: play.twirl.api.Html =>
             val event = lila.hub.actorApi.game.ChangeFeatured(
               game.id,
@@ -83,7 +87,6 @@ private[tv] final class TvActor(
             )
             context.system.lilaBus.publish(event, 'changeFeaturedGame)
         }
-      GameRepo setTv game.id
   }
 }
 
@@ -95,7 +98,7 @@ private[tv] object TvActor {
   case class GetGameIdAndHistory(channel: Tv.Channel) extends AnyVal
 
   case object Select
-  case class Selected(channel: Tv.Channel, game: lila.game.Game, previousId: Option[String])
+  case class Selected(channel: Tv.Channel, game: Game, previousId: Option[Game.ID])
 
   case object GetChampions
 }
