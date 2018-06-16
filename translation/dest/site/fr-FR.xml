@@ -291,7 +291,7 @@
     <item quantity="other">≥ %1$s %2$s Parties classées</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Vous devez jouer %1$s plus de %2$s partie classée</item>
+    <item quantity="one">Vous devez jouer encore %1$s partie classée en %2$s</item>
     <item quantity="other">Vous devez encore jouer %1$s parties classées</item>
   </plurals>
   <plurals name="needNbMoreGames">
@@ -300,10 +300,10 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Votre classement %s est provisoire</string>
   <string name="yourPerfRatingIsTooHigh">Votre cote %1$s (%2$s) est trop élevée</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Votre meilleure cote %1$s hebdomadaire (%2$s) est trop élevée</string>
-  <string name="yourPerfRatingIsTooLow">Votre cote %1$s (%2$s) est trop faible</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Votre meilleure cote en %1$s de la semaine (%2$s) est trop élevée</string>
+  <string name="yourPerfRatingIsTooLow">Votre cote en %1$s (%2$s) est trop faible</string>
   <string name="ratedMoreThanInPerf">Cote ≥ %1$s en %2$s</string>
-  <string name="ratedLessThanInPerf">Cote ≤ %1$s dans %2$s</string>
+  <string name="ratedLessThanInPerf">Cote ≤ %1$s en %2$s</string>
   <string name="backToGame">Retour à la partie</string>
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs avec des adversaires en ligne, avec des amis ou contre l\'ordinateur.</string>
   <string name="teams">Équipes</string>
@@ -420,7 +420,7 @@
   <string name="membersOnly">Membres seulement</string>
   <string name="boardEditor">Éditeur de partie</string>
   <string name="setTheBoard">Entrer une position</string>
-  <string name="popularOpenings">Ouvertures courantes</string>
+  <string name="popularOpenings">Ouvertures populaires</string>
   <string name="startPosition">Position de départ</string>
   <string name="clearBoard">Vider l\'échiquier</string>
   <string name="savePosition">Enregistrer la position</string>
@@ -464,12 +464,12 @@
   <string name="wasThisPuzzleAnyGood">Ce problème était-il intéressant  ?</string>
   <string name="pleaseVotePuzzle">Aidez Lichess à s\'améliorer en votant grâce aux flèches :</string>
   <string name="thankYou">Merci !</string>
-  <string name="ratingX">Cote : %s</string>
+  <string name="ratingX">Classement : %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Joué %s fois</item>
     <item quantity="other">Joué %s fois</item>
   </plurals>
-  <string name="fromGameLink">Extrait de la partie %s</string>
+  <string name="fromGameLink">Extrait de la partie de %s</string>
   <string name="continueTraining">Continuer l\'entraînement</string>
   <string name="retryThisPuzzle">Réessayer ce problème</string>
   <string name="thisPuzzleIsCorrect">Ce problème est correct et intéressant</string>
