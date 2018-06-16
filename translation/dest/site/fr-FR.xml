@@ -653,7 +653,7 @@ en %3$s</string>
   <string name="simultaneousExhibitions">Parties simultanées</string>
   <string name="host">Hôte</string>
   <string name="hostColorX">Couleur de l’hôte : %s</string>
-  <string name="createdSimuls">Nouvelles simultanées</string>
+  <string name="createdSimuls">Nouvelles parties simultanées</string>
   <string name="hostANewSimul">Créer une nouvelle simultanée</string>
   <string name="noSimulFound">Simultanée introuvable</string>
   <string name="noSimulExplanation">Cette simultanée n\'existe pas.</string>
@@ -661,7 +661,7 @@ en %3$s</string>
   <string name="aboutSimul">Une simultanée est une rencontre entre un joueur et plusieurs adversaires chacun sur un échiquier séparé.</string>
   <string name="aboutSimulImage">Sur 50 adversaires, Fischer a gagné 47 parties, fait 2 nulles et perdu 1 partie.</string>
   <string name="aboutSimulRealLife">Le concept est inspiré de la vie réelle, où le joueur passe d\'un échiquier à l\'autre pour jouer chaque coup.</string>
-  <string name="aboutSimulRules">Quand la simultanée commence, chaque joueur débute une partie contre l\'hôte, qui a les Blancs. La simultanée prend fin lorsque toutes les parties sont terminées.</string>
+  <string name="aboutSimulRules">Quand la simultanée commence, chaque joueur débute une partie contre l\'hôte, qui joue avec les Blancs. La simultanée prend fin lorsque toutes les parties sont terminées.</string>
   <string name="aboutSimulSettings">Les parties simultanées sont toujours amicales. Les revanches, l\'annulation de coups et la possibilité de donner du temps sont désactivées.</string>
   <string name="create">Créer</string>
   <string name="whenCreateSimul">Lorsque vous créez une simultanée, vouz affrontez plusieurs adversaires à la fois.</string>
@@ -682,23 +682,23 @@ en %3$s</string>
   <string name="newTournament">Nouveau tournoi</string>
   <string name="tournamentHomeTitle">Tournoi réunissant plusieurs variantes et cadences</string>
   <string name="tournamentHomeDescription">Jouez des tournois d\'échecs palpitants ! Rejoignez un tournoi officiel programmé ou créez le vôtre. Bullet, Blitz, Classique, Chess960, King of the Hill, Threecheck et d\'autres options sont disponibles pour s\'amuser sans fin.</string>
-  <string name="tournamentNotFound">Tournoi non trouvé</string>
+  <string name="tournamentNotFound">Tournoi inexistant</string>
   <string name="tournamentDoesNotExist">Ce tournoi n\'existe pas.</string>
   <string name="tournamentMayHaveBeenCanceled">Il a peut-être été annulé, si tous les joueurs l\'ont quitté avant le début.</string>
   <string name="returnToTournamentsHomepage">Retour à la page des tournois</string>
-  <string name="weeklyPerfTypeRatingDistribution">Distribution hebdomadaire des cotes en %s</string>
+  <string name="weeklyPerfTypeRatingDistribution">Distribution hebdomadaire des classements en %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">Un joueur de %2$s cette semaine.</item>
     <item quantity="other">%1$s joueurs de %2$s cette semaine.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Votre cote en %1$s est de %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Votre classement en %1$s est de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Vous êtes meilleur que %1$s des joueurs de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vous n\'avez pas de classement établi en %s.</string>
   <string name="checkYourEmail">Vérifiez vos emails</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Nous vous avons envoyé un email. Visitez le lien qui s\'y trouve pour activer votre compte.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si vous ne trouvez pas l\'email dans votre boîte de réception, vérifiez dans vos emails indésirables ou autres dossiers.</string>
   <string name="weHaveSentYouAnEmailTo">Nous avons envoyé un email à %s. Cliquez le lien qui s\'y trouve pour réinitialiser votre mot de passe.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">En vous inscrivant, vous acceptez d\'être lié à nos %s.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">En vous inscrivant, vous acceptez d\'être lié à notre %s.</string>
   <string name="networkLagBetweenYouAndLichess">Latence du réseau entre vous et lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Temps nécessaire au traitement d\'un coup sur un serveur lichess</string>
   <string name="downloadAnnotated">Télécharger le PGN annoté</string>
@@ -707,7 +707,7 @@ en %3$s</string>
   <string name="printFriendlyPDF">PDF pour l\'impression</string>
   <string name="crosstable">Historique des parties</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vous pouvez aussi utiliser la molette sur l\'échiquier pour voir la partie</string>
-  <string name="analysisShapesHowTo">Maj+clic ou clic-droit pour dessiner des cercles et des flèches sur l\'échiquier</string>
+  <string name="analysisShapesHowTo">Shift+clic ou clic-droit pour dessiner des cercles et des flèches sur l\'échiquier.</string>
   <string name="confirmResignationAndDrawOffers">Confirmer l\'abandon et la proposition de nulle</string>
   <string name="inputMovesWithTheKeyboard">Saisir les coups au clavier</string>
   <string name="letOtherPlayersMessageYou">Permettre à d\'autres joueurs de vous envoyer des messages</string>
