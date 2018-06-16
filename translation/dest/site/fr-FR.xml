@@ -300,10 +300,10 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Votre classement %s est provisoire</string>
   <string name="yourPerfRatingIsTooHigh">Votre cote %1$s (%2$s) est trop élevée</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Votre meilleure cote en %1$s de la semaine (%2$s) est trop élevée</string>
-  <string name="yourPerfRatingIsTooLow">Votre cote en %1$s (%2$s) est trop faible</string>
-  <string name="ratedMoreThanInPerf">Cote ≥ %1$s en %2$s</string>
-  <string name="ratedLessThanInPerf">Cote ≤ %1$s en %2$s</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Votre meilleure classement en %1$s de la semaine (%2$s) est trop élevée</string>
+  <string name="yourPerfRatingIsTooLow">Votre classement en %1$s (%2$s) est trop faible</string>
+  <string name="ratedMoreThanInPerf">Classement ≥ %1$s en %2$s</string>
+  <string name="ratedLessThanInPerf">Classement ≤ %1$s en %2$s</string>
   <string name="backToGame">Retour à la partie</string>
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs avec des adversaires en ligne, avec des amis ou contre l\'ordinateur.</string>
   <string name="teams">Équipes</string>
@@ -582,7 +582,7 @@
 en %3$s</string>
   <string name="timeline">Activité</string>
   <string name="seeAllTournaments">Voir tous les tournois</string>
-  <string name="starting">Début :</string>
+  <string name="starting">Démarrage :</string>
   <string name="allInformationIsPublicAndOptional">Toutes les informations sont publiques et facultatives.</string>
   <string name="yourCityRegionOrDepartment">Votre ville, région ou département.</string>
   <string name="biographyDescription">Parlez de vous, de ce que vous aimez dans les échecs, vos ouvertures préférées, vos parties, vos joueurs, …</string>
@@ -591,13 +591,13 @@ en %3$s</string>
     <item quantity="other">Maximum : %s caractères.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s joueurs bloqués</item>
+    <item quantity="one">%s joueur bloqué</item>
     <item quantity="other">%s joueurs bloqués</item>
   </plurals>
   <string name="listBlockedPlayers">Lister les joueurs que vous avez bloqués</string>
   <string name="human">Humain</string>
   <string name="computer">Ordinateur</string>
-  <string name="side">Couleur</string>
+  <string name="side">Coté</string>
   <string name="clock">Pendule</string>
   <string name="unauthorizedError">Accès non autorisé.</string>
   <string name="noInternetConnection">Pas de connexion à Internet. Vous pouvez cependant jouer hors ligne à partir du menu.</string>
@@ -616,7 +616,7 @@ en %3$s</string>
   <string name="playOffline">Jouer hors ligne</string>
   <string name="allowAnalytics">Autoriser l\'envoi de statistiques anonymes</string>
   <string name="shareGameURL">Partager l\'URL de la partie</string>
-  <string name="error.required">Ce champ est obligatoire</string>
+  <string name="error.required">Ce champ est requis</string>
   <string name="error.email">Cette adresse email est invalide</string>
   <string name="error.email_acceptable">Cette adresse email n\'est pas acceptable</string>
   <string name="error.email_unique">Cette adresse email est déjà utilisée</string>
