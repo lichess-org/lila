@@ -197,7 +197,7 @@
   <string name="accept">Accepter</string>
   <string name="decline">Refuser</string>
   <string name="playingRightNow">Parties en cours</string>
-  <string name="eventInProgress">En cours</string>
+  <string name="eventInProgress">En train de jouer</string>
   <string name="finished">Terminé</string>
   <string name="abortGame">Annuler la partie</string>
   <string name="gameAborted">Partie annulée</string>
@@ -291,7 +291,7 @@
     <item quantity="other">≥ %1$s %2$s Parties classées</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Vous devez jouer %1$s plus de %2$s parties classées</item>
+    <item quantity="one">Vous devez jouer %1$s plus de %2$s partie classée</item>
     <item quantity="other">Vous devez encore jouer %1$s parties classées</item>
   </plurals>
   <plurals name="needNbMoreGames">
