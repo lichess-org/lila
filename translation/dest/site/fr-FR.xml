@@ -722,14 +722,14 @@ en %3$s</string>
   <string name="kidMode">Mode enfant</string>
   <string name="kidModeExplanation">Cela concerne la sécurité. Dans le mode enfants, toutes les communications du site sont désactivées. Activez ce mode pour vos enfants et pour les scolaires, afin de les protéger des autres utilisateurs.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Dans le mode enfants, l\'icône %s se rajoute au logo lichess pour que vous sachiez que les enfants sont en sécurité.</string>
-  <string name="enableKidMode">Activer le mode enfants</string>
-  <string name="disableKidMode">Désactiver le mode enfants</string>
+  <string name="enableKidMode">Activer le mode enfant</string>
+  <string name="disableKidMode">Désactiver le mode enfant</string>
   <string name="security">Sécurité</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Voici une liste de périphériques qui sont connectés à votre compte. Supprimez les sessions que vous ne reconnaissez pas.</string>
   <string name="alternativelyYouCanX">Vous pouvez également %s.</string>
   <string name="revokeAllSessions">supprimer toutes les sessions</string>
   <string name="playChessEverywhere">Jouez aux échecs partout</string>
-  <string name="asFreeAsLichess">Aussi libre que lichess</string>
+  <string name="asFreeAsLichess">Aussi gratuit que lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Construit pour l\'amour du jeu d\'échecs, pas pour l\'argent</string>
   <string name="everybodyGetsAllFeaturesForFree">Toutes les fonctionnalités sont gratuites pour tout le monde</string>
   <string name="zeroAdvertisement">Aucune publicité</string>
@@ -742,10 +742,10 @@ en %3$s</string>
   <string name="viewTheSolution">Regarder la solution</string>
   <string name="followAndChallengeFriends">Suivez et défiez vos amis !</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Disponible en %s langues !</item>
+    <item quantity="one">Disponible en %s langue !</item>
     <item quantity="other">Disponible en %s langues !</item>
   </plurals>
-  <string name="gameAnalysis">Analyse des parties</string>
+  <string name="gameAnalysis">Analyse d\'une partie</string>
   <string name="xHostsY">%1$s héberge %2$s</string>
   <string name="xJoinsY">%1$s rejoint %2$s</string>
   <string name="xLikesY">%1$s aime %2$s</string>
