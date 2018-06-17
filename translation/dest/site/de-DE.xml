@@ -53,7 +53,7 @@
   <string name="loadingEngine">Engine wird geladen ...</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="goDeeper">Tiefe erhöhen</string>
-  <string name="showThreat">Drohungen zeigen</string>
+  <string name="showThreat">Bedrohungen zeigen</string>
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
   <string name="promoteVariation">Variante aufwerten</string>
