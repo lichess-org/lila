@@ -417,6 +417,10 @@
   <string name="advancedSettings">Напредна подешавања</string>
   <string name="safeTournamentName">Изаберите веома сигурно име за турнир.</string>
   <string name="inappropriateNameWarning">Било које име које је бар мало неприкладно може да вам затвори налог.</string>
+  <string name="emptyTournamentName">Оставите празно како би назвали турнир по насумично изабраном Велемајстору.</string>
+  <string name="recommendNotTouching">Препоручујемо да немењате ове.</string>
+  <string name="fewerPlayers">Ако ставите услове за улаз, ваш турнир ће имати мање играча.</string>
+  <string name="showAdvancedSettings">Покажи напредна подешавања</string>
   <string name="join">Придружи се</string>
   <string name="withdraw">Повући</string>
   <string name="points">Бодова</string>
@@ -548,6 +552,7 @@
   <string name="thisAccountIsClosed">Овај налог је затворен</string>
   <string name="invalidUsernameOrPassword">Нетачно корисничко име или лозинка</string>
   <string name="incorrectPassword">погрешна лозинка</string>
+  <string name="invalidAuthenticationCode">Неважећи аутентикациони код</string>
   <string name="emailMeALink">Пошаљи ми везу на е-пошту</string>
   <string name="currentPassword">Тренутна лозинка</string>
   <string name="newPassword">Нова лозинка</string>
@@ -671,6 +676,7 @@
   <string name="videoLibrary">Видео библиотека</string>
   <string name="mobileApp">Апликација за телефон</string>
   <string name="webmasters">Вебмастери</string>
+  <string name="about">О нама</string>
   <string name="contribute">Допринос</string>
   <string name="contact">Уговор</string>
   <string name="termsOfService">ТоS</string>
@@ -792,6 +798,9 @@
   <string name="pieceSet">Скуп фигура</string>
   <string name="embedInYourWebsite">Угради у свој сајт</string>
   <string name="usernameAlreadyUsed">Ово корисничко име је у употреби, изаберите неко друго.</string>
+  <string name="usernamePrefixInvalid">Корисничко име мора да почне са словом.</string>
+  <string name="usernameSuffixInvalid">Корисничко име мора да заврши са словом или бројем.</string>
+  <string name="usernameCharsInvalid">Корисничко име може само да садржи слова, бројеве, доње црте и цртице.</string>
   <string name="usernameUnacceptable">Ово корисничко име није прихватљиво.</string>
   <string name="directlySupportLichess">Директно подржите Личес</string>
   <string name="playChessInStyle">Играјте шах у стилу</string>
