@@ -411,7 +411,7 @@
   <string name="duration">Трајање</string>
   <string name="winner">Победник</string>
   <string name="standing">Позиција</string>
-  <string name="createANewTournament">Креирајте нови турнир</string>
+  <string name="createANewTournament">Направите нови турнир</string>
   <string name="tournamentCalendar">Календар турнира</string>
   <string name="conditionOfEntry">Услови за улаз:</string>
   <string name="advancedSettings">Напредна подешавања</string>
@@ -422,11 +422,11 @@
   <string name="fewerPlayers">Ако ставите услове за улаз, ваш турнир ће имати мање играча.</string>
   <string name="showAdvancedSettings">Покажи напредна подешавања</string>
   <string name="join">Придружи се</string>
-  <string name="withdraw">Повући</string>
-  <string name="points">Бодова</string>
+  <string name="withdraw">Повуци се</string>
+  <string name="points">Поена</string>
   <string name="wins">Победа</string>
   <string name="losses">Пораза</string>
-  <string name="winStreak">Победнички низ</string>
+  <string name="winStreak">Низ победа</string>
   <string name="createdBy">Направљено од</string>
   <string name="tournamentIsStarting">Турнир почиње</string>
   <string name="tournamentPairingsAreNowClosed">Упаривање за турнир је закључено.</string>
