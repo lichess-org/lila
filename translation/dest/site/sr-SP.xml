@@ -470,11 +470,11 @@
   <string name="onlinePlayers">Играчи на мрежи</string>
   <string name="activeToday">Активни данас</string>
   <string name="activePlayers">Активни играчи</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Опрез, игра се за бодове али не и на време!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Пажња, партија је рангирана али се не игра на време!</string>
   <string name="training">Тренинг</string>
-  <string name="yourPuzzleRatingX">Твој рејтинг у тренингу %s</string>
-  <string name="findTheBestMoveForWhite">Нађи најбољи потез за белог.</string>
-  <string name="findTheBestMoveForBlack">Нађи најбољи потез за црног.</string>
+  <string name="yourPuzzleRatingX">Ваш рејтинг у тренингу: %s</string>
+  <string name="findTheBestMoveForWhite">Пронађите најбољи потез за белог.</string>
+  <string name="findTheBestMoveForBlack">Пронађите најбољи потез за црног.</string>
   <string name="toTrackYourProgress">Прати свој напрадак:</string>
   <string name="trainingSignupExplanation">Lichess ће задати вежбе које одговарају твојим могућностима, да тренинг буде бољи и успешнији.</string>
   <string name="puzzleId">Вежба %s</string>
