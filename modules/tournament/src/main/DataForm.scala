@@ -148,7 +148,7 @@ private[tournament] case class TournamentSetup(
 
   def validRatedUltraBulletVariant =
     realMode == Mode.Casual ||
-      lila.game.Game.allowRated(realVariant, clockConfig)
+      lila.game.Game.allowRated(realVariant, clockConfig.some)
 
   private def estimatedGameDuration = 60 * clockTime + 30 * clockIncrement
 }

@@ -68,6 +68,8 @@ final class CoachApi(
       ) inject "Done!"
     }
 
+  def remove(userId: User.ID) = coachColl.updateField($id(userId), "listed", false)
+
   def uploadPicture(c: Coach.WithUser, picture: Photographer.Uploaded): Funit =
     photographer(c.coach.id.value, picture).flatMap { pic =>
       coachColl.update($id(c.coach.id), $set("picturePath" -> pic.path)).void

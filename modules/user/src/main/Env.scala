@@ -50,7 +50,9 @@ final class Env(
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.mod.MarkCheater(userId, true) => rankingApi remove userId
+      case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+        rankingApi remove userId
+        UserRepo.setRoles(userId, Nil)
       case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
       case lila.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
       case User.Active(user) =>

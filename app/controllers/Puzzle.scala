@@ -186,7 +186,11 @@ object Puzzle extends LilaController {
     negotiate(
       html = notFound,
       api = _ => for {
-        puzzles <- env.batch.select(me, getInt("nb") getOrElse 50 atLeast 1 atMost 100)
+        puzzles <- env.batch.select(
+          me,
+          nb = getInt("nb") getOrElse 50 atLeast 1 atMost 100,
+          after = getInt("after")
+        )
         userInfo <- env userInfos me
         json <- env.jsonView.batch(puzzles, userInfo)
       } yield Ok(json) as JSON

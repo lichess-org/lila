@@ -99,9 +99,9 @@ asyncJs = true) {
   <div id="hooks_wrap"></div>
   @playban.map(ban => playbanInfo(ban.remainingSeconds))
   <div id="start_buttons" class="lichess_ground">
-    <a class="fat button config_hook hint--bottom@if(playban.isDefined || currentGame.isDefined || ctx.isBot){ disabled}" href="@routes.Setup.hookForm" onclick="return false">@trans.createAGame()</a>
-    <a class="fat button config_friend hint--bottom@if(currentGame.isDefined){ disabled}" href="@routes.Setup.friendForm(none)" onclick="return false">@trans.playWithAFriend()</a>
-    <a class="fat button config_ai hint--bottom@if(currentGame.isDefined){ disabled}" href="@routes.Setup.aiForm" onclick="return false">@trans.playWithTheMachine()</a>
+    <a class="fat button config_hook@if(playban.isDefined || currentGame.isDefined || ctx.isBot){ disabled}" href="@routes.Setup.hookForm">@trans.createAGame()</a>
+    <a class="fat button config_friend@if(currentGame.isDefined){ disabled}" href="@routes.Setup.friendForm(none)">@trans.playWithAFriend()</a>
+    <a class="fat button config_ai@if(currentGame.isDefined){ disabled}" href="@routes.Setup.aiForm">@trans.playWithTheMachine()</a>
   </div>
 </div>
 @puzzle.map { p =>
@@ -125,7 +125,7 @@ asyncJs = true) {
 </div>
 <div class="undertable @if(simuls.isEmpty){none}">
   <div class="undertable_top">
-    <a class="more hint--bottom" href="@routes.Simul.home">@trans.more() »</a>
+    <a class="more" href="@routes.Simul.home">@trans.more() »</a>
     <span class="title text" data-icon="|">@trans.simultaneousExhibitions()</span>
   </div>
   <div id="enterable_simuls" class="enterable_list undertable_inner">

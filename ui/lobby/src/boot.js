@@ -209,14 +209,15 @@ module.exports = function(cfg, element) {
       var limit = $timeInput.val();
       var inc = $incrementInput.val();
       // no rated variants with less than 30s on the clock
-      var cantBeRated = timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0;
+      var cantBeRated = (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
+        (variantId != '1' && timeMode != '1');
       if (cantBeRated) {
         if (rated) {
           $casual.click();
           return toggleButtons();
         }
       }
-      $rated.attr('disabled', cantBeRated);
+      $rated.attr('disabled', cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
       var timeOk = timeMode != '1' || limit > 0 || inc > 0;
       var ratedOk = !isHook || !rated || timeMode != '0';
       if (timeOk && ratedOk) {
@@ -445,6 +446,8 @@ module.exports = function(cfg, element) {
     });
     $(this).addClass('active').siblings().removeClass('active');
     $('.lichess_overboard').remove();
+    return false;
+  }).on('click', function() {
     return false;
   });
 

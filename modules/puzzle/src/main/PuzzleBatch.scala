@@ -31,27 +31,27 @@ private[puzzle] final class PuzzleBatch(
 
     import Selector._
 
-    def apply(user: User, nb: Int): Fu[List[Puzzle]] = {
+    def apply(user: User, nb: Int, after: Option[PuzzleId]): Fu[List[Puzzle]] = {
       api.head.find(user) flatMap {
-        newPuzzlesForUser(user, _, nb)
+        newPuzzlesForUser(user, _, nb, after)
       } addEffect { puzzles =>
         lila.mon.puzzle.batch.selector.count(puzzles.size)
       }
     }.mon(_.puzzle.batch.selector.time)
 
-    private def newPuzzlesForUser(user: User, headOption: Option[PuzzleHead], nb: Int): Fu[List[Puzzle]] = {
+    private def newPuzzlesForUser(user: User, headOption: Option[PuzzleHead], nb: Int, after: Option[PuzzleId]): Fu[List[Puzzle]] = {
       val rating = user.perfs.puzzle.intRating min 2300 max 900
       val step = toleranceStepFor(rating, user.perfs.puzzle.nb)
       api.puzzle.cachedLastId.get flatMap { maxId =>
-        val lastId = headOption match {
-          case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l
+        val fromId = headOption match {
+          case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => after.fold(l)(_ atLeast l)
           case _ => puzzleIdMin
         }
         tryRange(
           rating = rating,
           tolerance = step,
           step = step,
-          idRange = Range(lastId, lastId + nb * 50),
+          idRange = Range(fromId, fromId + nb * 50),
           nb = nb
         )
       }

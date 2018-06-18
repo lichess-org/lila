@@ -264,8 +264,8 @@ object GameRepo {
     .skip(Random nextInt distribution)
     .uno[Game]
 
-  def insertDenormalized(g: Game, ratedCheck: Boolean = true, initialFen: Option[chess.format.FEN] = None): Funit = {
-    val g2 = if (ratedCheck && g.rated && g.userIds.distinct.size != 2)
+  def insertDenormalized(g: Game, initialFen: Option[chess.format.FEN] = None): Funit = {
+    val g2 = if (g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))))
       g.copy(mode = chess.Mode.Casual)
     else g
     val userIds = g2.userIds.distinct

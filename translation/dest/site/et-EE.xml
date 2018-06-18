@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">See mäng on reitinguga</string>
   <string name="rematch">Kordusmäng</string>
   <string name="rematchOfferSent">Kordusmängu pakkumine</string>
+  <string name="rematchOfferSentWhite">Valge pakub kordusmängu</string>
+  <string name="rematchOfferSentBlack">Must pakub kordusmängu</string>
   <string name="rematchOfferAccepted">Kordusmäng vastu võetud</string>
   <string name="rematchOfferCanceled">Kordusmängu pakkumine tühistatud</string>
   <string name="rematchOfferDeclined">Kordusmäng tagasilükatud</string>
@@ -385,6 +387,13 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="winner">Võitja</string>
   <string name="standing">Tulemus</string>
   <string name="createANewTournament">Loo uus turniir</string>
+  <string name="tournamentCalendar">Turniiride kalender</string>
+  <string name="conditionOfEntry">Sisenemise tingimus:</string>
+  <string name="advancedSettings">Täpsemad seaded</string>
+  <string name="inappropriateNameWarning">Isegi pisut kohatu nimi võib tähendada sinu konto sulgemist.</string>
+  <string name="recommendNotTouching">Me ei soovita neid muuta.</string>
+  <string name="fewerPlayers">Kui sa lisad osalemiseks tingimusi, siis osaleb turniiril vähem inimesi.</string>
+  <string name="showAdvancedSettings">Näita täpsemaid sätteid</string>
   <string name="join">Liitu</string>
   <string name="withdraw">Loobu</string>
   <string name="points">Punkte</string>
@@ -498,7 +507,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="other">Muu</string>
   <string name="reportDescriptionHelp">Kleebi link mängust ja selgita, mis on valesti selle kasutaja käitumises.</string>
   <string name="by">Postitas %s</string>
-  <string name="thisTopicIsNowClosed">See teema on nüüd lõppetatud.</string>
+  <string name="thisTopicIsNowClosed">See teema on nüüd lõpetatud.</string>
   <string name="theming">Teemad</string>
   <string name="donate">Anneta</string>
   <string name="blog">Blogi</string>
@@ -514,6 +523,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="thisAccountIsClosed">See konto on suletud.</string>
   <string name="invalidUsernameOrPassword">Vale kasutajanimi või parool</string>
   <string name="incorrectPassword">Vale parool</string>
+  <string name="invalidAuthenticationCode">Väär autentimise kood</string>
   <string name="emailMeALink">Saada mulle link</string>
   <string name="currentPassword">Praegune salasõna</string>
   <string name="newPassword">Uus salasõna</string>
@@ -748,6 +758,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="pieceSet">Malendite kujundus</string>
   <string name="embedInYourWebsite">Lubad oma veebilehel</string>
   <string name="usernameAlreadyUsed">See kasutajanimi on juba olemas, proovige midagi muud.</string>
+  <string name="usernamePrefixInvalid">Kasutajanimi peab algama tähega.</string>
+  <string name="usernameSuffixInvalid">Kasutajanimi peab lõppema numbriga või tähega.</string>
+  <string name="usernameCharsInvalid">Kasutajanimi peab sisaldama ainult tähti, numbreid, allkriipse ja sidekriipse.</string>
   <string name="usernameUnacceptable">Selline kasutajanimi ei ole lubatud.</string>
   <string name="directlySupportLichess">Toeta Lichess-i</string>
   <string name="playChessInStyle">Mängi malet stiiliga</string>
