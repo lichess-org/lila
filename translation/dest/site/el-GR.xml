@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Το παιχνίδι βαθμολογείται</string>
   <string name="rematch">Ξαναπαίξτε</string>
   <string name="rematchOfferSent">Πρόταση επανάληψης εστάλη</string>
+  <string name="rematchOfferSentWhite">Ο Λευκός προσφέρει ρεβάνς</string>
+  <string name="rematchOfferSentBlack">Ο Μαύρος προσφέρει ρεβάνς</string>
   <string name="rematchOfferAccepted">Πρόταση επανάληψης αποδεκτή</string>
   <string name="rematchOfferCanceled">Πρόταση επανάληψης ακυρώθηκε</string>
   <string name="rematchOfferDeclined">Πρόταση επανάληψης απερρίφθη</string>
@@ -385,6 +387,7 @@
   <string name="winner">Νικητής</string>
   <string name="standing">Κατάταξη</string>
   <string name="createANewTournament">Δημιουργήστε νέο πρωτάθλημα</string>
+  <string name="tournamentCalendar">Ημερολόγιο τουρνουά</string>
   <string name="join">Συμμετοχή</string>
   <string name="withdraw">Απόσυρση</string>
   <string name="points">Πόντοι</string>
