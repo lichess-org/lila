@@ -388,6 +388,14 @@
   <string name="standing">Κατάταξη</string>
   <string name="createANewTournament">Δημιουργήστε νέο πρωτάθλημα</string>
   <string name="tournamentCalendar">Ημερολόγιο τουρνουά</string>
+  <string name="conditionOfEntry">Προϋπόθεση εισόδου:</string>
+  <string name="advancedSettings">Ρυθμίσεις για προχωρημένους</string>
+  <string name="safeTournamentName">Διαλέξτε ένα πολύ ασφαλές όνομα για το τουρνουά.</string>
+  <string name="inappropriateNameWarning">Οτιδήποτε ακόμα και ελάχιστα ακατάλληλο μπορεί να κλείσει τον λογαριασμό σας.</string>
+  <string name="emptyTournamentName">Αφήστε το κενό για να ονομαστεί το τουρνουά ως κάποιον τυχαίο Γκραν Μετρ.</string>
+  <string name="recommendNotTouching">Σας συνιστούμε να μην τα αλλάξετε αυτά.</string>
+  <string name="fewerPlayers">Εάν ορίσετε προϋποθέσεις εισόδου, το τουρνουά σας θα έχει λιγότερους παίκτες.</string>
+  <string name="showAdvancedSettings">Εμφάνιση ρυθμίσεων για προχωρημένους</string>
   <string name="join">Συμμετοχή</string>
   <string name="withdraw">Απόσυρση</string>
   <string name="points">Πόντοι</string>
@@ -517,6 +525,7 @@
   <string name="thisAccountIsClosed">Αυτός ο λογαριασμός έχει κλείσει.</string>
   <string name="invalidUsernameOrPassword">Άκυρο όνομα χρήστη ή κωδικός</string>
   <string name="incorrectPassword">Εσφαλμένος κωδικός</string>
+  <string name="invalidAuthenticationCode">Μη έγκυρος κωδικός επαλήθευσης</string>
   <string name="emailMeALink">Στείλτε μου σύνδεσμο μέσω ηλ. ταχυδρομείου</string>
   <string name="currentPassword">Κωδικός σε ισχύ</string>
   <string name="newPassword">Νέος κωδικός</string>
