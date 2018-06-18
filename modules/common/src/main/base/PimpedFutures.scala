@@ -2,7 +2,7 @@ package lila.base
 
 import LilaTypes._
 import ornicar.scalalib.Zero
-import play.api.libs.concurrent.Execution.Implicits._
+import old.play.Env.defaultContext
 import scala.concurrent.duration._
 import scala.concurrent.{ Future, ExecutionContext }
 
@@ -61,7 +61,7 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def logFailure(logger: => lila.log.Logger): Fu[A] = logFailure(logger, _.toString)
 
   def addFailureEffect(effect: Exception => Unit) = {
-    fua onFailure {
+    fua.failed.foreach {
       case e: Exception => effect(e)
     }
     fua

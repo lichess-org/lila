@@ -39,5 +39,5 @@ object LilaCookie {
   )
 
   def discard(name: String)(implicit req: RequestHeader) =
-    DiscardingCookie(name, "/", domain(req).some, Session.httpOnly)
+    DiscardingCookie(name, "/", domain(req).some, cookieBaker.httpOnly)
 }

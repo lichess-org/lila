@@ -5,7 +5,8 @@ import scala.util.Try
 import scalaz.{ Monad, Monoid, OptionT, ~> }
 
 trait PackageObject extends Lilaisms {
-  implicit lazy val playExecutionContext = play.api.libs.concurrent.Execution.defaultContext
+
+  implicit def playExecutionContext = old.play.Env.defaultContext
 
   def !![A](msg: String): Valid[A] = msg.failureNel[A]
 

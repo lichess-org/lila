@@ -50,7 +50,7 @@ private[puzzle] final class Selector(
     if (puzzle.vote.sum < -1000)
       logger.warn(s"Select #${puzzle.id} vote.sum: ${puzzle.vote.sum} for ${me.fold("Anon")(_.username)} (${me.fold("?")(_.perfs.puzzle.intRating.toString)})")
     else
-    lila.mon.puzzle.selector.vote(puzzle.vote.sum)
+      lila.mon.puzzle.selector.vote(puzzle.vote.sum)
   }
 
   private def newPuzzleForUser(user: User, lastPlayed: PuzzleId): Fu[Option[Puzzle]] = {
