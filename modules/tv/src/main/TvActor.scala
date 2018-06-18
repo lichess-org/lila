@@ -75,7 +75,7 @@ private[tv] final class TvActor(
         }
       )))
       if (channel == Tv.Channel.Best)
-        rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
+        rendererActor ? actorApi.RenderFeaturedJs(game) foreach {
           case html: play.twirl.api.Html =>
             val event = lila.hub.actorApi.game.ChangeFeatured(
               game.id,

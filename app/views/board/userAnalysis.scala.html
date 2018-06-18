@@ -35,7 +35,7 @@ tablebaseEndpoint: "@tablebaseEndpoint"
   </div>
   <div class="list">
     @chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map { v =>
-    <a data-icon="@iconByVariant(v)" href="@routes.UserAnalysis.parse(v.key)">@v.name</a>
+    <a data-icon="@iconByVariant(v)" href="@routes.UserAnalysis.parseUri(v.key)">@v.name</a>
     }
   </div>
 </div>

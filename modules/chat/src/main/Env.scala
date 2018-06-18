@@ -62,6 +62,6 @@ object Env {
     shutup = lila.hub.Env.current.actor.shutup,
     modLog = lila.hub.Env.current.actor.mod,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system
+    system = old.play.Env.actorSystem
   )
 }

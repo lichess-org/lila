@@ -1,7 +1,6 @@
 package lila.user
 
 import lila.rating.{ Perf, PerfType }
-import play.api.libs.json._
 import User.{ PlayTime, LightPerf }
 
 final class JsonView(isOnline: User.ID => Boolean) {

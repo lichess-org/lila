@@ -189,7 +189,7 @@ private[video] final class VideoApi(
 
     private val max = 25
 
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, GroupField, Match, Project, UnwindField, Sort, SumValue }
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, GroupField, Match, Project, UnwindField, Sort, SumAll }
 
     private val pathsCache = asyncCache.clearable[List[Tag], List[TagNb]](
       name = "video.paths",
@@ -230,7 +230,7 @@ private[video] final class VideoApi(
       name = "video.popular",
       f = videoColl.aggregateList(
         Project($doc("tags" -> true)), List(
-          UnwindField("tags"), GroupField("tags")("nb" -> SumValue(1)),
+          UnwindField("tags"), GroupField("tags")("nb" -> SumAll),
           Sort(Descending("nb"))
         ),
         maxDocs = Int.MaxValue,

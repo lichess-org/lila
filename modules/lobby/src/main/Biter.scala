@@ -32,8 +32,8 @@ private[lobby] object Biter {
   }
 
   private def join(seek: Seek, lobbyUser: LobbyUser): Fu[JoinSeek] = for {
-    user ← UserRepo byId lobbyUser.id flatten s"No such user: ${lobbyUser.id}"
-    owner ← UserRepo byId seek.user.id flatten s"No such user: ${seek.user.id}"
+    user ← UserRepo byId lobbyUser.id err s"No such user: ${lobbyUser.id}"
+    owner ← UserRepo byId seek.user.id err s"No such user: ${seek.user.id}"
     creatorColor <- assignCreatorColor(owner.some, user.some, seek.realColor)
     game = makeGame(
       seek,

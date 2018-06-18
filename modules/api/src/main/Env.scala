@@ -177,7 +177,7 @@ object Env {
     prefApi = lila.pref.Env.current.api,
     gamePgnDump = lila.game.Env.current.pgnDump,
     gameCache = lila.game.Env.current.cached,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     scheduler = lila.common.PlayApp.scheduler,
     isStreaming = lila.streamer.Env.current.liveStreamApi.isStreaming,
     isPlaying = lila.relation.Env.current.online.isPlaying,

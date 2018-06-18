@@ -90,7 +90,7 @@ object Env {
 
   lazy val current: Env = "challenge" boot new Env(
     config = lila.common.PlayApp loadConfig "challenge",
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     onStart = lila.game.Env.current.onStart,
     hub = lila.hub.Env.current,
     gameCache = lila.game.Env.current.cached,

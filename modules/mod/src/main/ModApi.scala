@@ -149,5 +149,6 @@ final class ModApi(
   }
 
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
-    UserRepo named username flatten "[mod] missing user " + username flatMap op
+    UserRepo named username err "[mod] missing user $username" flatMap op
+
 }

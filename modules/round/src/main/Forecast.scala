@@ -6,6 +6,7 @@ import play.api.libs.json._
 import chess.format.Uci
 import chess.Move
 import lila.game.Game
+import lila.common.PimpedJson.jodaDateWrites
 
 case class Forecast(
     _id: String, // player full id

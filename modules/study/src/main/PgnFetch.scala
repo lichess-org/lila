@@ -1,7 +1,6 @@
 package lila.study
 
-import play.api.libs.ws.WS
-import play.api.Play.current
+import old.play.Env.WS
 
 private final class PgnFetch {
 

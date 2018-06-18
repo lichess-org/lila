@@ -37,9 +37,7 @@ private final class Captcher extends Actor {
 
     def current = challenges.head
 
-    def refresh = createFromDb onSuccess {
-      case Some(captcha) => add(captcha)
-    }
+    def refresh = createFromDb foreach { _ ?? add }
 
     // Private stuff
 

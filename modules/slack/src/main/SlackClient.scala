@@ -1,8 +1,9 @@
 package lila.slack
 
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.JsonBodyWritables._
+import old.play.Env.WS
 
 private final class SlackClient(url: String, defaultChannel: String) {
 

@@ -214,7 +214,7 @@ object Study extends LilaController {
       study.isMember(me.id) || Env.chat.panic.allowed(me)
     }) ?? Env.chat.api.userChat.findMine(Chat.Id(study.id.value), ctx.me).map(some)
 
-  def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
+  def websocket(id: String, apiVersion: Int) = SocketOption { implicit ctx =>
     get("sri") ?? { uid =>
       env.api byId id flatMap {
         _.filter(canView) ?? { study =>
@@ -362,9 +362,8 @@ object Study extends LilaController {
             lila.mon.export.pgn.study()
             env.pgnDump(study) map { pgns =>
               Ok(pgns.mkString("\n\n\n")).withHeaders(
-                CONTENT_TYPE -> pgnContentType,
                 CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study))
-              )
+              ) as pgnContentType
             }
           }
         }
@@ -379,9 +378,8 @@ object Study extends LilaController {
           case WithChapter(study, chapter) => CanViewResult(study) {
             lila.mon.export.pgn.studyChapter()
             Ok(env.pgnDump.ofChapter(study, chapter).toString).withHeaders(
-              CONTENT_TYPE -> pgnContentType,
               CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump.filename(study, chapter)))
-            ).fuccess
+            ).as(pgnContentType).fuccess
           }
         }
       }

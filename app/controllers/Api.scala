@@ -9,8 +9,8 @@ import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
-import lila.common.PimpedJson._
 import lila.common.{ HTTPRequest, IpAddress, MaxPerPage }
+import lila.common.PimpedJson.jodaDateWrites
 
 object Api extends LilaController {
 

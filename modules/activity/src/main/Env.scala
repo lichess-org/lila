@@ -72,7 +72,7 @@ object Env {
   lazy val current: Env = "activity" boot new Env(
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "activity",
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     practiceApi = lila.practice.Env.current.api,
     postApi = lila.forum.Env.current.postApi,
     simulApi = lila.simul.Env.current.api,

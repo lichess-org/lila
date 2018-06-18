@@ -1,7 +1,7 @@
 package lila.user
 
 import org.joda.time.DateTime
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Project, GroupField, SumValue }
+import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Project, GroupField, SumAll }
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.concurrent.duration._
@@ -127,7 +127,7 @@ final class RankingApi(
                 )
               )
             )),
-            GroupField("r")("nb" -> SumValue(1))
+            GroupField("r")("nb" -> SumAll)
           ),
           maxDocs = Int.MaxValue,
           ReadPreference.secondaryPreferred

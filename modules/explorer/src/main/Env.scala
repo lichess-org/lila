@@ -49,6 +49,6 @@ object Env {
     gameColl = lila.game.Env.current.gameColl,
     gameImporter = lila.importer.Env.current.importer,
     settingStore = lila.memo.Env.current.settingStore,
-    system = lila.common.PlayApp.system
+    system = old.play.Env.actorSystem
   )
 }

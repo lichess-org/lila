@@ -20,7 +20,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
 
   def index = load("", Standard)
 
-  def parse(arg: String) = arg.split("/", 2) match {
+  def parseUri(arg: String) = arg.split("/", 2) match {
     case Array(key) => load("", Variant orDefault key)
     case Array(key, fen) => Variant.byKey get key match {
       case Some(variant) => load(fen, variant)
@@ -118,7 +118,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
     ).map(_ as JSON)
   }
 
-  def forecasts(fullId: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
+  def forecasts(fullId: String) = AuthBody(parse.json) { implicit ctx => me =>
     import lila.round.Forecast
     OptionFuResult(GameRepo pov fullId) { pov =>
       if (isTheft(pov)) fuccess(theftResponse)
@@ -135,7 +135,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
     }
   }
 
-  def forecastsOnMyTurn(fullId: String, uci: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
+  def forecastsOnMyTurn(fullId: String, uci: String) = AuthBody(parse.json) { implicit ctx => me =>
     import lila.round.Forecast
     OptionFuResult(GameRepo pov fullId) { pov =>
       if (isTheft(pov)) fuccess(theftResponse)

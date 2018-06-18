@@ -190,7 +190,7 @@ object Auth extends LilaController {
                   val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
                   UserRepo.create(data.username, passwordHash, email, ctx.blindMode, none,
                     mustConfirmEmail = mustConfirm.value)
-                    .flatten(s"No user could be created for ${data.username}")
+                    .err(s"No user could be created for ${data.username}")
                     .map(_ -> email).flatMap {
                       case (user, email) if mustConfirm.value =>
                         env.emailConfirm.send(user, email) >> {
@@ -221,7 +221,7 @@ object Auth extends LilaController {
               val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
               UserRepo.create(data.username, passwordHash, email, false, apiVersion.some,
                 mustConfirmEmail = mustConfirm.value)
-                .flatten(s"No user could be created for ${data.username}")
+                .err(s"No user could be created for ${data.username}")
                 .map(_ -> email).flatMap {
                   case (user, email) if mustConfirm.value =>
                     env.emailConfirm.send(user, email) >> {

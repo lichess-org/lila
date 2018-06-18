@@ -54,7 +54,7 @@ object Env {
 
   lazy val current: Env = "push" boot new Env(
     db = lila.db.Env.current,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     getLightUser = lila.user.Env.current.lightUserSync,
     roundSocketHub = lila.hub.Env.current.socket.round,
     scheduler = lila.common.PlayApp.scheduler,

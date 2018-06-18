@@ -157,21 +157,21 @@ object Tournament extends LilaController {
     }
   }
 
-  def join(id: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => implicit me =>
+  def join(id: String) = AuthBody(parse.json) { implicit ctx => implicit me =>
     NoLameOrBot {
       NoPlayban {
-        val password = ctx.body.body.\("p").asOpt[String]
-        negotiate(
-          html = repo enterableById id map {
-            case None => tournamentNotFound
-            case Some(tour) =>
-              env.api.join(tour.id, me, password)
-              Redirect(routes.Tournament.show(tour.id))
-          },
-          api = _ => OptionFuResult(repo enterableById id) { tour =>
-            env.api.joinWithResult(tour.id, me, password) map { result =>
+      val password = ctx.body.body.\("p").asOpt[String]
+      negotiate(
+        html = repo enterableById id map {
+          case None => tournamentNotFound
+          case Some(tour) =>
+            env.api.join(tour.id, me, password)
+            Redirect(routes.Tournament.show(tour.id))
+        },
+        api = _ => OptionFuResult(repo enterableById id) { tour =>
+          env.api.joinWithResult(tour.id, me, password) map { result =>
               if (result) jsonOkResult
-              else BadRequest(Json.obj("joined" -> false))
+            else BadRequest(Json.obj("joined" -> false))
             }
           }
         )
@@ -264,7 +264,7 @@ object Tournament extends LilaController {
     }
   }
 
-  def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
+  def websocket(id: String, apiVersion: Int) = SocketOption { implicit ctx =>
     getSocketUid("sri") ?? { uid =>
       env.socketHandler.join(id, uid, ctx.me)
     }

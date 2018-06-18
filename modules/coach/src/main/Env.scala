@@ -61,7 +61,7 @@ object Env {
   lazy val current: Env = "coach" boot new Env(
     config = lila.common.PlayApp loadConfig "coach",
     notifyApi = lila.notify.Env.current.api,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     db = lila.db.Env.current
   )
 }

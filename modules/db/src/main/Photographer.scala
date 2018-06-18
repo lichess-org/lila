@@ -10,18 +10,18 @@ final class Photographer(coll: Coll, prefix: String) {
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
   private def pictureId(id: String) = s"$prefix:$id:picture"
 
-  def apply(id: String, uploaded: Photographer.Uploaded): Fu[DbImage] =
-    if (uploaded.ref.file.length > uploadMaxBytes)
+  def apply(coachId: Coach.Id, uploaded: Photographer.Uploaded): Fu[DbImage] =
+    if (uploaded.ref.path.toFile.length > uploadMaxBytes)
       fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else {
 
-      process(uploaded.ref.file)
+      process(uploaded.ref.path.toFile)
 
       val image = DbImage.make(
         id = pictureId(id),
         name = sanitizeName(uploaded.filename),
         contentType = uploaded.contentType,
-        file = uploaded.ref.file
+        file = uploaded.ref.path.toFile
       )
 
       coll.update($id(image.id), image, upsert = true) inject image

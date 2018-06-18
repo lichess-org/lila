@@ -44,7 +44,7 @@ object Env {
 
   lazy val current = "gameSearch" boot new Env(
     config = lila.common.PlayApp loadConfig "gameSearch",
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     makeClient = lila.search.Env.current.makeClient
   )
 }

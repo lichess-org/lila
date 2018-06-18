@@ -117,7 +117,7 @@ object Simul extends LilaController {
     }
   }
 
-  def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
+  def websocket(id: String, apiVersion: Int) = SocketOption { implicit ctx =>
     getSocketUid("sri") ?? { uid =>
       env.socketHandler.join(id, uid, ctx.me)
     }

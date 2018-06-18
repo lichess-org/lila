@@ -24,9 +24,8 @@ object Export extends LilaController {
         OptionFuResult(GameRepo game id) { game =>
           env.pngExport fromGame game map { stream =>
             Ok.chunked(stream).withHeaders(
-              CONTENT_TYPE -> "image/png",
               CACHE_CONTROL -> "max-age=7200"
-            )
+            ).as("image/png")
           }
         }
       }
@@ -46,9 +45,8 @@ object Export extends LilaController {
             logHint = s"puzzle $id"
           ) map { stream =>
               Ok.chunked(stream).withHeaders(
-                CONTENT_TYPE -> "image/png",
                 CACHE_CONTROL -> "max-age=7200"
-              )
+              ) as "image/png"
             }
         }
       }

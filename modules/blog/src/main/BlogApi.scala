@@ -2,6 +2,7 @@ package lila.blog
 
 import io.prismic._
 import scala.concurrent.duration._
+import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.MaxPerPage
 import lila.common.paginator._
@@ -12,7 +13,9 @@ final class BlogApi(
     collection: String
 ) {
 
-  def recent(api: Api, ref: Option[String], page: Int, maxPerPage: MaxPerPage): Fu[Option[Paginator[Document]]] =
+  implicit val httpClient = old.play.Env.standaloneWSClient
+
+  def recent(api: Api, ref: Option[String], nb: Int, maxPerPage: MaxPerPage): Fu[Option[Response]] =
     api.forms(collection).ref(resolveRef(api)(ref) | api.master.ref)
       .orderings(s"[my.$collection.date desc]")
       .pageSize(maxPerPage.value).page(page).submit().fold(_ => none, some _) map2 { (res: Response) =>
@@ -22,7 +25,7 @@ final class BlogApi(
   def one(api: Api, ref: Option[String], id: String) =
     api.forms(collection)
       .query(s"""[[:d = at(document.id, "$id")]]""")
-      .ref(resolveRef(api)(ref) | api.master.ref).submit() map (_.results.headOption)
+      .ref(resolveRef(api)(ref) | api.master.ref).submit map (_.results.headOption)
 
   // -- Build a Prismic context
   def context(refName: Option[String])(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver) =

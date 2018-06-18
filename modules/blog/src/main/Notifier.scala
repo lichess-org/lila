@@ -12,7 +12,7 @@ private[blog] final class Notifier(
 
   def apply(prismicId: String): Funit =
     blogApi.prismicApi flatMap { prismicApi =>
-      blogApi.one(prismicApi, none, prismicId) flatten
+      blogApi.one(prismicApi, none, prismicId) err
         s"No such document: $prismicId" flatMap doSend
     }
 

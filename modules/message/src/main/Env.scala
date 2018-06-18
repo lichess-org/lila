@@ -63,7 +63,7 @@ object Env {
     blocks = lila.relation.Env.current.api.fetchBlocks,
     follows = lila.relation.Env.current.api.fetchFollows,
     getPref = lila.pref.Env.current.api.getPref,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     isOnline = lila.user.Env.current.isOnline,
     lightUser = lila.user.Env.current.lightUserSync
   )

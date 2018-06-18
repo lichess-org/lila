@@ -5,8 +5,7 @@ import scala.util.{ Try, Success, Failure }
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.iteratee._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import old.play.Env.WS
 import chess.format.pgn.Tag
 
 import lila.db.dsl._

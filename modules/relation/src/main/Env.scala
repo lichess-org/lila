@@ -70,7 +70,7 @@ object Env {
     onlineUserIds = lila.user.Env.current.onlineUserIdMemo,
     lightUserApi = lila.user.Env.current.lightUserApi,
     followable = lila.pref.Env.current.api.followable _,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler
   )

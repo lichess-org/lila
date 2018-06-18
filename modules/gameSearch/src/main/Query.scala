@@ -52,6 +52,7 @@ case class Query(
 object Query {
 
   import lila.common.Form._
+  import lila.common.PimpedJson.jodaDateWrites
   import play.api.libs.json._
 
   import Range.rangeJsonWriter

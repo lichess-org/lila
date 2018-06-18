@@ -7,6 +7,7 @@ import scala.util.{ Try, Success, Failure }
 
 import lila.db.dsl._
 import lila.hub.actorApi.timeline._
+import lila.common.PimpedJson.jodaDateWrites
 
 case class Entry(
     _id: BSONObjectID,

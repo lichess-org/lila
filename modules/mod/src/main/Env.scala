@@ -138,7 +138,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     perfStat = lila.perfStat.Env.current,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     scheduler = lila.common.PlayApp.scheduler,
     firewall = lila.security.Env.current.firewall,
     reportApi = lila.report.Env.current.api,

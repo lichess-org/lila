@@ -1,9 +1,7 @@
 package lila.security
 
-import play.api.libs.ws.WS
+import old.play.Env.WS
 import play.api.mvc.RequestHeader
-import play.api.Play.current
-import play.api.libs.json._
 
 import lila.common.HTTPRequest
 

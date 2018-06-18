@@ -200,7 +200,7 @@ final class JsonView(
 
   private val firstPageCache = asyncCache.clearable[String, JsObject](
     name = "tournament.firstPage",
-    id => TournamentRepo byId id flatten s"No such tournament: $id" flatMap { computeStanding(_, 1) },
+    id => TournamentRepo byId id err s"No such tournament: $id" flatMap { computeStanding(_, 1) },
     expireAfter = _.ExpireAfterWrite(1 second)
   )
 

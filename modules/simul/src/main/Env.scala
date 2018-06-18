@@ -124,7 +124,7 @@ object Env {
 
   lazy val current = "simul" boot new Env(
     config = lila.common.PlayApp loadConfig "simul",
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     scheduler = lila.common.PlayApp.scheduler,
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,

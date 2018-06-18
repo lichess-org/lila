@@ -58,6 +58,6 @@ object Env {
     userCache = lila.user.Env.current.cached,
     settingStore = lila.memo.Env.current.settingStore,
     scheduler = lila.common.PlayApp.scheduler,
-    system = lila.common.PlayApp.system
+    system = old.play.Env.actorSystem
   )
 }

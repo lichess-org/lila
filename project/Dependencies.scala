@@ -32,12 +32,10 @@ object Dependencies {
   val compression = "org.lichess" %% "compression" % "1.4"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.3.0-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.12-THIB"
-  val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.8.0"
   val semver = "com.gilt" %% "gfc-semver" % "0.0.5"
   val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.8"
   val scalaConfigs = "com.github.kxbmap" %% "configs" % "0.4.4"
   val scaffeine = "com.github.blemale" %% "scaffeine" % "2.5.0" % "compile"
-  val netty = "io.netty" % "netty" % "3.10.6.Final"
   val guava = "com.google.guava" % "guava" % "21.0"
   val specs2 = "org.specs2" %% "specs2-core" % "4.0.2" % "test"
   val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % "4.0.2" % "test"
@@ -55,12 +53,15 @@ object Dependencies {
   object play {
     val version = "2.6.15"
     val api = "com.typesafe.play" %% "play" % version
+    val jodaForms = "com.typesafe.play" %% "play-joda-forms" % version
     val test = "com.typesafe.play" %% "play-test" % version
+    val iteratee = "com.typesafe.play" %% "play-iteratees" % "2.6.1"
+    val streams = "com.typesafe.play" %% "play-iteratees-reactive-streams" % "2.6.1"
   }
   object akka {
     val version = "2.5.13"
     val actor = "com.typesafe.akka" %% "akka-actor" % version
-    val slf4j = "com.typesafe.akka" %% "akka-slf4j" % version
+    // val slf4j = "com.typesafe.akka" %% "akka-slf4j" % version
   }
   object kamon {
     val core = "io.kamon" %% "kamon-core" % "1.1.2"

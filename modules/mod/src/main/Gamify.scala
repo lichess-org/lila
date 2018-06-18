@@ -21,6 +21,9 @@ final class Gamify(
   import Gamify._
   import lila.report.BSONHandlers.RoomBSONHandler
 
+  private implicit val modMixedBSONHandler = Macros.handler[ModMixed]
+  private implicit val historyMonthBSONHandler = Macros.handler[HistoryMonth]
+
   def history(orCompute: Boolean = true): Fu[List[HistoryMonth]] = {
     val until = DateTime.now minusMonths 1 withDayOfMonth 1
     val lastId = HistoryMonth.makeId(until.getYear, until.getMonthOfYear)
@@ -36,9 +39,6 @@ final class Gamify(
       }
     }
   }
-
-  private implicit val modMixedBSONHandler = Macros.handler[ModMixed]
-  private implicit val historyMonthBSONHandler = Macros.handler[HistoryMonth]
 
   private def buildHistoryAfter(afterYear: Int, afterMonth: Int, until: DateTime): Funit =
     (afterYear to until.getYear).flatMap { year =>
@@ -92,7 +92,7 @@ final class Gamify(
       "date" -> dateRange(after, before),
       "mod" -> notLichess
     )), List(
-      GroupField("mod")("nb" -> SumValue(1)),
+      GroupField("mod")("nb" -> SumAll),
       Sort(Descending("nb"))
     ), maxDocs = 100).map {
       _.flatMap { obj =>
@@ -107,7 +107,7 @@ final class Gamify(
         "room" $in Room.all, // required to make use of the mongodb index room+atoms.0.at
         "processedBy" -> notLichess
       )), List(
-        GroupField("processedBy")("nb" -> SumValue(1)),
+        GroupField("processedBy")("nb" -> SumAll),
         Sort(Descending("nb"))
       ),
       maxDocs = Int.MaxValue,

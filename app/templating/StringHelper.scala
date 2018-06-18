@@ -13,6 +13,11 @@ trait StringHelper { self: NumberHelper =>
   val emptyHtml = Html("")
   implicit val LilaHtmlZero: Zero[Html] = Zero.instance(emptyHtml)
 
+  implicit val LilaHtmlMonoid = scalaz.Monoid.instance[Html](
+    (a, b) => Html(a.body + b.body),
+    LilaHtmlZero.zero
+  )
+
   val slugify = lila.common.String.slugify _
 
   def shorten(text: String, length: Int, sep: String = "…") = lila.common.String.shorten(text, length, sep)

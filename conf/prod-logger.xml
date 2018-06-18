@@ -1,6 +1,6 @@
 <configuration>
 
-  <conversionRule conversionWord="coloredLevel" converterClass="play.api.Logger$ColoredLevel" />
+  <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel" />
 
   <!-- STDOUT that accepts WARN and ERROR -->
   <!-- Exceptions yes, stacktraces no -->

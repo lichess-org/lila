@@ -104,7 +104,7 @@ object Coach extends LilaController {
     }
   }
 
-  def pictureApply = AuthBody(BodyParsers.parse.multipartFormData) { implicit ctx => me =>
+  def pictureApply = AuthBody(parse.multipartFormData) { implicit ctx => me =>
     OptionFuResult(api findOrInit me) { c =>
       ctx.body.body.file("picture") match {
         case Some(pic) => api.uploadPicture(c, pic) recover {

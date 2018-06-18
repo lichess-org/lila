@@ -24,11 +24,7 @@ object BuildSettings {
     scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
   )
 
-  def scalariformPrefs(prefs: IFormattingPreferences) = prefs
-    .setPreference(DanglingCloseParenthesis, Force)
-    .setPreference(DoubleIndentConstructorArguments, true)
-
-  def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime, ws, java8compat, specs2, specs2Scalaz)
+  def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime, ws, specs2)
 
   def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
   def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
@@ -48,13 +44,12 @@ object BuildSettings {
 
   val compilerOptions = Seq(
     "-deprecation", "-unchecked", "-feature", "-language:_",
-    "-Xfatal-warnings",
+    // "-Xfatal-warnings",
     "-Ywarn-dead-code",
     // "-Ywarn-unused-import",
     // "-Ywarn-unused",
     // "-Xlint:missing-interpolator",
-    // "-Ywarn-unused-import",
-    "-Ydelambdafy:method", "-target:jvm-1.8"
+    "-Ydelambdafy:method"
   )
 
   val srcMain = Seq(

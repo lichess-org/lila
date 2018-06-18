@@ -96,7 +96,7 @@ object Env {
     renderer = lila.hub.Env.current.actor.renderer,
     lightUserApi = lila.user.Env.current.lightUserApi,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     lifecycle = lila.common.PlayApp.lifecycle
   )
 }

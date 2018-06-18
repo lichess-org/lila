@@ -58,63 +58,6 @@ object BSON extends Handlers {
       def write(obj: T): Bdoc = handler write obj
     }
 
-  object MapDocument {
-
-    implicit def MapReader[K, V](implicit kIso: Iso.StringIso[K], vr: BSONDocumentReader[V]): BSONDocumentReader[Map[K, V]] = new BSONDocumentReader[Map[K, V]] {
-      def read(bson: Bdoc): Map[K, V] = {
-        // mutable optimized implementation
-        val b = collection.immutable.Map.newBuilder[K, V]
-        for (tuple <- bson.elements)
-          // assume that all values in the document are Bdocs
-          b += (kIso.from(tuple.name) -> vr.read(tuple.value.asInstanceOf[Bdoc]))
-        b.result
-      }
-    }
-
-    implicit def MapWriter[K, V](implicit kIso: Iso.StringIso[K], vw: BSONDocumentWriter[V]): BSONDocumentWriter[Map[K, V]] = new BSONDocumentWriter[Map[K, V]] {
-      def write(map: Map[K, V]): Bdoc = BSONDocument {
-        map.toStream.map { tuple =>
-          kIso.to(tuple._1) -> vw.write(tuple._2)
-        }
-      }
-    }
-
-    implicit def MapHandler[K: Iso.StringIso, V: BSONDocumentHandler]: BSONHandler[Bdoc, Map[K, V]] = new BSONHandler[Bdoc, Map[K, V]] {
-      private val reader = MapReader[K, V]
-      private val writer = MapWriter[K, V]
-      def read(bson: Bdoc): Map[K, V] = reader read bson
-      def write(map: Map[K, V]): Bdoc = writer write map
-    }
-  }
-
-  object MapValue {
-
-    implicit def MapReader[K, V](implicit kIso: Iso.StringIso[K], vr: BSONReader[_ <: BSONValue, V]): BSONDocumentReader[Map[K, V]] = new BSONDocumentReader[Map[K, V]] {
-      def read(bson: Bdoc): Map[K, V] = {
-        val valueReader = vr.asInstanceOf[BSONReader[BSONValue, V]]
-        // mutable optimized implementation
-        val b = collection.immutable.Map.newBuilder[K, V]
-        for (tuple <- bson.elements) b += (kIso.from(tuple.name) -> valueReader.read(tuple.value))
-        b.result
-      }
-    }
-
-    implicit def MapWriter[K, V](implicit kIso: Iso.StringIso[K], vw: BSONWriter[V, _ <: BSONValue]): BSONDocumentWriter[Map[K, V]] = new BSONDocumentWriter[Map[K, V]] {
-      def write(map: Map[K, V]): Bdoc = BSONDocument {
-        map.toStream.map { tuple =>
-          kIso.to(tuple._1) -> vw.write(tuple._2)
-        }
-      }
-    }
-
-    implicit def MapHandler[K, V](implicit kIso: Iso.StringIso[K], vr: BSONReader[_ <: BSONValue, V], vw: BSONWriter[V, _ <: BSONValue]): BSONHandler[Bdoc, Map[K, V]] = new BSONHandler[Bdoc, Map[K, V]] {
-      private val reader = MapReader[K, V]
-      private val writer = MapWriter[K, V]
-      def read(bson: Bdoc): Map[K, V] = reader read bson
-      def write(map: Map[K, V]): Bdoc = writer write map
-    }
-  }
-
   final class Reader(val doc: BSONDocument) {
 
     val map = {

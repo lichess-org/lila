@@ -89,7 +89,7 @@ object Env {
     gameCache = lila.game.Env.current.cached,
     poolApi = lila.pool.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     scheduler = lila.common.PlayApp.scheduler
   )
 }

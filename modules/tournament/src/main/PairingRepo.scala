@@ -154,7 +154,7 @@ object PairingRepo {
           "b2" -> $doc("$cond" -> $arr("$b2", 1, 0))
         )),
         GroupField("w")(
-          "games" -> SumValue(1),
+          "games" -> SumAll,
           "moves" -> SumField("t"),
           "b1" -> SumField("b1"),
           "b2" -> SumField("b2")

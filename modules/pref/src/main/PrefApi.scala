@@ -13,19 +13,7 @@ final class PrefApi(
     asyncCache: lila.memo.AsyncCache.Builder,
     cacheTtl: FiniteDuration
 ) {
-
-  private def fetchPref(id: String): Fu[Option[Pref]] = coll.find($id(id)).uno[Pref]
-  private val cache = asyncCache.multi(
-    name = "pref.fetchPref",
-    f = fetchPref,
-    expireAfter = _.ExpireAfterAccess(cacheTtl)
-  )
-
   private implicit val prefBSONHandler = new BSON[Pref] {
-
-    import lila.db.BSON.MapValue.{ MapReader, MapWriter }
-    implicit val tagsReader = MapReader[String, String]
-    implicit val tagsWriter = MapWriter[String, String]
 
     def reads(r: BSON.Reader): Pref = Pref(
       _id = r str "_id",
@@ -110,6 +98,13 @@ final class PrefApi(
     )
   }
 
+  private def fetchPref(id: String): Fu[Option[Pref]] = coll.find($id(id)).uno[Pref]
+  private val cache = asyncCache.multi(
+    name = "pref.fetchPref",
+    f = fetchPref,
+    expireAfter = _.ExpireAfterAccess(cacheTtl)
+  )
+
   def saveTag(user: User, name: String, value: String) =
     coll.update(
       $id(user.id),
@@ -156,6 +151,6 @@ final class PrefApi(
     getPref(userId) map change flatMap { setPref(_, notifyChange) }
 
   def setPrefString(user: User, name: String, value: String, notifyChange: Boolean): Funit =
-    getPref(user) map { _.set(name, value) } flatten
+    getPref(user) map { _.set(name, value) } err
       s"Bad pref ${user.id} $name -> $value" flatMap { setPref(_, notifyChange) }
 }

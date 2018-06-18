@@ -42,9 +42,10 @@ object Main extends LilaController {
     }
   }
 
-  def apiWebsocket = WebSocket.tryAccept { req =>
-    Env.site.apiSocketHandler.apply map Right.apply
-  }
+  def apiWebsocket = TODO
+  // WebSocket.tryAccept { req =>
+  //   Env.site.apiSocketHandler.apply map Right.apply
+  // }
 
   def captchaCheck(id: String) = Open { implicit ctx =>
     Env.hub.actor.captcher ? ValidCaptcha(id, ~get("solution")) map {
@@ -123,10 +124,9 @@ object Main extends LilaController {
       case Some(image) =>
         lila.log("image").info(s"Serving ${image.path} to ${HTTPRequest printClient req}")
         Ok(image.data).withHeaders(
-          CONTENT_TYPE -> image.contentType.getOrElse("image/jpeg"),
           CONTENT_DISPOSITION -> image.name,
           CONTENT_LENGTH -> image.size.toString
-        )
+        ) as image.contentType.getOrElse("image/jpeg")
     }
   }
 

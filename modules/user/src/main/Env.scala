@@ -108,6 +108,6 @@ object Env {
     asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler,
     timeline = lila.hub.Env.current.actor.timeline,
-    system = lila.common.PlayApp.system
+    system = old.play.Env.actorSystem
   )
 }

@@ -48,11 +48,15 @@ object MessageCompiler {
     val file = compileTo / "Registry.scala"
     printToFile(file) {
       val content = locales.map { locale =>
-        s"""Lang("${locale.replace("-", "\",\"")}")->`$locale`.load"""
+        val (lang, country) = locale split '-' match {
+          case Array(l, c) => (l, c take 2)
+        }
+        s"""Lang(new Locale("$lang","$country"))->`$locale`.load"""
       } mkString ",\n"
       s"""package lila.i18n
 package db.$db
 
+import java.util.Locale
 import play.api.i18n.Lang
 
 // format: OFF

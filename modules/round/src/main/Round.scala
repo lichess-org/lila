@@ -282,17 +282,17 @@ private[round] final class Round(
     handlePov(proxy pov color)(op)
 
   private def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit = publish {
-    pov flatten "pov not found" flatMap { p =>
+    pov err "pov not found" flatMap { p =>
       if (p.player.isAi) fufail(s"player $p can't play AI") else op(p)
     }
   } recover errorHandler("handlePov")
 
   private def handleAi(game: Fu[Option[Game]])(op: Pov => Fu[Events]): Funit = publish {
-    game.map(_.flatMap(_.aiPov)) flatten "pov not found" flatMap op
+    game.map(_.flatMap(_.aiPov)) err "pov not found" flatMap op
   } recover errorHandler("handleAi")
 
   private def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit = publish {
-    game flatten "game not found" flatMap op
+    game err "game not found" flatMap op
   } recover errorHandler("handleGame")
 
   private def publish[A](op: Fu[Events]): Funit = op.map { events =>

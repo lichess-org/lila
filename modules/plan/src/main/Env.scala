@@ -78,7 +78,7 @@ object Env {
     hub = lila.hub.Env.current,
     notifyApi = lila.notify.Env.current.api,
     lightUserApi = lila.user.Env.current.lightUserApi,
-    bus = lila.common.PlayApp.system.lilaBus,
+    bus = old.play.Env.actorSystem.lilaBus,
     asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler
   )

@@ -98,7 +98,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "game",
     db = lila.db.Env.current,
     mongoCache = lila.memo.Env.current.mongoCache,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     hub = lila.hub.Env.current,
     getLightUser = lila.user.Env.current.lightUser,
     appPath = play.api.Play.current.path.getCanonicalPath,

@@ -367,26 +367,26 @@ object GameRepo {
     coll.aggregateList(
       Match($doc(F.playerUids -> userId)),
       List(
-        Match($doc(F.playerUids -> $doc("$size" -> 2))),
-        Sort(Descending(F.createdAt)),
-        Limit(1000), // only look in the last 1000 games
-        Project($doc(
-          F.playerUids -> true,
-          F.id -> false
-        )),
-        UnwindField(F.playerUids),
-        Match($doc(F.playerUids -> $doc("$ne" -> userId))),
+      Match($doc(F.playerUids -> $doc("$size" -> 2))),
+      Sort(Descending(F.createdAt)),
+      Limit(1000), // only look in the last 1000 games
+      Project($doc(
+        F.playerUids -> true,
+        F.id -> false
+      )),
+      UnwindField(F.playerUids),
+      Match($doc(F.playerUids -> $doc("$ne" -> userId))),
         GroupField(F.playerUids)("gs" -> SumValue(1)),
-        Sort(Descending("gs")),
-        Limit(limit)
+      Sort(Descending("gs")),
+      Limit(limit)
       ),
       maxDocs = limit,
       ReadPreference.secondaryPreferred
     ).map(_.flatMap { obj =>
-        obj.getAs[String]("_id") flatMap { id =>
-          obj.getAs[Int]("gs") map { id -> _ }
-        }
-      })
+      obj.getAs[String]("_id") flatMap { id =>
+        obj.getAs[Int]("gs") map { id -> _ }
+      }
+    })
   }
 
   def random: Fu[Option[Game]] = coll.find($empty)

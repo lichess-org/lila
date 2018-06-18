@@ -88,6 +88,30 @@ final class JsonView(
       }
     ).noNull
   }
+
+  def apply(user: User): Fu[Option[JsObject]] =
+    assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
+      _ ?? {
+        case PlayerAggregateAssessment.WithGames(pag, games) => for {
+          gamesWithFen <- GameRepo withInitialFens games.filter(_.clockHistory.isDefined)
+          moreGames <- GameRepo.extraGamesForIrwin(user.id, 25) map {
+            _.filter { g => !games.exists(_.id == g.id) } take 20
+          }
+          moreGamesWithFen <- GameRepo withInitialFens moreGames
+          allGamesWithFen = gamesWithFen ::: moreGamesWithFen
+        } yield Json.obj(
+          "user" -> userJson(user),
+          "assessment" -> pag,
+          "games" -> JsObject(allGamesWithFen.map { g =>
+            g._1.id -> {
+              gameWithFenWrites.writes(g) ++ Json.obj(
+                "color" -> g._1.player(user).map(_.color.name)
+              )
+            }
+          })
+        ).some
+      }
+    }
 }
 
 object JsonView {

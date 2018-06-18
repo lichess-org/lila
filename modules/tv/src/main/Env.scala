@@ -47,7 +47,7 @@ object Env {
     hub = lila.hub.Env.current,
     lightUser = lila.user.Env.current.lightUserSync,
     roundProxyGame = lila.round.Env.current.roundProxyGame _,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     scheduler = lila.common.PlayApp.scheduler,
     onSelect = lila.round.Env.current.recentTvGames.put _
   )
