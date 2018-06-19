@@ -476,7 +476,7 @@
   <string name="findTheBestMoveForWhite">Пронађите најбољи потез за белог.</string>
   <string name="findTheBestMoveForBlack">Пронађите најбољи потез за црног.</string>
   <string name="toTrackYourProgress">Да пратите свој напредак:</string>
-  <string name="trainingSignupExplanation">Lichess ће задати вежбе које одговарају твојим могућностима, да тренинг буде бољи и успешнији.</string>
+  <string name="trainingSignupExplanation">Личес вам задаваје вежбе које одговарају вашим могућностима, како би тренинг био што бољи.</string>
   <string name="puzzleId">Вежба %s</string>
   <string name="puzzleOfTheDay">Вежба дана</string>
   <string name="clickToSolve">Кликни за решење</string>
