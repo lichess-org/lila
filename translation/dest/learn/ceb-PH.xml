@@ -76,6 +76,9 @@ Ug ayaw walaa imoha.</string>
   <string name="keepYourPiecesSafe">Ampingi nga dili makaon imong pisa</string>
   <string name="protectionIntro">Bantayi ang mga pisa nga gi atake sa kontra, suportahi kini!</string>
   <string name="protectionComplete">Magmalamposon! Ang pisa nga dili mo gusto makaon mao ang pisa nga modaog!</string>
+  <string name="escape">Ikaw gi ataki! Ipsot gikan sa threat!</string>
+  <string name="noEscape">Wala nay laing paagi nga mka ikyas. Pero maka depensa paka!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ayaw tugoti nga makaon ang imong pisa nga walay depensa!</string>
   <string name="boardSetupComplete">Congratulations! Kamao naka mobutang sa mga piraso sa chess sa board.</string>
   <string name="castling">Pag-enrook</string>
   <string name="theSpecialKingMove">Ang espesyal ng lihok sa king</string>
