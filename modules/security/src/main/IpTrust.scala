@@ -22,5 +22,6 @@ final class IpTrust(intelApi: IpIntel, geoApi: GeoIP, torApi: Tor, firewallApi: 
     location.shortCountry == "Iran" ||
       location.shortCountry == "United Arab Emirates" ||
       location == Location("Poland", "Subcarpathian Voivodeship".some, "Stalowa Wola".some) ||
-      location == Location("Poland", "Lesser Poland Voivodeship".some, "Krakow".some)
+      location == Location("Poland", "Lesser Poland Voivodeship".some, "Krakow".some) ||
+      location == Location("Russia", "Bashkortostan".some, "Ufa".some)
 }
