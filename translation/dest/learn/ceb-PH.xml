@@ -72,6 +72,10 @@ Dili na kihanglan i-promote.</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Kuhaa ang itom nga mga piraso!
 Ug ayaw walaa imoha.</string>
   <string name="captureComplete">Magmauswagon! Kahibalo nka kun unsaon pag gamit ang mga pisa!</string>
+  <string name="protection">Proteksyon</string>
+  <string name="keepYourPiecesSafe">Ampingi nga dili makaon imong pisa</string>
+  <string name="protectionIntro">Bantayi ang mga pisa nga gi atake sa kontra, suportahi kini!</string>
+  <string name="protectionComplete">Magmalamposon! Ang pisa nga dili mo gusto makaon mao ang pisa nga modaog!</string>
   <string name="boardSetupComplete">Congratulations! Kamao naka mobutang sa mga piraso sa chess sa board.</string>
   <string name="castling">Pag-enrook</string>
   <string name="theSpecialKingMove">Ang espesyal ng lihok sa king</string>
