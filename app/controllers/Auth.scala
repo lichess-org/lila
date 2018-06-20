@@ -315,7 +315,7 @@ object Auth extends LidraughtsController {
           }
         }
       }
-    } inject Ok
+    } inject NoContent
   }
 
   def passwordReset = Open { implicit ctx =>
