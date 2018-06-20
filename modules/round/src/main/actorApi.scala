@@ -105,8 +105,7 @@ package round {
       moveMetrics: MoveMetrics = MoveMetrics(),
       promise: Option[Promise[Unit]] = None
   ) {
-
-    val trace: lila.mon.Trace = ??? // lila.mon.round.move.trace.create
+    val queuedAt = lila.mon.startMeasurement(_.round.move.segments.queue)
   }
 
   case class PlayResult(events: Events, fen: String, lastMove: Option[String])

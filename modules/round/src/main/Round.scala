@@ -49,15 +49,14 @@ private[round] final class Round(
     }
 
     case p: HumanPlay =>
-      p.trace.finishFirstSegment()
+      p.queuedAt.finish()
       handleHumanPlay(p) { pov =>
         if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
         else {
           recordLag(pov)
           player.human(p, self)(pov)
         }
-      } >>- {
-        p.trace.finish()
+      }.mon(_.round.move.segments.full) >>- {
         lila.mon.round.move.full.count()
         scheduleExpiration
       }
@@ -270,9 +269,7 @@ private[round] final class Round(
 
   private def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
     handlePov {
-      p.trace.segment("fetch", "db") {
-        proxy playerPov p.playerId
-      }
+      (proxy playerPov p.playerId).mon(_.round.move.segments.fetch)
     }(op)
 
   private def handleBotPlay(p: BotPlay)(op: Pov => Fu[Events]): Funit =

@@ -2,8 +2,7 @@ package lila
 
 import scala.concurrent.Future
 
-import kamon.Kamon.{ counter, histogram, tracer }
-// import kamon.trace.{ Segment, Status }
+import kamon.Kamon.{ counter, histogram }
 // import kamon.util.RelativeNanoTimestamp
 
 object mon {
@@ -164,9 +163,13 @@ object mon {
       object full {
         val count = inc("round.move.full")
       }
-      // object trace {
-      //   def create = makeTrace("round.move.trace")
-      // }
+      object segments {
+        val full = rec("round.move.segments.full")
+        val queue = rec("round.move.segments.queue")
+        val fetch = rec("round.move.segments.fetch")
+        val applyUci = rec("round.move.segments.applyUci")
+        val save = rec("round.move.segments.save")
+      }
       object lag {
         val compDeviation = rec("round.move.lag.comp_deviation")
         def uncomped(key: String) = rec(s"round.move.lag.uncomped_ms.$key")
@@ -646,44 +649,6 @@ object mon {
   }
 
   def startMeasurement(path: RecPath) = new Measurement(System.nanoTime(), path)
-
-  trait Trace {
-
-    def finishFirstSegment(): Unit
-
-    def segment[A](name: String, categ: String)(f: => Future[A]): Future[A]
-
-    def segmentSync[A](name: String, categ: String)(f: => A): A
-
-    def finish(): Unit
-  }
-
-  // private final class KamonTrace(
-  //   context: Context,
-  //   firstSegment: Segment) extends Trace {
-
-  //   def finishFirstSegment() = firstSegment.finish()
-
-  //   def segment[A](name: String, categ: String)(code: => Future[A]): Future[A] =
-  //     context.withNewAsyncSegment(name, categ, "mon")(code)
-
-  //   def segmentSync[A](name: String, categ: String)(code: => A): A =
-  //     context.withNewSegment(name, categ, "mon")(code)
-
-  //   def finish() = context.finish()
-  // }
-
-  // private def makeTrace(name: String, firstName: String = "first"): Trace = {
-  //   val context = tracer.newContext(
-  //     name = name,
-  //     token = None,
-  //     tags = Map.empty,
-  //     timestamp = RelativeNanoTimestamp.now,
-  //     status = Status.Open,
-  //     isLocal = false)
-  //   val firstSegment = context.startSegment(firstName, "logic", "mon")
-  //   new KamonTrace(context, firstSegment)
-  // }
 
   private val stripVersionRegex = """[^\w\.\-]""".r
   private def stripVersion(v: String) = stripVersionRegex.replaceAllIn(v, "")

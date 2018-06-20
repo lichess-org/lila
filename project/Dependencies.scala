@@ -65,7 +65,7 @@ object Dependencies {
     // val slf4j = "com.typesafe.akka" %% "akka-slf4j" % version
   }
   object kamon {
-    val core = "io.kamon" %% "kamon-core" % "1.1.2"
+    val core = "io.kamon" %% "kamon-core" % "1.1.3"
     val influxdb = "io.kamon" %% "kamon-influxdb" % "1.0.1"
   }
 }

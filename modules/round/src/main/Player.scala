@@ -6,9 +6,10 @@ import chess.format.{ Forsyth, FEN, Uci }
 import chess.{ MoveMetrics, Centis, Status, Color, MoveOrDrop }
 
 import actorApi.round.{ HumanPlay, DrawNo, TooManyPlies, TakebackNo, ForecastPlay }
-import lila.hub.actorApi.round.BotPlay
 import akka.actor.ActorRef
+import lila.common.Chronometer
 import lila.game.{ Game, Progress, Pov, UciMemo }
+import lila.hub.actorApi.round.BotPlay
 
 private[round] final class Player(
     fishnetPlayer: lila.fishnet.Player,
@@ -26,16 +27,17 @@ private[round] final class Player(
       case Pov(game, _) if game.turns > Game.maxPlies =>
         round ! TooManyPlies
         fuccess(Nil)
-      case Pov(game, color) if game playableBy color =>
-        p.trace.segmentSync("applyUci", "logic")(applyUci(game, uci, blur, lag)).prefixFailuresWith(s"$pov ")
+      case Pov(game, color) if game playableBy color => Chronometer.syncMon(_.round.move.segments.applyUci) {
+        applyUci(game, uci, blur, lag).prefixFailuresWith(s"$pov ")
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case Flagged => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop) =>
-              p.trace.segment("save", "db")(proxy save progress) >>
+              (proxy save progress).mon(_.round.move.segments.save) >>
                 postHumanOrBotPlay(round, pov, progress, moveOrDrop, promiseOption)
           } addFailureEffect { e =>
             promiseOption.foreach(_ failure e)
           }
+      }
       case Pov(game, _) if game.finished => fufail(ClientError(s"$pov game is finished"))
       case Pov(game, _) if game.aborted => fufail(ClientError(s"$pov game is aborted"))
       case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
