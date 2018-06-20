@@ -70,7 +70,7 @@
   <string name="losing">Perdedores</string>
   <string name="drawn">Empates</string>
   <string name="unknown">Desconhecidos</string>
-  <string name="database">Base de Dados</string>
+  <string name="database">Base de dados</string>
   <string name="whiteDrawBlack">Brancas / Empate / Negras</string>
   <string name="averageRatingX">Classificação média: %s</string>
   <string name="recentGames">Partidas recentes</string>
@@ -94,7 +94,7 @@
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Eliminar</string>
   <string name="deleteThisImportedGame">Eliminar este jogo importado?</string>
-  <string name="replayMode">Modo Repetição</string>
+  <string name="replayMode">Modo repetição</string>
   <string name="realtimeReplay">Tempo Real</string>
   <string name="byCPL">Por CPP</string>
   <string name="openStudy">Abrir estudo</string>
@@ -106,11 +106,11 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Remove o limite de profundidade e mantém o seu computador quente</string>
-  <string name="blunder">Erro de distração</string>
-  <string name="blunders">Erro Grave</string>
+  <string name="blunder">Erro grave</string>
+  <string name="blunders">Erros graves</string>
   <string name="mistake">Erro</string>
   <string name="mistakes">Erros</string>
-  <string name="inaccuracy">Inexatidão</string>
+  <string name="inaccuracy">Imprecisão</string>
   <string name="inaccuracies">Imprecisões</string>
   <string name="moveTimes">Tempo por movimento</string>
   <string name="flipBoard">Girar o tabuleiro</string>
@@ -119,7 +119,7 @@
   <string name="offerDraw">Propor empate</string>
   <string name="draw">Empate</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s jogadores conectados</item>
+    <item quantity="one">%s jogadores ligados</item>
     <item quantity="other">%s jogadores conectados</item>
   </plurals>
   <string name="currentGames">Partidas atuais</string>
@@ -524,6 +524,7 @@
   <string name="thisAccountIsClosed">Esta conta foi encerrada</string>
   <string name="invalidUsernameOrPassword">Nome de usuário ou senha incorretos</string>
   <string name="incorrectPassword">Contrassenha incorreta</string>
+  <string name="invalidAuthenticationCode">Código de autenticação inválido</string>
   <string name="emailMeALink">Envie-me um link</string>
   <string name="currentPassword">Senha atual</string>
   <string name="newPassword">Nova senha</string>
