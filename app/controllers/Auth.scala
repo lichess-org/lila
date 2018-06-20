@@ -315,7 +315,7 @@ object Auth extends LilaController {
           }
         }
       }
-    } inject Ok
+    } inject NoContent
   }
 
   def passwordReset = Open { implicit ctx =>
