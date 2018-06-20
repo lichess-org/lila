@@ -150,7 +150,7 @@ csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx:
       <a class="link text reports" href="@routes.Report.list" data-icon=""><i></i></a>
       }
       <div id="clinput"><a class="link"><span data-icon="y"></span></a><input spellcheck="false" placeholder="@trans.search()"/></div>
-      <a id="reconnecting" class="link text" onclick="window.location.reload()" data-icon="B">@trans.reconnecting()</a>
+      <a id="reconnecting" class="link text" data-icon="B">@trans.reconnecting()</a>
     </div>
     <div class="content @ctx.pref.is3d.fold("is3d", "is2d")">
       <div id="site_header">
