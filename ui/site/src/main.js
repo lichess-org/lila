@@ -224,6 +224,10 @@ lichess.topMenuIntent = function() {
     // delay so round starts first (just for perceived perf)
     lichess.requestIdleCallback(function() {
 
+      $('#reconnecting').on('click', function() {
+        window.location.reload();
+      });
+
       $('#friend_box').friends();
 
       $('#lichess').on('click', '.autoselect', function() {
