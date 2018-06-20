@@ -224,6 +224,10 @@ lidraughts.topMenuIntent = function() {
     // delay so round starts first (just for perceived perf)
     lidraughts.requestIdleCallback(function() {
 
+      $('#reconnecting').on('click', function() {
+        window.location.reload();
+      });
+
       $('#friend_box').friends();
 
       $('#lidraughts').on('click', '.autoselect', function() {

@@ -65,7 +65,7 @@ lidraughts.studyTour = function(study) {
       } : null, {
         title: "Thanks for your time",
         text: "You can find your <a href='/study/mine/hot'>previous studies</a> from your profile page.<br>" +
-          "Power users might want to press \"?\" to see <a onclick=\"Mousetrap.trigger('?');\">the keyboard shortcuts</a>.<br>" +
+          "Power users might want to press \"?\" to see the keyboard shortcuts.<br>" +
           "Have fun!",
         buttons: [{
           text: 'Done',
