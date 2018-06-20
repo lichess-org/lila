@@ -22,7 +22,7 @@ object Dependencies {
     )
   }
 
-  val scalaz = "org.scalaz" %% "scalaz-core" % "7.2.16"
+  val scalaz = "org.scalaz" %% "scalaz-core" % "7.2.24"
   val scalalib = "com.github.ornicar" %% "scalalib" % "6.6"
   val typesafeConfig = "com.typesafe" % "config" % "1.3.1"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
@@ -37,11 +37,11 @@ object Dependencies {
   val scalaConfigs = "com.github.kxbmap" %% "configs" % "0.4.4"
   val scaffeine = "com.github.blemale" %% "scaffeine" % "2.5.0" % "compile"
   val guava = "com.google.guava" % "guava" % "21.0"
-  val specs2 = "org.specs2" %% "specs2-core" % "4.0.2" % "test"
-  val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % "4.0.2" % "test"
+  val specs2 = "org.specs2" %% "specs2-core" % "4.2.0" % "test"
+  val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % "4.2.0" % "test"
 
   object reactivemongo {
-    val version = "0.12.3"
+    val version = "0.12.3" // intentionally not latest; but one I know works (0.12.6 has unidentified perf issue)
     val driver = ("org.reactivemongo" %% "reactivemongo" % version)
       .exclude("com.typesafe.akka", "*") // provided by Play
       .exclude("com.typesafe.play", "*")
