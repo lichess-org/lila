@@ -21,6 +21,8 @@ lichess.StrongSocket = function(url, version, settings) {
   var autoReconnect = true;
   var nbConnects = 0;
   var storage = lichess.storage.make('surl6');
+  var isWindows = navigator.appVersion.indexOf('Win') !== -1;
+  var isMicrosoft = document.documentMode || navigator.userAgent.indexOf('Edge') !== -1;
 
   var connect = function() {
     destroy();
@@ -47,6 +49,9 @@ lichess.StrongSocket = function(url, version, settings) {
         ackable.resend();
       };
       ws.onmessage = function(e) {
+        // Work around TCP delayed acknowledgment on Windows.
+        if (options.realTime && isWindows && !isMicrosoft) ws.send('0');
+
         var m = JSON.parse(e.data);
         // if (Math.random() > 0.5) {
         //   console.log(m, 'skip');
