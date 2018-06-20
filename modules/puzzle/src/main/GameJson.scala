@@ -28,7 +28,7 @@ private final class GameJson(
 
   private def generate(ck: CacheKey): Fu[JsObject] = ck match {
     case CacheKey(gameId, plies, onlyLast) =>
-      (GameRepo game gameId).flatten(s"Missing puzzle game $gameId!") flatMap {
+      GameRepo game gameId err s"Missing puzzle game $gameId!" flatMap {
         generate(_, plies, onlyLast)
       }
   }

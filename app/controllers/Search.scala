@@ -38,7 +38,7 @@ object Search extends LilaController {
               key = "",
               message = "Please only send one request at a time per IP address"
             )
-            TooManyRequest(html.search.index(form, none, nbGames))
+            TooManyRequests(html.search.index(form, none, nbGames))
           }
           Api.GlobalLinearLimitPerIP(ip, limited = limited) {
             RateLimitPerIP(ip, cost = cost) {

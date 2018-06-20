@@ -106,7 +106,7 @@ package round {
       promise: Option[Promise[Unit]] = None
   ) {
 
-    val trace = lila.mon.round.move.trace.create
+    val trace: lila.mon.Trace = ??? // lila.mon.round.move.trace.create
   }
 
   case class PlayResult(events: Events, fen: String, lastMove: Option[String])

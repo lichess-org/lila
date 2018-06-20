@@ -28,7 +28,7 @@ externalizeResources := false
 scriptClasspath := Seq("*")
 // offline := true
 libraryDependencies ++= Seq(
-  ws, play.jodaForms, play.iteratee, play.streams,
+  ws, play.jodaForms, play.iteratee, play.streams, play.jodaJson,
   scalaz, chess, scalalib, hasher, typesafeConfig, findbugs,
   reactivemongo.driver, reactivemongo.iteratees, akka.actor,
   maxmind, prismic, guava,
@@ -71,7 +71,7 @@ lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
 lazy val api = module("api", moduleCPDeps)
   .settings(
     libraryDependencies ++= provided(
-      play.api, play.iteratee, hasher,
+      play.api, play.jodaJson, play.iteratee, hasher,
       reactivemongo.driver, reactivemongo.iteratees,
       typesafeConfig, findbugs,
       kamon.core, kamon.influxdb
@@ -172,7 +172,7 @@ lazy val event = module("event", Seq(common, db, memo, i18n)).settings(
 
 lazy val mod = module("mod", Seq(common, db, user, hub, security, tournament, simul, game, analyse, evaluation,
   report, notifyModule, history, perfStat)).settings(
-  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.jodaJson, play.test, reactivemongo.driver)
 )
 
 lazy val user = module("user", Seq(common, memo, db, hub, rating)).settings(
@@ -196,7 +196,7 @@ lazy val tv = module("tv", Seq(common, db, hub, socket, game, round, user)).sett
 )
 
 lazy val bot = module("bot", Seq(common, db, hub, game, user, challenge, chat)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.iteratee, play.jodaJson, reactivemongo.driver)
 )
 
 lazy val analyse = module("analyse", Seq(common, hub, game, user, notifyModule, evalCache)).settings(
@@ -216,7 +216,7 @@ lazy val pool = module("pool", Seq(common, game, user, playban)).settings(
 )
 
 lazy val activity = module("activity", Seq(common, game, analyse, user, forum, study, pool, puzzle, tournament, practice, team)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.jodaJson, reactivemongo.driver)
 )
 
 lazy val lobby = module("lobby", Seq(
@@ -249,7 +249,7 @@ lazy val tournament = module("tournament", Seq(
   common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n
 )).settings(
   libraryDependencies ++= provided(
-    play.api, play.iteratee, reactivemongo.driver, reactivemongo.iteratees
+    play.api, play.jodaJson, play.iteratee, reactivemongo.driver, reactivemongo.iteratees
   )
 )
 
@@ -286,11 +286,11 @@ lazy val challenge = module("challenge", Seq(common, db, hub, setup, game, relat
 lazy val study = module("study", Seq(
   common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache, explorer
 )).settings(
-  libraryDependencies ++= provided(play.api, play.iteratee, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.jodaJson, play.iteratee, reactivemongo.driver)
 )
 
 lazy val relay = module("relay", Seq(common, study)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.iteratee, play.jodaJson, reactivemongo.driver)
 )
 
 lazy val studySearch = module("studySearch", Seq(common, hub, study, search)).settings(
@@ -345,12 +345,12 @@ lazy val forum = module("forum", Seq(common, db, user, security, hub, mod, notif
 
 lazy val forumSearch = module("forumSearch", Seq(common, hub, forum, search)).settings(
   libraryDependencies ++= provided(
-    play.api, play.iteratee, reactivemongo.driver, reactivemongo.iteratees
+    play.api, play.jodaJson, play.iteratee, reactivemongo.driver, reactivemongo.iteratees
   )
 )
 
 lazy val team = module("team", Seq(common, memo, db, user, forum, security, hub, notifyModule)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees)
+  libraryDependencies ++= provided(play.api, play.iteratee, reactivemongo.driver, reactivemongo.iteratees)
 )
 
 lazy val teamSearch = module("teamSearch", Seq(common, hub, team, search)).settings(

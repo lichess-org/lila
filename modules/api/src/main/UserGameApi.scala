@@ -1,6 +1,7 @@
 package lila.api
 
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 
 import chess.format.Forsyth
 import lila.common.LightUser

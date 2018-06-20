@@ -4,6 +4,7 @@ import play.api.libs.json._
 
 import lila.common.LightUser
 import lila.rating.PerfType
+import play.api.libs.json.JodaWrites._
 
 final class ScheduleJsonView(lightUser: LightUser.Getter) {
 

@@ -10,10 +10,10 @@ import reactivemongo.bson._
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
+import lila.game.BSONHandlers.FENBSONHandler
 import lila.tree.Eval
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Shape, Shapes, Comment, Comments, Gamebook }
-import lila.game.BSONHandlers.FENBSONHandler
 
 import lila.common.Iso
 import lila.common.Iso._
@@ -152,6 +152,24 @@ object BSONHandlers {
         cp => cp.value atLeast (-mateFactor + 1) atMost (mateFactor - 1),
         mate => mate.value * mateFactor
       )
+    }
+  }
+
+  implicit val ChildrenBSONHandler = new BSONHandler[Barr, Node.Children] {
+    private val nodesHandler = bsonArrayToVectorHandler[Node]
+    def read(b: Barr) = try {
+      Node.Children(nodesHandler read b)
+    } catch {
+      case e: StackOverflowError =>
+        println(s"study handler ${e.toString}")
+        Node.emptyChildren
+    }
+    def write(x: Node.Children) = try {
+      nodesHandler write x.nodes
+    } catch {
+      case e: StackOverflowError =>
+        println(s"study handler ${e.toString}")
+        $arr()
     }
   }
 

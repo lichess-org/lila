@@ -34,7 +34,7 @@ object Bot extends LilaController {
         }
       case Array("game", id, "chat") => WithBot(me) {
         Env.bot.form.chat.bindFromRequest.fold(
-          err => BadRequest(errorsAsJson(err)).fuccess,
+          err => BadRequest(errorsAsJson(err)(lila.i18n.defaultLang)).fuccess,
           res => WithMyBotGame(id, me) { pov =>
             Env.bot.player.chat(pov.gameId, me, res) inject jsonOkResult
           }

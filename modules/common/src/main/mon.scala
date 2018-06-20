@@ -647,16 +647,16 @@ object mon {
 
   def startMeasurement(path: RecPath) = new Measurement(System.nanoTime(), path)
 
-  // trait Trace {
+  trait Trace {
 
-  //   def finishFirstSegment(): Unit
+    def finishFirstSegment(): Unit
 
-  //   def segment[A](name: String, categ: String)(f: => Future[A]): Future[A]
+    def segment[A](name: String, categ: String)(f: => Future[A]): Future[A]
 
-  //   def segmentSync[A](name: String, categ: String)(f: => A): A
+    def segmentSync[A](name: String, categ: String)(f: => A): A
 
-  //   def finish(): Unit
-  // }
+    def finish(): Unit
+  }
 
   // private final class KamonTrace(
   //   context: Context,

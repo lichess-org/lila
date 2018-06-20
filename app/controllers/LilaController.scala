@@ -73,7 +73,7 @@ private[controllers] trait LilaController
   protected def OpenOrScoped(selectors: OAuthScope.Selector*)(
     open: Context => Fu[Result],
     scoped: RequestHeader => UserModel => Fu[Result]
-  ): Action[Unit] = Action.async(BodyParsers.parse.empty) { req =>
+  ): Action[Unit] = Action.async(parse.empty) { req =>
     if (HTTPRequest isOAuth req) handleScoped(selectors, scoped)(req)
     else handleOpen(open, req)
   }
@@ -135,13 +135,13 @@ private[controllers] trait LilaController
     Action.async(parser)(handleScoped(selectors, f))
 
   protected def Scoped(selectors: OAuthScope.Selector*)(f: RequestHeader => UserModel => Fu[Result]): Action[Unit] =
-    Scoped(BodyParsers.parse.empty)(selectors)(f)
+    Scoped(parse.empty)(selectors)(f)
 
   protected def ScopedBody[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(f: Request[A] => UserModel => Fu[Result]): Action[A] =
     Action.async(parser)(handleScoped(selectors, f))
 
   protected def ScopedBody(selectors: OAuthScope.Selector*)(f: Request[_] => UserModel => Fu[Result]): Action[AnyContent] =
-    ScopedBody(BodyParsers.parse.anyContent)(selectors)(f)
+    ScopedBody(parse.anyContent)(selectors)(f)
 
   private def handleScoped[R <: RequestHeader](selectors: Seq[OAuthScope.Selector], f: R => UserModel => Fu[Result])(req: R): Fu[Result] = {
     val scopes = OAuthScope select selectors

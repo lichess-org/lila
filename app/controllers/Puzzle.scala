@@ -98,7 +98,7 @@ object Puzzle extends LilaController {
       if (puzzle.mate) lila.mon.puzzle.round.mate()
       else lila.mon.puzzle.round.material()
       env.forms.round.bindFromRequest.fold(
-        err => fuccess(BadRequest(errorsAsJson(err))),
+        err => fuccess(BadRequest(errorsAsJson(err)(ctx.lang))),
         resultInt => {
           val result = Result(resultInt == 1)
           ctx.me match {
@@ -134,7 +134,7 @@ object Puzzle extends LilaController {
         if (puzzle.mate) lila.mon.puzzle.round.mate()
         else lila.mon.puzzle.round.material()
         env.forms.round.bindFromRequest.fold(
-          err => fuccess(BadRequest(errorsAsJson(err))),
+          err => fuccess(BadRequest(errorsAsJson(err)(ctx.lang))),
           resultInt => ctx.me match {
             case Some(me) => for {
               (round, mode) <- env.finisher(
@@ -168,7 +168,7 @@ object Puzzle extends LilaController {
     NoBot {
       implicit val req = ctx.body
       env.forms.vote.bindFromRequest.fold(
-        err => fuccess(BadRequest(errorsAsJson(err))),
+        err => fuccess(BadRequest(errorsAsJson(err)(ctx.lang))),
         vote => env.api.vote.find(id, me) flatMap {
           v => env.api.vote.update(id, me, v, vote == 1)
         } map {
@@ -198,7 +198,7 @@ object Puzzle extends LilaController {
   }
 
   /* Mobile API: tell the server about puzzles solved while offline */
-  def batchSolve = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
+  def batchSolve = AuthBody(parse.json) { implicit ctx => me =>
     import lila.puzzle.PuzzleBatch._
     ctx.body.body.validate[SolveData].fold(
       err => BadRequest(err.toString).fuccess,

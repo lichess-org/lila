@@ -53,7 +53,7 @@ final class IrwinApi(
     }
 
     private def getSuspect(suspectId: User.ID) =
-      UserRepo byId suspectId flatten s"suspect $suspectId not found" map Suspect.apply
+      UserRepo byId suspectId err s"suspect $suspectId not found" map Suspect.apply
 
     private def markOrReport(report: IrwinReport): Funit =
       if (report.activation >= markThreshold && mode() == "mark")
@@ -61,7 +61,7 @@ final class IrwinApi(
           lila.mon.mod.irwin.mark()
       else if (report.activation >= reportThreshold && mode() != "none") for {
         suspect <- getSuspect(report.suspectId.value)
-        irwin <- UserRepo byId "irwin" flatten s"Irwin user not found" map Mod.apply
+        irwin <- UserRepo byId "irwin" err s"Irwin user not found" map Mod.apply
         _ <- reportApi.create(Report.Candidate(
           reporter = Reporter(irwin.user),
           suspect = suspect,

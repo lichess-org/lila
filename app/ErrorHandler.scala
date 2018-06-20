@@ -7,7 +7,7 @@ import play.api.routing.Router
 import play.api.{ Environment, UsefulException }
 import play.core.SourceMapper
 
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, AssetVersion }
 
 class ErrorHandler(
     env: Environment,
@@ -26,14 +26,27 @@ class ErrorHandler(
     }
   }
 
-  override def onProdServerError(req: RequestHeader, exception: UsefulException) = fuccess {
-    logHttp(500, req, exception.some)
+  override def onProdServerError(req: RequestHeader, ex: UsefulException) = {
+    logHttp(500, req, ex.some)
     if (niceError(req)) {
       lila.mon.http.response.code500()
-      InternalServerError(views.html.base.errorPage(exception) {
-        lila.api.Context(req, lila.app.Env.api.assetVersion.get, lila.i18n.defaultLang)
-      })
-    } else InternalServerError(exception.getMessage)
+      fuccess(InternalServerError(views.html.base.errorPage(ex) {
+        lila.api.Context.error(
+          req,
+          lila.common.AssetVersion(lila.app.Env.api.assetVersionSetting.get()),
+          lila.i18n.defaultLang,
+          HTTPRequest.isSynchronousHttp(req) option lila.common.Nonce.random
+        )
+      }))
+    } else scala.concurrent.Future {
+      InternalServerError(ex.getMessage)
+    } recover {
+      // java.lang.NullPointerException: null
+      // at play.api.mvc.Codec$$anonfun$javaSupported$1.apply(Results.scala:320) ~[com.typesafe.play.play_2.11-2.4.11.jar:2.4.11]
+      case e: java.lang.NullPointerException =>
+        httpLogger.warn(s"""error handler exception on "${ex.getMessage}\"""", e)
+        InternalServerError("Something went wrong.")
+    }
   }
 
   override def onClientError(req: RequestHeader, statusCode: Int, message: String) = {

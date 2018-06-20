@@ -5,8 +5,8 @@ import play.api.data._, Forms._
 import play.api.libs.json._
 import play.api.mvc._
 
-import lila.app._
 import lila.api.Context
+import lila.app._
 import lila.common.HTTPRequest
 import lila.hub.actorApi.captcha.ValidCaptcha
 import makeTimeout.large
@@ -148,6 +148,9 @@ Disallow: /games/export
     lila.mon.http.response.code404()
     NotFound(html.base.notFound()(ctx))
   }
+
+  def notFound(req: RequestHeader): Fu[Result] =
+    reqToCtx(req) map renderNotFound
 
   def fpmenu = Open { implicit ctx =>
     Ok(html.base.fpmenu()).fuccess

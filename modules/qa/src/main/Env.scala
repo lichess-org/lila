@@ -56,7 +56,7 @@ object Env {
     mongoCache = lila.memo.Env.current.mongoCache,
     asyncCache = lila.memo.Env.current.asyncCache,
     notifyApi = lila.notify.Env.current.api,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     db = lila.db.Env.current
   )
 }

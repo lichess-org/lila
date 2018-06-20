@@ -68,6 +68,6 @@ object Env {
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "relay",
     studyEnv = lila.study.Env.current,
-    system = lila.common.PlayApp.system
+    system = old.play.Env.actorSystem
   )
 }

@@ -8,6 +8,7 @@ import reactivemongo.bson._
 object BSONHandlers {
 
   import PracticeProgress.NbMoves
+  import lila.study.BSONHandlers.ChapterIdBSONHandler
 
   private implicit val nbMovesHandler = intIsoHandler(PracticeProgress.nbMovesIso)
 

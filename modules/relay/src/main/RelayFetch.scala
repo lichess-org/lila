@@ -2,13 +2,12 @@ package lila.relay
 
 import akka.actor._
 import org.joda.time.DateTime
-import play.api.libs.ws.WS
-import play.api.Play.current
 import scala.concurrent.duration._
 
 import lila.base.LilaException
 import lila.tree.Node.Comments
 import lila.study.MultiPgn
+import old.play.Env.WS
 
 private final class RelayFetch(
     sync: RelaySync,
@@ -165,7 +164,7 @@ private object RelayFetch {
     }
   }
 
-  private def httpGet(url: String) = WS.url(url).withRequestTimeout(4.seconds.toMillis).get()
+  private def httpGet(url: String) = WS.url(url).withRequestTimeout(4.seconds).get()
 
   private object multiPgnToGames {
 

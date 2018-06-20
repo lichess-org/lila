@@ -31,7 +31,7 @@ final class ChapterRepo(coll: Coll) {
     coll.find(
       $studyId(studyId),
       noRootProjection
-    ).sort($sort asc "order").list[Metadata](maxChapters)
+    ).sort($sort asc "order").list[Metadata]()
 
   // loads all study chapters in memory! only used for search indexing and cloning
   def orderedByStudy(studyId: Study.Id): Fu[List[Chapter]] =

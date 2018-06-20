@@ -35,7 +35,7 @@ final class Env(
     reportApi = reportApi,
     notifyApi = notifyApi,
     bus = system.lilaBus,
-    mode = irwinModeSetting.get
+    mode = () => irwinModeSetting.get()
   )
 
   scheduler.future(5 minutes, "irwin tournament leaders") {

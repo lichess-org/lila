@@ -95,11 +95,11 @@ private final class Streaming(
   def fetchTwitchStreams(streamers: List[Streamer]): Fu[List[Twitch.Stream]] = {
     val userIds = streamers.flatMap(_.twitch).map(_.userId.toLowerCase)
     userIds.nonEmpty ?? WS.url("https://api.twitch.tv/kraken/streams")
-      .withQueryString(
+      .addQueryStringParameters(
         "channel" -> userIds.mkString(","),
         "stream_type" -> "live"
       )
-      .withHeaders(
+      .addHttpHeaders(
         "Accept" -> "application/vnd.twitchtv.v3+json",
         "Client-ID" -> twitchClientId
       )
@@ -115,7 +115,7 @@ private final class Streaming(
 
   def fetchYouTubeStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] = googleApiKey.nonEmpty ?? {
     val youtubeStreamers = streamers.filter(_.youTube.isDefined)
-    youtubeStreamers.nonEmpty ?? WS.url("https://www.googleapis.com/youtube/v3/search").withQueryString(
+    youtubeStreamers.nonEmpty ?? WS.url("https://www.googleapis.com/youtube/v3/search").addQueryStringParameters(
       "part" -> "snippet",
       "type" -> "video",
       "eventType" -> "live",

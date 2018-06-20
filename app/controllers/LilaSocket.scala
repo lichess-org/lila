@@ -10,12 +10,12 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
+import lila.socket.JsSocketHandler
 
 trait LilaSocket { self: LilaController =>
 
-  private type IterateeWs = (Iteratee[JsValue, _], Enumerator[JsValue])
   private type FlowWs = Flow[JsValue, JsValue, _]
-  private type AcceptType = Context => Fu[Either[Result, IterateeWs]]
+  private type AcceptType = Context => Fu[Either[Result, JsSocketHandler]]
 
   private val notFoundResponse = NotFound(jsonError("socket resource not found"))
 
@@ -29,14 +29,14 @@ trait LilaSocket { self: LilaController =>
       }
     }
 
-  private def iterateeToFlow(i: IterateeWs): FlowWs = iterateeToSinkAndSource(i) match {
+  private def iterateeToFlow(i: JsSocketHandler): FlowWs = iterateeToSinkAndSource(i) match {
     case (sink, source) => Flow.fromSinkAndSource(sink, source)
     // .watchTermination()((_, f) => f.onComplete {
     //   case cause => println(s"WS stream terminated $cause")
     // })
   }
 
-  private def iterateeToSinkAndSource(i: IterateeWs) = i match {
+  private def iterateeToSinkAndSource(i: JsSocketHandler) = i match {
     case (iteratee, enumerator) =>
       import play.api.libs.iteratee.streams.IterateeStreams
       val publisher = IterateeStreams.enumeratorToPublisher(enumerator)
@@ -45,18 +45,18 @@ trait LilaSocket { self: LilaController =>
   }
 
   // protected def Socket[A: FrameFormatter](f: Context => Fu[Pipe[A]]) =
-  protected def Socket(f: Context => Fu[IterateeWs]) =
+  protected def Socket(f: Context => Fu[JsSocketHandler]) =
     SocketEither { ctx =>
       f(ctx) map scala.util.Right.apply
     }
 
   // protected def SocketOption[A: FrameFormatter](f: Context => Fu[Option[Pipe[A]]]) =
-  protected def SocketOption(f: Context => Fu[Option[IterateeWs]]) =
+  protected def SocketOption(f: Context => Fu[Option[JsSocketHandler]]) =
     SocketEither { ctx =>
       f(ctx).map(_ toRight notFoundResponse)
     }
 
-  protected def SocketOptionLimited(limiter: lila.memo.RateLimit[IpAddress], name: String)(f: Context => Fu[Option[IterateeWs]]) =
+  protected def SocketOptionLimited(limiter: lila.memo.RateLimit[IpAddress], name: String)(f: Context => Fu[Option[JsSocketHandler]]) =
     rateLimitedSocket(limiter, name) { ctx =>
       f(ctx).map(_ toRight notFoundResponse)
     }

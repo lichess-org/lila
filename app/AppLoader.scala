@@ -18,13 +18,7 @@ final class LilaLoader extends ApplicationLoader {
       components.environment,
       components.controllerComponents
     ))
-    startKamon(context.lifecycle)
     lila.app.Env.current
     app
-  }
-
-  private def startKamon(lifecycle: ApplicationLifecycle) = {
-    kamon.Kamon.start()
-    lifecycle.addStopHook { () => lila.common.fuccess(kamon.Kamon.shutdown()) }
   }
 }

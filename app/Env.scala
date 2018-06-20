@@ -22,7 +22,7 @@ final class Env(
     timelineEntries = Env.timeline.entryApi.userEntries _,
     dailyPuzzle = tryDailyPuzzle,
     liveStreams = () => Env.streamer.liveStreamApi.all,
-    countRounds = Env.round.count,
+    countRounds = () => Env.round.count(),
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
     lightUserApi = Env.user.lightUserApi
@@ -75,7 +75,7 @@ final class Env(
     }
 
   def closeAccount(userId: lila.user.User.ID, self: Boolean): Funit = for {
-    user <- lila.user.UserRepo byId userId flatten s"No such user $userId"
+    user <- lila.user.UserRepo byId userId err s"No such user $userId"
     goodUser <- !user.lameOrTroll ?? { !Env.playban.api.hasCurrentBan(user.id) }
     _ <- lila.user.UserRepo.disable(user, keepEmail = !goodUser)
     _ = Env.user.onlineUserIdMemo.remove(user.id)

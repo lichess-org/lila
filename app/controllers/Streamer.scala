@@ -100,7 +100,7 @@ object Streamer extends LilaController {
     }
   }
 
-  def pictureApply = AuthBody(BodyParsers.parse.multipartFormData) { implicit ctx => _ =>
+  def pictureApply = AuthBody(parse.multipartFormData) { implicit ctx => _ =>
     AsStreamer { s =>
       ctx.body.body.file("picture") match {
         case Some(pic) => api.uploadPicture(s.streamer, pic) recover {

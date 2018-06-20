@@ -66,7 +66,7 @@ object Env {
 
   lazy val current: Env = "streamer" boot new Env(
     config = lila.common.PlayApp loadConfig "streamer",
-    system = old.play.Env.system,
+    system = old.play.Env.actorSystem,
     renderer = lila.hub.Env.current.actor.renderer,
     isOnline = lila.user.Env.current.isOnline,
     asyncCache = lila.memo.Env.current.asyncCache,

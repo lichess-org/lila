@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 
 import lila.game.{ Game, GameRepo }
 import lila.importer.{ Importer, ImportData }
+import old.play.Env.WS
 
 final class ExplorerImporter(
     endpoint: String,
@@ -26,8 +27,6 @@ final class ExplorerImporter(
     }
 
   private def fetchPgn(id: String): Fu[Option[String]] = {
-    import play.api.libs.ws.WS
-    import play.api.Play.current
     WS.url(s"$endpoint/master/pgn/$id").get() map {
       case res if res.status == 200 => res.body.some
       case _ => None

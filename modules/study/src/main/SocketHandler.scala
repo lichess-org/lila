@@ -37,6 +37,31 @@ final class SocketHandler(
     key = "study_invite.user"
   )
 
+  private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
+    o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
+
+  private case class AtPosition(path: String, chapterId: Chapter.Id) {
+    def ref = Position.Ref(chapterId, Path(path))
+  }
+  private object JsonReaders {
+    implicit val chapterIdReader = stringIsoReader(Chapter.idIso)
+    implicit val chapterNameReader = stringIsoReader(Chapter.nameIso)
+    implicit val atPositionReader = (
+      (__ \ "path").read[String] and
+      (__ \ "ch").read[Chapter.Id]
+    )(AtPosition.apply _)
+    case class SetRole(userId: String, role: String)
+    implicit val SetRoleReader = Json.reads[SetRole]
+    implicit val ChapterDataReader = Json.reads[ChapterMaker.Data]
+    implicit val ChapterEditDataReader = Json.reads[ChapterMaker.EditData]
+    implicit val ChapterDescDataReader = Json.reads[ChapterMaker.DescData]
+    implicit val StudyDataReader = Json.reads[Study.Data]
+    implicit val setTagReader = Json.reads[actorApi.SetTag]
+    implicit val gamebookReader = Json.reads[Gamebook]
+    implicit val explorerGame = Json.reads[actorApi.ExplorerGame]
+  }
+  import JsonReaders._
+
   private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts, uid: Uid, member: Socket.Member) =
     AnaRateLimit(uid.value, member) {
       m.branch match {
@@ -250,28 +275,6 @@ final class SocketHandler(
     canTimeout = Some(() => user.?? { u => api.isContributor(studyId, u.id) }),
     publicSource = none // the "talk" event is handled by the study API
   )
-
-  private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
-    o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
-
-  private case class AtPosition(path: String, chapterId: Chapter.Id) {
-    def ref = Position.Ref(chapterId, Path(path))
-  }
-  private implicit val chapterIdReader = stringIsoReader(Chapter.idIso)
-  private implicit val chapterNameReader = stringIsoReader(Chapter.nameIso)
-  private implicit val atPositionReader = (
-    (__ \ "path").read[String] and
-    (__ \ "ch").read[Chapter.Id]
-  )(AtPosition.apply _)
-  private case class SetRole(userId: String, role: String)
-  private implicit val SetRoleReader = Json.reads[SetRole]
-  private implicit val ChapterDataReader = Json.reads[ChapterMaker.Data]
-  private implicit val ChapterEditDataReader = Json.reads[ChapterMaker.EditData]
-  private implicit val ChapterDescDataReader = Json.reads[ChapterMaker.DescData]
-  private implicit val StudyDataReader = Json.reads[Study.Data]
-  private implicit val setTagReader = Json.reads[actorApi.SetTag]
-  private implicit val gamebookReader = Json.reads[Gamebook]
-  private implicit val explorerGame = Json.reads[actorApi.ExplorerGame]
 
   def getSocket(id: Study.Id): Fu[ActorRef] =
     socketHub ? Get(id.value) mapTo manifest[ActorRef]

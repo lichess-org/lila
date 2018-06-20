@@ -102,7 +102,7 @@ POST  /training/:id/attempt            controllers.Puzzle.round(id: Int)
 # User Analysis
 GET   /analysis/socket                 controllers.UserAnalysis.socket
 GET   /analysis/help                   controllers.UserAnalysis.help
-GET   /analysis/*something             controllers.UserAnalysis.parse(something: String)
+GET   /analysis/*something             controllers.UserAnalysis.parseUri(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
 POST  /analysis/pgn                    controllers.UserAnalysis.pgn
 

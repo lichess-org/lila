@@ -17,21 +17,23 @@ object Round extends LilaController with TheftPrevention {
   private def env = Env.round
   private def analyser = Env.analyse.analyser
 
-  def websocketWatcher(gameId: String, color: String) = SocketOption[JsValue] { implicit ctx =>
+  def websocketWatcher(gameId: String, color: String) = SocketOption { implicit ctx =>
     proxyPov(gameId, color) flatMap {
       _ ?? { pov =>
-    getSocketUid("sri") ?? { uid =>
-      env.socketHandler.watcher(
+        getSocketUid("sri") ?? { uid =>
+          env.socketHandler.watcher(
             pov = pov,
-        uid = uid,
-        user = ctx.me,
-        ip = ctx.ip,
-        userTv = get("userTv")
-      )
+            uid = uid,
+            user = ctx.me,
+            ip = ctx.ip,
+            userTv = get("userTv")
+          ) map some
+        }
+      }
     }
   }
 
-  def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither[JsValue] { implicit ctx =>
+  def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither { implicit ctx =>
     proxyPov(fullId) flatMap {
       case Some(pov) =>
         if (isTheft(pov)) fuccess(Left(theftResponse))

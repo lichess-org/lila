@@ -304,7 +304,7 @@ object Api extends LilaController {
     else fuccess(NotFound)
   }
 
-  private[controllers] val tooManyRequests = TooManyRequest(jsonError("Error 429: Too many requests! Try again later."))
+  private[controllers] val tooManyRequests = TooManyRequests(jsonError("Error 429: Too many requests! Try again later."))
 
   private[controllers] def toHttp(result: ApiResult): Result = result match {
     case Limited => tooManyRequests

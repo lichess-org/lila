@@ -249,7 +249,7 @@ object Tournament extends LilaController {
 
   private def doApiCreate(me: lila.user.User)(implicit req: Request[_]): Fu[Result] =
     env.forms(me).bindFromRequest.fold(
-      err => BadRequest(errorsAsJson(err)).fuccess,
+      err => BadRequest(errorsAsJson(err)(lila.i18n.defaultLang)).fuccess,
       setup => env.api.createTournament(setup, me) flatMap { tour =>
         Env.tournament.jsonView(tour, none, none, none, none, lila.i18n.defaultLang)
       } map { Ok(_) }

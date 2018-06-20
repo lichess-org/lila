@@ -1,6 +1,7 @@
 package lila.mod
 
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 
 import chess.format.FEN
 import lila.analyse.{ Analysis, AnalysisRepo }
@@ -15,35 +16,6 @@ final class JsonView(
     reportApi: lila.report.ReportApi,
     userJson: lila.user.JsonView
 ) {
-
-  def apply(user: User): Fu[Option[JsObject]] =
-    assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
-      _ ?? {
-        case PlayerAggregateAssessment.WithGames(pag, games) => for {
-          gamesWithFen <- GameRepo withInitialFens games.filter(_.clockHistory.isDefined)
-          moreGames <- GameRepo.extraGamesForIrwin(user.id, 25) map {
-            _.filter { g => !games.exists(_.id == g.id) } take 20
-          }
-          moreGamesWithFen <- GameRepo withInitialFens moreGames
-          allGamesWithFen = gamesWithFen ::: moreGamesWithFen
-          analysis <- AnalysisRepo byIds allGamesWithFen.map(_._1.id)
-          allGamesWithFenAndAnalysis = allGamesWithFen zip analysis map {
-            case ((game, fen), analysis) => (game, fen, analysis)
-          }
-          reportScore <- reportApi.currentCheatScore(lila.report.Suspect(user))
-        } yield Json.obj(
-          "user" -> userJson(user),
-          "assessment" -> pag,
-          "games" -> JsObject(allGamesWithFenAndAnalysis.map { g =>
-            g._1.id -> {
-              gameWithFenWrites.writes(g) ++ Json.obj(
-                "color" -> g._1.player(user).map(_.color.name)
-              )
-            }
-          })
-        ).add("reportScore" -> reportScore.map(_.value)).some
-      }
-    }
 
   import lila.user.JsonView.modWrites
 
@@ -99,17 +71,22 @@ final class JsonView(
           }
           moreGamesWithFen <- GameRepo withInitialFens moreGames
           allGamesWithFen = gamesWithFen ::: moreGamesWithFen
+          analysis <- AnalysisRepo byIds allGamesWithFen.map(_._1.id)
+          allGamesWithFenAndAnalysis = allGamesWithFen zip analysis map {
+            case ((game, fen), analysis) => (game, fen, analysis)
+          }
+          reportScore <- reportApi.currentCheatScore(lila.report.Suspect(user))
         } yield Json.obj(
           "user" -> userJson(user),
           "assessment" -> pag,
-          "games" -> JsObject(allGamesWithFen.map { g =>
+          "games" -> JsObject(allGamesWithFenAndAnalysis.map { g =>
             g._1.id -> {
               gameWithFenWrites.writes(g) ++ Json.obj(
                 "color" -> g._1.player(user).map(_.color.name)
               )
             }
           })
-        ).some
+        ).add("reportScore" -> reportScore.map(_.value)).some
       }
     }
 }

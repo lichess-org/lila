@@ -103,7 +103,6 @@ object Seek {
   )
 
   import reactivemongo.bson._
-  import lila.db.BSON.MapValue.MapHandler
   import lila.db.BSON.BSONJodaDateTimeHandler
   implicit val lobbyPerfBSONHandler = new BSONHandler[BSONInteger, LobbyPerf] {
     def read(b: BSONInteger) = LobbyPerf(b.value.abs, b.value < 0)

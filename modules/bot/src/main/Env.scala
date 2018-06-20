@@ -28,7 +28,7 @@ final class Env(
 object Env {
 
   lazy val current: Env = "bot" boot new Env(
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     hub = lila.hub.Env.current,
     onlineUserIds = lila.user.Env.current.onlineUserIdMemo,
     lightUserApi = lila.user.Env.current.lightUserApi

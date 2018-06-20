@@ -124,7 +124,7 @@ final class Env(
           game.loserUserId foreach { logApi.cheatDetected(_, game.id) }
       case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason) => logApi.chatTimeout(mod, user, reason)
       case lila.hub.actorApi.security.GarbageCollect(userId, ipBan) =>
-        reportApi getSuspect userId flatten s"No such suspect $userId" flatMap { sus =>
+        reportApi getSuspect userId err s"No such suspect $userId" flatMap { sus =>
           api.garbageCollect(sus, ipBan) >> publicChat.delete(sus)
         }
     }

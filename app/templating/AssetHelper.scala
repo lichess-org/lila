@@ -2,6 +2,7 @@ package lila.app
 package templating
 
 import play.twirl.api.Html
+import play.api.mvc.RequestHeader
 
 import lila.api.Context
 import lila.common.{ AssetVersion, ContentSecurityPolicy }
