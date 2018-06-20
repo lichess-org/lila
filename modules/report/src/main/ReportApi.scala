@@ -54,7 +54,7 @@ final class ReportApi(
   def getMod(username: String): Fu[Option[Mod]] =
     UserRepo named username map2 Mod.apply
 
-  def getLichessMod: Fu[Mod] = UserRepo.lichess map2 Mod.apply flatten "User lichess is missing"
+  def getLichessMod: Fu[Mod] = UserRepo.lichess map2 Mod.apply err "User lichess is missing"
   def getLichessReporter: Fu[Reporter] = getLichessMod map { l => Reporter(l.user) }
 
   def getSuspect(username: String): Fu[Option[Suspect]] =
@@ -127,8 +127,8 @@ final class ReportApi(
     bus.publish(lila.hub.actorApi.report.Processed(sus.user.id, reason.key), 'report)
 
   def process(mod: Mod, reportId: Report.ID): Funit = for {
-    report <- coll.byId[Report](reportId) flatten s"no such report $reportId"
-    suspect <- getSuspect(report.user) flatten s"No such suspect $report"
+    report <- coll.byId[Report](reportId) err s"no such report $reportId"
+    suspect <- getSuspect(report.user) err s"No such suspect $report"
     rooms = Set(Room(report.reason))
     res <- process(mod, suspect, rooms, reportId.some)
   } yield res
@@ -285,7 +285,7 @@ final class ReportApi(
     coll.aggregateList(
       Match(openAvailableSelect ++ scoreThresholdSelect ++ roomSelect(none)),
       List(
-        GroupField("room")("nb" -> SumValue(1))
+        GroupField("room")("nb" -> SumAll)
       ),
       maxDocs = 100
     ).map { docs =>
@@ -330,7 +330,7 @@ final class ReportApi(
      * If they already are on this inquiry, cancel it.
      */
     def toggle(mod: Mod, id: Report.ID): Fu[Option[Report]] = for {
-      report <- coll.byId[Report](id) flatten s"No report $id found"
+      report <- coll.byId[Report](id) err s"No report $id found"
       current <- ofModId(mod.user.id)
       _ <- current ?? cancel(mod)
       isSame = current.exists(_.id == report.id)

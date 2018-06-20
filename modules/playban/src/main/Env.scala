@@ -36,7 +36,7 @@ object Env {
     messenger = lila.message.Env.current.api,
     chatApi = lila.chat.Env.current.api,
     lightUser = lila.user.Env.current.lightUserApi.async,
-    bus = lila.common.PlayApp.system.lilaBus,
+    bus = old.play.Env.actorSystem.lilaBus,
     db = lila.db.Env.current
   )
 }

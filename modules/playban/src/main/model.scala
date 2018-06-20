@@ -1,6 +1,7 @@
 package lila.playban
 
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 import org.joda.time.DateTime
 
 case class UserRecord(

@@ -68,5 +68,5 @@ private final class FishnetRepo(
     clientColl.primitiveOne[String]($or(
       "_id" $eq keyOrUser,
       "userId" $eq keyOrUser
-    ), "_id") flatten "client not found" map Client.Key.apply
+    ), "_id") err "client not found" map Client.Key.apply
 }

@@ -2,12 +2,12 @@ package lila.timeline
 
 import org.joda.time.DateTime
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 import reactivemongo.bson._
 import scala.util.{ Try, Success, Failure }
 
 import lila.db.dsl._
 import lila.hub.actorApi.timeline._
-import lila.common.PimpedJson.jodaDateWrites
 
 case class Entry(
     _id: BSONObjectID,

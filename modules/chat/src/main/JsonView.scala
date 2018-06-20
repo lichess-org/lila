@@ -1,6 +1,7 @@
 package lila.chat
 
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 
 import lila.common.LightUser
 import lila.common.PimpedJson._
@@ -13,6 +14,14 @@ object JsonView {
   }
 
   def apply(line: Line): JsValue = lineWriter writes line
+
+  implicit def timeoutEntryWriter(implicit lightUser: LightUser.GetterSync) = OWrites[ChatTimeout.UserEntry] { e =>
+    Json.obj(
+      "reason" -> e.reason.key,
+      "mod" -> lightUser(e.mod).fold("?")(_.name),
+      "date" -> e.createdAt
+    )
+  }
 
   def userModInfo(u: UserModInfo)(implicit lightUser: LightUser.GetterSync) =
     lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj(
@@ -30,14 +39,6 @@ object JsonView {
 
   implicit val timeoutReasonWriter: Writes[ChatTimeout.Reason] = OWrites[ChatTimeout.Reason] { r =>
     Json.obj("key" -> r.key, "name" -> r.name)
-  }
-
-  implicit def timeoutEntryWriter(implicit lightUser: LightUser.GetterSync) = OWrites[ChatTimeout.UserEntry] { e =>
-    Json.obj(
-      "reason" -> e.reason.key,
-      "mod" -> lightUser(e.mod).fold("?")(_.name),
-      "date" -> e.createdAt
-    )
   }
 
   implicit val mixedChatWriter: Writes[MixedChat] = Writes[MixedChat] { c =>
@@ -66,9 +67,4 @@ object JsonView {
       "t" -> l.text
     )
   }
-
-  def userModInfo(u: UserModInfo)(implicit lightUser: LightUser.GetterSync) =
-    lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj(
-      "history" -> u.history
-    )
 }

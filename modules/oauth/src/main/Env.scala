@@ -43,7 +43,7 @@ object Env {
   lazy val current = "oauth" boot new Env(
     config = lila.common.PlayApp loadConfig "oauth",
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     lifecycle = lila.common.PlayApp.lifecycle
   )
 }

@@ -201,7 +201,7 @@ private[video] final class VideoApi(
           else videoColl.aggregateList(
             Match($doc("tags" $all filterTags)),
             List(Project($doc("tags" -> true)), UnwindField("tags"),
-              GroupField("tags")("nb" -> SumValue(1))),
+              GroupField("tags")("nb" -> SumAll)),
             maxDocs = Int.MaxValue,
             ReadPreference.secondaryPreferred
           ).map { _.flatMap(_.asOpt[TagNb]) }

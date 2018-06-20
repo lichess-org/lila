@@ -1,5 +1,8 @@
 package lila.user
 
+import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
+
 import lila.rating.{ Perf, PerfType }
 import User.{ PlayTime, LightPerf }
 

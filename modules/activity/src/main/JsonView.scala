@@ -2,9 +2,9 @@ package lila.activity
 
 import org.joda.time.{ DateTime, Interval }
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 
 import lila.common.Iso
-import lila.common.PimpedJson.{ jodaDateWrites => _, _ }
 import lila.game.JsonView.colorWrites
 import lila.game.{ Pov, LightPov }
 import lila.rating.PerfType

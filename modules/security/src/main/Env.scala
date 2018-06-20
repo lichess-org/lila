@@ -100,7 +100,7 @@ final class Env(
     userSpyApi,
     ipTrust,
     slack,
-    ugcArmedSetting.get,
+    () => ugcArmedSetting.get(),
     system
   )
 
@@ -156,7 +156,7 @@ final class Env(
 
   private lazy val disposableEmailDomain = new DisposableEmailDomain(
     providerUrl = DisposableEmailProviderUrl,
-    blacklistStr = emailBlacklistSetting.get,
+    blacklistStr = () => emailBlacklistSetting.get(),
     busOption = system.lilaBus.some
   )
 
@@ -178,7 +178,7 @@ final class Env(
   // api actor
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.fishnet.NewKey(userId, key) => automaticEmail.onFishnetKey(userId, key)
+      case lila.hub.actorApi.fishnet.NewKey(userId, key) => automaticEmail.onFishnetKey(userId, key)(lila.i18n.defaultLang)
     }
   })), 'fishnet)
 
@@ -188,7 +188,7 @@ final class Env(
 
 object Env {
 
-  private lazy val system = lila.common.PlayApp.system
+  private lazy val system = old.play.Env.actorSystem
 
   lazy val current = "security" boot new Env(
     config = lila.common.PlayApp loadConfig "security",

@@ -13,7 +13,7 @@ final class AutomaticEmail(
 ) {
 
   def onTitleSet(username: String)(implicit lang: Lang): Funit = for {
-    user <- UserRepo named username flatten s"No such user $username"
+    user <- UserRepo named username err s"No such user $username"
     emailOption <- UserRepo email user.id
   } yield for {
     title <- user.title
@@ -78,7 +78,7 @@ ${Mailgun.txt.serviceNote}
     }
 
   def onFishnetKey(userId: User.ID, key: String)(implicit lang: Lang): Funit = for {
-    user <- UserRepo named userId flatten s"No such user $userId"
+    user <- UserRepo named userId err s"No such user $userId"
     emailOption <- UserRepo email user.id
   } yield emailOption ?? { email =>
 

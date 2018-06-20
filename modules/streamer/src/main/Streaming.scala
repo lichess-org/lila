@@ -2,8 +2,7 @@ package lila.streamer
 
 import akka.actor._
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import old.play.Env.WS
 import play.twirl.api.Html
 import scala.concurrent.duration._
 

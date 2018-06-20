@@ -41,7 +41,7 @@ final class Env(
     isOnline,
     asyncCache,
     system.lilaBus,
-    scoreThreshold = scoreThresholdSetting.get
+    scoreThreshold = () => scoreThresholdSetting.get()
   )
 
   lazy val modFilters = new ModReportFilter

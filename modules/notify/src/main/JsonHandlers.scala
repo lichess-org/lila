@@ -1,9 +1,9 @@
 package lila.notify
 
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 
 import lila.common.LightUser
-import lila.common.PimpedJson.jodaDateWrites
 
 final class JSONHandlers(getLightUser: LightUser.GetterSync) {
 

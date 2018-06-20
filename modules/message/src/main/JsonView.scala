@@ -1,12 +1,12 @@
 package lila.message
 
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 import play.api.mvc.Result
 import play.api.mvc.Results._
 
 import lila.common.LightUser
 import lila.common.paginator._
-import lila.common.PimpedJson.jodaDateWrites
 import lila.user.User
 
 final class JsonView(

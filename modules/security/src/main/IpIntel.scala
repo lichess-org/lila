@@ -1,7 +1,6 @@
 package lila.security
 
-import play.api.libs.ws.WS
-import play.api.Play.current
+import old.play.Env.WS
 import scala.concurrent.duration._
 
 import lila.common.IpAddress

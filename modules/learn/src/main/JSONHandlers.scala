@@ -1,6 +1,7 @@
 package lila.learn
 
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 
 import lila.common.PimpedJson._
 

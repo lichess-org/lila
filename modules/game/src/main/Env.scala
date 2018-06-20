@@ -101,7 +101,7 @@ object Env {
     system = old.play.Env.actorSystem,
     hub = lila.hub.Env.current,
     getLightUser = lila.user.Env.current.lightUser,
-    appPath = play.api.Play.current.path.getCanonicalPath,
+    appPath = old.play.Env.application.path.getCanonicalPath,
     isProd = lila.common.PlayApp.isProd,
     asyncCache = lila.memo.Env.current.asyncCache,
     settingStore = lila.memo.Env.current.settingStore,

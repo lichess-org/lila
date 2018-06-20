@@ -22,7 +22,7 @@ final class OAuthServer(
     req.headers.get(AUTHORIZATION).map(_.split(" ", 2)) match {
       case Some(Array("Bearer", tokenStr)) =>
         val tokenId = AccessToken.Id(tokenStr)
-        accessTokenCache.get(tokenId) flattenWith NoSuchToken flatMap {
+        accessTokenCache.get(tokenId) errWith NoSuchToken flatMap {
           case at if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
           case at => UserRepo enabledById at.userId flatMap {
             case None => fufail(NoSuchUser)

@@ -83,7 +83,7 @@ object PairingRepo {
       List(
         Project($doc("u" -> true, "_id" -> false)),
         UnwindField("u"),
-        GroupField("u")("nb" -> SumValue(1)),
+        GroupField("u")("nb" -> SumAll),
         Sort(Descending("nb"))
       ),
       maxDocs = 10000

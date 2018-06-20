@@ -159,11 +159,11 @@ lazy val search = module("search", Seq(common, hub)).settings(
 )
 
 lazy val chat = module("chat", Seq(common, db, user, security, i18n, socket)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.jodaJson, reactivemongo.driver)
 )
 
 lazy val timeline = module("timeline", Seq(common, db, game, user, hub, security, relation)).settings(
-  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.jodaJson, play.test, reactivemongo.driver)
 )
 
 lazy val event = module("event", Seq(common, db, memo, i18n)).settings(
@@ -176,18 +176,18 @@ lazy val mod = module("mod", Seq(common, db, user, hub, security, tournament, si
 )
 
 lazy val user = module("user", Seq(common, memo, db, hub, rating)).settings(
-  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, hasher,
+  libraryDependencies ++= provided(play.api, play.test, play.jodaJson, reactivemongo.driver, hasher,
     reactivemongo.iteratees // only for bcrypt migration
     )
 )
 
 lazy val game = module("game", Seq(common, memo, db, hub, user, chat)).settings(
-  libraryDependencies ++= provided(compression, play.api, play.iteratee, reactivemongo.driver, reactivemongo.iteratees)
+  libraryDependencies ++= provided(compression, play.api, play.jodaJson, play.iteratee, reactivemongo.driver, reactivemongo.iteratees)
 )
 
 lazy val gameSearch = module("gameSearch", Seq(common, hub, search, game)).settings(
   libraryDependencies ++= provided(
-    play.api, play.iteratee, reactivemongo.driver, reactivemongo.iteratees
+    play.api, play.jodaJson, play.iteratee, reactivemongo.driver, reactivemongo.iteratees
   )
 )
 
@@ -207,7 +207,7 @@ lazy val round = module("round", Seq(
   common, db, memo, hub, socket, game, user,
   i18n, fishnet, pref, chat, history, playban
 )).settings(
-  libraryDependencies ++= provided(play.api, play.iteratee, hasher, kamon.core,
+  libraryDependencies ++= provided(play.api, play.jodaJson, play.iteratee, hasher, kamon.core,
     reactivemongo.driver, reactivemongo.iteratees)
 )
 
@@ -300,7 +300,7 @@ lazy val studySearch = module("studySearch", Seq(common, hub, study, search)).se
 )
 
 lazy val learn = module("learn", Seq(common, db, user)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.jodaJson, reactivemongo.driver)
 )
 
 lazy val evalCache = module("evalCache", Seq(common, db, user, security, socket, tree)).settings(
@@ -312,7 +312,7 @@ lazy val practice = module("practice", Seq(common, db, memo, user, study)).setti
 )
 
 lazy val playban = module("playban", Seq(common, db, game, message, chat)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.jodaJson, reactivemongo.driver)
 )
 
 lazy val push = module("push", Seq(common, db, user, game, challenge, message)).settings(
@@ -336,7 +336,7 @@ lazy val pref = module("pref", Seq(common, db, user)).settings(
 )
 
 lazy val message = module("message", Seq(common, db, user, hub, relation, security, shutup, notifyModule)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.jodaJson, reactivemongo.driver)
 )
 
 lazy val forum = module("forum", Seq(common, db, user, security, hub, mod, notifyModule)).settings(
@@ -388,7 +388,7 @@ lazy val explorer = module("explorer", Seq(common, db, game, importer)).settings
 )
 
 lazy val notifyModule = module("notify", Seq(common, db, game, user, hub, relation)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.jodaJson, reactivemongo.driver)
 )
 
 lazy val site = module("site", Seq(common, socket)).settings(

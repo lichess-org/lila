@@ -34,7 +34,7 @@ final class LeaderboardApi(
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregateList(
       Match($doc("u" -> user.id)),
-      List(GroupField("v")("nb" -> SumValue(1), "points" -> PushField("s"), "ratios" -> PushField("w"))),
+      List(GroupField("v")("nb" -> SumAll, "points" -> PushField("s"), "ratios" -> PushField("w"))),
       maxDocs = Int.MaxValue,
       ReadPreference.secondaryPreferred
     ).map {

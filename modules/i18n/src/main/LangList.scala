@@ -10,7 +10,7 @@ object LangList {
   def nameByStr(str: String): String = I18nLangPicker.byStr(str).fold(str)(name)
 
   lazy val choices = all.toList.map {
-    case (Lang(language, _), name) => language -> name
+    case (Lang(locale), name) => locale.getLanguage -> name
   }.sortBy(_._1)
 
   val all = Map(

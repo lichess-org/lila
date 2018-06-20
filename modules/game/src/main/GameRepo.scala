@@ -376,7 +376,7 @@ object GameRepo {
         )),
         UnwindField(F.playerUids),
         Match($doc(F.playerUids -> $doc("$ne" -> userId))),
-        GroupField(F.playerUids)("gs" -> SumValue(1)),
+        GroupField(F.playerUids)("gs" -> SumAll),
         Sort(Descending("gs")),
         Limit(limit)
       ),

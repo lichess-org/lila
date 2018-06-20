@@ -54,6 +54,7 @@ object Dependencies {
     val version = "2.6.15"
     val api = "com.typesafe.play" %% "play" % version
     val jodaForms = "com.typesafe.play" %% "play-joda-forms" % version
+    val jodaJson = "com.typesafe.play" %% "play-json-joda" % "2.6.9"
     val test = "com.typesafe.play" %% "play-test" % version
     val iteratee = "com.typesafe.play" %% "play-iteratees" % "2.6.1"
     val streams = "com.typesafe.play" %% "play-iteratees-reactive-streams" % "2.6.1"
