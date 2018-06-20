@@ -12,7 +12,7 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
   li.socket = li.StrongSocket(
     data.url.socket,
     data.player.version, {
-      options: { name: 'round' },
+      options: { name: 'round', realTime: true },
       params: { userTv: data.userTv && data.userTv.id },
       receive(t: string, d: any) { round.socketReceive(t, d); },
       events: {
