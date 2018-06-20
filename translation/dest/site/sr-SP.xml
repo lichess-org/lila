@@ -479,7 +479,7 @@
   <string name="trainingSignupExplanation">Личес вам задаваје вежбе које одговарају вашим могућностима, како би тренинг био што бољи.</string>
   <string name="puzzleId">Вежба %s</string>
   <string name="puzzleOfTheDay">Вежба дана</string>
-  <string name="clickToSolve">Кликни за решење</string>
+  <string name="clickToSolve">Кликните како би решили</string>
   <string name="goodMove">Добар потез</string>
   <string name="butYouCanDoBetter">Али можеш боље</string>
   <string name="bestMove">Најбољи потез!</string>
