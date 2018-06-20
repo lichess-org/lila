@@ -29,7 +29,7 @@ object Dependencies {
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jodaTime = "joda-time" % "joda-time" % "2.9.9"
   val chess = "org.lichess" %% "scalachess" % "8.6.11"
-  val compression = "org.lichess" %% "compression" % "1.4"
+  val compression = "org.lichess" %% "compression" % "1.5"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.3.0-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.12-THIB"
   val semver = "com.gilt" %% "gfc-semver" % "0.0.5"

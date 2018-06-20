@@ -408,7 +408,7 @@ object Auth extends LilaController {
     }
   }
 
-  private implicit val limitedDefault = Zero.instance[Result](TooManyRequest)
+  private implicit val limitedDefault = Zero.instance[Result](TooManyRequests)
 
   private[controllers] def HasherRateLimit = lila.user.PasswordHasher.rateLimit[Result] _
 

@@ -31,7 +31,7 @@ libraryDependencies ++= Seq(
   ws, play.jodaForms, play.iteratee, play.streams, play.jodaJson,
   scalaz, chess, scalalib, hasher, typesafeConfig, findbugs,
   reactivemongo.driver, reactivemongo.iteratees, akka.actor,
-  maxmind, prismic, guava,
+  maxmind, prismic, guava, compression,
   kamon.core, kamon.influxdb, semver, scrimage, scalaConfigs, scaffeine
 )
 TwirlKeys.templateImports ++= Seq(
