@@ -481,11 +481,11 @@
   <string name="puzzleOfTheDay">Вежба дана</string>
   <string name="clickToSolve">Кликните како би решили</string>
   <string name="goodMove">Добар потез</string>
-  <string name="butYouCanDoBetter">Али можеш боље</string>
+  <string name="butYouCanDoBetter">Али постоји бољи потез.</string>
   <string name="bestMove">Најбољи потез!</string>
-  <string name="keepGoing">Настави...</string>
+  <string name="keepGoing">Наставите…</string>
   <string name="puzzleFailed">Вежба неуспешна</string>
-  <string name="butYouCanKeepTrying">Али можеш да наставиш са покушајима</string>
+  <string name="butYouCanKeepTrying">Али можете још покушавати.</string>
   <string name="success">Успех</string>
   <string name="wasThisPuzzleAnyGood">Да ли је ова вежба била добра?</string>
   <string name="pleaseVotePuzzle">Помози да се lichess побољша гласајући , користећи стрелице горе/доле</string>
@@ -565,11 +565,11 @@
   <string name="chessPieceSymbol">симболи фигура</string>
   <string name="pgnLetter">слова (К, Д, Т, Л, С)</string>
   <string name="chessClock">Шаховски сат</string>
-  <string name="tenthsOfSeconds">Прикажи десетинке</string>
+  <string name="tenthsOfSeconds">Десетинке</string>
   <string name="never">Никада</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Када преостане мање од 10 секунди</string>
-  <string name="horizontalGreenProgressBars">Прикажи водоравни зелени индикатор</string>
-  <string name="soundWhenTimeGetsCritical">Упозори звуком на цајтнот</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Када имате &lt; 10 секунди</string>
+  <string name="horizontalGreenProgressBars">Хоризонтални зелени индикатор</string>
+  <string name="soundWhenTimeGetsCritical">Звук када преостане мало времена</string>
   <string name="gameBehavior">Режим игре</string>
   <string name="howDoYouMovePieces">Како померате фигуре?</string>
   <string name="clickTwoSquares">\"кликни\" два поља</string>
@@ -604,7 +604,7 @@
   <string name="xAskedY">%1$s је упитао %2$s</string>
   <string name="xAnsweredY">%1$s је одговорио %2$s</string>
   <string name="xCommentedY">%1$s је коментарисао %2$s</string>
-  <string name="victory">Победа!</string>
+  <string name="victory">Победа</string>
   <string name="defeat">Пораз</string>
   <string name="xVsYinZ">%1$s против %2$s
 у %3$s</string>
