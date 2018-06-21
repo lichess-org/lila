@@ -19,6 +19,9 @@ final class LilaLoader extends ApplicationLoader {
       components.controllerComponents
     ))
     kamon.Kamon.addReporter(new kamon.influxdb.InfluxDBReporter())
+    components.applicationLifecycle.addStopHook { () =>
+      fuccess(kamon.Kamon.stopAllReporters())
+    }
     lila.app.Env.current
     app
   }
