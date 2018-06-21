@@ -576,12 +576,12 @@
   <string name="dragPiece">вуци фигуру</string>
   <string name="bothClicksAndDrag">на оба начина</string>
   <string name="premovesPlayingDuringOpponentTurn">Претпотез (игра се током противниковог потеза)</string>
-  <string name="takebacksWithOpponentApproval">Врати потез (са пристанком противника)</string>
-  <string name="promoteToQueenAutomatically">Промовиши у даму аутоматски</string>
+  <string name="takebacksWithOpponentApproval">Враћања потеза (са пристанком противника)</string>
+  <string name="promoteToQueenAutomatically">Промовишите у Даму аутоматски</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">аутоматски реми после три понављања позиције</string>
   <string name="privacy">Приватност</string>
-  <string name="letOtherPlayersFollowYou">Допусти да те други играчи прате</string>
-  <string name="letOtherPlayersChallengeYou">Допусти да те други играчи изазивају</string>
+  <string name="letOtherPlayersFollowYou">Допустите да вас други играчи прате</string>
+  <string name="letOtherPlayersChallengeYou">Допустите да вас други играчи изазову</string>
   <string name="letOtherPlayersInviteYouToStudy">дозволи другим играчима да те позову на проблем</string>
   <string name="sound">Звук</string>
   <string name="yourPreferencesHaveBeenSaved">Ваша подешавања су сачувана.</string>
