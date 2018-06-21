@@ -18,6 +18,7 @@ final class LilaLoader extends ApplicationLoader {
       components.environment,
       components.controllerComponents
     ))
+    kamon.Kamon.addReporter(new kamon.influxdb.InfluxDBReporter())
     lila.app.Env.current
     app
   }
