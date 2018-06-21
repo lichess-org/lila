@@ -23,7 +23,6 @@
   <root level="INFO">
     <appender-ref ref="STDOUT" />
     <appender-ref ref="ALL_FILE" />
-    <appender-ref ref="ERROR_FILE" />
   </root>
 
   <logger name="reactivemongo" level="INFO">
