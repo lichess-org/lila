@@ -570,7 +570,7 @@
   <string name="whenTimeRemainingLessThanTenSeconds">Када имате &lt; 10 секунди</string>
   <string name="horizontalGreenProgressBars">Хоризонтални зелени индикатор</string>
   <string name="soundWhenTimeGetsCritical">Звук када преостане мало времена</string>
-  <string name="gameBehavior">Режим игре</string>
+  <string name="gameBehavior">Понашање игре</string>
   <string name="howDoYouMovePieces">Како померате фигуре?</string>
   <string name="clickTwoSquares">\"кликни\" два поља</string>
   <string name="dragPiece">вуци фигуру</string>
@@ -584,8 +584,8 @@
   <string name="letOtherPlayersChallengeYou">Допустите да вас други играчи изазову</string>
   <string name="letOtherPlayersInviteYouToStudy">дозволи другим играчима да те позову на проблем</string>
   <string name="sound">Звук</string>
-  <string name="yourPreferencesHaveBeenSaved">Ваша подешавања су сачувана.</string>
-  <string name="none">Без</string>
+  <string name="yourPreferencesHaveBeenSaved">Ваше преференце су сачуване.</string>
+  <string name="none">Нема</string>
   <string name="fast">Брзо</string>
   <string name="normal">Нормално</string>
   <string name="slow">Споро</string>
