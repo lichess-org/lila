@@ -815,7 +815,7 @@
     <item quantity="other">%2$s %1$s لاعب هذا الإسبوع.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">تقييمك في %1$s هو %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">أنت أفضل من %1$s من %2$s من اللاعبين.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">أنت أفضل من %1$s من %2$s لاعب.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">ليس لديك تقييم ثابت في %s.</string>
   <string name="checkYourEmail">تحقق من بريدك الإلكتروني</string>
   <string name="weHaveSentYouAnEmailClickTheLink">أرسلنا رسالة لبريدك الإلكتروني. فضلا اضغط الرابط فيها لتفعيل حسابك</string>
