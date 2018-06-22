@@ -8,7 +8,7 @@ import lila.db.dsl._
 private[setup] object AnonConfigRepo {
 
   // dirty
-  private val coll = Env.current.anonConfigColl
+  private def coll = Env.current.anonConfigColl
 
   def update(req: RequestHeader)(f: UserConfig => UserConfig): Funit =
     configOption(req) flatMap {
