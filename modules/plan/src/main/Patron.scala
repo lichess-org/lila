@@ -43,6 +43,8 @@ case class Patron(
     expiresAt = none
   )
 
+  def isExpired = expiresAt ?? DateTime.now.isAfter
+
   def isDefined = stripe.isDefined || payPal.isDefined
 
   def isLifetime = ~lifetime

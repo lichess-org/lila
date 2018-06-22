@@ -100,10 +100,12 @@ final class PlanApi(
     if (key != payPalIpnKey) {
       logger.error(s"Invalid PayPal IPN key $key from $ip $userId $cents")
       funit
-    } else if (cents.value < 100) {
+    }
+    else if (cents.value < 100) {
       logger.info(s"Ignoring small paypal charge from $ip $userId $cents $txnId")
       funit
-    } else {
+    }
+    else {
       val charge = Charge.make(
         userId = userId,
         payPal = Charge.PayPal(
@@ -215,12 +217,13 @@ final class PlanApi(
         if (!user.plan.active) {
           logger.warn(s"${user.username} sync: enable plan of customer with paypal")
           setDbUserPlan(user, user.plan.enable) inject ReloadUser
-        } else fuccess(Synced(patron.some, none))
+        }
+        else fuccess(Synced(patron.some, none))
 
       case (None, None) if patron.isLifetime => fuccess(Synced(patron.some, none))
 
-      case (None, None) if user.plan.active =>
-        logger.warn(s"${user.username} sync: disable plan of patron with no paypal or stripe")
+      case (None, None) if user.plan.active && patron.isExpired =>
+        logger.warn(s"${user.username} sync: expire plan of patron with no paypal or stripe")
         setDbUserPlan(user, user.plan.disable) inject ReloadUser
 
       case _ => fuccess(Synced(patron.some, none))
@@ -300,7 +303,8 @@ final class PlanApi(
         if (charge.isPayPal) {
           lila.mon.plan.amount.paypal(charge.cents.value)
           lila.mon.plan.count.paypal()
-        } else if (charge.isStripe) {
+        }
+        else if (charge.isStripe) {
           lila.mon.plan.amount.stripe(charge.cents.value)
           lila.mon.plan.count.stripe()
         }
