@@ -612,7 +612,7 @@
   <string name="seeAllTournaments">Видите све турнире</string>
   <string name="starting">Почиње:</string>
   <string name="allInformationIsPublicAndOptional">Све информације су јавне и по избору</string>
-  <string name="yourCityRegionOrDepartment">Ваш град или област</string>
+  <string name="yourCityRegionOrDepartment">Ваш град, регион или провинција.</string>
   <string name="biographyDescription">Кажи нешто о себи, зашто волиш шах, која су ти омиљена отварања, партије, играчи…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Највише: %s карактера</item>
