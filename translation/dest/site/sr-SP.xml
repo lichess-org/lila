@@ -624,16 +624,16 @@
     <item quantity="few">%s блокираних</item>
     <item quantity="other">%s блокираних</item>
   </plurals>
-  <string name="listBlockedPlayers">Наброј блокиране играче</string>
+  <string name="listBlockedPlayers">Списак играча које сте блокирали</string>
   <string name="human">Човек</string>
   <string name="computer">Рачунар</string>
   <string name="side">Страна</string>
-  <string name="clock">Време</string>
-  <string name="unauthorizedError">Приступ није одобрен</string>
-  <string name="noInternetConnection">Нема интернет конекције. Можете играти offline из менија.</string>
+  <string name="clock">Сат</string>
+  <string name="unauthorizedError">Приступ није одобрен.</string>
+  <string name="noInternetConnection">Нема интернет конекције. Можете играти офлајн са менија.</string>
   <string name="connectedToLichess">Повезани сте на lichess.org</string>
   <string name="signedOut">Одјављени сте</string>
-  <string name="loginSuccessful">Успешно регистровање</string>
+  <string name="loginSuccessful">Пријављени сте</string>
   <string name="playOnTheBoardOffline">Играј у двоје</string>
   <string name="playOfflineComputer">Играј без интернет конекције</string>
   <string name="opponent">Противник</string>
