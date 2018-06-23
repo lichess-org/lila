@@ -883,7 +883,7 @@ div.control .button.disabled {
   top: 0;
   right: -25px;
   width: 25px;
-  height: 80px;
+  height: 55px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -897,7 +897,7 @@ div.control .button.disabled {
 .lichess_ground .rematch-decline:hover {
   background: #dc322f;
   color: #fff;
-  right: -35px;
+  right: -36px;
   width: 35px;
 }
 .lichess_ground .follow_up .fbt.strong {
