@@ -44,13 +44,20 @@ final class EmailAddressValidator(disposable: DisposableEmailDomain) {
    *                If they already have it assigned, returns false.
    * @return
    */
-  private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Boolean = validate(email) ?? { e =>
+  private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Option[String] = validate(email) ?? { e =>
     (lila.user.UserRepo.idByEmail(e) awaitSeconds 2, forUser) match {
-      case (None, _) => false
-      case (Some(userId), Some(user)) => userId != user.id
-      case (_, _) => true
+      case (None, _) => none
+      case (Some(userId), Some(user)) => {
+        if (userId != user.id) isSameEmail(e, email)
+        else none
+      }
+      case (_, _) => isSameEmail(e, email)
     }
   }
+
+  private def isSameEmail(email1: EmailAddress, email2: EmailAddress): Option[String] =
+    if (email1.value.toLowerCase == email2.value.toLowerCase) "error.email_unique".some
+    else "error.email_indistinct".some
 
   val acceptableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
     if (isValid(EmailAddress(e))) Valid
@@ -58,9 +65,10 @@ final class EmailAddressValidator(disposable: DisposableEmailDomain) {
   }
 
   def uniqueConstraint(forUser: Option[User]) = Constraint[String]("constraint.email_unique") { e =>
-    if (isTakenBySomeoneElse(EmailAddress(e), forUser))
-      Invalid(ValidationError("error.email_unique"))
-    else Valid
+    isTakenBySomeoneElse(EmailAddress(e), forUser) match {
+      case None => Valid
+      case Some(err) => Invalid(ValidationError(err))
+    }
   }
 
   def differentConstraint(than: Option[EmailAddress]) = Constraint[String]("constraint.email_different") { e =>

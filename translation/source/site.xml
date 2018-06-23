@@ -621,6 +621,7 @@ in %3$s</string>
   <string name="error.email_acceptable">This email address is not acceptable</string>
   <string name="error.email_unique">This email address is already taken</string>
   <string name="error.email_different">This is already your email address</string>
+  <string name="error.email_indistinct">This email address is equivalent to an existing email address</string>
   <string name="blindfoldChess">Blindfold chess (invisible pieces)</string>
   <string name="zenMode">Zen mode</string>
   <string name="moveConfirmation">Move confirmation</string>
