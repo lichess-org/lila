@@ -90,7 +90,7 @@ case class Player(
 
 object Player {
 
-  private val nameSplitRegex = """^([^\(]+)\((.+)\)$""".r
+  private val nameSplitRegex = """([^(]++)\((\d++)\)""".r
 
   def make(
     color: Color,

@@ -36,7 +36,7 @@ object UserAnalysis extends LidraughtsController with TheftPrevention {
 
   def load(urlFen: String, variant: Variant) = Open { implicit ctx =>
     val decodedFen: Option[FEN] = lidraughts.common.String.decodeUriPath(urlFen)
-      .map(_.replace("_", " ").trim).filter(_.nonEmpty)
+      .map(_.replace('_', ' ').trim).filter(_.nonEmpty)
       .orElse(get("fen")) map FEN.apply
     val pov = makePov(decodedFen, variant)
     val orientation = get("color").flatMap(draughts.Color.apply) | pov.color

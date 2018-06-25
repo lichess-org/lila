@@ -51,6 +51,6 @@ final class PdnDump(
       // merge analysis & eval comments
       // 1. 32-27 {[%eval 0.17]} {[%clk 0:00:30]}
       // 1. 32-27 {[%eval 0.17] [%clk 0:00:30]}
-      s"$pdn\n\n\n".replace("]} {[", "] [")
+      s"$pdn\n\n\n".replaceIf("]} {[", "] [")
     }
 }

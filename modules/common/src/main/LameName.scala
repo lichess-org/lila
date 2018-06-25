@@ -5,16 +5,16 @@ object LameName {
   def username(name: String) =
     anyName(name) || lameTitlePrefix.matcher(name).lookingAt
 
-  def anyName(name: String) = lameWords.matcher(name).find
+  def anyName(name: String) = lameWords.find(name)
 
-  def anyNameButLidraughtsIsOk(name: String) = lameWords.matcher {
+  def anyNameButLidraughtsIsOk(name: String) = lameWords find {
     lidraughtsRegex.replaceAllIn(name, "")
-  }.find
+  }
 
   private val lidraughtsRegex = "(?i)lidraughts".r
 
   private val lameTitlePrefix =
-    "[Ww]?[NCFIGl1L]M|(?i:w?[ncfigl1])m[-_A-Z0-9]".r.pattern
+    "[Ww]?+[NCFIGl1L]M|(?i:w?+[ncfigl1])m[-_A-Z0-9]".r.pattern
 
   private val lameWords = {
     val extras = Map(
@@ -60,6 +60,7 @@ object LameName {
       "nazi",
       "buttsex",
       "retard",
+      "rapist",
       "pedo",
       "lidraughts",
       "moderator",
@@ -73,6 +74,6 @@ object LameName {
       "cuck"
     ).map {
         _.map(subs).map(_ + "+").mkString
-      }.mkString("|").r.pattern
+      }.mkString("|").r
   }
 }

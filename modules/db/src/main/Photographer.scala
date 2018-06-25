@@ -36,7 +36,7 @@ final class Photographer(coll: Coll, prefix: String) {
 
   private def sanitizeName(name: String) = {
     // the char `^` breaks play, even URL encoded
-    java.net.URLEncoder.encode(name, "UTF-8").replace("%", "")
+    java.net.URLEncoder.encode(name, "UTF-8").replaceIf('%', "")
   }
 }
 

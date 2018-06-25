@@ -26,7 +26,7 @@ private[app] final class Renderer extends Actor {
     case streams: lidraughts.streamer.LiveStreams.WithTitles => sender ! V.streamer.liveStreams(streams)
   }
 
-  private val spaceRegex = """\s{2,}""".r
+  private val spaceRegex = """\s{2,}+""".r
   private def spaceless(html: Html) = Html {
     spaceRegex.replaceAllIn(html.body.replace("\\n", " "), " ")
   }

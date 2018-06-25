@@ -42,18 +42,18 @@ object DataForm {
   ) {
 
     def looksLikeVenting = List(name, post.text) exists { txt =>
-      mostlyUpperCase(txt) || ventingPattern.matcher(txt).find
+      mostlyUpperCase(txt) || ventingRegex.find(txt)
     }
   }
 
   private def mostlyUpperCase(txt: String) = {
     val extract = txt.take(300)
-    (extract.contains(' ') || extract.size > 5) && {
-      extract.count(_.isUpper) > extract.count(_.isLower) * 2
+    (extract.contains(" ") || extract.size > 5) && {
+      2 * extract.count(_.isUpper) > extract.count(_.isLower)
     }
   }
 
-  private val ventingPattern = """cheat|engine|rating|loser|banned|abort""".r.pattern
+  private val ventingRegex = """cheat|engine|rating|loser|banned|abort""".r
 
   case class PostEdit(changes: String)
 }

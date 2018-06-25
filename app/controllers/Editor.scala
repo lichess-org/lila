@@ -37,7 +37,7 @@ object Editor extends LidraughtsController {
 
   def load(urlFen: String, variant: Variant) = Open { implicit ctx =>
     val fenStr = lidraughts.common.String.decodeUriPath(urlFen)
-      .map(_.replace("_", " ").trim).filter(_.nonEmpty)
+      .map(_.replace('_', ' ').trim).filter(_.nonEmpty)
       .orElse(get("fen"))
     fuccess {
       val situation = readFen(fenStr, (get("variant") flatMap { Variant.byKey.get }).getOrElse(variant).some)

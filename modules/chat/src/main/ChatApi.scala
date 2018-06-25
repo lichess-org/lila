@@ -209,26 +209,25 @@ final class ChatApi(
 
   private object Writer {
 
-    import java.util.regex.Matcher.quoteReplacement
+    import java.util.regex.{ Pattern, Matcher }
 
     def preprocessUserInput(in: String) = multiline(Spam.replace(noShouting(noPrivateUrl(in))))
 
     def cut(text: String) = Some(text.trim take Line.textMaxSize) filter (_.nonEmpty)
 
-    private val domainRegex = netDomain.replace(".", """\.""")
-    private val gameUrlRegex = (domainRegex + """\b/([\w]{8})[\w]{4}\b""").r
-    private def noPrivateUrl(str: String): String =
-      gameUrlRegex.replaceAllIn(str, m => quoteReplacement(netDomain + "/" + (m group 1)))
-    private val multilineRegex = """\n{3,}""".r
+    private val gameUrlRegex = (Pattern.quote(netDomain) + """\b/(\w{8})\w{4}\b""").r
+    private val gameUrlReplace = Matcher.quoteReplacement(netDomain) + "/$1";
+    private def noPrivateUrl(str: String): String = gameUrlRegex.replaceAllIn(str, gameUrlReplace)
+    private val multilineRegex = """\n{3,}+""".r
     private def multiline(str: String) = multilineRegex.replaceAllIn(str, """\n\n""")
   }
 
   private object noShouting {
     import java.lang.Character.isUpperCase
-    private val onlyLettersRegex = """[^\w]""".r
+    private val onlyLettersRegex = """\W""".r
     def apply(text: String) = if (text.size < 5) text else {
       val onlyLetters = onlyLettersRegex.replaceAllIn(text take 80, "")
-      if (onlyLetters.count(isUpperCase) > onlyLetters.size / 2)
+      if (2 * onlyLetters.count(isUpperCase) > onlyLetters.size)
         text.toLowerCase
       else text
     }

@@ -6,15 +6,15 @@ import lidraughts.tree.Node.{ Shape, Shapes }
 
 private[study] object CommentParser {
 
-  private val circlesRegex = """(?s).*\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\].*""".r
+  private val circlesRegex = """(?s)\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]""".r.unanchored
   private val circlesRemoveRegex = """\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]""".r
-  private val arrowsRegex = """(?s).*\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\].*""".r
+  private val arrowsRegex = """(?s)\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]""".r.unanchored
   private val arrowsRemoveRegex = """\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]""".r
-  private val clockRegex = """(?s).*\[\%clock[\s\r\n]+([wW])([\d:\.]+)[\s\r\n]+([bB])([\d:\.]+)\].*""".r
+  private val clockRegex = """(?s)\[\%clock[\s\r\n]+([wW])([\d:\.]+)[\s\r\n]+([bB])([\d:\.]+)\]""".r.unanchored
   private val clockRemoveRegex = """\[\%clock[\s\r\n]+[wW][\d:\.]+[\s\r\n]+[bB][\d:\.]+\]""".r
-  private val pgnClockRegex = """(?s).*\[\%clk[\s\r\n]+([\d:\.]+)\].*""".r
+  private val pgnClockRegex = """(?s)\[\%clk[\s\r\n]+([\d:\.]+)\]""".r.unanchored
   private val pgnClockRemoveRegex = """\[\%clk[\s\r\n]+[\d:\.]+\]""".r
-  private val tcecClockRegex = """(?s).*tl=([\d:\.]+).*""".r
+  private val tcecClockRegex = """(?s)tl=([\d:\.]+)""".r.unanchored
   private val tcecClockRemoveRegex = """tl=[\d:\.]+""".r
 
   case class ParsedComment(
@@ -38,8 +38,8 @@ private[study] object CommentParser {
     s <- parseIntOption(seconds)
   } yield Centis(h * 360000 + m * 6000 + s * 100)
 
-  private val clockHourMinuteRegex = """^(\d+):(\d+)$""".r
-  private val clockHourMinuteSecondRegex = """^(\d+):(\d+)[:\.](\d+)$""".r
+  private val clockHourMinuteRegex = """^(\d++):(\d+)$""".r
+  private val clockHourMinuteSecondRegex = """^(\d++):(\d++)[:\.](\d+)$""".r
 
   def readCentis(str: String): Option[Centis] = str match {
     case clockHourMinuteRegex(hours, minutes) => readCentis(hours, minutes, "0")
