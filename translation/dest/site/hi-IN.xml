@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">यह खेल मूल्यांकित है</string>
   <string name="rematch">फिर से खेलें</string>
   <string name="rematchOfferSent">फिर से खेलने का प्रस्ताव भेजा गया है</string>
+  <string name="rematchOfferSentWhite">सफेद ने वापिस खेलने का प्रस्ताव भेजा</string>
+  <string name="rematchOfferSentBlack">काले ने वापिस खेलने का प्रस्ताव भेजा</string>
   <string name="rematchOfferAccepted">फिर से खेलने का प्रस्ताव स्वीकार कर लिया गया है</string>
   <string name="rematchOfferCanceled">फिर से खेलने का प्रस्ताव रद्द कर दिया गया है</string>
   <string name="rematchOfferDeclined">फिर से खेलने का प्रस्ताव अस्वीकार कर दिया गया है</string>
@@ -360,7 +362,9 @@
   <string name="winner">विजयी</string>
   <string name="standing">पद</string>
   <string name="createANewTournament">नयी प्रतियोगिता आरम्भ करें</string>
+  <string name="tournamentCalendar">टूर्नामेंट कैलेंडर</string>
   <string name="advancedSettings">एडव्हान्स सेटिंग्ज</string>
+  <string name="safeTournamentName">टूर्नामेंट के लिए उचित नाम चुनिए ।</string>
   <string name="join">हिस्सा लें</string>
   <string name="withdraw">छोड़ के जाएं</string>
   <string name="points">अंक</string>
