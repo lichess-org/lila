@@ -5,7 +5,7 @@ import lila.user.{ User, UserContext }
 
 trait Granter {
 
-  private val TeamSlugPattern = """^team-([\w-]+)$""".r
+  private val TeamSlugPattern = """team-([\w-]++)""".r
 
   protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean]
   protected def userOwnsTeam(teamId: String, userId: String): Fu[Boolean]

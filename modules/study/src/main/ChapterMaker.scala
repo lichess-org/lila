@@ -146,8 +146,8 @@ private final class ChapterMaker(
 
   private val UrlRegex = {
     val escapedDomain = domain.replace(".", "\\.")
-    s""".*$escapedDomain/(\\w{8,12}).*"""
-  }.r
+    s"""$escapedDomain/(\\w{8,12})"""
+  }.r.unanchored
 
   private def parsePov(str: String): Fu[Option[Pov]] = str match {
     case s if s.size == Game.gameIdSize => GameRepo.pov(s, chess.White)
