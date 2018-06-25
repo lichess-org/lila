@@ -4,9 +4,9 @@ import play.api.libs.ws.WS
 import play.api.Play.current
 import scala.concurrent.duration._
 
-import lidraughts.common.IpAddress
+import lidraughts.common.{ IpAddress, EmailAddress }
 
-final class IpIntel(asyncCache: lidraughts.memo.AsyncCache.Builder, lidraughtsEmail: String) {
+final class IpIntel(asyncCache: lidraughts.memo.AsyncCache.Builder, contactEmail: EmailAddress) {
 
   def apply(ip: IpAddress): Fu[Int] = failable(ip) recover {
     case e: Exception =>
@@ -21,7 +21,7 @@ final class IpIntel(asyncCache: lidraughts.memo.AsyncCache.Builder, lidraughtsEm
   private val cache = asyncCache.multi[IpAddress, Int](
     name = "ipIntel",
     f = ip => {
-      val url = s"http://check.getipintel.net/check.php?ip=$ip&contact=$lidraughtsEmail"
+      val url = s"http://check.getipintel.net/check.php?ip=$ip&contact=$contactEmail"
       WS.url(url).get().map(_.body).mon(_.security.proxy.request.time).flatMap { str =>
         parseFloatOption(str).fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>
           if (ratio < 0) fufail(s"IpIntel error $ratio on ${ip.value}")
