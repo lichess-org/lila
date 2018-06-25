@@ -88,7 +88,7 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanskje inkludere flere parti fra preferansemenyen?</string>
   <string name="openingExplorer">Åpningsutforsker</string>
   <string name="xOpeningExplorer">Utforsk åpning %s</string>
-  <string name="winPreventedBy50MoveRule">Seier hindret av 50-trekkregelen</string>
+  <string name="winPreventedBy50MoveRule">Seier hindret av 50-trekksregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindret av 50-trekkregelen</string>
   <string name="allSet">Alt klart!</string>
   <string name="importPgn">Importér PGN-fil</string>
