@@ -366,6 +366,7 @@
   <string name="conditionOfEntry">प्रवेश की शर्त:</string>
   <string name="advancedSettings">एडव्हान्स सेटिंग्ज</string>
   <string name="safeTournamentName">टूर्नामेंट के लिए उचित नाम चुनिए ।</string>
+  <string name="inappropriateNameWarning">थोड़ा सा भी अनुचित नाम चुनने से आपका ख़ाता बंद हो सकता है।</string>
   <string name="join">हिस्सा लें</string>
   <string name="withdraw">छोड़ के जाएं</string>
   <string name="points">अंक</string>
