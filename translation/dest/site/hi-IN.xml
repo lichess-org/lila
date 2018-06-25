@@ -363,6 +363,7 @@
   <string name="standing">पद</string>
   <string name="createANewTournament">नयी प्रतियोगिता आरम्भ करें</string>
   <string name="tournamentCalendar">टूर्नामेंट कैलेंडर</string>
+  <string name="conditionOfEntry">प्रवेश की शर्त:</string>
   <string name="advancedSettings">एडव्हान्स सेटिंग्ज</string>
   <string name="safeTournamentName">टूर्नामेंट के लिए उचित नाम चुनिए ।</string>
   <string name="join">हिस्सा लें</string>
@@ -669,6 +670,7 @@
   <string name="downloadRaw">कच्चा डाउनलोड करें</string>
   <string name="downloadImported">डाउनलोड आयातित</string>
   <string name="printFriendlyPDF">प्रिंट-अनुकूल PDF</string>
+  <string name="crosstable">विजय और पराजय का अभिलेख</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">आप खेल में जाने के लिए बोर्ड पर भी स्क्रॉल कर सकते हैं।</string>
   <string name="analysisShapesHowTo">बोर्ड पर मंडलियां और तीरों को आकर्षित करने के लिए shift + click या right-click दबाएं</string>
   <string name="confirmResignationAndDrawOffers">इस्तीफे की पुष्टि करें और ड्रा ऑफर करें</string>
