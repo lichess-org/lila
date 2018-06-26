@@ -52,7 +52,7 @@ private[gameSearch] final class DataForm {
 
 private[gameSearch] object DataForm {
 
-  val DateDelta = """^(\d+)(\w)$""".r
+  val DateDelta = """\d++[a-z]""".r
   private val dateConstraint = Constraints.pattern(
     regex = DateDelta,
     error = "Invalid date."
