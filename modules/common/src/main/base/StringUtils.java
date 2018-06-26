@@ -7,11 +7,11 @@ public class StringUtils {
         'c' , 'd' , 'e' , 'f'
     };
 
-    public static String safeJsonString(String s) {
-        char[] sArr = s.toCharArray();
+    public static String safeJsonString(final String s) {
+        final char[] sArr = s.toCharArray();
+        final int len = sArr.length;
         StringBuilder sb = null;
-        int len = sArr.length;
-        int safeIdx = 0;
+        int copyIdx = 0;
         for (int i = 0; i < len; i++) {
             char c = sArr[i];
             if (c >= ' ' && c <= '~') switch(c) {
@@ -27,27 +27,27 @@ public class StringUtils {
               sb = new StringBuilder(c <= '~' ? len + 22 : len * 6 + 2);
               sb.append('"');
             }
-            sb.append(s, safeIdx, i);
+            sb.append(s, copyIdx, i);
             sb.append(new char[] { '\\', 'u',
                 DIGITS[c >>> 12],
                 DIGITS[(c >>> 8) & 0xf],
                 DIGITS[(c >>> 4) & 0xf],
                 DIGITS[c & 0xf]
             });
-            safeIdx = i + 1;
+            copyIdx = i + 1;
         }
         if (sb == null) return "\"" + s + "\"";
-        sb.append(s, safeIdx, len);
+        sb.append(s, copyIdx, len);
         sb.append('"');
         return sb.toString();
     }
 
-    public static String escapeHtml(String s) {
-        char[] sArr = s.toCharArray();
+    public static String escapeHtml(final String s) {
+        final char[] sArr = s.toCharArray();
         for (int i = 0, end = sArr.length; i < end; i++) {
             switch (sArr[i]) {
                 case '<': case '>': case '&': case '"': case '\'':
-                  StringBuilder sb = new StringBuilder(end + 10);
+                  final StringBuilder sb = new StringBuilder(end + 20);
                   sb.append(s, 0, i);
                   escapeHtml(sb, sArr, i, end);
                   return sb.toString();
@@ -56,7 +56,9 @@ public class StringUtils {
         return s;
     }
 
-    public static void escapeHtml(StringBuilder sb, char[] sArr, int start, int end) {
+    public static void escapeHtml(final StringBuilder sb, final char[] sArr,
+        int start, final int end) {
+
         for (int i = start; i < end; i++) {
             switch (sArr[i]) {
                 case '<': case '>': case '&': case '"': case '\'':

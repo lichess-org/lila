@@ -71,7 +71,7 @@ case class Game(
   def firstPlayer = player(firstColor)
   def secondPlayer = player(!firstColor)
 
-  def turnColor = situation.color //Color((turns & 1) == 0)
+  def turnColor = situation.color
 
   def turnOf(p: Player): Boolean = p == player
   def turnOf(c: Color): Boolean = c == turnColor
