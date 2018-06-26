@@ -1,21 +1,22 @@
 package lila.common
 
 import java.text.Normalizer
+import java.lang.{ StringBuilder => jStringBuilder, Math }
 import play.api.libs.json._
 import play.twirl.api.Html
 
-import lila.common.base.StringUtils
+import lila.common.base.StringUtils.{ safeJsonString, escapeHtml => escapeHtmlRaw }
 
 object String {
 
   val erased = "<deleted>"
   val erasedHtml = Html("&lt;deleted&gt;")
 
-  private val slugR = """[^\w-]""".r
-  private val slugMultiDashRegex = """-{2,}""".r
+  private[this] val slugR = """[^\w-]""".r
+  private[this] val slugMultiDashRegex = """-{2,}""".r
 
   def slugify(input: String) = {
-    val nowhitespace = input.trim.replace(" ", "-")
+    val nowhitespace = input.trim.replace(' ', '-')
     val singleDashes = slugMultiDashRegex.replaceAllIn(nowhitespace, "-")
     val normalized = Normalizer.normalize(singleDashes, Normalizer.Form.NFD)
     val slug = slugR.replaceAllIn(normalized, "")
@@ -31,12 +32,10 @@ object String {
   }
 
   def shorten(text: String, length: Int, sep: String = "…") = {
-    val t = text.replace("\n", " ")
+    val t = text.replace('\n', ' ')
     if (t.size > (length + sep.size)) (t take length) ++ sep
     else t
   }
-
-  def levenshtein(s1: String, s2: String): Int = StringUtils.levenshtein(s1, s2)
 
   object base64 {
     import java.util.Base64
@@ -58,14 +57,31 @@ object String {
 
   object html {
 
-    def nl2brUnsafe(text: String) = Html {
-      text.replace("\r\n", "<br />").replace("\n", "<br />")
+    def nl2brUnsafe(s: String) = Html {
+      var i = s.indexOf('\n')
+      if (i < 0) s
+      else {
+        val sb = new jStringBuilder(s.length + 30)
+        var copyIdx = 0
+        do {
+          if (i > copyIdx) {
+            // copyIdx >= 0, so i - 1 >= 0
+            sb.append(s, copyIdx, if (s.charAt(i - 1) == '\r') i - 1 else i)
+          }
+          sb.append("<br />")
+          copyIdx = i + 1
+          i = s.indexOf('\n', copyIdx)
+        } while (i >= 0)
+
+        sb.append(s, copyIdx, s.length)
+        sb.toString
+      }
     }
 
-    def nl2br(text: String): Html = nl2brUnsafe(StringUtils.escapeHtml(text))
+    def nl2br(text: String): Html = nl2brUnsafe(escapeHtmlRaw(text))
 
     def richText(text: String, nl2br: Boolean = true): Html = {
-      val withUsernames = addUserProfileLinks(StringUtils.escapeHtml(text))
+      val withUsernames = addUserProfileLinks(escapeHtmlRaw(text))
       val withLinks = addLinks(withUsernames)
       if (nl2br) nl2brUnsafe(withLinks) else Html(withLinks)
     }
@@ -128,15 +144,10 @@ object String {
 
     private def urlOrImg(url: String): String = urlToImg(url) getOrElse url
 
-    private val markdownLinkRegex = """\[([^\[]+)\]\(([^\)]+)\)""".r
+    private[this] val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
 
-    def markdownLinks(text: String): Html = nl2brUnsafe {
-      markdownLinkRegex.replaceAllIn(StringUtils.escapeHtml(text), m => {
-        val href = m.group(2)
-        if (href.startsWith("http://") || href.startsWith("https://"))
-          s"""<a href="$href">${m group 1}</a>"""
-        else m.group(0)
-      })
+    def markdownLinks(text: String) = Html {
+      markdownLinkRegex.replaceAllIn(escapeHtmlRaw(text), """<a href="$2">$1</a>""")
     }
 
     def safeJsonValue(jsValue: JsValue): String = {
@@ -144,14 +155,13 @@ object String {
       // https://github.com/playframework/play-json/blob/160f66a84a9c5461c52b50ac5e222534f9e05442/play-json/js/src/main/scala/StaticBinding.scala#L65
       jsValue match {
         case JsNull => "null"
-        case JsString(s) => StringUtils.safeJsonString(s)
+        case JsString(s) => safeJsonString(s)
         case JsNumber(n) => n.toString
         case JsBoolean(b) => if (b) "true" else "false"
         case JsArray(items) => items.map(safeJsonValue).mkString("[", ",", "]")
         case JsObject(fields) => {
           fields.map {
-            case (key, value) =>
-              s"${StringUtils.safeJsonString(key)}:${safeJsonValue(value)}"
+            case (k, v) => s"${safeJsonString(k)}:${safeJsonValue(v)}"
           }.mkString("{", ",", "}")
         }
       }
@@ -159,6 +169,6 @@ object String {
 
     def safeJson(jsValue: JsValue): Html = Html(safeJsonValue(jsValue))
 
-    def escapeHtml(s: String): Html = Html(StringUtils.escapeHtml(s))
+    def escapeHtml(s: String): Html = Html(escapeHtmlRaw(s))
   }
 }

@@ -119,13 +119,11 @@ ${content mkString "\n"}
     if (items.size > 4) s"""Map(${items.map { case (k, v) => s"$k->$v" } mkString ","})"""
     else s"""new Map.Map${items.size}(${items.map { case (k, v) => s"$k,$v" } mkString ","})"""
 
-  private def nl2br(html: String) =
-    html.replace("\r\n", "<br />").replace("\n", "<br />")
 
-  private val badChars = "[<>&\"']".r.pattern
-  private def escapeHtmlOption(s: String): Option[String] = {
+  private val badChars = """[<>&"'\r\n]""".r.pattern
+  private def escapeHtmlOption(s: String): Option[String] =
     if (badChars.matcher(s).find) Some {
-      val sb = new StringBuilder(s.size + 10) // wet finger style
+      val sb = new java.lang.StringBuilder(s.size + 10) // wet finger style
       var i = 0
       while (i < s.length) {
         sb.append {
@@ -135,18 +133,15 @@ ${content mkString "\n"}
             case '&' => "&amp;";
             case '"' => "&quot;";
             case '\'' => "&#39;";
+            case '\r' => "";
+            case '\n' => "<br />";
             case c => c
           }
         }
         i += 1
       }
-      nl2br(sb.toString)
-    }
-    else {
-      val withBrs = nl2br(s)
-      if (withBrs != s) Some(withBrs) else None
-    }
-  }
+      sb.toString
+    } else None
 
   private def printToFile(f: File)(content: String): Unit = {
     val p = new java.io.PrintWriter(f, "UTF-8")
