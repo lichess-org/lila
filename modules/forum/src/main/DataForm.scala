@@ -46,11 +46,16 @@ object DataForm {
     }
   }
 
-  private def mostlyUpperCase(txt: String) = {
-    val extract = txt.take(300)
-    (extract.contains(" ") || extract.size > 5) && {
-      2 * extract.count(_.isUpper) > extract.count(_.isLower)
-    }
+  private def mostlyUpperCase(text: String) = text.length > 5 && {
+    import java.lang.Character._
+    // true if >2/3 of the latin letters are upper
+    (text take 300).foldLeft(0) { (i, c) =>
+      getType(c) match {
+        case UPPERCASE_LETTER => i + 1
+        case LOWERCASE_LETTER => i - 2
+        case _ => i
+      }
+    } > 0
   }
 
   private val ventingRegex = """cheat|engine|rating|loser|banned|abort""".r
