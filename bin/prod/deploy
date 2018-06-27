@@ -6,9 +6,13 @@ if [ -z $mode ]; then
   echo "Empty deploy target"
   exit 1
 elif [ $mode = "main" ]; then
-  REMOTE="benko"
+  REMOTE="keres"
   REMOTE_DIR="/home/lichess-deploy"
   CLI="bin/cli-prod"
+elif [ $mode = "keres" ]; then
+  REMOTE="keres"
+  REMOTE_DIR="/home/lichess-deploy"
+  CLI="bin/cli"
 elif [ $mode = "stage" ]; then
   REMOTE="khiaw"
   REMOTE_DIR="/home/lichess-stage"
@@ -74,7 +78,7 @@ RSYNC_OPTIONS=" \
   --exclude '.git/' \
   --exclude node_modules"
 
-if [ $mode != "main" ] && [ $mode != "stage" ] && [ $mode != "koala" ]; then
+if [ $mode != "main" ] && [ $mode != "stage" ] && [ $mode != "keres" ]; then
   RSYNC_OPTIONS="$RSYNC_OPTIONS \
     --exclude public";
 fi
