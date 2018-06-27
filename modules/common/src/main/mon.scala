@@ -689,7 +689,7 @@ object mon {
 
   private val stripVersionRegex = """[^\w\.\-]""".r
   private def stripVersion(v: String) = stripVersionRegex.replaceAllIn(v, "")
-  private def nodots(s: String) = s.replace(".", "_")
+  private def nodots(s: String) = s.replace('.', '_')
   private val makeVersion = nodots _ compose stripVersion _
 
   private val logger = lila.log("monitor")

@@ -11,7 +11,7 @@ object UrlList {
     def apply(text: String): List[Url] =
       text.lines.toList.map(_.trim).filter(_.nonEmpty) flatMap toUrl take max
 
-    private val UrlRegex = """.*(?:youtube\.com|youtu\.be)/(?:watch)?(?:\?v=)?([^"&?\/ ]{11}).*""".r
+    private val UrlRegex = """(?:youtube\.com|youtu\.be)/(?:watch)?(?:\?v=)?([^"&?/ ]{11})""".r.unanchored
 
     /*
    * https://www.youtube.com/watch?v=wEwoyYp_iw8
@@ -29,7 +29,7 @@ object UrlList {
 
     case class StudyId(value: String) extends AnyVal
 
-    private val UrlRegex = """.*(?:lichess\.org)/study/(\w+{8}).*$""".r
+    private val UrlRegex = """(?:lichess\.org)/study/(\w{8})""".r.unanchored
 
     def apply(text: String): List[StudyId] =
       text.lines.toList.map(_.trim).filter(_.nonEmpty) flatMap toId take max

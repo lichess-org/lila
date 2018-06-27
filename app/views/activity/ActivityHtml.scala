@@ -22,7 +22,7 @@ object ActivityHtml extends lila.Lilaisms {
     if (p == 0) ""
     else s"""<$tag>${wrapNumber(name.pluralSameTxt(p))}</$tag>"""
 
-  private val wrapNumberRegex = """(\d+)""".r
+  private val wrapNumberRegex = """(\d++)""".r
   private def wrapNumber(str: String) =
     wrapNumberRegex.replaceAllIn(str, "<strong>$1</strong>")
 }
