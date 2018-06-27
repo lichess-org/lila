@@ -46,8 +46,8 @@ object Mobile {
       )
     )
 
-    private val PathPattern = """/socket/v(\d++)$""".r.unanchored
-    private val HeaderPattern = """application/vnd\.lichess\.v(\d++)\+json""".r
+    private val PathPattern = """^.+/socket/v(\d+)$""".r
+    private val HeaderPattern = """^application/vnd\.lichess\.v(\d+)\+json$""".r
 
     def requestVersion(req: RequestHeader): Option[ApiVersion] = {
       (req.headers.get(HeaderNames.ACCEPT), req.path) match {

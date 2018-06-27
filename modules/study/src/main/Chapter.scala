@@ -152,8 +152,8 @@ object Chapter {
 
   def defaultName(order: Int) = Name(s"Chapter $order")
 
-  private val defaultNameRegex = """Chapter \d+""".r
-  def isDefaultName(n: Name) = n.value.isEmpty || defaultNameRegex.matches(n.value)
+  private val defaultNamePattern = """^Chapter \d+$""".r.pattern
+  def isDefaultName(n: Name) = n.value.isEmpty || defaultNamePattern.matcher(n.value).matches
 
   def fixName(n: Name) = Name(n.value.trim take 80)
 

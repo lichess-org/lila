@@ -36,11 +36,11 @@ private final class ReportScore(
     def flagScore(user: User) =
       (user.lameOrTroll) ?? -30d
 
-    private val gameRegex = """lichess.org/\w{8,12}""".r
+    private val gamePattern = """lichess.org/(\w{8,12})""".r.pattern
 
     def textScore(reason: Reason, text: String) = {
       (reason == Reason.Cheat || reason == Reason.Boost) &&
-        gameRegex.find(text)
+        gamePattern.matcher(text).find
     } ?? 20
 
     // https://github.com/ornicar/lila/issues/4093

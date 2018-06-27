@@ -5,16 +5,16 @@ object LameName {
   def username(name: String) =
     anyName(name) || lameTitlePrefix.matcher(name).lookingAt
 
-  def anyName(name: String) = lameWords.find(name)
+  def anyName(name: String) = lameWords.matcher(name).find
 
-  def anyNameButLichessIsOk(name: String) = lameWords find {
+  def anyNameButLichessIsOk(name: String) = lameWords.matcher {
     lichessRegex.replaceAllIn(name, "")
-  }
+  }.find
 
   private val lichessRegex = "(?i)lichess".r
 
   private val lameTitlePrefix =
-    "[Ww]?+[NCFIGl1L]M|(?i:w?+[ncfigl1])m[-_A-Z0-9]".r.pattern
+    "[Ww]?[NCFIGl1L]M|(?i:w?[ncfigl1])m[-_A-Z0-9]".r.pattern
 
   private val lameWords = {
     val extras = Map(
@@ -73,6 +73,6 @@ object LameName {
       "cuck"
     ).map {
         _.map(subs).map(_ + "+").mkString
-      }.mkString("|").r
+      }.mkString("|").r.pattern
   }
 }

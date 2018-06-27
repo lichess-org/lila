@@ -4,7 +4,7 @@ object Links {
 
   def make(text: String): List[Link] = text.lines.toList.map(_.trim) flatMap toLink
 
-  private val UrlRegex = """^(?:https?://)?+([^/]+)""".r.unanchored
+  private val UrlRegex = """^(?:http[s]?:\/\/)?([^/]+)/?.*$""".r
 
   private def toLink(line: String): Option[Link] = line match {
     case UrlRegex(domain) => Link(

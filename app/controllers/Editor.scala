@@ -25,7 +25,7 @@ object Editor extends LilaController {
 
   def load(urlFen: String) = Open { implicit ctx =>
     val fenStr = lila.common.String.decodeUriPath(urlFen)
-      .map(_.replace('_', ' ').trim).filter(_.nonEmpty)
+      .map(_.replace("_", " ").trim).filter(_.nonEmpty)
       .orElse(get("fen"))
     fuccess {
       val situation = readFen(fenStr)

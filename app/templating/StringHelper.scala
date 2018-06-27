@@ -31,15 +31,15 @@ trait StringHelper { self: NumberHelper =>
 
   def when(cond: Boolean, str: String) = cond ?? str
 
-  private val NumberFirstRegex = """(\d++)\s(.+)""".r
-  private val NumberLastRegex = """\s(\d++)$""".r.unanchored
+  private val NumberFirstRegex = """^(\d+)\s(.+)$""".r
+  private val NumberLastRegex = """^(.+)\s(\d+)$""".r
   def splitNumber(s: String)(implicit ctx: UserContext): Html = Html {
     s match {
       case NumberFirstRegex(number, text) =>
         s"<strong>${(~parseIntOption(number)).localize}</strong><br />$text"
-      case NumberLastRegex(n) if s.length > n.length + 1 =>
-        s"${s.dropRight(n.length + 1)}<br /><strong>${(~parseIntOption(n)).localize}</strong>"
-      case h => h.replaceIf('\n', "<br />")
+      case NumberLastRegex(text, number) =>
+        s"$text<br /><strong>${(~parseIntOption(number)).localize}</strong>"
+      case h => h.replace("\n", "<br />")
     }
   }
   def splitNumber(s: Html)(implicit ctx: UserContext): Html = splitNumber(s.body)

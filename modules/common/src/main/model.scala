@@ -18,7 +18,7 @@ object IpAddress {
   // http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address
   private val ipv4Regex = """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r
   // ipv6 address in standard form (no compression, no leading zeros)
-  private val ipv6Regex = """^((0|[1-9a-f][0-9a-f]{0,3}+):){7}(0|[1-9a-f][0-9a-f]{0,3})""".r
+  private val ipv6Regex = """^((0|[1-9a-f][0-9a-f]{0,3}):){7}(0|[1-9a-f][0-9a-f]{0,3})""".r
 
   def isv4(a: IpAddress) = ipv4Regex matches a.value
   def isv6(a: IpAddress) = ipv6Regex matches a.value
@@ -29,16 +29,16 @@ object IpAddress {
 }
 
 case class EmailAddress(value: String) extends AnyVal with StringValue {
-  def isHotmail = EmailAddress.hotmailRegex.find(value)
+  def isHotmail = EmailAddress.hotmailPattern.matcher(value).find
 }
 
 object EmailAddress {
 
-  private val regex =
-    """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]++@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
+  private val pattern =
+    """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r.pattern
 
   def from(str: String): Option[EmailAddress] =
-    regex.find(str) option EmailAddress(str)
+    pattern.matcher(str).find option EmailAddress(str)
 
-  private val hotmailRegex = """@(live|hotmail|outlook)\.""".r
+  private val hotmailPattern = """(.*)@(live|hotmail|outlook)\.(.*)""".r.pattern
 }

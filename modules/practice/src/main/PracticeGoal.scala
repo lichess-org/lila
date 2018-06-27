@@ -11,14 +11,14 @@ object PracticeGoal {
   case class EvalIn(cp: Int, nbMoves: Int) extends PracticeGoal
   case class Promotion(cp: Int) extends PracticeGoal
 
-  private val MateR = """(?i)(?:check)?+mate""".r
-  private val MateInR = """(?i)(?:check)?+mate in (\d++)""".r
-  private val DrawInR = """(?i)draw in (\d++)""".r
-  private val EqualInR = """(?i)equal(?:ize)?+ in (\d++)""".r
-  private val EvalInR = """(?i)((?:\+|-|)\d++)cp in (\d++)""".r
-  private val PromotionR = """(?i)promotion with ((?:\+|-|)\d++)cp""".r
+  private val MateR = """(?i)^(?:check)?mate$""".r
+  private val MateInR = """(?i)^(?:check)?mate in (\d+)$""".r
+  private val DrawInR = """(?i)^draw in (\d+)$""".r
+  private val EqualInR = """(?i)^equal(?:ize)? in (\d+)$""".r
+  private val EvalInR = """(?i)^((?:\+|-|)\d+)cp in (\d+)$""".r
+  private val PromotionR = """(?i)^promotion with ((?:\+|-|)\d+)cp$""".r
 
-  private val MultiSpaceR = """\s{2,}+""".r
+  private val MultiSpaceR = """\s{2,}""".r
 
   def apply(chapter: lila.study.Chapter): PracticeGoal =
     chapter.tags(_.Termination).map(v => MultiSpaceR.replaceAllIn(v.trim, " ")).flatMap {

@@ -29,12 +29,10 @@ object Auth extends LilaController {
       }
     }
 
-  private val refRegex = """[\w@-/]++""".r
-
   private def goodReferrer(referrer: String): Boolean = {
     referrer.nonEmpty &&
       referrer.stripPrefix("/") != "mobile" && {
-        (!referrer.contains("//") && refRegex.matches(referrer)) ||
+        """(?:[\w@-]|(:?\/[\w@-]))*\/?""".r.matches(referrer) ||
           referrer.startsWith(Env.oAuth.baseUrl)
       }
   }

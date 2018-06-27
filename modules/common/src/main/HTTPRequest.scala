@@ -44,10 +44,11 @@ object HTTPRequest {
       """coccoc|integromedb|contentcrawlerspider|toplistbot|seokicks-robot|it2media-domain-crawler|ip-web-crawler\.com|siteexplorer\.info|elisabot|proximic|changedetection|blexbot|arabot|wesee:search|niki-bot|crystalsemanticsbot|rogerbot|360spider|psbot|interfaxscanbot|lipperheyseoservice|ccmetadatascaper|g00g1e\.net|grapeshotcrawler|urlappendbot|brainobot|fr-crawler|binlar|simplecrawler|simplecrawler|livelapbot|twitterbot|cxensebot|smtbot|facebookexternalhit|daumoa|sputnikimagebot|visionutils|yisouspider|parsijoobot|mediatoolkit\.com|semrushbot""")
   }
 
-  case class UaMatcher(rStr: String) {
-    private val regex = rStr.r
+  case class UaMatcher(regex: String) {
+    val pattern = regex.r.pattern
 
-    def apply(req: RequestHeader): Boolean = userAgent(req) ?? { regex.find(_) }
+    def apply(req: RequestHeader): Boolean =
+      userAgent(req) ?? { ua => pattern.matcher(ua).find }
   }
 
   def isFishnet(req: RequestHeader) = req.path startsWith "/fishnet/"
@@ -58,9 +59,10 @@ object HTTPRequest {
     ua.contains("facebookexternalhit/") || ua.contains("twitterbot/")
   }
 
-  private[this] val fileExtensionRegex = """\.(?<!^\.)[a-z0-9]{2,4}$""".r
+  private val fileExtensionPattern = """.+\.[a-z0-9]{2,4}$""".r.pattern
 
-  def hasFileExtension(req: RequestHeader) = fileExtensionRegex.find(req.path)
+  def hasFileExtension(req: RequestHeader) =
+    fileExtensionPattern.matcher(req.path).matches
 
   def weirdUA(req: RequestHeader) = userAgent(req).fold(true)(_.size < 30)
 

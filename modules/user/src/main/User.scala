@@ -151,6 +151,8 @@ object User {
   val anonymous = "Anonymous"
   val lichessId = "lichess"
 
+  val idPattern = """^[\w-]{3,20}$""".r.pattern
+
   case class GDPRErase(user: User) extends AnyVal
   case class Erased(value: Boolean) extends AnyVal
 

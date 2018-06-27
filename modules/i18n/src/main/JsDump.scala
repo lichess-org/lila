@@ -41,7 +41,7 @@ private[i18n] final class JsDump(path: String) {
     finally { out.close }
   }
 
-  private def escape(text: String) = text.replaceIf('"', "\\\"")
+  private def escape(text: String) = text.replace(""""""", """\"""")
 }
 
 object JsDump {

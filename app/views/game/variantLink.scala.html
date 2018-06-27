@@ -2,7 +2,7 @@
 @url = {
 @variant match {
 case chess.variant.Standard => {https://en.wikipedia.org/wiki/Chess}
-case chess.variant.FromPosition => {@routes.Editor.index?fen=@initialFen.map(_.value.replace(' ', '_'))}
+case chess.variant.FromPosition => {@routes.Editor.index?fen=@initialFen.map(_.value.replace(" ", "_"))}
 case v => {@routes.Page.variant(v.key)}
 }
 }
