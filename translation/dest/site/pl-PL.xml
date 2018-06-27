@@ -555,9 +555,9 @@
   <string name="reportAUser">Zgłoś użytkownika</string>
   <string name="user">Użytkownik</string>
   <string name="reason">Powód</string>
-  <string name="whatIsIheMatter">Co się stało?</string>
+  <string name="whatIsIheMatter">Jakie to ma znaczenie?</string>
   <string name="cheat">Oszust</string>
-  <string name="insult">Wyzwiska</string>
+  <string name="insult">Znieważenie</string>
   <string name="troll">Natręt (troll)</string>
   <string name="other">Inne</string>
   <string name="reportDescriptionHelp">Wklej link do gry i wyjaśnij, dlaczego zachowanie użytkownika jest nieprawidłowe. Nie wystarczy napisać \"oszukuje\", powiedz nam na jakiej podstawie doszedłeś do takiego wniosku. Twoje zgłoszenie będzie zweryfikowane szybciej jeżeli napiszesz je w języku angielskim.</string>
