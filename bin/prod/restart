@@ -1,6 +1,6 @@
 #!/bin/sh
 
-REMOTE="benko"
+REMOTE="keres"
 REMOTE_DIR="/home/lichess"
 
 echo "Notify users of pre deploy"
