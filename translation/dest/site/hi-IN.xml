@@ -290,6 +290,10 @@
     <item quantity="one">≥ %1$s %2$s रेटेड खेल</item>
     <item quantity="other">≥ %1$s %2$s रेटेड खेल</item>
   </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">आपको %s और खेल में भाग लेने की आवश्यकता है</item>
+    <item quantity="other">आपको %s और खेल में भाग लेने की आवश्यकता है</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">आपके %s रेटिंग अनंतिम है</string>
   <string name="yourPerfRatingIsTooHigh">आपके %1$s रेटिंग (%2$s) बहुत अधिक है</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">अपने शीर्ष साप्ताहिक %1$s रेटिंग (%2$s) बहुत अधिक है</string>
