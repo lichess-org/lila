@@ -13,7 +13,11 @@ case class ContentSecurityPolicy(
 
   private def withScriptSrc(source: String) = copy(scriptSrc = source :: scriptSrc)
 
-  def withNonce(nonce: Nonce) = withScriptSrc(nonce.scriptSrc)
+  def withNonce(nonce: Nonce) = copy(
+    // Nonces are not supported by Safari but 'unsafe-inline' is ignored by
+    // better browsers if there are also nonces.
+    scriptSrc = nonce.scriptSrc :: "'unsafe-inline'" :: scriptSrc
+  )
 
   def withStripe = copy(
     connectSrc = "https://*.stripe.com" :: connectSrc,
