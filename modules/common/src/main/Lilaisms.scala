@@ -55,6 +55,7 @@ trait Lilaisms
   @inline implicit def toPimpedTryList[A](l: List[Try[A]]) = new PimpedTryList(l)
   @inline implicit def toPimpedList[A](l: List[A]) = new PimpedList(l)
   @inline implicit def toPimpedSeq[A](l: Seq[A]) = new PimpedSeq(l)
+  @inline implicit def toPimpedChars(i: Iterable[CharSequence]) = new PimpedChars(i)
   @inline implicit def toPimpedByteArray(ba: Array[Byte]) = new PimpedByteArray(ba)
 
   @inline implicit def toPimpedOption[A](a: Option[A]) = new PimpedOption(a)

@@ -103,7 +103,7 @@ private final class PoolActor(
   }
 
   val monitor = lila.mon.lobby.pool
-  val monId = config.id.value.replace("+", "_")
+  val monId = config.id.value.replace('+', '_')
 }
 
 private object PoolActor {
