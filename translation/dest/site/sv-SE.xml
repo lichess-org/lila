@@ -390,6 +390,11 @@
   <string name="conditionOfEntry">Villkor för inträde:</string>
   <string name="advancedSettings">Avancerade inställningar</string>
   <string name="safeTournamentName">Välj ett mycket säkert namn för turneringen.</string>
+  <string name="inappropriateNameWarning">Någonting bara lite olämpligt skulle kunna få ditt konto att stängas.</string>
+  <string name="emptyTournamentName">Lämna tom för att namnge turneringen efter en slumpmässig stormästare.</string>
+  <string name="recommendNotTouching">Vi rekommenderar att inte röra dessa.</string>
+  <string name="fewerPlayers">Anger du inträdesvillkor kommer din turnering att ha färre spelare.</string>
+  <string name="showAdvancedSettings">Visa avancerade inställningar</string>
   <string name="join">Delta</string>
   <string name="withdraw">Lämna</string>
   <string name="points">Poäng</string>
@@ -519,6 +524,7 @@
   <string name="thisAccountIsClosed">Det här kontot är avslutat</string>
   <string name="invalidUsernameOrPassword">Ogiltigt användarnamn eller lösenord</string>
   <string name="incorrectPassword">Inkorrekt lösenord</string>
+  <string name="invalidAuthenticationCode">Ogiltig bekräftelsekod</string>
   <string name="emailMeALink">Maila mig en länk</string>
   <string name="currentPassword">Nuvarande lösenord</string>
   <string name="newPassword">Nytt lösenord</string>
