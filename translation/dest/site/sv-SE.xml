@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Detta parti är rankat</string>
   <string name="rematch">Returmatch</string>
   <string name="rematchOfferSent">Förslag om returmatch skickat</string>
+  <string name="rematchOfferSentWhite">Vit erbjuder returmatch</string>
+  <string name="rematchOfferSentBlack">Svart erbjuder returmatch</string>
   <string name="rematchOfferAccepted">Förslag om returmatch accepterat</string>
   <string name="rematchOfferCanceled">Anbud om returmatch upphävt</string>
   <string name="rematchOfferDeclined">Anbud om returmatch avböjt</string>
@@ -384,6 +386,10 @@
   <string name="winner">Vinnare</string>
   <string name="standing">Ställning</string>
   <string name="createANewTournament">Skapa en ny turnering</string>
+  <string name="tournamentCalendar">Turneringskalender</string>
+  <string name="conditionOfEntry">Villkor för inträde:</string>
+  <string name="advancedSettings">Avancerade inställningar</string>
+  <string name="safeTournamentName">Välj ett mycket säkert namn för turneringen.</string>
   <string name="join">Delta</string>
   <string name="withdraw">Lämna</string>
   <string name="points">Poäng</string>
