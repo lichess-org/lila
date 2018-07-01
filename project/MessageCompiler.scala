@@ -126,17 +126,15 @@ ${content mkString "\n"}
       val sb = new java.lang.StringBuilder(s.size + 10) // wet finger style
       var i = 0
       while (i < s.length) {
-        sb.append {
-          s.charAt(i) match {
-            case '<' => "&lt;";
-            case '>' => "&gt;";
-            case '&' => "&amp;";
-            case '"' => "&quot;";
-            case '\'' => "&#39;";
-            case '\r' => "";
-            case '\n' => "<br />";
-            case c => c
-          }
+        s.charAt(i) match {
+          case '<'  => sb append "&lt;"
+          case '>'  => sb append "&gt;"
+          case '&'  => sb append "&amp;"
+          case '"'  => sb append "&quot;"
+          case '\'' => sb append "&#39;"
+          case '\r' => ()
+          case '\n' => sb append "<br />"
+          case c    => sb append c
         }
         i += 1
       }
