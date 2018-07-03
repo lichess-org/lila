@@ -59,6 +59,9 @@ object TeamRepo {
       $push("requests", request.user)
     ).void
 
+  def changeOwner(teamId: String, newOwner: User.ID) =
+    coll.update($id(teamId), $set("createdBy" -> newOwner))
+
   val enabledQuery = $doc("enabled" -> true)
 
   val sortPopular = $sort desc "nbMembers"
