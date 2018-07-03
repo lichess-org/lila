@@ -105,6 +105,25 @@ object Team extends LilaController {
     }
   }
 
+  def changeOwnerForm(id: String) = Auth { implicit ctx => me =>
+    OptionFuResult(api team id) { team =>
+      Owner(team) {
+        MemberRepo userIdsByTeam team.id map { userIds =>
+          html.team.changeOwner(team, userIds.filterNot(me.id ==).toList.sorted)
+        }
+      }
+    }
+  }
+
+  def changeOwner(id: String) = AuthBody { implicit ctx => me =>
+    OptionFuResult(api team id) { team =>
+      Owner(team) {
+        implicit val req = ctx.body
+        forms.kick.bindFromRequest.value ?? { api.changeOwner(team, _) } inject Redirect(routes.Team.show(team.id))
+      }
+    }
+  }
+
   def close(id: String) = Secure(_.CloseTeam) { implicit ctx => me =>
     OptionFuResult(api team id) { team =>
       (api delete team) >>

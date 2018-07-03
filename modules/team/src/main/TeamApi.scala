@@ -153,6 +153,8 @@ final class TeamApi(
 
   def kick(team: Team, userId: String): Funit = doQuit(team, userId)
 
+  def changeOwner(team: Team, userId: String): Funit = TeamRepo.changeOwner(team.id, userId).void
+
   def enable(team: Team): Funit =
     TeamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
 

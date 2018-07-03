@@ -7,7 +7,8 @@
   <div class="content_box team_box">
     <h1>@title</h1>
     <p class="links undertitle">
-      <a href="@routes.Team.kick(t.id)">Kick someone out of the team</a>
+      <a href="@routes.Team.kick(t.id)">Kick someone out of the team</a><br>
+      <a href="@routes.Team.changeOwner(t.id)">Appoint another team owner</a>
     </p>
     <form class="new-team wide" action="@routes.Team.update(t.id)" method="POST">
       <section class="team-data">
