@@ -109,7 +109,7 @@ object Team extends LilaController {
     OptionFuResult(api team id) { team =>
       Owner(team) {
         MemberRepo userIdsByTeam team.id map { userIds =>
-          html.team.changeOwner(team, userIds.filterNot(me.id ==).toList.sorted)
+          html.team.changeOwner(team, userIds.filterNot(team.createdBy ==).toList.sorted)
         }
       }
     }
