@@ -234,6 +234,6 @@ object Team extends LilaController {
     }
 
   private def Owner(team: TeamModel)(a: => Fu[Result])(implicit ctx: Context): Fu[Result] = {
-    ctx.me.??(me => team.isCreator(me.id) || Granter.superAdmin(me))
+    ctx.me.??(me => team.isCreator(me.id) || Granter.admin(me))
   }.fold(a, renderTeam(team) map { Forbidden(_) })
 }
