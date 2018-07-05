@@ -5,6 +5,7 @@ import akka.actor.ActorSelection
 import lila.db.dsl._
 import lila.hub.actorApi.team.{ CreateTeam, JoinTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
+import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo, UserContext }
 import org.joda.time.Period
 import reactivemongo.api.Cursor
@@ -15,7 +16,8 @@ final class TeamApi(
     notifier: Notifier,
     bus: lila.common.Bus,
     indexer: ActorSelection,
-    timeline: ActorSelection
+    timeline: ActorSelection,
+    modLog: ModlogApi
 ) {
 
   import BSONHandlers._
@@ -52,7 +54,11 @@ final class TeamApi(
       description = e.description,
       open = e.isOpen
     ) |> { team =>
-      coll.team.update($id(team.id), team).void >>- (indexer ! InsertTeam(team))
+      coll.team.update($id(team.id), team).void >>
+        !team.isCreator(me.id) ?? {
+          modLog.teamEdit(me.id, team.createdBy, team.name)
+        } >>-
+        (indexer ! InsertTeam(team))
     }
   }
 
@@ -151,9 +157,15 @@ final class TeamApi(
 
   def quitAll(userId: String): Funit = MemberRepo.removeByUser(userId)
 
-  def kick(team: Team, userId: String): Funit = doQuit(team, userId)
+  def kick(team: Team, userId: String, me: User): Funit =
+    doQuit(team, userId) >>
+      !team.isCreator(me.id) ?? {
+        modLog.teamKick(me.id, userId, team.name)
+      }
 
-  def changeOwner(team: Team, userId: String): Funit = TeamRepo.changeOwner(team.id, userId).void
+  def changeOwner(team: Team, userId: String, me: User): Funit =
+    TeamRepo.changeOwner(team.id, userId) >>
+      modLog.teamMadeOwner(me.id, userId, team.name)
 
   def enable(team: Team): Funit =
     TeamRepo.enable(team).void >>- (indexer ! InsertTeam(team))

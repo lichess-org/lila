@@ -149,6 +149,18 @@ final class ModlogApi(coll: Coll) {
     Modlog.make(mod, sus, if (v) Modlog.rankban else Modlog.unrankban)
   }
 
+  def teamKick(mod: String, user: String, teamName: String) = add {
+    Modlog(mod, user.some, Modlog.teamKick, details = Some(teamName take 140))
+  }
+
+  def teamEdit(mod: String, teamOwner: String, teamName: String) = add {
+    Modlog(mod, teamOwner.some, Modlog.teamEdit, details = Some(teamName take 140))
+  }
+
+  def teamMadeOwner(mod: String, user: String, teamName: String) = add {
+    Modlog(mod, user.some, Modlog.teamMadeOwner, details = Some(teamName take 140))
+  }
+
   def recent = coll.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)
 
   def wasUnengined(sus: Suspect) = coll.exists($doc(

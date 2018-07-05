@@ -3,12 +3,14 @@ package lila.team
 import com.typesafe.config.Config
 import akka.actor._
 
+import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 import lila.common.MaxPerPage
 
 final class Env(
     config: Config,
     hub: lila.hub.Env,
+    modLog: ModlogApi,
     notifyApi: NotifyApi,
     system: ActorSystem,
     asyncCache: lila.memo.AsyncCache.Builder,
@@ -40,7 +42,8 @@ final class Env(
     notifier = notifier,
     bus = system.lilaBus,
     indexer = hub.actor.teamSearch,
-    timeline = hub.actor.timeline
+    timeline = hub.actor.timeline,
+    modLog = modLog
   )
 
   lazy val paginator = new PaginatorBuilder(
@@ -67,6 +70,7 @@ object Env {
   lazy val current = "team" boot new Env(
     config = lila.common.PlayApp loadConfig "team",
     hub = lila.hub.Env.current,
+    modLog = lila.mod.Env.current.logApi,
     notifyApi = lila.notify.Env.current.api,
     system = lila.common.PlayApp.system,
     asyncCache = lila.memo.Env.current.asyncCache,
