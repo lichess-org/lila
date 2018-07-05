@@ -10,6 +10,8 @@ object LilaCookie {
   private def domain(req: RequestHeader): String =
     domainRegex.findFirstIn(req.domain).getOrElse(req.domain)
 
+  private lazy val defaultHttpOnly = false // Session.httpOnly
+
   val sessionId = "sid"
 
   def makeSessionId(implicit req: RequestHeader) = session(sessionId, Random secureString 10)
@@ -32,9 +34,9 @@ object LilaCookie {
     "/",
     domain(req).some,
     Session.secure || req.headers.get("X-Forwarded-Proto").contains("https"),
-    httpOnly | Session.httpOnly
+    httpOnly | defaultHttpOnly
   )
 
   def discard(name: String)(implicit req: RequestHeader) =
-    DiscardingCookie(name, "/", domain(req).some, Session.httpOnly)
+    DiscardingCookie(name, "/", domain(req).some, defaultHttpOnly)
 }
