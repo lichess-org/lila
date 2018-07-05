@@ -3,12 +3,14 @@ package lidraughts.team
 import com.typesafe.config.Config
 import akka.actor._
 
+import lidraughts.mod.ModlogApi
 import lidraughts.notify.NotifyApi
 import lidraughts.common.MaxPerPage
 
 final class Env(
     config: Config,
     hub: lidraughts.hub.Env,
+    modLog: ModlogApi,
     notifyApi: NotifyApi,
     system: ActorSystem,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
@@ -40,7 +42,8 @@ final class Env(
     notifier = notifier,
     bus = system.lidraughtsBus,
     indexer = hub.actor.teamSearch,
-    timeline = hub.actor.timeline
+    timeline = hub.actor.timeline,
+    modLog = modLog
   )
 
   lazy val paginator = new PaginatorBuilder(
@@ -67,6 +70,7 @@ object Env {
   lazy val current = "team" boot new Env(
     config = lidraughts.common.PlayApp loadConfig "team",
     hub = lidraughts.hub.Env.current,
+    modLog = lidraughts.mod.Env.current.logApi,
     notifyApi = lidraughts.notify.Env.current.api,
     system = lidraughts.common.PlayApp.system,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
