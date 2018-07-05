@@ -13,8 +13,8 @@ import scala.concurrent.duration._
 import lidraughts.common.{ ApiVersion, IpAddress, EmailAddress }
 import lidraughts.db.BSON.BSONJodaDateTimeHandler
 import lidraughts.db.dsl._
-import lidraughts.user.{ User, UserRepo }
 import lidraughts.oauth.OAuthServer
+import lidraughts.user.{ User, UserRepo }
 import User.LoginCandidate
 
 final class SecurityApi(
@@ -120,7 +120,12 @@ final class SecurityApi(
   def setFingerPrint(req: RequestHeader, fp: FingerPrint): Fu[Option[FingerHash]] =
     reqSessionId(req) ?? { Store.setFingerPrint(_, fp) map some }
 
-  def reqSessionId(req: RequestHeader) = req.session get "sessionId"
+  private val sessionIdKey = "sessionId"
+
+  def reqSessionId(req: RequestHeader): Option[String] =
+    req.session.get(sessionIdKey) orElse
+      req.headers.get(sessionIdKey) orElse
+      req.queryString.get(sessionIdKey).flatMap(_.headOption)
 
   def userIdsSharingIp = userIdsSharingField("ip") _
 
