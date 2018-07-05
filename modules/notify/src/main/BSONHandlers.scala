@@ -39,6 +39,10 @@ private object BSONHandlers {
   implicit val TeamNameHandler = stringAnyValHandler[TeamJoined.Name](_.value, TeamJoined.Name.apply)
   implicit val TeamJoinedHandler = Macros.handler[TeamJoined]
 
+  implicit val TeamMadeOwnerIdHandler = stringAnyValHandler[TeamMadeOwner.Id](_.value, TeamMadeOwner.Id.apply)
+  implicit val TeamMadeOwnerNameHandler = stringAnyValHandler[TeamMadeOwner.Name](_.value, TeamMadeOwner.Name.apply)
+  implicit val TeamMadeOwnerHandler = Macros.handler[TeamMadeOwner]
+
   implicit val GameEndGameIdHandler = stringAnyValHandler[GameEnd.GameId](_.value, GameEnd.GameId.apply)
   implicit val GameEndOpponentHandler = stringAnyValHandler[GameEnd.OpponentId](_.value, GameEnd.OpponentId.apply)
   implicit val GameEndWinHandler = booleanAnyValHandler[GameEnd.Win](_.value, GameEnd.Win.apply)
@@ -70,6 +74,7 @@ private object BSONHandlers {
         case p: PrivateMessage => PrivateMessageHandler.write(p)
         case q: QaAnswer => QaAnswerHandler.write(q)
         case t: TeamJoined => TeamJoinedHandler.write(t)
+        case o: TeamMadeOwner => TeamMadeOwnerHandler.write(o)
         case LimitedTournamentInvitation => $empty
         case x: TitledTournamentInvitation => TitledTournamentInvitationHandler.write(x)
         case x: GameEnd => GameEndHandler.write(x)
@@ -108,6 +113,7 @@ private object BSONHandlers {
       case "privateMessage" => PrivateMessageHandler read reader.doc
       case "qaAnswer" => QaAnswerHandler read reader.doc
       case "teamJoined" => TeamJoinedHandler read reader.doc
+      case "teamMadeOwner" => TeamMadeOwnerHandler read reader.doc
       case "u" => LimitedTournamentInvitation
       case "titledTourney" => TitledTournamentInvitationHandler read reader.doc
       case "gameEnd" => GameEndHandler read reader.doc

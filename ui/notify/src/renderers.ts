@@ -68,6 +68,16 @@ export const renderers: Renderers = {
     ]),
     text: n => "You have joined  « " + n.content.name + "  »."
   },
+  teamMadeOwner: {
+    html: n => generic(n, "/team/" + n.content.id, 'f', [
+      h('span', [
+        h('strong', n.content.name),
+        drawTime(n)
+      ]),
+      h('span', "You are appointed as team owner.")
+    ]),
+    text: n => "You are now the owner of  « " + n.content.name + "  »."
+  },
   u: {
     html: n => generic(n, '/tournament/limited-invitation', 'g', [
       h('span', [

@@ -165,7 +165,8 @@ final class TeamApi(
 
   def changeOwner(team: Team, userId: String, me: User): Funit =
     TeamRepo.changeOwner(team.id, userId) >>
-      modLog.teamMadeOwner(me.id, userId, team.name)
+      modLog.teamMadeOwner(me.id, userId, team.name) >>-
+      notifier.madeOwner(team, userId)
 
   def enable(team: Team): Funit =
     TeamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
