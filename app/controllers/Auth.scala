@@ -20,11 +20,12 @@ object Auth extends LilaController {
   private def api = env.api
   private def forms = env.forms
 
-  private def mobileUserOk(u: UserModel): Fu[Result] =
+  private def mobileUserOk(u: UserModel, sessionId: String): Fu[Result] =
     lila.game.GameRepo urgentGames u map { povs =>
       Ok {
         Env.user.jsonView(u) ++ Json.obj(
-          "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying)
+          "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
+          "sessionId" -> sessionId
         )
       }
     }
@@ -51,7 +52,7 @@ object Auth extends LilaController {
               routes.Lobby.home.url
             result.fold(Redirect(redirectTo))(_(redirectTo))
           },
-          api = _ => mobileUserOk(u)
+          api = _ => mobileUserOk(u, sessionId)
         ) map authenticateCookie(sessionId)
       } recoverWith authRecovery
     )
@@ -299,7 +300,7 @@ object Auth extends LilaController {
     api.saveAuthentication(user.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = Redirect(routes.User.show(user.username)).fuccess,
-        api = _ => mobileUserOk(user)
+        api = _ => mobileUserOk(user, sessionId)
       ) map authenticateCookie(sessionId)
     } recoverWith authRecovery
   }

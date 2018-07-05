@@ -13,8 +13,8 @@ import scala.concurrent.duration._
 import lila.common.{ ApiVersion, IpAddress, EmailAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
 import lila.oauth.OAuthServer
+import lila.user.{ User, UserRepo }
 import User.LoginCandidate
 
 final class SecurityApi(
@@ -120,7 +120,12 @@ final class SecurityApi(
   def setFingerPrint(req: RequestHeader, fp: FingerPrint): Fu[Option[FingerHash]] =
     reqSessionId(req) ?? { Store.setFingerPrint(_, fp) map some }
 
-  def reqSessionId(req: RequestHeader) = req.session get "sessionId"
+  private val sessionIdKey = "sessionId"
+
+  def reqSessionId(req: RequestHeader): Option[String] =
+    req.session.get(sessionIdKey) orElse
+      req.headers.get(sessionIdKey) orElse
+      req.queryString.get(sessionIdKey).flatMap(_.headOption)
 
   def userIdsSharingIp = userIdsSharingField("ip") _
 
