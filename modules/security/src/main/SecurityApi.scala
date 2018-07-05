@@ -10,7 +10,7 @@ import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import lila.common.{ ApiVersion, IpAddress, EmailAddress }
+import lila.common.{ ApiVersion, IpAddress, EmailAddress, HTTPRequest }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.oauth.OAuthServer
@@ -122,10 +122,14 @@ final class SecurityApi(
 
   private val sessionIdKey = "sessionId"
 
+  private def isMobileAppWS(req: RequestHeader) =
+    HTTPRequest.isSocket(req) && HTTPRequest.origin(req).fold(true)("file://" ==)
+
   def reqSessionId(req: RequestHeader): Option[String] =
     req.session.get(sessionIdKey) orElse
-      req.headers.get(sessionIdKey) orElse
-      req.queryString.get(sessionIdKey).flatMap(_.headOption)
+      req.headers.get(sessionIdKey) orElse {
+        isMobileAppWS(req) ?? req.queryString.get(sessionIdKey).flatMap(_.headOption)
+      }
 
   def userIdsSharingIp = userIdsSharingField("ip") _
 
