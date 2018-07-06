@@ -29,7 +29,7 @@ function studyButton(ctrl, fen) {
       value: ctrl.bottomColor()
     }),
     m('input[type=hidden][name=variant]', {
-      value: 'standard'
+      value: ctrl.data.variant
     }),
     m('input[type=hidden][name=fen]', {
       value: fen
@@ -56,6 +56,17 @@ function controls(ctrl, fen) {
       children: [pos.eco ? pos.eco + " " + pos.name : pos.name]
     };
   };
+  var variant2option = function(key, name) {
+    return {
+      tag: 'option',
+      attrs: {
+        value: key,
+        selected: key == "standard"
+      },
+      children: [name]
+    };
+  };
+  var selectedVariant = ctrl.data.variant;
   var looksLegit = ctrl.positionLooksLegit();
   return m('div.editor-side', [
     ctrl.embed ? null : m('div', [
@@ -99,6 +110,24 @@ function controls(ctrl, fen) {
         ])
       ])
     ]),
+    m('div', [
+      m('select#variants', {
+          onchange: function(e) {
+            ctrl.changeVariant(e.target.value);
+          }
+      }, [
+        optgroup("Select a variant", [
+          variant2option("standard", "Standard"),
+          variant2option("antichess", "Antichess"),
+          variant2option("atomic", "Atomic"),
+          variant2option("crazyhouse", "Crazyhouse"),
+          variant2option("horde", "Horde"),
+          variant2option("kingOfTheHill", "King of the Hill"),
+          variant2option("racingKings", "Racing Kings"),
+          variant2option("threeCheck", "Three-check")
+        ])
+      ])
+    ]),
     ctrl.embed ? m('div', [
       m('a.button.frameless', {
         onclick: ctrl.startPosition
@@ -113,14 +142,14 @@ function controls(ctrl, fen) {
             ctrl.chessground.toggleOrientation();
           }
         }, ctrl.trans('flipBoard')),
-        looksLegit ? m('a.button.text[data-icon="A"]', {
-          href: editor.makeUrl('/analysis/', fen),
+        looksLegit ? m('a#analysisLink.button.text[data-icon="A"]', {
+          href: editor.makeUrl('/analysis/' + selectedVariant + '/', fen),
           rel: 'nofollow'
         }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="A"]', {
           rel: 'nofollow'
         }, ctrl.trans('analysis')),
         m('a.button', {
-          class: looksLegit ? '' : 'disabled',
+          class: (looksLegit && selectedVariant === "standard") ? '' : 'disabled',
           onclick: function() {
             if (ctrl.positionLooksLegit()) $.modal($('.continue_with'));
           }
