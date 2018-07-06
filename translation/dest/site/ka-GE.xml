@@ -187,6 +187,7 @@
   <string name="thisGameIsRated">ეს თამაში ფასდება</string>
   <string name="rematch">რევანში</string>
   <string name="rematchOfferSent">რევანშის შეთავაზება გაგზავნილია</string>
+  <string name="rematchOfferSentWhite">მოწინააღმდეგე გთავაზობთ ხელახლა თამაშს</string>
   <string name="rematchOfferAccepted">რევანშის შეთავაზება მიღებულია</string>
   <string name="rematchOfferCanceled">განმეორებით თამაშზე მოთხოვნა გაუქმებულია</string>
   <string name="rematchOfferDeclined">განმეორებით თამაშზე მოთხოვნა უარყოფილია</string>
