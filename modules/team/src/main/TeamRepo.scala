@@ -60,7 +60,7 @@ object TeamRepo {
     ).void
 
   def changeOwner(teamId: String, newOwner: User.ID) =
-    coll.update($id(teamId), $set("createdBy" -> newOwner))
+    coll.updateField($id(teamId), "createdBy", newOwner)
 
   val enabledQuery = $doc("enabled" -> true)
 
