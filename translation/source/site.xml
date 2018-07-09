@@ -425,6 +425,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="clearBoard">Clear board</string>
   <string name="savePosition">Save position</string>
   <string name="loadPosition">Load position</string>
+  <string name="selectAVariant">Select a variant</string>
   <string name="isPrivate">Private</string>
   <string name="reportXToModerators">Report %s to moderators</string>
   <string name="profileCompletion">Profile completion: %s</string>

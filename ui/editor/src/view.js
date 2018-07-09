@@ -116,7 +116,7 @@ function controls(ctrl, fen) {
             ctrl.changeVariant(e.target.value);
           }
       }, [
-        optgroup("Select a variant", [
+        optgroup(ctrl.trans('selectAVariant'), [
           variant2option("standard", "Standard"),
           variant2option("antichess", "Antichess"),
           variant2option("atomic", "Atomic"),
