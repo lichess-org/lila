@@ -142,7 +142,7 @@ function controls(ctrl, fen) {
             ctrl.chessground.toggleOrientation();
           }
         }, ctrl.trans('flipBoard')),
-        looksLegit ? m('a#analysisLink.button.text[data-icon="A"]', {
+        looksLegit ? m('a.button.text[data-icon="A"]', {
           href: editor.makeUrl('/analysis/' + selectedVariant + '/', fen),
           rel: 'nofollow'
         }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="A"]', {
