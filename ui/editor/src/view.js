@@ -53,7 +53,7 @@ function controls(ctrl, fen) {
         value: pos.fen,
         selected: currentPosition && currentPosition.fen === pos.fen
       },
-      children: [pos.eco ? pos.eco + " " + pos.name : pos.name]
+      children: [pos.eco ? pos.eco + ' ' + pos.name : pos.name]
     };
   };
   var variant2option = function(key, name) {
@@ -61,7 +61,7 @@ function controls(ctrl, fen) {
       tag: 'option',
       attrs: {
         value: key,
-        selected: key == "standard"
+        selected: key == 'standard'
       },
       children: [name]
     };
@@ -117,14 +117,14 @@ function controls(ctrl, fen) {
           }
       }, [
         optgroup(ctrl.trans('selectAVariant'), [
-          variant2option("standard", "Standard"),
-          variant2option("antichess", "Antichess"),
-          variant2option("atomic", "Atomic"),
-          variant2option("crazyhouse", "Crazyhouse"),
-          variant2option("horde", "Horde"),
-          variant2option("kingOfTheHill", "King of the Hill"),
-          variant2option("racingKings", "Racing Kings"),
-          variant2option("threeCheck", "Three-check")
+          variant2option('standard', 'Standard'),
+          variant2option('antichess', 'Antichess'),
+          variant2option('atomic', 'Atomic'),
+          variant2option('crazyhouse', 'Crazyhouse'),
+          variant2option('horde', 'Horde'),
+          variant2option('kingOfTheHill', 'King of the Hill'),
+          variant2option('racingKings', 'Racing Kings'),
+          variant2option('threeCheck', 'Three-check')
         ])
       ])
     ]),
@@ -149,7 +149,7 @@ function controls(ctrl, fen) {
           rel: 'nofollow'
         }, ctrl.trans('analysis')),
         m('a.button', {
-          class: (looksLegit && selectedVariant === "standard") ? '' : 'disabled',
+          class: (looksLegit && selectedVariant === 'standard') ? '' : 'disabled',
           onclick: function() {
             if (ctrl.positionLooksLegit()) $.modal($('.continue_with'));
           }
