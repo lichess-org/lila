@@ -1,7 +1,7 @@
 $(function() {
   $('#trainer').each(function() {
     var $trainer = $(this);
-    var $board = $trainer.find('.board');
+    var $board = $trainer.find('.cg-board-wrap');
     var ground;
     var $side = $trainer.find('.side');
     var $right = $trainer.find('.board_and_ground > .right');
@@ -30,7 +30,8 @@ $(function() {
           free: false,
           color: null
         },
-        orientation: color
+        orientation: color,
+        addPieceZIndex: $('#top').hasClass('is3d')
       });
       else if (color !== ground.state.orientation) ground.toggleOrientation();
       $trainer.removeClass('white black').addClass(color);
