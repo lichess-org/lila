@@ -524,6 +524,7 @@
   <string name="thisAccountIsClosed">Kontu hau itxita dago.</string>
   <string name="invalidUsernameOrPassword">Erabiltzaile edo pasahitz okerra</string>
   <string name="incorrectPassword">Pasahitza ez da zuzena</string>
+  <string name="invalidAuthenticationCode">Autentikazio kodea ez da zuzena</string>
   <string name="emailMeALink">Esteka postaz bidali</string>
   <string name="currentPassword">Oraingo pasahitza</string>
   <string name="newPassword">Pasahitz berria</string>
