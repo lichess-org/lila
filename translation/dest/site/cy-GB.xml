@@ -114,6 +114,7 @@
   <string name="accept">Derbyn</string>
   <string name="decline">Gwrthod</string>
   <string name="playingRightNow">Ar ei hanner</string>
+  <string name="eventInProgress">Chwarae ar hyn o bryd</string>
   <string name="finished">Wedi dod i ben.</string>
   <string name="abortGame">Erthylu gêm</string>
   <string name="gameAborted">Gêm wedi\'i herthylu</string>
@@ -133,6 +134,7 @@
   <string name="play">Chwarae</string>
   <string name="inbox">Mewnflwch</string>
   <string name="chatRoom">Ystafell sgwrs</string>
+  <string name="loginToChat">Mewngofnodi i sgwrsio</string>
   <string name="spectatorRoom">Ystafell ymwelwyr</string>
   <string name="composeMessage">Creu neges</string>
   <string name="noNewMessages">Dim neges newydd</string>
