@@ -98,6 +98,7 @@
   <string name="forgotPassword">Wedi anghofio\'r cyfrinair?</string>
   <string name="rank">Graddfa</string>
   <string name="rankX">Sefyllfa: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Mae sefyllfa yn gael ei ddiweddaru pob %s munud</string>
   <string name="gamesPlayed">Gêmau wedi\'u chwarae</string>
   <string name="cancel">Canslo</string>
   <string name="timeOut">Amser wedi dod i\'w ben</string>
