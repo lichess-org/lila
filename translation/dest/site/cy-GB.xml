@@ -53,7 +53,9 @@
   <string name="move">Symudiad</string>
   <string name="openingExplorer">Porwr agoriadau a thabl terfyniad</string>
   <string name="blunders">o gamgymeriadau difrifol</string>
+  <string name="mistake">Gamgymeriad</string>
   <string name="mistakes">o gamgymeriadau</string>
+  <string name="inaccuracy">Wallusrwydd</string>
   <string name="inaccuracies">o wallusrwyddau</string>
   <string name="moveTimes">Amser symudiadau</string>
   <string name="flipBoard">Troi\'r bwrdd</string>
