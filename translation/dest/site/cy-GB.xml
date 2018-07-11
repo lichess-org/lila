@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Gweld y dadansoddiad cyfrifiadurol</string>
   <string name="requestAComputerAnalysis">Gofyn am ddadansoddiad cyfrifiadurol</string>
   <string name="computerAnalysis">Dadansoddiad cyfrifiadurol</string>
+  <string name="computerAnalysisAvailable">Dadansoddiad cyfrifiadurol ar gael</string>
   <string name="analysis">Bwrdd dadansoddi</string>
   <string name="depthX">Dyfnder%s</string>
   <string name="goDeeper">Mynd yn ddyfnach</string>
