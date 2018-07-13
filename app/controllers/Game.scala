@@ -54,6 +54,11 @@ object Game extends LidraughtsController {
     scoped = req => me => handleExport(username, me.some, req, lidraughts.pref.Pref.default.draughtsResult, oauth = true)
   )
 
+  def apiExportByUser(username: String) = AnonOrScoped()(
+    anon = req => handleExport(username, none, req, lidraughts.pref.Pref.default.draughtsResult, oauth = false),
+    scoped = req => me => handleExport(username, me.some, req, lidraughts.pref.Pref.default.draughtsResult, oauth = true)
+  )
+
   private def handleExport(username: String, me: Option[lidraughts.user.User], req: RequestHeader, draughtsResult: Boolean, oauth: Boolean) =
     lidraughts.user.UserRepo named username flatMap {
       _ ?? { user =>
