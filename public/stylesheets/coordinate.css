@@ -92,6 +92,9 @@ form.color .color_3 i {
   width: 514px;
   height: 10px;
 }
+.is3d #trainer .progress_bar_container {
+  margin-top: 20px;
+}
 #trainer .progress_bar {
   width: 100%;
   height: 10px;
