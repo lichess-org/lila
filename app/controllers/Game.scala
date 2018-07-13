@@ -54,6 +54,11 @@ object Game extends LilaController {
     scoped = req => me => handleExport(username, me.some, req, oauth = true)
   )
 
+  def apiExportByUser(username: String) = AnonOrScoped()(
+    anon = req => handleExport(username, none, req, oauth = false),
+    scoped = req => me => handleExport(username, me.some, req, oauth = true)
+  )
+
   private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) =
     lila.user.UserRepo named username flatMap {
       _ ?? { user =>
