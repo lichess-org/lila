@@ -127,7 +127,7 @@
   <string name="advancedSearch">Көлемді іздеу</string>
   <string name="tournament">Жарыс</string>
   <string name="viewTournament">Жарысты қарап шығу</string>
-  <string name="siteDescription">Тегін онлайн шахмат. Қарапайым интерфейсте шахматты қазір-ақ ойнаңыз. Ешқандай тіркелусіз мен жарнама. Ойынды компютермен, досыңызбен әлде кездейсоқ адаммен ойнаңыз.</string>
+  <string name="siteDescription">Тікелей желідегі тегін шахмат сервері. Еш тіркелмей-ақ, плагин қоймай-ақ, жарнама көрмей-ақ қарапайым интерфейс арқылы тап қазір шахмат ойнаңыз. Ойыныңызды компьютермен, досыңызбен әлде кездейсоқ қарсыласпен ойнаңыз.</string>
   <string name="onlineFriends">Тікелей желідегі достар</string>
   <string name="noFriendsOnline">Желіде жостар жоқ</string>
   <string name="findFriends">Дос іздестіру</string>
