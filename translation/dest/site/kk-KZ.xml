@@ -79,6 +79,11 @@
     <item quantity="one">%s жарты жүрістік мат</item>
     <item quantity="other">%s жарты жүрістік мат</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">%s жарты жүрістен кейін келесі алу немесе ер жүрісі жасалады (50 жүріс аяқталар аралығы)</item>
+    <item quantity="other">%s жарты жүрістен кейін келесі алу немесе ер жүрісі жасалады (50 жүріс аяқталар аралығы)</item>
+  </plurals>
+  <string name="noGameFound">Ешбір ойын табылмады</string>
   <string name="blunders">өрескел қателер</string>
   <string name="mistakes">қате</string>
   <string name="inaccuracies">Дәлсіздіктер</string>
