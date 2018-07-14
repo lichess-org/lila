@@ -81,6 +81,14 @@ private[controllers] trait LilaController
       reqToCtx(req) flatMap f
     }
 
+  protected def AnonOrScoped(selectors: OAuthScope.Selector*)(
+    anon: RequestHeader => Fu[Result],
+    scoped: RequestHeader => UserModel => Fu[Result]
+  ): Action[Unit] = Action.async(BodyParsers.parse.empty) { req =>
+    if (HTTPRequest isOAuth req) handleScoped(selectors, scoped)(req)
+    else anon(req)
+  }
+
   protected def Auth(f: Context => UserModel => Fu[Result]): Action[Unit] =
     Auth(BodyParsers.parse.empty)(f)
 
