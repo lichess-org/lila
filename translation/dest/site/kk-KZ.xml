@@ -87,6 +87,7 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Артық көрілер параметрлер мәзірінен одан да көп ойын енгізу керек пе?</string>
   <string name="openingExplorer">Ойын бастамаларының жол көрсеткіші</string>
   <string name="xOpeningExplorer">%s ойын бастамаларының жол көрсеткіші</string>
+  <string name="winPreventedBy50MoveRule">50 жүрістік ережесі бойынша жол берілмеген ұтыс</string>
   <string name="blunders">өрескел қателер</string>
   <string name="mistakes">қате</string>
   <string name="inaccuracies">Дәлсіздіктер</string>
