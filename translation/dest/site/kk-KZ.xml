@@ -84,6 +84,9 @@
     <item quantity="other">%s жарты жүрістен кейін келесі алу немесе ер жүрісі жасалады (50 жүріс аяқталар аралығы)</item>
   </plurals>
   <string name="noGameFound">Ешбір ойын табылмады</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Артық көрілер параметрлер мәзірінен одан да көп ойын енгізу керек пе?</string>
+  <string name="openingExplorer">Ойын бастамаларының жол көрсеткіші</string>
+  <string name="xOpeningExplorer">%s ойын бастамаларының жол көрсеткіші</string>
   <string name="blunders">өрескел қателер</string>
   <string name="mistakes">қате</string>
   <string name="inaccuracies">Дәлсіздіктер</string>
