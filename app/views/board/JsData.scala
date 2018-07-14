@@ -41,7 +41,7 @@ object JsData extends lila.Lilaisms {
       I18nKeys.blackCastlingKingside,
       I18nKeys.whitePlays,
       I18nKeys.blackPlays,
-      I18nKeys.selectAVariant,
+      I18nKeys.variant,
       I18nKeys.continueFromHere,
       I18nKeys.playWithTheMachine,
       I18nKeys.playWithAFriend,

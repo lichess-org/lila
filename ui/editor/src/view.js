@@ -42,6 +42,16 @@ function studyButton(ctrl, fen) {
     'Study')
   ]);
 }
+function variant2option(key, name, ctrl) {
+  return {
+    tag: 'option',
+    attrs: {
+      value: key,
+      selected: key == ctrl.data.variant
+    },
+    children: [ctrl.trans('variant') + ' | ' + name]
+  };
+}
 
 function controls(ctrl, fen) {
   var positionIndex = ctrl.positionIndex[fen.split(' ')[0]];
@@ -54,16 +64,6 @@ function controls(ctrl, fen) {
         selected: currentPosition && currentPosition.fen === pos.fen
       },
       children: [pos.eco ? pos.eco + ' ' + pos.name : pos.name]
-    };
-  };
-  var variant2option = function(key, name) {
-    return {
-      tag: 'option',
-      attrs: {
-        value: key,
-        selected: key == 'standard'
-      },
-      children: [name]
     };
   };
   var selectedVariant = ctrl.data.variant;
@@ -112,21 +112,20 @@ function controls(ctrl, fen) {
     ]),
     m('div', [
       m('select#variants', {
-          onchange: function(e) {
-            ctrl.changeVariant(e.target.value);
-          }
+        onchange: function(e) {
+          ctrl.changeVariant(e.target.value);
+        }
       }, [
-        optgroup(ctrl.trans('selectAVariant'), [
-          variant2option('standard', 'Standard'),
-          variant2option('antichess', 'Antichess'),
-          variant2option('atomic', 'Atomic'),
-          variant2option('crazyhouse', 'Crazyhouse'),
-          variant2option('horde', 'Horde'),
-          variant2option('kingOfTheHill', 'King of the Hill'),
-          variant2option('racingKings', 'Racing Kings'),
-          variant2option('threeCheck', 'Three-check')
-        ])
-      ])
+        ['standard', 'Standard'],
+        ['antichess', 'Antichess'],
+        ['atomic', 'Atomic'],
+        ['crazyhouse', 'Crazyhouse'],
+        ['horde', 'Horde'],
+        ['kingOfTheHill', 'King of the Hill'],
+        ['racingKings', 'Racing Kings'],
+        ['threeCheck', 'Three-check']
+      ].map(x => variant2option(x[0], x[1], ctrl))
+      )
     ]),
     ctrl.embed ? m('div', [
       m('a.button.frameless', {

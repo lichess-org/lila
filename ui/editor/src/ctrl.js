@@ -98,10 +98,8 @@ module.exports = function(cfg) {
   }.bind(this);
 
   this.positionLooksLegit = function() {
-    variant = this.data.variant;
-    if (variant === "antichess") {
-      return true;
-    }
+    var variant = this.data.variant;
+    if (variant === "antichess") return true;
     var pieces = this.chessground ? this.chessground.state.pieces : fenRead(this.cfg.fen);
     var kings = {
       white: 0,
