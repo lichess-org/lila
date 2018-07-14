@@ -124,7 +124,7 @@ object Team extends LilaController {
     }
   }
 
-  def close(id: String) = Secure(_.CloseTeam) { implicit ctx => me =>
+  def close(id: String) = Secure(_.ManageTeam) { implicit ctx => me =>
     OptionFuResult(api team id) { team =>
       (api delete team) >>
         Env.mod.logApi.deleteTeam(me.id, team.name, team.description) inject
@@ -227,13 +227,13 @@ object Team extends LilaController {
 
   private def OnePerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     api.hasCreatedRecently(me) flatMap { did =>
-      (did && !Granter.superAdmin(me)) fold (
+      (did && !Granter(_.SuperAdmin)(me)) fold (
         Forbidden(views.html.team.createLimit()).fuccess,
         a
       )
     }
 
   private def Owner(team: TeamModel)(a: => Fu[Result])(implicit ctx: Context): Fu[Result] = {
-    ctx.me.??(me => team.isCreator(me.id) || Granter.admin(me))
+    ctx.me.??(me => team.isCreator(me.id) || isGranted(_.ManageTeam))
   }.fold(a, renderTeam(team) map { Forbidden(_) })
 }
