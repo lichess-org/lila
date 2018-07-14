@@ -126,10 +126,14 @@
   <string name="yourOpponentProposesATakeback">Қарсыласыңыз жүрісті қайтаруды ұсынды</string>
   <string name="advancedSearch">Көлемді іздеу</string>
   <string name="tournament">Жарыс</string>
+  <string name="viewTournament">Жарысты қарап шығу</string>
   <string name="siteDescription">Тегін онлайн шахмат. Қарапайым интерфейсте шахматты қазір-ақ ойнаңыз. Ешқандай тіркелусіз мен жарнама. Ойынды компютермен, досыңызбен әлде кездейсоқ адаммен ойнаңыз.</string>
   <string name="player">ойыншы</string>
+  <string name="watchLichessTV">Lichess TВ көріп отыру</string>
   <string name="learnMenu">Үйрену</string>
   <string name="community">Қоғамдастығы</string>
   <string name="tools">Құралдар</string>
+  <string name="watchGames">Ойындарды көріп отыру</string>
+  <string name="watch">Көріп отыру</string>
   <string name="playX">Ойнау %s</string>
 </resources>
