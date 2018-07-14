@@ -41,7 +41,7 @@
   <string name="blackResigned">Қара берілді</string>
   <string name="whiteLeftTheGame">Ақ ойыннан шықты</string>
   <string name="blackLeftTheGame">Қара ойыннан шықты</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ойынды таныстарын көру үшін бұл сілтемені жібер</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ойынды көрермендерге көрсету үшін бұл сілтемемен бөлісіп жібер</string>
   <string name="theComputerAnalysisHasFailed">Компьютерлік талдау осы ретте мүмкін емес</string>
   <string name="viewTheComputerAnalysis">Компьютелік талдауды көрсету</string>
   <string name="requestAComputerAnalysis">Компьютерлік талдауға сұраным</string>
@@ -128,12 +128,19 @@
   <string name="tournament">Жарыс</string>
   <string name="viewTournament">Жарысты қарап шығу</string>
   <string name="siteDescription">Тегін онлайн шахмат. Қарапайым интерфейсте шахматты қазір-ақ ойнаңыз. Ешқандай тіркелусіз мен жарнама. Ойынды компютермен, досыңызбен әлде кездейсоқ адаммен ойнаңыз.</string>
+  <string name="onlineFriends">Тікелей желідегі достар</string>
+  <string name="noFriendsOnline">Желіде жостар жоқ</string>
+  <string name="findFriends">Дос іздестіру</string>
   <string name="player">ойыншы</string>
   <string name="watchLichessTV">Lichess TВ көріп отыру</string>
   <string name="learnMenu">Үйрену</string>
   <string name="community">Қоғамдастығы</string>
   <string name="tools">Құралдар</string>
+  <string name="onlyFriends">Тек қана достар</string>
   <string name="watchGames">Ойындарды көріп отыру</string>
   <string name="watch">Көріп отыру</string>
+  <string name="withFriends">Достармен бірге</string>
+  <string name="followAndChallengeFriends">Достардың артынан еру және ойнауға шақыру</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s тек қана достардан келген шақыруларды қабылдау.</string>
   <string name="playX">Ойнау %s</string>
 </resources>
