@@ -46,7 +46,10 @@
   <string name="viewTheComputerAnalysis">Компьютелік талдауды көрсету</string>
   <string name="requestAComputerAnalysis">Компьютерлік талдауға сұраным</string>
   <string name="computerAnalysis">Компьютерлік талдау</string>
+  <string name="computerAnalysisAvailable">Компьютерлік талдау жасалар</string>
   <string name="analysis">Талдау тақтасы</string>
+  <string name="depthX">Ауқымдылығы %s</string>
+  <string name="usingServerAnalysis">Сервердік талдауын қолдану</string>
   <string name="blunders">өрескел қателер</string>
   <string name="mistakes">қате</string>
   <string name="inaccuracies">Дәлсіздіктер</string>
@@ -124,4 +127,6 @@
   <string name="tournament">Жарыс</string>
   <string name="siteDescription">Тегін онлайн шахмат. Қарапайым интерфейсте шахматты қазір-ақ ойнаңыз. Ешқандай тіркелусіз мен жарнама. Ойынды компютермен, досыңызбен әлде кездейсоқ адаммен ойнаңыз.</string>
   <string name="player">ойыншы</string>
+  <string name="tools">Құралдар</string>
+  <string name="playX">Ойнау %s</string>
 </resources>
