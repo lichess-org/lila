@@ -70,6 +70,9 @@
   <string name="drawn">Тең</string>
   <string name="unknown">Беймәлім</string>
   <string name="database">Дерекқор</string>
+  <string name="whiteDrawBlack">Ақ / Тең / Қара</string>
+  <string name="averageRatingX">Орташа рейтинг: %s</string>
+  <string name="recentGames">Ең соңғы ойналған ойындар</string>
   <string name="blunders">өрескел қателер</string>
   <string name="mistakes">қате</string>
   <string name="inaccuracies">Дәлсіздіктер</string>
