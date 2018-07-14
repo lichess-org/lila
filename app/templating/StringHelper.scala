@@ -33,7 +33,7 @@ trait StringHelper { self: NumberHelper =>
 
   private val NumberFirstRegex = """(\d++)\s(.+)""".r
   private val NumberLastRegex = """\s(\d++)$""".r.unanchored
-  def splitNumber(s: String)(implicit ctx: UserContext): Html = Html {
+  def splitNumberUnsafe(s: String)(implicit ctx: UserContext): Html = Html {
     s match {
       case NumberFirstRegex(number, text) =>
         s"<strong>${(~parseIntOption(number)).localize}</strong><br />$text"
@@ -42,7 +42,7 @@ trait StringHelper { self: NumberHelper =>
       case h => h.replaceIf('\n', "<br />")
     }
   }
-  def splitNumber(s: Html)(implicit ctx: UserContext): Html = splitNumber(s.body)
+  def splitNumber(s: Html)(implicit ctx: UserContext): Html = splitNumberUnsafe(s.body)
 
   def encodeFen(fen: String) = lila.common.String.base64.encode(fen).reverse
 

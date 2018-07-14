@@ -4,12 +4,12 @@ mkdir public\compiled
 
 set ts_apps=common chess ceval game tree chat
 
-yarn install --non-interactive
+call yarn install --non-interactive
 
 for %%t in (%ts_apps%) do @(
     call echo Building TypeScript: %%t
     call cd ui\%%t
-    call yarn run compile --non-interactive
+    call yarn run --non-interactive compile
     call cd ..\..
 )
 

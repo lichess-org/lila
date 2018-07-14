@@ -513,6 +513,8 @@ GET   /api/account/preferences         controllers.Pref.apiGet
 POST  /api/challenge/$id<\w{8}>/accept  controllers.Challenge.apiAccept(id: String)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)
 
+GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: String)
+
 # Mobile API only
 GET   /api/user/:name/games            controllers.Api.userGames(name: String)
 

@@ -12,6 +12,7 @@ function init(cfg) {
     castles: mapValues(cfg.castles, m.prop),
     baseUrl: cfg.baseUrl,
     positions: cfg.positions,
+    variant: 'standard',
     i18n: cfg.i18n
   };
 }
