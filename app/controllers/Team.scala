@@ -100,7 +100,7 @@ object Team extends LilaController {
     OptionFuResult(api team id) { team =>
       Owner(team) {
         implicit val req = ctx.body
-        forms.kick.bindFromRequest.value ?? { api.kick(team, _, me) } inject Redirect(routes.Team.show(team.id))
+        forms.selectMember.bindFromRequest.value ?? { api.kick(team, _, me) } inject Redirect(routes.Team.show(team.id))
       }
     }
   }
@@ -119,7 +119,7 @@ object Team extends LilaController {
     OptionFuResult(api team id) { team =>
       Owner(team) {
         implicit val req = ctx.body
-        forms.kick.bindFromRequest.value ?? { api.changeOwner(team, _, me) } inject Redirect(routes.Team.show(team.id))
+        forms.selectMember.bindFromRequest.value ?? { api.changeOwner(team, _, me) } inject Redirect(routes.Team.show(team.id))
       }
     }
   }

@@ -57,7 +57,7 @@ private[team] final class DataForm(
     "url" -> nonEmptyText
   ))
 
-  val kick = Form(single(
+  val selectMember = Form(single(
     "userId" -> nonEmptyText
   ))
 
