@@ -814,7 +814,7 @@
   <string name="xLikesY">%1$s поставил лайк студии %2$s</string>
   <string name="quickPairing">Быстрый старт</string>
   <string name="lobby">Зал ожидания</string>
-  <string name="anonymous">Анонимно</string>
+  <string name="anonymous">Аноним</string>
   <string name="yourScore">Ваш счёт: %s</string>
   <string name="language">Язык (Language)</string>
   <string name="background">Фон</string>
