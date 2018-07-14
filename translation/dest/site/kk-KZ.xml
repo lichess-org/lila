@@ -74,6 +74,11 @@
   <string name="averageRatingX">Орташа рейтинг: %s</string>
   <string name="recentGames">Ең соңғы ойналған ойындар</string>
   <string name="topGames">Ең биік деңгейдегі ойындар</string>
+  <string name="masterDbExplanation">%1$s-ның тақта басында ойналған 2 миллион ойыны + %2$s-нен %3$s-ге дейінгі FIDE рейтингі бар ойыншылар</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">%s жарты жүрістік мат</item>
+    <item quantity="other">%s жарты жүрістік мат</item>
+  </plurals>
   <string name="blunders">өрескел қателер</string>
   <string name="mistakes">қате</string>
   <string name="inaccuracies">Дәлсіздіктер</string>
