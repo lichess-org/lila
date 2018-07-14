@@ -50,6 +50,8 @@
   <string name="analysis">Талдау тақтасы</string>
   <string name="depthX">Ауқымдылығы %s</string>
   <string name="usingServerAnalysis">Сервердік талдауын қолдану</string>
+  <string name="loadingEngine">Қозғалтқышы жүктелуде...</string>
+  <string name="cloudAnalysis">Бұлтттық талдау</string>
   <string name="blunders">өрескел қателер</string>
   <string name="mistakes">қате</string>
   <string name="inaccuracies">Дәлсіздіктер</string>
