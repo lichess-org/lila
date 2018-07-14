@@ -99,6 +99,7 @@
   <string name="accept">Қабылдау</string>
   <string name="decline">Қабылдамау</string>
   <string name="playingRightNow">Ойналып жатыр</string>
+  <string name="eventInProgress">Тап қазір ойнау</string>
   <string name="abortGame">Ойынды болдырмау</string>
   <string name="gameAborted">Ойын жойылды</string>
   <string name="standard">Классикалық</string>
@@ -127,6 +128,8 @@
   <string name="tournament">Жарыс</string>
   <string name="siteDescription">Тегін онлайн шахмат. Қарапайым интерфейсте шахматты қазір-ақ ойнаңыз. Ешқандай тіркелусіз мен жарнама. Ойынды компютермен, досыңызбен әлде кездейсоқ адаммен ойнаңыз.</string>
   <string name="player">ойыншы</string>
+  <string name="learnMenu">Үйрену</string>
+  <string name="community">Қоғамдастығы</string>
   <string name="tools">Құралдар</string>
   <string name="playX">Ойнау %s</string>
 </resources>
