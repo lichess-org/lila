@@ -9,7 +9,7 @@ private[puzzle] final class PuzzleBatch(
     puzzleColl: Map[Variant, Coll],
     api: PuzzleApi,
     finisher: Finisher,
-    puzzleIdMin: Int
+    puzzleIdMin: PuzzleId
 ) {
 
   def solve(originalUser: User, variant: Variant, data: PuzzleBatch.SolveData): Funit = for {
