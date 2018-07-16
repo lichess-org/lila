@@ -11,4 +11,9 @@
   <string name="emailChange_intro">Bạn đã yêu cầu thay đổi địa chỉ email của bạn.</string>
   <string name="emailChange_click">Để xác nhận bạn có quyên truy cập email này, click đường link dưới đây:</string>
   <string name="welcome_subject">Chào mừng đến với lichess.org, %s</string>
+  <string name="welcome_text">Bạn đã hoàn tất quá trình tạo tài khoản của bạn trên https://lichess.org.
+Đây là trang cá nhân của bạn: %1$s. Bạn có thể nhập nội dung cá nhân của mình trên %2$s.
+Hãy tự tạo niềm vui cho bản thân, và có thể, các quân của bạn luôn tìm được đường đến vua của đối phương!</string>
+  <string name="common_orPaste">(Không thể click vào được? Hãy thử dán vào trình duyệt của bạn!)</string>
+  <string name="common_note">Đây là một loại dịch vụ thông qua emai, liên quan đến việc bạn sử dụng %s.</string>
 </resources>
