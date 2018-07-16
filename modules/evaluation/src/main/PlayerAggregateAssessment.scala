@@ -41,14 +41,19 @@ case class PlayerAggregateAssessment(
 
     def percentLikelyCheatingGames(x: Double) =
       (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= (x / 100) - relationModifier
+      
+    def percentUnclearGames(x: Double) =
+      (cheatingSum + likelyCheatingSum + unclearSum).toDouble / assessmentsCount >= (x / 100) - relationModifier
 
     val markable: Boolean = !isGreatUser && isWorthLookingAt &&
       (cheatingSum >= 3 || cheatingSum + likelyCheatingSum >= 6) &&
       (percentCheatingGames(10) || percentLikelyCheatingGames(20))
 
     val reportable: Boolean = isWorthLookingAt &&
-      (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= (isNewRatedUser.fold(2, 4))) &&
-      (percentCheatingGames(5) || percentLikelyCheatingGames(10))
+      (cheatingSum >= 2
+       || cheatingSum + likelyCheatingSum >= isNewRatedUser.fold(2, 4)
+       || cheatingSum + likelyCheatingSum + unclearSum >= isNewRatedUser.fold(4, 8)) &&
+      (percentCheatingGames(5) || percentLikelyCheatingGames(10) || percentUnclearGames(15))
 
     val bannable: Boolean = (relatedCheatersCount == relatedUsersCount) && relatedUsersCount >= 1
 
@@ -94,6 +99,7 @@ case class PlayerAggregateAssessment(
   val relationModifier = if (relatedUsersCount >= 1) 0.02 else 0
   val cheatingSum = countAssessmentValue(Cheating)
   val likelyCheatingSum = countAssessmentValue(LikelyCheating)
+  val unclearSum = countAssessmentValue(Unclear)
 
   // Some statistics
   def sfAvgGiven(predicate: PlayerAssessment => Boolean): Option[Int] = {
