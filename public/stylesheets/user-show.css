@@ -552,3 +552,6 @@ body.dark div.content_box_inter a.to_games.active,
 body.dark div#games.content_box_inter {
   background: #353535!important;
 }
+.right {
+  float: right;
+}

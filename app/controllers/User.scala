@@ -283,6 +283,16 @@ object User extends LilaController {
     }
   }
 
+  def deleteNote(id: String) = AuthBody { implicit ctx => me =>
+    OptionFuResult(env.noteApi.byId(id)) { note =>
+      (note.from == me.id).fold({
+        env.noteApi.delete(note._id) inject Redirect(routes.User.show(note.to).url + "?note")
+      }, {
+        fuccess(Results.BadRequest)
+      })
+    }
+  }
+
   def opponents = Auth { implicit ctx => me =>
     for {
       ops <- Env.game.bestOpponents(me.id)

@@ -83,7 +83,15 @@
   }
   @notes.map { note =>
   <div>
-    <p class="meta">@userIdLink(note.from.some)<br />@momentFromNow(note.date)</p>
+    <p class="meta">
+      @userIdLink(note.from.some)<br />@momentFromNow(note.date)
+      @if(ctx.me.map(_.id).equals(note.from.some)) {
+        <br />
+        <form action="@routes.User.deleteNote(note._id)" method="post">
+          <button type="submit" class="thin confirm button text right" data-icon="q">Delete</button>
+        </form>
+      }
+    </p>
     <p class="text">@richText(note.text)</p>
   </div>
   }

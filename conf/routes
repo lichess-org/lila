@@ -50,6 +50,7 @@ GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username:
 # User
 GET   /@/:username/mod                 controllers.User.mod(username: String)
 POST  /@/:username/note                controllers.User.writeNote(username: String)
+POST  /note/delete/:id                 controllers.User.deleteNote(id: String)
 GET   /@/:username/mini                controllers.User.showMini(username: String)
 GET   /@/:username/tv                  controllers.User.tv(username: String)
 GET   /@/:username/studyTv             controllers.User.studyTv(username: String)
