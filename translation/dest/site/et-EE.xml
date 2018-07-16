@@ -390,7 +390,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="tournamentCalendar">Turniiride kalender</string>
   <string name="conditionOfEntry">Sisenemise tingimus:</string>
   <string name="advancedSettings">Täpsemad seaded</string>
+  <string name="safeTournamentName">Vali turniirile väga turvaline nimi.</string>
   <string name="inappropriateNameWarning">Isegi pisut kohatu nimi võib tähendada sinu konto sulgemist.</string>
+  <string name="emptyTournamentName">Jäta tühjaks, et nimetada turniir juhusliku suurmeistri järgi.</string>
   <string name="recommendNotTouching">Me ei soovita neid muuta.</string>
   <string name="fewerPlayers">Kui sa lisad osalemiseks tingimusi, siis osaleb turniiril vähem inimesi.</string>
   <string name="showAdvancedSettings">Näita täpsemaid sätteid</string>
@@ -643,6 +645,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="videoLibrary">Videod</string>
   <string name="mobileApp">Mobiili App</string>
   <string name="webmasters">Administraator</string>
+  <string name="about">Rakenduse info</string>
   <string name="contribute">Panustada</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Kasutajatingimused</string>
@@ -828,6 +831,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="yourXRatingIsTooFarFromY">Sinu %1$s reiting on liiga suure vahega võrreldes mängijaga %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Ei saa väljakutset esitada ajutise %s reitingu tõttu.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s aktsepteerib väljakutseid ainult oma sõpradelt.</string>
+  <string name="conditionalPremoves">Tingimuslikud eelkäigud</string>
   <string name="addCurrentVariation">Lisa praegune varient</string>
+  <string name="playVariationToCreateConditionalPremoves">Tingimuslike eelkäikude loomiseks mängi variatsioon</string>
+  <string name="noConditionalPremoves">Tingimuslikud eelkäigud puuduvad</string>
   <string name="playX">Mängi %s</string>
 </resources>
