@@ -8,7 +8,7 @@ private[puzzle] final class PuzzleBatch(
     puzzleColl: Coll,
     api: PuzzleApi,
     finisher: Finisher,
-    puzzleIdMin: Int
+    puzzleIdMin: PuzzleId
 ) {
 
   def solve(originalUser: User, data: PuzzleBatch.SolveData): Funit = for {
