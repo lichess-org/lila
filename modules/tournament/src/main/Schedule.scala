@@ -269,7 +269,8 @@ object Schedule {
           Condition.MinRating(s.perfType, _)
         },
         maxRating = none,
-        titled = none
+        titled = none,
+        teamMember = none
       )
     }
 }

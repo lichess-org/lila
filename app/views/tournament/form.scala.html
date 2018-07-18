@@ -1,4 +1,4 @@
-@(form: Form[_], config: lidraughts.tournament.DataForm, me: User)(implicit ctx: Context)
+@(form: Form[_], config: lidraughts.tournament.DataForm, me: User, teams: List[(String,String)])(implicit ctx: Context)
 
 @import config._
 @import lidraughts.tournament.DataForm._
@@ -84,7 +84,7 @@ moreJs = moreJs) {
           <a class="show blue">@trans.showAdvancedSettings()</a>
         </p>
         <div class="material form">
-          @tournament.conditionForm(form, auto = true)
+          @tournament.conditionForm(form, auto = true, teams = teams)
         </div>
       </fieldset>
       <button type="submit" class="submit button" data-icon="g">
