@@ -323,7 +323,8 @@ Thank you all, you rock!"""
                   nbRatedGame = Condition.NbRatedGame(perf.some, 20).some,
                   maxRating = Condition.MaxRating(perf, rating).some,
                   minRating = none,
-                  titled = none
+                  titled = none,
+                  teamMember = none
                 )
                 at(date, hour) ?? { date =>
                   val finalDate = date plusHours hourDelay

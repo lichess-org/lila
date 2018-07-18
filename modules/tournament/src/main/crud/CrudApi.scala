@@ -78,7 +78,7 @@ final class CrudApi {
       noBerserk = !data.berserkable
     ) |> { tour =>
         tour.perfType.fold(tour) { perfType =>
-          tour.copy(conditions = data.conditions convert perfType)
+          tour.copy(conditions = data.conditions.convert(perfType, Map.empty)) // the CRUD form doesn't support team restrictions so Map.empty is fine
         }
       }
   }

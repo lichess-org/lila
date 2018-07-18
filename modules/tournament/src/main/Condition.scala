@@ -96,23 +96,32 @@ object Condition {
     def name(lang: Lang) = I18nKeys.ratedMoreThanInPerf.literalTxtTo(lang, List(rating, perf.name))
   }
 
+  case class TeamMember(teamId: String, teamName: String) extends Condition {
+    def name(lang: Lang) = I18nKeys.mustBeInTeam.literalTxtTo(lang, List(teamName))
+    def apply(userTeamIds: List[String]) =
+      if (userTeamIds contains teamId) Accepted
+      else Refused { lang => I18nKeys.youAreNotInTeam.literalTxtTo(lang, List(teamName)) }
+  }
+
   case class All(
       nbRatedGame: Option[NbRatedGame],
       maxRating: Option[MaxRating],
       minRating: Option[MinRating],
-      titled: Option[Titled.type]
+      titled: Option[Titled.type],
+      teamMember: Option[TeamMember]
   ) {
 
-    lazy val list: List[Condition] = List(nbRatedGame, maxRating, minRating, titled).flatten
+    lazy val list: List[Condition] = List(nbRatedGame, maxRating, minRating, titled, teamMember).flatten
 
     def relevant = list.nonEmpty
 
     def ifNonEmpty = list.nonEmpty option this
 
-    def withVerdicts(getMaxRating: GetMaxRating)(user: User): Fu[All.WithVerdicts] =
+    def withVerdicts(getMaxRating: GetMaxRating)(user: User, userTeamIds: List[String]): Fu[All.WithVerdicts] =
       list.map {
         case c: MaxRating => c(getMaxRating)(user) map c.withVerdict
         case c: FlatCond => fuccess(c withVerdict c(user))
+        case c: TeamMember => fuccess(c withVerdict c(userTeamIds))
       }.sequenceFu map All.WithVerdicts.apply
 
     def accepted = All.WithVerdicts(list.map { WithVerdict(_, Accepted) })
@@ -129,7 +138,8 @@ object Condition {
       nbRatedGame = none,
       maxRating = none,
       minRating = none,
-      titled = none
+      titled = none,
+      teamMember = none
     )
 
     case class WithVerdicts(list: List[WithVerdict]) extends AnyVal {
@@ -139,12 +149,12 @@ object Condition {
   }
 
   final class Verify(historyApi: lila.history.HistoryApi) {
-    def apply(all: All, user: User): Fu[All.WithVerdicts] = {
+    def apply(all: All, user: User, userTeamIds: List[String]): Fu[All.WithVerdicts] = {
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
-      all.withVerdicts(getMaxRating)(user)
+      all.withVerdicts(getMaxRating)(user, userTeamIds)
     }
-    def canEnter(user: User)(tour: Tournament): Fu[Boolean] =
-      apply(tour.conditions, user).map(_.accepted)
+    def canEnter(user: User, userTeamIds: List[String])(tour: Tournament): Fu[Boolean] =
+      apply(tour.conditions, user, userTeamIds).map(_.accepted)
   }
 
   object BSONHandlers {
@@ -156,6 +166,7 @@ object Condition {
       def read(x: BSONValue) = Titled
       def write(x: Titled.type) = BSONBoolean(true)
     }
+    private implicit val TeamMemberHandler = Macros.handler[TeamMember]
     implicit val AllBSONHandler = Macros.handler[All]
   }
 
@@ -240,11 +251,28 @@ object Condition {
       val default = MinRatingSetup(perfAuto._1, 0)
       def apply(x: MinRating): MinRatingSetup = MinRatingSetup(x.perf.key, x.rating)
     }
+    val teamMember = mapping(
+      "teamId" -> optional(text)
+    )(TeamMemberSetup.apply)(TeamMemberSetup.unapply)
+    case class TeamMemberSetup(teamId: Option[String]) {
+      def convert(teams: Map[String, String]): Option[TeamMember] = {
+        val id = teamId getOrElse "";
+        teams.get(id) match {
+          case Some(teamName) => TeamMember(id, teamName).some
+          case None => None
+        }
+      }
+    }
+    object TeamMemberSetup {
+      val default = TeamMemberSetup(None)
+      def apply(x: TeamMember): TeamMemberSetup = TeamMemberSetup(x.teamId.some)
+    }
     val all = mapping(
       "nbRatedGame" -> nbRatedGame,
       "maxRating" -> maxRating,
       "minRating" -> minRating,
-      "titled" -> boolean
+      "titled" -> boolean,
+      "teamMember" -> teamMember
     )(AllSetup.apply)(AllSetup.unapply)
       .verifying("Invalid ratings", _.validRatings)
 
@@ -252,18 +280,20 @@ object Condition {
         nbRatedGame: NbRatedGameSetup,
         maxRating: MaxRatingSetup,
         minRating: MinRatingSetup,
-        titled: Boolean
+        titled: Boolean,
+        teamMember: TeamMemberSetup
     ) {
 
       def validRatings = !maxRating.isDefined || !minRating.isDefined || {
         maxRating.rating > minRating.rating
       }
 
-      def convert(perf: PerfType) = All(
+      def convert(perf: PerfType, teams: Map[String, String]) = All(
         nbRatedGame convert perf,
         maxRating convert perf,
         minRating convert perf,
-        titled option Titled
+        titled option Titled,
+        teamMember convert teams
       )
     }
     object AllSetup {
@@ -271,13 +301,15 @@ object Condition {
         nbRatedGame = NbRatedGameSetup.default,
         maxRating = MaxRatingSetup.default,
         minRating = MinRatingSetup.default,
-        titled = false
+        titled = false,
+        teamMember = TeamMemberSetup.default
       )
       def apply(all: All): AllSetup = AllSetup(
         nbRatedGame = all.nbRatedGame.fold(NbRatedGameSetup.default)(NbRatedGameSetup.apply),
         maxRating = all.maxRating.fold(MaxRatingSetup.default)(MaxRatingSetup.apply),
         minRating = all.minRating.fold(MinRatingSetup.default)(MinRatingSetup.apply),
-        titled = all.titled.isDefined
+        titled = all.titled.isDefined,
+        teamMember = all.teamMember.fold(TeamMemberSetup.default)(TeamMemberSetup.apply)
       )
     }
   }

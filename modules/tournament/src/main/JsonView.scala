@@ -37,6 +37,7 @@ final class JsonView(
     tour: Tournament,
     page: Option[Int],
     me: Option[User],
+    myTeamIds: Option[List[String]],
     playerInfoExt: Option[PlayerInfoExt],
     socketVersion: Option[Int],
     lang: Lang
@@ -55,7 +56,7 @@ final class JsonView(
     verdicts <- me match {
       case None => fuccess(tour.conditions.accepted)
       case Some(user) if myInfo.isDefined => fuccess(tour.conditions.accepted)
-      case Some(user) => verify(tour.conditions, user)
+      case Some(user) => verify(tour.conditions, user, myTeamIds.getOrElse(List()))
     }
     stats <- statsApi(tour)
     myGameId <- me.ifTrue(myInfo.isDefined) ?? { fetchCurrentGameId(tour, _) }

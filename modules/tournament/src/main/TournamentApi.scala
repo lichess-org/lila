@@ -44,7 +44,7 @@ final class TournamentApi(
 
   private val bus = system.lilaBus
 
-  def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {
+  def createTournament(setup: TournamentSetup, me: User, myTeams: List[(String, String)]): Fu[Tournament] = {
     val tour = Tournament.make(
       by = Right(me),
       name = DataForm.canPickName(me) ?? setup.name,
@@ -61,7 +61,7 @@ final class TournamentApi(
       berserkable = setup.berserkable | true
     ) |> { tour =>
         tour.perfType.fold(tour) { perfType =>
-          tour.copy(conditions = setup.conditions convert perfType)
+          tour.copy(conditions = setup.conditions.convert(perfType, myTeams toMap))
         }
       }
     if (tour.name != me.titleUsername && lila.common.LameName.anyNameButLichessIsOk(tour.name)) {
@@ -70,7 +70,7 @@ final class TournamentApi(
       bus.publish(lila.hub.actorApi.slack.Warning(msg), 'slack)
     }
     logger.info(s"Create $tour")
-    TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password) inject tour
+    TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password, myTeams.map(_._1)(collection.breakOut)) inject tour
   }
 
   private[tournament] def createFromPlan(plan: Schedule.Plan): Funit = {
@@ -193,15 +193,15 @@ final class TournamentApi(
       }
     }
 
-  def verdicts(tour: Tournament, me: Option[User]): Fu[Condition.All.WithVerdicts] = me match {
+  def verdicts(tour: Tournament, me: Option[User], myTeamIds: Option[List[String]]): Fu[Condition.All.WithVerdicts] = me match {
     case None => fuccess(tour.conditions.accepted)
-    case Some(user) => verify(tour.conditions, user)
+    case Some(user) => verify(tour.conditions, user, myTeamIds.getOrElse(List()))
   }
 
-  def join(tourId: Tournament.ID, me: User, p: Option[String]): Unit = {
+  def join(tourId: Tournament.ID, me: User, p: Option[String], myTeamIds: List[String]): Unit = {
     Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
       if (tour.password == p) {
-        verdicts(tour, me.some) flatMap {
+        verdicts(tour, me.some, myTeamIds.some) flatMap {
           _.accepted ?? {
             pause.canJoin(me.id, tour) ?? {
               PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
@@ -216,8 +216,8 @@ final class TournamentApi(
     }
   }
 
-  def joinWithResult(tourId: Tournament.ID, me: User, p: Option[String]): Fu[Boolean] = {
-    join(tourId, me, p)
+  def joinWithResult(tourId: Tournament.ID, me: User, p: Option[String], myTeamIds: List[String]): Fu[Boolean] = {
+    join(tourId, me, p, myTeamIds)
     // atrocious hack, because joining is fire and forget
     akka.pattern.after(500 millis, system.scheduler) {
       PlayerRepo.find(tourId, me.id) map { _ ?? (_.active) }
