@@ -60,11 +60,20 @@ final class GarbageCollector(
     val message = s"Will dispose of @${user.username} in $wait. Email: $email. Prev users: $othersStr${!armed ?? " [SIMULATION]"}"
     logger.branch("GarbageCollector").info(message)
     slack.garbageCollector(message) >>- {
-      if (armed) system.scheduler.scheduleOnce(wait) {
-        doCollect(user, ipBan)
+      if (armed) {
+        doInitialSb(user)
+        system.scheduler.scheduleOnce(wait) {
+          doCollect(user, ipBan)
+        }
       }
     }
   }
+
+  private def doInitialSb(user: User): Unit =
+    system.lilaBus.publish(
+      lila.hub.actorApi.security.GCImmediateSb(user.id),
+      'garbageCollect
+    )
 
   private def doCollect(user: User, ipBan: Boolean): Unit =
     system.lilaBus.publish(
