@@ -123,6 +123,12 @@ final class Env(
         if (game.status == chess.Status.Cheat)
           game.loserUserId foreach { logApi.cheatDetected(_, game.id) }
       case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason) => logApi.chatTimeout(mod, user, reason)
+      case lila.hub.actorApi.security.GCImmediateSb(userId) =>
+        reportApi getSuspect userId flatten s"No such suspect $userId" flatMap { sus =>
+          reportApi.getLichessMod map { mod =>
+            api.setTroll(mod, sus, true)
+          }
+        }
       case lila.hub.actorApi.security.GarbageCollect(userId, ipBan) =>
         reportApi getSuspect userId flatten s"No such suspect $userId" flatMap { sus =>
           api.garbageCollect(sus, ipBan) >> publicChat.delete(sus)
