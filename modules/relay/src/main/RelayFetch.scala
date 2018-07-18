@@ -2,13 +2,14 @@ package lidraughts.relay
 
 import akka.actor._
 import org.joda.time.DateTime
-import play.api.libs.ws.WS
+import play.api.libs.json._
+import play.api.libs.ws.{ WS, WSResponse }
 import play.api.Play.current
 import scala.concurrent.duration._
 
 import lidraughts.base.LidraughtsException
-import lidraughts.tree.Node.Comments
 import lidraughts.study.MultiPdn
+import lidraughts.tree.Node.Comments
 
 private final class RelayFetch(
     sync: RelaySync,
@@ -130,7 +131,10 @@ private object RelayFetch {
 
   private def doFetch(upstream: Upstream, max: Int): Fu[RelayGames] = (upstream match {
     case Upstream.DgtOneFile(file) => dgtOneFile(file, max)
-    case Upstream.DgtManyFiles(dir) => dgtManyFiles(dir, max)
+    case Upstream.DgtManyFiles(dir) =>
+      dgtManyFiles(dir, max, DgtMany.RoundPdn) recoverWith {
+        case _: lidraughts.base.LidraughtsException => dgtManyFiles(dir, max, DgtMany.Indexjson)
+      }
   }) flatMap multiPdnToGames.apply
 
   private def dgtOneFile(file: String, max: Int): Fu[MultiPdn] =
@@ -139,29 +143,69 @@ private object RelayFetch {
       case res => fufail(s"[${res.status}]")
     }
 
-  import play.api.libs.json._
+  private object DgtJson {
+    case class PairingPlayer(fname: Option[String], mname: Option[String], lname: Option[String], title: Option[String]) {
+      def fullName = some {
+        List(fname, mname, lname).flatten mkString " "
+      }.filter(_.nonEmpty)
+    }
+    case class RoundJsonPairing(white: PairingPlayer, black: PairingPlayer, result: String) {
+      import draughts.format.pdn._
+      def tags = Tags(List(
+        white.fullName map { v => Tag(_.White, v) },
+        white.title map { v => Tag(_.WhiteTitle, v) },
+        black.fullName map { v => Tag(_.Black, v) },
+        black.title map { v => Tag(_.BlackTitle, v) },
+        Tag(_.Result, result).some
+      ).flatten)
+    }
+    case class RoundJson(pairings: List[RoundJsonPairing])
+    implicit val pairingPlayerReads = Json.reads[PairingPlayer]
+    implicit val roundPairingReads = Json.reads[RoundJsonPairing]
+    implicit val roundReads = Json.reads[RoundJson]
 
-  private case class RoundJsonPairing(live: Boolean)
-  private case class RoundJson(pairings: List[RoundJsonPairing])
-  private implicit val roundPairingReads = Json.reads[RoundJsonPairing]
-  private implicit val roundReads = Json.reads[RoundJson]
+    case class GameJson(moves: List[String], result: Option[String])
+    implicit val gameReads = Json.reads[GameJson]
+  }
+  import DgtJson._
 
-  private def dgtManyFiles(dir: String, max: Int): Fu[MultiPdn] = {
-    val roundUrl = s"$dir/round.json"
-    httpGet(roundUrl) flatMap {
+  private sealed abstract class DgtMany(val indexFile: String, val gameFile: Int => String, val toPdn: (WSResponse, RoundJsonPairing) => String)
+  private object DgtMany {
+    case object RoundPdn extends DgtMany("round.json", n => s"game-$n.pdn", (r, _) => r.body)
+    case object Indexjson extends DgtMany("index.json", n => s"game-$n.json", {
+      case (res, pairing) => res.json.validate[GameJson] match {
+        case JsSuccess(game, _) =>
+          val moves = game.moves.map(_ split ' ') map { move =>
+            draughts.format.pdn.Move(
+              san = ~move.headOption,
+              turn = draughts.White,
+              secondsLeft = (move.lift(1).map(_.takeWhile(_.isDigit)) flatMap parseIntOption, none)
+            )
+          } mkString " "
+          s"${pairing.tags}\n\n$moves"
+        case JsError(err) => ""
+      }
+    })
+  }
+
+  private def dgtManyFiles(dir: String, max: Int, format: DgtMany): Fu[MultiPdn] = {
+    val indexFile = s"$dir/${format.indexFile}"
+    httpGet(indexFile) flatMap {
       case res if res.status == 200 => roundReads reads res.json match {
         case JsError(err) => fufail(err.toString)
-        case JsSuccess(round, _) => (1 to round.pairings.size.atMost(max)).map { number =>
-          val gameUrl = s"$dir/game-$number.pdn"
-          httpGet(gameUrl).flatMap {
-            case res if res.status == 200 => fuccess(number -> res.body)
-            case res => fufail(s"[${res.status}] game-$number.pdn")
-          }
+        case JsSuccess(round, _) => round.pairings.zipWithIndex.map {
+          case (pairing, i) =>
+            val number = i + 1
+            val gameUrl = s"$dir/${format.gameFile(number)}"
+            httpGet(gameUrl).flatMap {
+              case res if res.status == 200 => fuccess(number -> format.toPdn(res, pairing))
+              case res => fufail(s"[${res.status}] $gameUrl")
+            }
         }.sequenceFu map { results =>
           MultiPdn(results.sortBy(_._1).map(_._2).toList)
         }
       }
-      case res => fufail(s"[${res.status}] round.json")
+      case res => fufail(s"[${res.status}] $indexFile")
     }
   }
 
