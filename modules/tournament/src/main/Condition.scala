@@ -255,13 +255,10 @@ object Condition {
       "teamId" -> optional(text)
     )(TeamMemberSetup.apply)(TeamMemberSetup.unapply)
     case class TeamMemberSetup(teamId: Option[String]) {
-      def convert(teams: Map[String, String]): Option[TeamMember] = {
-        val id = teamId getOrElse "";
-        teams.get(id) match {
-          case Some(teamName) => TeamMember(id, teamName).some
-          case None => None
+      def convert(teams: Map[String, String]): Option[TeamMember] =
+        teamId flatMap { id =>
+          teams.get(id) map { TeamMember(id, _) }
         }
-      }
     }
     object TeamMemberSetup {
       val default = TeamMemberSetup(None)

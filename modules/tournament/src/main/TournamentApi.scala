@@ -193,7 +193,7 @@ final class TournamentApi(
 
   def verdicts(tour: Tournament, me: Option[User], myTeamIds: Option[List[String]]): Fu[Condition.All.WithVerdicts] = me match {
     case None => fuccess(tour.conditions.accepted)
-    case Some(user) => verify(tour.conditions, user, myTeamIds.getOrElse(List()))
+    case Some(user) => verify(tour.conditions, user, ~myTeamIds)
   }
 
   def join(tourId: Tournament.ID, me: User, p: Option[String], myTeamIds: List[String]): Unit = {
