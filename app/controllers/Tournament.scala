@@ -84,17 +84,16 @@ object Tournament extends LilaController {
     negotiate(
       html = repo byId id flatMap {
         _.fold(tournamentNotFound.fuccess) { tour =>
-          teamIdsIBelongToO(ctx.me) flatMap { teams =>
-            (for {
-              verdicts <- env.api.verdicts(tour, ctx.me, teams)
-              version <- env.version(tour.id)
-              chat <- canHaveChat(tour) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
-              json <- env.jsonView(tour, page, ctx.me, teams, none, version.some, ctx.lang)
-              _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
-              streamers <- streamerCache get tour.id
-              shieldOwner <- env.shieldApi currentOwner tour
-            } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))).mon(_.http.response.tournament.show.website)
-          }
+          (for {
+            teams <- ctx.me ?? { teamIdsIBelongTo(_).map(_.some) }
+            verdicts <- env.api.verdicts(tour, ctx.me, teams)
+            version <- env.version(tour.id)
+            chat <- canHaveChat(tour) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
+            json <- env.jsonView(tour, page, ctx.me, teams, none, version.some, ctx.lang)
+            _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
+            streamers <- streamerCache get tour.id
+            shieldOwner <- env.shieldApi currentOwner tour
+          } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))).mon(_.http.response.tournament.show.website)
         }
       }, api = _ => repo byId id flatMap {
         case None => NotFound(jsonError("No such tournament")).fuccess
@@ -102,7 +101,7 @@ object Tournament extends LilaController {
           get("playerInfo").?? { env.api.playerInfo(tour.id, _) } zip
             getBool("socketVersion").??(env version tour.id map some) flatMap {
               case (playerInfoExt, socketVersion) =>
-                teamIdsIBelongToO(ctx.me) flatMap { teams =>
+                ctx.me ?? { teamIdsIBelongTo(_).map(_.some) } flatMap { teams =>
                   env.jsonView(tour, page, ctx.me, teams, playerInfoExt, socketVersion, ctx.lang)
                 }
             } map { Ok(_) }
@@ -241,10 +240,8 @@ object Tournament extends LilaController {
                 isGranted(_.ManageTournament)) 1 else 4
               CreateLimitPerUser(me.id, cost = 1) {
                 CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
-                  teamsIBelongTo(me) flatMap { teams =>
-                    env.api.createTournament(setup, me, teams) flatMap { tour =>
-                      fuccess(Redirect(routes.Tournament.show(tour.id)))
-                    }
+                  env.api.createTournament(setup, me, teams) flatMap { tour =>
+                    fuccess(Redirect(routes.Tournament.show(tour.id)))
                   }
                 }(rateLimited)
               }(rateLimited)
@@ -320,18 +317,12 @@ object Tournament extends LilaController {
     expireAfter = _.ExpireAfterWrite(15.seconds)
   )
 
-  private val teamApi = lila.app.Env.team.api
+  private val teamApi = Env.team.api
+  private val teamCached = Env.team.cached
   private def teamIdsIBelongTo(me: lila.user.User): Fu[List[String]] =
-    teamApi.mine(me) map { teams =>
-      teams.map(_.id)
-    }
+    teamCached.teamIdsList(me.id)
   private def teamsIBelongTo(me: lila.user.User): Fu[List[(String, String)]] =
     teamApi.mine(me) map { teams =>
       teams.map(t => t._id -> t.name)
-    }
-  private def teamIdsIBelongToO(me: Option[lila.user.User]): Fu[Option[List[String]]] =
-    me match {
-      case Some(user) => teamIdsIBelongTo(user) map { t => t.some }
-      case None => fuccess(None)
     }
 }

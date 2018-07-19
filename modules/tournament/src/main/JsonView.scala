@@ -56,7 +56,7 @@ final class JsonView(
     verdicts <- me match {
       case None => fuccess(tour.conditions.accepted)
       case Some(user) if myInfo.isDefined => fuccess(tour.conditions.accepted)
-      case Some(user) => verify(tour.conditions, user, myTeamIds.getOrElse(List()))
+      case Some(user) => verify(tour.conditions, user, ~myTeamIds)
     }
     stats <- statsApi(tour)
     myGameId <- me.ifTrue(myInfo.isDefined) ?? { fetchCurrentGameId(tour, _) }
