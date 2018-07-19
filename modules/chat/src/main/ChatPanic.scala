@@ -24,7 +24,7 @@ final class ChatPanic {
 
   def start = {
     logger.warn("Chat Panic enabled")
-    until = DateTime.now.plusMinutes(60).some
+    until = DateTime.now.plusMinutes(180).some
   }
 
   def stop = {
