@@ -56,7 +56,7 @@ final class GarbageCollector(
     (others.size > 1 && others.forall(isBadAccount) && others.headOption.exists(_.disabled)) option others
   }
 
-  private def isBadAccount(user: User) = user.troll || user.engine
+  private def isBadAccount(user: User) = user.lameOrTroll
 
   private def collect(user: User, email: EmailAddress, others: List[User], ipBan: Boolean): Funit = {
     val armed = isArmed()
