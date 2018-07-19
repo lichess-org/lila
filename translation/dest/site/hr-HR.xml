@@ -746,7 +746,7 @@ u %3$s</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Način igranja rokade</string>
   <string name="castleByMovingTwoSquares">Pomicanjem kralja za dva polja</string>
   <string name="castleByMovingOntoTheRook">Pomicanjem kralja na topa</string>
-  <string name="shareYourInsightsData">dijeli vaše osobne podatke</string>
+  <string name="shareYourInsightsData">Dijeli vaše osobne podatke</string>
   <string name="withNobody">Ni sa kime</string>
   <string name="withFriends">S prijateljima</string>
   <string name="withEverybody">Sa svima</string>
@@ -872,7 +872,7 @@ u %3$s</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s samo prihvaća izazove od prijatelja.</string>
   <string name="conditionalPremoves">Uvjetni predpotezi</string>
   <string name="addCurrentVariation">Dodajte trenutnu varijantu</string>
-  <string name="playVariationToCreateConditionalPremoves">Odigraj varijantu da stvoriš predpotez</string>
+  <string name="playVariationToCreateConditionalPremoves">Odigraj varijantu da stvoriš uvjetni predpotez</string>
   <string name="noConditionalPremoves">Nema uvjetnih predpoteza</string>
   <string name="playX">Igraj %s</string>
   <plurals name="andSaveNbPremoveLines">
