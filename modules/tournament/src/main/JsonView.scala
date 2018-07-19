@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 
 import lidraughts.common.LightUser
 import lidraughts.game.{ GameRepo, Pov, Game }
+import lidraughts.hub.tournamentTeam._
 import lidraughts.quote.Quote.quoteWriter
 import lidraughts.rating.PerfType
 import lidraughts.user.User
@@ -36,7 +37,7 @@ final class JsonView(
     tour: Tournament,
     page: Option[Int],
     me: Option[User],
-    getUserTeamIds: User => Fu[List[String]],
+    getUserTeamIds: User => Fu[TeamIdList],
     playerInfoExt: Option[PlayerInfoExt],
     socketVersion: Option[Int],
     lang: Lang

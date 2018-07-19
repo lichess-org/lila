@@ -13,6 +13,7 @@ import lidraughts.hub.actorApi.lobby.ReloadTournaments
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.timeline.{ Propagate, TourJoin }
 import lidraughts.hub.Sequencer
+import lidraughts.hub.tournamentTeam._
 import lidraughts.round.actorApi.round.{ GoBerserk, AbortForce }
 import lidraughts.socket.actorApi.SendToFlag
 import lidraughts.user.{ User, UserRepo }
@@ -43,7 +44,7 @@ final class TournamentApi(
 
   private val bus = system.lidraughtsBus
 
-  def createTournament(setup: TournamentSetup, me: User, myTeams: List[(String, String)], getUserTeamIds: User => Fu[List[String]]): Fu[Tournament] = {
+  def createTournament(setup: TournamentSetup, me: User, myTeams: List[(String, String)], getUserTeamIds: User => Fu[TeamIdList]): Fu[Tournament] = {
     val tour = Tournament.make(
       by = Right(me),
       name = DataForm.canPickName(me) ?? setup.name,
@@ -191,12 +192,12 @@ final class TournamentApi(
       }
     }
 
-  def verdicts(tour: Tournament, me: Option[User], getUserTeamIds: User => Fu[List[String]]): Fu[Condition.All.WithVerdicts] = me match {
+  def verdicts(tour: Tournament, me: Option[User], getUserTeamIds: User => Fu[TeamIdList]): Fu[Condition.All.WithVerdicts] = me match {
     case None => fuccess(tour.conditions.accepted)
     case Some(user) => verify(tour.conditions, user, getUserTeamIds)
   }
 
-  def join(tourId: Tournament.ID, me: User, p: Option[String], getUserTeamIds: User => Fu[List[String]]): Unit = {
+  def join(tourId: Tournament.ID, me: User, p: Option[String], getUserTeamIds: User => Fu[TeamIdList]): Unit = {
     Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
       if (tour.password == p) {
         verdicts(tour, me.some, getUserTeamIds) flatMap {
@@ -212,7 +213,7 @@ final class TournamentApi(
     }
   }
 
-  def joinWithResult(tourId: Tournament.ID, me: User, p: Option[String], getUserTeamIds: User => Fu[List[String]]): Fu[Boolean] = {
+  def joinWithResult(tourId: Tournament.ID, me: User, p: Option[String], getUserTeamIds: User => Fu[TeamIdList]): Fu[Boolean] = {
     join(tourId, me, p, getUserTeamIds)
     // atrocious hack, because joining is fire and forget
     akka.pattern.after(500 millis, system.scheduler) {

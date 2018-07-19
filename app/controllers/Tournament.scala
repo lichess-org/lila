@@ -9,6 +9,7 @@ import lidraughts.app._
 import lidraughts.chat.Chat
 import lidraughts.common.HTTPRequest
 import lidraughts.game.{ Pov, GameRepo }
+import lidraughts.hub.tournamentTeam._
 import lidraughts.tournament.{ System, TournamentRepo, PairingRepo, VisibleTournaments, Tournament => Tour }
 import lidraughts.user.{ User => UserModel }
 import views._
@@ -298,9 +299,9 @@ object Tournament extends LidraughtsController {
 
   private val teamApi = Env.team.api
   private val teamCached = Env.team.cached
-  private def getUserTeamIds(user: lidraughts.user.User): Fu[List[String]] =
+  private def getUserTeamIds(user: lidraughts.user.User): Fu[TeamIdList] =
     teamCached.teamIdsList(user.id)
-  private def teamsIBelongTo(me: lidraughts.user.User): Fu[List[(String, String)]] =
+  private def teamsIBelongTo(me: lidraughts.user.User): Fu[TeamIdsWithNames] =
     teamApi.mine(me) map { teams =>
       teams.map(t => t._id -> t.name)
     }

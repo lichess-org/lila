@@ -1,4 +1,4 @@
-@(form: Form[_], config: lidraughts.tournament.DataForm, me: User, teams: List[(String,String)])(implicit ctx: Context)
+@(form: Form[_], config: lidraughts.tournament.DataForm, me: User, teams: lidraughts.hub.tournamentTeam.TeamIdsWithNames)(implicit ctx: Context)
 
 @import config._
 @import lidraughts.tournament.DataForm._
