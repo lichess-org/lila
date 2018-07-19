@@ -329,7 +329,7 @@ lazy val plan = module("plan", Seq(common, user, notifyModule)).settings(
 )
 
 lazy val relation = module("relation", Seq(common, db, memo, hub, user, game, pref)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees)
 )
 
 lazy val pref = module("pref", Seq(common, db, user)).settings(

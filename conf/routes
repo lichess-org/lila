@@ -494,6 +494,8 @@ GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/activity         controllers.Api.activity(name: String)
+GET   /api/user/:name/following        controllers.Relation.apiFollowing(name: String)
+GET   /api/user/:name/followers        controllers.Relation.apiFollowers(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
 GET   /api/games/team/:teamId          controllers.Api.gamesVsTeam(teamId: String)
 GET   /api/tournament                  controllers.Api.currentTournaments
