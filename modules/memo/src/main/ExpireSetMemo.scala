@@ -9,7 +9,7 @@ final class ExpireSetMemo(ttl: Duration) {
     .expireAfterWrite(ttl)
     .build[String, Boolean]
 
-  private def isNotNull[A](a: A) = a != null
+  @inline private def isNotNull[A](a: A) = a != null
 
   def get(key: String): Boolean = isNotNull(cache.underlying getIfPresent key)
 

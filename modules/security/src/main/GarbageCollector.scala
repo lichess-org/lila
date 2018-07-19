@@ -15,6 +15,8 @@ final class GarbageCollector(
     system: akka.actor.ActorSystem
 ) {
 
+  private val done = new lila.memo.ExpireSetMemo(10 minutes)
+
   // User just signed up and doesn't have security data yet, so wait a bit
   def delay(user: User, ip: IpAddress, email: EmailAddress): Unit =
     if (user.createdAt.isAfter(DateTime.now minusDays 3)) {
@@ -34,7 +36,10 @@ final class GarbageCollector(
             val ipBan = spy.usersSharingIp.forall { u =>
               isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
             }
-            collect(user, email, others, ipBan)
+            if (!done.get(user.id)) {
+              collect(user, email, others, ipBan)
+              done put user.id
+            }
           }
         }
       }
