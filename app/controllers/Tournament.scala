@@ -84,11 +84,10 @@ object Tournament extends LidraughtsController {
       html = repo byId id flatMap {
         _.fold(tournamentNotFound.fuccess) { tour =>
           (for {
-            teams <- ctx.me ?? { teamIdsIBelongTo(_).map(_.some) }
-            verdicts <- env.api.verdicts(tour, ctx.me, teams)
+            verdicts <- env.api.verdicts(tour, ctx.me, getUserTeamIds)
             version <- env.version(tour.id)
             chat <- canHaveChat(tour) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
-            json <- env.jsonView(tour, page, ctx.me, teams, none, version.some, ctx.lang)
+            json <- env.jsonView(tour, page, ctx.me, getUserTeamIds, none, version.some, ctx.lang)
             _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
             streamers <- streamerCache get tour.id
             shieldOwner <- env.shieldApi currentOwner tour
@@ -100,9 +99,7 @@ object Tournament extends LidraughtsController {
           get("playerInfo").?? { env.api.playerInfo(tour.id, _) } zip
             getBool("socketVersion").??(env version tour.id map some) flatMap {
               case (playerInfoExt, socketVersion) =>
-                ctx.me ?? { teamIdsIBelongTo(_).map(_.some) } flatMap { teams =>
-                  env.jsonView(tour, page, ctx.me, teams, playerInfoExt, socketVersion, ctx.lang)
-                }
+                env.jsonView(tour, page, ctx.me, getUserTeamIds, playerInfoExt, socketVersion, ctx.lang)
             } map { Ok(_) }
         }.mon(_.http.response.tournament.show.mobile)
       } map (_ as JSON)
@@ -166,17 +163,13 @@ object Tournament extends LidraughtsController {
           html = repo enterableById id flatMap {
             case None => fuccess(tournamentNotFound)
             case Some(tour) =>
-              teamIdsIBelongTo(me) flatMap { teams =>
-                env.api.join(tour.id, me, password, teams)
-                fuccess(Redirect(routes.Tournament.show(tour.id)))
-              }
+              env.api.join(tour.id, me, password, getUserTeamIds)
+              fuccess(Redirect(routes.Tournament.show(tour.id)))
           },
           api = _ => OptionFuResult(repo enterableById id) { tour =>
-            teamIdsIBelongTo(me) flatMap { teams =>
-              env.api.joinWithResult(tour.id, me, password, teams) map { result =>
-                if (result) Ok(jsonOkBody)
-                else BadRequest(Json.obj("joined" -> false))
-              }
+            env.api.joinWithResult(tour.id, me, password, getUserTeamIds) map { result =>
+              if (result) Ok(jsonOkBody)
+              else BadRequest(Json.obj("joined" -> false))
             }
           }
         )
@@ -236,7 +229,7 @@ object Tournament extends LidraughtsController {
             setup =>
               CreateLimitPerUser(me.id, cost = 1) {
                 CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
-                  env.api.createTournament(setup, me, teams) map { tour =>
+                  env.api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
                     Redirect(routes.Tournament.show(tour.id))
                   }
                 }
@@ -245,7 +238,7 @@ object Tournament extends LidraughtsController {
           api = _ => env.forms(me).bindFromRequest.fold(
             err => BadRequest(errorsAsJson(err)).fuccess,
             setup => teamsIBelongTo(me) flatMap { teams =>
-              env.api.createTournament(setup, me, teams) map { tour =>
+              env.api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
                 Ok(Json.obj("id" -> tour.id))
               }
             }
@@ -256,13 +249,11 @@ object Tournament extends LidraughtsController {
   }
 
   def limitedInvitation = Auth { implicit ctx => me =>
-    teamIdsIBelongTo(me) flatMap { teams =>
-      for {
-        (tours, _) <- upcomingCache.get
-        res <- lidraughts.tournament.TournamentInviter.findNextFor(me, tours, env.verify.canEnter(me, teams))
-      } yield res.fold(Redirect(routes.Tournament.home(1))) { t =>
-        Redirect(routes.Tournament.show(t.id))
-      }
+    for {
+      (tours, _) <- upcomingCache.get
+      res <- lidraughts.tournament.TournamentInviter.findNextFor(me, tours, env.verify.canEnter(me, getUserTeamIds))
+    } yield res.fold(Redirect(routes.Tournament.home(1))) { t =>
+      Redirect(routes.Tournament.show(t.id))
     }
   }
 
@@ -307,8 +298,8 @@ object Tournament extends LidraughtsController {
 
   private val teamApi = Env.team.api
   private val teamCached = Env.team.cached
-  private def teamIdsIBelongTo(me: lidraughts.user.User): Fu[List[String]] =
-    teamCached.teamIdsList(me.id)
+  private def getUserTeamIds(user: lidraughts.user.User): Fu[List[String]] =
+    teamCached.teamIdsList(user.id)
   private def teamsIBelongTo(me: lidraughts.user.User): Fu[List[(String, String)]] =
     teamApi.mine(me) map { teams =>
       teams.map(t => t._id -> t.name)

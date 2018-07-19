@@ -98,9 +98,11 @@ object Condition {
 
   case class TeamMember(teamId: String, teamName: String) extends Condition {
     def name(lang: Lang) = I18nKeys.mustBeInTeam.literalTxtTo(lang, List(teamName))
-    def apply(userTeamIds: List[String]) =
-      if (userTeamIds contains teamId) Accepted
-      else Refused { lang => I18nKeys.youAreNotInTeam.literalTxtTo(lang, List(teamName)) }
+    def apply(user: User, getUserTeamIds: User => Fu[List[String]]) =
+      getUserTeamIds(user) map { userTeamIds =>
+        if (userTeamIds contains teamId) Accepted
+        else Refused { lang => I18nKeys.youAreNotInTeam.literalTxtTo(lang, List(teamName)) }
+      }
   }
 
   case class All(
@@ -117,11 +119,11 @@ object Condition {
 
     def ifNonEmpty = list.nonEmpty option this
 
-    def withVerdicts(getMaxRating: GetMaxRating)(user: User, userTeamIds: List[String]): Fu[All.WithVerdicts] =
+    def withVerdicts(getMaxRating: GetMaxRating)(user: User, getUserTeamIds: User => Fu[List[String]]): Fu[All.WithVerdicts] =
       list.map {
         case c: MaxRating => c(getMaxRating)(user) map c.withVerdict
         case c: FlatCond => fuccess(c withVerdict c(user))
-        case c: TeamMember => fuccess(c withVerdict c(userTeamIds))
+        case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
       }.sequenceFu map All.WithVerdicts.apply
 
     def accepted = All.WithVerdicts(list.map { WithVerdict(_, Accepted) })
@@ -149,12 +151,12 @@ object Condition {
   }
 
   final class Verify(historyApi: lidraughts.history.HistoryApi) {
-    def apply(all: All, user: User, userTeamIds: List[String]): Fu[All.WithVerdicts] = {
+    def apply(all: All, user: User, getUserTeamIds: User => Fu[List[String]]): Fu[All.WithVerdicts] = {
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
-      all.withVerdicts(getMaxRating)(user, userTeamIds)
+      all.withVerdicts(getMaxRating)(user, getUserTeamIds)
     }
-    def canEnter(user: User, userTeamIds: List[String])(tour: Tournament): Fu[Boolean] =
-      apply(tour.conditions, user, userTeamIds).map(_.accepted)
+    def canEnter(user: User, getUserTeamIds: User => Fu[List[String]])(tour: Tournament): Fu[Boolean] =
+      apply(tour.conditions, user, getUserTeamIds).map(_.accepted)
   }
 
   object BSONHandlers {

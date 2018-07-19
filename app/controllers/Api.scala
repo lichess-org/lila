@@ -273,7 +273,7 @@ object Api extends LidraughtsController {
     val page = (getInt("page") | 1) atLeast 1 atMost 200
     lidraughts.tournament.TournamentRepo byId id flatMap {
       _ ?? { tour =>
-        Env.tournament.jsonView(tour, page.some, none, none, none, none, ctx.lang) map some
+        Env.tournament.jsonView(tour, page.some, none, { _ => fuccess(Nil) }, none, none, ctx.lang) map some
       }
     } map toApiResult
   }
