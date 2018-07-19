@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 
 import lila.common.LightUser
 import lila.game.{ GameRepo, LightPov, Game }
+import lila.hub.tournamentTeam._
 import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType
 import lila.user.User
@@ -37,7 +38,7 @@ final class JsonView(
     tour: Tournament,
     page: Option[Int],
     me: Option[User],
-    getUserTeamIds: User => Fu[List[String]],
+    getUserTeamIds: User => Fu[TeamIdList],
     playerInfoExt: Option[PlayerInfoExt],
     socketVersion: Option[Int],
     lang: Lang

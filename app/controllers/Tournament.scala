@@ -9,6 +9,7 @@ import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
 import lila.game.{ Pov, GameRepo }
+import lila.hub.tournamentTeam._
 import lila.tournament.{ System, TournamentRepo, PairingRepo, VisibleTournaments, Tournament => Tour }
 import lila.user.{ User => UserModel }
 import views._
@@ -310,9 +311,9 @@ object Tournament extends LilaController {
 
   private val teamApi = Env.team.api
   private val teamCached = Env.team.cached
-  private def getUserTeamIds(user: lila.user.User): Fu[List[String]] =
+  private def getUserTeamIds(user: lila.user.User): Fu[TeamIdList] =
     teamCached.teamIdsList(user.id)
-  private def teamsIBelongTo(me: lila.user.User): Fu[List[(String, String)]] =
+  private def teamsIBelongTo(me: lila.user.User): Fu[TeamIdsWithNames] =
     teamApi.mine(me) map { teams =>
       teams.map(t => t._id -> t.name)
     }
