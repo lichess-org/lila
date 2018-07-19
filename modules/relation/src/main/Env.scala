@@ -39,6 +39,8 @@ final class Env(
     maxBlock = MaxBlock
   )
 
+  lazy val stream = new RelationStream(coll = coll)(system)
+
   val online = new OnlineDoing(
     api,
     lightUser = lightUserApi.sync,
