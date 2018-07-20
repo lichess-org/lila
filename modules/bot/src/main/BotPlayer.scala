@@ -48,9 +48,9 @@ final class BotPlayer(
     GameRepo game id map {
       _.flatMap(Pov(_, me)).filter(_.opponent.isOfferingRematch) ?? { pov =>
         // delay so it feels more natural
-        lila.common.Future.delay(accept.fold(100, 2000) millis) {
+        lila.common.Future.delay(if (accept) 100.millis else 2.seconds) {
           fuccess {
-            roundMap ! Tell(pov.gameId, accept.fold(RematchYes, RematchNo)(pov.playerId))
+            roundMap ! Tell(pov.gameId, (if (accept) RematchYes else RematchNo)(pov.playerId))
           }
         }(system)
         true

@@ -24,10 +24,10 @@ case class Topic(
 
   def id = _id
 
-  def updatedAt(troll: Boolean): DateTime = troll.fold(updatedAtTroll, updatedAt)
-  def nbPosts(troll: Boolean): Int = troll.fold(nbPostsTroll, nbPosts)
+  def updatedAt(troll: Boolean): DateTime = if (troll) updatedAtTroll else updatedAt
+  def nbPosts(troll: Boolean): Int = if (troll) nbPostsTroll else nbPosts
   def nbReplies(troll: Boolean): Int = nbPosts(troll) - 1
-  def lastPostId(troll: Boolean): String = troll.fold(lastPostIdTroll, lastPostId)
+  def lastPostId(troll: Boolean): String = if (troll) lastPostIdTroll else lastPostId
 
   def open = !closed
   def visibleOnHome = !hidden
@@ -37,9 +37,9 @@ case class Topic(
   def isStaff = categId == Categ.staffId
 
   def withPost(post: Post): Topic = copy(
-    nbPosts = post.troll.fold(nbPosts, nbPosts + 1),
-    lastPostId = post.troll.fold(lastPostId, post.id),
-    updatedAt = post.troll.fold(updatedAt, post.createdAt),
+    nbPosts = if (post.troll) nbPosts else nbPosts + 1,
+    lastPostId = if (post.troll) lastPostId else post.id,
+    updatedAt = if (post.troll) updatedAt else post.createdAt,
     nbPostsTroll = nbPostsTroll + 1,
     lastPostIdTroll = post.id,
     updatedAtTroll = post.createdAt
@@ -54,7 +54,7 @@ object Topic {
 
   def nameToId(name: String) = (lila.common.String slugify name) |> { slug =>
     // if most chars are not latin, go for random slug
-    (slug.size > (name.size / 2)).fold(slug, Random nextString 8)
+    if (slug.size > (name.size / 2)) slug else Random nextString 8
   }
 
   val idSize = 8

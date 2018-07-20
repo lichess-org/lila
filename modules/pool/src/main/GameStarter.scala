@@ -33,8 +33,8 @@ private final class GameStarter(
     (perfs.get(p1.userId) |@| perfs.get(p2.userId)).tupled ?? {
       case (perf1, perf2) => for {
         p1White <- UserRepo.firstGetsWhite(p1.userId, p2.userId)
-        (whitePerf, blackPerf) = p1White.fold(perf1 -> perf2, perf2 -> perf1)
-        (whiteMember, blackMember) = p1White.fold(p1 -> p2, p2 -> p1)
+        (whitePerf, blackPerf) = if (p1White) perf1 -> perf2 else perf2 -> perf1
+        (whiteMember, blackMember) = if (p1White) p1 -> p2 else p2 -> p1
         game = makeGame(
           pool,
           whiteMember.userId -> whitePerf,

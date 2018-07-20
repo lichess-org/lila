@@ -122,7 +122,7 @@ private object RelayFetch {
     }
 
   def maxChapters(relay: Relay) =
-    lila.study.Study.maxChapters * relay.official.fold(2, 1)
+    lila.study.Study.maxChapters * (if (relay.official) 2 else 1)
 
   import com.github.blemale.scaffeine.{ Cache, Scaffeine }
   private val cache: Cache[Upstream, GamesSeenBy] = Scaffeine()

@@ -83,7 +83,7 @@ object Challenge {
   }
 
   case class Rating(int: Int, provisional: Boolean) {
-    def show = s"$int${provisional.fold("?", "")}"
+    def show = s"$int${if (provisional) "?" else ""}"
   }
   object Rating {
     def apply(p: lila.rating.Perf): Rating = Rating(p.intRating, p.provisional)
@@ -154,10 +154,9 @@ object Challenge {
       _id = randomId,
       status = Status.Created,
       variant = variant,
-      initialFen = (variant == FromPosition).fold(
-        initialFen,
-        !variant.standardInitialPosition option FEN(variant.initialFen)
-      ),
+      initialFen =
+        if (variant == FromPosition) initialFen
+        else !variant.standardInitialPosition option FEN(variant.initialFen),
       timeControl = timeControl,
       mode = finalMode,
       colorChoice = colorChoice,

@@ -36,8 +36,8 @@ private[challenge] final class Joiner(onStart: String => Unit) {
             chess = chessGame,
             whitePlayer = Player.make(chess.White, c.finalColor.fold(challengerUser, destUser), perfPicker),
             blackPlayer = Player.make(chess.Black, c.finalColor.fold(destUser, challengerUser), perfPicker),
-            mode = chessGame.board.variant.fromPosition.fold(Mode.Casual, c.mode),
-            source = chessGame.board.variant.fromPosition.fold(Source.Position, Source.Friend),
+            mode = if (chessGame.board.variant.fromPosition) Mode.Casual else c.mode,
+            source = if (chessGame.board.variant.fromPosition) Source.Position else Source.Friend,
             daysPerTurn = c.daysPerTurn,
             pgnImport = None
           ).copy(id = c.id).|> { g =>

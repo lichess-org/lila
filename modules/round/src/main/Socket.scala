@@ -71,7 +71,7 @@ private[round] final class Socket(
     }
 
     def isGone: Fu[Boolean] = {
-      time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis) &&
+      time < (nowMillis - (if (isBye) ragequitTimeout else disconnectTimeout).toMillis) &&
         !botConnected
     } ?? !isHostingSimul
 

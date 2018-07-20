@@ -6,9 +6,9 @@ import chess.format.{ Forsyth, FEN, Uci }
 import chess.{ MoveMetrics, Centis, Status, Color, MoveOrDrop }
 
 import actorApi.round.{ HumanPlay, DrawNo, TooManyPlies, TakebackNo, ForecastPlay }
-import lila.hub.actorApi.round.BotPlay
 import akka.actor.ActorRef
 import lila.game.{ Game, Progress, Pov, UciMemo }
+import lila.hub.actorApi.round.BotPlay
 
 private[round] final class Player(
     fishnetPlayer: lila.fishnet.Player,
@@ -73,17 +73,17 @@ private[round] final class Player(
   )(implicit proxy: GameProxy): Fu[Events] = {
     if (pov.game.hasAi) uciMemo.add(pov.game, moveOrDrop)
     notifyMove(moveOrDrop, progress.game)
-    progress.game.finished.fold(
-      moveFinish(progress.game, pov.color) dmap { progress.events ::: _ }, {
-        if (progress.game.playableByAi) requestFishnet(progress.game, round)
-        if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
-        if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
-        if (pov.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
-          round ! ForecastPlay(move)
-        }
-        fuccess(progress.events)
+    val res = if (progress.game.finished) moveFinish(progress.game, pov.color) dmap { progress.events ::: _ }
+    else {
+      if (progress.game.playableByAi) requestFishnet(progress.game, round)
+      if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
+      if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
+      if (pov.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
+        round ! ForecastPlay(move)
       }
-    ) >>- promiseOption.foreach(_.success(()))
+      fuccess(progress.events)
+    }
+    res >>- promiseOption.foreach(_.success(()))
   }
 
   private[round] def fishnet(game: Game, uci: Uci, currentFen: FEN, round: ActorRef)(implicit proxy: GameProxy): Fu[Events] =
@@ -95,11 +95,10 @@ private[round] final class Player(
             case MoveApplied(progress, moveOrDrop) =>
               proxy.save(progress) >>-
                 uciMemo.add(progress.game, moveOrDrop) >>-
-                notifyMove(moveOrDrop, progress.game) >>
-                progress.game.finished.fold(
-                  moveFinish(progress.game, game.turnColor) dmap { progress.events ::: _ },
-                  fuccess(progress.events)
-                )
+                notifyMove(moveOrDrop, progress.game) >> {
+                  if (progress.game.finished) moveFinish(progress.game, game.turnColor) dmap { progress.events ::: _ }
+                  else fuccess(progress.events)
+                }
           }
       else requestFishnet(game, round) >> fufail(FishnetError("Invalid AI move current FEN"))
     } else fufail(FishnetError("Not AI turn"))

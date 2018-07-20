@@ -232,10 +232,10 @@ case class Game(
     blackPlayer = f(blackPlayer)
   )
 
-  def start = started.fold(this, copy(
+  def start = if (started) this else copy(
     status = Status.Started,
     mode = Mode(mode.rated && userIds.distinct.size == 2)
-  ))
+  )
 
   def correspondenceClock: Option[CorrespondenceClock] = daysPerTurn map { days =>
     val increment = days * 24 * 60 * 60

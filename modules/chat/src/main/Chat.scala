@@ -29,10 +29,9 @@ case class UserChat(
 
   val loginRequired = true
 
-  def forUser(u: Option[User]) = u.??(_.troll).fold(
-    this,
-    copy(lines = lines filterNot (_.troll))
-  )
+  def forUser(u: Option[User]): UserChat =
+    if (u.??(_.troll)) this
+    else copy(lines = lines filterNot (_.troll))
 
   def markDeleted(u: User) = copy(
     lines = lines.map { l =>
@@ -64,13 +63,12 @@ case class MixedChat(
 
   val loginRequired = false
 
-  def forUser(u: Option[User]) = u.??(_.troll).fold(
-    this,
-    copy(lines = lines filter {
+  def forUser(u: Option[User]): MixedChat =
+    if (u.??(_.troll)) this
+    else copy(lines = lines filter {
       case l: UserLine => !l.troll
       case l: PlayerLine => true
     })
-  )
 
   def mapLines(f: Line => Line) = copy(lines = lines map f)
 

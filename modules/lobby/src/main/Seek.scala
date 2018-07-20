@@ -107,7 +107,7 @@ object Seek {
   import lila.db.BSON.BSONJodaDateTimeHandler
   implicit val lobbyPerfBSONHandler = new BSONHandler[BSONInteger, LobbyPerf] {
     def read(b: BSONInteger) = LobbyPerf(b.value.abs, b.value < 0)
-    def write(x: LobbyPerf) = BSONInteger(x.rating * x.provisional.fold(-1, 1))
+    def write(x: LobbyPerf) = BSONInteger(x.rating * (if (x.provisional) -1 else 1))
   }
   private[lobby] implicit val lobbyUserBSONHandler = Macros.handler[LobbyUser]
   private[lobby] implicit val seekBSONHandler = Macros.handler[Seek]

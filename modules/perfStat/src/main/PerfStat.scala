@@ -24,9 +24,9 @@ case class PerfStat(
     val thisYear = pov.game.createdAt isAfter DateTime.now.minusYears(1)
     copy(
       highest = RatingAt.agg(highest, pov, 1),
-      lowest = thisYear.fold(RatingAt.agg(lowest, pov, -1), lowest),
-      bestWins = (~pov.win).fold(bestWins.agg(pov, -1), bestWins),
-      worstLosses = (thisYear && ~pov.loss).fold(worstLosses.agg(pov, 1), worstLosses),
+      lowest = if (thisYear) RatingAt.agg(lowest, pov, -1) else lowest,
+      bestWins = if (~pov.win) bestWins.agg(pov, -1) else bestWins,
+      worstLosses = if (thisYear && ~pov.loss) worstLosses.agg(pov, 1) else worstLosses,
       count = count(pov),
       resultStreak = resultStreak agg pov,
       playStreak = playStreak agg pov
@@ -94,7 +94,7 @@ object Streaks {
   val init = Streaks(Streak.init, Streak.init)
 }
 case class Streak(v: Int, from: Option[RatingAt], to: Option[RatingAt]) {
-  def apply(cont: Boolean, pov: Pov)(v: Int) = cont.fold(inc(pov, v), Streak.init)
+  def apply(cont: Boolean, pov: Pov)(v: Int) = if (cont) inc(pov, v) else Streak.init
   private def inc(pov: Pov, by: Int) = copy(
     v = v + by,
     from = from orElse pov.player.rating.map { RatingAt(_, pov.game.createdAt, pov.gameId) },
@@ -121,20 +121,20 @@ case class Count(
 ) {
   def apply(pov: Pov) = copy(
     all = all + 1,
-    rated = rated + pov.game.rated.fold(1, 0),
-    win = win + pov.win.contains(true).fold(1, 0),
-    loss = loss + pov.win.contains(false).fold(1, 0),
-    draw = draw + pov.win.isEmpty.fold(1, 0),
-    tour = tour + pov.game.isTournament.fold(1, 0),
-    berserk = berserk + pov.player.berserk.fold(1, 0),
+    rated = rated + (if (pov.game.rated) 1 else 0),
+    win = win + (if (pov.win.contains(true)) 1 else 0),
+    loss = loss + (if (pov.win.contains(false)) 1 else 0),
+    draw = draw + (if (pov.win.isEmpty) 1 else 0),
+    tour = tour + (if (pov.game.isTournament) 1 else 0),
+    berserk = berserk + (if (pov.player.berserk) 1 else 0),
     opAvg = pov.opponent.stableRating.fold(opAvg)(opAvg.agg),
     seconds = seconds + (pov.game.durationSeconds match {
       case Some(s) if s <= 3 * 60 * 60 => s
       case _ => 0
     }),
     disconnects = disconnects + {
-      ~pov.loss && pov.game.status == chess.Status.Timeout
-    }.fold(1, 0)
+      if (~pov.loss && pov.game.status == chess.Status.Timeout) 1 else 0
+    }
   )
 }
 object Count {

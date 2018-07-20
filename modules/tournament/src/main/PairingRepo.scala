@@ -35,8 +35,8 @@ object PairingRepo {
   ).sort(recentSort).cursor[Bdoc]().fold(Map.empty[User.ID, User.ID], nb) { (acc, doc) =>
       ~doc.getAs[List[User.ID]]("u") match {
         case List(u1, u2) =>
-          val acc1 = acc.contains(u1).fold(acc, acc.updated(u1, u2))
-          acc.contains(u2).fold(acc1, acc1.updated(u2, u1))
+          val acc1 = if (acc.contains(u1)) acc else acc.updated(u1, u2)
+          if (acc.contains(u2)) acc1 else acc1.updated(u2, u1)
       }
     } map Pairing.LastOpponents.apply
 

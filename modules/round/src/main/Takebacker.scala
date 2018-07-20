@@ -66,7 +66,8 @@ private[round] final class Takebacker(
   private def IfAllowed[A](game: Game)(f: => Fu[A]): Fu[A] =
     if (!game.playable) fufail(ClientError("[takebacker] game is over " + game.id))
     else isAllowedByPrefs(game) flatMap {
-      _.fold(f, fufail(ClientError("[takebacker] disallowed by preferences " + game.id)))
+      case true => f
+      case _ => fufail(ClientError("[takebacker] disallowed by preferences " + game.id))
     }
 
   private def single(game: Game)(implicit proxy: GameProxy): Fu[Events] = for {

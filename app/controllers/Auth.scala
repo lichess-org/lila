@@ -42,20 +42,18 @@ object Auth extends LilaController {
 
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit ctx: Context): Fu[Result] = {
     implicit val req = ctx.req
-    u.ipBan.fold(
-      fuccess(Redirect(routes.Lobby.home)),
-      api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
-        negotiate(
-          html = fuccess {
-            val redirectTo = get("referrer").filter(goodReferrer) orElse
-              req.session.get(api.AccessUri) getOrElse
-              routes.Lobby.home.url
-            result.fold(Redirect(redirectTo))(_(redirectTo))
-          },
-          api = _ => mobileUserOk(u, sessionId)
-        ) map authenticateCookie(sessionId)
-      } recoverWith authRecovery
-    )
+    if (u.ipBan) fuccess(Redirect(routes.Lobby.home))
+    else api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
+      negotiate(
+        html = fuccess {
+          val redirectTo = get("referrer").filter(goodReferrer) orElse
+            req.session.get(api.AccessUri) getOrElse
+            routes.Lobby.home.url
+          result.fold(Redirect(redirectTo))(_(redirectTo))
+        },
+        api = _ => mobileUserOk(u, sessionId)
+      ) map authenticateCookie(sessionId)
+    } recoverWith authRecovery
   }
 
   private def authenticateCookie(sessionId: String)(result: Result)(implicit req: RequestHeader) =
@@ -161,7 +159,10 @@ object Auth extends LilaController {
         else print.fold[Fu[MustConfirmEmail]](fuccess(YesBecausePrintMissing)) { fp =>
           api.recentByPrintExists(fp) flatMap { printFound =>
             if (printFound) fuccess(YesBecausePrintExists)
-            else Env.security.ipTrust.isSuspicious(ip).map { _.fold(YesBecauseIpSusp, Nope) }
+            else Env.security.ipTrust.isSuspicious(ip).map {
+              case true => YesBecauseIpSusp
+              case _ => Nope
+            }
           }
         }
       }

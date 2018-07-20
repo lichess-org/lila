@@ -79,7 +79,8 @@ object Challenge extends LilaController {
     } flatMap { res =>
       if (res.isDefined) jsonOkResult.fuccess
       else Env.bot.player.rematchAccept(id, me) flatMap {
-        _.fold(jsonOkResult.fuccess, notFoundJson())
+        case true => jsonOkResult.fuccess
+        case _ => notFoundJson()
       }
     }
   }
@@ -91,7 +92,7 @@ object Challenge extends LilaController {
           implicit val req = ctx.req
           LilaCookie.cookie(
             AnonCookie.name,
-            game.player(owner.fold(c.finalColor, !c.finalColor)).id,
+            game.player(if (owner) c.finalColor else !c.finalColor).id,
             maxAge = AnonCookie.maxAge.some,
             httpOnly = false.some
           )
@@ -110,7 +111,8 @@ object Challenge extends LilaController {
   def apiDecline(id: String) = Scoped() { _ => me =>
     env.api.activeByIdFor(id, me) flatMap {
       case None => Env.bot.player.rematchDecline(id, me) flatMap {
-        _.fold(jsonOkResult.fuccess, notFoundJson())
+        case true => jsonOkResult.fuccess
+        case _ => notFoundJson()
       }
       case Some(c) => env.api.decline(c) inject jsonOkResult
     }
@@ -153,7 +155,8 @@ object Challenge extends LilaController {
               lila.challenge.ChallengeDenied translated d
             }).fuccess
             case _ => env.api.sendRematchOf(g, me) map {
-              _.fold(Ok, BadRequest(jsonError("Sorry, couldn't create the rematch.")))
+              case true => Ok
+              case _ => BadRequest(jsonError("Sorry, couldn't create the rematch."))
             }
           }
         }

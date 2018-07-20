@@ -3,13 +3,13 @@ package lila.puzzle
 case class AggregateVote(up: Int, down: Int, nb: Int, ratio: Int) {
 
   def add(v: Boolean) = copy(
-    up = up + v.fold(1, 0),
-    down = down + v.fold(0, 1)
+    up = up + (if (v) 1 else 0),
+    down = down + (if (v) 0 else 1)
   ).computeNbAndRatio
 
   def change(from: Boolean, to: Boolean) = if (from == to) this else copy(
-    up = up + to.fold(1, -1),
-    down = down + to.fold(-1, 1)
+    up = up + (if (to) 1 else -1),
+    down = down + (if (to) -1 else 1)
   ).computeNbAndRatio
 
   def count = up + down

@@ -36,14 +36,14 @@ private[setup] trait Config {
 
   def makeGame: ChessGame = makeGame(variant)
 
-  def validClock = hasClock.fold(clockHasTime, true)
+  def validClock = !hasClock || clockHasTime
 
   def clockHasTime = time + increment > 0
 
   def makeClock = hasClock option justMakeClock
 
   protected def justMakeClock =
-    Clock.Config((time * 60).toInt, clockHasTime.fold(increment, 1))
+    Clock.Config((time * 60).toInt, if (clockHasTime) increment else 1)
 
   def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
 }

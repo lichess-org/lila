@@ -56,17 +56,16 @@ final class PostApi(
               (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
               (!categ.quiet ?? env.recent.invalidate) >>-
               ctx.userId.?? { userId =>
-                shutup ! post.isTeam.fold(
-                  lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text),
-                  lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text)
-                )
+                shutup ! {
+                  if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text)
+                  else lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text)
+                }
               } >>- {
                 (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
-                  timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
-                    post.isStaff.fold(
-                      prop toStaffFriendsOf userId,
-                      prop toFollowersOf userId toUsers topicUserIds exceptUser userId
-                    ))
+                  timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|> { prop =>
+                    if (post.isStaff) prop toStaffFriendsOf userId
+                    else prop toFollowersOf userId toUsers topicUserIds exceptUser userId
+                  }
                 }
                 lila.mon.forum.post.create()
                 mentionNotifier.notifyMentionedUsers(post, topic)
@@ -187,14 +186,12 @@ final class PostApi(
     view ← optionT(view(post))
     _ ← optionT(for {
       first ← PostRepo.isFirstPost(view.topic.id, view.post.id)
-      _ ← first.fold(
-        env.topicApi.delete(view.categ, view.topic),
-        env.postColl.remove(view.post) >>
-          (env.topicApi denormalize view.topic) >>
-          (env.categApi denormalize view.categ) >>-
-          env.recent.invalidate >>-
-          (indexer ! RemovePost(post.id))
-      )
+      _ ← if (first) env.topicApi.delete(view.categ, view.topic)
+      else env.postColl.remove(view.post) >>
+        (env.topicApi denormalize view.topic) >>
+        (env.categApi denormalize view.categ) >>-
+        env.recent.invalidate >>-
+        (indexer ! RemovePost(post.id))
       _ ← MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(mod.id, post.userId, post.author, post.ip,
         text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
     } yield true.some)

@@ -121,17 +121,17 @@ private[controllers] trait LilaController
 
   protected def Secure[A](parser: BodyParser[A])(perm: Permission)(f: Context => UserModel => Fu[Result]): Action[A] =
     Auth(parser) { implicit ctx => me =>
-      isGranted(perm).fold(f(ctx)(me), authorizationFailed)
+      if (isGranted(perm)) f(ctx)(me) else authorizationFailed
     }
 
   protected def SecureF(s: UserModel => Boolean)(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
     Auth(BodyParsers.parse.anyContent) { implicit ctx => me =>
-      s(me).fold(f(ctx)(me), authorizationFailed)
+      if (s(me)) f(ctx)(me) else authorizationFailed
     }
 
   protected def SecureBody[A](parser: BodyParser[A])(perm: Permission)(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
     AuthBody(parser) { implicit ctx => me =>
-      isGranted(perm).fold(f(ctx)(me), authorizationFailed)
+      if (isGranted(perm)) f(ctx)(me) else authorizationFailed
     }
 
   protected def SecureBody(perm: Permission.type => Permission)(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =

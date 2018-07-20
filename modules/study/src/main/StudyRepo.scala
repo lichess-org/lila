@@ -140,7 +140,7 @@ final class StudyRepo(private[study] val coll: Coll) {
     countLikes(studyId).flatMap {
       case None => fuccess(Study.Likes(0))
       case Some((prevLikes, createdAt)) =>
-        val likes = Study.Likes(prevLikes.value + v.fold(1, -1))
+        val likes = Study.Likes(prevLikes.value + (if (v) 1 else -1))
         coll.update(
           $id(studyId),
           $set(

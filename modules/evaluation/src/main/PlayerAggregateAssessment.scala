@@ -47,7 +47,7 @@ case class PlayerAggregateAssessment(
       (percentCheatingGames(10) || percentLikelyCheatingGames(20))
 
     val reportable: Boolean = isWorthLookingAt &&
-      (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= (isNewRatedUser.fold(2, 4))) &&
+      (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= (if (isNewRatedUser) 2 else 4)) &&
       (percentCheatingGames(5) || percentLikelyCheatingGames(10))
 
     val bannable: Boolean = (relatedCheatersCount == relatedUsersCount) && relatedUsersCount >= 1

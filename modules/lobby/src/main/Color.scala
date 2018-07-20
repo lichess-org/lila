@@ -29,7 +29,7 @@ object Color {
 
   object Random extends Color("random") {
 
-    def resolve = nextBoolean.fold(White, Black).resolve
+    def resolve = chess.Color(nextBoolean)
 
     def unary_! = this
   }
