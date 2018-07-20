@@ -46,7 +46,7 @@
 </div>
 @if(auto && teams.size > 0) {
 <div>
-  @base.form.group(form("conditions.teamMember.teamId"), Html("Member of team"), half = false) { field =>
+  @base.form.group(form("conditions.teamMember.teamId"), Html("Only members of team"), half = false) { field =>
     @base.form.select(field, List(("", "No Restriction")) ::: teams)
   }
 </div>
