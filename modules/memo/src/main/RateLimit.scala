@@ -42,9 +42,8 @@ final class RateLimit[K](
         storage.put(k, cost -> makeClearAt)
         op
       case _ =>
-        logger.info(s"$name ($credits/$duration) $k cost: $cost $msg")
-        monitor()
-        default.zero
+        // NO RATE LIMIT! For stress testing on stage.
+        op
     }
 }
 
