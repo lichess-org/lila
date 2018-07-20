@@ -10,6 +10,7 @@ final class Env(
 
   private val CollectionCache = config getString "collection.cache"
   private val CollectionConfig = config getString "collection.config"
+  private val RateLimitEnabled = config getBoolean "rate_limit.enabled"
 
   private val configColl = db(CollectionConfig)
 
@@ -20,6 +21,8 @@ final class Env(
   lazy val settingStore: SettingStore.Builder = new SettingStore.Builder(configColl)
 
   lazy val asyncCache: AsyncCache.Builder = new AsyncCache.Builder()(system)
+
+  lazy val rateLimit: RateLimit.Builder = new RateLimit.Builder(RateLimitEnabled)
 }
 
 object Env {
