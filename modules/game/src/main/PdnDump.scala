@@ -24,7 +24,7 @@ final class PdnDump(
     tagsFuture map { ts =>
       val turns = flags.moves ?? {
         val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
-        val moves2 = fenSituation.??(_.situation.color.black).fold(".." +: game.pdnMovesConcat, game.pdnMovesConcat)
+        val moves2 = if (fenSituation.exists(_.situation.color.black)) ".." +: game.pdnMovesConcat else game.pdnMovesConcat
         makeTurns(
           moves2,
           fenSituation.map(_.fullMoveNumber) | 1,

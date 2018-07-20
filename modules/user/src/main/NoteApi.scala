@@ -32,17 +32,16 @@ final class NoteApi(
   def get(user: User, me: User, myFriendIds: Set[String], isMod: Boolean): Fu[List[Note]] =
     coll.find(
       $doc("to" -> user.id) ++
-        me.troll.fold($empty, $doc("troll" -> false)) ++
-        isMod.fold(
-          $or(
-            "from" $in (myFriendIds + me.id),
-            "mod" $eq true
-          ),
+        (!me.troll ?? $doc("troll" -> false)) ++
+        (if (isMod) $or(
+          "from" $in (myFriendIds + me.id),
+          "mod" $eq true
+        )
+        else
           $doc(
             "from" $in (myFriendIds + me.id),
             "mod" -> false
-          )
-        )
+          ))
     ).sort($doc("date" -> -1)).list[Note](20)
 
   def forMod(id: User.ID): Fu[List[Note]] =

@@ -70,15 +70,17 @@ private[forum] final class TopicApi(
           (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
           (!categ.quiet ?? env.recent.invalidate) >>-
           ctx.userId.?? { userId =>
-            val text = topic.name + " " + post.text
-            shutup ! post.isTeam.fold(
-              lidraughts.hub.actorApi.shutup.RecordTeamForumMessage(userId, text),
-              lidraughts.hub.actorApi.shutup.RecordPublicForumMessage(userId, text)
-            )
+            val text = s"${topic.name} ${post.text}"
+            shutup ! {
+              if (post.isTeam) lidraughts.hub.actorApi.shutup.RecordTeamForumMessage(userId, text)
+              else lidraughts.hub.actorApi.shutup.RecordPublicForumMessage(userId, text)
+            }
           } >>- {
             (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
-              timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
-                post.isStaff.fold(prop toStaffFriendsOf userId, prop toFollowersOf userId))
+              timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|> { prop =>
+                if (post.isStaff) prop toStaffFriendsOf userId
+                else prop toFollowersOf userId
+              }
             }
             lidraughts.mon.forum.post.create()
           } >>- {

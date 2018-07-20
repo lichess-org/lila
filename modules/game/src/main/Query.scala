@@ -101,7 +101,7 @@ object Query {
   def checkableOld = F.checkAt $lt DateTime.now.minusHours(1)
 
   def variant(v: draughts.variant.Variant) =
-    $doc(F.variant -> v.standard.fold[BSONValue]($exists(false), $int(v.id)))
+    $doc(F.variant -> (if (v.standard) $exists(false) else $int(v.id)))
 
   lazy val variantStandard = variant(draughts.variant.Standard)
 

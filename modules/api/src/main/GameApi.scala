@@ -46,10 +46,16 @@ private[api] final class GameApi(
           else $doc(
             G.playerUids -> user.id,
             G.status $gte draughts.Status.Mate.id,
-            G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+            G.analysed -> analysed.map[BSONValue] {
+              case true => BSONBoolean(true)
+              case _ => $doc("$exists" -> false)
+            }
           )
         } ++ $doc(
-          G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+          G.rated -> rated.map[BSONValue] {
+            case true => BSONBoolean(true)
+            case _ => $doc("$exists" -> false)
+          }
         ),
         projection = $empty,
         sort = $doc(G.createdAt -> -1),
@@ -58,7 +64,10 @@ private[api] final class GameApi(
       nbResults =
         if (~playing) gameCache.nbPlaying(user.id)
         else fuccess {
-          rated.fold(user.count.game)(_.fold(user.count.rated, user.count.casual))
+          rated.fold(user.count.game) {
+            case true => user.count.rated
+            case _ => user.count.casual
+          }
         }
     ),
     currentPage = page,
@@ -92,10 +101,16 @@ private[api] final class GameApi(
           if (~playing) lidraughts.game.Query.nowPlayingVs(users._1.id, users._2.id)
           else lidraughts.game.Query.opponents(users._1, users._2) ++ $doc(
             G.status $gte draughts.Status.Mate.id,
-            G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+            G.analysed -> analysed.map[BSONValue] {
+              case true => BSONBoolean(true)
+              case _ => $doc("$exists" -> false)
+            }
           )
         } ++ $doc(
-          G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+          G.rated -> rated.map[BSONValue] {
+            case true => BSONBoolean(true)
+            case _ => $doc("$exists" -> false)
+          }
         ),
         projection = $empty,
         sort = $doc(G.createdAt -> -1),
@@ -129,10 +144,16 @@ private[api] final class GameApi(
         if (~playing) lidraughts.game.Query.nowPlayingVs(userIds)
         else lidraughts.game.Query.opponents(userIds) ++ $doc(
           G.status $gte draughts.Status.Mate.id,
-          G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+          G.analysed -> analysed.map[BSONValue] {
+            case true => BSONBoolean(true)
+            case _ => $doc("$exists" -> false)
+          }
         )
       } ++ $doc(
-        G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false))),
+        G.rated -> rated.map[BSONValue] {
+          case true => BSONBoolean(true)
+          case _ => $doc("$exists" -> false)
+        },
         G.createdAt $gte since
       ),
       projection = $empty,

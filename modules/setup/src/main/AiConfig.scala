@@ -37,7 +37,7 @@ case class AiConfig(
         Player.make(draughts.Black, user, perfPicker)
       ),
       mode = draughts.Mode.Casual,
-      source = (draughtsGame.board.variant.fromPosition).fold(Source.Position, Source.Ai),
+      source = if (draughtsGame.board.variant.fromPosition) Source.Position else Source.Ai,
       daysPerTurn = makeDaysPerTurn,
       pdnImport = None
     )

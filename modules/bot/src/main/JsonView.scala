@@ -57,7 +57,7 @@ final class BotJsonView(
 
   def chatLine(username: String, text: String, player: Boolean) = Json.obj(
     "type" -> "chatLine",
-    "room" -> player.fold("player", "spectator"),
+    "room" -> (if (player) "player" else "spectator"),
     "username" -> username,
     "text" -> text
   )

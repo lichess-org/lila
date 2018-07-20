@@ -38,7 +38,7 @@ private[team] final class DataForm(
   )(TeamEdit.apply)(TeamEdit.unapply)) fill TeamEdit(
     location = team.location,
     description = team.description,
-    open = team.open.fold(1, 0)
+    open = if (team.open) 1 else 0
   )
 
   val request = Form(mapping(

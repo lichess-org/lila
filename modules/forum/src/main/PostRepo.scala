@@ -6,7 +6,7 @@ import reactivemongo.api.{ CursorProducer, ReadPreference }
 
 object PostRepo extends PostRepo(false) {
 
-  def apply(troll: Boolean): PostRepo = troll.fold(PostRepoTroll, PostRepo)
+  def apply(troll: Boolean): PostRepo = if (troll) PostRepoTroll else PostRepo
 }
 
 object PostRepoTroll extends PostRepo(true)
@@ -18,7 +18,7 @@ sealed abstract class PostRepo(troll: Boolean) {
   // dirty
   private val coll = Env.current.postColl
 
-  private val trollFilter = troll.fold($empty, $doc("troll" -> false))
+  private val trollFilter = !troll ?? $doc("troll" -> false)
 
   def byIds(ids: List[Post.ID]) = coll.byIds[Post](ids)
 

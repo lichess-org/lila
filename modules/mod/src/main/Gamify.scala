@@ -42,8 +42,8 @@ final class Gamify(
 
   private def buildHistoryAfter(afterYear: Int, afterMonth: Int, until: DateTime): Funit =
     (afterYear to until.getYear).flatMap { year =>
-      ((year == afterYear).fold(afterMonth + 1, 1) to
-        (year == until.getYear).fold(until.getMonthOfYear, 12)).map { month =>
+      ((if (year == afterYear) afterMonth + 1 else 1) to
+        (if (year == until.getYear) until.getMonthOfYear else 12)).map { month =>
           mixedLeaderboard(
             after = new DateTime(year, month, 1, 0, 0).pp("compute mod history"),
             before = new DateTime(year, month, 1, 0, 0).plusMonths(1).some

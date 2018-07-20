@@ -7,9 +7,9 @@ import draughts.format.{ FEN, Forsyth, Uci }
 import draughts.{ Centis, Color, Move, MoveMetrics, Status }
 
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
-import lidraughts.hub.actorApi.round.{ BotPlay, DraughtsnetPlay }
 import akka.actor._
 import lidraughts.game.{ Game, Pov, Progress, UciMemo }
+import lidraughts.hub.actorApi.round.{ BotPlay, DraughtsnetPlay }
 
 private[round] final class Player(
     draughtsnetPlayer: lidraughts.draughtsnet.Player,
@@ -74,15 +74,15 @@ private[round] final class Player(
   )(implicit proxy: GameProxy): Fu[Events] = {
     if (pov.game.hasAi) uciMemo.add(pov.game, moveOrDrop)
     notifyMove(moveOrDrop, progress.game)
-    progress.game.finished.fold(
-      moveFinish(progress.game, pov.color) dmap { progress.events ::: _ }, {
-        if (progress.game.playableByAi) requestDraughtsnet(progress.game, round)
-        if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
-        if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
-        if (pov.game.forecastable) round ! ForecastPlay(moveOrDrop)
-        fuccess(progress.events)
-      }
-    ) >>- promiseOption.foreach(_.success(()))
+    val res = if (progress.game.finished) moveFinish(progress.game, pov.color) dmap { progress.events ::: _ }
+    else {
+      if (progress.game.playableByAi) requestDraughtsnet(progress.game, round)
+      if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
+      if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
+      if (pov.game.forecastable) round ! ForecastPlay(move)
+      fuccess(progress.events)
+    }
+    res >>- promiseOption.foreach(_.success(()))
   }
 
   private[round] def draughtsnet(game: Game, uci: Uci, currentFen: FEN, round: ActorRef, context: ActorContext, nextMove: Option[(Uci, String)] = None)(implicit proxy: GameProxy): Fu[Events] =
@@ -94,23 +94,22 @@ private[round] final class Player(
             case MoveApplied(progress, move) =>
               proxy.save(progress) >>-
                 uciMemo.add(progress.game, move) >>-
-                notifyMove(move, progress.game) >>
-                progress.game.finished.fold(
-                  moveFinish(progress.game, game.turnColor) dmap { progress.events ::: _ },
-                  fuccess(progress.events)
-                ) >>-
-                  nextMove.fold() { nextMove =>
-                    context.system.scheduler.scheduleOnce(game.clock.fold((300 + scala.util.Random.nextInt(200)).milliseconds) {
-                      clock =>
-                        val remaining = clock.remainingTime(game.player.color).centis
-                        if (remaining > 1500)
-                          (300 + scala.util.Random.nextInt(200)).milliseconds
-                        else if (remaining > 500)
-                          (200 + scala.util.Random.nextInt(100)).milliseconds
-                        else
-                          (100 + scala.util.Random.nextInt(50)).milliseconds
-                    }, round, DraughtsnetPlay(nextMove._1, nextMove._2, FEN(Forsyth >> progress.game.draughts)))
-                  }
+                notifyMove(move, progress.game) >> {
+                  if (progress.game.finished) moveFinish(progress.game, game.turnColor) dmap { progress.events ::: _ }
+                  else fuccess(progress.events)
+                } >>-
+                nextMove.fold() { nextMove =>
+                  context.system.scheduler.scheduleOnce(game.clock.fold((300 + scala.util.Random.nextInt(200)).milliseconds) {
+                    clock =>
+                      val remaining = clock.remainingTime(game.player.color).centis
+                      if (remaining > 1500)
+                        (300 + scala.util.Random.nextInt(200)).milliseconds
+                      else if (remaining > 500)
+                        (200 + scala.util.Random.nextInt(100)).milliseconds
+                      else
+                        (100 + scala.util.Random.nextInt(50)).milliseconds
+                  }, round, DraughtsnetPlay(nextMove._1, nextMove._2, FEN(Forsyth >> progress.game.draughts)))
+                }
           }
       else requestDraughtsnet(game, round) >> fufail(DraughtsnetError(s"Invalid AI move current FEN $currentFen != ${FEN(Forsyth >> game.draughts)}"))
     } else fufail(DraughtsnetError("Not AI turn"))

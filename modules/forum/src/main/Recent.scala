@@ -30,7 +30,7 @@ private[forum] final class Recent(
     (user.map(_.id) ?? getTeams).map { teamIds =>
       user.fold("en")(_.langs.mkString(",")) :: {
         (user.??(_.troll) ?? List("[troll]")) :::
-          (user ?? MasterGranter(Permission.StaffForum)).fold(staffCategIds, publicCategIds) :::
+          (if (user ?? MasterGranter(Permission.StaffForum)) staffCategIds else publicCategIds) :::
           (teamIds.map(teamSlug)(scala.collection.breakOut): List[String])
       } mkString ";"
     }

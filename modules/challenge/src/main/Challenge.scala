@@ -84,7 +84,7 @@ object Challenge {
   }
 
   case class Rating(int: Int, provisional: Boolean) {
-    def show = s"$int${provisional.fold("?", "")}"
+    def show = s"$int${if (provisional) "?" else ""}"
   }
   object Rating {
     def apply(p: lidraughts.rating.Perf): Rating = Rating(p.intRating, p.provisional)
@@ -155,10 +155,9 @@ object Challenge {
       _id = randomId,
       status = Status.Created,
       variant = variant,
-      initialFen = (variant == FromPosition).fold(
-        initialFen.flatMap(fen => Forsyth << fen.value).map(sit => FEN(Forsyth >> sit.withoutGhosts)),
-        !variant.standardInitialPosition option FEN(variant.initialFen)
-      ),
+      initialFen =
+        if (variant == FromPosition) initialFen.flatMap(fen => Forsyth << fen.value).map(sit => FEN(Forsyth >> sit.withoutGhosts))
+        else !variant.standardInitialPosition option FEN(variant.initialFen),
       timeControl = timeControl,
       mode = finalMode,
       colorChoice = colorChoice,

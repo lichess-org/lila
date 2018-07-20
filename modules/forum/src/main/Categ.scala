@@ -17,18 +17,18 @@ case class Categ(
 
   def id = _id
 
-  def nbTopics(troll: Boolean): Int = troll.fold(nbTopicsTroll, nbTopics)
-  def nbPosts(troll: Boolean): Int = troll.fold(nbPostsTroll, nbPosts)
-  def lastPostId(troll: Boolean): String = troll.fold(lastPostIdTroll, lastPostId)
+  def nbTopics(troll: Boolean): Int = if (troll) nbTopicsTroll else nbTopics
+  def nbPosts(troll: Boolean): Int = if (troll) nbPostsTroll else nbPosts
+  def lastPostId(troll: Boolean): String = if (troll) lastPostIdTroll else lastPostId
 
   def isStaff = slug == Categ.staffId
 
   def isTeam = team.nonEmpty
 
   def withTopic(post: Post): Categ = copy(
-    nbTopics = post.troll.fold(nbTopics, nbTopics + 1),
-    nbPosts = post.troll.fold(nbPosts, nbPosts + 1),
-    lastPostId = post.troll.fold(lastPostId, post.id),
+    nbTopics = if (post.troll) nbTopics else nbTopics + 1,
+    nbPosts = if (post.troll) nbPosts else nbPosts + 1,
+    lastPostId = if (post.troll) lastPostId else post.id,
     nbTopicsTroll = nbTopicsTroll + 1,
     nbPostsTroll = nbPostsTroll + 1,
     lastPostIdTroll = post.id

@@ -29,7 +29,7 @@ private final class AggregationPipeline {
       MaterialRange.reversedButEqualAndLast.foldLeft[BSONValue](BSONInteger(MaterialRange.Up4.id)) {
         case (acc, mat) => $doc(
           "$cond" -> $arr(
-            $doc(mat.negative.fold("$lt", "$lte") -> $arr("$" + F.moves("i"), mat.imbalance)),
+            $doc((if (mat.negative) "$lt" else "$lte") -> $arr("$" + F.moves("i"), mat.imbalance)),
             mat.id,
             acc
           )

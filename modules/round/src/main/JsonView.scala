@@ -351,10 +351,10 @@ final class JsonView(
   }
 
   private def animationDuration(pov: Pov, pref: Pref) = math.round {
-    animationFactor(pref) * baseAnimationDuration.toMillis * pov.game.finished.fold(
-      1,
-      math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
-    )
+    animationFactor(pref) * baseAnimationDuration.toMillis * {
+      if (pov.game.finished) 1
+      else math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
+    }
   }
 }
 

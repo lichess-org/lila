@@ -18,7 +18,7 @@ final class Authenticator(
   def compare(auth: AuthData, p: ClearPassword): Boolean = {
     val newP = auth.salt.fold(p) { s =>
       val salted = s"${p.value}{$s}" // BC
-      ClearPassword((~auth.sha512).fold(salted.sha512, salted.sha1))
+      ClearPassword(if (~auth.sha512) salted.sha512 else salted.sha1)
     }
     passHasher.check(auth.bpass, newP)
   }

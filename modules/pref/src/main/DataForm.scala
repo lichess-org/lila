@@ -105,20 +105,20 @@ object DataForm {
   object PrefData {
     def apply(pref: Pref): PrefData = PrefData(
       display = DisplayData(
-        highlight = pref.highlight.fold(1, 0),
-        destination = pref.destination.fold(1, 0),
+        highlight = if (pref.highlight) 1 else 0,
+        destination = if (pref.destination) 1 else 0,
         animation = pref.animation,
         coords = pref.coords,
         replay = pref.replay,
         gameResult = pref.gameResult,
-        captured = pref.captured.fold(1, 0),
-        kingMoves = pref.kingMoves.fold(1, 0),
+        captured = if (pref.captured) 1 else 0,
+        kingMoves = if (pref.kingMoves) 1 else 0,
         blindfold = pref.blindfold,
         zen = pref.zen.some
       ),
       behavior = BehaviorData(
         moveEvent = pref.moveEvent.some,
-        premove = pref.premove.fold(1, 0),
+        premove = if (pref.premove) 1 else 0,
         takeback = pref.takeback,
         autoThreefold = pref.autoThreefold,
         submitMove = pref.submitMove,
@@ -126,9 +126,9 @@ object DataForm {
         keyboardMove = pref.keyboardMove.some
       ),
       clockTenths = pref.clockTenths,
-      clockBar = pref.clockBar.fold(1, 0),
-      clockSound = pref.clockSound.fold(1, 0),
-      follow = pref.follow.fold(1, 0),
+      clockBar = if (pref.clockBar) 1 else 0,
+      clockSound = if (pref.clockSound) 1 else 0,
+      follow = if (pref.follow) 1 else 0,
       challenge = pref.challenge,
       message = pref.message,
       studyInvite = pref.studyInvite.some,

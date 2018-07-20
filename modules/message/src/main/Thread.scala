@@ -57,18 +57,20 @@ case class Thread(
 
   def hasUser(user: User) = userIds contains user.id
 
-  def otherUserId(user: User) = isCreator(user).fold(invitedId, creatorId)
+  def otherUserId(user: User) = if (isCreator(user)) invitedId else creatorId
 
   def visibleOtherUserId(user: User) =
-    isCreator(user).fold(invitedId, asMod.fold(Thread.Lidraughts, creatorId))
+    if (isCreator(user)) invitedId
+    else if (asMod) Thread.Lidraughts
+    else creatorId
 
-  def senderOf(post: Post) = post.isByCreator.fold(creatorId, invitedId)
+  def senderOf(post: Post) = if (post.isByCreator) creatorId else invitedId
 
   def visibleSenderOf(post: Post) =
     if (post.isByCreator && asMod) Thread.Lidraughts
     else senderOf(post)
 
-  def receiverOf(post: Post) = post.isByCreator.fold(invitedId, creatorId)
+  def receiverOf(post: Post) = if (post.isByCreator) invitedId else creatorId
 
   def visibleReceiverOf(post: Post) =
     if (!post.isByCreator && asMod) Thread.Lidraughts

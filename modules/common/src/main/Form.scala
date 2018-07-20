@@ -42,7 +42,7 @@ object Form {
   def trueish(v: Any) = v == 1 || v == "1" || v == "true" || v == "on" || v == "yes"
 
   private def pluralize(pattern: String, nb: Int) =
-    pattern.replace("{s}", (nb != 1).fold("s", ""))
+    pattern.replace("{s}", if (nb == 1) "" else "s")
 
   object formatter {
     def stringFormatter[A](from: A => String, to: String => A): Formatter[A] = new Formatter[A] {
