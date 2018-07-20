@@ -13,8 +13,6 @@ final class PimpedBoolean(private val self: Boolean) extends AnyVal {
    */
   def ??[A](a: => A)(implicit z: Zero[A]): A = if (self) a else z.zero
 
-  def !(f: => Unit) = if (self) f
-
   def ?[X](t: => X) = new { def |(f: => X) = if (self) t else f }
 
   def option[A](a: => A): Option[A] = if (self) Some(a) else None

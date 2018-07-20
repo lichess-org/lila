@@ -19,38 +19,38 @@ final class Scheduler(scheduler: akka.actor.Scheduler, enabled: Boolean, debug: 
   }
 
   def message(freq: FiniteDuration)(to: => (ActorRef, Any)): Unit = {
-    enabled ! scheduler.schedule(freq, randomize(freq), to._1, to._2)
+    if (enabled) scheduler.schedule(freq, randomize(freq), to._1, to._2)
   }
 
   def messageToSelection(freq: FiniteDuration)(to: => (ActorSelection, Any)): Unit = {
-    enabled ! scheduler.schedule(freq, randomize(freq)) {
+    if (enabled) scheduler.schedule(freq, randomize(freq)) {
       to._1 ! to._2
     }
   }
 
   def effect(freq: FiniteDuration, name: String)(op: => Unit): Unit = {
-    enabled ! future(freq, name)(fuccess(op))
+    if (enabled) future(freq, name)(fuccess(op))
   }
 
   def future(freq: FiniteDuration, name: String)(op: => Funit): Unit = {
-    enabled ! {
+    if (enabled) {
       val f = randomize(freq)
       val doDebug = debug && freq > 5.seconds
       logger.info("schedule %s every %s".format(name, freq))
       scheduler.schedule(f, f) {
         val tagged = "(%s) %s".format(nextString(3), name)
-        doDebug ! logger.info(tagged)
+        if (doDebug) logger.info(tagged)
         val start = nowMillis
         op effectFold (
           e => logger.error("(%s) %s".format(tagged, e.getMessage), e),
-          _ => doDebug ! logger.info(tagged + " - %d ms".format(nowMillis - start))
+          _ => if (doDebug) logger.info(tagged + " - %d ms".format(nowMillis - start))
         )
       }
     }
   }
 
   def once(delay: FiniteDuration)(op: => Unit): Unit = {
-    enabled ! scheduler.scheduleOnce(delay)(op)
+    if (enabled) scheduler.scheduleOnce(delay)(op)
   }
 
   def after[A](delay: FiniteDuration)(op: => A) =
