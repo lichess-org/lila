@@ -51,6 +51,7 @@ package report {
 
 package security {
   case class GarbageCollect(userId: String, ipBan: Boolean)
+  case class GCImmediateSb(userId: String)
   case class CloseAccount(userId: String)
 }
 

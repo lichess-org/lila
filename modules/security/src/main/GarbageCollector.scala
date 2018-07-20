@@ -15,6 +15,8 @@ final class GarbageCollector(
     system: akka.actor.ActorSystem
 ) {
 
+  private val done = new lila.memo.ExpireSetMemo(10 minutes)
+
   // User just signed up and doesn't have security data yet, so wait a bit
   def delay(user: User, ip: IpAddress, email: EmailAddress): Unit =
     if (user.createdAt.isAfter(DateTime.now minusDays 3)) {
@@ -34,7 +36,10 @@ final class GarbageCollector(
             val ipBan = spy.usersSharingIp.forall { u =>
               isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
             }
-            collect(user, email, others, ipBan)
+            if (!done.get(user.id)) {
+              collect(user, email, others, ipBan)
+              done put user.id
+            }
           }
         }
       }
@@ -51,7 +56,7 @@ final class GarbageCollector(
     (others.size > 1 && others.forall(isBadAccount) && others.headOption.exists(_.disabled)) option others
   }
 
-  private def isBadAccount(user: User) = user.troll || user.engine
+  private def isBadAccount(user: User) = user.lameOrTroll
 
   private def collect(user: User, email: EmailAddress, others: List[User], ipBan: Boolean): Funit = {
     val armed = isArmed()
@@ -60,11 +65,20 @@ final class GarbageCollector(
     val message = s"Will dispose of @${user.username} in $wait. Email: $email. Prev users: $othersStr${!armed ?? " [SIMULATION]"}"
     logger.branch("GarbageCollector").info(message)
     slack.garbageCollector(message) >>- {
-      if (armed) system.scheduler.scheduleOnce(wait) {
-        doCollect(user, ipBan)
+      if (armed) {
+        doInitialSb(user)
+        system.scheduler.scheduleOnce(wait) {
+          doCollect(user, ipBan)
+        }
       }
     }
   }
+
+  private def doInitialSb(user: User): Unit =
+    system.lilaBus.publish(
+      lila.hub.actorApi.security.GCImmediateSb(user.id),
+      'garbageCollect
+    )
 
   private def doCollect(user: User, ipBan: Boolean): Unit =
     system.lilaBus.publish(

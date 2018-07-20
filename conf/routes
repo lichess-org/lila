@@ -50,6 +50,7 @@ GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username:
 # User
 GET   /@/:username/mod                 controllers.User.mod(username: String)
 POST  /@/:username/note                controllers.User.writeNote(username: String)
+POST  /note/delete/:id                 controllers.User.deleteNote(id: String)
 GET   /@/:username/mini                controllers.User.showMini(username: String)
 GET   /@/:username/tv                  controllers.User.tv(username: String)
 GET   /@/:username/studyTv             controllers.User.studyTv(username: String)
@@ -493,6 +494,8 @@ GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/activity         controllers.Api.activity(name: String)
+GET   /api/user/:name/following        controllers.Relation.apiFollowing(name: String)
+GET   /api/user/:name/followers        controllers.Relation.apiFollowers(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
 GET   /api/games/team/:teamId          controllers.Api.gamesVsTeam(teamId: String)
 GET   /api/tournament                  controllers.Api.currentTournaments

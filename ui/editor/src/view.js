@@ -42,6 +42,7 @@ function studyButton(ctrl, fen) {
     'Study')
   ]);
 }
+
 function variant2option(key, name, ctrl) {
   return {
     tag: 'option',
@@ -124,7 +125,7 @@ function controls(ctrl, fen) {
         ['kingOfTheHill', 'King of the Hill'],
         ['racingKings', 'Racing Kings'],
         ['threeCheck', 'Three-check']
-      ].map(x => variant2option(x[0], x[1], ctrl))
+      ].map(function(x) { return variant2option(x[0], x[1], ctrl) })
       )
     ]),
     ctrl.embed ? m('div', [

@@ -1,11 +1,15 @@
 package controllers
 
+import play.api.libs.iteratee._
 import play.api.libs.json.Json
+import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
 import lila.common.paginator.{ Paginator, AdapterLike, PaginatorJson }
+import lila.common.{ HTTPRequest, MaxPerSecond }
 import lila.relation.Related
+import lila.relation.RelationStream._
 import lila.user.{ User => UserModel, UserRepo }
 import views._
 
@@ -71,6 +75,23 @@ object Relation extends LilaController {
             },
             api = _ => Ok(jsonRelatedPaginator(pag)).fuccess
           )
+        }
+      }
+    }
+  }
+
+  def apiFollowing(name: String) = apiRelation(name, Direction.Following)
+
+  def apiFollowers(name: String) = apiRelation(name, Direction.Followers)
+
+  private def apiRelation(name: String, direction: Direction) = Action.async { req =>
+    UserRepo.named(name) flatMap {
+      _ ?? { user =>
+        import Api.limitedDefault
+        Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+          Api.jsonStream {
+            env.stream.follow(user, direction, MaxPerSecond(20)) &> Enumeratee.map(Env.api.userApi.one)
+          } |> fuccess
         }
       }
     }

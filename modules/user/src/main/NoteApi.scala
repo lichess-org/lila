@@ -6,14 +6,15 @@ import reactivemongo.api.ReadPreference
 
 case class Note(
     _id: String,
-    from: String,
-    to: String,
+    from: User.ID,
+    to: User.ID,
     text: String,
     troll: Boolean,
     mod: Boolean,
     date: DateTime
 ) {
   def userIds = List(from, to)
+  def isFrom(user: User) = user.id == from
 }
 
 case class UserNotes(user: User, notes: List[Note])
@@ -79,6 +80,12 @@ final class NoteApi(
       ), 'userNote)
     }
   }
+
+  def byId(id: String): Fu[Option[Note]] =
+    coll.byId[Note](id)
+
+  def delete(id: String) =
+    coll.remove($id(id))
 
   def erase(user: User) = coll.remove($doc("from" -> user.id))
 }

@@ -84,6 +84,26 @@
     <item quantity="other">%s жарты жүрістен кейін келесі алу немесе ер жүрісі жасалады (50 жүріс аяқталар аралығы)</item>
   </plurals>
   <string name="noGameFound">Ешбір ойын табылмады</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Артық көрілер параметрлер мәзірінен одан да көп ойын енгізу керек пе?</string>
+  <string name="openingExplorer">Ойын бастамаларының жол көрсеткіші</string>
+  <string name="xOpeningExplorer">%s ойын бастамаларының жол көрсеткіші</string>
+  <string name="winPreventedBy50MoveRule">50 жүрістік ережесі бойынша жол берілмеген ұтыс</string>
+  <string name="lossSavedBy50MoveRule">50 жүрістік ережесі бойынша жол құтқарылған ұтылыс</string>
+  <string name="allSet">Барлығы күйіне келтірілді!</string>
+  <string name="importPgn">PGN импорты</string>
+  <string name="delete">Жою</string>
+  <string name="deleteThisImportedGame">Бұл импортталған ойын жойылсын ба?</string>
+  <string name="replayMode">Қайталап көру тәртіптемесі</string>
+  <string name="realtimeReplay">Шын уақыт</string>
+  <string name="byCPL">CPL тілі арқылы</string>
+  <string name="openStudy">Ойын бастамасын зерделеу</string>
+  <string name="enable">Қол жетімді</string>
+  <string name="bestMoveArrow">Ең үздік жүріс жебесі</string>
+  <string name="evaluationGauge">Бағалау мөлшері</string>
+  <string name="multipleLines">Көп жолдық нұсқажолдар</string>
+  <string name="cpus">Процессорлер</string>
+  <string name="memory">Жад</string>
+  <string name="infiniteAnalysis">Белгісіз талдау</string>
   <string name="blunders">өрескел қателер</string>
   <string name="mistakes">қате</string>
   <string name="inaccuracies">Дәлсіздіктер</string>
