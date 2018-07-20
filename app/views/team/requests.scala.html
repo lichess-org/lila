@@ -1,6 +1,6 @@
 @(requests: List[lila.team.RequestWithUser], t: Option[lila.team.Team])(implicit ctx: Context)
 
-<table class="requests @t.isEmpty.fold("all", "for-team") datatable">
+<table class="requests @if(t.isEmpty){all}else{for-team} datatable">
   @if(t.nonEmpty) {
   <thead>
     <tr>

@@ -7,7 +7,7 @@ description = shorten(t.description, 152)).some) {
 <div id="team" class="content_box no_padding team_show">
   <div class="content_box_top">
     <span class="righty">@trans.nbMembers.plural(t.nbMembers, Html("<strong>" + t.nbMembers.localize + "</strong>"))</span>
-    <div class="icon team-icon @myTeam(t.id).fold("mine", "")"></div>
+    <div class="icon team-icon@if(myTeam(t.id)){ mine}"></div>
     <h1 class="lichess_title" data-icon="f"> @t.name <span>TEAM</span></h1>
     @if(t.disabled) {
     <span class="staff">CLOSED</span>

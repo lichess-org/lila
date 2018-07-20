@@ -87,7 +87,7 @@ csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx:
     data-asset-version="@ctx.pageData.assetVersion"
     @ctx.nonce.map { nonce => data-nonce="@nonce" }
     @ctx.zoom.map { zoom => data-zoom="@zoom" }>
-    <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST"><input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" /><input type="hidden" name="redirect" value="@ctx.req.path" /><button type="submit">Accessibility: @ctx.blindMode.fold("Disable", "Enable") blind mode</button></form>
+    <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST"><input type="hidden" name="enable" value="@if(ctx.blindMode){0}else{1}" /><input type="hidden" name="redirect" value="@ctx.req.path" /><button type="submit">Accessibility: @if(ctx.blindMode){Disable}else{Enable} blind mode</button></form>
     <div id="site_description">@trans.siteDescription()</div>
     @ctx.pageData.inquiry.map { inquiry =>
     @mod.inquiry(inquiry)
@@ -100,7 +100,7 @@ csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx:
     }
     @lila.security.EmailConfirm.cookie.get(ctx.req).map(auth.emailConfirmBanner(_))
     @if(playing) { <a data-icon="E" id="zentog" class="text fbt active@if(!ctx.pref.isZen){ none}">ZEN MODE</a> }
-    <div id="top" class="@ctx.pref.is3d.fold("is3d", "is2d")">
+    <div id="top" class="@if(ctx.pref.is3d){is3d}else{is2d}">
       @topmenu()
       <div id="ham-plate" class="link hint--bottom" data-hint="@trans.menu()">
         <div id="hamburger" data-icon="["></div>
@@ -152,7 +152,7 @@ csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx:
       <div id="clinput"><a class="link"><span data-icon="y"></span></a><input spellcheck="false" placeholder="@trans.search()"/></div>
       <a id="reconnecting" class="link text" data-icon="B">@trans.reconnecting()</a>
     </div>
-    <div class="content @ctx.pref.is3d.fold("is3d", "is2d")">
+    <div class="content @if(ctx.pref.is3d){is3d}else{is2d}">
       <div id="site_header">
         <div id="notifications"></div>
         <div class="board_left">

@@ -43,7 +43,7 @@ moreCss = cssTag("report.css")) {
     <tbody>
       @reports.map {
       case WithSuspect(r, sus, _) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
-      <tr class="@r.open.fold("new", "")">
+      <tr@if(r.open){ class="new"}>
         <td>
           @reportScore(r.score)
           <strong>@r.reason.name.capitalize</strong><br />

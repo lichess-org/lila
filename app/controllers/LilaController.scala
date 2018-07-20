@@ -178,22 +178,22 @@ private[controllers] trait LilaController
     else res
 
   protected def NoEngine[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    ctx.me.??(_.engine).fold(Forbidden(views.html.site.noEngine()).fuccess, a)
+    if (ctx.me.exists(_.engine)) Forbidden(views.html.site.noEngine()).fuccess else a
 
   protected def NoBooster[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    ctx.me.??(_.booster).fold(Forbidden(views.html.site.noBooster()).fuccess, a)
+    if (ctx.me.exists(_.booster)) Forbidden(views.html.site.noBooster()).fuccess else a
 
   protected def NoLame[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     NoEngine(NoBooster(a))
 
   protected def NoBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    ctx.me.??(_.isBot).fold(Forbidden(views.html.site.noBot()).fuccess, a)
+    if (ctx.me.exists(_.isBot)) Forbidden(views.html.site.noBot()).fuccess else a
 
   protected def NoLameOrBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     NoLame(NoBot(a))
 
   protected def NoShadowban[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    ctx.me.??(_.troll).fold(notFound, a)
+    if (ctx.me.exists(_.troll)) notFound else a
 
   protected def NoPlayban(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     ctx.userId.??(Env.playban.api.currentBan) flatMap {
@@ -323,16 +323,13 @@ private[controllers] trait LilaController
   )
 
   protected def ensureSessionId(req: RequestHeader)(res: Result): Result =
-    req.session.data.contains(LilaCookie.sessionId).fold(
-      res,
-      res withCookies LilaCookie.makeSessionId(req)
-    )
+    if (req.session.data.contains(LilaCookie.sessionId)) res
+    else res withCookies LilaCookie.makeSessionId(req)
 
   protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    (lila.api.Mobile.Api.requestVersion(ctx.req) match {
-      case Some(v) => api(v) dmap (_ as JSON)
-      case _ => html
-    }).dmap(_.withHeaders("Vary" -> "Accept"))
+    lila.api.Mobile.Api.requestVersion(ctx.req).fold(html) { v =>
+      api(v) dmap (_ as JSON)
+    }.dmap(_.withHeaders("Vary" -> "Accept"))
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] = restoreUser(req) flatMap {
     case (d, impersonatedBy) =>

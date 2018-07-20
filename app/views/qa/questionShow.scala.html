@@ -24,7 +24,7 @@ description = shorten(q.body, 152)).some) {
       @if(lila.qa.QaAuth canEdit q) {
       <a class="button" data-icon="m" href="@routes.QaQuestion.edit(q.id, q.slug)"> Edit question</a>
       }
-      @nope(q.isLocked.fold("Unlock", "Lock"), routes.QaQuestion.lock(q.id), "a")
+      @nope(if (q.isLocked) "Unlock" else "Lock", routes.QaQuestion.lock(q.id), "a")
       @nope("Delete", routes.QaQuestion.remove(q.id), "q")
     </div>
     <table>

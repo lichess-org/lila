@@ -40,10 +40,8 @@ object Team extends LilaController {
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
     NotForKids {
-      text.trim.isEmpty.fold(
-        paginator popularTeams page map { html.team.all(_) },
-        Env.teamSearch(text, page) map { html.team.search(text, _) }
-      )
+      if (text.trim.isEmpty) paginator popularTeams page map { html.team.all(_) }
+      else Env.teamSearch(text, page) map { html.team.search(text, _) }
     }
   }
 
@@ -163,10 +161,8 @@ object Team extends LilaController {
   def joinPage(id: String) = Auth { implicit ctx => me =>
     NotForKids {
       OptionResult(api.requestable(id, me)) { team =>
-        team.open.fold(
-          Ok(html.team.join(team)),
-          Redirect(routes.Team.requestForm(team.id))
-        )
+        if (team.open) Ok(html.team.join(team))
+        else Redirect(routes.Team.requestForm(team.id))
       }
     }
   }
@@ -227,13 +223,11 @@ object Team extends LilaController {
 
   private def OnePerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     api.hasCreatedRecently(me) flatMap { did =>
-      (did && !Granter(_.SuperAdmin)(me)) fold (
-        Forbidden(views.html.team.createLimit()).fuccess,
-        a
-      )
+      if (did && !Granter(_.SuperAdmin)(me)) Forbidden(views.html.team.createLimit()).fuccess
+      else a
     }
 
-  private def Owner(team: TeamModel)(a: => Fu[Result])(implicit ctx: Context): Fu[Result] = {
-    ctx.me.??(me => team.isCreator(me.id) || isGranted(_.ManageTeam))
-  }.fold(a, renderTeam(team) map { Forbidden(_) })
+  private def Owner(team: TeamModel)(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    if (ctx.me.??(me => team.isCreator(me.id) || isGranted(_.ManageTeam))) a
+    else renderTeam(team) map { Forbidden(_) }
 }

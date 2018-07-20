@@ -40,7 +40,7 @@ object Tv extends LilaController {
     OptionFuResult(Env.tv.tv getGameAndHistory channel) {
       case (game, history) =>
         val flip = getBool("flip")
-        val pov = flip.fold(Pov second game, Pov first game)
+        val pov = if (flip) Pov second game else Pov first game
         val onTv = lila.round.OnLichessTv(channel.key, flip)
         negotiate(
           html = {
