@@ -14,11 +14,11 @@ private[round] final class Takebacker(
   def yes(situation: Round.TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, Round.TakebackSituation)] = IfAllowed(pov.game) {
     pov match {
       case Pov(game, color) if pov.opponent.isProposingTakeback => {
-        if (pov.opponent.proposeTakebackAt == game.turns) rewindUntilPly(game, game.displayTurns - (game.situation.ghosts == 0 || game.turnColor != color).fold(1, 2), pov.opponent.color)
+        if (pov.opponent.proposeTakebackAt == game.turns) rewindUntilPly(game, game.displayTurns - (if (game.situation.ghosts == 0 || game.turnColor != color) 1 else 2), pov.opponent.color)
         else rewindUntilPly(game, game.displayTurns - 2, pov.opponent.color)
       } map (_ -> situation.reset)
       case Pov(game, _) if pov.opponent.isAi =>
-        rewindUntilPly(game, game.displayTurns - ((game.situation.ghosts == 0 && game.turnColor == pov.opponent.color) || (game.situation.ghosts != 0 && game.turnColor != pov.opponent.color)).fold(1, 2), pov.player.color) map (_ -> situation)
+        rewindUntilPly(game, game.displayTurns - (if ((game.situation.ghosts == 0 && game.turnColor == pov.opponent.color) || (game.situation.ghosts != 0 && game.turnColor != pov.opponent.color)) 1 else 2), pov.player.color) map (_ -> situation)
       case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable => {
         messenger.system(game, _.takebackPropositionSent)
         val progress = Progress(game) map { g =>
@@ -91,7 +91,7 @@ private[round] final class Takebacker(
       fuccess {
         uciMemo.drop(game, rewinds)
       } flatMap { _ => saveAndNotify(prog) }
-    } else if (prog.game.turns + (prog.game.situation.ghosts > 0).fold(1, 0) <= targetPly)
+    } else if (prog.game.turns + (if (prog.game.situation.ghosts > 0) 1 else 0) <= targetPly)
       fuccess {
         uciMemo.drop(game, rewinds)
       } flatMap { _ => saveAndNotify(prog) }

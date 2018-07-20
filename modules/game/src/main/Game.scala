@@ -168,16 +168,16 @@ case class Game(
         case Some(curMove) =>
           val curX = curMove.indexOf('x')
           val switch = curX != -1 && field == curMove.take(curX)
-          val moveColor = switch.fold(!mv1, mv1)
+          val moveColor = if (switch) !mv1 else mv1
           weave(
-            mvt1 = (moveColor && mvt1.nonEmpty).fold(mvt1.tail, mvt1),
-            mvt2 = (!moveColor && mvt2.nonEmpty).fold(mvt2.tail, mvt2),
+            mvt1 = if (moveColor && mvt1.nonEmpty) mvt1.tail else mvt1,
+            mvt2 = if (!moveColor && mvt2.nonEmpty) mvt2.tail else mvt2,
             mv1 = !moveColor,
             mvs = mvs.tail,
-            field = (curX != -1).fold(curMove.takeRight(curMove.length - curX - 1), ""),
-            res = moveColor.fold(mvt1.headOption, mvt2.headOption).fold(res)(newTime => res :+ newTime)
+            field = if (curX != -1) curMove.takeRight(curMove.length - curX - 1) else zero[String],
+            res = (if (moveColor) mvt1.headOption else mvt2.headOption).fold(res)(newTime => res :+ newTime)
           )
-        case _ => res.isEmpty.fold(None, res.some)
+        case _ => if (res.isEmpty) none else res.some
       }
     weave(moveTimes1st, moveTimes2nd, moveFirst, pdnMoves, "", Vector[Centis]())
   }
@@ -189,13 +189,13 @@ case class Game(
         case Some(curMove) =>
           val curX = curMove.indexOf('x')
           val switch = curX != -1 && field == curMove.take(curX)
-          val moveColor = switch.fold(!mv1, mv1)
+          val moveColor = if (switch) !mv1 else mv1
           collect(
-            mvt = (moveColor == coll1 && mvt.nonEmpty).fold(mvt.tail, mvt),
+            mvt = if (moveColor == coll1 && mvt.nonEmpty) mvt.tail else mvt,
             mv1 = !moveColor,
             coll1 = coll1,
             mvs = mvs.tail,
-            field = (curX != -1).fold(curMove.takeRight(curMove.length - curX - 1), ""),
+            field = if (curX != -1) curMove.takeRight(curMove.length - curX - 1) else zero[String],
             res = if (moveColor == coll1 && mvt.nonEmpty) res :+ mvt.head else res
           )
         case _ => res
@@ -307,10 +307,11 @@ case class Game(
     }
   }
 
+  private def pdnMovePrefix = if ((turnColor.white && situation.ghosts == 0) || (turnColor.black && situation.ghosts != 0)) "..." else ". "
   def lastMovePdn: Option[String] =
     pdnMovesConcat.lastOption.map { san =>
       (1 + (displayTurns - 1) / 2).toString +
-        ((turnColor.white && situation.ghosts == 0) || (turnColor.black && situation.ghosts != 0)).fold("...", ". ") +
+        pdnMovePrefix +
         san
     }
 

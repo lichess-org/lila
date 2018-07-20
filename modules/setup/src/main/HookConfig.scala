@@ -44,7 +44,7 @@ case class HookConfig(
         uid = uid,
         variant = variant,
         clock = clock,
-        mode = if (lidraughts.game.Game.allowRated(variant, clock.some)) mode else Mode.Casual,
+        mode = if (lidraughts.game.Game.allowRated(variant, clock)) mode else Mode.Casual,
         color = color.name,
         user = user,
         blocking = blocking,

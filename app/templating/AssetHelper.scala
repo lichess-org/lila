@@ -44,7 +44,7 @@ trait AssetHelper { self: I18nHelper =>
     if (isProd) jsAt("compiled/" + name) else jsTag(name)
 
   def jsAt(path: String, static: Boolean, async: Boolean, version: AssetVersion): Html = Html {
-    s"""<script${if (async) " async defer" else ""} src="${static.fold(staticUrl(path), path)}?v=$version"></script>"""
+    s"""<script${if (async) " async defer" else ""} src="${if (static) staticUrl(path) else path}?v=$version"></script>"""
   }
   def jsAt(path: String, static: Boolean = true, async: Boolean = false)(implicit ctx: Context): Html =
     jsAt(path, static, async, ctx.pageData.assetVersion)

@@ -38,8 +38,8 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     evals <- ceval ?? fetchEvals(games)
     lightHost <- getLightUser(simul.hostId)
     lightArbiter <- simul.arbiterId ?? getLightUser
-    applicants <- simul.applicants.sortBy(p => -simul.hasFmjd.fold(p.player.officialRating.getOrElse(p.player.rating), p.player.rating)).map(applicantJson(simul.spotlight.flatMap(_.fmjdRating))).sequenceFu
-    pairings <- simul.pairings.sortBy(p => -simul.hasFmjd.fold(p.player.officialRating.getOrElse(p.player.rating), p.player.rating)).map(pairingJson(games, simul.hostId, simul.spotlight.flatMap(_.fmjdRating))).sequenceFu
+    applicants <- simul.applicants.sortBy(p => -(if (simul.hasFmjd) p.player.officialRating.getOrElse(p.player.rating) else p.player.rating)).map(applicantJson(simul.spotlight.flatMap(_.fmjdRating))).sequenceFu
+    pairings <- simul.pairings.sortBy(p => -(if (simul.hasFmjd) p.player.officialRating.getOrElse(p.player.rating) else p.player.rating)).map(pairingJson(games, simul.hostId, simul.spotlight.flatMap(_.fmjdRating))).sequenceFu
     allowed <- (~simul.allowed).map(allowedJson).sequenceFu
   } yield Json.obj(
     "id" -> simul.id,
@@ -52,7 +52,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
         "title" -> host.title,
         "rating" -> simul.hostRating,
         "gameId" -> simul.hostGameId
-      ).add("officialRating" -> simul.hasFmjd.fold(simul.hostOfficialRating, none))
+      ).add("officialRating" -> (if (simul.hasFmjd) simul.hostOfficialRating else none))
     },
     "name" -> simul.name,
     "fullName" -> simul.fullName,

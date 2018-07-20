@@ -8,8 +8,8 @@ import play.twirl.api.Html
 
 import lidraughts.common.String.html.escapeHtml
 import lidraughts.game.{ Game, Player, Namer, Pov }
-import lidraughts.user.{ User, UserContext }
 import lidraughts.i18n.{ I18nKeys, enLang }
+import lidraughts.user.{ User, UserContext }
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with DraughtsgroundHelper =>
 
@@ -186,12 +186,11 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     ownerLink: Boolean = false,
     tv: Boolean = false
   )(implicit ctx: UserContext): String = {
-    val owner = ownerLink.fold(ctx.me flatMap game.player, none)
-    val url = tv.fold(routes.Tv.index, owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
+    val owner = ownerLink ?? ctx.me.flatMap(game.player)
+    if (tv) routes.Tv.index else owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
       routes.Round.player(game fullIdOf o.color)
-    })
-    url.toString
-  }
+    }
+  }.toString
 
   def gameFen(
     pov: Pov,
@@ -219,7 +218,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val variant = pov.game.variant.key
     s"""<a href="%s%s" title="%s" class="mini_board mini_board_${pov.gameId} parse_fen is2d %s $variant" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$miniBoardContent</a>""".format(
       blank ?? netBaseUrl,
-      tv.fold(routes.Tv.index, routes.Round.watcher(pov.gameId, pov.color.name)),
+      if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name),
       gameTitle(pov.game, pov.color),
       isLive ?? ("live live_" + pov.gameId),
       isLive ?? pov.gameId,

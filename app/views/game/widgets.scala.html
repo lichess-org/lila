@@ -54,7 +54,7 @@
         }
         }
         • @g.perfType.map(_.name).getOrElse {@draughts.variant.FromPosition.name}
-        • @g.rated.fold(trans.rated(), trans.casual())
+        • @if(g.rated){@trans.rated()}else{@trans.casual()}
         }
       </strong>
       @g.pdnImport.flatMap(_.date).getOrElse(momentFromNow(g.createdAt))
@@ -73,8 +73,8 @@
     <div class="result">
       @if(g.isBeingPlayed) {@trans.playingRightNow()} else {
       @if(g.finishedOrAborted) {
-      <span class="@{ g.winner.flatMap(w => fromPlayer.map(p => (p == w).fold("up", "down"))) }">
-        @gameEndStatus(g)@g.winner.map { winner =>@g.status.is(draughts.Status.Mate).fold("", ", ")@winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious()) }
+      <span class="@{ g.winner.flatMap(w => fromPlayer.map(p => if (p == w) "up" else "down")) }">
+        @gameEndStatus(g)@g.winner.map { winner =>@if(!g.status.is(draughts.Status.Mate)){", "}@winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious()) }
       </span>
       } else {
       @g.turnColor.fold(trans.whitePlays(), trans.blackPlays())

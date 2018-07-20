@@ -9,7 +9,8 @@ import play.api.mvc._
 private[controllers] trait TheftPrevention { self: LidraughtsController =>
 
   protected def PreventTheft(pov: Pov)(ok: => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    isTheft(pov).fold(fuccess(Redirect(routes.Round.watcher(pov.gameId, pov.color.name))), ok)
+    if (isTheft(pov)) fuccess(Redirect(routes.Round.watcher(pov.gameId, pov.color.name)))
+    else ok
 
   protected def isTheft(pov: Pov)(implicit ctx: Context) = pov.game.isPdnImport || pov.player.isAi || {
     (pov.player.userId, ctx.userId) match {

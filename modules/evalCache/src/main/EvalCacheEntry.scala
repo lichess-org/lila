@@ -109,7 +109,7 @@ object EvalCacheEntry {
         val boardStr = Forsyth.compressedBoard(sit.board)
         sit.color.fold(boardStr, "0" + boardStr)
       }
-      val str = variant.frisianVariant.fold(base + ~fen.value.split(':').lift(5), base)
+      val str = if (variant.frisianVariant) base + ~fen.value.split(':').lift(5) else base
       new SmallFen(str)
     }
     def validate(variant: Variant, fen: FEN): Option[SmallFen] =

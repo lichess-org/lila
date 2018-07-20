@@ -1,6 +1,6 @@
 @(requests: List[lidraughts.team.RequestWithUser], t: Option[lidraughts.team.Team])(implicit ctx: Context)
 
-<table class="requests @t.isEmpty.fold("all", "for-team") datatable">
+<table class="requests @if(t.isEmpty){all}else{for-team} datatable">
   @if(t.nonEmpty) {
   <thead>
     <tr>

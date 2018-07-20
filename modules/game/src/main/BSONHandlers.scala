@@ -61,7 +61,7 @@ object BSONHandlers {
           positionHashes = decoded.positionHashes,
           kingMoves = if (gameVariant.frisianVariant) {
             val counts = r.intsD(F.kingMoves)
-            KingMoves(~counts.headOption, ~counts.tailOption.flatMap(_.headOption), (counts.length > 2).fold(draughts.Pos.posAt(counts(2)), none), (counts.length > 3).fold(draughts.Pos.posAt(counts(3)), none))
+            KingMoves(~counts.headOption, ~counts.tailOption.flatMap(_.headOption), if (counts.length > 2) draughts.Pos.posAt(counts(2)) else none, if (counts.length > 3) draughts.Pos.posAt(counts(3)) else none)
           } else Game.emptyKingMoves,
           variant = gameVariant
         ),
@@ -69,7 +69,7 @@ object BSONHandlers {
       )
 
       val midCapture = decoded.pdnMoves.lastOption.fold(false)(_.indexOf('x') != -1) && decodedBoard.ghosts != 0
-      val currentPly = midCapture.fold(plies - 1, plies)
+      val currentPly = if (midCapture) plies - 1 else plies
       val turnColor = Color.fromPly(currentPly)
 
       val decodedSituation = draughts.Situation(

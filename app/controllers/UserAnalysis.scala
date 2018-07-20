@@ -155,7 +155,7 @@ object UserAnalysis extends LidraughtsController with TheftPrevention {
         err => BadRequest(jsonError(err.shows)).fuccess, {
           case (game, fen) =>
             val color = fen match {
-              case Some(f) => (f.value.head.toLower == 'w').fold(draughts.White, draughts.Black)
+              case Some(f) => if (f.value.head.toLower == 'w') draughts.White else draughts.Black
               case _ => draughts.White
             }
             val pov = Pov(game, color)

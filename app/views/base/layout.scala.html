@@ -83,7 +83,7 @@ csp: Option[lidraughts.common.ContentSecurityPolicy] = None)(body: Html)(implici
     data-asset-version="@ctx.pageData.assetVersion"
     @ctx.nonce.map { nonce => data-nonce="@nonce" }
     @ctx.zoom.map { zoom => data-zoom="@zoom" }>
-    <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST"><input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" /><input type="hidden" name="redirect" value="@ctx.req.path" /><button type="submit">Accessibility: @ctx.blindMode.fold("Disable", "Enable") blind mode</button></form>
+    <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST"><input type="hidden" name="enable" value="@if(ctx.blindMode){0}else{1}" /><input type="hidden" name="redirect" value="@ctx.req.path" /><button type="submit">Accessibility: @if(ctx.blindMode){Disable}else{Enable} blind mode</button></form>
     <div id="site_description">@trans.siteDescription()</div>
     @ctx.pageData.inquiry.map { inquiry =>
     @mod.inquiry(inquiry)

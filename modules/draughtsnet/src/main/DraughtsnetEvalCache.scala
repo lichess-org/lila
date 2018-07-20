@@ -77,7 +77,7 @@ private final class DraughtsnetEvalCache(
   private def rawEvals(game: Work.Game): Fu[List[(Int, lidraughts.evalCache.EvalCacheEntry.Eval, draughts.Situation)]] =
     draughts.Replay.situationsFromUci(
       // check entire game for simuls, as they could be analysed entirely from evalcache
-      game.uciList.take(game.simulId.isDefined.fold(Env.current.analyser.maxPlies, maxPlies - 1)),
+      game.uciList.take(if (!game.isSimul) maxPlies - 1 else Env.current.analyser.maxPlies),
       game.initialFen,
       game.variant,
       finalSquare = true

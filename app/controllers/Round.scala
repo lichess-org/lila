@@ -50,31 +50,29 @@ object Round extends LidraughtsController with TheftPrevention {
   private def requestAiMove(pov: Pov) = pov.game.playableByAi ?? Env.draughtsnet.player(pov.game)
 
   private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] = negotiate(
-    html = pov.game.started.fold(
-      PreventTheft(pov) {
-        myTour(pov.game.tournamentId, true) flatMap { tour =>
-          (pov.game.simulId ?? Env.simul.repo.find) flatMap { simul =>
-            Game.preloadUsers(pov.game) zip
-              getPlayerChat(pov.game, tour.map(_.tour), simul) zip
-              Env.game.crosstableApi.withMatchup(pov.game) zip // probably what raises page mean time?
-              (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
-              Env.bookmark.api.exists(pov.game, ctx.me) zip
-              Env.api.roundApi.player(pov, lidraughts.api.Mobile.Api.currentVersion) map {
-                case _ ~ chatOption ~ crosstable ~ playing ~ bookmarked ~ data =>
-                  simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
-                  Ok(html.round.player(pov, data,
-                    tour = tour,
-                    simul = simul,
-                    cross = crosstable,
-                    playing = playing,
-                    chatOption = chatOption,
-                    bookmarked = bookmarked))
-              }
-          }
+    html = if (!pov.game.started) notFound
+    else PreventTheft(pov) {
+      myTour(pov.game.tournamentId, true) flatMap { tour =>
+        (pov.game.simulId ?? Env.simul.repo.find) flatMap { simul =>
+          Game.preloadUsers(pov.game) zip
+            getPlayerChat(pov.game, tour.map(_.tour), simul) zip
+            Env.game.crosstableApi.withMatchup(pov.game) zip // probably what raises page mean time?
+            (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
+            Env.bookmark.api.exists(pov.game, ctx.me) zip
+            Env.api.roundApi.player(pov, lidraughts.api.Mobile.Api.currentVersion) map {
+              case _ ~ chatOption ~ crosstable ~ playing ~ bookmarked ~ data =>
+                simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
+                Ok(html.round.player(pov, data,
+                  tour = tour,
+                  simul = simul,
+                  cross = crosstable,
+                  playing = playing,
+                  chatOption = chatOption,
+                  bookmarked = bookmarked))
+            }
         }
-      }.mon(_.http.response.player.website),
-      notFound
-    ),
+      }
+    }.mon(_.http.response.player.website),
     api = apiVersion => {
       if (isTheft(pov)) fuccess(theftResponse)
       else Game.preloadUsers(pov.game) zip

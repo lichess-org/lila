@@ -69,11 +69,11 @@ private[round] final class Player(
     round: ActorRef,
     pov: Pov,
     progress: Progress,
-    moveOrDrop: Move,
+    move: Move,
     promiseOption: Option[Promise[Unit]]
   )(implicit proxy: GameProxy): Fu[Events] = {
-    if (pov.game.hasAi) uciMemo.add(pov.game, moveOrDrop)
-    notifyMove(moveOrDrop, progress.game)
+    if (pov.game.hasAi) uciMemo.add(pov.game, move)
+    notifyMove(move, progress.game)
     val res = if (progress.game.finished) moveFinish(progress.game, pov.color) dmap { progress.events ::: _ }
     else {
       if (progress.game.playableByAi) requestDraughtsnet(progress.game, round)

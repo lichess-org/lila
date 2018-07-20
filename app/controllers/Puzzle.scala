@@ -35,7 +35,7 @@ object Puzzle extends LidraughtsController {
 
   private def renderVariant(variant: Variant, cookie: Option[Cookie])(implicit ctx: Context) =
     env.selector(ctx.me, variant) flatMap { puzzle =>
-      renderShow(puzzle, ctx.isAuth.fold("play", "try")) map { h => cookie.fold(Ok(h))(c => Ok(h).withCookies(c)) }
+      renderShow(puzzle, if (ctx.isAuth) "play" else "try") map { h => cookie.fold(Ok(h))(c => Ok(h).withCookies(c)) }
     }
 
   private def renderShow(puzzle: PuzzleModel, mode: String)(implicit ctx: Context) =
@@ -110,7 +110,7 @@ object Puzzle extends LidraughtsController {
 
   private def puzzleJson(puzzle: PuzzleModel)(implicit ctx: Context) =
     env.userInfos(ctx.me, puzzle.variant) flatMap { infos =>
-      renderJson(puzzle, infos, ctx.isAuth.fold("play", "try"), voted = none)
+      renderJson(puzzle, infos, if (ctx.isAuth) "play" else "try", voted = none)
     }
 
   def newPuzzleStandard = newPuzzle(Standard)
@@ -150,7 +150,7 @@ object Puzzle extends LidraughtsController {
           resultInt => ctx.me match {
             case Some(me) => for {
               (round, mode) <- env.finisher(puzzle, me, Result(resultInt == 1))
-              me2 <- mode.rated.fold(UserRepo byId me.id map (_ | me), fuccess(me))
+              me2 <- if (mode.rated) UserRepo byId me.id map (_ | me) else fuccess(me)
               infos <- env.userInfos(me2, variant)
               voted <- ctx.me.?? {
                 env.api.vote.value(puzzle.id, variant, _)

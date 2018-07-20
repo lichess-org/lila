@@ -18,7 +18,7 @@
 @ctxOption.map { implicit ctx =>
 @pov.game.daysPerTurn.map { days =>
 <div class="center">
-<span data-hint="@trans.correspondence()" class="hint--top">@{(days == 1).fold(trans.oneDay(), trans.nbDays.pluralSame(days))}</span>
+  <span data-hint="@trans.correspondence()" class="hint--top">@if(days == 1){@trans.oneDay()}else{@trans.nbDays.pluralSame(days)}</span>
 </div>
 }
 }

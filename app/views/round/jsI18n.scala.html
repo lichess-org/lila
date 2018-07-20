@@ -49,23 +49,32 @@ trans.analysis,
 trans.yourOpponentWantsToPlayANewGameWithYou,
 trans.backToSimul,
 trans.xComplete
-) ++ g.isCorrespondence.fold(i18nJsObject(
+) ++ {
+if (g.isCorrespondence) i18nJsObject(
 trans.oneDay,
 trans.nbDays,
 trans.nbHours
-), i18nJsObject(
+) else i18nJsObject(
 trans.nbSecondsToPlayTheFirstMove
-)) ++ g.metadata.drawLimit.isDefined.fold(i18nJsObject(
+)
+} ++ {
+if (g.metadata.drawLimit.isDefined) i18nJsObject(
 trans.drawOffersAfterX,
 trans.drawOffersNotAllowed
-), Json.obj()) ++ g.variant.exotic.fold(i18nJsObject(
+) else Json.obj()
+} ++ {
+if (g.variant.exotic) i18nJsObject(
 trans.promotion,
 trans.variantEnding
-), Json.obj()) ++ g.isTournament.fold(i18nJsObject(
+) else Json.obj()
+} ++ {
+if (g.isTournament) i18nJsObject(
 trans.backToTournament,
 trans.viewTournament,
 trans.standing
-), Json.obj()) ++ g.isSimul.fold(i18nJsObject(
+) else Json.obj()
+} ++ {
+if (g.isSimul) i18nJsObject(
 trans.nbVictories,
 trans.nbDraws,
 trans.nbGames,
@@ -75,4 +84,5 @@ trans.simulTimeOut,
 trans.simulTimeOutDuration,
 trans.simulTimeOutExplanation,
 trans.nbMinutes
-), Json.obj()))
+) else Json.obj()
+})

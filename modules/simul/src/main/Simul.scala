@@ -32,7 +32,7 @@ case class Simul(
 
   def id = _id
 
-  def fullName = isUnique.fold(name, s"$name simul")
+  def fullName = if (isUnique) name else s"$name simul"
 
   def isCreated = !isStarted
 
@@ -195,7 +195,8 @@ case class Simul(
 
   private def shortDecimalStr(dec: Double) = {
     val decimal = dec - Math.floor(dec)
-    (decimal < 0.05 || decimal > 0.95).fold("%.0f", "%.1f").format(dec)
+    def fmt = if (decimal < 0.05 || decimal > 0.95) "%.0f" else "%.1f"
+    fmt.format(dec)
   }
 
   def winningPercentage = (finished != 0) ?? { 100 * (wins + draws * 0.5) / finished }
@@ -219,8 +220,8 @@ case class Simul(
     remaining - ongoing * 0.5
   }
   def relativeScoreStr(draughtsResult: Boolean) = {
-    val score = draughtsResult.fold(relativeScore * 2, relativeScore)
-    (score < 0).fold(shortDecimalStr(score), "+" + shortDecimalStr(score))
+    val score = if (draughtsResult) relativeScore * 2 else relativeScore
+    if (score < 0) shortDecimalStr(score) else "+" + shortDecimalStr(score)
   }
 
   def targetReached = targetPct ?? { remainingPoints(_) <= 0 }
@@ -240,7 +241,7 @@ case class Simul(
     val remaining = remainingPoints(target)
     if (remaining > 0) {
       val remainingDecimal = remaining - Math.floor(remaining)
-      (remainingDecimal == 0 || remainingDecimal > 0.5).fold(none, 1.some)
+      if (remainingDecimal == 0 || remainingDecimal > 0.5) none else 1.some
     } else none
   }
 

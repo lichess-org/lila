@@ -75,7 +75,7 @@ object Event {
       orig = move.orig,
       dest = move.dest,
       san = draughts.format.pdn.Dumper(move),
-      fen = situation.board.variant.frisianVariant.fold(exportBoard(situation.board) + ":" + exportKingMoves(situation.board), exportBoard(situation.board)),
+      fen = if (situation.board.variant.frisianVariant) exportBoard(situation.board) + ":" + exportKingMoves(situation.board) else exportBoard(situation.board),
       threefold = situation.threefoldRepetition,
       promotion = move.promotion.map { Promotion(_, move.dest) },
       state = state,

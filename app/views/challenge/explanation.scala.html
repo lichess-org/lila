@@ -3,7 +3,7 @@
 <p>
   @views.html.game.variantLink(c.variant, variantName(c.variant)) • @modeName(c.mode)<br />
   @c.daysPerTurn.map { days =>
-  <span class="text" data-icon=";">@{(days == 1).fold(trans.oneDay(), trans.nbDays.pluralSame(days))}</span>
+  <span class="text" data-icon=";">@if(days == 1){@trans.oneDay()}else{@trans.nbDays.pluralSame(days)}</span>
   }.getOrElse {
   <span class="text" data-icon="p">@shortClockName(c.clock.map(_.config))</span>
   }

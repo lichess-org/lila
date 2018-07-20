@@ -88,15 +88,15 @@ description = shorten(posts.currentPageResults.headOption.??(_.text), 152)).some
 
   @if(isGranted(_.ModerateForum)) {
   <form class="mod" method="post" action="@routes.ForumTopic.hide(categ.slug, topic.slug)">
-    <button class="button">@topic.hidden.fold("Feature", "Un-feature")</button>
+    <button class="button">@if(topic.hidden){Feature}else{Un-feature}</button>
   </form>
   }
   @if(canModCateg) {
   <form class="mod" method="post" action="@routes.ForumTopic.close(categ.slug, topic.slug)">
-    <button class="button">@topic.closed.fold("Reopen", "Close")</button>
+    <button class="button">@if(topic.closed){Reopen}else{Close}</button>
   </form>
   <form class="mod" method="post" action="@routes.ForumTopic.sticky(categ.slug, topic.slug)">
-    <button class="button">@topic.isSticky.fold("Un-sticky", "Sticky")</button>
+    <button class="button">@if(topic.isSticky){Un-sticky}else{Sticky}</button>
   </form>
   }
 

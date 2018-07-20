@@ -40,7 +40,7 @@ object Tv extends LidraughtsController {
     Env.tv.tv getGameAndHistory channel flatMap {
       case Some((game, history)) =>
         val flip = getBool("flip")
-        val pov = flip.fold(Pov second game, Pov first game)
+        val pov = if (flip) Pov second game else Pov first game
         val onTv = lidraughts.round.OnLidraughtsTv(channel.key, flip)
         negotiate(
           html = {

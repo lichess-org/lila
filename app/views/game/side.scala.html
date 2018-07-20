@@ -19,11 +19,11 @@
           } else {
           @game.clock.map(_.config.show).getOrElse {
           @game.daysPerTurn.map { days =>
-          <span data-hint="@trans.correspondence()" class="hint--top">@{(days == 1).fold(trans.oneDay(), trans.nbDays.pluralSame(days))}</span>
+          <span data-hint="@trans.correspondence()" class="hint--top">@if(days == 1){@trans.oneDay()}else{@trans.nbDays.pluralSame(days)}</span>
           }.getOrElse {
           <span data-hint="@trans.unlimited()" class="hint--top">∞</span>
           }
-          } • @game.rated.fold(trans.rated, trans.casual).txt() •
+          } • @if(game.rated){@trans.rated.txt()}else{@trans.casual.txt()} •
           @if(game.variant.exotic) {
           @variantLink(game.variant, game.variant.name.toUpperCase, cssClass = "hint--top", initialFen = initialFen)
           } else {
@@ -32,7 +32,7 @@
           }
         </span>
         @game.pdnImport.flatMap(_.date).getOrElse(
-        game.isBeingPlayed.fold(trans.playingRightNow(), momentFromNow(game.createdAt))
+        if (game.isBeingPlayed) trans.playingRightNow() else momentFromNow(game.createdAt)
         )
       </div>
       @game.pdnImport.flatMap(_.date).map { date =>
@@ -54,7 +54,7 @@
     <div class="status">
       @gameEndStatus(game)
       @game.winner.map { winner =>
-      @game.status.is(draughts.Status.Mate).fold("", "• ")@winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+      @if(!game.status.is(draughts.Status.Mate)){"• "}@winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
       }
     </div>
     }
@@ -108,7 +108,7 @@
         @sim.targetPct.map { target =>
           @trans.targetWinningPercentage(s"$target%")
           <br/>
-          @trans.currentWinningPercentage(Html(s"""<span class="simul_pct_${sim.id}">${(sim.finished == 0).fold("-", sim.winningPercentageStr)}</span>"""))
+          @trans.currentWinningPercentage(Html(s"""<span class="simul_pct_${sim.id}">${if(sim.finished == 0) "-" else sim.winningPercentageStr}</span>"""))
           <br/>
           @trans.relativeScoreRequired(Html(s"""<span class="simul_rel_${sim.id}">${sim.relativeScoreStr(ctx.pref.draughtsResult)}</span>"""))
         }

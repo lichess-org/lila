@@ -19,7 +19,7 @@
 @setup.config(
 form,
 "friend",
-user.isDefined.fold(trans.challengeToPlay, trans.playWithAFriend)(),
+(if (user.isDefined) trans.challengeToPlay else trans.playWithAFriend)(),
 routes.Setup.friend(user map (_.id)),
 fields,
 error.map(e => Html(e.replace("{{user}}", userIdLink(user.map(_.id)).toString))))

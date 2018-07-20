@@ -3,7 +3,7 @@
 @gameFen(pov)
 <div class="vstext">
   @playerUsername(pov.opponent, withRating = true, withTitle = true)<br />
-  <span class="result @{(~pov.win).fold("win", (~pov.loss).??("loss"))}">
+  <span class="result @if(~pov.win){win}else{@if(~pov.loss){loss}}">
     @gameEndStatus(pov.game)
   </span>
 </div>

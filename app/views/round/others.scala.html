@@ -38,7 +38,7 @@ case (inTimeOut, noTimeOut) => {
   case (myTurn, otherTurn) => {
   @defining(myTurn ++ otherTurn.take(6 - myTurn.size)) { povs =>
   @if(simul.isDefined && povs.size > 0) {
-    @defining(playing.count(_.isMyTurn) + current.isMyTurn.fold(1, 0)) { toMove =>
+    @defining(playing.count(_.isMyTurn) + (if(current.isMyTurn) 1 else 0)) { toMove =>
     <h3 class="simul_tomove">
       @trans.yourTurnInX(Html(s"""<span>${trans.nbGames.pluralSameTxt(toMove)}</span>"""))
       <div class="tomove_count">@toMove</div>
