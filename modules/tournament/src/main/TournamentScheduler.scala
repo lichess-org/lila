@@ -261,27 +261,28 @@ Thank you all, you rock!"""
           at(today, 7) map { date => Schedule(Eastern, Rapid, Standard, std, date |> orTomorrow).plan }
         ).flatten,
 
-        (isHalloween ? // replace more thematic tournaments on halloween
+        (if (isHalloween) // replace more thematic tournaments on halloween
           List(
-            1 -> StartingPosition.presets.halloween,
-            5 -> StartingPosition.presets.frankenstein,
-            9 -> StartingPosition.presets.halloween,
-            13 -> StartingPosition.presets.frankenstein,
-            17 -> StartingPosition.presets.halloween,
-            21 -> StartingPosition.presets.frankenstein
-          ) |
-            List( // random opening replaces hourly 3 times a day
-              3 -> opening(offset = 2),
-              11 -> opening(offset = 1),
-              19 -> opening(offset = 0)
-            )).flatMap {
-                case (hour, opening) => List(
-                  at(today, hour) map { date => Schedule(Hourly, Bullet, Standard, opening, date |> orTomorrow).plan },
-                  at(today, hour + 1) map { date => Schedule(Hourly, SuperBlitz, Standard, opening, date |> orTomorrow).plan },
-                  at(today, hour + 2) map { date => Schedule(Hourly, Blitz, Standard, opening, date |> orTomorrow).plan },
-                  at(today, hour + 3) map { date => Schedule(Hourly, Rapid, Standard, opening, date |> orTomorrow).plan }
-                ).flatten
-              },
+          1 -> StartingPosition.presets.halloween,
+          5 -> StartingPosition.presets.frankenstein,
+          9 -> StartingPosition.presets.halloween,
+          13 -> StartingPosition.presets.frankenstein,
+          17 -> StartingPosition.presets.halloween,
+          21 -> StartingPosition.presets.frankenstein
+        )
+        else
+          List( // random opening replaces hourly 3 times a day
+            3 -> opening(offset = 2),
+            11 -> opening(offset = 1),
+            19 -> opening(offset = 0)
+          )).flatMap {
+          case (hour, opening) => List(
+            at(today, hour) map { date => Schedule(Hourly, Bullet, Standard, opening, date |> orTomorrow).plan },
+            at(today, hour + 1) map { date => Schedule(Hourly, SuperBlitz, Standard, opening, date |> orTomorrow).plan },
+            at(today, hour + 2) map { date => Schedule(Hourly, Blitz, Standard, opening, date |> orTomorrow).plan },
+            at(today, hour + 3) map { date => Schedule(Hourly, Rapid, Standard, opening, date |> orTomorrow).plan }
+          ).flatten
+        },
 
         // hourly standard tournaments!
         (0 to 6).toList.flatMap { hourDelta =>
