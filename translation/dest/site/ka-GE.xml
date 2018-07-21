@@ -689,4 +689,9 @@
   <string name="youCanDoBetter">უკეთესად შეგიძლიათ</string>
   <string name="tryAnotherMoveForWhite">სცადეთ სხვა სვლა თეთრისთვის</string>
   <string name="tryAnotherMoveForBlack">სცადეთ სხვა სვლა შავისთვის</string>
+  <string name="advantage">უპირატესობა</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s წამი</item>
+    <item quantity="other">%s წამი</item>
+  </plurals>
 </resources>
