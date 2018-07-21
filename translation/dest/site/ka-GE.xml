@@ -81,6 +81,7 @@
   <string name="replayMode">გამეორების რეჟიმი</string>
   <string name="enable">ჯონჯოლი</string>
   <string name="multipleLines">რამდენიმე ხაზი</string>
+  <string name="cpus">პროცესორები</string>
   <string name="memory">მეხსიერება</string>
   <string name="infiniteAnalysis">უსასრულო ანალიზი</string>
   <string name="blunder">უხეში შეცდომა</string>
@@ -243,6 +244,10 @@
   <string name="tournament">ტურნირი</string>
   <string name="tournaments">ტურნირები</string>
   <string name="tournamentPoints">სატურნირო ქულები</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s სატურნირო ქულა</item>
+    <item quantity="other">%s სატურნირო ქულები</item>
+  </plurals>
   <string name="viewTournament">ნახეთ ტურნირი</string>
   <string name="backToTournament">ტურნირში დაბრუნება</string>
   <string name="thematic">თემატური</string>
@@ -263,6 +268,7 @@
     <item quantity="other">თქვენ უნდა ითამაშოთ კიდევ %s რეიტინგული პარტია</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">თქვნი რეიტინგი %s არის პირობითი</string>
+  <string name="youAreNotInTeam">თქვენ %s გუნდის წევრი არ ხართ</string>
   <string name="backToGame">თამაშში დაბრუნება</string>
   <string name="siteDescription">უფასო ონლაინ ჭადრაკი. ითამაშე ჭადრაკი სუფთა, სადა ინტერფეისით. არანაირი რეგისტრაცია, არანაირი რეკლამა, არანაირი პლაგინი საჭირო არ არის. ეთამაშე ჭადრაკი კომპიუტერს, მეგობარს ან შემთხვევით ოპონენტს</string>
   <string name="teams">გუნდები</string>
@@ -343,6 +349,9 @@
   <string name="winner">გამარჯვებული</string>
   <string name="standing">დგას</string>
   <string name="createANewTournament">შექმენით ახალი ტურნირი</string>
+  <string name="tournamentCalendar">ტურნირის კალენდარი</string>
+  <string name="conditionOfEntry">შესვლის პირობები:</string>
+  <string name="safeTournamentName">ტურნირისთვის შეარჩიეთ უსაფრთხო სახელი.</string>
   <string name="join">შეუერთდით</string>
   <string name="withdraw">გავარდნა</string>
   <string name="points">ქულები</string>
