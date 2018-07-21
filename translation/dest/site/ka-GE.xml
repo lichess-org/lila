@@ -640,7 +640,9 @@
   <string name="withEverybody">ყველას</string>
   <string name="youHaveAlreadyRegisteredTheEmail">ელექტრონული ფოსტა %s უკვე დაარეგისტრირეთ</string>
   <string name="kidMode">ბავშვის რეჟიმი</string>
+  <string name="security">უსაფრთხოება</string>
   <string name="playChessEverywhere">ითამაშე ჭადრაკი ყველგან</string>
+  <string name="asFreeAsLichess">ისევე უფასო როგორც lichess</string>
   <string name="phoneAndTablet">ტელეფონი და ტაბლეტი</string>
   <string name="correspondenceChess">მიმოწერით</string>
   <string name="viewTheSolution">სანახავად გადაწყვეტა</string>
