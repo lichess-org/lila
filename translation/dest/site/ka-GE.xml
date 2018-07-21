@@ -31,7 +31,7 @@
   <string name="joinTheGame">თამაშში ჩართვა</string>
   <string name="whitePlays">თეთრების სვლაა</string>
   <string name="blackPlays">შავების სვლაა</string>
-  <string name="opponentLeftChoices">მეტოქემ თამაში დატოვა. შეგიძლიათ მოიპოვოთ გამარჯვება, ან დაელოდოთ მეტოქის დაბრუნებას.</string>
+  <string name="opponentLeftChoices">შესაძლოა, მეტოქემ თამაში დატოვა. შეგიძლიათ მოიპოვოთ გამარჯვება, გამოაცხადოთ ფრე, ან დაელოდოთ მეტოქის დაბრუნებას.</string>
   <string name="makeYourOpponentResign">აიძულეთ მეტოქეს დათმოს</string>
   <string name="forceResignation">გამარჯვების მოპოვება</string>
   <string name="forceDraw">ყაიმის გამოცხადება</string>
@@ -69,7 +69,7 @@
   <string name="unknown">უცნობი</string>
   <string name="database">მონაცემთა ბაზა</string>
   <string name="whiteDrawBlack">თეთრი / ყაიმი / შავი</string>
-  <string name="averageRatingX">საშუალო რეიტინგი: %</string>
+  <string name="averageRatingX">საშუალო რეიტინგი: %s</string>
   <string name="recentGames">ახლანდელი თამაშები</string>
   <string name="topGames">ტოპ თამაშები</string>
   <string name="noGameFound">თამაში ვერ მოიძებნა</string>
@@ -474,6 +474,7 @@
   <string name="closeAccountExplanation">დარწმუნებული ხართ, რომ გსურთ ანგარიშის დახურვა? ანგარიშის დახურვით დაკარგავთ მასზე წვდომას და თქვენი პროფილის გვერდი აღარ იქნება ხელიმსაწვდომი.</string>
   <string name="thisAccountIsClosed">აღნიშნული ანგარიში დახურულია.</string>
   <string name="invalidUsernameOrPassword">არასწორი მომხმარებლის სახელი ან პაროლი</string>
+  <string name="invalidAuthenticationCode">არასწორი ავტორიზაციის კოდი</string>
   <string name="emailMeALink">ელ. ფოსტით გამომიგზავნეთ ბმული</string>
   <string name="currentPassword">არსებული პაროლი</string>
   <string name="newPassword">ახალი პაროლი</string>
@@ -493,6 +494,7 @@
   <string name="premovesPlayingDuringOpponentTurn">წინასწარი სვლები (თამაში მოწინაამდეგის სვლისას)</string>
   <string name="takebacksWithOpponentApproval">სვლის დაბრუნება (მოწინააღმდეგის თანხმობით)</string>
   <string name="promoteToQueenAutomatically">დედოფლის გაყვანა ავტომატურად</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">ავტომატურად მოიპოვეთ ყაიმი სვლის სამჯერ გამეორებაზე</string>
   <string name="privacy">კონფიდენციალურობა</string>
   <string name="letOtherPlayersFollowYou">ნება დართეთ სხვა მოთამაშეებს თვალი მოგადევნოთ</string>
   <string name="letOtherPlayersChallengeYou">ნება დართეთ სხვა მოთამაშეებს თამაშში გამოგიწვიონ</string>
