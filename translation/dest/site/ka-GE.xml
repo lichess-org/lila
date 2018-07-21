@@ -79,13 +79,13 @@
   <string name="delete">წაშლა</string>
   <string name="deleteThisImportedGame">წაიშალოს ეს იმპორტირებული თამაში?</string>
   <string name="replayMode">გამეორების რეჟიმი</string>
-  <string name="enable">ჯონჯოლი</string>
+  <string name="enable">ჩართვა</string>
   <string name="multipleLines">რამდენიმე ხაზი</string>
   <string name="cpus">პროცესორები</string>
   <string name="memory">მეხსიერება</string>
   <string name="infiniteAnalysis">უსასრულო ანალიზი</string>
   <string name="blunder">უხეში შეცდომა</string>
-  <string name="blunders">დაუკვირვებლობები</string>
+  <string name="blunders">უხეში შეცდომები</string>
   <string name="mistake">შეცდომა</string>
   <string name="mistakes">შეცდომები</string>
   <string name="inaccuracy">უზუსტობა</string>
@@ -702,5 +702,6 @@
     <item quantity="one">%s წამი</item>
     <item quantity="other">%s წამი</item>
   </plurals>
+  <string name="xDoesNotAcceptChallenges">%s არ იღებს გამოწვევებს.</string>
   <string name="conditionalPremoves">პირობითი წინასწარი სვლები</string>
 </resources>
