@@ -8,7 +8,7 @@ import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
 import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo, UserContext }
 import org.joda.time.Period
-import reactivemongo.api.Cursor
+import reactivemongo.api.{ Cursor, ReadPreference }
 
 final class TeamApi(
     coll: Colls,
@@ -198,7 +198,7 @@ final class TeamApi(
   def nbRequests(teamId: String) = cached.nbRequests get teamId
 
   def recomputeNbMembers =
-    coll.team.find($empty).cursor[Team]().foldWhileM({}) { (_, team) =>
+    coll.team.find($empty).cursor[Team](ReadPreference.secondaryPreferred).foldWhileM({}) { (_, team) =>
       for {
         nb <- MemberRepo.countByTeam(team.id)
         _ <- coll.team.updateField($id(team.id), "nbMembers", nb)
