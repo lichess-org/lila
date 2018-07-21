@@ -367,12 +367,15 @@
   <string name="tournamentIsStarting">ტურნირი იწყება</string>
   <string name="tournamentPairingsAreNowClosed">ტურნირში დაწყვილებები დახურულია.</string>
   <string name="youArePlaying">თქვენ ახლა თამაშობთ!</string>
+  <string name="tournamentComplete">ტურნირი დასრულდა</string>
+  <string name="movesPlayed">ნათამაშები სვლები</string>
   <string name="whiteWins">თეთრებმა მოიგეს</string>
   <string name="nextXTournament">ახალი ტურნირი:</string>
   <string name="viewMoreTournaments">ნახეთ ტურნირი</string>
   <string name="membersOnly">მხოლოდ წევრები</string>
   <string name="boardEditor">დაფის რედაქტირება</string>
   <string name="setTheBoard">ადგილობრივი თამაში</string>
+  <string name="popularOpenings">პოპულარული დებიუტები</string>
   <string name="startPosition">საწყისი პოზიცია</string>
   <string name="clearBoard">გაასუფთავეთ დაფა</string>
   <string name="savePosition">პოზიციის დამახსოვრება</string>
@@ -486,6 +489,7 @@
   <string name="horizontalGreenProgressBars">პროგრესის ჰორიზონტალური მწვანე ინდიკატორი</string>
   <string name="soundWhenTimeGetsCritical">ცაიტნოტის ხმოვანი ინდიკატორი</string>
   <string name="gameBehavior">თამაშის პარამეტრები</string>
+  <string name="clickTwoSquares">დააჭირეთ ორ უჯრას</string>
   <string name="premovesPlayingDuringOpponentTurn">წინასწარი სვლები (თამაში მოწინაამდეგის სვლისას)</string>
   <string name="takebacksWithOpponentApproval">სვლის დაბრუნება (მოწინააღმდეგის თანხმობით)</string>
   <string name="promoteToQueenAutomatically">დედოფლის გაყვანა ავტომატურად</string>
