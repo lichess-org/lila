@@ -352,6 +352,11 @@
   <string name="tournamentCalendar">ტურნირის კალენდარი</string>
   <string name="conditionOfEntry">შესვლის პირობები:</string>
   <string name="safeTournamentName">ტურნირისთვის შეარჩიეთ უსაფრთხო სახელი.</string>
+  <string name="inappropriateNameWarning">ნებისმიერი, თუნდაც მცირედი, უტაქტობა გამოიწვევს თქვენი ანგარიშის დახურვას.</string>
+  <string name="emptyTournamentName">დატოვეთ ცარიელი, თუ გნებავთ რომ ტურნირს დაერქვას შემთხვევითად შერჩეული ჭადრაკის დიდოსტატის სახელი.</string>
+  <string name="recommendNotTouching">გირჩევთ ამას არ შეეხოთ.</string>
+  <string name="fewerPlayers">თუ თქვენ შესვლის წინაპირობებს დააყენებთ, თქვენს ტურნირს უფრო ცოტა მოთამაშე ეყოლება.</string>
+  <string name="showAdvancedSettings">დამატებითი პარამეტრების ნახვა</string>
   <string name="join">შეუერთდით</string>
   <string name="withdraw">გავარდნა</string>
   <string name="points">ქულები</string>
