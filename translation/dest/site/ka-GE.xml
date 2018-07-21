@@ -680,4 +680,13 @@
   <string name="computerThinking">კომპიუტერი ფიქრობს ...</string>
   <string name="seeBestMove">ნახეთ საუკეთესო სვლა</string>
   <string name="hideBestMove">დამალეთ საუკეთესო სვლა</string>
+  <string name="getAHint">მიიღეთ მინიშნება</string>
+  <string name="learnFromYourMistakes">ისწავლეთ თქვენი შეცდომებისგან</string>
+  <string name="learnFromThisMistake">ისწავლეთ ამ შეცდომისგან</string>
+  <string name="next">შემდეგი</string>
+  <string name="findBetterMoveForWhite">იპოვე უკეთესი სვლა თეთრისათვის</string>
+  <string name="findBetterMoveForBlack">იპოვე უკეთესი სვლა შავისთვის</string>
+  <string name="youCanDoBetter">უკეთესად შეგიძლიათ</string>
+  <string name="tryAnotherMoveForWhite">სცადეთ სხვა სვლა თეთრისთვის</string>
+  <string name="tryAnotherMoveForBlack">სცადეთ სხვა სვლა შავისთვის</string>
 </resources>
