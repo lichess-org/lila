@@ -663,8 +663,13 @@
   <string name="transparent">გამჭვირვალე</string>
   <string name="backgroundImageUrl">ფონის სურათის მისამართი:</string>
   <string name="boardGeometry">საჭადრაკო დაფის გეომეტრია</string>
+  <string name="boardTheme">ჭადრაკის დაფის ფონი</string>
+  <string name="boardSize">ჭადრაკის დაფის ზომა</string>
+  <string name="usernameAlreadyUsed">ეს მომხმარებლის სახელი უკვე მოხმარებაშია, გთხოვთ სცადეთ სხვა სახელი.</string>
   <string name="chessBasics">ჭადრაკის საფუძვლები</string>
   <string name="coaches">მწვრთნელები</string>
+  <string name="error.minLength">მინიმალური სიგრძე არის %s</string>
+  <string name="error.maxLength">მაქსიმალური სიგრძე არის %s</string>
   <string name="error.min">უნდა იყოს მეტი ან ტოლი %s_ზე</string>
   <string name="error.max">უნდა იყოს ნაკლები ან ტოლი %s_ზე</string>
   <string name="error.unknown">შეცდომა</string>
@@ -691,9 +696,11 @@
   <string name="youCanDoBetter">უკეთესად შეგიძლიათ</string>
   <string name="tryAnotherMoveForWhite">სცადეთ სხვა სვლა თეთრისთვის</string>
   <string name="tryAnotherMoveForBlack">სცადეთ სხვა სვლა შავისთვის</string>
+  <string name="doItAgain">ხელახლა გააკეთეთ</string>
   <string name="advantage">უპირატესობა</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s წამი</item>
     <item quantity="other">%s წამი</item>
   </plurals>
+  <string name="conditionalPremoves">პირობითი წინასწარი სვლები</string>
 </resources>
