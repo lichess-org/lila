@@ -55,6 +55,7 @@
   <string name="goDeeper">Одан да тереңірек</string>
   <string name="showThreat">Қауып көрсету</string>
   <string name="inLocalBrowser">Жергілікті браузерде</string>
+  <string name="toggleLocalEvaluation">Жергілікті бағалау қосқышы</string>
   <string name="promoteVariation">Нұсқажолды көтеру</string>
   <string name="makeMainLine">Бас жол жасау</string>
   <string name="deleteFromHere">Мына жерден жою</string>
