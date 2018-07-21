@@ -128,6 +128,7 @@
   <string name="computersAreNotAllowedToPlay">Бүл сайтта қомпьютер көмегін пайдаалануы тыйыс салыналы</string>
   <string name="games">Ойындар</string>
   <string name="forum">Талқылау</string>
+  <string name="xPostedInForumY">%1$s мақалада жарияланған %2$s</string>
   <string name="latestForumPosts">Форумдаға ең жаңа хаттар</string>
   <string name="players">Ойыншылар</string>
   <string name="minutesPerSide">Әрбір түске берілген уақыт</string>
@@ -146,7 +147,12 @@
   <string name="password">Пароль</string>
   <string name="haveAnAccount">Тіркелдің бе?</string>
   <string name="changePassword">жұмбақ сөзді өзгерту</string>
+  <string name="changeEmail">Емаилды ауыстыру</string>
+  <string name="email">Емаил</string>
+  <string name="passwordReset">Құпиясөзді жою</string>
+  <string name="forgotPassword">Құпиясөзді ұмытып қалдыңыз ба?</string>
   <string name="rank">Деңгей</string>
+  <string name="rankX">Дәреже: %s</string>
   <string name="gamesPlayed">Ойындар ойналған</string>
   <string name="cancel">Жабу</string>
   <string name="timeOut">Уақыт бітті</string>
