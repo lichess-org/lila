@@ -624,11 +624,13 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">შენ უკეთესი ხარ ვიდრე %1$s , %2$s მოთამაშიდან</string>
   <string name="checkYourEmail">შეამოწმეთ ელ.ფოსტა</string>
   <string name="weHaveSentYouAnEmailClickTheLink">გამოგიგზავნით იმეილზე ლინკას, დააკლიკეთ და გაააქტიურეთ თქვენი ექაუნთი</string>
+  <string name="weHaveSentYouAnEmailTo">ჩვენ გავაგზავნეთ შეტყობინება %s მეილზე. შეტყობინებაში დააჭირეთ ლინკს, რომ პაროლი შეცვალოთ.</string>
   <string name="networkLagBetweenYouAndLichess">ქსელი გარკვეული შუალედი შორის თქვენ და Lichess</string>
   <string name="downloadAnnotated">ანოტირებულის ჩამოტვირთვა</string>
   <string name="downloadRaw">სუფთას ჩამოტვირთვა</string>
   <string name="downloadImported">იმპორტირებულის ჩამოტვირთვა</string>
   <string name="crosstable">ჯვრის მაგიდა</string>
+  <string name="letOtherPlayersMessageYou">ნება დართეთ სხვა მოთამაშეებს მოგწერონ</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">როქის მეთოდი</string>
   <string name="castleByMovingTwoSquares">მეფის ორი უჯრით გადაადგილება</string>
   <string name="castleByMovingOntoTheRook">მეფის ეტლზე მიტანა</string>
