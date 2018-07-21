@@ -665,8 +665,19 @@
   <string name="coaches">მწვრთნელები</string>
   <string name="error.min">უნდა იყოს მეტი ან ტოლი %s_ზე</string>
   <string name="error.max">უნდა იყოს ნაკლები ან ტოლი %s_ზე</string>
+  <string name="error.unknown">შეცდომა</string>
+  <string name="notifications">შეტყობინებები</string>
+  <string name="challenges">გამოწვევები</string>
+  <string name="perfRatingX">რეიტინგი: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s წამი პირველი სვლის სათამაშოდ</item>
+    <item quantity="other">%s წამი პირველი სვლის სათამაშოდ</item>
+  </plurals>
   <string name="practiceWithComputer">ვარჯიში კომპიუტერთან</string>
   <string name="anotherWasX">შეიძლებოდა %s</string>
   <string name="bestWasX">საუკეთესო იყო %s</string>
   <string name="resumePractice">ვარჯიშის გაგრძელება</string>
+  <string name="computerThinking">კომპიუტერი ფიქრობს ...</string>
+  <string name="seeBestMove">ნახეთ საუკეთესო სვლა</string>
+  <string name="hideBestMove">დამალეთ საუკეთესო სვლა</string>
 </resources>
