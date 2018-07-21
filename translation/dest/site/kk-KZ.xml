@@ -105,8 +105,12 @@
   <string name="cpus">Процессорлер</string>
   <string name="memory">Жад</string>
   <string name="infiniteAnalysis">Белгісіз талдау</string>
+  <string name="removesTheDepthLimit">Тереңдік шегін алып тастап компьютеріңізді қызып тұрған ахуалында қалдыру</string>
+  <string name="blunder">Өрескел қателік</string>
   <string name="blunders">өрескел қателер</string>
+  <string name="mistake">Қателік</string>
   <string name="mistakes">қате</string>
+  <string name="inaccuracy">Ұқыпсыздық</string>
   <string name="inaccuracies">Дәлсіздіктер</string>
   <string name="moveTimes">Жүрестерге жұмсаған уақыт</string>
   <string name="flipBoard">Тақтаны аудару</string>
