@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Votre classement en %1$s (%2$s) est trop faible</string>
   <string name="ratedMoreThanInPerf">Classement ≥ %1$s en %2$s</string>
   <string name="ratedLessThanInPerf">Classement ≤ %1$s en %2$s</string>
+  <string name="mustBeInTeam">Vous devez faire partie de l\'équipe %s</string>
+  <string name="youAreNotInTeam">Vous ne faites pas partie de l\'équipe %s</string>
   <string name="backToGame">Retour à la partie</string>
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs avec des adversaires en ligne, avec des amis ou contre l\'ordinateur.</string>
   <string name="teams">Équipes</string>
