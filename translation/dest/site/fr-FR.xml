@@ -800,7 +800,7 @@ en %3$s</string>
   <string name="seeBestMove">Voir le meilleur coup</string>
   <string name="hideBestMove">Cacher le meilleur coup</string>
   <string name="getAHint">Obtenir un indice</string>
-  <string name="evaluatingYourMove">Evaluant votre coup ...</string>
+  <string name="evaluatingYourMove">Evaluation de votre coup...</string>
   <string name="whiteWinsGame">Les blancs gagnent</string>
   <string name="blackWinsGame">Les Noirs gagnent</string>
   <string name="learnFromYourMistakes">Apprendre de vos erreurs</string>
