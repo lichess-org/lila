@@ -478,7 +478,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="thisPuzzleIsCorrect">Questo puzzle è corretto e interessante</string>
   <string name="thisPuzzleIsWrong">Questo puzzle è sbagliato o noioso</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s partite in gioco</item>
+    <item quantity="one">%s partita in gioco</item>
     <item quantity="other">%s partite in gioco</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passa automaticamente alla partita successiva dopo aver mosso</string>
