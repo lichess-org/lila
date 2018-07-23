@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">A túa puntuación %1$s (%2$s) é demasiado baixa</string>
   <string name="ratedMoreThanInPerf">Puntuación ≥ %1$s en %2$s</string>
   <string name="ratedLessThanInPerf">Puntuación ≤ %1$s en %2$s</string>
+  <string name="mustBeInTeam">Tés que estar no equipo %s</string>
+  <string name="youAreNotInTeam">Non estás no equipo %s</string>
   <string name="backToGame">Voltar á partida</string>
   <string name="siteDescription">Xadrez libre en liña. Xoga ó xadrez cunha interface limpa. Sen rexistrarse, sen anuncios, sen necesidade de plugins. Xoga ó xadrez contra o ordenador, amigos ou rivais aleatorios.</string>
   <string name="teams">Equipos</string>
