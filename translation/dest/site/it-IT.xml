@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Il tuo punteggio %1$s (%2$s) è troppo basso</string>
   <string name="ratedMoreThanInPerf">Punteggio ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Punteggio ≤ %1$s in %2$s</string>
+  <string name="mustBeInTeam">È necessario essere membri del team %s</string>
+  <string name="youAreNotInTeam">Non sei nel team %s</string>
   <string name="backToGame">Torna alla partita</string>
   <string name="siteDescription">Scacchi online gratis. Gioca subito a scacchi con un\'interfaccia semplice. Niente registrazioni, annunci, plug-in. Gioca a scacchi contro computer, amici o avversari casuali.</string>
   <string name="teams">Gruppi</string>
