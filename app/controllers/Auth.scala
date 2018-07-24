@@ -187,10 +187,10 @@ object Auth extends LilaController {
                 BadRequest(html.auth.signup(forms.signup.website fill data, env.recaptchaPublicConfig)).fuccess
               case true => HasherRateLimit(data.username, ctx.req) { _ =>
                 MustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
-                  authLog(data.username, s"fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
                   lila.mon.user.register.website()
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
+                  authLog(data.username, s"$email fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
                   val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
                   UserRepo.create(data.username, passwordHash, email, ctx.blindMode, none,
                     mustConfirmEmail = mustConfirm.value)
