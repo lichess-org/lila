@@ -64,17 +64,13 @@ trait AssetHelper { self: I18nHelper =>
     s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts-more.js")}"></script>"""
   }
 
-  val tagmanagerTag = cdnOrLocal(
-    cdn = "https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",
-    test = "$.tagsManager",
-    local = staticUrl("vendor/tagmanager/tagmanager.js")
-  )
+  val tagmanagerTag = Html {
+    s"""<script src="${staticUrl("vendor/tagmanager/tagmanager.js")}"></script>"""
+  }
 
-  val typeaheadTag = cdnOrLocal(
-    cdn = "https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js",
-    test = "$.typeahead",
-    local = staticUrl("javascripts/vendor/typeahead.bundle.min.js")
-  )
+  val typeaheadTag = Html {
+    s"""<script src="${staticUrl("javascripts/vendor/typeahead.bundle.min.js")}"></script>"""
+  }
 
   val fingerprintTag = Html {
     s"""<script async defer src="${staticUrl("javascripts/vendor/fp2.min.js")}"></script>"""
@@ -82,13 +78,6 @@ trait AssetHelper { self: I18nHelper =>
 
   val flatpickrTag = Html {
     s"""<script async defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
-  }
-
-  private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
-    if (isProd)
-      s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local">\\x3C/script>')</script>"""
-    else
-      s"""<script src="$local"></script>"""
   }
 
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
@@ -102,7 +91,7 @@ trait AssetHelper { self: I18nHelper =>
       frameSrc = List("'self'", assets, "https://www.youtube.com"),
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),
-      scriptSrc = List("'self'", assets, "https://cdnjs.cloudflare.com"),
+      scriptSrc = List("'self'", assets),
       baseUri = List("'none'")
     )
   }
