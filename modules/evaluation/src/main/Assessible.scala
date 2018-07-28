@@ -34,11 +34,25 @@ case class Assessible(analysed: Analysed) {
   def suspiciousHoldAlert(color: Color): Boolean =
     game.player(color).hasSuspiciousHoldAlert
 
+  def highestChunkBlurs(color: Color): Float =
+    game.player(color).blurs match {
+      case bits: lila.game.Blurs.Bits => bits.booleans.iterator.sliding(10).map(_.count(true==)).max
+      case _ => 0
+    }
+
+  def highChunkBlurRate(color: Color): Boolean =
+    highestChunkBlurs(color) >= 9
+
+  def moderateChunkBlurRate(color: Color): Boolean =
+    highestChunkBlurs(color) >= 7
+
   def mkFlags(color: Color): PlayerFlags = PlayerFlags(
     suspiciousErrorRate(color),
     alwaysHasAdvantage(color),
     highBlurRate(color),
     moderateBlurRate(color),
+    highChunkBlurRate(color),
+    moderateChunkBlurRate(color),
     consistentMoveTimes(Pov(game, color)),
     noFastMoves(Pov(game, color)),
     suspiciousHoldAlert(color)
@@ -51,24 +65,28 @@ case class Assessible(analysed: Analysed) {
     import GameAssessment._
     val flags = mkFlags(color)
     val assessment = flags match {
-      //               SF1 SF2 BLR1 BLR2 MTs1 MTs2 Holds
-      case PlayerFlags(T, T, T, T, T, T, T) => Cheating // all T, obvious cheat
-      case PlayerFlags(T, _, T, _, _, T, _) => Cheating // high accuracy, high blurs, no fast moves
-      case PlayerFlags(T, _, _, T, _, _, _) => Cheating // high accuracy, moderate blurs
+      //               SF1 SF2 BLR1 BLR2 GBLR1 GBLR2 MTs1 MTs2 Holds
+      case PlayerFlags(T, T, T, T, T, T, T, T, T) => Cheating // all T, obvious cheat
+      case PlayerFlags(T, _, T, _, _, _, _, T, _) => Cheating // high accuracy, high blurs, no fast moves
+      case PlayerFlags(T, _, _, T, _, _, _, _, _) => Cheating // high accuracy, moderate blurs
+      case PlayerFlags(T, _, _, _, _, T, _, _, _) => Cheating // high accuracy, high/moderate chunk blurs
 
-      case PlayerFlags(_, _, _, T, T, _, _) => LikelyCheating // moderate blurs, highly consistent move times
-      case PlayerFlags(T, _, _, _, _, _, T) => LikelyCheating // Holds are bad, hmk?
-      case PlayerFlags(_, T, _, _, _, _, T) => LikelyCheating // Holds are bad, hmk?
+      case PlayerFlags(_, _, _, T, _, _, T, _, _) => LikelyCheating // moderate blurs, highly consistent move times
+      case PlayerFlags(_, _, _, _, _, T, T, _, _) => LikelyCheating // moderate chunk blurs, highly consistent move times
+      case PlayerFlags(_, _, _, _, T, _, _, _, _) => LikelyCheating // high chunk blurs
+      case PlayerFlags(T, _, _, _, _, _, _, _, T) => LikelyCheating // Holds are bad, hmk?
+      case PlayerFlags(_, T, _, _, _, _, _, _, T) => LikelyCheating // Holds are bad, hmk?
 
-      case PlayerFlags(_, T, T, _, _, _, _) => LikelyCheating // always has advantage, high blurs
+      case PlayerFlags(_, T, T, _, _, _, _, _, _) => LikelyCheating // always has advantage, high blurs
 
-      case PlayerFlags(_, T, _, _, T, T, _) => Unclear // always has advantage, consistent move times
-      case PlayerFlags(T, _, _, _, T, T, _) => Unclear // high accuracy, consistent move times, no fast moves
-      case PlayerFlags(T, _, _, F, F, T, _) => Unclear // high accuracy, no fast moves, but doesn't blur or flat line
+      case PlayerFlags(_, T, _, _, _, _, T, T, _) => Unclear // always has advantage, consistent move times
+      case PlayerFlags(T, _, _, _, _, _, T, T, _) => Unclear // high accuracy, consistent move times, no fast moves
+      case PlayerFlags(T, _, _, F, _, _, F, T, _) => Unclear // high accuracy, no fast moves, but doesn't blur or flat line
+      case PlayerFlags(_, _, _, _, _, T, _, _, _) => Unclear // only moderate chunk blurs
 
-      case PlayerFlags(T, _, _, _, _, F, _) => UnlikelyCheating // high accuracy, but has fast moves
+      case PlayerFlags(T, _, _, _, _, _, _, F, _) => UnlikelyCheating // high accuracy, but has fast moves
 
-      case PlayerFlags(F, F, _, _, _, _, _) => NotCheating // low accuracy, doesn't hold advantage
+      case PlayerFlags(F, F, _, _, _, _, _, _, _) => NotCheating // low accuracy, doesn't hold advantage
       case _ => NotCheating
     }
 
