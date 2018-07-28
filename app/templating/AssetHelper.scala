@@ -102,7 +102,8 @@ trait AssetHelper { self: I18nHelper =>
       frameSrc = List("'self'", assets, "https://www.youtube.com"),
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),
-      scriptSrc = List("'self'", assets, "https://cdnjs.cloudflare.com")
+      scriptSrc = List("'self'", assets, "https://cdnjs.cloudflare.com"),
+      baseUri = List("'none'")
     )
   }
 
