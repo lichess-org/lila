@@ -78,7 +78,6 @@ External services
 
 Lichess as deployed on https://lichess.org/ also uses these external services:
 
-* [cdnjs](https://cdnjs.com/) as the primary source for widely used JavaScript libraries
 * [Cloudflare](https://www.cloudflare.com/) to serve static assets
 * [Mailgun](https://www.mailgun.com/) for transactional email
 * [prismic.io](https://prismic.io/) for help/documentation pages and the blog
