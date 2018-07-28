@@ -8,7 +8,8 @@ case class ContentSecurityPolicy(
     frameSrc: List[String],
     workerSrc: List[String],
     imgSrc: List[String],
-    scriptSrc: List[String]
+    scriptSrc: List[String],
+    baseUri: List[String]
 ) {
 
   private def withScriptSrc(source: String) = copy(scriptSrc = source :: scriptSrc)
@@ -66,7 +67,8 @@ case class ContentSecurityPolicy(
       "frame-src " -> frameSrc,
       "worker-src " -> workerSrc,
       "img-src " -> imgSrc,
-      "script-src " -> scriptSrc
+      "script-src " -> scriptSrc,
+      "base-uri " -> baseUri
     ) collect {
         case (directive, sources) if sources.nonEmpty =>
           sources.mkString(directive, " ", ";")
