@@ -9,6 +9,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var url = url;
   var version = version;
   var versioned = version !== false;
+  var msgCache = [];
   var options = settings.options;
   var ws;
   var pingSchedule;
@@ -148,14 +149,23 @@ lichess.StrongSocket = function(url, version, settings) {
   var handle = function(m) {
     if (m.v) {
       if (m.v <= version) {
+        var old = msgCache[version & 15];
+        if (version - m.v < 16 && old !== undefined) {
+          if (m.t !== old.t ||
+            (m.t === 'move' && (m.d || {}).ply !== (old.d || {}).ply)) {
+            $.post('/nlog/socket/msgMismatch/' + m + ';' + old);
+          }
+        }
         debug("already has event " + m.v);
         return;
       }
       if (m.v > version + 1) {
         debug("event gap detected from " + version + " to " + m.v);
+        $.post('/nlog/socket/eventGap/' + version + ';' + m.v);
         return;
       }
       version = m.v;
+      msgCache[m.v & 15] = m;
     }
     switch (m.t || false) {
       case false:
@@ -184,6 +194,7 @@ lichess.StrongSocket = function(url, version, settings) {
     clearTimeout(connectSchedule);
     disconnect();
     ws = null;
+    msgCache = [];
   };
 
   var disconnect = function(onNextConnect) {
