@@ -145,7 +145,8 @@ case class PlayerFlags(
     moderateBlurRate: Boolean,
     highChunkBlurRate: Boolean,
     moderateChunkBlurRate: Boolean,
-    consistentMoveTimes: Boolean,
+    highlyConsistentMoveTimes: Boolean,
+    moderatelyConsistentMoveTimes: Boolean,
     noFastMoves: Boolean,
     suspiciousHoldAlert: Boolean
 )
@@ -164,7 +165,8 @@ object PlayerFlags {
       moderateBlurRate = r boolD "mbr",
       highChunkBlurRate = r boolD "hcbr",
       moderateChunkBlurRate = r boolD "mcbr",
-      consistentMoveTimes = r boolD "cmt",
+      highlyConsistentMoveTimes = r boolD "hcmt",
+      moderatelyConsistentMoveTimes = r boolD "cmt",
       noFastMoves = r boolD "nfm",
       suspiciousHoldAlert = r boolD "sha"
     )
@@ -176,7 +178,8 @@ object PlayerFlags {
       "mbr" -> w.boolO(o.moderateBlurRate),
       "hcbr" -> w.boolO(o.highChunkBlurRate),
       "mcbr" -> w.boolO(o.moderateChunkBlurRate),
-      "cmt" -> w.boolO(o.consistentMoveTimes),
+      "hcmt" -> w.boolO(o.highlyConsistentMoveTimes),
+      "cmt" -> w.boolO(o.moderatelyConsistentMoveTimes),
       "nfm" -> w.boolO(o.noFastMoves),
       "sha" -> w.boolO(o.suspiciousHoldAlert)
     )

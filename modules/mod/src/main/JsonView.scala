@@ -53,7 +53,7 @@ final class JsonView(
       .add("aha" -> f.alwaysHasAdvantage)
       .add("hbr" -> f.highBlurRate)
       .add("mbr" -> f.moderateBlurRate)
-      .add("cmt" -> f.consistentMoveTimes)
+      .add("cmt" -> f.moderatelyConsistentMoveTimes)
       .add("nfm" -> f.noFastMoves)
       .add("sha" -> f.suspiciousHoldAlert)
   }
