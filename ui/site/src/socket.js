@@ -149,7 +149,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var handle = function(m) {
     if (m.v) {
       if (m.v <= version) {
-        var old = msgCache[version & 15];
+        var old = msgCache[m.v & 15];
         if (version - m.v < 16 && old !== undefined) {
           if (m.t !== old.t ||
             (m.t === 'move' && (m.d || {}).ply !== (old.d || {}).ply)) {
