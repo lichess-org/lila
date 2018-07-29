@@ -36,7 +36,7 @@ case class Assessible(analysed: Analysed) {
 
   def highestChunkBlurs(color: Color): Float =
     game.player(color).blurs match {
-      case bits: lila.game.Blurs.Bits => bits.booleans.iterator.sliding(10).map(_.count(true==)).max
+      case bits: lidraughts.game.Blurs.Bits => bits.booleans.iterator.sliding(10).map(_.count(true==)).max
       case _ => 0
     }
 
