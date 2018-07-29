@@ -153,7 +153,7 @@ lichess.StrongSocket = function(url, version, settings) {
         if (version - m.v < 16 && old !== undefined) {
           if (m.t !== old.t ||
             (m.t === 'move' && (m.d || {}).ply !== (old.d || {}).ply)) {
-            $.post('/nlog/socket/msgMismatch/' + JSON.stringify(m) + ';' + JSON.stringify(old));
+            $.post('/nlog/socket2/msgMismatch/' + JSON.stringify(m) + ';' + JSON.stringify(old));
           }
         }
         debug("already has event " + m.v);
@@ -161,7 +161,7 @@ lichess.StrongSocket = function(url, version, settings) {
       }
       if (m.v > version + 1) {
         debug("event gap detected from " + version + " to " + m.v);
-        $.post('/nlog/socket/eventGap/' + version + ';' + m.v);
+        $.post('/nlog/socket2/eventGap/' + version + ';' + m.v);
         return;
       }
       version = m.v;
