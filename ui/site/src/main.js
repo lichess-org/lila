@@ -1000,7 +1000,13 @@ lichess.topMenuIntent = function() {
     cfg.socketSend = lichess.socket.send;
     cfg.element = element;
     tournament = LichessTournament.start(cfg);
-    if (cfg.chat) lichess.makeChat('chat', cfg.chat);
+    if (cfg.chat) {
+      var canChat = cfg.chat.lines.filter(function(l) {
+        return l.u.toLowerCase() === cfg.chat.userId;
+      }).length < 2;
+      cfg.chat.preset = canChat ? 'tourStart' : 'none';
+      lichess.makeChat('chat', cfg.chat);
+    }
   };
 
   ///////////////////

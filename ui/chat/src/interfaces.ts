@@ -16,6 +16,7 @@ export interface ChatOpts {
   loadCss: (url: string) => void
   plugin?: ChatPlugin
   alwaysEnabled: boolean;
+  input: boolean;
 }
 
 export interface ChatPlugin {

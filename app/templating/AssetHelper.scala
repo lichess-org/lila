@@ -21,6 +21,7 @@ trait AssetHelper { self: I18nHelper =>
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
   def staticUrl(path: String) = s"$assetBaseUrl${assetRoute(path)}"
+  def cdnStaticUrl(path: String) = s"//lichess1.org${assetRoute(path)}"
 
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
@@ -31,7 +32,7 @@ trait AssetHelper { self: I18nHelper =>
     cssAt("vendor/" + name, staticDomain)
 
   def cssAt(path: String, staticDomain: Boolean, version: AssetVersion): Html = Html {
-    val href = if (staticDomain) staticUrl(path) else assetRoute(path)
+    val href = if (staticDomain) cdnStaticUrl(path) else assetRoute(path)
     s"""<link href="$href?v=$version" type="text/css" rel="stylesheet"/>"""
   }
   def cssAt(path: String, staticDomain: Boolean = true)(implicit ctx: Context): Html =

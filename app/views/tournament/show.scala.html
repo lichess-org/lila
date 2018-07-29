@@ -15,7 +15,7 @@ data: @safeJson(data),
 i18n: @jsI18n(),
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>
-chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
+chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true, input = false)
 })
 };
 }

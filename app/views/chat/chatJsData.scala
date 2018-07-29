@@ -31,7 +31,8 @@ object ChatJsData {
     withNote: Boolean = false,
     writeable: Boolean = true,
     restricted: Boolean = false,
-    localMod: Boolean = false
+    localMod: Boolean = false,
+    input: Boolean = true
   )(implicit ctx: Context) = Json.obj(
     "data" -> Json.obj(
       "id" -> chat.id,
@@ -48,7 +49,8 @@ object ChatJsData {
     "permissions" -> Json.obj("local" -> localMod)
       .add("timeout" -> isGranted(_.ChatTimeout))
       .add("shadowban" -> isGranted(_.MarkTroll)),
-    "timeout" -> timeout
+    "timeout" -> timeout,
+    "input" -> input
   ).add("kobold" -> ctx.troll)
     .add("timeoutReasons" -> isGranted(_.ChatTimeout).option(lila.chat.JsonView.timeoutReasons))
 

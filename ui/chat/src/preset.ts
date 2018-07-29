@@ -10,8 +10,8 @@ export interface PresetCtrl {
   post(preset: Preset): void
 }
 
-export type PresetKey = string
-export type PresetText = string
+export type PresetKey = string;
+export type PresetText = string;
 
 export interface Preset {
   key: PresetKey
@@ -19,8 +19,10 @@ export interface Preset {
 }
 
 export interface PresetGroups {
-  start: Preset[]
-  end: Preset[]
+  tourStart: Preset[]
+  tourEnd: Preset[]
+  gameStart: Preset[]
+  gameEnd: Preset[]
   [key: string]: Preset[]
 }
 
@@ -30,11 +32,17 @@ export interface PresetOpts {
   post(text: string): boolean
 }
 
+const startPresets = [
+  'hi/Hello', 'gl/Good luck', 'hf/Have fun!', 'u2/You too!'
+].map(splitIt);
+
 const groups: PresetGroups = {
-  start: [
-    'hi/Hello', 'gl/Good luck', 'hf/Have fun!', 'u2/You too!'
+  tourStart: startPresets,
+  tourEnd: [
+    'gg/Good games', 'wp/Well played', 'ty/Thank you', 'bye/Bye!'
   ].map(splitIt),
-  end: [
+  gameStart: startPresets,
+  gameEnd: [
     'gg/Good game', 'wp/Well played', 'ty/Thank you', 'gtg/I\'ve got to go', 'bye/Bye!'
   ].map(splitIt)
 }

@@ -44,7 +44,7 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
 }
 
 function renderInput(ctrl: Ctrl): VNode | undefined {
-  if (!ctrl.vm.writeable) return;
+  if (!ctrl.vm.writeable || !ctrl.opts.input) return;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
   return h('input.lichess_say', {
     attrs: {
