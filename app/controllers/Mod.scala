@@ -305,6 +305,12 @@ object Mod extends LilaController {
     Redirect(routes.Mod.chatPanic).fuccess
   }
 
+  def cheatList(gameId: String) = SecureBody(_.Hunter) { implicit ctx => me =>
+    OptionFuOk(lila.game.GameRepo game gameId) { game =>
+      Env.mod.cheatList.set(game, getBool("v"), lila.report.Mod(me))
+    }
+  }
+
   private def withSuspect(username: String)(f: Suspect => Fu[Result])(implicit ctx: Context) =
     Env.report.api getSuspect username flatMap {
       _.fold(notFound)(f)

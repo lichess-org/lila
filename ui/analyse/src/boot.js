@@ -179,4 +179,10 @@ module.exports = function(element, cfg) {
     ));
   });
   lichess.topMenuIntent();
+  $('button.cheat_list').on('click', function() {
+    $.post({
+      url: $(this).data('src') + '?v=' + !$(this).hasClass('active')
+    });
+    $(this).toggleClass('active');
+  });
 };
