@@ -23,8 +23,17 @@ object Statistics {
       coef <- moveTimeCoefVariation(mt)
     } yield coef
 
-  def consistentMoveTimes(pov: lila.game.Pov): Boolean =
-    moveTimeCoefVariation(pov) ?? (_ < 0.4)
+  def highlyConsistentMoveTimes(pov: lila.game.Pov): Boolean =
+    moveTimeCoefVariation(pov) ?? { cvIndicatesHighlyFlatTimes(_) }
+
+  def cvIndicatesHighlyFlatTimes(c: Float) =
+    c < 0.25
+
+  def moderatelyConsistentMoveTimes(pov: lila.game.Pov): Boolean =
+    moveTimeCoefVariation(pov) ?? { cvIndicatesModeratelyFlatTimes(_) }
+
+  def cvIndicatesModeratelyFlatTimes(c: Float) =
+    c < 0.4
 
   private val fastMove = Centis(50)
   def noFastMoves(pov: lila.game.Pov): Boolean = {
