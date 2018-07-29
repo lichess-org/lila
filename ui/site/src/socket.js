@@ -153,7 +153,7 @@ lichess.StrongSocket = function(url, version, settings) {
         if (version - m.v < 16 && old !== undefined) {
           if (m.t !== old.t ||
             (m.t === 'move' && (m.d || {}).ply !== (old.d || {}).ply)) {
-            $.post('/nlog/socket/msgMismatch/' + m + ';' + old);
+            $.post('/nlog/socket/msgMismatch/' + JSON.stringify(m) + ';' + JSON.stringify(old));
           }
         }
         debug("already has event " + m.v);
