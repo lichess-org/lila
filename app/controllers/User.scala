@@ -246,26 +246,26 @@ object User extends LilaController {
   protected[controllers] def modZoneOrRedirect(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
     if (HTTPRequest isSynchronousHttp ctx.req) fuccess(Mod.redirect(username))
     else if (Env.streamer.liveStreamApi.isStreaming(me.id)) fuccess(Ok("Disabled while streaming"))
-    else renderModZone(username, me)
+    else renderModZone(username, me).logTime(s"$username renderModZone")
 
   protected[controllers] def renderModZone(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
-    OptionFuOk(UserRepo named username) { user =>
-      UserRepo.emails(user.id) zip
-        UserRepo.isErased(user) zip
-        (Env.security userSpy user) zip
-        Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) zip
-        Env.mod.logApi.userHistory(user.id) zip
-        Env.plan.api.recentChargesOf(user) zip
-        Env.report.api.byAndAbout(user, 20) zip
-        Env.pref.api.getPref(user) zip
-        Env.irwin.api.reports.withPovs(user) flatMap {
+    OptionFuOk(UserRepo named username logTime s"$username UserRepo.named") { user =>
+      UserRepo.emails(user.id).logTime(s"$username UserRepo.emails") zip
+        UserRepo.isErased(user).logTime(s"$username UserRepo.isErased") zip
+        (Env.security userSpy user).logTime(s"$username security.userSpy") zip
+        Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id).logTime(s"$username getPlayerAggregateAssessmentWithGames") zip
+        Env.mod.logApi.userHistory(user.id).logTime(s"$username logApi.userHistory") zip
+        Env.plan.api.recentChargesOf(user).logTime(s"$username plan.recentChargesOf") zip
+        Env.report.api.byAndAbout(user, 20).logTime(s"$username report.byAndAbout") zip
+        Env.pref.api.getPref(user).logTime(s"$username pref.getPref") zip
+        Env.irwin.api.reports.withPovs(user).logTime(s"$username irwin.reports") flatMap {
           case emails ~ erased ~ spy ~ assess ~ history ~ charges ~ reports ~ pref ~ irwin =>
             val familyUserIds = user.id :: spy.otherUserIds.toList
-            Env.playban.api.bans(familyUserIds) zip
-              Env.user.noteApi.forMod(familyUserIds) zip
+            Env.playban.api.bans(familyUserIds).logTime(s"$username playban.bans") zip
+              Env.user.noteApi.forMod(familyUserIds).logTime(s"$username noteApi.forMod") zip
               Env.user.lightUserApi.preloadMany {
                 reports.userIds ::: assess.??(_.games).flatMap(_.userIds)
-              } map {
+              }.logTime(s"$username lightUserApi.preloadMany") map {
                 case bans ~ notes ~ _ =>
                   html.user.mod(user, emails, spy, assess, bans, history, charges, reports, pref, irwin, notes, erased)
               }

@@ -141,6 +141,7 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def chronometer = lila.common.Chronometer(fua)
 
   def mon(path: lila.mon.RecPath) = chronometer.mon(path).result
+  def logTime(name: String) = chronometer pp name
 
   def nevermind(implicit z: Zero[A]): Fu[A] = fua recover {
     case e: LilaException => z.zero
