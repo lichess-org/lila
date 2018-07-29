@@ -38,8 +38,9 @@ object Analyse extends LidraughtsController {
           Round.getWatcherChat(pov.game) zip
           Env.game.crosstableApi.withMatchup(pov.game) zip
           Env.bookmark.api.exists(pov.game, ctx.me) zip
-          Env.api.pdnDump(pov.game, initialFen, analysis = none, PdnDump.WithFlags(clocks = false, draughtsResult = ctx.pref.draughtsResult)) flatMap {
-            case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pdn =>
+          Env.api.pdnDump(pov.game, initialFen, analysis = none, PdnDump.WithFlags(clocks = false, draughtsResult = ctx.pref.draughtsResult)) zip
+          isGranted(_.Hunter).??(Env.mod.cheatList.get(pov.game).map(some)) flatMap {
+            case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pdn ~ onCheatList =>
               Env.api.roundApi.review(pov, lidraughts.api.Mobile.Api.currentVersion,
                 tv = userTv.map { u => lidraughts.round.OnUserTv(u.id) },
                 analysis,
@@ -61,7 +62,8 @@ object Analyse extends LidraughtsController {
                     crosstable,
                     userTv,
                     chat,
-                    bookmarked = bookmarked
+                    bookmarked = bookmarked,
+                    onCheatList = onCheatList
                   ))
                 }
           }

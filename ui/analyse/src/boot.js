@@ -189,4 +189,10 @@ module.exports = function(element, cfg) {
     ));
   });
   lidraughts.topMenuIntent();
+  $('button.cheat_list').on('click', function() {
+    $.post({
+      url: $(this).data('src') + '?v=' + !$(this).hasClass('active')
+    });
+    $(this).toggleClass('active');
+  });
 };
