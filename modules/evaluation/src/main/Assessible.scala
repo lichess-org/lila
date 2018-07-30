@@ -52,7 +52,7 @@ case class Assessible(analysed: Analysed) {
     highBlurRate(color) || highChunkBlurRate(color),
     moderateBlurRate(color) || moderateChunkBlurRate(color),
     highlyConsistentMoveTimes(Pov(game, color)) || highlyConsistentMoveTimeStreaks(Pov(game, color)),
-    moderatelyConsistentMoveTimes(Pov(game, color)) || highlyConsistentMoveTimeStreaks(Pov(game, color)),
+    moderatelyConsistentMoveTimes(Pov(game, color)) || moderatelyConsistentMoveTimeStreaks(Pov(game, color)),
     noFastMoves(Pov(game, color)),
     suspiciousHoldAlert(color)
   )
