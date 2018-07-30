@@ -51,8 +51,8 @@ case class Assessible(analysed: Analysed) {
     alwaysHasAdvantage(color),
     highBlurRate(color) || highChunkBlurRate(color),
     moderateBlurRate(color) || moderateChunkBlurRate(color),
-    highlyConsistentMoveTimes(Pov(game, color)),
-    moderatelyConsistentMoveTimes(Pov(game, color)),
+    highlyConsistentMoveTimes(Pov(game, color)) || highlyConsistentMoveTimeStreaks(Pov(game, color)),
+    moderatelyConsistentMoveTimes(Pov(game, color)) || highlyConsistentMoveTimeStreaks(Pov(game, color)),
     noFastMoves(Pov(game, color)),
     suspiciousHoldAlert(color)
   )
@@ -64,7 +64,7 @@ case class Assessible(analysed: Analysed) {
     import GameAssessment._
     val flags = mkFlags(color)
     val assessment = flags match {
-      //               SF1 SF2 BLR1 BLR2 GBLR1 GBLR2 HCMT MCMT NFM Holds
+      //               SF1 SF2 BLR1 BLR2 HCMT MCMT NFM Holds
       case PlayerFlags(T, T, T, T, T, T, T, T) => Cheating // all T, obvious cheat
       case PlayerFlags(T, _, T, _, _, _, T, _) => Cheating // high accuracy, high blurs, no fast moves
       case PlayerFlags(T, _, _, T, _, _, _, _) => Cheating // high accuracy, moderate blurs

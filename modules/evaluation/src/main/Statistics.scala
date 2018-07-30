@@ -18,11 +18,17 @@ object Statistics {
   def moveTimeCoefVariation(a: List[Centis]): Option[Float] =
     coefVariation(a.drop(1).map(_.centis + 50))
 
+  def moveTimeCoefVariationNoDrop(a: List[Centis]): Option[Float] =
+    coefVariation(a.map(_.centis + 50))
+
   def moveTimeCoefVariation(pov: lila.game.Pov): Option[Float] =
     for {
-      mt <- pov.game.moveTimes(pov.color)
+      mt <- moveTimes(pov)
       coef <- moveTimeCoefVariation(mt)
     } yield coef
+
+  def moveTimes(pov: lila.game.Pov): Option[List[Centis]] =
+    pov.game.moveTimes(pov.color)
 
   def highlyConsistentMoveTimes(pov: lila.game.Pov): Boolean =
     moveTimeCoefVariation(pov) ?? { cvIndicatesHighlyFlatTimes(_) }
@@ -30,11 +36,29 @@ object Statistics {
   def cvIndicatesHighlyFlatTimes(c: Float) =
     c < 0.25
 
+  def cvIndicatesHighlyFlatTimesForStreaks(c: Float) =
+    c < 0.15
+
   def moderatelyConsistentMoveTimes(pov: lila.game.Pov): Boolean =
     moveTimeCoefVariation(pov) ?? { cvIndicatesModeratelyFlatTimes(_) }
 
   def cvIndicatesModeratelyFlatTimes(c: Float) =
     c < 0.4
+
+  def slidingMoveTimesCvs(pov: lila.game.Pov): Option[Iterator[Float]] =
+    moveTimes(pov) ?? { mt =>
+      mt.iterator.sliding(10).filter({ _.count(Centis(0)==) < 4 }).map({ a => moveTimeCoefVariationNoDrop(a.toList) }).flatten.some
+    }
+
+  def highlyConsistentMoveTimeStreaks(pov: lila.game.Pov): Boolean =
+    slidingMoveTimesCvs(pov) ?? { mt =>
+      mt.filter(cvIndicatesHighlyFlatTimesForStreaks(_)).nonEmpty
+    }
+
+  def moderatelyConsistentMoveTimeStreaks(pov: lila.game.Pov): Boolean =
+    slidingMoveTimesCvs(pov) ?? { mt =>
+      mt.filter(cvIndicatesModeratelyFlatTimes(_)).nonEmpty
+    }
 
   private val fastMove = Centis(50)
   def noFastMoves(pov: lila.game.Pov): Boolean = {
