@@ -113,6 +113,8 @@ final class Env(
 
   lazy val cheatList = new CheatList(db(CollectionCheatList))
 
+  lazy val stream = new ModStream(system)
+
   // api actor
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {

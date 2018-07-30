@@ -166,6 +166,12 @@ private[controllers] trait LilaController
     } map { _ as JSON }
   }
 
+  protected def OAuthSecure[A](perm: Permission.type => Permission)(f: RequestHeader => UserModel => Fu[Result]): Action[Unit] =
+    Scoped() { req => me =>
+      if (isGranted(perm, me)) f(req)(me)
+      else fuccess(Forbidden(jsonError("Authorization failed")))
+    }
+
   protected def Firewall[A <: Result](
     a: => Fu[A],
     or: => Fu[Result] = fuccess(Redirect(routes.Lobby.home()))

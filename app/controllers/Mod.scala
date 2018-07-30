@@ -311,6 +311,10 @@ object Mod extends LilaController {
     }
   }
 
+  def eventStream = OAuthSecure(_.Admin) { req => me =>
+    Ok.chunked(Env.mod.stream.enumerator).fuccess
+  }
+
   private def withSuspect(username: String)(f: Suspect => Fu[Result])(implicit ctx: Context) =
     Env.report.api getSuspect username flatMap {
       _.fold(notFound)(f)

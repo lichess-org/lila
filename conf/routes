@@ -392,6 +392,8 @@ GET   /mod/email-confirm               controllers.Mod.emailConfirm
 GET   /mod/chat-panic                  controllers.Mod.chatPanic
 POST  /mod/chat-panic                  controllers.Mod.chatPanicPost
 POST  /mod/cheat-list/$gameId<\w{8}>   controllers.Mod.cheatList(gameId: String)
+GET   /mod/chat-panic                  controllers.Mod.chatPanic
+GET   /api/stream/mod                  controllers.Mod.eventStream
 
 # Irwin
 GET   /irwin                               controllers.Irwin.dashboard

@@ -247,7 +247,7 @@ object Auth extends LilaController {
   }
 
   private def garbageCollect(user: UserModel, email: EmailAddress)(implicit ctx: Context) =
-    Env.security.garbageCollector.delay(user, HTTPRequest lastRemoteAddress ctx.req, email)
+    Env.security.garbageCollector.delay(user, email, ctx.req)
 
   def checkYourEmail = Open { implicit ctx =>
     fuccess(Account.renderCheckYourEmail)
