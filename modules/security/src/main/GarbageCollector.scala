@@ -27,7 +27,7 @@ final class GarbageCollector(
         apply(user, ip, email, req)
       }
     }
-  
+
   private def apply(user: User, ip: IpAddress, email: EmailAddress, req: RequestHeader): Funit =
     userSpy(user) flatMap { spy =>
       system.lidraughtsBus.publish(
