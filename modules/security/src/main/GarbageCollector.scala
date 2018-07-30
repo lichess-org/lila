@@ -2,8 +2,9 @@ package lidraughts.security
 
 import org.joda.time.DateTime
 import scala.concurrent.duration._
+import play.api.mvc.RequestHeader
 
-import lidraughts.common.{ EmailAddress, IpAddress }
+import lidraughts.common.{ EmailAddress, IpAddress, HTTPRequest }
 import lidraughts.user.{ User, UserRepo }
 
 // codename UGC
@@ -18,18 +19,22 @@ final class GarbageCollector(
   private val done = new lidraughts.memo.ExpireSetMemo(10 minutes)
 
   // User just signed up and doesn't have security data yet, so wait a bit
-  def delay(user: User, ip: IpAddress, email: EmailAddress): Unit =
-    if (!recentlyChecked.get(user.id) && user.createdAt.isAfter(DateTime.now minusDays 3)) {
-      recentlyChecked put user.id
+  def delay(user: User, email: EmailAddress, req: RequestHeader): Unit =
+    if (user.createdAt.isAfter(DateTime.now minusDays 3)) {
+      val ip = HTTPRequest lastRemoteAddress req
+      debug(email, s"${user.username} $email $ip", "pre")
       system.scheduler.scheduleOnce(1 minute) {
-        apply(user, ip, email)
+        apply(user, ip, email, req)
       }
     }
-
-  private val recentlyChecked = new lidraughts.memo.ExpireSetMemo(ttl = 3 seconds)
-
-  private def apply(user: User, ip: IpAddress, email: EmailAddress): Funit =
+  
+  private def apply(user: User, ip: IpAddress, email: EmailAddress, req: RequestHeader): Funit =
     userSpy(user) flatMap { spy =>
+      system.lidraughtsBus.publish(
+        lidraughts.security.Signup(user, email, req, spy.prints.headOption.map(_.value)),
+        'userSignup
+      )
+      debug(email, spy, s"spy ${user.username}")
       badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
         lidraughts.common.Future.exists(spy.ips)(ipTrust.isSuspicious).map {
           _ ?? {
@@ -44,6 +49,9 @@ final class GarbageCollector(
         }
       }
     }
+
+  private def debug(email: EmailAddress, stuff: Any, as: String = "-") =
+    if (email.value contains "iralas".reverse) logger.info(s"GC debug $as: $stuff")
 
   private def badOtherAccounts(accounts: Set[User]): Option[List[User]] = {
     val others = accounts.toList
