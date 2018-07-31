@@ -1,5 +1,5 @@
 lichess.ratingHistoryChart = function(data) {
-  lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
+  lichess.loadScript('javascripts/chart/common.js').done(function() {
     lichess.chartCommon('highstock').done(function() {
       var disabled = {
         enabled: false

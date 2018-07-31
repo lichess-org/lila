@@ -245,7 +245,7 @@ function renderChapterName(ctrl: AnalyseCtrl) {
   if (ctrl.embed && ctrl.study) return h('div.chapter_name', ctrl.study.currentChapter().name);
 }
 
-const innerCoordsCss = '/assets/stylesheets/board.coords.inner.css';
+const innerCoordsCss = 'stylesheets/board.coords.inner.css';
 
 function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
   const pref = ctrl.data.pref.coords;

@@ -102,7 +102,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   return h('div.lichess_overboard.keyboard_help', {
     hook: {
       insert: vnode => {
-        window.lichess.loadCss('/assets/stylesheets/keyboard.css')
+        window.lichess.loadCss('stylesheets/keyboard.css')
         $(vnode.elm as HTMLElement).find('.scrollable').load('/analysis/help?study=' + (ctrl.study ? 1 : 0));
       }
     }

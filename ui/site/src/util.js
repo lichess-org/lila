@@ -217,7 +217,7 @@ lichess.assetUrl = function(url, opts) {
   opts = opts || {};
   var baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url');
   var version = document.body.getAttribute('data-asset-version');
-  return baseUrl + url + (opts.noVersion ? '' : '?v=' + version);
+  return baseUrl + '/assets/' + url + (opts.noVersion ? '' : '?v=' + version);
 };
 lichess.loadedCss = {};
 lichess.loadCss = function(url) {
@@ -241,19 +241,19 @@ lichess.loadScript = function(url, opts) {
   });
 };
 lichess.hopscotch = function(f) {
-  lichess.loadCss('/assets/vendor/hopscotch/dist/css/hopscotch.min.css');
-  lichess.loadScript("/assets/vendor/hopscotch/dist/js/hopscotch.min.js", {noVersion:true}).done(f);
+  lichess.loadCss('vendor/hopscotch/dist/css/hopscotch.min.css');
+  lichess.loadScript('vendor/hopscotch/dist/js/hopscotch.min.js', {noVersion:true}).done(f);
 }
 lichess.slider = function() {
-  lichess.loadCss('/assets/stylesheets/jquery-ui.css');
-  return lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js', {noVersion:true});
+  lichess.loadCss('stylesheets/jquery-ui.css');
+  return lichess.loadScript('javascripts/vendor/jquery-ui.slider.min.js', {noVersion:true});
 };
 lichess.shepherd = function(f) {
   var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'default' : 'dark');
-  lichess.loadCss('/assets/vendor/shepherd/dist/css/' + theme + '.css');
-  lichess.loadCss('/assets/stylesheets/shepherd.css');
-  lichess.loadScript("/assets/vendor/shepherd/dist/js/tether.js", {noVersion:true}).done(function() {
-    lichess.loadScript("/assets/vendor/shepherd/dist/js/shepherd.min.js", {noVersion:true}).done(function() {
+  lichess.loadCss('vendor/shepherd/dist/css/' + theme + '.css');
+  lichess.loadCss('stylesheets/shepherd.css');
+  lichess.loadScript('vendor/shepherd/dist/js/tether.js', {noVersion:true}).done(function() {
+    lichess.loadScript('vendor/shepherd/dist/js/shepherd.min.js', {noVersion:true}).done(function() {
       f(theme);
     });
   });

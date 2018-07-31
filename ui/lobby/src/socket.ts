@@ -55,7 +55,7 @@ export default class LobbySocket {
 
     li.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
-        li.loadScript('/assets/javascripts/music/lobby.js').then(() => {
+        li.loadScript('javascripts/music/lobby.js').then(() => {
           this.music = window['lichessLobbyMusic']();
           ctrl.setMode('chart');
         });

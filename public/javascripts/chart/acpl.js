@@ -2,8 +2,8 @@ function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
 lichess.advantageChart = function(data, trans, el) {
-  lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
-    lichess.loadScript('/assets/javascripts/chart/division.js').done(function() {
+  lichess.loadScript('javascripts/chart/common.js').done(function() {
+    lichess.loadScript('javascripts/chart/division.js').done(function() {
       lichess.chartCommon('highchart').done(function() {
 
         lichess.advantageChart.update = function(d, partial) {

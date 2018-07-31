@@ -21,7 +21,7 @@ export function variants() {
 
 export function glyphs() {
   return $.ajax({
-    url: window.lichess.assetUrl('/assets/glyphs.json', { noVersion: true }),
+    url: window.lichess.assetUrl('glyphs.json', { noVersion: true }),
     headers,
     cache: true
   });

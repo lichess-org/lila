@@ -30,7 +30,7 @@ export default function(opts: CevalOpts): CevalCtrl {
   const hovering = prop<Hovering | null>(null);
   const isDeeper = prop(false);
 
-  const sfPath = '/assets/vendor/stockfish/stockfish';
+  const sfPath = 'vendor/stockfish/stockfish';
   const pool = new Pool({
     asmjs: li.assetUrl(sfPath + '.js', {sameDomain: true}),
     pnacl: pnaclSupported && li.assetUrl(sfPath + '.nmf'),

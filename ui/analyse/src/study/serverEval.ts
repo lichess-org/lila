@@ -78,7 +78,7 @@ export function view(ctrl: ServerEvalCtrl): VNode {
       insert(vnode) {
         ctrl.lastPly(false);
         li.requestIdleCallback(() => {
-          li.loadScript('/assets/javascripts/chart/acpl.js').then(() => {
+          li.loadScript('javascripts/chart/acpl.js').then(() => {
             li.advantageChart(ctrl.root.data, ctrl.root.trans, vnode.elm as HTMLElement);
             ctrl.chartEl(vnode.elm as HTMLElement);
           });
