@@ -38,6 +38,11 @@ private[round] final class History(
     }
   }
 
+  def getRecentEvents(maxEvents: Int): List[VersionedEvent] = {
+    waitForLoadedEvents
+    events.take(maxEvents).reverse
+  }
+
   def addEvents(xs: List[Event]): VersionedEvents = {
     waitForLoadedEvents
     val vevs = xs.foldLeft(List.empty[VersionedEvent] -> getVersion) {

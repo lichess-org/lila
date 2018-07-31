@@ -115,16 +115,18 @@ private[round] final class SocketHandler(
     uid: Uid,
     user: Option[User],
     ip: IpAddress,
-    userTv: Option[String]
-  ): Fu[JsSocketHandler] = join(pov, none, uid, user, ip, userTv = userTv)
+    userTv: Option[User.ID],
+    version: Option[Int]
+  ): Fu[JsSocketHandler] = join(pov, none, uid, user, ip, userTv, version)
 
   def player(
     pov: Pov,
     uid: Uid,
     user: Option[User],
-    ip: IpAddress
+    ip: IpAddress,
+    version: Option[Int]
   ): Fu[JsSocketHandler] =
-    join(pov, Some(pov.playerId), uid, user, ip, userTv = none)
+    join(pov, Some(pov.playerId), uid, user, ip, none, version)
 
   private def join(
     pov: Pov,
@@ -132,7 +134,8 @@ private[round] final class SocketHandler(
     uid: Uid,
     user: Option[User],
     ip: IpAddress,
-    userTv: Option[String]
+    userTv: Option[User.ID],
+    version: Option[Int]
   ): Fu[JsSocketHandler] = {
     val join = Join(
       uid = uid,
@@ -140,7 +143,8 @@ private[round] final class SocketHandler(
       color = pov.color,
       playerId = playerId,
       ip = ip,
-      userTv = userTv
+      userTv = userTv,
+      version = version
     )
     // non-game chat, for tournament or simul games; only for players
     val chatSetup = playerId.isDefined ?? {

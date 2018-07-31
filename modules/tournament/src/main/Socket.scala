@@ -61,11 +61,15 @@ private[tournament] final class Socket(
       waitingUsers = waitingUsers.update(members.values.flatMap(_.userId)(breakOut), clock)
       sender ! waitingUsers
 
-    case Ping(uid, Some(v), lt) => {
+    case Ping(uid, vOpt, lt) => {
       ping(uid, lt)
       timeBomb.delay
-      withMember(uid) { m =>
-        history.since(v).fold(resync(m))(_ foreach sendMessage(m))
+
+      // Mobile backwards compat
+      vOpt foreach { v =>
+        withMember(uid) { m =>
+          history.since(v).fold(resync(m))(_ foreach sendMessage(m))
+        }
       }
     }
 
@@ -76,12 +80,23 @@ private[tournament] final class Socket(
 
     case GetVersion => sender ! history.version
 
-    case Join(uid, user) =>
+    case Join(uid, user, version) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
       addMember(uid.value, member)
       notifyCrowd
-      sender ! Connected(enumerator, member)
+
+      val msgs: List[JsValue] = version.fold(history.getRecent(5).some) {
+        history.since
+      } match {
+        case None => List(resyncMessage)
+        case Some(l) => l.map(filteredMessage(member))
+      }
+
+      sender ! Connected(
+        Enumerator(msgs: _*) >>> enumerator,
+        member
+      )
 
     case Quit(uid) =>
       quit(uid)

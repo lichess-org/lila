@@ -199,8 +199,9 @@ object Simul extends LidraughtsController {
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
+    val version = getInt("v")
     getSocketUid("sri") ?? { uid =>
-      env.socketHandler.join(id, uid, ctx.me)
+      env.socketHandler.join(id, uid, ctx.me, version)
     }
   }
 

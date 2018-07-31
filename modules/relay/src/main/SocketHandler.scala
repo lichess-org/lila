@@ -33,11 +33,12 @@ private[relay] final class SocketHandler(
   def join(
     relayId: Relay.Id,
     uid: Uid,
-    user: Option[User]
+    user: Option[User],
+    version: Option[Int]
   ): Fu[Option[JsSocketHandler]] = {
     val studyId = Study.Id(relayId.value)
     studyHandler.getSocket(studyId) flatMap { socket =>
-      studyHandler.join(studyId, uid, user, socket, member => makeController(socket, relayId, uid, member, user))
+      studyHandler.join(studyId, uid, user, socket, member => makeController(socket, relayId, uid, member, user), version)
     }
   }
 }
