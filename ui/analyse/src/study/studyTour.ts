@@ -2,7 +2,7 @@ import AnalyseCtrl from '../ctrl';
 import { Tab } from './interfaces';
 
 export function study(ctrl: AnalyseCtrl) {
-  window.lidraughts.loadScript('/assets/javascripts/study/tour.js').then(() => {
+  window.lidraughts.loadScript('javascripts/study/tour.js').then(() => {
     window.lidraughts['studyTour']({
       userId: ctrl.opts.userId,
       isContrib: ctrl.study!.members.canContribute(),
@@ -15,7 +15,7 @@ export function study(ctrl: AnalyseCtrl) {
 }
 
 export function chapter(setTab: (tab: string) => void) {
-  window.lidraughts.loadScript('/assets/javascripts/study/tour-chapter.js').then(() => {
+  window.lidraughts.loadScript('javascripts/study/tour-chapter.js').then(() => {
     window.lidraughts['studyTourChapter']({
       setTab
     });

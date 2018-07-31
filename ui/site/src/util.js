@@ -217,7 +217,7 @@ lidraughts.assetUrl = function(url, opts) {
   opts = opts || {};
   var baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url');
   var version = document.body.getAttribute('data-asset-version');
-  return baseUrl + url + (opts.noVersion ? '' : '?v=' + version);
+  return baseUrl + '/assets/' + url + (opts.noVersion ? '' : '?v=' + version);
 };
 lidraughts.loadedCss = {};
 lidraughts.loadCss = function(url, opts) {
@@ -241,19 +241,19 @@ lidraughts.loadScript = function(url, opts) {
   });
 };
 lidraughts.hopscotch = function(f) {
-  lidraughts.loadCss('/assets/vendor/hopscotch/dist/css/hopscotch.min.css');
-  lidraughts.loadScript("/assets/vendor/hopscotch/dist/js/hopscotch.min.js", {noVersion:true}).done(f);
+  lidraughts.loadCss('vendor/hopscotch/dist/css/hopscotch.min.css');
+  lidraughts.loadScript('vendor/hopscotch/dist/js/hopscotch.min.js', {noVersion:true}).done(f);
 }
 lidraughts.slider = function() {
-  lidraughts.loadCss('/assets/stylesheets/jquery-ui.css');
-  return lidraughts.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js', {noVersion:true});
+  lidraughts.loadCss('stylesheets/jquery-ui.css');
+  return lidraughts.loadScript('javascripts/vendor/jquery-ui.slider.min.js', {noVersion:true});
 };
 lidraughts.shepherd = function(f) {
   var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'default' : 'dark');
-  lidraughts.loadCss('/assets/vendor/shepherd/dist/css/' + theme + '.css');
-  lidraughts.loadCss('/assets/stylesheets/shepherd.css');
-  lidraughts.loadScript("/assets/vendor/shepherd/dist/js/tether.js", {noVersion:true}).done(function() {
-    lidraughts.loadScript("/assets/vendor/shepherd/dist/js/shepherd.min.js", {noVersion:true}).done(function() {
+  lidraughts.loadCss('vendor/shepherd/dist/css/' + theme + '.css');
+  lidraughts.loadCss('stylesheets/shepherd.css');
+  lidraughts.loadScript('vendor/shepherd/dist/js/tether.js', {noVersion:true}).done(function() {
+    lidraughts.loadScript('vendor/shepherd/dist/js/shepherd.min.js', {noVersion:true}).done(function() {
       f(theme);
     });
   });

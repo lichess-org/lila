@@ -25,7 +25,7 @@ $(function() {
 
     var textarea = this;
 
-    lidraughts.loadScript('/assets/vendor/textcomplete.min.js').then(function() {
+    lidraughts.loadScript('vendor/textcomplete.min.js').then(function() {
 
       var searchCandidates = function(term, candidateUsers) {
         return candidateUsers.filter(function(user) {

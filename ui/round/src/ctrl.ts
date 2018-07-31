@@ -126,7 +126,7 @@ export default class RoundController {
 
         li.pubsub.on('sound_set', set => {
             if (!this.music && set === 'music')
-                li.loadScript('/assets/javascripts/music/play.js').then(() => {
+                li.loadScript('javascripts/music/play.js').then(() => {
                     this.music = window.lidraughtsPlayMusic();
                 });
             if (this.music && set !== 'music') this.music = undefined;

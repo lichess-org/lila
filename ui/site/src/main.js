@@ -131,8 +131,8 @@ lidraughts.topMenuIntent = function() {
 
   lidraughts.userAutocomplete = function($input, opts) {
     opts = opts || {};
-    lidraughts.loadCss('/assets/stylesheets/autocomplete.css');
-    return lidraughts.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
+    lidraughts.loadCss('stylesheets/autocomplete.css');
+    return lidraughts.loadScript('javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
       $input.typeahead(null, {
         minLength: opts.minLength || 3,
         hint: true,
@@ -317,8 +317,8 @@ lidraughts.topMenuIntent = function() {
           booted = true;
           var $el = $('#challenge_app').html(lidraughts.initiatingHtml);
           var isDev = $('body').data('dev');
-          lidraughts.loadCss('/assets/stylesheets/challengeApp.css');
-          lidraughts.loadScript("/assets/compiled/lidraughts.challenge" + (isDev ? '' : '.min') + '.js').done(function() {
+          lidraughts.loadCss('stylesheets/challengeApp.css');
+          lidraughts.loadScript('compiled/lidraughts.challenge' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LidraughtsChallenge.default($el[0], {
               data: data,
               show: function() {
@@ -356,8 +356,8 @@ lidraughts.topMenuIntent = function() {
           booted = true;
           var $el = $('#notify_app').html(lidraughts.initiatingHtml);
           var isDev = $('body').data('dev');
-          lidraughts.loadCss('/assets/stylesheets/notifyApp.css');
-          lidraughts.loadScript("/assets/compiled/lidraughts.notify" + (isDev ? '' : '.min') + '.js').done(function() {
+          lidraughts.loadCss('stylesheets/notifyApp.css');
+          lidraughts.loadScript('compiled/lidraughts.notify' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LidraughtsNotify.default($el.empty()[0], {
               data: data,
               incoming: incoming,
@@ -457,8 +457,8 @@ lidraughts.topMenuIntent = function() {
           var $el = $('#dasher_app').html(lidraughts.initiatingHtml);
           var isDev = $('body').data('dev');
           var isPlaying = $('body').hasClass('playing');
-          lidraughts.loadCss('/assets/stylesheets/dasherApp.css');
-          lidraughts.loadScript("/assets/compiled/lidraughts.dasher" + (isDev ? '' : '.min') + '.js').done(function() {
+          lidraughts.loadCss('stylesheets/dasherApp.css');
+          lidraughts.loadScript('compiled/lidraughts.dasher' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LidraughtsDasher.default($el.empty()[0], {
               setZoom: setZoom,
               playing: isPlaying
@@ -475,8 +475,8 @@ lidraughts.topMenuIntent = function() {
         var boot = function() {
           if (booted) return;
           booted = true;
-          lidraughts.loadCss('/assets/stylesheets/cli.css');
-          lidraughts.loadScript("/assets/compiled/lidraughts.cli" + ($('body').data('dev') ? '' : '.min') + '.js').done(function() {
+          lidraughts.loadCss('stylesheets/cli.css');
+          lidraughts.loadScript('compiled/lidraughts.cli' + ($('body').data('dev') ? '' : '.min') + '.js').done(function() {
             LidraughtsCli.app($wrap, toggle);
           });
         }
@@ -584,7 +584,7 @@ lidraughts.topMenuIntent = function() {
               .attr('action', '/login?referrer=' + window.location.pathname);
           }));
         }
-        lidraughts.loadCss('/assets/stylesheets/fpmenu.css');
+        lidraughts.loadCss('stylesheets/fpmenu.css');
       }).click(function() {
         document.body.classList.toggle('fpmenu');
       });
@@ -669,7 +669,7 @@ lidraughts.topMenuIntent = function() {
         };
         set = 'standard';
       }
-      var baseUrl = lidraughts.assetUrl('/assets/sound', {noVersion:true});
+      var baseUrl = lidraughts.assetUrl('sound', {noVersion: true});
       return new Howl({
         src: ['ogg', 'mp3'].map(function(ext) {
           return [baseUrl, set, names[k] + '.' + ext].join('/');

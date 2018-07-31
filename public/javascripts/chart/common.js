@@ -2,7 +2,7 @@ lidraughts.highchartsPromise;
 lidraughts.chartCommon = function(type) {
   if (lidraughts.highchartsPromise) return lidraughts.highchartsPromise;
   var file = type === 'highstock' ? 'highstock.js' : 'highcharts.js';
-  return lidraughts.highchartsPromise = lidraughts.loadScript('/assets/vendor/highcharts-4.2.5/' + file, true).done(function() {
+  return lidraughts.highchartsPromise = lidraughts.loadScript('vendor/highcharts-4.2.5/' + file, { noVersion: true }).done(function() {
     Highcharts.makeFont = function(size) {
       return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
     };

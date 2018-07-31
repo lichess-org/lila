@@ -52,7 +52,7 @@ export function view(ctrl): VNode {
   }
   return h('div.study_share.underboard_form.box', {
     hook: {
-      insert() { window.lidraughts.loadCss('/assets/stylesheets/material.form.css') }
+      insert() { window.lidraughts.loadCss('stylesheets/material.form.css') }
     }
   }, [
     h('div.downloads', [

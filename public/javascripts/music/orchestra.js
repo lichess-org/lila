@@ -1,6 +1,6 @@
 function lidraughtsOrchestra() {
 
-  var soundDir = lidraughts.assetUrl('/assets/sound/instrument/', {noVersion:true});
+  var soundDir = lidraughts.assetUrl('sound/instrument/', {noVersion: true});
 
   var makeSoundPair = function(sound) {
     return [soundDir + sound + '.ogg', soundDir + sound + '.mp3'];

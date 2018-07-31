@@ -7,7 +7,7 @@ lidraughts.ratingHistoryChart = function(data, singlePerfName) {
   var indexFilter = function(_, i) {
     return !singlePerfName || i === singlePerfIndex;
   };
-  lidraughts.loadScript('/assets/javascripts/chart/common.js').done(function() {
+  lidraughts.loadScript('javascripts/chart/common.js').done(function() {
     lidraughts.chartCommon('highstock').done(function() {
       var disabled = {
         enabled: false

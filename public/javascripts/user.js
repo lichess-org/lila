@@ -7,7 +7,7 @@ $(function() {
       if ($zone.is(':visible')) $zone.hide();
       else {
         $zone.html(lidraughts.spinnerHtml).show();
-        lidraughts.loadCss('/assets/stylesheets/user-mod.css');
+        lidraughts.loadCss('stylesheets/user-mod.css');
         $zone.load($(this).attr('href'));
       }
       return false;
@@ -66,7 +66,7 @@ $(function() {
         $angles.find('.active').removeClass('active');
         $(this).addClass('active');
         browseTo($(this).attr('href'));
-        if ($(this).data('tab') === 'activity') lidraughts.loadCss('/assets/stylesheets/activity.css');
+        if ($(this).data('tab') === 'activity') lidraughts.loadCss('stylesheets/activity.css');
         return false;
       });
       $('.user_show').on('click', '#games a', function() {

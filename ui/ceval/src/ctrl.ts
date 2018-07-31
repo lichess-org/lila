@@ -32,7 +32,7 @@ export default function(opts: CevalOpts): CevalCtrl {
   const isDeeper = prop(false);
 
   const scanVariant = parseVariant(opts.variant.key);
-  const scanPath = '/assets/vendor/scan/scan';
+  const scanPath = 'vendor/scan/scan';
   const pool = new Pool({
     asmjs: li.assetUrl(scanPath + '_' + scanVariant + '.js', {sameDomain: true}),
     pnacl: pnaclSupported && li.assetUrl(scanPath + '.nmf'),

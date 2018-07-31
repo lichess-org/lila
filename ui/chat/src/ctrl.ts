@@ -74,7 +74,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       send: li.pubsub.emit('socket.send'),
       redraw
     }) : undefined;
-    if (canMod()) opts.loadCss('/assets/stylesheets/chat.mod.css');
+    if (canMod()) opts.loadCss('stylesheets/chat.mod.css');
   }
   instanciateModeration();
 

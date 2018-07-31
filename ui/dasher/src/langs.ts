@@ -32,7 +32,7 @@ export function ctrl(data: LangsData, trans: Trans, redraw: Redraw, close: Close
     data,
     list: () => list,
     load() {
-      get(window.lidraughts.assetUrl('/assets/trans/refs.json'), true).then(d => {
+      get(window.lidraughts.assetUrl('trans/refs.json'), true).then(d => {
         const accs: Lang[] = [];
         const others: Lang[] = [];
         d.forEach((l: Lang) => {

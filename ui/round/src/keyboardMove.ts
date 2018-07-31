@@ -64,7 +64,7 @@ export function render(ctrl: KeyboardMove) {
       },
       hook: {
         insert: vnode => {
-          window.lidraughts.loadScript('/assets/javascripts/keyboardMove.js').then(() => {
+          window.lidraughts.loadScript('javascripts/keyboardMove.js').then(() => {
             ctrl.registerHandler(window.lidraughts.keyboardMove({
               input: vnode.elm,
               setFocus: ctrl.setFocus,

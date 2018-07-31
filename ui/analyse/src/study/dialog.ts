@@ -12,7 +12,7 @@ interface Dialog {
 export function form(d: Dialog): VNode {
   return h('div.lidraughts_overboard.study_overboard.' + d.class, {
     hook: {
-      insert() { window.lidraughts.loadCss('/assets/stylesheets/material.form.css') }
+      insert() { window.lidraughts.loadCss('stylesheets/material.form.css') }
     }
   }, ([
     h('a.close.icon', {

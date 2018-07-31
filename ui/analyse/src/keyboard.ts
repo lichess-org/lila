@@ -103,7 +103,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   return h('div.lidraughts_overboard.keyboard_help', {
     hook: {
       insert: vnode => {
-        window.lidraughts.loadCss('/assets/stylesheets/keyboard.css')
+        window.lidraughts.loadCss('stylesheets/keyboard.css')
         $(vnode.elm as HTMLElement).find('.scrollable').load('/analysis/help?study=' + (ctrl.study ? 1 : 0));
       }
     }

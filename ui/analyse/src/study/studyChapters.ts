@@ -98,7 +98,7 @@ export function view(ctrl: StudyCtrl): VNode {
         });
       }
       if (window['Sortable']) makeSortable();
-      else window.lidraughts.loadScript('/assets/javascripts/vendor/Sortable.min.js').done(makeSortable);
+      else window.lidraughts.loadScript('javascripts/vendor/Sortable.min.js').done(makeSortable);
     }
   }
 

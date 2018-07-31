@@ -13,7 +13,7 @@ function confetti(data: TournamentData): VNode | undefined {
   if (data.me && data.isRecentlyFinished && window.lidraughts.once('tournament.end.canvas.' + data.id))
   return h('canvas#confetti', {
     hook: {
-      insert: _ => window.lidraughts.loadScript('/assets/javascripts/confetti.js')
+      insert: _ => window.lidraughts.loadScript('javascripts/confetti.js')
     }
   });
 }

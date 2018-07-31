@@ -16,7 +16,7 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
     comment = state.comment || ctrl.trans.noarg(defaultComments[state.feedback]);
 
   return h('div.gamebook', {
-    hook: { insert: _ => window.lidraughts.loadCss('/assets/stylesheets/gamebook.play.css', ctrl.root.embed ? { sameDomain: true, noVersion: true } : {}) }
+    hook: { insert: _ => window.lidraughts.loadCss('stylesheets/gamebook.play.css', ctrl.root.embed ? { sameDomain: true, noVersion: true } : {}) }
   }, [
     comment ? h('div.comment', {
       class: { hinted: state.showHint }
@@ -30,7 +30,7 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
         attrs: {
           width: 120,
           height: 120,
-          src: window.lidraughts.assetUrl('/assets/images/mascot/octopus.svg')
+          src: window.lidraughts.assetUrl('images/mascot/octopus.svg')
         }
       }) : null
     ])

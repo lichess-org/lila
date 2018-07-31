@@ -2,8 +2,8 @@ function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
 lidraughts.movetimeChart = function(data, trans) {
-  lidraughts.loadScript('/assets/javascripts/chart/common.js').done(function() {
-    lidraughts.loadScript('/assets/javascripts/chart/division.js').done(function() {
+  lidraughts.loadScript('javascripts/chart/common.js').done(function() {
+    lidraughts.loadScript('javascripts/chart/division.js').done(function() {
       lidraughts.chartCommon('highchart').done(function() {
         lidraughts.movetimeChart.render = function() {
           $('#movetimes_chart:not(.rendered)').each(function() {

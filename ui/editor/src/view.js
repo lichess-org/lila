@@ -270,7 +270,7 @@ function makeCursor(selected) {
   if (selected === 'pointer') return 'pointer';
 
   var name = selected === 'trash' ? 'trash' : selected.join('-');
-  var url = lidraughts.assetUrl('/assets/cursors/' + name + '.cur');
+  var url = lidraughts.assetUrl('cursors/' + name + '.cur');
 
   return 'url(' + url + '), default !important';
 }

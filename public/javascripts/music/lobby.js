@@ -2,7 +2,7 @@ function lidraughtsLobbyMusic() {
 
   var orchestra;
 
-  lidraughts.loadScript('/assets/javascripts/music/orchestra.js').then(function() {
+  lidraughts.loadScript('javascripts/music/orchestra.js').then(function() {
     orchestra = lidraughtsOrchestra();
   });
 

@@ -152,7 +152,7 @@ export function view(ctrl): VNode {
             hook: {
               insert: vnode => {
                 $.when(
-                  window.lidraughts.loadScript('/assets/compiled/lidraughts.editor.min.js'),
+                  window.lidraughts.loadScript('compiled/lidraughts.editor.min.js'),
                   $.get('/editor.json', {
                     fen: ctrl.root.node.fen,
                     variant: currentChapterSetup.variant.key

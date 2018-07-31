@@ -118,7 +118,7 @@ module.exports = function(element, cfg) {
     var $panel = $panels.filter('.computer_analysis');
     if (!$("#adv_chart").length) $panel.html('<div id="adv_chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$("#adv_chart_loader").length) $panel.append(chartLoader());
-    lidraughts.loadScript('/assets/javascripts/chart/acpl.js').then(function() {
+    lidraughts.loadScript('javascripts/chart/acpl.js').then(function() {
       lidraughts.advantageChart(data, cfg.trans, $("#adv_chart")[0]);
     });
   };
@@ -130,7 +130,7 @@ module.exports = function(element, cfg) {
     $menu.children('.active').removeClass('active').end().find('.' + panel).addClass('active');
     $panels.removeClass('active').filter('.' + panel).addClass('active');
     if (panel === 'move_times' && !lidraughts.movetimeChart) try {
-      lidraughts.loadScript('/assets/javascripts/chart/movetime.js').then(function() {
+      lidraughts.loadScript('javascripts/chart/movetime.js').then(function() {
         lidraughts.movetimeChart(data, cfg.trans);
       });
     } catch (e) {}
