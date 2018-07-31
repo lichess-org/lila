@@ -22,7 +22,7 @@ private[simul] object Member {
 
 private[simul] case class Messadata(trollish: Boolean = false)
 
-private[simul] case class Join(uid: Uid, user: Option[User])
+private[simul] case class Join(uid: Uid, user: Option[User], version: Option[Int])
 private[simul] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
 private[simul] case class StartGame(game: Game, hostId: String)
 private[simul] case class StartSimul(firstGame: Game, hostId: String)

@@ -64,11 +64,15 @@ private[simul] final class Socket(
 
     case Aborted => notifyVersion("aborted", Json.obj(), Messadata())
 
-    case Ping(uid, Some(v), c) => {
+    case Ping(uid, vOpt, c) => {
       ping(uid, c)
       timeBomb.delay
-      withMember(uid) { m =>
-        history.since(v).fold(resync(m))(_ foreach sendMessage(m))
+
+      // Mobile backwards compat
+      vOpt foreach { v =>
+        withMember(uid) { m =>
+          history.since(v).fold(resync(m))(_ foreach sendMessage(m))
+        }
       }
     }
 
@@ -81,12 +85,23 @@ private[simul] final class Socket(
 
     case Socket.GetUserIds => sender ! members.values.flatMap(_.userId)
 
-    case Join(uid, user) =>
+    case Join(uid, user, version) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
       addMember(uid.value, member)
       notifyCrowd
-      sender ! Connected(enumerator, member)
+
+      val msgs: List[JsValue] = version.fold(history.getRecent(5).some) {
+        history.since
+      } match {
+        case None => List(resyncMessage)
+        case Some(l) => l.map(filteredMessage(member))
+      }
+
+      sender ! Connected(
+        Enumerator(msgs: _*) >>> enumerator,
+        member
+      )
 
     case Quit(uid) =>
       quit(uid)

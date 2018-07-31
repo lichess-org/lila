@@ -27,6 +27,11 @@ final class History[Metadata](ttl: FiniteDuration) {
       (msgs.size == version - v) option msgs
     }
 
+  def getRecent(maxEvents: Int): List[Message] = {
+    val v = version
+    (v - 5 to v).flatMap(message)(scala.collection.breakOut)
+  }
+
   private def message(v: Int) = cache getIfPresent v
 
   def +=(payload: JsObject, metadata: Metadata): Message = {

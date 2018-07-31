@@ -2,6 +2,7 @@ package lila.study
 
 import akka.actor._
 import play.api.libs.json._
+import play.api.libs.iteratee._
 import scala.concurrent.duration._
 
 import chess.Centis
@@ -186,11 +187,15 @@ private final class Socket(
       "chapterId" -> chapterId
     ))(uid)
 
-    case Ping(uid, Some(v), lt) =>
+    case Ping(uid, vOpt, lt) =>
       ping(uid, lt)
       timeBomb.delay
-      withMember(uid) { m =>
-        history.since(v).fold(resync(m))(_ foreach sendMessage(m))
+
+      // Mobile backwards compat
+      vOpt foreach { v =>
+        withMember(uid) { m =>
+          history.since(v).fold(resync(m))(_ foreach sendMessage(m))
+        }
       }
 
     case Broom =>
@@ -199,13 +204,25 @@ private final class Socket(
 
     case GetVersion => sender ! history.version
 
-    case Socket.Join(uid, userId, troll) =>
+    case Socket.Join(uid, userId, troll, version) =>
       import play.api.libs.iteratee.Concurrent
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Socket.Member(channel, userId, troll = troll)
       addMember(uid.value, member)
       notifyCrowd
-      sender ! Socket.Connected(enumerator, member)
+
+      val msgs: List[JsValue] = version.fold(history.getRecent(5).some) {
+        history.since
+      } match {
+        case None => List(resyncMessage)
+        case Some(l) => l.map(filteredMessage(member))
+      }
+
+      sender ! Socket.Connected(
+        Enumerator(msgs: _*) >>> enumerator,
+        member
+      )
+
       userId foreach sendStudyDoor(true)
 
     case Quit(uid) =>
@@ -297,7 +314,7 @@ object Socket {
   import JsonView.uidWriter
   implicit private val whoWriter = Json.writes[Who]
 
-  case class Join(uid: Uid, userId: Option[User.ID], troll: Boolean)
+  case class Join(uid: Uid, userId: Option[User.ID], troll: Boolean, version: Option[Int])
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case class ReloadUid(uid: Uid)

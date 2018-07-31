@@ -76,7 +76,8 @@ case class Join(
     color: Color,
     playerId: Option[String],
     ip: IpAddress,
-    userTv: Option[User.ID]
+    userTv: Option[User.ID],
+    version: Option[Int]
 )
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)

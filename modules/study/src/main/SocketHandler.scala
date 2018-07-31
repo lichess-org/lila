@@ -279,10 +279,11 @@ final class SocketHandler(
   def join(
     studyId: Study.Id,
     uid: Uid,
-    user: Option[User]
+    user: Option[User],
+    version: Option[Int]
   ): Fu[Option[JsSocketHandler]] =
     getSocket(studyId) flatMap { socket =>
-      join(studyId, uid, user, socket, member => makeController(socket, studyId, uid, member, user = user))
+      join(studyId, uid, user, socket, member => makeController(socket, studyId, uid, member, user = user), version)
     }
 
   def join(
@@ -290,9 +291,10 @@ final class SocketHandler(
     uid: Uid,
     user: Option[User],
     socket: ActorRef,
-    controller: Socket.Member => Handler.Controller
+    controller: Socket.Member => Handler.Controller,
+    version: Option[Int]
   ): Fu[Option[JsSocketHandler]] = {
-    val join = Socket.Join(uid = uid, userId = user.map(_.id), troll = user.??(_.troll))
+    val join = Socket.Join(uid, user.map(_.id), user.??(_.troll), version)
     Handler(hub, socket, uid, join) {
       case Socket.Connected(enum, member) => (controller(member), enum, member)
     } map some

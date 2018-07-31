@@ -140,14 +140,18 @@ private[round] final class Socket(
       onDeploy(d)
       history.enablePersistence
 
-    case Ping(uid, Some(v), c) =>
+    case Ping(uid, vOpt, c) =>
       timeBomb.delay
       ping(uid, c)
       ownerOf(uid) foreach { o =>
         playerDo(o.color, _.ping)
       }
-      withMember(uid) { member =>
-        (history getEventsSince v).fold(resyncNow(member))(batch(member, _))
+
+      // Mobile backwards compat
+      vOpt foreach { v =>
+        withMember(uid) { member =>
+          (history getEventsSince v).fold(resyncNow(member))(batch(member, _))
+        }
       }
 
     case BotConnected(color, v) =>
@@ -178,14 +182,25 @@ private[round] final class Socket(
         )
       } pipeTo sender
 
-    case Join(uid, user, color, playerId, ip, onTv) =>
+    case Join(uid, user, color, playerId, ip, onTv, version) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user, color, playerId, ip, onTv)
       addMember(uid.value, member)
       notifyCrowd
       if (playerId.isDefined) playerDo(color, _.ping)
-      sender ! Connected(enumerator, member)
       if (member.userTv.isDefined) buscriptions.tv
+      val events = version.fold(history.getRecentEvents(5).some) {
+        history.getEventsSince
+      }
+
+      val initialMsgs = events.fold(resyncMessage.some) {
+        batchMsgs(member, _)
+      } map { m => Enumerator(m: JsValue) }
+
+      sender ! Connected(
+        initialMsgs.fold(enumerator) { _ >>> enumerator },
+        member
+      )
 
     case Nil =>
     case eventList: EventList => notify(eventList.events)
@@ -255,11 +270,14 @@ private[round] final class Socket(
     members.foreachValue { m => batch(m, vevents) }
   }
 
-  def batch(member: Member, vevents: List[VersionedEvent]) = vevents match {
-    case Nil =>
-    case List(one) => member push one.jsFor(member)
-    case many => member push makeMessage("b", many map (_ jsFor member))
+  def batchMsgs(member: Member, vevents: List[VersionedEvent]) = vevents match {
+    case Nil => None
+    case List(one) => one.jsFor(member).some
+    case many => makeMessage("b", many map (_ jsFor member)).some
   }
+
+  def batch(member: Member, vevents: List[VersionedEvent]) =
+    batchMsgs(member, vevents) foreach member.push
 
   def notifyOwner[A: Writes](color: Color, t: String, data: A) =
     withOwnerOf(color) {

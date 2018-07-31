@@ -16,12 +16,13 @@ trait Historical[M <: SocketMember, Metadata] { self: SocketActor[M] =>
     members foreachValue send
   }
 
+  def filteredMessage(member: M)(message: Message) =
+    if (shouldSkipMessageFor(message, member)) message.skipMsg
+    else message.fullMsg
+
   def sendMessage(message: Message)(member: M): Unit =
-    member push {
-      if (shouldSkipMessageFor(message, member)) message.skipMsg
-      else message.fullMsg
-    }
+    member push filteredMessage(member)(message)
 
   def sendMessage(member: M)(message: Message): Unit =
-    sendMessage(message)(member)
+    member push filteredMessage(member)(message)
 }

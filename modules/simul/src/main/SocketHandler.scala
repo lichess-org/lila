@@ -22,13 +22,14 @@ private[simul] final class SocketHandler(
   def join(
     simId: String,
     uid: Uid,
-    user: Option[User]
+    user: Option[User],
+    version: Option[Int]
   ): Fu[Option[JsSocketHandler]] =
     exists(simId) flatMap {
       _ ?? {
         for {
           socket ← socketHub ? Get(simId) mapTo manifest[ActorRef]
-          join = Join(uid = uid, user = user)
+          join = Join(uid = uid, user = user, version = version)
           handler ← Handler(hub, socket, uid, join) {
             case Connected(enum, member) =>
               (controller(socket, simId, uid, member), enum, member)
