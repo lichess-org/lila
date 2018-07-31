@@ -17,25 +17,28 @@ trait AssetHelper { self: I18nHelper =>
 
   val assetBaseUrl = s"//$assetDomain"
 
-  def assetRoute(path: String) = s"/assets/$path"
+  def assetUrl(path: String, version: AssetVersion): String =
+    s"$assetBaseUrl/assets/$version/$path"
+  def assetUrl(path: String)(implicit ctx: Context): String =
+    assetUrl(path, ctx.pageData.assetVersion)
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
-  def staticUrl(path: String) = s"$assetBaseUrl${assetRoute(path)}"
+  def staticUrl(path: String) = s"$assetBaseUrl/assets/$path"
 
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
-  def cssTag(name: String, staticDomain: Boolean = true)(implicit ctx: Context): Html =
-    cssAt("stylesheets/" + name, staticDomain)
+  def cssTag(name: String)(implicit ctx: Context): Html =
+    cssAt("stylesheets/" + name)
 
-  def cssVendorTag(name: String, staticDomain: Boolean = true)(implicit ctx: Context) =
-    cssAt("vendor/" + name, staticDomain)
+  def cssVendorTag(name: String)(implicit ctx: Context) =
+    cssAt("vendor/" + name)
 
-  def cssAt(path: String, staticDomain: Boolean, version: AssetVersion): Html = Html {
-    val href = if (staticDomain) staticUrl(path) else assetRoute(path)
-    s"""<link href="$href?v=$version" type="text/css" rel="stylesheet"/>"""
+  def cssAt(path: String, version: AssetVersion): Html = Html {
+    val href = assetUrl(path, version)
+    s"""<link href="$href" type="text/css" rel="stylesheet"/>"""
   }
-  def cssAt(path: String, staticDomain: Boolean = true)(implicit ctx: Context): Html =
-    cssAt(path, staticDomain, ctx.pageData.assetVersion)
+  def cssAt(path: String)(implicit ctx: Context): Html =
+    cssAt(path, ctx.pageData.assetVersion)
 
   def jsTag(name: String, async: Boolean = false)(implicit ctx: Context) =
     jsAt("javascripts/" + name, async = async)
@@ -43,11 +46,12 @@ trait AssetHelper { self: I18nHelper =>
   def jsTagCompiled(name: String)(implicit ctx: Context) =
     if (isProd) jsAt("compiled/" + name) else jsTag(name)
 
-  def jsAt(path: String, static: Boolean, async: Boolean, version: AssetVersion): Html = Html {
-    s"""<script${if (async) " async defer" else ""} src="${if (static) staticUrl(path) else path}?v=$version"></script>"""
+  def jsAt(path: String, async: Boolean, version: AssetVersion): Html = Html {
+    val src = assetUrl(path, version)
+    s"""<script${if (async) " async defer" else ""} src="$src"></script>"""
   }
-  def jsAt(path: String, static: Boolean = true, async: Boolean = false)(implicit ctx: Context): Html =
-    jsAt(path, static, async, ctx.pageData.assetVersion)
+  def jsAt(path: String, async: Boolean = false)(implicit ctx: Context): Html =
+    jsAt(path, async, ctx.pageData.assetVersion)
 
   val jQueryTag = Html {
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""

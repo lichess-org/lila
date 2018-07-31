@@ -213,11 +213,11 @@ lidraughts.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
 lidraughts.isChrome = navigator.userAgent.indexOf('Chrome/') > -1;
 lidraughts.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
 lidraughts.initiatingHtml = '<div class="initiating">' + lidraughts.spinnerHtml + '</div>';
-lidraughts.assetUrl = function(url, opts) {
+lidraughts.assetUrl = function(path, opts) {
   opts = opts || {};
   var baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url');
   var version = document.body.getAttribute('data-asset-version');
-  return baseUrl + '/assets/' + url + (opts.noVersion ? '' : '?v=' + version);
+  return baseUrl + '/assets' + (opts.noVersion ? '' : '/' + version) + '/' + path;
 };
 lidraughts.loadedCss = {};
 lidraughts.loadCss = function(url, opts) {
