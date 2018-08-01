@@ -31,7 +31,10 @@ object Statistics {
     pov.game.moveTimes(pov.color)
 
   def highlyConsistentMoveTimes(pov: lidraughts.game.Pov): Boolean =
-    moveTimeCoefVariation(pov) ?? { cvIndicatesHighlyFlatTimes(_) }
+    if (pov.game.perfType != lidraughts.rating.PerfType.UltraBullet)
+      moveTimeCoefVariation(pov) ?? { cvIndicatesHighlyFlatTimes(_) }
+    else
+      false
 
   def cvIndicatesHighlyFlatTimes(c: Float) =
     c < 0.25
