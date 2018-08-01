@@ -50,6 +50,7 @@
   <string name="depthX">Doimhneachd %s</string>
   <string name="usingServerAnalysis">A\' cleachdadh mion-sgrùdadh an fhrithealaiche</string>
   <string name="loadingEngine">A\' luchdachadh an einnsean ...</string>
+  <string name="goDeeper">Rach nas doimhne</string>
   <string name="blunders">Tuislidhean</string>
   <string name="mistakes">Mearachdan</string>
   <string name="inaccuracies">Neo-eagnaidhean</string>
