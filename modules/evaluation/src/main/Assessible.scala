@@ -46,13 +46,31 @@ case class Assessible(analysed: Analysed) {
   def moderateChunkBlurRate(color: Color): Boolean =
     highestChunkBlurs(color) >= 7
 
+  def highlyConsistentMoveTimes(color: Color): Boolean =
+    if (game.perfType != lila.rating.PerfType.UltraBullet)
+      moveTimeCoefVariation(Pov(game, color)) ?? { cvIndicatesHighlyFlatTimes(_) }
+    else
+      false
+
+  // moderatelyConsistentMoveTimes must stay in Statistics because it's used in classes that do not use Assessible
+
+  def highlyConsistentMoveTimeStreaks(color: Color): Boolean =
+    slidingMoveTimesCvs(Pov(game, color)) ?? { mt =>
+      mt.filter(cvIndicatesHighlyFlatTimesForStreaks(_)).nonEmpty
+    }
+
+  def moderatelyConsistentMoveTimeStreaks(color: Color): Boolean =
+    slidingMoveTimesCvs(Pov(game, color)) ?? { mt =>
+      mt.filter(cvIndicatesModeratelyFlatTimes(_)).nonEmpty
+    }
+
   def mkFlags(color: Color): PlayerFlags = PlayerFlags(
     suspiciousErrorRate(color),
     alwaysHasAdvantage(color),
     highBlurRate(color) || highChunkBlurRate(color),
     moderateBlurRate(color) || moderateChunkBlurRate(color),
-    highlyConsistentMoveTimes(Pov(game, color)) || highlyConsistentMoveTimeStreaks(Pov(game, color)),
-    moderatelyConsistentMoveTimes(Pov(game, color)) || moderatelyConsistentMoveTimeStreaks(Pov(game, color)),
+    highlyConsistentMoveTimes(color) || highlyConsistentMoveTimeStreaks(color),
+    moderatelyConsistentMoveTimes(Pov(game, color)) || moderatelyConsistentMoveTimeStreaks(color),
     noFastMoves(Pov(game, color)),
     suspiciousHoldAlert(color)
   )
