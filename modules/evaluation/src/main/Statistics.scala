@@ -47,10 +47,7 @@ object Statistics {
 
   def slidingMoveTimesCvs(pov: lila.game.Pov): Option[Iterator[Float]] =
     moveTimes(pov) ?? { mt =>
-      val onlyMid = mt.drop(7).dropRight(7)
-      if (onlyMid.size < 10)
-        mt.drop(7).dropRight(7).iterator.sliding(10).filter({ _.count(Centis(0)==) < 4 }).map({ a => moveTimeCoefVariationNoDrop(a.toList) }).flatten.some
-      else None
+      mt.iterator.sliding(10).filter({ _.count(Centis(0)==) < 4 }).map({ a => moveTimeCoefVariationNoDrop(a.toList) }).flatten.some
     }
 
   def highlyConsistentMoveTimeStreaks(pov: lila.game.Pov): Boolean =
