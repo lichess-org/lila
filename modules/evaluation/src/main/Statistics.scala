@@ -30,38 +30,22 @@ object Statistics {
   def moveTimes(pov: lidraughts.game.Pov): Option[List[Centis]] =
     pov.game.moveTimes(pov.color)
 
-  def highlyConsistentMoveTimes(pov: lidraughts.game.Pov): Boolean =
-    if (pov.game.perfType != lidraughts.rating.PerfType.UltraBullet)
-      moveTimeCoefVariation(pov) ?? { cvIndicatesHighlyFlatTimes(_) }
-    else
-      false
-
   def cvIndicatesHighlyFlatTimes(c: Float) =
     c < 0.25
 
   def cvIndicatesHighlyFlatTimesForStreaks(c: Float) =
     c < 0.15
 
-  def moderatelyConsistentMoveTimes(pov: lidraughts.game.Pov): Boolean =
-    moveTimeCoefVariation(pov) ?? { cvIndicatesModeratelyFlatTimes(_) }
-
   def cvIndicatesModeratelyFlatTimes(c: Float) =
     c < 0.4
 
-  def slidingMoveTimesCvs(pov: lila.game.Pov): Option[Iterator[Float]] =
+  def slidingMoveTimesCvs(pov: lidraughts.game.Pov): Option[Iterator[Float]] =
     moveTimes(pov) ?? { mt =>
       mt.iterator.sliding(10).filter({ _.count(Centis(0)==) < 4 }).map({ a => moveTimeCoefVariationNoDrop(a.toList) }).flatten.some
     }
 
-  def highlyConsistentMoveTimeStreaks(pov: lila.game.Pov): Boolean =
-    slidingMoveTimesCvs(pov) ?? { mt =>
-      mt.filter(cvIndicatesHighlyFlatTimesForStreaks(_)).nonEmpty
-    }
-
-  def moderatelyConsistentMoveTimeStreaks(pov: lila.game.Pov): Boolean =
-    slidingMoveTimesCvs(pov) ?? { mt =>
-      mt.filter(cvIndicatesModeratelyFlatTimes(_)).nonEmpty
-    }
+  def moderatelyConsistentMoveTimes(pov: lidraughts.game.Pov): Boolean =
+    moveTimeCoefVariation(pov) ?? { cvIndicatesModeratelyFlatTimes(_) }
 
   private val fastMove = Centis(50)
   def noFastMoves(pov: lidraughts.game.Pov): Boolean = {
