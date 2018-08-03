@@ -290,7 +290,7 @@ object User extends LidraughtsController {
 
   def deleteNote(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.noteApi.byId(id)) { note =>
-      note.isFrom(me) ?? {
+      (note.isFrom(me) && !note.mod) ?? {
         env.noteApi.delete(note._id) inject Redirect(routes.User.show(note.to).url + "?note")
       }
     }
