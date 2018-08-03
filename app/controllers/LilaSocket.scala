@@ -14,7 +14,7 @@ trait LilaSocket { self: LilaController =>
 
   private val notFoundResponse = NotFound(jsonError("socket resource not found"))
 
-  protected def SocketEither[A: FrameFormatter](f: Context => Fu[Either[Result, Pipe[A]]]) =
+  protected def SocketEither[A: FrameFormatter](f: Context => Fu[Either[Result, Pipe[A]]]): WebSocket[A, A] =
     WebSocket.tryAccept[A] { req =>
       SocketCSRF(req) {
         reqToCtx(req) flatMap f
