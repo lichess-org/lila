@@ -116,7 +116,7 @@ private[round] final class SocketHandler(
     user: Option[User],
     ip: IpAddress,
     userTv: Option[User.ID],
-    version: Option[Int]
+    version: Option[SocketVersion]
   ): Fu[JsSocketHandler] = join(pov, none, uid, user, ip, userTv, version)
 
   def player(
@@ -124,7 +124,7 @@ private[round] final class SocketHandler(
     uid: Uid,
     user: Option[User],
     ip: IpAddress,
-    version: Option[Int]
+    version: Option[SocketVersion]
   ): Fu[JsSocketHandler] =
     join(pov, Some(pov.playerId), uid, user, ip, none, version)
 
@@ -135,7 +135,7 @@ private[round] final class SocketHandler(
     user: Option[User],
     ip: IpAddress,
     userTv: Option[User.ID],
-    version: Option[Int]
+    version: Option[SocketVersion]
   ): Fu[JsSocketHandler] = {
     val join = Join(
       uid = uid,

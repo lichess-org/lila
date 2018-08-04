@@ -160,7 +160,7 @@ private[round] final class Socket(
       // Mobile backwards compat
       vOpt foreach { v =>
         withMember(uid) { member =>
-          (history getEventsSince v).fold(resyncNow(member))(batch(member, _))
+          (history getEventsSince SocketVersion(v)).fold(resyncNow(member))(batch(member, _))
         }
       }
 

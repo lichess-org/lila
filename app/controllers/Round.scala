@@ -10,6 +10,7 @@ import lidraughts.common.HTTPRequest
 import lidraughts.game.{ Pov, GameRepo, Game => GameModel, PdnDump, PlayerRef }
 import lidraughts.tournament.{ TourMiniView, Tournament => Tour }
 import lidraughts.user.{ User => UserModel }
+import lidraughts.round.actorApi.SocketVersion
 import views._
 
 object Round extends LidraughtsController with TheftPrevention {
@@ -18,7 +19,7 @@ object Round extends LidraughtsController with TheftPrevention {
   private def analyser = Env.analyse.analyser
 
   def websocketWatcher(gameId: String, color: String) = SocketOption[JsValue] { implicit ctx =>
-    val version = getInt("v")
+    val version = getInt("v") map SocketVersion.apply
     proxyPov(gameId, color) flatMap {
       _ ?? { pov =>
         getSocketUid("sri") ?? { uid =>
@@ -36,7 +37,7 @@ object Round extends LidraughtsController with TheftPrevention {
   }
 
   def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither[JsValue] { implicit ctx =>
-    val version = getInt("v")
+    val version = getInt("v") map SocketVersion.apply
     proxyPov(fullId) flatMap {
       case Some(pov) =>
         if (isTheft(pov)) fuccess(Left(theftResponse))

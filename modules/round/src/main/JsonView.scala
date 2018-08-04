@@ -66,7 +66,7 @@ final class JsonView(
             "player" -> {
               commonPlayerJson(game, player, playerUser, withFlags) ++ Json.obj(
                 "id" -> playerId,
-                "version" -> socket.version
+                "version" -> socket.version.value
               )
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
             "opponent" -> {
@@ -159,7 +159,7 @@ final class JsonView(
             "correspondence" -> game.correspondenceClock,
             "player" -> {
               commonWatcherJson(game, player, playerUser, withFlags) ++ Json.obj(
-                "version" -> socket.version,
+                "version" -> socket.version.value,
                 "spectator" -> true
               )
             },
