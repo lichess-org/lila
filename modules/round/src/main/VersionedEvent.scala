@@ -5,9 +5,10 @@ import play.api.libs.json._
 import actorApi.Member
 import chess.Color
 import lila.game.Event
+import actorApi.SocketVersion
 
 case class VersionedEvent(
-    version: Int,
+    version: SocketVersion,
     typ: String,
     encoded: Either[String, JsValue],
     only: Option[Color],
@@ -22,13 +23,13 @@ case class VersionedEvent(
   }
 
   def jsFor(m: Member): JsObject = if (visibleBy(m)) {
-    if (decoded == JsNull) Json.obj("v" -> version, "t" -> typ)
+    if (decoded == JsNull) Json.obj("v" -> version.value, "t" -> typ)
     else Json.obj(
-      "v" -> version,
+      "v" -> version.value,
       "t" -> typ,
       "d" -> decoded
     )
-  } else Json.obj("v" -> version)
+  } else Json.obj("v" -> version.value)
 
   private def visibleBy(m: Member): Boolean =
     if (watcher && m.owner) false
@@ -41,7 +42,7 @@ case class VersionedEvent(
 
 private[round] object VersionedEvent {
 
-  def apply(e: Event, v: Int): VersionedEvent = VersionedEvent(
+  def apply(e: Event, v: SocketVersion): VersionedEvent = VersionedEvent(
     version = v,
     typ = e.typ,
     encoded = Right(e.data),
@@ -54,9 +55,11 @@ private[round] object VersionedEvent {
   import lila.db.BSON
   import reactivemongo.bson._
 
+  private implicit val SocketVersionHandler = lila.db.dsl.intAnyValHandler[SocketVersion](_.value, SocketVersion.apply)
+
   implicit val versionedEventHandler = new BSON[VersionedEvent] {
     def reads(r: BSON.Reader) = VersionedEvent(
-      version = r int "v",
+      version = r.get[SocketVersion]("v"),
       typ = r str "t",
       encoded = r.strO("d").map(Left.apply).getOrElse(Right(JsNull)),
       only = r boolO "o" map Color.apply,

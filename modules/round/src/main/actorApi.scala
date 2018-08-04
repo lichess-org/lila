@@ -77,14 +77,14 @@ case class Join(
     playerId: Option[String],
     ip: IpAddress,
     userTv: Option[User.ID],
-    version: Option[Int]
+    version: Option[SocketVersion]
 )
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)
 case class IsGone(color: Color)
 case object GetSocketStatus
 case class SocketStatus(
-    version: Int,
+    version: SocketVersion,
     whiteOnGame: Boolean,
     whiteIsGone: Boolean,
     blackOnGame: Boolean,
@@ -133,6 +133,11 @@ package round {
   case class GoBerserk(color: Color)
   case object NoStart
   case object TooManyPlies
+}
+
+case class SocketVersion(value: Int) extends AnyVal with IntValue with Ordered[SocketVersion] {
+  def compare(other: SocketVersion) = value compare other.value
+  def inc = SocketVersion(value + 1)
 }
 
 private[round] case object GetNbRounds

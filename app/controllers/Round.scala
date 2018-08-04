@@ -10,6 +10,7 @@ import lila.common.HTTPRequest
 import lila.game.{ Pov, GameRepo, Game => GameModel, PgnDump, PlayerRef }
 import lila.tournament.{ TourMiniView, Tournament => Tour }
 import lila.user.{ User => UserModel }
+import lila.round.actorApi.SocketVersion
 import views._
 
 object Round extends LilaController with TheftPrevention {
@@ -18,7 +19,7 @@ object Round extends LilaController with TheftPrevention {
   private def analyser = Env.analyse.analyser
 
   def websocketWatcher(gameId: String, color: String) = SocketOption[JsValue] { implicit ctx =>
-    val version = getInt("v")
+    val version = getInt("v") map SocketVersion.apply
     proxyPov(gameId, color) flatMap {
       _ ?? { pov =>
         getSocketUid("sri") ?? { uid =>
@@ -36,7 +37,7 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither[JsValue] { implicit ctx =>
-    val version = getInt("v")
+    val version = getInt("v") map SocketVersion.apply
     proxyPov(fullId) flatMap {
       case Some(pov) =>
         if (isTheft(pov)) fuccess(Left(theftResponse))

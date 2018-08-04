@@ -7,6 +7,7 @@ import reactivemongo.bson._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.game.Event
+import actorApi.SocketVersion
 
 /**
  * NOT THREAD SAFE
@@ -20,20 +21,20 @@ private[round] final class History(
 
   private var events: VersionedEvents = _
 
-  def getVersion: Int = {
+  def getVersion: SocketVersion = {
     waitForLoadedEvents
-    events.headOption.??(_.version)
+    events.headOption.fold(SocketVersion(0))(_.version)
   }
 
   // none if version asked is > to history version
   // none if an event is missing (asked too old version)
-  def getEventsSince(v: Int): Option[List[VersionedEvent]] = {
+  def getEventsSince(v: SocketVersion): Option[List[VersionedEvent]] = {
     waitForLoadedEvents
     val version = getVersion
     if (v > version) None
     else if (v == version) Some(Nil)
     else events.takeWhile(_.version > v).reverse.some filter {
-      case first :: rest => first.version == v + 1
+      case first :: rest => first.version == v.inc
       case _ => true
     }
   }
@@ -46,7 +47,7 @@ private[round] final class History(
   def addEvents(xs: List[Event]): VersionedEvents = {
     waitForLoadedEvents
     val vevs = xs.foldLeft(List.empty[VersionedEvent] -> getVersion) {
-      case ((vevs, v), e) => (VersionedEvent(e, v + 1) :: vevs, v + 1)
+      case ((vevs, v), e) => (VersionedEvent(e, v.inc) :: vevs, v.inc)
     }._1
     events = (vevs ::: events) take History.size
     if (persistenceEnabled) persist(events)
