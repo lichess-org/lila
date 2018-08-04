@@ -6,8 +6,6 @@ lidraughts.StrongSocket = function(url, version, settings) {
   var now = Date.now;
 
   var settings = $.extend(true, {}, lidraughts.StrongSocket.defaults, settings);
-  var url = url;
-  var version = version;
   var versioned = version !== false;
   var options = settings.options;
   var ws;
