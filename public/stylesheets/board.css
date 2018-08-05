@@ -133,7 +133,7 @@ piece.king3:not(.ghost):before {
 }
 .cg-512 piece {
   will-change: transform, opacity;
-  transform: opacity .1s;
+  transition: opacity .1s;
   transition-timing-function: linear;
 }
 .mini_board piece {
