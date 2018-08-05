@@ -79,7 +79,7 @@ object Handler {
           obj str "t" foreach { t =>
             control.lift(t -> obj)
           }
-        }).map(_ => socket ! Quit(uid.value))
+        }).map(_ => socket ! Quit(uid))
     }
 
     socket ? join map connecter map {

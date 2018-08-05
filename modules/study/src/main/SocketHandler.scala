@@ -13,7 +13,7 @@ import lidraughts.common.PimpedJson._
 import lidraughts.hub.actorApi.map._
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Socket.makeMessage
-import lidraughts.socket.Socket.Uid
+import lidraughts.socket.Socket.{ Uid, SocketVersion }
 import lidraughts.socket.{ Handler, AnaMove, AnaAny }
 import lidraughts.tree.Node.{ Shape, Shapes, Comment, Gamebook }
 import lidraughts.user.User
@@ -277,7 +277,7 @@ final class SocketHandler(
     studyId: Study.Id,
     uid: Uid,
     user: Option[User],
-    version: Option[Int]
+    version: Option[SocketVersion]
   ): Fu[Option[JsSocketHandler]] =
     getSocket(studyId) flatMap { socket =>
       join(studyId, uid, user, socket, member => makeController(socket, studyId, uid, member, user = user), version)
@@ -289,7 +289,7 @@ final class SocketHandler(
     user: Option[User],
     socket: ActorRef,
     controller: Socket.Member => Handler.Controller,
-    version: Option[Int]
+    version: Option[SocketVersion]
   ): Fu[Option[JsSocketHandler]] = {
     val join = Socket.Join(uid, user.map(_.id), user.??(_.troll), version)
     Handler(hub, socket, uid, join) {

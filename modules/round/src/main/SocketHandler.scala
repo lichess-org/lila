@@ -19,7 +19,7 @@ import lidraughts.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Re
 import lidraughts.hub.actorApi.shutup.PublicSource
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Handler
-import lidraughts.socket.Socket.Uid
+import lidraughts.socket.Socket.{ Uid, SocketVersion }
 import lidraughts.user.User
 import lidraughts.chat.Chat
 import makeTimeout.short
@@ -66,7 +66,7 @@ private[round] final class SocketHandler(
           case (move, blur, lag, ackId) =>
             val promise = Promise[Unit]
             promise.future onFailure {
-              case _: Exception => socket ! Resync(uid.value)
+              case _: Exception => socket ! Resync(uid)
             }
             send(HumanPlay(playerId, move, blur, lag, promise.some))
             member.push(ackMessage(ackId))

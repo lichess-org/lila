@@ -7,7 +7,7 @@ import actorApi._
 import lidraughts.hub.actorApi.map._
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Handler
-import lidraughts.socket.Socket.Uid
+import lidraughts.socket.Socket.{ Uid, SocketVersion }
 import lidraughts.user.User
 import lidraughts.chat.Chat
 import makeTimeout.short
@@ -23,7 +23,7 @@ private[simul] final class SocketHandler(
     simId: String,
     uid: Uid,
     user: Option[User],
-    version: Option[Int]
+    version: Option[SocketVersion]
   ): Fu[Option[JsSocketHandler]] =
     exists(simId) flatMap {
       _ ?? {

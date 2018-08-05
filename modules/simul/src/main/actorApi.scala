@@ -4,7 +4,7 @@ package actorApi
 import play.api.libs.json.JsObject
 
 import lidraughts.game.Game
-import lidraughts.socket.Socket.Uid
+import lidraughts.socket.Socket.{ Uid, SocketVersion }
 import lidraughts.socket.SocketMember
 import lidraughts.user.User
 
@@ -24,7 +24,7 @@ private[simul] object Member {
 
 private[simul] case class Messadata(trollish: Boolean = false)
 
-private[simul] case class Join(uid: Uid, user: Option[User], version: Option[Int])
+private[simul] case class Join(uid: Uid, user: Option[User], version: Option[SocketVersion])
 private[simul] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
 private[simul] case class StartGame(game: Game, hostId: String)
 private[simul] case class StartSimul(firstGame: Game, hostId: String)

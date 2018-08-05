@@ -4,10 +4,9 @@ import org.joda.time.DateTime
 import reactivemongo.api.commands.GetLastError
 import reactivemongo.bson._
 
-import lidraughts.db.BSON.BSONJodaDateTimeHandler
 import lidraughts.db.dsl._
 import lidraughts.game.Event
-import actorApi.SocketVersion
+import lidraughts.socket.Socket.SocketVersion
 
 /**
  * NOT THREAD SAFE

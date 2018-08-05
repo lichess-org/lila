@@ -6,7 +6,7 @@ import akka.pattern.ask
 import lidraughts.hub.actorApi.map._
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Handler
-import lidraughts.socket.Socket.Uid
+import lidraughts.socket.Socket.{ Uid, SocketVersion }
 import lidraughts.user.User
 import makeTimeout.short
 
@@ -21,7 +21,7 @@ private[challenge] final class SocketHandler(
     uid: Uid,
     userId: Option[User.ID],
     owner: Boolean,
-    version: Option[Int]
+    version: Option[SocketVersion]
   ): Fu[Option[JsSocketHandler]] = for {
     socket ← socketHub ? Get(challengeId) mapTo manifest[ActorRef]
     join = Socket.Join(uid, userId, owner, version)

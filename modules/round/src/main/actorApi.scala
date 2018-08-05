@@ -11,6 +11,7 @@ import lidraughts.game.Event
 import lidraughts.socket.Socket.Uid
 import lidraughts.socket.SocketMember
 import lidraughts.user.User
+import lidraughts.socket.Socket.SocketVersion
 
 case class EventList(events: List[Event])
 
@@ -136,11 +137,6 @@ package round {
   case class GoBerserk(color: Color)
   case object NoStart
   case object TooManyPlies
-}
-
-case class SocketVersion(value: Int) extends AnyVal with IntValue with Ordered[SocketVersion] {
-  def compare(other: SocketVersion) = value compare other.value
-  def inc = SocketVersion(value + 1)
 }
 
 private[round] case object GetNbRounds

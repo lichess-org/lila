@@ -3,6 +3,7 @@ package actorApi
 
 import lidraughts.game.Game
 import lidraughts.socket.SocketMember
+import lidraughts.socket.Socket.{ Uid, SocketVersion }
 import lidraughts.user.User
 
 private[tournament] case class Member(
@@ -22,9 +23,9 @@ private[tournament] object Member {
 private[tournament] case class Messadata(trollish: Boolean = false)
 
 private[tournament] case class Join(
-    uid: lidraughts.socket.Socket.Uid,
+    uid: Uid,
     user: Option[User],
-    version: Option[Int]
+    version: Option[SocketVersion]
 )
 private[tournament] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
 private[tournament] case object Reload

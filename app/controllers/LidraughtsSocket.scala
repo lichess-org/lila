@@ -7,12 +7,15 @@ import play.api.mvc.WebSocket.FrameFormatter
 import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.common.{ HTTPRequest, IpAddress }
+import lidraughts.socket.Socket.SocketVersion
 
 trait LidraughtsSocket { self: LidraughtsController =>
 
   private type Pipe[A] = (Iteratee[A, _], Enumerator[A])
 
   private val notFoundResponse = NotFound(jsonError("socket resource not found"))
+
+  protected def getSocketVersion(implicit ctx: Context) = getInt("v") map SocketVersion.apply
 
   protected def SocketEither[A: FrameFormatter](f: Context => Fu[Either[Result, Pipe[A]]]): WebSocket[A, A] =
     WebSocket.tryAccept[A] { req =>

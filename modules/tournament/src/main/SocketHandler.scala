@@ -10,7 +10,7 @@ import lidraughts.hub.actorApi.map._
 import lidraughts.security.Flood
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Handler
-import lidraughts.socket.Socket.Uid
+import lidraughts.socket.Socket.{ Uid, SocketVersion }
 import lidraughts.user.User
 import makeTimeout.short
 
@@ -25,7 +25,7 @@ private[tournament] final class SocketHandler(
     tourId: String,
     uid: Uid,
     user: Option[User],
-    version: Option[Int]
+    version: Option[SocketVersion]
   ): Fu[Option[JsSocketHandler]] =
     TournamentRepo.exists(tourId) flatMap {
       _ ?? {

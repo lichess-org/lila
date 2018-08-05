@@ -20,6 +20,7 @@ import lidraughts.hub.actorApi.tv.{ Select => TvSelect }
 import lidraughts.hub.TimeBomb
 import lidraughts.socket._
 import lidraughts.socket.actorApi.{ Connected => _, _ }
+import lidraughts.socket.Socket.Uid
 import makeTimeout.short
 
 private[round] final class Socket(
@@ -150,17 +151,17 @@ private[round] final class Socket(
       onDeploy(d)
       history.enablePersistence
 
-    case Ping(uid, vOpt, c) =>
+    case Ping(uid, vOpt, lagCentis) =>
       timeBomb.delay
-      ping(uid, c)
-      ownerOf(uid) foreach { o =>
+      ping(uid, lagCentis)
+      ownerOf(uid.value) foreach { o =>
         playerDo(o.color, _.ping)
       }
 
       // Mobile backwards compat
       vOpt foreach { v =>
         withMember(uid) { member =>
-          (history getEventsSince SocketVersion(v)).fold(resyncNow(member))(batch(member, _))
+          (history getEventsSince v).fold(resyncNow(member))(batch(member, _))
         }
       }
 
@@ -195,7 +196,7 @@ private[round] final class Socket(
     case Join(uid, user, color, playerId, ip, userTv, version) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user, color, playerId, ip, userTv = userTv)
-      addMember(uid.value, member)
+      addMember(uid, member)
       notifyCrowd
       if (playerId.isDefined) playerDo(color, _.ping)
       if (member.userTv.isDefined) buscriptions.tv
@@ -269,11 +270,9 @@ private[round] final class Socket(
     send = (t, d, _) => notifyAll(t, d)
   )
 
-  override def quit(uid: String) = {
-    members get uid foreach { member =>
-      super.quit(uid)
-      notifyCrowd
-    }
+  override def quit(uid: Uid) = withMember(uid) { member =>
+    super.quit(uid)
+    notifyCrowd
   }
 
   def notifyCrowd: Unit = {

@@ -8,6 +8,7 @@ import lidraughts.app._
 import lidraughts.challenge.{ Challenge => ChallengeModel }
 import lidraughts.common.{ HTTPRequest, LidraughtsCookie }
 import lidraughts.game.{ Pov, GameRepo, AnonCookie }
+import lidraughts.socket.Socket.SocketVersion
 import lidraughts.user.UserRepo
 import views.html
 
@@ -165,11 +166,10 @@ object Challenge extends LidraughtsController {
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    val version = getInt("v")
     env.api byId id flatMap {
       _ ?? { c =>
         getSocketUid("sri") ?? { uid =>
-          env.socketHandler.join(id, uid, ctx.userId, isMine(c), version)
+          env.socketHandler.join(id, uid, ctx.userId, isMine(c), getSocketVersion)
         }
       }
     }

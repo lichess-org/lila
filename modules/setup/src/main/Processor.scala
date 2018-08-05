@@ -28,7 +28,7 @@ private[setup] final class Processor(
 
   def hook(
     configBase: HookConfig,
-    uid: String,
+    uid: lidraughts.socket.Socket.Uid,
     sid: Option[String],
     blocking: Set[String]
   )(implicit ctx: UserContext): Fu[Processor.HookResult] = {

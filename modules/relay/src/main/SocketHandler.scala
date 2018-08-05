@@ -2,7 +2,7 @@ package lidraughts.relay
 
 import akka.actor._
 
-import lidraughts.socket.Socket.Uid
+import lidraughts.socket.Socket.{ Uid, SocketVersion }
 import lidraughts.socket.{ Handler, JsSocketHandler }
 import lidraughts.study.{ Study, Socket, SocketHandler => StudyHandler }
 import lidraughts.user.User
@@ -34,7 +34,7 @@ private[relay] final class SocketHandler(
     relayId: Relay.Id,
     uid: Uid,
     user: Option[User],
-    version: Option[Int]
+    version: Option[SocketVersion]
   ): Fu[Option[JsSocketHandler]] = {
     val studyId = Study.Id(relayId.value)
     studyHandler.getSocket(studyId) flatMap { socket =>
