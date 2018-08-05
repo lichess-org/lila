@@ -18,7 +18,9 @@ case class Categ(
   def id = _id
 
   def nbTopics(troll: Boolean): Int = if (troll) nbTopicsTroll else nbTopics
+
   def nbPosts(troll: Boolean): Int = if (troll) nbPostsTroll else nbPosts
+
   def lastPostId(troll: Boolean): String = if (troll) lastPostIdTroll else lastPostId
 
   def isStaff = slug == Categ.staffId

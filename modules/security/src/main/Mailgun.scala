@@ -22,7 +22,7 @@ final class Mailgun(
 
   def send(msg: Mailgun.Message): Funit =
     if (apiUrl.isEmpty) {
-      println(msg, "No mailgun API URL")
+      println(s"No mailgun API URL: $msg")
       funit
     } else WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
       "from" -> Seq(msg.from | from),

@@ -36,7 +36,9 @@ private[team] final class Cached(
 
   val nbRequests = asyncCache.clearable[lila.user.User.ID, Int](
     name = "team.nbRequests",
-    f = userId => TeamRepo teamIdsByCreator userId flatMap RequestRepo.countByTeams,
+    f = { userId =>
+      TeamRepo teamIdsByCreator userId flatMap RequestRepo.countByTeams
+    },
     expireAfter = _.ExpireAfterAccess(12 minutes)
   )
 }

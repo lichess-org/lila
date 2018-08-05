@@ -2,11 +2,8 @@ package lila.puzzle
 
 import scala.concurrent.duration._
 
-import play.api.libs.json.JsValue
-
 import lila.db.dsl._
 import lila.user.User
-import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class PuzzleApi(
     puzzleColl: Coll,
@@ -18,21 +15,19 @@ private[puzzle] final class PuzzleApi(
     apiToken: String
 ) {
 
-  import Puzzle.puzzleBSONHandler
+  import Puzzle.{ BSONFields => F, puzzleBSONHandler }
 
   object puzzle {
 
     def find(id: PuzzleId): Fu[Option[Puzzle]] =
-      puzzleColl.find($doc(F.id -> id)).uno[Puzzle]
+      puzzleColl.find($doc(F.id -> id)).one[Puzzle]
 
     def findMany(ids: List[PuzzleId]): Fu[List[Option[Puzzle]]] =
       puzzleColl.optionsByOrderedIds[Puzzle, PuzzleId](ids)(_.id)
 
     def latest(nb: Int): Fu[List[Puzzle]] =
-      puzzleColl.find($empty)
-        .sort($doc(F.date -> -1))
-        .cursor[Puzzle]()
-        .gather[List](nb)
+      puzzleColl.find($empty).sort($doc(F.date -> -1))
+        .cursor[Puzzle]().list(nb)
 
     val cachedLastId = asyncCache.single(
       name = "puzzle.lastId",
@@ -41,27 +36,24 @@ private[puzzle] final class PuzzleApi(
     )
 
     def export(nb: Int): Fu[List[Puzzle]] = List(true, false).map { mate =>
-      puzzleColl.find($doc(F.mate -> mate))
-        .sort($doc(F.voteRatio -> -1))
-        .cursor[Puzzle]().gather[List](nb / 2)
+      puzzleColl.find($doc(F.mate -> mate)).sort($doc(F.voteRatio -> -1))
+        .cursor[Puzzle]().list(nb / 2)
     }.sequenceFu.map(_.flatten)
 
-    def disable(id: PuzzleId): Funit =
-      puzzleColl.update(
-        $id(id),
-        $doc("$set" -> $doc(F.vote -> AggregateVote.disable))
-      ).void
+    def disable(id: PuzzleId): Funit = puzzleColl.update.one(
+      q = $id(id), u = $doc("$set" -> $doc(F.vote -> AggregateVote.disable))
+    ).void
   }
 
   object round {
 
-    def add(a: Round) = roundColl insert a
+    def add(a: Round) = roundColl.insert.one(a)
 
-    def upsert(a: Round) = roundColl.update($id(a.id), a, upsert = true)
+    def upsert(a: Round) = roundColl.update.one($id(a.id), a, upsert = true)
 
-    def reset(user: User) = roundColl.remove($doc(
-      Round.BSONFields.id $startsWith s"${user.id}:"
-    ))
+    def reset(user: User) = roundColl.delete.one(
+      $doc(Round.BSONFields.id $startsWith s"${user.id}:")
+    )
   }
 
   object vote {
@@ -69,7 +61,8 @@ private[puzzle] final class PuzzleApi(
     def value(id: PuzzleId, user: User): Fu[Option[Boolean]] =
       voteColl.primitiveOne[Boolean]($id(Vote.makeId(id, user.id)), "v")
 
-    def find(id: PuzzleId, user: User): Fu[Option[Vote]] = voteColl.byId[Vote](Vote.makeId(id, user.id))
+    def find(id: PuzzleId, user: User): Fu[Option[Vote]] =
+      voteColl.byId[Vote](Vote.makeId(id, user.id))
 
     def update(id: PuzzleId, user: User, v1: Option[Vote], v: Boolean): Fu[(Puzzle, Vote)] = puzzle find id flatMap {
       case None => fufail(s"Can't vote for non existing puzzle ${id}")
@@ -84,12 +77,12 @@ private[puzzle] final class PuzzleApi(
             Vote(Vote.makeId(id, user.id), v)
           )
         }
-        voteColl.update(
+
+        voteColl.update.one(
           $id(v2.id),
           $set("v" -> v),
           upsert = true
-        ) zip
-          puzzleColl.update(
+        ) zip puzzleColl.update.one(
             $id(p2.id),
             $set(F.vote -> p2.vote)
           ) map {
@@ -99,10 +92,11 @@ private[puzzle] final class PuzzleApi(
   }
 
   object head {
+    def find(user: User): Fu[Option[PuzzleHead]] =
+      headColl.byId[PuzzleHead](user.id)
 
-    def find(user: User): Fu[Option[PuzzleHead]] = headColl.byId[PuzzleHead](user.id)
-
-    def set(h: PuzzleHead) = headColl.update($id(h.id), h, upsert = true) void
+    def set(h: PuzzleHead): Funit =
+      headColl.update.one($id(h.id), h, upsert = true).void
 
     def addNew(user: User, puzzleId: PuzzleId) = set(PuzzleHead(user.id, puzzleId.some, puzzleId))
 

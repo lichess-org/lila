@@ -89,7 +89,6 @@ final class StudySearchApi(
   private val multiSpaceRegex = """\s{2,}""".r
   private def noMultiSpace(text: String) = multiSpaceRegex.replaceAllIn(text, " ")
 
-  import reactivemongo.play.iteratees.cursorProducer
   def reset(sinceStr: String, system: akka.actor.ActorSystem) = client match {
     case c: ESClientHttp => {
       val sinceOption: Either[Unit, Option[DateTime]] =
@@ -106,7 +105,10 @@ final class StudySearchApi(
       }
       logger.info(s"Index to ${c.index.name} since $since")
       val retryLogger = logger.branch("index")
+
       import lila.db.dsl._
+      import reactivemongo.play.iteratees.cursorProducer
+
       studyRepo.cursor($doc("createdAt" $gte since), sort = $sort asc "createdAt").enumerator() &>
         Enumeratee.grouped(Iteratee takeUpTo 12) |>>>
         Iteratee.foldM[Seq[Study], Int](0) {

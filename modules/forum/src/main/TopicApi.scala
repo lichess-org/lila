@@ -64,9 +64,9 @@ private[forum] final class TopicApi(
           categId = categ.id,
           modIcon = (~data.post.modIcon && ~ctx.me.map(MasterGranter(_.PublicMod))).option(true)
         )
-        env.postColl.insert(post) >>
-          env.topicColl.insert(topic withPost post) >>
-          env.categColl.update($id(categ.id), categ withTopic post) >>-
+        env.postColl.insert.one(post) >>
+          env.topicColl.insert.one(topic withPost post) >>
+          env.categColl.update.one($id(categ.id), categ withTopic post) >>-
           (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
           (!categ.quiet ?? env.recent.invalidate) >>-
           ctx.userId.?? { userId =>
@@ -77,7 +77,9 @@ private[forum] final class TopicApi(
             }
           } >>- {
             (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
-              timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|> { prop =>
+              timeline ! Propagate(ForumPost(
+                userId, topic.id.some, topic.name, post.id
+              )).|> { prop =>
                 if (post.isStaff) prop toStaffFriendsOf userId
                 else prop toFollowersOf userId
               }
@@ -110,9 +112,9 @@ private[forum] final class TopicApi(
       categId = categ.id,
       modIcon = true.some
     )
-    env.postColl.insert(post) >>
-      env.topicColl.insert(topic withPost post) >>
-      env.categColl.update($id(categ.id), categ withTopic post) >>-
+    env.postColl.insert.one(post) >>
+      env.topicColl.insert.one(topic withPost post) >>
+      env.categColl.update.one($id(categ.id), categ withTopic post) >>-
       (indexer ! InsertPost(post)) >>-
       env.recent.invalidate >>-
       bus.publish(actorApi.CreatePost(post, topic), 'forumPost) void
@@ -131,9 +133,12 @@ private[forum] final class TopicApi(
         }
       }
     }
-    val cachedAdapter =
+
+    val cachedAdapter = {
       if (categ.isTeam) adapter
       else new CachedAdapter(adapter, nbResults = fuccess(1000))
+    }
+
     Paginator(
       adapter = cachedAdapter,
       currentPage = page,
@@ -143,20 +148,17 @@ private[forum] final class TopicApi(
 
   def getSticky(categ: Categ, troll: Boolean): Fu[List[TopicView]] =
     TopicRepo.stickyByCateg(categ) flatMap { topics =>
-      scala.concurrent.Future.sequence(topics map {
-        topic =>
-          {
-            env.postColl.byId[Post](topic lastPostId troll) map { post =>
-              TopicView(categ, topic, post, env.postApi lastPageOf topic, troll)
-            }
-          }
+      scala.concurrent.Future.sequence(topics map { topic =>
+        env.postColl.byId[Post](topic lastPostId troll) map { post =>
+          TopicView(categ, topic, post, env.postApi lastPageOf topic, troll)
+        }
       })
     }
 
   def delete(categ: Categ, topic: Topic): Funit =
     PostRepo.idsByTopicId(topic.id) flatMap { postIds =>
-      (PostRepo removeByTopic topic.id zip env.topicColl.remove($id(topic.id))) >>
-        (env.categApi denormalize categ) >>-
+      (PostRepo removeByTopic topic.id zip env.topicColl.delete
+        .one($id(topic.id))) >> (env.categApi denormalize categ) >>-
         (indexer ! RemovePosts(postIds)) >>-
         env.recent.invalidate
     }
@@ -186,7 +188,7 @@ private[forum] final class TopicApi(
     lastPost ← PostRepo lastByTopic topic
     nbPostsTroll ← PostRepoTroll countByTopic topic
     lastPostTroll ← PostRepoTroll lastByTopic topic
-    _ ← env.topicColl.update($id(topic.id), topic.copy(
+    _ ← env.topicColl.update.one($id(topic.id), topic.copy(
       nbPosts = nbPosts,
       lastPostId = lastPost ?? (_.id),
       updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),

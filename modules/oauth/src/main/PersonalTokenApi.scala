@@ -1,7 +1,5 @@
 package lila.oauth
 
-import org.joda.time.DateTime
-
 import lila.db.dsl._
 import lila.user.User
 
@@ -17,12 +15,13 @@ final class PersonalTokenApi(
     tokenColl.find($doc(
       F.userId -> u.id,
       F.clientId -> clientId
-    )).sort($sort desc F.createdAt).list[AccessToken](100)
+    )).sort($sort desc F.createdAt).cursor[AccessToken]().list(100)
 
-  def create(token: AccessToken) = tokenColl insert token void
+  def create(token: AccessToken): Funit =
+    tokenColl.insert.one(token).void
 
-  def deleteBy(tokenId: AccessToken.Id, user: User) =
-    tokenColl.remove($doc(
+  def deleteBy(tokenId: AccessToken.Id, user: User): Funit =
+    tokenColl.delete.one($doc(
       F.id -> tokenId,
       F.clientId -> clientId,
       F.userId -> user.id

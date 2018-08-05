@@ -1,8 +1,13 @@
 package lila.user
 
 import org.joda.time.DateTime
-import reactivemongo.api._
-import reactivemongo.api.commands.GetLastError
+
+import reactivemongo.api.{
+  CursorProducer,
+  ReadConcern,
+  ReadPreference,
+  WriteConcern
+}
 import reactivemongo.bson._
 
 import lila.common.ApiVersion
@@ -27,7 +32,8 @@ object UserRepo {
   val normalize = User normalize _
 
   def topNbGame(nb: Int): Fu[List[User]] =
-    coll.find(enabledSelect).sort($sort desc "count.game").cursor[User]().gather[List](nb)
+    coll.find(enabledSelect).sort($sort desc "count.game")
+      .cursor[User]().list(nb)
 
   def byId(id: ID): Fu[Option[User]] = coll.byId[User](id)
 
@@ -35,8 +41,11 @@ object UserRepo {
 
   def byIdsSecondary(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids, ReadPreference.secondaryPreferred)
 
-  def byEmail(email: EmailAddress): Fu[Option[User]] = coll.uno[User]($doc(F.email -> email))
-  def byPrevEmail(email: EmailAddress): Fu[List[User]] = coll.find($doc(F.prevEmail -> email)).list[User]()
+  def byEmail(email: EmailAddress): Fu[Option[User]] =
+    coll.find($doc(F.email -> email)).one[User]
+
+  def byPrevEmail(email: EmailAddress): Fu[List[User]] =
+    coll.find($doc(F.prevEmail -> email)).cursor[User]().list
 
   def idByEmail(email: EmailAddress): Fu[Option[String]] =
     coll.primitiveOne[String]($doc(F.email -> email), "_id")
@@ -67,46 +76,49 @@ object UserRepo {
     byOrderedIds(userIds, ReadPreference.secondaryPreferred)
 
   def enabledByIds(ids: Iterable[ID]): Fu[List[User]] =
-    coll.list[User](enabledSelect ++ $inIds(ids), ReadPreference.secondaryPreferred)
+    coll.find(enabledSelect ++ $inIds(ids)).
+      cursor[User](ReadPreference.secondaryPreferred).list
 
   def enabledById(id: ID): Fu[Option[User]] =
-    coll.uno[User](enabledSelect ++ $id(id))
+    coll.find(enabledSelect ++ $id(id)).one[User]
 
-  def named(username: String): Fu[Option[User]] = coll.byId[User](normalize(username))
+  def named(username: String): Fu[Option[User]] =
+    coll.byId[User](normalize(username))
 
-  def nameds(usernames: List[String]): Fu[List[User]] = coll.byIds[User](usernames.map(normalize))
+  def nameds(usernames: List[String]): Fu[List[User]] =
+    coll.byIds[User](usernames.map(normalize))
 
   // expensive, send to secondary
   def byIdsSortRatingNoBot(ids: Iterable[ID], nb: Int): Fu[List[User]] =
     coll.find($inIds(ids) ++ goodLadSelectBson ++ botSelect(false))
       .sort($sort desc "perfs.standard.gl.r")
-      .list[User](nb, ReadPreference.secondaryPreferred)
+      .cursor[User](ReadPreference.secondaryPreferred).list(nb)
 
   // expensive, send to secondary
   def idsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
     coll.find(
       $inIds(ids) ++ goodLadSelectBson,
-      $id(true)
-    )
-      .sort($doc(s"perfs.standard.gl.r" -> -1))
-      .list[Bdoc](nb, ReadPreference.secondaryPreferred).map {
+      projection = Some($id(true))
+    ).sort($doc(s"perfs.standard.gl.r" -> -1))
+      .cursor[Bdoc](ReadPreference.secondaryPreferred).list(nb).map {
         _.flatMap { _.getAs[User.ID]("_id") }
       }
 
-  private[user] def allSortToints(nb: Int) =
-    coll.find($empty).sort($sort desc F.toints).cursor[User]().gather[List](nb)
+  private[user] def allSortToints(nb: Int): Fu[List[User]] =
+    coll.find($empty).sort($sort desc F.toints).cursor[User]().list(nb)
 
   def usernameById(id: ID) =
     coll.primitiveOne[User.ID]($id(id), F.username)
 
-  def usernamesByIds(ids: List[ID]) =
-    coll.distinct[String, List](F.username, $inIds(ids).some)
+  def usernamesByIds(ids: List[ID]) = coll.distinct[String, List](
+    F.username, $inIds(ids).some, ReadConcern.Local, None
+  )
 
   def orderByGameCount(u1: User.ID, u2: User.ID): Fu[Option[(User.ID, User.ID)]] = {
     coll.find(
       $inIds(List(u1, u2)),
-      $doc(s"${F.count}.game" -> true)
-    ).list[Bdoc]() map { docs =>
+      projection = Some($doc(s"${F.count}.game" -> true))
+    ).cursor[Bdoc]().list map { docs =>
         docs.sortBy {
           _.getAs[Bdoc](F.count).flatMap(_.getAs[BSONNumberLike]("game")).??(_.toInt)
         }.map(_.getAs[User.ID]("_id")).flatten match {
@@ -118,8 +130,8 @@ object UserRepo {
 
   def firstGetsWhite(u1: User.ID, u2: User.ID): Fu[Boolean] = coll.find(
     $inIds(List(u1, u2)),
-    $id(true)
-  ).sort($doc(F.colorIt -> 1)).uno[Bdoc].map {
+    projection = Some($id(true))
+  ).sort($doc(F.colorIt -> 1)).one[Bdoc].map {
       _.fold(scala.util.Random.nextBoolean) { doc =>
         doc.getAs[User.ID]("_id") contains u1
       }
@@ -133,14 +145,16 @@ object UserRepo {
       case (u1, u2) => firstGetsWhite(u1, u2)
     }
 
-  def incColor(userId: User.ID, value: Int): Unit =
-    coll.update(
-      $id(userId) ++ (value < 0).??($doc("colorIt" $gt -3)),
-      $inc(F.colorIt -> value),
-      writeConcern = GetLastError.Unacknowledged
+  def incColor(userId: User.ID, value: Int): Unit = {
+    coll.update(false, WriteConcern.Unacknowledged).one(
+      q = $id(userId) ++ (value < 0).??($doc("colorIt" $gt -3)),
+      u = $inc(F.colorIt -> value)
     )
 
-  def lichess = byId(User.lichessId)
+    ()
+  }
+
+  def lichess: Fu[Option[User]] = byId(User.lichessId)
 
   val irwinId = "irwin"
   def irwin = byId(irwinId)
@@ -153,22 +167,20 @@ object UserRepo {
         )
       }
     }
-    diff.nonEmpty ?? coll.update(
-      $id(user.id),
-      $doc("$set" -> $doc(diff))
+
+    diff.nonEmpty ?? coll.update.one(
+      $id(user.id), $doc("$set" -> $doc(diff))
     ).void
   }
 
-  def setPerf(userId: String, pt: PerfType, perf: Perf) =
-    coll.update($id(userId), $set(
+  def setPerf(userId: String, pt: PerfType, perf: Perf): Funit =
+    coll.update.one(q = $id(userId), u = $set(
       s"${F.perfs}.${pt.key}" -> Perf.perfBSONHandler.write(perf)
     )).void
 
-  def setProfile(id: ID, profile: Profile): Funit =
-    coll.update(
-      $id(id),
-      $set(F.profile -> Profile.profileBSONHandler.write(profile))
-    ).void
+  def setProfile(id: ID, profile: Profile): Funit = coll.update.one(
+    $id(id), $set(F.profile -> Profile.profileBSONHandler.write(profile))
+  ).void
 
   def addTitle(id: ID, title: String): Funit =
     coll.updateField($id(id), F.title, title).void
@@ -176,8 +188,9 @@ object UserRepo {
   def removeTitle(id: ID): Funit =
     coll.unsetField($id(id), F.title).void
 
-  def setPlayTime(id: ID, playTime: User.PlayTime): Funit =
-    coll.update($id(id), $set(F.playTime -> User.playTimeHandler.write(playTime))).void
+  def setPlayTime(id: ID, playTime: User.PlayTime): Funit = coll.update.one(
+    $id(id), $set(F.playTime -> User.playTimeHandler.write(playTime))
+  ).void
 
   def getPlayTime(id: ID): Fu[Option[User.PlayTime]] =
     coll.primitiveOne[User.PlayTime]($id(id), F.playTime)
@@ -223,11 +236,13 @@ object UserRepo {
         tvTime map (v => BSONElement(s"${F.playTime}.tv", BSONInteger(v + 2)))
       ).flatten
 
-    coll.update($id(id), $inc(incs))
+    coll.update.one($id(id), $inc(incs))
   }
 
-  def incToints(id: ID, nb: Int) = coll.update($id(id), $inc("toints" -> nb))
-  def removeAllToints = coll.update($empty, $unset("toints"), multi = true)
+  def incToints(id: ID, nb: Int) =
+    coll.update.one($id(id), $inc("toints" -> nb))
+
+  def removeAllToints = coll.update.one($empty, $unset("toints"), multi = true)
 
   def create(
     username: String,
@@ -241,7 +256,7 @@ object UserRepo {
       _ ?? {
         val doc = newUser(username, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail) ++
           ("len" -> BSONInteger(username.size))
-        coll.insert(doc) >> named(normalize(username))
+        coll.insert.one(doc) >> named(normalize(username))
       }
     }
 
@@ -261,19 +276,17 @@ object UserRepo {
     User.couldBeUsername(text) ?? {
       coll.find(
         $doc(F.id $startsWith normalize(text)) ++ enabledSelect,
-        $doc(F.id -> true)
+        projection = Some($doc(F.id -> true))
       )
         .sort($doc("len" -> 1))
-        .cursor[Bdoc](ReadPreference.secondaryPreferred).gather[List](max)
-        .map {
+        .cursor[Bdoc](ReadPreference.secondaryPreferred).list(max).map {
           _ flatMap { _.getAs[String](F.id) }
         }
     }
 
-  def toggleEngine(id: ID): Funit =
-    coll.fetchUpdate[User]($id(id)) { u =>
-      $set("engine" -> !u.engine)
-    }
+  def toggleEngine(id: ID): Funit = coll.fetchUpdate[User]($id(id)) { u =>
+    $set("engine" -> !u.engine)
+  }
 
   def setEngine(id: ID, v: Boolean): Funit = coll.updateField($id(id), "engine", v).void
 
@@ -297,19 +310,18 @@ object UserRepo {
 
   def setRoles(id: ID, roles: List[String]) = coll.updateField($id(id), "roles", roles)
 
-  def disableTwoFactor(id: ID) = coll.update($id(id), $unset(F.totpSecret))
+  def disableTwoFactor(id: ID) = coll.update.one($id(id), $unset(F.totpSecret))
 
   def setupTwoFactor(id: ID, totp: TotpSecret): Funit =
-    coll.update(
-      $id(id) ++ (F.totpSecret $exists false), // never overwrite existing secret
-      $set(F.totpSecret -> totp.secret)
+    coll.update.one( // never overwrite existing secret
+      q = $id(id) ++ (F.totpSecret $exists false),
+      u = $set(F.totpSecret -> totp.secret)
     ).void
 
   def enable(id: ID) = coll.updateField($id(id), F.enabled, true)
 
-  def disable(user: User, keepEmail: Boolean) = coll.update(
-    $id(user.id),
-    $set(F.enabled -> false) ++ $unset(F.roles) ++ {
+  def disable(user: User, keepEmail: Boolean) = coll.update.one(
+    q = $id(user.id), u = $set(F.enabled -> false) ++ $unset(F.roles) ++ {
       if (keepEmail) $empty
       else $doc("$rename" -> $doc(F.email -> F.prevEmail))
     }
@@ -321,18 +333,20 @@ object UserRepo {
       _.map { _.hashToken }
     }
 
-  def email(id: ID, email: EmailAddress): Funit =
-    coll.update($id(id), $set(F.email -> email) ++ $unset(F.prevEmail)).void
+  def email(id: ID, email: EmailAddress): Funit = coll.update.one($id(id), $set(
+    F.email -> email
+  ) ++ $unset(F.prevEmail)).void
 
   def email(id: ID): Fu[Option[EmailAddress]] = coll.primitiveOne[EmailAddress]($id(id), F.email)
 
   def emails(id: ID): Fu[User.Emails] =
-    coll.find($id(id), $doc(F.email -> true, F.prevEmail -> true)).uno[Bdoc].map { doc =>
-      User.Emails(
-        current = doc.flatMap(_.getAs[EmailAddress](F.email)),
-        previous = doc.flatMap(_.getAs[EmailAddress](F.prevEmail))
-      )
-    }
+    coll.find($id(id), Some($doc(F.email -> true, F.prevEmail -> true))).
+      one[Bdoc].map { doc =>
+        User.Emails(
+          current = doc.flatMap(_.getAs[EmailAddress](F.email)),
+          previous = doc.flatMap(_.getAs[EmailAddress](F.prevEmail))
+        )
+      }
 
   def hasEmail(id: ID): Fu[Boolean] = email(id).map(_.isDefined)
 
@@ -356,31 +370,35 @@ object UserRepo {
 
   def perfOf(id: ID, perfType: PerfType): Fu[Option[Perf]] = coll.find(
     $id(id),
-    $doc(s"${F.perfs}.${perfType.key}" -> true)
-  ).uno[Bdoc].map {
+    projection = Some($doc(s"${F.perfs}.${perfType.key}" -> true))
+  ).one[Bdoc].map {
       _.flatMap { docPerf(_, perfType) }
     }
 
   def perfOf(ids: Iterable[ID], perfType: PerfType): Fu[Map[ID, Perf]] = coll.find(
     $inIds(ids),
-    $doc(s"${F.perfs}.${perfType.key}" -> true)
-  ).cursor[Bdoc]()
-    .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[Bdoc]]()).map { docs =>
+    projection = Some($doc(s"${F.perfs}.${perfType.key}" -> true))
+  ).cursor[Bdoc]().list.map { docs =>
       docs.map { doc =>
         ~doc.getAs[ID]("_id") -> docPerf(doc, perfType).getOrElse(Perf.default)
       }(scala.collection.breakOut)
     }
 
-  def setSeenAt(id: ID): Unit =
-    coll.updateFieldUnchecked($id(id), "seenAt", DateTime.now)
+  def setSeenAt(id: ID): Unit = {
+    coll.update(false, WriteConcern.Unacknowledged)
+      .one($id(id), $set("seenAt" -> DateTime.now))
 
-  def recentlySeenNotKidIdsCursor(since: DateTime)(implicit cp: CursorProducer[Bdoc]) =
+    ()
+  }
+
+  def recentlySeenNotKidIdsCursor(since: DateTime)(implicit cursorProducer: CursorProducer[Bdoc]) =
     coll.find($doc(
       F.enabled -> true,
       "seenAt" $gt since,
       "count.game" $gt 9,
       "kid" $ne true
-    ), $id(true)).cursor[Bdoc](readPreference = ReadPreference.secondary)
+    ), projection = Some($id(true)))
+      .cursor[Bdoc](ReadPreference.secondary)
 
   def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang).void
 
@@ -403,13 +421,16 @@ object UserRepo {
     )
 
   def filterByEnabledPatrons(userIds: List[User.ID]): Fu[Set[User.ID]] =
-    coll.distinct[String, Set](F.id, Some($inIds(userIds) ++ enabledSelect ++ patronSelect))
+    coll.distinct[String, Set](F.id, Some($inIds(userIds) ++ enabledSelect ++ patronSelect), ReadConcern.Local, None)
 
   def userIdsWithRoles(roles: List[String]): Fu[Set[User.ID]] =
-    coll.distinct[String, Set]("_id", $doc("roles" $in roles).some)
+    coll.distinct[String, Set]("_id", $doc("roles" $in roles).some, ReadConcern.Local, None)
 
   def countEngines(userIds: List[User.ID]): Fu[Int] =
-    coll.countSel($inIds(userIds) ++ engineSelect(true), ReadPreference.secondaryPreferred)
+    coll.countSel(
+      $inIds(userIds) ++ engineSelect(true),
+      ReadPreference.secondaryPreferred
+    )
 
   def containsEngine(userIds: List[User.ID]): Fu[Boolean] =
     coll.exists($inIds(userIds) ++ engineSelect(true))
@@ -417,11 +438,11 @@ object UserRepo {
   def mustConfirmEmail(id: User.ID): Fu[Boolean] =
     coll.exists($id(id) ++ $doc(F.mustConfirmEmail $exists true))
 
-  def setEmailConfirmed(id: User.ID): Funit = coll.update($id(id), $unset(F.mustConfirmEmail)).void
+  def setEmailConfirmed(id: User.ID): Funit =
+    coll.update.one($id(id), $unset(F.mustConfirmEmail)).void
 
-  def erase(user: User): Funit = coll.update(
-    $id(user.id),
-    $unset(F.profile) ++ $set("erasedAt" -> DateTime.now)
+  def erase(user: User): Funit = coll.update.one(
+    $id(user.id), $unset(F.profile) ++ $set("erasedAt" -> DateTime.now)
   ).void
 
   def isErased(user: User): Fu[User.Erased] =

@@ -1,8 +1,6 @@
 package lila.common
 
 import akka.actor._
-import play.api.libs.iteratee._
-import play.api.libs.json._
 
 object HttpStream {
 

@@ -2,7 +2,6 @@ package lila.game
 
 import java.security.MessageDigest
 import lila.db.ByteArray
-import org.joda.time.DateTime
 
 private[game] case class Metadata(
     source: Option[Source],

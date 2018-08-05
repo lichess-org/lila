@@ -1,6 +1,7 @@
 package lila.relay
 
 import org.joda.time.DateTime
+
 import reactivemongo.bson._
 
 import lila.db.dsl._
@@ -9,17 +10,14 @@ private final class RelayRepo(val coll: Coll) {
 
   import BSONHandlers._
 
-  def scheduled = coll.find($doc(
-    selectors scheduled true
-  )).sort($sort asc "startsAt").list[Relay]()
+  def scheduled: Fu[List[Relay]] = coll.find($doc(selectors scheduled true))
+    .sort($sort asc "startsAt").cursor[Relay]().list
 
-  def ongoing = coll.find($doc(
-    selectors ongoing true
-  )).sort($sort asc "startedAt").list[Relay]()
+  def ongoing: Fu[List[Relay]] = coll.find($doc(selectors ongoing true))
+    .sort($sort asc "startedAt").cursor[Relay]().list
 
-  def finished = coll.find($doc(
-    selectors finished true
-  )).sort($sort desc "startedAt").list[Relay]()
+  def finished: Fu[List[Relay]] = coll.find($doc(selectors finished true))
+    .sort($sort desc "startedAt").cursor[Relay]().list
 
   private[relay] object selectors {
     def scheduled(official: Boolean) = $doc(
@@ -27,11 +25,13 @@ private final class RelayRepo(val coll: Coll) {
       "startedAt" $exists false,
       "official" -> official.option(true)
     )
+
     def ongoing(official: Boolean) = $doc(
       "startedAt" $exists true,
       "finished" -> false,
       "official" -> official.option(true)
     )
+
     def finished(official: Boolean) = $doc(
       "startedAt" $exists true,
       "finished" -> true,

@@ -55,6 +55,6 @@ private final class GameJson(
           if (onlyLast) tree.mainlineNodeList.lastOption.map(minimalNodeJsonWriter.writes)
           else partitionTreeJsonWriter.writes(tree).some
         }
-      ).add("clock", game.clock.map(_.config.show))
+      ).add("clock" -> game.clock.map(_.config.show))
     }
 }

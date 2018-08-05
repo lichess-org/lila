@@ -1,6 +1,6 @@
 package lila.video
 
-import reactivemongo.api.ReadPreference
+import reactivemongo.api.{ ReadConcern, ReadPreference }
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
@@ -41,7 +41,7 @@ private[video] final class VideoApi(
     private val maxPerPage = lila.common.MaxPerPage(18)
 
     def find(id: Video.ID): Fu[Option[Video]] =
-      videoColl.find($id(id)).uno[Video]
+      videoColl.find($id(id)).one[Video]
 
     def search(user: Option[User], query: String, page: Int): Fu[Paginator[VideoView]] = {
       val q = query.split(' ').map { word => s""""$word"""" } mkString " "
@@ -61,25 +61,20 @@ private[video] final class VideoApi(
       )
     }
 
-    def save(video: Video): Funit =
-      videoColl.update(
-        $id(video.id),
-        $doc("$set" -> video),
-        upsert = true
-      ).void
+    def save(video: Video): Funit = videoColl.update.one(
+      q = $id(video.id), u = $doc("$set" -> video), upsert = true
+    ).void
 
-    def removeNotIn(ids: List[Video.ID]) =
-      videoColl.remove($doc("_id" $nin ids)).void
+    def removeNotIn(ids: List[Video.ID]): Funit =
+      videoColl.delete.one($doc("_id" $nin ids)).void
 
-    def setMetadata(id: Video.ID, metadata: Youtube.Metadata) =
-      videoColl.update(
-        $id(id),
-        $doc("$set" -> $doc("metadata" -> metadata)),
-        upsert = false
+    def setMetadata(id: Video.ID, metadata: Youtube.Metadata): Funit =
+      videoColl.update.one(
+        $id(id), $doc("$set" -> $doc("metadata" -> metadata))
       ).void
 
     def allIds: Fu[List[Video.ID]] =
-      videoColl.distinct[String, List]("_id", none)
+      videoColl.distinct[String, List]("_id", none, ReadConcern.Local, none)
 
     def popular(user: Option[User], page: Int): Fu[Paginator[VideoView]] = Paginator(
       adapter = new Adapter[Video](
@@ -147,10 +142,12 @@ private[video] final class VideoApi(
 
     object count {
 
-      private val cache = asyncCache.single(
+      private val cache = asyncCache.single[Int](
         name = "video.count",
-        f = videoColl.count(none),
-        expireAfter = _.ExpireAfterWrite(3 hours)
+        f = {
+          videoColl.count(none, none, 0, none, ReadConcern.Local).map(_.toInt)
+        },
+        expireAfter = _.ExpireAfterWrite(3.hours)
       )
 
       def apply: Fu[Int] = cache.get
@@ -162,22 +159,21 @@ private[video] final class VideoApi(
     def find(videoId: Video.ID, userId: String): Fu[Option[View]] =
       viewColl.find($doc(
         View.BSONFields.id -> View.makeId(videoId, userId)
-      )).uno[View]
+      )).one[View]
 
-    def add(a: View) = (viewColl insert a).void recover
+    def add(a: View): Funit = viewColl.insert.one(a).void recover
       lila.db.recoverDuplicateKey(_ => ())
 
-    def hasSeen(user: User, video: Video): Fu[Boolean] =
-      viewColl.count($doc(
-        View.BSONFields.id -> View.makeId(video.id, user.id)
-      ).some) map (0!=)
+    def hasSeen(user: User, video: Video): Fu[Boolean] = viewColl.countSel(
+      $doc(View.BSONFields.id -> View.makeId(video.id, user.id))
+    ) map (0!=)
 
     def seenVideoIds(user: User, videos: Seq[Video]): Fu[Set[Video.ID]] =
       viewColl.distinct[String, Set](
-        View.BSONFields.videoId,
-        $inIds(videos.map { v =>
+        key = View.BSONFields.videoId,
+        query = $inIds(videos.map { v =>
           View.makeId(v.id, user.id)
-        }).some
+        })
       )
   }
 

@@ -30,7 +30,7 @@ final class StreamerApi(
   def findOrInit(user: User): Fu[Option[Streamer.WithUser]] =
     find(user) orElse {
       val s = Streamer.WithUser(Streamer make user, user)
-      coll insert s.streamer inject s.some
+      coll.insert.one(s.streamer) inject s.some
     }
 
   def withUser(s: Stream): Fu[Option[Streamer.WithUserAndStream]] =
@@ -42,32 +42,33 @@ final class StreamerApi(
     live.streams.map(withUser).sequenceFu.map(_.flatten)
 
   def allListed: Fu[List[Streamer]] =
-    coll.find(selectListedApproved).list[Streamer]()
+    coll.find(selectListedApproved).cursor[Streamer]().list
 
   def setSeenAt(user: User): Funit =
     listedIdsCache.get flatMap { ids =>
       ids.contains(Streamer.Id(user.id)) ??
-        coll.update($id(user.id), $set("seenAt" -> DateTime.now)).void
+        coll.update.one($id(user.id), $set("seenAt" -> DateTime.now)).void
     }
 
-  def setLiveNow(ids: List[Streamer.Id]): Funit =
-    coll.update($doc("_id" $in ids), $set("liveAt" -> DateTime.now), multi = true).void
+  def setLiveNow(ids: List[Streamer.Id]): Funit = coll.update.one(
+    $doc("_id" $in ids), $set("liveAt" -> DateTime.now), multi = true
+  ).void
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
-    val writeConcern = reactivemongo.api.commands.GetLastError.ReplicaAcknowledged(
+    val writeConcern = WriteConcern.ReplicaAcknowledged(
       n = 3,
       timeout = 3000,
       journaled = false
     )
-    coll.update($id(streamer.id), streamer, writeConcern = writeConcern) >>-
+    coll.update(false, writeConcern).one($id(streamer.id), streamer) >>-
       listedIdsCache.refresh inject {
         val modChange = Streamer.ModChange(
           list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
           feature = prev.approval.autoFeatured != streamer.approval.autoFeatured option streamer.approval.autoFeatured
         )
-        import lila.notify.Notification.Notifies
-        import lila.notify.{ Notification, NotifyApi }
+        import lila.notify.Notification, Notification.Notifies
+
         ~modChange.list ??
           notifyApi.addNotification(Notification.make(
             Notifies(streamer.userId),
@@ -83,29 +84,25 @@ final class StreamerApi(
   }
 
   def demote(userId: User.ID): Funit =
-    coll.update(
-      $id(userId),
-      $set(
-        "approval.requested" -> false,
-        "approval.granted" -> false,
-        "approval.autoFeatured" -> false
-      )
-    ).void
+    coll.update.one($id(userId), $set(
+      "approval.requested" -> false,
+      "approval.granted" -> false,
+      "approval.autoFeatured" -> false
+    )).void
 
-  def create(u: User): Funit =
-    isStreamer(u) flatMap { exists =>
-      !exists ?? coll.insert(Streamer make u).void
-    }
+  def create(u: User): Funit = isStreamer(u) flatMap { exists =>
+    !exists ?? coll.insert.one(Streamer make u).void
+  }
 
   def isStreamer(user: User): Fu[Boolean] = listedIdsCache.get.map(_ contains Streamer.Id(user.id))
 
   def uploadPicture(s: Streamer, picture: Photographer.Uploaded): Funit =
     photographer(s.id.value, picture).flatMap { pic =>
-      coll.update($id(s.id), $set("picturePath" -> pic.path)).void
+      coll.update.one($id(s.id), $set("picturePath" -> pic.path)).void
     }
 
   def deletePicture(s: Streamer): Funit =
-    coll.update($id(s.id), $unset("picturePath")).void
+    coll.update.one($id(s.id), $unset("picturePath")).void
 
   object approval {
 

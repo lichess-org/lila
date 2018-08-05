@@ -12,7 +12,7 @@ final class DisposableEmailDomain(
   private var domains = Set.empty[String]
   private var failed = false
 
-  private[security] def refresh: Unit = {
+  private[security] def refresh(): Unit = {
     WS.url(providerUrl).get() map { res =>
       res.json.validate[Set[String]].fold(
         err => onError(lila.base.LilaException(err.toString)),

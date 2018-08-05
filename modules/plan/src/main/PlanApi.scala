@@ -54,9 +54,10 @@ final class PlanApi(
           case Some(sub) => stripeClient.cancelSubscription(sub) >>
             isLifetime(user).flatMap { lifetime =>
               !lifetime ?? setDbUserPlan(user, user.plan.disable)
-            } >>
-            patronColl.update($id(user.id), $unset("stripe", "payPal", "expiresAt")).void >>-
-            logger.info(s"Canceled subscription $sub of ${user.username}")
+            } >> patronColl.update.one(
+              $id(user.id), $unset("stripe", "payPal", "expiresAt")
+            ).void >>-
+              logger.info(s"Canceled subscription $sub of ${user.username}")
         }
     }
 
@@ -78,7 +79,7 @@ final class PlanApi(
               val p2 = patron.copy(
                 stripe = Patron.Stripe(stripeCharge.customer).some
               ).levelUpIfPossible
-              patronColl.update($id(patron.id), p2) >>
+              patronColl.update.one($id(patron.id), p2) >>
                 setDbUserPlanOnCharge(user, p2) >> {
                   stripeCharge.lifetimeWorthy ?? setLifetime(user)
                 }
@@ -120,7 +121,7 @@ final class PlanApi(
           userOption ?? { user =>
             val payPal = Patron.PayPal(email, subId, DateTime.now)
             userPatron(user).flatMap {
-              case None => patronColl.insert(Patron(
+              case None => patronColl.insert.one(Patron(
                 _id = Patron.UserId(user.id),
                 payPal = payPal.some,
                 lastLevelUp = DateTime.now
@@ -131,7 +132,7 @@ final class PlanApi(
                 val p2 = patron.copy(
                   payPal = payPal.some
                 ).levelUpIfPossible.expireInOneMonth
-                patronColl.update($id(patron.id), p2) >>
+                patronColl.update.one($id(patron.id), p2) >>
                   setDbUserPlanOnCharge(user, p2)
             } >> {
               charge.lifetimeWorthy ?? setLifetime(user)
@@ -159,7 +160,7 @@ final class PlanApi(
       case Some(patron) =>
         UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
           setDbUserPlan(user, user.plan.disable) >>
-            patronColl.update($id(user.id), patron.removeStripe).void >>
+            patronColl.update.one($id(user.id), patron.removeStripe).void >>
             notifier.onExpire(user) >>-
             logger.info(s"Unsubed ${user.username} ${sub}")
         }
@@ -201,10 +202,16 @@ final class PlanApi(
       case (Some(stripe), _) => stripeClient.getCustomer(stripe.customerId) flatMap {
         case None =>
           logger.warn(s"${user.username} sync: unset DB patron that's not in stripe")
-          patronColl.update($id(patron.id), patron.removeStripe) >> sync(user)
+          patronColl.update.one(
+            $id(patron.id), patron.removeStripe
+          ) >> sync(user)
+
         case Some(customer) if customer.firstSubscription.isEmpty =>
           logger.warn(s"${user.username} sync: unset DB patron of customer without a subscription")
-          patronColl.update($id(patron.id), patron.removeStripe) >> sync(user)
+          patronColl.update.one(
+            $id(patron.id), patron.removeStripe
+          ) >> sync(user)
+
         case Some(customer) if customer.firstSubscription.isDefined && !user.plan.active =>
           logger.warn(s"${user.username} sync: enable plan of customer with a subscription")
           setDbUserPlan(user, user.plan.enable) inject ReloadUser
@@ -235,13 +242,10 @@ final class PlanApi(
     months = user.plan.months | 1,
     active = true,
     since = user.plan.since orElse DateTime.now.some
-  )) >> patronColl.update(
-    $id(user.id),
-    $set(
-      "lastLevelUp" -> DateTime.now,
-      "lifetime" -> true
-    )
-  ).void >>- lightUserApi.invalidate(user.id)
+  )) >> patronColl.update.one($id(user.id), $set(
+    "lastLevelUp" -> DateTime.now,
+    "lifetime" -> true
+  )).void >>- lightUserApi.invalidate(user.id)
 
   private val recentChargeUserIdsNb = 50
   private val recentChargeUserIdsCache = asyncCache.single[List[User.ID]](
@@ -255,7 +259,8 @@ final class PlanApi(
   def recentChargeUserIds: Fu[List[User.ID]] = recentChargeUserIdsCache.get
 
   def recentChargesOf(user: User): Fu[List[Charge]] =
-    chargeColl.find($doc("userId" -> user.id)).sort($doc("date" -> -1)).list[Charge]()
+    chargeColl.find($doc("userId" -> user.id))
+      .sort($doc("date" -> -1)).cursor[Charge]().list
 
   private val topPatronUserIdsNb = 120
   private val topPatronUserIdsCache = asyncCache.single[List[User.ID]](
@@ -284,7 +289,7 @@ final class PlanApi(
   }
 
   private def addCharge(charge: Charge): Funit =
-    chargeColl.insert(charge).void >>- {
+    chargeColl.insert.one(charge).void >>- {
       recentChargeUserIdsCache.refresh
       topPatronUserIdsCache.refresh
       monthlyGoalApi.get foreach { m =>
@@ -353,12 +358,13 @@ final class PlanApi(
     }
 
   private def saveStripePatron(user: User, customerId: CustomerId, freq: Freq): Funit = userPatron(user) flatMap {
-    case None => patronColl.insert(Patron(
+    case None => patronColl.insert.one(Patron(
       _id = Patron.UserId(user.id),
       stripe = Patron.Stripe(customerId).some,
       lastLevelUp = DateTime.now
     ).expireInOneMonth(!freq.renew))
-    case Some(patron) => patronColl.update(
+
+    case Some(patron) => patronColl.update.one(
       $id(patron.id),
       patron.copy(
         stripe = Patron.Stripe(customerId).some
@@ -389,9 +395,10 @@ final class PlanApi(
     patron.stripe.map(_.customerId) ?? stripeClient.getCustomer
 
   private def customerIdPatron(id: CustomerId): Fu[Option[Patron]] =
-    patronColl.uno[Patron]($doc("stripe.customerId" -> id))
+    patronColl.find($doc("stripe.customerId" -> id)).one[Patron]
 
-  def userPatron(user: User): Fu[Option[Patron]] = patronColl.uno[Patron]($id(user.id))
+  def userPatron(user: User): Fu[Option[Patron]] =
+    patronColl.find($id(user.id)).one[Patron]
 }
 
 object PlanApi {

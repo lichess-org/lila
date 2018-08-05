@@ -189,7 +189,10 @@ final class JsonView(
   }
 
   private def computeStanding(tour: Tournament, page: Int): Fu[JsObject] = for {
-    rankedPlayers <- PlayerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)
+    rankedPlayers <- PlayerRepo.bestByTourWithRankByPage(
+      tour.id, 10, page max 1
+    )
+
     sheets <- rankedPlayers.map { p =>
       cached.sheet(tour, p.player.userId) map { sheet =>
         p.player.userId -> sheet
@@ -262,7 +265,7 @@ final class JsonView(
     "rank" -> i.rank,
     "withdraw" -> i.withdraw,
     "username" -> u.map(_.titleUsername)
-  ).add("pauseDelay", delay.map(_.seconds))
+  ).add("pauseDelay" -> delay.map(_.seconds))
 
   private def gameUserJson(userId: Option[String], rating: Option[Int]): JsObject = {
     val light = userId flatMap lightUserApi.sync

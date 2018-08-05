@@ -2,9 +2,9 @@ package lila.setup
 
 import akka.actor.ActorSelection
 
-import lila.game.{ GameRepo, Pov, PerfPicker }
+import lila.game.{ GameRepo, Pov }
 import lila.lobby.actorApi.{ AddHook, AddSeek }
-import lila.user.{ User, UserContext }
+import lila.user.UserContext
 
 private[setup] final class Processor(
     lobby: ActorSelection,

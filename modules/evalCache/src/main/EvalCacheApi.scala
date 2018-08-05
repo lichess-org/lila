@@ -8,6 +8,8 @@ import chess.format.{ FEN, Forsyth }
 import chess.variant.Variant
 import lila.db.dsl._
 
+import reactivemongo.api.WriteConcern
+
 final class EvalCacheApi(
     coll: Coll,
     truster: EvalCacheTruster,
@@ -40,24 +42,30 @@ final class EvalCacheApi(
 
   private[evalCache] def drop(variant: Variant, fen: FEN): Funit = {
     val id = Id(chess.variant.Standard, SmallFen.make(variant, fen))
-    coll.remove($id(id)).void >>- cache.put(id, none)
+
+    coll.delete.one($id(id)).void >>- cache.put(id, none)
   }
 
-  private val cache = asyncCache.multi[Id, Option[EvalCacheEntry]](
+  private lazy val cache = asyncCache.multi[Id, Option[EvalCacheEntry]](
     name = "eval_cache",
     f = fetchAndSetAccess,
     expireAfter = _.ExpireAfterAccess(10 minutes)
   )
 
-  private def getEval(id: Id, multiPv: Int): Fu[Option[Eval]] = getEntry(id) map {
-    _.flatMap(_ makeBestMultiPvEval multiPv)
-  }
+  private def getEval(id: Id, multiPv: Int): Fu[Option[Eval]] =
+    getEntry(id) map {
+      _.flatMap(_ makeBestMultiPvEval multiPv)
+    }
 
   private def getEntry(id: Id): Fu[Option[EvalCacheEntry]] = cache get id
 
   private def fetchAndSetAccess(id: Id): Fu[Option[EvalCacheEntry]] =
     coll.find($id(id)).one[EvalCacheEntry] addEffect { res =>
-      if (res.isDefined) coll.updateFieldUnchecked($id(id), "usedAt", DateTime.now)
+      if (res.isDefined) {
+        coll.update(false, WriteConcern.Unacknowledged).one(
+          q = $id(id), u = $set("usedAt" -> DateTime.now)
+        )
+      }
     }
 
   private def put(trustedUser: TrustedUser, input: Input): Funit = Validator(input) match {
@@ -72,12 +80,12 @@ final class EvalCacheApi(
           evals = List(input.eval),
           usedAt = DateTime.now
         )
-        coll.insert(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
+        coll.insert.one(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
           cache.put(input.id, entry.some)
       case Some(oldEntry) =>
         val entry = oldEntry add input.eval
         !(entry similarTo oldEntry) ?? {
-          coll.update($id(entry.fen), entry, upsert = true).void >>-
+          coll.update.one($id(entry.fen), entry, upsert = true).void >>-
             cache.put(input.id, entry.some)
         }
 

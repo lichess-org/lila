@@ -4,6 +4,7 @@ import lila.db.dsl._
 import lila.user.User
 
 import org.joda.time.DateTime
+
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
@@ -17,7 +18,8 @@ final class ChatTimeout(
   def add(chat: UserChat, mod: User, user: User, reason: Reason): Funit =
     isActive(chat.id, user.id) flatMap {
       case true => funit
-      case false => coll.insert($doc(
+
+      case false => coll.insert.one($doc(
         "_id" -> makeId,
         "chat" -> chat.id,
         "mod" -> mod.id,
@@ -42,11 +44,12 @@ final class ChatTimeout(
     ), "user")
 
   def history(user: User, nb: Int): Fu[List[UserEntry]] =
-    coll.find($doc("user" -> user.id)).sort($sort desc "createdAt").list[UserEntry](nb)
+    coll.find($doc("user" -> user.id)).
+      sort($sort desc "createdAt").cursor[UserEntry]().list(nb)
 
-  def checkExpired: Fu[List[Reinstate]] = coll.list[Reinstate]($doc(
+  def checkExpired: Fu[List[Reinstate]] = coll.find($doc(
     "expiresAt" $lt DateTime.now
-  )) flatMap {
+  )).cursor[Reinstate]().list flatMap {
     case Nil => fuccess(Nil)
     case objs =>
       coll.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true) inject objs

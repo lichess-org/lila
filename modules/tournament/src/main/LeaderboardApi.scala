@@ -27,7 +27,7 @@ final class LeaderboardApi(
     coll.find($doc(
       "u" -> userId,
       "d" $gt range._1 $lt range._2
-    )).sort($sort desc "d").list[Entry]()
+    )).sort($sort desc "d").cursor[Entry]().list
 
   def chart(user: User): Fu[ChartData] = {
     import reactivemongo.bson._
@@ -55,11 +55,10 @@ final class LeaderboardApi(
   }
 
   def getAndDeleteRecent(userId: User.ID, since: DateTime): Fu[List[Tournament.ID]] =
-    coll.find($doc(
-      "u" -> userId,
-      "d" $gt since
-    )).list[Entry]() flatMap { entries =>
-      (entries.nonEmpty ?? coll.remove($inIds(entries.map(_.id))).void) inject entries.map(_.tourId)
+    coll.find($doc("u" -> userId, "d" $gt since)).cursor[Entry]().list flatMap { entries =>
+      (entries.nonEmpty ?? coll.delete.one(
+        $inIds(entries.map(_.id))
+      ).void) inject entries.map(_.tourId)
     }
 
   private def paginator(user: User, page: Int, sort: Bdoc): Fu[Paginator[TourEntry]] = Paginator(

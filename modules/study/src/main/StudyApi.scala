@@ -9,7 +9,7 @@ import lila.chat.Chat
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.socket.Socket.Uid
-import lila.tree.Eval
+
 import lila.tree.Node.{ Shapes, Comment, Gamebook }
 import lila.user.User
 
@@ -193,7 +193,9 @@ final class StudyApi(
 
   private def doAddNode(userId: User.ID, study: Study, position: Position, rawNode: Node, uid: Uid, opts: MoveOpts, relay: Option[Chapter.Relay]): Funit = {
     val node = rawNode.withoutChildren
-    def failReload = reloadUidBecauseOf(study, uid, position.chapter.id)
+
+    def failReload() = reloadUidBecauseOf(study, uid, position.chapter.id)
+
     if (position.chapter.isOverweight) {
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(failReload)
@@ -244,6 +246,7 @@ final class StudyApi(
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>-
             sendTo(study, Socket.DeleteNode(position, uid))
+
         case None =>
           fufail(s"Invalid delNode $studyId $position") >>-
             reloadUidBecauseOf(study, uid, chapter.id)
@@ -270,6 +273,7 @@ final class StudyApi(
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>-
             sendTo(study, Socket.Promote(position, toMainline, uid))
+
         case None =>
           fufail(s"Invalid promoteToMainline $studyId $position") >>-
             reloadUidBecauseOf(study, uid, chapter.id)
@@ -412,6 +416,7 @@ final class StudyApi(
           chapterRepo.update(newChapter) >>-
             sendTo(study, Socket.DeleteComment(position, id, uid)) >>-
             indexStudy(study)
+
         case None =>
           fufail(s"Invalid deleteComment $studyId $position $id") >>-
             reloadUidBecauseOf(study, uid, chapter.id)

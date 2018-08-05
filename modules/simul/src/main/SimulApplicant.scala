@@ -6,7 +6,7 @@ case class SimulApplicant(
 ) {
 
   def is(userId: String): Boolean = player is userId
-  def is(other: SimulPlayer): Boolean = player is other
+  private[simul] def is(other: SimulPlayer): Boolean = player is other
 }
 
 private[simul] object SimulApplicant {

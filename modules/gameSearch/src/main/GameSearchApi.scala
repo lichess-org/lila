@@ -1,13 +1,8 @@
 package lila.gameSearch
 
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
-import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration._
-import scala.util.Try
 
-import lila.db.dsl._
 import lila.game.{ Game, GameRepo }
 import lila.search._
 

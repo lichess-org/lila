@@ -3,7 +3,6 @@ package lila.security
 import play.api.i18n.Lang
 import play.twirl.api.Html
 
-import lila.common.EmailAddress
 import lila.common.String.html.nl2brUnsafe
 import lila.user.{ User, UserRepo }
 

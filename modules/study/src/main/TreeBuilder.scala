@@ -1,11 +1,8 @@
 package lila.study
 
-import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
 import lila.tree
-import lila.tree.Eval
-import lila.tree.Node.Comment
 
 object TreeBuilder {
 

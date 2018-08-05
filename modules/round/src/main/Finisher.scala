@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.{ Status, DecayingStats, Color, Clock }
+import chess.{ Status, DecayingStats, Color }
 
 import lila.game.actorApi.{ FinishGame, AbortedBy }
 import lila.game.{ GameRepo, Game, Pov, RatingDiffs }

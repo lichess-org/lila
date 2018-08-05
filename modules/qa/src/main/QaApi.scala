@@ -1,7 +1,9 @@
 package lila.qa
 
+import scala.concurrent.Future
 import scala.concurrent.duration._
 
+import reactivemongo.api.ReadConcern
 import reactivemongo.bson._
 
 import org.joda.time.DateTime
@@ -43,7 +45,7 @@ final class QaApi(
           editedAt = None
         )
 
-        (questionColl insert q) >>- {
+        questionColl.insert.one(q) >>- {
           tag.clearCache
           relation.clearCache
           notifier.createQuestion(q, user)
@@ -53,7 +55,7 @@ final class QaApi(
     def edit(data: QuestionData, id: QuestionId): Fu[Option[Question]] = findById(id) flatMap {
       _ ?? { q =>
         val q2 = q.copy(title = data.title, body = data.body, tags = data.tags).editNow
-        questionColl.update($id(q2.id), q2) >>- {
+        questionColl.update.one($id(q2.id), q2) >>- {
           tag.clearCache
           relation.clearCache
         } inject q2.some
@@ -61,17 +63,18 @@ final class QaApi(
     }
 
     def findById(id: QuestionId): Fu[Option[Question]] =
-      questionColl.find($doc("_id" -> id)).uno[Question]
+      questionColl.find($doc("_id" -> id)).one[Question]
 
     def findByIds(ids: List[QuestionId]): Fu[List[Question]] =
-      questionColl.find($inIds(ids.distinct)).cursor[Question]().gather[List]()
+      questionColl.find($inIds(ids.distinct)).cursor[Question]().list
 
-    def accept(q: Question) = questionColl.update(
+    def accept(q: Question) = questionColl.update.one(
       $doc("_id" -> q.id),
       $doc("$set" -> $doc("acceptedAt" -> DateTime.now))
     )
 
-    def count: Fu[Int] = questionColl.count(None)
+    def count: Fu[Int] = questionColl.count(selector = None, limit = None,
+      skip = 0, hint = None, readConcern = ReadConcern.Local).map(_.toInt)
 
     def recentPaginator(page: Int, perPage: MaxPerPage): Fu[Paginator[Question]] =
       paginator($empty, $doc("createdAt" -> -1), page, perPage)
@@ -91,8 +94,7 @@ final class QaApi(
     private def popularCache = mongoCache[Int, List[Question]](
       prefix = "qa:popular",
       f = nb => questionColl.find($empty)
-        .sort($doc("vote.score" -> -1))
-        .cursor[Question]().gather[List](nb),
+        .sort($doc("vote.score" -> -1)).cursor[Question]().list(nb),
       timeToLive = 6 hour,
       keyToString = _.toString
     )
@@ -101,60 +103,68 @@ final class QaApi(
 
     def byTag(tag: String, max: Int): Fu[List[Question]] =
       questionColl.find($doc("tags" -> tag.toLowerCase))
-        .sort($doc("vote.score" -> -1))
-        .cursor[Question]().gather[List](max)
+        .sort($doc("vote.score" -> -1)).cursor[Question]().list(max)
 
     def byTags(tags: List[String], max: Int): Fu[List[Question]] =
-      questionColl.find($doc("tags" $in tags.map(_.toLowerCase))).cursor[Question]().gather[List](max)
+      questionColl.find($doc("tags" $in tags.map(_.toLowerCase)))
+        .cursor[Question]().list(max)
 
-    def addComment(c: Comment)(q: Question) = questionColl.update($id(q.id), $push("comments" -> c))
+    def addComment(c: Comment)(q: Question) =
+      questionColl.update.one($id(q.id), $push("comments" -> c))
 
     def vote(id: QuestionId, user: User, v: Boolean): Fu[Option[Vote]] =
       question findById id flatMap {
         _ ?? { q =>
           val newVote = q.vote.add(user.id, v)
-          questionColl.update($id(q.id), $set("vote" -> newVote)) inject newVote.some
+
+          questionColl.update.one(
+            $id(q.id), $set("vote" -> newVote)
+          ) inject newVote.some
         }
       }
 
-    def incViews(q: Question) = questionColl.update($id(q.id), $inc("views" -> 1))
+    def incViews(q: Question) = questionColl.update
+      .one($id(q.id), $inc("views" -> 1))
 
     def recountAnswers(id: QuestionId) = answer.countByQuestionId(id) flatMap {
       setAnswers(id, _)
     }
 
-    def setAnswers(id: QuestionId, nb: Int) = questionColl.update(
-      $id(id),
-      $set(
+    def setAnswers(id: QuestionId, nb: Int): Funit =
+      questionColl.update.one($id(id), $set(
         "answers" -> nb,
         "updatedAt" -> DateTime.now
-      )
-    ).void
+      )).void
 
-    def remove(id: QuestionId) =
-      questionColl.remove($id(id)) >>
-        (answer removeByQuestion id) >>- {
-          tag.clearCache
-          relation.clearCache
-        }
+    def remove(id: QuestionId) = questionColl.delete.one($id(id)) >>
+      (answer removeByQuestion id) >>- {
+        tag.clearCache
+        relation.clearCache
+      }
 
-    def removeComment(id: QuestionId, c: CommentId) = questionColl.update(
-      $id(id),
-      $pull("comments" -> $doc("id" -> c))
-    )
+    def removeComment(id: QuestionId, c: CommentId) =
+      questionColl.update.one($id(id), $pull("comments" -> $doc("id" -> c)))
 
     def lock(id: QuestionId, by: Option[User]): Funit =
-      questionColl.update($id(id), by match {
+      questionColl.update.one($id(id), by match {
         case None => $unset("locked")
         case Some(u) => $set("locked" -> Locked(by = u.id, at = DateTime.now))
       }).void
 
-    def erase(user: User) = questionColl.distinct[QuestionId, List]("_id", $doc("userId" -> user.id).some).flatMap { ids =>
-      (ids.nonEmpty) ?? {
-        questionColl.remove($inIds(ids)) >>
-          answerColl.remove($doc("questionId" $in ids)).void
+    def erase(user: User): Funit = for {
+      ids <- questionColl.distinct[QuestionId, List](
+        "_id", $doc("userId" -> user.id)
+      )
+
+      delete = questionColl.delete
+      ops <- (ids.nonEmpty) ?? {
+        Future.sequence(Seq(
+          delete.element($inIds(ids), Option.empty, Option.empty),
+          delete.element($doc("questionId" $in ids), Option.empty, Option.empty)
+        ))
       }
-    }
+      _ <- delete.many(ops)
+    } yield ()
   }
 
   object answer {
@@ -178,7 +188,7 @@ final class QaApi(
           modIcon = (~data.modIcon && Granter.apply(_.PublicMod)(user)).option(true)
         )
 
-        (answerColl insert a) >>
+        answerColl.insert.one(a) >>
           (question recountAnswers q.id) >>-
           notifier.createAnswer(q, a, user) inject a
       }
@@ -186,26 +196,26 @@ final class QaApi(
     def edit(body: String, id: AnswerId): Fu[Option[Answer]] = findById(id) flatMap {
       _ ?? { a =>
         val a2 = a.copy(body = body).editNow
-        answerColl.update($doc("_id" -> a2.id), a2) inject a2.some
+        answerColl.update.one($doc("_id" -> a2.id), a2) inject a2.some
       }
     }
 
     def findById(id: AnswerId): Fu[Option[Answer]] =
-      answerColl.find($doc("_id" -> id)).uno[Answer]
+      answerColl.find($doc("_id" -> id)).one[Answer]
 
-    def accept(q: Question, a: Answer) = (question accept q) >> answerColl.update(
-      $doc("questionId" -> q.id),
-      $doc("$unset" -> $doc("acceptedAt" -> true)),
-      multi = true
-    ) >> answerColl.update(
-        $doc("_id" -> a.id),
-        $doc("$set" -> $doc("acceptedAt" -> DateTime.now))
-      )
+    def accept(q: Question, a: Answer) = (question accept q) >> answerColl
+      .update.one(
+        q = $doc("questionId" -> q.id),
+        u = $doc("$unset" -> $doc("acceptedAt" -> true)),
+        multi = true
+      ) >> answerColl.update.one(
+          $doc("_id" -> a.id),
+          $doc("$set" -> $doc("acceptedAt" -> DateTime.now))
+        )
 
     def popular(questionId: QuestionId): Fu[List[Answer]] =
       answerColl.find($doc("questionId" -> questionId))
-        .sort($doc("vote.score" -> -1))
-        .cursor[Answer]().gather[List]()
+        .sort($doc("vote.score" -> -1)).cursor[Answer]().list
 
     def zipWithQuestions(answers: List[Answer]): Fu[List[AnswerWithQuestion]] =
       question.findByIds(answers.map(_.questionId)) map { qs =>
@@ -214,34 +224,33 @@ final class QaApi(
         }
       }
 
-    def addComment(c: Comment)(a: Answer) = answerColl.update(
-      $doc("_id" -> a.id),
-      $doc("$push" -> $doc("comments" -> c))
+    def addComment(c: Comment)(a: Answer) = answerColl.update.one(
+      q = $doc("_id" -> a.id), u = $doc("$push" -> $doc("comments" -> c))
     )
 
     def vote(id: QuestionId, user: User, v: Boolean): Fu[Option[Vote]] =
       answer findById id flatMap {
         _ ?? { a =>
           val newVote = a.vote.add(user.id, v)
-          answerColl.update(
-            $doc("_id" -> a.id),
-            $doc("$set" -> $doc("vote" -> newVote))
+          answerColl.update.one(
+            q = $doc("_id" -> a.id),
+            u = $doc("$set" -> $doc("vote" -> newVote))
           ) inject newVote.some
         }
       }
 
     def remove(a: Answer): Fu[Unit] =
-      answerColl.remove($doc("_id" -> a.id)) >>
+      answerColl.delete.one($doc("_id" -> a.id)) >>
         (question recountAnswers a.questionId).void
 
     def remove(id: AnswerId): Fu[Unit] = findById(id) flatMap { _ ?? remove }
 
     def removeByQuestion(id: QuestionId) =
-      answerColl.remove($doc("questionId" -> id))
+      answerColl.delete.one($doc("questionId" -> id))
 
-    def removeComment(id: QuestionId, c: CommentId) = answerColl.update(
-      $doc("questionId" -> id),
-      $doc("$pull" -> $doc("comments" -> $doc("id" -> c))),
+    def removeComment(id: QuestionId, c: CommentId) = answerColl.update.one(
+      q = $doc("questionId" -> id),
+      u = $doc("$pull" -> $doc("comments" -> $doc("id" -> c))),
       multi = true
     )
 
@@ -268,10 +277,10 @@ final class QaApi(
         }
       }
 
-    def countByQuestionId(id: QuestionId) =
-      answerColl.count(Some($doc("questionId" -> id)))
+    def countByQuestionId(id: QuestionId): Fu[Int] =
+      answerColl.countSel($doc("questionId" -> id))
 
-    def erase(user: User) = answerColl.remove($doc("userId" -> user.id))
+    def erase(user: User) = answerColl.delete.one($doc("userId" -> user.id))
   }
 
   object comment {

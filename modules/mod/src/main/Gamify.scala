@@ -3,7 +3,7 @@ package lila.mod
 import lila.db.BSON.BSONJodaDateTimeHandler
 import org.joda.time.DateTime
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-import reactivemongo.api.ReadPreference
+import reactivemongo.api.{ Cursor, ReadPreference }
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
@@ -24,10 +24,11 @@ final class Gamify(
   def history(orCompute: Boolean = true): Fu[List[HistoryMonth]] = {
     val until = DateTime.now minusMonths 1 withDayOfMonth 1
     val lastId = HistoryMonth.makeId(until.getYear, until.getMonthOfYear)
+
     historyColl.find($empty).sort($doc(
       "year" -> -1,
       "month" -> -1
-    )).cursor[HistoryMonth]().gather[List]().flatMap { months =>
+    )).cursor[HistoryMonth]().list flatMap { months =>
       months.headOption match {
         case Some(m) if m._id == lastId => fuccess(months)
         case _ if !orCompute => fuccess(months)
@@ -55,7 +56,9 @@ final class Gamify(
         }.toList
     }.toList.sequenceFu.map(_.flatten).flatMap {
       _.map { month =>
-        historyColl.update($doc("_id" -> month._id), month, upsert = true).void
+        historyColl.update.one(
+          $doc("_id" -> month._id), month, upsert = true
+        ).void
       }.sequenceFu
     }.void
 

@@ -5,13 +5,11 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import chess.format.FEN
-
 import lila.chat.UserLine
 import lila.game.actorApi.{ FinishGame, AbortedBy }
-import lila.game.{ Game, GameRepo }
+import lila.game.Game
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.MoveEvent
+
 import lila.socket.actorApi.BotConnected
 import lila.user.User
 
@@ -78,7 +76,7 @@ final class GameStateStream(
 
           def pushState(g: Game) = jsonView gameState Game.WithInitialFen(g, init.fen) map some map channel.push
           def pushChatLine(username: String, text: String, player: Boolean) = channel push jsonView.chatLine(username, text, player).some
-          def onGameOver = {
+          def onGameOver() = {
             gameOver = true
             channel.eofAndEnd()
           }

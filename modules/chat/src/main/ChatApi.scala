@@ -89,7 +89,7 @@ final class ChatApi(
         }
       }
 
-    def clear(chatId: Chat.Id) = coll.remove($id(chatId)).void
+    def clear(chatId: Chat.Id): Funit = coll.delete.one($id(chatId)).void
 
     def system(chatId: Chat.Id, text: String): Funit = {
       val line = UserLine(systemUserId, text, troll = false, deleted = false)
@@ -123,7 +123,7 @@ final class ChatApi(
         troll = false, deleted = false
       )
       val chat = c.markDeleted(user) add line
-      coll.update($id(chat.id), chat).void >>
+      coll.update.one($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason) >>- {
           cached invalidate chat.id
           lilaBus.publish(actorApi.OnTimeout(user.username), channelOf(chat.id))
@@ -137,7 +137,8 @@ final class ChatApi(
 
     def delete(c: UserChat, user: User): Funit = {
       val chat = c.markDeleted(user)
-      coll.update($id(chat.id), chat).void >>- {
+
+      coll.update.one($id(chat.id), chat).void >>- {
         cached invalidate chat.id
         lilaBus.publish(actorApi.OnTimeout(user.username), channelOf(chat.id))
       }
@@ -190,11 +191,13 @@ final class ChatApi(
       }
   }
 
-  private[chat] def remove(chatId: Chat.Id) = coll.remove($id(chatId)).void
+  private[chat] def remove(chatId: Chat.Id): Funit =
+    coll.delete.one($id(chatId)).void
 
-  private[chat] def removeAll(chatIds: List[Chat.Id]) = coll.remove($inIds(chatIds)).void
+  private[chat] def removeAll(chatIds: List[Chat.Id]): Funit =
+    coll.delete.one($inIds(chatIds)).void
 
-  private def pushLine(chatId: Chat.Id, line: Line): Funit = coll.update(
+  private def pushLine(chatId: Chat.Id, line: Line): Funit = coll.update.one(
     $id(chatId),
     $doc("$push" -> $doc(
       Chat.BSONFields.lines -> $doc(

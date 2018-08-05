@@ -1,8 +1,5 @@
 package lila.report
 
-import reactivemongo.bson._
-
-import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
 private final class ReportScore(

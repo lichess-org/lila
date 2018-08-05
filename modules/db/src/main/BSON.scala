@@ -58,80 +58,21 @@ object BSON extends Handlers {
       def write(obj: T): Bdoc = handler write obj
     }
 
-  object MapDocument {
-
-    implicit def MapReader[K, V](implicit kIso: Iso.StringIso[K], vr: BSONDocumentReader[V]): BSONDocumentReader[Map[K, V]] = new BSONDocumentReader[Map[K, V]] {
-      def read(bson: Bdoc): Map[K, V] = {
-        // mutable optimized implementation
-        val b = collection.immutable.Map.newBuilder[K, V]
-        for (tuple <- bson.elements)
-          // assume that all values in the document are Bdocs
-          b += (kIso.from(tuple.name) -> vr.read(tuple.value.asInstanceOf[Bdoc]))
-        b.result
-      }
-    }
-
-    implicit def MapWriter[K, V](implicit kIso: Iso.StringIso[K], vw: BSONDocumentWriter[V]): BSONDocumentWriter[Map[K, V]] = new BSONDocumentWriter[Map[K, V]] {
-      def write(map: Map[K, V]): Bdoc = BSONDocument {
-        map.toStream.map { tuple =>
-          kIso.to(tuple._1) -> vw.write(tuple._2)
-        }
-      }
-    }
-
-    implicit def MapHandler[K: Iso.StringIso, V: BSONDocumentHandler]: BSONHandler[Bdoc, Map[K, V]] = new BSONHandler[Bdoc, Map[K, V]] {
-      private val reader = MapReader[K, V]
-      private val writer = MapWriter[K, V]
-      def read(bson: Bdoc): Map[K, V] = reader read bson
-      def write(map: Map[K, V]): Bdoc = writer write map
-    }
-  }
-
-  object MapValue {
-
-    implicit def MapReader[K, V](implicit kIso: Iso.StringIso[K], vr: BSONReader[_ <: BSONValue, V]): BSONDocumentReader[Map[K, V]] = new BSONDocumentReader[Map[K, V]] {
-      def read(bson: Bdoc): Map[K, V] = {
-        val valueReader = vr.asInstanceOf[BSONReader[BSONValue, V]]
-        // mutable optimized implementation
-        val b = collection.immutable.Map.newBuilder[K, V]
-        for (tuple <- bson.elements) b += (kIso.from(tuple.name) -> valueReader.read(tuple.value))
-        b.result
-      }
-    }
-
-    implicit def MapWriter[K, V](implicit kIso: Iso.StringIso[K], vw: BSONWriter[V, _ <: BSONValue]): BSONDocumentWriter[Map[K, V]] = new BSONDocumentWriter[Map[K, V]] {
-      def write(map: Map[K, V]): Bdoc = BSONDocument {
-        map.toStream.map { tuple =>
-          kIso.to(tuple._1) -> vw.write(tuple._2)
-        }
-      }
-    }
-
-    implicit def MapHandler[K, V](implicit kIso: Iso.StringIso[K], vr: BSONReader[_ <: BSONValue, V], vw: BSONWriter[V, _ <: BSONValue]): BSONHandler[Bdoc, Map[K, V]] = new BSONHandler[Bdoc, Map[K, V]] {
-      private val reader = MapReader[K, V]
-      private val writer = MapWriter[K, V]
-      def read(bson: Bdoc): Map[K, V] = reader read bson
-      def write(map: Map[K, V]): Bdoc = writer write map
-    }
-  }
-
   final class Reader(val doc: BSONDocument) {
 
-    val map = {
-      // mutable optimized implementation
-      val b = collection.immutable.Map.newBuilder[String, BSONValue]
-      for (tuple <- doc.stream if tuple.isSuccess) b += (tuple.get.name -> tuple.get.value)
-      b.result
-    }
+    val map = doc.toMap
 
     def get[A](k: String)(implicit reader: BSONReader[_ <: BSONValue, A]): A =
       reader.asInstanceOf[BSONReader[BSONValue, A]] read map(k)
+
     def getO[A](k: String)(implicit reader: BSONReader[_ <: BSONValue, A]): Option[A] =
       map get k flatMap reader.asInstanceOf[BSONReader[BSONValue, A]].readOpt
     def getD[A](k: String)(implicit zero: Zero[A], reader: BSONReader[_ <: BSONValue, A]): A =
       getO[A](k) getOrElse zero.zero
+
     def getD[A](k: String, default: => A)(implicit reader: BSONReader[_ <: BSONValue, A]): A =
       getO[A](k) getOrElse default
+
     def getsD[A](k: String)(implicit reader: BSONReader[_ <: BSONValue, List[A]]) =
       getO[List[A]](k) getOrElse Nil
 
@@ -142,8 +83,8 @@ object BSON extends Handlers {
     def intO(k: String) = getO[Int](k)
     def intD(k: String) = intO(k) getOrElse 0
     def double(k: String) = get[Double](k)
-    def doubleO(k: String) = getO[Double](k)
-    def doubleD(k: String) = doubleO(k) getOrElse 0
+    def doubleO(k: String): Option[Double] = getO[Double](k)
+    def doubleD(k: String): Double = doubleO(k) getOrElse 0D
     def bool(k: String) = get[Boolean](k)
     def boolO(k: String) = getO[Boolean](k)
     def boolD(k: String) = boolO(k) getOrElse false
@@ -210,9 +151,8 @@ object BSON extends Handlers {
     case v => v.toString
   }
   def debugArr(doc: Barr): String = doc.values.toList.map(debug).mkString("[", ", ", "]")
-  def debugDoc(doc: Bdoc): String = (doc.elements.toList map {
-    case BSONElement(k, v) => s"$k: ${debug(v)}"
-  }).mkString("{", ", ", "}")
+
+  def debugDoc(doc: Bdoc): String = BSONDocument pretty doc
 
   def hashDoc(doc: Bdoc): String = debugDoc(doc).replace(" ", "")
 }

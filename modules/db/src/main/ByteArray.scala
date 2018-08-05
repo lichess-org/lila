@@ -25,7 +25,9 @@ object ByteArray {
   def fromHexStr(hexStr: String): Try[ByteArray] =
     Try(ByteArray(Converters str2Hex hexStr))
 
-  implicit val ByteArrayBSONHandler = new BSONHandler[BSONBinary, ByteArray] {
+  implicit object ByteArrayBSONHandler
+    extends BSONHandler[BSONBinary, ByteArray] {
+
     def read(bin: BSONBinary) = ByteArray(bin.byteArray)
     def write(ba: ByteArray) = BSONBinary(ba.value, subtype)
   }

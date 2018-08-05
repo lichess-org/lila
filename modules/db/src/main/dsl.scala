@@ -18,16 +18,15 @@ package lila.db
 
 import ornicar.scalalib.Zero
 import reactivemongo.api._
-import reactivemongo.api.collections.GenericQueryBuilder
 import reactivemongo.bson._
 
-trait dsl extends LowPriorityDsl {
-
-  type Coll = reactivemongo.api.collections.bson.BSONCollection
+trait dsl {
+  type Coll = CollectionExt
+  type CursorExtProducer[T] = CursorProducer[T] {
+    type ProducedCursor = CursorExt[T]
+  }
   type Bdoc = BSONDocument
   type Barr = BSONArray
-
-  type QueryBuilder = GenericQueryBuilder[BSONSerializationPack.type]
 
   type BSONValueReader[A] = BSONReader[_ <: BSONValue, A]
   type BSONValueWriter[A] = BSONWriter[A, _ <: BSONValue]
@@ -38,10 +37,17 @@ trait dsl extends LowPriorityDsl {
   type BSONArrayHandler[A] = BSONHandler[BSONArray, A]
 
   implicit val LilaBSONDocumentZero: Zero[BSONDocument] =
-    Zero.instance($doc())
+    Zero.instance(BSONDocument.empty)
 
   implicit def bsonDocumentToPretty(document: BSONDocument): String = {
     BSONDocument.pretty(document)
+  }
+
+  implicit def cursorProducer[T]: CursorExtProducer[T] = new CursorProducer[T] {
+    type ProducedCursor = CursorExt[T]
+
+    def produce(base: reactivemongo.api.Cursor[T]): ProducedCursor =
+      new CursorExt[T](base)
   }
 
   //**********************************************************************************************//
@@ -185,6 +191,7 @@ trait dsl extends LowPriorityDsl {
   def $currentDate(items: (String, CurrentDateValueProducer[_])*): BSONDocument = {
     $doc("$currentDate" -> $doc(items.map(item => BSONElement(item._1, item._2.produce))))
   }
+
   // End of Top Level Field Update Operators
   //**********************************************************************************************//
 
@@ -376,11 +383,4 @@ trait dsl extends LowPriorityDsl {
 
 }
 
-sealed trait LowPriorityDsl { self: dsl =>
-  // Priority lower than toBSONDocument
-  implicit def toBSONElement[V <: BSONValue](expression: Expression[V])(implicit writer: BSONWriter[V, _ <: BSONValue]): Producer[BSONElement] = {
-    BSONElement(expression.field, expression.value)
-  }
-}
-
-object dsl extends dsl with CollExt with QueryBuilderExt with CursorExt with Handlers
+object dsl extends dsl with CollExt with Handlers

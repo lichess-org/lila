@@ -19,7 +19,7 @@ final class MongoCache[K, V: MongoCache.Handler] private (
 ) {
 
   def apply(k: K): Fu[V] = cache.get(k, k =>
-    coll.find($id(makeKey(k))).uno[Entry] flatMap {
+    coll.find($id(makeKey(k))).one[Entry] flatMap {
       case None => f(k) flatMap { v =>
         persist(k, v) inject v
       }
@@ -42,10 +42,9 @@ final class MongoCache[K, V: MongoCache.Handler] private (
 
   private def persist(k: K, v: V): Funit = {
     val mongoKey = makeKey(k)
-    coll.update(
-      $id(mongoKey),
-      Entry(mongoKey, v, mongoExpiresAt()),
-      upsert = true
+
+    coll.update.one(
+      $id(mongoKey), Entry(mongoKey, v, mongoExpiresAt()), upsert = true
     ).void
   }
 }

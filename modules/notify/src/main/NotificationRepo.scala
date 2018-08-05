@@ -7,20 +7,19 @@ private final class NotificationRepo(val coll: Coll) {
 
   import BSONHandlers._
 
-  def insert(notification: Notification) = {
-    coll.insert(notification).void
-  }
+  def insert(notification: Notification): Funit =
+    coll.insert.one(notification).void
 
   def remove(notifies: Notification.Notifies, selector: Bdoc): Funit =
-    coll.remove(userNotificationsQuery(notifies) ++ selector).void
+    coll.delete.one(userNotificationsQuery(notifies) ++ selector).void
 
-  def markAllRead(notifies: Notification.Notifies): Funit = {
-    coll.update(unreadOnlyQuery(notifies), $set("read" -> true), multi = true).void
-  }
+  def markAllRead(notifies: Notification.Notifies): Funit =
+    coll.update.one(
+      q = unreadOnlyQuery(notifies), u = $set("read" -> true), multi = true
+    ).void
 
-  def unreadNotificationsCount(userId: Notification.Notifies): Fu[Int] = {
-    coll.count(unreadOnlyQuery(userId).some)
-  }
+  def unreadNotificationsCount(userId: Notification.Notifies): Fu[Int] =
+    coll.countSel(unreadOnlyQuery(userId))
 
   private val hasOld = $doc(
     "read" -> false,

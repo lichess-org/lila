@@ -18,10 +18,9 @@ final class ShutupApi(
   import PublicLine.PublicLineBSONHandler
 
   def getPublicLines(userId: String): Fu[List[PublicLine]] =
-    coll.find($doc("_id" -> userId), $doc("pub" -> 1))
-      .uno[Bdoc].map {
-        ~_.flatMap(_.getAs[List[PublicLine]]("pub"))
-      }
+    coll.find($doc("_id" -> userId), Some($doc("pub" -> 1))).one[Bdoc].map {
+      ~_.flatMap(_.getAs[List[PublicLine]]("pub"))
+    }
 
   def publicForumMessage(userId: String, text: String) = record(userId, text, TextType.PublicForumMessage)
   def teamForumMessage(userId: String, text: String) = record(userId, text, TextType.TeamForumMessage)
@@ -73,7 +72,7 @@ final class ShutupApi(
   private def legiferate(userRecord: UserRecord): Funit =
     userRecord.reports.exists(_.unacceptable) ?? {
       reporter ! lila.hub.actorApi.report.Shutup(userRecord.userId, reportText(userRecord))
-      coll.update(
+      coll.update.one(
         $doc("_id" -> userRecord.userId),
         $doc("$unset" -> $doc(
           TextType.PublicForumMessage.key -> true,

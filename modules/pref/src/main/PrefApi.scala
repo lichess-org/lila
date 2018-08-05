@@ -1,6 +1,7 @@
 package lila.pref
 
 import play.api.mvc.RequestHeader
+
 import reactivemongo.bson._
 import scala.concurrent.duration.FiniteDuration
 
@@ -14,7 +15,9 @@ final class PrefApi(
     cacheTtl: FiniteDuration
 ) {
 
-  private def fetchPref(id: String): Fu[Option[Pref]] = coll.find($id(id)).uno[Pref]
+  private def fetchPref(id: String): Fu[Option[Pref]] =
+    coll.find($id(id)).one[Pref]
+
   private val cache = asyncCache.multi(
     name = "pref.fetchPref",
     f = fetchPref,
@@ -22,11 +25,6 @@ final class PrefApi(
   )
 
   private implicit val prefBSONHandler = new BSON[Pref] {
-
-    import lila.db.BSON.MapValue.{ MapReader, MapWriter }
-    implicit val tagsReader = MapReader[String, String]
-    implicit val tagsWriter = MapWriter[String, String]
-
     def reads(r: BSON.Reader): Pref = Pref(
       _id = r str "_id",
       dark = r.getD("dark", Pref.default.dark),
@@ -110,12 +108,9 @@ final class PrefApi(
     )
   }
 
-  def saveTag(user: User, name: String, value: String) =
-    coll.update(
-      $id(user.id),
-      $set(s"tags.$name" -> value),
-      upsert = true
-    ).void >>- { cache refresh user.id }
+  def saveTag(user: User, name: String, value: String): Funit =
+    coll.update.one($id(user.id), $set(s"tags.$name" -> value))
+      .void >>- { cache refresh user.id }
 
   def getPrefById(id: String): Fu[Pref] = cache get id dmap (_ getOrElse Pref.create(id))
   val getPref = getPrefById _
@@ -129,14 +124,14 @@ final class PrefApi(
     getPref(user) map RequestPref.queryParamOverride(req)
 
   def followable(userId: String): Fu[Boolean] =
-    coll.find($id(userId), $doc("follow" -> true)).uno[Bdoc] map {
+    coll.find($id(userId), Some($doc("follow" -> true))).one[Bdoc] map {
       _ flatMap (_.getAs[Boolean]("follow")) getOrElse Pref.default.follow
     }
 
   def unfollowableIds(userIds: List[String]): Fu[Set[String]] =
-    coll.distinct[String, Set]("_id", ($inIds(userIds) ++ $doc(
+    coll.distinct[String, Set]("_id", $inIds(userIds) ++ $doc(
       "follow" -> false
-    )).some)
+    ))
 
   def followableIds(userIds: List[String]): Fu[Set[String]] =
     unfollowableIds(userIds) map userIds.toSet.diff
@@ -145,7 +140,7 @@ final class PrefApi(
     followableIds(userIds) map { followables => userIds map followables.contains }
 
   def setPref(pref: Pref, notifyChange: Boolean): Funit =
-    coll.update($id(pref.id), pref, upsert = true).void >>- {
+    coll.update.one($id(pref.id), pref, upsert = true).void >>- {
       cache refresh pref.id
     }
 

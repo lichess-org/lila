@@ -25,7 +25,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
 
   private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit = {
     lila.mon.round.forecast.create()
-    coll.update(
+    coll.update.one(
       $id(pov.fullId),
       Forecast(
         _id = pov.fullId,
@@ -37,7 +37,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
   }
 
   def save(pov: Pov, steps: Forecast.Steps): Funit = firstStep(steps) match {
-    case None => coll.remove($id(pov.fullId)).void
+    case None => coll.delete.one($id(pov.fullId)).void
     case Some(step) if pov.game.turns == step.ply - 1 => saveSteps(pov, steps)
     case _ => fufail(Forecast.OutOfSync)
   }
@@ -60,7 +60,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
     }
 
   def loadForDisplay(pov: Pov): Fu[Option[Forecast]] =
-    pov.forecastable ?? coll.find($id(pov.fullId)).uno[Forecast] flatMap {
+    pov.forecastable ?? coll.find($id(pov.fullId)).one[Forecast] flatMap {
       case None => fuccess(none)
       case Some(fc) =>
         if (firstStep(fc.steps).exists(_.ply != pov.game.turns + 1)) clearPov(pov) inject none
@@ -68,7 +68,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
     }
 
   def loadForPlay(pov: Pov): Fu[Option[Forecast]] =
-    pov.game.forecastable ?? coll.find($id(pov.fullId)).uno[Forecast] flatMap {
+    pov.game.forecastable ?? coll.find($id(pov.fullId)).one[Forecast] flatMap {
       case None => fuccess(none)
       case Some(fc) =>
         if (firstStep(fc.steps).exists(_.ply != pov.game.turns)) clearPov(pov) inject none
@@ -80,7 +80,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
       case None => fuccess(none)
       case Some(fc) => fc(g, last) match {
         case Some((newFc, uciMove)) if newFc.steps.nonEmpty =>
-          coll.update($id(fc._id), newFc) inject uciMove.some
+          coll.update.one($id(fc._id), newFc) inject uciMove.some
         case Some((newFc, uciMove)) => clearPov(Pov player g) inject uciMove.some
         case _ => clearPov(Pov player g) inject none
       }
@@ -89,7 +89,9 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
 
   private def firstStep(steps: Forecast.Steps) = steps.headOption.flatMap(_.headOption)
 
-  def clearGame(g: Game) = coll.remove($inIds(chess.Color.all.map(g.fullIdOf))).void
+  def clearGame(g: Game): Funit = coll.delete.one(
+    $inIds(chess.Color.all.map(g.fullIdOf))
+  ).void
 
-  def clearPov(pov: Pov) = coll.remove($id(pov.fullId)).void
+  def clearPov(pov: Pov): Funit = coll.delete.one($id(pov.fullId)).void
 }

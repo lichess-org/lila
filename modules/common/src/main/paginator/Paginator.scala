@@ -3,18 +3,14 @@ package paginator
 
 import scalaz.Success
 
+/**
+ * @param currentPageResults the results for the current page (the result is cached)
+ * @param nbResults the number of results (the result is cached)
+ */
 final class Paginator[A] private[paginator] (
     val currentPage: Int,
     val maxPerPage: MaxPerPage,
-    /**
-     * Returns the results for the current page.
-     * The result is cached.
-     */
     val currentPageResults: Seq[A],
-    /**
-     * Returns the number of results.
-     * The result is cached.
-     */
     val nbResults: Int
 ) {
 

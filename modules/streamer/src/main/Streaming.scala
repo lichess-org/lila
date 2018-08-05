@@ -4,10 +4,8 @@ import akka.actor._
 import play.api.libs.json._
 import play.api.libs.ws.WS
 import play.api.Play.current
-import play.twirl.api.Html
 import scala.concurrent.duration._
 
-import lila.db.dsl._
 import lila.user.User
 
 private final class Streaming(
@@ -25,7 +23,6 @@ private final class Streaming(
   import Stream._
   import Twitch.Reads._
   import YouTube.Reads._
-  import BsonHandlers._
 
   private case object Tick
 

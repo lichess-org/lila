@@ -1,5 +1,7 @@
 package lila.team
 
+import reactivemongo.api.Cursor
+
 import lila.common.paginator._
 import lila.common.MaxPerPage
 import lila.db.dsl._
@@ -37,12 +39,15 @@ private[team] final class PaginatorBuilder(
 
     def slice(offset: Int, length: Int): Fu[Seq[MemberWithUser]] = for {
       members ← coll.member.find(selector)
-        .sort(sorting).skip(offset).cursor[Member]().gather[List](length)
+        .sort(sorting).skip(offset).cursor[Member]().list(length)
+
       users ← UserRepo usersFromSecondary members.map(_.user)
     } yield members zip users map {
       case (member, user) => MemberWithUser(member, user)
     }
+
     private def selector = MemberRepo teamQuery team.id
+
     private def sorting = $sort desc "date"
   }
 }

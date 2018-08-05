@@ -47,8 +47,7 @@ private final class ExplorerIndexer(
       import reactivemongo.api._
       import reactivemongo.play.iteratees.cursorProducer
 
-      gameColl.find(query)
-        .sort(Query.sortChronological)
+      gameColl.find(query).sort(Query.sortChronological)
         .cursor[Game](ReadPreference.secondary)
         .enumerator(maxGames) &>
         Enumeratee.mapM[Game].apply[Option[GamePGN]] { game =>

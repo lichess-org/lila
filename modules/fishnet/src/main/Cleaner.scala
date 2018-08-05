@@ -1,6 +1,7 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
+
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
@@ -33,15 +34,16 @@ private final class Cleaner(
 
   private def cleanAnalysis: Funit = analysisColl.find(BSONDocument(
     "acquired.date" -> BSONDocument("$lt" -> durationAgo(analysisTimeoutBase))
-  )).sort(BSONDocument("acquired.date" -> 1)).cursor[Work.Analysis]().gather[List](100).flatMap {
-    _.filter { ana =>
-      ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbMoves)))
-    }.map { ana =>
-      repo.updateOrGiveUpAnalysis(ana.timeout) >>-
-        logger.info(s"Timeout analysis $ana") >>-
-        ana.acquired.foreach { ack => Monitor.timeout(ana, ack.userId) }
-    }.sequenceFu.void
-  }
+  )).sort(BSONDocument("acquired.date" -> 1))
+    .cursor[Work.Analysis]().list(100).flatMap {
+      _.filter { ana =>
+        ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbMoves)))
+      }.map { ana =>
+        repo.updateOrGiveUpAnalysis(ana.timeout) >>-
+          logger.info(s"Timeout analysis $ana") >>-
+          ana.acquired.foreach { ack => Monitor.timeout(ana, ack.userId) }
+      }.sequenceFu.void
+    }
 
   scheduler.effect(3 seconds, "fishnet clean moves")(cleanMoves)
   scheduler.effect(10 seconds, "fishnet clean analysis")(cleanAnalysis)

@@ -2,6 +2,7 @@ package lila.user
 
 import lila.db.dsl._
 import lila.db.BSON.BSONJodaDateTimeHandler
+
 import reactivemongo.bson._
 
 final class TrophyApi(coll: Coll) {
@@ -14,7 +15,7 @@ final class TrophyApi(coll: Coll) {
   private implicit val trophyBSONHandler = Macros.handler[Trophy]
 
   def award(userId: String, kind: Trophy.Kind): Funit =
-    coll insert Trophy.make(userId, kind) void
+    coll.insert.one(Trophy.make(userId, kind)).void
 
   def award(userId: String, kind: Trophy.Kind.type => Trophy.Kind): Funit =
     award(userId, kind(Trophy.Kind))
@@ -22,5 +23,5 @@ final class TrophyApi(coll: Coll) {
   def awardMarathonWinner(userId: String): Funit = award(userId, Trophy.Kind.MarathonWinner)
 
   def findByUser(user: User, max: Int = 12): Fu[List[Trophy]] =
-    coll.find($doc("user" -> user.id)).list[Trophy](max)
+    coll.find($doc("user" -> user.id)).cursor[Trophy]().list(max)
 }

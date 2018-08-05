@@ -1,8 +1,8 @@
 package lila.simul
 
 import org.joda.time.DateTime
+
 import reactivemongo.bson._
-import reactivemongo.core.commands._
 
 import chess.Status
 import chess.variant.Variant
@@ -63,7 +63,8 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     simulColl.exists($id(id))
 
   def createdByHostId(hostId: String): Fu[List[Simul]] =
-    simulColl.find(createdSelect ++ $doc("hostId" -> hostId)).list[Simul]()
+    simulColl.find(createdSelect ++ $doc("hostId" -> hostId))
+      .cursor[Simul]().list
 
   def findStarted(id: Simul.ID): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isStarted))
@@ -72,45 +73,37 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     find(id) map (_ filter (_.isCreated))
 
   def allCreated: Fu[List[Simul]] =
-    simulColl.find(createdSelect).sort(createdSort).list[Simul]()
+    simulColl.find(createdSelect).sort(createdSort).cursor[Simul]().list
 
   def allCreatedFeaturable: Fu[List[Simul]] = simulColl.find(
     createdSelect ++ $doc("createdAt" $gte DateTime.now.minusMinutes(20))
-  ).sort(createdSort).list[Simul]()
+  ).sort(createdSort).cursor[Simul]().list
 
-  def allStarted: Fu[List[Simul]] = simulColl.find(
-    startedSelect
-  ).sort(createdSort).list[Simul]()
+  def allStarted: Fu[List[Simul]] =
+    simulColl.find(startedSelect).sort(createdSort).cursor[Simul]().list
 
-  def allFinished(max: Int): Fu[List[Simul]] = simulColl.find(
-    finishedSelect
-  ).sort(createdSort).list[Simul](max)
+  def allFinished(max: Int): Fu[List[Simul]] =
+    simulColl.find(finishedSelect).sort(createdSort).cursor[Simul]().list(max)
 
-  def allNotFinished =
-    simulColl.find($doc("status" $ne SimulStatus.Finished.id)).list[Simul]()
+  def allNotFinished: Fu[List[Simul]] =
+    simulColl.find($doc("status" $ne SimulStatus.Finished.id))
+      .cursor[Simul]().list
 
-  def create(simul: Simul): Funit =
-    simulColl insert simul void
+  def create(simul: Simul): Funit = simulColl.insert.one(simul).void
 
-  def update(simul: Simul) =
-    simulColl.update($id(simul.id), simul).void
+  def update(simul: Simul): Funit =
+    simulColl.update.one($id(simul.id), simul).void
 
-  def remove(simul: Simul) =
-    simulColl.remove($id(simul.id)).void
+  def remove(simul: Simul): Funit =
+    simulColl.delete.one($id(simul.id)).void
 
-  def setHostGameId(simul: Simul, gameId: String) = simulColl.update(
-    $id(simul.id),
-    $set("hostGameId" -> gameId)
-  ).void
+  def setHostGameId(simul: Simul, gameId: String): Funit =
+    simulColl.update.one($id(simul.id), $set("hostGameId" -> gameId)).void
 
-  def setHostSeenNow(simul: Simul) = simulColl.update(
-    $id(simul.id),
-    $set("hostSeenAt" -> DateTime.now)
-  ).void
+  def setHostSeenNow(simul: Simul): Funit =
+    simulColl.update.one($id(simul.id), $set("hostSeenAt" -> DateTime.now)).void
 
-  def cleanup = simulColl.remove(
-    createdSelect ++ $doc(
-      "createdAt" -> $doc("$lt" -> (DateTime.now minusMinutes 60))
-    )
-  )
+  def cleanup = simulColl.delete.one(createdSelect ++ $doc(
+    "createdAt" -> $doc("$lt" -> (DateTime.now minusMinutes 60))
+  ))
 }

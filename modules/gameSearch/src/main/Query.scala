@@ -61,17 +61,18 @@ object Query {
 
   val durations = {
     val day = 60 * 60 * 24
-    ((30, "30 seconds") ::
+
+    ((30 -> "30 seconds") ::
       options(List(60, 60 * 2, 60 * 3, 60 * 5, 60 * 10, 60 * 15, 60 * 20, 60 * 30), _ / 60, "%d minute{s}").toList) :+
-      (60 * 60 * 1, "One hour") :+
-      (60 * 60 * 2, "Two hours") :+
-      (60 * 60 * 3, "Three hours")
+      ((60 * 60 * 1) -> "One hour") :+
+      ((60 * 60 * 2) -> "Two hours") :+
+      ((60 * 60 * 3) -> "Three hours")
   }
 
   val clockInits = List(
-    (0, "0 seconds"),
-    (30, "30 seconds"),
-    (45, "45 seconds")
+    (0 -> "0 seconds"),
+    (30 -> "30 seconds"),
+    (45 -> "45 seconds")
   ) ::: options(List(60 * 1, 60 * 2, 60 * 3, 60 * 5, 60 * 10, 60 * 15, 60 * 20, 60 * 30, 60 * 45, 60 * 60, 60 * 90, 60 * 120, 60 * 150, 60 * 180), _ / 60, "%d minute{s}").toList
 
   val clockIncs =

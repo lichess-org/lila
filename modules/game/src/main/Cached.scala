@@ -13,9 +13,11 @@ final class Cached(
 ) {
 
   def nbImportedBy(userId: String): Fu[Int] = nbImportedCache(userId)
+
   def clearNbImportedByCache = nbImportedCache remove _
 
-  def nbPlaying(userId: String): Fu[Int] = countShortTtl.get(Query nowPlaying userId)
+  def nbPlaying(userId: String): Fu[Int] =
+    countShortTtl.get(Query nowPlaying userId)
 
   def nbTotal: Fu[Int] = countCache($empty)
 

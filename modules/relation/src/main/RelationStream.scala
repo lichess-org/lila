@@ -2,7 +2,6 @@ package lila.relation
 
 import play.api.libs.iteratee._
 import reactivemongo.api.ReadPreference
-import reactivemongo.play.iteratees.cursorProducer
 import scala.concurrent.duration._
 
 import lila.common.MaxPerSecond
@@ -20,12 +19,17 @@ final class RelationStream(coll: Coll)(implicit system: akka.actor.ActorSystem) 
     }
     val projection = $doc(field -> true, "_id" -> false)
     val query = direction match {
-      case Direction.Following => coll.find($doc("u1" -> user.id, "r" -> Follow), projection)
-      case Direction.Followers => coll.find($doc("u2" -> user.id, "r" -> Follow), projection)
+      case Direction.Following =>
+        coll.find($doc("u1" -> user.id, "r" -> Follow), Some(projection))
+
+      case Direction.Followers =>
+        coll.find($doc("u2" -> user.id, "r" -> Follow), Some(projection))
     }
-    query.copy(options = query.options.batchSize(perSecond.value))
-      .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
-      .bulkEnumerator() &>
+
+    import reactivemongo.play.iteratees.cursorProducer
+
+    query.batchSize(perSecond.value)
+      .cursor[Bdoc](ReadPreference.secondaryPreferred).bulkEnumerator() &>
       lila.common.Iteratee.delay(1 second) &>
       Enumeratee.mapM { docs =>
         UserRepo usersFromSecondary docs.toSeq.flatMap(_.getAs[User.ID](field))

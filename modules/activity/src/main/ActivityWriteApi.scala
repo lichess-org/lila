@@ -28,32 +28,30 @@ final class ActivityWriteApi(
         ActivityFields.corres -> a.corres.orDefault.+(GameId(game.id), false, true)
       )
       setters = setGames ++ setCorres
-      _ <- (!setters.isEmpty) ?? coll.update($id(a.id), $set(setters), upsert = true).void
+      _ <- (!setters.isEmpty) ?? coll.update.one(
+        $id(a.id), $set(setters), upsert = true
+      ).void
     } yield Unit
   }.sequenceFu.void
 
   def forumPost(post: lila.forum.Post, topic: lila.forum.Topic): Funit = post.userId.filter(User.lichessId !=) ?? { userId =>
     getOrCreate(userId) flatMap { a =>
-      coll.update(
-        $id(a.id),
-        $set(ActivityFields.posts -> (~a.posts + PostId(post.id))),
-        upsert = true
-      ).void
+      coll.update.one($id(a.id), $set(
+        ActivityFields.posts -> (~a.posts + PostId(post.id))
+      ),
+        upsert = true).void
     }
   }
 
   def puzzle(res: lila.puzzle.Puzzle.UserResult): Funit =
     getOrCreate(res.userId) flatMap { a =>
-      coll.update(
-        $id(a.id),
-        $set(ActivityFields.puzzles -> {
-          ~a.puzzles + Score.make(
-            res = res.result.win.some,
-            rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
-          )
-        }),
-        upsert = true
-      ).void
+      coll.update.one($id(a.id), $set(ActivityFields.puzzles -> {
+        ~a.puzzles + Score.make(
+          res = res.result.win.some,
+          rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
+        )
+      }),
+        upsert = true).void
     }
 
   def learn(userId: User.ID, stage: String) =
@@ -79,15 +77,14 @@ final class ActivityWriteApi(
   def follow(from: User.ID, to: User.ID) =
     update(from) { a =>
       a.copy(follows = Some(~a.follows addOut to)).some
-    } >>
-      update(to) { a =>
-        a.copy(follows = Some(~a.follows addIn from)).some
-      }
+    } >> update(to) { a =>
+      a.copy(follows = Some(~a.follows addIn from)).some
+    }
 
   def unfollowAll(from: User, following: Set[User.ID]) = {
     logger.info(s"${from.id} unfollow ${following.size} users")
     following.map { userId =>
-      coll.update(
+      coll.update.one(
         regexId(userId) ++ $doc("f.i.ids" -> from.id),
         $pull("f.i.ids" -> from.id)
       )
@@ -102,22 +99,24 @@ final class ActivityWriteApi(
     }
   }
 
-  def team(id: String, userId: User.ID) =
-    update(userId) { a =>
-      a.copy(teams = Some(~a.teams + id)).some
-    }
+  def team(id: String, userId: User.ID) = update(userId) { a =>
+    a.copy(teams = Some(~a.teams + id)).some
+  }
 
   def streamStart(userId: User.ID) =
     update(userId) { _.copy(stream = true).some }
 
-  def erase(user: User) = coll.remove(regexId(user.id))
+  def erase(user: User) = coll.delete.one(regexId(user.id))
 
   private def simulParticipant(simul: lila.simul.Simul, userId: String, host: Boolean) =
     update(userId) { a => a.copy(simuls = Some(~a.simuls + SimulId(simul.id))).some }
 
   private def get(userId: User.ID) = coll.byId[Activity, Id](Id today userId)
   private def getOrCreate(userId: User.ID) = get(userId) map { _ | Activity.make(userId) }
-  private def save(activity: Activity) = coll.update($id(activity.id), activity, upsert = true).void
+
+  private def save(activity: Activity): Funit =
+    coll.update.one($id(activity.id), activity, upsert = true).void
+
   private def update(userId: User.ID)(f: Activity => Option[Activity]): Funit =
     getOrCreate(userId) flatMap { old =>
       f(old) ?? save

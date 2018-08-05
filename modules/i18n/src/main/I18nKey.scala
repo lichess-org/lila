@@ -30,8 +30,8 @@ sealed trait I18nKey {
 
   // reuses the count as the single argument
   // allows `plural(nb)` instead of `plural(nb, nb)`
-  def pluralSame(count: Int)(implicit ctx: UserContext): Html = plural(count, count)
-  def pluralSameTxt(count: Int)(implicit ctx: UserContext): String = pluralTxt(count, count)
+  def pluralSame(count: Count)(implicit ctx: UserContext): Html = plural(count, count)
+  def pluralSameTxt(count: Count)(implicit ctx: UserContext): String = pluralTxt(count, count)
 }
 
 final class Translated(val key: String, val db: I18nDb.Ref) extends I18nKey {

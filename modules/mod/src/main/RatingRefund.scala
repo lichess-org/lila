@@ -1,7 +1,7 @@
 package lila.mod
 
 import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
+import reactivemongo.api.{ Cursor, ReadPreference }
 import scala.concurrent.duration._
 
 import lila.db.dsl._
@@ -33,9 +33,8 @@ private final class RatingRefund(
 
       def lastGames = GameRepo.coll.find(
         Query.win(sus.user.id) ++ Query.rated ++ Query.createdSince(DateTime.now minusDays 3)
-      ).sort(Query.sortCreated)
-        .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
-        .list(30)
+      ).sort(Query.sortCreated).
+        cursor[Game](ReadPreference.secondaryPreferred).list(30)
 
       def makeRefunds(games: List[Game]) = games.foldLeft(Refunds(List.empty)) {
         case (refs, g) => (for {

@@ -5,7 +5,6 @@ import lila.common.IpAddress
 import lila.game.BSONHandlers.FENBSONHandler
 import reactivemongo.bson._
 
-import chess.format.FEN
 import chess.variant.Variant
 
 private object BSONHandlers {

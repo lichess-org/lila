@@ -47,17 +47,17 @@ private[puzzle] final class Daily(
       none
   }
 
-  private def findCurrent = coll.find(
+  private def findCurrent: Fu[Option[Puzzle]] = coll.find(
     $doc(F.day $gt DateTime.now.minusMinutes(24 * 60 - 15))
-  ).uno[Puzzle]
+  ).one[Puzzle]
 
-  private def findNew = coll.find(
+  private def findNew: Fu[Option[Puzzle]] = coll.find(
     $doc(F.day $exists false, F.voteNb $gte 200)
-  ).sort($doc(F.voteRatio -> -1)).uno[Puzzle] flatMap {
-      case Some(puzzle) => coll.update(
-        $id(puzzle.id),
-        $set(F.day -> DateTime.now)
+  ).sort($doc(F.voteRatio -> -1)).one[Puzzle] flatMap {
+      case Some(puzzle) => coll.update.one(
+        $id(puzzle.id), $set(F.day -> DateTime.now)
       ) inject puzzle.some
+
       case None => fuccess(none)
     }
 }

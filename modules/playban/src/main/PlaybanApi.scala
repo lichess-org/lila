@@ -114,8 +114,8 @@ final class PlaybanApi(
 
   def currentBan(userId: User.ID): Fu[Option[TempBan]] = coll.find(
     $doc("_id" -> userId, "b.0" $exists true),
-    $doc("_id" -> false, "b" -> $doc("$slice" -> -1))
-  ).uno[Bdoc].map {
+    projection = Some($doc("_id" -> false, "b" -> $doc("$slice" -> -1)))
+  ).one[Bdoc].map {
       _.flatMap(_.getAs[List[TempBan]]("b")).??(_.find(_.inEffect))
     }
 
@@ -137,8 +137,8 @@ final class PlaybanApi(
 
   def bans(userIds: List[User.ID]): Fu[Map[User.ID, Int]] = coll.find(
     $inIds(userIds),
-    $doc("b" -> true)
-  ).cursor[Bdoc]().gather[List]().map {
+    projection = Some($doc("b" -> true))
+  ).cursor[Bdoc]().list map {
       _.flatMap { obj =>
         obj.getAs[User.ID]("_id") flatMap { id =>
           obj.getAs[Barr]("b") map { id -> _.stream.size }
@@ -171,18 +171,14 @@ final class PlaybanApi(
         lila.mon.playban.ban.count()
         lila.mon.playban.ban.mins(ban.mins)
         bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), 'playban)
-        coll.update(
-          $id(record.userId),
-          $unset("o") ++
-            $push(
-              "b" -> $doc(
-                "$each" -> List(ban),
-                "$slice" -> -30
-              )
-            )
-        ).void
-      }
 
+        coll.update.one($id(record.userId), $unset("o") ++ $push(
+          "b" -> $doc(
+            "$each" -> List(ban),
+            "$slice" -> -30
+          )
+        )).void
+      }
     }
   }
 }

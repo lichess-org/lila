@@ -2,7 +2,6 @@ package lila.db
 package paginator
 
 import dsl._
-import reactivemongo.api.collections.bson.BSONCollection
 import reactivemongo.api._
 import reactivemongo.bson._
 
@@ -18,19 +17,15 @@ final class CachedAdapter[A](
 }
 
 final class Adapter[A: BSONDocumentReader](
-    collection: BSONCollection,
+    collection: Coll,
     selector: BSONDocument,
     projection: BSONDocument,
     sort: BSONDocument,
     readPreference: ReadPreference = ReadPreference.primary
 ) extends AdapterLike[A] {
-
   def nbResults: Fu[Int] = collection.countSel(selector, readPreference)
 
   def slice(offset: Int, length: Int): Fu[List[A]] =
-    collection.find(selector, projection)
-      .sort(sort)
-      .skip(offset)
-      .cursor[A](readPreference = readPreference)
-      .gather[List](length)
+    collection.find(selector, Some(projection))
+      .sort(sort).skip(offset).cursor[A](readPreference).list(length)
 }

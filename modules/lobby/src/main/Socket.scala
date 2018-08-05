@@ -120,7 +120,7 @@ private[lobby] final class Socket(
       }
 
     case pairing: lila.pool.PoolApi.Pairing =>
-      def goPlayTheGame = redirectPlayers(pairing)
+      def goPlayTheGame() = redirectPlayers(pairing)
       goPlayTheGame // go play the game now
       context.system.scheduler.scheduleOnce(1 second)(goPlayTheGame) // I said go
       context.system.scheduler.scheduleOnce(3 second)(goPlayTheGame) // Darn it
@@ -175,5 +175,5 @@ private[lobby] final class Socket(
 
   def playerUrl(fullId: String) = s"/$fullId"
 
-  def notifySeeks = notifyAllActive(makeMessage("reload_seeks"))
+  def notifySeeks() = notifyAllActive(makeMessage("reload_seeks"))
 }

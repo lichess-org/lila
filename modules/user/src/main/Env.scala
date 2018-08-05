@@ -3,8 +3,6 @@ package lila.user
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.common.EmailAddress
-
 final class Env(
     config: Config,
     db: lila.db.Env,
@@ -42,6 +40,7 @@ final class Env(
   lazy val jsonView = new JsonView(isOnline)
 
   def lightUser(id: User.ID): Fu[Option[lila.common.LightUser]] = lightUserApi async id
+
   def lightUserSync(id: User.ID): Option[lila.common.LightUser] = lightUserApi sync id
 
   def uncacheLightUser(id: User.ID): Unit = lightUserApi invalidate id

@@ -19,7 +19,7 @@ final class SelfReport(roundMap: ActorRef) {
       // user.ifTrue(!known && name != "ceval") ?? { u =>
       //   Env.report.api.autoBotReport(u.id, referer, name)
       // }
-      def doLog = lila.log("cheat").branch("jslog").info(
+      def doLog() = lila.log("cheat").branch("jslog").info(
         s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
       )
       lila.game.GameRepo pov fullId map {

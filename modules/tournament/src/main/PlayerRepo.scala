@@ -22,10 +22,12 @@ object PlayerRepo {
   private val selectWithdraw = $doc("w" -> true)
   private val bestSort = $doc("m" -> -1)
 
-  def byId(id: String): Fu[Option[Player]] = coll.uno[Player](selectId(id))
+  def byId(id: String): Fu[Option[Player]] =
+    coll.find(selectId(id)).one[Player]
 
   private[tournament] def bestByTour(tourId: String, nb: Int, skip: Int = 0): Fu[List[Player]] =
-    coll.find(selectTour(tourId)).sort(bestSort).skip(skip).list[Player](nb)
+    coll.find(selectTour(tourId)).sort(bestSort).skip(skip)
+      .cursor[Player]().list(nb)
 
   private[tournament] def bestByTourWithRank(tourId: String, nb: Int, skip: Int = 0): Fu[RankedPlayers] =
     bestByTour(tourId, nb, skip).map { res =>
@@ -42,10 +44,11 @@ object PlayerRepo {
 
   def count(tourId: String): Fu[Int] = coll.countSel(selectTour(tourId))
 
-  def removeByTour(tourId: String) = coll.remove(selectTour(tourId)).void
+  def removeByTour(tourId: String): Funit =
+    coll.delete.one(selectTour(tourId)).void
 
-  def remove(tourId: String, userId: String) =
-    coll.remove(selectTourUser(tourId, userId)).void
+  def remove(tourId: String, userId: String): Funit =
+    coll.delete.one(selectTourUser(tourId, userId)).void
 
   def filterExists(tourIds: List[Tournament.ID], userId: String): Fu[List[Tournament.ID]] =
     coll.primitive[Tournament.ID]($doc(
@@ -56,45 +59,42 @@ object PlayerRepo {
   def existsActive(tourId: String, userId: String) =
     coll.exists(selectTourUser(tourId, userId) ++ selectActive)
 
-  def unWithdraw(tourId: String) = coll.update(
-    selectTour(tourId) ++ selectWithdraw,
-    $doc("$unset" -> $doc("w" -> true)),
-    multi = true
+  def unWithdraw(tourId: String): Funit = coll.update.one(
+    selectTour(tourId) ++ selectWithdraw, $unset("w"), multi = true
   ).void
 
   def find(tourId: String, userId: String): Fu[Option[Player]] =
-    coll.find(selectTourUser(tourId, userId)).uno[Player]
+    coll.find(selectTourUser(tourId, userId)).one[Player]
 
   def update(tourId: String, userId: String)(f: Player => Fu[Player]) =
     find(tourId, userId) flatten s"No such player: $tourId/$userId" flatMap f flatMap { player =>
-      coll.update(selectId(player._id), player).void
+      coll.update.one(selectId(player._id), player).void
     }
 
-  def join(tourId: String, user: User, perfLens: Perfs => Perf) =
+  def join(tourId: String, user: User, perfLens: Perfs => Perf): Funit =
     find(tourId, user.id) flatMap {
-      case Some(p) if p.withdraw => coll.update(selectId(p._id), $unset("w"))
+      case Some(p) if p.withdraw =>
+        coll.update.one(selectId(p._id), $unset("w"))
+
       case Some(p) => funit
-      case None => coll.insert(Player.make(tourId, user, perfLens))
+
+      case _ => coll.insert.one(Player.make(tourId, user, perfLens))
     } void
 
-  def withdraw(tourId: String, userId: String) =
-    coll.update(selectTourUser(tourId, userId), $set("w" -> true)).void
+  def withdraw(tourId: String, userId: String): Funit =
+    coll.update.one(selectTourUser(tourId, userId), $set("w" -> true)).void
 
   private[tournament] def withPoints(tourId: String): Fu[List[Player]] =
-    coll.find(
-      selectTour(tourId) ++ $doc("m" $gt 0)
-    ).cursor[Player]().gather[List]()
+    coll.find(selectTour(tourId) ++ $doc("m" $gt 0)).cursor[Player]().list
 
   private[tournament] def userIds(tourId: String): Fu[List[String]] =
-    coll.distinct[String, List]("uid", selectTour(tourId).some)
+    coll.distinct[String, List]("uid", selectTour(tourId))
 
   private[tournament] def activeUserIds(tourId: String): Fu[List[String]] =
-    coll.distinct[String, List](
-      "uid", (selectTour(tourId) ++ selectActive).some
-    )
+    coll.distinct[String, List]("uid", selectTour(tourId) ++ selectActive)
 
   def winner(tourId: String): Fu[Option[Player]] =
-    coll.find(selectTour(tourId)).sort(bestSort).uno[Player]
+    coll.find(selectTour(tourId)).sort(bestSort).one[Player]
 
   // freaking expensive (marathons)
   private[tournament] def computeRanking(tourId: String): Fu[Ranking] =
@@ -128,8 +128,7 @@ object PlayerRepo {
 
   def byTourAndUserIds(tourId: String, userIds: Iterable[String]): Fu[List[Player]] =
     coll.find(selectTour(tourId) ++ $doc("uid" $in userIds))
-      .list[Player]()
-      .chronometer.logIfSlow(200, logger) { players =>
+      .cursor[Player]().list.chronometer.logIfSlow(200, logger) { players =>
         s"PlayerRepo.byTourAndUserIds $tourId ${userIds.size} user IDs, ${players.size} players"
       }.result
 
@@ -140,8 +139,9 @@ object PlayerRepo {
       case _ => none
     }
 
-  def setPerformance(player: Player, performance: Int) =
-    coll.update(selectId(player.id), $doc("$set" -> $doc("e" -> performance))).void
+  def setPerformance(player: Player, performance: Int): Funit = coll.update.one(
+    selectId(player.id), $doc("$set" -> $doc("e" -> performance))
+  ).void
 
   private def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
     players.flatMap { p =>

@@ -1,17 +1,17 @@
 package lila.practice
 
-import lila.db.BSON
 import lila.db.dsl._
 import lila.study.Chapter
 import reactivemongo.bson._
 
 object BSONHandlers {
+  private implicit val nbMovesHandler: BSONHandler[BSONInteger, PracticeProgress.NbMoves] = intIsoHandler(PracticeProgress.nbMovesIso)
 
-  import PracticeProgress.NbMoves
+  private implicit val chapterIdHandler: BSONHandler[BSONString, Chapter.Id] =
+    stringIsoHandler(Chapter.idIso)
 
-  private implicit val nbMovesHandler = intIsoHandler(PracticeProgress.nbMovesIso)
-  private implicit val chapterNbMovesHandler = BSON.MapValue.MapHandler[Chapter.Id, NbMoves]
+  private[practice] implicit val practiceProgressIdHandler =
+    stringAnyValHandler[PracticeProgress.Id](_.value, PracticeProgress.Id.apply)
 
-  implicit val practiceProgressIdHandler = stringAnyValHandler[PracticeProgress.Id](_.value, PracticeProgress.Id.apply)
   implicit val practiceProgressHandler = Macros.handler[PracticeProgress]
 }

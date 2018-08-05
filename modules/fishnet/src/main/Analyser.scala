@@ -2,9 +2,6 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import chess.format.FEN
-import chess.format.Uci
-
 import lila.analyse.AnalysisRepo
 import lila.game.{ Game, GameRepo, UciMemo }
 

@@ -1,5 +1,7 @@
 package lila.mod
 
+import reactivemongo.api.Cursor
+
 import lila.db.dsl._
 import lila.report.{ Report, Mod, Suspect, ModId }
 import lila.security.Permission
@@ -161,7 +163,8 @@ final class ModlogApi(coll: Coll) {
     Modlog(mod, user.some, Modlog.teamMadeOwner, details = Some(teamName take 140))
   }
 
-  def recent = coll.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)
+  def recent: Fu[List[Modlog]] = coll.find($empty)
+    .sort($sort naturalDesc).cursor[Modlog]().list(100)
 
   def wasUnengined(sus: Suspect) = coll.exists($doc(
     "user" -> sus.user.id,
@@ -174,11 +177,13 @@ final class ModlogApi(coll: Coll) {
   ))
 
   def userHistory(userId: String): Fu[List[Modlog]] =
-    coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)
+    coll.find($doc("user" -> userId))
+      .sort($sort desc "date").cursor[Modlog]().list(30)
 
   private def add(m: Modlog): Funit = {
     lila.mon.mod.log.create()
     lila.log("mod").info(m.toString)
-    coll.insert(m).void
+
+    coll.insert.one(m).void
   }
 }

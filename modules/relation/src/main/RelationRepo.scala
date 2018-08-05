@@ -37,32 +37,31 @@ private[relation] object RelationRepo {
     coll.distinct[String, Set]("u2", $doc(
       "u1" -> userId,
       "r" -> relation
-    ).some)
+    ))
 
   def follow(u1: ID, u2: ID): Funit = save(u1, u2, Follow)
   def unfollow(u1: ID, u2: ID): Funit = remove(u1, u2)
   def block(u1: ID, u2: ID): Funit = save(u1, u2, Block)
   def unblock(u1: ID, u2: ID): Funit = remove(u1, u2)
 
-  def unfollowAll(u1: ID): Funit = coll.remove($doc("u1" -> u1)).void
+  def unfollowAll(u1: ID): Funit = coll.delete.one($doc("u1" -> u1)).void
 
-  private def save(u1: ID, u2: ID, relation: Relation): Funit = coll.update(
+  private def save(u1: ID, u2: ID, relation: Relation): Funit = coll.update.one(
     $id(makeId(u1, u2)),
     $doc("u1" -> u1, "u2" -> u2, "r" -> relation),
     upsert = true
   ).void
 
-  def remove(u1: ID, u2: ID): Funit = coll.remove($id(makeId(u1, u2))).void
+  def remove(u1: ID, u2: ID): Funit = coll.delete.one($id(makeId(u1, u2))).void
 
   def drop(userId: ID, relation: Relation, nb: Int) =
     coll.find(
       $doc("u1" -> userId, "r" -> relation),
-      $doc("_id" -> true)
-    )
-      .list[Bdoc](nb).map {
+      Some($doc("_id" -> true))
+    ).cursor[Bdoc]().list(nb).map {
         _.flatMap { _.getAs[String]("_id") }
       } flatMap { ids =>
-        coll.remove($inIds(ids)).void
+        coll.delete.one($inIds(ids)).void
       }
 
   def makeId(u1: String, u2: String) = s"$u1/$u2"

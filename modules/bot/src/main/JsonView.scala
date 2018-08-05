@@ -2,8 +2,6 @@ package lila.bot
 
 import play.api.libs.json._
 
-import chess.format.FEN
-
 import lila.game.JsonView._
 import lila.game.{ Game, Pov, GameRepo }
 

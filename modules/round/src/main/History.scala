@@ -1,8 +1,9 @@
 package lila.round
 
 import org.joda.time.DateTime
-import reactivemongo.api.commands.GetLastError
+
 import reactivemongo.bson._
+import reactivemongo.api.WriteConcern
 
 import lila.db.dsl._
 import lila.game.Event
@@ -53,7 +54,7 @@ private[round] final class History(
     vevs.reverse
   }
 
-  private def waitForLoadedEvents: Unit = {
+  private def waitForLoadedEvents(): Unit = {
     if (events == null) {
       events = load awaitSeconds 3
     }
@@ -61,7 +62,7 @@ private[round] final class History(
 
   private var persistenceEnabled = withPersistence
 
-  def enablePersistence: Unit = {
+  def enablePersistence(): Unit = {
     if (!persistenceEnabled) {
       persistenceEnabled = true
       if (events != null) persist(events)
@@ -85,18 +86,24 @@ private[round] object History {
     coll.byId[Bdoc](gameId).map {
       _.flatMap(_.getAs[VersionedEvents]("e")) ?? (_.reverse)
     } addEffect {
-      case events if events.nonEmpty && !withPersistence => coll.remove($id(gameId)).void
+      case events if events.nonEmpty && !withPersistence =>
+        coll.delete.one($id(gameId)).void
+
       case _ =>
     }
 
-  private def persist(coll: Coll, gameId: String)(vevs: List[VersionedEvent]) =
-    if (vevs.nonEmpty) coll.update(
-      $doc("_id" -> gameId),
-      $doc(
+  private def persist(coll: Coll, gameId: String)(
+    vevs: List[VersionedEvent]
+  ): Unit = if (vevs.isEmpty) {} else {
+    coll.update(true, WriteConcern.Unacknowledged).one(
+      q = $doc("_id" -> gameId),
+      u = $doc(
         "$set" -> $doc("e" -> vevs.reverse),
         "$setOnInsert" -> $doc("d" -> DateTime.now)
       ),
-      upsert = true,
-      writeConcern = GetLastError.Unacknowledged
+      upsert = true, multi = false
     )
+
+    ()
+  }
 }

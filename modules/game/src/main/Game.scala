@@ -4,7 +4,7 @@ import chess.Color.{ White, Black }
 import chess.format.{ Uci, FEN }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ Variant, Standard }
-import chess.{ Speed, PieceMap, MoveMetrics, History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks, Centis, Situation }
+import chess.{ Speed, MoveMetrics, CheckCount, Castles, MoveOrDrop, Game => ChessGame, Clock, Status, Color, Mode, Centis }
 import org.joda.time.DateTime
 
 import lila.common.Sequence

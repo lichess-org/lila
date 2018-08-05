@@ -24,7 +24,7 @@ final class Photographer(coll: Coll, prefix: String) {
         file = uploaded.ref.file
       )
 
-      coll.update($id(image.id), image, upsert = true) inject image
+      coll.update.one($id(image.id), image, upsert = true) inject image
     }
 
   private def process(file: File) = {

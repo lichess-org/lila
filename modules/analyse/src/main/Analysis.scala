@@ -1,7 +1,6 @@
 package lila.analyse
 
 import chess.Color
-import chess.format.Uci
 
 import org.joda.time.DateTime
 

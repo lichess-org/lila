@@ -7,7 +7,7 @@ import akka.actor._
 import akka.pattern.pipe
 
 import lila.user.User
-import lila.socket.Socket.{ Uid, Uids }
+import lila.socket.Socket.Uids
 
 private final class PoolActor(
     config: PoolConfig,
@@ -21,7 +21,7 @@ private final class PoolActor(
 
   var nextWave: Cancellable = _
 
-  def scheduleWave =
+  def scheduleWave() =
     nextWave = context.system.scheduler.scheduleOnce(
       config.wave.every + Random.nextInt(1000).millis,
       self, ScheduledWave

@@ -57,10 +57,11 @@ private[forum] final class CategApi(env: Env) {
         categId = categ.id,
         modIcon = None
       )
-      env.categColl.insert(categ).void >>
-        env.postColl.insert(post).void >>
-        env.topicColl.insert(topic withPost post).void >>
-        env.categColl.update($id(categ.id), categ withTopic post).void
+
+      env.categColl.insert.one(categ).void >>
+        env.postColl.insert.one(post).void >>
+        env.topicColl.insert.one(topic withPost post).void >>
+        env.categColl.update.one($id(categ.id), categ withTopic post).void
     }
 
   def show(slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Paginator[TopicView])]] =
@@ -75,7 +76,7 @@ private[forum] final class CategApi(env: Env) {
     nbTopicsTroll ← TopicRepoTroll countByCateg categ
     nbPostsTroll ← PostRepoTroll countByCateg categ
     lastPostTroll ← PostRepoTroll lastByCateg categ
-    _ ← env.categColl.update($id(categ.id), categ.copy(
+    _ ← env.categColl.update.one($id(categ.id), categ.copy(
       nbTopics = nbTopics,
       nbPosts = nbPosts,
       lastPostId = lastPost ?? (_.id),

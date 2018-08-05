@@ -50,15 +50,13 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
   private def fetchFirstGame(user: User): Fu[Option[Game]] =
     if (user.count.rated == 0) fuccess(none)
     else {
-      (user.count.rated >= maxGames) ?? GameRepo.coll
-        .find(gameQuery(user))
-        .sort(Query.sortCreated)
-        .skip(maxGames - 1)
-        .uno[Game](readPreference = ReadPreference.secondaryPreferred)
-    } orElse GameRepo.coll
-      .find(gameQuery(user))
+      (user.count.rated >= maxGames) ?? GameRepo.coll.find(gameQuery(user))
+        .sort(Query.sortCreated).skip(maxGames - 1)
+        .one[Game](ReadPreference.secondaryPreferred)
+
+    } orElse GameRepo.coll.find(gameQuery(user))
       .sort(Query.sortChronological)
-      .uno[Game](readPreference = ReadPreference.secondaryPreferred)
+      .one[Game](ReadPreference.secondaryPreferred)
 
   private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit = {
     import reactivemongo.play.iteratees.cursorProducer
@@ -74,6 +72,7 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
         } map (_.right.toOption)
       }
       val query = gameQuery(user) ++ $doc(Game.BSONFields.createdAt $gte from)
+
       GameRepo.sortedCursor(query, Query.sortChronological)
         .enumerator(maxGames) &>
         Enumeratee.grouped(Iteratee takeUpTo 4) &>
@@ -90,7 +89,8 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
               case (e, i) => e.copy(number = number + i)
             }
             val nextNumber = number + entries.size
-            storage bulkInsert entries inject nextNumber
+
+            storage.bulkInsert(entries) inject nextNumber
         }
     } void
   }

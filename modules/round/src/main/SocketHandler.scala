@@ -1,6 +1,5 @@
 package lila.round
 
-import scala.concurrent.duration._
 import scala.concurrent.Promise
 import scala.util.Try
 

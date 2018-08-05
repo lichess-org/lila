@@ -19,7 +19,7 @@ final class InsightApi(
     case None => for {
       count <- storage count user.id
       ecos <- storage ecos user.id
-      c = UserCache(user.id, count, ecos, DateTime.now)
+      c = UserCache(user.id, count.toInt, ecos, DateTime.now)
       _ <- userCacheApi save c
     } yield c
   }

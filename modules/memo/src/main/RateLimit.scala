@@ -1,6 +1,6 @@
 package lila.memo
 
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import com.github.blemale.scaffeine.Scaffeine
 
 import ornicar.scalalib.Zero
 import scala.concurrent.duration.Duration

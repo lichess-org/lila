@@ -8,7 +8,7 @@ final class TimeBomb(delayDuration: Duration) {
 
   private var delayedAt: Double = nowMillis
 
-  def delay: Unit = {
+  def delay(): Unit = {
     delayedAt = nowMillis
   }
 

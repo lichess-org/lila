@@ -64,7 +64,6 @@ final class WinnersApi(
 ) {
 
   import BSONHandlers._
-  import lila.db.BSON.MapDocument.MapHandler
   private implicit val WinnerHandler = reactivemongo.bson.Macros.handler[Winner]
   private implicit val FreqWinnersHandler = reactivemongo.bson.Macros.handler[FreqWinners]
   private implicit val AllWinnersHandler = reactivemongo.bson.Macros.handler[AllWinners]
@@ -74,8 +73,7 @@ final class WinnersApi(
     "startsAt" $gt since.minusHours(12),
     "winner" $exists true
   )).sort($sort desc "startsAt")
-    .cursor[Tournament](readPreference = ReadPreference.secondaryPreferred)
-    .gather[List]()
+    .cursor[Tournament](ReadPreference.secondaryPreferred).list
 
   private def firstStandardWinner(tours: List[Tournament], speed: Speed): Option[Winner] =
     tours.find { t =>

@@ -4,7 +4,7 @@ import play.api.libs.iteratee._
 import play.api.libs.ws.WS
 import play.api.Play.current
 
-import chess.format.{ Forsyth, FEN, Uci }
+import chess.format.{ Forsyth, FEN }
 
 final class PngExport(url: String, size: Int) {
 

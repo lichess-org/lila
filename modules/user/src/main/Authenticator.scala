@@ -39,10 +39,9 @@ final class Authenticator(
     loginCandidate($doc(F.email -> email))
 
   def setPassword(id: User.ID, p: ClearPassword): Funit =
-    userRepo.coll.update(
-      $id(id),
-      $set(F.bpass -> passEnc(p).bytes) ++ $unset(F.salt, F.sha512)
-    ).void
+    userRepo.coll.update.one($id(id), $set(
+      F.bpass -> passEnc(p).bytes
+    ) ++ $unset(F.salt, F.sha512)).void
 
   private def authWithBenefits(auth: AuthData)(p: ClearPassword): Boolean = {
     val res = compare(auth, p)
@@ -52,11 +51,13 @@ final class Authenticator(
   }
 
   private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] =
-    userRepo.coll.uno[AuthData](select, authProjection)(AuthDataBSONHandler) zip userRepo.coll.uno[User](select) map {
-      case (Some(authData), Some(user)) if user.enabled =>
-        User.LoginCandidate(user, authWithBenefits(authData)).some
-      case _ => none
-    }
+    userRepo.coll.find(select, Some(authProjection))
+      .one[AuthData] zip userRepo.coll.find(select).one[User] map {
+        case (Some(authData), Some(user)) if user.enabled =>
+          User.LoginCandidate(user, authWithBenefits(authData)).some
+
+        case _ => none
+      }
 }
 
 object Authenticator {
@@ -82,5 +83,6 @@ object Authenticator {
     def write(hash: HashedPassword) = BSONBinary(hash.bytes, Subtype.GenericBinarySubtype)
   }
 
-  implicit val AuthDataBSONHandler = Macros.handler[AuthData]
+  implicit val AuthDataBSONHandler: BSONDocumentHandler[AuthData] =
+    Macros.handler[AuthData]
 }

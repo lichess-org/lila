@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Tag, Tags }
+import chess.format.pgn.{ Glyph, Tags }
 import chess.variant.Variant
 import chess.{ Color, Centis }
 import org.joda.time.DateTime
@@ -63,7 +63,7 @@ case class Chapter(
 
   def isEmptyInitial = order == 1 && root.children.nodes.isEmpty
 
-  def cloneFor(study: Study) = copy(
+  def cloneFor(study: Study): Chapter = copy(
     _id = Chapter.makeId,
     studyId = study.id,
     ownerId = study.ownerId,

@@ -28,28 +28,26 @@ final class EntryApi(
     coll.find($doc(
       "users" -> userId,
       "date" $gt DateTime.now.minusWeeks(2)
-    ), projection)
+    ), Some(projection))
       .sort($sort desc "date")
-      .cursor[Entry](ReadPreference.secondaryPreferred)
-      .gather[Vector](max)
+      .cursor[Entry](ReadPreference.secondaryPreferred).vector(max)
 
   def findRecent(typ: String, since: DateTime, max: Int) =
     coll.find(
       $doc("typ" -> typ, "date" $gt since),
-      projection
+      Some(projection)
     ).sort($sort desc "date")
-      .cursor[Entry](ReadPreference.secondaryPreferred)
-      .gather[Vector](max)
+      .cursor[Entry](ReadPreference.secondaryPreferred).vector(max)
 
   def channelUserIdRecentExists(channel: String, userId: String): Fu[Boolean] =
-    coll.count($doc(
+    coll.countSel($doc(
       "users" -> userId,
       "chan" -> channel,
       "date" $gt DateTime.now.minusDays(7)
-    ).some) map (0 !=)
+    )) map (0 !=)
 
   def insert(e: Entry.ForUsers) =
-    coll.insert(EntryBSONHandler.write(e.entry) ++ $doc("users" -> e.userIds)) void
+    coll.insert.one(EntryBSONHandler.write(e.entry) ++ $doc("users" -> e.userIds)) void
 
   // entries everyone can see
   // they have no db `users` field
@@ -65,10 +63,8 @@ final class EntryApi(
       .find($doc(
         "users" $exists false,
         "date" $gt DateTime.now.minusWeeks(2)
-      ))
-      .sort($sort desc "date")
-      .cursor[Entry]() // must be on primary for cache refresh to work
-      .gather[Vector](3)
+      )) // must be on primary for cache refresh to work
+      .sort($sort desc "date").cursor[Entry]().vector(3)
 
     private[EntryApi] def interleave(entries: Vector[Entry]): Fu[Vector[Entry]] = cache.get map { bcs =>
       bcs.headOption.fold(entries) { mostRecentBc =>
@@ -85,6 +81,7 @@ final class EntryApi(
       }
     }
 
-    def insert(atom: Atom): Funit = coll.insert(Entry make atom).void >>- cache.refresh
+    def insert(atom: Atom): Funit = coll.insert.one(Entry make atom)
+      .void >>- cache.refresh
   }
 }

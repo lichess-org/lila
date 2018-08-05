@@ -1,12 +1,14 @@
 package lila.user
 
 import org.joda.time.DateTime
+
+import scala.concurrent.duration._
+
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Project, GroupField, SumValue }
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
-import scala.concurrent.duration._
 
-import lila.db.dsl._
+import lila.db.dsl, dsl._
 import lila.rating.{ Perf, PerfType }
 
 final class RankingApi(
@@ -15,8 +17,8 @@ final class RankingApi(
     asyncCache: lila.memo.AsyncCache.Builder,
     lightUser: lila.common.LightUser.Getter
 ) {
-
   import RankingApi._
+
   private implicit val rankingBSONHandler = Macros.handler[Ranking]
 
   def save(user: User, perfType: Option[PerfType], perfs: Perfs): Funit =
@@ -25,18 +27,19 @@ final class RankingApi(
     }
 
   def save(user: User, perfType: PerfType, perf: Perf): Funit =
-    (user.rankable && perf.nb >= 2) ?? coll.update($id(makeId(user.id, perfType)), $doc(
-      "perf" -> perfType.id,
-      "rating" -> perf.intRating,
-      "prog" -> perf.progress,
-      "stable" -> perf.established,
-      "expiresAt" -> DateTime.now.plusDays(7)
-    ),
-      upsert = true).void
+    (user.rankable && perf.nb >= 2) ?? coll.update.one(
+      q = $id(makeId(user.id, perfType)), u = $doc(
+        "perf" -> perfType.id,
+        "rating" -> perf.intRating,
+        "prog" -> perf.progress,
+        "stable" -> perf.established,
+        "expiresAt" -> DateTime.now.plusDays(7)
+      ), upsert = true
+    ).void
 
   def remove(userId: User.ID): Funit = UserRepo byId userId flatMap {
     _ ?? { user =>
-      coll.remove($inIds(
+      coll.delete.one($inIds(
         PerfType.leaderboardable.filter { pt =>
           user.perfs(pt).nonEmpty
         }.map { makeId(user.id, _) }
@@ -51,8 +54,7 @@ final class RankingApi(
     PerfType.id2key(perfId) ?? { perfKey =>
       coll.find($doc("perf" -> perfId, "stable" -> true))
         .sort($doc("rating" -> -1))
-        .cursor[Ranking](readPreference = ReadPreference.secondaryPreferred)
-        .gather[List](nb) flatMap {
+        .cursor[Ranking](ReadPreference.secondaryPreferred).list(nb) flatMap {
           _.map { r =>
             lightUser(r.user).map {
               _ map { light =>
@@ -87,7 +89,7 @@ final class RankingApi(
     private def compute(perfId: Perf.ID): Fu[Map[User.ID, Rank]] =
       coll.find(
         $doc("perf" -> perfId, "stable" -> true),
-        $doc("_id" -> true)
+        projection = Some($doc("_id" -> true))
       ).sort($doc("rating" -> -1)).cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
         .fold(1 -> Map.newBuilder[User.ID, Rank]) {
           case (state @ (rank, b), doc) =>

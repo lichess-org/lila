@@ -3,10 +3,7 @@ package lila.tv
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.db.dsl._
 import lila.game.Game
-
-import scala.concurrent.duration._
 
 final class Env(
     config: Config,
@@ -30,12 +27,8 @@ final class Env(
 
   lazy val tv = new Tv(tvActor, roundProxyGame)
 
-  {
-    import scala.concurrent.duration._
-
-    scheduler.message(FeaturedSelect) {
-      tvActor -> TvActor.Select
-    }
+  scheduler.message(FeaturedSelect) {
+    tvActor -> TvActor.Select
   }
 }
 

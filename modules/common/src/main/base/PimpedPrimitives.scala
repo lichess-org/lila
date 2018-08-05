@@ -1,9 +1,7 @@
 package lila.base
 
 import java.lang.Math.{ min, max }
-import scala.concurrent.ExecutionContext
 
-import LilaTypes._
 import ornicar.scalalib.Zero
 
 final class PimpedBoolean(private val self: Boolean) extends AnyVal {

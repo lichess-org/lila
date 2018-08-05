@@ -28,8 +28,8 @@ final class CrosstableApi(
     case _ => fuccess(none)
   }
 
-  def apply(u1: String, u2: String, timeout: FiniteDuration = 1.second): Fu[Option[Crosstable]] =
-    coll.uno[Crosstable](select(u1, u2)) orElse createWithTimeout(u1, u2, timeout)
+  def apply(u1: String, u2: String, timeout: FiniteDuration = 1.second): Fu[Option[Crosstable]] = coll.find(select(u1, u2))
+    .one[Crosstable] orElse createWithTimeout(u1, u2, timeout)
 
   def withMatchup(u1: String, u2: String, timeout: FiniteDuration = 1.second): Fu[Option[Crosstable.WithMatchup]] =
     apply(u1, u2, timeout) zip getMatchup(u1, u2) map {
@@ -37,16 +37,13 @@ final class CrosstableApi(
     }
 
   def nbGames(u1: String, u2: String): Fu[Int] =
-    coll.find(
-      select(u1, u2),
-      $doc("s1" -> true, "s2" -> true)
-    ).uno[Bdoc] map { res =>
-        ~(for {
-          o <- res
-          s1 <- o.getAs[Int]("s1")
-          s2 <- o.getAs[Int]("s2")
-        } yield (s1 + s2) / 10)
-      }
+    coll.find(select(u1, u2)).one[Bdoc] map { res =>
+      ~(for {
+        o <- res
+        s1 <- o.getAs[Int]("s1")
+        s2 <- o.getAs[Int]("s2")
+      } yield (s1 + s2) / 10)
+    }
 
   def add(game: Game): Funit = game.userIds.distinct.sorted match {
     case List(u1, u2) => {
@@ -59,7 +56,7 @@ final class CrosstableApi(
       }
       val inc1 = incScore(u1)
       val inc2 = incScore(u2)
-      val updateCrosstable = coll.update(select(u1, u2), $inc(
+      val updateCrosstable = coll.update.one(select(u1, u2), $inc(
         F.score1 -> inc1,
         F.score2 -> inc2
       ) ++ $push(
@@ -69,7 +66,7 @@ final class CrosstableApi(
           )
         ))
       val updateMatchup =
-        matchupColl.update(select(u1, u2), $inc(
+        matchupColl.update.one(select(u1, u2), $inc(
           F.score1 -> inc1,
           F.score2 -> inc2
         ) ++ $set(
@@ -83,7 +80,7 @@ final class CrosstableApi(
   private val matchupProjection = $doc(F.lastPlayed -> false)
 
   private def getMatchup(u1: String, u2: String): Fu[Option[Matchup]] =
-    matchupColl.find(select(u1, u2), matchupProjection).uno[Matchup]
+    matchupColl.find(select(u1, u2), Some(matchupProjection)).one[Matchup]
 
   private def createWithTimeout(u1: String, u2: String, timeout: FiniteDuration) =
     creationCache.get(u1 -> u2).withTimeoutDefault(timeout, none)(system)
@@ -108,10 +105,9 @@ final class CrosstableApi(
 
         import reactivemongo.api.ReadPreference
 
-        gameColl.find(selector, winnerProjection)
+        gameColl.find(selector, Some(winnerProjection))
           .sort($doc(GF.createdAt -> -1))
-          .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
-          .gather[List]().map { docs =>
+          .cursor[Bdoc](ReadPreference.secondaryPreferred).list map { docs =>
 
             val (s1, s2) = docs.foldLeft(0 -> 0) {
               case ((s1, s2), doc) => doc.getAs[String](GF.winnerId) match {
@@ -132,13 +128,13 @@ final class CrosstableApi(
               }.reverse
             )
           } flatMap { crosstable =>
-            coll insert crosstable inject crosstable.some
+            coll.insert.one(crosstable) inject crosstable.some
           }
 
       case _ => fuccess(none)
     }
   } recoverWith lila.db.recoverDuplicateKey { _ =>
-    coll.uno[Crosstable](select(x1, x2))
+    coll.find(select(x1, x2)).one[Crosstable]
   } recover {
     case e: Exception =>
       logger.error("CrosstableApi.create", e)

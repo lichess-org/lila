@@ -1,7 +1,7 @@
 package lila.db
 
 import com.typesafe.config.Config
-import dsl.Coll
+import dsl.{ Coll, CollProducer }
 import reactivemongo.api.{ DefaultDB, MongoConnection, MongoDriver }
 import scala.concurrent.duration._
 import scala.concurrent.{ Await, ExecutionContext, Future }

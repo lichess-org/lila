@@ -1,6 +1,8 @@
 package lila.irwin
 
 import org.joda.time.DateTime
+
+import reactivemongo.api.Cursor
 import reactivemongo.bson._
 
 import lila.db.dsl._
@@ -24,13 +26,14 @@ final class IrwinApi(
   import BSONHandlers._
 
   def dashboard: Fu[IrwinDashboard] =
-    reportColl.find($empty).sort($sort desc "date").list[IrwinReport](20) map IrwinDashboard.apply
+    reportColl.find($empty).sort($sort desc "date")
+      .cursor[IrwinReport]().list(20) map IrwinDashboard.apply
 
   object reports {
 
     def insert(report: IrwinReport) = (mode() != "none") ?? {
       for {
-        _ <- reportColl.update($id(report._id), report, upsert = true)
+        _ <- reportColl.update.one($id(report._id), report, upsert = true)
         _ <- markOrReport(report)
         _ <- notification(report)
       } yield {
@@ -39,7 +42,7 @@ final class IrwinApi(
     }
 
     def get(user: User): Fu[Option[IrwinReport]] =
-      reportColl.find($id(user.id)).uno[IrwinReport]
+      reportColl.find($id(user.id)).one[IrwinReport]
 
     def withPovs(user: User): Fu[Option[IrwinReport.WithPovs]] = get(user) flatMap {
       _ ?? { report =>

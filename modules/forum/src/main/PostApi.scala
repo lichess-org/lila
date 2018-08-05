@@ -48,11 +48,11 @@ final class PostApi(
         PostRepo findDuplicate post flatMap {
           case Some(dup) => fuccess(dup)
           case _ =>
-            env.postColl.insert(post) >>
-              env.topicColl.update($id(topic.id), topic withPost post) >> {
+            env.postColl.insert.one(post) >>
+              env.topicColl.update.one($id(topic.id), topic withPost post) >> {
                 shouldHideOnPost(topic) ?? TopicRepo.hide(topic.id, true)
               } >>
-              env.categColl.update($id(categ.id), categ withTopic post) >>-
+              env.categColl.update.one($id(categ.id), categ withTopic post) >>-
               (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
               (!categ.quiet ?? env.recent.invalidate) >>-
               ctx.userId.?? { userId =>
@@ -84,10 +84,13 @@ final class PostApi(
           fufail("You are not authorized to modify this post.")
         case Some((_, post)) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
-        case Some((_, post)) =>
+
+        case Some((_, post)) => {
           val spamEscapedTest = lila.security.Spam.replace(newText)
           val newPost = post.editPost(now, spamEscapedTest)
-          env.postColl.update($id(post.id), newPost) inject newPost
+          env.postColl.update.one($id(post.id), newPost) inject newPost
+        }
+
         case None => fufail("Post no longer exists.")
       }
     }
@@ -107,8 +110,10 @@ final class PostApi(
     case Some((topic, post)) if (!troll && post.troll) => fuccess(none[PostUrlData])
     case Some((topic, post)) => PostRepo(troll).countBeforeNumber(topic.id, post.number) map { nb =>
       val page = nb / maxPerPage.value + 1
+
       PostUrlData(topic.categId, topic.slug, page, post.number).some
     }
+
     case _ => fuccess(none)
   }
 
@@ -170,16 +175,17 @@ final class PostApi(
   def lastPageOf(topic: Topic) =
     math.ceil(topic.nbPosts / maxPerPage.value.toFloat).toInt
 
-  def paginator(topic: Topic, page: Int, troll: Boolean): Fu[Paginator[Post]] = Paginator(
-    new Adapter(
-      collection = env.postColl,
-      selector = PostRepo(troll) selectTopic topic.id,
-      projection = $empty,
-      sort = PostRepo.sortQuery
-    ),
-    currentPage = page,
-    maxPerPage = maxPerPage
-  )
+  def paginator(topic: Topic, page: Int, troll: Boolean): Fu[Paginator[Post]] =
+    Paginator(
+      new Adapter(
+        collection = env.postColl,
+        selector = PostRepo(troll) selectTopic topic.id,
+        projection = $empty,
+        sort = PostRepo.sortQuery
+      ),
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
 
   def delete(categSlug: String, postId: String, mod: User): Funit = (for {
     post ← optionT(PostRepo(true).byCategAndId(categSlug, postId))
@@ -187,13 +193,13 @@ final class PostApi(
     _ ← optionT(for {
       first ← PostRepo.isFirstPost(view.topic.id, view.post.id)
       _ ← if (first) env.topicApi.delete(view.categ, view.topic)
-      else env.postColl.remove(view.post) >>
+      else env.postColl.delete.one(view.post) >>
         (env.topicApi denormalize view.topic) >>
         (env.categApi denormalize view.categ) >>-
         env.recent.invalidate >>-
         (indexer ! RemovePost(post.id))
       _ ← MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(mod.id, post.userId, post.author, post.ip,
-        text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
+        text = s"${view.categ.name} / ${view.topic.name} / ${post.text}")
     } yield true.some)
   } yield ()).run.void
 
@@ -203,9 +209,9 @@ final class PostApi(
 
   def userIds(topicId: String) = PostRepo userIdsByTopicId topicId
 
-  def erase(user: User) = env.postColl.update(
-    $doc("userId" -> user.id),
-    $unset("userId", "editHistory", "lang", "ip") ++
+  def erase(user: User) = env.postColl.update.one(
+    q = $doc("userId" -> user.id),
+    u = $unset("userId", "editHistory", "lang", "ip") ++
       $set("text" -> "", "erasedAt" -> DateTime.now),
     multi = true
   )

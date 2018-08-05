@@ -171,13 +171,10 @@ final class SecurityApi(
     }
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[User.ID]] =
-    coll.distinct[User.ID, List](
-      "user",
-      $doc(
-        field -> value,
-        "date" $gt DateTime.now.minusYears(1)
-      ).some
-    )
+    coll.distinct[User.ID, List]("user", $doc(
+      field -> value,
+      "date" $gt DateTime.now.minusYears(1)
+    ))
 }
 
 object SecurityApi {

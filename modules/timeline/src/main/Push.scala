@@ -4,7 +4,7 @@ import akka.actor._
 import org.joda.time.DateTime
 
 import lila.hub.actorApi.timeline.propagation._
-import lila.hub.actorApi.timeline.{ Propagate, Atom, ForumPost, ReloadTimeline }
+import lila.hub.actorApi.timeline.{ Propagate, Atom, ReloadTimeline }
 import lila.security.{ Granter, Permission }
 import lila.user.UserRepo
 

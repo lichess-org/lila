@@ -21,15 +21,14 @@ object TeamRepo {
     readPreference: ReadPreference = ReadPreference.secondaryPreferred
   )(
     implicit
-    cp: CursorProducer[Team]
-  ) =
-    coll.find(selector).cursor[Team](readPreference)
+    cursorProducer: reactivemongo.api.CursorProducer[Team]
+  ) = coll.find(selector).cursor[Team](readPreference)
 
   def owned(id: Team.ID, createdBy: User.ID): Fu[Option[Team]] =
-    coll.uno[Team]($id(id) ++ $doc("createdBy" -> createdBy))
+    coll.find($id(id) ++ $doc("createdBy" -> createdBy)).one[Team]
 
   def teamIdsByCreator(userId: User.ID): Fu[List[String]] =
-    coll.distinct[String, List]("_id", $doc("createdBy" -> userId).some)
+    coll.distinct[String, List]("_id", $doc("createdBy" -> userId))
 
   def creatorOf(teamId: Team.ID): Fu[Option[User.ID]] =
     coll.primitiveOne[User.ID]($id(teamId), "_id")
@@ -47,16 +46,16 @@ object TeamRepo {
     coll.primitiveOne[String]($id(teamId), "createdBy")
 
   def incMembers(teamId: String, by: Int): Funit =
-    coll.update($id(teamId), $inc("nbMembers" -> by)).void
+    coll.update.one($id(teamId), $inc("nbMembers" -> by)).void
 
   def enable(team: Team) = coll.updateField($id(team.id), "enabled", true)
 
   def disable(team: Team) = coll.updateField($id(team.id), "enabled", false)
 
   def addRequest(teamId: String, request: Request): Funit =
-    coll.update(
-      $id(teamId) ++ $doc("requests.user" $ne request.user),
-      $push("requests", request.user)
+    coll.update.one(
+      q = $id(teamId) ++ $doc("requests.user" $ne request.user),
+      u = $push("requests", request.user)
     ).void
 
   def changeOwner(teamId: String, newOwner: User.ID) =

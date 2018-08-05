@@ -31,7 +31,7 @@ object Accuracy {
     else analysis.infos
   }.grouped(2).foldLeft(List[Int]()) {
     case (list, List(i1, i2)) =>
-      makeDiff.lift(i1.cp, i1.mate, i2.cp, i2.mate).fold(list) { diff =>
+      makeDiff.lift((i1.cp, i1.mate, i2.cp, i2.mate)).fold(list) { diff =>
         (if (pov.color.white) -diff else diff).max(0) :: list
       }
     case (list, _) => list

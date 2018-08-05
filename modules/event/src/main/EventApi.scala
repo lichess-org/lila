@@ -13,15 +13,14 @@ final class EventApi(
 
   import BsonHandlers._
 
-  def promoteTo(req: RequestHeader): Fu[List[Event]] =
-    promotable.get map {
-      _.filter { event =>
-        event.lang.language == lila.i18n.enLang.language ||
-          lila.i18n.I18nLangPicker.allFromRequestHeaders(req).exists {
-            _.language == event.lang.language
-          }
-      }
+  def promoteTo(req: RequestHeader): Fu[List[Event]] = promotable.get map {
+    _.filter { event =>
+      event.lang.language == lila.i18n.enLang.language ||
+        lila.i18n.I18nLangPicker.allFromRequestHeaders(req).exists {
+          _.language == event.lang.language
+        }
     }
+  }
 
   private val promotable = asyncCache.single(
     name = "event.promotable",
@@ -32,16 +31,15 @@ final class EventApi(
   def fetchPromotable: Fu[List[Event]] = coll.find($doc(
     "enabled" -> true,
     "startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(1)
-  )).sort($doc("startsAt" -> 1)).list[Event](10).map {
+  )).sort($doc("startsAt" -> 1)).cursor[Event]().list(10).map {
     _.filter(_.featureNow) take 3
   }
 
-  def list = coll.find($empty).sort($doc("startsAt" -> -1)).list[Event](50)
+  def list: Fu[List[Event]] = coll.find($empty).
+    sort($doc("startsAt" -> -1)).cursor[Event]().list(50)
 
-  def recentEnabled = coll
-    .find($doc("enabled" -> true))
-    .sort($doc("startsAt" -> -1))
-    .list[Event](50)
+  def recentEnabled: Fu[List[Event]] = coll.find($doc("enabled" -> true))
+    .sort($doc("startsAt" -> -1)).cursor[Event]().list(50)
 
   def oneEnabled(id: String) = coll.byId[Event](id).map(_.filter(_.enabled))
 
@@ -52,12 +50,12 @@ final class EventApi(
   }
 
   def update(old: Event, data: EventForm.Data) =
-    coll.update($id(old.id), data update old) >>- promotable.refresh
+    coll.update.one($id(old.id), data update old) >>- promotable.refresh
 
   def createForm = EventForm.form
 
   def create(data: EventForm.Data, userId: String): Fu[Event] = {
     val event = data make userId
-    coll.insert(event) >>- promotable.refresh inject event
+    coll.insert.one(event) >>- promotable.refresh inject event
   }
 }

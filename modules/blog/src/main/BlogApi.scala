@@ -15,7 +15,8 @@ final class BlogApi(
   def recent(api: Api, ref: Option[String], page: Int, maxPerPage: MaxPerPage): Fu[Option[Paginator[Document]]] =
     api.forms(collection).ref(resolveRef(api)(ref) | api.master.ref)
       .orderings(s"[my.$collection.date desc]")
-      .pageSize(maxPerPage.value).page(page).submit().fold(_ => none, some _) map2 { (res: Response) =>
+      .pageSize(maxPerPage.value).page(page)
+      .submit().fold(_ => none, some _) map2 { (res: Response) =>
         PrismicPaginator(res, page, maxPerPage)
       }
 

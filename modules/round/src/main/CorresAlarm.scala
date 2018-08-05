@@ -48,9 +48,8 @@ private final class CorresAlarm(
       throw new RuntimeException(msg)
 
     case Run =>
-      coll.find($doc(
-        "ringsAt" $lt DateTime.now
-      )).cursor[Alarm](ReadPreference.secondaryPreferred)
+      coll.find($doc("ringsAt" $lt DateTime.now))
+        .cursor[Alarm](ReadPreference.secondaryPreferred)
         .enumerator(100, Cursor.ContOnError())
         .|>>>(Iteratee.foldM[Alarm, Int](0) {
           case (count, alarm) => GameRepo.game(alarm._id).flatMap {
@@ -64,14 +63,16 @@ private final class CorresAlarm(
                 )
               }
             }
-          } >> coll.remove($id(alarm._id)) inject (count + 1)
+          } >> coll.delete.one($id(alarm._id)) inject (count + 1)
         })
         .mon(_.round.alarm.time)
-        .addEffect(c => lila.mon.round.alarm.count(c))
+        .addEffect(c => lila.mon.round.alarm.count(c: Long))
         .addEffectAnyway(scheduleNext)
 
     case lila.game.actorApi.FinishGame(game, _, _) =>
-      if (game.hasCorrespondenceClock && !game.hasAi) coll.remove($id(game.id))
+      if (game.hasCorrespondenceClock && !game.hasAi) {
+        coll.delete.one($id(game.id))
+      }
 
     case lila.hub.actorApi.round.CorresMoveEvent(move, _, _, alarmable, _) if alarmable =>
       GameRepo game move.gameId flatMap {
@@ -80,7 +81,7 @@ private final class CorresAlarm(
             game.playableCorrespondenceClock ?? { clock =>
               val remainingTime = clock remainingTime game.turnColor
               val ringsAt = DateTime.now.plusSeconds(remainingTime.toInt * 8 / 10)
-              coll.update(
+              coll.update.one(
                 $id(game.id),
                 Alarm(
                   _id = game.id,

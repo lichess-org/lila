@@ -1,7 +1,7 @@
 package lila.study
 
 import akka.actor._
-import play.api.libs.iteratee._
+
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -83,7 +83,7 @@ private final class Socket(
         "d" -> dests.dests,
         "o" -> dests.opening,
         "s" -> sticky
-      ).add("relay", relay), noMessadata)
+      ).add("relay" -> relay), noMessadata)
 
     case DeleteNode(pos, uid) => notifyVersion("deleteNode", Json.obj(
       "p" -> pos,
@@ -241,7 +241,7 @@ private final class Socket(
     send = (t, d, _) => notifyVersion(t, d, noMessadata)
   )
 
-  def notifyCrowd: Unit = {
+  def notifyCrowd(): Unit = {
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
       context.system.scheduler.scheduleOnce(500 millis, self, NotifyCrowd)

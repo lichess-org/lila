@@ -19,9 +19,11 @@ private final class UserCacheApi(coll: Coll) {
 
   private implicit val userCacheBSONHandler = Macros.handler[UserCache]
 
-  def find(id: String) = coll.uno[UserCache]($id(id))
+  def find(id: String): Fu[Option[UserCache]] =
+    coll.find($id(id)).one[UserCache]
 
-  def save(u: UserCache) = coll.update($id(u.id), u, upsert = true).void
+  def save(u: UserCache): Funit =
+    coll.update.one($id(u.id), u, upsert = true).void
 
-  def remove(id: String) = coll.remove($id(id)).void
+  def remove(id: String): Funit = coll.delete.one($id(id)).void
 }

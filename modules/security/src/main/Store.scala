@@ -2,7 +2,8 @@ package lila.security
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
-import reactivemongo.api.ReadPreference
+
+import reactivemongo.api.{ ReadPreference, WriteConcern }
 import reactivemongo.bson.Macros
 
 import lila.common.{ HTTPRequest, ApiVersion, IpAddress }
@@ -25,7 +26,7 @@ object Store {
     up: Boolean,
     fp: Option[FingerPrint]
   ): Funit =
-    coll.insert($doc(
+    coll.insert.one($doc(
       "_id" -> sessionId,
       "user" -> userId,
       "ip" -> HTTPRequest.lastRemoteAddress(req),
@@ -54,44 +55,45 @@ object Store {
   def userIdAndFingerprint(sessionId: String): Fu[Option[UserIdAndFingerprint]] =
     coll.find(
       $doc("_id" -> sessionId, "up" -> true),
-      userIdFingerprintProjection
-    ).uno[UserIdAndFingerprint]
+      Some(userIdFingerprintProjection)
+    ).one[UserIdAndFingerprint]
 
-  def setDateToNow(sessionId: String): Unit =
-    coll.updateFieldUnchecked($id(sessionId), "date", DateTime.now)
+  private[security] def setDateToNow(sessionId: String): Unit = {
+    coll.update(false, WriteConcern.Unacknowledged).one(
+      q = $id(sessionId), u = $set("date" -> DateTime.now)
+    )
+
+    ()
+  }
 
   def delete(sessionId: String): Funit =
-    coll.update(
-      $id(sessionId),
-      $set("up" -> false)
-    ).void
+    coll.update.one(q = $id(sessionId), u = $set("up" -> false)).void
 
   def closeUserAndSessionId(userId: User.ID, sessionId: String): Funit =
-    coll.update(
-      $doc("user" -> userId, "_id" -> sessionId, "up" -> true),
-      $set("up" -> false)
+    coll.update.one(
+      q = $doc("user" -> userId, "_id" -> sessionId, "up" -> true),
+      u = $set("up" -> false)
     ).void
 
-  def closeUserExceptSessionId(userId: User.ID, sessionId: String): Funit =
-    coll.update(
-      $doc("user" -> userId, "_id" -> $ne(sessionId), "up" -> true),
-      $set("up" -> false),
-      multi = true
+  def closeUserExceptSessionId(userId: String, sessionId: String): Funit =
+    coll.update.one(
+      q = $doc("user" -> userId, "_id" -> $ne(sessionId), "up" -> true),
+      u = $set("up" -> false),
+      upsert = false, multi = true
     ).void
 
   // useful when closing an account,
   // we want to logout too
-  def disconnect(userId: User.ID): Funit = coll.update(
-    $doc("user" -> userId),
-    $set("up" -> false),
-    multi = true
+  def disconnect(userId: User.ID): Funit = coll.update.one(
+    q = $doc("user" -> userId),
+    u = $set("up" -> false),
+    upsert = false, multi = true
   ).void
 
   private implicit val UserSessionBSONHandler = Macros.handler[UserSession]
   def openSessions(userId: User.ID, nb: Int): Fu[List[UserSession]] =
-    coll.find(
-      $doc("user" -> userId, "up" -> true)
-    ).sort($doc("date" -> -1)).cursor[UserSession]().gather[List](nb)
+    coll.find($doc("user" -> userId, "up" -> true)).sort($doc("date" -> -1))
+      .cursor[UserSession]().list(nb)
 
   def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
     FingerHash(fp) match {
@@ -116,8 +118,8 @@ object Store {
         "user" -> userId,
         "date" $gt DateTime.now.minusYears(2)
       ),
-      $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true)
-    ).sort($sort desc "date").list[Info]()
+      Some($doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true))
+    ).sort($sort desc "date").cursor[Info]().list
 
   private case class DedupInfo(_id: String, ip: String, ua: String) {
     def compositeKey = s"$ip $ua"
@@ -128,17 +130,18 @@ object Store {
     coll.find($doc(
       "user" -> userId,
       "up" -> true
-    )).sort($doc("date" -> -1))
-      .cursor[DedupInfo]().gather[List]() flatMap { sessions =>
-        val olds = sessions.groupBy(_.compositeKey).values.map(_ drop 1).flatten
-          .filter(_._id != keepSessionId)
-        coll.remove($inIds(olds.map(_._id))).void
-      }
+    )).sort($doc("date" -> -1)).cursor[DedupInfo]().list.flatMap { sessions =>
+      val olds = sessions.groupBy(_.compositeKey).values.map(_ drop 1).flatten
+        .filter(_._id != keepSessionId)
+
+      coll.delete.one($inIds(olds.map(_._id))).void
+    }
 
   private implicit val IpAndFpReader = Macros.reader[IpAndFp]
 
   def ipsAndFps(userIds: List[User.ID], max: Int = 100): Fu[List[IpAndFp]] =
-    coll.find($doc("user" $in userIds)).list[IpAndFp](max, ReadPreference.secondaryPreferred)
+    coll.find($doc("user" $in userIds))
+      .cursor[IpAndFp](ReadPreference.secondaryPreferred).list(max)
 
   private[security] def recentByIpExists(ip: IpAddress): Fu[Boolean] =
     coll.exists(

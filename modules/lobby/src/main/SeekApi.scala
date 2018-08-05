@@ -1,7 +1,8 @@
 package lila.lobby
 
-import org.joda.time.DateTime
 import scala.concurrent.duration._
+
+import org.joda.time.DateTime
 
 import lila.db.dsl._
 import lila.user.User
@@ -20,21 +21,19 @@ final class SeekApi(
   private object ForUser extends CacheKey
 
   private def allCursor =
-    coll.find($empty)
-      .sort($doc("createdAt" -> -1))
-      .cursor[Seek]()
+    coll.find($empty).sort($doc("createdAt" -> -1)).cursor[Seek]()
 
   private val cache = asyncCache.clearable[CacheKey, List[Seek]](
     name = "lobby.seek.list",
     f = {
-      case ForAnon => allCursor.gather[List](maxPerPage)
-      case ForUser => allCursor.gather[List]()
+      case ForAnon => allCursor.list(maxPerPage)
+      case ForUser => allCursor.list
     },
     maxCapacity = 2,
     expireAfter = _.ExpireAfterWrite(3.seconds)
   )
 
-  private def cacheClear = {
+  private def cacheClear(): Unit = {
     cache invalidate ForAnon
     cache invalidate ForUser
   }
@@ -62,41 +61,39 @@ final class SeekApi(
         else (seek :: res, h + seekH)
     }._1.reverse
 
-  def find(id: String): Fu[Option[Seek]] =
-    coll.find($id(id)).uno[Seek]
+  def find(id: String): Fu[Option[Seek]] = coll.find($id(id)).one[Seek]
 
-  def insert(seek: Seek) = coll.insert(seek) >> findByUser(seek.user.id).flatMap {
-    case seeks if seeks.size <= maxPerUser => funit
-    case seeks => seeks.drop(maxPerUser).map(remove).sequenceFu
-  }.void >>- cacheClear
+  def insert(seek: Seek): Funit =
+    coll.insert.one(seek) >> findByUser(seek.user.id).flatMap {
+      case seeks if seeks.size <= maxPerUser => funit
+      case seeks => seeks.drop(maxPerUser).map(remove).sequenceFu
+    }.void >>- cacheClear
 
   def findByUser(userId: String): Fu[List[Seek]] =
     coll.find($doc("user.id" -> userId))
-      .sort($doc("createdAt" -> -1))
-      .cursor[Seek]().gather[List]()
+      .sort($doc("createdAt" -> -1)).cursor[Seek]().list
 
-  def remove(seek: Seek) =
-    coll.remove($doc("_id" -> seek.id)).void >>- cacheClear
+  def remove(seek: Seek): Funit = coll.delete
+    .one($doc("_id" -> seek.id)).void >>- cacheClear
 
   def archive(seek: Seek, gameId: String) = {
     val archiveDoc = Seek.seekBSONHandler.write(seek) ++ $doc(
       "gameId" -> gameId,
       "archivedAt" -> DateTime.now
     )
-    coll.remove($doc("_id" -> seek.id)).void >>-
-      cacheClear >>
-      archiveColl.insert(archiveDoc)
+
+    coll.delete.one($doc("_id" -> seek.id)).void >>-
+      cacheClear >> archiveColl.insert.one(archiveDoc)
   }
 
   def findArchived(gameId: String): Fu[Option[Seek]] =
-    archiveColl.find($doc("gameId" -> gameId)).uno[Seek]
+    archiveColl.find($doc("gameId" -> gameId)).one[Seek]
 
-  def removeBy(seekId: String, userId: String) =
-    coll.remove($doc(
-      "_id" -> seekId,
-      "user.id" -> userId
-    )).void >>- cacheClear
+  def removeBy(seekId: String, userId: String): Funit =
+    coll.delete.one($doc("_id" -> seekId, "user.id" -> userId))
+      .void >>- cacheClear
 
-  def removeByUser(user: User) =
-    coll.remove($doc("user.id" -> user.id)).void >>- cacheClear
+  def removeByUser(user: User): Funit =
+    coll.delete.one($doc("user.id" -> user.id)).void >>- cacheClear
+
 }

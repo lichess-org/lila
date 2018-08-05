@@ -38,7 +38,8 @@ final class HistoryApi(coll: Coll) {
         case (k, p) => k -> p.intRating
       }
     val days = daysBetween(user.createdAt, game.movedAt)
-    coll.update(
+
+    coll.update.one(
       $id(user.id),
       $doc("$set" -> $doc(changes.map {
         case (perf, rating) => BSONElement(s"$perf.$days", $int(rating))
@@ -50,16 +51,17 @@ final class HistoryApi(coll: Coll) {
   // used for rating refunds
   def setPerfRating(user: User, perf: PerfType, rating: Int): Funit = {
     val days = daysBetween(user.createdAt, DateTime.now)
-    coll.update(
-      $id(user.id),
-      $set(s"${perf.key}.$days" -> $int(rating))
+
+    coll.update.one(
+      $id(user.id), $set(s"${perf.key}.$days" -> $int(rating))
     ).void
   }
 
   private def daysBetween(from: DateTime, to: DateTime): Int =
     Days.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay).getDays
 
-  def get(userId: String): Fu[Option[History]] = coll.uno[History]($id(userId))
+  def get(userId: String): Fu[Option[History]] =
+    coll.find($id(userId)).one[History]
 
   def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
     coll.primitiveOne[RatingsMap]($id(user.id), perf.key) map (~_)
@@ -82,16 +84,18 @@ final class HistoryApi(coll: Coll) {
           val project = BSONDocument {
             ("_id" -> BSONBoolean(false)) :: days.map { d => s"${perf.key}.$d" -> BSONBoolean(true) }
           }
-          coll.find($id(user.id), project).uno[Bdoc](ReadPreference.secondaryPreferred).map {
-            _.flatMap {
-              _.getAs[Bdoc](perf.key) map {
-                _.stream.foldLeft(currentRating) {
-                  case (max, scala.util.Success(BSONElement(_, BSONInteger(v)))) if v > max => v
-                  case (max, _) => max
+
+          coll.find($id(user.id), Some(project))
+            .one[Bdoc](ReadPreference.secondaryPreferred).map {
+              _.flatMap {
+                _.getAs[Bdoc](perf.key) map {
+                  _.stream.foldLeft(currentRating) {
+                    case (max, scala.util.Success(BSONElement(_, BSONInteger(v)))) if v > max => v
+                    case (max, _) => max
+                  }
                 }
               }
-            }
-          } getOrElse fuccess(currentRating) addEffect { cache.put(key, _) }
+            } getOrElse fuccess(currentRating) addEffect { cache.put(key, _) }
       }
     }
   }

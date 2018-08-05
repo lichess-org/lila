@@ -12,7 +12,7 @@ object AnalysisRepo {
 
   type ID = String
 
-  def save(analysis: Analysis) = coll insert analysis void
+  def save(analysis: Analysis): Funit = coll.insert.one(analysis).void
 
   def byId(id: ID): Fu[Option[Analysis]] = coll.byId[Analysis](id)
 
@@ -29,7 +29,7 @@ object AnalysisRepo {
       }
     }
 
-  def remove(id: String) = coll remove $id(id)
+  def remove(id: String) = coll.delete(ordered = true).one($id(id))
 
   def exists(id: String) = coll exists $id(id)
 }

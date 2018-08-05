@@ -49,7 +49,7 @@ trait SequentialProvider extends Actor {
   private val queue = collection.mutable.Queue[Envelope]()
   private def dequeue: Option[Any] = Try(queue.dequeue).toOption
 
-  private def debugQueue: Unit = {
+  private def debugQueue(): Unit = {
     if (debug) queue.size match {
       case size if (size == 50 || (size >= 100 && size % 100 == 0)) =>
         logger.branch("SequentialProvider").warn(s"Seq[$name] queue = $size")

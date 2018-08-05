@@ -1,7 +1,6 @@
 package lila.game
 
 import chess.format.Uci
-import chess.variant.Variant
 import chess.{ variant => _, ToOptionOpsFromOption => _, _ }
 import lila.db.ByteArray
 

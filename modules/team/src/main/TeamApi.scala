@@ -8,6 +8,8 @@ import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
 import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo, UserContext }
 import org.joda.time.Period
+
+import reactivemongo.bson.BSONDocument
 import reactivemongo.api.{ Cursor, ReadPreference }
 
 final class TeamApi(
@@ -37,15 +39,15 @@ final class TeamApi(
       open = s.isOpen,
       createdBy = me
     )
-    coll.team.insert(team) >>
-      MemberRepo.add(team.id, me.id) >>- {
-        cached invalidateTeamIds me.id
-        indexer ! InsertTeam(team)
-        timeline ! Propagate(
-          TeamCreate(me.id, team.id)
-        ).toFollowersOf(me.id)
-        bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), 'team)
-      } inject team
+
+    coll.team.insert.one(team) >> MemberRepo.add(team.id, me.id) >>- {
+      cached invalidateTeamIds me.id
+      indexer ! InsertTeam(team)
+      timeline ! Propagate(
+        TeamCreate(me.id, team.id)
+      ).toFollowersOf(me.id)
+      bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), 'team)
+    } inject team
   }
 
   def update(team: Team, edit: TeamEdit, me: User): Funit = edit.trim |> { e =>
@@ -54,7 +56,7 @@ final class TeamApi(
       description = e.description,
       open = e.isOpen
     ) |> { team =>
-      coll.team.update($id(team.id), team).void >>
+      coll.team.update.one($id(team.id), team).void >>
         !team.isCreator(me.id) ?? {
           modLog.teamEdit(me.id, team.createdBy, team.name)
         } >>-
@@ -108,13 +110,17 @@ final class TeamApi(
   def createRequest(team: Team, setup: RequestSetup, user: User): Funit =
     requestable(team, user) flatMap {
       _ ?? {
-        val request = Request.make(team = team.id, user = user.id, message = setup.message)
-        coll.request.insert(request).void >>- (cached.nbRequests invalidate team.createdBy)
+        val request = Request.make(
+          team = team.id, user = user.id, message = setup.message
+        )
+
+        coll.request.insert.one(request)
+          .void >>- (cached.nbRequests invalidate team.createdBy)
       }
     }
 
   def processRequest(team: Team, request: Request, accept: Boolean): Funit = for {
-    _ ← coll.request.remove(request)
+    _ ← coll.request.delete.one(request)
     _ = cached.nbRequests invalidate team.createdBy
     userOption ← UserRepo byId request.user
     _ ← userOption.filter(_ => accept).??(user =>
@@ -180,7 +186,7 @@ final class TeamApi(
 
   // delete for ever, with members but not forums
   def delete(team: Team): Funit =
-    coll.team.remove($id(team.id)) >>
+    coll.team.delete.one($id(team.id)) >>
       MemberRepo.removeByteam(team.id) >>-
       (indexer ! RemoveTeam(team.id))
 
@@ -197,11 +203,12 @@ final class TeamApi(
 
   def nbRequests(teamId: String) = cached.nbRequests get teamId
 
-  def recomputeNbMembers =
-    coll.team.find($empty).cursor[Team](ReadPreference.secondaryPreferred).foldWhileM({}) { (_, team) =>
-      for {
-        nb <- MemberRepo.countByTeam(team.id)
-        _ <- coll.team.updateField($id(team.id), "nbMembers", nb)
-      } yield Cursor.Cont({})
-    }
+  def recomputeNbMembers: Funit =
+    coll.team.find($empty).cursor[Team](ReadPreference.secondaryPreferred)
+      .foldWhileM({}) { (_, team) =>
+        for {
+          nb <- MemberRepo.countByTeam(team.id)
+          _ <- coll.team.updateField($id(team.id), "nbMembers", nb)
+        } yield Cursor.Cont({})
+      }
 }

@@ -1,5 +1,6 @@
 package lila.team
 
+import reactivemongo.api.ReadConcern
 import reactivemongo.bson._
 
 import lila.db.dsl._
@@ -14,30 +15,33 @@ object MemberRepo {
   type ID = String
 
   def userIdsByTeam(teamId: ID): Fu[Set[ID]] =
-    coll.distinct[String, Set]("user", $doc("team" -> teamId).some)
+    coll.distinct[String, Set]("user", $doc("team" -> teamId))
 
   def teamIdsByUser(userId: ID): Fu[Set[ID]] =
-    coll.distinct[String, Set]("team", $doc("user" -> userId).some)
+    coll.distinct[String, Set]("team", $doc("user" -> userId))
 
   def removeByteam(teamId: ID): Funit =
-    coll.remove(teamQuery(teamId)).void
+    coll.delete.one(teamQuery(teamId)).void
 
   def removeByUser(userId: ID): Funit =
-    coll.remove(userQuery(userId)).void
+    coll.delete.one(userQuery(userId)).void
 
   def exists(teamId: ID, userId: ID): Fu[Boolean] =
     coll.exists(selectId(teamId, userId))
 
   def add(teamId: String, userId: String): Funit =
-    coll.insert(Member.make(team = teamId, user = userId)).void
+    coll.insert.one(Member.make(team = teamId, user = userId)).void
 
   def remove(teamId: String, userId: String): Funit =
-    coll.remove(selectId(teamId, userId)).void
+    coll.delete.one(selectId(teamId, userId)).void
 
   def countByTeam(teamId: String): Fu[Int] =
     coll.countSel(teamQuery(teamId))
 
-  def selectId(teamId: ID, userId: ID) = $id(Member.makeId(teamId, userId))
-  def teamQuery(teamId: ID) = $doc("team" -> teamId)
-  def userQuery(userId: ID) = $doc("user" -> userId)
+  private def selectId(teamId: ID, userId: ID) =
+    $id(Member.makeId(teamId, userId))
+
+  private[team] def teamQuery(teamId: ID) = $doc("team" -> teamId)
+
+  private def userQuery(userId: ID) = $doc("user" -> userId)
 }

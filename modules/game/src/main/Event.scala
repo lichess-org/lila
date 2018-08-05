@@ -148,7 +148,7 @@ object Event {
     def json(moves: Map[Pos, List[Pos]]) =
       if (moves.isEmpty) JsNull
       else moves.foldLeft(JsObject(Nil)) {
-        case (res, (o, d)) => res + (o.key, JsString(d map (_.key) mkString))
+        case (res, (o, d)) => res + (o.key -> JsString(d map (_.key) mkString))
       }
   }
 

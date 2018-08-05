@@ -8,6 +8,8 @@ import lila.db.dsl._
 import lila.rating.{ Glicko, PerfType }
 import lila.user.{ User, UserRepo }
 
+import reactivemongo.api.WriteConcern
+
 private[puzzle] final class Finisher(
     api: PuzzleApi,
     puzzleColl: Coll,
@@ -33,7 +35,7 @@ private[puzzle] final class Finisher(
             ratingDiff = userPerf.intRating - formerUserRating
           )
           (api.round upsert round) >> {
-            puzzleColl.update(
+            puzzleColl.update.one(
               $id(puzzle.id),
               $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
                 $set(Puzzle.BSONFields.perf -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
@@ -90,8 +92,13 @@ private[puzzle] final class Finisher(
   private val TAU = 0.75d
   private val system = new RatingCalculator(VOLATILITY, TAU)
 
-  def incPuzzleAttempts(puzzle: Puzzle) =
-    puzzleColl.incFieldUnchecked($id(puzzle.id), Puzzle.BSONFields.attempts)
+  def incPuzzleAttempts(puzzle: Puzzle): Unit = {
+    puzzleColl.update(false, WriteConcern.Unacknowledged).one(
+      q = $id(puzzle.id), u = $inc(Puzzle.BSONFields.attempts -> 1)
+    )
+
+    ()
+  }
 
   private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result): Unit = {
     val results = new RatingPeriodResults()

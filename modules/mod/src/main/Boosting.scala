@@ -27,8 +27,8 @@ final class BoostingApi(
   def getBoostingRecord(id: String): Fu[Option[BoostingRecord]] =
     collBoosting.byId[BoostingRecord](id)
 
-  def createBoostRecord(record: BoostingRecord) =
-    collBoosting.update($id(record.id), record, upsert = true).void
+  def createBoostRecord(record: BoostingRecord): Funit =
+    collBoosting.update.one($id(record.id), record, upsert = true).void
 
   def determineBoosting(record: BoostingRecord, winner: User, loser: User): Funit =
     (record.games >= nbGamesToMark) ?? {

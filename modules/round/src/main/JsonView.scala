@@ -215,7 +215,7 @@ final class JsonView(
         "turns" -> game.turns,
         "player" -> game.turnColor.name,
         "status" -> game.status
-      ).add("division", division),
+      ).add("division" -> division),
       "player" -> Json.obj(
         "id" -> owner.option(pov.playerId),
         "color" -> color.name

@@ -27,8 +27,8 @@ final class TeamSearchApi(client: ESClient) extends SearchReadApi[Team, Query] {
     case c: ESClientHttp => c.putMapping >> {
       import play.api.libs.iteratee._
       import reactivemongo.api.ReadPreference
-      import reactivemongo.play.iteratees.cursorProducer
       import lila.db.dsl._
+      import reactivemongo.play.iteratees.cursorProducer
 
       logger.info(s"Index to ${c.index.name}")
 

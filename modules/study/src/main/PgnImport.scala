@@ -1,8 +1,5 @@
 package lila.study
 
-import scalaz.Validation.FlatMap._
-import scalaz.Validation.success
-
 import chess.format.pgn.{ Tags, Glyphs, San, Dumper, ParsedPgn }
 import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 

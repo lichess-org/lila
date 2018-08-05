@@ -13,11 +13,7 @@ private[setup] object AnonConfigRepo {
   def update(req: RequestHeader)(f: UserConfig => UserConfig): Funit =
     configOption(req) flatMap {
       _ ?? { config =>
-        coll.update(
-          $id(config.id),
-          f(config),
-          upsert = true
-        ).void
+        coll.update.one($id(config.id), f(config), upsert = true).void
       }
     }
 

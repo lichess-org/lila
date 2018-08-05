@@ -11,20 +11,20 @@ private[timeline] final class UnsubApi(coll: Coll) {
   private def select(channel: String, userId: String) = $id(makeId(channel, userId))
 
   def set(channel: String, userId: String, v: Boolean): Funit = {
-    if (v) coll.insert(select(channel, userId)).void
-    else coll.remove(select(channel, userId)).void
+    if (v) coll.insert.one(select(channel, userId)).void
+    else coll.delete.one(select(channel, userId)).void
   } recover {
     case e: Exception => ()
   }
 
   def get(channel: String, userId: String): Fu[Boolean] =
-    coll.count(select(channel, userId).some) map (0 !=)
+    coll.countSel(select(channel, userId)) map (0 !=)
 
   private def canUnsub(channel: String) = channel startsWith "forum:"
 
   def filterUnsub(channel: String, userIds: List[String]): Fu[List[String]] =
     canUnsub(channel) ?? coll.distinct[String, List](
-      "_id", $inIds(userIds.map { makeId(channel, _) }).some
+      "_id", $inIds(userIds.map { makeId(channel, _) })
     ) map { unsubs =>
         userIds diff unsubs.map(_ takeWhile ('@' !=))
       }

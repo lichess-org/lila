@@ -3,7 +3,6 @@ package lila.activity
 import reactivemongo.bson._
 
 import lila.common.Iso
-import lila.db.BSON.{ MapDocument, MapValue }
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeKeyIso
 import lila.rating.PerfType
@@ -57,7 +56,9 @@ private object BSONHandlers {
     )
   }
 
-  private implicit val gamesMapHandler = MapDocument.MapHandler[PerfType, Score]
+  private implicit val perfTypeHandler = isoHandler(perfTypeKeyIso)
+
+  //private implicit val gamesMapHandler = MapDocument.MapHandler[PerfType, Score]
   implicit val gamesHandler = isoHandler[Games, Map[PerfType, Score], Bdoc]((g: Games) => g.value, Games.apply _)
 
   private implicit val gameIdHandler = stringAnyValHandler[GameId](_.value, GameId.apply)
@@ -70,11 +71,14 @@ private object BSONHandlers {
   implicit val puzzlesHandler = isoHandler[Puzzles, Score, Bdoc]((p: Puzzles) => p.score, Puzzles.apply _)
 
   private implicit val learnStageIso = Iso.string[Learn.Stage](Learn.Stage.apply, _.value)
-  private implicit val learnMapHandler = MapValue.MapHandler[Learn.Stage, Int]
+
+  private implicit val learnStageHandler = isoHandler(learnStageIso)
+
   private implicit val learnHandler = isoHandler[Learn, Map[Learn.Stage, Int], Bdoc]((l: Learn) => l.value, Learn.apply _)
 
   private implicit val studyIdIso = Iso.string[Study.Id](Study.Id.apply, _.value)
-  private implicit val practiceMapHandler = MapValue.MapHandler[Study.Id, Int]
+  private implicit val studyIdHandler = isoHandler(studyIdIso)
+
   private implicit val practiceHandler = isoHandler[Practice, Map[Study.Id, Int], Bdoc]((p: Practice) => p.value, Practice.apply _)
 
   private implicit val simulIdHandler = stringAnyValHandler[SimulId](_.value, SimulId.apply)
@@ -98,7 +102,6 @@ private object BSONHandlers {
     )
   }
 
-  private implicit val studyIdHandler = isoHandler(studyIdIso)
   private implicit val studyIdsHandler = bsonArrayToListHandler[Study.Id]
   private implicit val studiesHandler = isoHandler[Studies, List[Study.Id], Barr]((s: Studies) => s.value, Studies.apply _)
   private implicit val teamsHandler = isoHandler[Teams, List[String], Barr]((s: Teams) => s.value, Teams.apply _)

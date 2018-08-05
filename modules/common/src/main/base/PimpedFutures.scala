@@ -24,7 +24,7 @@ object DirectExecutionContext extends ExecutionContext {
 }
 
 final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
-  private type Fu[A] = Future[A]
+  private type Fu[T] = Future[T]
 
   // see DirectExecutionContext
   @inline def dmap[B](f: A => B): Fu[B] = fua.map(f)(DirectExecutionContext)

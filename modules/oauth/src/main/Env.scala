@@ -2,7 +2,6 @@ package lila.oauth
 
 import akka.actor._
 import com.typesafe.config.Config
-import scala.concurrent.duration._
 
 final class Env(
     config: Config,

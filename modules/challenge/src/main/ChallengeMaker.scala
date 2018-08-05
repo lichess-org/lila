@@ -1,7 +1,7 @@
 package lila.challenge
 
 import Challenge.TimeControl
-import lila.game.{ Game, Pov, PovRef, GameRepo }
+import lila.game.{ Game, Pov, GameRepo }
 import lila.user.{ User, UserRepo }
 
 object ChallengeMaker {

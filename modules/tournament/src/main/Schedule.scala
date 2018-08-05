@@ -73,6 +73,7 @@ object Schedule {
     def isDailyOrBetter = this >= Schedule.Freq.Daily
     def isWeeklyOrBetter = this >= Schedule.Freq.Weekly
   }
+
   object Freq {
     case object Hourly extends Freq(10, 10)
     case object Daily extends Freq(20, 20)

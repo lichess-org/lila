@@ -8,10 +8,10 @@ import scala.concurrent.duration._
 
 import actorApi._
 import lila.common.Debouncer
-import lila.game.{ Game, LightGame, GameRepo, Pov, LightPov }
+import lila.game.{ Game, LightGame, GameRepo, LightPov }
 import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
+
 import lila.hub.Sequencer
 import lila.hub.tournamentTeam._
 import lila.round.actorApi.round.{ GoBerserk, AbortForce }

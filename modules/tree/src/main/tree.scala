@@ -248,31 +248,37 @@ object Node {
     import node._
     try {
       val comments = node.comments.list.flatMap(_.removeMeta)
+
       Json.obj(
         "ply" -> ply,
         "fen" -> fen
-      ).add("id", idOption.map(_.toString))
-        .add("uci", moveOption.map(_.uci.uci))
-        .add("san", moveOption.map(_.san))
-        .add("check", check)
-        .add("eval", eval.filterNot(_.isEmpty))
-        .add("comments", if (comments.nonEmpty) Some(comments) else None)
-        .add("gamebook", gamebook)
-        .add("glyphs", glyphs.nonEmpty)
-        .add("shapes", if (shapes.list.nonEmpty) Some(shapes.list) else None)
-        .add("opening", opening)
-        .add("dests", dests.map {
+      ).add("id" -> idOption.map(_.toString))
+        .add("uci" -> moveOption.map(_.uci.uci))
+        .add("san" -> moveOption.map(_.san))
+        .add("check" -> check)
+        .add("eval" -> eval.filterNot(_.isEmpty))
+        .add("comments" -> { if (comments.nonEmpty) Some(comments) else None })
+        .add("gamebook" -> gamebook)
+        .add("glyphs" -> glyphs.nonEmpty)
+        .add("shapes" -> {
+          if (shapes.list.nonEmpty) Some(shapes.list) else None
+        })
+        .add("opening" -> opening)
+        .add("dests" -> dests.map {
           _.map {
             case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
           }.mkString(" ")
         })
-        .add("drops", drops.map { drops =>
+        .add("drops" -> drops.map { drops =>
           JsString(drops.map(_.key).mkString)
         })
-        .add("clock", clock)
-        .add("crazy", crazyData)
-        .add("comp", comp)
-        .add("children", if (alwaysChildren || children.nonEmpty) Some(children) else None)
+        .add("clock" -> clock)
+        .add("crazy" -> crazyData)
+        .add("comp" -> comp)
+        .add("children" -> {
+          if (alwaysChildren || children.nonEmpty) Some(children) else None
+        })
+
     } catch {
       case e: StackOverflowError =>
         e.printStackTrace

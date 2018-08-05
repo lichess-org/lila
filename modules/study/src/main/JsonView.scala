@@ -46,9 +46,9 @@ final class JsonView(
               "computer" -> allowed(study.settings.computer),
               "explorer" -> allowed(study.settings.explorer)
             )
-          ).add("description", currentChapter.description)
-            .add("serverEval", currentChapter.serverEval)
-            .add("relay", currentChapter.relay)(relayWrites) |> addChapterMode(currentChapter)
+          ).add("description" -> currentChapter.description)
+            .add("serverEval" -> currentChapter.serverEval)
+            .add("relay" -> currentChapter.relay)(relayWrites) |> addChapterMode(currentChapter)
         }
       )
     }
@@ -58,7 +58,7 @@ final class JsonView(
     "id" -> c.id,
     "name" -> c.name,
     "orientation" -> c.setup.orientation
-  ).add("description", c.description) |> addChapterMode(c)
+  ).add("description" -> c.description) |> addChapterMode(c)
 
   def pagerData(s: Study.WithChaptersAndLiked) = Json.obj(
     "id" -> s.study.id.value,
@@ -72,9 +72,9 @@ final class JsonView(
   )
 
   private def addChapterMode(c: Chapter)(js: JsObject): JsObject =
-    js.add("practice", c.isPractice)
-      .add("gamebook", c.isGamebook)
-      .add("conceal", c.conceal)
+    js.add("practice" -> c.isPractice)
+      .add("gamebook" -> c.isGamebook)
+      .add("conceal" -> c.conceal)
 
   private[study] implicit val memberRoleWrites = Writes[StudyMember.Role] { r =>
     JsString(r.id)

@@ -2,7 +2,6 @@ package lila.puzzle
 
 import lila.db.dsl._
 import lila.user.User
-import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class PuzzleBatch(
     puzzleColl: Coll,
@@ -10,7 +9,6 @@ private[puzzle] final class PuzzleBatch(
     finisher: Finisher,
     puzzleIdMin: PuzzleId
 ) {
-
   def solve(originalUser: User, data: PuzzleBatch.SolveData): Funit = for {
     puzzles <- api.puzzle findMany data.solutions.map(_.id)
     user <- lila.common.Future.fold(data.solutions zip puzzles)(originalUser) {
@@ -67,7 +65,7 @@ private[puzzle] final class PuzzleBatch(
       rating = rating,
       tolerance = tolerance,
       idRange = idRange
-    )).list[Puzzle](nb) flatMap {
+    )).cursor[Puzzle]().list(nb) flatMap {
       case res if res.size < nb && (tolerance + step) <= toleranceMax =>
         tryRange(
           rating = rating,

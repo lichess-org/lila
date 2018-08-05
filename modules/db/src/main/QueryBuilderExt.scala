@@ -5,6 +5,7 @@ import scala.collection.generic.CanBuildFrom
 import reactivemongo.api._
 import reactivemongo.bson._
 
+/*
 trait QueryBuilderExt { self: dsl =>
 
   final implicit class ExtendQueryBuilder[A](val b: dsl.QueryBuilder) {
@@ -32,13 +33,10 @@ trait QueryBuilderExt { self: dsl =>
     def list[A: BSONDocumentReader](limit: Int, readPreference: ReadPreference): Fu[List[A]] =
       gather[A, List](limit, readPreference)
 
-    def uno[A: BSONDocumentReader]: Fu[Option[A]] = uno[A](ReadPreference.primary)
+    @inline def uno[A: BSONDocumentReader]: Fu[Option[A]] = uno[A](ReadPreference.primary)
 
-    // like one, but with stopOnError defaulting to false
-    def uno[A: BSONDocumentReader](readPreference: ReadPreference): Fu[Option[A]] =
-      b.copy(options = b.options.batchSize(1))
-        .cursor[A](readPreference = readPreference)
-        .collect[Iterable](1, Cursor.ContOnError[Iterable[A]]())
-        .dmap(_.headOption)
+    def uno[A: BSONDocumentReader](readPreference: ReadPreference): Fu[Option[A]] = b.batchSize(1)
+      .cursor[A](readPreference = readPreference).headOption
   }
 }
+ */

@@ -67,7 +67,9 @@ final class PracticeApi(
     )
 
     def get = cache.get
-    def clear = cache.refresh
+
+    def clear() = cache.refresh
+
     def onSave(study: Study) = get foreach { structure =>
       if (structure.hasStudy(study.id)) clear
     }
@@ -78,10 +80,12 @@ final class PracticeApi(
     import PracticeProgress.NbMoves
 
     def get(user: User): Fu[PracticeProgress] =
-      coll.uno[PracticeProgress]($id(user.id)) map { _ | PracticeProgress.empty(PracticeProgress.Id(user.id)) }
+      coll.find($id(user.id)).one[PracticeProgress] map {
+        _ | PracticeProgress.empty(PracticeProgress.Id(user.id))
+      }
 
     private def save(p: PracticeProgress): Funit =
-      coll.update($id(p.id), p, upsert = true).void
+      coll.update.one($id(p.id), p, upsert = true).void
 
     def setNbMoves(user: User, chapterId: Chapter.Id, score: NbMoves) = {
       get(user) flatMap { prog =>
@@ -93,7 +97,6 @@ final class PracticeApi(
       }
     }
 
-    def reset(user: User) =
-      coll.remove($id(user.id)).void
+    def reset(user: User): Funit = coll.delete.one($id(user.id)).void
   }
 }

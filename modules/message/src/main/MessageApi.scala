@@ -70,9 +70,9 @@ final class MessageApi(
   }
 
   private def sendUnlessBlocked(thread: Thread, fromMod: Boolean): Fu[Boolean] =
-    if (fromMod) coll.insert(thread) inject true
+    if (fromMod) coll.insert.one(thread) inject true
     else blocks(thread.invitedId, thread.creatorId) flatMap { blocks =>
-      ((!blocks) ?? coll.insert(thread).void) inject !blocks
+      ((!blocks) ?? coll.insert.one(thread).void) inject !blocks
     }
 
   def makePost(thread: Thread, text: String, me: User): Fu[Thread] = {
@@ -85,7 +85,8 @@ final class MessageApi(
       case true => fuccess(thread)
       case false =>
         val newThread = thread + post
-        coll.update($id(newThread.id), newThread) >> {
+
+        coll.update.one($id(newThread.id), newThread) >> {
           val toUserId = newThread otherUserId me
           shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text)
           notify(thread, post)
@@ -136,7 +137,7 @@ final class MessageApi(
 
   def erase(user: User) = ThreadRepo.byAndForWithoutIndex(user) flatMap { threads =>
     lila.common.Future.applySequentially(threads) { thread =>
-      coll.update($id(thread.id), thread erase user).void
+      coll.update.one($id(thread.id), thread erase user).void
     }
   }
 }

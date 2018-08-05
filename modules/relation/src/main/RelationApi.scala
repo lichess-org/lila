@@ -77,13 +77,13 @@ final class RelationApi(
     expireAfter = _.ExpireAfterAccess(10 minutes)
   )
 
-  def countFollowers(userId: ID) = countFollowersCache get userId
+  def countFollowers(userId: ID): Fu[Int] = countFollowersCache get userId
 
-  def countBlocking(userId: ID) =
-    coll.count($doc("u1" -> userId, "r" -> Block).some)
+  def countBlocking(userId: ID): Fu[Int] =
+    coll.countSel($doc("u1" -> userId, "r" -> Block))
 
-  def countBlockers(userId: ID) =
-    coll.count($doc("u2" -> userId, "r" -> Block).some)
+  def countBlockers(userId: ID): Fu[Int] =
+    coll.countSel($doc("u2" -> userId, "r" -> Block))
 
   def followingPaginatorAdapter(userId: ID) = new Adapter[Followed](
     collection = coll,
@@ -125,11 +125,11 @@ final class RelationApi(
   }
 
   private def limitFollow(u: ID) = countFollowing(u) flatMap { nb =>
-    (nb >= maxFollow) ?? RelationRepo.drop(u, true, nb - maxFollow + 1)
+    (nb >= maxFollow) ?? RelationRepo.drop(u, true, nb.toInt - maxFollow + 1)
   }
 
   private def limitBlock(u: ID) = countBlocking(u) flatMap { nb =>
-    (nb >= maxBlock) ?? RelationRepo.drop(u, false, nb - maxBlock + 1)
+    (nb >= maxBlock) ?? RelationRepo.drop(u, false, nb.toInt - maxBlock + 1)
   }
 
   def block(u1: ID, u2: ID): Funit = (u1 != u2) ?? {

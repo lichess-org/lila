@@ -11,7 +11,7 @@ import lila.report.{ SuspectId, ModId }
 import lila.security.UserSpy
 import lila.user.{ User, UserRepo }
 
-import reactivemongo.api.ReadPreference
+import reactivemongo.api.{ Cursor, ReadPreference }
 import reactivemongo.bson._
 import scala.util.Random
 import org.joda.time.DateTime
@@ -32,8 +32,8 @@ final class AssessApi(
 
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
 
-  def createPlayerAssessment(assessed: PlayerAssessment) =
-    collAssessments.update($id(assessed._id), assessed, upsert = true).void
+  def createPlayerAssessment(assessed: PlayerAssessment): Funit =
+    collAssessments.update.one($id(assessed._id), assessed, upsert = true).void
 
   def getPlayerAssessmentById(id: String) =
     collAssessments.byId[PlayerAssessment](id)
@@ -41,8 +41,7 @@ final class AssessApi(
   private def getPlayerAssessmentsByUserId(userId: String, nb: Int = 100) =
     collAssessments.find($doc("userId" -> userId))
       .sort($doc("date" -> -1))
-      .cursor[PlayerAssessment](ReadPreference.secondaryPreferred)
-      .gather[List](nb)
+      .cursor[PlayerAssessment](ReadPreference.secondaryPreferred).list(nb)
 
   def getResultsByGameIdAndColor(gameId: String, color: Color) =
     getPlayerAssessmentById(gameId + "/" + color.name)

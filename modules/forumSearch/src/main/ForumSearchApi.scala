@@ -34,8 +34,6 @@ final class ForumSearchApi(
     Fields.date -> view.post.createdAt
   )
 
-  import reactivemongo.play.iteratees.cursorProducer
-
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
       import play.api.libs.iteratee._
@@ -44,6 +42,9 @@ final class ForumSearchApi(
       logger.info(s"Index to ${c.index.name}")
       val batchSize = 500
       val maxEntries = Int.MaxValue
+
+      import reactivemongo.play.iteratees.cursorProducer
+
       PostRepo.cursor(
         selector = $empty,
         readPreference = ReadPreference.secondaryPreferred

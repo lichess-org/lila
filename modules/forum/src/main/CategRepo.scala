@@ -1,5 +1,7 @@
 package lila.forum
 
+import reactivemongo.api.Cursor
+
 import lila.db.dsl._
 
 object CategRepo {
@@ -12,10 +14,8 @@ object CategRepo {
   def bySlug(slug: String) = coll.byId[Categ](slug)
 
   def withTeams(teams: Iterable[String]): Fu[List[Categ]] =
-    coll.find($or(
-      "team" $exists false,
-      $doc("team" $in teams)
-    )).sort($sort asc "pos").cursor[Categ]().gather[List]()
+    coll.find($or("team" $exists false, $doc("team" $in teams)))
+      .sort($sort asc "pos").cursor[Categ]().list
 
   def nextPosition: Fu[Int] =
     coll.primitiveOne[Int]($empty, $sort desc "pos", "pos") map (~_ + 1)

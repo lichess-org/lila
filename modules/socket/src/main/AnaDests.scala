@@ -35,7 +35,7 @@ case class AnaDests(
   def json = Json.obj(
     "dests" -> dests,
     "path" -> path
-  ).add("opening" -> opening).add("ch", chapterId)
+  ).add("opening" -> opening).add("ch" -> chapterId)
 }
 
 object AnaDests {

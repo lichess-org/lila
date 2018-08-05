@@ -1,6 +1,7 @@
 package lila.team
 
 import lila.db.dsl._
+import reactivemongo.api.Cursor
 
 object RequestRepo {
 
@@ -15,7 +16,7 @@ object RequestRepo {
     coll.exists(selectId(teamId, userId))
 
   def find(teamId: ID, userId: ID): Fu[Option[Request]] =
-    coll.uno[Request](selectId(teamId, userId))
+    coll.find(selectId(teamId, userId)).one[Request]
 
   def countByTeam(teamId: ID): Fu[Int] =
     coll.countSel(teamQuery(teamId))
@@ -24,17 +25,17 @@ object RequestRepo {
     coll.countSel(teamsQuery(teamIds))
 
   def findByTeam(teamId: ID): Fu[List[Request]] =
-    coll.list[Request](teamQuery(teamId))
+    coll.find(teamQuery(teamId)).cursor[Request]().list
 
   def findByTeams(teamIds: List[ID]): Fu[List[Request]] =
-    coll.list[Request](teamsQuery(teamIds))
+    coll.find(teamsQuery(teamIds)).cursor[Request]().list
 
   def selectId(teamId: ID, userId: ID) = $id(Request.makeId(teamId, userId))
   def teamQuery(teamId: ID) = $doc("team" -> teamId)
   def teamsQuery(teamIds: List[ID]) = $doc("team" $in teamIds)
 
-  def getByUserId(userId: lila.user.User.ID) =
-    coll.find($doc("user" -> userId)).list[Request]()
+  def getByUserId(userId: lila.user.User.ID): Fu[List[Request]] =
+    coll.find($doc("user" -> userId)).cursor[Request]().list
 
-  def remove(id: ID) = coll.remove($id(id))
+  def remove(id: ID) = coll.delete.one($id(id))
 }

@@ -20,8 +20,7 @@ private final class GameProxy(id: Game.ID) {
   def set(game: Game): Unit =
     cache = fuccess(game.some)
 
-  def invalidate: Unit =
-    cache = fetch
+  def invalidate(): Unit = cache = fetch
 
   // convenience helpers
 

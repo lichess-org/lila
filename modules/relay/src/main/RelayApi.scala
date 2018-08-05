@@ -4,6 +4,7 @@ import akka.actor._
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import play.api.libs.json._
+
 import reactivemongo.bson._
 
 import lila.db.dsl._
@@ -44,23 +45,22 @@ final class RelayApi(
   private[relay] def toSync = repo.coll.find($doc(
     "sync.until" $exists true,
     "sync.nextAt" $lt DateTime.now
-  )).list[Relay]()
+  )).cursor[Relay]().list
 
   def setLikes(id: Relay.Id, likes: lila.study.Study.Likes): Funit =
     repo.coll.updateField($id(id), "likes", likes).void
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
-    repo.coll.insert(relay) >>
-      studyApi.importGame(StudyMaker.ImportGame(
-        id = relay.studyId.some,
-        name = Study.Name(relay.name).some,
-        settings = Settings.init.copy(
-          chat = Settings.UserSelection.Everyone,
-          sticky = false
-        ).some,
-        from = Study.From.Relay(none).some
-      ), user) inject relay
+    repo.coll.insert.one(relay) >> studyApi.importGame(StudyMaker.ImportGame(
+      id = relay.studyId.some,
+      name = Study.Name(relay.name).some,
+      settings = Settings.init.copy(
+        chat = Settings.UserSelection.Everyone,
+        sticky = false
+      ).some,
+      from = Study.From.Relay(none).some
+    ), user) inject relay
   }
 
   def requestPlay(id: Relay.Id, v: Boolean): Funit = WithRelay(id) { relay =>
@@ -72,7 +72,7 @@ final class RelayApi(
   def update(from: Relay)(f: Relay => Relay): Fu[Relay] = {
     val relay = f(from)
     if (relay == from) fuccess(relay)
-    else repo.coll.update($id(relay.id), relay).void >> {
+    else repo.coll.update.one($id(relay.id), relay).void >> {
       (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
     } >>- {
       relay.sync.log.events.lastOption.ifTrue(relay.sync.log != from.sync.log).foreach { event =>
@@ -82,7 +82,7 @@ final class RelayApi(
   }
 
   def getOngoing(id: Relay.Id): Fu[Option[Relay]] =
-    repo.coll.find($doc("_id" -> id, "finished" -> false)).uno[Relay]
+    repo.coll.find($doc("_id" -> id, "finished" -> false)).one[Relay]
 
   private[relay] def autoStart: Funit =
     repo.coll.find($doc(
@@ -90,7 +90,7 @@ final class RelayApi(
         $gt DateTime.now.minusDays(1), // bit late now
       "startedAt" $exists false,
       "sync.until" $exists false
-    )).list[Relay]() flatMap {
+    )).cursor[Relay]().list flatMap {
       _.map { relay =>
         logger.info(s"Automatically start $relay")
         requestPlay(relay.id, true)
@@ -102,7 +102,7 @@ final class RelayApi(
       "sync.until" $exists false,
       "finished" -> false,
       "startedAt" $lt DateTime.now.minusHours(3)
-    )).list[Relay]() flatMap {
+    )).cursor[Relay]().list flatMap {
       _.map { relay =>
         logger.info(s"Automatically finish $relay")
         update(relay)(_.finish)
@@ -112,8 +112,8 @@ final class RelayApi(
   private[relay] def WithRelay[A: Zero](id: Relay.Id)(f: Relay => Fu[A]): Fu[A] =
     byId(id) flatMap { _ ?? f }
 
-  private[relay] def onStudyRemove(studyId: String) =
-    repo.coll.remove($id(Relay.Id(studyId))).void
+  private[relay] def onStudyRemove(studyId: String): Funit =
+    repo.coll.delete.one($id(Relay.Id(studyId))).void
 
   private[relay] def publishRelay(relay: Relay): Funit =
     sendToContributors(relay.id, "relayData", JsonView.relayWrites writes relay)

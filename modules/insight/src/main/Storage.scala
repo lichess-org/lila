@@ -23,31 +23,30 @@ private final class Storage(coll: Coll) {
     )
 
   def fetchFirst(userId: String): Fu[Option[Entry]] =
-    coll.find(selectUserId(userId)).sort(sortChronological).uno[Entry]
+    coll.find(selectUserId(userId)).sort(sortChronological).one[Entry]
 
   def fetchLast(userId: String): Fu[Option[Entry]] =
-    coll.find(selectUserId(userId)).sort(sortAntiChronological).uno[Entry]
+    coll.find(selectUserId(userId)).sort(sortAntiChronological).one[Entry]
 
-  def count(userId: String): Fu[Int] =
-    coll.count(selectUserId(userId).some)
+  def count(userId: String): Fu[Int] = coll.countSel(selectUserId(userId))
 
-  def insert(p: Entry) = coll.insert(p).void
+  def insert(p: Entry): Funit = coll.insert.one(p).void
 
-  def bulkInsert(ps: Seq[Entry]) = coll.bulkInsert(
-    documents = ps.map(BSONHandlers.EntryBSONHandler.write).toStream,
-    ordered = false
-  )
+  def bulkInsert(ps: Seq[Entry]) = coll.insert.many(ps)
 
-  def update(p: Entry) = coll.update(selectId(p.id), p, upsert = true).void
+  def update(p: Entry): Funit = coll.update.one(
+    q = selectId(p.id), u = p, upsert = true
+  ).void
 
-  def remove(p: Entry) = coll.remove(selectId(p.id)).void
+  def remove(p: Entry): Funit = coll.delete.one(selectId(p.id)).void
 
-  def removeAll(userId: String) = coll.remove(selectUserId(userId)).void
+  def removeAll(userId: String): Funit =
+    coll.delete.one(selectUserId(userId)).void
 
-  def find(id: String) = coll.find(selectId(id)).uno[Entry]
+  def find(id: String) = coll.find(selectId(id)).one[Entry]
 
   def ecos(userId: String): Fu[Set[String]] =
-    coll.distinct[String, Set](F.eco, selectUserId(userId).some)
+    coll.distinct[String, Set](F.eco, selectUserId(userId))
 
   def nbByPerf(userId: String): Fu[Map[PerfType, Int]] = coll.aggregateList(
     Match(BSONDocument(F.userId -> userId)),

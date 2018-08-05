@@ -24,21 +24,21 @@ final class StudyRepo(private[study] val coll: Coll) {
     "members" -> true
   )
 
-  def byId(id: Study.Id) = coll.find($id(id), projection).uno[Study]
+  def byId(id: Study.Id) = coll.find($id(id), Some(projection)).one[Study]
 
   def byOrderedIds(ids: Seq[Study.Id]) = coll.byOrderedIds[Study, Study.Id](ids)(_.id)
 
   def lightById(id: Study.Id): Fu[Option[Study.LightStudy]] =
-    coll.find($id(id), lightProjection).uno[Study.LightStudy]
+    coll.find($id(id), Some(lightProjection)).one[Study.LightStudy]
 
   def cursor(
     selector: Bdoc,
     readPreference: ReadPreference = ReadPreference.secondaryPreferred,
     sort: Bdoc = $empty
-  )(implicit cp: CursorProducer[Study]) =
+  )(implicit cursorProducer: CursorProducer[Study]) =
     coll.find(selector).sort(sort).cursor[Study](readPreference)
 
-  def exists(id: Study.Id) = coll.exists($id(id))
+  def exists(id: Study.Id): Fu[Boolean] = coll.exists($id(id))
 
   private[study] def selectOwnerId(ownerId: User.ID) = $doc("ownerId" -> ownerId)
   private[study] def selectMemberId(memberId: User.ID) = $doc("uids" -> memberId)
@@ -50,9 +50,10 @@ final class StudyRepo(private[study] val coll: Coll) {
       $doc("ownerId" $ne userId) ++
       $doc(s"members.$userId.role" -> "w")
 
-  def countByOwner(ownerId: User.ID) = coll.countSel(selectOwnerId(ownerId))
+  def countByOwner(ownerId: User.ID): Fu[Int] =
+    coll.countSel(selectOwnerId(ownerId))
 
-  def insert(s: Study): Funit = coll.insert {
+  def insert(s: Study): Funit = coll.insert.one {
     StudyBSONHandler.write(s) ++ $doc(
       "updatedAt" -> DateTime.now,
       "uids" -> s.members.ids,
@@ -61,52 +62,56 @@ final class StudyRepo(private[study] val coll: Coll) {
     )
   }.void
 
-  def updateSomeFields(s: Study): Funit = coll.update($id(s.id), $set(
-    "position" -> s.position,
-    "name" -> s.name,
-    "settings" -> s.settings,
-    "visibility" -> s.visibility,
-    "updatedAt" -> DateTime.now
-  )).void
+  def updateSomeFields(s: Study): Funit = coll.update.one(
+    q = $id(s.id), u = $set(
+      "position" -> s.position,
+      "name" -> s.name,
+      "settings" -> s.settings,
+      "visibility" -> s.visibility,
+      "updatedAt" -> DateTime.now
+    )
+  ).void
 
-  def delete(s: Study): Funit = coll.remove($id(s.id)).void
+  def delete(s: Study): Funit = coll.delete.one($id(s.id)).void
 
-  def deleteByIds(ids: List[Study.Id]): Funit = coll.remove($inIds(ids)).void
+  def deleteByIds(ids: List[Study.Id]): Funit =
+    coll.delete.one($inIds(ids)).void
 
   def membersById(id: Study.Id): Fu[Option[StudyMembers]] =
     coll.primitiveOne[StudyMembers]($id(id), "members")
 
   def setPosition(studyId: Study.Id, position: Position.Ref): Funit =
-    coll.update(
-      $id(studyId),
-      $set(
-        "position" -> position,
-        "updatedAt" -> DateTime.now
-      )
-    ).void
+    coll.update.one($id(studyId), $set(
+      "position" -> position,
+      "updatedAt" -> DateTime.now
+    )).void
 
-  def incViews(study: Study) = coll.incFieldUnchecked($id(study.id), "views")
+  def incViews(study: Study): Unit = {
+    coll.update(false, WriteConcern.Unacknowledged).one(
+      q = $id(study.id), u = $unset("views")
+    )
 
-  def updateNow(s: Study) =
-    coll.updateFieldUnchecked($id(s.id), "updatedAt", DateTime.now)
+    ()
+  }
+
+  def updateNow(s: Study): Unit = {
+    coll.update(false, WriteConcern.Unacknowledged)
+      .one($id(s.id), $set("updatedAt" -> DateTime.now))
+
+    ()
+  }
 
   def addMember(study: Study, member: StudyMember): Funit =
-    coll.update(
-      $id(study.id),
-      $set(s"members.${member.id}" -> member) ++ $addToSet("uids" -> member.id)
-    ).void
+    coll.update.one($id(study.id), $set(
+      s"members.${member.id}" -> member
+    ) ++ $addToSet("uids" -> member.id)).void
 
-  def removeMember(study: Study, userId: User.ID): Funit =
-    coll.update(
-      $id(study.id),
-      $unset(s"members.$userId") ++ $pull("uids" -> userId)
-    ).void
+  def removeMember(study: Study, userId: User.ID): Funit = coll.update.one(
+    $id(study.id), $unset(s"members.$userId") ++ $pull("uids" -> userId)
+  ).void
 
   def setRole(study: Study, userId: User.ID, role: StudyMember.Role): Funit =
-    coll.update(
-      $id(study.id),
-      $set(s"members.$userId.role" -> role)
-    ).void
+    coll.update.one($id(study.id), $set(s"members.$userId.role" -> role)).void
 
   def uids(studyId: Study.Id): Fu[Set[User.ID]] =
     coll.primitiveOne[Set[User.ID]]($id(studyId), "uids") map (~_)
@@ -114,26 +119,24 @@ final class StudyRepo(private[study] val coll: Coll) {
   private val idNameProjection = $doc("name" -> true)
 
   def publicIdNames(ids: List[Study.Id]): Fu[List[Study.IdName]] =
-    coll.find($inIds(ids) ++ selectPublic, idNameProjection).list[Study.IdName]()
+    coll.find($inIds(ids) ++ selectPublic, Some(idNameProjection))
+      .cursor[Study.IdName]().list
 
   def recentByOwner(userId: User.ID, nb: Int) =
-    coll.find(selectOwnerId(userId), idNameProjection)
+    coll.find(selectOwnerId(userId), Some(idNameProjection))
       .sort($sort desc "updatedAt")
-      .list[Study.IdName](nb, ReadPreference.secondaryPreferred)
+      .cursor[Study.IdName](ReadPreference.secondaryPreferred).list(nb)
 
   // heavy AF. Only use for GDPR.
   private[study] def allIdsByOwner(userId: User.ID): Fu[List[Study.Id]] =
-    coll.distinct[Study.Id, List]("_id", selectOwnerId(userId).some)
+    coll.distinct[Study.Id, List]("_id", selectOwnerId(userId))
 
-  def recentByContributor(userId: User.ID, nb: Int) =
-    coll.find(
-      selectContributorId(userId),
-      idNameProjection
-    )
+  def recentByContributor(userId: User.ID, nb: Int): Fu[List[Study.IdName]] =
+    coll.find(selectContributorId(userId), Some(idNameProjection))
       .sort($sort desc "updatedAt")
-      .list[Study.IdName](nb, ReadPreference.secondaryPreferred)
+      .cursor[Study.IdName](ReadPreference.secondaryPreferred).list(nb)
 
-  def isContributor(studyId: Study.Id, userId: User.ID) =
+  def isContributor(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
     coll.exists($id(studyId) ++ $doc(s"members.$userId.role" -> "w"))
 
   def isMember(studyId: Study.Id, userId: User.ID) =
@@ -142,17 +145,17 @@ final class StudyRepo(private[study] val coll: Coll) {
   def like(studyId: Study.Id, userId: User.ID, v: Boolean): Fu[Study.Likes] =
     countLikes(studyId).flatMap {
       case None => fuccess(Study.Likes(0))
-      case Some((prevLikes, createdAt)) =>
+
+      case Some((prevLikes, createdAt)) => {
         val likes = Study.Likes(prevLikes.value + (if (v) 1 else -1))
-        coll.update(
-          $id(studyId),
-          $set(
-            "likes" -> likes,
-            "rank" -> Study.Rank.compute(likes, createdAt)
-          ) ++ {
-              if (v) $addToSet("likers" -> userId) else $pull("likers" -> userId)
-            }
-        ) inject likes
+
+        coll.update.one($id(studyId), $set(
+          "likes" -> likes,
+          "rank" -> Study.Rank.compute(likes, createdAt)
+        ) ++ {
+            if (v) $addToSet("likers" -> userId) else $pull("likers" -> userId)
+          }) inject likes
+      }
     }
 
   def liked(study: Study, user: User): Fu[Boolean] =
@@ -162,13 +165,13 @@ final class StudyRepo(private[study] val coll: Coll) {
     coll.primitive[Study.Id]($inIds(studyIds) ++ selectLiker(user.id), "_id").map(_.toSet)
 
   def resetAllRanks: Fu[Int] = coll.find(
-    $empty, $doc("likes" -> true, "createdAt" -> true)
+    $empty, Some($doc("likes" -> true, "createdAt" -> true))
   ).cursor[Bdoc]().foldWhileM(0) { (count, doc) =>
     ~(for {
       id <- doc.getAs[Study.Id]("_id")
       likes <- doc.getAs[Study.Likes]("likes")
       createdAt <- doc.getAs[DateTime]("createdAt")
-    } yield coll.update(
+    } yield coll.update.one(
       $id(id), $set("rank" -> Study.Rank.compute(likes, createdAt))
     ).void) inject Cursor.Cont(count + 1)
   }

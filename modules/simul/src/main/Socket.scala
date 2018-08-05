@@ -100,11 +100,9 @@ private[simul] final class Socket(
     send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
   )
 
-  def notifyCrowd: Unit = {
-    if (!delayedCrowdNotification) {
-      delayedCrowdNotification = true
-      context.system.scheduler.scheduleOnce(500 millis, self, NotifyCrowd)
-    }
+  def notifyCrowd(): Unit = if (!delayedCrowdNotification) {
+    delayedCrowdNotification = true
+    context.system.scheduler.scheduleOnce(500 millis, self, NotifyCrowd)
   }
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =

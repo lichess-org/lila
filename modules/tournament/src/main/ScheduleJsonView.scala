@@ -49,17 +49,18 @@ final class ScheduleJsonView(lightUser: LightUser.Getter) {
     "finishesAt" -> tour.finishesAt,
     "status" -> tour.status.id,
     "perf" -> tour.perfType.map(perfJson)
-  ).add("hasMaxRating", tour.conditions.maxRating.isDefined)
-    .add("private", tour.`private`)
-    .add("position", tour.position.some.filterNot(_.initial) map positionJson)
-    .add("schedule", tour.schedule map scheduleJson)
+  ).add("hasMaxRating" -> tour.conditions.maxRating.isDefined)
+    .add("private" -> tour.`private`)
+    .add("position" -> tour.position.some
+      .filterNot(_.initial).map(positionJson))
+    .add("schedule" -> tour.schedule.map(scheduleJson))
 
   private def fullJson(tour: Tournament): Fu[JsObject] = for {
     owner <- tour.nonLichessCreatedBy ?? lightUser
     winner <- tour.winnerId ?? lightUser
   } yield baseJson(tour) ++ Json.obj(
     "winner" -> winner.map(userJson)
-  ).add("major", owner.exists(_.title.isDefined))
+  ).add("major" -> owner.exists(_.title.isDefined))
 
   private def userJson(u: LightUser) = Json.obj(
     "id" -> u.id,

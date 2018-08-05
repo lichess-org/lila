@@ -33,7 +33,7 @@ final class ReportApi(
           )).one[Report].flatMap { existing =>
             val report = Report.make(scored, existing)
             lila.mon.mod.report.create(report.reason.key)()
-            coll.update($id(report.id), report, upsert = true).void >>
+            coll.update.one($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate) >>-
               bus.publish(lila.hub.actorApi.report.Created(candidate.suspect.user.id, candidate.reason.key, candidate.reporter.user.id), 'report)
           } >>- monitorOpen
@@ -41,7 +41,7 @@ final class ReportApi(
     }
   }
 
-  private def monitorOpen =
+  private def monitorOpen() =
     coll.countSel(openAvailableSelect ++ roomSelect(none) ++ scoreThresholdSelect) foreach {
       lila.mon.mod.report.unprocessed(_)
     }
@@ -81,14 +81,17 @@ final class ReportApi(
     getSuspect(userId) zip
       getLichessReporter zip
       findRecent(1, selectRecent(SuspectId(userId), Reason.Cheat)).map(_.flatMap(_.atoms.toList)) flatMap {
-        case Some(suspect) ~ reporter ~ atoms if atoms.forall(_.byHuman) =>
+        case Some(suspect) ~ reporter ~ atoms if atoms.forall(_.byHuman) => {
           lila.mon.cheat.autoReport.count()
+
           create(Report.Candidate(
             reporter = reporter,
             suspect = suspect,
             reason = Reason.Cheat,
             text = text
           ))
+        }
+
         case _ => funit
       }
 
@@ -151,7 +154,7 @@ final class ReportApi(
         }
     }
 
-  private def doProcessReport(selector: Bdoc, by: ModId) = coll.update(
+  private def doProcessReport(selector: Bdoc, by: ModId) = coll.update.one(
     selector,
     $set(
       "open" -> false,
@@ -172,9 +175,8 @@ final class ReportApi(
     }
   } >>- monitorOpen
 
-  def moveToXfiles(id: String): Funit = coll.update(
-    $id(id),
-    $set("room" -> Room.Xfiles.key) ++ $unset("inquiry")
+  def moveToXfiles(id: String): Funit = coll.update.one(
+    $id(id), $set("room" -> Room.Xfiles.key) ++ $unset("inquiry")
   ).void
 
   private val openSelect: Bdoc = $doc("open" -> true)
@@ -187,15 +189,17 @@ final class ReportApi(
     room.fold($doc("room" $ne Room.Xfiles.key)) { r => $doc("room" -> r) }
 
   def recent(suspect: Suspect, nb: Int, readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[List[Report]] =
-    coll.find($doc("user" -> suspect.id)).sort(sortLastAtomAt).list[Report](nb, readPreference)
+    coll.find($doc("user" -> suspect.id))
+      .sort(sortLastAtomAt).cursor[Report](readPreference).list(nb)
 
   def moreLike(report: Report, nb: Int): Fu[List[Report]] =
-    coll.find($doc("user" -> report.user, "_id" $ne report.id)).sort(sortLastAtomAt).list[Report](nb)
+    coll.find($doc("user" -> report.user, "_id" $ne report.id))
+      .sort(sortLastAtomAt).cursor[Report]().list(nb)
 
   def byAndAbout(user: User, nb: Int): Fu[Report.ByAndAbout] = for {
-    by <- coll.find(
-      $doc("atoms.by" -> user.id)
-    ).sort(sortLastAtomAt).list[Report](nb, ReadPreference.secondaryPreferred)
+    by <- coll.find($doc("atoms.by" -> user.id)).sort(sortLastAtomAt)
+      .cursor[Report](ReadPreference.secondaryPreferred).list(nb)
+
     about <- recent(Suspect(user), nb, ReadPreference.secondaryPreferred)
   } yield Report.ByAndAbout(by, about)
 
@@ -207,11 +211,11 @@ final class ReportApi(
     ), "score")
 
   def currentCheatReport(suspect: Suspect): Fu[Option[Report]] =
-    coll.uno[Report]($doc(
+    coll.find($doc(
       "user" -> suspect.user.id,
       "room" -> Room.Cheat.key,
       "open" -> true
-    ))
+    )).one[Report]
 
   def recentReportersOf(sus: Suspect): Fu[List[ReporterId]] =
     coll.distinctWithReadPreference[ReporterId, List](
@@ -256,17 +260,18 @@ final class ReportApi(
         "atoms.by" -> reporterId,
         "room" -> Room.Cheat.key,
         "open" -> false
-      )).sort(sortLastAtomAt).list[Report](20, ReadPreference.secondaryPreferred) flatMap { reports =>
-        if (reports.size < 4) fuccess(none) // not enough data to know
-        else {
-          val userIds = reports.map(_.user).distinct
-          UserRepo countEngines userIds map { nbEngines =>
-            Accuracy {
-              Math.round((nbEngines + 0.5f) / (userIds.length + 2f) * 100)
-            }.some
+      )).sort(sortLastAtomAt).cursor[Report](ReadPreference.secondaryPreferred)
+        .list(20) flatMap { reports =>
+          if (reports.size < 4) fuccess(none) // not enough data to know
+          else {
+            val userIds = reports.map(_.user).distinct
+            UserRepo countEngines userIds map { nbEngines =>
+              Accuracy {
+                Math.round((nbEngines + 0.5f) / (userIds.length + 2f) * 100)
+              }.some
+            }
           }
         }
-      }
 
     def of(reporter: ReporterId): Fu[Option[Accuracy]] =
       cache get reporter.value map2 Accuracy.apply
@@ -275,7 +280,7 @@ final class ReportApi(
       (candidate.reason == Reason.Cheat) ?? of(candidate.reporter.id)
 
     def invalidate(selector: Bdoc): Funit =
-      coll.distinct[User.ID, List]("atoms.by", selector.some).map {
+      coll.distinct[User.ID, List]("atoms.by", selector).map {
         _ foreach cache.invalidate
       }.void
   }
@@ -305,11 +310,11 @@ final class ReportApi(
     )
 
   private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] = (nb > 0) ?? {
-    coll.find(selector).sort(sortLastAtomAt).list[Report](nb)
+    coll.find(selector).sort(sortLastAtomAt).cursor[Report]().list(nb)
   }
 
   private def findBest(nb: Int, selector: Bdoc): Fu[List[Report]] = (nb > 0) ?? {
-    coll.find(selector).sort($sort desc "score").list[Report](nb)
+    coll.find(selector).sort($sort desc "score").cursor[Report]().list(nb)
   }
 
   private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc = $doc(
@@ -320,9 +325,11 @@ final class ReportApi(
 
   object inquiries {
 
-    def all: Fu[List[Report]] = coll.list[Report]($doc("inquiry.mod" $exists true))
+    def all: Fu[List[Report]] = coll.find($doc("inquiry.mod" $exists true))
+      .cursor[Report]().list
 
-    def ofModId(modId: User.ID): Fu[Option[Report]] = coll.uno[Report]($doc("inquiry.mod" -> modId))
+    def ofModId(modId: User.ID): Fu[Option[Report]] =
+      coll.find($doc("inquiry.mod" -> modId)).one[Report]
 
     /*
      * If the mod has no current inquiry, just start this one.
@@ -343,10 +350,10 @@ final class ReportApi(
 
     def cancel(mod: Mod)(report: Report): Funit =
       if (report.isOther && report.onlyAtom.map(_.by.value).has(mod.user.id))
-        coll.remove($id(report.id)).void // cancel spontaneous inquiry
-      else coll.update(
-        $id(report.id),
-        $unset("inquiry", "processedBy") ++ $set("open" -> true)
+        coll.delete.one($id(report.id)).void // cancel spontaneous inquiry
+      else coll.update.one(
+        q = $id(report.id),
+        u = $unset("inquiry", "processedBy") ++ $set("open" -> true)
       ).void
 
     def spontaneous(mod: Mod, sus: Suspect): Fu[Report] = ofModId(mod.user.id) flatMap { current =>
@@ -360,7 +367,8 @@ final class ReportApi(
           ) scored Report.Score(0),
           none
         ).copy(inquiry = Report.Inquiry(mod.user.id, DateTime.now).some)
-        coll.insert(report) inject report
+
+        coll.insert.one(report) inject report
       }
     }
 
@@ -369,8 +377,10 @@ final class ReportApi(
         "inquiry.mod" $exists true,
         "inquiry.seenAt" $lt DateTime.now.minusMinutes(20)
       )
-      coll.remove(selector ++ $doc("text" -> Report.spontaneousText)) >>
-        coll.update(selector, $unset("inquiry"), multi = true).void
+
+      coll.delete.one(
+        selector ++ $doc("text" -> Report.spontaneousText)
+      ) >> coll.update.one(selector, $unset("inquiry"), multi = true).void
     }
   }
 }

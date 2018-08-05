@@ -57,14 +57,16 @@ private[round] final class Socket(
 
     var userId = none[String]
 
-    def ping: Unit = {
+    def ping(): Unit = {
       isGone foreach { _ ?? notifyGone(color, false) }
       if (bye > 0) bye = bye - 1
       time = nowMillis
     }
-    def setBye: Unit = {
+
+    def setBye(): Unit = {
       bye = 3
     }
+
     private def isBye = bye > 0
 
     private def isHostingSimul: Fu[Boolean] = userId.ifTrue(mightBeSimul) ?? { u =>
@@ -98,19 +100,19 @@ private[round] final class Socket(
 
   private object buscriptions {
 
-    def all = {
+    def all() = {
       tv
       chat
       tournament
     }
 
-    def tv = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: String) =>
+    def tv() = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: String) =>
       lilaBus.subscribe(self, Symbol(s"userStartGame:$userId"))
     }
 
     def chat = lilaBus.subscribe(self, Symbol(s"chat:${chatIds.priv}"), Symbol(s"chat:${chatIds.pub}"))
 
-    def tournament = tournamentId foreach { id =>
+    def tournament() = tournamentId foreach { id =>
       lilaBus.subscribe(self, Symbol(s"tour-standing-$id"))
     }
   }
@@ -258,7 +260,7 @@ private[round] final class Socket(
       notifyCrowd
     }
 
-  def notifyCrowd: Unit = {
+  def notifyCrowd(): Unit = {
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
       context.system.scheduler.scheduleOnce(1 second, self, NotifyCrowd)

@@ -39,17 +39,20 @@ object Dependencies {
   val scaffeine = "com.github.blemale" %% "scaffeine" % "2.5.0" % "compile"
   val netty = "io.netty" % "netty" % "3.10.6.Final"
   val guava = "com.google.guava" % "guava" % "21.0"
-  val specs2 = "org.specs2" %% "specs2-core" % "4.0.2" % "test"
-  val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % "4.0.2" % "test"
+
+  val specs2Ver = "4.3.2"
+  val specs2 = "org.specs2" %% "specs2-core" % specs2Ver % Test
+  val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % specs2Ver % Test
 
   object reactivemongo {
-    val version = "0.12.3"
+    val version = "0.17.0-SNAPSHOT"
     val driver = ("org.reactivemongo" %% "reactivemongo" % version)
       .exclude("com.typesafe.akka", "*") // provided by Play
       .exclude("com.typesafe.play", "*")
     val iteratees = ("org.reactivemongo" %% "reactivemongo-iteratees" % version)
       .exclude("com.typesafe.akka", "*") // provided by Play
       .exclude("com.typesafe.play", "*")
+    val native = "org.reactivemongo" % "reactivemongo-shaded-native" % s"0.17.0-linux-x86-64-SNAPSHOT"
   }
 
   object play {
@@ -66,5 +69,13 @@ object Dependencies {
     val version = "0.6.4.2-LILA"
     val core = "io.kamon" %% "kamon-core" % version
     val influxdb = "io.kamon" %% "kamon-influxdb" % version
+  }
+
+  object silencer {
+    val version = "1.1"
+
+    def all = Seq(
+      compilerPlugin("com.github.ghik" %% "silencer-plugin" % version),
+      "com.github.ghik" %% "silencer-lib" % version % Provided)
   }
 }

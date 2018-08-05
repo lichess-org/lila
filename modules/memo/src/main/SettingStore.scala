@@ -20,7 +20,7 @@ final class SettingStore[A: BSONValueHandler: SettingStore.StringReader] private
 
   def set(v: A): Funit = {
     value = v
-    persist ?? coll.update(dbId, $set(dbField -> v), upsert = true).void
+    persist ?? coll.update.one(dbId, $set(dbField -> v), upsert = true).void
   }
 
   def form: Option[Form[_]] = SettingStore formOf this

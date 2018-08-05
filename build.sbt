@@ -31,8 +31,8 @@ scriptClasspath := Seq("*")
 // offline := true
 libraryDependencies ++= Seq(
   scalaz, chess, compression, scalalib, hasher, typesafeConfig, findbugs,
-  reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
-  maxmind, prismic, netty, guava,
+  reactivemongo.driver, reactivemongo.iteratees, reactivemongo.native,
+  akka.actor, akka.slf4j, maxmind, prismic, netty, guava,
   kamon.core, kamon.influxdb,
   java8compat, semver, scrimage, scalaConfigs, scaffeine
 )
@@ -51,6 +51,8 @@ resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
 
 scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
 excludeFilter in scalariformFormat := "*Routes*"
+
+libraryDependencies in ThisBuild ++= Dependencies.silencer.all
 
 lazy val modules = Seq(
   common, db, rating, user, security, hub, socket,
@@ -163,7 +165,8 @@ lazy val chat = module("chat", Seq(common, db, user, security, i18n, socket)).se
 )
 
 lazy val timeline = module("timeline", Seq(common, db, game, user, hub, security, relation)).settings(
-  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.test,
+    reactivemongo.driver, reactivemongo.iteratees)
 )
 
 lazy val event = module("event", Seq(common, db, memo, i18n)).settings(
@@ -176,9 +179,9 @@ lazy val mod = module("mod", Seq(common, db, user, hub, security, tournament, si
 )
 
 lazy val user = module("user", Seq(common, memo, db, hub, rating)).settings(
-  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, hasher,
-    reactivemongo.iteratees // only for bcrypt migration
-    )
+  libraryDependencies ++= provided(play.api, play.test,
+    reactivemongo.driver, reactivemongo.iteratees,
+    hasher) // only for bcrypt migration
 )
 
 lazy val game = module("game", Seq(common, memo, db, hub, user, chat)).settings(

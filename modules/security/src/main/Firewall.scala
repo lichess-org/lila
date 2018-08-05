@@ -9,6 +9,8 @@ import lila.common.IpAddress
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
+import reactivemongo.api.ReadConcern
+
 final class Firewall(
     coll: Coll,
     cookieName: Option[String],
@@ -16,7 +18,7 @@ final class Firewall(
     system: akka.actor.ActorSystem
 ) {
 
-  private var current: Set[String] = Set.empty
+  @volatile private var current: Set[String] = Set.empty
 
   system.scheduler.scheduleOnce(10 seconds)(loadFromDb)
 
@@ -34,22 +36,22 @@ final class Firewall(
 
   def blockIps(ips: List[IpAddress]): Funit = ips.map { ip =>
     validIp(ip) ?? {
-      coll.update(
-        $id(ip),
-        $doc("_id" -> ip, "date" -> DateTime.now),
-        upsert = true
+      coll.update.one(
+        $id(ip), $doc("_id" -> ip, "date" -> DateTime.now), upsert = true
       ).void
     }
   }.sequenceFu >> loadFromDb
 
   def unblockIps(ips: Iterable[IpAddress]): Funit =
-    coll.remove($inIds(ips.filter(validIp))).void >>- loadFromDb
+    coll.delete.one($inIds(ips.filter(validIp))).void >>- loadFromDb
 
-  private def loadFromDb: Funit =
-    coll.distinct[String, Set]("_id", none).map { ips =>
-      current = ips
-      lila.mon.security.firewall.ip(ips.size)
-    }
+  private def loadFromDb: Funit = coll.distinct[String, Set](
+    key = "_id", query = none,
+    readConcern = ReadConcern.Local, collation = Option.empty
+  ).map { ips =>
+    current = ips
+    lila.mon.security.firewall.ip(ips.size)
+  }
 
   private def blocksCookies(cookies: Cookies, name: String) =
     (cookies get name).isDefined

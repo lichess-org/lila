@@ -32,7 +32,7 @@ object BuildSettings {
   def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime, ws, java8compat, specs2, specs2Scalaz)
 
   def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
-  def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
+  def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % Provided)
 
   def module(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
     Project(
@@ -49,9 +49,7 @@ object BuildSettings {
 
   val compilerOptions = Seq(
     "-deprecation", "-unchecked", "-feature", "-language:_",
-    "-Xfatal-warnings",
-    "-Ywarn-dead-code",
-    // "-Ywarn-unused-import",
+    "-Xfatal-warnings", "-Ywarn-dead-code",
     // "-Ywarn-unused",
     // "-Xlint:missing-interpolator",
     // "-Ywarn-unused-import",

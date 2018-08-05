@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Parser, ParsedPgn, Tag }
+import chess.format.pgn.Parser
 import chess.format.FEN
 import lila.common.LightUser
 import lila.game.{ Game, Namer }

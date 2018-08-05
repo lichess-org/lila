@@ -1,7 +1,7 @@
 package lila.security
 
 import scala.collection.breakOut
-import reactivemongo.api.ReadPreference
+import reactivemongo.api.{ Cursor, ReadPreference }
 import org.joda.time.DateTime
 
 import lila.common.IpAddress
@@ -65,8 +65,8 @@ private[security] final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll:
   private def nextValues(field: String)(user: User)(implicit coll: Coll): Fu[Set[Value]] =
     coll.find(
       $doc("user" -> user.id),
-      $doc(field -> true)
-    ).cursor[Bdoc]().gather[List]() map {
+      projection = Some($doc(field -> true))
+    ).cursor[Bdoc]().collect[Set](-1, Cursor.ContOnError[Set[Bdoc]]()) map {
         _.flatMap(_.getAs[Value](field))(breakOut)
       }
 

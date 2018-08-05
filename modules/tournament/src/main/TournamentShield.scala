@@ -5,7 +5,6 @@ import scala.concurrent.duration._
 import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._
-import lila.rating.PerfType
 import lila.user.User
 
 final class TournamentShieldApi(
@@ -36,22 +35,23 @@ final class TournamentShieldApi(
     f = coll.find($doc(
       "schedule.freq" -> scheduleFreqHandler.write(Schedule.Freq.Shield),
       "status" -> statusBSONHandler.write(Status.Finished)
-    )).sort($sort asc "startsAt").list[Tournament](none, ReadPreference.secondaryPreferred) map { tours =>
-      for {
-        tour <- tours
-        categ <- Category of tour
-        winner <- tour.winnerId
-      } yield Award(
-        categ = categ,
-        owner = OwnerId(winner),
-        date = tour.finishesAt,
-        tourId = tour.id
-      )
-    } map {
-      _.foldLeft(Map.empty[Category, List[Award]]) {
-        case (hist, entry) => hist + (entry.categ -> hist.get(entry.categ).fold(List(entry))(entry :: _))
-      }
-    } map History.apply
+    )).sort($sort asc "startsAt")
+      .cursor[Tournament](ReadPreference.secondaryPreferred).list map { tours =>
+        for {
+          tour <- tours
+          categ <- Category of tour
+          winner <- tour.winnerId
+        } yield Award(
+          categ = categ,
+          owner = OwnerId(winner),
+          date = tour.finishesAt,
+          tourId = tour.id
+        )
+      } map {
+        _.foldLeft(Map.empty[Category, List[Award]]) {
+          case (hist, entry) => hist + (entry.categ -> hist.get(entry.categ).fold(List(entry))(entry :: _))
+        }
+      } map History.apply
   )
 }
 

@@ -3,7 +3,6 @@ package lila.api
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import play.api.libs.json._
-import reactivemongo.play.iteratees.cursorProducer
 import scala.concurrent.duration._
 
 import chess.format.FEN
@@ -48,6 +47,7 @@ final class GameApiV2(
   }
 
   def exportByUser(config: ByUserConfig): Enumerator[String] = {
+    import reactivemongo.play.iteratees.cursorProducer
 
     val infiniteGames = GameRepo.sortedCursor(
       config.vs.fold(Query.user(config.user.id)) { vs =>
@@ -72,7 +72,9 @@ final class GameApiV2(
     games &> Enumeratee.mapM(enrich(config.flags)) &> formatterFor(config)
   }
 
-  def exportByIds(config: ByIdsConfig): Enumerator[String] =
+  def exportByIds(config: ByIdsConfig): Enumerator[String] = {
+    import reactivemongo.play.iteratees.cursorProducer
+
     GameRepo.sortedCursor(
       $inIds(config.ids) ++ Query.finished,
       Query.sortCreated,
@@ -82,6 +84,7 @@ final class GameApiV2(
       Enumeratee.mapConcat(_.toSeq) &>
       Enumeratee.mapM(enrich(config.flags)) &>
       formatterFor(config)
+  }
 
   private def enrich(flags: WithFlags)(game: Game) =
     GameRepo initialFen game flatMap { initialFen =>

@@ -19,9 +19,10 @@ final class ChapterRepo(coll: Coll) {
   // def metadataById(id: Chapter.Id): Fu[Option[Chapter.Metadata]] =
   // coll.find($id(id), noRootProjection).one[Chapter.Metadata]
 
-  def deleteByStudy(s: Study): Funit = coll.remove($studyId(s.id)).void
+  def deleteByStudy(s: Study): Funit = coll.delete.one($studyId(s.id)).void
 
-  def deleteByStudyIds(ids: List[Study.Id]): Funit = coll.remove($doc("studyId" $in ids)).void
+  def deleteByStudyIds(ids: List[Study.Id]): Funit =
+    coll.delete.one($doc("studyId" $in ids)).void
 
   def byIdAndStudy(id: Chapter.Id, studyId: Study.Id): Fu[Option[Chapter]] =
     coll.byId[Chapter, Chapter.Id](id).map { _.filter(_.studyId == studyId) }
@@ -30,27 +31,26 @@ final class ChapterRepo(coll: Coll) {
     coll.find($studyId(studyId)).sort($sort asc "order").one[Chapter]
 
   def orderedMetadataByStudy(studyId: Study.Id): Fu[List[Chapter.Metadata]] =
-    coll.find(
-      $studyId(studyId),
-      noRootProjection
-    ).sort($sort asc "order").list[Chapter.Metadata]()
+    coll.find($studyId(studyId), Some(noRootProjection))
+      .sort($sort asc "order").cursor[Chapter.Metadata]().list
 
   // loads all study chapters in memory! only used for search indexing and cloning
   def orderedByStudy(studyId: Study.Id): Fu[List[Chapter]] =
-    coll.find($studyId(studyId))
-      .sort($sort asc "order")
-      .cursor[Chapter](readPreference = ReadPreference.secondaryPreferred)
-      .gather[List]()
+    coll.find($studyId(studyId)).sort($sort asc "order")
+      .cursor[Chapter](ReadPreference.secondaryPreferred).list
 
   def relaysAndTagsByStudyId(studyId: Study.Id): Fu[List[Chapter.RelayAndTags]] =
-    coll.find($doc("studyId" -> studyId), $doc("relay" -> true, "tags" -> true)).list[Bdoc]() map { docs =>
-      for {
-        doc <- docs
-        id <- doc.getAs[Chapter.Id]("_id")
-        relay <- doc.getAs[Chapter.Relay]("relay")
-        tags <- doc.getAs[Tags]("tags")
-      } yield Chapter.RelayAndTags(id, relay, tags)
-    }
+    coll.find(
+      $doc("studyId" -> studyId),
+      Some($doc("relay" -> true, "tags" -> true))
+    ).cursor[Bdoc]().list map { docs =>
+        for {
+          doc <- docs
+          id <- doc.getAs[Chapter.Id]("_id")
+          relay <- doc.getAs[Chapter.Relay]("relay")
+          tags <- doc.getAs[Tags]("tags")
+        } yield Chapter.RelayAndTags(id, relay, tags)
+      }
 
   def sort(study: Study, ids: List[Chapter.Id]): Funit = ids.zipWithIndex.map {
     case (id, index) =>
@@ -120,19 +120,21 @@ final class ChapterRepo(coll: Coll) {
 
   private[study] def setChild(chapter: Chapter, path: Path, child: Node): Funit =
     pathToField(chapter, path, "n") ?? { parentChildrenPath =>
-      coll.update(
-        $id(chapter.id) ++ $doc(s"$parentChildrenPath.i" -> child.id),
-        $set(s"$parentChildrenPath.$$" -> child)
+      coll.update.one(
+        q = $id(chapter.id) ++ $doc(s"$parentChildrenPath.i" -> child.id),
+        u = $set(s"$parentChildrenPath.$$" -> child)
       ) flatMap { res =>
-          (res.n == 0) ?? coll.update($id(chapter.id), $push(parentChildrenPath -> child)).void
+          (res.n == 0) ?? coll.update.one(
+            $id(chapter.id), $push(parentChildrenPath -> child)
+          ).void
         }
     }
 
   private[study] def idNamesByStudyIds(studyIds: Seq[Study.Id]): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
     coll.find(
-      $doc("studyId" $in studyIds),
-      $doc("studyId" -> true, "_id" -> true, "name" -> true)
-    ).sort($sort asc "order").list[Bdoc]().map { docs =>
+      selector = $doc("studyId" $in studyIds),
+      projection = Some($doc("studyId" -> true, "_id" -> true, "name" -> true))
+    ).sort($sort asc "order").cursor[Bdoc]().list map { docs =>
         docs.foldLeft(Map.empty[Study.Id, Vector[Chapter.IdName]]) {
           case (hash, doc) => {
             for {
@@ -148,23 +150,24 @@ final class ChapterRepo(coll: Coll) {
         }
       }
 
-  def startServerEval(chapter: Chapter) =
+  def startServerEval(chapter: Chapter): Funit =
     coll.updateField($id(chapter.id), "serverEval", Chapter.ServerEval(
       path = chapter.root.mainlinePath,
       done = false
     )).void
 
-  def completeServerEval(chapter: Chapter) =
+  def completeServerEval(chapter: Chapter): Funit =
     coll.updateField($id(chapter.id), "serverEval.done", true).void
 
   def countByStudyId(studyId: Study.Id): Fu[Int] =
     coll.countSel($studyId(studyId))
 
-  def insert(s: Chapter): Funit = coll.insert(s).void
+  def insert(s: Chapter): Funit = coll.insert.one(s).void
 
-  def update(c: Chapter): Funit = coll.update($id(c.id), c).void
+  def update(c: Chapter): Funit = coll.update.one($id(c.id), c).void
 
-  def delete(id: Chapter.Id): Funit = coll.remove($id(id)).void
+  def delete(id: Chapter.Id): Funit = coll.delete.one($id(id)).void
+
   def delete(c: Chapter): Funit = delete(c.id)
 
   private def $studyId(id: Study.Id) = $doc("studyId" -> id)

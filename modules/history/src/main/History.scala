@@ -47,13 +47,14 @@ object History {
   import reactivemongo.bson._
 
   private[history] implicit val RatingsMapReader = new BSONDocumentReader[RatingsMap] {
-    def read(doc: BSONDocument): RatingsMap = doc.stream.flatMap {
-      case scala.util.Success(BSONElement(k, BSONInteger(v))) => parseIntOption(k) map (_ -> v)
+    def read(doc: BSONDocument): RatingsMap = doc.elements.flatMap {
+      case BSONElement(k, BSONInteger(v)) => parseIntOption(k) map (_ -> v)
       case _ => none[(Int, Int)]
     }.toList sortBy (_._1)
   }
 
-  private[history] implicit val HistoryBSONReader = new BSONDocumentReader[History] {
+  private[history] implicit object HistoryBSONReader
+    extends BSONDocumentReader[History] {
 
     def read(doc: BSONDocument): History = {
       def ratingsMap(key: String): RatingsMap = ~doc.getAs[RatingsMap](key)

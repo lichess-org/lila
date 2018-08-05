@@ -3,7 +3,7 @@ package lila.puzzle
 import scala.util.Random
 
 import lila.db.dsl._
-import lila.rating.Perf
+
 import lila.user.User
 import Puzzle.{ BSONFields => F }
 
@@ -17,13 +17,15 @@ private[puzzle] final class Selector(
 
   def apply(me: Option[User]): Fu[Puzzle] = {
     lila.mon.puzzle.selector.count()
+
     me match {
       // anon
       case None => puzzleColl // this query precisely matches a mongodb partial index
         .find($doc(F.voteNb $gte 50))
         .sort($sort desc F.voteRatio)
         .skip(Random nextInt anonSkipMax)
-        .uno[Puzzle]
+        .one[Puzzle]
+
       // user
       case Some(user) => api.head find user flatMap {
         // new player
@@ -73,7 +75,7 @@ private[puzzle] final class Selector(
     rating = rating,
     tolerance = tolerance,
     idRange = idRange
-  )).sort($sort asc F.id).uno[Puzzle] flatMap {
+  )).sort($sort asc F.id).one[Puzzle] flatMap {
     case None if (tolerance + step) <= toleranceMax =>
       tryRange(rating, tolerance + step, step, Range(idRange.min, idRange.max + 100))
     case res => fuccess(res)

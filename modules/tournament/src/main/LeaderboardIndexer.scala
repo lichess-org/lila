@@ -13,7 +13,7 @@ private final class LeaderboardIndexer(
   import LeaderboardApi._
   import BSONHandlers._
 
-  def generateAll: Funit = leaderboardColl.remove($empty) >> {
+  def generateAll: Funit = leaderboardColl.delete.one($empty) >> {
     import reactivemongo.play.iteratees.cursorProducer
 
     tournamentColl.find(TournamentRepo.finishedSelect)
@@ -24,21 +24,23 @@ private final class LeaderboardIndexer(
       Enumeratee.grouped(Iteratee takeUpTo 500) |>>>
       Iteratee.foldM[Seq[Entry], Int](0) {
         case (number, entries) =>
-          if (number % 10000 == 0)
+          if (number % 10000 == 0) {
             logger.info(s"Generating leaderboards... $number")
+          }
+
           saveEntries("-")(entries) inject (number + entries.size)
       }
   }.void
 
   def indexOne(tour: Tournament): Funit =
-    leaderboardColl.remove($doc("t" -> tour.id)) >>
+    leaderboardColl.delete.one($doc("t" -> tour.id)) >>
       generateTour(tour) flatMap saveEntries(tour.id)
 
   private def saveEntries(tourId: String)(entries: Seq[Entry]): Funit =
-    entries.nonEmpty ?? leaderboardColl.bulkInsert(
-      documents = entries.map(BSONHandlers.leaderboardEntryHandler.write).toStream,
-      ordered = false
-    ).void
+    entries.nonEmpty ?? leaderboardColl.insert.many(entries).void
+
+  private def saveEntries(entries: Seq[Entry]): Funit =
+    entries.nonEmpty ?? leaderboardColl.insert.many(entries).void
 
   private def generateTour(tour: Tournament): Fu[List[Entry]] = for {
     nbGames <- PairingRepo.countByTourIdAndUserIds(tour.id)

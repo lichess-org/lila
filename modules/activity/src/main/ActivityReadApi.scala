@@ -2,6 +2,8 @@ package lila.activity
 
 import org.joda.time.{ DateTime, Interval }
 
+import reactivemongo.api.Cursor
+
 import lila.db.dsl._
 import lila.game.{ LightPov, GameRepo }
 import lila.practice.PracticeStructure
@@ -24,8 +26,8 @@ final class ActivityReadApi(
 
   def recent(u: User, nb: Int = recentNb): Fu[Vector[ActivityView]] = for {
     allActivities <- coll.find(regexId(u.id))
-      .sort($sort desc "_id")
-      .gather[Activity, Vector](nb)
+      .sort($sort desc "_id").cursor[Activity]().vector(nb)
+
     activities = allActivities.filterNot(_.isEmpty)
     practiceStructure <- activities.exists(_.practice.isDefined) ?? {
       practiceApi.structure.get map some

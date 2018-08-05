@@ -9,7 +9,6 @@ final class Search(collection: Coll) {
   import QaApi._
 
   def apply(q: String): Fu[List[Question]] =
-    collection.find(BSONDocument(
-      "$text" -> BSONDocument("$search" -> q)
-    )).cursor[Question]().gather[List]()
+    collection.find(BSONDocument("$text" -> BSONDocument("$search" -> q)))
+      .cursor[Question]().list
 }

@@ -5,7 +5,6 @@ import com.typesafe.config.ConfigFactory
 import configs.Configs
 import configs.syntax._
 import play.api.data.Form
-import scala.util.Try
 
 import lila.db.dsl._
 
@@ -38,8 +37,8 @@ final class ConfigStore[A: Configs](coll: Coll, id: String, logger: lila.log.Log
   def rawText: Fu[Option[String]] = coll.primitiveOne[String]($id(id), mongoDocKey)
 
   def set(text: String): Either[List[String], Funit] = parse(text).right map { a =>
-    coll.update($id(id), $doc(mongoDocKey -> text), upsert = true).void >>-
-      cache.put((), fuccess(a.some))
+    coll.update.one($id(id), $doc(mongoDocKey -> text), upsert = true)
+      .void >>- cache.put((), fuccess(a.some))
   }
 
   def makeForm: Fu[Form[String]] = {
