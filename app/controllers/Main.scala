@@ -153,4 +153,6 @@ Disallow: /games/export
   def getDraughtsnet = Open { implicit ctx =>
     Ok(html.site.getDraughtsnet()).fuccess
   }
+
+  def versionedAsset(version: Int, file: String) = Assets.at(path = "/public", file)
 }
