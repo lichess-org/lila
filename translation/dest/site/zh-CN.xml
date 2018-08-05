@@ -437,7 +437,7 @@
   <string name="lastName">姓</string>
   <string name="biography">个人简介</string>
   <string name="country">国家</string>
-  <string name="linkSuggestions">比如Twitter, Facebook, Github, Lidraugths, ...
+  <string name="linkSuggestions">比如Twitter, Facebook, GitHub, Lidraugths, ...
 一行一个地址</string>
   <string name="preferences">偏好设置</string>
   <string name="inlineNotation">内嵌棋谱注释</string>
