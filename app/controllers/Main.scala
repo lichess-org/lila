@@ -156,4 +156,6 @@ Disallow: /games/export
   def getFishnet = Open { implicit ctx =>
     Ok(html.site.getFishnet()).fuccess
   }
+
+  def versionedAsset(version: Int, file: String) = Assets.at(path = "/public", file)
 }
