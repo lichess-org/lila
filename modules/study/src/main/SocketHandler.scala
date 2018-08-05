@@ -13,7 +13,7 @@ import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.makeMessage
-import lila.socket.Socket.Uid
+import lila.socket.Socket.{ Uid, SocketVersion }
 import lila.socket.{ Handler, AnaMove, AnaDrop, AnaAny }
 import lila.tree.Node.{ Shape, Shapes, Comment, Gamebook }
 import lila.user.User
@@ -280,7 +280,7 @@ final class SocketHandler(
     studyId: Study.Id,
     uid: Uid,
     user: Option[User],
-    version: Option[Int]
+    version: Option[SocketVersion]
   ): Fu[Option[JsSocketHandler]] =
     getSocket(studyId) flatMap { socket =>
       join(studyId, uid, user, socket, member => makeController(socket, studyId, uid, member, user = user), version)
@@ -292,7 +292,7 @@ final class SocketHandler(
     user: Option[User],
     socket: ActorRef,
     controller: Socket.Member => Handler.Controller,
-    version: Option[Int]
+    version: Option[SocketVersion]
   ): Fu[Option[JsSocketHandler]] = {
     val join = Socket.Join(uid, user.map(_.id), user.??(_.troll), version)
     Handler(hub, socket, uid, join) {

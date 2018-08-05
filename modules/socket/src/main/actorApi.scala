@@ -10,21 +10,22 @@ case class Connected[M <: SocketMember](
     member: M
 )
 case class Sync(uid: String, friends: List[String])
-case class Ping(uid: String, version: Option[Int], lagCentis: Option[Centis])
+case class Ping(uid: Socket.Uid, version: Option[Socket.SocketVersion], lagCentis: Option[Centis])
 case class BotConnected(color: chess.Color, v: Boolean)
 
 object Ping {
+  import Socket.{ SocketVersion, socketVersionFormat }
   def apply(uid: Socket.Uid, o: JsObject): Ping =
-    Ping(uid.value, o int "v", o int "l" map Centis.apply)
+    Ping(uid, o.get[SocketVersion]("v"), o int "l" map Centis.apply)
 }
 
 case object Broom
-case class Quit(uid: String)
+case class Quit(uid: Socket.Uid)
 
 case class SocketEnter[M <: SocketMember](uid: String, member: M)
 case class SocketLeave[M <: SocketMember](uid: String, member: M)
 
-case class Resync(uid: String)
+case class Resync(uid: Socket.Uid)
 
 case object GetVersion
 

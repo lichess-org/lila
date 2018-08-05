@@ -8,6 +8,7 @@ import lila.app._
 import lila.challenge.{ Challenge => ChallengeModel }
 import lila.common.{ HTTPRequest, LilaCookie }
 import lila.game.{ Pov, GameRepo, AnonCookie }
+import lila.socket.Socket.SocketVersion
 import lila.user.UserRepo
 import views.html
 
@@ -165,11 +166,10 @@ object Challenge extends LilaController {
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    val version = getInt("v")
     env.api byId id flatMap {
       _ ?? { c =>
         getSocketUid("sri") ?? { uid =>
-          env.socketHandler.join(id, uid, ctx.userId, isMine(c), version)
+          env.socketHandler.join(id, uid, ctx.userId, isMine(c), getSocketVersion)
         }
       }
     }

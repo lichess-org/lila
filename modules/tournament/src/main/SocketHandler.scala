@@ -10,7 +10,7 @@ import lila.hub.actorApi.map._
 import lila.security.Flood
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
-import lila.socket.Socket.Uid
+import lila.socket.Socket.{ Uid, SocketVersion }
 import lila.user.User
 import makeTimeout.short
 
@@ -25,7 +25,7 @@ private[tournament] final class SocketHandler(
     tourId: String,
     uid: Uid,
     user: Option[User],
-    version: Option[Int]
+    version: Option[SocketVersion]
   ): Fu[Option[JsSocketHandler]] =
     TournamentRepo.exists(tourId) flatMap {
       _ ?? {

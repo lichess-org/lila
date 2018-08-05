@@ -83,18 +83,15 @@ private[tournament] final class Socket(
     case Join(uid, user, version) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
-      addMember(uid.value, member)
+      addMember(uid, member)
       notifyCrowd
 
-      val msgs: List[JsValue] = version.fold(history.getRecent(5).some) {
-        history.since
-      } match {
-        case None => List(resyncMessage)
-        case Some(l) => l.map(filteredMessage(member))
-      }
+      val msgs: List[JsValue] = version
+        .fold(history.getRecent(5).some)(history.since)
+        .fold(List(resyncMessage))(_ map filteredMessage(member))
 
       sender ! Connected(
-        Enumerator(msgs: _*) >>> enumerator,
+        lila.common.Iteratee.prepend(msgs, enumerator),
         member
       )
 

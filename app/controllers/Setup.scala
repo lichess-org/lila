@@ -13,6 +13,7 @@ import lila.game.{ GameRepo, Pov, AnonCookie }
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
 import lila.user.UserRepo
+import lila.socket.Socket.Uid
 import views._
 
 object Setup extends LilaController with TheftPrevention {
@@ -145,7 +146,7 @@ object Setup extends LilaController with TheftPrevention {
               if (getBool("pool")) env.processor.saveHookConfig(config) inject hookSaveOnlyResponse
               else (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap {
                 blocking =>
-                  env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse
+                  env.processor.hook(config, Uid(uid), HTTPRequest sid req, blocking) map hookResponse
               }
           )
         }
@@ -163,7 +164,7 @@ object Setup extends LilaController with TheftPrevention {
             blocking <- ctx.userId ?? Env.relation.api.fetchBlocking
             hookConfig = game.fold(config)(config.updateFrom)
             sameOpponents = game.??(_.userIds)
-            hookResult <- env.processor.hook(hookConfig, uid, HTTPRequest sid ctx.req, blocking ++ sameOpponents)
+            hookResult <- env.processor.hook(hookConfig, Uid(uid), HTTPRequest sid ctx.req, blocking ++ sameOpponents)
           } yield hookResponse(hookResult)
         }
       }

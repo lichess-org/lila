@@ -5,7 +5,7 @@ import play.api.libs.json._
 import actorApi.Member
 import chess.Color
 import lila.game.Event
-import actorApi.SocketVersion
+import lila.socket.Socket.{ SocketVersion, socketVersionFormat }
 
 case class VersionedEvent(
     version: SocketVersion,
@@ -23,13 +23,13 @@ case class VersionedEvent(
   }
 
   def jsFor(m: Member): JsObject = if (visibleBy(m)) {
-    if (decoded == JsNull) Json.obj("v" -> version.value, "t" -> typ)
+    if (decoded == JsNull) Json.obj("v" -> version, "t" -> typ)
     else Json.obj(
-      "v" -> version.value,
+      "v" -> version,
       "t" -> typ,
       "d" -> decoded
     )
-  } else Json.obj("v" -> version.value)
+  } else Json.obj("v" -> version)
 
   private def visibleBy(m: Member): Boolean =
     if (watcher && m.owner) false

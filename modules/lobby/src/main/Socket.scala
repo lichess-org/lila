@@ -12,6 +12,7 @@ import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
 import lila.socket.actorApi.{ Connected => _, _ }
+import lila.socket.Socket.Uid
 import lila.socket.SocketActor
 
 private[lobby] final class Socket(
@@ -57,8 +58,8 @@ private[lobby] final class Socket(
 
     case Join(uid, user, blocks, mobile) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, blocks, uid.value, mobile)
-      addMember(uid.value, member)
+      val member = Member(channel, user, blocks, uid, mobile)
+      addMember(uid, member)
       sender ! Connected(enumerator, member)
 
     case ReloadTournaments(html) => notifyAllActive(makeMessage("tournaments", html))
@@ -138,18 +139,18 @@ private[lobby] final class Socket(
 
     case ChangeFeatured(_, msg) => notifyAllActive(msg)
 
-    case SetIdle(uid, true) => idleUids += uid
-    case SetIdle(uid, false) => idleUids -= uid
+    case SetIdle(uid, true) => idleUids += uid.value
+    case SetIdle(uid, false) => idleUids -= uid.value
 
-    case HookSub(member, false) => hookSubscriberUids -= member.uid
+    case HookSub(member, false) => hookSubscriberUids -= member.uid.value
     case AllHooksFor(member, hooks) =>
       notifyMember("hooks", JsArray(hooks.map(_.render)))(member)
-      hookSubscriberUids += member.uid
+      hookSubscriberUids += member.uid.value
   }
 
   def redirectPlayers(p: lila.pool.PoolApi.Pairing) = {
-    withMember(p.whiteUid.value)(notifyPlayerStart(p.game, chess.White))
-    withMember(p.blackUid.value)(notifyPlayerStart(p.game, chess.Black))
+    withMember(p.whiteUid)(notifyPlayerStart(p.game, chess.White))
+    withMember(p.blackUid)(notifyPlayerStart(p.game, chess.Black))
   }
 
   def notifyPlayerStart(game: Game, color: chess.Color) =
@@ -167,10 +168,10 @@ private[lobby] final class Socket(
     if (!idleUids(uid)) members get uid foreach f
   }
 
-  override def quit(uid: String): Unit = {
+  override def quit(uid: Uid): Unit = {
     super.quit(uid)
-    idleUids -= uid
-    hookSubscriberUids -= uid
+    idleUids -= uid.value
+    hookSubscriberUids -= uid.value
   }
 
   def playerUrl(fullId: String) = s"/$fullId"

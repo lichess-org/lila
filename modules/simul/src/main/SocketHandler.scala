@@ -7,7 +7,7 @@ import actorApi._
 import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
-import lila.socket.Socket.Uid
+import lila.socket.Socket.{ Uid, SocketVersion }
 import lila.user.User
 import lila.chat.Chat
 import makeTimeout.short
@@ -23,7 +23,7 @@ private[simul] final class SocketHandler(
     simId: String,
     uid: Uid,
     user: Option[User],
-    version: Option[Int]
+    version: Option[SocketVersion]
   ): Fu[Option[JsSocketHandler]] =
     exists(simId) flatMap {
       _ ?? {

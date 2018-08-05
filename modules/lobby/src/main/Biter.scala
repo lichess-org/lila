@@ -5,10 +5,11 @@ import chess.{ Game => ChessGame, Situation, Color => ChessColor }
 import actorApi.{ JoinHook, JoinSeek }
 import lila.game.{ GameRepo, Game, Player, PerfPicker }
 import lila.user.{ User, UserRepo }
+import lila.socket.Socket.Uid
 
 private[lobby] object Biter {
 
-  def apply(hook: Hook, uid: String, user: Option[LobbyUser]): Fu[JoinHook] =
+  def apply(hook: Hook, uid: Uid, user: Option[LobbyUser]): Fu[JoinHook] =
     if (canJoin(hook, user)) join(hook, uid, user)
     else fufail(s"$user cannot bite hook $hook")
 
@@ -16,7 +17,7 @@ private[lobby] object Biter {
     if (canJoin(seek, user)) join(seek, user)
     else fufail(s"$user cannot join seek $seek")
 
-  private def join(hook: Hook, uid: String, lobbyUserOption: Option[LobbyUser]): Fu[JoinHook] = for {
+  private def join(hook: Hook, uid: Uid, lobbyUserOption: Option[LobbyUser]): Fu[JoinHook] = for {
     userOption ← lobbyUserOption.map(_.id) ?? UserRepo.byId
     ownerOption ← hook.userId ?? UserRepo.byId
     creatorColor <- assignCreatorColor(ownerOption, userOption, hook.realColor)

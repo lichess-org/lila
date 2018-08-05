@@ -7,8 +7,8 @@ import scala.concurrent.duration.Duration
 
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
+import lila.socket.Socket.{ Uid, SocketVersion }
 import lila.socket.{ SocketActor, History, Historical }
-import lila.socket.Socket.Uid
 
 private final class Socket(
     challengeId: String,
@@ -29,8 +29,8 @@ private final class Socket(
         }
       }
 
-    case Ping(uid, vOpt, c) => {
-      ping(uid, c)
+    case Ping(uid, vOpt, lagCentis) => {
+      ping(uid, lagCentis)
       timeBomb.delay
 
       // Mobile backwards compat
@@ -51,17 +51,14 @@ private final class Socket(
     case Socket.Join(uid, userId, owner, version) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Socket.Member(channel, userId, owner)
-      addMember(uid.value, member)
+      addMember(uid, member)
 
-      val msgs: List[JsValue] = version.fold(history.getRecent(5).some) {
-        history.since
-      } match {
-        case None => List(resyncMessage)
-        case Some(l) => l.map(filteredMessage(member))
-      }
+      val msgs: List[JsValue] = version
+        .fold(history.getRecent(5).some)(history.since)
+        .fold(List(resyncMessage))(_ map filteredMessage(member))
 
       sender ! Socket.Connected(
-        Enumerator(msgs: _*) >>> enumerator,
+        lila.common.Iteratee.prepend(msgs, enumerator),
         member
       )
 
@@ -81,7 +78,7 @@ private object Socket {
     val troll = false
   }
 
-  case class Join(uid: Uid, userId: Option[String], owner: Boolean, version: Option[Int])
+  case class Join(uid: Uid, userId: Option[String], owner: Boolean, version: Option[SocketVersion])
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case object Reload

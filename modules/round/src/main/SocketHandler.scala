@@ -19,7 +19,7 @@ import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
 import lila.hub.actorApi.shutup.PublicSource
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
-import lila.socket.Socket.Uid
+import lila.socket.Socket.{ Uid, SocketVersion }
 import lila.user.User
 import makeTimeout.short
 
@@ -66,7 +66,7 @@ private[round] final class SocketHandler(
           case (move, blur, lag, ackId) =>
             val promise = Promise[Unit]
             promise.future onFailure {
-              case _: Exception => socket ! Resync(uid.value)
+              case _: Exception => socket ! Resync(uid)
             }
             send(HumanPlay(playerId, move, blur, lag, promise.some))
             member.push(ackMessage(ackId))
@@ -75,7 +75,7 @@ private[round] final class SocketHandler(
           case (drop, blur, lag, ackId) =>
             val promise = Promise[Unit]
             promise.future onFailure {
-              case _: Exception => socket ! Resync(uid.value)
+              case _: Exception => socket ! Resync(uid)
             }
             send(HumanPlay(playerId, drop, blur, lag, promise.some))
             member.push(ackMessage(ackId))

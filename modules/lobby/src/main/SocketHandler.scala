@@ -28,7 +28,7 @@ private[lobby] final class SocketHandler(
 
   private def HookPoolLimit[A: Zero](member: Member, cost: Int, msg: => String)(op: => A) =
     HookPoolLimitPerMember(
-      k = member.uid,
+      k = member.uid.value,
       cost = cost,
       msg = s"$msg mobile=${member.mobile}"
     )(op)
@@ -69,7 +69,7 @@ private[lobby] final class SocketHandler(
           PoolConfig.Id(id),
           PoolApi.Joiner(
             userId = user.id,
-            socketId = lila.socket.Socket.Uid(member.uid),
+            socketId = member.uid,
             ratingMap = user.perfMap.mapValues(_.rating),
             ratingRange = ratingRange,
             lame = user.lame,

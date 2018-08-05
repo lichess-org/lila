@@ -11,6 +11,7 @@ import lila.game.Event
 import lila.socket.Socket.Uid
 import lila.socket.SocketMember
 import lila.user.User
+import lila.socket.Socket.SocketVersion
 
 case class EventList(events: List[Event])
 
@@ -133,11 +134,6 @@ package round {
   case class GoBerserk(color: Color)
   case object NoStart
   case object TooManyPlies
-}
-
-case class SocketVersion(value: Int) extends AnyVal with IntValue with Ordered[SocketVersion] {
-  def compare(other: SocketVersion) = value compare other.value
-  def inc = SocketVersion(value + 1)
 }
 
 private[round] case object GetNbRounds

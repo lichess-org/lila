@@ -33,7 +33,7 @@ case class HookConfig(
   }
 
   def hook(
-    uid: String,
+    uid: lila.socket.Socket.Uid,
     user: Option[User],
     sid: Option[String],
     blocking: Set[String]

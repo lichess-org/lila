@@ -7,12 +7,15 @@ import play.api.mvc.WebSocket.FrameFormatter
 import lila.api.Context
 import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
+import lila.socket.Socket.SocketVersion
 
 trait LilaSocket { self: LilaController =>
 
   private type Pipe[A] = (Iteratee[A, _], Enumerator[A])
 
   private val notFoundResponse = NotFound(jsonError("socket resource not found"))
+
+  protected def getSocketVersion(implicit ctx: Context) = getInt("v") map SocketVersion.apply
 
   protected def SocketEither[A: FrameFormatter](f: Context => Fu[Either[Result, Pipe[A]]]): WebSocket[A, A] =
     WebSocket.tryAccept[A] { req =>

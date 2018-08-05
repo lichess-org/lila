@@ -1,15 +1,15 @@
 package lila.study
 
 import akka.actor._
-import play.api.libs.json._
 import play.api.libs.iteratee._
+import play.api.libs.json._
 import scala.concurrent.duration._
 
 import chess.Centis
 import chess.format.pgn.Glyphs
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.Socket.Uid
+import lila.socket.Socket.{ Uid, SocketVersion }
 import lila.socket.{ SocketActor, History, Historical, AnaDests }
 import lila.tree.Node.{ Shapes, Comment }
 import lila.user.User
@@ -208,29 +208,25 @@ private final class Socket(
       import play.api.libs.iteratee.Concurrent
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Socket.Member(channel, userId, troll = troll)
-      addMember(uid.value, member)
+      addMember(uid, member)
       notifyCrowd
 
-      val msgs: List[JsValue] = version.fold(history.getRecent(5).some) {
-        history.since
-      } match {
-        case None => List(resyncMessage)
-        case Some(l) => l.map(filteredMessage(member))
-      }
+      val msgs: List[JsValue] = version
+        .fold(history.getRecent(5).some)(history.since)
+        .fold(List(resyncMessage))(_ map filteredMessage(member))
 
       sender ! Socket.Connected(
-        Enumerator(msgs: _*) >>> enumerator,
+        lila.common.Iteratee.prepend(msgs, enumerator),
         member
       )
 
       userId foreach sendStudyDoor(true)
 
-    case Quit(uid) =>
-      members get uid foreach { member =>
-        quit(uid)
-        member.userId foreach sendStudyDoor(false)
-        notifyCrowd
-      }
+    case Quit(uid) => withMember(uid) { member =>
+      quit(uid)
+      member.userId foreach sendStudyDoor(false)
+      notifyCrowd
+    }
 
     case NotifyCrowd =>
       delayedCrowdNotification = false
@@ -314,7 +310,7 @@ object Socket {
   import JsonView.uidWriter
   implicit private val whoWriter = Json.writes[Who]
 
-  case class Join(uid: Uid, userId: Option[User.ID], troll: Boolean, version: Option[Int])
+  case class Join(uid: Uid, userId: Option[User.ID], troll: Boolean, version: Option[SocketVersion])
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case class ReloadUid(uid: Uid)
