@@ -45,7 +45,7 @@ private[round] final class Socket(
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
-  private var delayedCrowdNotification = false
+  private[this] var delayedCrowdNotification = false
 
   private final class Player(color: Color) {
 
