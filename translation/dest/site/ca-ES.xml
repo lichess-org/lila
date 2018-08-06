@@ -272,6 +272,10 @@
     <item quantity="other">Heu de jugar %s partides puntuades més</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">La vostra puntuació de %s és provisional</string>
+  <string name="yourPerfRatingIsTooHigh">La vostra puntuació de %1$s (%2$s) és massa alta</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">La vostra puntuació setmanal de %1$s (%2$s) és massa alta</string>
+  <string name="yourPerfRatingIsTooLow">La vostra qualificació de %1$s (%2$s) és massa baixa</string>
+  <string name="mustBeInTeam">Heu de ser de l\'equip %s</string>
   <string name="backToGame">Torna a la partida</string>
   <string name="siteDescription">Servidor d\'escacs gratuït online. Juga ara a escacs amb una interfície neta i elegant. No cal registrar-s\'hi, sense anuncis, no calen connectors. Juga a escacs amb l\'ordinador, amics o oponents a l\'atzar.</string>
   <string name="teams">Equips</string>
