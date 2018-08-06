@@ -276,6 +276,7 @@
   <string name="yourTopWeeklyPerfRatingIsTooHigh">La vostra puntuació setmanal de %1$s (%2$s) és massa alta</string>
   <string name="yourPerfRatingIsTooLow">La vostra qualificació de %1$s (%2$s) és massa baixa</string>
   <string name="mustBeInTeam">Heu de ser de l\'equip %s</string>
+  <string name="youAreNotInTeam">No sou de l\'equip %s</string>
   <string name="backToGame">Torna a la partida</string>
   <string name="siteDescription">Servidor d\'escacs gratuït online. Juga ara a escacs amb una interfície neta i elegant. No cal registrar-s\'hi, sense anuncis, no calen connectors. Juga a escacs amb l\'ordinador, amics o oponents a l\'atzar.</string>
   <string name="teams">Equips</string>
@@ -356,6 +357,8 @@
   <string name="winner">Guanyador</string>
   <string name="standing">Resultats</string>
   <string name="createANewTournament">Crea un nou torneig</string>
+  <string name="advancedSettings">Configuració avançada</string>
+  <string name="safeTournamentName">Trieu un nom segur per al torneig.</string>
   <string name="join">Inscriu-t\'hi</string>
   <string name="withdraw">Abandona</string>
   <string name="points">Punts</string>
