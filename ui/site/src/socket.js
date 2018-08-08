@@ -6,8 +6,6 @@ lichess.StrongSocket = function(url, version, settings) {
   var now = Date.now;
 
   var settings = $.extend(true, {}, lichess.StrongSocket.defaults, settings);
-  var url = url;
-  var version = version;
   var versioned = version !== false;
   var options = settings.options;
   var ws;
@@ -25,7 +23,9 @@ lichess.StrongSocket = function(url, version, settings) {
   var connect = function() {
     destroy();
     autoReconnect = true;
-    var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + $.param(settings.params);
+    var params = $.param(settings.params);
+    if (versioned) params += (params ? '&' : '') + 'v=' + version;
+    var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + params;
     debug("connection attempt to " + fullUrl);
     try {
       ws = new WebSocket(fullUrl);
@@ -106,11 +106,11 @@ lichess.StrongSocket = function(url, version, settings) {
     pingSchedule = setTimeout(pingNow, delay);
   };
 
-  var pingNow = function() {
+  var pingNow = function(forceVersion) {
     clearTimeout(pingSchedule);
     clearTimeout(connectSchedule);
     try {
-      ws.send(pingData());
+      ws.send(pingData(forceVersion));
       lastPingTime = now();
     } catch (e) {
       debug(e, true);
@@ -135,12 +135,12 @@ lichess.StrongSocket = function(url, version, settings) {
     lichess.pubsub.emit('socket.lag')(averageLag);
   };
 
-  var pingData = function() {
+  var pingData = function(forceVersion) {
     if (!versioned) return '{"t":"p"}';
     var data = {
-      t: "p",
-      v: version
+      t: "p"
     };
+    if (forceVersion) data.v = version;
     if (pongCount % 8 === 2) data.l = Math.round(0.1 * averageLag);
     return JSON.stringify(data);
   };
@@ -152,7 +152,10 @@ lichess.StrongSocket = function(url, version, settings) {
         return;
       }
       if (m.v > version + 1) {
+        // This is not expected. Recover with a versioned ping.
+        $.post('/nlog/socket4/eventGap/' + version + ';' + m.v);
         debug("event gap detected from " + version + " to " + m.v);
+        pingNow(true);
         return;
       }
       version = m.v;

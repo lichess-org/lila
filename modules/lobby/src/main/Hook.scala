@@ -8,11 +8,12 @@ import play.api.libs.json._
 import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.user.User
+import lila.socket.Socket.Uid
 
 // realtime chess, volatile
 case class Hook(
     id: String,
-    uid: String, // owner socket uid
+    uid: Uid, // owner socket uid
     sid: Option[String], // owner cookie (used to prevent multiple hooks)
     variant: Int,
     clock: Clock.Config,
@@ -86,7 +87,7 @@ case class Hook(
     hookId = id,
     member = lila.pool.PoolMember(
       userId = user.??(_.id),
-      socketId = lila.socket.Socket.Uid(uid),
+      socketId = uid,
       rating = rating | lila.rating.Glicko.defaultIntRating,
       ratingRange = realRatingRange,
       lame = user.??(_.lame),
@@ -103,7 +104,7 @@ object Hook {
   val idSize = 8
 
   def make(
-    uid: String,
+    uid: Uid,
     variant: chess.variant.Variant,
     clock: Clock.Config,
     mode: Mode,

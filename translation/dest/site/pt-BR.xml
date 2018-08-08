@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Sua %1$s pontuação (%2$s) é muito baixa</string>
   <string name="ratedMoreThanInPerf">Pontuação ≥ %1$s em %2$s</string>
   <string name="ratedLessThanInPerf">Pontuação ≤ %1$s em %2$s</string>
+  <string name="mustBeInTeam">Precisa estar na equipe %s</string>
+  <string name="youAreNotInTeam">Você não está na equipe %s</string>
   <string name="backToGame">Retorne à partida</string>
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou adversários aleatórios.</string>
   <string name="teams">Equipes</string>

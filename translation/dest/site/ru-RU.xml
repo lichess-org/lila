@@ -344,6 +344,8 @@
   <string name="yourPerfRatingIsTooLow">Ваш рейтинг в %1$s (%2$s) недостаточен для участия</string>
   <string name="ratedMoreThanInPerf">Рейтинг ≥ %1$s в %2$s</string>
   <string name="ratedLessThanInPerf">Рейтинг ≤ %1$s в %2$s</string>
+  <string name="mustBeInTeam">Вы должны быть членом клуба %s</string>
+  <string name="youAreNotInTeam">Вы не член клуба %s</string>
   <string name="backToGame">Вернуться к игре</string>
   <string name="siteDescription">Свободный и бесплатный шахматный сервер. Сыграйте в шахматы прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в шахматы с компьютером, друзьями или случайными соперниками.</string>
   <string name="teams">Клубы</string>

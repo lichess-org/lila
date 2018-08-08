@@ -221,7 +221,8 @@ object Study extends LilaController {
           env.socketHandler.join(
             studyId = id,
             uid = lila.socket.Socket.Uid(uid),
-            user = ctx.me
+            user = ctx.me,
+            getSocketVersion
           )
         }
       }

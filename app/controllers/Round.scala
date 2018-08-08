@@ -26,7 +26,8 @@ object Round extends LilaController with TheftPrevention {
             uid = uid,
             user = ctx.me,
             ip = ctx.ip,
-            userTv = get("userTv")
+            userTv = get("userTv"),
+            version = getSocketVersion
           ) map some
         }
       }
@@ -40,7 +41,7 @@ object Round extends LilaController with TheftPrevention {
         else getSocketUid("sri") match {
           case Some(uid) =>
             requestAiMove(pov) >>
-              env.socketHandler.player(pov, uid, ctx.me, ctx.ip) map Right.apply
+              env.socketHandler.player(pov, uid, ctx.me, ctx.ip, getSocketVersion) map Right.apply
           case None => fuccess(Left(NotFound))
         }
       case None => fuccess(Left(NotFound))

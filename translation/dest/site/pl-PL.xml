@@ -344,6 +344,8 @@
   <string name="yourPerfRatingIsTooLow">Twój ranking %2$s (%1$s) jest zbyt niski</string>
   <string name="ratedMoreThanInPerf">Ranking ≥ %1$s (%2$s)</string>
   <string name="ratedLessThanInPerf">Ranking ≤ %1$s (%2$s)</string>
+  <string name="mustBeInTeam">Musisz należeć do klubu %s</string>
+  <string name="youAreNotInTeam">Nie należysz do klubu %s</string>
   <string name="backToGame">Wróć do partii</string>
   <string name="siteDescription">Darmowe szachy online. Zagraj teraz w szachy o przyjaznym interfejsie. Bez rejestracji, bez reklam, bez instalowania wtyczek. Zagraj w szachy z komputerem, znajomymi lub losowo wybranymi przeciwnikami.</string>
   <string name="teams">Kluby</string>

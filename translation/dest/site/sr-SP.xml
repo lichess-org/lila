@@ -324,6 +324,8 @@
   <string name="yourPerfRatingIsTooLow">Ваш %1$s рејтинг (%2$s) је пренизак</string>
   <string name="ratedMoreThanInPerf">Рејтинг ≥ %1$s у %2$s</string>
   <string name="ratedLessThanInPerf">Рејтинг ≤ %1$s у %2$s</string>
+  <string name="mustBeInTeam">Морате бити у тиму %s</string>
+  <string name="youAreNotInTeam">Ви нисте члан тима %s</string>
   <string name="backToGame">Повратак у игру</string>
   <string name="siteDescription">Бесплатни интернет шах. Играј сада у чистом окружењу. Без регистрације, реклама, захтеваних података. Играј шах ротив рачунара, пријатеља или насумичних противника.</string>
   <string name="teams">Тимови</string>

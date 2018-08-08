@@ -85,7 +85,7 @@
   <div>
     <p class="meta">
       @userIdLink(note.from.some)<br />@momentFromNow(note.date)
-      @if(ctx.me.exists(note.isFrom)) {
+      @if(ctx.me.exists(note.isFrom) && !note.mod) {
         <br />
         <form action="@routes.User.deleteNote(note._id)" method="post">
           <button type="submit" class="thin confirm button text" style="float:right" data-icon="q">Delete</button>
@@ -98,7 +98,7 @@
 </div>
 }
 }
-@if((ctx is u) && u.perfs.bestRating > 2400 && !u.hasTitle && !ctx.pref.hasSeenVerifyTitle ) {
+@if((ctx is u) && u.perfs.bestStandardRating > 2400 && !u.hasTitle && !ctx.pref.hasSeenVerifyTitle ) {
 @claimTitle(u)
 }
 <div class="mod_zone"></div>

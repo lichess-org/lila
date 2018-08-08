@@ -11,6 +11,7 @@ import lila.game.Event
 import lila.socket.Socket.Uid
 import lila.socket.SocketMember
 import lila.user.User
+import lila.socket.Socket.SocketVersion
 
 case class EventList(events: List[Event])
 
@@ -76,14 +77,15 @@ case class Join(
     color: Color,
     playerId: Option[String],
     ip: IpAddress,
-    userTv: Option[User.ID]
+    userTv: Option[User.ID],
+    version: Option[SocketVersion]
 )
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)
 case class IsGone(color: Color)
 case object GetSocketStatus
 case class SocketStatus(
-    version: Int,
+    version: SocketVersion,
     whiteOnGame: Boolean,
     whiteIsGone: Boolean,
     blackOnGame: Boolean,

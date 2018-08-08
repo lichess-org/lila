@@ -1,6 +1,7 @@
 package lila.study
 
 import akka.actor._
+import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -8,7 +9,7 @@ import chess.Centis
 import chess.format.pgn.Glyphs
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.Socket.Uid
+import lila.socket.Socket.{ Uid, GetVersion, SocketVersion }
 import lila.socket.{ SocketActor, History, Historical, AnaDests }
 import lila.tree.Node.{ Shapes, Comment }
 import lila.user.User
@@ -186,12 +187,10 @@ private final class Socket(
       "chapterId" -> chapterId
     ))(uid)
 
-    case Ping(uid, Some(v), lt) =>
+    case Ping(uid, vOpt, lt) =>
       ping(uid, lt)
       timeBomb.delay
-      withMember(uid) { m =>
-        history.since(v).fold(resync(m))(_ foreach sendMessage(m))
-      }
+      pushEventsSinceForMobileBC(vOpt, uid)
 
     case Broom =>
       broom
@@ -199,21 +198,24 @@ private final class Socket(
 
     case GetVersion => sender ! history.version
 
-    case Socket.Join(uid, userId, troll) =>
+    case Socket.Join(uid, userId, troll, version) =>
       import play.api.libs.iteratee.Concurrent
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Socket.Member(channel, userId, troll = troll)
-      addMember(uid.value, member)
+      addMember(uid, member)
       notifyCrowd
-      sender ! Socket.Connected(enumerator, member)
+      sender ! Socket.Connected(
+        prependEventsSince(version, enumerator, member),
+        member
+      )
+
       userId foreach sendStudyDoor(true)
 
-    case Quit(uid) =>
-      members get uid foreach { member =>
-        quit(uid)
-        member.userId foreach sendStudyDoor(false)
-        notifyCrowd
-      }
+    case Quit(uid) => withMember(uid) { member =>
+      quit(uid)
+      member.userId foreach sendStudyDoor(false)
+      notifyCrowd
+    }
 
     case NotifyCrowd =>
       delayedCrowdNotification = false
@@ -297,7 +299,7 @@ object Socket {
   import JsonView.uidWriter
   implicit private val whoWriter = Json.writes[Who]
 
-  case class Join(uid: Uid, userId: Option[User.ID], troll: Boolean)
+  case class Join(uid: Uid, userId: Option[User.ID], troll: Boolean, version: Option[SocketVersion])
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case class ReloadUid(uid: Uid)

@@ -61,27 +61,27 @@ private[tournament] final class Socket(
       waitingUsers = waitingUsers.update(members.values.flatMap(_.userId)(breakOut), clock)
       sender ! waitingUsers
 
-    case Ping(uid, Some(v), lt) => {
+    case Ping(uid, vOpt, lt) =>
       ping(uid, lt)
       timeBomb.delay
-      withMember(uid) { m =>
-        history.since(v).fold(resync(m))(_ foreach sendMessage(m))
-      }
-    }
+      pushEventsSinceForMobileBC(vOpt, uid)
 
     case Broom => {
       broom
       if (timeBomb.boom) self ! PoisonPill
     }
 
-    case GetVersion => sender ! history.version
+    case lila.socket.Socket.GetVersion => sender ! history.version
 
-    case Join(uid, user) =>
+    case Join(uid, user, version) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
-      addMember(uid.value, member)
+      addMember(uid, member)
       notifyCrowd
-      sender ! Connected(enumerator, member)
+      sender ! Connected(
+        prependEventsSince(version, enumerator, member),
+        member
+      )
 
     case Quit(uid) =>
       quit(uid)

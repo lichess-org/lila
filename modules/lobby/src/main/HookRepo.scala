@@ -28,7 +28,7 @@ object HookRepo {
 
   def bySid(sid: String) = hooks find (_.sid == sid.some)
 
-  def notInUids(uids: Set[String]): Vector[Hook] = hooks.filterNot(h => uids(h.uid))
+  def notInUids(uids: Set[String]): Vector[Hook] = hooks.filterNot(h => uids(h.uid.value))
 
   def save(hook: Hook): Unit = {
     hooks = hooks.filterNot(_.id == hook.id) :+ hook

@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 import lila.user.User
 import lila.hub.actorApi.map.Ask
-import lila.socket.actorApi.GetVersion
+import lila.socket.Socket.{ GetVersion, SocketVersion }
 import makeTimeout.short
 
 final class Env(
@@ -48,8 +48,8 @@ final class Env(
     }), name = SocketName
   )
 
-  def version(challengeId: Challenge.ID): Fu[Int] =
-    socketHub ? Ask(challengeId, GetVersion) mapTo manifest[Int]
+  def version(challengeId: Challenge.ID): Fu[SocketVersion] =
+    socketHub ? Ask(challengeId, GetVersion) mapTo manifest[SocketVersion]
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,

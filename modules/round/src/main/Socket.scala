@@ -20,6 +20,7 @@ import lila.hub.actorApi.tv.{ Select => TvSelect }
 import lila.hub.TimeBomb
 import lila.socket._
 import lila.socket.actorApi.{ Connected => _, _ }
+import lila.socket.Socket.Uid
 import makeTimeout.short
 
 private[round] final class Socket(
@@ -43,7 +44,7 @@ private[round] final class Socket(
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
-  private var delayedCrowdNotification = false
+  private[this] var delayedCrowdNotification = false
 
   private final class Player(color: Color) {
 
@@ -140,14 +141,18 @@ private[round] final class Socket(
       onDeploy(d)
       history.enablePersistence
 
-    case Ping(uid, Some(v), c) =>
+    case Ping(uid, vOpt, lagCentis) =>
       timeBomb.delay
-      ping(uid, c)
+      ping(uid, lagCentis)
       ownerOf(uid) foreach { o =>
         playerDo(o.color, _.ping)
       }
-      withMember(uid) { member =>
-        (history getEventsSince v).fold(resyncNow(member))(batch(member, _))
+
+      // Mobile backwards compat
+      vOpt foreach { v =>
+        withMember(uid) { member =>
+          (history getEventsSince v).fold(resyncNow(member))(batch(member, _))
+        }
       }
 
     case BotConnected(color, v) =>
@@ -178,14 +183,25 @@ private[round] final class Socket(
         )
       } pipeTo sender
 
-    case Join(uid, user, color, playerId, ip, onTv) =>
+    case Join(uid, user, color, playerId, ip, onTv, version) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user, color, playerId, ip, onTv)
-      addMember(uid.value, member)
+      addMember(uid, member)
       notifyCrowd
       if (playerId.isDefined) playerDo(color, _.ping)
-      sender ! Connected(enumerator, member)
       if (member.userTv.isDefined) buscriptions.tv
+      val events = version.fold(history.getRecentEvents(5).some) {
+        history.getEventsSince
+      }
+
+      val initialMsgs = events.fold(resyncMessage.some) {
+        batchMsgs(member, _)
+      } map { m => Enumerator(m: JsValue) }
+
+      sender ! Connected(
+        initialMsgs.fold(enumerator) { _ >>> enumerator },
+        member
+      )
 
     case Nil =>
     case eventList: EventList => notify(eventList.events)
@@ -236,12 +252,11 @@ private[round] final class Socket(
     send = (t, d, _) => notifyAll(t, d)
   )
 
-  override def quit(uid: String) = {
-    members get uid foreach { member =>
+  override def quit(uid: Uid) =
+    if (members contains uid.value) {
       super.quit(uid)
       notifyCrowd
     }
-  }
 
   def notifyCrowd: Unit = {
     if (!delayedCrowdNotification) {
@@ -255,11 +270,14 @@ private[round] final class Socket(
     members.foreachValue { m => batch(m, vevents) }
   }
 
-  def batch(member: Member, vevents: List[VersionedEvent]) = vevents match {
-    case Nil =>
-    case List(one) => member push one.jsFor(member)
-    case many => member push makeMessage("b", many map (_ jsFor member))
+  def batchMsgs(member: Member, vevents: List[VersionedEvent]) = vevents match {
+    case Nil => None
+    case List(one) => one.jsFor(member).some
+    case many => makeMessage("b", many map (_ jsFor member)).some
   }
+
+  def batch(member: Member, vevents: List[VersionedEvent]) =
+    batchMsgs(member, vevents) foreach member.push
 
   def notifyOwner[A: Writes](color: Color, t: String, data: A) =
     withOwnerOf(color) {
@@ -285,8 +303,8 @@ private[round] final class Socket(
       m.owner && m.color == color
     }
 
-  def ownerOf(uid: String): Option[Member] =
-    members get uid filter (_.owner)
+  def ownerOf(uid: Uid): Option[Member] =
+    members get uid.value filter (_.owner)
 
   def foreachWatcher(f: Member => Unit): Unit = members.foreachValue { m =>
     if (m.watcher) f(m)

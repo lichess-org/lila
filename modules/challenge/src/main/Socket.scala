@@ -1,14 +1,14 @@
 package lila.challenge
 
 import akka.actor._
-import play.api.libs.iteratee.Concurrent
+import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration.Duration
 
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
+import lila.socket.Socket.{ Uid, GetVersion, SocketVersion }
 import lila.socket.{ SocketActor, History, Historical }
-import lila.socket.Socket.Uid
 
 private final class Socket(
     challengeId: String,
@@ -29,13 +29,10 @@ private final class Socket(
         }
       }
 
-    case Ping(uid, Some(v), c) => {
-      ping(uid, c)
+    case Ping(uid, vOpt, lagCentis) =>
+      ping(uid, lagCentis)
       timeBomb.delay
-      withMember(uid) { m =>
-        history.since(v).fold(resync(m))(_ foreach sendMessage(m))
-      }
-    }
+      pushEventsSinceForMobileBC(vOpt, uid)
 
     case Broom => {
       broom
@@ -44,11 +41,14 @@ private final class Socket(
 
     case GetVersion => sender ! history.version
 
-    case Socket.Join(uid, userId, owner) =>
+    case Socket.Join(uid, userId, owner, version) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Socket.Member(channel, userId, owner)
-      addMember(uid.value, member)
-      sender ! Socket.Connected(enumerator, member)
+      addMember(uid, member)
+      sender ! Socket.Connected(
+        prependEventsSince(version, enumerator, member),
+        member
+      )
 
     case Quit(uid) => quit(uid)
   }
@@ -66,7 +66,7 @@ private object Socket {
     val troll = false
   }
 
-  case class Join(uid: Uid, userId: Option[String], owner: Boolean)
+  case class Join(uid: Uid, userId: Option[String], owner: Boolean, version: Option[SocketVersion])
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case object Reload

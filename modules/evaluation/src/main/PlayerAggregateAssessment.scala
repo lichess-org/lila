@@ -143,7 +143,8 @@ case class PlayerFlags(
     alwaysHasAdvantage: Boolean,
     highBlurRate: Boolean,
     moderateBlurRate: Boolean,
-    consistentMoveTimes: Boolean,
+    highlyConsistentMoveTimes: Boolean,
+    moderatelyConsistentMoveTimes: Boolean,
     noFastMoves: Boolean,
     suspiciousHoldAlert: Boolean
 )
@@ -160,7 +161,8 @@ object PlayerFlags {
       alwaysHasAdvantage = r boolD "aha",
       highBlurRate = r boolD "hbr",
       moderateBlurRate = r boolD "mbr",
-      consistentMoveTimes = r boolD "cmt",
+      highlyConsistentMoveTimes = r boolD "hcmt",
+      moderatelyConsistentMoveTimes = r boolD "cmt",
       noFastMoves = r boolD "nfm",
       suspiciousHoldAlert = r boolD "sha"
     )
@@ -170,7 +172,8 @@ object PlayerFlags {
       "aha" -> w.boolO(o.alwaysHasAdvantage),
       "hbr" -> w.boolO(o.highBlurRate),
       "mbr" -> w.boolO(o.moderateBlurRate),
-      "cmt" -> w.boolO(o.consistentMoveTimes),
+      "hcmt" -> w.boolO(o.highlyConsistentMoveTimes),
+      "cmt" -> w.boolO(o.moderatelyConsistentMoveTimes),
       "nfm" -> w.boolO(o.noFastMoves),
       "sha" -> w.boolO(o.suspiciousHoldAlert)
     )

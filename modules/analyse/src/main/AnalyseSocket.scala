@@ -19,7 +19,7 @@ private final class AnalyseSocket(
     case Join(uid, userId) => {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, userId)
-      addMember(uid.value, member)
+      addMember(uid, member)
       sender ! Connected(enumerator, member)
     }
   }

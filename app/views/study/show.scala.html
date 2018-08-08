@@ -1,4 +1,4 @@
-@(s: lila.study.Study, data: lila.study.JsonView.JsData, chatOption: Option[lila.chat.UserChat.Mine], socketVersion: Int, streams: List[lila.streamer.Stream])(implicit ctx: Context)
+@(s: lila.study.Study, data: lila.study.JsonView.JsData, chatOption: Option[lila.chat.UserChat.Mine], socketVersion: lila.socket.Socket.SocketVersion, streams: List[lila.streamer.Stream])(implicit ctx: Context)
 
 @moreJs = {
 @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
@@ -24,7 +24,7 @@ endpoint: "@explorerEndpoint",
 tablebaseEndpoint: "@tablebaseEndpoint"
 },
 socketUrl: "@routes.Study.websocket(s.id.value, apiVersion.value)",
-socketVersion: @socketVersion
+socketVersion: @socketVersion.value
 };
 }
 }

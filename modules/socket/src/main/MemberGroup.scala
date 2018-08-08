@@ -9,20 +9,20 @@ import scala.collection.mutable.AnyRefMap
 final class MemberGroup[M <: SocketMember](groupOf: M => Option[String]) {
 
   private type Group = String
-  private type UID = String
+  private type UidString = String
 
-  private val groups = AnyRefMap.empty[Group, AnyRefMap[UID, M]]
+  private val groups = AnyRefMap.empty[Group, AnyRefMap[UidString, M]]
 
-  def add(uid: UID, member: M): Unit = groupOf(member) foreach { group =>
+  def add(uid: Socket.Uid, member: M): Unit = groupOf(member) foreach { group =>
     groups get group match {
-      case None => groups += (group -> AnyRefMap(uid -> member))
-      case Some(members) => members += (uid -> member)
+      case None => groups += (group -> AnyRefMap(uid.value -> member))
+      case Some(members) => members += (uid.value -> member)
     }
   }
 
-  def remove(uid: UID, member: M): Unit = groupOf(member) foreach { group =>
+  def remove(uid: Socket.Uid, member: M): Unit = groupOf(member) foreach { group =>
     groups get group foreach { members =>
-      members -= uid
+      members -= uid.value
       if (members.isEmpty) groups -= group
     }
   }

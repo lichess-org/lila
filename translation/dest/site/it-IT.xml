@@ -211,8 +211,8 @@
   <string name="thisGameIsRated">Questa partita è classificata</string>
   <string name="rematch">Rivincita</string>
   <string name="rematchOfferSent">Offerta di rivincita inviata</string>
-  <string name="rematchOfferSentWhite">Il Bianco propone una nuova partita</string>
-  <string name="rematchOfferSentBlack">Il Nero propone una nuova partita</string>
+  <string name="rematchOfferSentWhite">Il Bianco offre la rivincita</string>
+  <string name="rematchOfferSentBlack">Il Nero offre la rivincita</string>
   <string name="rematchOfferAccepted">Rivincita accettata</string>
   <string name="rematchOfferCanceled">Offerta di rivincita annullata</string>
   <string name="rematchOfferDeclined">Offerta di rivincita rifiutata</string>
@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Il tuo punteggio %1$s (%2$s) è troppo basso</string>
   <string name="ratedMoreThanInPerf">Punteggio ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Punteggio ≤ %1$s in %2$s</string>
+  <string name="mustBeInTeam">È necessario essere membri del team %s</string>
+  <string name="youAreNotInTeam">Non sei nel team %s</string>
   <string name="backToGame">Torna alla partita</string>
   <string name="siteDescription">Scacchi online gratis. Gioca subito a scacchi con un\'interfaccia semplice. Niente registrazioni, annunci, plug-in. Gioca a scacchi contro computer, amici o avversari casuali.</string>
   <string name="teams">Gruppi</string>
@@ -392,9 +394,9 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="advancedSettings">Impostazioni Avanzate</string>
   <string name="safeTournamentName">Scegli un nome appropriato per il torneo.</string>
   <string name="inappropriateNameWarning">Qualsiasi cosa anche solo lievemente inappropriata potrebbe comportare la chiusura del tuo account.</string>
-  <string name="emptyTournamentName">Lascia vuoto il \"nome del torneo\" per chiamarlo come un Granmaestro scelto casualmente.</string>
+  <string name="emptyTournamentName">Lascia vuoto il nome del torneo per chiamarlo come un Grande Maestro scelto casualmente.</string>
   <string name="recommendNotTouching">Si consiglia di non toccare queste impostazioni.</string>
-  <string name="fewerPlayers">Se imponi condizioni d\'accesso il torneo avrà un minor numero di giocatori.</string>
+  <string name="fewerPlayers">Se imposti le condizioni di accesso, il torneo avrà un minor numero di giocatori.</string>
   <string name="showAdvancedSettings">Mostra impostazioni avanzate</string>
   <string name="join">Unisciti</string>
   <string name="withdraw">Ritirati</string>
@@ -476,7 +478,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="thisPuzzleIsCorrect">Questo puzzle è corretto e interessante</string>
   <string name="thisPuzzleIsWrong">Questo puzzle è sbagliato o noioso</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s partite in gioco</item>
+    <item quantity="one">%s partita in gioco</item>
     <item quantity="other">%s partite in gioco</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passa automaticamente alla partita successiva dopo aver mosso</string>
@@ -834,7 +836,7 @@ in %3$s</string>
   <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
   <string name="xDoesNotAcceptChallenges">%s non accetta sfide.</string>
   <string name="yourXRatingIsTooFarFromY">Il tuo %1$s rating è troppo diverso da %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Non puoi sfidare poichè hai ancora un %s rating provvisorio.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Non puoi sfidare poiché hai ancora un %s rating provvisorio.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accetta solo sfide da amici.</string>
   <string name="conditionalPremoves">Premosse condizionali</string>
   <string name="addCurrentVariation">Aggiungi variazione corrente</string>

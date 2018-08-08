@@ -9,6 +9,7 @@ import scala.concurrent.duration._
 import lila.common.LightUser
 import lila.game.{ GameRepo, LightPov, Game }
 import lila.hub.tournamentTeam._
+import lila.socket.Socket.SocketVersion
 import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType
 import lila.user.User
@@ -40,7 +41,7 @@ final class JsonView(
     me: Option[User],
     getUserTeamIds: User => Fu[TeamIdList],
     playerInfoExt: Option[PlayerInfoExt],
-    socketVersion: Option[Int],
+    socketVersion: Option[SocketVersion],
     lang: Lang
   ): Fu[JsObject] = for {
     data <- cachableData get tour.id
@@ -78,7 +79,6 @@ final class JsonView(
     "startsAt" -> formatDate(tour.startsAt),
     "duels" -> data.duels,
     "standing" -> stand,
-    "socketVersion" -> socketVersion,
     "berserkable" -> tour.berserkable
   ).add("greatPlayer" -> GreatPlayer.wikiUrl(tour.name).map { url =>
       Json.obj("name" -> tour.name, "url" -> url)
@@ -99,6 +99,7 @@ final class JsonView(
     .add("next" -> data.next)
     .add("myGameId" -> myGameId)
     .add("defender" -> shieldOwner.map(_.value))
+    .add("socketVersion" -> socketVersion.map(_.value))
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =
     if (page == 1) firstPageCache get tour.id

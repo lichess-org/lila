@@ -344,6 +344,8 @@
   <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je příliš nízký</string>
   <string name="ratedMoreThanInPerf">Rating ≥ %1$s v %2$s variantě</string>
   <string name="ratedLessThanInPerf">Rating ≤ %1$s v %2$s variantě</string>
+  <string name="mustBeInTeam">Musíte být členem týmu %s</string>
+  <string name="youAreNotInTeam">Nejste členem týmu %s</string>
   <string name="backToGame">Zpět do hry</string>
   <string name="siteDescription">Šachy online zdarma. Hrajte šachy přímo ve Vašem prohlížeči, bez registrace, bez reklam, bez dalšího stahování. Hrajte proti počítači, kamarádům nebo náhodně vybraným soupeřům.</string>
   <string name="teams">Týmy</string>

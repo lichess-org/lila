@@ -25,7 +25,7 @@ private[lobby] final class Lobby(
 
     case msg @ AddHook(hook) => {
       lila.mon.lobby.hook.create()
-      HookRepo byUid hook.uid foreach remove
+      HookRepo byUid hook.uid.value foreach remove
       hook.sid ?? { sid => HookRepo bySid sid foreach remove }
       (!hook.compatibleWithPools).??(findCompatible(hook)) foreach {
         case Some(h) => self ! BiteHook(h.id, hook.uid, hook.user)
@@ -49,7 +49,7 @@ private[lobby] final class Lobby(
     }
 
     case CancelHook(uid) =>
-      HookRepo byUid uid foreach remove
+      HookRepo byUid uid.value foreach remove
 
     case CancelSeek(seekId, user) => seekApi.removeBy(seekId, user.id) >>- {
       socket ! RemoveSeek(seekId)
@@ -57,7 +57,7 @@ private[lobby] final class Lobby(
 
     case BiteHook(hookId, uid, user) => NoPlayban(user) {
       HookRepo byId hookId foreach { hook =>
-        HookRepo byUid uid foreach remove
+        HookRepo byUid uid.value foreach remove
         Biter(hook, uid, user) pipeTo self
       }
     }

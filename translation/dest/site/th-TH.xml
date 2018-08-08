@@ -284,6 +284,8 @@
   <string name="yourPerfRatingIsTooLow">ระดับคะแนน %1$s ของคุณ (%2$s) ต่ำเกินไป</string>
   <string name="ratedMoreThanInPerf">ระดับคะแนน ≥ %1$s สำหรับ %2$s</string>
   <string name="ratedLessThanInPerf">ระดับคะแนน ≤ %1$s สำหรับ %2$s</string>
+  <string name="mustBeInTeam">ต้องอยู่ในทีม %s</string>
+  <string name="youAreNotInTeam">คุณไม่ได้อยู่ในทีม %s</string>
   <string name="backToGame">กลับสู่เกม</string>
   <string name="siteDescription">เกมหมากรุกสากลออนไลน์ฟรี เล่นได้ทันทีในรูปลักษณ์ที่สะอาดตา โดยไม่จำเป็นต้องลงทะเบียน, ไม่มีโฆษณา, ไม่ต้องการปลั๊กอิน, เล่นหมากรุกกับคอมพิวเตอร์หรือเพื่อน หรือสุ่มคู่แข่งก็ได้</string>
   <string name="teams">ทีม</string>

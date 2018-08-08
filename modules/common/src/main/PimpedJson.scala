@@ -15,4 +15,14 @@ object PimpedJson {
   def intIsoWriter[O](iso: Iso[Int, O]): Writes[O] = anyValWriter[O, Int](iso.to)
 
   def stringIsoReader[O](iso: Iso[String, O]): Reads[O] = Reads.of[String] map iso.from
+
+  def intIsoFormat[O](iso: Iso[Int, O]): Format[O] = Format[O](
+    Reads.of[Int] map iso.from,
+    Writes { o => JsNumber(iso to o) }
+  )
+
+  def stringIsoFormat[O](iso: Iso[String, O]): Format[O] = Format[O](
+    Reads.of[String] map iso.from,
+    Writes { o => JsString(iso to o) }
+  )
 }

@@ -97,7 +97,8 @@ object Relay extends LilaController {
           env.socketHandler.join(
             relayId = relay.id,
             uid = lila.socket.Socket.Uid(uid),
-            user = ctx.me
+            user = ctx.me,
+            getSocketVersion
           )
         }
       }
