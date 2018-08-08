@@ -1,5 +1,6 @@
 package lila.socket
 
+import play.api.libs.iteratee._
 import play.api.libs.json._
 
 trait Historical[M <: SocketMember, Metadata] { self: SocketActor[M] =>
@@ -25,4 +26,16 @@ trait Historical[M <: SocketMember, Metadata] { self: SocketActor[M] =>
 
   def sendMessage(member: M)(message: Message): Unit =
     member push filteredMessage(member)(message)
+
+  protected def prependEventsSince(
+    since: Option[Socket.SocketVersion],
+    enum: Enumerator[JsValue],
+    member: M
+  ): Enumerator[JsValue] =
+    lila.common.Iteratee.prepend(
+      since
+        .fold(history.getRecent(5).some)(history.since)
+        .fold(List(resyncMessage))(_ map filteredMessage(member)),
+      enum
+    )
 }

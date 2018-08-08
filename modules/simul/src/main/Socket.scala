@@ -90,13 +90,8 @@ private[simul] final class Socket(
       val member = Member(channel, user)
       addMember(uid, member)
       notifyCrowd
-
-      val msgs: List[JsValue] = version
-        .fold(history.getRecent(5).some)(history.since)
-        .fold(List(resyncMessage))(_ map filteredMessage(member))
-
       sender ! Connected(
-        lila.common.Iteratee.prepend(msgs, enumerator),
+        prependEventsSince(version, enumerator, member),
         member
       )
 

@@ -136,13 +136,11 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     }
   }
 
-  protected def resync(uid: Socket.Uid): Unit = {
+  protected def resync(uid: Socket.Uid): Unit =
     withMember(uid)(resync)
-  }
 
-  protected def resyncNow(member: M): Unit = {
+  protected def resyncNow(member: M): Unit =
     member push resyncMessage
-  }
 
   def addMember(uid: Socket.Uid, member: M): Unit = {
     eject(uid)
