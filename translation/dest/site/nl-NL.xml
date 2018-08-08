@@ -304,6 +304,7 @@
   <string name="yourPerfRatingIsTooLow">Je rating %1$s (%2$s) is te laag</string>
   <string name="ratedMoreThanInPerf">Met rating ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Met rating ≤ %1$s in %2$s</string>
+  <string name="youAreNotInTeam">Je zit niet in het team %s</string>
   <string name="backToGame">Terug naar partij</string>
   <string name="siteDescription">Gratis online schaken. Schaak nu met een heldere vormgeving. Geen registratie nodig, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige tegenstanders.</string>
   <string name="teams">Teams</string>
