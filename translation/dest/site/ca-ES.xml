@@ -34,7 +34,7 @@
   <string name="opponentLeftChoices">L\'altre jugador pot haver abandonat la partida. Pots reclamar la victòria, fer l\'empat o esperar.</string>
   <string name="makeYourOpponentResign">Reclama la victòria</string>
   <string name="forceResignation">Reclama la victòria</string>
-  <string name="forceDraw">Fer empat</string>
+  <string name="forceDraw">Fer taules</string>
   <string name="talkInChat">Siusplau sigues respectuós en el xat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La primera persona en visitar aquesta URL jugarà amb tu.</string>
   <string name="whiteResigned">Les blanques s\'han rendit</string>
@@ -202,6 +202,7 @@
   <string name="mode">Mode</string>
   <string name="casual">Amistós</string>
   <string name="rated">Puntuat</string>
+  <string name="casualTournament">Amistós</string>
   <string name="thisGameIsRated">Aquesta partida és puntuada</string>
   <string name="rematch">Revenja</string>
   <string name="rematchOfferSent">La petició de revenja s\'ha enviat</string>
@@ -259,9 +260,23 @@
   <string name="tournament">Torneig</string>
   <string name="tournaments">Tornejos</string>
   <string name="tournamentPoints">Punts de tornejos</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s punt del torneig</item>
+    <item quantity="other">%s punts del torneig</item>
+  </plurals>
   <string name="viewTournament">Mira el torneig</string>
   <string name="backToTournament">Torna al torneig</string>
   <string name="thematic">Temàtics</string>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Heu de jugar %s partida puntuada més</item>
+    <item quantity="other">Heu de jugar %s partides puntuades més</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">La vostra puntuació de %s és provisional</string>
+  <string name="yourPerfRatingIsTooHigh">La vostra puntuació de %1$s (%2$s) és massa alta</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">La vostra puntuació setmanal de %1$s (%2$s) és massa alta</string>
+  <string name="yourPerfRatingIsTooLow">La vostra qualificació de %1$s (%2$s) és massa baixa</string>
+  <string name="mustBeInTeam">Heu de ser de l\'equip %s</string>
+  <string name="youAreNotInTeam">No sou de l\'equip %s</string>
   <string name="backToGame">Torna a la partida</string>
   <string name="siteDescription">Servidor d\'escacs gratuït online. Juga ara a escacs amb una interfície neta i elegant. No cal registrar-s\'hi, sense anuncis, no calen connectors. Juga a escacs amb l\'ordinador, amics o oponents a l\'atzar.</string>
   <string name="teams">Equips</string>
@@ -342,6 +357,8 @@
   <string name="winner">Guanyador</string>
   <string name="standing">Resultats</string>
   <string name="createANewTournament">Crea un nou torneig</string>
+  <string name="advancedSettings">Configuració avançada</string>
+  <string name="safeTournamentName">Trieu un nom segur per al torneig.</string>
   <string name="join">Inscriu-t\'hi</string>
   <string name="withdraw">Abandona</string>
   <string name="points">Punts</string>

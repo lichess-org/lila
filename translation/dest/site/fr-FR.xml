@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Votre classement en %1$s (%2$s) est trop faible</string>
   <string name="ratedMoreThanInPerf">Classement ≥ %1$s en %2$s</string>
   <string name="ratedLessThanInPerf">Classement ≤ %1$s en %2$s</string>
+  <string name="mustBeInTeam">Vous devez faire partie de l\'équipe %s</string>
+  <string name="youAreNotInTeam">Vous ne faites pas partie de l\'équipe %s</string>
   <string name="backToGame">Retour à la partie</string>
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs avec des adversaires en ligne, avec des amis ou contre l\'ordinateur.</string>
   <string name="teams">Équipes</string>
@@ -798,7 +800,7 @@ en %3$s</string>
   <string name="seeBestMove">Voir le meilleur coup</string>
   <string name="hideBestMove">Cacher le meilleur coup</string>
   <string name="getAHint">Obtenir un indice</string>
-  <string name="evaluatingYourMove">Evaluant votre coup ...</string>
+  <string name="evaluatingYourMove">Evaluation de votre coup...</string>
   <string name="whiteWinsGame">Les blancs gagnent</string>
   <string name="blackWinsGame">Les Noirs gagnent</string>
   <string name="learnFromYourMistakes">Apprendre de vos erreurs</string>
@@ -841,7 +843,7 @@ en %3$s</string>
   <string name="noConditionalPremoves">Pas de précoups conditionnels</string>
   <string name="playX">Jouer %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">et enregistrer %s la variante de précoups</item>
-    <item quantity="other">et enregistrer %s les variantes de précoups</item>
+    <item quantity="one">et enregistrer %s variante de précoups</item>
+    <item quantity="other">et enregistrer %s variantes de précoups</item>
   </plurals>
 </resources>

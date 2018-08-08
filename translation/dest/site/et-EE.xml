@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Teie %1$s reiting (%2$s) on liiga madal</string>
   <string name="ratedMoreThanInPerf">Reiting ≥ %1$s %2$s</string>
   <string name="ratedLessThanInPerf">Reiting ≤ %1$s %2$s</string>
+  <string name="mustBeInTeam">Sa pead olema %s tiimis</string>
+  <string name="youAreNotInTeam">Sa ei ole %s tiimi liige</string>
   <string name="backToGame">Tagasi mängule</string>
   <string name="siteDescription">Tasuta online malemäng. Mängi malet nüüd puhtas kasutajaliideses. Pole registreerimist, pole reklaami, pole pluginaid vaja. Mängi malet arvuti, sõbrade või juhusliku vastasega.</string>
   <string name="teams">Võistkonnad</string>
@@ -687,6 +689,10 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="tournamentMayHaveBeenCanceled">Turniir võidi katkestada, kuna kõik registreerijad lahkusid enne turniiri algust</string>
   <string name="returnToTournamentsHomepage">Tagasi avalehele</string>
   <string name="weeklyPerfTypeRatingDistribution">%s reitingu jaotus sellel kuul</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s mängija sellel nädalal.</item>
+    <item quantity="other">%1$s %2$s mängija sellel nädalal.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Sinu %1$s reiting on %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Oled %1$s %2$s mängijatest parem.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sul ei ole veel väljakujunenud %s reitingut.</string>
@@ -836,4 +842,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="playVariationToCreateConditionalPremoves">Tingimuslike eelkäikude loomiseks mängi variatsioon</string>
   <string name="noConditionalPremoves">Tingimuslikud eelkäigud puuduvad</string>
   <string name="playX">Mängi %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">ja salvesta %s ettekäigu variendid</item>
+    <item quantity="other">ja salvesta %s ettekäigu variendid</item>
+  </plurals>
 </resources>

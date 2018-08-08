@@ -23,6 +23,7 @@
   <string name="whitePlays">સફેદની ચાલ</string>
   <string name="blackPlays">કાળાની ચાલ</string>
   <string name="opponentLeftChoices">અન્ય ખેલાડીએ રમત છોડી દીધી છે. તમે વિજયનો દાવો કરી શકો છો, તમે તેને ડ્રો કહી શકો છો અથવા તમે રાહ જોઇ શકો છો.</string>
+  <string name="makeYourOpponentResign">તમારા વિરોધી ને રાજીનામું અપાવડાવો</string>
   <string name="forceResignation">વિજયનો દાવો કરો</string>
   <string name="talkInChat">કૃપા કરીને ચેટમાં સભ્યતા રાખવી!</string>
   <string name="move">ચાલ</string>

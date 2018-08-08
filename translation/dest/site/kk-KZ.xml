@@ -55,6 +55,7 @@
   <string name="goDeeper">Одан да тереңірек</string>
   <string name="showThreat">Қауып көрсету</string>
   <string name="inLocalBrowser">Жергілікті браузерде</string>
+  <string name="toggleLocalEvaluation">Жергілікті бағалау қосқышы</string>
   <string name="promoteVariation">Нұсқажолды көтеру</string>
   <string name="makeMainLine">Бас жол жасау</string>
   <string name="deleteFromHere">Мына жерден жою</string>
@@ -104,8 +105,12 @@
   <string name="cpus">Процессорлер</string>
   <string name="memory">Жад</string>
   <string name="infiniteAnalysis">Белгісіз талдау</string>
+  <string name="removesTheDepthLimit">Тереңдік шегін алып тастап компьютеріңізді қызып тұрған ахуалында қалдыру</string>
+  <string name="blunder">Өрескел қателік</string>
   <string name="blunders">өрескел қателер</string>
+  <string name="mistake">Қателік</string>
   <string name="mistakes">қате</string>
+  <string name="inaccuracy">Ұқыпсыздық</string>
   <string name="inaccuracies">Дәлсіздіктер</string>
   <string name="moveTimes">Жүрестерге жұмсаған уақыт</string>
   <string name="flipBoard">Тақтаны аудару</string>
@@ -123,6 +128,7 @@
   <string name="computersAreNotAllowedToPlay">Бүл сайтта қомпьютер көмегін пайдаалануы тыйыс салыналы</string>
   <string name="games">Ойындар</string>
   <string name="forum">Талқылау</string>
+  <string name="xPostedInForumY">%1$s мақалада жарияланған %2$s</string>
   <string name="latestForumPosts">Форумдаға ең жаңа хаттар</string>
   <string name="players">Ойыншылар</string>
   <string name="minutesPerSide">Әрбір түске берілген уақыт</string>
@@ -141,7 +147,13 @@
   <string name="password">Пароль</string>
   <string name="haveAnAccount">Тіркелдің бе?</string>
   <string name="changePassword">жұмбақ сөзді өзгерту</string>
+  <string name="changeEmail">Емаилды ауыстыру</string>
+  <string name="email">Емаил</string>
+  <string name="passwordReset">Құпиясөзді жою</string>
+  <string name="forgotPassword">Құпиясөзді ұмытып қалдыңыз ба?</string>
   <string name="rank">Деңгей</string>
+  <string name="rankX">Дәреже: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Дәреже әрбір %s минут ішінде жаңартылып тұрады</string>
   <string name="gamesPlayed">Ойындар ойналған</string>
   <string name="cancel">Жабу</string>
   <string name="timeOut">Уақыт бітті</string>
