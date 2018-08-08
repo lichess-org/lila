@@ -81,7 +81,7 @@ private[simul] final class Socket(
       if (timeBomb.boom) self ! PoisonPill
     }
 
-    case GetVersion => sender ! history.version
+    case lila.socket.Socket.GetVersion => sender ! history.version
 
     case Socket.GetUserIds => sender ! members.values.flatMap(_.userId)
 

@@ -9,7 +9,6 @@ case class Connected[M <: SocketMember](
     enumerator: JsEnumerator,
     member: M
 )
-case class Sync(uid: String, friends: List[String])
 case class Ping(uid: Socket.Uid, version: Option[Socket.SocketVersion], lagCentis: Option[Centis])
 case class BotConnected(color: chess.Color, v: Boolean)
 
@@ -22,16 +21,14 @@ object Ping {
 case object Broom
 case class Quit(uid: Socket.Uid)
 
-case class SocketEnter[M <: SocketMember](uid: String, member: M)
-case class SocketLeave[M <: SocketMember](uid: String, member: M)
+case class SocketEnter[M <: SocketMember](uid: Socket.Uid, member: M)
+case class SocketLeave[M <: SocketMember](uid: Socket.Uid, member: M)
 
 case class Resync(uid: Socket.Uid)
-
-case object GetVersion
 
 case class SendToFlag(flag: String, message: JsObject)
 
 case object PopulationTell
 case class NbMembers(nb: Int)
 
-case class StartWatching(uid: String, member: SocketMember, gameIds: Set[String])
+case class StartWatching(uid: Socket.Uid, member: SocketMember, gameIds: Set[String])

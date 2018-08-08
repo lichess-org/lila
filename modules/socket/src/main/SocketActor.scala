@@ -114,23 +114,18 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   protected def ejectUidString(uid: String): Unit = eject(Socket.Uid(uid))
 
-  def eject(uid: Socket.Uid): Unit = {
-    withMember(uid) { member =>
-      member.end
-      quit(uid)
-    }
+  def eject(uid: Socket.Uid): Unit = withMember(uid) { member =>
+    member.end
+    quit(uid)
   }
 
-  def quit(uid: Socket.Uid): Unit = {
-    members get uid.value foreach { member =>
-      members -= uid.value
-      lilaBus.publish(SocketLeave(uid.value, member), 'socketDoor)
-    }
+  def quit(uid: Socket.Uid): Unit = withMember(uid) { member =>
+    members -= uid.value
+    lilaBus.publish(SocketLeave(uid, member), 'socketDoor)
   }
 
-  def onDeploy(d: Deploy): Unit = {
+  def onDeploy(d: Deploy): Unit =
     notifyAll(makeMessage(d.key))
-  }
 
   protected val resyncMessage = makeMessage("resync")
 
@@ -153,7 +148,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     eject(uid)
     members += (uid.value -> member)
     setAlive(uid)
-    lilaBus.publish(SocketEnter(uid.value, member), 'socketDoor)
+    lilaBus.publish(SocketEnter(uid, member), 'socketDoor)
   }
 
   def setAlive(uid: Socket.Uid): Unit = aliveUids put uid.value

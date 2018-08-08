@@ -215,7 +215,6 @@ object Study extends LilaController {
     }) ?? Env.chat.api.userChat.findMine(Chat.Id(study.id.value), ctx.me).map(some)
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    val version = getInt("v")
     get("sri") ?? { uid =>
       env.api byId id flatMap {
         _.filter(canView) ?? { study =>
@@ -223,7 +222,7 @@ object Study extends LilaController {
             studyId = id,
             uid = lila.socket.Socket.Uid(uid),
             user = ctx.me,
-            version
+            getSocketVersion
           )
         }
       }

@@ -7,7 +7,7 @@ import scala.concurrent.duration.Duration
 
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.Socket.{ Uid, SocketVersion }
+import lila.socket.Socket.{ Uid, GetVersion, SocketVersion }
 import lila.socket.{ SocketActor, History, Historical }
 
 private final class Socket(

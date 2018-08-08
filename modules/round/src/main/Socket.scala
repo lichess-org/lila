@@ -144,7 +144,7 @@ private[round] final class Socket(
     case Ping(uid, vOpt, lagCentis) =>
       timeBomb.delay
       ping(uid, lagCentis)
-      ownerOf(uid.value) foreach { o =>
+      ownerOf(uid) foreach { o =>
         playerDo(o.color, _.ping)
       }
 
@@ -303,8 +303,8 @@ private[round] final class Socket(
       m.owner && m.color == color
     }
 
-  def ownerOf(uid: String): Option[Member] =
-    members get uid filter (_.owner)
+  def ownerOf(uid: Uid): Option[Member] =
+    members get uid.value filter (_.owner)
 
   def foreachWatcher(f: Member => Unit): Unit = members.foreachValue { m =>
     if (m.watcher) f(m)

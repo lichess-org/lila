@@ -78,7 +78,7 @@ private[tournament] final class Socket(
       if (timeBomb.boom) self ! PoisonPill
     }
 
-    case GetVersion => sender ! history.version
+    case lila.socket.Socket.GetVersion => sender ! history.version
 
     case Join(uid, user, version) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]

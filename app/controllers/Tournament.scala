@@ -271,9 +271,8 @@ object Tournament extends LilaController {
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    val version = getInt("v")
     getSocketUid("sri") ?? { uid =>
-      env.socketHandler.join(id, uid, ctx.me, version)
+      env.socketHandler.join(id, uid, ctx.me, getSocketVersion)
     }
   }
 

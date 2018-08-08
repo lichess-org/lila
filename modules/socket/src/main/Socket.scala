@@ -16,6 +16,8 @@ object Socket extends Socket {
 
   val socketVersionIso = lila.common.Iso.int[SocketVersion](SocketVersion.apply, _.value)
   implicit val socketVersionFormat = lila.common.PimpedJson.intIsoFormat(socketVersionIso)
+
+  case object GetVersion
 }
 
 private[socket] trait Socket {

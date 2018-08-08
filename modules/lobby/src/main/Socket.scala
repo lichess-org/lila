@@ -72,7 +72,7 @@ private[lobby] final class Socket(
     case AddHook(hook) =>
       val msg = makeMessage("had", hook.render)
       hookSubscriberUids.foreach { uid =>
-        withActiveMember(uid) { member =>
+        withActiveMemberByUidString(uid) { member =>
           if (Biter.showHookTo(hook, member)) member push msg
         }
       }
@@ -89,7 +89,7 @@ private[lobby] final class Socket(
       if (removedHookIds.nonEmpty) {
         val msg = makeMessage("hrm", removedHookIds)
         hookSubscriberUids.foreach { uid =>
-          withActiveMember(uid)(_ push msg)
+          withActiveMemberByUidString(uid)(_ push msg)
         }
         removedHookIds = ""
       }
@@ -128,7 +128,7 @@ private[lobby] final class Socket(
     case HookIds(ids) =>
       val msg = makeMessage("hli", ids mkString "")
       hookSubscriberUids.foreach { uid =>
-        withActiveMember(uid)(_ push msg)
+        withActiveMemberByUidString(uid)(_ push msg)
       }
 
     case lila.hub.actorApi.streamer.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
@@ -164,9 +164,8 @@ private[lobby] final class Socket(
       case (uid, member) => if (!idleUids(uid)) member push msg
     }
 
-  def withActiveMember(uid: String)(f: Member => Unit): Unit = {
+  private def withActiveMemberByUidString(uid: String)(f: Member => Unit): Unit =
     if (!idleUids(uid)) members get uid foreach f
-  }
 
   override def quit(uid: Uid): Unit = {
     super.quit(uid)

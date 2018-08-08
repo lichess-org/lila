@@ -9,7 +9,7 @@ import chess.Centis
 import chess.format.pgn.Glyphs
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.Socket.{ Uid, SocketVersion }
+import lila.socket.Socket.{ Uid, GetVersion, SocketVersion }
 import lila.socket.{ SocketActor, History, Historical, AnaDests }
 import lila.tree.Node.{ Shapes, Comment }
 import lila.user.User
