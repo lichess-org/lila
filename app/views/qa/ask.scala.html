@@ -20,9 +20,7 @@ side = popularBox(popular).some) {
   <form class="wide question" action="@routes.QaQuestion.ask()" method="post">
     @questionForm(form, tags, captcha)
     <button type="submit" class="pure submit button" data-icon="E"> Post your question</button>
-    <br />
-    <br />
-    <a href="@routes.QaQuestion.index()">@trans.cancel()</a>
+    <a href="@routes.QaQuestion.index()" style="margin-left:20px">@trans.cancel()</a>
   </form>
 </div>
 }

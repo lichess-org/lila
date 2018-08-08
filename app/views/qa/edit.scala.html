@@ -21,9 +21,7 @@ side = popularBox(popular).some) {
   <form class="wide question" action="@routes.QaQuestion.doEdit(q.id)" method="post">
     @questionForm(form, tags, captcha)
     <button type="submit" class="pure submit button" data-icon="E"> Update your question</button>
-    <br />
-    <br />
-    <a href="@routes.QaQuestion.show(q.id, q.slug)">@trans.cancel()</a>
+    <a href="@routes.QaQuestion.show(q.id, q.slug)" style="margin-left:20px">@trans.cancel()</a>
   </form>
 </div>
 }
