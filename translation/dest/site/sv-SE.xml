@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Din rating i %1$s är för låg (%2$s)</string>
   <string name="ratedMoreThanInPerf">Rankad ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Rankad ≤ %1$s i %2$s</string>
+  <string name="mustBeInTeam">Du måste vara medlem i %s</string>
+  <string name="youAreNotInTeam">Du är inte medlem i %s</string>
   <string name="backToGame">Tillbaka till partiet</string>
   <string name="siteDescription">Gratis Schack på internet. Spela Schack nu, med ett enkelt gränssnitt. Ingen registrering, inga annonser, inga insticksprogram behövs. Spela schack mot datorn, vänner eller vem som helst.</string>
   <string name="teams">Lag</string>
