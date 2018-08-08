@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 import lidraughts.user.User
 import lidraughts.hub.actorApi.map.Ask
-import lidraughts.socket.actorApi.GetVersion
+import lidraughts.socket.Socket.{ GetVersion, SocketVersion }
 import makeTimeout.short
 
 final class Env(
@@ -48,8 +48,8 @@ final class Env(
     }), name = SocketName
   )
 
-  def version(challengeId: Challenge.ID): Fu[Int] =
-    socketHub ? Ask(challengeId, GetVersion) mapTo manifest[Int]
+  def version(challengeId: Challenge.ID): Fu[SocketVersion] =
+    socketHub ? Ask(challengeId, GetVersion) mapTo manifest[SocketVersion]
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,

@@ -12,7 +12,7 @@ object Iteratee {
     }
 
   // Avoid running `andThen` on empty elements, just for perf
-  def prepend[A](elements: TraversableOnce[A], enumerator: Enumerator[A]): Enumerator[A] =
+  def prepend[A](elements: Seq[A], enumerator: Enumerator[A]): Enumerator[A] =
     if (elements.isEmpty) enumerator
     else Enumerator(elements: _*) >>> enumerator
 }

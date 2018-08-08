@@ -25,7 +25,7 @@ private[site] final class Socket(timeout: Duration) extends SocketActor[Member](
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, userId, flag)
       addMember(uid, member)
-      flags.add(uid.value, member)
+      flags.add(uid, member)
       sender ! Connected(enumerator, member)
     }
 
@@ -43,7 +43,7 @@ private[site] final class Socket(timeout: Duration) extends SocketActor[Member](
   }
 
   override def quit(uid: Socket.Uid): Unit = {
-    members get uid.value foreach { flags.remove(uid.value, _) }
+    members get uid.value foreach { flags.remove(uid, _) }
     super.quit(uid)
   }
 }

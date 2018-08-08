@@ -5,6 +5,7 @@ import play.api.libs.json._
 
 import lidraughts.i18n.{ I18nKeys => trans }
 import lidraughts.socket.UserLagCache
+import lidraughts.socket.Socket.SocketVersion
 
 final class JsonView(
     getLightUser: lidraughts.common.LightUser.GetterSync,
@@ -20,7 +21,7 @@ final class JsonView(
     "i18n" -> translations(lang)
   )
 
-  def show(challenge: Challenge, socketVersion: Int, direction: Option[Direction]) = Json.obj(
+  def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction]) = Json.obj(
     "challenge" -> apply(direction)(challenge),
     "socketVersion" -> socketVersion
   )

@@ -7,8 +7,8 @@ import scala.concurrent.duration._
 
 import lidraughts.hub.actorApi.map.Ask
 import lidraughts.hub.{ ActorMap, Sequencer }
-import lidraughts.socket.actorApi.GetVersion
 import lidraughts.socket.History
+import lidraughts.socket.Socket.{ GetVersion, SocketVersion }
 import lidraughts.user.User
 import makeTimeout.short
 
@@ -186,8 +186,8 @@ final class Env(
 
   TournamentInviter.start(system, api, notifyApi)
 
-  def version(tourId: Tournament.ID): Fu[Int] =
-    socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
+  def version(tourId: Tournament.ID): Fu[SocketVersion] =
+    socketHub ? Ask(tourId, GetVersion) mapTo manifest[SocketVersion]
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)

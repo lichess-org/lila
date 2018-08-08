@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import lidraughts.hub.actorApi.HasUserId
 import lidraughts.hub.actorApi.map.Ask
 import lidraughts.hub.{ ActorMap, Sequencer }
-import lidraughts.socket.actorApi.GetVersion
+import lidraughts.socket.Socket.{ GetVersion, SocketVersion }
 import lidraughts.user.User
 import makeTimeout.short
 
@@ -60,8 +60,8 @@ final class Env(
     }), name = SocketName
   )
 
-  def version(studyId: Study.Id): Fu[Int] =
-    socketHub ? Ask(studyId.value, GetVersion) mapTo manifest[Int]
+  def version(studyId: Study.Id): Fu[SocketVersion] =
+    socketHub ? Ask(studyId.value, GetVersion) mapTo manifest[SocketVersion]
 
   def isConnected(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
     socketHub ? Ask(studyId.value, HasUserId(userId)) mapTo manifest[Boolean]

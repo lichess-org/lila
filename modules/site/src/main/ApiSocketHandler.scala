@@ -20,7 +20,7 @@ private[site] final class ApiSocketHandler(
 
     def controller(member: SocketMember): Handler.Controller = {
       case ("startWatching", o) => o str "d" foreach { ids =>
-        hub.actor.moveBroadcast ! StartWatching(uid.value, member, ids.split(' ').toSet)
+        hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
       }
       case _ => // not available on API socket
     }

@@ -38,7 +38,7 @@ final class SocketHandler(
   )
 
   private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts, uid: Uid, member: Socket.Member) =
-    AnaRateLimit(uid.value, member) {
+    AnaRateLimit(uid, member) {
       m.branch match {
         case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
           member push makeMessage("node", m json branch)
@@ -77,14 +77,14 @@ final class SocketHandler(
     case ("anaMove", o) => AnaMove parse o foreach {
       moveOrDrop(studyId, _, MoveOpts parse o, uid, member)
     }
-    case ("setPath", o) => AnaRateLimit(uid.value, member) {
+    case ("setPath", o) => AnaRateLimit(uid, member) {
       reading[AtPosition](o) { position =>
         member.userId foreach { userId =>
           api.setPath(userId, studyId, position.ref, uid)
         }
       }
     }
-    case ("deleteNode", o) => AnaRateLimit(uid.value, member) {
+    case ("deleteNode", o) => AnaRateLimit(uid, member) {
       reading[AtPosition](o) { position =>
         for {
           jumpTo <- (o \ "d" \ "jumpTo").asOpt[String] map Path.apply
@@ -93,7 +93,7 @@ final class SocketHandler(
           api.deleteNodeAt(userId, studyId, position.ref, uid)
       }
     }
-    case ("promote", o) => AnaRateLimit(uid.value, member) {
+    case ("promote", o) => AnaRateLimit(uid, member) {
       reading[AtPosition](o) { position =>
         for {
           toMainline <- (o \ "d" \ "toMainline").asOpt[Boolean]
@@ -101,7 +101,7 @@ final class SocketHandler(
         } api.promote(userId, studyId, position.ref, toMainline, uid)
       }
     }
-    case ("setRole", o) => AnaRateLimit(uid.value, member) {
+    case ("setRole", o) => AnaRateLimit(uid, member) {
       reading[SetRole](o) { d =>
         member.userId foreach { userId =>
           api.setRole(userId, studyId, d.userId, d.role)

@@ -1,4 +1,4 @@
-@(s: lidraughts.study.Study, data: lidraughts.study.JsonView.JsData, chatOption: Option[lidraughts.chat.UserChat.Mine], socketVersion: Int, streams: List[lidraughts.streamer.Stream])(implicit ctx: Context)
+@(s: lidraughts.study.Study, data: lidraughts.study.JsonView.JsData, chatOption: Option[lidraughts.chat.UserChat.Mine], socketVersion: lidraughts.socket.Socket.SocketVersion, streams: List[lidraughts.streamer.Stream])(implicit ctx: Context)
 
 @moreJs = {
 @jsAt(s"compiled/lidraughts.analyse${isProd??(".min")}.js")
@@ -24,7 +24,7 @@ endpoint: "@explorerEndpoint",
 tablebaseEndpoint: "@tablebaseEndpoint"
 },
 socketUrl: "@routes.Study.websocket(s.id.value, apiVersion.value)",
-socketVersion: @socketVersion
+socketVersion: @socketVersion.value
 };
 }
 }

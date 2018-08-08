@@ -9,7 +9,7 @@ import draughts.Centis
 import draughts.format.pdn.Glyphs
 import lidraughts.hub.TimeBomb
 import lidraughts.socket.actorApi.{ Connected => _, _ }
-import lidraughts.socket.Socket.{ Uid, SocketVersion }
+import lidraughts.socket.Socket.{ Uid, GetVersion, SocketVersion }
 import lidraughts.socket.{ SocketActor, History, Historical, AnaDests }
 import lidraughts.tree.Node.{ Shapes, Comment }
 import lidraughts.user.User

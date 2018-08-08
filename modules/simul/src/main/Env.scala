@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 import lidraughts.hub.actorApi.map.Ask
 import lidraughts.hub.{ ActorMap, Sequencer }
-import lidraughts.socket.actorApi.GetVersion
+import lidraughts.socket.Socket.{ GetVersion, SocketVersion }
 import lidraughts.socket.History
 import makeTimeout.short
 
@@ -133,8 +133,8 @@ final class Env(
     expireAfter = _.ExpireAfterWrite(UniqueCacheTtl)
   )
 
-  def version(tourId: String): Fu[Int] =
-    socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
+  def version(simulId: String): Fu[SocketVersion] =
+    socketHub ? Ask(simulId, GetVersion) mapTo manifest[SocketVersion]
 
   private[simul] val simulColl = db(CollectionSimul)
 
