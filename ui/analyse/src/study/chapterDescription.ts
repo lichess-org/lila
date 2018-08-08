@@ -64,7 +64,7 @@ export function view(study: StudyCtrl): VNode | undefined {
 function edit(ctrl: ChapterDescriptionCtrl): VNode {
   return h('div.chapter_desc_form.underboard_form', {
     hook: {
-      insert: _ => window.lichess.loadCss('/assets/stylesheets/material.form.css')
+      insert: _ => window.lidraughts.loadCss('/assets/stylesheets/material.form.css')
     }
   }, [
     h('p.title', [

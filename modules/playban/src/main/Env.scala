@@ -1,12 +1,14 @@
-package lila.playban
+package lidraughts.playban
 
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    messenger: lila.message.MessageApi,
-    bus: lila.common.Bus,
-    db: lila.db.Env
+    messenger: lidraughts.message.MessageApi,
+    chatApi: lidraughts.chat.ChatApi,
+    lightUser: lidraughts.common.LightUser.Getter,
+    bus: lidraughts.common.Bus,
+    db: lidraughts.db.Env
 ) {
 
   private val settings = new {
@@ -14,9 +16,15 @@ final class Env(
   }
   import settings._
 
+  private lazy val feedback = new PlaybanFeedback(
+    chatApi = chatApi,
+    lightUser = lightUser
+  )
+
   lazy val api = new PlaybanApi(
     coll = db(CollectionPlayban),
     sandbag = new SandbagWatch(messenger),
+    feedback = feedback,
     bus = bus
   )
 }
@@ -24,9 +32,11 @@ final class Env(
 object Env {
 
   lazy val current: Env = "playban" boot new Env(
-    config = lila.common.PlayApp loadConfig "playban",
-    messenger = lila.message.Env.current.api,
-    bus = lila.common.PlayApp.system.lilaBus,
-    db = lila.db.Env.current
+    config = lidraughts.common.PlayApp loadConfig "playban",
+    messenger = lidraughts.message.Env.current.api,
+    chatApi = lidraughts.chat.Env.current.api,
+    lightUser = lidraughts.user.Env.current.lightUserApi.async,
+    bus = lidraughts.common.PlayApp.system.lidraughtsBus,
+    db = lidraughts.db.Env.current
   )
 }

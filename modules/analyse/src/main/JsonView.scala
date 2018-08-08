@@ -1,9 +1,9 @@
-package lila.analyse
+package lidraughts.analyse
 
 import play.api.libs.json._
 
-import lila.game.Game
-import lila.tree.Eval.JsonHandlers._
+import lidraughts.game.Game
+import lidraughts.tree.Eval.JsonHandlers._
 
 object JsonView {
 
@@ -31,16 +31,18 @@ object JsonView {
     analysis.summary.find(_._1 == pov.color).map(_._2).map(s =>
       JsObject(s map {
         case (nag, nb) => nag.toString.toLowerCase -> JsNumber(nb)
-      }).add("acpl" -> lila.analyse.Accuracy.mean(pov, analysis)))
+      }).add("acpl" -> lidraughts.analyse.Accuracy.mean(pov, analysis)))
 
   def bothPlayers(game: Game, analysis: Analysis) = Json.obj(
+    "id" -> analysis.id,
     "white" -> player(game.whitePov)(analysis),
     "black" -> player(game.blackPov)(analysis)
   )
 
   def bothPlayers(pov: Accuracy.PovLike, analysis: Analysis) = Json.obj(
-    "white" -> player(pov.copy(color = chess.White))(analysis),
-    "black" -> player(pov.copy(color = chess.Black))(analysis)
+    "id" -> analysis.id,
+    "white" -> player(pov.copy(color = draughts.White))(analysis),
+    "black" -> player(pov.copy(color = draughts.Black))(analysis)
   )
 
   def mobile(game: Game, analysis: Analysis) = Json.obj(

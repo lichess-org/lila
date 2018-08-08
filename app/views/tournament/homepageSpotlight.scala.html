@@ -1,4 +1,4 @@
-@(tour: lila.tournament.Tournament)(implicit ctx: Context)
+@(tour: lidraughts.tournament.Tournament)(implicit ctx: Context)
 
 @tour.spotlight.map { spot =>
 <a href="@routes.Tournament.show(tour.id)"

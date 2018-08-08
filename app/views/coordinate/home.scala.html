@@ -1,6 +1,6 @@
-@(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context)
+@(scoreOption: Option[lidraughts.coordinate.Score])(implicit ctx: Context)
 
-@import lila.pref.Pref.Color
+@import lidraughts.pref.Pref.Color
 
 @moreCss = {
 @cssTag("coordinate.css")
@@ -15,10 +15,10 @@
 title = trans.coordinates.coordinateTraining.txt(),
 moreCss = moreCss,
 moreJs = moreJs,
-openGraph = lila.app.ui.OpenGraph(
-title = "Chess board coordinates trainer",
+openGraph = lidraughts.app.ui.OpenGraph(
+title = "Draughts board coordinates trainer",
 url = s"$netBaseUrl${routes.Coordinate.home.url}",
-description = "Knowing the chessboard coordinates is a very important chess skill. A square name appears on the board and you must click on the correct square.").some,
+description = "Knowing the board coordinates is a very important draughts skill. A square number appears on the board and you must click on the correct square.").some,
 zoomable = true) {
 <div id="trainer" class="training init"
   data-color-pref="@ctx.pref.coordColorName"
@@ -68,10 +68,10 @@ zoomable = true) {
     </div>
     <div class="right">
       <div class="explanation">
-        <p>@trans.coordinates.knowingTheChessBoard()</p>
+        <p>@trans.coordinates.knowingTheDraughtsBoard()</p>
         <ul>
-          <li>@trans.coordinates.mostChessCourses()</li>
-          <li>@trans.coordinates.talkToYourChessFriends()</li>
+          <li>@trans.coordinates.mostDraughtsCourses()</li>
+          <li>@trans.coordinates.talkToYourDraughtsFriends()</li>
           <li>@trans.coordinates.youCanAnalyseAGameMoreEffectively()</li>
         </ul>
         <p>@trans.coordinates.aSquareNameAppears()</p>

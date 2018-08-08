@@ -4,6 +4,7 @@ import { standing } from './arena';
 import header from './header';
 import tourSide from './side';
 import playerInfo from './playerInfo';
+import { dataIcon } from './util';
 import * as pagination from '../pagination';
 import * as tour from '../tournament';
 import TournamentController from '../ctrl';
@@ -15,7 +16,7 @@ function joinTheGame(ctrl: TournamentController, gameId: string) {
   }, [
     ctrl.trans('youArePlaying'),
     h('span.text', {
-      attrs: { 'data-icon': 'G' }
+      attrs: dataIcon('G')
     }, ctrl.trans('joinTheGame'))
   ]);
 }

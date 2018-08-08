@@ -1,10 +1,10 @@
-package lila.app
+package lidraughts.app
 package templating
 
 import controllers.routes
-import lila.tournament.Env.{ current => tournamentEnv }
-import lila.tournament.{ Tournament, System, Schedule }
-import lila.user.{ User, UserContext }
+import lidraughts.tournament.Env.{ current => tournamentEnv }
+import lidraughts.tournament.{ Tournament, System, Schedule }
+import lidraughts.user.{ User, UserContext }
 
 import play.api.libs.json.Json
 import play.twirl.api.Html
@@ -40,11 +40,11 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
   object scheduledTournamentNameShortHtml {
     private def icon(c: Char) = s"""<span data-icon="$c"></span>"""
     private val replacements = List(
-      "Lichess " -> "",
+      "Lidraughts " -> "",
       "Marathon" -> icon('\\'),
-      "HyperBullet" -> s"H${icon(lila.rating.PerfType.Bullet.iconChar)}",
-      "SuperBlitz" -> s"S${icon(lila.rating.PerfType.Blitz.iconChar)}"
-    ) ::: lila.rating.PerfType.leaderboardable.map { pt =>
+      "HyperBullet" -> s"H${icon(lidraughts.rating.PerfType.Bullet.iconChar)}",
+      "SuperBlitz" -> s"S${icon(lidraughts.rating.PerfType.Blitz.iconChar)}"
+    ) ::: lidraughts.rating.PerfType.leaderboardable.map { pt =>
         pt.name -> icon(pt.iconChar)
       }
     def apply(name: String) = Html {

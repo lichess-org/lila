@@ -1,11 +1,11 @@
-package lila.tournament
+package lidraughts.tournament
 
 import akka.actor._
 import akka.pattern.ask
 import scala.concurrent.duration._
 
 import actorApi._
-import lila.hub.actorApi.map.Ask
+import lidraughts.hub.actorApi.map.Ask
 import makeTimeout.short
 
 private final class StartedOrganizer(
@@ -36,7 +36,7 @@ private final class StartedOrganizer(
     case Tick =>
       val startAt = nowMillis
       TournamentRepo.started.flatMap { started =>
-        lila.common.Future.traverseSequentially(started) { tour =>
+        lidraughts.common.Future.traverseSequentially(started) { tour =>
           PlayerRepo activeUserIds tour.id flatMap { activeUserIds =>
             val nb = activeUserIds.size
             val result: Funit =
@@ -49,8 +49,8 @@ private final class StartedOrganizer(
             } inject nb
           }
         }.addEffect { playerCounts =>
-          lila.mon.tournament.player(playerCounts.sum)
-          lila.mon.tournament.started(started.size)
+          lidraughts.mon.tournament.player(playerCounts.sum)
+          lidraughts.mon.tournament.started(started.size)
         }
       }.chronometer
         .mon(_.tournament.startedOrganizer.tickTime)

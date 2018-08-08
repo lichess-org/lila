@@ -3,19 +3,18 @@ package controllers
 import play.api.data._, Forms._
 import play.api.mvc._
 
-import lila.app._
+import lidraughts.app._
 import views._
 
-object Dev extends LilaController {
+object Dev extends LidraughtsController {
 
-  private lazy val settingsList = List[lila.memo.SettingStore[_]](
+  private lazy val settingsList = List[lidraughts.memo.SettingStore[_]](
     Env.security.ugcArmedSetting,
-    Env.irwin.irwinModeSetting,
+    Env.security.emailBlacklistSetting,
     Env.api.assetVersionSetting,
     Env.explorer.indexFlowSetting,
     Env.report.scoreThresholdSetting,
-    Env.game.pgnEncodingSetting,
-    Env.api.websocketDropPercentSetting
+    Env.game.pdnEncodingSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>
@@ -69,14 +68,14 @@ object Dev extends LilaController {
     )
   }
 
-  private def runAs(user: lila.user.User.ID, command: String): Fu[String] =
+  private def runAs(user: lidraughts.user.User.ID, command: String): Fu[String] =
     Env.mod.logApi.cli(user, command) >>
       Env.api.cli(command.split(" ").toList)
 
   private def CommandAuth(password: String)(op: => Fu[Result]): Fu[Result] =
     Env.user.authenticator.authenticateById(
       Env.api.CliUsername,
-      lila.user.User.ClearPassword(password)
+      lidraughts.user.User.ClearPassword(password)
     ).map(_.isDefined) flatMap {
         _.fold(op, fuccess(Unauthorized))
       }

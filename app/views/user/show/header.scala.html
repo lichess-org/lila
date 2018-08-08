@@ -1,10 +1,10 @@
-@(u: User, info: lila.app.mashup.UserInfo, angle: lila.app.mashup.UserInfo.Angle, social: lila.app.mashup.UserInfo.Social)(implicit ctx: Context)
+@(u: User, info: lidraughts.app.mashup.UserInfo, angle: lidraughts.app.mashup.UserInfo.Angle, social: lidraughts.app.mashup.UserInfo.Social)(implicit ctx: Context)
 
-@import lila.app.mashup.UserInfo.Angle
+@import lidraughts.app.mashup.UserInfo.Angle
 @import social._
 
 <div class="content_box_top">
-  <h1 class="lichess_title user_link @if(isOnline(u.id)){online}else{offline}">
+  <h1 class="lidraughts_title user_link @if(isOnline(u.id)){online}else{offline}">
     @if(u.isPatron) {
     <a href="@routes.Plan.index">@Html(patronIcon)</a>@userSpan(u, withPowerTip = false, withOnline = false)
     } else {
@@ -61,7 +61,7 @@
     }
     }
     @if(ctx is u) {
-    <a class="button hint--top-left" href="@routes.Game.export(u.id)" data-hint="@trans.exportGames()"><span data-icon="x"></span></a>
+    <a class="button hint--top-left" href="@routes.Game.exportForm" data-hint="@trans.exportGames()"><span data-icon="x"></span></a>
     }
   </div>
 </div>
@@ -113,7 +113,7 @@ case _ => {
     @if(u.engine) {
     <div class="warning engine_warning">
       <span data-icon="j" class="is4"></span>
-      @trans.thisPlayerUsesChessComputerAssistance()
+      @trans.thisPlayerUsesDraughtsComputerAssistance()
     </div>
     }
     @if(u.booster) {
@@ -123,7 +123,7 @@ case _ => {
     </div>
     }
     } else {
-    @u.title.flatMap(lila.user.User.titlesMap.get).map { title =>
+    @u.title.flatMap(lidraughts.user.User.titlesMap.get).map { title =>
     <p data-icon="E" class="honorific title text">@title</p>
     }
     }
@@ -183,18 +183,18 @@ case _ => {
   </div>
   }
   @if(info.insightVisible) {
-  <a class="insight" href="@routes.Insight.index(u.username)">
+  @*<a class="insight" href="@routes.Insight.index(u.username)">
     <span class="icon" data-icon="7"></span>
-    <strong>Chess Insights</strong>
+    <strong>Draughts Insights</strong>
     <em>Analytics from @if(ctx.is(u)){your}else{@u.username's} games</em>
-  </a>
+  </a>*@
   }
 </div>
 }
 }
 <div class="content_box_inter angles tabs">
   <a data-tab="activity" class="intertab to_activity @if(angle == Angle.Activity){ active}" href="@routes.User.show(u.username)">@trans.activity.activity()</a>
-  @defining(lila.app.mashup.GameFilter.All) { f =>
+  @defining(lidraughts.app.mashup.GameFilter.All) { f =>
   <a data-tab="games" class="intertab to_games @if(angle.key == "games"){ active}" href="@routes.User.gamesAll(u.username)">
     @trans.nbGames.plural(info.user.count.game, info.user.count.game.localize)
     @if(info.nbs.playing > 0) {

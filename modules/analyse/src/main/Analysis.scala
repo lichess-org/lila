@@ -1,7 +1,7 @@
-package lila.analyse
+package lidraughts.analyse
 
-import chess.Color
-import chess.format.Uci
+import draughts.Color
+import draughts.format.Uci
 
 import org.joda.time.DateTime
 
@@ -10,16 +10,16 @@ case class Analysis(
     studyId: Option[String],
     infos: List[Info],
     startPly: Int,
-    uid: Option[String], // requester lichess ID
-    by: Option[String], // analyser lichess ID
+    uid: Option[String], // requester lidraughts ID
+    by: Option[String], // analyser lidraughts ID
     date: DateTime
 ) {
 
-  def requestedBy = uid | "lichess"
+  def requestedBy = uid | "lidraughts"
 
-  def providedBy = by | "lichess"
+  def providedBy = by | "lidraughts"
 
-  def providedByLichess = by exists (_ startsWith "lichess-")
+  def providedByLidraughts = by exists (_ startsWith "lidraughts-")
 
   lazy val infoAdvices: InfoAdvices = {
     (Info.start(startPly) :: infos) sliding 2 collect {
@@ -47,7 +47,7 @@ case class Analysis(
 
 object Analysis {
 
-  import lila.db.BSON
+  import lidraughts.db.BSON
   import reactivemongo.bson._
 
   type ID = String

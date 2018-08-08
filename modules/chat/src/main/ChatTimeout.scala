@@ -1,7 +1,7 @@
-package lila.chat
+package lidraughts.chat
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
@@ -62,7 +62,7 @@ object ChatTimeout {
   sealed abstract class Reason(val key: String, val name: String)
 
   object Reason {
-    case object PublicShaming extends Reason("shaming", "public shaming; please use lichess.org/report")
+    case object PublicShaming extends Reason("shaming", "public shaming; please use lidraughts.org/report")
     case object Insult extends Reason("insult", "disrespecting other players")
     case object Spam extends Reason("spam", "spamming the chat")
     case object Other extends Reason("other", "inappropriate behavior")

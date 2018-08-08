@@ -1,15 +1,15 @@
-package lila.team
+package lidraughts.team
 
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 private[team] final class DataForm(
     teamColl: Coll,
     val captcher: akka.actor.ActorSelection
-) extends lila.hub.CaptchedForm {
+) extends lidraughts.hub.CaptchedForm {
 
   private object Fields {
     val name = "name" -> text(minLength = 3, maxLength = 60)

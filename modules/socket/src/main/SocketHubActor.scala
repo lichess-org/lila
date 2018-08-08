@@ -1,9 +1,9 @@
-package lila.socket
+package lidraughts.socket
 
 import akka.actor.OneForOneStrategy
 import akka.actor.SupervisorStrategy._
 
-import lila.hub.ActorMap
+import lidraughts.hub.ActorMap
 
 trait SocketHubActor[A <: SocketActor[_]] extends Socket with ActorMap {
 

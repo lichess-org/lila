@@ -1,11 +1,11 @@
-package lila.evalCache
+package lidraughts.evalCache
 
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
-    asyncCache: lila.memo.AsyncCache.Builder
+    db: lidraughts.db.Env,
+    asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
   private val CollectionEvalCache = config getString "collection.eval_cache"
@@ -23,10 +23,10 @@ final class Env(
     truster = truster
   )
 
-  def cli = new lila.common.Cli {
+  def cli = new lidraughts.common.Cli {
     def process = {
       case "eval-cache" :: "drop" :: fenParts =>
-        api.drop(chess.variant.Standard, chess.format.FEN(fenParts mkString " ")) inject "done!"
+        api.drop(draughts.variant.Standard, draughts.format.FEN(fenParts mkString " ")) inject "done!"
     }
   }
 }
@@ -34,8 +34,8 @@ final class Env(
 object Env {
 
   lazy val current: Env = "evalCache" boot new Env(
-    config = lila.common.PlayApp loadConfig "evalCache",
-    db = lila.db.Env.current,
-    asyncCache = lila.memo.Env.current.asyncCache
+    config = lidraughts.common.PlayApp loadConfig "evalCache",
+    db = lidraughts.db.Env.current,
+    asyncCache = lidraughts.memo.Env.current.asyncCache
   )
 }

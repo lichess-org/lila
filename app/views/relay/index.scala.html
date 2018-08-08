@@ -1,6 +1,6 @@
-@(fresh: Option[lila.relay.Relay.Fresh], pager: Paginator[lila.relay.Relay.WithStudyAndLiked], url: Call)(implicit ctx: Context)
+@(fresh: Option[lidraughts.relay.Relay.Fresh], pager: Paginator[lidraughts.relay.Relay.WithStudyAndLiked], url: Call)(implicit ctx: Context)
 
-@sublist(name: String, relays: Seq[lila.relay.Relay.WithStudyAndLiked]) = {
+@sublist(name: String, relays: Seq[lidraughts.relay.Relay.WithStudyAndLiked]) = {
 @if(relays.nonEmpty) {
 <section>
   <h2>@name</h2>
@@ -15,13 +15,15 @@
 }
 }
 
+@title = @{ "Live tournament broadcasts [BETA]" }
+
 @base.layout(
-title = "Live tournament broadcasts",
+title = title,
 moreCss = cssTag("relay-list.css"),
 moreJs = jsTag("vendor/jquery.infinitescroll.min.js")) {
 <div class="content_box no_padding relays">
   <div class="top">
-    <h1>Live tournament broadcasts [BETA]</h1>
+    <h1>@title</h1>
     @if(isGranted(_.Beta)) {
     @newForm()
     }

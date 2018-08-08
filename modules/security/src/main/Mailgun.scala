@@ -1,4 +1,4 @@
-package lila.security
+package lidraughts.security
 
 import scala.concurrent.duration._
 
@@ -8,9 +8,9 @@ import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
 import play.twirl.api.Html
 
-import lila.common.EmailAddress
-import lila.common.String.html.escapeHtml
-import lila.i18n.I18nKeys.{ emails => trans }
+import lidraughts.common.EmailAddress
+import lidraughts.common.String.html.escapeHtml
+import lidraughts.i18n.I18nKeys.{ emails => trans }
 
 final class Mailgun(
     apiUrl: String,
@@ -34,7 +34,7 @@ final class Mailgun(
     ) ++ msg.htmlBody.?? { body =>
         Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).body))
       }).void addFailureEffect {
-      case e: java.net.ConnectException => lila.mon.http.mailgun.timeout()
+      case e: java.net.ConnectException => lidraughts.mon.http.mailgun.timeout()
       case _ =>
     } recoverWith {
       case e if msg.retriesLeft > 0 => akka.pattern.after(15 seconds, system.scheduler) {
@@ -60,13 +60,13 @@ object Mailgun {
   object txt {
 
     def serviceNote(implicit lang: Lang) =
-      trans.common_note.literalHtmlTo(lang, List("https://lichess.org"))
+      trans.common_note.literalHtmlTo(lang, List("https://lidraughts.org"))
   }
 
   object html {
 
     val noteLink = Html {
-      """<a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>"""
+      """<a itemprop="url" href="https://lidraughts.org/"><span itemprop="name">lidraughts.org</span></a>"""
     }
 
     def serviceNote(implicit lang: Lang) = s"""

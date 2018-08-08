@@ -1,4 +1,4 @@
-@(title: String, moreJs: Html = Html(""), moreCss: Html = Html(""), side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, chessground: Boolean = true, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
+@(title: String, moreJs: Html = emptyHtml, moreCss: Html = emptyHtml, side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, draughtsground: Boolean = true, openGraph: Option[lidraughts.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
 
 @evenMoreCss = {
 @cssTag("tournament.css")
@@ -13,6 +13,6 @@ side = side,
 chat = chat,
 underchat = underchat,
 openGraph = openGraph,
-chessground = chessground) {
+draughtsground = draughtsground) {
 @body
 }

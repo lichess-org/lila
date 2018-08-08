@@ -1,4 +1,4 @@
-package lila.common
+package lidraughts.common
 
 object Sequence {
   def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] = {

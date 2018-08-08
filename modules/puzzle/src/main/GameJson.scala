@@ -1,14 +1,14 @@
-package lila.puzzle
+package lidraughts.puzzle
 
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lila.game.{ Game, GameRepo, PerfPicker }
-import lila.tree.Node.{ partitionTreeJsonWriter, minimalNodeJsonWriter }
+import lidraughts.game.{ Game, GameRepo, PerfPicker }
+import lidraughts.tree.Node.{ partitionTreeJsonWriter, minimalNodeJsonWriter }
 
 private final class GameJson(
-    asyncCache: lila.memo.AsyncCache.Builder,
-    lightUserApi: lila.user.LightUserApi
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    lightUserApi: lidraughts.user.LightUserApi
 ) {
 
   def apply(gameId: Game.ID, plies: Int, onlyLast: Boolean): Fu[JsObject] =
@@ -35,7 +35,7 @@ private final class GameJson(
 
   private def generate(game: Game, plies: Int, onlyLast: Boolean): Fu[JsObject] =
     lightUserApi preloadMany game.userIds map { _ =>
-      val perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
+      val perfType = lidraughts.rating.PerfType orDefault PerfPicker.key(game)
       val tree = TreeBuilder(game, plies)
       Json.obj(
         "id" -> game.id,
@@ -47,7 +47,7 @@ private final class GameJson(
         "players" -> JsArray(game.players.map { p =>
           Json.obj(
             "userId" -> p.userId,
-            "name" -> lila.game.Namer.playerText(p, withRating = true)(lightUserApi.sync),
+            "name" -> lidraughts.game.Namer.playerText(p, withRating = true)(lightUserApi.sync),
             "color" -> p.color.name
           )
         }),

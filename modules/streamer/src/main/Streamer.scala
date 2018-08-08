@@ -1,8 +1,8 @@
-package lila.streamer
+package lidraughts.streamer
 
 import org.joda.time.DateTime
 
-import lila.user.User
+import lidraughts.user.User
 
 case class Streamer(
     _id: Streamer.Id, // user ID
@@ -65,8 +65,8 @@ object Streamer {
       requested: Boolean, // user requests a mod to approve
       granted: Boolean, // a mod approved
       ignored: Boolean, // further requests are ignored
-      autoFeatured: Boolean, // on homepage when status contains "lichess.org"
-      chatEnabled: Boolean // embed chat inside lichess
+      autoFeatured: Boolean, // on homepage when status contains "lidraughts.org"
+      chatEnabled: Boolean // embed chat inside lidraughts
   )
   case class PicturePath(value: String) extends AnyVal with StringValue
   case class Name(value: String) extends AnyVal with StringValue

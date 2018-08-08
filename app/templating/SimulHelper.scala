@@ -1,8 +1,8 @@
-package lila.app
+package lidraughts.app
 package templating
 
 import controllers.routes
-import lila.simul.Simul
+import lidraughts.simul.Simul
 
 import play.twirl.api.Html
 

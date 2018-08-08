@@ -1,4 +1,4 @@
-package lila.push
+package lidraughts.push
 
 import org.joda.time.DateTime
 

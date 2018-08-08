@@ -28,103 +28,103 @@ ol.crumbs li:first-child {
   margin-left: 0;
 }
 
-#lichess_forum ol.crumbs h1 {
+#lidraughts_forum ol.crumbs h1 {
   display: inline;
   margin: 0;
   padding: 0;
   vertical-align: middle;
 }
 
-#lichess_forum .warning {
+#lidraughts_forum .warning {
   margin: 20px;
   background: #f4f4f4;
   text-align: center;
   font-size: 1.6em;
 }
-#lichess_forum .warning h1 {
+#lidraughts_forum .warning h1 {
   margin: 1em 0 0 0;
   padding: 0;
   font-weight: bold;
 }
-#lichess_forum .warning p {
+#lidraughts_forum .warning p {
   margin: 1.8em 0;
   line-height: 1.5em;
 }
 
-#lichess_forum .nb_results {
+#lidraughts_forum .nb_results {
   padding-left: 25px;
 }
 
-#lichess_forum form.search {
+#lidraughts_forum form.search {
   float: right;
   margin: 20px;
   font-size: 1.3em;
 }
 
-#lichess_forum .search_results {
+#lidraughts_forum .search_results {
   margin-top: 1em;
 }
-#lichess_forum .search_results time {
+#lidraughts_forum .search_results time {
   font-size: 0.8em;
   white-space: nowrap;
   display: block;
 }
-#lichess_forum .search_results a.post {
+#lidraughts_forum .search_results a.post {
   display: block;
   font-size: 1.1em;
   margin-bottom: 4px;
   padding-bottom: 5px;
 }
-#lichess_forum .search_results td {
+#lidraughts_forum .search_results td {
   padding-bottom: 1em;
   padding-top: 1em;
 }
 
-#lichess_forum table.forum_table {
+#lidraughts_forum table.forum_table {
   width: 100%;
   margin-bottom: 5px;
 }
 
-#lichess_forum table.forum_table th {
+#lidraughts_forum table.forum_table th {
   padding: 1em 0 0.5em 0;
 }
-#lichess_forum table.forum_table th:last-child {
+#lidraughts_forum table.forum_table th:last-child {
   padding-left: 1em;
 }
 
-#lichess_forum table.forum_table td.subject {
+#lidraughts_forum table.forum_table td.subject {
   padding: 2em 1em;
 }
 
-#lichess_forum table.forum_table td.right, #lichess_forum table.forum_table th.right {
+#lidraughts_forum table.forum_table td.right, #lidraughts_forum table.forum_table th.right {
   text-align: right;
   padding-right: 2em;
 }
 
-#lichess_forum table.forum_table td.last_post {
+#lidraughts_forum table.forum_table td.last_post {
   min-width: 150px;
   padding-right: 1em;
 }
-#lichess_forum table.forum_table td.feed {
+#lidraughts_forum table.forum_table td.feed {
   padding-right: 1em;
 }
 
-#lichess_forum table.forum_table td.subject a {
+#lidraughts_forum table.forum_table td.subject a {
   font-size: 1.2em;
   font-weight: bold;
 }
 
-#lichess_forum table.forum_table td .description {
+#lidraughts_forum table.forum_table td .description {
   margin-top: 0.5em;
   display: block;
 }
 
-#lichess_forum th {
+#lidraughts_forum th {
   font-weight: bold;
   color: #A0A0A0;
 }
 
-#lichess_forum h1 {
+#lidraughts_forum h1 {
   font-size: 1.4em;
   margin-bottom: 0.5em;
 }
@@ -132,10 +132,10 @@ ol.crumbs li:first-child {
   margin-bottom: 1em;
 }
 
-#lichess_forum table.forum_table tr:nth-child(odd) {
+#lidraughts_forum table.forum_table tr:nth-child(odd) {
   background: #F7F7F7;
 }
-#lichess_forum table.forum_table tr.thead {
+#lidraughts_forum table.forum_table tr.thead {
   background: #fff;
 }
 
@@ -222,19 +222,19 @@ div.category .description {
   font-style: italic;
 }
 
-#lichess_forum form.wide {
+#lidraughts_forum form.wide {
   margin-bottom: 1em;
 }
-#lichess_forum form.wide {
+#lidraughts_forum form.wide {
   margin-top: 2em;
   font-size: 1.3em;
 }
-#lichess_forum form.wide label {
+#lidraughts_forum form.wide label {
   display: block;
   margin-bottom: 2em;
 }
 
-#lichess_forum form.wide label span {
+#lidraughts_forum form.wide label span {
   float: left;
   display: block;
   width: 100px;
@@ -242,27 +242,27 @@ div.category .description {
   margin-right: 10px;
   margin-top: 3px;
 }
-#lichess_forum form.wide label span.required:after {
+#lidraughts_forum form.wide label span.required:after {
   content: "*";
   color: #FF6666;
   margin-left: 3px;
 }
 
-#lichess_forum form.wide input.subject {
+#lidraughts_forum form.wide input.subject {
   width: 500px;
 }
-#lichess_forum form.wide textarea {
+#lidraughts_forum form.wide textarea {
   width: 500px;
   height: 150px;
 }
-#lichess_forum form.wide input.author {
+#lidraughts_forum form.wide input.author {
   width: 300px;
 }
-#lichess_forum form.wide .submit {
+#lidraughts_forum form.wide .submit {
   margin-left: 110px;
 }
 
-#lichess_forum form.wide p.error {
+#lidraughts_forum form.wide p.error {
   margin-left: 110px;
   margin-bottom: 10px;
   color: red;
@@ -292,12 +292,12 @@ div.bar div.pagination {
   float: right;
 }
 
-#lichess_forum div.topic form.mod {
+#lidraughts_forum div.topic form.mod {
   float: right;
   margin-right: 24px;
 }
-#lichess_forum .unsub.on .off,
-#lichess_forum .unsub.off .on {
+#lidraughts_forum .unsub.on .off,
+#lidraughts_forum .unsub.off .on {
   display: none;
 }
 

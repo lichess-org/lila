@@ -1,17 +1,17 @@
-package lila.round
+package lidraughts.round
 
 import reactivemongo.bson._
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl._
+import lidraughts.db.BSON.BSONJodaDateTimeHandler
+import lidraughts.db.dsl._
 import org.joda.time.DateTime
 import scala.concurrent.Promise
 
-import chess.format.Uci
-import chess.Pos
+import draughts.format.Uci
+import draughts.Pos
 import Forecast.Step
-import lila.game.{ Pov, Game }
-import lila.hub.actorApi.map.Tell
+import lidraughts.game.{ Pov, Game }
+import lidraughts.hub.actorApi.map.Tell
 
 final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
 
@@ -24,7 +24,8 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
   private implicit val forecastBSONHandler = Macros.handler[Forecast]
 
   private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit = {
-    lila.mon.round.forecast.create()
+    lidraughts.log(s"ForecastApi.saveSteps").info(s"saveSteps ${pov.fullId}: ${steps}")
+    lidraughts.mon.round.forecast.create()
     coll.update(
       $id(pov.fullId),
       Forecast(
@@ -63,33 +64,72 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
     pov.forecastable ?? coll.find($id(pov.fullId)).uno[Forecast] flatMap {
       case None => fuccess(none)
       case Some(fc) =>
-        if (firstStep(fc.steps).exists(_.ply != pov.game.turns + 1)) clearPov(pov) inject none
-        else fuccess(fc.some)
+        if (firstStep(fc.steps).exists(_.displayPly != pov.game.turns + 1)) {
+          lidraughts.log(s"ForecastApi.loadForDisplay").info(s"wrong ply ${pov.game.turns + 1} @ ${firstStep(fc.steps)}")
+          fuccess(none) //clearPov(pov) inject none
+        } else fuccess(fc.some)
     }
 
   def loadForPlay(pov: Pov): Fu[Option[Forecast]] =
     pov.game.forecastable ?? coll.find($id(pov.fullId)).uno[Forecast] flatMap {
-      case None => fuccess(none)
+      case None =>
+        lidraughts.log(s"ForecastApi.loadForPlay").info(s"not found in collection ${pov.fullId}")
+        fuccess(none)
       case Some(fc) =>
-        if (firstStep(fc.steps).exists(_.ply != pov.game.turns)) clearPov(pov) inject none
-        else fuccess(fc.some)
+        lidraughts.log(s"ForecastApi.loadForPlay").info(s"retrieved from collection ${pov.fullId}")
+        if (firstStep(fc.steps).exists(_.ply != pov.game.turns)) {
+          lidraughts.log(s"ForecastApi.loadForPlay").info(s"wrong ply ${pov.game.turns} @ ${firstStep(fc.steps)}")
+          clearPov(pov) inject none
+        } else fuccess(fc.some)
     }
 
-  def nextMove(g: Game, last: chess.Move): Fu[Option[Uci.Move]] = g.forecastable ?? {
+  def nextMove(g: Game, last: draughts.Move): Fu[Option[Uci.Move]] = g.forecastable ?? {
     loadForPlay(Pov player g) flatMap {
-      case None => fuccess(none)
+      case None =>
+        lidraughts.log(s"ForecastApi.nextMove").info(s"$last - loadForPlay none")
+        fuccess(none)
       case Some(fc) => fc(g, last) match {
         case Some((newFc, uciMove)) if newFc.steps.nonEmpty =>
+          lidraughts.log(s"ForecastApi.nextMove").info(s"$last - nonEmpty  $uciMove, newFc @ ${fc._id} = $newFc")
           coll.update($id(fc._id), newFc) inject uciMove.some
-        case Some((newFc, uciMove)) => clearPov(Pov player g) inject uciMove.some
-        case _ => clearPov(Pov player g) inject none
+        case Some((newFc, uciMove)) =>
+          lidraughts.log(s"ForecastApi.nextMove").info(s"$last - empty $uciMove")
+          clearPov(Pov player g) inject uciMove.some
+        case _ =>
+          lidraughts.log(s"ForecastApi.nextMove").info(s"$last - none @ $fc")
+          clearPov(Pov player g) inject none
+      }
+    }
+  }
+
+  def moveOpponent(g: Game, last: draughts.Move): Fu[Option[Uci.Move]] = g.forecastable ?? {
+    loadForPlay(Pov opponent g) flatMap {
+      case None =>
+        lidraughts.log(s"ForecastApi.moveOpponent").info(s"$last - loadForPlay none")
+        fuccess(none)
+      case Some(fc) => fc.moveOpponent(g, last) match {
+        case Some((newFc, uciMove)) if newFc.steps.nonEmpty =>
+          lidraughts.log(s"ForecastApi.moveOpponent").info(s"$last - nonEmpty $uciMove, newFc @ ${fc._id} = $newFc")
+          coll.update($id(fc._id), newFc) inject uciMove.some
+        case Some((newFc, uciMove)) =>
+          lidraughts.log(s"ForecastApi.moveOpponent").info(s"$last - empty $uciMove")
+          clearPov(Pov opponent g) inject uciMove.some
+        case _ =>
+          lidraughts.log(s"ForecastApi.moveOpponent").info(s"$last - none @ $fc")
+          clearPov(Pov opponent g) inject none
       }
     }
   }
 
   private def firstStep(steps: Forecast.Steps) = steps.headOption.flatMap(_.headOption)
 
-  def clearGame(g: Game) = coll.remove($inIds(chess.Color.all.map(g.fullIdOf))).void
+  def clearGame(g: Game) = {
+    lidraughts.log(s"ForecastApi.clearGame").info(s"${g.id}")
+    coll.remove($inIds(draughts.Color.all.map(g.fullIdOf))).void
+  }
 
-  def clearPov(pov: Pov) = coll.remove($id(pov.fullId)).void
+  def clearPov(pov: Pov) = {
+    lidraughts.log(s"ForecastApi.clearPov").info(s"${pov.fullId}")
+    coll.remove($id(pov.fullId)).void
+  }
 }

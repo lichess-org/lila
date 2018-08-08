@@ -1,11 +1,11 @@
-package lila.site
+package lidraughts.site
 
 import actorApi._
-import lila.socket._
+import lidraughts.socket._
 
 private[site] final class SocketHandler(
     socket: akka.actor.ActorRef,
-    hub: lila.hub.Env
+    hub: lidraughts.hub.Env
 ) {
 
   def apply(

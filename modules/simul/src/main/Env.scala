@@ -1,26 +1,26 @@
-package lila.simul
+package lidraughts.simul
 
 import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.map.Ask
-import lila.hub.{ ActorMap, Sequencer }
-import lila.socket.actorApi.GetVersion
-import lila.socket.History
+import lidraughts.hub.actorApi.map.Ask
+import lidraughts.hub.{ ActorMap, Sequencer }
+import lidraughts.socket.actorApi.GetVersion
+import lidraughts.socket.History
 import makeTimeout.short
 
 final class Env(
     config: Config,
     system: ActorSystem,
-    scheduler: lila.common.Scheduler,
-    db: lila.db.Env,
-    hub: lila.hub.Env,
-    lightUser: lila.common.LightUser.Getter,
+    scheduler: lidraughts.common.Scheduler,
+    db: lidraughts.db.Env,
+    hub: lidraughts.hub.Env,
+    lightUser: lidraughts.common.LightUser.Getter,
     onGameStart: String => Unit,
     isOnline: String => Boolean,
-    asyncCache: lila.memo.AsyncCache.Builder
+    asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
   private val settings = new {
@@ -58,7 +58,7 @@ final class Env(
   lazy val jsonView = new JsonView(lightUser)
 
   private val socketHub = system.actorOf(
-    Props(new lila.socket.SocketHubActor.Default[Socket] {
+    Props(new lidraughts.socket.SocketHubActor.Default[Socket] {
       def mkActor(simulId: String) = new Socket(
         simulId = simulId,
         history = new History(ttl = HistoryMessageTtl),
@@ -78,16 +78,16 @@ final class Env(
     exists = repo.exists
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     import akka.pattern.pipe
     def receive = {
-      case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
-      case lila.hub.actorApi.mod.MarkCheater(userId, true) => api ejectCheater userId
-      case lila.hub.actorApi.simul.GetHostIds => api.currentHostIds pipeTo sender
-      case lila.hub.actorApi.round.SimulMoveEvent(move, simulId, opponentUserId) =>
-        hub.actor.userRegister ! lila.hub.actorApi.SendTo(
+      case lidraughts.game.actorApi.FinishGame(game, _, _) => api finishGame game
+      case lidraughts.hub.actorApi.mod.MarkCheater(userId, true) => api ejectCheater userId
+      case lidraughts.hub.actorApi.simul.GetHostIds => api.currentHostIds pipeTo sender
+      case lidraughts.hub.actorApi.round.SimulMoveEvent(move, simulId, opponentUserId) =>
+        hub.actor.userRegister ! lidraughts.hub.actorApi.SendTo(
           opponentUserId,
-          lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
+          lidraughts.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
         )
     }
   }), name = ActorName), 'finishGame, 'adjustCheater, 'moveEventSimul)
@@ -123,14 +123,14 @@ final class Env(
 object Env {
 
   lazy val current = "simul" boot new Env(
-    config = lila.common.PlayApp loadConfig "simul",
-    system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler,
-    db = lila.db.Env.current,
-    hub = lila.hub.Env.current,
-    lightUser = lila.user.Env.current.lightUser,
-    onGameStart = lila.game.Env.current.onStart,
-    isOnline = lila.user.Env.current.isOnline,
-    asyncCache = lila.memo.Env.current.asyncCache
+    config = lidraughts.common.PlayApp loadConfig "simul",
+    system = lidraughts.common.PlayApp.system,
+    scheduler = lidraughts.common.PlayApp.scheduler,
+    db = lidraughts.db.Env.current,
+    hub = lidraughts.hub.Env.current,
+    lightUser = lidraughts.user.Env.current.lightUser,
+    onGameStart = lidraughts.game.Env.current.onStart,
+    isOnline = lidraughts.user.Env.current.isOnline,
+    asyncCache = lidraughts.memo.Env.current.asyncCache
   )
 }

@@ -1,12 +1,12 @@
-package lila.relation
+package lidraughts.relation
 
 import scala.concurrent.duration._
 import akka.actor.ActorSelection
 
-import lila.db.dsl._
-import lila.db.paginator._
-import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.db.paginator._
+import lidraughts.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
+import lidraughts.user.User
 
 import BSONHandlers._
 import reactivemongo.api._
@@ -16,11 +16,11 @@ import reactivemongo.bson._
 final class RelationApi(
     coll: Coll,
     actor: ActorSelection,
-    bus: lila.common.Bus,
+    bus: lidraughts.common.Bus,
     timeline: ActorSelection,
     reporter: ActorSelection,
     followable: ID => Fu[Boolean],
-    asyncCache: lila.memo.AsyncCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     maxFollow: Int,
     maxBlock: Int
 ) {
@@ -117,8 +117,8 @@ final class RelationApi(
           countFollowingCache.update(u1, 1+)
           reloadOnlineFriends(u1, u2)
           timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
-          bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), 'relation)
-          lila.mon.relation.follow()
+          bus.publish(lidraughts.hub.actorApi.relation.Follow(u1, u2), 'relation)
+          lidraughts.mon.relation.follow()
         }
       }
     }
@@ -138,8 +138,8 @@ final class RelationApi(
       case _ =>
         RelationRepo.block(u1, u2) >> limitBlock(u1) >> unfollow(u2, u1) >>- {
           reloadOnlineFriends(u1, u2)
-          bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation)
-          lila.mon.relation.block()
+          bus.publish(lidraughts.hub.actorApi.relation.Block(u1, u2), 'relation)
+          lidraughts.mon.relation.block()
         }
     }
   }
@@ -150,7 +150,7 @@ final class RelationApi(
         countFollowersCache.update(u2, _ - 1)
         countFollowingCache.update(u1, _ - 1)
         reloadOnlineFriends(u1, u2)
-        lila.mon.relation.unfollow()
+        lidraughts.mon.relation.unfollow()
       }
       case _ => funit
     }
@@ -162,8 +162,8 @@ final class RelationApi(
     fetchBlocks(u1, u2) flatMap {
       case true => RelationRepo.unblock(u1, u2) >>- {
         reloadOnlineFriends(u1, u2)
-        bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), 'relation)
-        lila.mon.relation.unblock()
+        bus.publish(lidraughts.hub.actorApi.relation.UnBlock(u1, u2), 'relation)
+        lidraughts.mon.relation.unblock()
       }
       case _ => funit
     }
@@ -173,7 +173,7 @@ final class RelationApi(
     RelationRepo.followingLike(u.id, term) map { _.sorted take max }
 
   private def reloadOnlineFriends(u1: ID, u2: ID): Unit = {
-    import lila.hub.actorApi.relation.ReloadOnlineFriends
+    import lidraughts.hub.actorApi.relation.ReloadOnlineFriends
     List(u1, u2).foreach(actor ! ReloadOnlineFriends(_))
   }
 }

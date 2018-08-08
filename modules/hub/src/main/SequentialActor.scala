@@ -1,11 +1,11 @@
-package lila.hub
+package lidraughts.hub
 
 import scala.concurrent.duration._
 import scala.util.Try
 
 import akka.actor._
 
-import lila.base.LilaException
+import lidraughts.base.LidraughtsException
 
 trait SequentialActor extends Actor {
 
@@ -52,7 +52,7 @@ trait SequentialActor extends Actor {
       case msg =>
         val future = (process orElse fallback)(msg)
         futureTimeout.fold(future) { timeout =>
-          future.withTimeout(timeout, LilaException(s"Sequential actor timeout: $timeout"))(context.system)
+          future.withTimeout(timeout, LidraughtsException(s"Sequential actor timeout: $timeout"))(context.system)
         }.addFailureEffect(onFailure).addEffectAnyway { self ! Done }
     }
   }

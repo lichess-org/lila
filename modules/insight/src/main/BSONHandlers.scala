@@ -1,13 +1,13 @@
-package lila.insight
+package lidraughts.insight
 
 import reactivemongo.bson._
 
-import chess.opening.{ Ecopening, EcopeningDB }
-import chess.{ Role, Color }
-import lila.db.BSON
-import lila.db.dsl._
-import lila.rating.PerfType
-import lila.rating.BSONHandlers.perfTypeIdHandler
+import draughts.opening.{ Ecopening, EcopeningDB }
+import draughts.{ Role, Color }
+import lidraughts.db.BSON
+import lidraughts.db.dsl._
+import lidraughts.rating.PerfType
+import lidraughts.rating.BSONHandlers.perfTypeIdHandler
 
 private object BSONHandlers {
 
@@ -56,9 +56,9 @@ private object BSONHandlers {
     def write(e: MaterialRange) = BSONInteger(e.id)
   }
 
-  implicit val DateRangeBSONHandler = Macros.handler[lila.insight.DateRange]
+  implicit val DateRangeBSONHandler = Macros.handler[lidraughts.insight.DateRange]
 
-  implicit val PeriodBSONHandler = intIsoHandler(lila.common.Iso.int[Period](Period.apply, _.days))
+  implicit val PeriodBSONHandler = intIsoHandler(lidraughts.common.Iso.int[Period](Period.apply, _.days))
 
   implicit def MoveBSONHandler = new BSON[Move] {
     def reads(r: BSON.Reader) = Move(
@@ -99,7 +99,6 @@ private object BSONHandlers {
       opponentStrength = r.get[RelativeStrength](opponentStrength),
       opponentCastling = r.get[Castling](opponentCastling),
       moves = r.get[List[Move]](moves),
-      queenTrade = r.get[QueenTrade](queenTrade),
       result = r.get[Result](result),
       termination = r.get[Termination](termination),
       ratingDiff = r.int(ratingDiff),
@@ -119,7 +118,6 @@ private object BSONHandlers {
       opponentStrength -> e.opponentStrength,
       opponentCastling -> e.opponentCastling,
       moves -> e.moves,
-      queenTrade -> e.queenTrade,
       result -> e.result,
       termination -> e.termination,
       ratingDiff -> e.ratingDiff,

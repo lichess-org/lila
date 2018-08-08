@@ -2,7 +2,7 @@ var m = require('mithril');
 
 var xhrConfig = function(xhr) {
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  xhr.setRequestHeader('Accept', 'application/vnd.lichess.v1+json');
+  xhr.setRequestHeader('Accept', 'application/vnd.lidraughts.v1+json');
 }
 
 function partial() {
@@ -16,7 +16,7 @@ function simulAction(action, ctrl) {
     config: xhrConfig
   }).then(null, function() {
     // when the simul no longer exists
-    lichess.reload();
+    lidraughts.reload();
   });
 }
 

@@ -63,10 +63,10 @@
 #team .team-content {
   overflow: hidden;
 }
-#team.team_show .lichess_title {
+#team.team_show .lidraughts_title {
   font-size: 1.8em;
 }
-#team.team_show .lichess_title span {
+#team.team_show .lidraughts_title span {
   color: #909090;
   font-size: 0.8em;
 }

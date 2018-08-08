@@ -3,14 +3,14 @@ package controllers
 import play.api.libs.json._
 import play.api.mvc._
 
-import lila.api.Context
-import lila.app._
-import lila.common.HTTPRequest
-import lila.simul.{ Simul => Sim }
-import lila.chat.Chat
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.common.HTTPRequest
+import lidraughts.simul.{ Simul => Sim }
+import lidraughts.chat.Chat
 import views._
 
-object Simul extends LilaController {
+object Simul extends LidraughtsController {
 
   private def env = Env.simul
 

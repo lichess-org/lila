@@ -1,4 +1,4 @@
-package lila.setup
+package lidraughts.setup
 
 private[setup] case class UserConfig(
     id: String,
@@ -27,8 +27,8 @@ private[setup] object UserConfig {
     filter = FilterConfig.default
   )
 
-  import lila.db.BSON
-  import lila.db.dsl._
+  import lidraughts.db.BSON
+  import lidraughts.db.dsl._
   import AiConfig.aiConfigBSONHandler
   import FriendConfig.friendConfigBSONHandler
   import HookConfig.hookConfigBSONHandler

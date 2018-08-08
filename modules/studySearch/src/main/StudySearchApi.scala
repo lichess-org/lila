@@ -1,4 +1,4 @@
-package lila.studySearch
+package lidraughts.studySearch
 
 import akka.actor.ActorRef
 import org.joda.time.DateTime
@@ -8,11 +8,11 @@ import play.api.libs.json._
 import scala.concurrent._
 import scala.concurrent.duration._
 
-import chess.format.pgn.Tag
-import lila.hub.LateMultiThrottler
-import lila.search._
-import lila.study.{ Study, Chapter, StudyRepo, ChapterRepo, RootOrNode }
-import lila.tree.Node.Comments
+import draughts.format.pdn.Tag
+import lidraughts.hub.LateMultiThrottler
+import lidraughts.search._
+import lidraughts.study.{ Study, Chapter, StudyRepo, ChapterRepo, RootOrNode }
+import lidraughts.tree.Node.Comments
 
 final class StudySearchApi(
     client: ESClient,
@@ -25,7 +25,7 @@ final class StudySearchApi(
     client.search(query, from, size) flatMap { res =>
       studyRepo byOrderedIds res.ids.map(Study.Id.apply)
     }
-  }.mon(_.study.search.query.time) >>- lila.mon.study.search.query.count()
+  }.mon(_.study.search.query.time) >>- lidraughts.mon.study.search.query.count()
 
   def count(query: Query) = client.count(query) map (_.count)
 
@@ -42,7 +42,7 @@ final class StudySearchApi(
       client.store(Id(s.study.id.value), toDoc(s))
     }
   }.prefixFailure(study.id.value)
-    .mon(_.study.search.index.time) >>- lila.mon.study.search.index.count()
+    .mon(_.study.search.index.time) >>- lidraughts.mon.study.search.index.count()
 
   private def toDoc(s: Study.WithActualChapters) = Json.obj(
     Fields.name -> s.study.name.value,
@@ -58,15 +58,15 @@ final class StudySearchApi(
     Fields.public -> s.study.isPublic
   )
 
-  private val relevantPgnTags: Set[chess.format.pgn.TagType] = Set(
-    Tag.Variant, Tag.Event, Tag.Round,
+  private val relevantPdnTags: Set[draughts.format.pdn.TagType] = Set(
+    Tag.GameType, Tag.Event, Tag.Round,
     Tag.White, Tag.Black,
     Tag.ECO, Tag.Opening, Tag.Annotator
   )
 
   private def chapterText(c: Chapter): List[String] = {
     nodeText(c.root) :: c.tags.value.collect {
-      case Tag(name, value) if relevantPgnTags.contains(name) => value
+      case Tag(name, value) if relevantPdnTags.contains(name) => value
     } ::: extraText(c)
   }
 
@@ -106,12 +106,12 @@ final class StudySearchApi(
       }
       logger.info(s"Index to ${c.index.name} since $since")
       val retryLogger = logger.branch("index")
-      import lila.db.dsl._
+      import lidraughts.db.dsl._
       studyRepo.cursor($doc("createdAt" $gte since), sort = $sort asc "createdAt").enumerator() &>
         Enumeratee.grouped(Iteratee takeUpTo 12) |>>>
         Iteratee.foldM[Seq[Study], Int](0) {
           case (nb, studies) => studies.map { study =>
-            lila.common.Future.retry(doStore(study), 5 seconds, 10, retryLogger)(system)
+            lidraughts.common.Future.retry(doStore(study), 5 seconds, 10, retryLogger)(system)
           }.sequenceFu inject {
             studies.headOption.ifTrue(nb % 100 == 0) foreach { study =>
               logger.info(s"Indexed $nb studies - ${study.createdAt}")

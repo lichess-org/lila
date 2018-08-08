@@ -1,6 +1,6 @@
-package lila.tournament
+package lidraughts.tournament
 
-import chess.StartingPosition
+import draughts.StartingPosition
 
 private object Thematic {
 

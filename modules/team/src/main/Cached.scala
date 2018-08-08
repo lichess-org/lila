@@ -1,10 +1,10 @@
-package lila.team
+package lidraughts.team
 
-import lila.memo.Syncache
+import lidraughts.memo.Syncache
 import scala.concurrent.duration._
 
 private[team] final class Cached(
-    asyncCache: lila.memo.AsyncCache.Builder
+    asyncCache: lidraughts.memo.AsyncCache.Builder
 )(implicit system: akka.actor.ActorSystem) {
 
   val nameCache = new Syncache[String, Option[String]](
@@ -19,7 +19,7 @@ private[team] final class Cached(
   def name(id: String) = nameCache sync id
 
   // ~ 30k entries as of 04/02/17
-  private val teamIdsCache = new Syncache[lila.user.User.ID, Team.IdsStr](
+  private val teamIdsCache = new Syncache[lidraughts.user.User.ID, Team.IdsStr](
     name = "team.ids",
     compute = u => MemberRepo.teamIdsByUser(u).dmap(Team.IdsStr.apply),
     default = _ => Team.IdsStr.empty,
@@ -30,11 +30,11 @@ private[team] final class Cached(
 
   def syncTeamIds = teamIdsCache sync _
   def teamIds = teamIdsCache async _
-  def teamIdsList(userId: lila.user.User.ID) = teamIds(userId).dmap(_.toList)
+  def teamIdsList(userId: lidraughts.user.User.ID) = teamIds(userId).dmap(_.toList)
 
   def invalidateTeamIds = teamIdsCache invalidate _
 
-  val nbRequests = asyncCache.clearable[lila.user.User.ID, Int](
+  val nbRequests = asyncCache.clearable[lidraughts.user.User.ID, Int](
     name = "team.nbRequests",
     f = userId => TeamRepo teamIdsByCreator userId flatMap RequestRepo.countByTeams,
     expireAfter = _.ExpireAfterAccess(12 minutes)

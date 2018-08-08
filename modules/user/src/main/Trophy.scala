@@ -1,4 +1,4 @@
-package lila.user
+package lidraughts.user
 
 import org.joda.time.DateTime
 
@@ -29,20 +29,11 @@ object Trophy {
 
   object Kind {
 
-    object ZugMiracle extends Kind(
-      key = "zugMiracle",
-      name = "Zug miracle",
-      icon = none,
-      url = "//lichess.org/qa/259/how-do-you-get-a-zug-miracle-trophy".some,
-      klass = none,
-      order = 1
-    )
-
     object WayOfBerserk extends Kind(
       key = "wayOfBerserk",
       name = "The way of Berserk",
       icon = "`".some,
-      url = "//lichess.org/qa/340/way-of-berserk-trophy".some,
+      url = "//lidraughts.org/qa/340/way-of-berserk-trophy".some,
       klass = "fire_trophy".some,
       order = 2
     )
@@ -87,7 +78,7 @@ object Trophy {
       key = "marathonSurvivor",
       name = "Marathon #1 survivor",
       icon = ",".some,
-      url = "//lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1".some,
+      url = "//lidraughts.org/blog/VXF45yYAAPQgLH4d/draughts-marathon-1".some,
       klass = "fire_trophy".some,
       order = 7
     )
@@ -96,26 +87,26 @@ object Trophy {
       key = "bongcloudWarrior",
       name = "Bongcloud Warrior",
       icon = "~".some,
-      url = "//lichess.org/forum/lichess-feedback/bongcloud-trophy".some,
+      url = "//lidraughts.org/forum/lidraughts-feedback/bongcloud-trophy".some,
       klass = "fire_trophy".some,
       order = 8
     )
 
     object Developer extends Kind(
       key = "developer",
-      name = "Lichess developer",
+      name = "Lidraughts developer",
       icon = "&#xe000;".some,
-      url = "https://github.com/ornicar/lila/graphs/contributors".some,
+      url = none,
       klass = "icon3d".some,
       order = 100
     )
 
     object Moderator extends Kind(
       key = "moderator",
-      name = "Lichess moderator",
+      name = "Lidraughts moderator",
       icon = "&#xe002;".some,
-      url = "//lichess.org/report".some,
-      "icon3d".some,
+      url = "//lidraughts.org/report".some,
+      klass = "icon3d".some,
       order = 101
     )
 
@@ -123,7 +114,7 @@ object Trophy {
       key = "zhwc",
       name = "Crazyhouse champion",
       icon = none,
-      url = "//lichess.org/blog/WMnMzSEAAMgA3oAW/crazyhouse-world-championship-the-candidates".some,
+      url = "//lidraughts.org/blog/WMnMzSEAAMgA3oAW/crazyhouse-world-championship-the-candidates".some,
       klass = none,
       order = 1
     )
@@ -131,7 +122,7 @@ object Trophy {
     val all = List(
       Developer, Moderator,
       MarathonTopHundred, MarathonTopTen, MarathonTopFifty, MarathonWinner,
-      ZugMiracle, ZHWC,
+      ZHWC,
       WayOfBerserk,
       MarathonSurvivor,
       BongcloudWarrior

@@ -1,16 +1,16 @@
 import { h } from 'snabbdom'
 import * as round from '../round';
 import { drag } from './crazyCtrl';
-import * as cg from 'chessground/types';
+import * as cg from 'draughtsground/types';
 import RoundController from '../ctrl';
 import { Position } from '../interfaces';
 
 const eventNames = ['mousedown', 'touchstart'];
-const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
+const pieceRoles: cg.Role[] = ['man', 'king'];
 
 export default function pocket(ctrl: RoundController, color: Color, position: Position) {
   const step = round.plyStep(ctrl.data, ctrl.ply);
-  if (!step.crazy) return;
+  if (!step.crazy || step.crazy.trim().length == 0) return;
   const droppedRole = ctrl.justDropped,
   preDropRole = ctrl.preDrop,
   pocket = step.crazy.pockets[color === 'white' ? 0 : 1],

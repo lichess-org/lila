@@ -5,7 +5,7 @@
   <tr>
     <th>@html</th>
     <th>Free account</th>
-    <th>Lichess Patron</th>
+    <th>Lidraughts Patron</th>
   </tr>
 </thead>
 }
@@ -32,12 +32,12 @@
 </tr>
 }
 
-@title = @{"Lichess features"}
+@title = @{"Lidraughts features"}
 
 @side = {
 <div class="features_side">
-  <h2>Free chess for everyone, forever!</h2>
-  <a href="@routes.Plan.index" class="button">Support lichess</a>
+  <h2>Free draughts for everyone, forever!</h2>
+  @*<a href="@routes.Plan.index" class="button">Support lidraughts</a>*@
 </div>
 }
 
@@ -47,10 +47,10 @@
 title = title,
 side = side.some,
 moreCss = cssTag("features.css"),
-openGraph = lila.app.ui.OpenGraph(
+openGraph = lidraughts.app.ui.OpenGraph(
 title = title,
-url = s"$netBaseUrl${routes.Plan.features.url}",
-description = "All of lichess features are free for all and forever. We do it for chess!").some) {
+url = s"$netBaseUrl${routes.Plan.index.url}",
+description = "All of lidraughts features are free for all and forever. We do it for draughts!").some) {
 
 <div class="content_box features">
   <table>
@@ -65,10 +65,10 @@ description = "All of lichess features are free for all and forever. We do it fo
       Play and create <a href="@routes.Simul.home">simultaneous exhibitions</a>
       }
       @tr(unlimited) {
-      Correspondence chess with conditional premoves
+      Correspondence draughts with conditional premoves
       }
       @tr(check) {
-      <a href="@routes.Page.variantHome">9 Chess variants (Crazyhouse, Chess960, Horde, ...)</a>
+      <a href="@routes.Page.variantHome">9 Draughts variants (Crazyhouse, Chess960, Horde, ...)</a>
       }
       @tr(custom("30 per day")) {
       Deep @engineName server analysis
@@ -77,43 +77,43 @@ description = "All of lichess features are free for all and forever. We do it fo
       Instant local @engineName analysis
       }
       @tr(unlimited) {
-      <a href="https://lichess.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers">Cloud engine analysis</a>
+      <a href="https://lidraughts.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers">Cloud engine analysis</a>
       }
       @tr(unlimited) {
-      <a href="https://lichess.org/blog/WFvLpiQAACMA8e9D/learn-from-your-mistakes">Learn from your mistakes</a>
+      <a href="https://lidraughts.org/blog/WFvLpiQAACMA8e9D/learn-from-your-mistakes">Learn from your mistakes</a>
       }
       @tr(unlimited) {
-      <a href="https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way">Studies (shared and persistent analysis)</a>
+      <a href="https://lidraughts.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lidraughts-way">Studies (shared and persistent analysis)</a>
       }
       @tr(unlimited) {
-      <a href="https://lichess.org/blog/VmZbaigAABACtXQC/chess-insights">Chess insights (detailed analysis of your play)</a>
+      <a href="https://lidraughts.org/blog/VmZbaigAABACtXQC/chess-insights">Draughts insights (detailed analysis of your play)</a>
       }
       @tr(check) {
-      <a href="@routes.Learn.index">All chess basics lessons</a>
+      @* <a href="@routes.Learn.index">All draughts basics lessons</a> *@
       }
       @tr(unlimited) {
       <a href="@routes.Puzzle.home">Tactical puzzles from user games</a>
       }
       @tr(unlimited) {
-      <a href="@routes.UserAnalysis.index()#explorer">Opening explorer</a> (34 million games!)
+      <a href="@routes.UserAnalysis.index()#explorer">Opening explorer</a>
       }
       @tr(unlimited) {
       <a href="@routes.UserAnalysis.parse("8/3k4/8/5r2/1PP5/2RK4/8/8 w - - 0 1")#explorer">6 men endgame tablebase</a>
       }
       @tr(check) {
-      Download/Upload any game as PGN
+      Download/Upload any game as PDN
       }
       @tr(unlimited) {
-      <a href="@routes.Search.index(1)">Advanced search</a> through lichess 500 million games
+      <a href="@routes.Search.index(1)">Advanced search</a> through lidraughts games
       }
       @tr(unlimited) {
-      <a href="@routes.Video.index">Chess video library</a>
+      @* <a href="@routes.Video.index">Draughts video library</a> *@
       }
       @tr(check) {
       Forum, teams, messaging, friends, challenges
       }
       @tr(check) {
-      Available in <a href="https://crowdin.com/project/lichess">80+ languages</a>
+      Available in <a href="https://crowdin.com/project/lidraughts">80+ languages</a>
       }
       @tr(check) {
       Light/dark theme, custom boards, pieces and background
@@ -136,7 +136,7 @@ description = "All of lichess features are free for all and forever. We do it fo
       Online and offline games, with 8 variants
       }
       @tr(unlimited) {
-      Bullet, Blitz, Rapid, Classical and Correspondence chess
+      Bullet, Blitz, Rapid, Classical and Correspondence draughts
       }
       @tr(unlimited) {
       <a href="@routes.Tournament.home(1)">Arena tournaments</a>
@@ -164,11 +164,11 @@ description = "All of lichess features are free for all and forever. We do it fo
       }
     </tbody>
     @thead {
-    <h1>Support lichess</h1>
+    <h1>Support lidraughts</h1>
     }
     <tbody class="support">
       <tr>
-        <th>Contribute to lichess.org and<br />get a cool looking Patron icon</th>
+        <th>Contribute to lidraughts.org and<br />get a cool looking Patron icon</th>
         <td>-</td>
         <td><span data-icon="@patronIconChar" class="is is-green text check">Yes</span></td>
       </tr>
@@ -182,12 +182,12 @@ description = "All of lichess features are free for all and forever. We do it fo
   <p class="explanation">
     <strong>Yes, both accounts have the same features!</strong>
     <br />
-    That is because lichess is built for the love of chess.<br />
-    We believe every chess player deserves the best, and so:
+    That is because lidraughts is built for the love of draughts.<br />
+    We believe every draughts player deserves the best, and so:
     <br /><br />
     <strong>all features are free for everybody, forever!</strong>
     <br />
-    If you love lichess, <a class="button" href="@routes.Plan.index">support us with a Patron account!</a>
+    If you love lidraughts, <a class="button" href="@routes.Plan.index">support us with a Patron account!</a>
   </p>
 </div>
 }

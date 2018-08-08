@@ -1,10 +1,10 @@
 window.onload = function() {
-  if (!window.lichess_challenge) return;
-  var opts = lichess_challenge;
+  if (!window.lidraughts_challenge) return;
+  var opts = lidraughts_challenge;
   var element = document.getElementById('challenge');
   var challenge = opts.data.challenge;
   var accepting;
-  lichess.socket = new lichess.StrongSocket(
+  lidraughts.socket = new lidraughts.StrongSocket(
     opts.socketUrl,
     opts.data.socketVersion, {
       options: {
@@ -15,7 +15,7 @@ window.onload = function() {
           $.ajax({
             url: opts.xhrUrl,
             success: function(html) {
-              $('.lichess_overboard').replaceWith($(html).find('.lichess_overboard'));
+              $('.lidraughts_overboard').replaceWith($(html).find('.lidraughts_overboard'));
               init();
             }
           });
@@ -27,11 +27,11 @@ window.onload = function() {
     if (!accepting) $('#challenge_redirect').each(function() {
       location.href = $(this).attr('href');
     });
-    $('.lichess_overboard').find('form.accept').submit(function() {
+    $('.lidraughts_overboard').find('form.accept').submit(function() {
       accepting = true;
       $(this).html('<span class="ddloader"></span>');
     });
-    $('.lichess_overboard').find('form.xhr').submit(function(e) {
+    $('.lidraughts_overboard').find('form.xhr').submit(function(e) {
       e.preventDefault();
       $.ajax({
         url: $(this).attr('action'),
@@ -39,9 +39,9 @@ window.onload = function() {
       });
       $(this).html('<span class="ddloader"></span>');
     });
-    $('.lichess_overboard').find('input.friend-autocomplete').each(function() {
+    $('.lidraughts_overboard').find('input.friend-autocomplete').each(function() {
       var $input = $(this);
-      lichess.userAutocomplete($input, {
+      lidraughts.userAutocomplete($input, {
         focus: 1,
         friend: 1,
         tag: 'span',
@@ -55,13 +55,13 @@ window.onload = function() {
 
   var pingNow = function() {
     if (document.getElementById('ping_challenge')) {
-      lichess.socket.send('ping');
+      lidraughts.socket.send('ping');
       setTimeout(pingNow, 2000);
     }
   };
   pingNow();
 
-  var ground = Chessground(element.querySelector('.lichess_board'), {
+  var ground = Draughtsground(element.querySelector('.lidraughts_board'), {
     viewOnly: true,
     drawable: { enabled: false, visible: false },
     fen: challenge.initialFen,
@@ -70,6 +70,6 @@ window.onload = function() {
     disableContextMenu: true
   });
   setTimeout(function() {
-    $('.lichess_overboard_wrap', element).addClass('visible');
+    $('.lidraughts_overboard_wrap', element).addClass('visible');
   }, 100);
 };

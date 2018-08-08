@@ -1,4 +1,4 @@
-@(title: String, active: String, evenMoreCss: Html = Html(""))(body: Html)(implicit ctx: Context)
+@(title: String, active: String, evenMoreCss: Html = emptyHtml)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("account.css")
@@ -10,7 +10,7 @@
 }
 
 @menu = {
-@lila.pref.PrefCateg.all.map { categ =>
+@lidraughts.pref.PrefCateg.all.map { categ =>
 <a class="@active.active(categ.slug)" href="@routes.Pref.form(categ.slug)">
   @categName(categ)
 </a>
@@ -20,7 +20,7 @@
   @trans.editProfile()
 </a>
 @if(isGranted(_.Coach)) {
-<a href="@routes.Coach.edit">Coach profile</a>
+@* <a href="@routes.Coach.edit">Coach profile</a> *@
 }
 <a class="@active.active("password")" href="@routes.Account.passwd()">
   @trans.changePassword()
@@ -32,10 +32,11 @@
   @trans.kidMode()
 </a>
 <div class="sep"></div>
-<a class="@active.active("security")" href="@routes.Account.security()">
+<a class="@active.active("security")" href="@routes.Account.security">
   @trans.security()
 </a>
-<a href="@routes.Plan.index" style="color: #d59120; font-weight: bold;">Patron</a>
+<a class="@active.active("oauth")" href="@routes.OAuthToken.index">API Access tokens</a>
+@*<a href="@routes.Plan.index" style="color: #d59120; font-weight: bold;">Patron</a>*@
 <div class="sep"></div>
 <a class="@active.active("close")" href="@routes.Account.close()">
   @trans.closeAccount()

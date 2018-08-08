@@ -2,19 +2,19 @@
 
 @variantLayout(
 active = none,
-title = "Lichess variants") {
+title = "Lidraughts variants") {
 
 <div class="content_box small_box doc_box no_padding">
 
-  <h1 class="lichess_title text" data-icon="">Lichess variants</h1>
+  <h1 class="lidraughts_title text" data-icon="">Lidraughts variants</h1>
 
   <div class="body content_box_content">
     @Html(~doc.getHtml("doc.content", resolver))
   </div>
 
   <div class="variants">
-    @lila.rating.PerfType.variants.map { pt =>
-    @defining(lila.rating.PerfType.variantOf(pt)) { variant =>
+    @lidraughts.rating.PerfType.variantsPlus.map { pt =>
+    @defining(lidraughts.rating.PerfType.variantOf(pt)) { variant =>
     <a class="variant text" href="@routes.Page.variant(pt.key)" data-icon="@pt.iconChar">
       <h2>@variant.name</h2>
       <h3 class="headline">@variant.title</h3>

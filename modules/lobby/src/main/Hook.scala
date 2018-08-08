@@ -1,15 +1,15 @@
-package lila.lobby
+package lidraughts.lobby
 
-import chess.{ Mode, Clock, Speed }
+import draughts.{ Mode, Clock, Speed }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
 
-import lila.game.PerfPicker
-import lila.rating.RatingRange
-import lila.user.User
+import lidraughts.game.PerfPicker
+import lidraughts.rating.RatingRange
+import lidraughts.user.User
 
-// realtime chess, volatile
+// realtime draughts, volatile
 case class Hook(
     id: String,
     uid: String, // owner socket uid
@@ -25,7 +25,7 @@ case class Hook(
 
   val realColor = Color orDefault color
 
-  val realVariant = chess.variant.Variant orDefault variant
+  val realVariant = draughts.variant.Variant orDefault variant
 
   val realMode = Mode orDefault mode
 
@@ -68,29 +68,29 @@ case class Hook(
     .add("rating" -> rating)
     .add("variant" -> realVariant.exotic.option(realVariant.key))
     .add("ra" -> realMode.rated.option(1))
-    .add("c" -> chess.Color(color).map(_.name))
+    .add("c" -> draughts.Color(color).map(_.name))
     .add("perf" -> perfType.map(_.name))
 
   def randomColor = color == "random"
 
   lazy val compatibleWithPools =
     realMode.rated && realVariant.standard && randomColor &&
-      lila.pool.PoolList.clockStringSet.contains(clock.show)
+      lidraughts.pool.PoolList.clockStringSet.contains(clock.show)
 
-  def compatibleWithPool(poolClock: chess.Clock.Config) =
+  def compatibleWithPool(poolClock: draughts.Clock.Config) =
     compatibleWithPools && clock == poolClock
 
   def likePoolFiveO = compatibleWithPools && clock.show == "5+0"
 
-  def toPool = lila.pool.HookThieve.PoolHook(
+  def toPool = lidraughts.pool.HookThieve.PoolHook(
     hookId = id,
-    member = lila.pool.PoolMember(
+    member = lidraughts.pool.PoolMember(
       userId = user.??(_.id),
-      socketId = lila.socket.Socket.Uid(uid),
-      rating = rating | lila.rating.Glicko.defaultIntRating,
+      socketId = lidraughts.socket.Socket.Uid(uid),
+      rating = rating | lidraughts.rating.Glicko.defaultIntRating,
       ratingRange = realRatingRange,
       lame = user.??(_.lame),
-      blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
+      blocking = lidraughts.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
       since = createdAt
     )
   )
@@ -104,7 +104,7 @@ object Hook {
 
   def make(
     uid: String,
-    variant: chess.variant.Variant,
+    variant: draughts.variant.Variant,
     clock: Clock.Config,
     mode: Mode,
     color: String,

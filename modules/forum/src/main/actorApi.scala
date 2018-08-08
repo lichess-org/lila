@@ -1,4 +1,4 @@
-package lila.forum
+package lidraughts.forum
 package actorApi
 
 case class InsertPost(post: Post)

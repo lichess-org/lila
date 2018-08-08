@@ -1,0 +1,20 @@
+{
+  "include": [
+    "src/*.ts"
+  ],
+  "filesGlob": [
+    "src/*.ts"
+  ],
+  "exclude": [],
+  "compilerOptions": {
+    "outDir": ".",
+    "declaration": true,
+    "noUnusedLocals": true,
+    "noEmitOnError": false,
+    "removeComments": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
+    "target": "es5",
+    "strict": true
+  }
+}

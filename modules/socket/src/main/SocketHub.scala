@@ -1,4 +1,4 @@
-package lila.socket
+package lidraughts.socket
 
 import akka.actor._
 
@@ -7,12 +7,12 @@ final class SocketHub extends Actor {
   private val sockets = collection.mutable.Set[ActorRef]()
 
   override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'deploy, 'socket)
+    context.system.lidraughtsBus.subscribe(self, 'deploy, 'socket)
   }
 
   override def postStop(): Unit = {
     super.postStop()
-    context.system.lilaBus.unsubscribe(self)
+    context.system.lidraughtsBus.unsubscribe(self)
   }
 
   import SocketHub._

@@ -1,11 +1,11 @@
-package lila.evalCache
+package lidraughts.evalCache
 
 import reactivemongo.bson._
 import scalaz.NonEmptyList
 
-import chess.format.Uci
-import lila.db.dsl._
-import lila.tree.Eval._
+import draughts.format.Uci
+import lidraughts.db.dsl._
+import lidraughts.tree.Eval._
 
 private object BSONHandlers {
 
@@ -43,15 +43,15 @@ private object BSONHandlers {
 
   implicit val EntryIdHandler = new BSONHandler[BSONString, Id] {
     def read(bs: BSONString): Id = bs.value split ':' match {
-      case Array(fen) => Id(chess.variant.Standard, SmallFen raw fen)
+      case Array(fen) => Id(draughts.variant.Standard, SmallFen raw fen)
       case Array(variantId, fen) => Id(
-        parseIntOption(variantId) flatMap chess.variant.Variant.apply err s"Invalid evalcache variant $variantId",
+        parseIntOption(variantId) flatMap draughts.variant.Variant.apply err s"Invalid evalcache variant $variantId",
         SmallFen raw fen
       )
       case _ => sys error s"Invalid evalcache id ${bs.value}"
     }
     def write(x: Id) = BSONString {
-      if (x.variant.standard || x.variant == chess.variant.FromPosition) x.smallFen.value
+      if (x.variant.standard || x.variant == draughts.variant.FromPosition) x.smallFen.value
       else s"${x.variant.id}:${x.smallFen.value}"
     }
   }

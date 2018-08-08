@@ -2,7 +2,7 @@ import { plyStep } from './round';
 import RoundController from './ctrl';
 import { ApiMove, RoundData } from './interfaces';
 
-const li = window.lichess;
+const li = window.lidraughts;
 let found = false;
 
 function truncateFen(fen: Fen): string {

@@ -1,4 +1,4 @@
-package lila.rating
+package lidraughts.rating
 
 case class RatingRange(min: Int, max: Int) {
 

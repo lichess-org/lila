@@ -1,6 +1,6 @@
-package lila.user
+package lidraughts.user
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 
@@ -21,11 +21,11 @@ case class UserNotes(user: User, notes: List[Note])
 final class NoteApi(
     coll: Coll,
     timeline: akka.actor.ActorSelection,
-    bus: lila.common.Bus
+    bus: lidraughts.common.Bus
 ) {
 
   import reactivemongo.bson._
-  import lila.db.BSON.BSONJodaDateTimeHandler
+  import lidraughts.db.BSON.BSONJodaDateTimeHandler
   private implicit val noteBSONHandler = Macros.handler[Note]
 
   def get(user: User, me: User, myFriendIds: Set[String], isMod: Boolean): Fu[List[Note]] =
@@ -72,11 +72,11 @@ final class NoteApi(
     )
 
     coll.insert(note) >>- {
-      import lila.hub.actorApi.timeline.{ Propagate, NoteCreate }
+      import lidraughts.hub.actorApi.timeline.{ Propagate, NoteCreate }
       timeline ! {
         Propagate(NoteCreate(note.from, note.to)) toFriendsOf from.id exceptUser note.to modsOnly note.mod
       }
-      bus.publish(lila.hub.actorApi.user.Note(
+      bus.publish(lidraughts.hub.actorApi.user.Note(
         from = from.username,
         to = to.username,
         text = note.text,

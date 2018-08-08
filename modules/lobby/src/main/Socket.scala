@@ -1,4 +1,4 @@
-package lila.lobby
+package lidraughts.lobby
 
 import scala.concurrent.duration._
 
@@ -7,12 +7,12 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import actorApi._
-import lila.game.{ Game, AnonCookie }
-import lila.hub.actorApi.game.ChangeFeatured
-import lila.hub.actorApi.lobby._
-import lila.hub.actorApi.timeline._
-import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.SocketActor
+import lidraughts.game.{ Game, AnonCookie }
+import lidraughts.hub.actorApi.game.ChangeFeatured
+import lidraughts.hub.actorApi.lobby._
+import lidraughts.hub.actorApi.timeline._
+import lidraughts.socket.actorApi.{ Connected => _, _ }
+import lidraughts.socket.SocketActor
 
 private[lobby] final class Socket(
     uidTtl: FiniteDuration
@@ -24,14 +24,14 @@ private[lobby] final class Socket(
 
   override def preStart(): Unit = {
     super.preStart()
-    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'poolGame)
+    context.system.lidraughtsBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'poolGame)
     context.system.scheduler.scheduleOnce(3 seconds, self, SendHookRemovals)
     context.system.scheduler.schedule(1 minute, 1 minute, self, Cleanup)
   }
 
   override def postStop(): Unit = {
     super.postStop()
-    context.system.lilaBus.unsubscribe(self)
+    context.system.lidraughtsBus.unsubscribe(self)
   }
 
   // override postRestart so we don't call preStart and schedule a new message
@@ -47,9 +47,9 @@ private[lobby] final class Socket(
 
     case GetUids =>
       sender ! SocketUids(members.keySet.toSet)
-      lila.mon.lobby.socket.idle(idleUids.size)
-      lila.mon.lobby.socket.hookSubscribers(hookSubscriberUids.size)
-      lila.mon.lobby.socket.mobile(members.count(_._2.mobile))
+      lidraughts.mon.lobby.socket.idle(idleUids.size)
+      lidraughts.mon.lobby.socket.hookSubscribers(hookSubscriberUids.size)
+      lidraughts.mon.lobby.socket.mobile(members.count(_._2.mobile))
 
     case Cleanup =>
       idleUids retain members.contains
@@ -78,7 +78,7 @@ private[lobby] final class Socket(
         }
       }
       if (hook.likePoolFiveO) withMember(hook.uid) { member =>
-        lila.mon.lobby.hook.createdLikePoolFiveO(member.mobile)()
+        lidraughts.mon.lobby.hook.createdLikePoolFiveO(member.mobile)()
       }
 
     case AddSeek(_) => notifySeeks
@@ -100,27 +100,27 @@ private[lobby] final class Socket(
 
     case JoinHook(uid, hook, game, creatorColor) =>
       withMember(hook.uid) { member =>
-        lila.mon.lobby.hook.joinMobile(member.mobile)()
+        lidraughts.mon.lobby.hook.joinMobile(member.mobile)()
         notifyPlayerStart(game, creatorColor)(member)
       }
       withMember(uid) { member =>
-        lila.mon.lobby.hook.joinMobile(member.mobile)()
+        lidraughts.mon.lobby.hook.joinMobile(member.mobile)()
         if (hook.likePoolFiveO)
-          lila.mon.lobby.hook.acceptedLikePoolFiveO(member.mobile)()
+          lidraughts.mon.lobby.hook.acceptedLikePoolFiveO(member.mobile)()
         notifyPlayerStart(game, !creatorColor)(member)
       }
 
     case JoinSeek(userId, seek, game, creatorColor) =>
       membersByUserId(seek.user.id) foreach { member =>
-        lila.mon.lobby.seek.joinMobile(member.mobile)()
+        lidraughts.mon.lobby.seek.joinMobile(member.mobile)()
         notifyPlayerStart(game, creatorColor)(member)
       }
       membersByUserId(userId) foreach { member =>
-        lila.mon.lobby.seek.joinMobile(member.mobile)()
+        lidraughts.mon.lobby.seek.joinMobile(member.mobile)()
         notifyPlayerStart(game, !creatorColor)(member)
       }
 
-    case pairing: lila.pool.PoolApi.Pairing =>
+    case pairing: lidraughts.pool.PoolApi.Pairing =>
       def goPlayTheGame = redirectPlayers(pairing)
       goPlayTheGame // go play the game now
       context.system.scheduler.scheduleOnce(1 second)(goPlayTheGame) // I said go
@@ -132,10 +132,10 @@ private[lobby] final class Socket(
         withActiveMember(uid)(_ push msg)
       }
 
-    case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
+    case lidraughts.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
 
     case NbMembers(nb) => pong = pong + ("d" -> JsNumber(nb))
-    case lila.hub.actorApi.round.NbRounds(nb) =>
+    case lidraughts.hub.actorApi.round.NbRounds(nb) =>
       pong = pong + ("r" -> JsNumber(nb))
 
     case ChangeFeatured(_, msg) => notifyAllActive(msg)
@@ -149,12 +149,12 @@ private[lobby] final class Socket(
       hookSubscriberUids += member.uid
   }
 
-  def redirectPlayers(p: lila.pool.PoolApi.Pairing) = {
-    withMember(p.whiteUid.value)(notifyPlayerStart(p.game, chess.White))
-    withMember(p.blackUid.value)(notifyPlayerStart(p.game, chess.Black))
+  def redirectPlayers(p: lidraughts.pool.PoolApi.Pairing) = {
+    withMember(p.whiteUid.value)(notifyPlayerStart(p.game, draughts.White))
+    withMember(p.blackUid.value)(notifyPlayerStart(p.game, draughts.Black))
   }
 
-  def notifyPlayerStart(game: Game, color: chess.Color) =
+  def notifyPlayerStart(game: Game, color: draughts.Color) =
     notifyMember("redirect", Json.obj(
       "id" -> (game fullIdOf color),
       "url" -> playerUrl(game fullIdOf color)

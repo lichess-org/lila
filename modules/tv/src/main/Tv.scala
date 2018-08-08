@@ -1,12 +1,12 @@
-package lila.tv
+package lidraughts.tv
 
 import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.ask
 
-import lila.common.LightUser
-import lila.game.{ Game, GameRepo, Pov }
+import lidraughts.common.LightUser
+import lidraughts.game.{ Game, GameRepo, Pov }
 
 final class Tv(actor: ActorRef) {
 
@@ -49,8 +49,8 @@ final class Tv(actor: ActorRef) {
 }
 
 object Tv {
-  import chess.{ Speed => S, variant => V }
-  import lila.rating.{ PerfType => P }
+  import draughts.{ Speed => S, variant => V }
+  import lidraughts.rating.{ PerfType => P }
 
   case class Champion(user: LightUser, rating: Int, gameId: Game.ID)
   case class Champions(channels: Map[Channel, Champion]) {
@@ -87,45 +87,10 @@ object Tv {
       icon = P.Classical.iconChar.toString,
       filters = Seq(rated, standard, speed(S.Classical), fresh(60 * 8))
     )
-    case object Chess960 extends Channel(
-      name = V.Chess960.name,
-      icon = P.Chess960.iconChar.toString,
-      filters = Seq(variant(V.Chess960), freshBlitz)
-    )
-    case object KingOfTheHill extends Channel(
-      name = V.KingOfTheHill.name,
-      icon = P.KingOfTheHill.iconChar.toString,
-      filters = Seq(variant(V.KingOfTheHill), freshBlitz)
-    )
-    case object ThreeCheck extends Channel(
-      name = V.ThreeCheck.name,
-      icon = P.ThreeCheck.iconChar.toString,
-      filters = Seq(variant(V.ThreeCheck), freshBlitz)
-    )
-    case object Antichess extends Channel(
-      name = V.Antichess.name,
-      icon = P.Antichess.iconChar.toString,
-      filters = Seq(variant(V.Antichess), freshBlitz)
-    )
-    case object Atomic extends Channel(
-      name = V.Atomic.name,
-      icon = P.Atomic.iconChar.toString,
-      filters = Seq(variant(V.Atomic), freshBlitz)
-    )
-    case object Horde extends Channel(
-      name = V.Horde.name,
-      icon = P.Horde.iconChar.toString,
-      filters = Seq(variant(V.Horde), freshBlitz)
-    )
-    case object RacingKings extends Channel(
-      name = V.RacingKings.name,
-      icon = P.RacingKings.iconChar.toString,
-      filters = Seq(variant(V.RacingKings), freshBlitz)
-    )
-    case object Crazyhouse extends Channel(
-      name = V.Crazyhouse.name,
-      icon = P.Crazyhouse.iconChar.toString,
-      filters = Seq(variant(V.Crazyhouse), freshBlitz)
+    case object Frisian extends Channel(
+      name = V.Frisian.name,
+      icon = P.Frisian.iconChar.toString,
+      filters = Seq(variant(V.Frisian), freshBlitz)
     )
     case object UltraBullet extends Channel(
       name = S.UltraBullet.name,
@@ -140,16 +105,16 @@ object Tv {
     val all = List(
       Best,
       Bullet, Blitz, Rapid, Classical,
-      Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings,
-      UltraBullet,
-      Computer
+      Frisian,
+      UltraBullet
+    //Computer
     )
     val byKey = all.map { c => c.key -> c }.toMap
   }
 
   private def rated = (g: Game) => g.rated
-  private def speed(speed: chess.Speed) = (g: Game) => g.speed == speed
-  private def variant(variant: chess.variant.Variant) = (g: Game) => g.variant == variant
+  private def speed(speed: draughts.Speed) = (g: Game) => g.speed == speed
+  private def variant(variant: draughts.variant.Variant) = (g: Game) => g.variant == variant
   private val standard = variant(V.Standard)
   private def fresh(seconds: Int) = (g: Game) => {
     g.isBeingPlayed && !g.olderThan(seconds)

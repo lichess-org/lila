@@ -1,36 +1,36 @@
-package lila.round
+package lidraughts.round
 
 import scala.concurrent.duration._
 import scala.math
 
 import play.api.libs.json._
 
-import lila.common.ApiVersion
-import lila.game.JsonView._
-import lila.game.{ Pov, Game, Player => GamePlayer }
-import lila.pref.Pref
-import lila.user.{ User, UserRepo }
+import lidraughts.common.ApiVersion
+import lidraughts.game.JsonView._
+import lidraughts.game.{ Pov, Game, Player => GamePlayer }
+import lidraughts.pref.Pref
+import lidraughts.user.{ User, UserRepo }
 
-import chess.format.{ Forsyth, FEN }
-import chess.{ Color, Clock }
+import draughts.format.{ Forsyth, FEN }
+import draughts.{ Color, Clock }
 
 import actorApi.SocketStatus
 
 final class JsonView(
     noteApi: NoteApi,
-    userJsonView: lila.user.JsonView,
-    getSocketStatus: String => Fu[SocketStatus],
+    userJsonView: lidraughts.user.JsonView,
+    getSocketStatus: Game.ID => Fu[SocketStatus],
     canTakeback: Game => Fu[Boolean],
-    divider: lila.game.Divider,
-    evalCache: lila.evalCache.EvalCacheApi,
+    divider: lidraughts.game.Divider,
+    evalCache: lidraughts.evalCache.EvalCacheApi,
     baseAnimationDuration: Duration,
     moretimeSeconds: Int
 ) {
 
   import JsonView._
 
-  private def checkCount(game: Game, color: Color) =
-    (game.variant == chess.variant.ThreeCheck) option game.history.checkCount(color)
+  private def kingMoves(game: Game, color: Color) =
+    (game.variant == draughts.variant.Frisian) option game.history.kingMoves(color)
 
   private def commonPlayerJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
     Json.obj(
@@ -42,7 +42,7 @@ final class JsonView(
       .add("offeringRematch" -> p.isOfferingRematch)
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
-      .add("checks" -> checkCount(g, p.color))
+      .add("kingMoves" -> kingMoves(g, p.color))
       .add("berserk" -> p.berserk)
       .add("hold" -> (withFlags.blurs option hold(p)))
       .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
@@ -54,7 +54,8 @@ final class JsonView(
     playerUser: Option[User],
     initialFen: Option[FEN],
     withFlags: WithFlags
-  ): Fu[JsObject] =
+  ): Fu[JsObject] = {
+    logger.info(s"playerJson pov game: ${pov.game.turnColor}")
     getSocketStatus(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
       canTakeback(pov.game) map {
@@ -83,15 +84,12 @@ final class JsonView(
               "animationDuration" -> animationDuration(pov, pref),
               "coords" -> pref.coords,
               "replay" -> pref.replay,
-              "autoQueen" -> (pov.game.variant == chess.variant.Antichess).fold(Pref.AutoQueen.NEVER, pref.autoQueen),
               "clockTenths" -> pref.clockTenths,
               "moveEvent" -> pref.moveEvent
-            ).add("is3d" -> pref.is3d)
-              .add("clockBar" -> pref.clockBar)
+            ).add("clockBar" -> pref.clockBar)
               .add("clockSound" -> pref.clockSound)
               .add("confirmResign" -> (pref.confirmResign == Pref.ConfirmResign.YES))
               .add("keyboardMove" -> (pref.keyboardMove == Pref.KeyboardMove.YES))
-              .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
               .add("blindfold" -> pref.isBlindfold)
               .add("highlight" -> (pref.highlight || pref.isBlindfold))
               .add("destination" -> (pref.destination && !pref.isBlindfold))
@@ -110,9 +108,9 @@ final class JsonView(
           ).add("clock" -> game.clock.map(clockJson))
             .add("correspondence" -> game.correspondenceClock)
             .add("takebackable" -> takebackable)
-            .add("crazyhouse" -> pov.game.board.crazyData)
             .add("possibleMoves" -> possibleMoves(pov))
             .add("possibleDrops" -> possibleDrops(pov))
+            .add("captureLength" -> game.situation.allMovesCaptureLength)
             .add("expiration" -> game.expirable.option {
               Json.obj(
                 "idleMillis" -> (nowMillis - game.movedAt.getMillis),
@@ -120,6 +118,7 @@ final class JsonView(
               )
             })
       }
+  }
 
   private def commonWatcherJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
     Json.obj(
@@ -130,7 +129,7 @@ final class JsonView(
       .add("rating" -> p.rating)
       .add("ratingDiff" -> p.ratingDiff)
       .add("provisional" -> p.provisional)
-      .add("checks" -> checkCount(g, p.color))
+      .add("kingMoves" -> kingMoves(g, p.color))
       .add("berserk" -> p.berserk)
       .add("hold" -> (withFlags.blurs option hold(p)))
       .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
@@ -153,7 +152,7 @@ final class JsonView(
               .add("moveCentis" -> (withFlags.movetimes ?? game.moveTimes.map(_.map(_.centis))))
               .add("division" -> withFlags.division.option(divider(game, initialFen)))
               .add("opening" -> game.opening)
-              .add("importedBy" -> game.pgnImport.flatMap(_.user)),
+              .add("importedBy" -> game.pdnImport.flatMap(_.user)),
             "clock" -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock,
             "player" -> {
@@ -173,23 +172,21 @@ final class JsonView(
               "coords" -> pref.coords,
               "replay" -> pref.replay,
               "clockTenths" -> pref.clockTenths
-            ).add("is3d" -> pref.is3d)
-              .add("clockBar" -> pref.clockBar)
+            ).add("clockBar" -> pref.clockBar)
               .add("highlight" -> (pref.highlight || pref.isBlindfold))
               .add("destination" -> (pref.destination && !pref.isBlindfold))
-              .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
               .add("showCaptured" -> pref.captured),
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
           ).add("evalPut" -> me.??(evalCache.shouldPut))
             .add("tv" -> tv.collect {
-              case OnLichessTv(channel, flip) => Json.obj("channel" -> channel, "flip" -> flip)
+              case OnLidraughtsTv(channel, flip) => Json.obj("channel" -> channel, "flip" -> flip)
             }).add("userTv" -> tv.collect {
               case OnUserTv(userId) => Json.obj("id" -> userId)
             })
 
       }
 
-  private implicit val userLineWrites = OWrites[lila.chat.UserLine] { l =>
+  private implicit val userLineWrites = OWrites[lidraughts.chat.UserLine] { l =>
     val j = Json.obj("u" -> l.username, "t" -> l.text)
     if (l.deleted) j + ("d" -> JsBoolean(true)) else j
   }
@@ -198,19 +195,19 @@ final class JsonView(
     pov: Pov,
     pref: Pref,
     initialFen: Option[FEN],
-    orientation: chess.Color,
+    orientation: draughts.Color,
     owner: Boolean,
     me: Option[User],
-    division: Option[chess.Division] = none
+    division: Option[draughts.Division] = none
   ) = {
     import pov._
-    val fen = Forsyth >> game.chess
+    val fen = Forsyth >> game.draughts
     Json.obj(
       "game" -> Json.obj(
         "id" -> gameId,
         "variant" -> game.variant,
         "opening" -> game.opening,
-        "initialFen" -> initialFen.fold(chess.format.Forsyth.initial)(_.value),
+        "initialFen" -> initialFen.fold(draughts.format.Forsyth.initial)(_.value),
         "fen" -> fen,
         "turns" -> game.turns,
         "player" -> game.turnColor.name,
@@ -228,22 +225,20 @@ final class JsonView(
       "pref" -> Json.obj(
         "animationDuration" -> animationDuration(pov, pref),
         "coords" -> pref.coords
-      ).add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
-        .add("is3d" -> pref.is3d)
-        .add("highlight" -> (pref.highlight || pref.isBlindfold))
+      ).add("highlight" -> (pref.highlight || pref.isBlindfold))
         .add("destination" -> (pref.destination && !pref.isBlindfold)),
       "path" -> pov.game.turns,
       "userAnalysis" -> true
     ).add("evalPut" -> me.??(evalCache.shouldPut))
   }
 
-  private def blurs(game: Game, player: lila.game.Player) =
+  private def blurs(game: Game, player: lidraughts.game.Player) =
     !player.blurs.isEmpty option {
       blursWriter.writes(player.blurs) +
         ("percent" -> JsNumber(game.playerBlurPercent(player.color)))
     }
 
-  private def hold(player: lila.game.Player) = player.holdAlert map { h =>
+  private def hold(player: lidraughts.game.Player) = player.holdAlert map { h =>
     Json.obj(
       "ply" -> h.ply,
       "mean" -> h.mean,
@@ -254,12 +249,31 @@ final class JsonView(
   private def clockJson(clock: Clock): JsObject =
     clockWriter.writes(clock) + ("moretime" -> JsNumber(moretimeSeconds))
 
-  private def possibleMoves(pov: Pov): Option[Map[String, String]] =
+  private def possibleMoves(pov: Pov): Option[Map[String, String]] = {
+    logger.info(s"turnColor pov game: ${pov.game.turnColor}")
     (pov.game playableBy pov.player) option {
-      pov.game.situation.destinations map {
-        case (from, dests) => from.key -> dests.mkString
+      if (pov.game.situation.ghosts > 0) {
+        val move = pov.game.pdnMoves(pov.game.pdnMoves.length - 1)
+        val destPos = draughts.Pos.posAt(move.substring(move.lastIndexOf('x') + 1))
+        destPos match {
+          case Some(dest) =>
+            logger.info(s"Reconstructed $dest from $move")
+            Map(dest -> pov.game.situation.destinationsFrom(dest)) map {
+              case (from, dests) => from.key -> dests.mkString
+            }
+          case _ =>
+            logger.info(s"Could not parse lastMove from $move")
+            pov.game.situation.allDestinations map {
+              case (from, dests) => from.key -> dests.mkString
+            }
+        }
+      } else {
+        pov.game.situation.allDestinations map {
+          case (from, dests) => from.key -> dests.mkString
+        }
       }
     }
+  }
 
   private def possibleDrops(pov: Pov): Option[JsValue] = (pov.game playableBy pov.player) ?? {
     pov.game.situation.drops map { drops =>

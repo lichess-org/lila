@@ -1,35 +1,36 @@
-package lila.round
+package lidraughts.round
 
 import scala.concurrent.Promise
 import scala.util.Try
 
 import akka.actor._
 import akka.pattern.ask
-import chess.format.Uci
-import chess.{ Centis, MoveMetrics, Color }
+import draughts.format.Uci
+import draughts.{ Centis, MoveMetrics, Color }
 import play.api.libs.json.{ JsObject, Json }
 
 import actorApi._, round._
-import lila.common.IpAddress
-import lila.game.{ Pov, PovRef, GameRepo, Game }
-import lila.hub.actorApi.map._
-import lila.hub.actorApi.round.Berserk
-import lila.hub.actorApi.shutup.PublicSource
-import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.Handler
-import lila.socket.Socket.Uid
-import lila.user.User
-import lila.chat.Chat
+import lidraughts.chat.Chat
+import lidraughts.common.IpAddress
+import lidraughts.game.{ Pov, PovRef, Game }
+import lidraughts.hub.actorApi.map._
+import lidraughts.hub.actorApi.round.Berserk
+import lidraughts.hub.actorApi.shutup.PublicSource
+import lidraughts.socket.actorApi.{ Connected => _, _ }
+import lidraughts.socket.Handler
+import lidraughts.socket.Socket.Uid
+import lidraughts.user.User
+import lidraughts.chat.Chat
 import makeTimeout.short
 
 private[round] final class SocketHandler(
     roundMap: ActorRef,
     socketHub: ActorRef,
-    hub: lila.hub.Env,
+    hub: lidraughts.hub.Env,
     messenger: Messenger,
-    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
+    evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler,
     selfReport: SelfReport,
-    bus: lila.common.Bus
+    bus: lidraughts.common.Bus
 ) {
 
   private def controller(
@@ -49,7 +50,7 @@ private[round] final class SocketHandler(
       case ("talk", o) => o str "d" foreach { messenger.watcher(gameId, member, _) }
       case ("outoftime", _) => send(QuietFlag) // mobile app BC
       case ("flag", o) => clientFlag(o, none) foreach send
-    }: Handler.Controller) orElse evalCacheHandler(member, me) orElse lila.chat.Socket.in(
+    }: Handler.Controller) orElse evalCacheHandler(member, me) orElse lidraughts.chat.Socket.in(
       chatId = Chat.Id(s"$gameId/w"),
       member = member,
       socket = socket,
@@ -65,15 +66,6 @@ private[round] final class SocketHandler(
               case _: Exception => socket ! Resync(uid.value)
             }
             send(HumanPlay(playerId, move, blur, lag, promise.some))
-            member push ackEvent
-        }
-        case ("drop", o) => parseDrop(o) foreach {
-          case (drop, blur, lag) =>
-            val promise = Promise[Unit]
-            promise.future onFailure {
-              case _: Exception => socket ! Resync(uid.value)
-            }
-            send(HumanPlay(playerId, drop, blur, lag, promise.some))
             member push ackEvent
         }
         case ("rematch-yes", _) => send(RematchYes(playerId))
@@ -105,7 +97,7 @@ private[round] final class SocketHandler(
           d ← o obj "d"
           name ← d str "n"
         } selfReport(member.userId, member.ip, s"$gameId$playerId", name)
-      }: Handler.Controller) orElse lila.chat.Socket.in(
+      }: Handler.Controller) orElse lidraughts.chat.Socket.in(
         chatId = chat.fold(Chat.Id(gameId))(_.id),
         publicSource = chat.map(_.publicSource),
         member = member,
@@ -116,16 +108,12 @@ private[round] final class SocketHandler(
   }
 
   def watcher(
-    gameId: String,
-    colorName: String,
+    pov: Pov,
     uid: Uid,
     user: Option[User],
     ip: IpAddress,
     userTv: Option[String]
-  ): Fu[Option[JsSocketHandler]] =
-    GameRepo.pov(gameId, colorName) flatMap {
-      _ ?? { join(_, none, uid, user, ip, userTv = userTv) map some }
-    }
+  ): Fu[JsSocketHandler] = join(pov, none, uid, user, ip, userTv = userTv)
 
   def player(
     pov: Pov,
@@ -160,7 +148,7 @@ private[round] final class SocketHandler(
         case Connected(enum, member) =>
           // register to the TV channel when watching TV
           if (playerId.isEmpty && pov.game.isRecentTv)
-            hub.channel.tvSelect ! lila.socket.Channel.Sub(member)
+            hub.channel.tvSelect ! lidraughts.socket.Channel.Sub(member)
           (controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user), enum, member)
       }
     }
@@ -178,14 +166,6 @@ private[round] final class SocketHandler(
     prom = d str "promotion"
     move <- Uci.Move.fromStrings(orig, dest, prom)
   } yield move
-
-  private def parseDrop(o: JsObject) = for {
-    d ← o obj "d"
-    role ← d str "role"
-    pos ← d str "pos"
-    drop <- Uci.Drop.fromStrings(role, pos)
-    blur = d int "b" contains 1
-  } yield (drop, blur, parseLag(d))
 
   private def parseLag(d: JsObject) = MoveMetrics(
     d.int("l") orElse d.int("lag") map Centis.ofMillis,

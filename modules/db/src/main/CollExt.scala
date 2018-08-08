@@ -1,4 +1,4 @@
-package lila.db
+package lidraughts.db
 
 import scala.collection.breakOut
 import scala.collection.generic.CanBuildFrom

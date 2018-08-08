@@ -3,11 +3,11 @@ package controllers
 import play.api.data.Form
 import play.api.mvc._
 
-import lila.api.Context
-import lila.app._
-import lila.qa.{ QuestionId, Question, AnswerId, Answer, QaAuth }
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.qa.{ QuestionId, Question, AnswerId, Answer, QaAuth }
 
-trait QaController extends LilaController {
+trait QaController extends LidraughtsController {
 
   protected def api = Env.qa.api
   protected def forms = Env.qa.forms

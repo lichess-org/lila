@@ -1,21 +1,21 @@
-package lila.game
+package lidraughts.game
 
 import java.security.MessageDigest
-import lila.db.ByteArray
+import lidraughts.db.ByteArray
 import org.joda.time.DateTime
 
 private[game] case class Metadata(
     source: Option[Source],
-    pgnImport: Option[PgnImport],
+    pdnImport: Option[PdnImport],
     tournamentId: Option[String],
     simulId: Option[String],
     tvAt: Option[DateTime],
     analysed: Boolean
 ) {
 
-  def pgnDate = pgnImport flatMap (_.date)
+  def pdnDate = pdnImport flatMap (_.date)
 
-  def pgnUser = pgnImport flatMap (_.user)
+  def pdnUser = pdnImport flatMap (_.user)
 
   def isEmpty = this == Metadata.empty
 }
@@ -25,33 +25,33 @@ private[game] object Metadata {
   val empty = Metadata(None, None, None, None, None, false)
 }
 
-case class PgnImport(
+case class PdnImport(
     user: Option[String],
     date: Option[String],
-    pgn: String,
-    // hashed PGN for DB unicity
+    pdn: String,
+    // hashed PDN for DB unicity
     h: Option[ByteArray]
 )
 
-object PgnImport {
+object PdnImport {
 
-  def hash(pgn: String) = ByteArray {
+  def hash(pdn: String) = ByteArray {
     MessageDigest getInstance "MD5" digest
-      pgn.lines.map(_.replace(" ", "")).filter(_.nonEmpty).mkString("\n").getBytes("UTF-8") take 12
+      pdn.lines.map(_.replace(" ", "")).filter(_.nonEmpty).mkString("\n").getBytes("UTF-8") take 12
   }
 
   def make(
     user: Option[String],
     date: Option[String],
-    pgn: String
-  ) = PgnImport(
+    pdn: String
+  ) = PdnImport(
     user = user,
     date = date,
-    pgn = pgn,
-    h = hash(pgn).some
+    pdn = pdn,
+    h = hash(pdn).some
   )
 
   import reactivemongo.bson.Macros
   import ByteArray.ByteArrayBSONHandler
-  implicit val pgnImportBSONHandler = Macros.handler[PgnImport]
+  implicit val pdnImportBSONHandler = Macros.handler[PdnImport]
 }

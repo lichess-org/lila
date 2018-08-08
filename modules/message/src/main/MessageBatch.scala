@@ -1,11 +1,11 @@
-package lila.message
+package lidraughts.message
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 final class MessageBatch(
     coll: Coll,
-    notifyApi: lila.notify.NotifyApi
+    notifyApi: lidraughts.notify.NotifyApi
 ) {
 
   def apply(me: User, action: String, ids: List[String]): Funit = ids.nonEmpty ?? {
@@ -32,7 +32,7 @@ final class MessageBatch(
       _.map { thread =>
         ThreadRepo.deleteFor(me.id)(thread.id) zip
           notifyApi.remove(
-            lila.notify.Notification.Notifies(me.id),
+            lidraughts.notify.Notification.Notifies(me.id),
             $doc("content.thread.id" -> thread.id)
           ) void
       }.sequenceFu.void

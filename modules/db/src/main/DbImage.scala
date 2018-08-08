@@ -1,4 +1,4 @@
-package lila.db
+package lidraughts.db
 
 import com.roundeights.hasher.Implicits._
 import java.io.File

@@ -1,4 +1,4 @@
-package lila.study
+package lidraughts.study
 
 import scala.concurrent.duration._
 
@@ -7,30 +7,30 @@ import akka.pattern.ask
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
-import chess.format.pgn.Glyph
-import lila.chat.Chat
-import lila.common.PimpedJson._
-import lila.hub.actorApi.map._
-import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.Socket.makeMessage
-import lila.socket.Socket.Uid
-import lila.socket.{ Handler, AnaMove, AnaDrop, AnaAny }
-import lila.tree.Node.{ Shape, Shapes, Comment, Gamebook }
-import lila.user.User
+import draughts.format.pdn.Glyph
+import lidraughts.chat.Chat
+import lidraughts.common.PimpedJson._
+import lidraughts.hub.actorApi.map._
+import lidraughts.socket.actorApi.{ Connected => _, _ }
+import lidraughts.socket.Socket.makeMessage
+import lidraughts.socket.Socket.Uid
+import lidraughts.socket.{ Handler, AnaMove, AnaAny }
+import lidraughts.tree.Node.{ Shape, Shapes, Comment, Gamebook }
+import lidraughts.user.User
 import makeTimeout.short
 
 final class SocketHandler(
-    hub: lila.hub.Env,
+    hub: lidraughts.hub.Env,
     socketHub: ActorRef,
     chat: ActorSelection,
     api: StudyApi,
-    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler
+    evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler
 ) {
 
   import Handler.AnaRateLimit
   import JsonView.shapeReader
 
-  private val InviteLimitPerUser = new lila.memo.RateLimit[User.ID](
+  private val InviteLimitPerUser = new lidraughts.memo.RateLimit[User.ID](
     credits = 50,
     duration = 24 hour,
     name = "study invites per user",
@@ -75,9 +75,6 @@ final class SocketHandler(
       }
     }
     case ("anaMove", o) => AnaMove parse o foreach {
-      moveOrDrop(studyId, _, MoveOpts parse o, uid, member)
-    }
-    case ("anaDrop", o) => AnaDrop parse o foreach {
       moveOrDrop(studyId, _, MoveOpts parse o, uid, member)
     }
     case ("setPath", o) => AnaRateLimit(uid.value, member) {
@@ -242,7 +239,7 @@ final class SocketHandler(
       chapterId <- o.get[Chapter.Id]("d")
     } api.analysisRequest(studyId, chapterId, byUserId)
 
-  }: Handler.Controller) orElse evalCacheHandler(member, user) orElse lila.chat.Socket.in(
+  }: Handler.Controller) orElse evalCacheHandler(member, user) orElse lidraughts.chat.Socket.in(
     chatId = Chat.Id(studyId.value),
     member = member,
     socket = socket,

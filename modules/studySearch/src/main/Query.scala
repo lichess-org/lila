@@ -1,4 +1,4 @@
-package lila.studySearch
+package lidraughts.studySearch
 
 private[studySearch] case class Query(text: String, userId: Option[String])
 

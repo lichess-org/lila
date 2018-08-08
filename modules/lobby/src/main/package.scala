@@ -1,8 +1,8 @@
-package lila
+package lidraughts
 
-import lila.socket.WithSocket
+import lidraughts.socket.WithSocket
 
 package object lobby extends PackageObject with WithSocket {
 
-  private[lobby] def logger = lila.log("lobby")
+  private[lobby] def logger = lidraughts.log("lobby")
 }

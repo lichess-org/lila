@@ -1,25 +1,25 @@
-package lila.lobby
+package lidraughts.lobby
 
 import akka.actor._
 import scala.concurrent.duration._
 
 import actorApi._
-import lila.pool.{ PoolApi, PoolConfig }
-import lila.rating.RatingRange
-import lila.socket.Handler
-import lila.socket.Socket.Uid
-import lila.user.User
+import lidraughts.pool.{ PoolApi, PoolConfig }
+import lidraughts.rating.RatingRange
+import lidraughts.socket.Handler
+import lidraughts.socket.Socket.Uid
+import lidraughts.user.User
 import ornicar.scalalib.Zero
 
 private[lobby] final class SocketHandler(
-    hub: lila.hub.Env,
+    hub: lidraughts.hub.Env,
     lobby: ActorRef,
     socket: ActorRef,
     poolApi: PoolApi,
     blocking: String => Fu[Set[String]]
 ) {
 
-  private val HookPoolLimitPerMember = new lila.memo.RateLimit[String](
+  private val HookPoolLimitPerMember = new lidraughts.memo.RateLimit[String](
     credits = 25,
     duration = 1 minute,
     name = "lobby hook/pool per member",
@@ -62,17 +62,18 @@ private[lobby] final class SocketHandler(
         d <- o obj "d"
         id <- d str "id"
         ratingRange = d str "range" flatMap RatingRange.apply
+        blocking = d str "blocking"
       } {
         lobby ! CancelHook(member.uid) // in case there's one...
         poolApi.join(
           PoolConfig.Id(id),
           PoolApi.Joiner(
             userId = user.id,
-            socketId = lila.socket.Socket.Uid(member.uid),
+            socketId = lidraughts.socket.Socket.Uid(member.uid),
             ratingMap = user.perfMap.mapValues(_.rating),
             ratingRange = ratingRange,
             lame = user.lame,
-            blocking = user.blocking
+            blocking = user.blocking ++ blocking
           )
         )
       }

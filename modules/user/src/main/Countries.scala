@@ -1,4 +1,4 @@
-package lila.user
+package lidraughts.user
 
 import scala._
 import scala.collection.breakOut

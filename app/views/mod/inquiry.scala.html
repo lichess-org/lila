@@ -1,6 +1,6 @@
-@(in: lila.mod.Inquiry)(implicit ctx: Context)
+@(in: lidraughts.mod.Inquiry)(implicit ctx: Context)
 
-@renderReport(r: lila.report.Report) = {
+@renderReport(r: lidraughts.report.Report) = {
 <div class="doc report">
   @r.bestAtoms(10).toList.map { atom =>
   <div class="atom">
@@ -16,7 +16,7 @@
 </div>
 }
 
-@renderNote(r: lila.user.Note) = {
+@renderNote(r: lidraughts.user.Note) = {
 <div class="doc note">
   <h3>by @userIdLink(r.from.some, withOnline = false), @momentFromNow(r.date)</h3>
   <p>@richText(r.text)</p>
@@ -82,7 +82,7 @@
     <div class="dropper warn">
       <span class="icon" data-icon="e"></span>
       <div>
-        @lila.message.ModPreset.all.map { preset =>
+        @lidraughts.message.ModPreset.all.map { preset =>
         <form method="post" action="@routes.Mod.warn(in.user.username, preset.subject)">
           <input class="fbt" type="submit" value="@preset.subject" />
           @autoNextInput

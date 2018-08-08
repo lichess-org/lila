@@ -1,7 +1,7 @@
-package lila.game
+package lidraughts.game
 
-import lila.common.LightUser
-import lila.user.User
+import lidraughts.common.LightUser
+import lidraughts.user.User
 import play.twirl.api.Html
 
 object Namer {
@@ -11,7 +11,7 @@ object Namer {
 
   def player(p: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit lightUser: LightUser.GetterSync) = Html {
     p.aiLevel.fold(
-      p.userId.flatMap(lightUser).fold(lila.user.User.anonymous) { user =>
+      p.userId.flatMap(lightUser).fold(lidraughts.user.User.anonymous) { user =>
         val title = (user.title ifTrue withTitle) ?? { t =>
           s"""<span class="title" title="${User titleName t}">$t</span>&nbsp;"""
         }

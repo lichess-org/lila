@@ -27,11 +27,12 @@ const autoScroll = throttle(100, (el: HTMLElement, ctrl: RoundController) => {
 });
 
 function renderMove(step: Step, curPly: number, orEmpty?: boolean) {
-  if (!step) return orEmpty ? emptyMove() : nullMove();
-  const san = step.san[0] === 'P' ? step.san.slice(1) : step.san.replace('x', 'х');
-  return h('move', {
-    class: { active: step.ply === curPly }
-  }, san);
+    if (!step) return orEmpty ? emptyMove() : nullMove();
+    const isActive = step.ply === curPly;
+    const san = step.san[0] === 'P' ? step.san.slice(1) : step.san.replace('x', 'х');
+    return h('move', {
+        class: { active: isActive }
+    }, san);
 }
 
 function renderResult(ctrl: RoundController) {
@@ -67,28 +68,29 @@ function renderResult(ctrl: RoundController) {
 }
 
 function renderMoves(ctrl: RoundController): MaybeVNodes {
-  const steps = ctrl.data.steps,
-  firstPly = round.firstPly(ctrl.data),
-  lastPly = round.lastPly(ctrl.data);
-  if (typeof lastPly === 'undefined') return [];
+    const steps = ctrl.data.steps,
+        firstPly = round.firstPly(ctrl.data),
+        lastPly = round.lastPly(ctrl.data);
 
-  const pairs: Array<Array<any>> = [];
-  let startAt = 1;
-  if (firstPly % 2 === 1) {
-    pairs.push([null, steps[1]]);
-    startAt = 2;
-  }
-  for (let i = startAt; i < steps.length; i += 2) pairs.push([steps[i], steps[i + 1]]);
+    if (typeof lastPly === 'undefined') return [];
 
-  const els: MaybeVNodes = [], curPly = ctrl.ply;
-  for (let i = 0; i < pairs.length; i++) {
-    els.push(h('index', i + 1 + ''));
-    els.push(renderMove(pairs[i][0], curPly, true));
-    els.push(renderMove(pairs[i][1], curPly, false));
-  }
-  els.push(renderResult(ctrl));
+    const pairs: Array<Array<any>> = [];
+    let startAt = 1;
+    if (firstPly % 2 === 1) {
+        pairs.push([null, steps[1]]);
+        startAt = 2;
+    }
+    for (let i = startAt; i < steps.length; i += 2) pairs.push([steps[i], steps[i + 1]]);
 
-  return els;
+    const els: MaybeVNodes = [], curPly = ctrl.ply;
+    for (let i = 0; i < pairs.length; i++) {
+        els.push(h('index', i + 1 + ''));
+        els.push(renderMove(pairs[i][0], curPly, true));
+        els.push(renderMove(pairs[i][1], curPly, false));
+    }
+    els.push(renderResult(ctrl));
+
+    return els;
 }
 
 function analyseButton(ctrl: RoundController) {
@@ -132,51 +134,51 @@ function analyseButton(ctrl: RoundController) {
 }
 
 function renderButtons(ctrl: RoundController) {
-  const d = ctrl.data,
-  firstPly = round.firstPly(d),
-  lastPly = round.lastPly(d);
-  return h('div.buttons', {
-    hook: util.bind('mousedown', e => {
-      const target = e.target as HTMLElement;
-      const ply = parseInt(target.getAttribute('data-ply') || '');
-      if (!isNaN(ply)) ctrl.userJump(ply);
-      else {
-        const action = target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
-        if (action === 'flip') {
-          if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
-          else if (d.player.spectator) location.href = router.game(d, d.opponent.color);
-          else ctrl.flipNow();
-        }
-      }
-    }, ctrl.redraw)
-  }, [
-    h('button.fbt.flip.hint--top', {
-      class: { active: ctrl.flip },
-      attrs: {
-        'data-hint': ctrl.trans('flipBoard'),
-        'data-act': 'flip'
-      }
+    const d = ctrl.data,
+        firstPly = round.firstPly(d),
+        lastPly = round.lastPly(d);
+    return h('div.buttons', {
+        hook: util.bind('mousedown', e => {
+            const target = e.target as HTMLElement;
+            const ply = parseInt(target.getAttribute('data-ply') || '');
+            if (!isNaN(ply)) ctrl.userJump(ply);
+            else {
+                const action = target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
+                if (action === 'flip') {
+                    if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
+                    else if (d.player.spectator) location.href = router.game(d, d.opponent.color);
+                    else ctrl.flipNow();
+                }
+            }
+        }, ctrl.redraw)
     }, [
-      h('span', util.justIcon('B'))
-    ]),
-    h('nav', [
-      ['W', firstPly],
-      ['Y', ctrl.ply - 1],
-      ['X', ctrl.ply + 1],
-      ['V', lastPly]
-    ].map((b, i) => {
-      const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
-      return h('button.fbt', {
-        class: { glowed: i === 3 && ctrl.isLate() },
-        attrs: {
-          disabled: !enabled,
-          'data-icon': b[0],
-          'data-ply': enabled ? b[1] : '-'
-        }
-      });
-    })),
-    ...(game.userAnalysable(d) ? analyseButton(ctrl) : [h('div.noop')])
-  ]);
+            h('button.fbt.flip.hint--top', {
+                class: { active: ctrl.flip },
+                attrs: {
+                    'data-hint': ctrl.trans('flipBoard'),
+                    'data-act': 'flip'
+                }
+            }, [
+                    h('span', util.justIcon('B'))
+                ]),
+            h('nav', [
+                ['W', firstPly],
+                ['Y', ctrl.ply - 1],
+                ['X', ctrl.ply + 1],
+                ['V', lastPly]
+            ].map((b, i) => {
+                const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
+                return h('button.fbt', {
+                    class: { glowed: i === 3 && ctrl.isLate() },
+                    attrs: {
+                        disabled: !enabled,
+                        'data-icon': b[0],
+                        'data-ply': enabled ? b[1] : '-'
+                    }
+                });
+            })),
+            ...(game.userAnalysable(d) ? analyseButton(ctrl) : [h('div.noop')])
+        ]);
 }
 
 function racingKingsInit(d: RoundData) {

@@ -81,7 +81,7 @@ export const renderers: Renderers = {
   titledTourney: {
     html: n => generic(n, '/tournament/' + n.content.id, 'g', [
       h('span', [
-        h('strong', 'Lichess Titled Tournament'),
+        h('strong', 'Lidraughts Titled Tournament'),
         drawTime(n)
       ]),
       h('span', n.content.text)
@@ -139,9 +139,9 @@ export const renderers: Renderers = {
         h('strong', 'Thank you!'),
         drawTime(n)
       ]),
-      h('span', 'You just became a lichess Patron.')
+      h('span', 'You just became a lidraughts Patron.')
     ]),
-    text: _ => 'You just became a lichess Patron.'
+    text: _ => 'You just became a lidraughts Patron.'
   },
   planExpire: {
     html: n => generic(n, '/patron', '', [
@@ -218,7 +218,7 @@ function drawTime(n: Notification) {
       title: date.toLocaleString(),
       datetime: n.date
     }
-  }, window.lichess.timeago.format(date));
+  }, window.lidraughts.timeago.format(date));
 }
 
 function userFullName(u?: LightUser) {

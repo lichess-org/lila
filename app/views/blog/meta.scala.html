@@ -1,4 +1,4 @@
-@(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context)
+@(doc: io.prismic.Document)(implicit ctx: Context, prismic: lidraughts.blog.BlogApi.Context)
 <div class="meta">
   @doc.getDate("blog.date").map { date =>
   <span data-icon="p"> @semanticDate(date.value.toDateTimeAtStartOfDay)</span>

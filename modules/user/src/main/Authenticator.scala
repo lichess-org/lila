@@ -1,11 +1,11 @@
-package lila.user
+package lidraughts.user
 
 import com.roundeights.hasher.Implicits._
 import reactivemongo.bson._
 
-import lila.common.EmailAddress
-import lila.db.dsl._
-import lila.user.User.{ ClearPassword, BSONFields => F }
+import lidraughts.common.EmailAddress
+import lidraughts.db.dsl._
+import lidraughts.user.User.{ ClearPassword, BSONFields => F }
 
 final class Authenticator(
     passHasher: PasswordHasher,
@@ -47,7 +47,7 @@ final class Authenticator(
   private def authWithBenefits(auth: AuthData)(p: ClearPassword): Boolean = {
     val res = compare(auth, p)
     if (res && auth.salt.isDefined)
-      setPassword(id = auth._id, p) >>- lila.mon.user.auth.bcFullMigrate()
+      setPassword(id = auth._id, p) >>- lidraughts.mon.user.auth.bcFullMigrate()
     res
   }
 

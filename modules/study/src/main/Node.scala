@@ -1,20 +1,17 @@
-package lila.study
+package lidraughts.study
 
-import chess.format.pgn.{ Glyph, Glyphs }
-import chess.format.{ Uci, UciCharPair, FEN }
-import chess.variant.Crazyhouse
+import draughts.format.pdn.{ Glyph, Glyphs }
+import draughts.format.{ Uci, UciCharPair, FEN }
 
-import chess.Centis
-import lila.tree.Eval.Score
-import lila.tree.Node.{ Shapes, Comment, Comments, Gamebook }
+import draughts.Centis
+import lidraughts.tree.Eval.Score
+import lidraughts.tree.Node.{ Shapes, Comment, Comments, Gamebook }
 
 sealed trait RootOrNode {
   val ply: Int
   val fen: FEN
-  val check: Boolean
   val shapes: Shapes
   val clock: Option[Centis]
-  val crazyData: Option[Crazyhouse.Data]
   val children: Node.Children
   val comments: Comments
   val gamebook: Option[Gamebook]
@@ -23,7 +20,7 @@ sealed trait RootOrNode {
   def addChild(node: Node): RootOrNode
   def fullMoveNumber = 1 + ply / 2
   def mainline: List[Node]
-  def color = chess.Color(ply % 2 == 0)
+  def color = draughts.Color(ply % 2 == 0)
 }
 
 case class Node(
@@ -31,14 +28,12 @@ case class Node(
     ply: Int,
     move: Uci.WithSan,
     fen: FEN,
-    check: Boolean,
     shapes: Shapes = Shapes(Nil),
     comments: Comments = Comments(Nil),
     gamebook: Option[Gamebook] = None,
     glyphs: Glyphs = Glyphs.empty,
     score: Option[Score] = None,
     clock: Option[Centis],
-    crazyData: Option[Crazyhouse.Data],
     children: Node.Children
 ) extends RootOrNode {
 
@@ -82,13 +77,43 @@ case class Node(
   )
 
   def merge(n: Node): Node = copy(
+    move = n.move,
     shapes = shapes ++ n.shapes,
     comments = comments ++ n.comments,
     gamebook = n.gamebook orElse gamebook,
     glyphs = glyphs merge n.glyphs,
     score = n.score orElse score,
     clock = n.clock orElse clock,
-    crazyData = n.crazyData orElse crazyData,
+    children = n.children.nodes.foldLeft(children) {
+      case (cs, c) => children addNode c
+    }
+  )
+
+  def findNextAmbiguity(children: Vector[Node]): Node = {
+    var ambNode = this
+    var amb = 1
+    do {
+      ambNode = ambNode.setAmbiguity(amb)
+      amb += 1
+    } while (children exists { n => n.id == ambNode.id })
+    ambNode
+  }
+
+  def setAmbiguity(ambiguity: Int): Node = copy(
+    id = UciCharPair(id.a, ambiguity)
+  )
+
+  def mergeCapture(n: Node): Node = copy(
+    id = UciCharPair(id.a, n.id.b),
+    ply = n.ply,
+    move = Uci.WithSan(Uci(move.uci.uci + n.move.uci.uci.drop(2)).getOrElse(Uci.Move(move.uci.origDest._1, n.move.uci.origDest._2)), move.san.substring(0, move.san.indexOf("x")) + n.move.san.substring(n.move.san.indexOf("x"))),
+    fen = n.fen,
+    shapes = shapes ++ n.shapes,
+    comments = comments ++ n.comments,
+    gamebook = n.gamebook orElse gamebook,
+    glyphs = glyphs merge n.glyphs,
+    score = n.score orElse score,
+    clock = n.clock orElse clock,
     children = n.children.nodes.foldLeft(children) {
       case (cs, c) => children addNode c
     }
@@ -127,6 +152,15 @@ object Node {
       case Some((_, Path(Nil))) => none
       case Some((head, tail)) => updateChildren(head, _.deleteNodeAt(tail))
     }
+
+    def deleteSanAt(path: Path, san: String): Option[Children] = path.split match {
+      case None => none
+      case Some((head, Path(Nil))) if has(head) => updateChildren(head, _.deleteSan(san))
+      case Some((_, Path(Nil))) => none
+      case Some((head, tail)) => updateChildren(head, _.deleteSanAt(tail, san))
+    }
+
+    def deleteSan(san: String): Option[Children] = Children(nodes.filterNot(_.move.san == san)).some
 
     def promoteToMainlineAt(path: Path): Option[Children] = path.split match {
       case None => this.some
@@ -198,20 +232,23 @@ object Node {
           case (node, index) => node.children.pathToIndexes(tail).map(rest => index :: rest)
         }
       }
+
+    def countRecursive: Int = nodes.foldLeft(nodes.size) {
+      case (count, n) => count + n.children.countRecursive
+    }
+
   }
   val emptyChildren = Children(Vector.empty)
 
   case class Root(
       ply: Int,
       fen: FEN,
-      check: Boolean,
       shapes: Shapes = Shapes(Nil),
       comments: Comments = Comments(Nil),
       gamebook: Option[Gamebook] = None,
       glyphs: Glyphs = Glyphs.empty,
       score: Option[Score] = None,
       clock: Option[Centis],
-      crazyData: Option[Crazyhouse.Data],
       children: Children
   ) extends RootOrNode {
 
@@ -226,6 +263,9 @@ object Node {
 
     def nodeAt(path: Path): Option[RootOrNode] =
       if (path.isEmpty) this.some else children nodeAt path
+
+    def nodeAtStrict(path: Path): Option[Node] =
+      if (path.isEmpty) None else children nodeAt path
 
     def pathExists(path: Path): Boolean = nodeAt(path).isDefined
 
@@ -277,32 +317,26 @@ object Node {
 
   object Root {
 
-    def default(variant: chess.variant.Variant) = Root(
+    def default(variant: draughts.variant.Variant) = Root(
       ply = 0,
       fen = FEN(variant.initialFen),
-      check = false,
       clock = none,
-      crazyData = variant.crazyhouse option Crazyhouse.Data.init,
       children = emptyChildren
     )
 
-    def fromRoot(b: lila.tree.Root): Root = Root(
+    def fromRoot(b: lidraughts.tree.Root): Root = Root(
       ply = b.ply,
       fen = FEN(b.fen),
-      check = b.check,
       clock = b.clock,
-      crazyData = b.crazyData,
       children = Children(b.children.map(fromBranch)(scala.collection.breakOut))
     )
   }
 
-  def fromBranch(b: lila.tree.Branch): Node = Node(
+  def fromBranch(b: lidraughts.tree.Branch): Node = Node(
     id = b.id,
     ply = b.ply,
     move = b.move,
     fen = FEN(b.fen),
-    check = b.check,
-    crazyData = b.crazyData,
     clock = b.clock,
     children = Children(b.children.map(fromBranch)(scala.collection.breakOut))
   )

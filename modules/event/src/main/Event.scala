@@ -1,4 +1,4 @@
-package lila.event
+package lidraughts.event
 
 import org.joda.time.DateTime
 import play.api.i18n.Lang

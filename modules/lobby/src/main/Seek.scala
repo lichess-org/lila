@@ -1,15 +1,15 @@
-package lila.lobby
+package lidraughts.lobby
 
-import chess.{ Mode, Speed }
+import draughts.{ Mode, Speed }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
 
-import lila.game.PerfPicker
-import lila.rating.RatingRange
-import lila.user.User
+import lidraughts.game.PerfPicker
+import lidraughts.rating.RatingRange
+import lidraughts.user.User
 
-// correspondence chess, persistent
+// correspondence draughts, persistent
 case class Seek(
     _id: String,
     variant: Int,
@@ -25,7 +25,7 @@ case class Seek(
 
   val realColor = Color orDefault color
 
-  val realVariant = chess.variant.Variant orDefault variant
+  val realVariant = draughts.variant.Variant orDefault variant
 
   val realMode = Mode orDefault mode
 
@@ -58,7 +58,7 @@ case class Seek(
     ),
     "mode" -> realMode.id,
     "days" -> daysPerTurn,
-    "color" -> chess.Color(color).??(_.name),
+    "color" -> draughts.Color(color).??(_.name),
     "perf" -> Json.obj(
       "icon" -> perfType.map(_.iconChar.toString),
       "name" -> perfType.map(_.name)
@@ -73,7 +73,7 @@ object Seek {
   val idSize = 8
 
   def make(
-    variant: chess.variant.Variant,
+    variant: draughts.variant.Variant,
     daysPerTurn: Option[Int],
     mode: Mode,
     color: String,
@@ -103,8 +103,8 @@ object Seek {
   )
 
   import reactivemongo.bson._
-  import lila.db.BSON.MapValue.MapHandler
-  import lila.db.BSON.BSONJodaDateTimeHandler
+  import lidraughts.db.BSON.MapValue.MapHandler
+  import lidraughts.db.BSON.BSONJodaDateTimeHandler
   implicit val lobbyPerfBSONHandler = new BSONHandler[BSONInteger, LobbyPerf] {
     def read(b: BSONInteger) = LobbyPerf(b.value.abs, b.value < 0)
     def write(x: LobbyPerf) = BSONInteger(x.rating * x.provisional.fold(-1, 1))

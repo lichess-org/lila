@@ -1,6 +1,6 @@
-package lila
+package lidraughts
 
 package object insight extends PackageObject {
 
-  private[insight] def logger = lila.log("insight")
+  private[insight] def logger = lidraughts.log("insight")
 }

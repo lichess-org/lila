@@ -1,12 +1,12 @@
-package lila.app
+package lidraughts.app
 package templating
 
 import controllers.routes
 import play.twirl.api.Html
 
-import lila.api.Context
-import lila.team.Env.{ current => teamEnv }
-import lila.common.String.html.escapeHtml
+import lidraughts.api.Context
+import lidraughts.team.Env.{ current => teamEnv }
+import lidraughts.common.String.html.escapeHtml
 
 trait TeamHelper {
 

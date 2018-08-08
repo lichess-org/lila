@@ -1,19 +1,19 @@
-package lila.analyse
+package lidraughts.analyse
 
-import chess.format.pgn.{ Pgn, Tag, Turn, Move, Glyphs }
-import chess.opening._
-import chess.{ Status, Color, Clock }
+import draughts.format.pdn.{ Pdn, Tag, Turn, Move, Glyphs }
+import draughts.opening._
+import draughts.{ Status, Color, Clock }
 
 private[analyse] final class Annotator(netDomain: String) {
 
   def apply(
-    p: Pgn,
+    p: Pdn,
     analysis: Option[Analysis],
     opening: Option[FullOpening.AtPly],
     winner: Option[Color],
     status: Status,
     clock: Option[Clock]
-  ): Pgn =
+  ): Pdn =
     annotateStatus(winner, status) {
       annotateOpening(opening) {
         annotateTurns(p, analysis ?? (_.advices))
@@ -22,19 +22,19 @@ private[analyse] final class Annotator(netDomain: String) {
       )
     }
 
-  private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) =
-    lila.game.StatusText(status, winner, chess.variant.Standard) match {
+  private def annotateStatus(winner: Option[Color], status: Status)(p: Pdn) =
+    lidraughts.game.StatusText(status, winner, draughts.variant.Standard) match {
       case "" => p
       case text => p.updateLastPly(_.copy(result = text.some))
     }
 
-  private def annotateOpening(opening: Option[FullOpening.AtPly])(p: Pgn) = opening.fold(p) { o =>
+  private def annotateOpening(opening: Option[FullOpening.AtPly])(p: Pdn) = opening.fold(p) { o =>
     p.updatePly(o.ply, _.copy(opening = o.opening.ecoName.some))
   }
 
-  private def annotateTurns(p: Pgn, advices: List[Advice]): Pgn =
+  private def annotateTurns(p: Pdn, advices: List[Advice]): Pdn =
     advices.foldLeft(p) {
-      case (pgn, advice) => pgn.updateTurn(advice.turn, turn =>
+      case (pdn, advice) => pdn.updateTurn(advice.turn, turn =>
         turn.update(advice.color, move =>
           move.copy(
             glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),

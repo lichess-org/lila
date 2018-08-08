@@ -1,12 +1,12 @@
-package lila.playban
+package lidraughts.playban
 
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 
-import chess.Color
-import lila.game.Game
-import lila.message.{ MessageApi, ModPreset }
-import lila.user.{ User, UserRepo }
+import draughts.Color
+import lidraughts.game.Game
+import lidraughts.message.{ MessageApi, ModPreset }
+import lidraughts.user.{ User, UserRepo }
 
 private final class SandbagWatch(messenger: MessageApi) {
 
@@ -23,11 +23,11 @@ private final class SandbagWatch(messenger: MessageApi) {
   }
 
   private def sendMessage(userId: User.ID): Funit = for {
-    mod <- UserRepo.lichess
+    mod <- UserRepo.Lidraughts
     user <- UserRepo byId userId
   } yield (mod zip user).headOption.?? {
     case (m, u) =>
-      lila.log("sandbag").info(s"https://lichess.org/@/${u.username}")
+      lidraughts.log("sandbag").info(s"https://lidraughts.org/@/${u.username}")
       messenger.sendPreset(m, u, ModPreset.sandbagAuto).void
   }
 
@@ -48,8 +48,7 @@ private final class SandbagWatch(messenger: MessageApi) {
     }
 
   private def isSandbag(game: Game): Boolean = game.turns <= {
-    if (game.variant == chess.variant.Atomic) 3
-    else 6
+    6
   }
 }
 

@@ -1,20 +1,20 @@
-package lila.study
+package lidraughts.study
 
 import akka.actor._
 import akka.pattern.ask
 
-import lila.hub.actorApi.HasUserId
-import lila.notify.{ InvitedToStudy, NotifyApi, Notification }
-import lila.pref.Pref
-import lila.relation.{ Block, Follow }
-import lila.user.{ User, UserRepo }
+import lidraughts.hub.actorApi.HasUserId
+import lidraughts.notify.{ InvitedToStudy, NotifyApi, Notification }
+import lidraughts.pref.Pref
+import lidraughts.relation.{ Block, Follow }
+import lidraughts.user.{ User, UserRepo }
 import makeTimeout.short
 
 private final class StudyInvite(
     studyRepo: StudyRepo,
     notifyApi: NotifyApi,
     getPref: User => Fu[Pref],
-    getRelation: (User.ID, User.ID) => Fu[Option[lila.relation.Relation]]
+    getRelation: (User.ID, User.ID) => Fu[Option[lidraughts.relation.Relation]]
 ) {
 
   private val maxMembers = 30

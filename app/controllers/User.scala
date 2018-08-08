@@ -4,19 +4,19 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
-import lila.api.{ Context, BodyContext }
-import lila.app._
-import lila.app.mashup.{ GameFilterMenu, GameFilter }
-import lila.common.paginator.Paginator
-import lila.common.PimpedJson._
-import lila.common.{ IpAddress, HTTPRequest }
-import lila.game.{ GameRepo, Game => GameModel }
-import lila.rating.PerfType
-import lila.socket.UserLagCache
-import lila.user.{ User => UserModel, UserRepo }
+import lidraughts.api.{ Context, BodyContext }
+import lidraughts.app._
+import lidraughts.app.mashup.{ GameFilterMenu, GameFilter }
+import lidraughts.common.paginator.Paginator
+import lidraughts.common.PimpedJson._
+import lidraughts.common.{ IpAddress, HTTPRequest }
+import lidraughts.game.{ GameRepo, Game => GameModel }
+import lidraughts.rating.PerfType
+import lidraughts.socket.UserLagCache
+import lidraughts.user.{ User => UserModel, UserRepo }
 import views._
 
-object User extends LilaController {
+object User extends LidraughtsController {
 
   private def env = Env.user
   private def relationApi = Env.relation.api
@@ -129,10 +129,10 @@ object User extends LilaController {
               .withHeaders(CACHE_CONTROL -> "max-age=5")
           },
           api = _ => {
-            import lila.game.JsonView.crosstableWrites
+            import lidraughts.game.JsonView.crosstableWrites
             fuccess(Ok(Json.obj(
               "crosstable" -> crosstable,
-              "perfs" -> lila.user.JsonView.perfs(user, user.best8Perfs)
+              "perfs" -> lidraughts.user.JsonView.perfs(user, user.best8Perfs)
             )))
           }
         )
@@ -151,7 +151,7 @@ object User extends LilaController {
     )
   }
 
-  private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private val UserGamesRateLimitPerIP = new lidraughts.memo.RateLimit[IpAddress](
     credits = 500,
     duration = 10 minutes,
     name = "user games web/mobile per IP",
@@ -167,7 +167,7 @@ object User extends LilaController {
     page: Int
   )(implicit ctx: BodyContext[_]): Fu[Paginator[GameModel]] = {
     UserGamesRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = page, msg = s"on ${u.username}") {
-      lila.mon.http.userGames.cost(page)
+      lidraughts.mon.http.userGames.cost(page)
       GameFilterMenu.paginatorOf(
         userGameSearch = userGameSearch,
         user = u,
@@ -208,14 +208,7 @@ object User extends LilaController {
             "blitz" -> leaderboards.blitz,
             "rapid" -> leaderboards.rapid,
             "classical" -> leaderboards.classical,
-            "crazyhouse" -> leaderboards.crazyhouse,
-            "chess960" -> leaderboards.chess960,
-            "kingOfTheHill" -> leaderboards.kingOfTheHill,
-            "threeCheck" -> leaderboards.threeCheck,
-            "antichess" -> leaderboards.antichess,
-            "atomic" -> leaderboards.atomic,
-            "horde" -> leaderboards.horde,
-            "racingKings" -> leaderboards.racingKings
+            "frisian" -> leaderboards.frisian
           ))
         }
       )
@@ -240,6 +233,15 @@ object User extends LilaController {
   }
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx => me =>
+    modZoneOrRedirect(username, me)
+  }
+
+  protected[controllers] def modZoneOrRedirect(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
+    if (HTTPRequest isSynchronousHttp ctx.req) fuccess(Mod.redirect(username))
+    else if (Env.streamer.liveStreamApi.isStreaming(me.id)) fuccess(Ok("Disabled while streaming"))
+    else renderModZone(username, me)
+
+  protected[controllers] def renderModZone(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
     OptionFuOk(UserRepo named username) { user =>
       UserRepo.emails(user.id) zip
         (Env.security userSpy user) zip
@@ -247,9 +249,8 @@ object User extends LilaController {
         Env.mod.logApi.userHistory(user.id) zip
         Env.plan.api.recentChargesOf(user) zip
         Env.report.api.byAndAbout(user, 20) zip
-        Env.pref.api.getPref(user) zip
-        Env.irwin.api.status(user) flatMap {
-          case emails ~ spy ~ assess ~ history ~ charges ~ reports ~ pref ~ irwin =>
+        Env.pref.api.getPref(user) flatMap {
+          case emails ~ spy ~ assess ~ history ~ charges ~ reports ~ pref =>
             val familyUserIds = user.id :: spy.otherUserIds.toList
             Env.playban.api.bans(familyUserIds) zip
               Env.user.noteApi.forMod(familyUserIds) zip
@@ -257,11 +258,10 @@ object User extends LilaController {
                 reports.userIds ::: assess.??(_.games).flatMap(_.userIds)
               } map {
                 case bans ~ notes ~ _ =>
-                  html.user.mod(user, emails, spy, assess, bans, history, charges, reports, pref, irwin, notes)
+                  html.user.mod(user, emails, spy, assess, bans, history, charges, reports, pref, notes)
               }
         }
     }
-  }
 
   def writeNote(username: String) = AuthBody { implicit ctx => me =>
     OptionFuResult(UserRepo named username) { user =>
@@ -280,7 +280,7 @@ object User extends LilaController {
       followables <- Env.pref.api.followables(ops map (_._1.id))
       relateds <- ops.zip(followables).map {
         case ((u, nb), followable) => relationApi.fetchRelation(me.id, u.id) map {
-          lila.relation.Related(u, nb.some, followable, _)
+          lidraughts.relation.Related(u, nb.some, followable, _)
         }
       }.sequenceFu
     } yield html.user.opponents(me, relateds)
@@ -312,7 +312,7 @@ object User extends LilaController {
   }
 
   def autocomplete = Open { implicit ctx =>
-    get("term", ctx.req).filter(_.nonEmpty) match {
+    get("term", ctx.req).filter(_.nonEmpty).filter(lidraughts.user.User.couldBeUsername) match {
       case None => BadRequest("No search term provided").fuccess
       case Some(term) if getBool("exists") => UserRepo nameExists term map { r => Ok(JsBoolean(r)) }
       case Some(term) => {
@@ -331,7 +331,7 @@ object User extends LilaController {
         if (getBool("object")) Env.user.lightUserApi.asyncMany(userIds) map { users =>
           Json.obj(
             "result" -> JsArray(users.flatten.map { u =>
-              lila.common.LightUser.lightUserWrites.writes(u).add("online" -> Env.user.isOnline(u.id))
+              lidraughts.common.LightUser.lightUserWrites.writes(u).add("online" -> Env.user.isOnline(u.id))
             })
           )
         }

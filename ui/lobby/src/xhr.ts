@@ -1,5 +1,5 @@
 const headers = {
-  'Accept': 'application/vnd.lichess.v2+json'
+  'Accept': 'application/vnd.lidraughts.v2+json'
 };
 
 export function seeks() {
@@ -21,7 +21,7 @@ export function nowPlaying() {
 export function anonPoolSeek(pool) {
   return $.ajax({
     method: 'POST',
-    url: '/setup/hook/' + window.lichess.StrongSocket.sri,
+    url: '/setup/hook/' + window.lidraughts.StrongSocket.sri,
     data: {
       variant: 1,
       timeMode: 1,

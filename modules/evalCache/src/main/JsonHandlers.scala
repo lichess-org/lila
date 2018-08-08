@@ -1,11 +1,11 @@
-package lila.evalCache
+package lidraughts.evalCache
 
 import play.api.libs.json._
 
-import chess.format.{ Uci, FEN }
+import draughts.format.{ Uci, FEN }
 import EvalCacheEntry._
-import lila.common.PimpedJson._
-import lila.tree.Eval._
+import lidraughts.common.PimpedJson._
+import lidraughts.tree.Eval._
 
 object JsonHandlers {
 
@@ -28,7 +28,7 @@ object JsonHandlers {
 
   def readPut(trustedUser: TrustedUser, o: JsObject): Option[Input.Candidate] = for {
     d <- o obj "d"
-    variant = chess.variant.Variant orDefault ~d.str("variant")
+    variant = draughts.variant.Variant orDefault ~d.str("variant")
     fen <- d str "fen"
     knodes <- d int "knodes"
     depth <- d int "depth"

@@ -1,10 +1,10 @@
-package lila.perfStat
+package lidraughts.perfStat
 
 import reactivemongo.bson._
 
-import lila.db.dsl._
-import lila.rating.BSONHandlers.perfTypeIdHandler
-import lila.rating.PerfType
+import lidraughts.db.dsl._
+import lidraughts.rating.BSONHandlers.perfTypeIdHandler
+import lidraughts.rating.PerfType
 
 final class PerfStatStorage(coll: Coll) {
 

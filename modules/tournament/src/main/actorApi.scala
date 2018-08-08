@@ -1,9 +1,9 @@
-package lila.tournament
+package lidraughts.tournament
 package actorApi
 
-import lila.game.Game
-import lila.socket.SocketMember
-import lila.user.User
+import lidraughts.game.Game
+import lidraughts.socket.SocketMember
+import lidraughts.user.User
 
 private[tournament] case class Member(
     channel: JsChannel,
@@ -22,7 +22,7 @@ private[tournament] object Member {
 private[tournament] case class Messadata(trollish: Boolean = false)
 
 private[tournament] case class Join(
-    uid: lila.socket.Socket.Uid,
+    uid: lidraughts.socket.Socket.Uid,
     user: Option[User]
 )
 private[tournament] case class Talk(tourId: String, u: String, t: String, troll: Boolean)

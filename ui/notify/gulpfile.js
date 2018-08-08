@@ -15,7 +15,7 @@ function onError(error) {
 
 function build(debug) {
   return browserify('src/main.ts', {
-      standalone: 'LichessNotify',
+      standalone: 'LidraughtsNotify',
       debug: debug
     })
     .plugin(tsify);
@@ -27,7 +27,7 @@ function bundle() {
   return watchedBrowserify
     .bundle()
     .on('error', onError)
-    .pipe(source('lichess.notify.js'))
+    .pipe(source('lidraughts.notify.js'))
     .pipe(buffer())
     .pipe(gulp.dest(destination));
 }
@@ -39,14 +39,14 @@ watchedBrowserify.on("log", gutil.log);
 gulp.task('dev', function() {
   return build(true)
     .bundle()
-    .pipe(source('lichess.notify.js'))
+    .pipe(source('lidraughts.notify.js'))
     .pipe(gulp.dest(destination));
 });
 
 gulp.task("prod", [], function() {
   return build(false)
     .bundle()
-    .pipe(source('lichess.notify.min.js'))
+    .pipe(source('lidraughts.notify.min.js'))
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest(destination));

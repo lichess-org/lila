@@ -1,4 +1,4 @@
-package lila.relay
+package lidraughts.relay
 
 import play.api.libs.json._
 
@@ -31,7 +31,7 @@ object JsonView {
 
   case class JsData(relay: JsObject, study: JsObject, analysis: JsObject)
 
-  def makeData(relay: Relay, studyData: lila.study.JsonView.JsData) = JsData(
+  def makeData(relay: Relay, studyData: lidraughts.study.JsonView.JsData) = JsData(
     relay = relayWrites writes relay,
     study = studyData.study,
     analysis = studyData.analysis

@@ -1,24 +1,24 @@
-package lila.notify
+package lidraughts.notify
 
 import scala.concurrent.duration._
 
-import lila.common.paginator.Paginator
-import lila.db.dsl._
-import lila.db.paginator.Adapter
-import lila.hub.actorApi.SendTo
-import lila.user.UserRepo
+import lidraughts.common.paginator.Paginator
+import lidraughts.db.dsl._
+import lidraughts.db.paginator.Adapter
+import lidraughts.hub.actorApi.SendTo
+import lidraughts.user.UserRepo
 
 final class NotifyApi(
-    bus: lila.common.Bus,
+    bus: lidraughts.common.Bus,
     jsonHandlers: JSONHandlers,
     repo: NotificationRepo,
-    asyncCache: lila.memo.AsyncCache.Builder
+    asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
   import BSONHandlers.NotificationBSONHandler
   import jsonHandlers._
 
-  val perPage = lila.common.MaxPerPage(7)
+  val perPage = lidraughts.common.MaxPerPage(7)
 
   def getNotifications(userId: Notification.Notifies, page: Int): Fu[Paginator[Notification]] = Paginator(
     adapter = new Adapter(
@@ -72,7 +72,7 @@ final class NotifyApi(
         case InvitedToStudy(invitedBy, _, studyId) => repo.hasRecentStudyInvitation(notification.notifies, studyId)
         case PrivateMessage(_, thread, _) => repo.hasRecentPrivateMessageFrom(notification.notifies, thread)
         case QaAnswer(_, question, _) => repo.hasRecentQaAnswer(notification.notifies, question)
-        case _ => fuccess(false)
+        case _ => fuFalse
       }
     }
 

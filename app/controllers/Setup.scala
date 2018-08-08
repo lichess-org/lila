@@ -5,24 +5,24 @@ import play.api.libs.json.Json
 import play.api.mvc.{ Result, Results }
 import scala.concurrent.duration._
 
-import lila.api.{ Context, BodyContext }
-import lila.app._
-import lila.common.{ HTTPRequest, LilaCookie, IpAddress }
-import lila.game.{ GameRepo, Pov, AnonCookie }
-import lila.setup.Processor.HookResult
-import lila.setup.ValidFen
-import lila.user.UserRepo
+import lidraughts.api.{ Context, BodyContext }
+import lidraughts.app._
+import lidraughts.common.{ HTTPRequest, LidraughtsCookie, IpAddress }
+import lidraughts.game.{ GameRepo, Pov, AnonCookie }
+import lidraughts.setup.Processor.HookResult
+import lidraughts.setup.ValidFen
+import lidraughts.user.UserRepo
 import views._
 
-object Setup extends LilaController with TheftPrevention {
+object Setup extends LidraughtsController with TheftPrevention {
 
   private def env = Env.setup
 
-  private val PostRateLimit = new lila.memo.RateLimit[IpAddress](5, 1 minute,
+  private val PostRateLimit = new lidraughts.memo.RateLimit[IpAddress](5, 1 minute,
     name = "setup post",
     key = "setup_post")
 
-  def aiForm = Open { implicit ctx =>
+  /*def aiForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req) {
       env.forms aiFilled get("fen") map { form =>
         html.setup.ai(
@@ -38,7 +38,7 @@ object Setup extends LilaController with TheftPrevention {
 
   def ai = process(env.forms.ai) { config => implicit ctx =>
     env.processor ai config
-  }
+  }*/
 
   def friendForm(userId: Option[String]) = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req)
@@ -47,7 +47,7 @@ object Setup extends LilaController with TheftPrevention {
         userId ?? UserRepo.named flatMap {
           case None => Ok(html.setup.friend(form, none, none, validFen)).fuccess
           case Some(user) => Env.challenge.granter(ctx.me, user, none) map {
-            case Some(denied) => BadRequest(lila.challenge.ChallengeDenied.translated(denied))
+            case Some(denied) => BadRequest(lidraughts.challenge.ChallengeDenied.translated(denied))
             case None => Ok(html.setup.friend(form, user.some, none, validFen))
           }
         }
@@ -59,6 +59,7 @@ object Setup extends LilaController with TheftPrevention {
 
   def friend(userId: Option[String]) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
+    lidraughts.log("Challenge").info(s"friend: $userId, req: $req")
     PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
       env.forms.friend(ctx).bindFromRequest.fold(
         f => negotiate(
@@ -66,11 +67,12 @@ object Setup extends LilaController with TheftPrevention {
           api = _ => fuccess(BadRequest(errorsAsJson(f)))
         ), {
           case config => userId ?? UserRepo.byId flatMap { destUser =>
+            lidraughts.log("Challenge").info(s"destUser: $destUser")
             destUser ?? { Env.challenge.granter(ctx.me, _, config.perfType) } flatMap {
               case Some(denied) => BadRequest(html.challenge.denied(denied)).fuccess
               case None =>
-                import lila.challenge.Challenge._
-                val challenge = lila.challenge.Challenge.make(
+                import lidraughts.challenge.Challenge._
+                val challenge = lidraughts.challenge.Challenge.make(
                   variant = config.variant,
                   initialFen = config.fen,
                   timeControl = config.makeClock map { c =>
@@ -90,14 +92,18 @@ object Setup extends LilaController with TheftPrevention {
                 )
                 env.processor.saveFriendConfig(config) >>
                   (Env.challenge.api create challenge) flatMap {
-                    case true => negotiate(
-                      html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
-                      api = _ => Challenge showChallenge challenge
-                    )
-                    case false => negotiate(
-                      html = fuccess(Redirect(routes.Lobby.home)),
-                      api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
-                    )
+                    case true =>
+                      lidraughts.log("Challenge").info(s"Challenge created: $challenge")
+                      negotiate(
+                        html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
+                        api = _ => Challenge showChallenge challenge
+                      )
+                    case false =>
+                      lidraughts.log("Challenge").info(s"Challenge failed: $challenge")
+                      negotiate(
+                        html = fuccess(Redirect(routes.Lobby.home)),
+                        api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
+                      )
                   }
             }
           }
@@ -148,15 +154,14 @@ object Setup extends LilaController with TheftPrevention {
   def like(uid: String, gameId: String) = Open { implicit ctx =>
     PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
       NoPlaybanOrCurrent {
-        env.forms.hookConfig flatMap { config =>
-          GameRepo game gameId map {
-            _.fold(config)(config.updateFrom)
-          } flatMap { config =>
-            (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap { blocking =>
-              env.processor.hook(config, uid, HTTPRequest sid ctx.req, blocking) map hookResponse
-            }
-          }
-        }
+        for {
+          config <- env.forms.hookConfig
+          game <- GameRepo.game(gameId)
+          blocking <- ctx.userId ?? Env.relation.api.fetchBlocking
+          hookConfig = game.fold(config)(config.updateFrom)
+          sameOpponents = game.??(_.userIds)
+          hookResult <- env.processor.hook(hookConfig, uid, HTTPRequest sid ctx.req, blocking ++ sameOpponents)
+        } yield hookResponse(hookResult)
       }
     }
   }
@@ -181,6 +186,13 @@ object Setup extends LilaController with TheftPrevention {
   def validateFen = Open { implicit ctx =>
     get("fen") flatMap ValidFen(getBool("strict")) match {
       case None => BadRequest.fuccess
+      case Some(v) => Ok(html.game.miniBoard(v.fen, v.color.name)).fuccess
+    }
+  }
+
+  def validateFenOk = Open { implicit ctx =>
+    get("fen") flatMap ValidFen(getBool("strict")) match {
+      case None => Ok("<p class=\"errortext\">Invalid position</p>").fuccess
       case Some(v) => Ok(html.game.miniBoard(v.fen, v.color.name)).fuccess
     }
   }
@@ -210,7 +222,7 @@ object Setup extends LilaController with TheftPrevention {
     implicit val req = ctx.req
     val redir = Redirect(routes.Round.watcher(pov.game.id, "white"))
     if (ctx.isAuth) redir
-    else redir withCookies LilaCookie.cookie(
+    else redir withCookies LidraughtsCookie.cookie(
       AnonCookie.name,
       pov.playerId,
       maxAge = AnonCookie.maxAge.some,

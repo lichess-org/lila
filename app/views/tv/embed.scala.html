@@ -1,9 +1,9 @@
-@(pov: Pov, bg: String, theme: String, assetVersion: lila.common.AssetVersion)
+@(pov: Pov, bg: String, theme: String, assetVersion: lidraughts.common.AssetVersion)
 
 <!doctype html>
 <html>
   <head>
-    <title>lichess.org TV</title>
+    <title>lidraughts.org TV</title>
     @if(bg == "dark") {
     @cssAt("stylesheets/dark.css", true, assetVersion)
     }
@@ -16,12 +16,12 @@
     class="base highlight @bg"
     style="width: 224px; height: 264px; overflow: hidden; background: none!important"
     data-stream-url="@routes.Tv.feed">
-    <div id="featured_game" class="is2d highlight @bg @theme merida" title="lichess.org TV">
+    <div id="featured_game" class="is2d highlight @bg @theme merida" title="lidraughts.org TV">
       @gameFenNoCtx(pov, tv = true, blank = true)
       @game.vstext(pov)(none)
     </div>
     @jQueryTag
-    @jsAt("javascripts/vendor/chessground.min.js", true, false, assetVersion)
+    @jsAt("javascripts/vendor/draughtsground.min.js", true, false, assetVersion)
     @jsAt("compiled/tv.js", true, false, assetVersion)
   </body>
 </html>

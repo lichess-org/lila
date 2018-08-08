@@ -57,22 +57,22 @@ function action(icon: string, text: string, handler: () => void): VNode {
 }
 
 function view(opts: Opts, coords: Coords): VNode {
-  const ctrl = opts.root,
-  node = ctrl.tree.nodeAtPath(opts.path),
-  onMainline = ctrl.tree.pathIsMainline(opts.path);
-  return h('div#' + elementId + '.visible', {
-    hook: {
-      insert: vnode => positionMenu(vnode.elm as HTMLElement, coords),
-      postpatch: (_, vnode) => positionMenu(vnode.elm as HTMLElement, coords)
-    }
-  }, [
-    h('p.title', nodeFullName(node)),
-    onMainline ? null : action('S', ctrl.trans.noarg('promoteVariation'), () => ctrl.promote(opts.path, false)),
-    onMainline ? null : action('E', ctrl.trans.noarg('makeMainLine'), () => ctrl.promote(opts.path, true)),
-    action('q', ctrl.trans.noarg('deleteFromHere'), () => ctrl.deleteNode(opts.path))
-  ].concat(
-    ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : []
-  ));
+    const ctrl = opts.root,
+        node = ctrl.tree.nodeAtPath(opts.path),
+        onMainline = ctrl.tree.pathIsMainline(opts.path);
+    return h('div#' + elementId + '.visible', {
+        hook: {
+            insert: vnode => positionMenu(vnode.elm as HTMLElement, coords),
+            postpatch: (_, vnode) => positionMenu(vnode.elm as HTMLElement, coords)
+        }
+    }, [
+        h('p.title', nodeFullName(node)),
+        onMainline ? null : action('S', ctrl.trans.noarg('promoteVariation'), () => ctrl.promote(opts.path, false)),
+        onMainline ? null : action('E', ctrl.trans.noarg('makeMainLine'), () => ctrl.promote(opts.path, true)),
+        action('q', ctrl.trans.noarg('deleteFromHere'), () => ctrl.deleteNode(opts.path))
+    ].concat(
+        ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : []
+    ));
 }
 
 export default function(e: MouseEvent, opts: Opts): void {

@@ -1,26 +1,27 @@
-@(u: User, as: Iterable[lila.activity.ActivityView])(implicit ctx: Context)
+@(u: User, as: Iterable[lidraughts.activity.ActivityView])(implicit ctx: Context)
 
 @import ActivityHtml._
-@import lila.activity.activities._
-@import lila.activity.model._
+@import lidraughts.activity.activities._
+@import lidraughts.activity.model._
 
 @renderPatron(p: Patron) = {
-<div class="entry plan">
+@*<div class="entry plan">
   <i data-icon=""></i>
   <div>
     @trans.activity.supportedNbMonths.plural(p.months, p.months, Html(s"""<a href="${routes.Plan.index}">Patron</a>"""))
   </div>
-</div>
+</div>*@
 }
 
-@renderPractice(p: Map[lila.practice.PracticeStudy, Int]) = {
+@renderPractice(p: Map[lidraughts.practice.PracticeStudy, Int]) = {
 <div class="entry">
   <i data-icon=""></i>
   <div>
     @p.toList.sortBy(-_._2).zipWithIndex.map {
     case ((study, nb), i) => {
     @if(i == 1) {<div class="sub">}
-      @trans.activity.practicedNbPositions.plural(nb, nb, Html(s"""<a href="${routes.Practice.show("-", study.slug, study.id.value)}">${study.name}</a>"""))<br />
+      @trans.activity.practicedNbPositions.plural(nb, nb, Html(""))<br />
+      @* trans.activity.practicedNbPositions.plural(nb, nb, Html(s"""<a href="${routes.Practice.show("-", study.slug, study.id.value)}">${study.name}</a>"""))<br /> *@
       }
       }
       @if(p.size > 1) { </div> }
@@ -54,7 +55,7 @@ case (pt, score) => {
 }
 }
 
-@renderPosts(posts: Map[lila.forum.Topic, List[lila.forum.Post]]) = {
+@renderPosts(posts: Map[lidraughts.forum.Topic, List[lidraughts.forum.Post]]) = {
 <div class="entry">
   <i data-icon="d"></i>
   <div>
@@ -141,14 +142,14 @@ case (pt, score) => {
 </div>
 }
 
-@renderSimul(s: lila.simul.Simul) = {
+@renderSimul(s: lidraughts.simul.Simul) = {
 <div>
   <a href="@routes.Simul.show(s.id)">@s.name simul by @userIdLink(s.hostId.some)</a>
   @scoreHtml(Score(s.wins, s.losses, s.draws, none))
 </div>
 }
 
-@renderSimuls(simuls: List[lila.simul.Simul]) = {
+@renderSimuls(simuls: List[lidraughts.simul.Simul]) = {
 <div class="entry">
   <i data-icon="|"></i>
   <div>
@@ -166,7 +167,7 @@ case (pt, score) => {
 </div>
 }
 
-@renderStudies(studies: List[lila.study.Study.IdName]) = {
+@renderStudies(studies: List[lidraughts.study.Study.IdName]) = {
 <div class="entry">
   <i data-icon="4"></i>
   <div>
@@ -192,11 +193,11 @@ case (pt, score) => {
 </div>
 }
 
-@tourLink(t: lila.tournament.LeaderboardApi.Entry) = {
+@tourLink(t: lidraughts.tournament.LeaderboardApi.Entry) = {
 <a href="@routes.Tournament.show(t.tourId)">@tournamentIdToName(t.tourId)</a>
 }
 
-@renderTours(tours: lila.activity.ActivityView.Tours) = {
+@renderTours(tours: lidraughts.activity.ActivityView.Tours) = {
 <div class="entry">
   <i data-icon="g"></i>
   <div>
@@ -210,6 +211,13 @@ case (pt, score) => {
     </div>
   </div>
 </div>
+}
+
+@renderStream() = {
+@*<div class="entry">
+  <i data-icon=""></i>
+  Hosted a <a href="@routes.Streamer.show(u.username)">live stream</a>
+</div>*@
 }
 
 @renderSignup() = {
@@ -242,6 +250,7 @@ case (pt, score) => {
       @a.studies.map(renderStudies)
       @a.tours.map(renderTours)
       @a.teams.map(renderTeams)
+      @if(a.stream) { @renderStream() }
       @if(a.signup) { @renderSignup() }
     </div>
   </section>

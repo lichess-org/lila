@@ -1,6 +1,6 @@
-package lila.learn
+package lidraughts.learn
 
-import lila.common.PimpedJson._
+import lidraughts.common.PimpedJson._
 import play.api.libs.json._
 
 object JSONHandlers {

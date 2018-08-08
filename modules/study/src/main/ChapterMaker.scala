@@ -1,19 +1,19 @@
-package lila.study
+package lidraughts.study
 
-import chess.format.pgn.Tags
-import chess.format.{ Forsyth, FEN }
-import chess.variant.{ Variant, Crazyhouse }
-import lila.chat.Chat
-import lila.game.{ Game, Pov, GameRepo, Namer }
-import lila.importer.Importer
-import lila.user.User
+import draughts.format.pdn.Tags
+import draughts.format.{ Forsyth, FEN }
+import draughts.variant.Variant
+import lidraughts.chat.Chat
+import lidraughts.game.{ Game, Pov, GameRepo, Namer }
+import lidraughts.importer.Importer
+import lidraughts.user.User
 
 private final class ChapterMaker(
     domain: String,
-    lightUser: lila.user.LightUserApi,
+    lightUser: lidraughts.user.LightUserApi,
     chat: akka.actor.ActorSelection,
     importer: Importer,
-    pgnFetch: PgnFetch
+    pdnFetch: PdnFetch
 ) {
 
   import ChapterMaker._
@@ -21,24 +21,24 @@ private final class ChapterMaker(
   def apply(study: Study, data: Data, order: Int, userId: User.ID): Fu[Option[Chapter]] =
     data.game.??(parsePov) flatMap {
       case None =>
-        data.game.??(pgnFetch.fromUrl) flatMap {
-          case Some(pgn) => fromFenOrPgnOrBlank(study, data.copy(pgn = pgn.some), order, userId) map some
-          case _ => fromFenOrPgnOrBlank(study, data, order, userId) map some
+        data.game.??(pdnFetch.fromUrl) flatMap {
+          case Some(pdn) => fromFenOrPdnOrBlank(study, data.copy(pdn = pdn.some), order, userId) map some
+          case _ => fromFenOrPdnOrBlank(study, data, order, userId) map some
         }
       case Some(pov) => fromPov(study, pov, data, order, userId)
     } map2 { (c: Chapter) =>
       if (c.name.value.isEmpty) c.copy(name = Chapter defaultName order) else c
     }
 
-  def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
-    data.pgn.filter(_.trim.nonEmpty) match {
-      case Some(pgn) => fromPgn(study, pgn, data, order, userId)
+  def fromFenOrPdnOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
+    data.pdn.filter(_.trim.nonEmpty) match {
+      case Some(pdn) => fromPdn(study, pdn, data, order, userId)
       case None => fuccess(fromFenOrBlank(study, data, order, userId))
     }
 
-  private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
+  private def fromPdn(study: Study, pdn: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
     lightUser.asyncMany(study.members.contributorIds.toList) map { contributors =>
-      PgnImport(pgn, contributors.flatten).toOption.fold(fromFenOrBlank(study, data, order, userId)) { res =>
+      PdnImport(pdn, contributors.flatten).toOption.fold(fromFenOrBlank(study, data, order, userId)) { res =>
         Chapter.make(
           studyId = study.id,
           name = (for {
@@ -70,17 +70,13 @@ private final class ChapterMaker(
       case Some(sit) => Node.Root(
         ply = sit.turns,
         fen = FEN(Forsyth.>>(sit)),
-        check = sit.situation.check,
         clock = none,
-        crazyData = sit.situation.board.crazyData,
         children = Node.emptyChildren
       ) -> true
       case None => Node.Root(
         ply = 0,
         fen = FEN(variant.initialFen),
-        check = false,
         clock = none,
-        crazyData = variant.crazyhouse option Crazyhouse.Data.init,
         children = Node.emptyChildren
       ) -> false
     }) match {
@@ -131,10 +127,10 @@ private final class ChapterMaker(
 
   def notifyChat(study: Study, game: Game, userId: User.ID) =
     if (study.isPublic) List(game.id, s"${game.id}/w") foreach { chatId =>
-      chat ! lila.chat.actorApi.UserTalk(
+      chat ! lidraughts.chat.actorApi.UserTalk(
         chatId = Chat.Id(chatId),
         userId = userId,
-        text = s"I'm studying this game on lichess.org/study/${study.id}",
+        text = s"I'm studying this game on lidraughts.org/study/${study.id}",
         publicSource = none
       )
     }
@@ -150,7 +146,7 @@ private final class ChapterMaker(
   }.r
 
   private def parsePov(str: String): Fu[Option[Pov]] = str match {
-    case s if s.size == Game.gameIdSize => GameRepo.pov(s, chess.White)
+    case s if s.size == Game.gameIdSize => GameRepo.pov(s, draughts.White)
     case s if s.size == Game.fullIdSize => GameRepo.pov(s)
     case UrlRegex(id) => parsePov(id)
     case _ => fuccess(none)
@@ -174,7 +170,7 @@ private[study] object ChapterMaker {
   trait ChapterData {
     def orientation: String
     def mode: String
-    def realOrientation = chess.Color(orientation) | chess.White
+    def realOrientation = draughts.Color(orientation) | draughts.White
     def isPractice = mode == Mode.Practice.key
     def isGamebook = mode == Mode.Gamebook.key
     def isConceal = mode == Mode.Conceal.key
@@ -185,7 +181,7 @@ private[study] object ChapterMaker {
       game: Option[String] = None,
       variant: Option[String] = None,
       fen: Option[String] = None,
-      pgn: Option[String] = None,
+      pdn: Option[String] = None,
       orientation: String = "white",
       mode: String = ChapterMaker.Mode.Normal.key,
       initial: Boolean = false

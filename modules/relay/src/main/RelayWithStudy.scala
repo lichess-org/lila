@@ -1,7 +1,7 @@
-package lila.relay
+package lidraughts.relay
 
-import lila.study.{ Study, StudyApi }
-import lila.user.User
+import lidraughts.study.{ Study, StudyApi }
+import lidraughts.user.User
 
 private final class RelayWithStudy(studyApi: StudyApi) {
 

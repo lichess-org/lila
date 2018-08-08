@@ -1,10 +1,10 @@
-package lila.simul
+package lidraughts.simul
 package actorApi
 
-import lila.game.Game
-import lila.socket.Socket.Uid
-import lila.socket.SocketMember
-import lila.user.User
+import lidraughts.game.Game
+import lidraughts.socket.Socket.Uid
+import lidraughts.socket.SocketMember
+import lidraughts.user.User
 
 private[simul] case class Member(
     channel: JsChannel,

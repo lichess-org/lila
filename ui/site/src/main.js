@@ -1,4 +1,4 @@
-lichess.topMenuIntent = function() {
+lidraughts.topMenuIntent = function() {
   $('#topmenu.hover').removeClass('hover').hoverIntent(function() {
     $(this).toggleClass('hover');
   });
@@ -21,8 +21,8 @@ lichess.topMenuIntent = function() {
     return u ? '<a class="user_link ulpt ' + (klass || '') + '" href="/@/' + id + '">' + (limit ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
   };
 
-  lichess.socket = null;
-  $.extend(true, lichess.StrongSocket.defaults, {
+  lidraughts.socket = null;
+  $.extend(true, lidraughts.StrongSocket.defaults, {
     events: {
       following_onlines: function(d, all) {
         $('#friend_box').friends("set", all.d, all.playing, all.studying, all.patrons);
@@ -47,12 +47,12 @@ lichess.topMenuIntent = function() {
       },
       new_notification: function(e) {
         $('#site_notifications_tag').attr('data-count', e.unread || 0);
-        lichess.sound.newPM();
+        lidraughts.sound.newPM();
       },
       redirect: function(o) {
         setTimeout(function() {
-          lichess.hasToReload = true;
-          lichess.redirect(o);
+          lidraughts.hasToReload = true;
+          lidraughts.redirect(o);
         }, 200);
       },
       deployPost: function(html) {
@@ -60,7 +60,7 @@ lichess.topMenuIntent = function() {
           '<div id="deploy_post" class="notification">' +
           '<div class="inner"><p data-icon="j" class="is3 text">Site update in progress...</p></div>' +
           '</div>');
-        lichess.socket.disconnect(function() {
+        lidraughts.socket.disconnect(function() {
           $('#deploy_post').remove();
           $('#notifications').append(
             '<div id="deploy_done" class="notification">' +
@@ -96,14 +96,14 @@ lichess.topMenuIntent = function() {
     }
   });
 
-  lichess.readServerFen = function(t) {
+  lidraughts.readServerFen = function(t) {
     return atob(t.split("").reverse().join(""));
   };
 
-  lichess.userAutocomplete = function($input, opts) {
+  lidraughts.userAutocomplete = function($input, opts) {
     opts = opts || {};
-    lichess.loadCss('/assets/stylesheets/autocomplete.css');
-    return lichess.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
+    lidraughts.loadCss('/assets/stylesheets/autocomplete.css');
+    return lidraughts.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
       $input.typeahead(null, {
         minLength: opts.minLength || 3,
         hint: true,
@@ -130,7 +130,7 @@ lichess.topMenuIntent = function() {
         displayKey: 'name',
         templates: {
           empty: '<div class="empty">No player found</div>',
-          pending: lichess.spinnerHtml,
+          pending: lidraughts.spinnerHtml,
           suggestion: function(o) {
             var tag = opts.tag || 'a';
             return '<' + tag + ' class="ulpt user_link' + (o.online ? ' online' : '') + '" ' + (tag === 'a' ? '' : 'data-') + 'href="/@/' + o.name + '">' +
@@ -139,7 +139,7 @@ lichess.topMenuIntent = function() {
           }
         }
       }).on('typeahead:render', function() {
-        lichess.pubsub.emit('content_loaded')();
+        lidraughts.pubsub.emit('content_loaded')();
       });
       if (opts.focus) $input.focus();
       if (opts.onSelect) $input.on('typeahead:select', function(ev, sel) {
@@ -150,9 +150,9 @@ lichess.topMenuIntent = function() {
     });
   };
 
-  lichess.parseFen = function($elem) {
-    if (!window.Chessground) return setTimeout(function() {
-      lichess.parseFen($elem);
+  lidraughts.parseFen = function($elem) {
+    if (!window.Draughtsground) return setTimeout(function() {
+      lidraughts.parseFen($elem);
     }, 500); // if not loaded yet
     if (!$elem || !$elem.jquery) {
       $elem = $('.parse_fen');
@@ -160,16 +160,16 @@ lichess.topMenuIntent = function() {
     $elem.each(function() {
       var $this = $(this).removeClass('parse_fen');
       var lm = $this.data('lastmove');
-      var lastMove = lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]);
-      var color = $this.data('color') || lichess.readServerFen($(this).data('y'));
-      var ground = $this.data('chessground');
+      var lastMove = lm && (lm[1] === '@' ? [lm.toString().slice(2)] : [lm.toString()[0] + lm.toString()[1], lm.toString()[2] + lm.toString()[3]]);
+      var color = $this.data('color') || lidraughts.readServerFen($(this).data('y'));
+      var ground = $this.data('draughtsground');
       var playable = !!$this.data('playable');
       var resizable = !!$this.data('resizable');
       var config = {
         coordinates: false,
         viewOnly: !playable,
         resizable: resizable,
-        fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
+        fen: $this.data('fen') || lidraughts.readServerFen($this.data('z')),
         lastMove: lastMove,
         drawable: { enabled: false, visible: false }
       };
@@ -177,31 +177,31 @@ lichess.topMenuIntent = function() {
       if (ground) ground.set(config);
       else {
         this.innerHTML = '<div class="cg-board-wrap"></div>';
-        $this.data('chessground', Chessground(this.firstChild, config));
+        $this.data('draughtsground', Draughtsground(this.firstChild, config));
       }
     });
   };
 
   $(function() {
-    if (lichess.analyse) LichessAnalyse.boot(document.getElementById('lichess'), lichess.analyse);
-    else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
-    else if (lichess.study) startStudy(document.getElementById('lichess'), lichess.study);
-    else if (lichess.practice) startPractice(document.getElementById('lichess'), lichess.practice);
-    else if (lichess.relay) startRelay(document.getElementById('lichess'), lichess.relay);
-    else if (lichess.puzzle) startPuzzle(lichess.puzzle);
-    else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
-    else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
+    if (lidraughts.analyse) LidraughtsAnalyse.boot(document.getElementById('lidraughts'), lidraughts.analyse);
+    else if (lidraughts.user_analysis) startUserAnalysis(document.getElementById('lidraughts'), lidraughts.user_analysis);
+    else if (lidraughts.study) startStudy(document.getElementById('lidraughts'), lidraughts.study);
+    else if (lidraughts.practice) startPractice(document.getElementById('lidraughts'), lidraughts.practice);
+    else if (lidraughts.relay) startRelay(document.getElementById('lidraughts'), lidraughts.relay);
+    else if (lidraughts.puzzle) startPuzzle(lidraughts.puzzle);
+    else if (lidraughts.tournament) startTournament(document.getElementById('tournament'), lidraughts.tournament);
+    else if (lidraughts.simul) startSimul(document.getElementById('simul'), lidraughts.simul);
 
     // delay so round starts first (just for perceived perf)
-    lichess.requestIdleCallback(function() {
+    lidraughts.requestIdleCallback(function() {
 
       $('#friend_box').friends();
 
-      $('#lichess').on('click', '.autoselect', function() {
+      $('#lidraughts').on('click', '.autoselect', function() {
         $(this).select();
       });
 
-      $('#lichess').on('click', 'button.copy', function() {
+      $('#lidraughts').on('click', 'button.copy', function() {
         var prev = $('#' + $(this).data('rel'));
         if (!prev) return;
         var usePrompt = function() {
@@ -244,15 +244,15 @@ lichess.topMenuIntent = function() {
         }, 10);
       });
 
-      document.body.addEventListener('mouseover', lichess.powertip.mouseover);
+      document.body.addEventListener('mouseover', lidraughts.powertip.mouseover);
 
       function setTimeago() {
-        lichess.raf(function() {
-          lichess.timeago.render(document.getElementsByClassName('timeago'));
+        lidraughts.raf(function() {
+          lidraughts.timeago.render(document.getElementsByClassName('timeago'));
         });
       }
       setTimeago();
-      lichess.pubsub.on('content_loaded', setTimeago);
+      lidraughts.pubsub.on('content_loaded', setTimeago);
       setInterval(setTimeago, 2000);
 
       if ($('body').hasClass('blind_mode')) {
@@ -262,14 +262,14 @@ lichess.topMenuIntent = function() {
           });
         };
         setBlindMode();
-        lichess.pubsub.on('content_loaded', setBlindMode);
+        lidraughts.pubsub.on('content_loaded', setBlindMode);
       }
 
       if (!window.customWS) setTimeout(function() {
-        if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket", false);
+        if (lidraughts.socket === null) lidraughts.socket = lidraughts.StrongSocket("/socket", false);
       }, 300);
 
-      lichess.challengeApp = (function() {
+      lidraughts.challengeApp = (function() {
         var instance, booted;
         var $toggle = $('#challenge_notifications_tag');
         $toggle.one('mouseover click', function() {
@@ -278,11 +278,11 @@ lichess.topMenuIntent = function() {
         var load = function(data) {
           if (booted) return;
           booted = true;
-          var $el = $('#challenge_app').html(lichess.initiatingHtml);
+          var $el = $('#challenge_app').html(lidraughts.initiatingHtml);
           var isDev = $('body').data('dev');
-          lichess.loadCss('/assets/stylesheets/challengeApp.css');
-          lichess.loadScript("/assets/compiled/lichess.challenge" + (isDev ? '' : '.min') + '.js').done(function() {
-            instance = LichessChallenge.default($el[0], {
+          lidraughts.loadCss('/assets/stylesheets/challengeApp.css');
+          lidraughts.loadScript("/assets/compiled/lidraughts.challenge" + (isDev ? '' : '.min') + '.js').done(function() {
+            instance = LidraughtsChallenge.default($el[0], {
               data: data,
               show: function() {
                 if (!$('#challenge_app').is(':visible')) $toggle.click();
@@ -307,7 +307,7 @@ lichess.topMenuIntent = function() {
         };
       })();
 
-      lichess.notifyApp = (function() {
+      lidraughts.notifyApp = (function() {
         var instance, booted;
         var $toggle = $('#site_notifications_tag');
         var isVisible = function() {
@@ -317,11 +317,11 @@ lichess.topMenuIntent = function() {
         var load = function(data, incoming) {
           if (booted) return;
           booted = true;
-          var $el = $('#notify_app').html(lichess.initiatingHtml);
+          var $el = $('#notify_app').html(lidraughts.initiatingHtml);
           var isDev = $('body').data('dev');
-          lichess.loadCss('/assets/stylesheets/notifyApp.css');
-          lichess.loadScript("/assets/compiled/lichess.notify" + (isDev ? '' : '.min') + '.js').done(function() {
-            instance = LichessNotify.default($el.empty()[0], {
+          lidraughts.loadCss('/assets/stylesheets/notifyApp.css');
+          lidraughts.loadScript("/assets/compiled/lidraughts.notify" + (isDev ? '' : '.min') + '.js').done(function() {
+            instance = LidraughtsNotify.default($el.empty()[0], {
               data: data,
               incoming: incoming,
               isVisible: isVisible,
@@ -332,7 +332,7 @@ lichess.topMenuIntent = function() {
                 if (!isVisible()) $toggle.click();
               },
               setNotified: function() {
-                lichess.socket.send('notified');
+                lidraughts.socket.send('notified');
               },
               pulse: function() {
                 $toggle.addClass('pulse');
@@ -358,15 +358,15 @@ lichess.topMenuIntent = function() {
       })();
 
       // Zoom
-      var currentZoom = (!lichess.isTrident && $('body').data('zoom') / 100) || 1;
+      var currentZoom = (!lidraughts.isTrident && $('body').data('zoom') / 100) || 1;
 
       var setZoom = function(zoom) {
 
         var boardPx = Math.round(zoom * 64) * 8;
         currentZoom = zoom = boardPx / 512;
 
-        var $lichessGame = $('.lichess_game, .board_and_ground');
-        var $boardWrap = $lichessGame.find('.cg-board-wrap').not('.mini_board .cg-board-wrap');
+        var $lidraughtsGame = $('.lidraughts_game, .board_and_ground');
+        var $boardWrap = $lidraughtsGame.find('.cg-board-wrap').not('.mini_board .cg-board-wrap');
         var px = function(i) {
           return Math.round(i) + 'px';
         };
@@ -376,14 +376,14 @@ lichess.topMenuIntent = function() {
 
         if ($('body > .content').hasClass('is3d')) {
           $boardWrap.css("height", px(464.5 * zoom));
-          $lichessGame.css({
+          $lidraughtsGame.css({
             height: px(476 * zoom),
             paddingTop: px(50 * (zoom - 1))
           });
           $('#chat').css("height", px(300 + 529 * (zoom - 1)));
         } else {
           $boardWrap.css("height", px(boardPx));
-          $lichessGame.css({
+          $lidraughtsGame.css({
             height: px(boardPx),
             paddingTop: px(0)
           });
@@ -397,17 +397,17 @@ lichess.topMenuIntent = function() {
         // doesn't vertical center score at the end, close enough
         $('#trainer .score_container').css("top", px((zoom - 1) * 250));
 
-        if ($lichessGame.length) {
+        if ($lidraughtsGame.length) {
           // if on a board with a game
           $('body > .content').css("margin-left", 'calc(50% - ' + px(246.5 + 256 * zoom) + ')');
         }
 
         // reflow charts
-        window.dispatchEvent(new Event('resize'));
+        lidraughts.dispatchEvent(window, 'resize');
 
-        document.body.dispatchEvent(new Event('chessground.resize'));
+        lidraughts.dispatchEvent(document.body, 'draughtsground.resize');
       };
-      lichess.pubsub.on('reset_zoom', function() {
+      lidraughts.pubsub.on('reset_zoom', function() {
         if (currentZoom > 1 || $('body').data('zoom') > 100) setZoom(currentZoom);
       });
 
@@ -417,12 +417,12 @@ lichess.topMenuIntent = function() {
         $('#top .dasher .toggle').one('mouseover click', function() {
           if (booted) return;
           booted = true;
-          var $el = $('#dasher_app').html(lichess.initiatingHtml);
+          var $el = $('#dasher_app').html(lidraughts.initiatingHtml);
           var isDev = $('body').data('dev');
           var isPlaying = $('body').hasClass('playing');
-          lichess.loadCss('/assets/stylesheets/dasherApp.css');
-          lichess.loadScript("/assets/compiled/lichess.dasher" + (isDev ? '' : '.min') + '.js').done(function() {
-            instance = LichessDasher.default($el.empty()[0], {
+          lidraughts.loadCss('/assets/stylesheets/dasherApp.css');
+          lidraughts.loadScript("/assets/compiled/lidraughts.dasher" + (isDev ? '' : '.min') + '.js').done(function() {
+            instance = LidraughtsDasher.default($el.empty()[0], {
               setZoom: setZoom,
               playing: isPlaying
             });
@@ -438,9 +438,9 @@ lichess.topMenuIntent = function() {
         var boot = function() {
           if (booted) return;
           booted = true;
-          lichess.loadCss('/assets/stylesheets/cli.css');
-          lichess.loadScript("/assets/compiled/lichess.cli" + ($('body').data('dev') ? '' : '.min') + '.js').done(function() {
-            LichessCli.app($wrap, toggle);
+          lidraughts.loadCss('/assets/stylesheets/cli.css');
+          lidraughts.loadScript("/assets/compiled/lidraughts.cli" + ($('body').data('dev') ? '' : '.min') + '.js').done(function() {
+            LidraughtsCli.app($wrap, toggle);
           });
         }
         var toggle = function() {
@@ -462,13 +462,13 @@ lichess.topMenuIntent = function() {
           friend: $(this).data('friend'),
           tag: $(this).data('tag')
         };
-        if ($(this).attr('autofocus')) lichess.userAutocomplete($(this), opts);
+        if ($(this).attr('autofocus')) lidraughts.userAutocomplete($(this), opts);
         else $(this).one('focus', function() {
-          lichess.userAutocomplete($(this), opts);
+          lidraughts.userAutocomplete($(this), opts);
         });
       });
 
-      lichess.loadInfiniteScroll = function(el) {
+      lidraughts.loadInfiniteScroll = function(el) {
         $(el).each(function() {
           if (!$('.pager a', this).length) return;
           var $scroller = $(this).infinitescroll({
@@ -479,16 +479,16 @@ lichess.topMenuIntent = function() {
               $("#infscr-loading").remove();
             },
             loading: {
-              msg: $('<div id="infscr-loading">').html(lichess.spinnerHtml)
+              msg: $('<div id="infscr-loading">').html(lidraughts.spinnerHtml)
             }
           }, function() {
             $("#infscr-loading").remove();
-            lichess.pubsub.emit('content_loaded')();
+            lidraughts.pubsub.emit('content_loaded')();
             var ids = [];
             $(el).find('.paginated_element[data-dedup]').each(function() {
               var id = $(this).data('dedup');
               if (id) {
-                if (lichess.fp.contains(ids, id)) $(this).remove();
+                if (lidraughts.fp.contains(ids, id)) $(this).remove();
                 else ids.push(id);
               }
             });
@@ -498,7 +498,7 @@ lichess.topMenuIntent = function() {
           }));
         });
       }
-      lichess.loadInfiniteScroll('.infinitescroll');
+      lidraughts.loadInfiniteScroll('.infinitescroll');
 
       $('#top').on('click', 'a.toggle', function() {
         this.removeAttribute('data-hint');
@@ -548,7 +548,7 @@ lichess.topMenuIntent = function() {
               .attr('action', '/login?referrer=' + window.location.pathname);
           }));
         }
-        lichess.loadCss('/assets/stylesheets/fpmenu.css');
+        lidraughts.loadCss('/assets/stylesheets/fpmenu.css');
       }).click(function() {
         document.body.classList.toggle('fpmenu');
       });
@@ -558,7 +558,7 @@ lichess.topMenuIntent = function() {
         return combo !== 'esc' && (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA');
       };
       Mousetrap.bind('esc', function() {
-        var $oc = $('.lichess_overboard .close');
+        var $oc = $('.lidraughts_overboard .close');
         if ($oc[0]) $oc[0].click();
         else {
           $input = $(':focus');
@@ -581,11 +581,11 @@ lichess.topMenuIntent = function() {
     });
   });
 
-  lichess.sound = (function() {
+  lidraughts.sound = (function() {
     var api = {};
     var soundSet = $('body').data('sound-set');
 
-    api.volumeStorage = lichess.storage.make('sound-volume');
+    api.volumeStorage = lidraughts.storage.make('sound-volume');
     api.defaultVolume = 0.7;
 
     var memoize = function(factory) {
@@ -629,12 +629,12 @@ lichess.topMenuIntent = function() {
     var collection = new memoize(function(k) {
       var set = soundSet;
       if (set === 'music') {
-        if (lichess.fp.contains(['move', 'capture', 'check'], k)) return {
+        if (lidraughts.fp.contains(['move', 'capture', 'check'], k)) return {
           play: $.noop
         };
         set = 'standard';
       }
-      var baseUrl = lichess.assetUrl('/assets/sound', {noVersion:true});
+      var baseUrl = lidraughts.assetUrl('/assets/sound', {noVersion:true});
       return new Howl({
         src: ['ogg', 'mp3'].map(function(ext) {
           return [baseUrl, set, names[k] + '.' + ext].join('/');
@@ -661,7 +661,7 @@ lichess.topMenuIntent = function() {
     };
 
     var publish = function() {
-      lichess.pubsub.emit('sound_set')(soundSet);
+      lidraughts.pubsub.emit('sound_set')(soundSet);
     };
     setTimeout(publish, 500);
 
@@ -685,7 +685,7 @@ lichess.topMenuIntent = function() {
     return api;
   })();
 
-  lichess.widget("watchers", {
+  lidraughts.widget("watchers", {
     _create: function() {
       this.list = this.element.find("span.list");
       this.number = this.element.find("span.number");
@@ -708,16 +708,16 @@ lichess.topMenuIntent = function() {
     }
   });
 
-  lichess.widget("friends", (function() {
+  lidraughts.widget("friends", (function() {
     var isSameUser = function(userId, user) {
-      var id = lichess.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+      var id = lidraughts.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
       return id.toLowerCase() === userId;
     };
     return {
       _create: function() {
         var self = this,
           el = self.element;
-        var hideStorage = lichess.storage.make('friends-hide');
+        var hideStorage = lidraughts.storage.make('friends-hide');
         self.$list = el.find("div.list");
         var $title = el.find('.title').click(function() {
           var show = hideStorage.get() == 1;
@@ -760,7 +760,7 @@ lichess.topMenuIntent = function() {
         })
       },
       repaint: function() {
-        lichess.raf(function() {
+        lidraughts.raf(function() {
           this.users = this._uniqueUsers(this.users.filter(function(u) {
             return u.name !== '';
           }));
@@ -821,7 +821,7 @@ lichess.topMenuIntent = function() {
       },
       _renderUser: function(user) {
         var icon = '<i class="is-green line' + (user.patron ? ' patron' : '') + '"></i>';
-        var name = lichess.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+        var name = lidraughts.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
         var url = '/@/' + name;
         var tvButton = user.playing ? '<a data-icon="1" class="tv is-green ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
         var studyButton = user.studying ? '<a data-icon="4" class="is-green friend-study" href="' + url + '/studyTv"></a>' : '';
@@ -832,7 +832,7 @@ lichess.topMenuIntent = function() {
     };
   })());
 
-  lichess.widget("clock", {
+  lidraughts.widget("clock", {
     _create: function() {
       var self = this;
       // this.options.time: seconds Integer
@@ -869,7 +869,7 @@ lichess.topMenuIntent = function() {
   /////////////////
 
   $(function() {
-    lichess.pubsub.on('content_loaded', lichess.parseFen);
+    lidraughts.pubsub.on('content_loaded', lidraughts.parseFen);
 
     var socketOpened = false;
 
@@ -880,26 +880,27 @@ lichess.topMenuIntent = function() {
         ids.push(this.getAttribute("data-live"));
       });
       if (ids.length) {
-        lichess.socket.send("startWatching", ids.join(" "));
+        lidraughts.socket.send("startWatching", ids.join(" "));
       }
     }
-    lichess.pubsub.on('content_loaded', startWatching);
-    lichess.pubsub.on('socket.open', function() {
+    lidraughts.pubsub.on('content_loaded', startWatching);
+    lidraughts.pubsub.on('socket.open', function() {
       socketOpened = true;
       startWatching();
     });
 
-    lichess.requestIdleCallback(function() {
-      lichess.parseFen();
-      $('div.checkmateCaptcha').each(function() {
+    lidraughts.requestIdleCallback(function() {
+      lidraughts.parseFen();
+      $('div.captureCaptcha').each(function() {
         var $captcha = $(this);
         var $board = $captcha.find('.mini_board');
         var $input = $captcha.find('input').val('');
-        var cg = $board.data('chessground');
-        var dests = JSON.parse(lichess.readServerFen($board.data('x')));
+        var cg = $board.data('draughtsground');
+        var dests = JSON.parse(lidraughts.readServerFen($board.data('x')));
         for (var k in dests) dests[k] = dests[k].match(/.{2}/g);
         cg.set({
           turnColor: cg.state.orientation,
+          captureLength: 1,
           movable: {
             free: false,
             dests: dests,
@@ -923,10 +924,10 @@ lichess.topMenuIntent = function() {
             success: function(data) {
               $captcha.toggleClass('success', data == 1);
               $captcha.toggleClass('failure', data != 1);
-              if (data == 1) $board.data('chessground').stop();
+              if (data == 1) $board.data('draughtsground').stop();
               else setTimeout(function() {
-                lichess.parseFen($board);
-                $board.data('chessground').set({
+                lidraughts.parseFen($board);
+                $board.data('draughtsground').set({
                   turnColor: cg.state.orientation,
                   movable: {
                     dests: dests
@@ -948,7 +949,7 @@ lichess.topMenuIntent = function() {
     $('body').data('tournament-id', cfg.data.id);
     var $watchers = $("div.watchers").watchers();
     var tournament;
-    lichess.socket = lichess.StrongSocket(
+    lidraughts.socket = lidraughts.StrongSocket(
       '/tournament/' + cfg.data.id + '/socket/v2', cfg.data.socketVersion, {
         receive: function(t, d) {
           return tournament.socketReceive(t, d);
@@ -962,10 +963,10 @@ lichess.topMenuIntent = function() {
           name: "tournament"
         }
       });
-    cfg.socketSend = lichess.socket.send;
+    cfg.socketSend = lidraughts.socket.send;
     cfg.element = element;
-    tournament = LichessTournament.start(cfg);
-    if (cfg.chat) lichess.makeChat('chat', cfg.chat);
+    tournament = LidraughtsTournament.start(cfg);
+    if (cfg.chat) lidraughts.makeChat('chat', cfg.chat);
   };
 
   ///////////////////
@@ -977,10 +978,10 @@ lichess.topMenuIntent = function() {
     var $simulList = $('#simul_list');
     if ($simulList.length) {
       // handle simul list
-      lichess.StrongSocket.defaults.params.flag = "simul";
-      lichess.StrongSocket.defaults.events.reload = function() {
+      lidraughts.StrongSocket.defaults.params.flag = "simul";
+      lidraughts.StrongSocket.defaults.events.reload = function() {
         $simulList.load($simulList.data("href"), function() {
-          lichess.pubsub.emit('content_loaded')();
+          lidraughts.pubsub.emit('content_loaded')();
         });
       };
       $('#site_header .help a.more').click(function() {
@@ -994,7 +995,7 @@ lichess.topMenuIntent = function() {
     $('body').data('simul-id', cfg.data.id);
     var $watchers = $("div.watchers").watchers();
     var simul;
-    lichess.socket = lichess.StrongSocket(
+    lidraughts.socket = lidraughts.StrongSocket(
       '/simul/' + cfg.data.id + '/socket/v2', cfg.socketVersion, {
         receive: function(t, d) {
           simul.socketReceive(t, d);
@@ -1008,9 +1009,9 @@ lichess.topMenuIntent = function() {
           name: "simul"
         }
       });
-    cfg.socketSend = lichess.socket.send;
-    simul = LichessSimul(element, cfg);
-    if (cfg.chat) lichess.makeChat('chat', cfg.chat);
+    cfg.socketSend = lidraughts.socket.send;
+    simul = LidraughtsSimul(element, cfg);
+    if (cfg.chat) lidraughts.makeChat('chat', cfg.chat);
   };
 
   ////////////////
@@ -1021,8 +1022,8 @@ lichess.topMenuIntent = function() {
     var analyse;
     cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
-    cfg.trans = lichess.trans(cfg.i18n);
-    lichess.socket = lichess.StrongSocket('/analysis/socket', false, {
+    cfg.trans = lidraughts.trans(cfg.i18n);
+    lidraughts.socket = lidraughts.StrongSocket('/analysis/socket', false, {
       options: {
         name: "analyse"
       },
@@ -1030,9 +1031,9 @@ lichess.topMenuIntent = function() {
         analyse.socketReceive(t, d);
       }
     });
-    cfg.socketSend = lichess.socket.send;
-    analyse = LichessAnalyse.start(cfg);
-    lichess.topMenuIntent();
+    cfg.socketSend = lidraughts.socket.send;
+    analyse = LidraughtsAnalyse.start(cfg);
+    lidraughts.topMenuIntent();
   }
 
   ////////////////
@@ -1045,7 +1046,7 @@ lichess.topMenuIntent = function() {
     cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
     cfg.sideElement = document.querySelector('#site_header .side_box');
-    lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
+    lidraughts.socket = lidraughts.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
       options: {
         name: "study"
       },
@@ -1058,16 +1059,16 @@ lichess.topMenuIntent = function() {
         }
       }
     });
-    cfg.socketSend = lichess.socket.send;
-    cfg.trans = lichess.trans(cfg.i18n);
-    analyse = LichessAnalyse.start(cfg);
+    cfg.socketSend = lidraughts.socket.send;
+    cfg.trans = lidraughts.trans(cfg.i18n);
+    analyse = LidraughtsAnalyse.start(cfg);
     if (cfg.chat) {
-      lichess.pubsub.on('chat.enabled', function(v) {
+      lidraughts.pubsub.on('chat.enabled', function(v) {
         $('#site_header .board_left').toggleClass('no_chat', !v);
       });
-      lichess.makeChat('chat', cfg.chat);
+      lidraughts.makeChat('chat', cfg.chat);
     }
-    lichess.topMenuIntent();
+    lidraughts.topMenuIntent();
   }
 
   ////////////////
@@ -1078,8 +1079,8 @@ lichess.topMenuIntent = function() {
     var analyse;
     cfg.element = element.querySelector('.analyse');
     cfg.sideElement = document.querySelector('#site_header .side_box');
-    cfg.trans = lichess.trans(cfg.i18n);
-    lichess.socket = lichess.StrongSocket('/analysis/socket', false, {
+    cfg.trans = lidraughts.trans(cfg.i18n);
+    lidraughts.socket = lidraughts.StrongSocket('/analysis/socket', false, {
       options: {
         name: "practice"
       },
@@ -1087,9 +1088,9 @@ lichess.topMenuIntent = function() {
         analyse.socketReceive(t, d);
       }
     });
-    cfg.socketSend = lichess.socket.send;
-    analyse = LichessAnalyse.start(cfg);
-    lichess.topMenuIntent();
+    cfg.socketSend = lidraughts.socket.send;
+    analyse = LidraughtsAnalyse.start(cfg);
+    lidraughts.topMenuIntent();
   }
 
   ////////////////
@@ -1102,7 +1103,7 @@ lichess.topMenuIntent = function() {
     cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
     cfg.sideElement = document.querySelector('#site_header .side_box');
-    lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
+    lidraughts.socket = lidraughts.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
       options: {
         name: "relay"
       },
@@ -1115,16 +1116,16 @@ lichess.topMenuIntent = function() {
         }
       }
     });
-    cfg.socketSend = lichess.socket.send;
-    cfg.trans = lichess.trans(cfg.i18n);
-    analyse = LichessAnalyse.start(cfg);
+    cfg.socketSend = lidraughts.socket.send;
+    cfg.trans = lidraughts.trans(cfg.i18n);
+    analyse = LidraughtsAnalyse.start(cfg);
     if (cfg.chat) {
-      lichess.pubsub.on('chat.enabled', function(v) {
+      lidraughts.pubsub.on('chat.enabled', function(v) {
         $('#site_header .board_left').toggleClass('no_chat', !v);
       });
-      lichess.makeChat('chat', cfg.chat);
+      lidraughts.makeChat('chat', cfg.chat);
     }
-    lichess.topMenuIntent();
+    lidraughts.topMenuIntent();
   }
 
   ////////////////
@@ -1135,7 +1136,7 @@ lichess.topMenuIntent = function() {
     var puzzle;
     cfg.element = document.querySelector('#puzzle');
     cfg.sideElement = document.querySelector('#site_header .puzzle_side');
-    lichess.socket = lichess.StrongSocket('/socket', false, {
+    lidraughts.socket = lidraughts.StrongSocket('/socket', false, {
       options: {
         name: "puzzle"
       },
@@ -1143,9 +1144,9 @@ lichess.topMenuIntent = function() {
         puzzle.socketReceive(t, d);
       }
     });
-    cfg.socketSend = lichess.socket.send;
-    puzzle = LichessPuzzle.default(cfg);
-    lichess.topMenuIntent();
+    cfg.socketSend = lidraughts.socket.send;
+    puzzle = LidraughtsPuzzle.default(cfg);
+    lidraughts.topMenuIntent();
   }
 
 })();

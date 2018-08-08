@@ -1,7 +1,7 @@
-@(url: String, vote: lila.qa.Vote, isAnswer: Boolean = false)(implicit ctx: Context)
+@(url: String, vote: lidraughts.qa.Vote, isAnswer: Boolean = false)(implicit ctx: Context)
 
 @defining(ctx.userId.flatMap(vote.of)) { myVote =>
-<div class="upvote @if(lila.qa.QaAuth.canVote) {enabled}" data-post-url="@url">
+<div class="upvote @if(lidraughts.qa.QaAuth.canVote) {enabled}" data-post-url="@url">
   <a
     title="@if(isAnswer){This answer is useful}else{This question shows research effort; it is useful and clear}"
     data-vote="1"

@@ -1,13 +1,13 @@
-package lila.tournament
+package lidraughts.tournament
 
-import lila.user.User
+import lidraughts.user.User
 
 import akka.actor._
 import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.notify.{ Notification, NotifyApi, LimitedTournamentInvitation }
-import lila.rating.PerfType
+import lidraughts.db.dsl._
+import lidraughts.notify.{ Notification, NotifyApi, LimitedTournamentInvitation }
+import lidraughts.rating.PerfType
 
 private final class TournamentInviter private (
     api: TournamentApi,
@@ -43,12 +43,12 @@ private final class TournamentInviter private (
       true
     }
 
-  val notifiedCache = new lila.memo.ExpireSetMemo(1 hour)
+  val notifiedCache = new lidraughts.memo.ExpireSetMemo(1 hour)
 }
 
 object TournamentInviter {
 
-  val minGames = 20
+  val minGames = 0
   val perfs = List(PerfType.Blitz, PerfType.Rapid)
 
   def bestRating(user: User) = user.perfs.bestRatingInWithMinGames(perfs, minGames)
@@ -60,13 +60,13 @@ object TournamentInviter {
   ): Fu[Option[Tournament]] = bestRating(user) match {
     case None => fuccess(none)
     case Some(rating) if rating > 2000 => fuccess(none)
-    case Some(rating) => lila.common.Future.find(tours.unfinished.filter { t =>
+    case Some(rating) => lidraughts.common.Future.find(tours.unfinished.filter { t =>
       t.conditions.maxRating.??(_.rating >= rating)
     }.take(4))(canEnter)
   }
 
   def start(system: ActorSystem, api: TournamentApi, notifyApi: NotifyApi) = {
     val ref = system.actorOf(Props(new TournamentInviter(api, notifyApi)))
-    system.lilaBus.subscribe(ref, 'userActive)
+    system.lidraughtsBus.subscribe(ref, 'userActive)
   }
 }

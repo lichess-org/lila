@@ -1,7 +1,7 @@
-@(categ: lila.pref.PrefCateg)(implicit ctx: Context)
+@(categ: lidraughts.pref.PrefCateg)(implicit ctx: Context)
 @categ match {
-case lila.pref.PrefCateg.GameDisplay => { @trans.gameDisplay() }
-case lila.pref.PrefCateg.ChessClock => { @trans.chessClock() }
-case lila.pref.PrefCateg.GameBehavior => { @trans.gameBehavior() }
-case lila.pref.PrefCateg.Privacy => { @trans.privacy() }
+case lidraughts.pref.PrefCateg.GameDisplay => { @trans.gameDisplay() }
+case lidraughts.pref.PrefCateg.DraughtsClock => { @trans.draughtsClock() }
+case lidraughts.pref.PrefCateg.GameBehavior => { @trans.gameBehavior() }
+case lidraughts.pref.PrefCateg.Privacy => { @trans.privacy() }
 }

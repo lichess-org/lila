@@ -1,4 +1,4 @@
-package lila.streamer
+package lidraughts.streamer
 
 import akka.actor._
 import com.typesafe.config.Config
@@ -7,12 +7,12 @@ final class Env(
     config: Config,
     system: ActorSystem,
     renderer: ActorSelection,
-    isOnline: lila.user.User.ID => Boolean,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    notifyApi: lila.notify.NotifyApi,
-    lightUserApi: lila.user.LightUserApi,
-    hub: lila.hub.Env,
-    db: lila.db.Env
+    isOnline: lidraughts.user.User.ID => Boolean,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    notifyApi: lidraughts.notify.NotifyApi,
+    lightUserApi: lidraughts.user.LightUserApi,
+    hub: lidraughts.hub.Env,
+    db: lidraughts.db.Env
 ) {
 
   private val CollectionStreamer = config getString "collection.streamer"
@@ -25,7 +25,7 @@ final class Env(
   private lazy val streamerColl = db(CollectionStreamer)
   private lazy val imageColl = db(CollectionImage)
 
-  private lazy val photographer = new lila.db.Photographer(imageColl, "streamer")
+  private lazy val photographer = new lidraughts.db.Photographer(imageColl, "streamer")
 
   lazy val api = new StreamerApi(
     coll = streamerColl,
@@ -36,7 +36,7 @@ final class Env(
 
   lazy val pager = new StreamerPager(
     coll = streamerColl,
-    maxPerPage = lila.common.MaxPerPage(MaxPerPage)
+    maxPerPage = lidraughts.common.MaxPerPage(MaxPerPage)
   )
 
   private val streamingActor = system.actorOf(Props(new Streaming(
@@ -52,10 +52,10 @@ final class Env(
 
   lazy val liveStreamApi = new LiveStreamApi(asyncCache, streamingActor)
 
-  system.lilaBus.subscribe(
+  system.lidraughtsBus.subscribe(
     system.actorOf(Props(new Actor {
       def receive = {
-        case lila.user.User.Active(user) if !user.seenRecently => api.setSeenAt(user)
+        case lidraughts.user.User.Active(user) if !user.seenRecently => api.setSeenAt(user)
       }
     })), 'userActive
   )
@@ -64,14 +64,14 @@ final class Env(
 object Env {
 
   lazy val current: Env = "streamer" boot new Env(
-    config = lila.common.PlayApp loadConfig "streamer",
-    system = lila.common.PlayApp.system,
-    renderer = lila.hub.Env.current.actor.renderer,
-    isOnline = lila.user.Env.current.isOnline,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    notifyApi = lila.notify.Env.current.api,
-    lightUserApi = lila.user.Env.current.lightUserApi,
-    hub = lila.hub.Env.current,
-    db = lila.db.Env.current
+    config = lidraughts.common.PlayApp loadConfig "streamer",
+    system = lidraughts.common.PlayApp.system,
+    renderer = lidraughts.hub.Env.current.actor.renderer,
+    isOnline = lidraughts.user.Env.current.isOnline,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    notifyApi = lidraughts.notify.Env.current.api,
+    lightUserApi = lidraughts.user.Env.current.lightUserApi,
+    hub = lidraughts.hub.Env.current,
+    db = lidraughts.db.Env.current
   )
 }

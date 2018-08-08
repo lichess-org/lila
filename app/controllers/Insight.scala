@@ -1,12 +1,12 @@
 package controllers
 
-import lila.api.Context
-import lila.app._
-import lila.insight.{ Metric, Dimension }
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.insight.{ Metric, Dimension }
 import play.api.mvc._
 import views._
 
-object Insight extends LilaController {
+object Insight extends LidraughtsController {
 
   private def env = Env.insight
 
@@ -25,7 +25,7 @@ object Insight extends LilaController {
 
   def path(username: String, metric: String, dimension: String, filters: String) = Open { implicit ctx =>
     Accessible(username) { user =>
-      import lila.insight.InsightApi.UserStatus._
+      import lidraughts.insight.InsightApi.UserStatus._
       env.api userStatus user flatMap {
         case NoGame => Ok(html.insight.noGame(user)).fuccess
         case Empty => Ok(html.insight.empty(user)).fuccess
@@ -45,21 +45,21 @@ object Insight extends LilaController {
   }
 
   def json(username: String) = OpenBody(BodyParsers.parse.json) { implicit ctx =>
-    import lila.insight.JsonQuestion, JsonQuestion._
+    import lidraughts.insight.JsonQuestion, JsonQuestion._
     Accessible(username) { user =>
       ctx.body.body.validate[JsonQuestion].fold(
         err => BadRequest(jsonError(err.toString)).fuccess,
         qJson => qJson.question.fold(BadRequest.fuccess) { q =>
           env.api.ask(q, user) map
-            lila.insight.Chart.fromAnswer(Env.user.lightUserSync) map
+            lidraughts.insight.Chart.fromAnswer(Env.user.lightUserSync) map
             env.jsonView.chart.apply map { Ok(_) }
         }
       )
     }
   }
 
-  private def Accessible(username: String)(f: lila.user.User => Fu[Result])(implicit ctx: Context) =
-    lila.user.UserRepo named username flatMap {
+  private def Accessible(username: String)(f: lidraughts.user.User => Fu[Result])(implicit ctx: Context) =
+    lidraughts.user.UserRepo named username flatMap {
       _.fold(notFound) { u =>
         env.share.grant(u, ctx.me) flatMap {
           _.fold(f(u), fuccess(Forbidden(html.insight.forbidden(u))))

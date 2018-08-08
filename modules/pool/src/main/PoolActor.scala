@@ -1,4 +1,4 @@
-package lila.pool
+package lidraughts.pool
 
 import scala.concurrent.duration._
 import scala.util.Random
@@ -6,7 +6,7 @@ import scala.util.Random
 import akka.actor._
 import akka.pattern.pipe
 
-import lila.user.User
+import lidraughts.user.User
 
 private final class PoolActor(
     config: PoolConfig,
@@ -68,7 +68,7 @@ private final class PoolActor(
 
       val candidates = members ++ hooks.map(_.member)
 
-      val pairings = lila.mon.measure(_.lobby.pool.matchMaking.duration(monId)) {
+      val pairings = lidraughts.mon.measure(_.lobby.pool.matchMaking.duration(monId)) {
         MatchMaking(candidates)
       }
 
@@ -102,7 +102,7 @@ private final class PoolActor(
       }
   }
 
-  val monitor = lila.mon.lobby.pool
+  val monitor = lidraughts.mon.lobby.pool
   val monId = config.id.value.replace("+", "_")
 }
 

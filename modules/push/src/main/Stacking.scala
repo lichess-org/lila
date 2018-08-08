@@ -1,4 +1,4 @@
-package lila.push
+package lidraughts.push
 
 private sealed abstract class Stacking(val key: String, val message: String)
 

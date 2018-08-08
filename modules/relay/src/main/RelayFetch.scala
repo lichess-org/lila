@@ -1,4 +1,4 @@
-package lila.relay
+package lidraughts.relay
 
 import akka.actor._
 import org.joda.time.DateTime
@@ -6,13 +6,13 @@ import play.api.libs.ws.WS
 import play.api.Play.current
 import scala.concurrent.duration._
 
-import lila.base.LilaException
-import lila.tree.Node.Comments
+import lidraughts.base.LidraughtsException
+import lidraughts.tree.Node.Comments
 
 private final class RelayFetch(
     sync: RelaySync,
     api: RelayApi,
-    chapterRepo: lila.study.ChapterRepo
+    chapterRepo: lidraughts.study.ChapterRepo
 ) extends Actor {
 
   val frequency = 1.seconds
@@ -36,7 +36,7 @@ private final class RelayFetch(
       throw new RuntimeException(msg)
 
     case Tick => api.toSync.flatMap { relays =>
-      lila.mon.relay.ongoing(relays.size)
+      lidraughts.mon.relay.ongoing(relays.size)
       relays.map { relay =>
         if (relay.sync.ongoing) processRelay(relay) flatMap { newRelay =>
           api.update(relay)(_ => newRelay)
@@ -75,7 +75,7 @@ private final class RelayFetch(
       }
 
   def afterSync(result: SyncResult, relay: Relay): Fu[Relay] = {
-    lila.mon.relay.sync.result(result.reportKey)()
+    lidraughts.mon.relay.sync.result(result.reportKey)()
     result match {
       case SyncResult.Ok(0, games) =>
         if (games.size > 1 && games.forall(_.finished)) {
@@ -83,7 +83,7 @@ private final class RelayFetch(
           fuccess(relay.finish)
         } else continueRelay(relay)
       case SyncResult.Ok(nbMoves, games) =>
-        lila.mon.relay.moves(nbMoves)
+        lidraughts.mon.relay.moves(nbMoves)
         continueRelay(relay.ensureStarted.resume)
       case _ => continueRelay(relay)
     }
@@ -105,7 +105,7 @@ private final class RelayFetch(
 
 private object RelayFetch {
 
-  case class MultiPgn(value: List[String]) extends AnyVal
+  case class MultiPdn(value: List[String]) extends AnyVal
 
   import Relay.Sync.Upstream
   case class GamesSeenBy(games: Fu[RelayGames], seenBy: Set[Relay.Id])
@@ -122,7 +122,7 @@ private object RelayFetch {
     }
 
   def maxChapters(relay: Relay) =
-    lila.study.Study.maxChapters * relay.official.fold(2, 1)
+    lidraughts.study.Study.maxChapters * relay.official.fold(2, 1)
 
   import com.github.blemale.scaffeine.{ Cache, Scaffeine }
   private val cache: Cache[Upstream, GamesSeenBy] = Scaffeine()
@@ -132,12 +132,12 @@ private object RelayFetch {
   private def doFetch(upstream: Upstream, max: Int): Fu[RelayGames] = (upstream match {
     case Upstream.DgtOneFile(file) => dgtOneFile(file, max)
     case Upstream.DgtManyFiles(dir) => dgtManyFiles(dir, max)
-  }) flatMap multiPgnToGames.apply
+  }) flatMap multiPdnToGames.apply
 
-  private def dgtOneFile(file: String, max: Int): Fu[MultiPgn] =
+  private def dgtOneFile(file: String, max: Int): Fu[MultiPdn] =
     httpGet(file).flatMap {
-      case res if res.status == 200 => fuccess(splitPgn(res.body, max))
-      case res => fufail(s"Cannot fetch $file (error ${res.status})")
+      case res if res.status == 200 => fuccess(splitPdn(res.body, max))
+      case res => fufail(s"[${res.status}] $file")
     }
 
   import play.api.libs.json._
@@ -147,19 +147,19 @@ private object RelayFetch {
   private implicit val roundPairingReads = Json.reads[RoundJsonPairing]
   private implicit val roundReads = Json.reads[RoundJson]
 
-  private def dgtManyFiles(dir: String, max: Int): Fu[MultiPgn] = {
+  private def dgtManyFiles(dir: String, max: Int): Fu[MultiPdn] = {
     val roundUrl = s"$dir/round.json"
     httpGet(roundUrl) flatMap {
       case res if res.status == 200 => roundReads reads res.json match {
         case JsError(err) => fufail(err.toString)
         case JsSuccess(round, _) => (1 to round.pairings.size.atMost(max)).map { number =>
-          val gameUrl = s"$dir/game-$number.pgn"
+          val gameUrl = s"$dir/game-$number.pdn"
           httpGet(gameUrl).flatMap {
             case res if res.status == 200 => fuccess(number -> res.body)
             case res => fufail(s"Cannot fetch $gameUrl (error ${res.status})")
           }
         }.sequenceFu map { results =>
-          MultiPgn(results.sortBy(_._1).map(_._2).toList)
+          MultiPdn(results.sortBy(_._1).map(_._2).toList)
         }
       }
       case res => fufail(s"Cannot fetch $roundUrl (error ${res.status})")
@@ -168,21 +168,21 @@ private object RelayFetch {
 
   private def httpGet(url: String) = WS.url(url).withRequestTimeout(4.seconds.toMillis).get()
 
-  private def splitPgn(str: String, max: Int) = MultiPgn {
+  private def splitPdn(str: String, max: Int) = MultiPdn {
     """\n\n\[""".r.split(str.replace("\r\n", "\n")).toList take max match {
       case first :: rest => first :: rest.map(t => s"[$t")
       case Nil => Nil
     }
   }
 
-  private object multiPgnToGames {
+  private object multiPdnToGames {
 
     import scala.util.{ Try, Success, Failure }
     import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
 
-    def apply(multiPgn: MultiPgn): Fu[List[RelayGame]] =
-      multiPgn.value.foldLeft[Try[(List[RelayGame], Int)]](Success(List.empty -> 0)) {
-        case (Success((acc, index)), pgn) => pgnCache.get(pgn) map { f =>
+    def apply(multiPdn: MultiPdn): Fu[List[RelayGame]] =
+      multiPdn.value.foldLeft[Try[(List[RelayGame], Int)]](Success(List.empty -> 0)) {
+        case (Success((acc, index)), pdn) => pdnCache.get(pdn) map { f =>
           val game = f(index)
           if (game.isEmpty) acc -> index
           else (game :: acc, index + 1)
@@ -190,13 +190,13 @@ private object RelayFetch {
         case (acc, _) => acc
       }.future.map(_._1.reverse)
 
-    private val pgnCache: LoadingCache[String, Try[Int => RelayGame]] = Scaffeine()
+    private val pdnCache: LoadingCache[String, Try[Int => RelayGame]] = Scaffeine()
       .expireAfterAccess(2 minutes)
       .build(compute)
 
-    private def compute(pgn: String): Try[Int => RelayGame] =
-      lila.study.PgnImport(pgn, Nil).fold(
-        err => Failure(LilaException(err)),
+    private def compute(pdn: String): Try[Int => RelayGame] =
+      lidraughts.study.PdnImport(pdn, Nil).fold(
+        err => Failure(LidraughtsException(err)),
         res => Success(index => RelayGame(
           index = index,
           tags = res.tags,

@@ -1,7 +1,7 @@
-package lila.tournament
+package lidraughts.tournament
 
-import lila.game.Game
-import lila.user.User
+import lidraughts.game.Game
+import lidraughts.user.User
 
 import scala.collection.mutable.AnyRefMap
 

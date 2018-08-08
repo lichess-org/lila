@@ -1,6 +1,6 @@
-package lila.user
+package lidraughts.user
 
-import lila.db.BSON
+import lidraughts.db.BSON
 import reactivemongo.bson.BSONDocument
 
 case class Count(

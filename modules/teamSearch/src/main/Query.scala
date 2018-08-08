@@ -1,4 +1,4 @@
-package lila.teamSearch
+package lidraughts.teamSearch
 
 private[teamSearch] case class Query(text: String)
 

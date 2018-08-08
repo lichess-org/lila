@@ -1,11 +1,11 @@
-@(q: String, questions: List[lila.qa.Question], popular: List[lila.qa.Question])(implicit ctx: Context)
+@(q: String, questions: List[lidraughts.qa.Question], popular: List[lidraughts.qa.Question])(implicit ctx: Context)
 
 @title = @{ trans.search.txt() + " \"" + q.trim + "\"" }
 
 @layout(title = title) {
 
 <div class="content_box_top">
-  <h1 class="lichess_title" data-icon="y"> @q</h1>
+  <h1 class="lidraughts_title" data-icon="y"> @q</h1>
 </div>
 
 <div class="meta content_box_inter">

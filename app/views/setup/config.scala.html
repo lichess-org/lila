@@ -1,7 +1,7 @@
 @(form: Form[_], typ: String, title: Html, route: Call, fields: Html, error: Option[Html] = None)(implicit ctx: Context)
 
-<div class="lichess_overboard game_config game_config_@typ @if(error){error}"
-  data-random-color-variants="@lila.game.Game.variantsWhereWhiteIsBetter.map(_.id).mkString(",")"
+<div class="lidraughts_overboard game_config game_config_@typ @if(error){error}"
+  data-random-color-variants="@lidraughts.game.Game.variantsWhereWhiteIsBetter.map(_.id).mkString(",")"
   @if(ctx.isAnon){data-anon="1"}>
   <a href="@routes.Lobby.home" class="close icon" title="@trans.cancel()" data-icon="L"></a>
   <h2>@title</h2>
@@ -23,7 +23,7 @@
   }
   @ctx.me.map { me =>
   <div class="ratings">
-    @lila.rating.PerfType.nonPuzzle.map { perfType =>
+    @lidraughts.rating.PerfType.nonPuzzle.map { perfType =>
     <div class="@perfType.key">
       @trans.perfRatingX(Html(s"""<strong data-icon="${perfType.iconChar}">${me.perfs(perfType.key).map(_.intRating).getOrElse("?")}</strong> ${perfType.name}"""))
     </div>

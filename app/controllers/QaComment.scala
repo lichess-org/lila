@@ -2,9 +2,9 @@ package controllers
 
 import play.api.mvc._
 
-import lila.api.Context
-import lila.app._
-import lila.qa.{ QuestionId, AnswerId, QaAuth }
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.qa.{ QuestionId, AnswerId, QaAuth }
 
 object QaComment extends QaController {
 

@@ -1,7 +1,7 @@
-package lila.user
+package lidraughts.user
 
-import lila.db.dsl._
-import lila.db.BSON.BSONJodaDateTimeHandler
+import lidraughts.db.dsl._
+import lidraughts.db.BSON.BSONJodaDateTimeHandler
 import reactivemongo.bson._
 
 final class TrophyApi(coll: Coll) {

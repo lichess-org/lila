@@ -1,9 +1,9 @@
-package lila.game
+package lidraughts.game
 
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 
-import chess.format.UciDump
+import draughts.format.UciDump
 
 final class UciMemo(ttl: Duration) {
 
@@ -19,7 +19,7 @@ final class UciMemo(ttl: Duration) {
     val current = ~cache.getIfPresent(game.id)
     cache.put(game.id, current :+ uciMove)
   }
-  def add(game: Game, move: chess.MoveOrDrop): Unit =
+  def add(game: Game, move: draughts.Move): Unit =
     add(game, UciDump.move(game.variant)(move))
 
   def set(game: Game, uciMoves: Seq[String]) =
@@ -27,7 +27,7 @@ final class UciMemo(ttl: Duration) {
 
   def get(game: Game, max: Int = hardLimit): Fu[UciVector] =
     cache getIfPresent game.id filter { moves =>
-      moves.size.min(max) == game.pgnMoves.size.min(max)
+      moves.size.min(max) == game.pdnMoves.size.min(max)
     } match {
       case Some(moves) => fuccess(moves)
       case _ => compute(game, max) addEffect { set(game, _) }
@@ -40,6 +40,6 @@ final class UciMemo(ttl: Duration) {
 
   private def compute(game: Game, max: Int): Fu[UciVector] = for {
     fen ← GameRepo initialFen game
-    uciMoves ← UciDump(game.pgnMoves.take(max), fen, game.variant).future
+    uciMoves ← UciDump(game.pdnMoves.take(max), fen, game.variant).future
   } yield uciMoves.toVector
 }

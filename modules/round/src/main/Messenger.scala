@@ -1,14 +1,14 @@
-package lila.round
+package lidraughts.round
 
 import akka.actor.ActorSelection
 
 import actorApi._
-import lila.chat.Chat
-import lila.chat.actorApi._
-import lila.game.Game
-import lila.i18n.I18nKey.{ Select => SelectI18nKey }
-import lila.i18n.{ I18nKeys, enLang }
-import lila.hub.actorApi.shutup.PublicSource
+import lidraughts.chat.Chat
+import lidraughts.chat.actorApi._
+import lidraughts.game.Game
+import lidraughts.i18n.I18nKey.{ Select => SelectI18nKey }
+import lidraughts.i18n.{ I18nKeys, enLang }
+import lidraughts.hub.actorApi.shutup.PublicSource
 
 final class Messenger(val chat: ActorSelection) {
 

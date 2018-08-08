@@ -1,4 +1,4 @@
-package lila.blog
+package lidraughts.blog
 
 import org.joda.time.DateTime
 

@@ -1,10 +1,10 @@
-package lila.round
+package lidraughts.round
 
-import lila.hub.actorApi.timeline.{ Propagate, GameEnd => TLGameEnd }
-import lila.notify.{ GameEnd, Notification, NotifyApi }
+import lidraughts.hub.actorApi.timeline.{ Propagate, GameEnd => TLGameEnd }
+import lidraughts.notify.{ GameEnd, Notification, NotifyApi }
 
-import lila.game.Game
-import lila.user.User
+import lidraughts.game.Game
+import lidraughts.user.User
 
 private final class RoundNotifier(
     timeline: akka.actor.ActorSelection,
@@ -12,7 +12,7 @@ private final class RoundNotifier(
     notifyApi: NotifyApi
 ) {
 
-  def gameEnd(game: Game)(color: chess.Color) = {
+  def gameEnd(game: Game)(color: draughts.Color) = {
     if (!game.aborted) game.player(color).userId foreach { userId =>
       game.perfType foreach { perfType =>
         timeline ! (Propagate(TLGameEnd(

@@ -15,7 +15,7 @@ export interface ServerEvalCtrl {
   lastPly: Prop<number | false>;
 }
 
-const li = window.lichess;
+const li = window.lidraughts;
 
 export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl {
 
@@ -38,7 +38,7 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
         if (chart) {
           if (lp === false) unselect(chart);
           else {
-            const point = chart.series[0].data[lp - 1 - root.tree.root.ply];
+            const point = chart.series[0].data[lp - 1 - (root.tree.root.displayPly ? root.tree.root.displayPly : root.tree.root.ply)];
             if (defined(point)) point.select();
             else unselect(chart);
           }
@@ -69,9 +69,11 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
 
 export function view(ctrl: ServerEvalCtrl): VNode {
 
-  if (!ctrl.root.data.analysis) return ctrl.requested() ? requested() : requestButton(ctrl);
+  const analysis = ctrl.root.data.analysis;
 
-  return h('div.server_eval.ready.' + ctrl.chapterId(), {
+  if (!analysis) return ctrl.requested() ? requested() : requestButton(ctrl);
+
+  return h('div.server_eval.ready.' + analysis.id, {
     hook: {
       insert(vnode) {
         ctrl.lastPly(false);

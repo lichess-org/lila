@@ -1,8 +1,8 @@
 package controllers
 
-import lila.app._
+import lidraughts.app._
 
-object Bookmark extends LilaController {
+object Bookmark extends LidraughtsController {
 
   private def api = Env.bookmark.api
 

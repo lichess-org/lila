@@ -1,14 +1,14 @@
-package lila.site
+package lidraughts.site
 
 import actorApi._
-import lila.socket._
-import lila.socket.actorApi.StartWatching
+import lidraughts.socket._
+import lidraughts.socket.actorApi.StartWatching
 
 import ornicar.scalalib.Random
 
 private[site] final class ApiSocketHandler(
     socket: akka.actor.ActorRef,
-    hub: lila.hub.Env
+    hub: lidraughts.hub.Env
 ) {
 
   private val flag = "api".some

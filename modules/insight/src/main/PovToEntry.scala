@@ -1,8 +1,8 @@
-package lila.insight
+package lidraughts.insight
 
-import chess.{ Role, Board }
-import lila.analyse.{ Accuracy, Advice }
-import lila.game.{ Game, Pov, GameRepo }
+import draughts.{ Role, Board }
+import lidraughts.analyse.{ Accuracy, Advice }
+import lidraughts.game.{ Game, Pov, GameRepo }
 import scalaz.NonEmptyList
 
 object PovToEntry {
@@ -13,8 +13,8 @@ object PovToEntry {
       pov: Pov,
       provisional: Boolean,
       initialFen: Option[String],
-      analysis: Option[lila.analyse.Analysis],
-      division: chess.Division,
+      analysis: Option[lidraughts.analyse.Analysis],
+      division: draughts.Division,
       moveAccuracy: Option[List[Int]],
       boards: NonEmptyList[Board],
       movetimes: NonEmptyList[Int],
@@ -28,7 +28,7 @@ object PovToEntry {
   private def removeWrongAnalysis(game: Game): Boolean = {
     if (game.metadata.analysed && !game.analysable) {
       GameRepo setUnanalysed game.id
-      lila.analyse.AnalysisRepo remove game.id
+      lidraughts.analyse.AnalysisRepo remove game.id
       true
     }
     false
@@ -36,13 +36,13 @@ object PovToEntry {
 
   private def enrich(game: Game, userId: String, provisional: Boolean): Fu[Option[RichPov]] =
     if (removeWrongAnalysis(game)) fuccess(none)
-    else lila.game.Pov.ofUserId(game, userId) ?? { pov =>
-      lila.game.GameRepo.initialFen(game) zip
-        (game.metadata.analysed ?? lila.analyse.AnalysisRepo.byId(game.id)) map {
+    else lidraughts.game.Pov.ofUserId(game, userId) ?? { pov =>
+      lidraughts.game.GameRepo.initialFen(game) zip
+        (game.metadata.analysed ?? lidraughts.analyse.AnalysisRepo.byId(game.id)) map {
           case (fen, an) => for {
-            boards <- chess.Replay.boards(
-              moveStrs = game.pgnMoves,
-              initialFen = fen map chess.format.FEN,
+            boards <- draughts.Replay.boards(
+              moveStrs = game.pdnMoves,
+              initialFen = fen map draughts.format.FEN,
               variant = game.variant
             ).toOption.flatMap(_.toNel)
             movetimes <- game.moveTimes(pov.color).flatMap(_.map(_.roundTenths).toNel)
@@ -51,7 +51,7 @@ object PovToEntry {
             provisional = provisional,
             initialFen = fen,
             analysis = an,
-            division = chess.Divider(boards.toList),
+            division = draughts.Divider(boards.toList),
             moveAccuracy = an.map { Accuracy.diffsList(pov, _) },
             boards = boards,
             movetimes = movetimes,
@@ -60,13 +60,13 @@ object PovToEntry {
         }
     }
 
-  private def pgnMoveToRole(pgn: String): Role = pgn.head match {
-    case 'N' => chess.Knight
-    case 'B' => chess.Bishop
-    case 'R' => chess.Rook
-    case 'Q' => chess.Queen
-    case 'K' | 'O' => chess.King
-    case _ => chess.Pawn
+  private def pdnMoveToRole(pdn: String): Role = pdn.head match {
+    /*case 'N' => draughts.Knight
+    case 'B' => draughts.Bishop
+    case 'R' => draughts.Rook
+    case 'Q' => draughts.Queen*/
+    case 'K' | 'O' => draughts.King
+    case _ => draughts.Man
   }
 
   private def makeMoves(from: RichPov): List[Move] = {
@@ -77,7 +77,7 @@ object PovToEntry {
       }
     }
     val movetimes = from.movetimes.toList
-    val roles = from.pov.game.pgnMoves(from.pov.color) map pgnMoveToRole
+    val roles = from.pov.game.pdnMoves(from.pov.color) map pdnMoveToRole
     val boards = {
       val pivot = if (from.pov.color == from.pov.game.startColor) 0 else 1
       from.boards.toList.zipWithIndex.collect {
@@ -116,17 +116,6 @@ object PovToEntry {
     }
   }
 
-  private def queenTrade(from: RichPov) = QueenTrade {
-    from.division.end.fold(from.boards.last.some)(from.boards.toList.lift) match {
-      case Some(board) => chess.Color.all.forall { color =>
-        !board.hasPiece(chess.Piece(color, chess.Queen))
-      }
-      case _ =>
-        logger.warn(s"https://lichess.org/${from.pov.game.id} missing endgame board")
-        false
-    }
-  }
-
   private def convert(from: RichPov): Option[Entry] = {
     import from._
     import pov.game
@@ -143,13 +132,12 @@ object PovToEntry {
       perf = perfType,
       eco =
         if (game.playable || game.turns < 4 || game.fromPosition || game.variant.exotic) none
-        else chess.opening.Ecopening fromGame game.pgnMoves.toList,
-      myCastling = Castling.fromMoves(game pgnMoves pov.color),
+        else draughts.opening.Ecopening fromGame game.pdnMoves.toList,
+      myCastling = Castling.fromMoves(game pdnMoves pov.color),
       opponentRating = opRating,
       opponentStrength = RelativeStrength(opRating - myRating),
-      opponentCastling = Castling.fromMoves(game pgnMoves !pov.color),
+      opponentCastling = Castling.fromMoves(game pdnMoves !pov.color),
       moves = makeMoves(from),
-      queenTrade = queenTrade(from),
       result = game.winnerUserId match {
         case None => Result.Draw
         case Some(u) if u == myId => Result.Win

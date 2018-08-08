@@ -1,4 +1,4 @@
-package lila.game
+package lidraughts.game
 
 import org.joda.time.DateTime
 import scala.collection.breakOut
@@ -6,30 +6,30 @@ import scala.collection.breakOut
 import scala.collection.Searching._
 import scala.util.Try
 
-import chess.variant.Variant
-import chess.{ ToOptionOpsFromOption => _, _ }
-import chess.format.Uci
+import draughts.variant.Variant
+import draughts.{ ToOptionOpsFromOption => _, _ }
+import draughts.format.Uci
 import org.lichess.compression.clock.{ Encoder => ClockEncoder }
 
-import lila.db.ByteArray
+import lidraughts.db.ByteArray
 
 object BinaryFormat {
 
-  object pgn {
+  object pdn {
 
-    def write(moves: PgnMoves): ByteArray = ByteArray {
-      format.pgn.Binary.writeMoves(moves).get
+    def write(moves: PdnMoves): ByteArray = ByteArray {
+      format.pdn.Binary.writeMoves(moves).get
     }
 
-    def read(ba: ByteArray): PgnMoves =
-      format.pgn.Binary.readMoves(ba.value.toList).get.toVector
+    def read(ba: ByteArray): PdnMoves =
+      format.pdn.Binary.readMoves(ba.value.toList).get.toVector
 
-    def read(ba: ByteArray, nb: Int): PgnMoves =
-      format.pgn.Binary.readMoves(ba.value.toList, nb).get.toVector
+    def read(ba: ByteArray, nb: Int): PdnMoves =
+      format.pdn.Binary.readMoves(ba.value.toList, nb).get.toVector
   }
 
   object clockHistory {
-    private val logger = lila.log("clockHistory")
+    private val logger = lidraughts.log("clockHistory")
 
     def writeSide(start: Centis, times: Vector[Centis], flagged: Boolean) = {
       val timesToWrite = if (flagged) times.dropRight(1) else times
@@ -165,40 +165,6 @@ object BinaryFormat {
     def apply(start: DateTime) = new clock(Timestamp(start.getMillis))
   }
 
-  object castleLastMove {
-
-    def write(clmt: CastleLastMove): ByteArray = {
-
-      val castleInt = clmt.castles.toSeq.zipWithIndex.foldLeft(0) {
-        case (acc, (false, _)) => acc
-        case (acc, (true, p)) => acc + (1 << (3 - p))
-      }
-
-      def posInt(pos: Pos): Int = ((pos.x - 1) << 3) + pos.y - 1
-      val lastMoveInt = clmt.lastMove.map(_.origDest).fold(0) {
-        case (o, d) => (posInt(o) << 6) + posInt(d)
-      }
-      Array((castleInt << 4) + (lastMoveInt >> 8) toByte, lastMoveInt.toByte)
-    }
-
-    def read(ba: ByteArray): CastleLastMove = {
-      val ints = ba.value map toInt
-      doRead(ints(0), ints(1))
-    }
-
-    private def posAt(x: Int, y: Int) = Pos.posAt(x + 1, y + 1)
-
-    private def doRead(b1: Int, b2: Int) =
-      CastleLastMove(
-        castles = Castles(b1 > 127, (b1 & 64) != 0, (b1 & 32) != 0, (b1 & 16) != 0),
-        lastMove = for {
-          orig ← posAt((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
-          dest ← posAt((b2 & 63) >> 3, b2 & 7)
-          if orig != Pos.A1 || dest != Pos.A1
-        } yield Uci.Move(orig, dest)
-      )
-  }
-
   object piece {
 
     private val groupedPos = Pos.all grouped 2 collect {
@@ -228,65 +194,20 @@ object BinaryFormat {
     }
 
     // cache standard start position
-    val standard = write(Board.init(chess.variant.Standard).pieces)
+    val standard = write(Board.init(draughts.variant.Standard).pieces)
 
     private def intToRole(int: Int, variant: Variant): Option[Role] = int match {
-      case 6 => Some(Pawn)
+      case 4 => Some(GhostMan)
+      case 3 => Some(GhostKing)
+      case 2 => Some(Man)
       case 1 => Some(King)
-      case 2 => Some(Queen)
-      case 3 => Some(Rook)
-      case 4 => Some(Knight)
-      case 5 => Some(Bishop)
-      // Legacy from when we used to have an 'Antiking' piece
-      case 7 if variant.antichess => Some(King)
       case _ => None
     }
     private def roleToInt(role: Role): Int = role match {
-      case Pawn => 6
       case King => 1
-      case Queen => 2
-      case Rook => 3
-      case Knight => 4
-      case Bishop => 5
-    }
-  }
-
-  object unmovedRooks {
-
-    val emptyByteArray = ByteArray(Array(0, 0))
-
-    def write(o: UnmovedRooks): ByteArray = {
-      if (o.pos.isEmpty) emptyByteArray
-      else {
-        var white = 0
-        var black = 0
-        o.pos.foreach { pos =>
-          if (pos.y == 1) white = white | (1 << (8 - pos.x))
-          else black = black | (1 << (8 - pos.x))
-        }
-        Array(white.toByte, black.toByte)
-      }
-    }
-
-    private def bitAt(n: Int, k: Int) = (n >> k) & 1
-
-    private val arrIndexes = 0 to 1
-    private val bitIndexes = 0 to 7
-    private val whiteStd = Set(Pos.A1, Pos.H1)
-    private val blackStd = Set(Pos.A8, Pos.H8)
-
-    def read(ba: ByteArray) = UnmovedRooks {
-      var set = Set.empty[Pos]
-      arrIndexes.foreach { i =>
-        val int = ba.value(i).toInt
-        if (int != 0) {
-          if (int == -127) set = if (i == 0) whiteStd else set ++ blackStd
-          else bitIndexes.foreach { j =>
-            if (bitAt(int, j) == 1) set = set + Pos.posAt(8 - j, 1 + 7 * i).get
-          }
-        }
-      }
-      set
+      case Man => 2
+      case GhostKing => 3
+      case GhostMan => 4
     }
   }
 

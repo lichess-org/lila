@@ -1,4 +1,4 @@
-package lila.db
+package lidraughts.db
 package paginator
 
 import dsl._
@@ -6,7 +6,7 @@ import reactivemongo.api.collections.bson.BSONCollection
 import reactivemongo.api._
 import reactivemongo.bson._
 
-import lila.common.paginator.AdapterLike
+import lidraughts.common.paginator.AdapterLike
 
 final class CachedAdapter[A](
     adapter: AdapterLike[A],

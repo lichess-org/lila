@@ -1,4 +1,4 @@
-package lila.i18n
+package lidraughts.i18n
 
 object I18nDb {
 
@@ -10,12 +10,12 @@ object I18nDb {
   case object Activity extends Ref
   case object Coordinates extends Ref
 
-  val site: Messages = lila.i18n.db.site.Registry.load
-  val arena: Messages = lila.i18n.db.arena.Registry.load
-  val emails: Messages = lila.i18n.db.emails.Registry.load
-  val learn: Messages = lila.i18n.db.learn.Registry.load
-  val activity: Messages = lila.i18n.db.activity.Registry.load
-  val coordinates: Messages = lila.i18n.db.coordinates.Registry.load
+  val site: Messages = lidraughts.i18n.db.site.Registry.load
+  val arena: Messages = lidraughts.i18n.db.arena.Registry.load
+  val emails: Messages = lidraughts.i18n.db.emails.Registry.load
+  val learn: Messages = lidraughts.i18n.db.learn.Registry.load
+  val activity: Messages = lidraughts.i18n.db.activity.Registry.load
+  val coordinates: Messages = lidraughts.i18n.db.coordinates.Registry.load
 
   def apply(ref: Ref): Messages = ref match {
     case Site => site

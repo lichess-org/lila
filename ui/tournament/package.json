@@ -1,26 +1,18 @@
 {
   "name": "tournament",
   "version": "1.0.0",
-  "description": "lichess.org tournament",
+  "description": "lidraughts.org tournament",
   "main": "src/main.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ornicar/lila"
-  },
   "keywords": [
-    "chess",
-    "lichess",
+    "draughts",
+    "lidraughts",
     "tournament"
   ],
-  "author": "Thibault Duplessis",
+  "author": "Stefan Schermann (modified original by Thibault Duplessis)",
   "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/ornicar/lila/issues"
-  },
-  "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
     "@types/jquery": "^2.0",
-    "@types/lichess": "1.0.0",
+    "@types/lidraughts": "1.0.0",
     "browserify": "^14",
     "gulp": "^3",
     "gulp-uglify": "^3",
@@ -33,7 +25,7 @@
   },
   "dependencies": {
     "chat": "2.0.0",
-    "chessground": "^7.2",
+    "draughtsground": "^7.2",
     "common": "1.0.0",
     "game": "1.0.0",
     "snabbdom": "ornicar/snabbdom#lichess"

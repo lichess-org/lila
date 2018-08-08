@@ -1,4 +1,4 @@
-package lila.forum
+package lidraughts.forum
 
 import org.joda.time.DateTime
 

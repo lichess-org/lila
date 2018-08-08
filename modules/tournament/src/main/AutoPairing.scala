@@ -1,9 +1,9 @@
-package lila.tournament
+package lidraughts.tournament
 
 import scala.concurrent.duration._
 
-import lila.game.{ Game, Player => GamePlayer, GameRepo, PovRef, Source, PerfPicker }
-import lila.user.User
+import lidraughts.game.{ Game, Player => GamePlayer, GameRepo, PovRef, Source, PerfPicker }
+import lidraughts.user.User
 
 final class AutoPairing(
     duelStore: DuelStore,
@@ -15,15 +15,15 @@ final class AutoPairing(
     val user2 = usersMap get pairing.user2 err s"Missing pairing user2 $pairing"
     val clock = tour.clock.toClock
     val perfPicker = PerfPicker.mainOrDefault(
-      speed = chess.Speed(clock.config),
+      speed = draughts.Speed(clock.config),
       variant = tour.ratingVariant,
       daysPerTurn = none
     )
     val game = Game.make(
-      chess = chess.Game(
+      draughts = draughts.DraughtsGame(
         variantOption = Some {
           if (tour.position.initial) tour.variant
-          else chess.variant.FromPosition
+          else draughts.variant.FromPosition
         },
         fen = tour.position.some.filterNot(_.initial).map(_.fen)
       ) |> { g =>
@@ -34,11 +34,11 @@ final class AutoPairing(
             startedAtTurn = turns
           )
         },
-      whitePlayer = GamePlayer.make(chess.White, user1.some, perfPicker),
-      blackPlayer = GamePlayer.make(chess.Black, user2.some, perfPicker),
+      whitePlayer = GamePlayer.make(draughts.White, user1.some, perfPicker),
+      blackPlayer = GamePlayer.make(draughts.Black, user2.some, perfPicker),
       mode = tour.mode,
       source = Source.Tournament,
-      pgnImport = None
+      pdnImport = None
     ).withTournamentId(tour.id)
       .withId(pairing.gameId)
       .start

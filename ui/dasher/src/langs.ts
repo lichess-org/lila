@@ -32,7 +32,7 @@ export function ctrl(data: LangsData, trans: Trans, redraw: Redraw, close: Close
     data,
     list: () => list,
     load() {
-      get(window.lichess.assetUrl('/assets/trans/refs.json'), true).then(d => {
+      get(window.lidraughts.assetUrl('/assets/trans/refs.json'), true).then(d => {
         const accs: Lang[] = [];
         const others: Lang[] = [];
         d.forEach((l: Lang) => {
@@ -63,9 +63,9 @@ export function view(ctrl: LangsCtrl): VNode {
 
 function langLinks(ctrl: LangsCtrl, list: Lang[]) {
   const links = list.map(langView(ctrl.data.current, ctrl.data.accepted));
-  links.push(h('a', {
-    attrs: { href: 'https://crowdin.com/project/lichess' }
-  }, 'Help translate lichess'));
+  /*links.push(h('a', {
+    attrs: { href: 'https://crowdin.com/project/lidraughts' }
+  }, 'Help translate lidraughts'));*/
   return links;
 }
 

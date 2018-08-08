@@ -1,8 +1,8 @@
-package lila.qa
+package lidraughts.qa
 
 import org.joda.time._
 
-import lila.user.User
+import lidraughts.user.User
 
 case class Question(
     _id: QuestionId, // autoincrement integer
@@ -24,7 +24,7 @@ case class Question(
   def id = _id
 
   def slug = {
-    val s = lila.common.String slugify title
+    val s = lidraughts.common.String slugify title
     if (s.isEmpty) "-" else s
   }
 

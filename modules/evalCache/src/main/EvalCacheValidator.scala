@@ -1,4 +1,4 @@
-package lila.evalCache
+package lidraughts.evalCache
 
 private object Validator {
 
@@ -6,7 +6,7 @@ private object Validator {
 
   def apply(in: EvalCacheEntry.Input): Option[Error] =
     in.eval.pvs.list.foldLeft(none[Error]) {
-      case (None, pv) => chess.Replay.boardsFromUci(
+      case (None, pv) => draughts.Replay.boardsFromUci(
         pv.moves.value.toList,
         in.fen.some,
         in.id.variant

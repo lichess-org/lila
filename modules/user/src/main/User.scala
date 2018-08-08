@@ -1,10 +1,10 @@
-package lila.user
+package lidraughts.user
 
 import scala.concurrent.duration._
 
-import lila.common.{ LightUser, EmailAddress }
+import lidraughts.common.{ LightUser, EmailAddress }
 
-import lila.rating.PerfType
+import lidraughts.rating.PerfType
 import org.joda.time.DateTime
 
 case class User(
@@ -91,7 +91,7 @@ case class User(
     } take nb
 
   private val firstRow: List[PerfType] = List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
-  private val secondRow: List[PerfType] = List(PerfType.UltraBullet, PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings)
+  private val secondRow: List[PerfType] = List(PerfType.UltraBullet, PerfType.Frisian)
 
   def best8Perfs: List[PerfType] = bestOf(firstRow, 4) ::: bestOf(secondRow, 4)
 
@@ -106,6 +106,8 @@ case class User(
   def planMonths: Option[Int] = activePlan.map(_.months)
 
   def createdSinceDays(days: Int) = createdAt isBefore DateTime.now.minusDays(days)
+
+  def is(name: String) = id == User.normalize(name)
 }
 
 object User {
@@ -116,7 +118,7 @@ object User {
   case class LoginCandidate(user: User, check: CredentialCheck) {
     def apply(p: ClearPassword): Option[User] = {
       val res = check(p)
-      lila.mon.user.auth.result(res)()
+      lidraughts.mon.user.auth.result(res)()
       res option user
     }
   }
@@ -146,10 +148,16 @@ object User {
 
   // what existing usernames are like
   val historicalUsernameRegex = """(?i)[a-z0-9][\w-]*[a-z0-9]""".r
-  // what new usernames should be like
+  // what new usernames should be like -- now split into further parts for clearer error messages
   val newUsernameRegex = """(?i)[a-z][\w-]*[a-z0-9]""".r
 
-  def couldBeUsername(str: User.ID) = historicalUsernameRegex.pattern.matcher(str).matches
+  val newUsernamePrefix = """(?i)[a-z].*""".r
+
+  val newUsernameSuffix = """(?i).*[a-z0-9]""".r
+
+  val newUsernameChars = """(?i)[\w-]*""".r
+
+  def couldBeUsername(str: User.ID) = historicalUsernameRegex.pattern.matcher(str).matches && str.size < 30
 
   def normalize(username: String) = username.toLowerCase
 
@@ -164,7 +172,7 @@ object User {
     "CM" -> "Candidate Master",
     "WCM" -> "Woman Candidate Master",
     "WNM" -> "Woman National Master",
-    "LM" -> "Lichess Master"
+    "LM" -> "Lidraughts Master"
   )
 
   val titlesMap = titles.toMap
@@ -204,8 +212,8 @@ object User {
     val sha512 = "sha512"
   }
 
-  import lila.db.BSON
-  import lila.db.dsl._
+  import lidraughts.db.BSON
+  import lidraughts.db.dsl._
 
   implicit val userBSONHandler = new BSON[User] {
 

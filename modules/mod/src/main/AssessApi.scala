@@ -1,19 +1,19 @@
-package lila.mod
+package lidraughts.mod
 
 import akka.actor.ActorSelection
-import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl._
-import lila.evaluation.Statistics
-import lila.evaluation.{ AccountAction, Analysed, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
-import lila.game.{ Game, Player, GameRepo, Source, Pov }
-import lila.user.{ User, UserRepo }
+import lidraughts.analyse.{ Analysis, AnalysisRepo }
+import lidraughts.db.BSON.BSONJodaDateTimeHandler
+import lidraughts.db.dsl._
+import lidraughts.evaluation.Statistics
+import lidraughts.evaluation.{ AccountAction, Analysed, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
+import lidraughts.game.{ Game, Player, GameRepo, Source, Pov }
+import lidraughts.user.{ User, UserRepo }
 
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.util.Random
 
-import chess.Color
+import draughts.Color
 
 final class AssessApi(
     collAssessments: Coll,
@@ -80,9 +80,8 @@ final class AssessApi(
   def refreshAssessByUsername(username: String): Funit = withUser(username) { user =>
     (GameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
       (gs map { g =>
-        AnalysisRepo.byId(g.id) flatMap {
-          case Some(a) => onAnalysisReady(g, a, false)
-          case _ => funit
+        AnalysisRepo.byGame(g) flatMap {
+          _ ?? { onAnalysisReady(g, _, false) }
         }
       }).sequenceFu.void
     }) >> assessUser(user.id)
@@ -100,8 +99,8 @@ final class AssessApi(
       else true
     shouldAssess.?? {
       val assessible = Assessible(Analysed(game, analysis))
-      createPlayerAssessment(assessible playerAssessment chess.White) >>
-        createPlayerAssessment(assessible playerAssessment chess.Black)
+      createPlayerAssessment(assessible playerAssessment draughts.White) >>
+        createPlayerAssessment(assessible playerAssessment draughts.Black)
     } >> ((shouldAssess && thenAssessUser) ?? {
       game.whitePlayer.userId.??(assessUser) >> game.blackPlayer.userId.??(assessUser)
     })
@@ -112,17 +111,17 @@ final class AssessApi(
       case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
         case AccountAction.Engine | AccountAction.EngineAndBan =>
           UserRepo.getTitle(userId).flatMap {
-            case None => modApi.autoMark(userId, "lichess")
+            case None => modApi.autoMark(userId, "lidraughts")
             case Some(title) => fuccess {
               val reason = s"Would mark as engine, but has a $title title"
-              reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(reason, 3))
+              reporter ! lidraughts.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(reason, 3))
             }
           }
         case AccountAction.Report(reason) => fuccess {
-          reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(reason, 3))
+          reporter ! lidraughts.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(reason, 3))
         }
         case AccountAction.Nothing =>
-          // reporter ! lila.hub.actorApi.report.Clean(userId)
+          // reporter ! lidraughts.hub.actorApi.report.Clean(userId)
           funit
       }
       case _ => funit
@@ -160,8 +159,8 @@ final class AssessApi(
       val x = noFastCoefVariation(game player c)
       x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(Random.nextBoolean)
     }
-    val whiteSuspCoefVariation = suspCoefVariation(chess.White)
-    val blackSuspCoefVariation = suspCoefVariation(chess.Black)
+    val whiteSuspCoefVariation = suspCoefVariation(draughts.White)
+    val blackSuspCoefVariation = suspCoefVariation(draughts.Black)
 
     val shouldAnalyse: Option[AutoAnalysis.Reason] =
       if (!game.analysable) none
@@ -181,7 +180,7 @@ final class AssessApi(
       // black has consistent move times
       else if (blackSuspCoefVariation.isDefined && randomPercent(70)) blackSuspCoefVariation.map(_ => BlackMoveTime)
       // don't analyse half of other bullet games
-      else if (game.speed == chess.Speed.Bullet && randomPercent(50)) none
+      else if (game.speed == draughts.Speed.Bullet && randomPercent(50)) none
       // someone blurs a lot
       else if (game.players exists manyBlurs) Blurs.some
       // the winner shows a great rating progress
@@ -193,8 +192,8 @@ final class AssessApi(
       else none
 
     shouldAnalyse foreach { reason =>
-      lila.mon.cheat.autoAnalysis.reason(reason.toString)()
-      fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
+      lidraughts.mon.cheat.autoAnalysis.reason(reason.toString)()
+      fishnet ! lidraughts.hub.actorApi.fishnet.AutoAnalyse(game.id)
     }
 
     funit

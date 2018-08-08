@@ -1,4 +1,4 @@
-@(patron: Option[lila.plan.Patron], customer: Option[lila.plan.StripeCustomer])(implicit ctx: Context)
+@(patron: Option[lidraughts.plan.Patron], customer: Option[lidraughts.plan.StripeCustomer])(implicit ctx: Context)
 
 @base.layout(
 moreCss = cssTag("page.css"),
@@ -11,7 +11,7 @@ title = "Thank you for your support!") {
   <div class="body">
     <br />
     <p>
-      Thank you for helping us build lichess. <strong>You rock!</strong>
+      Thank you for helping us build lidraughts. <strong>You rock!</strong>
     </p>
     <p>
       Your transaction has been completed,
@@ -36,14 +36,14 @@ title = "Thank you for your support!") {
     </p>
     } else {
     <p>
-      You are now a lichess Patron for one month!<br />
+      You are now a lidraughts Patron for one month!<br />
       @ctx.me.map { me =>
       Check out your <a href="@routes.User.show(me.username)">profile page</a>.
       }
     </p>
     <p>
       In one month, you will <strong>not</strong> be charged again,
-      and your lichess account will be downgraded to free.
+      and your lidraughts account will be downgraded to free.
     </p>
     <p>
       To get a permanent Patron account, please consider making a
@@ -53,7 +53,7 @@ title = "Thank you for your support!") {
     }
     }
     <p>
-      Success! <a href="@routes.Lobby.home">Return to lichess homepage</a>.
+      Success! <a href="@routes.Lobby.home">Return to lidraughts homepage</a>.
     </p>
   </div>
 </div>

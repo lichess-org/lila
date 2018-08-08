@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="210px" height="210px">
+  <defs>
+    <linearGradient id="lg">
+      <stop style="stop-color: #7f7f7f; stop-opacity: 1;" offset="0"/>
+      <stop style="stop-color: #ffffff; stop-opacity: 1;" offset="0.5"/>
+      <stop style="stop-color: #ffffff; stop-opacity: 1;" offset="1"/>
+    </linearGradient>
+	<linearGradient id="lg2">
+      <stop style="stop-color: #000000; stop-opacity: 1;" offset="0"/>
+      <stop style="stop-color: #000000; stop-opacity: 1;" offset="0.5"/>
+      <stop style="stop-color: #9f9f9f; stop-opacity: 1;" offset="1"/>
+    </linearGradient>
+  </defs>
+  <path d="M 10,140 c 0,60 190,60 190,0 l 0,-35 l -190,0 z" style="fill: url(#lg) rgb(255, 255, 255); stroke: rgb(0, 0, 0); stroke-width: 3; stroke-opacity: 0.65;"/>
+  <path d="M 10,105 c 0,60 190,60 190,0 l 0,-35 l -190,0 z" style="fill: url(#lg2) rgb(0, 0, 0); stroke: rgb(0, 0, 0); stroke-width: 3; stroke-opacity: 0.65;"/>
+  <path d="M 10,70 c 0,60 190,60 190,0 c 0,-60 -190,-60 -190,0 z" style="fill: rgb(0, 0, 0); stroke: #dfdfdf; stroke-width: 3; stroke-opacity: 0.65;"/>
+</svg>
+

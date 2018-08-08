@@ -1,10 +1,10 @@
-package lila.rating
+package lidraughts.rating
 
 import org.goochjs.glicko2.Rating
 import org.joda.time.DateTime
 import reactivemongo.bson.BSONDocument
 
-import lila.db.BSON
+import lidraughts.db.BSON
 
 case class Perf(
     glicko: Glicko,
@@ -32,9 +32,9 @@ case class Perf(
     glicko.sanityCheck option add(glicko, date)
   }
 
-  def addOrReset(monitor: lila.mon.IncPath, msg: => String)(r: Rating, date: DateTime): Perf = add(r, date) | {
-    lila.log("rating").error(s"Crazy Glicko2 $msg")
-    lila.mon.incPath(monitor)()
+  def addOrReset(monitor: lidraughts.mon.IncPath, msg: => String)(r: Rating, date: DateTime): Perf = add(r, date) | {
+    lidraughts.log("rating").error(s"Crazy Glicko2 $msg")
+    lidraughts.mon.incPath(monitor)()
     add(Glicko.default, date)
   }
 

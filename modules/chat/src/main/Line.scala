@@ -1,8 +1,8 @@
-package lila.chat
+package lidraughts.chat
 
-import lila.user.User
+import lidraughts.user.User
 
-import chess.Color
+import draughts.Color
 
 sealed trait Line {
   def text: String

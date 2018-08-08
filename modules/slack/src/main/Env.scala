@@ -1,16 +1,16 @@
-package lila.slack
+package lidraughts.slack
 
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.hub.actorApi.plan.ChargeEvent
-import lila.hub.actorApi.slack.Event
-import lila.hub.actorApi.user.Note
-import lila.hub.actorApi.{ DeployPre, DeployPost }
+import lidraughts.hub.actorApi.plan.ChargeEvent
+import lidraughts.hub.actorApi.slack.Event
+import lidraughts.hub.actorApi.user.Note
+import lidraughts.hub.actorApi.{ DeployPre, DeployPost }
 
 final class Env(
     config: Config,
-    getLightUser: lila.common.LightUser.Getter,
+    getLightUser: lidraughts.common.LightUser.Getter,
     system: ActorSystem
 ) {
 
@@ -18,7 +18,7 @@ final class Env(
   private val IncomingDefaultChannel = config getString "incoming.default_channel"
   private val NetDomain = config getString "domain"
 
-  private val isProd = NetDomain == "lichess.org"
+  private val isProd = NetDomain == "lidraughts.org"
 
   lazy val api = new SlackApi(client, isProd, getLightUser)
 
@@ -27,7 +27,7 @@ final class Env(
     defaultChannel = IncomingDefaultChannel
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case d: ChargeEvent => api charge d
       case DeployPre => api.deployPre
@@ -41,8 +41,8 @@ final class Env(
 object Env {
 
   lazy val current: Env = "slack" boot new Env(
-    system = lila.common.PlayApp.system,
-    getLightUser = lila.user.Env.current.lightUser,
-    config = lila.common.PlayApp loadConfig "slack"
+    system = lidraughts.common.PlayApp.system,
+    getLightUser = lidraughts.user.Env.current.lightUser,
+    config = lidraughts.common.PlayApp loadConfig "slack"
   )
 }

@@ -1,6 +1,6 @@
-package lila.relation
+package lidraughts.relation
 
-import lila.common.LightUser
+import lidraughts.common.LightUser
 import reactivemongo.bson._
 
 case class Follower(u1: String) {

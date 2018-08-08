@@ -1,6 +1,6 @@
-package lila.base
+package lidraughts.base
 
-import LilaTypes._
+import LidraughtsTypes._
 import ornicar.scalalib.Zero
 import play.api.libs.concurrent.Execution.Implicits._
 import scala.concurrent.duration._
@@ -20,7 +20,7 @@ import scala.concurrent.{ Future, ExecutionContext }
 object DirectExecutionContext extends ExecutionContext {
   override def execute(command: Runnable): Unit = command.run()
   override def reportFailure(cause: Throwable): Unit =
-    throw new IllegalStateException("lila DirectExecutionContext failure", cause)
+    throw new IllegalStateException("lidraughts DirectExecutionContext failure", cause)
 }
 
 final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
@@ -56,9 +56,9 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def flatFold[B](fail: Exception => Fu[B], succ: A => Fu[B]): Fu[B] =
     fua flatMap succ recoverWith { case e: Exception => fail(e) }
 
-  def logFailure(logger: => lila.log.Logger, msg: Exception => String): Fu[A] =
+  def logFailure(logger: => lidraughts.log.Logger, msg: Exception => String): Fu[A] =
     addFailureEffect { e => logger.warn(msg(e), e) }
-  def logFailure(logger: => lila.log.Logger): Fu[A] = logFailure(logger, _.toString)
+  def logFailure(logger: => lidraughts.log.Logger): Fu[A] = logFailure(logger, _.toString)
 
   def addFailureEffect(effect: Exception => Unit) = {
     fua onFailure {
@@ -88,12 +88,12 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
     fua
   }
 
-  def mapFailure(f: Exception => Exception) = fua recover {
-    case cause: Exception => throw f(cause)
+  def mapFailure(f: Exception => Exception) = fua recoverWith {
+    case cause: Exception => fufail(f(cause))
   }
 
   def prefixFailure(p: => String) = mapFailure { e =>
-    LilaException(s"$p ${e.getMessage}")
+    LidraughtsException(s"$p ${e.getMessage}")
   }
 
   def thenPp: Fu[A] = {
@@ -138,15 +138,15 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
     )
   }
 
-  def chronometer = lila.common.Chronometer(fua)
+  def chronometer = lidraughts.common.Chronometer(fua)
 
-  def mon(path: lila.mon.RecPath) = chronometer.mon(path).result
+  def mon(path: lidraughts.mon.RecPath) = chronometer.mon(path).result
 
   def nevermind(implicit z: Zero[A]): Fu[A] = fua recover {
-    case e: LilaException => z.zero
+    case e: LidraughtsException => z.zero
     case e: java.util.concurrent.TimeoutException => z.zero
     case e: Exception =>
-      lila.log("common").warn("Future.nevermind", e)
+      lidraughts.log("common").warn("Future.nevermind", e)
       z.zero
   }
 }

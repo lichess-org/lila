@@ -1,25 +1,25 @@
-package lila.forum
+package lidraughts.forum
 
 import actorApi._
 import akka.actor.ActorSelection
 
-import lila.common.paginator._
-import lila.db.dsl._
-import lila.db.paginator._
-import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
-import lila.security.{ Granter => MasterGranter }
-import lila.user.{ User, UserContext }
+import lidraughts.common.paginator._
+import lidraughts.db.dsl._
+import lidraughts.db.paginator._
+import lidraughts.hub.actorApi.timeline.{ Propagate, ForumPost }
+import lidraughts.security.{ Granter => MasterGranter }
+import lidraughts.user.{ User, UserContext }
 
 private[forum] final class TopicApi(
     env: Env,
     indexer: ActorSelection,
-    maxPerPage: lila.common.MaxPerPage,
-    modLog: lila.mod.ModlogApi,
+    maxPerPage: lidraughts.common.MaxPerPage,
+    modLog: lidraughts.mod.ModlogApi,
     shutup: ActorSelection,
     timeline: ActorSelection,
-    detectLanguage: lila.common.DetectLanguage,
+    detectLanguage: lidraughts.common.DetectLanguage,
     mentionNotifier: MentionNotifier,
-    bus: lila.common.Bus
+    bus: lidraughts.common.Bus
 ) {
 
   import BSONHandlers._
@@ -32,7 +32,7 @@ private[forum] final class TopicApi(
       } yield categ -> topic).run
       res ← data ?? {
         case (categ, topic) =>
-          lila.mon.forum.topic.view()
+          lidraughts.mon.forum.topic.view()
           TopicRepo incViews topic
           env.postApi.paginator(topic, page, troll) map { (categ, topic, _).some }
       }
@@ -58,7 +58,7 @@ private[forum] final class TopicApi(
           ip = ctx.isAnon option ctx.req.remoteAddress,
           troll = ctx.troll,
           hidden = topic.hidden,
-          text = lila.security.Spam.replace(data.post.text),
+          text = lidraughts.security.Spam.replace(data.post.text),
           lang = lang map (_.language),
           number = 1,
           categId = categ.id,
@@ -72,20 +72,49 @@ private[forum] final class TopicApi(
           ctx.userId.?? { userId =>
             val text = topic.name + " " + post.text
             shutup ! post.isTeam.fold(
-              lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, text),
-              lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, text)
+              lidraughts.hub.actorApi.shutup.RecordTeamForumMessage(userId, text),
+              lidraughts.hub.actorApi.shutup.RecordPublicForumMessage(userId, text)
             )
           } >>- {
             (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
               timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
                 post.isStaff.fold(prop toStaffFriendsOf userId, prop toFollowersOf userId))
             }
-            lila.mon.forum.post.create()
+            lidraughts.mon.forum.post.create()
           } >>- {
             mentionNotifier.notifyMentionedUsers(post, topic)
             bus.publish(actorApi.CreatePost(post, topic), 'forumPost)
           } inject topic
     }
+
+  def makeBlogDiscuss(categ: Categ, slug: String, name: String, url: String): Funit = {
+    val topic = Topic.make(
+      categId = categ.slug,
+      slug = slug,
+      name = name,
+      troll = false,
+      hidden = false
+    )
+    val post = Post.make(
+      topicId = topic.id,
+      author = none,
+      userId = "lidraughts".some,
+      ip = none,
+      troll = false,
+      hidden = false,
+      text = s"Comments on $url",
+      lang = none,
+      number = 1,
+      categId = categ.id,
+      modIcon = true.some
+    )
+    env.postColl.insert(post) >>
+      env.topicColl.insert(topic withPost post) >>
+      env.categColl.update($id(categ.id), categ withTopic post) >>-
+      (indexer ! InsertPost(post)) >>-
+      env.recent.invalidate >>-
+      bus.publish(actorApi.CreatePost(post, topic), 'forumPost) void
+  }
 
   def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = {
     val adapter = new Adapter[Topic](

@@ -1,8 +1,8 @@
-package lila.practice
+package lidraughts.practice
 
 import scala.collection.breakOut
 
-import lila.study.{ Study, Chapter }
+import lidraughts.study.{ Study, Chapter }
 
 case class PracticeStructure(
     sections: List[PracticeSection]
@@ -53,7 +53,7 @@ case class PracticeStudy(
     chapters: List[Chapter.IdName]
 ) {
 
-  val slug = lila.common.String slugify name
+  val slug = lidraughts.common.String slugify name
 
   def chapterIds = chapters.map(_.id)
 }

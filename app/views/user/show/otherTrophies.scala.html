@@ -1,6 +1,6 @@
-@(u: User, info: lila.app.mashup.UserInfo)(implicit ctx: Context)
+@(u: User, info: lidraughts.app.mashup.UserInfo)(implicit ctx: Context)
 
-@import lila.user.Trophy.Kind
+@import lidraughts.user.Trophy.Kind
 
 @defining(info.allTrophies.filter(_.kind.klass.has("fire_trophy"))) { fireTrophies =>
 @if(fireTrophies.nonEmpty) {
@@ -16,29 +16,16 @@
 }
 }
 @info.shields.map { shield =>
-<a
-  class="shield_trophy hint--left"
+@* <a
+  class="shield_trophy combo_trophy hint--left"
   data-hint="@shield.categ.name Shield"
-  href="@routes.Tournament.shields">@shield.categ.iconChar</a>
+  href="@routes.Tournament.shields">@shield.categ.iconChar</a> *@
 }
-@info.allTrophies.find(_.kind == Kind.ZugMiracle).map { t =>
-<style type="text/css">
-.user_show .trophy.zugMiracle {
-  height: 80px;
-  margin: 0 8px!important;
-  transition: 2s;
-}
-@@keyframes psyche {
-  100% { filter: hue-rotate(360deg); }
-}
-.user_show .trophy.zugMiracle:hover {
-  transform: translateY(-9px);
-  animation: psyche 0.3s ease-in-out infinite alternate;
-}
-</style>
-<a @t.kind.url.map { url => href="@url" } class="trophy award @t.kind.key @t.kind.klass hint--left" data-hint="@t.kind.name">
-  <img src="@staticUrl("images/trophy/zug-trophy.png")" height=80 />
-</a>
+@info.revolutions.map { revol =>
+<a
+  class="revol_trophy combo_trophy hint--left"
+  data-hint="@revol.variant.name Revolution"
+  href="@routes.Tournament.show(revol.tourId)">@revol.iconChar</a>
 }
 @info.allTrophies.find(_.kind == Kind.ZHWC).map { t =>
 <a @t.kind.url.map { url => href="@url" } class="trophy award @t.kind.key @t.kind.klass hint--left" data-hint="@t.kind.name"
@@ -56,11 +43,6 @@
 }
 }
 @if(info.isCoach) {
-<a href="@routes.Coach.show(u.username)"
-  class="trophy award icon3d coach hint--left" data-hint="Lichess Coach">:</a>
-}
-@if(info.isStreamer) {
-<a href="@routes.Streamer.show(u.username)"
-  class="trophy award icon3d streamer hint--left@if(isStreaming(u.id)){ streaming}"
-  data-hint="@if(isStreaming(u.id)){Live now!}else{Lichess Streamer}"></a>
+@*<a href="@routes.Coach.show(u.username)"
+  class="trophy award icon3d coach hint--left" data-hint="Lidraughts Coach">:</a> *@
 }

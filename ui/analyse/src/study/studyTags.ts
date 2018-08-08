@@ -34,7 +34,7 @@ let selectedType: string;
 
 type TagRow = (string | VNode)[];
 
-function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
+function renderPdnTags(chapter: StudyChapter, submit, types: string[]): VNode {
   let rows: TagRow[] = [];
   if (chapter.setup.variant.key !== 'standard')
   rows.push(['Variant', fixed(chapter.setup.variant.name)]);
@@ -62,7 +62,7 @@ function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
       }, [
         h('option', 'New tag'),
         ...types.map(t => {
-          if (!window.lichess.fp.contains(existingTypes, t)) return option(t, '', t);
+          if (!window.lidraughts.fp.contains(existingTypes, t)) return option(t, '', t);
         })
       ]),
       editable('', (value, el) => {
@@ -103,7 +103,7 @@ export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types) {
   }
 }
 function doRender(root: StudyCtrl): VNode {
-  return h('div.undertable_inner', renderPgnTags(
+  return h('div.undertable_inner', renderPdnTags(
     root.tags.getChapter(),
     root.vm.mode.write && root.tags.submit,
     root.tags.types))

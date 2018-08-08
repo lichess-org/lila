@@ -1,6 +1,6 @@
-package lila.evaluation
+package lidraughts.evaluation
 
-import chess.Color
+import draughts.Color
 
 case class PlayerAssessments(
     white: Option[PlayerAssessment],

@@ -1,4 +1,4 @@
-package lila.user
+package lidraughts.user
 
 import java.security.SecureRandom
 import java.util.Base64
@@ -13,7 +13,7 @@ import com.roundeights.hasher.Implicits._
  * CTS reveals input length, which is fine for
  * this application.
  */
-private[user] final class Aes(secret: String) {
+private final class Aes(secret: String) {
   private val sKey = {
     val sk = Base64.getDecoder.decode(secret)
     val kBits = sk.length * 8
@@ -36,7 +36,7 @@ private[user] final class Aes(secret: String) {
   def decrypt(iv: Aes.InitVector, b: Array[Byte]) = run(DECRYPT_MODE, iv, b)
 }
 
-private[user] object Aes {
+private object Aes {
   type InitVector = IvParameterSpec
 
   def iv(bytes: Array[Byte]): InitVector = new IvParameterSpec(bytes)
@@ -46,7 +46,7 @@ case class HashedPassword(bytes: Array[Byte]) extends AnyVal {
   def parse = bytes.length == 39 option bytes.splitAt(16)
 }
 
-final class PasswordHasher(
+private final class PasswordHasher(
     secret: String,
     logRounds: Int,
     hashTimer: (=> Array[Byte]) => Array[Byte] = x => x
@@ -69,5 +69,56 @@ final class PasswordHasher(
     case (salt, encHash) =>
       val hash = aes.decrypt(Aes.iv(salt), encHash)
       BCrypt.bytesEqualSecure(hash, bHash(salt, p))
+  }
+}
+
+object PasswordHasher {
+
+  import scala.concurrent.duration._
+  import play.api.mvc.RequestHeader
+  import ornicar.scalalib.Zero
+  import lidraughts.memo.RateLimit
+  import lidraughts.common.{ IpAddress, HTTPRequest }
+
+  private val rateLimitPerIP = new RateLimit[IpAddress](
+    credits = 20 * 2, // double cost in case of hash check failure
+    duration = 10 minutes,
+    name = "Password hashes per IP",
+    key = "password.hashes.ip"
+  )
+
+  private val rateLimitPerUA = new RateLimit[String](
+    credits = 30,
+    duration = 20 seconds,
+    name = "Password hashes per UA",
+    key = "password.hashes.ua"
+  )
+
+  private val rateLimitPerUser = new RateLimit[String](
+    credits = 6,
+    duration = 1.minute,
+    name = "Password hashes per user",
+    key = "password.hashes.user"
+  )
+
+  private val rateLimitGlobal = new RateLimit[String](
+    credits = 4 * 10 * 60, // max out 4 cores for 60 seconds
+    duration = 1 minute,
+    name = "Password hashes global",
+    key = "password.hashes.global"
+  )
+
+  def rateLimit[A: Zero](username: String, req: RequestHeader)(run: RateLimit.Charge => Fu[A]): Fu[A] = {
+    val cost = 1
+    val ip = HTTPRequest lastRemoteAddress req
+    rateLimitPerUser(username, cost = cost) {
+      rateLimitPerIP.chargeable(ip, cost = cost) { charge =>
+        rateLimitPerUA(~HTTPRequest.userAgent(req), cost = cost, msg = ip.value) {
+          rateLimitGlobal("-", cost = cost, msg = ip.value) {
+            run(charge)
+          }
+        }
+      }
+    }
   }
 }

@@ -1,19 +1,19 @@
-package lila.tournament
+package lidraughts.tournament
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
 import reactivemongo.api.ReadPreference
 
-import lila.common.Maths
-import lila.common.paginator.Paginator
-import lila.db.dsl._
-import lila.db.paginator.Adapter
-import lila.rating.PerfType
-import lila.user.User
+import lidraughts.common.Maths
+import lidraughts.common.paginator.Paginator
+import lidraughts.db.dsl._
+import lidraughts.db.paginator.Adapter
+import lidraughts.rating.PerfType
+import lidraughts.user.User
 
 final class LeaderboardApi(
     coll: Coll,
-    maxPerPage: lila.common.MaxPerPage
+    maxPerPage: lidraughts.common.MaxPerPage
 ) {
 
   import LeaderboardApi._

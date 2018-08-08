@@ -1,7 +1,7 @@
-package lila.analyse
+package lidraughts.analyse
 
-import chess.format.pgn.Glyph
-import lila.tree.Eval._
+import draughts.format.pdn.Glyph
+import lidraughts.tree.Eval._
 
 sealed trait Advice {
   def judgment: Advice.Judgment

@@ -1,13 +1,13 @@
-@(pov: lila.game.Pov, playing: Boolean)(implicit ctx: Context)
+@(pov: lidraughts.game.Pov, playing: Boolean)(implicit ctx: Context)
 
 <h1>Textual representation</h1>
 <dl>
   <dt>Turn</dt>
   <dd>@pov.game.turns</dd>
-  <dt>PGN</dt>
-  <dd>@Html(pov.game.pgnMoves.mkString("<br />"))</dd>
+  <dt>PDN</dt>
+  <dd>@Html(pov.game.pdnMoves.mkString("<br />"))</dd>
   <dt>FEN</dt>
-  <dd>@{chess.format.Forsyth.>>(pov.game.chess)}</dd>
+  <dd>@{draughts.format.Forsyth.>>(pov.game.draughts)}</dd>
   @if(playing) {
   <dt>Your color</dt>
   <dd>@pov.color.name</dd>

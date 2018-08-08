@@ -1,15 +1,15 @@
 package controllers
 
-import lila.api.Context
-import lila.app._
-import lila.security.Granter
-import lila.team.{ Joined, Motivate, Team => TeamModel, TeamRepo, MemberRepo }
-import lila.user.{ User => UserModel }
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.security.Granter
+import lidraughts.team.{ Joined, Motivate, Team => TeamModel, TeamRepo, MemberRepo }
+import lidraughts.user.{ User => UserModel }
 import views._
 
 import play.api.mvc._
 
-object Team extends LilaController {
+object Team extends LidraughtsController {
 
   private def forms = Env.team.forms
   private def api = Env.team.api

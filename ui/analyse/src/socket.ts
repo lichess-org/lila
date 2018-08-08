@@ -1,6 +1,7 @@
 import { synthetic } from './util';
-import { initial as initialBoardFen } from 'chessground/fen';
+import { initial as initialBoardFen } from 'draughtsground/fen';
 import AnalyseCtrl from './ctrl';
+import * as draughtsUtil from 'draughts';
 
 type DestCache = {
   [fen: string]: DestCacheEntry
@@ -36,13 +37,14 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
   let anaDestsCache: DestCache = {};
 
   function clearCache() {
+    const fenSplit: String[] = ctrl.tree.root.fen.split(':');
     anaDestsCache = (
       ctrl.data.game.variant.key === 'standard' &&
-        ctrl.tree.root.fen.split(' ', 1)[0] === initialBoardFen
+        fenSplit[1] + ":" + fenSplit[2] === initialBoardFen
     ) ? {
       '': {
         path: '',
-        dests: 'iqy muC gvx ltB bqs pxF jrz nvD ksA owE'
+        dests: 'HCD GBC ID FAB EzA'
       }
     } : {};
   }
@@ -74,10 +76,14 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     node(data) {
       clearTimeout(anaMoveTimeout);
       // no strict equality here!
-      if (data.ch == currentChapterId())
-        ctrl.addNode(data.node, data.path);
+      if (data.ch == currentChapterId()) {
+          const treeNode = data.node as Tree.Node;
+          if (treeNode.dests !== undefined && treeNode.dests.length > 1 && treeNode.dests[0] === '#')
+              treeNode.captLen = draughtsUtil.readCaptureLength(treeNode.dests);
+          ctrl.addNode(data.node, data.path);
+      }
       else
-      console.log('socket handler node got wrong chapter id', data);
+        console.log('socket handler node got wrong chapter id', data);
     },
     stepFailure() {
       clearTimeout(anaMoveTimeout);

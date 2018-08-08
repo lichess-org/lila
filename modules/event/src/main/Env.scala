@@ -1,12 +1,12 @@
-package lila.event
+package lidraughts.event
 
 import akka.actor._
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    db: lidraughts.db.Env,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     system: ActorSystem
 ) {
 
@@ -20,9 +20,9 @@ final class Env(
 object Env {
 
   lazy val current = "event" boot new Env(
-    config = lila.common.PlayApp loadConfig "event",
-    db = lila.db.Env.current,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system
+    config = lidraughts.common.PlayApp loadConfig "event",
+    db = lidraughts.db.Env.current,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    system = lidraughts.common.PlayApp.system
   )
 }

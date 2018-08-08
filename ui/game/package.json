@@ -1,30 +1,22 @@
 {
   "name": "game",
   "version": "1.0.0",
-  "description": "lichess.org game",
+  "description": "lidraughts.org game",
   "main": "dist/main.js",
   "types": "dist/main",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ornicar/lila"
-  },
   "keywords": [
-    "chess",
-    "lichess",
+    "draughts",
+    "lidraughts",
     "play",
     "replay"
   ],
-  "author": "Thibault Duplessis",
+  "author": "Stefan Schermann (modified original by Thibault Duplessis)",
   "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/ornicar/lila/issues"
-  },
-  "homepage": "https://github.com/ornicar/lila",
   "scripts": {
     "compile": "tsc"
   },
   "devDependencies": {
-    "@types/lichess": "1.0.0",
+    "@types/lidraughts": "1.0.0",
     "typescript": "^2"
   },
   "dependencies": {}

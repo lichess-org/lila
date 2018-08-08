@@ -1,4 +1,4 @@
-#lichess {
+#lidraughts {
   position: relative;
 }
 div.lobby_and_ground {
@@ -68,11 +68,11 @@ body.dark #lobby_current_game {
   min-width: 510px;
   min-height: 510px;
   border: 1px solid #ccc;
-  background: #f0f0f0 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMy41MjkgMzMuNTA0Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNS4yNS02LjI0NikiIG9wYWNpdHk9Ii4xIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjUiPjxnIGZpbGw9IiNmZmYiPjxwYXRoIGQ9Im0yMiAxMGMxMC41IDEgMTYuNSA4IDE2IDI5aC0yM2MwLTkgMTAtNi41IDgtMjEiLz48cGF0aCBkPSJtMjQgMThjLjM4IDIuOTEtNS41NSA3LjM3LTggOS0zIDItMi44MiA0LjM0LTUgNC0xLjA0Mi0uOTQgMS40MS0zLjA0IDAtMy0xIDAgLjE5IDEuMjMtMSAyLTEgMC00IDEtNC00IDAtMiA2LTEyIDYtMTIgMCAwIDEuODktMS45IDItMy41LS43My0uOTk0LS41LTItLjUtMyAxLTEgMyAyLjUgMyAyLjVoMmMwIDAgLjc4LTEuOTkyIDIuNS0zIDEgMCAxIDMgMSAzIi8+PC9nPjxnIGZpbGw9IiMwMDAiPjxwYXRoIGQ9Im05LjUgMjUuNWEuNSAuNSAwIDEgMSAtMSAwIC41IC41IDAgMSAxIDEgMHoiLz48cGF0aCBkPSJtMTUgMTUuNWEuNSAxLjUgMCAxIDEgLTEgMCAuNSAxLjUgMCAxIDEgMSAweiIgdHJhbnNmb3JtPSJtYXRyaXgoLjg2Ni41LS41Ljg2NiA5LjY5My01LjE3MykiLz48L2c+PC9nPjwvc3ZnPg==');
+  background: #f0f0f0 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMTAuMCAyMTAuMCI+PGcgb3BhY2l0eT0iLjEiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2Utd2lkdGg9IjYiPjxnIGZpbGw9IiNmZmYiPjxwYXRoIGQ9Ik0gMTAsMTQwIGMgMCw2MCAxOTAsNjAgMTkwLDAgbCAwLC0zNSBsIC0xOTAsMCB6Ii8+PHBhdGggZD0iTSAxMCwxMDUgYyAwLDYwIDE5MCw2MCAxOTAsMCBsIDAsLTM1IGwgLTE5MCwwIHoiLz48cGF0aCBkPSJNIDEwLDcwIGMgMCw2MCAxOTAsNjAgMTkwLDAgYyAwLC02MCAtMTkwLC02MCAtMTkwLDAgeiIvPjwvZz48L2c+PC9zdmc+');
   background-size: 100% 100%;
 }
 body.dark #hooks_wrap {
-  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMy41MjkgMzMuNTA0Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNS4yNS02LjI0NikiIG9wYWNpdHk9Ii4xIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjUiPjxnIGZpbGw9IiMwMDAiPjxwYXRoIGQ9Im0yMiAxMGMxMC41IDEgMTYuNSA4IDE2IDI5aC0yM2MwLTkgMTAtNi41IDgtMjEiLz48cGF0aCBkPSJtMjQgMThjLjM4IDIuOTEtNS41NSA3LjM3LTggOS0zIDItMi44MiA0LjM0LTUgNC0xLjA0Mi0uOTQgMS40MS0zLjA0IDAtMy0xIDAgLjE5IDEuMjMtMSAyLTEgMC00IDEtNC00IDAtMiA2LTEyIDYtMTIgMCAwIDEuODktMS45IDItMy41LS43My0uOTk0LS41LTItLjUtMyAxLTEgMyAyLjUgMyAyLjVoMmMwIDAgLjc4LTEuOTkyIDIuNS0zIDEgMCAxIDMgMSAzIi8+PC9nPjxnIGZpbGw9IiNmZmYiPjxwYXRoIGQ9Im05LjUgMjUuNWEuNSAuNSAwIDEgMSAtMSAwIC41IC41IDAgMSAxIDEgMHoiLz48cGF0aCBkPSJtMTUgMTUuNWEuNSAxLjUgMCAxIDEgLTEgMCAuNSAxLjUgMCAxIDEgMSAweiIgdHJhbnNmb3JtPSJtYXRyaXgoLjg2Ni41LS41Ljg2NiA5LjY5My01LjE3MykiLz48L2c+PC9nPjwvc3ZnPg==');
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMTAuMCAyMTAuMCI+PGcgb3BhY2l0eT0iLjEiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2Utd2lkdGg9IjYiPjxnIGZpbGw9IiMwMDAiPjxwYXRoIGQ9Ik0gMTAsMTQwIGMgMCw2MCAxOTAsNjAgMTkwLDAgbCAwLC0zNSBsIC0xOTAsMCB6Ii8+PHBhdGggZD0iTSAxMCwxMDUgYyAwLDYwIDE5MCw2MCAxOTAsMCBsIDAsLTM1IGwgLTE5MCwwIHoiLz48cGF0aCBkPSJNIDEwLDcwIGMgMCw2MCAxOTAsNjAgMTkwLDAgYyAwLC02MCAtMTkwLC02MCAtMTkwLDAgeiIvPjwvZz48L2c+PC9zdmc+');
 }
 #hooks_wrap .lobby_box {
   position: relative;
@@ -373,6 +373,15 @@ body.dark #hooks_wrap .hook_filter {
 #hook span {
   display: block;
 }
+
+#hooks_wrap .redir {
+  background: rgba(128,128,128,0.5);
+  display: flex;
+}
+#hooks_wrap .redir .spinner {
+  width: 100px;
+  height: 100px;
+}
 /*********** POOLS *********/
 
 #hooks_wrap .pools {
@@ -500,14 +509,14 @@ div.blog.undertable time {
 .leaderboards .leaderboard td:last-child {
   text-align: right;
 }
-#lichess .enterable_list {
+#lidraughts .enterable_list {
   height: auto;
   max-height: 193px;
 }
 #enterable_simuls td {
   padding: 10px 5px;
 }
-#lichess .enterable_list td:first-child {
+#lidraughts .enterable_list td:first-child {
   padding-left: 1em;
   overflow: hidden;
   max-width: 250px;
@@ -515,27 +524,27 @@ div.blog.undertable time {
 #enterable_tournaments td:last-child {
   padding-right: 10px;
 }
-#lichess .enterable_list td.name span {
+#lidraughts .enterable_list td.name span {
   font-size: 17px;
   letter-spacing: -5px;
 }
-#lichess .enterable_list td.name span:last-child {
+#lidraughts .enterable_list td.name span:last-child {
   margin-right: 10px;
 }
-#lichess .enterable_list td.name a {
+#lidraughts .enterable_list td.name a {
   font-weight: bold;
   white-space: nowrap;
 }
-#lichess .enterable_list tr.scheduled td.name a {
+#lidraughts .enterable_list tr.scheduled td.name a {
   color: #d59120;
 }
-#lichess .enterable_list tr:not(.scheduled) td.name a {
+#lidraughts .enterable_list tr:not(.scheduled) td.name a {
   color: #808080;
 }
-#lichess .enterable_list td:last-child {
+#lidraughts .enterable_list td:last-child {
   width: 20px;
 }
-#lichess .enterable_list .rated {
+#lidraughts .enterable_list .rated {
   color: #d59120;
 }
 div.new_posts li {
@@ -557,7 +566,7 @@ div.new_posts li span.extract {
 #daily_puzzle > div.vstext {
   text-align: center;
 }
-div.lichess_overboard .color_submits .spinner {
+div.lidraughts_overboard .color_submits .spinner {
   width: 70px;
   height: 70px;
   margin: 10px auto 20px auto;

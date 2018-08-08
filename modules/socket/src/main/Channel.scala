@@ -1,4 +1,4 @@
-package lila.socket
+package lidraughts.socket
 
 import actorApi.SocketLeave
 import akka.actor._
@@ -7,12 +7,12 @@ import play.api.libs.json.JsValue
 final class Channel extends Actor {
 
   override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'socketDoor)
+    context.system.lidraughtsBus.subscribe(self, 'socketDoor)
   }
 
   override def postStop(): Unit = {
     super.postStop()
-    context.system.lilaBus.unsubscribe(self)
+    context.system.lidraughtsBus.unsubscribe(self)
   }
 
   import Channel._

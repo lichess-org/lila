@@ -1,7 +1,7 @@
-package lila.teamSearch
+package lidraughts.teamSearch
 
-import lila.search._
-import lila.team.{ Team, TeamRepo }
+import lidraughts.search._
+import lidraughts.team.{ Team, TeamRepo }
 
 import play.api.libs.json._
 
@@ -28,7 +28,7 @@ final class TeamSearchApi(client: ESClient) extends SearchReadApi[Team, Query] {
       import play.api.libs.iteratee._
       import reactivemongo.api.ReadPreference
       import reactivemongo.play.iteratees.cursorProducer
-      import lila.db.dsl._
+      import lidraughts.db.dsl._
 
       logger.info(s"Index to ${c.index.name}")
 

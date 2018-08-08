@@ -1,26 +1,26 @@
-package lila.round
+package lidraughts.round
 
-import lila.game.{ GameRepo, Game, UciMemo, Pov, Rewind, Event, Progress }
-import lila.pref.{ Pref, PrefApi }
+import lidraughts.game.{ GameRepo, Game, UciMemo, Pov, Rewind, Event, Progress }
+import lidraughts.pref.{ Pref, PrefApi }
 
 private[round] final class Takebacker(
     messenger: Messenger,
     uciMemo: UciMemo,
     prefApi: PrefApi,
-    bus: lila.common.Bus
+    bus: lidraughts.common.Bus
 ) {
 
   def yes(situation: Round.TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, Round.TakebackSituation)] = IfAllowed(pov.game) {
     pov match {
-      case Pov(game, _) if pov.opponent.isProposingTakeback => {
-        if (pov.opponent.proposeTakebackAt == pov.game.turns) single(game)
-        else double(game)
+      case Pov(game, color) if pov.opponent.isProposingTakeback => {
+        if (pov.opponent.proposeTakebackAt == game.turns) rewindUntilPly(game, game.displayTurns - (game.situation.ghosts == 0 || game.turnColor != color).fold(1, 2))
+        else rewindUntilPly(game, game.displayTurns - 2)
       } map (_ -> situation.reset)
       case Pov(game, _) if pov.opponent.isAi => double(game) map (_ -> situation)
       case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable => {
         messenger.system(game, _.takebackPropositionSent)
         val progress = Progress(game) map { g =>
-          g.updatePlayer(color, _ proposeTakeback g.turns)
+          g.updatePlayer(color, _ proposeTakeback (if (game.turnColor == color && g.turns > 1 && game.situation.ghosts == 0) g.turns - 1 else g.turns))
         }
         proxy.save(progress) >>- publishTakebackOffer(pov) inject
           List(Event.TakebackOffers(color.white, color.black))
@@ -46,7 +46,7 @@ private[round] final class Takebacker(
   }
 
   def isAllowedByPrefs(game: Game): Fu[Boolean] =
-    if (game.hasAi) fuccess(true)
+    if (game.hasAi) fuTrue
     else game.userIds.map { userId =>
       prefApi.getPref(userId, (p: Pref) => p.takeback)
     }.sequenceFu map {
@@ -58,7 +58,7 @@ private[round] final class Takebacker(
   private def publishTakebackOffer(pov: Pov): Unit =
     if (pov.game.isCorrespondence && pov.game.nonAi) pov.player.userId foreach { userId =>
       bus.publish(
-        lila.hub.actorApi.round.CorresTakebackOfferEvent(pov.gameId),
+        lidraughts.hub.actorApi.round.CorresTakebackOfferEvent(pov.gameId),
         'offerEventCorres
       )
     }
@@ -85,6 +85,21 @@ private[round] final class Takebacker(
     _ ← fuccess { uciMemo.drop(game, 2) }
     events ← saveAndNotify(prog2)
   } yield events
+
+  private def rewindUntilPly(game: Game, ply: Int)(implicit proxy: GameProxy): Fu[Events] =
+    GameRepo initialFen game flatMap {
+      fen =>
+        Rewind(game, fen).future flatMap {
+          prog1 => rewindPly(game, fen, ply, prog1, 0)
+        }
+    }
+
+  private def rewindPly(game: Game, fen: Option[String], targetPly: Int, prog: Progress, rewinds: Int)(implicit proxy: GameProxy): Fu[Events] =
+    if (prog.game.turns + (prog.game.situation.ghosts > 0).fold(1, 0) <= targetPly)
+      fuccess { uciMemo.drop(game, rewinds) } flatMap { _ => saveAndNotify(prog) }
+    else Rewind(prog.game, fen).future map { progress =>
+      prog withGame progress.game
+    } flatMap { progn => rewindPly(game, fen, targetPly, progn, rewinds + 1) }
 
   private def saveAndNotify(p1: Progress)(implicit proxy: GameProxy): Fu[Events] = {
     val p2 = p1 + Event.Reload

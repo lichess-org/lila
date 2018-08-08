@@ -10,7 +10,7 @@ object BuildSettings {
   val globalScalaVersion = "2.11.12"
 
   def buildSettings = Defaults.coreDefaultSettings ++ Seq(
-    organization := "org.lichess",
+    organization := "org.lidraughts",
     scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
     scalacOptions ++= compilerOptions,
@@ -29,7 +29,7 @@ object BuildSettings {
     .setPreference(DanglingCloseParenthesis, Force)
     .setPreference(DoubleIndentConstructorArguments, true)
 
-  def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime, ws, java8compat, specs2)
+  def defaultDeps = Seq(scalaz, scalalib, jodaTime, ws, java8compat, specs2, specs2Scalaz)
 
   def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
   def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")

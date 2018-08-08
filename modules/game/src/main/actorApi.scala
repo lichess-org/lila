@@ -1,7 +1,7 @@
-package lila.game
+package lidraughts.game
 package actorApi
 
-import lila.user.User
+import lidraughts.user.User
 
 case class StartGame(game: Game)
 case class UserStartGame(userId: String, game: Game)

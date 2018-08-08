@@ -15,6 +15,6 @@ module.exports = function(element, config) {
   };
 };
 
-// that's for the rest of lichess to access mithril
+// that's for the rest of lidraughts to access mithril
 // without having to include it a second time
-window.Chessground = require('chessground').Chessground;
+window.Draughtsground = require('draughtsground').Draughtsground;

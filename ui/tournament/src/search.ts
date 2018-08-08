@@ -19,9 +19,9 @@ export function input(ctrl: TournamentController): VNode {
     h('input', {
       hook: {
         insert(vnode) {
-          window.lichess.raf(() => {
+          window.lidraughts.raf(() => {
             const el = vnode.elm as HTMLInputElement;
-            window.lichess.userAutocomplete($(el), {
+            window.lidraughts.userAutocomplete($(el), {
               tag: 'span',
               tour: ctrl.data.id,
               focus: true,

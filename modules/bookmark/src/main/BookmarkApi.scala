@@ -1,13 +1,13 @@
-package lila.bookmark
+package lidraughts.bookmark
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
-import lila.db.dsl._
-import lila.game.{ Game, GameRepo }
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.game.{ Game, GameRepo }
+import lidraughts.user.User
 
-case class Bookmark(game: lila.game.Game, user: lila.user.User)
+case class Bookmark(game: lidraughts.game.Game, user: lidraughts.user.User)
 
 final class BookmarkApi(
     coll: Coll,
@@ -19,7 +19,7 @@ final class BookmarkApi(
 
   def exists(game: Game, user: User): Fu[Boolean] =
     if (game.bookmarks > 0) exists(game.id, user.id)
-    else fuccess(false)
+    else fuFalse
 
   def exists(game: Game, user: Option[User]): Fu[Boolean] =
     user.?? { exists(game, _) }

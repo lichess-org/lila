@@ -1,9 +1,9 @@
-package lila.puzzle
+package lidraughts.puzzle
 
 import scala.collection.breakOut
-
-import chess.Color
-import chess.format.{ Uci, Forsyth }
+import draughts.Color
+import draughts.format.Forsyth.SituationPlus
+import draughts.format.{ Forsyth, Uci }
 import org.joda.time.DateTime
 
 case class Puzzle(
@@ -23,7 +23,7 @@ case class Puzzle(
 
   // ply after "initial move" when we start solving
   def initialPly: Int = {
-    fen.split(' ').lastOption flatMap parseIntOption map { move =>
+    fen.split(':').lastOption flatMap (m => parseIntOption(m.drop(1))) map { move =>
       move * 2 - color.fold(0, 1)
     }
   } | 0
@@ -33,13 +33,28 @@ case class Puzzle(
 
   def withVote(f: AggregateVote => AggregateVote) = copy(vote = f(vote))
 
-  def initialMove: Uci.Move = history.lastOption flatMap Uci.Move.apply err s"Bad initial move $this"
+  def initialMove: Uci.Move = history.lastOption flatMap {
+    uci =>
+      val rawUci = Uci.Move.apply(uci)
+      if (rawUci.isEmpty) rawUci
+      else
+        (Forsyth << fen).fold(rawUci) {
+          _.validMoves.get(rawUci.get.orig).fold(rawUci)(
+            _.find {
+              move => move.dest == rawUci.get.dest
+            } match {
+              case Some(move) => move.toUci.some
+              case _ => rawUci
+            }
+          )
+        }
+  } err s"Bad initial move $this"
 
   def fenAfterInitialMove: Option[String] = {
     for {
       sit1 <- Forsyth << fen
       sit2 <- sit1.move(initialMove).toOption.map(_.situationAfter)
-    } yield Forsyth >> sit2
+    } yield Forsyth >> SituationPlus(sit2, color.fold(2, 1))
   }
 }
 
@@ -47,7 +62,7 @@ object Puzzle {
 
   case class UserResult(
       puzzleId: PuzzleId,
-      userId: lila.user.User.ID,
+      userId: lidraughts.user.User.ID,
       result: Result,
       rating: (Int, Int)
   )
@@ -75,10 +90,10 @@ object Puzzle {
   )
 
   import reactivemongo.bson._
-  import lila.db.BSON
+  import lidraughts.db.BSON
   import BSON.BSONJodaDateTimeHandler
   private implicit val lineBSONHandler = new BSONHandler[BSONDocument, Lines] {
-    private def readMove(move: String) = chess.Pos.doublePiotrToKey(move take 2) match {
+    private def readMove(move: String) = draughts.Pos.doublePiotrToKey(move take 2) match {
       case Some(m) => s"$m${move drop 2}"
       case _ => sys error s"Invalid piotr move notation: $move"
     }
@@ -93,7 +108,7 @@ object Puzzle {
       case BSONElement(move, value) =>
         throw new Exception(s"Can't read value of $move: $value")
     }(breakOut)
-    private def writeMove(move: String) = chess.Pos.doubleKeyToPiotr(move take 4) match {
+    private def writeMove(move: String) = draughts.Pos.doubleKeyToPiotr(move take 4) match {
       case Some(m) => s"$m${move drop 4}"
       case _ => sys error s"Invalid move notation: $move"
     }

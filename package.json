@@ -1,53 +1,47 @@
 {
-  "name": "lila",
-  "version": "1.0.0",
-  "description": "lichess.org: the forever free, adless and open source chess server",
+  "name": "lidraughts",
+  "version": "0.1.0",
+  "description": "lidraughts.org: the forever free, adless and open source draughts server",
   "devDependencies": {
+    "gulp": "^3.9.1",
     "svgo": "^0.7"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ornicar/lila.git"
-  },
   "keywords": [
-    "chess",
-    "lichess"
+    "draughts",
+    "lidraughts"
   ],
-  "author": "Thibault Duplessis",
+  "author": "Stefan Schermann (modified original by Thibault Duplessis)",
   "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/ornicar/lila/issues"
-  },
-  "homepage": "https://lichess.org",
+  "homepage": "https://lidraughts.org",
   "dependencies": {
     "fs-extra": "^4.0.2",
+    "typescript": "2.6",
     "xml2js": "^0.4.19"
   },
   "private": true,
   "workspaces": [
-    "ui/analyse",
-    "ui/ceval",
-    "ui/challenge",
-    "ui/chat",
-    "ui/chess",
-    "ui/cli",
-    "ui/common",
-    "ui/dasher",
-    "ui/editor",
-    "ui/game",
-    "ui/insight",
-    "ui/learn",
-    "ui/lobby",
-    "ui/notify",
-    "ui/perfStat",
-    "ui/puzzle",
-    "ui/round",
-    "ui/simul",
-    "ui/site",
-    "ui/tournament",
-    "ui/tournamentSchedule",
-    "ui/tournamentCalendar",
-    "ui/tree",
-    "ui/@types/lichess"
+	"ui/@types/lidraughts",
+	"ui/analyse",
+	"ui/ceval",
+	"ui/chat",
+	"ui/challenge",
+	"ui/cli",
+	"ui/common",
+	"ui/dasher",
+	"ui/draughts",
+	"ui/draughtsground",
+	"ui/editor",
+	"ui/game",
+	"ui/lobby",
+	"ui/notify",
+	"ui/perfstat",
+	"ui/puzzle",
+	"ui/round",
+	"ui/simul",
+	"ui/site",
+	"ui/tournament",
+	"ui/tournamentCalendar",
+	"ui/tournamentSchedule",
+	"ui/tree"
   ]
 }

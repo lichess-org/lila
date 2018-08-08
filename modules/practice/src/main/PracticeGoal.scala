@@ -1,4 +1,4 @@
-package lila.practice
+package lidraughts.practice
 
 sealed trait PracticeGoal
 
@@ -20,7 +20,7 @@ object PracticeGoal {
 
   private val MultiSpaceR = """\s{2,}""".r
 
-  def apply(chapter: lila.study.Chapter): PracticeGoal =
+  def apply(chapter: lidraughts.study.Chapter): PracticeGoal =
     chapter.tags(_.Termination).map(v => MultiSpaceR.replaceAllIn(v.trim, " ")).flatMap {
       case MateR() => Mate.some
       case MateInR(movesStr) => parseIntOption(movesStr) map MateIn.apply

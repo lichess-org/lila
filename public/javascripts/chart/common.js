@@ -1,8 +1,8 @@
-lichess.highchartsPromise;
-lichess.chartCommon = function(type) {
-  if (lichess.highchartsPromise) return lichess.highchartsPromise;
+lidraughts.highchartsPromise;
+lidraughts.chartCommon = function(type) {
+  if (lidraughts.highchartsPromise) return lidraughts.highchartsPromise;
   var file = type === 'highstock' ? 'highstock.js' : 'highcharts.js';
-  return lichess.highchartsPromise = lichess.loadScript('/assets/vendor/highcharts-4.2.5/' + file, true).done(function() {
+  return lidraughts.highchartsPromise = lidraughts.loadScript('/assets/vendor/highcharts-4.2.5/' + file, true).done(function() {
     Highcharts.makeFont = function(size) {
       return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
     };
@@ -23,7 +23,7 @@ lichess.chartCommon = function(type) {
       };
       return {
         light: light,
-        lichess: {
+        lidraughts: {
           text: text,
           line: line,
           area: area
@@ -99,6 +99,9 @@ lichess.chartCommon = function(type) {
             color: text.strong
           }
         },
+        lang: {
+          thousandsSep: ''
+        }
         tooltip: {
           backgroundColor: {
             linearGradient: {

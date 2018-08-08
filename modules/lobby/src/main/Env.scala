@@ -1,20 +1,20 @@
-package lila.lobby
+package lidraughts.lobby
 
 import akka.actor._
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
-    hub: lila.hub.Env,
+    db: lidraughts.db.Env,
+    hub: lidraughts.hub.Env,
     onStart: String => Unit,
     blocking: String => Fu[Set[String]],
-    playban: String => Fu[Option[lila.playban.TempBan]],
-    gameCache: lila.game.Cached,
-    poolApi: lila.pool.PoolApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    playban: String => Fu[Option[lidraughts.playban.TempBan]],
+    gameCache: lidraughts.game.Cached,
+    poolApi: lidraughts.pool.PoolApi,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     system: ActorSystem,
-    scheduler: lila.common.Scheduler
+    scheduler: lidraughts.common.Scheduler
 ) {
 
   private val settings = new {
@@ -70,9 +70,9 @@ final class Env(
 
   private val abortListener = new AbortListener(seekApi = seekApi)
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.game.actorApi.AbortedBy(pov) => abortListener(pov)
+      case lidraughts.game.actorApi.AbortedBy(pov) => abortListener(pov)
     }
   })), 'abortGame)
 }
@@ -80,16 +80,16 @@ final class Env(
 object Env {
 
   lazy val current = "lobby" boot new Env(
-    config = lila.common.PlayApp loadConfig "lobby",
-    db = lila.db.Env.current,
-    hub = lila.hub.Env.current,
-    onStart = lila.game.Env.current.onStart,
-    blocking = lila.relation.Env.current.api.fetchBlocking,
-    playban = lila.playban.Env.current.api.currentBan _,
-    gameCache = lila.game.Env.current.cached,
-    poolApi = lila.pool.Env.current.api,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler
+    config = lidraughts.common.PlayApp loadConfig "lobby",
+    db = lidraughts.db.Env.current,
+    hub = lidraughts.hub.Env.current,
+    onStart = lidraughts.game.Env.current.onStart,
+    blocking = lidraughts.relation.Env.current.api.fetchBlocking,
+    playban = lidraughts.playban.Env.current.api.currentBan _,
+    gameCache = lidraughts.game.Env.current.cached,
+    poolApi = lidraughts.pool.Env.current.api,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    system = lidraughts.common.PlayApp.system,
+    scheduler = lidraughts.common.PlayApp.scheduler
   )
 }

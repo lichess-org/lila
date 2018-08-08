@@ -1,0 +1,37 @@
+{
+  "name": "draughtsground",
+  "version": "7.2.10",
+  "description": "lidraughts.org Draughts UI",
+  "main": "draughtsground.js",
+  "typings": "draughtsground.d.ts",
+  "directories": {},
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^14",
+    "gulp": "^3",
+    "gulp-sourcemaps": "^2",
+    "gulp-typescript": "^3",
+    "gulp-uglify": "^3",
+    "gulp-util": "^3",
+    "tsify": "^3",
+    "typescript": "^2.6",
+    "uglify-js": "^3",
+    "vinyl-buffer": "^1",
+    "vinyl-source-stream": "^1",
+    "watchify": "^3"
+  },
+  "scripts": {
+    "pretest": "npm run compile",
+    "compile": "tsc",
+    "prepublish": "npm run compile"
+  },
+  "keywords": [
+    "draughts",
+    "lidraughts.org",
+    "draughtsboard",
+    "UI",
+    "typescript"
+  ],
+  "author": "Stefan Schermann (modified original by Thibault Duplessis)",
+  "license": "GPL-3.0"
+}

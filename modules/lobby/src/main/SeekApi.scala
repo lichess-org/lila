@@ -1,16 +1,16 @@
-package lila.lobby
+package lidraughts.lobby
 
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 final class SeekApi(
     coll: Coll,
     archiveColl: Coll,
     blocking: String => Fu[Set[User.ID]],
-    asyncCache: lila.memo.AsyncCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     maxPerPage: Int,
     maxPerUser: Int
 ) {

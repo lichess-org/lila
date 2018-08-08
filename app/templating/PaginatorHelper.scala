@@ -1,9 +1,9 @@
-package lila.app
+package lidraughts.app
 package templating
 
 import scala.collection.breakOut
 
-import lila.common.paginator.Paginator
+import lidraughts.common.paginator.Paginator
 
 trait PaginatorHelper {
 

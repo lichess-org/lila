@@ -1,11 +1,11 @@
-@(u: User, sessions: List[lila.security.LocatedSession], curSessionId: String)(implicit ctx: Context)
+@(u: User, sessions: List[lidraughts.security.LocatedSession], curSessionId: String)(implicit ctx: Context)
 
 @title = @{ s"${u.username} - ${trans.security.txt()}" }
 
 @account.layout(title = title, active = "security") {
 <div class="content_box no_padding high security">
   <div class="signup_box">
-    <h1 class="lichess_title">@trans.security()</h1>
+    <h1 class="lidraughts_title">@trans.security()</h1>
     <p class="explanation">@trans.thisIsAListOfDevicesThatHaveLoggedIntoYourAccount()</p>
     @if(sessions.length > 1) {
     <div class="explanation">

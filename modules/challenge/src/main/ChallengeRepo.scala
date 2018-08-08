@@ -1,8 +1,8 @@
-package lila.challenge
+package lidraughts.challenge
 
 import org.joda.time.DateTime
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
 

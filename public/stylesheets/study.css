@@ -382,10 +382,10 @@ div.underboard .notif.error {
   margin: 6px 0 0 0;
   display: inline-block;
 }
-.study_overboard.lichess_overboard {
+.study_overboard.lidraughts_overboard {
   top: 60%;
 }
-.is3d .study_overboard.lichess_overboard {
+.is3d .study_overboard.lidraughts_overboard {
   top: 65%;
 }
 .study_overboard .material.form {
@@ -817,13 +817,13 @@ body.dark .player_bar {
   color: #bbb;
   text-shadow: 0 .5px 1px #000;
 }
-.lichess_board_wrap.white .player_bar.black,
-.lichess_board_wrap.black .player_bar.white {
+.lidraughts_board_wrap.white .player_bar.black,
+.lidraughts_board_wrap.black .player_bar.white {
   border-radius: 4px 4px 0 0;
   top: -26px;
 }
-.lichess_board_wrap.white .player_bar.white,
-.lichess_board_wrap.black .player_bar.black {
+.lidraughts_board_wrap.white .player_bar.white,
+.lidraughts_board_wrap.black .player_bar.black {
   border-radius: 0 0 4px 4px;
   bottom: -26px;
 }
@@ -847,8 +847,8 @@ body.dark .player_bar {
   padding: 0 10px;
   border-radius: 0 4px 0 0;
 }
-.lichess_board_wrap.white .player_bar.white .aclock,
-.lichess_board_wrap.black .player_bar.black .aclock {
+.lidraughts_board_wrap.white .player_bar.white .aclock,
+.lidraughts_board_wrap.black .player_bar.black .aclock {
   border-radius: 0 0 4px 0;
 }
 .player_bar.ticking .aclock {

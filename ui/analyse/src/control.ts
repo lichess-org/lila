@@ -7,8 +7,8 @@ export function canGoForward(ctrl: AnalyseCtrl): boolean {
 }
 
 export function next(ctrl: AnalyseCtrl): void {
-  const child = ctrl.node.children[0];
-  if (child) ctrl.userJumpIfCan(ctrl.path + child.id);
+    const child = ctrl.node.children[0];
+    if (child) ctrl.userJumpIfCan(ctrl.path + child.id);
 }
 
 export function prev(ctrl: AnalyseCtrl): void {

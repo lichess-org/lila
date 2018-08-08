@@ -1,35 +1,35 @@
-package lila.round
+package lidraughts.round
 
 import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import chess.{ Color, White, Black }
+import draughts.{ Color, White, Black }
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import actorApi._
-import lila.chat.Chat
-import lila.common.LightUser
-import lila.game.actorApi.{ StartGame, UserStartGame }
-import lila.game.{ Game, GameRepo, Event }
-import lila.hub.actorApi.Deploy
-import lila.hub.actorApi.game.ChangeFeatured
-import lila.hub.actorApi.round.{ IsOnGame, TourStanding }
-import lila.hub.actorApi.tv.{ Select => TvSelect }
-import lila.hub.TimeBomb
-import lila.socket._
-import lila.socket.actorApi.{ Connected => _, _ }
+import lidraughts.chat.Chat
+import lidraughts.common.LightUser
+import lidraughts.game.actorApi.{ StartGame, UserStartGame }
+import lidraughts.game.{ Game, GameRepo, Event }
+import lidraughts.hub.actorApi.Deploy
+import lidraughts.hub.actorApi.game.ChangeFeatured
+import lidraughts.hub.actorApi.round.{ IsOnGame, TourStanding }
+import lidraughts.hub.actorApi.tv.{ Select => TvSelect }
+import lidraughts.hub.TimeBomb
+import lidraughts.socket._
+import lidraughts.socket.actorApi.{ Connected => _, _ }
 import makeTimeout.short
 
 private[round] final class Socket(
     gameId: Game.ID,
     history: History,
     lightUser: LightUser.Getter,
-    uidTimeout: Duration,
-    socketTimeout: Duration,
-    disconnectTimeout: Duration,
-    ragequitTimeout: Duration,
+    uidTimeout: FiniteDuration,
+    socketTimeout: FiniteDuration,
+    disconnectTimeout: FiniteDuration,
+    ragequitTimeout: FiniteDuration,
     simulActor: ActorSelection
 ) extends SocketActor[Member](uidTimeout) {
 
@@ -65,13 +65,11 @@ private[round] final class Socket(
     private def isBye = bye > 0
 
     private def isHostingSimul: Fu[Boolean] = userId.ifTrue(mightBeSimul) ?? { u =>
-      simulActor ? lila.hub.actorApi.simul.GetHostIds mapTo manifest[Set[String]] map (_ contains u)
+      simulActor ? lidraughts.hub.actorApi.simul.GetHostIds mapTo manifest[Set[String]] map (_ contains u)
     }
 
-    def isGone =
-      if (time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis))
-        !isHostingSimul
-      else fuccess(false)
+    def isGone: Fu[Boolean] =
+      (time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis)) ?? !isHostingSimul
   }
 
   private val whitePlayer = new Player(White)
@@ -85,7 +83,7 @@ private[round] final class Socket(
 
   override def postStop(): Unit = {
     super.postStop()
-    lilaBus.unsubscribe(self)
+    lidraughtsBus.unsubscribe(self)
   }
 
   private object buscriptions {
@@ -97,13 +95,13 @@ private[round] final class Socket(
     }
 
     def tv = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: String) =>
-      lilaBus.subscribe(self, Symbol(s"userStartGame:$userId"))
+      lidraughtsBus.subscribe(self, Symbol(s"userStartGame:$userId"))
     }
 
-    def chat = lilaBus.subscribe(self, Symbol(s"chat-${chatIds.priv}"), Symbol(s"chat-${chatIds.pub}"))
+    def chat = lidraughtsBus.subscribe(self, Symbol(s"chat-${chatIds.priv}"), Symbol(s"chat-${chatIds.pub}"))
 
     def tournament = tournamentId foreach { id =>
-      lilaBus.subscribe(self, Symbol(s"tour-standing-$id"))
+      lidraughtsBus.subscribe(self, Symbol(s"tour-standing-$id"))
     }
   }
 
@@ -122,8 +120,9 @@ private[round] final class Socket(
         tournamentId = tourId.some
         buscriptions.tournament
       }
+    case SetGame(None) => self ! PoisonPill // should never happen but eh
 
-    // from lilaBus 'startGame
+    // from lidraughtsBus 'startGame
     // sets definitive user ids
     // in case one joined after the socket creation
     case StartGame(game) => self ! SetGame(game.some)
@@ -150,8 +149,6 @@ private[round] final class Socket(
       else if (!hasAi) Color.all foreach { c =>
         playerGet(c, _.isGone) foreach { _ ?? notifyGone(c, true) }
       }
-
-    case GetVersion => sender ! history.getVersion
 
     case IsGone(color) => playerGet(color, _.isGone) pipeTo sender
 
@@ -180,18 +177,18 @@ private[round] final class Socket(
     case Nil =>
     case eventList: EventList => notify(eventList.events)
 
-    case lila.chat.actorApi.ChatLine(chatId, line) => notify(List(line match {
-      case l: lila.chat.UserLine => Event.UserMessage(l, chatId == chatIds.pub)
-      case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
+    case lidraughts.chat.actorApi.ChatLine(chatId, line) => notify(List(line match {
+      case l: lidraughts.chat.UserLine => Event.UserMessage(l, chatId == chatIds.pub)
+      case l: lidraughts.chat.PlayerLine => Event.PlayerMessage(l)
     }))
 
-    case a: lila.analyse.actorApi.AnalysisProgress =>
-      import lila.analyse.{ JsonView => analysisJson }
+    case a: lidraughts.analyse.actorApi.AnalysisProgress =>
+      import lidraughts.analyse.{ JsonView => analysisJson }
       notifyAll("analysisProgress", Json.obj(
         "analysis" -> analysisJson.bothPlayers(a.game, a.analysis),
         "tree" -> TreeBuilder(
           id = a.analysis.id,
-          pgnMoves = a.game.pgnMoves,
+          pdnmoves = a.game.pdnMoves,
           variant = a.variant,
           analysis = a.analysis.some,
           initialFen = a.initialFen,
@@ -222,7 +219,7 @@ private[round] final class Socket(
 
     case TourStanding(json) => notifyOwners("tourStanding", json)
 
-  }: Actor.Receive) orElse lila.chat.Socket.out(
+  }: Actor.Receive) orElse lidraughts.chat.Socket.out(
     send = (t, d, _) => notifyAll(t, d)
   )
 

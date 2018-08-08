@@ -1,7 +1,7 @@
-package lila.chat
+package lidraughts.chat
 package actorApi
 
-import lila.hub.actorApi.shutup.PublicSource
+import lidraughts.hub.actorApi.shutup.PublicSource
 
 case class UserTalk(chatId: Chat.Id, userId: String, text: String, publicSource: Option[PublicSource])
 case class PlayerTalk(chatId: Chat.Id, white: Boolean, text: String)

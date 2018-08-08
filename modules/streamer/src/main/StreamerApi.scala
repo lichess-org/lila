@@ -1,18 +1,18 @@
-package lila.streamer
+package lidraughts.streamer
 
 import org.joda.time.DateTime
 import reactivemongo.api._
 import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.db.Photographer
-import lila.user.{ User, UserRepo }
+import lidraughts.db.dsl._
+import lidraughts.db.Photographer
+import lidraughts.user.{ User, UserRepo }
 
 final class StreamerApi(
     coll: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     photographer: Photographer,
-    notifyApi: lila.notify.NotifyApi
+    notifyApi: lidraughts.notify.NotifyApi
 ) {
 
   import BsonHandlers._
@@ -58,12 +58,12 @@ final class StreamerApi(
 
   def update(s: Streamer, data: StreamerForm.UserData, asMod: Boolean): Funit =
     coll.update($id(s.id), data(s, asMod)).void >> {
-      import lila.notify.Notification.Notifies
-      import lila.notify.{ Notification, NotifyApi }
+      import lidraughts.notify.Notification.Notifies
+      import lidraughts.notify.{ Notification, NotifyApi }
       (!s.approval.granted && data.approval.exists(_.granted)) ??
         notifyApi.addNotification(Notification.make(
           Notifies(s.userId),
-          lila.notify.GenericLink(
+          lidraughts.notify.GenericLink(
             url = s"/streamer/edit",
             title = "Listed on /streamer".some,
             text = "Your streamer page is public".some,

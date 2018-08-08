@@ -1,4 +1,4 @@
-package lila.hub
+package lidraughts.hub
 
 import scala.concurrent.duration._
 import scala.concurrent.Promise
@@ -9,7 +9,7 @@ import akka.actor._
 final class Sequencer(
     receiveTimeout: Option[FiniteDuration],
     executionTimeout: Option[FiniteDuration] = None,
-    logger: lila.log.Logger
+    logger: lidraughts.log.Logger
 ) extends Actor {
 
   receiveTimeout.foreach(context.setReceiveTimeout)
@@ -45,7 +45,7 @@ final class Sequencer(
         val future = timeoutOption.orElse(executionTimeout).fold(run()) { timeout =>
           run().withTimeout(
             duration = timeout,
-            error = lila.base.LilaException(s"Sequencer timed out after $timeout")
+            error = lidraughts.base.LidraughtsException(s"Sequencer timed out after $timeout")
           )(context.system)
         } addEffectAnyway {
           self ! Done

@@ -33,11 +33,11 @@
 #qa form.mod {
   display: inline;
 }
-#qa .checkmateCaptcha {
+#qa .captureCaptcha {
   margin-top: 20px;
   display: block;
 }
-#qa .checkmateFen {
+#qa .captureFen {
   margin-left: 0;
 }
 #qa .content_box_inter.meta {

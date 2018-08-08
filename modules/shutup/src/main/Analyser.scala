@@ -1,4 +1,4 @@
-package lila.shutup
+package lidraughts.shutup
 
 object Analyser {
 

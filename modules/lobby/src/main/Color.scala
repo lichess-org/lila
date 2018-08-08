@@ -1,10 +1,10 @@
-package lila.lobby
+package lidraughts.lobby
 
 import scala.util.Random.nextBoolean
 
 sealed abstract class Color(val name: String) {
 
-  def resolve: chess.Color
+  def resolve: draughts.Color
 
   def unary_! : Color
 
@@ -15,14 +15,14 @@ object Color {
 
   object White extends Color("white") {
 
-    def resolve = chess.White
+    def resolve = draughts.White
 
     def unary_! = Black
   }
 
   object Black extends Color("black") {
 
-    def resolve = chess.Black
+    def resolve = draughts.Black
 
     def unary_! = White
   }

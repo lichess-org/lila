@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
-import { opposite } from 'chessground/util';
-import { player as renderPlayer, miniBoard, bind } from './util';
+import { opposite } from 'draughtsground/util';
+import { player as renderPlayer, miniBoard, bind, dataIcon } from './util';
 import { Duel, DuelPlayer, MaybeVNodes } from '../interfaces';
 import TournamentController from '../ctrl';
 
@@ -15,7 +15,7 @@ function featuredPlayer(f, orientation) {
       }
     }) : null,
     h('strong', '#' + p.rank),
-    renderPlayer(p, true, true)
+    renderPlayer(p, true, true, false)
   ]);
 }
 
@@ -31,7 +31,7 @@ function nextTournament(ctrl: TournamentController): MaybeVNodes {
   const t = ctrl.data.next;
   return t ? [
     h('a.next', { attrs: { href: '/tournament/' + t.id } }, [
-      h('i', { attrs: { 'data-icon': t.perf.icon } }),
+      h('i', { attrs: dataIcon(t.perf.icon) }),
       h('span.content', [
         h('span', ctrl.trans('nextXTournament', t.perf.name)),
         h('span.name', t.name),

@@ -1,12 +1,12 @@
-package lila.importer
+package lidraughts.importer
 
 import scala.concurrent.duration._
 
 import akka.actor.ActorRef
-import chess.format.FEN
-import chess.{ Status, Situation }
+import draughts.format.FEN
+import draughts.{ Status, Situation }
 
-import lila.game.{ Game, GameRepo }
+import lidraughts.game.{ Game, GameRepo }
 
 final class Importer(
     roundMap: ActorRef,
@@ -17,7 +17,7 @@ final class Importer(
   def apply(data: ImportData, user: Option[String], forceId: Option[String] = None): Fu[Game] = {
 
     def gameExists(processing: => Fu[Game]): Fu[Game] =
-      GameRepo.findPgnImport(data.pgn) flatMap { _.fold(processing)(fuccess) }
+      GameRepo.findPdnImport(data.pdn) flatMap { _.fold(processing)(fuccess) }
 
     def applyResult(game: Game, result: Result, situation: Situation): Game =
       if (game.finished) game
@@ -30,10 +30,9 @@ final class Importer(
     gameExists {
       (data preprocess user).future flatMap {
         case Preprocessed(g, replay, result, initialFen, _) =>
-          val started = forceId.fold(g)(g.withId).start
-          val game = applyResult(started, result, replay.state.situation)
+          val game = applyResult(forceId.fold(g)(g.withId), result, replay.state.situation)
           (GameRepo.insertDenormalized(game, initialFen = initialFen)) >> {
-            game.pgnImport.flatMap(_.user).isDefined ?? GameRepo.setImportCreatedAt(game)
+            game.pdnImport.flatMap(_.user).isDefined ?? GameRepo.setImportCreatedAt(game)
           } >> {
             GameRepo.finish(
               id = game.id,

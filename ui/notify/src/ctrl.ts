@@ -2,7 +2,7 @@ import { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces'
 
 import { asText } from './view'
 
-const li = window.lichess;
+const li = window.lidraughts;
 
 export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
 

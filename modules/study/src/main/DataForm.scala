@@ -1,4 +1,4 @@
-package lila.study
+package lidraughts.study
 
 import play.api.data._
 import play.api.data.Forms._
@@ -9,7 +9,7 @@ object DataForm {
     "gameId" -> optional(nonEmptyText),
     "orientation" -> optional(nonEmptyText),
     "fen" -> optional(nonEmptyText),
-    "pgn" -> optional(nonEmptyText),
+    "pdn" -> optional(nonEmptyText),
     "variant" -> optional(nonEmptyText),
     "as" -> optional(nonEmptyText)
   )(Data.apply)(Data.unapply))
@@ -18,12 +18,12 @@ object DataForm {
       gameId: Option[String] = None,
       orientationStr: Option[String] = None,
       fenStr: Option[String] = None,
-      pgnStr: Option[String] = None,
+      pdnStr: Option[String] = None,
       variantStr: Option[String] = None,
       asStr: Option[String] = None
   ) {
 
-    def orientation = orientationStr.flatMap(chess.Color.apply) | chess.White
+    def orientation = orientationStr.flatMap(draughts.Color.apply) | draughts.White
 
     def as: As = asStr match {
       case None | Some("study") => AsNewStudy
@@ -35,7 +35,7 @@ object DataForm {
       game = gameId,
       variant = variantStr,
       fen = fenStr,
-      pgn = pgnStr,
+      pdn = pdnStr,
       orientation = orientation.name,
       mode = ChapterMaker.Mode.Normal.key,
       initial = false

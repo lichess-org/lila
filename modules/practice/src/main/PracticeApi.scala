@@ -1,17 +1,17 @@
-package lila.practice
+package lidraughts.practice
 
 import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.study.{ Chapter, Study }
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.study.{ Chapter, Study }
+import lidraughts.user.User
 
 final class PracticeApi(
     coll: Coll,
-    configStore: lila.memo.ConfigStore[PracticeConfig],
-    asyncCache: lila.memo.AsyncCache.Builder,
-    studyApi: lila.study.StudyApi,
-    bus: lila.common.Bus
+    configStore: lidraughts.memo.ConfigStore[PracticeConfig],
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    studyApi: lidraughts.study.StudyApi,
+    bus: lidraughts.common.Bus
 ) {
 
   import BSONHandlers._

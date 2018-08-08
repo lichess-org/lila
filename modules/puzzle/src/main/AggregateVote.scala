@@ -1,4 +1,4 @@
-package lila.puzzle
+package lidraughts.puzzle
 
 case class AggregateVote(up: Int, down: Int, nb: Int, ratio: Int) {
 

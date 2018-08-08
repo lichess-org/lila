@@ -1,12 +1,12 @@
-package lila.api
+package lidraughts.api
 
 import akka.actor.ActorSelection
 
-import lila.hub.actorApi.Deploy
+import lidraughts.hub.actorApi.Deploy
 
-private[api] final class Cli(bus: lila.common.Bus) extends lila.common.Cli {
+private[api] final class Cli(bus: lidraughts.common.Bus) extends lidraughts.common.Cli {
 
-  private val logger = lila.log("cli")
+  private val logger = lidraughts.log("cli")
 
   def apply(args: List[String]): Fu[String] = run(args).map(_ + "\n") ~ {
     _.logFailure(logger, _ => args mkString " ") foreach { output =>
@@ -15,8 +15,8 @@ private[api] final class Cli(bus: lila.common.Bus) extends lila.common.Cli {
   }
 
   def process = {
-    case "deploy" :: "pre" :: Nil => remindDeploy(lila.hub.actorApi.DeployPre)
-    case "deploy" :: "post" :: Nil => remindDeploy(lila.hub.actorApi.DeployPost)
+    case "deploy" :: "pre" :: Nil => remindDeploy(lidraughts.hub.actorApi.DeployPre)
+    case "deploy" :: "post" :: Nil => remindDeploy(lidraughts.hub.actorApi.DeployPost)
   }
 
   private def remindDeploy(event: Deploy): Fu[String] = {
@@ -31,19 +31,19 @@ private[api] final class Cli(bus: lila.common.Bus) extends lila.common.Cli {
   }
 
   private def processors =
-    lila.security.Env.current.cli.process orElse
-      lila.i18n.Env.current.cli.process orElse
-      lila.teamSearch.Env.current.cli.process orElse
-      lila.forumSearch.Env.current.cli.process orElse
-      lila.team.Env.current.cli.process orElse
-      lila.puzzle.Env.current.cli.process orElse
-      lila.tournament.Env.current.cli.process orElse
-      lila.explorer.Env.current.cli.process orElse
-      lila.fishnet.Env.current.cli.process orElse
-      lila.study.Env.current.cli.process orElse
-      lila.studySearch.Env.current.cli.process orElse
-      lila.coach.Env.current.cli.process orElse
-      lila.evalCache.Env.current.cli.process orElse
-      lila.report.Env.current.cli.process orElse
+    lidraughts.security.Env.current.cli.process orElse
+      lidraughts.i18n.Env.current.cli.process orElse
+      lidraughts.teamSearch.Env.current.cli.process orElse
+      lidraughts.forumSearch.Env.current.cli.process orElse
+      lidraughts.team.Env.current.cli.process orElse
+      lidraughts.puzzle.Env.current.cli.process orElse
+      lidraughts.tournament.Env.current.cli.process orElse
+      lidraughts.explorer.Env.current.cli.process orElse
+      lidraughts.study.Env.current.cli.process orElse
+      lidraughts.studySearch.Env.current.cli.process orElse
+      lidraughts.evalCache.Env.current.cli.process orElse
+      lidraughts.report.Env.current.cli.process orElse
+      lidraughts.game.Env.current.cli.process orElse
+      lidraughts.gameSearch.Env.current.cli.process orElse
       process
 }

@@ -1,6 +1,6 @@
-package lila.user
+package lidraughts.user
 
-import lila.rating.{ Perf, PerfType }
+import lidraughts.rating.{ Perf, PerfType }
 import play.api.libs.json._
 import User.{ PlayTime, LightPerf }
 

@@ -1,9 +1,9 @@
-package lila.tournament
+package lidraughts.tournament
 
 import org.joda.time.DateTime
 
-import chess.Clock.{ Config => TournamentClock }
-import lila.user.User
+import draughts.Clock.{ Config => TournamentClock }
+import lidraughts.user.User
 
 private[tournament] case class WaitingUsers(
     hash: Map[User.ID, DateTime],

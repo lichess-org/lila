@@ -3,7 +3,7 @@ var m = require('mithril');
 module.exports = function(ctrl) {
   var d = ctrl.data;
   return m('div', {
-    config: lichess.powertip.manualGameIn
+    config: lidraughts.powertip.manualGameIn
   }, [
     m('section.glicko', require('./glicko')(d)),
     m('section.counter', require('./counter')(d)),

@@ -69,14 +69,14 @@ div.mchat .note textarea {
   outline: none;
   resize: none;
 }
-div.mchat .lichess_say {
+div.mchat .lidraughts_say {
   border: 0;
   border-top: 1px solid #ccc;
   padding: 3px 20px 3px 4px;
   flex: 0 0 auto;
   outline: none;
 }
-div.mchat .lichess_say.whisper {
+div.mchat .lidraughts_say.whisper {
   color: #759900;
   font-weight: bold;
   font-style: italic;

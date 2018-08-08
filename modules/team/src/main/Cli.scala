@@ -1,9 +1,9 @@
-package lila.team
+package lidraughts.team
 
-import lila.db.dsl._
-import lila.user.UserRepo
+import lidraughts.db.dsl._
+import lidraughts.user.UserRepo
 
-private[team] final class Cli(api: TeamApi, coll: Colls) extends lila.common.Cli {
+private[team] final class Cli(api: TeamApi, coll: Colls) extends lidraughts.common.Cli {
 
   import BSONHandlers._
 

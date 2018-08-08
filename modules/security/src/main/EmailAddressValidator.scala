@@ -1,7 +1,7 @@
-package lila.security
+package lidraughts.security
 
-import lila.user.User
-import lila.common.EmailAddress
+import lidraughts.user.User
+import lidraughts.common.EmailAddress
 
 import play.api.data.validation._
 
@@ -45,7 +45,7 @@ final class EmailAddressValidator(disposable: DisposableEmailDomain) {
    * @return
    */
   private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Boolean = validate(email) ?? { e =>
-    (lila.user.UserRepo.idByEmail(e) awaitSeconds 2, forUser) match {
+    (lidraughts.user.UserRepo.idByEmail(e) awaitSeconds 2, forUser) match {
       case (None, _) => false
       case (Some(userId), Some(user)) => userId != user.id
       case (_, _) => true

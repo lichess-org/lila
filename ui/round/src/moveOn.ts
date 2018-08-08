@@ -4,12 +4,12 @@ import RoundController from './ctrl';
 
 export default class MoveOn {
 
-  value: boolean = window.lichess.storage.get(this.key) === '1';
+  value: boolean = window.lidraughts.storage.get(this.key) === '1';
 
   constructor(private ctrl: RoundController, private key: string) {
   }
 
-  store = () => window.lichess.storage.set(this.key, this.value ? '1' : '0');
+  store = () => window.lidraughts.storage.set(this.key, this.value ? '1' : '0');
 
   toggle = (): boolean => {
     this.value = !this.value;
@@ -27,7 +27,7 @@ export default class MoveOn {
 
   private redirect = (href: string) => {
     this.ctrl.setRedirecting();
-    window.lichess.hasToReload = true;
+    window.lidraughts.hasToReload = true;
     window.location.href = href;
   };
 

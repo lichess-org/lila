@@ -1,4 +1,4 @@
-package lila.db
+package lidraughts.db
 
 import com.typesafe.config.Config
 import dsl.Coll
@@ -61,7 +61,7 @@ object Env {
 
   lazy val current = "db" boot new Env(
     name = "main",
-    config = lila.common.PlayApp loadConfig "mongodb",
-    lifecycle = lila.common.PlayApp.lifecycle
+    config = lidraughts.common.PlayApp loadConfig "mongodb",
+    lifecycle = lidraughts.common.PlayApp.lifecycle
   )
 }

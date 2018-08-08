@@ -1,4 +1,4 @@
-package lila.socket
+package lidraughts.socket
 
 import play.api.libs.json.JsValue
 

@@ -1,4 +1,4 @@
-package lila.relay
+package lidraughts.relay
 
 import akka.actor._
 import com.typesafe.config.Config
@@ -6,8 +6,8 @@ import scala.concurrent.duration._
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
-    studyEnv: lila.study.Env,
+    db: lidraughts.db.Env,
+    studyEnv: lidraughts.study.Env,
     system: ActorSystem
 ) {
 
@@ -31,7 +31,7 @@ final class Env(
   lazy val pager = new RelayPager(
     repo = repo,
     withStudy = withStudy,
-    maxPerPage = lila.common.MaxPerPage(MaxPerPage)
+    maxPerPage = lidraughts.common.MaxPerPage(MaxPerPage)
   )
 
   private val sync = new RelaySync(
@@ -54,10 +54,10 @@ final class Env(
     api.autoStart >> api.autoFinishNotSyncing
   }
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.study.actorApi.StudyLikes(id, likes) => api.setLikes(Relay.Id(id.value), likes)
-      case lila.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId)
+      case lidraughts.study.actorApi.StudyLikes(id, likes) => api.setLikes(Relay.Id(id.value), likes)
+      case lidraughts.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId)
     }
   })), 'studyLikes, 'study)
 }
@@ -65,9 +65,9 @@ final class Env(
 object Env {
 
   lazy val current: Env = "relay" boot new Env(
-    db = lila.db.Env.current,
-    config = lila.common.PlayApp loadConfig "relay",
-    studyEnv = lila.study.Env.current,
-    system = lila.common.PlayApp.system
+    db = lidraughts.db.Env.current,
+    config = lidraughts.common.PlayApp loadConfig "relay",
+    studyEnv = lidraughts.study.Env.current,
+    system = lidraughts.common.PlayApp.system
   )
 }

@@ -1,6 +1,6 @@
-package lila.security
+package lidraughts.security
 
-import lila.common.IpAddress
+import lidraughts.common.IpAddress
 
 import play.api.libs.ws.WS
 import play.api.Play.current
@@ -13,7 +13,7 @@ final class Tor(providerUrl: String) {
     WS.url(providerUrl).get() map { res =>
       ips = res.body.lines.filterNot(_ startsWith "#").map(IpAddress.apply).toSet
       withIps(ips)
-      lila.mon.security.tor.node(ips.size)
+      lidraughts.mon.security.tor.node(ips.size)
     }
   }
 

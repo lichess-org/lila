@@ -1,12 +1,12 @@
-package lila.team
+package lidraughts.team
 
-import lila.common.paginator._
-import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lidraughts.common.paginator._
+import lidraughts.db.dsl._
+import lidraughts.user.{ User, UserRepo }
 
 final class MemberPager(coll: Coll) {
 
-  def apply(team: Team, page: Int, maxPerPage: lila.common.MaxPerPage): Fu[Paginator[User]] =
+  def apply(team: Team, page: Int, maxPerPage: lidraughts.common.MaxPerPage): Fu[Paginator[User]] =
     Paginator(
       new MemberAdapter(team),
       currentPage = page,

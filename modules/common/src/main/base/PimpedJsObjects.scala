@@ -1,4 +1,4 @@
-package lila.base
+package lidraughts.base
 
 import play.api.libs.json._
 

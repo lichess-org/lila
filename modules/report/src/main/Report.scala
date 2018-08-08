@@ -1,11 +1,11 @@
-package lila.report
+package lidraughts.report
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import scalaz.NonEmptyList
 
-import lila.user.UserRepo.lichessId
-import lila.user.{ User, Note }
+import lidraughts.user.UserRepo.lidraughtsId
+import lidraughts.user.{ User, Note }
 
 case class Report(
     _id: Report.ID, // also the url slug
@@ -83,7 +83,7 @@ object Report {
       else if (value >= 50) "yellow"
       else "green"
   }
-  implicit val scoreIso = lila.common.Iso.double[Score](Score.apply, _.value)
+  implicit val scoreIso = lidraughts.common.Iso.double[Score](Score.apply, _.value)
 
   case class Atom(
       by: ReporterId,
@@ -93,7 +93,7 @@ object Report {
   ) {
     def simplifiedText = text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
 
-    def byHuman = by.value != "lichess" && by.value != "irwin"
+    def byHuman = by != ReporterId.Lidraughts && by != ReporterId.Irwin
   }
 
   case class Inquiry(mod: User.ID, seenAt: DateTime)
@@ -117,7 +117,8 @@ object Report {
       text: String
   ) extends Reason.WithReason {
     def scored(score: Score) = Candidate.Scored(this, score)
-    def isAutomatic = reporter.user.id == lichessId
+    def isAutomatic = reporter.user.id == lidraughtsId
+    def isAutoComm = isAutomatic && isTrollOrInsult
   }
 
   object Candidate {

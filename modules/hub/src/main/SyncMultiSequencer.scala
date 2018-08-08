@@ -1,4 +1,4 @@
-package lila.hub
+package lidraughts.hub
 
 import akka.actor._
 import scala.concurrent.Promise

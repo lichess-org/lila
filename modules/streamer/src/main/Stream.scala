@@ -1,8 +1,8 @@
-package lila.streamer
+package lidraughts.streamer
 
 import play.api.libs.json._
 
-import lila.user.User
+import lidraughts.user.User
 
 trait Stream {
   def serviceName: String
@@ -26,10 +26,10 @@ object Stream {
     case class Result(streams: Option[List[TwitchStream]]) {
       def streams(keyword: Keyword, streamers: List[Streamer]): List[Stream] = (~streams).map(_.channel).collect {
         case Channel(name, Some(status)) if status.toLowerCase contains keyword.toLowerCase =>
-          streamers.find(s => s.twitch.exists(_.userId == name)) map { Stream(name, status, _) }
+          streamers.find(s => s.twitch.exists(_.userId.toLowerCase == name.toLowerCase)) map { Stream(name, status, _) }
       }.flatten
     }
-    case class Stream(userId: String, status: String, streamer: Streamer) extends lila.streamer.Stream {
+    case class Stream(userId: String, status: String, streamer: Streamer) extends lidraughts.streamer.Stream {
       def serviceName = "twitch"
     }
     object Reads {
@@ -54,7 +54,7 @@ object Stream {
           }
         }
     }
-    case class Stream(channelId: String, status: String, videoId: String, streamer: Streamer) extends lila.streamer.Stream {
+    case class Stream(channelId: String, status: String, videoId: String, streamer: Streamer) extends lidraughts.streamer.Stream {
       def serviceName = "youTube"
     }
 

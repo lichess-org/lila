@@ -54,7 +54,7 @@ export interface DasherOpts {
 
 export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): DasherCtrl {
 
-  const trans = window.lichess.trans(data.i18n);
+  const trans = window.lidraughts.trans(data.i18n);
 
   let mode: Prop<Mode> = prop('links' as Mode);
 
@@ -77,7 +77,7 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
 
   function toggleZen() {
     data.zen = data.zen ? 0 : 1;
-    $('body').toggleClass('zen', data.zen)
+    $('body').toggleClass('zen', data.zen == 0 ? false : true)
     $.post('/pref/zen', { zen: data.zen });
     redraw();
   }

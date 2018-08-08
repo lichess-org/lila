@@ -1,12 +1,11 @@
-package lila.game
+package lidraughts.game
 
 import play.api.libs.json._
 
-import chess.Pos
-import chess.variant.Crazyhouse
-import chess.{ Centis, PromotableRole, Pos, Color, Situation, Move => ChessMove, Drop => ChessDrop, Clock => ChessClock, Status }
+import draughts.Pos
+import draughts.{ Centis, PromotableRole, Pos, Color, Situation, Move => DraughtsMove, Clock => DraughtsClock, Status }
 import JsonView._
-import lila.chat.{ UserLine, PlayerLine }
+import lidraughts.chat.{ UserLine, PlayerLine }
 
 sealed trait Event {
   def typ: String
@@ -31,29 +30,23 @@ object Event {
 
     def data(
       fen: String,
-      check: Boolean,
       threefold: Boolean,
       state: State,
       clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
-      possibleDrops: Option[List[Pos]],
-      crazyData: Option[Crazyhouse.Data]
+      captLen: Option[Int]
     )(extra: JsObject) = {
       extra ++ Json.obj(
         "fen" -> fen,
         "ply" -> state.turns,
-        "dests" -> PossibleMoves.json(possibleMoves)
+        "dests" -> PossibleMoves.json(possibleMoves),
+        "captLen" -> captLen.getOrElse(0).toString
       ).add("clock" -> clock.map(_.data))
         .add("status" -> state.status)
         .add("winner" -> state.winner)
-        .add("check" -> check)
         .add("threefold" -> threefold)
         .add("wDraw" -> state.whiteOffersDraw)
         .add("bDraw" -> state.blackOffersDraw)
-        .add("crazyhouse" -> crazyData)
-        .add("drops" -> possibleDrops.map { squares =>
-          JsString(squares.map(_.key).mkString)
-        })
     }
   }
 
@@ -62,85 +55,33 @@ object Event {
       dest: Pos,
       san: String,
       fen: String,
-      check: Boolean,
       threefold: Boolean,
       promotion: Option[Promotion],
-      enpassant: Option[Enpassant],
-      castle: Option[Castling],
       state: State,
       clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
-      possibleDrops: Option[List[Pos]],
-      crazyData: Option[Crazyhouse.Data]
+      captLen: Option[Int]
   ) extends Event {
     def typ = "move"
-    def data = MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
+    def data = MoveOrDrop.data(fen, threefold, state, clock, possibleMoves, captLen) {
       Json.obj(
         "uci" -> s"${orig.key}${dest.key}",
-        "san" -> san
-      ).add("promotion" -> promotion.map(_.data))
-        .add("enpassant" -> enpassant.map(_.data))
-        .add("castle" -> castle.map(_.data))
-    }
-  }
-  object Move {
-    def apply(move: ChessMove, situation: Situation, state: State, clock: Option[ClockEvent], crazyData: Option[Crazyhouse.Data]): Move = Move(
-      orig = move.orig,
-      dest = move.dest,
-      san = chess.format.pgn.Dumper(move),
-      fen = chess.format.Forsyth.exportBoard(situation.board),
-      check = situation.check,
-      threefold = situation.threefoldRepetition,
-      promotion = move.promotion.map { Promotion(_, move.dest) },
-      enpassant = (move.capture ifTrue move.enpassant).map {
-        Event.Enpassant(_, !move.color)
-      },
-      castle = move.castle.map {
-        case (king, rook) => Castling(king, rook, move.color)
-      },
-      state = state,
-      clock = clock,
-      possibleMoves = situation.destinations,
-      possibleDrops = situation.drops,
-      crazyData = crazyData
-    )
-  }
-
-  case class Drop(
-      role: chess.Role,
-      pos: Pos,
-      san: String,
-      fen: String,
-      check: Boolean,
-      threefold: Boolean,
-      state: State,
-      clock: Option[ClockEvent],
-      possibleMoves: Map[Pos, List[Pos]],
-      crazyData: Option[Crazyhouse.Data],
-      possibleDrops: Option[List[Pos]]
-  ) extends Event {
-    def typ = "drop"
-    def data = MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
-      Json.obj(
-        "role" -> role.name,
-        "uci" -> s"${role.pgn}@${pos.key}",
         "san" -> san
       )
     }
   }
-  object Drop {
-    def apply(drop: ChessDrop, situation: Situation, state: State, clock: Option[ClockEvent], crazyData: Option[Crazyhouse.Data]): Drop = Drop(
-      role = drop.piece.role,
-      pos = drop.pos,
-      san = chess.format.pgn.Dumper(drop),
-      fen = chess.format.Forsyth.exportBoard(situation.board),
-      check = situation.check,
+  object Move {
+    def apply(move: DraughtsMove, situation: Situation, state: State, clock: Option[ClockEvent]): Move = Move(
+      orig = move.orig,
+      dest = move.dest,
+      san = draughts.format.pdn.Dumper(move),
+      fen = draughts.format.Forsyth.exportBoard(situation.board),
       threefold = situation.threefoldRepetition,
+      promotion = move.promotion.map { Promotion(_, move.dest) },
       state = state,
       clock = clock,
-      possibleMoves = situation.destinations,
-      possibleDrops = situation.drops,
-      crazyData = crazyData
+      possibleMoves = if (situation.ghosts > 0) Map(move.dest -> situation.destinationsFrom(move.dest)) else situation.allDestinations,
+      captLen = situation.allMovesCaptureLength
     )
   }
 
@@ -150,23 +91,6 @@ object Event {
       else moves.foldLeft(JsObject(Nil)) {
         case (res, (o, d)) => res + (o.key, JsString(d map (_.key) mkString))
       }
-  }
-
-  case class Enpassant(pos: Pos, color: Color) extends Event {
-    def typ = "enpassant"
-    def data = Json.obj(
-      "key" -> pos.key,
-      "color" -> color
-    )
-  }
-
-  case class Castling(king: (Pos, Pos), rook: (Pos, Pos), color: Color) extends Event {
-    def typ = "castling"
-    def data = Json.obj(
-      "king" -> Json.arr(king._1.key, king._2.key),
-      "rook" -> Json.arr(rook._1.key, rook._2.key),
-      "color" -> color
-    )
   }
 
   case class RedirectOwner(
@@ -193,14 +117,14 @@ object Event {
 
   case class PlayerMessage(line: PlayerLine) extends Event {
     def typ = "message"
-    def data = lila.chat.JsonView(line)
+    def data = lidraughts.chat.JsonView(line)
     override def owner = true
     override def troll = false
   }
 
   case class UserMessage(line: UserLine, w: Boolean) extends Event {
     def typ = "message"
-    def data = lila.chat.JsonView(line)
+    def data = lidraughts.chat.JsonView(line)
     override def troll = line.troll
     override def watcher = w
     override def owner = !w
@@ -284,7 +208,7 @@ object Event {
     ).add("lag" -> nextLagComp.collect { case Centis(c) if c > 1 => c })
   }
   object Clock {
-    def apply(clock: ChessClock): Clock = Clock(
+    def apply(clock: DraughtsClock): Clock = Clock(
       clock remainingTime Color.White,
       clock remainingTime Color.Black,
       clock lagCompEstimate clock.color
@@ -301,12 +225,12 @@ object Event {
     def data = Json.obj("white" -> white, "black" -> black)
   }
   object CorrespondenceClock {
-    def apply(clock: lila.game.CorrespondenceClock): CorrespondenceClock =
+    def apply(clock: lidraughts.game.CorrespondenceClock): CorrespondenceClock =
       CorrespondenceClock(clock.whiteTime, clock.blackTime)
   }
 
-  case class CheckCount(white: Int, black: Int) extends Event {
-    def typ = "checkCount"
+  case class KingMoves(white: Int, black: Int) extends Event {
+    def typ = "kingMoves"
     def data = Json.obj(
       "white" -> white,
       "black" -> black

@@ -1,10 +1,10 @@
-@(tours: List[lila.tournament.Tournament])(implicit ctx: Context)
+@(tours: List[lidraughts.tournament.Tournament])(implicit ctx: Context)
 
 @title = {Tournament manager}
 
 @layout(title = title.body) {
 <div class="tour_crud content_box no_padding">
-  <h1 class="lichess_title">
+  <h1 class="lidraughts_title">
     <a href="@routes.TournamentCrud.form" data-icon="O" class="new"></a>
     @title
   </h1>

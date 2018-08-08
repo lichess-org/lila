@@ -1,11 +1,11 @@
-package lila.security
+package lidraughts.security
 
 import play.api.i18n.Lang
 import play.twirl.api.Html
 
-import lila.common.EmailAddress
-import lila.user.User
-import lila.i18n.I18nKeys.{ emails => trans }
+import lidraughts.common.EmailAddress
+import lidraughts.user.User
+import lidraughts.i18n.I18nKeys.{ emails => trans }
 
 final class WelcomeEmail(
     mailgun: Mailgun,

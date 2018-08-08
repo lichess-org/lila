@@ -1,16 +1,16 @@
-package lila.socket
+package lidraughts.socket
 
-import chess.opening._
-import chess.variant.Variant
+import draughts.opening._
+import draughts.variant.Variant
 import play.api.libs.json._
 
 object GetOpening {
 
-  import lila.tree.Node.openingWriter
+  import lidraughts.tree.Node.openingWriter
 
   def apply(o: JsObject): Option[JsObject] = for {
     d <- o obj "d"
-    variant = chess.variant.Variant orDefault ~d.str("variant")
+    variant = draughts.variant.Variant orDefault ~d.str("variant")
     fen <- d str "fen"
     path <- d str "path"
     opening <- Variant.openingSensibleVariants(variant) ?? {

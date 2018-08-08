@@ -1,15 +1,15 @@
-package lila.streamer
+package lidraughts.streamer
 
 import reactivemongo.api._
 
-import lila.common.paginator.Paginator
-import lila.db.dsl._
-import lila.db.paginator.{ Adapter }
-import lila.user.{ User, UserRepo }
+import lidraughts.common.paginator.Paginator
+import lidraughts.db.dsl._
+import lidraughts.db.paginator.{ Adapter }
+import lidraughts.user.{ User, UserRepo }
 
 final class StreamerPager(
     coll: Coll,
-    maxPerPage: lila.common.MaxPerPage
+    maxPerPage: lidraughts.common.MaxPerPage
 ) {
 
   import BsonHandlers._

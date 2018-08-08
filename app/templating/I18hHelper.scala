@@ -1,12 +1,12 @@
-package lila.app
+package lidraughts.app
 package templating
 
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import play.twirl.api.Html
 
-import lila.i18n.{ LangList, I18nKey, Translator, JsQuantity, I18nDb, JsDump, TimeagoLocales }
-import lila.user.UserContext
+import lidraughts.i18n.{ LangList, I18nKey, Translator, JsQuantity, I18nDb, JsDump, TimeagoLocales }
+import lidraughts.user.UserContext
 
 trait I18nHelper {
 
@@ -27,7 +27,7 @@ trait I18nHelper {
   def i18nJsQuantityFunction(implicit lang: Lang): Html = Html(JsQuantity(lang))
 
   private val defaultTimeagoLocale = TimeagoLocales.js.get("en") err "Missing en TimeagoLocales"
-  def timeagoLocaleScript(implicit ctx: lila.api.Context) = Html {
+  def timeagoLocaleScript(implicit ctx: lidraughts.api.Context) = Html {
     TimeagoLocales.js.get(ctx.lang.code) orElse
       TimeagoLocales.js.get(ctx.lang.language) getOrElse
       defaultTimeagoLocale

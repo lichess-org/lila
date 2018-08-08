@@ -1,4 +1,4 @@
-package lila.explorer
+package lidraughts.explorer
 
 import scala.util.Random.nextFloat
 import scala.util.{ Try, Success, Failure }
@@ -7,12 +7,12 @@ import org.joda.time.format.DateTimeFormat
 import play.api.libs.iteratee._
 import play.api.libs.ws.WS
 import play.api.Play.current
-import chess.format.pgn.Tag
+import draughts.format.pdn.Tag
 
-import lila.db.dsl._
-import lila.game.BSONHandlers.gameBSONHandler
-import lila.game.{ Game, GameRepo, Query, PgnDump, Player }
-import lila.user.UserRepo
+import lidraughts.db.dsl._
+import lidraughts.game.BSONHandlers.gameBSONHandler
+import lidraughts.game.{ Game, GameRepo, Query, PdnDump, Player }
+import lidraughts.user.UserRepo
 
 private final class ExplorerIndexer(
     gameColl: Coll,
@@ -25,13 +25,13 @@ private final class ExplorerIndexer(
   private val datePattern = "yyyy-MM-dd"
   private val dateFormatter = DateTimeFormat forPattern datePattern
   private val dateTimeFormatter = DateTimeFormat forPattern s"$datePattern HH:mm"
-  private val pgnDateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
-  private val internalEndPointUrl = s"$internalEndpoint/import/lichess"
+  private val pdnDateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
+  private val internalEndPointUrl = s"$internalEndpoint/import/lidraughts"
 
   private def parseDate(str: String): Option[DateTime] =
     Try(dateFormatter parseDateTime str).toOption
 
-  type GamePGN = (Game, String)
+  type GamePDN = (Game, String)
 
   def apply(sinceStr: String): Funit =
     parseDate(sinceStr).fold(fufail[Unit](s"Invalid date $sinceStr")) { since =>
@@ -51,14 +51,14 @@ private final class ExplorerIndexer(
         .sort(Query.sortChronological)
         .cursor[Game](ReadPreference.secondary)
         .enumerator(maxGames) &>
-        Enumeratee.mapM[Game].apply[Option[GamePGN]] { game =>
-          makeFastPgn(game) map {
+        Enumeratee.mapM[Game].apply[Option[GamePDN]] { game =>
+          makeFastPdn(game) map {
             _ map { game -> _ }
           }
         } &>
         Enumeratee.collect { case Some(el) => el } &>
         Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
-        Iteratee.foldM[Seq[GamePGN], Long](nowMillis) {
+        Iteratee.foldM[Seq[GamePDN], Long](nowMillis) {
           case (millis, pairs) =>
             WS.url(internalEndPointUrl).put(pairs.map(_._2) mkString separator).flatMap {
               case res if res.status == 200 =>
@@ -79,27 +79,27 @@ private final class ExplorerIndexer(
         } void
     }
 
-  def apply(game: Game): Funit = makeFastPgn(game) map {
+  def apply(game: Game): Funit = makeFastPdn(game) map {
     _ foreach flowBuffer.apply
   }
 
   private object flowBuffer {
     private val max = 30
     private val buf = scala.collection.mutable.ArrayBuffer.empty[String]
-    def apply(pgn: String): Unit = {
-      buf += pgn
+    def apply(pdn: String): Unit = {
+      buf += pdn
       val startAt = nowMillis
       if (buf.size >= max) {
         WS.url(internalEndPointUrl).put(buf mkString separator) andThen {
           case Success(res) if res.status == 200 =>
-            lila.mon.explorer.index.time(((nowMillis - startAt) / max).toInt)
-            lila.mon.explorer.index.success(max)
+            lidraughts.mon.explorer.index.time(((nowMillis - startAt) / max).toInt)
+            lidraughts.mon.explorer.index.success(max)
           case Success(res) =>
             logger.warn(s"[${res.status}]")
-            lila.mon.explorer.index.failure(max)
+            lidraughts.mon.explorer.index.failure(max)
           case Failure(err) =>
             logger.warn(s"$err", err)
-            lila.mon.explorer.index.failure(max)
+            lidraughts.mon.explorer.index.failure(max)
         }
         buf.clear
       }
@@ -110,14 +110,13 @@ private final class ExplorerIndexer(
     game.finished &&
       game.rated &&
       game.turns >= 10 &&
-      game.variant != chess.variant.FromPosition &&
-      !Game.isOldHorde(game)
+      game.variant != draughts.variant.FromPosition
 
   private def stableRating(player: Player) = player.rating ifFalse player.provisional
 
   // probability of the game being indexed, between 0 and 1
   private def probability(game: Game, rating: Int) = {
-    import lila.rating.PerfType._
+    import lidraughts.rating.PerfType._
     game.perfType ?? {
       case Correspondence => 1
       case Rapid | Classical if rating >= 2000 => 1
@@ -136,7 +135,7 @@ private final class ExplorerIndexer(
     }
   }
 
-  private def makeFastPgn(game: Game): Fu[Option[String]] = ~(for {
+  private def makeFastPdn(game: Game): Fu[Option[String]] = ~(for {
     whiteRating <- stableRating(game.whitePlayer)
     blackRating <- stableRating(game.blackPlayer)
     minPlayerRating = if (game.variant.exotic) 1400 else 1500
@@ -149,26 +148,26 @@ private final class ExplorerIndexer(
     if valid(game)
   } yield GameRepo initialFen game flatMap { initialFen =>
     UserRepo.usernamesByIds(game.userIds) map { usernames =>
-      def username(color: chess.Color) = game.player(color).userId flatMap { id =>
+      def username(color: draughts.Color) = game.player(color).userId flatMap { id =>
         usernames.find(_.toLowerCase == id)
       } orElse game.player(color).userId getOrElse "?"
       val fenTags = initialFen.?? { fen => List(s"[FEN $fen]") }
       val timeControl = Tag.timeControl(game.clock.map(_.config)).value
       val otherTags = List(
-        s"[LichessID ${game.id}]",
+        s"[LidraughtsID ${game.id}]",
         s"[Variant ${game.variant.name}]",
         s"[TimeControl $timeControl]",
-        s"[White ${username(chess.White)}]",
-        s"[Black ${username(chess.Black)}]",
+        s"[White ${username(draughts.White)}]",
+        s"[Black ${username(draughts.Black)}]",
         s"[WhiteElo $whiteRating]",
         s"[BlackElo $blackRating]",
-        s"[Result ${PgnDump.result(game)}]",
-        s"[Date ${pgnDateFormat.print(game.createdAt)}]"
+        s"[Result ${PdnDump.result(game)}]",
+        s"[Date ${pdnDateFormat.print(game.createdAt)}]"
       )
       val allTags = fenTags ::: otherTags
-      s"${allTags.mkString("\n")}\n\n${game.pgnMoves.take(maxPlies).mkString(" ")}".some
+      s"${allTags.mkString("\n")}\n\n${game.pdnMoves.take(maxPlies).mkString(" ")}".some
     }
   })
 
-  private val logger = lila.log("explorer")
+  private val logger = lidraughts.log("explorer")
 }

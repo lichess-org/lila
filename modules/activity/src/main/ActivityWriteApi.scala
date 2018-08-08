@@ -1,14 +1,14 @@
-package lila.activity
+package lidraughts.activity
 
-import lila.db.dsl._
-import lila.game.Game
-import lila.study.Study
-import lila.user.User
-import lila.user.UserRepo.lichessId
+import lidraughts.db.dsl._
+import lidraughts.game.Game
+import lidraughts.study.Study
+import lidraughts.user.User
+import lidraughts.user.UserRepo.lidraughtsId
 
 final class ActivityWriteApi(
     coll: Coll,
-    studyApi: lila.study.StudyApi
+    studyApi: lidraughts.study.StudyApi
 ) {
 
   import Activity._
@@ -33,7 +33,7 @@ final class ActivityWriteApi(
     } yield Unit
   }.sequenceFu.void
 
-  def forumPost(post: lila.forum.Post, topic: lila.forum.Topic): Funit = post.userId.filter(lichessId !=) ?? { userId =>
+  def forumPost(post: lidraughts.forum.Post, topic: lidraughts.forum.Topic): Funit = post.userId.filter(lidraughtsId !=) ?? { userId =>
     getOrCreate(userId) flatMap { a =>
       coll.update(
         $id(a.id),
@@ -43,7 +43,7 @@ final class ActivityWriteApi(
     }
   }
 
-  def puzzle(res: lila.puzzle.Puzzle.UserResult): Funit =
+  def puzzle(res: lidraughts.puzzle.Puzzle.UserResult): Funit =
     getOrCreate(res.userId) flatMap { a =>
       coll.update(
         $id(a.id),
@@ -60,10 +60,10 @@ final class ActivityWriteApi(
   def learn(userId: User.ID, stage: String) =
     update(userId) { a => a.copy(learn = Some(~a.learn + Learn.Stage(stage))).some }
 
-  def practice(prog: lila.practice.PracticeProgress.OnComplete) =
+  def practice(prog: lidraughts.practice.PracticeProgress.OnComplete) =
     update(prog.userId) { a => a.copy(practice = Some(~a.practice + prog.studyId)).some }
 
-  def simul(simul: lila.simul.Simul) =
+  def simul(simul: lidraughts.simul.Simul) =
     simulParticipant(simul, simul.hostId, true) >>
       simul.pairings.map(_.player.user).map { simulParticipant(simul, _, false) }.sequenceFu.void
 
@@ -103,12 +103,15 @@ final class ActivityWriteApi(
     }
   }
 
-  def team(id: String, userId: String) =
+  def team(id: String, userId: User.ID) =
     update(userId) { a =>
       a.copy(teams = Some(~a.teams + id)).some
     }
 
-  private def simulParticipant(simul: lila.simul.Simul, userId: String, host: Boolean) =
+  def streamStart(userId: User.ID) =
+    update(userId) { _.copy(stream = true).some }
+
+  private def simulParticipant(simul: lidraughts.simul.Simul, userId: String, host: Boolean) =
     update(userId) { a => a.copy(simuls = Some(~a.simuls + SimulId(simul.id))).some }
 
   private def get(userId: User.ID) = coll.byId[Activity, Id](Id today userId)

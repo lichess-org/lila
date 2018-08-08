@@ -1,7 +1,7 @@
-package lila.tournament
+package lidraughts.tournament
 
-import lila.rating.Perf
-import lila.user.{ User, Perfs }
+import lidraughts.rating.Perf
+import lidraughts.user.{ User, Perfs }
 
 private[tournament] case class Player(
     _id: String, // random
@@ -11,6 +11,7 @@ private[tournament] case class Player(
     provisional: Boolean,
     withdraw: Boolean = false,
     score: Int = 0,
+    ratingDiff: Int = 0,
     fire: Boolean = false,
     performance: Int = 0
 ) {
@@ -36,7 +37,7 @@ private[tournament] object Player {
   case class WithUser(player: Player, user: User)
 
   private[tournament] def make(tourId: String, user: User, perfLens: Perfs => Perf): Player = new Player(
-    _id = lila.game.IdGenerator.game,
+    _id = lidraughts.game.IdGenerator.game,
     tourId = tourId,
     userId = user.id,
     rating = perfLens(user.perfs).intRating,

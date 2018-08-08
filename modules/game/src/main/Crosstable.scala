@@ -1,4 +1,4 @@
-package lila.game
+package lidraughts.game
 
 case class Crosstable(
     users: Crosstable.Users,
@@ -77,8 +77,8 @@ object Crosstable {
   private[game] def makeKey(u1: String, u2: String): String = List(u1, u2).sorted mkString "/"
 
   import reactivemongo.bson._
-  import lila.db.BSON
-  import lila.db.dsl._
+  import lidraughts.db.BSON
+  import lidraughts.db.dsl._
 
   object BSONFields {
     val id = "_id"

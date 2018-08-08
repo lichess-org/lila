@@ -1,4 +1,4 @@
-package lila.common
+package lidraughts.common
 
 import scala.concurrent.duration._
 
@@ -12,7 +12,7 @@ object ResilientScheduler {
     every: FiniteDuration,
     atMost: FiniteDuration,
     system: ActorSystem,
-    logger: lila.log.Logger
+    logger: lidraughts.log.Logger
   )(f: => Funit): Unit = {
 
     system.actorOf(Props(new Actor {

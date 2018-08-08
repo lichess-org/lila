@@ -1,4 +1,4 @@
-package lila.gameSearch
+package lidraughts.gameSearch
 
 case class Sorting(f: String, order: String)
 

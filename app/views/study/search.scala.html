@@ -1,6 +1,6 @@
-@(pag: Paginator[lila.study.Study.WithChaptersAndLiked], text: String)(implicit ctx: Context)
+@(pag: Paginator[lidraughts.study.Study.WithChaptersAndLiked], text: String)(implicit ctx: Context)
 
-@import lila.study.Order
+@import lidraughts.study.Order
 
 @moreCss = {
 @cssTag("studyList.css")
@@ -15,7 +15,7 @@
 @ctx.me.map { me =>
 @authLinks(me, "search", Order.default)
 }
-<a class="text" data-icon="" href="//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way">What are studies?</a>
+@*<a class="text" data-icon="" href="//lidraughts.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lidraughts-way">What are studies?</a>*@
 }
 
 @base.layout(

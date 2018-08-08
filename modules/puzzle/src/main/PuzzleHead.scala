@@ -1,7 +1,7 @@
-package lila.puzzle
+package lidraughts.puzzle
 
 case class PuzzleHead(
-    _id: lila.user.User.ID,
+    _id: lidraughts.user.User.ID,
     current: Option[PuzzleId], // current puzzle assigned to user (rated)
     last: PuzzleId // last puzzle assigned to user
 ) {

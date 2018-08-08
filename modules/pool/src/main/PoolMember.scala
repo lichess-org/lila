@@ -1,13 +1,13 @@
-package lila.pool
+package lidraughts.pool
 
 import org.joda.time.DateTime
 
-import lila.rating.RatingRange
-import lila.user.User
+import lidraughts.rating.RatingRange
+import lidraughts.user.User
 
 case class PoolMember(
     userId: User.ID,
-    socketId: lila.socket.Socket.Uid,
+    socketId: lidraughts.socket.Socket.Uid,
     rating: Int,
     ratingRange: Option[RatingRange],
     lame: Boolean,

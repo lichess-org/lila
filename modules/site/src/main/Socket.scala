@@ -1,4 +1,4 @@
-package lila.site
+package lidraughts.site
 
 import scala.concurrent.duration.Duration
 
@@ -7,8 +7,8 @@ import play.api.libs.iteratee._
 import play.api.libs.json.JsValue
 
 import actorApi._
-import lila.socket._
-import lila.socket.actorApi.SendToFlag
+import lidraughts.socket._
+import lidraughts.socket.actorApi.SendToFlag
 
 private[site] final class Socket(timeout: Duration) extends SocketActor[Member](timeout) {
 
@@ -17,7 +17,7 @@ private[site] final class Socket(timeout: Duration) extends SocketActor[Member](
   type UID = String
   type Flag = String
 
-  val flags = new lila.socket.MemberGroup[Member](_.flag)
+  val flags = new lidraughts.socket.MemberGroup[Member](_.flag)
 
   def receiveSpecific = {
 

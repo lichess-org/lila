@@ -1,6 +1,6 @@
-package lila.tree
+package lidraughts.tree
 
-import chess.format.Uci
+import draughts.format.Uci
 
 case class Eval(
     cp: Option[Eval.Cp],

@@ -1,4 +1,4 @@
-@(pov: Pov, pgn: chess.format.pgn.Pgn)(implicit req: RequestHeader)
+@(pov: Pov, pdn: draughts.format.pdn.Pdn)(implicit req: RequestHeader)
 @defining(routes.Round.watcher(pov.gameId, pov.color.name).absoluteURL(true)) { url =>
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
@@ -12,7 +12,7 @@
     <link rel="alternate" type="text/html" href="@url"/>
     <title>@describePov(pov)</title>
   </entry>
-  @pgn.turns.map { turn =>
+  @pdn.turns.map { turn =>
   @turn.white.map { move =>
   @defining(turn.number * 2 - 1) { ply =>
   <entry>

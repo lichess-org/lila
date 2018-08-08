@@ -3,12 +3,12 @@ package controllers
 import play.api.libs.json.JsValue
 import play.api.mvc._
 
-import lila.api.Context
-import lila.app._
-import lila.relay.{ Relay => RelayModel }
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.relay.{ Relay => RelayModel }
 import views._
 
-object Relay extends LilaController {
+object Relay extends LidraughtsController {
 
   private val env = Env.relay
 
@@ -81,9 +81,9 @@ object Relay extends LilaController {
       else f(relay)
     }
 
-  private def doShow(relay: RelayModel, oldSc: lila.study.Study.WithChapter)(implicit ctx: Context): Fu[Result] = for {
+  private def doShow(relay: RelayModel, oldSc: lidraughts.study.Study.WithChapter)(implicit ctx: Context): Fu[Result] = for {
     (sc, studyData) <- Study.getJsonData(oldSc)
-    data = lila.relay.JsonView.makeData(relay, studyData)
+    data = lidraughts.relay.JsonView.makeData(relay, studyData)
     chat <- Study.chatOf(sc.study)
     sVersion <- Env.study.version(sc.study.id)
     streams <- Study.streamsOf(sc.study)
@@ -95,7 +95,7 @@ object Relay extends LilaController {
         _ ?? { relay =>
           env.socketHandler.join(
             relayId = relay.id,
-            uid = lila.socket.Socket.Uid(uid),
+            uid = lidraughts.socket.Socket.Uid(uid),
             user = ctx.me
           )
         }
@@ -106,5 +106,5 @@ object Relay extends LilaController {
   private def showRoute(r: RelayModel) = routes.Relay.show(r.slug, r.id.value)
 
   private implicit def makeRelayId(id: String): RelayModel.Id = RelayModel.Id(id)
-  private implicit def makeChapterId(id: String): lila.study.Chapter.Id = lila.study.Chapter.Id(id)
+  private implicit def makeChapterId(id: String): lidraughts.study.Chapter.Id = lidraughts.study.Chapter.Id(id)
 }

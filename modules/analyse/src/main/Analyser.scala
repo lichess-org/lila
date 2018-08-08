@@ -1,18 +1,18 @@
-package lila.analyse
+package lidraughts.analyse
 
 import akka.actor.ActorSelection
 
-import chess.format.FEN
-import lila.game.actorApi.InsertGame
-import lila.game.{ GameRepo, Game }
-import lila.hub.actorApi.map.Tell
+import draughts.format.FEN
+import lidraughts.game.actorApi.InsertGame
+import lidraughts.game.{ GameRepo, Game }
+import lidraughts.hub.actorApi.map.Tell
 
 final class Analyser(
     indexer: ActorSelection,
     requesterApi: RequesterApi,
     roundSocket: ActorSelection,
     studyActor: ActorSelection,
-    bus: lila.common.Bus
+    bus: lidraughts.common.Bus
 ) {
 
   def get(game: Game): Fu[Option[Analysis]] =

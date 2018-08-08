@@ -81,7 +81,7 @@ export function view(ctrl): VNode {
           hook: {
             insert: vnode => {
               const el = vnode.elm as HTMLInputElement;
-              window.lichess.userAutocomplete($(el), {
+              window.lidraughts.userAutocomplete($(el), {
                 tag: 'span',
                 onSelect(v) {
                   ctrl.invite(v.name);

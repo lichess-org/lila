@@ -1,12 +1,12 @@
-package lila.timeline
+package lidraughts.timeline
 
 import org.joda.time.DateTime
 import play.api.libs.json._
 import reactivemongo.bson._
 import scala.util.{ Try, Success, Failure }
 
-import lila.db.dsl._
-import lila.hub.actorApi.timeline._
+import lidraughts.db.dsl._
+import lidraughts.hub.actorApi.timeline._
 
 case class Entry(
     _id: BSONObjectID,
@@ -43,7 +43,7 @@ case class Entry(
   }) match {
     case Success(atom) => Some(atom)
     case Failure(err) =>
-      lila.log("timeline").warn(err.getMessage)
+      lidraughts.log("timeline").warn(err.getMessage)
       none
   }
 

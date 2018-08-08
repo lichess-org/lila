@@ -1,4 +1,4 @@
-package lila.socket
+package lidraughts.socket
 
 import scala.concurrent.duration._
 import scala.util.Random
@@ -7,10 +7,10 @@ import akka.actor.{ Deploy => _, _ }
 import play.api.libs.json._
 
 import actorApi._
-import chess.Centis
-import lila.common.LightUser
-import lila.hub.actorApi.{ Deploy, HasUserId }
-import lila.memo.ExpireSetMemo
+import draughts.Centis
+import lidraughts.common.LightUser
+import lidraughts.hub.actorApi.{ Deploy, HasUserId }
+import lidraughts.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
 
@@ -18,7 +18,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   val aliveUids = new ExpireSetMemo(uidTtl)
   var pong = initialPong
 
-  val lilaBus = context.system.lilaBus
+  val lidraughtsBus = context.system.lidraughtsBus
 
   // this socket is created during application boot
   // and therefore should delay its publication
@@ -28,14 +28,14 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   override def preStart: Unit = {
     if (startsOnApplicationBoot)
       context.system.scheduler.scheduleOnce(1 second) {
-        lilaBus.publish(lila.socket.SocketHub.Open(self), 'socket)
+        lidraughtsBus.publish(lidraughts.socket.SocketHub.Open(self), 'socket)
       }
-    else lilaBus.publish(lila.socket.SocketHub.Open(self), 'socket)
+    else lidraughtsBus.publish(lidraughts.socket.SocketHub.Open(self), 'socket)
   }
 
   override def postStop(): Unit = {
     super.postStop()
-    lilaBus.publish(lila.socket.SocketHub.Close(self), 'socket)
+    lidraughtsBus.publish(lidraughts.socket.SocketHub.Close(self), 'socket)
     members foreachKey eject
   }
 
@@ -104,8 +104,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
           userId <- member.userId
           if monitoredTimeout(userId)
         } {
-          lila.mon.socket.eject(userId)
-          lila.mon.socket.ejectAll()
+          lidraughts.mon.socket.eject(userId)
+          lidraughts.mon.socket.ejectAll()
         }
         eject(uid)
       }
@@ -122,7 +122,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def quit(uid: String): Unit = {
     members get uid foreach { member =>
       members -= uid
-      lilaBus.publish(SocketLeave(uid, member), 'socketDoor)
+      lidraughtsBus.publish(SocketLeave(uid, member), 'socketDoor)
     }
   }
 
@@ -151,7 +151,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     eject(uid)
     members += (uid -> member)
     setAlive(uid)
-    lilaBus.publish(SocketEnter(uid, member), 'socketDoor)
+    lidraughtsBus.publish(SocketEnter(uid, member), 'socketDoor)
   }
 
   def setAlive(uid: String): Unit = { aliveUids put uid }

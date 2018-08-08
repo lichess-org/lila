@@ -1,4 +1,4 @@
-package lila.memo
+package lidraughts.memo
 
 import akka.actor.ActorSystem
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
@@ -18,7 +18,7 @@ final class AsyncCache[K, V](cache: AsyncLoadingCache[K, V], f: K => Fu[V]) {
 final class AsyncCacheClearable[K, V](
     cache: Cache[K, Fu[V]],
     f: K => Fu[V],
-    logger: lila.log.Logger
+    logger: lidraughts.log.Logger
 ) {
 
   def get(k: K): Fu[V] = cache.get(k, (k: K) => {
@@ -58,7 +58,7 @@ object AsyncCache {
     ) = {
       val safeF = (k: K) => f(k).withTimeout(
         resultTimeout,
-        lila.base.LilaException(s"AsyncCache.multi $name key=$k timed out after $resultTimeout")
+        lidraughts.base.LidraughtsException(s"AsyncCache.multi $name key=$k timed out after $resultTimeout")
       )
       val cache: AsyncLoadingCache[K, V] = makeExpire(
         Scaffeine().maximumSize(maxCapacity),
@@ -78,7 +78,7 @@ object AsyncCache {
       val fullName = s"AsyncCache.clearable $name"
       val safeF = (k: K) => f(k).withTimeout(
         resultTimeout,
-        lila.base.LilaException(s"$fullName key=$k timed out after $resultTimeout")
+        lidraughts.base.LidraughtsException(s"$fullName key=$k timed out after $resultTimeout")
       )
       val cache: Cache[K, Fu[V]] = makeExpire(
         Scaffeine().maximumSize(maxCapacity),
@@ -96,7 +96,7 @@ object AsyncCache {
     ) = {
       val safeF = (_: Unit) => f.withTimeout(
         resultTimeout,
-        lila.base.LilaException(s"AsyncCache.single $name single timed out after $resultTimeout")
+        lidraughts.base.LidraughtsException(s"AsyncCache.single $name single timed out after $resultTimeout")
       )
       val cache: AsyncLoadingCache[Unit, V] = makeExpire(
         Scaffeine().maximumSize(1),
@@ -109,7 +109,7 @@ object AsyncCache {
 
   private[memo] def monitor(name: String, cache: CaffeineCache[_, _])(implicit system: ActorSystem): Unit = {
     logger.info(s"Caffeine cache $name started")
-    val monitor = new lila.mon.Caffeine(name)
+    val monitor = new lidraughts.mon.Caffeine(name)
     system.scheduler.schedule(1 minute, 1 minute) {
       val stats = cache.stats
       monitor hitCount stats.hitCount

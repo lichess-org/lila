@@ -1,9 +1,9 @@
-package lila.relay
+package lidraughts.relay
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 private final class RelayRepo(val coll: Coll) {
 

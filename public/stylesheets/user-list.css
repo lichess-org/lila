@@ -47,14 +47,14 @@ div.user_lists h2 {
 div.user_lists h2::before {
   font-size: 1.5em;
 }
-#lichess div.user_lists {
+#lidraughts div.user_lists {
   overflow: hidden;
   width: 100%;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
 }
-#lichess div.user_lists div.user_top {
+#lidraughts div.user_lists div.user_top {
   flex: 0 0 31%;
   width: 31%;
   margin-bottom: 2em;

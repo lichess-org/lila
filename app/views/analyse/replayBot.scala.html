@@ -1,4 +1,4 @@
-@(pov: Pov, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable.WithMatchup])(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[String], pdn: String, analysis: Option[lidraughts.analyse.Analysis], simul: Option[lidraughts.simul.Simul], cross: Option[lidraughts.game.Crosstable.WithMatchup])(implicit ctx: Context)
 
 @import pov._
 
@@ -11,10 +11,10 @@ chat = none,
 underchat = views.html.game.watchers().some,
 moreCss = cssTag("analyse.css"),
 openGraph = povOpenGraph(pov).some,
-chessground = false) {
+draughtsground = false) {
 <div class="analyse cg-512">
   @board.domPreload(pov.some)
-  <div class="lichess_ground for_bot">
+  <div class="lidraughts_ground for_bot">
     <h1>@titleGame(pov.game)</h1>
     <p>@describePov(pov)</p>
     <p>@pov.game.opening.map(_.opening.ecoName)</p>
@@ -40,7 +40,7 @@ chessground = false) {
       </tr>
       }
       <tr>
-        <td><strong>@lila.analyse.Accuracy.mean(pov.withColor(color), a)</strong></td>
+        <td><strong>@lidraughts.analyse.Accuracy.mean(pov.withColor(color), a)</strong></td>
         <th>@trans.averageCentipawnLoss()</th>
       </tr>
       <tr><td class="spacerlol" colspan=2></td></tr>
@@ -51,20 +51,20 @@ chessground = false) {
 </div>
 <div class="underboard_content">
   <div class="analysis_panels">
-    <div class="panel fen_pgn">
+    <div class="panel fen_pdn">
       <p><strong>FEN</strong><input readonly="true" spellcheck="false" class="copyable autoselect fen" /></p>
-      <p><strong>PGN</strong>
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)"> @trans.downloadAnnotated()</a>
+      <p><strong>PDN</strong>
+        <a data-icon="x" rel="nofollow" href="@routes.Export.pdn(game.id)"> @trans.downloadAnnotated()</a>
         @if(analysis.isDefined) {
         /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw"> @trans.downloadRaw()</a>
+        <a data-icon="x" rel="nofollow" href="@routes.Export.pdn(game.id)?as=raw"> @trans.downloadRaw()</a>
         }
-        @if(game.isPgnImport) {
+        @if(game.isPdnImport) {
         /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported"> @trans.downloadImported()</a>
+        <a data-icon="x" rel="nofollow" href="@routes.Export.pdn(game.id)?as=imported"> @trans.downloadImported()</a>
         }
       </p>
-      <div class="pgn">@pgn</div>
+      <div class="pdn">@pdn</div>
     </div>
     @cross.map { c =>
     <div class="panel crosstable">
@@ -76,7 +76,7 @@ chessground = false) {
     @if(cross.isDefined) {
     <a data-panel="crosstable" class="crosstable">@trans.crosstable()</a>
     }
-    <a data-panel="fen_pgn" class="fen_pgn">FEN &amp; PGN</a>
+    <a data-panel="fen_pdn" class="fen_pdn">FEN &amp; PDN</a>
   </div>
 </div>
 }

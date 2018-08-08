@@ -1,8 +1,8 @@
-package lila.evaluation
+package lidraughts.evaluation
 
-import chess.{ Color, Speed }
-import lila.analyse.{ Accuracy, Analysis }
-import lila.game.{ Game, Pov }
+import draughts.{ Color, Speed }
+import lidraughts.analyse.{ Accuracy, Analysis }
+import lidraughts.game.{ Game, Pov }
 import org.joda.time.DateTime
 
 case class Analysed(game: Game, analysis: Analysis)

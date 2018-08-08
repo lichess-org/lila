@@ -1,4 +1,4 @@
-@(us: lila.practice.UserStudy, data: lila.practice.JsonView.JsData)(implicit ctx: Context)
+@(us: lidraughts.practice.UserStudy, data: lidraughts.practice.JsonView.JsData)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("analyse.css")
@@ -7,10 +7,10 @@
 }
 
 @moreJs = {
-@jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
+@jsAt(s"compiled/lidraughts.analyse${isProd??(".min")}.js")
 @embedJs {
-lichess = lichess || {};
-lichess.practice = {
+lidraughts = lidraughts || {};
+lidraughts.practice = {
 practice: @safeJson(data.practice),
 study: @safeJson(data.study),
 data: @safeJson(data.analysis),
@@ -33,7 +33,7 @@ side = side.some,
 underchat = none,
 moreCss = moreCss,
 moreJs = moreJs,
-chessground = false,
+draughtsground = false,
 zoomable = true) {
 <div class="analyse cg-512">@miniBoardContent</div>
 }

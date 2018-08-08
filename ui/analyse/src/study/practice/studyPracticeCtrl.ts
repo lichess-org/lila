@@ -39,7 +39,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
   onLoad();
 
   function computeNbMoves(): number {
-    let plies = root.node.ply - root.tree.root.ply;
+    let plies = (root.node.displayPly ? root.node.displayPly : root.node.ply) - (root.tree.root.displayPly ? root.tree.root.displayPly : root.tree.root.ply);
     if (root.bottomColor() !== root.data.player.color) plies--;
     return Math.ceil(plies / 2);
   }

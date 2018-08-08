@@ -1,4 +1,4 @@
-@(form: Form[_], tags: List[String], captcha: lila.common.Captcha)(implicit ctx: Context)
+@(form: Form[_], tags: List[String], captcha: lidraughts.common.Captcha)(implicit ctx: Context)
 
 <input hint="What's your question?" class="title" name="@form("title").name" value="@form("title").value" placeholder="What's your question? Be specific." />
 @errMsg(form("title"))

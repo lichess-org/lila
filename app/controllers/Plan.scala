@@ -2,20 +2,20 @@ package controllers
 
 import play.api.mvc._
 
-import lila.api.Context
-import lila.app._
-import lila.plan.{ StripeCustomer, MonthlyCustomerInfo, OneTimeCustomerInfo }
-import lila.common.EmailAddress
-import lila.user.{ User => UserModel, UserRepo }
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.plan.{ StripeCustomer, MonthlyCustomerInfo, OneTimeCustomerInfo }
+import lidraughts.common.EmailAddress
+import lidraughts.user.{ User => UserModel, UserRepo }
 import views._
 
-object Plan extends LilaController {
+object Plan extends LidraughtsController {
 
-  private val logger = lila.log("plan")
+  private val logger = lidraughts.log("plan")
 
   def index = Open { implicit ctx =>
     ctx.me.fold(indexAnon) { me =>
-      import lila.plan.PlanApi.SyncResult._
+      import lidraughts.plan.PlanApi.SyncResult._
       Env.plan.api.sync(me) flatMap {
         case ReloadUser => Redirect(routes.Plan.index).fuccess
         case Synced(Some(patron), None) => UserRepo email me.id flatMap { email =>
@@ -29,7 +29,7 @@ object Plan extends LilaController {
 
   def list = Open { implicit ctx =>
     ctx.me.fold(Redirect(routes.Plan.index).fuccess) { me =>
-      import lila.plan.PlanApi.SyncResult._
+      import lidraughts.plan.PlanApi.SyncResult._
       Env.plan.api.sync(me) flatMap {
         case ReloadUser => Redirect(routes.Plan.list).fuccess
         case Synced(Some(_), _) => indexFreeUser(me)
@@ -45,7 +45,7 @@ object Plan extends LilaController {
       renderIndex(email, patron = none)
     }
 
-  private def renderIndex(email: Option[EmailAddress], patron: Option[lila.plan.Patron])(implicit ctx: Context): Fu[Result] = for {
+  private def renderIndex(email: Option[EmailAddress], patron: Option[lidraughts.plan.Patron])(implicit ctx: Context): Fu[Result] = for {
     recentIds <- Env.plan.api.recentChargeUserIds
     bestIds <- Env.plan.api.topPatronUserIds
     _ <- Env.user.lightUserApi preloadMany { recentIds ::: bestIds }
@@ -57,7 +57,7 @@ object Plan extends LilaController {
     bestIds = bestIds
   ))
 
-  private def indexPatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(implicit ctx: Context) =
+  private def indexPatron(me: UserModel, patron: lidraughts.plan.Patron, customer: StripeCustomer)(implicit ctx: Context) =
     Env.plan.api.customerInfo(me, customer) flatMap {
       case Some(info: MonthlyCustomerInfo) => Ok(html.plan.indexStripe(me, patron, info)).fuccess
       case Some(info: OneTimeCustomerInfo) => renderIndex(info.customer.email map EmailAddress.apply, patron.some)
@@ -66,15 +66,9 @@ object Plan extends LilaController {
       }
     }
 
-  def features = Open { implicit ctx =>
-    fuccess {
-      html.plan.features()
-    }
-  }
-
   def switch = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    lila.plan.Switch.form.bindFromRequest.fold(
+    lidraughts.plan.Switch.form.bindFromRequest.fold(
       err => funit,
       data => Env.plan.api.switch(me, data.cents)
     ) inject Redirect(routes.Plan.index)
@@ -86,8 +80,8 @@ object Plan extends LilaController {
 
   def charge = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    import lila.plan.StripeClient._
-    lila.plan.Checkout.form.bindFromRequest.fold(
+    import lidraughts.plan.StripeClient._
+    lidraughts.plan.Checkout.form.bindFromRequest.fold(
       err => BadRequest(html.plan.badCheckout(err.toString)).fuccess,
       data => Env.plan.api.checkout(ctx.me, data) inject Redirect {
         if (ctx.isAuth) {
@@ -115,8 +109,8 @@ object Plan extends LilaController {
   }
 
   def payPalIpn = Action.async { implicit req =>
-    import lila.plan.Patron.PayPal
-    lila.plan.DataForm.ipn.bindFromRequest.fold(
+    import lidraughts.plan.Patron.PayPal
+    lidraughts.plan.DataForm.ipn.bindFromRequest.fold(
       err => {
         if (err.errors("txn_type").nonEmpty) {
           logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data get "txn_type"}")
@@ -130,11 +124,11 @@ object Plan extends LilaController {
         userId = ipn.userId,
         email = ipn.email map PayPal.Email.apply,
         subId = ipn.subId map PayPal.SubId.apply,
-        cents = lila.plan.Cents(ipn.grossCents),
+        cents = lidraughts.plan.Cents(ipn.grossCents),
         name = ipn.name,
         txnId = ipn.txnId,
-        ip = lila.common.HTTPRequest.lastRemoteAddress(req).value,
-        key = lila.plan.PayPalIpnKey(get("key", req) | "N/A")
+        ip = lidraughts.common.HTTPRequest.lastRemoteAddress(req).value,
+        key = lidraughts.plan.PayPalIpnKey(get("key", req) | "N/A")
       ) inject Ok
     )
   }

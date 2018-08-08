@@ -1,18 +1,18 @@
-@(popular: List[lila.qa.Question])(implicit ctx: Context)
+@(popular: List[lidraughts.qa.Question])(implicit ctx: Context)
 
 @layout(
 title = "Not allowed yet" ,
 side = popularBox(popular).some) {
 
 <div class="content_box_top">
-  <h1 class="lichess_title">
+  <h1 class="lidraughts_title">
     <a href="@routes.QaQuestion.index()" data-icon="&"></a>
     Not allowed, yet
   </h1>
 </div>
 
 <div class="meta content_box_inter">
-  Only members with one week of lichess activity can contribute to the Q&amp;A.
+  Only members with one week of lidraughts activity can contribute to the Q&amp;A.
 </div>
 
 <div class="content_box_content">

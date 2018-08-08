@@ -14,7 +14,7 @@ export function sort(ctrl: LobbyController, hooks: Hook[]) {
 }
 
 export function init(hook: Hook) {
-  hook.action = hook.uid === window.lichess.StrongSocket.sri ? 'cancel' : 'join';
+  hook.action = hook.uid === window.lidraughts.StrongSocket.sri ? 'cancel' : 'join';
   hook.variant = hook.variant || 'standard';
 }
 

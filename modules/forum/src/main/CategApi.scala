@@ -1,7 +1,7 @@
-package lila.forum
+package lidraughts.forum
 
-import lila.common.paginator._
-import lila.db.dsl._
+import lidraughts.common.paginator._
+import lidraughts.db.dsl._
 
 private[forum] final class CategApi(env: Env) {
 
@@ -47,7 +47,7 @@ private[forum] final class CategApi(env: Env) {
       val post = Post.make(
         topicId = topic.id,
         author = none,
-        userId = "lichess".some,
+        userId = "lidraughts".some,
         ip = none,
         text = "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
         number = 1,

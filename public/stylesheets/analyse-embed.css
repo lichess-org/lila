@@ -8,11 +8,11 @@ body.dark,
 body.dark .is2d {
   background: #2b2b2b;
 }
-div.lichess_game {
+div.lidraughts_game {
   height: 100%;
   flex-flow: row nowrap;
 }
-div.lichess_game div.lichess_ground {
+div.lidraughts_game div.lidraughts_ground {
   flex: 1 1 100%!important;
   padding-left: 0;
   width: auto;

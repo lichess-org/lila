@@ -1,11 +1,11 @@
-package lila.user
+package lidraughts.user
 
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import lila.common.LightUser
-import lila.db.dsl._
-import lila.memo.Syncache
+import lidraughts.common.LightUser
+import lidraughts.db.dsl._
+import lidraughts.memo.Syncache
 import User.{ BSONFields => F }
 
 final class LightUserApi(coll: Coll)(implicit system: akka.actor.ActorSystem) {

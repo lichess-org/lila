@@ -1,7 +1,7 @@
-package lila.notify
+package lidraughts.notify
 
-import lila.common.paginator.Paginator
-import lila.notify.MentionedInThread.PostId
+import lidraughts.common.paginator.Paginator
+import lidraughts.notify.MentionedInThread.PostId
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
@@ -126,12 +126,12 @@ case class PlanStart(userId: String) extends NotificationContent("planStart")
 case class PlanExpire(userId: String) extends NotificationContent("planExpire")
 
 case class CorresAlarm(
-    gameId: lila.game.Game.ID,
+    gameId: lidraughts.game.Game.ID,
     opponent: String
 ) extends NotificationContent("corresAlarm")
 
 case class IrwinDone(
-    userId: lila.user.User.ID
+    userId: lidraughts.user.User.ID
 ) extends NotificationContent("irwinDone")
 
 case class GenericLink(

@@ -1,4 +1,4 @@
-package lila.i18n
+package lidraughts.i18n
 
 import com.typesafe.config.Config
 
@@ -14,7 +14,7 @@ final class Env(
 
   lazy val subdomainKiller = new SubdomainKiller(NetDomain)
 
-  def cli = new lila.common.Cli {
+  def cli = new lidraughts.common.Cli {
     def process = {
       case "i18n" :: "js" :: "dump" :: Nil =>
         jsDump.apply inject "Dumped JavaScript translations"
@@ -24,10 +24,10 @@ final class Env(
 
 object Env {
 
-  import lila.common.PlayApp
+  import lidraughts.common.PlayApp
 
   lazy val current = "i18n" boot new Env(
-    config = lila.common.PlayApp loadConfig "i18n",
+    config = lidraughts.common.PlayApp loadConfig "i18n",
     appPath = PlayApp withApp (_.path.getCanonicalPath)
   )
 }

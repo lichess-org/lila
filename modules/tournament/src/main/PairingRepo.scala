@@ -1,13 +1,13 @@
-package lila.tournament
+package lidraughts.tournament
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
 import scala.collection.breakOut
 
 import BSONHandlers._
-import lila.db.dsl._
-import lila.user.User
-import lila.game.Game
+import lidraughts.db.dsl._
+import lidraughts.user.User
+import lidraughts.game.Game
 
 object PairingRepo {
 
@@ -19,8 +19,8 @@ object PairingRepo {
     "tid" -> tourId,
     "u" -> userId
   )
-  private val selectPlaying = $doc("s" $lt chess.Status.Mate.id)
-  private val selectFinished = $doc("s" $gte chess.Status.Mate.id)
+  private val selectPlaying = $doc("s" $lt draughts.Status.Mate.id)
+  private val selectFinished = $doc("s" $gte draughts.Status.Mate.id)
   private val recentSort = $doc("d" -> -1)
   private val chronoSort = $doc("d" -> 1)
 
@@ -114,7 +114,7 @@ object PairingRepo {
     pairingHandler.write(pairing) ++ $doc("d" -> DateTime.now)
   }.void
 
-  def finish(g: lila.game.Game) =
+  def finish(g: lidraughts.game.Game) =
     if (g.aborted) coll.remove($id(g.id)).void
     else coll.update(
       $id(g.id),

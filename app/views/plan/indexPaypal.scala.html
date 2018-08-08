@@ -1,14 +1,14 @@
-@(me: User, patron: lila.plan.Patron)(implicit ctx: Context)
+@(me: User, patron: lidraughts.plan.Patron)(implicit ctx: Context)
 
 @base.layout(
 title = "Thank you for your support!",
 moreCss = cssTag("plan.css")) {
 
 <div class="content_box plan">
-  <h1>@userLink(me) • lichess Patron for @pluralize("month", me.plan.months)</h1>
+  <h1>@userLink(me) • lidraughts Patron for @pluralize("month", me.plan.months)</h1>
   <div class="paypal_patron">
-    <p>You are supporting lichess with paypal.</p>
-    <p>If you wish to cancel your support, please contact us at contact@@lichess.org.</p>
+    <p>You are supporting lidraughts with paypal.</p>
+    <p>If you wish to cancel your support, please contact us at contact@@lidraughts.org.</p>
   </div>
 </div>
 }

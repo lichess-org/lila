@@ -3,9 +3,9 @@ package views.html.game
 import play.twirl.api.Html
 
 import controllers.routes
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.game.Crosstable
+import lidraughts.api.Context
+import lidraughts.app.templating.Environment._
+import lidraughts.game.Crosstable
 
 object crosstable {
 

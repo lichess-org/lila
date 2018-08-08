@@ -100,13 +100,13 @@ export function view(root: AnalyseCtrl): VNode {
       return c.by && c.by.id && c.by.id === ctrl.root.opts.userId;
     });
     el.value = mine ? mine.text : '';
-    if (ctrl.opening() || ctrl.focus()) window.lichess.raf(() => el.focus());
+    if (ctrl.opening() || ctrl.focus()) window.lidraughts.raf(() => el.focus());
     ctrl.opening(false);
   }
 
   return h('div.study_comment_form.underboard_form', {
     hook: {
-      insert: _ => window.lichess.loadCss('/assets/stylesheets/material.form.css')
+      insert: _ => window.lidraughts.loadCss('/assets/stylesheets/material.form.css')
     }
   }, [
     currentComments(root, !study.members.canContribute()),

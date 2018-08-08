@@ -1,10 +1,10 @@
-package lila.app
+package lidraughts.app
 package templating
 
 import play.api.libs.json._
 import play.twirl.api.Html
 
-import lila.api.Context
+import lidraughts.api.Context
 
 trait JsonHelper {
 
@@ -12,7 +12,7 @@ trait JsonHelper {
     map mapKeys (_.toString)
   }
 
-  def toJson[A: Writes](a: A): Html = lila.common.String.html.safeJson(Json toJson a)
+  def toJson[A: Writes](a: A): Html = lidraughts.common.String.html.safeJson(Json toJson a)
 
   def htmlOrNull[A, B](a: Option[A])(f: A => Html) = a.fold(Html("null"))(f)
 

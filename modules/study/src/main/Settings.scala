@@ -1,6 +1,6 @@
-package lila.study
+package lidraughts.study
 
-import lila.user.User
+import lidraughts.user.User
 
 case class Settings(
     computer: Settings.UserSelection,

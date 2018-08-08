@@ -1,4 +1,4 @@
-package lila
+package lidraughts
 
 import scala.concurrent.Future
 
@@ -163,12 +163,14 @@ object mon {
         def create = makeTrace("round.move.trace")
       }
       object lag {
-        val avgReported = rec("round.move.lag.avg_reported")
-        private val estErrorRec = rec("round.move.lag.estimate_error_1000")
-        def estimateError(e: Int) = estErrorRec(e + 1000)
         val compDeviation = rec("round.move.lag.comp_deviation")
         def uncomped(key: String) = rec(s"round.move.lag.uncomped.$key")
         val uncompedAll = rec(s"round.move.lag.uncomped.all")
+        val stdDev = rec(s"round.move.lag.stddev_ms")
+        val mean = rec(s"round.move.lag.mean_ms")
+        val coefVar = rec(s"round.move.lag.coef_var_1000")
+        val compEstStdErr = rec(s"round.move.lag.comp_est_stderr_1000")
+        val compEstOverErr = rec("round.move.lag.avg_over_error_ms")
       }
     }
     object error {
@@ -189,6 +191,7 @@ object mon {
     object expiration {
       val count = inc("round.expiration.count")
     }
+    def proxyGameWatcher(result: String) = inc(s"round.proxy_game.watcher.$result")
   }
   object playban {
     def outcome(out: String) = inc(s"playban.outcome.$out")
@@ -244,7 +247,7 @@ object mon {
     object register {
       val website = inc("user.register.website")
       val mobile = inc("user.register.mobile")
-      def mustConfirmEmail(v: Boolean) = inc(s"user.register.must_confirm_email.$v")
+      def mustConfirmEmail(v: String) = inc(s"user.register.must_confirm_email.$v")
       def confirmEmailResult(v: Boolean) = inc(s"user.register.confirm_email.$v")
       val modConfirmEmail = inc(s"user.register.mod_confirm_email")
     }
@@ -276,9 +279,14 @@ object mon {
       val create = inc("mod.log.create")
     }
     object irwin {
-      // val discard = inc(s"mod.report.irwin.discard")
-      val report = inc(s"mod.report.irwin.report")
-      val mark = inc(s"mod.report.irwin.mark")
+      val report = inc("mod.report.irwin.report")
+      val mark = inc("mod.report.irwin.mark")
+      def ownerReport(name: String) = inc(s"mod.irwin.owner_report.$name")
+      def streamEventType(name: String) = inc(s"mod.irwin.streama.event_type.$name") // yes there's a typo
+      object assessment {
+        val count = inc("mod.irwin.assessment.count")
+        val time = rec("mod.irwin.assessment.time")
+      }
     }
   }
   object relay {
@@ -434,10 +442,12 @@ object mon {
       def source(v: String) = inc(s"game.create.source.$v")
       def mode(v: String) = inc(s"game.create.mode.$v")
     }
-    object pgn {
+    val fetch = inc("game.fetch.count")
+    val decode = inc("game.decode.count")
+    object pdn {
       final class Protocol(name: String) {
-        val count = inc(s"game.pgn.$name.count")
-        val time = rec(s"game.pgn.$name.time")
+        val count = inc(s"game.pdn.$name.count")
+        val time = rec(s"game.pdn.$name.time")
       }
       object oldBin {
         val encode = new Protocol("oldBin.encode")
@@ -549,10 +559,10 @@ object mon {
     }
   }
   object export {
-    object pgn {
-      def game = inc("export.pgn.game")
-      def study = inc("export.pgn.study")
-      def studyChapter = inc("export.pgn.study_chapter")
+    object pdn {
+      def game = inc("export.pdn.game")
+      def study = inc("export.pdn.study")
+      def studyChapter = inc("export.pdn.study_chapter")
     }
     object png {
       def game = inc("export.png.game")
@@ -587,12 +597,12 @@ object mon {
   type IncX = Int => Unit
   type Rate = Double => Unit
 
-  type RecPath = lila.mon.type => Rec
-  type IncPath = lila.mon.type => Inc
-  type IncXPath = lila.mon.type => IncX
+  type RecPath = lidraughts.mon.type => Rec
+  type IncPath = lidraughts.mon.type => Inc
+  type IncXPath = lidraughts.mon.type => IncX
 
-  def recPath(f: lila.mon.type => Rec): Rec = f(this)
-  def incPath(f: lila.mon.type => Inc): Inc = f(this)
+  def recPath(f: lidraughts.mon.type => Rec): Rec = f(this)
+  def incPath(f: lidraughts.mon.type => Inc): Inc = f(this)
 
   private def inc(name: String): Inc = metrics.counter(name).increment _
   private def incX(name: String): IncX = {
@@ -621,7 +631,7 @@ object mon {
   }
 
   final class Measurement(since: Long, path: RecPath) {
-    def finish() = path(lila.mon)(System.nanoTime() - since)
+    def finish() = path(lidraughts.mon)(System.nanoTime() - since)
   }
 
   def startMeasurement(path: RecPath) = new Measurement(System.nanoTime(), path)
@@ -671,5 +681,5 @@ object mon {
   private def nodots(s: String) = s.replace(".", "_")
   private val makeVersion = nodots _ compose stripVersion _
 
-  private val logger = lila.log("monitor")
+  private val logger = lidraughts.log("monitor")
 }

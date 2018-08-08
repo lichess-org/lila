@@ -1,9 +1,9 @@
-package lila.analyse
+package lidraughts.analyse
 
 import org.joda.time._
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 final class RequesterApi(coll: Coll) {
 

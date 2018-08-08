@@ -1,19 +1,19 @@
 @charset "UTF-8";
 
 @font-face {
-  font-family: "lichess";
-  src:url("fonts/lichess.eot");
-  src:url("fonts/lichess.eot?#iefix") format("embedded-opentype"),
-    url("fonts/lichess.woff") format("woff"),
-    url("fonts/lichess.ttf") format("truetype"),
-    url("fonts/lichess.svg#lichess") format("svg");
+  font-family: "lidraughts";
+  src:url("fonts/lidraughts.eot");
+  src:url("fonts/lidraughts.eot?#iefix") format("embedded-opentype"),
+    url("fonts/lidraughts.woff") format("woff"),
+    url("fonts/lidraughts.ttf") format("truetype"),
+    url("fonts/lidraughts.svg#lidraughts") format("svg");
   font-weight: normal;
   font-style: normal;
 
 }
 
 [data-icon]:before {
-  font-family: "lichess" !important;
+  font-family: "lidraughts" !important;
   content: attr(data-icon);
   font-style: normal !important;
   font-weight: normal !important;
@@ -27,7 +27,7 @@
 
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
-  font-family: "lichess" !important;
+  font-family: "lidraughts" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;
@@ -239,7 +239,7 @@
 .icon-crown:before {
   content: "\38";
 }
-.icon-die-six:before {
+.icon-pompebled:before {
   content: "\27";
 }
 .icon-flag:before {

@@ -19,7 +19,7 @@ function parseFen($elem) {
     if (ground) ground.set(config);
     else {
       this.innerHTML = '<div class="cg-board-wrap"></div>';
-      $this.data('chessground', Chessground(this.firstChild, config));
+      $this.data('chessground', Draughtsground(this.firstChild, config));
     }
   });
 }

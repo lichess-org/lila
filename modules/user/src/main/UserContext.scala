@@ -1,4 +1,4 @@
-package lila.user
+package lidraughts.user
 
 import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
@@ -27,7 +27,7 @@ sealed trait UserContext {
 
   def troll = me.??(_.troll)
 
-  def ip = lila.common.HTTPRequest lastRemoteAddress req
+  def ip = lidraughts.common.HTTPRequest lastRemoteAddress req
 
   def kid = me.??(_.kid)
   def noKid = !kid

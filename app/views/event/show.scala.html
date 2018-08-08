@@ -1,9 +1,9 @@
-@(e: lila.event.Event)(implicit ctx: Context)
+@(e: lidraughts.event.Event)(implicit ctx: Context)
 
 @moreJs = {
 @e.secondsToStart.map { seconds =>
 @embedJs {
-setTimeout(function() { lichess.reload(); }, @(seconds + 10) * 1000);
+setTimeout(function() { lidraughts.reload(); }, @(seconds + 10) * 1000);
 }
 }
 }

@@ -1,17 +1,17 @@
-package lila.evalCache
+package lidraughts.evalCache
 
 import org.joda.time.DateTime
 import play.api.libs.json.JsObject
 import scala.concurrent.duration._
 
-import chess.format.{ FEN, Forsyth }
-import chess.variant.Variant
-import lila.db.dsl._
+import draughts.format.{ FEN, Forsyth }
+import draughts.variant.Variant
+import lidraughts.db.dsl._
 
 final class EvalCacheApi(
     coll: Coll,
     truster: EvalCacheTruster,
-    asyncCache: lila.memo.AsyncCache.Builder
+    asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
   import EvalCacheEntry._
@@ -21,10 +21,10 @@ final class EvalCacheApi(
     id = Id(variant, SmallFen.make(variant, fen)),
     multiPv = multiPv
   ) map {
-      _.map { lila.evalCache.JsonHandlers.writeEval(_, fen) }
+      _.map { lidraughts.evalCache.JsonHandlers.writeEval(_, fen) }
     } addEffect { res =>
       Forsyth getPly fen.value foreach { ply =>
-        lila.mon.evalCache.register(ply, res.isDefined)
+        lidraughts.mon.evalCache.register(ply, res.isDefined)
       }
     }
 
@@ -39,7 +39,7 @@ final class EvalCacheApi(
   )
 
   private[evalCache] def drop(variant: Variant, fen: FEN): Funit = {
-    val id = Id(chess.variant.Standard, SmallFen.make(variant, fen))
+    val id = Id(draughts.variant.Standard, SmallFen.make(variant, fen))
     coll.remove($id(id)).void >>- cache.put(id, none)
   }
 
@@ -72,7 +72,7 @@ final class EvalCacheApi(
           evals = List(input.eval),
           usedAt = DateTime.now
         )
-        coll.insert(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
+        coll.insert(entry).recover(lidraughts.db.recoverDuplicateKey(_ => ())) >>-
           cache.put(input.id, entry.some)
       case Some(oldEntry) =>
         val entry = oldEntry add input.eval
@@ -85,5 +85,5 @@ final class EvalCacheApi(
   }
 
   private def destSize(fen: FEN): Int =
-    chess.Game(chess.variant.Standard.some, fen.value.some).situation.destinations.size
+    draughts.DraughtsGame(draughts.variant.Standard.some, fen.value.some).situation.allDestinations.size
 }

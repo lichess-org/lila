@@ -4,17 +4,17 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
-import lila.api.Context
-import lila.app._
-import lila.chat.Chat
-import lila.common.{ IpAddress, HTTPRequest }
-import lila.study.JsonView.JsData
-import lila.study.Study.WithChapter
-import lila.study.{ Chapter, Order, Study => StudyModel }
-import lila.tree.Node.partitionTreeJsonWriter
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.chat.Chat
+import lidraughts.common.{ IpAddress, HTTPRequest }
+import lidraughts.study.JsonView.JsData
+import lidraughts.study.Study.WithChapter
+import lidraughts.study.{ Chapter, Order, Study => StudyModel }
+import lidraughts.tree.Node.partitionTreeJsonWriter
 import views._
 
-object Study extends LilaController {
+object Study extends LidraughtsController {
 
   type ListUrl = String => Call
 
@@ -49,7 +49,7 @@ object Study extends LilaController {
   def byOwnerDefault(username: String, page: Int) = byOwner(username, Order.default.key, page)
 
   def byOwner(username: String, order: String, page: Int) = Open { implicit ctx =>
-    OptionFuOk(lila.user.UserRepo named username) { owner =>
+    OptionFuOk(lidraughts.user.UserRepo named username) { owner =>
       env.pager.byOwner(owner, ctx.me, Order(order), page) map { pag =>
         html.study.byOwner(pag, Order(order), owner)
       }
@@ -87,7 +87,7 @@ object Study extends LilaController {
   }
 
   private def orRelay(id: String, chapterId: Option[String] = None)(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    if (HTTPRequest isRedirectable ctx.req) Env.relay.api.getOngoing(lila.relay.Relay.Id(id)) flatMap {
+    if (HTTPRequest isRedirectable ctx.req) Env.relay.api.getOngoing(lidraughts.relay.Relay.Id(id)) flatMap {
       _.fold(f) { relay =>
         fuccess(Redirect {
           chapterId.fold(routes.Relay.show(relay.slug, relay.id.value)) { c =>
@@ -136,9 +136,9 @@ object Study extends LilaController {
     study = studyJson,
     analysis = baseData.add(
       "treeParts" -> partitionTreeJsonWriter.writes {
-        lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
+        lidraughts.study.TreeBuilder(chapter.root, chapter.setup.variant)
       }.some
-    ).add("analysis" -> analysis.map { lila.study.ServerEval.toJson(chapter, _) })
+    ).add("analysis" -> analysis.map { lidraughts.study.ServerEval.toJson(chapter, _) })
   )
 
   def show(id: String) = Open { implicit ctx =>
@@ -161,7 +161,7 @@ object Study extends LilaController {
     }
   }
 
-  private[controllers] def chatOf(study: lila.study.Study)(implicit ctx: Context) =
+  private[controllers] def chatOf(study: lidraughts.study.Study)(implicit ctx: Context) =
     (ctx.noKid && ctx.me.exists { me =>
       study.isMember(me.id) || Env.chat.panic.allowed(me)
     }) ?? Env.chat.api.userChat.findMine(Chat.Id(study.id.value), ctx.me).map(some)
@@ -172,7 +172,7 @@ object Study extends LilaController {
         _.filter(canView) ?? { study =>
           env.socketHandler.join(
             studyId = id,
-            uid = lila.socket.Socket.Uid(uid),
+            uid = lidraughts.socket.Socket.Uid(uid),
             user = ctx.me
           )
         }
@@ -182,7 +182,7 @@ object Study extends LilaController {
 
   def createAs = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    lila.study.DataForm.form.bindFromRequest.fold(
+    lidraughts.study.DataForm.form.bindFromRequest.fold(
       err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
       data => for {
         owner <- env.studyRepo.recentByOwner(me.id, 50)
@@ -195,14 +195,14 @@ object Study extends LilaController {
 
   def create = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    lila.study.DataForm.form.bindFromRequest.fold(
+    lidraughts.study.DataForm.form.bindFromRequest.fold(
       err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
       data => createStudy(data, me)
     )
   }
 
-  private def createStudy(data: lila.study.DataForm.Data, me: lila.user.User)(implicit ctx: Context) =
-    env.api.create(lila.study.StudyMaker.Data(data), me) flatMap {
+  private def createStudy(data: lidraughts.study.DataForm.Data, me: lidraughts.user.User)(implicit ctx: Context) =
+    env.api.create(lidraughts.study.StudyMaker.Data(data), me) flatMap {
       _.fold(notFound) { sc =>
         Redirect(routes.Study.show(sc.study.id.value)).fuccess
       }
@@ -225,7 +225,7 @@ object Study extends LilaController {
       _.fold(embedNotFound) {
         case WithChapter(study, chapter) => CanViewResult(study) {
           env.jsonView(study.copy(
-            members = lila.study.StudyMembers(Map.empty) // don't need no members
+            members = lidraughts.study.StudyMembers(Map.empty) // don't need no members
           ), List(chapter.metadata), chapter, ctx.me) flatMap { studyJson =>
             val setup = chapter.setup
             val initialFen = chapter.root.fen.some
@@ -233,10 +233,10 @@ object Study extends LilaController {
             val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, setup.orientation, owner = false, me = ctx.me)
             val analysis = baseData ++ Json.obj(
               "treeParts" -> partitionTreeJsonWriter.writes {
-                lila.study.TreeBuilder.makeRoot(chapter.root)
+                lidraughts.study.TreeBuilder.makeRoot(chapter.root)
               }
             )
-            val data = lila.study.JsonView.JsData(
+            val data = lidraughts.study.JsonView.JsData(
               study = studyJson,
               analysis = analysis
             )
@@ -261,14 +261,14 @@ object Study extends LilaController {
     }
   }
 
-  private val CloneLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+  private val CloneLimitPerUser = new lidraughts.memo.RateLimit[lidraughts.user.User.ID](
     credits = 10 * 3,
     duration = 24 hour,
     name = "clone study per user",
     key = "clone_study.user"
   )
 
-  private val CloneLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private val CloneLimitPerIP = new lidraughts.memo.RateLimit[IpAddress](
     credits = 20 * 3,
     duration = 24 hour,
     name = "clone study per IP",
@@ -291,23 +291,23 @@ object Study extends LilaController {
     }
   }
 
-  private val PgnRateLimitGlobal = new lila.memo.RateLimit[String](
+  private val PdnRateLimitGlobal = new lidraughts.memo.RateLimit[String](
     credits = 30,
     duration = 1 minute,
-    name = "export study PGN global",
-    key = "export.study_pgn.global"
+    name = "export study PDN global",
+    key = "export.study_pdn.global"
   )
 
-  def pgn(id: String) = Open { implicit ctx =>
+  def pdn(id: String) = Open { implicit ctx =>
     OnlyHumans {
-      PgnRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
+      PdnRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
         OptionFuResult(env.api byId id) { study =>
           CanViewResult(study) {
-            lila.mon.export.pgn.study()
-            env.pgnDump(study) map { pgns =>
-              Ok(pgns.mkString("\n\n\n")).withHeaders(
-                CONTENT_TYPE -> pgnContentType,
-                CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study))
+            lidraughts.mon.export.pdn.study()
+            env.pdnDump(study) map { pdns =>
+              Ok(pdns.mkString("\n\n\n")).withHeaders(
+                CONTENT_TYPE -> pdnContentType,
+                CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pdnDump filename study))
               )
             }
           }
@@ -316,15 +316,15 @@ object Study extends LilaController {
     }
   }
 
-  def chapterPgn(id: String, chapterId: String) = Open { implicit ctx =>
+  def chapterPdn(id: String, chapterId: String) = Open { implicit ctx =>
     OnlyHumans {
       env.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) {
           case WithChapter(study, chapter) => CanViewResult(study) {
-            lila.mon.export.pgn.studyChapter()
-            Ok(env.pgnDump.ofChapter(study, chapter).toString).withHeaders(
-              CONTENT_TYPE -> pgnContentType,
-              CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump.filename(study, chapter)))
+            lidraughts.mon.export.pdn.studyChapter()
+            Ok(env.pdnDump.ofChapter(study, chapter).toString).withHeaders(
+              CONTENT_TYPE -> pdnContentType,
+              CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pdnDump.filename(study, chapter)))
             ).fuccess
           }
         }
@@ -332,20 +332,20 @@ object Study extends LilaController {
     }
   }
 
-  private def CanViewResult(study: StudyModel)(f: => Fu[Result])(implicit ctx: lila.api.Context) =
+  private def CanViewResult(study: StudyModel)(f: => Fu[Result])(implicit ctx: lidraughts.api.Context) =
     if (canView(study)) f
     else negotiate(
       html = fuccess(Unauthorized(html.study.restricted(study))),
       api = _ => fuccess(Unauthorized(jsonError("This study is now private")))
     )
 
-  private def canView(study: StudyModel)(implicit ctx: lila.api.Context) =
+  private def canView(study: StudyModel)(implicit ctx: lidraughts.api.Context) =
     !study.isPrivate || ctx.userId.exists(study.members.contains)
 
   private implicit def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
   private implicit def makeChapterId(id: String): Chapter.Id = Chapter.Id(id)
 
-  private[controllers] def streamsOf(study: StudyModel)(implicit ctx: Context): Fu[List[lila.streamer.Stream]] =
+  private[controllers] def streamsOf(study: StudyModel)(implicit ctx: Context): Fu[List[lidraughts.streamer.Stream]] =
     Env.streamer.liveStreamApi.all.flatMap {
       _.streams.filter { s =>
         study.members.members.exists(m => s is m._2.id)

@@ -1,4 +1,4 @@
-@(requests: List[lila.team.RequestWithUser], t: Option[lila.team.Team])(implicit ctx: Context)
+@(requests: List[lidraughts.team.RequestWithUser], t: Option[lidraughts.team.Team])(implicit ctx: Context)
 
 <table class="requests @t.isEmpty.fold("all", "for-team") datatable">
   @if(t.nonEmpty) {

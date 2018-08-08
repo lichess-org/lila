@@ -10,7 +10,7 @@ import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
 const patch = init([klass, attributes]);
 
-export default function LichessDasher(element: Element, opts: DasherOpts) {
+export default function LidraughtsDasher(element: Element, opts: DasherOpts) {
 
   let vnode: VNode, ctrl: DasherCtrl;
 

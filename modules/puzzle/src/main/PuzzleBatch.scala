@@ -1,7 +1,7 @@
-package lila.puzzle
+package lidraughts.puzzle
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class PuzzleBatch(
@@ -13,14 +13,19 @@ private[puzzle] final class PuzzleBatch(
 
   def solve(originalUser: User, data: PuzzleBatch.SolveData): Funit = for {
     puzzles <- api.puzzle findMany data.solutions.map(_.id)
-    user <- lila.common.Future.fold(data.solutions zip puzzles)(originalUser) {
+    user <- lidraughts.common.Future.fold(data.solutions zip puzzles)(originalUser) {
       case (user, (solution, Some(puzzle))) => finisher.ratedUntrusted(puzzle, user, solution.result)
       case (user, _) => fuccess(user)
     }
     _ <- data.solutions.lastOption ?? { lastSolution =>
       api.head.solved(user, lastSolution.id).void
     }
-  } yield ()
+  } yield for {
+    first <- puzzles.headOption.flatten
+    last <- puzzles.lastOption.flatten
+  } {
+    if (puzzles.size > 1) logger.info(s"Batch solve ${user.id} ${puzzles.size} ${first.id}->${last.id}")
+  }
 
   object select {
 
@@ -30,7 +35,7 @@ private[puzzle] final class PuzzleBatch(
       api.head.find(user) flatMap {
         newPuzzlesForUser(user, _, nb)
       } flatMap { puzzles =>
-        lila.mon.puzzle.batch.selector.count(puzzles.size)
+        lidraughts.mon.puzzle.batch.selector.count(puzzles.size)
         puzzles.lastOption.?? { p => api.head.addNew(user, p.id) } inject puzzles
       }
     }.mon(_.puzzle.batch.selector.time)

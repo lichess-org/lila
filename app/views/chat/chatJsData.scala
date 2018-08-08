@@ -2,16 +2,16 @@ package views.html.chat
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.i18n.I18nKeys
+import lidraughts.api.Context
+import lidraughts.app.templating.Environment._
+import lidraughts.i18n.I18nKeys
 
 object ChatJsData {
 
-  import lila.chat.JsonView.chatIdWrites
+  import lidraughts.chat.JsonView.chatIdWrites
 
   def restricted(
-    chat: lila.chat.Chat.Restricted,
+    chat: lidraughts.chat.Chat.Restricted,
     name: String,
     timeout: Boolean,
     public: Boolean, // game players chat is not public
@@ -24,7 +24,7 @@ object ChatJsData {
     )
 
   def json(
-    chat: lila.chat.AnyChat,
+    chat: lidraughts.chat.AnyChat,
     name: String,
     timeout: Boolean,
     public: Boolean, // game players chat is not public
@@ -36,7 +36,7 @@ object ChatJsData {
     "data" -> Json.obj(
       "id" -> chat.id,
       "name" -> name,
-      "lines" -> lila.chat.JsonView(chat),
+      "lines" -> lidraughts.chat.JsonView(chat),
       "userId" -> ctx.userId,
       "loginRequired" -> chat.loginRequired,
       "restricted" -> restricted
@@ -50,7 +50,7 @@ object ChatJsData {
       .add("shadowban" -> isGranted(_.MarkTroll)),
     "timeout" -> timeout
   ).add("kobold" -> ctx.troll)
-    .add("timeoutReasons" -> isGranted(_.ChatTimeout).option(lila.chat.JsonView.timeoutReasons))
+    .add("timeoutReasons" -> isGranted(_.ChatTimeout).option(lidraughts.chat.JsonView.timeoutReasons))
 
   def i18n(withNote: Boolean)(implicit ctx: Context) = i18nOptionJsObject(
     I18nKeys.talkInChat.some,

@@ -1,14 +1,14 @@
-package lila.app
+package lidraughts.app
 package templating
 
 import scala.concurrent.duration._
 
 import play.twirl.api.Html
 
-import lila.api.Env.{ current => apiEnv }
+import lidraughts.api.Env.{ current => apiEnv }
 
 object Environment
-  extends lila.Lilaisms
+  extends lidraughts.Lidraughtsisms
   with StringHelper
   with JsonHelper
   with AssetHelper
@@ -28,14 +28,14 @@ object Environment
   with AnalysisHelper
   with TournamentHelper
   with SimulHelper
-  with ChessgroundHelper {
+  with DraughtsgroundHelper {
 
-  implicit val LilaHtmlMonoid = scalaz.Monoid.instance[Html](
+  implicit val LidraughtsHtmlMonoid = scalaz.Monoid.instance[Html](
     (a, b) => Html(a.body + b.body),
-    LilaHtmlZero.zero
+    LidraughtsHtmlZero.zero
   )
 
-  type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
+  type FormWithCaptcha = (play.api.data.Form[_], lidraughts.common.Captcha)
 
   def netDomain = apiEnv.Net.Domain
   def netBaseUrl = apiEnv.Net.BaseUrl
@@ -44,7 +44,7 @@ object Environment
   def isProd = apiEnv.isProd
   def isStage = apiEnv.isStage
 
-  def apiVersion = lila.api.Mobile.Api.currentVersion
+  def apiVersion = lidraughts.api.Mobile.Api.currentVersion
 
   def explorerEndpoint = apiEnv.ExplorerEndpoint
 
@@ -55,13 +55,13 @@ object Environment
   def contactEmailLink = Html(s"""<a href="mailto:$contactEmail">$contactEmail</a>""")
 
   def reportNbOpen: Int =
-    lila.report.Env.current.api.nbOpen.awaitOrElse(10.millis, 0)
+    lidraughts.report.Env.current.api.nbOpen.awaitOrElse(10.millis, 0)
 
   def isChatPanicEnabled =
-    lila.chat.Env.current.panic.enabled
+    lidraughts.chat.Env.current.panic.enabled
 
-  def NotForKids[Html](f: => Html)(implicit ctx: lila.api.Context) =
-    if (ctx.kid) Html("") else f
+  def NotForKids[Html](f: => Html)(implicit ctx: lidraughts.api.Context) =
+    if (ctx.kid) emptyHtml else f
 
   def signalBars(v: Int) = Html {
     val bars = (1 to 4).map { b =>

@@ -1,11 +1,11 @@
-@(u: User, form: Form[_], categ: lila.pref.PrefCateg)(implicit ctx: Context)
+@(u: User, form: Form[_], categ: lidraughts.pref.PrefCateg)(implicit ctx: Context)
 
-@import lila.pref.{Pref,PrefCateg}
+@import lidraughts.pref.{Pref,PrefCateg}
 
 @name = @{ categName(categ) }
 @title = @{ s"$name - ${u.username} - ${trans.preferences.txt()}" }
 
-@categFieldset(categ: lila.pref.PrefCateg, active: lila.pref.PrefCateg)(body: Html) = {
+@categFieldset(categ: lidraughts.pref.PrefCateg, active: lidraughts.pref.PrefCateg)(body: Html) = {
 <div@if(categ != active) { class="none" }>
   @body
 </div>
@@ -14,7 +14,7 @@
 @account.layout(title = title, active = categ.slug, evenMoreCss = cssTag("pref.css")) {
 <div class="content_box small_box prefs">
   <div class="signup_box">
-    <h1 class="lichess_title" text data-icon="%">@categName(categ)</h1>
+    <h1 class="lidraughts_title" text data-icon="%">@categName(categ)</h1>
     <form class="autosubmit" action="@routes.Pref.formApply" method="POST">
       @defining(Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt())) { booleanChoices =>
       @categFieldset(PrefCateg.GameDisplay, categ) {
@@ -44,20 +44,16 @@
           @base.form.radios(form("display.replay"), translatedMoveListWhilePlayingChoices)
         </li>
         <li>
-          <h2>@trans.pgnPieceNotation()</h2>
-          @base.form.radios(form("display.pieceNotation"), translatedPieceNotationChoices)
-        </li>
-        <li>
           <h2>@trans.zenMode()</h2>
           @base.form.radios(form("display.zen"), booleanChoices)
         </li>
         <li>
-          <h2>@trans.blindfoldChess()</h2>
+          <h2>@trans.blindfoldDraughts()</h2>
           @base.form.radios(form("display.blindfold"), translatedBlindfoldChoices)
         </li>
       </ul>
       }
-      @categFieldset(PrefCateg.ChessClock, categ) {
+      @categFieldset(PrefCateg.DraughtsClock, categ) {
       <ul>
         <li>
           <h2>@trans.tenthsOfSeconds()</h2>
@@ -88,10 +84,6 @@
           @base.form.radios(form("behavior.takeback"), translatedTakebackChoices)
         </li>
         <li>
-          <h2>@trans.promoteToQueenAutomatically()</h2>
-          @base.form.radios(form("behavior.autoQueen"), translatedAutoQueenChoices)
-        </li>
-        <li>
           <h2>@trans.claimDrawOnThreefoldRepetitionAutomatically()</h2>
           @base.form.radios(form("behavior.autoThreefold"), translatedAutoThreefoldChoices)
         </li>
@@ -106,10 +98,6 @@
         <li>
           <h2>@trans.inputMovesWithTheKeyboard()</h2>
           @base.form.radios(form("behavior.keyboardMove"), booleanChoices)
-        </li>
-        <li>
-          <h2>@trans.castleByMovingTheKingTwoSquaresOrOntoTheRook()</h2>
-          @base.form.radios(form("behavior.rookCastle"), translatedRookCastleChoices)
         </li>
       </ul>
       }

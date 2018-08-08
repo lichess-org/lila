@@ -1,11 +1,11 @@
-package lila.mod
+package lidraughts.mod
 
-import lila.common.{ EmailAddress, IpAddress }
-import lila.user.{ User, UserRepo }
+import lidraughts.common.{ EmailAddress, IpAddress }
+import lidraughts.user.{ User, UserRepo }
 
 final class UserSearch(
-    securityApi: lila.security.SecurityApi,
-    emailValidator: lila.security.EmailAddressValidator
+    securityApi: lidraughts.security.SecurityApi,
+    emailValidator: lidraughts.security.EmailAddressValidator
 ) {
 
   def apply(query: String): Fu[List[User]] =
@@ -19,7 +19,7 @@ final class UserSearch(
 
   private def searchFingerHash(fh: String): Fu[List[User]] =
     (fh.size == 8) ?? {
-      securityApi recentUserIdsByFingerHash lila.security.FingerHash(fh) map (_.reverse) flatMap UserRepo.usersFromSecondary
+      securityApi recentUserIdsByFingerHash lidraughts.security.FingerHash(fh) map (_.reverse) flatMap UserRepo.usersFromSecondary
     }
 
   private def searchUsername(username: String) = UserRepo named username map (_.toList)

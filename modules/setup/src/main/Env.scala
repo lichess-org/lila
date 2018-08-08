@@ -1,19 +1,18 @@
-package lila.setup
+package lidraughts.setup
 
 import akka.actor._
 import com.typesafe.config.{ Config => AppConfig }
 
-import lila.user.UserContext
+import lidraughts.user.UserContext
 
 final class Env(
     config: AppConfig,
-    db: lila.db.Env,
-    hub: lila.hub.Env,
-    fishnetPlayer: lila.fishnet.Player,
+    db: lidraughts.db.Env,
+    hub: lidraughts.hub.Env,
     onStart: String => Unit,
-    prefApi: lila.pref.PrefApi,
-    relationApi: lila.relation.RelationApi,
-    gameCache: lila.game.Cached,
+    prefApi: lidraughts.pref.PrefApi,
+    relationApi: lidraughts.relation.RelationApi,
+    gameCache: lidraughts.game.Cached,
     system: ActorSystem
 ) {
 
@@ -30,7 +29,6 @@ final class Env(
     lobby = hub.actor.lobby,
     gameCache = gameCache,
     maxPlaying = MaxPlaying,
-    fishnetPlayer = fishnetPlayer,
     onStart = onStart
   )
 
@@ -41,14 +39,13 @@ final class Env(
 object Env {
 
   lazy val current = "setup" boot new Env(
-    config = lila.common.PlayApp loadConfig "setup",
-    db = lila.db.Env.current,
-    hub = lila.hub.Env.current,
-    fishnetPlayer = lila.fishnet.Env.current.player,
-    onStart = lila.game.Env.current.onStart,
-    prefApi = lila.pref.Env.current.api,
-    relationApi = lila.relation.Env.current.api,
-    gameCache = lila.game.Env.current.cached,
-    system = lila.common.PlayApp.system
+    config = lidraughts.common.PlayApp loadConfig "setup",
+    db = lidraughts.db.Env.current,
+    hub = lidraughts.hub.Env.current,
+    onStart = lidraughts.game.Env.current.onStart,
+    prefApi = lidraughts.pref.Env.current.api,
+    relationApi = lidraughts.relation.Env.current.api,
+    gameCache = lidraughts.game.Env.current.cached,
+    system = lidraughts.common.PlayApp.system
   )
 }

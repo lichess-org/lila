@@ -1,20 +1,20 @@
-package lila.relation
+package lidraughts.relation
 
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 
 import actorApi.OnlineFriends
-import lila.user.User
+import lidraughts.user.User
 
 final class OnlineDoing(
     api: RelationApi,
-    lightUser: lila.common.LightUser.GetterSync,
-    val userIds: lila.memo.ExpireSetMemo
+    lightUser: lidraughts.common.LightUser.GetterSync,
+    val userIds: lidraughts.memo.ExpireSetMemo
 ) {
 
   private type StudyId = String
 
-  val playing = new lila.memo.ExpireSetMemo(4 hours)
+  val playing = new lidraughts.memo.ExpireSetMemo(4 hours)
 
   // people with write access in public studies
   val studying: Cache[ID, StudyId] =

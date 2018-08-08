@@ -1,6 +1,6 @@
-package lila
+package lidraughts
 
 package object rating extends PackageObject {
 
-  type UserRankMap = Map[lila.rating.Perf.Key, Int]
+  type UserRankMap = Map[lidraughts.rating.Perf.Key, Int]
 }

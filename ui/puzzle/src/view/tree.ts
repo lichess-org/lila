@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { defined, throttle } from 'common';
-import { renderEval as normalizeEval } from 'chess';
+import { renderEval as normalizeEval } from 'draughts';
 import { path as treePath } from 'tree';
 import { MaybeVNodes } from '../interfaces';
 
@@ -28,41 +28,41 @@ export function renderIndex(ply, withDots): VNode {
 }
 
 function renderChildrenOf(ctx, node, opts): MaybeVNodes {
-  const cs = node.children, main = cs[0];
-  if (!main) return [];
-  if (opts.isMainline) {
-    const isWhite = main.ply % 2 === 1;
-    if (!cs[1]) return [
-      isWhite ? renderIndex(main.ply, false) : null,
-      ...renderMoveAndChildrenOf(ctx, main, {
-        parentPath: opts.parentPath,
-        isMainline: true
-      })
-    ];
-    const mainChildren = renderChildrenOf(ctx, main, {
-      parentPath: opts.parentPath + main.id,
-      isMainline: true
-    }),
-    passOpts = {
-      parentPath: opts.parentPath,
-      isMainline: true
-    };
-    return [
-      isWhite ? renderIndex(main.ply, false) : null,
-      renderMoveOf(ctx, main, passOpts),
-      isWhite ? emptyMove() : null,
-      h('interrupt', renderLines(ctx, cs.slice(1), {
-        parentPath: opts.parentPath,
-        isMainline: true
-      })),
-      ...(isWhite && mainChildren ? [
-        renderIndex(main.ply, false),
-        emptyMove()
-      ] : []),
-      ...mainChildren
-    ];
-  }
-  return cs[1] ? [renderLines(ctx, cs, opts)] : renderMoveAndChildrenOf(ctx, main, opts);
+    const cs = node.children, main = cs[0];
+    if (!main) return [];
+    if (opts.isMainline) {
+        const isWhite = (main.displayPly ? main.displayPly : main.ply) % 2 === 1;
+        if (!cs[1]) return [
+            isWhite ? renderIndex(main.displayPly ? main.displayPly : main.ply, false) : null,
+            ...renderMoveAndChildrenOf(ctx, main, {
+                parentPath: opts.parentPath,
+                isMainline: true
+            })
+        ];
+        const mainChildren = renderChildrenOf(ctx, main, {
+            parentPath: opts.parentPath + main.id,
+            isMainline: true
+        }),
+            passOpts = {
+                parentPath: opts.parentPath,
+                isMainline: true
+            };
+        return [
+            isWhite ? renderIndex(main.displayPly ? main.displayPly : main.ply, false) : null,
+            renderMoveOf(ctx, main, passOpts),
+            isWhite ? emptyMove() : null,
+            h('interrupt', renderLines(ctx, cs.slice(1), {
+                parentPath: opts.parentPath,
+                isMainline: true
+            })),
+            ...(isWhite && mainChildren ? [
+                renderIndex(main.displayPly ? main.displayPly : main.ply, false),
+                emptyMove()
+            ] : []),
+            ...mainChildren
+        ];
+    }
+    return cs[1] ? [renderLines(ctx, cs, opts)] : renderMoveAndChildrenOf(ctx, main, opts);
 }
 
 function renderLines(ctx, nodes, opts): VNode {

@@ -1,4 +1,4 @@
-.gb_play .lichess_game .lichess_ground {
+.gb_play .lidraughts_game .lidraughts_ground {
   margin-bottom: 0px;
 }
 .gb_play .gamebook {
@@ -137,6 +137,19 @@
 }
 .gb_buttons .button {
   margin-left: 10px;
+}
+.gb_play kbd {
+  padding: 4px 5px;
+  margin: 15px auto 0 auto;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 10px;
+  color: #444;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb;
 }
 
 body.dark .gb_play .comment,

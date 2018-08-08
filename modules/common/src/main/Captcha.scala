@@ -1,4 +1,4 @@
-package lila.common
+package lidraughts.common
 
 // import scalaz.NonEmptyList
 import scalaz._
@@ -20,9 +20,9 @@ object Captcha {
 
   val default = Captcha(
     gameId = "00000000",
-    fen = "1k3b1r/r5pp/pNQppq2/2p5/4P3/P3B3/1P3PPP/n4RK1",
+    fen = "W:W27,40,45:B12,13,14,19,24,26,34",
     white = true,
-    solutions = NonEmptyList("c6 c8"),
-    moves = Map("c6" -> "c8")
+    solutions = NonEmptyList("40 29"),
+    moves = Map("40" -> "29")
   )
 }

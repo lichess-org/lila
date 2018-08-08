@@ -1,6 +1,6 @@
-package lila.streamer
+package lidraughts.streamer
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 import reactivemongo.bson._
 
 private object BsonHandlers {

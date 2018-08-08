@@ -1,4 +1,4 @@
-@(entries: Vector[lila.timeline.Entry])(implicit ctx: Context)
+@(entries: Vector[lidraughts.timeline.Entry])(implicit ctx: Context)
 
 <div class="entries">
   @entries.filter(e => e.okForKid || ctx.noKid).map { entry =>

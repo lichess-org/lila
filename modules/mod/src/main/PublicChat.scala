@@ -1,14 +1,14 @@
-package lila.mod
+package lidraughts.mod
 
-import lila.chat.{ Chat, UserChat }
-import lila.report.Suspect
-import lila.simul.Simul
-import lila.tournament.Tournament
+import lidraughts.chat.{ Chat, UserChat }
+import lidraughts.report.Suspect
+import lidraughts.simul.Simul
+import lidraughts.tournament.Tournament
 
 final class PublicChat(
-    chatApi: lila.chat.ChatApi,
-    tournamentApi: lila.tournament.TournamentApi,
-    simulEnv: lila.simul.Env
+    chatApi: lidraughts.chat.ChatApi,
+    tournamentApi: lidraughts.tournament.TournamentApi,
+    simulEnv: lidraughts.simul.Env
 ) {
 
   def all: Fu[(List[(Tournament, UserChat)], List[(Simul, UserChat)])] =

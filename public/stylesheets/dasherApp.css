@@ -182,8 +182,6 @@
 }
 
 #dasher_app .board .zoom {
-  margin: 5px 0px;
-  border-top: 1px solid #ddd;
   padding: 10px 10px;
 }
 #dasher_app .board .slider {
@@ -204,8 +202,8 @@
 }
 #dasher_app .theme .list span {
   display: block;
-  width: 64px;
-  height: 32px;
+  width: 50px;
+  height: 20px;
   box-sizing: border-box;
 }
 #dasher_app .theme.d3 .list span {
@@ -304,105 +302,21 @@
 #dasher_app .theme.d2 .maple {
   background-image: url(../images/board/maple.thumbnail.jpg);
 }
-#dasher_app .theme.d3 .Black-White-Aluminium {
-  background-image: url(../images/staunton/board/Black-White-Aluminium.thumbnail.png);
-}
-#dasher_app .theme.d3 .Brushed-Aluminium {
-  background-image: url(../images/staunton/board/Brushed-Aluminium.thumbnail.png);
-}
-#dasher_app .theme.d3 .China-Blue {
-  background-image: url(../images/staunton/board/China-Blue.thumbnail.png);
-}
-#dasher_app .theme.d3 .China-Green {
-  background-image: url(../images/staunton/board/China-Green.thumbnail.png);
-}
-#dasher_app .theme.d3 .China-Grey {
-  background-image: url(../images/staunton/board/China-Grey.thumbnail.png);
-}
-#dasher_app .theme.d3 .China-Scarlet {
-  background-image: url(../images/staunton/board/China-Scarlet.thumbnail.png);
-}
-#dasher_app .theme.d3 .China-Yellow {
-  background-image: url(../images/staunton/board/China-Yellow.thumbnail.png);
-}
-#dasher_app .theme.d3 .Classic-Blue {
-  background-image: url(../images/staunton/board/Classic-Blue.thumbnail.png);
-}
-#dasher_app .theme.d3 .Transparent-Glass {
-  background-image: url(../images/staunton/board/Glass.thumbnail.png);
-}
-#dasher_app .theme.d3 .Gold-Silver {
-  background-image: url(../images/staunton/board/Gold-Silver.thumbnail.png);
-}
-#dasher_app .theme.d3 .Green-Glass {
-  background-image: url(../images/staunton/board/Green-Glass.thumbnail.png);
-}
-#dasher_app .theme.d3 .Light-Wood {
-  background-image: url(../images/staunton/board/Light-Wood.thumbnail.png);
-}
-#dasher_app .theme.d3 .Power-Coated {
-  background-image: url(../images/staunton/board/Power-Coated.thumbnail.png);
-}
-#dasher_app .theme.d3 .Purple-Black {
-  background-image: url(../images/staunton/board/Purple-Black.thumbnail.png);
-}
-#dasher_app .theme.d3 .Rosewood {
-  background-image: url(../images/staunton/board/Rosewood.thumbnail.png);
-}
-#dasher_app .theme.d3 .Wood-Glass {
-  background-image: url(../images/staunton/board/Wood-Glass.thumbnail.png);
-}
-#dasher_app .theme.d3 .Wax {
-  background-image: url(../images/staunton/board/Wax.thumbnail.png);
-}
-#dasher_app .theme.d3 .Jade {
-  background-image: url(../images/staunton/board/Jade.thumbnail.png);
-}
-#dasher_app .theme.d3 .Marble {
-  background-image: url(../images/board/3d/marble.thumbnail.png);
-}
-#dasher_app .theme.d3 .Woodi {
-  background-image: url(../images/board/3d/woodi.thumbnail.png);
-}
 
-#dasher_app piece.cburnett {
-  background-image: url(../piece-src/cburnett/wN.svg);
+#dasher_app piece.flat {
+  background-image: url(../piece-src/flat/wK.svg);
 }
-#dasher_app piece.merida {
-  background-image: url(../piece/merida/wN.svg);
+#dasher_app piece.narrow {
+  background-image: url(../piece-src/narrow/wK.svg);
 }
-#dasher_app piece.chess7 {
-  background-image: url(../piece/chess7/wN.svg);
+#dasher_app piece.narrow_edge {
+  background-image: url(../piece-src/narrow_edge/wK.svg);
 }
-#dasher_app piece.spatial {
-  background-image: url(../piece/spatial/wN.svg);
+#dasher_app piece.wide {
+  background-image: url(../piece-src/wide/wK.svg);
 }
-#dasher_app piece.alpha {
-  background-image: url(../piece/alpha/wN.svg);
-}
-#dasher_app piece.pirouetti {
-  background-image: url(../piece-src/pirouetti/wN.svg);
-}
-#dasher_app piece.reillycraig {
-  background-image: url(../piece/reillycraig/wN.svg);
-}
-#dasher_app piece.fantasy {
-  background-image: url(../piece/fantasy/wN.svg);
-}
-#dasher_app piece.shapes {
-  background-image: url(../piece/shapes/wN.svg);
-}
-#dasher_app piece.letter {
-  background-image: url(../piece/letter/wN.svg);
-}
-#dasher_app piece.chessnut {
-  background-image: url(../piece/chessnut/wN.svg);
-}
-#dasher_app piece.companion {
-  background-image: url(../piece/companion/wN.svg);
-}
-#dasher_app piece.riohacha {
-  background-image: url(../piece/riohacha/wN.svg);
+#dasher_app piece.wide_crown {
+  background-image: url(../piece-src/wide_crown/wK.svg);
 }
 
 body.dark #dasher_app .subs,

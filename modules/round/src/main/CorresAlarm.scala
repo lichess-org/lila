@@ -1,4 +1,4 @@
-package lila.round
+package lidraughts.round
 
 import akka.actor._
 import akka.pattern.ask
@@ -7,10 +7,10 @@ import play.api.libs.iteratee._
 import reactivemongo.api._
 import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.hub.actorApi.map.Ask
-import lila.hub.actorApi.round.IsOnGame
-import lila.game.{ GameRepo, Pov }
+import lidraughts.db.dsl._
+import lidraughts.hub.actorApi.map.Ask
+import lidraughts.hub.actorApi.round.IsOnGame
+import lidraughts.game.{ GameRepo, Pov }
 import makeTimeout.short
 
 private final class CorresAlarm(
@@ -58,8 +58,8 @@ private final class CorresAlarm(
               val pov = Pov(game, game.turnColor)
               roundSocketHub ? Ask(pov.gameId, IsOnGame(pov.color)) mapTo manifest[Boolean] addEffect {
                 case true => // already looking at the game
-                case false => context.system.lilaBus.publish(
-                  lila.game.actorApi.CorresAlarmEvent(pov),
+                case false => context.system.lidraughtsBus.publish(
+                  lidraughts.game.actorApi.CorresAlarmEvent(pov),
                   'corresAlarm
                 )
               }
@@ -67,13 +67,13 @@ private final class CorresAlarm(
           } >> coll.remove($id(alarm._id)) inject (count + 1)
         })
         .chronometer.mon(_.round.alarm.time).result
-        .addEffect(c => lila.mon.round.alarm.count(c))
+        .addEffect(c => lidraughts.mon.round.alarm.count(c))
         .addEffectAnyway(scheduleNext)
 
-    case lila.game.actorApi.FinishGame(game, _, _) =>
+    case lidraughts.game.actorApi.FinishGame(game, _, _) =>
       if (game.hasCorrespondenceClock && !game.hasAi) coll.remove($id(game.id))
 
-    case lila.hub.actorApi.round.CorresMoveEvent(move, _, _, alarmable, _) if alarmable =>
+    case lidraughts.hub.actorApi.round.CorresMoveEvent(move, _, _, alarmable, _) if alarmable =>
       GameRepo game move.gameId flatMap {
         _ ?? { game =>
           game.bothPlayersHaveMoved ?? {

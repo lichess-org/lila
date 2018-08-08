@@ -7,7 +7,7 @@
 @moreJs = {
 @embedJs {
 $("#import_game form").submit(function() {
-setTimeout(function() { $(this).html(lichess.spinnerHtml); }.bind(this), 50);
+setTimeout(function() { $(this).html(lidraughts.spinnerHtml); }.bind(this), 50);
 });
 }
 }
@@ -16,28 +16,28 @@ setTimeout(function() { $(this).html(lichess.spinnerHtml); }.bind(this), 50);
 title = trans.importGame.txt(),
 moreCss = moreCss,
 moreJs = moreJs,
-openGraph = lila.app.ui.OpenGraph(
-title = "Paste PGN chess game",
+openGraph = lidraughts.app.ui.OpenGraph(
+title = "Paste PDN draughts game",
 url = s"$netBaseUrl${routes.Importer.importGame.url}",
-description = "When pasting a game PGN, you get a browsable replay, a computer analysis, a game chat and a sharable URL").some) {
+description = "When pasting a game PDN, you get a browsable replay, a computer analysis, a game chat and a sharable URL").some) {
 <div id="import_game" class="content_box">
   <h1 data-icon="/" class="title"> @trans.importGame()</h1>
   <p class="explanation">@trans.importGameExplanation()</p>
   <form class="import" action="@routes.Importer.sendGame()" method="post">
-    <label class="pgn">
-      <span>@trans.pasteThePgnStringHere():</span>
-      @defining(form("pgn")) { field =>
+    <label class="pdn">
+      <span>@trans.pasteThePdnStringHere():</span>
+      @defining(form("pdn")) { field =>
       <textarea name="@field.name" id="@field.id">@field.value</textarea>
       @errMsg(field)
       }
     </label>
-    <p class="analyse">
+    @*<p class="analyse">
       <span>
         <input name="@form("analyse").name" id="import_analyse" class="cmn-toggle cmn-toggle-round" type="checkbox" />
         <label for="import_analyse"></label>
       </span>
       <label for="import_analyse">@trans.requestAComputerAnalysis()</label>
-    </p>
+    </p>*@
     <button class="submit text button" type="submit" data-icon="G">@trans.importGame()</button>
   </form>
 </div>

@@ -1,13 +1,30 @@
 $(function() {
 
   $('div.user_show .mod_zone_toggle').each(function() {
+
+    function start($mod) {
+      $mod.find('form.xhr').submit(function() {
+        $(this).find('input').attr('disabled', true);
+        $.ajax({
+          url: $(this).attr('action'),
+          method: $(this).attr('method'),
+          success: function(html) {
+            start($mod.html(html));
+          }
+        })
+        return false;
+      });
+    }
+
     $(this).click(function() {
       var $zone = $('div.user_show .mod_zone');
       if ($zone.is(':visible')) $zone.hide();
       else {
-        $zone.html(lichess.spinnerHtml).show();
-        lichess.loadCss('/assets/stylesheets/user-mod.css');
-        $zone.load($(this).attr('href'));
+        $zone.html(lidraughts.spinnerHtml).show();
+        lidraughts.loadCss('/assets/stylesheets/user-mod.css');
+        $zone.load($(this).attr('href'), function() {
+          start($zone);
+        });
       }
       return false;
     });
@@ -30,7 +47,7 @@ $(function() {
         data: $form.serialize(),
         success: function() {
           $form.find('.saved').fadeIn();
-          lichess.reloadOtherTabs();
+          lidraughts.reloadOtherTabs();
         }
       });
     });
@@ -46,7 +63,7 @@ $(function() {
   });
 
   if ($('#perfStat.correspondence .view_games').length &&
-    lichess.once('user-correspondence-view-games')) lichess.hopscotch(function() {
+    lidraughts.once('user-correspondence-view-games')) lidraughts.hopscotch(function() {
       hopscotch.configure({
         i18n: {
           nextBtn: 'OK, got it'
@@ -71,16 +88,16 @@ $(function() {
         $('.angle_content .infinitescroll').infinitescroll('destroy');
         $.get(path).then(function(html) {
           $content.html(html);
-          lichess.pubsub.emit('content_loaded')();
+          lidraughts.pubsub.emit('content_loaded')();
           history.replaceState({}, '', path);
-          lichess.loadInfiniteScroll('.angle_content .infinitescroll');
+          lidraughts.loadInfiniteScroll('.angle_content .infinitescroll');
         });
       }
       $angles.on('click', 'a', function() {
         $angles.find('.active').removeClass('active');
         $(this).addClass('active');
         browseTo($(this).attr('href'));
-        if ($(this).data('tab') === 'activity') lichess.loadCss('/assets/stylesheets/activity.css');
+        if ($(this).data('tab') === 'activity') lidraughts.loadCss('/assets/stylesheets/activity.css');
         return false;
       });
       $('.user_show').on('click', '#games a', function() {

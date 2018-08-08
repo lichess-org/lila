@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { Hooks } from 'snabbdom/hooks'
+import { Attrs } from 'snabbdom/modules/attributes'
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
   return {
@@ -11,6 +12,12 @@ export function bind(eventName: string, f: (e: Event) => any, redraw?: () => voi
         return res;
       });
     }
+  };
+}
+
+export function dataIcon(icon: string): Attrs {
+  return {
+    'data-icon': icon
   };
 }
 
@@ -25,7 +32,7 @@ export function miniBoard(game) {
     },
     hook: {
       insert(vnode) {
-        window.lichess.parseFen($(vnode.elm as HTMLElement));
+        window.lidraughts.parseFen($(vnode.elm as HTMLElement));
       }
     }
   }, [
@@ -41,8 +48,16 @@ export function playerName(p) {
   return p.title ? [h('span.title', p.title), ' ' + p.name] : p.name;
 }
 
-export function player(p, asLink: boolean, withRating: boolean) {
-  const fullName = playerName(p);
+export function player(p, asLink: boolean, withRating: boolean, defender: boolean) {
+  let ratingDiff;
+  if (p.ratingDiff > 0) ratingDiff = h('span.positive', {
+    attrs: { 'data-icon': 'N' }
+  }, '' + p.ratingDiff);
+  else if (p.ratingDiff < 0) ratingDiff = h('span.negative', {
+    attrs: { 'data-icon': 'M' }
+  }, '' + -p.ratingDiff);
+  const rating = p.rating + (p.provisional ? '?' : ''),
+  fullName = playerName(p);
 
   return h('a.ulpt.user_link' + (fullName.length > 15 ? '.long' : ''), {
     attrs: asLink ? { href: '/@/' + p.name } : { 'data-href': '/@/' + p.name },
@@ -50,8 +65,8 @@ export function player(p, asLink: boolean, withRating: boolean) {
       destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement)
     }
   }, [
-    h('span.name', fullName),
-    withRating ? h('span.rating', p.rating + (p.provisional ? '?' : '')) : null
+    h('span.name' + (defender ? '.defender' : ''), defender ? { attrs: dataIcon('5') } : {}, fullName),
+    withRating ? h('span.progress', [rating, ratingDiff]) : null
   ]);
 }
 
@@ -59,7 +74,7 @@ export function numberRow(name: string, value, typ?: string) {
   return h('tr', [h('th', name), h('td',
     typ === 'raw' ? value : (typ === 'percent' ? (
       value[1] > 0 ? ratio2percent(value[0] / value[1]) : 0
-    ) : window.lichess.numberFormat(value))
+    ) : window.lidraughts.numberFormat(value))
   )]);
 }
 

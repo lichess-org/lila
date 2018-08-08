@@ -1,9 +1,9 @@
-package lila.puzzle
+package lidraughts.puzzle
 
 import scala.util.Random
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class Selector(
@@ -15,11 +15,11 @@ private[puzzle] final class Selector(
   import Selector._
 
   def apply(me: Option[User]): Fu[Puzzle] = {
-    lila.mon.puzzle.selector.count()
+    lidraughts.mon.puzzle.selector.count()
     me match {
       case None =>
         puzzleColl // this query precisely matches a mongodb partial index
-          .find($doc(F.voteNb $gte 50))
+          .find($doc(F.voteNb $gte 1)) //original 50
           .sort($sort desc F.voteRatio)
           .skip(Random nextInt anonSkipMax)
           .uno[Puzzle]
@@ -36,7 +36,7 @@ private[puzzle] final class Selector(
     if (puzzle.vote.sum < -1000)
       logger.warn(s"Select #${puzzle.id} vote.sum: ${puzzle.vote.sum} for ${me.fold("Anon")(_.username)} (${me.fold("?")(_.perfs.puzzle.intRating.toString)})")
     else
-      lila.mon.puzzle.selector.vote(puzzle.vote.sum)
+      lidraughts.mon.puzzle.selector.vote(puzzle.vote.sum)
   }
 
   private def newPuzzleForUser(user: User, headOption: Option[PuzzleHead]): Fu[Option[Puzzle]] = {
@@ -44,14 +44,15 @@ private[puzzle] final class Selector(
     val step = toleranceStepFor(rating)
     api.puzzle.cachedLastId.get flatMap { maxId =>
       val lastId = headOption match {
-        case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l
+        case Some(PuzzleHead(_, _, l)) if l < maxId - 20 => l // - 500
         case _ => puzzleIdMin
       }
+      logger.info(s"newPuzzleForUser - lastId $lastId, maxId $maxId")
       tryRange(
         rating = rating,
         tolerance = step,
         step = step,
-        idRange = Range(lastId, lastId + 200)
+        idRange = Range(lastId, lastId + 20) //IDRange * 10
       )
     }
   }
@@ -68,7 +69,7 @@ private[puzzle] final class Selector(
   )).uno[Puzzle] flatMap {
     case None if (tolerance + step) <= toleranceMax =>
       tryRange(rating, tolerance + step, step,
-        idRange = Range(idRange.min, idRange.max + 100))
+        idRange = Range(idRange.min, idRange.max + 10)) //IDRange * 10
     case res => fuccess(res)
   }
 }
@@ -77,7 +78,7 @@ private final object Selector {
 
   val toleranceMax = 1000
 
-  val anonSkipMax = 5000
+  val anonSkipMax = 250 //original 5000
 
   def toleranceStepFor(rating: Int) =
     math.abs(1500 - rating) match {

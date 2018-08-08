@@ -1,6 +1,6 @@
 $(function() {
 
-  $('#lichess_forum').on('click', 'a.delete', function() {
+  $('#lidraughts_forum').on('click', 'a.delete', function() {
     $.post($(this).attr("href"));
     $(this).closest(".post").hide();
     return false;
@@ -25,7 +25,7 @@ $(function() {
 
     var textarea = this;
 
-    lichess.loadScript('/assets/vendor/textcomplete.min.js').then(function() {
+    lidraughts.loadScript('/assets/vendor/textcomplete.min.js').then(function() {
 
       var searchCandidates = function(term, candidateUsers) {
         return candidateUsers.filter(function(user) {
@@ -78,7 +78,7 @@ $(function() {
         }
       }], {
         placement: 'top',
-        appendTo: '#lichess_forum'
+        appendTo: '#lidraughts_forum'
       });
     });
   });

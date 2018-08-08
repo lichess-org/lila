@@ -1,4 +1,4 @@
-package lila.search
+package lidraughts.search
 
 case class Index(name: String) extends AnyVal
 

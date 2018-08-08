@@ -1,8 +1,8 @@
-package lila.blog
+package lidraughts.blog
 
 import scala.concurrent.duration._
 
-import lila.memo.Syncache
+import lidraughts.memo.Syncache
 
 final class LastPostCache(
     api: BlogApi,
@@ -22,9 +22,9 @@ final class LastPostCache(
 
   private def fetch: Fu[List[MiniPost]] = {
     api.prismicApi flatMap { prismic =>
-      api.recent(prismic, none, 3) map {
+      api.recent(prismic, none, page = 1, lidraughts.common.MaxPerPage(3)) map {
         _ ?? {
-          _.results.toList flatMap MiniPost.fromDocument(collection)
+          _.currentPageResults.toList flatMap MiniPost.fromDocument(collection)
         }
       }
     }
@@ -38,5 +38,5 @@ final class LastPostCache(
       lastNotifiedId = last.id.some
     }
 
-  def apply = cache sync true
+  def apply: List[MiniPost] = Nil //cache sync true
 }

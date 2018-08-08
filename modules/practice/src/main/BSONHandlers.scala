@@ -1,8 +1,8 @@
-package lila.practice
+package lidraughts.practice
 
-import lila.db.BSON
-import lila.db.dsl._
-import lila.study.Chapter
+import lidraughts.db.BSON
+import lidraughts.db.dsl._
+import lidraughts.study.Chapter
 import reactivemongo.bson._
 
 object BSONHandlers {

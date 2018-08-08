@@ -1,13 +1,13 @@
-package lila.timeline
+package lidraughts.timeline
 
 import akka.actor._
 import org.joda.time.DateTime
 
-import lila.hub.actorApi.lobby.NewForumPost
-import lila.hub.actorApi.timeline.propagation._
-import lila.hub.actorApi.timeline.{ Propagate, Atom, ForumPost, ReloadTimeline }
-import lila.security.{ Granter, Permission }
-import lila.user.UserRepo
+import lidraughts.hub.actorApi.lobby.NewForumPost
+import lidraughts.hub.actorApi.timeline.propagation._
+import lidraughts.hub.actorApi.timeline.{ Propagate, Atom, ForumPost, ReloadTimeline }
+import lidraughts.security.{ Granter, Permission }
+import lidraughts.user.UserRepo
 
 private[timeline] final class Push(
     lobbySocket: ActorSelection,
@@ -32,7 +32,7 @@ private[timeline] final class Push(
           (users foreach { u =>
             lobbySocket ! ReloadTimeline(u)
           })
-        lila.mon.timeline.notification(users.size)
+        lidraughts.mon.timeline.notification(users.size)
       }
   }
 

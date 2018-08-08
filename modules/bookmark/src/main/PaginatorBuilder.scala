@@ -1,13 +1,13 @@
-package lila.bookmark
+package lidraughts.bookmark
 
-import lila.common.paginator._
-import lila.db.dsl._
-import lila.game.GameRepo
-import lila.user.User
+import lidraughts.common.paginator._
+import lidraughts.db.dsl._
+import lidraughts.game.GameRepo
+import lidraughts.user.User
 
 private[bookmark] final class PaginatorBuilder(
     coll: Coll,
-    maxPerPage: lila.common.MaxPerPage
+    maxPerPage: lidraughts.common.MaxPerPage
 ) {
 
   def byUser(user: User, page: Int): Fu[Paginator[Bookmark]] =

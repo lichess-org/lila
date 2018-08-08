@@ -1,4 +1,4 @@
-@(form: Form[_], q: lila.qa.Question, tags: List[String], popular: List[lila.qa.Question], captcha: lila.common.Captcha)(implicit ctx: Context)
+@(form: Form[_], q: lidraughts.qa.Question, tags: List[String], popular: List[lidraughts.qa.Question], captcha: lidraughts.common.Captcha)(implicit ctx: Context)
 
 @title = @{ s"""Edit question "${q.title}"""" }
 
@@ -7,7 +7,7 @@ title = title,
 side = popularBox(popular).some) {
 
 <div class="content_box_top">
-  <h1 class="lichess_title">
+  <h1 class="lidraughts_title">
     <a href="@routes.QaQuestion.index()" data-icon="&"></a>
     @title
   </h1>

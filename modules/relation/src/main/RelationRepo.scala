@@ -1,9 +1,9 @@
-package lila.relation
+package lidraughts.relation
 
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 private[relation] object RelationRepo {
 

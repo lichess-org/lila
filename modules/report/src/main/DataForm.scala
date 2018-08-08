@@ -1,12 +1,12 @@
-package lila.report
+package lidraughts.report
 
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
-import lila.user.{ User, UserRepo }
+import lidraughts.user.{ User, UserRepo }
 
-private[report] final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.CaptchedForm {
+private[report] final class DataForm(val captcher: akka.actor.ActorSelection) extends lidraughts.hub.CaptchedForm {
 
   val create = Form(mapping(
     "username" -> nonEmptyText.verifying("Unknown username", { fetchUser(_).isDefined }),

@@ -1,14 +1,14 @@
-package lila.study
+package lidraughts.study
 
-import chess.format.FEN
-import lila.game.Game
-import lila.round.JsonView.WithFlags
+import draughts.format.FEN
+import lidraughts.game.Game
+import lidraughts.round.JsonView.WithFlags
 
 private object GameToRoot {
 
   def apply(game: Game, initialFen: Option[FEN], withClocks: Boolean): Node.Root = {
     val root = Node.Root.fromRoot {
-      lila.round.TreeBuilder(
+      lidraughts.round.TreeBuilder(
         game = game,
         analysis = none,
         initialFen = initialFen | FEN(game.variant.initialFen),
@@ -21,10 +21,10 @@ private object GameToRoot {
   }
 
   private def endComment(game: Game) = game.finished option {
-    import lila.tree.Node.Comment
-    val result = chess.Color.showResult(game.winnerColor)
-    val status = lila.game.StatusText(game)
+    import lidraughts.tree.Node.Comment
+    val result = draughts.Color.showResult(game.winnerColor)
+    val status = lidraughts.game.StatusText(game)
     val text = s"$result $status"
-    Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
+    Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lidraughts)
   }
 }

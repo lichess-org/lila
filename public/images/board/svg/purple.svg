@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:x="http://www.w3.org/1999/xlink"
-     viewBox="0 0 8 8" shape-rendering="geometricPrecision">
-<rect width="8" height="8" fill="#7d4a8d"/>
-<g id="a">
-  <g id="b">
-    <g id="c">
-      <g id="d">
-        <rect width="1" height="1" fill="#9f90b0" id="e"/>
-        <use x="2" href="#e" x:href="#e"/>
-      </g>
-      <use x="4" href="#d" x:href="#d"/>
-    </g>
-    <use x="1" y="1" href="#c" x:href="#c"/>
-  </g>
-  <use y="2" href="#b" x:href="#b"/>
-</g>
-<use y="4" href="#a" x:href="#a"/>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 10 10">
+<rect width="10" height="10" fill="#7d4a8d"/>
+<g fill="#9f90b0" id="a"><g id="b">
+<rect width="1" height="1" id="c"/>
+<use x="2" xlink:href="#c"/>
+<use x="4" xlink:href="#c"/>
+<use x="6" xlink:href="#c"/>
+<use x="8" xlink:href="#c"/>
+</g><use x="1" y="1" xlink:href="#b"/></g>
+<use y="2" xlink:href="#a"/>
+<use y="4" xlink:href="#a"/>
+<use y="6" xlink:href="#a"/>
+<use y="8" xlink:href="#a"/>
 </svg>

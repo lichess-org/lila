@@ -1,9 +1,9 @@
 @(form: Form[_])(implicit ctx: Context)
 
-@import lila.tournament.DataForm._
-@import lila.tournament.crud.CrudForm._
-@import lila.tournament.Condition
-@import lila.rating.PerfType
+@import lidraughts.tournament.DataForm._
+@import lidraughts.tournament.crud.CrudForm._
+@import lidraughts.tournament.Condition
+@import lidraughts.rating.PerfType
 
 <div>
   @base.form.group(form("date"), Html("Start date <strong>UTC</strong>"), half = true) {

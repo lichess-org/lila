@@ -1,10 +1,10 @@
-package lila.app
+package lidraughts.app
 package templating
 
-import lila.analyse.Advice.Judgment
+import lidraughts.analyse.Advice.Judgment
 
-import lila.api.Context
-import lila.i18n.I18nKeys
+import lidraughts.api.Context
+import lidraughts.i18n.I18nKeys
 
 trait AnalysisHelper { self: I18nHelper with SecurityHelper =>
 

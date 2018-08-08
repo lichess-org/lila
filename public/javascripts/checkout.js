@@ -1,4 +1,4 @@
-lichess.checkout = function(publicKey) {
+lidraughts.checkout = function(publicKey) {
 
   var $checkout = $('div.plan_checkout');
   var $stripeForm = $checkout.find('form.stripe_checkout');
@@ -44,7 +44,7 @@ lichess.checkout = function(publicKey) {
     var $form = $checkout.find('form.paypal_checkout.' + getFreq());
     $form.find('input.amount').val(amount);
     $form.submit();
-    $checkout.find('.service').html(lichess.spinnerHtml);
+    $checkout.find('.service').html(lidraughts.spinnerHtml);
   });
 
   $checkout.find('button.stripe').on('click', function() {
@@ -67,7 +67,7 @@ lichess.checkout = function(publicKey) {
 
   var stripeHandler = StripeCheckout.configure({
     key: publicKey,
-    name: 'lichess.org',
+    name: 'lidraughts.org',
     image: 'https://s3.amazonaws.com/stripe-uploads/acct_18J612Fj1uHKxNqMmerchant-icon-1465200826114-logo.512.png',
     locale: 'auto',
     allowRememberMe: false,
@@ -75,7 +75,7 @@ lichess.checkout = function(publicKey) {
     billingAddress: false,
     currency: 'usd',
     token: function(token) {
-      $checkout.find('.service').html(lichess.spinnerHtml);
+      $checkout.find('.service').html(lidraughts.spinnerHtml);
       $stripeForm.find('.token').val(token.id);
       $stripeForm.find('.email').val(token.email);
       $stripeForm.submit();

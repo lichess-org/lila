@@ -1,10 +1,10 @@
-package lila.chat
+package lidraughts.chat
 
 import akka.actor._
 import play.api.libs.json._
 
-import lila.socket.{ Handler, SocketMember }
-import lila.hub.actorApi.shutup.PublicSource
+import lidraughts.socket.{ Handler, SocketMember }
+import lidraughts.hub.actorApi.shutup.PublicSource
 
 object Socket {
 
@@ -25,7 +25,7 @@ object Socket {
     case ("timeout", o) => for {
       data ← o obj "d"
       modId <- member.userId
-      userId <- data.str("userId") map lila.user.User.normalize
+      userId <- data.str("userId") map lidraughts.user.User.normalize
       reason <- data.str("reason") flatMap ChatTimeout.Reason.apply
     } canTimeout.??(ct => ct()) foreach { localTimeout =>
       chat ! actorApi.Timeout(chatId, modId, userId, reason, local = localTimeout)

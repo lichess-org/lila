@@ -1,16 +1,16 @@
-package lila.pref
+package lidraughts.pref
 
 import play.api.mvc.RequestHeader
 import reactivemongo.bson._
 import scala.concurrent.duration.FiniteDuration
 
-import lila.db.BSON
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.BSON
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 final class PrefApi(
     coll: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     cacheTtl: FiniteDuration
 ) {
 
@@ -23,7 +23,7 @@ final class PrefApi(
 
   private implicit val prefBSONHandler = new BSON[Pref] {
 
-    import lila.db.BSON.MapValue.{ MapReader, MapWriter }
+    import lidraughts.db.BSON.MapValue.{ MapReader, MapWriter }
     implicit val tagsReader = MapReader[String, String]
     implicit val tagsWriter = MapWriter[String, String]
 
@@ -32,14 +32,10 @@ final class PrefApi(
       dark = r.getD("dark", Pref.default.dark),
       transp = r.getD("transp", Pref.default.transp),
       bgImg = r.strO("bgImg"),
-      is3d = r.getD("is3d", Pref.default.is3d),
       theme = r.getD("theme", Pref.default.theme),
       pieceSet = r.getD("pieceSet", Pref.default.pieceSet),
-      theme3d = r.getD("theme3d", Pref.default.theme3d),
-      pieceSet3d = r.getD("pieceSet3d", Pref.default.pieceSet3d),
       soundSet = r.getD("soundSet", Pref.default.soundSet),
       blindfold = r.getD("blindfold", Pref.default.blindfold),
-      autoQueen = r.getD("autoQueen", Pref.default.autoQueen),
       autoThreefold = r.getD("autoThreefold", Pref.default.autoThreefold),
       takeback = r.getD("takeback", Pref.default.takeback),
       clockTenths = r.getD("clockTenths", Pref.default.clockTenths),
@@ -62,8 +58,6 @@ final class PrefApi(
       insightShare = r.getD("insightShare", Pref.default.insightShare),
       keyboardMove = r.getD("keyboardMove", Pref.default.keyboardMove),
       zen = r.getD("zen", Pref.default.zen),
-      rookCastle = r.getD("rookCastle", Pref.default.rookCastle),
-      pieceNotation = r.getD("pieceNotation", Pref.default.pieceNotation),
       moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
       tags = r.getD("tags", Pref.default.tags)
     )
@@ -73,14 +67,10 @@ final class PrefApi(
       "dark" -> o.dark,
       "transp" -> o.transp,
       "bgImg" -> o.bgImg,
-      "is3d" -> o.is3d,
       "theme" -> o.theme,
       "pieceSet" -> o.pieceSet,
-      "theme3d" -> o.theme3d,
-      "pieceSet3d" -> o.pieceSet3d,
       "soundSet" -> SoundSet.name2key(o.soundSet),
       "blindfold" -> o.blindfold,
-      "autoQueen" -> o.autoQueen,
       "autoThreefold" -> o.autoThreefold,
       "takeback" -> o.takeback,
       "clockTenths" -> o.clockTenths,
@@ -103,9 +93,7 @@ final class PrefApi(
       "insightShare" -> o.insightShare,
       "keyboardMove" -> o.keyboardMove,
       "zen" -> o.zen,
-      "rookCastle" -> o.rookCastle,
       "moveEvent" -> o.moveEvent,
-      "pieceNotation" -> o.pieceNotation,
       "tags" -> o.tags
     )
   }

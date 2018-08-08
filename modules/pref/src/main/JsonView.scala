@@ -1,4 +1,4 @@
-package lila.pref
+package lidraughts.pref
 
 import play.api.libs.json._
 
@@ -9,14 +9,10 @@ object JsonView {
       "dark" -> p.dark,
       "transp" -> p.transp,
       "bgImg" -> p.bgImgOrDefault,
-      "is3d" -> p.is3d,
       "theme" -> p.theme,
       "pieceSet" -> p.pieceSet,
-      "theme3d" -> p.theme3d,
-      "pieceSet3d" -> p.pieceSet3d,
       "soundSet" -> p.soundSet,
       "blindfold" -> p.blindfold,
-      "autoQueen" -> p.autoQueen,
       "autoThreefold" -> p.autoThreefold,
       "takeback" -> p.takeback,
       "clockTenths" -> p.clockTenths,

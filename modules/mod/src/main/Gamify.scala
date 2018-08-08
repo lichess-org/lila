@@ -1,25 +1,25 @@
-package lila.mod
+package lidraughts.mod
 
-import lila.db.BSON.BSONJodaDateTimeHandler
+import lidraughts.db.BSON.BSONJodaDateTimeHandler
 import org.joda.time.DateTime
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.user.UserRepo.lichessId
-import lila.report.Room
+import lidraughts.db.dsl._
+import lidraughts.user.UserRepo.lidraughtsId
+import lidraughts.report.Room
 
 final class Gamify(
     logColl: Coll,
-    reportApi: lila.report.ReportApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    reportApi: lidraughts.report.ReportApi,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     historyColl: Coll
 ) {
 
   import Gamify._
-  import lila.report.BSONHandlers.RoomBSONHandler
+  import lidraughts.report.BSONHandlers.RoomBSONHandler
 
   def history(orCompute: Boolean = true): Fu[List[HistoryMonth]] = {
     val until = DateTime.now minusMonths 1 withDayOfMonth 1
@@ -85,12 +85,12 @@ final class Gamify(
   private def dateRange(from: DateTime, toOption: Option[DateTime]) =
     $doc("$gte" -> from) ++ toOption.?? { to => $doc("$lt" -> to) }
 
-  private val notLichess = $doc("$ne" -> lichessId)
+  private val notLidraughts = $doc("$ne" -> lidraughtsId)
 
   private def actionLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
     logColl.aggregate(Match($doc(
       "date" -> dateRange(after, before),
-      "mod" -> notLichess
+      "mod" -> notLidraughts
     )), List(
       GroupField("mod")("nb" -> SumValue(1)),
       Sort(Descending("nb"))
@@ -105,7 +105,7 @@ final class Gamify(
       Match($doc(
         "atoms.0.at" -> dateRange(after, before),
         "room" $in Room.all, // required to make use of the mongodb index room+atoms.0.at
-        "processedBy" -> notLichess
+        "processedBy" -> notLidraughts
       )), List(
         GroupField("processedBy")("nb" -> SumValue(1)),
         Sort(Descending("nb"))

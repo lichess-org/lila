@@ -1,10 +1,10 @@
-package lila.message
+package lidraughts.message
 
 import play.api.data._
 import play.api.data.Forms._
 
-import lila.security.Granter
-import lila.user.{ User, UserRepo }
+import lidraughts.security.Granter
+import lidraughts.user.{ User, UserRepo }
 
 private[message] final class DataForm(security: MessageSecurity) {
 

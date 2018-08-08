@@ -1,4 +1,4 @@
-@(u: User, nbs: lila.app.mashup.UserInfo.NbGames, pager: Paginator[Game], filters: lila.app.mashup.GameFilterMenu, filterName: String)(implicit ctx: Context)
+@(u: User, nbs: lidraughts.app.mashup.UserInfo.NbGames, pager: Paginator[Game], filters: lidraughts.app.mashup.GameFilterMenu, filterName: String)(implicit ctx: Context)
 
 <div class="content_box_inter tabs" id="games">
   @filters.list.map { f =>

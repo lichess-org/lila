@@ -25,7 +25,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
 
   const list: Sound[] = raw.map(s => s.split(' '));
 
-  const api = window.lichess.sound;
+  const api = window.lidraughts.sound;
 
   return {
     list,
@@ -33,7 +33,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
     set(k: Key) {
       api.changeSet(k);
       api.genericNotify();
-      $.post('/pref/soundSet', { set: k }, window.lichess.reloadOtherTabs);
+      $.post('/pref/soundSet', { set: k }, window.lidraughts.reloadOtherTabs);
       redraw();
     },
     volume(v: number) {
@@ -59,8 +59,8 @@ export function view(ctrl: SoundCtrl): VNode {
 }
 
 function makeSlider(ctrl: SoundCtrl, vnode: VNode) {
-  const setVolume = window.lichess.fp.debounce(ctrl.volume, 50);
-  window.lichess.slider().done(() => {
+  const setVolume = window.lidraughts.fp.debounce(ctrl.volume, 50);
+  window.lidraughts.slider().done(() => {
     $(vnode.elm as HTMLElement).slider({
       orientation: 'vertical',
       min: 0,

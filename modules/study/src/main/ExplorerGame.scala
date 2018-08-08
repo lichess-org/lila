@@ -1,14 +1,14 @@
-package lila.study
+package lidraughts.study
 
-import chess.format.pgn.{ Parser, ParsedPgn, Tag }
-import chess.format.FEN
-import lila.common.LightUser
-import lila.game.{ Game, Namer }
-import lila.tree.Node.Comment
-import lila.user.User
+import draughts.format.pdn.{ Parser, ParsedPdn, Tag }
+import draughts.format.FEN
+import lidraughts.common.LightUser
+import lidraughts.game.{ Game, Namer }
+import lidraughts.tree.Node.Comment
+import lidraughts.user.User
 
 private final class ExplorerGame(
-    importer: lila.explorer.ExplorerImporter,
+    importer: lidraughts.explorer.ExplorerImporter,
     lightUser: LightUser.GetterSync,
     baseUrl: String
 ) {
@@ -21,7 +21,10 @@ private final class ExplorerGame(
     }
 
   def insert(userId: User.ID, study: Study, position: Position, gameId: Game.ID): Fu[Option[(Chapter, Path)]] =
-    importer(gameId) map {
+    if (position.chapter.isOverweight) {
+      logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
+      fuccess(none)
+    } else importer(gameId) map {
       _ ?? { game =>
         position.node ?? { fromNode =>
           GameToRoot(game, none, false).|> { root =>
@@ -58,18 +61,18 @@ private final class ExplorerGame(
   private def gameComment(game: Game) = Comment(
     id = Comment.Id.make,
     text = Comment.Text(s"${gameTitle(game)}, ${gameUrl(game)}"),
-    by = Comment.Author.Lichess
+    by = Comment.Author.Lidraughts
   )
 
   private def gameUrl(game: Game) = s"$baseUrl/${game.id}"
 
   private def gameTitle(g: Game): String = {
-    val pgn = g.pgnImport.flatMap(pgnImport => Parser.full(pgnImport.pgn).toOption)
-    val white = pgn.flatMap(_.tags(_.White)) | Namer.playerText(g.whitePlayer)(lightUser)
-    val black = pgn.flatMap(_.tags(_.Black)) | Namer.playerText(g.blackPlayer)(lightUser)
-    val result = chess.Color.showResult(g.winnerColor)
+    val pdn = g.pdnImport.flatMap(pdnImport => Parser.full(pdnImport.pdn).toOption)
+    val white = pdn.flatMap(_.tags(_.White)) | Namer.playerText(g.whitePlayer)(lightUser)
+    val black = pdn.flatMap(_.tags(_.Black)) | Namer.playerText(g.blackPlayer)(lightUser)
+    val result = draughts.Color.showResult(g.winnerColor)
     val event: Option[String] =
-      (pgn.flatMap(_.tags(_.Event)), pgn.flatMap(_.tags.year).map(_.toString)) match {
+      (pdn.flatMap(_.tags(_.Event)), pdn.flatMap(_.tags.year).map(_.toString)) match {
         case (Some(event), Some(year)) if event.contains(year) => event.some
         case (Some(event), Some(year)) => s"$event, $year".some
         case (eventO, yearO) => eventO orElse yearO

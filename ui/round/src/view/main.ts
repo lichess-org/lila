@@ -4,14 +4,14 @@ import { plyStep } from '../round';
 import renderTable from './table';
 import * as promotion from '../promotion';
 import { render as renderGround } from '../ground';
-import { read as fenRead } from 'chessground/fen';
+import { read as fenRead } from 'draughtsground/fen';
 import * as util from '../util';
 import * as blind from '../blind';
 import * as keyboard from '../keyboard';
 import crazyView from '../crazy/crazyView';
 import { render as keyboardMove } from '../keyboardMove';
 import RoundController from '../ctrl';
-import * as cg from 'chessground/types';
+import * as cg from 'draughtsground/types';
 
 function renderMaterial(material: cg.MaterialDiffSide, score: number, checks?: number) {
   const children: VNode[] = [];
@@ -38,8 +38,8 @@ function wheel(ctrl: RoundController, e: WheelEvent): boolean {
 }
 
 function visualBoard(ctrl: RoundController) {
-  return h('div.lichess_board_wrap', [
-    h('div.lichess_board.' + ctrl.data.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
+  return h('div.lidraughts_board_wrap', [
+    h('div.lidraughts_board.' + ctrl.data.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
       hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [renderGround(ctrl)]),
     promotion.view(ctrl)
@@ -47,7 +47,7 @@ function visualBoard(ctrl: RoundController) {
 }
 
 function blindBoard(ctrl: RoundController) {
-  return h('div.lichess_board_blind', [
+  return h('div.lidraughts_board_blind', [
     h('div.textual', {
       hook: {
         insert: vnode => blind.init(vnode.elm as HTMLElement, ctrl)
@@ -63,7 +63,7 @@ const emptyMaterialDiff: cg.MaterialDiff = {
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
-  cgState = ctrl.chessground && ctrl.chessground.state,
+  cgState = ctrl.draughtsground && ctrl.draughtsground.state,
   topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
   bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
   let material: cg.MaterialDiff, score: number = 0;
@@ -73,13 +73,13 @@ export function main(ctrl: RoundController): VNode {
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
   return h('div.round.cg-512', [
-    h('div.lichess_game.gotomove.variant_' + d.game.variant.key, {
+    h('div.lidraughts_game.gotomove.variant_' + d.game.variant.key, {
       hook: {
-        insert: () => window.lichess.pubsub.emit('content_loaded')()
+        insert: () => window.lidraughts.pubsub.emit('content_loaded')()
       }
     }, [
       d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
-      h('div.lichess_ground', [
+      h('div.lidraughts_ground', [
         crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, d.player.checks),
         renderTable(ctrl),
         crazyView(ctrl, bottomColor, 'bottom') || renderMaterial(material[bottomColor], score, d.opponent.checks)

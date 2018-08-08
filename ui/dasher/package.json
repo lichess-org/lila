@@ -1,8 +1,8 @@
 {
   "name": "dasher",
   "version": "2.0.0",
-  "description": "lichess.org multipurpose dropdown",
-  "author": "Thibault Duplessis",
+  "description": "lidraughts.org multipurpose dropdown",
+  "author": "Stefan Schermann (modified original by Thibault Duplessis)",
   "license": "AGPL-3.0",
   "dependencies": {
     "snabbdom": "ornicar/snabbdom#lichess"
@@ -15,7 +15,7 @@
     "gulp-uglify": "^3",
     "gulp-util": "^3",
     "tsify": "^3",
-    "@types/lichess": "1.0.0",
+    "@types/lidraughts": "1.0.0",
     "typescript": "^2",
     "vinyl-buffer": "^1",
     "vinyl-source-stream": "^1",

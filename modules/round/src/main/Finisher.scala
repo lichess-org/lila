@@ -1,20 +1,20 @@
-package lila.round
+package lidraughts.round
 
-import chess.{ Status, Color }
+import draughts.{ Status, DecayingStats, Color, Clock }
 
-import lila.game.actorApi.{ FinishGame, AbortedBy }
-import lila.game.{ GameRepo, Game, Pov, RatingDiffs }
-import lila.i18n.I18nKey.{ Select => SelectI18nKey }
-import lila.playban.PlaybanApi
-import lila.user.{ User, UserRepo }
+import lidraughts.game.actorApi.{ FinishGame, AbortedBy }
+import lidraughts.game.{ GameRepo, Game, Pov, RatingDiffs }
+import lidraughts.i18n.I18nKey.{ Select => SelectI18nKey }
+import lidraughts.playban.PlaybanApi
+import lidraughts.user.{ User, UserRepo }
 
 private[round] final class Finisher(
     messenger: Messenger,
     perfsUpdater: PerfsUpdater,
     playban: PlaybanApi,
     notifier: RoundNotifier,
-    crosstableApi: lila.game.CrosstableApi,
-    bus: lila.common.Bus,
+    crosstableApi: lidraughts.game.CrosstableApi,
+    bus: lidraughts.common.Bus,
     getSocketStatus: Game.ID => Fu[actorApi.SocketStatus]
 ) {
 
@@ -30,14 +30,14 @@ private[round] final class Finisher(
       winner.?? { color => playban.rageQuit(game, !color) }
 
   def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
-    import lila.common.PlayApp
+    import lidraughts.common.PlayApp
     if (!PlayApp.startedSinceSeconds(60) && (game.movedAt isBefore PlayApp.startedAt)) {
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
     } else {
-      val winner = Some(!game.player.color) filterNot { color =>
+      val winner = Some(!game.player.color) /*filterNot { color =>
         game.variant.insufficientWinningMaterial(game.board, color)
-      }
+      }*/
       apply(game, _.Outoftime, winner) >>-
         winner.?? { w => playban.flag(game, !w) }
     }
@@ -45,7 +45,7 @@ private[round] final class Finisher(
 
   def noStart(game: Game)(implicit proxy: GameProxy): Fu[Events] =
     game.playerWhoDidNotMove ?? { culprit =>
-      lila.mon.round.expiration.count()
+      lidraughts.mon.round.expiration.count()
       playban.noStart(Pov(game, culprit))
       if (game.isMandatory) apply(game, _.NoStart, Some(!culprit.color))
       else apply(game, _.Aborted, None, Some(_.untranslated("Game aborted by server")))
@@ -59,6 +59,33 @@ private[round] final class Finisher(
   )(implicit proxy: GameProxy): Fu[Events] =
     apply(game, status, winner, message) >>- playban.other(game, status, winner)
 
+  private def recordLagStats(game: Game): Unit = for {
+    clock <- game.clock
+    player <- clock.players.all
+    lt = player.lag
+    stats = lt.lagStats
+    moves = lt.moves if moves > 4
+    sd <- stats.stdDev
+    mean = stats.mean if mean > 0
+    uncomp <- lt.totalUncomped / moves
+    compEstStdErr <- lt.compEstStdErr
+    quotaStr = f"${lt.quotaGain.centis / 10}%02d"
+    compEstOvers = lt.compEstOvers.centis
+  } {
+    import lidraughts.mon.round.move.{ lag => lRec }
+    lRec.mean(Math.round(10 * mean))
+    lRec.stdDev(Math.round(10 * sd))
+    // wikipedia.org/wiki/Coefficient_of_variation#Estimation
+    lRec.coefVar(Math.round((1000f + 250f / moves) * sd / mean))
+    lRec.uncomped(quotaStr)(uncomp.centis)
+    lRec.uncompedAll(uncomp.centis)
+    lt.lagEstimator match {
+      case h: DecayingStats => lRec.compDeviation(h.deviation.toInt)
+    }
+    lRec.compEstStdErr(Math.round(1000 * compEstStdErr))
+    lRec.compEstOverErr(Math.round(10f * compEstOvers / moves))
+  }
+
   private def apply(
     game: Game,
     makeStatus: Status.type => Status,
@@ -68,8 +95,9 @@ private[round] final class Finisher(
     val status = makeStatus(Status)
     val prog = game.finish(status, winner)
     if (game.nonAi && game.isCorrespondence) Color.all foreach notifier.gameEnd(prog.game)
-    lila.mon.game.finish(status.name)()
+    lidraughts.mon.game.finish(status.name)()
     val g = prog.game
+    recordLagStats(g)
     proxy.save(prog) >>
       GameRepo.finish(
         id = g.id,
@@ -93,7 +121,7 @@ private[round] final class Finisher(
               GameRepo game g.id foreach { newGame =>
                 bus.publish(finish.copy(game = newGame | g), 'finishGame)
               }
-              prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
+              prog.events :+ lidraughts.game.Event.EndData(g, ratingDiffs)
             }
           }
         }

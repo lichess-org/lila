@@ -1,21 +1,21 @@
-package lila.tournament
+package lidraughts.tournament
 
 import akka.actor._
 import akka.pattern.ask
 
 import actorApi._
 import akka.actor.ActorSelection
-import lila.chat.Chat
-import lila.hub.actorApi.map._
-import lila.security.Flood
-import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.Handler
-import lila.socket.Socket.Uid
-import lila.user.User
+import lidraughts.chat.Chat
+import lidraughts.hub.actorApi.map._
+import lidraughts.security.Flood
+import lidraughts.socket.actorApi.{ Connected => _, _ }
+import lidraughts.socket.Handler
+import lidraughts.socket.Socket.Uid
+import lidraughts.user.User
 import makeTimeout.short
 
 private[tournament] final class SocketHandler(
-    hub: lila.hub.Env,
+    hub: lidraughts.hub.Env,
     socketHub: ActorRef,
     chat: ActorSelection,
     flood: Flood
@@ -46,11 +46,11 @@ private[tournament] final class SocketHandler(
     member: Member
   ): Handler.Controller = ({
     case ("p", o) => socket ! Ping(uid, o)
-  }: Handler.Controller) orElse lila.chat.Socket.in(
+  }: Handler.Controller) orElse lidraughts.chat.Socket.in(
     chatId = Chat.Id(tourId),
     member = member,
     socket = socket,
     chat = chat,
-    publicSource = lila.hub.actorApi.shutup.PublicSource.Tournament(tourId).some
+    publicSource = lidraughts.hub.actorApi.shutup.PublicSource.Tournament(tourId).some
   )
 }

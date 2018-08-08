@@ -1,10 +1,10 @@
-package lila.plan
+package lidraughts.plan
 
 import org.joda.time.DateTime
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson.BSONNull
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 private final class MonthlyGoalApi(goal: Cents, chargeColl: Coll) {
 

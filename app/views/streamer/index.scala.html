@@ -1,9 +1,9 @@
-@(live: List[lila.streamer.Streamer.WithUserAndStream], pager: Paginator[lila.streamer.Streamer.WithUser], requests: Boolean)(implicit ctx: Context)
+@(live: List[lidraughts.streamer.Streamer.WithUserAndStream], pager: Paginator[lidraughts.streamer.Streamer.WithUser], requests: Boolean)(implicit ctx: Context)
 
-@title = @{ if (requests) "Streamer approval requests" else "Lichess streamers" }
+@title = @{ if (requests) "Streamer approval requests" else "Lidraughts streamers" }
 
-@widget(s: lila.streamer.Streamer.WithUser, stream: Option[lila.streamer.Stream]) = {
-<a class="overlay" href="@if(requests){@routes.Streamer.edit?u=@s.user.username}else{@routes.Streamer.show(s.user.username)}"></a>
+@widget(s: lidraughts.streamer.Streamer.WithUser, stream: Option[lidraughts.streamer.Stream]) = {
+@* <a class="overlay" href="@if(requests){@routes.Streamer.edit?u=@s.user.username}else{@routes.Streamer.show(s.user.username)}"></a> *@
 @if(stream.isDefined) {
 <span class="ribbon">
   <span>LIVE!</span>
@@ -63,9 +63,9 @@ menu = menu("index", none).some) {
     <div class="streamer paginated_element" data-dedup="@s.streamer.id">@widget(s, none)</div>
     }
     @pager.nextPage.map { np =>
-    <div class="pager none">
+    @* <div class="pager none">
       <a rel="next" href="@addQueryParameter(routes.Streamer.index().toString, "page", np)">Next</a>
-    </div>
+    </div> *@
     }
   </div>
 </div>

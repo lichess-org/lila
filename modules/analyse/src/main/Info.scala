@@ -1,14 +1,14 @@
-package lila.analyse
+package lidraughts.analyse
 
-import chess.Color
-import chess.format.Uci
+import draughts.Color
+import draughts.format.Uci
 
-import lila.tree.Eval
+import lidraughts.tree.Eval
 
 case class Info(
     ply: Int,
     eval: Eval,
-    // variation is first in UCI, then converted to PGN before storage
+    // variation is first in UCI, then converted to PDN before storage
     variation: List[String] = Nil
 ) {
 

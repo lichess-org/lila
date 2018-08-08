@@ -65,7 +65,7 @@ function showMoveTable(ctrl: AnalyseCtrl, moves: OpeningMoveStats[], fen: Fen): 
         }
       }, [
         h('td', move.san[0] === 'P' ? move.san.slice(1) : move.san),
-        h('td', window.lichess.numberFormat(move.white + move.draws + move.black)),
+        h('td', window.lidraughts.numberFormat(move.white + move.draws + move.black)),
         h('td', resultBar(move))
       ]);
     }))
@@ -112,7 +112,7 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
 }
 
 function openGame(ctrl: AnalyseCtrl, gameId: string) {
-  const orientation = ctrl.chessground.state.orientation,
+  const orientation = ctrl.draughtsground.state.orientation,
   fenParam = ctrl.node.ply > 0 ? ('?fen=' + ctrl.node.fen) : '';
   let url = '/' + gameId + '/' + orientation + fenParam;
   if (ctrl.explorer.config.data.db.selected() === 'masters') url = '/import/master' + url;

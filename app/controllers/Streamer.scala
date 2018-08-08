@@ -2,12 +2,12 @@ package controllers
 
 import play.api.mvc._
 
-import lila.api.Context
-import lila.app._
-import lila.streamer.{ Streamer => StreamerModel, StreamerForm }
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.streamer.{ Streamer => StreamerModel, StreamerForm }
 import views._
 
-object Streamer extends LilaController {
+object Streamer extends LidraughtsController {
 
   private def api = Env.streamer.api
 
@@ -36,8 +36,8 @@ object Streamer extends LilaController {
     NoLame {
       NoShadowban {
         api.find(me) flatMap {
-          case None => api.create(me) inject Redirect(routes.Streamer.edit)
-          case _ => Redirect(routes.Streamer.edit).fuccess
+          //case None => api.create(me) inject Redirect(routes.Streamer.edit)
+          case _ => Redirect(routes.Lobby.home).fuccess //Redirect(routes.Streamer.edit).fuccess
         }
       }
     }
@@ -58,7 +58,7 @@ object Streamer extends LilaController {
         StreamerForm.userForm(sws.streamer).bindFromRequest.fold(
           error => BadRequest(html.streamer.edit(sws, error)).fuccess,
           data => api.update(sws.streamer, data, isGranted(_.Streamers)) inject Redirect {
-            s"${routes.Streamer.edit().url}${if (sws.streamer is me) "" else "?u=" + sws.user.id}"
+            s"" //${routes.Streamer.edit().url}${if (sws.streamer is me) "" else "?u=" + sws.user.id}"
           }
         )
       }
@@ -66,7 +66,7 @@ object Streamer extends LilaController {
   }
 
   def approvalRequest = AuthBody { implicit ctx => me =>
-    api.approval.request(me) inject Redirect(routes.Streamer.edit)
+    api.approval.request(me) inject Redirect(routes.Lobby.home) //Redirect(routes.Streamer.edit)
   }
 
   def picture = Auth { implicit ctx => _ =>
@@ -78,17 +78,17 @@ object Streamer extends LilaController {
   def pictureApply = AuthBody(BodyParsers.parse.multipartFormData) { implicit ctx => _ =>
     AsStreamer { s =>
       ctx.body.body.file("picture") match {
-        case Some(pic) => api.uploadPicture(s.streamer, pic) recover {
-          case e: lila.base.LilaException => BadRequest(html.streamer.picture(s, e.message.some))
-        } inject Redirect(routes.Streamer.edit)
-        case None => fuccess(Redirect(routes.Streamer.edit))
+        /*case Some(pic) => api.uploadPicture(s.streamer, pic) recover {
+          case e: lidraughts.base.LidraughtsException => BadRequest(html.streamer.picture(s, e.message.some))
+        } inject Redirect(routes.Streamer.edit)*/
+        case _ => fuccess(Redirect(routes.Lobby.home)) //case None => fuccess(Redirect(routes.Streamer.edit))
       }
     }
   }
 
   def pictureDelete = Auth { implicit ctx => _ =>
     AsStreamer { s =>
-      api.deletePicture(s.streamer) inject Redirect(routes.Streamer.edit)
+      api.deletePicture(s.streamer) inject Redirect(routes.Lobby.home) //Redirect(routes.Streamer.edit)
     }
   }
 

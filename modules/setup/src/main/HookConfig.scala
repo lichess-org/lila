@@ -1,13 +1,13 @@
-package lila.setup
+package lidraughts.setup
 
-import chess.Mode
-import lila.lobby.Color
-import lila.lobby.{ Hook, Seek }
-import lila.rating.RatingRange
-import lila.user.User
+import draughts.Mode
+import lidraughts.lobby.Color
+import lidraughts.lobby.{ Hook, Seek }
+import lidraughts.rating.RatingRange
+import lidraughts.user.User
 
 case class HookConfig(
-    variant: chess.variant.Variant,
+    variant: draughts.variant.Variant,
     timeMode: TimeMode,
     time: Double,
     increment: Int,
@@ -19,7 +19,7 @@ case class HookConfig(
 
   def fixColor = copy(
     color = if (mode == Mode.Rated &&
-      lila.game.Game.variantsWhereWhiteIsBetter(variant) &&
+      lidraughts.game.Game.variantsWhereWhiteIsBetter(variant) &&
       color != Color.Random) Color.Random else color
   )
 
@@ -44,7 +44,7 @@ case class HookConfig(
         uid = uid,
         variant = variant,
         clock = clock,
-        mode = lila.game.Game.allowRated(variant, clock).fold(mode, Mode.Casual),
+        mode = lidraughts.game.Game.allowRated(variant, clock).fold(mode, Mode.Casual),
         color = color.name,
         user = user,
         blocking = blocking,
@@ -66,7 +66,7 @@ case class HookConfig(
 
   def noRatedUnlimited = mode.casual || hasClock || makeDaysPerTurn.isDefined
 
-  def updateFrom(game: lila.game.Game) = copy(
+  def updateFrom(game: lidraughts.game.Game) = copy(
     variant = game.variant,
     timeMode = TimeMode ofGame game,
     time = game.clock.map(_.limitInMinutes) | time,
@@ -81,7 +81,7 @@ object HookConfig extends BaseHumanConfig {
   def <<(v: Int, tm: Int, t: Double, i: Int, d: Int, m: Option[Int], e: Option[String], c: String) = {
     val realMode = m.fold(Mode.default)(Mode.orDefault)
     new HookConfig(
-      variant = chess.variant.Variant(v) err "Invalid game variant " + v,
+      variant = draughts.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
@@ -103,15 +103,15 @@ object HookConfig extends BaseHumanConfig {
     color = Color.default
   )
 
-  import lila.db.BSON
-  import lila.db.dsl._
+  import lidraughts.db.BSON
+  import lidraughts.db.dsl._
 
   private[setup] implicit val hookConfigBSONHandler = new BSON[HookConfig] {
 
     override val logMalformed = false
 
     def reads(r: BSON.Reader): HookConfig = HookConfig(
-      variant = chess.variant.Variant orDefault (r int "v"),
+      variant = draughts.variant.Variant orDefault (r int "v"),
       timeMode = TimeMode orDefault (r int "tm"),
       time = r double "t",
       increment = r int "i",

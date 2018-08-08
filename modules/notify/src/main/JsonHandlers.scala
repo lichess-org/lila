@@ -1,6 +1,6 @@
-package lila.notify
+package lidraughts.notify
 
-import lila.common.LightUser
+import lidraughts.common.LightUser
 import play.api.libs.json._
 
 final class JSONHandlers(getLightUser: LightUser.GetterSync) {
@@ -76,7 +76,7 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync) {
     )
   }
 
-  import lila.common.paginator.PaginatorJson._
+  import lidraughts.common.paginator.PaginatorJson._
   implicit val unreadWrites = Writes[Notification.UnreadCount] { v => JsNumber(v.value) }
   implicit val andUnreadWrites: Writes[Notification.AndUnread] = Json.writes[Notification.AndUnread]
 

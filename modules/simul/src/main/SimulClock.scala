@@ -1,6 +1,6 @@
-package lila.simul
+package lidraughts.simul
 
-import chess.{ Centis, Clock, Color }
+import draughts.{ Centis, Clock, Color }
 
 // All durations are expressed in seconds
 case class SimulClock(

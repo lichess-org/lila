@@ -1,0 +1,21 @@
+{
+  "name": "draughts",
+  "version": "1.0.0",
+  "description": "lidraughts.org draughts utils",
+  "main": "dist/main.js",
+  "typings": "dist/main",
+  "keywords": [
+    "draughts",
+    "lidraughts"
+  ],
+  "author": "Stefan Schermann (modified original by Thibault Duplessis)",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "compile": "tsc"
+  },
+  "devDependencies": {
+    "@types/lidraughts": "1.0.0",
+    "typescript": "^2.2.2"
+  },
+  "dependencies": {}
+}

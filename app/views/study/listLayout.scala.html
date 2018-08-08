@@ -1,11 +1,11 @@
-@(title: String, active: String, order: lila.study.Order, pag: Paginator[lila.study.Study.WithChaptersAndLiked], url: controllers.Study.ListUrl, searchFilter: String)(titleHtml: Html)(implicit ctx: Context)
+@(title: String, active: String, order: lidraughts.study.Order, pag: Paginator[lidraughts.study.Study.WithChaptersAndLiked], url: controllers.Study.ListUrl, searchFilter: String)(titleHtml: Html)(implicit ctx: Context)
 
 @menu = {
 <a class="@active.active("all")" href="@routes.Study.all(order.key)">All studies</a>
 @ctx.me.map { me =>
 @authLinks(me, active, order)
 }
-<a class="text" data-icon="" href="//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way">What are studies?</a>
+@*<a class="text" data-icon="" href="//lidraughts.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lidraughts-way">What are studies?</a>*@
 }
 
 @base.layout(
@@ -19,7 +19,7 @@ moreJs = jsTag("vendor/jquery.infinitescroll.min.js")) {
       <input name="q" placeholder="@title" value="@searchFilter@if(searchFilter.nonEmpty){ }" />
       <button type="submit" class="submit button" data-icon="y"></button>
     </form>
-    @orderChoice(o => url(o.key), order, if (active == "all") lila.study.Order.allButOldest else lila.study.Order.all)
+    @orderChoice(o => url(o.key), order, if (active == "all") lidraughts.study.Order.allButOldest else lidraughts.study.Order.all)
     @newForm()
   </div>
   @list(pag, url(order.key))

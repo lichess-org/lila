@@ -1,6 +1,6 @@
-lichess.ratingHistoryChart = function(data) {
-  lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
-    lichess.chartCommon('highstock').done(function() {
+lidraughts.ratingHistoryChart = function(data) {
+  lidraughts.loadScript('/assets/javascripts/chart/common.js').done(function() {
+    lidraughts.chartCommon('highstock').done(function() {
       var disabled = {
         enabled: false
       };

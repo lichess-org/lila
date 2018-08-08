@@ -1,10 +1,10 @@
-package lila.lobby
+package lidraughts.lobby
 
-import chess.{ Game => ChessGame, Situation, Color => ChessColor }
+import draughts.{ DraughtsGame, Situation, Color => DraughtsColor }
 
 import actorApi.{ JoinHook, JoinSeek }
-import lila.game.{ GameRepo, Game, Player, PerfPicker }
-import lila.user.{ User, UserRepo }
+import lidraughts.game.{ GameRepo, Game, Player, PerfPicker }
+import lidraughts.user.{ User, UserRepo }
 
 private[lobby] object Biter {
 
@@ -27,7 +27,7 @@ private[lobby] object Biter {
     )
     _ ← GameRepo insertDenormalized game
   } yield {
-    lila.mon.lobby.hook.join()
+    lidraughts.mon.lobby.hook.join()
     JoinHook(uid, hook, game, creatorColor)
   }
 
@@ -47,41 +47,41 @@ private[lobby] object Biter {
     creatorUser: Option[User],
     joinerUser: Option[User],
     color: Color
-  ): Fu[chess.Color] = color match {
-    case Color.Random => UserRepo.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)) map chess.Color.apply
-    case Color.White => fuccess(chess.White)
-    case Color.Black => fuccess(chess.Black)
+  ): Fu[draughts.Color] = color match {
+    case Color.Random => UserRepo.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)) map draughts.Color.apply
+    case Color.White => fuccess(draughts.White)
+    case Color.Black => fuccess(draughts.Black)
   }
 
   private def makeGame(hook: Hook, whiteUser: Option[User], blackUser: Option[User]) = {
     val clock = hook.clock.toClock
-    val perfPicker = PerfPicker.mainOrDefault(chess.Speed(clock.config), hook.realVariant, none)
+    val perfPicker = PerfPicker.mainOrDefault(draughts.Speed(clock.config), hook.realVariant, none)
     Game.make(
-      chess = ChessGame(
+      draughts = DraughtsGame(
         situation = Situation(hook.realVariant),
         clock = clock.some
       ),
-      whitePlayer = Player.make(chess.White, whiteUser, perfPicker),
-      blackPlayer = Player.make(chess.Black, blackUser, perfPicker),
+      whitePlayer = Player.make(draughts.White, whiteUser, perfPicker),
+      blackPlayer = Player.make(draughts.Black, blackUser, perfPicker),
       mode = hook.realMode,
-      source = lila.game.Source.Lobby,
-      pgnImport = None
+      source = lidraughts.game.Source.Lobby,
+      pdnImport = None
     ).start
   }
 
   private def makeGame(seek: Seek, whiteUser: Option[User], blackUser: Option[User]) = {
-    val perfPicker = PerfPicker.mainOrDefault(chess.Speed(none), seek.realVariant, seek.daysPerTurn)
+    val perfPicker = PerfPicker.mainOrDefault(draughts.Speed(none), seek.realVariant, seek.daysPerTurn)
     Game.make(
-      chess = ChessGame(
+      draughts = DraughtsGame(
         situation = Situation(seek.realVariant),
         clock = none
       ),
-      whitePlayer = Player.make(chess.White, whiteUser, perfPicker),
-      blackPlayer = Player.make(chess.Black, blackUser, perfPicker),
+      whitePlayer = Player.make(draughts.White, whiteUser, perfPicker),
+      blackPlayer = Player.make(draughts.Black, blackUser, perfPicker),
       mode = seek.realMode,
-      source = lila.game.Source.Lobby,
+      source = lidraughts.game.Source.Lobby,
       daysPerTurn = seek.daysPerTurn,
-      pgnImport = None
+      pdnImport = None
     ).start
   }
 

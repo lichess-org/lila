@@ -1,4 +1,4 @@
-package lila.pref
+package lidraughts.pref
 
 import play.api.mvc.Request
 

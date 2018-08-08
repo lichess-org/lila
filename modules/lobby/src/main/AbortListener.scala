@@ -1,7 +1,7 @@
-package lila.lobby
+package lidraughts.lobby
 
-import lila.game.Pov
-import lila.user.UserRepo
+import lidraughts.game.Pov
+import lidraughts.user.UserRepo
 
 private[lobby] final class AbortListener(seekApi: SeekApi) {
 

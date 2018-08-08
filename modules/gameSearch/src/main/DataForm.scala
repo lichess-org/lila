@@ -1,13 +1,13 @@
-package lila.gameSearch
+package lidraughts.gameSearch
 
-import chess.{ Mode }
+import draughts.{ Mode }
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 
-import lila.common.Form._
-import lila.search.Range
+import lidraughts.common.Form._
+import lidraughts.search.Range
 
 private[gameSearch] final class DataForm {
 

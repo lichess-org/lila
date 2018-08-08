@@ -1,4 +1,4 @@
-package lila.forumSearch
+package lidraughts.forumSearch
 
 private[forumSearch] case class Query(text: String, staff: Boolean, troll: Boolean)
 

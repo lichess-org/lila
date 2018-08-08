@@ -1,9 +1,9 @@
-package lila.report
+package lidraughts.report
 
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.game.{ Game, GameRepo }
+import lidraughts.game.{ Game, GameRepo }
 
 final class AutoAnalysis(
     fishnet: akka.actor.ActorSelection,
@@ -24,8 +24,8 @@ final class AutoAnalysis(
       if (games.nonEmpty)
         logger.info(s"Auto-analyse ${games.size} games after report by ${candidate.reporter.user.id}")
       games foreach { game =>
-        lila.mon.cheat.autoAnalysis.reason("Report")()
-        fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
+        lidraughts.mon.cheat.autoAnalysis.reason("Report")()
+        fishnet ! lidraughts.hub.actorApi.fishnet.AutoAnalyse(game.id)
       }
     }
 

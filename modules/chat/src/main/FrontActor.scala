@@ -1,7 +1,7 @@
-package lila.chat
+package lidraughts.chat
 
 import akka.actor._
-import chess.Color
+import draughts.Color
 
 import actorApi._
 

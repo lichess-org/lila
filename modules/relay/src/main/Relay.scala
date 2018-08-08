@@ -1,9 +1,9 @@
-package lila.relay
+package lidraughts.relay
 
 import org.joda.time.DateTime
 
-import lila.study.{ Study }
-import lila.user.User
+import lidraughts.study.{ Study }
+import lidraughts.user.User
 
 case class Relay(
     _id: Relay.Id,
@@ -28,7 +28,7 @@ case class Relay(
   def studyId = Study.Id(id.value)
 
   def slug = {
-    val s = lila.common.String slugify name
+    val s = lidraughts.common.String slugify name
     if (s.isEmpty) "-" else s
   }
 

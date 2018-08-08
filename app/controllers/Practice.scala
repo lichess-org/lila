@@ -2,16 +2,16 @@ package controllers
 
 import play.api.libs.json._
 
-import lila.api.Context
-import lila.app._
-import lila.practice.JsonView._
-import lila.practice.{ UserStudy, PracticeSection, PracticeStudy }
-import lila.study.Study.WithChapter
-import lila.study.{ Chapter, Study => StudyModel }
-import lila.tree.Node.partitionTreeJsonWriter
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.practice.JsonView._
+import lidraughts.practice.{ UserStudy, PracticeSection, PracticeStudy }
+import lidraughts.study.Study.WithChapter
+import lidraughts.study.{ Chapter, Study => StudyModel }
+import lidraughts.tree.Node.partitionTreeJsonWriter
 import views._
 
-object Practice extends LilaController {
+object Practice extends LidraughtsController {
 
   private def env = Env.practice
   private def studyEnv = Env.study
@@ -40,18 +40,19 @@ object Practice extends LilaController {
     env.api.structure.get.flatMap { struct =>
       struct.sections.find(_.id == sectionId).fold(notFound) { section =>
         select(section) ?? { study =>
-          Redirect(routes.Practice.show(section.id, study.slug, study.id.value)).fuccess
+          //Redirect(routes.Practice.show(section.id, study.slug, study.id.value)).fuccess
+          Redirect(routes.Lobby.home()).fuccess
         }
       }
     }
   }
 
-  private def showUserPractice(us: lila.practice.UserStudy)(implicit ctx: Context) = analysisJson(us) map {
+  private def showUserPractice(us: lidraughts.practice.UserStudy)(implicit ctx: Context) = analysisJson(us) map {
     case (analysisJson, studyJson) => NoCache(Ok(
-      html.practice.show(us, lila.practice.JsonView.JsData(
+      html.practice.show(us, lidraughts.practice.JsonView.JsData(
         study = studyJson,
         analysis = analysisJson,
-        practice = lila.practice.JsonView(us)
+        practice = lidraughts.practice.JsonView(us)
       ))
     ))
   }
@@ -75,20 +76,21 @@ object Practice extends LilaController {
         val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation, owner = false, me = ctx.me)
         val analysis = baseData ++ Json.obj(
           "treeParts" -> partitionTreeJsonWriter.writes {
-            lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
+            lidraughts.study.TreeBuilder(chapter.root, chapter.setup.variant)
           },
-          "practiceGoal" -> lila.practice.PracticeGoal(chapter)
+          "practiceGoal" -> lidraughts.practice.PracticeGoal(chapter)
         )
         (analysis, studyJson)
       }
   }
 
   def complete(chapterId: String, nbMoves: Int) = Auth { implicit ctx => me =>
-    env.api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
+    env.api.progress.setNbMoves(me, chapterId, lidraughts.practice.PracticeProgress.NbMoves(nbMoves))
   }
 
   def reset = AuthBody { implicit ctx => me =>
-    env.api.progress.reset(me) inject Redirect(routes.Practice.index)
+    //env.api.progress.reset(me) inject Redirect(routes.Practice.index)
+    env.api.progress.reset(me) inject Redirect(routes.Lobby.home())
   }
 
   def config = Auth { implicit ctx => me =>
@@ -106,7 +108,7 @@ object Practice extends LilaController {
       } { text =>
         ~env.api.config.set(text).right.toOption >>-
           env.api.structure.clear >>
-          Env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config)
+          Env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Lobby.home()) //Redirect(routes.Practice.config)
       }
     }
   }

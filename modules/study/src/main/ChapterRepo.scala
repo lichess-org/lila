@@ -1,9 +1,9 @@
-package lila.study
+package lidraughts.study
 
-import chess.format.pgn.Tags
+import draughts.format.pdn.Tags
 import reactivemongo.api.ReadPreference
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 final class ChapterRepo(coll: Coll) {
 
@@ -71,25 +71,28 @@ final class ChapterRepo(coll: Coll) {
   def setRelay(chapterId: Chapter.Id, relay: Chapter.Relay) =
     coll.updateField($id(chapterId), "relay", relay).void
 
+  def setRelayPath(chapterId: Chapter.Id, path: Path) =
+    coll.updateField($id(chapterId), "relay.path", path).void
+
   def setTagsFor(chapter: Chapter) =
     coll.updateField($id(chapter.id), "tags", chapter.tags).void
 
-  def setShapes(chapter: Chapter, path: Path, shapes: lila.tree.Node.Shapes): Funit =
+  def setShapes(chapter: Chapter, path: Path, shapes: lidraughts.tree.Node.Shapes): Funit =
     setNodeValue(chapter, path, "h", shapes.value.nonEmpty option shapes)
 
-  def setComments(chapter: Chapter, path: Path, comments: lila.tree.Node.Comments): Funit =
+  def setComments(chapter: Chapter, path: Path, comments: lidraughts.tree.Node.Comments): Funit =
     setNodeValue(chapter, path, "co", comments.value.nonEmpty option comments)
 
-  def setGamebook(chapter: Chapter, path: Path, gamebook: lila.tree.Node.Gamebook): Funit =
+  def setGamebook(chapter: Chapter, path: Path, gamebook: lidraughts.tree.Node.Gamebook): Funit =
     setNodeValue(chapter, path, "ga", gamebook.nonEmpty option gamebook)
 
-  def setGlyphs(chapter: Chapter, path: Path, glyphs: chess.format.pgn.Glyphs): Funit =
+  def setGlyphs(chapter: Chapter, path: Path, glyphs: draughts.format.pdn.Glyphs): Funit =
     setNodeValue(chapter, path, "g", glyphs.nonEmpty)
 
-  def setClock(chapter: Chapter, path: Path, clock: Option[chess.Centis]): Funit =
+  def setClock(chapter: Chapter, path: Path, clock: Option[draughts.Centis]): Funit =
     setNodeValue(chapter, path, "l", clock)
 
-  def setScore(chapter: Chapter, path: Path, score: Option[lila.tree.Eval.Score]): Funit =
+  def setScore(chapter: Chapter, path: Path, score: Option[lidraughts.tree.Eval.Score]): Funit =
     setNodeValue(chapter, path, "e", score)
 
   def setChildren(chapter: Chapter, path: Path, children: Node.Children): Funit =
@@ -155,7 +158,8 @@ final class ChapterRepo(coll: Coll) {
   def countByStudyId(studyId: Study.Id): Fu[Int] =
     coll.countSel($studyId(studyId))
 
-  def insert(s: Chapter): Funit = coll.insert(s).void
+  def insert(s: Chapter): Funit =
+    coll.insert(s).void
 
   def update(c: Chapter): Funit = coll.update($id(c.id), c).void
 

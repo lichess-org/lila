@@ -1,16 +1,16 @@
-package lila.round
+package lidraughts.round
 package actorApi
 
 import scala.concurrent.Promise
 
-import chess.{ MoveMetrics, Color }
-import chess.format.Uci
+import draughts.{ MoveMetrics, Color }
+import draughts.format.Uci
 
-import lila.common.IpAddress
-import lila.game.Event
-import lila.socket.SocketMember
-import lila.socket.Socket.Uid
-import lila.user.User
+import lidraughts.common.IpAddress
+import lidraughts.game.Event
+import lidraughts.socket.SocketMember
+import lidraughts.socket.Socket.Uid
+import lidraughts.user.User
 
 case class EventList(events: List[Event])
 
@@ -93,7 +93,8 @@ case class SocketStatus(
   def isGone(color: Color) = color.fold(whiteIsGone, blackIsGone)
   def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
 }
-case class SetGame(game: Option[lila.game.Game])
+case class SetGame(game: Option[lidraughts.game.Game])
+case object GetGame
 
 package round {
 
@@ -102,10 +103,11 @@ package round {
       uci: Uci,
       blur: Boolean,
       moveMetrics: MoveMetrics = MoveMetrics(),
-      promise: Option[Promise[Unit]] = None
+      promise: Option[Promise[Unit]] = None,
+      finalSquare: Boolean = false
   ) {
 
-    val trace = lila.mon.round.move.trace.create
+    val trace = lidraughts.mon.round.move.trace.create
   }
 
   case class PlayResult(events: Events, fen: String, lastMove: Option[String])
@@ -121,7 +123,6 @@ package round {
   case class DrawClaim(playerId: String)
   case class DrawYes(playerId: String)
   case class DrawNo(playerId: String)
-  case object DrawForce
   case class RematchYes(playerId: String)
   case class RematchNo(playerId: String)
   case class TakebackYes(playerId: String)
@@ -130,11 +131,12 @@ package round {
   case object QuietFlag
   case class ClientFlag(color: Color, fromPlayerId: Option[String])
   case object Abandon
-  case class ForecastPlay(lastMove: chess.Move)
+  case class ForecastPlay(lastMove: draughts.Move)
   case class Cheat(color: Color)
   case class HoldAlert(playerId: String, mean: Int, sd: Int, ip: IpAddress)
   case class GoBerserk(color: Color)
   case object NoStart
+  case object TooManyPlies
 }
 
 private[round] case object GetNbRounds

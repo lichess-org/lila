@@ -1,4 +1,4 @@
-package lila.common
+package lidraughts.common
 
 import com.typesafe.config.Config
 import org.joda.time.{ DateTime, Period }

@@ -1,4 +1,4 @@
-package lila.user
+package lidraughts.user
 
 object Links {
 
@@ -33,6 +33,7 @@ object Link {
     case object Twitch extends Site("Twitch", List("twitch.tv"))
     case object Github extends Site("Github", List("github.com"))
     case object VKontakte extends Site("VKontakte", List("vk.com"))
+    case object Lichess extends Site("Lichess.org", List("lichess.org"))
     case object ChessCom extends Site("Chess.com", List("chess.com"))
     case object Chess24 extends Site("Chess24", List("chess24.com"))
     case object GameKnot extends Site("GameKnot", List("gameknot.com"))
@@ -42,7 +43,7 @@ object Link {
 
     val allKnown: List[Site] = List(
       Twitter, Facebook, YouTube, Twitch, Github, VKontakte,
-      ChessCom, Chess24, GameKnot, ChessTempo, ChessCube
+      Lichess, ChessCom, Chess24, GameKnot, ChessTempo, ChessCube
     )
   }
 }

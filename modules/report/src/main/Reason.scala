@@ -1,4 +1,4 @@
-package lila.report
+package lidraughts.report
 
 sealed trait Reason {
 
@@ -24,7 +24,7 @@ object Reason {
   val keys = all map (_.key)
   val byKey = all map { v => (v.key, v) } toMap
 
-  implicit val reasonIso = lila.common.Iso[String, Reason](k => byKey.getOrElse(k, Other), _.key)
+  implicit val reasonIso = lidraughts.common.Iso[String, Reason](k => byKey.getOrElse(k, Other), _.key)
 
   def apply(key: String): Option[Reason] = byKey get key
 

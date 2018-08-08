@@ -1,4 +1,4 @@
-package lila.evaluation
+package lidraughts.evaluation
 
 sealed trait AccountAction {
   val description: String

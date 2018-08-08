@@ -1,4 +1,4 @@
-package lila.memo
+package lidraughts.memo
 
 import ornicar.scalalib.Zero
 import scala.concurrent.duration.FiniteDuration
@@ -13,8 +13,8 @@ final class LinearLimit(
 ) {
   private val storage = new ExpireSetMemo(ttl)
 
-  private val logger = lila.log("linearlimit")
-  private val monitor = lila.mon.security.linearLimit.generic(key)
+  private val logger = lidraughts.log("linearlimit")
+  private val monitor = lidraughts.mon.security.linearLimit.generic(key)
 
   logger.info(s"[start] $name")
 

@@ -1,9 +1,9 @@
-package lila.insight
+package lidraughts.insight
 
-import chess.opening.Ecopening
-import chess.{ Color, Role }
-import lila.game.{ Game, Pov }
-import lila.rating.PerfType
+import draughts.opening.Ecopening
+import draughts.{ Color, Role }
+import lidraughts.game.{ Game, Pov }
+import lidraughts.rating.PerfType
 import org.joda.time.DateTime
 import scalaz.NonEmptyList
 
@@ -19,7 +19,6 @@ case class Entry(
     opponentStrength: RelativeStrength,
     opponentCastling: Castling,
     moves: List[Move],
-    queenTrade: QueenTrade,
     result: Result,
     termination: Termination,
     ratingDiff: Int,
@@ -82,9 +81,9 @@ object Termination {
   val all = List(ClockFlag, Disconnect, Resignation, Draw, Stalemate, Checkmate)
   val byId = all map { p => (p.id, p) } toMap
 
-  import chess.{ Status => S }
+  import draughts.{ Status => S }
 
-  def fromStatus(s: chess.Status) = s match {
+  def fromStatus(s: draughts.Status) = s match {
     case S.Timeout => Disconnect
     case S.Outoftime => ClockFlag
     case S.Resign => Resignation
@@ -115,7 +114,7 @@ object Phase {
   case object End extends Phase(3, "Endgame")
   val all = List(Opening, Middle, End)
   val byId = all map { p => (p.id, p) } toMap
-  def of(div: chess.Division, ply: Int): Phase =
+  def of(div: draughts.Division, ply: Int): Phase =
     div.middle.fold[Phase](Opening) {
       case m if m > ply => Opening
       case m => div.end.fold[Phase](Middle) {

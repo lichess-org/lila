@@ -7,13 +7,13 @@ function mapValues(o, f) {
 }
 
 function init(cfg) {
-  return {
-    color: m.prop(cfg.color),
-    castles: mapValues(cfg.castles, m.prop),
-    baseUrl: cfg.baseUrl,
-    positions: cfg.positions,
-    i18n: cfg.i18n
-  };
+    return {
+        color: m.prop(cfg.color.toLowerCase()),
+        castles: mapValues(cfg.castles, m.prop),
+        baseUrl: cfg.baseUrl,
+        positions: cfg.positions,
+        i18n: cfg.i18n
+    };
 }
 
 function castlesAt(v) {
@@ -34,7 +34,7 @@ function fenMetadatas(data) {
 }
 
 function computeFen(data, cgFen) {
-  return cgFen + ' ' + fenMetadatas(data);
+  return data.color().toUpperCase() + ":" + cgFen;
 }
 
 function makeUrl(url, fen) {

@@ -1,7 +1,7 @@
-package lila.forum
+package lidraughts.forum
 
-import lila.db.BSON.LoggingHandler
-import lila.db.dsl._
+import lidraughts.db.BSON.LoggingHandler
+import lidraughts.db.dsl._
 import reactivemongo.bson._
 
 private object BSONHandlers {

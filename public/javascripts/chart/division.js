@@ -1,4 +1,4 @@
-lichess.divisionLines = function(div, trans) {
+lidraughts.divisionLines = function(div, trans) {
   var divisionLines = [];
   if (div.middle) {
     divisionLines.push({
@@ -8,7 +8,7 @@ lichess.divisionLines = function(div, trans) {
         align: 'left',
         y: 0,
         style: {
-          color: Highcharts.theme.lichess.text.weak
+          color: Highcharts.theme.lidraughts.text.weak
         }
       },
       color: '#639B24',
@@ -22,7 +22,7 @@ lichess.divisionLines = function(div, trans) {
         align: 'left',
         y: 0,
         style: {
-          color: Highcharts.theme.lichess.text.weak
+          color: Highcharts.theme.lidraughts.text.weak
         }
       },
       color: '#3093cc',
@@ -37,7 +37,7 @@ lichess.divisionLines = function(div, trans) {
       align: 'left',
       y: 0,
       style: {
-        color: Highcharts.theme.lichess.text.weak
+        color: Highcharts.theme.lidraughts.text.weak
       }
     },
     color: '#cc9730',

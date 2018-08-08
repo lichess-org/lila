@@ -1,4 +1,4 @@
-package lila.search
+package lidraughts.search
 
 import akka.actor.ActorSystem
 import com.typesafe.config.Config
@@ -6,7 +6,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     system: ActorSystem,
-    scheduler: lila.common.Scheduler
+    scheduler: lidraughts.common.Scheduler
 ) {
 
   private val Enabled = config getBoolean "enabled"
@@ -21,8 +21,8 @@ final class Env(
 object Env {
 
   lazy val current = "search" boot new Env(
-    config = lila.common.PlayApp loadConfig "search",
-    system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler
+    config = lidraughts.common.PlayApp loadConfig "search",
+    system = lidraughts.common.PlayApp.system,
+    scheduler = lidraughts.common.PlayApp.scheduler
   )
 }

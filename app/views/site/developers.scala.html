@@ -1,30 +1,30 @@
 @()(implicit ctx: Context)
 
 @themeParameters() = {
-<li>- <strong>theme</strong>: Controls the board theme. Available themes: @lila.pref.Theme.all.map(_.name).mkString(", ").</li>
+<li>- <strong>theme</strong>: Controls the board theme. Available themes: @lidraughts.pref.Theme.all.map(_.name).mkString(", ").</li>
 <li>- <strong>bg</strong>: Controls the background color. Available backgrounds: light, dark.</li>
 }
 
 @base.layout(title = "Developers") {
 
 <div class="content_box small_box">
-  <h1 class="lichess_title">Embed lichess in your site</h1>
+  <h1 class="lidraughts_title">Embed lidraughts in your site</h1>
 
   <p>
-    Do you have a website, and want to add a playable live chess section?<br />
+    Do you have a website, and want to add a playable live draughts section?<br />
     Add the following line to your site html:
   </p>
 
   <pre>&lt;script src="https://@netDomain/embed?w=1016&amp;h=650"&gt;&lt;/script&gt;</pre>
 
-  <p>The <strong>w</strong> and <strong>h</strong> parameters control the width and height of the chess window.</p>
+  <p>The <strong>w</strong> and <strong>h</strong> parameters control the width and height of the draughts window.</p>
 </div>
 
 <br />
 <br />
 
 <div class="content_box small_box developers">
-  <h1 id="embed-tv" class="lichess_title">Embed the Chess TV in your site</h1>
+  <h1 id="embed-tv" class="lidraughts_title">Embed the Draughts TV in your site</h1>
 
   <div style="text-align: center;">
     <script src="//@netDomain/tv/embed?theme=wood&bg=light"></script>
@@ -48,7 +48,7 @@
 <br />
 
 <div class="content_box small_box developers">
-  <h1 id="embed-puzzle" class="lichess_title">Embed the daily puzzle in your site</h1>
+  <h1 id="embed-puzzle" class="lidraughts_title">Embed the daily puzzle in your site</h1>
 
   <div style="text-align: center;">
     <script src="//@netDomain/training/embed?theme=auto&bg=auto"></script>
@@ -76,10 +76,10 @@
 <br />
 
 <div class="content_box small_box developers">
-  <h1 id="embed-study" class="lichess_title">Embed a chess analysis in your site</h1>
+  <h1 id="embed-study" class="lidraughts_title">Embed a draughts analysis in your site</h1>
 
   <div style="text-align: center;">
-    <iframe width=530 height=353 src="https://lichess.org/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto"
+    <iframe width=530 height=353 src="https://lidraughts.org/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto"
       frameborder=0 style="margin-bottom:1em"></iframe>
   </div>
 
@@ -89,7 +89,7 @@
   </p>
 
   <pre>@{"""<iframe width=600 height=397 frameborder=0
-src="https://lichess.org/study/embed/XtFCFYlM/GCUTf2Jk?theme=auto&bg=auto"
+src="https://lidraughts.org/study/embed/XtFCFYlM/GCUTf2Jk?theme=auto&bg=auto"
 ></iframe>"""}</pre>
 
   <p>
@@ -108,20 +108,20 @@ src="https://lichess.org/study/embed/XtFCFYlM/GCUTf2Jk?theme=auto&bg=auto"
 <br />
 
 <div class="content_box small_box developers">
-  <h1 id="embed-game" class="lichess_title">Embed a chess game in your site</h1>
+  <h1 id="embed-game" class="lidraughts_title">Embed a draughts game in your site</h1>
 
   <div style="text-align: center;">
-    <iframe width=530 height=353 src="https://lichess.org/embed/MPJcy1JW?bg=auto&theme=auto"
+    <iframe width=530 height=353 src="https://lidraughts.org/embed/MPJcy1JW?bg=auto&theme=auto"
       frameborder=0 style="margin-bottom:1em"></iframe>
   </div>
 
   <p>
-    On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom,
+    On a game analysis page, click the <em>"FEN &amp; PDN"</em> tab at the bottom,
     then <em>"@trans.embedInYourWebsite()"</em>.
   </p>
 
   <pre>@{"""<iframe width=600 height=397 frameborder=0
-src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
+src="https://lidraughts.org/embed/MPJcy1JW?theme=auto&bg=auto"
 ></iframe>"""}</pre>
 
   <p>
@@ -140,12 +140,12 @@ src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
 <br />
 
 <div class="content_box small_box developers">
-  <h1 id="use-api" class="lichess_title">Lichess HTTP API</h1>
+  <h1 id="use-api" class="lidraughts_title">Lidraughts HTTP API</h1>
 
-  <p>Lichess exposes a RESTful HTTP/JSON API that you are free to use without limitation.</p>
+  <p>Lidraughts exposes a RESTful HTTP/JSON API that you are free to use without limitation.</p>
   <br />
   <p>Read the documentation on
-    <a href="https://github.com/ornicar/lila#http-api">lichess github page</a>.
+    <a href="https://github.com/ornicar/lila#http-api">lidraughts github page</a>.
   </p>
 </div>
 
@@ -153,8 +153,8 @@ src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
 <br />
 
 <div class="content_box small_box developers">
-  <h1 id="use-api" class="lichess_title">Lichess Widgets</h1>
-  <p>Let your website/blog visitors know that you're playing on lichess!</p>
-  <p>See <a href="http://rubenwardy.com/lichess_widgets/">rubenwardy.com/lichess_widgets/</a> for widgets with your username and rating.</p>
+  <h1 id="use-api" class="lidraughts_title">Lidraughts Widgets</h1>
+  <p>Let your website/blog visitors know that you're playing on lidraughts!</p>
+  <p>See <a href="http://rubenwardy.com/lidraughts_widgets/">rubenwardy.com/lidraughts_widgets/</a> for widgets with your username and rating.</p>
 </div>
 }

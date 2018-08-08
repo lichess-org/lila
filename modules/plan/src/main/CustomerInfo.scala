@@ -1,4 +1,4 @@
-package lila.plan
+package lidraughts.plan
 
 sealed trait CustomerInfo
 

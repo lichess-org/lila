@@ -1,12 +1,12 @@
-package lila
+package lidraughts
 
-import lila.socket.WithSocket
+import lidraughts.socket.WithSocket
 
 package object study extends PackageObject with WithSocket {
 
-  private[study] val logger = lila.log("study")
+  private[study] val logger = lidraughts.log("study")
 
-  private[study] type ChapterMap = Map[lila.study.Chapter.Id, lila.study.Chapter]
+  private[study] type ChapterMap = Map[lidraughts.study.Chapter.Id, lidraughts.study.Chapter]
 
-  private[study] type LightStudyCache = lila.memo.AsyncCache[lila.study.Study.Id, Option[lila.study.Study.LightStudy]]
+  private[study] type LightStudyCache = lidraughts.memo.AsyncCache[lidraughts.study.Study.Id, Option[lidraughts.study.Study.LightStudy]]
 }

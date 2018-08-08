@@ -1,19 +1,19 @@
-package lila.studySearch
+package lidraughts.studySearch
 
 import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.common.paginator._
-import lila.hub.LateMultiThrottler
-import lila.hub.actorApi.study.RemoveStudy
-import lila.search._
-import lila.study.Study
-import lila.user.User
+import lidraughts.common.paginator._
+import lidraughts.hub.LateMultiThrottler
+import lidraughts.hub.actorApi.study.RemoveStudy
+import lidraughts.search._
+import lidraughts.study.Study
+import lidraughts.user.User
 
 final class Env(
     config: Config,
-    studyEnv: lila.study.Env,
+    studyEnv: lidraughts.study.Env,
     makeClient: Index => ESClient,
     system: ActorSystem
 ) {
@@ -43,18 +43,18 @@ final class Env(
         def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
       } mapFutureList studyEnv.pager.withChapters mapFutureList studyEnv.pager.withLiking(me),
       currentPage = page,
-      maxPerPage = lila.common.MaxPerPage(MaxPerPage)
+      maxPerPage = lidraughts.common.MaxPerPage(MaxPerPage)
     )
 
-  def cli = new lila.common.Cli {
+  def cli = new lidraughts.common.Cli {
     def process = {
       case "study" :: "search" :: "reset" :: Nil => api.reset("reset", system) inject "done"
       case "study" :: "search" :: "index" :: since :: Nil => api.reset(since, system) inject "done"
     }
   }
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    import lila.study.actorApi._
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
+    import lidraughts.study.actorApi._
     def receive = {
       case SaveStudy(study) => api store study
       case RemoveStudy(id, _) => client deleteById Id(id)
@@ -65,9 +65,9 @@ final class Env(
 object Env {
 
   lazy val current = "studySearch" boot new Env(
-    config = lila.common.PlayApp loadConfig "studySearch",
-    studyEnv = lila.study.Env.current,
-    makeClient = lila.search.Env.current.makeClient,
-    system = lila.common.PlayApp.system
+    config = lidraughts.common.PlayApp loadConfig "studySearch",
+    studyEnv = lidraughts.study.Env.current,
+    makeClient = lidraughts.search.Env.current.makeClient,
+    system = lidraughts.common.PlayApp.system
   )
 }

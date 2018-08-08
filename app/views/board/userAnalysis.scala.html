@@ -1,6 +1,6 @@
 @(data: play.api.libs.json.JsObject, pov: Pov)(implicit ctx: Context)
 
-@import lila.rating.PerfType.iconByVariant
+@import lidraughts.rating.PerfType.iconByVariant
 
 @moreCss = {
 @cssTag("analyse.css")
@@ -10,10 +10,10 @@
 }
 
 @moreJs = {
-@jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
+@jsAt(s"compiled/lidraughts.analyse${isProd??(".min")}.js")
 @embedJs {
-lichess = lichess || {};
-lichess.user_analysis = {
+lidraughts = lidraughts || {};
+lidraughts.user_analysis = {
 data: @safeJson(data),
 i18n: @userAnalysisI18n(
 withForecast = !pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined
@@ -34,7 +34,7 @@ tablebaseEndpoint: "@tablebaseEndpoint"
     <i data-icon="u"></i>
   </div>
   <div class="list">
-    @chess.variant.Variant.all.filterNot(chess.variant.FromPosition ==).map { v =>
+    @draughts.variant.Variant.all.filterNot(draughts.variant.FromPosition ==).map { v =>
     <a data-icon="@iconByVariant(v)" href="@routes.UserAnalysis.parse(v.key)">@v.name</a>
     }
   </div>
@@ -47,13 +47,17 @@ title = trans.analysis.txt(),
 moreCss = moreCss,
 moreJs = moreJs,
 side = side.some,
-chessground = false,
-openGraph = lila.app.ui.OpenGraph(
-title = "Chess analysis board",
+draughtsground = false,
+openGraph = lidraughts.app.ui.OpenGraph(
+title = "Draughts analysis board",
 url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
-description = "Analyse chess positions and variations on an interactive chess board").some,
+description = "Analyse draughts positions and variations on an interactive draughts board").some,
 zoomable = true) {
 <div class="analyse cg-512">
   @board.domPreload(none)
 </div>
+@if(isGranted(_.CreatePuzzles)) {
+<a class="fat button" style="text-align: center" onclick="$.ajax({ url: '/training/api/puzzle?token=secret', type: 'POST', data: JSON.stringify(window.mainlineUci()), dataType: 'text', contentType: 'application/json; charset=utf-8', success: function(response) { alert('success: ' + response.toString().replace('https:', 'http:')); }, error: function(response) { alert('error: ' + response.toString()); } });">Submit as puzzle</a>
+<a class="fat button" style="text-align: center" onclick="if (window.togglePuzzleMode()) alert('Puzzle mode enabled'); else alert('Puzzle mode disabled');">Split variations</a>
+}
 }

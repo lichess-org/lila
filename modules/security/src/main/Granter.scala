@@ -1,6 +1,6 @@
-package lila.security
+package lidraughts.security
 
-import lila.user.User
+import lidraughts.user.User
 
 object Granter {
 

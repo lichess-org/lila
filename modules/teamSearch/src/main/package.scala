@@ -1,6 +1,6 @@
-package lila
+package lidraughts
 
 package object teamSearch extends PackageObject {
 
-  private[teamSearch] val logger = lila.log("teamSearch")
+  private[teamSearch] val logger = lidraughts.log("teamSearch")
 }

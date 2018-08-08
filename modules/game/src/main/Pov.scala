@@ -1,6 +1,6 @@
-package lila.game
+package lidraughts.game
 
-import chess.Color
+import draughts.Color
 
 case class Pov(game: Game, color: Color) {
 
@@ -45,18 +45,19 @@ object Pov {
 
   def apply(game: Game): List[Pov] = game.players.map { apply(game, _) }
 
-  def first(game: Game) = apply(game, if (!game.variant.racingKings) game.firstPlayer else game.whitePlayer)
-  def second(game: Game) = apply(game, if (!game.variant.racingKings) game.secondPlayer else game.blackPlayer)
+  def first(game: Game) = apply(game, game.firstPlayer)
+  def second(game: Game) = apply(game, game.secondPlayer)
   def white(game: Game) = apply(game, game.whitePlayer)
   def black(game: Game) = apply(game, game.blackPlayer)
   def player(game: Game) = apply(game, game.player)
+  def opponent(game: Game) = apply(game, game.opponent(game.player))
 
   def apply(game: Game, player: Player) = new Pov(game, player.color)
 
   def apply(game: Game, playerId: String): Option[Pov] =
     game player playerId map { apply(game, _) }
 
-  def apply(game: Game, user: lila.user.User): Option[Pov] =
+  def apply(game: Game, user: lidraughts.user.User): Option[Pov] =
     game player user map { apply(game, _) }
 
   def ofUserId(game: Game, userId: String): Option[Pov] =

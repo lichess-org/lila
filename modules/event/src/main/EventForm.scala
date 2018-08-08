@@ -1,4 +1,4 @@
-package lila.event
+package lidraughts.event
 
 import org.joda.time.DateTime
 import play.api.data._
@@ -6,11 +6,11 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 import play.api.i18n.Lang
 
-import lila.i18n.LangList
+import lidraughts.i18n.LangList
 
 object EventForm {
 
-  import lila.common.Form.UTCDate._
+  import lidraughts.common.Form.UTCDate._
 
   val form = Form(mapping(
     "title" -> nonEmptyText(minLength = 3, maxLength = 40),
@@ -28,7 +28,7 @@ object EventForm {
     description = none,
     homepageHours = 0,
     url = "",
-    lang = lila.i18n.enLang.language,
+    lang = lidraughts.i18n.enLang.language,
     enabled = true,
     startsAt = DateTime.now,
     finishesAt = DateTime.now

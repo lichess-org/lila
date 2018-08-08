@@ -1,10 +1,10 @@
-@(events: List[lila.event.Event])(implicit ctx: Context)
+@(events: List[lidraughts.event.Event])(implicit ctx: Context)
 
 @title = {Event manager}
 
 @layout(title = title.body) {
 <div class="event_crud content_box no_padding">
-  <h1 class="lichess_title">
+  <h1 class="lidraughts_title">
     <a href="@routes.Event.form" data-icon="O" class="new"></a>
     @title
   </h1>

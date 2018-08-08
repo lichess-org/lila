@@ -1,6 +1,6 @@
-package lila.team
+package lidraughts.team
 
-import lila.db.dsl.Coll
+import lidraughts.db.dsl.Coll
 
 private final class Colls(
     val team: Coll,

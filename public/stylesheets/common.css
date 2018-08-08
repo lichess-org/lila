@@ -52,9 +52,9 @@ time {
   white-space: nowrap;
 }
 @font-face {
-  font-family: "lichess";
-  src: url("../font80/fonts/lichess.eot");
-  src: url("../font80/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font80/fonts/lichess.woff") format("woff"), url("../font80/fonts/lichess.ttf") format("truetype");
+  font-family: "lidraughts";
+  src: url("../font80/fonts/lidraughts.eot");
+  src: url("../font80/fonts/lidraughts.eot?#iefix") format("embedded-opentype"), url("../font80/fonts/lidraughts.woff") format("woff"), url("../font80/fonts/lidraughts.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -71,7 +71,7 @@ time {
 .is-after::after {
   font-size: 1.2em;
   vertical-align: middle;
-  font-family: "lichess" !important;
+  font-family: "lidraughts" !important;
   font-style: normal !important;
   font-weight: normal !important;
   text-transform: none !important;
@@ -156,11 +156,6 @@ body.blind_mode #blind_mode {
 }
 .color-icon.random::before {
   content: "l";
-}
-@font-face {
-  font-family: 'ChessSansPiratf';
-  src: url("../fonts/ChessSansPiratf.eot");
-  src: url("../fonts/ChessSansPiratf.eot?#iefix") format("embedded-opentype"), url("../fonts/ChessSansPiratf.woff") format("woff"), url("../fonts/ChessSansPiratf.ttf") format("truetype"), url("../fonts/ChessSansPiratf.svg#lichess") format("svg");
 }
 .thin {
   font-family: 'Roboto';
@@ -540,6 +535,11 @@ body.offline #reconnecting,
   color: #dc322f;
 }
 
+p.errortext {
+  margin-top: 4px;
+  color: #dc322f;
+}
+
 #clinput {
   display: flex;
   height: 24px;
@@ -572,7 +572,7 @@ body.dark #clinput input {
   position: absolute;
   top: -100px;
 }
-#lichess {
+#lidraughts {
   margin-left: 211px;
 }
 #site_title {
@@ -633,7 +633,7 @@ div.content_box_top {
 div.content_box_top .link:hover {
   background: #fff;
 }
-div.content_box_top h1.lichess_title {
+div.content_box_top h1.lidraughts_title {
   display: inline;
   padding: 0;
 }
@@ -648,7 +648,7 @@ div.content_box_inter {
   display: block;
   white-space: nowrap;
 }
-div.content_box .lichess_title {
+div.content_box .lidraughts_title {
   font-size: 2em;
   display: block;
   margin-bottom: 0.5em;
@@ -1162,37 +1162,37 @@ body.base .fbt.active {
   border-color: #aaa !important;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
 }
-div.checkmateFen {
+div.captureFen {
   float: left;
   width: 250px;
   margin-left: 110px;
   cursor: pointer;
 }
-div.checkmateSection {
+div.captureSection {
   float: left;
   font-size: 0.9em;
 }
-div.checkmateSection label {
+div.captureSection label {
   display: block;
   width: 310px;
 }
-div.checkmateSection div.result {
+div.captureSection div.result {
   display: none;
   height: 48px;
   line-height: 48px;
   vertical-align: middle;
   font-weight: bold;
 }
-div.checkmateSection div.success {
+div.captureSection div.success {
   color: #759900;
 }
-div.checkmateSection div.failure {
+div.captureSection div.failure {
   color: #ac524f;
 }
-div.checkmateCaptcha.success div.success {
+div.captureCaptcha.success div.success {
   display: block;
 }
-div.checkmateCaptcha.failure div.failure {
+div.captureCaptcha.failure div.failure {
   display: block;
 }
 /* gamelist.css */
@@ -1347,7 +1347,7 @@ div.vstext .right {
   width: 224px;
   height: 224px;
 }
-#challenge .lichess_overboard .cg-board-wrap {
+#challenge .lidraughts_overboard .cg-board-wrap {
   width: 224px!important;
   height: 224px!important;
   margin: auto;
@@ -1381,12 +1381,12 @@ div.vstext .right {
   height: 160px;
 }
 
-div.lichess_overboard h2 {
+div.lidraughts_overboard h2 {
   margin-bottom: 1em;
   font-size: 1.4em;
   padding: 0 2em;
 }
-div.lichess_overboard .target {
+div.lidraughts_overboard .target {
   display: inline-block;
   margin-bottom: 2em;
 }
@@ -1707,7 +1707,7 @@ textarea.copyable {
 .hint--left:hover:before {
   transform: translateX(-8px);
 }
-#lichess .continue_with {
+#lidraughts .continue_with {
   display: none;
 }
 .continue_with .button {
@@ -1747,7 +1747,7 @@ textarea.copyable {
   margin: 0.8em 0;
 }
 #modal-wrap .close,
-div.lichess_overboard .close {
+div.lidraughts_overboard .close {
   position:absolute;
   top: -13px;
   right: -13px;
@@ -1761,7 +1761,7 @@ div.lichess_overboard .close {
   cursor: pointer;
 }
 #modal-wrap .close:hover,
-div.lichess_overboard .close:hover {
+div.lidraughts_overboard .close:hover {
   background: #f0f0f0;
 }
 

@@ -10,7 +10,7 @@ export default function(ctrl: LobbyController, hooks: Hook[]): Filtered {
   const f = ctrl.data.filter,
   seen: string[] = [],
   visible: Hook[] = [],
-  contains = window.lichess.fp.contains;
+  contains = window.lidraughts.fp.contains;
   let variant: string, hidden = 0;
   hooks.forEach(function(hook) {
     variant = hook.variant;

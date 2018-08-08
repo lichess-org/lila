@@ -23,7 +23,7 @@ $(function() {
 
     var showColor = function() {
       color = colorPref == 'random' ? ['white', 'black'][Math.round(Math.random())] : colorPref;
-      if (!ground) ground = Chessground($board[0], {
+      if (!ground) ground = Draughtsground($board[0], {
         coordinates: false,
         drawable: { enabled: false },
         movable: {
@@ -86,16 +86,11 @@ $(function() {
     };
 
     var newCoord = function(prevCoord) {
-      // disallow the previous coordinate's row or file from being selected
-      var files = 'abcdefgh';
-      var fileIndex = files.indexOf(prevCoord[0]);
-      files = files.slice(0, fileIndex) + files.slice(fileIndex + 1, 8);
-
-      var rows = '12345678';
-      var rowIndex = rows.indexOf(prevCoord[1]);
-      rows = rows.slice(0, rowIndex) + rows.slice(rowIndex + 1, 8);
-
-      return files[Math.round(Math.random() * (files.length - 1))] + rows[Math.round(Math.random() * (rows.length - 1))];
+      // disallow the previous coordinate from being selected
+      var coord = 1 + Math.floor(Math.random() * 50)
+      while (coord == prevCoord)
+        coord = 1 + Math.floor(Math.random() * 50)
+      return coord;
     };
 
     var advanceCoords = function() {
@@ -159,7 +154,7 @@ $(function() {
         ground.set({
           events: {
             select: function(key) {
-              var hit = key == $coords[0].text();
+              var hit = (key == $coords[0].text() || key == "0" + $coords[0].text());
               if (hit) {
                 score++;
                 $score.text(score);
@@ -174,12 +169,12 @@ $(function() {
             }
           }
         });
-        $coords[0].text(newCoord('a1'));
+        $coords[0].text(newCoord('1'));
         for (i = 1; i < $coords.length; i++)
           $coords[i].text(newCoord($coords[i - 1].text()));
         tick();
       }, 1000);
     });
   });
-  lichess.pubsub.emit('reset_zoom')();
+  lidraughts.pubsub.emit('reset_zoom')();
 });

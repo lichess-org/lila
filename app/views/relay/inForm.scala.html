@@ -12,7 +12,7 @@
 @if(isGranted(_.Relay)) {
 @base.form.group(
 form("official"),
-Html("Official lichess broadcast"),
+Html("Official lidraughts broadcast"),
 klass = "checkbox",
 help = Html("Feature on /broadcast - for admins only").some) {
 <input type="checkbox" name="@form("official").name" @if(form("official").value){checked} value="true" />
@@ -22,7 +22,7 @@ help = Html("Feature on /broadcast - for admins only").some) {
 @base.form.input(form("syncUrl"), typ = "url", required = true)
 }
 @base.form.group(form("syncType"), Html("Source format")) {
-@base.form.select(form("syncType"), lila.relay.RelayForm.syncTypes)
+@base.form.select(form("syncType"), lidraughts.relay.RelayForm.syncTypes)
 }
 @base.form.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), help = Html("Optional, if you know when the event starts").some) {
 @base.form.flatpickr(form("startsAt"))

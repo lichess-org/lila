@@ -4,11 +4,11 @@ import scala.concurrent.duration._
 
 import io.prismic.Fragment.DocumentLink
 import io.prismic.{ Api => PrismicApi, _ }
-import lila.app._
+import lidraughts.app._
 
 object Prismic {
 
-  private val logger = lila.log("prismic")
+  private val logger = lidraughts.log("prismic")
 
   val prismicLogger = (level: Symbol, message: String) => level match {
     case 'DEBUG => logger debug message
@@ -46,11 +46,11 @@ object Prismic {
   } recover {
     case e: Exception =>
       logger.error(s"bookmark:$name", e)
-      lila.mon.http.prismic.timeout()
+      lidraughts.mon.http.prismic.timeout()
       none
   }
 
-  def getVariant(variant: chess.variant.Variant) = prismicApi flatMap { api =>
+  def getVariant(variant: draughts.variant.Variant) = prismicApi flatMap { api =>
     api.forms("variant")
       .query(s"""[[:d = at(my.variant.key, "${variant.key}")]]""")
       .ref(api.master.ref)

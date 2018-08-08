@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.TourMiniView], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable.WithMatchup], userTv: Option[User] = None, chatOption: Option[lila.chat.UserChat.Mine], bookmarked: Boolean)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lidraughts.tournament.TourMiniView], simul: Option[lidraughts.simul.Simul], cross: Option[lidraughts.game.Crosstable.WithMatchup], userTv: Option[User] = None, chatOption: Option[lidraughts.chat.UserChat.Mine], bookmarked: Boolean)(implicit ctx: Context)
 
 @title = @{ s"${gameVsText(pov.game, withRatings = true)} in ${pov.gameId}" }
 
@@ -7,13 +7,13 @@
 @embedJs {
 window.customWS = true;
 window.onload = function() {
-LichessRound.boot({
+LidraughtsRound.boot({
 data: @safeJson(data),
 i18n: @jsI18n(pov.game),
 chat: @jsOrNull(chatOption map { c =>
 chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
 })
-}, document.getElementById('lichess'));
+}, document.getElementById('lidraughts'));
 };
 }
 }
@@ -36,7 +36,7 @@ underchat = underchat.some,
 moreJs = moreJs,
 moreCss = cssTag("chat.css"),
 openGraph = povOpenGraph(pov).some,
-chessground = false,
+draughtsground = false,
 atom = atom.some) {
 <div class="round cg-512">
   @board.domPreload(pov.some)

@@ -7,7 +7,7 @@ import * as poolRangeStorage from './poolRangeStorage';
 import { LobbyOpts, LobbyData, Tab, Mode, Sort, Filter, Hook, Seek, Pool, PoolMember } from './interfaces';
 import LobbySocket from './socket';
 
-const li = window.lichess;
+const li = window.lidraughts;
 
 export default class LobbyController {
 
@@ -29,7 +29,7 @@ export default class LobbyController {
   redraw: () => void;
   pools: Pool[];
 
-  private poolInStorage: LichessStorage;
+  private poolInStorage: LidraughtsStorage;
   private flushHooksTimeout?: number;
   private alreadyWatching: string[] = [];
 
@@ -151,9 +151,9 @@ export default class LobbyController {
   };
 
   setSeeks = (seeks: Seek[]) => {
-    this.data.seeks = seeks;
-    seekRepo.initAll(this);
-    this.redraw();
+      this.data.seeks = seeks;
+      seekRepo.initAll(this);
+      this.redraw();
   };
 
   clickPool = (id: string) => {
@@ -215,7 +215,11 @@ export default class LobbyController {
 
   setRedirecting = () => {
     this.redirecting = true;
-    setTimeout(() => this.redirecting = false, 2000);
+    setTimeout(() => {
+      this.redirecting = false;
+      this.redraw();
+    }, 4000);
+    this.redraw();
   };
 
   awake = () => {
@@ -233,9 +237,9 @@ export default class LobbyController {
   // after click on round "new opponent" button
   private onNewOpponent() {
     if (location.hash.indexOf('#pool/') === 0) {
-      const regex = /^#pool\/(\d+\+\d+)$/,
+      const regex = /^#pool\/(\d+\+\d+)(?:\/(.+))?$/,
       match = regex.exec(location.hash),
-      member: any = { id: match![1] },
+      member: any = { id: match![1], blocking: match![2] },
       range = poolRangeStorage.get(member.id);
       if (range) member.range = range;
       if (match) {

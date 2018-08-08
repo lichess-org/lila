@@ -1,6 +1,6 @@
-@(c: lila.challenge.Challenge, json: play.api.libs.json.JsObject, error: Option[String])(implicit ctx: Context)
+@(c: lidraughts.challenge.Challenge, json: play.api.libs.json.JsObject, error: Option[String])(implicit ctx: Context)
 
-@import lila.challenge.Challenge.Status
+@import lidraughts.challenge.Challenge.Status
 
 @cancelForm = {
 <form method="post" action="@routes.Challenge.cancel(c.id)" class="xhr">
@@ -10,13 +10,13 @@
 
 @round.layout(
 title = challengeTitle(c),
-side = Html(""),
+side = emptyHtml,
 openGraph = challengeOpenGraph(c).some,
 moreJs = js(c, json, true),
 moreCss = cssTag("challenge.css")) {
-<div class="lichess_game" id="challenge">
-  <div class="lichess_board_wrap cg-512">
-    <div class="lichess_overboard padded">
+<div class="lidraughts_game" id="challenge">
+  <div class="lidraughts_board_wrap cg-512">
+    <div class="lidraughts_overboard padded">
       @c.status match {
       case Status.Created | Status.Offline => {
       <div id="ping_challenge">
@@ -28,14 +28,14 @@ moreCss = cssTag("challenge.css")) {
         @cancelForm
         }.getOrElse {
         @trans.toInviteSomeoneToPlayGiveThisUrl():
-        <input id="lichess_id_input" class="copyable autoselect" spellcheck="false" readonly="true" value="@netBaseUrl@routes.Round.watcher(c.id, "white")" />
-        <button class="copy button" data-rel="lichess_id_input" data-icon="&quot;"></button>
+        <input id="lidraughts_id_input" class="copyable autoselect" spellcheck="false" readonly="true" value="@netBaseUrl@routes.Round.watcher(c.id, "white")" />
+        <button class="copy button" data-rel="lidraughts_id_input" data-icon="&quot;"></button>
         <br />
         @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()
         <br />
         @if(ctx.isAuth) {
         <br />
-        Or invite a lichess user:<br />
+        Or invite a lidraughts user:<br />
         <form class="user-invite" action="@routes.Challenge.toFriend(c.id)" method="POST">
           <input name="username" class="friend-autocomplete" placeholder="@trans.search()" />
           @error.map { e =>
@@ -74,8 +74,8 @@ moreCss = cssTag("challenge.css")) {
       <br />
       @explanation(c)
     </div>
-    <div class="lichess_board"></div>
+    <div class="lidraughts_board"></div>
   </div>
-  <div class="lichess_ground"></div>
+  <div class="lidraughts_ground"></div>
 </div>
 }

@@ -1,14 +1,14 @@
-package lila.study
+package lidraughts.study
 
-import lila.common.paginator.Paginator
-import lila.db.dsl._
-import lila.db.paginator.{ Adapter, CachedAdapter }
-import lila.user.User
+import lidraughts.common.paginator.Paginator
+import lidraughts.db.dsl._
+import lidraughts.db.paginator.{ Adapter, CachedAdapter }
+import lidraughts.user.User
 
 final class StudyPager(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo,
-    maxPerPage: lila.common.MaxPerPage
+    maxPerPage: lidraughts.common.MaxPerPage
 ) {
 
   import BSONHandlers._

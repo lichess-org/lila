@@ -1,4 +1,4 @@
-package lila.security
+package lidraughts.security
 
 sealed abstract class Permission(val name: String, val children: List[Permission] = Nil) {
 
@@ -13,6 +13,7 @@ object Permission {
 
   case object ModerateQa extends Permission("ROLE_MODERATE_QA")
 
+  case object CreatePuzzles extends Permission("ROLE_CREATE_PUZZLES")
   case object ChatTimeout extends Permission("ROLE_CHAT_TIMEOUT")
   case object UserSpy extends Permission("ROLE_USER_SPY")
   case object UserEvaluate extends Permission("ROLE_USER_EVALUATE")
@@ -40,7 +41,6 @@ object Permission {
   case object PublicMod extends Permission("ROLE_PUBLIC_MOD")
   case object Developer extends Permission("ROLE_DEVELOPER")
   case object Coach extends Permission("ROLE_COACH")
-  case object PreviewCoach extends Permission("ROLE_PREVIEW_COACH")
   case object ModNote extends Permission("ROLE_MOD_NOTE")
   case object RemoveRanking extends Permission("ROLE_REMOVE_RANKING")
   case object ReportBan extends Permission("ROLE_REPORT_BAN")
@@ -63,8 +63,8 @@ object Permission {
     Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount, ViewPrivateComms,
     ChatTimeout, MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
     MessageAnyone, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
-    PreviewCoach, PracticeConfig, RemoveRanking, ReportBan, Beta, DisapproveCoachReview,
-    Relay, Streamers
+    PracticeConfig, RemoveRanking, ReportBan, Beta, DisapproveCoachReview,
+    Relay, Streamers, CreatePuzzles
   ))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(
@@ -75,8 +75,8 @@ object Permission {
     Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,
     UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig, PracticeConfig,
     Beta, MessageAnyone, UserSearch, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
-    PublicMod, Developer, Coach, PreviewCoach, ModNote, RemoveRanking, ReportBan,
-    Relay, Cli, Settings, Streamers
+    PublicMod, Developer, Coach, ModNote, RemoveRanking, ReportBan,
+    Relay, Cli, Settings, Streamers, CreatePuzzles
   )
 
   lazy private val all: List[Permission] = SuperAdmin :: allButSuperAdmin

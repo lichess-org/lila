@@ -1,7 +1,7 @@
 package controllers
 
-import lila.app._
-import lila.qa.{ QuestionId, AnswerId, QaAuth }
+import lidraughts.app._
+import lidraughts.qa.{ QuestionId, AnswerId, QaAuth }
 import views._
 
 object QaAnswer extends QaController {

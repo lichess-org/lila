@@ -1,7 +1,7 @@
-package lila.plan
+package lidraughts.plan
 
-import lila.db.dsl._
-import lila.user.UserRepo
+import lidraughts.db.dsl._
+import lidraughts.user.UserRepo
 
 import org.joda.time.DateTime
 

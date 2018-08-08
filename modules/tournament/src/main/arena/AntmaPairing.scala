@@ -1,7 +1,7 @@
-package lila.tournament
+package lidraughts.tournament
 package arena
 
-import lila.common.WMMatching
+import lidraughts.common.WMMatching
 import PairingSystem.Data
 
 private object AntmaPairing {

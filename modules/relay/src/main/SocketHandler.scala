@@ -1,11 +1,11 @@
-package lila.relay
+package lidraughts.relay
 
 import akka.actor._
 
-import lila.socket.Socket.Uid
-import lila.socket.{ Handler, JsSocketHandler }
-import lila.study.{ Study, Socket, SocketHandler => StudyHandler }
-import lila.user.User
+import lidraughts.socket.Socket.Uid
+import lidraughts.socket.{ Handler, JsSocketHandler }
+import lidraughts.study.{ Study, Socket, SocketHandler => StudyHandler }
+import lidraughts.user.User
 
 private[relay] final class SocketHandler(
     studyHandler: StudyHandler,

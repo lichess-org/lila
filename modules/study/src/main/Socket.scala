@@ -1,24 +1,24 @@
-package lila.study
+package lidraughts.study
 
 import akka.actor._
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import chess.Centis
-import chess.format.pgn.Glyphs
-import lila.hub.TimeBomb
-import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.Socket.Uid
-import lila.socket.{ SocketActor, History, Historical, AnaDests }
-import lila.tree.Node.{ Shapes, Comment }
-import lila.user.User
+import draughts.Centis
+import draughts.format.pdn.Glyphs
+import lidraughts.hub.TimeBomb
+import lidraughts.socket.actorApi.{ Connected => _, _ }
+import lidraughts.socket.Socket.Uid
+import lidraughts.socket.{ SocketActor, History, Historical, AnaDests }
+import lidraughts.tree.Node.{ Shapes, Comment }
+import lidraughts.user.User
 
 private final class Socket(
     studyId: Study.Id,
     jsonView: JsonView,
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo,
-    lightUser: lila.common.LightUser.Getter,
+    lightUser: lidraughts.common.LightUser.Getter,
     val history: History[Socket.Messadata],
     uidTimeout: Duration,
     socketTimeout: Duration,
@@ -28,7 +28,7 @@ private final class Socket(
   import Socket._
   import JsonView._
   import jsonView.membersWrites
-  import lila.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites, clockWrites }
+  import lidraughts.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites, clockWrites }
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -36,19 +36,19 @@ private final class Socket(
 
   override def preStart(): Unit = {
     super.preStart()
-    lilaBus.subscribe(self, Symbol(s"chat-$studyId"))
+    lidraughtsBus.subscribe(self, Symbol(s"chat-$studyId"))
   }
 
   override def postStop(): Unit = {
     super.postStop()
-    lilaBus.unsubscribe(self)
+    lidraughtsBus.unsubscribe(self)
   }
 
   def sendStudyDoor(enters: Boolean)(userId: User.ID) =
     lightStudyCache.get(studyId) foreach {
       _ foreach { study =>
-        lilaBus.publish(
-          lila.hub.actorApi.study.StudyDoor(
+        lidraughtsBus.publish(
+          lidraughts.hub.actorApi.study.StudyDoor(
             userId = userId,
             studyId = studyId.value,
             contributor = study contributors userId,
@@ -174,9 +174,9 @@ private final class Socket(
       "w" -> who(uid)
     ), noMessadata)
 
-    case lila.chat.actorApi.ChatLine(_, line) => line match {
-      case line: lila.chat.UserLine =>
-        notifyVersion("message", lila.chat.JsonView(line), Messadata(trollish = line.troll))
+    case lidraughts.chat.actorApi.ChatLine(_, line) => line match {
+      case line: lidraughts.chat.UserLine =>
+        notifyVersion("message", lidraughts.chat.JsonView(line), Messadata(trollish = line.troll))
       case _ =>
     }
 
@@ -225,7 +225,7 @@ private final class Socket(
     case Broadcast(t, msg) => notifyAll(t, msg)
 
     case ServerEval.Progress(chapterId, tree, analysis, division) =>
-      import lila.game.JsonView.divisionWriter
+      import lidraughts.game.JsonView.divisionWriter
       notifyAll("analysisProgress", Json.obj(
         "analysis" -> analysis,
         "ch" -> chapterId,
@@ -235,7 +235,7 @@ private final class Socket(
 
     case GetNbMembers => sender ! NbMembers(members.size)
 
-  }: Actor.Receive) orElse lila.chat.Socket.out(
+  }: Actor.Receive) orElse lidraughts.chat.Socket.out(
     send = (t, d, _) => notifyVersion(t, d, noMessadata)
   )
 
@@ -291,7 +291,7 @@ object Socket {
       channel: JsChannel,
       userId: Option[String],
       troll: Boolean
-  ) extends lila.socket.SocketMember
+  ) extends lidraughts.socket.SocketMember
 
   case class Who(u: String, s: Uid)
   import JsonView.uidWriter
@@ -306,7 +306,7 @@ object Socket {
   case class AddNode(
       position: Position.Ref,
       node: Node,
-      variant: chess.variant.Variant,
+      variant: draughts.variant.Variant,
       uid: Uid,
       sticky: Boolean,
       relay: Option[Chapter.Relay]
@@ -328,7 +328,7 @@ object Socket {
   case class AddChapter(uid: Uid, position: Position.Ref, sticky: Boolean)
   case class SetConceal(position: Position.Ref, ply: Option[Chapter.Ply])
   case class SetLiking(liking: Study.Liking, uid: Uid)
-  case class SetTags(chapterId: Chapter.Id, tags: chess.format.pgn.Tags, uid: Uid)
+  case class SetTags(chapterId: Chapter.Id, tags: draughts.format.pdn.Tags, uid: Uid)
   case class Broadcast(t: String, msg: JsObject)
 
   case object GetNbMembers

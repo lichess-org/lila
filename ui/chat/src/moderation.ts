@@ -73,7 +73,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   const perms = ctrl.permissions();
 
   const infos = data.history ? h('div.infos.block', [
-    window.lichess.numberFormat(data.games || 0) + ' games',
+    window.lidraughts.numberFormat(data.games || 0) + ' games',
     data.troll ? 'TROLL' : undefined,
     data.engine ? 'ENGINE' : undefined,
     data.booster ? 'BOOSTER' : undefined
@@ -119,7 +119,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       h('h2', 'Timeout history'),
       h('table', h('tbody.slist', {
         hook: {
-          insert: () => window.lichess.pubsub.emit('content_loaded')()
+          insert: () => window.lidraughts.pubsub.emit('content_loaded')()
         }
       }, data.history.map(function(e) {
         return h('tr', [

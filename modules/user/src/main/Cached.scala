@@ -1,21 +1,21 @@
-package lila.user
+package lidraughts.user
 
 import scala.concurrent.duration._
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
-import lila.common.LightUser
-import lila.db.dsl._
-import lila.rating.{ Perf, PerfType }
+import lidraughts.common.LightUser
+import lidraughts.db.dsl._
+import lidraughts.rating.{ Perf, PerfType }
 import User.{ LightPerf, LightCount }
 
 final class Cached(
     userColl: Coll,
     nbTtl: FiniteDuration,
-    onlineUserIdMemo: lila.memo.ExpireSetMemo,
-    mongoCache: lila.memo.MongoCache.Builder,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    onlineUserIdMemo: lidraughts.memo.ExpireSetMemo,
+    mongoCache: lidraughts.memo.MongoCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     rankingApi: RankingApi
 ) {
 
@@ -32,28 +32,14 @@ final class Cached(
     blitz ← top10Perf(PerfType.Blitz.id)
     rapid ← top10Perf(PerfType.Rapid.id)
     classical ← top10Perf(PerfType.Classical.id)
-    chess960 ← top10Perf(PerfType.Chess960.id)
-    kingOfTheHill ← top10Perf(PerfType.KingOfTheHill.id)
-    threeCheck ← top10Perf(PerfType.ThreeCheck.id)
-    antichess <- top10Perf(PerfType.Antichess.id)
-    atomic <- top10Perf(PerfType.Atomic.id)
-    horde <- top10Perf(PerfType.Horde.id)
-    racingKings <- top10Perf(PerfType.RacingKings.id)
-    crazyhouse <- top10Perf(PerfType.Crazyhouse.id)
+    frisian ← top10Perf(PerfType.Frisian.id)
   } yield Perfs.Leaderboards(
     ultraBullet = ultraBullet,
     bullet = bullet,
     blitz = blitz,
     rapid = rapid,
     classical = classical,
-    crazyhouse = crazyhouse,
-    chess960 = chess960,
-    kingOfTheHill = kingOfTheHill,
-    threeCheck = threeCheck,
-    antichess = antichess,
-    atomic = atomic,
-    horde = horde,
-    racingKings = racingKings
+    frisian = frisian
   )
 
   val top10Perf = mongoCache[Perf.ID, List[LightPerf]](

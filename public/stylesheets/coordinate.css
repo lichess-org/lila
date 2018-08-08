@@ -61,20 +61,20 @@ form.color .color i {
   padding: 0;
 }
 form.color .color_1 i {
-  background-image: url(../piece/cburnett/wK.svg);
+  background-image: url(../piece/wide/wK.svg);
 }
 form.color .color_2 i {
-  background-image: url(../piece/cburnett/wbK.svg);
+  background-image: url(../piece/wide/wbK.svg);
 }
 form.color .color_3 i {
-  background-image: url(../piece/cburnett/bK.svg);
+  background-image: url(../piece/wide/bK.svg);
 }
-#trainer .lichess_board {
+#trainer .lidraughts_board {
   display: none;
   border: 1px solid #ccc;
 }
-#trainer.white .white .lichess_board,
-#trainer.black .black .lichess_board {
+#trainer.white .white .lidraughts_board,
+#trainer.black .black .lidraughts_board {
   display: block;
 }
 #trainer .overlay_container {

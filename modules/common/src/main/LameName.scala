@@ -1,4 +1,4 @@
-package lila.common
+package lidraughts.common
 
 object LameName {
 
@@ -7,11 +7,11 @@ object LameName {
 
   def anyName(name: String) = lameWords.matcher(name).find
 
-  def anyNameButLichessIsOk(name: String) = lameWords.matcher {
-    lichessRegex.replaceAllIn(name, "")
+  def anyNameButLidraughtsIsOk(name: String) = lameWords.matcher {
+    lidraughtsRegex.replaceAllIn(name, "")
   }.find
 
-  private val lichessRegex = "(?i)lichess".r
+  private val lidraughtsRegex = "(?i)lidraughts".r
 
   private val lameTitlePrefix =
     "[Ww]?[NCFIGl1L]M|(?i:w?[ncfigl1])m[-_A-Z0-9]".r.pattern
@@ -20,7 +20,7 @@ object LameName {
     val extras = Map(
       'a' -> "4",
       'e' -> "38",
-      'g' -> "q",
+      'g' -> "q9",
       'i' -> "l1",
       'l' -> "I1",
       'o' -> "08",
@@ -61,7 +61,7 @@ object LameName {
       "buttsex",
       "retard",
       "pedo",
-      "lichess",
+      "lidraughts",
       "moderator",
       "cheat",
       "administrator",
@@ -69,7 +69,8 @@ object LameName {
       "dick",
       "wanker",
       "feces",
-      "fart"
+      "fart",
+      "cuck"
     ).map {
         _.map(subs).map(_ + "+").mkString
       }.mkString("|").r.pattern

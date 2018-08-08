@@ -1,4 +1,4 @@
-package lila.importer
+package lidraughts.importer
 
 import com.typesafe.config.Config
 
@@ -18,8 +18,8 @@ final class Env(
 object Env {
 
   lazy val current = "importer" boot new Env(
-    config = lila.common.PlayApp loadConfig "importer",
-    scheduler = lila.common.PlayApp.system.scheduler,
-    roundMap = lila.round.Env.current.roundMap
+    config = lidraughts.common.PlayApp loadConfig "importer",
+    scheduler = lidraughts.common.PlayApp.system.scheduler,
+    roundMap = lidraughts.round.Env.current.roundMap
   )
 }

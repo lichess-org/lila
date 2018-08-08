@@ -1,6 +1,6 @@
-package lila.chat
+package lidraughts.chat
 
-import lila.user.User
+import lidraughts.user.User
 
 case class UserModInfo(
     user: User,

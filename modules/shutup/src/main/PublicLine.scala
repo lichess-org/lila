@@ -1,7 +1,7 @@
-package lila.shutup
+package lidraughts.shutup
 
 import org.joda.time.DateTime
-import lila.hub.actorApi.shutup.{ PublicSource => Source }
+import lidraughts.hub.actorApi.shutup.{ PublicSource => Source }
 
 case class PublicLine(
     text: String,
@@ -15,7 +15,7 @@ object PublicLine {
     PublicLine(text, from.some, DateTime.now.some)
 
   import reactivemongo.bson._
-  import lila.db.dsl._
+  import lidraughts.db.dsl._
   private implicit val SourceHandler = new BSONHandler[BSONString, Source] {
     def read(bs: BSONString): Source = bs.value split ':' match {
       case Array("t", id) => Source.Tournament(id)

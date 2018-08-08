@@ -1,4 +1,4 @@
-package lila.relation
+package lidraughts.relation
 
 import akka.actor._
 import com.typesafe.config.Config
@@ -6,14 +6,14 @@ import scala.concurrent.duration._
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
-    hub: lila.hub.Env,
-    onlineUserIds: lila.memo.ExpireSetMemo,
-    lightUserApi: lila.user.LightUserApi,
+    db: lidraughts.db.Env,
+    hub: lidraughts.hub.Env,
+    onlineUserIds: lidraughts.memo.ExpireSetMemo,
+    lightUserApi: lidraughts.user.LightUserApi,
     followable: String => Fu[Boolean],
     system: ActorSystem,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    scheduler: lila.common.Scheduler
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    scheduler: lidraughts.common.Scheduler
 ) {
 
   private val settings = new {
@@ -30,7 +30,7 @@ final class Env(
   lazy val api = new RelationApi(
     coll = coll,
     actor = hub.actor.relation,
-    bus = system.lilaBus,
+    bus = system.lidraughtsBus,
     timeline = hub.actor.timeline,
     reporter = hub.actor.report,
     followable = followable,
@@ -61,14 +61,14 @@ final class Env(
 object Env {
 
   lazy val current = "relation" boot new Env(
-    config = lila.common.PlayApp loadConfig "relation",
-    db = lila.db.Env.current,
-    hub = lila.hub.Env.current,
-    onlineUserIds = lila.user.Env.current.onlineUserIdMemo,
-    lightUserApi = lila.user.Env.current.lightUserApi,
-    followable = lila.pref.Env.current.api.followable _,
-    system = lila.common.PlayApp.system,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    scheduler = lila.common.PlayApp.scheduler
+    config = lidraughts.common.PlayApp loadConfig "relation",
+    db = lidraughts.db.Env.current,
+    hub = lidraughts.hub.Env.current,
+    onlineUserIds = lidraughts.user.Env.current.onlineUserIdMemo,
+    lightUserApi = lidraughts.user.Env.current.lightUserApi,
+    followable = lidraughts.pref.Env.current.api.followable _,
+    system = lidraughts.common.PlayApp.system,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    scheduler = lidraughts.common.PlayApp.scheduler
   )
 }

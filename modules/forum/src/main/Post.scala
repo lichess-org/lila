@@ -1,6 +1,6 @@
-package lila.forum
+package lidraughts.forum
 
-import lila.user.User
+import lidraughts.user.User
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import scala.concurrent.duration._

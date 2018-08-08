@@ -1,9 +1,9 @@
 import { h } from 'snabbdom'
 import * as ground from './ground';
-import * as cg from 'chessground/types';
-import { DrawShape } from 'chessground/draw';
+import * as cg from 'draughtsground/types';
+import { DrawShape } from 'draughtsground/draw';
 import xhr = require('./xhr');
-import { key2pos } from 'chessground/util';
+import { key2pos } from 'draughtsground/util';
 import { bind } from './util';
 import RoundController from './ctrl';
 
@@ -17,22 +17,23 @@ let promoting: Promoting | undefined;
 let prePromotionRole: cg.Role | undefined;
 
 function sendPromotion(ctrl: RoundController, orig: cg.Key, dest: cg.Key, role: cg.Role, meta: cg.MoveMetadata): boolean {
-  ground.promote(ctrl.chessground, dest, role);
+  ground.promote(ctrl.draughtsground, dest, role);
   ctrl.sendMove(orig, dest, role, meta);
   return true;
 }
 
 export function start(ctrl: RoundController, orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata = {} as cg.MoveMetadata): boolean {
   const d = ctrl.data,
-  piece = ctrl.chessground.state.pieces[dest],
-  premovePiece = ctrl.chessground.state.pieces[orig];
-  if (((piece && piece.role === 'pawn') || (premovePiece && premovePiece.role === 'pawn')) && (
-    (dest[1] === '8' && d.player.color === 'white') ||
-      (dest[1] === '1' && d.player.color === 'black'))) {
+  piece = ctrl.draughtsground.state.pieces[dest],
+  premovePiece = ctrl.draughtsground.state.pieces[orig];
+  //if (((piece && piece.role === 'pawn') || (premovePiece && premovePiece.role === 'pawn')) && (
+  if (((piece && piece.role === 'man') || (premovePiece && premovePiece.role === 'man')) && (
+    (key2pos(dest)[1] === -1 && d.player.color === 'white') ||
+      (key2pos(dest)[1] === -1 && d.player.color === 'black'))) {
     if (prePromotionRole && meta && meta.premove) return sendPromotion(ctrl, orig, dest, prePromotionRole, meta);
     if (!meta.ctrlKey && !promoting && (d.pref.autoQueen === 3 || (d.pref.autoQueen === 2 && premovePiece))) {
-      if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
-      else sendPromotion(ctrl, orig, dest, 'queen', meta);
+      //if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
+      //else sendPromotion(ctrl, orig, dest, 'queen', meta);
       return true;
     }
     promoting = {
@@ -48,7 +49,7 @@ export function start(ctrl: RoundController, orig: cg.Key, dest: cg.Key, meta: c
 
 function setPrePromotion(ctrl: RoundController, dest: cg.Key, role: cg.Role): void {
   prePromotionRole = role;
-  ctrl.chessground.setAutoShapes([{
+  ctrl.draughtsground.setAutoShapes([{
     orig: dest,
     piece: {
       color: ctrl.data.player.color,
@@ -61,7 +62,7 @@ function setPrePromotion(ctrl: RoundController, dest: cg.Key, role: cg.Role): vo
 
 export function cancelPrePromotion(ctrl: RoundController) {
   if (prePromotionRole) {
-    ctrl.chessground.setAutoShapes([]);
+    ctrl.draughtsground.setAutoShapes([]);
     prePromotionRole = undefined;
     ctrl.redraw();
   }
@@ -78,7 +79,7 @@ function finish(ctrl: RoundController, role: cg.Role) {
 
 export function cancel(ctrl: RoundController) {
   cancelPrePromotion(ctrl);
-  ctrl.chessground.cancelPremove();
+  ctrl.draughtsground.cancelPremove();
   if (promoting) xhr.reload(ctrl).then(ctrl.reload);
   promoting = undefined;
 }
@@ -113,7 +114,8 @@ function renderPromotion(ctrl: RoundController, dest: cg.Key, roles: cg.Role[], 
   }));
 };
 
-const roles: cg.Role[] = ['queen', 'knight', 'rook', 'bishop'];
+//const roles: cg.Role[] = ['queen', 'knight', 'rook', 'bishop'];
+const roles: cg.Role[] = ['king'];
 
 export function view(ctrl: RoundController) {
   if (!promoting) return;
@@ -121,5 +123,5 @@ export function view(ctrl: RoundController) {
   return renderPromotion(ctrl, promoting.move[1],
     ctrl.data.game.variant.key === 'antichess' ? roles.concat('king') : roles,
     ctrl.data.player.color,
-    ctrl.chessground.state.orientation);
+    ctrl.draughtsground.state.orientation);
 };

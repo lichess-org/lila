@@ -1,4 +1,4 @@
-@(sim: lila.simul.Simul, stream: Option[lila.streamer.Stream])(implicit ctx: Context)
+@(sim: lidraughts.simul.Simul, stream: Option[lidraughts.streamer.Stream])(implicit ctx: Context)
 
 <div class="side_box padded">
   <div class="game_infos">
@@ -22,5 +22,5 @@
   @trans.by(usernameOrId(sim.hostId)), @momentFromNow(sim.createdAt)
 </div>
 @stream.map { s =>
-<a href="@routes.Streamer.show(s.streamer.userId)" class="context-streamer text side_box" data-icon="">@usernameOrId(s.streamer.userId) is streaming</a>
+@*<a href="@routes.Streamer.show(s.streamer.userId)" class="context-streamer text side_box" data-icon="">@usernameOrId(s.streamer.userId) is streaming</a>*@
 }

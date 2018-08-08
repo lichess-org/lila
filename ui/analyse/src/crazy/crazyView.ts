@@ -1,6 +1,6 @@
 import { drag } from './crazyCtrl';
 import { h } from 'snabbdom'
-import { MouchEvent } from 'chessground/types';
+import { MouchEvent } from 'draughtsground/types';
 import AnalyseCtrl from '../ctrl';
 
 const eventNames = ['mousedown', 'touchstart'];
@@ -13,7 +13,8 @@ export default function(ctrl: AnalyseCtrl, color: Color, position: Position) {
   const pocket = ctrl.node.crazy.pockets[color === 'white' ? 0 : 1];
   const dropped = ctrl.justDropped;
   let captured = ctrl.justCaptured;
-  if (captured) captured.role = captured.promoted ? 'pawn' : captured.role;
+  //if (captured) captured.role = captured.promoted ? 'pawn' : captured.role;
+  if (captured) captured.role = captured.promoted ? 'man' : captured.role;
   const activeColor = color === ctrl.turnColor();
   const usable = !ctrl.embed && activeColor;
   return h(`div.pocket.is2d.${position}.pos-${ctrl.bottomColor()}`, {

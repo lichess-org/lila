@@ -1,4 +1,4 @@
-@(categ: lila.forum.Categ, topic: lila.forum.Topic, posts: Paginator[lila.forum.Post], formWithCaptcha: Option[FormWithCaptcha], unsub: Option[Boolean], canModCateg: Boolean)(implicit ctx: Context)
+@(categ: lidraughts.forum.Categ, topic: lidraughts.forum.Topic, posts: Paginator[lidraughts.forum.Post], formWithCaptcha: Option[FormWithCaptcha], unsub: Option[Boolean], canModCateg: Boolean)(implicit ctx: Context)
 
 @moreJs = {
 @jsTag("forum-post.js")
@@ -13,7 +13,7 @@
 title = s"${categ.name} / ${topic.name} page ${posts.currentPage}",
 menu = modMenu.some.ifTrue(categ.isStaff),
 moreJs = moreJs,
-openGraph = lila.app.ui.OpenGraph(
+openGraph = lidraughts.app.ui.OpenGraph(
 title = s"Forum: ${categ.name} / ${topic.name} page ${posts.currentPage}",
 url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug).url}",
 description = shorten(posts.currentPageResults.headOption.??(_.text), 152)).some) {

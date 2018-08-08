@@ -1,3 +1,3 @@
-package lila
+package lidraughts
 
 package object coordinate extends PackageObject

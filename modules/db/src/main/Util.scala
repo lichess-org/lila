@@ -1,4 +1,4 @@
-package lila.db
+package lidraughts.db
 
 import dsl._
 

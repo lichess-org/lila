@@ -1,4 +1,4 @@
-package lila.insight
+package lidraughts.insight
 
 sealed trait Position {
 

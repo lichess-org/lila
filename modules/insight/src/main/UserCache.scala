@@ -1,9 +1,9 @@
-package lila.insight
+package lidraughts.insight
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 case class UserCache(
     _id: String, // user id

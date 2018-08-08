@@ -1,4 +1,4 @@
-package lila.app
+package lidraughts.app
 package templating
 
 import java.util.Locale
@@ -9,7 +9,7 @@ import org.joda.time.format.ISODateTimeFormat
 import org.joda.time.{ Period, PeriodType, DurationFieldType, DateTime, DateTimeZone }
 import play.twirl.api.Html
 
-import lila.api.Context
+import lidraughts.api.Context
 
 trait DateHelper { self: I18nHelper =>
 

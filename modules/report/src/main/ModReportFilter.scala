@@ -1,6 +1,6 @@
-package lila.report
+package lidraughts.report
 
-import lila.user.User
+import lidraughts.user.User
 
 final class ModReportFilter {
 

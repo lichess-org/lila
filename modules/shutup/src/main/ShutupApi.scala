@@ -1,11 +1,11 @@
-package lila.shutup
+package lidraughts.shutup
 
 import reactivemongo.bson._
 
-import lila.db.dsl._
-import lila.game.GameRepo
-import lila.user.UserRepo
-import lila.hub.actorApi.shutup.PublicSource
+import lidraughts.db.dsl._
+import lidraughts.game.GameRepo
+import lidraughts.hub.actorApi.shutup.PublicSource
+import lidraughts.user.UserRepo
 
 final class ShutupApi(
     coll: Coll,
@@ -28,10 +28,10 @@ final class ShutupApi(
   def publicChat(userId: String, text: String, source: PublicSource) = record(userId, text, TextType.PublicChat, source.some)
 
   def privateChat(chatId: String, userId: String, text: String) =
-    GameRepo.getUserIds(chatId) map {
-      _ find (userId !=)
-    } flatMap {
-      record(userId, text, TextType.PrivateChat, none, _)
+    GameRepo.getSourceAndUserIds(chatId) flatMap {
+      case (source, _) if source.has(lidraughts.game.Source.Friend) => funit // ignore challenges
+      case (_, userIds) =>
+        record(userId, text, TextType.PrivateChat, none, userIds find (userId !=))
     }
 
   def privateMessage(userId: String, toUserId: String, text: String) =
@@ -40,7 +40,7 @@ final class ShutupApi(
   private def record(userId: String, text: String, textType: TextType, source: Option[PublicSource] = None, toUserId: Option[String] = None): Funit =
     UserRepo isTroll userId flatMap {
       case true => funit
-      case false => toUserId ?? { follows(userId, _) } flatMap {
+      case false => toUserId ?? { follows(_, userId) } flatMap {
         case true => funit
         case false =>
           val analysed = Analyser(text)
@@ -66,13 +66,13 @@ final class ShutupApi(
           ).map(_.value) map2 UserRecordBSONHandler.read flatMap {
               case None => fufail(s"can't find user record for $userId")
               case Some(userRecord) => legiferate(userRecord)
-            } logFailure lila.log("shutup")
+            } logFailure lidraughts.log("shutup")
       }
     }
 
   private def legiferate(userRecord: UserRecord): Funit =
     userRecord.reports.exists(_.unacceptable) ?? {
-      reporter ! lila.hub.actorApi.report.Shutup(userRecord.userId, reportText(userRecord))
+      reporter ! lidraughts.hub.actorApi.report.Shutup(userRecord.userId, reportText(userRecord))
       coll.update(
         $doc("_id" -> userRecord.userId),
         $doc("$unset" -> $doc(

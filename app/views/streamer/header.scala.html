@@ -1,4 +1,4 @@
-@(s: lila.streamer.Streamer.WithUserAndStream, following: Option[Boolean])(implicit ctx: Context)
+@(s: lidraughts.streamer.Streamer.WithUserAndStream, following: Option[Boolean])(implicit ctx: Context)
 <div class="top">
   @pic(s.streamer, s.user, 250)
   <div class="overview">
@@ -19,12 +19,10 @@
         @youTube.minUrl
       </a>
       }
-      @if(following.isDefined) {
-      <a class="service lichess" href="@routes.User.show(s.user.username)">
-        @StreamerSvg.lichess
-        lichess.org/@@/@s.user.username
+      <a class="service lidraughts" href="@routes.User.show(s.user.username)">
+        @StreamerSvg.lidraughts
+        lidraughts.org/@@/@s.user.username
       </a>
-      }
     </div>
     <div class="metas">
       <div class="ats">

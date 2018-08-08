@@ -1,11 +1,12 @@
-package lila.socket
+package lidraughts.socket
 
 import play.api.libs.json._
 
-import chess.format.FEN
-import chess.opening._
-import chess.variant.Variant
-import lila.tree.Node.openingWriter
+import draughts.format.FEN
+import draughts.opening._
+import draughts.variant.Variant
+import lidraughts.tree.Node.openingWriter
+import ornicar.scalalib.Zero
 
 case class AnaDests(
     variant: Variant,
@@ -15,16 +16,17 @@ case class AnaDests(
 ) {
 
   def isInitial =
-    variant.standard && fen.value == chess.format.Forsyth.initial && path == ""
+    variant.standard && fen.value == draughts.format.Forsyth.initial && path == ""
 
   val dests: String =
     if (isInitial) AnaDests.initialDests
     else {
-      val sit = chess.Game(variant.some, fen.value.some).situation
+      val sit = draughts.DraughtsGame(variant.some, fen.value.some).situation
       sit.playable(false) ?? {
-        sit.destinations map {
-          case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
+        val destStr = sit.allDestinations map {
+          case (orig, thedests) => s"${orig.piotr}${thedests.distinct.map(_.piotr).mkString}"
         } mkString " "
+        sit.allMovesCaptureLength.fold(destStr)(capts => "#" + capts.toString + " " + destStr)
       }
     }
 
@@ -40,11 +42,11 @@ case class AnaDests(
 
 object AnaDests {
 
-  private val initialDests = "iqy muC gvx ltB bqs pxF jrz nvD ksA owE"
+  private val initialDests = "HCD GBC ID FAB EzA"
 
   def parse(o: JsObject) = for {
     d ← o obj "d"
-    variant = chess.variant.Variant orDefault ~d.str("variant")
+    variant = draughts.variant.Variant orDefault ~d.str("variant")
     fen ← d str "fen"
     path ← d str "path"
     chapterId = d str "ch"

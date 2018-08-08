@@ -1,15 +1,15 @@
-package lila.round
+package lidraughts.round
 
-import chess.format.Forsyth
-import chess.variant._
-import chess.{ Game => ChessGame, Board, Color => ChessColor, Castles, Clock, Situation }
-import ChessColor.{ White, Black }
+import draughts.format.Forsyth
+import draughts.variant._
+import draughts.{ DraughtsGame, Board, Color => DraughtsColor, Clock, Situation }
+import DraughtsColor.{ White, Black }
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 
-import lila.game.{ GameRepo, Game, Event, Progress, Pov, Source, AnonCookie, PerfPicker }
-import lila.memo.ExpireSetMemo
-import lila.user.{ User, UserRepo }
+import lidraughts.game.{ GameRepo, Game, Event, Progress, Pov, Source, AnonCookie, PerfPicker }
+import lidraughts.memo.ExpireSetMemo
+import lidraughts.user.{ User, UserRepo }
 
 private[round] final class Rematcher(
     messenger: Messenger,
@@ -54,8 +54,8 @@ private[round] final class Rematcher(
         _ ← (GameRepo insertDenormalized nextGame) >>
           GameRepo.saveNext(pov.game, nextGame.id) >>-
           messenger.system(pov.game, _.rematchOfferAccepted) >>- {
-            if (pov.game.variant == Chess960 && !rematch960Cache.get(pov.game.id))
-              rematch960Cache.put(nextGame.id)
+            //if (pov.game.variant == Chess960 && !rematch960Cache.get(pov.game.id))
+            //  rematch960Cache.put(nextGame.id)
           }
       } yield {
         onStart(nextGame.id)
@@ -73,20 +73,18 @@ private[round] final class Rematcher(
     initialFen <- GameRepo initialFen pov.game
     situation = initialFen flatMap Forsyth.<<<
     pieces = pov.game.variant match {
-      case Chess960 =>
+      /*case Chess960 =>
         if (rematch960Cache.get(pov.game.id)) Chess960.pieces
-        else situation.fold(Chess960.pieces)(_.situation.board.pieces)
+        else situation.fold(Chess960.pieces)(_.situation.board.pieces)*/
       case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
       case variant => variant.pieces
     }
     users <- UserRepo byIds pov.game.userIds
   } yield Game.make(
-    chess = ChessGame(
+    draughts = DraughtsGame(
       situation = Situation(
-        board = Board(pieces, variant = pov.game.variant).withCastles {
-          situation.fold(Castles.init)(_.situation.board.history.castles)
-        },
-        color = White
+        board = Board(pieces, variant = pov.game.variant),
+        color = situation.fold[draughts.Color](White)(_.situation.color)
       ),
       clock = pov.game.clock map { c => Clock(c.config) },
       turns = situation ?? (_.turns),
@@ -94,16 +92,16 @@ private[round] final class Rematcher(
     ),
     whitePlayer = returnPlayer(pov.game, White, users),
     blackPlayer = returnPlayer(pov.game, Black, users),
-    mode = if (users.exists(_.lame)) chess.Mode.Casual else pov.game.mode,
+    mode = if (users.exists(_.lame)) draughts.Mode.Casual else pov.game.mode,
     source = pov.game.source | Source.Lobby,
     daysPerTurn = pov.game.daysPerTurn,
-    pgnImport = None
+    pdnImport = None
   )
 
-  private def returnPlayer(game: Game, color: ChessColor, users: List[User]): lila.game.Player =
+  private def returnPlayer(game: Game, color: DraughtsColor, users: List[User]): lidraughts.game.Player =
     game.opponent(color).aiLevel match {
-      case Some(ai) => lila.game.Player.make(color, ai.some)
-      case None => lila.game.Player.make(
+      case Some(ai) => lidraughts.game.Player.make(color, ai.some)
+      case None => lidraughts.game.Player.make(
         color,
         game.opponent(color).userId.flatMap { id => users.find(_.id == id) },
         PerfPicker.mainOrDefault(game)

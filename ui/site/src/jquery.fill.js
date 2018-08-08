@@ -1,6 +1,6 @@
 (function($) {
   function update(els, action, cb) {
-    lichess.raf(function() {
+    lidraughts.raf(function() {
       $.each(els, function() {
         action(this);
         if ($.isFunction(cb)) cb.apply(this);

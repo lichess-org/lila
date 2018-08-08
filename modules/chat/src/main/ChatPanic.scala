@@ -1,8 +1,8 @@
-package lila.chat
+package lidraughts.chat
 
 import org.joda.time.DateTime
 
-import lila.user.User
+import lidraughts.user.User
 
 final class ChatPanic {
 

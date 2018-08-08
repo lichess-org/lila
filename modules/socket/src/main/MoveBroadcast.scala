@@ -1,20 +1,20 @@
-package lila.socket
+package lidraughts.socket
 
 import akka.actor._
 import scala.collection.mutable.AnyRefMap
 
 import actorApi.{ SocketLeave, StartWatching }
-import lila.hub.actorApi.round.MoveEvent
+import lidraughts.hub.actorApi.round.MoveEvent
 
 private final class MoveBroadcast extends Actor {
 
   override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'moveEvent, 'socketDoor)
+    context.system.lidraughtsBus.subscribe(self, 'moveEvent, 'socketDoor)
   }
 
   override def postStop(): Unit = {
     super.postStop()
-    context.system.lilaBus.unsubscribe(self)
+    context.system.lidraughtsBus.unsubscribe(self)
   }
 
   type UID = String

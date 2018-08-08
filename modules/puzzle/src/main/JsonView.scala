@@ -1,9 +1,9 @@
-package lila.puzzle
+package lidraughts.puzzle
 
+import draughts.format.{ Uci, UciCharPair }
 import play.api.libs.json._
-
-import lila.game.GameRepo
-import lila.tree
+import lidraughts.game.GameRepo
+import lidraughts.tree
 
 final class JsonView(
     gameJson: GameJson,
@@ -14,14 +14,14 @@ final class JsonView(
     puzzle: Puzzle,
     userInfos: Option[UserInfos],
     mode: String,
-    mobileApi: Option[lila.common.ApiVersion],
+    mobileApi: Option[lidraughts.common.ApiVersion],
     round: Option[Round] = None,
     result: Option[Result] = None,
     voted: Option[Boolean]
   ): Fu[JsObject] = {
     val isOldMobile = mobileApi.exists(_.value < 3)
     val isMobile = mobileApi.isDefined
-    (!isOldMobile ?? gameJson(
+    ((!isOldMobile && puzzle.gameId != "custom") ?? gameJson(
       gameId = puzzle.gameId,
       plies = puzzle.initialPly,
       onlyLast = isMobile
@@ -29,6 +29,12 @@ final class JsonView(
       Json.obj(
         "game" -> gameJson,
         "puzzle" -> puzzleJson(puzzle, isOldMobile),
+        "history" -> tree.Branch(
+          id = UciCharPair(puzzle.initialMove),
+          ply = puzzle.initialPly,
+          move = Uci.WithSan(puzzle.initialMove, puzzle.initialMove.toSan),
+          fen = puzzle.fenAfterInitialMove.getOrElse(puzzle.fen)
+        ),
         "mode" -> mode,
         "attempt" -> round.ifTrue(isOldMobile).map { r =>
           Json.obj(
@@ -51,16 +57,14 @@ final class JsonView(
     }
   }
 
-  def pref(p: lila.pref.Pref) = Json.obj(
+  def pref(p: lidraughts.pref.Pref) = Json.obj(
     "coords" -> p.coords,
-    "rookCastle" -> p.rookCastle,
     "animation" -> Json.obj(
       "duration" -> p.animationFactor * animationDuration.toMillis
     ),
     "destination" -> p.destination,
     "moveEvent" -> p.moveEvent,
-    "highlight" -> p.highlight,
-    "is3d" -> p.is3d
+    "highlight" -> p.highlight
   )
 
   def batch(puzzles: List[Puzzle], userInfos: UserInfos): Fu[JsObject] = for {
@@ -87,14 +91,14 @@ final class JsonView(
     "color" -> puzzle.color.name,
     "initialPly" -> puzzle.initialPly,
     "gameId" -> puzzle.gameId,
-    "lines" -> lila.puzzle.Line.toJson(puzzle.lines),
+    "lines" -> lidraughts.puzzle.Line.toJson(puzzle.lines),
     "vote" -> puzzle.vote.sum
   ).add("initialMove" -> isOldMobile.option(puzzle.initialMove.uci))
     .add("branch" -> (!isOldMobile).option(makeBranch(puzzle)))
     .add("enabled" -> puzzle.enabled)
 
   private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
-    import chess.format._
+    import draughts.format._
     val fullSolution: List[Uci.Move] = (Line solution puzzle.lines).map { uci =>
       Uci.Move(uci) err s"Invalid puzzle solution UCI $uci"
     }
@@ -102,19 +106,17 @@ final class JsonView(
       if (fullSolution.isEmpty) {
         logger.warn(s"Puzzle ${puzzle.id} has an empty solution from ${puzzle.lines}")
         fullSolution
-      } else if (fullSolution.size % 2 == 0) fullSolution.init
+      } //else if (fullSolution.size % 2 == 0) fullSolution.init
       else fullSolution
-    val init = chess.Game(none, puzzle.fenAfterInitialMove).withTurns(puzzle.initialPly)
-    val (_, branchList) = solution.foldLeft[(chess.Game, List[tree.Branch])]((init, Nil)) {
+    val init = draughts.DraughtsGame(none, puzzle.fenAfterInitialMove).withTurns(puzzle.initialPly)
+    val (_, branchList) = solution.foldLeft[(draughts.DraughtsGame, List[tree.Branch])]((init, Nil)) {
       case ((prev, branches), uci) =>
         val (game, move) = prev(uci.orig, uci.dest, uci.promotion).prefixFailuresWith(s"puzzle ${puzzle.id}").err
         val branch = tree.Branch(
           id = UciCharPair(move.toUci),
           ply = game.turns,
-          move = Uci.WithSan(move.toUci, game.pgnMoves.last),
-          fen = chess.format.Forsyth >> game,
-          check = game.situation.check,
-          crazyData = none
+          move = Uci.WithSan(move.toShortUci, game.pdnMoves.last),
+          fen = draughts.format.Forsyth >> game
         )
         (game, branch :: branches)
     }

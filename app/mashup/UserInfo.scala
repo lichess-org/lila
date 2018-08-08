@@ -1,19 +1,19 @@
-package lila.app
+package lidraughts.app
 package mashup
 
 import play.api.data.Form
 
-import lila.api.Context
-import lila.bookmark.BookmarkApi
-import lila.forum.PostApi
-import lila.game.Crosstable
-import lila.relation.RelationApi
-import lila.security.Granter
-import lila.user.{ User, Trophy, Trophies, TrophyApi }
+import lidraughts.api.Context
+import lidraughts.bookmark.BookmarkApi
+import lidraughts.forum.PostApi
+import lidraughts.game.Crosstable
+import lidraughts.relation.RelationApi
+import lidraughts.security.Granter
+import lidraughts.user.{ User, Trophy, Trophies, TrophyApi }
 
 case class UserInfo(
     user: User,
-    ranks: lila.rating.UserRankMap,
+    ranks: lidraughts.rating.UserRankMap,
     hasSimul: Boolean,
     ratingChart: Option[String],
     nbs: UserInfo.NbGames,
@@ -23,7 +23,8 @@ case class UserInfo(
     nbStudies: Int,
     playTime: Option[User.PlayTime],
     trophies: Trophies,
-    shields: List[lila.tournament.TournamentShield.Award],
+    shields: List[lidraughts.tournament.TournamentShield.Award],
+    revolutions: List[lidraughts.tournament.Revolution.Award],
     teamIds: List[String],
     isStreamer: Boolean,
     isCoach: Boolean,
@@ -35,8 +36,8 @@ case class UserInfo(
 
   def completionRatePercent = completionRate.map { cr => math.round(cr * 100) }
 
-  def isPublicMod = lila.security.Granter(_.PublicMod)(user)
-  def isDeveloper = lila.security.Granter(_.Developer)(user)
+  def isPublicMod = lidraughts.security.Granter(_.PublicMod)(user)
+  def isDeveloper = lidraughts.security.Granter(_.Developer)(user)
 
   lazy val allTrophies = List(
     isPublicMod option Trophy(
@@ -66,8 +67,8 @@ object UserInfo {
   }
 
   case class Social(
-      relation: Option[lila.relation.Relation],
-      notes: List[lila.user.Note],
+      relation: Option[lidraughts.relation.Relation],
+      notes: List[lidraughts.user.Note],
       followable: Boolean,
       blocked: Boolean
   )
@@ -75,8 +76,8 @@ object UserInfo {
   object Social {
     def apply(
       relationApi: RelationApi,
-      noteApi: lila.user.NoteApi,
-      prefApi: lila.pref.PrefApi
+      noteApi: lidraughts.user.NoteApi,
+      prefApi: lidraughts.pref.PrefApi
     )(u: User, ctx: Context): Fu[Social] =
       ctx.userId.?? { relationApi.fetchRelation(_, u.id) } zip
         ctx.me.?? { me =>
@@ -101,8 +102,8 @@ object UserInfo {
   object NbGames {
     def apply(
       bookmarkApi: BookmarkApi,
-      gameCached: lila.game.Cached,
-      crosstableApi: lila.game.CrosstableApi
+      gameCached: lidraughts.game.Cached,
+      crosstableApi: lidraughts.game.CrosstableApi
     )(u: User, ctx: Context): Fu[NbGames] =
       (ctx.me.filter(u!=) ?? { me => crosstableApi.withMatchup(me.id, u.id) }) zip
         gameCached.nbPlaying(u.id) zip
@@ -121,16 +122,16 @@ object UserInfo {
   def apply(
     relationApi: RelationApi,
     trophyApi: TrophyApi,
-    shieldApi: lila.tournament.TournamentShieldApi,
+    shieldApi: lidraughts.tournament.TournamentShieldApi,
+    revolutionApi: lidraughts.tournament.RevolutionApi,
     postApi: PostApi,
-    studyRepo: lila.study.StudyRepo,
+    studyRepo: lidraughts.study.StudyRepo,
     getRatingChart: User => Fu[Option[String]],
     getRanks: User.ID => Fu[Map[String, Int]],
     isHostingSimul: User.ID => Fu[Boolean],
     fetchIsStreamer: User => Fu[Boolean],
     fetchTeamIds: User.ID => Fu[List[String]],
-    fetchIsCoach: User => Fu[Boolean],
-    insightShare: lila.insight.Share,
+    insightShare: lidraughts.insight.Share,
     getPlayTime: User => Fu[Option[User.PlayTime]],
     completionRate: User.ID => Fu[Option[Double]]
   )(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
@@ -142,13 +143,13 @@ object UserInfo {
       studyRepo.countByOwner(user.id) zip
       trophyApi.findByUser(user) zip
       shieldApi.active(user) zip
+      revolutionApi.active(user) zip
       fetchTeamIds(user.id) zip
-      fetchIsCoach(user) zip
       fetchIsStreamer(user) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       getPlayTime(user) zip
       completionRate(user.id) flatMap {
-        case ranks ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ shields ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
+        case ranks ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ shields ~ revols ~ teamIds ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
           (nbs.playing > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
@@ -163,9 +164,10 @@ object UserInfo {
               playTime = playTime,
               trophies = trophies,
               shields = shields,
+              revolutions = revols,
               teamIds = teamIds,
               isStreamer = isStreamer,
-              isCoach = isCoach,
+              isCoach = false,
               insightVisible = insightVisible,
               completionRate = completionRate
             )

@@ -9,7 +9,7 @@ $(function() {
     var $option = $editor.find('select[name=listed] option[value=true]');
 
     var must = [{
-      html: '<a href="/account/profile">Complete your lichess profile</a>',
+      html: '<a href="/account/profile">Complete your lidraughts profile</a>',
       check: function() {
         return $el.data('profile');
       }
@@ -56,7 +56,7 @@ $(function() {
     $editor.find('.panel.' + $(this).data('tab')).addClass('active');
     $editor.find('div.status').removeClass('saved');
   });
-  var submit = lichess.fp.debounce(function() {
+  var submit = lidraughts.fp.debounce(function() {
     $editor.find('form.form').ajaxSubmit({
       success: function() {
         $editor.find('div.status').addClass('saved');
@@ -86,7 +86,7 @@ $(function() {
   });
 
   $('.coach_picture form.upload input[type=file]').change(function() {
-    $('.picture_wrap').html(lichess.spinnerHtml);
+    $('.picture_wrap').html(lidraughts.spinnerHtml);
     $(this).parents('form').submit();
   });
 });

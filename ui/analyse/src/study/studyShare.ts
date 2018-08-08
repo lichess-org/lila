@@ -5,7 +5,7 @@ import { prop } from 'common';
 import { renderIndexAndMove } from '../moveView';
 import { StudyData, StudyChapterMeta } from './interfaces';
 
-const baseUrl = 'https://lichess.org/study/';
+const baseUrl = 'https://lidraughts.org/study/';
 
 function fromPly(ctrl): VNode {
   var node = ctrl.currentNode();
@@ -45,13 +45,14 @@ export function view(ctrl): VNode {
   let embedUrl = baseUrl + 'embed/' + studyId + '/' + chapter.id;
   const isPrivate = ctrl.isPrivate();
   if (ctrl.withPly()) {
-    const p = ctrl.currentNode().ply;
+    const dp = ctrl.currentNode().displayPly;
+    const p = dp ? dp : ctrl.currentNode().ply;
     fullUrl += '#' + p;
     embedUrl += '#' + p;
   }
   return h('div.study_share.underboard_form.box', {
     hook: {
-      insert() { window.lichess.loadCss('/assets/stylesheets/material.form.css') }
+      insert() { window.lidraughts.loadCss('/assets/stylesheets/material.form.css') }
     }
   }, [
     h('div.downloads', [
@@ -64,15 +65,15 @@ export function view(ctrl): VNode {
       h('a.button.text', {
         attrs: {
           'data-icon': 'x',
-          href: '/study/' + studyId + '.pgn'
+          href: '/study/' + studyId + '.pdn'
         }
-      }, 'Study PGN'),
+      }, 'Study PDN'),
       h('a.button.text', {
         attrs: {
           'data-icon': 'x',
-          href: '/study/' + studyId + '/' + chapter.id + '.pgn'
+          href: '/study/' + studyId + '/' + chapter.id + '.pdn'
         }
-      }, 'Chapter PGN')
+      }, 'Chapter PDN')
     ]),
     h('form.material.form', [
       h('div.form-group.little-margin-bottom', [

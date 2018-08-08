@@ -1,13 +1,13 @@
 package controllers
 
-import lila.app._
-import lila.common.{ HTTPRequest, IpAddress }
+import lidraughts.app._
+import lidraughts.common.{ HTTPRequest, IpAddress }
 import scala.concurrent.duration._
 import views._
 
-object ForumPost extends LilaController with ForumController {
+object ForumPost extends LidraughtsController with ForumController {
 
-  private val CreateRateLimit = new lila.memo.RateLimit[IpAddress](4, 5 minutes,
+  private val CreateRateLimit = new lidraughts.memo.RateLimit[IpAddress](4, 5 minutes,
     name = "forum create post",
     key = "forum.post")
 
@@ -72,7 +72,7 @@ object ForumPost extends LilaController with ForumController {
 
   def redirect(id: String) = Open { implicit ctx =>
     OptionResult(postApi.urlData(id, ctx.troll)) {
-      case lila.forum.PostUrlData(categ, topic, page, number) =>
+      case lidraughts.forum.PostUrlData(categ, topic, page, number) =>
         Redirect(routes.ForumTopic.show(categ, topic, page).url + "#" + number)
     }
   }

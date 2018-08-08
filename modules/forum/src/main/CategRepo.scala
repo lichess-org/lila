@@ -1,6 +1,6 @@
-package lila.forum
+package lidraughts.forum
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 object CategRepo {
 

@@ -5,14 +5,14 @@ import play.api.data._, Forms._
 import play.api.libs.json._
 import play.api.mvc._
 
-import lila.app._
-import lila.api.Context
-import lila.common.HTTPRequest
-import lila.hub.actorApi.captcha.ValidCaptcha
+import lidraughts.app._
+import lidraughts.api.Context
+import lidraughts.common.HTTPRequest
+import lidraughts.hub.actorApi.captcha.ValidCaptcha
 import makeTimeout.large
 import views._
 
-object Main extends LilaController {
+object Main extends LidraughtsController {
 
   private lazy val blindForm = Form(tuple(
     "enable" -> nonEmptyText,
@@ -25,7 +25,7 @@ object Main extends LilaController {
       blindForm.bindFromRequest.fold(
         err => BadRequest, {
           case (enable, redirect) =>
-            Redirect(redirect) withCookies lila.common.LilaCookie.cookie(
+            Redirect(redirect) withCookies lidraughts.common.LidraughtsCookie.cookie(
               Env.api.Accessibility.blindCookieName,
               if (enable == "0") "" else Env.api.Accessibility.hash,
               maxAge = Env.api.Accessibility.blindCookieMaxAge.some,
@@ -54,7 +54,7 @@ object Main extends LilaController {
 
   def embed = Action { req =>
     Ok {
-      s"""document.write("<iframe src='${Env.api.Net.BaseUrl}?embed=" + document.domain + "' class='lichess-iframe' allowtransparency='true' frameBorder='0' style='width: ${getInt("w", req) | 820}px; height: ${getInt("h", req) | 650}px;' title='Lichess free online chess'></iframe>");"""
+      s"""document.write("<iframe src='${Env.api.Net.BaseUrl}?embed=" + document.domain + "' class='lidraughts-iframe' allowtransparency='true' frameBorder='0' style='width: ${getInt("w", req) | 820}px; height: ${getInt("h", req) | 650}px;' title='Lidraughts free online draughts'></iframe>");"""
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 
@@ -98,14 +98,14 @@ object Main extends LilaController {
    * Event monitoring endpoint
    */
   def jsmon(event: String) = Action {
-    if (event == "socket_gap") lila.mon.jsmon.socketGap()
-    else lila.mon.jsmon.unknown()
+    if (event == "socket_gap") lidraughts.mon.jsmon.socketGap()
+    else lidraughts.mon.jsmon.unknown()
     NoContent
   }
 
   private lazy val glyphsResult: Result = {
-    import chess.format.pgn.Glyph
-    import lila.tree.Node.glyphWriter
+    import draughts.format.pdn.Glyph
+    import lidraughts.tree.Node.glyphWriter
     Ok(Json.obj(
       "move" -> Glyph.MoveAssessment.display,
       "position" -> Glyph.PositionAssessment.display,
@@ -118,7 +118,7 @@ object Main extends LilaController {
     Env.db.image.fetch(id) map {
       case None => NotFound
       case Some(image) =>
-        lila.log("image").info(s"Serving ${image.path} to ${HTTPRequest printClient req}")
+        lidraughts.log("image").info(s"Serving ${image.path} to ${HTTPRequest printClient req}")
         Ok(image.data).withHeaders(
           CONTENT_TYPE -> image.contentType.getOrElse("image/jpeg"),
           CONTENT_DISPOSITION -> image.name,
@@ -129,7 +129,11 @@ object Main extends LilaController {
 
   val robots = Action {
     Ok {
-      if (Env.api.Net.Crawlable) "User-agent: *\nAllow: /\nDisallow: /game/export"
+      if (Env.api.Net.Crawlable) """User-agent: *
+Allow: /
+Disallow: /game/export
+Disallow: /games/export
+"""
       else "User-agent: *\nDisallow: /"
     }
   }
@@ -138,7 +142,7 @@ object Main extends LilaController {
     reqToCtx(req) map renderNotFound
 
   def renderNotFound(ctx: Context): Result = {
-    lila.mon.http.response.code404()
+    lidraughts.mon.http.response.code404()
     NotFound(html.base.notFound()(ctx))
   }
 

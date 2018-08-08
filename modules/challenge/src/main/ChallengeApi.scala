@@ -1,24 +1,24 @@
-package lila.challenge
+package lidraughts.challenge
 
 import akka.actor._
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.game.{ Game, Pov, GameRepo }
-import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.SendTo
-import lila.user.{ User, UserRepo }
+import lidraughts.game.{ Game, Pov, GameRepo }
+import lidraughts.hub.actorApi.map.Tell
+import lidraughts.hub.actorApi.SendTo
+import lidraughts.user.{ User, UserRepo }
 
 final class ChallengeApi(
     repo: ChallengeRepo,
     joiner: Joiner,
     jsonView: JsonView,
-    gameCache: lila.game.Cached,
+    gameCache: lidraughts.game.Cached,
     maxPlaying: Int,
     socketHub: ActorRef,
     userRegister: ActorSelection,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    lilaBus: lila.common.Bus
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    lidraughtsBus: lidraughts.common.Bus
 ) {
 
   import Challenge._
@@ -28,12 +28,12 @@ final class ChallengeApi(
 
   // returns boolean success
   def create(c: Challenge): Fu[Boolean] = isLimitedByMaxPlaying(c) flatMap {
-    case true => fuccess(false)
+    case true => fuFalse
     case false => {
       repo like c flatMap { _ ?? repo.cancel }
     } >> (repo insert c) >>- {
       uncacheAndNotify(c)
-      lilaBus.publish(Event.Create(c), 'challenge)
+      lidraughtsBus.publish(Event.Create(c), 'challenge)
     } inject true
   }
 
@@ -66,7 +66,7 @@ final class ChallengeApi(
       case None => fuccess(None)
       case Some(pov) => (repo accept c) >>- {
         uncacheAndNotify(c)
-        lilaBus.publish(Event.Accept(c, user.map(_.id)), 'challenge)
+        lidraughtsBus.publish(Event.Accept(c, user.map(_.id)), 'challenge)
       } inject pov.some
     }
 
@@ -99,26 +99,26 @@ final class ChallengeApi(
     val challenge = c setDestUser u
     repo.update(challenge) >>- {
       uncacheAndNotify(challenge)
-      lilaBus.publish(Event.Create(challenge), 'challenge)
+      lidraughtsBus.publish(Event.Create(challenge), 'challenge)
     }
   }
 
   def removeByUserId(userId: User.ID) = repo allWithUserId userId flatMap { cs =>
-    lila.common.Future.applySequentially(cs)(remove).void
+    lidraughts.common.Future.applySequentially(cs)(remove).void
   }
 
   private def isLimitedByMaxPlaying(c: Challenge) =
-    if (c.hasClock) fuccess(false)
+    if (c.hasClock) fuFalse
     else c.userIds.map { userId =>
       gameCache.nbPlaying(userId) map (maxPlaying <=)
     }.sequenceFu.map(_ exists identity)
 
   private[challenge] def sweep: Funit =
     repo.realTimeUnseenSince(DateTime.now minusSeconds 10, max = 50).flatMap { cs =>
-      lila.common.Future.applySequentially(cs)(offline).void
+      lidraughts.common.Future.applySequentially(cs)(offline).void
     } >>
       repo.expired(50).flatMap { cs =>
-        lila.common.Future.applySequentially(cs)(remove).void
+        lidraughts.common.Future.applySequentially(cs)(remove).void
       }
 
   private def remove(c: Challenge) =
@@ -137,9 +137,9 @@ final class ChallengeApi(
   private def notify(userId: User.ID): Funit = for {
     all <- allFor(userId)
     lang <- UserRepo langOf userId map {
-      _ flatMap lila.i18n.I18nLangPicker.byStr getOrElse lila.i18n.defaultLang
+      _ flatMap lidraughts.i18n.I18nLangPicker.byStr getOrElse lidraughts.i18n.defaultLang
     }
   } yield {
-    userRegister ! SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all, lang)))
+    userRegister ! SendTo(userId, lidraughts.socket.Socket.makeMessage("challenges", jsonView(all, lang)))
   }
 }

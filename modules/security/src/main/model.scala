@@ -1,8 +1,8 @@
-package lila.security
+package lidraughts.security
 
 import org.joda.time.DateTime
-import lila.user.User
-import lila.common.IpAddress
+import lidraughts.user.User
+import lidraughts.common.IpAddress
 
 case class FingerprintedUser(user: User, hasFingerprint: Boolean)
 

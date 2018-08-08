@@ -1,6 +1,6 @@
 @(form: Form[_], paginator: Option[Paginator[Game]] = None, nbGames: Int)(implicit ctx: Context)
 
-@import lila.gameSearch.{ Query, Sorting }
+@import lidraughts.gameSearch.{ Query, Sorting }
 
 @moreCss = {
 @cssTag("search.css")
@@ -14,10 +14,10 @@
 title = trans.advancedSearch.txt(),
 moreJs = moreJs,
 moreCss = moreCss,
-openGraph = lila.app.ui.OpenGraph(
-title = s"Search in ${nbGames.localize} chess games",
+openGraph = lidraughts.app.ui.OpenGraph(
+title = s"Search in ${nbGames.localize} draughts games",
 url = s"$netBaseUrl${routes.Search.index().url}",
-description = s"Search in ${nbGames.localize} chess games using advanced criterions").some) {
+description = s"Search in ${nbGames.localize} draughts games using advanced criterions").some) {
 <div class="content_box no_padding">
   <h1 class="title">@trans.advancedSearch()</h1>
   <form rel="nofollow" class="search" action="@routes.Search.index()" method="get"
@@ -36,7 +36,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
           <div class="half">@base.form.input(form("players")("b"))</div>
         </td>
       </tr>
-      @chess.Color.all.map { color =>
+      @draughts.Color.all.map { color =>
       @defining(form("players")(color.name)) { field =>
       <tr class="@{color.name}User user_row none">
         <th>
@@ -79,7 +79,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
           <div class="half">To @base.form.select(form("ratingMax"), Query.averageRatings, "".some)</div>
         </td>
       </tr>
-      <tr>
+      @*<tr>
         <th>
           <label for="@form("hasAi").id">@trans.opponent() <span class="help" title="Whether the player's opponent was a human or a computer">(?)</span></label>
         </th>
@@ -95,7 +95,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
           <div class="half">From @base.form.select(form("aiLevelMin"), Query.aiLevels, "".some)</div>
           <div class="half">To @base.form.select(form("aiLevelMax"), Query.aiLevels, "".some)</div>
         </td>
-      </tr>
+      </tr>*@
       <tr>
         <th>
           <label for="@form("source").id">Source</label>
@@ -122,7 +122,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
       </tr>
       <tr>
         <th>
-          <label>Number of turns</label>
+          <label>@trans.numberOfTurns()</label>
         </th>
         <td>
           <div class="half">From @base.form.select(form("turnsMin"), Query.turns, "".some)</div>
@@ -190,14 +190,14 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
           <div class="half">@base.form.select(form("sort")("order"), Sorting.orders)</div>
         </td>
       </tr>
-      <tr>
+      @*<tr>
         <th>
           <label for="analysed">Analysis <span class="help" title="Whether computer analysis is available or not">(?)</span></label>
         </th>
         <td class="single">
           @base.form.checkbox(form("analysed"), "", 1)
         </td>
-      </tr>
+      </tr>*@
       <tr>
         <th></th>
         <td class="simple action">

@@ -1,6 +1,6 @@
-@(createds: List[lila.simul.Simul], starteds: List[lila.simul.Simul], finisheds: List[lila.simul.Simul])(implicit ctx: Context)
+@(createds: List[lidraughts.simul.Simul], starteds: List[lidraughts.simul.Simul], finisheds: List[lidraughts.simul.Simul])(implicit ctx: Context)
 
-@iconTd(sim: lila.simul.Simul) = {
+@iconTd(sim: lidraughts.simul.Simul) = {
 <td class="variant_icons @if(sim.variantRich){rich}">
   @sim.perfTypes.map { pt =>
   <span class="is-gold" data-icon="@pt.iconChar"></span>
@@ -8,7 +8,7 @@
 </td>
 }
 
-@simTd(sim: lila.simul.Simul) = {
+@simTd(sim: lidraughts.simul.Simul) = {
 <td class="header">
   <a href="@routes.Simul.show(sim.id)">
     <span class="name">@sim.fullName</span>
@@ -17,7 +17,7 @@
 </td>
 }
 
-@simHost(sim: lila.simul.Simul) = {
+@simHost(sim: lidraughts.simul.Simul) = {
 <td class="host">
   @userIdLink(sim.hostId.some, withOnline = false)<br />
   <strong>@sim.hostRating</strong>

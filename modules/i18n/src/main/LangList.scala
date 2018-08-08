@@ -1,4 +1,4 @@
-package lila.i18n
+package lidraughts.i18n
 
 import play.api.i18n.Lang
 

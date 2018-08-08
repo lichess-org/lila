@@ -2,8 +2,8 @@ import AnalyseCtrl from '../ctrl';
 import { Tab } from './interfaces';
 
 export function study(ctrl: AnalyseCtrl) {
-  window.lichess.loadScript('/assets/javascripts/study/tour.js').then(() => {
-    window.lichess['studyTour']({
+  window.lidraughts.loadScript('/assets/javascripts/study/tour.js').then(() => {
+    window.lidraughts['studyTour']({
       userId: ctrl.opts.userId,
       isContrib: ctrl.study!.members.canContribute(),
       setTab: (tab: Tab) => {
@@ -15,8 +15,8 @@ export function study(ctrl: AnalyseCtrl) {
 }
 
 export function chapter(setTab: (tab: string) => void) {
-  window.lichess.loadScript('/assets/javascripts/study/tour-chapter.js').then(() => {
-    window.lichess['studyTourChapter']({
+  window.lidraughts.loadScript('/assets/javascripts/study/tour-chapter.js').then(() => {
+    window.lidraughts['studyTourChapter']({
       setTab
     });
   });

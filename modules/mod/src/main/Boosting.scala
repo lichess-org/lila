@@ -1,9 +1,9 @@
-package lila.mod
+package lidraughts.mod
 
-import chess.{ Color, variant }
-import lila.db.dsl._
-import lila.game.Game
-import lila.user.User
+import draughts.{ Color, variant }
+import lidraughts.db.dsl._
+import lidraughts.game.Game
+import lidraughts.user.User
 
 import reactivemongo.bson._
 
@@ -19,9 +19,7 @@ final class BoostingApi(
 
   private val variants = Set[variant.Variant](
     variant.Standard,
-    variant.Chess960,
-    variant.KingOfTheHill,
-    variant.ThreeCheck
+    variant.Frisian
   )
 
   def getBoostingRecord(id: String): Fu[Option[BoostingRecord]] =

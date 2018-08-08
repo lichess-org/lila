@@ -1,4 +1,4 @@
-@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.Tournament], simul: Option[lila.simul.Simul], userTv: Option[User] = None, bookmarked: Boolean)(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[String], tour: Option[lidraughts.tournament.Tournament], simul: Option[lidraughts.simul.Simul], userTv: Option[User] = None, bookmarked: Boolean)(implicit ctx: Context)
 
 @import pov._
 
@@ -12,7 +12,7 @@
           <a class="hint--top" href="@routes.Importer.importGame" data-hint="@trans.importGame()">IMPORT</a>
           •
           @if(game.variant.exotic) {
-          @variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top", initialFen = initialFen)
+          @variantLink(game.variant, game.variant.name.toUpperCase, cssClass = "hint--top", initialFen = initialFen)
           } else {
           @game.variant.name.toUpperCase
           }
@@ -25,7 +25,7 @@
           }
           } •
           @if(game.variant.exotic) {
-          @variantLink(game.variant, (if (game.variant ==  chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top", initialFen = initialFen)
+          @variantLink(game.variant, game.variant.name.toUpperCase, cssClass = "hint--top", initialFen = initialFen)
           } else {
           @game.perfType.map { pt =>
           <span class="hint--top" data-hint="@pt.title">@pt.name.toUpperCase</span>
@@ -33,13 +33,13 @@
           } • @game.rated.fold(trans.rated.txt(), trans.casual.txt()).toUpperCase
           }
         </span>
-        @game.pgnImport.flatMap(_.date).getOrElse(
+        @game.pdnImport.flatMap(_.date).getOrElse(
         game.isBeingPlayed.fold(trans.playingRightNow(), momentFromNow(game.createdAt))
         )
       </div>
-      @game.pgnImport.flatMap(_.date).map { date =>
+      @game.pdnImport.flatMap(_.date).map { date =>
       Imported
-      @game.pgnImport.flatMap(_.user).map { user =>
+      @game.pdnImport.flatMap(_.user).map { user =>
       by @userIdLink(user.some, None, false)
       <br />
       }
@@ -60,17 +60,10 @@
       }
     </div>
     }
-    @if(game.variant.chess960) {
-    @initialFen.map { fen =>
-    @chess.variant.Chess960.positionNumber(fen).map { number =>
-    Chess960 start position: <strong>@number</strong>
-    }
-    }
-    }
   </div>
 
   @game.userIds.filter(isStreaming).map { id =>
-  <a href="@routes.Streamer.show(id)" class="context-streamer text side_box" data-icon="">@usernameOrId(id) is streaming</a>
+  @* <a href="@routes.Streamer.show(id)" class="context-streamer text side_box" data-icon="">@usernameOrId(id) is streaming</a> *@
   }
 
   @userTv.map { u =>

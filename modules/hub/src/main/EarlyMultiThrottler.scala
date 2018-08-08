@@ -1,4 +1,4 @@
-package lila.hub
+package lidraughts.hub
 
 import akka.actor._
 import scala.concurrent.duration._
@@ -11,7 +11,7 @@ import scala.concurrent.duration._
  */
 final class EarlyMultiThrottler(
     executionTimeout: Option[FiniteDuration] = None,
-    logger: lila.log.Logger
+    logger: lidraughts.log.Logger
 ) extends Actor {
 
   import EarlyMultiThrottler._
@@ -42,11 +42,11 @@ final class EarlyMultiThrottler(
 
   def execute(work: Work): Funit = {
     implicit val system = context.system
-    lila.common.Future.makeItLast(work.cooldown) {
+    lidraughts.common.Future.makeItLast(work.cooldown) {
       work.timeout.orElse(executionTimeout).fold(work.run()) { timeout =>
         work.run().withTimeout(
           duration = timeout,
-          error = lila.base.LilaException(s"EarlyMultiThrottler timed out after $timeout")
+          error = lidraughts.base.LidraughtsException(s"EarlyMultiThrottler timed out after $timeout")
         )
       }
     }

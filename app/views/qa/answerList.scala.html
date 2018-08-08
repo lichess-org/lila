@@ -1,4 +1,4 @@
-@(q: lila.qa.Question, as: List[lila.qa.Answer])(implicit ctx: Context)
+@(q: lidraughts.qa.Question, as: List[lidraughts.qa.Answer])(implicit ctx: Context)
 
 <div class="answers-header content_box_inter">
   @as.size match {
@@ -21,7 +21,7 @@
       @if(a.accepted) {
       <span title="The question owner accepted this as the best answer" class="accept accepted" data-icon="E"></span>
       } else {
-      @if(lila.qa.QaAuth canEdit q) {
+      @if(lidraughts.qa.QaAuth canEdit q) {
       <form class="accept-form" action="@routes.QaAnswer.accept(q.id, a.id)" method="POST">
         <button type="submit"
           title="Accept this as the best answer"
@@ -34,7 +34,7 @@
       <div class="answer">
         <div class="meta">
           <span class="light">Answered @momentFromNow(a.createdAt) by @userIdLink(userIdOption=a.userId.some, modIcon=a.displayModIcon)</span>
-          @if(lila.qa.QaAuth canEdit a) {
+          @if(lidraughts.qa.QaAuth canEdit a) {
           <a class="thin button toggle-edit-answer" data-icon="m"> Edit</a>
           }
           @nope("Remove", routes.QaAnswer.remove(q.id, a.id), "q", "thin")
@@ -59,7 +59,7 @@
           }
         </div>
         <div class="body">@richText(a.body)</div>
-        @if(lila.qa.QaAuth canEdit a) {
+        @if(lidraughts.qa.QaAuth canEdit a) {
         <form class="edit-answer" action="@routes.QaAnswer.doEdit(q.id, a.id)" method="post">
           <textarea class="answer-body" name="body">@a.body</textarea>
           <button class="pure button" type="submit">Update answer</button>

@@ -3,7 +3,7 @@ import { presetCtrl } from './preset'
 import { noteCtrl } from './note'
 import { moderationCtrl } from './moderation'
 
-const li = window.lichess;
+const li = window.lidraughts;
 
 export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
@@ -116,7 +116,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       vm.tab = t;
       tabStorage.set(t);
       // It's a lame way to do it. Give me a break.
-      if (t === 'discussion') li.requestIdleCallback(() => $('.mchat input.lichess_say').focus());
+      if (t === 'discussion') li.requestIdleCallback(() => $('.mchat input.lidraughts_say').focus());
       redraw();
     },
     moderation: () => moderation,

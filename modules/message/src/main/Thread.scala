@@ -1,9 +1,9 @@
-package lila.message
+package lidraughts.message
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
-import lila.user.User
+import lidraughts.user.User
 
 case class Thread(
     _id: String,
@@ -60,18 +60,18 @@ case class Thread(
   def otherUserId(user: User) = isCreator(user).fold(invitedId, creatorId)
 
   def visibleOtherUserId(user: User) =
-    isCreator(user).fold(invitedId, asMod.fold(Thread.lichess, creatorId))
+    isCreator(user).fold(invitedId, asMod.fold(Thread.Lidraughts, creatorId))
 
   def senderOf(post: Post) = post.isByCreator.fold(creatorId, invitedId)
 
   def visibleSenderOf(post: Post) =
-    if (post.isByCreator && asMod) Thread.lichess
+    if (post.isByCreator && asMod) Thread.Lidraughts
     else senderOf(post)
 
   def receiverOf(post: Post) = post.isByCreator.fold(invitedId, creatorId)
 
   def visibleReceiverOf(post: Post) =
-    if (!post.isByCreator && asMod) Thread.lichess
+    if (!post.isByCreator && asMod) Thread.Lidraughts
     else receiverOf(post)
 
   def isWrittenBy(post: Post, user: User) = post.isByCreator == isCreator(user)
@@ -95,7 +95,7 @@ object Thread {
 
   val idSize = 8
 
-  private val lichess = "lichess"
+  private val Lidraughts = "lidraughts"
 
   def make(
     name: String,
@@ -118,10 +118,10 @@ object Thread {
     mod = asMod option true
   )
 
-  import lila.db.dsl.BSONJodaDateTimeHandler
+  import lidraughts.db.dsl.BSONJodaDateTimeHandler
   import Post.PostBSONHandler
   private[message] implicit val ThreadBSONHandler =
-    lila.db.BSON.LoggingHandler(lila.log("message")) {
+    lidraughts.db.BSON.LoggingHandler(lidraughts.log("message")) {
       reactivemongo.bson.Macros.handler[Thread]
     }
 }

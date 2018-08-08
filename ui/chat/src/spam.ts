@@ -1,11 +1,11 @@
 export function skip(txt: string) {
-  return analyse(txt) && window.lichess.storage.get('chat-spam') != '1';
+  return analyse(txt) && window.lidraughts.storage.get('chat-spam') != '1';
 }
 export function hasTeamUrl(txt: string) {
   return !!txt.match(teamUrlRegex);
 }
 export function report(txt: string) {
-  if (analyse(txt)) window.lichess.storage.set('chat-spam', '1');
+  if (analyse(txt)) window.lidraughts.storage.set('chat-spam', '1');
 }
 
 const spamRegex = new RegExp([
@@ -38,4 +38,4 @@ function analyse(txt: string) {
   return !!txt.match(spamRegex) || !!txt.match(suspRegex);
 }
 
-const teamUrlRegex = /lichess\.org\/team\//
+const teamUrlRegex = /lidraughts\.org\/team\//

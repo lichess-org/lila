@@ -1,6 +1,6 @@
-@(tourneyWinners: List[lila.tournament.Winner], online: List[User], leaderboards: lila.user.Perfs.Leaderboards, nbDay: List[User.LightCount], nbAllTime: List[User.LightCount])(implicit ctx: Context)
+@(tourneyWinners: List[lidraughts.tournament.Winner], online: List[User], leaderboards: lidraughts.user.Perfs.Leaderboards, nbDay: List[User.LightCount], nbAllTime: List[User.LightCount])(implicit ctx: Context)
 
-@import lila.rating.PerfType
+@import lidraughts.rating.PerfType
 
 @userTopPerf(users: List[User.LightPerf], perfType: PerfType) = {
 <div class="user_top">
@@ -55,17 +55,16 @@
 @user.layout(
 trans.players.txt(),
 side = side.some,
-openGraph = lila.app.ui.OpenGraph(
-title = "Chess players and leaderboards",
+openGraph = lidraughts.app.ui.OpenGraph(
+title = "Draughts players and leaderboards",
 url = s"$netBaseUrl${routes.User.list.url}",
-description = "Best chess players in bullet, blitz, rapid, classical, Chess960 and more chess variants").some,
+description = "Best draughts players in bullet, blitz, rapid, classical, Frisian and more draughts variants").some,
 withInfScroll = false) {
 <div class="content_box community">
   @communityTabs("leaderboard")
   <div class="user_lists">
 
     @userTopPerf(leaderboards.bullet, PerfType.Bullet)
-    @userTopPerf(leaderboards.crazyhouse, PerfType.Crazyhouse)
     <div class="user_top">
       <h2 class="text" data-icon="g">
         <a href="@routes.Tournament.leaderboard">@trans.tournamentWinners()</a>
@@ -79,20 +78,15 @@ withInfScroll = false) {
     </div>
 
     @userTopPerf(leaderboards.blitz, PerfType.Blitz)
-    @userTopPerf(leaderboards.chess960, PerfType.Chess960)
     @userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some)
 
     @userTopPerf(leaderboards.rapid, PerfType.Rapid)
-    @userTopPerf(leaderboards.threeCheck, PerfType.ThreeCheck)
-    @userTopPerf(leaderboards.antichess, PerfType.Antichess)
 
     @userTopPerf(leaderboards.classical, PerfType.Classical)
-    @userTopPerf(leaderboards.kingOfTheHill, PerfType.KingOfTheHill)
-    @userTopPerf(leaderboards.horde, PerfType.Horde)
 
     @userTopPerf(leaderboards.ultraBullet, PerfType.UltraBullet)
-    @userTopPerf(leaderboards.atomic, PerfType.Atomic)
-    @userTopPerf(leaderboards.racingKings, PerfType.RacingKings)
+    @userTopPerf(leaderboards.frisian, PerfType.Frisian)
+
   </div>
 </div>
 }

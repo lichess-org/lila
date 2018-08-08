@@ -1,4 +1,4 @@
-package lila.hub
+package lidraughts.hub
 
 import scala.concurrent.duration.Duration
 

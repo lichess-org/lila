@@ -1,4 +1,4 @@
-@(puzzle: lila.puzzle.Puzzle, data: play.api.libs.json.JsObject, pref: play.api.libs.json.JsObject)(implicit ctx: Context)
+@(puzzle: lidraughts.puzzle.Puzzle, data: play.api.libs.json.JsObject, pref: play.api.libs.json.JsObject)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("analyse.css")
@@ -7,10 +7,10 @@
 
 @moreJs = {
 @jsTag("vendor/sparkline.min.js")
-@jsAt(s"compiled/lichess.puzzle${isProd??(".min")}.js")
+@jsAt(s"compiled/lidraughts.puzzle${isProd??(".min")}.js")
 @embedJs {
-lichess = lichess || {};
-lichess.puzzle = {
+lidraughts = lidraughts || {};
+lidraughts.puzzle = {
 data: @toJson(data),
 pref: @toJson(pref),
 i18n: @jsI18n()
@@ -27,12 +27,12 @@ title = trans.training.txt(),
 side = side.some,
 moreCss = moreCss,
 moreJs = moreJs,
-chessground = false,
-openGraph = lila.app.ui.OpenGraph(
+draughtsground = false,
+openGraph = lidraughts.app.ui.OpenGraph(
 image = cdnUrl(routes.Export.puzzlePng(puzzle.id).url).some,
-title = s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
-url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
-description = s"Lichess tactic trainer: " + puzzle.color.fold(
+title = s"Draughts tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
+url = s"$netBaseUrl${routes.Lobby.home.url}",
+description = s"Lidraughts tactic trainer: " + puzzle.color.fold(
 trans.findTheBestMoveForWhite,
 trans.findTheBestMoveForBlack
 ).txt() + s" Played by ${puzzle.attempts} players.").some,

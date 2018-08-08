@@ -1,7 +1,7 @@
-package lila.message
+package lidraughts.message
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 object ThreadRepo {
 

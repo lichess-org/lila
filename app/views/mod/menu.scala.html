@@ -16,7 +16,7 @@
 <a class="@active.active("email")" href="@routes.Mod.emailConfirm">Email confirm</a>
 }
 @if(isGranted(_.PracticeConfig)) {
-<a class="@active.active("practice")" href="@routes.Practice.config">Practice</a>
+@* <a class="@active.active("practice")" href="@routes.Practice.config">Practice</a> *@
 }
 @if(isGranted(_.ManageTournament)) {
 <a class="@active.active("tour")" href="@routes.TournamentCrud.index">Tournaments</a>
@@ -28,7 +28,7 @@
 <a class="@active.active("log")" href="@routes.Mod.log">Mod log</a>
 }
 @if(isGranted(_.SeeReport)) {
-<a class="@active.active("irwin")" href="@routes.Irwin.dashboard">Irwin dashboard</a>
+@*<a class="@active.active("irwin")" href="@routes.Irwin.dashboard">Irwin dashboard</a>*@
 }
 @if(isGranted(_.MarkTroll)) {
 <a class="@active.active("panic")" href="@routes.Mod.chatPanic">
@@ -42,5 +42,5 @@
 <a class="@active.active("cli")" href="@routes.Dev.cli">CLI</a>
 }
 @if(isGranted(_.StaffForum)) {
-<a class="@active.active("forum")" href="@routes.ForumCateg.show(lila.forum.Categ.staffId)">Staff Forum</a>
+<a class="@active.active("forum")" href="@routes.ForumCateg.show(lidraughts.forum.Categ.staffId)">Staff Forum</a>
 }

@@ -1,4 +1,4 @@
-package lila.common
+package lidraughts.common
 
 import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
@@ -36,7 +36,7 @@ object HTTPRequest {
     req.remoteAddress.split(", ").lastOption | req.remoteAddress
   }
 
-  def sid(req: RequestHeader): Option[String] = req.session get LilaCookie.sessionId
+  def sid(req: RequestHeader): Option[String] = req.session get LidraughtsCookie.sessionId
 
   val isBot = UaMatcher {
     ("""(?i)googlebot|googlebot-mobile|googlebot-image|mediapartners-google|bingbot|slurp|java|wget|curl|commons-httpclient|python-urllib|libwww|httpunit|nutch|phpcrawl|msnbot|adidxbot|blekkobot|teoma|ia_archiver|gingercrawler|webmon|httrack|webcrawler|fast-webcrawler|fastenterprisecrawler|convera|biglotron|grub\.org|usinenouvellecrawler|antibot|netresearchserver|speedy|fluffy|jyxobot|bibnum\.bnf|findlink|exabot|gigabot|msrbot|seekbot|ngbot|panscient|yacybot|aisearchbot|ioi|ips-agent|tagoobot|mj12bot|dotbot|woriobot|yanga|buzzbot|mlbot|purebot|lingueebot|yandex\.com/bots|""" +

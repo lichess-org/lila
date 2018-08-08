@@ -1,11 +1,11 @@
-package lila.team
+package lidraughts.team
 
 import org.joda.time.{ DateTime, Period }
 import reactivemongo.api._
 import reactivemongo.bson._
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 object TeamRepo {
 

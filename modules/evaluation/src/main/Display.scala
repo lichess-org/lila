@@ -1,4 +1,4 @@
-package lila.evaluation
+package lidraughts.evaluation
 
 object Display {
 

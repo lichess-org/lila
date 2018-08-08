@@ -1,4 +1,4 @@
-package lila.security
+package lidraughts.security
 
 object Spam {
 
@@ -7,10 +7,9 @@ object Spam {
   private[security] lazy val cb = "tob-ssehc".reverse
 
   private def referBlacklist = List(
-    /* While links to other chess websites are welcome,
+    /* While links to other draughts websites are welcome,
      * refer links grant the referrer money,
      * effectively inducing spam */
-    "velocitychess.com/ref/",
     "chess24.com?ref=",
     "chess.com/register?refId="
   )
@@ -25,12 +24,11 @@ object Spam {
     case (t, (regex, rep)) => regex.replaceAllIn(t, rep)
   }
 
-  private[security] val tosUrl = "lichess.org/terms-of-service"
+  private[security] val tosUrl = "lidraughts.org/terms-of-service"
 
   private val protocol = """(https?://)?"""
 
   private val replacements = List(
-    s"""velocitychess.com/ref/\\w+""" -> "velocitychess.com",
     s"""chess24.com\\?ref=\\w+""" -> "chess24.com",
     s"""chess.com/register\\?refId=\\w+""" -> "chess.com",
     s"""${protocol}${cb}(\\.com)?[^\\s]*""" -> tosUrl

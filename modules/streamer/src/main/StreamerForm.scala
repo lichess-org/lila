@@ -1,4 +1,4 @@
-package lila.streamer
+package lidraughts.streamer
 
 import org.joda.time.DateTime
 import play.api.data._
@@ -88,10 +88,10 @@ object StreamerForm {
       chat: Boolean
   )
 
-  private implicit val headlineFormat = lila.common.Form.formatter.stringFormatter[Headline](_.value, Headline.apply)
+  private implicit val headlineFormat = lidraughts.common.Form.formatter.stringFormatter[Headline](_.value, Headline.apply)
   private def headline = of[Headline]
-  private implicit val descriptionFormat = lila.common.Form.formatter.stringFormatter[Description](_.value, Description.apply)
+  private implicit val descriptionFormat = lidraughts.common.Form.formatter.stringFormatter[Description](_.value, Description.apply)
   private def description = of[Description]
-  private implicit val nameFormat = lila.common.Form.formatter.stringFormatter[Name](_.value, Name.apply)
+  private implicit val nameFormat = lidraughts.common.Form.formatter.stringFormatter[Name](_.value, Name.apply)
   private def name = of[Name]
 }

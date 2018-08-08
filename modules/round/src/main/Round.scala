@@ -1,4 +1,4 @@
-package lila.round
+package lidraughts.round
 
 import akka.actor._
 import akka.pattern.ask
@@ -6,13 +6,12 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import actorApi._, round._
-import chess.{ DecayingStats, Color }
-import lila.game.{ Game, Progress, Pov, Event }
-import lila.hub.actorApi.DeployPost
-import lila.hub.actorApi.map._
-import lila.hub.actorApi.round.FishnetPlay
-import lila.hub.SequentialActor
-import lila.socket.UserLagCache
+import draughts.Color
+import lidraughts.game.{ Game, Progress, Pov, Event }
+import lidraughts.hub.actorApi.DeployPost
+import lidraughts.hub.actorApi.map._
+import lidraughts.hub.SequentialActor
+import lidraughts.socket.UserLagCache
 import makeTimeout.large
 
 private[round] final class Round(
@@ -38,13 +37,13 @@ private[round] final class Round(
   implicit val proxy = new GameProxy(gameId)
 
   override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'deploy)
+    context.system.lidraughtsBus.subscribe(self, 'deploy)
     scheduleExpiration
   }
 
   override def postStop(): Unit = {
     super.postStop()
-    context.system.lilaBus.unsubscribe(self)
+    context.system.lidraughtsBus.unsubscribe(self)
   }
 
   var takebackSituation = Round.TakebackSituation()
@@ -60,18 +59,14 @@ private[round] final class Round(
       handleHumanPlay(p) { pov =>
         if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
         else {
-          recordLagStats(pov)
+          recordLag(pov)
           player.human(p, self)(pov)
         }
       } >>- {
         p.trace.finish()
-        lila.mon.round.move.full.count()
+        lidraughts.mon.round.move.full.count()
         scheduleExpiration
       }
-
-    case FishnetPlay(uci, currentFen) => handle { game =>
-      player.fishnet(game, uci, currentFen, self)
-    } >>- lila.mon.round.move.full.count()
 
     case Abort(playerId) => handle(playerId) { pov =>
       pov.game.abortable ?? finisher.abort(pov)
@@ -138,12 +133,12 @@ private[round] final class Round(
     case DrawYes(playerRef) => handle(playerRef)(drawer.yes)
     case DrawNo(playerRef) => handle(playerRef)(drawer.no)
     case DrawClaim(playerId) => handle(playerId)(drawer.claim)
-    case DrawForce => handle(drawer force _)
     case Cheat(color) => handle { game =>
       (game.playable && !game.imported) ?? {
         finisher.other(game, _.Cheat, Some(!color))
       }
     }
+    case TooManyPlies => handle(drawer force _)
 
     case Threefold => proxy withGame { game =>
       drawer autoThreefold game map {
@@ -155,8 +150,8 @@ private[round] final class Round(
 
     case HoldAlert(playerId, mean, sd, ip) => handle(playerId) { pov =>
       !pov.player.hasHoldAlert ?? {
-        lila.log("cheat").info(s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
-        lila.mon.cheat.holdAlert()
+        lidraughts.log("cheat").info(s"hold alert $ip https://lidraughts.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
+        lidraughts.mon.cheat.holdAlert()
         proxy.bypass(_.setHoldAlert(pov, mean, sd)) inject List.empty[Event]
       }
     }
@@ -194,9 +189,13 @@ private[round] final class Round(
 
     case ForecastPlay(lastMove) => handle { game =>
       forecastApi.nextMove(game, lastMove) map { mOpt =>
-        mOpt foreach { move =>
-          self ! HumanPlay(game.player.id, move, false)
-        }
+        lidraughts.log("round.process").info(s"ForecastPlay @ $lastMove: $mOpt (turn ${game.turns}, captlen ${if (mOpt.isDefined) game.situation.captureLengthFrom(mOpt.get.orig).getOrElse(0) else 0})")
+        if (lastMove.captures && game.situation.captureLengthFrom(lastMove.dest).getOrElse(0) > 0) {
+          forecastApi.moveOpponent(game, lastMove) map { rmOpt =>
+            lidraughts.log("round.process").info(s"removed forecast: $rmOpt")
+            mOpt foreach { move => self ! HumanPlay(game.player.id, move, blur = false) }
+          }
+        } else mOpt foreach { move => self ! HumanPlay(game.player.id, move, blur = false) }
         Nil
       }
     }
@@ -204,7 +203,7 @@ private[round] final class Round(
     case DeployPost => handle { game =>
       game.playable ?? {
         val freeTime = 15.seconds
-        messenger.system(game, (_.untranslated("Lichess has been updated")))
+        messenger.system(game, (_.untranslated("Lidraughts has been updated")))
         messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
         val progress = giveMoretime(game, Color.all, freeTime)
         proxy save progress inject progress.events
@@ -224,6 +223,8 @@ private[round] final class Round(
     case NoStart => handle { game =>
       game.timeBeforeExpiration.exists(_.centis == 0) ?? finisher.noStart(game)
     }
+
+    case GetGame => proxy.game map sender.!
   }
 
   private def giveMoretime(game: Game, colors: List[Color], duration: FiniteDuration): Progress =
@@ -240,60 +241,48 @@ private[round] final class Round(
       (game withClock newClock) ++ colors.map { Event.ClockInc(_, centis) }
     }
 
-  private def recordLagStats(pov: Pov) =
+  private def recordLag(pov: Pov) =
     if ((pov.game.playedTurns & 30) == 10) {
       // Triggers every 32 moves starting on ply 10.
       // i.e. 10, 11, 42, 43, 74, 75, ...
       for {
+        user <- pov.player.userId
         clock <- pov.game.clock
-        lt = clock.lag(pov.color)
-        lag <- lt.avgLag
-      } {
-        pov.player.userId.foreach { UserLagCache.put(_, lag) }
-        if (pov.game.playedTurns < 12) {
-          import lila.mon.round.move.{ lag => lRec }
-          lRec.avgReported(lag.centis)
-          lt.history match {
-            case h: DecayingStats => lRec.compDeviation(h.deviation.toInt)
-          }
-          for {
-            lowEst <- lt.lowEstimate
-            avgComp <- lt.avgLagComp
-            uncomp <- (lt.totalLag - lt.totalComp) / lt.lagSteps
-          } {
-            lRec.estimateError((avgComp - lowEst).centis)
-            lRec.uncomped(f"${lt.quotaGain.centis / 10}%02d")(uncomp.centis)
-            lRec.uncompedAll(uncomp.centis)
-          }
-        }
-      }
+        lag <- clock.lag(pov.color).lagMean
+      } UserLagCache.put(user, lag)
     }
 
   private def scheduleExpiration: Funit = proxy.game map {
-    _ ?? { game =>
+    case None => self ! PoisonPill
+    case Some(game) =>
       game.timeBeforeExpiration foreach { centis =>
         context.system.scheduler.scheduleOnce((centis.millis + 1000).millis) {
           awakeWith(NoStart)
         }
       }
-    }
   }
 
   private def handle[A](op: Game => Fu[Events]): Funit =
     handleGame(proxy.game)(op)
 
-  private def handle(playerId: String)(op: Pov => Fu[Events]): Funit =
+  private def handle(playerId: String)(op: Pov => Fu[Events]): Funit = {
+    lidraughts.log("round.handle").info(s"handle $playerId")
     handlePov(proxy playerPov playerId)(op)
+  }
 
-  private def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
+  private def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit = {
+    lidraughts.log("round.process").info(s"handleHumanPlay $p")
     handlePov {
       p.trace.segment("fetch", "db") {
         proxy playerPov p.playerId
       }
     }(op)
+  }
 
-  private def handle(color: Color)(op: Pov => Fu[Events]): Funit =
+  private def handle(color: Color)(op: Pov => Fu[Events]): Funit = {
+    lidraughts.log("round.process").info(s"handle $color")
     handlePov(proxy pov color)(op)
+  }
 
   private def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit = publish {
     pov flatten "pov not found" flatMap { p =>
@@ -322,10 +311,10 @@ private[round] final class Round(
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
     case e: ClientError =>
       logger.info(s"Round client error $name", e)
-      lila.mon.round.error.client()
+      lidraughts.mon.round.error.client()
     case e: FishnetError =>
       logger.info(s"Round fishnet error $name", e)
-      lila.mon.round.error.fishnet()
+      lidraughts.mon.round.error.fishnet()
     case e: Exception => logger.warn(s"$name: ${e.getMessage}")
   }
 }

@@ -1,6 +1,6 @@
-package lila.practice
+package lidraughts.practice
 
-import lila.study.Study
+import lidraughts.study.Study
 
 case class PracticeConfig(
     sections: List[PracticeConfigSection]

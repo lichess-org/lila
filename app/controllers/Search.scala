@@ -2,30 +2,30 @@ package controllers
 
 import scala.concurrent.duration._
 
-import lila.app._
-import lila.common.{ HTTPRequest, IpAddress }
+import lidraughts.app._
+import lidraughts.common.{ HTTPRequest, IpAddress }
 import views._
 
-object Search extends LilaController {
+object Search extends LidraughtsController {
 
   private def env = Env.gameSearch
   def searchForm = env.forms.search
 
-  private val RateLimitGlobal = new lila.memo.RateLimit[String](
+  private val RateLimitGlobal = new lidraughts.memo.RateLimit[String](
     credits = 50,
     duration = 1 minute,
     name = "search games global",
     key = "search.games.global"
   )
 
-  private val RateLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private val RateLimitPerIP = new lidraughts.memo.RateLimit[IpAddress](
     credits = 50,
     duration = 5 minutes,
     name = "search games per IP",
     key = "search.games.ip"
   )
 
-  private val LinearLimitPerIP = new lila.memo.LinearLimit(
+  private val LinearLimitPerIP = new lidraughts.memo.LinearLimit(
     name = "search games per IP",
     key = "search.games.ip",
     ttl = 5 minutes
@@ -91,9 +91,9 @@ object Search extends LilaController {
             import org.joda.time.DateTime
             import org.joda.time.format.DateTimeFormat
             val date = (DateTimeFormat forPattern "yyyy-MM-dd") print DateTime.now
-            Ok.chunked(Env.api.pgnDump exportGamesFromIds ids).withHeaders(
-              CONTENT_TYPE -> pgnContentType,
-              CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_search_$date.pgn")
+            Ok.chunked(Env.api.pdnDump exportGamesFromIds ids).withHeaders(
+              CONTENT_TYPE -> pdnContentType,
+              CONTENT_DISPOSITION -> ("attachment; filename=" + s"lidraughts_search_$date.pdn")
             )
           }
         }

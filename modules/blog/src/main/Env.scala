@@ -1,12 +1,12 @@
-package lila.blog
+package lidraughts.blog
 
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    scheduler: lila.common.Scheduler,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    timelineApi: lila.timeline.EntryApi
+    scheduler: lidraughts.common.Scheduler,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    timelineApi: lidraughts.timeline.EntryApi
 )(implicit system: akka.actor.ActorSystem) {
 
   private val PrismicApiUrl = config getString "prismic.api_url"
@@ -37,11 +37,11 @@ final class Env(
 object Env {
 
   lazy val current: Env = "blog" boot new Env(
-    config = lila.common.PlayApp loadConfig "blog",
-    scheduler = lila.common.PlayApp.scheduler,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    timelineApi = lila.timeline.Env.current.entryApi
+    config = lidraughts.common.PlayApp loadConfig "blog",
+    scheduler = lidraughts.common.PlayApp.scheduler,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    timelineApi = lidraughts.timeline.Env.current.entryApi
   )(
-    lila.common.PlayApp.system
+    lidraughts.common.PlayApp.system
   )
 }

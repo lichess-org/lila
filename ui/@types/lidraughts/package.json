@@ -1,0 +1,7 @@
+{
+  "name": "@types/lidraughts",
+  "version": "1.0.0",
+  "description": "lidraughts.org type declarations",
+  "author": "Stefan Schermann",
+  "license": "AGPL-3.0"
+}

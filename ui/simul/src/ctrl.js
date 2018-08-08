@@ -31,7 +31,7 @@ module.exports = function(env) {
   startWatching();
 
   if (simul.createdByMe(this) && this.data.isCreated)
-    lichess.storage.set('lichess.move_on', '1'); // hideous hack :D
+    lidraughts.storage.set('lidraughts.move_on', '1'); // hideous hack :D
 
-  this.trans = lichess.trans(env.i18n);
+  this.trans = lidraughts.trans(env.i18n);
 };

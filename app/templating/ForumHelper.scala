@@ -1,14 +1,14 @@
-package lila.app
+package lidraughts.app
 package templating
 
 import play.twirl.api.Html
 
-import lila.api.Context
-import lila.forum.Post
+import lidraughts.api.Context
+import lidraughts.forum.Post
 
 trait ForumHelper { self: UserHelper with StringHelper =>
 
-  private object Granter extends lila.forum.Granter {
+  private object Granter extends lidraughts.forum.Granter {
 
     protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean] =
       Env.team.api.belongsTo(teamId, userId)
@@ -25,7 +25,7 @@ trait ForumHelper { self: UserHelper with StringHelper =>
 
   def authorName(post: Post) = post.userId match {
     case Some(userId) => userIdSpanMini(userId, withOnline = true)
-    case None => Html(lila.user.User.anonymous)
+    case None => Html(lidraughts.user.User.anonymous)
   }
 
   def authorLink(
@@ -33,7 +33,7 @@ trait ForumHelper { self: UserHelper with StringHelper =>
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
     modIcon: Boolean = false
-  ) = post.userId.fold(Html(lila.user.User.anonymous)) { userId =>
+  ) = post.userId.fold(Html(lidraughts.user.User.anonymous)) { userId =>
     userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
   }
 }

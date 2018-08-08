@@ -7,7 +7,7 @@ import { main as studyView } from './study/studyView';
 import { main as studyPracticeView } from './study/practice/studyPracticeView';
 import { StudyCtrl } from './study/interfaces';
 import boot = require('./boot');
-import { Chessground } from 'chessground';
+import { Draughtsground } from 'draughtsground';
 import * as chat from 'chat';
 
 import { init } from 'snabbdom';
@@ -59,7 +59,7 @@ export function start(opts: AnalyseOpts) {
 
 export { boot };
 
-// that's for the rest of lichess to access chessground
+// that's for the rest of lidraughts to access draughtsground
 // without having to include it a second time
-window.Chessground = Chessground;
-window.LichessChat = chat;
+window.Draughtsground = Draughtsground;
+window.LidraughtsChat = chat;

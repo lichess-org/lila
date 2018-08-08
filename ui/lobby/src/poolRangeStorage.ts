@@ -4,10 +4,10 @@ function makeKey(poolId) {
 
 export function set(poolId, range) {
   const key = makeKey(poolId);
-  if (range) window.lichess.storage.set(key, range);
-  else window.lichess.storage.remove(key);
+  if (range) window.lidraughts.storage.set(key, range);
+  else window.lidraughts.storage.remove(key);
 }
 
 export function get(poolId) {
-  return window.lichess.storage.get(makeKey(poolId));
+  return window.lidraughts.storage.get(makeKey(poolId));
 }

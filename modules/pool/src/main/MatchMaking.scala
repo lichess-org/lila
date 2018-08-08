@@ -1,6 +1,6 @@
-package lila.pool
+package lidraughts.pool
 
-import lila.common.WMMatching
+import lidraughts.common.WMMatching
 
 object MatchMaking {
 

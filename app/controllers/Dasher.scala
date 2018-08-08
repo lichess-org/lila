@@ -2,14 +2,14 @@ package controllers
 
 import play.api.libs.json._
 
-import lila.api.Context
-import lila.app._
-import lila.common.LightUser.lightUserWrites
-import lila.i18n.{ I18nKeys, I18nLangPicker, enLang }
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.common.LightUser.lightUserWrites
+import lidraughts.i18n.{ I18nKeys, I18nLangPicker, enLang }
 
-object Dasher extends LilaController {
+object Dasher extends LidraughtsController {
 
-  private def translations(implicit ctx: Context) = lila.i18n.JsDump.keysToObject(
+  private def translations(implicit ctx: Context) = lidraughts.i18n.JsDump.keysToObject(
     ctx.isAnon.fold(
       List(
         I18nKeys.signIn,
@@ -22,8 +22,8 @@ object Dasher extends LilaController {
         I18nKeys.logOut
       )
     ) ::: List(
-        I18nKeys.networkLagBetweenYouAndLichess,
-        I18nKeys.timeToProcessAMoveOnLichessServer,
+        I18nKeys.networkLagBetweenYouAndLidraughts,
+        I18nKeys.timeToProcessAMoveOnLidraughtsServer,
         I18nKeys.sound,
         I18nKeys.background,
         I18nKeys.light,
@@ -35,11 +35,11 @@ object Dasher extends LilaController {
         I18nKeys.boardSize,
         I18nKeys.pieceSet,
         I18nKeys.zenMode
-      ), lila.i18n.I18nDb.Site, ctx.lang
-  ) ++ lila.i18n.JsDump.keysToObject(
+      ), lidraughts.i18n.I18nDb.Site, ctx.lang
+  ) ++ lidraughts.i18n.JsDump.keysToObject(
       // the language settings should never be in a totally foreign language
       List(I18nKeys.language),
-      lila.i18n.I18nDb.Site,
+      lidraughts.i18n.I18nDb.Site,
       if (I18nLangPicker.allFromRequestHeaders(ctx.req).has(ctx.lang)) ctx.lang
       else I18nLangPicker.bestFromRequestHeaders(ctx.req) | enLang
     )
@@ -56,7 +56,7 @@ object Dasher extends LilaController {
               "accepted" -> I18nLangPicker.allFromRequestHeaders(ctx.req).map(_.code)
             ),
             "sound" -> Json.obj(
-              "list" -> lila.pref.SoundSet.list.map { set =>
+              "list" -> lidraughts.pref.SoundSet.list.map { set =>
                 s"${set.key} ${set.name}"
               }
             ),
@@ -65,27 +65,18 @@ object Dasher extends LilaController {
               "image" -> ctx.pref.bgImgOrDefault
             ),
             "board" -> Json.obj(
-              "is3d" -> ctx.pref.is3d,
               "zoom" -> ctx.zoom
             ),
             "theme" -> Json.obj(
               "d2" -> Json.obj(
                 "current" -> ctx.currentTheme.name,
-                "list" -> lila.pref.Theme.all.map(_.name)
-              ),
-              "d3" -> Json.obj(
-                "current" -> ctx.currentTheme3d.name,
-                "list" -> lila.pref.Theme3d.all.map(_.name)
+                "list" -> lidraughts.pref.Theme.all.map(_.name)
               )
             ),
             "piece" -> Json.obj(
               "d2" -> Json.obj(
                 "current" -> ctx.currentPieceSet.name,
-                "list" -> lila.pref.PieceSet.all.map(_.name)
-              ),
-              "d3" -> Json.obj(
-                "current" -> ctx.currentPieceSet3d.name,
-                "list" -> lila.pref.PieceSet3d.all.map(_.name)
+                "list" -> lidraughts.pref.PieceSet.all.map(_.name)
               )
             ),
             "kid" -> ctx.me ?? (_.kid),

@@ -19,7 +19,7 @@ moreJs = moreJs) {
     <a href="@routes.Auth.login()" class="button" data-icon="F"> @trans.signIn()</a>
   </div>
   <div class="signup_box">
-    <h1 class="lichess_title">@trans.signUp()</h1>
+    <h1 class="lidraughts_title">@trans.signUp()</h1>
     <form id="signup_form" action="@routes.Auth.signupPost" method="POST">
       <ul>
         @auth.formFields(form("username"), form("password"), form("email").some, register = true)

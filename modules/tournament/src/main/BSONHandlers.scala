@@ -1,12 +1,12 @@
-package lila.tournament
+package lidraughts.tournament
 
-import chess.Clock.{ Config => ClockConfig }
-import chess.variant.Variant
-import chess.{ Mode, StartingPosition }
-import lila.db.BSON
-import lila.db.dsl._
-import lila.rating.PerfType
-import lila.user.UserRepo.lichessId
+import draughts.Clock.{ Config => ClockConfig }
+import draughts.variant.Variant
+import draughts.{ Mode, StartingPosition }
+import lidraughts.db.BSON
+import lidraughts.db.dsl._
+import lidraughts.rating.PerfType
+import lidraughts.user.UserRepo.lidraughtsId
 import reactivemongo.bson._
 
 object BSONHandlers {
@@ -59,7 +59,7 @@ object BSONHandlers {
         name = r str "name",
         status = r.get[Status]("status"),
         system = r.intO("system").fold[System](System.default)(System.orDefault),
-        clock = r.get[chess.Clock.Config]("clock"),
+        clock = r.get[draughts.Clock.Config]("clock"),
         minutes = r int "minutes",
         variant = variant,
         position = position,
@@ -74,7 +74,7 @@ object BSONHandlers {
         } yield Schedule(freq, speed, variant, position, startsAt, conditions),
         nbPlayers = r int "nbPlayers",
         createdAt = r date "createdAt",
-        createdBy = r strO "createdBy" getOrElse lichessId,
+        createdBy = r strO "createdBy" getOrElse lidraughtsId,
         startsAt = startsAt,
         winnerId = r strO "winner",
         featuredId = r strO "featured",
@@ -102,7 +102,7 @@ object BSONHandlers {
       },
       "nbPlayers" -> o.nbPlayers,
       "createdAt" -> w.date(o.createdAt),
-      "createdBy" -> o.nonLichessCreatedBy,
+      "createdBy" -> o.nonLidraughtsCreatedBy,
       "startsAt" -> w.date(o.startsAt),
       "winner" -> o.winnerId,
       "featured" -> o.featuredId,
@@ -119,6 +119,7 @@ object BSONHandlers {
       provisional = r boolD "pr",
       withdraw = r boolD "w",
       score = r intD "s",
+      ratingDiff = r intD "p",
       fire = r boolD "f",
       performance = r intD "e"
     )
@@ -130,6 +131,7 @@ object BSONHandlers {
       "pr" -> w.boolO(o.provisional),
       "w" -> w.boolO(o.withdraw),
       "s" -> w.intO(o.score),
+      "p" -> w.intO(o.ratingDiff),
       "m" -> o.magicScore,
       "f" -> w.boolO(o.fire),
       "e" -> o.performance
@@ -144,7 +146,7 @@ object BSONHandlers {
       Pairing(
         id = r str "_id",
         tourId = r str "tid",
-        status = chess.Status(r int "s") err "tournament pairing status",
+        status = draughts.Status(r int "s") err "tournament pairing status",
         user1 = user1,
         user2 = user2,
         winner = r boolO "w" map (_.fold(user1, user2)),

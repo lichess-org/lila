@@ -11,8 +11,8 @@ export function controller(game: Game, onClose: () => void, trans: Trans, redraw
 
   const variant = (game.variant.key === 'fromPosition') ? 'standard' : game.variant.key;
 
-  const available: ExplorerDb[] = ['lichess'];
-  if (variant === 'standard') available.push('masters');
+  const available: ExplorerDb[] = ['lidraughts'];
+  if (variant === 'standard') available.unshift('masters');
 
   const data: ExplorerConfigData = {
     open: prop(false),

@@ -1,12 +1,12 @@
-package lila.game
+package lidraughts.game
 
-import chess.Status
+import draughts.Status
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.BSON.BSONJodaDateTimeHandler
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 object Query {
 
@@ -38,7 +38,7 @@ object Query {
 
   val frozen: Bdoc = F.status $gte Status.Mate.id
 
-  def imported(u: String): Bdoc = s"${F.pgnImport}.user" $eq u
+  def imported(u: String): Bdoc = s"${F.pdnImport}.user" $eq u
 
   val friend: Bdoc = s"${F.source}" $eq Source.Friend.id
 
@@ -100,21 +100,13 @@ object Query {
 
   def checkableOld = F.checkAt $lt DateTime.now.minusHours(1)
 
-  def variant(v: chess.variant.Variant) =
+  def variant(v: draughts.variant.Variant) =
     $doc(F.variant -> v.standard.fold[BSONValue]($exists(false), $int(v.id)))
 
-  lazy val variantStandard = variant(chess.variant.Standard)
-
-  lazy val notHordeOrSincePawnsAreWhite: Bdoc = $or(
-    F.variant $ne chess.variant.Horde.id,
-    sinceHordePawnsAreWhite
-  )
-
-  lazy val sinceHordePawnsAreWhite: Bdoc =
-    F.createdAt $gt Game.hordeWhitePawnsSince
+  lazy val variantStandard = variant(draughts.variant.Standard)
 
   val notFromPosition: Bdoc =
-    F.variant $ne chess.variant.FromPosition.id
+    F.variant $ne draughts.variant.FromPosition.id
 
   def createdSince(d: DateTime): Bdoc =
     F.createdAt $gt d

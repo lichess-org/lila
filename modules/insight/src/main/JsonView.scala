@@ -1,10 +1,10 @@
-package lila.insight
+package lidraughts.insight
 
 import play.api.libs.json._
 
 final class JsonView {
 
-  import lila.insight.{ Dimension => D, Metric => M }
+  import lidraughts.insight.{ Dimension => D, Metric => M }
 
   case class Categ(name: String, items: List[JsValue])
   private implicit val categWrites = Json.writes[Categ]
@@ -32,8 +32,7 @@ final class JsonView {
       Categ("Game", List(
         openingJson,
         Json toJson D.MyCastling,
-        Json toJson D.OpCastling,
-        Json toJson D.QueenTrade
+        Json toJson D.OpCastling
       )),
       Categ("Move", List(
         Json toJson D.PieceRole,

@@ -1,4 +1,4 @@
-package lila.common
+package lidraughts.common
 
 object Chronometer {
 
@@ -7,7 +7,7 @@ object Chronometer {
     def millis = (nanos / 1000000).toInt
     def micros = (nanos / 1000).toInt
 
-    def logIfSlow(threshold: Int, logger: lila.log.Logger)(msg: A => String) = {
+    def logIfSlow(threshold: Int, logger: lidraughts.log.Logger)(msg: A => String) = {
       if (millis >= threshold) logger.debug(s"<${millis}ms> ${msg(result)}")
       this
     }
@@ -27,14 +27,14 @@ object Chronometer {
 
   case class FuLap[A](lap: Fu[Lap[A]]) extends AnyVal {
 
-    def logIfSlow(threshold: Int, logger: lila.log.Logger)(msg: A => String) = {
+    def logIfSlow(threshold: Int, logger: lidraughts.log.Logger)(msg: A => String) = {
       lap.dforeach(_.logIfSlow(threshold, logger)(msg))
       this
     }
 
-    def mon(path: lila.mon.RecPath) = {
+    def mon(path: lidraughts.mon.RecPath) = {
       lap dforeach { l =>
-        lila.mon.recPath(path)(l.nanos)
+        lidraughts.mon.recPath(path)(l.nanos)
       }
       this
     }
@@ -63,10 +63,10 @@ object Chronometer {
     lap.result
   }
 
-  def syncMon[A](f: => A)(path: lila.mon.RecPath): A = {
+  def syncMon[A](f: => A)(path: lidraughts.mon.RecPath): A = {
     val start = nowNanos
     val res = f
-    lila.mon.recPath(path)(nowNanos - start)
+    lidraughts.mon.recPath(path)(nowNanos - start)
     res
   }
 }

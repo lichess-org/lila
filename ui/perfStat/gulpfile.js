@@ -11,13 +11,13 @@ var destination = '../../public/compiled/';
 var onError = function(error) {
   gutil.log(gutil.colors.red(error.message));
 };
-var standalone = 'LichessPerfStat';
+var standalone = 'LidraughtsPerfStat';
 
 gulp.task('prod', function() {
   return browserify('./src/main.js', {
     standalone: standalone
   }).bundle()
-    .pipe(source('lichess.perfStat.min.js'))
+    .pipe(source('lidraughts.perfStat.min.js'))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(destination));
 });
@@ -26,7 +26,7 @@ gulp.task('dev', function() {
   return browserify('./src/main.js', {
     standalone: standalone
   }).bundle()
-    .pipe(source('lichess.perfStat.js'))
+    .pipe(source('lidraughts.perfStat.js'))
     .pipe(gulp.dest(destination));
 });
 
@@ -42,7 +42,7 @@ gulp.task('watch', function() {
   function rebundle() {
     return bundleStream.bundle()
       .on('error', onError)
-      .pipe(source('lichess.perfStat.js'))
+      .pipe(source('lidraughts.perfStat.js'))
       .pipe(gulp.dest(destination));
   }
 

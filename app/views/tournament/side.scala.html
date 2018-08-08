@@ -1,4 +1,4 @@
-@(tour: Tournament, verdicts: lila.tournament.Condition.All.WithVerdicts, streamers: Set[User.ID])(implicit ctx: Context)
+@(tour: Tournament, verdicts: lidraughts.tournament.Condition.All.WithVerdicts, streamers: Set[User.ID], shieldOwner: Option[lidraughts.tournament.TournamentShield.OwnerId])(implicit ctx: Context)
 
 <div class="side_box padded">
   <div class="game_infos" data-icon="@tour.perfType.map(_.iconChar)">
@@ -11,7 +11,7 @@
       <span class="setup">
         @tour.clock.show •
         @if(tour.variant.exotic) {
-        @game.variantLink(tour.variant, (if (tour.variant == chess.variant.KingOfTheHill) tour.variant.shortName else tour.variant.name), cssClass = "hint--top")
+        @game.variantLink(tour.variant, tour.variant.name, cssClass = "hint--top")
         } else {
         @tour.perfType.map(_.name)
         }
@@ -26,7 +26,10 @@
   </div>
   @tour.spotlight.map { s =>
   <div class="game_infos spotlight">
-    @lila.common.String.html.markdownLinks(s.description)
+    @lidraughts.common.String.html.markdownLinks(s.description)
+    @shieldOwner.map { owner =>
+    <p class="defender" data-icon="5">Defender:@userIdLink(owner.value.some)</p>
+    }
   </div>
   }
   @if(verdicts.relevant) {
@@ -41,7 +44,7 @@
     }
   </div>
   }
-  @if(tour.createdBy == "lichess") {
+  @if(tour.createdBy == "lidraughts") {
   @trans.tournamentOfficial()
   } else {
   @trans.by(usernameOrId(tour.createdBy))
@@ -59,5 +62,5 @@
   }
 </div>
 @streamers.map { id =>
-<a href="@routes.Streamer.show(id)" class="context-streamer text side_box" data-icon="">@usernameOrId(id) is streaming</a>
+@* <a href="@routes.Streamer.show(id)" class="context-streamer text side_box" data-icon="">@usernameOrId(id) is streaming</a> *@
 }

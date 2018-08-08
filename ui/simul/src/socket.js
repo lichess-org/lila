@@ -10,7 +10,7 @@ module.exports = function(send, ctrl) {
       m.redraw();
     },
     aborted: function() {
-      lichess.reload();
+      lidraughts.reload();
     },
     hostGame: function(gameId) {
       ctrl.data.host.gameId = gameId;

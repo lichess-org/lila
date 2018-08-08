@@ -1,6 +1,6 @@
-@(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], filters: lila.app.mashup.GameFilterMenu, searchForm: Option[Form[_]], social: lila.app.mashup.UserInfo.Social)(implicit ctx: Context)
+@(u: User, info: lidraughts.app.mashup.UserInfo, games: Paginator[Game], filters: lidraughts.app.mashup.GameFilterMenu, searchForm: Option[Form[_]], social: lidraughts.app.mashup.UserInfo.Social)(implicit ctx: Context)
 
-@import lila.app.mashup.UserInfo.Angle
+@import lidraughts.app.mashup.UserInfo.Angle
 
 @evenMoreJs = {
 @if(filters.current.name == "search") {
@@ -9,7 +9,7 @@
 @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
 @info.ratingChart.map { ratingChart =>
 @jsTag("chart/ratingHistory.js")
-@embedJsUnsafe(s"lichess.ratingHistoryChart($ratingChart);")
+@embedJsUnsafe(s"lidraughts.ratingHistoryChart($ratingChart);")
 }
 }
 }
@@ -19,7 +19,7 @@ title =  s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.curre
 side = side(u, info.ranks, none).some,
 robots = false,
 evenMoreJs = evenMoreJs,
-openGraph = lila.app.ui.OpenGraph(
+openGraph = lidraughts.app.ui.OpenGraph(
 image = staticUrl("images/large_tile.png").some,
 title = u.titleUsernameWithBestRating,
 url = s"$netBaseUrl${routes.User.show(u.username).url}",

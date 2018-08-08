@@ -1,18 +1,18 @@
-package lila.security
+package lidraughts.security
 
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 
-import lila.common.{ LameName, EmailAddress }
-import lila.user.{ User, UserRepo }
+import lidraughts.common.{ LameName, EmailAddress }
+import lidraughts.user.{ User, UserRepo }
 import User.ClearPassword
 
 final class DataForm(
     val captcher: akka.actor.ActorSelection,
-    authenticator: lila.user.Authenticator,
+    authenticator: lidraughts.user.Authenticator,
     emailValidator: EmailAddressValidator
-) extends lila.hub.CaptchedForm {
+) extends lidraughts.hub.CaptchedForm {
 
   import DataForm._
 
@@ -37,8 +37,16 @@ final class DataForm(
       Constraints minLength 2,
       Constraints maxLength 20,
       Constraints.pattern(
-        regex = User.newUsernameRegex,
-        error = "usernameInvalid"
+        regex = User.newUsernamePrefix,
+        error = "usernamePrefixInvalid"
+      ),
+      Constraints.pattern(
+        regex = User.newUsernameSuffix,
+        error = "usernameSuffixInvalid"
+      ),
+      Constraints.pattern(
+        regex = User.newUsernameChars,
+        error = "usernameCharsInvalid"
       )
     ).verifying("usernameUnacceptable", u => !LameName.username(u))
       .verifying("usernameAlreadyUsed", u => !UserRepo.nameExists(u).awaitSeconds(4))

@@ -1,7 +1,7 @@
-package lila.game
+package lidraughts.game
 
-import chess.variant.Variant
-import chess.{ Status, Color }
+import draughts.variant.Variant
+import draughts.{ Status, Color }
 
 object StatusText {
 
@@ -19,15 +19,12 @@ object StatusText {
     case NoStart => s"${loser(win)} wins by forfeit."
     case Cheat => "Cheat detected."
     case VariantEnd => variant match {
-      case chess.variant.KingOfTheHill => s"${winner(win)} brings the king in the center."
-      case chess.variant.ThreeCheck => s"${winner(win)} gives the third check."
-      case chess.variant.RacingKings => s"${winner(win)} wins the race."
       case _ => "Game ends by variant rule."
     }
     case _ => ""
   }
 
-  def apply(game: lila.game.Game): String = apply(game.status, game.winnerColor, game.variant)
+  def apply(game: lidraughts.game.Game): String = apply(game.status, game.winnerColor, game.variant)
 
   private def winner(win: Option[Color]) = win.??(_.toString)
   private def loser(win: Option[Color]) = winner(win.map(!_))

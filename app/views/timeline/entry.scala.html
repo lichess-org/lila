@@ -1,6 +1,6 @@
-@(e: lila.timeline.Entry)(implicit ctx: Context)
+@(e: lidraughts.timeline.Entry)(implicit ctx: Context)
 
-@import lila.hub.actorApi.timeline._
+@import lidraughts.hub.actorApi.timeline._
 
 @e.decode.map { decoded =>
 @decoded match {
@@ -45,7 +45,7 @@ case QaComment(userId, id, title, commentId) => {
 Html("""<a href="%s#comment-%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), commentId, escapeHtml(title))))
 }
 case GameEnd(playerId, opponent, win, perfKey) => {
-@lila.rating.PerfType(perfKey).map { perf =>
+@lidraughts.rating.PerfType(perfKey).map { perf =>
 @trans.xVsYinZ(Html("""<a href="%s" data-icon="%s" class="glpt"> %s</a>""".format(routes.Round.player(playerId), perf.iconChar, win match {
   case Some(true) => trans.victory()
   case Some(false) => trans.defeat()
@@ -68,7 +68,7 @@ case BlogPost(id, slug, title) => {
 <a data-icon="6" class="text" href="@routes.Blog.show(id, slug)">@title</a>
 }
 case StreamStart(id, name) => {
-<a data-icon="" class="text" href="@routes.Streamer.show(id)">@name started streaming</a>
+@*<a data-icon="" class="text" href="@routes.Streamer.show(id)">@name started streaming</a>*@
 }
 }
 @momentFromNow(e.date)

@@ -1,9 +1,9 @@
-package lila
+package lidraughts
 
 package object game extends PackageObject {
 
-  type PgnMoves = Vector[String]
-  type RatingDiffs = chess.Color.Map[Int]
+  type PdnMoves = Vector[String]
+  type RatingDiffs = draughts.Color.Map[Int]
 
-  private[game] def logger = lila.log("game")
+  private[game] def logger = lidraughts.log("game")
 }

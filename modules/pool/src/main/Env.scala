@@ -1,4 +1,4 @@
-package lila.pool
+package lidraughts.pool
 
 import scala.concurrent.duration._
 
@@ -6,7 +6,7 @@ import akka.actor._
 
 final class Env(
     lobbyActor: ActorSelection,
-    playbanApi: lila.playban.PlaybanApi,
+    playbanApi: lidraughts.playban.PlaybanApi,
     system: akka.actor.ActorSystem,
     onStart: String => Unit
 ) {
@@ -22,10 +22,10 @@ final class Env(
   )
 
   private lazy val gameStarter = new GameStarter(
-    bus = system.lilaBus,
+    bus = system.lidraughtsBus,
     onStart = onStart,
     sequencer = system.actorOf(Props(
-      classOf[lila.hub.Sequencer], none, 10.seconds.some, logger
+      classOf[lidraughts.hub.Sequencer], none, 10.seconds.some, logger
     ), name = "pool-sequencer")
   )
 }
@@ -33,9 +33,9 @@ final class Env(
 object Env {
 
   lazy val current: Env = "pool" boot new Env(
-    lobbyActor = lila.hub.Env.current.actor.lobby,
-    playbanApi = lila.playban.Env.current.api,
-    system = lila.common.PlayApp.system,
-    onStart = lila.game.Env.current.onStart
+    lobbyActor = lidraughts.hub.Env.current.actor.lobby,
+    playbanApi = lidraughts.playban.Env.current.api,
+    system = lidraughts.common.PlayApp.system,
+    onStart = lidraughts.game.Env.current.onStart
   )
 }

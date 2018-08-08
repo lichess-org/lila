@@ -1,10 +1,10 @@
-package lila.challenge
+package lidraughts.challenge
 
-import lila.i18n.I18nKeys
-import lila.pref.Pref
-import lila.rating.PerfType
-import lila.relation.{ Relation, Block, Follow }
-import lila.user.{ User, UserContext }
+import lidraughts.i18n.I18nKeys
+import lidraughts.pref.Pref
+import lidraughts.rating.PerfType
+import lidraughts.relation.{ Relation, Block, Follow }
+import lidraughts.user.{ User, UserContext }
 
 case class ChallengeDenied(dest: User, reason: ChallengeDenied.Reason)
 

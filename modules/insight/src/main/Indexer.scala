@@ -1,16 +1,16 @@
-package lila.insight
+package lidraughts.insight
 
 import akka.actor.ActorRef
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import reactivemongo.bson._
 
-import lila.db.dsl._
-import lila.db.dsl._
-import lila.game.BSONHandlers.gameBSONHandler
-import lila.game.{ Game, GameRepo, Query }
-import lila.hub.Sequencer
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.db.dsl._
+import lidraughts.game.BSONHandlers.gameBSONHandler
+import lidraughts.game.{ Game, GameRepo, Query }
+import lidraughts.hub.Sequencer
+import lidraughts.user.User
 
 private final class Indexer(storage: Storage, sequencer: ActorRef) {
 
@@ -40,13 +40,13 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
     Query.rated ++
     Query.finished ++
     Query.turnsGt(2) ++
-    Query.notFromPosition ++
-    Query.notHordeOrSincePawnsAreWhite
+    Query.notFromPosition
 
   // private val maxGames = 1 * 10
   private val maxGames = 10 * 1000
 
-  private def fetchFirstGame(user: User): Fu[Option[Game]] =
+  private def fetchFirstGame(user: User): Fu[Option[Game]] = {
+    logger.info(s"fetchFirstGame: $user")
     if (user.count.rated == 0) fuccess(none)
     else {
       (user.count.rated >= maxGames) ?? GameRepo.coll
@@ -58,6 +58,7 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
       .find(gameQuery(user))
       .sort(Query.sortChronological)
       .uno[Game]
+  }
 
   private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit = {
     import reactivemongo.play.iteratees.cursorProducer

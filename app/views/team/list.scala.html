@@ -1,4 +1,4 @@
-@(name: String, teams: Paginator[lila.team.Team], next: Option[Call], tab: String, search: String = "")(implicit ctx: Context)
+@(name: String, teams: Paginator[lidraughts.team.Team], next: Option[Call], tab: String, search: String = "")(implicit ctx: Context)
 
 @title = @{ "%s - page %d".format(name, teams.currentPage) }
 

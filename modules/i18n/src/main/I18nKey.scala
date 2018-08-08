@@ -1,8 +1,8 @@
-package lila.i18n
+package lidraughts.i18n
 
 import play.api.i18n.Lang
 import play.twirl.api.Html
-import lila.user.UserContext
+import lidraughts.user.UserContext
 
 sealed trait I18nKey {
 

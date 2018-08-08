@@ -1,11 +1,11 @@
-package lila.notify
+package lidraughts.notify
 
-import lila.db.BSON.{ Reader, Writer }
-import lila.db.dsl._
-import lila.db.{ dsl, BSON }
-import lila.notify.InvitedToStudy.{ StudyName, InvitedBy, StudyId }
-import lila.notify.MentionedInThread._
-import lila.notify.Notification._
+import lidraughts.db.BSON.{ Reader, Writer }
+import lidraughts.db.dsl._
+import lidraughts.db.{ dsl, BSON }
+import lidraughts.notify.InvitedToStudy.{ StudyName, InvitedBy, StudyId }
+import lidraughts.notify.MentionedInThread._
+import lidraughts.notify.Notification._
 import reactivemongo.bson._
 
 private object BSONHandlers {
@@ -54,9 +54,9 @@ private object BSONHandlers {
   implicit val IrwinDoneHandler = Macros.handler[IrwinDone]
   implicit val GenericLinkHandler = Macros.handler[GenericLink]
 
-  implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, chess.Color] {
-    def read(b: BSONBoolean) = chess.Color(b.value)
-    def write(c: chess.Color) = BSONBoolean(c.white)
+  implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, draughts.Color] {
+    def read(b: BSONBoolean) = draughts.Color(b.value)
+    def write(c: draughts.Color) = BSONBoolean(c.white)
   }
 
   implicit val NotificationContentHandler = new BSON[NotificationContent] {

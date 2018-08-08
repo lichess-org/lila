@@ -1,19 +1,19 @@
-package lila.message
+package lidraughts.message
 
 import akka.actor._
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
+    db: lidraughts.db.Env,
     shutup: ActorSelection,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lidraughts.notify.NotifyApi,
     blocks: (String, String) => Fu[Boolean],
     follows: (String, String) => Fu[Boolean],
-    getPref: String => Fu[lila.pref.Pref],
+    getPref: String => Fu[lidraughts.pref.Pref],
     system: ActorSystem,
-    isOnline: lila.user.User.ID => Boolean,
-    lightUser: lila.common.LightUser.GetterSync
+    isOnline: lidraughts.user.User.ID => Boolean,
+    lightUser: lidraughts.common.LightUser.GetterSync
 ) {
 
   private val CollectionThread = config getString "collection.thread"
@@ -33,11 +33,11 @@ final class Env(
   lazy val api = new MessageApi(
     coll = threadColl,
     shutup = shutup,
-    maxPerPage = lila.common.MaxPerPage(ThreadMaxPerPage),
+    maxPerPage = lidraughts.common.MaxPerPage(ThreadMaxPerPage),
     blocks = blocks,
     notifyApi = notifyApi,
     security = security,
-    lilaBus = system.lilaBus
+    lidraughtsBus = system.lidraughtsBus
   )
 
   lazy val security = new MessageSecurity(
@@ -50,15 +50,15 @@ final class Env(
 object Env {
 
   lazy val current = "message" boot new Env(
-    config = lila.common.PlayApp loadConfig "message",
-    db = lila.db.Env.current,
-    shutup = lila.hub.Env.current.actor.shutup,
-    notifyApi = lila.notify.Env.current.api,
-    blocks = lila.relation.Env.current.api.fetchBlocks,
-    follows = lila.relation.Env.current.api.fetchFollows,
-    getPref = lila.pref.Env.current.api.getPref,
-    system = lila.common.PlayApp.system,
-    isOnline = lila.user.Env.current.isOnline,
-    lightUser = lila.user.Env.current.lightUserSync
+    config = lidraughts.common.PlayApp loadConfig "message",
+    db = lidraughts.db.Env.current,
+    shutup = lidraughts.hub.Env.current.actor.shutup,
+    notifyApi = lidraughts.notify.Env.current.api,
+    blocks = lidraughts.relation.Env.current.api.fetchBlocks,
+    follows = lidraughts.relation.Env.current.api.fetchFollows,
+    getPref = lidraughts.pref.Env.current.api.getPref,
+    system = lidraughts.common.PlayApp.system,
+    isOnline = lidraughts.user.Env.current.isOnline,
+    lightUser = lidraughts.user.Env.current.lightUserSync
   )
 }

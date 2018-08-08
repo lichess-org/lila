@@ -1,6 +1,6 @@
-package lila
+package lidraughts
 
 package object forumSearch extends PackageObject {
 
-  private[forumSearch] val logger = lila.log("forumSearch")
+  private[forumSearch] val logger = lidraughts.log("forumSearch")
 }

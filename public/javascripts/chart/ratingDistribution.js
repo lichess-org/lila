@@ -1,6 +1,6 @@
-lichess.ratingDistributionChart = function(data) {
-  lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
-    lichess.chartCommon('highchart').done(function() {
+lidraughts.ratingDistributionChart = function(data) {
+  lidraughts.loadScript('/assets/javascripts/chart/common.js').done(function() {
+    lidraughts.chartCommon('highchart').done(function() {
       var disabled = {
         enabled: false
       };

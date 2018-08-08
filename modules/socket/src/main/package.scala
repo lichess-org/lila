@@ -1,6 +1,6 @@
-package lila
+package lidraughts
 
 package object socket extends PackageObject with socket.WithSocket {
 
-  val logger = lila.log("socket")
+  val logger = lidraughts.log("socket")
 }

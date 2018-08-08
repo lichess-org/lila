@@ -1,4 +1,4 @@
-@(sim: lila.simul.Simul, socketVersion: Int, data: play.api.libs.json.JsObject, chatOption: Option[lila.chat.UserChat.Mine], stream: Option[lila.streamer.Stream])(implicit ctx: Context)
+@(sim: lidraughts.simul.Simul, socketVersion: Int, data: play.api.libs.json.JsObject, chatOption: Option[lidraughts.chat.UserChat.Mine], stream: Option[lidraughts.streamer.Stream])(implicit ctx: Context)
 
 @underchat = {
 <div class="watchers hidden">
@@ -7,9 +7,9 @@
 }
 
 @moreJs = {
-@jsAt(s"compiled/lichess.simul${isProd??(".min")}.js")
+@jsAt(s"compiled/lidraughts.simul${isProd??(".min")}.js")
 @embedJs {
-lichess.simul = {
+lidraughts.simul = {
 data: @safeJson(data),
 i18n: @jsI18n(),
 socketVersion: @socketVersion,

@@ -1,10 +1,10 @@
-package lila.team
+package lidraughts.team
 
-import lila.common.paginator._
-import lila.common.MaxPerPage
-import lila.db.dsl._
-import lila.db.paginator._
-import lila.user.UserRepo
+import lidraughts.common.paginator._
+import lidraughts.common.MaxPerPage
+import lidraughts.db.dsl._
+import lidraughts.db.paginator._
+import lidraughts.user.UserRepo
 
 private[team] final class PaginatorBuilder(
     coll: Colls,

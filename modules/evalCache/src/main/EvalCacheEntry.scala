@@ -1,11 +1,11 @@
-package lila.evalCache
+package lidraughts.evalCache
 
-import chess.format.{ Forsyth, FEN, Uci }
-import chess.variant.Variant
+import draughts.format.{ Forsyth, FEN, Uci }
+import draughts.variant.Variant
 import org.joda.time.DateTime
 import scalaz.NonEmptyList
 
-import lila.tree.Eval.Score
+import lidraughts.tree.Eval.Score
 
 case class EvalCacheEntry(
     _id: EvalCacheEntry.Id,
@@ -46,7 +46,7 @@ object EvalCacheEntry {
       pvs: NonEmptyList[Pv],
       knodes: Knodes,
       depth: Int,
-      by: lila.user.User.ID,
+      by: lidraughts.user.User.ID,
       trust: Trust
   ) {
 
@@ -98,7 +98,7 @@ object EvalCacheEntry {
     def isTooLow = value <= 0
   }
 
-  case class TrustedUser(trust: Trust, user: lila.user.User)
+  case class TrustedUser(trust: Trust, user: lidraughts.user.User)
 
   final class SmallFen private (val value: String) extends AnyVal with StringValue
 
@@ -109,7 +109,7 @@ object EvalCacheEntry {
         c != '/' && c != '-' && c != 'w'
       }
       val str = variant match {
-        case chess.variant.ThreeCheck => base + ~fen.value.split(' ').lift(6)
+        //case draughts.variant.ThreeCheck => base + ~fen.value.split(' ').lift(6)
         case _ => base
       }
       new SmallFen(str)

@@ -1,8 +1,8 @@
-@(event: lila.event.Event, form: Form[_])(implicit ctx: Context)
+@(event: lidraughts.event.Event, form: Form[_])(implicit ctx: Context)
 
 @layout(title = event.title) {
 <div class="event_crud edit content_box small_box no_padding">
-  <h1 class="lichess_title">
+  <h1 class="lidraughts_title">
     @event.title
     <span>Created by @usernameOrId(event.createdBy.value) @momentFromNow(event.createdAt)</span>
   </h1>

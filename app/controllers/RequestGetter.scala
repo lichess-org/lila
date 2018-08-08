@@ -1,8 +1,8 @@
 package controllers
 
-import lila.api._
-import lila.socket.Socket.Uid
-import lila.user.UserContext
+import lidraughts.api._
+import lidraughts.socket.Socket.Uid
+import lidraughts.user.UserContext
 
 import play.api.mvc.RequestHeader
 
@@ -21,6 +21,9 @@ trait RequestGetter {
 
   protected def getInt(name: String, req: RequestHeader): Option[Int] =
     req.queryString get name flatMap (_.headOption) flatMap parseIntOption
+
+  protected def getLong(name: String)(implicit ctx: UserContext) =
+    get(name) flatMap parseLongOption
 
   protected def getBool(name: String)(implicit ctx: UserContext) =
     getInt(name) contains 1

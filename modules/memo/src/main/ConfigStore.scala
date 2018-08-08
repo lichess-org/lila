@@ -1,4 +1,4 @@
-package lila.memo
+package lidraughts.memo
 
 import com.github.blemale.scaffeine.{ AsyncLoadingCache, Scaffeine }
 import com.typesafe.config.ConfigFactory
@@ -7,9 +7,9 @@ import configs.syntax._
 import play.api.data.Form
 import scala.util.Try
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
-final class ConfigStore[A: Configs](coll: Coll, id: String, logger: lila.log.Logger) {
+final class ConfigStore[A: Configs](coll: Coll, id: String, logger: lidraughts.log.Logger) {
 
   private val mongoDocKey = "config"
 
@@ -62,7 +62,7 @@ final class ConfigStore[A: Configs](coll: Coll, id: String, logger: lila.log.Log
 object ConfigStore {
 
   final class Builder(coll: Coll) {
-    def apply[A: Configs](id: String, logger: lila.log.Logger) =
+    def apply[A: Configs](id: String, logger: lidraughts.log.Logger) =
       new ConfigStore[A](coll, id, logger branch "config_store")
   }
 }

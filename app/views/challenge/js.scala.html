@@ -1,7 +1,7 @@
-@(c: lila.challenge.Challenge, json: play.api.libs.json.JsObject, owner: Boolean)(implicit ctx: Context)
+@(c: lidraughts.challenge.Challenge, json: play.api.libs.json.JsObject, owner: Boolean)(implicit ctx: Context)
 
 @embedJs {
-lichess_challenge = {
+lidraughts_challenge = {
 socketUrl: '@routes.Challenge.websocket(c.id, apiVersion.value)',
 xhrUrl: '@routes.Challenge.show(c.id)',
 owner: @owner,

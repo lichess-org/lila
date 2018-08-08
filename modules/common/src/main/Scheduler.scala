@@ -1,4 +1,4 @@
-package lila.common
+package lidraughts.common
 
 import scala.concurrent.duration._
 
@@ -56,7 +56,7 @@ final class Scheduler(scheduler: akka.actor.Scheduler, enabled: Boolean, debug: 
   def after[A](delay: FiniteDuration)(op: => A) =
     akka.pattern.after(delay, scheduler)(fuccess(op))
 
-  private def logger = lila.log("scheduler")
+  private def logger = lidraughts.log("scheduler")
 
   private def randomize(d: FiniteDuration, ratio: Float = 0.05f): FiniteDuration =
     approximatly(ratio)(d.toMillis) millis

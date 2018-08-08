@@ -1,4 +1,4 @@
-package lila.learn
+package lidraughts.learn
 
 import org.joda.time.DateTime
 

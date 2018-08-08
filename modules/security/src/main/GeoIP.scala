@@ -1,10 +1,10 @@
-package lila.security
+package lidraughts.security
 
 import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
 import com.sanoma.cda.geoip.{ MaxMindIpGeo, IpLocation }
 import scala.concurrent.duration._
 
-import lila.common.IpAddress
+import lidraughts.common.IpAddress
 
 final class GeoIP(file: String, cacheTtl: FiniteDuration) {
 

@@ -1,8 +1,8 @@
-package lila
+package lidraughts
 
 package object relay extends PackageObject {
 
-  private[relay] val logger = lila.log("relay")
+  private[relay] val logger = lidraughts.log("relay")
 
   private[relay] type RelayGames = List[RelayGame]
 }

@@ -1,4 +1,4 @@
-package lila.puzzle
+package lidraughts.puzzle
 
 import scala.concurrent.duration._
 
@@ -6,13 +6,13 @@ import akka.actor.{ ActorSelection, Scheduler }
 import akka.pattern.ask
 import org.joda.time.DateTime
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class Daily(
     coll: Coll,
     renderer: ActorSelection,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     scheduler: Scheduler
 ) {
 
@@ -52,7 +52,7 @@ private[puzzle] final class Daily(
   ).uno[Puzzle]
 
   private def findNew = coll.find(
-    $doc(F.day $exists false, F.voteNb $gte 200)
+    $doc(F.day $exists false, F.voteNb $gte 1) //original 200
   ).sort($doc(F.voteRatio -> -1)).uno[Puzzle] flatMap {
       case Some(puzzle) => coll.update(
         $id(puzzle.id),
@@ -62,6 +62,10 @@ private[puzzle] final class Daily(
     }
 }
 
-case class DailyPuzzle(html: play.twirl.api.Html, color: chess.Color, id: Int)
+object Daily {
+  type Try = () => Fu[Option[DailyPuzzle]]
+}
+
+case class DailyPuzzle(html: play.twirl.api.Html, color: draughts.Color, id: Int)
 
 case class RenderDaily(puzzle: Puzzle, fen: String, lastMove: String)

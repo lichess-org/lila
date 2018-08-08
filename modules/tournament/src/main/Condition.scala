@@ -1,11 +1,11 @@
-package lila.tournament
+package lidraughts.tournament
 
 import play.api.i18n.Lang
 
-import lila.i18n.I18nKeys
-import lila.rating.BSONHandlers.perfTypeKeyHandler
-import lila.rating.PerfType
-import lila.user.User
+import lidraughts.i18n.I18nKeys
+import lidraughts.rating.BSONHandlers.perfTypeKeyHandler
+import lidraughts.rating.PerfType
+import lidraughts.user.User
 
 sealed trait Condition {
 
@@ -138,7 +138,7 @@ object Condition {
     }
   }
 
-  final class Verify(historyApi: lila.history.HistoryApi) {
+  final class Verify(historyApi: lidraughts.history.HistoryApi) {
     def apply(all: All, user: User): Fu[All.WithVerdicts] = {
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
       all.withVerdicts(getMaxRating)(user)
@@ -181,7 +181,7 @@ object Condition {
 
   object DataForm {
     import play.api.data.Forms._
-    import lila.common.Form._
+    import lidraughts.common.Form._
     val perfChoices = PerfType.nonPuzzle.map { pt =>
       pt.key -> pt.name
     }

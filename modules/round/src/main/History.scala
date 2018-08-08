@@ -1,12 +1,12 @@
-package lila.round
+package lidraughts.round
 
 import org.joda.time.DateTime
 import reactivemongo.api.commands.GetLastError
 import reactivemongo.bson._
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl._
-import lila.game.Event
+import lidraughts.db.BSON.BSONJodaDateTimeHandler
+import lidraughts.db.dsl._
+import lidraughts.game.Event
 
 /**
  * NOT THREAD SAFE
@@ -74,13 +74,13 @@ private[round] object History {
     withPersistence = withPersistence
   )
 
-  private def serverStarting = !lila.common.PlayApp.startedSinceMinutes(5)
+  private def serverStarting = !lidraughts.common.PlayApp.startedSinceMinutes(5)
 
   private def load(coll: Coll, gameId: String, withPersistence: Boolean): Fu[VersionedEvents] =
     coll.byId[Bdoc](gameId).map {
       _.flatMap(_.getAs[VersionedEvents]("e")) ?? (_.reverse)
     } addEffect {
-      case events if events.nonEmpty && !withPersistence => coll.remove($doc("_id" -> gameId)).void
+      case events if events.nonEmpty && !withPersistence => coll.remove($id(gameId)).void
       case _ =>
     }
 

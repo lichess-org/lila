@@ -1,4 +1,4 @@
-package lila.round
+package lidraughts.round
 
 import akka.actor._
 import akka.pattern.ask
@@ -7,34 +7,30 @@ import scala.concurrent.duration._
 
 import actorApi.{ GetSocketStatus, SocketStatus }
 
-import lila.game.{ Game, Pov }
-import lila.hub.actorApi.HasUserId
-import lila.hub.actorApi.map.{ Ask, Tell }
-import lila.socket.actorApi.GetVersion
-import makeTimeout.large
+import lidraughts.game.{ Game, Pov }
+import lidraughts.hub.actorApi.HasUserId
+import lidraughts.hub.actorApi.map.{ Ask, Tell }
 
 final class Env(
     config: Config,
     system: ActorSystem,
-    db: lila.db.Env,
-    hub: lila.hub.Env,
-    fishnetPlayer: lila.fishnet.Player,
-    aiPerfApi: lila.fishnet.AiPerfApi,
-    crosstableApi: lila.game.CrosstableApi,
-    playban: lila.playban.PlaybanApi,
-    lightUser: lila.common.LightUser.Getter,
-    userJsonView: lila.user.JsonView,
-    rankingApi: lila.user.RankingApi,
-    notifyApi: lila.notify.NotifyApi,
-    uciMemo: lila.game.UciMemo,
-    rematch960Cache: lila.memo.ExpireSetMemo,
+    db: lidraughts.db.Env,
+    hub: lidraughts.hub.Env,
+    crosstableApi: lidraughts.game.CrosstableApi,
+    playban: lidraughts.playban.PlaybanApi,
+    lightUser: lidraughts.common.LightUser.Getter,
+    userJsonView: lidraughts.user.JsonView,
+    rankingApi: lidraughts.user.RankingApi,
+    notifyApi: lidraughts.notify.NotifyApi,
+    uciMemo: lidraughts.game.UciMemo,
+    rematch960Cache: lidraughts.memo.ExpireSetMemo,
     onStart: String => Unit,
-    divider: lila.game.Divider,
-    prefApi: lila.pref.PrefApi,
-    historyApi: lila.history.HistoryApi,
-    evalCache: lila.evalCache.EvalCacheApi,
-    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
-    scheduler: lila.common.Scheduler
+    divider: lidraughts.game.Divider,
+    prefApi: lidraughts.pref.PrefApi,
+    historyApi: lidraughts.history.HistoryApi,
+    evalCache: lidraughts.evalCache.EvalCacheApi,
+    evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler,
+    scheduler: lidraughts.common.Scheduler
 ) {
 
   private val settings = new {
@@ -42,7 +38,7 @@ final class Env(
     val PlayerDisconnectTimeout = config duration "player.disconnect.timeout"
     val PlayerRagequitTimeout = config duration "player.ragequit.timeout"
     val AnimationDuration = config duration "animation.duration"
-    val Moretime = config duration "moretime"
+    val MoretimeDuration = config duration "moretime"
     val SocketName = config getString "socket.name"
     val SocketTimeout = config duration "socket.timeout"
     val NetDomain = config getString "net.domain"
@@ -56,13 +52,13 @@ final class Env(
   }
   import settings._
 
-  private val bus = system.lilaBus
+  private val bus = system.lidraughtsBus
 
-  private val moveTimeChannel = system.actorOf(Props(classOf[lila.socket.Channel]), name = ChannelMoveTime)
+  private val moveTimeChannel = system.actorOf(Props(classOf[lidraughts.socket.Channel]), name = ChannelMoveTime)
 
   lazy val eventHistory = History(db(CollectionHistory)) _
 
-  val roundMap = system.actorOf(Props(new lila.hub.ActorMap {
+  val roundMap = system.actorOf(Props(new lidraughts.hub.ActorMap {
     def mkActor(id: String) = new Round(
       gameId = id,
       messenger = messenger,
@@ -73,24 +69,35 @@ final class Env(
       drawer = drawer,
       forecastApi = forecastApi,
       socketHub = socketHub,
-      awakeWith = tell(id),
-      moretimeDuration = Moretime,
+      awakeWith = msg => self ! Tell(id, msg),
+      moretimeDuration = MoretimeDuration,
       activeTtl = ActiveTtl
     )
     def tell(id: Game.ID)(msg: Any): Unit = self ! Tell(id, msg)
     def receive: Receive = ({
       case actorApi.GetNbRounds =>
         nbRounds = size
-        bus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
+        bus.publish(lidraughts.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
     }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
+
+  def roundProxyGame(gameId: String): Fu[Option[Game]] = lidraughts.game.GameRepo game gameId
+
+  def actualRoundProxyGame(gameId: String): Fu[Option[Game]] = {
+    import makeTimeout.short
+    roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Option[Game]]
+    // } recoverWith {
+    //   case e: akka.pattern.AskTimeoutException =>
+    //     logger.info(s"roundProxyGame timeout https://lidraughts.org/$gameId")
+    //     lidraughts.game.GameRepo game gameId
+  }
 
   private var nbRounds = 0
   def count() = nbRounds
 
   private val socketHub = {
     val actor = system.actorOf(
-      Props(new lila.socket.SocketHubActor[Socket] {
+      Props(new lidraughts.socket.SocketHubActor[Socket] {
         private var historyPersistenceEnabled = false
         def mkActor(id: String) = new Socket(
           gameId = id,
@@ -103,9 +110,9 @@ final class Env(
           simulActor = hub.actor.simul
         )
         def receive: Receive = ({
-          case msg @ lila.chat.actorApi.ChatLine(id, line) =>
+          case msg @ lidraughts.chat.actorApi.ChatLine(id, line) =>
             self ! Tell(id.value take 8, msg)
-          case _: lila.hub.actorApi.Deploy =>
+          case _: lidraughts.hub.actorApi.Deploy =>
             logger.warn("Enable history persistence")
             historyPersistenceEnabled = true
             // if the deploy didn't go through, cancel persistence
@@ -113,7 +120,7 @@ final class Env(
               logger.warn("Disabling round history persistence!")
               historyPersistenceEnabled = false
             }
-          case msg: lila.game.actorApi.StartGame =>
+          case msg: lidraughts.game.actorApi.StartGame =>
             self ! Tell(msg.game.id, msg)
         }: Receive) orElse socketHubReceive
       }),
@@ -165,7 +172,6 @@ final class Env(
   )
 
   private lazy val player: Player = new Player(
-    fishnetPlayer = fishnetPlayer,
     bus = bus,
     finisher = finisher,
     uciMemo = uciMemo
@@ -182,14 +188,15 @@ final class Env(
     chat = hub.actor.chat
   )
 
-  def version(gameId: String): Fu[Int] =
-    socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]
-
-  private def getSocketStatus(gameId: String): Fu[SocketStatus] =
+  def getSocketStatus(gameId: Game.ID): Fu[SocketStatus] = {
+    import makeTimeout.large
     socketHub ? Ask(gameId, GetSocketStatus) mapTo manifest[SocketStatus]
+  }
 
-  private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
+  private def isUserPresent(game: Game, userId: lidraughts.user.User.ID): Fu[Boolean] = {
+    import makeTimeout.large
     socketHub ? Ask(game.id, HasUserId(userId)) mapTo manifest[Boolean]
+  }
 
   lazy val jsonView = new JsonView(
     noteApi = noteApi,
@@ -199,7 +206,7 @@ final class Env(
     divider = divider,
     evalCache = evalCache,
     baseAnimationDuration = AnimationDuration,
-    moretimeSeconds = Moretime.toSeconds.toInt
+    moretimeSeconds = MoretimeDuration.toSeconds.toInt
   )
 
   lazy val noteApi = new NoteApi(db(CollectionNote))
@@ -244,26 +251,24 @@ final class Env(
 object Env {
 
   lazy val current = "round" boot new Env(
-    config = lila.common.PlayApp loadConfig "round",
-    system = lila.common.PlayApp.system,
-    db = lila.db.Env.current,
-    hub = lila.hub.Env.current,
-    fishnetPlayer = lila.fishnet.Env.current.player,
-    aiPerfApi = lila.fishnet.Env.current.aiPerfApi,
-    crosstableApi = lila.game.Env.current.crosstableApi,
-    playban = lila.playban.Env.current.api,
-    lightUser = lila.user.Env.current.lightUser,
-    userJsonView = lila.user.Env.current.jsonView,
-    rankingApi = lila.user.Env.current.rankingApi,
-    notifyApi = lila.notify.Env.current.api,
-    uciMemo = lila.game.Env.current.uciMemo,
-    rematch960Cache = lila.game.Env.current.cached.rematch960,
-    onStart = lila.game.Env.current.onStart,
-    divider = lila.game.Env.current.divider,
-    prefApi = lila.pref.Env.current.api,
-    historyApi = lila.history.Env.current.api,
-    evalCache = lila.evalCache.Env.current.api,
-    evalCacheHandler = lila.evalCache.Env.current.socketHandler,
-    scheduler = lila.common.PlayApp.scheduler
+    config = lidraughts.common.PlayApp loadConfig "round",
+    system = lidraughts.common.PlayApp.system,
+    db = lidraughts.db.Env.current,
+    hub = lidraughts.hub.Env.current,
+    crosstableApi = lidraughts.game.Env.current.crosstableApi,
+    playban = lidraughts.playban.Env.current.api,
+    lightUser = lidraughts.user.Env.current.lightUser,
+    userJsonView = lidraughts.user.Env.current.jsonView,
+    rankingApi = lidraughts.user.Env.current.rankingApi,
+    notifyApi = lidraughts.notify.Env.current.api,
+    uciMemo = lidraughts.game.Env.current.uciMemo,
+    rematch960Cache = lidraughts.game.Env.current.cached.rematch960,
+    onStart = lidraughts.game.Env.current.onStart,
+    divider = lidraughts.game.Env.current.divider,
+    prefApi = lidraughts.pref.Env.current.api,
+    historyApi = lidraughts.history.Env.current.api,
+    evalCache = lidraughts.evalCache.Env.current.api,
+    evalCacheHandler = lidraughts.evalCache.Env.current.socketHandler,
+    scheduler = lidraughts.common.PlayApp.scheduler
   )
 }

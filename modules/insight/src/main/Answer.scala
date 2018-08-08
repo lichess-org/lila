@@ -1,6 +1,6 @@
-package lila.insight
+package lidraughts.insight
 
-import lila.game.{ Game, Pov }
+import lidraughts.game.{ Game, Pov }
 
 case class Answer[X](
     question: Question[X],

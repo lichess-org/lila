@@ -1,14 +1,14 @@
-@(s: lila.study.Study, data: lila.study.JsonView.JsData, chatOption: Option[lila.chat.UserChat.Mine], socketVersion: Int, streams: List[lila.streamer.Stream])(implicit ctx: Context)
+@(s: lidraughts.study.Study, data: lidraughts.study.JsonView.JsData, chatOption: Option[lidraughts.chat.UserChat.Mine], socketVersion: Int, streams: List[lidraughts.streamer.Stream])(implicit ctx: Context)
 
 @moreJs = {
-@jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
+@jsAt(s"compiled/lidraughts.analyse${isProd??(".min")}.js")
 @embedJs {
-lichess = lichess || {};
-lichess.study = {
+lidraughts = lidraughts || {};
+lidraughts.study = {
 study: @safeJson(data.study),
 data: @safeJson(data.analysis),
 i18n: @board.userAnalysisI18n(),
-tagTypes: '@lila.study.PgnTags.typesToString',
+tagTypes: '@lidraughts.study.PdnTags.typesToString',
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>
 chat.ChatJsData.json(
@@ -38,7 +38,7 @@ socketVersion: @socketVersion
 @side = {
 <div class="side_box study_box"></div>
 @streams.map { s =>
-<a href="@routes.Streamer.show(s.streamer.userId)" class="context-streamer text side_box" data-icon="">@usernameOrId(s.streamer.userId) is streaming</a>
+@*<a href="@routes.Streamer.show(s.streamer.userId)" class="context-streamer text side_box" data-icon="">@usernameOrId(s.streamer.userId) is streaming</a>*@
 }
 }
 
@@ -50,7 +50,7 @@ underchat = views.html.game.watchers().some,
 moreCss = moreCss,
 moreJs = moreJs,
 robots = s.isPublic,
-chessground = false,
+draughtsground = false,
 zoomable = true) {
 <div class="analyse cg-512">
   @board.domPreload(none)

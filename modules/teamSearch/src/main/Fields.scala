@@ -1,4 +1,4 @@
-package lila.teamSearch
+package lidraughts.teamSearch
 
 private[teamSearch] object Fields {
   val name = "na"

@@ -1,10 +1,10 @@
-package lila.tournament
+package lidraughts.tournament
 
-import chess.StartingPosition
-import chess.variant.Variant
+import draughts.StartingPosition
+import draughts.variant.Variant
 import org.joda.time.DateTime
 
-import lila.rating.PerfType
+import lidraughts.rating.PerfType
 
 case class Schedule(
     freq: Schedule.Freq,
@@ -114,7 +114,7 @@ object Schedule {
       case (Bullet, HippoBullet) | (HippoBullet, Bullet) => true
       case _ => false
     }
-    def fromClock(clock: chess.Clock.Config) = {
+    def fromClock(clock: draughts.Clock.Config) = {
       val time = clock.estimateTotalSeconds
       if (time < 30) UltraBullet
       else if (time < 60) HyperBullet
@@ -143,7 +143,7 @@ object Schedule {
 
   private[tournament] def durationFor(s: Schedule): Int = {
     import Freq._, Speed._
-    import chess.variant._
+    import draughts.variant._
 
     (s.freq, s.variant, s.speed) match {
 
@@ -202,14 +202,14 @@ object Schedule {
 
   private[tournament] def clockFor(s: Schedule) = {
     import Freq._, Speed._
-    import chess.variant._
+    import draughts.variant._
 
-    val TC = chess.Clock.Config
+    val TC = draughts.Clock.Config
 
     (s.freq, s.variant, s.speed) match {
       // Special cases.
-      case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1)
-      case (Hourly, Crazyhouse, Blitz) if zhInc(s) => TC(4 * 60, 2)
+      //case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1)
+      //case (Hourly, Crazyhouse, Blitz) if zhInc(s) => TC(4 * 60, 2)
       case (Hourly, Standard, Blitz) if standardInc(s) => TC(3 * 60, 2)
 
       case (Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2)
@@ -236,20 +236,20 @@ object Schedule {
 
         case (_, UltraBullet) => 0
 
-        case (Hourly, UltraBullet | HyperBullet | Bullet) => 20
-        case (Hourly, HippoBullet | SuperBlitz | Blitz) => 15
-        case (Hourly, Rapid) => 10
+        case (Hourly, UltraBullet | HyperBullet | Bullet) => 0
+        case (Hourly, HippoBullet | SuperBlitz | Blitz) => 0
+        case (Hourly, Rapid) => 0
 
-        case (Daily | Eastern, UltraBullet | HyperBullet | Bullet) => 20
-        case (Daily | Eastern, HippoBullet | SuperBlitz | Blitz) => 15
-        case (Daily | Eastern, Rapid) => 15
+        case (Daily | Eastern, UltraBullet | HyperBullet | Bullet) => 0
+        case (Daily | Eastern, HippoBullet | SuperBlitz | Blitz) => 0
+        case (Daily | Eastern, Rapid) => 0
 
-        case (Weekly | Monthly | Shield, UltraBullet | HyperBullet | Bullet) => 30
-        case (Weekly | Monthly | Shield, HippoBullet | SuperBlitz | Blitz) => 20
-        case (Weekly | Monthly | Shield, Rapid) => 15
+        case (Weekly | Monthly | Shield, UltraBullet | HyperBullet | Bullet) => 0
+        case (Weekly | Monthly | Shield, HippoBullet | SuperBlitz | Blitz) => 0
+        case (Weekly | Monthly | Shield, Rapid) => 0
 
-        case (Weekend, UltraBullet | HyperBullet | Bullet) => 30
-        case (Weekend, HippoBullet | SuperBlitz | Blitz) => 20
+        case (Weekend, UltraBullet | HyperBullet | Bullet) => 0
+        case (Weekend, HippoBullet | SuperBlitz | Blitz) => 0
 
         case _ => 0
       }

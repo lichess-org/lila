@@ -1,18 +1,18 @@
-package lila.team
+package lidraughts.team
 
 import com.typesafe.config.Config
 import akka.actor._
 
-import lila.notify.NotifyApi
-import lila.common.MaxPerPage
+import lidraughts.notify.NotifyApi
+import lidraughts.common.MaxPerPage
 
 final class Env(
     config: Config,
-    hub: lila.hub.Env,
+    hub: lidraughts.hub.Env,
     notifyApi: NotifyApi,
     system: ActorSystem,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    db: lila.db.Env
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    db: lidraughts.db.Env
 ) {
 
   private val settings = new {
@@ -38,7 +38,7 @@ final class Env(
     coll = colls,
     cached = cached,
     notifier = notifier,
-    bus = system.lilaBus,
+    bus = system.lidraughtsBus,
     indexer = hub.actor.teamSearch,
     timeline = hub.actor.timeline
   )
@@ -55,9 +55,9 @@ final class Env(
 
   private lazy val notifier = new Notifier(notifyApi = notifyApi)
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
+      case lidraughts.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
     }
   })), 'shadowban)
 }
@@ -65,11 +65,11 @@ final class Env(
 object Env {
 
   lazy val current = "team" boot new Env(
-    config = lila.common.PlayApp loadConfig "team",
-    hub = lila.hub.Env.current,
-    notifyApi = lila.notify.Env.current.api,
-    system = lila.common.PlayApp.system,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    db = lila.db.Env.current
+    config = lidraughts.common.PlayApp loadConfig "team",
+    hub = lidraughts.hub.Env.current,
+    notifyApi = lidraughts.notify.Env.current.api,
+    system = lidraughts.common.PlayApp.system,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    db = lidraughts.db.Env.current
   )
 }

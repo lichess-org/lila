@@ -64,29 +64,29 @@ form.better_analysis {
   display: inline-block;
   line-height: 24px;
 }
-div.fen_pgn > div {
+div.fen_pdn > div {
   margin: 0.6em 0;
   display: flex;
   align-items: center;
 }
-div.fen_pgn a {
+div.fen_pdn a {
   color: #3893E8;
 }
-div.fen_pgn .pgn {
+div.fen_pdn .pdn {
   white-space: pre-wrap;
   font-family: monospace;
 }
-div.fen_pgn strong {
+div.fen_pdn strong {
   font-size: 1.1em;
   display: inline-block;
   margin-right: 10px;
 }
-div.fen_pgn .pgn_options div {
+div.fen_pdn .pdn_options div {
   display: flex;
   flex-flow: row wrap;
   margin-left: 5px;
 }
-div.fen_pgn .pgn_options a {
+div.fen_pdn .pdn_options a {
   flex: 0 0 50%;
   line-height: 1.6em;
 }
@@ -139,7 +139,7 @@ div.game_control .jumps button:nth-child(2) {
 div.game_control .jumps button:nth-child(3) {
   padding: 0 14px 0 10px;
 }
-div.lichess_game div.lichess_ground {
+div.lidraughts_game div.lidraughts_ground {
   position: relative;
   margin-bottom: -36px;
 }
@@ -190,7 +190,7 @@ div.eval_gauge .black {
   border-radius: 0 5px 0 0;
   transition: height 1s;
 }
-div.gauge_displayed div.lichess_game div.lichess_ground {
+div.gauge_displayed div.lidraughts_game div.lidraughts_ground {
   padding-left: 19px;
 }
 div.gauge_displayed .fork {
@@ -380,7 +380,7 @@ body.piece_letter .pv_box .pv span {
   display: block;
   cursor: pointer;
   padding: 0 15px;
-  display: flex;
+  display: flex!important;
   border-bottom: 1px solid #e4e4e4;
 }
 body.piece_letter .fork move {
@@ -412,7 +412,7 @@ body.piece_letter .fork move {
 
 @media (min-width: 1050px) {
 
-  div.analyse div.lichess_game div.lichess_ground {
+  div.analyse div.lidraughts_game div.lidraughts_ground {
     flex: 0 0 25vw;
     max-width: 25vw;
   }
@@ -865,6 +865,10 @@ body.piece_letter .tablebase td:first-child {
   font-weight: normal;
   font-size: 1.3em;
 }
+.retro_box .instruction move {
+  display: inline;
+  cursor: default;
+}
 .retro_box .instruction glyph {
   font-weight: normal;
   opacity: 0.7;
@@ -990,13 +994,13 @@ body.dark .practice_box .comment {
   background: #dc322f;
   content: '✗';
 }
-.practice_box .comment a {
+.practice_box .comment move {
   margin-left: 5px;
   color: #3893E8;
   transition: 0.3s;
 }
 
-.lichess_ground .areplay,
+.lidraughts_ground .areplay,
 .action_menu {
   overflow: auto;
   overflow-x: hidden;
@@ -1005,7 +1009,7 @@ body.dark .practice_box .comment {
   -ms-user-select: none;
   margin-left: 0;
 }
-.lichess_ground .areplay {
+.lidraughts_ground .areplay {
   background: #fff;
   border: 1px solid #ccc;
   flex: 2 1 0px;
@@ -1178,7 +1182,7 @@ body.dark .action_menu input[type=range]::-ms-fill-upper {
   background: rgba(70, 70, 70, 0.78);
 }
 
-.lichess_ground .opening {
+.lidraughts_ground .opening {
   padding-bottom: 3px;
 }
 
@@ -1236,14 +1240,14 @@ body.dark .aclocks .aclock.active {
   font-size: 16px;
   line-height: 1em;
 }
-.tview2 move {
+.lidraughts_ground move {
   font-family: 'ChessSansPiratf', sans-serif;
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
   cursor: pointer;
 }
-body.piece_letter .tview2 move {
+body.piece_letter .lidraughts_ground move {
   font-family: 'Noto Sans';
 }
 .tview2.column move {
@@ -1266,7 +1270,8 @@ body.piece_letter .tview2 move {
   border: 1px solid #d85000!important;
 }
 .tview2 move.active {
-  color: #d85000;
+  font-weight: bold;
+  background: rgba(56,147,232,0.2);
 }
 .tview2 move.nongame {
   font-style: italic;
@@ -1498,9 +1503,6 @@ body.dark .tview2 > index {
 body.dark .tview2 move {
   color: #aaa;
 }
-body.dark .tview2 move.active {
-  color: #ff7729;
-}
 body.dark .tview2.column comment {
   color: #999;
 }
@@ -1512,8 +1514,8 @@ body.dark .tview2 lines lines::before,
 body.dark .tview2 lines line::before {
   border-color: #666;
 }
-.lichess_ground .areplay .result,
-.lichess_ground .areplay .status {
+.lidraughts_ground .areplay .result,
+.lidraughts_ground .areplay .status {
   background: #f8f8f8;
 }
 div.underboard {
@@ -1530,23 +1532,23 @@ div.copyables label {
   display: inline-block;
   vertical-align: middle;
 }
-div.copyables .pgn {
+div.copyables .pdn {
   margin-top: 1em;
   margin-bottom: 20px;
 }
-div.copyables .pgn textarea {
+div.copyables .pdn textarea {
   color: #747474;
   resize: vertical;
-  min-height: 6em;
+  min-height: 5.2em;
   white-space: pre-wrap;
   overflow-x: hidden;
 }
-div.copyables .pgn .action {
+div.copyables .pdn .action {
   display: none;
   text-align: right;
   margin-top: 10px;
 }
-div.copyables .pgn:hover .action {
+div.copyables .pdn:hover .action {
   display: block;
 }
 div.advice_summary {

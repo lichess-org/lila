@@ -7,7 +7,7 @@ import { boolSetting, BoolSetting } from './boolSetting';
 import AnalyseCtrl from './ctrl';
 import { router } from 'game';
 import { synthetic, bind, dataIcon } from './util';
-import * as pgnExport from './pgnExport';
+import * as pdnExport from './pdnExport';
 
 interface AutoplaySpeed {
   name: string;
@@ -107,12 +107,12 @@ function studyButton(ctrl: AnalyseCtrl) {
       action: '/study/as'
     },
     hook: bind('submit', e => {
-      const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
-      if (pgnInput) pgnInput.value = pgnExport.renderFullTxt(ctrl);
+      const pdnInput = (e.target as HTMLElement).querySelector('input[name=pdn]') as HTMLInputElement;
+      if (pdnInput) pdnInput.value = pdnExport.renderFullTxt(ctrl);
     })
   }, [
-    realGame ? hiddenInput('gameId', ctrl.data.game.id) : hiddenInput('pgn', ''),
-    hiddenInput('orientation', ctrl.chessground.state.orientation),
+    realGame ? hiddenInput('gameId', ctrl.data.game.id) : hiddenInput('pdn', ''),
+    hiddenInput('orientation', ctrl.draughtsground.state.orientation),
     hiddenInput('variant', ctrl.data.game.variant.key),
     hiddenInput('fen', ctrl.tree.root.fen),
     h('button.fbt', { attrs: { type: 'submit' } }, [
@@ -123,34 +123,22 @@ function studyButton(ctrl: AnalyseCtrl) {
 }
 
 export class Ctrl {
-  open: boolean;
-
-  constructor() {
-    this.open = location.hash === '#menu';
-  }
-
-  toggle(): void {
-    this.open = !this.open;
-  }
+  open: boolean = false;
+  toggle = () => this.open = !this.open;
 }
 
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
-  noarg = ctrl.trans.noarg;
-
-  const flipOpts = d.userAnalysis ? {
-    hook: bind('click', ctrl.flip)
-  } : {
-    attrs: { href: router.game(d, d.opponent.color, ctrl.embed) + '#' + ctrl.node.ply }
-  };
-
-  const canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard';
-  const ceval = ctrl.getCeval();
-  const mandatoryCeval = ctrl.mandatoryCeval();
+  noarg = ctrl.trans.noarg,
+  canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard',
+  ceval = ctrl.getCeval(),
+  mandatoryCeval = ctrl.mandatoryCeval();
 
   const tools: MaybeVNodes = [
     h('div.tools', [
-      h('a.fbt', flipOpts, [
+      h('a.fbt', {
+        hook: bind('click', ctrl.flip)
+      }, [
         h('i.icon', { attrs: dataIcon('B') }),
         noarg('flipBoard')
       ]),
@@ -176,12 +164,12 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ])
   ];
 
-  const cevalConfig: MaybeVNodes = (ceval && ceval.possible && ceval.allowed()) ? ([
+    const cevalConfig: MaybeVNodes = (ceval && ceval.possible && ceval.allowed() && ctrl.showComputer()) ? ([ //Ugly fix to hide computer settings: ctrl.showComputer()
     h('h2', noarg('computerAnalysis'))
   ] as MaybeVNodes).concat([
     ctrlBoolSetting({
       name: 'enable',
-      title: mandatoryCeval ? "Required by practice mode" : window.lichess.engineName,
+      title: mandatoryCeval ? "Required by practice mode" : window.lidraughts.engineName,
       id: 'all',
       checked: ctrl.showComputer(),
       disabled: mandatoryCeval,
@@ -286,13 +274,13 @@ export function view(ctrl: AnalyseCtrl): VNode {
         .concat([
           deleteButton(ctrl, ctrl.opts.userId),
           canContinue ? h('div.continue_with.g_' + d.game.id, [
-            h('a.button', {
+            /*h('a.button', {
               attrs: {
                 href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.cont(d, 'ai') + '?fen=' + ctrl.node.fen,
                 rel: 'nofollow'
               }
             }, noarg('playWithTheMachine')),
-            h('br'),
+            h('br'),*/
             h('a.button', {
               attrs: {
                 href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.cont(d, 'friend') + '?fen=' + ctrl.node.fen,

@@ -1,7 +1,7 @@
-package lila.chat
+package lidraughts.chat
 
-import lila.common.LightUser
-import lila.common.PimpedJson._
+import lidraughts.common.LightUser
+import lidraughts.common.PimpedJson._
 import play.api.libs.json._
 
 object JsonView {
@@ -14,7 +14,7 @@ object JsonView {
   def apply(line: Line): JsValue = lineWriter writes line
 
   def userModInfo(u: UserModInfo)(implicit lightUser: LightUser.GetterSync) =
-    lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj(
+    lidraughts.user.JsonView.modWrites.writes(u.user) ++ Json.obj(
       "history" -> u.history
     )
 

@@ -1,20 +1,21 @@
-package lila.app
+package lidraughts.app
 package templating
 
 import ornicar.scalalib.Zero
 import play.twirl.api.Html
 
-import lila.user.UserContext
+import lidraughts.user.UserContext
 
 trait StringHelper { self: NumberHelper =>
 
   def netDomain: String
 
-  implicit val LilaHtmlZero: Zero[Html] = Zero.instance(Html(""))
+  val emptyHtml = Html("")
+  implicit val LidraughtsHtmlZero: Zero[Html] = Zero.instance(emptyHtml)
 
-  val slugify = lila.common.String.slugify _
+  val slugify = lidraughts.common.String.slugify _
 
-  def shorten(text: String, length: Int, sep: String = "…") = lila.common.String.shorten(text, length, sep)
+  def shorten(text: String, length: Int, sep: String = "…") = lidraughts.common.String.shorten(text, length, sep)
 
   def pluralize(s: String, n: Int) = s"$n $s${if (n > 1) "s" else ""}"
 
@@ -24,7 +25,7 @@ trait StringHelper { self: NumberHelper =>
 
   def showNumber(n: Int): String = if (n > 0) s"+$n" else n.toString
 
-  implicit def lilaRichString(str: String) = new {
+  implicit def lidraughtsRichString(str: String) = new {
     def active(other: String, one: String = "active") = if (str == other) one else ""
   }
 
@@ -43,7 +44,7 @@ trait StringHelper { self: NumberHelper =>
   }
   def splitNumber(s: Html)(implicit ctx: UserContext): Html = splitNumber(s.body)
 
-  def encodeFen(fen: String) = lila.common.String.base64.encode(fen).reverse
+  def encodeFen(fen: String) = lidraughts.common.String.base64.encode(fen).reverse
 
   def addQueryParameter(url: String, key: String, value: Any) =
     if (url contains "?") s"$url&$key=$value" else s"$url?$key=$value"

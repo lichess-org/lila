@@ -1,13 +1,13 @@
-package lila.explorer
+package lidraughts.explorer
 
 import akka.actor._
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    gameColl: lila.db.dsl.Coll,
-    gameImporter: lila.importer.Importer,
-    settingStore: lila.memo.SettingStore.Builder,
+    gameColl: lidraughts.db.dsl.Coll,
+    gameImporter: lidraughts.importer.Importer,
+    settingStore: lidraughts.memo.SettingStore.Builder,
     system: ActorSystem
 ) {
 
@@ -23,7 +23,7 @@ final class Env(
     gameImporter = gameImporter
   )
 
-  def cli = new lila.common.Cli {
+  def cli = new lidraughts.common.Cli {
     def process = {
       case "explorer" :: "index" :: since :: Nil => indexer(since) inject "done"
     }
@@ -35,9 +35,9 @@ final class Env(
     text = "Explorer: index new games as soon as they complete".some
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted && indexFlowSetting.get() => indexer(game)
+      case lidraughts.game.actorApi.FinishGame(game, _, _) if !game.aborted && indexFlowSetting.get() => indexer(game)
     }
   })), 'finishGame)
 }
@@ -45,10 +45,10 @@ final class Env(
 object Env {
 
   lazy val current = "explorer" boot new Env(
-    config = lila.common.PlayApp loadConfig "explorer",
-    gameColl = lila.game.Env.current.gameColl,
-    gameImporter = lila.importer.Env.current.importer,
-    settingStore = lila.memo.Env.current.settingStore,
-    system = lila.common.PlayApp.system
+    config = lidraughts.common.PlayApp loadConfig "explorer",
+    gameColl = lidraughts.game.Env.current.gameColl,
+    gameImporter = lidraughts.importer.Env.current.importer,
+    settingStore = lidraughts.memo.Env.current.settingStore,
+    system = lidraughts.common.PlayApp.system
   )
 }

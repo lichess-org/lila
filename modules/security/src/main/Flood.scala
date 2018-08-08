@@ -1,7 +1,7 @@
-package lila.security
+package lidraughts.security
 
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
-import lila.common.base.StringUtils.levenshtein
+import lidraughts.common.base.StringUtils.levenshtein
 import org.joda.time.DateTime
 import scala.concurrent.duration.Duration
 

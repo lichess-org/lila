@@ -1,7 +1,7 @@
-package lila.game
+package lidraughts.game
 
-import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lidraughts.db.dsl._
+import lidraughts.user.{ User, UserRepo }
 
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 
 final class PlayTimeApi(
     gameColl: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     system: akka.actor.ActorSystem
 ) {
 

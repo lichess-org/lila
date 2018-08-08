@@ -1,6 +1,6 @@
-@(rated: Option[Boolean] = None, system: Option[lila.tournament.System] = None, privateId: Option[String] = None)(implicit ctx: Context)
+@(rated: Option[Boolean] = None, system: Option[lidraughts.tournament.System] = None, privateId: Option[String] = None)(implicit ctx: Context)
 
-@import lila.tournament.System
+@import lidraughts.tournament.System
 
 <article class="faq">
   @privateId.map { id =>

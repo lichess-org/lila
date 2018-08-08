@@ -1,4 +1,4 @@
-package lila.security
+package lidraughts.security
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
@@ -7,18 +7,20 @@ import play.api.data.Forms._
 import play.api.mvc.RequestHeader
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
+import scala.concurrent.duration._
 
-import lila.common.{ ApiVersion, IpAddress, EmailAddress }
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lidraughts.common.{ ApiVersion, IpAddress, EmailAddress }
+import lidraughts.db.BSON.BSONJodaDateTimeHandler
+import lidraughts.db.dsl._
+import lidraughts.user.{ User, UserRepo }
 
 final class SecurityApi(
     coll: Coll,
     firewall: Firewall,
     geoIP: GeoIP,
-    authenticator: lila.user.Authenticator,
-    emailValidator: EmailAddressValidator
+    authenticator: lidraughts.user.Authenticator,
+    emailValidator: EmailAddressValidator,
+    tryOauthServer: lidraughts.oauth.OAuthServer.Try
 ) {
 
   val AccessUri = "access_uri"
@@ -54,17 +56,17 @@ final class SecurityApi(
       case true => fufail(SecurityApi MustConfirmEmail userId)
       case false =>
         val sessionId = Random secureString 12
-        Store.save(sessionId, userId, req, apiVersion, up = true) inject sessionId
+        Store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 
-  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion])(implicit req: RequestHeader): Funit = {
+  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(implicit req: RequestHeader): Funit = {
     val sessionId = Random secureString 8
-    Store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false)
+    Store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
   }
 
   def restoreUser(req: RequestHeader): Fu[Option[FingerprintedUser]] =
     firewall.accepts(req) ?? {
-      reqSessionId(req) ?? { sessionId =>
+      reqSessionId(req).?? { sessionId =>
         Store userIdAndFingerprint sessionId flatMap {
           _ ?? { d =>
             if (d.isOld) Store.setDateToNow(sessionId)
@@ -73,6 +75,12 @@ final class SecurityApi(
                 FingerprintedUser(_, d.fp.isDefined)
               }
             }
+          }
+        }
+      } orElse lidraughts.oauth.OAuthServer.appliesTo(req).?? {
+        tryOauthServer().flatMap {
+          _ ?? {
+            _.activeUser(req).map2 { (u: User) => FingerprintedUser(u, false) }
           }
         }
       }

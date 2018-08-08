@@ -67,7 +67,7 @@
 }
 .streamer-new ul li::before,
 .streamer.edit ul li::before {
-  font-family: 'lichess';
+  font-family: 'lidraughts';
   content: 'E';
   font-size: 1.5em;
   margin-right: 0.5em;

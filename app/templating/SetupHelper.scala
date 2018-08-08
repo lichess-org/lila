@@ -1,13 +1,13 @@
-package lila.app
+package lidraughts.app
 package templating
 
-import chess.{ Mode, Speed }
-import lila.api.Context
-import lila.i18n.I18nKeys
-import lila.pref.Pref
-import lila.report.Reason
-import lila.setup.TimeMode
-import lila.tournament.System
+import draughts.{ Mode, Speed }
+import lidraughts.api.Context
+import lidraughts.i18n.I18nKeys
+import lidraughts.pref.Pref
+import lidraughts.report.Reason
+import lidraughts.setup.TimeMode
+import lidraughts.tournament.System
 
 trait SetupHelper { self: I18nHelper =>
 
@@ -33,44 +33,29 @@ trait SetupHelper { self: I18nHelper =>
     System.Arena.id.toString -> "Arena"
   )
 
-  private def variantTuple(variant: chess.variant.Variant)(implicit ctx: Context): (String, String, Option[String]) =
+  private def variantTuple(variant: draughts.variant.Variant)(implicit ctx: Context): (String, String, Option[String]) =
     (variant.id.toString, variant.name, variant.title.some)
 
   def translatedVariantChoices(implicit ctx: Context) = List(
-    (chess.variant.Standard.id.toString, I18nKeys.standard.txt(), chess.variant.Standard.title.some)
+    (draughts.variant.Standard.id.toString, I18nKeys.standard.txt(), draughts.variant.Standard.title.some)
   )
 
   def translatedVariantChoicesWithVariants(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
-      variantTuple(chess.variant.Crazyhouse) :+
-      variantTuple(chess.variant.Chess960) :+
-      variantTuple(chess.variant.KingOfTheHill) :+
-      variantTuple(chess.variant.ThreeCheck) :+
-      variantTuple(chess.variant.Antichess) :+
-      variantTuple(chess.variant.Atomic) :+
-      variantTuple(chess.variant.Horde) :+
-      variantTuple(chess.variant.RacingKings)
+      variantTuple(draughts.variant.Frisian)
 
   def translatedVariantChoicesWithFen(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
-      variantTuple(chess.variant.Chess960) :+
-      variantTuple(chess.variant.FromPosition)
+      variantTuple(draughts.variant.FromPosition)
 
   def translatedAiVariantChoices(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
-      variantTuple(chess.variant.Crazyhouse) :+
-      variantTuple(chess.variant.Chess960) :+
-      variantTuple(chess.variant.KingOfTheHill) :+
-      variantTuple(chess.variant.ThreeCheck) :+
-      variantTuple(chess.variant.Antichess) :+
-      variantTuple(chess.variant.Atomic) :+
-      variantTuple(chess.variant.Horde) :+
-      variantTuple(chess.variant.RacingKings) :+
-      variantTuple(chess.variant.FromPosition)
+      variantTuple(draughts.variant.Frisian) :+
+      variantTuple(draughts.variant.FromPosition)
 
   def translatedVariantChoicesWithVariantsAndFen(implicit ctx: Context) =
     translatedVariantChoicesWithVariants :+
-      variantTuple(chess.variant.FromPosition)
+      variantTuple(draughts.variant.FromPosition)
 
   def translatedSpeedChoices(implicit ctx: Context) = Speed.limited map { s =>
     val minutes = s.range.max / 60 + 1
@@ -100,11 +85,6 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.Replay.ALWAYS, I18nKeys.always.txt())
   )
 
-  def translatedPieceNotationChoices(implicit ctx: Context) = List(
-    (Pref.PieceNotation.SYMBOL, I18nKeys.chessPieceSymbol.txt()),
-    (Pref.PieceNotation.LETTER, I18nKeys.pgnLetter.txt())
-  )
-
   def translatedClockTenthsChoices(implicit ctx: Context) = List(
     (Pref.ClockTenths.NEVER, I18nKeys.never.txt()),
     (Pref.ClockTenths.LOWTIME, I18nKeys.whenTimeRemainingLessThanTenSeconds.txt()),
@@ -121,12 +101,6 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.Takeback.NEVER, I18nKeys.never.txt()),
     (Pref.Takeback.ALWAYS, I18nKeys.always.txt()),
     (Pref.Takeback.CASUAL, I18nKeys.inCasualGamesOnly.txt())
-  )
-
-  def translatedAutoQueenChoices(implicit ctx: Context) = List(
-    (Pref.AutoQueen.NEVER, I18nKeys.never.txt()),
-    (Pref.AutoQueen.PREMOVE, I18nKeys.whenPremoving.txt()),
-    (Pref.AutoQueen.ALWAYS, I18nKeys.always.txt())
   )
 
   def translatedAutoThreefoldChoices(implicit ctx: Context) = List(
@@ -147,14 +121,9 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.ConfirmResign.YES, I18nKeys.yes.txt())
   )
 
-  def translatedRookCastleChoices(implicit ctx: Context) = List(
-    (Pref.RookCastle.NO, I18nKeys.castleByMovingTwoSquares.txt()),
-    (Pref.RookCastle.YES, I18nKeys.castleByMovingOntoTheRook.txt())
-  )
-
   def translatedChallengeChoices(implicit ctx: Context) = List(
     (Pref.Challenge.NEVER, I18nKeys.never.txt()),
-    (Pref.Challenge.RATING, I18nKeys.ifRatingIsPlusMinusX.txt(lila.pref.Pref.Challenge.ratingThreshold)),
+    (Pref.Challenge.RATING, I18nKeys.ifRatingIsPlusMinusX.txt(lidraughts.pref.Pref.Challenge.ratingThreshold)),
     (Pref.Challenge.FRIEND, I18nKeys.onlyFriends.txt()),
     (Pref.Challenge.ALWAYS, I18nKeys.always.txt())
   )

@@ -1,32 +1,32 @@
-package lila.study
+package lidraughts.study
 
 import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.HasUserId
-import lila.hub.actorApi.map.Ask
-import lila.hub.{ ActorMap, Sequencer }
-import lila.socket.actorApi.GetVersion
-import lila.user.User
+import lidraughts.hub.actorApi.HasUserId
+import lidraughts.hub.actorApi.map.Ask
+import lidraughts.hub.{ ActorMap, Sequencer }
+import lidraughts.socket.actorApi.GetVersion
+import lidraughts.user.User
 import makeTimeout.short
 
 final class Env(
     config: Config,
-    lightUserApi: lila.user.LightUserApi,
-    gamePgnDump: lila.game.PgnDump,
-    divider: lila.game.Divider,
-    importer: lila.importer.Importer,
-    explorerImporter: lila.explorer.ExplorerImporter,
-    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
-    notifyApi: lila.notify.NotifyApi,
-    getPref: User => Fu[lila.pref.Pref],
-    getRelation: (User.ID, User.ID) => Fu[Option[lila.relation.Relation]],
+    lightUserApi: lidraughts.user.LightUserApi,
+    gamePdnDump: lidraughts.game.PdnDump,
+    divider: lidraughts.game.Divider,
+    importer: lidraughts.importer.Importer,
+    explorerImporter: lidraughts.explorer.ExplorerImporter,
+    evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler,
+    notifyApi: lidraughts.notify.NotifyApi,
+    getPref: User => Fu[lidraughts.pref.Pref],
+    getRelation: (User.ID, User.ID) => Fu[Option[lidraughts.relation.Relation]],
     system: ActorSystem,
-    hub: lila.hub.Env,
-    db: lila.db.Env,
-    asyncCache: lila.memo.AsyncCache.Builder
+    hub: lidraughts.hub.Env,
+    db: lidraughts.db.Env,
+    asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
   private val settings = new {
@@ -45,14 +45,14 @@ final class Env(
   import settings._
 
   private val socketHub = system.actorOf(
-    Props(new lila.socket.SocketHubActor.Default[Socket] {
+    Props(new lidraughts.socket.SocketHubActor.Default[Socket] {
       def mkActor(studyId: String) = new Socket(
         studyId = Study.Id(studyId),
         jsonView = jsonView,
         studyRepo = studyRepo,
         chapterRepo = chapterRepo,
         lightUser = lightUserApi.async,
-        history = new lila.socket.History(ttl = HistoryMessageTtl),
+        history = new lidraughts.socket.History(ttl = HistoryMessageTtl),
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout,
         lightStudyCache = lightStudyCache
@@ -84,7 +84,7 @@ final class Env(
 
   private lazy val chapterMaker = new ChapterMaker(
     importer = importer,
-    pgnFetch = new PgnFetch,
+    pdnFetch = new PdnFetch,
     lightUser = lightUserApi,
     chat = hub.actor.chat,
     domain = NetDomain
@@ -136,7 +136,7 @@ final class Env(
   // study actor
   system.actorOf(Props(new Actor {
     def receive = {
-      case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) => serverEvalMerger(analysis, complete)
+      case lidraughts.analyse.actorApi.StudyAnalysisProgress(analysis, complete) => serverEvalMerger(analysis, complete)
     }
   }), name = ActorName)
 
@@ -147,12 +147,12 @@ final class Env(
     chapterMaker = chapterMaker,
     studyMaker = studyMaker,
     inviter = studyInvite,
-    tagsFixer = new ChapterTagsFixer(chapterRepo, gamePgnDump),
+    tagsFixer = new ChapterTagsFixer(chapterRepo, gamePdnDump),
     explorerGameHandler = explorerGame,
     lightUser = lightUserApi.sync,
     scheduler = system.scheduler,
     chat = hub.actor.chat,
-    bus = system.lilaBus,
+    bus = system.lidraughtsBus,
     timeline = hub.actor.timeline,
     socketHub = socketHub,
     serverEvalRequester = serverEvalRequester,
@@ -162,12 +162,12 @@ final class Env(
   lazy val pager = new StudyPager(
     studyRepo = studyRepo,
     chapterRepo = chapterRepo,
-    maxPerPage = lila.common.MaxPerPage(MaxPerPage)
+    maxPerPage = lidraughts.common.MaxPerPage(MaxPerPage)
   )
 
-  lazy val pgnDump = new PgnDump(
+  lazy val pdnDump = new PdnDump(
     chapterRepo = chapterRepo,
-    gamePgnDump = gamePgnDump,
+    gamePdnDump = gamePdnDump,
     lightUser = lightUserApi.sync,
     netBaseUrl = NetBaseUrl
   )
@@ -178,7 +178,7 @@ final class Env(
     expireAfter = _.ExpireAfterWrite(20 minutes)
   )
 
-  def cli = new lila.common.Cli {
+  def cli = new lidraughts.common.Cli {
     def process = {
       case "study" :: "rank" :: "reset" :: Nil => api.resetAllRanks.map { count => s"$count done" }
     }
@@ -188,19 +188,19 @@ final class Env(
 object Env {
 
   lazy val current: Env = "study" boot new Env(
-    config = lila.common.PlayApp loadConfig "study",
-    lightUserApi = lila.user.Env.current.lightUserApi,
-    gamePgnDump = lila.game.Env.current.pgnDump,
-    divider = lila.game.Env.current.divider,
-    importer = lila.importer.Env.current.importer,
-    explorerImporter = lila.explorer.Env.current.importer,
-    evalCacheHandler = lila.evalCache.Env.current.socketHandler,
-    notifyApi = lila.notify.Env.current.api,
-    getPref = lila.pref.Env.current.api.getPref,
-    getRelation = lila.relation.Env.current.api.fetchRelation,
-    system = lila.common.PlayApp.system,
-    hub = lila.hub.Env.current,
-    db = lila.db.Env.current,
-    asyncCache = lila.memo.Env.current.asyncCache
+    config = lidraughts.common.PlayApp loadConfig "study",
+    lightUserApi = lidraughts.user.Env.current.lightUserApi,
+    gamePdnDump = lidraughts.game.Env.current.pdnDump,
+    divider = lidraughts.game.Env.current.divider,
+    importer = lidraughts.importer.Env.current.importer,
+    explorerImporter = lidraughts.explorer.Env.current.importer,
+    evalCacheHandler = lidraughts.evalCache.Env.current.socketHandler,
+    notifyApi = lidraughts.notify.Env.current.api,
+    getPref = lidraughts.pref.Env.current.api.getPref,
+    getRelation = lidraughts.relation.Env.current.api.fetchRelation,
+    system = lidraughts.common.PlayApp.system,
+    hub = lidraughts.hub.Env.current,
+    db = lidraughts.db.Env.current,
+    asyncCache = lidraughts.memo.Env.current.asyncCache
   )
 }

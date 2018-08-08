@@ -2,14 +2,14 @@ package controllers
 
 import play.api.libs.json.Json
 
-import lila.api.Context
-import lila.app._
-import lila.common.paginator.{ Paginator, AdapterLike, PaginatorJson }
-import lila.relation.Related
-import lila.user.{ User => UserModel, UserRepo }
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.common.paginator.{ Paginator, AdapterLike, PaginatorJson }
+import lidraughts.relation.Related
+import lidraughts.user.{ User => UserModel, UserRepo }
 import views._
 
-object Relation extends LilaController {
+object Relation extends LidraughtsController {
 
   private def env = Env.relation
 
@@ -77,12 +77,12 @@ object Relation extends LilaController {
   }
 
   private def jsonRelatedPaginator(pag: Paginator[Related]) = {
-    import lila.user.JsonView.nameWrites
-    import lila.relation.JsonView.relatedWrites
+    import lidraughts.user.JsonView.nameWrites
+    import lidraughts.relation.JsonView.relatedWrites
     Json.obj("paginator" -> PaginatorJson(pag.mapResults { r =>
       relatedWrites.writes(r) ++ Json.obj(
         "perfs" -> r.user.perfs.bestPerfType.map { best =>
-          lila.user.JsonView.perfs(r.user, best.some)
+          lidraughts.user.JsonView.perfs(r.user, best.some)
         }
       ).add("online" -> Env.user.isOnline(r.user.id))
     }))
@@ -99,7 +99,7 @@ object Relation extends LilaController {
   private def RelatedPager(adapter: AdapterLike[String], page: Int)(implicit ctx: Context) = Paginator(
     adapter = adapter mapFutureList followship,
     currentPage = page,
-    maxPerPage = lila.common.MaxPerPage(30)
+    maxPerPage = lidraughts.common.MaxPerPage(30)
   )
 
   private def followship(userIds: Seq[String])(implicit ctx: Context): Fu[List[Related]] =
@@ -107,7 +107,7 @@ object Relation extends LilaController {
       (ctx.isAuth ?? { Env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
         users.map { u =>
           ctx.userId ?? { env.api.fetchRelation(_, u.id) } map { rel =>
-            lila.relation.Related(u, none, followables(u.id), rel)
+            lidraughts.relation.Related(u, none, followables(u.id), rel)
           }
         }.sequenceFu
       }

@@ -1,12 +1,12 @@
-package lila.tournament
+package lidraughts.tournament
 
 import reactivemongo.bson.Macros
 import scala.concurrent.duration._
 
-import chess.Color
-import lila.db.dsl._
+import draughts.Color
+import lidraughts.db.dsl._
 
-final class TournamentStatsApi(mongoCache: lila.memo.MongoCache.Builder) {
+final class TournamentStatsApi(mongoCache: lidraughts.memo.MongoCache.Builder) {
 
   def apply(tournament: Tournament): Fu[Option[TournamentStats]] =
     tournament.isFinished ?? cache(tournament.id).map(some)

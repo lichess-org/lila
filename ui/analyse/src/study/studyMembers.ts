@@ -88,7 +88,7 @@ export function ctrl(opts: Opts) {
       const wasContrib = myMember() && canContribute();
       dict(members);
       if (wasViewer && canContribute()) {
-        if (window.lichess.once('study-tour')) opts.startTour();
+        if (window.lidraughts.once('study-tour')) opts.startTour();
         opts.onBecomingContributor();
         opts.notif.set({
           text: 'You are now a contributor',
@@ -233,7 +233,7 @@ export function view(ctrl: StudyCtrl): VNode {
 
   return h('div.list.members', {
     hook: {
-      insert: _ => window.lichess.pubsub.emit('content_loaded')()
+      insert: _ => window.lidraughts.pubsub.emit('content_loaded')()
     }
   }, [
     ...ordered.map(function(member) {

@@ -1,19 +1,19 @@
-package lila.activity
+package lidraughts.activity
 
 import org.joda.time.{ DateTime, Interval }
 
-import lila.db.dsl._
-import lila.game.{ Pov, GameRepo }
-import lila.practice.PracticeStructure
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.game.{ Pov, GameRepo }
+import lidraughts.practice.PracticeStructure
+import lidraughts.user.User
 
 final class ActivityReadApi(
     coll: Coll,
-    practiceApi: lila.practice.PracticeApi,
-    postApi: lila.forum.PostApi,
-    simulApi: lila.simul.SimulApi,
-    studyApi: lila.study.StudyApi,
-    tourLeaderApi: lila.tournament.LeaderboardApi
+    practiceApi: lidraughts.practice.PracticeApi,
+    postApi: lidraughts.forum.PostApi,
+    simulApi: lidraughts.simul.SimulApi,
+    studyApi: lidraughts.study.StudyApi,
+    tourLeaderApi: lidraughts.tournament.LeaderboardApi
 ) {
 
   import Activity._
@@ -88,7 +88,8 @@ final class ActivityReadApi(
     follows = a.follows,
     studies = studies,
     teams = a.teams,
-    tours = tours
+    tours = tours,
+    stream = a.stream
   )
 
   private def addSignup(at: DateTime, recent: Vector[ActivityView]) = {

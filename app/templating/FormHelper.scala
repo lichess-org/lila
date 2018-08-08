@@ -1,11 +1,11 @@
-package lila.app
+package lidraughts.app
 package templating
 
 import play.api.data._
 import play.twirl.api.Html
 
-import lila.api.Context
-import lila.i18n.I18nDb
+import lidraughts.api.Context
+import lidraughts.i18n.I18nDb
 
 trait FormHelper { self: I18nHelper =>
 

@@ -1,23 +1,23 @@
-package lila.importer
+package lidraughts.importer
 
-import chess.format.pgn.{ Parser, Reader, ParsedPgn, Tag, TagType, Tags }
-import chess.format.{ FEN, Forsyth }
-import chess.{ Replay, Color, Mode, Status }
+import draughts.format.pdn.{ Parser, Reader, ParsedPdn, Tag, TagType, Tags }
+import draughts.format.{ FEN, Forsyth }
+import draughts.{ Replay, Color, Mode, Status }
 import play.api.data._
 import play.api.data.Forms._
 import scalaz.Validation.FlatMap._
 
-import lila.game._
+import lidraughts.game._
 
 private[importer] final class DataForm {
 
   lazy val importForm = Form(mapping(
-    "pgn" -> nonEmptyText.verifying("invalidPgn", checkPgn _),
+    "pdn" -> nonEmptyText.verifying("invalidPdn", checkPdn _),
     "analyse" -> optional(nonEmptyText)
   )(ImportData.apply)(ImportData.unapply))
 
-  private def checkPgn(pgn: String): Boolean =
-    ImportData(pgn, none).preprocess(none).isSuccess
+  private def checkPdn(pdn: String): Boolean =
+    ImportData(pdn, none).preprocess(none).isSuccess
 }
 
 private[importer] case class Result(status: Status, winner: Option[Color])
@@ -26,39 +26,41 @@ case class Preprocessed(
     replay: Replay,
     result: Result,
     initialFen: Option[FEN],
-    parsed: ParsedPgn
+    parsed: ParsedPdn
 )
 
-case class ImportData(pgn: String, analyse: Option[String]) {
+case class ImportData(pdn: String, analyse: Option[String]) {
 
   private type TagPicker = Tag.type => TagType
 
-  private val maxPlies = 600
+  private val maxPlies = 500
 
   private def evenIncomplete(result: Reader.Result): Replay = result match {
     case Reader.Result.Complete(replay) => replay
     case Reader.Result.Incomplete(replay, _) => replay
   }
 
-  def preprocess(user: Option[String]): Valid[Preprocessed] = Parser.full(pgn) flatMap {
-    case parsed @ ParsedPgn(_, tags, sans) => Reader.fullWithSans(
-      pgn,
+  def preprocess(user: Option[String]): Valid[Preprocessed] = Parser.full(pdn) flatMap {
+    case parsed @ ParsedPdn(_, tags, sans) => Reader.fullWithSans(
+      pdn,
       sans => sans.copy(value = sans.value take maxPlies),
-      Tags.empty
+      tags,
+      iteratedCapts = true
     ) map evenIncomplete map {
-        case replay @ Replay(setup, _, game) =>
+        case replay @ Replay(setup, _, state) =>
           val initBoard = parsed.tags.fen.map(_.value) flatMap Forsyth.<< map (_.board)
           val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.contains(FEN(Forsyth.initial))
           val variant = {
             parsed.tags.variant | {
-              if (fromPosition) chess.variant.FromPosition
-              else chess.variant.Standard
+              if (fromPosition) draughts.variant.FromPosition
+              else draughts.variant.Standard
             }
           } match {
-            case chess.variant.Chess960 if !Chess960.isStartPosition(setup.board) => chess.variant.FromPosition
-            case chess.variant.FromPosition if parsed.tags.fen.isEmpty => chess.variant.Standard
+            case draughts.variant.FromPosition if parsed.tags.fen.isEmpty => draughts.variant.Standard
+            case draughts.variant.Standard if fromPosition => draughts.variant.FromPosition
             case v => v
           }
+          val game = state.copy(situation = state.situation withVariant variant)
           val initialFen = parsed.tags.fen.map(_.value) flatMap {
             Forsyth.<<<@(variant, _)
           } map Forsyth.>> map FEN.apply
@@ -87,15 +89,15 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           }
 
           val dbGame = Game.make(
-            chess = replay.state,
-            whitePlayer = Player.make(chess.White, None) withName name(_.White, _.WhiteElo),
-            blackPlayer = Player.make(chess.Black, None) withName name(_.Black, _.BlackElo),
+            draughts = game,
+            whitePlayer = Player.make(draughts.White, None) withName name(_.White, _.WhiteElo),
+            blackPlayer = Player.make(draughts.Black, None) withName name(_.Black, _.BlackElo),
             mode = Mode.Casual,
             source = Source.Import,
-            pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
+            pdnImport = PdnImport.make(user = user, date = date, pdn = pdn).some
           ).start
 
-          Preprocessed(dbGame, replay, result, initialFen, parsed)
+          Preprocessed(dbGame, replay.copy(state = game), result, initialFen, parsed)
       }
   }
 }

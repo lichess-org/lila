@@ -1,16 +1,16 @@
-package lila.relay
+package lidraughts.relay
 
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
-import lila.user.User
-import lila.security.Granter
+import lidraughts.user.User
+import lidraughts.security.Granter
 
 object RelayForm {
 
-  import lila.common.Form.UTCDate._
+  import lidraughts.common.Form.UTCDate._
 
   val syncTypes = List(
     "dgt-one" -> "DGT (traditional): all games in a single file",
@@ -70,7 +70,7 @@ object RelayForm {
       description = description,
       ownerId = user.id,
       sync = makeSync,
-      likes = lila.study.Study.Likes(1),
+      likes = lidraughts.study.Study.Likes(1),
       createdAt = DateTime.now,
       finished = false,
       official = official && Granter(_.Relay)(user),

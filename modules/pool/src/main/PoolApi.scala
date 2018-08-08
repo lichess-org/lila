@@ -1,17 +1,17 @@
-package lila.pool
+package lidraughts.pool
 
 import akka.actor._
 
-import lila.game.Game
-import lila.rating.RatingRange
-import lila.socket.Socket.{ Uid => SocketId }
-import lila.user.User
+import lidraughts.game.Game
+import lidraughts.rating.RatingRange
+import lidraughts.socket.Socket.{ Uid => SocketId }
+import lidraughts.user.User
 
 final class PoolApi(
     val configs: List[PoolConfig],
     hookThieve: HookThieve,
     gameStarter: GameStarter,
-    playbanApi: lila.playban.PlaybanApi,
+    playbanApi: lidraughts.playban.PlaybanApi,
     system: ActorSystem
 ) {
 

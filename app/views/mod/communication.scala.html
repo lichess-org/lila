@@ -1,6 +1,6 @@
-@(u: User, players: List[(Pov, lila.chat.MixedChat)], threads: List[lila.message.Thread], publicLines: List[lila.shutup.PublicLine], spy: lila.security.UserSpy, notes: List[lila.user.Note], history: List[lila.mod.Modlog], priv: Boolean)(implicit ctx: Context)
+@(u: User, players: List[(Pov, lidraughts.chat.MixedChat)], threads: List[lidraughts.message.Thread], publicLines: List[lidraughts.shutup.PublicLine], spy: lidraughts.security.UserSpy, notes: List[lidraughts.user.Note], history: List[lidraughts.mod.Modlog], priv: Boolean)(implicit ctx: Context)
 
-@import lila.hub.actorApi.shutup.PublicSource
+@import lidraughts.hub.actorApi.shutup.PublicSource
 
 @moreCss = {
 @cssTag("mod-communication.css")
@@ -138,7 +138,7 @@ side = side.some) {
       </thead>
       <tbody>
         @spy.withMeSorted(u).map {
-        case lila.security.UserSpy.OtherUser(o, byIp, byFp) => {
+        case lidraughts.security.UserSpy.OtherUser(o, byIp, byFp) => {
         <tr @if(o == u){class="same"}>
           <td>@userLink(o, withBestRating = true, params = "?mod")</td>
           <td>

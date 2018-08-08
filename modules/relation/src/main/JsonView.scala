@@ -1,11 +1,11 @@
-package lila.relation
+package lidraughts.relation
 
 import actorApi.OnlineFriends
 import play.api.libs.json._
 
 object JsonView {
 
-  implicit def relatedWrites(implicit userWrites: Writes[lila.user.User]) =
+  implicit def relatedWrites(implicit userWrites: Writes[lidraughts.user.User]) =
     OWrites[Related] { r =>
       Json.obj(
         "user" -> r.user,

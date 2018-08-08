@@ -1,4 +1,4 @@
-package lila.puzzle
+package lidraughts.puzzle
 
 case class Vote(
     _id: String, // puzzleId/userId

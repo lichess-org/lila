@@ -1,11 +1,11 @@
-@(u: User, rankMap: lila.rating.UserRankMap, active: Option[lila.rating.PerfType])(implicit ctx: Context)
+@(u: User, rankMap: lidraughts.rating.UserRankMap, active: Option[lidraughts.rating.PerfType])(implicit ctx: Context)
 
-@import lila.rating.PerfType
+@import lidraughts.rating.PerfType
 
-@showPerf(perf: lila.rating.Perf, perfType: PerfType, name: Option[String] = none) = {
+@showPerf(perf: lidraughts.rating.Perf, perfType: PerfType, name: Option[String] = none) = {
 <a data-icon="@perfType.iconChar"
   title="@perfType.title"
-  @if(lila.rating.PerfType.isGame(perfType)) {
+  @if(lidraughts.rating.PerfType.isGame(perfType)) {
   href="@routes.User.perfStat(u.username, perfType.key)"
   class="game@if(active.contains(perfType)){ active}@if(perf.isEmpty){ empty}"
   } else {
@@ -22,13 +22,13 @@
     @trans.rankX(rank.localize)
     }
   </span>
-  @if(lila.rating.PerfType.isGame(perfType)) {
+  @if(lidraughts.rating.PerfType.isGame(perfType)) {
   <i data-icon="G"></i>
   }
 </a>
 }
 
-@showNonEmptyPerf(perf: lila.rating.Perf, perfType: PerfType) = {
+@showNonEmptyPerf(perf: lidraughts.rating.Perf, perfType: PerfType) = {
   @if(perf.nonEmpty) {@showPerf(perf, perfType)}
 }
 
@@ -41,14 +41,7 @@
   @showPerf(u.perfs.classical, PerfType.Classical)
   @showPerf(u.perfs.correspondence, PerfType.Correspondence)
   <br />
-  @showNonEmptyPerf(u.perfs.crazyhouse, PerfType.Crazyhouse)
-  @showNonEmptyPerf(u.perfs.chess960, PerfType.Chess960)
-  @showNonEmptyPerf(u.perfs.kingOfTheHill, PerfType.KingOfTheHill)
-  @showNonEmptyPerf(u.perfs.threeCheck, PerfType.ThreeCheck)
-  @showNonEmptyPerf(u.perfs.antichess, PerfType.Antichess)
-  @showNonEmptyPerf(u.perfs.atomic, PerfType.Atomic)
-  @showNonEmptyPerf(u.perfs.horde, PerfType.Horde)
-  @showNonEmptyPerf(u.perfs.racingKings, PerfType.RacingKings)
+  @showNonEmptyPerf(u.perfs.frisian, PerfType.Frisian)
   <br />
   @showPerf(u.perfs.puzzle, PerfType.Puzzle)
   }

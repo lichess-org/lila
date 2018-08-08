@@ -1,7 +1,7 @@
-package lila.report
+package lidraughts.report
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl._
+import lidraughts.db.BSON.BSONJodaDateTimeHandler
+import lidraughts.db.dsl._
 import reactivemongo.bson._
 
 object BSONHandlers {

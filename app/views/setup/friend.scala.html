@@ -1,6 +1,6 @@
-@(form: Form[_], user: Option[User], error: Option[String], validFen: Option[lila.setup.ValidFen])(implicit ctx: Context)
+@(form: Form[_], user: Option[User], error: Option[String], validFen: Option[lidraughts.setup.ValidFen])(implicit ctx: Context)
 
-@import lila.setup.FriendConfig
+@import lidraughts.setup.FriendConfig
 
 @fields = {
 @user.map { u =>
@@ -8,7 +8,7 @@
 }
 @setup.variant(form, translatedVariantChoicesWithVariantsAndFen)
 @fenInput(form("fen"), false, validFen)
-@setup.timeMode(form, lila.setup.FriendConfig)
+@setup.timeMode(form, lidraughts.setup.FriendConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">
   @setup.radios(form("mode"), translatedModeChoices)

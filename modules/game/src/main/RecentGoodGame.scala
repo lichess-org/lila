@@ -1,4 +1,4 @@
-package lila.game
+package lidraughts.game
 
 import akka.actor._
 
@@ -7,7 +7,7 @@ private final class RecentGoodGame extends Actor {
   val maxIds = 500
   var ids = List.empty[Game.ID]
 
-  def matches(g: lila.game.Game) =
+  def matches(g: lidraughts.game.Game) =
     g.variant.standard &&
       g.rated &&
       g.turns >= 10 && {
@@ -17,7 +17,7 @@ private final class RecentGoodGame extends Actor {
       g.clock.??(_.estimateTotalSeconds >= 5 * 60)
 
   def receive = {
-    case lila.game.actorApi.FinishGame(g, _, _) if matches(g) =>
+    case lidraughts.game.actorApi.FinishGame(g, _, _) if matches(g) =>
       ids = g.id :: ids.take(maxIds - 1)
     case true => ids match {
       case head :: tail =>

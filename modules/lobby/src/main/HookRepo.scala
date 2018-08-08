@@ -1,4 +1,4 @@
-package lila.lobby
+package lidraughts.lobby
 
 import org.joda.time.DateTime
 
@@ -44,7 +44,7 @@ object HookRepo {
     partition(_.createdAt isAfter limit)
   }
 
-  def poolCandidates(clock: chess.Clock.Config): Vector[lila.pool.HookThieve.PoolHook] =
+  def poolCandidates(clock: draughts.Clock.Config): Vector[lidraughts.pool.HookThieve.PoolHook] =
     hooks.filter(_ compatibleWithPool clock).map(_.toPool)
 
   // keeps hooks that hold true

@@ -2,7 +2,7 @@
 
 @message.layout(
 title = trans.composeMessage.txt()) {
-<div id="lichess_message" class="content_box">
+<div id="lidraughts_message" class="content_box">
   <div class="message_new">
     <h1>@trans.composeMessage()</h1>
     @reqUser.ifFalse(canMessage).map { u =>
@@ -57,7 +57,7 @@ title = trans.composeMessage.txt()) {
           </select>
         </div>
         @embedJs {
-        window.lichess_mod_presets = @toJson(lila.message.ModPreset.asJson);
+        window.lidraughts_mod_presets = @toJson(lidraughts.message.ModPreset.asJson);
         }
         }
 

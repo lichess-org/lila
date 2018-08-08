@@ -2,13 +2,13 @@ import { throttle } from 'common';
 import TournamentController from './ctrl';
 
 const headers = {
-  'Accept': 'application/vnd.lichess.v2+json'
+  'Accept': 'application/vnd.lidraughts.v2+json'
 };
 
 // when the tournament no longer exists
 function onFail(_1, _2, errorMessage) {
   if (errorMessage === 'Forbidden') location.href = '/';
-  else window.lichess.reload();
+  else window.lidraughts.reload();
 }
 
 function join(ctrl: TournamentController, password?: string) {

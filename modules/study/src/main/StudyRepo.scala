@@ -1,11 +1,11 @@
-package lila.study
+package lidraughts.study
 
 import org.joda.time.DateTime
 import reactivemongo.api._
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Project, Match }
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 final class StudyRepo(private[study] val coll: Coll) {
 
@@ -61,13 +61,14 @@ final class StudyRepo(private[study] val coll: Coll) {
     )
   }.void
 
-  def updateSomeFields(s: Study): Funit = coll.update($id(s.id), $set(
-    "position" -> s.position,
-    "name" -> s.name,
-    "settings" -> s.settings,
-    "visibility" -> s.visibility,
-    "updatedAt" -> DateTime.now
-  )).void
+  def updateSomeFields(s: Study): Funit =
+    coll.update($id(s.id), $set(
+      "position" -> s.position,
+      "name" -> s.name,
+      "settings" -> s.settings,
+      "visibility" -> s.visibility,
+      "updatedAt" -> DateTime.now
+    )).void
 
   def delete(s: Study): Funit = coll.remove($id(s.id)).void
 

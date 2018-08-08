@@ -80,7 +80,7 @@ function imageInput(ctrl: BackgroundCtrl) {
       },
       hook: {
         insert: vnode => {
-          $(vnode.elm as HTMLElement).on('change keyup paste', window.lichess.fp.debounce(function(this: HTMLElement) {
+          $(vnode.elm as HTMLElement).on('change keyup paste', window.lidraughts.fp.debounce(function(this: HTMLElement) {
             ctrl.setImage($(this).val());
           }, 200));
         }
@@ -117,6 +117,6 @@ function applyBackground(data: BackgroundData, list: Background[]) {
 }
 
 function reloadAllTheThings() {
-  if (window.Highcharts) window.lichess.reload();
-  window.lichess.reloadOtherTabs();
+  if (window.Highcharts) window.lidraughts.reload();
+  window.lidraughts.reloadOtherTabs();
 }

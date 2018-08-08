@@ -1,4 +1,4 @@
-package lila.base
+package lidraughts.base
 
 import java.util.Base64
 import scala.util.Try

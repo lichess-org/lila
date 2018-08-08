@@ -1,4 +1,4 @@
-import { fixCrazySan, decomposeUci } from 'chess';
+import { decomposeUci } from 'draughts';
 
 type Square = number;
 
@@ -178,7 +178,6 @@ function makeMove(variant: VariantKey, board: Board, uci: string) {
 }
 
 function san(board: Board, uci: string): string  {
-  if (uci.indexOf('@') !== -1) return fixCrazySan(uci);
 
   var move = decomposeUci(uci);
   var from = square(move[0]);

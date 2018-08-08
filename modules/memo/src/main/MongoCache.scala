@@ -1,4 +1,4 @@
-package lila.memo
+package lidraughts.memo
 
 import com.github.blemale.scaffeine.{ Scaffeine, Cache }
 import org.joda.time.DateTime
@@ -6,8 +6,8 @@ import reactivemongo.bson._
 import reactivemongo.bson.Macros
 import scala.concurrent.duration._
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl._
+import lidraughts.db.BSON.BSONJodaDateTimeHandler
+import lidraughts.db.dsl._
 
 final class MongoCache[K, V: MongoCache.Handler] private (
     prefix: String,

@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { bind } from './util';
-import * as cgUtil from 'chessground/util';
+import * as cgUtil from 'draughtsground/util';
 import { Vm } from './interfaces';
 
 export default function(vm: Vm, getGround, redraw: () => void) {

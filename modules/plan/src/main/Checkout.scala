@@ -1,4 +1,4 @@
-package lila.plan
+package lidraughts.plan
 
 import play.api.data._
 import play.api.data.Forms._

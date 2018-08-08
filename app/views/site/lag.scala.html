@@ -7,13 +7,13 @@
 }
 
 @base.layout(
-title = "Is lichess lagging?",
+title = "Is lidraughts lagging?",
 moreCss = cssTag("lag.css"),
 moreJs = moreJs) {
 
 <div class="content_box lag">
-  <h1 class="lichess_title">
-    Is lichess lagging?
+  <h1 class="lidraughts_title">
+    Is lidraughts lagging?
     <span class="answer short">
       <span class="waiting">Measurements in progress...</span>
       <span class="nope-nope none"><strong>No!</strong> and your network is good!</span>
@@ -26,31 +26,31 @@ moreJs = moreJs) {
   </div>
   <div class="sections">
     <section class="server">
-      <h2>Lichess server latency</h2>
+      <h2>Lidraughts server latency</h2>
       <div class="meter"></div>
       <p>
         The time it takes to process a move on the server.
         It's the <strong>same for everybody</strong>, and only depends on the server load.
-        The more players and the higher it gets, but lichess developers
+        The more players and the higher it gets, but lidraughts developers
         do their best to keep it low. It rarely exceeds 10ms.
       </p>
     </section>
     <section class="network">
-      <h2>Network between lichess and you</h2>
+      <h2>Network between lidraughts and you</h2>
       <div class="meter"></div>
       <p>
-        The time it takes to send a move from your computer to lichess server,
+        The time it takes to send a move from your computer to lidraughts server,
         and get the response back.
-        It's specific to your <strong>distance to lichess (France)</strong> and
+        It's specific to your <strong>distance to lidraughts</strong> and
         to the <strong>quality of your Internet connection</strong>.
-        Lichess developers can not fix your wifi or make light go faster.
+        Lidraughts developers can not fix your wifi or make light go faster.
       </p>
     </section>
   </div>
   <div class="last-word">
     <p>You can find both these values at any time, by clicking your username in the top bar.</p>
     <h2>Lag compensation</h2>
-    <p>Lichess compensates network lag, up to one second per move.
+    <p>Lidraughts compensates network lag, up to one second per move.
       After your move, <strong>your average network lag is added to your clock</strong>.
       As a result, having a higher network lag than your opponent is <strong>not a handicap</strong>!</p>
     <p>Now when you see someone complain about lag, you can send them to this

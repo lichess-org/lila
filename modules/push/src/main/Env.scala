@@ -1,14 +1,14 @@
-package lila.push
+package lidraughts.push
 
 import akka.actor._
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
-    getLightUser: lila.common.LightUser.GetterSync,
+    db: lidraughts.db.Env,
+    getLightUser: lidraughts.common.LightUser.GetterSync,
     roundSocketHub: ActorSelection,
-    scheduler: lila.common.Scheduler,
+    scheduler: lidraughts.common.Scheduler,
     system: ActorSystem
 ) {
 
@@ -36,16 +36,16 @@ final class Env(
     scheduler = scheduler
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game
-      case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable => pushApi move move
-      case lila.hub.actorApi.round.CorresTakebackOfferEvent(gameId) => pushApi takebackOffer gameId
-      case lila.hub.actorApi.round.CorresDrawOfferEvent(gameId) => pushApi drawOffer gameId
-      case lila.message.Event.NewMessage(t, p) => pushApi newMessage (t, p)
-      case lila.challenge.Event.Create(c) => pushApi challengeCreate c
-      case lila.challenge.Event.Accept(c, joinerId) => pushApi.challengeAccept(c, joinerId)
-      case lila.game.actorApi.CorresAlarmEvent(pov) => pushApi corresAlarm pov
+      case lidraughts.game.actorApi.FinishGame(game, _, _) => pushApi finish game
+      case lidraughts.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable => pushApi move move
+      case lidraughts.hub.actorApi.round.CorresTakebackOfferEvent(gameId) => pushApi takebackOffer gameId
+      case lidraughts.hub.actorApi.round.CorresDrawOfferEvent(gameId) => pushApi drawOffer gameId
+      case lidraughts.message.Event.NewMessage(t, p) => pushApi newMessage (t, p)
+      case lidraughts.challenge.Event.Create(c) => pushApi challengeCreate c
+      case lidraughts.challenge.Event.Accept(c, joinerId) => pushApi.challengeAccept(c, joinerId)
+      case lidraughts.game.actorApi.CorresAlarmEvent(pov) => pushApi corresAlarm pov
     }
   })), 'finishGame, 'moveEventCorres, 'newMessage, 'challenge, 'corresAlarm, 'offerEventCorres)
 }
@@ -53,11 +53,11 @@ final class Env(
 object Env {
 
   lazy val current: Env = "push" boot new Env(
-    db = lila.db.Env.current,
-    system = lila.common.PlayApp.system,
-    getLightUser = lila.user.Env.current.lightUserSync,
-    roundSocketHub = lila.hub.Env.current.socket.round,
-    scheduler = lila.common.PlayApp.scheduler,
-    config = lila.common.PlayApp loadConfig "push"
+    db = lidraughts.db.Env.current,
+    system = lidraughts.common.PlayApp.system,
+    getLightUser = lidraughts.user.Env.current.lightUserSync,
+    roundSocketHub = lidraughts.hub.Env.current.socket.round,
+    scheduler = lidraughts.common.PlayApp.scheduler,
+    config = lidraughts.common.PlayApp loadConfig "push"
   )
 }

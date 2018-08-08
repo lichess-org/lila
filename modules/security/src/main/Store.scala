@@ -1,14 +1,14 @@
-package lila.security
+package lidraughts.security
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson.Macros
 
-import lila.common.{ HTTPRequest, ApiVersion, IpAddress }
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.common.{ HTTPRequest, ApiVersion, IpAddress }
+import lidraughts.db.BSON.BSONJodaDateTimeHandler
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 object Store {
 
@@ -22,7 +22,8 @@ object Store {
     userId: User.ID,
     req: RequestHeader,
     apiVersion: Option[ApiVersion],
-    up: Boolean
+    up: Boolean,
+    fp: Option[FingerPrint]
   ): Funit =
     coll.insert($doc(
       "_id" -> sessionId,
@@ -31,7 +32,8 @@ object Store {
       "ua" -> HTTPRequest.userAgent(req).|("?"),
       "date" -> DateTime.now,
       "up" -> up,
-      "api" -> apiVersion.map(_.value)
+      "api" -> apiVersion.map(_.value),
+      "fp" -> fp.flatMap(FingerHash.apply)
     )).void
 
   private val userIdFingerprintProjection = $doc(

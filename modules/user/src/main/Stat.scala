@@ -1,4 +1,4 @@
-package lila.user
+package lidraughts.user
 
 object Stat {
 

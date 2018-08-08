@@ -1,4 +1,4 @@
-@(title: String, side: Option[Html] = None, robots: Boolean = true, evenMoreJs: Html = Html(""), evenMoreCss: Html = Html(""), openGraph: Option[lila.app.ui.OpenGraph] = None, menu: Option[Html] = None, withInfScroll: Boolean = true)(body: Html)(implicit ctx: Context)
+@(title: String, side: Option[Html] = None, robots: Boolean = true, evenMoreJs: Html = emptyHtml, evenMoreCss: Html = emptyHtml, openGraph: Option[lidraughts.app.ui.OpenGraph] = None, menu: Option[Html] = None, withInfScroll: Boolean = true)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("user-list.css")

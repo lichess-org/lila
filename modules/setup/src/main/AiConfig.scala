@@ -1,11 +1,11 @@
-package lila.setup
+package lidraughts.setup
 
-import lila.game.{ Game, Player, Source, Pov }
-import lila.lobby.Color
-import lila.user.User
+import lidraughts.game.{ Game, Player, Source, Pov }
+import lidraughts.lobby.Color
+import lidraughts.user.User
 
 case class AiConfig(
-    variant: chess.variant.Variant,
+    variant: draughts.variant.Variant,
     timeMode: TimeMode,
     time: Double,
     increment: Int,
@@ -19,26 +19,26 @@ case class AiConfig(
 
   def >> = (variant.id, timeMode.id, time, increment, days, level, color.name, fen).some
 
-  def game(user: Option[User]) = fenGame { chessGame =>
-    val perfPicker = lila.game.PerfPicker.mainOrDefault(
-      chess.Speed(chessGame.clock.map(_.config)),
-      chessGame.situation.board.variant,
+  def game(user: Option[User]) = fenGame { draughtsGame =>
+    val perfPicker = lidraughts.game.PerfPicker.mainOrDefault(
+      draughts.Speed(draughtsGame.clock.map(_.config)),
+      draughtsGame.situation.board.variant,
       makeDaysPerTurn
     )
     Game.make(
-      chess = chessGame,
+      draughts = draughtsGame,
       whitePlayer = creatorColor.fold(
-        Player.make(chess.White, user, perfPicker),
-        Player.make(chess.White, level.some)
+        Player.make(draughts.White, user, perfPicker),
+        Player.make(draughts.White, level.some)
       ),
       blackPlayer = creatorColor.fold(
-        Player.make(chess.Black, level.some),
-        Player.make(chess.Black, user, perfPicker)
+        Player.make(draughts.Black, level.some),
+        Player.make(draughts.Black, user, perfPicker)
       ),
-      mode = chess.Mode.Casual,
-      source = (chessGame.board.variant.fromPosition).fold(Source.Position, Source.Ai),
+      mode = draughts.Mode.Casual,
+      source = (draughtsGame.board.variant.fromPosition).fold(Source.Position, Source.Ai),
       daysPerTurn = makeDaysPerTurn,
-      pgnImport = None
+      pdnImport = None
     )
   } start
 
@@ -48,7 +48,7 @@ case class AiConfig(
 object AiConfig extends BaseConfig {
 
   def <<(v: Int, tm: Int, t: Double, i: Int, d: Int, level: Int, c: String, fen: Option[String]) = new AiConfig(
-    variant = chess.variant.Variant(v) err "Invalid game variant " + v,
+    variant = draughts.variant.Variant(v) err "Invalid game variant " + v,
     timeMode = TimeMode(tm) err s"Invalid time mode $tm",
     time = t,
     increment = i,
@@ -72,15 +72,15 @@ object AiConfig extends BaseConfig {
 
   val levelChoices = levels map { l => (l.toString, l.toString, none) }
 
-  import lila.db.BSON
-  import lila.db.dsl._
+  import lidraughts.db.BSON
+  import lidraughts.db.dsl._
 
   private[setup] implicit val aiConfigBSONHandler = new BSON[AiConfig] {
 
     override val logMalformed = false
 
     def reads(r: BSON.Reader): AiConfig = AiConfig(
-      variant = chess.variant.Variant orDefault (r int "v"),
+      variant = draughts.variant.Variant orDefault (r int "v"),
       timeMode = TimeMode orDefault (r int "tm"),
       time = r double "t",
       increment = r int "i",

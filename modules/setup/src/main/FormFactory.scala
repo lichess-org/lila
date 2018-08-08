@@ -1,7 +1,7 @@
-package lila.setup
+package lidraughts.setup
 
-import lila.lobby.Color
-import lila.user.UserContext
+import lidraughts.lobby.Color
+import lidraughts.user.UserContext
 import play.api.data._
 import play.api.data.Forms._
 
@@ -26,7 +26,7 @@ private[setup] final class FormFactory {
   def aiFilled(fen: Option[String])(implicit ctx: UserContext): Fu[Form[AiConfig]] =
     aiConfig map { config =>
       ai(ctx) fill fen.fold(config) { f =>
-        config.copy(fen = f.some, variant = chess.variant.FromPosition)
+        config.copy(fen = f.some, variant = draughts.variant.FromPosition)
       }
     }
 
@@ -49,7 +49,7 @@ private[setup] final class FormFactory {
   def friendFilled(fen: Option[String])(implicit ctx: UserContext): Fu[Form[FriendConfig]] =
     friendConfig map { config =>
       friend(ctx) fill fen.fold(config) { f =>
-        config.copy(fen = f.some, variant = chess.variant.FromPosition)
+        config.copy(fen = f.some, variant = draughts.variant.FromPosition)
       }
     }
 

@@ -3,14 +3,14 @@ package controllers
 import play.api.mvc._
 
 import controllers.Auth.HasherRateLimit
-import lila.api.Context
-import lila.app._
-import lila.common.LilaCookie
-import lila.user.{ User => UserModel, UserRepo }
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.common.LidraughtsCookie
+import lidraughts.user.{ User => UserModel, UserRepo }
 import UserModel.ClearPassword
 import views.html
 
-object Account extends LilaController {
+object Account extends LidraughtsController {
 
   private def env = Env.user
   private def relationEnv = Env.relation
@@ -37,13 +37,13 @@ object Account extends LilaController {
           relationEnv.api.countFollowers(me.id) zip
             relationEnv.api.countFollowing(me.id) zip
             Env.pref.api.getPref(me) zip
-            lila.game.GameRepo.urgentGames(me) zip
+            lidraughts.game.GameRepo.urgentGames(me) zip
             Env.challenge.api.countInFor.get(me.id) map {
               case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges =>
-                Env.current.system.lilaBus.publish(lila.user.User.Active(me), 'userActive)
+                Env.current.system.lidraughtsBus.publish(lidraughts.user.User.Active(me), 'userActive)
                 Ok {
                   import play.api.libs.json._
-                  import lila.pref.JsonView._
+                  import lidraughts.pref.JsonView._
                   Env.user.jsonView(me) ++ Json.obj(
                     "prefs" -> prefs,
                     "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
@@ -66,8 +66,8 @@ object Account extends LilaController {
         case Some(me) => Env.pref.api.getPref(me) map { prefs =>
           Ok {
             import play.api.libs.json._
-            import lila.pref.JsonView._
-            lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
+            import lidraughts.pref.JsonView._
+            lidraughts.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
               "coach" -> isGranted(_.Coach),
               "prefs" -> prefs
             )
@@ -89,7 +89,7 @@ object Account extends LilaController {
       FormFuResult(form) { err =>
         fuccess(html.account.passwd(err))
       } { data =>
-        HasherRateLimit(me.username) { _ =>
+        controllers.Auth.HasherRateLimit(me.username, req) { _ =>
           Env.user.authenticator.setPassword(me.id, ClearPassword(data.newPasswd1)) inject
             Redirect(s"${routes.Account.passwd}?ok=1")
         }
@@ -142,8 +142,8 @@ object Account extends LilaController {
     } { password =>
       Env.user.authenticator.authenticateById(me.id, ClearPassword(password)).map(_.isDefined) flatMap {
         case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
-        case true => Env.current.closeAccount(me.id) inject {
-          Redirect(routes.User show me.username) withCookies LilaCookie.newSession
+        case true => Env.current.closeAccount(me.id, self = true) inject {
+          Redirect(routes.User show me.username) withCookies LidraughtsCookie.newSession
         }
       }
     }
@@ -169,9 +169,9 @@ object Account extends LilaController {
 
   def signout(sessionId: String) = Auth { implicit ctx => me =>
     if (sessionId == "all")
-      lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
+      lidraughts.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
         Redirect(routes.Account.security)
     else
-      lila.security.Store.closeUserAndSessionId(me.id, sessionId)
+      lidraughts.security.Store.closeUserAndSessionId(me.id, sessionId)
   }
 }

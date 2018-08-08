@@ -1,18 +1,8 @@
-var chessground = require('./chessground');
-var dragNewPiece = require('chessground/drag').dragNewPiece;
-var eventPosition = require('chessground/util').eventPosition;
+var draughtsground = require('./draughtsground');
+var dragNewPiece = require('draughtsground/drag').dragNewPiece;
+var eventPosition = require('draughtsground/util').eventPosition;
 var editor = require('./editor');
 var m = require('mithril');
-
-function castleCheckBox(ctrl, id, label, reversed) {
-  var input = m('input[type=checkbox]', {
-    checked: ctrl.data.castles[id](),
-    onchange: function(e) {
-      ctrl.setCastle(id, e.target.checked);
-    }
-  });
-  return m('label', reversed ? [input, label] : [label, input]);
-}
 
 function optgroup(name, opts) {
   return m('optgroup', {
@@ -70,10 +60,10 @@ function controls(ctrl, fen) {
             selected: true
           }, '- ' + ctrl.trans('boardEditor') + ' -'),
           ctrl.extraPositions.map(position2option)
-        ]),
+        ])/*,
         optgroup(ctrl.trans('popularOpenings'),
           ctrl.data.positions.map(position2option)
-        )
+        )*/
       ]) : null
     ]),
     m('div.metadata.content_box', [
@@ -86,18 +76,7 @@ function controls(ctrl, fen) {
             selected: ctrl.data.color() === key[0]
           }, ctrl.trans(key));
         }))
-      ),
-      m('div.castling', [
-        m('strong', ctrl.trans('castling')),
-        m('div', [
-          castleCheckBox(ctrl, 'K', ctrl.trans('whiteCastlingKingside'), ctrl.options.inlineCastling),
-          castleCheckBox(ctrl, 'Q', 'O-O-O', true)
-        ]),
-        m('div', [
-          castleCheckBox(ctrl, 'k', ctrl.trans('blackCastlingKingside'), ctrl.options.inlineCastling),
-          castleCheckBox(ctrl, 'q', 'O-O-O', true)
-        ])
-      ])
+      )
     ]),
     ctrl.embed ? m('div', [
       m('a.button.frameless', {
@@ -110,7 +89,7 @@ function controls(ctrl, fen) {
       m('div', [
         m('a.button.text[data-icon=B]', {
           onclick: function() {
-            ctrl.chessground.toggleOrientation();
+            ctrl.draughtsground.toggleOrientation();
           }
         }, ctrl.trans('flipBoard')),
         looksLegit ? m('a.button.text[data-icon="A"]', {
@@ -129,11 +108,11 @@ function controls(ctrl, fen) {
         studyButton(ctrl, fen)
       ]),
       m('div.continue_with', [
-        m('a.button', {
+        /*m('a.button', {
           href: '/?fen=' + fen + '#ai',
           rel: 'nofollow'
         }, ctrl.trans('playWithTheMachine')),
-        m('br'),
+        m('br'),*/
         m('a.button', {
           href: '/?fen=' + fen + '#friend',
           rel: 'nofollow'
@@ -145,7 +124,7 @@ function controls(ctrl, fen) {
 
 function inputs(ctrl, fen) {
   if (ctrl.embed) return;
-  if (ctrl.vm.redirecting) return m.trust(lichess.spinnerHtml);
+  if (ctrl.vm.redirecting) return m.trust(lidraughts.spinnerHtml);
   return m('div.copyables', [
     m('p', [
       m('strong.name', 'FEN'),
@@ -176,12 +155,11 @@ function sparePieces(ctrl, color, orientation, position) {
 
   var selectedClass = selectedToClass(ctrl.vm.selected());
 
-  var pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
-    return [color, role];
-  });
+  var opposite = color === 'white' ? 'black' : 'white';
+  var pieces = [[color, 'king'], [color, 'man'], ['', ''], ['', ''], [opposite, 'man'], [opposite, 'king']];
 
   return m('div', {
-    class: ['spare', position, 'orientation-' + orientation, color].join(' ')
+    class: ['spare', position, orientation].join(' ')
   }, ['pointer'].concat(pieces).concat('trash').map(function(s) {
 
     var className = selectedToClass(s);
@@ -195,10 +173,12 @@ function sparePieces(ctrl, color, orientation, position) {
         (
           selectedClass === className &&
             (
-              !ctrl.chessground ||
-              !ctrl.chessground.state.draggable.current ||
-              !ctrl.chessground.state.draggable.current.newPiece
-            )
+              !ctrl.draughtsground ||
+              !ctrl.draughtsground.state.draggable.current ||
+              !ctrl.draughtsground.state.draggable.current.newPiece
+            ) &&
+            (!Array.isArray(s) || s[0] !== '')
+
         ) ?
         ' selected-square' : ''
       );
@@ -233,7 +213,7 @@ function onSelectSparePiece(ctrl, s, upEvent) {
         e.preventDefault();
       }
 
-      dragNewPiece(ctrl.chessground.state, {
+      dragNewPiece(ctrl.draughtsground.state, {
         color: s[0],
         role: s[1]
       }, e, true);
@@ -241,7 +221,7 @@ function onSelectSparePiece(ctrl, s, upEvent) {
       document.addEventListener(upEvent, function(e) {
         var eventPos = eventPosition(e) || lastTouchMovePos;
 
-        if (eventPos && ctrl.chessground.getKeyAtDomPos(eventPos)) {
+        if (eventPos && ctrl.draughtsground.getKeyAtDomPos(eventPos)) {
           ctrl.vm.selected('pointer');
         } else {
           ctrl.vm.selected(s);
@@ -257,7 +237,7 @@ function makeCursor(selected) {
   if (selected === 'pointer') return 'pointer';
 
   var name = selected === 'trash' ? 'trash' : selected.join('-');
-  var url = lichess.assetUrl('/assets/cursors/' + name + '.cur');
+  var url = lidraughts.assetUrl('/assets/cursors/' + name + '.cur');
 
   return 'url(' + url + '), default !important';
 }
@@ -267,14 +247,12 @@ var eventNames = ['mousedown', 'touchstart'];
 module.exports = function(ctrl) {
   var fen = ctrl.computeFen();
   var color = ctrl.bottomColor();
-  var opposite = color === 'white' ? 'black' : 'white';
 
   return m('div.editor', {
     style: 'cursor: ' + makeCursor(ctrl.vm.selected())
   }, [
-    sparePieces(ctrl, opposite, color, 'top'),
-    chessground(ctrl),
-    sparePieces(ctrl, color, color, 'bottom'),
+    sparePieces(ctrl, color, 'black', 'top'),
+    draughtsground(ctrl),
     controls(ctrl, fen),
     inputs(ctrl, fen)
   ]);

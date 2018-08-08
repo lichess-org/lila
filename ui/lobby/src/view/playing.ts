@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { Chessground } from 'chessground';
+import { Draughtsground } from 'draughtsground';
 import LobbyController from '../ctrl';
 
 function timer(pov) {
@@ -10,7 +10,7 @@ function timer(pov) {
         (vnode.elm as HTMLElement).setAttribute('datetime', '' + date);
       }
     }
-  }, window.lichess.timeago.format(date));
+  }, window.lidraughts.timeago.format(date));
 }
 
 export default function(ctrl: LobbyController) {
@@ -34,7 +34,7 @@ export default function(ctrl: LobbyController) {
                   fen: pov.fen,
                   lastMove: lm && [lm[0] + lm[1], lm[2] + lm[3]]
                 };
-                Chessground(vnode.elm as HTMLElement, config);
+                Draughtsground(vnode.elm as HTMLElement, config);
               }
             }
           }, [ h('div.cg-board') ])

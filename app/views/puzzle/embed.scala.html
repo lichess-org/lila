@@ -1,15 +1,15 @@
-@(daily: lila.puzzle.DailyPuzzle)(implicit ctx: Context)
+@(daily: lidraughts.puzzle.DailyPuzzle)(implicit ctx: Context)
 
 <!doctype html>
 <html lang="@lang.language">
   <head>
-    <title>lichess.org training</title>
+    <title>lidraughts.org training</title>
     @ctx.currentBg match {
     case "dark" => { @cssTag("dark.css") }
     case "transp" => { @cssTag("dark.css")@cssTag("transp.css") }
     case _ => {}
     }
-    @cssTag(s"piece/merida.css")
+    @cssTag(s"piece/wide_crown.css")
     @cssTag("common.css")
     @cssTag("board.css")
     <meta charset="utf-8">
@@ -25,7 +25,7 @@
         @daily.color.fold(trans.whitePlays, trans.blackPlays)()
       </div>
     </div>
-    @jsTag("vendor/chessground.min.js")
+    @jsTag("vendor/draughtsground.min.js")
     @jsTagCompiled("puzzle.js")
   </body>
 </html>

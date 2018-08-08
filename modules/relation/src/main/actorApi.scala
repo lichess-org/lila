@@ -1,7 +1,7 @@
-package lila.relation
+package lidraughts.relation
 package actorApi
 
-import lila.common.LightUser
+import lidraughts.common.LightUser
 
 private[relation] case class AllOnlineFriends(onlines: Map[ID, LightUser])
 private[relation] case object ComputeMovement

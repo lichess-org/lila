@@ -5,10 +5,10 @@
   <string name="coordinateTraining">Coördinatentraining</string>
   <string name="averageScoreAsWhiteX">Gemiddelde score als wit: %s</string>
   <string name="averageScoreAsBlackX">Gemiddelde score als zwart: %s</string>
-  <string name="knowingTheChessBoard">De schaakbordcoördinaten kennen is een zeer belangrijke schaakvaardigheid:</string>
-  <string name="mostChessCourses">De meeste schaakcursussen en -oefeningen maken uitgebreid gebruik van de algebraïsche notatie.</string>
-  <string name="talkToYourChessFriends">Het maakt het gemakkelijker om met je schaakvrienden te praten, aangezien jullie beide de \"taal van het schaken\" begrijpen.</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Je kunt een spel effectiever analyzeren als je niet moet zoeken naar de namen van de vakjes.</string>
-  <string name="aSquareNameAppears">De naam van een vakje verschijnt op het bord en je moet op het juiste vakje klikken. Je hebt 30 seconden om zoveel mogelijk vakjes te herkennen!</string>
+  <string name="knowingTheDraughtsBoard">De coördinaten van het dambord kennen is een zeer belangrijke vaardigheid:</string>
+  <string name="mostDraughtsCourses">De meeste damcursussen en -oefeningen maken gebruik van de notatie met veldnummers.</string>
+  <string name="talkToYourDraughtsFriends">Het maakt het gemakkelijker om met je damvrienden te praten, aangezien jullie beide de \"taal van het dammen\" begrijpen.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Je kunt een spel effectiever analyzeren als je niet steeds moet zoeken naar de velden die bij de nummers horen.</string>
+  <string name="aSquareNameAppears">Een veldnummer verschijnt op het bord en je moet op het juiste veld klikken. Je hebt 30 seconden om zoveel mogelijk velden te herkennen!</string>
   <string name="startTraining">Begin training</string>
 </resources>

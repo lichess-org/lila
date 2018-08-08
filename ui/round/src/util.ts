@@ -1,17 +1,24 @@
 import { h } from 'snabbdom'
 import { VNodeData } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
-import * as cg from 'chessground/types'
-import { opposite } from 'chessground/util';
+import * as cg from 'draughtsground/types'
+import { opposite } from 'draughtsground/util';
 import { Redraw, EncodedDests, DecodedDests } from './interfaces';
+import { decomposeUci } from 'draughts'
 
-const pieceScores = {
+/*const pieceScores = {
   pawn: 1,
   knight: 3,
   bishop: 3,
   rook: 5,
   queen: 9,
   king: 0
+};*/
+const pieceScores = {
+  man: 1,
+  king: 10,
+  ghostman: 0,
+  ghostking: 0
 };
 
 export function justIcon(icon: string): VNodeData {
@@ -21,9 +28,10 @@ export function justIcon(icon: string): VNodeData {
 }
 
 export function uci2move(uci: string): cg.Key[] | undefined {
-  if (!uci) return undefined;
-  if (uci[1] === '@') return [uci.slice(2, 4) as cg.Key];
-  return [uci.slice(0, 2), uci.slice(2, 4)] as cg.Key[];
+    if (!uci)
+        return undefined;
+    else
+        return decomposeUci(uci);
 }
 
 export function bind(eventName: string, f: (e: Event) => void, redraw?: Redraw): Hooks {

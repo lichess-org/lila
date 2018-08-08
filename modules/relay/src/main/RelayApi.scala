@@ -1,4 +1,4 @@
-package lila.relay
+package lidraughts.relay
 
 import akka.actor._
 import org.joda.time.DateTime
@@ -6,9 +6,9 @@ import ornicar.scalalib.Zero
 import play.api.libs.json._
 import reactivemongo.bson._
 
-import lila.db.dsl._
-import lila.study.{ StudyApi, Study, Settings }
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.study.{ StudyApi, Study, Settings }
+import lidraughts.user.User
 
 final class RelayApi(
     repo: RelayRepo,
@@ -18,7 +18,7 @@ final class RelayApi(
 ) {
 
   import BSONHandlers._
-  import lila.study.BSONHandlers.LikesBSONHandler
+  import lidraughts.study.BSONHandlers.LikesBSONHandler
 
   def byId(id: Relay.Id) = repo.coll.byId[Relay](id.value)
 
@@ -45,13 +45,13 @@ final class RelayApi(
     "sync.nextAt" $lt DateTime.now
   )).list[Relay]()
 
-  def setLikes(id: Relay.Id, likes: lila.study.Study.Likes): Funit =
+  def setLikes(id: Relay.Id, likes: lidraughts.study.Study.Likes): Funit =
     repo.coll.updateField($id(id), "likes", likes).void
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
     repo.coll.insert(relay) >>
-      studyApi.create(lila.study.StudyMaker.Data(
+      studyApi.create(lidraughts.study.StudyMaker.Data(
         id = relay.studyId.some,
         name = Study.Name(relay.name).some,
         settings = Settings.init.copy(
@@ -119,18 +119,18 @@ final class RelayApi(
   private def sendToContributors(id: Relay.Id, t: String, msg: JsObject): Funit =
     studyApi members Study.Id(id.value) map {
       _.map(_.contributorIds).filter(_.nonEmpty) foreach { userIds =>
-        import lila.hub.actorApi.SendTos
+        import lidraughts.hub.actorApi.SendTos
         import JsonView.idWrites
-        import lila.socket.Socket.makeMessage
+        import lidraughts.socket.Socket.makeMessage
         val payload = makeMessage(t, msg ++ Json.obj("id" -> id))
-        system.lilaBus.publish(SendTos(userIds, payload), 'users)
+        system.lidraughtsBus.publish(SendTos(userIds, payload), 'users)
       }
     }
 
   private[relay] def getNbViewers(relay: Relay): Fu[Int] = {
     import makeTimeout.short
     import akka.pattern.ask
-    import lila.study.Socket.{ GetNbMembers, NbMembers }
+    import lidraughts.study.Socket.{ GetNbMembers, NbMembers }
     studySocketActor(relay.id) ? GetNbMembers mapTo manifest[NbMembers] map (_.value) recover {
       case _: Exception => 0
     }

@@ -1,12 +1,12 @@
-package lila.challenge
+package lidraughts.challenge
 
-import chess.variant.{ Variant, FromPosition }
-import chess.{ Mode, Speed }
+import draughts.variant.{ Variant, FromPosition }
+import draughts.{ Mode, Speed }
 import org.joda.time.DateTime
 
-import lila.game.PerfPicker
-import lila.rating.PerfType
-import lila.user.User
+import lidraughts.game.PerfPicker
+import lidraughts.rating.PerfType
+import lidraughts.user.User
 
 case class Challenge(
     _id: String,
@@ -16,7 +16,7 @@ case class Challenge(
     timeControl: Challenge.TimeControl,
     mode: Mode,
     colorChoice: Challenge.ColorChoice,
-    finalColor: chess.Color,
+    finalColor: draughts.Color,
     challenger: EitherChallenger,
     destUser: Option[Challenge.Registered],
     rematchOf: Option[String],
@@ -82,7 +82,7 @@ object Challenge {
     def show = s"$int${provisional.fold("?", "")}"
   }
   object Rating {
-    def apply(p: lila.rating.Perf): Rating = Rating(p.intRating, p.provisional)
+    def apply(p: lidraughts.rating.Perf): Rating = Rating(p.intRating, p.provisional)
   }
 
   case class Registered(id: User.ID, rating: Rating)
@@ -92,7 +92,7 @@ object Challenge {
   object TimeControl {
     case object Unlimited extends TimeControl
     case class Correspondence(days: Int) extends TimeControl
-    case class Clock(config: chess.Clock.Config) extends TimeControl {
+    case class Clock(config: draughts.Clock.Config) extends TimeControl {
       // All durations are expressed in seconds
       def limit = config.limit
       def increment = config.increment
@@ -117,7 +117,7 @@ object Challenge {
       case TimeControl.Correspondence(d) => d.some
       case _ => none
     }).orElse {
-      (variant == FromPosition) option perfTypeOf(chess.variant.Standard, timeControl)
+      (variant == FromPosition) option perfTypeOf(draughts.variant.Standard, timeControl)
     }.|(PerfType.Correspondence)
 
   private val idSize = 8
@@ -138,12 +138,12 @@ object Challenge {
     rematchOf: Option[String]
   ): Challenge = {
     val (colorChoice, finalColor) = color match {
-      case "white" => ColorChoice.White -> chess.White
-      case "black" => ColorChoice.Black -> chess.Black
-      case _ => ColorChoice.Random -> chess.Color(scala.util.Random.nextBoolean)
+      case "white" => ColorChoice.White -> draughts.White
+      case "black" => ColorChoice.Black -> draughts.Black
+      case _ => ColorChoice.Random -> draughts.Color(scala.util.Random.nextBoolean)
     }
     val finalMode = timeControl match {
-      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(variant, clock) => Mode.Casual
+      case TimeControl.Clock(clock) if !lidraughts.game.Game.allowRated(variant, clock) => Mode.Casual
       case _ => mode
     }
     new Challenge(

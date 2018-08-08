@@ -1,4 +1,4 @@
-package lila
+package lidraughts
 
 package object relation extends PackageObject {
 

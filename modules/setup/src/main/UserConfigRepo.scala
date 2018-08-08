@@ -1,9 +1,9 @@
-package lila.setup
+package lidraughts.setup
 
 import reactivemongo.bson._
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 private[setup] object UserConfigRepo {
 

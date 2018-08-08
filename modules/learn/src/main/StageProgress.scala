@@ -1,4 +1,4 @@
-package lila.learn
+package lidraughts.learn
 
 case class StageProgress(scores: Vector[StageProgress.Score]) extends AnyVal {
 

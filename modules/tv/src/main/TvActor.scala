@@ -1,12 +1,12 @@
-package lila.tv
+package lidraughts.tv
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import play.api.libs.json.Json
 import scala.concurrent.duration._
 
-import lila.common.LightUser
-import lila.game.GameRepo
+import lidraughts.common.LightUser
+import lidraughts.game.GameRepo
 
 private[tv] final class TvActor(
     rendererActor: ActorSelection,
@@ -52,13 +52,13 @@ private[tv] final class TvActor(
       }
 
     case Selected(channel, game, previousId) =>
-      import lila.socket.Socket.makeMessage
+      import lidraughts.socket.Socket.makeMessage
       val player = game.firstPlayer
       val user = player.userId flatMap lightUser
       (user |@| player.rating) apply {
         case (u, r) => channelChampions += (channel -> Tv.Champion(u, r, game.id))
       }
-      selectChannel ! lila.socket.Channel.Publish(makeMessage("tvSelect", Json.obj(
+      selectChannel ! lidraughts.socket.Channel.Publish(makeMessage("tvSelect", Json.obj(
         "channel" -> channel.key,
         "id" -> game.id,
         "color" -> game.firstColor.name,
@@ -73,7 +73,7 @@ private[tv] final class TvActor(
       if (channel == Tv.Channel.Best)
         rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
           case html: play.twirl.api.Html =>
-            val event = lila.hub.actorApi.game.ChangeFeatured(
+            val event = lidraughts.hub.actorApi.game.ChangeFeatured(
               game.id,
               makeMessage("featured", Json.obj(
                 "html" -> html.toString,
@@ -81,7 +81,7 @@ private[tv] final class TvActor(
                 "id" -> game.id
               ))
             )
-            context.system.lilaBus.publish(event, 'changeFeaturedGame)
+            context.system.lidraughtsBus.publish(event, 'changeFeaturedGame)
         }
       GameRepo setTv game.id
   }
@@ -95,7 +95,7 @@ private[tv] object TvActor {
   case class GetGameIdAndHistory(channel: Tv.Channel) extends AnyVal
 
   case object Select
-  case class Selected(channel: Tv.Channel, game: lila.game.Game, previousId: Option[String])
+  case class Selected(channel: Tv.Channel, game: lidraughts.game.Game, previousId: Option[String])
 
   case object GetChampions
 }

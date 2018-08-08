@@ -1,10 +1,10 @@
-package lila.setup
+package lidraughts.setup
 
-import chess.{ Mode, Speed }
-import lila.rating.RatingRange
+import draughts.{ Mode, Speed }
+import lidraughts.rating.RatingRange
 
 case class FilterConfig(
-    variant: List[chess.variant.Variant],
+    variant: List[draughts.variant.Variant],
     mode: List[Mode],
     speed: List[Speed],
     ratingRange: RatingRange
@@ -34,15 +34,8 @@ case class FilterConfig(
 object FilterConfig {
 
   val variants = List(
-    chess.variant.Standard,
-    chess.variant.Chess960,
-    chess.variant.KingOfTheHill,
-    chess.variant.ThreeCheck,
-    chess.variant.Antichess,
-    chess.variant.Atomic,
-    chess.variant.Horde,
-    chess.variant.RacingKings,
-    chess.variant.Crazyhouse
+    draughts.variant.Standard,
+    draughts.variant.Frisian
   )
 
   val modes = Mode.all
@@ -56,19 +49,19 @@ object FilterConfig {
   )
 
   def <<(v: List[Int], m: List[Int], s: List[Int], e: String) = new FilterConfig(
-    variant = v map chess.variant.Variant.apply flatten,
+    variant = v map draughts.variant.Variant.apply flatten,
     mode = m map Mode.apply flatten,
     speed = s map Speed.apply flatten,
     ratingRange = RatingRange orDefault e
   ).nonEmpty
 
   import reactivemongo.bson._
-  import lila.db.BSON
+  import lidraughts.db.BSON
 
   private[setup] implicit val filterConfigBSONHandler = new BSON[FilterConfig] {
 
     def reads(r: BSON.Reader): FilterConfig = FilterConfig(
-      variant = r intsD "v" flatMap { chess.variant.Variant(_) },
+      variant = r intsD "v" flatMap { draughts.variant.Variant(_) },
       mode = r intsD "m" flatMap { Mode(_) },
       speed = r intsD "s" flatMap { Speed(_) },
       ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default

@@ -1,20 +1,20 @@
-@(winners: lila.tournament.AllWinners)(implicit ctx: Context)
+@(winners: lidraughts.tournament.AllWinners)(implicit ctx: Context)
 
-@import lila.rating.PerfType
+@import lidraughts.rating.PerfType
 
 @moreCss = {
 @cssTag("tournament_leaderboard.css")
 @cssTag("user-list.css")
 }
 
-@freqWinner(w: lila.tournament.Winner, freq: String) = {
+@freqWinner(w: lidraughts.tournament.Winner, freq: String) = {
 <li>
   @userIdLink(w.userId.some)
   <a title="@w.tourName" href="@routes.Tournament.show(w.tourId)">@freq</a>
 </li>
 }
 
-@freqWinners(fws: lila.tournament.FreqWinners, perfType: PerfType, name: String) = {
+@freqWinners(fws: lidraughts.tournament.FreqWinners, perfType: PerfType, name: String) = {
 <div class="winner_list">
   <h2 class="text" data-icon="@perfType.iconChar">@name</h2>
   <ul>
@@ -27,7 +27,7 @@
 }
 
 @eliteWinners = {
-<div class="winner_list">
+@* <div class="winner_list">
   <h2 class="text" data-icon="C">Elite Arena</h2>
   <ul>
     @winners.elite.map { w =>
@@ -37,11 +37,11 @@
     </li>
     }
   </ul>
-</div>
+</div> *@
 }
 
 @marathonWinners = {
-<div class="winner_list">
+@* <div class="winner_list">
   <h2 class="text" data-icon="\">Marathon</h2>
   <ul>
     @winners.marathon.map { w =>
@@ -51,7 +51,7 @@
     </li>
     }
   </ul>
-</div>
+</div> *@
 }
 
 @base.layout(
@@ -68,7 +68,7 @@ moreCss = moreCss) {
     @freqWinners(winners.blitz, PerfType.Blitz, "Blitz")
     @freqWinners(winners.rapid, PerfType.Rapid, "Rapid")
     @marathonWinners
-    @lila.tournament.WinnersApi.variants.map { v =>
+    @lidraughts.tournament.WinnersApi.variants.map { v =>
     @PerfType.byVariant(v).map { pt =>
     @winners.variants.get(pt.key).map { w =>
     @freqWinners(w, pt, v.name)

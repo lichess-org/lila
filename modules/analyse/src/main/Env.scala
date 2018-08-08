@@ -1,14 +1,14 @@
-package lila.analyse
+package lidraughts.analyse
 
 import akka.actor._
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
+    db: lidraughts.db.Env,
     system: ActorSystem,
-    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
-    hub: lila.hub.Env,
+    evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler,
+    hub: lidraughts.hub.Env,
     indexer: ActorSelection
 ) {
 
@@ -27,7 +27,7 @@ final class Env(
     requesterApi = requesterApi,
     roundSocket = hub.socket.round,
     studyActor = hub.actor.study,
-    bus = system.lilaBus
+    bus = system.lidraughtsBus
   )
 
   lazy val annotator = new Annotator(NetDomain)
@@ -42,11 +42,11 @@ final class Env(
 object Env {
 
   lazy val current = "analyse" boot new Env(
-    config = lila.common.PlayApp loadConfig "analyse",
-    db = lila.db.Env.current,
-    system = lila.common.PlayApp.system,
-    evalCacheHandler = lila.evalCache.Env.current.socketHandler,
-    hub = lila.hub.Env.current,
-    indexer = lila.hub.Env.current.actor.gameSearch
+    config = lidraughts.common.PlayApp loadConfig "analyse",
+    db = lidraughts.db.Env.current,
+    system = lidraughts.common.PlayApp.system,
+    evalCacheHandler = lidraughts.evalCache.Env.current.socketHandler,
+    hub = lidraughts.hub.Env.current,
+    indexer = lidraughts.hub.Env.current.actor.gameSearch
   )
 }

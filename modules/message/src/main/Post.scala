@@ -1,4 +1,4 @@
-package lila.message
+package lidraughts.message
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
@@ -33,6 +33,6 @@ object Post {
     createdAt = DateTime.now
   )
 
-  import lila.db.dsl.BSONJodaDateTimeHandler
+  import lidraughts.db.dsl.BSONJodaDateTimeHandler
   private[message] implicit val PostBSONHandler = reactivemongo.bson.Macros.handler[Post]
 }

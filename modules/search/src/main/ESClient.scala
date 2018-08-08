@@ -1,4 +1,4 @@
-package lila.search
+package lidraughts.search
 
 import play.api.libs.json._
 
@@ -37,10 +37,10 @@ final class ESClientHttp(
     HTTP(s"count/${index.name}", query, CountResponse.apply)
   }
 
-  def deleteById(id: lila.search.Id) = writeable ??
+  def deleteById(id: lidraughts.search.Id) = writeable ??
     HTTP(s"delete/id/${index.name}/${id.value}", Json.obj())
 
-  def deleteByIds(ids: List[lila.search.Id]) = writeable ??
+  def deleteByIds(ids: List[lidraughts.search.Id]) = writeable ??
     HTTP(s"delete/ids/${index.name}", Json.obj("ids" -> ids.map(_.value)))
 
   def putMapping =
@@ -59,12 +59,13 @@ final class ESClientHttp(
       case res if res.status == 200 => fuccess(read(res.body))
       case res => fufail(s"$url ${res.status}")
     }
+
   private[search] def HTTP(url: String, data: JsObject): Funit = HTTP(url, data, _ => ())
 
   private def monitor[A](op: String)(f: Fu[A]) =
     f.mon(_.search.client(op)).addEffects(
-      _ => lila.mon.search.failure(op)(),
-      _ => lila.mon.search.success(op)()
+      _ => lidraughts.mon.search.failure(op)(),
+      _ => lidraughts.mon.search.success(op)()
     )
 }
 

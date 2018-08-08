@@ -27,7 +27,7 @@ interface ToolButtonOpts {
   hint: string;
   icon: VNode;
   onClick?: () => void;
-  count?: number;
+  count?: number | string;
 }
 
 function toolButton(opts: ToolButtonOpts): VNode {
@@ -67,7 +67,7 @@ function buttons(root: AnalyseCtrl): VNode {
       toolButton({
         ctrl,
         tab: 'tags',
-        hint: 'PGN tags',
+        hint: 'PDN tags',
         icon: iconTag('o'),
       }),
       toolButton({
@@ -87,12 +87,13 @@ function buttons(root: AnalyseCtrl): VNode {
         icon: h('i.glyph-icon'),
         count: (root.node.glyphs || []).length
       }) : null,
-      toolButton({
+      /*toolButton({
         ctrl,
         tab: 'serverEval',
         hint: root.trans.noarg('computerAnalysis'),
-        icon: iconTag('')
-      }),
+        icon: iconTag(''),
+        count: root.data.analysis && '✓'
+      }),*/
       toolButton({
         ctrl,
         tab: 'share',
@@ -167,7 +168,7 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
       attrs: dataIcon('c'),
       hook: bind('click', () => {
         ctrl.vm.toolTab('comments');
-        ctrl.commentForm.set(ctrl.currentChapter()!.id, path, node);
+        ctrl.commentForm.start(ctrl.currentChapter()!.id, path, node);
       })
     }, 'Comment this move'),
     h('a.action.glyph-icon', {

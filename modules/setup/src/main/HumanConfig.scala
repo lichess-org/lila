@@ -1,6 +1,6 @@
-package lila.setup
+package lidraughts.setup
 
-import chess.Mode
+import draughts.Mode
 
 private[setup] trait HumanConfig extends Config {
 

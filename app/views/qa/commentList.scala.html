@@ -1,4 +1,4 @@
-@(q: lila.qa.Question, comments: List[lila.qa.Comment], action: String)(implicit ctx: Context)
+@(q: lidraughts.qa.Question, comments: List[lidraughts.qa.Comment], action: String)(implicit ctx: Context)
 
 @comments.map { c =>
 <div class="comment" id="comment-@c.id">
@@ -9,7 +9,7 @@
   @richText(c.body)
 </div>
 }
-@if(lila.qa.QaAuth.canComment) {
+@if(lidraughts.qa.QaAuth.canComment) {
 <div class="your-comment @if(comments.isEmpty) {no-comment}">
   <a class="toggle" data-icon="u"> Add comment</a>
   <form action="@action" method="post">

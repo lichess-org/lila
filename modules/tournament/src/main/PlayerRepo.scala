@@ -1,12 +1,12 @@
-package lila.tournament
+package lidraughts.tournament
 
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, Group, Match, PushField, Sort, AvgField }
 import reactivemongo.bson._
 
 import BSONHandlers._
-import lila.db.dsl._
-import lila.rating.Perf
-import lila.user.{ User, Perfs }
+import lidraughts.db.dsl._
+import lidraughts.rating.Perf
+import lidraughts.user.{ User, Perfs }
 
 object PlayerRepo {
 

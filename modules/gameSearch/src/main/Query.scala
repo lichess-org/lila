@@ -1,10 +1,10 @@
-package lila.gameSearch
+package lidraughts.gameSearch
 
-import chess.{ Mode, Status }
+import draughts.{ Mode, Status }
 import org.joda.time.DateTime
 
-import lila.rating.RatingRange
-import lila.search.Range
+import lidraughts.rating.RatingRange
+import lidraughts.search.Range
 
 case class Query(
     user1: Option[String] = None,
@@ -51,7 +51,7 @@ case class Query(
 
 object Query {
 
-  import lila.common.Form._
+  import lidraughts.common.Form._
   import play.api.libs.json._
 
   import Range.rangeJsonWriter
@@ -79,9 +79,9 @@ object Query {
 
   val winnerColors = List(1 -> "White", 2 -> "Black", 3 -> "None")
 
-  val perfs = lila.rating.PerfType.nonPuzzle map { v => v.id -> v.name }
+  val perfs = lidraughts.rating.PerfType.nonPuzzle map { v => v.id -> v.name }
 
-  val sources = lila.game.Source.searchable map { v => v.id -> v.name.capitalize }
+  val sources = lidraughts.game.Source.searchable map { v => v.id -> v.name.capitalize }
 
   val modes = Mode.all map { mode => mode.id -> mode.name.capitalize }
 

@@ -1,18 +1,18 @@
-package lila.api
+package lidraughts.api
 
 import play.api.libs.json._
 
-import chess.format.Forsyth
-import lila.common.LightUser
-import lila.common.paginator.Paginator
-import lila.game.{ Game, PerfPicker }
+import draughts.format.Forsyth
+import lidraughts.common.LightUser
+import lidraughts.common.paginator.Paginator
+import lidraughts.game.{ Game, PerfPicker }
 
 final class UserGameApi(
-    bookmarkApi: lila.bookmark.BookmarkApi,
+    bookmarkApi: lidraughts.bookmark.BookmarkApi,
     lightUser: LightUser.GetterSync
 ) {
 
-  import lila.game.JsonView._
+  import lidraughts.game.JsonView._
   import LightUser.lightUserWrites
 
   def jsPaginator(pag: Paginator[Game])(implicit ctx: Context): Fu[JsObject] =
@@ -21,7 +21,7 @@ final class UserGameApi(
         write(g, bookmarkedIds(g.id))
       }
       Json.obj(
-        "paginator" -> lila.common.paginator.PaginatorJson(pag)
+        "paginator" -> lidraughts.common.paginator.PaginatorJson(pag)
       )
     }
 

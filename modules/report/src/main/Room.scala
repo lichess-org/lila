@@ -1,4 +1,4 @@
-package lila.report
+package lidraughts.report
 
 sealed trait Room {
 
@@ -20,7 +20,7 @@ object Room {
   val all: List[Room] = List(Cheat, Print, Coms, Other, Xfiles)
   val byKey = all map { v => (v.key, v) } toMap
 
-  implicit val roomIso = lila.common.Iso[String, Room](k => byKey.getOrElse(k, Other), _.key)
+  implicit val roomIso = lidraughts.common.Iso[String, Room](k => byKey.getOrElse(k, Other), _.key)
 
   def apply(key: String): Option[Room] = byKey get key
 

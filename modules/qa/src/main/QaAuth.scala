@@ -1,7 +1,7 @@
-package lila.qa
+package lidraughts.qa
 
-import lila.security.Granter
-import lila.user.{ User, UserContext }
+import lidraughts.security.Granter
+import lidraughts.user.{ User, UserContext }
 import org.joda.time.DateTime
 
 object QaAuth {

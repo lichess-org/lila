@@ -1,4 +1,4 @@
-package lila.socket
+package lidraughts.socket
 
 import akka.pattern.ask
 import ornicar.scalalib.Zero
@@ -7,8 +7,8 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._
-import lila.hub.actorApi.relation.ReloadOnlineFriends
-import lila.socket.Socket.makeMessage
+import lidraughts.hub.actorApi.relation.ReloadOnlineFriends
+import lidraughts.socket.Socket.makeMessage
 import makeTimeout.large
 
 object Handler {
@@ -18,7 +18,7 @@ object Handler {
 
   val emptyController: Controller = PartialFunction.empty
 
-  private val AnaRateLimiter = new lila.memo.RateLimit[String](120, 30 seconds,
+  private val AnaRateLimiter = new lidraughts.memo.RateLimit[String](120, 30 seconds,
     name = "socket analysis move",
     key = "socket_analysis_move")
 
@@ -26,7 +26,7 @@ object Handler {
     AnaRateLimiter(uid, msg = s"user: ${member.userId | "anon"}")(op)
 
   def apply(
-    hub: lila.hub.Env,
+    hub: lidraughts.hub.Env,
     socket: akka.actor.ActorRef,
     uid: Socket.Uid,
     join: Any
@@ -54,16 +54,6 @@ object Handler {
           }
         }
       }
-      case ("anaDrop", o) => AnaRateLimit(uid.value, member) {
-        AnaDrop parse o foreach { anaDrop =>
-          anaDrop.branch match {
-            case scalaz.Success(branch) =>
-              member push makeMessage("node", anaDrop json branch)
-            case scalaz.Failure(err) =>
-              member push makeMessage("stepFailure", err.toString)
-          }
-        }
-      }
       case ("anaDests", o) => AnaRateLimit(uid.value, member) {
         member push {
           AnaDests parse o match {
@@ -78,7 +68,7 @@ object Handler {
         }
       }
       case ("notified", _) => member.userId foreach { userId =>
-        hub.actor.notification ! lila.hub.actorApi.notify.Notified(userId)
+        hub.actor.notification ! lidraughts.hub.actorApi.notify.Notified(userId)
       }
       case _ => // logwarn("Unhandled msg: " + msg)
     }

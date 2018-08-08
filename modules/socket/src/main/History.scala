@@ -1,4 +1,4 @@
-package lila.socket
+package lidraughts.socket
 
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration.FiniteDuration

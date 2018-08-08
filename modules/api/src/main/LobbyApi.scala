@@ -1,18 +1,18 @@
-package lila.api
+package lidraughts.api
 
 import play.api.libs.json.{ Json, JsObject, JsArray }
 
-import lila.game.{ GameRepo, Pov }
-import lila.lobby.SeekApi
-import lila.pool.JsonView.poolConfigJsonWriter
-import lila.setup.FilterConfig
-import lila.user.UserContext
+import lidraughts.game.{ GameRepo, Pov }
+import lidraughts.lobby.SeekApi
+import lidraughts.pool.JsonView.poolConfigJsonWriter
+import lidraughts.setup.FilterConfig
+import lidraughts.user.UserContext
 
 final class LobbyApi(
     getFilter: UserContext => Fu[FilterConfig],
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lidraughts.user.LightUserApi,
     seekApi: SeekApi,
-    pools: List[lila.pool.PoolConfig]
+    pools: List[lidraughts.pool.PoolConfig]
 ) {
 
   val poolsJson = Json toJson pools
@@ -38,7 +38,7 @@ final class LobbyApi(
   def nowPlaying(pov: Pov) = Json.obj(
     "fullId" -> pov.fullId,
     "gameId" -> pov.gameId,
-    "fen" -> (chess.format.Forsyth exportBoard pov.game.board),
+    "fen" -> (draughts.format.Forsyth exportBoard pov.game.board),
     "color" -> pov.color.name,
     "lastMove" -> ~pov.game.lastMoveKeys,
     "variant" -> Json.obj(
@@ -46,11 +46,11 @@ final class LobbyApi(
       "name" -> pov.game.variant.name
     ),
     "speed" -> pov.game.speed.key,
-    "perf" -> lila.game.PerfPicker.key(pov.game),
+    "perf" -> lidraughts.game.PerfPicker.key(pov.game),
     "rated" -> pov.game.rated,
     "opponent" -> Json.obj(
       "id" -> pov.opponent.userId,
-      "username" -> lila.game.Namer.playerText(pov.opponent, withRating = false)(lightUserApi.sync)
+      "username" -> lidraughts.game.Namer.playerText(pov.opponent, withRating = false)(lightUserApi.sync)
     ).add("rating" -> pov.opponent.rating)
       .add("ai" -> pov.opponent.aiLevel),
     "isMyTurn" -> pov.isMyTurn,

@@ -23,7 +23,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
   const current = prop<any>(null);
   const feedback = prop<Feedback>('find');
 
-  const contains = window.lichess.fp.contains;
+  const contains = window.lidraughts.fp.contains;
   const redraw = root.redraw;
 
   function isPlySolved(ply: Ply): boolean {

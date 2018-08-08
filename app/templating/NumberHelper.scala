@@ -1,11 +1,11 @@
-package lila.app
+package lidraughts.app
 package templating
 
 import java.text.NumberFormat
 import java.util.Locale
 import scala.collection.mutable.AnyRefMap
 
-import lila.user.UserContext
+import lidraughts.user.UserContext
 
 trait NumberHelper { self: I18nHelper =>
 

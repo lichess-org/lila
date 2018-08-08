@@ -1,4 +1,4 @@
-package lila.simul
+package lidraughts.simul
 
 import akka.actor._
 import play.api.libs.iteratee._
@@ -6,35 +6,35 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._
-import lila.hub.TimeBomb
-import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.{ SocketActor, History, Historical }
+import lidraughts.hub.TimeBomb
+import lidraughts.socket.actorApi.{ Connected => _, _ }
+import lidraughts.socket.{ SocketActor, History, Historical }
 
 private[simul] final class Socket(
     simulId: String,
     val history: History[Messadata],
     getSimul: Simul.ID => Fu[Option[Simul]],
     jsonView: JsonView,
-    lightUser: lila.common.LightUser.Getter,
+    lightUser: lidraughts.common.LightUser.Getter,
     uidTimeout: Duration,
     socketTimeout: Duration
 ) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 
   override def preStart(): Unit = {
     super.preStart()
-    lilaBus.subscribe(self, Symbol(s"chat-$simulId"))
+    lidraughtsBus.subscribe(self, Symbol(s"chat-$simulId"))
   }
 
   override def postStop(): Unit = {
     super.postStop()
-    lilaBus.unsubscribe(self)
+    lidraughtsBus.unsubscribe(self)
   }
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
   private var delayedCrowdNotification = false
 
-  private def redirectPlayer(game: lila.game.Game, colorOption: Option[chess.Color]): Unit = {
+  private def redirectPlayer(game: lidraughts.game.Game, colorOption: Option[draughts.Color]): Unit = {
     colorOption foreach { color =>
       val player = game player color
       player.userId foreach { userId =>
@@ -96,7 +96,7 @@ private[simul] final class Socket(
       delayedCrowdNotification = false
       showSpectators(lightUser)(members.values) foreach { notifyAll("crowd", _) }
 
-  }: Actor.Receive) orElse lila.chat.Socket.out(
+  }: Actor.Receive) orElse lidraughts.chat.Socket.out(
     send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
   )
 

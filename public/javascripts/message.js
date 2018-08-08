@@ -1,5 +1,5 @@
 $(function() {
-  $root = $('#lichess_message');
+  $root = $('#lidraughts_message');
   $root.find('select.select').change(function() {
     $root.find('input[name=threads]').prop('checked', false);
     switch ($(this).val()) {
@@ -31,7 +31,7 @@ $(function() {
     $form.submit();
   });
 
-  var presets = window.lichess_mod_presets;
+  var presets = window.lidraughts_mod_presets;
   if (presets) {
 
     var toggle = $root.find('input[name=mod]');

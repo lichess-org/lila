@@ -1,6 +1,6 @@
-package lila.tv
+package lidraughts.tv
 package actorApi
 
-import lila.game.Game
+import lidraughts.game.Game
 
 case class RenderFeaturedJs(game: Game) extends AnyVal

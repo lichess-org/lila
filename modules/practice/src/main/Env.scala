@@ -1,14 +1,14 @@
-package lila.practice
+package lidraughts.practice
 
 import akka.actor._
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    configStore: lila.memo.ConfigStore.Builder,
-    studyApi: lila.study.StudyApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    db: lila.db.Env,
+    configStore: lidraughts.memo.ConfigStore.Builder,
+    studyApi: lidraughts.study.StudyApi,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    db: lidraughts.db.Env,
     system: ActorSystem
 ) {
 
@@ -19,11 +19,11 @@ final class Env(
     configStore = configStore[PracticeConfig]("practice", logger),
     asyncCache = asyncCache,
     studyApi = studyApi,
-    bus = system.lilaBus
+    bus = system.lidraughtsBus
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    import lila.study.actorApi._
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
+    import lidraughts.study.actorApi._
     def receive = {
       case SaveStudy(study) => api.structure onSave study
     }
@@ -33,11 +33,11 @@ final class Env(
 object Env {
 
   lazy val current: Env = "practice" boot new Env(
-    config = lila.common.PlayApp loadConfig "practice",
-    configStore = lila.memo.Env.current.configStore,
-    studyApi = lila.study.Env.current.api,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    db = lila.db.Env.current,
-    system = lila.common.PlayApp.system
+    config = lidraughts.common.PlayApp loadConfig "practice",
+    configStore = lidraughts.memo.Env.current.configStore,
+    studyApi = lidraughts.study.Env.current.api,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    db = lidraughts.db.Env.current,
+    system = lidraughts.common.PlayApp.system
   )
 }

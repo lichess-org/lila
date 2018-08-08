@@ -1,4 +1,4 @@
-package lila.pref
+package lidraughts.pref
 
 sealed class PieceSet private[pref] (val name: String) {
 
@@ -22,22 +22,10 @@ sealed trait PieceSetObject {
 
 object PieceSet extends PieceSetObject {
 
-  val default = new PieceSet("cburnett")
+  val default = new PieceSet("wide_crown")
 
   val all = List(
-    default.name, "merida", "alpha", "pirouetti",
-    "chessnut", "chess7", "reillycraig", "companion",
-    "fantasy", "spatial", "riohacha", "shapes", "letter"
+    default.name, "wide", "narrow_edge", "narrow", "flat"
   ) map { name => new PieceSet(name) }
 }
 
-object PieceSet3d extends PieceSetObject {
-
-  val default = new PieceSet("Basic")
-
-  val all = List(
-    default.name, "Wood", "Metal", "RedVBlue",
-    "ModernJade", "ModernWood", "Glass", "Trimmed",
-    "Experimental", "Staunton"
-  ) map { name => new PieceSet(name) }
-}

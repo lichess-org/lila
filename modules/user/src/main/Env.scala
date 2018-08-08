@@ -1,16 +1,16 @@
-package lila.user
+package lidraughts.user
 
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.common.EmailAddress
+import lidraughts.common.EmailAddress
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
-    mongoCache: lila.memo.MongoCache.Builder,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    scheduler: lila.common.Scheduler,
+    db: lidraughts.db.Env,
+    mongoCache: lidraughts.memo.MongoCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    scheduler: lidraughts.common.Scheduler,
     timeline: ActorSelection,
     system: ActorSystem
 ) {
@@ -31,9 +31,9 @@ final class Env(
 
   lazy val lightUserApi = new LightUserApi(userColl)(system)
 
-  lazy val onlineUserIdMemo = new lila.memo.ExpireSetMemo(ttl = OnlineTtl)
+  lazy val onlineUserIdMemo = new lidraughts.memo.ExpireSetMemo(ttl = OnlineTtl)
 
-  lazy val noteApi = new NoteApi(db(CollectionNote), timeline, system.lilaBus)
+  lazy val noteApi = new NoteApi(db(CollectionNote), timeline, system.lidraughtsBus)
 
   lazy val trophyApi = new TrophyApi(db(CollectionTrophy))
 
@@ -41,18 +41,18 @@ final class Env(
 
   lazy val jsonView = new JsonView(isOnline)
 
-  def lightUser(id: User.ID): Fu[Option[lila.common.LightUser]] = lightUserApi async id
-  def lightUserSync(id: User.ID): Option[lila.common.LightUser] = lightUserApi sync id
+  def lightUser(id: User.ID): Fu[Option[lidraughts.common.LightUser]] = lightUserApi async id
+  def lightUserSync(id: User.ID): Option[lidraughts.common.LightUser] = lightUserApi sync id
 
   def uncacheLightUser(id: User.ID): Unit = lightUserApi invalidate id
 
   def isOnline(userId: User.ID): Boolean = onlineUserIdMemo get userId
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.mod.MarkCheater(userId, true) => rankingApi remove userId
-      case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
-      case lila.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
+      case lidraughts.hub.actorApi.mod.MarkCheater(userId, true) => rankingApi remove userId
+      case lidraughts.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
+      case lidraughts.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
       case User.Active(user) =>
         if (!user.seenRecently) UserRepo setSeenAt user.id
         onlineUserIdMemo put user.id
@@ -61,11 +61,11 @@ final class Env(
 
   {
     import scala.concurrent.duration._
-    import lila.hub.actorApi.WithUserIds
+    import lidraughts.hub.actorApi.WithUserIds
 
     scheduler.effect(3 seconds, "refresh online user ids") {
-      system.lilaBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'users)
-      onlineUserIdMemo put "lichess"
+      system.lidraughtsBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'users)
+      onlineUserIdMemo put "lidraughts"
     }
   }
 
@@ -83,8 +83,8 @@ final class Env(
       secret = PasswordBPassSecret,
       logRounds = 10,
       hashTimer = res => {
-        lila.mon.measure(_.user.auth.hashTime) {
-          lila.mon.measureIncMicros(_.user.auth.hashTimeInc)(res)
+        lidraughts.mon.measure(_.user.auth.hashTime) {
+          lidraughts.mon.measureIncMicros(_.user.auth.hashTimeInc)(res)
         }
       }
     ),
@@ -97,12 +97,12 @@ final class Env(
 object Env {
 
   lazy val current: Env = "user" boot new Env(
-    config = lila.common.PlayApp loadConfig "user",
-    db = lila.db.Env.current,
-    mongoCache = lila.memo.Env.current.mongoCache,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    scheduler = lila.common.PlayApp.scheduler,
-    timeline = lila.hub.Env.current.actor.timeline,
-    system = lila.common.PlayApp.system
+    config = lidraughts.common.PlayApp loadConfig "user",
+    db = lidraughts.db.Env.current,
+    mongoCache = lidraughts.memo.Env.current.mongoCache,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    scheduler = lidraughts.common.PlayApp.scheduler,
+    timeline = lidraughts.hub.Env.current.actor.timeline,
+    system = lidraughts.common.PlayApp.system
   )
 }

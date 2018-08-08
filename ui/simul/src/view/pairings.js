@@ -19,7 +19,7 @@ function miniPairing(ctrl) {
         'data-fen': game.fen,
         'data-lastmove': game.lastMove,
         config: function(el, isUpdate) {
-          if (!isUpdate) lichess.parseFen($(el));
+          if (!isUpdate) lidraughts.parseFen($(el));
         }
       }, boardContent),
       m('div', {

@@ -1,4 +1,4 @@
-package lila.shutup
+package lidraughts.shutup
 
 /**
  * - words are automatically pluralized. "tit" will also match "tits"
@@ -39,7 +39,7 @@ bull?shit
 cancer
 cawk
 cheat(er|)
-chess(|-|_)bot(.?com)?
+draughts(|-|_)bot(.?com)?
 chink
 choad
 clit
@@ -86,6 +86,7 @@ jerk
 jizz?(um|)
 kaffir
 kike
+kys
 labia
 lesbo
 masturbat(e|ion|ing)

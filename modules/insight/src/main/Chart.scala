@@ -1,6 +1,6 @@
-package lila.insight
+package lidraughts.insight
 
-import lila.common.LightUser
+import lidraughts.common.LightUser
 import play.api.libs.json._
 
 case class Chart(
@@ -37,7 +37,7 @@ object Chart {
 
     import answer._, question._
 
-    def gameUserJson(player: lila.game.Player): JsObject = {
+    def gameUserJson(player: lidraughts.game.Player): JsObject = {
       val light = player.userId flatMap getLightUser
       Json.obj(
         "name" -> light.map(_.name),
@@ -49,7 +49,7 @@ object Chart {
     def games = povs.map { pov =>
       Json.obj(
         "id" -> pov.game.id,
-        "fen" -> (chess.format.Forsyth exportBoard pov.game.board),
+        "fen" -> (draughts.format.Forsyth exportBoard pov.game.board),
         "color" -> pov.player.color.name,
         "lastMove" -> ~pov.game.lastMoveKeys,
         "user1" -> gameUserJson(pov.player),

@@ -1,17 +1,17 @@
-package lila.app
+package lidraughts.app
 package templating
 
 import controllers.routes
 import play.twirl.api.Html
 
-import lila.api.Context
-import lila.common.AssetVersion
+import lidraughts.api.Context
+import lidraughts.common.AssetVersion
 
 trait AssetHelper { self: I18nHelper =>
 
   def isProd: Boolean
 
-  val assetDomain = lila.api.Env.current.Net.AssetDomain
+  val assetDomain = lidraughts.api.Env.current.Net.AssetDomain
 
   val assetBaseUrl = s"//$assetDomain"
 
@@ -50,7 +50,7 @@ trait AssetHelper { self: I18nHelper =>
   }
 
   def roundTag(implicit ctx: Context) =
-    jsAt(s"compiled/lichess.round${isProd ?? (".min")}.js", async = true)
+    jsAt(s"compiled/lidraughts.round${isProd ?? (".min")}.js", async = true)
 
   val highchartsLatestTag = Html {
     s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts.js")}"></script>"""

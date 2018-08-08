@@ -1,9 +1,9 @@
-package lila.teamSearch
+package lidraughts.teamSearch
 
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.search._
+import lidraughts.search._
 
 final class Env(
     config: Config,
@@ -21,19 +21,19 @@ final class Env(
 
   def apply(text: String, page: Int) = paginatorBuilder(Query(text), page)
 
-  def cli = new lila.common.Cli {
+  def cli = new lidraughts.common.Cli {
     def process = {
       case "team" :: "search" :: "reset" :: Nil => api.reset inject "done"
     }
   }
 
-  private lazy val paginatorBuilder = new lila.search.PaginatorBuilder[lila.team.Team, Query](
+  private lazy val paginatorBuilder = new lidraughts.search.PaginatorBuilder[lidraughts.team.Team, Query](
     searchApi = api,
-    maxPerPage = lila.common.MaxPerPage(PaginatorMaxPerPage)
+    maxPerPage = lidraughts.common.MaxPerPage(PaginatorMaxPerPage)
   )
 
   system.actorOf(Props(new Actor {
-    import lila.team.actorApi._
+    import lidraughts.team.actorApi._
     def receive = {
       case InsertTeam(team) => api store team
       case RemoveTeam(id) => client deleteById Id(id)
@@ -44,8 +44,8 @@ final class Env(
 object Env {
 
   lazy val current = "teamSearch" boot new Env(
-    config = lila.common.PlayApp loadConfig "teamSearch",
-    makeClient = lila.search.Env.current.makeClient,
-    system = lila.common.PlayApp.system
+    config = lidraughts.common.PlayApp loadConfig "teamSearch",
+    makeClient = lidraughts.search.Env.current.makeClient,
+    system = lidraughts.common.PlayApp.system
   )
 }

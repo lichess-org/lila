@@ -1,34 +1,35 @@
-package lila.api
+package lidraughts.api
 
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.simul.Simul
+import lidraughts.simul.Simul
 
 final class Env(
     config: Config,
-    settingStore: lila.memo.SettingStore.Builder,
+    settingStore: lidraughts.memo.SettingStore.Builder,
     renderer: ActorSelection,
     system: ActorSystem,
-    scheduler: lila.common.Scheduler,
-    roundJsonView: lila.round.JsonView,
-    noteApi: lila.round.NoteApi,
-    forecastApi: lila.round.ForecastApi,
-    relationApi: lila.relation.RelationApi,
-    bookmarkApi: lila.bookmark.BookmarkApi,
-    getTourAndRanks: lila.game.Game => Fu[Option[lila.tournament.TourAndRanks]],
-    crosstableApi: lila.game.CrosstableApi,
-    prefApi: lila.pref.PrefApi,
-    gamePgnDump: lila.game.PgnDump,
-    gameCache: lila.game.Cached,
-    userEnv: lila.user.Env,
-    analyseEnv: lila.analyse.Env,
-    lobbyEnv: lila.lobby.Env,
-    setupEnv: lila.setup.Env,
+    scheduler: lidraughts.common.Scheduler,
+    roundJsonView: lidraughts.round.JsonView,
+    noteApi: lidraughts.round.NoteApi,
+    forecastApi: lidraughts.round.ForecastApi,
+    relationApi: lidraughts.relation.RelationApi,
+    bookmarkApi: lidraughts.bookmark.BookmarkApi,
+    getTourAndRanks: lidraughts.game.Game => Fu[Option[lidraughts.tournament.TourAndRanks]],
+    crosstableApi: lidraughts.game.CrosstableApi,
+    prefApi: lidraughts.pref.PrefApi,
+    playBanApi: lidraughts.playban.PlaybanApi,
+    gamePdnDump: lidraughts.game.PdnDump,
+    gameCache: lidraughts.game.Cached,
+    userEnv: lidraughts.user.Env,
+    analyseEnv: lidraughts.analyse.Env,
+    lobbyEnv: lidraughts.lobby.Env,
+    setupEnv: lidraughts.setup.Env,
     getSimul: Simul.ID => Fu[Option[Simul]],
     getSimulName: Simul.ID => Fu[Option[String]],
     getTournamentName: String => Option[String],
-    pools: List[lila.pool.PoolConfig],
+    pools: List[lidraughts.pool.PoolConfig],
     val isProd: Boolean
 ) {
 
@@ -66,14 +67,14 @@ final class Env(
     val blindCookieName = config getString "accessibility.blind.cookie.name"
     val blindCookieMaxAge = config getInt "accessibility.blind.cookie.max_age"
     private val blindCookieSalt = config getString "accessibility.blind.cookie.salt"
-    def hash(implicit ctx: lila.user.UserContext) = {
+    def hash(implicit ctx: lidraughts.user.UserContext) = {
       import com.roundeights.hasher.Implicits._
       (ctx.userId | "anon").salt(blindCookieSalt).md5.hex
     }
   }
 
-  val pgnDump = new PgnDump(
-    dumper = gamePgnDump,
+  val pdnDump = new PdnDump(
+    dumper = gamePdnDump,
     getSimulName = getSimulName,
     getTournamentName = getTournamentName
   )
@@ -84,6 +85,7 @@ final class Env(
     relationApi = relationApi,
     bookmarkApi = bookmarkApi,
     crosstableApi = crosstableApi,
+    playBanApi = playBanApi,
     gameCache = gameCache,
     prefApi = prefApi
   )
@@ -91,7 +93,7 @@ final class Env(
   val gameApi = new GameApi(
     netBaseUrl = Net.BaseUrl,
     apiToken = apiToken,
-    pgnDump = pgnDump,
+    pdnDump = pdnDump,
     gameCache = gameCache,
     crosstableApi = crosstableApi
   )
@@ -121,20 +123,9 @@ final class Env(
     pools = pools
   )
 
-  val websocketDropPercentSetting = settingStore[Int](
-    "websocketDropPercent",
-    default = config getInt "net.websocket_drop_percent",
-    text = "Percentage of websockets to drop. Experimenting server restart issues. Don't touch it.".some,
-    persist = false
-  )
-
-  val requestDropper = new RequestDropper(
-    websocketDropPercent = websocketDropPercentSetting.get
-  )
-
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
-  lazy val cli = new Cli(system.lilaBus)
+  lazy val cli = new Cli(system.lidraughtsBus)
 
   KamonPusher.start(system) {
     new KamonPusher(countUsers = () => userEnv.onlineUserIdMemo.count)
@@ -149,29 +140,30 @@ final class Env(
 object Env {
 
   lazy val current = "api" boot new Env(
-    config = lila.common.PlayApp.loadConfig,
-    settingStore = lila.memo.Env.current.settingStore,
-    renderer = lila.hub.Env.current.actor.renderer,
-    userEnv = lila.user.Env.current,
-    analyseEnv = lila.analyse.Env.current,
-    lobbyEnv = lila.lobby.Env.current,
-    setupEnv = lila.setup.Env.current,
-    getSimul = lila.simul.Env.current.repo.find,
-    getSimulName = lila.simul.Env.current.api.idToName,
-    getTournamentName = lila.tournament.Env.current.cached.name,
-    roundJsonView = lila.round.Env.current.jsonView,
-    noteApi = lila.round.Env.current.noteApi,
-    forecastApi = lila.round.Env.current.forecastApi,
-    relationApi = lila.relation.Env.current.api,
-    bookmarkApi = lila.bookmark.Env.current.api,
-    getTourAndRanks = lila.tournament.Env.current.tourAndRanks,
-    crosstableApi = lila.game.Env.current.crosstableApi,
-    prefApi = lila.pref.Env.current.api,
-    gamePgnDump = lila.game.Env.current.pgnDump,
-    gameCache = lila.game.Env.current.cached,
-    system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler,
-    pools = lila.pool.Env.current.api.configs,
-    isProd = lila.common.PlayApp.isProd
+    config = lidraughts.common.PlayApp.loadConfig,
+    settingStore = lidraughts.memo.Env.current.settingStore,
+    renderer = lidraughts.hub.Env.current.actor.renderer,
+    userEnv = lidraughts.user.Env.current,
+    analyseEnv = lidraughts.analyse.Env.current,
+    lobbyEnv = lidraughts.lobby.Env.current,
+    setupEnv = lidraughts.setup.Env.current,
+    getSimul = lidraughts.simul.Env.current.repo.find,
+    getSimulName = lidraughts.simul.Env.current.api.idToName,
+    getTournamentName = lidraughts.tournament.Env.current.cached.name,
+    roundJsonView = lidraughts.round.Env.current.jsonView,
+    noteApi = lidraughts.round.Env.current.noteApi,
+    forecastApi = lidraughts.round.Env.current.forecastApi,
+    relationApi = lidraughts.relation.Env.current.api,
+    bookmarkApi = lidraughts.bookmark.Env.current.api,
+    getTourAndRanks = lidraughts.tournament.Env.current.tourAndRanks,
+    crosstableApi = lidraughts.game.Env.current.crosstableApi,
+    playBanApi = lidraughts.playban.Env.current.api,
+    prefApi = lidraughts.pref.Env.current.api,
+    gamePdnDump = lidraughts.game.Env.current.pdnDump,
+    gameCache = lidraughts.game.Env.current.cached,
+    system = lidraughts.common.PlayApp.system,
+    scheduler = lidraughts.common.PlayApp.scheduler,
+    pools = lidraughts.pool.Env.current.api.configs,
+    isProd = lidraughts.common.PlayApp.isProd
   )
 }

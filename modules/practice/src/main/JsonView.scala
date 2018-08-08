@@ -1,9 +1,9 @@
-package lila.practice
+package lidraughts.practice
 
 import play.api.libs.json._
 
-import lila.common.PimpedJson._
-import lila.study.JsonView._
+import lidraughts.common.PimpedJson._
+import lidraughts.study.JsonView._
 
 object JsonView {
 

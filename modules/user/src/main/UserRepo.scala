@@ -1,15 +1,15 @@
-package lila.user
+package lidraughts.user
 
 import org.joda.time.DateTime
 import reactivemongo.api._
 import reactivemongo.api.commands.GetLastError
 import reactivemongo.bson._
 
-import lila.common.ApiVersion
-import lila.common.EmailAddress
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl._
-import lila.rating.{ Perf, PerfType }
+import lidraughts.common.ApiVersion
+import lidraughts.common.EmailAddress
+import lidraughts.db.BSON.BSONJodaDateTimeHandler
+import lidraughts.db.dsl._
+import lidraughts.rating.{ Perf, PerfType }
 
 object UserRepo {
 
@@ -80,8 +80,7 @@ object UserRepo {
   def byIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User]] =
     coll.find($inIds(ids) ++ goodLadSelectBson)
       .sort($sort desc "perfs.standard.gl.r")
-      .cursor[User](ReadPreference.secondaryPreferred)
-      .gather[List](nb)
+      .list[User](nb, ReadPreference.secondaryPreferred)
 
   // expensive, send to secondary
   def idsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
@@ -107,7 +106,7 @@ object UserRepo {
     coll.find(
       $inIds(List(u1, u2)),
       $doc(s"${F.count}.game" -> true)
-    ).cursor[Bdoc]().gather[List]() map { docs =>
+    ).list[Bdoc]() map { docs =>
         docs.sortBy {
           _.getAs[Bdoc](F.count).flatMap(_.getAs[BSONNumberLike]("game")).??(_.toInt)
         }.map(_.getAs[User.ID]("_id")).flatten match {
@@ -137,8 +136,8 @@ object UserRepo {
   def incColor(userId: User.ID, value: Int): Unit =
     coll.update($id(userId), $inc(F.colorIt -> value), writeConcern = GetLastError.Unacknowledged)
 
-  val lichessId = "lichess"
-  def lichess = byId(lichessId)
+  val lidraughtsId = "lidraughts"
+  def Lidraughts = byId(lidraughtsId)
 
   val irwinId = "irwin"
   def irwin = byId(irwinId)
@@ -186,7 +185,7 @@ object UserRepo {
   def boosterSelect(v: Boolean) = $doc(F.booster -> v.fold[BSONValue]($boolean(true), $ne(true)))
   def stablePerfSelect(perf: String) = $doc(
     s"perfs.$perf.nb" -> $gte(30),
-    s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation)
+    s"perfs.$perf.gl.d" -> $lt(lidraughts.rating.Glicko.provisionalDeviation)
   )
   val goodLadSelect = enabledSelect ++ engineSelect(false) ++ boosterSelect(false)
   val goodLadSelectBson = $doc(
@@ -414,7 +413,7 @@ object UserRepo {
 
     implicit def countHandler = Count.countBSONHandler
     implicit def perfsHandler = Perfs.perfsBSONHandler
-    import lila.db.BSON.BSONJodaDateTimeHandler
+    import lidraughts.db.BSON.BSONJodaDateTimeHandler
 
     $doc(
       F.id -> normalize(username),
@@ -427,7 +426,6 @@ object UserRepo {
       F.enabled -> true,
       F.createdAt -> DateTime.now,
       F.createdWithApiVersion -> mobileApiVersion.map(_.value),
-      F.seenAt -> DateTime.now,
       F.playTime -> User.PlayTime(0, 0)
     ) ++ {
         if (blind) $doc("blind" -> true) else $empty

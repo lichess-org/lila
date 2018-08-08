@@ -1,17 +1,17 @@
 package controllers
 
-import lila.app._
+import lidraughts.app._
 
 import play.api.data._
 import play.api.data.Forms._
 import play.api.libs.json._
 import views.html
 
-object Learn extends LilaController {
+object Learn extends LidraughtsController {
 
   val env = Env.learn
 
-  import lila.learn.JSONHandlers._
+  import lidraughts.learn.JSONHandlers._
 
   def index = Open { implicit ctx =>
     ctx.me.?? { me =>
@@ -32,7 +32,7 @@ object Learn extends LilaController {
     scoreForm.bindFromRequest.fold(
       err => BadRequest.fuccess, {
         case (stage, level, s) =>
-          val score = lila.learn.StageProgress.Score(s)
+          val score = lidraughts.learn.StageProgress.Score(s)
           env.api.setScore(me, stage, level, score) >>
             Env.activity.write.learn(me.id, stage) inject Ok(Json.obj("ok" -> true))
       }

@@ -1,10 +1,10 @@
-package lila.lobby
+package lidraughts.lobby
 package actorApi
 
-import lila.game.Game
-import lila.socket.SocketMember
-import lila.socket.Socket.Uid
-import lila.user.User
+import lidraughts.game.Game
+import lidraughts.socket.SocketMember
+import lidraughts.socket.Socket.Uid
+import lidraughts.user.User
 
 private[lobby] case class Member(
     channel: JsChannel,
@@ -43,8 +43,8 @@ private[lobby] case class CancelHook(uid: String)
 private[lobby] case class CancelSeek(seekId: String, user: LobbyUser)
 private[lobby] case class BiteHook(hookId: String, uid: String, user: Option[LobbyUser])
 private[lobby] case class BiteSeek(seekId: String, user: LobbyUser)
-private[lobby] case class JoinHook(uid: String, hook: Hook, game: Game, creatorColor: chess.Color)
-private[lobby] case class JoinSeek(userId: String, seek: Seek, game: Game, creatorColor: chess.Color)
+private[lobby] case class JoinHook(uid: String, hook: Hook, game: Game, creatorColor: draughts.Color)
+private[lobby] case class JoinSeek(userId: String, seek: Seek, game: Game, creatorColor: draughts.Color)
 private[lobby] case class Join(uid: Uid, user: Option[User], blocking: Set[String], mobile: Boolean)
 private[lobby] case object Resync
 private[lobby] case class HookIds(ids: Vector[String])

@@ -1,13 +1,13 @@
-package lila.insight
+package lidraughts.insight
 
 import play.twirl.api.Html
 import reactivemongo.bson._
 import play.api.libs.json._
 
-import chess.opening.EcopeningDB
-import chess.{ Color, Role }
-import lila.db.dsl._
-import lila.rating.PerfType
+import draughts.opening.EcopeningDB
+import draughts.{ Color, Role }
+import lidraughts.db.dsl._
+import lidraughts.rating.PerfType
 
 sealed abstract class Dimension[A: BSONValueHandler](
     val key: String,
@@ -28,14 +28,14 @@ object Dimension {
   import BSONHandlers._
   import Position._
   import Entry.{ BSONFields => F }
-  import lila.rating.BSONHandlers.perfTypeIdHandler
+  import lidraughts.rating.BSONHandlers.perfTypeIdHandler
 
   case object Period extends Dimension[Period](
     "period", "Date", F.date, Game,
     Html("The date at which the game was played")
   )
 
-  case object Date extends Dimension[lila.insight.DateRange](
+  case object Date extends Dimension[lidraughts.insight.DateRange](
     "date", "Date", F.date, Game,
     Html("The date at which the game was played")
   )
@@ -65,7 +65,7 @@ object Dimension {
     Html("The side you are playing: White or Black.")
   )
 
-  case object Opening extends Dimension[chess.opening.Ecopening](
+  case object Opening extends Dimension[draughts.opening.Ecopening](
     "opening", "Opening", F.eco, Game,
     Html("ECO identification of the initial moves, like \"A58 Benko Gambit\".")
   )
@@ -95,11 +95,6 @@ object Dimension {
     Html("The side your opponent castled on during the game: kingside, queenside, or none.")
   )
 
-  case object QueenTrade extends Dimension[QueenTrade](
-    "queenTrade", "Queen trade", F.queenTrade, Game,
-    Html("Whether queens were traded before the endgame or not.")
-  )
-
   case object MaterialRange extends Dimension[MaterialRange](
     "material", "Material imbalance", F.moves("i"), Move,
     Html("Value of your pieces compared to your opponent's. Pawn=1, Bishop/Knight=3, Rook=5, Queen=9.")
@@ -111,37 +106,35 @@ object Dimension {
   }
 
   def valuesOf[X](d: Dimension[X]): List[X] = d match {
-    case Period => lila.insight.Period.selector
+    case Period => lidraughts.insight.Period.selector
     case Date => Nil // Period is used instead
     case Perf => PerfType.nonPuzzle
-    case Phase => lila.insight.Phase.all
-    case Result => lila.insight.Result.all
-    case Termination => lila.insight.Termination.all
-    case Color => chess.Color.all
+    case Phase => lidraughts.insight.Phase.all
+    case Result => lidraughts.insight.Result.all
+    case Termination => lidraughts.insight.Termination.all
+    case Color => draughts.Color.all
     case Opening => EcopeningDB.all
     case OpponentStrength => RelativeStrength.all
-    case PieceRole => chess.Role.all.reverse
-    case MovetimeRange => lila.insight.MovetimeRange.all
-    case MyCastling | OpCastling => lila.insight.Castling.all
-    case QueenTrade => lila.insight.QueenTrade.all
-    case MaterialRange => lila.insight.MaterialRange.all
+    case PieceRole => draughts.Role.all.reverse
+    case MovetimeRange => lidraughts.insight.MovetimeRange.all
+    case MyCastling | OpCastling => lidraughts.insight.Castling.all
+    case MaterialRange => lidraughts.insight.MaterialRange.all
   }
 
   def valueByKey[X](d: Dimension[X], key: String): Option[X] = d match {
-    case Period => parseIntOption(key) map lila.insight.Period.apply
+    case Period => parseIntOption(key) map lidraughts.insight.Period.apply
     case Date => None
     case Perf => PerfType.byKey get key
-    case Phase => parseIntOption(key) flatMap lila.insight.Phase.byId.get
-    case Result => parseIntOption(key) flatMap lila.insight.Result.byId.get
-    case Termination => parseIntOption(key) flatMap lila.insight.Termination.byId.get
-    case Color => chess.Color(key)
+    case Phase => parseIntOption(key) flatMap lidraughts.insight.Phase.byId.get
+    case Result => parseIntOption(key) flatMap lidraughts.insight.Result.byId.get
+    case Termination => parseIntOption(key) flatMap lidraughts.insight.Termination.byId.get
+    case Color => draughts.Color(key)
     case Opening => EcopeningDB.allByEco get key
     case OpponentStrength => parseIntOption(key) flatMap RelativeStrength.byId.get
-    case PieceRole => chess.Role.all.find(_.name == key)
-    case MovetimeRange => parseIntOption(key) flatMap lila.insight.MovetimeRange.byId.get
-    case MyCastling | OpCastling => parseIntOption(key) flatMap lila.insight.Castling.byId.get
-    case QueenTrade => lila.insight.QueenTrade(key == "true").some
-    case MaterialRange => parseIntOption(key) flatMap lila.insight.MaterialRange.byId.get
+    case PieceRole => draughts.Role.all.find(_.name == key)
+    case MovetimeRange => parseIntOption(key) flatMap lidraughts.insight.MovetimeRange.byId.get
+    case MyCastling | OpCastling => parseIntOption(key) flatMap lidraughts.insight.Castling.byId.get
+    case MaterialRange => parseIntOption(key) flatMap lidraughts.insight.MaterialRange.byId.get
   }
 
   def valueToJson[X](d: Dimension[X])(v: X): play.api.libs.json.JsObject = {
@@ -164,7 +157,6 @@ object Dimension {
     case PieceRole => v.name
     case MovetimeRange => v.id
     case MyCastling | OpCastling => v.id
-    case QueenTrade => v.id
     case MaterialRange => v.id
   }).toString
 
@@ -181,7 +173,6 @@ object Dimension {
     case PieceRole => JsString(v.toString)
     case MovetimeRange => JsString(v.name)
     case MyCastling | OpCastling => JsString(v.name)
-    case QueenTrade => JsString(v.name)
     case MaterialRange => JsString(v.name)
   }
 

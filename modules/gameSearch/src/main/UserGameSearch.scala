@@ -1,14 +1,14 @@
-package lila.gameSearch
+package lidraughts.gameSearch
 
-import lila.game.Game
+import lidraughts.game.Game
 import play.api.mvc.Request
 
 final class UserGameSearch(
     forms: DataForm,
-    paginator: lila.search.PaginatorBuilder[Game, Query]
+    paginator: lidraughts.search.PaginatorBuilder[Game, Query]
 ) {
 
-  def apply(user: lila.user.User, page: Int)(implicit req: Request[_]) =
+  def apply(user: lidraughts.user.User, page: Int)(implicit req: Request[_]) =
     paginator(
       query = forms.search.bindFromRequest.fold(
         _ => SearchData(SearchPlayer(a = user.id.some)),

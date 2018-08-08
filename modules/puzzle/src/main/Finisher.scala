@@ -1,17 +1,17 @@
-package lila.puzzle
+package lidraughts.puzzle
 
 import org.goochjs.glicko2._
 import org.joda.time.DateTime
 
-import chess.Mode
-import lila.db.dsl._
-import lila.rating.{ Glicko, PerfType }
-import lila.user.{ User, UserRepo }
+import draughts.Mode
+import lidraughts.db.dsl._
+import lidraughts.rating.{ Glicko, PerfType }
+import lidraughts.user.{ User, UserRepo }
 
 private[puzzle] final class Finisher(
     api: PuzzleApi,
     puzzleColl: Coll,
-    bus: lila.common.Bus
+    bus: lidraughts.common.Bus
 ) {
 
   def apply(puzzle: Puzzle, user: User, result: Result): Fu[(Round, Mode)] = {
@@ -80,9 +80,14 @@ private[puzzle] final class Finisher(
       ratingDiff = userPerf.intRating - formerUserRating
     )
     (api.round add a) >>
-      UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf) inject
-      user.copy(perfs = user.perfs.copy(puzzle = userPerf))
-  } recover lila.db.recoverDuplicateKey { _ =>
+      UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf) >>-
+      bus.publish(
+        Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
+        'finishPuzzle
+      ) inject
+        user.copy(perfs = user.perfs.copy(puzzle = userPerf))
+  } recover lidraughts.db.recoverDuplicateKey { _ =>
+    logger.info(s"ratedUntrusted ${user.id} ${puzzle.id} duplicate round")
     user // has already been solved!
   }
 

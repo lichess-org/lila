@@ -1,10 +1,10 @@
-package lila.slack
+package lidraughts.slack
 
 import org.joda.time.DateTime
 
-import lila.common.LightUser
-import lila.hub.actorApi.slack._
-import lila.user.User
+import lidraughts.common.LightUser
+import lidraughts.hub.actorApi.slack._
+import lidraughts.user.User
 
 final class SlackApi(
     client: SlackClient,
@@ -16,7 +16,7 @@ final class SlackApi(
 
   object charge {
 
-    import lila.hub.actorApi.plan.ChargeEvent
+    import lidraughts.hub.actorApi.plan.ChargeEvent
 
     private var buffer: Vector[ChargeEvent] = Vector.empty
 
@@ -72,7 +72,7 @@ final class SlackApi(
     channel = "commlog"
   ))
 
-  def chatPanicLink = "<https://lichess.org/mod/chat-panic|Chat Panic>"
+  def chatPanicLink = "<https://lidraughts.org/mod/chat-panic|Chat Panic>"
 
   def chatPanic(mod: User, v: Boolean): Funit = client(SlackMessage(
     username = mod.username,
@@ -82,42 +82,42 @@ final class SlackApi(
   ))
 
   def garbageCollector(message: String): Funit = client(SlackMessage(
-    username = "lichess",
+    username = "lidraughts",
     icon = "put_litter_in_its_place",
     text = linkifyUsers(message),
     channel = "tavern"
   ))
 
   def publishError(msg: String): Funit = client(SlackMessage(
-    username = "lichess error",
+    username = "lidraughts error",
     icon = "lightning",
     text = linkifyUsers(msg),
     channel = "general"
   ))
 
   def publishWarning(msg: String): Funit = client(SlackMessage(
-    username = "lichess warning",
+    username = "lidraughts warning",
     icon = "thinking_face",
     text = linkifyUsers(msg),
     channel = "general"
   ))
 
   def publishVictory(msg: String): Funit = client(SlackMessage(
-    username = "lichess victory",
+    username = "lidraughts victory",
     icon = "tada",
     text = linkifyUsers(msg),
     channel = "general"
   ))
 
   def publishInfo(msg: String): Funit = client(SlackMessage(
-    username = "lichess info",
+    username = "lidraughts info",
     icon = "monkey",
     text = linkifyUsers(msg),
     channel = "general"
   ))
 
   def publishRestart =
-    if (isProd) publishInfo("Lichess has restarted!")
+    if (isProd) publishInfo("Lidraughts has restarted!")
     else client(SlackMessage(
       username = stage.name,
       icon = stage.icon,
@@ -125,13 +125,13 @@ final class SlackApi(
       channel = "general"
     ))
 
-  private def userLink(name: String) = s"<https://lichess.org/@/$name?mod|$name>"
-  private def userNotesLink(name: String) = s"<https://lichess.org/@/$name?notes|notes>"
+  private def userLink(name: String) = s"<https://lidraughts.org/@/$name?mod|$name>"
+  private def userNotesLink(name: String) = s"<https://lidraughts.org/@/$name?notes|notes>"
 
-  val userRegex = lila.common.String.atUsernameRegex.pattern
+  val userRegex = lidraughts.common.String.atUsernameRegex.pattern
 
   private def linkifyUsers(msg: String) =
-    userRegex matcher msg replaceAll "<https://lichess.org/@/$1?mod|@$1>"
+    userRegex matcher msg replaceAll "<https://lidraughts.org/@/$1?mod|@$1>"
 
   def userMod(user: User, mod: User): Funit = client(SlackMessage(
     username = mod.username,
@@ -153,7 +153,7 @@ final class SlackApi(
     if (isProd) client(SlackMessage(
       username = "deployment",
       icon = "rocket",
-      text = "Lichess will be updated in a minute! Fasten your seatbelts.",
+      text = "Lidraughts will be updated in a minute! Fasten your seatbelts.",
       channel = "general"
     ))
     else client(SlackMessage(
@@ -167,11 +167,11 @@ final class SlackApi(
     if (isProd) client(SlackMessage(
       username = "deployment",
       icon = "rocket",
-      text = "Lichess is being updated! Brace for impact.",
+      text = "Lidraughts is being updated! Brace for impact.",
       channel = "general"
     ))
     else client(SlackMessage(
-      username = "stage.lichess.org",
+      username = "stage.lidraughts.org",
       icon = "volcano",
       text = "stage has been updated!",
       channel = "general"
@@ -181,7 +181,7 @@ final class SlackApi(
 private object SlackApi {
 
   object stage {
-    val name = "stage.lichess.org"
+    val name = "stage.lidraughts.org"
     val icon = "volcano"
   }
 }

@@ -1,6 +1,6 @@
 $(function() {
   var $exists = $('.signup_box form .username .exists');
-  var runCheck = lichess.fp.debounce(function() {
+  var runCheck = lidraughts.fp.debounce(function() {
     var name = $username.val();
     if (name.length >= 3) $.ajax({
       method: 'GET',

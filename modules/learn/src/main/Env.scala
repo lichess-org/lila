@@ -1,10 +1,10 @@
-package lila.learn
+package lidraughts.learn
 
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    db: lila.db.Env
+    db: lidraughts.db.Env
 ) {
 
   private val CollectionProgress = config getString "collection.progress"
@@ -17,7 +17,7 @@ final class Env(
 object Env {
 
   lazy val current: Env = "learn" boot new Env(
-    config = lila.common.PlayApp loadConfig "learn",
-    db = lila.db.Env.current
+    config = lidraughts.common.PlayApp loadConfig "learn",
+    db = lidraughts.db.Env.current
   )
 }

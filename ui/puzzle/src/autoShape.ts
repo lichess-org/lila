@@ -1,10 +1,10 @@
 import { winningChances } from 'ceval';
-import { decomposeUci } from 'chess';
-import { DrawShape } from 'chessground/draw';
+import { decomposeUci } from 'draughts';
+import { DrawShape } from 'draughtsground/draw';
 import { Vm } from './interfaces';
-import { Api as CgApi } from 'chessground/api';
+import { Api as CgApi } from 'draughtsground/api';
 import { CevalCtrl } from 'ceval';
-import { opposite } from 'chessground/util';
+import { opposite } from 'draughtsground/util';
 
 interface Opts {
   vm: Vm;

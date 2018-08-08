@@ -1,18 +1,18 @@
-h1.lichess_title {
+h1.lidraughts_title {
   text-align: center;
   margin-bottom: 0!important;
 }
-h1.lichess_title a.new {
+h1.lidraughts_title a.new {
   float: right;
 }
-h1.lichess_title span {
+h1.lidraughts_title span {
   display: block;
   font-size: 0.35em;
   opacity: 0.8;
   margin-top: 10px;
   text-transform: uppercase;
 }
-.event_crud.edit h1.lichess_title {
+.event_crud.edit h1.lidraughts_title {
   background: #303F9F;
   color: #ddd;
   letter-spacing: 0.1em;

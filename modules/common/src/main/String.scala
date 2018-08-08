@@ -1,10 +1,10 @@
-package lila.common
+package lidraughts.common
 
 import java.text.Normalizer
 import play.api.libs.json._
 import play.twirl.api.Html
 
-import lila.common.base.StringUtils
+import lidraughts.common.base.StringUtils
 
 object String {
 
@@ -47,10 +47,10 @@ object String {
     }
   }
 
-  // Matches a lichess username with an '@' prefix if it is used as a single
+  // Matches a lidraughts username with an '@' prefix if it is used as a single
   // word (i.e. preceded and followed by space or appropriate punctuation):
   // Yes: everyone says @ornicar is a pretty cool guy
-  // No: contact@lichess.org, @1, http://example.com/@happy0
+  // No: contact@lidraughts.org, @1, http://example.com/@happy0
   val atUsernameRegex = """(?<=^|[^\w@#/])@(?>([\w-]{2,20}))(?![@\w-])""".r
 
   object html {
@@ -70,7 +70,7 @@ object String {
     // has negative lookbehind to exclude overlaps with user profile links
     private val urlRegex = """(?i)(?<![">])\b((https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}\/)((?:[`!\[\]{};:'".,<>?«»“”‘’]*[^\s`!\[\]{}\(\);:'".,<>?«»“”‘’])*))""".r
     // private val imgRegex = """(?:(?:https?:\/\/))[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b(?:[-a-zA-Z0-9@:%_\+.~#?&\/=]*(\.jpg|\.png|\.jpeg))""".r
-    private val netDomain = "lichess.org" // whatever...
+    private val netDomain = "lidraughts.org" // whatever...
 
     private val urlMustNotContain = List("&quot")
 
@@ -107,7 +107,7 @@ object String {
       })
     } catch {
       case e: IllegalArgumentException =>
-        lila.log("templating").error(s"addLinks($text)", e)
+        lidraughts.log("templating").error(s"addLinks($text)", e)
         text
     }
 

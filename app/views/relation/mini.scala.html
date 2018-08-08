@@ -1,4 +1,4 @@
-@(userId: String, blocked: Boolean, followable: Boolean, relation: Option[lila.relation.Relation] = None)(implicit ctx: Context)
+@(userId: String, blocked: Boolean, followable: Boolean, relation: Option[lidraughts.relation.Relation] = None)(implicit ctx: Context)
 
 @relation match {
 case None if followable && !blocked=> {

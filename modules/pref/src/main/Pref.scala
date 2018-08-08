@@ -1,18 +1,14 @@
-package lila.pref
+package lidraughts.pref
 
 case class Pref(
     _id: String, // user id
     dark: Boolean,
     transp: Boolean,
     bgImg: Option[String],
-    is3d: Boolean,
     theme: String,
     pieceSet: String,
-    theme3d: String,
-    pieceSet3d: String,
     soundSet: String,
     blindfold: Int,
-    autoQueen: Int,
     autoThreefold: Int,
     takeback: Int,
     clockTenths: Int,
@@ -35,9 +31,7 @@ case class Pref(
     insightShare: Int,
     keyboardMove: Int,
     zen: Int,
-    rookCastle: Int,
     moveEvent: Int,
-    pieceNotation: Int,
     tags: Map[String, String] = Map.empty
 ) {
 
@@ -47,9 +41,6 @@ case class Pref(
 
   def realTheme = Theme(theme)
   def realPieceSet = PieceSet(pieceSet)
-  def realTheme3d = Theme3d(theme3d)
-  def realPieceSet3d = PieceSet3d(pieceSet3d)
-
   def realSoundSet = SoundSet(soundSet)
 
   def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
@@ -63,34 +54,29 @@ case class Pref(
     case "bgImg" => copy(bgImg = value.some).some
     case "theme" => Theme.allByName get value map { t => copy(theme = t.name) }
     case "pieceSet" => PieceSet.allByName get value map { p => copy(pieceSet = p.name) }
-    case "theme3d" => Theme3d.allByName get value map { t => copy(theme3d = t.name) }
-    case "pieceSet3d" => PieceSet3d.allByName get value map { p => copy(pieceSet3d = p.name) }
-    case "is3d" => copy(is3d = value == "true").some
     case "soundSet" => SoundSet.allByKey get value map { s => copy(soundSet = s.name) }
     case "zen" => copy(zen = if (value == "1") 1 else 0).some
     case _ => none
   }
 
   def animationFactor = animation match {
-    case Animation.NONE => 0
+    case Animation.NONE => 0.0f
     case Animation.FAST => 0.5f
-    case Animation.NORMAL => 1
-    case Animation.SLOW => 2
-    case _ => 1
+    case Animation.NORMAL => 1.0f
+    case Animation.SLOW => 2.0f
+    case _ => 1.0f
   }
 
   def isBlindfold = blindfold == Pref.Blindfold.YES
 
   def bgImgOrDefault = bgImg | Pref.defaultBgImg
 
-  def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
-
   def isZen = zen == Zen.YES
 }
 
 object Pref {
 
-  val defaultBgImg = "//lichess1.org/assets/images/background/landscape.jpg"
+  val defaultBgImg = "/assets/images/background/wood.jpg"
 
   trait BooleanPref {
     val NO = 0
@@ -115,18 +101,6 @@ object Pref {
       WHITE -> "White",
       RANDOM -> "Random",
       BLACK -> "Black"
-    )
-  }
-
-  object AutoQueen {
-    val NEVER = 1
-    val PREMOVE = 2
-    val ALWAYS = 3
-
-    val choices = Seq(
-      NEVER -> "Never",
-      ALWAYS -> "Always",
-      PREMOVE -> "When premoving"
     )
   }
 
@@ -160,16 +134,6 @@ object Pref {
 
   object KeyboardMove extends BooleanPref
 
-  object RookCastle {
-    val NO = 0
-    val YES = 1
-
-    val choices = Seq(
-      NO -> "Castle by moving by two squares",
-      YES -> "Castle by moving onto the rook"
-    )
-  }
-
   object MoveEvent {
     val CLICK = 0
     val DRAG = 1
@@ -179,16 +143,6 @@ object Pref {
       CLICK -> "Click two squares",
       DRAG -> "Drag a piece",
       BOTH -> "Both clicks and drag"
-    )
-  }
-
-  object PieceNotation {
-    val SYMBOL = 0
-    val LETTER = 1
-
-    val choices = Seq(
-      SYMBOL -> "Chess piece symbol",
-      LETTER -> "PGN letter (K, Q, R, B, N)"
     )
   }
 
@@ -323,14 +277,10 @@ object Pref {
     dark = false,
     transp = false,
     bgImg = none,
-    is3d = false,
     theme = Theme.default.name,
     pieceSet = PieceSet.default.name,
-    theme3d = Theme3d.default.name,
-    pieceSet3d = PieceSet3d.default.name,
     soundSet = SoundSet.default.name,
     blindfold = Blindfold.NO,
-    autoQueen = AutoQueen.PREMOVE,
     autoThreefold = AutoThreefold.TIME,
     takeback = Takeback.ALWAYS,
     clockBar = true,
@@ -353,9 +303,7 @@ object Pref {
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
     zen = Zen.NO,
-    rookCastle = RookCastle.YES,
     moveEvent = MoveEvent.BOTH,
-    pieceNotation = PieceNotation.SYMBOL,
     tags = Map.empty
   )
 

@@ -1,4 +1,4 @@
-package lila.qa
+package lidraughts.qa
 
 import scala.concurrent.duration._
 
@@ -6,18 +6,18 @@ import reactivemongo.bson._
 
 import org.joda.time.DateTime
 
-import lila.common.MaxPerPage
-import lila.common.paginator._
-import lila.db.dsl._
-import lila.db.paginator._
-import lila.security.Granter
-import lila.user.User
+import lidraughts.common.MaxPerPage
+import lidraughts.common.paginator._
+import lidraughts.db.dsl._
+import lidraughts.db.paginator._
+import lidraughts.security.Granter
+import lidraughts.user.User
 
 final class QaApi(
     questionColl: Coll,
     answerColl: Coll,
-    mongoCache: lila.memo.MongoCache.Builder,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    mongoCache: lidraughts.memo.MongoCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     notifier: Notifier
 ) {
 
@@ -26,7 +26,7 @@ final class QaApi(
   object question {
 
     def create(data: QuestionData, user: User): Fu[Question] =
-      lila.db.Util findNextId questionColl flatMap { id =>
+      lidraughts.db.Util findNextId questionColl flatMap { id =>
         val q = Question(
           _id = id,
           userId = user.id,
@@ -157,7 +157,7 @@ final class QaApi(
     private implicit val answerBSONHandler = Macros.handler[Answer]
 
     def create(data: AnswerData, q: Question, user: User): Fu[Answer] =
-      lila.db.Util findNextId answerColl flatMap { id =>
+      lidraughts.db.Util findNextId answerColl flatMap { id =>
         val a = Answer(
           _id = id,
           questionId = q.id,

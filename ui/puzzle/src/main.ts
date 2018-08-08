@@ -2,7 +2,7 @@ import makeCtrl from './ctrl';
 import view from './view/main';
 import sideView from './view/side';
 
-import { Chessground } from 'chessground';
+import { Draughtsground } from 'draughtsground';
 import { Controller } from './interfaces';
 
 import { init } from 'snabbdom';
@@ -34,6 +34,6 @@ export default function(opts) {
   };
 };
 
-// that's for the rest of lichess to access chessground
+// that's for the rest of lidraughts to access draughtsground
 // without having to include it a second time
-window.Chessground = Chessground;
+window.Draughtsground = Draughtsground;

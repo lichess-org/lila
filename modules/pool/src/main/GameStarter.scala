@@ -1,15 +1,15 @@
-package lila.pool
+package lidraughts.pool
 
 import akka.actor._
 import scala.concurrent.Promise
 
-import lila.game.{ Game, Player, GameRepo }
-import lila.hub.Sequencer
-import lila.rating.Perf
-import lila.user.{ User, UserRepo }
+import lidraughts.game.{ Game, Player, GameRepo }
+import lidraughts.hub.Sequencer
+import lidraughts.rating.Perf
+import lidraughts.user.{ User, UserRepo }
 
 private final class GameStarter(
-    bus: lila.common.Bus,
+    bus: lidraughts.common.Bus,
     onStart: Game.ID => Unit,
     sequencer: ActorRef
 ) {
@@ -59,14 +59,14 @@ private final class GameStarter(
     whiteUser: (User.ID, Perf),
     blackUser: (User.ID, Perf)
   ) = Game.make(
-    chess = chess.Game(
-      situation = chess.Situation(chess.variant.Standard),
+    draughts = draughts.DraughtsGame(
+      situation = draughts.Situation(draughts.variant.Standard),
       clock = pool.clock.toClock.some
     ),
-    whitePlayer = Player.make(chess.White, whiteUser),
-    blackPlayer = Player.make(chess.Black, blackUser),
-    mode = chess.Mode.Rated,
-    source = lila.game.Source.Pool,
-    pgnImport = None
+    whitePlayer = Player.make(draughts.White, whiteUser),
+    blackPlayer = Player.make(draughts.Black, blackUser),
+    mode = draughts.Mode.Rated,
+    source = lidraughts.game.Source.Pool,
+    pdnImport = None
   )
 }

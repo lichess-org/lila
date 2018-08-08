@@ -1,10 +1,10 @@
-package lila.evalCache
+package lidraughts.evalCache
 
 import play.api.libs.json._
 
-import chess.format.FEN
-import lila.socket._
-import lila.user.User
+import draughts.format.FEN
+import lidraughts.socket._
+import lidraughts.user.User
 
 final class EvalCacheSocketHandler(
     api: EvalCacheApi,
@@ -24,7 +24,7 @@ final class EvalCacheSocketHandler(
 
     case ("evalGet", o) => for {
       d <- o obj "d"
-      variant = chess.variant.Variant orDefault ~d.str("variant")
+      variant = draughts.variant.Variant orDefault ~d.str("variant")
       fen <- d str "fen"
       multiPv = (d int "mpv") | 1
       path <- d str "path"

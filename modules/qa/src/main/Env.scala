@@ -1,16 +1,16 @@
-package lila.qa
+package lidraughts.qa
 
 import com.typesafe.config.Config
-import lila.common.DetectLanguage
+import lidraughts.common.DetectLanguage
 
 final class Env(
     config: Config,
-    hub: lila.hub.Env,
+    hub: lidraughts.hub.Env,
     detectLanguage: DetectLanguage,
-    mongoCache: lila.memo.MongoCache.Builder,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    notifyApi: lila.notify.NotifyApi,
-    db: lila.db.Env
+    mongoCache: lidraughts.memo.MongoCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    notifyApi: lidraughts.notify.NotifyApi,
+    db: lidraughts.db.Env
 ) {
 
   private val CollectionQuestion = config getString "collection.question"
@@ -39,12 +39,12 @@ final class Env(
 object Env {
 
   lazy val current = "qa" boot new Env(
-    config = lila.common.PlayApp loadConfig "qa",
-    hub = lila.hub.Env.current,
-    detectLanguage = DetectLanguage(lila.common.PlayApp loadConfig "detectlanguage"),
-    mongoCache = lila.memo.Env.current.mongoCache,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    notifyApi = lila.notify.Env.current.api,
-    db = lila.db.Env.current
+    config = lidraughts.common.PlayApp loadConfig "qa",
+    hub = lidraughts.hub.Env.current,
+    detectLanguage = DetectLanguage(lidraughts.common.PlayApp loadConfig "detectlanguage"),
+    mongoCache = lidraughts.memo.Env.current.mongoCache,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    notifyApi = lidraughts.notify.Env.current.api,
+    db = lidraughts.db.Env.current
   )
 }

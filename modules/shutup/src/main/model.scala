@@ -1,4 +1,4 @@
-package lila.shutup
+package lidraughts.shutup
 
 case class UserRecord(
     _id: String,

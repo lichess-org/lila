@@ -1,18 +1,18 @@
-package lila.simul
+package lidraughts.simul
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import play.api.libs.json.Json
 import scala.concurrent.duration._
 
-import chess.variant.Variant
-import lila.common.Debouncer
-import lila.game.{ Game, GameRepo, PerfPicker }
-import lila.hub.actorApi.lobby.ReloadSimuls
-import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
-import lila.socket.actorApi.SendToFlag
-import lila.user.{ User, UserRepo }
+import draughts.variant.Variant
+import lidraughts.common.Debouncer
+import lidraughts.game.{ Game, GameRepo, PerfPicker }
+import lidraughts.hub.actorApi.lobby.ReloadSimuls
+import lidraughts.hub.actorApi.map.Tell
+import lidraughts.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
+import lidraughts.socket.actorApi.SendToFlag
+import lidraughts.user.{ User, UserRepo }
 import makeTimeout.short
 
 final class SimulApi(
@@ -26,7 +26,7 @@ final class SimulApi(
     userRegister: ActorSelection,
     lobby: ActorSelection,
     repo: SimulRepo,
-    asyncCache: lila.memo.AsyncCache.Builder
+    asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get
@@ -42,10 +42,10 @@ final class SimulApi(
   def create(setup: SimulSetup, me: User): Fu[Simul] = {
     val simul = Simul.make(
       clock = SimulClock(
-        config = chess.Clock.Config(setup.clockTime * 60, setup.clockIncrement),
+        config = draughts.Clock.Config(setup.clockTime * 60, setup.clockIncrement),
         hostExtraTime = setup.clockExtra * 60
       ),
-      variants = setup.variants.flatMap { chess.variant.Variant(_) },
+      variants = setup.variants.flatMap { draughts.variant.Variant(_) },
       host = me,
       color = setup.color
     )
@@ -68,7 +68,7 @@ final class SimulApi(
               user,
               variant,
               PerfPicker.mainOrDefault(
-                speed = chess.Speed(simul.clock.config.some),
+                speed = draughts.Speed(simul.clock.config.some),
                 variant = variant,
                 daysPerTurn = none
               )(user.perfs)
@@ -106,7 +106,7 @@ final class SimulApi(
                 }
               }
             } flatMap { s =>
-              system.lilaBus.publish(Simul.OnStart(s), 'startSimul)
+              system.lidraughtsBus.publish(Simul.OnStart(s), 'startSimul)
               update(s) >>- currentHostIdsCache.refresh
             }
           }
@@ -152,9 +152,9 @@ final class SimulApi(
 
   private def onComplete(simul: Simul): Unit = {
     currentHostIdsCache.refresh
-    userRegister ! lila.hub.actorApi.SendTo(
+    userRegister ! lidraughts.hub.actorApi.SendTo(
       simul.hostId,
-      lila.socket.Socket.makeMessage("simulEnd", Json.obj(
+      lidraughts.socket.Socket.makeMessage("simulEnd", Json.obj(
         "id" -> simul.id,
         "name" -> simul.name
       ))
@@ -180,23 +180,23 @@ final class SimulApi(
   def idToName(id: Simul.ID): Fu[Option[String]] =
     repo find id map2 { (simul: Simul) => simul.fullName }
 
-  private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[(Game, chess.Color)] = for {
+  private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[(Game, draughts.Color)] = for {
     user ← UserRepo byId pairing.player.user flatten s"No user with id ${pairing.player.user}"
     hostColor = simul.hostColor
     whiteUser = hostColor.fold(host, user)
     blackUser = hostColor.fold(user, host)
     clock = simul.clock.chessClockOf(hostColor)
-    perfPicker = lila.game.PerfPicker.mainOrDefault(chess.Speed(clock.config), pairing.player.variant, none)
+    perfPicker = lidraughts.game.PerfPicker.mainOrDefault(draughts.Speed(clock.config), pairing.player.variant, none)
     game1 = Game.make(
-      chess = chess.Game(
-        situation = chess.Situation(pairing.player.variant),
+      draughts = draughts.DraughtsGame(
+        situation = draughts.Situation(pairing.player.variant),
         clock = clock.start.some
       ),
-      whitePlayer = lila.game.Player.make(chess.White, whiteUser.some, perfPicker),
-      blackPlayer = lila.game.Player.make(chess.Black, blackUser.some, perfPicker),
-      mode = chess.Mode.Casual,
-      source = lila.game.Source.Simul,
-      pgnImport = None
+      whitePlayer = lidraughts.game.Player.make(draughts.White, whiteUser.some, perfPicker),
+      blackPlayer = lidraughts.game.Player.make(draughts.Black, blackUser.some, perfPicker),
+      mode = draughts.Mode.Casual,
+      source = lidraughts.game.Source.Simul,
+      pdnImport = None
     )
     game2 = game1
       .withSimulId(simul.id)
@@ -222,7 +222,7 @@ final class SimulApi(
   }
 
   private def Sequence(simulId: Simul.ID)(work: => Funit): Unit = {
-    sequencers ! Tell(simulId, lila.hub.Sequencer work work)
+    sequencers ! Tell(simulId, lidraughts.hub.Sequencer work work)
   }
 
   private object publish {

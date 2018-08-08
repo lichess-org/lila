@@ -1,4 +1,4 @@
-package lila.streamer
+package lidraughts.streamer
 
 import akka.actor._
 import play.api.libs.json._
@@ -7,8 +7,8 @@ import play.api.Play.current
 import play.twirl.api.Html
 import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 private final class Streaming(
     renderer: ActorSelection,
@@ -18,7 +18,7 @@ private final class Streaming(
     keyword: Stream.Keyword,
     googleApiKey: String,
     twitchClientId: String,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lidraughts.user.LightUserApi
 ) extends Actor {
 
   import Stream._
@@ -62,13 +62,13 @@ private final class Streaming(
     if (newStreams != liveStreams) {
       renderer ? newStreams.autoFeatured.withTitles(lightUserApi) foreach {
         case html: play.twirl.api.Html =>
-          context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'streams)
+          context.system.lidraughtsBus.publish(lidraughts.hub.actorApi.StreamsOnAir(html.body), 'streams)
       }
       newStreams.streams filterNot { s =>
         liveStreams has s.streamer
       } foreach { s =>
         timeline ! {
-          import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
+          import lidraughts.hub.actorApi.timeline.{ Propagate, StreamStart }
           Propagate(StreamStart(s.streamer.userId, s.streamer.name.value)) toFollowersOf s.streamer.userId
         }
       }
@@ -76,12 +76,12 @@ private final class Streaming(
     liveStreams = newStreams
     streamers foreach { streamer =>
       streamer.twitch.foreach { t =>
-        lila.mon.tv.stream.name(s"${t.userId}@twitch") {
+        lidraughts.mon.tv.stream.name(s"${t.userId}@twitch") {
           if (liveStreams.streams.exists(s => s.serviceName == "twitch" && s.is(streamer))) 1 else 0
         }
       }
       streamer.youTube.foreach { t =>
-        lila.mon.tv.stream.name(s"${t.channelId}@youtube") {
+        lidraughts.mon.tv.stream.name(s"${t.channelId}@youtube") {
           if (liveStreams.streams.exists(s => s.serviceName == "youTube" && s.is(streamer))) 1 else 0
         }
       }

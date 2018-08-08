@@ -1,4 +1,4 @@
-@(e: lila.event.Event)(implicit ctx: Context)
+@(e: lidraughts.event.Event)(implicit ctx: Context)
 
 <a href="@{if(e.isNow) e.url else routes.Event.show(e.id)}"
   class="tour_spotlight event_spotlight id_@e.id@if(e.isNowOrSoon){ invert}">

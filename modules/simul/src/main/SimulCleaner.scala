@@ -1,8 +1,8 @@
-package lila.simul
+package lidraughts.simul
 
 import akka.actor._
 import akka.pattern.ask
-import lila.hub.actorApi.map.Ask
+import lidraughts.hub.actorApi.map.Ask
 import makeTimeout.short
 import org.joda.time.DateTime
 

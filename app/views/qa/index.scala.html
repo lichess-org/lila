@@ -1,4 +1,4 @@
-@(questions: Paginator[lila.qa.Question], popular: List[lila.qa.Question])(implicit ctx: Context)
+@(questions: Paginator[lidraughts.qa.Question], popular: List[lidraughts.qa.Question])(implicit ctx: Context)
 
 @side = {
 @popularBox(popular)
@@ -8,13 +8,13 @@
 title = trans.questionsAndAnswers.txt(),
 moreJs = jsTag("vendor/jquery.infinitescroll.min.js"),
 side = side.some,
-openGraph = lila.app.ui.OpenGraph(
+openGraph = lidraughts.app.ui.OpenGraph(
 title = trans.questionsAndAnswers.txt(),
 url = s"$netBaseUrl${routes.QaQuestion.index().url}",
-description = "Community knowledge and frequently asked questions about lichess.org").some) {
+description = "Community knowledge and frequently asked questions about lidraughts.org").some) {
 
 <div class="content_box_top">
-  <h1 data-icon="&" class="is4 text lichess_title">@trans.questionsAndAnswers()</h1>
+  <h1 data-icon="&" class="is4 text lidraughts_title">@trans.questionsAndAnswers()</h1>
 </div>
 <div class="content_box_inter meta">
   <div class="big_search">

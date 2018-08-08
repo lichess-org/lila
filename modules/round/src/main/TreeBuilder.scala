@@ -1,13 +1,13 @@
-package lila.round
+package lidraughts.round
 
-import chess.Centis
-import chess.format.pgn.Glyphs
-import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
-import chess.opening._
-import chess.variant.Variant
+import draughts.Centis
+import draughts.format.pdn.Glyphs
+import draughts.format.{ Forsyth, FEN, Uci, UciCharPair }
+import draughts.opening._
+import draughts.variant.Variant
 import JsonView.WithFlags
-import lila.analyse.{ Analysis, Info, Advice }
-import lila.tree._
+import lidraughts.analyse.{ Analysis, Info, Advice }
+import lidraughts.tree._
 
 object TreeBuilder {
 
@@ -21,13 +21,13 @@ object TreeBuilder {
   )
 
   def apply(
-    game: lila.game.Game,
+    game: lidraughts.game.Game,
     analysis: Option[Analysis],
     initialFen: FEN,
     withFlags: WithFlags
   ): Root = apply(
     id = game.id,
-    pgnMoves = game.pgnMoves,
+    pdnmoves = game.pdnMoves,
     variant = game.variant,
     analysis = analysis,
     initialFen = initialFen,
@@ -37,15 +37,16 @@ object TreeBuilder {
 
   def apply(
     id: String,
-    pgnMoves: Vector[String],
+    pdnmoves: Vector[String],
     variant: Variant,
     analysis: Option[Analysis],
     initialFen: FEN,
     withFlags: WithFlags,
-    clocks: Option[Vector[Centis]]
+    clocks: Option[Vector[Centis]],
+    iteratedCapts: Boolean = false
   ): Root = {
     val withClocks = withFlags.clocks ?? clocks
-    chess.Replay.gameMoveWhileValid(pgnMoves, initialFen.value, variant) match {
+    draughts.Replay.gameMoveWhileValid(pdnmoves, initialFen.value, variant, iteratedCapts) match {
       case (init, games, error) =>
         error foreach logChessError(id)
         val openingOf: OpeningOf =
@@ -59,13 +60,11 @@ object TreeBuilder {
         val root = Root(
           ply = init.turns,
           fen = fen,
-          check = init.situation.check,
           opening = openingOf(fen),
           clock = withFlags.clocks ?? init.clock.map(_.limit),
-          crazyData = init.situation.board.crazyData,
           eval = infos lift 0 map makeEval
         )
-        def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
+        def makeBranch(index: Int, g: draughts.DraughtsGame, m: Uci.WithSan) = {
           val fen = Forsyth >> g
           val info = infos lift (index - 1)
           val advice = advices get g.turns
@@ -74,10 +73,8 @@ object TreeBuilder {
             ply = g.turns,
             move = m,
             fen = fen,
-            check = g.situation.check,
             opening = openingOf(fen),
             clock = withClocks ?? (_ lift (g.turns - init.turns - 1)),
-            crazyData = g.situation.board.crazyData,
             eval = info map makeEval,
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
             comments = Node.Comments {
@@ -85,7 +82,7 @@ object TreeBuilder {
                 Node.Comment(
                   Node.Comment.Id.make,
                   Node.Comment.Text(text),
-                  Node.Comment.Author.Lichess
+                  Node.Comment.Author.Lidraughts
                 )
               }
             }
@@ -108,20 +105,18 @@ object TreeBuilder {
   }
 
   private def withAnalysisChild(id: String, root: Branch, variant: Variant, fromFen: FEN, openingOf: OpeningOf)(info: Info): Branch = {
-    def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
+    def makeBranch(index: Int, g: draughts.DraughtsGame, m: Uci.WithSan) = {
       val fen = Forsyth >> g
       Branch(
         id = UciCharPair(m.uci),
         ply = g.turns,
         move = m,
         fen = fen,
-        check = g.situation.check,
         opening = openingOf(fen),
-        crazyData = g.situation.board.crazyData,
         eval = none
       )
     }
-    chess.Replay.gameMoveWhileValid(info.variation take 20, fromFen.value, variant) match {
+    draughts.Replay.gameMoveWhileValid(info.variation take 20, fromFen.value, variant) match {
       case (init, games, error) =>
         error foreach logChessError(id)
         games.zipWithIndex.reverse match {
@@ -134,5 +129,5 @@ object TreeBuilder {
   }
 
   private val logChessError = (id: String) => (err: String) =>
-    logger.warn(s"round.TreeBuilder https://lichess.org/$id ${err.lines.toList.headOption}")
+    logger.warn(s"round.TreeBuilder https://lidraughts.org/$id ${err.lines.toList.headOption}")
 }

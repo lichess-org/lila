@@ -1,4 +1,4 @@
-package lila.mod
+package lidraughts.mod
 
 object AutoAnalysis {
 

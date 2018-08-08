@@ -1,17 +1,17 @@
-package lila.plan
+package lidraughts.plan
 
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
-    hub: lila.hub.Env,
-    notifyApi: lila.notify.NotifyApi,
-    bus: lila.common.Bus,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    lightUserApi: lila.user.LightUserApi,
-    scheduler: lila.common.Scheduler
+    db: lidraughts.db.Env,
+    hub: lidraughts.hub.Env,
+    notifyApi: lidraughts.notify.NotifyApi,
+    bus: lidraughts.common.Bus,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    lightUserApi: lidraughts.user.LightUserApi,
+    scheduler: lidraughts.common.Scheduler
 ) {
 
   val stripePublicKey = config getString "stripe.keys.public"
@@ -66,13 +66,13 @@ final class Env(
 object Env {
 
   lazy val current: Env = "plan" boot new Env(
-    config = lila.common.PlayApp loadConfig "plan",
-    db = lila.db.Env.current,
-    hub = lila.hub.Env.current,
-    notifyApi = lila.notify.Env.current.api,
-    lightUserApi = lila.user.Env.current.lightUserApi,
-    bus = lila.common.PlayApp.system.lilaBus,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    scheduler = lila.common.PlayApp.scheduler
+    config = lidraughts.common.PlayApp loadConfig "plan",
+    db = lidraughts.db.Env.current,
+    hub = lidraughts.hub.Env.current,
+    notifyApi = lidraughts.notify.Env.current.api,
+    lightUserApi = lidraughts.user.Env.current.lightUserApi,
+    bus = lidraughts.common.PlayApp.system.lidraughtsBus,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    scheduler = lidraughts.common.PlayApp.scheduler
   )
 }

@@ -4,7 +4,7 @@ import { ClockData, Seconds, Centis } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';
 import { TourPlayer } from './tourStanding';
 import { ChatPlugin } from 'chat';
-import * as cg from 'chessground/types';
+import * as cg from 'draughtsground/types';
 
 export type MaybeVNode = VNode | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -44,6 +44,7 @@ export interface RoundData extends GameData {
   steps: Step[];
   possibleMoves?: EncodedDests;
   possibleDrops?: string;
+  captureLength?: number
   forecastCount?: number;
   crazyhouse?: CrazyData;
   correspondence: CorresClockData;
@@ -101,16 +102,18 @@ export interface Chat {
 }
 
 export interface Step {
-  ply: Ply;
-  fen: Fen;
-  san: San;
-  uci: Uci;
-  check?: boolean;
-  crazy?: StepCrazy;
+    ply: Ply;
+    fen: Fen;
+    san: San;
+    uci: Uci;
+    captLen?: number;
+    check?: boolean;
+    crazy?: StepCrazy;
 }
 
 export interface ApiMove extends Step {
   dests: { [key: string]: string };
+  captLen?: number
   clock?: {
     white: Seconds;
     black: Seconds;

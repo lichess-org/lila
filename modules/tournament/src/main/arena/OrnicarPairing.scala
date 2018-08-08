@@ -1,4 +1,4 @@
-package lila.tournament
+package lidraughts.tournament
 package arena
 
 import PairingSystem.{ Data, url }
@@ -96,7 +96,7 @@ private object OrnicarPairing {
     }
     if (!continue) {
       pairingLogger.info(s"smartPairings cutoff! [${nowMillis - startAt}ms] ${url(data.tour.id)} ${players.size} players, ${preps.size} preps")
-      lila.mon.tournament.pairing.cutoff()
+      lidraughts.mon.tournament.pairing.cutoff()
     }
     preps
   }

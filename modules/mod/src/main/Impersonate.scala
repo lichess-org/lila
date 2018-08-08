@@ -1,7 +1,7 @@
-package lila.mod
+package lidraughts.mod
 
-import lila.user.{ User, UserRepo }
-import lila.security.Granter
+import lidraughts.user.{ User, UserRepo }
+import lidraughts.security.Granter
 
 object Impersonate {
 

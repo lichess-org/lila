@@ -1,17 +1,17 @@
-package lila.timeline
+package lidraughts.timeline
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.hub.actorApi.timeline.Atom
+import lidraughts.db.dsl._
+import lidraughts.hub.actorApi.timeline.Atom
 
 final class EntryApi(
     coll: Coll,
     userMax: Int,
-    asyncCache: lila.memo.AsyncCache.Builder
+    asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
   import Entry._

@@ -1,4 +1,4 @@
-package lila.relay
+package lidraughts.relay
 
 import org.joda.time.DateTime
 

@@ -1,4 +1,4 @@
-package lila.plan
+package lidraughts.plan
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random

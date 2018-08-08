@@ -1,4 +1,4 @@
-package lila.round
+package lidraughts.round
 
 import akka.actor._
 import org.joda.time.DateTime
@@ -6,10 +6,10 @@ import play.api.libs.iteratee._
 import reactivemongo.api._
 import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.game.{ Query, Game, GameRepo }
-import lila.hub.actorApi.map.Tell
-import lila.round.actorApi.round.{ QuietFlag, Abandon }
+import lidraughts.db.dsl._
+import lidraughts.game.{ Query, Game, GameRepo }
+import lidraughts.hub.actorApi.map.Tell
+import lidraughts.round.actorApi.round.{ QuietFlag, Abandon }
 
 /*
  * Cleans up unfinished games
@@ -47,7 +47,7 @@ private[round] final class Titivate(
         .|>>>(Iteratee.foldM[Game, Int](0) {
           case (count, game) => {
 
-            if (game.finished || game.isPgnImport || game.playedThenAborted)
+            if (game.finished || game.isPdnImport || game.playedThenAborted)
               GameRepo unsetCheckAt game
 
             else if (game.outoftime(withGrace = true)) fuccess {
@@ -59,8 +59,8 @@ private[round] final class Titivate(
             }
 
             else if (game.unplayed) {
-              bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
-              chat ! lila.chat.actorApi.Remove(lila.chat.Chat.Id(game.id))
+              bookmark ! lidraughts.hub.actorApi.bookmark.Remove(game.id)
+              chat ! lidraughts.chat.actorApi.Remove(lidraughts.chat.Chat.Id(game.id))
               GameRepo remove game.id
             } else game.clock match {
 
@@ -83,10 +83,10 @@ private[round] final class Titivate(
         })
         .chronometer.mon(_.round.titivate.time).result
         .addEffect { count =>
-          lila.mon.round.titivate.game(count)
-          lila.mon.round.titivate.total(total)
+          lidraughts.mon.round.titivate.game(count)
+          lidraughts.mon.round.titivate.total(total)
         }.>> {
-          GameRepo.count(_.checkableOld).map(lila.mon.round.titivate.old(_))
+          GameRepo.count(_.checkableOld).map(lidraughts.mon.round.titivate.old(_))
         }
         .addEffectAnyway(scheduleNext)
     }

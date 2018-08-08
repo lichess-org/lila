@@ -1,9 +1,9 @@
 package controllers
 
-import lila.app._
+import lidraughts.app._
 import views._
 
-object Event extends LilaController {
+object Event extends LidraughtsController {
 
   private def api = Env.event.api
 

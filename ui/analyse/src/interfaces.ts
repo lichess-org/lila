@@ -1,5 +1,5 @@
 import { Player, Status, Source } from 'game';
-import * as cg from 'chessground/types';
+import * as cg from 'draughtsground/types';
 import { ForecastData } from './forecast/interfaces';
 import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
 import { RelayData } from './study/relay/interfaces';
@@ -7,7 +7,7 @@ import { RelayData } from './study/relay/interfaces';
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
 
-export { Key, Piece } from 'chessground/types';
+export { Key, Piece } from 'draughtsground/types';
 import { VNode } from 'snabbdom/vnode'
 
 // similar, but not identical, to game/GameData
@@ -64,6 +64,7 @@ export interface Division {
 }
 
 export interface Analysis {
+  id: string;
   white: AnalysisSide;
   black: AnalysisSide;
   partial: boolean;

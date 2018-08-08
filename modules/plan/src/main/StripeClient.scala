@@ -1,10 +1,10 @@
-package lila.plan
+package lidraughts.plan
 
 import play.api.libs.json._
 import play.api.libs.ws.{ WS, WSResponse }
 import play.api.Play.current
 
-import lila.user.User
+import lidraughts.user.User
 
 private final class StripeClient(config: StripeClient.Config) {
 

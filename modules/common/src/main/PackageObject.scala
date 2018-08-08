@@ -1,10 +1,10 @@
-package lila
+package lidraughts
 
 import scala.util.Try
 
 import scalaz.{ Monad, Monoid, OptionT, ~> }
 
-trait PackageObject extends Lilaisms {
+trait PackageObject extends Lidraughtsisms {
   implicit lazy val playExecutionContext = play.api.libs.concurrent.Execution.defaultContext
 
   def !![A](msg: String): Valid[A] = msg.failureNel[A]

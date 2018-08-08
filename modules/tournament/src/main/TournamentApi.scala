@@ -1,4 +1,4 @@
-package lila.tournament
+package lidraughts.tournament
 
 import akka.actor.{ Props, ActorRef, ActorSelection, ActorSystem }
 import akka.pattern.{ ask, pipe }
@@ -7,15 +7,15 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._
-import lila.common.Debouncer
-import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.actorApi.lobby.ReloadTournaments
-import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
-import lila.hub.Sequencer
-import lila.round.actorApi.round.{ GoBerserk, AbortForce }
-import lila.socket.actorApi.SendToFlag
-import lila.user.{ User, UserRepo }
+import lidraughts.common.Debouncer
+import lidraughts.game.{ Game, GameRepo, Pov }
+import lidraughts.hub.actorApi.lobby.ReloadTournaments
+import lidraughts.hub.actorApi.map.Tell
+import lidraughts.hub.actorApi.timeline.{ Propagate, TourJoin }
+import lidraughts.hub.Sequencer
+import lidraughts.round.actorApi.round.{ GoBerserk, AbortForce }
+import lidraughts.socket.actorApi.SendToFlag
+import lidraughts.user.{ User, UserRepo }
 import makeTimeout.short
 
 final class TournamentApi(
@@ -26,22 +26,22 @@ final class TournamentApi(
     autoPairing: AutoPairing,
     clearJsonViewCache: Tournament.ID => Unit,
     clearWinnersCache: Tournament => Unit,
-    clearShieldCache: () => Unit,
+    clearTrophyCache: Tournament => Unit,
     renderer: ActorSelection,
     timeline: ActorSelection,
     socketHub: ActorRef,
     site: ActorSelection,
     lobby: ActorSelection,
     roundMap: ActorRef,
-    trophyApi: lila.user.TrophyApi,
+    trophyApi: lidraughts.user.TrophyApi,
     verify: Condition.Verify,
     indexLeaderboard: Tournament => Funit,
     duelStore: DuelStore,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    lightUserApi: lila.user.LightUserApi
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    lightUserApi: lidraughts.user.LightUserApi
 ) {
 
-  private val bus = system.lilaBus
+  private val bus = system.lidraughtsBus
 
   def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {
     val tour = Tournament.make(
@@ -57,10 +57,10 @@ final class TournamentApi(
       variant = setup.realVariant,
       position = DataForm.startingPosition(setup.position, setup.realVariant)
     )
-    if (tour.name != me.titleUsername && lila.common.LameName.anyNameButLichessIsOk(tour.name)) {
-      val msg = s"""@${me.username} created tournament "${tour.name} Arena" :kappa: https://lichess.org/tournament/${tour.id}"""
+    if (tour.name != me.titleUsername && lidraughts.common.LameName.anyNameButLidraughtsIsOk(tour.name)) {
+      val msg = s"""@${me.username} created tournament "${tour.name} Arena" :kappa: https://lidraughts.org/tournament/${tour.id}"""
       logger warn msg
-      bus.publish(lila.hub.actorApi.slack.Warning(msg), 'slack)
+      bus.publish(lidraughts.hub.actorApi.slack.Warning(msg), 'slack)
     }
     logger.info(s"Create $tour")
     TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password) inject tour
@@ -79,8 +79,8 @@ final class TournamentApi(
         tour.system.pairingSystem.createPairings(tour, users, ranking).flatMap {
           case Nil => funit
           case pairings if nowMillis - startAt > 1200 =>
-            pairingLogger.warn(s"Give up making https://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt}ms")
-            lila.mon.tournament.pairing.giveup()
+            pairingLogger.warn(s"Give up making https://lidraughts.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt}ms")
+            lidraughts.mon.tournament.pairing.giveup()
             funit
           case pairings => UserRepo.idsMap(pairings.flatMap(_.users)) flatMap { users =>
             pairings.map { pairing =>
@@ -89,14 +89,14 @@ final class TournamentApi(
                   sendTo(tour.id, StartGame(game))
                 }
             }.sequenceFu >> featureOneOf(tour, pairings, ranking) >>- {
-              lila.mon.tournament.pairing.create(pairings.size)
+              lidraughts.mon.tournament.pairing.create(pairings.size)
             }
           }
         } >>- {
           val time = nowMillis - startAt
-          lila.mon.tournament.pairing.createTime(time.toInt)
+          lidraughts.mon.tournament.pairing.createTime(time.toInt)
           if (time > 100)
-            pairingLogger.debug(s"Done making https://lichess.org/tournament/${tour.id} in ${time}ms")
+            pairingLogger.debug(s"Done making https://lidraughts.org/tournament/${tour.id} in ${time}ms")
         }
       }
     }
@@ -160,10 +160,10 @@ final class TournamentApi(
           PlayerRepo withPoints tour.id foreach {
             _ foreach { p => UserRepo.incToints(p.userId, p.score) }
           }
-          awardTrophies(tour)
-          indexLeaderboard(tour)
+          awardTrophies(tour).logFailure(logger, _ => s"${tour.id} awardTrophies")
+          indexLeaderboard(tour).logFailure(logger, _ => s"${tour.id} indexLeaderboard")
           clearWinnersCache(tour)
-          clearShieldCache()
+          clearTrophyCache(tour)
         }
       }
     }
@@ -200,9 +200,6 @@ final class TournamentApi(
               withdrawOtherTournaments(tour.id, me.id)
               socketReload(tour.id)
               publish()
-              if (!tour.`private`) timeline ! {
-                Propagate(TourJoin(me.id, tour.id, tour.fullName)) toFollowersOf me.id
-              }
             }
           }
         }
@@ -303,6 +300,7 @@ final class TournamentApi(
           player.copy(
             score = sheet.total,
             fire = sheet.onFire,
+            ratingDiff = finishing.fold(player.ratingDiff)(player.ratingDiff + _.playerByUserId(userId).fold(0)(_.ratingDiff.getOrElse(0))),
             rating = perf.fold(player.rating)(_.intRating),
             provisional = perf.fold(player.provisional)(_.provisional),
             performance = {
@@ -323,12 +321,12 @@ final class TournamentApi(
   private def performanceOf(g: Game, userId: String): Option[Int] = for {
     opponent <- g.opponentByUserId(userId)
     opponentRating <- opponent.rating
-    multiplier = g.winnerUserId.??(_ == userId).fold(1, -1)
+    multiplier = g.winnerUserId.??(winner => if (winner == userId) 1 else -1)
   } yield opponentRating + 500 * multiplier
 
   private def withdrawNonMover(game: Game): Unit = for {
     tourId <- game.tournamentId
-    if game.status == chess.Status.NoStart
+    if game.status == draughts.Status.NoStart
     player <- game.playerWhoDidNotMove
     userId <- player.userId
   } withdraw(tourId, userId)
@@ -364,7 +362,7 @@ final class TournamentApi(
             }
           } >> PairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
             PairingRepo.removeByTourAndUserId(tour.id, userId) >>
-              lila.common.Future.applySequentially(uids.toList)(updatePlayer(tour, none))
+              lidraughts.common.Future.applySequentially(uids.toList)(updatePlayer(tour, none))
           }
         else if (tour.isFinished && tour.winnerId.contains(userId))
           PlayerRepo winner tour.id flatMap {
@@ -475,7 +473,7 @@ final class TournamentApi(
 
   private object updateTournamentStanding {
 
-    import lila.hub.EarlyMultiThrottler
+    import lidraughts.hub.EarlyMultiThrottler
     import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 
     // last published top hashCode
@@ -486,7 +484,7 @@ final class TournamentApi(
     private def publishNow(tourId: Tournament.ID) = tournamentTop(tourId) map { top =>
       val lastHash: Int = ~lastPublished.getIfPresent(tourId)
       if (lastHash != top.hashCode) bus.publish(
-        lila.hub.actorApi.round.TourStanding(JsonView.top(top, lightUserApi.sync)),
+        lidraughts.hub.actorApi.round.TourStanding(JsonView.top(top, lightUserApi.sync)),
         Symbol(s"tour-standing-$tourId")
       )
       lastPublished.put(tourId, top.hashCode)

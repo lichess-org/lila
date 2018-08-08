@@ -1,11 +1,11 @@
 package controllers
 
-import lila.api.Context
-import lila.app._
-import lila.chat.Chat
-import lila.common.{ IpAddress, EmailAddress }
-import lila.report.{ Suspect, Mod => AsMod }
-import lila.user.{ UserRepo, User => UserModel }
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.chat.Chat
+import lidraughts.common.{ IpAddress, EmailAddress }
+import lidraughts.report.{ Suspect, Mod => AsMod }
+import lidraughts.user.{ UserRepo, User => UserModel }
 import views._
 
 import play.api.data._
@@ -13,7 +13,7 @@ import play.api.data.Forms._
 import play.api.mvc._
 import scala.concurrent.duration._
 
-object Mod extends LilaController {
+object Mod extends LidraughtsController {
 
   private def modApi = Env.mod.api
   private def modLogApi = Env.mod.logApi
@@ -36,9 +36,13 @@ object Mod extends LilaController {
     }
   }
 
-  def booster(username: String, v: Boolean) = Secure(_.MarkBooster) { implicit ctx => me =>
-    withSuspect(username) { sus =>
-      modApi.setBooster(AsMod(me), sus, v) inject redirect(username)
+  def booster(username: String, v: Boolean) = SecureBody(_.MarkBooster) { implicit ctx => me =>
+    withSuspect(username) { prev =>
+      for {
+        inquiry <- Env.report.api.inquiries ofModId me.id
+        suspect <- modApi.setBooster(AsMod(me), prev, v)
+        res <- Report.onInquiryClose(inquiry, me, suspect.some)
+      } yield res
     }
   }
 
@@ -53,7 +57,7 @@ object Mod extends LilaController {
   }
 
   def warn(username: String, subject: String) = SecureBody(_.ModMessage) { implicit ctx => me =>
-    lila.message.ModPreset.bySubject(subject).fold(notFound) { preset =>
+    lidraughts.message.ModPreset.bySubject(subject).fold(notFound) { preset =>
       withSuspect(username) { prev =>
         for {
           inquiry <- Env.report.api.inquiries ofModId me.id
@@ -68,48 +72,49 @@ object Mod extends LilaController {
 
   def ban(username: String, v: Boolean) = Secure(_.IpBan) { implicit ctx => me =>
     withSuspect(username) { sus =>
-      modApi.setBan(AsMod(me), sus, v)
-    } inject redirect(username)
+      modApi.setBan(AsMod(me), sus, v) >> User.modZoneOrRedirect(username, me)
+    }
   }
 
   def deletePmsAndChats(username: String) = Secure(_.MarkTroll) { implicit ctx => me =>
     withSuspect(username) { sus =>
       Env.mod.publicChat.delete(sus) >>
-        Env.message.api.deleteThreadsBy(sus.user)
-    } inject redirect(username)
+        Env.message.api.deleteThreadsBy(sus.user) >>
+        User.modZoneOrRedirect(username, me)
+    }
   }
 
   def closeAccount(username: String) = Secure(_.CloseAccount) { implicit ctx => me =>
-    modApi.closeAccount(me.id, username) flatMap {
-      _ ?? { user =>
-        Env.current.closeAccount(user.id)
-      }
-    } inject redirect(username)
+    modApi.closeAccount(me.id, username).flatMap {
+      _.?? { user =>
+        Env.current.closeAccount(user.id, self = false)
+      } >> User.modZoneOrRedirect(username, me)
+    }
   }
 
   def reopenAccount(username: String) = Secure(_.ReopenAccount) { implicit ctx => me =>
-    modApi.reopenAccount(me.id, username) inject redirect(username)
+    modApi.reopenAccount(me.id, username) >> User.modZoneOrRedirect(username, me)
   }
 
   def reportban(username: String, v: Boolean) = Secure(_.ReportBan) { implicit ctx => me =>
     withSuspect(username) { sus =>
-      modApi.setReportban(AsMod(me), sus, v) inject redirect(username)
+      modApi.setReportban(AsMod(me), sus, v) >> User.modZoneOrRedirect(username, me)
     }
   }
 
   def rankban(username: String, v: Boolean) = Secure(_.RemoveRanking) { implicit ctx => me =>
     withSuspect(username) { sus =>
-      modApi.setRankban(AsMod(me), sus, v) inject redirect(username)
+      modApi.setRankban(AsMod(me), sus, v) >> User.modZoneOrRedirect(username, me)
     }
   }
 
   def impersonate(username: String) = Auth { implicit ctx => me =>
-    if (username == "-" && lila.mod.Impersonate.isImpersonated(me)) fuccess {
-      lila.mod.Impersonate.stop(me)
+    if (username == "-" && lidraughts.mod.Impersonate.isImpersonated(me)) fuccess {
+      lidraughts.mod.Impersonate.stop(me)
       Redirect(routes.User.show(me.username))
     }
     else if (isGranted(_.Impersonate)) OptionFuRedirect(UserRepo named username) { user =>
-      lila.mod.Impersonate.start(me, user)
+      lidraughts.mod.Impersonate.start(me, user)
       fuccess(routes.User.show(user.username))
     }
     else notFound
@@ -117,7 +122,7 @@ object Mod extends LilaController {
 
   def setTitle(username: String) = SecureBody(_.SetTitle) { implicit ctx => me =>
     implicit def req = ctx.body
-    lila.user.DataForm.title.bindFromRequest.fold(
+    lidraughts.user.DataForm.title.bindFromRequest.fold(
       err => fuccess(redirect(username, mod = true)),
       title => modApi.setTitle(me.id, username, title) >>
         Env.security.automaticEmail.onTitleSet(username) >>-
@@ -141,7 +146,7 @@ object Mod extends LilaController {
 
   def notifySlack(username: String) = Auth { implicit ctx => me =>
     OptionFuResult(UserRepo named username) { user =>
-      Env.slack.api.userMod(user = user, mod = me) inject redirect(user.username)
+      Env.slack.api.userMod(user = user, mod = me) >> User.modZoneOrRedirect(username, me)
     }
   }
 
@@ -153,12 +158,12 @@ object Mod extends LilaController {
     perms => if (priv) perms.ViewPrivateComms else perms.MarkTroll
   } { implicit ctx => me =>
     OptionFuOk(UserRepo named username) { user =>
-      lila.game.GameRepo.recentPovsByUserFromSecondary(user, 80) flatMap { povs =>
+      lidraughts.game.GameRepo.recentPovsByUserFromSecondary(user, 80) flatMap { povs =>
         priv.?? {
           Env.chat.api.playerChat optionsByOrderedIds povs.map(_.gameId).map(Chat.Id.apply)
         } zip
           priv.?? {
-            lila.message.ThreadRepo.visibleByUser(user.id, 60).map {
+            lidraughts.message.ThreadRepo.visibleByUser(user.id, 60).map {
               _ filter (_ hasPostsWrittenBy user.id) take 30
             }
           } zip
@@ -192,11 +197,11 @@ object Mod extends LilaController {
   protected[controllers] def redirect(username: String, mod: Boolean = true) =
     Redirect(routes.User.show(username).url + mod.??("?mod"))
 
-  def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx => me =>
+  /*def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx => me =>
     assessApi.refreshAssessByUsername(username) >>
-      Env.irwin.api.requests.fromMod(lila.user.User normalize username, me) inject
-      redirect(username)
-  }
+      Env.irwin.api.requests.fromMod(SuspectId normalize username, me) >>
+      User.modZoneOrRedirect(username, me)
+  }*/
 
   def spontaneousInquiry(username: String) = Secure(_.SeeReport) { implicit ctx => me =>
     OptionFuResult(UserRepo named username) { user =>
@@ -211,7 +216,7 @@ object Mod extends LilaController {
       }
   }
   def gamifyPeriod(periodStr: String) = Secure(_.SeeReport) { implicit ctx => me =>
-    lila.mod.Gamify.Period(periodStr).fold(notFound) { period =>
+    lidraughts.mod.Gamify.Period(periodStr).fold(notFound) { period =>
       Env.mod.gamify.leaderboards map { leaderboards =>
         Ok(html.mod.gamify.period(leaderboards, period))
       }
@@ -228,7 +233,7 @@ object Mod extends LilaController {
   def chatUser(username: String) = Secure(_.ChatTimeout) { implicit ctx => me =>
     implicit val lightUser = Env.user.lightUserSync _
     JsonOptionOk {
-      Env.chat.api.userChat userModInfo username map2 lila.chat.JsonView.userModInfo
+      Env.chat.api.userChat userModInfo username map2 lidraughts.chat.JsonView.userModInfo
     }
   }
 
@@ -240,7 +245,7 @@ object Mod extends LilaController {
 
   def savePermissions(username: String) = SecureBody(_.ChangePermission) { implicit ctx => me =>
     implicit def req = ctx.body
-    import lila.security.Permission
+    import lidraughts.security.Permission
     OptionFuResult(UserRepo named username) { user =>
       Form(single(
         "permissions" -> list(nonEmptyText.verifying { str =>
@@ -266,7 +271,7 @@ object Mod extends LilaController {
         val username = query lift 1
         def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] = Env.mod.search(q) flatMap {
           case List(user) => (!user.everLoggedIn).?? {
-            lila.mon.user.register.modConfirmEmail()
+            lidraughts.mon.user.register.modConfirmEmail()
             modApi.setEmail(me.id, user.id, setEmail)
           } >>
             UserRepo.email(user.id) map { email =>

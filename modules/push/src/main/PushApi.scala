@@ -1,23 +1,23 @@
-package lila.push
+package lidraughts.push
 
 import akka.actor._
 import akka.pattern.ask
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import chess.format.Forsyth
-import lila.challenge.Challenge
-import lila.common.LightUser
-import lila.game.{ Game, GameRepo, Pov, Namer }
-import lila.hub.actorApi.map.Ask
-import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
-import lila.message.{ Thread, Post }
+import draughts.format.Forsyth
+import lidraughts.challenge.Challenge
+import lidraughts.common.LightUser
+import lidraughts.game.{ Game, GameRepo, Pov, Namer }
+import lidraughts.hub.actorApi.map.Ask
+import lidraughts.hub.actorApi.round.{ MoveEvent, IsOnGame }
+import lidraughts.message.{ Thread, Post }
 
 private final class PushApi(
     oneSignalPush: OneSignalPush,
     implicit val lightUser: LightUser.GetterSync,
     roundSocketHub: ActorSelection,
-    scheduler: lila.common.Scheduler
+    scheduler: lidraughts.common.Scheduler
 ) {
 
   def finish(game: Game): Funit =
@@ -56,7 +56,7 @@ private final class PushApi(
         val pov = Pov(game, game.player.color)
         game.player.userId ?? { userId =>
           IfAway(pov) {
-            game.pgnMoves.lastOption ?? { sanMove =>
+            game.pdnMoves.lastOption ?? { sanMove =>
               pushToAll(userId, _.move, PushApi.Data(
                 title = "It's your turn!",
                 body = s"${opponentName(pov)} played $sanMove",
@@ -198,16 +198,16 @@ private final class PushApi(
       ))
     }
 
-  private type MonitorType = lila.mon.push.send.type => (String => Unit)
+  private type MonitorType = lidraughts.mon.push.send.type => (String => Unit)
 
   private def pushToAll(userId: String, monitor: MonitorType, data: PushApi.Data): Funit =
     oneSignalPush(userId) {
-      monitor(lila.mon.push.send)("onesignal")
+      monitor(lidraughts.mon.push.send)("onesignal")
       data
     }
 
   private def describeChallenge(c: Challenge) = {
-    import lila.challenge.Challenge.TimeControl._
+    import lidraughts.challenge.Challenge.TimeControl._
     List(
       c.mode.fold("Casual", "Rated"),
       c.timeControl match {

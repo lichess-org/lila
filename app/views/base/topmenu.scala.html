@@ -12,22 +12,23 @@
   <section>
     <a href="@routes.Puzzle.home">@trans.learnMenu()</a>
     <div>
-      <a href="@routes.Learn.index">@trans.chessBasics()</a>
+      @*<a href="@routes.Learn.index">@trans.draughtsBasics()</a>
+      <a href="@routes.Practice.index">Practice</a>*@
       <a href="@routes.Puzzle.home">@trans.training()</a>
-      <a href="@routes.Practice.index">Practice</a>
       <a href="@routes.Coordinate.home">@trans.coordinates.coordinates()</a>
       <a href="@routes.Study.allDefault(1)">Study</a>
-      <a href="@routes.Coach.allDefault(1)">@trans.coaches()</a>
+      <a href="@routes.Page.variantHome">Rules & Variants</a>
+      @*<a href="@routes.Coach.allDefault(1)">@trans.coaches()</a>*@
     </div>
   </section>
   <section>
     <a href="@routes.Tv.index">@trans.watch()</a>
     <div>
-      <a href="@routes.Tv.index">Lichess TV</a>
+      <a href="@routes.Tv.index">Lidraughts TV</a>
       <a href="@routes.Tv.games">@trans.currentGames()</a>
-      <a href="@routes.Streamer.index()">Streamers</a>
+      @* <a href="@routes.Streamer.index()">Streamers</a>
       <a href="@routes.Relay.index()">Broadcasts (beta)</a>
-      <a href="@routes.Video.index">@trans.videoLibrary()</a>
+      <a href="@routes.Video.index">@trans.videoLibrary()</a> *@
     </div>
   </section>
   <section>

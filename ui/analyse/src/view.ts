@@ -1,16 +1,15 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import * as chessground from './ground';
+import * as draughtsground from './ground';
 import { synthetic, bind, dataIcon, iconTag, spinner } from './util';
 import { game, router, view as gameView } from 'game';
 import { path as treePath } from 'tree';
 import { render as renderTreeView } from './treeView/treeView';
 import * as control from './control';
 import { view as actionMenu } from './actionMenu';
-import { view as renderPromotion } from './promotion';
 import renderClocks from './clocks';
-import * as pgnExport from './pgnExport';
+import * as pdnExport from './pdnExport';
 import forecastView from './forecast/forecastView';
 import { view as cevalView } from 'ceval';
 import crazyView from './crazy/crazyView';
@@ -28,7 +27,7 @@ import { ConcealOf } from './interfaces';
 import relayManager from './study/relay/relayManagerView';
 import renderPlayerBars from './study/playerBars';
 
-const li = window.lichess;
+const li = window.lidraughts;
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   let result: string | undefined;
@@ -46,9 +45,10 @@ function renderResult(ctrl: AnalyseCtrl): VNode[] {
   if (result) {
     tags.push(h('div.result', result));
     const winner = game.getPlayer(ctrl.data, ctrl.data.game.winner!);
+    const statusText = gameView.status(ctrl);
     tags.push(h('div.status', [
-      gameView.status(ctrl),
-      winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
+      statusText,
+      winner ? (statusText.length !== 0 ? ', ' : '') + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
     ]));
   }
   return tags;
@@ -101,13 +101,13 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         if (value !== ctrl.node.fen) ctrl.changeFen(value);
       })
     }),
-    h('div.pgn', [
-      h('label.name', 'PGN'),
+    h('div.pdn', [
+      h('label.name', 'PDN'),
       h('textarea.copyable.autoselect', {
         attrs: { spellCheck: false },
         hook: {
           postpatch: (_, vnode) => {
-            (vnode.elm as HTMLInputElement).value = pgnExport.renderFullTxt(ctrl);
+            (vnode.elm as HTMLInputElement).value = pdnExport.renderFullTxt(ctrl);
           }
         }
       }),
@@ -115,25 +115,24 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         h('button.button.text', {
           attrs: dataIcon('G'),
           hook: bind('click', _ => {
-            const pgn = $('.copyables .pgn textarea').val();
-            if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn);
+            const pdn = $('.copyables .pdn textarea').val();
+            if (pdn !== pdnExport.renderFullTxt(ctrl)) ctrl.changePdn(pdn);
           }, ctrl.redraw)
-        }, ctrl.trans.noarg('importPgn'))
+        }, ctrl.trans.noarg('importPdn'))
       ])
     ])
   ]);
 }
 
 function visualBoard(ctrl: AnalyseCtrl, playerBars: VNode[] | undefined) {
-  return h('div.lichess_board_wrap' + (playerBars ? '.' + ctrl.bottomColor() : ''), [
+  return h('div.lidraughts_board_wrap' + (playerBars ? '.' + ctrl.bottomColor() : ''), [
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
     playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
-    h('div.lichess_board.' + ctrl.data.game.variant.key, {
+    h('div.lidraughts_board.' + ctrl.data.game.variant.key, {
       hook: ctrl.gamebookPlay() ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
-      chessground.render(ctrl),
-      renderPromotion(ctrl)
+      draughtsground.render(ctrl)
     ]),
     playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
     cevalView.renderGauge(ctrl)
@@ -202,8 +201,8 @@ function buttons(ctrl: AnalyseCtrl) {
           hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
           active: ctrl.explorer.enabled()
         }
-      }, [iconTag(']')]),
-      ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button.hint--bottom', {
+      }, [iconTag(']')]), null
+      /*ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button.hint--bottom', {
         attrs: {
           'data-hint': ctrl.trans.noarg('practiceWithComputer'),
           'data-act': 'practice'
@@ -212,7 +211,7 @@ function buttons(ctrl: AnalyseCtrl) {
           hidden: menuIsOpen || !!ctrl.retro,
           active: !!ctrl.practice
         }
-      }, [iconTag('')]) : null
+      }, [iconTag('')]) : null*/
   ]),
     h('div.jumps', [
       jumpButton('W', 'first', canJumpPrev),
@@ -294,13 +293,13 @@ export default function(ctrl: AnalyseCtrl): VNode {
         'player_bars': !!playerBars,
       }
     }, [
-      h('div.lichess_game', {
+      h('div.lidraughts_game', {
         hook: {
           insert: _ => li.pubsub.emit('content_loaded')()
         }
       }, [
         visualBoard(ctrl, playerBars),
-        h('div.lichess_ground', gamebookPlayView || [
+        h('div.lidraughts_ground', gamebookPlayView || [
           menuIsOpen || playerBars ? null : renderClocks(ctrl),
           menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
           ...(menuIsOpen ? [actionMenu(ctrl)] : [

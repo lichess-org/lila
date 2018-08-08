@@ -2,11 +2,11 @@ package controllers
 
 import play.api.mvc._
 
-import lila.api.Context
-import lila.app._
-import lila.forum
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.forum
 
-private[controllers] trait ForumController extends forum.Granter { self: LilaController =>
+private[controllers] trait ForumController extends forum.Granter { self: LidraughtsController =>
 
   protected def categApi = Env.forum.categApi
   protected def topicApi = Env.forum.topicApi

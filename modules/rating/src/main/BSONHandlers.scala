@@ -1,7 +1,7 @@
-package lila.rating
+package lidraughts.rating
 
-import lila.db.dsl._
-import lila.common.Iso
+import lidraughts.db.dsl._
+import lidraughts.common.Iso
 
 object BSONHandlers {
 

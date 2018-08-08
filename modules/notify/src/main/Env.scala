@@ -1,13 +1,13 @@
-package lila.notify
+package lidraughts.notify
 
 import akka.actor._
 import com.typesafe.config.Config
 
 final class Env(
-    db: lila.db.Env,
+    db: lidraughts.db.Env,
     config: Config,
-    getLightUser: lila.common.LightUser.GetterSync,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    getLightUser: lidraughts.common.LightUser.GetterSync,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     system: ActorSystem
 ) {
 
@@ -19,23 +19,23 @@ final class Env(
   private lazy val repo = new NotificationRepo(coll = db(CollectionNotifications))
 
   lazy val api = new NotifyApi(
-    bus = system.lilaBus,
+    bus = system.lidraughtsBus,
     jsonHandlers = jsonHandlers,
     repo = repo,
     asyncCache = asyncCache
   )
 
   // api actor
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.notify.Notified(userId) =>
+      case lidraughts.hub.actorApi.notify.Notified(userId) =>
         api markAllRead Notification.Notifies(userId)
-      case lila.game.actorApi.CorresAlarmEvent(pov) => pov.player.userId ?? { userId =>
+      case lidraughts.game.actorApi.CorresAlarmEvent(pov) => pov.player.userId ?? { userId =>
         api addNotification Notification.make(
           Notification.Notifies(userId),
           CorresAlarm(
             gameId = pov.gameId,
-            opponent = lila.game.Namer.playerText(pov.opponent)(getLightUser)
+            opponent = lidraughts.game.Namer.playerText(pov.opponent)(getLightUser)
           )
         )
       }
@@ -46,11 +46,11 @@ final class Env(
 object Env {
 
   lazy val current = "notify" boot new Env(
-    db = lila.db.Env.current,
-    config = lila.common.PlayApp loadConfig "notify",
-    getLightUser = lila.user.Env.current.lightUserSync,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system
+    db = lidraughts.db.Env.current,
+    config = lidraughts.common.PlayApp loadConfig "notify",
+    getLightUser = lidraughts.user.Env.current.lightUserSync,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    system = lidraughts.common.PlayApp.system
   )
 
 }

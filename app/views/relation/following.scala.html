@@ -1,4 +1,4 @@
-@(u: User, pag: Paginator[lila.relation.Related], nbFollowers: Int)(implicit ctx: Context)
+@(u: User, pag: Paginator[lidraughts.relation.Related], nbFollowers: Int)(implicit ctx: Context)
 
 @user.layout(title = u.username + " - " + trans.nbFollowing.pluralSameTxt(pag.nbResults)) {
 <div class="content_box no_padding">

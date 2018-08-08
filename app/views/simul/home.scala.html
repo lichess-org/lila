@@ -1,11 +1,11 @@
-@(opens: List[lila.simul.Simul], starteds: List[lila.simul.Simul], finisheds: List[lila.simul.Simul])(implicit ctx: Context)
+@(opens: List[lidraughts.simul.Simul], starteds: List[lidraughts.simul.Simul], finisheds: List[lidraughts.simul.Simul])(implicit ctx: Context)
 
 @side = {
 <div class="help">
   @trans.aboutSimul()
   <a class="more">@trans.more()...</a>
   <div class="more none">
-    <img src="@staticUrl("images/fischer-simul.jpg")" alt="Simul IRL with Bobby Fischer" />
+    <img src="@staticUrl("images/sijbrands-simul.jpg")" alt="Simul IRL with Ton Sijbrands" />
     <em>[1964] @trans.aboutSimulImage()</em>
 
     <p>
@@ -26,7 +26,7 @@
 @simul.layout(
 title = title,
 side = side.some,
-openGraph = lila.app.ui.OpenGraph(
+openGraph = lidraughts.app.ui.OpenGraph(
 title = title,
 url = s"$netBaseUrl${routes.Simul.home}",
 description = trans.aboutSimul.txt()).some) {

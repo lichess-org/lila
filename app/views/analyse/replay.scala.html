@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], analysisInProgress: Option[lila.fishnet.Work.InProgress], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable.WithMatchup], userTv: Option[User], chatOption: Option[lila.chat.UserChat.Mine], bookmarked: Boolean)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pdn: String, analysis: Option[lidraughts.analyse.Analysis], simul: Option[lidraughts.simul.Simul], cross: Option[lidraughts.game.Crosstable.WithMatchup], userTv: Option[User], chatOption: Option[lidraughts.chat.UserChat.Mine], bookmarked: Boolean)(implicit ctx: Context)
 
 @import pov._
 
@@ -10,10 +10,10 @@
 }
 
 @moreJs = {
-@jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
+@jsAt(s"compiled/lidraughts.analyse${isProd??(".min")}.js")
 @embedJs {
-lichess = lichess || {};
-lichess.analyse = {
+lidraughts = lidraughts || {};
+lidraughts.analyse = {
 data: @safeJson(data),
 i18n: @jsI18n(),
 userId: @jsUserId,
@@ -46,7 +46,7 @@ underchat = underchat.some,
 moreCss = moreCss,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov).some,
-chessground = false,
+draughtsground = false,
 atom = atom.some) {
 <div class="analyse cg-512">
   @board.domPreload(none)
@@ -55,31 +55,32 @@ atom = atom.some) {
   <div class="analysis_panels">
     @if(game.analysable) {
     <div class="panel computer_analysis">
-      @if(analysis.isDefined || analysisInProgress.isDefined) {
+      @if(analysis.isDefined) {
       <div id="adv_chart"></div>
       } else {
-      <form class="future_game_analysis@if(ctx.isAnon){ must_login}" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
-        <button type="submit" class="button text"><span class="is3 text" data-icon="&#xe004;">@trans.requestAComputerAnalysis()</span></button>
-      </form>
+      @* <form class="future_game_analysis@if(ctx.isAnon){ must_login}" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
+       *  <button type="submit" class="button text"><span class="is3 text" data-icon="&#xe004;">@trans.requestAComputerAnalysis()</span></button>
+       * </form>
+       *@
       }
     </div>
     }
-    <div class="panel fen_pgn">
+    <div class="panel fen_pdn">
       <div><strong>FEN</strong><input readonly="true" spellcheck="false" class="copyable autoselect fen" /></div>
-      <div class="pgn_options">
-        <strong>PGN</strong>
+      <div class="pdn_options">
+        <strong>PDN</strong>
         <div>
-          <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)">@trans.downloadAnnotated()</a>
+          <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pdn(game.id)">@trans.downloadAnnotated()</a>
           @if(analysis.isDefined) {
-          <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw">@trans.downloadRaw()</a>
+          <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pdn(game.id)?as=raw">@trans.downloadRaw()</a>
           }
-          @if(game.isPgnImport) {
-          <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported">@trans.downloadImported()</a>
+          @if(game.isPdnImport) {
+          <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pdn(game.id)?as=imported">@trans.downloadImported()</a>
           }
           <a data-icon="=" class="text embed_howto" target="_blank">@trans.embedInYourWebsite()</a>
         </div>
       </div>
-      <div class="pgn">@pgn</div>
+      <div class="pdn">@pdn</div>
     </div>
     <div class="panel move_times">
       @if(game.turns > 1) {
@@ -97,7 +98,7 @@ atom = atom.some) {
     <a data-panel="computer_analysis" class="computer_analysis"
       @analysis.map { a => title="Provided by @usernameOrId(a.providedBy)" }>@trans.computerAnalysis()</a>
     }
-    @if(!game.isPgnImport) {
+    @if(!game.isPdnImport) {
     @if(game.turns > 1) {
     <a data-panel="move_times" class="move_times">@trans.moveTimes()</a>
     }
@@ -105,7 +106,7 @@ atom = atom.some) {
     <a data-panel="crosstable" class="crosstable">@trans.crosstable()</a>
     }
     }
-    <a data-panel="fen_pgn" class="fen_pgn">FEN &amp; PGN</a>
+    <a data-panel="fen_pdn" class="fen_pdn">FEN &amp; PDN</a>
   </div>
 </div>
 }

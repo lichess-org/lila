@@ -1,9 +1,9 @@
-package lila.blog
+package lidraughts.blog
 
 import io.prismic.Document
 
-import lila.hub.actorApi.timeline.BlogPost
-import lila.timeline.EntryApi
+import lidraughts.hub.actorApi.timeline.BlogPost
+import lidraughts.timeline.EntryApi
 
 private[blog] final class Notifier(
     blogApi: BlogApi,

@@ -1,4 +1,4 @@
-package lila.pref
+package lidraughts.pref
 
 sealed class Theme private[pref] (val name: String, val colors: Theme.HexColors) {
 
@@ -47,27 +47,4 @@ object Theme extends ThemeObject {
     }
 
   lazy val default = allByName get "brown" err "Can't find default theme D:"
-}
-
-object Theme3d extends ThemeObject {
-
-  val all = List(
-    "Black-White-Aluminium",
-    "Brushed-Aluminium",
-    "China-Blue",
-    "China-Green",
-    "China-Grey",
-    "China-Scarlet",
-    "Classic-Blue",
-    "Gold-Silver",
-    "Light-Wood",
-    "Power-Coated",
-    "Rosewood",
-    "Marble",
-    "Wax",
-    "Jade",
-    "Woodi"
-  ) map { name => new Theme(name, Theme.defaultHexColors) }
-
-  lazy val default = allByName get "Woodi" err "Can't find default theme D:"
 }

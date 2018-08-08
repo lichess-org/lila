@@ -1,4 +1,4 @@
-package lila
+package lidraughts
 
 import reactivemongo.api.commands.WriteResult
 
@@ -8,5 +8,5 @@ package object db extends PackageObject {
     case e: WriteResult if e.code.contains(11000) => f(e)
   }
 
-  private[db] def logger = lila.log("db")
+  private[db] def logger = lidraughts.log("db")
 }

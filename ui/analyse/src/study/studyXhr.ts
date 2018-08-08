@@ -1,5 +1,5 @@
 const headers = {
-  'Accept': 'application/vnd.lichess.v2+json'
+  'Accept': 'application/vnd.lidraughts.v2+json'
 };
 
 export function reload(baseUrl: string, id: string, chapterId?: string) {

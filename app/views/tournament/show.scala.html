@@ -1,4 +1,4 @@
-@(tour: Tournament, verdicts: lila.tournament.Condition.All.WithVerdicts, data: play.api.libs.json.JsObject, chatOption: Option[lila.chat.UserChat.Mine], streamers: Set[User.ID])(implicit ctx: Context)
+@(tour: Tournament, verdicts: lidraughts.tournament.Condition.All.WithVerdicts, data: play.api.libs.json.JsObject, chatOption: Option[lidraughts.chat.UserChat.Mine], streamers: Set[User.ID], shieldOwner: Option[lidraughts.tournament.TournamentShield.OwnerId])(implicit ctx: Context)
 
 @underchat = {
 <div class="watchers hidden">
@@ -7,10 +7,10 @@
 }
 
 @moreJs = {
-@jsAt(s"compiled/lichess.tournament${isProd??(".min")}.js")
+@jsAt(s"compiled/lidraughts.tournament${isProd??(".min")}.js")
 @embedJs {
-lichess = lichess || {};
-lichess.tournament = {
+lidraughts = lidraughts || {};
+lidraughts.tournament = {
 data: @safeJson(data),
 i18n: @jsI18n(),
 userId: @jsUserId,
@@ -28,13 +28,13 @@ chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, p
 
 @tournament.layout(
 title = s"${tour.fullName} #${tour.id}",
-side = tournament.side(tour, verdicts, streamers).some,
+side = tournament.side(tour, verdicts, streamers, shieldOwner).some,
 chat = chat.dom().some,
 underchat = underchat.some,
 moreJs = moreJs,
 moreCss = moreCss,
-chessground = false,
-openGraph = lila.app.ui.OpenGraph(
+draughtsground = false,
+openGraph = lidraughts.app.ui.OpenGraph(
 title = s"${tour.fullName}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
 url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
 description = s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.fullName}. " +

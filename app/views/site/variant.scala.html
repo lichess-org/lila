@@ -1,4 +1,4 @@
-@(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, variant: chess.variant.Variant, perfType: lila.rating.PerfType)(implicit ctx: Context)
+@(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, variant: draughts.variant.Variant, perfType: lidraughts.rating.PerfType)(implicit ctx: Context)
 
 @variantLayout(
 active = perfType.some,
@@ -6,7 +6,7 @@ title = s"${variant.name} • ${variant.title}") {
 
 <div class="content_box small_box doc_box">
 
-  <h1 class="lichess_title text" data-icon="@perfType.iconChar">@variant.name</h1>
+  <h1 class="lidraughts_title text" data-icon="@perfType.iconChar">@variant.name</h1>
 
   <h2 class="headline">@variant.title</h2>
 

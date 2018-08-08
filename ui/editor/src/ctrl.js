@@ -1,7 +1,7 @@
 var editor = require('./editor');
 var m = require('mithril');
 var keyboard = require('./keyboard');
-var fenRead = require('chessground/fen').read;
+var fenRead = require('draughtsground/fen').read;
 
 module.exports = function(cfg) {
 
@@ -10,7 +10,7 @@ module.exports = function(cfg) {
   this.options = cfg.options || {};
   this.embed = cfg.embed;
 
-  this.trans = lichess.trans(this.data.i18n);
+  this.trans = lidraughts.trans(this.data.i18n);
 
   this.vm = {
     selected: m.prop('pointer'),
@@ -18,14 +18,14 @@ module.exports = function(cfg) {
   };
 
   this.extraPositions = [{
-    fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -',
-    name: this.trans('startPosition')
+      fen: 'W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20',
+      name: this.trans('startPosition')
   }, {
-    fen: '8/8/8/8/8/8/8/8 w - -',
-    name: this.trans('clearBoard')
+      fen: 'W:W:B',
+      name: this.trans('clearBoard')
   }, {
-    fen: 'prompt',
-    name: this.trans('loadPosition')
+      fen: 'prompt',
+      name: this.trans('loadPosition')
   }];
 
   this.positionIndex = {};
@@ -33,7 +33,7 @@ module.exports = function(cfg) {
     this.positionIndex[p.fen.split(' ')[0]] = i;
   }.bind(this));
 
-  this.chessground; // will be set from the view when instanciating chessground
+  this.draughtsground; // will be set from the view when instanciating draughtsground
 
   this.onChange = function() {
     this.options.onChange && this.options.onChange(this.computeFen());
@@ -41,41 +41,34 @@ module.exports = function(cfg) {
   }.bind(this);
 
   this.computeFen = function() {
-    return this.chessground ?
-    editor.computeFen(this.data, this.chessground.getFen()) :
+    return this.draughtsground ?
+    editor.computeFen(this.data, this.draughtsground.getFen()) :
     cfg.fen;
   }.bind(this);
 
   this.bottomColor = function() {
-    return this.chessground ?
-    this.chessground.state.orientation :
+    return this.draughtsground ?
+    this.draughtsground.state.orientation :
     this.options.orientation || 'white';
   }.bind(this);
 
-  this.setColor = function(letter) {
-    this.data.color(letter);
-    this.onChange();
-  }.bind(this);
-
-  this.setCastle = function(id, value) {
-    this.data.castles[id](value);
-    this.onChange();
+  this.setColor = function (letter) {
+      this.data.color(letter.toLowerCase());
+      this.onChange();
   }.bind(this);
 
   this.startPosition = function() {
-    this.chessground.set({
+    this.draughtsground.set({
       fen: 'start'
     });
-    this.data.castles = editor.castlesAt(true);
     this.data.color('w');
     this.onChange();
   }.bind(this);
 
   this.clearBoard = function() {
-    this.chessground.set({
-      fen: '8/8/8/8/8/8/8/8'
+    this.draughtsground.set({
+        fen: 'W:W:B'
     });
-    this.data.castles = editor.castlesAt(false);
     this.onChange();
   }.bind(this);
 
@@ -93,21 +86,29 @@ module.exports = function(cfg) {
   }.bind(this);
 
   this.positionLooksLegit = function() {
-    var pieces = this.chessground ? this.chessground.state.pieces : fenRead(this.cfg.fen);
-    var kings = {
+    var pieces = this.draughtsground ? this.draughtsground.state.pieces : fenRead(this.cfg.fen);
+    var totals = {
       white: 0,
       black: 0
     };
     for (var pos in pieces) {
-      if (pieces[pos] && pieces[pos].role === 'king') kings[pieces[pos].color]++;
+        if (pieces[pos] && (pieces[pos].role === 'king' || pieces[pos].role === 'man')) {
+            if (pieces[pos].role === 'man') {
+                if (pieces[pos].color === 'white' && (pos === "01" || pos === "02" || pos === "03" || pos === "04" || pos === "05"))
+                    return false;
+                else if (pieces[pos].color === 'black' && (pos === "46" || pos === "47" || pos === "48" || pos === "49" || pos === "50"))
+                    return false;
+            }
+            totals[pieces[pos].color]++;
+        }
     }
-    return kings.white === 1 && kings.black === 1;
+    return totals.white !== 0 && totals.black !== 0 && (totals.white + totals.black) < 50;
   }.bind(this);
 
   this.setOrientation = function(o) {
     this.options.orientation = o;
-    if (this.chessground.state.orientation !== o)
-    this.chessground.toggleOrientation();
+    if (this.draughtsground.state.orientation !== o)
+    this.draughtsground.toggleOrientation();
     m.redraw();
   }.bind(this);
 

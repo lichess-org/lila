@@ -1,11 +1,11 @@
-package lila.tournament
+package lidraughts.tournament
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import chess.variant.{ Variant, Standard, FromPosition }
-import lila.db.dsl._
+import draughts.variant.{ Variant, Standard, FromPosition }
+import lidraughts.db.dsl._
 import Schedule.{ Freq, Speed }
 
 case class Winner(
@@ -58,13 +58,13 @@ case class AllWinners(
 
 final class WinnersApi(
     coll: Coll,
-    mongoCache: lila.memo.MongoCache.Builder,
+    mongoCache: lidraughts.memo.MongoCache.Builder,
     ttl: FiniteDuration,
-    scheduler: lila.common.Scheduler
+    scheduler: lidraughts.common.Scheduler
 ) {
 
   import BSONHandlers._
-  import lila.db.BSON.MapDocument.MapHandler
+  import lidraughts.db.BSON.MapDocument.MapHandler
   private implicit val WinnerHandler = reactivemongo.bson.Macros.handler[Winner]
   private implicit val FreqWinnersHandler = reactivemongo.bson.Macros.handler[FreqWinners]
   private implicit val AllWinnersHandler = reactivemongo.bson.Macros.handler[AllWinners]

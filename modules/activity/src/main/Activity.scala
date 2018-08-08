@@ -1,8 +1,8 @@
-package lila.activity
+package lidraughts.activity
 
 import org.joda.time.{ DateTime, Days, Interval }
 
-import lila.user.User
+import lidraughts.user.User
 
 import activities._
 
@@ -18,14 +18,15 @@ case class Activity(
     patron: Option[Patron] = None,
     follows: Option[Follows] = None,
     studies: Option[Studies] = None,
-    teams: Option[Teams] = None
+    teams: Option[Teams] = None,
+    stream: Boolean = false
 ) {
 
   def date = Activity.Day.genesis plusDays id.day.value
 
   def interval = new Interval(date, date plusDays 1)
 
-  def isEmpty = List(games, posts, puzzles, learn, practice, simuls, corres, patron, follows, studies, teams).forall(_.isEmpty)
+  def isEmpty = !stream && List(games, posts, puzzles, learn, practice, simuls, corres, patron, follows, studies, teams).forall(_.isEmpty)
 }
 
 object Activity {
@@ -37,7 +38,7 @@ object Activity {
 
   case class WithUserId(activity: Activity, userId: User.ID)
 
-  // number of days since lichess
+  // number of days since lidraughts
   case class Day(value: Int) extends AnyVal
   object Day {
     val genesis = new DateTime(2010, 1, 1, 0, 0).withTimeAtStartOfDay

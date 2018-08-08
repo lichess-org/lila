@@ -1,6 +1,6 @@
-package lila
+package lidraughts
 
 package object pool extends PackageObject {
 
-  private[pool] val logger = lila.log("pool")
+  private[pool] val logger = lidraughts.log("pool")
 }

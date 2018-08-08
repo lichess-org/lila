@@ -1,9 +1,9 @@
-package lila.round
+package lidraughts.round
 
 import akka.actor._
-import lila.hub.actorApi.game.ChangeFeatured
-import lila.hub.actorApi.round.MoveEvent
-import lila.socket.Socket.makeMessage
+import lidraughts.hub.actorApi.game.ChangeFeatured
+import lidraughts.hub.actorApi.round.MoveEvent
+import lidraughts.socket.Socket.makeMessage
 import play.api.libs.iteratee._
 import play.api.libs.json._
 

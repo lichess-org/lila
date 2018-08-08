@@ -1,9 +1,9 @@
-package lila.tournament
+package lidraughts.tournament
 
 import play.api.libs.json._
 
-import lila.common.LightUser
-import lila.rating.PerfType
+import lidraughts.common.LightUser
+import lidraughts.rating.PerfType
 
 final class ScheduleJsonView(lightUser: LightUser.Getter) {
 
@@ -55,7 +55,7 @@ final class ScheduleJsonView(lightUser: LightUser.Getter) {
     .add("schedule", tour.schedule map scheduleJson)
 
   private def fullJson(tour: Tournament): Fu[JsObject] = for {
-    owner <- tour.nonLichessCreatedBy ?? lightUser
+    owner <- tour.nonLidraughtsCreatedBy ?? lightUser
     winner <- tour.winnerId ?? lightUser
   } yield baseJson(tour) ++ Json.obj(
     "winner" -> winner.map(userJson)

@@ -1,5 +1,5 @@
-import * as util from 'chessground/util';
-import * as cg from 'chessground/types';
+import * as util from 'draughtsground/util';
+import * as cg from 'draughtsground/types';
 import RoundController from './ctrl';
 
 export function capture(ctrl: RoundController, key: cg.Key) {
@@ -10,19 +10,19 @@ export function capture(ctrl: RoundController, key: cg.Key) {
     maxX = Math.min(8, orig[0] + 1),
     minY = Math.max(1, orig[1] - 1),
     maxY = Math.min(8, orig[1] + 1);
-  const pieces = ctrl.chessground.state.pieces;
+  const pieces = ctrl.draughtsground.state.pieces;
 
   for (let x = minX; x <= maxX; x++) {
     for (let y = minY; y <= maxY; y++) {
       const k = util.pos2key([x, y]);
       exploding.push(k);
-      const explodes = pieces[k] && (
-        k === key || pieces[k].role !== 'pawn')
+      //const explodes = pieces[k] && (k === key || pieces[k].role !== 'pawn')
+      const explodes = pieces[k] && (k === key)
       if (explodes) diff[k] = null;
     }
   }
-  ctrl.chessground.setPieces(diff);
-  ctrl.chessground.explode(exploding);
+  ctrl.draughtsground.setPieces(diff);
+  ctrl.draughtsground.explode(exploding);
 }
 
 // needs to explicitly destroy the capturing pawn

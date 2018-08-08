@@ -1,4 +1,4 @@
-@(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
+@(categ: lidraughts.forum.Categ, form: Form[_], captcha: lidraughts.common.Captcha)(implicit ctx: Context)
 
 @forum.layout(title = "New forum topic", moreJs=jsTag("forum-post.js")) {
 <ol class="crumbs">
@@ -12,7 +12,7 @@
     <strong><a href="@routes.Report.form">use the report form</a></strong>.
   </p>
   <p>
-    To ask a question about lichess or chess rules,<br />
+    To ask a question about lidraughts or draughts rules,<br />
     <strong><a href="@routes.QaQuestion.index()">use the Question &amp; Answers site</a></strong>.
   </p>
 </div>

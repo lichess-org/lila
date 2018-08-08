@@ -1,10 +1,10 @@
-package lila.api
+package lidraughts.api
 
 import play.api.http.HeaderNames
 import play.api.mvc._
 import play.api.mvc.Results.InternalServerError
 
-import lila.common.HTTPRequest
+import lidraughts.common.HTTPRequest
 
 final class RequestDropper(
     websocketDropPercent: () => Int

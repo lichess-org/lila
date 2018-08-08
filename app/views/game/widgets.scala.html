@@ -1,6 +1,6 @@
 @(games: Seq[Game], user: Option[User] = None, ownerLink: Boolean = false, mini: Boolean = false)(implicit ctx: Context)
 
-@gamePlayer(variant: chess.variant.Variant, player: Player) = {
+@gamePlayer(variant: draughts.variant.Variant, player: Player) = {
 <div class="player @player.color.name">
   @player.playerUser.map { playerUser =>
   @userIdLink(playerUser.id.some, withOnline = false)
@@ -36,7 +36,7 @@
       <strong>
         @if(g.imported) {
         <span>IMPORT</span>
-        @g.pgnImport.flatMap(_.user).map { user =>
+        @g.pdnImport.flatMap(_.user).map { user =>
         @trans.by(userIdLink(user.some, None, false))
         }
         •
@@ -53,11 +53,11 @@
         <span data-hint="@trans.unlimited()" class="hint--top">∞</span>
         }
         }
-        • @g.perfType.map(_.name).getOrElse {@chess.variant.FromPosition.name}
+        • @g.perfType.map(_.name).getOrElse {@draughts.variant.FromPosition.name}
         • @g.rated.fold(trans.rated(), trans.casual())
         }
       </strong>
-      @g.pgnImport.flatMap(_.date).getOrElse(momentFromNow(g.createdAt))
+      @g.pdnImport.flatMap(_.date).getOrElse(momentFromNow(g.createdAt))
       @g.tournamentId.map { tourId =>
       • @tournamentLink(tourId)
       }
@@ -82,13 +82,13 @@
       }
     </div>
     @if(g.turns > 0) {
-    @defining(g.pgnMoves take 20) { pgnMoves =>
+    @defining(g.pdnMoves take 20) { pdnMoves =>
     @if(!g.fromPosition) {
     @g.opening.map { opening =>
     <div class="opening">@opening.opening.ecoName</div>
     }
     }
-    <div class="pgn">@pgnMoves.take(6).grouped(2).zipWithIndex.map {
+    <div class="pdn">@pdnMoves.take(6).grouped(2).zipWithIndex.map {
       case (Vector(w, b), i) => {@(i+1). @w @b}
       case (Vector(w), i) => {@(i+1). @w}
       case _ => {}
@@ -100,8 +100,8 @@
     }
     <div class="metadata">
       @if(g.metadata.analysed) {<span data-icon="&#xe004;"> @trans.computerAnalysisAvailable()</span><br />}
-      @g.pgnImport.flatMap(_.user).map { user =>
-      PGN import by @userIdLink(user.some)<br />
+      @g.pdnImport.flatMap(_.user).map { user =>
+      PDN import by @userIdLink(user.some)<br />
       }
     </div>
   </div>

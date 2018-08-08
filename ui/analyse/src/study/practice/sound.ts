@@ -9,7 +9,7 @@ function make(file) {
     ]
   });
   return function() {
-    if (window.lichess.sound.set() !== 'silent') sound.play();
+    if (window.lidraughts.sound.set() !== 'silent') sound.play();
   };
 };
 

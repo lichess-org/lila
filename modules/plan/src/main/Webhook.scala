@@ -1,4 +1,4 @@
-package lila.plan
+package lidraughts.plan
 
 import play.api.libs.json._
 

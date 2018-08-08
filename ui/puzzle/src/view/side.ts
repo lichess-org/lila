@@ -33,14 +33,14 @@ function puzzleInfos(ctrl: Controller, puzzle): VNode {
         hook: innerHTML(ctrl.trans('ratingX', ctrl.vm.mode === 'play' ? hidden() : strong(puzzle.rating)))
       }),
       h('p', {
-        hook: innerHTML(ctrl.trans('playedXTimes', strong(window.lichess.numberFormat(puzzle.attempts))))
+        hook: innerHTML(ctrl.trans('playedXTimes', strong(window.lidraughts.numberFormat(puzzle.attempts))))
       })
     ])
   ]);
 }
 
 function gameInfos(ctrl: Controller, game, puzzle): VNode[] {
-  return [
+  return !game.id ? [] : [
     h('div.game_infos.game[data-icon="-"]', {
       attrs: dataIcon(game.perf.icon)
     }, [
@@ -110,7 +110,8 @@ function drawRatingChart(ctrl: Controller, vnode: VNode) {
     width: '224px',
     height: '80px',
     lineColor: dark ? '#4444ff' : '#0000ff',
-    fillColor: dark ? '#222255' : '#ccccff'
+    fillColor: dark ? '#222255' : '#ccccff',
+    numberFormatter: (x: number) => { return x; }
   });
 }
 

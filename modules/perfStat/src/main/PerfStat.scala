@@ -1,7 +1,7 @@
-package lila.perfStat
+package lidraughts.perfStat
 
-import lila.game.Pov
-import lila.rating.PerfType
+import lidraughts.game.Pov
+import lidraughts.rating.PerfType
 
 import org.joda.time.DateTime
 
@@ -38,7 +38,7 @@ case class PerfStat(
 
 object PerfStat {
 
-  type Getter = (lila.user.User, PerfType) => Fu[PerfStat]
+  type Getter = (lidraughts.user.User, PerfType) => Fu[PerfStat]
 
   def makeId(userId: String, perfType: PerfType) = s"$userId/${perfType.id}"
 
@@ -133,7 +133,7 @@ case class Count(
       case _ => 0
     }),
     disconnects = disconnects + {
-      ~pov.loss && pov.game.status == chess.Status.Timeout
+      ~pov.loss && pov.game.status == draughts.Status.Timeout
     }.fold(1, 0)
   )
 }

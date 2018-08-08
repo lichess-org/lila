@@ -1,4 +1,4 @@
-package lila.history
+package lidraughts.history
 
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import org.joda.time.{ DateTime, Days }
@@ -6,11 +6,11 @@ import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import chess.Speed
-import lila.db.dsl._
-import lila.game.Game
-import lila.rating.PerfType
-import lila.user.{ User, Perfs }
+import draughts.Speed
+import lidraughts.db.dsl._
+import lidraughts.game.Game
+import lidraughts.rating.PerfType
+import lidraughts.user.{ User, Perfs }
 
 final class HistoryApi(coll: Coll) {
 
@@ -20,14 +20,7 @@ final class HistoryApi(coll: Coll) {
     val isStd = game.ratingVariant.standard
     val changes = List(
       isStd.option("standard" -> perfs.standard),
-      game.ratingVariant.chess960.option("chess960" -> perfs.chess960),
-      game.ratingVariant.kingOfTheHill.option("kingOfTheHill" -> perfs.kingOfTheHill),
-      game.ratingVariant.threeCheck.option("threeCheck" -> perfs.threeCheck),
-      game.ratingVariant.antichess.option("antichess" -> perfs.antichess),
-      game.ratingVariant.atomic.option("atomic" -> perfs.atomic),
-      game.ratingVariant.horde.option("horde" -> perfs.horde),
-      game.ratingVariant.racingKings.option("racingKings" -> perfs.racingKings),
-      game.ratingVariant.crazyhouse.option("crazyhouse" -> perfs.crazyhouse),
+      game.ratingVariant.frisian.option("frisian" -> perfs.frisian),
       (isStd && game.speed == Speed.UltraBullet).option("ultraBullet" -> perfs.ultraBullet),
       (isStd && game.speed == Speed.Bullet).option("bullet" -> perfs.bullet),
       (isStd && game.speed == Speed.Blitz).option("blitz" -> perfs.blitz),

@@ -1,9 +1,9 @@
-package lila.report
+package lidraughts.report
 
 import reactivemongo.bson._
 
-import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lidraughts.db.dsl._
+import lidraughts.user.{ User, UserRepo }
 
 private final class ReportScore(
     getAccuracy: ReporterId => Fu[Option[Accuracy]]
@@ -15,7 +15,7 @@ private final class ReportScore(
         impl.accuracyScore(accuracy) +
         impl.reporterScore(candidate.reporter) +
         impl.textScore(candidate.reason, candidate.text)
-    } map { score =>
+    } map impl.fixedAutoCommScore(candidate) map { score =>
       candidate scored Report.Score(score atLeast 5 atMost 100)
     }
 
@@ -36,12 +36,16 @@ private final class ReportScore(
     def flagScore(user: User) =
       (user.lameOrTroll) ?? -30d
 
-    private val gamePattern = """lichess.org/(\w{8,12})""".r.pattern
+    private val gamePattern = """lidraughts.org/(\w{8,12})""".r.pattern
 
     def textScore(reason: Reason, text: String) = {
       (reason == Reason.Cheat || reason == Reason.Boost) &&
         gamePattern.matcher(text).find
     } ?? 20
+
+    // https://github.com/ornicar/lila/issues/4093
+    def fixedAutoCommScore(c: Report.Candidate)(score: Double): Double =
+      if (c.isAutoComm) baseScore else score
   }
 
   private[report] def reset(coll: Coll)(implicit handler: BSONDocumentHandler[Report]): Fu[Int] = {

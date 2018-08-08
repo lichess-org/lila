@@ -77,7 +77,7 @@ $(function() {
       }
     }, function() {
       $("#infscr-loading").remove();
-      lichess.pubsub.emit('content_loaded')();
+      lidraughts.pubsub.emit('content_loaded')();
     });
   });
 
@@ -91,6 +91,6 @@ $(function() {
       $form.submit();
     };
     $form.find("select, input[type=checkbox]").change(submit);
-    $usernames.on("keyup", lichess.fp.debounce(submit, 1500));
+    $usernames.on("keyup", lidraughts.fp.debounce(submit, 1500));
   }
 });

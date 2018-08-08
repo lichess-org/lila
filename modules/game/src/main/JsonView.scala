@@ -1,10 +1,9 @@
-package lila.game
+package lidraughts.game
 
 import play.api.libs.json._
 
-import chess.format.{ FEN, Forsyth }
-import chess.variant.Crazyhouse
-import chess.{ Color, Clock }
+import draughts.format.{ FEN, Forsyth }
+import draughts.{ Color, Clock }
 
 object JsonView {
 
@@ -14,11 +13,11 @@ object JsonView {
     "speed" -> game.speed.key,
     "perf" -> PerfPicker.key(game),
     "rated" -> game.rated,
-    "initialFen" -> initialFen.fold(chess.format.Forsyth.initial)(_.value),
-    "fen" -> (Forsyth >> game.chess),
+    "initialFen" -> initialFen.fold(draughts.format.Forsyth.initial)(_.value),
+    "fen" -> (Forsyth >> game.draughts),
     "player" -> game.turnColor,
     "turns" -> game.turns,
-    "startedAtTurn" -> game.chess.startedAtTurn,
+    "startedAtTurn" -> game.draughts.startedAtTurn,
     "source" -> game.source,
     "status" -> game.status,
     "createdAt" -> game.createdAt
@@ -27,10 +26,9 @@ object JsonView {
     .add("tournamentId" -> game.tournamentId)
     .add("winner" -> game.winnerColor)
     .add("lastMove" -> game.lastMoveKeys)
-    .add("check" -> game.situation.checkSquare.map(_.key))
     .add("rematch" -> game.next)
 
-  implicit val statusWrites: OWrites[chess.Status] = OWrites { s =>
+  implicit val statusWrites: OWrites[draughts.Status] = OWrites { s =>
     Json.obj(
       "id" -> s.id,
       "name" -> s.name
@@ -48,32 +46,18 @@ object JsonView {
   implicit val crosstableWrites = OWrites[Crosstable] { c =>
     Json.obj(
       "users" -> c.users,
-      "results" -> c.results,
       "nbGames" -> c.nbGames
+    // "results" -> c.results,
     )
   }
 
-  implicit val matchupWrites = OWrites[Crosstable.Matchup] { m =>
+  /*implicit val matchupWrites = OWrites[Crosstable.Matchup] { m =>
     Json.obj(
       "users" -> m.users,
       "nbGames" -> m.users.nbGames
     )
   }
-  implicit val crosstableWithMatchupWrites = Json.writes[Crosstable.WithMatchup]
-
-  implicit val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>
-    JsObject(
-      Crazyhouse.storableRoles.flatMap { role =>
-        Some(v.roles.count(role ==)).filter(0 <).map { count =>
-          role.name -> JsNumber(count)
-        }
-      }
-    )
-  }
-
-  implicit val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
-    Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
-  }
+  implicit val crosstableWithMatchupWrites = Json.writes[Crosstable.WithMatchup]*/
 
   implicit val blursWriter: OWrites[Blurs] = OWrites { blurs =>
     Json.obj("nb" -> blurs.nb).add("bits" -> (blurs match {
@@ -82,11 +66,12 @@ object JsonView {
     }))
   }
 
-  implicit val variantWriter: OWrites[chess.variant.Variant] = OWrites { v =>
+  implicit val variantWriter: OWrites[draughts.variant.Variant] = OWrites { v =>
     Json.obj(
       "key" -> v.key,
       "name" -> v.name,
-      "short" -> v.shortName
+      "short" -> v.shortName,
+      "gameType" -> v.gameType
     )
   }
 
@@ -110,7 +95,7 @@ object JsonView {
     )
   }
 
-  implicit val openingWriter: OWrites[chess.opening.FullOpening.AtPly] = OWrites { o =>
+  implicit val openingWriter: OWrites[draughts.opening.FullOpening.AtPly] = OWrites { o =>
     Json.obj(
       "eco" -> o.opening.eco,
       "name" -> o.opening.name,
@@ -118,7 +103,7 @@ object JsonView {
     )
   }
 
-  implicit val divisionWriter: OWrites[chess.Division] = OWrites { o =>
+  implicit val divisionWriter: OWrites[draughts.Division] = OWrites { o =>
     Json.obj(
       "middle" -> o.middle,
       "end" -> o.end

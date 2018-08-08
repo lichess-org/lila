@@ -1,4 +1,4 @@
-package lila.shutup
+package lidraughts.shutup
 
 import akka.actor._
 import com.typesafe.config.Config
@@ -8,7 +8,7 @@ final class Env(
     reporter: akka.actor.ActorSelection,
     follows: (String, String) => Fu[Boolean],
     system: ActorSystem,
-    db: lila.db.Env
+    db: lidraughts.db.Env
 ) {
 
   private val settings = new {
@@ -27,7 +27,7 @@ final class Env(
 
   // api actor
   system.actorOf(Props(new Actor {
-    import lila.hub.actorApi.shutup._
+    import lidraughts.hub.actorApi.shutup._
     def receive = {
       case RecordPublicForumMessage(userId, text) =>
         api.publicForumMessage(userId, text)
@@ -46,10 +46,10 @@ final class Env(
 object Env {
 
   lazy val current: Env = "shutup" boot new Env(
-    config = lila.common.PlayApp loadConfig "shutup",
-    reporter = lila.hub.Env.current.actor.report,
-    system = lila.common.PlayApp.system,
-    follows = lila.relation.Env.current.api.fetchFollows _,
-    db = lila.db.Env.current
+    config = lidraughts.common.PlayApp loadConfig "shutup",
+    reporter = lidraughts.hub.Env.current.actor.report,
+    system = lidraughts.common.PlayApp.system,
+    follows = lidraughts.relation.Env.current.api.fetchFollows _,
+    db = lidraughts.db.Env.current
   )
 }

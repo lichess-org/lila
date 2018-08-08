@@ -7,7 +7,7 @@ $(function() {
     $('body').toggleClass('no-inquiry');
   });
 
-  var nextStore = lichess.storage.make('inquiry-auto-next');
+  var nextStore = lidraughts.storage.make('inquiry-auto-next');
   var next = function() {
     return nextStore.get() !== '';
   };

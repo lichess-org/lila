@@ -11,7 +11,7 @@ export function app(element: HTMLElement, env: any) {
 
   let vnode: VNode, ctrl = {
     data: () => env.data,
-    trans: window.lichess.trans(env.i18n)
+    trans: window.lidraughts.trans(env.i18n)
   };
 
   function redraw() {

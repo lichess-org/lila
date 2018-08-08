@@ -1,18 +1,19 @@
-package lila.api
+package lidraughts.api
 
 import play.api.libs.json._
 
-import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.game.GameRepo
-import lila.user.{ UserRepo, User }
+import lidraughts.common.paginator.{ Paginator, PaginatorJson }
+import lidraughts.game.GameRepo
+import lidraughts.user.{ UserRepo, User }
 
 private[api] final class UserApi(
-    jsonView: lila.user.JsonView,
-    relationApi: lila.relation.RelationApi,
-    bookmarkApi: lila.bookmark.BookmarkApi,
-    crosstableApi: lila.game.CrosstableApi,
-    gameCache: lila.game.Cached,
-    prefApi: lila.pref.PrefApi,
+    jsonView: lidraughts.user.JsonView,
+    relationApi: lidraughts.relation.RelationApi,
+    bookmarkApi: lidraughts.bookmark.BookmarkApi,
+    crosstableApi: lidraughts.game.CrosstableApi,
+    playBanApi: lidraughts.playban.PlaybanApi,
+    gameCache: lidraughts.game.Cached,
+    prefApi: lidraughts.pref.PrefApi,
     makeUrl: String => String
 ) {
 
@@ -39,36 +40,39 @@ private[api] final class UserApi(
       ctx.userId.?? { relationApi.fetchFollows(u.id, _) } zip
       bookmarkApi.countByUser(u) zip
       gameCache.nbPlaying(u.id) zip
-      gameCache.nbImportedBy(u.id) map {
-        case gameOption ~ nbGamesWithMe ~ following ~ followers ~ followable ~ relation ~ isFollowed ~ nbBookmarks ~ nbPlaying ~ nbImported =>
-          jsonView(u) ++ {
-            Json.obj(
-              "url" -> makeUrl(s"@/$username"),
-              "playing" -> gameOption.map(g => makeUrl(s"${g.gameId}/${g.color.name}")),
-              "nbFollowing" -> following,
-              "nbFollowers" -> followers,
-              "count" -> Json.obj(
-                "all" -> u.count.game,
-                "rated" -> u.count.rated,
-                "ai" -> u.count.ai,
-                "draw" -> u.count.draw,
-                "drawH" -> u.count.drawH,
-                "loss" -> u.count.loss,
-                "lossH" -> u.count.lossH,
-                "win" -> u.count.win,
-                "winH" -> u.count.winH,
-                "bookmark" -> nbBookmarks,
-                "playing" -> nbPlaying,
-                "import" -> nbImported,
-                "me" -> nbGamesWithMe
-              )
-            ) ++ ctx.isAuth.??(Json.obj(
-                "followable" -> followable,
-                "following" -> relation.has(true),
-                "blocking" -> relation.has(false),
-                "followsYou" -> isFollowed
-              ))
-          }.noNull
+      gameCache.nbImportedBy(u.id) zip
+      playBanApi.completionRate(u.id).map(_.map { cr => math.round(cr * 100) }) map
+      {
+        case gameOption ~ nbGamesWithMe ~ following ~ followers ~ followable ~ relation ~
+          isFollowed ~ nbBookmarks ~ nbPlaying ~ nbImported ~ completionRate => jsonView(u) ++ {
+          Json.obj(
+            "url" -> makeUrl(s"@/$username"),
+            "playing" -> gameOption.map(g => makeUrl(s"${g.gameId}/${g.color.name}")),
+            "nbFollowing" -> following,
+            "nbFollowers" -> followers,
+            "completionRate" -> completionRate,
+            "count" -> Json.obj(
+              "all" -> u.count.game,
+              "rated" -> u.count.rated,
+              "ai" -> u.count.ai,
+              "draw" -> u.count.draw,
+              "drawH" -> u.count.drawH,
+              "loss" -> u.count.loss,
+              "lossH" -> u.count.lossH,
+              "win" -> u.count.win,
+              "winH" -> u.count.winH,
+              "bookmark" -> nbBookmarks,
+              "playing" -> nbPlaying,
+              "import" -> nbImported,
+              "me" -> nbGamesWithMe
+            )
+          ) ++ ctx.isAuth.??(Json.obj(
+              "followable" -> followable,
+              "following" -> relation.has(true),
+              "blocking" -> relation.has(false),
+              "followsYou" -> isFollowed
+            ))
+        }.noNull
       } map (_.some)
   }
 }

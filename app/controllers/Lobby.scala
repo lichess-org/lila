@@ -4,12 +4,12 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
-import lila.api.Context
-import lila.app._
-import lila.common.IpAddress
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.common.IpAddress
 import views._
 
-object Lobby extends LilaController {
+object Lobby extends LidraughtsController {
 
   private val lobbyJson = Json.obj(
     "lobby" -> Json.obj(
@@ -52,7 +52,7 @@ object Lobby extends LilaController {
     )
   }
 
-  private val MessageLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private val MessageLimitPerIP = new lidraughts.memo.RateLimit[IpAddress](
     credits = 40,
     duration = 10 seconds,
     name = "lobby socket message per IP",

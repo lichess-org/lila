@@ -1,8 +1,8 @@
-package lila.qa
+package lidraughts.qa
 
 import reactivemongo.bson._
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 final class Search(collection: Coll) {
 

@@ -1,4 +1,4 @@
-import { Chessground } from 'chessground';
+import { Draughtsground } from 'draughtsground';
 import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
 import klass from 'snabbdom/modules/class';
@@ -23,30 +23,30 @@ export interface RoundMain {
 
 export function app(opts: RoundOpts): RoundApi {
 
-  const patch = init([klass, attributes]);
+    const patch = init([klass, attributes]);
 
-  let vnode: VNode, ctrl: RoundController;
+    let vnode: VNode, ctrl: RoundController;
 
-  function redraw() {
-    vnode = patch(vnode, view(ctrl));
-  }
+    function redraw() {
+        vnode = patch(vnode, view(ctrl));
+    }
 
-  ctrl = new RoundController(opts, redraw);
+    ctrl = new RoundController(opts, redraw);
 
-  const blueprint = view(ctrl);
-  opts.element.innerHTML = '';
-  vnode = patch(opts.element, blueprint);
+    const blueprint = view(ctrl);
+    opts.element.innerHTML = '';
+    vnode = patch(opts.element, blueprint);
 
-  return {
-    socketReceive: ctrl.socket.receive,
-    moveOn: ctrl.moveOn,
-    toggleZen: ctrl.toggleZen
-  };
+    return {
+        socketReceive: ctrl.socket.receive,
+        moveOn: ctrl.moveOn,
+        toggleZen: ctrl.toggleZen
+    };
 };
 
 export { boot };
 
-window.LichessChat = chat;
-// that's for the rest of lichess to access chessground
+window.LidraughtsChat = chat;
+// that's for the rest of lidraughts to access draughtsground
 // without having to include it a second time
-window.Chessground = Chessground;
+window.Draughtsground = Draughtsground;

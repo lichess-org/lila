@@ -1,9 +1,9 @@
-package lila.setup
+package lidraughts.setup
 
 import play.api.mvc._
 import reactivemongo.bson._
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 private[setup] object AnonConfigRepo {
 
@@ -40,5 +40,5 @@ private[setup] object AnonConfigRepo {
   } map (_ | FilterConfig.default)
 
   private def sessionId(req: RequestHeader): Option[String] =
-    lila.common.HTTPRequest sid req
+    lidraughts.common.HTTPRequest sid req
 }

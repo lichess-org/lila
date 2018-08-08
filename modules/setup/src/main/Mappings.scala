@@ -1,11 +1,11 @@
-package lila.setup
+package lidraughts.setup
 
 import play.api.data.Forms._
 import play.api.data.format.Formats._
 
-import chess.Mode
-import lila.rating.RatingRange
-import lila.lobby.Color
+import draughts.Mode
+import lidraughts.rating.RatingRange
+import lidraughts.lobby.Color
 
 object Mappings {
 

@@ -1,18 +1,18 @@
-package lila.app
+package lidraughts.app
 package mashup
 
-import lila.api.Context
-import lila.event.Event
-import lila.forum.MiniForumPost
-import lila.game.{ Game, Pov, GameRepo }
-import lila.playban.TempBan
-import lila.simul.Simul
-import lila.timeline.Entry
-import lila.tournament.{ Tournament, Winner }
-import lila.tv.Tv
-import lila.streamer.LiveStreams
-import lila.user.LightUserApi
-import lila.user.User
+import lidraughts.api.Context
+import lidraughts.event.Event
+import lidraughts.forum.MiniForumPost
+import lidraughts.game.{ Game, Pov, GameRepo }
+import lidraughts.playban.TempBan
+import lidraughts.simul.Simul
+import lidraughts.timeline.Entry
+import lidraughts.tournament.{ Tournament, Winner }
+import lidraughts.tv.Tv
+import lidraughts.streamer.LiveStreams
+import lidraughts.user.LightUserApi
+import lidraughts.user.User
 import play.api.libs.json._
 
 final class Preload(
@@ -21,14 +21,14 @@ final class Preload(
     tourneyWinners: Fu[List[Winner]],
     timelineEntries: String => Fu[Vector[Entry]],
     liveStreams: () => Fu[LiveStreams],
-    dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]],
+    dailyPuzzle: lidraughts.puzzle.Daily.Try,
     countRounds: () => Int,
-    lobbyApi: lila.api.LobbyApi,
+    lobbyApi: lidraughts.api.LobbyApi,
     getPlayban: String => Fu[Option[TempBan]],
     lightUserApi: LightUserApi
 ) {
 
-  private type Response = (JsObject, Vector[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lila.puzzle.DailyPuzzle], LiveStreams.WithTitles, List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
+  private type Response = (JsObject, Vector[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lidraughts.puzzle.DailyPuzzle], LiveStreams.WithTitles, List[lidraughts.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
 
   def apply(
     posts: Fu[List[MiniForumPost]],
@@ -63,15 +63,15 @@ object Preload {
 
   case class CurrentGame(pov: Pov, json: JsObject, opponent: String)
 
-  def currentGame(lightUser: lila.common.LightUser.GetterSync)(user: User): Fu[Option[CurrentGame]] =
+  def currentGame(lightUser: lidraughts.common.LightUser.GetterSync)(user: User): Fu[Option[CurrentGame]] =
     GameRepo.playingRealtimeNoAi(user, 10) map {
       currentGame(_, lightUser)(user)
     }
 
-  def currentGame(povs: List[Pov], lightUser: lila.common.LightUser.GetterSync)(user: User): Option[CurrentGame] =
+  def currentGame(povs: List[Pov], lightUser: lidraughts.common.LightUser.GetterSync)(user: User): Option[CurrentGame] =
     povs.collectFirst {
       case pov if pov.game.nonAi && pov.game.hasClock && pov.isMyTurn =>
-        val opponent = lila.game.Namer.playerText(pov.opponent)(lightUser)
+        val opponent = lidraughts.game.Namer.playerText(pov.opponent)(lightUser)
         CurrentGame(
           pov = pov,
           opponent = opponent,

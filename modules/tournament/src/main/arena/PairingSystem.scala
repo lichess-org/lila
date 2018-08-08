@@ -1,8 +1,8 @@
-package lila.tournament
+package lidraughts.tournament
 package arena
 
-import lila.tournament.{ PairingSystem => AbstractPairingSystem }
-import lila.user.UserRepo
+import lidraughts.tournament.{ PairingSystem => AbstractPairingSystem }
+import lidraughts.user.UserRepo
 
 import scala.util.Random
 
@@ -24,10 +24,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
   def createPairings(tour: Tournament, users: WaitingUsers, ranking: Ranking): Fu[Pairings] = {
     for {
       lastOpponents <- PairingRepo.lastOpponents(tour.id, users.all, Math.min(120, users.size * 4))
-      onlyTwoActivePlayers <- (tour.nbPlayers > 20).fold(
-        fuccess(false),
-        PlayerRepo.countActive(tour.id).map(2==)
-      )
+      onlyTwoActivePlayers <- (tour.nbPlayers <= 20) ?? PlayerRepo.countActive(tour.id).map(2==)
       data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
       preps <- if (data.isFirstRound) evenOrAll(data, users)
       else makePreps(data, users.waiting) flatMap {
@@ -84,7 +81,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
     case _ => AntmaPairing(data, players)
   }
 
-  private[arena] def url(tourId: String) = s"https://lichess.org/tournament/$tourId"
+  private[arena] def url(tourId: String) = s"https://lidraughts.org/tournament/$tourId"
 
   /* Was previously static 1000.
    * By increasing the factor for high ranked players,

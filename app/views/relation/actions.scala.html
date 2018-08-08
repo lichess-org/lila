@@ -1,4 +1,4 @@
-@(userId: String, relation: Option[lila.relation.Relation], followable: Boolean, blocked: Boolean, signup: Boolean = false)(implicit ctx: Context)
+@(userId: String, relation: Option[lidraughts.relation.Relation], followable: Boolean, blocked: Boolean, signup: Boolean = false)(implicit ctx: Context)
 
 <div class="relation_actions">
   @ctx.userId.map { myId =>

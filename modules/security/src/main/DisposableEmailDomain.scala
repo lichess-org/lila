@@ -1,42 +1,32 @@
-package lila.security
+package lidraughts.security
 
 import play.api.libs.ws.WS
 import play.api.Play.current
 
 final class DisposableEmailDomain(
     providerUrl: String,
-    busOption: Option[lila.common.Bus]
+    blacklistStr: () => String,
+    busOption: Option[lidraughts.common.Bus]
 ) {
 
-  private type Matcher = String => Boolean
-
-  private var matchers = List.empty[Matcher]
+  private var domains = Set.empty[String]
+  private var failed = false
 
   private[security] def refresh: Unit = {
     WS.url(providerUrl).get() map { res =>
-      setDomains(textToDomains(res.body))
-      lila.mon.email.disposableDomain(matchers.size)
+      res.json.validate[Set[String]].fold(
+        err => onError(lidraughts.base.LidraughtsException(err.toString)),
+        dat => {
+          domains = dat
+          failed = false
+        }
+      )
+      lidraughts.mon.email.disposableDomain(domains.size)
     } recover {
       case _: java.net.ConnectException => // ignore network errors
       case e: Exception => onError(e)
     }
   }
-
-  private[security] def setDomains(domains: List[String]): Unit = try {
-    matchers = ("lichess.org" :: domains).map { d =>
-      val r = d.replace("\\w", "[\\w-]").replace(".", "\\.")
-      val regex = s"""(.+\\.|)$r(\\..+)?"""
-      makeMatcher(regex)
-    }
-    failed = false
-  } catch {
-    case e: Exception => onError(e)
-  }
-
-  private[security] def textToDomains(text: String): List[String] =
-    text.lines.map(_.trim.toLowerCase).filter(_.nonEmpty).toList
-
-  private var failed = false
 
   private def onError(e: Exception): Unit = {
     logger.error("Can't update disposable emails", e)
@@ -44,29 +34,22 @@ final class DisposableEmailDomain(
       failed = true
       busOption.foreach { bus =>
         bus.publish(
-          lila.hub.actorApi.slack.Error(s"Disposable emails list: ${e.getMessage}\nPlease fix $providerUrl"),
+          lidraughts.hub.actorApi.slack.Error(s"Disposable emails list: ${e.getMessage}\nPlease fix $providerUrl"),
           'slack
         )
       }
     }
   }
 
-  private def makeMatcher(regex: String): Matcher = {
-    val matcher = regex.r.pattern matcher _
-    (s: String) => matcher(s).matches
-  }
-
-  def isMainstream(domain: String) =
-    DisposableEmailDomain.mainstreamDomains contains domain.toLowerCase
-
   def apply(domain: String) =
-    if (isMainstream(domain)) false
-    else matchers exists { _(domain.toLowerCase) }
+    !DisposableEmailDomain.mainstreamDomains(domain.toLowerCase) && {
+      domains.contains(domain) || blacklistStr().split(' ').contains(domain)
+    }
 }
 
-object DisposableEmailDomain {
+private object DisposableEmailDomain {
 
-  val mainstreamDomains = Set(
+  private val mainstreamDomains = Set(
     /* Default domains included */
     "aol.com", "att.net", "comcast.net", "facebook.com", "gmail.com", "gmx.com", "googlemail.com",
     "google.com", "hotmail.com", "hotmail.co.uk", "mac.com", "me.com", "mail.com", "msn.com",

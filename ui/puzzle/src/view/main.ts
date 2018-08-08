@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import chessground from './chessground';
+import draughtsground from './draughtsground';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
 import * as control from '../control';
@@ -37,11 +37,11 @@ function wheel(ctrl: Controller, e: WheelEvent) {
 }
 
 function visualBoard(ctrl: Controller) {
-  return h('div.lichess_board_wrap', [
-    h('div.lichess_board', {
+  return h('div.lidraughts_board_wrap', [
+    h('div.lidraughts_board', {
       hook: bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
-      chessground(ctrl),
+      draughtsground(ctrl),
       ctrl.promotion.view()
     ]),
     cevalView.renderGauge(ctrl)
@@ -83,7 +83,7 @@ function buttons(ctrl: Controller) {
 let cevalShown = false;
 
 export default function(ctrl: Controller): VNode {
-  const showCeval = ctrl.vm.showComputer();
+  const showCeval = false; //ctrl.vm.showComputer();
   if (cevalShown !== showCeval) {
     if (!cevalShown) ctrl.vm.autoScrollNow = true;
     cevalShown = showCeval;
@@ -91,17 +91,17 @@ export default function(ctrl: Controller): VNode {
   return h('div#puzzle.cg-512', [
     h('div', {
       hook: {
-        insert: _ => window.lichess.pubsub.emit('reset_zoom')()
+        insert: _ => window.lidraughts.pubsub.emit('reset_zoom')()
       },
       class: { gauge_displayed: ctrl.showEvalGauge() }
     }, [
-      h('div.lichess_game', {
+      h('div.lidraughts_game', {
         hook: {
-          insert: _ => window.lichess.pubsub.emit('content_loaded')()
+          insert: _ => window.lidraughts.pubsub.emit('content_loaded')()
         }
       }, [
         visualBoard(ctrl),
-        h('div.lichess_ground', [
+        h('div.lidraughts_ground', [
           // we need the wrapping div here
           // so the siblings are only updated when ceval is added
           h('div', showCeval ? [

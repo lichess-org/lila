@@ -1,13 +1,13 @@
-@(categs: List[lila.forum.CategView])(implicit ctx: Context)
+@(categs: List[lidraughts.forum.CategView])(implicit ctx: Context)
 
 @forum.layout(
 title = trans.forum.txt(),
-openGraph = lila.app.ui.OpenGraph(
-title = "Lichess community forum",
+openGraph = lidraughts.app.ui.OpenGraph(
+title = "Lidraughts community forum",
 url = s"$netBaseUrl${routes.ForumCateg.index.url}",
-description = "Chess discussions and feedback about lichess development").some) {
+description = "Draughts discussions and feedback about lidraughts development").some) {
 
-<h1 data-icon="d" class="text is4">Lichess Forum</h1>
+<h1 data-icon="d" class="text is4">Lidraughts Forum</h1>
 @forum.categ.table(categs.filterNot(_.categ.isTeam))
 
 @if(categs.exists(_.categ.isTeam)) {

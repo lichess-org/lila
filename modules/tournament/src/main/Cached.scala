@@ -1,12 +1,12 @@
-package lila.tournament
+package lidraughts.tournament
 
 import scala.concurrent.duration._
 
-import lila.memo._
-import lila.user.User
+import lidraughts.memo._
+import lidraughts.user.User
 
 private[tournament] final class Cached(
-    asyncCache: lila.memo.AsyncCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     createdTtl: FiniteDuration,
     rankingTtl: FiniteDuration
 )(implicit system: akka.actor.ActorSystem) {

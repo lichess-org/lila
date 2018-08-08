@@ -1,4 +1,4 @@
-package lila.insight
+package lidraughts.insight
 
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
@@ -28,7 +28,7 @@ object AggregationClusters {
   private def stacked[X](question: Question[X], res: AggregationResult): List[Cluster[X]] =
     res.firstBatch.flatMap { doc =>
       val metricValues = Metric valuesOf question.metric
-      // println(lila.db.BSON debug doc)
+      // println(lidraughts.db.BSON debug doc)
       for {
         x <- doc.getAs[X]("_id")(question.dimension.bson)
         stack <- doc.getAs[List[StackEntry]]("stack")

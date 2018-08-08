@@ -1,6 +1,6 @@
-package lila.security
+package lidraughts.security
 
-import lila.common.Iso
+import lidraughts.common.Iso
 
 case class FingerPrint(value: String) extends AnyVal
 

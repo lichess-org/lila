@@ -1,5 +1,5 @@
-package lila
+package lidraughts
 
-import lila.socket.WithSocket
+import lidraughts.socket.WithSocket
 
 package object site extends PackageObject with WithSocket

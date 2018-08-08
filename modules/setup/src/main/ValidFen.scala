@@ -1,8 +1,8 @@
-package lila.setup
+package lidraughts.setup
 
 case class ValidFen(
     fen: String,
-    situation: chess.Situation
+    situation: draughts.Situation
 ) {
 
   def color = situation.color
@@ -10,8 +10,8 @@ case class ValidFen(
 
 object ValidFen {
   def apply(strict: Boolean)(fen: String): Option[ValidFen] = for {
-    parsed ← chess.format.Forsyth <<< fen
+    parsed ← draughts.format.Forsyth <<< fen
     if (parsed.situation playable strict)
-    validated = chess.format.Forsyth >> parsed
+    validated = draughts.format.Forsyth >> parsed
   } yield ValidFen(validated, parsed.situation)
 }

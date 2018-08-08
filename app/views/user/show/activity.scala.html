@@ -1,11 +1,11 @@
-@(u: User, activities: Vector[lila.activity.ActivityView], info: lila.app.mashup.UserInfo, social: lila.app.mashup.UserInfo.Social)(implicit ctx: Context)
+@(u: User, activities: Vector[lidraughts.activity.ActivityView], info: lidraughts.app.mashup.UserInfo, social: lidraughts.app.mashup.UserInfo.Social)(implicit ctx: Context)
 
-@import lila.app.mashup.UserInfo.Angle
+@import lidraughts.app.mashup.UserInfo.Angle
 
 @evenMoreJs = {
 @info.ratingChart.map { ratingChart =>
 @jsTag("chart/ratingHistory.js")
-@embedJsUnsafe(s"lichess.ratingHistoryChart($ratingChart);")
+@embedJsUnsafe(s"lidraughts.ratingHistoryChart($ratingChart);")
 }
 }
 

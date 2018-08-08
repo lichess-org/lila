@@ -15,7 +15,7 @@ function preventing(f) {
 
 module.exports = function(ctrl) {
   k.bind('f', preventing(function() {
-    ctrl.chessground.toggleOrientation();
+    ctrl.draughtsground.toggleOrientation();
     m.redraw();
   }));
 };

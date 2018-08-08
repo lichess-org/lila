@@ -1,12 +1,12 @@
-package lila.analyse
+package lidraughts.analyse
 
-import lila.socket._
-import lila.user.User
+import lidraughts.socket._
+import lidraughts.user.User
 
 private[analyse] final class AnalyseSocketHandler(
     socket: akka.actor.ActorRef,
-    hub: lila.hub.Env,
-    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler
+    hub: lidraughts.hub.Env,
+    evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler
 ) {
 
   import AnalyseSocket._

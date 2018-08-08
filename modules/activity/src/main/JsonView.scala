@@ -1,25 +1,25 @@
-package lila.activity
+package lidraughts.activity
 
 import org.joda.time.{ DateTime, Interval }
 import play.api.libs.json._
 
-import lila.common.Iso
-import lila.common.PimpedJson._
-import lila.game.JsonView.colorWrites
-import lila.game.Pov
-import lila.rating.PerfType
-import lila.simul.Simul
-import lila.study.JsonView.studyIdNameWrites
-import lila.team.Team
-import lila.tournament.LeaderboardApi.{ Entry => TourEntry, Ratio => TourRatio }
-import lila.tournament.Tournament
-import lila.user.User
+import lidraughts.common.Iso
+import lidraughts.common.PimpedJson._
+import lidraughts.game.JsonView.colorWrites
+import lidraughts.game.Pov
+import lidraughts.rating.PerfType
+import lidraughts.simul.Simul
+import lidraughts.study.JsonView.studyIdNameWrites
+import lidraughts.team.Team
+import lidraughts.tournament.LeaderboardApi.{ Entry => TourEntry, Ratio => TourRatio }
+import lidraughts.tournament.Tournament
+import lidraughts.user.User
 
 import activities._
 import model._
 
 final class JsonView(
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lidraughts.user.LightUserApi,
     getTourName: Tournament.ID => Option[String],
     getTeamName: Team.ID => Option[String]
 ) {
@@ -42,7 +42,7 @@ final class JsonView(
         }
       }
     }
-    implicit val variantWrites: Writes[chess.variant.Variant] = Writes { v =>
+    implicit val variantWrites: Writes[draughts.variant.Variant] = Writes { v =>
       JsString(v.key)
     }
     // writes as percentage
@@ -72,7 +72,7 @@ final class JsonView(
         "score" -> Score(s.wins, s.losses, s.draws, none)
       )
     }
-    implicit val playerWrites = OWrites[lila.game.Player] { p =>
+    implicit val playerWrites = OWrites[lidraughts.game.Player] { p =>
       Json.obj()
         .add("aiLevel" -> p.aiLevel)
         .add("user" -> p.userId)
@@ -85,7 +85,7 @@ final class JsonView(
         "url" -> s"/${p.gameId}/${p.color.name}",
         "variant" -> p.game.variant,
         "speed" -> p.game.speed.key,
-        "perf" -> lila.game.PerfPicker.key(p.game),
+        "perf" -> lidraughts.game.PerfPicker.key(p.game),
         "rated" -> p.game.rated,
         "opponent" -> p.opponent
       )

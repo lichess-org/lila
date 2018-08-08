@@ -1,11 +1,11 @@
 $(function() {
 
-  var studyRegex = /lichess\.org\/study\/(?:embed\/)?(\w{8})\/(\w{8})(#\d+)?\b/;
-  var gameRegex = /lichess\.org\/(?:embed\/)?(\w{8})(?:(?:\/(white|black))|\w{4}|)(#\d+)?\b/;
+  var studyRegex = /lidraughts\.org\/study\/(?:embed\/)?(\w{8})\/(\w{8})(#\d+)?\b/;
+  var gameRegex = /lidraughts\.org\/(?:embed\/)?(\w{8})(?:(?:\/(white|black))|\w{4}|)(#\d+)?\b/;
   var notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer'];
 
   var parseLink = function(a) {
-    var yt = lichess.toYouTubeEmbedUrl(a.href);
+    var yt = lidraughts.toYouTubeEmbedUrl(a.href);
     if (yt) return {
       type: 'youtube',
       src: yt
@@ -120,7 +120,7 @@ $(function() {
     return a.type === 'study'
   }).map(function(a) {
     a.element.classList.add('embedding_analyse');
-    a.element.innerHTML = lichess.spinnerHtml;
+    a.element.innerHTML = lidraughts.spinnerHtml;
     return a;
   }));
 
@@ -129,16 +129,16 @@ $(function() {
   }));
 });
 
-lichess.startEmbeddedAnalyse = function(opts) {
+lidraughts.startEmbeddedAnalyse = function(opts) {
   opts.socketSend = $.noop
   opts.initialPly = 'url';
-  opts.trans = lichess.trans(opts.i18n);
+  opts.trans = lidraughts.trans(opts.i18n);
   var container = opts.element.parentNode;
-  LichessAnalyse.start(opts);
+  LidraughtsAnalyse.start(opts);
 
   var onResize = function() {
     var board = container.querySelector('.cg-board-wrap');
-    var ground = container.querySelector('.lichess_ground');
+    var ground = container.querySelector('.lidraughts_ground');
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     var boardSize = h - 26;
@@ -150,7 +150,7 @@ lichess.startEmbeddedAnalyse = function(opts) {
     ground.style.width = groundSize + 'px';
     ground.style.maxWidth = groundSize + 'px';
     ground.style.height = boardSize + 'px';
-    document.body.dispatchEvent(new Event('chessground.resize'));
+    lidraughts.dispatchEvent(document.body, 'draughtsground.resize');
   };
   onResize();
   window.addEventListener('resize', onResize);

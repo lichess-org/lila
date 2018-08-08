@@ -1,4 +1,4 @@
-package lila.common
+package lidraughts.common
 
 import akka.actor._
 import akka.event._

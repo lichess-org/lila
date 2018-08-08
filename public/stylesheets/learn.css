@@ -1,6 +1,6 @@
 #learn_app {
 }
-#learn_app div.lichess_ground {
+#learn_app div.lidraughts_ground {
   width: 267px;
   justify-content: center;
   -webkit-user-select: none;
@@ -22,7 +22,7 @@
   height: 80px;
   margin: 5px 8px 5px 5px;
 }
-#learn_app .lichess_ground .subtitle {
+#learn_app .lidraughts_ground .subtitle {
   margin-bottom: 1em;
 }
 #learn_app .goal {

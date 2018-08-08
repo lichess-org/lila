@@ -1,15 +1,15 @@
-package lila.message
+package lidraughts.message
 
 import play.api.libs.json._
 import play.api.mvc.Result
 import play.api.mvc.Results._
 
-import lila.common.LightUser
-import lila.common.paginator._
-import lila.user.User
+import lidraughts.common.LightUser
+import lidraughts.common.paginator._
+import lidraughts.user.User
 
 final class JsonView(
-    isOnline: lila.user.User.ID => Boolean,
+    isOnline: lidraughts.user.User.ID => Boolean,
     lightUser: LightUser.GetterSync
 ) {
 

@@ -1,7 +1,7 @@
-package lila.simul
+package lidraughts.simul
 
-import chess.variant.Variant
-import lila.user.User
+import draughts.variant.Variant
+import lidraughts.user.User
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
@@ -97,9 +97,9 @@ case class Simul(
 
   def gameIds = pairings.map(_.gameId)
 
-  def perfTypes: List[lila.rating.PerfType] = variants.flatMap { variant =>
-    lila.game.PerfPicker.perfType(
-      speed = chess.Speed(clock.config.some),
+  def perfTypes: List[lidraughts.rating.PerfType] = variants.flatMap { variant =>
+    lidraughts.game.PerfPicker.perfType(
+      speed = draughts.Speed(clock.config.some),
       variant = variant,
       daysPerTurn = none
     )
@@ -114,9 +114,9 @@ case class Simul(
 
   def playingPairings = pairings filterNot (_.finished)
 
-  def hostColor = (color flatMap chess.Color.apply) | chess.Color(scala.util.Random.nextBoolean)
+  def hostColor = (color flatMap draughts.Color.apply) | draughts.Color(scala.util.Random.nextBoolean)
 
-  def setPairingHostColor(gameId: String, hostColor: chess.Color) =
+  def setPairingHostColor(gameId: String, hostColor: draughts.Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))
 
   def isNotBrandNew = createdAt isBefore DateTime.now.minusSeconds(10)
@@ -157,8 +157,8 @@ object Simul {
     hostId = host.id,
     hostRating = host.perfs.bestRatingIn {
       variants flatMap { variant =>
-        lila.game.PerfPicker.perfType(
-          speed = chess.Speed(clock.config.some),
+        lidraughts.game.PerfPicker.perfType(
+          speed = draughts.Speed(clock.config.some),
           variant = variant,
           daysPerTurn = none
         )

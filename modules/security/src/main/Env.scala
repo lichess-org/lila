@@ -1,19 +1,23 @@
-package lila.security
+package lidraughts.security
 
+import lidraughts.oauth.OAuthServer
+
+import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
-import akka.actor._
 
 final class Env(
     config: Config,
     captcher: ActorSelection,
-    authenticator: lila.user.Authenticator,
-    slack: lila.slack.SlackApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    settingStore: lila.memo.SettingStore.Builder,
+    authenticator: lidraughts.user.Authenticator,
+    slack: lidraughts.slack.SlackApi,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    settingStore: lidraughts.memo.SettingStore.Builder,
+    tryOAuthServer: OAuthServer.Try,
     system: ActorSystem,
-    scheduler: lila.common.Scheduler,
-    db: lila.db.Env
+    scheduler: lidraughts.common.Scheduler,
+    db: lidraughts.db.Env,
+    lifecycle: play.api.inject.ApplicationLifecycle
 ) {
 
   private val settings = new {
@@ -62,7 +66,7 @@ final class Env(
     if (RecaptchaEnabled) new RecaptchaGoogle(
       privateKey = RecaptchaPrivateKey,
       endpoint = RecaptchaEndpoint,
-      lichessHostname = NetDomain
+      lidraughtsHostname = NetDomain
     )
     else RecaptchaSkip
 
@@ -92,7 +96,7 @@ final class Env(
 
   lazy val garbageCollector = new GarbageCollector(
     userSpyApi,
-    ipIntel,
+    ipTrust,
     slack,
     ugcArmedSetting.get,
     system
@@ -142,28 +146,37 @@ final class Env(
 
   lazy val emailAddressValidator = new EmailAddressValidator(disposableEmailDomain)
 
-  private lazy val disposableEmailDomain = new DisposableEmailDomain(
-    providerUrl = DisposableEmailProviderUrl,
-    busOption = system.lilaBus.some
+  lazy val emailBlacklistSetting = settingStore[String](
+    "emailBlacklist",
+    default = "",
+    text = "Blacklisted email domains separated by a space".some
   )
 
-  scheduler.once(10 seconds)(disposableEmailDomain.refresh)
+  private lazy val disposableEmailDomain = new DisposableEmailDomain(
+    providerUrl = DisposableEmailProviderUrl,
+    blacklistStr = emailBlacklistSetting.get,
+    busOption = system.lidraughtsBus.some
+  )
+
+  scheduler.once(15 seconds)(disposableEmailDomain.refresh)
   scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmailDomain.refresh)
 
   lazy val tor = new Tor(TorProviderUrl)
   scheduler.once(30 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
-  lazy val api = new SecurityApi(storeColl, firewall, geoIP, authenticator, emailAddressValidator)
+  lazy val ipTrust = new IpTrust(ipIntel, geoIP, tor, firewall)
+
+  lazy val api = new SecurityApi(storeColl, firewall, geoIP, authenticator, emailAddressValidator, tryOAuthServer)
 
   lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain)
 
   def cli = new Cli
 
   // api actor
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.fishnet.NewKey(userId, key) => automaticEmail.onFishnetKey(userId, key)
+      case lidraughts.hub.actorApi.fishnet.NewKey(userId, key) => automaticEmail.onFishnetKey(userId, key)
     }
   })), 'fishnet)
 
@@ -173,15 +186,25 @@ final class Env(
 
 object Env {
 
+  private lazy val system = lidraughts.common.PlayApp.system
+
   lazy val current = "security" boot new Env(
-    config = lila.common.PlayApp loadConfig "security",
-    db = lila.db.Env.current,
-    authenticator = lila.user.Env.current.authenticator,
-    slack = lila.slack.Env.current.api,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    settingStore = lila.memo.Env.current.settingStore,
-    system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler,
-    captcher = lila.hub.Env.current.actor.captcher
+    config = lidraughts.common.PlayApp loadConfig "security",
+    db = lidraughts.db.Env.current,
+    authenticator = lidraughts.user.Env.current.authenticator,
+    slack = lidraughts.slack.Env.current.api,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    settingStore = lidraughts.memo.Env.current.settingStore,
+    tryOAuthServer = () => scala.concurrent.Future {
+      lidraughts.oauth.Env.current.server.some
+    }.withTimeoutDefault(50 millis, none)(system) recover {
+      case e: Exception =>
+        lidraughts.log("security").warn("oauth", e)
+        none
+    },
+    system = system,
+    scheduler = lidraughts.common.PlayApp.scheduler,
+    captcher = lidraughts.hub.Env.current.actor.captcher,
+    lifecycle = lidraughts.common.PlayApp.lifecycle
   )
 }

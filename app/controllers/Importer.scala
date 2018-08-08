@@ -1,18 +1,18 @@
 package controllers
 
-import lila.app._
-import lila.common.HTTPRequest
+import lidraughts.app._
+import lidraughts.common.HTTPRequest
 import play.api.libs.json.Json
 import views._
 
-object Importer extends LilaController {
+object Importer extends LidraughtsController {
 
   private def env = Env.importer
 
   def importGame = OpenBody { implicit ctx =>
     fuccess {
-      val pgn = ctx.body.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
-      val data = lila.importer.ImportData(pgn, None)
+      val pdn = ctx.body.queryString.get("pdn").flatMap(_.headOption).getOrElse("")
+      val data = lidraughts.importer.ImportData(pdn, None)
       Ok(html.game.importGame(env.forms.importForm.fill(data)))
     }
   }
@@ -22,22 +22,22 @@ object Importer extends LilaController {
     env.forms.importForm.bindFromRequest.fold(
       failure => negotiate(
         html = Ok(html.game.importGame(failure)).fuccess,
-        api = _ => BadRequest(Json.obj("error" -> "Invalid PGN")).fuccess
+        api = _ => BadRequest(Json.obj("error" -> "Invalid PDN")).fuccess
       ),
       data => env.importer(data, ctx.userId) flatMap { game =>
-        (ctx.userId ?? Env.game.cached.clearNbImportedByCache) >>
-          (data.analyse.isDefined && game.analysable) ?? {
-            Env.fishnet.analyser(game, lila.fishnet.Work.Sender(
+        (ctx.userId ?? Env.game.cached.clearNbImportedByCache) inject Redirect(routes.Round.watcher(game.id, "white"))
+        /*(data.analyse.isDefined && game.analysable) ?? {
+            Env.fishnet.analyser(game, lidraughts.fishnet.Work.Sender(
               userId = ctx.userId,
               ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
               mod = isGranted(_.Hunter),
               system = false
             ))
-          } inject Redirect(routes.Round.watcher(game.id, "white"))
+          }inject Redirect(routes.Round.watcher(game.id, "white"))*/
       } recover {
         case e =>
           controllerLogger.branch("importer").warn(
-            s"Imported game validates but can't be replayed:\n${data.pgn}", e
+            s"Imported game validates but can't be replayed:\n${data.pdn}", e
           )
           Redirect(routes.Importer.importGame)
       }

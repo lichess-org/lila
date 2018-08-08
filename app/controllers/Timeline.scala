@@ -2,14 +2,14 @@ package controllers
 
 import play.api.libs.json._
 
-import lila.app._
-import lila.common.HTTPRequest
+import lidraughts.app._
+import lidraughts.common.HTTPRequest
 import views._
 
-object Timeline extends LilaController {
+object Timeline extends LidraughtsController {
 
   def home = Auth { implicit ctx =>
-    import lila.timeline.Entry.entryWrites
+    import lidraughts.timeline.Entry.entryWrites
     val nb = getInt("nb").fold(100)(_ min 100)
     me =>
       negotiate(

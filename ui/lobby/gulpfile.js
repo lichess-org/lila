@@ -15,7 +15,7 @@ function onError(error) {
 
 function build() {
   return browserify('src/main.ts', {
-      standalone: 'LichessLobby',
+      standalone: 'LidraughtsLobby',
       debug: true
     })
     .plugin(tsify);
@@ -27,7 +27,7 @@ function bundle() {
   return watchedBrowserify
     .bundle()
     .on('error', onError)
-    .pipe(source('lichess.lobby.js'))
+    .pipe(source('lidraughts.lobby.js'))
     .pipe(buffer())
     .pipe(gulp.dest(destination));
 }
@@ -39,14 +39,14 @@ watchedBrowserify.on('log', gutil.log);
 gulp.task('dev', function() {
   return build()
     .bundle()
-    .pipe(source('lichess.lobby.js'))
+    .pipe(source('lidraughts.lobby.js'))
     .pipe(gulp.dest(destination));
 });
 
 gulp.task('prod', function() {
   return build()
     .bundle()
-    .pipe(source('lichess.lobby.min.js'))
+    .pipe(source('lidraughts.lobby.min.js'))
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest(destination));

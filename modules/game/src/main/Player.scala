@@ -1,8 +1,8 @@
-package lila.game
+package lidraughts.game
 
-import chess.Color
+import draughts.Color
 
-import lila.user.User
+import lidraughts.user.User
 
 case class PlayerUser(id: String, rating: Int, ratingDiff: Option[Int])
 
@@ -103,7 +103,7 @@ object Player {
 
   def make(
     color: Color,
-    userPerf: (User.ID, lila.rating.Perf)
+    userPerf: (User.ID, lidraughts.rating.Perf)
   ): Player = Player(
     id = IdGenerator.player,
     color = color,
@@ -116,7 +116,7 @@ object Player {
   def make(
     color: Color,
     user: Option[User],
-    perfPicker: lila.user.Perfs => lila.rating.Perf
+    perfPicker: lidraughts.user.Perfs => lidraughts.rating.Perf
   ): Player = user.fold(make(color)) { u =>
     make(color, (u.id, perfPicker(u.perfs)))
   }
@@ -149,7 +149,7 @@ object Player {
   }
 
   import reactivemongo.bson._
-  import lila.db.BSON
+  import lidraughts.db.BSON
 
   type Id = String
   type UserId = Option[String]
@@ -191,7 +191,7 @@ object Player {
     )
 
     def writes(w: BSON.Writer, o: Builder) =
-      o(chess.White)("0000")(none)(none) |> { p =>
+      o(draughts.White)("0000")(none)(none) |> { p =>
         BSONDocument(
           aiLevel -> p.aiLevel,
           isOfferingDraw -> w.boolO(p.isOfferingDraw),

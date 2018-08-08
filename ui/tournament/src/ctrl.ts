@@ -23,13 +23,13 @@ export default class TournamentController {
   redraw: () => void;
 
   private watchingGameId: string;
-  private lastStorage = window.lichess.storage.make('last-redirect');
+  private lastStorage = window.lidraughts.storage.make('last-redirect');
 
   constructor(opts: TournamentOpts, redraw: () => void) {
     this.opts = opts;
     this.data = opts.data;
     this.redraw = redraw;
-    this.trans = window.lichess.trans(opts.i18n);
+    this.trans = window.lidraughts.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page;
     this.focusOnMe = tour.isIn(this);
@@ -64,7 +64,7 @@ export default class TournamentController {
     setTimeout(() => {
       if (this.lastStorage.get() !== gameId) {
         this.lastStorage.set(gameId);
-        window.lichess.redirect('/' + gameId);
+        window.lidraughts.redirect('/' + gameId);
       }
     }, delay);
   };

@@ -1,11 +1,11 @@
-package lila.history
+package lidraughts.history
 
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    mongoCache: lila.memo.MongoCache.Builder,
-    db: lila.db.Env
+    mongoCache: lidraughts.memo.MongoCache.Builder,
+    db: lidraughts.db.Env
 ) {
 
   private val CachedRatingChartTtl = config duration "cached.rating_chart.ttl"
@@ -24,8 +24,8 @@ final class Env(
 object Env {
 
   lazy val current = "history" boot new Env(
-    config = lila.common.PlayApp loadConfig "history",
-    mongoCache = lila.memo.Env.current.mongoCache,
-    db = lila.db.Env.current
+    config = lidraughts.common.PlayApp loadConfig "history",
+    mongoCache = lidraughts.memo.Env.current.mongoCache,
+    db = lidraughts.db.Env.current
   )
 }

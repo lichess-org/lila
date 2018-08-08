@@ -1,4 +1,4 @@
-package lila.insight
+package lidraughts.insight
 
 import play.api.libs.json._
 
@@ -28,7 +28,6 @@ case class JsonQuestion(
             case MovetimeRange.key => build(MovetimeRange)
             case MyCastling.key => build(MyCastling)
             case OpCastling.key => build(OpCastling)
-            case QueenTrade.key => build(QueenTrade)
             case MaterialRange.key => build(MaterialRange)
             case _ => none
           }
@@ -49,7 +48,6 @@ case class JsonQuestion(
           case MovetimeRange.key => build(MovetimeRange)
           case MyCastling.key => build(MyCastling)
           case OpCastling.key => build(OpCastling)
-          case QueenTrade.key => build(QueenTrade)
           case MaterialRange.key => build(MaterialRange)
           case _ => none
         }

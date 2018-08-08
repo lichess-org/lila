@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.TourMiniView], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable.WithMatchup], playing: List[Pov], chatOption: Option[lila.chat.Chat.GameOrEvent], bookmarked: Boolean)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lidraughts.tournament.TourMiniView], simul: Option[lidraughts.simul.Simul], cross: Option[lidraughts.game.Crosstable.WithMatchup], playing: List[Pov], chatOption: Option[lidraughts.chat.Chat.GameOrEvent], bookmarked: Boolean)(implicit ctx: Context)
 
 @import pov._
 
@@ -9,12 +9,12 @@
 @embedJs {
 window.customWS = true;
 window.onload = function() {
-LichessRound.boot({
+LidraughtsRound.boot({
 data: @safeJson(data),
 i18n: @jsI18n(pov.game),
 userId: @jsUserId,
 @tour.map { t =>
-tour: @toJson(tour.flatMap(_.top).map(lila.tournament.JsonView.top(_, lightUser))),
+tour: @toJson(tour.flatMap(_.top).map(lidraughts.tournament.JsonView.top(_, lightUser))),
 }
 chat: @jsOrNull(chatOption.map(_.either).map {
 case Left(c) => {
@@ -24,7 +24,7 @@ case Right(c) => {
 chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
 }
 })
-}, document.getElementById('lichess'));
+}, document.getElementById('lidraughts'));
 };
 }
 }
@@ -47,7 +47,7 @@ underchat = underchat.some,
 moreJs = moreJs,
 moreCss = cssTag("chat.css"),
 openGraph = povOpenGraph(pov).some,
-chessground = false,
+draughtsground = false,
 playing = true,
 atom = atom.some) {
 <div class="round cg-512">

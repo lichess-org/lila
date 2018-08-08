@@ -1,14 +1,14 @@
-package lila.event
+package lidraughts.event
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 final class EventApi(
     coll: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder
+    asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
   import BsonHandlers._
@@ -16,8 +16,8 @@ final class EventApi(
   def promoteTo(req: RequestHeader): Fu[List[Event]] =
     promotable.get map {
       _.filter { event =>
-        event.lang.language == lila.i18n.enLang.language ||
-          lila.i18n.I18nLangPicker.allFromRequestHeaders(req).exists {
+        event.lang.language == lidraughts.i18n.enLang.language ||
+          lidraughts.i18n.I18nLangPicker.allFromRequestHeaders(req).exists {
             _.language == event.lang.language
           }
       }

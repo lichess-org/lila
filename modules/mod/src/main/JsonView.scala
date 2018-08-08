@@ -1,18 +1,19 @@
-package lila.mod
+package lidraughts.mod
 
 import play.api.libs.json._
 
-import chess.format.FEN
-import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.evaluation._
-import lila.game.JsonView.blursWriter
-import lila.game.{ Game, GameRepo }
-import lila.user.User
+import draughts.format.FEN
+import lidraughts.analyse.{ Analysis, AnalysisRepo }
+import lidraughts.evaluation._
+import lidraughts.game.JsonView.blursWriter
+import lidraughts.game.{ Game, GameRepo }
+import lidraughts.user.User
 
 final class JsonView(
     assessApi: AssessApi,
-    relationApi: lila.relation.RelationApi,
-    userJson: lila.user.JsonView
+    relationApi: lidraughts.relation.RelationApi,
+    reportApi: lidraughts.report.ReportApi,
+    userJson: lidraughts.user.JsonView
 ) {
 
   def apply(user: User): Fu[Option[JsObject]] =
@@ -29,6 +30,7 @@ final class JsonView(
           allGamesWithFenAndAnalysis = allGamesWithFen zip analysis map {
             case ((game, fen), analysis) => (game, fen, analysis)
           }
+          reportScore <- reportApi.currentCheatScore(lidraughts.report.Suspect(user))
         } yield Json.obj(
           "user" -> userJson(user),
           "assessment" -> pag,
@@ -39,11 +41,11 @@ final class JsonView(
               )
             }
           })
-        ).some
+        ).add("reportScore" -> reportScore.map(_.value)).some
       }
     }
 
-  import lila.user.JsonView.modWrites
+  import lidraughts.user.JsonView.modWrites
 
   private implicit val playerFlagsWrites = OWrites[PlayerFlags] { f =>
     Json.obj()
@@ -65,7 +67,7 @@ final class JsonView(
     case (g, fen, analysis) => Json.obj(
       "initialFen" -> fen.map(_.value),
       // "createdAt" -> g.createdAt.getDate,
-      "pgn" -> g.pgnMoves.mkString(" "),
+      "pdn" -> g.pdnMoves.mkString(" "),
       "variant" -> g.variant.exotic.option(g.variant.key),
       "emts" -> g.clockHistory.isDefined ?? g.moveTimes.map(_.map(_.centis)),
       "blurs" -> Json.obj(

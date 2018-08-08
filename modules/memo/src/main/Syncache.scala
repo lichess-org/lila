@@ -1,4 +1,4 @@
-package lila.memo
+package lidraughts.memo
 
 import com.github.benmanes.caffeine.cache._
 import java.util.concurrent.ConcurrentHashMap
@@ -17,7 +17,7 @@ final class Syncache[K, V](
     default: K => V,
     strategy: Syncache.Strategy,
     expireAfter: Syncache.ExpireAfter,
-    logger: lila.log.Logger,
+    logger: lidraughts.log.Logger,
     resultTimeout: FiniteDuration = 5 seconds
 )(implicit system: akka.actor.ActorSystem) {
 
@@ -51,7 +51,7 @@ final class Syncache[K, V](
         case NeverWait => default(k)
         case AlwaysWait(duration) => waitForResult(k, fu, duration)
         case WaitAfterUptime(duration, uptime) =>
-          if (lila.common.PlayApp startedSinceSeconds uptime) waitForResult(k, fu, duration)
+          if (lidraughts.common.PlayApp startedSinceSeconds uptime) waitForResult(k, fu, duration)
           else default(k)
       }
     }
@@ -89,7 +89,7 @@ final class Syncache[K, V](
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = compute(k).withTimeout(
       duration = resultTimeout,
-      error = lila.base.LilaException(s"Syncache $name $k timed out after $resultTimeout")
+      error = lidraughts.base.LidraughtsException(s"Syncache $name $k timed out after $resultTimeout")
     )
       .chronometer.mon(_ => recComputeNanos).result // monitoring: record async time
       .addEffects(
@@ -108,7 +108,7 @@ final class Syncache[K, V](
     incWait()
     try {
       // monitoring: increment lock time
-      lila.mon.measureIncMicros(_ => incWaitMicros)(fu await duration)
+      lidraughts.mon.measureIncMicros(_ => incWaitMicros)(fu await duration)
     } catch {
       case e: java.util.concurrent.TimeoutException =>
         incTimeout()
@@ -116,12 +116,12 @@ final class Syncache[K, V](
     }
   }
 
-  private val incMiss = lila.mon.syncache.miss(name)
-  private val incWait = lila.mon.syncache.wait(name)
-  private val incPreload = lila.mon.syncache.preload(name)
-  private val incTimeout = lila.mon.syncache.timeout(name)
-  private val incWaitMicros = lila.mon.syncache.waitMicros(name)
-  private val recComputeNanos = lila.mon.syncache.computeNanos(name)
+  private val incMiss = lidraughts.mon.syncache.miss(name)
+  private val incWait = lidraughts.mon.syncache.wait(name)
+  private val incPreload = lidraughts.mon.syncache.preload(name)
+  private val incTimeout = lidraughts.mon.syncache.timeout(name)
+  private val incWaitMicros = lidraughts.mon.syncache.waitMicros(name)
+  private val recComputeNanos = lidraughts.mon.syncache.computeNanos(name)
 }
 
 object Syncache {

@@ -1,14 +1,14 @@
-package lila.challenge
+package lidraughts.challenge
 
 import play.api.libs.json._
 import play.api.i18n.Lang
 
-import lila.socket.UserLagCache
-import lila.i18n.{ I18nKeys => trans }
+import lidraughts.socket.UserLagCache
+import lidraughts.i18n.{ I18nKeys => trans }
 
 final class JsonView(
-    getLightUser: lila.common.LightUser.GetterSync,
-    isOnline: lila.user.User.ID => Boolean
+    getLightUser: lidraughts.common.LightUser.GetterSync,
+    isOnline: lidraughts.user.User.ID => Boolean
 ) {
 
   import Challenge._
@@ -58,7 +58,7 @@ final class JsonView(
   )
 
   private def iconChar(c: Challenge) =
-    if (c.variant == chess.variant.FromPosition) '*'
+    if (c.variant == draughts.variant.FromPosition) '*'
     else c.perfType.iconChar
 
   private implicit val RegisteredWrites = OWrites[Registered] { r =>
@@ -74,7 +74,7 @@ final class JsonView(
       .add("lag" -> UserLagCache.getLagRating(r.id))
   }
 
-  private def translations(lang: Lang) = lila.i18n.JsDump.keysToObject(List(
+  private def translations(lang: Lang) = lidraughts.i18n.JsDump.keysToObject(List(
     trans.rated,
     trans.casual,
     trans.waiting,
@@ -82,5 +82,5 @@ final class JsonView(
     trans.decline,
     trans.viewInFullSize,
     trans.cancel
-  ), lila.i18n.I18nDb.Site, lang)
+  ), lidraughts.i18n.I18nDb.Site, lang)
 }

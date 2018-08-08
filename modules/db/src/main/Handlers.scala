@@ -1,12 +1,12 @@
-package lila.db
+package lidraughts.db
 
 import scala.collection.breakOut
 import org.joda.time.DateTime
 import reactivemongo.bson._
 import scalaz.NonEmptyList
 
-import lila.common.Iso._
-import lila.common.{ Iso, IpAddress, EmailAddress }
+import lidraughts.common.Iso._
+import lidraughts.common.{ Iso, IpAddress, EmailAddress }
 
 trait Handlers {
 

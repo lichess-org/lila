@@ -1,14 +1,14 @@
-package lila.analyse
+package lidraughts.analyse
 package actorApi
 
-import lila.game.Game
+import lidraughts.game.Game
 
 case class AnalysisReady(game: Game, analysis: Analysis)
 
 case class AnalysisProgress(
     game: Game,
-    variant: chess.variant.Variant,
-    initialFen: chess.format.FEN,
+    variant: draughts.variant.Variant,
+    initialFen: draughts.format.FEN,
     analysis: Analysis
 )
 

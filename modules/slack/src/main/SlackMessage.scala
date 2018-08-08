@@ -1,4 +1,4 @@
-package lila.slack
+package lidraughts.slack
 
 private case class SlackMessage(
     username: String,

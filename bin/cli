@@ -1,6 +1,0 @@
-#!/bin/sh
-
-COMMAND=$*
-PASSWORD=$LILA_CLI_PASSWORD
-
-curl -d "password=$PASSWORD&command=$COMMAND" http://l.org/cli

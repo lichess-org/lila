@@ -1,6 +1,6 @@
-package lila.memo
+package lidraughts.memo
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 import play.api.data._, Forms._
 
 final class SettingStore[A: BSONValueHandler: SettingStore.StringReader] private (

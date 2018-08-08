@@ -1,12 +1,12 @@
-package lila.study
+package lidraughts.study
 
-import chess.format.FEN
-import chess.format.pgn.Tags
-import lila.game.{ GameRepo, Pov, Namer }
-import lila.user.User
+import draughts.format.FEN
+import draughts.format.pdn.Tags
+import lidraughts.game.{ GameRepo, Pov, Namer }
+import lidraughts.user.User
 
 private final class StudyMaker(
-    lightUser: lila.common.LightUser.GetterSync,
+    lightUser: lidraughts.common.LightUser.GetterSync,
     chapterMaker: ChapterMaker
 ) {
 
@@ -16,23 +16,27 @@ private final class StudyMaker(
       case None => createFromScratch(data, user)
     } map { sc =>
       // apply specified From if any
+      logger.info(s"StudyMaker.apply Study (${data.from | sc.study.from}) $sc")
       sc.copy(study = sc.study.copy(from = data.from | sc.study.from))
     }
 
   private def createFromScratch(data: StudyMaker.Data, user: User): Fu[Study.WithChapter] = {
     val study = Study.make(user, Study.From.Scratch, data.id, data.name, data.settings)
-    chapterMaker.fromFenOrPgnOrBlank(study, ChapterMaker.Data(
+    logger.info(s"StudyMaker.createFromScratch Study $study")
+    val c = chapterMaker.fromFenOrPdnOrBlank(study, ChapterMaker.Data(
       game = none,
       name = Chapter.Name("Chapter 1"),
       variant = data.form.variantStr,
       fen = data.form.fenStr,
-      pgn = data.form.pgnStr,
+      pdn = data.form.pdnStr,
       orientation = data.form.orientation.name,
       mode = ChapterMaker.Mode.Normal.key,
       initial = true
     ),
       order = 1,
-      userId = user.id) map { chapter =>
+      userId = user.id)
+    logger.info(s"StudyMaker.createFromScratch Chapter $c")
+    c map { chapter =>
       Study.WithChapter(study withChapter chapter, chapter)
     }
   }

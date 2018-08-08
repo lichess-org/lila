@@ -2,7 +2,7 @@ import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
-import { Chessground } from 'chessground';
+import { Draughtsground } from 'draughtsground';
 import { LobbyOpts, Tab } from './interfaces';
 import LobbyController from './ctrl';
 
@@ -40,10 +40,10 @@ export function start(opts: LobbyOpts) {
   };
 }
 
-// that's for the rest of lichess to access chessground
+// that's for the rest of lidraughts to access draughtsground
 // without having to include it a second time
-window.Chessground = Chessground;
+window.Draughtsground = Draughtsground;
 
 window.onload = function() {
-  if (window['lichess_lobby']) boot(window['lichess_lobby'], document.getElementById('hooks_wrap'));
+  if (window['lidraughts_lobby']) boot(window['lidraughts_lobby'], document.getElementById('hooks_wrap'));
 };

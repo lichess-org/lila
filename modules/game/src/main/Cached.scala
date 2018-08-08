@@ -1,14 +1,14 @@
-package lila.game
+package lidraughts.game
 
 import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.memo.{ MongoCache, ExpireSetMemo }
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.memo.{ MongoCache, ExpireSetMemo }
+import lidraughts.user.User
 
 final class Cached(
     coll: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     mongoCache: MongoCache.Builder
 ) {
 
@@ -41,6 +41,6 @@ final class Cached(
     prefix = "game:count",
     f = coll.countSel(_),
     timeToLive = 1 hour,
-    keyToString = lila.db.BSON.hashDoc
+    keyToString = lidraughts.db.BSON.hashDoc
   )
 }

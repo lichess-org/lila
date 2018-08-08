@@ -1,22 +1,24 @@
-package lila.mod
+package lidraughts.mod
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.game.BSONHandlers._
-import lila.game.{ Game, GameRepo, Query }
-import lila.rating.PerfType
-import lila.user.{ User, UserRepo }
-import lila.report.{ Suspect, Victim }
+import lidraughts.db.dsl._
+import lidraughts.game.BSONHandlers._
+import lidraughts.game.{ Game, GameRepo, Query }
+import lidraughts.rating.PerfType
+import lidraughts.user.{ User, UserRepo }
+import lidraughts.report.{ Suspect, Victim }
+import lidraughts.perfStat.PerfStat
 
 private final class RatingRefund(
-    scheduler: lila.common.Scheduler,
+    scheduler: lidraughts.common.Scheduler,
     notifier: ModNotifier,
-    historyApi: lila.history.HistoryApi,
-    rankingApi: lila.user.RankingApi,
-    wasUnengined: Suspect => Fu[Boolean]
+    historyApi: lidraughts.history.HistoryApi,
+    rankingApi: lidraughts.user.RankingApi,
+    wasUnengined: Suspect => Fu[Boolean],
+    perfStatter: (User, PerfType) => Fu[PerfStat]
 ) {
 
   import RatingRefund._
@@ -47,9 +49,10 @@ private final class RatingRefund(
         } yield refs.add(victim, perf, -diff, rating)) | refs
       }
 
-      def pointsToRefund(ref: Refund, user: User): Int = {
-        ref.diff - user.perfs(ref.perf).intRating + 100 + ref.topRating
-      } min ref.diff min 200 max 0
+      def pointsToRefund(ref: Refund, curRating: Int, perfs: PerfStat): Int = {
+        ref.diff - (ref.diff + curRating - ref.topRating atLeast 0) / 2 atMost
+          perfs.highest.fold(100) { _.int - curRating + 20 }
+      } squeeze (0, 150)
 
       def refundPoints(victim: Victim, pt: PerfType, points: Int): Funit = {
         val newPerf = victim.user.perfs(pt) refund points
@@ -62,9 +65,17 @@ private final class RatingRefund(
       def applyRefund(ref: Refund) =
         UserRepo byId ref.victim flatMap {
           _ ?? { user =>
-            val points = pointsToRefund(ref, user)
-            logger.info(s"Refunding $ref -> $points")
-            (points > 0) ?? refundPoints(Victim(user), ref.perf, points)
+            perfStatter(user, ref.perf) flatMap { perfs =>
+              val points = pointsToRefund(
+                ref,
+                curRating = user.perfs(ref.perf).intRating,
+                perfs = perfs
+              )
+              (points > 0) ?? {
+                logger.info(s"Refunding $ref -> $points")
+                refundPoints(Victim(user), ref.perf, points)
+              }
+            }
           }
         }
 

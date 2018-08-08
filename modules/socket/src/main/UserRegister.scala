@@ -1,21 +1,21 @@
-package lila.socket
+package lidraughts.socket
 
 import akka.actor._
 import play.api.libs.json.JsObject
 
 import actorApi.{ SocketLeave, SocketEnter }
-import lila.hub.actorApi.{ SendTo, SendTos, WithUserIds }
-import lila.hub.actorApi.security.CloseAccount
+import lidraughts.hub.actorApi.{ SendTo, SendTos, WithUserIds }
+import lidraughts.hub.actorApi.security.CloseAccount
 
 private final class UserRegister extends Actor {
 
   override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'users, 'socketDoor, 'accountClose)
+    context.system.lidraughtsBus.subscribe(self, 'users, 'socketDoor, 'accountClose)
   }
 
   override def postStop(): Unit = {
     super.postStop()
-    context.system.lilaBus.unsubscribe(self)
+    context.system.lidraughtsBus.unsubscribe(self)
   }
 
   type UID = String

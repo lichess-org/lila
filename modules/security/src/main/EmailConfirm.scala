@@ -1,11 +1,11 @@
-package lila.security
+package lidraughts.security
 
 import play.api.i18n.Lang
 import play.twirl.api.Html
 
-import lila.common.EmailAddress
-import lila.user.{ User, UserRepo }
-import lila.i18n.I18nKeys.{ emails => trans }
+import lidraughts.common.EmailAddress
+import lidraughts.user.{ User, UserRepo }
+import lidraughts.i18n.I18nKeys.{ emails => trans }
 
 trait EmailConfirm {
 
@@ -36,9 +36,9 @@ final class EmailConfirmMailgun(
   val maxTries = 3
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit = tokener make user.id flatMap { token =>
-    lila.mon.email.confirmation()
+    lidraughts.mon.email.confirmation()
     val url = s"$baseUrl/signup/confirm/$token"
-    lila.log("auth").info(s"Confirm URL ${user.username} $email $url")
+    lidraughts.log("auth").info(s"Confirm URL ${user.username} $email $url")
     mailgun send Mailgun.Message(
       to = email,
       subject = trans.emailConfirm_subject.literalTxtTo(lang, List(user.username)),
@@ -50,7 +50,7 @@ $url
 ${trans.common_orPaste.literalTxtTo(lang)}
 
 ${Mailgun.txt.serviceNote}
-${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
+${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lidraughts.org"))}
 """,
       htmlBody = Html(s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">

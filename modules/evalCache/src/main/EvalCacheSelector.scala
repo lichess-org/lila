@@ -1,4 +1,4 @@
-package lila.evalCache
+package lidraughts.evalCache
 
 import EvalCacheEntry._
 

@@ -1,4 +1,4 @@
-package lila.qa
+package lidraughts.qa
 
 import play.api.data._
 import play.api.data.Forms._
@@ -6,8 +6,8 @@ import play.api.i18n.Lang
 
 private[qa] final class DataForm(
     val captcher: akka.actor.ActorSelection,
-    detectLanguage: lila.common.DetectLanguage
-) extends lila.hub.CaptchedForm {
+    detectLanguage: lidraughts.common.DetectLanguage
+) extends lidraughts.hub.CaptchedForm {
 
   lazy val question = Form(
     mapping(

@@ -1,7 +1,7 @@
-package lila.analyse
+package lidraughts.analyse
 
-import lila.game.Pov
-import lila.tree.Eval._
+import lidraughts.game.Pov
+import lidraughts.tree.Eval._
 
 object Accuracy {
 
@@ -15,15 +15,15 @@ object Accuracy {
   }
 
   case class PovLike(
-      color: chess.Color,
-      startColor: chess.Color,
+      color: draughts.Color,
+      startColor: draughts.Color,
       startedAtTurn: Int
   )
 
   implicit def povToPovLike(pov: Pov): PovLike = PovLike(
     color = pov.color,
     startColor = pov.game.startColor,
-    startedAtTurn = pov.game.chess.startedAtTurn
+    startedAtTurn = pov.game.draughts.startedAtTurn
   )
 
   def diffsList(pov: PovLike, analysis: Analysis): List[Int] =

@@ -1,4 +1,4 @@
-package lila.playban
+package lidraughts.playban
 
 import org.joda.time.DateTime
 

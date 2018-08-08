@@ -1,4 +1,4 @@
-package lila.hub
+package lidraughts.hub
 package actorApi
 
 import org.joda.time.DateTime
@@ -209,9 +209,9 @@ package fishnet {
   case class StudyChapterRequest(
       studyId: String,
       chapterId: String,
-      initialFen: Option[chess.format.FEN],
-      variant: chess.variant.Variant,
-      moves: List[chess.format.Uci],
+      initialFen: Option[draughts.format.FEN],
+      variant: draughts.variant.Variant,
+      moves: List[draughts.format.Uci],
       userId: Option[String]
   )
 }
@@ -243,9 +243,8 @@ package round {
   case class NbRounds(nb: Int)
   case class Abort(gameId: String, byColor: String)
   case class Berserk(gameId: String, userId: String)
-  case class IsOnGame(color: chess.Color)
+  case class IsOnGame(color: draughts.Color)
   sealed trait SocketEvent
-  case class FishnetPlay(uci: chess.format.Uci, currentFen: chess.format.FEN)
   case class TourStanding(json: JsArray)
 }
 

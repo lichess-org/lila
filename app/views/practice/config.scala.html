@@ -1,17 +1,17 @@
-@(structure: lila.practice.PracticeStructure, form: Form[_])(implicit ctx: Context)
+@(structure: lidraughts.practice.PracticeStructure, form: Form[_])(implicit ctx: Context)
 
 @mod.layout(
 title = "Practice structure",
 active = "practice",
 moreCss = cssTag("mod-practice.css")) {
 <div class="content_box practice_config">
-  <h1 data-icon="" class="text lichess_title"><a href="@routes.Practice.index">Practice</a> config</h1>
+  @* <h1 data-icon="" class="text lidraughts_title"><a href="@routes.Practice.index">Practice</a> config</h1> *@
   <div class="both">
-    <form action="@routes.Practice.configSave" method="POST">
+    @* <form action="@routes.Practice.configSave" method="POST">
       <textarea class="practice_text" name="text">@form("text").value</textarea>
       @errMsg(form("text"))
       <button type="submit" class="button text" data-icon="E">Save</button>
-    </form>
+    </form> *@
     <div class="preview">
       <ol>
         @structure.sections.map { section =>

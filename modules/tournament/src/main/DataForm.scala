@@ -1,13 +1,13 @@
-package lila.tournament
+package lidraughts.tournament
 
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 
-import chess.Mode
-import chess.StartingPosition
-import lila.common.Form._
-import lila.user.User
+import draughts.Mode
+import draughts.StartingPosition
+import lidraughts.common.Form._
+import lidraughts.user.User
 
 final class DataForm {
 
@@ -19,7 +19,7 @@ final class DataForm {
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
     waitMinutes = waitMinuteDefault,
-    variant = chess.variant.Standard.id,
+    variant = draughts.variant.Standard.id,
     position = StartingPosition.initial.fen,
     `private` = None,
     password = None,
@@ -60,13 +60,13 @@ object DataForm {
     u.count.game >= 10 && u.createdSinceDays(3) && !u.troll
   } || u.hasTitle
 
-  import chess.variant._
+  import draughts.variant._
 
   val clockTimes: Seq[Double] = Seq(0d, 1 / 4d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ (2d to 7d by 1d)
   val clockTimesPrivate: Seq[Double] = clockTimes ++ (10d to 30d by 5d) ++ (40d to 60d by 10d)
   val clockTimeDefault = 2d
   private def formatLimit(l: Double) =
-    chess.Clock.Config(l * 60 toInt, 0).limitString + {
+    draughts.Clock.Config(l * 60 toInt, 0).limitString + {
       if (l <= 1) " minute" else " minutes"
     }
   val clockTimeChoices = optionsDouble(clockTimes, formatLimit)
@@ -94,7 +94,7 @@ object DataForm {
   }
   val positionDefault = StartingPosition.initial.fen
 
-  val validVariants = List(Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse)
+  val validVariants = List(Standard, Frisian)
 
   val validVariantIds = validVariants.map(_.id).toSet
 
@@ -127,13 +127,13 @@ private[tournament] case class TournamentSetup(
 
   def realMode = mode.fold(Mode.default)(Mode.orDefault)
 
-  def realVariant = chess.variant.Variant orDefault variant
+  def realVariant = draughts.variant.Variant orDefault variant
 
-  def clockConfig = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
+  def clockConfig = draughts.Clock.Config((clockTime * 60).toInt, clockIncrement)
 
   def validRatedUltraBulletVariant =
     realMode == Mode.Casual ||
-      lila.game.Game.allowRated(realVariant, clockConfig)
+      lidraughts.game.Game.allowRated(realVariant, clockConfig)
 
   def isPrivate = `private`.isDefined
 

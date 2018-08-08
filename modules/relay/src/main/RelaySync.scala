@@ -1,10 +1,10 @@
-package lila.relay
+package lidraughts.relay
 
 import org.joda.time.DateTime
 
-import chess.format.pgn.{ Tag, Tags }
-import lila.socket.Socket.Uid
-import lila.study._
+import draughts.format.pdn.{ Tag, Tags }
+import lidraughts.socket.Socket.Uid
+import lidraughts.study._
 
 private final class RelaySync(
     studyApi: StudyApi,
@@ -16,7 +16,7 @@ private final class RelaySync(
   def apply(relay: Relay, games: RelayGames): Fu[SyncResult.Ok] =
     studyApi byId relay.studyId flatten "Missing relay study!" flatMap { study =>
       chapterRepo orderedByStudy study.id flatMap { chapters =>
-        lila.common.Future.traverseSequentially(games) { game =>
+        lidraughts.common.Future.traverseSequentially(games) { game =>
           findCorrespondingChapter(game, chapters, games.size) match {
             case Some(chapter) => updateChapter(study, chapter, game)
             case None => createChapter(study, game) flatMap { chapter =>
@@ -33,7 +33,7 @@ private final class RelaySync(
    * If the source contains several games, use their index to match them with the study chapter.
    * If the source contains only one game, use the player tags to match with the study chapter.
    * So the TCEC style - one game per file, reusing the file for all games - is supported.
-   * lichess will create a new chapter when the game player tags differ.
+   * lidraughts will create a new chapter when the game player tags differ.
    */
   private def findCorrespondingChapter(game: RelayGame, chapters: List[Chapter], nbGames: Int): Option[Chapter] =
     if (nbGames == 1) chapters.find(c => game staticTagsMatch c.tags)
@@ -72,7 +72,7 @@ private final class RelaySync(
             uid = socketUid
           )
         } >> newNode.?? { node =>
-          lila.common.Future.fold(node.mainline)(Position(chapter, path).ref) {
+          lidraughts.common.Future.fold(node.mainline)(Position(chapter, path).ref) {
             case (position, n) => studyApi.addNode(
               userId = chapter.ownerId,
               studyId = study.id,
@@ -103,16 +103,28 @@ private final class RelaySync(
         gameTags + Tag(_.Result, end.resultText)
       }
     val chapterNewTags = tags.value.foldLeft(chapter.tags) {
-      case (chapterTags, tag) => PgnTags(chapterTags + tag)
+      case (chapterTags, tag) => PdnTags(chapterTags + tag)
     }
-    (chapterNewTags != chapter.tags) ?? studyApi.setTags(
-      userId = chapter.ownerId,
-      studyId = study.id,
-      chapterId = chapter.id,
-      tags = chapterNewTags,
-      uid = socketUid
-    )
+    (chapterNewTags != chapter.tags) ?? {
+      studyApi.setTags(
+        userId = chapter.ownerId,
+        studyId = study.id,
+        chapterId = chapter.id,
+        tags = chapterNewTags,
+        uid = socketUid
+      ) >> {
+        chapterNewTags.resultColor.isDefined ?? onChapterEnd(study.id, chapter.id)
+      }
+    }
   }
+
+  private def onChapterEnd(studyId: Study.Id, chapterId: Chapter.Id): Funit =
+    chapterRepo.setRelayPath(chapterId, Path.root) >>
+      studyApi.analysisRequest(
+        studyId = studyId,
+        chapterId = chapterId,
+        userId = "lidraughts"
+      )
 
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
     chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
@@ -128,7 +140,7 @@ private final class RelaySync(
         setup = Chapter.Setup(
           none,
           game.variant,
-          chess.Color.White
+          draughts.Color.White
         ),
         root = game.root,
         tags = game.tags,

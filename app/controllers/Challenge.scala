@@ -3,15 +3,15 @@ package controllers
 import play.api.libs.json._
 import play.api.mvc.Result
 
-import lila.api.Context
-import lila.app._
-import lila.challenge.{ Challenge => ChallengeModel }
-import lila.common.{ HTTPRequest, LilaCookie }
-import lila.game.{ Pov, GameRepo, AnonCookie }
-import lila.user.UserRepo
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.challenge.{ Challenge => ChallengeModel }
+import lidraughts.common.{ HTTPRequest, LidraughtsCookie }
+import lidraughts.game.{ Pov, GameRepo, AnonCookie }
+import lidraughts.user.UserRepo
 import views.html
 
-object Challenge extends LilaController {
+object Challenge extends LidraughtsController {
 
   private def env = Env.challenge
 
@@ -33,7 +33,7 @@ object Challenge extends LilaController {
   protected[controllers] def showChallenge(c: ChallengeModel, error: Option[String] = None)(implicit ctx: Context): Fu[Result] =
     env version c.id flatMap { version =>
       val mine = isMine(c)
-      import lila.challenge.Direction
+      import lidraughts.challenge.Direction
       val direction: Option[Direction] =
         if (mine) Direction.Out.some
         else if (isForMe(c)) Direction.In.some
@@ -79,7 +79,7 @@ object Challenge extends LilaController {
       GameRepo.game(c.id).map {
         _ map { game =>
           implicit val req = ctx.req
-          LilaCookie.cookie(
+          LidraughtsCookie.cookie(
             AnonCookie.name,
             game.player(owner.fold(c.finalColor, !c.finalColor)).id,
             maxAge = AnonCookie.maxAge.some,
@@ -117,7 +117,7 @@ object Challenge extends LilaController {
         username => UserRepo named username flatMap {
           case None => Redirect(routes.Challenge.show(c.id)).fuccess
           case Some(dest) => Env.challenge.granter(ctx.me, dest, c.perfType.some) flatMap {
-            case Some(denied) => showChallenge(c, lila.challenge.ChallengeDenied.translated(denied).some)
+            case Some(denied) => showChallenge(c, lidraughts.challenge.ChallengeDenied.translated(denied).some)
             case None => env.api.setDestUser(c, dest) inject Redirect(routes.Challenge.show(c.id))
           }
         }
@@ -132,7 +132,7 @@ object Challenge extends LilaController {
         _ ?? { opponent =>
           env.granter(me.some, opponent, g.perfType) flatMap {
             case Some(d) => BadRequest(jsonError {
-              lila.challenge.ChallengeDenied translated d
+              lidraughts.challenge.ChallengeDenied translated d
             }).fuccess
             case _ => env.api.rematchOf(g, me) map {
               _.fold(Ok, BadRequest(jsonError("Sorry, couldn't create the rematch.")))

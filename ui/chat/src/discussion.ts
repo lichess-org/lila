@@ -27,7 +27,7 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
       hook: {
         insert(vnode) {
           const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
-            window.lichess.pubsub.emit('jump')((e.target as HTMLElement).getAttribute('data-ply'));
+            window.lidraughts.pubsub.emit('jump')((e.target as HTMLElement).getAttribute('data-ply'));
           });
           if (m) $el.on('click', '.mod', (e: Event) => {
             m.open(((e.target as HTMLElement).getAttribute('data-username') as string).split(' ')[0]);
@@ -47,7 +47,7 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
 function renderInput(ctrl: Ctrl): VNode | undefined {
   if (!ctrl.vm.writeable) return;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
-  return h('input.lichess_say', {
+  return h('input.lidraughts_say', {
     attrs: {
       placeholder: ctrl.trans('loginToChat'),
       disabled: true
@@ -56,7 +56,7 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
   let placeholder: string;
   if (ctrl.vm.timeout) placeholder = ctrl.trans('youHaveBeenTimedOut');
   else placeholder = ctrl.trans(ctrl.vm.placeholderKey);
-  return h('input.lichess_say', {
+  return h('input.lidraughts_say', {
     attrs: {
       placeholder,
       autocomplete: 'off',
@@ -104,8 +104,8 @@ function selectLines(ctrl: Ctrl): Array<Line> {
 
 function updateText(parseMoves: boolean) {
   return (oldVnode: VNode, vnode: VNode) => {
-    if ((vnode.data as VNodeData).lichessChat !== (oldVnode.data as VNodeData).lichessChat) {
-      (vnode.elm as HTMLElement).innerHTML = enhance((vnode.data as VNodeData).lichessChat, parseMoves);
+    if ((vnode.data as VNodeData).lidraughtsChat !== (oldVnode.data as VNodeData).lidraughtsChat) {
+      (vnode.elm as HTMLElement).innerHTML = enhance((vnode.data as VNodeData).lidraughtsChat, parseMoves);
     }
   };
 }
@@ -113,7 +113,7 @@ function updateText(parseMoves: boolean) {
 function renderText(t: string, parseMoves: boolean) {
   const hook = updateText(parseMoves);
   return h('t', {
-    lichessChat: t,
+    lidraughtsChat: t,
     hook: {
       create: hook,
       update: hook
@@ -125,7 +125,7 @@ function renderLine(ctrl: Ctrl, line: Line) {
 
   const textNode = renderText(line.t, ctrl.opts.parseMoves);
 
-  if (line.u === 'lichess') return h('li.system', textNode);
+  if (line.u === 'lidraughts') return h('li.system', textNode);
 
   if (line.c) return h('li', [
     h('span', '[' + line.c + ']'),

@@ -1,4 +1,4 @@
-@(pov: Pov, initialFen: Option[String], pgn: chess.format.pgn.Pgn)(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[String], pdn: draughts.format.pdn.Pdn)(implicit ctx: Context)
 
 @title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in ${pov.gameId}" }
 
@@ -7,14 +7,14 @@ title = title,
 side = views.html.game.side(pov, initialFen, none, simul = none, userTv = none, bookmarked = false),
 chat = none,
 underchat = views.html.game.watchers().some,
-chessground = false,
+draughtsground = false,
 openGraph = povOpenGraph(pov).some) {
 <div class="round cg-512">
   @board.domPreload(pov.some)
-  <div class="lichess_ground for_bot">
+  <div class="lidraughts_ground for_bot">
     <h1>@titleGame(pov.game)</h1>
     <p>@describePov(pov)</p>
-    <div class="pgn">@pgn.render</div>
+    <div class="pdn">@pdn.render</div>
   </div>
 </div>
 }

@@ -1,24 +1,16 @@
 {
   "name": "puzzle",
   "version": "1.0.0",
-  "description": "lichess.org puzzle solver",
+  "description": "lidraughts.org puzzle solver",
   "main": "src/main.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ornicar/lila"
-  },
   "keywords": [
-    "chess",
-    "lichess",
+    "draughts",
+    "lidraughts",
     "puzzle",
     "training"
   ],
-  "author": "Thibault Duplessis",
+  "author": "Stefan Schermann (modified original by Thibault Duplessis)",
   "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/ornicar/lila/issues"
-  },
-  "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
     "@types/jquery": "^2.0",
     "browserify": "^14",
@@ -26,7 +18,7 @@
     "gulp-uglify": "^3",
     "gulp-util": "^3",
     "tsify": "^3",
-    "@types/lichess": "1.0.0",
+    "@types/lidraughts": "1.0.0",
     "typescript": "^2",
     "vinyl-buffer": "^1",
     "vinyl-source-stream": "^1",
@@ -34,8 +26,8 @@
   },
   "dependencies": {
     "ceval": "1.0.0",
-    "chess": "1.0.0",
-    "chessground": "^7.2",
+    "draughts": "1.0.0",
+    "draughtsground": "^7.2",
     "common": "1.0.0",
     "snabbdom": "ornicar/snabbdom#lichess",
     "tree": "1.0.0"

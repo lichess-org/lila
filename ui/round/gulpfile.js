@@ -15,7 +15,7 @@ function onError(error) {
 
 function build(debug) {
   return browserify('src/main.ts', {
-    standalone: 'LichessRound',
+    standalone: 'LidraughtsRound',
     debug: debug
   })
     .plugin(tsify);
@@ -27,7 +27,7 @@ function bundle() {
   return watchedBrowserify
     .bundle()
     .on('error', onError)
-    .pipe(source('lichess.round.js'))
+    .pipe(source('lidraughts.round.js'))
     .pipe(buffer())
     .pipe(gulp.dest(destination));
 }
@@ -38,7 +38,7 @@ watchedBrowserify.on('log', gutil.log);
 function dev() {
   return () => build(true)
     .bundle()
-    .pipe(source('lichess.round.js'))
+    .pipe(source('lidraughts.round.js'))
     .pipe(gulp.dest(destination));
 };
 gulp.task('dev', dev(false));
@@ -46,7 +46,7 @@ gulp.task('dev', dev(false));
 function prod() {
   return () => build(false)
     .bundle()
-    .pipe(source('lichess.round.min.js'))
+    .pipe(source('lidraughts.round.min.js'))
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest(destination));

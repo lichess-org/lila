@@ -1,11 +1,11 @@
-package lila.api
+package lidraughts.api
 
 import akka.actor._
 import java.lang.management.ManagementFactory
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.round.NbRounds
-import lila.socket.actorApi.NbMembers
+import lidraughts.hub.actorApi.round.NbRounds
+import lidraughts.socket.actorApi.NbMembers
 
 private final class KamonPusher(
     countUsers: () => Int
@@ -18,7 +18,7 @@ private final class KamonPusher(
   }
 
   private val threadStats = ManagementFactory.getThreadMXBean
-  private val app = lila.common.PlayApp
+  private val app = lidraughts.common.PlayApp
 
   private def scheduleTick =
     context.system.scheduler.scheduleOnce(1 second, self, Tick)
@@ -26,16 +26,16 @@ private final class KamonPusher(
   def receive = {
 
     case NbMembers(nb) =>
-      lila.mon.socket.member(nb)
+      lidraughts.mon.socket.member(nb)
 
     case NbRounds(nb) =>
-      lila.mon.round.actor.count(nb)
+      lidraughts.mon.round.actor.count(nb)
 
     case Tick =>
-      lila.mon.jvm.thread(threadStats.getThreadCount)
-      lila.mon.jvm.daemon(threadStats.getDaemonThreadCount)
-      lila.mon.jvm.uptime(app.uptime.toStandardSeconds.getSeconds)
-      lila.mon.user.online(countUsers())
+      lidraughts.mon.jvm.thread(threadStats.getThreadCount)
+      lidraughts.mon.jvm.daemon(threadStats.getDaemonThreadCount)
+      lidraughts.mon.jvm.uptime(app.uptime.toStandardSeconds.getSeconds)
+      lidraughts.mon.user.online(countUsers())
       scheduleTick
   }
 }
@@ -45,5 +45,5 @@ object KamonPusher {
   private case object Tick
 
   def start(system: ActorSystem)(instance: => Actor) =
-    system.lilaBus.subscribe(system.actorOf(Props(instance)), 'nbMembers, 'nbRounds)
+    system.lidraughtsBus.subscribe(system.actorOf(Props(instance)), 'nbMembers, 'nbRounds)
 }

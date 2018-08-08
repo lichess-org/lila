@@ -14,7 +14,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package lila.db
+package lidraughts.db
 
 import ornicar.scalalib.Zero
 import reactivemongo.api._
@@ -37,7 +37,7 @@ trait dsl extends LowPriorityDsl {
   type BSONArrayWriter[A] = BSONWriter[A, BSONArray]
   type BSONArrayHandler[A] = BSONHandler[BSONArray, A]
 
-  implicit val LilaBSONDocumentZero: Zero[BSONDocument] =
+  implicit val LidraughtsBSONDocumentZero: Zero[BSONDocument] =
     Zero.instance($doc())
 
   implicit def bsonDocumentToPretty(document: BSONDocument): String = {

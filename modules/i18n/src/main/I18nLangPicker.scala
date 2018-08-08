@@ -1,9 +1,9 @@
-package lila.i18n
+package lidraughts.i18n
 
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 
-import lila.user.User
+import lidraughts.user.User
 
 object I18nLangPicker {
 
@@ -36,5 +36,5 @@ object I18nLangPicker {
   def findCloser(to: Lang): Option[Lang] =
     if (I18nDb.langs contains to) Some(to)
     else defaultByLanguage.get(to.language) orElse
-      lichessCodes.get(to.language)
+      lidraughtsCodes.get(to.language)
 }

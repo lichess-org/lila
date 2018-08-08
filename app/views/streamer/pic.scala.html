@@ -1,6 +1,6 @@
-@(s: lila.streamer.Streamer, u: User, size: Int)(implicit ctx: Context)
+@(s: lidraughts.streamer.Streamer, u: User, size: Int)(implicit ctx: Context)
 @s.picturePath.map { path =>
-<img width=@size height=@size class="picture" src="@dbImageUrl(path.value)" alt="@u.titleUsername lichess streamer" />
+<img width=@size height=@size class="picture" src="@dbImageUrl(path.value)" alt="@u.titleUsername lidraughts streamer" />
 }.getOrElse {
 <img width=@size height=@size class="default picture" src="@staticUrl("images/streamer-nopic.svg")" />
 }

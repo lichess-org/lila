@@ -1,9 +1,9 @@
-package lila.puzzle
+package lidraughts.puzzle
 
 import reactivemongo.bson._
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 case class UserInfos(user: User, history: List[Round.Mini])
 

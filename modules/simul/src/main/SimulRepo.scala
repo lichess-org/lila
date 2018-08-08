@@ -1,29 +1,29 @@
-package lila.simul
+package lidraughts.simul
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
 import reactivemongo.core.commands._
 
-import chess.Status
-import chess.variant.Variant
-import lila.db.BSON
-import lila.db.dsl._
+import draughts.Status
+import draughts.variant.Variant
+import lidraughts.db.BSON
+import lidraughts.db.dsl._
 
 private[simul] final class SimulRepo(simulColl: Coll) {
 
-  import lila.db.BSON.BSONJodaDateTimeHandler
+  import lidraughts.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.bson.Macros
   private implicit val SimulStatusBSONHandler = new BSONHandler[BSONInteger, SimulStatus] {
     def read(bsonInt: BSONInteger): SimulStatus = SimulStatus(bsonInt.value) err s"No such simul status: ${bsonInt.value}"
     def write(x: SimulStatus) = BSONInteger(x.id)
   }
-  private implicit val ChessStatusBSONHandler = lila.game.BSONHandlers.StatusBSONHandler
+  private implicit val ChessStatusBSONHandler = lidraughts.game.BSONHandlers.StatusBSONHandler
   private implicit val VariantBSONHandler = new BSONHandler[BSONInteger, Variant] {
     def read(bsonInt: BSONInteger): Variant = Variant(bsonInt.value) err s"No such variant: ${bsonInt.value}"
     def write(x: Variant) = BSONInteger(x.id)
   }
   private implicit val ClockBSONHandler = {
-    import chess.Clock.Config
+    import draughts.Clock.Config
     implicit val clockHandler = Macros.handler[Config]
     Macros.handler[SimulClock]
   }
@@ -35,7 +35,7 @@ private[simul] final class SimulRepo(simulColl: Coll) {
       gameId = r str "gameId",
       status = r.get[Status]("status"),
       wins = r boolO "wins",
-      hostColor = r.strO("hostColor").flatMap(chess.Color.apply) | chess.White
+      hostColor = r.strO("hostColor").flatMap(draughts.Color.apply) | draughts.White
     )
     def writes(w: BSON.Writer, o: SimulPairing) = $doc(
       "player" -> o.player,

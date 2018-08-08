@@ -1,6 +1,6 @@
-lichess = lichess || {};
-lichess.startInsightTour = function() {
-  lichess.hopscotch(function() {
+lidraughts = lidraughts || {};
+lidraughts.startInsightTour = function() {
+  lidraughts.hopscotch(function() {
     var tour = {
       id: "insights",
       showPrevButton: true,
@@ -19,7 +19,7 @@ lichess.startInsightTour = function() {
         placement: "top",
         yOffset: 10,
         onShow: function() {
-          lichess.insight.setPanel('preset');
+          lidraughts.insight.setPanel('preset');
         }
       }, {
         title: "Answers are graphs",
@@ -41,8 +41,8 @@ lichess.startInsightTour = function() {
         target: "#insight div.ms.metric",
         placement: "left",
         onShow: function() {
-          lichess.insight.clearFilters();
-          lichess.insight.setPanel('filter');
+          lidraughts.insight.clearFilters();
+          lidraughts.insight.setPanel('filter');
         }
       }, {
         title: "Ask a question: dimension",
@@ -58,8 +58,8 @@ lichess.startInsightTour = function() {
         placement: "top",
         yOffset: 10,
         onShow: function() {
-          lichess.insight.clearFilters();
-          lichess.insight.setPanel('filter');
+          lidraughts.insight.clearFilters();
+          lidraughts.insight.setPanel('filter');
         }
       }, {
         title: "Thank you for your time!",
@@ -70,7 +70,7 @@ lichess.startInsightTour = function() {
         placement: "bottom"
       }, {
         title: "Share your insights data",
-        content: "By default, your data is visible to your lichess friends only.<br>" +
+        content: "By default, your data is visible to your lidraughts friends only.<br>" +
           "You can make it public or private <a href='/account/preferences/privacy'>from your privacy settings</a>.<br><br>" +
           "Have fun :)",
         target: "#insight .info .share",
@@ -82,5 +82,5 @@ lichess.startInsightTour = function() {
   })
 };
 $(function() {
-  if (lichess.once('insight-tour')) setTimeout(lichess.startInsightTour, 1000);
+  if (lidraughts.once('insight-tour')) setTimeout(lidraughts.startInsightTour, 1000);
 });

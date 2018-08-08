@@ -1,11 +1,11 @@
-package lila.security
+package lidraughts.security
 
 import play.api.i18n.Lang
 import play.twirl.api.Html
 
-import lila.common.EmailAddress
-import lila.common.String.html.nl2brUnsafe
-import lila.user.{ User, UserRepo }
+import lidraughts.common.EmailAddress
+import lidraughts.common.String.html.nl2brUnsafe
+import lidraughts.user.{ User, UserRepo }
 
 final class AutomaticEmail(
     mailgun: Mailgun,
@@ -23,17 +23,17 @@ final class AutomaticEmail(
     val profileUrl = s"$baseUrl/@/${user.username}"
     val body = s"""Hello,
 
-Thank you for confirming your $title title on lichess.org.
+Thank you for confirming your $title title on lidraughts.org.
 It is now visible on your profile page: ${baseUrl}/@/${user.username}.
 
 Regards,
 
-The lichess team
+The lidraughts team
 """
 
     mailgun send Mailgun.Message(
       to = email,
-      subject = s"$title title confirmed on lichess.org",
+      subject = s"$title title confirmed on lidraughts.org",
       text = s"""
 $body
 
@@ -52,17 +52,17 @@ ${Mailgun.txt.serviceNote}
       _ ?? { email =>
         val body = s"""Hello,
 
-It is our pleasure to welcome you as a certified lichess coach.
+It is our pleasure to welcome you as a certified lidraughts coach.
 Your coach profile awaits you on ${baseUrl}/coach/edit.
 
 Regards,
 
-The lichess team
+The lidraughts team
 """
 
         mailgun send Mailgun.Message(
           to = email,
-          subject = "Coach profile unlocked on lichess.org",
+          subject = "Coach profile unlocked on lidraughts.org",
           text = s"""
 $body
 
@@ -92,12 +92,12 @@ $key
 Please treat it like a password. You can use the same key on multiple machine,
 but you should not share it with anyone.
 
-Thank you very much for your help! Thanks to you, chess lovers all around the world
+Thank you very much for your help! Thanks to you, draughts lovers all around the world
 will enjoy swift and powerful analysis for their games.
 
 Regards,
 
-The lichess team
+The lidraughts team
 """
 
     mailgun send Mailgun.Message(

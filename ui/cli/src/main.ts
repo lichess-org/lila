@@ -1,6 +1,6 @@
 export function app(wrap: HTMLElement, toggle: () => void) {
   const $wrap = $(wrap), $input = $wrap.find('input');
-  window.lichess.userAutocomplete($input, {
+  window.lidraughts.userAutocomplete($input, {
     focus: 1,
     friend: true,
     onSelect(q: any) {

@@ -1,4 +1,4 @@
-package lila.tournament
+package lidraughts.tournament
 
 sealed abstract class System(val id: Int) {
   val pairingSystem: PairingSystem

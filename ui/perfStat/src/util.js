@@ -12,7 +12,7 @@ function gameLink(id, content) {
 }
 
 function absDate(d) {
-  return m('time', window.lichess.timeago.absolute(d));
+  return m('time', window.lidraughts.timeago.absolute(d));
 }
 
 function fromTo(s) {

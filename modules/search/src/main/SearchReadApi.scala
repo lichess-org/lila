@@ -1,4 +1,4 @@
-package lila.search
+package lidraughts.search
 
 trait SearchReadApi[A, Q] {
 

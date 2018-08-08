@@ -1,7 +1,7 @@
 @(u: User)(implicit ctx: Context)
 
 <div class="new_player">
-  <h2>Welcome to lichess.org!</h2>
+  <h2>Welcome to lidraughts.org!</h2>
   <p>
     This is your profile page.
     @if(u.profile.isEmpty) {
@@ -19,14 +19,14 @@
     What now? Here are a few suggestions:
   </p>
   <ul>
-    <li><a href="@routes.Learn.index">Learn chess rules by playing</a></li>
-    <li><a href="@routes.Puzzle.home">Improve with chess tactics puzzles</a></li>
-    <li><a href="@routes.Lobby.home#ai">Play the artificial intelligence</a></li>
+    @* <li><a href="@routes.Learn.index">Learn draughts rules by playing</a></li>
+    <li><a href="@routes.Lobby.home#ai">Play the artificial intelligence</a></li> *@
+    <li><a href="@routes.Puzzle.home">Improve with draughts tactics puzzles</a></li>
     <li><a href="@routes.Lobby.home#hook">Play opponents from around the world</a></li>
-    <li><a href="@routes.User.list">Follow your friends on lichess</a></li>
+    <li><a href="@routes.User.list">Follow your friends on lidraughts</a></li>
     <li><a href="@routes.Tournament.home(1)">Play in tournaments</a></li>
-    <li>Learn from <a href="@routes.Study.allDefault(1)">studies</a> and <a href="@routes.Video.index">videos</a></li>
-    <li><a href="@routes.Pref.form("game-display")">Configure lichess to your liking</a></li>
+    <li><a href="@routes.Study.allDefault(1)">Learn from studies</a></li> @* and <a href="@routes.Video.index">videos</a></li> *@
+    <li><a href="@routes.Pref.form("game-display")">Configure lidraughts to your liking</a></li>
     <li>Explore the site and have fun :)</li>
   </ul>
 </div>

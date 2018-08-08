@@ -1,8 +1,8 @@
 package controllers
 
-import lila.app._
+import lidraughts.app._
 
-object Coordinate extends LilaController {
+object Coordinate extends LidraughtsController {
 
   private def env = Env.coordinate
 
@@ -30,7 +30,7 @@ object Coordinate extends LilaController {
       err => fuccess(BadRequest),
       value => Env.pref.api.setPref(
         me,
-        (p: lila.pref.Pref) => p.copy(coordColor = value),
+        (p: lidraughts.pref.Pref) => p.copy(coordColor = value),
         notifyChange = false
       ) inject Ok(())
     )

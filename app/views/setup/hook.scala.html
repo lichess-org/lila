@@ -1,11 +1,11 @@
 @(form: Form[_])(implicit ctx: Context)
 
-@import lila.setup.HookConfig
-@import lila.rating.RatingRange
+@import lidraughts.setup.HookConfig
+@import lidraughts.rating.RatingRange
 
 @fields = {
 @setup.variant(form, translatedVariantChoicesWithVariants)
-@setup.timeMode(form, lila.setup.HookConfig)
+@setup.timeMode(form, lidraughts.setup.HookConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">
   @setup.radios(form("mode"), translatedModeChoices)

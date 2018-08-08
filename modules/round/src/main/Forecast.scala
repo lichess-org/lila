@@ -1,11 +1,11 @@
-package lila.round
+package lidraughts.round
 
 import org.joda.time.DateTime
 import play.api.libs.json._
 
-import chess.format.Uci
-import chess.Move
-import lila.game.Game
+import draughts.format.{ Uci, Forsyth }
+import draughts.Move
+import lidraughts.game.Game
 
 case class Forecast(
     _id: String, // player full id
@@ -15,12 +15,25 @@ case class Forecast(
 
   def apply(g: Game, lastMove: Move): Option[(Forecast, Uci.Move)] =
     nextMove(g, lastMove) map { move =>
+      lidraughts.log("Forecast.apply").info(s"move: ${move}, lastMove: ${lastMove}")
       copy(
         steps = steps.collect {
+          case (fst :: snd :: rest) if rest.nonEmpty && g.turns == fst.ply && g.situation.captureLengthFrom(snd.uciMove.get.orig).getOrElse(0) > 1 && fst.is(lastMove) && snd.is(move) => snd :: rest
           case (fst :: snd :: rest) if rest.nonEmpty && g.turns == fst.ply && fst.is(lastMove) && snd.is(move) => rest
         },
         date = DateTime.now
       ) -> move
+    }
+
+  def moveOpponent(g: Game, lastMove: Move): Option[(Forecast, Uci.Move)] =
+    nextMove(g, lastMove) map { move =>
+      lidraughts.log("Forecast.removeOpponent").info(s"move: ${move}, lastMove: ${lastMove}")
+      copy(
+        steps = steps.collect {
+          case (fst :: snd :: rest) if rest.nonEmpty && g.turns == fst.ply && fst.is(lastMove) && snd.is(move) => snd :: rest
+        },
+        date = DateTime.now
+      ) -> lastMove.toShortUci
     }
 
   // accept up to 30 lines of 30 moves each
@@ -42,21 +55,23 @@ object Forecast {
       ply: Int,
       uci: String,
       san: String,
-      fen: String,
-      check: Option[Boolean]
+      fen: String
   ) {
 
-    def is(move: Move) = move.toUci.uci == uci
+    def is(move: Move) = move.toShortUci.uci == uci
     def is(move: Uci.Move) = move.uci == uci
 
     def uciMove = Uci.Move(uci)
+
+    def displayPly = if (Forsyth.countGhosts(fen) > 0) ply + 1 else ply
+
   }
 
   implicit val forecastStepJsonFormat = Json.format[Step]
 
   implicit val forecastJsonWriter = Json.writes[Forecast]
 
-  case object OutOfSync extends lila.base.LilaException {
+  case object OutOfSync extends lidraughts.base.LidraughtsException {
     val message = "Forecast out of sync"
   }
 }

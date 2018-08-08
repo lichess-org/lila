@@ -1,4 +1,4 @@
-package lila.insight
+package lidraughts.insight
 
 import org.joda.time.DateTime
 

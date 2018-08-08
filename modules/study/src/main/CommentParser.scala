@@ -1,8 +1,8 @@
-package lila.study
+package lidraughts.study
 
-import chess.Centis
-import chess.Pos
-import lila.tree.Node.{ Shape, Shapes }
+import draughts.Centis
+import draughts.Pos
+import lidraughts.tree.Node.{ Shape, Shapes }
 
 private[study] object CommentParser {
 

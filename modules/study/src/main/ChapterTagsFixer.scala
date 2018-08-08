@@ -1,11 +1,11 @@
-package lila.study
+package lidraughts.study
 
-import chess.format.pgn.Tags
-import lila.game.GameRepo
+import draughts.format.pdn.Tags
+import lidraughts.game.GameRepo
 
 private final class ChapterTagsFixer(
     repo: ChapterRepo,
-    gamePgnDump: lila.game.PgnDump
+    gamePdnDump: lidraughts.game.PdnDump
 ) {
 
   def apply(chapter: Chapter): Fu[Chapter] =
@@ -20,7 +20,7 @@ private final class ChapterTagsFixer(
   private def makeNewTags(c: Chapter): Fu[Option[Tags]] =
     c.setup.gameId.??(GameRepo.gameWithInitialFen) map {
       _ map {
-        case (game, fen) => PgnTags(gamePgnDump.tags(game, fen.map(_.value), none))
+        case (game, fen) => PdnTags(gamePdnDump.tags(game, fen.map(_.value), none))
       }
     }
 }

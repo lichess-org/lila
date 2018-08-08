@@ -1,7 +1,7 @@
 import { game } from 'game';
-import { dragNewPiece } from 'chessground/drag';
+import { dragNewPiece } from 'draughtsground/drag';
 import RoundController from '../ctrl';
-import * as cg from 'chessground/types';
+import * as cg from 'draughtsground/types';
 import { RoundData } from '../interfaces';
 
 export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
@@ -14,14 +14,15 @@ export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
   if (!role || !color || number === '0') return;
   e.stopPropagation();
   e.preventDefault();
-  dragNewPiece(ctrl.chessground.state, { color, role }, e);
+  dragNewPiece(ctrl.draughtsground.state, { color, role }, e);
 }
 
 export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
 
   if (!game.isPlayerTurn(data)) return false;
 
-  if (role === 'pawn' && (key[1] === '1' || key[1] === '8')) return false;
+  //if (role === 'pawn' && (key[1] === '1' || key[1] === '8')) return false;
+  if (role === 'man') return false;
 
   const dropStr = data.possibleDrops;
 

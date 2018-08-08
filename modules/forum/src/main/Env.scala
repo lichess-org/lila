@@ -1,25 +1,25 @@
-package lila.forum
+package lidraughts.forum
 
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.common.{ DetectLanguage, MaxPerPage }
+import lidraughts.common.{ DetectLanguage, MaxPerPage }
 
-import lila.hub.actorApi.team.CreateTeam
-import lila.mod.ModlogApi
-import lila.notify.NotifyApi
-import lila.relation.RelationApi
+import lidraughts.hub.actorApi.team.CreateTeam
+import lidraughts.mod.ModlogApi
+import lidraughts.notify.NotifyApi
+import lidraughts.relation.RelationApi
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
+    db: lidraughts.db.Env,
     modLog: ModlogApi,
     shutup: ActorSelection,
-    hub: lila.hub.Env,
+    hub: lidraughts.hub.Env,
     detectLanguage: DetectLanguage,
     notifyApi: NotifyApi,
     relationApi: RelationApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     system: ActorSystem
 ) {
 
@@ -49,7 +49,7 @@ final class Env(
     timeline = hub.actor.timeline,
     detectLanguage = detectLanguage,
     mentionNotifier = mentionNotifier,
-    bus = system.lilaBus
+    bus = system.lidraughtsBus
   )
 
   lazy val postApi = new PostApi(
@@ -61,13 +61,13 @@ final class Env(
     timeline = hub.actor.timeline,
     detectLanguage = detectLanguage,
     mentionNotifier = mentionNotifier,
-    bus = system.lilaBus
+    bus = system.lidraughtsBus
   )
 
   lazy val forms = new DataForm(hub.actor.captcher)
   lazy val recent = new Recent(postApi, RecentTtl, RecentNb, asyncCache, PublicCategIds)
 
-  system.lilaBus.subscribe(
+  system.lidraughtsBus.subscribe(
     system.actorOf(Props(new Actor {
       def receive = {
         case CreateTeam(id, name, _) => categApi.makeTeam(id, name)
@@ -84,15 +84,15 @@ final class Env(
 object Env {
 
   lazy val current = "forum" boot new Env(
-    config = lila.common.PlayApp loadConfig "forum",
-    db = lila.db.Env.current,
-    modLog = lila.mod.Env.current.logApi,
-    shutup = lila.hub.Env.current.actor.shutup,
-    hub = lila.hub.Env.current,
-    detectLanguage = DetectLanguage(lila.common.PlayApp loadConfig "detectlanguage"),
-    notifyApi = lila.notify.Env.current.api,
-    relationApi = lila.relation.Env.current.api,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system
+    config = lidraughts.common.PlayApp loadConfig "forum",
+    db = lidraughts.db.Env.current,
+    modLog = lidraughts.mod.Env.current.logApi,
+    shutup = lidraughts.hub.Env.current.actor.shutup,
+    hub = lidraughts.hub.Env.current,
+    detectLanguage = DetectLanguage(lidraughts.common.PlayApp loadConfig "detectlanguage"),
+    notifyApi = lidraughts.notify.Env.current.api,
+    relationApi = lidraughts.relation.Env.current.api,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    system = lidraughts.common.PlayApp.system
   )
 }

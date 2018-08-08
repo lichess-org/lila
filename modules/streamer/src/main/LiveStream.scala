@@ -1,11 +1,11 @@
-package lila.streamer
+package lidraughts.streamer
 
 import akka.actor._
 import akka.pattern.ask
 import makeTimeout.short
 import scala.concurrent.duration._
 
-import lila.user.User
+import lidraughts.user.User
 
 case class LiveStreams(streams: List[Stream]) {
 
@@ -17,7 +17,7 @@ case class LiveStreams(streams: List[Stream]) {
     streams.filter(_.streamer.approval.autoFeatured)
   }
 
-  def withTitles(lightUser: lila.user.LightUserApi) = LiveStreams.WithTitles(
+  def withTitles(lightUser: lidraughts.user.LightUserApi) = LiveStreams.WithTitles(
     this,
     streams.map(_.streamer.userId).flatMap { userId =>
       lightUser.sync(userId).flatMap(_.title) map (userId ->)
@@ -32,7 +32,7 @@ object LiveStreams {
 }
 
 final class LiveStreamApi(
-    asyncCache: lila.memo.AsyncCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     streamingActor: ActorRef
 ) {
 

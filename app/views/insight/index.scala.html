@@ -1,15 +1,15 @@
-@(u: User, cache: lila.insight.UserCache, prefId: Int, ui: play.api.libs.json.JsObject, question: play.api.libs.json.JsObject, stale: Boolean)(implicit ctx: Context)
+@(u: User, cache: lidraughts.insight.UserCache, prefId: Int, ui: play.api.libs.json.JsObject, question: play.api.libs.json.JsObject, stale: Boolean)(implicit ctx: Context)
 
 @moreJs = {
 @highchartsLatestTag
 @jsAt("vendor/multiple-select/multiple-select.js")
-@jsAt(s"compiled/lichess.insight${isProd??(".min")}.js")
+@jsAt(s"compiled/lidraughts.insight${isProd??(".min")}.js")
 @jsTag("insight-refresh.js")
 @jsTag("insight-tour.js")
 @embedJs {
 $(function() {
-lichess = lichess || {};
-lichess.insight = LichessInsight(document.getElementById('insight'), {
+lidraughts = lidraughts || {};
+lidraughts.insight = LidraughtsInsight(document.getElementById('insight'), {
 ui: @toJson(ui),
 initialQuestion: @toJson(question),
 i18n: {},
@@ -21,8 +21,8 @@ nbGames: @cache.count,
 stale: @stale,
 shareId: @prefId
 },
-pageUrl: "@routes.Insight.index(u.username)",
-postUrl: "@routes.Insight.json(u.username)"
+@*pageUrl: "@routes.Insight.index(u.username)",
+postUrl: "@routes.Insight.json(u.username)"*@
 });
 });
 }
@@ -39,7 +39,7 @@ case _ => {}
 }
 
 @insight.layout(u,
-title = s"${u.username}'s chess insights",
+title = s"${u.username}'s draughts insights",
 moreJs = moreJs,
 moreCss = moreCss) {
 <div id="insight"></div>

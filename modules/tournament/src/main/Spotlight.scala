@@ -1,8 +1,8 @@
-package lila.tournament
+package lidraughts.tournament
 
 import org.joda.time.DateTime
 
-import lila.user.User
+import lidraughts.user.User
 
 case class Spotlight(
     headline: String,

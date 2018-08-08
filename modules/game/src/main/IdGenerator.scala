@@ -1,4 +1,4 @@
-package lila.game
+package lidraughts.game
 
 import ornicar.scalalib.Random
 

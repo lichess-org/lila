@@ -1,8 +1,8 @@
-package lila.puzzle
+package lidraughts.puzzle
 
 import org.joda.time.DateTime
 
-import lila.user.User
+import lidraughts.user.User
 
 case class Round(
     puzzleId: PuzzleId,
@@ -30,8 +30,8 @@ object Round {
   }
 
   import reactivemongo.bson._
-  import lila.db.BSON
-  import lila.db.dsl._
+  import lidraughts.db.BSON
+  import lidraughts.db.dsl._
   import BSON.BSONJodaDateTimeHandler
 
   private implicit val ResultBSONHandler = booleanAnyValHandler[Result](_.win, Result.apply)

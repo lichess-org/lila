@@ -1,10 +1,10 @@
-package lila.forumSearch
+package lidraughts.forumSearch
 
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.forum.PostApi
-import lila.search._
+import lidraughts.forum.PostApi
+import lidraughts.search._
 
 final class Env(
     config: Config,
@@ -24,7 +24,7 @@ final class Env(
   def apply(text: String, page: Int, staff: Boolean, troll: Boolean) =
     paginatorBuilder(Query(text, staff, troll), page)
 
-  def cli = new lila.common.Cli {
+  def cli = new lidraughts.common.Cli {
     def process = {
       case "forum" :: "search" :: "reset" :: Nil => api.reset inject "done"
     }
@@ -32,13 +32,13 @@ final class Env(
 
   import Query.jsonWriter
 
-  private lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
+  private lazy val paginatorBuilder = new lidraughts.search.PaginatorBuilder(
     searchApi = api,
-    maxPerPage = lila.common.MaxPerPage(PaginatorMaxPerPage)
+    maxPerPage = lidraughts.common.MaxPerPage(PaginatorMaxPerPage)
   )
 
   system.actorOf(Props(new Actor {
-    import lila.forum.actorApi._
+    import lidraughts.forum.actorApi._
     def receive = {
       case InsertPost(post) => api store post
       case RemovePost(id) => client deleteById Id(id)
@@ -50,9 +50,9 @@ final class Env(
 object Env {
 
   lazy val current = "forumSearch" boot new Env(
-    config = lila.common.PlayApp loadConfig "forumSearch",
-    postApi = lila.forum.Env.current.postApi,
-    makeClient = lila.search.Env.current.makeClient,
-    system = lila.common.PlayApp.system
+    config = lidraughts.common.PlayApp loadConfig "forumSearch",
+    postApi = lidraughts.forum.Env.current.postApi,
+    makeClient = lidraughts.search.Env.current.makeClient,
+    system = lidraughts.common.PlayApp.system
   )
 }

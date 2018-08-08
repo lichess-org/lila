@@ -1,8 +1,8 @@
-package lila
+package lidraughts
 
 import org.joda.time.DateTime
 
-import lila.socket.WithSocket
+import lidraughts.socket.WithSocket
 
 package object challenge extends PackageObject with WithSocket {
 

@@ -1,6 +1,6 @@
-package lila.common
+package lidraughts.common
 
-import chess.Centis
+import draughts.Centis
 
 trait Iso[A, B] {
   val from: A => B

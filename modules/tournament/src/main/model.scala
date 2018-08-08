@@ -1,4 +1,4 @@
-package lila.tournament
+package lidraughts.tournament
 
 case class TournamentTop(value: List[Player]) extends AnyVal
 
@@ -23,9 +23,9 @@ case class VisibleTournaments(
 
 case class PlayerInfoExt(
     tour: Tournament,
-    user: lila.user.User,
+    user: lidraughts.user.User,
     player: Player,
-    recentPovs: List[lila.game.Pov]
+    recentPovs: List[lidraughts.game.Pov]
 )
 
 case class TourAndRanks(
@@ -39,7 +39,7 @@ case class RankedPairing(pairing: Pairing, rank1: Int, rank2: Int) {
   def bestRank = rank1 min rank2
   // def rankSum = rank1 + rank2
 
-  def bestColor = chess.Color(rank1 < rank2)
+  def bestColor = draughts.Color(rank1 < rank2)
 }
 
 object RankedPairing {
@@ -66,7 +66,7 @@ object RankedPlayer {
 }
 
 case class FeaturedGame(
-    game: lila.game.Game,
+    game: lidraughts.game.Game,
     white: RankedPlayer,
     black: RankedPlayer
 )

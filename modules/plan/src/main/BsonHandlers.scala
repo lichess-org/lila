@@ -1,6 +1,6 @@
-package lila.plan
+package lidraughts.plan
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 import reactivemongo.bson._
 
 private[plan] object BsonHandlers {

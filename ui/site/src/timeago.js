@@ -3,7 +3,7 @@
  * Copyright (c) 2016 hustcc
  * License: MIT
  **/
-lichess.timeago = (function() {
+lidraughts.timeago = (function() {
 
   // second, minute, hour, day, week, month, year(365 days)
   var SEC_ARRAY = [60, 60, 24, 7, 365/7/12, 12],
@@ -34,7 +34,7 @@ lichess.timeago = (function() {
     i *= 2;
 
     if (diff > (i === 0 ? 9 : 1)) i += 1;
-    return lichess.timeagoLocale(diff, i, total_sec)[agoin].replace('%s', diff);
+    return lidraughts.timeagoLocale(diff, i, total_sec)[agoin].replace('%s', diff);
   }
 
   // calculate the diff second between date to be formatted now

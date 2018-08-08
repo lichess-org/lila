@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { isIn } from '../tournament';
-import { spinner, bind } from './util';
+import { spinner, bind, dataIcon } from './util';
 import TournamentController from '../ctrl';
 
 function orJoinSpinner(ctrl: TournamentController, f: () => VNode): VNode {
@@ -12,7 +12,7 @@ export function withdraw(ctrl: TournamentController): VNode {
   return orJoinSpinner(ctrl, () => {
     const pause = ctrl.data.isStarted;
     return h('button.fbt.text', {
-      attrs: { 'data-icon': pause ? 'Z' : 'b' },
+      attrs: dataIcon(pause ? 'Z' : 'b'),
       hook: bind('click', ctrl.withdraw, ctrl.redraw)
     }, ctrl.trans.noarg(pause ? 'pause' : 'withdraw'));
   });
@@ -22,7 +22,7 @@ export function join(ctrl: TournamentController): VNode {
   return orJoinSpinner(ctrl, () => {
     const joinable = ctrl.data.verdicts.accepted;
     return h('button.fbt.text.' + (joinable ? 'highlight' : 'disabled'), {
-      attrs: { 'data-icon': 'G' },
+      attrs: dataIcon('G'),
       hook: bind('click', _ => {
         if (ctrl.data.private) {
           const p = prompt(ctrl.trans.noarg('password'));

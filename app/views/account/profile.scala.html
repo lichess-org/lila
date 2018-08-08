@@ -8,12 +8,12 @@ active = "editProfile",
 evenMoreCss =cssTag("material.form.css")) {
 <div class="content_box small_box">
   <div class="signup_box">
-    <h1 class="lichess_title text" data-icon="*">@trans.editProfile()</h1>
+    <h1 class="lidraughts_title text" data-icon="*">@trans.editProfile()</h1>
     <form class="material form" action="@routes.Account.profileApply" method="POST">
       <div class="form-group">@trans.allInformationIsPublicAndOptional()</div>
       <div>
         @base.form.group(form("country"), trans.country(), klass = "half") {
-        @base.form.select(form("country"), lila.user.Countries.allPairs, default = "".some)
+        @base.form.select(form("country"), lidraughts.user.Countries.allPairs, default = "".some)
         }
         @base.form.group(form("location"), trans.location(), klass = "half") {
         @base.form.input(form("location"))
@@ -34,7 +34,7 @@ evenMoreCss =cssTag("material.form.css")) {
       </div>
       }
       <div>
-        @List("fide", "uscf", "ecf").map { rn =>
+        @List("fmjd", "kndb").map { rn =>
         @base.form.group(form(s"${rn}Rating"), trans.xRating(rn.toUpperCase), help=trans.ifNoneLeaveEmpty().some, klass = "third") {
         @base.form.input(form(s"${rn}Rating"), typ="number")
         }
@@ -42,10 +42,7 @@ evenMoreCss =cssTag("material.form.css")) {
       </div>
       @base.form.group(form("links"), Html("Social media links ")) {
       <textarea name="@form("links").name" id="@form("links").id" rows=5 maxlength=600>@form("links").value</textarea>
-      <p class="form-help">
-        Such as Twitter, Facebook, Github, Chess.com, ...<br />
-        One URL per line.
-      </p>
+      <p class="form-help">@trans.linkSuggestions()</p>
       }
       @errMsg(form)
       @base.form.submit()

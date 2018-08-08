@@ -1,6 +1,6 @@
-@(u: User, rankMap: lila.rating.UserRankMap)(implicit ctx: Context)
+@(u: User, rankMap: lidraughts.rating.UserRankMap)(implicit ctx: Context)
 
-@import lila.rating.PerfType
+@import lidraughts.rating.PerfType
 
 @if(!u.lame) {
 @rankMap.toList.sortBy(_._2).map {

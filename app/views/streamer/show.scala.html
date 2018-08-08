@@ -1,6 +1,6 @@
-@(s: lila.streamer.Streamer.WithUserAndStream, activities: Vector[lila.activity.ActivityView], following: Boolean)(implicit ctx: Context)
+@(s: lidraughts.streamer.Streamer.WithUserAndStream, activities: Vector[lidraughts.activity.ActivityView], following: Boolean)(implicit ctx: Context)
 
-@import lila.streamer.Stream.{ Twitch, YouTube }
+@import lidraughts.streamer.Stream.{ Twitch, YouTube }
 
 @side = {
 @if(s.streamer.approval.chatEnabled) {
@@ -50,16 +50,16 @@ method:'post'
 }
 }
 
-@title = @{ s"${s.titleName} streams chess" }
+@title = @{ s"${s.titleName} streams draughts" }
 
 @base.layout(title = title,
 side = side.some,
 moreCss = moreCss,
 moreJs = moreJs,
-openGraph = lila.app.ui.OpenGraph(
+openGraph = lidraughts.app.ui.OpenGraph(
 title = title,
 description = shorten(~(s.streamer.headline.map(_.value) orElse s.streamer.description.map(_.value)), 152),
-url = s"$netBaseUrl${routes.Streamer.show(s.user.username)}",
+url = s"$netBaseUrl${routes.Lobby.home()}",
 `type` = "video",
 image = s.streamer.picturePath.map(p => dbImageUrl(p.value))).some) {
 @s.stream match {

@@ -1,14 +1,14 @@
-package lila.challenge
+package lidraughts.challenge
 
 import akka.actor._
 import play.api.libs.iteratee.Concurrent
 import play.api.libs.json._
 import scala.concurrent.duration.Duration
 
-import lila.hub.TimeBomb
-import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.{ SocketActor, History, Historical }
-import lila.socket.Socket.Uid
+import lidraughts.hub.TimeBomb
+import lidraughts.socket.actorApi.{ Connected => _, _ }
+import lidraughts.socket.{ SocketActor, History, Historical }
+import lidraughts.socket.Socket.Uid
 
 private final class Socket(
     challengeId: String,
@@ -62,7 +62,7 @@ private object Socket {
       channel: JsChannel,
       userId: Option[String],
       owner: Boolean
-  ) extends lila.socket.SocketMember {
+  ) extends lidraughts.socket.SocketMember {
     val troll = false
   }
 

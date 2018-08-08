@@ -1,12 +1,12 @@
-package lila.mod
+package lidraughts.mod
 
-import lila.db.dsl._
-import lila.security.Permission
-import lila.report.{ Mod, Suspect }
+import lidraughts.db.dsl._
+import lidraughts.report.{ Report, Mod, Suspect, ModId }
+import lidraughts.security.Permission
 
 final class ModlogApi(coll: Coll) {
 
-  import lila.db.BSON.BSONJodaDateTimeHandler
+  import lidraughts.db.BSON.BSONJodaDateTimeHandler
   private implicit val ModlogBSONHandler = reactivemongo.bson.Macros.handler[Modlog]
 
   def streamConfig(mod: String) = add {
@@ -35,6 +35,11 @@ final class ModlogApi(coll: Coll) {
 
   def closeAccount(mod: String, user: String) = add {
     Modlog(mod, user.some, Modlog.closeAccount)
+  }
+
+  def selfCloseAccount(user: String, openReports: List[Report]) = add {
+    Modlog(ModId.Lidraughts.value, user.some, Modlog.selfCloseAccount,
+      details = openReports.map(r => s"${r.reason.name} report").mkString(", ").some.filter(_.nonEmpty))
   }
 
   def reopenAccount(mod: String, user: String) = add {
@@ -122,7 +127,7 @@ final class ModlogApi(coll: Coll) {
   }
 
   def cheatDetected(user: String, gameId: String) = add {
-    Modlog("lichess", user.some, Modlog.cheatDetected, details = s"game $gameId".some)
+    Modlog("lidraughts", user.some, Modlog.cheatDetected, details = s"game $gameId".some)
   }
 
   def cli(by: String, command: String) = add {
@@ -153,8 +158,8 @@ final class ModlogApi(coll: Coll) {
     coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)
 
   private def add(m: Modlog): Funit = {
-    lila.mon.mod.log.create()
-    lila.log("mod").info(m.toString)
+    lidraughts.mon.mod.log.create()
+    lidraughts.log("mod").info(m.toString)
     coll.insert(m).void
   }
 }

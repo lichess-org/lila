@@ -1,4 +1,4 @@
-package lila.round
+package lidraughts.round
 
 import akka.actor._
 import kamon._
@@ -13,8 +13,8 @@ private object MoveMonitor {
         case tick: TickMetricSnapshot => tick.metrics.collectFirst {
           case (entity, snapshot) if entity.category == "trace" => snapshot
         } flatMap (_ histogram "elapsed-time") foreach { h =>
-          if (!h.isEmpty) channel ! lila.socket.Channel.Publish(
-            lila.socket.Socket.makeMessage("mlat", (h.sum / h.numberOfMeasurements / 1000000).toInt)
+          if (!h.isEmpty) channel ! lidraughts.socket.Channel.Publish(
+            lidraughts.socket.Socket.makeMessage("mlat", (h.sum / h.numberOfMeasurements / 1000000).toInt)
           )
         }
       }

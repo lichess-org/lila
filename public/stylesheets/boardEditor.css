@@ -86,7 +86,7 @@ body.dark #board_editor .spare.white {
   font-style: italic;
 }
 #board_editor .copyables > p {
-  margin-top: 7px;
+  margin-top: 22px;
 }
 #board_editor .copyables .name {
   font-size: 1.2em;

@@ -1,11 +1,11 @@
-package lila.app
+package lidraughts.app
 package mashup
 
 import scala.concurrent.duration._
 
-import lila.forum.MiniForumPost
-import lila.team.{ Team, RequestRepo, MemberRepo, RequestWithUser, TeamApi }
-import lila.user.{ User, UserRepo }
+import lidraughts.forum.MiniForumPost
+import lidraughts.team.{ Team, RequestRepo, MemberRepo, RequestWithUser, TeamApi }
+import lidraughts.user.{ User, UserRepo }
 
 case class TeamInfo(
     mine: Boolean,
@@ -27,7 +27,7 @@ final class TeamInfoApi(
     api: TeamApi,
     getForumNbPosts: String => Fu[Int],
     getForumPosts: String => Fu[List[MiniForumPost]],
-    asyncCache: lila.memo.AsyncCache.Builder
+    asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
   private case class Cachable(bestUserIds: List[User.ID], toints: Int)

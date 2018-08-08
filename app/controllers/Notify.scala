@@ -1,11 +1,11 @@
 package controllers
 
-import lila.app._
-import lila.notify.Notification.Notifies
+import lidraughts.app._
+import lidraughts.notify.Notification.Notifies
 
 import play.api.libs.json._
 
-object Notify extends LilaController {
+object Notify extends LidraughtsController {
 
   val env = Env.notifyModule
 

@@ -1,4 +1,4 @@
-package lila.game
+package lidraughts.game
 
 // events are kept in insertion/addition order
 case class Progress(origin: Game, game: Game, events: List[Event] = Nil) {

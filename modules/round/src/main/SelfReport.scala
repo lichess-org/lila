@@ -1,9 +1,9 @@
-package lila.round
+package lidraughts.round
 
 import akka.actor._
 
-import lila.common.IpAddress
-import lila.user.{ User, UserRepo }
+import lidraughts.common.IpAddress
+import lidraughts.user.{ User, UserRepo }
 
 final class SelfReport(roundMap: ActorRef) {
 
@@ -15,23 +15,23 @@ final class SelfReport(roundMap: ActorRef) {
   ): Funit =
     userId.??(UserRepo.named) flatMap { user =>
       val known = user.??(_.engine)
-      lila.mon.cheat.cssBot()
+      lidraughts.mon.cheat.cssBot()
       // user.ifTrue(!known && name != "ceval") ?? { u =>
       //   Env.report.api.autoBotReport(u.id, referer, name)
       // }
-      def doLog = lila.log("cheat").branch("jslog").info(
-        s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
+      def doLog = lidraughts.log("cheat").branch("jslog").info(
+        s"$ip https://lidraughts.org/$fullId ${user.fold("anon")(_.id)} $name"
       )
-      lila.game.GameRepo pov fullId map {
+      lidraughts.game.GameRepo pov fullId map {
         _ ?? { pov =>
           if (!known) doLog
           if (Set("ceval", "rcb", "ccs")(name)) fuccess {
-            roundMap ! lila.hub.actorApi.map.Tell(
+            roundMap ! lidraughts.hub.actorApi.map.Tell(
               pov.gameId,
-              lila.round.actorApi.round.Cheat(pov.color)
+              lidraughts.round.actorApi.round.Cheat(pov.color)
             )
           }
-          else lila.game.GameRepo.setBorderAlert(pov)
+          else lidraughts.game.GameRepo.setBorderAlert(pov)
         }
       }
     }

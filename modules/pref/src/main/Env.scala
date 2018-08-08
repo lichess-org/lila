@@ -1,11 +1,11 @@
-package lila.pref
+package lidraughts.pref
 
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    db: lila.db.Env
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    db: lidraughts.db.Env
 ) {
 
   private val CollectionPref = config getString "collection.pref"
@@ -17,8 +17,8 @@ final class Env(
 object Env {
 
   lazy val current = "pref" boot new Env(
-    config = lila.common.PlayApp loadConfig "pref",
-    asyncCache = lila.memo.Env.current.asyncCache,
-    db = lila.db.Env.current
+    config = lidraughts.common.PlayApp loadConfig "pref",
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    db = lidraughts.db.Env.current
   )
 }

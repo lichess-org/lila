@@ -1,4 +1,4 @@
-@(s: lila.streamer.Streamer.WithUser, error: Option[String] = None)(implicit ctx: Context)
+@(s: lidraughts.streamer.Streamer.WithUser, error: Option[String] = None)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("material.form.css")
@@ -9,7 +9,7 @@
 moreJs = jsTag("streamer.form.js"),
 moreCss = moreCss) {
 <div class="streamer_picture content_box small_box no_padding">
-  <h1 class="lichess_title">
+  <h1 class="lidraughts_title">
     @userLink(s.user) streamer picture
   </h1>
   <div class="picture_wrap">
@@ -19,8 +19,8 @@ moreCss = moreCss) {
     @error.map { e =>
     <p class="error">@e</p>
     }
-    @helper.form(action = routes.Streamer.pictureApply, 'enctype -> "multipart/form-data", 'class -> "upload") {
-    <p>Max size: @{lila.db.Photographer.uploadMaxMb}MB.</p>
+    @* @helper.form(action = routes.Streamer.pictureApply, 'enctype -> "multipart/form-data", 'class -> "upload") {
+    <p>Max size: @{lidraughts.db.Photographer.uploadMaxMb}MB.</p>
     <input type="file" name="picture">
     <button type="submit" class="button">Upload profile picture</button>
     }
@@ -28,9 +28,9 @@ moreCss = moreCss) {
     @helper.form(action = routes.Streamer.pictureDelete, 'enctype -> "multipart/form-data", 'class -> "delete") {
     <button type="submit" class="button">Delete profile picture</button>
     }
-    }
+    } *@
     <div class="cancel">
-      <a href="@routes.Streamer.edit" class="text" data-icon="I">Return to streamer page form</a>
+      @* <a href="@routes.Streamer.edit" class="text" data-icon="I">Return to streamer page form</a> *@
     </div>
   </div>
 </div>

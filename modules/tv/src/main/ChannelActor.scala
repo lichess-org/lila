@@ -1,10 +1,10 @@
-package lila.tv
+package lidraughts.tv
 
 import akka.actor._
 import scala.concurrent.duration._
 
-import chess.Color
-import lila.game.{ Game, GameRepo }
+import draughts.Color
+import lidraughts.game.{ Game, GameRepo }
 
 private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
 

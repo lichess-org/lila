@@ -1,4 +1,4 @@
-package lila.pref
+package lidraughts.pref
 
 import play.api.data._
 import play.api.data.Forms._
@@ -13,7 +13,6 @@ object DataForm {
       "destination" -> number.verifying(Pref.BooleanPref.verify),
       "coords" -> number.verifying(Pref.Coords.choices.toMap contains _),
       "replay" -> number.verifying(Pref.Replay.choices.toMap contains _),
-      "pieceNotation" -> optional(number.verifying(Pref.BooleanPref.verify)),
       "zen" -> optional(number.verifying(Pref.BooleanPref.verify)),
       "blindfold" -> number.verifying(Pref.Blindfold.choices.toMap contains _)
     )(DisplayData.apply)(DisplayData.unapply),
@@ -21,12 +20,10 @@ object DataForm {
       "moveEvent" -> optional(number.verifying(Set(0, 1, 2) contains _)),
       "premove" -> number.verifying(Pref.BooleanPref.verify),
       "takeback" -> number.verifying(Pref.Takeback.choices.toMap contains _),
-      "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
       "autoThreefold" -> number.verifying(Pref.AutoThreefold.choices.toMap contains _),
       "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _),
       "confirmResign" -> number.verifying(Pref.ConfirmResign.choices.toMap contains _),
-      "keyboardMove" -> optional(number.verifying(Pref.BooleanPref.verify)),
-      "rookCastle" -> optional(number.verifying(Pref.BooleanPref.verify))
+      "keyboardMove" -> optional(number.verifying(Pref.BooleanPref.verify))
     )(BehaviorData.apply)(BehaviorData.unapply),
     "clockTenths" -> number.verifying(Pref.ClockTenths.choices.toMap contains _),
     "clockBar" -> number.verifying(Pref.BooleanPref.verify),
@@ -45,7 +42,6 @@ object DataForm {
       destination: Int,
       coords: Int,
       replay: Int,
-      pieceNotation: Option[Int],
       zen: Option[Int],
       blindfold: Int
   )
@@ -54,12 +50,10 @@ object DataForm {
       moveEvent: Option[Int],
       premove: Int,
       takeback: Int,
-      autoQueen: Int,
       autoThreefold: Int,
       submitMove: Int,
       confirmResign: Int,
-      keyboardMove: Option[Int],
-      rookCastle: Option[Int]
+      keyboardMove: Option[Int]
   )
 
   case class PrefData(
@@ -76,7 +70,6 @@ object DataForm {
   ) {
 
     def apply(pref: Pref) = pref.copy(
-      autoQueen = behavior.autoQueen,
       autoThreefold = behavior.autoThreefold,
       takeback = behavior.takeback,
       clockTenths = clockTenths,
@@ -99,8 +92,6 @@ object DataForm {
       captured = display.captured == 1,
       keyboardMove = behavior.keyboardMove | pref.keyboardMove,
       zen = display.zen | pref.zen,
-      rookCastle = behavior.rookCastle | pref.rookCastle,
-      pieceNotation = display.pieceNotation | pref.pieceNotation,
       moveEvent = behavior.moveEvent | pref.moveEvent
     )
   }
@@ -115,19 +106,16 @@ object DataForm {
         replay = pref.replay,
         captured = pref.captured.fold(1, 0),
         blindfold = pref.blindfold,
-        zen = pref.zen.some,
-        pieceNotation = pref.pieceNotation.some
+        zen = pref.zen.some
       ),
       behavior = BehaviorData(
         moveEvent = pref.moveEvent.some,
         premove = pref.premove.fold(1, 0),
         takeback = pref.takeback,
-        autoQueen = pref.autoQueen,
         autoThreefold = pref.autoThreefold,
         submitMove = pref.submitMove,
         confirmResign = pref.confirmResign,
-        keyboardMove = pref.keyboardMove.some,
-        rookCastle = pref.rookCastle.some
+        keyboardMove = pref.keyboardMove.some
       ),
       clockTenths = pref.clockTenths,
       clockBar = pref.clockBar.fold(1, 0),
@@ -150,14 +138,6 @@ object DataForm {
     "set" -> nonEmptyText.verifying(PieceSet contains _)
   ))
 
-  val theme3d = Form(single(
-    "theme" -> nonEmptyText.verifying(Theme3d contains _)
-  ))
-
-  val pieceSet3d = Form(single(
-    "set" -> nonEmptyText.verifying(PieceSet3d contains _)
-  ))
-
   val soundSet = Form(single(
     "set" -> nonEmptyText.verifying(SoundSet contains _)
   ))
@@ -170,11 +150,8 @@ object DataForm {
     "bgImg" -> nonEmptyText
   ))
 
-  val is3d = Form(single(
-    "is3d" -> text.verifying(List("true", "false") contains _)
-  ))
-
   val zen = Form(single(
     "zen" -> text.verifying(Set("0", "1") contains _)
   ))
+
 }

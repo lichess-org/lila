@@ -1,19 +1,19 @@
-package lila.simul
+package lidraughts.simul
 
 import akka.actor._
 import akka.pattern.ask
 
 import actorApi._
-import lila.hub.actorApi.map._
-import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.Handler
-import lila.socket.Socket.Uid
-import lila.user.User
-import lila.chat.Chat
+import lidraughts.hub.actorApi.map._
+import lidraughts.socket.actorApi.{ Connected => _, _ }
+import lidraughts.socket.Handler
+import lidraughts.socket.Socket.Uid
+import lidraughts.user.User
+import lidraughts.chat.Chat
 import makeTimeout.short
 
 private[simul] final class SocketHandler(
-    hub: lila.hub.Env,
+    hub: lidraughts.hub.Env,
     socketHub: ActorRef,
     chat: ActorSelection,
     exists: Simul.ID => Fu[Boolean]
@@ -44,11 +44,11 @@ private[simul] final class SocketHandler(
     member: Member
   ): Handler.Controller = ({
     case ("p", o) => socket ! Ping(uid, o)
-  }: Handler.Controller) orElse lila.chat.Socket.in(
+  }: Handler.Controller) orElse lidraughts.chat.Socket.in(
     chatId = Chat.Id(simId),
     member = member,
     socket = socket,
     chat = chat,
-    publicSource = lila.hub.actorApi.shutup.PublicSource.Simul(simId).some
+    publicSource = lidraughts.hub.actorApi.shutup.PublicSource.Simul(simId).some
   )
 }

@@ -1,8 +1,8 @@
-package lila.tournament
+package lidraughts.tournament
 package crud
 
-import lila.user.User
-import lila.user.UserRepo.lichessId
+import lidraughts.user.User
+import lidraughts.user.UserRepo.lidraughtsId
 
 final class CrudApi {
 
@@ -17,7 +17,7 @@ final class CrudApi {
     clockIncrement = tour.clock.incrementSeconds,
     minutes = tour.minutes,
     variant = tour.variant.id,
-    position = tour.position.eco,
+    position = tour.position.fen,
     date = tour.startsAt,
     image = ~tour.spotlight.flatMap(_.iconImg),
     headline = tour.spotlight.??(_.headline),
@@ -36,14 +36,14 @@ final class CrudApi {
   }
 
   private def empty = Tournament.make(
-    by = Left(lichessId),
+    by = Left(lidraughtsId),
     name = none,
-    clock = chess.Clock.Config(0, 0),
+    clock = draughts.Clock.Config(0, 0),
     minutes = 0,
     system = System.Arena,
-    variant = chess.variant.Standard,
-    position = chess.StartingPosition.initial,
-    mode = chess.Mode.Rated,
+    variant = draughts.variant.Standard,
+    position = draughts.StartingPosition.initial,
+    mode = draughts.Mode.Rated,
     `private` = false,
     password = None,
     waitMinutes = 0
@@ -51,8 +51,8 @@ final class CrudApi {
 
   private def updateTour(tour: Tournament, data: CrudForm.Data) = {
     import data._
-    val clock = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
-    val v = chess.variant.Variant.orDefault(variant)
+    val clock = draughts.Clock.Config((clockTime * 60).toInt, clockIncrement)
+    val v = draughts.variant.Variant.orDefault(variant)
     tour.copy(
       name = name,
       clock = clock,
@@ -63,7 +63,7 @@ final class CrudApi {
         freq = Schedule.Freq.Unique,
         speed = Schedule.Speed.fromClock(clock),
         variant = v,
-        position = chess.StartingPosition.initial,
+        position = draughts.StartingPosition.initial,
         at = date
       ).some,
       spotlight = Spotlight(

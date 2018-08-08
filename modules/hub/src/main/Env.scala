@@ -1,4 +1,4 @@
-package lila.hub
+package lidraughts.hub
 
 import akka.actor._
 import com.typesafe.config.Config
@@ -50,7 +50,7 @@ final class Env(config: Config, system: ActorSystem) {
 object Env {
 
   lazy val current = "hub" boot new Env(
-    config = lila.common.PlayApp loadConfig "hub",
-    system = lila.common.PlayApp.system
+    config = lidraughts.common.PlayApp loadConfig "hub",
+    system = lidraughts.common.PlayApp.system
   )
 }

@@ -1,28 +1,28 @@
-package lila.challenge
+package lidraughts.challenge
 
 import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.user.User
-import lila.hub.actorApi.map.Ask
-import lila.socket.actorApi.GetVersion
+import lidraughts.user.User
+import lidraughts.hub.actorApi.map.Ask
+import lidraughts.socket.actorApi.GetVersion
 import makeTimeout.short
 
 final class Env(
     config: Config,
     system: ActorSystem,
     onStart: String => Unit,
-    gameCache: lila.game.Cached,
-    lightUser: lila.common.LightUser.GetterSync,
-    isOnline: lila.user.User.ID => Boolean,
-    hub: lila.hub.Env,
-    db: lila.db.Env,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    getPref: User => Fu[lila.pref.Pref],
-    getRelation: (User, User) => Fu[Option[lila.relation.Relation]],
-    scheduler: lila.common.Scheduler
+    gameCache: lidraughts.game.Cached,
+    lightUser: lidraughts.common.LightUser.GetterSync,
+    isOnline: lidraughts.user.User.ID => Boolean,
+    hub: lidraughts.hub.Env,
+    db: lidraughts.db.Env,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    getPref: User => Fu[lidraughts.pref.Pref],
+    getRelation: (User, User) => Fu[Option[lidraughts.relation.Relation]],
+    scheduler: lidraughts.common.Scheduler
 ) {
 
   private val settings = new {
@@ -37,10 +37,10 @@ final class Env(
   import settings._
 
   private val socketHub = system.actorOf(
-    Props(new lila.socket.SocketHubActor.Default[Socket] {
+    Props(new lidraughts.socket.SocketHubActor.Default[Socket] {
       def mkActor(challengeId: String) = new Socket(
         challengeId = challengeId,
-        history = new lila.socket.History(ttl = HistoryMessageTtl),
+        history = new lidraughts.socket.History(ttl = HistoryMessageTtl),
         getChallenge = repo.byId,
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout
@@ -66,7 +66,7 @@ final class Env(
     socketHub = socketHub,
     userRegister = hub.actor.userRegister,
     asyncCache = asyncCache,
-    lilaBus = system.lilaBus
+    lidraughtsBus = system.lidraughtsBus
   )
 
   lazy val granter = new ChallengeGranter(
@@ -89,17 +89,17 @@ final class Env(
 object Env {
 
   lazy val current: Env = "challenge" boot new Env(
-    config = lila.common.PlayApp loadConfig "challenge",
-    system = lila.common.PlayApp.system,
-    onStart = lila.game.Env.current.onStart,
-    hub = lila.hub.Env.current,
-    gameCache = lila.game.Env.current.cached,
-    lightUser = lila.user.Env.current.lightUserSync,
-    isOnline = lila.user.Env.current.isOnline,
-    db = lila.db.Env.current,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    getPref = lila.pref.Env.current.api.getPref,
-    getRelation = lila.relation.Env.current.api.fetchRelation,
-    scheduler = lila.common.PlayApp.scheduler
+    config = lidraughts.common.PlayApp loadConfig "challenge",
+    system = lidraughts.common.PlayApp.system,
+    onStart = lidraughts.game.Env.current.onStart,
+    hub = lidraughts.hub.Env.current,
+    gameCache = lidraughts.game.Env.current.cached,
+    lightUser = lidraughts.user.Env.current.lightUserSync,
+    isOnline = lidraughts.user.Env.current.isOnline,
+    db = lidraughts.db.Env.current,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    getPref = lidraughts.pref.Env.current.api.getPref,
+    getRelation = lidraughts.relation.Env.current.api.fetchRelation,
+    scheduler = lidraughts.common.PlayApp.scheduler
   )
 }

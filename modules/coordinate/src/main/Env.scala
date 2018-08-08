@@ -1,10 +1,10 @@
-package lila.coordinate
+package lidraughts.coordinate
 
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    db: lila.db.Env
+    db: lidraughts.db.Env
 ) {
 
   private val CollectionScore = config getString "collection.score"
@@ -19,7 +19,7 @@ final class Env(
 object Env {
 
   lazy val current: Env = "coordinate" boot new Env(
-    config = lila.common.PlayApp loadConfig "coordinate",
-    db = lila.db.Env.current
+    config = lidraughts.common.PlayApp loadConfig "coordinate",
+    db = lidraughts.db.Env.current
   )
 }

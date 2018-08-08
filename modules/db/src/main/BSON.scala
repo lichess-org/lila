@@ -1,11 +1,11 @@
-package lila.db
+package lidraughts.db
 
 import ornicar.scalalib.Zero
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
 import dsl._
-import lila.common.Iso
+import lidraughts.common.Iso
 
 abstract class BSON[T]
   extends BSONHandler[Bdoc, T]
@@ -39,7 +39,7 @@ object BSON extends Handlers {
       def write(o: A) = handler write o
     }
 
-  def LoggingHandler[T](logger: lila.log.Logger)(handler: BSONHandler[Bdoc, T]): BSONHandler[Bdoc, T] with BSONDocumentReader[T] with BSONDocumentWriter[T] =
+  def LoggingHandler[T](logger: lidraughts.log.Logger)(handler: BSONHandler[Bdoc, T]): BSONHandler[Bdoc, T] with BSONDocumentReader[T] with BSONDocumentWriter[T] =
     new BSONHandler[Bdoc, T] with BSONDocumentReader[T] with BSONDocumentWriter[T] {
       def read(doc: Bdoc): T = try {
         handler read doc

@@ -1,14 +1,14 @@
-package lila.bookmark
+package lidraughts.bookmark
 
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.hub.actorApi.bookmark._
+import lidraughts.hub.actorApi.bookmark._
 
 final class Env(
     config: Config,
     system: ActorSystem,
-    db: lila.db.Env
+    db: lidraughts.db.Env
 ) {
 
   private val CollectionBookmark = config getString "collection.bookmark"
@@ -19,7 +19,7 @@ final class Env(
 
   lazy val paginator = new PaginatorBuilder(
     coll = bookmarkColl,
-    maxPerPage = lila.common.MaxPerPage(PaginatorMaxPerPage)
+    maxPerPage = lidraughts.common.MaxPerPage(PaginatorMaxPerPage)
   )
 
   lazy val api = new BookmarkApi(
@@ -38,8 +38,8 @@ final class Env(
 object Env {
 
   lazy val current = "bookmark" boot new Env(
-    config = lila.common.PlayApp loadConfig "bookmark",
-    system = lila.common.PlayApp.system,
-    db = lila.db.Env.current
+    config = lidraughts.common.PlayApp loadConfig "bookmark",
+    system = lidraughts.common.PlayApp.system,
+    db = lidraughts.db.Env.current
   )
 }

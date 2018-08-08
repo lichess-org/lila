@@ -1,8 +1,8 @@
-package lila.security
+package lidraughts.security
 
 import org.joda.time.DateTime
 
-import lila.user.{ User, UserRepo }
+import lidraughts.user.{ User, UserRepo }
 
 final class LoginToken(secret: String) {
 

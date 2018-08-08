@@ -1,12 +1,12 @@
 {
   "name": "site",
   "version": "1.0.0",
-  "description": "lichess.org website",
+  "description": "lidraughts.org website",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Thibault Duplessis",
+  "author": "Stefan Schermann (modified original by Thibault Duplessis)",
   "license": "AGPL-3.0",
   "devDependencies": {
     "browserify": "^14",

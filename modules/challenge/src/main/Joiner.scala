@@ -1,10 +1,10 @@
-package lila.challenge
+package lidraughts.challenge
 
-import chess.format.Forsyth
-import chess.format.Forsyth.SituationPlus
-import chess.{ Situation, Mode }
-import lila.game.{ GameRepo, Game, Pov, Source, Player }
-import lila.user.{ User, UserRepo }
+import draughts.format.Forsyth
+import draughts.format.Forsyth.SituationPlus
+import draughts.{ Situation, Mode }
+import lidraughts.game.{ GameRepo, Game, Pov, Source, Player }
+import lidraughts.user.{ User, UserRepo }
 
 private[challenge] final class Joiner(onStart: String => Unit) {
 
@@ -14,38 +14,40 @@ private[challenge] final class Joiner(onStart: String => Unit) {
       case false =>
         c.challengerUserId.??(UserRepo.byId) flatMap { challengerUser =>
 
-          def makeChess(variant: chess.variant.Variant): chess.Game =
-            chess.Game(situation = Situation(variant), clock = c.clock.map(_.config.toClock))
+          def makeChess(variant: draughts.variant.Variant): draughts.DraughtsGame =
+            draughts.DraughtsGame(situation = Situation(variant), clock = c.clock.map(_.config.toClock))
 
-          val baseState = c.initialFen.ifTrue(c.variant == chess.variant.FromPosition) flatMap Forsyth.<<<
+          val baseState = c.initialFen.ifTrue(c.variant.fromPosition) flatMap {
+            Forsyth.<<<@(draughts.variant.FromPosition, _)
+          }
           val (chessGame, state) = baseState.fold(makeChess(c.variant) -> none[SituationPlus]) {
             case sit @ SituationPlus(s, _) =>
-              val game = chess.Game(
+              val game = draughts.DraughtsGame(
                 situation = s,
                 turns = sit.turns,
                 startedAtTurn = sit.turns,
                 clock = c.clock.map(_.config.toClock)
               )
-              if (Forsyth.>>(game) == Forsyth.initial) makeChess(chess.variant.Standard) -> none
+              if (Forsyth.>>(game) == Forsyth.initial) makeChess(draughts.variant.Standard) -> none
               else game -> baseState
           }
-          val perfPicker = (perfs: lila.user.Perfs) => perfs(c.perfType)
+          val perfPicker = (perfs: lidraughts.user.Perfs) => perfs(c.perfType)
           val game = Game.make(
-            chess = chessGame,
-            whitePlayer = Player.make(chess.White, c.finalColor.fold(challengerUser, destUser), perfPicker),
-            blackPlayer = Player.make(chess.Black, c.finalColor.fold(destUser, challengerUser), perfPicker),
+            draughts = chessGame,
+            whitePlayer = Player.make(draughts.White, c.finalColor.fold(challengerUser, destUser), perfPicker),
+            blackPlayer = Player.make(draughts.Black, c.finalColor.fold(destUser, challengerUser), perfPicker),
             mode = chessGame.board.variant.fromPosition.fold(Mode.Casual, c.mode),
             source = chessGame.board.variant.fromPosition.fold(Source.Position, Source.Friend),
             daysPerTurn = c.daysPerTurn,
-            pgnImport = None
+            pdnImport = None
           ).copy(id = c.id).|> { g =>
               state.fold(g) {
                 case sit @ SituationPlus(Situation(board, _), _) => g.copy(
-                  chess = g.chess.copy(
+                  draughts = g.draughts.copy(
                     situation = g.situation.copy(
                       board = g.board.copy(
                         history = board.history,
-                        variant = chess.variant.FromPosition
+                        variant = draughts.variant.FromPosition
                       )
                     ),
                     turns = sit.turns

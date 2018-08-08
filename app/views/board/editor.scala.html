@@ -1,14 +1,14 @@
-@(sit: chess.Situation, fen: String, positionsJson: Html, animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context)
+@(sit: draughts.Situation, fen: String, positionsJson: Html, animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("boardEditor.css")
 }
 @moreJs = {
-@jsAt(s"compiled/lichess.editor${isProd??(".min")}.js")
+@jsAt(s"compiled/lidraughts.editor${isProd??(".min")}.js")
 @embedJs {
 var data = @safeJson(JsData(sit, fen, animationDuration));
 data.positions = @positionsJson;
-LichessEditor(document.getElementById('board_editor'), data);
+LidraughtsEditor(document.getElementById('board_editor'), data);
 }
 }
 
@@ -16,10 +16,10 @@ LichessEditor(document.getElementById('board_editor'), data);
 title = trans.boardEditor.txt(),
 moreJs = moreJs,
 moreCss = moreCss,
-chessground = false,
-openGraph = lila.app.ui.OpenGraph(
-title = "Chess board editor",
+draughtsground = false,
+openGraph = lidraughts.app.ui.OpenGraph(
+title = "Draughts board editor",
 url = s"$netBaseUrl${routes.Editor.index.url}",
-description = "Load opening positions or create your own chess position on a chess board editor").some) {
+description = "Load opening positions or create your own draughts position on a draughts board editor").some) {
 <div id="board_editor" class="board_editor cg-512"></div>
 }

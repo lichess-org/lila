@@ -1,17 +1,17 @@
-package lila.challenge
+package lidraughts.challenge
 
 import akka.actor._
 import akka.pattern.ask
 
-import lila.hub.actorApi.map._
-import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.Handler
-import lila.socket.Socket.Uid
-import lila.user.User
+import lidraughts.hub.actorApi.map._
+import lidraughts.socket.actorApi.{ Connected => _, _ }
+import lidraughts.socket.Handler
+import lidraughts.socket.Socket.Uid
+import lidraughts.user.User
 import makeTimeout.short
 
 private[challenge] final class SocketHandler(
-    hub: lila.hub.Env,
+    hub: lidraughts.hub.Env,
     socketHub: ActorRef,
     pingChallenge: Challenge.ID => Funit
 ) {

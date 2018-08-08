@@ -3,14 +3,14 @@ package controllers
 import play.api.libs.json._
 import play.api.mvc._
 
-import lila.api.Context
-import lila.app._
-import lila.game.PgnDump
-import lila.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
-import lila.user.UserRepo
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.game.PdnDump
+import lidraughts.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
+import lidraughts.user.UserRepo
 import views._
 
-object Puzzle extends LilaController {
+object Puzzle extends LidraughtsController {
 
   private def env = Env.puzzle
 
@@ -19,7 +19,7 @@ object Puzzle extends LilaController {
     userInfos: Option[UserInfos],
     mode: String,
     voted: Option[Boolean],
-    round: Option[lila.puzzle.Round] = None,
+    round: Option[lidraughts.puzzle.Round] = None,
     result: Option[Result] = None
   )(implicit ctx: Context): Fu[JsObject] = env.jsonView(
     puzzle = puzzle,
@@ -81,47 +81,12 @@ object Puzzle extends LilaController {
     }
   }
 
-  // mobile app BC
-  def round(id: PuzzleId) = OpenBody { implicit ctx =>
-    implicit val req = ctx.body
-    OptionFuResult(env.api.puzzle find id) { puzzle =>
-      if (puzzle.mate) lila.mon.puzzle.round.mate()
-      else lila.mon.puzzle.round.material()
-      env.forms.round.bindFromRequest.fold(
-        err => fuccess(BadRequest(errorsAsJson(err))),
-        resultInt => {
-          val result = Result(resultInt == 1)
-          ctx.me match {
-            case Some(me) => for {
-              (round, mode) <- env.finisher(puzzle, me, result)
-              me2 <- mode.rated.fold(UserRepo byId me.id map (_ | me), fuccess(me))
-              infos <- env userInfos me2
-              voted <- ctx.me.?? { env.api.vote.value(puzzle.id, _) }
-              data <- renderJson(puzzle, infos.some, "view", voted = voted, result = result.some, round = round.some)
-            } yield {
-              lila.mon.puzzle.round.user()
-              val d2 = if (mode.rated) data else data ++ Json.obj("win" -> result.win)
-              Ok(d2)
-            }
-            case None =>
-              lila.mon.puzzle.round.anon()
-              env.finisher.incPuzzleAttempts(puzzle)
-              renderJson(puzzle, none, "view", result = result.some, voted = none) map { data =>
-                val d2 = data ++ Json.obj("win" -> result.win)
-                Ok(d2)
-              }
-          }
-        }
-      ) map (_ as JSON)
-    }
-  }
-
   // new API
   def round2(id: PuzzleId) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     OptionFuResult(env.api.puzzle find id) { puzzle =>
-      if (puzzle.mate) lila.mon.puzzle.round.mate()
-      else lila.mon.puzzle.round.material()
+      if (puzzle.mate) lidraughts.mon.puzzle.round.mate()
+      else lidraughts.mon.puzzle.round.material()
       env.forms.round.bindFromRequest.fold(
         err => fuccess(BadRequest(errorsAsJson(err))),
         resultInt => ctx.me match {
@@ -131,15 +96,15 @@ object Puzzle extends LilaController {
             infos <- env userInfos me2
             voted <- ctx.me.?? { env.api.vote.value(puzzle.id, _) }
           } yield {
-            lila.mon.puzzle.round.user()
+            lidraughts.mon.puzzle.round.user()
             Ok(Json.obj(
-              "user" -> lila.puzzle.JsonView.infos(false)(infos),
-              "round" -> lila.puzzle.JsonView.round(round),
+              "user" -> lidraughts.puzzle.JsonView.infos(false)(infos),
+              "round" -> lidraughts.puzzle.JsonView.round(round),
               "voted" -> voted
             ))
           }
           case None =>
-            lila.mon.puzzle.round.anon()
+            lidraughts.mon.puzzle.round.anon()
             env.finisher.incPuzzleAttempts(puzzle)
             Ok(Json.obj("user" -> false)).fuccess
         }
@@ -155,8 +120,8 @@ object Puzzle extends LilaController {
         v => env.api.vote.update(id, me, v, vote == 1)
       } map {
         case (p, a) =>
-          if (vote == 1) lila.mon.puzzle.vote.up()
-          else lila.mon.puzzle.vote.down()
+          if (vote == 1) lidraughts.mon.puzzle.vote.up()
+          else lidraughts.mon.puzzle.vote.down()
           Ok(Json.arr(a.value, p.vote.sum))
       }
     ) map (_ as JSON)
@@ -168,18 +133,18 @@ object Puzzle extends LilaController {
       import akka.pattern.ask
       import makeTimeout.short
       Env.game.recentGoodGameActor ? true mapTo manifest[Option[String]] flatMap {
-        _ ?? lila.game.GameRepo.gameWithInitialFen flatMap {
+        _ ?? lidraughts.game.GameRepo.gameWithInitialFen flatMap {
           case Some((game, initialFen)) =>
-            Env.api.pgnDump(game, initialFen.map(_.value), PgnDump.WithFlags(clocks = false)) map { pgn =>
-              Ok(pgn.render)
+            Env.api.pdnDump(game, initialFen.map(_.value), PdnDump.WithFlags(clocks = false)) map { pdn =>
+              Ok(pdn.render)
             }
           case _ =>
-            lila.log("puzzle import").info("No recent good game, serving a random one :-/")
-            lila.game.GameRepo.findRandomFinished(1000) flatMap {
+            lidraughts.log("puzzle import").info("No recent good game, serving a random one :-/")
+            lidraughts.game.GameRepo.findRandomFinished(1000) flatMap {
               _ ?? { game =>
-                lila.game.GameRepo.initialFen(game) flatMap { fen =>
-                  Env.api.pgnDump(game, fen, PgnDump.WithFlags(clocks = false)) map { pgn =>
-                    Ok(pgn.render)
+                lidraughts.game.GameRepo.initialFen(game) flatMap { fen =>
+                  Env.api.pdnDump(game, fen, PdnDump.WithFlags(clocks = false)) map { pdn =>
+                    Ok(pdn.render)
                   }
                 }
               }
@@ -191,12 +156,12 @@ object Puzzle extends LilaController {
 
   def importOne = Action.async(parse.json) { implicit req =>
     env.api.puzzle.importOne(req.body, ~get("token", req)) map { id =>
-      val url = s"https://lichess.org/training/$id"
-      lila.log("puzzle import").info(s"${req.remoteAddress} $url")
+      val url = s"https://lidraughts.org/training/$id"
+      lidraughts.log("puzzle import").info(s"${req.remoteAddress} $url")
       Ok(s"kthxbye $url")
     } recover {
       case e =>
-        lila.log("puzzle import").warn(s"${req.remoteAddress} ${e.getMessage}", e)
+        lidraughts.log("puzzle import").warn(s"${req.remoteAddress} ${e.getMessage}", e)
         BadRequest(e.getMessage)
     }
   }
@@ -215,7 +180,7 @@ object Puzzle extends LilaController {
 
   /* Mobile API: tell the server about puzzles solved while offline */
   def batchSolve = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
-    import lila.puzzle.PuzzleBatch._
+    import lidraughts.puzzle.PuzzleBatch._
     ctx.body.body.validate[SolveData].fold(
       err => BadRequest(err.toString).fuccess,
       data => negotiate(
@@ -229,8 +194,9 @@ object Puzzle extends LilaController {
     Ok {
       val bg = get("bg", req) | "light"
       val theme = get("theme", req) | "brown"
-      val url = s"""${req.domain + routes.Puzzle.frame}?bg=$bg&theme=$theme"""
-      s"""document.write("<iframe src='//$url&embed=" + document.domain + "' class='lichess-training-iframe' allowtransparency='true' frameBorder='0' style='width: 224px; height: 264px;' title='Lichess free online chess'></iframe>");"""
+      //val url = s"""${req.domain + routes.Puzzle.frame}?bg=$bg&theme=$theme"""
+      val url = s"""${req.domain + routes.Main}?bg=$bg&theme=$theme"""
+      s"""document.write("<iframe src='//$url&embed=" + document.domain + "' class='lidraughts-training-iframe' allowtransparency='true' frameBorder='0' style='width: 224px; height: 264px;' title='Lidraughts free online draughts'></iframe>");"""
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 

@@ -11,7 +11,7 @@ import attributes from 'snabbdom/modules/attributes';
 
 export { Ctrl as ChatCtrl, ChatPlugin } from './interfaces';
 
-export default function LichessChat(element: Element, opts: ChatOpts): {
+export default function LidraughtsChat(element: Element, opts: ChatOpts): {
   preset: PresetCtrl
 } {
   const patch = init([klass, attributes]);
@@ -29,7 +29,7 @@ export default function LichessChat(element: Element, opts: ChatOpts): {
   vnode = patch(element, view(ctrl));
 
   window.Mousetrap.bind('/', () => {
-    (container.querySelector('input.lichess_say') as HTMLElement).focus();
+    (container.querySelector('input.lidraughts_say') as HTMLElement).focus();
     return false;
   });
 

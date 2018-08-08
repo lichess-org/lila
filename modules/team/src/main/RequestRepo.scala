@@ -1,6 +1,6 @@
-package lila.team
+package lidraughts.team
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 object RequestRepo {
 
@@ -33,7 +33,7 @@ object RequestRepo {
   def teamQuery(teamId: ID) = $doc("team" -> teamId)
   def teamsQuery(teamIds: List[ID]) = $doc("team" $in teamIds)
 
-  def getByUserId(userId: lila.user.User.ID) =
+  def getByUserId(userId: lidraughts.user.User.ID) =
     coll.find($doc("user" -> userId)).list[Request]()
 
   def remove(id: ID) = coll.remove($id(id))

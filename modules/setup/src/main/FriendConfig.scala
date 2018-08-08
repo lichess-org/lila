@@ -1,12 +1,12 @@
-package lila.setup
+package lidraughts.setup
 
-import chess.Mode
-import lila.lobby.Color
-import lila.rating.PerfType
-import lila.game.PerfPicker
+import draughts.Mode
+import lidraughts.lobby.Color
+import lidraughts.rating.PerfType
+import lidraughts.game.PerfPicker
 
 case class FriendConfig(
-    variant: chess.variant.Variant,
+    variant: draughts.variant.Variant,
     timeMode: TimeMode,
     time: Double,
     increment: Int,
@@ -22,14 +22,14 @@ case class FriendConfig(
 
   def isPersistent = timeMode == TimeMode.Unlimited || timeMode == TimeMode.Correspondence
 
-  def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(makeClock), variant, makeDaysPerTurn)
+  def perfType: Option[PerfType] = PerfPicker.perfType(draughts.Speed(makeClock), variant, makeDaysPerTurn)
 }
 
 object FriendConfig extends BaseHumanConfig {
 
   def <<(v: Int, tm: Int, t: Double, i: Int, d: Int, m: Option[Int], c: String, fen: Option[String]) =
     new FriendConfig(
-      variant = chess.variant.Variant(v) err "Invalid game variant " + v,
+      variant = draughts.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
@@ -49,15 +49,15 @@ object FriendConfig extends BaseHumanConfig {
     color = Color.default
   )
 
-  import lila.db.BSON
-  import lila.db.dsl._
+  import lidraughts.db.BSON
+  import lidraughts.db.dsl._
 
   private[setup] implicit val friendConfigBSONHandler = new BSON[FriendConfig] {
 
     override val logMalformed = false
 
     def reads(r: BSON.Reader): FriendConfig = FriendConfig(
-      variant = chess.variant.Variant orDefault (r int "v"),
+      variant = draughts.variant.Variant orDefault (r int "v"),
       timeMode = TimeMode orDefault (r int "tm"),
       time = r double "t",
       increment = r int "i",

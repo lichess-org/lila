@@ -5,10 +5,10 @@
 #perfStat .content_box_content {
   min-height: 600px;
 }
-#perfStat .lichess_title {
+#perfStat .lidraughts_title {
   font-size: 1.8em;
 }
-#perfStat .lichess_title span {
+#perfStat .lidraughts_title span {
   color: #909090;
   font-size: 0.8em;
   text-transform: uppercase;

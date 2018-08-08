@@ -1,4 +1,4 @@
-package lila.puzzle
+package lidraughts.puzzle
 
 import akka.actor.{ ActorSelection, ActorSystem }
 import com.typesafe.config.Config
@@ -6,8 +6,8 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     renderer: ActorSelection,
-    lightUserApi: lila.user.LightUserApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    lightUserApi: lidraughts.user.LightUserApi,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     system: ActorSystem,
     lifecycle: play.api.inject.ApplicationLifecycle
 ) {
@@ -23,7 +23,7 @@ final class Env(
   }
   import settings._
 
-  private val db = new lila.db.Env("puzzle", config getConfig "mongodb", lifecycle)
+  private val db = new lidraughts.db.Env("puzzle", config getConfig "mongodb", lifecycle)
 
   private lazy val gameJson = new GameJson(asyncCache, lightUserApi)
 
@@ -45,7 +45,7 @@ final class Env(
   lazy val finisher = new Finisher(
     api = api,
     puzzleColl = puzzleColl,
-    bus = system.lilaBus
+    bus = system.lidraughtsBus
   )
 
   lazy val selector = new Selector(
@@ -72,7 +72,7 @@ final class Env(
     system.scheduler
   )
 
-  def cli = new lila.common.Cli {
+  def cli = new lidraughts.common.Cli {
     def process = {
       case "puzzle" :: "disable" :: id :: Nil => parseIntOption(id) ?? { id =>
         api.puzzle disable id inject "Done"
@@ -89,11 +89,11 @@ final class Env(
 object Env {
 
   lazy val current: Env = "puzzle" boot new Env(
-    config = lila.common.PlayApp loadConfig "puzzle",
-    renderer = lila.hub.Env.current.actor.renderer,
-    lightUserApi = lila.user.Env.current.lightUserApi,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system,
-    lifecycle = lila.common.PlayApp.lifecycle
+    config = lidraughts.common.PlayApp loadConfig "puzzle",
+    renderer = lidraughts.hub.Env.current.actor.renderer,
+    lightUserApi = lidraughts.user.Env.current.lightUserApi,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    system = lidraughts.common.PlayApp.system,
+    lifecycle = lidraughts.common.PlayApp.lifecycle
   )
 }

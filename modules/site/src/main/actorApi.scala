@@ -1,8 +1,8 @@
-package lila.site
+package lidraughts.site
 package actorApi
 
-import lila.socket.SocketMember
-import lila.socket.Socket.Uid
+import lidraughts.socket.SocketMember
+import lidraughts.socket.Socket.Uid
 
 case class Member(
     channel: JsChannel,

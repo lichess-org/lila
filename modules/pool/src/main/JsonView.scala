@@ -1,4 +1,4 @@
-package lila.pool
+package lidraughts.pool
 
 import play.api.libs.json._
 

@@ -1,11 +1,11 @@
-package lila.security
+package lidraughts.security
 
 import play.api.i18n.Lang
 import play.twirl.api.Html
 
-import lila.common.EmailAddress
-import lila.user.{ User, UserRepo }
-import lila.i18n.I18nKeys.{ emails => trans }
+import lidraughts.common.EmailAddress
+import lidraughts.user.{ User, UserRepo }
+import lidraughts.i18n.I18nKeys.{ emails => trans }
 
 final class EmailChange(
     mailgun: Mailgun,
@@ -15,7 +15,7 @@ final class EmailChange(
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
     tokener make TokenPayload(user.id, email).some flatMap { token =>
-      lila.mon.email.resetPassword()
+      lidraughts.mon.email.resetPassword()
       val url = s"$baseUrl/account/email/confirm/$token"
       mailgun send Mailgun.Message(
         to = email,

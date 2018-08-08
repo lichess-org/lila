@@ -3,16 +3,16 @@ package controllers
 import play.api.data.Form
 import play.api.mvc._
 
-import lila.api.Context
-import lila.app._
-import lila.qa.{ QuestionId, Question, QaAuth }
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.qa.{ QuestionId, Question, QaAuth }
 import views._
 
 object QaQuestion extends QaController {
 
   def index(page: Option[Int] = None) = Open { implicit ctx =>
     for {
-      pag <- api.question.recentPaginator(page getOrElse 1, lila.common.MaxPerPage(20))
+      pag <- api.question.recentPaginator(page getOrElse 1, lidraughts.common.MaxPerPage(20))
       popular <- fetchPopular
       _ <- preloadUsers(pag.currentPageResults)
     } yield Ok(html.qa.index(pag, popular))

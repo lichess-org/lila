@@ -1,4 +1,4 @@
-package lila.tournament
+package lidraughts.tournament
 
 object GreatPlayer {
 

@@ -1,4 +1,4 @@
-package lila.perfStat
+package lidraughts.perfStat
 
 import akka.actor._
 import com.typesafe.config.Config
@@ -8,8 +8,8 @@ import akka.actor._
 final class Env(
     config: Config,
     system: ActorSystem,
-    lightUser: lila.common.LightUser.GetterSync,
-    db: lila.db.Env
+    lightUser: lidraughts.common.LightUser.GetterSync,
+    db: lidraughts.db.Env
 ) {
 
   private val settings = new {
@@ -24,23 +24,23 @@ final class Env(
   lazy val indexer = new PerfStatIndexer(
     storage = storage,
     sequencer = system.actorOf(Props(
-      classOf[lila.hub.Sequencer],
-      None, None, lila.log("perfStat")
+      classOf[lidraughts.hub.Sequencer],
+      None, None, lidraughts.log("perfStat")
     ))
   )
 
   lazy val jsonView = new JsonView(lightUser)
 
-  def get(user: lila.user.User, perfType: lila.rating.PerfType): Fu[PerfStat] =
+  def get(user: lidraughts.user.User, perfType: lidraughts.rating.PerfType): Fu[PerfStat] =
     storage.find(user.id, perfType) orElse {
       indexer.userPerf(user, perfType) >> storage.find(user.id, perfType)
     } map (_ | PerfStat.init(user.id, perfType))
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted =>
+      case lidraughts.game.actorApi.FinishGame(game, _, _) if !game.aborted =>
         indexer addGame game addFailureEffect { e =>
-          lila.log("perfStat").error(s"index game ${game.id}", e)
+          lidraughts.log("perfStat").error(s"index game ${game.id}", e)
         }
     }
   })), 'finishGame)
@@ -49,9 +49,9 @@ final class Env(
 object Env {
 
   lazy val current: Env = "perfStat" boot new Env(
-    config = lila.common.PlayApp loadConfig "perfStat",
-    system = lila.common.PlayApp.system,
-    lightUser = lila.user.Env.current.lightUserSync,
-    db = lila.db.Env.current
+    config = lidraughts.common.PlayApp loadConfig "perfStat",
+    system = lidraughts.common.PlayApp.system,
+    lightUser = lidraughts.user.Env.current.lightUserSync,
+    db = lidraughts.db.Env.current
   )
 }

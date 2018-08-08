@@ -1,4 +1,4 @@
-package lila.common
+package lidraughts.common
 
 import org.joda.time.DateTimeZone
 import play.api.data.format.Formats._

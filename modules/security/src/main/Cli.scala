@@ -1,8 +1,8 @@
-package lila.security
+package lidraughts.security
 
-import lila.user.{ User, UserRepo }
+import lidraughts.user.{ User, UserRepo }
 
-private[security] final class Cli extends lila.common.Cli {
+private[security] final class Cli extends lidraughts.common.Cli {
 
   def process = {
 

@@ -1,7 +1,7 @@
-package lila.app
+package lidraughts.app
 package ui
 
-import lila.common.String.html.escapeHtml
+import lidraughts.common.String.html.escapeHtml
 import play.twirl.api.Html
 
 case class OpenGraph(
@@ -10,7 +10,7 @@ case class OpenGraph(
     url: String,
     `type`: String = "website",
     image: Option[String] = None,
-    siteName: String = "lichess.org",
+    siteName: String = "lidraughts.org",
     more: List[(String, String)] = Nil
 ) {
 
@@ -45,7 +45,7 @@ case class OpenGraph(
       "card" -> "summary",
       "title" -> title,
       "description" -> description,
-      "site" -> "@lichess"
+      "site" -> "@lidraughts"
     ).map(tupledTag).mkString +
       image.?? { tag("image", _) } +
       more.map(tupledTag).mkString

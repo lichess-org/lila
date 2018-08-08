@@ -10,7 +10,7 @@ import attributes from 'snabbdom/modules/attributes';
 
 const patch = init([klass, attributes]);
 
-export default function LichessNotify(element: Element, opts: NotifyOpts) {
+export default function LidraughtsNotify(element: Element, opts: NotifyOpts) {
 
   let vnode: VNode, ctrl: Ctrl
 

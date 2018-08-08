@@ -3,8 +3,8 @@
 @auth.layout(title = trans.signIn.txt()) {
 <div class="content_box login">
   <div class="signup_box">
-    <h1 class="lichess_title">@trans.signIn()</h1>
-    <form action="@routes.Auth.authenticate?referrer=@referrer" method="POST">
+    <h1 class="lidraughts_title">@trans.signIn()</h1>
+    <form action="@routes.Auth.authenticate@referrer.map { ref =>?referrer=@{java.net.URLEncoder.encode(ref, "US-ASCII")}}" method="POST">
       @globalError(form)
       <ul>
         @auth.formFields(form("username"), form("password"), none, register = false)
@@ -15,7 +15,7 @@
     </form>
   </div>
   <div class="alternative">
-    @trans.newToLichess()
+    @trans.newToLidraughts()
     <br />
     <br />
     <a href="@routes.Auth.signup()" class="button" data-icon="F"> @trans.signUp()</a>

@@ -1,7 +1,7 @@
-package lila.app
+package lidraughts.app
 package templating
 
-import lila.api.Context
+import lidraughts.api.Context
 
 trait RequestHelper {
 

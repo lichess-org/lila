@@ -1,11 +1,11 @@
-package lila.perfStat
+package lidraughts.perfStat
 
 import akka.actor.ActorRef
 
-import lila.game.{ Game, GameRepo, Pov, Query }
-import lila.hub.Sequencer
-import lila.rating.PerfType
-import lila.user.User
+import lidraughts.game.{ Game, GameRepo, Pov, Query }
+import lidraughts.hub.Sequencer
+import lidraughts.rating.PerfType
+import lidraughts.user.User
 
 final class PerfStatIndexer(storage: PerfStatStorage, sequencer: ActorRef) {
 
@@ -27,7 +27,7 @@ final class PerfStatIndexer(storage: PerfStatStorage, sequencer: ActorRef) {
           Pov.ofUserId(game, user.id).fold(perfStat)(perfStat.agg)
         case (perfStat, _) => perfStat
       }
-  } flatMap storage.insert recover lila.db.recoverDuplicateKey(_ => ())
+  } flatMap storage.insert recover lidraughts.db.recoverDuplicateKey(_ => ())
 
   def addGame(game: Game): Funit = game.players.flatMap { player =>
     player.userId.map { userId =>

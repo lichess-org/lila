@@ -1,4 +1,4 @@
-package lila.app
+package lidraughts.app
 package templating
 
 import play.twirl.api.Html
@@ -6,11 +6,11 @@ import play.twirl.api.Html
 import controllers.routes
 import mashup._
 
-import lila.api.Context
-import lila.common.LightUser
-import lila.i18n.I18nKeys
-import lila.rating.{ PerfType, Perf }
-import lila.user.{ User, UserContext }
+import lidraughts.api.Context
+import lidraughts.common.LightUser
+import lidraughts.i18n.I18nKeys
+import lidraughts.rating.{ PerfType, Perf }
+import lidraughts.user.{ User, UserContext }
 
 trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
@@ -27,17 +27,11 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   val topBarSortedPerfTypes: List[PerfType] = List(
     PerfType.Bullet,
-    PerfType.Chess960,
     PerfType.Blitz,
-    PerfType.KingOfTheHill,
     PerfType.Rapid,
-    PerfType.ThreeCheck,
     PerfType.Classical,
-    PerfType.Antichess,
     PerfType.Correspondence,
-    PerfType.Atomic,
-    PerfType.Horde,
-    PerfType.Crazyhouse
+    PerfType.Frisian
   )
 
   def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char, klass: String)(implicit ctx: Context) = Html {
@@ -291,8 +285,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   val lineIconChar = ""
 
   val lineIcon: String = """<i class="line"></i>"""
-  val patronIcon: String = """<i class="line patron" title="lichess Patron"></i>"""
-  val moderatorIcon: String = """<i class="line moderator" title="lichess Moderator"></i>"""
+  val patronIcon: String = """<i class="line patron" title="lidraughts Patron"></i>"""
+  val moderatorIcon: String = """<i class="line moderator" title="lidraughts Moderator"></i>"""
   private def lineIcon(patron: Boolean): String = if (patron) patronIcon else lineIcon
   private def lineIcon(user: Option[LightUser]): String = lineIcon(user.??(_.isPatron))
   def lineIcon(user: LightUser): String = lineIcon(user.isPatron)

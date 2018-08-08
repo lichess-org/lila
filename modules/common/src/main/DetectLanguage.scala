@@ -1,4 +1,4 @@
-package lila.common
+package lidraughts.common
 
 import play.api.i18n.Lang
 import play.api.libs.json._
@@ -25,7 +25,7 @@ final class DetectLanguage(url: String, key: String) {
     )) map { response =>
       (response.json \ "data" \ "detections").asOpt[List[Detection]] match {
         case None =>
-          lila.log("DetectLanguage").warn(s"Invalide service response ${response.json}")
+          lidraughts.log("DetectLanguage").warn(s"Invalide service response ${response.json}")
           None
         case Some(res) => res.filter(_.isReliable)
           .sortBy(-_.confidence)
@@ -33,7 +33,7 @@ final class DetectLanguage(url: String, key: String) {
       }
     } recover {
       case e: Exception =>
-        lila.log("DetectLanguage").warn(e.getMessage, e)
+        lidraughts.log("DetectLanguage").warn(e.getMessage, e)
         Lang("en").some
     }
 }

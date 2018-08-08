@@ -1,4 +1,4 @@
-package lila.search
+package lidraughts.search
 
 final class Range[A] private (val a: Option[A], val b: Option[A]) {
 

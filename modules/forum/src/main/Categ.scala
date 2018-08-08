@@ -1,4 +1,4 @@
-package lila.forum
+package lidraughts.forum
 
 case class Categ(
     _id: String, // slug

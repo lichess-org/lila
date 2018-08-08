@@ -1,4 +1,4 @@
-@(s: lila.study.Study, chapter: lila.study.Chapter, data: lila.study.JsonView.JsData)(implicit ctx: Context)
+@(s: lidraughts.study.Study, chapter: lidraughts.study.Chapter, data: lidraughts.study.JsonView.JsData)(implicit ctx: Context)
 
 <!doctype html>
 <html>
@@ -19,8 +19,7 @@
   </head>
   <body class="base highlight @List(
     ctx.currentTheme.cssClass,
-    if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg,
-    ctx.pref.pieceNotationIsLetter ?? "piece_letter").mkString(" ")">
+    if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg).mkString(" ")">
     <div class="is2d">
       <div class="embedded_study analyse cg-512">@miniBoardContent</div>
     </div>
@@ -36,10 +35,10 @@
     @jsTag("vendor/mousetrap.js")
     @jsAt("compiled/util.js")
     @jsAt("compiled/trans.js")
-    @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
+    @jsAt(s"compiled/lidraughts.analyse${isProd??(".min")}.js")
     @jsTag("embed-analyse.js")
     @embedJs {
-    lichess.startEmbeddedAnalyse({
+    lidraughts.startEmbeddedAnalyse({
     element: document.querySelector('.embedded_study'),
     study: @safeJson(data.study),
     data: @safeJson(data.analysis),

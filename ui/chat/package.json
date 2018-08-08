@@ -1,10 +1,10 @@
 {
   "name": "chat",
   "version": "2.0.0",
-  "description": "lichess.org chat UI",
+  "description": "lidraughts.org chat UI",
   "main": "dist/main.js",
   "types": "dist/main",
-  "author": "Thibault Duplessis",
+  "author": "Stefan Schermann (modified original by Thibault Duplessis)",
   "license": "AGPL-3.0",
   "scripts": {
     "compile": "tsc"
@@ -21,7 +21,7 @@
     "gulp-uglify": "^3",
     "gulp-util": "^3",
     "tsify": "^3",
-    "@types/lichess": "1.0.0",
+    "@types/lidraughts": "1.0.0",
     "typescript": "^2",
     "uglify-js": "^2",
     "vinyl-buffer": "^1",

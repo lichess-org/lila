@@ -1,6 +1,6 @@
-package lila.coordinate
+package lidraughts.coordinate
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 import reactivemongo.bson._
 
 final class CoordinateApi(scoreColl: Coll) {

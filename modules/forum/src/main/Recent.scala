@@ -1,15 +1,15 @@
-package lila.forum
+package lidraughts.forum
 
 import scala.concurrent.duration.FiniteDuration
 
-import lila.security.{ Permission, Granter => MasterGranter }
-import lila.user.User
+import lidraughts.security.{ Permission, Granter => MasterGranter }
+import lidraughts.user.User
 
 private[forum] final class Recent(
     postApi: PostApi,
     ttl: FiniteDuration,
     nb: Int,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     publicCategIds: List[String]
 ) {
 

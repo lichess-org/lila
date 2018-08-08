@@ -1,6 +1,8 @@
 import * as xhr from './xhr'
 import { Ctrl, ChallengeOpts, ChallengeData, ChallengeUser } from './interfaces'
 
+const li = window.lidraughts;
+
 export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => void): Ctrl {
 
   let trans = (key: string) => key;
@@ -8,7 +10,7 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
 
   function update(d: ChallengeData) {
     data = d;
-    if (d.i18n) trans = window.lichess.trans(d.i18n).noarg;
+    if (d.i18n) trans = li.trans(d.i18n).noarg;
     opts.setCount(countActiveIn());
     notifyNew();
   }
@@ -19,12 +21,12 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
 
   function notifyNew() {
     data.in.forEach(c => {
-      if (window.lichess.once('c-' + c.id)) {
-        if (!window.lichess.quietMode && data.in.length <= 3) {
+      if (li.once('c-' + c.id)) {
+        if (!li.quietMode && data.in.length <= 3) {
           opts.show();
-          window.lichess.sound.newChallenge();
+          li.sound.newChallenge();
         }
-        c.challenger && window.lichess.desktopNotification(showUser(c.challenger) + ' challenges you!');
+        c.challenger && li.desktopNotification(showUser(c.challenger) + ' challenges you!');
         opts.pulse();
       }
     });
@@ -61,7 +63,7 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
     redirecting: () => redirecting,
     onRedirect() {
       redirecting = true;
-      window.lichess.raf(redraw);
+      li.raf(redraw);
     }
   };
 };

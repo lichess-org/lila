@@ -1,4 +1,4 @@
-@(data: lila.study.DataForm.Data, owner: List[lila.study.Study.IdName], contrib: List[lila.study.Study.IdName])(implicit ctx: Context)
+@(data: lidraughts.study.DataForm.Data, owner: List[lidraughts.study.Study.IdName], contrib: List[lidraughts.study.Study.IdName])(implicit ctx: Context)
 
 @site.message(
 title = "Study",
@@ -9,7 +9,7 @@ moreCss = cssTag("study-create.css").some) {
   <input type="hidden" name="gameId" value="@data.gameId" />
   <input type="hidden" name="orientation" value="@data.orientationStr" />
   <input type="hidden" name="fen" value="@data.fenStr" />
-  <input type="hidden" name="pgn" value="@data.pgnStr" />
+  <input type="hidden" name="pdn" value="@data.pdnStr" />
   <input type="hidden" name="variant" value="@data.variantStr" />
   <h2>So, where do you want to study that?</h2>
   <p>

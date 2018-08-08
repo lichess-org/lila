@@ -1,16 +1,16 @@
-@(c: lila.challenge.Challenge, json: play.api.libs.json.JsObject)(implicit ctx: Context)
+@(c: lidraughts.challenge.Challenge, json: play.api.libs.json.JsObject)(implicit ctx: Context)
 
-@import lila.challenge.Challenge.Status
+@import lidraughts.challenge.Challenge.Status
 
 @round.layout(
 title = challengeTitle(c),
-side = Html(""),
+side = emptyHtml,
 openGraph = challengeOpenGraph(c).some,
 moreJs = js(c, json, false)) {
-<div class="lichess_game" id="challenge">
-  <div class="lichess_board_wrap cg-512">
-    <div class="lichess_board"></div>
-    <div class="lichess_overboard padded">
+<div class="lidraughts_game" id="challenge">
+  <div class="lidraughts_board_wrap cg-512">
+    <div class="lidraughts_board"></div>
+    <div class="lidraughts_overboard padded">
       @userIdLink(c.challengerUserId)
       <br />
       @explanation(c)

@@ -1,14 +1,14 @@
-package lila.study
+package lidraughts.study
 
-import chess.format.{ Uci, UciCharPair, FEN }
-import chess.Pos
+import draughts.format.{ Uci, UciCharPair, FEN }
+import draughts.Pos
 import play.api.libs.json._
 
-import lila.common.LightUser
-import lila.common.PimpedJson._
-import lila.socket.Socket.Uid
-import lila.tree.Node.Shape
-import lila.user.User
+import lidraughts.common.LightUser
+import lidraughts.common.PimpedJson._
+import lidraughts.socket.Socket.Uid
+import lidraughts.tree.Node.Shape
+import lidraughts.user.User
 
 final class JsonView(
     studyRepo: StudyRepo,
@@ -121,7 +121,7 @@ object JsonView {
   private[study] implicit val pathWrites: Writes[Path] = Writes[Path] { p =>
     JsString(p.toString)
   }
-  private implicit val colorWriter: Writes[chess.Color] = Writes[chess.Color] { c =>
+  private implicit val colorWriter: Writes[draughts.Color] = Writes[draughts.Color] { c =>
     JsString(c.name)
   }
   private implicit val fenWriter: Writes[FEN] = Writes[FEN] { f =>
@@ -159,14 +159,14 @@ object JsonView {
     JsNumber(p.value)
   }
 
-  private implicit val variantWrites = OWrites[chess.variant.Variant] { v =>
+  private implicit val variantWrites = OWrites[draughts.variant.Variant] { v =>
     Json.obj("key" -> v.key, "name" -> v.name)
   }
-  implicit val pgnTagWrites: Writes[chess.format.pgn.Tag] = Writes[chess.format.pgn.Tag] { t =>
+  implicit val pdnTagWrites: Writes[draughts.format.pdn.Tag] = Writes[draughts.format.pdn.Tag] { t =>
     Json.arr(t.name.toString, t.value)
   }
-  implicit val pgnTagsWrites = Writes[chess.format.pgn.Tags] { tags =>
-    JsArray(tags.value map pgnTagWrites.writes)
+  implicit val pdnTagsWrites = Writes[draughts.format.pdn.Tags] { tags =>
+    JsArray(tags.value map pdnTagWrites.writes)
   }
   private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]
   private[study] implicit val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>

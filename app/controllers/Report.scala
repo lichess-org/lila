@@ -4,18 +4,20 @@ import play.api.mvc.AnyContentAsFormUrlEncoded
 
 import views._
 
-import lila.api.{ Context, BodyContext }
-import lila.app._
-import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Suspect }
-import lila.user.{ UserRepo, User => UserModel }
+import lidraughts.api.{ Context, BodyContext }
+import lidraughts.app._
+import lidraughts.common.HTTPRequest
+import lidraughts.report.{ Room, Report => ReportModel, Mod => AsMod, Suspect }
+import lidraughts.user.{ UserRepo, User => UserModel }
 
-object Report extends LilaController {
+object Report extends LidraughtsController {
 
   private def env = Env.report
   private def api = env.api
 
   def list = Secure(_.SeeReport) { implicit ctx => me =>
-    renderList(env.modFilters.get(me).fold("all")(_.key))
+    if (Env.streamer.liveStreamApi.isStreaming(me.id)) fuccess(Forbidden(html.mod.streaming()))
+    else renderList(env.modFilters.get(me).fold("all")(_.key))
   }
 
   def listWithFilter(room: String) = Secure(_.SeeReport) { implicit ctx => me =>
@@ -51,28 +53,31 @@ object Report extends LilaController {
     goTo: Option[Suspect],
     force: Boolean = false
   )(implicit ctx: BodyContext[_]) = {
-    def autoNext = ctx.body.body match {
-      case AnyContentAsFormUrlEncoded(data) => data.get("next").exists(_.headOption contains "1")
-      case _ => false
-    }
-    inquiry match {
-      case None => {
-        goTo.fold(Redirect(routes.Report.list)) { s =>
-          Mod.redirect(s.user.username)
-        }.fuccess
-      }
-      case Some(prev) =>
-        def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
-        if (autoNext) api.next(prev.room) flatMap {
-          _.fold(redirectToList.fuccess) { report =>
-            api.inquiries.toggle(AsMod(me), report.id) map {
+    goTo.ifTrue(HTTPRequest isXhr ctx.req) match {
+      case Some(suspect) => User.renderModZone(suspect.user.username, me)
+      case None =>
+        def autoNext = ctx.body.body match {
+          case AnyContentAsFormUrlEncoded(data) => data.get("next").exists(_.headOption contains "1")
+          case _ => false
+        }
+        inquiry match {
+          case None =>
+            goTo.fold(Redirect(routes.Report.list).fuccess) { s =>
+              User.modZoneOrRedirect(s.user.username, me)
+            }
+          case Some(prev) =>
+            def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
+            if (autoNext) api.next(prev.room) flatMap {
+              _.fold(redirectToList.fuccess) { report =>
+                api.inquiries.toggle(AsMod(me), report.id) map {
+                  _.fold(redirectToList)(onInquiryStart)
+                }
+              }
+            }
+            else if (force) User.modZoneOrRedirect(prev.user, me)
+            else api.inquiries.toggle(AsMod(me), prev.id) map {
               _.fold(redirectToList)(onInquiryStart)
             }
-          }
-        }
-        else if (force) Redirect(s"${routes.User.show(prev.user)}?mod").fuccess
-        else api.inquiries.toggle(AsMod(me), prev.id) map {
-          _.fold(redirectToList)(onInquiryStart)
         }
     }
   }
@@ -85,6 +90,16 @@ object Report extends LilaController {
 
   def xfiles(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
     api.moveToXfiles(id) inject Redirect(routes.Report.list)
+  }
+
+  def currentCheatInquiry(username: String) = Secure(_.Hunter) { implicit ctx => me =>
+    OptionFuResult(UserRepo named username) { user =>
+      env.api.currentCheatReport(lidraughts.report.Suspect(user)) flatMap {
+        _ ?? { report =>
+          env.api.inquiries.toggle(lidraughts.report.Mod(me), report.id)
+        } inject Mod.redirect(username, true)
+      }
+    }
   }
 
   def form = Auth { implicit ctx => implicit me =>
@@ -105,7 +120,7 @@ object Report extends LilaController {
       },
       data =>
         if (data.user == me) notFound
-        else api.create(data candidate lila.report.Reporter(me)) map { report =>
+        else api.create(data candidate lidraughts.report.Reporter(me)) map { report =>
           Redirect(routes.Report.thanks(data.user.username))
         }
     )

@@ -1,8 +1,8 @@
-package lila.simul
+package lidraughts.simul
 
-import chess.variant.Variant
-import lila.rating.Perf
-import lila.user.User
+import draughts.variant.Variant
+import lidraughts.rating.Perf
+import lidraughts.user.User
 
 private[simul] case class SimulPlayer(
     user: User.ID,

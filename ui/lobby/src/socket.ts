@@ -7,7 +7,7 @@ interface Handlers {
   [key: string]: (data: any) => void;
 }
 
-const li = window.lichess;
+const li = window.lidraughts;
 
 export default class LobbySocket {
 
@@ -56,7 +56,7 @@ export default class LobbySocket {
     li.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
         li.loadScript('/assets/javascripts/music/lobby.js').then(() => {
-          this.music = window['lichessLobbyMusic']();
+          this.music = window['lidraughtsLobbyMusic']();
           ctrl.setMode('chart');
         });
         if (this.music && set !== 'music') this.music = undefined;

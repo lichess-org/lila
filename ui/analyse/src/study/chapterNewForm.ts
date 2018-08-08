@@ -11,7 +11,7 @@ import AnalyseCtrl from '../ctrl';
 
 export const modeChoices = [
   ['normal', "Normal analysis"],
-  ['practice', "Practice with computer"],
+  //['practice', "Practice with computer"],
   ['conceal', "Hide next moves"],
   ['gamebook', "Interactive lesson"]
 ];
@@ -23,7 +23,7 @@ export function fieldValue(e: Event, id: string) {
 
 export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTab: () => void, root: AnalyseCtrl) {
 
-  const multiPgnMax = 20;
+  const multiPdnMax = 20;
 
   const vm = {
     variants: [],
@@ -54,9 +54,9 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
     return x;
   }
 
-  function submitMultiPgn(d) {
-    if (d.pgn) {
-      const lines = d.pgn.split('\n');
+  function submitMultiPdn(d) {
+    if (d.pdn) {
+      const lines = d.pdn.split('\n');
       const parts = lines.map(function(l, i) {
         // ensure 2 spaces after each game
         if (!l.trim() && i && lines[i - 1][0] !== '[') return '\n';
@@ -66,7 +66,7 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
         return part.split('\n').filter(identity).join('\n');
       }).filter(identity); // remove empty games
       if (parts.length > 1) {
-        if (parts.length > multiPgnMax && !confirm('Import the first ' + multiPgnMax + ' of the ' + parts.length + ' games?')) return;
+        if (parts.length > multiPdnMax && !confirm('Import the first ' + multiPdnMax + ' of the ' + parts.length + ' games?')) return;
         const step = function(ds) {
           if (ds.length) {
             send('addChapter', ds[0]);
@@ -76,13 +76,13 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
           } else {}
         };
         const firstIt = vm.initial() ? 1 : (chapters().length + 1);
-        step(parts.slice(0, multiPgnMax).map(function(pgn, i) {
+        step(parts.slice(0, multiPdnMax).map(function(pdn, i) {
           return {
             initial: !i && vm.initial(),
             mode: d.mode,
             name: 'Chapter ' + (firstIt + i),
             orientation: d.orientation,
-            pgn,
+            pdn,
             variant: d.variant,
             sticky: root.study!.vm.mode.sticky
           };
@@ -112,7 +112,7 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
       else open();
     },
     submit(d) {
-      if (!submitMultiPgn(d)) submitSingle(d);
+      if (!submitMultiPdn(d)) submitSingle(d);
       close();
       setTab();
     },
@@ -121,7 +121,7 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
       vm.tab(tab);
       root.redraw();
     }),
-    multiPgnMax,
+    multiPdnMax,
     redraw: root.redraw
   }
 }
@@ -136,7 +136,7 @@ export function view(ctrl): VNode {
       hook: bind('click', () => ctrl.vm.tab(key), ctrl.root.redraw)
     }, name);
   };
-  const gameOrPgn = activeTab === 'game' || activeTab === 'pgn';
+  const gameOrPdn = activeTab === 'game' || activeTab === 'pdn';
   const currentChapterSetup = ctrl.root.study.data.chapter.setup;
 
   return dialog.form({
@@ -158,7 +158,7 @@ export function view(ctrl): VNode {
           const o: any = {
             fen: fieldValue(e, 'fen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorFen() : null)
           };
-          'name game variant pgn orientation mode'.split(' ').forEach(field => {
+          'name game variant pdn orientation mode'.split(' ').forEach(field => {
             o[field] = fieldValue(e, field);
           });
           ctrl.submit(o);
@@ -191,13 +191,13 @@ export function view(ctrl): VNode {
           makeTab('edit', 'Edit', 'Start from custom position'),
           makeTab('game', 'URL', 'Load a game URL'),
           makeTab('fen', 'FEN', 'Load a FEN position'),
-          makeTab('pgn', 'PGN', 'Load a PGN game')
+          makeTab('pdn', 'PDN', 'Load a PDN game')
         ]),
         activeTab === 'edit' ? h('div.editor_wrap.is2d', {
           hook: {
             insert: vnode => {
               $.when(
-                window.lichess.loadScript('/assets/compiled/lichess.editor.min.js'),
+                window.lidraughts.loadScript('/assets/compiled/lidraughts.editor.min.js'),
                 $.get('/editor.json', {
                   fen: ctrl.root.node.fen
                 })
@@ -208,7 +208,7 @@ export function view(ctrl): VNode {
                   inlineCastling: true,
                   onChange: ctrl.vm.editorFen
                 };
-                ctrl.vm.editor = window['LichessEditor'](vnode.elm as HTMLElement, data);
+                ctrl.vm.editor = window['LidraughtsEditor'](vnode.elm as HTMLElement, data);
                 ctrl.vm.editorFen(ctrl.vm.editor.getFen());
               });
             },
@@ -223,7 +223,7 @@ export function view(ctrl): VNode {
           }),
           h('label.control-label', {
             attrs: { 'for': 'chapter-game' }
-          }, 'Load a game from lichess.org or chessgames.com'),
+          }, 'Load a game from lidraughts.org'),
           h('i.bar')
         ]) : null,
         activeTab === 'fen' ? h('div.form-group.no-label', [
@@ -235,17 +235,17 @@ export function view(ctrl): VNode {
           }),
           h('i.bar')
         ]) : null,
-        activeTab === 'pgn' ? h('div.form-group.no-label', [
-          h('textarea#chapter-pgn', {
-            attrs: { placeholder: 'Paste your PGN here, up to ' + ctrl.multiPgnMax + ' games' }
+        activeTab === 'pdn' ? h('div.form-group.no-label', [
+          h('textarea#chapter-pdn', {
+            attrs: { placeholder: 'Paste your PDN(s) here, up to ' + ctrl.multiPdnMax + ' games, each separated by an empty line' }
           }),
           h('i.bar')
         ]) : null,
         h('div', [
           h('div.form-group.half.little-margin-bottom', [
             h('select#chapter-variant', {
-              attrs: { disabled: gameOrPgn }
-            }, gameOrPgn ? [
+              attrs: { disabled: gameOrPdn }
+            }, gameOrPdn ? [
               h('option', 'Automatic')
             ] :
             ctrl.vm.variants.map(v => option(v.key, currentChapterSetup.variant.key, v.name))),

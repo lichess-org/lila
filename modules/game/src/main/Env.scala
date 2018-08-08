@@ -1,20 +1,20 @@
-package lila.game
+package lidraughts.game
 
 import akka.actor._
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
-    mongoCache: lila.memo.MongoCache.Builder,
+    db: lidraughts.db.Env,
+    mongoCache: lidraughts.memo.MongoCache.Builder,
     system: ActorSystem,
-    hub: lila.hub.Env,
-    getLightUser: lila.common.LightUser.GetterSync,
+    hub: lidraughts.hub.Env,
+    getLightUser: lidraughts.common.LightUser.GetterSync,
     appPath: String,
     isProd: Boolean,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    settingStore: lila.memo.SettingStore.Builder,
-    scheduler: lila.common.Scheduler
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    settingStore: lidraughts.memo.SettingStore.Builder,
+    scheduler: lidraughts.common.Scheduler
 ) {
 
   private val settings = new {
@@ -31,10 +31,10 @@ final class Env(
   }
   import settings._
 
-  lazy val pgnEncodingSetting = settingStore[String](
-    "pgnEncodingSetting",
+  lazy val pdnEncodingSetting = settingStore[String](
+    "pdnEncodingSetting",
     default = "none",
-    text = "Use Huffman encoding for game PGN [none|beta|all]".some
+    text = "Use Huffman encoding for game PDN [none|beta|all]".some
   )
 
   lazy val gameColl = db(CollectionGame)
@@ -52,14 +52,14 @@ final class Env(
   lazy val paginator = new PaginatorBuilder(
     coll = gameColl,
     cached = cached,
-    maxPerPage = lila.common.MaxPerPage(PaginatorMaxPerPage)
+    maxPerPage = lidraughts.common.MaxPerPage(PaginatorMaxPerPage)
   )
 
   lazy val rewind = Rewind
 
   lazy val uciMemo = new UciMemo(UciMemoTtl)
 
-  lazy val pgnDump = new PgnDump(
+  lazy val pdnDump = new PdnDump(
     netBaseUrl = netBaseUrl,
     getLightUser = getLightUser
   )
@@ -78,7 +78,7 @@ final class Env(
   private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)
 
   val recentGoodGameActor = system.actorOf(Props[RecentGoodGame], name = "recent-good-game")
-  system.lilaBus.subscribe(recentGoodGameActor, 'finishGame)
+  system.lidraughtsBus.subscribe(recentGoodGameActor, 'finishGame)
 
   scheduler.message(CaptcherDuration) {
     captcher -> actorApi.NewCaptcha
@@ -86,9 +86,9 @@ final class Env(
 
   def onStart(gameId: String) = GameRepo game gameId foreach {
     _ foreach { game =>
-      system.lilaBus.publish(actorApi.StartGame(game), 'startGame)
+      system.lidraughtsBus.publish(actorApi.StartGame(game), 'startGame)
       game.userIds foreach { userId =>
-        system.lilaBus.publish(
+        system.lidraughtsBus.publish(
           actorApi.UserStartGame(userId, game),
           Symbol(s"userStartGame:$userId")
         )
@@ -99,21 +99,28 @@ final class Env(
   lazy val stream = new GameStream(system)
 
   lazy val bestOpponents = new BestOpponents
+
+  def cli = new lidraughts.common.Cli {
+    def process = {
+      case "game" :: "test" :: times :: Nil => parseIntOption(times) ?? StreamTest.start
+    }
+  }
+
 }
 
 object Env {
 
   lazy val current = "game" boot new Env(
-    config = lila.common.PlayApp loadConfig "game",
-    db = lila.db.Env.current,
-    mongoCache = lila.memo.Env.current.mongoCache,
-    system = lila.common.PlayApp.system,
-    hub = lila.hub.Env.current,
-    getLightUser = lila.user.Env.current.lightUserSync,
+    config = lidraughts.common.PlayApp loadConfig "game",
+    db = lidraughts.db.Env.current,
+    mongoCache = lidraughts.memo.Env.current.mongoCache,
+    system = lidraughts.common.PlayApp.system,
+    hub = lidraughts.hub.Env.current,
+    getLightUser = lidraughts.user.Env.current.lightUserSync,
     appPath = play.api.Play.current.path.getCanonicalPath,
-    isProd = lila.common.PlayApp.isProd,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    settingStore = lila.memo.Env.current.settingStore,
-    scheduler = lila.common.PlayApp.scheduler
+    isProd = lidraughts.common.PlayApp.isProd,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    settingStore = lidraughts.memo.Env.current.settingStore,
+    scheduler = lidraughts.common.PlayApp.scheduler
   )
 }

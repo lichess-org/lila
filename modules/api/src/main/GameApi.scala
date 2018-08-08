@@ -1,4 +1,4 @@
-package lila.api
+package lidraughts.api
 
 import org.joda.time.DateTime
 import play.api.libs.json._
@@ -6,26 +6,26 @@ import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import lila.analyse.{ JsonView => analysisJson, AnalysisRepo, Analysis }
-import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.common.MaxPerPage
-import lila.db.dsl._
-import lila.db.paginator.{ Adapter, CachedAdapter }
-import lila.game.BSONHandlers._
-import lila.game.Game.{ BSONFields => G }
-import lila.game.{ Game, GameRepo, PerfPicker, CrosstableApi }
-import lila.user.User
+import lidraughts.analyse.{ JsonView => analysisJson, AnalysisRepo, Analysis }
+import lidraughts.common.paginator.{ Paginator, PaginatorJson }
+import lidraughts.common.MaxPerPage
+import lidraughts.db.dsl._
+import lidraughts.db.paginator.{ Adapter, CachedAdapter }
+import lidraughts.game.BSONHandlers._
+import lidraughts.game.Game.{ BSONFields => G }
+import lidraughts.game.{ Game, GameRepo, PerfPicker, CrosstableApi }
+import lidraughts.user.User
 
 private[api] final class GameApi(
     netBaseUrl: String,
     apiToken: String,
-    pgnDump: PgnDump,
-    gameCache: lila.game.Cached,
+    pdnDump: PdnDump,
+    gameCache: lidraughts.game.Cached,
     crosstableApi: CrosstableApi
 ) {
 
   import GameApi.WithFlags
-  import lila.game.JsonView.openingWriter
+  import lidraughts.game.JsonView.openingWriter
 
   def byUser(
     user: User,
@@ -40,10 +40,10 @@ private[api] final class GameApi(
       adapter = new Adapter[Game](
         collection = GameRepo.coll,
         selector = {
-          if (~playing) lila.game.Query.nowPlaying(user.id)
+          if (~playing) lidraughts.game.Query.nowPlaying(user.id)
           else $doc(
             G.playerUids -> user.id,
-            G.status $gte chess.Status.Mate.id,
+            G.status $gte draughts.Status.Mate.id,
             G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
           )
         } ++ $doc(
@@ -92,9 +92,9 @@ private[api] final class GameApi(
       adapter = new Adapter[Game](
         collection = GameRepo.coll,
         selector = {
-          if (~playing) lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
-          else lila.game.Query.opponents(users._1, users._2) ++ $doc(
-            G.status $gte chess.Status.Mate.id,
+          if (~playing) lidraughts.game.Query.nowPlayingVs(users._1.id, users._2.id)
+          else lidraughts.game.Query.opponents(users._1, users._2) ++ $doc(
+            G.status $gte draughts.Status.Mate.id,
             G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
           )
         } ++ $doc(
@@ -129,9 +129,9 @@ private[api] final class GameApi(
     adapter = new Adapter[Game](
       collection = GameRepo.coll,
       selector = {
-        if (~playing) lila.game.Query.nowPlayingVs(userIds)
-        else lila.game.Query.opponents(userIds) ++ $doc(
-          G.status $gte chess.Status.Mate.id,
+        if (~playing) lidraughts.game.Query.nowPlayingVs(userIds)
+        else lidraughts.game.Query.opponents(userIds) ++ $doc(
+          G.status $gte draughts.Status.Mate.id,
           G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
         )
       } ++ $doc(
@@ -212,15 +212,15 @@ private[api] final class GameApi(
         .add("analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color)))
     }),
     "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves),
-    "moves" -> withFlags.moves.option(g.pgnMoves mkString " "),
+    "moves" -> withFlags.moves.option(g.pdnMoves mkString " "),
     "opening" -> withFlags.opening.??(g.opening),
     "fens" -> (withFlags.fens && g.finished) ?? {
-      chess.Replay.boards(
-        moveStrs = g.pgnMoves,
-        initialFen = initialFen map chess.format.FEN,
+      draughts.Replay.boards(
+        moveStrs = g.pdnMoves,
+        initialFen = initialFen map draughts.format.FEN,
         variant = g.variant
       ).toOption map { boards =>
-        JsArray(boards map chess.format.Forsyth.exportBoard map JsString.apply)
+        JsArray(boards map draughts.format.Forsyth.exportBoard map JsString.apply)
       }
     },
     "winner" -> g.winnerColor.map(_.name),

@@ -4,30 +4,22 @@ require 'fileutils'
 require 'base64'
 include FileUtils
 
-lila_dir = pwd()
-source_dir = lila_dir + '/public/piece/'
-dest_dir = lila_dir + '/public/stylesheets/piece/'
+main_dir = pwd()
+source_dir = main_dir + '/public/piece-src/'
+dest_dir = main_dir + '/public/stylesheets/piece/'
 
 themes = [
-  ['alpha', 'svg'],
-  ['cburnett', 'svg'],
-  ['merida', 'svg'],
-  ['pirouetti', 'svg'],
-  ['spatial', 'svg'],
-  ['chess7', 'svg'],
-  ['reillycraig', 'svg'],
-  ['fantasy', 'svg'],
-  ['shapes', 'svg'],
-  ['chessnut', 'svg'],
-  ['companion', 'svg'],
-  ['letter', 'svg'],
-  ['riohacha', 'svg']
+  ['wide_crown', 'svg'],
+  ['wide', 'svg'],
+  ['narrow_edge', 'svg'],
+  ['narrow', 'svg'],
+  ['flat', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',
   'png' => 'png;base64,'
 }
-roles = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king']
+roles = ['man', 'king']
 colors = ['white', 'black']
 
 themes.map { |theme|
@@ -35,7 +27,7 @@ themes.map { |theme|
   ext = theme[1]
   classes = colors.map { |color|
     roles.map { |role|
-      piece = color[0] + (role == 'knight' ? 'N' : role.upcase[0])
+      piece = color[0] + role.upcase[0]
       file = source_dir + name + '/' + piece + '.' + ext
       File.open(file, 'r') do|image_file|
         image = image_file.read

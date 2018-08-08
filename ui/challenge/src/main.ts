@@ -11,7 +11,7 @@ import attributes from 'snabbdom/modules/attributes';
 
 const patch = init([klass, attributes]);
 
-export default function LichessChallenge(element: Element, opts: ChallengeOpts) {
+export default function LidraughtsChallenge(element: Element, opts: ChallengeOpts) {
 
   let vnode: VNode, ctrl: Ctrl;
 

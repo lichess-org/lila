@@ -1,14 +1,14 @@
 import RoundController from './ctrl';
 
 const headers = {
-  'Accept': 'application/vnd.lichess.v2+json'
+  'Accept': 'application/vnd.lidraughts.v2+json'
 };
 
 export function reload(ctrl: RoundController) {
   return $.ajax({
     url: ctrl.data.url.round,
     headers
-  }).fail(window.lichess.reload);
+  }).fail(window.lidraughts.reload);
 }
 
 export function whatsNext(ctrl: RoundController) {

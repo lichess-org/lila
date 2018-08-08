@@ -1,7 +1,7 @@
 import { TournamentData } from './interfaces';
 
 let countDownTimeout: number | undefined;
-const li = window.lichess;
+const li = window.lidraughts;
 
 function doCountDown(targetTime: number) {
 

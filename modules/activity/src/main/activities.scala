@@ -1,10 +1,10 @@
-package lila.activity
+package lidraughts.activity
 
 import ornicar.scalalib.Zero
 
-import lila.rating.PerfType
-import lila.study.Study
-import lila.user.User
+import lidraughts.rating.PerfType
+import lidraughts.study.Study
+import lidraughts.user.User
 import model._
 
 object activities {

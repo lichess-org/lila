@@ -1,10 +1,10 @@
-package lila.i18n
+package lidraughts.i18n
 
 import play.api.http.HeaderNames
 import play.api.mvc._
 import play.api.mvc.Results.MovedPermanently
 
-import lila.common.HTTPRequest
+import lidraughts.common.HTTPRequest
 
 final class SubdomainKiller(domain: String) {
 
@@ -24,7 +24,7 @@ final class SubdomainKiller(domain: String) {
 
   private def allowMobileEn(req: RequestHeader) =
     req.host.startsWith("en.") &&
-      req.headers.get(HeaderNames.ACCEPT).exists(_ startsWith "application/vnd.lichess.v")
+      req.headers.get(HeaderNames.ACCEPT).exists(_ startsWith "application/vnd.lidraughts.v")
 
   private def excludePath(path: String) =
     path.contains("/embed/") || path.startsWith("/api/")

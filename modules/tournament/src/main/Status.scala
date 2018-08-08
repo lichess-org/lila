@@ -1,4 +1,4 @@
-package lila.tournament
+package lidraughts.tournament
 
 private[tournament] sealed abstract class Status(val id: Int) extends Ordered[Status] {
 

@@ -8,7 +8,7 @@ export default function(ctrl: Ctrl): string {
     case 'aborted':
       return noarg('gameAborted');
     case 'mate':
-      return noarg('checkmate');
+      return ''; //noarg('checkmate');
     case 'resign':
       return noarg(ctrl.data.game.winner == 'white' ? 'blackResigned' : 'whiteResigned');
     case 'stalemate':

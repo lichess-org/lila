@@ -1,4 +1,4 @@
-package lila.simul
+package lidraughts.simul
 
 case class SimulApplicant(
     player: SimulPlayer,

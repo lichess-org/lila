@@ -1,15 +1,15 @@
-package lila.round
+package lidraughts.round
 
-import lila.game.{ Game, Event, Progress, Pov }
-import lila.pref.{ Pref, PrefApi }
+import lidraughts.game.{ Game, Event, Progress, Pov }
+import lidraughts.pref.{ Pref, PrefApi }
 
-import chess.Centis
+import draughts.Centis
 
 private[round] final class Drawer(
     messenger: Messenger,
     finisher: Finisher,
     prefApi: PrefApi,
-    bus: lila.common.Bus
+    bus: lidraughts.common.Bus
 ) {
 
   def autoThreefold(game: Game)(implicit proxy: GameProxy): Fu[Option[Pov]] = Pov(game).map { pov =>
@@ -54,7 +54,7 @@ private[round] final class Drawer(
 
   private def publishDrawOffer(pov: Pov): Unit =
     if (pov.game.isCorrespondence && pov.game.nonAi) bus.publish(
-      lila.hub.actorApi.round.CorresDrawOfferEvent(pov.gameId),
+      lidraughts.hub.actorApi.round.CorresDrawOfferEvent(pov.gameId),
       'offerEventCorres
     )
 }

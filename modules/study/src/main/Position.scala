@@ -1,4 +1,4 @@
-package lila.study
+package lidraughts.study
 
 case class Position(chapter: Chapter, path: Path) {
 

@@ -1,4 +1,4 @@
-package lila.simul
+package lidraughts.simul
 
 private[simul] sealed abstract class SimulStatus(val id: Int) extends Ordered[SimulStatus] {
 

@@ -1,9 +1,9 @@
-package lila.game
+package lidraughts.game
 
-import lila.common.paginator._
-import lila.common.MaxPerPage
-import lila.db.dsl._
-import lila.db.paginator._
+import lidraughts.common.paginator._
+import lidraughts.common.MaxPerPage
+import lidraughts.db.dsl._
+import lidraughts.db.paginator._
 
 private[game] final class PaginatorBuilder(
     coll: Coll,

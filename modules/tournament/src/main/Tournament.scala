@@ -1,14 +1,14 @@
-package lila.tournament
+package lidraughts.tournament
 
 import org.joda.time.{ DateTime, Duration, Interval }
 import ornicar.scalalib.Random
 
-import chess.Clock.{ Config => ClockConfig }
-import chess.{ Speed, Mode, StartingPosition }
-import lila.game.PerfPicker
-import lila.rating.PerfType
-import lila.user.User
-import lila.user.UserRepo.lichessId
+import draughts.Clock.{ Config => ClockConfig }
+import draughts.{ Speed, Mode, StartingPosition }
+import lidraughts.game.PerfPicker
+import lidraughts.rating.PerfType
+import lidraughts.user.User
+import lidraughts.user.UserRepo.lidraughtsId
 
 case class Tournament(
     id: Tournament.ID,
@@ -17,7 +17,7 @@ case class Tournament(
     system: System,
     clock: ClockConfig,
     minutes: Int,
-    variant: chess.variant.Variant,
+    variant: draughts.variant.Variant,
     position: StartingPosition,
     mode: Mode,
     `private`: Boolean,
@@ -50,6 +50,8 @@ case class Tournament(
     case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true
     case _ => false
   }
+
+  def isShield = schedule.map(_.freq) has Schedule.Freq.Shield
 
   def isUnique = schedule.map(_.freq) has Schedule.Freq.Unique
 
@@ -112,9 +114,9 @@ case class Tournament(
     )
   }
 
-  def nonLichessCreatedBy = (createdBy != lichessId) option createdBy
+  def nonLidraughtsCreatedBy = (createdBy != lidraughtsId) option createdBy
 
-  def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
+  def ratingVariant = if (variant.fromPosition) draughts.variant.Standard else variant
 
   override def toString = s"$id $startsAt $fullName $minutes minutes, $clock"
 }
@@ -133,7 +135,7 @@ object Tournament {
     clock: ClockConfig,
     minutes: Int,
     system: System,
-    variant: chess.variant.Variant,
+    variant: draughts.variant.Variant,
     position: StartingPosition,
     mode: Mode,
     `private`: Boolean,
@@ -169,7 +171,7 @@ object Tournament {
     system = System.default,
     clock = Schedule clockFor sched,
     minutes = minutes,
-    createdBy = lichessId,
+    createdBy = lidraughtsId,
     createdAt = DateTime.now,
     nbPlayers = 0,
     variant = sched.variant,

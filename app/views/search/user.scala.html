@@ -1,6 +1,6 @@
 @(u: User, form: Form[_])(implicit ctx: Context)
 
-@import lila.gameSearch.{ Query, Sorting }
+@import lidraughts.gameSearch.{ Query, Sorting }
 
 <form rel="nofollow" class="search realtime" action="@routes.User.games(u.username, "search")" method="get"
   data-req-winner="@form("players")("winner").value"
@@ -31,7 +31,7 @@
     </tr>
     <tr>
       <th>
-        <label>Number of turns</label>
+        <label>@trans.numberOfTurns()</label>
       </th>
       <td>
         <div class="half">From @base.form.select(form("turnsMin"), Query.turns, "".some)</div>
@@ -91,7 +91,7 @@
     </tr>
   </table>
   <table>
-    <tr>
+    @*<tr>
       <th>
         <label for="@form("hasAi").id">@trans.opponent() <span class="help" title="Whether the player's opponent was a human or a computer">(?)</span></label>
       </th>
@@ -107,7 +107,7 @@
         <div class="half">From @base.form.select(form("aiLevelMin"), Query.aiLevels, "".some)</div>
         <div class="half">To @base.form.select(form("aiLevelMax"), Query.aiLevels, "".some)</div>
       </td>
-    </tr>
+    </tr>*@
     <tr class="opponentName">
       <th>
         <label>Opponent name</label>
@@ -137,7 +137,7 @@
         </select>
       </td>
     </tr>
-    @chess.Color.all.map { color =>
+    @draughts.Color.all.map { color =>
     <tr class="@{color.name}User user_row">
       <th>
         <label for="@form("players")(color.name).id">@color.fold(trans.white, trans.black)()</label>
@@ -174,13 +174,13 @@
         <div class="half">Order @base.form.select(form("sort")("order"), Sorting.orders)</div>
       </td>
     </tr>
-    <tr>
+    @*<tr>
       <th>
         <label for="analysed">Analysis <span class="help" title="Whether computer analysis is available or not">(?)</span></label>
       </th>
       <td class="single">
         @base.form.checkbox(form("analysed"), "", 1)
       </td>
-    </tr>
+    </tr>*@
   </table>
 </form>

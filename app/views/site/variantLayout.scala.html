@@ -1,7 +1,7 @@
-@(title: String, active: Option[lila.rating.PerfType] = None, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
+@(title: String, active: Option[lidraughts.rating.PerfType] = None, openGraph: Option[lidraughts.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
 
 @menu = {
-@lila.rating.PerfType.variants.map { pt =>
+@lidraughts.rating.PerfType.variantsPlus.map { pt =>
 <a class="@active.map(_.key.active(pt.key)) text" href="@routes.Page.variant(pt.key)" data-icon="@pt.iconChar">
   @pt.name
 </a>

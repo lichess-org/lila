@@ -1,6 +1,6 @@
-package lila.notify
+package lidraughts.notify
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 import org.joda.time.DateTime
 
 private final class NotificationRepo(val coll: Coll) {

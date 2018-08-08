@@ -1,8 +1,8 @@
-@(r: lila.relay.Relay, form: Form[_])(implicit ctx: Context)
+@(r: lidraughts.relay.Relay, form: Form[_])(implicit ctx: Context)
 
 @formLayout(r.name) {
 <div class="relay_form content_box small_box no_padding">
-  <h1 class="lichess_title">Edit "@r.name"</h1>
+  <h1 class="lidraughts_title">Edit "@r.name"</h1>
   <form class="content_box_content material form" action="@routes.Relay.update(r.slug, r.id.value)" method="POST">
     @inForm(form)
   </form>

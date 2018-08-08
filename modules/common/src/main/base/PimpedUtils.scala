@@ -1,4 +1,4 @@
-package lila.base
+package lidraughts.base
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.duration._
@@ -11,7 +11,7 @@ import ornicar.scalalib.Zero
 import scalaz._
 import Scalaz._
 
-import LilaTypes._
+import LidraughtsTypes._
 
 final class PimpedOption[A](private val self: Option[A]) extends AnyVal {
 
@@ -40,8 +40,8 @@ final class PimpedOption[A](private val self: Option[A]) extends AnyVal {
 
 final class PimpedString(private val s: String) extends AnyVal {
 
-  def boot[A](v: => A): A = lila.common.Chronometer.syncEffect(v) { lap =>
-    lila.log.boot.info(s"${lap.millis}ms $s")
+  def boot[A](v: => A): A = lidraughts.common.Chronometer.syncEffect(v) { lap =>
+    lidraughts.log.boot.info(s"${lap.millis}ms $s")
   }
 }
 
@@ -82,7 +82,7 @@ final class PimpedEither[A, B](private val v: Either[A, B]) extends AnyVal {
 
 final class PimpedFiniteDuration(private val d: FiniteDuration) extends AnyVal {
 
-  def toCentis = chess.Centis {
+  def toCentis = draughts.Centis {
     // divide by Double, then round, to avoid rounding issues with just `/10`!
     math.round {
       if (d.unit eq MILLISECONDS) d.length / 10d

@@ -1,11 +1,11 @@
 var makeAckable = require('./ackable');
 
 // versioned events, acks, retries, resync
-lichess.StrongSocket = function(url, version, settings) {
+lidraughts.StrongSocket = function(url, version, settings) {
 
   var now = Date.now;
 
-  var settings = $.extend(true, {}, lichess.StrongSocket.defaults, settings);
+  var settings = $.extend(true, {}, lidraughts.StrongSocket.defaults, settings);
   var url = url;
   var version = version;
   var versioned = version !== false;
@@ -20,12 +20,11 @@ lichess.StrongSocket = function(url, version, settings) {
   var tryOtherUrl = false;
   var autoReconnect = true;
   var nbConnects = 0;
-  var storage = lichess.storage.make(options.baseUrlKey);
 
   var connect = function() {
     destroy();
     autoReconnect = true;
-    var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + $.param(settings.params);
+    var fullUrl = options.protocol + '//socket.' + document.domain + url + "?" + $.param(settings.params);
     debug("connection attempt to " + fullUrl);
     try {
       ws = new WebSocket(fullUrl);
@@ -43,7 +42,7 @@ lichess.StrongSocket = function(url, version, settings) {
         onSuccess();
         $('body').removeClass('offline');
         pingNow();
-        lichess.pubsub.emit('socket.open')();
+        lidraughts.pubsub.emit('socket.open')();
         ackable.resend();
       };
       ws.onmessage = function(e) {
@@ -84,7 +83,7 @@ lichess.StrongSocket = function(url, version, settings) {
       }, 1000);
     }
   };
-  lichess.pubsub.on('socket.send', send);
+  lidraughts.pubsub.on('socket.send', send);
 
   var scheduleConnect = function(delay) {
     if (options.idle) delay = 10 * 1000 + Math.random() * 10 * 1000;
@@ -129,7 +128,7 @@ lichess.StrongSocket = function(url, version, settings) {
     var mix = pongCount > 4 ? 0.1 : 1 / pongCount;
     averageLag += mix * (currentLag - averageLag);
 
-    lichess.pubsub.emit('socket.lag')(averageLag);
+    lidraughts.pubsub.emit('socket.lag')(averageLag);
   };
 
   var pingData = function() {
@@ -158,13 +157,13 @@ lichess.StrongSocket = function(url, version, settings) {
       case false:
         break;
       case 'resync':
-        lichess.reload();
+        lidraughts.reload();
         break;
       case 'ack':
         ackable.gotAck();
         break;
       default:
-        lichess.pubsub.emit('socket.in.' + m.t)(m.d);
+        lidraughts.pubsub.emit('socket.in.' + m.t)(m.d);
         var processed = settings.receive && settings.receive(m.t, m.d);
         if (!processed && settings.events[m.t]) settings.events[m.t](m.d || null, m);
     }
@@ -211,9 +210,9 @@ lichess.StrongSocket = function(url, version, settings) {
     if (nbConnects === 1) {
       options.onFirstConnect();
       var disconnectTimeout;
-      lichess.idleTimer(10 * 60 * 1000, function() {
+      lidraughts.idleTimer(10 * 60 * 1000, function() {
         options.idle = true;
-        disconnectTimeout = setTimeout(lichess.socket.destroy, 2 * 60 * 60 * 1000);
+        disconnectTimeout = setTimeout(lidraughts.socket.destroy, 2 * 60 * 60 * 1000);
       }, function() {
         options.idle = false;
         if (ws) clearTimeout(disconnectTimeout);
@@ -224,20 +223,6 @@ lichess.StrongSocket = function(url, version, settings) {
       options.onNextConnect();
       delete options.onNextConnect;
     }
-  };
-
-  var baseUrl = function() {
-    var urls = options.baseUrls;
-    var url = storage.get();
-    if (!url) {
-      url = urls[0];
-      storage.set(url);
-    } else if (tryOtherUrl) {
-      tryOtherUrl = false;
-      url = urls[(urls.indexOf(url) + 1) % urls.length];
-      storage.set(url);
-    }
-    return url;
   };
 
   connect();
@@ -260,24 +245,24 @@ lichess.StrongSocket = function(url, version, settings) {
     }
   };
 };
-lichess.StrongSocket.sri = Math.random().toString(36).slice(2, 12);
-lichess.StrongSocket.available = window.WebSocket || window.MozWebSocket;
-lichess.StrongSocket.defaults = {
+lidraughts.StrongSocket.sri = Math.random().toString(36).slice(2, 12);
+lidraughts.StrongSocket.available = window.WebSocket || window.MozWebSocket;
+lidraughts.StrongSocket.defaults = {
   events: {
     fen: function(e) {
       $('.live_' + e.id).each(function() {
-        lichess.parseFen($(this).data("fen", e.fen).data("lastmove", e.lm));
+        lidraughts.parseFen($(this).data("fen", e.fen).data("lastmove", e.lm));
       });
     },
     challenges: function(d) {
-      lichess.challengeApp.update(d);
+      lidraughts.challengeApp.update(d);
     },
     notifications: function(d) {
-      lichess.notifyApp.update(d, true);
+      lidraughts.notifyApp.update(d, true);
     }
   },
   params: {
-    sri: lichess.StrongSocket.sri
+    sri: lidraughts.StrongSocket.sri
   },
   options: {
     name: "unnamed",
@@ -286,14 +271,6 @@ lichess.StrongSocket.defaults = {
     pingDelay: 2000, // time between pong and ping
     autoReconnectDelay: 2000,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
-    baseUrls: (function(domain) {
-      var main = 'socket.' + domain,
-      extraPorts = /lichess\.org/.test(main) ? [9025, 9026, 9027, 9028, 9029] : [];
-      return [main].concat(extraPorts.map(function(port) {
-        return main + ':' + port;
-      }));
-    })(document.domain),
-    onFirstConnect: $.noop,
-    baseUrlKey: 'surl5'
+    onFirstConnect: $.noop
   }
 };

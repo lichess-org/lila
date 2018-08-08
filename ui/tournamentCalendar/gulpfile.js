@@ -15,7 +15,7 @@ function onError(error) {
 
 function build() {
   return browserify('src/main.ts', {
-      standalone: 'LichessTournamentCalendar',
+      standalone: 'LidraughtsTournamentCalendar',
       debug: true
     })
     .plugin(tsify);
@@ -27,7 +27,7 @@ function bundle() {
   return watchedBrowserify
     .bundle()
     .on('error', onError)
-    .pipe(source('lichess.tournament-calendar.js'))
+    .pipe(source('lidraughts.tournament-calendar.js'))
     .pipe(buffer())
     .pipe(gulp.dest(destination));
 }
@@ -39,14 +39,14 @@ watchedBrowserify.on('log', gutil.log);
 gulp.task('dev', function() {
   return build()
     .bundle()
-    .pipe(source('lichess.tournament-calendar.js'))
+    .pipe(source('lidraughts.tournament-calendar.js'))
     .pipe(gulp.dest(destination));
 });
 
 gulp.task('prod', function() {
   return build()
     .bundle()
-    .pipe(source('lichess.tournament-calendar.min.js'))
+    .pipe(source('lidraughts.tournament-calendar.min.js'))
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest(destination));

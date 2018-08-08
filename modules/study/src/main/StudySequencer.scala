@@ -1,7 +1,7 @@
-package lila.study
+package lidraughts.study
 
-import lila.hub.Sequencer
-import lila.hub.actorApi.map.Tell
+import lidraughts.hub.Sequencer
+import lidraughts.hub.actorApi.map.Tell
 
 private final class StudySequencer(
     studyRepo: StudyRepo,

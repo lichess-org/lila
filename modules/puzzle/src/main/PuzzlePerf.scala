@@ -1,8 +1,8 @@
-package lila.puzzle
+package lidraughts.puzzle
 
 import org.goochjs.glicko2.Rating
 
-import lila.rating.Glicko
+import lidraughts.rating.Glicko
 
 case class PuzzlePerf(glicko: Glicko, nb: Int) {
 
@@ -18,9 +18,9 @@ case class PuzzlePerf(glicko: Glicko, nb: Int) {
     glicko.sanityCheck option add(glicko)
   }
 
-  def addOrReset(monitor: lila.mon.IncPath, msg: => String)(r: Rating): PuzzlePerf = add(r) | {
-    lila.log("rating").error(s"Crazy Glicko2 $msg")
-    lila.mon.incPath(monitor)()
+  def addOrReset(monitor: lidraughts.mon.IncPath, msg: => String)(r: Rating): PuzzlePerf = add(r) | {
+    lidraughts.log("rating").error(s"Crazy Glicko2 $msg")
+    lidraughts.mon.incPath(monitor)()
     add(Glicko.default)
   }
 
@@ -38,7 +38,7 @@ case object PuzzlePerf {
 
   val default = PuzzlePerf(Glicko.default, 0)
 
-  import lila.db.BSON
+  import lidraughts.db.BSON
 
   implicit val puzzlePerfBSONHandler = new BSON[PuzzlePerf] {
 

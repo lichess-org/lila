@@ -1,9 +1,9 @@
-package lila.evalCache
+package lidraughts.evalCache
 
 import org.joda.time.{ DateTime, Days }
 
-import lila.security.Granter
-import lila.user.User
+import lidraughts.security.Granter
+import lidraughts.user.User
 
 private final class EvalCacheTruster {
 

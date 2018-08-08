@@ -57,7 +57,7 @@ const nowFun = window.performance && performance.now() > 0 ?
 export class ClockController {
 
   emergSound: EmergSound = {
-    play: window.lichess.sound.lowtime,
+    play: window.lidraughts.sound.lowtime,
     delay: 20000,
     playable: {
       white: true,

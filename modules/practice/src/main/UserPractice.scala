@@ -1,6 +1,6 @@
-package lila.practice
+package lidraughts.practice
 
-import lila.study.{ Study, Chapter }
+import lidraughts.study.{ Study, Chapter }
 
 case class UserPractice(
     structure: PracticeStructure,

@@ -1,6 +1,6 @@
-package lila.socket
+package lidraughts.socket
 
-import chess.Centis
+import draughts.Centis
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 

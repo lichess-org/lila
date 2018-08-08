@@ -1,21 +1,21 @@
-package lila.chat
+package lidraughts.chat
 
-import chess.Color
+import draughts.Color
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicChat, RecordPrivateChat }
-import lila.user.{ User, UserRepo }
+import lidraughts.db.dsl._
+import lidraughts.hub.actorApi.shutup.{ PublicSource, RecordPublicChat, RecordPrivateChat }
+import lidraughts.user.{ User, UserRepo }
 
 final class ChatApi(
     coll: Coll,
     chatTimeout: ChatTimeout,
-    flood: lila.security.Flood,
+    flood: lidraughts.security.Flood,
     shutup: akka.actor.ActorSelection,
     modLog: akka.actor.ActorSelection,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    lilaBus: lila.common.Bus,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    lidraughtsBus: lidraughts.common.Bus,
     maxLinesPerChat: Int,
     netDomain: String
 ) {
@@ -83,17 +83,23 @@ final class ChatApi(
                 case _ => RecordPrivateChat(chatId.value, userId, text)
               }
             }
-            lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
+            lidraughtsBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
           }
         }
       }
 
     def clear(chatId: Chat.Id) = coll.remove($id(chatId)).void
 
-    def system(chatId: Chat.Id, text: String) = {
+    def system(chatId: Chat.Id, text: String): Funit = {
       val line = UserLine(systemUserId, text, troll = false, deleted = false)
       pushLine(chatId, line) >>-
-        lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId)) inject line.some
+        lidraughtsBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
+    }
+
+    // like system, but not persisted.
+    def volatile(chatId: Chat.Id, text: String): Unit = {
+      val line = UserLine(systemUserId, text, troll = false, deleted = false)
+      lidraughtsBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
     }
 
     def timeout(chatId: Chat.Id, modId: String, userId: String, reason: ChatTimeout.Reason, local: Boolean): Funit =
@@ -119,11 +125,12 @@ final class ChatApi(
       coll.update($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason) >>- {
           cached invalidate chat.id
-          lilaBus.publish(actorApi.OnTimeout(user.username), channelOf(chat.id))
-          lilaBus.publish(actorApi.ChatLine(chat.id, line), channelOf(chat.id))
-          if (isMod(mod)) modLog ! lila.hub.actorApi.mod.ChatTimeout(
+          lidraughtsBus.publish(actorApi.OnTimeout(user.username), channelOf(chat.id))
+          lidraughtsBus.publish(actorApi.ChatLine(chat.id, line), channelOf(chat.id))
+          if (isMod(mod)) modLog ! lidraughts.hub.actorApi.mod.ChatTimeout(
             mod = mod.id, user = user.id, reason = reason.key
           )
+          else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
         }
     }
 
@@ -131,14 +138,14 @@ final class ChatApi(
       val chat = c.markDeleted(user)
       coll.update($id(chat.id), chat).void >>- {
         cached invalidate chat.id
-        lilaBus.publish(actorApi.OnTimeout(user.username), channelOf(chat.id))
+        lidraughtsBus.publish(actorApi.OnTimeout(user.username), channelOf(chat.id))
       }
     }
 
-    private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)
+    private def isMod(user: User) = lidraughts.security.Granter(_.ChatTimeout)(user)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) = list.foreach { r =>
-      lilaBus.publish(actorApi.OnReinstate(r.user), Symbol(s"chat-${r.chat}"))
+      lidraughtsBus.publish(actorApi.OnReinstate(r.user), Symbol(s"chat-${r.chat}"))
     }
 
     private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
@@ -172,7 +179,7 @@ final class ChatApi(
     def write(chatId: Chat.Id, color: Color, text: String): Funit =
       makeLine(chatId, color, text) ?? { line =>
         pushLine(chatId, line) >>-
-          lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
+          lidraughtsBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
       }
 
     private def makeLine(chatId: Chat.Id, color: Color, t1: String): Option[Line] =
@@ -193,7 +200,7 @@ final class ChatApi(
       )
     )),
     upsert = true
-  ).void >>- lila.mon.chat.message()
+  ).void >>- lidraughts.mon.chat.message()
 
   private def channelOf(id: Chat.Id) = Symbol(s"chat-$id")
 

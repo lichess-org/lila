@@ -1,16 +1,16 @@
-@(data: lila.practice.UserPractice)(implicit ctx: Context)
+@(data: lidraughts.practice.UserPractice)(implicit ctx: Context)
 
 @side = {
 <div id="practice_side" class="side_box">
   <div class="home">
     <i class="fat"></i>
     <h1>Practice</h1>
-    <h2>makes your chess perfect</h2>
+    <h2>makes your draughts perfect</h2>
     <div class="progress">
       <div class="text">Progress: @data.progressPercent%</div>
       <div class="bar" style="width: @data.progressPercent%"></div>
     </div>
-    <form id="practice_reset" class="actions" action="@routes.Practice.reset" method="post">
+    @* <form id="practice_reset" class="actions" action="@routes.Practice.reset" method="post">
       @if(ctx.isAuth) {
       @if(data.nbDoneChapters > 0) {
       <a onclick="if (confirm('You will lose your practice progress!')) parentNode.submit()">Reset my progress</a>
@@ -18,25 +18,25 @@
       } else {
       <a href="@routes.Auth.signup">Sign up to save your progress</a>
       }
-    </form>
+    </form> *@
   </div>
 </div>
 }
 
-@ribbon(prog: lila.practice.Completion) = {
+@ribbon(prog: lidraughts.practice.Completion) = {
 <span class="ribbon-wrapper">
   <span class="ribbon">@prog.done / @prog.total</span>
 </span>
 }
 
 @base.layout(
-title = "Practice chess positions",
+title = "Practice draughts positions",
 side = side.some,
 moreCss = cssTag("practice.css"),
-openGraph = lila.app.ui.OpenGraph(
-title = "Practice your chess",
-description = "Learn how to master the most common chess positions",
-url = s"$netBaseUrl${routes.Practice.index}"
+openGraph = lidraughts.app.ui.OpenGraph(
+title = "Practice your draughts skills",
+description = "Learn how to master the most common draughts positions",
+url = s"$netBaseUrl${routes.Lobby.home}"
 ).some) {
 <div id="practice_app">
   <div class="sections">
@@ -46,14 +46,14 @@ url = s"$netBaseUrl${routes.Practice.index}"
       <div class="studies">
         @section.studies.map { stud =>
         @defining(data.progressOn(stud.id)) { prog =>
-        <a class="study @if(prog.complete) {done} else {ongoing}" href="@routes.Practice.show(section.id, stud.slug, stud.id.value)">
+        @* <a class="study @if(prog.complete) {done} else {ongoing}" href="@routes.Practice.show(section.id, stud.slug, stud.id.value)">
           @if(ctx.isAuth) { @ribbon(prog) }
           <i class="practice icon @stud.id"></i>
           <span class="text">
             <h3>@stud.name</h3>
             <em>@stud.desc</em>
           </span>
-        </a>
+        </a> *@
         }
         }
       </div>

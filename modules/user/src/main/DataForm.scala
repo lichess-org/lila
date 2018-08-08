@@ -1,4 +1,4 @@
-package lila.user
+package lidraughts.user
 
 import play.api.data._
 import play.api.data.Forms._
@@ -20,9 +20,8 @@ final class DataForm(authenticator: Authenticator) {
     "bio" -> optional(nonEmptyText(maxLength = 600)),
     "firstName" -> nameField,
     "lastName" -> nameField,
-    "fideRating" -> optional(number(min = 600, max = 3000)),
-    "uscfRating" -> optional(number(min = 100, max = 3000)),
-    "ecfRating" -> optional(number(min = 0, max = 300)),
+    "fmjdRating" -> optional(number(min = 0, max = 3000)),
+    "kndbRating" -> optional(number(min = 0, max = 3000)),
     "links" -> optional(nonEmptyText(maxLength = 3000))
   )(Profile.apply)(Profile.unapply))
 

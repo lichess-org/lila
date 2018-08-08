@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { fixCrazySan, renderEval as normalizeEval } from 'chess';
+import { renderEval as normalizeEval } from 'draughts';
 import { defined } from 'common';
 import { view as cevalView } from 'ceval';
 
@@ -34,7 +34,7 @@ export function renderIndex(ply: Ply, withDots?: boolean): VNode {
 
 export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
   const ev: any = cevalView.getBestEval({client: node.ceval, server: node.eval}) || {};
-  return [h('san', fixCrazySan(node.san!))]
+  return [h('san', (node.expandedSan ? node.expandedSan! : node.san!))]
     .concat((node.glyphs && ctx.showGlyphs) ? renderGlyphs(node.glyphs) : [])
     .concat(ctx.showEval ? (
       defined(ev.cp) ? [renderEval(normalizeEval(ev.cp))] : (
@@ -44,7 +44,7 @@ export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
 }
 
 export function renderIndexAndMove(ctx: Ctx, node): VNode[] {
-  return node.uci ?
-  [renderIndex(node.ply, ctx.withDots)].concat(renderMove(ctx, node)) :
-  [h('span.init', 'Initial position')];
+    return node.uci ?
+        [renderIndex((node.displayPly ? node.displayPly : node.ply), ctx.withDots)].concat(renderMove(ctx, node)) :
+        [h('span.init', 'Initial position')];
 }

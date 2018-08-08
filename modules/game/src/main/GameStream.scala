@@ -1,12 +1,12 @@
-package lila.game
+package lidraughts.game
 
 import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import actorApi.{ StartGame, FinishGame }
-import chess.format.FEN
-import lila.user.User
+import draughts.format.FEN
+import lidraughts.user.User
 
 final class GameStream(system: ActorSystem) {
 
@@ -28,12 +28,12 @@ final class GameStream(system: ActorSystem) {
             case FinishGame(game, _, _) if matches(game) => channel push game
           }
         }))
-        system.lilaBus.subscribe(actor, 'startGame, 'finishGame)
+        system.lidraughtsBus.subscribe(actor, 'startGame, 'finishGame)
         stream = actor.some
       },
       onComplete = {
         stream.foreach { actor =>
-          system.lilaBus.unsubscribe(actor)
+          system.lidraughtsBus.unsubscribe(actor)
           actor ! PoisonPill
         }
       }

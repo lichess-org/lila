@@ -1,4 +1,4 @@
-package lila.coordinate
+package lidraughts.coordinate
 
 case class Score(
     _id: String,

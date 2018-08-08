@@ -1,4 +1,4 @@
-package lila.common
+package lidraughts.common
 package paginator
 
 trait AdapterLike[A] {

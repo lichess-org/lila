@@ -1,10 +1,10 @@
-package lila.api
+package lidraughts.api
 
 import org.joda.time.DateTime
 import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 
-import lila.common.ApiVersion
+import lidraughts.common.ApiVersion
 
 object Mobile {
 
@@ -47,7 +47,7 @@ object Mobile {
     )
 
     private val PathPattern = """^.+/socket/v(\d+)$""".r
-    private val HeaderPattern = """^application/vnd\.lichess\.v(\d+)\+json$""".r
+    private val HeaderPattern = """^application/vnd\.lidraughts\.v(\d+)\+json$""".r
 
     def requestVersion(req: RequestHeader): Option[ApiVersion] = {
       (req.headers.get(HeaderNames.ACCEPT), req.path) match {

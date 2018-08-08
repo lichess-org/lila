@@ -1,9 +1,9 @@
-package lila.simul
+package lidraughts.simul
 
 import play.api.libs.json._
 
-import lila.common.LightUser
-import lila.game.{ Game, GameRepo }
+import lidraughts.common.LightUser
+import lidraughts.game.{ Game, GameRepo }
 
 final class JsonView(getLightUser: LightUser.Getter) {
 
@@ -22,6 +22,7 @@ final class JsonView(getLightUser: LightUser.Getter) {
       Json.obj(
         "id" -> host.id,
         "username" -> host.name,
+        "patron" -> host.isPatron,
         "title" -> host.title,
         "rating" -> simul.hostRating,
         "gameId" -> simul.hostGameId
@@ -29,18 +30,18 @@ final class JsonView(getLightUser: LightUser.Getter) {
     },
     "name" -> simul.name,
     "fullName" -> simul.fullName,
-    "variants" -> simul.variants.map(variantJson(chess.Speed(simul.clock.config.some))),
+    "variants" -> simul.variants.map(variantJson(draughts.Speed(simul.clock.config.some))),
     "applicants" -> applicants,
     "pairings" -> pairings,
     "isCreated" -> simul.isCreated,
     "isRunning" -> simul.isRunning,
     "isFinished" -> simul.isFinished,
-    "quote" -> lila.quote.Quote.one(simul.id)
+    "quote" -> lidraughts.quote.Quote.one(simul.id)
   )
 
-  private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) = Json.obj(
+  private def variantJson(speed: draughts.Speed)(v: draughts.variant.Variant) = Json.obj(
     "key" -> v.key,
-    "icon" -> lila.game.PerfPicker.perfType(speed, v, none).map(_.iconChar.toString),
+    "icon" -> lidraughts.game.PerfPicker.perfType(speed, v, none).map(_.iconChar.toString),
     "name" -> v.name
   )
 
@@ -67,7 +68,7 @@ final class JsonView(getLightUser: LightUser.Getter) {
   private def gameJson(hostId: String)(g: Game) = Json.obj(
     "id" -> g.id,
     "status" -> g.status.id,
-    "fen" -> (chess.format.Forsyth exportBoard g.board),
+    "fen" -> (draughts.format.Forsyth exportBoard g.board),
     "lastMove" -> ~g.lastMoveKeys,
     "orient" -> g.playerByUserId(hostId).map(_.color)
   )
@@ -83,7 +84,7 @@ final class JsonView(getLightUser: LightUser.Getter) {
       )
     }
 
-  private implicit val colorWriter: Writes[chess.Color] = Writes { c =>
+  private implicit val colorWriter: Writes[draughts.Color] = Writes { c =>
     JsString(c.name)
   }
 }

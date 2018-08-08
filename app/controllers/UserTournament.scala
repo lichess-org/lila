@@ -1,10 +1,10 @@
 package controllers
 
-import lila.app._
-import lila.user.UserRepo
+import lidraughts.app._
+import lidraughts.user.UserRepo
 import views._
 
-object UserTournament extends LilaController {
+object UserTournament extends LidraughtsController {
 
   def path(username: String, path: String, page: Int) = Open { implicit ctx =>
     Reasonable(page) {

@@ -6,7 +6,7 @@ $zone.find('form.fide_title select').on('change', function() {
   $(this).parent('form').submit();
 });
 
-lichess.pubsub.emit('content_loaded')();
+lidraughts.pubsub.emit('content_loaded')();
 
 var $modLog = $zone.find('.mod_log ul').children();
 

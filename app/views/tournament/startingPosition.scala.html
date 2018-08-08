@@ -1,9 +1,9 @@
 @(field: play.api.data.Field)(implicit ctx: Context)
 <select name="@field.name">
-  @defining(chess.StartingPosition.initial) { v =>
+  @defining(draughts.StartingPosition.initial) { v =>
   <option value="@v.fen" @(if(field.value == Some(v.fen)) "selected" else "")>@v.name</option>
   }
-  @chess.StartingPosition.categories.map { categ =>
+  @draughts.StartingPosition.categories.map { categ =>
   <optgroup label="@categ.name">
     @categ.positions.map { v =>
     <option value="@v.fen" @(if(field.value == Some(v.fen)) "selected" else "")>@v.fullName</option>

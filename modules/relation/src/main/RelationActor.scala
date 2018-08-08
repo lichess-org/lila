@@ -1,12 +1,12 @@
-package lila.relation
+package lidraughts.relation
 
 import akka.actor.Actor
 import scala.collection.breakOut
 
 import actorApi._
-import lila.common.LightUser
-import lila.hub.actorApi.relation._
-import lila.hub.actorApi.{ SendTo, SendTos }
+import lidraughts.common.LightUser
+import lidraughts.hub.actorApi.relation._
+import lidraughts.hub.actorApi.{ SendTo, SendTos }
 
 private[relation] final class RelationActor(
     lightUser: LightUser.GetterSync,
@@ -14,17 +14,17 @@ private[relation] final class RelationActor(
     online: OnlineDoing
 ) extends Actor {
 
-  private val bus = context.system.lilaBus
+  private val bus = context.system.lidraughtsBus
 
   private var previousOnlineIds = Set.empty[ID]
 
   override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'startGame, 'finishGame, 'study)
+    context.system.lidraughtsBus.subscribe(self, 'startGame, 'finishGame, 'study)
   }
 
   override def postStop(): Unit = {
     super.postStop()
-    context.system.lilaBus.unsubscribe(self)
+    context.system.lidraughtsBus.unsubscribe(self)
   }
 
   def receive = {
@@ -47,17 +47,17 @@ private[relation] final class RelationActor(
       bus.publish(SendTo(userId, JsonView writeOnlineFriends res), 'users)
     }
 
-    case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
+    case lidraughts.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
       val usersPlaying = game.userIds
       online.playing removeAll usersPlaying
       notifyFollowersGameStateChanged(usersPlaying, "following_stopped_playing")
 
-    case lila.game.actorApi.StartGame(game) if game.hasClock =>
+    case lidraughts.game.actorApi.StartGame(game) if game.hasClock =>
       val usersPlaying = game.userIds
       online.playing putAll usersPlaying
       notifyFollowersGameStateChanged(usersPlaying, "following_playing")
 
-    case lila.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, true) =>
+    case lidraughts.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, true) =>
       online.studyingAll.put(userId, studyId)
       if (contributor && public) {
         val wasAlreadyInStudy = online isStudying userId
@@ -65,32 +65,32 @@ private[relation] final class RelationActor(
         if (!wasAlreadyInStudy) notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
       }
 
-    case lila.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, false) =>
+    case lidraughts.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, false) =>
       online.studyingAll invalidate userId
       if (contributor && public) {
         online.studying invalidate userId
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_left_study")
       }
 
-    case lila.hub.actorApi.study.StudyBecamePrivate(studyId, contributors) =>
+    case lidraughts.hub.actorApi.study.StudyBecamePrivate(studyId, contributors) =>
       studyBecamePrivateOrDeleted(studyId, contributors)
 
-    case lila.hub.actorApi.study.RemoveStudy(studyId, contributors) =>
+    case lidraughts.hub.actorApi.study.RemoveStudy(studyId, contributors) =>
       studyBecamePrivateOrDeleted(studyId, contributors)
 
-    case lila.hub.actorApi.study.StudyBecamePublic(studyId, contributors) =>
+    case lidraughts.hub.actorApi.study.StudyBecamePublic(studyId, contributors) =>
       contributorsIn(contributors, studyId) foreach { c =>
         online.studying.put(c, studyId)
         notifyFollowersFriendInStudyStateChanged(c, studyId, "following_joined_study")
       }
 
-    case lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId) =>
+    case lidraughts.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId) =>
       if (online.isStudyingOrWatching(userId, studyId)) {
         online.studying.put(userId, studyId)
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
       }
 
-    case lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId) =>
+    case lidraughts.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId) =>
       if (online.isStudying(userId, studyId)) {
         online.studying invalidate userId
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_left_study")

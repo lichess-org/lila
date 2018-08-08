@@ -1,17 +1,17 @@
-@(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context)
+@(doc: io.prismic.Document)(implicit ctx: Context, prismic: lidraughts.blog.BlogApi.Context)
 
 @side = {
 <br />
-<a href="@routes.Blog.index(prismic.maybeRef)" data-icon="I" class="text">Return to blog</a>
+@*<a href="@routes.Blog.index(1, prismic.maybeRef)" data-icon="I" class="text">Return to blog</a>
 <br />
 <br />
-<a href="@routes.Blog.atom(prismic.maybeRef)" data-icon="3" class="text">Subscribe</a>
+<a href="@routes.Blog.atom" data-icon="3" class="text">Subscribe</a>*@
 }
 
 @layout(
 title = s"${~doc.getText("blog.title")} | Blog",
 side = side.some,
-openGraph = lila.app.ui.OpenGraph(
+openGraph = lidraughts.app.ui.OpenGraph(
 `type` = "article",
 image = doc.getImage("blog.image", "main").map(_.url),
 title = ~doc.getText("blog.title"),
@@ -27,20 +27,18 @@ description = ~doc.getText("blog.shortlede")).some) {
     }
   </div>
   <div class="body embed_analyse">
-    @doc.getHtml("blog.body", prismic.linkResolver).map(lila.blog.Youtube.fixStartTimes).map(lila.blog.ProtocolFix.remove).map(Html.apply)
+    @doc.getHtml("blog.body", prismic.linkResolver).map(lidraughts.blog.Youtube.fixStartTimes).map(lidraughts.blog.ProtocolFix.remove).map(Html.apply)
   </div>
   @NotForKids {
-  <div id="disqus_thread"></div>
-  @embedJs {
-    var disqus_shortname = 'lichessorg';
-    var disqus_identifier = '@doc.id';
-    var disqus_title = '@doc.getText("blog.title")';
-    (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  }
+  <div class="footer">
+    @if(prismic.maybeRef.isEmpty) {
+    @if(doc.getDate("blog.date").exists(_.value.toDateTimeAtStartOfDay isAfter org.joda.time.DateTime.now.minusWeeks(2))) {
+    <a href="@routes.Blog.discuss(doc.id)" class="button text discuss" data-icon="d">Discuss this blog post in the forum</a>
+    }
+    } else {
+    <p>This is a preview.</p>
+    }
+  </div>
   }
 </div>
 }

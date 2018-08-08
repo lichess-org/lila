@@ -1,15 +1,15 @@
-package lila.chat
+package lidraughts.chat
 
 import akka.actor.{ ActorSystem, Props, ActorSelection }
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
-    flood: lila.security.Flood,
+    db: lidraughts.db.Env,
+    flood: lidraughts.security.Flood,
     shutup: ActorSelection,
     modLog: ActorSelection,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     system: ActorSystem
 ) {
 
@@ -36,7 +36,7 @@ final class Env(
     shutup = shutup,
     modLog = modLog,
     asyncCache = asyncCache,
-    lilaBus = system.lilaBus,
+    lidraughtsBus = system.lidraughtsBus,
     maxLinesPerChat = MaxLinesPerChat,
     netDomain = NetDomain
   )
@@ -56,12 +56,12 @@ final class Env(
 object Env {
 
   lazy val current: Env = "chat" boot new Env(
-    config = lila.common.PlayApp loadConfig "chat",
-    db = lila.db.Env.current,
-    flood = lila.security.Env.current.flood,
-    shutup = lila.hub.Env.current.actor.shutup,
-    modLog = lila.hub.Env.current.actor.mod,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system
+    config = lidraughts.common.PlayApp loadConfig "chat",
+    db = lidraughts.db.Env.current,
+    flood = lidraughts.security.Env.current.flood,
+    shutup = lidraughts.hub.Env.current.actor.shutup,
+    modLog = lidraughts.hub.Env.current.actor.mod,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    system = lidraughts.common.PlayApp.system
   )
 }

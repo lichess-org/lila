@@ -1,10 +1,10 @@
-package lila.push
+package lidraughts.push
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 private final class DeviceApi(coll: Coll) {
 
@@ -26,7 +26,7 @@ private final class DeviceApi(coll: Coll) {
     findLastManyByUserId(platform, 1)(userId) map (_.headOption)
 
   def register(user: User, platform: String, deviceId: String) = {
-    lila.mon.push.register.in(platform)()
+    lidraughts.mon.push.register.in(platform)()
     coll.update($id(deviceId), Device(
       _id = deviceId,
       platform = platform,
@@ -36,7 +36,7 @@ private final class DeviceApi(coll: Coll) {
   }
 
   def unregister(user: User) = {
-    lila.mon.push.register.out()
+    lidraughts.mon.push.register.out()
     coll.remove($doc("userId" -> user.id)).void
   }
 }

@@ -1,6 +1,6 @@
-package lila.forum
+package lidraughts.forum
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 object TopicRepo extends TopicRepo(false) {
 
@@ -37,6 +37,9 @@ sealed abstract class TopicRepo(troll: Boolean) {
 
   def byTree(categSlug: String, slug: String): Fu[Option[Topic]] =
     coll.uno[Topic]($doc("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
+
+  def existsByTree(categSlug: String, slug: String): Fu[Boolean] =
+    coll.exists($doc("categId" -> categSlug, "slug" -> slug))
 
   def stickyByCateg(categ: Categ): Fu[List[Topic]] =
     coll.list[Topic](byCategQuery(categ) ++ stickyQuery)

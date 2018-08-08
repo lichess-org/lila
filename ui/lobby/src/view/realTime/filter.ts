@@ -6,7 +6,7 @@ function initialize(ctrl: LobbyController, el) {
   const $div = $(el),
   $ratingRange = $div.find('.rating_range');
 
-  const save = window.lichess.fp.debounce(function() {
+  const save = window.lidraughts.fp.debounce(function() {
     const $form = $div.find('form');
     $.ajax({
       url: $form.attr('action'),
@@ -20,14 +20,14 @@ function initialize(ctrl: LobbyController, el) {
 
   function changeRatingRange(values) {
     $ratingRange.find('input').val(values[0] + "-" + values[1]);
-    $ratingRange.siblings('.range').text(values[0] + " - " + values[1]);
+    $ratingRange.siblings('.range').text(values[0] + "–" + values[1]);
     save();
   }
   $div.find('input').change(save);
   $div.find('button.reset').click(function() {
     $div.find('label input').prop('checked', true).trigger('change');
     $div.find('.rating_range').each(function(this: HTMLElement) {
-      const s = $(this),
+      const s = (<any>$(this)),
       values = [s.slider('option', 'min'), s.slider('option', 'max')];
       s.slider('values', values);
       changeRatingRange(values);
@@ -39,14 +39,14 @@ function initialize(ctrl: LobbyController, el) {
     return false;
   });
   $ratingRange.each(function(this: HTMLElement) {
-    var $this = $(this);
-    window.lichess.slider().done(function() {
+    var $this = (<any>$(this));
+    window.lidraughts.slider().done(function() {
       var $input = $this.find("input");
       var $span = $this.siblings(".range");
       var min = $input.data("min");
       var max = $input.data("max");
       var values = $input.val() ? $input.val().split("-") : [min, max];
-      $span.text(values.join(' - '));
+      $span.text(values.join('–'));
       $this.slider({
         range: true,
         min: min,

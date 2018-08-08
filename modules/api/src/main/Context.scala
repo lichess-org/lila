@@ -1,12 +1,12 @@
-package lila.api
+package lidraughts.api
 
 import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
 
-import lila.common.{ HTTPRequest, AssetVersion }
-import lila.pref.Pref
-import lila.relation.actorApi.OnlineFriends
-import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
+import lidraughts.common.{ HTTPRequest, AssetVersion }
+import lidraughts.pref.Pref
+import lidraughts.relation.actorApi.OnlineFriends
+import lidraughts.user.{ UserContext, HeaderUserContext, BodyUserContext }
 
 case class PageData(
     onlineFriends: OnlineFriends,
@@ -17,7 +17,7 @@ case class PageData(
     blindMode: Boolean,
     hasFingerprint: Boolean,
     assetVersion: AssetVersion,
-    inquiry: Option[lila.mod.Inquiry],
+    inquiry: Option[lidraughts.mod.Inquiry],
     error: Boolean = false
 )
 
@@ -31,7 +31,7 @@ object PageData {
     teamNbRequests = 0,
     nbChallenges = 0,
     nbNotifications = 0,
-    lila.pref.RequestPref fromRequest req,
+    lidraughts.pref.RequestPref fromRequest req,
     blindMode = blindMode,
     hasFingerprint = false,
     assetVersion = v,
@@ -41,7 +41,7 @@ object PageData {
   def error(req: RequestHeader, v: AssetVersion) = anon(req, v).copy(error = true)
 }
 
-sealed trait Context extends lila.user.UserContextWrapper {
+sealed trait Context extends lidraughts.user.UserContextWrapper {
 
   val userContext: UserContext
   val pageData: PageData
@@ -56,15 +56,11 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def pref = pageData.pref
   def blindMode = pageData.blindMode
 
-  def currentTheme = lila.pref.Theme(pref.theme)
+  def currentTheme = lidraughts.pref.Theme(pref.theme)
 
-  def currentTheme3d = lila.pref.Theme3d(pref.theme3d)
+  def currentPieceSet = lidraughts.pref.PieceSet(pref.pieceSet)
 
-  def currentPieceSet = lila.pref.PieceSet(pref.pieceSet)
-
-  def currentPieceSet3d = lila.pref.PieceSet3d(pref.pieceSet3d)
-
-  def currentSoundSet = lila.pref.SoundSet(pref.soundSet)
+  def currentSoundSet = lidraughts.pref.SoundSet(pref.soundSet)
 
   lazy val currentBg = if (pref.transp) "transp" else if (pref.dark) "dark" else "light"
 
@@ -82,7 +78,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
 }
 
 sealed abstract class BaseContext(
-    val userContext: lila.user.UserContext,
+    val userContext: lidraughts.user.UserContext,
     val pageData: PageData
 ) extends Context
 

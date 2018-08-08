@@ -1,8 +1,8 @@
-package lila.tournament
+package lidraughts.tournament
 package arena
 
-import lila.tournament.{ Score => AbstractScore }
-import lila.tournament.{ ScoringSystem => AbstractScoringSystem }
+import lidraughts.tournament.{ Score => AbstractScore }
+import lidraughts.tournament.{ ScoringSystem => AbstractScoringSystem }
 
 private[tournament] object ScoringSystem extends AbstractScoringSystem {
 

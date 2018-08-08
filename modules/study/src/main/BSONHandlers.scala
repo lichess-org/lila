@@ -1,21 +1,21 @@
-package lila.study
+package lidraughts.study
 
-import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags }
-import chess.format.{ Uci, UciCharPair, FEN }
-import chess.variant.{ Variant, Crazyhouse }
-import chess.{ Centis, Pos, Role, PromotableRole }
+import draughts.format.pdn.{ Glyph, Glyphs, Tag, Tags }
+import draughts.format.{ Uci, UciCharPair, FEN }
+import draughts.variant.Variant
+import draughts.{ Centis, Pos, Role, PromotableRole }
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
-import lila.db.BSON
-import lila.db.BSON.{ Reader, Writer }
-import lila.db.dsl._
-import lila.tree.Eval
-import lila.tree.Eval.Score
-import lila.tree.Node.{ Shape, Shapes, Comment, Comments, Gamebook }
+import lidraughts.db.BSON
+import lidraughts.db.BSON.{ Reader, Writer }
+import lidraughts.db.dsl._
+import lidraughts.tree.Eval
+import lidraughts.tree.Eval.Score
+import lidraughts.tree.Node.{ Shape, Shapes, Comment, Comments, Gamebook }
 
-import lila.common.Iso
-import lila.common.Iso._
+import lidraughts.common.Iso
+import lidraughts.common.Iso._
 
 object BSONHandlers {
 
@@ -31,9 +31,9 @@ object BSONHandlers {
     def read(bsonStr: BSONString): Pos = Pos.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"
     def write(x: Pos) = BSONString(x.key)
   }
-  implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, chess.Color] {
-    def read(b: BSONBoolean) = chess.Color(b.value)
-    def write(c: chess.Color) = BSONBoolean(c.white)
+  implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, draughts.Color] {
+    def read(b: BSONBoolean) = draughts.Color(b.value)
+    def write(c: draughts.Color) = BSONBoolean(c.white)
   }
 
   implicit val ShapeBSONHandler = new BSON[Shape] {
@@ -90,7 +90,7 @@ object BSONHandlers {
   private implicit val CommentTextBSONHandler = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
   implicit val CommentAuthorBSONHandler = new BSONHandler[BSONValue, Comment.Author] {
     def read(bsonValue: BSONValue): Comment.Author = bsonValue match {
-      case BSONString("lichess") => Comment.Author.Lichess
+      case BSONString("lidraughts") => Comment.Author.Lidraughts
       case BSONString(name) => Comment.Author.External(name)
       case doc: Bdoc => {
         for {
@@ -103,7 +103,7 @@ object BSONHandlers {
     def write(x: Comment.Author): BSONValue = x match {
       case Comment.Author.User(id, name) => $doc("id" -> id, "name" -> name)
       case Comment.Author.External(name) => BSONString(s"${name.trim}")
-      case Comment.Author.Lichess => BSONString("l")
+      case Comment.Author.Lidraughts => BSONString("l")
       case Comment.Author.Unknown => BSONString("")
     }
   }
@@ -116,23 +116,6 @@ object BSONHandlers {
     )
 
   implicit val GamebookBSONHandler = Macros.handler[Gamebook]
-
-  private implicit def CrazyDataBSONHandler: BSON[Crazyhouse.Data] = new BSON[Crazyhouse.Data] {
-    private def writePocket(p: Crazyhouse.Pocket) = p.roles.map(_.forsyth).mkString
-    private def readPocket(p: String) = Crazyhouse.Pocket(p.flatMap(chess.Role.forsyth)(scala.collection.breakOut))
-    def reads(r: Reader) = Crazyhouse.Data(
-      promoted = r.getsD[Pos]("o").toSet,
-      pockets = Crazyhouse.Pockets(
-        white = readPocket(r.strD("w")),
-        black = readPocket(r.strD("b"))
-      )
-    )
-    def writes(w: Writer, s: Crazyhouse.Data) = $doc(
-      "o" -> w.listO(s.promoted.toList),
-      "w" -> w.strO(writePocket(s.pockets.white)),
-      "b" -> w.strO(writePocket(s.pockets.black))
-    )
-  }
 
   implicit val GlyphsBSONHandler = new BSONHandler[Barr, Glyphs] {
     private val idsHandler = bsonArrayToListHandler[Int]
@@ -162,13 +145,11 @@ object BSONHandlers {
       ply = r int "p",
       move = WithSan(r.get[Uci]("u"), r.str("s")),
       fen = r.get[FEN]("f"),
-      check = r boolD "c",
       shapes = r.getO[Shapes]("h") | Shapes.empty,
       comments = r.getO[Comments]("co") | Comments.empty,
       gamebook = r.getO[Gamebook]("ga"),
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       score = r.getO[Score]("e"),
-      crazyData = r.getO[Crazyhouse.Data]("z"),
       clock = r.getO[Centis]("l"),
       children = r.get[Node.Children]("n")
     )
@@ -178,14 +159,12 @@ object BSONHandlers {
       "u" -> s.move.uci,
       "s" -> s.move.san,
       "f" -> s.fen,
-      "c" -> w.boolO(s.check),
       "h" -> s.shapes.value.nonEmpty.option(s.shapes),
       "co" -> s.comments.value.nonEmpty.option(s.comments),
       "ga" -> s.gamebook,
       "g" -> s.glyphs.nonEmpty,
       "e" -> s.score,
       "l" -> s.clock,
-      "z" -> s.crazyData,
       "n" -> (if (s.ply < Node.MAX_PLIES) s.children else Node.emptyChildren)
     )
   }
@@ -194,27 +173,23 @@ object BSONHandlers {
     def reads(r: Reader) = Root(
       ply = r int "p",
       fen = r.get[FEN]("f"),
-      check = r boolD "c",
       shapes = r.getO[Shapes]("h") | Shapes.empty,
       comments = r.getO[Comments]("co") | Comments.empty,
       gamebook = r.getO[Gamebook]("ga"),
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       score = r.getO[Score]("e"),
       clock = r.getO[Centis]("l"),
-      crazyData = r.getO[Crazyhouse.Data]("z"),
       children = r.get[Node.Children]("n")
     )
     def writes(w: Writer, s: Root) = $doc(
       "p" -> s.ply,
       "f" -> s.fen,
-      "c" -> w.boolO(s.check),
       "h" -> s.shapes.value.nonEmpty.option(s.shapes),
       "co" -> s.comments.value.nonEmpty.option(s.comments),
       "ga" -> s.gamebook,
       "g" -> s.glyphs.nonEmpty,
       "e" -> s.score,
       "l" -> s.clock,
-      "z" -> s.crazyData,
       "n" -> s.children
     )
   }
@@ -245,14 +220,14 @@ object BSONHandlers {
     def write(x: Variant) = BSONInteger(x.id)
   }
 
-  implicit val PgnTagBSONHandler = new BSONHandler[BSONString, Tag] {
+  implicit val PdnTagBSONHandler = new BSONHandler[BSONString, Tag] {
     def read(b: BSONString): Tag = b.value.split(":", 2) match {
       case Array(name, value) => Tag(name, value)
-      case _ => sys error s"Invalid pgn tag ${b.value}"
+      case _ => sys error s"Invalid pdn tag ${b.value}"
     }
     def write(t: Tag) = BSONString(s"${t.name}:${t.value}")
   }
-  implicit val PgnTagsBSONHandler: BSONHandler[BSONArray, Tags] =
+  implicit val PdnTagsBSONHandler: BSONHandler[BSONArray, Tags] =
     isoHandler[Tags, List[Tag], BSONArray](
       (s: Tags) => s.value,
       Tags(_)

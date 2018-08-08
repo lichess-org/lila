@@ -1,8 +1,8 @@
-@(me: User, threads: Paginator[lila.message.Thread])(implicit ctx: Context)
+@(me: User, threads: Paginator[lidraughts.message.Thread])(implicit ctx: Context)
 
 @message.layout(
 title = trans.inbox.txt()) {
-<div id="lichess_message" class="content_box no_padding">
+<div id="lidraughts_message" class="content_box no_padding">
   <div class="head with_actions">
     <h1>@trans.inbox()</h1>
     @if(threads.nbResults > 0) {

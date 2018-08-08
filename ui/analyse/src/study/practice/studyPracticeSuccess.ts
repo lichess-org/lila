@@ -37,7 +37,7 @@ function isTheirMate(root: AnalyseCtrl) {
   return isMate(root) && root.turnColor() === root.bottomColor();
 }
 
-function hasBlundered(comment: Comment) {
+function hasBlundered(comment: Comment | null) {
   return comment && (comment.verdict === 'mistake' || comment.verdict === 'blunder');
 }
 

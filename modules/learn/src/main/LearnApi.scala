@@ -1,7 +1,7 @@
-package lila.learn
+package lidraughts.learn
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 final class LearnApi(coll: Coll) {
 

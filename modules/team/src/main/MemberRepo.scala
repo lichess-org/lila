@@ -1,8 +1,8 @@
-package lila.team
+package lidraughts.team
 
 import reactivemongo.bson._
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 object MemberRepo {
 

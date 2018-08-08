@@ -1,6 +1,5 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
 import AnalyseCtrl from '../ctrl';
@@ -89,16 +88,16 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 }
 
 function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
-  const path = opts.parentPath + node.id,
-  content: MaybeVNodes = [
-    opts.withIndex || node.ply & 1 ? moveView.renderIndex(node.ply, true) : null,
-    fixCrazySan(node.san!)
-  ];
-  if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
-  return h('move', {
-    attrs: { p: path },
-    class: nodeClasses(ctx, path)
-  }, content);
+    const path = opts.parentPath + node.id,
+        content: MaybeVNodes = [
+            opts.withIndex || (node.displayPly ? node.displayPly : node.ply) & 1 ? moveView.renderIndex((node.displayPly ? node.displayPly : node.ply), true) : null,
+            (node.expandedSan ? node.expandedSan : node.san!)
+        ];
+    if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
+    return h('move', {
+        attrs: { p: path },
+        class: nodeClasses(ctx, path)
+    }, content);
 }
 
 export default function(ctrl: AnalyseCtrl): VNode {

@@ -1,8 +1,8 @@
-package lila.perfStat
+package lidraughts.perfStat
 
-import lila.common.LightUser
-import lila.rating.{ PerfType, Perf, Glicko }
-import lila.user.User
+import lidraughts.common.LightUser
+import lidraughts.rating.{ PerfType, Perf, Glicko }
+import lidraughts.user.User
 
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
@@ -22,7 +22,7 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
     "perf" -> user.perfs(stat.perfType),
     "rank" -> rank,
     "percentile" -> ratingDistribution.map { distrib =>
-      lila.user.Stat.percentile(distrib, user.perfs(stat.perfType).intRating) match {
+      lidraughts.user.Stat.percentile(distrib, user.perfs(stat.perfType).intRating) match {
         case (under, sum) => Math.round(under * 1000.0 / sum) / 10.0
       }
     },
@@ -51,7 +51,7 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
 
 object JsonView {
 
-  private def round(v: Double, depth: Int = 2) = lila.common.Maths.roundAt(v, depth)
+  private def round(v: Double, depth: Int = 2) = lidraughts.common.Maths.roundAt(v, depth)
 
   private val isoFormatter = ISODateTimeFormat.dateTime
   private implicit val dateWriter: Writes[DateTime] = Writes { d =>

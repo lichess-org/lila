@@ -15,8 +15,8 @@ body.transp div.chat_menu > a,
 body.transp div.current_player div.player p,
 body.transp div.vstext,
 body.transp .tview2 move,
-body.transp #lichess_forum div.post .message,
-body.transp #lichess_blog {
+body.transp #lidraughts_forum div.post .message,
+body.transp #lidraughts_blog {
   color: #ccc;
 }
 body.transp::before {
@@ -54,13 +54,13 @@ body.transp #topmenu section:hover > a,
 body.transp #topmenu div,
 body.transp #start_buttons a,
 body.transp .analyse div.ceval_box,
-body.transp .analyse .lichess_ground .replay,
-body.transp .analyse .lichess_ground .explorer_box,
-body.transp .lichess_ground .opening_box,
-body.transp .lichess_ground .replay index,
-body.transp .lichess_ground .analyse .meta,
-body.transp .lichess_ground .replay move:hover,
-body.transp .lichess_ground .replay td.move:hover,
+body.transp .analyse .lidraughts_ground .replay,
+body.transp .analyse .lidraughts_ground .explorer_box,
+body.transp .lidraughts_ground .opening_box,
+body.transp .lidraughts_ground .replay index,
+body.transp .lidraughts_ground .analyse .meta,
+body.transp .lidraughts_ground .replay move:hover,
+body.transp .lidraughts_ground .replay td.move:hover,
 body.transp #top .dropdown,
 body.transp #top .shown a.toggle,
 body.transp div.analysis_menu > a,
@@ -87,8 +87,8 @@ body.transp div.chat_menu > a,
 body.transp div.mselect > div.list > a,
 body.transp #opening .meter,
 body.transp div.game_row:nth-child(odd),
-body.transp #lichess_forum table.forum_table tr:nth-child(odd),
-body.transp #lichess_message tr:nth-child(even),
+body.transp #lidraughts_forum table.forum_table tr:nth-child(odd),
+body.transp #lidraughts_message tr:nth-child(even),
 body.transp table.slist tbody tr:nth-child(even),
 body.transp #team .forum li:nth-child(odd),
 body.transp table.translations tbody tr:nth-child(odd),
@@ -100,7 +100,7 @@ body.transp div.search_status {
 body.transp div.mselect > div.list > a:first-child {
   background: #333;
 }
-body.transp #lichess_forum table.forum_table thead tr:nth-child(odd),
+body.transp #lidraughts_forum table.forum_table thead tr:nth-child(odd),
 body.transp #chat .messages,
 body.transp #tournament_schedule,
 body.transp div.mselect div.list {
@@ -172,8 +172,8 @@ body.transp #timeline {
   padding-left: 7px;
   box-sizing: border-box;
 }
-body.transp div.lichess_board,
-body.transp div.lichess_overboard,
+body.transp div.lidraughts_board,
+body.transp div.lidraughts_overboard,
 body.transp div.content_box,
 body.transp #powerTip {
   box-shadow: 0 0 9px rgba(255, 255, 255, 0.5);

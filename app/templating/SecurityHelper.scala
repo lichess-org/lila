@@ -1,10 +1,10 @@
-package lila.app
+package lidraughts.app
 package templating
 
 import play.twirl.api.Html
 
-import lila.security.{ Permission, Granter }
-import lila.user.{ User, UserContext }
+import lidraughts.security.{ Permission, Granter }
+import lidraughts.user.{ User, UserContext }
 
 trait SecurityHelper {
 
@@ -20,10 +20,10 @@ trait SecurityHelper {
   def isGranted(permission: Permission, user: User): Boolean =
     Granter(permission)(user)
 
-  def reportScore(score: lila.report.Report.Score) = Html {
+  def reportScore(score: lidraughts.report.Report.Score) = Html {
     s"""<div class="score ${score.color}" title="Report score">${score.value.toInt}</div>"""
   }
-  // def reportScore(score: lila.report.Report.Score) = Html {
+  // def reportScore(score: lidraughts.report.Report.Score) = Html {
   //   s"""<div class="score"><i>Score</i><strong>${score.value.toInt}</strong></div>"""
   // }
 }

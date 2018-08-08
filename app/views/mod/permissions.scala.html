@@ -12,7 +12,7 @@ moreCss = moreCss) {
   <h1>@userLink(u) permissions</h1>
   <form action="@routes.Mod.permissions(u.username)" method="post">
     <select name="permissions[]" multiple>
-      @lila.security.Permission.allButSuperAdmin.map { p =>
+      @lidraughts.security.Permission.allButSuperAdmin.map { p =>
       <option
       value="@p.name"@if(u.roles.contains(p.name)){ selected}
       title="@p.children.mkString(", ")"

@@ -1,13 +1,14 @@
 package controllers
 
-import lila.app._
+import lidraughts.app._
 import views._
 
-object Page extends LilaController {
+object Page extends LidraughtsController {
 
   private def bookmark(name: String) = Open { implicit ctx =>
     OptionOk(Prismic getBookmark name) {
-      case (doc, resolver) => views.html.site.page(doc, resolver)
+      case (doc, resolver) =>
+        views.html.site.page(doc, resolver)
     }
   }
 
@@ -25,6 +26,8 @@ object Page extends LilaController {
 
   def about = bookmark("about")
 
+  def tjalling = bookmark("tjalling")
+
   def swag = Open { implicit ctx =>
     OptionOk(Prismic getBookmark "swag") {
       case (doc, resolver) => views.html.site.swag(doc, resolver)
@@ -37,7 +40,7 @@ object Page extends LilaController {
       html = OptionOk(Prismic getBookmark "variant") {
         case (doc, resolver) => views.html.site.variantHome(doc, resolver)
       },
-      api = _ => Ok(JsArray(chess.variant.Variant.all.map { v =>
+      api = _ => Ok(JsArray(draughts.variant.Variant.all.map { v =>
         Json.obj(
           "id" -> v.id,
           "key" -> v.key,
@@ -49,8 +52,8 @@ object Page extends LilaController {
 
   def variant(key: String) = Open { implicit ctx =>
     (for {
-      variant <- chess.variant.Variant.byKey get key
-      perfType <- lila.rating.PerfType byVariant variant
+      variant <- draughts.variant.Variant.byKey get key
+      perfType <- lidraughts.rating.PerfType.byVariant(variant).fold(lidraughts.rating.PerfType.checkStandard(variant))(x => x.some)
     } yield OptionOk(Prismic getVariant variant) {
       case (doc, resolver) => views.html.site.variant(doc, resolver, variant, perfType)
     }) | notFound

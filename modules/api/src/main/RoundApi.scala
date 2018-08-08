@@ -1,30 +1,30 @@
-package lila.api
+package lidraughts.api
 
 import play.api.libs.json._
-import chess.format.FEN
-
-import lila.analyse.{ JsonView => analysisJson, Analysis }
-import lila.common.ApiVersion
-import lila.game.{ Pov, Game, GameRepo }
-import lila.pref.Pref
-import lila.round.JsonView.WithFlags
-import lila.round.{ JsonView, Forecast }
-import lila.security.Granter
-import lila.simul.Simul
-import lila.tournament.TourAndRanks
-import lila.tree.Node.partitionTreeJsonWriter
-import lila.user.User
+import draughts.format.FEN
+import lidraughts.analyse.{ Analysis, JsonView => analysisJson }
+import lidraughts.common.ApiVersion
+import lidraughts.game.{ Game, GameRepo, Pov }
+import lidraughts.pref.Pref
+import lidraughts.round.JsonView.WithFlags
+import lidraughts.round.{ Forecast, JsonView, logger }
+import lidraughts.security.Granter
+import lidraughts.simul.Simul
+import lidraughts.tournament.TourAndRanks
+import lidraughts.tree.Node.partitionTreeJsonWriter
+import lidraughts.user.User
 
 private[api] final class RoundApi(
     jsonView: JsonView,
-    noteApi: lila.round.NoteApi,
-    forecastApi: lila.round.ForecastApi,
-    bookmarkApi: lila.bookmark.BookmarkApi,
+    noteApi: lidraughts.round.NoteApi,
+    forecastApi: lidraughts.round.ForecastApi,
+    bookmarkApi: lidraughts.bookmark.BookmarkApi,
     getTourAndRanks: Game => Fu[Option[TourAndRanks]],
     getSimul: Simul.ID => Fu[Option[Simul]]
 ) {
 
-  def player(pov: Pov, apiVersion: ApiVersion)(implicit ctx: Context): Fu[JsObject] =
+  def player(pov: Pov, apiVersion: ApiVersion)(implicit ctx: Context): Fu[JsObject] = {
+    lidraughts.log("RoundApi").info(s"player pov game: ${pov.game.turnColor}")
     GameRepo.initialFen(pov.game) map2 FEN.apply flatMap { initialFen =>
       jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
         withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs)),
@@ -36,17 +36,18 @@ private[api] final class RoundApi(
         bookmarkApi.exists(pov.game, ctx.me) map {
           case json ~ tourOption ~ simulOption ~ note ~ forecast ~ bookmarked => (
             blindMode _ compose
-            withTournament(pov, tourOption)_ compose
-            withSimul(pov, simulOption)_ compose
-            withSteps(pov, initialFen)_ compose
-            withNote(note)_ compose
-            withBookmark(bookmarked)_ compose
-            withForecastCount(forecast.map(_.steps.size))_
+            withTournament(pov, tourOption) _ compose
+            withSimul(pov, simulOption) _ compose
+            withSteps(pov, initialFen) _ compose
+            withNote(note) _ compose
+            withBookmark(bookmarked) _ compose
+            withForecastCount(forecast.map(_.steps.size)) _
           )(json)
         }
     }
+  }
 
-  def watcher(pov: Pov, apiVersion: ApiVersion, tv: Option[lila.round.OnTv],
+  def watcher(pov: Pov, apiVersion: ApiVersion, tv: Option[lidraughts.round.OnTv],
     initialFenO: Option[Option[FEN]] = None)(implicit ctx: Context): Fu[JsObject] =
     initialFenO.fold(GameRepo initialFen pov.game map2 FEN)(fuccess) flatMap { initialFen =>
       jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
@@ -68,7 +69,7 @@ private[api] final class RoundApi(
     }
 
   def review(pov: Pov, apiVersion: ApiVersion,
-    tv: Option[lila.round.OnTv] = None,
+    tv: Option[lidraughts.round.OnTv] = None,
     analysis: Option[Analysis] = None,
     initialFenO: Option[Option[FEN]] = None,
     withFlags: WithFlags)(implicit ctx: Context): Fu[JsObject] =
@@ -86,41 +87,42 @@ private[api] final class RoundApi(
             withSimul(pov, simulOption)_ compose
             withNote(note)_ compose
             withBookmark(bookmarked)_ compose
-            withTree(pov, analysis, initialFen, withFlags)_ compose
+            withTree(pov, analysis, initialFen, withFlags, pov.game.metadata.pdnImport.isDefined)_ compose
             withAnalysis(pov.game, analysis)_
           )(json)
         }
     }
 
-  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: chess.Color, owner: Boolean, me: Option[User]) =
+  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: draughts.Color, owner: Boolean, me: Option[User], iteratedCapts: Boolean = false) =
     owner.??(forecastApi loadForDisplay pov).map { fco =>
       withForecast(pov, owner, fco) {
-        withTree(pov, analysis = none, initialFen, WithFlags(opening = true)) {
+        withTree(pov, analysis = none, initialFen, WithFlags(opening = true), iteratedCapts) {
           jsonView.userAnalysisJson(pov, pref, initialFen, orientation, owner = owner, me = me)
         }
       }
     }
 
-  def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: chess.Color, me: Option[User]) =
+  def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[FEN], orientation: draughts.Color, me: Option[User]) =
     withTree(pov, analysis = none, initialFen, WithFlags(opening = true))(
       jsonView.userAnalysisJson(pov, pref, initialFen, orientation, owner = false, me = me)
     )
 
-  private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[FEN], withFlags: WithFlags)(obj: JsObject) =
-    obj + ("treeParts" -> partitionTreeJsonWriter.writes(lila.round.TreeBuilder(
+  private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[FEN], withFlags: WithFlags, iteratedCapts: Boolean = false)(obj: JsObject) =
+    obj + ("treeParts" -> partitionTreeJsonWriter.writes(lidraughts.round.TreeBuilder(
       id = pov.game.id,
-      pgnMoves = pov.game.pgnMoves,
+      pdnmoves = pov.game.pdnMoves,
       variant = pov.game.variant,
       analysis = analysis,
       initialFen = initialFen | FEN(pov.game.variant.initialFen),
       withFlags = withFlags,
-      clocks = withFlags.clocks ?? pov.game.bothClockStates
+      clocks = withFlags.clocks ?? pov.game.bothClockStates,
+      iteratedCapts
     )))
 
   private def withSteps(pov: Pov, initialFen: Option[FEN])(obj: JsObject) =
-    obj + ("steps" -> lila.round.StepBuilder(
+    obj + ("steps" -> lidraughts.round.StepBuilder(
       id = pov.game.id,
-      pgnMoves = pov.game.pgnMoves,
+      pdnmoves = pov.game.pdnMoves,
       variant = pov.game.variant,
       initialFen = initialFen.fold(pov.game.variant.initialFen)(_.value)
     ))

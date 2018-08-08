@@ -1,17 +1,18 @@
-package lila.study
+package lidraughts.study
 
 import akka.actor.{ ActorRef, ActorSelection }
 import scala.concurrent.duration._
 
-import chess.Centis
-import chess.format.pgn.{ Tags, Glyph }
-import lila.chat.Chat
-import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
-import lila.socket.Socket.Uid
-import lila.tree.Eval
-import lila.tree.Node.{ Shapes, Comment, Gamebook }
-import lila.user.User
+import draughts.Centis
+import draughts.format.Forsyth
+import draughts.format.pdn.{ Tags, Glyph }
+import lidraughts.chat.Chat
+import lidraughts.hub.actorApi.map.Tell
+import lidraughts.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
+import lidraughts.socket.Socket.Uid
+import lidraughts.tree.Eval
+import lidraughts.tree.Node.{ Shapes, Comment, Gamebook }
+import lidraughts.user.User
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -22,10 +23,10 @@ final class StudyApi(
     inviter: StudyInvite,
     tagsFixer: ChapterTagsFixer,
     explorerGameHandler: ExplorerGame,
-    lightUser: lila.common.LightUser.GetterSync,
+    lightUser: lidraughts.common.LightUser.GetterSync,
     scheduler: akka.actor.Scheduler,
     chat: ActorSelection,
-    bus: lila.common.Bus,
+    bus: lidraughts.common.Bus,
     timeline: ActorSelection,
     socketHub: ActorRef,
     serverEvalRequester: ServerEval.Requester,
@@ -101,7 +102,7 @@ final class StudyApi(
         import akka.pattern.ask
         import makeTimeout.short
         for {
-          socket <- socketHub ? lila.hub.actorApi.map.Get(studyId.value) mapTo manifest[ActorRef]
+          socket <- socketHub ? lidraughts.hub.actorApi.map.Get(studyId.value) mapTo manifest[ActorRef]
           _ <- addChapter(
             byUserId = user.id,
             studyId = study.id,
@@ -113,7 +114,7 @@ final class StudyApi(
           made <- byIdWithChapter(studyId)
         } yield made
       case _ => fuccess(none)
-    } orElse create(data.copy(form = data.form.copy(asStr = none)), user)
+    } orElse { create(data.copy(form = data.form.copy(asStr = none)), user) }
   }) addEffect {
     _ ?? { sc =>
       bus.publish(actorApi.StartStudy(sc.study.id), 'startStudy)
@@ -128,9 +129,9 @@ final class StudyApi(
         newChapters.headOption.map(study1.rewindTo) ?? { study =>
           studyRepo.insert(study) >>
             newChapters.map(chapterRepo.insert).sequenceFu >>- {
-              chat ! lila.chat.actorApi.SystemTalk(
+              chat ! lidraughts.chat.actorApi.SystemTalk(
                 Chat.Id(study.id.value),
-                s"Cloned from lichess.org/study/${prev.id}"
+                s"Cloned from lidraughts.org/study/${prev.id}"
               )
             } inject study.some
         }
@@ -158,11 +159,11 @@ final class StudyApi(
   def talk(userId: User.ID, studyId: Study.Id, text: String, socket: ActorRef) = byId(studyId) foreach {
     _ foreach { study =>
       (study canChat userId) ?? {
-        chat ! lila.chat.actorApi.UserTalk(
+        chat ! lidraughts.chat.actorApi.UserTalk(
           Chat.Id(studyId.value),
           userId = userId,
           text = text,
-          publicSource = lila.hub.actorApi.shutup.PublicSource.Study(studyId.value).some
+          publicSource = lidraughts.hub.actorApi.shutup.PublicSource.Study(studyId.value).some
         )
       }
     }
@@ -188,37 +189,61 @@ final class StudyApi(
   def addNode(userId: User.ID, studyId: Study.Id, position: Position.Ref, node: Node, uid: Uid, opts: MoveOpts, relay: Option[Chapter.Relay] = None) =
     sequenceStudyWithChapter(studyId, position.chapterId) {
       case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-        doAddNode(userId, study, Position(chapter, position.path), node, uid, opts, relay).void
+        val parentNodes = if (position.path.ids.isEmpty) chapter.root.children.nodes else chapter.root.nodeAtStrict(position.path).fold(Vector[Node]())(_.children.nodes)
+        if (parentNodes.exists({ c => c.move.san == node.move.san && c.fen != node.fen }) && Forsyth.countGhosts(node.fen.value) > 0)
+          doAddNode(userId, study, Position(chapter, position.path), node.findNextAmbiguity(parentNodes), uid, opts, relay).void
+        else
+          doAddNode(userId, study, Position(chapter, position.path), node, uid, opts, relay).void
       }
     }
 
-  private[study] def doAddNode(userId: User.ID, study: Study, position: Position, rawNode: Node, uid: Uid, opts: MoveOpts, relay: Option[Chapter.Relay]): Funit = {
+  private def doAddNode(userId: User.ID, study: Study, position: Position, rawNode: Node, uid: Uid, opts: MoveOpts, relay: Option[Chapter.Relay]): Funit = {
     val node = rawNode.withoutChildren
-    position.chapter.addNode(node, position.path, relay) match {
+    position.chapter.continueCapture(node, position.path, relay) match {
       case None =>
-        fufail(s"Invalid addNode ${study.id} ${position.ref} $node") >>-
-          reloadUidBecauseOf(study, uid, position.chapter.id) inject none
-      case Some(chapter) =>
-        chapter.root.nodeAt(position.path) ?? { parent =>
-          val newPosition = position.ref + node
-          chapterRepo.setChildren(chapter, position.path, parent.children) >>
-            (relay ?? { chapterRepo.setRelay(chapter.id, _) }) >>
-            (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
-            updateConceal(study, chapter, newPosition) >>- {
-              sendTo(study, Socket.AddNode(
-                position.ref,
-                node,
-                chapter.setup.variant,
-                uid,
-                sticky = opts.sticky,
-                relay = relay
-              ))
-              sendStudyEnters(study, userId)
-              if (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path))
-                promote(userId, study.id, position.ref + node, toMainline = true, uid)
+        def failReload = reloadUidBecauseOf(study, uid, position.chapter.id)
+        if (position.chapter.isOverweight) {
+          logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
+          fuccess(failReload)
+        } else position.chapter.addNode(node, position.path, relay) match {
+          case None =>
+            failReload
+            fufail(s"Invalid addNode ${study.id} ${position.ref} $node")
+          case Some(chapter) =>
+            chapter.root.nodeAt(position.path) ?? { parent =>
+              val newPosition = position.ref + node
+              chapterRepo.setChildren(chapter, position.path, parent.children) >>
+                (relay ?? {
+                  chapterRepo.setRelay(chapter.id, _)
+                }) >>
+                (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
+                updateConceal(study, chapter, newPosition) >>- {
+                  sendTo(study, Socket.AddNode(
+                    position.ref,
+                    node,
+                    chapter.setup.variant,
+                    uid,
+                    sticky = opts.sticky,
+                    relay = relay
+                  ))
+                  sendStudyEnters(study, userId)
+                  if (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path))
+                    promote(userId, study.id, position.ref + node, toMainline = true, uid)
+                }
             }
         }
+      case Some((newChapter, mergedNode)) =>
+        chapterRepo.update(newChapter) >>-
+          sendTo(study, Socket.AddNode(
+            position.ref,
+            mergedNode,
+            newChapter.setup.variant,
+            uid,
+            sticky = opts.sticky,
+            relay = relay
+          ))
     }
+
   }
 
   private def updateConceal(study: Study, chapter: Chapter, position: Position.Ref) =
@@ -279,9 +304,9 @@ final class StudyApi(
       val role = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
       study.members.get(userId) ifTrue study.isPublic foreach { member =>
         if (!member.role.canWrite && role.canWrite)
-          bus.publish(lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId.value), 'study)
+          bus.publish(lidraughts.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId.value), 'study)
         else if (member.role.canWrite && !role.canWrite)
-          bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), 'study)
+          bus.publish(lidraughts.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), 'study)
       }
       studyRepo.setRole(study, userId, role) >>-
         onMembersChange(study)
@@ -298,7 +323,7 @@ final class StudyApi(
   def kick(byUserId: User.ID, studyId: Study.Id, userId: User.ID) = sequenceStudy(studyId) { study =>
     (study.isMember(userId) && (study.isOwner(byUserId) ^ (byUserId == userId))) ?? {
       if (study.isPublic && study.canContribute(userId))
-        bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), 'study)
+        bus.publish(lidraughts.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), 'study)
       studyRepo.removeMember(study, userId)
     } >>- onMembersChange(study)
   }
@@ -348,7 +373,7 @@ final class StudyApi(
 
   def setTag(userId: User.ID, studyId: Study.Id, setTag: actorApi.SetTag, uid: Uid) = sequenceStudyWithChapter(studyId, setTag.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-      doSetTags(study, chapter, PgnTags(chapter.tags + setTag.tag), uid)
+      doSetTags(study, chapter, PdnTags(chapter.tags + setTag.tag), uid)
     }
   }
 
@@ -362,7 +387,7 @@ final class StudyApi(
     val chapter = oldChapter.copy(tags = tags)
     (chapter.tags != oldChapter.tags) ?? {
       chapterRepo.setTagsFor(chapter) >> {
-        PgnTags.setRootClockFromTags(chapter) ?? { c =>
+        PdnTags.setRootClockFromTags(chapter) ?? { c =>
           setClock(study.id, Position(c, Path.root).ref, c.root.clock, uid)
         }
       } >>-
@@ -491,7 +516,7 @@ final class StudyApi(
     }
   }
 
-  def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, uid: Uid) =
+  def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, uid: Uid) = {
     chapterRepo.insert(chapter) >> {
       val newStudy = study withChapter chapter
       (sticky ?? studyRepo.updateSomeFields(newStudy)) >>-
@@ -499,6 +524,7 @@ final class StudyApi(
     } >>-
       studyRepo.updateNow(study) >>-
       indexStudy(study)
+  }
 
   def setChapter(byUserId: User.ID, studyId: Study.Id, chapterId: Chapter.Id, uid: Uid) = sequenceStudy(studyId) { study =>
     study.canContribute(byUserId) ?? doSetChapter(study, chapterId, uid)
@@ -613,9 +639,9 @@ final class StudyApi(
         visibility = data.vis
       )
       if (!study.isPublic && newStudy.isPublic) {
-        bus.publish(lila.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.contributorIds), 'study)
+        bus.publish(lidraughts.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.contributorIds), 'study)
       } else if (study.isPublic && !newStudy.isPublic) {
-        bus.publish(lila.hub.actorApi.study.StudyBecamePrivate(studyId.value, study.members.contributorIds), 'study)
+        bus.publish(lidraughts.hub.actorApi.study.StudyBecamePrivate(studyId.value, study.members.contributorIds), 'study)
       }
       (newStudy != study) ?? {
         studyRepo.updateSomeFields(newStudy) >>-
@@ -629,7 +655,7 @@ final class StudyApi(
   def delete(study: Study) = sequenceStudy(study.id) { study =>
     studyRepo.delete(study) >>
       chapterRepo.deleteByStudy(study) >>-
-      bus.publish(lila.hub.actorApi.study.RemoveStudy(study.id.value, study.members.contributorIds), 'study) >>-
+      bus.publish(lidraughts.hub.actorApi.study.RemoveStudy(study.id.value, study.members.contributorIds), 'study) >>-
       lightStudyCache.put(study.id, none)
   }
 
@@ -667,7 +693,7 @@ final class StudyApi(
     }
 
   private def sendStudyEnters(study: Study, userId: User.ID) = bus.publish(
-    lila.hub.actorApi.study.StudyDoor(
+    lidraughts.hub.actorApi.study.StudyDoor(
       userId = userId,
       studyId = study.id.value,
       contributor = study canContribute userId,

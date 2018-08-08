@@ -1,11 +1,11 @@
-package lila.team
+package lidraughts.team
 
 import actorApi._
 import akka.actor.ActorSelection
-import lila.db.dsl._
-import lila.hub.actorApi.team.{ CreateTeam, JoinTeam }
-import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
-import lila.user.{ User, UserRepo, UserContext }
+import lidraughts.db.dsl._
+import lidraughts.hub.actorApi.team.{ CreateTeam, JoinTeam }
+import lidraughts.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
+import lidraughts.user.{ User, UserRepo, UserContext }
 import org.joda.time.Period
 import reactivemongo.api.Cursor
 
@@ -13,7 +13,7 @@ final class TeamApi(
     coll: Colls,
     cached: Cached,
     notifier: Notifier,
-    bus: lila.common.Bus,
+    bus: lidraughts.common.Bus,
     indexer: ActorSelection,
     timeline: ActorSelection
 ) {
@@ -115,7 +115,7 @@ final class TeamApi(
       doJoin(team, user.id) >>- notifier.acceptRequest(team, request))
   } yield ()
 
-  def deleteRequestsByUserId(userId: lila.user.User.ID) =
+  def deleteRequestsByUserId(userId: lidraughts.user.User.ID) =
     RequestRepo.getByUserId(userId) flatMap {
       _.map { request =>
         RequestRepo.remove(request.id) >>
@@ -131,7 +131,7 @@ final class TeamApi(
           timeline ! Propagate(TeamJoin(userId, team.id)).toFollowersOf(userId)
           bus.publish(JoinTeam(id = team.id, userId = userId), 'team)
         }
-    } recover lila.db.recoverDuplicateKey(_ => ())
+    } recover lidraughts.db.recoverDuplicateKey(_ => ())
   }
 
   def quit(teamId: String)(implicit ctx: UserContext): Fu[Option[Team]] = for {

@@ -1,7 +1,7 @@
-package lila.security
+package lidraughts.security
 
 import com.roundeights.hasher.Algo
-import lila.common.String.base64
+import lidraughts.common.String.base64
 
 import StringToken.ValueChecker
 

@@ -1,6 +1,6 @@
-package lila
+package lidraughts
 
-import lila.socket.WithSocket
+import lidraughts.socket.WithSocket
 
 package object simul extends PackageObject with WithSocket {
 
@@ -12,5 +12,5 @@ package object simul extends PackageObject with WithSocket {
     def apply(): String = names(scala.util.Random nextInt size)
   }
 
-  private[simul] def logger = lila.log("simul")
+  private[simul] def logger = lidraughts.log("simul")
 }

@@ -1,9 +1,9 @@
-package lila.learn
+package lidraughts.learn
 
 import reactivemongo.bson._
 
-import lila.db.BSON
-import lila.db.dsl._
+import lidraughts.db.BSON
+import lidraughts.db.dsl._
 
 object BSONHandlers {
 

@@ -6,12 +6,12 @@
 #import_game form {
   font-size: 1.3em;
 }
-#import_game form label.pgn {
+#import_game form label.pdn {
   display: block;
   margin-bottom: 1em;
 }
 
-#import_game form label.pgn span {
+#import_game form label.pdn span {
   display: block;
   margin-bottom: 1em;
 }

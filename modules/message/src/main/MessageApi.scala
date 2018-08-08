@@ -1,19 +1,19 @@
-package lila.message
+package lidraughts.message
 
-import lila.common.paginator._
-import lila.db.dsl._
-import lila.db.paginator._
-import lila.security.Granter
-import lila.user.{ User, UserRepo }
+import lidraughts.common.paginator._
+import lidraughts.db.dsl._
+import lidraughts.db.paginator._
+import lidraughts.security.Granter
+import lidraughts.user.{ User, UserRepo }
 
 final class MessageApi(
     coll: Coll,
     shutup: akka.actor.ActorSelection,
-    maxPerPage: lila.common.MaxPerPage,
+    maxPerPage: lidraughts.common.MaxPerPage,
     blocks: (String, String) => Fu[Boolean],
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lidraughts.notify.NotifyApi,
     security: MessageSecurity,
-    lilaBus: lila.common.Bus
+    lidraughtsBus: lidraughts.common.Bus
 ) {
 
   import Thread.ThreadBSONHandler
@@ -60,7 +60,7 @@ final class MessageApi(
           sendUnlessBlocked(thread, fromMod) flatMap {
             _ ?? {
               val text = s"${data.subject} ${data.text}"
-              shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text)
+              shutup ! lidraughts.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text)
               notify(thread)
             }
           } inject thread
@@ -87,7 +87,7 @@ final class MessageApi(
         val newThread = thread + post
         coll.update($id(newThread.id), newThread) >> {
           val toUserId = newThread otherUserId me
-          shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text)
+          shutup ! lidraughts.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text)
           notify(thread, post)
         } inject newThread
     }
@@ -98,7 +98,7 @@ final class MessageApi(
       _ ?? { thread =>
         ThreadRepo.deleteFor(me.id)(thread.id) zip
           notifyApi.remove(
-            lila.notify.Notification.Notifies(me.id),
+            lidraughts.notify.Notification.Notifies(me.id),
             $doc("content.thread.id" -> thread.id)
           ) void
       }
@@ -110,7 +110,7 @@ final class MessageApi(
         val victimId = thread otherUserId user
         ThreadRepo.deleteFor(victimId)(thread.id) zip
           notifyApi.remove(
-            lila.notify.Notification.Notifies(victimId),
+            lidraughts.notify.Notification.Notifies(victimId),
             $doc("content.thread.id" -> thread.id)
           ) void
       }.sequenceFu.void
@@ -121,9 +121,9 @@ final class MessageApi(
   }
   def notify(thread: Thread, post: Post): Funit =
     (thread isVisibleBy thread.receiverOf(post)) ?? {
-      import lila.notify.{ Notification, PrivateMessage }
-      import lila.common.String.shorten
-      lilaBus.publish(Event.NewMessage(thread, post), 'newMessage)
+      import lidraughts.notify.{ Notification, PrivateMessage }
+      import lidraughts.common.String.shorten
+      lidraughtsBus.publish(Event.NewMessage(thread, post), 'newMessage)
       notifyApi addNotification Notification.make(
         Notification.Notifies(thread receiverOf post),
         PrivateMessage(

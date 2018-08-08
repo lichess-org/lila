@@ -1,33 +1,34 @@
-package lila.mod
+package lidraughts.mod
 
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.security.{ Firewall, UserSpy }
-import lila.user.User
+import lidraughts.security.{ Firewall, UserSpy }
+import lidraughts.user.User
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
-    hub: lila.hub.Env,
+    db: lidraughts.db.Env,
+    hub: lidraughts.hub.Env,
+    perfStat: lidraughts.perfStat.Env,
     system: ActorSystem,
-    scheduler: lila.common.Scheduler,
+    scheduler: lidraughts.common.Scheduler,
     firewall: Firewall,
-    reportApi: lila.report.ReportApi,
-    lightUserApi: lila.user.LightUserApi,
+    reportApi: lidraughts.report.ReportApi,
+    lightUserApi: lidraughts.user.LightUserApi,
     userSpy: User => Fu[UserSpy],
-    securityApi: lila.security.SecurityApi,
-    tournamentApi: lila.tournament.TournamentApi,
-    simulEnv: lila.simul.Env,
-    chatApi: lila.chat.ChatApi,
-    notifyApi: lila.notify.NotifyApi,
-    historyApi: lila.history.HistoryApi,
-    rankingApi: lila.user.RankingApi,
-    relationApi: lila.relation.RelationApi,
-    noteApi: lila.user.NoteApi,
-    userJson: lila.user.JsonView,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    emailValidator: lila.security.EmailAddressValidator
+    securityApi: lidraughts.security.SecurityApi,
+    tournamentApi: lidraughts.tournament.TournamentApi,
+    simulEnv: lidraughts.simul.Env,
+    chatApi: lidraughts.chat.ChatApi,
+    notifyApi: lidraughts.notify.NotifyApi,
+    historyApi: lidraughts.history.HistoryApi,
+    rankingApi: lidraughts.user.RankingApi,
+    relationApi: lidraughts.relation.RelationApi,
+    noteApi: lidraughts.user.NoteApi,
+    userJson: lidraughts.user.JsonView,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    emailValidator: lidraughts.security.EmailAddressValidator
 ) {
 
   private object settings {
@@ -54,7 +55,8 @@ final class Env(
     notifier = notifier,
     historyApi = historyApi,
     rankingApi = rankingApi,
-    wasUnengined = logApi.wasUnengined
+    wasUnengined = logApi.wasUnengined,
+    perfStatter = perfStat.get _
   )
 
   lazy val publicChat = new PublicChat(chatApi, tournamentApi, simulEnv)
@@ -68,7 +70,7 @@ final class Env(
     lightUserApi = lightUserApi,
     notifier = notifier,
     refunder = ratingRefund,
-    lilaBus = system.lilaBus
+    lidraughtsBus = system.lidraughtsBus
   )
 
   private lazy val boosting = new BoostingApi(
@@ -102,25 +104,26 @@ final class Env(
   lazy val jsonView = new JsonView(
     assessApi = assessApi,
     relationApi = relationApi,
+    reportApi = reportApi,
     userJson = userJson
   )
 
   lazy val inquiryApi = new InquiryApi(reportApi, noteApi, logApi)
 
   // api actor
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
+      case lidraughts.analyse.actorApi.AnalysisReady(game, analysis) =>
         assessApi.onAnalysisReady(game, analysis)
-      case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>
+      case lidraughts.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>
         (whiteUserOption |@| blackUserOption) apply {
           case (whiteUser, blackUser) => boosting.check(game, whiteUser, blackUser) >>
             assessApi.onGameReady(game, whiteUser, blackUser)
         }
-        if (game.status == chess.Status.Cheat)
+        if (game.status == draughts.Status.Cheat)
           game.loserUserId foreach { logApi.cheatDetected(_, game.id) }
-      case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason) => logApi.chatTimeout(mod, user, reason)
-      case lila.hub.actorApi.security.GarbageCollect(userId, ipBan) =>
+      case lidraughts.hub.actorApi.mod.ChatTimeout(mod, user, reason) => logApi.chatTimeout(mod, user, reason)
+      case lidraughts.hub.actorApi.security.GarbageCollect(userId, ipBan) =>
         reportApi getSuspect userId flatten s"No such suspect $userId" flatMap { sus =>
           api.garbageCollect(sus, ipBan) >> publicChat.delete(sus)
         }
@@ -131,26 +134,27 @@ final class Env(
 object Env {
 
   lazy val current = "mod" boot new Env(
-    config = lila.common.PlayApp loadConfig "mod",
-    db = lila.db.Env.current,
-    hub = lila.hub.Env.current,
-    system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler,
-    firewall = lila.security.Env.current.firewall,
-    reportApi = lila.report.Env.current.api,
-    userSpy = lila.security.Env.current.userSpy,
-    lightUserApi = lila.user.Env.current.lightUserApi,
-    securityApi = lila.security.Env.current.api,
-    tournamentApi = lila.tournament.Env.current.api,
-    simulEnv = lila.simul.Env.current,
-    chatApi = lila.chat.Env.current.api,
-    notifyApi = lila.notify.Env.current.api,
-    historyApi = lila.history.Env.current.api,
-    rankingApi = lila.user.Env.current.rankingApi,
-    relationApi = lila.relation.Env.current.api,
-    noteApi = lila.user.Env.current.noteApi,
-    userJson = lila.user.Env.current.jsonView,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    emailValidator = lila.security.Env.current.emailAddressValidator
+    config = lidraughts.common.PlayApp loadConfig "mod",
+    db = lidraughts.db.Env.current,
+    hub = lidraughts.hub.Env.current,
+    perfStat = lidraughts.perfStat.Env.current,
+    system = lidraughts.common.PlayApp.system,
+    scheduler = lidraughts.common.PlayApp.scheduler,
+    firewall = lidraughts.security.Env.current.firewall,
+    reportApi = lidraughts.report.Env.current.api,
+    userSpy = lidraughts.security.Env.current.userSpy,
+    lightUserApi = lidraughts.user.Env.current.lightUserApi,
+    securityApi = lidraughts.security.Env.current.api,
+    tournamentApi = lidraughts.tournament.Env.current.api,
+    simulEnv = lidraughts.simul.Env.current,
+    chatApi = lidraughts.chat.Env.current.api,
+    notifyApi = lidraughts.notify.Env.current.api,
+    historyApi = lidraughts.history.Env.current.api,
+    rankingApi = lidraughts.user.Env.current.rankingApi,
+    relationApi = lidraughts.relation.Env.current.api,
+    noteApi = lidraughts.user.Env.current.noteApi,
+    userJson = lidraughts.user.Env.current.jsonView,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    emailValidator = lidraughts.security.Env.current.emailAddressValidator
   )
 }

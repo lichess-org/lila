@@ -1,15 +1,15 @@
-package lila.history
+package lidraughts.history
 
 import scala.concurrent.duration._
 
 import play.api.libs.json._
 
-import lila.rating.PerfType
-import lila.user.User
+import lidraughts.rating.PerfType
+import lidraughts.user.User
 
 final class RatingChartApi(
     historyApi: HistoryApi,
-    mongoCache: lila.memo.MongoCache.Builder,
+    mongoCache: lidraughts.memo.MongoCache.Builder,
     cacheTtl: FiniteDuration
 ) {
 
@@ -38,10 +38,10 @@ final class RatingChartApi(
 
   private def build(user: User): Fu[Option[String]] =
     historyApi get user.id map2 { (history: History) =>
-      lila.common.String.html.safeJsonValue {
+      lidraughts.common.String.html.safeJsonValue {
         Json.toJson {
-          import lila.rating.PerfType._
-          List(Bullet, Blitz, Rapid, Classical, Correspondence, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse, Puzzle, UltraBullet) map { pt =>
+          import lidraughts.rating.PerfType._
+          List(Bullet, Blitz, Rapid, Classical, Correspondence, Frisian, Puzzle, UltraBullet) map { pt =>
             Json.obj(
               "name" -> pt.name,
               "points" -> ratingsMapToJson(user, history(pt))

@@ -1,9 +1,9 @@
 package controllers
 
-import lila.app._
+import lidraughts.app._
 import views._
 
-object TournamentCrud extends LilaController {
+object TournamentCrud extends LidraughtsController {
 
   private def env = Env.tournament
   private def crud = env.crudApi

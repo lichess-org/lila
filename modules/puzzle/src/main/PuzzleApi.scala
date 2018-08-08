@@ -1,11 +1,11 @@
-package lila.puzzle
+package lidraughts.puzzle
 
 import scala.concurrent.duration._
 
 import play.api.libs.json.JsValue
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class PuzzleApi(
@@ -14,7 +14,7 @@ private[puzzle] final class PuzzleApi(
     voteColl: Coll,
     headColl: Coll,
     puzzleIdMin: PuzzleId,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     apiToken: String
 ) {
 
@@ -36,24 +36,25 @@ private[puzzle] final class PuzzleApi(
 
     val cachedLastId = asyncCache.single(
       name = "puzzle.lastId",
-      f = lila.db.Util findNextId puzzleColl map (_ - 1),
+      f = lidraughts.db.Util findNextId puzzleColl map (_ - 1),
       expireAfter = _.ExpireAfterWrite(1 day)
     )
 
     def importOne(json: JsValue, token: String): Fu[PuzzleId] =
-      if (token != apiToken) fufail("Invalid API token")
+      if (token != apiToken) fufail(s"Invalid API token (expected $apiToken, received $token)")
       else {
         import Generated.generatedJSONRead
         insertPuzzle(json.as[Generated])
       }
 
     def insertPuzzle(generated: Generated): Fu[PuzzleId] =
-      lila.db.Util findNextId puzzleColl flatMap { id =>
+      lidraughts.db.Util findNextId puzzleColl flatMap { id =>
         val p = generated toPuzzle id
-        val fenStart = p.fen.split(' ').take(2).mkString(" ")
+        val fenStart = p.fen.split(':').take(3).mkString(":")
         puzzleColl.exists($doc(
           F.id -> $gte(puzzleIdMin),
-          F.fen.$regex(fenStart.replace("/", "\\/"), "")
+          F.fen.$regex(fenStart.replace("/", "\\/"), ""),
+          F.history.$regex(p.history.head, "")
         )) flatMap {
           case false => puzzleColl insert p inject id
           case _ => fufail(s"Duplicate puzzle $fenStart")

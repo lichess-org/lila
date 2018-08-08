@@ -1,4 +1,4 @@
-package lila.app
+package lidraughts.app
 
 import akka.actor._
 import com.typesafe.config.Config
@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 final class Env(
     config: Config,
-    val scheduler: lila.common.Scheduler,
+    val scheduler: lidraughts.common.Scheduler,
     val system: ActorSystem,
     appPath: String
 ) {
@@ -44,6 +44,7 @@ final class Env(
     relationApi = Env.relation.api,
     trophyApi = Env.user.trophyApi,
     shieldApi = Env.tournament.shieldApi,
+    revolutionApi = Env.tournament.revolutionApi,
     postApi = Env.forum.postApi,
     studyRepo = Env.study.studyRepo,
     getRatingChart = Env.history.ratingChartApi.apply,
@@ -51,7 +52,6 @@ final class Env(
     isHostingSimul = Env.simul.isHosting,
     fetchIsStreamer = Env.streamer.api.isStreamer,
     fetchTeamIds = Env.team.cached.teamIdsList,
-    fetchIsCoach = Env.coach.api.isListedCoach,
     insightShare = Env.insight.share,
     getPlayTime = Env.game.playTime.apply,
     completionRate = Env.playban.api.completionRate
@@ -64,19 +64,19 @@ final class Env(
     asyncCache = Env.memo.asyncCache
   )
 
-  private def tryDailyPuzzle(): Fu[Option[lila.puzzle.DailyPuzzle]] =
+  private val tryDailyPuzzle: lidraughts.puzzle.Daily.Try = () =>
     scala.concurrent.Future {
       Env.puzzle.daily.get
     }.flatMap(identity).withTimeoutDefault(50 millis, none)(system) recover {
       case e: Exception =>
-        lila.log("preloader").warn("daily puzzle", e)
+        lidraughts.log("preloader").warn("daily puzzle", e)
         none
     }
 
-  def closeAccount(userId: lila.user.User.ID): Funit = for {
-    user <- lila.user.UserRepo byId userId flatten s"No such user $userId"
+  def closeAccount(userId: lidraughts.user.User.ID, self: Boolean): Funit = for {
+    user <- lidraughts.user.UserRepo byId userId flatten s"No such user $userId"
     goodUser <- !user.lameOrTroll ?? { !Env.playban.api.hasCurrentBan(user.id) }
-    _ <- lila.user.UserRepo.disable(user, keepEmail = !goodUser)
+    _ <- lidraughts.user.UserRepo.disable(user, keepEmail = !goodUser)
     _ = Env.user.onlineUserIdMemo.remove(user.id)
     following <- Env.relation.api fetchFollowing user.id
     _ <- !goodUser ?? Env.activity.write.unfollowAll(user, following)
@@ -89,24 +89,26 @@ final class Env(
     _ <- Env.lobby.seekApi.removeByUser(user)
     _ <- Env.security.store.disconnect(user.id)
     _ <- Env.streamer.api.onClose(user)
+    reports <- Env.report.api.processAndGetBySuspect(lidraughts.report.Suspect(user))
+    _ <- self ?? Env.mod.logApi.selfCloseAccount(user.id, reports)
   } yield {
-    system.lilaBus.publish(lila.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
+    system.lidraughtsBus.publish(lidraughts.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
   }
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
+      case lidraughts.hub.actorApi.security.GarbageCollect(userId, _) =>
         system.scheduler.scheduleOnce(1 second) {
-          closeAccount(userId)
+          closeAccount(userId, self = false)
         }
     }
   })), 'garbageCollect)
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
-  lila.log.boot.info(s"Java version ${System.getProperty("java.version")}")
-  lila.log.boot.info("Preloading modules")
-  lila.common.Chronometer.syncEffect(List(
+  lidraughts.log.boot.info(s"Java version ${System.getProperty("java.version")}")
+  lidraughts.log.boot.info("Preloading modules")
+  lidraughts.common.Chronometer.syncEffect(List(
     Env.socket,
     Env.site,
     Env.tournament,
@@ -128,7 +130,6 @@ final class Env(
     Env.puzzle,
     Env.tv,
     Env.blog,
-    Env.video,
     Env.playban, // required to load the actor
     Env.shutup, // required to load the actor
     Env.insight, // required to load the actor
@@ -137,7 +138,6 @@ final class Env(
     Env.slack, // required to load the actor
     Env.challenge, // required to load the actor
     Env.explorer, // required to load the actor
-    Env.fishnet, // required to schedule the cleaner
     Env.notifyModule, // required to load the actor
     Env.plan, // required to load the actor
     Env.studySearch, // required to load the actor
@@ -145,7 +145,7 @@ final class Env(
     Env.activity, // required to load the actor
     Env.relay // you know the drill by now
   )) { lap =>
-    lila.log.boot.info(s"${lap.millis}ms Preloading complete")
+    lidraughts.log.boot.info(s"${lap.millis}ms Preloading complete")
   }
 
   scheduler.once(5 seconds) {
@@ -156,70 +156,67 @@ final class Env(
 object Env {
 
   lazy val current = "app" boot new Env(
-    config = lila.common.PlayApp.loadConfig,
-    scheduler = lila.common.PlayApp.scheduler,
-    system = lila.common.PlayApp.system,
-    appPath = lila.common.PlayApp withApp (_.path.getCanonicalPath)
+    config = lidraughts.common.PlayApp.loadConfig,
+    scheduler = lidraughts.common.PlayApp.scheduler,
+    system = lidraughts.common.PlayApp.system,
+    appPath = lidraughts.common.PlayApp withApp (_.path.getCanonicalPath)
   )
 
-  def api = lila.api.Env.current
-  def db = lila.db.Env.current
-  def user = lila.user.Env.current
-  def security = lila.security.Env.current
-  def hub = lila.hub.Env.current
-  def socket = lila.socket.Env.current
-  def memo = lila.memo.Env.current
-  def message = lila.message.Env.current
-  def i18n = lila.i18n.Env.current
-  def game = lila.game.Env.current
-  def bookmark = lila.bookmark.Env.current
-  def search = lila.search.Env.current
-  def gameSearch = lila.gameSearch.Env.current
-  def timeline = lila.timeline.Env.current
-  def forum = lila.forum.Env.current
-  def forumSearch = lila.forumSearch.Env.current
-  def team = lila.team.Env.current
-  def teamSearch = lila.teamSearch.Env.current
-  def analyse = lila.analyse.Env.current
-  def mod = lila.mod.Env.current
-  def notifyModule = lila.notify.Env.current
-  def site = lila.site.Env.current
-  def round = lila.round.Env.current
-  def lobby = lila.lobby.Env.current
-  def setup = lila.setup.Env.current
-  def importer = lila.importer.Env.current
-  def tournament = lila.tournament.Env.current
-  def simul = lila.simul.Env.current
-  def relation = lila.relation.Env.current
-  def report = lila.report.Env.current
-  def pref = lila.pref.Env.current
-  def chat = lila.chat.Env.current
-  def puzzle = lila.puzzle.Env.current
-  def coordinate = lila.coordinate.Env.current
-  def tv = lila.tv.Env.current
-  def blog = lila.blog.Env.current
-  def qa = lila.qa.Env.current
-  def history = lila.history.Env.current
-  def video = lila.video.Env.current
-  def playban = lila.playban.Env.current
-  def shutup = lila.shutup.Env.current
-  def insight = lila.insight.Env.current
-  def push = lila.push.Env.current
-  def perfStat = lila.perfStat.Env.current
-  def slack = lila.slack.Env.current
-  def challenge = lila.challenge.Env.current
-  def explorer = lila.explorer.Env.current
-  def fishnet = lila.fishnet.Env.current
-  def study = lila.study.Env.current
-  def studySearch = lila.studySearch.Env.current
-  def learn = lila.learn.Env.current
-  def plan = lila.plan.Env.current
-  def event = lila.event.Env.current
-  def coach = lila.coach.Env.current
-  def pool = lila.pool.Env.current
-  def practice = lila.practice.Env.current
-  def irwin = lila.irwin.Env.current
-  def activity = lila.activity.Env.current
-  def relay = lila.relay.Env.current
-  def streamer = lila.streamer.Env.current
+  def api = lidraughts.api.Env.current
+  def db = lidraughts.db.Env.current
+  def user = lidraughts.user.Env.current
+  def security = lidraughts.security.Env.current
+  def hub = lidraughts.hub.Env.current
+  def socket = lidraughts.socket.Env.current
+  def memo = lidraughts.memo.Env.current
+  def message = lidraughts.message.Env.current
+  def i18n = lidraughts.i18n.Env.current
+  def game = lidraughts.game.Env.current
+  def bookmark = lidraughts.bookmark.Env.current
+  def search = lidraughts.search.Env.current
+  def gameSearch = lidraughts.gameSearch.Env.current
+  def timeline = lidraughts.timeline.Env.current
+  def forum = lidraughts.forum.Env.current
+  def forumSearch = lidraughts.forumSearch.Env.current
+  def team = lidraughts.team.Env.current
+  def teamSearch = lidraughts.teamSearch.Env.current
+  def analyse = lidraughts.analyse.Env.current
+  def mod = lidraughts.mod.Env.current
+  def notifyModule = lidraughts.notify.Env.current
+  def site = lidraughts.site.Env.current
+  def round = lidraughts.round.Env.current
+  def lobby = lidraughts.lobby.Env.current
+  def setup = lidraughts.setup.Env.current
+  def importer = lidraughts.importer.Env.current
+  def tournament = lidraughts.tournament.Env.current
+  def simul = lidraughts.simul.Env.current
+  def relation = lidraughts.relation.Env.current
+  def report = lidraughts.report.Env.current
+  def pref = lidraughts.pref.Env.current
+  def chat = lidraughts.chat.Env.current
+  def puzzle = lidraughts.puzzle.Env.current
+  def coordinate = lidraughts.coordinate.Env.current
+  def tv = lidraughts.tv.Env.current
+  def blog = lidraughts.blog.Env.current
+  def qa = lidraughts.qa.Env.current
+  def history = lidraughts.history.Env.current
+  def playban = lidraughts.playban.Env.current
+  def shutup = lidraughts.shutup.Env.current
+  def insight = lidraughts.insight.Env.current
+  def push = lidraughts.push.Env.current
+  def perfStat = lidraughts.perfStat.Env.current
+  def slack = lidraughts.slack.Env.current
+  def challenge = lidraughts.challenge.Env.current
+  def explorer = lidraughts.explorer.Env.current
+  def study = lidraughts.study.Env.current
+  def studySearch = lidraughts.studySearch.Env.current
+  def learn = lidraughts.learn.Env.current
+  def plan = lidraughts.plan.Env.current
+  def event = lidraughts.event.Env.current
+  def pool = lidraughts.pool.Env.current
+  def practice = lidraughts.practice.Env.current
+  def activity = lidraughts.activity.Env.current
+  def relay = lidraughts.relay.Env.current
+  def streamer = lidraughts.streamer.Env.current
+  def oAuth = lidraughts.oauth.Env.current
 }

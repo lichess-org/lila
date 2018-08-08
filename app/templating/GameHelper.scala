@@ -1,22 +1,22 @@
-package lila.app
+package lidraughts.app
 package templating
 
-import chess.format.Forsyth
-import chess.{ Status => S, Color, Clock, Mode }
+import draughts.format.Forsyth
+import draughts.{ Status => S, Color, Clock, Mode }
 import controllers.routes
 import play.twirl.api.Html
 
-import lila.common.String.html.escapeHtml
-import lila.game.{ Game, Player, Namer, Pov }
-import lila.user.{ User, UserContext }
-import lila.i18n.{ I18nKeys, enLang }
+import lidraughts.common.String.html.escapeHtml
+import lidraughts.game.{ Game, Player, Namer, Pov }
+import lidraughts.user.{ User, UserContext }
+import lidraughts.i18n.{ I18nKeys, enLang }
 
-trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ChessgroundHelper =>
+trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with DraughtsgroundHelper =>
 
   def netBaseUrl: String
   def cdnUrl(path: String): String
 
-  def povOpenGraph(pov: Pov) = lila.app.ui.OpenGraph(
+  def povOpenGraph(pov: Pov) = lidraughts.app.ui.OpenGraph(
     image = cdnUrl(routes.Export.png(pov.game.id).url).some,
     title = titleGame(pov.game),
     url = s"$netBaseUrl${routes.Round.watcher(pov.game.id, pov.color.name).url}",
@@ -24,9 +24,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   )
 
   def titleGame(g: Game) = {
-    val speed = chess.Speed(g.clock.map(_.config)).name
+    val speed = draughts.Speed(g.clock.map(_.config)).name
     val variant = g.variant.exotic ?? s" ${g.variant.name}"
-    s"$speed$variant Chess • ${playerText(g.whitePlayer)} vs ${playerText(g.blackPlayer)}"
+    s"$speed$variant Draughts • ${playerText(g.whitePlayer)} vs ${playerText(g.blackPlayer)}"
   }
 
   def describePov(pov: Pov) = {
@@ -35,13 +35,13 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val p2 = playerText(opponent, withRating = true)
     val speedAndClock =
       if (game.imported) "imported"
-      else game.clock.fold(chess.Speed.Correspondence.name) { c =>
-        s"${chess.Speed(c.config).name} (${c.config.show})"
+      else game.clock.fold(draughts.Speed.Correspondence.name) { c =>
+        s"${draughts.Speed(c.config).name} (${c.config.show})"
       }
     val mode = game.mode.name
-    val variant = if (game.variant == chess.variant.FromPosition) "position setup chess"
-    else if (game.variant.exotic) game.variant.name else "chess"
-    import chess.Status._
+    val variant = if (game.variant == draughts.variant.FromPosition) "position setup draughts"
+    else if (game.variant.exotic) game.variant.name else "draughts"
+    import draughts.Status._
     val result = (game.winner, game.loser, game.status) match {
       case (Some(w), _, Mate) => s"${playerText(w)} won by checkmate"
       case (_, Some(l), Resign | Timeout | Cheat | NoStart) => s"${playerText(l)} resigned"
@@ -50,30 +50,24 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case (_, _, Draw | Stalemate | UnknownFinish) => "Game is a draw"
       case (_, _, Aborted) => "Game has been aborted"
       case (_, _, VariantEnd) => game.variant match {
-        case chess.variant.KingOfTheHill => "King in the center"
-        case chess.variant.ThreeCheck => "Three checks"
-        case chess.variant.Antichess => "Lose all your pieces to win"
-        case chess.variant.Atomic => "Explode or mate your opponent's king to win"
-        case chess.variant.Horde => "Destroy the horde to win"
-        case chess.variant.RacingKings => "Race to the eighth rank to win"
-        case chess.variant.Crazyhouse => "Drop captured pieces on the board"
+        case draughts.variant.Frisian => "King in the center"
         case _ => "Variant ending"
       }
       case _ => "Game is still being played"
     }
-    val moves = s"${game.chess.fullMoveNumber} moves"
+    val moves = s"${game.draughts.fullMoveNumber} moves"
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
   }
 
-  def variantName(variant: chess.variant.Variant)(implicit ctx: UserContext) = variant match {
-    case chess.variant.Standard => I18nKeys.standard.txt()
-    case chess.variant.FromPosition => I18nKeys.fromPosition.txt()
+  def variantName(variant: draughts.variant.Variant)(implicit ctx: UserContext) = variant match {
+    case draughts.variant.Standard => I18nKeys.standard.txt()
+    case draughts.variant.FromPosition => I18nKeys.fromPosition.txt()
     case v => v.name
   }
 
-  def variantNameNoCtx(variant: chess.variant.Variant) = variant match {
-    case chess.variant.Standard => I18nKeys.standard.literalTxtTo(enLang)
-    case chess.variant.FromPosition => I18nKeys.fromPosition.literalTxtTo(enLang)
+  def variantNameNoCtx(variant: draughts.variant.Variant) = variant match {
+    case draughts.variant.Standard => I18nKeys.standard.literalTxtTo(enLang)
+    case draughts.variant.FromPosition => I18nKeys.fromPosition.literalTxtTo(enLang)
     case v => v.name
   }
 
@@ -134,8 +128,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         val klass = userClass(user.id, cssClass, withOnline)
         val href = s"${routes.User show user.name}${if (mod) "?mod" else ""}"
         val content = playerUsername(player, withRating)
-        val diff = (player.ratingDiff ifTrue withDiff).fold(Html(""))(showRatingDiff)
-        val mark = engine ?? s"""<span class="engine_mark" title="${I18nKeys.thisPlayerUsesChessComputerAssistance()}"></span>"""
+        val diff = (player.ratingDiff ifTrue withDiff).fold(emptyHtml)(showRatingDiff)
+        val mark = engine ?? s"""<span class="engine_mark" title="${I18nKeys.thisPlayerUsesDraughtsComputerAssistance()}"></span>"""
         val icon = withOnline ?? lineIcon(user)
         val space = if (withOnline) "&nbsp;" else ""
         val tag = if (link) "a" else "span"
@@ -145,7 +139,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def gameEndStatus(game: Game)(implicit ctx: UserContext): Html = game.status match {
     case S.Aborted => I18nKeys.gameAborted()
-    case S.Mate => I18nKeys.checkmate()
+    case S.Mate => Html("")
     case S.Resign => game.loser match {
       case Some(p) if p.color.white => I18nKeys.whiteResigned()
       case _ => I18nKeys.blackResigned()
@@ -165,12 +159,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
     case S.Cheat => Html("Cheat detected")
     case S.VariantEnd => game.variant match {
-      case chess.variant.KingOfTheHill => I18nKeys.kingInTheCenter()
-      case chess.variant.ThreeCheck => I18nKeys.threeChecks()
-      case chess.variant.RacingKings => I18nKeys.raceFinished()
+      /*case draughts.variant.KingOfTheHill => I18nKeys.kingInTheCenter()
+      case draughts.variant.ThreeCheck => I18nKeys.threeChecks()
+      case draughts.variant.RacingKings => I18nKeys.raceFinished()*/
       case _ => I18nKeys.variantEnding()
     }
-    case _ => Html("")
+    case _ => emptyHtml
   }
 
   private def gameTitle(game: Game, color: Color): String = {
@@ -183,12 +177,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   // whiteUsername 1-0 blackUsername
   def gameSummary(whiteUserId: String, blackUserId: String, finished: Boolean, result: Option[Boolean]) = {
-    val res = if (finished) chess.Color.showResult(result map Color.apply) else "*"
+    val res = if (finished) draughts.Color.showResult(result map Color.apply) else "*"
     s"${usernameOrId(whiteUserId)} $res ${usernameOrId(blackUserId)}"
   }
 
   def gameResult(game: Game) =
-    if (game.finished) chess.Color.showResult(game.winnerColor)
+    if (game.finished) draughts.Color.showResult(game.winnerColor)
     else "*"
 
   def gameLink(
@@ -241,9 +235,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     )
   }
 
-  def challengeTitle(c: lila.challenge.Challenge)(implicit ctx: UserContext) = {
+  def challengeTitle(c: lidraughts.challenge.Challenge)(implicit ctx: UserContext) = {
     val speed = c.clock.map(_.config).fold(I18nKeys.unlimited.txt()) { clock =>
-      s"${chess.Speed(clock).name} (${clock.show})"
+      s"${draughts.Speed(clock).name} (${clock.show})"
     }
     val variant = c.variant.exotic ?? s" ${c.variant.name}"
     val challenger = c.challenger.fold(
@@ -253,13 +247,13 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val players = c.destUser.fold(s"Challenge from $challenger") { dest =>
       s"$challenger challenges ${usernameOrId(dest.id)} (${dest.rating.show})"
     }
-    s"$speed$variant ${c.mode.name} Chess • $players"
+    s"$speed$variant ${c.mode.name} Draughts • $players"
   }
 
-  def challengeOpenGraph(c: lila.challenge.Challenge)(implicit ctx: UserContext) =
-    lila.app.ui.OpenGraph(
+  def challengeOpenGraph(c: lidraughts.challenge.Challenge)(implicit ctx: UserContext) =
+    lidraughts.app.ui.OpenGraph(
       title = challengeTitle(c),
-      url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",
+      url = s"$netBaseUrl${routes.Round.watcher(c.id, draughts.White.name).url}",
       description = "Join the challenge or watch the game here."
     )
 }

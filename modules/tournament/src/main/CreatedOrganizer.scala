@@ -1,4 +1,4 @@
-package lila.tournament
+package lidraughts.tournament
 
 import akka.actor._
 import scala.concurrent.duration._
@@ -42,7 +42,7 @@ private final class CreatedOrganizer(
             case _ => funit
           }
         }
-        lila.mon.tournament.created(tours.size)
+        lidraughts.mon.tournament.created(tours.size)
       }.chronometer
         .mon(_.tournament.createdOrganizer.tickTime)
         .logIfSlow(500, logger)(_ => "CreatedOrganizer.Tick")

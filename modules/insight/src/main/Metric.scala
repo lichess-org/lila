@@ -1,4 +1,4 @@
-package lila.insight
+package lidraughts.insight
 
 import play.twirl.api.Html
 import reactivemongo.bson._
@@ -30,7 +30,7 @@ object Metric {
   import Entry.{ BSONFields => F }
 
   case object MeanCpl extends Metric("acpl", "Average centipawn loss", F moves "c", Move, Move, Average,
-    Html("""Precision of your moves. Lower is better. <a href="//lichess.org/qa/103/what-is-average-centipawn-loss">More info</a>"""))
+    Html("""Precision of your moves. Lower is better. <a href="//lidraughts.org/qa/103/what-is-average-centipawn-loss">More info</a>"""))
 
   case object Movetime extends Metric("movetime", "Move time", F moves "t", Move, Move, Seconds,
     Dimension.MovetimeRange.description)
@@ -84,13 +84,13 @@ object Metric {
   }
 
   def valuesOf(metric: Metric): List[MetricValue] = metric match {
-    case Result => lila.insight.Result.all.map { r =>
+    case Result => lidraughts.insight.Result.all.map { r =>
       MetricValue(BSONInteger(r.id), MetricValueName(r.name))
     }
-    case Termination => lila.insight.Termination.all.map { r =>
+    case Termination => lidraughts.insight.Termination.all.map { r =>
       MetricValue(BSONInteger(r.id), MetricValueName(r.name))
     }
-    case PieceRole => chess.Role.all.reverse.map { r =>
+    case PieceRole => draughts.Role.all.reverse.map { r =>
       MetricValue(BSONString(r.forsyth.toString), MetricValueName(r.toString))
     }
     case _ => Nil

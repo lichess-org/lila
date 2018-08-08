@@ -1,4 +1,4 @@
-package lila.slack
+package lidraughts.slack
 
 import play.api.libs.json._
 import play.api.libs.ws.WS

@@ -1,11 +1,11 @@
-package lila.insight
+package lidraughts.insight
 
 import akka.actor._
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    getPref: String => Fu[lila.pref.Pref],
+    getPref: String => Fu[lidraughts.pref.Pref],
     areFriends: (String, String) => Fu[Boolean],
     system: ActorSystem,
     lifecycle: play.api.inject.ApplicationLifecycle
@@ -17,7 +17,7 @@ final class Env(
   }
   import settings._
 
-  private val db = new lila.db.Env("insight", config getConfig "mongodb", lifecycle)
+  private val db = new lidraughts.db.Env("insight", config getConfig "mongodb", lifecycle)
 
   lazy val share = new Share(getPref, areFriends)
 
@@ -30,7 +30,7 @@ final class Env(
   private lazy val indexer = new Indexer(
     storage = storage,
     sequencer = system.actorOf(Props(
-      classOf[lila.hub.Sequencer],
+      classOf[lidraughts.hub.Sequencer],
       None, None, logger
     ))
   )
@@ -44,9 +44,9 @@ final class Env(
     indexer = indexer
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.analyse.actorApi.AnalysisReady(game, _) => api updateGame game
+      case lidraughts.analyse.actorApi.AnalysisReady(game, _) => api updateGame game
     }
   })), 'analysisReady)
 }
@@ -54,10 +54,10 @@ final class Env(
 object Env {
 
   lazy val current: Env = "insight" boot new Env(
-    config = lila.common.PlayApp loadConfig "insight",
-    getPref = lila.pref.Env.current.api.getPrefById,
-    areFriends = lila.relation.Env.current.api.fetchAreFriends,
-    system = lila.common.PlayApp.system,
-    lifecycle = lila.common.PlayApp.lifecycle
+    config = lidraughts.common.PlayApp loadConfig "insight",
+    getPref = lidraughts.pref.Env.current.api.getPrefById,
+    areFriends = lidraughts.relation.Env.current.api.fetchAreFriends,
+    system = lidraughts.common.PlayApp.system,
+    lifecycle = lidraughts.common.PlayApp.lifecycle
   )
 }

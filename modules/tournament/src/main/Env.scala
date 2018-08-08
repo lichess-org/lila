@@ -1,34 +1,34 @@
-package lila.tournament
+package lidraughts.tournament
 
 import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.map.Ask
-import lila.hub.{ ActorMap, Sequencer }
-import lila.socket.actorApi.GetVersion
-import lila.socket.History
-import lila.user.User
+import lidraughts.hub.actorApi.map.Ask
+import lidraughts.hub.{ ActorMap, Sequencer }
+import lidraughts.socket.actorApi.GetVersion
+import lidraughts.socket.History
+import lidraughts.user.User
 import makeTimeout.short
 
 final class Env(
     config: Config,
     system: ActorSystem,
-    db: lila.db.Env,
-    mongoCache: lila.memo.MongoCache.Builder,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    flood: lila.security.Flood,
-    hub: lila.hub.Env,
+    db: lidraughts.db.Env,
+    mongoCache: lidraughts.memo.MongoCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    flood: lidraughts.security.Flood,
+    hub: lidraughts.hub.Env,
     roundMap: ActorRef,
     roundSocketHub: ActorSelection,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lidraughts.user.LightUserApi,
     isOnline: String => Boolean,
     onStart: String => Unit,
-    historyApi: lila.history.HistoryApi,
-    trophyApi: lila.user.TrophyApi,
-    notifyApi: lila.notify.NotifyApi,
-    scheduler: lila.common.Scheduler,
+    historyApi: lidraughts.history.HistoryApi,
+    trophyApi: lidraughts.user.TrophyApi,
+    notifyApi: lidraughts.notify.NotifyApi,
+    scheduler: lidraughts.common.Scheduler,
     startedSinceSeconds: Int => Boolean
 ) {
 
@@ -79,6 +79,11 @@ final class Env(
     asyncCache = asyncCache
   )
 
+  lazy val revolutionApi = new RevolutionApi(
+    coll = tournamentColl,
+    asyncCache = asyncCache
+  )
+
   private val duelStore = new DuelStore
 
   lazy val api = new TournamentApi(
@@ -89,7 +94,10 @@ final class Env(
     autoPairing = autoPairing,
     clearJsonViewCache = jsonView.clearCache,
     clearWinnersCache = winners.clearCache,
-    clearShieldCache = () => shieldApi.clear,
+    clearTrophyCache = tour => {
+      if (tour.isShield) shieldApi.clear
+      else if (tour.isUnique) revolutionApi.clear
+    },
     renderer = hub.actor.renderer,
     timeline = hub.actor.timeline,
     socketHub = socketHub,
@@ -115,13 +123,13 @@ final class Env(
     flood = flood
   )
 
-  lazy val jsonView = new JsonView(lightUserApi, cached, statsApi, asyncCache, verify, duelStore, startedSinceSeconds)
+  lazy val jsonView = new JsonView(lightUserApi, cached, statsApi, shieldApi, asyncCache, verify, duelStore, startedSinceSeconds)
 
   lazy val scheduleJsonView = new ScheduleJsonView(lightUserApi.async)
 
   lazy val leaderboardApi = new LeaderboardApi(
     coll = leaderboardColl,
-    maxPerPage = lila.common.MaxPerPage(15)
+    maxPerPage = lidraughts.common.MaxPerPage(15)
   )
 
   def playerRepo = PlayerRepo
@@ -132,7 +140,7 @@ final class Env(
   )
 
   private val socketHub = system.actorOf(
-    Props(new lila.socket.SocketHubActor.Default[Socket] {
+    Props(new lidraughts.socket.SocketHubActor.Default[Socket] {
       def mkActor(tournamentId: String) = new Socket(
         tournamentId = tournamentId,
         history = new History(ttl = HistoryMessageTtl),
@@ -152,7 +160,7 @@ final class Env(
     )
   }))
 
-  system.lilaBus.subscribe(
+  system.lidraughtsBus.subscribe(
     system.actorOf(Props(new ApiActor(api = api)), name = ApiActorName),
     'finishGame, 'adjustCheater, 'adjustBooster, 'playban
   )
@@ -181,10 +189,10 @@ final class Env(
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
   def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] = {
-    socketHub ? Ask(tourId, lila.hub.actorApi.HasUserId(userId)) mapTo manifest[Boolean]
+    socketHub ? Ask(tourId, lidraughts.hub.actorApi.HasUserId(userId)) mapTo manifest[Boolean]
   } >>| PairingRepo.isPlaying(tourId, userId)
 
-  def cli = new lila.common.Cli {
+  def cli = new lidraughts.common.Cli {
     def process = {
       case "tournament" :: "leaderboard" :: "generate" :: Nil =>
         leaderboardIndexer.generateAll inject "Done!"
@@ -202,22 +210,22 @@ final class Env(
 object Env {
 
   lazy val current = "tournament" boot new Env(
-    config = lila.common.PlayApp loadConfig "tournament",
-    system = lila.common.PlayApp.system,
-    db = lila.db.Env.current,
-    mongoCache = lila.memo.Env.current.mongoCache,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    flood = lila.security.Env.current.flood,
-    hub = lila.hub.Env.current,
-    roundMap = lila.round.Env.current.roundMap,
-    roundSocketHub = lila.hub.Env.current.socket.round,
-    lightUserApi = lila.user.Env.current.lightUserApi,
-    isOnline = lila.user.Env.current.isOnline,
-    onStart = lila.game.Env.current.onStart,
-    historyApi = lila.history.Env.current.api,
-    trophyApi = lila.user.Env.current.trophyApi,
-    notifyApi = lila.notify.Env.current.api,
-    scheduler = lila.common.PlayApp.scheduler,
-    startedSinceSeconds = lila.common.PlayApp.startedSinceSeconds
+    config = lidraughts.common.PlayApp loadConfig "tournament",
+    system = lidraughts.common.PlayApp.system,
+    db = lidraughts.db.Env.current,
+    mongoCache = lidraughts.memo.Env.current.mongoCache,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    flood = lidraughts.security.Env.current.flood,
+    hub = lidraughts.hub.Env.current,
+    roundMap = lidraughts.round.Env.current.roundMap,
+    roundSocketHub = lidraughts.hub.Env.current.socket.round,
+    lightUserApi = lidraughts.user.Env.current.lightUserApi,
+    isOnline = lidraughts.user.Env.current.isOnline,
+    onStart = lidraughts.game.Env.current.onStart,
+    historyApi = lidraughts.history.Env.current.api,
+    trophyApi = lidraughts.user.Env.current.trophyApi,
+    notifyApi = lidraughts.notify.Env.current.api,
+    scheduler = lidraughts.common.PlayApp.scheduler,
+    startedSinceSeconds = lidraughts.common.PlayApp.startedSinceSeconds
   )
 }

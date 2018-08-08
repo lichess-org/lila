@@ -1,6 +1,6 @@
-package lila.study
+package lidraughts.study
 
-import chess.Centis
+import draughts.Centis
 
 case class MoveOpts(
     write: Boolean,

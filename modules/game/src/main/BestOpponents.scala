@@ -1,9 +1,9 @@
-package lila.game
+package lidraughts.game
 
 import com.github.blemale.scaffeine.Scaffeine
 import scala.concurrent.duration._
 
-import lila.user.{ User, UserRepo }
+import lidraughts.user.{ User, UserRepo }
 
 final class BestOpponents {
 

@@ -1,16 +1,16 @@
-package lila.timeline
+package lidraughts.timeline
 
 import akka.actor._
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
-    hub: lila.hub.Env,
+    db: lidraughts.db.Env,
+    hub: lidraughts.hub.Env,
     getFriendIds: String => Fu[Set[String]],
     getFollowerIds: String => Fu[Set[String]],
     lobbySocket: ActorSelection,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     renderer: ActorSelection,
     system: ActorSystem
 ) {
@@ -56,14 +56,14 @@ final class Env(
 object Env {
 
   lazy val current = "timeline" boot new Env(
-    config = lila.common.PlayApp loadConfig "timeline",
-    db = lila.db.Env.current,
-    hub = lila.hub.Env.current,
-    getFriendIds = lila.relation.Env.current.api.fetchFriends,
-    getFollowerIds = lila.relation.Env.current.api.fetchFollowersFromSecondary,
-    lobbySocket = lila.hub.Env.current.socket.lobby,
-    renderer = lila.hub.Env.current.actor.renderer,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system
+    config = lidraughts.common.PlayApp loadConfig "timeline",
+    db = lidraughts.db.Env.current,
+    hub = lidraughts.hub.Env.current,
+    getFriendIds = lidraughts.relation.Env.current.api.fetchFriends,
+    getFollowerIds = lidraughts.relation.Env.current.api.fetchFollowersFromSecondary,
+    lobbySocket = lidraughts.hub.Env.current.socket.lobby,
+    renderer = lidraughts.hub.Env.current.actor.renderer,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    system = lidraughts.common.PlayApp.system
   )
 }

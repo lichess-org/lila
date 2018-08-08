@@ -1,18 +1,18 @@
 package controllers
 
-import chess.format.Forsyth
-import chess.Situation
+import draughts.format.Forsyth
+import draughts.Situation
 import play.api.libs.json._
 import play.twirl.api.Html
 
-import lila.app._
-import lila.game.GameRepo
+import lidraughts.app._
+import lidraughts.game.GameRepo
 import views._
 
-object Editor extends LilaController {
+object Editor extends LidraughtsController {
 
-  private lazy val positionsJson = lila.common.String.html.safeJson {
-    JsArray(chess.StartingPosition.all map { p =>
+  private lazy val positionsJson = lidraughts.common.String.html.safeJson {
+    JsArray(draughts.StartingPosition.all map { p =>
       Json.obj(
         "eco" -> p.eco,
         "name" -> p.name,
@@ -24,7 +24,7 @@ object Editor extends LilaController {
   def index = load("")
 
   def load(urlFen: String) = Open { implicit ctx =>
-    val fenStr = lila.common.String.decodeUriPath(urlFen)
+    val fenStr = lidraughts.common.String.decodeUriPath(urlFen)
       .map(_.replace("_", " ").trim).filter(_.nonEmpty)
       .orElse(get("fen"))
     fuccess {
@@ -50,13 +50,13 @@ object Editor extends LilaController {
   }
 
   private def readFen(fen: Option[String]): Situation =
-    fen.map(_.trim).filter(_.nonEmpty).flatMap(Forsyth.<<<).map(_.situation) | Situation(chess.variant.Standard)
+    fen.map(_.trim).filter(_.nonEmpty).flatMap(Forsyth.<<<).map(_.situation) | Situation(draughts.variant.Standard)
 
   def game(id: String) = Open { implicit ctx =>
     OptionResult(GameRepo game id) { game =>
       Redirect {
         if (game.playable) routes.Round.watcher(game.id, "white")
-        else routes.Editor.load(get("fen") | (chess.format.Forsyth >> game.chess))
+        else routes.Editor.load(get("fen") | (draughts.format.Forsyth >> game.draughts))
       }
     }
   }

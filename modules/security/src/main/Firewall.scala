@@ -1,13 +1,13 @@
-package lila.security
+package lidraughts.security
 
 import scala.concurrent.duration._
 
 import org.joda.time.DateTime
 import play.api.mvc.{ RequestHeader, Cookies }
 
-import lila.common.IpAddress
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl._
+import lidraughts.common.IpAddress
+import lidraughts.db.BSON.BSONJodaDateTimeHandler
+import lidraughts.db.dsl._
 
 final class Firewall(
     coll: Coll,
@@ -24,9 +24,9 @@ final class Firewall(
 
   def blocks(req: RequestHeader): Boolean = enabled && {
     val v = blocksIp {
-      lila.common.HTTPRequest lastRemoteAddress req
+      lidraughts.common.HTTPRequest lastRemoteAddress req
     } || cookieName.?? { blocksCookies(req.cookies, _) }
-    if (v) lila.mon.security.firewall.block()
+    if (v) lidraughts.mon.security.firewall.block()
     v
   }
 
@@ -48,7 +48,7 @@ final class Firewall(
   private def loadFromDb: Funit =
     coll.distinct[String, Set]("_id", none).map { ips =>
       current = ips
-      lila.mon.security.firewall.ip(ips.size)
+      lidraughts.mon.security.firewall.ip(ips.size)
     }
 
   private def blocksCookies(cookies: Cookies, name: String) =

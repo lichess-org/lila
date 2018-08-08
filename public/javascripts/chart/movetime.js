@@ -1,11 +1,11 @@
 function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
-lichess.movetimeChart = function(data, trans) {
-  lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
-    lichess.loadScript('/assets/javascripts/chart/division.js').done(function() {
-      lichess.chartCommon('highchart').done(function() {
-        lichess.movetimeChart.render = function() {
+lidraughts.movetimeChart = function(data, trans) {
+  lidraughts.loadScript('/assets/javascripts/chart/common.js').done(function() {
+    lidraughts.loadScript('/assets/javascripts/chart/division.js').done(function() {
+      lidraughts.chartCommon('highchart').done(function() {
+        lidraughts.movetimeChart.render = function() {
           $('#movetimes_chart:not(.rendered)').each(function() {
             var $this = $(this).addClass('rendered');
 
@@ -89,8 +89,8 @@ lichess.movetimeChart = function(data, trans) {
                   animation: false
                 },
                 area: {
-                  fillColor: Highcharts.theme.lichess.area.white,
-                  negativeFillColor: Highcharts.theme.lichess.area.black,
+                  fillColor: Highcharts.theme.lidraughts.area.white,
+                  negativeFillColor: Highcharts.theme.lidraughts.area.black,
                   fillOpacity: 1,
                   threshold: 0,
                   lineWidth: 1,
@@ -106,7 +106,7 @@ lichess.movetimeChart = function(data, trans) {
                     click: function(event) {
                       if (event.point) {
                         event.point.select();
-                        lichess.analyse.jumpToIndex(event.point.x);
+                        lidraughts.analyse.jumpToIndex(event.point.x);
                       }
                     }
                   },
@@ -133,7 +133,7 @@ lichess.movetimeChart = function(data, trans) {
                 labels: disabled,
                 lineWidth: 0,
                 tickWidth: 0,
-                plotLines: lichess.divisionLines(data.game.division, trans)
+                plotLines: lidraughts.divisionLines(data.game.division, trans)
               },
               yAxis: {
                 title: noText,
@@ -144,9 +144,9 @@ lichess.movetimeChart = function(data, trans) {
               }
             });
           });
-          lichess.pubsub.emit('analysis.change.trigger')();
+          lidraughts.pubsub.emit('analysis.change.trigger')();
         };
-        lichess.movetimeChart.render();
+        lidraughts.movetimeChart.render();
       });
     });
   });

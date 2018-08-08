@@ -16,7 +16,7 @@ $(function() {
     };
     return {
       light: light,
-      lichess: {
+      lidraughts: {
         text: text,
         line: line
       },
@@ -215,11 +215,11 @@ $(function() {
     $('.lag .answer span').hide().parent().find('.' + c).show();
   };
 
-  lichess.socket = new lichess.StrongSocket('/socket', false, {
+  lidraughts.socket = new lidraughts.StrongSocket('/socket', false, {
     options: {
       name: "analyse",
       onFirstConnect: function() {
-        lichess.socket.send('moveLat', true);
+        lidraughts.socket.send('moveLat', true);
       }
     },
     receive: function(t, d) {
@@ -229,7 +229,7 @@ $(function() {
         values.server = v;
         updateAnswer();
       } else if (t === 'n') setTimeout(function() {
-        var v = Math.round(lichess.socket.averageLag());
+        var v = Math.round(lidraughts.socket.averageLag());
         charts.network.series[0].points[0].update(v);
         values.network = v;
         updateAnswer();

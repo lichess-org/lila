@@ -1,13 +1,13 @@
-package lila.tournament
+package lidraughts.tournament
 
-import chess.Color
-import lila.game.{ PovRef, IdGenerator, Game }
-import lila.user.User
+import draughts.Color
+import lidraughts.game.{ PovRef, IdGenerator, Game }
+import lidraughts.user.User
 
 case class Pairing(
     id: Game.ID, // game Id
     tourId: Tournament.ID,
-    status: chess.Status,
+    status: draughts.Status,
     user1: User.ID,
     user2: User.ID,
     winner: Option[User.ID],
@@ -29,7 +29,7 @@ case class Pairing(
     else if (userId == user2) user1.some
     else none
 
-  def finished = status >= chess.Status.Mate
+  def finished = status >= draughts.Status.Mate
   def playing = !finished
 
   def quickFinish = finished && turns.??(20 >)
@@ -63,7 +63,7 @@ private[tournament] object Pairing {
   def apply(tourId: Tournament.ID, u1: User.ID, u2: User.ID): Pairing = new Pairing(
     id = IdGenerator.game,
     tourId = tourId,
-    status = chess.Status.Created,
+    status = draughts.Status.Created,
     user1 = u1,
     user2 = u2,
     winner = none,

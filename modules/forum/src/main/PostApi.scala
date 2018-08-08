@@ -1,26 +1,26 @@
-package lila.forum
+package lidraughts.forum
 
 import actorApi._
 import akka.actor.ActorSelection
-import lila.common.paginator._
-import lila.db.dsl._
-import lila.db.paginator._
-import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
-import lila.mod.ModlogApi
-import lila.security.{ Granter => MasterGranter }
-import lila.user.{ User, UserContext }
+import lidraughts.common.paginator._
+import lidraughts.db.dsl._
+import lidraughts.db.paginator._
+import lidraughts.hub.actorApi.timeline.{ ForumPost, Propagate }
+import lidraughts.mod.ModlogApi
+import lidraughts.security.{ Granter => MasterGranter }
+import lidraughts.user.{ User, UserContext }
 import org.joda.time.DateTime
 
 final class PostApi(
     env: Env,
     indexer: ActorSelection,
-    maxPerPage: lila.common.MaxPerPage,
+    maxPerPage: lidraughts.common.MaxPerPage,
     modLog: ModlogApi,
     shutup: ActorSelection,
     timeline: ActorSelection,
-    detectLanguage: lila.common.DetectLanguage,
+    detectLanguage: lidraughts.common.DetectLanguage,
     mentionNotifier: MentionNotifier,
-    bus: lila.common.Bus
+    bus: lidraughts.common.Bus
 ) {
 
   import BSONHandlers._
@@ -37,7 +37,7 @@ final class PostApi(
           author = none,
           userId = ctx.me map (_.id),
           ip = ctx.req.remoteAddress.some,
-          text = lila.security.Spam.replace(data.text),
+          text = lidraughts.security.Spam.replace(data.text),
           number = number + 1,
           lang = lang map (_.language),
           troll = ctx.troll,
@@ -57,8 +57,8 @@ final class PostApi(
               (!categ.quiet ?? env.recent.invalidate) >>-
               ctx.userId.?? { userId =>
                 shutup ! post.isTeam.fold(
-                  lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text),
-                  lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text)
+                  lidraughts.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text),
+                  lidraughts.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text)
                 )
               } >>- {
                 (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
@@ -68,7 +68,7 @@ final class PostApi(
                       prop toFollowersOf userId toUsers topicUserIds exceptUser userId
                     ))
                 }
-                lila.mon.forum.post.create()
+                lidraughts.mon.forum.post.create()
                 mentionNotifier.notifyMentionedUsers(post, topic)
                 bus.publish(actorApi.CreatePost(post, topic), 'forumPost)
               } inject post
@@ -86,7 +86,7 @@ final class PostApi(
         case Some((_, post)) if !post.canStillBeEdited() =>
           fufail("Post can no longer be edited")
         case Some((_, post)) =>
-          val spamEscapedTest = lila.security.Spam.replace(newText)
+          val spamEscapedTest = lidraughts.security.Spam.replace(newText)
           val newPost = post.editPost(now, spamEscapedTest)
           env.postColl.update($id(post.id), newPost) inject newPost
         case None => fufail("Post no longer exists.")
@@ -94,7 +94,7 @@ final class PostApi(
     }
   }
 
-  private val quickHideCategs = Set("lichess-feedback", "off-topic-discussion")
+  private val quickHideCategs = Set("lidraughts-feedback", "off-topic-discussion")
 
   private def shouldHideOnPost(topic: Topic) =
     topic.visibleOnHome && {

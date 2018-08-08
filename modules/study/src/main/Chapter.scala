@@ -1,13 +1,14 @@
-package lila.study
+package lidraughts.study
 
-import chess.format.pgn.{ Glyph, Tag, Tags }
-import chess.variant.Variant
-import chess.{ Color, Centis }
+import draughts.format.Forsyth
+import draughts.format.pdn.{ Glyph, Tag, Tags }
+import draughts.variant.Variant
+import draughts.{ Color, Centis }
 import org.joda.time.DateTime
 
-import chess.opening.{ FullOpening, FullOpeningDB }
-import lila.tree.Node.{ Shapes, Comment, Gamebook }
-import lila.user.User
+import draughts.opening.{ FullOpening, FullOpeningDB }
+import lidraughts.tree.Node.{ Shapes, Comment, Gamebook }
+import lidraughts.user.User
 
 case class Chapter(
     _id: Chapter.Id,
@@ -31,6 +32,51 @@ case class Chapter(
     f(root) map { newRoot =>
       copy(root = newRoot)
     }
+
+  def continueCapture(node: Node, path: Path, newRelay: Option[Chapter.Relay] = None): Option[(Chapter, Node)] = root.nodeAtStrict(path) match {
+    case Some(tailNode) => Forsyth << tailNode.fen.value match {
+      case Some(situation) if situation.ghosts > 0 => {
+        var mergedNode = tailNode.mergeCapture(node)
+        val tailChildren = root.nodeAtStrict(path.withoutLast).fold(if (path.withoutLast.ids.isEmpty) root.children.nodes else Vector[Node]()) { _.children.nodes }
+        logger.info(s"isAmbiguous ${tailChildren exists { n => n.move.san == mergedNode.move.san && n.fen != mergedNode.fen }} in $tailChildren")
+        if (tailChildren exists { n => n.move.san == mergedNode.move.san && n.fen != mergedNode.fen }) {
+          logger.info(s"before id: ${mergedNode.id}")
+          mergedNode = mergedNode findNextAmbiguity tailChildren
+          logger.info(s"after id: ${mergedNode.id}")
+        }
+        updateRoot {
+          _.withChildren(_.deleteNodeAt(path))
+        } flatMap {
+          _.updateRoot {
+            tailChildren.find { n => n.move.san == mergedNode.move.san && n.fen == mergedNode.fen } match {
+              case Some(duplicate) =>
+                _.withChildren(_.updateAt(path.withoutLast + duplicate, { _.merge(mergedNode.withoutChildren) }))
+              case _ =>
+                _.withChildren(_.addNodeAt(mergedNode.withoutChildren, path.withoutLast))
+            }
+          }
+        } map {
+          _.copy(relay = newRelay orElse relay)
+        } match {
+          case Some(chapter) => (chapter, mergedNode).some
+          case _ => None
+        }
+      }
+      case _ => None
+    }
+    case _ => None
+  }
+
+  def countAmbiguities(node: Node, path: Path): Int = root.nodeAtStrict(path) match {
+    case Some(tailNode) => Forsyth << tailNode.fen.value match {
+      case Some(situation) if situation.ghosts > 0 => {
+        val mergedNode = tailNode.mergeCapture(node)
+        root.nodeAtStrict(path.withoutLast).fold(if (path.withoutLast.ids.isEmpty) root.children.nodes else Vector[Node]()) { _.children.nodes } count { n => n.move.san == mergedNode.move.san && n.fen != mergedNode.fen }
+      }
+      case _ => 0
+    }
+    case _ => 0
+  }
 
   def addNode(node: Node, path: Path, newRelay: Option[Chapter.Relay] = None): Option[Chapter] =
     updateRoot {
@@ -79,15 +125,21 @@ case class Chapter(
   def withoutChildren = copy(root = root.withoutChildren)
 
   def relayAndTags = relay map { Chapter.RelayAndTags(id, _, tags) }
+
+  def isOverweight = root.children.countRecursive >= Chapter.maxNodes
 }
 
 object Chapter {
 
+  // I've seen chapters with 35,000 nodes on prod.
+  // It works but could be used for DoS.
+  val maxNodes = 3000
+
   case class Id(value: String) extends AnyVal with StringValue
-  implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
+  implicit val idIso = lidraughts.common.Iso.string[Id](Id.apply, _.value)
 
   case class Name(value: String) extends AnyVal with StringValue
-  implicit val nameIso = lila.common.Iso.string[Name](Name.apply, _.value)
+  implicit val nameIso = lidraughts.common.Iso.string[Name](Name.apply, _.value)
 
   sealed trait Like {
     val _id: Chapter.Id
@@ -99,7 +151,7 @@ object Chapter {
   }
 
   case class Setup(
-      gameId: Option[lila.game.Game.ID],
+      gameId: Option[lidraughts.game.Game.ID],
       variant: Variant,
       orientation: Color,
       fromFen: Option[Boolean] = None

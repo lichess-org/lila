@@ -1,4 +1,4 @@
-package lila.socket
+package lidraughts.socket
 
 import scala.collection.mutable.AnyRefMap
 

@@ -1,7 +1,7 @@
-package lila.evaluation
+package lidraughts.evaluation
 
-import chess.Color
-import lila.user.User
+import draughts.Color
+import lidraughts.user.User
 import org.joda.time.DateTime
 
 case class PlayerAssessment(
@@ -117,13 +117,11 @@ case class PlayerAggregateAssessment(
 
   def isNewRatedUser = user.count.rated < 10
 
-  def isWorthLookingAt = {
-    user.perfs.bestRating > 1600 && user.count.rated >= 2
-  } || user.perfs.bestProgress > 200
+  def isWorthLookingAt = user.count.rated >= 2
 
   def reportText(reason: String, maxGames: Int = 10): String = {
     val gameLinks: String = (playerAssessments.sortBy(-_.assessment.id).take(maxGames).map { a =>
-      a.assessment.emoticon + " lichess.org/" + a.gameId + "/" + a.color.name
+      a.assessment.emoticon + " lidraughts.org/" + a.gameId + "/" + a.color.name
     }).mkString("\n")
 
     s"""[AUTOREPORT] $reason
@@ -135,8 +133,8 @@ case class PlayerAggregateAssessment(
 
 object PlayerAggregateAssessment {
 
-  case class WithGames(pag: PlayerAggregateAssessment, games: List[lila.game.Game]) {
-    def pov(pa: PlayerAssessment) = games find (_.id == pa.gameId) map { lila.game.Pov(_, pa.color) }
+  case class WithGames(pag: PlayerAggregateAssessment, games: List[lidraughts.game.Game]) {
+    def pov(pa: PlayerAssessment) = games find (_.id == pa.gameId) map { lidraughts.game.Pov(_, pa.color) }
   }
 }
 
@@ -153,7 +151,7 @@ case class PlayerFlags(
 object PlayerFlags {
 
   import reactivemongo.bson._
-  import lila.db.BSON
+  import lidraughts.db.BSON
 
   implicit val playerFlagsBSONHandler = new BSON[PlayerFlags] {
 

@@ -1,4 +1,4 @@
-@(me: User, active: String, order: lila.study.Order)(implicit ctx: Context)
+@(me: User, active: String, order: lidraughts.study.Order)(implicit ctx: Context)
 
 <a class="@active.active("mine")" href="@routes.Study.mine(order.key)">My studies</a>
 <a class="@active.active("mineMember")" href="@routes.Study.mineMember(order.key)">Studies I contribute to</a>

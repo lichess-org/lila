@@ -1,11 +1,11 @@
-package lila.mod
+package lidraughts.mod
 
-import lila.notify.{ Notification, NotifyApi }
-import lila.report.{ Mod, Suspect, Victim }
+import lidraughts.notify.{ Notification, NotifyApi }
+import lidraughts.report.{ Mod, Suspect, Victim }
 
 private final class ModNotifier(
     notifyApi: NotifyApi,
-    reportApi: lila.report.ReportApi
+    reportApi: lidraughts.report.ReportApi
 ) {
 
   def reporters(mod: Mod, sus: Suspect): Funit =
@@ -13,14 +13,14 @@ private final class ModNotifier(
       _.filter(mod.user.id !=).map { reporterId =>
         notifyApi.addNotification(Notification.make(
           notifies = Notification.Notifies(reporterId),
-          content = lila.notify.ReportedBanned
+          content = lidraughts.notify.ReportedBanned
         ))
       }.sequenceFu.void
     }
 
-  def refund(victim: Victim, pt: lila.rating.PerfType, points: Int): Funit =
+  def refund(victim: Victim, pt: lidraughts.rating.PerfType, points: Int): Funit =
     notifyApi.addNotification(Notification.make(
       notifies = Notification.Notifies(victim.user.id),
-      content = lila.notify.RatingRefund(pt.name, points)
+      content = lidraughts.notify.RatingRefund(pt.name, points)
     ))
 }

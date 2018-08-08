@@ -1,20 +1,22 @@
 @(pov: Option[Pov])(implicit ctx: Context)
 @defining(ctx.currentTheme) { theme =>
-<div class="lichess_game"><div class="lichess_board_wrap"><div class="lichess_board">
-@if(!ctx.pref.is3d) {
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
-<rect width="800" height="800" fill="#@theme.dark"/>
-<g fill="#@theme.light" id="a"><g id="b"><g id="c"><g id="d">
-<rect width="100" height="100" id="e"/>
-<use x="200" xlink:href="#e"/>
-</g><use x="400" xlink:href="#d"/>
-</g><use x="100" y="100" xlink:href="#c"/>
-</g><use y="200" xlink:href="#b"/>
-</g><use y="400" xlink:href="#a"/>
+<div class="lidraughts_game"><div class="lidraughts_board_wrap"><div class="lidraughts_board">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000">
+<rect width="1000" height="1000" fill="#@theme.dark"/>
+<g fill="#@theme.light" id="a"><g id="b">
+<rect width="100" height="100" id="c"/>
+<use x="200" xlink:href="#c"/>
+<use x="400" xlink:href="#c"/>
+<use x="600" xlink:href="#c"/>
+<use x="800" xlink:href="#c"/>
+</g><use x="100" y="100" xlink:href="#b"/></g>
+<use y="200" xlink:href="#a"/>
+<use y="400" xlink:href="#a"/>
+<use y="600" xlink:href="#a"/>
+<use y="800" xlink:href="#a"/>
 </svg>
-}
 @pov.map { p =>
-@chessground(p)
+@draughtsground(p)
 }.getOrElse {
 @miniBoardContent
 }

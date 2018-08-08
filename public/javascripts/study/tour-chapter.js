@@ -1,5 +1,5 @@
-lichess.studyTourChapter = function(study) {
-  lichess.shepherd(function(theme) {
+lidraughts.studyTourChapter = function(study) {
+  lidraughts.shepherd(function(theme) {
     var onTab = function(tab) {
       return {
         'before-show': function() {
@@ -33,29 +33,29 @@ lichess.studyTourChapter = function(study) {
       attachTo: '.study_overboard .study_tabs .edit bottom',
       when: onTab('edit')
     }, {
-      title: "Load an existing lichess game",
-      text: "Paste a lichess game URL<br>" +
-        "(like lichess.org/7fHIU0XI)<br>" +
+      title: "Load an existing lidraughts game",
+      text: "Paste a lidraughts game URL<br>" +
+        "(like lidraughts.org/Xqch97QM)<br>" +
         "to load the game moves in the chapter.",
       attachTo: '.study_overboard .study_tabs .game top',
       when: onTab('game')
     }, {
       title: "From a FEN string",
       text: "Paste a position in FEN format<br>" +
-        "<i>4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w</i><br>" +
+        "<i>B:W10,29,33,34,39,44:B4,9,12,13,22,35</i><br>" +
         "to start the chapter from a position.",
       attachTo: '.study_overboard .study_tabs .fen top',
       when: onTab('fen')
     }, {
-      title: "From a PGN game",
-      text: "Paste a game in PGN format.<br>" +
+      title: "From a PDN game",
+      text: "Paste a game in PDN format.<br>" +
         "to load moves, comments and variations in the chapter.",
-      attachTo: '.study_overboard .study_tabs .pgn top',
-      when: onTab('pgn')
+      attachTo: '.study_overboard .study_tabs .pdn top',
+      when: onTab('pdn')
     }, {
       title: "Studies support variants",
-      text: "Yes, you can study crazyhouse,<br>" +
-        "and all lichess variants!",
+      text: "Yes, you can study frisian draughts,<br>" +
+        "and all lidraughts variants!",
       attachTo: '.study_overboard label[for=chapter-variant] left',
       when: onTab('init')
     }, {

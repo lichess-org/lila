@@ -1,4 +1,4 @@
-package lila.socket
+package lidraughts.socket
 
 import akka.actor._
 import com.typesafe.config.Config
@@ -8,7 +8,7 @@ import actorApi._
 final class Env(
     config: Config,
     system: ActorSystem,
-    scheduler: lila.common.Scheduler
+    scheduler: lidraughts.common.Scheduler
 ) {
 
   import scala.concurrent.duration._
@@ -35,8 +35,8 @@ final class Env(
 object Env {
 
   lazy val current = "socket" boot new Env(
-    config = lila.common.PlayApp loadConfig "socket",
-    system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler
+    config = lidraughts.common.PlayApp loadConfig "socket",
+    system = lidraughts.common.PlayApp.system,
+    scheduler = lidraughts.common.PlayApp.scheduler
   )
 }

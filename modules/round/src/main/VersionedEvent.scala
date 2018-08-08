@@ -1,10 +1,10 @@
-package lila.round
+package lidraughts.round
 
 import play.api.libs.json._
 
 import actorApi.Member
-import chess.Color
-import lila.game.Event
+import draughts.Color
+import lidraughts.game.Event
 
 case class VersionedEvent(
     version: Int,
@@ -51,7 +51,7 @@ private[round] object VersionedEvent {
     troll = e.troll
   )
 
-  import lila.db.BSON
+  import lidraughts.db.BSON
   import reactivemongo.bson._
 
   implicit val versionedEventHandler = new BSON[VersionedEvent] {

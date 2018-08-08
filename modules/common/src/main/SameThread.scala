@@ -1,4 +1,4 @@
-package lila.common
+package lidraughts.common
 
 import scala.concurrent.ExecutionContext
 
@@ -7,7 +7,7 @@ import scala.concurrent.ExecutionContext
  */
 object SameThread extends ExecutionContext {
 
-  val logger = lila.log.sameThread
+  val logger = lidraughts.log.sameThread
 
   override def execute(runnable: Runnable): Unit = runnable.run
   override def reportFailure(t: Throwable): Unit = logger.error(t.getMessage, t)

@@ -1,18 +1,18 @@
-package lila.game
+package lidraughts.game
 
 import scala.util.Random
 
-import chess.format.{ Forsyth, FEN }
-import chess.{ Color, Status }
+import draughts.format.{ Forsyth, FEN }
+import draughts.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.api.commands.GetLastError
 import reactivemongo.api.{ CursorProducer, ReadPreference }
 import reactivemongo.bson.BSONDocument
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.ByteArray
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.BSON.BSONJodaDateTimeHandler
+import lidraughts.db.ByteArray
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 object GameRepo {
 
@@ -49,16 +49,18 @@ object GameRepo {
     player(playerRef.gameId, playerRef.playerId)
 
   def pov(gameId: ID, color: Color): Fu[Option[Pov]] =
-    game(gameId) map2 { (game: Game) => Pov(game, game player color) }
-
+    game(gameId) map2 { (game: Game) =>
+      {
+        logger.info(s"retrieved $gameId: ${game.turnColor}")
+        Pov(game, game player color)
+      }
+    }
   def pov(gameId: ID, color: String): Fu[Option[Pov]] =
     Color(color) ?? (pov(gameId, _))
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
-    coll.byId[Game](playerRef.gameId) map { gameOption =>
-      gameOption flatMap { game =>
-        game player playerRef.playerId map { Pov(game, _) }
-      }
+    coll.byId[Game](playerRef.gameId) map {
+      _ flatMap { _ playerIdPov playerRef.playerId }
     }
 
   def pov(fullId: ID): Fu[Option[Pov]] = pov(PlayerRef(fullId))
@@ -119,11 +121,14 @@ object GameRepo {
 
   def save(progress: Progress): Funit =
     GameDiff(progress.origin, progress.game) match {
-      case (Nil, Nil) => funit
-      case (sets, unsets) => coll.update(
-        $id(progress.origin.id),
-        nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
-      ).void
+      case (Nil, Nil) =>
+        lidraughts.log("GameRepo").info(s"save progress - nil")
+        funit
+      case (sets, unsets) =>
+        coll.update(
+          $id(progress.origin.id),
+          nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
+        ).void
     }
 
   private def nonEmptyMod(mod: String, doc: Bdoc) =
@@ -260,6 +265,12 @@ object GameRepo {
     .skip(Random nextInt distribution)
     .uno[Game]
 
+  def findAnyRandomFinished(distribution: Int, minTurns: Int): Fu[Option[Game]] = coll.find(
+    Query.finished ++ Query.variantStandard ++ Query.turnsGt(minTurns)
+  ).sort(Query.sortCreated)
+    .skip(Random nextInt distribution)
+    .uno[Game]
+
   def randomFinished(distribution: Int): Fu[Option[Game]] = coll.find(
     Query.finished ++ Query.rated ++
       Query.variantStandard ++ Query.bothRatingsGreaterThan(1600)
@@ -268,18 +279,18 @@ object GameRepo {
     .cursor[Game](ReadPreference.secondary)
     .uno
 
-  def insertDenormalized(g: Game, ratedCheck: Boolean = true, initialFen: Option[chess.format.FEN] = None): Funit = {
+  def insertDenormalized(g: Game, ratedCheck: Boolean = true, initialFen: Option[draughts.format.FEN] = None): Funit = {
     val g2 = if (ratedCheck && g.rated && g.userIds.distinct.size != 2)
-      g.copy(mode = chess.Mode.Casual)
+      g.copy(mode = draughts.Mode.Casual)
     else g
     val userIds = g2.userIds.distinct
     val fen = initialFen.map(_.value) orElse {
       (!g2.variant.standardInitialPosition)
-        .option(Forsyth >> g2.chess)
+        .option(Forsyth >> g2.draughts)
         .filter(Forsyth.initial !=)
     }
     val checkInHours =
-      if (g2.isPgnImport) none
+      if (g2.isPdnImport) none
       else if (g2.hasClock) 1.some
       else if (g2.hasAi) (Game.aiAbandonedHours + 1).some
       else (24 * 10).some
@@ -290,10 +301,10 @@ object GameRepo {
     )
     coll insert bson void
   } >>- {
-    lila.mon.game.create.variant(g.variant.key)()
-    lila.mon.game.create.source(g.source.fold("unknown")(_.name))()
-    lila.mon.game.create.speed(g.speed.name)()
-    lila.mon.game.create.mode(g.mode.name)()
+    lidraughts.mon.game.create.variant(g.variant.key)()
+    lidraughts.mon.game.create.source(g.source.fold("unknown")(_.name))()
+    lidraughts.mon.game.create.speed(g.speed.name)()
+    lidraughts.mon.game.create.mode(g.mode.name)()
   }
 
   def removeRecentChallengesOf(userId: String) =
@@ -311,7 +322,7 @@ object GameRepo {
 
   // used to make a compound sparse index
   def setImportCreatedAt(g: Game) =
-    coll.update($id(g.id), $set("pgni.ca" -> g.createdAt)).void
+    coll.update($id(g.id), $set("pdni.ca" -> g.createdAt)).void
 
   def saveNext(game: Game, nextId: ID): Funit = coll.update(
     $id(game.id),
@@ -327,7 +338,7 @@ object GameRepo {
 
   def initialFen(game: Game): Fu[Option[String]] =
     if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) map {
-      case None if game.variant == chess.variant.Chess960 => Forsyth.initial.some
+      //case None if game.variant == draughts.variant.Chess960 => Forsyth.initial.some
       case fen => fen
     }
     else fuccess(none)
@@ -404,11 +415,11 @@ object GameRepo {
       }
     }
 
-  def findPgnImport(pgn: String): Fu[Option[Game]] = coll.uno[Game](
-    $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
+  def findPdnImport(pdn: String): Fu[Option[Game]] = coll.uno[Game](
+    $doc(s"${F.pdnImport}.h" -> PdnImport.hash(pdn))
   )
 
-  def getOptionPgn(id: ID): Fu[Option[PgnMoves]] = game(id) map2 { (g: Game) => g.pgnMoves }
+  def getOptionPdn(id: ID): Fu[Option[PdnMoves]] = game(id) map2 { (g: Game) => g.pdnMoves }
 
   def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] =
     coll.uno[Game]($doc(
@@ -423,8 +434,13 @@ object GameRepo {
         F.createdAt $gt since
       )).list[Game](nb, ReadPreference.secondaryPreferred)
 
-  def getUserIds(id: ID): Fu[List[User.ID]] =
-    coll.primitiveOne[List[User.ID]]($id(id), F.playerUids) map (~_)
+  def getSourceAndUserIds(id: ID): Fu[(Option[Source], List[User.ID])] =
+    coll.uno[Bdoc]($id(id), $doc(F.playerUids -> true, F.source -> true)) map {
+      _.fold(none[Source] -> List.empty[User.ID]) { doc =>
+        (doc.getAs[Int](F.source) flatMap Source.apply,
+          ~doc.getAs[List[User.ID]](F.playerUids))
+      }
+    }
 
   def recentAnalysableGamesByUserId(userId: User.ID, nb: Int) =
     coll.find(

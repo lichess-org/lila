@@ -1,10 +1,10 @@
-package lila.memo
+package lidraughts.memo
 
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
+    db: lidraughts.db.Env,
     system: akka.actor.ActorSystem
 ) {
 
@@ -25,8 +25,8 @@ final class Env(
 object Env {
 
   lazy val current = "memo" boot new Env(
-    config = lila.common.PlayApp loadConfig "memo",
-    db = lila.db.Env.current,
-    system = lila.common.PlayApp.system
+    config = lidraughts.common.PlayApp loadConfig "memo",
+    db = lidraughts.db.Env.current,
+    system = lidraughts.common.PlayApp.system
   )
 }

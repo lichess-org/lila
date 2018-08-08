@@ -1,4 +1,4 @@
-package lila.memo
+package lidraughts.memo
 
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration.Duration

@@ -4,16 +4,16 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
-import lila.api.Context
-import lila.app._
-import lila.chat.Chat
-import lila.common.HTTPRequest
-import lila.game.{ Pov, GameRepo }
-import lila.tournament.{ System, TournamentRepo, PairingRepo, VisibleTournaments, Tournament => Tour }
-import lila.user.{ User => UserModel }
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.chat.Chat
+import lidraughts.common.HTTPRequest
+import lidraughts.game.{ Pov, GameRepo }
+import lidraughts.tournament.{ System, TournamentRepo, PairingRepo, VisibleTournaments, Tournament => Tour }
+import lidraughts.user.{ User => UserModel }
 import views._
 
-object Tournament extends LilaController {
+object Tournament extends LidraughtsController {
 
   private def env = Env.tournament
   private def repo = TournamentRepo
@@ -32,7 +32,7 @@ object Tournament extends LilaController {
   def home(page: Int) = Open { implicit ctx =>
     negotiate(
       html = Reasonable(page, 20) {
-        val finishedPaginator = repo.finishedPaginator(lila.common.MaxPerPage(30), page = page)
+        val finishedPaginator = repo.finishedPaginator(lidraughts.common.MaxPerPage(30), page = page)
         if (HTTPRequest isXhr ctx.req) for {
           pag <- finishedPaginator
           _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.winnerId)
@@ -75,7 +75,7 @@ object Tournament extends LilaController {
   private[controllers] def canHaveChat(tour: Tour)(implicit ctx: Context): Boolean = ctx.me ?? { u =>
     if (ctx.kid) false
     else if (tour.isPrivate) true
-    else Env.chat.panic.allowed(u, tighter = tour.variant == chess.variant.Antichess)
+    else Env.chat.panic.allowed(u, tighter = false)
   }
 
   def show(id: String) = Open { implicit ctx =>
@@ -90,7 +90,8 @@ object Tournament extends LilaController {
             json <- env.jsonView(tour, page, ctx.me, none, version.some, ctx.lang)
             _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
             streamers <- streamerCache get tour.id
-          } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers))).mon(_.http.response.tournament.show.website)
+            shieldOwner <- env.shieldApi currentOwner tour
+          } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))).mon(_.http.response.tournament.show.website)
         }
       },
       api = _ => repo byId id flatMap {
@@ -139,7 +140,7 @@ object Tournament extends LilaController {
   }
 
   private def withUserGameNb(id: String, user: String, nb: Int)(withPov: Pov => Result)(implicit ctx: Context): Fu[Result] = {
-    val userId = lila.user.User normalize user
+    val userId = lidraughts.user.User normalize user
     OptionFuResult(PairingRepo.byTourUserNb(id, userId, nb)) { pairing =>
       GameRepo game pairing.id map {
         _.flatMap { Pov.ofUserId(_, userId) }.fold(Redirect(routes.Tournament show id))(withPov)
@@ -199,15 +200,38 @@ object Tournament extends LilaController {
     }
   }
 
+  private val CreateLimitPerUser = new lidraughts.memo.RateLimit[lidraughts.user.User.ID](
+    credits = 8,
+    duration = 24 hour,
+    name = "tournament per user",
+    key = "tournament.user"
+  )
+
+  private val CreateLimitPerIP = new lidraughts.memo.RateLimit[lidraughts.common.IpAddress](
+    credits = 8,
+    duration = 24 hour,
+    name = "tournament per IP",
+    key = "tournament.ip"
+  )
+
+  private implicit val rateLimited = ornicar.scalalib.Zero.instance[Fu[Result]] {
+    fuccess(Redirect(routes.Tournament.home(1)))
+  }
+
   def create = AuthBody { implicit ctx => implicit me =>
     NoLame {
       implicit val req = ctx.body
       negotiate(
         html = env.forms(me).bindFromRequest.fold(
           err => BadRequest(html.tournament.form(err, env.forms, me)).fuccess,
-          setup => env.api.createTournament(setup, me) map { tour =>
-            Redirect(routes.Tournament.show(tour.id))
-          }
+          setup =>
+            CreateLimitPerUser(me.id, cost = 1) {
+              CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
+                env.api.createTournament(setup, me) map { tour =>
+                  Redirect(routes.Tournament.show(tour.id))
+                }
+              }
+            }
         ),
         api = _ => env.forms(me).bindFromRequest.fold(
           err => BadRequest(errorsAsJson(err)).fuccess,
@@ -222,7 +246,7 @@ object Tournament extends LilaController {
   def limitedInvitation = Auth { implicit ctx => me =>
     for {
       (tours, _) <- upcomingCache.get
-      res <- lila.tournament.TournamentInviter.findNextFor(me, tours, env.verify.canEnter(me))
+      res <- lidraughts.tournament.TournamentInviter.findNextFor(me, tours, env.verify.canEnter(me))
     } yield res.fold(Redirect(routes.Tournament.home(1))) { t =>
       Redirect(routes.Tournament.show(t.id))
     }
@@ -239,7 +263,7 @@ object Tournament extends LilaController {
       html = notFound,
       api = _ =>
         Env.tournament.cached.promotable.get.nevermind map {
-          lila.tournament.Spotlight.select(_, ctx.me, 4)
+          lidraughts.tournament.Spotlight.select(_, ctx.me, 4)
         } flatMap env.scheduleJsonView.featured map { Ok(_) }
     )
   }

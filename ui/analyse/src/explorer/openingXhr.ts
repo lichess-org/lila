@@ -9,7 +9,7 @@ export function opening(endpoint: string, variant: string, fen: Fen, config, wit
   if (!withGames) params.topGames = params.recentGames = 0;
   if (config.db.selected() === 'masters') url = '/master';
   else {
-    url = '/lichess';
+    url = '/lidraughts';
     params['variant'] = variant;
     params['speeds[]'] = config.speed.selected();
     params['ratings[]'] = config.rating.selected();

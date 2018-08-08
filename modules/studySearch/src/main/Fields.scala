@@ -1,4 +1,4 @@
-package lila.studySearch
+package lidraughts.studySearch
 
 private[studySearch] object Fields {
   val name = "name"

@@ -1,14 +1,14 @@
-package lila.activity
+package lidraughts.activity
 
 import reactivemongo.bson._
 
-import lila.common.Iso
-import lila.db.BSON.{ MapDocument, MapValue }
-import lila.db.dsl._
-import lila.rating.BSONHandlers.perfTypeKeyIso
-import lila.rating.PerfType
-import lila.study.Study
-import lila.user.User
+import lidraughts.common.Iso
+import lidraughts.db.BSON.{ MapDocument, MapValue }
+import lidraughts.db.dsl._
+import lidraughts.rating.BSONHandlers.perfTypeKeyIso
+import lidraughts.rating.PerfType
+import lidraughts.study.Study
+import lidraughts.user.User
 
 private object BSONHandlers {
 
@@ -36,20 +36,20 @@ private object BSONHandlers {
     def write(o: RatingProg) = BSONArray(o.before, o.after)
   }
 
-  private implicit val scoreHandler = new lila.db.BSON[Score] {
+  private implicit val scoreHandler = new lidraughts.db.BSON[Score] {
     private val win = "w"
     private val loss = "l"
     private val draw = "d"
     private val rp = "r"
 
-    def reads(r: lila.db.BSON.Reader) = Score(
+    def reads(r: lidraughts.db.BSON.Reader) = Score(
       win = r.intD(win),
       loss = r.intD(loss),
       draw = r.intD(draw),
       rp = r.getO[RatingProg](rp)
     )
 
-    def writes(w: lila.db.BSON.Writer, o: Score) = BSONDocument(
+    def writes(w: lidraughts.db.BSON.Writer, o: Score) = BSONDocument(
       win -> w.intO(o.win),
       loss -> w.intO(o.loss),
       draw -> w.intO(o.draw),
@@ -87,12 +87,12 @@ private object BSONHandlers {
   private implicit val followIdsHandler = bsonArrayToListHandler[User.ID]
   private implicit val followListHandler = Macros.handler[FollowList]
 
-  private implicit val followsHandler = new lila.db.BSON[Follows] {
-    def reads(r: lila.db.BSON.Reader) = Follows(
+  private implicit val followsHandler = new lidraughts.db.BSON[Follows] {
+    def reads(r: lidraughts.db.BSON.Reader) = Follows(
       in = r.getO[FollowList]("i").filterNot(_.isEmpty),
       out = r.getO[FollowList]("o").filterNot(_.isEmpty)
     )
-    def writes(w: lila.db.BSON.Writer, o: Follows) = BSONDocument(
+    def writes(w: lidraughts.db.BSON.Writer, o: Follows) = BSONDocument(
       "i" -> o.in,
       "o" -> o.out
     )
@@ -116,13 +116,14 @@ private object BSONHandlers {
     val follows = "f"
     val studies = "t"
     val teams = "e"
+    val stream = "st"
   }
 
-  implicit val activityHandler = new lila.db.BSON[Activity] {
+  implicit val activityHandler = new lidraughts.db.BSON[Activity] {
 
     import ActivityFields._
 
-    def reads(r: lila.db.BSON.Reader) = Activity(
+    def reads(r: lidraughts.db.BSON.Reader) = Activity(
       id = r.get[Id](id),
       games = r.getO[Games](games),
       posts = r.getO[Posts](posts),
@@ -134,10 +135,11 @@ private object BSONHandlers {
       patron = r.getO[Patron](patron),
       follows = r.getO[Follows](follows).filterNot(_.isEmpty),
       studies = r.getO[Studies](studies),
-      teams = r.getO[Teams](teams)
+      teams = r.getO[Teams](teams),
+      stream = r.getD[Boolean](stream)
     )
 
-    def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
+    def writes(w: lidraughts.db.BSON.Writer, o: Activity) = BSONDocument(
       id -> o.id,
       games -> o.games,
       posts -> o.posts,
@@ -149,7 +151,8 @@ private object BSONHandlers {
       patron -> o.patron,
       follows -> o.follows,
       studies -> o.studies,
-      teams -> o.teams
+      teams -> o.teams,
+      stream -> o.stream.option(true)
     )
   }
 }

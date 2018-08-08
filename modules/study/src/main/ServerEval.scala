@@ -1,15 +1,16 @@
-package lila.study
+package lidraughts.study
 
 import play.api.libs.json._
 
-import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
-import lila.analyse.{ Analysis, Info }
-import lila.hub.actorApi.fishnet.StudyChapterRequest
-import lila.hub.actorApi.map.Tell
-import lila.socket.Socket.Uid
-import lila.tree._
-import lila.tree.Node.Comment
-import lila.user.User
+import draughts.format.{ Forsyth, FEN, Uci, UciCharPair }
+import draughts.format.pdn.Glyphs
+import lidraughts.analyse.{ Analysis, Info }
+import lidraughts.hub.actorApi.fishnet.StudyChapterRequest
+import lidraughts.hub.actorApi.map.Tell
+import lidraughts.socket.Socket.Uid
+import lidraughts.tree._
+import lidraughts.tree.Node.Comment
+import lidraughts.user.User
 
 object ServerEval {
 
@@ -25,11 +26,11 @@ object ServerEval {
           chapterId = chapter.id.value,
           initialFen = chapter.root.fen.some,
           variant = chapter.setup.variant,
-          moves = chess.format.UciDump(
+          moves = draughts.format.UciDump(
             moves = chapter.root.mainline.map(_.move.san),
             initialFen = chapter.root.fen.value.some,
             variant = chapter.setup.variant
-          ).toOption.map(_.map(chess.format.Uci.apply).flatten) | List.empty,
+          ).toOption.map(_.map(draughts.format.Uci.apply).flatten) | List.empty,
           userId = userId.some
         )
       }
@@ -40,28 +41,33 @@ object ServerEval {
       socketHub: akka.actor.ActorRef,
       api: StudyApi,
       chapterRepo: ChapterRepo,
-      divider: lila.game.Divider
+      divider: lidraughts.game.Divider
   ) {
 
     def apply(analysis: Analysis, complete: Boolean): Funit = analysis.studyId ?? { studyId =>
       sequencer.sequenceStudyWithChapter(Study.Id(studyId), Chapter.Id(analysis.id)) {
         case Study.WithChapter(study, chapter) =>
           (complete ?? chapterRepo.completeServerEval(chapter)) >> {
-            lila.common.Future.fold(chapter.root.mainline zip analysis.infoAdvices)(Path.root) {
+            lidraughts.common.Future.fold(chapter.root.mainline zip analysis.infoAdvices)(Path.root) {
               case (path, (node, (info, advOpt))) => info.eval.score.ifTrue(node.score.isEmpty).?? { score =>
                 chapterRepo.setScore(chapter, path + node, score.some) >>
                   advOpt.?? { adv =>
                     chapterRepo.setComments(chapter, path + node, node.comments + Comment(
                       Comment.Id.make,
                       Comment.Text(adv.makeComment(false, true)),
-                      Comment.Author.Lichess
-                    )) >> {
-                      chapter.root.nodeAt(path).flatMap { parent =>
-                        analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
-                          parent.addChild(child).children.get(child.id)
+                      Comment.Author.Lidraughts
+                    )) >>
+                      chapterRepo.setGlyphs(
+                        chapter,
+                        path + node,
+                        node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
+                      ) >> {
+                          chapter.root.nodeAt(path).flatMap { parent =>
+                            analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
+                              parent.addChild(child).children.get(child.id)
+                            }
+                          } ?? { chapterRepo.setChild(chapter, path, _) }
                         }
-                      } ?? { chapterRepo.setChild(chapter, path, _) }
-                    }
                   }
               } inject path + node
             } void
@@ -70,7 +76,7 @@ object ServerEval {
               _ ?? { chapter =>
                 socketHub ! Tell(studyId, ServerEval.Progress(
                   chapterId = chapter.id,
-                  tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
+                  tree = lidraughts.study.TreeBuilder(chapter.root, chapter.setup.variant),
                   analysis = toJson(chapter, analysis),
                   division = divisionOf(chapter)
                 ))
@@ -82,13 +88,13 @@ object ServerEval {
 
     def divisionOf(chapter: Chapter) = divider(
       id = chapter.id.value,
-      pgnMoves = chapter.root.mainline.map(_.move.san).toVector,
+      pdnmoves = chapter.root.mainline.map(_.move.san).toVector,
       variant = chapter.setup.variant,
       initialFen = chapter.root.fen.some
     )
 
-    private def analysisLine(root: RootOrNode, variant: chess.variant.Variant, info: Info): Option[Node] =
-      chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen.value, variant) match {
+    private def analysisLine(root: RootOrNode, variant: draughts.variant.Variant, info: Info): Option[Node] =
+      draughts.Replay.gameMoveWhileValid(info.variation take 20, root.fen.value, variant) match {
         case (init, games, error) =>
           error foreach { logger.info(_) }
           games.reverse match {
@@ -99,26 +105,24 @@ object ServerEval {
           }
       }
 
-    private def makeBranch(g: chess.Game, m: Uci.WithSan) = {
+    private def makeBranch(g: draughts.DraughtsGame, m: Uci.WithSan) = {
       val fen = FEN(Forsyth >> g)
       Node(
         id = UciCharPair(m.uci),
         ply = g.turns,
         move = m,
         fen = fen,
-        check = g.situation.check,
-        crazyData = g.situation.board.crazyData,
         clock = none,
         children = Node.emptyChildren
       )
     }
   }
 
-  case class Progress(chapterId: Chapter.Id, tree: Root, analysis: JsObject, division: chess.Division)
+  case class Progress(chapterId: Chapter.Id, tree: Root, analysis: JsObject, division: draughts.Division)
 
   def toJson(chapter: Chapter, analysis: Analysis) =
-    lila.analyse.JsonView.bothPlayers(
-      lila.analyse.Accuracy.PovLike(chess.White, chapter.root.color, chapter.root.ply),
+    lidraughts.analyse.JsonView.bothPlayers(
+      lidraughts.analyse.Accuracy.PovLike(draughts.White, chapter.root.color, chapter.root.ply),
       analysis
     )
 }

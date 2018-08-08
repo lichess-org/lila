@@ -1,4 +1,4 @@
-package lila.tournament
+package lidraughts.tournament
 
 import akka.actor._
 import akka.pattern.pipe
@@ -8,15 +8,15 @@ import scala.concurrent.duration._
 import scala.collection.breakOut
 
 import actorApi._
-import lila.hub.TimeBomb
-import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.{ SocketActor, History, Historical }
+import lidraughts.hub.TimeBomb
+import lidraughts.socket.actorApi.{ Connected => _, _ }
+import lidraughts.socket.{ SocketActor, History, Historical }
 
 private[tournament] final class Socket(
     tournamentId: String,
     val history: History[Messadata],
     jsonView: JsonView,
-    lightUser: lila.common.LightUser.Getter,
+    lightUser: lidraughts.common.LightUser.Getter,
     uidTimeout: Duration,
     socketTimeout: Duration
 ) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
@@ -26,19 +26,19 @@ private[tournament] final class Socket(
   private var delayedCrowdNotification = false
   private var delayedReloadNotification = false
 
-  private var clock = none[chess.Clock.Config]
+  private var clock = none[draughts.Clock.Config]
 
   private var waitingUsers = WaitingUsers.empty
 
   override def preStart(): Unit = {
     super.preStart()
-    lilaBus.subscribe(self, Symbol(s"chat-$tournamentId"))
+    lidraughtsBus.subscribe(self, Symbol(s"chat-$tournamentId"))
     TournamentRepo byId tournamentId map SetTournament.apply pipeTo self
   }
 
   override def postStop(): Unit = {
     super.postStop()
-    lilaBus.unsubscribe(self)
+    lidraughtsBus.unsubscribe(self)
   }
 
   def receiveSpecific = ({
@@ -97,7 +97,7 @@ private[tournament] final class Socket(
       delayedReloadNotification = false
       notifyAll("reload")
 
-  }: Actor.Receive) orElse lila.chat.Socket.out(
+  }: Actor.Receive) orElse lidraughts.chat.Socket.out(
     send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
   )
 

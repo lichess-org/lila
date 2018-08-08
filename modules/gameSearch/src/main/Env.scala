@@ -1,9 +1,9 @@
-package lila.gameSearch
+package lidraughts.gameSearch
 
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.search._
+import lidraughts.search._
 
 final class Env(
     config: Config,
@@ -19,9 +19,15 @@ final class Env(
 
   lazy val api = new GameSearchApi(client, system)
 
-  lazy val paginator = new PaginatorBuilder[lila.game.Game, Query](
+  def cli = new lidraughts.common.Cli {
+    def process = {
+      case "game" :: "search" :: "reset" :: Nil => api.reset inject "done"
+    }
+  }
+
+  lazy val paginator = new PaginatorBuilder[lidraughts.game.Game, Query](
     searchApi = api,
-    maxPerPage = lila.common.MaxPerPage(PaginatorMaxPerPage)
+    maxPerPage = lidraughts.common.MaxPerPage(PaginatorMaxPerPage)
   )
 
   lazy val forms = new DataForm
@@ -31,8 +37,8 @@ final class Env(
     paginator = paginator
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    import lila.game.actorApi.{ InsertGame, FinishGame }
+  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
+    import lidraughts.game.actorApi.{ InsertGame, FinishGame }
     def receive = {
       case FinishGame(game, _, _) if !game.aborted => self ! InsertGame(game)
       case InsertGame(game) => api store game
@@ -43,8 +49,8 @@ final class Env(
 object Env {
 
   lazy val current = "gameSearch" boot new Env(
-    config = lila.common.PlayApp loadConfig "gameSearch",
-    system = lila.common.PlayApp.system,
-    makeClient = lila.search.Env.current.makeClient
+    config = lidraughts.common.PlayApp loadConfig "gameSearch",
+    system = lidraughts.common.PlayApp.system,
+    makeClient = lidraughts.search.Env.current.makeClient
   )
 }

@@ -21,8 +21,7 @@
   </head>
   <body class="base highlight @List(
     ctx.currentTheme.cssClass,
-    if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg,
-    ctx.pref.pieceNotationIsLetter ?? "piece_letter").mkString(" ")">
+    if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg).mkString(" ")">
     <div class="is2d">
       <div class="embedded_analyse analyse cg-512">@miniBoardContent</div>
     </div>
@@ -38,10 +37,10 @@
     @jsTag("vendor/mousetrap.js")
     @jsAt("compiled/util.js")
     @jsAt("compiled/trans.js")
-    @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
+    @jsAt(s"compiled/lidraughts.analyse${isProd??(".min")}.js")
     @jsTag("embed-analyse.js")
     @embedJs {
-    lichess.startEmbeddedAnalyse({
+    lidraughts.startEmbeddedAnalyse({
     element: document.querySelector('.embedded_analyse'),
     data: @safeJson(data),
     embed: true,

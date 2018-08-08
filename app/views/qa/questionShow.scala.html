@@ -1,4 +1,4 @@
-@(q: lila.qa.Question, answers: List[lila.qa.Answer], popular: List[lila.qa.Question], related: List[lila.qa.Question], answerForm: Option[Form[_]], captcha: Option[lila.common.Captcha])(implicit ctx: Context)
+@(q: lidraughts.qa.Question, answers: List[lidraughts.qa.Answer], popular: List[lidraughts.qa.Question], related: List[lidraughts.qa.Question], answerForm: Option[Form[_]], captcha: Option[lidraughts.common.Captcha])(implicit ctx: Context)
 
 @side = {
 @if(!related.isEmpty){@relatedBox(related)}
@@ -8,20 +8,20 @@
 @layout(
 title = s"${q.title} • ${trans.questionsAndAnswers()}",
 side = side.some,
-openGraph = lila.app.ui.OpenGraph(
+openGraph = lidraughts.app.ui.OpenGraph(
 title = q.title,
 url = s"$netBaseUrl${routes.QaQuestion.show(q.id, q.slug).url}",
 description = shorten(q.body, 152)).some) {
 
 <div class="question">
   <div class="content_box_top">
-    <h1 class="lichess_title">
+    <h1 class="lidraughts_title">
       <a href="@routes.QaQuestion.index()" data-icon="&"></a>@q.title
     </h1>
   </div>
   <div class="content_box_inter meta">
     <div class="actions">
-      @if(lila.qa.QaAuth canEdit q) {
+      @if(lidraughts.qa.QaAuth canEdit q) {
       <a class="button" data-icon="m" href="@routes.QaQuestion.edit(q.id, q.slug)"> Edit question</a>
       }
       @nope(q.isLocked.fold("Unlock", "Lock"), routes.QaQuestion.lock(q.id), "a")
@@ -61,9 +61,9 @@ description = shorten(q.body, 152)).some) {
       </div>
     </div>
     @answerList(q, answers)
-    @if(ctx.me.fold(true)(lila.qa.QaAuth.isN00b)) {
+    @if(ctx.me.fold(true)(lidraughts.qa.QaAuth.isN00b)) {
     <p class="help">
-      Only registered members with one week of lichess activity can contribute to the Q&amp;A.
+      Only registered members with one week of lidraughts activity can contribute to the Q&amp;A.
     </p>
     } else {
     @(answerForm, captcha) match {

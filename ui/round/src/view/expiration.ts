@@ -13,7 +13,7 @@ export default function(ctrl: RoundController): [VNode, boolean] | undefined {
   myTurn = game.isPlayerTurn(ctrl.data),
   emerg = myTurn && timeLeft < 8000;
   if (!rang && emerg) {
-    window.lichess.sound.lowtime();
+    window.lidraughts.sound.lowtime();
     rang = true;
   }
   return [

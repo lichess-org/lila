@@ -15,7 +15,7 @@ function onError(error) {
 
 function build(debug) {
   return browserify('src/main.ts', {
-      standalone: 'LichessCli',
+      standalone: 'LidraughtsCli',
       debug: debug
     })
     .plugin(tsify);
@@ -27,7 +27,7 @@ function bundle() {
   return watchedBrowserify
     .bundle()
     .on('error', onError)
-    .pipe(source('lichess.cli.js'))
+    .pipe(source('lidraughts.cli.js'))
     .pipe(buffer())
     .pipe(gulp.dest(destination));
 }
@@ -39,14 +39,14 @@ watchedBrowserify.on("log", gutil.log);
 gulp.task('dev', function() {
   return build(true)
     .bundle()
-    .pipe(source('lichess.cli.js'))
+    .pipe(source('lidraughts.cli.js'))
     .pipe(gulp.dest(destination));
 });
 
 gulp.task("prod", [], function() {
   return build(false)
     .bundle()
-    .pipe(source('lichess.cli.min.js'))
+    .pipe(source('lidraughts.cli.min.js'))
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest(destination));

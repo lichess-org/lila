@@ -7,13 +7,15 @@ import AnalyseCtrl from '../ctrl';
 import { Hovering, ExplorerCtrl, ExplorerData, OpeningData } from './interfaces';
 
 function tablebaseRelevant(variant: string, fen: Fen) {
-  const parts = fen.split(/\s/);
-  const pieceCount = parts[0].split(/[nbrqkp]/i).length - 1;
 
-  if (variant === 'standard' || variant === 'chess960' || variant === 'atomic')
-    return pieceCount <= 7;
-  else if (variant === 'antichess') return pieceCount <= 6;
-  else return false;
+    //max: W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20:H0:F1
+    //min: W:WK5:BK46:H0:F1
+    const pieceCount = fen.split(',').length + 1;
+
+    if (variant === 'standard')
+      return pieceCount <= 0;
+    else return false;
+
 }
 
 export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
@@ -38,7 +40,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
 
   const config = configCtrl(root.data.game, onConfigClose, root.trans, root.redraw);
 
-  const fetch = window.lichess.fp.debounce(function() {
+  const fetch = window.lidraughts.fp.debounce(function() {
     const fen = root.node.fen;
     const request: JQueryPromise<ExplorerData> = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
       xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen) :

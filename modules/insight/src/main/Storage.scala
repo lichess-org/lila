@@ -1,12 +1,12 @@
-package lila.insight
+package lidraughts.insight
 
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
 import scalaz.NonEmptyList
 
-import lila.db.dsl._
-import lila.rating.BSONHandlers.perfTypeIdHandler
-import lila.rating.PerfType
+import lidraughts.db.dsl._
+import lidraughts.rating.BSONHandlers.perfTypeIdHandler
+import lidraughts.rating.PerfType
 
 private final class Storage(coll: Coll) {
 

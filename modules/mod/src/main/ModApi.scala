@@ -1,21 +1,21 @@
-package lila.mod
+package lidraughts.mod
 
-import lila.common.{ IpAddress, EmailAddress }
-import lila.report.{ Mod, Suspect, Room }
-import lila.security.Permission
-import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
-import lila.user.{ User, UserRepo, LightUserApi }
+import lidraughts.common.{ IpAddress, EmailAddress }
+import lidraughts.report.{ Mod, Suspect, Room }
+import lidraughts.security.Permission
+import lidraughts.security.{ Firewall, UserSpy, Store => SecurityStore }
+import lidraughts.user.{ User, UserRepo, LightUserApi }
 
 final class ModApi(
     logApi: ModlogApi,
     userSpy: User => Fu[UserSpy],
     firewall: Firewall,
     reporter: akka.actor.ActorSelection,
-    reportApi: lila.report.ReportApi,
+    reportApi: lidraughts.report.ReportApi,
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
     refunder: RatingRefund,
-    lilaBus: lila.common.Bus
+    lidraughtsBus: lidraughts.common.Bus
 ) {
 
   def setEngine(mod: Mod, prev: Suspect, v: Boolean): Funit = (prev.user.engine != v) ?? {
@@ -25,7 +25,7 @@ final class ModApi(
       _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
       _ <- logApi.engine(mod, sus, v)
     } yield {
-      lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(sus.user.id, v), 'adjustCheater)
+      lidraughtsBus.publish(lidraughts.hub.actorApi.mod.MarkCheater(sus.user.id, v), 'adjustCheater)
       if (v) {
         notifier.reporters(mod, sus)
         refunder schedule sus
@@ -38,30 +38,31 @@ final class ModApi(
     unengined <- logApi.wasUnengined(sus)
     _ <- if (unengined) funit else reportApi.getMod(modId) flatMap {
       _ ?? { mod =>
-        lila.mon.cheat.autoMark.count()
+        lidraughts.mon.cheat.autoMark.count()
         setEngine(mod, sus, true)
       }
     }
   } yield ()
 
-  def setBooster(mod: Mod, prev: Suspect, v: Boolean): Funit = (prev.user.booster != v) ?? {
-    for {
+  def setBooster(mod: Mod, prev: Suspect, v: Boolean): Fu[Suspect] =
+    if (prev.user.booster == v) fuccess(prev)
+    else for {
       _ <- UserRepo.setBooster(prev.user.id, v)
       sus = prev.set(_.copy(booster = v))
       _ <- reportApi.process(mod, sus, Set(Room.Other))
       _ <- logApi.booster(mod, sus, v)
     } yield {
       if (v) {
-        lilaBus.publish(lila.hub.actorApi.mod.MarkBooster(sus.user.id), 'adjustBooster)
+        lidraughtsBus.publish(lidraughts.hub.actorApi.mod.MarkBooster(sus.user.id), 'adjustBooster)
         notifier.reporters(mod, sus)
       }
+      sus
     }
-  }
 
   def autoBooster(winnerId: User.ID, loserId: User.ID): Funit =
     logApi.wasUnbooster(loserId) map {
-      case false => reporter ! lila.hub.actorApi.report.Booster(winnerId, loserId)
-      case true =>
+      case false => reporter ! lidraughts.hub.actorApi.report.Booster(winnerId, loserId)
+      case true => ()
     }
 
   def setTroll(mod: Mod, prev: Suspect, value: Boolean): Fu[Suspect] = {
@@ -70,7 +71,7 @@ final class ModApi(
     changed ?? {
       UserRepo.updateTroll(sus.user).void >>- {
         logApi.troll(mod, sus)
-        lilaBus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), 'shadowban)
+        lidraughtsBus.publish(lidraughts.hub.actorApi.mod.Shadowban(sus.user.id, value), 'shadowban)
       }
     } >>
       reportApi.process(mod, sus, Set(Room.Coms)) >>- {
@@ -88,7 +89,7 @@ final class ModApi(
   } yield ()
 
   def garbageCollect(sus: Suspect, ipBan: Boolean): Funit = for {
-    mod <- reportApi.getLichessMod
+    mod <- reportApi.getLidraughtsMod
     _ <- setEngine(mod, sus, true)
     _ <- setTroll(mod, sus, true)
     _ <- ipBan ?? setBan(mod, sus, true)
@@ -138,7 +139,7 @@ final class ModApi(
 
   def setRankban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.rankban != v) ?? {
     if (v) {
-      lilaBus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), 'kickFromRankings)
+      lidraughtsBus.publish(lidraughts.hub.actorApi.mod.KickFromRankings(sus.user.id), 'kickFromRankings)
     }
     UserRepo.setRankban(sus.user.id, v) >>- logApi.rankban(mod, sus, v)
   }

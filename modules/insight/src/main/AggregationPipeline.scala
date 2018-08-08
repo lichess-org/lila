@@ -1,14 +1,14 @@
-package lila.insight
+package lidraughts.insight
 
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
 import scalaz.{ NonEmptyList, IList }
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 private final class AggregationPipeline {
 
-  import lila.insight.{ Dimension => D, Metric => M }
+  import lidraughts.insight.{ Dimension => D, Metric => M }
   import Storage._
   import Entry.{ BSONFields => F }
 

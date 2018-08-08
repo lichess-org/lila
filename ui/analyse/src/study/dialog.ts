@@ -10,9 +10,9 @@ interface Dialog {
 }
 
 export function form(d: Dialog): VNode {
-  return h('div.lichess_overboard.study_overboard.' + d.class, {
+  return h('div.lidraughts_overboard.study_overboard.' + d.class, {
     hook: {
-      insert() { window.lichess.loadCss('/assets/stylesheets/material.form.css') }
+      insert() { window.lidraughts.loadCss('/assets/stylesheets/material.form.css') }
     }
   }, ([
     h('a.close.icon', {

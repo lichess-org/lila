@@ -33,18 +33,21 @@ square {
   position: absolute;
   top: 0;
   left: 0;
-  width: 12.5%;
-  height: 12.5%;
+  width: 10.0%;
+  height: 10.0%;
+  pointer-events: none;
 }
 .cg-board square.move-dest {
   background: radial-gradient(rgba(20, 85, 30, 0.3) 17%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
   cursor: pointer;
+  pointer-events: auto;
 }
 .cg-board square.oc.move-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
 }
 .cg-board square.premove-dest {
   background: radial-gradient(rgba(20, 30, 85, 0.2) 17%, #203085 0, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0) 0);
+  pointer-events: auto;
 }
 .cg-board square.oc.premove-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
@@ -78,13 +81,13 @@ square {
 }
 piece {
   position: absolute;
-  width: 12.5%;
-  height: 12.5%;
+  width: 10.0%;
+  height: 10.0%;
   top: 0;
   left: 0;
   background-size: cover;
-  z-index: 2;
-  /* no less than 2 */
+  z-index: 2; /* no less than 2 */
+  pointer-events: none;
 }
 .cg-512 piece {
   will-change: transform, opacity;
@@ -94,11 +97,11 @@ piece {
 .mini_board piece {
   z-index: initial;
 }
-.lichess_board.blindfold piece,
+.lidraughts_board.blindfold piece,
 .other_games.blindfold piece {
   opacity: 0;
 }
-.lichess_board.blindfold square.check {
+.lidraughts_board.blindfold square.check {
   background: none;
 }
 piece.dragging {
@@ -107,7 +110,12 @@ piece.dragging {
 }
 piece.anim {
   z-index: 3;
-  cursor: move;
+}
+piece.temprole {
+  z-index: 3;
+}
+piece.temporary {
+  z-index: 1;
 }
 piece.ghost {
   will-change: transform;
@@ -116,10 +124,6 @@ piece.ghost {
 piece.fading {
   z-index: 2!important;
   opacity: 0.5;
-}
-.cg-board-wrap .over {
-  will-change: transform;
-  background-color: rgba(20, 85, 30, 0.2);
 }
 .cg-board-wrap svg {
   overflow: hidden;
@@ -143,18 +147,18 @@ piece.fading {
   opacity: 0.8;
 }
 .cg-board-wrap coords.ranks {
-  right: -15px;
-  top: 0;
-  flex-flow: column-reverse;
+  right: -13px;
+  top: -4%;
+  flex-flow: column;
   height: 100%;
   width: 12px;
 }
 .cg-board-wrap coords.ranks.black {
-  flex-flow: column;
+  flex-flow: column-reverse;
 }
 .cg-board-wrap coords.files {
-  bottom: -15px;
-  left: 0;
+  bottom: -13px;
+  left: -5%;
   flex-flow: row;
   width: 100%;
   height: 16px;
@@ -170,40 +174,40 @@ piece.fading {
   transform: translateY(39%);
 }
 
-/* lichess */
+/* lidraughts */
 
-#lichess {
+#lidraughts {
   position: relative;
   min-height: 512px;
 }
-div.lichess_game {
+div.lidraughts_game {
   display: flex;
   /* for safari: */
   height: 512px;
 }
-div.lichess_game div.lichess_board_wrap {
+div.lidraughts_game div.lidraughts_board_wrap {
   position: relative;
 }
 body.blind_mode .cg-board-wrap {
   display: none;
 }
-div.lichess_game div.lichess_ground {
+div.lidraughts_game div.lidraughts_ground {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   padding-left: 15px;
   width: 242px;
 }
-div.lichess_game div.lichess_ground.for_bot h1 {
+div.lidraughts_game div.lidraughts_ground.for_bot h1 {
   font-size: 2em;
 }
-div.lichess_game div.lichess_ground.for_bot p {
+div.lidraughts_game div.lidraughts_ground.for_bot p {
   margin: 1em 0;
 }
-div.lichess_board {
+div.lidraughts_board {
   position: relative;
 }
-div.lichess_board > svg {
+div.lidraughts_board > svg {
   position: absolute;
   top: 0;
   left: 0;
@@ -317,7 +321,7 @@ mono-piece.queen {
 mono-piece.king {
   background-image: url(../piece/mono/K.svg);
 }
-div.lichess_overboard {
+div.lidraughts_overboard {
   position: absolute;
   z-index: 66; /* go over 3D pieces */
   width: 400px;
@@ -332,7 +336,7 @@ div.lichess_overboard {
   text-align: center;
   box-sizing: border-box;
 }
-div.lichess_overboard.padded {
+div.lidraughts_overboard.padded {
   padding: 15px;
 }
 #promotion_choice {
@@ -353,6 +357,9 @@ div.lichess_overboard.padded {
   box-shadow: inset 0 0 25px 3px #808080;
   box-sizing: border-box;
   transition: 0.2s;
+}
+#promotion_choice piece {
+  pointer-events: auto;
 }
 .is2d #promotion_choice piece {
   width: 100%;
@@ -376,7 +383,7 @@ div.table {
   border: 1px solid #ccc;
   padding: 10px 0;
 }
-.lichess_ground .replay .moves {
+.lidraughts_ground .replay .moves {
   border-top: 1px solid #e2e2e2;
   border-bottom: 1px solid #e2e2e2;
   height: 100px;
@@ -390,12 +397,12 @@ div.table {
   flex-flow: row wrap;
   align-content: flex-start;
 }
-.lichess_ground .replay index,
-.lichess_ground .replay move {
+.lidraughts_ground .replay index,
+.lidraughts_ground .replay move {
   height: 25px;
   line-height: 25px;
 }
-.lichess_ground .replay index {
+.lidraughts_ground .replay index {
   display: flex;
   flex: 0 0 15%;
   max-width: 15%; /* required by IE 11 https://github.com/philipwalton/flexbugs/issues/3 */
@@ -405,58 +412,58 @@ div.table {
   font-family: 'Roboto';
   font-weight: 300;
 }
-.lichess_ground .replay move {
+.lidraughts_ground .replay move {
   flex: 0 0 42.5%;
   max-width: 42.5%; /* required by IE 11 https://github.com/philipwalton/flexbugs/issues/3 */
   box-sizing: border-box;
-  font-family: 'ChessSansPiratf', sans-serif;
-  font-size: 17px;
-  padding-left: 7px;
-}
-body.piece_letter .lichess_ground .replay move {
   font-family: 'Noto Sans';
   font-size: 15px;
+  line-height: 28px;
+  padding-left: 8px;
 }
-.lichess_ground .replay move:not(.empty) {
+body.piece_letter .lidraughts_ground .replay move {
+  font-family: 'Noto Sans';
+  font-size: 15px;
+  line-height: 25px;
+}
+.lidraughts_ground .replay move:not(.empty) {
   cursor: pointer;
-  transition: background-color 0.13s;
 }
-.lichess_ground .replay move:not(.empty):hover {
+.lidraughts_ground .replay move:not(.empty):hover {
   background: #e6e6e6;
 }
-.lichess_ground .replay move.active,
-.lichess_ground .replay move.active::after {
-  color: #d85000!important;
+.lidraughts_ground .replay move.active {
   font-weight: bold;
+  background: rgba(56,147,232,0.1)!important;
 }
-.lichess_ground .result_wrap {
+.lidraughts_ground .result_wrap {
   width: 100%;
 }
-.lichess_ground .result,
-.lichess_ground .status {
+.lidraughts_ground .result,
+.lidraughts_ground .status {
   text-align: center;
 }
-.lichess_ground .result {
+.lidraughts_ground .result {
   border-top: 1px solid #ddd;
   font-weight: bold;
   font-size: 1.3em;
   padding: 5px 0 3px 0;
 }
-.lichess_ground .status {
+.lidraughts_ground .status {
   font-size: 1em;
   font-style: italic;
   padding-bottom: 7px;
 }
-.lichess_ground .replay .buttons {
+.lidraughts_ground .replay .buttons {
   border-top: 1px solid #e2e2e2;
   font-size: 11px;
   display: flex;
   justify-content: space-between;
 }
-.lichess_ground .replay .fbt {
+.lidraughts_ground .replay .fbt {
   padding: 5px 10px;
 }
-.lichess_ground .replay .noop {
+.lidraughts_ground .replay .noop {
   width: 30px;
 }
 .pocket {
@@ -486,6 +493,7 @@ body.piece_letter .lichess_ground .replay move {
 }
 .pocket.usable piece {
   cursor: pointer;
+  pointer-events: auto;
 }
 .pocket.usable piece:hover {
   background-color: #999;
@@ -749,51 +757,51 @@ div.control .button.disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.lichess_ground .suggestion,
-.lichess_ground .pending,
-.lichess_ground .negotiation {
+.lidraughts_ground .suggestion,
+.lidraughts_ground .pending,
+.lidraughts_ground .negotiation {
   padding: 8px 7px;
   background: #d0d0d0;
 }
-.lichess_ground .suggestion p {
+.lidraughts_ground .suggestion p {
   margin-bottom: 7px;
 }
-.lichess_ground .suggestion .button {
+.lidraughts_ground .suggestion .button {
   display: block;
 }
-.lichess_ground .expiration.emerg {
+.lidraughts_ground .expiration.emerg {
   background: #dc322f!important;
   color: #fff!important;
 }
-.lichess_ground .expiration {
+.lidraughts_ground .expiration {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.lichess_ground .expiration strong {
+.lidraughts_ground .expiration strong {
   font-size: 1.3em;
   margin-right: .3em;
 }
-.lichess_ground .pending {
+.lidraughts_ground .pending {
   display: flex;
   align-items: center;
 }
-.lichess_ground .pending p {
+.lidraughts_ground .pending p {
   flex: 3 1;
   margin-right: 7px;
 }
-.lichess_ground .pending .button {
+.lidraughts_ground .pending .button {
   flex: 1 1;
 }
-.lichess_ground .negotiation {
+.lidraughts_ground .negotiation {
   display: flex;
   align-items: center;
 }
-.lichess_ground .negotiation p {
+.lidraughts_ground .negotiation p {
   flex: 1 1 auto;
   margin-right: 7px;
 }
-.lichess_ground .negotiation a {
+.lidraughts_ground .negotiation a {
   flex: 0 0 50px;
   height: 50px;
   line-height: 44px;
@@ -801,26 +809,26 @@ div.control .button.disabled {
   display: block;
   background: #fff;
 }
-.lichess_ground .negotiation .accept {
+.lidraughts_ground .negotiation .accept {
   color: #759900;
   border-right: 1px solid #d0d0d0;
   border-radius: 3px 0 0 3px;
 }
-.lichess_ground .negotiation .decline {
+.lidraughts_ground .negotiation .decline {
   color: #dc322f;
   border-radius: 0 3px 3px 0;
 }
-.lichess_ground .negotiation a:hover {
+.lidraughts_ground .negotiation a:hover {
   color: #fff;
   background: #759900!important;
 }
-.lichess_ground .negotiation a.decline:hover {
+.lidraughts_ground .negotiation a.decline:hover {
   background: #dc322f!important;
 }
-.lichess_ground .follow_up {
+.lidraughts_ground .follow_up {
   position: relative;
 }
-.lichess_ground .follow_up .button {
+.lidraughts_ground .follow_up .button {
   display: block;
   width: 100%;
   box-sizing: border-box;
@@ -828,16 +836,13 @@ div.control .button.disabled {
   padding: 12px 0;
   border-width: 1px 0 0 0;
 }
-.lichess_ground .follow_up > .button:first-child {
+.lidraughts_ground .follow_up > .button:first-child {
   border-top-width: 0;
 }
-.lichess_ground .follow_up > .button:last-child {
+.lidraughts_ground .follow_up > .button:last-child {
   border-bottom-width: 1px;
 }
-.variant_crazyhouse .lichess_ground .follow_up .button {
-  padding: 9px 0;
-}
-.lichess_ground .rematch.button {
+.lidraughts_ground .rematch.button {
   padding: 0;
   height: 80px;
   font-size: 1.2em;
@@ -847,22 +852,19 @@ div.control .button.disabled {
   text-transform: uppercase;
   transition: height 0.5s ease;
 }
-.lichess_ground .rematch.button span {
+.lidraughts_ground .rematch.button span {
   transition: opacity 0.5s ease;
 }
-.lichess_ground .rematch.disabled {
+.lidraughts_ground .rematch.disabled {
   height: 0;
   overflow: hidden;
   transition: height 0.5s ease;
 }
-.lichess_ground .rematch.disabled span {
+.lidraughts_ground .rematch.disabled span {
   opacity: 0;
   transition: opacity 0.25s ease;
 }
-.variant_crazyhouse .lichess_ground .rematch.button {
-  height: 60px;
-}
-.lichess_ground .rematch.me {
+.lidraughts_ground .rematch.me {
   background: rgba(56,147,232,0.8);
 }
 @keyframes rubberBand {
@@ -874,20 +876,20 @@ div.control .button.disabled {
   15% { transform: scale3d(1.05, .95, 1); }
   20% { transform: scale3d(1, 1, 1); }
 }
-.lichess_ground .rematch.them {
+.lidraughts_ground .rematch.them {
   background: none;
   animation: fbt-glowing 1.5s ease-in-out infinite;
 }
-.lichess_ground .rematch.them span {
+.lidraughts_ground .rematch.them span {
   animation: rubberBand 5s infinite;
 }
-.lichess_ground .rematch.button:hover {
+.lidraughts_ground .rematch.button:hover {
   background: rgba(56,147,232,0.8);
   color: #fff!important;
   animation: none;
   text-shadow: none;
 }
-.lichess_ground .rematch-decline {
+.lidraughts_ground .rematch-decline {
   position: absolute;
   top: 0;
   right: -25px;
@@ -903,22 +905,22 @@ div.control .button.disabled {
   opacity: 0.7;
   transition: 0.3s;
 }
-.lichess_ground .rematch-decline:hover {
+.lidraughts_ground .rematch-decline:hover {
   background: #dc322f;
   color: #fff;
   right: -35px;
   width: 35px;
 }
-.lichess_ground .follow_up .fbt.strong {
+.lidraughts_ground .follow_up .fbt.strong {
   display: block;
   padding: 2em 0;
   font-size: 1.2em;
 }
-.lichess_ground .follow_up .weak {
+.lidraughts_ground .follow_up .weak {
   font-weight: normal;
   padding: 6px 0;
 }
-.lichess_ground .follow_up .weak::before {
+.lidraughts_ground .follow_up .weak::before {
   opacity: 0.7;
 }
 div.cemetery {
@@ -1045,7 +1047,7 @@ div.underboard .keyboard-move {
   margin-top: 5px;
 }
 div.underboard .keyboard-move input {
-  width: 35px;
+  width: 42px;
   padding: 4px 8px;
   font-size: 1.2em;
   font-weight: bold;
@@ -1114,10 +1116,10 @@ div.underboard a {
 body.playing.zen .table {
   padding: 0;
 }
-body.playing.zen .lichess_ground .replay .buttons {
+body.playing.zen .lidraughts_ground .replay .buttons {
   border: none;
 }
-body.playing.zen .lichess_ground div.control {
+body.playing.zen .lidraughts_ground div.control {
   margin-bottom: 8px;
 }
 body.playing.zen .under_chat,

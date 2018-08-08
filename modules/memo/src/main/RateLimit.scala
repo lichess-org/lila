@@ -1,4 +1,4 @@
-package lila.memo
+package lidraughts.memo
 
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 
@@ -22,8 +22,8 @@ final class RateLimit[K](
 
   private def makeClearAt = nowMillis + duration.toMillis
 
-  private val logger = lila.log("ratelimit")
-  private val monitor = lila.mon.security.rateLimit.generic(key)
+  private val logger = lidraughts.log("ratelimit")
+  private val monitor = lidraughts.mon.security.rateLimit.generic(key)
 
   logger.info(s"[start] $name ($credits/$duration)")
 

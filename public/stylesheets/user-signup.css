@@ -9,7 +9,7 @@ div.signup_box p.explanation {
   margin-bottom: 2em;
 }
 
-div.signup_box .lichess_title {
+div.signup_box .lidraughts_title {
   margin-bottom: 1em;
 }
 
@@ -64,13 +64,13 @@ form .error {
   color: red;
 }
 
-div.checkmateCaptcha {
+div.captureCaptcha {
   margin-top: 2em;
 }
-div.checkmateCaptcha div.checkmateFen {
+div.captureCaptcha div.captureFen {
   margin-left: 0;
 }
-div.checkmateCaptcha label {
+div.captureCaptcha label {
   width: 250px;
   text-align: left;
 }

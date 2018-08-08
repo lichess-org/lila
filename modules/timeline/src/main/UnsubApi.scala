@@ -1,8 +1,8 @@
-package lila.timeline
+package lidraughts.timeline
 
 import reactivemongo.bson._
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 private[timeline] final class UnsubApi(coll: Coll) {
 

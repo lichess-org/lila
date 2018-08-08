@@ -1,7 +1,7 @@
-package lila.forumSearch
+package lidraughts.forumSearch
 
-import lila.forum.{ Post, PostView, PostLiteView, PostApi, PostRepo }
-import lila.search._
+import lidraughts.forum.{ Post, PostView, PostLiteView, PostApi, PostRepo }
+import lidraughts.search._
 
 import play.api.libs.json._
 
@@ -40,7 +40,7 @@ final class ForumSearchApi(
     case c: ESClientHttp => c.putMapping >> {
       import play.api.libs.iteratee._
       import reactivemongo.api.ReadPreference
-      import lila.db.dsl._
+      import lidraughts.db.dsl._
       logger.info(s"Index to ${c.index.name}")
       val batchSize = 500
       val maxEntries = Int.MaxValue

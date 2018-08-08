@@ -1,14 +1,14 @@
-package lila.relay
+package lidraughts.relay
 
-import chess.format.pgn.Tags
-import lila.study.{ Node, PgnImport }
+import draughts.format.pdn.Tags
+import lidraughts.study.{ Node, PdnImport }
 
 case class RelayGame(
     index: Int,
     tags: Tags,
-    variant: chess.variant.Variant,
+    variant: draughts.variant.Variant,
     root: Node.Root,
-    end: Option[PgnImport.End]
+    end: Option[PdnImport.End]
 ) {
 
   def staticTagsMatch(chapterTags: Tags) = List("white", "black", "round", "event") forall { name =>

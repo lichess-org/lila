@@ -87,8 +87,8 @@ export default class GamebookPlayCtrl {
   }
 
   solution = () => {
-    this.root.chessground.setShapes(
-      makeShapesFromUci(this.root.turnColor(), this.root.node.children[0].uci!, 'green'));
+    this.root.draughtsground.setShapes(
+      makeShapesFromUci(this.root.node.children[0].uci!, 'green'));
   }
 
   canJumpTo = (path: Tree.Path) => treePath.contains(this.root.path, path);

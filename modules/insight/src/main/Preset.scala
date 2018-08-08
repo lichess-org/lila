@@ -1,12 +1,12 @@
-package lila.insight
+package lidraughts.insight
 
-import lila.rating.PerfType
+import lidraughts.rating.PerfType
 
 case class Preset(name: String, question: Question[_])
 
 object Preset {
 
-  import lila.insight.{ Dimension => D, Metric => M }
+  import lidraughts.insight.{ Dimension => D, Metric => M }
 
   val all = List(
 
@@ -26,7 +26,7 @@ object Preset {
       "What is the Win-Rate of my favourite openings as white?",
       Question(D.Opening, M.Result, List(
         Filter(D.Perf, List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)),
-        Filter(D.Color, List(chess.White))
+        Filter(D.Color, List(draughts.White))
       ))
     ),
 
@@ -39,13 +39,6 @@ object Preset {
       "Do I gain rating when I don't castle kingside?",
       Question(D.Perf, M.RatingDiff, List(
         Filter(D.MyCastling, List(Castling.Queenside, Castling.None))
-      ))
-    ),
-
-    Preset(
-      "When I trade queens, how do games end?",
-      Question(D.Perf, M.Result, List(
-        Filter(D.QueenTrade, List(QueenTrade.Yes))
       ))
     ),
 

@@ -1,4 +1,4 @@
-package lila.hub
+package lidraughts.hub
 
 import scala.concurrent.duration._
 import scala.util.Try
@@ -6,7 +6,7 @@ import scala.util.Try
 import akka.actor._
 import akka.pattern.pipe
 
-import lila.base.LilaException
+import lidraughts.base.LidraughtsException
 
 trait SequentialProvider extends Actor {
 
@@ -18,7 +18,7 @@ trait SequentialProvider extends Actor {
 
   def process: ReceiveAsync
 
-  def logger: lila.log.Logger
+  def logger: lidraughts.log.Logger
 
   def debug = false
   lazy val name = ornicar.scalalib.Random nextString 4
@@ -69,7 +69,7 @@ trait SequentialProvider extends Actor {
       case SequentialProvider.Terminate => self ! PoisonPill
       case Envelope(msg, replyTo) =>
         (process orElse fallback)(msg)
-          .withTimeout(futureTimeout, LilaException(s"Sequential provider timeout: $futureTimeout"))(context.system)
+          .withTimeout(futureTimeout, LidraughtsException(s"Sequential provider timeout: $futureTimeout"))(context.system)
           .pipeTo(replyTo) addEffectAnyway { self ! Done }
       case x => logger.branch("SequentialProvider").warn(s"should never have received $x")
     }

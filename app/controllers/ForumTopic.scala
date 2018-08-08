@@ -2,15 +2,15 @@ package controllers
 
 import scala.concurrent.duration._
 
-import lila.app._
-import lila.common.{ HTTPRequest, IpAddress }
-import lila.forum.CategRepo
+import lidraughts.app._
+import lidraughts.common.{ HTTPRequest, IpAddress }
+import lidraughts.forum.CategRepo
 import play.api.libs.json._
 import views._
 
-object ForumTopic extends LilaController with ForumController {
+object ForumTopic extends LidraughtsController with ForumController {
 
-  private val CreateRateLimit = new lila.memo.RateLimit[IpAddress](2, 5 minutes,
+  private val CreateRateLimit = new lidraughts.memo.RateLimit[IpAddress](2, 5 minutes,
     name = "forum create topic",
     key = "forum.topic")
 
@@ -89,7 +89,7 @@ object ForumTopic extends LilaController with ForumController {
   def participants(topicId: String) = Auth { implicit ctx => _ =>
     for {
       userIds <- postApi userIds topicId
-      usernames <- lila.user.UserRepo usernamesByIds userIds
+      usernames <- lidraughts.user.UserRepo usernamesByIds userIds
     } yield Ok(Json.toJson(usernames.sortBy(_.toLowerCase)))
   }
 }

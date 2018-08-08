@@ -1,7 +1,7 @@
-package lila.search
+package lidraughts.search
 
-import lila.common.MaxPerPage
-import lila.common.paginator._
+import lidraughts.common.MaxPerPage
+import lidraughts.common.paginator._
 
 import play.api.libs.json.Writes
 

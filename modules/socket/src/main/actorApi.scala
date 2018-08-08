@@ -1,9 +1,9 @@
-package lila.socket
+package lidraughts.socket
 package actorApi
 
 import play.api.libs.json.JsObject
 
-import chess.Centis
+import draughts.Centis
 
 case class Connected[M <: SocketMember](
     enumerator: JsEnumerator,

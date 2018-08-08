@@ -1,8 +1,8 @@
-package lila.rating
+package lidraughts.rating
 
 import reactivemongo.bson.BSONDocument
 
-import lila.db.BSON
+import lidraughts.db.BSON
 
 case class Glicko(
     rating: Double,

@@ -1,4 +1,4 @@
-@(u: User, playing: Option[Pov], blocked: Boolean, followable: Boolean, rel: Option[lila.relation.Relation], ping: Option[Int], crosstable: Option[lila.game.Crosstable])(implicit ctx: Context)
+@(u: User, playing: Option[Pov], blocked: Boolean, followable: Boolean, rel: Option[lidraughts.relation.Relation], ping: Option[Int], crosstable: Option[lidraughts.game.Crosstable])(implicit ctx: Context)
 <div class="title">
   <div>
     @ping.map { p => @signalBars(p) }
@@ -13,7 +13,7 @@
     @userLink(u, withPowerTip = false)
   </div>
   @if(u.engine && ctx.me.fold(true)(u !=) && !isGranted(_.UserSpy)) {
-  <div class="warning" data-icon="j">@trans.thisPlayerUsesChessComputerAssistance()</div>
+  <div class="warning" data-icon="j">@trans.thisPlayerUsesDraughtsComputerAssistance()</div>
   } else {
   <div class="ratings">
     @u.best8Perfs.map { pt =>
@@ -58,7 +58,7 @@
         </a>
       </td>
       <td>
-        <a class="button hint--bottom" data-hint="@trans.play()" href="@routes.Lobby.home()?user=@u.username#friend">
+        <a class="button hint--bottom" data-hint="@trans.challengeToPlay()" href="@routes.Lobby.home()?user=@u.username#friend">
           <span data-icon="U"></span>
         </a>
       </td>

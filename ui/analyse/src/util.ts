@@ -1,7 +1,6 @@
 import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
 import { Attrs } from 'snabbdom/modules/attributes'
-import { fixCrazySan } from 'chess';
 import { AnalyseData } from './interfaces';
 
 export function plyColor(ply: number): Color {
@@ -55,10 +54,11 @@ export function synthetic(data: AnalyseData): boolean {
 }
 
 export function nodeFullName(node: Tree.Node) {
-  if (node.san) return plyToTurn(node.ply) + (
-    node.ply % 2 === 1 ? '.' : '...'
-  ) + ' ' + fixCrazySan(node.san);
-  return 'Initial position';
+    const renderPly = (node.displayPly ? node.displayPly : node.ply);
+    if (node.san) return plyToTurn(renderPly) + (
+        renderPly % 2 === 1 ? '.' : '...'
+    ) + ' ' + (node.expandedSan ? node.expandedSan! : node.san!);
+    return 'Initial position';
 }
 
 export function plural(noun: string, nb: number): string {
@@ -94,7 +94,7 @@ export function innerHTML<A>(a: A, toHtml: (a: A) => string): Hooks {
 }
 
 export function toYouTubeEmbed(url: string, height: number = 300): string | undefined {
-  const embedUrl = window.lichess.toYouTubeEmbedUrl(url);
+  const embedUrl = window.lidraughts.toYouTubeEmbedUrl(url);
   if (embedUrl) return `<iframe width="100%" height="${height}" src="${embedUrl}" frameborder=0 allowfullscreen></iframe>`;
 }
 
@@ -113,7 +113,7 @@ function toLink(url: string) {
 }
 
 export function enrichText(text: string, allowNewlines: boolean): string {
-  let html = autolink(window.lichess.escapeHtml(text), toLink);
+  let html = autolink(window.lidraughts.escapeHtml(text), toLink);
   if (allowNewlines) html = html.replace(newLineRegex, '<br>');
   return html;
 }

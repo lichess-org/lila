@@ -1,4 +1,4 @@
-package lila.report
+package lidraughts.report
 
 import scala.concurrent.duration._
 import akka.actor._
@@ -6,14 +6,14 @@ import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    db: lila.db.Env,
-    isOnline: lila.user.User.ID => Boolean,
-    noteApi: lila.user.NoteApi,
-    securityApi: lila.security.SecurityApi,
+    db: lidraughts.db.Env,
+    isOnline: lidraughts.user.User.ID => Boolean,
+    noteApi: lidraughts.user.NoteApi,
+    securityApi: lidraughts.security.SecurityApi,
     system: ActorSystem,
-    hub: lila.hub.Env,
-    settingStore: lila.memo.SettingStore.Builder,
-    asyncCache: lila.memo.AsyncCache.Builder
+    hub: lidraughts.hub.Env,
+    settingStore: lidraughts.memo.SettingStore.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
   private val CollectionReport = config getString "collection.report"
@@ -40,13 +40,13 @@ final class Env(
     securityApi,
     isOnline,
     asyncCache,
-    system.lilaBus,
+    system.lidraughtsBus,
     scoreThreshold = scoreThresholdSetting.get
   )
 
   lazy val modFilters = new ModReportFilter
 
-  def cli = new lila.common.Cli {
+  def cli = new lidraughts.common.Cli {
     def process = {
       case "report" :: "score" :: "reset" :: Nil => api.resetScores inject "done"
     }
@@ -55,11 +55,11 @@ final class Env(
   // api actor
   system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.report.Cheater(userId, text) =>
+      case lidraughts.hub.actorApi.report.Cheater(userId, text) =>
         api.autoCheatReport(userId, text)
-      case lila.hub.actorApi.report.Shutup(userId, text) =>
+      case lidraughts.hub.actorApi.report.Shutup(userId, text) =>
         api.autoInsultReport(userId, text)
-      case lila.hub.actorApi.report.Booster(winnerId, loserId) =>
+      case lidraughts.hub.actorApi.report.Booster(winnerId, loserId) =>
         api.autoBoostReport(winnerId, loserId)
     }
   }), name = ActorName)
@@ -72,14 +72,14 @@ final class Env(
 object Env {
 
   lazy val current = "report" boot new Env(
-    config = lila.common.PlayApp loadConfig "report",
-    db = lila.db.Env.current,
-    isOnline = lila.user.Env.current.isOnline,
-    noteApi = lila.user.Env.current.noteApi,
-    securityApi = lila.security.Env.current.api,
-    system = lila.common.PlayApp.system,
-    hub = lila.hub.Env.current,
-    settingStore = lila.memo.Env.current.settingStore,
-    asyncCache = lila.memo.Env.current.asyncCache
+    config = lidraughts.common.PlayApp loadConfig "report",
+    db = lidraughts.db.Env.current,
+    isOnline = lidraughts.user.Env.current.isOnline,
+    noteApi = lidraughts.user.Env.current.noteApi,
+    securityApi = lidraughts.security.Env.current.api,
+    system = lidraughts.common.PlayApp.system,
+    hub = lidraughts.hub.Env.current,
+    settingStore = lidraughts.memo.Env.current.settingStore,
+    asyncCache = lidraughts.memo.Env.current.asyncCache
   )
 }

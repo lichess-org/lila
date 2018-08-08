@@ -1,16 +1,16 @@
-package lila.game
+package lidraughts.game
 
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.user.UserRepo
+import lidraughts.db.dsl._
+import lidraughts.user.UserRepo
 
 final class CrosstableApi(
     coll: Coll,
     matchupColl: Coll,
     gameColl: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     system: akka.actor.ActorSystem
 ) {
 
@@ -103,7 +103,7 @@ final class CrosstableApi(
       case (Some((u1, u2)), List(su1, su2)) =>
         val selector = $doc(
           GF.playerUids $all List(u1, u2),
-          GF.status $gte chess.Status.Mate.id
+          GF.status $gte draughts.Status.Mate.id
         )
 
         import reactivemongo.api.ReadPreference
@@ -137,7 +137,7 @@ final class CrosstableApi(
 
       case _ => fuccess(none)
     }
-  } recoverWith lila.db.recoverDuplicateKey { _ =>
+  } recoverWith lidraughts.db.recoverDuplicateKey { _ =>
     coll.uno[Crosstable](select(x1, x2))
   } recover {
     case e: Exception =>

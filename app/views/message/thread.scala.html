@@ -1,8 +1,8 @@
-@(thread: lila.message.Thread, form: Option[Form[_]], blocks: Boolean)(implicit ctx: Context, me: User)
+@(thread: lidraughts.message.Thread, form: Option[Form[_]], blocks: Boolean)(implicit ctx: Context, me: User)
 
 @message.layout(
 title = thread.name) {
-<div id="lichess_message" class="content_box @if(thread.asMod){ mod}">
+<div id="lidraughts_message" class="content_box @if(thread.asMod){ mod}">
   <div class="thread_actions">
     <form action="@routes.Message.delete(thread.id)" method="post">
       <button type="submit" class="delete button"> Delete</button>

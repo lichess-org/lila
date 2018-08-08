@@ -1,4 +1,4 @@
-package lila.tournament
+package lidraughts.tournament
 package crud
 
 import org.joda.time.DateTime
@@ -6,13 +6,13 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
-import chess.StartingPosition
-import lila.common.Form._
+import draughts.StartingPosition
+import lidraughts.common.Form._
 
 object CrudForm {
 
   import DataForm._
-  import lila.common.Form.UTCDate._
+  import lidraughts.common.Form.UTCDate._
 
   lazy val apply = Form(mapping(
     "name" -> nonEmptyText(minLength = 3, maxLength = 40),
@@ -35,8 +35,8 @@ object CrudForm {
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
-    variant = chess.variant.Standard.id,
-    position = StartingPosition.initial.eco,
+    variant = draughts.variant.Standard.id,
+    position = StartingPosition.initial.fen,
     date = DateTime.now plusDays 7,
     image = "",
     headline = "",
@@ -67,7 +67,7 @@ object CrudForm {
   }
 
   val imageChoices = List(
-    "" -> "Lichess",
+    "" -> "Lidraughts",
     "chesswhiz.logo.png" -> "ChessWhiz",
     "chessat3.logo.png" -> "Chessat3",
     "bitchess.logo.png" -> "Bitchess"

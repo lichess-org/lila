@@ -1,12 +1,14 @@
-package lila.study
+package lidraughts.study
 
-import chess.format.UciCharPair
+import draughts.format.UciCharPair
 
 case class Path(ids: List[UciCharPair]) extends AnyVal {
 
   def head: Option[UciCharPair] = ids.headOption
 
   def tail: Path = Path(ids drop 1)
+
+  def withoutLast: Path = Path(ids.slice(0, ids.length - 1))
 
   def init: Path = Path(ids take (ids.length - 1))
 

@@ -1,7 +1,7 @@
-@(form: Form[_], config: lila.tournament.DataForm, me: User)(implicit ctx: Context)
+@(form: Form[_], config: lidraughts.tournament.DataForm, me: User)(implicit ctx: Context)
 
 @import config._
-@import lila.tournament.DataForm._
+@import lidraughts.tournament.DataForm._
 
 @moreJs = {
 @jsTag("tournamentForm.js")
@@ -26,7 +26,7 @@ moreJs = moreJs) {
           <th><label for="@form("password").id">@trans.password()</label></th>
           <td>@base.form.input(form("password"))</td>
         </tr>
-        @if(lila.tournament.DataForm.canPickName(me)) {
+        @if(lidraughts.tournament.DataForm.canPickName(me)) {
         <tr class="name">
           <th><label for="@form("name").id">@trans.name()</label></th>
           <td>

@@ -1,6 +1,6 @@
-package lila.round
+package lidraughts.round
 
-import lila.db.dsl._
+import lidraughts.db.dsl._
 
 import reactivemongo.bson._
 

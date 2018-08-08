@@ -6,14 +6,14 @@ import play.api.mvc.Result
 import play.twirl.api.Html
 import scala.concurrent.duration._
 
-import lila.api.Context
-import lila.app._
-import lila.common.{ IpAddress, HTTPRequest }
-import lila.security.Granter
-import lila.user.{ User => UserModel, UserRepo }
+import lidraughts.api.Context
+import lidraughts.app._
+import lidraughts.common.{ IpAddress, HTTPRequest }
+import lidraughts.security.Granter
+import lidraughts.user.{ User => UserModel, UserRepo }
 import views._
 
-object Message extends LilaController {
+object Message extends LidraughtsController {
 
   private def api = Env.message.api
   private def security = Env.message.security
@@ -71,14 +71,14 @@ object Message extends LilaController {
     }
   }
 
-  private val ThreadLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+  private val ThreadLimitPerUser = new lidraughts.memo.RateLimit[lidraughts.user.User.ID](
     credits = 20,
     duration = 24 hour,
     name = "PM thread per user",
     key = "pm_thread.user"
   )
 
-  private val ThreadLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private val ThreadLimitPerIP = new lidraughts.memo.RateLimit[IpAddress](
     credits = 30,
     duration = 24 hour,
     name = "PM thread per IP",
@@ -124,7 +124,7 @@ object Message extends LilaController {
 
   private def renderForm(me: UserModel, title: Option[String], f: Form[_] => Form[_])(implicit ctx: Context): Fu[Html] =
     get("user") ?? UserRepo.named flatMap { user =>
-      user.fold(fuccess(true))(u => security.canMessage(me.id, u.id)) map { canMessage =>
+      user.fold(fuTrue)(u => security.canMessage(me.id, u.id)) map { canMessage =>
         html.message.form(
           f(forms thread me),
           reqUser = user,

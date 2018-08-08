@@ -1,6 +1,6 @@
-@(t: lila.team.Team, members: Paginator[lila.team.MemberWithUser], info: lila.app.mashup.TeamInfo)(implicit ctx: Context)
+@(t: lidraughts.team.Team, members: Paginator[lidraughts.team.MemberWithUser], info: lidraughts.app.mashup.TeamInfo)(implicit ctx: Context)
 
-@team.layout(title = t.name, openGraph = lila.app.ui.OpenGraph(
+@team.layout(title = t.name, openGraph = lidraughts.app.ui.OpenGraph(
 title = s"${t.name} team",
 url = s"$netBaseUrl${routes.Team.show(t.id).url}",
 description = shorten(t.description, 152)).some) {
@@ -8,7 +8,7 @@ description = shorten(t.description, 152)).some) {
   <div class="content_box_top">
     <span class="righty">@trans.nbMembers.plural(t.nbMembers, Html("<strong>" + t.nbMembers.localize + "</strong>"))</span>
     <div class="icon team-icon @myTeam(t.id).fold("mine", "")"></div>
-    <h1 class="lichess_title" data-icon="f"> @t.name <span>TEAM</span></h1>
+    <h1 class="lidraughts_title" data-icon="f"> @t.name <span>TEAM</span></h1>
     @if(t.disabled) {
     <span class="staff">CLOSED</span>
     }

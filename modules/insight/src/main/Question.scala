@@ -1,4 +1,4 @@
-package lila.insight
+package lidraughts.insight
 
 case class Question[X](
     dimension: Dimension[X],

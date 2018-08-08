@@ -1,4 +1,4 @@
-@(move: Field, gameId: Field, captcha: lila.common.Captcha)(implicit ctx: Context)
+@(move: Field, gameId: Field, captcha: lidraughts.common.Captcha)(implicit ctx: Context)
 
 @import play.api.libs.json.Json
 
@@ -6,8 +6,8 @@
 @if(ctx.blindMode) {
 <input type="hidden" name="@move.name" id="@move.id" value="@captcha.solutions.head" />
 } else {
-<div class="checkmateCaptcha clearfix" data-check-url="@routes.Main.captchaCheck(captcha.gameId)">
-  <div class="checkmateFen">
+<div class="captureCaptcha clearfix" data-check-url="@routes.Main.captchaCheck(captcha.gameId)">
+  <div class="captureFen">
     <div
       class="mini_board parse_fen is2d"
       data-playable="1"
@@ -15,18 +15,18 @@
       data-y="@encodeFen(captcha.white.fold("white", "black"))"
       data-z="@encodeFen(captcha.fen)">@miniBoardContent</div>
   </div>
-  <div class="checkmateSection">
+  <div class="captureSection">
     <label>
-      <strong>@trans.colorPlaysCheckmateInOne(captcha.white.fold(trans.white, trans.black)())</strong><br />
+      <strong>@trans.colorPlaysCapture(captcha.white.fold(trans.white, trans.black)())</strong><br />
       <br />
-      @trans.thisIsAChessCaptcha()<br />
+      @trans.thisIsADraughtsCaptcha()<br />
       @trans.clickOnTheBoardToMakeYourMove()
       <br /><br />
       @defining(netBaseUrl + routes.Round.watcher(captcha.gameId, captcha.white.fold("white", "black"))) { url =>
       @trans.help() <a class="hint--bottom" data-hint="@trans.viewTheSolution()" target="_blank" href="@url">@url</a>
       }
-      <div class="result success text" data-icon="E">@trans.checkmate()</div>
-      <div class="result failure text" data-icon="k">@trans.notACheckmate()</div>
+      <div class="result success text" data-icon="E">@trans.success()</div>
+      <div class="result failure text" data-icon="k">@trans.notACapture()</div>
     </label>
     <input type="hidden" name="@move.name" id="@move.id" value="" />
   </div>

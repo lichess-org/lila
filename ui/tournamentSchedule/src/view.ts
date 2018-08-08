@@ -88,7 +88,7 @@ function splitOverlaping(lanes) {
 
 function tournamentClass(tour) {
   const finished = tour.status === 30,
-  userCreated = tour.createdBy !== 'lichess',
+  userCreated = tour.createdBy !== 'lidraughts',
   classes = {
     rated: tour.rated,
     casual: !tour.rated,

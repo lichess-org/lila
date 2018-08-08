@@ -1,30 +1,20 @@
-package lila.setup
+package lidraughts.setup
 
 import akka.actor.ActorSelection
 
-import lila.game.{ GameRepo, Pov, PerfPicker }
-import lila.lobby.actorApi.{ AddHook, AddSeek }
-import lila.user.{ User, UserContext }
+import lidraughts.game.{ GameRepo, Pov, PerfPicker }
+import lidraughts.lobby.actorApi.{ AddHook, AddSeek }
+import lidraughts.user.{ User, UserContext }
 
 private[setup] final class Processor(
     lobby: ActorSelection,
-    gameCache: lila.game.Cached,
+    gameCache: lidraughts.game.Cached,
     maxPlaying: Int,
-    fishnetPlayer: lila.fishnet.Player,
     onStart: String => Unit
 ) {
 
   def filter(config: FilterConfig)(implicit ctx: UserContext): Funit =
     saveConfig(_ withFilter config)
-
-  def ai(config: AiConfig)(implicit ctx: UserContext): Fu[Pov] = {
-    val pov = config pov ctx.me
-    saveConfig(_ withAi config) >>
-      (GameRepo insertDenormalized pov.game) >>-
-      onStart(pov.game.id) >> {
-        pov.game.player.isAi ?? fishnetPlayer(pov.game)
-      } inject pov
-  }
 
   def hook(
     configBase: HookConfig,

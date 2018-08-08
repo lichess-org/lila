@@ -1,9 +1,9 @@
-package lila.practice
+package lidraughts.practice
 
 import org.joda.time.DateTime
 
-import lila.user.User
-import lila.study.{ Study, Chapter }
+import lidraughts.user.User
+import lidraughts.study.{ Study, Chapter }
 
 case class PracticeProgress(
     _id: PracticeProgress.Id,
@@ -42,7 +42,7 @@ object PracticeProgress {
   case class Id(value: String) extends AnyVal
 
   case class NbMoves(value: Int) extends AnyVal
-  implicit val nbMovesIso = lila.common.Iso.int[NbMoves](NbMoves.apply, _.value)
+  implicit val nbMovesIso = lidraughts.common.Iso.int[NbMoves](NbMoves.apply, _.value)
 
   case class OnComplete(userId: User.ID, studyId: Study.Id, chapterId: Chapter.Id)
 

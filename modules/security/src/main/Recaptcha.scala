@@ -1,11 +1,11 @@
-package lila.security
+package lidraughts.security
 
 import play.api.libs.ws.WS
 import play.api.mvc.RequestHeader
 import play.api.Play.current
 import play.api.libs.json._
 
-import lila.common.HTTPRequest
+import lidraughts.common.HTTPRequest
 
 trait Recaptcha {
 
@@ -14,13 +14,13 @@ trait Recaptcha {
 
 object RecaptchaSkip extends Recaptcha {
 
-  def verify(response: String, req: RequestHeader) = fuccess(true)
+  def verify(response: String, req: RequestHeader) = fuTrue
 }
 
 final class RecaptchaGoogle(
     endpoint: String,
     privateKey: String,
-    lichessHostname: String
+    lidraughtsHostname: String
 ) extends Recaptcha {
 
   private case class Response(
@@ -39,7 +39,7 @@ final class RecaptchaGoogle(
       case res if res.status == 200 =>
         res.json.validate[Response] match {
           case JsSuccess(res, _) => fuccess {
-            res.success && res.hostname == lichessHostname
+            res.success && res.hostname == lidraughtsHostname
           }
           case JsError(err) =>
             fufail(s"$err ${~res.body.lines.toList.headOption}")

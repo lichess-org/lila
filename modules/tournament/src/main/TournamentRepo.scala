@@ -1,14 +1,14 @@
-package lila.tournament
+package lidraughts.tournament
 
-import chess.variant.Variant
+import draughts.variant.Variant
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 
 import BSONHandlers._
-import lila.common.paginator.Paginator
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl._
-import lila.db.paginator.{ Adapter, CachedAdapter }
+import lidraughts.common.paginator.Paginator
+import lidraughts.db.BSON.BSONJodaDateTimeHandler
+import lidraughts.db.dsl._
+import lidraughts.db.paginator.{ Adapter, CachedAdapter }
 
 object TournamentRepo {
 
@@ -98,7 +98,7 @@ object TournamentRepo {
       .sort($doc("startsAt" -> -1))
       .list[Tournament](limit)
 
-  def finishedPaginator(maxPerPage: lila.common.MaxPerPage, page: Int) = Paginator(
+  def finishedPaginator(maxPerPage: lidraughts.common.MaxPerPage, page: Int) = Paginator(
     adapter = new CachedAdapter(
       new Adapter[Tournament](
         collection = coll,
@@ -203,7 +203,7 @@ object TournamentRepo {
   }
 
   def lastFinishedScheduledByFreq(freq: Schedule.Freq, since: DateTime): Fu[List[Tournament]] = coll.find(
-    finishedSelect ++ sinceSelect(since) ++ variantSelect(chess.variant.Standard) ++ $doc(
+    finishedSelect ++ sinceSelect(since) ++ variantSelect(draughts.variant.Standard) ++ $doc(
       "schedule.freq" -> freq.name,
       "schedule.speed" $in Schedule.Speed.mostPopular.map(_.name)
     )

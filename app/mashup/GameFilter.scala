@@ -1,10 +1,10 @@
-package lila.app
+package lidraughts.app
 package mashup
 
-import lila.common.paginator.Paginator
-import lila.db.dsl._
-import lila.game.{ Game, Query, GameRepo }
-import lila.user.User
+import lidraughts.common.paginator.Paginator
+import lidraughts.db.dsl._
+import lidraughts.game.{ Game, Query, GameRepo }
+import lidraughts.user.User
 
 import play.api.mvc.Request
 import scalaz.{ NonEmptyList, IList }
@@ -82,7 +82,7 @@ object GameFilterMenu {
   private def pag = Env.game.paginator
 
   def paginatorOf(
-    userGameSearch: lila.gameSearch.UserGameSearch,
+    userGameSearch: lidraughts.gameSearch.UserGameSearch,
     user: User,
     nbs: Option[UserInfo.NbGames],
     filter: GameFilter,
@@ -95,7 +95,7 @@ object GameFilterMenu {
       case Bookmark => Env.bookmark.api.gamePaginatorByUser(user, page)
       case Imported => pag.apply(
         selector = Query imported user.id,
-        sort = $sort desc "pgni.ca",
+        sort = $sort desc "pdni.ca",
         nb = nb
       )(page)
       case All => std(Query started user.id)
@@ -116,7 +116,7 @@ object GameFilterMenu {
   }
 
   def searchForm(
-    userGameSearch: lila.gameSearch.UserGameSearch,
+    userGameSearch: lidraughts.gameSearch.UserGameSearch,
     filter: GameFilter
   )(implicit req: Request[_]): play.api.data.Form[_] = filter match {
     case Search => userGameSearch.requestForm

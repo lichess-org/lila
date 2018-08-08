@@ -1,4 +1,4 @@
-package lila.tournament
+package lidraughts.tournament
 
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
@@ -6,17 +6,18 @@ import play.api.i18n.Lang
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lila.common.LightUser
-import lila.game.{ GameRepo, Pov, Game }
-import lila.quote.Quote.quoteWriter
-import lila.rating.PerfType
-import lila.user.User
+import lidraughts.common.LightUser
+import lidraughts.game.{ GameRepo, Pov, Game }
+import lidraughts.quote.Quote.quoteWriter
+import lidraughts.rating.PerfType
+import lidraughts.user.User
 
 final class JsonView(
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lidraughts.user.LightUserApi,
     cached: Cached,
     statsApi: TournamentStatsApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    shieldApi: TournamentShieldApi,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     verify: Condition.Verify,
     duelStore: DuelStore,
     startedSinceSeconds: Int => Boolean
@@ -56,6 +57,7 @@ final class JsonView(
     }
     stats <- statsApi(tour)
     myGameId <- me.ifTrue(myInfo.isDefined) ?? { fetchCurrentGameId(tour, _) }
+    shieldOwner <- shieldApi currentOwner tour
   } yield Json.obj(
     "id" -> tour.id,
     "createdBy" -> tour.createdBy,
@@ -85,12 +87,13 @@ final class JsonView(
     .add("featured" -> data.featured)
     .add("podium" -> data.podium)
     .add("playerInfo" -> playerInfoJson)
-    .add("quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id)))
+    .add("quote" -> tour.isCreated.option(lidraughts.quote.Quote.one(tour.id)))
     .add("spotlight" -> tour.spotlight)
     .add("pairingsClosed" -> tour.pairingsClosed)
     .add("stats" -> stats)
     .add("next" -> data.next)
     .add("myGameId" -> myGameId)
+    .add("defender" -> shieldOwner.map(_.value))
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =
     if (page == 1) firstPageCache get tour.id
@@ -115,8 +118,8 @@ final class JsonView(
           "id" -> user.id,
           "name" -> user.username,
           "rating" -> player.rating,
-          "ratingDiff" -> 0, // # temp mobile app BC - remove me #TODO
           "score" -> player.score,
+          "ratingDiff" -> player.ratingDiff,
           "fire" -> player.fire,
           "nb" -> sheetNbs(user.id, sheet)
         ).add("title" -> user.title)
@@ -216,25 +219,26 @@ final class JsonView(
 
   private def featuredJson(featured: FeaturedGame) = {
     val game = featured.game
-    def ofPlayer(rp: RankedPlayer, p: lila.game.Player) = {
+    def ofPlayer(rp: RankedPlayer, p: lidraughts.game.Player) = {
       val light = lightUserApi sync rp.player.userId
       Json.obj(
         "rank" -> rp.rank,
         "name" -> light.fold(rp.player.userId)(_.name),
-        "rating" -> rp.player.rating
+        "rating" -> rp.player.rating,
+        "ratingDiff" -> rp.player.ratingDiff
       ).add("title" -> light.flatMap(_.title))
         .add("berserk" -> p.berserk)
     }
     Json.obj(
       "id" -> game.id,
-      "fen" -> (chess.format.Forsyth exportBoard game.board),
+      "fen" -> (draughts.format.Forsyth exportBoard game.board),
       "color" -> (game.variant match {
-        case chess.variant.RacingKings => chess.White
+        //case draughts.variant.RacingKings => draughts.White
         case _ => game.firstColor
       }).name,
       "lastMove" -> ~game.lastMoveKeys,
-      "white" -> ofPlayer(featured.white, game player chess.White),
-      "black" -> ofPlayer(featured.black, game player chess.Black)
+      "white" -> ofPlayer(featured.white, game player draughts.White),
+      "black" -> ofPlayer(featured.black, game player draughts.Black)
     )
   }
 
@@ -277,7 +281,7 @@ final class JsonView(
         "name" -> light.fold(p.userId)(_.name),
         "rank" -> rankedPlayer.rank,
         "rating" -> p.rating,
-        "ratingDiff" -> 0, // # temp mobile app BC - remove me #TODO
+        "ratingDiff" -> p.ratingDiff,
         "score" -> p.score,
         "sheet" -> sheet.map(sheetJson)
       ).add("title" -> light.flatMap(_.title))
@@ -344,14 +348,14 @@ object JsonView {
     "speed" -> s.speed.name
   )
 
-  implicit val clockWrites: OWrites[chess.Clock.Config] = OWrites { clock =>
+  implicit val clockWrites: OWrites[draughts.Clock.Config] = OWrites { clock =>
     Json.obj(
       "limit" -> clock.limitSeconds,
       "increment" -> clock.incrementSeconds
     )
   }
 
-  private[tournament] def positionJson(s: chess.StartingPosition) = Json.obj(
+  private[tournament] def positionJson(s: draughts.StartingPosition) = Json.obj(
     "eco" -> s.eco,
     "name" -> s.name,
     "wikiPath" -> s.wikiPath,

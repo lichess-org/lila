@@ -1,4 +1,4 @@
-import { opposite } from 'chessground/util';
+import { opposite } from 'draughtsground/util';
 import { bind } from '../util';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
@@ -19,7 +19,7 @@ function renderTitle(root: AnalyseCtrl): VNode {
 function commentBest(c: Comment, root: AnalyseCtrl, ctrl: PracticeCtrl): MaybeVNodes {
   return c.best ? root.trans.vdom(
     c.verdict === 'goodMove' ? 'anotherWasX' : 'bestWasX',
-    h('a', {
+    h('move', {
       hook: {
         insert: vnode => {
           const el = vnode.elm as HTMLElement;

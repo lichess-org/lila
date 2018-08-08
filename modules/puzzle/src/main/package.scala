@@ -1,6 +1,6 @@
-package lila
+package lidraughts
 
-import lila.rating.Glicko
+import lidraughts.rating.Glicko
 
 package object puzzle extends PackageObject {
 
@@ -8,7 +8,7 @@ package object puzzle extends PackageObject {
   type RoundId = Int
   type Lines = List[Line]
 
-  private[puzzle] def logger = lila.log("puzzle")
+  private[puzzle] def logger = lidraughts.log("puzzle")
 
   case class Result(win: Boolean) extends AnyVal {
 
