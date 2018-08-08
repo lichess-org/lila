@@ -64,17 +64,10 @@ private[simul] final class Socket(
 
     case Aborted => notifyVersion("aborted", Json.obj(), Messadata())
 
-    case Ping(uid, vOpt, c) => {
+    case Ping(uid, vOpt, c) =>
       ping(uid, c)
       timeBomb.delay
-
-      // Mobile backwards compat
-      vOpt foreach { v =>
-        withMember(uid) { m =>
-          history.since(v).fold(resync(m))(_ foreach sendMessage(m))
-        }
-      }
-    }
+      pushEventsSinceForMobileBC(vOpt, uid)
 
     case Broom => {
       broom
