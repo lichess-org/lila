@@ -61,17 +61,10 @@ private[tournament] final class Socket(
       waitingUsers = waitingUsers.update(members.values.flatMap(_.userId)(breakOut), clock)
       sender ! waitingUsers
 
-    case Ping(uid, vOpt, lt) => {
+    case Ping(uid, vOpt, lt) =>
       ping(uid, lt)
       timeBomb.delay
-
-      // Mobile backwards compat
-      vOpt foreach { v =>
-        withMember(uid) { m =>
-          history.since(v).fold(resync(m))(_ foreach sendMessage(m))
-        }
-      }
-    }
+      pushEventsSinceForMobileBC(vOpt, uid)
 
     case Broom => {
       broom

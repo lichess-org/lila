@@ -29,17 +29,10 @@ private final class Socket(
         }
       }
 
-    case Ping(uid, vOpt, lagCentis) => {
+    case Ping(uid, vOpt, lagCentis) =>
       ping(uid, lagCentis)
       timeBomb.delay
-
-      // Mobile backwards compat
-      vOpt foreach { v =>
-        withMember(uid) { m =>
-          history.since(v).fold(resync(m))(_ foreach sendMessage(m))
-        }
-      }
-    }
+      pushEventsSinceForMobileBC(vOpt, uid)
 
     case Broom => {
       broom
