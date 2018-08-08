@@ -44,7 +44,7 @@ private[round] final class Socket(
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
-  private var delayedCrowdNotification = false
+  private[this] var delayedCrowdNotification = false
 
   private final class Player(color: Color) {
 
@@ -252,10 +252,11 @@ private[round] final class Socket(
     send = (t, d, _) => notifyAll(t, d)
   )
 
-  override def quit(uid: Uid) = withMember(uid) { member =>
-    super.quit(uid)
-    notifyCrowd
-  }
+  override def quit(uid: Uid) =
+    if (members contains uid.value) {
+      super.quit(uid)
+      notifyCrowd
+    }
 
   def notifyCrowd: Unit = {
     if (!delayedCrowdNotification) {

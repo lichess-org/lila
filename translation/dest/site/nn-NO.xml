@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Ratinga di i %1$s (%2$s) er for låg</string>
   <string name="ratedMoreThanInPerf">Rata ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Rata ≤ %1$s i %2$s</string>
+  <string name="mustBeInTeam">Du må væra medlem av lag %s</string>
+  <string name="youAreNotInTeam">Du er ikkje med i lag %s</string>
   <string name="backToGame">Tilbake til partiet</string>
   <string name="siteDescription">Fritt tilgjengeleg nettsjakk. Spel sjakk på ei rein nettside utan registrering, reklame eller programtillegg. Spel sjakk mot datamaskin, vener eller tilfeldige motspelarar.</string>
   <string name="teams">Lag</string>

@@ -344,6 +344,8 @@
   <string name="yourPerfRatingIsTooLow">Vaš %1$s rejting (%2$s) je prenizek</string>
   <string name="ratedMoreThanInPerf">Rejting ≥ %1$s v %2$s</string>
   <string name="ratedLessThanInPerf">Rejting ≤ %1$s v %2$s</string>
+  <string name="mustBeInTeam">Potrebno je biti v ekipi %s</string>
+  <string name="youAreNotInTeam">Niste v ekipi %s</string>
   <string name="backToGame">Vrni se v igro</string>
   <string name="siteDescription">Brezplačni internetni šah. Igraj šah na enostavnem vmesniku. Brez registracije, brez reklam in brez dodatnih vtičnikov. Igraj šah proti računalniku, prijatelju ali naključnemu nasprotniku.</string>
   <string name="teams">Ekipe</string>

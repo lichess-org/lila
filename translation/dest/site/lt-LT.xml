@@ -224,6 +224,8 @@
   <string name="yourPerfRatingIsTooLow">Jūsų „%1$s“ reitingas (%2$s) yra per žemas</string>
   <string name="ratedMoreThanInPerf">≥ %1$s %2$s reitingas</string>
   <string name="ratedLessThanInPerf">≤ %1$s %2$s reitingas</string>
+  <string name="mustBeInTeam">Turite būti komandos „%s“ nariu</string>
+  <string name="youAreNotInTeam">Jūs nesate komandos „%s“ narys</string>
   <string name="backToGame">Grįžti į partiją</string>
   <string name="siteDescription">Nemokamas šachmatų žaidimas internete. Žaiskite šachmatais patrauklioje sąsajoje. Nebūtina registracija, nėra reklamų, nereikia jokių priedų. Žaiskite šachmatais prieš kompiuterį, draugus arba atsitiktinius varžovus.</string>
   <string name="teams">Komandos</string>
