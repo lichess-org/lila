@@ -25,7 +25,7 @@ final class SelfReport(roundMap: ActorRef) {
       lila.game.GameRepo pov fullId map {
         _ ?? { pov =>
           if (!known) doLog
-          if (Set("ceval", "rcb", "ccs", "ih1")(name)) fuccess {
+          if (Set("ceval", "rcb", "ccs")(name)) fuccess {
             roundMap ! lila.hub.actorApi.map.Tell(
               pov.gameId,
               lila.round.actorApi.round.Cheat(pov.color)
