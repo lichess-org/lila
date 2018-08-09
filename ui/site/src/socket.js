@@ -8,6 +8,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var settings = $.extend(true, {}, lichess.StrongSocket.defaults, settings);
   var versioned = version !== false;
   var options = settings.options;
+  var origVersion;
   var ws;
   var pingSchedule;
   var connectSchedule;
@@ -25,6 +26,7 @@ lichess.StrongSocket = function(url, version, settings) {
     autoReconnect = true;
     var params = $.param(settings.params);
     if (versioned) params += (params ? '&' : '') + 'v=' + version;
+    origVersion = version;
     var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + params;
     debug("connection attempt to " + fullUrl);
     try {
@@ -145,15 +147,15 @@ lichess.StrongSocket = function(url, version, settings) {
     return JSON.stringify(data);
   };
 
-  var handle = function(m) {
+  var handle = function(m, idx) {
     if (m.v) {
       if (m.v <= version) {
         debug("already has event " + m.v);
         return;
       }
-      if (m.v > version + 1) {
+      if (m.v > version + 1 && !idx) {
         // This is not expected. Recover with a versioned ping.
-        $.post('/nlog/socket4/eventGap/' + version + ';' + m.v);
+        $.post('/nlog/socket5/eventGap/' + idx + ';' + origVersion + ';' + version + ';' + m.v);
         debug("event gap detected from " + version + " to " + m.v);
         pingNow(true);
         return;
