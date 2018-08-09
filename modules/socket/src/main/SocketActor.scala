@@ -104,7 +104,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
           userId <- member.userId
           if monitoredTimeout(userId)
         } {
-          lidraughts.mon.socket.eject(userId)
+          lidraughts.mon.socket.eject(userId)()
           lidraughts.mon.socket.ejectAll()
         }
         eject(uid)
