@@ -82,9 +82,9 @@ object String {
 
     def nl2br(text: String): Html = nl2brUnsafe(escapeHtmlRaw(text))
 
-    def richText(rawText: String, nl2br: Boolean = true) = {
+    def richText(rawText: String, nl2br: Boolean = true): Html = {
       val withLinks = addLinks(rawText)
-      if (nl2br) nl2brUnsafe(withLinks) else Html(withLinks)
+      if (nl2br) nl2brUnsafe(withLinks.body) else withLinks
     }
 
     //private[this] final val domain = "lichess.org"
@@ -117,7 +117,7 @@ object String {
       } else List(text)
     }
 
-    def addLinks(text: String): String = {
+    def addLinks(text: String) = Html {
       expandAtUser(text) map { expanded =>
         val m = urlPattern.matcher(expanded)
 
