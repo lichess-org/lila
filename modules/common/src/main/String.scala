@@ -61,7 +61,7 @@ final object String {
       RawHtml.nl2br(text)
     }
 
-    def nl2br(text: String) = nl2brUnsafe(escapeHtmlRaw(text))
+    def nl2br(text: String): Html = nl2brUnsafe(escapeHtmlRaw(text))
 
     def escapeHtml(s: String) = Html {
       escapeHtmlRaw(s)
