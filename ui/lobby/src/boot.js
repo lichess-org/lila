@@ -39,7 +39,7 @@ module.exports = function(cfg, element) {
   filterStreams();
   lidraughts.socket = lidraughts.StrongSocket(
     '/lobby/socket/v2',
-    cfg.data.version, {
+    false, {
       receive: function(t, d) {
         lobby.socketReceive(t, d);
       },
