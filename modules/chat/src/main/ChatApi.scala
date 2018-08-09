@@ -219,7 +219,7 @@ final class ChatApi(
     private val gameUrlReplace = Matcher.quoteReplacement(netDomain) + "/$1";
     private def noPrivateUrl(str: String): String = gameUrlRegex.replaceAllIn(str, gameUrlReplace)
     private def noShouting(str: String): String = if (isShouting(str)) str.toLowerCase else str
-    private val multilineRegex = """\n{3,}+""".r
+    private val multilineRegex = """\n\n{2,}+""".r
     private def multiline(str: String) = multilineRegex.replaceAllIn(str, """\n\n""")
   }
 
