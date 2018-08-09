@@ -153,11 +153,13 @@ lichess.StrongSocket = function(url, version, settings) {
         debug("already has event " + m.v);
         return;
       }
-      if (m.v > version + 1 && !idx) {
-        // This is not expected. Recover with a versioned ping.
-        $.post('/nlog/socket5/eventGap/' + idx + ';' + origVersion + ';' + version + ';' + m.v);
-        debug("event gap detected from " + version + " to " + m.v);
-        pingNow(true);
+      if (m.v > version + 1) {
+        if (!idx) {
+          // This is not expected. Recover with a versioned ping.
+          $.post('/nlog/socket5/eventGap/' + idx + ';' + origVersion + ';' + version + ';' + m.v);
+          debug("event gap detected from " + version + " to " + m.v);
+          pingNow(true);
+        }
         return;
       }
       version = m.v;
