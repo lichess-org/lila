@@ -82,7 +82,7 @@ private[puzzle] final class Selector(
 
 private final object Selector {
 
-  case object NoPuzzlesAvailableException extends lila.base.LilaException {
+  case object NoPuzzlesAvailableException extends lila.common.base.LilaException {
     val message = "No puzzles available"
   }
 

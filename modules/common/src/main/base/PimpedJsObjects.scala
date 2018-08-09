@@ -1,4 +1,4 @@
-package lila.base
+package lila.common.base
 
 import play.api.libs.json._
 

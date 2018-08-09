@@ -30,7 +30,7 @@ object Bot extends LilaController {
     cmd.split('/') match {
       case Array("account", "upgrade") =>
         lila.user.UserRepo.setBot(me) >>- Env.user.lightUserApi.invalidate(me.id) inject jsonOkResult recover {
-          case e: lila.base.LilaException => BadRequest(jsonError(e.getMessage))
+          case e: lila.common.base.LilaException => BadRequest(jsonError(e.getMessage))
         }
       case Array("game", id, "chat") => WithBot(me) {
         Env.bot.form.chat.bindFromRequest.fold(
@@ -43,14 +43,14 @@ object Bot extends LilaController {
       case Array("game", id, "abort") => WithBot(me) {
         WithMyBotGame(id, me) { pov =>
           Env.bot.player.abort(pov) inject jsonOkResult recover {
-            case e: lila.base.LilaException => BadRequest(e.getMessage)
+            case e: lila.common.base.LilaException => BadRequest(e.getMessage)
           }
         }
       }
       case Array("game", id, "resign") => WithBot(me) {
         WithMyBotGame(id, me) { pov =>
           Env.bot.player.resign(pov) inject jsonOkResult recover {
-            case e: lila.base.LilaException => BadRequest(e.getMessage)
+            case e: lila.common.base.LilaException => BadRequest(e.getMessage)
           }
         }
       }

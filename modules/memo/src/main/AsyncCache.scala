@@ -58,7 +58,7 @@ object AsyncCache {
     ) = {
       val safeF = (k: K) => f(k).withTimeout(
         resultTimeout,
-        lila.base.LilaException(s"AsyncCache.multi $name key=$k timed out after $resultTimeout")
+        lila.common.base.LilaException(s"AsyncCache.multi $name key=$k timed out after $resultTimeout")
       )
       val cache: AsyncLoadingCache[K, V] = makeExpire(
         Scaffeine().maximumSize(maxCapacity),
@@ -78,7 +78,7 @@ object AsyncCache {
       val fullName = s"AsyncCache.clearable $name"
       val safeF = (k: K) => f(k).withTimeout(
         resultTimeout,
-        lila.base.LilaException(s"$fullName key=$k timed out after $resultTimeout")
+        lila.common.base.LilaException(s"$fullName key=$k timed out after $resultTimeout")
       )
       val cache: Cache[K, Fu[V]] = makeExpire(
         Scaffeine().maximumSize(maxCapacity),
@@ -96,7 +96,7 @@ object AsyncCache {
     ) = {
       val safeF = (_: Unit) => f.withTimeout(
         resultTimeout,
-        lila.base.LilaException(s"AsyncCache.single $name single timed out after $resultTimeout")
+        lila.common.base.LilaException(s"AsyncCache.single $name single timed out after $resultTimeout")
       )
       val cache: AsyncLoadingCache[Unit, V] = makeExpire(
         Scaffeine().maximumSize(1),

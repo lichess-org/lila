@@ -15,7 +15,7 @@ final class DisposableEmailDomain(
   private[security] def refresh: Unit = {
     WS.url(providerUrl).get() map { res =>
       res.json.validate[Set[String]].fold(
-        err => onError(lila.base.LilaException(err.toString)),
+        err => onError(lila.common.base.LilaException(err.toString)),
         dat => {
           domains = dat
           failed = false

@@ -89,7 +89,7 @@ final class Syncache[K, V](
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = compute(k).withTimeout(
       duration = resultTimeout,
-      error = lila.base.LilaException(s"Syncache $name $k timed out after $resultTimeout")
+      error = lila.common.base.LilaException(s"Syncache $name $k timed out after $resultTimeout")
     )
       .mon(_ => recComputeNanos) // monitoring: record async time
       .addEffects(

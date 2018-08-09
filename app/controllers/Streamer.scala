@@ -104,7 +104,7 @@ object Streamer extends LilaController {
     AsStreamer { s =>
       ctx.body.body.file("picture") match {
         case Some(pic) => api.uploadPicture(s.streamer, pic) recover {
-          case e: lila.base.LilaException => BadRequest(html.streamer.picture(s, e.message.some))
+          case e: lila.common.base.LilaException => BadRequest(html.streamer.picture(s, e.message.some))
         } inject Redirect(routes.Streamer.edit)
         case None => fuccess(Redirect(routes.Streamer.edit))
       }

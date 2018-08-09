@@ -1,4 +1,4 @@
-package lila.base
+package lila.common.base
 
 import LilaTypes._
 import ornicar.scalalib.Zero

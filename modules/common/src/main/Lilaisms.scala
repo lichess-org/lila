@@ -7,7 +7,7 @@ import ornicar.scalalib
 import org.joda.time.DateTime
 import com.typesafe.config.Config
 import play.api.libs.json.{ JsObject, JsValue }
-import lila.base._
+import lila.common.base._
 
 trait Lilaisms
   extends LilaTypes

@@ -1,4 +1,4 @@
-package lila.base
+package lila.common.base
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.Future

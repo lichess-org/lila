@@ -242,7 +242,7 @@ object Node {
   implicit val gamebookWriter = Json.writes[Node.Gamebook]
   import Eval.JsonHandlers.evalWrites
 
-  @inline implicit private def toPimpedJsObject(jo: JsObject) = new lila.base.PimpedJsObject(jo)
+  @inline implicit private def toPimpedJsObject(jo: JsObject) = new lila.common.base.PimpedJsObject(jo)
 
   def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] = Writes { node =>
     import node._

@@ -46,7 +46,7 @@ final class EarlyMultiThrottler(
       work.timeout.orElse(executionTimeout).fold(work.run()) { timeout =>
         work.run().withTimeout(
           duration = timeout,
-          error = lila.base.LilaException(s"EarlyMultiThrottler timed out after $timeout")
+          error = lila.common.base.LilaException(s"EarlyMultiThrottler timed out after $timeout")
         )
       }
     }
