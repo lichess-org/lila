@@ -89,7 +89,11 @@ object Handler {
           obj str "t" foreach { t =>
             control.lift(t -> obj)
           }
-        }).map(_ => socket ! Quit(uid))
+        })
+        // Unfortunately this map function is only called
+        // if the JS closes the socket with lichess.socket.disconnect()
+        // but not if the tab is closed or browsed away!
+        .map(_ => socket ! Quit(uid).pp("iteratee end"))
     }
 
     socket ? join map connecter map {
