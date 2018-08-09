@@ -14,7 +14,7 @@ package object round extends PackageObject with WithSocket {
 
 package round {
 
-  private[round] sealed trait BenignError extends lila.common.base.LilaException
+  private[round] sealed trait BenignError extends lila.base.LilaException
   private[round] case class ClientError(message: String) extends BenignError
   private[round] case class FishnetError(message: String) extends BenignError
 

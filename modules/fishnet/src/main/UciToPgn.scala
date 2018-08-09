@@ -7,7 +7,7 @@ import scalaz.Validation.success
 import scalaz.Validation.FlatMap._
 
 import lila.analyse.{ Analysis, Info, PgnMove }
-import lila.common.base.LilaException
+import lila.base.LilaException
 
 // convert variations from UCI to PGN.
 // also drops extra variations

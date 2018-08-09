@@ -1,4 +1,4 @@
-package lila.common.base
+package lila.base
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.duration._

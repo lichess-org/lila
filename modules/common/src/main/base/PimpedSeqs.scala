@@ -1,4 +1,4 @@
-package lila.common.base
+package lila.base
 
 import java.util.Base64
 import java.lang.{ StringBuilder => jStringBuilder }

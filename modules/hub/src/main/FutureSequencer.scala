@@ -29,7 +29,7 @@ object FutureSequencer {
 
   import scala.util.Try
 
-  case class Timeout(duration: FiniteDuration) extends lila.common.base.LilaException {
+  case class Timeout(duration: FiniteDuration) extends lila.base.LilaException {
     val message = s"FutureSequencer timed out after $duration"
   }
 

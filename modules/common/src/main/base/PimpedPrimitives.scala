@@ -1,4 +1,4 @@
-package lila.common.base
+package lila.base
 
 import java.lang.Math.{ min, max }
 import scala.concurrent.ExecutionContext

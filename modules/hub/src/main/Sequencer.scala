@@ -45,7 +45,7 @@ final class Sequencer(
         val future = timeoutOption.orElse(executionTimeout).fold(run()) { timeout =>
           run().withTimeout(
             duration = timeout,
-            error = lila.common.base.LilaException(s"Sequencer timed out after $timeout")
+            error = lila.base.LilaException(s"Sequencer timed out after $timeout")
           )(context.system)
         } addEffectAnyway {
           self ! Done

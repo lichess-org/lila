@@ -6,7 +6,7 @@ import scala.util.Try
 import akka.actor._
 import akka.pattern.pipe
 
-import lila.common.base.LilaException
+import lila.base.LilaException
 
 trait SequentialProvider extends Actor {
 

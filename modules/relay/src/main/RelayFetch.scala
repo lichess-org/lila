@@ -7,7 +7,7 @@ import play.api.libs.ws.{ WS, WSResponse }
 import play.api.Play.current
 import scala.concurrent.duration._
 
-import lila.common.base.LilaException
+import lila.base.LilaException
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
 
@@ -133,7 +133,7 @@ private object RelayFetch {
     case Upstream.DgtOneFile(file) => dgtOneFile(file, max)
     case Upstream.DgtManyFiles(dir) =>
       dgtManyFiles(dir, max, DgtMany.RoundPgn) recoverWith {
-        case _: lila.common.base.LilaException => dgtManyFiles(dir, max, DgtMany.Indexjson)
+        case _: lila.base.LilaException => dgtManyFiles(dir, max, DgtMany.Indexjson)
       }
   }) flatMap multiPgnToGames.apply
 
