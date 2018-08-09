@@ -10,33 +10,33 @@ class HtmlTest extends Specification {
   def copyLinkConsistency(text: String) = {
     // Plain text of linkified text should linkify to the same result.
     val firstHtml = addLinks(text)
-    val copyText = htmlTags.replaceAllIn(firstHtml, "")
+    val copyText = htmlTags.replaceAllIn(firstHtml.body, "")
     firstHtml must_== addLinks(copyText)
   }
 
   "links" should {
     "http external" in {
       val url = "http://zombo.com"
-      addLinks(s"""link to $url here""") must_==
+      addLinks(s"""link to $url here""").body must_==
         s"""link to <a rel="nofollow" href="$url" target="_blank">$url</a> here"""
     }
     "hide https in text" in {
       val url = "zombo.com"
-      addLinks(s"""link to https://$url here""") must_==
+      addLinks(s"""link to https://$url here""").body must_==
         s"""link to <a rel="nofollow" href="https://$url" target="_blank">$url</a> here"""
     }
     "default to https" in {
       val url = "zombo.com"
-      addLinks(s"""link to $url here""") must_==
+      addLinks(s"""link to $url here""").body must_==
         s"""link to <a rel="nofollow" href="https://$url" target="_blank">$url</a> here"""
     }
     "skip buggy url like http://foo@bar" in {
       val url = "http://foo@bar"
-      addLinks(s"""link to $url here""") must not contain ("""href="http://foo"""")
+      addLinks(s"""link to $url here""").body must not contain """href="http://foo""""
     }
     "detect image" in {
       val url = "http://zombo.com/pic.jpg"
-      addLinks(s"""img to $url here""") must_== {
+      addLinks(s"""img to $url here""").body must_== {
         val img = s"""<img class="embed" src="$url"/>"""
         s"""img to <a rel="nofollow" href="$url" target="_blank">$img</a> here"""
       }
@@ -57,41 +57,41 @@ class HtmlTest extends Specification {
     }
 
     "internal links" in {
-      addLinks("lichess.org/@/foo/games") must_==
+      addLinks("lichess.org/@/foo/games").body must_==
         """<a href="/@/foo/games">lichess.org/@/foo/games</a>"""
-      addLinks("lichess.org/@/foo") must_== """<a href="/@/foo">@foo</a>"""
-      addLinks("http://lichess.org/") must_== """<a href="/">lichess.org/</a>"""
-      addLinks("http://lichess.org") must_== """<a href="/">lichess.org</a>"""
-      addLinks("@foo") must_== """<a href="/@/foo">@foo</a>"""
+      addLinks("lichess.org/@/foo").body must_== """<a href="/@/foo">@foo</a>"""
+      addLinks("http://lichess.org/").body must_== """<a href="/">lichess.org/</a>"""
+      addLinks("http://lichess.org").body must_== """<a href="/">lichess.org</a>"""
+      addLinks("@foo").body must_== """<a href="/@/foo">@foo</a>"""
     }
 
     "handle trailing punctuation" in {
-      addLinks("lichess.org.") must_== """<a href="/">lichess.org</a>."""
-      addLinks("lichess.org)") must_== """<a href="/">lichess.org</a>)"""
-      addLinks("lichess.org/()") must_== """<a href="/()">lichess.org/()</a>"""
+      addLinks("lichess.org.").body must_== """<a href="/">lichess.org</a>."""
+      addLinks("lichess.org)").body must_== """<a href="/">lichess.org</a>)"""
+      addLinks("lichess.org/()").body must_== """<a href="/()">lichess.org/()</a>"""
 
-      addLinks("lichess.org/())") must_== """<a href="/()">lichess.org/()</a>)"""
-      addLinks("lichess.org/(2)-)?") must_== """<a href="/(2)">lichess.org/(2)</a>-)?"""
+      addLinks("lichess.org/())").body must_== """<a href="/()">lichess.org/()</a>)"""
+      addLinks("lichess.org/(2)-)?").body must_== """<a href="/(2)">lichess.org/(2)</a>-)?"""
 
-      addLinks("lichess.org.-") must_== """<a href="/">lichess.org</a>.-"""
+      addLinks("lichess.org.-").body must_== """<a href="/">lichess.org</a>.-"""
     }
 
     "handle embedded links" in {
-      addLinks(".lichess.org") must_== """.lichess.org"""
-      addLinks("/lichess.org") must_== """/lichess.org"""
-      addLinks(".http://lichess.org") must_== """.<a href="/">lichess.org</a>"""
+      addLinks(".lichess.org").body must_== """.lichess.org"""
+      addLinks("/lichess.org").body must_== """/lichess.org"""
+      addLinks(".http://lichess.org").body must_== """.<a href="/">lichess.org</a>"""
 
-      addLinks("/http://lichess.org") must_== """/<a href="/">lichess.org</a>"""
+      addLinks("/http://lichess.org").body must_== """/<a href="/">lichess.org</a>"""
     }
 
     "handle ambig path separator" in {
-      addLinks("lichess.org#f") must_== """<a href="/#f">lichess.org/#f</a>"""
-      addLinks("lichess.org?f") must_== """<a href="/?f">lichess.org/?f</a>"""
+      addLinks("lichess.org#f").body must_== """<a href="/#f">lichess.org/#f</a>"""
+      addLinks("lichess.org?f").body must_== """<a href="/?f">lichess.org/?f</a>"""
     }
 
     "pass through plain text (fast case)" in {
       val noUrl = "blah blah foobar"
-      addLinks(noUrl) must be(noUrl)
+      addLinks(noUrl).body must_== noUrl
     }
   }
 
