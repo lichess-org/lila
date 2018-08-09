@@ -83,11 +83,9 @@ object String {
     def nl2br(text: String): Html = nl2brUnsafe(escapeHtmlRaw(text))
 
     def richText(rawText: String, nl2br: Boolean = true) = {
-      val withLinks = addLinks(rawText)
+      val withLinks = addLinksRaw(rawText)
       if (nl2br) nl2brUnsafe(withLinks) else Html(withLinks)
     }
-
-    //private[this] final val domain = "lichess.org"
 
     private[this] val urlPattern = (
       """(?i)\b[a-z](?>""" + // pull out first char for perf.
@@ -102,7 +100,7 @@ object String {
     private[this] final val DOMAIN = "lichess.org"
     private[this] final val linkReplace = DOMAIN + "/@/$1"
 
-    def expandAtUser(text: String): List[String] = {
+    private[common] def expandAtUserRaw(text: String): List[String] = {
       val m = atUsernameRegex.pattern.matcher(text)
       if (m.find) {
         var idx = 0
@@ -117,8 +115,8 @@ object String {
       } else List(text)
     }
 
-    def addLinks(text: String): String = {
-      expandAtUser(text) map { expanded =>
+    private[common] def addLinksRaw(text: String): String = {
+      expandAtUserRaw(text) map { expanded =>
         val m = urlPattern.matcher(expanded)
 
         if (!m.find) escapeHtmlRaw(expanded) // preserve fast case!
