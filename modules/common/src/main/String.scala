@@ -1,5 +1,6 @@
 package lila.common
 
+import scala.annotation.{ tailrec, switch }
 import java.text.Normalizer
 import java.lang.{ StringBuilder => jStringBuilder, Math }
 import play.api.libs.json._
@@ -52,8 +53,9 @@ object String {
   // Matches a lichess username with an '@' prefix if it is used as a single
   // word (i.e. preceded and followed by space or appropriate punctuation):
   // Yes: everyone says @ornicar is a pretty cool guy
-  // No: contact@lichess.org, @1, http://example.com/@happy0
-  val atUsernameRegex = """(?<=^|[^\w@#/])@(?>([\w-]{2,20}))(?![@\w-])""".r
+  // No: contact@lichess.org, @1, http://example.com/@happy0, @lichess.org
+  // TODO(isaac): support @user/<subpath> syntax
+  val atUsernameRegex = """@(?<![\w@#/]@)([\w-]{2,30}+)(?![@\w-]|\.\w)""".r
 
   object html {
 
@@ -80,69 +82,140 @@ object String {
 
     def nl2br(text: String): Html = nl2brUnsafe(escapeHtmlRaw(text))
 
-    def richText(text: String, nl2br: Boolean = true): Html = {
-      val withUsernames = addUserProfileLinks(escapeHtmlRaw(text))
-      val withLinks = addLinks(withUsernames)
+    def richText(rawText: String, nl2br: Boolean = true) = {
+      val withLinks = addLinks(rawText)
       if (nl2br) nl2brUnsafe(withLinks) else Html(withLinks)
     }
 
-    // has negative lookbehind to exclude overlaps with user profile links
-    private val urlRegex = """(?i)(?<![">])\b((https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}\/)((?:[`!\[\]{};:'".,<>?«»“”‘’]*[^\s`!\[\]{}\(\);:'".,<>?«»“”‘’])*))""".r
-    // private val imgRegex = """(?:(?:https?:\/\/))[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b(?:[-a-zA-Z0-9@:%_\+.~#?&\/=]*(\.jpg|\.png|\.jpeg))""".r
-    private val netDomain = "lichess.org" // whatever...
+    //private[this] final val domain = "lichess.org"
 
-    private val urlMustNotContain = List("&quot")
+    private[this] val urlPattern = (
+      """(?i)\b[a-z](?>""" + // pull out first char for perf.
+      """ttp(?<=http)s?://(\w[-\w.~!$&';=:@]{0,100})|""" + // http(s) links
+      """(?<![/@.-].)(?:\w{1,15}+\.){1,3}(?>com|org|edu))""" + // "lichess.org", etc
+      """([/?#][-–—\w/.~!$&'()*+,;=:#?@]{0,300}+)?""" + // path, params
+      """(?![\w/~$&*+=#@])""" // neg lookahead
+    ).r.pattern
 
-    private def addUserProfileLinks(text: String): String =
-      atUsernameRegex.replaceAllIn(text, m => {
-        val user = m group 1
-        s"""<a href="/@/$user">@$user</a>"""
-      })
+    private[this] val USER_LINK = """/@/([\w-]{2,30}+)?""".r
 
-    private def addLinks(text: String): String = try {
-      urlRegex.replaceAllIn(text, m => {
-        if (urlMustNotContain exists m.group(0).contains) m.group(0)
-        else if (m.group(2) == "http://" || m.group(2) == "https://") {
-          if (s"${m.group(3)}/" startsWith s"$netDomain/") {
-            // internal
-            val link = m.group(3)
-            s"""<a href="//$link">${urlOrImg(link)}</a>"""
-          } else {
-            // external
-            val link = m.group(1)
-            s"""<a rel="nofollow" href="$link" target="_blank">${urlOrImg(link)}</a>"""
-          }
-        } else {
-          if (s"${m.group(2)}/" startsWith s"$netDomain/") {
-            // internal
-            val link = m.group(1)
-            s"""<a href="//$link">${urlOrImg(link)}</a>"""
-          } else {
-            // external
-            val link = m.group(1)
-            s"""<a rel="nofollow" href="http://$link" target="_blank">${urlOrImg(link)}</a>"""
-          }
-        }
-      })
-    } catch {
-      case e: IllegalArgumentException =>
-        lila.log("templating").error(s"addLinks($text)", e)
-        text
-      case e: StackOverflowError =>
-        lila.log("templating").error(text take 10000, e)
-        text
+    private[this] final val DOMAIN = "lichess.org"
+    private[this] final val linkReplace = DOMAIN + "/@/$1"
+
+    def expandAtUser(text: String): List[String] = {
+      val m = atUsernameRegex.pattern.matcher(text)
+      if (m.find) {
+        var idx = 0
+        val buf = List.newBuilder[String]
+        do {
+          if (idx < m.start) buf += text.substring(idx, m.start)
+          buf += DOMAIN + "/@/" + m.group(1)
+          idx = m.end
+        } while (m.find)
+        if (idx < text.length) buf += text.substring(idx)
+        buf.result
+      } else List(text)
     }
 
-    private val imgUrlPattern = """.*\.(jpg|jpeg|png|gif)$""".r.pattern
-    private val imgurRegex = """https?://imgur\.com/(\w+)""".r
+    def addLinks(text: String): String = {
+      expandAtUser(text) map { expanded =>
+        val m = urlPattern.matcher(expanded)
 
-    private def urlToImg(url: String): Option[String] = (url match {
+        if (!m.find) escapeHtmlRaw(expanded) // preserve fast case!
+        else {
+          val sb = new jStringBuilder(expanded.length + 200)
+          val sArr = expanded.toCharArray
+          var lastAppendIdx = m.start
+          escapeHtmlRaw(sb, sArr, 0, lastAppendIdx)
+
+          do {
+            val start = m.start
+            val domainS = Math.max(m.start(1), start)
+            val pathS = m.start(2)
+
+            val end = {
+              val e = m.end
+              if (sArr(e - 1).isLetterOrDigit) e
+              else adjustUrlEnd(sArr, Math.max(pathS, domainS), e)
+            }
+
+            val domain = expanded.substring(domainS, pathS match {
+              case -1 => end
+              case _ => pathS
+            })
+
+            val isTldInternal = DOMAIN == domain
+
+            val csb = new jStringBuilder()
+            if (!isTldInternal) csb.append(domain)
+            if (pathS >= 0) {
+              if (sArr(pathS) != '/') csb.append('/')
+              csb.append(sArr, pathS, end - pathS)
+            }
+
+            val allButScheme = escapeHtmlRaw(csb.toString)
+
+            if (isTldInternal) {
+              sb.append(s"""<a href="${
+                if (allButScheme.isEmpty) "/"
+                else allButScheme
+              }">${
+                allButScheme match {
+                  case USER_LINK(user) => "@" + user
+                  case _ => DOMAIN + allButScheme
+                }
+              }</a>""")
+            } else {
+              val isHttp = domainS - start == 7
+              val url = (if (isHttp) "http://" else "https://") + allButScheme
+              val text = if (isHttp) url else allButScheme
+              sb.append(s"""<a rel="nofollow" href="$url" target="_blank">${
+                imgUrl(url).getOrElse(text)
+              }</a>""")
+            }
+            lastAppendIdx = end
+          } while (m.find)
+
+          escapeHtmlRaw(sb, sArr, lastAppendIdx, sArr.length)
+          sb
+        }
+      } concat
+    }
+
+    private[this] def adjustUrlEnd(sArr: Array[Char], start: Int, end: Int): Int = {
+      var last = end - 1
+      while ((sArr(last): @switch) match {
+        case '.' | ',' | '?' | '!' | ';' | '-' | '–' | '—' | '@' | '\'' | '(' => true
+        case _ => false
+      }) { last -= 1 }
+
+      if (sArr(last) == ')') {
+        @tailrec def pCnter(idx: Int, acc: Int): Int =
+          if (idx >= last) acc
+          else pCnter(idx + 1, acc + (sArr(idx) match {
+            case '(' => 1
+            case ')' => -1
+            case _ => 0
+          }))
+        var parenCnt = pCnter(start, -1)
+        while ((sArr(last): @switch) match {
+          case '.' | ',' | '?' | '!' | ';' | '-' | '–' | '—' | '@' | '\'' => true
+          case '(' => { parenCnt -= 1; true }
+          case ')' => { parenCnt += 1; parenCnt <= 0 }
+          case _ => false
+        }) { last -= 1 }
+      }
+      last + 1
+    }
+
+    private[this] val imgurRegex = """https?://imgur\.com/(\w+)""".r
+    private[this] val imgUrlRegex = """\.(?:jpg|jpeg|png|gif)$""".r
+
+    private[this] def imgUrl(url: String): Option[String] = (url match {
       case imgurRegex(id) => s"""https://i.imgur.com/$id.jpg""".some
-      case u if imgUrlPattern.matcher(url).matches && !url.contains(s"://$netDomain") => u.some
-      case _ => none
-    }) map { imgUrl => s"""<img class="embed" src="$imgUrl"/>""" }
-
-    private def urlOrImg(url: String): String = urlToImg(url) getOrElse url
+      case _ if imgUrlRegex.find(url) => url.some
+      case _ => None
+    }) map { img => s"""<img class="embed" src="$img"/>""" }
 
     private[this] val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
 
