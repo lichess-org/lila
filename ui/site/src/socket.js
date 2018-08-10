@@ -9,6 +9,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var versioned = version !== false;
   var options = settings.options;
   var origVersion;
+  var reloadTriggered = false;
   var ws;
   var pingSchedule;
   var connectSchedule;
@@ -154,9 +155,9 @@ lichess.StrongSocket = function(url, version, settings) {
         return;
       }
       if (m.v > version + 1) {
-        if (!idx) {
+        if (!idx && !reloadTriggered) {
           // This is not expected. Recover with a versioned ping.
-          $.post('/nlog/socket5/eventGap/' + idx + ';' + origVersion + ';' + version + ';' + m.v);
+          $.post('/nlog/socket6/eventGap/' + idx + ';' + origVersion + ';' + version + ';' + m.v);
           debug("event gap detected from " + version + " to " + m.v);
           pingNow(true);
         }
@@ -168,6 +169,7 @@ lichess.StrongSocket = function(url, version, settings) {
       case false:
         break;
       case 'resync':
+        reloadTriggered = true;
         lichess.reload();
         break;
       case 'ack':
