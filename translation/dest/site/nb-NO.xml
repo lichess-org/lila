@@ -533,7 +533,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="newPassword">Nytt passord</string>
   <string name="newPasswordAgain">Nytt passord (igjen)</string>
   <string name="boardHighlights">Feltmarkering (siste trekk og sjakk)</string>
-  <string name="pieceDestinations">Brikkedestinasjoner (gyldige trekk og fortrekk)</string>
+  <string name="pieceDestinations">Brikkedestinasjoner (gyldige trekk og forhåndstrekk)</string>
   <string name="boardCoordinates">Brettkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Notasjonsliste mens du spiller</string>
   <string name="pgnPieceNotation">Notasjon</string>
@@ -550,7 +550,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="clickTwoSquares">Klikk to felt</string>
   <string name="dragPiece">Dra brikke</string>
   <string name="bothClicksAndDrag">Begge</string>
-  <string name="premovesPlayingDuringOpponentTurn">Førtrekk (gjør trekk når det er motstanders trekk)</string>
+  <string name="premovesPlayingDuringOpponentTurn">Forhåndstrekk (gjør trekk når det er motstanders trekk)</string>
   <string name="takebacksWithOpponentApproval">Angre trekk (med motstanders godkjennelse)</string>
   <string name="promoteToQueenAutomatically">Forvandle til dronning automatisk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis ved trekkgjentakelse automatisk</string>
