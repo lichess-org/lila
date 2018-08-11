@@ -75,7 +75,7 @@
   <string name="averageRatingX">Gemiddelde rating: %s</string>
   <string name="recentGames">Recente partijen</string>
   <string name="topGames">Toppartijen</string>
-  <string name="masterDbExplanation">Twee miljoen OTB-partijen van 2200+ FIDE-gerankte spelers van 1952 tot 2016</string>
+  <string name="masterDbExplanation">Twee miljoen OTB-partijen van %1$s+ FIDE-gerankte spelers van %2$s tot %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Schaakmat in %s halfzet</item>
     <item quantity="other">Schaakmat in %s halfzetten</item>
@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Je rating %1$s (%2$s) is te laag</string>
   <string name="ratedMoreThanInPerf">Met rating ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Met rating ≤ %1$s in %2$s</string>
+  <string name="mustBeInTeam">Je moet in het team %s zitten</string>
+  <string name="youAreNotInTeam">Je zit niet in het team %s</string>
   <string name="backToGame">Terug naar partij</string>
   <string name="siteDescription">Gratis online schaken. Schaak nu met een heldere vormgeving. Geen registratie nodig, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige tegenstanders.</string>
   <string name="teams">Teams</string>
