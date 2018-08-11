@@ -86,8 +86,7 @@ final class Env(
     logApi = logApi,
     modApi = api,
     reporter = hub.actor.report,
-    draughtsnet = hub.actor.draughtsnet,
-    userIdsSharingIp = securityApi.userIdsSharingIp
+    draughtsnet = hub.actor.draughtsnet
   )
 
   lazy val gamify = new Gamify(

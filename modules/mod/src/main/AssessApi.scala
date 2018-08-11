@@ -7,6 +7,7 @@ import lidraughts.db.dsl._
 import lidraughts.evaluation.Statistics
 import lidraughts.evaluation.{ AccountAction, Analysed, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
 import lidraughts.game.{ Game, Player, GameRepo, Source, Pov }
+import lidraughts.security.UserSpy
 import lidraughts.user.{ User, UserRepo }
 import lidraughts.report.{ SuspectId, ModId }
 
@@ -21,8 +22,7 @@ final class AssessApi(
     logApi: ModlogApi,
     modApi: ModApi,
     reporter: ActorSelection,
-    draughtsnet: ActorSelection,
-    userIdsSharingIp: String => Fu[List[String]]
+    draughtsnet: ActorSelection
 ) {
 
   import PlayerFlags.playerFlagsBSONHandler
@@ -53,18 +53,8 @@ final class AssessApi(
   private def getPlayerAggregateAssessment(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment]] =
     UserRepo byId userId flatMap {
       _.filter(_.noBot) ?? { user =>
-        userIdsSharingIp(userId) flatMap { relatedUsers =>
-          getPlayerAssessmentsByUserId(userId, nb) zip
-            UserRepo.filterByEngine(relatedUsers) map {
-              case (assessedGamesHead :: assessedGamesTail) ~ relatedCheaters =>
-                Some(PlayerAggregateAssessment(
-                  user,
-                  assessedGamesHead :: assessedGamesTail,
-                  relatedUsers,
-                  relatedCheaters
-                ))
-              case _ => none
-            }
+        getPlayerAssessmentsByUserId(userId, nb) map { games =>
+          games.nonEmpty option PlayerAggregateAssessment(user, games)
         }
       }
     }

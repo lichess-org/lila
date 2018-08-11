@@ -26,9 +26,7 @@ case class PlayerAssessment(
 
 case class PlayerAggregateAssessment(
     user: User,
-    playerAssessments: List[PlayerAssessment],
-    relatedUsers: List[String],
-    relatedCheaters: Set[String]
+    playerAssessments: List[PlayerAssessment]
 ) {
   import Statistics._
   import AccountAction._
@@ -37,10 +35,10 @@ case class PlayerAggregateAssessment(
   def action: AccountAction = {
 
     def percentCheatingGames(x: Double) =
-      cheatingSum.toDouble / assessmentsCount >= (x / 100) - relationModifier
+      cheatingSum.toDouble / assessmentsCount >= (x / 100)
 
     def percentLikelyCheatingGames(x: Double) =
-      (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= (x / 100) - relationModifier
+      (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= (x / 100)
 
     val markable: Boolean = !isGreatUser && isWorthLookingAt &&
       (cheatingSum >= 3 || cheatingSum + likelyCheatingSum >= 6) &&
@@ -50,7 +48,7 @@ case class PlayerAggregateAssessment(
       (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= (if (isNewRatedUser) 2 else 4)) &&
       (percentCheatingGames(5) || percentLikelyCheatingGames(10))
 
-    val bannable: Boolean = (relatedCheatersCount == relatedUsersCount) && relatedUsersCount >= 1
+    val bannable: Boolean = false
 
     def sigDif(dif: Int)(a: Option[Int], b: Option[Int]): Option[Boolean] =
       (a |@| b) apply { case (a, b) => b - a > dif }
@@ -85,13 +83,10 @@ case class PlayerAggregateAssessment(
     _.assessment == assessment
   }
 
-  val relatedCheatersCount = relatedCheaters.size
-  val relatedUsersCount = relatedUsers.distinct.size
   val assessmentsCount = playerAssessments.size match {
     case 0 => 1
     case a => a
   }
-  val relationModifier = if (relatedUsersCount >= 1) 0.02 else 0
   val cheatingSum = countAssessmentValue(Cheating)
   val likelyCheatingSum = countAssessmentValue(LikelyCheating)
 
