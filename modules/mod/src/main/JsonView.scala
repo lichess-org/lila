@@ -53,7 +53,7 @@ final class JsonView(
   private implicit val playerAggAssWrites = OWrites[PlayerAggregateAssessment] { a =>
     Json.obj(
       "user" -> a.user,
-      "relatedCheaters" -> a.relatedCheaters
+      "relatedCheaters" -> JsArray()
     )
   }
 

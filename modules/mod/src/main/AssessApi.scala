@@ -8,6 +8,7 @@ import lila.evaluation.Statistics
 import lila.evaluation.{ AccountAction, Analysed, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
 import lila.game.{ Game, Player, GameRepo, Source, Pov }
 import lila.report.{ SuspectId, ModId }
+import lila.security.UserSpy
 import lila.user.{ User, UserRepo }
 
 import reactivemongo.api.ReadPreference
@@ -21,8 +22,7 @@ final class AssessApi(
     logApi: ModlogApi,
     modApi: ModApi,
     reporter: ActorSelection,
-    fishnet: ActorSelection,
-    userIdsSharingIp: String => Fu[List[String]]
+    fishnet: ActorSelection
 ) {
 
   import PlayerFlags.playerFlagsBSONHandler
@@ -53,18 +53,8 @@ final class AssessApi(
   private def getPlayerAggregateAssessment(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment]] =
     UserRepo byId userId flatMap {
       _.filter(_.noBot) ?? { user =>
-        userIdsSharingIp(userId) flatMap { relatedUsers =>
-          getPlayerAssessmentsByUserId(userId, nb) zip
-            UserRepo.filterByEngine(relatedUsers) map {
-              case (assessedGamesHead :: assessedGamesTail) ~ relatedCheaters =>
-                Some(PlayerAggregateAssessment(
-                  user,
-                  assessedGamesHead :: assessedGamesTail,
-                  relatedUsers,
-                  relatedCheaters
-                ))
-              case _ => none
-            }
+        getPlayerAssessmentsByUserId(userId, nb) map { games =>
+          games.nonEmpty option PlayerAggregateAssessment(user, games)
         }
       }
     }

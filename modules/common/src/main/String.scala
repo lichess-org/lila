@@ -87,7 +87,7 @@ final object String {
         }
       }
     }
-    
+
     def safeJson(jsValue: JsValue) = Html {
       safeJsonValue(jsValue)
     }
