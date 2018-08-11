@@ -137,7 +137,7 @@ final class SecurityApi(
 
   def recentByPrintExists(fp: FingerPrint): Fu[Boolean] = Store recentByPrintExists fp
 
-  private def userIdsSharingField(field: String)(userId: String): Fu[List[User.ID]] =
+  private def userIdsSharingField(field: String)(userId: User.ID): Fu[List[User.ID]] =
     coll.distinctWithReadPreference[User.ID, List](
       field,
       $doc("user" -> userId, field $exists true).some,
