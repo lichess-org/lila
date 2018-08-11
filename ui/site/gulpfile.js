@@ -82,7 +82,7 @@ gulp.task('git-sha', function(cb) {
     if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
     var date = new Date().toISOString().split('.')[0];
     fs.writeFileSync('./dist/consolemsg.js',
-      'console.info("Lidraughts is open source, based on lichess! https://github.com/ornicar/lila");' +
+      'console.info("Lidraughts is open source, a fork of Lichess! See https://github.com/roepstoep/lidraughts");' +
       `lidraughts.info = "Assets built ${date} from sha ${stdout.trim()}";`);
     cb();
   });

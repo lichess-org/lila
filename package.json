@@ -1,10 +1,14 @@
 {
   "name": "lidraughts",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "lidraughts.org: the forever free, adless and open source draughts server",
   "devDependencies": {
     "gulp": "^3.9.1",
     "svgo": "^0.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roepstoep/lidraughts.git"
   },
   "keywords": [
     "draughts",
@@ -12,6 +16,9 @@
   ],
   "author": "Stefan Schermann (modified original by Thibault Duplessis)",
   "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/roepstoep/lidraughts/issues"
+  },
   "homepage": "https://lidraughts.org",
   "dependencies": {
     "fs-extra": "^4.0.2",
