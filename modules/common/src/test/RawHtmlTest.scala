@@ -64,6 +64,10 @@ class RawHtmlTest extends Specification {
       addLinks("@foo") must_== """<a href="/@/foo">@foo</a>"""
     }
 
+    "handle weird characters" in {
+      addLinks("lichess.org/-–%20") must_== """<a href="/-–%20">lichess.org/-–%20</a>"""
+    }
+
     "handle trailing punctuation" in {
       addLinks("lichess.org.") must_== """<a href="/">lichess.org</a>."""
       addLinks("lichess.org)") must_== """<a href="/">lichess.org</a>)"""
