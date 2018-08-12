@@ -192,7 +192,7 @@ function buttons(ctrl: AnalyseCtrl) {
         }
       }, [iconTag('A')])
     ] : [
-      h('button.hint--bottom', {
+      /*h('button.hint--bottom', {
         attrs: {
           'data-hint': ctrl.trans.noarg('openingExplorerAndTablebase'),
           'data-act': 'explorer'
@@ -201,7 +201,7 @@ function buttons(ctrl: AnalyseCtrl) {
           hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
           active: ctrl.explorer.enabled()
         }
-      }, [iconTag(']')]), null
+      }, [iconTag(']')]), null*/
       /*ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button.hint--bottom', {
         attrs: {
           'data-hint': ctrl.trans.noarg('practiceWithComputer'),

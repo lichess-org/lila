@@ -1,4 +1,4 @@
-import { prop, storedProp } from 'common';
+import { prop } from 'common';
 import { controller as configCtrl } from './explorerConfig';
 import xhr = require('./openingXhr');
 import { synthetic } from '../util';
@@ -20,7 +20,7 @@ function tablebaseRelevant(variant: string, fen: Fen) {
 
 export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
   const allowed = prop(allow),
-  enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false),
+  enabled = prop(false), //root.embed ? prop(false) : storedProp('explorer.enabled', false),
   loading = prop(true),
   failing = prop(false),
   hovering = prop<Hovering | null>(null),
