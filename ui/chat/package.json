@@ -10,7 +10,7 @@
     "compile": "tsc"
   },
   "dependencies": {
-    "snabbdom": "ornicar/snabbdom#lichess"
+    "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   },
   "devDependencies": {
     "@types/jquery": "^2.0",

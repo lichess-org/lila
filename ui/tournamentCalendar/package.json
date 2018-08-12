@@ -33,7 +33,7 @@
     "watchify": "^3"
   },
   "dependencies": {
-    "snabbdom": "ornicar/snabbdom#lichess",
+    "snabbdom": "ornicar/snabbdom#0.7.1-lichess",
     "date-fns": "^1"
   }
 }
