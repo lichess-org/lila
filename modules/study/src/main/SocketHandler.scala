@@ -247,7 +247,11 @@ final class SocketHandler(
     member = member,
     socket = socket,
     chat = chat,
-    canTimeout = Some(() => user.?? { u => api.isContributor(studyId, u.id) }),
+    canTimeout = Some { suspectId =>
+      user.?? { u =>
+        api.isContributor(studyId, u.id) >>& !api.isMember(studyId, suspectId)
+      }
+    },
     publicSource = none // the "talk" event is handled by the study API
   )
 
