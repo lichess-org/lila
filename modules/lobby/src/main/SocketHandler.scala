@@ -69,7 +69,7 @@ private[lobby] final class SocketHandler(
           PoolConfig.Id(id),
           PoolApi.Joiner(
             userId = user.id,
-            socketId = member.uid,
+            uid = member.uid,
             ratingMap = user.perfMap.mapValues(_.rating),
             ratingRange = ratingRange,
             lame = user.lame,

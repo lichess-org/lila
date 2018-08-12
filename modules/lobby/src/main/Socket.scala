@@ -12,7 +12,7 @@ import lidraughts.hub.actorApi.game.ChangeFeatured
 import lidraughts.hub.actorApi.lobby._
 import lidraughts.hub.actorApi.timeline._
 import lidraughts.socket.actorApi.{ Connected => _, _ }
-import lidraughts.socket.Socket.Uid
+import lidraughts.socket.Socket.{ Uid, Uids }
 import lidraughts.socket.SocketActor
 
 private[lobby] final class Socket(
@@ -47,7 +47,7 @@ private[lobby] final class Socket(
   def receiveSpecific = {
 
     case GetUids =>
-      sender ! SocketUids(members.keySet.toSet)
+      sender ! Uids(members.keySet.map(Uid.apply)(scala.collection.breakOut))
       lidraughts.mon.lobby.socket.idle(idleUids.size)
       lidraughts.mon.lobby.socket.hookSubscribers(hookSubscriberUids.size)
       lidraughts.mon.lobby.socket.mobile(members.count(_._2.mobile))

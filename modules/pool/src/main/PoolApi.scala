@@ -4,7 +4,7 @@ import akka.actor._
 
 import lidraughts.game.Game
 import lidraughts.rating.RatingRange
-import lidraughts.socket.Socket.{ Uid => SocketId }
+import lidraughts.socket.Socket.{ Uid, Uids }
 import lidraughts.user.User
 
 final class PoolApi(
@@ -36,8 +36,8 @@ final class PoolApi(
 
   def leave(poolId: PoolConfig.Id, userId: User.ID) = sendTo(poolId, Leave(userId))
 
-  def socketIds(ids: Set[String]) = {
-    val msg = SocketIds(ids)
+  def socketIds(ids: Set[Uid]) = {
+    val msg = Uids(ids)
     actors.values.foreach(_ ! msg)
   }
 
@@ -49,7 +49,7 @@ object PoolApi {
 
   case class Joiner(
       userId: User.ID,
-      socketId: SocketId,
+      uid: Uid,
       ratingMap: Map[String, Int],
       ratingRange: Option[RatingRange],
       lame: Boolean,
@@ -59,5 +59,5 @@ object PoolApi {
     def is(member: PoolMember) = userId == member.userId
   }
 
-  case class Pairing(game: Game, whiteUid: SocketId, blackUid: SocketId)
+  case class Pairing(game: Game, whiteUid: Uid, blackUid: Uid)
 }

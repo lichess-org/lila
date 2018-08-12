@@ -55,7 +55,7 @@ private[lobby] case class HookSub(member: Member, value: Boolean)
 private[lobby] case class AllHooksFor(member: Member, hooks: Vector[Hook])
 
 private[lobby] case object GetUids
-private[lobby] case class SocketUids(uids: Set[String])
+private[lobby] case class SocketUids(uids: Set[Uid])
 
 case class AddHook(hook: Hook)
 case class AddSeek(seek: Seek)
