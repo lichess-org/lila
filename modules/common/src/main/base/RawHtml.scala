@@ -75,11 +75,12 @@ final object RawHtml {
       else {
         val sb = new jStringBuilder(expanded.length + 200)
         val sArr = expanded.toCharArray
-        var lastAppendIdx = m.start
-        escapeHtml(sb, sArr, 0, lastAppendIdx)
+        var lastAppendIdx = 0
 
         do {
           val start = m.start
+          escapeHtml(sb, sArr, lastAppendIdx, start)
+
           val domainS = Math.max(m.start(1), start)
           val pathS = m.start(2)
 
