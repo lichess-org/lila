@@ -89,7 +89,7 @@ as peças não defendidas!</string>
   <string name="combatComplete">Parabéns! Sabes como lutar com as peças de xadrez!</string>
   <string name="checkInOne">Xeque numa</string>
   <string name="attackTheOpponentsKing">Ataca o rei adversário</string>
-  <string name="checkInOneIntro">Para fazer xeque ao adversário, ataca o seu rei. Eles devem defende-lo!</string>
+  <string name="checkInOneIntro">Para fazer xeque ao adversário, ataca o seu rei. Eles devem defendê-lo!</string>
   <string name="checkInOneGoal">Aponta ao rei adversário
 em apenas um movimento!</string>
   <string name="checkInOneComplete">Parabéns! Fizeste xeque ao adversário, forçando-lhes a defender o seu rei!</string>
