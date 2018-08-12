@@ -57,6 +57,7 @@
   <string name="inLocalBrowser">브라우저에서</string>
   <string name="toggleLocalEvaluation">개인 컴퓨터에서 분석하기</string>
   <string name="promoteVariation">게임 분석 후에 어떤 수에 대한 예상결과들을 확인하고 싶다면</string>
+  <string name="makeMainLine">주 라인으로 하기</string>
   <string name="deleteFromHere">여기서 부터 삭제</string>
   <string name="move">수</string>
   <string name="variantLoss">변형 체스에서 패배</string>
