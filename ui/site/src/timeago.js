@@ -2,8 +2,12 @@
 lichess.timeago = (function() {
 
   // second, minute, hour, day, week, month, year(365 days)
-  var SEC_ARRAY = [60, 60, 24, 7, 365/7/12, 12],
-    SEC_ARRAY_LEN = 6;
+  var SEC_ARRAY = [60,
+                   60 * 60,
+                   60 * 60 * 24,
+                   60 * 60 * 24 * 7,
+                   60 * 60 * 2 * 365, // 24/12 = 2
+                   60 * 60 * 24 * 365];
 
   // format Date / string / timestamp to Date instance.
   function toDate(input) {
@@ -14,13 +18,16 @@ lichess.timeago = (function() {
 
   // format the diff second to *** time ago
   function formatDiff(diff) {
-    var i = 0, agoin = diff < 0 ? 1 : 0, // timein or timeago
-      total_sec = diff = Math.abs(diff);
-
-    for (; diff >= SEC_ARRAY[i] && i < SEC_ARRAY_LEN; i++) {
-      diff /= SEC_ARRAY[i];
-    }
-    diff = parseInt(diff);
+    var i = 0, agoin = 0;
+    if (diff < 0) {
+      agoin = 1;
+      diff = -diff;
+    } 
+    var i = 0, total_sec = diff;
+    while (i < 6 && diff >= SEC_ARRAY[i]) i++;
+    if (i > 0) diff /= SEC_ARRAY[i - 1];
+    
+    diff = Math.floor(diff);
     i *= 2;
 
     if (diff > (i === 0 ? 9 : 1)) i += 1;
