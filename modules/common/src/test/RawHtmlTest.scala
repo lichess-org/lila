@@ -69,9 +69,9 @@ class RawHtmlTest extends Specification {
     }
 
     "handle multiple links" in {
-      addLinks("@foo blah lichess.org") must_== """<a href="/@/foo">@foo</a> blah <a href="/">lichess.org</a>"""
-      addLinks("b foo.com blah lichess.org") must_==
-        """b <a rel="nofollow" href="https://foo.com" target="_blank">foo.com</a> blah <a href="/">lichess.org</a>"""
+      addLinks("@foo blah lidraughts.org") must_== """<a href="/@/foo">@foo</a> blah <a href="/">lidraughts.org</a>"""
+      addLinks("b foo.com blah lidraughts.org") must_==
+        """b <a rel="nofollow" href="https://foo.com" target="_blank">foo.com</a> blah <a href="/">lidraughts.org</a>"""
     }
 
     "handle trailing punctuation" in {

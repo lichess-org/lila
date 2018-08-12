@@ -329,6 +329,7 @@ final class StudyApi(
   }
 
   def isContributor = studyRepo.isContributor _
+  def isMember = studyRepo.isMember _
 
   private def onMembersChange(study: Study) = {
     lightStudyCache.refresh(study.id)
