@@ -368,6 +368,10 @@
   <string name="advancedSettings">고급 설정</string>
   <string name="safeTournamentName">토너먼트 이름은 무난한 것으로 정해주십시오.</string>
   <string name="inappropriateNameWarning">조금이라도 부적절한 이름일 경우에는 계정이 정지될 수도 있습니다.</string>
+  <string name="emptyTournamentName">토너먼트 이름을 공란으로 두면, 임의의 그랜드마스터 선수 이름으로 선택됩니다.</string>
+  <string name="recommendNotTouching">이 설정은 되도록이면 그대로 두는 것을 추천합니다.</string>
+  <string name="fewerPlayers">참가조건을 설정하면, 참가자 수가 적어집니다.</string>
+  <string name="showAdvancedSettings">고급 설정 보기</string>
   <string name="join">참가하기</string>
   <string name="withdraw">중단</string>
   <string name="points">포인트</string>
@@ -376,7 +380,11 @@
   <string name="winStreak">연속 승리</string>
   <string name="createdBy">토너먼트 주최자:</string>
   <string name="tournamentIsStarting">토너먼트가 곧 시작됩니다</string>
+  <string name="tournamentPairingsAreNowClosed">토너먼트 매칭이 종료되었습니다.</string>
+  <string name="standByX">%s 님, 현재 매칭중입니다. 준비하십시오!</string>
+  <string name="youArePlaying">참가중!</string>
   <string name="winRate">승률</string>
+  <string name="berserkRate">버서크율</string>
   <string name="performance">승점</string>
   <string name="tournamentComplete">대회 종료</string>
   <string name="movesPlayed">말 이동 횟수</string>
@@ -389,6 +397,7 @@
   <string name="membersOnly">회원 전용</string>
   <string name="boardEditor">보드 편집기</string>
   <string name="setTheBoard">보드 세팅하기</string>
+  <string name="popularOpenings">인기 있는 오프닝</string>
   <string name="startPosition">원래대로</string>
   <string name="clearBoard">보드 지우기</string>
   <string name="savePosition">포지션 저장</string>
@@ -406,6 +415,7 @@
   <string name="biography">소개</string>
   <string name="country">국가</string>
   <string name="preferences">설정</string>
+  <string name="inlineNotation">기보를 가로쓰기</string>
   <string name="watchLichessTV">Lichess TV 보기</string>
   <string name="previouslyOnLichessTV">이전 방송</string>
   <string name="onlinePlayers">접속한 플레이어</string>
@@ -489,6 +499,7 @@
   <string name="thisAccountIsClosed">계정이 폐쇄됩니다.</string>
   <string name="invalidUsernameOrPassword">사용자 이름이나 비밀번호가 잘못되었습니다.</string>
   <string name="incorrectPassword">잘못된 비밀번호입니다.</string>
+  <string name="invalidAuthenticationCode">무효한 인증코드</string>
   <string name="emailMeALink">메일로 링크를 보내주세요</string>
   <string name="currentPassword">현재 비밀번호</string>
   <string name="newPassword">새 비밀번호</string>
@@ -497,6 +508,7 @@
   <string name="pieceDestinations">피스 위치 (유효한 움직임 및 미리두기)</string>
   <string name="boardCoordinates">보드 좌표 (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">피스 움직임 기록</string>
+  <string name="pgnPieceNotation">PGN 기물표기방식</string>
   <string name="chessPieceSymbol">체스 말 기호</string>
   <string name="pgnLetter">글자 (K, Q, R, B, N)</string>
   <string name="chessClock">체스 시계</string>
@@ -605,12 +617,14 @@
   <string name="videoLibrary">비디오 라이브러리</string>
   <string name="mobileApp">모바일 앱</string>
   <string name="webmasters">웹마스터</string>
+  <string name="about">Lichess 개요</string>
   <string name="contribute">기여하기</string>
   <string name="contact">연락처</string>
   <string name="termsOfService">이용 약관</string>
   <string name="sourceCode">소스 코드</string>
   <string name="simultaneousExhibitions">동시대국</string>
   <string name="host">호스트</string>
+  <string name="hostColorX">호스트의 색: %s</string>
   <string name="createdSimuls">새롭게 생성된 동시대국</string>
   <string name="hostANewSimul">새 동시대국을 생성하기</string>
   <string name="noSimulFound">동시대국을 찾을 수 없습니다</string>
@@ -721,6 +735,9 @@
   <string name="pieceSet">조각 세트</string>
   <string name="embedInYourWebsite">웹사이트에 공유하기</string>
   <string name="usernameAlreadyUsed">이미 사용중인 사용자 이름입니다. 다른 이름을 사용해주세요.</string>
+  <string name="usernamePrefixInvalid">유저 이름의 첫 글자는 알파벳이어야 합니다.</string>
+  <string name="usernameSuffixInvalid">유저 이름의 끝 글자는 알파벳이나 숫자여야 합니다.</string>
+  <string name="usernameCharsInvalid">유저 이름에는 알파벳, 숫자, 언더스코어 ( _ ), 하이픈 ( - ) 만을 사용할 수 있습니다.</string>
   <string name="usernameUnacceptable">사용자 이름을 사용할 수 없습니다.</string>
   <string name="directlySupportLichess">Lichess 후원하기</string>
   <string name="playChessInStyle">스타일리시하게 체스하기</string>
@@ -737,8 +754,14 @@
   <string name="notifications">알림</string>
   <string name="challenges">도전</string>
   <string name="perfRatingX">레이팅: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">%s 초 안에 첫 수를 두십시오.</item>
+  </plurals>
+  <string name="practiceWithComputer">컴퓨터와 연습하기</string>
+  <string name="anotherWasX">다른 수는 %s</string>
   <string name="bestWasX">최선의 수는 %s</string>
   <string name="youBrowsedAway">중간에 그만두셨습니다</string>
+  <string name="resumePractice">연습을 계속하기</string>
   <string name="theGameIsADraw">무승부 게임입니다.</string>
   <string name="computerThinking">컴퓨터 생각 중…</string>
   <string name="seeBestMove">최상의 수 보기</string>
