@@ -87,7 +87,7 @@ case class Hook(
     hookId = id,
     member = lila.pool.PoolMember(
       userId = user.??(_.id),
-      socketId = uid,
+      uid = uid,
       rating = rating | lila.rating.Glicko.defaultIntRating,
       ratingRange = realRatingRange,
       lame = user.??(_.lame),

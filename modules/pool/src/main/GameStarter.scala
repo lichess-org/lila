@@ -45,8 +45,8 @@ private final class GameStarter(
 
         bus.publish(PoolApi.Pairing(
           game,
-          whiteUid = whiteMember.socketId,
-          blackUid = blackMember.socketId
+          whiteUid = whiteMember.uid,
+          blackUid = blackMember.uid
         ), 'poolGame)
 
         onStart(game.id)

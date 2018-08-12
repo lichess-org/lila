@@ -7,6 +7,7 @@ import akka.actor._
 import akka.pattern.pipe
 
 import lila.user.User
+import lila.socket.Socket.{ Uid, Uids }
 
 private final class PoolActor(
     config: PoolConfig,
@@ -96,9 +97,9 @@ private final class PoolActor(
       scheduleWave
     }
 
-    case SocketIds(ids) =>
+    case Uids(uids) =>
       members = members.filter { m =>
-        ids contains m.socketId.value
+        uids contains m.uid
       }
   }
 
@@ -110,7 +111,6 @@ private object PoolActor {
 
   case class Join(joiner: PoolApi.Joiner) extends AnyVal
   case class Leave(userId: User.ID) extends AnyVal
-  case class SocketIds(ids: Set[String])
 
   case object ScheduledWave
   case object FullWave

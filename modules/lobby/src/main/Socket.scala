@@ -12,7 +12,7 @@ import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
 import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.Socket.Uid
+import lila.socket.Socket.{ Uid, Uids }
 import lila.socket.SocketActor
 
 private[lobby] final class Socket(
@@ -47,7 +47,7 @@ private[lobby] final class Socket(
   def receiveSpecific = {
 
     case GetUids =>
-      sender ! SocketUids(members.keySet.toSet)
+      sender ! Uids(members.keySet.map(Uid.apply)(scala.collection.breakOut))
       lila.mon.lobby.socket.idle(idleUids.size)
       lila.mon.lobby.socket.hookSubscribers(hookSubscriberUids.size)
       lila.mon.lobby.socket.mobile(members.count(_._2.mobile))

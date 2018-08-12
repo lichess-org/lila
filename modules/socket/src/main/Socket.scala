@@ -9,6 +9,8 @@ object Socket extends Socket {
   val uidIso = lila.common.Iso.string[Uid](Uid.apply, _.value)
   implicit val uidFormat = lila.common.PimpedJson.stringIsoFormat(uidIso)
 
+  case class Uids(uids: Set[Uid])
+
   case class SocketVersion(value: Int) extends AnyVal with IntValue with Ordered[SocketVersion] {
     def compare(other: SocketVersion) = value compare other.value
     def inc = SocketVersion(value + 1)

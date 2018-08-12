@@ -7,7 +7,7 @@ import lila.user.User
 
 case class PoolMember(
     userId: User.ID,
-    socketId: lila.socket.Socket.Uid,
+    uid: lila.socket.Socket.Uid,
     rating: Int,
     ratingRange: Option[RatingRange],
     lame: Boolean,
@@ -36,7 +36,7 @@ object PoolMember {
   def apply(joiner: PoolApi.Joiner, config: PoolConfig): PoolMember =
     PoolMember(
       userId = joiner.userId,
-      socketId = joiner.socketId,
+      uid = joiner.uid,
       lame = joiner.lame,
       rating = joiner.ratingMap.getOrElse(config.perfType.key, 1500),
       ratingRange = joiner.ratingRange,
