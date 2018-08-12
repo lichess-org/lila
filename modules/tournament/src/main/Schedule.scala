@@ -53,15 +53,15 @@ case class Schedule(
 
   def perfType = PerfType.byVariant(variant) | Schedule.Speed.toPerfType(speed)
 
-  def plan = Schedule.Plan(this, identity)
-  def plan(build: Tournament => Tournament) = Schedule.Plan(this, build)
+  def plan = Schedule.Plan(this, None)
+  def plan(build: Tournament => Tournament) = Schedule.Plan(this, build.some)
 
   override def toString = s"$freq $variant $speed $conditions $at"
 }
 
 object Schedule {
 
-  case class Plan(schedule: Schedule, build: Tournament => Tournament)
+  case class Plan(schedule: Schedule, build: Option[Tournament => Tournament])
 
   sealed abstract class Freq(val id: Int, val importance: Int) extends Ordered[Freq] {
 
