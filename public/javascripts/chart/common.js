@@ -101,7 +101,7 @@ lidraughts.chartCommon = function(type) {
         },
         lang: {
           thousandsSep: ''
-        }
+        },
         tooltip: {
           backgroundColor: {
             linearGradient: {
