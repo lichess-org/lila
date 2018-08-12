@@ -27,6 +27,6 @@
   "dependencies": {
     "draughtsground": "^7.2",
     "common": "1.0.0",
-    "snabbdom": "ornicar/snabbdom#lichess"
+    "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   }
 }
