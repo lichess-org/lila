@@ -5,10 +5,11 @@ import scala.concurrent.Promise
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import org.joda.time.DateTime
 
 import actorApi._
 import lila.game.GameRepo
-import org.joda.time.DateTime
+import lila.socket.Socket.Uids
 
 private[lobby] final class Lobby(
     socket: ActorRef,
@@ -90,7 +91,7 @@ private[lobby] final class Lobby(
     case Lobby.Tick(promise) =>
       HookRepo.truncateIfNeeded
       implicit val timeout = makeTimeout seconds 5
-      (socket ? GetUids mapTo manifest[SocketUids]).chronometer
+      (socket ? GetUids mapTo manifest[Uids]).chronometer
         .logIfSlow(100, logger) { r => s"GetUids size=${r.uids.size}" }
         .mon(_.lobby.socket.getUids)
         .result
@@ -98,7 +99,7 @@ private[lobby] final class Lobby(
         .map { Lobby.WithPromise(_, promise) }
         .pipeTo(self)
 
-    case Lobby.WithPromise(SocketUids(uids), promise) =>
+    case Lobby.WithPromise(Uids(uids), promise) =>
       poolApi socketIds uids
       val createdBefore = DateTime.now minusSeconds 5
       val hooks = {
