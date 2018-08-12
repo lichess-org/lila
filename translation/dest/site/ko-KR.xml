@@ -774,6 +774,7 @@
   <string name="learnFromThisMistake">이 실수에서 배우기</string>
   <string name="skipThisMove">이 수 넘기기</string>
   <string name="next">다음으로</string>
+  <string name="xWasPlayed">%s 이 두어짐</string>
   <string name="findBetterMoveForWhite">흰색에게 좀 더 나은 수를 찾아보세요</string>
   <string name="findBetterMoveForBlack">검은색에게 좀 더 나은 수를 찾아보세요</string>
   <string name="resumeLearning">학습 계속하기</string>
@@ -782,6 +783,12 @@
   <string name="tryAnotherMoveForBlack">검은색에게 또 다른 수를 찾아보세요</string>
   <string name="solution">해답</string>
   <string name="waitingForAnalysis">분석을 기다리는 중</string>
+  <string name="noMistakesFoundForWhite">백에게 악수는 없었습니다</string>
+  <string name="noMistakesFoundForBlack">흑에게 악수는 없었습니다</string>
+  <string name="doneReviewingWhiteMistakes">백의 악수 체크가 종료됨</string>
+  <string name="doneReviewingBlackMistakes">흑의 악수 체크가 종료됨</string>
+  <string name="doItAgain">다시 하시길 바랍니다</string>
+  <string name="reviewWhiteMistakes">백의 악수를 체크</string>
   <string name="reviewBlackMistakes">흑의 말의 실수 탐색하기</string>
   <string name="advantage">이득</string>
   <plurals name="nbSeconds">
@@ -794,6 +801,14 @@
   <string name="youCannotChallengeX">%s와는 대국할 수 없습니다.</string>
   <string name="xDoesNotAcceptChallenges">%s님이 대국을 수락하지 않았습니다.</string>
   <string name="yourXRatingIsTooFarFromY">당신의 레이팅 등급인 %1$s과 상대의 레이팅 등급인 %2$s과의 격차가 너무 큽니다.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">%s 가 아직 레이팅이 확정되지 않아서 도전하실 수 었습니다</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s님은 친구인 상대만 대국 요청을 수락합니다.</string>
   <string name="conditionalPremoves">수 예측</string>
+  <string name="addCurrentVariation">현재의 변화를 추가</string>
+  <string name="playVariationToCreateConditionalPremoves">기물을 움직여 조건적인 수를 만들기</string>
+  <string name="noConditionalPremoves">조건적인 수가 없습니다</string>
+  <string name="playX">%s 를 둠</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="other">%s 종류의 조건 수를 설정</item>
+  </plurals>
 </resources>
