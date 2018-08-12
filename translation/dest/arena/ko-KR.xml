@@ -7,4 +7,11 @@
   <string name="isNotRated">이 토너먼트는 레이팅이 적용되지 않으며 당신의 레이팅에 영향을 끼치지 않을 것입니다.</string>
   <string name="someRated">몇몇 토너먼트는 레이팅이 적용되며 당신의 레이팅에 영향을 끼칠 것입니다.</string>
   <string name="howAreScoresCalculated">점수는 어떻게 계산되나요?</string>
+  <string name="howAreScoresCalculatedAnswer">승리하면 기본 점수 2점, 비기면 1점, 지는 경우엔 점수가 없습니다.
+두 게임을 연속적으로 이기면 불꽃 모양의 아이콘을 얻으며 이후의 점수는 두 배가 됩니다.
+지기 전까지의 모든 게임에서 두 배의 점수를 얻을 수 있습니다.
+그러므로, 이 경우 이기면 4점, 비기면 2점, 지는 경우는 전과 같이 0점으로 취급됩니다.
+
+예를 들면, 한 번 비긴 후 두 번 이길 경우에는 6점을 얻습니다: 2 + 2 (2 x 1)</string>
+  <string name="berserk">버서크（Berserk）</string>
 </resources>
