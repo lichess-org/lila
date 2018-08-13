@@ -39,9 +39,14 @@ object Statistics {
   def cvIndicatesModeratelyFlatTimes(c: Float) =
     c < 0.4
 
+  private val instantaneous = Centis(0)
+
   def slidingMoveTimesCvs(pov: lila.game.Pov): Option[Iterator[Float]] =
     moveTimes(pov) ?? { mt =>
-      mt.iterator.sliding(10).filter({ _.count(Centis(0)==) < 4 }).map({ a => moveTimeCoefVariationNoDrop(a.toList) }).flatten.some
+      mt.iterator.sliding(10)
+        .filter(_.count(instantaneous ==) < 4)
+        .flatMap(a => moveTimeCoefVariationNoDrop(a.toList))
+        .some
     }
 
   def moderatelyConsistentMoveTimes(pov: lila.game.Pov): Boolean =
