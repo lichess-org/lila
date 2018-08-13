@@ -13,7 +13,7 @@
     <form id="practice_reset" class="actions" action="@routes.Practice.reset" method="post">
       @if(ctx.isAuth) {
       @if(data.nbDoneChapters > 0) {
-      <a onclick="if (confirm('You will lose your practice progress!')) parentNode.submit()">Reset my progress</a>
+      <a class="do-reset">Reset my progress</a>
       }
       } else {
       <a href="@routes.Auth.signup">Sign up to save your progress</a>
@@ -29,10 +29,19 @@
 </span>
 }
 
+@moreJs = {
+@embedJs {
+$('#practice_reset .do-reset').on('click', function() {
+if (confirm('You will lose your practice progress!')) this.parentNode.submit();
+});
+}
+}
+
 @base.layout(
 title = "Practice chess positions",
 side = side.some,
 moreCss = cssTag("practice.css"),
+moreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(
 title = "Practice your chess",
 description = "Learn how to master the most common chess positions",
