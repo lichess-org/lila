@@ -1,4 +1,4 @@
-[lidraughts.org](https//lidraughts.org)
+[lidraughts.org](https://lidraughts.org)
 ==================================
 
 Lidraughts is a rewrite of [lichess/lila](https://github.com/ornicar/lila/) for international draughts (on a 10X10 board), including [frisian draughts](https://lidraughts.org/variant/frisian).
