@@ -141,7 +141,7 @@
   <string name="games">Partidas</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s postou em %2$s</string>
-  <string name="latestForumPosts">Últimas entradas do forum</string>
+  <string name="latestForumPosts">Últimas entradas do fórum</string>
   <string name="players">Jogadores</string>
   <string name="minutesPerSide">Minutos por jogador</string>
   <string name="variant">Variante</string>
@@ -792,7 +792,7 @@
   <string name="practiceWithComputer">Pratica com o computador</string>
   <string name="anotherWasX">Outro era %s</string>
   <string name="bestWasX">O melhor era %s</string>
-  <string name="youBrowsedAway">Saístes</string>
+  <string name="youBrowsedAway">Saíste</string>
   <string name="resumePractice">Continuar a prática</string>
   <string name="theGameIsADraw">O jogo é empate.</string>
   <string name="computerThinking">Computador pensando...</string>

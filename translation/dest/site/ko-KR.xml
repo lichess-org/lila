@@ -57,6 +57,7 @@
   <string name="inLocalBrowser">브라우저에서</string>
   <string name="toggleLocalEvaluation">개인 컴퓨터에서 분석하기</string>
   <string name="promoteVariation">게임 분석 후에 어떤 수에 대한 예상결과들을 확인하고 싶다면</string>
+  <string name="makeMainLine">주 라인으로 하기</string>
   <string name="deleteFromHere">여기서 부터 삭제</string>
   <string name="move">수</string>
   <string name="variantLoss">변형 체스에서 패배</string>
@@ -78,9 +79,13 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s반수만에 체크메이트</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="other">다음 기물을 잡거나 폰을 움직일 때까지 %s 수 남음 (50수 룰 카운트 갱신까지)</item>
+  </plurals>
   <string name="noGameFound">게임을 찾을 수 없습니다.</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">설정에서 더 많은 게임을 포함하세요.</string>
   <string name="openingExplorer">오프닝 탐색기</string>
+  <string name="xOpeningExplorer">%s 오프닝 탐색기</string>
   <string name="winPreventedBy50MoveRule">50수 규칙에 의하여 승리가 불가능합니다.</string>
   <string name="lossSavedBy50MoveRule">50수 규칙에 의하여 패배가 불가능합니다.</string>
   <string name="allSet">적용</string>
@@ -89,8 +94,13 @@
   <string name="deleteThisImportedGame">가져온 게임을 삭제할까요?</string>
   <string name="replayMode">게임 다시보기</string>
   <string name="realtimeReplay">실시간</string>
+  <string name="byCPL">평가치변화</string>
+  <string name="openStudy">연구를 열기</string>
   <string name="enable">활성화</string>
   <string name="bestMoveArrow">화살표로 최상의 수 표시하기</string>
+  <string name="evaluationGauge">평가치를 표시</string>
+  <string name="multipleLines">해석 라인 수</string>
+  <string name="cpus">CPU 갯수</string>
   <string name="memory">메모리</string>
   <string name="infiniteAnalysis">무한분석</string>
   <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다.</string>
@@ -236,6 +246,7 @@
   <string name="giveMoreTime">시간 더 주기</string>
   <string name="thisPlayerUsesChessComputerAssistance">이 플레이어는 체스 엔진을 악용하는 사람입니다</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">이 플레이어는 비정상적인 방법으로 레이팅을 조작합니다</string>
+  <string name="openingExplorerAndTablebase">오프닝 탐색 &amp; 테이블베이스</string>
   <string name="takeback">무르기</string>
   <string name="proposeATakeback">무르기를 요청합니다</string>
   <string name="takebackPropositionSent">무르기 요청을 보냈습니다</string>
@@ -249,8 +260,18 @@
   <string name="tournament">토너먼트</string>
   <string name="tournaments">토너먼트</string>
   <string name="tournamentPoints">토너먼트 점수</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="other">%s 토너먼트 포인트</item>
+  </plurals>
   <string name="viewTournament">토너먼트 보기</string>
   <string name="backToTournament">토너먼트로 돌아가기</string>
+  <string name="thematic">국면지정</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="other">레이팅전 %s 국 이상</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="other">%2$s 레이팅전 %1$s 국 이상</item>
+  </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="other">%2$s 랭크 게임을 %1$s회 더 플레이해야합니다.</item>
   </plurals>
@@ -261,6 +282,10 @@
   <string name="yourPerfRatingIsTooHigh">귀하의 %1$s 레이팅(%2$s)은 너무 높습니다.</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">%1$s 랭크가 너무 높습니다. (%2$s)</string>
   <string name="yourPerfRatingIsTooLow">%1$s 랭크가 너무 낮습니다. (%2$s)</string>
+  <string name="ratedMoreThanInPerf">%2$s 레이팅 %1$s 이상</string>
+  <string name="ratedLessThanInPerf">%2$s 레이팅 %1$s 이하</string>
+  <string name="mustBeInTeam">팀 %s 의 멤버에 한정</string>
+  <string name="youAreNotInTeam">팀 %s 에 소속되지 않았습니다.</string>
   <string name="backToGame">게임으로 돌아가기</string>
   <string name="siteDescription">회원가입, 광고, 플러그인 없이 즐길 수 있는 깔끔한 구성의 무료 온라인 체스 게임입니다. 컴퓨터, 친구 또는 무작위로 고른 상대와 함께 체스를 즐겨보세요.</string>
   <string name="teams">팀</string>
@@ -293,11 +318,13 @@
   <string name="fromPosition">정해진 보드판에서 시작</string>
   <string name="continueFromHere">여기서부터 시작</string>
   <string name="importGame">게임 불러오기</string>
+  <string name="importGameExplanation">게임의 PGN 을 붙여넣으면, 브라우저에서의 리플레이, 컴퓨터 해석, 게임챗, 공유가능 URL을 얻습니다.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">불러온 게임 %s개</item>
   </plurals>
   <string name="thisIsAChessCaptcha">자동 기입을 방지하기 위한 체스 퀴즈입니다.</string>
   <string name="clickOnTheBoardToMakeYourMove">보드를 클릭해서 체스 퍼즐을 풀고 당신이 사람임을 알려주세요.</string>
+  <string name="captcha.fail">문제를 풀어 인간임을 증명해주세요.</string>
   <string name="notACheckmate">체크메이트가 아닙니다.</string>
   <string name="colorPlaysCheckmateInOne">%s의 차례입니다. 한 수 만에 체크메이트하세요.</string>
   <string name="retry">재시도</string>
@@ -336,7 +363,15 @@
   <string name="winner">승자</string>
   <string name="standing">순위</string>
   <string name="createANewTournament">새 토너먼트 생성</string>
+  <string name="tournamentCalendar">토너먼트 달력</string>
+  <string name="conditionOfEntry">참가조건:</string>
   <string name="advancedSettings">고급 설정</string>
+  <string name="safeTournamentName">토너먼트 이름은 무난한 것으로 정해주십시오.</string>
+  <string name="inappropriateNameWarning">조금이라도 부적절한 이름일 경우에는 계정이 정지될 수도 있습니다.</string>
+  <string name="emptyTournamentName">토너먼트 이름을 공란으로 두면, 임의의 그랜드마스터 선수 이름으로 선택됩니다.</string>
+  <string name="recommendNotTouching">이 설정은 되도록이면 그대로 두는 것을 추천합니다.</string>
+  <string name="fewerPlayers">참가조건을 설정하면, 참가자 수가 적어집니다.</string>
+  <string name="showAdvancedSettings">고급 설정 보기</string>
   <string name="join">참가하기</string>
   <string name="withdraw">중단</string>
   <string name="points">포인트</string>
@@ -345,7 +380,11 @@
   <string name="winStreak">연속 승리</string>
   <string name="createdBy">토너먼트 주최자:</string>
   <string name="tournamentIsStarting">토너먼트가 곧 시작됩니다</string>
+  <string name="tournamentPairingsAreNowClosed">토너먼트 매칭이 종료되었습니다.</string>
+  <string name="standByX">%s 님, 현재 매칭중입니다. 준비하십시오!</string>
+  <string name="youArePlaying">참가중!</string>
   <string name="winRate">승률</string>
+  <string name="berserkRate">버서크율</string>
   <string name="performance">승점</string>
   <string name="tournamentComplete">대회 종료</string>
   <string name="movesPlayed">말 이동 횟수</string>
@@ -358,6 +397,7 @@
   <string name="membersOnly">회원 전용</string>
   <string name="boardEditor">보드 편집기</string>
   <string name="setTheBoard">보드 세팅하기</string>
+  <string name="popularOpenings">인기 있는 오프닝</string>
   <string name="startPosition">원래대로</string>
   <string name="clearBoard">보드 지우기</string>
   <string name="savePosition">포지션 저장</string>
@@ -375,6 +415,7 @@
   <string name="biography">소개</string>
   <string name="country">국가</string>
   <string name="preferences">설정</string>
+  <string name="inlineNotation">기보를 가로쓰기</string>
   <string name="watchLichessTV">Lichess TV 보기</string>
   <string name="previouslyOnLichessTV">이전 방송</string>
   <string name="onlinePlayers">접속한 플레이어</string>
@@ -458,6 +499,7 @@
   <string name="thisAccountIsClosed">계정이 폐쇄됩니다.</string>
   <string name="invalidUsernameOrPassword">사용자 이름이나 비밀번호가 잘못되었습니다.</string>
   <string name="incorrectPassword">잘못된 비밀번호입니다.</string>
+  <string name="invalidAuthenticationCode">무효한 인증코드</string>
   <string name="emailMeALink">메일로 링크를 보내주세요</string>
   <string name="currentPassword">현재 비밀번호</string>
   <string name="newPassword">새 비밀번호</string>
@@ -466,6 +508,7 @@
   <string name="pieceDestinations">피스 위치 (유효한 움직임 및 미리두기)</string>
   <string name="boardCoordinates">보드 좌표 (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">피스 움직임 기록</string>
+  <string name="pgnPieceNotation">PGN 기물표기방식</string>
   <string name="chessPieceSymbol">체스 말 기호</string>
   <string name="pgnLetter">글자 (K, Q, R, B, N)</string>
   <string name="chessClock">체스 시계</string>
@@ -574,12 +617,14 @@
   <string name="videoLibrary">비디오 라이브러리</string>
   <string name="mobileApp">모바일 앱</string>
   <string name="webmasters">웹마스터</string>
+  <string name="about">Lichess 개요</string>
   <string name="contribute">기여하기</string>
   <string name="contact">연락처</string>
   <string name="termsOfService">이용 약관</string>
   <string name="sourceCode">소스 코드</string>
   <string name="simultaneousExhibitions">동시대국</string>
   <string name="host">호스트</string>
+  <string name="hostColorX">호스트의 색: %s</string>
   <string name="createdSimuls">새롭게 생성된 동시대국</string>
   <string name="hostANewSimul">새 동시대국을 생성하기</string>
   <string name="noSimulFound">동시대국을 찾을 수 없습니다</string>
@@ -690,6 +735,9 @@
   <string name="pieceSet">조각 세트</string>
   <string name="embedInYourWebsite">웹사이트에 공유하기</string>
   <string name="usernameAlreadyUsed">이미 사용중인 사용자 이름입니다. 다른 이름을 사용해주세요.</string>
+  <string name="usernamePrefixInvalid">유저 이름의 첫 글자는 알파벳이어야 합니다.</string>
+  <string name="usernameSuffixInvalid">유저 이름의 끝 글자는 알파벳이나 숫자여야 합니다.</string>
+  <string name="usernameCharsInvalid">유저 이름에는 알파벳, 숫자, 언더스코어 ( _ ), 하이픈 ( - ) 만을 사용할 수 있습니다.</string>
   <string name="usernameUnacceptable">사용자 이름을 사용할 수 없습니다.</string>
   <string name="directlySupportLichess">Lichess 후원하기</string>
   <string name="playChessInStyle">스타일리시하게 체스하기</string>
@@ -706,8 +754,14 @@
   <string name="notifications">알림</string>
   <string name="challenges">도전</string>
   <string name="perfRatingX">레이팅: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">%s 초 안에 첫 수를 두십시오.</item>
+  </plurals>
+  <string name="practiceWithComputer">컴퓨터와 연습하기</string>
+  <string name="anotherWasX">다른 수는 %s</string>
   <string name="bestWasX">최선의 수는 %s</string>
   <string name="youBrowsedAway">중간에 그만두셨습니다</string>
+  <string name="resumePractice">연습을 계속하기</string>
   <string name="theGameIsADraw">무승부 게임입니다.</string>
   <string name="computerThinking">컴퓨터 생각 중…</string>
   <string name="seeBestMove">최상의 수 보기</string>
@@ -720,6 +774,7 @@
   <string name="learnFromThisMistake">이 실수에서 배우기</string>
   <string name="skipThisMove">이 수 넘기기</string>
   <string name="next">다음으로</string>
+  <string name="xWasPlayed">%s 이 두어짐</string>
   <string name="findBetterMoveForWhite">흰색에게 좀 더 나은 수를 찾아보세요</string>
   <string name="findBetterMoveForBlack">검은색에게 좀 더 나은 수를 찾아보세요</string>
   <string name="resumeLearning">학습 계속하기</string>
@@ -728,6 +783,12 @@
   <string name="tryAnotherMoveForBlack">검은색에게 또 다른 수를 찾아보세요</string>
   <string name="solution">해답</string>
   <string name="waitingForAnalysis">분석을 기다리는 중</string>
+  <string name="noMistakesFoundForWhite">백에게 악수는 없었습니다</string>
+  <string name="noMistakesFoundForBlack">흑에게 악수는 없었습니다</string>
+  <string name="doneReviewingWhiteMistakes">백의 악수 체크가 종료됨</string>
+  <string name="doneReviewingBlackMistakes">흑의 악수 체크가 종료됨</string>
+  <string name="doItAgain">다시 하시길 바랍니다</string>
+  <string name="reviewWhiteMistakes">백의 악수를 체크</string>
   <string name="reviewBlackMistakes">흑의 말의 실수 탐색하기</string>
   <string name="advantage">이득</string>
   <plurals name="nbSeconds">
@@ -740,6 +801,14 @@
   <string name="youCannotChallengeX">%s와는 대국할 수 없습니다.</string>
   <string name="xDoesNotAcceptChallenges">%s님이 대국을 수락하지 않았습니다.</string>
   <string name="yourXRatingIsTooFarFromY">당신의 레이팅 등급인 %1$s과 상대의 레이팅 등급인 %2$s과의 격차가 너무 큽니다.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">%s 가 아직 레이팅이 확정되지 않아서 도전하실 수 었습니다</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s님은 친구인 상대만 대국 요청을 수락합니다.</string>
   <string name="conditionalPremoves">수 예측</string>
+  <string name="addCurrentVariation">현재의 변화를 추가</string>
+  <string name="playVariationToCreateConditionalPremoves">기물을 움직여 조건적인 수를 만들기</string>
+  <string name="noConditionalPremoves">조건적인 수가 없습니다</string>
+  <string name="playX">%s 를 둠</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="other">%s 종류의 조건 수를 설정</item>
+  </plurals>
 </resources>

@@ -89,7 +89,7 @@ as peças não defendidas!</string>
   <string name="combatComplete">Parabéns! Sabes como lutar com as peças de xadrez!</string>
   <string name="checkInOne">Xeque numa</string>
   <string name="attackTheOpponentsKing">Ataca o rei adversário</string>
-  <string name="checkInOneIntro">Para fazer xeque ao adversário, ataca o seu rei. Eles devem defende-lo!</string>
+  <string name="checkInOneIntro">Para fazer xeque ao adversário, ataca o seu rei. Eles devem defendê-lo!</string>
   <string name="checkInOneGoal">Aponta ao rei adversário
 em apenas um movimento!</string>
   <string name="checkInOneComplete">Parabéns! Fizeste xeque ao adversário, forçando-lhes a defender o seu rei!</string>
@@ -168,7 +168,7 @@ mover o peão.</string>
   <string name="enPassantOnlyWorksOnFifthRank">En passant só funciona
 se o peão está na quinta fila.</string>
   <string name="takeAllThePawnsEnPassant">Captura todos os peões en passant!</string>
-  <string name="enPassantComplete">Parabéns! Agora sabes capturar en passat.</string>
+  <string name="enPassantComplete">Parabéns! Agora sabes capturar en passant.</string>
   <string name="stalemate">Rei afogado</string>
   <string name="theGameIsADraw">O jogo é empate</string>
   <string name="stalemateIntro">Quando um jogador não está em xeque e não pode fazer um movimento legal, então diz-se rei afogado. O jogo é empate: ninguém ganha, ninguém perde.</string>
@@ -224,7 +224,7 @@ Peão = 1</string>
   <string name="perfect">Perfeito!</string>
   <string name="outstanding">Excecional!</string>
   <string name="wayToGo">Boa!</string>
-  <string name="yesYesYes">Sim, sim sim!</string>
+  <string name="yesYesYes">Sim, sim, sim!</string>
   <string name="youreGoodAtThis">Tu és bom nisto!</string>
   <string name="nailedIt">Acertou em cheio.</string>
   <string name="rightOn">Certeiro!</string>

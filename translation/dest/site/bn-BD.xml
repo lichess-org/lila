@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">এই খেলাটি রেট করা</string>
   <string name="rematch">আবার খেলুন</string>
   <string name="rematchOfferSent">পুনঃম্যাচের অফার পাঠানো হয়েছে</string>
+  <string name="rematchOfferSentWhite">সাদা পুনঃম্যাচের অফার দিয়েছেন</string>
+  <string name="rematchOfferSentBlack">কালো পুনঃম্যাচের অফার দিয়েছেন</string>
   <string name="rematchOfferAccepted">পুনঃম্যাচের অফার গ্রহণ করা হয়েছে</string>
   <string name="rematchOfferCanceled">পুনঃম্যাচের অফার বাতিল করা হয়েছে</string>
   <string name="rematchOfferDeclined">পুনঃম্যাচের অফার প্রত্যাখ্যাত হয়েছে</string>

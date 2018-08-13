@@ -15,4 +15,35 @@
   <plurals name="postedNbMessages">
     <item quantity="other">%2$s 에 총 %1$s 개의 글을 게시하였습니다.</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="other">%2$s 번째 통신대국의 %1$s 번째 수를 두셨습니다.</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="other">%s 번의 통신전을 완료하셨습니다.</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="other">%s 명을 팔로우 개시</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="other">%s 명의 신규 팔로워를 얻음</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="other">%s 번의 동시대국을 주최함</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="other">%s 번의 동시대국에 참가함</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="other">%s 건의 연구를 작성함</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="other">%s 번 토너먼트에 참가함</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="other">%1$s 위 (상위 %2$s%%)  (%4$s 에서 %3$s 국)</item>
+  </plurals>
+  <string name="signedUp">Lichess에 회원가입함</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="other">%s 팀에 참가함</item>
+  </plurals>
 </resources>
