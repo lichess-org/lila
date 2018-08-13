@@ -55,13 +55,13 @@ case class Assessible(analysed: Analysed) {
   // moderatelyConsistentMoveTimes must stay in Statistics because it's used in classes that do not use Assessible
 
   def highlyConsistentMoveTimeStreaks(color: Color): Boolean =
-    slidingMoveTimesCvs(Pov(game, color)) ?? { mt =>
-      mt.filter(cvIndicatesHighlyFlatTimesForStreaks(_)).nonEmpty
+    slidingMoveTimesCvs(Pov(game, color)) ?? {
+      _ exists cvIndicatesHighlyFlatTimesForStreaks
     }
 
   def moderatelyConsistentMoveTimeStreaks(color: Color): Boolean =
-    slidingMoveTimesCvs(Pov(game, color)) ?? { mt =>
-      mt.filter(cvIndicatesModeratelyFlatTimes(_)).nonEmpty
+    slidingMoveTimesCvs(Pov(game, color)) ?? {
+      _ exists cvIndicatesModeratelyFlatTimes
     }
 
   def mkFlags(color: Color): PlayerFlags = PlayerFlags(
