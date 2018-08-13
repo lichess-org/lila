@@ -101,7 +101,7 @@ abstract class Variant(
           if (lineLength > bestLength) {
             bestLength = lineLength
             captureMap = Map(actor.pos -> capts)
-          } else
+          } else if (lineLength == bestLength)
             captureMap = captureMap + (actor.pos -> capts)
         }
       }
