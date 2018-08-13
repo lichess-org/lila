@@ -34,7 +34,7 @@ object Statistics {
     c < 0.25
 
   def cvIndicatesHighlyFlatTimesForStreaks(c: Float) =
-    c < 0.15
+    c < 0.13
 
   def cvIndicatesModeratelyFlatTimes(c: Float) =
     c < 0.4
