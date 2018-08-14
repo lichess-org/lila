@@ -438,7 +438,7 @@ module.exports = function(cfg, element) {
     });
   }
 
-  $startButtons.find('a').not('.disabled').on('mousedown', function() {
+  $startButtons.find('a').not('.disabled').not('.link_tournament').on('mousedown', function() {
     lidraughts.loadCss('/assets/stylesheets/setup.css');
     lobby.leavePool();
     $.ajax({

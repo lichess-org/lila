@@ -98,6 +98,7 @@ asyncJs = true) {
   @playban.map(ban => playbanInfo(ban.remainingSeconds))
   <div id="start_buttons" class="lidraughts_ground">
     <a class="fat button config_hook hint--bottom@if(playban.isDefined || currentGame.isDefined){ disabled}" href="@routes.Setup.hookForm" onclick="return false">@trans.createAGame()</a>
+    <a class="fat button link_tournament hint--bottom" href="@routes.Tournament.home()">@trans.playInATournament()</a>
     <a class="fat button config_friend hint--bottom@if(currentGame.isDefined){ disabled}" href="@routes.Setup.friendForm(none)" onclick="return false">@trans.playWithAFriend()</a>
     @*<a class="fat button config_ai hint--bottom@if(currentGame.isDefined){ disabled}" href="@routes.Setup.aiForm" onclick="return false">@trans.playWithTheMachine()</a>*@
   </div>

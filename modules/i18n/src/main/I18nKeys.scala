@@ -8,6 +8,7 @@ object I18nKeys {
 
 def untranslated(message: String) = new Untranslated(message)
 
+val `playInATournament` = new Translated("playInATournament", Site)
 val `playWithAFriend` = new Translated("playWithAFriend", Site)
 val `playWithTheMachine` = new Translated("playWithTheMachine", Site)
 val `toInviteSomeoneToPlayGiveThisUrl` = new Translated("toInviteSomeoneToPlayGiveThisUrl", Site)
