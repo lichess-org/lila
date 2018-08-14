@@ -181,9 +181,6 @@ GET   /patron/list                     controllers.Plan.list
 #POST  /streamer/picture/delete         controllers.Streamer.pictureDelete
 #GET   /streamer/:username              controllers.Streamer.show(username: String)
 
-#Tjalling memoriam page
-GET   /tjalling                        controllers.Page.tjalling
-
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
 GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameId: String, color: String)
@@ -560,6 +557,7 @@ GET   /privacy                         controllers.Page.privacy
 GET   /contact                         controllers.Page.contact
 GET   /swag                            controllers.Page.swag
 GET   /about                           controllers.Page.about
+GET   /in-memoriam                     controllers.Page.tjalling
 
 # Variants
 GET   /variant                         controllers.Page.variantHome
