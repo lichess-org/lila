@@ -19,7 +19,7 @@ export default function(ctrl: LobbyController) {
   }).length;
   const active = ctrl.tab;
   return [
-    tab(ctrl, 'pools', active, [ctrl.trans.noarg('quickPairing')]),
+    //tab(ctrl, 'pools', active, [ctrl.trans.noarg('quickPairing')]),
     tab(ctrl, 'real_time', active, [ctrl.trans.noarg('lobby')]),
     tab(ctrl, 'seeks', active, [ctrl.trans.noarg('correspondence')]),
     (active === 'now_playing' || ctrl.data.nbNowPlaying > 0) ? tab(ctrl, 'now_playing', active, [

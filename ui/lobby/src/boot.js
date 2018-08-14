@@ -286,7 +286,7 @@ module.exports = function(cfg, element) {
           .attr('title', cfg.trans('youNeedAnAccountToDoThat'));
       }
       var ajaxSubmit = function(color) {
-        var poolMember = hookToPoolMember(color, $formTag.serializeArray(), $ratings);
+        var poolMember = false; //hookToPoolMember(color, $formTag.serializeArray(), $ratings);
         $form.find('a.close').click();
         var call = {
           url: $formTag.attr('action').replace(/uid-placeholder/, lidraughts.StrongSocket.sri),
