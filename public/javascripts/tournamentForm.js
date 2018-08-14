@@ -41,7 +41,7 @@ $(function() {
 
   $(".flatpickr").flatpickr({
     minDate: 'today',
-    maxDate: new Date().fp_incr(31),
+    maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
     dateFormat: 'Z',
     altInput: true,
     altFormat: 'Y-m-d h:i K'
