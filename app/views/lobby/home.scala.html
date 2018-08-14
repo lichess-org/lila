@@ -48,7 +48,7 @@
 <a id="nb_games_in_play" href="@routes.Tv.games">
   @trans.nbGamesInPlay.plural(nbRounds, Html(s"<span>${nbRounds}</span>"))
 </a>
-@if(ctx.isMobileBrowser) {
+@*@if(ctx.isMobileBrowser) {
 @if(lidraughts.common.HTTPRequest.isAndroid(ctx.req)) {
 @mobile.googlePlayButton()
 } else {
@@ -56,7 +56,7 @@
 @mobile.appleStoreButton()
 }
 }
-}
+}*@
 }
 
 @moreJs = {
