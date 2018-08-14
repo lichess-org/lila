@@ -14,6 +14,7 @@ import lila.user.{ User, UserRepo }
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.util.Random
+import org.joda.time.DateTime
 
 import chess.Color
 
@@ -24,6 +25,8 @@ final class AssessApi(
     reporter: ActorSelection,
     fishnet: ActorSelection
 ) {
+
+  private def bottomDate = DateTime.now.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
 
   import PlayerFlags.playerFlagsBSONHandler
 
@@ -90,6 +93,7 @@ final class AssessApi(
       else if (game.isCorrespondence) false
       else if (game.players exists consistentMoveTimes(game)) true
       else if (game.playedTurns < 40) false
+      else if (game.createdAt isBefore bottomDate) false
       else true
     shouldAssess.?? {
       val assessible = Assessible(Analysed(game, analysis))
@@ -153,8 +157,8 @@ final class AssessApi(
       val x = noFastCoefVariation(game player c)
       x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(Random.nextBoolean)
     }
-    val whiteSuspCoefVariation = suspCoefVariation(chess.White)
-    val blackSuspCoefVariation = suspCoefVariation(chess.Black)
+    lazy val whiteSuspCoefVariation = suspCoefVariation(chess.White)
+    lazy val blackSuspCoefVariation = suspCoefVariation(chess.Black)
 
     val shouldAnalyse: Option[AutoAnalysis.Reason] =
       if (!game.analysable) none
@@ -167,6 +171,8 @@ final class AssessApi(
       else if (game.playedTurns > 90) none
       // stop here for casual games
       else if (!game.mode.rated) none
+      // discard old games
+      else if (game.createdAt isBefore bottomDate) none
       // someone is using a bot
       else if (game.players.exists(_.hasSuspiciousHoldAlert)) HoldAlert.some
       // white has consistent move times
