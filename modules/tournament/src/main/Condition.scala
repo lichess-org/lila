@@ -131,7 +131,9 @@ object Condition {
 
     def sameMaxRating(other: All) = maxRating.map(_.rating) == other.maxRating.map(_.rating)
     def sameMinRating(other: All) = minRating.map(_.rating) == other.minRating.map(_.rating)
-    def sameRatings(other: All) = sameMinRating(other) && sameMaxRating(other)
+    def sameRatings(other: All) = sameMaxRating(other) && sameMinRating(other)
+
+    def similar(other: All) = sameRatings(other) && titled == other.titled && teamMember == other.teamMember
 
     def isRatingLimited = maxRating.isDefined || minRating.isDefined
   }

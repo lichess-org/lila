@@ -349,35 +349,33 @@ Thank you all, you rock!"""
           }
         ).flatten
       }
-    ).flatten map { plan =>
-        plan.copy(schedule = Schedule addCondition plan.schedule)
+    ).flatten filter { _.schedule.at.isBefore(rightNow) }
+  }
+
+  private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) = {
+    newTourns.foldLeft(List[Tournament]()) {
+      case (tourns, t) =>
+        if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
+        else t :: tourns
+    } reverse
+  }
+
+  private case class ScheduleNowWith(dbScheds: List[Tournament])
+
+  private def overlaps(t: Tournament, ts: List[Tournament]): Boolean =
+    t.schedule ?? { s =>
+      ts exists { t2 =>
+        t.variant == t2.variant && (t2.schedule ?? {
+          // prevent daily && weekly on the same day
+          case s2 if s.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s.sameSpeed(s2) => s sameDay s2
+          case s2 => (
+            t.variant.exotic || // overlapping exotic variant
+            s.hasMaxRating || // overlapping same rating limit
+            s.similarSpeed(s2) // overlapping similar
+          ) && s.similarConditions(s2) && t.overlaps(t2)
+        })
       }
-  }
-
-  private[tournament] def pruneConflicts(scheds: List[Schedule], allPlans: List[Plan]): List[Plan] = {
-    allPlans.foldLeft(List[Plan]()) {
-      case (plans, p) if p.schedule.at.isBeforeNow => plans
-      case (plans, p) if overlaps(p.schedule, scheds) => plans
-      case (plans, p) if overlaps(p.schedule, plans.map(_.schedule)) => plans
-      case (plans, p) => p :: plans
     }
-  }
-
-  private case class ScheduleNowWith(dbScheds: List[Schedule])
-
-  private def endsAt(s: Schedule) = s.at plus (Schedule.durationFor(s).toLong * 60 * 1000)
-  private def interval(s: Schedule) = new org.joda.time.Interval(s.at, endsAt(s))
-  private def overlaps(s: Schedule, ss: Seq[Schedule]) = ss exists {
-    // prevent daily && weekly on the same day
-    case s2 if s.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s.sameVariantAndSpeed(s2) => s sameDay s2
-    // overlapping same variant
-    case s2 if s.variant.exotic && s.sameVariant(s2) => interval(s) overlaps interval(s2)
-    // overlapping same rating limit
-    case s2 if s2.hasMaxRating && s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
-    // overlapping similar
-    case s2 if s.similarSpeed(s2) && s.sameVariant(s2) && s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
-    case _ => false
-  }
 
   private def at(day: DateTime, hour: Int, minute: Int = 0): Option[DateTime] = try {
     Some(day.withTimeAtStartOfDay plusHours hour plusMinutes minute)
@@ -390,13 +388,13 @@ Thank you all, you rock!"""
   def receive = {
 
     case ScheduleNow =>
-      TournamentRepo.scheduledUnfinished.map(_.flatMap(_.schedule)) map
-        ScheduleNowWith.apply pipeTo self
+      TournamentRepo.scheduledUnfinished map { tourneys =>
+        self ! ScheduleNowWith(tourneys)
+      }
 
     case ScheduleNowWith(dbScheds) => try {
-      val nextPlans = allWithConflicts(DateTime.now)
-
-      pruneConflicts(dbScheds, nextPlans) foreach api.createFromPlan
+      val newTourns = allWithConflicts(DateTime.now) map { _.build }
+      pruneConflicts(dbScheds, newTourns) foreach api.create
 
     } catch {
       case e: org.joda.time.IllegalInstantException =>

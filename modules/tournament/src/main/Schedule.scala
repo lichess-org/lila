@@ -44,6 +44,8 @@ case class Schedule(
 
   def sameMaxRating(other: Schedule) = conditions sameMaxRating other.conditions
 
+  def similarConditions(other: Schedule) = conditions similar other.conditions
+
   def sameDay(other: Schedule) = day == other.day
 
   def hasMaxRating = conditions.maxRating.isDefined
@@ -61,7 +63,13 @@ case class Schedule(
 
 object Schedule {
 
-  case class Plan(schedule: Schedule, build: Option[Tournament => Tournament])
+  case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament]) {
+
+    def build: Tournament = {
+      val t = Tournament.schedule(addCondition(schedule), durationFor(schedule))
+      buildFunc.foldRight(t) { _(_) }
+    }
+  }
 
   sealed abstract class Freq(val id: Int, val importance: Int) extends Ordered[Freq] {
 
