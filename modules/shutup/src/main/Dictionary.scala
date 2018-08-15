@@ -171,6 +171,7 @@ wog
 пидор
 пидераст
 pid(a|o)r
+Лох
 """)
 
   private def dict(words: String) = words.lines.filter(_.nonEmpty)
