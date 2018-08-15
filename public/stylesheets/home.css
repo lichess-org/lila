@@ -66,7 +66,7 @@ body.dark #lobby_current_game {
   position: relative;
   width: 510px;
   min-width: 510px;
-  min-height: 410px;
+  min-height: 490px;
   border: 1px solid #ccc;
   background: #f0f0f0 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMTAuMCAyMTAuMCI+PGcgb3BhY2l0eT0iLjEiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2Utd2lkdGg9IjYiPjxnIGZpbGw9IiNmZmYiPjxwYXRoIGQ9Ik0gMTAsMTQwIGMgMCw2MCAxOTAsNjAgMTkwLDAgbCAwLC0zNSBsIC0xOTAsMCB6Ii8+PHBhdGggZD0iTSAxMCwxMDUgYyAwLDYwIDE5MCw2MCAxOTAsMCBsIDAsLTM1IGwgLTE5MCwwIHoiLz48cGF0aCBkPSJNIDEwLDcwIGMgMCw2MCAxOTAsNjAgMTkwLDAgYyAwLC02MCAtMTkwLC02MCAtMTkwLDAgeiIvPjwvZz48L2c+PC9zdmc+');
   background-size: 100% 100%;
@@ -76,7 +76,7 @@ body.dark #hooks_wrap {
 }
 #hooks_wrap .lobby_box {
   position: relative;
-  min-height: 410px;
+  min-height: 490px;
 }
 #hooks_wrap .lobby_box.seeks {
   max-height: 510px;
@@ -150,7 +150,7 @@ body.dark #hooks_wrap {
 #hooks_wrap .hook_filter {
   padding: 10px 20px;
   background: rgba(255,255,255,0.5);
-  height: 410px;
+  height: 490px;
   box-sizing: border-box;
 }
 body.dark #hooks_wrap .hook_filter {
@@ -318,7 +318,7 @@ body.dark #hooks_wrap .hook_filter {
 #hooks_wrap .hooks_chart .canvas {
   position: relative;
   width: 510px;
-  height: 410px;
+  height: 490px;
 }
 #hooks_wrap .hooks_chart .plot {
   position: absolute;
