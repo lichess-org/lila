@@ -236,18 +236,18 @@ Thank you all, you rock!"""
           },*/
 
         List( // daily tournaments!
-          at(today, 16) map { date => Schedule(Daily, Bullet, Standard, std, date |> orTomorrow).plan },
-          at(today, 17) map { date => Schedule(Daily, SuperBlitz, Standard, std, date |> orTomorrow).plan },
-          at(today, 18) map { date => Schedule(Daily, Blitz, Standard, std, date |> orTomorrow).plan },
-          at(today, 19) map { date => Schedule(Daily, Rapid, Standard, std, date |> orTomorrow).plan },
-          at(today, 20) map { date => Schedule(Daily, HyperBullet, Standard, std, date |> orTomorrow).plan }
+          at(today, 17) map { date => Schedule(Daily, Bullet, Standard, std, date |> orTomorrow).plan },
+          //at(today, 17) map { date => Schedule(Daily, SuperBlitz, Standard, std, date |> orTomorrow).plan },
+          at(today, 19) map { date => Schedule(Daily, SuperBlitz, Standard, std, date |> orTomorrow).plan },
+          //at(today, 19) map { date => Schedule(Daily, Rapid, Standard, std, date |> orTomorrow).plan },
+          at(today, 21) map { date => Schedule(Daily, HyperBullet, Standard, std, date |> orTomorrow).plan }
         //at(today, 21) map { date => Schedule(Daily, UltraBullet, Standard, std, date |> orTomorrow).plan }
         ).flatten,
 
         List( // daily variant tournaments!
-          at(today, 18) map { date => Schedule(Daily, Blitz, Frisian, std, date |> orTomorrow).plan },
+          //at(today, 18) map { date => Schedule(Daily, Blitz, Frisian, std, date |> orTomorrow).plan },
           //at(today, 21) map { date => Schedule(Daily, Blitz, Frisian, std, date |> orTomorrow).plan },
-          at(today, 21) map { date => Schedule(Daily, SuperBlitz, Frisian, std, date |> orTomorrow).plan }
+          at(today, 19) map { date => Schedule(Daily, SuperBlitz, Frisian, std, date |> orTomorrow).plan }
         /*at(today, 23) map { date => Schedule(Daily, SuperBlitz, Frisian, std, date |> orTomorrow).plan },
           at(today, 0) map { date => Schedule(Daily, SuperBlitz, Frisian, std, date |> orTomorrow).plan },
           at(tomorrow, 1) map { date => Schedule(Daily, SuperBlitz, Frisian, std, date).plan },
@@ -255,10 +255,10 @@ Thank you all, you rock!"""
         ).flatten,
 
         List( // eastern tournaments!
-          at(today, 4) map { date => Schedule(Eastern, Bullet, Standard, std, date |> orTomorrow).plan },
-          at(today, 5) map { date => Schedule(Eastern, SuperBlitz, Standard, std, date |> orTomorrow).plan },
-          at(today, 6) map { date => Schedule(Eastern, Blitz, Standard, std, date |> orTomorrow).plan },
-          at(today, 7) map { date => Schedule(Eastern, Rapid, Standard, std, date |> orTomorrow).plan }
+          at(today, 5) map { date => Schedule(Eastern, Bullet, Standard, std, date |> orTomorrow).plan },
+          //at(today, 5) map { date => Schedule(Eastern, SuperBlitz, Standard, std, date |> orTomorrow).plan },
+          at(today, 6) map { date => Schedule(Eastern, SuperBlitz, Standard, std, date |> orTomorrow).plan }
+        //at(today, 7) map { date => Schedule(Eastern, Rapid, Standard, std, date |> orTomorrow).plan }
         ).flatten,
 
         /*(isHalloween ? // replace more thematic tournaments on halloween
@@ -288,17 +288,18 @@ Thank you all, you rock!"""
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
           // Avoid overlap with daily/eastern bullet, daily/hourly ultra.
-          // Hour 20 is daily hyper, so make hour 19 regular bullet.
-          val bulletType = if (hour % 4 == 3 && hour != 19) HyperBullet else Bullet
+          val bulletType = if (hour % 4 == 3) HyperBullet else Bullet
+          //Hour 19 is the daily superblitz, hour 6 eastern
+          val blitzType = if (hour % 3 == 0 && hour != 18 && hour != 5) Blitz else SuperBlitz
           List(
             // Ultra hourlies avoid hyperbullet, and overlap with daily ultra.
             //at(date, hour) collect { case date if hour % 8 == 5 => Schedule(Hourly, UltraBullet, Standard, std, date).plan },
             //at(date, hour, 30) collect { case date if hour % 8 == 5 => Schedule(Hourly, UltraBullet, Standard, std, date).plan },
             at(date, hour) map { date => Schedule(Hourly, bulletType, Standard, std, date).plan },
             at(date, hour, 30) map { date => Schedule(Hourly, Bullet, Standard, std, date).plan },
-            at(date, hour) map { date => Schedule(Hourly, SuperBlitz, Standard, std, date).plan },
-            at(date, hour) map { date => Schedule(Hourly, Blitz, Standard, std, date).plan },
-            at(date, hour) collect { case date if hour % 2 == 0 => Schedule(Hourly, Rapid, Standard, std, date).plan }
+            at(date, hour) map { date => Schedule(Hourly, blitzType, Standard, std, date).plan },
+            //at(date, hour) map { date => Schedule(Hourly, Blitz, Standard, std, date).plan },
+            at(date, hour) collect { case date if hour % 8 == 6 => Schedule(Hourly, Rapid, Standard, std, date).plan }
           ).flatten
         },
 
@@ -341,13 +342,15 @@ Thank you all, you rock!"""
             case 5 => HippoBullet
             case _ => Blitz
           }
-          List(
-            at(date, hour) map { date => Schedule(Hourly, speed, Frisian, std, date).plan },
-            at(date, hour, 30) collect {
-              case date if speed == Bullet =>
-                Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, Frisian, std, date).plan
-            }
-          ).flatten
+          if (hour % 8 >= 6) Nil
+          else
+            List(
+              at(date, hour) map { date => Schedule(Hourly, speed, Frisian, std, date).plan },
+              at(date, hour, 30) collect {
+                case date if speed == Bullet =>
+                  Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, Frisian, std, date).plan
+              }
+            ).flatten
         }
       ).flatten
 

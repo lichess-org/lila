@@ -152,7 +152,7 @@ object Schedule {
       case (Hourly, _, Rapid) if s.hasMaxRating => 57
       case (Hourly, _, Rapid | Classical) => 117
 
-      case (Daily | Eastern, Standard, SuperBlitz) => 90
+      case (Daily | Eastern, Standard, SuperBlitz) => 120
       case (Daily | Eastern, Standard, Blitz) => 120
       case (Daily | Eastern, _, Blitz) => 90
       case (Daily | Eastern, _, Rapid | Classical) => 150
@@ -196,7 +196,7 @@ object Schedule {
     }
   }
 
-  private val standardIncHours = Set(1, 7, 13, 19)
+  private val standardIncHours = Set(1, 4, 7, 10, 13, 16, 19, 22)
   private def standardInc(s: Schedule) = standardIncHours(s.at.getHourOfDay)
   private def zhInc(s: Schedule) = s.at.getHourOfDay % 2 == 0
 
@@ -210,7 +210,7 @@ object Schedule {
       // Special cases.
       //case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1)
       //case (Hourly, Crazyhouse, Blitz) if zhInc(s) => TC(4 * 60, 2)
-      case (Hourly, Standard, Blitz) if standardInc(s) => TC(3 * 60, 2)
+      case (Hourly, Standard, SuperBlitz) if standardInc(s) => TC(3 * 60, 2)
 
       case (Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2)
 
