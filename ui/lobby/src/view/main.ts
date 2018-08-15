@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import { VNodeData } from 'snabbdom/vnode';
 import renderTabs from './tabs';
-import * as renderPools from './pools';
+//import * as renderPools from './pools';
 import renderRealTime from './realTime/main';
 import renderSeeks from './correspondence';
 import renderPlaying from './playing';
@@ -13,10 +13,10 @@ export default function(ctrl: LobbyController) {
   if (ctrl.playban || ctrl.currentGame) return h('div#hooks_wrap');
   if (ctrl.redirecting) body = spinner();
   else switch (ctrl.tab) {
-    case 'pools':
+    /*case 'pools':
       body = renderPools.render(ctrl);
       data = { hook: renderPools.hooks(ctrl) };
-      break;
+      break;*/
     case 'real_time':
       body = renderRealTime(ctrl);
       break;
