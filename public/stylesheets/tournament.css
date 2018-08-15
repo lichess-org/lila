@@ -871,7 +871,7 @@ body.dark .scheduled_tournaments a:hover {
 }
 
 #tournament_schedule {
-  min-height: 400px;
+  min-height: 240px;
   position: relative;
   -moz-user-select: none;
   -webkit-user-select: none;
