@@ -7,7 +7,7 @@ $(function() {
       if ($zone.is(':visible')) $zone.hide();
       else {
         $zone.html(lichess.spinnerHtml).show();
-        lichess.loadCss('/assets/stylesheets/user-mod.css');
+        lichess.loadCss('stylesheets/user-mod.css');
         $zone.load($(this).attr('href'));
       }
       return false;
@@ -66,7 +66,7 @@ $(function() {
         $angles.find('.active').removeClass('active');
         $(this).addClass('active');
         browseTo($(this).attr('href'));
-        if ($(this).data('tab') === 'activity') lichess.loadCss('/assets/stylesheets/activity.css');
+        if ($(this).data('tab') === 'activity') lichess.loadCss('stylesheets/activity.css');
         return false;
       });
       $('.user_show').on('click', '#games a', function() {

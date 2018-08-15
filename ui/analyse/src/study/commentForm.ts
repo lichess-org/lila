@@ -106,7 +106,7 @@ export function view(root: AnalyseCtrl): VNode {
 
   return h('div.study_comment_form.underboard_form', {
     hook: {
-      insert: _ => window.lichess.loadCss('/assets/stylesheets/material.form.css')
+      insert: _ => window.lichess.loadCss('stylesheets/material.form.css')
     }
   }, [
     currentComments(root, !study.members.canContribute()),

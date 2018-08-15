@@ -7,11 +7,11 @@
     <meta name="Content-Security-Policy" content="@basicCsp">
     <title>lichess.org TV</title>
     @if(bg == "dark") {
-    @cssAt("stylesheets/dark.css", true, assetVersion)
+    @cssAt("stylesheets/dark.css", assetVersion)
     }
-    @cssAt(s"stylesheets/piece/merida.css", true, assetVersion)
-    @cssAt("stylesheets/common.css", true, assetVersion)
-    @cssAt("stylesheets/board.css", true, assetVersion)
+    @cssAt(s"stylesheets/piece/merida.css", assetVersion)
+    @cssAt("stylesheets/common.css", assetVersion)
+    @cssAt("stylesheets/board.css", assetVersion)
   </head>
   <body
     class="base highlight @bg"
@@ -22,7 +22,7 @@
       @game.vstext(pov)(none)
     </div>
     @jQueryTag
-    @jsAt("javascripts/vendor/chessground.min.js", true, false, assetVersion)
-    @jsAt("compiled/tv.js", true, false, assetVersion)
+    @jsAt("javascripts/vendor/chessground.min.js", false, assetVersion)
+    @jsAt("compiled/tv.js", false, assetVersion)
   </body>
 </html>

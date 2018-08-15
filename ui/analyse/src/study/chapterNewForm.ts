@@ -152,7 +152,7 @@ export function view(ctrl): VNode {
           hook: {
             insert: vnode => {
               $.when(
-                window.lichess.loadScript('/assets/compiled/lichess.editor.min.js'),
+                window.lichess.loadScript('compiled/lichess.editor.min.js'),
                 $.get('/editor.json', {
                   fen: ctrl.root.node.fen
                 })

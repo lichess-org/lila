@@ -64,7 +64,7 @@ export function render(ctrl: KeyboardMove) {
       },
       hook: {
         insert: vnode => {
-          window.lichess.loadScript('/assets/javascripts/keyboardMove.js').then(() => {
+          window.lichess.loadScript('javascripts/keyboardMove.js').then(() => {
             ctrl.registerHandler(window.lichess.keyboardMove({
               input: vnode.elm,
               setFocus: ctrl.setFocus,

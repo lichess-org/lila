@@ -154,7 +154,7 @@ export default class AnalyseCtrl {
 
     li.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
-        li.loadScript('/assets/javascripts/music/replay.js').then(() => {
+        li.loadScript('javascripts/music/replay.js').then(() => {
           this.music = window.lichessReplayMusic();
         });
         if (this.music && set !== 'music') this.music = null;

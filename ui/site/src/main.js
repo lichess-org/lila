@@ -131,8 +131,8 @@ lichess.topMenuIntent = function() {
 
   lichess.userAutocomplete = function($input, opts) {
     opts = opts || {};
-    lichess.loadCss('/assets/stylesheets/autocomplete.css');
-    return lichess.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
+    lichess.loadCss('stylesheets/autocomplete.css');
+    return lichess.loadScript('javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
       $input.typeahead(null, {
         minLength: opts.minLength || 3,
         hint: true,
@@ -317,8 +317,8 @@ lichess.topMenuIntent = function() {
           booted = true;
           var $el = $('#challenge_app').html(lichess.initiatingHtml);
           var isDev = $('body').data('dev');
-          lichess.loadCss('/assets/stylesheets/challengeApp.css');
-          lichess.loadScript("/assets/compiled/lichess.challenge" + (isDev ? '' : '.min') + '.js').done(function() {
+          lichess.loadCss('stylesheets/challengeApp.css');
+          lichess.loadScript('compiled/lichess.challenge' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LichessChallenge.default($el[0], {
               data: data,
               show: function() {
@@ -356,8 +356,8 @@ lichess.topMenuIntent = function() {
           booted = true;
           var $el = $('#notify_app').html(lichess.initiatingHtml);
           var isDev = $('body').data('dev');
-          lichess.loadCss('/assets/stylesheets/notifyApp.css');
-          lichess.loadScript("/assets/compiled/lichess.notify" + (isDev ? '' : '.min') + '.js').done(function() {
+          lichess.loadCss('stylesheets/notifyApp.css');
+          lichess.loadScript('compiled/lichess.notify' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LichessNotify.default($el.empty()[0], {
               data: data,
               incoming: incoming,
@@ -457,8 +457,8 @@ lichess.topMenuIntent = function() {
           var $el = $('#dasher_app').html(lichess.initiatingHtml);
           var isDev = $('body').data('dev');
           var isPlaying = $('body').hasClass('playing');
-          lichess.loadCss('/assets/stylesheets/dasherApp.css');
-          lichess.loadScript("/assets/compiled/lichess.dasher" + (isDev ? '' : '.min') + '.js').done(function() {
+          lichess.loadCss('stylesheets/dasherApp.css');
+          lichess.loadScript('compiled/lichess.dasher' + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LichessDasher.default($el.empty()[0], {
               setZoom: setZoom,
               playing: isPlaying
@@ -475,8 +475,8 @@ lichess.topMenuIntent = function() {
         var boot = function() {
           if (booted) return;
           booted = true;
-          lichess.loadCss('/assets/stylesheets/cli.css');
-          lichess.loadScript("/assets/compiled/lichess.cli" + ($('body').data('dev') ? '' : '.min') + '.js').done(function() {
+          lichess.loadCss('stylesheets/cli.css');
+          lichess.loadScript('compiled/lichess.cli' + ($('body').data('dev') ? '' : '.min') + '.js').done(function() {
             LichessCli.app($wrap, toggle);
           });
         }
@@ -584,7 +584,7 @@ lichess.topMenuIntent = function() {
               .attr('action', '/login?referrer=' + window.location.pathname);
           }));
         }
-        lichess.loadCss('/assets/stylesheets/fpmenu.css');
+        lichess.loadCss('stylesheets/fpmenu.css');
       }).click(function() {
         document.body.classList.toggle('fpmenu');
       });
@@ -669,7 +669,7 @@ lichess.topMenuIntent = function() {
         };
         set = 'standard';
       }
-      var baseUrl = lichess.assetUrl('/assets/sound', {noVersion:true});
+      var baseUrl = lichess.assetUrl('sound', {noVersion: true});
       return new Howl({
         src: ['ogg', 'mp3'].map(function(ext) {
           return [baseUrl, set, names[k] + '.' + ext].join('/');

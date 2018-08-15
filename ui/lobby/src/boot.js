@@ -429,7 +429,7 @@ module.exports = function(cfg, element) {
   }
 
   $startButtons.find('a').not('.disabled').on('mousedown', function() {
-    lichess.loadCss('/assets/stylesheets/setup.css');
+    lichess.loadCss('stylesheets/setup.css');
     lobby.leavePool();
     $.ajax({
       url: $(this).attr('href'),

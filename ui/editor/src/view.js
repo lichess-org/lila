@@ -286,7 +286,7 @@ function makeCursor(selected) {
   if (selected === 'pointer') return 'pointer';
 
   var name = selected === 'trash' ? 'trash' : selected.join('-');
-  var url = lichess.assetUrl('/assets/cursors/' + name + '.cur');
+  var url = lichess.assetUrl('cursors/' + name + '.cur');
 
   return 'url(' + url + '), default !important';
 }
