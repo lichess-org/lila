@@ -81,7 +81,7 @@ object Event {
       state = state,
       clock = clock,
       possibleMoves = if (situation.ghosts > 0) Map(move.dest -> situation.destinationsFrom(move.dest)) else situation.allDestinations,
-      captLen = situation.allMovesCaptureLength
+      captLen = if (situation.ghosts > 0) situation.captureLengthFrom(move.dest) else situation.allMovesCaptureLength
     )
   }
 
