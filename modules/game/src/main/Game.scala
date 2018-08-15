@@ -219,14 +219,9 @@ case class Game(
   }
 
   def lastMoveUci: Option[String] = {
-    logger.info(s"lastMoveUci: $history")
     history.lastMove.map {
-      case m: Uci.Move =>
-        logger.info(s"Last move: $m")
-        m.uci
-      case _ =>
-        logger.info(s"No last move: $history")
-        ""
+      case m: Uci.Move => m.uci
+      case _ => ""
     }
   }
 

@@ -189,10 +189,8 @@ private[round] final class Round(
 
     case ForecastPlay(lastMove) => handle { game =>
       forecastApi.nextMove(game, lastMove) map { mOpt =>
-        lidraughts.log("round.process").info(s"ForecastPlay @ $lastMove: $mOpt (turn ${game.turns}, captlen ${if (mOpt.isDefined) game.situation.captureLengthFrom(mOpt.get.orig).getOrElse(0) else 0})")
         if (lastMove.captures && game.situation.captureLengthFrom(lastMove.dest).getOrElse(0) > 0) {
           forecastApi.moveOpponent(game, lastMove) map { rmOpt =>
-            lidraughts.log("round.process").info(s"removed forecast: $rmOpt")
             mOpt foreach { move => self ! HumanPlay(game.player.id, move, blur = false) }
           }
         } else mOpt foreach { move => self ! HumanPlay(game.player.id, move, blur = false) }
@@ -265,24 +263,18 @@ private[round] final class Round(
   private def handle[A](op: Game => Fu[Events]): Funit =
     handleGame(proxy.game)(op)
 
-  private def handle(playerId: String)(op: Pov => Fu[Events]): Funit = {
-    lidraughts.log("round.handle").info(s"handle $playerId")
+  private def handle(playerId: String)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy playerPov playerId)(op)
-  }
 
-  private def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit = {
-    lidraughts.log("round.process").info(s"handleHumanPlay $p")
+  private def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
     handlePov {
       p.trace.segment("fetch", "db") {
         proxy playerPov p.playerId
       }
     }(op)
-  }
 
-  private def handle(color: Color)(op: Pov => Fu[Events]): Funit = {
-    lidraughts.log("round.process").info(s"handle $color")
+  private def handle(color: Color)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy pov color)(op)
-  }
 
   private def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit = publish {
     pov flatten "pov not found" flatMap { p =>
@@ -310,10 +302,8 @@ private[round] final class Round(
 
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
     case e: ClientError =>
-      logger.info(s"Round client error $name", e)
       lidraughts.mon.round.error.client()
     case e: FishnetError =>
-      logger.info(s"Round fishnet error $name", e)
       lidraughts.mon.round.error.fishnet()
     case e: Exception => logger.warn(s"$name: ${e.getMessage}")
   }
