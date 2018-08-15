@@ -43,7 +43,6 @@ private[api] final class RoundApiBalancer(
         val logger = RoundApiBalancer.this.logger
         def process = {
           case Player(pov, apiVersion, ctx) => {
-            logger.info(s"process player pov game: ${pov.game.turnColor}");
             {
               api.player(pov, apiVersion)(ctx) addFailureEffect { e =>
                 logger.error(s"player ${pov.toString}", e)

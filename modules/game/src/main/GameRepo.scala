@@ -49,12 +49,8 @@ object GameRepo {
     player(playerRef.gameId, playerRef.playerId)
 
   def pov(gameId: ID, color: Color): Fu[Option[Pov]] =
-    game(gameId) map2 { (game: Game) =>
-      {
-        logger.info(s"retrieved $gameId: ${game.turnColor}")
-        Pov(game, game player color)
-      }
-    }
+    game(gameId) map2 { (game: Game) => Pov(game, game player color) }
+
   def pov(gameId: ID, color: String): Fu[Option[Pov]] =
     Color(color) ?? (pov(gameId, _))
 
@@ -121,9 +117,7 @@ object GameRepo {
 
   def save(progress: Progress): Funit =
     GameDiff(progress.origin, progress.game) match {
-      case (Nil, Nil) =>
-        lidraughts.log("GameRepo").info(s"save progress - nil")
-        funit
+      case (Nil, Nil) => funit
       case (sets, unsets) =>
         coll.update(
           $id(progress.origin.id),
