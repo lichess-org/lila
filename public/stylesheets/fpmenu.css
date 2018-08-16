@@ -48,6 +48,7 @@ body.fpmenu #fpmenu {
 #fpmenu .anon {
   float: left;
   width: 400px;
+  min-height: 490px;
   border-right: 1px solid #cfcfcf;
   padding: 0 40px 20px 0;
 }
