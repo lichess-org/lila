@@ -38,13 +38,9 @@ private final class Captcher extends Actor {
 
     def current = challenges.head
 
-    def refresh =
-      createFromDb onSuccess {
-        case Some(captcha) if find(captcha.gameId).isEmpty =>
-          challenges = NonEmptyList.nel(captcha, challenges.list take capacity)
-        case _ =>
-          challenges = challenges.tail.headOption.fold(NonEmptyList(Captcha.default))(tailHead => NonEmptyList.nel(tailHead, challenges.tail drop 1))
-      }
+    def refresh = createFromDb onSuccess {
+      case Some(captcha) => add(captcha)
+    }
 
     // Private stuff
 
