@@ -59,7 +59,6 @@ object Setup extends LidraughtsController with TheftPrevention {
 
   def friend(userId: Option[String]) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    lidraughts.log("Challenge").info(s"friend: $userId, req: $req")
     PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
       env.forms.friend(ctx).bindFromRequest.fold(
         f => negotiate(
@@ -67,7 +66,6 @@ object Setup extends LidraughtsController with TheftPrevention {
           api = _ => fuccess(BadRequest(errorsAsJson(f)))
         ), {
           case config => userId ?? UserRepo.byId flatMap { destUser =>
-            lidraughts.log("Challenge").info(s"destUser: $destUser")
             destUser ?? { Env.challenge.granter(ctx.me, _, config.perfType) } flatMap {
               case Some(denied) => BadRequest(html.challenge.denied(denied)).fuccess
               case None =>
@@ -93,13 +91,11 @@ object Setup extends LidraughtsController with TheftPrevention {
                 env.processor.saveFriendConfig(config) >>
                   (Env.challenge.api create challenge) flatMap {
                     case true =>
-                      lidraughts.log("Challenge").info(s"Challenge created: $challenge")
                       negotiate(
                         html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
                         api = _ => Challenge showChallenge challenge
                       )
                     case false =>
-                      lidraughts.log("Challenge").info(s"Challenge failed: $challenge")
                       negotiate(
                         html = fuccess(Redirect(routes.Lobby.home)),
                         api = _ => fuccess(BadRequest(jsonError("Challenge not created")))

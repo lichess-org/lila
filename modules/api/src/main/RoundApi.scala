@@ -23,8 +23,7 @@ private[api] final class RoundApi(
     getSimul: Simul.ID => Fu[Option[Simul]]
 ) {
 
-  def player(pov: Pov, apiVersion: ApiVersion)(implicit ctx: Context): Fu[JsObject] = {
-    lidraughts.log("RoundApi").info(s"player pov game: ${pov.game.turnColor}")
+  def player(pov: Pov, apiVersion: ApiVersion)(implicit ctx: Context): Fu[JsObject] =
     GameRepo.initialFen(pov.game) map2 FEN.apply flatMap { initialFen =>
       jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
         withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs)),
@@ -45,7 +44,6 @@ private[api] final class RoundApi(
           )(json)
         }
     }
-  }
 
   def watcher(pov: Pov, apiVersion: ApiVersion, tv: Option[lidraughts.round.OnTv],
     initialFenO: Option[Option[FEN]] = None)(implicit ctx: Context): Fu[JsObject] =

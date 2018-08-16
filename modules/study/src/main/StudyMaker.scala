@@ -16,13 +16,11 @@ private final class StudyMaker(
       case None => createFromScratch(data, user)
     } map { sc =>
       // apply specified From if any
-      logger.info(s"StudyMaker.apply Study (${data.from | sc.study.from}) $sc")
       sc.copy(study = sc.study.copy(from = data.from | sc.study.from))
     }
 
   private def createFromScratch(data: StudyMaker.Data, user: User): Fu[Study.WithChapter] = {
     val study = Study.make(user, Study.From.Scratch, data.id, data.name, data.settings)
-    logger.info(s"StudyMaker.createFromScratch Study $study")
     val c = chapterMaker.fromFenOrPdnOrBlank(study, ChapterMaker.Data(
       game = none,
       name = Chapter.Name("Chapter 1"),
@@ -35,7 +33,6 @@ private final class StudyMaker(
     ),
       order = 1,
       userId = user.id)
-    logger.info(s"StudyMaker.createFromScratch Chapter $c")
     c map { chapter =>
       Study.WithChapter(study withChapter chapter, chapter)
     }
