@@ -194,8 +194,7 @@ object Puzzle extends LidraughtsController {
     Ok {
       val bg = get("bg", req) | "light"
       val theme = get("theme", req) | "brown"
-      //val url = s"""${req.domain + routes.Puzzle.frame}?bg=$bg&theme=$theme"""
-      val url = s"""${req.domain + routes.Main}?bg=$bg&theme=$theme"""
+      val url = s"""${req.domain + routes.Puzzle.frame}?bg=$bg&theme=$theme"""
       s"""document.write("<iframe src='//$url&embed=" + document.domain + "' class='lidraughts-training-iframe' allowtransparency='true' frameBorder='0' style='width: 224px; height: 264px;' title='Lidraughts free online draughts'></iframe>");"""
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }

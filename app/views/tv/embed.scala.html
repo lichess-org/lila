@@ -7,7 +7,7 @@
     @if(bg == "dark") {
     @cssAt("stylesheets/dark.css", true, assetVersion)
     }
-    @cssAt(s"stylesheets/piece/merida.css", true, assetVersion)
+    @cssAt(s"stylesheets/piece/wide_crown.css", true, assetVersion)
     @cssAt("stylesheets/common.css", true, assetVersion)
     @cssAt("stylesheets/board.css", true, assetVersion)
     <meta charset="utf-8">
@@ -16,7 +16,7 @@
     class="base highlight @bg"
     style="width: 224px; height: 264px; overflow: hidden; background: none!important"
     data-stream-url="@routes.Tv.feed">
-    <div id="featured_game" class="is2d highlight @bg @theme merida" title="lidraughts.org TV">
+    <div id="featured_game" class="is2d highlight @bg @theme wide_crown" title="lidraughts.org TV">
       @gameFenNoCtx(pov, tv = true, blank = true)
       @game.vstext(pov)(none)
     </div>
