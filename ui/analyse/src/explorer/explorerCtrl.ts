@@ -148,6 +148,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
     fetchTablebaseHit(fen: Fen): JQueryPromise<SimpleTablebaseHit> {
       return xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen).then((res: TablebaseData) => {
         const move = res.moves[0];
+        if (move && move.dtz == null) throw 'unknown tablebase position';
         return {
           fen: fen,
           best: move && move.uci,
