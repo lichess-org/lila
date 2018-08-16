@@ -211,7 +211,7 @@ declare namespace Tree {
     threat?: ClientEval;
     ceval?: ClientEval;
     eval?: ServerEval;
-    tbhit?: TablebaseHit;
+    tbhit: TablebaseHit | undefined | null;
     opening?: Opening;
     glyphs?: Glyph[];
     clock?: Clock;
