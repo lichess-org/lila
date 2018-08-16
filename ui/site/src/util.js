@@ -10,17 +10,18 @@ lidraughts.dispatchEvent = function(el, eventName) {
   ev.initEvent(eventName, false, false);
   el.dispatchEvent(ev);
 };
-lidraughts.storage = (function() {
+
+lidraughts.buildStorage = function(storageKey) {
   try {
     // just accessing localStorage can throw an exception...
-    var storage = window.localStorage;
+    var storage = window[storageKey];
   } catch (e) {}
   var withStorage = storage ? function(f) {
     // this can throw exceptions as well.
     try { return f(storage); }
     catch (e) {}
   } : function() {};
-  return {
+  var storageObj = {
     get: function(k) {
       return withStorage(function(s) {
         return s.getItem(k);
@@ -45,23 +46,31 @@ lidraughts.storage = (function() {
     make: function(k) {
       return {
         get: function() {
-          return lidraughts.storage.get(k);
+          return storageObj.get(k);
         },
         set: function(v) {
-          return lidraughts.storage.set(k, v);
+          return storageObj.set(k, v);
         },
         remove: function() {
-          return lidraughts.storage.remove(k);
+          return storageObj.remove(k);
         },
         listen: function(f) {
           window.addEventListener('storage', function(e) {
-            if (e.key === k && e.newValue !== null) f(e);
+            if (e.key === k &&
+                e.storageArea === storage &&
+                e.newValue !== null) f(e);
           });
         }
       };
     }
   };
-})();
+  return storageObj;
+};
+
+lidraughts.storage = lidraughts.buildStorage('localStorage');
+lidraughts.tempStorage = lidraughts.buildStorage('sessionStorage');
+delete lidraughts.buildStorage;
+
 lidraughts.reloadOtherTabs = (function() {
   var storage = lidraughts.storage.make('reload-other-tabs');
   storage.listen(function() {

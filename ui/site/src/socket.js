@@ -276,8 +276,21 @@ lidraughts.StrongSocket = function(url, version, settings) {
     }
   };
 };
-lidraughts.StrongSocket.sri = Math.random().toString(36).slice(2, 12);
-lidraughts.StrongSocket.available = window.WebSocket || window.MozWebSocket;
+lidraughts.StrongSocket.sri = (function() {
+  var sri = lidraughts.tempStorage.get('socketSri');
+  if (!sri) {
+    var cryptoObj = window.crypto || window.msCrypto;
+    if (cryptoObj !== undefined) {
+      var data = cryptoObj.getRandomValues(new Uint8Array(9));
+      sri = btoa(String.fromCharCode.apply(null, data));
+    } else {
+      sri = Math.random().toString(36).slice(2, 12);
+    }
+    lidraughts.tempStorage.set('socketSri', sri);
+  }
+  return sri;
+})();
+
 lidraughts.StrongSocket.defaults = {
   events: {
     fen: function(e) {
