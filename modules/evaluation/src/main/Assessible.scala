@@ -47,7 +47,7 @@ case class Assessible(analysed: Analysed) {
     highestChunkBlurs(color) >= 7
 
   def highlyConsistentMoveTimes(color: Color): Boolean =
-    if (game.perfType != lila.rating.PerfType.UltraBullet)
+    if (game.clock.forall(_.estimateTotalSeconds > 40))
       moveTimeCoefVariation(Pov(game, color)) ?? { cvIndicatesHighlyFlatTimes(_) }
     else
       false
