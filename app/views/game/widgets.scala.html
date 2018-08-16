@@ -74,7 +74,7 @@
       @if(g.isBeingPlayed) {@trans.playingRightNow()} else {
       @if(g.finishedOrAborted) {
       <span class="@{ g.winner.flatMap(w => fromPlayer.map(p => (p == w).fold("up", "down"))) }">
-        @gameEndStatus(g)@g.winner.map { winner =>, @winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious()) }
+        @gameEndStatus(g)@g.winner.map { winner =>@g.status.is(draughts.Status.Mate).fold("", ", ")@winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious()) }
       </span>
       } else {
       @g.turnColor.fold(trans.whitePlays(), trans.blackPlays())
