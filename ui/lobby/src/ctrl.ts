@@ -91,20 +91,22 @@ export default class LobbyController {
 
   flushHooks = (now: boolean) => {
     if (this.flushHooksTimeout) clearTimeout(this.flushHooksTimeout);
-    if (now) this.doFlushHooks();
-    else {
+    if (now) {
+      this.doFlushHooks();
+      this.flushHooksTimeout = this.flushHooksSchedule(500);
+    }else {
       this.stepping = true;
       if (this.tab === 'real_time') this.redraw();
       setTimeout(() => {
         this.stepping = false;
         this.doFlushHooks();
       }, 500);
+      this.flushHooksTimeout = this.flushHooksSchedule();
     }
-    this.flushHooksTimeout = this.flushHooksSchedule();
   };
 
-  private flushHooksSchedule(): number {
-    return setTimeout(this.flushHooks, 8000);
+  private flushHooksSchedule(timeout: number = 8000): number {
+    return setTimeout(this.flushHooks, timeout);
   }
 
   setTab = (tab: Tab) => {
