@@ -38,11 +38,8 @@ case class Chapter(
       case Some(situation) if situation.ghosts > 0 => {
         var mergedNode = tailNode.mergeCapture(node)
         val tailChildren = root.nodeAtStrict(path.withoutLast).fold(if (path.withoutLast.ids.isEmpty) root.children.nodes else Vector[Node]()) { _.children.nodes }
-        logger.info(s"isAmbiguous ${tailChildren exists { n => n.move.san == mergedNode.move.san && n.fen != mergedNode.fen }} in $tailChildren")
         if (tailChildren exists { n => n.move.san == mergedNode.move.san && n.fen != mergedNode.fen }) {
-          logger.info(s"before id: ${mergedNode.id}")
           mergedNode = mergedNode findNextAmbiguity tailChildren
-          logger.info(s"after id: ${mergedNode.id}")
         }
         updateRoot {
           _.withChildren(_.deleteNodeAt(path))
