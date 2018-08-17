@@ -74,7 +74,7 @@ case class Hook(
   def randomColor = color == "random"
 
   lazy val compatibleWithPools = false
-    /*realMode.rated && realVariant.standard && randomColor &&
+  /*realMode.rated && realVariant.standard && randomColor &&
       lidraughts.pool.PoolList.clockStringSet.contains(clock.show)*/
 
   def compatibleWithPool(poolClock: draughts.Clock.Config) =
