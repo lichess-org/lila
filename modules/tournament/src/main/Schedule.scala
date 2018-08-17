@@ -196,7 +196,7 @@ object Schedule {
     }
   }
 
-  private val standardIncHours = Set(1, 4, 7, 10, 13, 16, 19, 22)
+  private val standardIncHours = Set(1, 4, 8, 13, 16, 19, 22)
   private def standardInc(s: Schedule) = standardIncHours(s.at.getHourOfDay)
   private def zhInc(s: Schedule) = s.at.getHourOfDay % 2 == 0
 
