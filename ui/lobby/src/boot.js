@@ -251,7 +251,7 @@ module.exports = function(cfg, element) {
           } else key = 'correspondence';
           break;
         case '10':
-          key = 'crazyhouse';
+          key = 'frisian';
           break;
         case '2':
           key = 'chess960';
