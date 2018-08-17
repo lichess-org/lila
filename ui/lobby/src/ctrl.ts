@@ -80,7 +80,7 @@ export default class LobbyController {
 
     window.addEventListener('beforeunload', () => {
       if (this.poolMember) this.socket.poolOut(this.poolMember);
-      this.data.hooks.forEach(h => (h.action === 'cancel') ? this.socket.send(h.action, h.id) : { } );
+      this.data.hooks.forEach(h => (h.action === 'cancel' && !h.rating) ? this.socket.send(h.action, h.id) : { } );
     });
   }
 
