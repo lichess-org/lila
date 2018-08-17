@@ -26,7 +26,6 @@ object Reader {
 
   def fullWithSans(pdn: String, op: Sans => Sans, tags: Tags = Tags.empty, iteratedCapts: Boolean = false): Valid[Result] =
     Parser.full(cleanUserInput(pdn)) map { parsed =>
-      logger.info(s"Parsed tags ${parsed.tags}, received $tags, sums to ${parsed.tags ++ tags}")
       makeReplay(makeGame(parsed.tags ++ tags), op(parsed.sans), iteratedCapts)
     }
 
@@ -40,30 +39,6 @@ object Reader {
 
   // remove invisible byte order mark
   def cleanUserInput(str: String) = str.replace("""\ufeff""", "")
-
-  /*private def makeReplay(game: DraughtsGame, sans: Sans, iteratedCapts: Boolean = false): Result = {
-    var ambs = collection.mutable.Map[San, List[String]]()
-    val res = sans.value.foldLeft[Result](Result.Complete(Replay(game))) {
-      case (Result.Complete(replay), san) => {
-        san(replay.state.situation, iteratedCapts).fold(
-          err => { Result.Incomplete(replay, err) },
-          move => {
-            draughtsLog("Reader").info(s"makeReplay $san - move: $move")
-            if (iteratedCapts && move.capture.fold(false)(_.lengthCompare(1) > 0) && move.situationBefore.ambiguitiesMove(move) > 0) {
-              ambs += (san -> List(move.toUci.uci))
-              draughtsLog("Reader").info(s"makeReplay $san - detected ${move.situationBefore.ambiguitiesMove(move)} ambiguities")
-            }
-            Result.Complete(replay addMove move)
-          }
-        )
-      }
-      case (r: Result.Incomplete, _) => r
-    }
-    res match {
-      case Result.Incomplete(_, _) if iteratedCapts && ambs.nonEmpty => makeAmbiguousReplay(game, sans, ambs)
-      case _ => res
-    }
-  }*/
 
   private def makeReplay(game: DraughtsGame, sans: Sans, iteratedCapts: Boolean = false): Result = {
     def mk(replay: Replay, moves: List[San], ambs: List[(San, String)]): Result = {

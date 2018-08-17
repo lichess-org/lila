@@ -47,7 +47,6 @@ private[puzzle] final class Selector(
         case Some(PuzzleHead(_, _, l)) if l < maxId - 20 => l // - 500
         case _ => puzzleIdMin
       }
-      logger.info(s"newPuzzleForUser - lastId $lastId, maxId $maxId")
       tryRange(
         rating = rating,
         tolerance = step,
