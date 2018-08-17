@@ -80,9 +80,9 @@ export function main(ctrl: RoundController): VNode {
     }, [
       d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
       h('div.lidraughts_ground', [
-        crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, d.player.checks),
+        crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score),
         renderTable(ctrl),
-        crazyView(ctrl, bottomColor, 'bottom') || renderMaterial(material[bottomColor], score, d.opponent.checks)
+        crazyView(ctrl, bottomColor, 'bottom') || renderMaterial(material[bottomColor], score)
       ])
     ]),
     h('div.underboard', [

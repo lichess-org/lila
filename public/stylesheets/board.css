@@ -303,20 +303,8 @@ mono-piece {
   background-size: cover;
   display: inline-block;
 }
-mono-piece.pawn {
-  background-image: url(../piece/mono/P.svg);
-}
-mono-piece.bishop {
-  background-image: url(../piece/mono/B.svg);
-}
-mono-piece.knight {
-  background-image: url(../piece/mono/N.svg);
-}
-mono-piece.rook {
-  background-image: url(../piece/mono/R.svg);
-}
-mono-piece.queen {
-  background-image: url(../piece/mono/Q.svg);
+mono-piece.man {
+  background-image: url(../piece/mono/M.svg);
 }
 mono-piece.king {
   background-image: url(../piece/mono/K.svg);
@@ -939,10 +927,10 @@ div.cemetery:last-child {
 }
 div.cemetery tomb {
   display: inline-block;
-  margin-left: 10px;
+  margin-left: 8px;
 }
 div.cemetery mono-piece {
-  margin-left: -10px;
+  margin-left: -8px;
 }
 div.cemetery score {
   font-family: 'Roboto';

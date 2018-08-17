@@ -16,7 +16,7 @@ import { decomposeUci } from 'draughts'
 };*/
 const pieceScores = {
   man: 1,
-  king: 10,
+  king: 2,
   ghostman: 0,
   ghostking: 0
 };
@@ -53,16 +53,19 @@ export function parsePossibleMoves(dests?: EncodedDests): DecodedDests {
   return dec;
 }
 
-// {white: {pawn: 3 queen: 1}, black: {bishop: 2}}
+// {white: {man: 3}, black: {king: 1}}
 export function getMaterialDiff(pieces: cg.Pieces): cg.MaterialDiff {
   const diff: cg.MaterialDiff = {
-    white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
-    black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
+    white: { king: 0, man: 0 },
+    black: { king: 0, man: 0 }
   };
   for (let k in pieces) {
-    const p = pieces[k], them = diff[opposite(p.color)];
-    if (them[p.role] > 0) them[p.role]--;
-    else diff[p.color][p.role]++;
+    const p = pieces[k];
+    if (p.role != "ghostman" && p.role != "ghostking") {
+      const them = diff[opposite(p.color)]
+      if (them[p.role] > 0) them[p.role]--;
+      else diff[p.color][p.role]++;
+    }
   }
   return diff;
 }
