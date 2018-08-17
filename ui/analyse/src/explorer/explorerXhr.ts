@@ -30,7 +30,8 @@ export function tablebase(endpoint: string, variant: VariantKey, fen: Fen): JQue
   return $.ajax({
     url: endpoint + '/' + effectiveVariant,
     data: { fen },
-    cache: true
+    cache: true,
+    timeout: 30
   }).then((data: Partial<TablebaseData>) => {
     data.tablebase = true;
     data.fen = fen;
