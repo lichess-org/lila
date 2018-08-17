@@ -1944,3 +1944,27 @@ body ::-webkit-scrollbar-thumb:active {
 body ::-webkit-scrollbar-track {
   box-shadow: 0 0 6px rgba(50, 50, 50, 0.3) inset;
 }
+#unsupported_browser {
+  display: none;
+  width: 100%;
+  position: fixed;
+  text-align: center;
+  background-color: rgba(0,0,0,.8);
+  color: #dc322f;
+  z-index: 4;
+  bottom: 0;
+  padding-top: 5px;
+}
+#unsupported_browser .content {
+  margin: 0 auto;
+  width: 1005px;
+}
+#unsupported_browser a {
+  position: relative;
+  top: -5px;
+  right: auto;
+  font-size: large;
+  cursor: pointer;
+  color: white;
+  float: right;
+}
