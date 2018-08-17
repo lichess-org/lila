@@ -1,6 +1,6 @@
 (function() {
-  const bowser = require('bowser');
-  const browser = bowser.getParser(window.navigator.userAgent);
+  var bowser = require('bowser');
+  var browser = bowser.getParser(window.navigator.userAgent);
 
   if (browser.getPlatformType() === 'desktop' && !supportBrowser(browser)) {
     $('#unsupported_browser a').click(function(e) {
