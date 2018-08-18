@@ -77,9 +77,8 @@
   @if(isGranted(_.SetTitle)) {
   <br />
   <br />
-  <form class="fide_title" method="post" action="@routes.Mod.setTitle(u.username)">
+  <form class="fmjd_title" method="post" action="@routes.Mod.setTitle(u.username)">
     @base.form.select(lidraughts.user.DataForm.title.fill(u.title)("title"), lidraughts.user.User.titles, "No title".some)
-    <button type="submit" class="thin button" data-icon="E"></button>
   </form>
   }
   @if(isGranted(_.SetEmail)) {

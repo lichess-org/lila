@@ -2,7 +2,7 @@ var tablesort = require('tablesort');
 
 var $zone = $("div.user_show .mod_zone");
 
-$zone.find('form.fide_title select').on('change', function() {
+$zone.find('form.fmjd_title select').on('change', function() {
   $(this).parent('form').submit();
 });
 
