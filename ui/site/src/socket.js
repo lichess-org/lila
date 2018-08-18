@@ -157,7 +157,7 @@ lichess.StrongSocket = function(url, version, settings) {
       if (m.v > version + 1) {
         if (!idx && !reloadTriggered) {
           // This is not expected. Recover with a versioned ping.
-          $.post('/nlog/socket6/eventGap/' + idx + ';' + origVersion + ';' + version + ';' + m.v);
+          $.post('/nlog/socket7/eventGap/' + idx + ';' + nbConnects + ';' + origVersion + ';' + version + ';' + m.v);
           debug("event gap detected from " + version + " to " + m.v);
           pingNow(true);
         }
