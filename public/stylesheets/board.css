@@ -961,8 +961,6 @@ div.under_chat .watchers {
   margin-top: 10px;
   opacity: 0.65;
   transition: 0.13s;
-  min-height: 5em;
-  max-height: 9em;
   overflow: hidden;
 }
 div.under_chat .watchers.hidden {
