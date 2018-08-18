@@ -162,16 +162,17 @@ object User {
   def normalize(username: String) = username.toLowerCase
 
   val titles = Seq(
-    "GM" -> "Grandmaster",
-    "WGM" -> "Woman Grandmaster",
-    "IM" -> "International Master",
-    "WIM" -> "Woman Intl. Master",
-    "FM" -> "FIDE Master",
-    "WFM" -> "Woman FIDE Master",
-    "NM" -> "National Master",
-    "CM" -> "Candidate Master",
-    "WCM" -> "Woman Candidate Master",
-    "WNM" -> "Woman National Master",
+    "GMI" -> "International Grandmaster",
+    "MI" -> "International Master",
+    "MF" -> "FMJD Master",
+    "GMN" -> "National Grandmaster",
+    "MN" -> "National Master",
+    "cMN" -> "Candidate National Master",
+    "GMIF" -> "Woman International Grandmaster",
+    "MIF" -> "Woman International Master",
+    "MFF" -> "Woman FMJD Master",
+    "MNF" -> "Woman National Master",
+    "cMNF" -> "Woman Candidate National Master",
     "LM" -> "Lidraughts Master"
   )
 
