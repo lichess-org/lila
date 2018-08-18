@@ -15,7 +15,6 @@ object Rewind {
   }
 
   def apply(game: Game, initialFen: Option[String]): Valid[Progress] = {
-    logger.info(s"Rewind.apply game: $game")
     draughtsPdn.Reader.movesWithSans(
       moveStrs = game.pdnMoves,
       op = sans => draughtsPdn.Sans(sans.value.dropRight(1)),
