@@ -13,6 +13,7 @@ export interface State {
   /** square currently selected "a1" */
   selected?: cg.Key;
   coordinates: boolean; // include coords attributes
+  bigCoordinates?: boolean //render fat coordinate overlay on top of each field
   viewOnly: boolean; // don't bind events: the user will never be able to move pieces around
   disableContextMenu: boolean; // because who needs a context menu on a draughtsboard
   resizable: boolean; // listens to draughtsground.resize on document.body to clear bounds cache

@@ -24,7 +24,9 @@ $(function() {
     var showColor = function() {
       color = colorPref == 'random' ? ['white', 'black'][Math.round(Math.random())] : colorPref;
       if (!ground) ground = Draughtsground($board[0], {
+        fen: 'W:WG31,G32,G33,G34,G35,G36,G37,G38,G39,G40,G41,G42,G43,G44,G45,G46,G47,G48,G49,G50:BG1,G2,G3,G4,G5,G6,G7,G8,G9,G10,G11,G12,G13,G14,G15,G16,G17,G18,G19,G20',
         coordinates: false,
+        bigCoordinates: true,
         drawable: { enabled: false },
         movable: {
           free: false,
@@ -152,6 +154,8 @@ $(function() {
 
         startAt = new Date();
         ground.set({
+          fen: 'W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20:H0:F1',
+          bigCoordinates: false,
           events: {
             select: function(key) {
               var hit = (key == $coords[0].text() || key == "0" + $coords[0].text());
@@ -169,6 +173,7 @@ $(function() {
             }
           }
         });
+        ground.redrawAll();
         $coords[0].text(newCoord('1'));
         for (i = 1; i < $coords.length; i++)
           $coords[i].text(newCoord($coords[i - 1].text()));

@@ -11,6 +11,9 @@
   width: 512px;
   height: 512px;
 }
+#trainer piece.ghost {
+  opacity: 0.42;
+}
 #trainer div.box {
   margin-bottom: 1em;
   border: 1px solid #ccc;

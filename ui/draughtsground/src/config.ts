@@ -12,6 +12,7 @@ export interface Config {
   lastMove?: cg.Key[]; // squares part of the last move ["c3", "c4"]
   selected?: cg.Key; // square currently selected "a1"
   coordinates?: boolean; // include coords attributes
+  bigCoordinates?: boolean; //fieldnumbers inside the board
   autoCastle?: boolean; // immediately complete the castle by moving the rook after king move
   viewOnly?: boolean; // don't bind events: the user will never be able to move pieces around
   disableContextMenu?: boolean; // because who needs a context menu on a draughtsboard
@@ -93,33 +94,33 @@ export interface Config {
 
 export function configure(state: State, config: Config) {
 
-    // don't merge destinations. Just override.
-    if (config.movable && config.movable.dests) state.movable.dests = undefined;
+  // don't merge destinations. Just override.
+  if (config.movable && config.movable.dests) state.movable.dests = undefined;
 
-    merge(state, config);
+  merge(state, config);  
 
-    // if a fen was provided, replace the pieces
-    if (config.fen) {
-        state.pieces = fenRead(config.fen);
-        state.drawable.shapes = [];
-    }
+  // if a fen was provided, replace the pieces
+  if (config.fen) {
+    state.pieces = fenRead(config.fen);
+    state.drawable.shapes = [];
+  }
 
-    // apply config values that could be undefined yet meaningful
-    if (config.hasOwnProperty('lastMove') && !config.lastMove) state.lastMove = undefined;
-    // in case of ZH drop last move, there's a single square.
-    // if the previous last move had two squares,
-    // the merge algorithm will incorrectly keep the second square.
-    else if (config.lastMove) state.lastMove = config.lastMove;
+  // apply config values that could be undefined yet meaningful
+  if (config.hasOwnProperty('lastMove') && !config.lastMove) state.lastMove = undefined;
+  // in case of ZH drop last move, there's a single square.
+  // if the previous last move had two squares,
+  // the merge algorithm will incorrectly keep the second square.
+  else if (config.lastMove) state.lastMove = config.lastMove;
 
-    if (config.captureLength !== undefined)
-        state.movable.captLen = config.captureLength;
+  if (config.captureLength !== undefined)
+    state.movable.captLen = config.captureLength;
 
-    // fix move/premove dests
-    if (state.selected)
-        setSelected(state, state.selected);
+  // fix move/premove dests
+  if (state.selected)
+    setSelected(state, state.selected);
 
-    // no need for such short animations
-    if (!state.animation.duration || state.animation.duration < 100) state.animation.enabled = false;
+  // no need for such short animations
+  if (!state.animation.duration || state.animation.duration < 100) state.animation.enabled = false;
 
 };
 

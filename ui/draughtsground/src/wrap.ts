@@ -1,5 +1,5 @@
 import { State } from './state'
-import { colors, translateAway, createEl } from './util'
+import { colors, translateAway, translateAbs, posToTranslateAbs, key2pos, createEl, allKeys } from './util'
 import { createElement as createSVG } from './svg'
 import { Elements} from './types'
 
@@ -30,14 +30,17 @@ export default function wrap(element: HTMLElement, s: State, bounds?: ClientRect
   }
 
   if (s.coordinates) {
-      if (s.orientation === 'black') {
-          element.appendChild(renderCoords(ranksBlack, 'ranks black'));
-          element.appendChild(renderCoords(filesBlack, 'files black'));
-      } else {
-          element.appendChild(renderCoords(ranks, 'ranks'));
-          element.appendChild(renderCoords(files, 'files'));
-      }
+    if (s.orientation === 'black') {
+      element.appendChild(renderCoords(ranksBlack, 'ranks black'));
+      element.appendChild(renderCoords(filesBlack, 'files black'));
+    } else {
+      element.appendChild(renderCoords(ranks, 'ranks'));
+      element.appendChild(renderCoords(files, 'files'));
+    }
   }
+
+  if (s.bigCoordinates && bounds)
+    renderBigCoords(element, s, bounds);
 
   let ghost: HTMLElement | undefined;
   if (bounds && s.draggable.showGhost) {
@@ -51,6 +54,17 @@ export default function wrap(element: HTMLElement, s: State, bounds?: ClientRect
     ghost: ghost,
     svg: svg
   };
+}
+
+function renderBigCoords(element: HTMLElement, s: State, bounds: ClientRect) {
+  const asWhite = s.orientation !== 'black';
+  for (var f = 1; f <= 50; f++) {
+    const field = createEl('fieldnumber', 'black');
+    field.textContent = f.toString();
+    const coords = posToTranslateAbs(bounds)(key2pos(allKeys[f - 1]), asWhite, 0);
+    translateAbs(field, [coords["0"], coords["1"] + bounds.height / 26]);
+    element.appendChild(field);
+  }
 }
 
 function renderCoords(elems: any[], className: string): HTMLElement {

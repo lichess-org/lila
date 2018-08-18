@@ -79,6 +79,20 @@ square {
   background-color: rgba(255, 0, 0, 0.5);
   transition: background-color 0.1s;
 }
+fieldnumber {
+  position: absolute;
+  text-align: center;
+  line-height: 10.0%;
+  width: 10.0%;
+  height: 10.0%;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  font-size: 32px;
+  font-weight: bold;
+  color: rgb(10, 10, 10);
+  pointer-events: none;
+}
 piece {
   position: absolute;
   width: 10.0%;
