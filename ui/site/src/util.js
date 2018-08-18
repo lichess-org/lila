@@ -11,7 +11,7 @@ lidraughts.dispatchEvent = function(el, eventName) {
   el.dispatchEvent(ev);
 };
 
-lidraughts.buildStorage = function(storageKey) {
+function buildStorage(storageKey) {
   try {
     // just accessing localStorage can throw an exception...
     var storage = window[storageKey];
@@ -67,9 +67,8 @@ lidraughts.buildStorage = function(storageKey) {
   return storageObj;
 };
 
-lidraughts.storage = lidraughts.buildStorage('localStorage');
-lidraughts.tempStorage = lidraughts.buildStorage('sessionStorage');
-delete lidraughts.buildStorage;
+lidraughts.storage = buildStorage('localStorage');
+lidraughts.tempStorage = buildStorage('sessionStorage');
 
 lidraughts.reloadOtherTabs = (function() {
   var storage = lidraughts.storage.make('reload-other-tabs');
