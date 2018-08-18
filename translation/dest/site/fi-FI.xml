@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">%1$s-vahvuuslukusi (%2$s) ei riitä</string>
   <string name="ratedMoreThanInPerf">%2$s-vahvuusluku ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s-vahvuusluku ≤ %1$s</string>
+  <string name="mustBeInTeam">Tulee olla joukkueessa %s</string>
+  <string name="youAreNotInTeam">Et ole joukkueessa %s</string>
   <string name="backToGame">Takaisin peliin</string>
   <string name="siteDescription">Ilmaista virtuaalishakkia. Pelaa shakkia nyt selkeällä käyttöliittymällä. Ei rekisteröitymistä, mainoksia tai selaimen lisäosia. Pelaa shakkia tekoälyn, ystävien tai satunnaisten pelaajien kanssa.</string>
   <string name="teams">Joukkueet</string>
