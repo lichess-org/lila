@@ -88,6 +88,7 @@ fieldnumber {
   top: 0;
   left: 0;
   z-index: 5;
+  font-family: monospace;
   font-size: 32px;
   font-weight: bold;
   color: rgb(10, 10, 10);
