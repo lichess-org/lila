@@ -11,7 +11,7 @@ lichess.dispatchEvent = function(el, eventName) {
   el.dispatchEvent(ev);
 };
 
-lichess.buildStorage = function(storageKey) {
+function buildStorage(storageKey) {
   try {
     // just accessing localStorage can throw an exception...
     var storage = window[storageKey];
@@ -67,9 +67,8 @@ lichess.buildStorage = function(storageKey) {
   return storageObj;
 };
 
-lichess.storage = lichess.buildStorage('localStorage');
-lichess.tempStorage = lichess.buildStorage('sessionStorage');
-delete lichess.buildStorage;
+lichess.storage = buildStorage('localStorage');
+lichess.tempStorage = buildStorage('sessionStorage');
 
 lichess.reloadOtherTabs = (function() {
   var storage = lichess.storage.make('reload-other-tabs');
