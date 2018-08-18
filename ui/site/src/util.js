@@ -10,17 +10,18 @@ lichess.dispatchEvent = function(el, eventName) {
   ev.initEvent(eventName, false, false);
   el.dispatchEvent(ev);
 };
-lichess.storage = (function() {
+
+lichess.buildStorage = function(storageKey) {
   try {
     // just accessing localStorage can throw an exception...
-    var storage = window.localStorage;
+    var storage = window[storageKey];
   } catch (e) {}
   var withStorage = storage ? function(f) {
     // this can throw exceptions as well.
     try { return f(storage); }
     catch (e) {}
   } : function() {};
-  return {
+  var storageObj = {
     get: function(k) {
       return withStorage(function(s) {
         return s.getItem(k);
@@ -45,23 +46,31 @@ lichess.storage = (function() {
     make: function(k) {
       return {
         get: function() {
-          return lichess.storage.get(k);
+          return storageObj.get(k);
         },
         set: function(v) {
-          return lichess.storage.set(k, v);
+          return storageObj.set(k, v);
         },
         remove: function() {
-          return lichess.storage.remove(k);
+          return storageObj.remove(k);
         },
         listen: function(f) {
           window.addEventListener('storage', function(e) {
-            if (e.key === k && e.newValue !== null) f(e);
+            if (e.key === k &&
+                e.storageArea === storage &&
+                e.newValue !== null) f(e);
           });
         }
       };
     }
   };
-})();
+  return storageObj;
+};
+
+lichess.storage = lichess.buildStorage('localStorage');
+lichess.tempStorage = lichess.buildStorage('sessionStorage');
+delete lichess.buildStorage;
+
 lichess.reloadOtherTabs = (function() {
   var storage = lichess.storage.make('reload-other-tabs');
   storage.listen(function() {
