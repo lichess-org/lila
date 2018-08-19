@@ -736,6 +736,7 @@
   <string name="usernameAlreadyUsed">该用户名已被使用，请使用另一个。</string>
   <string name="usernamePrefixInvalid">用户名必须以字母开头。</string>
   <string name="usernameSuffixInvalid">用户名必须以字母或数字结尾。</string>
+  <string name="usernameCharsInvalid">用户名必须只包含字母、数字、下划线和连字符。</string>
   <string name="usernameUnacceptable">该用户名不被接受。</string>
   <string name="directlySupportLichess">向我们捐款</string>
   <string name="playChessInStyle">有型地下棋</string>
