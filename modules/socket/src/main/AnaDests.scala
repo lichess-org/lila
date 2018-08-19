@@ -62,12 +62,11 @@ object AnaDests {
     variant = draughts.variant.Variant orDefault ~d.str("variant")
     fen ← d str "fen"
     path ← d str "path"
-    chapterId = d str "ch"
   } yield AnaDests(
     variant = variant,
     fen = FEN(fen),
     path = path,
-    chapterId = chapterId,
+    chapterId = d str "ch",
     puzzle = d boolean "puzzle"
   )
 }
