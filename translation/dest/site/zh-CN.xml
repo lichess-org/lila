@@ -668,7 +668,7 @@
   <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发到您的邮箱。请点击邮件中的链接以激活您的帐户。</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果您没有收到我们的邮件, 请检查您的其他收件箱, 例如垃圾箱, 广告, 社交等.</string>
   <string name="weHaveSentYouAnEmailTo">我们给您的邮箱（%s）发了重置密码的链接。请点击链接来重置您的密码。</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">您一注册我们就假定您同意尊重我们的使用规则（%s）。</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">注册代表您同意我们的 %s 。</string>
   <string name="networkLagBetweenYouAndLichess">您和lichess 之间的网络延迟</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess 服务器上处理一步的时间</string>
   <string name="downloadAnnotated">下载有注释的PGN</string>
