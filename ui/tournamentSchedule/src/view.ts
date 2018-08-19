@@ -30,12 +30,14 @@ function leftPos(time) {
 function laneGrouper(t) {
   if (t.schedule && t.schedule.freq === 'unique') {
     return -1;
-  } else if (t.variant.key !== 'standard' || (t.perf.key === 'rapid' && t.schedule.freq === 'hourly')) {
-    return 99;
-  } else if (t.perf.key === 'ultraBullet') {
-    return 70;
-  } else if (t.schedule && t.hasMaxRating) {
-    return 50 + parseInt(t.fullName.slice(1,5)) / 10000;
+  } else if (t.variant.key !== 'standard') {
+    return 1; //Frisian temporarily among blitz
+  //} else if (t.variant.key !== 'standard' || (t.perf.key === 'rapid' && t.schedule.freq === 'hourly')) {
+  //  return 99;
+  //} else if (t.perf.key === 'ultraBullet') {
+  //  return 70;
+  //} else if (t.schedule && t.hasMaxRating) {
+  //  return 50 + parseInt(t.fullName.slice(1,5)) / 10000;
   //} else if (t.schedule && t.schedule.speed === 'superblitz') {
   //  return t.perf.position - 0.5;
   } else {

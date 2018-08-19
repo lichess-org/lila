@@ -112,6 +112,7 @@ object Schedule {
       case (a, b) if a == b => true
       case (HyperBullet, Bullet) | (Bullet, HyperBullet) => true
       case (Bullet, HippoBullet) | (HippoBullet, Bullet) => true
+      case (Blitz, SuperBlitz) | (SuperBlitz, Blitz) => true
       case _ => false
     }
     def fromClock(clock: draughts.Clock.Config) = {
@@ -210,8 +211,8 @@ object Schedule {
       // Special cases.
       //case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1)
       //case (Hourly, Crazyhouse, Blitz) if zhInc(s) => TC(4 * 60, 2)
-      case (Hourly, Standard, SuperBlitz) if standardInc(s) => TC(3 * 60, 2)
-
+      //case (Hourly, Standard, SuperBlitz) if standardInc(s) => TC(3 * 60, 2)
+      case (Hourly, Frisian, SuperBlitz) => TC(3 * 60, 2)
       case (Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2)
 
       case (_, _, UltraBullet) => TC(15, 0)
