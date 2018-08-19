@@ -846,4 +846,5 @@ in %3$s</string>
     <item quantity="one">and save %s premove line</item>
     <item quantity="other">and save %s premove lines</item>
   </plurals>
+  <string name="unsupportedBrowser">You are using an unsupported browser or browser version. Some features may work incorrectly.</string>
 </resources>

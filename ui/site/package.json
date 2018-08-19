@@ -21,6 +21,7 @@
     "vinyl-source-stream": "^1"
   },
   "dependencies": {
+    "bowser": "^2.0.0-alpha.4",
     "tablesort": "^5.0.0"
   }
 }
