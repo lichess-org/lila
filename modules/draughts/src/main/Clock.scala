@@ -156,7 +156,7 @@ object Clock {
 
     def emergSeconds = math.min(60, math.max(10, limitSeconds / 8))
 
-    def estimateTotalSeconds = limitSeconds + 40 * incrementSeconds
+    def estimateTotalSeconds = limitSeconds + 50 * incrementSeconds
 
     def estimateTotalTime = Centis.ofSeconds(estimateTotalSeconds)
 
@@ -184,7 +184,7 @@ object Clock {
     override def toString = s"$limitString+$incrementSeconds"
 
     def berserkPenalty =
-      if (limitSeconds < 40 * incrementSeconds) Centis(0)
+      if (limitSeconds < 50 * incrementSeconds) Centis(0)
       else Centis(limitSeconds * (100 / 2))
 
     def initTime = {
