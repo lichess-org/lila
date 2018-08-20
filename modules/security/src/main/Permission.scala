@@ -7,6 +7,8 @@ sealed abstract class Permission(val name: String, val children: List[Permission
 
 object Permission {
 
+  type Selector = Permission.type => Permission
+
   case object ViewBlurs extends Permission("ROLE_VIEW_BLURS")
   case object StaffForum extends Permission("ROLE_STAFF_FORUM")
   case object ModerateForum extends Permission("ROLE_MODERATE_FORUM")
