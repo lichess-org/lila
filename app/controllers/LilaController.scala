@@ -113,7 +113,7 @@ private[controllers] trait LilaController
       }
     }
 
-  protected def Secure(perm: Permission.type => Permission)(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
+  protected def Secure(perm: Permission.Selector)(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
     Secure(perm(Permission))(f)
 
   protected def Secure(perm: Permission)(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
@@ -134,7 +134,7 @@ private[controllers] trait LilaController
       if (isGranted(perm)) f(ctx)(me) else authorizationFailed
     }
 
-  protected def SecureBody(perm: Permission.type => Permission)(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
+  protected def SecureBody(perm: Permission.Selector)(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
     SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(f)
 
   protected def Scoped[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(f: RequestHeader => UserModel => Fu[Result]): Action[A] =
@@ -298,10 +298,10 @@ private[controllers] trait LilaController
   protected def notFoundReq(req: RequestHeader): Fu[Result] =
     reqToCtx(req) flatMap (x => notFound(x))
 
-  protected def isGranted(permission: Permission.type => Permission, user: UserModel): Boolean =
+  protected def isGranted(permission: Permission.Selector, user: UserModel): Boolean =
     Granter(permission(Permission))(user)
 
-  protected def isGranted(permission: Permission.type => Permission)(implicit ctx: Context): Boolean =
+  protected def isGranted(permission: Permission.Selector)(implicit ctx: Context): Boolean =
     isGranted(permission(Permission))
 
   protected def isGranted(permission: Permission)(implicit ctx: Context): Boolean =
