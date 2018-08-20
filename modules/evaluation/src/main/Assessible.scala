@@ -47,7 +47,7 @@ case class Assessible(analysed: Analysed) {
     highestChunkBlurs(color) >= 7
 
   def highlyConsistentMoveTimes(color: Color): Boolean =
-    if (game.clock.forall(_.estimateTotalSeconds > 40))
+    if (game.clock.forall(_.estimateTotalSeconds > 60))
       moveTimeCoefVariation(Pov(game, color)) ?? { cvIndicatesHighlyFlatTimes(_) }
     else
       false
@@ -55,9 +55,12 @@ case class Assessible(analysed: Analysed) {
   // moderatelyConsistentMoveTimes must stay in Statistics because it's used in classes that do not use Assessible
 
   def highlyConsistentMoveTimeStreaks(color: Color): Boolean =
-    slidingMoveTimesCvs(Pov(game, color)) ?? {
-      _ exists cvIndicatesHighlyFlatTimesForStreaks
-    }
+    if (game.clock.forall(_.estimateTotalSeconds > 60))
+      slidingMoveTimesCvs(Pov(game, color)) ?? {
+        _ exists cvIndicatesHighlyFlatTimesForStreaks
+      }
+    else
+      false
 
   def moderatelyConsistentMoveTimeStreaks(color: Color): Boolean =
     slidingMoveTimesCvs(Pov(game, color)) ?? {
