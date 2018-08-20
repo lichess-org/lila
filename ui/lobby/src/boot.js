@@ -242,7 +242,7 @@ module.exports = function(cfg, element) {
       switch ($variantSelect.val()) {
         case '1':
           if (timeMode == '1') {
-            var time = $timeInput.val() * 60 + $incrementInput.val() * 40;
+            var time = $timeInput.val() * 60 + $incrementInput.val() * 50;
             if (time < 30) key = 'ultraBullet';
             else if (time < 180) key = 'bullet';
             else if (time < 480) key = 'blitz';
