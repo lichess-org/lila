@@ -72,7 +72,7 @@ private[controllers] trait LilaController
     open: Context => Fu[Result],
     scoped: RequestHeader => UserModel => Fu[Result]
   ): Action[Unit] = Action.async(BodyParsers.parse.empty) { req =>
-    if (HTTPRequest isOAuth req) handleScoped(selectors, scoped)(req)
+    if (HTTPRequest isOAuth req) handleScoped(selectors)(scoped)(req)
     else handleOpen(open, req)
   }
 
@@ -85,7 +85,7 @@ private[controllers] trait LilaController
     anon: RequestHeader => Fu[Result],
     scoped: RequestHeader => UserModel => Fu[Result]
   ): Action[Unit] = Action.async(BodyParsers.parse.empty) { req =>
-    if (HTTPRequest isOAuth req) handleScoped(selectors, scoped)(req)
+    if (HTTPRequest isOAuth req) handleScoped(selectors)(scoped)(req)
     else anon(req)
   }
 
@@ -93,11 +93,12 @@ private[controllers] trait LilaController
     Auth(BodyParsers.parse.empty)(f)
 
   protected def Auth[A](parser: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
-    Action.async(parser) { req =>
-      CSRF(req) {
-        reqToCtx(req) flatMap { ctx =>
-          ctx.me.fold(authenticationFailed(ctx))(f(ctx))
-        }
+    Action.async(parser) { handleAuth(f, _) }
+
+  private def handleAuth(f: Context => UserModel => Fu[Result], req: RequestHeader): Fu[Result] =
+    CSRF(req) {
+      reqToCtx(req) flatMap { ctx =>
+        ctx.me.fold(authenticationFailed(ctx))(f(ctx))
       }
     }
 
@@ -138,18 +139,18 @@ private[controllers] trait LilaController
     SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(f)
 
   protected def Scoped[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(f: RequestHeader => UserModel => Fu[Result]): Action[A] =
-    Action.async(parser)(handleScoped(selectors, f))
+    Action.async(parser)(handleScoped(selectors)(f))
 
   protected def Scoped(selectors: OAuthScope.Selector*)(f: RequestHeader => UserModel => Fu[Result]): Action[Unit] =
     Scoped(BodyParsers.parse.empty)(selectors)(f)
 
   protected def ScopedBody[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(f: Request[A] => UserModel => Fu[Result]): Action[A] =
-    Action.async(parser)(handleScoped(selectors, f))
+    Action.async(parser)(handleScoped(selectors)(f))
 
   protected def ScopedBody(selectors: OAuthScope.Selector*)(f: Request[_] => UserModel => Fu[Result]): Action[AnyContent] =
     ScopedBody(BodyParsers.parse.anyContent)(selectors)(f)
 
-  private def handleScoped[R <: RequestHeader](selectors: Seq[OAuthScope.Selector], f: R => UserModel => Fu[Result])(req: R): Fu[Result] = {
+  private def handleScoped[R <: RequestHeader](selectors: Seq[OAuthScope.Selector])(f: R => UserModel => Fu[Result])(req: R): Fu[Result] = {
     val scopes = OAuthScope select selectors
     Env.security.api.oauthScoped(req, scopes) flatMap {
       case Left(e @ lila.oauth.OAuthServer.MissingScope(available)) =>
@@ -166,11 +167,30 @@ private[controllers] trait LilaController
     } map { _ as JSON }
   }
 
-  protected def OAuthSecure[A](perm: Permission.type => Permission)(f: RequestHeader => UserModel => Fu[Result]): Action[Unit] =
+  protected def OAuthSecure(perm: Permission.Selector)(f: RequestHeader => UserModel => Fu[Result]): Action[Unit] =
     Scoped() { req => me =>
       if (isGranted(perm, me)) f(req)(me)
-      else fuccess(Forbidden(jsonError("Authorization failed")))
+      else fuccess(forbiddenJsonResult)
     }
+
+  protected def SecureOrScoped(perm: Permission.Selector)(
+    secure: Context => UserModel => Fu[Result],
+    scoped: RequestHeader => UserModel => Fu[Result]
+  ): Action[Unit] = Action.async(BodyParsers.parse.empty) { req =>
+    if (HTTPRequest isOAuth req) securedScopedAction(perm, req)(scoped)
+    else Secure(BodyParsers.parse.empty)(perm(Permission))(secure)(req)
+  }
+  protected def SecureOrScopedBody(perm: Permission.Selector)(
+    secure: BodyContext[_] => UserModel => Fu[Result],
+    scoped: RequestHeader => UserModel => Fu[Result]
+  ): Action[AnyContent] = Action.async(BodyParsers.parse.anyContent) { req =>
+    if (HTTPRequest isOAuth req) securedScopedAction(perm, req.map(_ => ()))(scoped)
+    else SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(secure)(req)
+  }
+  private def securedScopedAction(perm: Permission.Selector, req: Request[Unit])(f: RequestHeader => UserModel => Fu[Result]) =
+    Scoped() { req => me =>
+      if (isGranted(perm, me)) f(req)(me) else fuccess(forbiddenJsonResult)
+    }(req)
 
   protected def Firewall[A <: Result](
     a: => Fu[A],
@@ -318,6 +338,8 @@ private[controllers] trait LilaController
       }.fuccess
     )
 
+  private val forbiddenJsonResult = Forbidden(jsonError("Authorization failed"))
+
   protected def authorizationFailed(implicit ctx: Context): Fu[Result] = negotiate(
     html =
       if (HTTPRequest isSynchronousHttp ctx.req) fuccess {
@@ -325,7 +347,7 @@ private[controllers] trait LilaController
         Forbidden(views.html.base.authFailed())
       }
       else fuccess(Results.Forbidden("Authorization failed")),
-    api = _ => fuccess(Forbidden(jsonError("Authorization failed")))
+    api = _ => fuccess(forbiddenJsonResult)
   )
 
   protected def ensureSessionId(req: RequestHeader)(res: Result): Result =
