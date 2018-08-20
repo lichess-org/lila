@@ -83,7 +83,7 @@ case class Tournament(
 
   def duration = new Duration(minutes * 60 * 1000)
 
-  def interval = new Interval(startsAt, finishesAt)
+  def interval = new Interval(startsAt, duration)
 
   def overlaps(other: Tournament) = interval overlaps other.interval
 

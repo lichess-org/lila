@@ -74,9 +74,7 @@ final class TournamentApi(
     TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password, getUserTeamIds) inject tour
   }
 
-  private[tournament] def createFromPlan(plan: Schedule.Plan): Funit = {
-    val minutes = Schedule durationFor plan.schedule
-    val tournament = plan.build.foldRight(Tournament.schedule(plan.schedule, minutes)) { _(_) }
+  private[tournament] def create(tournament: Tournament): Funit = {
     logger.info(s"Create $tournament")
     TournamentRepo.insert(tournament).void
   }
