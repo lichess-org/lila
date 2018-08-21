@@ -11,42 +11,42 @@ case class Assessible(analysed: Analysed, color: Color) {
   import Statistics._
   import analysed._
 
-  def suspiciousErrorRate: Boolean =
+  lazy val suspiciousErrorRate: Boolean =
     listAverage(Accuracy.diffsList(Pov(game, color), analysis)) < (game.speed match {
       case Speed.Bullet => 20
       case Speed.Blitz => 15
       case _ => 10
     })
 
-  def alwaysHasAdvantage: Boolean =
+  lazy val alwaysHasAdvantage: Boolean =
     !analysis.infos.exists { info =>
       info.cp.fold(info.win.fold(false) { a => (a.signum == color.fold(-1, 1)) }) { cp =>
         color.fold(cp.centipieces < -100, cp.centipieces > 100)
       }
     }
 
-  def highBlurRate: Boolean =
+  lazy val highBlurRate: Boolean =
     game.playerBlurPercent(color) > 90
 
-  def moderateBlurRate: Boolean =
+  lazy val moderateBlurRate: Boolean =
     game.playerBlurPercent(color) > 70
 
-  def suspiciousHoldAlert: Boolean =
+  lazy val suspiciousHoldAlert: Boolean =
     game.player(color).hasSuspiciousHoldAlert
 
-  def highestChunkBlurs: Float =
+  lazy val highestChunkBlurs: Float =
     game.player(color).blurs match {
       case bits: lidraughts.game.Blurs.Bits => bits.booleans.iterator.sliding(10).map(_.count(true==)).max
       case _ => 0
     }
 
-  def highChunkBlurRate: Boolean =
+  lazy val highChunkBlurRate: Boolean =
     highestChunkBlurs >= 9
 
-  def moderateChunkBlurRate: Boolean =
+  lazy val moderateChunkBlurRate: Boolean =
     highestChunkBlurs >= 7
 
-  def highlyConsistentMoveTimes: Boolean =
+  lazy val highlyConsistentMoveTimes: Boolean =
     if (game.clock.forall(_.estimateTotalSeconds > 60))
       moveTimeCoefVariation(Pov(game, color)) ?? { cvIndicatesHighlyFlatTimes(_) }
     else
@@ -54,7 +54,7 @@ case class Assessible(analysed: Analysed, color: Color) {
 
   // moderatelyConsistentMoveTimes must stay in Statistics because it's used in classes that do not use Assessible
 
-  def highlyConsistentMoveTimeStreaks: Boolean =
+  lazy val highlyConsistentMoveTimeStreaks: Boolean =
     if (game.clock.forall(_.estimateTotalSeconds > 60))
       slidingMoveTimesCvs(Pov(game, color)) ?? {
         _ exists cvIndicatesHighlyFlatTimesForStreaks
@@ -62,12 +62,12 @@ case class Assessible(analysed: Analysed, color: Color) {
     else
       false
 
-  def moderatelyConsistentMoveTimeStreaks: Boolean =
+  lazy val moderatelyConsistentMoveTimeStreaks: Boolean =
     slidingMoveTimesCvs(Pov(game, color)) ?? {
       _ exists cvIndicatesModeratelyFlatTimes
     }
 
-  def mkFlags: PlayerFlags = PlayerFlags(
+  lazy val mkFlags: PlayerFlags = PlayerFlags(
     suspiciousErrorRate,
     alwaysHasAdvantage,
     highBlurRate || highChunkBlurRate,
@@ -114,12 +114,12 @@ case class Assessible(analysed: Analysed, color: Color) {
     else assessment
   }
 
-  def scanAvg: Int = listAverage(Accuracy.diffsList(Pov(game, color), analysis)).toInt
-  def scanSd: Int = listDeviation(Accuracy.diffsList(Pov(game, color), analysis)).toInt
-  def mtAvg: Int = listAverage(~game.moveTimes(color) map (_.roundTenths)).toInt
-  def mtSd: Int = listDeviation(~game.moveTimes(color) map (_.roundTenths)).toInt
-  def blurs: Int = game.playerBlurPercent(color)
-  def hold: Boolean = game.player(color).hasSuspiciousHoldAlert
+  lazy val scanAvg: Int = listAverage(Accuracy.diffsList(Pov(game, color), analysis)).toInt
+  lazy val scanSd: Int = listDeviation(Accuracy.diffsList(Pov(game, color), analysis)).toInt
+  lazy val mtAvg: Int = listAverage(~game.moveTimes(color) map (_.roundTenths)).toInt
+  lazy val mtSd: Int = listDeviation(~game.moveTimes(color) map (_.roundTenths)).toInt
+  lazy val blurs: Int = game.playerBlurPercent(color)
+  lazy val hold: Boolean = game.player(color).hasSuspiciousHoldAlert
 
   def playerAssessment: PlayerAssessment =
     PlayerAssessment(
