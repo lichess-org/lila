@@ -18,7 +18,9 @@ case class PlayerAssessment(
     mtAvg: Int,
     mtSd: Int,
     blurs: Int,
-    hold: Boolean
+    hold: Boolean,
+    blurStreak: Int,
+    mtStreak: Boolean
 ) {
 
   val color = Color(white)
