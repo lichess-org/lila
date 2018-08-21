@@ -19,6 +19,7 @@ final class Env(
   private val CollectionReport = config getString "collection.report"
   private val ActorName = config getString "actor.name"
   private val ScoreThreshold = config getInt "score.threshold"
+  private val NetDomain = config getString "net.domain"
 
   val scoreThresholdSetting = settingStore[Int](
     "reportScoreThreshold",
@@ -26,7 +27,7 @@ final class Env(
     text = "Report score threshold. Reports with lower scores are concealed to moderators".some
   )
 
-  lazy val forms = new DataForm(hub.actor.captcher)
+  lazy val forms = new DataForm(hub.actor.captcher, NetDomain)
 
   private lazy val autoAnalysis = new AutoAnalysis(
     fishnet = hub.actor.fishnet,
