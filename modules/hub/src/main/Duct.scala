@@ -14,29 +14,13 @@ trait Duct {
   type ReceiveAsync = PartialFunction[Any, Fu[Any]]
 
   // implement async behaviour here
-  protected val process: PartialFunction[Any, Fu[Any]]
+  protected val process: ReceiveAsync
 
   def !(msg: Any): Unit = atomic { implicit txn =>
-    if (isBusy()) queue addLast msg
-    else {
-      isBusy() = true
-      doProcess(msg)
-    }
+    current.transform(_ >> process.applyOrElse(msg, Duct.fallback))
   }
 
-  private[this] val isBusy = Ref(false)
-
-  private[this] val queue = new java.util.ArrayDeque[Any]
-
-  private[this] def doProcess(msg: Any): Fu[Any] =
-    process.applyOrElse(msg, Duct.fallback) addEffectAnyway postProcess
-
-  private[this] def postProcess = queue.poll match {
-    case null => atomic { implicit txn =>
-      isBusy() = false
-    }
-    case queuedMsg => doProcess(queuedMsg)
-  }
+  private[this] val current: Ref[Fu[Any]] = Ref(funit)
 }
 
 object Duct {
