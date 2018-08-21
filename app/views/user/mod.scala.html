@@ -190,10 +190,12 @@
           <td>
             <span class="sig sig_@(Display.moveTimeSig(result))" data-icon="J"></span>
             @(result.mtAvg/10) ± @(result.mtSd/10)
+            @if(result.mtStreak){<br>STREAK}
           </td>
           <td>
             <span class="sig sig_@(Display.blurSig(result))" data-icon="J"></span>
             @(result.blurs)%
+            @if(result.blurStreak >= 7){<br>STREAK @result.blurStreak/10}
           </td>
           <td>
             <span class="sig sig_@(Display.holdSig(result))" data-icon="J"></span>
