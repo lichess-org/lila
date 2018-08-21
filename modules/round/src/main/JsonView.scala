@@ -55,7 +55,6 @@ final class JsonView(
     initialFen: Option[FEN],
     withFlags: WithFlags
   ): Fu[JsObject] = {
-    logger.info(s"playerJson pov game: ${pov.game.turnColor}")
     getSocketStatus(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
       canTakeback(pov.game) map {
@@ -250,19 +249,16 @@ final class JsonView(
     clockWriter.writes(clock) + ("moretime" -> JsNumber(moretimeSeconds))
 
   private def possibleMoves(pov: Pov): Option[Map[String, String]] = {
-    logger.info(s"turnColor pov game: ${pov.game.turnColor}")
     (pov.game playableBy pov.player) option {
       if (pov.game.situation.ghosts > 0) {
         val move = pov.game.pdnMoves(pov.game.pdnMoves.length - 1)
         val destPos = draughts.Pos.posAt(move.substring(move.lastIndexOf('x') + 1))
         destPos match {
           case Some(dest) =>
-            logger.info(s"Reconstructed $dest from $move")
             Map(dest -> pov.game.situation.destinationsFrom(dest)) map {
               case (from, dests) => from.key -> dests.mkString
             }
           case _ =>
-            logger.info(s"Could not parse lastMove from $move")
             pov.game.situation.allDestinations map {
               case (from, dests) => from.key -> dests.mkString
             }
