@@ -1,9 +1,6 @@
 package lila.hub
 
 import scala.concurrent.duration._
-
-import akka.actor._
-
 import scala.concurrent.stm._
 
 import lila.base.LilaException
@@ -16,7 +13,8 @@ trait Duct {
 
   type ReceiveAsync = PartialFunction[Any, Fu[Any]]
 
-  val process: ReceiveAsync
+  // implement async behaviour here
+  protected val process: PartialFunction[Any, Fu[Any]]
 
   def !(msg: Any): Unit = atomic { implicit txn =>
     if (isBusy()) queue addLast msg
@@ -25,10 +23,6 @@ trait Duct {
       doProcess(msg)
     }
   }
-
-  // this skips the queue
-  // don't use for effects
-  def ?(msg: Any): Fu[Any] = process.applyOrElse(msg, Duct.fallback)
 
   private[this] val isBusy = Ref(false)
 
