@@ -349,7 +349,7 @@ Thank you all, you rock!"""
           }
         ).flatten
       }
-    ).flatten filter { _.schedule.at.isBefore(rightNow) }
+    ).flatten filter { _.schedule.at.isAfter(rightNow) }
   }
 
   private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) = {
