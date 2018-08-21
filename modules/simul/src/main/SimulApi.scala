@@ -56,10 +56,10 @@ final class SimulApi(
     GameRepo game gameId flatMap {
       case Some(game) =>
         lidraughts.draughtsnet.Env.current.analyser.fromCache(game, true) map { analysis =>
-          val assessible = Assessible(Analysed(game, analysis))
-          val assessWhite = assessible.playerAssessment(draughts.Color.White).some
-          val assessBlack = assessible.playerAssessment(draughts.Color.Black).some
-          PlayerAssessments(assessWhite, assessBlack).some
+          val analysed = Analysed(game, analysis)
+          val assessWhite = Assessible(analysed, draughts.Color.White).playerAssessment
+          val assessBlack = Assessible(analysed, draughts.Color.Black).playerAssessment
+          PlayerAssessments(assessWhite.some, assessBlack.some).some
         }
       case _ => fufail(s"game $gameId not found")
     } recoverWith {
