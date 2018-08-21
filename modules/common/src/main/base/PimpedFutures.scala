@@ -82,8 +82,8 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   }
 
   def addEffectAnyway(inAnyCase: => Unit): Fu[A] = {
-    fua onComplete {
-      case _ => inAnyCase
+    fua onComplete { _ =>
+      inAnyCase
     }
     fua
   }
