@@ -6,6 +6,7 @@ import play.api.http._
 import play.api.libs.json.{ Json, JsObject, Writes }
 import play.api.mvc._
 import play.twirl.api.Html
+import BodyParsers.parse
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
@@ -53,13 +54,13 @@ private[controllers] trait LilaController
   )
 
   protected def Open(f: Context => Fu[Result]): Action[Unit] =
-    Open(BodyParsers.parse.empty)(f)
+    Open(parse.empty)(f)
 
   protected def Open[A](parser: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
     Action.async(parser)(handleOpen(f, _))
 
   protected def OpenBody(f: BodyContext[_] => Fu[Result]): Action[AnyContent] =
-    OpenBody(BodyParsers.parse.anyContent)(f)
+    OpenBody(parse.anyContent)(f)
 
   protected def OpenBody[A](parser: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
     Action.async(parser) { req =>
@@ -71,7 +72,7 @@ private[controllers] trait LilaController
   protected def OpenOrScoped(selectors: OAuthScope.Selector*)(
     open: Context => Fu[Result],
     scoped: RequestHeader => UserModel => Fu[Result]
-  ): Action[Unit] = Action.async(BodyParsers.parse.empty) { req =>
+  ): Action[Unit] = Action.async(parse.empty) { req =>
     if (HTTPRequest isOAuth req) handleScoped(selectors)(scoped)(req)
     else handleOpen(open, req)
   }
@@ -84,13 +85,13 @@ private[controllers] trait LilaController
   protected def AnonOrScoped(selectors: OAuthScope.Selector*)(
     anon: RequestHeader => Fu[Result],
     scoped: RequestHeader => UserModel => Fu[Result]
-  ): Action[Unit] = Action.async(BodyParsers.parse.empty) { req =>
+  ): Action[Unit] = Action.async(parse.empty) { req =>
     if (HTTPRequest isOAuth req) handleScoped(selectors)(scoped)(req)
     else anon(req)
   }
 
   protected def Auth(f: Context => UserModel => Fu[Result]): Action[Unit] =
-    Auth(BodyParsers.parse.empty)(f)
+    Auth(parse.empty)(f)
 
   protected def Auth[A](parser: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
     Action.async(parser) { handleAuth(f, _) }
@@ -103,7 +104,7 @@ private[controllers] trait LilaController
     }
 
   protected def AuthBody(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
-    AuthBody(BodyParsers.parse.anyContent)(f)
+    AuthBody(parse.anyContent)(f)
 
   protected def AuthBody[A](parser: BodyParser[A])(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
     Action.async(parser) { req =>
@@ -118,7 +119,7 @@ private[controllers] trait LilaController
     Secure(perm(Permission))(f)
 
   protected def Secure(perm: Permission)(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
-    Secure(BodyParsers.parse.anyContent)(perm)(f)
+    Secure(parse.anyContent)(perm)(f)
 
   protected def Secure[A](parser: BodyParser[A])(perm: Permission)(f: Context => UserModel => Fu[Result]): Action[A] =
     Auth(parser) { implicit ctx => me =>
@@ -126,7 +127,7 @@ private[controllers] trait LilaController
     }
 
   protected def SecureF(s: UserModel => Boolean)(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
-    Auth(BodyParsers.parse.anyContent) { implicit ctx => me =>
+    Auth(parse.anyContent) { implicit ctx => me =>
       if (s(me)) f(ctx)(me) else authorizationFailed
     }
 
@@ -136,19 +137,19 @@ private[controllers] trait LilaController
     }
 
   protected def SecureBody(perm: Permission.Selector)(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
-    SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(f)
+    SecureBody(parse.anyContent)(perm(Permission))(f)
 
   protected def Scoped[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(f: RequestHeader => UserModel => Fu[Result]): Action[A] =
     Action.async(parser)(handleScoped(selectors)(f))
 
   protected def Scoped(selectors: OAuthScope.Selector*)(f: RequestHeader => UserModel => Fu[Result]): Action[Unit] =
-    Scoped(BodyParsers.parse.empty)(selectors)(f)
+    Scoped(parse.empty)(selectors)(f)
 
   protected def ScopedBody[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(f: Request[A] => UserModel => Fu[Result]): Action[A] =
     Action.async(parser)(handleScoped(selectors)(f))
 
   protected def ScopedBody(selectors: OAuthScope.Selector*)(f: Request[_] => UserModel => Fu[Result]): Action[AnyContent] =
-    ScopedBody(BodyParsers.parse.anyContent)(selectors)(f)
+    ScopedBody(parse.anyContent)(selectors)(f)
 
   private def handleScoped[R <: RequestHeader](selectors: Seq[OAuthScope.Selector])(f: R => UserModel => Fu[Result])(req: R): Fu[Result] = {
     val scopes = OAuthScope select selectors
@@ -176,16 +177,16 @@ private[controllers] trait LilaController
   protected def SecureOrScoped(perm: Permission.Selector)(
     secure: Context => UserModel => Fu[Result],
     scoped: RequestHeader => UserModel => Fu[Result]
-  ): Action[Unit] = Action.async(BodyParsers.parse.empty) { req =>
+  ): Action[Unit] = Action.async(parse.empty) { req =>
     if (HTTPRequest isOAuth req) securedScopedAction(perm, req)(scoped)
-    else Secure(BodyParsers.parse.empty)(perm(Permission))(secure)(req)
+    else Secure(parse.empty)(perm(Permission))(secure)(req)
   }
   protected def SecureOrScopedBody(perm: Permission.Selector)(
     secure: BodyContext[_] => UserModel => Fu[Result],
     scoped: RequestHeader => UserModel => Fu[Result]
-  ): Action[AnyContent] = Action.async(BodyParsers.parse.anyContent) { req =>
+  ): Action[AnyContent] = Action.async(parse.anyContent) { req =>
     if (HTTPRequest isOAuth req) securedScopedAction(perm, req.map(_ => ()))(scoped)
-    else SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(secure)(req)
+    else SecureBody(parse.anyContent)(perm(Permission))(secure)(req)
   }
   private def securedScopedAction(perm: Permission.Selector, req: Request[Unit])(f: RequestHeader => UserModel => Fu[Result]) =
     Scoped() { req => me =>
