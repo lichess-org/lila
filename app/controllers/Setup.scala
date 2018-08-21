@@ -63,9 +63,9 @@ object Setup extends LilaController with TheftPrevention {
     implicit val req = ctx.body
     PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
       env.forms.friend(ctx).bindFromRequest.fold(
-        f => negotiate(
+        err => negotiate(
           html = Lobby.renderHome(Results.BadRequest),
-          api = _ => fuccess(BadRequest(errorsAsJson(f)))
+          api = _ => jsonFormError(err)
         ), {
           case config => userId ?? UserRepo.byId flatMap { destUser =>
             destUser ?? { Env.challenge.granter(ctx.me, _, config.perfType) } flatMap {
@@ -138,10 +138,7 @@ object Setup extends LilaController with TheftPrevention {
       PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
         NoPlaybanOrCurrent {
           env.forms.hook(ctx).bindFromRequest.fold(
-            err => negotiate(
-              html = BadRequest(errorsAsJson(err).toString).fuccess,
-              api = _ => BadRequest(errorsAsJson(err)).fuccess
-            ),
+            jsonFormError,
             config =>
               if (getBool("pool")) env.processor.saveHookConfig(config) inject hookSaveOnlyResponse
               else (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap {
@@ -200,9 +197,9 @@ object Setup extends LilaController with TheftPrevention {
       PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
         implicit val req = ctx.body
         form(ctx).bindFromRequest.fold(
-          f => negotiate(
+          err => negotiate(
             html = Lobby.renderHome(Results.BadRequest),
-            api = _ => fuccess(BadRequest(errorsAsJson(f)))
+            api = _ => jsonFormError(err)
           ),
           config => op(config)(ctx) flatMap { pov =>
             negotiate(

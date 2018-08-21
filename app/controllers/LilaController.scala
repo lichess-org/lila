@@ -466,7 +466,7 @@ private[controllers] trait LilaController
     ) andThen (__ \ "").json.prune
   }
 
-  protected def errorsAsJson(form: play.api.data.Form[_])(implicit lang: play.api.i18n.Lang) = {
+  protected def errorsAsJson(form: Form[_])(implicit lang: play.api.i18n.Lang) = {
     val json = Json.toJson(
       form.errors.groupBy(_.key).mapValues { errors =>
         errors.map(e => lila.i18n.Translator.txt.literal(e.message, lila.i18n.I18nDb.Site, e.args, lang))
@@ -474,6 +474,9 @@ private[controllers] trait LilaController
     )
     json validate jsonGlobalErrorRenamer getOrElse json
   }
+
+  protected def jsonFormError(err: Form[_])(implicit lang: play.api.i18n.Lang) =
+    fuccess(BadRequest(errorsAsJson(err)))
 
   protected def pageHit(implicit ctx: lila.api.Context) =
     if (HTTPRequest isHuman ctx.req) lila.mon.http.request.path(ctx.req.path)()

@@ -98,7 +98,7 @@ object Puzzle extends LilaController {
       if (puzzle.mate) lila.mon.puzzle.round.mate()
       else lila.mon.puzzle.round.material()
       env.forms.round.bindFromRequest.fold(
-        err => fuccess(BadRequest(errorsAsJson(err))),
+        jsonFormError,
         resultInt => {
           val result = Result(resultInt == 1)
           ctx.me match {
@@ -134,7 +134,7 @@ object Puzzle extends LilaController {
         if (puzzle.mate) lila.mon.puzzle.round.mate()
         else lila.mon.puzzle.round.material()
         env.forms.round.bindFromRequest.fold(
-          err => fuccess(BadRequest(errorsAsJson(err))),
+          jsonFormError,
           resultInt => ctx.me match {
             case Some(me) => for {
               (round, mode) <- env.finisher(
@@ -168,7 +168,7 @@ object Puzzle extends LilaController {
     NoBot {
       implicit val req = ctx.body
       env.forms.vote.bindFromRequest.fold(
-        err => fuccess(BadRequest(errorsAsJson(err))),
+        jsonFormError,
         vote => env.api.vote.find(id, me) flatMap {
           v => env.api.vote.update(id, me, v, vote == 1)
         } map {

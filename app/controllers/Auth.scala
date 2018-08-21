@@ -81,7 +81,7 @@ object Auth extends LilaController {
       api.usernameForm.bindFromRequest.fold(
         err => negotiate(
           html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
-          api = _ => Unauthorized(errorsAsJson(err)).fuccess
+          api = _ => jsonFormError(err)
         ),
         username => HasherRateLimit(username, ctx.req) { chargeIpLimiter =>
           api.loadLoginForm(username) flatMap { loginForm =>
@@ -95,7 +95,7 @@ object Auth extends LilaController {
                       case _ => Unauthorized(html.auth.login(err, referrer))
                     }
                   },
-                  api = _ => Unauthorized(errorsAsJson(err)).fuccess
+                  api = _ => jsonFormError(err)
                 )
               },
               result => result.toOption match {
@@ -214,7 +214,7 @@ object Auth extends LilaController {
           api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
             err => {
               err("username").value foreach { authLog(_, s"Signup fail: ${err.errors mkString ", "}") }
-              fuccess(BadRequest(jsonError(errorsAsJson(err))))
+              jsonFormError(err)
             },
             data => HasherRateLimit(data.username, ctx.req) { _ =>
               val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
