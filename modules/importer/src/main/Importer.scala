@@ -9,7 +9,6 @@ import draughts.{ Status, Situation }
 import lidraughts.game.{ Game, GameRepo }
 
 final class Importer(
-    roundMap: ActorRef,
     delay: FiniteDuration,
     scheduler: akka.actor.Scheduler
 ) {

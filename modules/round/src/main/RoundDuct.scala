@@ -13,42 +13,22 @@ import lidraughts.game.{ Event, Game, Pov, Progress }
 import lidraughts.hub.actorApi.DeployPost
 import lidraughts.hub.actorApi.map._
 import lidraughts.hub.actorApi.round.{ DraughtsnetPlay, BotPlay, RematchYes, RematchNo, Abort, Resign }
-import lidraughts.hub.SequentialActor
+import lidraughts.hub.Duct
 import lidraughts.socket.UserLagCache
 import makeTimeout.large
 
 private[round] final class Round(
     dependencies: Round.Dependencies,
-    gameId: String,
-    /* Send a message to self,
-     * but by going through the actor map,
-     * so this actor is spawned again if it had died/expired */
-    awakeWith: Any => Unit
-) extends SequentialActor {
+    gameId: Game.ID
+) extends Duct {
 
   import dependencies._
 
-  context setReceiveTimeout activeTtl
-
   implicit val proxy = new GameProxy(gameId)
-
-  override def preStart(): Unit = {
-    context.system.lidraughtsBus.subscribe(self, 'deploy)
-    scheduleExpiration
-  }
-
-  override def postStop(): Unit = {
-    super.postStop()
-    context.system.lidraughtsBus.unsubscribe(self)
-  }
 
   var takebackSituation = Round.TakebackSituation()
 
-  def process = {
-
-    case ReceiveTimeout => fuccess {
-      self ! SequentialActor.Terminate
-    }
+  val process: ReceiveAsync = {
 
     case p: HumanPlay =>
       p.trace.finishFirstSegment()
@@ -56,19 +36,18 @@ private[round] final class Round(
         if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
         else {
           recordLag(pov)
-          player.human(p, self)(pov)
+          player.human(p, this)(pov)
         }
       } >>- {
         p.trace.finish()
         lidraughts.mon.round.move.full.count()
-        scheduleExpiration
       }
 
     case p: BotPlay =>
       handleBotPlay(p) { pov =>
         if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
-        else player.bot(p, self)(pov)
-      } >>- scheduleExpiration
+        else player.bot(p, this)(pov)
+      }
 
     case DraughtsnetPlay(uci, taken, currentFen) => handle { game =>
       if (taken.length > 2) {
@@ -91,7 +70,7 @@ private[round] final class Round(
               fufail(DraughtsnetError(s"Received invalid move $uci"))
           }
       } else
-        player.draughtsnet(game, uci, currentFen, self, context)
+        player.draughtsnet(game, uci, currentFen, this, context)
     } >>- lidraughts.mon.round.move.full.count()
 
     case Abort(playerId) => handle(playerId) { pov =>
@@ -160,7 +139,6 @@ private[round] final class Round(
     case Abandon => fuccess {
       proxy withGame { game =>
         game.abandoned ?? {
-          self ! PoisonPill
           if (game.abortable) finisher.other(game, _.Aborted, None)
           else finisher.other(game, _.Resign, Some(!game.player.color))
         }
@@ -180,7 +158,7 @@ private[round] final class Round(
     case Threefold => proxy withGame { game =>
       drawer autoThreefold game map {
         _ foreach { pov =>
-          self ! DrawClaim(pov.player.id)
+          this ! DrawClaim(pov.player.id)
         }
       }
     }
@@ -230,7 +208,7 @@ private[round] final class Round(
         case _ => forecastApi.nextMove(game, lastMove)
       }
       nextMove map { move =>
-        move foreach { m => self ! HumanPlay(game.player.id, m, blur = false) }
+        move foreach { m => this ! HumanPlay(game.player.id, m, blur = false) }
         Nil
       }
     }
@@ -255,10 +233,6 @@ private[round] final class Round(
 
     case NoStart => handle { game =>
       game.timeBeforeExpiration.exists(_.centis == 0) ?? finisher.noStart(game)
-    }
-
-    case GetGame => fuccess {
-      sender ! proxy.game
     }
   }
 
@@ -286,16 +260,6 @@ private[round] final class Round(
         lag <- clock.lag(pov.color).lagMean
       } UserLagCache.put(user, lag)
     }
-
-  private def scheduleExpiration: Funit = proxy.game map {
-    case None => self ! PoisonPill
-    case Some(game) =>
-      game.timeBeforeExpiration foreach { centis =>
-        context.system.scheduler.scheduleOnce((centis.millis + 1000).millis) {
-          awakeWith(NoStart)
-        }
-      }
-  }
 
   private def handle[A](op: Game => Fu[Events]): Funit =
     handleGame(proxy.game)(op)
@@ -336,7 +300,7 @@ private[round] final class Round(
       if (events exists {
         case e: Event.Move => e.threefold
         case _ => false
-      }) self ! Threefold
+      }) this ! Threefold
     }
   }
 
@@ -362,8 +326,7 @@ object Round {
       drawer: Drawer,
       forecastApi: ForecastApi,
       socketHub: ActorRef,
-      moretimeDuration: FiniteDuration,
-      activeTtl: Duration
+      moretimeDuration: FiniteDuration
   )
 
   case class TakebackSituation(

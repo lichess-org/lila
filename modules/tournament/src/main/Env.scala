@@ -20,7 +20,7 @@ final class Env(
     asyncCache: lidraughts.memo.AsyncCache.Builder,
     flood: lidraughts.security.Flood,
     hub: lidraughts.hub.Env,
-    roundMap: ActorRef,
+    roundMap: lidraughts.hub.DuctMap[_],
     roundSocketHub: ActorSelection,
     lightUserApi: lidraughts.user.LightUserApi,
     isOnline: String => Boolean,

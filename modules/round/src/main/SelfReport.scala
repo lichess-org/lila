@@ -1,11 +1,10 @@
 package lidraughts.round
 
-import akka.actor._
-
 import lidraughts.common.IpAddress
 import lidraughts.user.{ User, UserRepo }
+import lidraughts.hub.DuctMap
 
-final class SelfReport(roundMap: ActorRef) {
+final class SelfReport(roundMap: DuctMap[Round]) {
 
   def apply(
     userId: Option[User.ID],
@@ -26,7 +25,7 @@ final class SelfReport(roundMap: ActorRef) {
         _ ?? { pov =>
           if (!known) doLog
           if (Set("ceval", "rcb", "ccs")(name)) fuccess {
-            roundMap ! lidraughts.hub.actorApi.map.Tell(
+            roundMap.tell(
               pov.gameId,
               lidraughts.round.actorApi.round.Cheat(pov.color)
             )

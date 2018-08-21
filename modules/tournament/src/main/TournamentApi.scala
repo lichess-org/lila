@@ -34,7 +34,7 @@ final class TournamentApi(
     socketHub: ActorRef,
     site: ActorSelection,
     lobby: ActorSelection,
-    roundMap: ActorRef,
+    roundMap: lidraughts.hub.DuctMap[_],
     trophyApi: lidraughts.user.TrophyApi,
     verify: Condition.Verify,
     indexLeaderboard: Tournament => Funit,
@@ -294,7 +294,7 @@ final class TournamentApi(
                 GameRepo pov povRef flatMap {
                   _.filter(_.game.berserkable) ?? { pov =>
                     PairingRepo.setBerserk(pairing, userId) >>- {
-                      roundMap ! Tell(povRef.gameId, GoBerserk(povRef.color))
+                      roundMap.tell(povRef.gameId, GoBerserk(povRef.color))
                     }
                   }
                 }
@@ -381,7 +381,7 @@ final class TournamentApi(
         if (tour.isStarted)
           PairingRepo.findPlaying(tour.id, userId).map {
             _ foreach { currentPairing =>
-              roundMap ! Tell(currentPairing.gameId, AbortForce)
+              roundMap.tell(currentPairing.gameId, AbortForce)
             }
           } >> PairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
             PairingRepo.removeByTourAndUserId(tour.id, userId) >>

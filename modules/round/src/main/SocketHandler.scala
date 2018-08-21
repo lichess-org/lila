@@ -14,6 +14,7 @@ import actorApi._, round._
 import lidraughts.chat.Chat
 import lidraughts.common.IpAddress
 import lidraughts.game.{ Pov, PovRef, Game }
+import lidraughts.hub.DuctMap
 import lidraughts.hub.actorApi.map._
 import lidraughts.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
 import lidraughts.hub.actorApi.shutup.PublicSource
@@ -25,7 +26,7 @@ import lidraughts.chat.Chat
 import makeTimeout.short
 
 private[round] final class SocketHandler(
-    roundMap: ActorRef,
+    roundMap: DuctMap[Round],
     socketHub: ActorRef,
     hub: lidraughts.hub.Env,
     messenger: Messenger,
@@ -46,7 +47,7 @@ private[round] final class SocketHandler(
     me: Option[User]
   ): Handler.Controller = {
 
-    def send(msg: Any): Unit = { roundMap ! Tell(gameId, msg) }
+    def send(msg: Any): Unit = roundMap.tell(gameId, msg)
 
     member.playerIdOption.fold[Handler.Controller](({
       case ("p", o) => socket ! Ping(uid, o)
