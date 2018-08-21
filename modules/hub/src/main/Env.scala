@@ -16,7 +16,6 @@ final class Env(config: Config, system: ActorSystem) {
     val simul = select("actor.simul")
     val timeline = select("actor.timeline.user")
     val bookmark = select("actor.bookmark")
-    val roundMap = select("actor.round.map")
     val lobby = select("actor.lobby")
     val relation = select("actor.relation")
     val report = select("actor.report")

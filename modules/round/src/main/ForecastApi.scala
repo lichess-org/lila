@@ -11,9 +11,9 @@ import draughts.format.Uci
 import draughts.Pos
 import Forecast.Step
 import lidraughts.game.{ Pov, Game }
-import lidraughts.hub.actorApi.map.Tell
+import lidraughts.hub.DuctMap
 
-final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
+final class ForecastApi(coll: Coll, roundMap: DuctMap[Round]) {
 
   private implicit val PosBSONHandler = new BSONHandler[BSONString, Pos] {
     def read(bsonStr: BSONString): Pos = Pos.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"
@@ -50,7 +50,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
     if (!pov.isMyTurn) funit
     else Uci.Move(uciMove).fold[Funit](fufail(s"Invalid move $uciMove on $pov")) { uci =>
       val promise = Promise[Unit]
-      roundMap ! Tell(pov.gameId, actorApi.round.HumanPlay(
+      roundMap.tell(pov.gameId, actorApi.round.HumanPlay(
         playerId = pov.playerId,
         uci = uci,
         blur = true,

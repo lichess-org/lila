@@ -2,22 +2,23 @@ package lila.hub
 
 import scala.concurrent.duration.FiniteDuration
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
-import actorApi.map._
-import akka.actor._
+import com.github.benmanes.caffeine.cache.RemovalCause
 
-trait DuctMap[D <: Duct] {
+import actorApi.map._
+
+final class DuctMap[D <: Duct](
+    mkDuct: String => D,
+    removalListener: (String, D, RemovalCause) => Unit = (id: String, duct: D, cause: RemovalCause) => (),
+    accessTimeout: FiniteDuration
+) {
 
   type K = String
-
-  val accessTimeout: FiniteDuration
-
-  def mkDuct(id: K): D
 
   def getOrMake(id: K): D = ducts.get(id, mkDuct)
 
   def tell(id: K, msg: Any): Unit = getOrMake(id) ! msg
 
-  // def tellAll(msg: Any) = ducts.asMap().foreachValue(_ ! msg)
+  def tellAll(msg: Any) = ducts.asMap().foreach(_._2 ! msg)
 
   def tellIds(ids: Seq[K], msg: Any): Unit = ids foreach { tell(_, msg) }
 
@@ -27,7 +28,7 @@ trait DuctMap[D <: Duct] {
 
   def size: Int = ducts.estimatedSize().toInt
 
-  def `!`: Actor.Receive = {
+  def `!`: PartialFunction[Any, Unit] = {
 
     case Get(id) => getOrMake(id)
 
@@ -44,5 +45,6 @@ trait DuctMap[D <: Duct] {
 
   private[this] val ducts: Cache[K, D] = Scaffeine()
     .expireAfterAccess(accessTimeout)
+    .removalListener(removalListener)
     .build[K, D]()
 }

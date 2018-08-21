@@ -7,10 +7,10 @@ import scala.concurrent.duration._
 
 import actorApi.{ GetSocketStatus, SocketStatus }
 
-import lidraughts.game.{ Game, Pov }
-import lidraughts.hub.actorApi.HasUserId
+import lidraughts.game.{ Game, GameRepo, Pov }
 import lidraughts.hub.actorApi.map.{ Ask, Tell }
-import lidraughts.hub.actorApi.round.{ Abort, Resign }
+import lidraughts.hub.actorApi.round.{ Abort, Resign, DraghtsnetPlay }
+import lidraughts.hub.actorApi.{ HasUserId, DeployPost }
 
 final class Env(
     config: Config,
@@ -33,8 +33,7 @@ final class Env(
     historyApi: lidraughts.history.HistoryApi,
     evalCache: lidraughts.evalCache.EvalCacheApi,
     evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler,
-    isBotSync: lidraughts.common.LightUser.IsBotSync,
-    scheduler: lidraughts.common.Scheduler
+    isBotSync: lidraughts.common.LightUser.IsBotSync
 ) {
 
   private val settings = new {
@@ -46,7 +45,6 @@ final class Env(
     val SocketName = config getString "socket.name"
     val SocketTimeout = config duration "socket.timeout"
     val NetDomain = config getString "net.domain"
-    val ActorMapName = config getString "actor.map.name"
     val ActiveTtl = config duration "active.ttl"
     val CollectionNote = config getString "collection.note"
     val CollectionHistory = config getString "collection.history"
@@ -62,63 +60,41 @@ final class Env(
 
   lazy val eventHistory = History(db(CollectionHistory)) _
 
-  // val roundMap = system.actorOf(Props(new lila.hub.ActorMap {
-  //   private lazy val dependencies = Round.Dependencies(
-  //     messenger = messenger,
-  //     takebacker = takebacker,
-  //     finisher = finisher,
-  //     rematcher = rematcher,
-  //     player = player,
-  //     drawer = drawer,
-  //     forecastApi = forecastApi,
-  //     socketHub = socketHub,
-  //     moretimeDuration = MoretimeDuration,
-  //     activeTtl = ActiveTtl
-  //   )
-  //   def mkActor(id: String) = new Round(
-  //     dependencies = dependencies,
-  //     gameId = id,
-  //     awakeWith = msg => self ! Tell(id, msg)
-  //   )
-  //   def receive: Receive = ({
-  //     case actorApi.GetNbRounds =>
-  //       nbRounds = size
-  //       bus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
-  //   }: Receive) orElse actorMapReceive
-  // }), name = ActorMapName)
-
-  // scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
-
-  val roundMap = new lidraughts.hub.DuctMap[Round] {
-    private lazy val dependencies = Round.Dependencies(
-      messenger = messenger,
-      takebacker = takebacker,
-      finisher = finisher,
-      rematcher = rematcher,
-      player = player,
-      drawer = drawer,
-      forecastApi = forecastApi,
-      socketHub = socketHub,
-      moretimeDuration = MoretimeDuration
-    )
-    def mkDuct(id: Game.ID) = new Round(
-      dependencies = dependencies,
+  private lazy val roundDependencies = Round.Dependencies(
+    messenger = messenger,
+    takebacker = takebacker,
+    finisher = finisher,
+    rematcher = rematcher,
+    player = player,
+    drawer = drawer,
+    forecastApi = forecastApi,
+    socketHub = socketHub,
+    scheduler = system.scheduler,
+    moretimeDuration = MoretimeDuration
+  )
+  val roundMap = new lidraughts.hub.DuctMap[Round](
+    mkDuct = id => new Round(
+      dependencies = roundDependencies,
       gameId = id
-    )
-    val accessTimeout = ActiveTtl
-    def game(id: Game.ID): Fu[Option[Game]] = getOrMake(id).proxy.game
+    ),
+    accessTimeout = ActiveTtl
+  )
+
+  bus.subscribeFun('roundMapTell, 'deploy) {
+    case Tell(id, msg) => roundMap.tell(id, msg)
+    case DeployPost => roundMap.tellAll(DeployPost)
   }
+
+  private var nbRounds = 0
+  def count = nbRounds
 
   system.scheduler.schedule(5 seconds, 2.1 seconds) {
     nbRounds = roundMap.size
     bus.publish(lidraughts.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
   }
 
-  private var nbRounds = 0
-  def count() = nbRounds
-
   def roundProxyGame(gameId: Game.ID): Fu[Option[Game]] =
-    roundMap.game(gameId).mon(_.round.proxyGameWatcherTime) addEffect { g =>
+    roundMap.getOrMake(gameId).proxy.game.mon(_.round.proxyGameWatcherTime) addEffect { g =>
       lidraughts.mon.round.proxyGameWatcherCount(g.isDefined.toString)()
     }
 
@@ -173,7 +149,7 @@ final class Env(
 
   lazy val forecastApi: ForecastApi = new ForecastApi(
     coll = db(CollectionForecast),
-    roundMap = hub.actor.roundMap
+    roundMap = roundMap
   )
 
   private lazy val notifier = new RoundNotifier(
@@ -265,12 +241,12 @@ final class Env(
 
   def checkOutoftime(game: Game): Unit = {
     if (game.playable && game.started && !game.isUnlimited)
-      roundMap ! Tell(game.id, actorApi.round.QuietFlag)
+      roundMap.tell(game.id, actorApi.round.QuietFlag)
   }
 
   def resign(pov: Pov): Unit =
-    if (pov.game.abortable) roundMap ! Tell(pov.gameId, Abort(pov.playerId))
-    else if (pov.game.resignable) roundMap ! Tell(pov.gameId, Resign(pov.playerId))
+    if (pov.game.abortable) roundMap.tell(pov.gameId, Abort(pov.playerId))
+    else if (pov.game.resignable) roundMap.tell(pov.gameId, Resign(pov.playerId))
 }
 
 object Env {
@@ -296,7 +272,6 @@ object Env {
     historyApi = lidraughts.history.Env.current.api,
     evalCache = lidraughts.evalCache.Env.current.api,
     evalCacheHandler = lidraughts.evalCache.Env.current.socketHandler,
-    isBotSync = lidraughts.user.Env.current.lightUserApi.isBotSync,
-    scheduler = lidraughts.common.PlayApp.scheduler
+    isBotSync = lidraughts.user.Env.current.lightUserApi.isBotSync
   )
 }
