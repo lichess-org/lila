@@ -20,7 +20,7 @@ final class Env(
     asyncCache: lila.memo.AsyncCache.Builder,
     flood: lila.security.Flood,
     hub: lila.hub.Env,
-    roundMap: ActorRef,
+    roundMap: lila.hub.DuctMap[_],
     roundSocketHub: ActorSelection,
     lightUserApi: lila.user.LightUserApi,
     isOnline: String => Boolean,

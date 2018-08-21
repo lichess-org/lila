@@ -14,6 +14,7 @@ import actorApi._, round._
 import lila.chat.Chat
 import lila.common.IpAddress
 import lila.game.{ Pov, PovRef, Game }
+import lila.hub.DuctMap
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
 import lila.hub.actorApi.shutup.PublicSource
@@ -24,7 +25,7 @@ import lila.user.User
 import makeTimeout.short
 
 private[round] final class SocketHandler(
-    roundMap: ActorRef,
+    roundMap: DuctMap[Round],
     socketHub: ActorRef,
     hub: lila.hub.Env,
     messenger: Messenger,
@@ -46,7 +47,7 @@ private[round] final class SocketHandler(
     me: Option[User]
   ): Handler.Controller = {
 
-    def send(msg: Any): Unit = { roundMap ! Tell(gameId, msg) }
+    def send(msg: Any): Unit = roundMap.tell(gameId, msg)
 
     member.playerIdOption.fold[Handler.Controller](({
       case ("p", o) => socket ! Ping(uid, o)

@@ -8,6 +8,7 @@ import chess.{ MoveMetrics, Centis, Status, Color, MoveOrDrop }
 import actorApi.round.{ HumanPlay, DrawNo, TooManyPlies, TakebackNo, ForecastPlay }
 import akka.actor.ActorRef
 import lila.game.{ Game, Progress, Pov, UciMemo }
+import lila.hub.Duct
 import lila.hub.actorApi.round.BotPlay
 
 private[round] final class Player(
@@ -21,7 +22,7 @@ private[round] final class Player(
   private case object Flagged extends MoveResult
   private case class MoveApplied(progress: Progress, move: MoveOrDrop) extends MoveResult
 
-  private[round] def human(play: HumanPlay, round: ActorRef)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
+  private[round] def human(play: HumanPlay, round: Duct.ActorLike)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
     case p @ HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
       case Pov(game, _) if game.turns > Game.maxPlies =>
         round ! TooManyPlies
@@ -43,7 +44,7 @@ private[round] final class Player(
     }
   }
 
-  private[round] def bot(play: BotPlay, round: ActorRef)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
+  private[round] def bot(play: BotPlay, round: Duct.ActorLike)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
     case p @ BotPlay(playerId, uci, promiseOption) => pov match {
       case Pov(game, _) if game.turns > Game.maxPlies =>
         round ! TooManyPlies
@@ -65,7 +66,7 @@ private[round] final class Player(
   }
 
   private def postHumanOrBotPlay(
-    round: ActorRef,
+    round: Duct.ActorLike,
     pov: Pov,
     progress: Progress,
     moveOrDrop: MoveOrDrop,
@@ -86,7 +87,7 @@ private[round] final class Player(
     res >>- promiseOption.foreach(_.success(()))
   }
 
-  private[round] def fishnet(game: Game, uci: Uci, currentFen: FEN, round: ActorRef)(implicit proxy: GameProxy): Fu[Events] =
+  private[round] def fishnet(game: Game, uci: Uci, currentFen: FEN, round: Duct.ActorLike)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi) {
       if (currentFen == FEN(Forsyth >> game.chess))
         applyUci(game, uci, blur = false, metrics = fishnetLag)
@@ -103,7 +104,7 @@ private[round] final class Player(
       else requestFishnet(game, round) >> fufail(FishnetError("Invalid AI move current FEN"))
     } else fufail(FishnetError("Not AI turn"))
 
-  private def requestFishnet(game: Game, round: ActorRef): Funit = game.playableByAi ?? {
+  private def requestFishnet(game: Game, round: Duct.ActorLike): Funit = game.playableByAi ?? {
     if (game.turns <= fishnetPlayer.maxPlies) fishnetPlayer(game)
     else fuccess(round ! actorApi.round.ResignAi)
   }

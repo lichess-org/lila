@@ -9,8 +9,8 @@ import actorApi.{ GetSocketStatus, SocketStatus }
 
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.HasUserId
-import lila.hub.actorApi.round.{ Abort, Resign }
 import lila.hub.actorApi.map.{ Ask, Tell }
+import lila.hub.actorApi.round.{ Abort, Resign }
 
 final class Env(
     config: Config,
@@ -62,7 +62,34 @@ final class Env(
 
   lazy val eventHistory = History(db(CollectionHistory)) _
 
-  val roundMap = system.actorOf(Props(new lila.hub.ActorMap {
+  // val roundMap = system.actorOf(Props(new lila.hub.ActorMap {
+  //   private lazy val dependencies = Round.Dependencies(
+  //     messenger = messenger,
+  //     takebacker = takebacker,
+  //     finisher = finisher,
+  //     rematcher = rematcher,
+  //     player = player,
+  //     drawer = drawer,
+  //     forecastApi = forecastApi,
+  //     socketHub = socketHub,
+  //     moretimeDuration = MoretimeDuration,
+  //     activeTtl = ActiveTtl
+  //   )
+  //   def mkActor(id: String) = new Round(
+  //     dependencies = dependencies,
+  //     gameId = id,
+  //     awakeWith = msg => self ! Tell(id, msg)
+  //   )
+  //   def receive: Receive = ({
+  //     case actorApi.GetNbRounds =>
+  //       nbRounds = size
+  //       bus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
+  //   }: Receive) orElse actorMapReceive
+  // }), name = ActorMapName)
+
+  // scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
+
+  val roundMap = new lila.hub.DuctMap[Round] {
     private lazy val dependencies = Round.Dependencies(
       messenger = messenger,
       takebacker = takebacker,
@@ -72,42 +99,28 @@ final class Env(
       drawer = drawer,
       forecastApi = forecastApi,
       socketHub = socketHub,
-      moretimeDuration = MoretimeDuration,
-      activeTtl = ActiveTtl
+      moretimeDuration = MoretimeDuration
     )
-    def mkActor(id: String) = new Round(
+    def mkDuct(id: Game.ID) = new Round(
       dependencies = dependencies,
-      gameId = id,
-      awakeWith = msg => self ! Tell(id, msg)
+      gameId = id
     )
-    def receive: Receive = ({
-      case actorApi.GetNbRounds =>
-        nbRounds = size
-        bus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
-    }: Receive) orElse actorMapReceive
-  }), name = ActorMapName)
+    val accessTimeout = ActiveTtl
+    def game(id: Game.ID): Fu[Option[Game]] = getOrMake(id).proxy.game
+  }
+
+  system.scheduler.schedule(5 seconds, 2.1 seconds) {
+    nbRounds = roundMap.size
+    bus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
+  }
 
   private var nbRounds = 0
   def count() = nbRounds
 
-  def roundProxyGame(gameId: Game.ID): Fu[Option[Game]] = {
-    import makeTimeout.halfSecond
-    roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Fu[Option[Game]]]
-  }.flatMap(identity).mon(_.round.proxyGameWatcherTime) addEffect { g =>
-    lila.mon.round.proxyGameWatcherCount(g.isDefined.toString)()
-  } recoverWith {
-    case e: akka.pattern.AskTimeoutException =>
-      // weird. monitor and try again.
-      lila.mon.round.proxyGameWatcherCount("exception")()
-      import makeTimeout.halfSecond
-      roundMap ? Ask(gameId, actorApi.GetGame) mapTo manifest[Fu[Option[Game]]] flatMap identity recoverWith {
-        case e: akka.pattern.AskTimeoutException =>
-          // again? monitor, log and fallback on DB
-          lila.mon.round.proxyGameWatcherCount("double_exception")()
-          logger.warn(s"roundProxyGame double timeout https://lichess.org/$gameId")
-          lila.game.GameRepo game gameId
-      }
-  }
+  def roundProxyGame(gameId: Game.ID): Fu[Option[Game]] =
+    roundMap.game(gameId).mon(_.round.proxyGameWatcherTime) addEffect { g =>
+      lila.mon.round.proxyGameWatcherCount(g.isDefined.toString)()
+    }
 
   private val socketHub = {
     val actor = system.actorOf(
@@ -241,8 +254,6 @@ final class Env(
   lazy val noteApi = new NoteApi(db(CollectionNote))
 
   MoveMonitor.start(system, moveTimeChannel)
-
-  scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
 
   system.actorOf(
     Props(new Titivate(roundMap, hub.actor.bookmark, hub.actor.chat)),

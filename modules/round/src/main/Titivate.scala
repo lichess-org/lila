@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.game.{ Query, Game, GameRepo }
-import lila.hub.actorApi.map.Tell
+import lila.hub.DuctMap
 import lila.round.actorApi.round.{ QuietFlag, Abandon }
 
 /*
@@ -16,7 +16,7 @@ import lila.round.actorApi.round.{ QuietFlag, Abandon }
  * and flagged games when no one is around
  */
 private[round] final class Titivate(
-    roundMap: ActorRef,
+    roundMap: DuctMap[Round],
     bookmark: ActorSelection,
     chat: ActorSelection
 ) extends Actor {
@@ -51,11 +51,11 @@ private[round] final class Titivate(
               GameRepo unsetCheckAt game
 
             else if (game.outoftime(withGrace = true)) fuccess {
-              roundMap ! Tell(game.id, QuietFlag)
+              roundMap.tell(game.id, QuietFlag)
             }
 
             else if (game.abandoned) fuccess {
-              roundMap ! Tell(game.id, Abandon)
+              roundMap.tell(game.id, Abandon)
             }
 
             else if (game.unplayed) {

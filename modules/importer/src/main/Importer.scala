@@ -9,7 +9,6 @@ import chess.{ Status, Situation }
 import lila.game.{ Game, GameRepo }
 
 final class Importer(
-    roundMap: ActorRef,
     delay: FiniteDuration,
     scheduler: akka.actor.Scheduler
 ) {

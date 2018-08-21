@@ -11,42 +11,22 @@ import lila.game.{ Game, Progress, Pov, Event }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ FishnetPlay, BotPlay, RematchYes, RematchNo, Abort, Resign }
-import lila.hub.SequentialActor
+import lila.hub.Duct
 import lila.socket.UserLagCache
 import makeTimeout.large
 
 private[round] final class Round(
     dependencies: Round.Dependencies,
-    gameId: String,
-    /* Send a message to self,
-     * but by going through the actor map,
-     * so this actor is spawned again if it had died/expired */
-    awakeWith: Any => Unit
-) extends SequentialActor {
+    gameId: Game.ID
+) extends Duct {
 
   import dependencies._
 
-  context setReceiveTimeout activeTtl
-
   implicit val proxy = new GameProxy(gameId)
-
-  override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'deploy)
-    scheduleExpiration
-  }
-
-  override def postStop(): Unit = {
-    super.postStop()
-    context.system.lilaBus.unsubscribe(self)
-  }
 
   var takebackSituation = Round.TakebackSituation()
 
-  def process = {
-
-    case ReceiveTimeout => fuccess {
-      self ! SequentialActor.Terminate
-    }
+  val process: ReceiveAsync = {
 
     case p: HumanPlay =>
       p.trace.finishFirstSegment()
@@ -54,22 +34,21 @@ private[round] final class Round(
         if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
         else {
           recordLag(pov)
-          player.human(p, self)(pov)
+          player.human(p, this)(pov)
         }
       } >>- {
         p.trace.finish()
         lila.mon.round.move.full.count()
-        scheduleExpiration
       }
 
     case p: BotPlay =>
       handleBotPlay(p) { pov =>
         if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
-        else player.bot(p, self)(pov)
-      } >>- scheduleExpiration
+        else player.bot(p, this)(pov)
+      }
 
     case FishnetPlay(uci, currentFen) => handle { game =>
-      player.fishnet(game, uci, currentFen, self)
+      player.fishnet(game, uci, currentFen, this)
     } >>- lila.mon.round.move.full.count()
 
     case Abort(playerId) => handle(playerId) { pov =>
@@ -127,7 +106,6 @@ private[round] final class Round(
     case Abandon => fuccess {
       proxy withGame { game =>
         game.abandoned ?? {
-          self ! PoisonPill
           if (game.abortable) finisher.other(game, _.Aborted, None)
           else finisher.other(game, _.Resign, Some(!game.player.color))
         }
@@ -147,7 +125,7 @@ private[round] final class Round(
     case Threefold => proxy withGame { game =>
       drawer autoThreefold game map {
         _ foreach { pov =>
-          self ! DrawClaim(pov.player.id)
+          this ! DrawClaim(pov.player.id)
         }
       }
     }
@@ -194,7 +172,7 @@ private[round] final class Round(
     case ForecastPlay(lastMove) => handle { game =>
       forecastApi.nextMove(game, lastMove) map { mOpt =>
         mOpt foreach { move =>
-          self ! HumanPlay(game.player.id, move, false)
+          this ! HumanPlay(game.player.id, move, false)
         }
         Nil
       }
@@ -220,10 +198,6 @@ private[round] final class Round(
 
     case NoStart => handle { game =>
       game.timeBeforeExpiration.exists(_.centis == 0) ?? finisher.noStart(game)
-    }
-
-    case GetGame => fuccess {
-      sender ! proxy.game
     }
   }
 
@@ -251,16 +225,6 @@ private[round] final class Round(
         lag <- clock.lag(pov.color).lagMean
       } UserLagCache.put(user, lag)
     }
-
-  private def scheduleExpiration: Funit = proxy.game map {
-    case None => self ! PoisonPill
-    case Some(game) =>
-      game.timeBeforeExpiration foreach { centis =>
-        context.system.scheduler.scheduleOnce((centis.millis + 1000).millis) {
-          awakeWith(NoStart)
-        }
-      }
-  }
 
   private def handle[A](op: Game => Fu[Events]): Funit =
     handleGame(proxy.game)(op)
@@ -301,7 +265,7 @@ private[round] final class Round(
       if (events exists {
         case e: Event.Move => e.threefold
         case _ => false
-      }) self ! Threefold
+      }) this ! Threefold
     }
   }
 
@@ -327,8 +291,7 @@ object Round {
       drawer: Drawer,
       forecastApi: ForecastApi,
       socketHub: ActorRef,
-      moretimeDuration: FiniteDuration,
-      activeTtl: Duration
+      moretimeDuration: FiniteDuration
   )
 
   case class TakebackSituation(
