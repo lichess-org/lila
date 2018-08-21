@@ -24,7 +24,7 @@ private[round] final class Round(
 
   implicit val proxy = new GameProxy(gameId)
 
-  var takebackSituation = Round.TakebackSituation()
+  private[this] var takebackSituation = Round.TakebackSituation()
 
   val process: ReceiveAsync = {
 
@@ -39,13 +39,14 @@ private[round] final class Round(
       } >>- {
         p.trace.finish()
         lila.mon.round.move.full.count()
+        scheduleExpiration
       }
 
     case p: BotPlay =>
       handleBotPlay(p) { pov =>
         if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
         else player.bot(p, this)(pov)
-      }
+      } >>- scheduleExpiration
 
     case FishnetPlay(uci, currentFen) => handle { game =>
       player.fishnet(game, uci, currentFen, this)
@@ -201,7 +202,7 @@ private[round] final class Round(
     }
   }
 
-  private def giveMoretime(game: Game, colors: List[Color], duration: FiniteDuration): Progress =
+  private[this] def giveMoretime(game: Game, colors: List[Color], duration: FiniteDuration): Progress =
     game.clock.fold(Progress(game)) { clock =>
       val centis = duration.toCentis
       val newClock = colors.foldLeft(clock) {
@@ -215,7 +216,7 @@ private[round] final class Round(
       (game withClock newClock) ++ colors.map { Event.ClockInc(_, centis) }
     }
 
-  private def recordLag(pov: Pov) =
+  private[this] def recordLag(pov: Pov) =
     if ((pov.game.playedTurns & 30) == 10) {
       // Triggers every 32 moves starting on ply 10.
       // i.e. 10, 11, 42, 43, 74, 75, ...
@@ -226,40 +227,47 @@ private[round] final class Round(
       } UserLagCache.put(user, lag)
     }
 
-  private def handle[A](op: Game => Fu[Events]): Funit =
+  private def scheduleExpiration: Unit = proxy.game foreach {
+    _.flatMap(_.timeBeforeExpiration) foreach { centis =>
+      scheduler.scheduleOnce((centis.millis + 1000).millis) { this ! NoStart }
+    }
+  }
+  scheduleExpiration // schedule it right now
+
+  private[this] def handle[A](op: Game => Fu[Events]): Funit =
     handleGame(proxy.game)(op)
 
-  private def handle(playerId: String)(op: Pov => Fu[Events]): Funit =
+  private[this] def handle(playerId: String)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy playerPov playerId)(op)
 
-  private def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
+  private[this] def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
     handlePov {
       p.trace.segment("fetch", "db") {
         proxy playerPov p.playerId
       }
     }(op)
 
-  private def handleBotPlay(p: BotPlay)(op: Pov => Fu[Events]): Funit =
+  private[this] def handleBotPlay(p: BotPlay)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy playerPov p.playerId)(op)
 
-  private def handle(color: Color)(op: Pov => Fu[Events]): Funit =
+  private[this] def handle(color: Color)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy pov color)(op)
 
-  private def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit = publish {
+  private[this] def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit = publish {
     pov flatten "pov not found" flatMap { p =>
       if (p.player.isAi) fufail(s"player $p can't play AI") else op(p)
     }
   } recover errorHandler("handlePov")
 
-  private def handleAi(game: Fu[Option[Game]])(op: Pov => Fu[Events]): Funit = publish {
+  private[this] def handleAi(game: Fu[Option[Game]])(op: Pov => Fu[Events]): Funit = publish {
     game.map(_.flatMap(_.aiPov)) flatten "pov not found" flatMap op
   } recover errorHandler("handleAi")
 
-  private def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit = publish {
+  private[this] def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit = publish {
     game flatten "game not found" flatMap op
   } recover errorHandler("handleGame")
 
-  private def publish[A](op: Fu[Events]): Funit = op.map { events =>
+  private[this] def publish[A](op: Fu[Events]): Funit = op.map { events =>
     if (events.nonEmpty) {
       socketHub ! Tell(gameId, EventList(events))
       if (events exists {
@@ -269,7 +277,7 @@ private[round] final class Round(
     }
   }
 
-  private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
+  private[this] def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
     case e: ClientError =>
       logger.info(s"Round client error $name", e)
       lila.mon.round.error.client()
@@ -291,10 +299,11 @@ object Round {
       drawer: Drawer,
       forecastApi: ForecastApi,
       socketHub: ActorRef,
+      scheduler: Scheduler,
       moretimeDuration: FiniteDuration
   )
 
-  case class TakebackSituation(
+  private[round] case class TakebackSituation(
       nbDeclined: Int = 0,
       lastDeclined: Option[DateTime] = none
   ) {

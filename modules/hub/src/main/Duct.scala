@@ -47,10 +47,6 @@ trait Duct {
 
 object Duct {
 
-  type ActorLike = {
-    def !(msg: Any): Unit
-  }
-
   private val fallback = { msg: Any =>
     lila.log("Duct").warn(s"unhandled msg: $msg")
     funit

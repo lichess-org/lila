@@ -35,10 +35,7 @@ final class Env(
     asyncCache = asyncCache
   )
 
-  private val moveDb = new MoveDB(
-    roundMap = hub.actor.roundMap,
-    system = system
-  )
+  private val moveDb = new MoveDB(system = system)
 
   private val sequencer = new lila.hub.FutureSequencer(
     system = system,

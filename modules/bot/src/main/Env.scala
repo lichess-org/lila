@@ -17,10 +17,7 @@ final class Env(
     hub.socket.round
   )
 
-  lazy val player = new BotPlayer(
-    roundMap = hub.actor.roundMap,
-    chatActor = hub.actor.chat
-  )(system)
+  lazy val player = new BotPlayer(hub.actor.chat)(system)
 
   val form = BotForm
 }
