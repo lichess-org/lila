@@ -7,46 +7,46 @@ import org.joda.time.DateTime
 
 case class Analysed(game: Game, analysis: Analysis)
 
-case class Assessible(analysed: Analysed) {
+case class Assessible(analysed: Analysed, color: Color) {
   import Statistics._
   import analysed._
 
-  def suspiciousErrorRate(color: Color): Boolean =
+  def suspiciousErrorRate: Boolean =
     listAverage(Accuracy.diffsList(Pov(game, color), analysis)) < (game.speed match {
       case Speed.Bullet => 25
       case Speed.Blitz => 20
       case _ => 15
     })
 
-  def alwaysHasAdvantage(color: Color): Boolean =
+  def alwaysHasAdvantage: Boolean =
     !analysis.infos.exists { info =>
       info.cp.fold(info.mate.fold(false) { a => (a.signum == color.fold(-1, 1)) }) { cp =>
         color.fold(cp.centipawns < -100, cp.centipawns > 100)
       }
     }
 
-  def highBlurRate(color: Color): Boolean =
+  def highBlurRate: Boolean =
     !game.isSimul && game.playerBlurPercent(color) > 90
 
-  def moderateBlurRate(color: Color): Boolean =
+  def moderateBlurRate: Boolean =
     !game.isSimul && game.playerBlurPercent(color) > 70
 
-  def suspiciousHoldAlert(color: Color): Boolean =
+  def suspiciousHoldAlert: Boolean =
     game.player(color).hasSuspiciousHoldAlert
 
-  def highestChunkBlurs(color: Color): Float =
+  def highestChunkBlurs: Float =
     game.player(color).blurs match {
       case bits: lila.game.Blurs.Bits => bits.booleans.iterator.sliding(10).map(_.count(true==)).max
       case _ => 0
     }
 
-  def highChunkBlurRate(color: Color): Boolean =
-    highestChunkBlurs(color) >= 9
+  def highChunkBlurRate: Boolean =
+    highestChunkBlurs >= 9
 
-  def moderateChunkBlurRate(color: Color): Boolean =
-    highestChunkBlurs(color) >= 7
+  def moderateChunkBlurRate: Boolean =
+    highestChunkBlurs >= 7
 
-  def highlyConsistentMoveTimes(color: Color): Boolean =
+  def highlyConsistentMoveTimes: Boolean =
     if (game.clock.forall(_.estimateTotalSeconds > 60))
       moveTimeCoefVariation(Pov(game, color)) ?? { cvIndicatesHighlyFlatTimes(_) }
     else
@@ -54,7 +54,7 @@ case class Assessible(analysed: Analysed) {
 
   // moderatelyConsistentMoveTimes must stay in Statistics because it's used in classes that do not use Assessible
 
-  def highlyConsistentMoveTimeStreaks(color: Color): Boolean =
+  def highlyConsistentMoveTimeStreaks: Boolean =
     if (game.clock.forall(_.estimateTotalSeconds > 60))
       slidingMoveTimesCvs(Pov(game, color)) ?? {
         _ exists cvIndicatesHighlyFlatTimesForStreaks
@@ -62,28 +62,28 @@ case class Assessible(analysed: Analysed) {
     else
       false
 
-  def moderatelyConsistentMoveTimeStreaks(color: Color): Boolean =
+  def moderatelyConsistentMoveTimeStreaks: Boolean =
     slidingMoveTimesCvs(Pov(game, color)) ?? {
       _ exists cvIndicatesModeratelyFlatTimes
     }
 
-  def mkFlags(color: Color): PlayerFlags = PlayerFlags(
-    suspiciousErrorRate(color),
-    alwaysHasAdvantage(color),
-    highBlurRate(color) || highChunkBlurRate(color),
-    moderateBlurRate(color) || moderateChunkBlurRate(color),
-    highlyConsistentMoveTimes(color) || highlyConsistentMoveTimeStreaks(color),
-    moderatelyConsistentMoveTimes(Pov(game, color)) || moderatelyConsistentMoveTimeStreaks(color),
+  def mkFlags: PlayerFlags = PlayerFlags(
+    suspiciousErrorRate,
+    alwaysHasAdvantage,
+    highBlurRate || highChunkBlurRate,
+    moderateBlurRate || moderateChunkBlurRate,
+    highlyConsistentMoveTimes || highlyConsistentMoveTimeStreaks,
+    moderatelyConsistentMoveTimes(Pov(game, color)) || moderatelyConsistentMoveTimeStreaks,
     noFastMoves(Pov(game, color)),
-    suspiciousHoldAlert(color)
+    suspiciousHoldAlert
   )
 
   private val T = true
   private val F = false
 
-  private def rankCheating(color: Color): GameAssessment = {
+  private def rankCheating: GameAssessment = {
     import GameAssessment._
-    val flags = mkFlags(color)
+    val flags = mkFlags
     val assessment = flags match {
       //               SF1 SF2 BLR1 BLR2 HCMT MCMT NFM Holds
       case PlayerFlags(T, T, T, T, T, T, T, T) => Cheating // all T, obvious cheat
@@ -114,28 +114,28 @@ case class Assessible(analysed: Analysed) {
     else assessment
   }
 
-  def sfAvg(color: Color): Int = listAverage(Accuracy.diffsList(Pov(game, color), analysis)).toInt
-  def sfSd(color: Color): Int = listDeviation(Accuracy.diffsList(Pov(game, color), analysis)).toInt
-  def mtAvg(color: Color): Int = listAverage(~game.moveTimes(color) map (_.roundTenths)).toInt
-  def mtSd(color: Color): Int = listDeviation(~game.moveTimes(color) map (_.roundTenths)).toInt
-  def blurs(color: Color): Int = game.playerBlurPercent(color)
-  def hold(color: Color): Boolean = game.player(color).hasSuspiciousHoldAlert
+  def sfAvg: Int = listAverage(Accuracy.diffsList(Pov(game, color), analysis)).toInt
+  def sfSd: Int = listDeviation(Accuracy.diffsList(Pov(game, color), analysis)).toInt
+  def mtAvg: Int = listAverage(~game.moveTimes(color) map (_.roundTenths)).toInt
+  def mtSd: Int = listDeviation(~game.moveTimes(color) map (_.roundTenths)).toInt
+  def blurs: Int = game.playerBlurPercent(color)
+  def hold: Boolean = game.player(color).hasSuspiciousHoldAlert
 
-  def playerAssessment(color: Color): PlayerAssessment =
+  def playerAssessment: PlayerAssessment =
     PlayerAssessment(
       _id = game.id + "/" + color.name,
       gameId = game.id,
       userId = ~game.player(color).userId,
       white = (color == Color.White),
-      assessment = rankCheating(color),
+      assessment = rankCheating,
       date = DateTime.now,
       // meta
-      flags = mkFlags(color),
-      sfAvg = sfAvg(color),
-      sfSd = sfSd(color),
-      mtAvg = mtAvg(color),
-      mtSd = mtSd(color),
-      blurs = blurs(color),
-      hold = hold(color)
+      flags = mkFlags,
+      sfAvg = sfAvg,
+      sfSd = sfSd,
+      mtAvg = mtAvg,
+      mtSd = mtSd,
+      blurs = blurs,
+      hold = hold
     )
 }

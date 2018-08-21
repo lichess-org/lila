@@ -96,9 +96,10 @@ final class AssessApi(
       else if (game.createdAt isBefore bottomDate) false
       else true
     shouldAssess.?? {
-      val assessible = Assessible(Analysed(game, analysis))
-      createPlayerAssessment(assessible playerAssessment chess.White) >>
-        createPlayerAssessment(assessible playerAssessment chess.Black)
+      val assessibleWhite = Assessible(Analysed(game, analysis), chess.White)
+      val assessibleBlack = Assessible(Analysed(game, analysis), chess.Black)
+      createPlayerAssessment(assessibleWhite playerAssessment) >>
+        createPlayerAssessment(assessibleBlack playerAssessment)
     } >> ((shouldAssess && thenAssessUser) ?? {
       game.whitePlayer.userId.??(assessUser) >> game.blackPlayer.userId.??(assessUser)
     })
