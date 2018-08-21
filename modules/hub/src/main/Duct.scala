@@ -17,10 +17,15 @@ trait Duct {
   protected val process: ReceiveAsync
 
   def !(msg: Any): Unit = atomic { implicit txn =>
-    current.transform(_ >> process.applyOrElse(msg, Duct.fallback))
+    current.transform(_ >> run(msg))
   }
 
   private[this] val current: Ref[Fu[Any]] = Ref(funit)
+
+  private[this] def run(msg: Any) =
+    process.applyOrElse(msg, Duct.fallback).recover {
+      case _ => ()
+    }
 }
 
 object Duct {
