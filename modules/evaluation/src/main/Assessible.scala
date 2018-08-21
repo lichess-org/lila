@@ -34,7 +34,7 @@ case class Assessible(analysed: Analysed, color: Color) {
   lazy val suspiciousHoldAlert: Boolean =
     game.player(color).hasSuspiciousHoldAlert
 
-  lazy val highestChunkBlurs: Float =
+  lazy val highestChunkBlurs: Int =
     game.player(color).blurs match {
       case bits: lila.game.Blurs.Bits => bits.booleans.iterator.sliding(10).map(_.count(true==)).max
       case _ => 0
@@ -136,6 +136,8 @@ case class Assessible(analysed: Analysed, color: Color) {
       mtAvg = mtAvg,
       mtSd = mtSd,
       blurs = blurs,
-      hold = hold
+      hold = hold,
+      blurStreak = highestChunkBlurs,
+      mtStreak = highlyConsistentMoveTimeStreaks
     )
 }
