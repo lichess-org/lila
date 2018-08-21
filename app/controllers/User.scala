@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -273,15 +274,28 @@ object User extends LilaController {
     }
 
   def writeNote(username: String) = AuthBody { implicit ctx => me =>
-    OptionFuResult(UserRepo named username) { user =>
-      implicit val req = ctx.body
-      env.forms.note.bindFromRequest.fold(
-        err => renderShow(user, Results.BadRequest),
-        data => env.noteApi.write(user, data.text, me, data.mod && isGranted(_.ModNote)) inject
-          Redirect(routes.User.show(username).url + "?note")
-      )
-    }
+    doWriteNote(username, me)(
+      err = _ => user => renderShow(user, Results.BadRequest),
+      suc = Redirect(routes.User.show(username).url + "?note")
+    )(ctx.body)
   }
+
+  def apiWriteNote(username: String) = ScopedBody() { implicit req => me =>
+    doWriteNote(username, me)(
+      err = err => _ => fuccess(BadRequest(errorsAsJson(err))),
+      suc = jsonOkResult
+    )
+  }
+
+  private def doWriteNote(username: String, me: UserModel)(err: Form[_] => UserModel => Fu[Result], suc: => Result)(implicit req: Request[_]) =
+    UserRepo named username flatMap {
+      _ ?? { user =>
+        env.forms.note.bindFromRequest.fold(
+          e => err(e)(user),
+          data => env.noteApi.write(user, data.text, me, data.mod && isGranted(_.ModNote, me)) inject suc
+        )
+      }
+    }
 
   def deleteNote(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.noteApi.byId(id)) { note =>
