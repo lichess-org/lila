@@ -40,7 +40,7 @@ trait Duct {
         case None => state.copy(busy = false)
         case Some((msg, newQueue)) =>
           Txn.afterCommit { _ => run(msg) }
-          state.copy(busy = true, queue = newQueue)
+          State(true, newQueue)
       }
     }
   }
