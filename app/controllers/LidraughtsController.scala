@@ -466,7 +466,7 @@ private[controllers] trait LidraughtsController
     ) andThen (__ \ "").json.prune
   }
 
-  protected def errorsAsJson(form: play.api.data.Form[_])(implicit lang: play.api.i18n.Lang) = {
+  protected def errorsAsJson(form: Form[_])(implicit lang: play.api.i18n.Lang) = {
     val json = Json.toJson(
       form.errors.groupBy(_.key).mapValues { errors =>
         errors.map(e => lidraughts.i18n.Translator.txt.literal(e.message, lidraughts.i18n.I18nDb.Site, e.args, lang))
@@ -474,6 +474,12 @@ private[controllers] trait LidraughtsController
     )
     json validate jsonGlobalErrorRenamer getOrElse json
   }
+
+  protected def jsonFormError(err: Form[_])(implicit lang: play.api.i18n.Lang) =
+    fuccess(BadRequest(errorsAsJson(err)))
+
+  protected def pageHit(implicit ctx: lidraughts.api.Context) =
+    if (HTTPRequest isHuman ctx.req) lidraughts.mon.http.request.path(ctx.req.path)()
 
   protected val pdnContentType = "application/x-draughts-pdn"
   protected val ndJsonContentType = "application/x-ndjson"

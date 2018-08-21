@@ -134,7 +134,7 @@ object UserAnalysis extends LidraughtsController with TheftPrevention {
   def pdn = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     Env.importer.forms.importForm.bindFromRequest.fold(
-      failure => BadRequest(errorsAsJson(failure)).fuccess,
+      jsonFormError,
       data => Env.importer.importer.inMemory(data).fold(
         err => BadRequest(jsonError(err.shows)).fuccess, {
           case (game, fen) =>

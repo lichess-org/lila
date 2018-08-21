@@ -272,7 +272,7 @@ object Study extends LidraughtsController {
   def importPdn(id: String) = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
     lidraughts.study.DataForm.importPdn.form.bindFromRequest.fold(
-      err => BadRequest(errorsAsJson(err)).fuccess,
+      jsonFormError,
       data => env.api.importPdns(me, StudyModel.Id(id), data.toChapterDatas, sticky = data.sticky)
     )
   }

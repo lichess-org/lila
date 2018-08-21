@@ -247,7 +247,7 @@ object Tournament extends LidraughtsController {
 
   private def doApiCreate(me: lidraughts.user.User, teams: TeamIdsWithNames)(implicit req: Request[_]): Fu[Result] =
     env.forms(me).bindFromRequest.fold(
-      err => BadRequest(errorsAsJson(err)).fuccess,
+      jsonFormError,
       setup => env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
         Env.tournament.jsonView(tour, none, none, getUserTeamIds, none, none, lidraughts.i18n.defaultLang)
       } map { Ok(_) }

@@ -112,7 +112,7 @@ object Message extends LidraughtsController {
             }
           ),
           api = _ => forms.thread(me).bindFromRequest.fold(
-            err => fuccess(BadRequest(errorsAsJson(err))),
+            jsonFormError,
             data => api.makeThread(data, me) map { thread =>
               Ok(Json.obj("ok" -> true, "id" -> thread.id))
             }

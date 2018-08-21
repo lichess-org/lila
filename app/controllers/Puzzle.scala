@@ -146,7 +146,7 @@ object Puzzle extends LidraughtsController {
         if (puzzle.mate) lidraughts.mon.puzzle.round.mate()
         else lidraughts.mon.puzzle.round.material()
         env.forms.round.bindFromRequest.fold(
-          err => fuccess(BadRequest(errorsAsJson(err))),
+          jsonFormError,
           resultInt => ctx.me match {
             case Some(me) => for {
               (round, mode) <- env.finisher(puzzle, me, Result(resultInt == 1))
@@ -184,7 +184,7 @@ object Puzzle extends LidraughtsController {
     NoBot {
       implicit val req = ctx.body
       env.forms.vote.bindFromRequest.fold(
-        err => fuccess(BadRequest(errorsAsJson(err))),
+        jsonFormError,
         vote => env.api.vote.find(id, variant, me) flatMap {
           v => env.api.vote.update(id, variant, me, v, vote == 1)
         } map {
