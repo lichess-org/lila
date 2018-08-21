@@ -534,6 +534,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="troll">Provoceren</string>
   <string name="other">Anders</string>
   <string name="reportDescriptionHelp">Plak de link naar de partij(en) en leg uit wat er mis is met het gedrag van de gebruiker. Zeg niet alleen 'speelt vals', maar vertel ons ook hoe je tot deze conclusie bent gekomen. Je rapportage zal sneller worden verwerkt als deze in het Engels is geschreven.</string>
+  <string name="error.provideOneCheatedGameLink">Voeg ten minste één link toe naar een partij waarin is valsgespeeld.</string>
   <string name="by">door %s</string>
   <string name="thisTopicIsNowClosed">Dit topic is nu gesloten.</string>
   <string name="theming">Thema</string>
