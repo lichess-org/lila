@@ -40,7 +40,6 @@ final class Env(
     securityApi,
     isOnline,
     asyncCache,
-    system.lilaBus,
     scoreThreshold = scoreThresholdSetting.get
   )
 
