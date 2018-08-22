@@ -41,6 +41,7 @@ object Dependencies {
   val guava = "com.google.guava" % "guava" % "21.0"
   val specs2 = "org.specs2" %% "specs2-core" % "4.0.2" % "test"
   val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % "4.0.2" % "test"
+  val stm = "org.scala-stm" %% "scala-stm" % "0.8"
 
   object reactivemongo {
     val version = "0.12.3"

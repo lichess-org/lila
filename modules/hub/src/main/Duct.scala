@@ -31,8 +31,8 @@ trait Duct {
 
   private[this] val stateRef = Ref(State(false, Queue.empty))
 
-  private[this] def run(msg: Any): Fu[Any] =
-    process.applyOrElse(msg, Duct.fallback) addEffectAnyway postRun
+  private[this] def run(msg: Any): Unit =
+    process.applyOrElse(msg, Duct.fallback) onComplete { _ => postRun }
 
   private[this] def postRun = atomic { implicit txn =>
     stateRef.transform { state =>
