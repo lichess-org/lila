@@ -24,9 +24,7 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
-    relationApi: lila.relation.RelationApi,
     noteApi: lila.user.NoteApi,
-    userJson: lila.user.JsonView,
     asyncCache: lila.memo.AsyncCache.Builder,
     emailValidator: lila.security.EmailAddressValidator
 ) {
@@ -42,8 +40,6 @@ final class Env(
     val RatioGamesToMark = config getDouble "boosting.ratio_games_to_mark"
   }
   import settings._
-
-  val ApiKey = config getString "api.key"
 
   private[mod] lazy val logColl = db(CollectionModlog)
 
@@ -101,13 +97,6 @@ final class Env(
     emailValidator = emailValidator
   )
 
-  lazy val jsonView = new JsonView(
-    assessApi = assessApi,
-    relationApi = relationApi,
-    reportApi = reportApi,
-    userJson = userJson
-  )
-
   lazy val inquiryApi = new InquiryApi(reportApi, noteApi, logApi)
 
   lazy val cheatList = new CheatList(db(CollectionCheatList))
@@ -161,9 +150,7 @@ object Env {
     notifyApi = lila.notify.Env.current.api,
     historyApi = lila.history.Env.current.api,
     rankingApi = lila.user.Env.current.rankingApi,
-    relationApi = lila.relation.Env.current.api,
     noteApi = lila.user.Env.current.noteApi,
-    userJson = lila.user.Env.current.jsonView,
     asyncCache = lila.memo.Env.current.asyncCache,
     emailValidator = lila.security.Env.current.emailAddressValidator
   )

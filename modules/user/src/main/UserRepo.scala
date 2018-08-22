@@ -395,13 +395,6 @@ object UserRepo {
         _ flatMap { _.getAs[Int](F.toints) }
       }.map(~_)
 
-  def filterByEngine(userIds: Iterable[User.ID]): Fu[Set[User.ID]] =
-    coll.distinctWithReadPreference[String, Set](
-      F.id,
-      Some($inIds(userIds) ++ engineSelect(true)),
-      ReadPreference.secondaryPreferred
-    )
-
   def filterByEnabledPatrons(userIds: List[User.ID]): Fu[Set[User.ID]] =
     coll.distinct[String, Set](F.id, Some($inIds(userIds) ++ enabledSelect ++ patronSelect))
 

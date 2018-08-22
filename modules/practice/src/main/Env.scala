@@ -22,12 +22,9 @@ final class Env(
     bus = system.lilaBus
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    import lila.study.actorApi._
-    def receive = {
-      case SaveStudy(study) => api.structure onSave study
-    }
-  })), 'study)
+  system.lilaBus.subscribeFun('study) {
+    case lila.study.actorApi.SaveStudy(study) => api.structure onSave study
+  }
 }
 
 object Env {

@@ -1,11 +1,11 @@
 package lila.team
 
-import com.typesafe.config.Config
 import akka.actor._
+import com.typesafe.config.Config
 
+import lila.common.MaxPerPage
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
-import lila.common.MaxPerPage
 
 final class Env(
     config: Config,
@@ -58,11 +58,9 @@ final class Env(
 
   private lazy val notifier = new Notifier(notifyApi = notifyApi)
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
-    }
-  })), 'shadowban)
+  system.lilaBus.subscribeFun('shadowban) {
+    case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
+  }
 }
 
 object Env {

@@ -44,11 +44,9 @@ final class Env(
     indexer = indexer
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.analyse.actorApi.AnalysisReady(game, _) => api updateGame game
-    }
-  })), 'analysisReady)
+  system.lilaBus.subscribeFun('analysisReady) {
+    case lila.analyse.actorApi.AnalysisReady(game, _) => api updateGame game
+  }
 }
 
 object Env {

@@ -430,4 +430,16 @@ object GameRepo {
     ).sort(Query.sortCreated)
       .cursor[Game](ReadPreference.secondaryPreferred)
       .list(nb)
+
+  def recentStandardAnalysedGamesByUserId(userId: User.ID, nb: Int) =
+    coll.find(
+      Query.finished
+        ++ Query.variantStandard
+        ++ Query.rated
+        ++ Query.analysed(true)
+        ++ Query.user(userId)
+        ++ Query.turnsGt(20)
+    ).sort(Query.sortCreated)
+      .cursor[Game](ReadPreference.secondaryPreferred)
+      .list(nb)
 }
