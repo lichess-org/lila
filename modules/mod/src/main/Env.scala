@@ -43,8 +43,6 @@ final class Env(
   }
   import settings._
 
-  val ApiKey = config getString "api.key"
-
   private[mod] lazy val logColl = db(CollectionModlog)
 
   lazy val logApi = new ModlogApi(logColl)

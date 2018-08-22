@@ -297,13 +297,6 @@ final class ReportApi(
       }
   }
 
-  def currentlyReportedForCheat: Fu[Set[User.ID]] =
-    coll.distinctWithReadPreference[User.ID, Set](
-      "user",
-      Some($doc("reason" -> Reason.Cheat.key) ++ openSelect),
-      ReadPreference.secondaryPreferred
-    )
-
   private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] = (nb > 0) ?? {
     coll.find(selector).sort(sortLastAtomAt).list[Report](nb)
   }
