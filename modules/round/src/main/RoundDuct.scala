@@ -22,9 +22,11 @@ private[round] final class Round(
 
   import dependencies._
 
-  implicit val proxy = new GameProxy(gameId)
+  private[this] implicit val proxy = new GameProxy(gameId)
 
   private[this] var takebackSituation = Round.TakebackSituation()
+
+  def game: Fu[Option[Game]] = proxy.game
 
   val process: ReceiveAsync = {
 
@@ -227,7 +229,7 @@ private[round] final class Round(
       } UserLagCache.put(user, lag)
     }
 
-  private def scheduleExpiration: Unit = proxy.game foreach {
+  private[this] def scheduleExpiration: Unit = proxy.game foreach {
     _.flatMap(_.timeBeforeExpiration) foreach { centis =>
       scheduler.scheduleOnce((centis.millis + 1000).millis) { this ! NoStart }
     }

@@ -23,6 +23,8 @@ final class DuctMap[D <: Duct](
 
   def size: Int = ducts.estimatedSize().toInt
 
+  def kill(id: String): Unit = ducts invalidate id
+
   private[this] val ducts: Cache[String, D] = Scaffeine()
     .expireAfterAccess(accessTimeout)
     .build[String, D]()

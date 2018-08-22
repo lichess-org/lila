@@ -88,13 +88,14 @@ final class Env(
   private var nbRounds = 0
   def count = nbRounds
 
-  system.scheduler.schedule(5 seconds, 2.1 seconds) {
+  system.scheduler.schedule(5 seconds, 2 seconds) {
     nbRounds = roundMap.size
     bus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
   }
 
   def roundProxyGame(gameId: Game.ID): Fu[Option[Game]] =
-    roundMap.getOrMake(gameId).proxy.game.mon(_.round.proxyGameWatcherTime) addEffect { g =>
+    roundMap.getOrMake(gameId).game.mon(_.round.proxyGameWatcherTime) addEffect { g =>
+      if (!g.isDefined) roundMap kill gameId.pp("kill")
       lila.mon.round.proxyGameWatcherCount(g.isDefined.toString)()
     }
 
