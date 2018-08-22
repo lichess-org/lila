@@ -35,11 +35,9 @@ final class Env(
     text = "Explorer: index new games as soon as they complete".some
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted && indexFlowSetting.get() => indexer(game)
-    }
-  })), 'finishGame)
+  system.lilaBus.subscribeFun('finishGame) {
+    case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted && indexFlowSetting.get() => indexer(game)
+  }
 }
 
 object Env {

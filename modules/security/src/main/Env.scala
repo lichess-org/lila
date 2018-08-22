@@ -1,7 +1,7 @@
 package lila.security
 
-import lila.oauth.OAuthServer
 import lila.common.EmailAddress
+import lila.oauth.OAuthServer
 
 import akka.actor._
 import com.typesafe.config.Config
@@ -174,12 +174,9 @@ final class Env(
 
   def cli = new Cli
 
-  // api actor
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.fishnet.NewKey(userId, key) => automaticEmail.onFishnetKey(userId, key)
-    }
-  })), 'fishnet)
+  system.lilaBus.subscribeFun('fishnet) {
+    case lila.hub.actorApi.fishnet.NewKey(userId, key) => automaticEmail.onFishnetKey(userId, key)
+  }
 
   private[security] lazy val storeColl = db(CollectionSecurity)
   private[security] lazy val firewallColl = db(FirewallCollectionFirewall)

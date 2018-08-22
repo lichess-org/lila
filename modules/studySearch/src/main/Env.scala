@@ -5,8 +5,8 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lila.common.paginator._
-import lila.hub.LateMultiThrottler
 import lila.hub.actorApi.study.RemoveStudy
+import lila.hub.LateMultiThrottler
 import lila.search._
 import lila.study.Study
 import lila.user.User
@@ -53,13 +53,10 @@ final class Env(
     }
   }
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    import lila.study.actorApi._
-    def receive = {
-      case SaveStudy(study) => api store study
-      case RemoveStudy(id, _) => client deleteById Id(id)
-    }
-  })), 'study)
+  system.lilaBus.subscribeFun('study) {
+    case lila.study.actorApi.SaveStudy(study) => api store study
+    case RemoveStudy(id, _) => client deleteById Id(id)
+  }
 }
 
 object Env {

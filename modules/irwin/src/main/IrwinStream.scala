@@ -8,6 +8,8 @@ import lila.report.ModId
 
 final class IrwinStream(system: ActorSystem) {
 
+  import lila.common.HttpStream._
+
   private val stringify =
     Enumeratee.map[JsValue].apply[String] { js =>
       Json.stringify(js) + "\n"
@@ -24,20 +26,12 @@ final class IrwinStream(system: ActorSystem) {
             "user" -> userId
           )
         }
-        val actor = system.actorOf(Props(new Actor {
-          def receive = {
-            case request: IrwinRequest =>
-              push("request", request.suspect.value, Json.obj("origin" -> request.origin.key))
-          }
-        }))
-        system.lilaBus.subscribe(actor, 'irwin)
+        stream = system.lilaBus.subscribeFun('irwin) {
+          case request: IrwinRequest =>
+            push("request", request.suspect.value, Json.obj("origin" -> request.origin.key))
+        } some
       },
-      onComplete = {
-        stream.foreach { actor =>
-          system.lilaBus.unsubscribe(actor)
-          actor ! PoisonPill
-        }
-      }
+      onComplete = onComplete(stream, system)
     ) &> stringify
   }
 }
