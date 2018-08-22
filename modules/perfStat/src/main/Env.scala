@@ -36,14 +36,12 @@ final class Env(
       indexer.userPerf(user, perfType) >> storage.find(user.id, perfType)
     } map (_ | PerfStat.init(user.id, perfType))
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted =>
-        indexer addGame game addFailureEffect { e =>
-          lila.log("perfStat").error(s"index game ${game.id}", e)
-        }
-    }
-  })), 'finishGame)
+  system.lilaBus.subscribeFun('finishGame) {
+    case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted =>
+      indexer addGame game addFailureEffect { e =>
+        lila.log("perfStat").error(s"index game ${game.id}", e)
+      }
+  }
 }
 
 object Env {

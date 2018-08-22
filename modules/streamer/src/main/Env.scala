@@ -52,14 +52,10 @@ final class Env(
 
   lazy val liveStreamApi = new LiveStreamApi(asyncCache, streamingActor)
 
-  system.lilaBus.subscribe(
-    system.actorOf(Props(new Actor {
-      def receive = {
-        case lila.user.User.Active(user) if !user.seenRecently => api setSeenAt user
-        case lila.hub.actorApi.mod.MarkCheater(userId, true) => api demote userId
-      }
-    })), 'userActive, 'adjustCheater
-  )
+  system.lilaBus.subscribeFun('userActive, 'adjustCheater) {
+    case lila.user.User.Active(user) if !user.seenRecently => api setSeenAt user
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) => api demote userId
+  }
 }
 
 object Env {

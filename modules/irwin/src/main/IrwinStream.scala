@@ -8,6 +8,8 @@ import lila.report.ModId
 
 final class IrwinStream(system: ActorSystem) {
 
+  import lila.common.HttpStream._
+
   private val stringify =
     Enumeratee.map[JsValue].apply[String] { js =>
       Json.stringify(js) + "\n"
@@ -24,28 +26,12 @@ final class IrwinStream(system: ActorSystem) {
             "user" -> userId
           )
         }
-        val actor = system.actorOf(Props(new Actor {
-          def receive = {
-            case request: IrwinRequest =>
-              push("request", request.suspect.value, Json.obj("origin" -> request.origin.key))
-            case lila.hub.actorApi.report.Created(userId, "cheat" | "cheatprint", by) if by != ModId.irwin.value =>
-              push("reportCreated", userId, Json.obj())
-            case lila.hub.actorApi.report.Processed(userId, "cheat" | "cheatprint") =>
-              lila.user.UserRepo.isEngine(userId) foreach { marked =>
-                push("reportProcessed", userId, Json.obj("marked" -> marked))
-              }
-            case lila.hub.actorApi.mod.MarkCheater(userId, value) =>
-              push("mark", userId, Json.obj("marked" -> value))
-          }
-        }))
-        system.lilaBus.subscribe(actor, 'report, 'adjustCheater, 'irwin)
+        stream = system.lilaBus.subscribeFun('irwin) {
+          case request: IrwinRequest =>
+            push("request", request.suspect.value, Json.obj("origin" -> request.origin.key))
+        } some
       },
-      onComplete = {
-        stream.foreach { actor =>
-          system.lilaBus.unsubscribe(actor)
-          actor ! PoisonPill
-        }
-      }
+      onComplete = onComplete(stream, system)
     ) &> stringify
   }
 }

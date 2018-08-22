@@ -27,15 +27,13 @@ final class Env(
     defaultChannel = IncomingDefaultChannel
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case d: ChargeEvent => api charge d
-      case DeployPre => api.deployPre
-      case DeployPost => api.deployPost
-      case Note(from, to, text, true) if from != "Irwin" => api.userModNote(from, to, text)
-      case e: Event => api publishEvent e
-    }
-  })), 'deploy, 'slack, 'plan, 'userNote)
+  system.lilaBus.subscribeFun('deploy, 'slack, 'plan, 'userNote) {
+    case d: ChargeEvent => api charge d
+    case DeployPre => api.deployPre
+    case DeployPost => api.deployPost
+    case Note(from, to, text, true) if from != "Irwin" => api.userModNote(from, to, text)
+    case e: Event => api publishEvent e
+  }
 }
 
 object Env {

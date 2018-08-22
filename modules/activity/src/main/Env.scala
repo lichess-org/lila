@@ -42,29 +42,26 @@ final class Env(
     getTeamName = getTeamName
   )
 
-  system.lilaBus.subscribe(
-    system.actorOf(Props(new Actor {
-      def receive = {
-        case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => write game game
-        case lila.forum.actorApi.CreatePost(post, topic) if !topic.isStaff => write.forumPost(post, topic)
-        case res: lila.puzzle.Puzzle.UserResult => write puzzle res
-        case prog: lila.practice.PracticeProgress.OnComplete => write practice prog
-        case lila.simul.Simul.OnStart(simul) => write simul simul
-        case CorresMoveEvent(move, Some(userId), _, _, false) => write.corresMove(move.gameId, userId)
-        case lila.hub.actorApi.plan.MonthInc(userId, months) => write.plan(userId, months)
-        case lila.hub.actorApi.relation.Follow(from, to) => write.follow(from, to)
-        case lila.study.actorApi.StartStudy(id) =>
-          // wait some time in case the study turns private
-          system.scheduler.scheduleOnce(5 minutes) { write study id }
-        case lila.hub.actorApi.team.CreateTeam(id, _, userId) => write.team(id, userId)
-        case lila.hub.actorApi.team.JoinTeam(id, userId) => write.team(id, userId)
-        case lila.hub.actorApi.streamer.StreamStart(userId) => write.streamStart(userId)
-        case lila.user.User.GDPRErase(user) => write erase user
-      }
-    })),
+  system.lilaBus.subscribeFun(
     'finishGame, 'forumPost, 'finishPuzzle, 'finishPractice, 'team,
     'startSimul, 'moveEventCorres, 'plan, 'relation, 'startStudy, 'streamStart
-  )
+  ) {
+      case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => write game game
+      case lila.forum.actorApi.CreatePost(post, topic) if !topic.isStaff => write.forumPost(post, topic)
+      case res: lila.puzzle.Puzzle.UserResult => write puzzle res
+      case prog: lila.practice.PracticeProgress.OnComplete => write practice prog
+      case lila.simul.Simul.OnStart(simul) => write simul simul
+      case CorresMoveEvent(move, Some(userId), _, _, false) => write.corresMove(move.gameId, userId)
+      case lila.hub.actorApi.plan.MonthInc(userId, months) => write.plan(userId, months)
+      case lila.hub.actorApi.relation.Follow(from, to) => write.follow(from, to)
+      case lila.study.actorApi.StartStudy(id) =>
+        // wait some time in case the study turns private
+        system.scheduler.scheduleOnce(5 minutes) { write study id }
+      case lila.hub.actorApi.team.CreateTeam(id, _, userId) => write.team(id, userId)
+      case lila.hub.actorApi.team.JoinTeam(id, userId) => write.team(id, userId)
+      case lila.hub.actorApi.streamer.StreamStart(userId) => write.streamStart(userId)
+      case lila.user.User.GDPRErase(user) => write erase user
+    }
 }
 
 object Env {

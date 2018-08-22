@@ -54,12 +54,10 @@ final class Env(
     api.autoStart >> api.autoFinishNotSyncing
   }
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.study.actorApi.StudyLikes(id, likes) => api.setLikes(Relay.Id(id.value), likes)
-      case lila.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId)
-    }
-  })), 'studyLikes, 'study)
+  system.lilaBus.subscribeFun('studyLikes, 'study) {
+    case lila.study.actorApi.StudyLikes(id, likes) => api.setLikes(Relay.Id(id.value), likes)
+    case lila.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId)
+  }
 }
 
 object Env {

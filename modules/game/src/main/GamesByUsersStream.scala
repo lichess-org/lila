@@ -23,14 +23,10 @@ final class GamesByUsersStream(system: ActorSystem) {
 
     val enumerator = Concurrent.unicast[Game](
       onStart = channel => {
-        val actor = system.actorOf(Props(new Actor {
-          def receive = {
-            case StartGame(game) if matches(game) => channel push game
-            case FinishGame(game, _, _) if matches(game) => channel push game
-          }
-        }))
-        system.lilaBus.subscribe(actor, 'startGame, 'finishGame)
-        stream = actor.some
+        stream = system.lilaBus.subscribeFun('startGame, 'finishGame) {
+          case StartGame(game) if matches(game) => channel push game
+          case FinishGame(game, _, _) if matches(game) => channel push game
+        } some
       },
       onComplete = onComplete(stream, system)
     )

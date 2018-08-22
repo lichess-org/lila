@@ -30,23 +30,18 @@ final class Env(
 
   lazy val pager = new CoachPager(coachColl)
 
-  system.lilaBus.subscribe(
-    system.actorOf(Props(new Actor {
-      def receive = {
-        case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-          api.toggleApproved(userId, true)
-          api.reviews deleteAllBy userId
-        case lila.user.User.Active(user) if !user.seenRecently => api setSeenAt user
-        case lila.game.actorApi.FinishGame(game, white, black) if game.rated =>
-          if (game.perfType.exists(lila.rating.PerfType.standard.contains)) {
-            white ?? api.setRating
-            black ?? api.setRating
-          }
-        case lila.user.User.GDPRErase(user) => api.reviews deleteAllBy user.id
+  system.lilaBus.subscribeFun('adjustCheater, 'userActive, 'finishGame) {
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+      api.toggleApproved(userId, true)
+      api.reviews deleteAllBy userId
+    case lila.user.User.Active(user) if !user.seenRecently => api setSeenAt user
+    case lila.game.actorApi.FinishGame(game, white, black) if game.rated =>
+      if (game.perfType.exists(lila.rating.PerfType.standard.contains)) {
+        white ?? api.setRating
+        black ?? api.setRating
       }
-    })),
-    'adjustCheater, 'userActive, 'finishGame
-  )
+    case lila.user.User.GDPRErase(user) => api.reviews deleteAllBy user.id
+  }
 
   def cli = new lila.common.Cli {
     def process = {

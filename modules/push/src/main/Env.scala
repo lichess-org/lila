@@ -36,18 +36,16 @@ final class Env(
     scheduler = scheduler
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game
-      case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable => pushApi move move
-      case lila.hub.actorApi.round.CorresTakebackOfferEvent(gameId) => pushApi takebackOffer gameId
-      case lila.hub.actorApi.round.CorresDrawOfferEvent(gameId) => pushApi drawOffer gameId
-      case lila.message.Event.NewMessage(t, p) => pushApi newMessage (t, p)
-      case lila.challenge.Event.Create(c) => pushApi challengeCreate c
-      case lila.challenge.Event.Accept(c, joinerId) => pushApi.challengeAccept(c, joinerId)
-      case lila.game.actorApi.CorresAlarmEvent(pov) => pushApi corresAlarm pov
-    }
-  })), 'finishGame, 'moveEventCorres, 'newMessage, 'challenge, 'corresAlarm, 'offerEventCorres)
+  system.lilaBus.subscribeFun('finishGame, 'moveEventCorres, 'newMessage, 'challenge, 'corresAlarm, 'offerEventCorres) {
+    case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game
+    case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable => pushApi move move
+    case lila.hub.actorApi.round.CorresTakebackOfferEvent(gameId) => pushApi takebackOffer gameId
+    case lila.hub.actorApi.round.CorresDrawOfferEvent(gameId) => pushApi drawOffer gameId
+    case lila.message.Event.NewMessage(t, p) => pushApi newMessage (t, p)
+    case lila.challenge.Event.Create(c) => pushApi challengeCreate c
+    case lila.challenge.Event.Accept(c, joinerId) => pushApi.challengeAccept(c, joinerId)
+    case lila.game.actorApi.CorresAlarmEvent(pov) => pushApi corresAlarm pov
+  }
 }
 
 object Env {
