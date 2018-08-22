@@ -3,10 +3,10 @@ package lidraughts.round
 import akka.actor._
 import akka.pattern.ask
 import org.joda.time.DateTime
-
+import ornicar.scalalib.Zero
 import scala.concurrent.duration._
-import actorApi._
-import round._
+
+import actorApi._, round._
 import draughts.{ Color, Pos }
 import draughts.format.Uci
 import lidraughts.game.{ Event, Game, Pov, Progress }
@@ -22,11 +22,12 @@ private[round] final class Round(
     gameId: Game.ID
 ) extends Duct {
 
+  import Round._
   import dependencies._
 
   private[this] implicit val proxy = new GameProxy(gameId)
 
-  private[this] var takebackSituation = Round.TakebackSituation()
+  private[this] var takebackSituation: Option[Round.TakebackSituation] = None
 
   def game: Fu[Option[Game]] = proxy.game
 
@@ -177,16 +178,16 @@ private[round] final class Round(
     case RematchNo(playerRef) => handle(playerRef)(rematcher.no)
 
     case TakebackYes(playerRef) => handle(playerRef) { pov =>
-      takebacker.yes(takebackSituation)(pov) map {
+      takebacker.yes(~takebackSituation)(pov) map {
         case (events, situation) =>
-          takebackSituation = situation
+          takebackSituation = situation.some
           events
       }
     }
     case TakebackNo(playerRef) => handle(playerRef) { pov =>
-      takebacker.no(takebackSituation)(pov) map {
+      takebacker.no(~takebackSituation)(pov) map {
         case (events, situation) =>
-          takebackSituation = situation
+          takebackSituation = situation.some
           events
       }
     }
@@ -339,10 +340,7 @@ object Round {
       moretimeDuration: FiniteDuration
   )
 
-  private[round] case class TakebackSituation(
-      nbDeclined: Int = 0,
-      lastDeclined: Option[DateTime] = none
-  ) {
+  private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[DateTime]) {
 
     def decline = TakebackSituation(nbDeclined + 1, DateTime.now.some)
 
@@ -350,6 +348,9 @@ object Round {
 
     def offerable = lastDeclined.fold(true) { _ isBefore DateTime.now.minusSeconds(delaySeconds) }
 
-    def reset = TakebackSituation()
+    def reset = takebackSituationZero.zero
   }
+
+  private[round] implicit val takebackSituationZero: Zero[TakebackSituation] =
+    Zero.instance(TakebackSituation(0, none))
 }
