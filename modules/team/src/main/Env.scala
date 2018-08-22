@@ -1,11 +1,11 @@
 package lidraughts.team
 
-import com.typesafe.config.Config
 import akka.actor._
+import com.typesafe.config.Config
 
+import lidraughts.common.MaxPerPage
 import lidraughts.mod.ModlogApi
 import lidraughts.notify.NotifyApi
-import lidraughts.common.MaxPerPage
 
 final class Env(
     config: Config,
@@ -58,11 +58,9 @@ final class Env(
 
   private lazy val notifier = new Notifier(notifyApi = notifyApi)
 
-  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lidraughts.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
-    }
-  })), 'shadowban)
+  system.lidraughtsBus.subscribeFun('shadowban) {
+    case lidraughts.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
+  }
 }
 
 object Env {

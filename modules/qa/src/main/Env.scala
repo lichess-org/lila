@@ -1,8 +1,8 @@
 package lidraughts.qa
 
+import akka.actor._
 import com.typesafe.config.Config
 import lidraughts.common.DetectLanguage
-import akka.actor._
 
 final class Env(
     config: Config,
@@ -37,14 +37,11 @@ final class Env(
 
   lazy val forms = new DataForm(hub.actor.captcher, detectLanguage)
 
-  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lidraughts.user.User.GDPRErase(user) => for {
-        _ <- api.question erase user
-        _ <- api.answer erase user
-      } yield ()
-    }
-  })), 'gdprErase)
+  system.lidraughtsBus.subscribeFun('gdprErase) {
+    case lidraughts.user.User.GDPRErase(user) =>
+      api.question erase user
+      api.answer erase user
+  }
 }
 
 object Env {

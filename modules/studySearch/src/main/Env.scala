@@ -5,8 +5,8 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lidraughts.common.paginator._
-import lidraughts.hub.LateMultiThrottler
 import lidraughts.hub.actorApi.study.RemoveStudy
+import lidraughts.hub.LateMultiThrottler
 import lidraughts.search._
 import lidraughts.study.Study
 import lidraughts.user.User
@@ -53,13 +53,10 @@ final class Env(
     }
   }
 
-  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
-    import lidraughts.study.actorApi._
-    def receive = {
-      case SaveStudy(study) => api store study
-      case RemoveStudy(id, _) => client deleteById Id(id)
-    }
-  })), 'study)
+  system.lidraughtsBus.subscribeFun('study) {
+    case lidraughts.study.actorApi.SaveStudy(study) => api store study
+    case RemoveStudy(id, _) => client deleteById Id(id)
+  }
 }
 
 object Env {

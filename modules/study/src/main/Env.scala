@@ -184,11 +184,9 @@ final class Env(
     }
   }
 
-  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lidraughts.user.User.GDPRErase(user) => api erase user
-    }
-  })), 'gdprErase)
+  system.lidraughtsBus.subscribeFun('gdprErase) {
+    case lidraughts.user.User.GDPRErase(user) => api erase user
+  }
 }
 
 object Env {

@@ -28,10 +28,11 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
     true
   }
 
-  def subscribeFun(to: Classifier*)(f: PartialFunction[Any, Unit]): Boolean =
-    subscribe(system.actorOf(Props(new Actor {
-      val receive = f
-    })), to: _*)
+  def subscribeFun(to: Classifier*)(f: PartialFunction[Any, Unit]): ActorRef = {
+    val actor = system.actorOf(Props(new Actor { val receive = f }))
+    subscribe(actor, to: _*)
+    actor
+  }
 
   /**
    * Attempts to deregister the subscriber from the specified Classifier

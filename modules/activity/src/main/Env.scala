@@ -42,28 +42,25 @@ final class Env(
     getTeamName = getTeamName
   )
 
-  system.lidraughtsBus.subscribe(
-    system.actorOf(Props(new Actor {
-      def receive = {
-        case lidraughts.game.actorApi.FinishGame(game, _, _) if !game.aborted => write game game
-        case lidraughts.forum.actorApi.CreatePost(post, topic) if !topic.isStaff => write.forumPost(post, topic)
-        case res: lidraughts.puzzle.Puzzle.UserResult => write puzzle res
-        case prog: lidraughts.practice.PracticeProgress.OnComplete => write practice prog
-        case lidraughts.simul.Simul.OnStart(simul) => write simul simul
-        case CorresMoveEvent(move, Some(userId), _, _, false) => write.corresMove(move.gameId, userId)
-        case lidraughts.hub.actorApi.plan.MonthInc(userId, months) => write.plan(userId, months)
-        case lidraughts.hub.actorApi.relation.Follow(from, to) => write.follow(from, to)
-        case lidraughts.study.actorApi.StartStudy(id) =>
-          // wait some time in case the study turns private
-          system.scheduler.scheduleOnce(5 minutes) { write study id }
-        case lidraughts.hub.actorApi.team.CreateTeam(id, _, userId) => write.team(id, userId)
-        case lidraughts.hub.actorApi.team.JoinTeam(id, userId) => write.team(id, userId)
-        case lidraughts.user.User.GDPRErase(user) => write erase user
-      }
-    })),
+  system.lidraughtsBus.subscribeFun(
     'finishGame, 'forumPost, 'finishPuzzle, 'finishPractice, 'team,
     'startSimul, 'moveEventCorres, 'plan, 'relation, 'startStudy
-  )
+  ) {
+    case lidraughts.game.actorApi.FinishGame(game, _, _) if !game.aborted => write game game
+    case lidraughts.forum.actorApi.CreatePost(post, topic) if !topic.isStaff => write.forumPost(post, topic)
+    case res: lidraughts.puzzle.Puzzle.UserResult => write puzzle res
+    case prog: lidraughts.practice.PracticeProgress.OnComplete => write practice prog
+    case lidraughts.simul.Simul.OnStart(simul) => write simul simul
+    case CorresMoveEvent(move, Some(userId), _, _, false) => write.corresMove(move.gameId, userId)
+    case lidraughts.hub.actorApi.plan.MonthInc(userId, months) => write.plan(userId, months)
+    case lidraughts.hub.actorApi.relation.Follow(from, to) => write.follow(from, to)
+    case lidraughts.study.actorApi.StartStudy(id) =>
+      // wait some time in case the study turns private
+      system.scheduler.scheduleOnce(5 minutes) { write study id }
+    case lidraughts.hub.actorApi.team.CreateTeam(id, _, userId) => write.team(id, userId)
+    case lidraughts.hub.actorApi.team.JoinTeam(id, userId) => write.team(id, userId)
+    case lidraughts.user.User.GDPRErase(user) => write erase user
+    }
 }
 
 object Env {

@@ -36,18 +36,16 @@ final class Env(
     scheduler = scheduler
   )
 
-  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lidraughts.game.actorApi.FinishGame(game, _, _) => pushApi finish game
-      case lidraughts.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable => pushApi move move
-      case lidraughts.hub.actorApi.round.CorresTakebackOfferEvent(gameId) => pushApi takebackOffer gameId
-      case lidraughts.hub.actorApi.round.CorresDrawOfferEvent(gameId) => pushApi drawOffer gameId
-      case lidraughts.message.Event.NewMessage(t, p) => pushApi newMessage (t, p)
-      case lidraughts.challenge.Event.Create(c) => pushApi challengeCreate c
-      case lidraughts.challenge.Event.Accept(c, joinerId) => pushApi.challengeAccept(c, joinerId)
-      case lidraughts.game.actorApi.CorresAlarmEvent(pov) => pushApi corresAlarm pov
-    }
-  })), 'finishGame, 'moveEventCorres, 'newMessage, 'challenge, 'corresAlarm, 'offerEventCorres)
+  system.lidraughtsBus.subscribeFun('finishGame, 'moveEventCorres, 'newMessage, 'challenge, 'corresAlarm, 'offerEventCorres) {
+    case lidraughts.game.actorApi.FinishGame(game, _, _) => pushApi finish game
+    case lidraughts.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable => pushApi move move
+    case lidraughts.hub.actorApi.round.CorresTakebackOfferEvent(gameId) => pushApi takebackOffer gameId
+    case lidraughts.hub.actorApi.round.CorresDrawOfferEvent(gameId) => pushApi drawOffer gameId
+    case lidraughts.message.Event.NewMessage(t, p) => pushApi newMessage (t, p)
+    case lidraughts.challenge.Event.Create(c) => pushApi challengeCreate c
+    case lidraughts.challenge.Event.Accept(c, joinerId) => pushApi.challengeAccept(c, joinerId)
+    case lidraughts.game.actorApi.CorresAlarmEvent(pov) => pushApi corresAlarm pov
+  }
 }
 
 object Env {

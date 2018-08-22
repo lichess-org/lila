@@ -67,15 +67,10 @@ final class Env(
   lazy val forms = new DataForm(hub.actor.captcher)
   lazy val recent = new Recent(postApi, RecentTtl, RecentNb, asyncCache, PublicCategIds)
 
-  system.lidraughtsBus.subscribe(
-    system.actorOf(Props(new Actor {
-      def receive = {
-        case CreateTeam(id, name, _) => categApi.makeTeam(id, name)
-        case lidraughts.user.User.GDPRErase(user) => postApi erase user
-      }
-    })),
-    'team, 'gdprErase
-  )
+  system.lidraughtsBus.subscribeFun('team, 'gdprErase) {
+    case CreateTeam(id, name, _) => categApi.makeTeam(id, name)
+    case lidraughts.user.User.GDPRErase(user) => postApi erase user
+  }
 
   private[forum] lazy val categColl = db(CollectionCateg)
   private[forum] lazy val topicColl = db(CollectionTopic)

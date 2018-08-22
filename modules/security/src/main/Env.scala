@@ -1,7 +1,7 @@
 package lidraughts.security
 
-import lidraughts.oauth.OAuthServer
 import lidraughts.common.EmailAddress
+import lidraughts.oauth.OAuthServer
 
 import akka.actor._
 import com.typesafe.config.Config
@@ -175,12 +175,9 @@ final class Env(
 
   def cli = new Cli
 
-  // api actor
-  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lidraughts.hub.actorApi.draughtsnet.NewKey(userId, key) => automaticEmail.onDraughtsnetKey(userId, key)
-    }
-  })), 'draughtsnet)
+  system.lidraughtsBus.subscribeFun('draughtsnet) {
+    case lidraughts.hub.actorApi.draughtsnet.NewKey(userId, key) => automaticEmail.onDraughtsnetKey(userId, key)
+  }
 
   private[security] lazy val storeColl = db(CollectionSecurity)
   private[security] lazy val firewallColl = db(FirewallCollectionFirewall)

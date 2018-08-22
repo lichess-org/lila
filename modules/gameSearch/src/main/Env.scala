@@ -3,6 +3,7 @@ package lidraughts.gameSearch
 import akka.actor._
 import com.typesafe.config.Config
 
+import lidraughts.game.actorApi.{ InsertGame, FinishGame }
 import lidraughts.search._
 
 final class Env(
@@ -37,13 +38,10 @@ final class Env(
     paginator = paginator
   )
 
-  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
-    import lidraughts.game.actorApi.{ InsertGame, FinishGame }
-    def receive = {
-      case FinishGame(game, _, _) if !game.aborted => self ! InsertGame(game)
-      case InsertGame(game) => api store game
-    }
-  }), name = ActorName), 'finishGame)
+  system.lidraughtsBus.subscribeFun('finishGame) {
+    case FinishGame(game, _, _) if !game.aborted => api store game
+    case InsertGame(game) => api store game
+  }
 }
 
 object Env {

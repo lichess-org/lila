@@ -22,12 +22,9 @@ final class Env(
     bus = system.lidraughtsBus
   )
 
-  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
-    import lidraughts.study.actorApi._
-    def receive = {
-      case SaveStudy(study) => api.structure onSave study
-    }
-  })), 'study)
+  system.lidraughtsBus.subscribeFun('study) {
+    case lidraughts.study.actorApi.SaveStudy(study) => api.structure onSave study
+  }
 }
 
 object Env {

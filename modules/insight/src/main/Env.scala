@@ -44,11 +44,9 @@ final class Env(
     indexer = indexer
   )
 
-  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lidraughts.analyse.actorApi.AnalysisReady(game, _) => api updateGame game
-    }
-  })), 'analysisReady)
+  system.lidraughtsBus.subscribeFun('analysisReady) {
+    case lidraughts.analyse.actorApi.AnalysisReady(game, _) => api updateGame game
+  }
 }
 
 object Env {

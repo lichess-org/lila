@@ -2,8 +2,9 @@ package lidraughts.user
 
 import akka.actor._
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
-import lidraughts.common.EmailAddress
+import lidraughts.hub.actorApi.WithUserIds
 
 final class Env(
     config: Config,
@@ -48,30 +49,23 @@ final class Env(
 
   def isOnline(userId: User.ID): Boolean = onlineUserIdMemo get userId
 
-  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lidraughts.hub.actorApi.mod.MarkCheater(userId, true) =>
-        rankingApi remove userId
-        UserRepo.setRoles(userId, Nil)
-      case lidraughts.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
-      case lidraughts.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
-      case User.Active(user) =>
-        if (!user.seenRecently) UserRepo setSeenAt user.id
-        onlineUserIdMemo put user.id
-      case User.GDPRErase(user) =>
-        UserRepo erase user
-        noteApi erase user
-    }
-  })), 'adjustCheater, 'adjustBooster, 'userActive, 'kickFromRankings, 'gdprErase)
+  system.lidraughtsBus.subscribeFun('adjustCheater, 'adjustBooster, 'userActive, 'kickFromRankings, 'gdprErase) {
+    case lidraughts.hub.actorApi.mod.MarkCheater(userId, true) =>
+      rankingApi remove userId
+      UserRepo.setRoles(userId, Nil)
+    case lidraughts.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
+    case lidraughts.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
+    case User.Active(user) =>
+      if (!user.seenRecently) UserRepo setSeenAt user.id
+      onlineUserIdMemo put user.id
+    case User.GDPRErase(user) =>
+      UserRepo erase user
+      noteApi erase user
+  }
 
-  {
-    import scala.concurrent.duration._
-    import lidraughts.hub.actorApi.WithUserIds
-
-    scheduler.effect(3 seconds, "refresh online user ids") {
-      system.lidraughtsBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'users)
-      onlineUserIdMemo put "lidraughts"
-    }
+  scheduler.effect(3 seconds, "refresh online user ids") {
+    system.lidraughtsBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'users)
+    onlineUserIdMemo put "lidraughts"
   }
 
   lazy val cached = new Cached(
