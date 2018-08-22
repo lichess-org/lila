@@ -224,6 +224,8 @@
   <string name="yourPerfRatingIsTooLow">Ваш рэйтынг %1$s (%2$s) занадта нізкі</string>
   <string name="ratedMoreThanInPerf">Рэйтынг ≥ %1$s у %2$s</string>
   <string name="ratedLessThanInPerf">Рэйтынг ≤ %1$s у %2$s</string>
+  <string name="mustBeInTeam">Вы павінны быць чальцом клуба %s</string>
+  <string name="youAreNotInTeam">Вы не чалец клуба %s</string>
   <string name="backToGame">Вярнуцца да гульні</string>
   <string name="siteDescription">Бясплатныя он-лайн шахматы. Гуляй у шахматы з зручным інтэрфэйсам. Без рэгістрацыі, без рэклямы, без дадатковых праграм. Гуляй у шахматы з камп\'ютарам, сябрамі ці выпадковым супернікам.</string>
   <string name="teams">Каманды</string>
