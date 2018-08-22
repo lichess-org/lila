@@ -112,7 +112,7 @@ export function configure(state: State, config: Config) {
   // the merge algorithm will incorrectly keep the second square.
   else if (config.lastMove) state.lastMove = config.lastMove;
 
-  if (config.captureLength !== undefined)
+  if (config.captureLength)
     state.movable.captLen = config.captureLength;
 
   // fix move/premove dests

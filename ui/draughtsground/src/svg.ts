@@ -27,38 +27,38 @@ let isTrident: boolean | undefined;
 
 export function renderSvg(state: State, root: SVGElement): void {
 
-    const d = state.drawable, curD = d.current, arrowDests: ArrowDests = {};
+  const d = state.drawable, curD = d.current, arrowDests: ArrowDests = {};
 
-    const cur = curD && (curD.mouseSq || curD.prev) ? curD as DrawShape : undefined;
+  const cur = curD && (curD.mouseSq || curD.prev) ? curD as DrawShape : undefined;
 
 
-    d.shapes.concat(d.autoShapes).concat(cur ? [cur] : []).forEach(s => {
-        if (s.dest) arrowDests[s.dest] = (arrowDests[s.dest] || 0) + 1;
+  d.shapes.concat(d.autoShapes).concat(cur ? [cur] : []).forEach(s => {
+    if (s.dest) arrowDests[s.dest] = (arrowDests[s.dest] || 0) + 1;
+  });
+
+  const shapes: Shape[] = d.shapes.concat(d.autoShapes).map((s: DrawShape) => {
+    return {
+      shape: s,
+      current: false,
+      hash: shapeHash(s, arrowDests, false)
+    };
+  });
+  if (cur) {
+    shapes.push({
+      shape: cur,
+      current: true,
+      hash: shapeHash(cur, arrowDests, true)
     });
+  }
 
-    const shapes: Shape[] = d.shapes.concat(d.autoShapes).map((s: DrawShape) => {
-        return {
-            shape: s,
-            current: false,
-            hash: shapeHash(s, arrowDests, false)
-        };
-    });
-    if (cur) {
-        shapes.push({
-            shape: cur,
-            current: true,
-            hash: shapeHash(cur, arrowDests, true)
-        });
-    }
+  const fullHash = shapes.map(sc => sc.hash).join('');
+  if (fullHash === state.drawable.prevSvgHash) return;
+  state.drawable.prevSvgHash = fullHash;
 
-    const fullHash = shapes.map(sc => sc.hash).join('');
-    if (fullHash === state.drawable.prevSvgHash) return;
-    state.drawable.prevSvgHash = fullHash;
+  const defsEl = root.firstChild as SVGElement;
 
-    const defsEl = root.firstChild as SVGElement;
-
-    syncDefs(d, shapes, defsEl);
-    syncShapes(state, shapes, d.brushes, arrowDests, root, defsEl);
+  syncDefs(d, shapes, defsEl);
+  syncShapes(state, shapes, d.brushes, arrowDests, root, defsEl);
 
 }
 
@@ -108,7 +108,7 @@ function syncShapes(state: State, shapes: Shape[], brushes: DrawBrushes, arrowDe
   });
 }
 
-function shapeHash({orig, dest, brush, piece, modifiers}: DrawShape, arrowDests: ArrowDests, current: boolean): Hash {
+function shapeHash({ orig, dest, brush, piece, modifiers }: DrawShape, arrowDests: ArrowDests, current: boolean): Hash {
   return [current, orig, dest, brush, dest && arrowDests[dest] > 1,
     piece && pieceHash(piece),
     modifiers && modifiersHash(modifiers)
@@ -123,7 +123,7 @@ function modifiersHash(m: DrawModifiers): Hash {
   return '' + (m.lineWidth || '');
 }
 
-function renderShape(state: State, {shape, current, hash}: Shape, brushes: DrawBrushes, arrowDests: ArrowDests, bounds: ClientRect): SVGElement {
+function renderShape(state: State, { shape, current, hash }: Shape, brushes: DrawBrushes, arrowDests: ArrowDests, bounds: ClientRect): SVGElement {
   let el: SVGElement;
   if (shape.piece) el = renderPiece(
     state.drawable.pieces.baseUrl,

@@ -49,19 +49,19 @@ export const samePiece: (p1: cg.Piece, p2: cg.Piece) => boolean = (p1, p2) =>
 export const computeIsTrident = () => window.navigator.userAgent.indexOf('Trident/') > -1;
 
 const posToTranslateBase: (pos: cg.Pos, asWhite: boolean, xFactor: number, yFactor: number, shift: number) => cg.NumberPair =
-    (pos, asWhite, xFactor, yFactor, shift: number) => {
-        if (shift !== 0) {
-            return [
-                (!asWhite ? 4.5 - ((shift - 0.5) + pos[0]) : (shift - 0.5) + pos[0]) * xFactor,
-                (!asWhite ? 10 - pos[1] : pos[1] - 1) * yFactor
-            ];
-        } else {
-            return [
-                (!asWhite ? 4.5 - ((pos[1] % 2 !== 0 ? -0.5 : -1) + pos[0]) : (pos[1] % 2 !== 0 ? -0.5 : -1) + pos[0]) * xFactor,
-                (!asWhite ? 10 - pos[1] : pos[1] - 1) * yFactor
-            ];
-        }
+  (pos, asWhite, xFactor, yFactor, shift: number) => {
+    if (shift !== 0) {
+      return [
+        (!asWhite ? 4.5 - ((shift - 0.5) + pos[0]) : (shift - 0.5) + pos[0]) * xFactor,
+        (!asWhite ? 10 - pos[1] : pos[1] - 1) * yFactor
+      ];
+    } else {
+      return [
+        (!asWhite ? 4.5 - ((pos[1] % 2 !== 0 ? -0.5 : -1) + pos[0]) : (pos[1] % 2 !== 0 ? -0.5 : -1) + pos[0]) * xFactor,
+        (!asWhite ? 10 - pos[1] : pos[1] - 1) * yFactor
+      ];
     }
+  }
 
 export const posToTranslateAbs = (bounds: ClientRect) => {
   const xFactor = bounds.width / 5, yFactor = bounds.height / 10;

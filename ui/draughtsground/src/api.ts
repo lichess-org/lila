@@ -80,114 +80,114 @@ export interface Api {
 // see API types and documentations in dts/api.d.ts
 export function start(state: State, redrawAll: cg.Redraw): Api {
 
-    function toggleOrientation() {
-        board.toggleOrientation(state);
-        redrawAll();
-    };
+  function toggleOrientation() {
+    board.toggleOrientation(state);
+    redrawAll();
+  };
 
-    return {
+  return {
 
-        set(config, noCaptSequences: boolean = false) {
-            if (config.orientation && config.orientation !== state.orientation) toggleOrientation();
-            if (config.fen) {
-                anim(state => configure(state, config), state, false, noCaptSequences);
-                if (state.selected && !state.pieces[state.selected])
-                    state.selected = undefined;
-            } else render(state => configure(state, config), state);
-        },
+    set(config, noCaptSequences: boolean = false) {
+      if (config.orientation && config.orientation !== state.orientation) toggleOrientation();
+      if (config.fen) {
+        anim(state => configure(state, config), state, false, noCaptSequences);
+        if (state.selected && !state.pieces[state.selected])
+          state.selected = undefined;
+      } else render(state => configure(state, config), state);
+    },
 
-        state,
+    state,
 
-        getFen: () => fenWrite(state.pieces),
+    getFen: () => fenWrite(state.pieces),
 
-        toggleOrientation,
+    toggleOrientation,
 
-        setPieces(pieces) {
-            anim(state => board.setPieces(state, pieces), state);
-        },
+    setPieces(pieces) {
+      anim(state => board.setPieces(state, pieces), state);
+    },
 
-        selectSquare(key, force) {
-            if (key) anim(state => board.selectSquare(state, key, force), state);
-            else if (state.selected) {
-                board.unselect(state);
-                state.dom.redraw();
-            }
-        },
+    selectSquare(key, force) {
+      if (key) anim(state => board.selectSquare(state, key, force), state);
+      else if (state.selected) {
+        board.unselect(state);
+        state.dom.redraw();
+      }
+    },
 
-        move(orig, dest) {
-            anim(state => board.baseMove(state, orig, dest), state);
-        },
+    move(orig, dest) {
+      anim(state => board.baseMove(state, orig, dest), state);
+    },
 
-        newPiece(piece, key) {
-            anim(state => board.baseNewPiece(state, piece, key), state);
-        },
+    newPiece(piece, key) {
+      anim(state => board.baseNewPiece(state, piece, key), state);
+    },
 
-        playPremove() {
-            if (state.premovable.current) {
-                const dest = state.premovable.current ? state.premovable.current[1] : "00";
-                if (anim(board.playPremove, state)) {
-                    //If we can continue capturing keep the piece selected to enable quickly clicking all target squares one after the other
-                    if (state.movable.captLen !== undefined && state.movable.captLen > 1)
-                        board.setSelected(state, dest);
-                    return true;
-                }
-                // if the premove couldn't be played, redraw to clear it up
-                state.dom.redraw();
-            }
-            return false;
-        },
-
-        playPredrop(validate) {
-            if (state.predroppable.current) {
-                const result = board.playPredrop(state, validate);
-                state.dom.redraw();
-                return result;
-            }
-            return false;
-        },
-
-        cancelPremove() {
-            render(board.unsetPremove, state);
-        },
-
-        cancelPredrop() {
-            render(board.unsetPredrop, state);
-        },
-
-        cancelMove() {
-            render(state => { board.cancelMove(state); dragCancel(state); }, state);
-        },
-
-        stop() {
-            render(state => { board.stop(state); dragCancel(state); }, state);
-        },
-
-        explode(keys: cg.Key[]) {
-            explosion(state, keys);
-        },
-
-        setAutoShapes(shapes: DrawShape[]) {
-            render(state => state.drawable.autoShapes = shapes, state);
-        },
-
-        setShapes(shapes: DrawShape[]) {
-            render(state => state.drawable.shapes = shapes, state);
-        },
-
-        getKeyAtDomPos(pos) {
-            return board.getKeyAtDomPos(pos, state.orientation === 'white', state.dom.bounds());
-        },
-
-        redrawAll,
-
-        dragNewPiece(piece, event, force) {
-            dragNewPiece(state, piece, event, force)
-        },
-
-        destroy() {
-            board.stop(state);
-            state.dom.unbind && state.dom.unbind();
-            state.dom.destroyed = true;
+    playPremove() {
+      if (state.premovable.current) {
+        const dest = state.premovable.current ? state.premovable.current[1] : "00";
+        if (anim(board.playPremove, state)) {
+          //If we can continue capturing keep the piece selected to enable quickly clicking all target squares one after the other
+          if (state.movable.captLen && state.movable.captLen > 1)
+            board.setSelected(state, dest);
+          return true;
         }
-    };
+        // if the premove couldn't be played, redraw to clear it up
+        state.dom.redraw();
+      }
+      return false;
+    },
+
+    playPredrop(validate) {
+      if (state.predroppable.current) {
+        const result = board.playPredrop(state, validate);
+        state.dom.redraw();
+        return result;
+      }
+      return false;
+    },
+
+    cancelPremove() {
+      render(board.unsetPremove, state);
+    },
+
+    cancelPredrop() {
+      render(board.unsetPredrop, state);
+    },
+
+    cancelMove() {
+      render(state => { board.cancelMove(state); dragCancel(state); }, state);
+    },
+
+    stop() {
+      render(state => { board.stop(state); dragCancel(state); }, state);
+    },
+
+    explode(keys: cg.Key[]) {
+      explosion(state, keys);
+    },
+
+    setAutoShapes(shapes: DrawShape[]) {
+      render(state => state.drawable.autoShapes = shapes, state);
+    },
+
+    setShapes(shapes: DrawShape[]) {
+      render(state => state.drawable.shapes = shapes, state);
+    },
+
+    getKeyAtDomPos(pos) {
+      return board.getKeyAtDomPos(pos, state.orientation === 'white', state.dom.bounds());
+    },
+
+    redrawAll,
+
+    dragNewPiece(piece, event, force) {
+      dragNewPiece(state, piece, event, force)
+    },
+
+    destroy() {
+      board.stop(state);
+      state.dom.unbind && state.dom.unbind();
+      state.dom.destroyed = true;
+    }
+  };
 }
