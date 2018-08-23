@@ -482,6 +482,7 @@
   <string name="troll">捣乱</string>
   <string name="other">其他</string>
   <string name="reportDescriptionHelp">请附上棋局链接解释该用户的行为问题。例如如果您怀疑某用户作弊，请不要只说 “他／她作弊”。请解释为什么您认为他／她作弊。如果您用英语举报一个用户我们将会更快作出答复。</string>
+  <string name="error.provideOneCheatedGameLink">请至少提供至少一局作弊的游戏的链接。</string>
   <string name="by">来自%s</string>
   <string name="thisTopicIsNowClosed">本主题已关闭。</string>
   <string name="theming">主题</string>
