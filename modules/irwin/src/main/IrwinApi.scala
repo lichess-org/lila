@@ -1,15 +1,16 @@
 package lila.irwin
 
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 
 import lila.analyse.Analysis.Analyzed
+import lila.analyse.AnalysisRepo
 import lila.db.dsl._
-import lila.game.{ Pov, GameRepo }
+import lila.game.{ Game, Pov, GameRepo, Query }
 import lila.report.{ Report, Mod, Suspect, Reporter, SuspectId, ModId }
 import lila.tournament.{ Tournament, TournamentTop }
 import lila.user.{ User, UserRepo }
-import lila.analyse.AnalysisRepo
 
 final class IrwinApi(
     reportColl: Coll,
@@ -83,14 +84,15 @@ final class IrwinApi(
       insert(suspect, _.Moderator)
     }
 
-    private[irwin] def insert(suspect: Suspect, origin: Origin.type => Origin): Funit =
-      getGames(suspect) map { games =>
-        bus.publish(IrwinRequest(
-          suspect = suspect,
-          origin = origin(Origin),
-          games = games
-        ), 'irwin)
-      }
+    private[irwin] def insert(suspect: Suspect, origin: Origin.type => Origin): Funit = for {
+      analyzed <- getAnalyzedGames(suspect, 15)
+      more <- getMoreGames(suspect, 20 - analyzed.size)
+      all = analyzed.map { a => a.game -> a.analysis.some } ::: more.map(_ -> none)
+    } yield bus.publish(IrwinRequest(
+      suspect = suspect,
+      origin = origin(Origin),
+      games = all
+    ), 'irwin)
 
     private[irwin] def fromTournamentLeaders(leaders: Map[Tournament, TournamentTop]): Funit =
       lila.common.Future.applySequentially(leaders.toList) {
@@ -110,8 +112,27 @@ final class IrwinApi(
         insert(Suspect(user), _.Leaderboard)
       }
 
-    private def getGames(suspect: Suspect): Fu[List[Analyzed]] =
-      GameRepo.recentStandardAnalysedGamesByUserId(suspect.id.value, 20) flatMap AnalysisRepo.associateToGames
+    import lila.game.BSONHandlers._
+
+    private def baseQuery(suspect: Suspect) =
+      Query.finished ++
+        Query.variantStandard ++
+        Query.rated ++
+        Query.user(suspect.id.value) ++
+        Query.turnsGt(20) ++
+        Query.createdSince(DateTime.now minusMonths 6)
+
+    private def getAnalyzedGames(suspect: Suspect, nb: Int): Fu[List[Analyzed]] =
+      GameRepo.coll.find(baseQuery(suspect) ++ Query.analysed(true))
+        .sort(Query.sortCreated)
+        .cursor[Game](ReadPreference.secondaryPreferred)
+        .list(nb)
+        .flatMap(AnalysisRepo.associateToGames)
+
+    private def getMoreGames(suspect: Suspect, nb: Int): Fu[List[Game]] = (nb > 0) ??
+      GameRepo.coll.find(baseQuery(suspect) ++ Query.analysed(false))
+      .sort(Query.sortCreated).cursor[Game](ReadPreference.secondaryPreferred)
+      .list(nb)
   }
 
   object notification {

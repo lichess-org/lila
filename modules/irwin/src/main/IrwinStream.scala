@@ -40,16 +40,18 @@ final class IrwinStream(system: ActorSystem) {
       "games" -> req.suspect.user.count.rated
     ),
     "games" -> req.games.map {
-      case Analyzed(game, analysis) => Json.obj(
+      case (game, analysis) => Json.obj(
         "id" -> game.id,
         "white" -> game.whitePlayer.userId,
         "black" -> game.blackPlayer.userId,
         "pgn" -> game.pgnMoves.mkString(" "),
         "emts" -> game.clockHistory.isDefined ?? game.moveTimes.map(_.map(_.centis)),
-        "analysis" -> analysis.infos.map { info =>
-          info.cp.map { cp => Json.obj("cp" -> cp.value) } orElse
-            info.mate.map { mate => Json.obj("mate" -> mate.value) } getOrElse
-            JsNull
+        "analysis" -> analysis.map {
+          _.infos.map { info =>
+            info.cp.map { cp => Json.obj("cp" -> cp.value) } orElse
+              info.mate.map { mate => Json.obj("mate" -> mate.value) } getOrElse
+              JsNull
+          }
         }
       )
     }
