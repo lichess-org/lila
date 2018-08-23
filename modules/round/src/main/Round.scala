@@ -44,8 +44,6 @@ private[round] final class Round(
     context.system.lilaBus.unsubscribe(self)
   }
 
-  var takebackSituation = Round.TakebackSituation()
-
   def process = {
 
     case ReceiveTimeout => fuccess {
