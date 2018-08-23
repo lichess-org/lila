@@ -38,16 +38,6 @@ class StatisticsTest extends Specification {
         280, 560, 616, 408, 632, 416, 460).map(Centis(_))).get) must beTrue
     }
 
-    "be highly consistent (5)" in {
-      cvIndicatesHighlyFlatTimes(moveTimeCoefVariation(List(0, 640, 536, 520, 504, 728, 536,
-        568, 640, 488, 728, 568, 624,
-        600, 768, 600, 768, 600, 472,
-        504, 424, 792, 680, 664, 632,
-        208, 520, 976, 560, 592, 488,
-        672, 784, 680, 480, 992, 448,
-        536, 736, 275).map(Centis(_))).get) must beTrue
-    }
-
     "not be highly consistent (1)" in {
       cvIndicatesHighlyFlatTimes(moveTimeCoefVariation(List(0, 96, 120, 120, 64, 80, 120,
         168, 56, 360, 120, 208, 128,
