@@ -2,12 +2,13 @@ package lila.irwin
 
 import lila.report.Suspect
 import lila.user.User
-import lila.analyse.Analysis.Analyzed
+import lila.game.Game
+import lila.analyse.Analysis
 
 case class IrwinRequest(
     suspect: Suspect,
     origin: IrwinRequest.Origin,
-    games: List[Analyzed]
+    games: List[(Game, Option[Analysis])]
 )
 
 object IrwinRequest {
