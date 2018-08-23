@@ -166,7 +166,7 @@ final object RawHtml {
     case imgurRegex(id) => Some(s"""https://i.imgur.com/$id.jpg""")
     case _ if imgUrlPat.matcher(url).find => Some(url)
     case _ => None
-  }) map { img => s"""<img class="embed" src="$img"/>""" }
+  }) map { img => s"""<img class="embed" src="$img" alt="$url"/>""" }
 
   private[this] val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
 
