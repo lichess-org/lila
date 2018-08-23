@@ -34,6 +34,7 @@ export default function render(s: State): void {
     movedPieces: MovedPieces = {},
     movedSquares: MovedSquares = {},
     piecesKeys: cg.Key[] = Object.keys(pieces) as cg.Key[];
+  let animDoubleKey = (curAnim && curAnim.lastMove && curAnim.lastMove.length > 2 && curAnim.lastMove[0] === curAnim.lastMove[curAnim.lastMove.length - 1]) ? curAnim.lastMove[0] : undefined;
   let k: cg.Key,
     p: cg.Piece | undefined,
     el: cg.PieceNode | cg.SquareNode,
@@ -84,6 +85,7 @@ export default function render(s: State): void {
         // continue animation if already animating and same piece
         // (otherwise it could animate a captured piece)
         if (anim && el.cgAnimating && elPieceName === pieceNameOf(pieceAtKey)) {
+          animDoubleKey = undefined; //Only needed to get the animation started
           const pos = key2pos(k);
           pos[0] += anim[2];
           pos[1] += anim[3];
@@ -117,8 +119,8 @@ export default function render(s: State): void {
           if (s.addPieceZIndex) el.style.zIndex = posZIndex(key2pos(k), asWhite);
         }
 
-        // same piece: flag as same
-        if (elPieceName === pieceNameOf(pieceAtKey) && (!fading || !el.cgFading)) {
+        // same piece: flag as same. Exception for capture ending on the start square, as no pieces are added or removed
+        if (elPieceName === pieceNameOf(pieceAtKey) && (!fading || !el.cgFading) && k !== animDoubleKey) {
           samePieces[k] = true;
         }
         // different piece: flag as moved unless it is a fading piece

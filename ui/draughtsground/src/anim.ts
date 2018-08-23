@@ -95,9 +95,11 @@ function computePlan(prevPieces: cg.Pieces, current: State, fadeOnly: boolean = 
     newsW: AnimPiece[] = [], newsB: AnimPiece[] = [];
   const prePieces: AnimPieces = {},
     samePieces: SamePieces = {};
-  let curP: cg.Piece, preP: AnimPiece, i: any;
+  let curP: cg.Piece, preP: AnimPiece, i: any, prevGhosts: number = 0;
   for (i in prevPieces) {
     prePieces[i] = makePiece(i as cg.Key, prevPieces[i]);
+    if (prevPieces[i].role === 'ghostman' || prevPieces[i].role === 'ghostking')
+      prevGhosts++;
   }
   for (const key of util.allKeys) {
     curP = current.pieces[key];
@@ -142,6 +144,23 @@ function computePlan(prevPieces: cg.Pieces, current: State, fadeOnly: boolean = 
     });
   }
 
+  //Never animate capture sequences with ghosts on board, fixes retriggered animation when startsquare is touched again later in the sequence
+  const captAnim = !noCaptSequences && prevGhosts === 0 && current.lastMove && current.lastMove.length > 2;
+
+  //Animate captures with same start/end square
+  if (!fadeOnly && captAnim && current.lastMove && current.lastMove[0] === current.lastMove[current.lastMove.length - 1]) {
+    const doubleKey = current.lastMove[0];
+    curP = current.pieces[doubleKey];
+    preP = prePieces[doubleKey];
+    if (curP.color === 'white' && missingsB.length !== 0) {
+      missingsW.push(preP);
+      newsW.push(makePiece(doubleKey, curP));
+    } else if (curP.color === 'black' && missingsW.length !== 0) {
+      missingsB.push(preP);
+      newsB.push(makePiece(doubleKey, curP));
+    }
+  }
+
   let missings: AnimPiece[] = missingsW.concat(missingsB),
     news: AnimPiece[] = newsW.concat(newsB);
 
@@ -158,7 +177,7 @@ function computePlan(prevPieces: cg.Pieces, current: State, fadeOnly: boolean = 
     if (preP && !fadeOnly) {
       samePieces[preP.key] = true;
       const tempRole: cg.Role | undefined = (preP.piece.role === 'man' && newP.piece.role === 'king' && isPromotable(newP)) ? 'man' : undefined;
-      if (!noCaptSequences && current.lastMove && current.lastMove.length > 2 && current.lastMove[0] === preP.key && current.lastMove[current.lastMove.length - 1] === newP.key) {
+      if (captAnim && current.lastMove && current.lastMove[0] === preP.key && current.lastMove[current.lastMove.length - 1] === newP.key) {
 
         let lastPos: cg.Pos = util.key2pos(current.lastMove[1]), newPos: cg.Pos;
         plan.anims[newP.key] = getVector(preP.pos, lastPos);
