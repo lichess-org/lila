@@ -19,7 +19,7 @@ object Quote {
     new Quote("Draughts grabbed hold of me when I was eleven and grew into an insane passion. I'm thinking about it day and night.", "Ton Sijbrands"), //https://www.psychologiemagazine.nl/artikel/ton-sijbrands-na-een-zware-wedstrijd-ben-ik-twee-weken-gevloerd/
     new Quote("The beauty of draughts is that you're never finished analyzing.", "Ton Sijbrands"), //https://www.psychologiemagazine.nl/artikel/ton-sijbrands-na-een-zware-wedstrijd-ben-ik-twee-weken-gevloerd/
     new Quote("I am never proud of anything. That is what I am most proud of.", "Alexander Georgiev"),
-    new Quote("The most important element for succes is to love what you do and do what you love. ", "Alexander Georgiev"),
+    new Quote("The most important element for success is to love what you do and do what you love. ", "Alexander Georgiev"),
     new Quote("I studied economics in Saint Petersburg, but when I became European champion in 1995, I decided to become a professional draughts player. That seemed to be more exciting than a boring life as a bookkeeper.", "Alexander Georgiev"),
     new Quote("Playing a simultaneous exhibition gives me lots of pleasure. I like people liking, that's for me the best!", "Alexander Schwartzman"),
     new Quote("Let's play draughts!", "Klaas Leijenaar"),
