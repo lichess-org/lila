@@ -11,15 +11,15 @@ object Statistics {
     s.stdDev.map { _ / s.mean }
   }
 
-  // ups all values by 0.5s
+  // ups all values by 0.1s
   // as to avoid very high variation on bullet games
   // where all move times are low (https://lichess.org/@/AlisaP?mod)
   // and drops the first move because it's always 0
   def moveTimeCoefVariation(a: List[Centis]): Option[Float] =
-    coefVariation(a.drop(1).map(_.centis + 50))
+    coefVariation(a.drop(1).map(_.centis + 10))
 
   def moveTimeCoefVariationNoDrop(a: List[Centis]): Option[Float] =
-    coefVariation(a.map(_.centis + 50))
+    coefVariation(a.map(_.centis + 10))
 
   def moveTimeCoefVariation(pov: lila.game.Pov): Option[Float] =
     for {
