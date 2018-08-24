@@ -510,6 +510,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
   <string name="reportDescriptionHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele trapaceia\"; informe-nos como chegou a esta conclusão. Sua denúncia será processada mais rapidamente se escrita em inglês.</string>
+  <string name="error.provideOneCheatedGameLink">Por favor forneça ao menos um link para um jogo onde cheat tenha sido utilizado.</string>
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">O tópico foi fechado.</string>
   <string name="theming">Customização</string>
