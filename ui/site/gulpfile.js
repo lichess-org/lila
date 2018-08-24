@@ -2,6 +2,7 @@ const source = require('vinyl-source-stream');
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 const browserify = require('browserify');
+const tsify = require('tsify');
 const uglify = require('gulp-uglify');
 const streamify = require('gulp-streamify');
 const concat = require('gulp-concat');
@@ -33,18 +34,20 @@ gulp.task('ab', function() {
 });
 
 gulp.task('prod-source', function() {
-  return browserify('./src/index.js', {
+  return browserify('src/index.ts', {
     standalone: standalone
-  }).bundle()
+  }).plugin(tsify)
+    .bundle()
     .pipe(source('lidraughts.site.source.min.js'))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('dev-source', function() {
-  return browserify('./src/index.js', {
+  return browserify('src/index.ts', {
     standalone: standalone
-  }).bundle()
+  }).plugin(tsify)
+    .bundle()
     .pipe(source('lidraughts.site.source.js'))
     .pipe(gulp.dest('./dist'));
 });

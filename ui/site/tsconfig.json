@@ -1,0 +1,7 @@
+{
+  "include": ["src/*.ts", "src/*.js"],
+  "exclude": [],
+  "compilerOptions": {
+    "allowJs": true
+  }
+}
