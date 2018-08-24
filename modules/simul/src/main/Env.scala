@@ -6,9 +6,9 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lidraughts.hub.actorApi.map.Ask
-import lidraughts.hub.{ ActorMap, Sequencer }
-import lidraughts.socket.Socket.{ GetVersion, SocketVersion }
+import lidraughts.hub.{ Duct, DuctMap }
 import lidraughts.socket.History
+import lidraughts.socket.Socket.{ GetVersion, SocketVersion }
 import makeTimeout.short
 
 final class Env(
@@ -138,9 +138,10 @@ final class Env(
 
   private[simul] val simulColl = db(CollectionSimul)
 
-  private val sequencerMap = system.actorOf(Props(ActorMap { id =>
-    new Sequencer(SequencerTimeout.some, logger = logger)
-  }))
+  private val sequencerMap = new DuctMap(
+    mkDuct = _ => Duct.extra.lazyFu,
+    accessTimeout = SequencerTimeout
+  )
 
   private lazy val simulCleaner = new SimulCleaner(repo, api, socketHub)
 

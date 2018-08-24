@@ -6,7 +6,7 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lidraughts.hub.actorApi.map.Ask
-import lidraughts.hub.{ ActorMap, Sequencer }
+import lidraughts.hub.{ Duct, DuctMap }
 import lidraughts.socket.History
 import lidraughts.socket.Socket.{ GetVersion, SocketVersion }
 import lidraughts.user.User
@@ -20,7 +20,7 @@ final class Env(
     asyncCache: lidraughts.memo.AsyncCache.Builder,
     flood: lidraughts.security.Flood,
     hub: lidraughts.hub.Env,
-    roundMap: lidraughts.hub.DuctMap[_],
+    roundMap: DuctMap[_],
     roundSocketHub: ActorSelection,
     lightUserApi: lidraughts.user.LightUserApi,
     isOnline: String => Boolean,
@@ -155,13 +155,10 @@ final class Env(
     }), name = SocketName
   )
 
-  private val sequencerMap = system.actorOf(Props(ActorMap { id =>
-    new Sequencer(
-      receiveTimeout = SequencerTimeout.some,
-      executionTimeout = 5.seconds.some,
-      logger = logger
-    )
-  }))
+  private val sequencerMap = new DuctMap(
+    mkDuct = _ => Duct.extra.lazyFu(5.seconds)(system),
+    accessTimeout = SequencerTimeout
+  )
 
   system.lidraughtsBus.subscribe(
     system.actorOf(Props(new ApiActor(api, leaderboardApi)), name = ApiActorName),

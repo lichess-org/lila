@@ -23,10 +23,11 @@ final class Env(
 
   lazy val indexer = new PerfStatIndexer(
     storage = storage,
-    sequencer = system.actorOf(Props(
-      classOf[lidraughts.hub.Sequencer],
-      None, None, lidraughts.log("perfStat")
-    ))
+    sequencer = new lidraughts.hub.FutureSequencer(
+      system = system,
+      executionTimeout = None,
+      logger = lidraughts.log("perfStat")
+    )
   )
 
   lazy val jsonView = new JsonView(lightUser)

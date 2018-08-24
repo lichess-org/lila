@@ -3,19 +3,13 @@ package lidraughts.perfStat
 import akka.actor.ActorRef
 
 import lidraughts.game.{ Game, GameRepo, Pov, Query }
-import lidraughts.hub.Sequencer
+import lidraughts.hub.FutureSequencer
 import lidraughts.rating.PerfType
 import lidraughts.user.User
 
-final class PerfStatIndexer(storage: PerfStatStorage, sequencer: ActorRef) {
+final class PerfStatIndexer(storage: PerfStatStorage, sequencer: FutureSequencer) {
 
-  def userPerf(user: User, perfType: PerfType): Funit = {
-    val p = scala.concurrent.Promise[Unit]()
-    sequencer ! Sequencer.work(compute(user, perfType), p.some)
-    p.future
-  }
-
-  private def compute(user: User, perfType: PerfType): Funit = {
+  def userPerf(user: User, perfType: PerfType): Funit = sequencer {
     GameRepo.sortedCursor(
       Query.user(user.id) ++
         Query.finished ++
@@ -26,8 +20,8 @@ final class PerfStatIndexer(storage: PerfStatStorage, sequencer: ActorRef) {
         case (perfStat, game) if game.perfType.contains(perfType) =>
           Pov.ofUserId(game, user.id).fold(perfStat)(perfStat.agg)
         case (perfStat, _) => perfStat
-      }
-  } flatMap storage.insert recover lidraughts.db.recoverDuplicateKey(_ => ())
+      } flatMap storage.insert recover lidraughts.db.recoverDuplicateKey(_ => ())
+  }
 
   def addGame(game: Game): Funit = game.players.flatMap { player =>
     player.userId.map { userId =>

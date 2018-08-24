@@ -52,7 +52,7 @@ final class DraughtsnetApi(
     .logIfSlow(100, logger)(_ => s"acquire ${client.skill}")
     .result
     .recover {
-      case e: FutureSequencer.Timeout =>
+      case e: lidraughts.hub.Duct.Timeout =>
         lidraughts.mon.draughtsnet.acquire.timeout(client.skill.key)()
         logger.warn(s"[${client.skill}] Draughtsnet.acquire ${e.getMessage}")
         none

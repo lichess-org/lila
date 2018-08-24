@@ -10,6 +10,7 @@ import lidraughts.analyse.Accuracy
 import lidraughts.common.Debouncer
 import lidraughts.evaluation.{ Analysed, Assessible, PlayerAssessments }
 import lidraughts.game.{ Game, GameRepo, PerfPicker }
+import lidraughts.hub.{ Duct, DuctMap }
 import lidraughts.game.actorApi.SimulNextGame
 import lidraughts.hub.actorApi.lobby.ReloadSimuls
 import lidraughts.hub.actorApi.map.Tell
@@ -21,7 +22,7 @@ import makeTimeout.short
 
 final class SimulApi(
     system: ActorSystem,
-    sequencers: ActorRef,
+    sequencers: DuctMap[_],
     onGameStart: Game.ID => Unit,
     socketHub: ActorRef,
     roundMap: ActorRef,
@@ -290,9 +291,8 @@ final class SimulApi(
     }
   }
 
-  private def Sequence(simulId: Simul.ID)(work: => Funit): Unit = {
-    sequencers ! Tell(simulId, lidraughts.hub.Sequencer work work)
-  }
+  private def Sequence(simulId: Simul.ID)(fu: => Funit): Unit =
+    sequencers.tell(simulId, Duct.extra.LazyFu(() => fu))
 
   private object publish {
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))

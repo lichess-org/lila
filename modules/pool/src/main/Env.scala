@@ -2,10 +2,10 @@ package lidraughts.pool
 
 import scala.concurrent.duration._
 
-import akka.actor._
+import lidraughts.hub.FutureSequencer
 
 final class Env(
-    lobbyActor: ActorSelection,
+    lobbyActor: akka.actor.ActorSelection,
     playbanApi: lidraughts.playban.PlaybanApi,
     system: akka.actor.ActorSystem,
     onStart: String => Unit
@@ -24,9 +24,11 @@ final class Env(
   private lazy val gameStarter = new GameStarter(
     bus = system.lidraughtsBus,
     onStart = onStart,
-    sequencer = system.actorOf(Props(
-      classOf[lidraughts.hub.Sequencer], none, 10.seconds.some, logger
-    ), name = "pool-sequencer")
+    sequencer = new FutureSequencer(
+      system = system,
+      executionTimeout = 5.seconds.some,
+      logger = logger
+    )
   )
 }
 

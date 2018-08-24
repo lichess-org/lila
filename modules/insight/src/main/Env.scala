@@ -29,10 +29,11 @@ final class Env(
 
   private lazy val indexer = new Indexer(
     storage = storage,
-    sequencer = system.actorOf(Props(
-      classOf[lidraughts.hub.Sequencer],
-      None, None, logger
-    ))
+    sequencer = new lidraughts.hub.FutureSequencer(
+      system = system,
+      executionTimeout = None,
+      logger = logger
+    )
   )
 
   private lazy val userCacheApi = new UserCacheApi(coll = db(CollectionUserCache))
