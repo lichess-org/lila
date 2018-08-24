@@ -161,6 +161,7 @@ final class JsonView(
               )
             },
             "opponent" -> commonWatcherJson(game, opponent, opponentUser, withFlags),
+            "captureLength" -> captureLength(pov),
             "orientation" -> pov.color.name,
             "url" -> Json.obj(
               "socket" -> s"/$gameId/${color.name}/socket",
