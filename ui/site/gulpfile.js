@@ -99,7 +99,7 @@ gulp.task('user-mod', function() {
     .pipe(gulp.dest(destination));
 });
 
-const tasks = ['jquery-fill', 'ab', 'standalones'];
+const tasks = ['jquery-fill', 'ab', 'standalones', 'user-mod'];
 
 gulp.task('dev', tasks.concat(['dev-source']), makeBundle('lidraughts.site.source.js'));
 gulp.task('prod', tasks.concat(['prod-source']), makeBundle('lidraughts.site.source.min.js'));
