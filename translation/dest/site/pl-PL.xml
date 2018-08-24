@@ -563,6 +563,7 @@
   <string name="troll">Natręt (troll)</string>
   <string name="other">Inne</string>
   <string name="reportDescriptionHelp">Wklej link do gry i wyjaśnij, dlaczego zachowanie użytkownika jest nieprawidłowe. Nie wystarczy napisać \"oszukuje\", powiedz nam na jakiej podstawie doszedłeś do takiego wniosku. Twoje zgłoszenie będzie zweryfikowane szybciej jeżeli napiszesz je w języku angielskim.</string>
+  <string name="error.provideOneCheatedGameLink">Proszę podać przynajmniej jeden link do podejrzanej o oszustwo gry.</string>
   <string name="by">autor %s</string>
   <string name="thisTopicIsNowClosed">Ten temat został zamknięty.</string>
   <string name="theming">Wygląd</string>
