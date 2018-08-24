@@ -17,30 +17,31 @@ trait Duct {
   // implement async behaviour here
   protected val process: ReceiveAsync
 
-  import Duct.State
-
   def !(msg: Any): Unit = atomic { implicit txn =>
-    stateRef.transform { state =>
-      if (state.busy) state enqueue msg
-      else {
+    stateRef.transform {
+      _.map(_ enqueue msg) orElse {
         Txn.afterCommit { _ => run(msg) }
-        state.copy(busy = true)
+        Duct.emptyQueue
       }
     }
   }
 
-  private[this] val stateRef = Ref(State(false, Queue.empty))
+  /*
+   * Idle: None
+   * Busy: Some(Queue.empty)
+   * Busy with backlog: Some(Queue.nonEmpty)
+   */
+  private[this] val stateRef: Ref[Option[Queue[Any]]] = Ref(None)
 
   private[this] def run(msg: Any): Unit =
     process.applyOrElse(msg, Duct.fallback) onComplete { _ => postRun }
 
   private[this] def postRun = atomic { implicit txn =>
-    stateRef.transform { state =>
-      state.queue.dequeueOption match {
-        case None => state.copy(busy = false)
-        case Some((msg, newQueue)) =>
+    stateRef.transform {
+      _.flatMap(_.dequeueOption) map {
+        case (msg, newQueue) =>
           Txn.afterCommit { _ => run(msg) }
-          State(true, newQueue)
+          newQueue
       }
     }
   }
@@ -48,9 +49,7 @@ trait Duct {
 
 object Duct {
 
-  case class State(busy: Boolean, queue: Queue[Any]) {
-    def enqueue(msg: Any) = copy(queue = queue enqueue msg)
-  }
+  private val emptyQueue: Option[Queue[Any]] = Some(Queue.empty)
 
   private val fallback = { msg: Any =>
     lila.log("Duct").warn(s"unhandled msg: $msg")
