@@ -2,6 +2,7 @@ const source = require('vinyl-source-stream');
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 const browserify = require('browserify');
+const tsify = require('tsify');
 const uglify = require('gulp-uglify');
 const streamify = require('gulp-streamify');
 const concat = require('gulp-concat');
@@ -65,18 +66,20 @@ gulp.task('stockfish.js', function(cb) {
 });
 
 gulp.task('prod-source', function() {
-  return browserify('./src/index.js', {
+  return browserify('src/index.ts', {
     standalone: standalone
-  }).bundle()
+  }).plugin(tsify)
+    .bundle()
     .pipe(source('lichess.site.source.min.js'))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('dev-source', function() {
-  return browserify('./src/index.js', {
+  return browserify('src/index.ts', {
     standalone: standalone
-  }).bundle()
+  }).plugin(tsify)
+    .bundle()
     .pipe(source('lichess.site.source.js'))
     .pipe(gulp.dest('./dist'));
 });
