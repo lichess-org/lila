@@ -9,7 +9,7 @@ import { Ctx, Opts } from './treeView';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
   const cs = node.children,
-  main = cs[0];
+    main = cs[0];
   if (!main) return;
   if (opts.isMainline) {
     if (!cs[1]) return renderMoveAndChildrenOf(ctx, main, {
@@ -64,7 +64,7 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
 
 function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes {
   const path = opts.parentPath + node.id,
-  comments = renderInlineCommentsOf(ctx, node);
+    comments = renderInlineCommentsOf(ctx, node);
   if (opts.truncate === 0) return [
     h('move', { attrs: { p: path } }, '[...]')
   ];
@@ -88,19 +88,19 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 }
 
 function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
-    const path = opts.parentPath + node.id,
-        content: MaybeVNodes = [
-            opts.withIndex || (node.displayPly ? node.displayPly : node.ply) & 1 ? moveView.renderIndex((node.displayPly ? node.displayPly : node.ply), true) : null,
-            (node.expandedSan ? node.expandedSan : node.san!)
-        ];
-    if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
-    return h('move', {
-        attrs: { p: path },
-        class: nodeClasses(ctx, path)
-    }, content);
+  const path = opts.parentPath + node.id,
+    content: MaybeVNodes = [
+      opts.withIndex || (node.displayPly ? node.displayPly : node.ply) & 1 ? moveView.renderIndex((node.displayPly ? node.displayPly : node.ply), true) : null,
+      (node.expandedSan ? node.expandedSan : node.san!)
+    ];
+  if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
+  return h('move', {
+    attrs: { p: path },
+    class: nodeClasses(ctx, path)
+  }, content);
 }
 
-export default function(ctrl: AnalyseCtrl): VNode {
+export default function (ctrl: AnalyseCtrl): VNode {
   const root = ctrl.tree.root;
   const ctx: Ctx = {
     ctrl,
@@ -114,10 +114,10 @@ export default function(ctrl: AnalyseCtrl): VNode {
   return h('div.tview2.inline', {
     hook: mainHook(ctrl)
   }, [
-    ...commentTags,
-    ...(renderChildrenOf(ctx, root, {
-      parentPath: '',
-      isMainline: true
-    }) || [])
-  ]);
+      ...commentTags,
+      ...(renderChildrenOf(ctx, root, {
+        parentPath: '',
+        isMainline: true
+      }) || [])
+    ]);
 }

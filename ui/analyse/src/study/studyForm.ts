@@ -44,7 +44,7 @@ const userSelectionChoices: Choice[] = [
 
 function select(s: Select): MaybeVNodes {
   return [
-    h('select#study-' + s.key, s.choices.map(function(o) {
+    h('select#study-' + s.key, s.choices.map(function (o) {
       return h('option', {
         attrs: {
           value: o[0],
@@ -89,7 +89,7 @@ export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: ()
 export function view(ctrl: StudyFormCtrl): VNode {
   const data = ctrl.getData();
   const isNew = ctrl.isNew();
-  const updateName = function(vnode, isUpdate) {
+  const updateName = function (vnode, isUpdate) {
     const el = vnode.elm as HTMLInputElement;
     if (!isUpdate && !el.value) {
       el.value = data.name;
@@ -99,7 +99,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
   }
   return dialog.form({
     class: 'study-edit',
-    onClose: function() {
+    onClose: function () {
       ctrl.open(false);
       ctrl.redraw();
     },
@@ -118,63 +118,63 @@ export function view(ctrl: StudyFormCtrl): VNode {
           ctrl.save(obj, isNew);
         }, ctrl.redraw)
       }, [
-        h('div.form-group' + (ctrl.relay ? '.none' : ''), [
-          h('input#study-name', {
-            attrs: {
-              minlength: 3,
-              maxlength: 100
-            },
-            hook: {
-              insert: vnode => updateName(vnode, false),
-              postpatch: (_, vnode) => updateName(vnode, true)
-            }
-          }),
-          h('label.control-label', { attrs: { 'for': 'study-name' } }, 'Name'),
-          h('i.bar')
+          h('div.form-group' + (ctrl.relay ? '.none' : ''), [
+            h('input#study-name', {
+              attrs: {
+                minlength: 3,
+                maxlength: 100
+              },
+              hook: {
+                insert: vnode => updateName(vnode, false),
+                postpatch: (_, vnode) => updateName(vnode, true)
+              }
+            }),
+            h('label.control-label', { attrs: { 'for': 'study-name' } }, 'Name'),
+            h('i.bar')
+          ]),
+          h('div', [
+            h('div.form-group.half', select({
+              key: 'visibility',
+              name: 'Visibility',
+              choices: visibilityChoices,
+              selected: data.visibility
+            })),
+            h('div.form-group.half', select({
+              key: 'cloneable',
+              name: 'Allow cloning',
+              choices: userSelectionChoices,
+              selected: data.settings.cloneable
+            })),
+            /*h('div.form-group.half', select({
+              key: 'computer',
+              name: 'Computer analysis',
+              choices: userSelectionChoices,
+              selected: data.settings.computer
+            })),
+            h('div.form-group.half', select({
+              key: 'explorer',
+              name: 'Opening explorer',
+              choices: userSelectionChoices,
+              selected: data.settings.explorer
+            })),*/
+            h('div.form-group.half', select({
+              key: 'chat',
+              name: 'Chat',
+              choices: userSelectionChoices,
+              selected: data.settings.chat
+            })),
+            h('div.form-group.half', select({
+              key: 'sticky',
+              name: 'Enable sync',
+              choices: [
+                ['true', 'Yes: keep everyone on the same position'],
+                ['false', 'No: let people browse freely']
+              ],
+              selected: '' + data.settings.sticky
+            }))
+          ]),
+          dialog.button(isNew ? 'Start' : 'Save')
         ]),
-        h('div', [
-          h('div.form-group.half', select({
-            key: 'visibility',
-            name: 'Visibility',
-            choices: visibilityChoices,
-            selected: data.visibility
-          })),
-          h('div.form-group.half', select({
-            key: 'cloneable',
-            name: 'Allow cloning',
-            choices: userSelectionChoices,
-            selected: data.settings.cloneable
-          })),
-          /*h('div.form-group.half', select({
-            key: 'computer',
-            name: 'Computer analysis',
-            choices: userSelectionChoices,
-            selected: data.settings.computer
-          })),
-          h('div.form-group.half', select({
-            key: 'explorer',
-            name: 'Opening explorer',
-            choices: userSelectionChoices,
-            selected: data.settings.explorer
-          })),*/
-          h('div.form-group.half', select({
-            key: 'chat',
-            name: 'Chat',
-            choices: userSelectionChoices,
-            selected: data.settings.chat
-          })),
-          h('div.form-group.half', select({
-            key: 'sticky',
-            name: 'Enable sync',
-            choices: [
-              ['true', 'Yes: keep everyone on the same position'],
-              ['false', 'No: let people browse freely']
-            ],
-            selected: '' + data.settings.sticky
-          }))
-        ]),
-        dialog.button(isNew ? 'Start' : 'Save')
-      ]),
       h('div.destructive', [
         isNew ? null : h('form', {
           attrs: {
@@ -185,8 +185,8 @@ export function view(ctrl: StudyFormCtrl): VNode {
             return confirm('Delete the study chat history? There is no going back!');
           })
         }, [
-          h('button.button.frameless', 'Clear chat')
-        ]),
+            h('button.button.frameless', 'Clear chat')
+          ]),
         h('form', {
           attrs: {
             action: '/study/' + data.id + '/delete',
@@ -196,8 +196,8 @@ export function view(ctrl: StudyFormCtrl): VNode {
             return isNew || confirm('Delete the entire study? There is no going back!');
           })
         }, [
-          h('button.button.frameless', isNew ? 'Cancel' : 'Delete study')
-        ])
+            h('button.button.frameless', isNew ? 'Cancel' : 'Delete study')
+          ])
       ])
     ]
   });

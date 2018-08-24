@@ -82,8 +82,8 @@ export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
   return (game.playable(c.data) && c.initialPath) || (
     c.retro && c.retro.current() && c.retro.current().prev.path
   ) || (
-    c.study && c.study.data.chapter.relay && c.study.data.chapter.relay.path
-  );
+      c.study && c.study.data.chapter.relay && c.study.data.chapter.relay.path
+    );
 }
 
 export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
@@ -91,7 +91,7 @@ export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
   return node.comments!.map(comment => {
     if (comment.by === 'lidraughts' && !ctx.showComputer) return;
     const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
-    truncated = truncateComment(comment.text, 300, ctx);
+      truncated = truncateComment(comment.text, 300, ctx);
     return h('comment', {
       hook: innerHTML(truncated, text => by + enrichText(text, true))
     });
@@ -134,12 +134,12 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
 
 export function retroLine(ctx: Ctx, node: Tree.Node, opts: Opts): VNode | undefined {
   return node.comp && ctx.ctrl.retro && ctx.ctrl.retro.hideComputerLine(node, opts.parentPath) ?
-  h('line', ctx.ctrl.trans.noarg('learnFromThisMistake')) : undefined;
+    h('line', ctx.ctrl.trans.noarg('learnFromThisMistake')) : undefined;
 }
 
 function eventPath(e: MouseEvent): Tree.Path | null {
   return (e.target as HTMLElement).getAttribute('p') ||
-  ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('p');
+    ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('p');
 }
 
 export const autoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {

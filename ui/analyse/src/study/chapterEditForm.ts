@@ -105,7 +105,7 @@ export function view(ctrl): VNode | undefined {
       ].concat(
         isLoaded ? [
           h('div.form-group.little-margin-bottom', [
-            h('select#chapter-orientation', ['White', 'Black'].map(function(color) {
+            h('select#chapter-orientation', ['White', 'Black'].map(function (color) {
               const v = color.toLowerCase();
               return option(v, data.orientation, color);
             })),
@@ -131,13 +131,13 @@ export function view(ctrl): VNode | undefined {
         h('button.button.frameless', {
           hook: bind('click', _ => {
             if (confirm('Clear all comments and shapes in this chapter?'))
-            ctrl.clearAnnotations(data.id);
+              ctrl.clearAnnotations(data.id);
           })
         }, 'Clear annotations'),
         h('button.button.frameless', {
           hook: bind('click', _ => {
             if (confirm('Delete this chapter? There is no going back!'))
-            ctrl.delete(data.id);
+              ctrl.delete(data.id);
           })
         }, 'Delete chapter')
       ])

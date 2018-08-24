@@ -1,30 +1,30 @@
 import { Prop } from 'common';
 
 export interface ForecastData {
-    onMyTurn?: boolean;
-    steps?: ForecastStep[][];
+  onMyTurn?: boolean;
+  steps?: ForecastStep[][];
 }
 
 export interface ForecastStep {
-    ply: Ply;
-    displayPly?: Ply;
-    uci: Uci;
-    san: San;
-    fen: Fen;
-    check?: boolean;
+  ply: Ply;
+  displayPly?: Ply;
+  uci: Uci;
+  san: San;
+  fen: Fen;
+  check?: boolean;
 }
 
 export interface ForecastCtrl {
-    addNodes(fc);
-    reloadToLastPly();
-    truncate(fc: ForecastStep[]): ForecastStep[];
-    truncateNodes(fc: any[]): any[];
-    playAndSave(node: ForecastStep);
-    findStartingWithNode(node: ForecastStep): ForecastStep[][];
-    isCandidate(fc: ForecastStep[]): boolean;
-    addNodes(fc: ForecastStep[]);
-    removeIndex(index: number);
-    list(): ForecastStep[][];
-    loading: Prop<boolean>;
-    onMyTurn: boolean;
+  addNodes(fc);
+  reloadToLastPly();
+  truncate(fc: ForecastStep[]): ForecastStep[];
+  truncateNodes(fc: any[]): any[];
+  playAndSave(node: ForecastStep);
+  findStartingWithNode(node: ForecastStep): ForecastStep[][];
+  isCandidate(fc: ForecastStep[]): boolean;
+  addNodes(fc: ForecastStep[]);
+  removeIndex(index: number);
+  list(): ForecastStep[][];
+  loading: Prop<boolean>;
+  onMyTurn: boolean;
 }

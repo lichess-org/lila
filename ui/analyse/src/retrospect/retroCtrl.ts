@@ -32,7 +32,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
 
   function findNextNode(): Tree.Node | undefined {
     const colorModulo = root.bottomIsWhite() ? 1 : 0;
-    candidateNodes = evalSwings(root.mainline, function(n) {
+    candidateNodes = evalSwings(root.mainline, function (n) {
       return n.ply % 2 === colorModulo && !contains(explorerCancelPlies, n.ply);
     });
     return candidateNodes.find(n => !isPlySolved(n.ply));
@@ -69,10 +69,10 @@ export function make(root: AnalyseCtrl): RetroCtrl {
       root.explorer.fetchMasterOpening(prev.node.fen).then((res: OpeningData) => {
         const cur = current();
         const ucis: Uci[] = [];
-        res!.moves.forEach(function(m) {
+        res!.moves.forEach(function (m) {
           if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
         });
-        if (ucis.find(function(uci) {
+        if (ucis.find(function (uci) {
           return fault.node.uci === uci;
         })) {
           explorerCancelPlies.push(fault.node.ply);
@@ -96,7 +96,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
       return;
     }
     if (isSolving() && cur.fault.node.ply === node.ply) {
-      if (cur.openingUcis.find(function(uci) {
+      if (cur.openingUcis.find(function (uci) {
         return node.uci === uci;
       })) onWin(); // found in opening explorer
       else if (node.comp) onWin(); // the computer solution line

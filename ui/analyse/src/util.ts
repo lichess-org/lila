@@ -30,7 +30,7 @@ export function bindSubmit(f: (e: Event) => any, redraw?: () => void): Hooks {
 }
 
 export function readOnlyProp<A>(value: A): () => A {
-  return function(): A {
+  return function (): A {
     return value;
   };
 }
@@ -54,11 +54,11 @@ export function synthetic(data: AnalyseData): boolean {
 }
 
 export function nodeFullName(node: Tree.Node) {
-    const renderPly = (node.displayPly ? node.displayPly : node.ply);
-    if (node.san) return plyToTurn(renderPly) + (
-        renderPly % 2 === 1 ? '.' : '...'
-    ) + ' ' + (node.expandedSan ? node.expandedSan! : node.san!);
-    return 'Initial position';
+  const renderPly = (node.displayPly ? node.displayPly : node.ply);
+  if (node.san) return plyToTurn(renderPly) + (
+    renderPly % 2 === 1 ? '.' : '...'
+  ) + ' ' + (node.expandedSan ? node.expandedSan! : node.san!);
+  return 'Initial position';
 }
 
 export function plural(noun: string, nb: number): string {

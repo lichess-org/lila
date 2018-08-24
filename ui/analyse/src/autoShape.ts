@@ -5,25 +5,25 @@ import { DrawShape } from 'draughtsground/draw';
 import AnalyseCtrl from './ctrl';
 
 export function makeShapesFromUci(uci: Uci, brush: string, modifiers?: any): DrawShape[] {
-    const moves = decomposeUci(uci);
-    const shapes: DrawShape[] = new Array<DrawShape>();
-    for (let i = 0; i < moves.length; i++) {
-        if (i + 1 >= moves.length) {
-            shapes.push({
-                orig: moves[i],
-                brush,
-                modifiers
-            });
-            break;
-        } else
-            shapes.push({
-                orig: moves[i],
-                dest: moves[i + 1],
-                brush,
-                modifiers
-            });
-    }
-    return shapes;
+  const moves = decomposeUci(uci);
+  const shapes: DrawShape[] = new Array<DrawShape>();
+  for (let i = 0; i < moves.length; i++) {
+    if (i + 1 >= moves.length) {
+      shapes.push({
+        orig: moves[i],
+        brush,
+        modifiers
+      });
+      break;
+    } else
+      shapes.push({
+        orig: moves[i],
+        dest: moves[i + 1],
+        brush,
+        modifiers
+      });
+  }
+  return shapes;
 }
 
 export function compute(ctrl: AnalyseCtrl): DrawShape[] {
@@ -64,7 +64,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       if (!nextBest && instance.enabled() && nCeval) nextBest = nCeval.pvs[0].moves[0];
       if (nextBest) shapes = shapes.concat(makeShapesFromUci(nextBest, 'paleBlue'));
       if (instance.enabled() && nCeval && nCeval.pvs[1] && !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)) {
-        nCeval.pvs.forEach(function(pv) {
+        nCeval.pvs.forEach(function (pv) {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color, nCeval.pvs[0], pv);
           if (shift >= 0 && shift < 0.2) {
@@ -82,7 +82,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     shapes = shapes.concat(makeShapesFromUci(pv0.moves[0],
       pv1s.length > 0 ? 'paleRed' : 'red'));
 
-    pv1s.forEach(function(pv) {
+    pv1s.forEach(function (pv) {
       const shift = winningChances.povDiff(rcolor, pv, pv0);
       if (shift >= 0 && shift < 0.2) {
         shapes = shapes.concat(makeShapesFromUci(pv.moves[0], 'paleRed', {

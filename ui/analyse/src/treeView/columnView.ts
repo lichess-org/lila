@@ -26,78 +26,55 @@ function emptyMove(conceal?: Conceal): VNode {
   }, '...');
 }
 
-/*function virtualNodes(nodes: Tree.Node[]): Tree.Node[] {
-    const virtNodes: Tree.Node[] = new Array();
-    for (let node of nodes)
-        virtNodes.push(virtualNode(node));
-    return virtNodes;
-}
-
-
-function virtualNode(node: Tree.Node): Tree.Node {
-
-    if (node.captLen === undefined || node.captLen < 2) return node;
-
-    return {
-        id: node.id,
-        fen: node.fen,
-        ply: node.ply,
-        uci: node.uci,
-        san: (node.expandedSan ? node.expandedSan : node.san) + "?",
-        children: node.children
-    } as Tree.Node;
-
-}*/
-
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
 
-    if (!node.children || node.children.length == 0) return;
+  if (!node.children || node.children.length == 0) return;
 
-    const cs = node.children;
-    const main = cs[0];
+  const cs = node.children;
+  const main = cs[0];
 
-    const conceal = opts.noConceal ? null : (opts.conceal || ctx.concealOf(true)(opts.parentPath + main.id, main));
-    if (conceal === 'hide') return;
-    if (opts.isMainline) {
-        const renderPly = main.displayPly ? main.displayPly : main.ply;
-        const isWhite = renderPly % 2 === 1,
-            commentTags = renderMainlineCommentsOf(ctx, main, conceal, true).filter(nonEmpty);
-        if (!cs[1] && empty(commentTags)) return ((isWhite ? [moveView.renderIndex(renderPly, false)] : []) as MaybeVNodes).concat(
-            renderMoveAndChildrenOf(ctx, main, {
-                parentPath: opts.parentPath,
-                isMainline: true,
-                conceal
-            }) || []
-        );
-        const mainChildren = renderChildrenOf(ctx, main, {
-            parentPath: opts.parentPath + main.id,
-            isMainline: true,
-            conceal
-        });
-        const passOpts = {
-            parentPath: opts.parentPath,
-            isMainline: true,
-            conceal
-        };
-        return (isWhite ? [moveView.renderIndex(renderPly, false)] : [] as MaybeVNodes).concat([
-            renderMoveOf(ctx, main, passOpts),
-            isWhite ? emptyMove(passOpts.conceal) : null,
-            h('interrupt', commentTags.concat(
-                renderLines(ctx, cs.slice(1), {
-                    parentPath: opts.parentPath,
-                    isMainline: true,
-                    conceal,
-                    noConceal: !conceal
-                })
-            ))
-        ] as MaybeVNodes).concat(
-            isWhite && mainChildren ? [
-                moveView.renderIndex(renderPly, false),
-                emptyMove(passOpts.conceal)
-            ] : []).concat(mainChildren || []);
-    }
-    if (!cs[1]) return renderMoveAndChildrenOf(ctx, main, opts);
-    return renderInlined(ctx, cs, opts) || [renderLines(ctx, cs, opts)];
+  const conceal = opts.noConceal ? null : (opts.conceal || ctx.concealOf(true)(opts.parentPath + main.id, main));
+  if (conceal === 'hide') return;
+  if (opts.isMainline) {
+    const renderPly = main.displayPly ? main.displayPly : main.ply;
+    const isWhite = renderPly % 2 === 1,
+      commentTags = renderMainlineCommentsOf(ctx, main, conceal, true).filter(nonEmpty);
+    if (!cs[1] && empty(commentTags)) return ((isWhite ? [moveView.renderIndex(renderPly, false)] : []) as MaybeVNodes).concat(
+      renderMoveAndChildrenOf(ctx, main, {
+        parentPath: opts.parentPath,
+        isMainline: true,
+        conceal
+      }) || []
+    );
+    const mainChildren = renderChildrenOf(ctx, main, {
+      parentPath: opts.parentPath + main.id,
+      isMainline: true,
+      conceal
+    });
+    const passOpts = {
+      parentPath: opts.parentPath,
+      isMainline: true,
+      conceal
+    };
+    return (isWhite ? [moveView.renderIndex(renderPly, false)] : [] as MaybeVNodes).concat([
+      renderMoveOf(ctx, main, passOpts),
+      isWhite ? emptyMove(passOpts.conceal) : null,
+      h('interrupt', commentTags.concat(
+        renderLines(ctx, cs.slice(1), {
+          parentPath: opts.parentPath,
+          isMainline: true,
+          conceal,
+          noConceal: !conceal
+        })
+      ))
+    ] as MaybeVNodes).concat(
+      isWhite && mainChildren ? [
+        moveView.renderIndex(renderPly, false),
+        emptyMove(passOpts.conceal)
+      ] : []).concat(mainChildren || []);
+  }
+  if (!cs[1]) return renderMoveAndChildrenOf(ctx, main, opts);
+  return renderInlined(ctx, cs, opts) || [renderLines(ctx, cs, opts)];
 }
 
 function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): MaybeVNodes | undefined {
@@ -133,7 +110,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 
 function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
-  classes = nodeClasses(ctx, path);
+    classes = nodeClasses(ctx, path);
   if (opts.conceal) classes[opts.conceal as string] = true;
   return h('move', {
     attrs: { p: path },
@@ -142,27 +119,27 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 }
 
 function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
-    const renderPly = node.displayPly ? node.displayPly : node.ply;
-    const withIndex = opts.withIndex || renderPly % 2 === 1,
-        path = opts.parentPath + node.id,
-        content: MaybeVNodes = [
-            withIndex ? moveView.renderIndex(renderPly, true) : null,
-            (node.expandedSan ? node.expandedSan : node.san!)
-        ],
-        classes = nodeClasses(ctx, path);
-    if (opts.conceal) classes[opts.conceal as string] = true;
-    if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
-    return h('move', {
-        attrs: { p: path },
-        class: classes
-    }, content);
+  const renderPly = node.displayPly ? node.displayPly : node.ply;
+  const withIndex = opts.withIndex || renderPly % 2 === 1,
+    path = opts.parentPath + node.id,
+    content: MaybeVNodes = [
+      withIndex ? moveView.renderIndex(renderPly, true) : null,
+      (node.expandedSan ? node.expandedSan : node.san!)
+    ],
+    classes = nodeClasses(ctx, path);
+  if (opts.conceal) classes[opts.conceal as string] = true;
+  if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
+  return h('move', {
+    attrs: { p: path },
+    class: classes
+  }, content);
 }
 
 function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes {
   const path = opts.parentPath + node.id;
   if (opts.truncate === 0) return [
     h('move', {
-        attrs: { p: path }
+      attrs: { p: path }
     }, [h('index', '[...]')])
   ];
   return ([renderMoveOf(ctx, node, opts)] as MaybeVNodes)
@@ -200,38 +177,38 @@ function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, w
     else if (comment.text.indexOf('Blunder.') === 0) sel += '.blunder';
     if (conceal) sel += '.' + conceal;
     const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
-    truncated = truncateComment(comment.text, 400, ctx);
+      truncated = truncateComment(comment.text, 400, ctx);
     return h(sel, {
       hook: innerHTML(truncated, text => by + enrichText(text, true))
     });
   });
 }
 
-const emptyConcealOf: ConcealOf = function() {
-  return function() { return null; };
+const emptyConcealOf: ConcealOf = function () {
+  return function () { return null; };
 };
 
 export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
-    const root = ctrl.tree.root;
-    const ctx: Ctx = {
-        ctrl,
-        truncateComments: !ctrl.embed,
-        concealOf: concealOf || emptyConcealOf,
-        showComputer: ctrl.showComputer() && !ctrl.retro,
-        showGlyphs: !!ctrl.study || ctrl.showComputer(),
-        showEval: !!ctrl.study || ctrl.showComputer(),
-        currentPath: findCurrentPath(ctrl)
-    };
-    const commentTags = renderMainlineCommentsOf(ctx, root, false, false);
-    return h('div.tview2.column', {
-        hook: mainHook(ctrl)
-    }, ([
-        empty(commentTags) ? null : h('interrupt', commentTags),
-        (root.displayPly ? root.displayPly : root.ply) & 1 ? moveView.renderIndex((root.displayPly ? root.displayPly : root.ply), false) : null,
-        (root.displayPly ? root.displayPly : root.ply) & 1 ? emptyMove() : null
-    ] as MaybeVNodes).concat(renderChildrenOf(ctx, root, {
-        parentPath: '',
-        isMainline: true
-    }) || []));
+  const root = ctrl.tree.root;
+  const ctx: Ctx = {
+    ctrl,
+    truncateComments: !ctrl.embed,
+    concealOf: concealOf || emptyConcealOf,
+    showComputer: ctrl.showComputer() && !ctrl.retro,
+    showGlyphs: !!ctrl.study || ctrl.showComputer(),
+    showEval: !!ctrl.study || ctrl.showComputer(),
+    currentPath: findCurrentPath(ctrl)
+  };
+  const commentTags = renderMainlineCommentsOf(ctx, root, false, false);
+  return h('div.tview2.column', {
+    hook: mainHook(ctrl)
+  }, ([
+    empty(commentTags) ? null : h('interrupt', commentTags),
+    (root.displayPly ? root.displayPly : root.ply) & 1 ? moveView.renderIndex((root.displayPly ? root.displayPly : root.ply), false) : null,
+    (root.displayPly ? root.displayPly : root.ply) & 1 ? emptyMove() : null
+  ] as MaybeVNodes).concat(renderChildrenOf(ctx, root, {
+    parentPath: '',
+    isMainline: true
+  }) || []));
 
 }

@@ -20,9 +20,9 @@ function jumpToNext(ctrl: RetroCtrl) {
   return h('a.half.continue', {
     hook: bind('click', ctrl.jumpToNext)
   }, [
-    h('i', { attrs: dataIcon('G') }),
-    ctrl.trans.noarg('next')
-  ]);
+      h('i', { attrs: dataIcon('G') }),
+      ctrl.trans.noarg('next')
+    ]);
 }
 
 const minDepth = 8;
@@ -156,7 +156,7 @@ function renderFeedback(root: AnalyseCtrl, fb) {
   const ctrl: RetroCtrl = root.retro!;
   const current = ctrl.current();
   if (ctrl.isSolving() && current && root.path !== current.prev.path)
-  return feedback.offTrack(ctrl);
+    return feedback.offTrack(ctrl);
   if (fb === 'find') return current ? feedback.find(ctrl) :
     feedback.end(ctrl, root.flip, root.hasFullComputerAnalysis);
   return feedback[fb](ctrl);
@@ -174,7 +174,7 @@ function renderTitle(ctrl: RetroCtrl): VNode {
   ]);
 }
 
-export default function(root: AnalyseCtrl): VNode | undefined {
+export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.retro;
   if (!ctrl) return;
   const fb = ctrl.feedback();
