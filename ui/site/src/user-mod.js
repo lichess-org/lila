@@ -4,20 +4,17 @@ lichess.pubsub.emit('content_loaded')();
 
 var $zone = $("div.user_show .mod_zone");
 
-function start($mod) {
-  $zone.find('form.xhr').submit(function() {
-    $(this).find('input').attr('disabled', true);
-    $.ajax({
-      url: $(this).attr('action'),
-      method: $(this).attr('method'),
-      success: function(html) {
-        start($mod.html(html));
-      }
-    })
-    return false;
-  });
-}
-start($zone);
+$zone.find('form.xhr').submit(function() {
+  $(this).find('input').attr('disabled', true);
+  $.ajax({
+    url: $(this).attr('action'),
+    method: $(this).attr('method'),
+    success: function(html) {
+      $zone.html(html);
+    }
+  })
+  return false;
+});
 
 $zone.find('form.fide_title select').on('change', function() {
   $(this).parent('form').submit();
