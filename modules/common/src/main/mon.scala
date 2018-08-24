@@ -648,8 +648,6 @@ object mon {
 
   trait Trace {
 
-    def finishFirstSegment(): Unit
-
     def segment[A](name: String, categ: String)(f: => Future[A]): Future[A]
 
     def segmentSync[A](name: String, categ: String)(f: => A): A
@@ -658,11 +656,8 @@ object mon {
   }
 
   private final class KamonTrace(
-      context: TraceContext,
-      firstSegment: Segment
+      context: TraceContext
   ) extends Trace {
-
-    def finishFirstSegment() = firstSegment.finish()
 
     def segment[A](name: String, categ: String)(code: => Future[A]): Future[A] =
       context.withNewAsyncSegment(name, categ, "mon")(code)
@@ -682,8 +677,7 @@ object mon {
       status = Status.Open,
       isLocal = false
     )
-    val firstSegment = context.startSegment(firstName, "logic", "mon")
-    new KamonTrace(context, firstSegment)
+    new KamonTrace(context)
   }
 
   private val stripVersionRegex = """[^\w\.\-]""".r

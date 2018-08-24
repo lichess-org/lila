@@ -77,6 +77,7 @@ object Duct {
         }
     }
 
+    // MUST be a def. Ducts cannot be reused.
     def lazyFu = new Duct {
       val process: Duct.ReceiveAsync = { case LazyFu(f) => f() }
     }
