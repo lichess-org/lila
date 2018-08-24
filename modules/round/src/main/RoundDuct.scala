@@ -33,7 +33,6 @@ private[round] final class Round(
   val process: Duct.ReceiveAsync = {
 
     case p: HumanPlay =>
-      p.trace.finishFirstSegment()
       handleHumanPlay(p) { pov =>
         if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
         else {
