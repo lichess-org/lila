@@ -19,7 +19,7 @@ case class PlayerAssessment(
     mtSd: Int,
     blurs: Int,
     hold: Boolean,
-    blurStreak: Int,
+    blurStreak: Option[Int],
     mtStreak: Boolean
 ) {
 
