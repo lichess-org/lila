@@ -366,7 +366,7 @@
 }
 
 #dasher_app piece.cburnett {
-  background-image: url(../piece-src/cburnett/wN.svg);
+  background-image: url(../piece/cburnett/wN.svg);
 }
 #dasher_app piece.merida {
   background-image: url(../piece/merida/wN.svg);
@@ -381,7 +381,7 @@
   background-image: url(../piece/alpha/wN.svg);
 }
 #dasher_app piece.pirouetti {
-  background-image: url(../piece-src/pirouetti/wN.svg);
+  background-image: url(../piece/pirouetti/wN.svg);
 }
 #dasher_app piece.reillycraig {
   background-image: url(../piece/reillycraig/wN.svg);
