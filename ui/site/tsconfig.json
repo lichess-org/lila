@@ -2,15 +2,6 @@
   "include": ["src/*.ts", "src/*.js"],
   "exclude": [],
   "compilerOptions": {
-    "allowJs": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "noEmitOnError": true,
-    "noImplicitAny": false,
-    "noImplicitReturns": false,
-    "noImplicitThis": true,
-    "noUnusedParameters": true,
-    "target": "es5",
-    "lib": ["DOM", "ES5"]
+    "allowJs": true
   }
 }
