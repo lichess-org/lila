@@ -43,9 +43,6 @@ trait AssetHelper { self: I18nHelper =>
   def jsTag(name: String, async: Boolean = false)(implicit ctx: Context) =
     jsAt("javascripts/" + name, async = async)
 
-  def jsTagCompiled(name: String)(implicit ctx: Context) =
-    if (isProd) jsAt("compiled/" + name) else jsTag(name)
-
   def jsAt(path: String, async: Boolean, version: AssetVersion): Html = Html {
     val src = assetUrl(path, version)
     s"""<script${if (async) " async defer" else ""} src="$src"></script>"""

@@ -1,5 +1,5 @@
-import './util';
+import './standalones/util';
 import './timeago';
-import './trans';
+import './standalones/trans';
 import './socket';
 import './main';
