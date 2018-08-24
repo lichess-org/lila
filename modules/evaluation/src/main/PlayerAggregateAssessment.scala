@@ -20,7 +20,7 @@ case class PlayerAssessment(
     blurs: Int,
     hold: Boolean,
     blurStreak: Option[Int],
-    mtStreak: Boolean
+    mtStreak: Option[Boolean]
 ) {
 
   val color = Color(white)

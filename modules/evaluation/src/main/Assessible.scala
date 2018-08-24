@@ -138,6 +138,6 @@ case class Assessible(analysed: Analysed, color: Color) {
       blurs = blurs,
       hold = hold,
       blurStreak = highestChunkBlurs.some.filter(0 <),
-      mtStreak = highlyConsistentMoveTimeStreaks
+      mtStreak = highlyConsistentMoveTimeStreaks.some.filter(identity)
     )
 }
