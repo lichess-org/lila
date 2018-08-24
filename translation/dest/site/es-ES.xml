@@ -509,6 +509,7 @@
   <string name="troll">Acoso</string>
   <string name="other">Otro</string>
   <string name="reportDescriptionHelp">Pega el enlace a la(s) partida(s) y explícanos qué hay de malo en el comportamiento de este usuario. No digas simplemente \"hace trampa\"; explícanos cómo has llegado a esta conclusión. Tu informe será procesado más rápido si está escrito en inglés.</string>
+  <string name="error.provideOneCheatedGameLink">Por favor proporcione al menos un enlace a un juego en el que se realizó trampa.</string>
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">Este tema está cerrado.</string>
   <string name="theming">Apariencia</string>
