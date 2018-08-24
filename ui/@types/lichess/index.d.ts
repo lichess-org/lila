@@ -1,5 +1,6 @@
 interface Lichess {
   pubsub: Pubsub
+  quantity(c: number): Quantity
   trans(i18n: { [key: string]: string | undefined }): Trans
   numberFormat(n: number): string
   once(key: string): boolean
@@ -141,6 +142,8 @@ interface WebAssemblyStatic {
 }
 
 declare var WebAssembly: WebAssemblyStatic | undefined;
+
+declare type Quantity = 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
 
 declare type VariantKey = 'standard' | 'chess960' | 'antichess' | 'fromPosition' | 'kingOfTheHill' | 'threeCheck' | 'atomic' | 'horde' | 'racingKings' | 'crazyhouse'
 

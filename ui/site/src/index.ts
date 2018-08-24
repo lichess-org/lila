@@ -1,5 +1,7 @@
 import './util';
 import './timeago';
-import './trans';
+import trans from './trans';
 import './socket';
 import './main';
+
+window.lichess.trans = trans;
