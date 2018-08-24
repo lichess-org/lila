@@ -3,22 +3,23 @@ package lila.insight
 import akka.actor.ActorRef
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
-import reactivemongo.bson._
 import reactivemongo.api.ReadPreference
+import reactivemongo.bson._
 
 import lila.db.dsl._
 import lila.db.dsl._
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query }
-import lila.hub.Sequencer
+import lila.hub.FutureSequencer
 import lila.user.User
 
-private final class Indexer(storage: Storage, sequencer: ActorRef) {
+private final class Indexer(storage: Storage, sequencer: FutureSequencer) {
 
-  def all(user: User): Funit = {
-    val p = scala.concurrent.Promise[Unit]()
-    sequencer ! Sequencer.work(compute(user), p.some)
-    p.future
+  def all(user: User): Funit = sequencer {
+    storage.fetchLast(user.id) flatMap {
+      case None => fromScratch(user)
+      case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)
+    }
   }
 
   def update(game: Game, userId: String, previous: Entry): Funit =
@@ -26,11 +27,6 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
       case Right(e) => storage update e.copy(number = previous.number)
       case _ => funit
     }
-
-  private def compute(user: User): Funit = storage.fetchLast(user.id) flatMap {
-    case None => fromScratch(user)
-    case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)
-  }
 
   private def fromScratch(user: User): Funit =
     fetchFirstGame(user) flatMap {

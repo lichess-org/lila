@@ -12,7 +12,7 @@ import lila.game.{ Game, LightGame, GameRepo, Pov, LightPov }
 import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
-import lila.hub.Sequencer
+import lila.hub.{ Duct, DuctMap }
 import lila.hub.tournamentTeam._
 import lila.round.actorApi.round.{ GoBerserk, AbortForce }
 import lila.socket.actorApi.SendToFlag
@@ -23,7 +23,7 @@ final class TournamentApi(
     cached: Cached,
     scheduleJsonView: ScheduleJsonView,
     system: ActorSystem,
-    sequencers: ActorRef,
+    sequencers: DuctMap[_],
     autoPairing: AutoPairing,
     clearJsonViewCache: Tournament.ID => Unit,
     clearWinnersCache: Tournament => Unit,
@@ -447,18 +447,16 @@ final class TournamentApi(
       }
     }
 
-  private def sequence(tourId: Tournament.ID)(work: => Funit): Unit = {
-    sequencers ! Tell(tourId, Sequencer work work)
-  }
-
-  private def Sequencing(tourId: Tournament.ID)(fetch: Tournament.ID => Fu[Option[Tournament]])(run: Tournament => Funit): Unit = {
-    sequence(tourId) {
+  private def Sequencing(tourId: Tournament.ID)(fetch: Tournament.ID => Fu[Option[Tournament]])(run: Tournament => Funit): Unit =
+    doSequence(tourId) {
       fetch(tourId) flatMap {
         case Some(t) => run(t)
         case None => fufail(s"Can't run sequenced operation on missing tournament $tourId")
       }
     }
-  }
+
+  private def doSequence(tourId: Tournament.ID)(fu: => Funit): Unit =
+    sequencers.tell(tourId, Duct.extra.LazyFu(() => fu))
 
   private def socketReload(tourId: Tournament.ID): Unit = sendTo(tourId, Reload)
 

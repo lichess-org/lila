@@ -5,9 +5,9 @@ import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lila.hub.{ Duct, DuctMap }
 import lila.hub.actorApi.HasUserId
 import lila.hub.actorApi.map.Ask
-import lila.hub.{ ActorMap, Sequencer }
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
 import makeTimeout.short
@@ -111,13 +111,10 @@ final class Env(
   private lazy val sequencer = new StudySequencer(
     studyRepo,
     chapterRepo,
-    system.actorOf(Props(ActorMap { id =>
-      new Sequencer(
-        receiveTimeout = SequencerTimeout.some,
-        executionTimeout = 5.seconds.some,
-        logger = logger
-      )
-    }))
+    sequencers = new DuctMap(
+      mkDuct = _ => Duct.extra.lazyPromise(5.seconds.some)(system),
+      accessTimeout = SequencerTimeout
+    )
   )
 
   private lazy val serverEvalRequester = new ServerEval.Requester(

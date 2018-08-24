@@ -1,12 +1,12 @@
 package lila.study
 
-import lila.hub.Sequencer
+import lila.hub.{ Duct, DuctMap }
 import lila.hub.actorApi.map.Tell
 
 private final class StudySequencer(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo,
-    sequencers: akka.actor.ActorRef
+    sequencers: DuctMap[_]
 ) {
 
   def sequenceStudy(studyId: Study.Id)(f: Study => Funit): Funit =
@@ -27,8 +27,7 @@ private final class StudySequencer(
 
   private def sequence(studyId: Study.Id)(f: => Funit): Funit = {
     val promise = scala.concurrent.Promise[Unit]
-    val work = Sequencer.work(f, promise.some)
-    sequencers ! Tell(studyId.value, work)
+    sequencers.tell(studyId.value, Duct.extra.LazyPromise(Duct.extra.LazyFu(() => f), promise))
     promise.future
   }
 }

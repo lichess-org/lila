@@ -49,7 +49,7 @@ final class FishnetApi(
     .logIfSlow(100, logger)(_ => s"acquire ${client.skill}")
     .result
     .recover {
-      case e: FutureSequencer.Timeout =>
+      case e: lila.hub.Duct.Timeout =>
         lila.mon.fishnet.acquire.timeout(client.skill.key)()
         logger.warn(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
         none

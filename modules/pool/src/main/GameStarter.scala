@@ -4,29 +4,24 @@ import akka.actor._
 import scala.concurrent.Promise
 
 import lila.game.{ Game, Player, GameRepo }
-import lila.hub.Sequencer
+import lila.hub.FutureSequencer
 import lila.rating.Perf
 import lila.user.{ User, UserRepo }
 
 private final class GameStarter(
     bus: lila.common.Bus,
     onStart: Game.ID => Unit,
-    sequencer: ActorRef
+    sequencer: FutureSequencer
 ) {
 
-  def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit = {
-    val promise = Promise[Unit]()
-    sequencer ! Sequencer.work(all(pool, couples), promise.some)
-    promise.future
-  }
-
-  private def all(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
-    couples.nonEmpty ?? {
+  def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit = couples.nonEmpty ?? {
+    sequencer {
       val userIds = couples.flatMap(_.userIds)
       UserRepo.perfOf(userIds, pool.perfType) flatMap { perfs =>
         couples.map(one(pool, perfs)).sequenceFu.void
       }
     }
+  }
 
   private def one(pool: PoolConfig, perfs: Map[User.ID, Perf])(couple: MatchMaking.Couple): Funit = {
     import couple._

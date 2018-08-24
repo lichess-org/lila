@@ -2,10 +2,10 @@ package lila.pool
 
 import scala.concurrent.duration._
 
-import akka.actor._
+import lila.hub.FutureSequencer
 
 final class Env(
-    lobbyActor: ActorSelection,
+    lobbyActor: akka.actor.ActorSelection,
     playbanApi: lila.playban.PlaybanApi,
     system: akka.actor.ActorSystem,
     onStart: String => Unit
@@ -24,9 +24,11 @@ final class Env(
   private lazy val gameStarter = new GameStarter(
     bus = system.lilaBus,
     onStart = onStart,
-    sequencer = system.actorOf(Props(
-      classOf[lila.hub.Sequencer], none, 10.seconds.some, logger
-    ), name = "pool-sequencer")
+    sequencer = new FutureSequencer(
+      system = system,
+      executionTimeout = 5.seconds.some,
+      logger = logger
+    )
   )
 }
 
