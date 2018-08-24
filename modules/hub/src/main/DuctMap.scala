@@ -2,7 +2,6 @@ package lila.hub
 
 import com.github.benmanes.caffeine.cache._
 
-import scala.compat.java8.FunctionConverters.asJavaFunction
 import scala.collection.JavaConverters._
 import scala.concurrent.duration.FiniteDuration
 import java.util.concurrent.TimeUnit
@@ -14,7 +13,7 @@ final class DuctMap[D <: Duct](
 
   def getOrMake(id: String): D = ducts.get(id)
 
-  def tell(id: String, msg: Any): Unit = getOrMake(id) ! msg
+  def tell(id: String, msg: Any): Unit = ducts.get(id) ! msg
 
   def tellAll(msg: Any) = ducts.asMap().asScala.foreach(_._2 ! msg)
 

@@ -6,7 +6,6 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._
-import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
 
@@ -16,8 +15,7 @@ private[simul] final class Socket(
     getSimul: Simul.ID => Fu[Option[Simul]],
     jsonView: JsonView,
     lightUser: lila.common.LightUser.Getter,
-    uidTimeout: Duration,
-    socketTimeout: Duration
+    uidTimeout: Duration
 ) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 
   override def preStart(): Unit = {
@@ -29,8 +27,6 @@ private[simul] final class Socket(
     super.postStop()
     lilaBus.unsubscribe(self)
   }
-
-  private val timeBomb = new TimeBomb(socketTimeout)
 
   private var delayedCrowdNotification = false
 
@@ -66,13 +62,7 @@ private[simul] final class Socket(
 
     case Ping(uid, vOpt, c) =>
       ping(uid, c)
-      timeBomb.delay
       pushEventsSinceForMobileBC(vOpt, uid)
-
-    case Broom => {
-      broom
-      if (timeBomb.boom) self ! PoisonPill
-    }
 
     case lila.socket.Socket.GetVersion => sender ! history.version
 
