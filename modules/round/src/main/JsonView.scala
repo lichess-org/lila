@@ -109,7 +109,7 @@ final class JsonView(
             .add("takebackable" -> takebackable)
             .add("possibleMoves" -> possibleMoves(pov))
             .add("possibleDrops" -> possibleDrops(pov))
-            .add("captureLength" -> game.situation.allMovesCaptureLength)
+            .add("captureLength" -> captureLength(pov))
             .add("expiration" -> game.expirable.option {
               Json.obj(
                 "idleMillis" -> (nowMillis - game.movedAt.getMillis),
@@ -276,6 +276,17 @@ final class JsonView(
       JsString(drops.map(_.key).mkString)
     }
   }
+
+  private def captureLength(pov: Pov): Option[Int] =
+    if (pov.game.situation.ghosts > 0) {
+      val move = pov.game.pdnMoves(pov.game.pdnMoves.length - 1)
+      val destPos = draughts.Pos.posAt(move.substring(move.lastIndexOf('x') + 1))
+      destPos match {
+        case Some(dest) => pov.game.situation.captureLengthFrom(dest)
+        case _ => pov.game.situation.allMovesCaptureLength
+      }
+    } else
+      pov.game.situation.allMovesCaptureLength
 
   private def animationFactor(pref: Pref): Float = pref.animation match {
     case 0 => 0

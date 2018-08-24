@@ -34,7 +34,7 @@ object StepBuilder {
                 move = Step.Move(m.uci, m.san).some,
                 fen = Forsyth >> g,
                 dests = None,
-                captLen = g.situation.allMovesCaptureLength
+                captLen = if (g.situation.ghosts > 0) g.situation.captureLengthFrom(m.uci.origDest._2) else g.situation.allMovesCaptureLength
               )
           }
           (initStep :: moveSteps).map(_.toJson)
