@@ -134,7 +134,7 @@ gulp.task('user-mod', function() {
     .pipe(gulp.dest(destination));
 });
 
-const tasks = ['git-sha', 'jquery-fill', 'ab', 'standalones'];
+const tasks = ['git-sha', 'jquery-fill', 'ab', 'standalones', 'user-mod'];
 if (!process.env.TRAVIS || process.env.GITHUB_API_TOKEN) {
   if (!process.env.NO_SF) { // to skip SF download
     tasks.push('stockfish.pexe');
