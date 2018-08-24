@@ -24,7 +24,7 @@ object Step {
 
   case class Move(uci: Uci, san: String) {
     def uciString = uci.uci
-    def shortUciString = uci.uci.take(4)
+    def shortUciString = uci.shortUci
   }
 
   private implicit val uciJsonWriter: Writes[Uci.Move] = Writes { uci =>

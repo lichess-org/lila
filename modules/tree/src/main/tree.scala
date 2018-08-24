@@ -3,7 +3,7 @@ package lidraughts.tree
 import play.api.libs.json._
 
 import draughts.format.pdn.{ Glyph, Glyphs }
-import draughts.format.{ Uci, UciCharPair }
+import draughts.format.{ Uci, UciCharPair, Forsyth }
 import draughts.opening.FullOpening
 import draughts.Pos
 
@@ -233,7 +233,7 @@ object Node {
         "ply" -> ply,
         "fen" -> fen
       ).add("id", idOption.map(_.toString))
-        .add("uci", moveOption.map(_.uci.uci))
+        .add("uci", moveOption.map(m => if (Forsyth.countGhosts(fen) != 0) m.uci.shortUci else m.uci.uci))
         .add("san", moveOption.map(_.san))
         .add("eval", eval.filterNot(_.isEmpty))
         .add("comments", if (comments.nonEmpty) Some(comments) else None)

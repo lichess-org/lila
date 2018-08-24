@@ -6,6 +6,7 @@ import scala.collection.mutable.ListBuffer
 sealed trait Uci {
 
   def uci: String
+  def shortUci: String
   def piotr: String
 
   def origDest: (Pos, Pos)
