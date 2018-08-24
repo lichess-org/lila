@@ -509,6 +509,7 @@
   <string name="troll">Troll</string>
   <string name="other">Andet</string>
   <string name="reportDescriptionHelp">Indsæt et link til partiet (eller partierne) og forklar hvad der er i vejen med brugerens opførsel.</string>
+  <string name="error.provideOneCheatedGameLink">Angiv mindst et link til et parti med snyd.</string>
   <string name="by">Af %s</string>
   <string name="thisTopicIsNowClosed">Dette emne er nu lukket</string>
   <string name="theming">Tema</string>
