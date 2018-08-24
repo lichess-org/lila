@@ -12,10 +12,8 @@ import lila.base.LilaException
  */
 trait Duct {
 
-  type ReceiveAsync = PartialFunction[Any, Fu[Any]]
-
   // implement async behaviour here
-  protected val process: ReceiveAsync
+  protected val process: Duct.ReceiveAsync
 
   def !(msg: Any): Unit = atomic { implicit txn =>
     stateRef.transform {
@@ -25,6 +23,8 @@ trait Duct {
       }
     }
   }
+
+  def queueSize = stateRef.single().??(_.size)
 
   /*
    * Idle: None
@@ -48,6 +48,8 @@ trait Duct {
 }
 
 object Duct {
+
+  type ReceiveAsync = PartialFunction[Any, Fu[Any]]
 
   private val emptyQueue: Option[Queue[Any]] = Some(Queue.empty)
 

@@ -30,7 +30,7 @@ private[round] final class Round(
 
   def game: Fu[Option[Game]] = proxy.game
 
-  val process: ReceiveAsync = {
+  val process: Duct.ReceiveAsync = {
 
     case p: HumanPlay =>
       p.trace.finishFirstSegment()

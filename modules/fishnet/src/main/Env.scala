@@ -39,7 +39,6 @@ final class Env(
 
   private val sequencer = new lila.hub.FutureSequencer(
     system = system,
-    receiveTimeout = None,
     executionTimeout = Some(1 second),
     logger = logger
   )
