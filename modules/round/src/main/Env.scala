@@ -95,7 +95,7 @@ final class Env(
 
   def roundProxyGame(gameId: Game.ID): Fu[Option[Game]] =
     roundMap.getOrMake(gameId).game.mon(_.round.proxyGameWatcherTime) addEffect { g =>
-      if (!g.isDefined) roundMap kill gameId.pp("kill")
+      if (!g.isDefined) roundMap kill gameId
       lila.mon.round.proxyGameWatcherCount(g.isDefined.toString)()
     }
 
