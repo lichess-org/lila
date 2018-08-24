@@ -116,8 +116,12 @@ gulp.task('git-sha', function(cb) {
 
 gulp.task('standalones', function() {
   return gulp.src([
-    './src/util.js',
-    './src/trans.js'
+    'src/standalones/util.js',
+    'src/standalones/trans.js',
+    'src/standalones/tv.js',
+    'src/standalones/puzzle.js',
+    'src/standalones/user.js',
+    'src/standalones/coordinate.js'
   ])
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(destination));

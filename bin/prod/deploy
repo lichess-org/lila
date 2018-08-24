@@ -37,7 +37,7 @@ echo "##################################################"
 read -p "Press enter to continue"
 
 if [ "$2" = "asset" ]; then
-  bin/prod/compile-client
+  ./ui/build prod
 fi
 
 if [ $mode = "main" ]; then
