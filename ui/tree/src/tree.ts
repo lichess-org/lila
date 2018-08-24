@@ -6,32 +6,32 @@ import { countGhosts } from 'draughtsground/fen'
 export type MaybeNode = Tree.Node | undefined;
 
 export interface TreeWrapper {
-    root: Tree.Node;
-    lastPly(): number;
-    nodeAtPath(path: Tree.Path): Tree.Node;
-    getNodeList(path: Tree.Path): Tree.Node[];
-    longestValidPath(path: string): Tree.Path;
-    getOpening(nodeList: Tree.Node[]): Tree.Opening | undefined;
-    updateAt(path: Tree.Path, update: (node: Tree.Node) => void): MaybeNode;
-    addNode(node: Tree.Node, path: Tree.Path, puzzleEditor: Boolean): Tree.Path | undefined;
-    addNodes(nodes: Tree.Node[], path: Tree.Path): Tree.Path | undefined;
-    addDests(dests: string, path: Tree.Path, opening?: Tree.Opening): MaybeNode;
-    setShapes(shapes: Tree.Shape[], path: Tree.Path): MaybeNode;
-    setCommentAt(comment: Tree.Comment, path: Tree.Path): MaybeNode;
-    deleteCommentAt(id: string, path: Tree.Path): MaybeNode;
-    setGlyphsAt(glyphs: Tree.Glyph[], path: Tree.Path): MaybeNode;
-    setClockAt(clock: Tree.Clock | undefined, path: Tree.Path): MaybeNode;
-    pathIsMainline(path: Tree.Path): boolean;
-    lastMainlineNode(path: Tree.Path): Tree.Node;
-    pathExists(path: Tree.Path): boolean;
-    deleteNodeAt(path: Tree.Path): void;
-    promoteAt(path: Tree.Path, toMainline: boolean): void;
-    getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[];
-    merge(tree: Tree.Node): void;
-    removeCeval(): void;
-    removeComputerVariations(): void;
-    parentNode(path: Tree.Path): Tree.Node;
-    getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined;
+  root: Tree.Node;
+  lastPly(): number;
+  nodeAtPath(path: Tree.Path): Tree.Node;
+  getNodeList(path: Tree.Path): Tree.Node[];
+  longestValidPath(path: string): Tree.Path;
+  getOpening(nodeList: Tree.Node[]): Tree.Opening | undefined;
+  updateAt(path: Tree.Path, update: (node: Tree.Node) => void): MaybeNode;
+  addNode(node: Tree.Node, path: Tree.Path, puzzleEditor: Boolean): Tree.Path | undefined;
+  addNodes(nodes: Tree.Node[], path: Tree.Path): Tree.Path | undefined;
+  addDests(dests: string, path: Tree.Path, opening?: Tree.Opening): MaybeNode;
+  setShapes(shapes: Tree.Shape[], path: Tree.Path): MaybeNode;
+  setCommentAt(comment: Tree.Comment, path: Tree.Path): MaybeNode;
+  deleteCommentAt(id: string, path: Tree.Path): MaybeNode;
+  setGlyphsAt(glyphs: Tree.Glyph[], path: Tree.Path): MaybeNode;
+  setClockAt(clock: Tree.Clock | undefined, path: Tree.Path): MaybeNode;
+  pathIsMainline(path: Tree.Path): boolean;
+  lastMainlineNode(path: Tree.Path): Tree.Node;
+  pathExists(path: Tree.Path): boolean;
+  deleteNodeAt(path: Tree.Path): void;
+  promoteAt(path: Tree.Path, toMainline: boolean): void;
+  getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[];
+  merge(tree: Tree.Node): void;
+  removeCeval(): void;
+  removeComputerVariations(): void;
+  parentNode(path: Tree.Path): Tree.Node;
+  getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined;
 }
 
 export function build(root: Tree.Node): TreeWrapper {
@@ -73,8 +73,9 @@ export function build(root: Tree.Node): TreeWrapper {
     var node, nodes = [];
     for (var i in nodeList) {
       node = nodeList[i];
-      if (node.ply <= ply && mainline[i].id !== node.id) break;
-      if (node.ply > ply) nodes.push(node);
+      const nodePly = node.displayPly ? node.displayPly : node.ply;
+      if (nodePly <= ply && mainline[i].id !== node.id) break;
+      if (nodePly > ply) nodes.push(node);
     }
     return nodes;
   };

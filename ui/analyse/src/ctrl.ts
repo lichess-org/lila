@@ -97,7 +97,8 @@ export default class AnalyseCtrl {
   // misc
   cgConfig: any; // latest draughtsground config (useful for revert)
   music?: any;
-  puzzleMode: Boolean
+  puzzleMode: Boolean;
+  skipSteps: number;
 
   constructor(opts: AnalyseOpts, redraw: () => void) {
 
@@ -157,6 +158,8 @@ export default class AnalyseCtrl {
     }
 
     this.setPath(this.initialPath);
+
+    this.skipSteps = this.tree.getCurrentNodesAfterPly(this.nodeList, this.mainline, this.data.game.turns).length;
 
     this.showGround();
     this.onToggleComputer();

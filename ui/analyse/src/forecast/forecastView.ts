@@ -27,7 +27,7 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
 
 function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
   const afterPly = ctrl.tree.getCurrentNodesAfterPly(ctrl.nodeList, ctrl.mainline, ctrl.data.game.turns);
-  const expanded = treeOps.expandMergedNodes(fctrl.truncateNodes(afterPly));
+  const expanded = treeOps.expandMergedNodes(fctrl.truncateNodes(afterPly), ctrl.skipSteps);
   return expanded.map(node => ({
     ply: node.ply,
     displayPly: node.displayPly,

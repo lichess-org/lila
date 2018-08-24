@@ -151,15 +151,21 @@ export function adjustMergedPlies(merged: Tree.Node[]) {
   }
 }
 
-export function expandMergedNodes(nodeList: Tree.Node[]): Tree.Node[] {
-  var node: Tree.Node, nodes = [];
+export function expandMergedNodes(nodeList: Tree.Node[], skipSteps: number = 0): Tree.Node[] {
+  var node: Tree.Node, nodes = [], skippedSteps = 0;
   for (var i in nodeList) {
     node = nodeList[i];
     if (node.mergedNodes && node.mergedNodes.length != 0) {
-      for (var m of node.mergedNodes)
-        nodes.push(m);
+      for (var m of node.mergedNodes) {
+        skippedSteps++;
+        if (skippedSteps > skipSteps)
+          nodes.push(m);
+      }
+    } else {
+      skippedSteps++;
+      if (skippedSteps > skipSteps)
+        nodes.push(node);
     }
-    else nodes.push(node);
   }
   return nodes;
 }
