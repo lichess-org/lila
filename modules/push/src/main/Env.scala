@@ -54,7 +54,7 @@ object Env {
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
     getLightUser = lila.user.Env.current.lightUserSync,
-    roundSocketHub = lila.hub.Env.current.socket.round,
+    roundSocketHub = lila.hub.Env.current.socket.roundActor,
     scheduler = lila.common.PlayApp.scheduler,
     config = lila.common.PlayApp loadConfig "push"
   )

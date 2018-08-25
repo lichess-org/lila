@@ -1,14 +1,14 @@
 package lila.round
 
 import akka.actor._
-import akka.pattern.ask
+import akka.pattern.{ ask, pipe }
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import actorApi.{ GetSocketStatus, SocketStatus }
 
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.actorApi.map.{ Ask, Tell }
+import lila.hub.actorApi.map.{ Tell, Exists, Ask }
 import lila.hub.actorApi.round.{ Abort, Resign, FishnetPlay }
 import lila.hub.actorApi.{ HasUserId, DeployPost }
 
@@ -128,6 +128,11 @@ final class Env(
           logger.warn("Disabling round history persistence!")
           historyPersistenceEnabled = false
         }
+      case Tell(id, msg) => socketHub.tell(id, msg)
+      case Exists(id) => sender ! socketHub.exists(id)
+      case Ask(id, msg) =>
+        import makeTimeout.short
+        socketHub.getOrMake(id) ? msg pipeTo sender
     }
   }), name = SocketName)
   bus.subscribe(socketHubActor, 'tvSelect, 'startGame, 'deploy)
@@ -232,7 +237,7 @@ final class Env(
   )
 
   bus.subscribe(system.actorOf(
-    Props(new CorresAlarm(db(CollectionAlarm), hub.socket.round)),
+    Props(new CorresAlarm(db(CollectionAlarm), socketHub)),
     name = "corres-alarm"
   ), 'moveEventCorres, 'finishGame)
 
