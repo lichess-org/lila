@@ -30,7 +30,7 @@ final class TournamentApi(
     clearTrophyCache: Tournament => Unit,
     renderer: ActorSelection,
     timeline: ActorSelection,
-    socketHub: lila.hub.ActorMapNew,
+    socketHub: lila.hub.ActorMap,
     site: ActorSelection,
     lobby: ActorSelection,
     roundMap: lila.hub.DuctMap[_],

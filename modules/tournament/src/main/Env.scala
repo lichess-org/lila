@@ -140,7 +140,7 @@ final class Env(
     leaderboardColl = leaderboardColl
   )
 
-  private val socketHub = new lila.hub.ActorMapNew(
+  private val socketHub = new lila.hub.ActorMap(
     mkActor = id => new Socket(
       tournamentId = id,
       history = new History(ttl = HistoryMessageTtl),

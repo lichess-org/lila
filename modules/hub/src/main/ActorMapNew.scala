@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit
 import scala.collection.JavaConverters._
 import scala.concurrent.duration.FiniteDuration
 
-final class ActorMapNew(
+final class ActorMap(
     mkActor: String => Actor,
     accessTimeout: FiniteDuration,
     name: String,

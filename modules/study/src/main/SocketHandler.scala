@@ -20,7 +20,7 @@ import makeTimeout.short
 
 final class SocketHandler(
     hub: lila.hub.Env,
-    socketHub: lila.hub.ActorMapNew,
+    socketHub: lila.hub.ActorMap,
     chat: ActorSelection,
     api: StudyApi,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler

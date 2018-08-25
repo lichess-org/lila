@@ -27,7 +27,7 @@ final class StudyApi(
     chat: ActorSelection,
     bus: lila.common.Bus,
     timeline: ActorSelection,
-    socketHub: lila.hub.ActorMapNew,
+    socketHub: lila.hub.ActorMap,
     serverEvalRequester: ServerEval.Requester,
     lightStudyCache: LightStudyCache
 ) {

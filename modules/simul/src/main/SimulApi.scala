@@ -20,7 +20,7 @@ final class SimulApi(
     system: ActorSystem,
     sequencers: DuctMap[_],
     onGameStart: Game.ID => Unit,
-    socketHub: lila.hub.ActorMapNew,
+    socketHub: lila.hub.ActorMap,
     site: ActorSelection,
     renderer: ActorSelection,
     timeline: ActorSelection,

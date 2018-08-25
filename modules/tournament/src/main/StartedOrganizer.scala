@@ -12,7 +12,7 @@ private final class StartedOrganizer(
     api: TournamentApi,
     reminder: ActorRef,
     isOnline: String => Boolean,
-    socketHub: lila.hub.ActorMapNew
+    socketHub: lila.hub.ActorMap
 ) extends Actor {
 
   override def preStart: Unit = {

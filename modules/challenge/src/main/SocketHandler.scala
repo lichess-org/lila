@@ -9,7 +9,7 @@ import makeTimeout.short
 
 private[challenge] final class SocketHandler(
     hub: lila.hub.Env,
-    socketHub: lila.hub.ActorMapNew,
+    socketHub: lila.hub.ActorMap,
     pingChallenge: Challenge.ID => Funit
 ) {
 

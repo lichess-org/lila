@@ -56,7 +56,7 @@ final class Env(
 
   lazy val jsonView = new JsonView(lightUser)
 
-  private val socketHub = new lila.hub.ActorMapNew(
+  private val socketHub = new lila.hub.ActorMap(
     mkActor = id => new Socket(
       simulId = id,
       history = new History(ttl = HistoryMessageTtl),

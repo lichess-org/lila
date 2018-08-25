@@ -38,7 +38,7 @@ object ServerEval {
 
   final class Merger(
       sequencer: StudySequencer,
-      socketHub: lila.hub.ActorMapNew,
+      socketHub: lila.hub.ActorMap,
       api: StudyApi,
       chapterRepo: ChapterRepo,
       divider: lila.game.Divider

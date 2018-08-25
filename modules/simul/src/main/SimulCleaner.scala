@@ -8,7 +8,7 @@ import org.joda.time.DateTime
 private[simul] final class SimulCleaner(
     repo: SimulRepo,
     api: SimulApi,
-    socketHub: lila.hub.ActorMapNew
+    socketHub: lila.hub.ActorMap
 ) {
 
   def apply: Unit = {
