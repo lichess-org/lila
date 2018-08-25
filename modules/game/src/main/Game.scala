@@ -630,7 +630,7 @@ object Game {
     pgnImport: Option[PgnImport],
     daysPerTurn: Option[Int] = None
   ): Game = {
-    var createdAt = DateTime.now
+    val createdAt = DateTime.now
     Game(
       id = IdGenerator.game,
       whitePlayer = whitePlayer,
