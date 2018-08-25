@@ -17,7 +17,6 @@ import lila.hub.actorApi.Deploy
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.round.{ IsOnGame, TourStanding }
 import lila.hub.actorApi.tv.{ Select => TvSelect }
-import lila.hub.TimeBomb
 import lila.socket._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
@@ -28,7 +27,6 @@ private[round] final class Socket(
     history: History,
     lightUser: LightUser.Getter,
     uidTimeout: FiniteDuration,
-    socketTimeout: FiniteDuration,
     disconnectTimeout: FiniteDuration,
     ragequitTimeout: FiniteDuration,
     simulActor: ActorSelection
@@ -41,8 +39,6 @@ private[round] final class Socket(
     pub = Chat.Id(s"$gameId/w")
   )
   private var tournamentId = none[String] // until set, to listen to standings
-
-  private val timeBomb = new TimeBomb(socketTimeout)
 
   private[this] var delayedCrowdNotification = false
 
@@ -142,7 +138,6 @@ private[round] final class Socket(
       history.enablePersistence
 
     case Ping(uid, vOpt, lagCentis) =>
-      timeBomb.delay
       ping(uid, lagCentis)
       ownerOf(uid) foreach { o =>
         playerDo(o.color, _.ping)
@@ -163,8 +158,7 @@ private[round] final class Socket(
 
     case Broom =>
       broom
-      if (timeBomb.boom) self ! PoisonPill
-      else if (!hasAi) Color.all foreach { c =>
+      if (!hasAi) Color.all foreach { c =>
         playerGet(c, _.isGone) foreach { _ ?? notifyGone(c, true) }
       }
 
