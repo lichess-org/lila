@@ -112,11 +112,19 @@ final class JsonView(
   def playerInfo(tour: Tournament, user: User): Fu[Option[PlayerInfo]] =
     PlayerRepo.find(tour.id, user.id) flatMap {
       _ ?? { player =>
-        cached ranking tour map { ranking =>
-          ranking get user.id map { rank =>
-            PlayerInfo(rank + 1, player.withdraw)
-          }
+        getOrGuessRank(tour, player) map { rank =>
+          PlayerInfo(rank + 1, player.withdraw).some
         }
+      }
+    }
+
+  // if the user is not yet in the cached ranking,
+  // guess its rank based on other players scores in the DB
+  private def getOrGuessRank(tour: Tournament, player: Player): Fu[Int] =
+    cached ranking tour flatMap {
+      _ get player.userId match {
+        case Some(rank) => fuccess(rank)
+        case None => PlayerRepo.computeRankOf(player)
       }
     }
 
