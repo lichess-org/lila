@@ -11,7 +11,7 @@ import reactivemongo.api.{ CursorProducer, ReadPreference }
 import reactivemongo.bson.BSONDocument
 
 import lidraughts.db.BSON.BSONJodaDateTimeHandler
-import lidraughts.db.ByteArray
+import lidraughts.db.{ ByteArray, isDuplicateKey }
 import lidraughts.db.dsl._
 import lidraughts.user.User
 
@@ -334,7 +334,7 @@ object GameRepo {
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
     coll insert bson addFailureEffect {
-      case e: WriteResult if e.code.contains(11000) => lila.mon.game.idCollision()
+      case wr: WriteResult if isDuplicateKey(wr) => lila.mon.game.idCollision()
     } void
   } >>- {
     lidraughts.mon.game.create.variant(g.variant.key)()
