@@ -40,7 +40,7 @@ case class AiConfig(
       source = if (chessGame.board.variant.fromPosition) Source.Position else Source.Ai,
       daysPerTurn = makeDaysPerTurn,
       pgnImport = None
-    )
+    ).sloppy
   } start
 
   def pov(user: Option[User]) = Pov(game(user), creatorColor)

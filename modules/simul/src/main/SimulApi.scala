@@ -200,8 +200,8 @@ final class SimulApi(
       pgnImport = None
     )
     game2 = game1
-      .withSimulId(simul.id)
       .withId(pairing.gameId)
+      .withSimulId(simul.id)
       .start
     _ ← (GameRepo insertDenormalized game2) >>-
       onGameStart(game2.id) >>-

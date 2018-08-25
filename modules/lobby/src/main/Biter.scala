@@ -21,11 +21,11 @@ private[lobby] object Biter {
     userOption ← lobbyUserOption.map(_.id) ?? UserRepo.byId
     ownerOption ← hook.userId ?? UserRepo.byId
     creatorColor <- assignCreatorColor(ownerOption, userOption, hook.realColor)
-    game = makeGame(
+    game <- makeGame(
       hook,
       whiteUser = creatorColor.fold(ownerOption, userOption),
       blackUser = creatorColor.fold(userOption, ownerOption)
-    )
+    ).withUniqueId
     _ ← GameRepo insertDenormalized game
   } yield {
     lila.mon.lobby.hook.join()
@@ -36,11 +36,11 @@ private[lobby] object Biter {
     user ← UserRepo byId lobbyUser.id flatten s"No such user: ${lobbyUser.id}"
     owner ← UserRepo byId seek.user.id flatten s"No such user: ${seek.user.id}"
     creatorColor <- assignCreatorColor(owner.some, user.some, seek.realColor)
-    game = makeGame(
+    game <- makeGame(
       seek,
       whiteUser = creatorColor.fold(owner.some, user.some),
       blackUser = creatorColor.fold(user.some, owner.some)
-    )
+    ).withUniqueId
     _ ← GameRepo insertDenormalized game
   } yield JoinSeek(user.id, seek, game, creatorColor)
 

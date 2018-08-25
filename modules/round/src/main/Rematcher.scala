@@ -84,25 +84,26 @@ private[round] final class Rematcher(
       case variant => variant.pieces
     }
     users <- UserRepo byIds pov.game.userIds
-  } yield Game.make(
-    chess = ChessGame(
-      situation = Situation(
-        board = Board(pieces, variant = pov.game.variant).withCastles {
-          situation.fold(Castles.init)(_.situation.board.history.castles)
-        },
-        color = situation.fold[chess.Color](White)(_.situation.color)
+    game <- Game.make(
+      chess = ChessGame(
+        situation = Situation(
+          board = Board(pieces, variant = pov.game.variant).withCastles {
+            situation.fold(Castles.init)(_.situation.board.history.castles)
+          },
+          color = situation.fold[chess.Color](White)(_.situation.color)
+        ),
+        clock = pov.game.clock map { c => Clock(c.config) },
+        turns = situation ?? (_.turns),
+        startedAtTurn = situation ?? (_.turns)
       ),
-      clock = pov.game.clock map { c => Clock(c.config) },
-      turns = situation ?? (_.turns),
-      startedAtTurn = situation ?? (_.turns)
-    ),
-    whitePlayer = returnPlayer(pov.game, White, users),
-    blackPlayer = returnPlayer(pov.game, Black, users),
-    mode = if (users.exists(_.lame)) chess.Mode.Casual else pov.game.mode,
-    source = pov.game.source | Source.Lobby,
-    daysPerTurn = pov.game.daysPerTurn,
-    pgnImport = None
-  )
+      whitePlayer = returnPlayer(pov.game, White, users),
+      blackPlayer = returnPlayer(pov.game, Black, users),
+      mode = if (users.exists(_.lame)) chess.Mode.Casual else pov.game.mode,
+      source = pov.game.source | Source.Lobby,
+      daysPerTurn = pov.game.daysPerTurn,
+      pgnImport = None
+    ).withUniqueId
+  } yield game
 
   private def returnPlayer(game: Game, color: ChessColor, users: List[User]): lila.game.Player =
     game.opponent(color).aiLevel match {

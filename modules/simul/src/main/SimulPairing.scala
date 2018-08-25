@@ -30,7 +30,7 @@ private[simul] object SimulPairing {
 
   def apply(player: SimulPlayer): SimulPairing = new SimulPairing(
     player = player,
-    gameId = IdGenerator.game,
+    gameId = IdGenerator.uncheckedGame,
     status = chess.Status.Created,
     wins = none,
     hostColor = chess.White

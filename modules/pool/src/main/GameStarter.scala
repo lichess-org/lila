@@ -30,11 +30,11 @@ private final class GameStarter(
         p1White <- UserRepo.firstGetsWhite(p1.userId, p2.userId)
         (whitePerf, blackPerf) = if (p1White) perf1 -> perf2 else perf2 -> perf1
         (whiteMember, blackMember) = if (p1White) p1 -> p2 else p2 -> p1
-        game = makeGame(
+        game <- makeGame(
           pool,
           whiteMember.userId -> whitePerf,
           blackMember.userId -> blackPerf
-        ).start
+        ).start.withUniqueId
         _ <- GameRepo insertDenormalized game
       } yield {
 
