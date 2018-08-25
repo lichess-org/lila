@@ -3,13 +3,14 @@ package lila.hub
 import scala.collection.immutable.Queue
 import scala.concurrent.duration._
 import scala.concurrent.Promise
-import scala.concurrent.stm._
+
+import java.util.concurrent.atomic.AtomicReference
+import scala.compat.java8.FunctionConverters.asJavaUnaryOperator
 
 import lila.base.LilaException
 
 /*
- * Sequential like an actor, but for async functions,
- * and using an STM backend instead of akka actor.
+ * Sequential like an actor, but for async functions.
  */
 trait Duct {
 
@@ -17,28 +18,28 @@ trait Duct {
   protected val process: Duct.ReceiveAsync
 
   def !(msg: Any): Unit =
-    if (stateRef.single.getAndTransform { q =>
+    if (stateRef.getAndUpdate(asJavaUnaryOperator { q =>
       Some(q.fold(Queue.empty[Any])(_ enqueue msg))
-    } isEmpty) run(msg)
+    }) isEmpty) run(msg)
 
-  def queueSize = stateRef.single().??(_.size)
+  def queueSize = stateRef.get().??(_.size)
 
   /*
    * Idle: None
    * Busy: Some(Queue.empty)
    * Busy with backlog: Some(Queue.nonEmpty)
    */
-  private[this] val stateRef: Ref[Option[Queue[Any]]] = Ref(None)
+  private[this] val stateRef: AtomicReference[Option[Queue[Any]]] = new AtomicReference(None)
 
   private[this] def run(msg: Any): Unit =
     process.applyOrElse(msg, Duct.fallback) onComplete postRun
 
   private[this] val postRun = (_: Any) =>
-    stateRef.single.getAndTransform {
+    stateRef.getAndUpdate(asJavaUnaryOperator {
       _ flatMap { q =>
         if (q.isEmpty) None else Some(q.tail)
       }
-    } flatMap (_.headOption) foreach run
+    }) flatMap (_.headOption) foreach run
 }
 
 object Duct {
