@@ -20,7 +20,7 @@ module.exports = function(cfg, element) {
   var onFirstConnect = function() {
     var gameId = getParameterByName('hook_like');
     if (!gameId) return;
-    $.post('/setup/hook/' + lichess.StrongSocket.sri + '/like/' + gameId);
+    $.post('/setup/hook/' + encodeURIComponent(lichess.StrongSocket.sri) + '/like/' + gameId);
     lobby.setTab('real_time');
     history.replaceState(null, null, '/');
   };
