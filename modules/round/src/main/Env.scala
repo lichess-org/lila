@@ -99,40 +99,38 @@ final class Env(
       lila.mon.round.proxyGameWatcherCount(g.isDefined.toString)()
     }
 
-  private val socketHub = {
-    val actor = system.actorOf(
-      Props(new lila.socket.SocketHubActor[Socket] {
-        private var historyPersistenceEnabled = false
-        def mkActor(id: String) = new Socket(
-          gameId = id,
-          history = eventHistory(id, historyPersistenceEnabled),
-          lightUser = lightUser,
-          uidTimeout = UidTimeout,
-          socketTimeout = SocketTimeout,
-          disconnectTimeout = PlayerDisconnectTimeout,
-          ragequitTimeout = PlayerRagequitTimeout,
-          simulActor = hub.actor.simul
-        )
-        def receive: Receive = ({
-          case msg @ lila.chat.actorApi.ChatLine(id, line) =>
-            self ! Tell(id.value take 8, msg)
-          case _: lila.hub.actorApi.Deploy =>
-            logger.warn("Enable history persistence")
-            historyPersistenceEnabled = true
-            // if the deploy didn't go through, cancel persistence
-            system.scheduler.scheduleOnce(10.minutes) {
-              logger.warn("Disabling round history persistence!")
-              historyPersistenceEnabled = false
-            }
-          case msg: lila.game.actorApi.StartGame =>
-            self ! Tell(msg.game.id, msg)
-        }: Receive) orElse socketHubReceive
-      }),
-      name = SocketName
-    )
-    bus.subscribe(actor, 'tvSelect, 'startGame, 'deploy)
-    actor
-  }
+  private var historyPersistenceEnabled = false
+
+  private val socketHub = new lila.hub.ActorMapNew(
+    mkActor = id => new Socket(
+      gameId = id,
+      history = eventHistory(id, historyPersistenceEnabled),
+      lightUser = lightUser,
+      uidTimeout = UidTimeout,
+      disconnectTimeout = PlayerDisconnectTimeout,
+      ragequitTimeout = PlayerRagequitTimeout,
+      simulActor = hub.actor.simul
+    ),
+    accessTimeout = SocketTimeout,
+    name = "round.socket",
+    system = system
+  )
+
+  private val socketHubActor = system.actorOf(Props(new Actor {
+    def receive = {
+      case msg @ lila.chat.actorApi.ChatLine(id, line) => socketHub.tell(id.value take 8, msg)
+      case msg: lila.game.actorApi.StartGame => socketHub.tell(msg.game.id, msg)
+      case _: lila.hub.actorApi.Deploy =>
+        logger.warn("Enable history persistence")
+        historyPersistenceEnabled = true
+        // if the deploy didn't go through, cancel persistence
+        system.scheduler.scheduleOnce(10.minutes) {
+          logger.warn("Disabling round history persistence!")
+          historyPersistenceEnabled = false
+        }
+    }
+  }), name = SocketName)
+  bus.subscribe(socketHubActor, 'tvSelect, 'startGame, 'deploy)
 
   lazy val selfReport = new SelfReport(roundMap)
 
@@ -207,15 +205,11 @@ final class Env(
     chat = hub.actor.chat
   )
 
-  def getSocketStatus(gameId: Game.ID): Fu[SocketStatus] = {
-    import makeTimeout.large
-    socketHub ? Ask(gameId, GetSocketStatus) mapTo manifest[SocketStatus]
-  }
+  def getSocketStatus(gameId: Game.ID): Fu[SocketStatus] =
+    socketHub.ask[SocketStatus](gameId, GetSocketStatus)
 
-  private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] = {
-    import makeTimeout.large
-    socketHub ? Ask(game.id, HasUserId(userId)) mapTo manifest[Boolean]
-  }
+  private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
+    socketHub.ask[Boolean](game.id, HasUserId(userId))
 
   lazy val jsonView = new JsonView(
     noteApi = noteApi,
