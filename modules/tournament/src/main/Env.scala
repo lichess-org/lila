@@ -154,7 +154,7 @@ final class Env(
   )
 
   private val sequencerMap = new DuctMap(
-    mkDuct = _ => Duct.extra.lazyFu(5.seconds)(system),
+    mkDuct = _ => Duct.extra.lazyPromise(5.seconds.some)(system),
     accessTimeout = SequencerTimeout
   )
 

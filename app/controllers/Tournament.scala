@@ -162,10 +162,10 @@ object Tournament extends LilaController {
       NoPlayban {
         val password = ctx.body.body.\("p").asOpt[String]
         negotiate(
-          html = repo.enterableById(id).map {
-            _.fold(tournamentNotFound) { tour =>
-              env.api.join(tour.id, me, password, getUserTeamIds)
-              Redirect(routes.Tournament.show(tour.id))
+          html = repo.enterableById(id).flatMap {
+            _.fold(tournamentNotFound.fuccess) { tour =>
+              env.api.join(tour.id, me, password, getUserTeamIds) inject
+                Redirect(routes.Tournament.show(tour.id))
             }
           },
           api = _ => OptionFuResult(repo enterableById id) { tour =>
@@ -180,10 +180,11 @@ object Tournament extends LilaController {
   }
 
   def pause(id: String) = Auth { implicit ctx => me =>
-    OptionResult(repo byId id) { tour =>
-      env.api.selfPause(tour.id, me.id)
-      if (HTTPRequest.isXhr(ctx.req)) jsonOkResult
-      else Redirect(routes.Tournament.show(tour.id))
+    OptionFuResult(repo byId id) { tour =>
+      env.api.selfPause(tour.id, me.id) inject {
+        if (HTTPRequest.isXhr(ctx.req)) jsonOkResult
+        else Redirect(routes.Tournament.show(tour.id))
+      }
     }
   }
 
