@@ -61,7 +61,7 @@ private[tournament] object Pairing {
   case class LastOpponents(hash: Map[User.ID, User.ID]) extends AnyVal
 
   def apply(tourId: Tournament.ID, u1: User.ID, u2: User.ID): Pairing = new Pairing(
-    id = IdGenerator.game,
+    id = IdGenerator.uncheckedGame,
     tourId = tourId,
     status = chess.Status.Created,
     user1 = u1,

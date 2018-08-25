@@ -39,8 +39,8 @@ final class AutoPairing(
       mode = tour.mode,
       source = Source.Tournament,
       pgnImport = None
-    ).withTournamentId(tour.id)
-      .withId(pairing.gameId)
+    ).withId(pairing.gameId)
+      .withTournamentId(tour.id)
       .start
     (GameRepo insertDenormalized game) >>- {
       onStart(game.id)

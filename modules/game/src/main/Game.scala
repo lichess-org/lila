@@ -629,10 +629,10 @@ object Game {
     source: Source,
     pgnImport: Option[PgnImport],
     daysPerTurn: Option[Int] = None
-  ): Game = {
+  ): NewGame = {
     val createdAt = DateTime.now
-    Game(
-      id = IdGenerator.game,
+    NewGame(Game(
+      id = IdGenerator.uncheckedGame,
       whitePlayer = whitePlayer,
       blackPlayer = blackPlayer,
       chess = chess,
@@ -648,7 +648,7 @@ object Game {
       ),
       createdAt = createdAt,
       movedAt = createdAt
-    )
+    ))
   }
 
   object BSONFields {

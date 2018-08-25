@@ -3,6 +3,8 @@ package lila.tournament
 import lila.rating.Perf
 import lila.user.{ User, Perfs }
 
+import ornicar.scalalib.Random
+
 private[tournament] case class Player(
     _id: Player.ID, // random
     tourId: Tournament.ID,
@@ -38,7 +40,7 @@ private[tournament] object Player {
   case class WithUser(player: Player, user: User)
 
   private[tournament] def make(tourId: Tournament.ID, user: User, perfLens: Perfs => Perf): Player = new Player(
-    _id = lila.game.IdGenerator.game,
+    _id = Random.nextString(8),
     tourId = tourId,
     userId = user.id,
     rating = perfLens(user.perfs).intRating,

@@ -58,7 +58,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
       mode = chess.Mode.Casual,
       source = lila.game.Source.Api,
       pgnImport = None
-    ).copy(id = "synthetic"),
+    ).withId("synthetic"),
     from.situation.color
   )
 
