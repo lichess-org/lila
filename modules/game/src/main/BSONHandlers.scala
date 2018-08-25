@@ -71,14 +71,13 @@ object BSONHandlers {
       )
 
       val lastMove: String = decoded.pdnMoves.lastOption.getOrElse("")
+
       val decodedSituation = draughts.Pos.posAt(lastMove.substring(lastMove.lastIndexOf('x') + 1)) match {
-        case Some(pos) => initialSituation.captureLengthFrom(pos) match {
-          case Some(capts) if capts > 0 => {
+        case Some(pos) =>
+          if (initialSituation.ghosts != 0) {
             plies = plies - 1
             draughts.Situation(board = decodedBoard, color = !turnColor)
-          }
-          case _ => initialSituation
-        }
+          } else initialSituation
         case _ => initialSituation
       }
 
