@@ -38,7 +38,7 @@ object ServerEval {
 
   final class Merger(
       sequencer: StudySequencer,
-      socketHub: akka.actor.ActorRef,
+      socketHub: lila.hub.ActorMapNew,
       api: StudyApi,
       chapterRepo: ChapterRepo,
       divider: lila.game.Divider
@@ -74,7 +74,7 @@ object ServerEval {
           } >>- {
             chapterRepo.byId(Chapter.Id(analysis.id)).foreach {
               _ ?? { chapter =>
-                socketHub ! Tell(studyId, ServerEval.Progress(
+                socketHub.tell(studyId, ServerEval.Progress(
                   chapterId = chapter.id,
                   tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
                   analysis = toJson(chapter, analysis),

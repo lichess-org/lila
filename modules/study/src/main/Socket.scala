@@ -7,7 +7,6 @@ import scala.concurrent.duration._
 
 import chess.Centis
 import chess.format.pgn.Glyphs
-import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.{ Uid, GetVersion, SocketVersion }
 import lila.socket.{ SocketActor, History, Historical, AnaDests }
@@ -22,7 +21,6 @@ private final class Socket(
     lightUser: lila.common.LightUser.Getter,
     val history: History[Socket.Messadata],
     uidTimeout: Duration,
-    socketTimeout: Duration,
     lightStudyCache: LightStudyCache
 ) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Socket.Messadata] {
 
@@ -30,8 +28,6 @@ private final class Socket(
   import JsonView._
   import jsonView.membersWrites
   import lila.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites, clockWrites }
-
-  private val timeBomb = new TimeBomb(socketTimeout)
 
   private var delayedCrowdNotification = false
 
@@ -189,12 +185,7 @@ private final class Socket(
 
     case Ping(uid, vOpt, lt) =>
       ping(uid, lt)
-      timeBomb.delay
       pushEventsSinceForMobileBC(vOpt, uid)
-
-    case Broom =>
-      broom
-      if (timeBomb.boom) self ! PoisonPill
 
     case GetVersion => sender ! history.version
 

@@ -35,7 +35,6 @@ final class Env(
     val HistoryMessageTtl = config duration "history.message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
-    val SocketName = config getString "socket.name"
     val ActorName = config getString "actor.name"
     val SequencerTimeout = config duration "sequencer.timeout"
     val NetDomain = config getString "net.domain"
@@ -44,27 +43,27 @@ final class Env(
   }
   import settings._
 
-  private val socketHub = system.actorOf(
-    Props(new lila.socket.SocketHubActor.Default[Socket] {
-      def mkActor(studyId: String) = new Socket(
-        studyId = Study.Id(studyId),
-        jsonView = jsonView,
-        studyRepo = studyRepo,
-        chapterRepo = chapterRepo,
-        lightUser = lightUserApi.async,
-        history = new lila.socket.History(ttl = HistoryMessageTtl),
-        uidTimeout = UidTimeout,
-        socketTimeout = SocketTimeout,
-        lightStudyCache = lightStudyCache
-      )
-    }), name = SocketName
+  private val socketHub = new lila.hub.ActorMapNew(
+    mkActor = id => new Socket(
+      studyId = Study.Id(id),
+      jsonView = jsonView,
+      studyRepo = studyRepo,
+      chapterRepo = chapterRepo,
+      lightUser = lightUserApi.async,
+      history = new lila.socket.History(ttl = HistoryMessageTtl),
+      uidTimeout = UidTimeout,
+      lightStudyCache = lightStudyCache
+    ),
+    accessTimeout = SocketTimeout,
+    name = "study.socket",
+    system = system
   )
 
   def version(studyId: Study.Id): Fu[SocketVersion] =
-    socketHub ? Ask(studyId.value, GetVersion) mapTo manifest[SocketVersion]
+    socketHub.ask[SocketVersion](studyId.value, GetVersion)
 
   def isConnected(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
-    socketHub ? Ask(studyId.value, HasUserId(userId)) mapTo manifest[Boolean]
+    socketHub.ask[Boolean](studyId.value, HasUserId(userId))
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
