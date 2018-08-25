@@ -36,11 +36,19 @@ final class ActorMap(
     Caffeine.newBuilder()
       .expireAfterAccess(accessTimeout.toMillis, TimeUnit.MILLISECONDS)
       .removalListener(new RemovalListener[String, ActorRef] {
-        def onRemoval(id: String, ref: ActorRef, cause: RemovalCause): Unit =
-          ref ! PoisonPill
+        def onRemoval(id: String, ref: ActorRef, cause: RemovalCause): Unit = system stop ref
       })
       .build[String, ActorRef](new CacheLoader[String, ActorRef] {
-        def load(id: String): ActorRef =
-          system.actorOf(Props(mkActor(id)), name = s"$name.$id")
+        def load(id: String): ActorRef = try {
+          spawn(id, id)
+        } catch {
+          case e: akka.actor.InvalidActorNameException =>
+            lila.log("hub").warn(s"ActorMap $name mkActor", e)
+            import ornicar.scalalib.Random.nextString
+            spawn(id, s"$id.${nextString(4)}")
+        }
       })
+
+  private[this] def spawn(id: String, actorName: String) =
+    system.actorOf(Props(mkActor(id)), name = s"$name.$actorName")
 }
