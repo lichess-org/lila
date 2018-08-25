@@ -16,14 +16,11 @@ trait Duct {
   // implement async behaviour here
   protected val process: Duct.ReceiveAsync
 
-  def !(msg: Any): Unit = atomic { implicit txn =>
-    stateRef.transform {
-      _.map(_ enqueue msg) orElse {
-        Txn.afterCommit { _ => run(msg) }
-        Duct.emptyQueue
-      }
-    }
-  }
+  def !(msg: Any): Unit =
+    if (stateRef.single.getAndTransform {
+      case None => Some(Queue.empty)
+      case Some(q) => Some(q enqueue msg)
+    } isEmpty) run(msg)
 
   def queueSize = stateRef.single().??(_.size)
 
@@ -35,24 +32,18 @@ trait Duct {
   private[this] val stateRef: Ref[Option[Queue[Any]]] = Ref(None)
 
   private[this] def run(msg: Any): Unit =
-    process.applyOrElse(msg, Duct.fallback) onComplete { _ => postRun }
+    process.applyOrElse(msg, Duct.fallback) onComplete postRun
 
-  private[this] def postRun = atomic { implicit txn =>
-    stateRef.transform {
-      _.flatMap(_.dequeueOption) map {
-        case (msg, newQueue) =>
-          Txn.afterCommit { _ => run(msg) }
-          newQueue
-      }
-    }
-  }
+  private[this] val postRun = (_: Any) =>
+    stateRef.single.getAndTransform {
+      case Some(q) => if (q.isEmpty) None else Some(q.tail)
+      case None => None // Shouldn't happen...
+    } foreach { q => if (q.nonEmpty) run(q.head) }
 }
 
 object Duct {
 
   type ReceiveAsync = PartialFunction[Any, Fu[Any]]
-
-  private val emptyQueue: Option[Queue[Any]] = Some(Queue.empty)
 
   private val fallback = { msg: Any =>
     lila.log("Duct").warn(s"unhandled msg: $msg")
