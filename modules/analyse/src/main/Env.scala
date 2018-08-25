@@ -25,7 +25,7 @@ final class Env(
   lazy val analyser = new Analyser(
     indexer = indexer,
     requesterApi = requesterApi,
-    roundSocket = hub.socket.round,
+    roundSocket = hub.socket.roundActor,
     studyActor = hub.actor.study,
     bus = system.lilaBus
   )

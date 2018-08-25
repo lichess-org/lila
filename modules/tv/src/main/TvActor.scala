@@ -10,7 +10,6 @@ import lila.game.{ Game, GameRepo }
 
 private[tv] final class TvActor(
     rendererActor: ActorSelection,
-    roundSocket: ActorSelection,
     selectChannel: ActorRef,
     lightUser: LightUser.GetterSync,
     onSelect: Game => Unit
