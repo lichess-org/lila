@@ -269,8 +269,8 @@ final class SimulApi(
       drawLimit = simul.spotlight.flatMap(_.drawLimit)
     )
     game2 = game1
-      .withSimul(simul.id, index)
       .withId(pairing.gameId)
+      .withSimul(simul.id, index)
       .start
     _ ← (GameRepo insertDenormalized game2) >>-
       onGameStart(game2.id) >>-

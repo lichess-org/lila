@@ -712,10 +712,10 @@ object Game {
     pdnImport: Option[PdnImport],
     daysPerTurn: Option[Int] = None,
     drawLimit: Option[Int] = None
-  ): Game = {
+  ): NewGame = {
     val createdAt = DateTime.now
-    Game(
-      id = IdGenerator.game,
+    NewGame(Game(
+      id = IdGenerator.uncheckedGame,
       whitePlayer = whitePlayer,
       blackPlayer = blackPlayer,
       draughts = draughts,
@@ -736,7 +736,7 @@ object Game {
       ),
       createdAt = createdAt,
       movedAt = createdAt
-    )
+    ))
   }
 
   object BSONFields {

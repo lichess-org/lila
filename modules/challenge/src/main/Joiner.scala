@@ -40,7 +40,7 @@ private[challenge] final class Joiner(onStart: String => Unit) {
             source = if (draughtsGame.board.variant.fromPosition) Source.Position else Source.Friend,
             daysPerTurn = c.daysPerTurn,
             pdnImport = None
-          ).copy(id = c.id).|> { g =>
+          ).withId(c.id).|> { g =>
               state.fold(g) {
                 case sit @ SituationPlus(Situation(board, _), _) => g.copy(
                   draughts = g.draughts.copy(

@@ -87,7 +87,7 @@ object UserAnalysis extends LidraughtsController with TheftPrevention {
       mode = draughts.Mode.Casual,
       source = lidraughts.game.Source.Api,
       pdnImport = None
-    ).copy(id = "synthetic"),
+    ).withId("synthetic"),
     from.situation.color
   )
 
