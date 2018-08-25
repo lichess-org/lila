@@ -96,7 +96,7 @@ object Player {
     color: Color,
     aiLevel: Option[Int] = None
   ): Player = Player(
-    id = IdGenerator.player,
+    id = IdGenerator.player(color),
     color = color,
     aiLevel = aiLevel
   )
@@ -105,7 +105,7 @@ object Player {
     color: Color,
     userPerf: (User.ID, lila.rating.Perf)
   ): Player = Player(
-    id = IdGenerator.player,
+    id = IdGenerator.player(color),
     color = color,
     aiLevel = none,
     userId = userPerf._1.some,
