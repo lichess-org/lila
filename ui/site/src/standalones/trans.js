@@ -1,3 +1,5 @@
+var lidraughts = window.lidraughts = window.lidraughts || {};
+
 lidraughts.trans = function(i18n) {
   var format = function(str, args) {
     if (args.length && str.indexOf('$s') > -1)
