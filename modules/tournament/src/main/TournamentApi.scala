@@ -198,7 +198,7 @@ final class TournamentApi(
     case Some(user) => verify(tour.conditions, user, getUserTeamIds)
   }
 
-  def join(tourId: Tournament.ID, me: User, p: Option[String], getUserTeamIds: User => Fu[TeamIdList]): Funit =
+  private def join(tourId: Tournament.ID, me: User, p: Option[String], getUserTeamIds: User => Fu[TeamIdList]): Funit =
     SequencingWithFeedback(tourId)(TournamentRepo.enterableById) { tour =>
       if (tour.password == p) {
         verdicts(tour, me.some, getUserTeamIds) flatMap {
@@ -217,7 +217,8 @@ final class TournamentApi(
     }
 
   def joinWithResult(tourId: Tournament.ID, me: User, p: Option[String], getUserTeamIds: User => Fu[TeamIdList]): Fu[Boolean] =
-    join(tourId, me, p, getUserTeamIds) >> PlayerRepo.find(tourId, me.id).map { _ ?? (_.active) }
+    join(tourId, me, p, getUserTeamIds) >>
+      PlayerRepo.find(tourId, me.id).map { _ exists (_.active) }
 
   def pageOf(tour: Tournament, userId: User.ID): Fu[Option[Int]] =
     cached ranking tour map {

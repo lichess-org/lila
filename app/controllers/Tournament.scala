@@ -161,20 +161,15 @@ object Tournament extends LilaController {
     NoLameOrBot {
       NoPlayban {
         val password = ctx.body.body.\("p").asOpt[String]
-        negotiate(
-          html = repo.enterableById(id).flatMap {
-            _.fold(tournamentNotFound.fuccess) { tour =>
-              env.api.join(tour.id, me, password, getUserTeamIds) inject
-                Redirect(routes.Tournament.show(tour.id))
-            }
-          },
-          api = _ => OptionFuResult(repo enterableById id) { tour =>
-            env.api.joinWithResult(tour.id, me, password, getUserTeamIds) map { result =>
+        env.api.joinWithResult(id, me, password, getUserTeamIds) flatMap { result =>
+          negotiate(
+            html = Redirect(routes.Tournament.show(id)).fuccess,
+            api = _ => fuccess {
               if (result) jsonOkResult
               else BadRequest(Json.obj("joined" -> false))
             }
-          }
-        )
+          )
+        }
       }
     }
   }
