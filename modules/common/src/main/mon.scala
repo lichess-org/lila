@@ -471,6 +471,7 @@ object mon {
         val decode = new Protocol("huffman.decode")
       }
     }
+    val idCollision = inc("game.id_collision")
   }
   object chat {
     val message = inc("chat.message")
