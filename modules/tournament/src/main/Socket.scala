@@ -8,7 +8,6 @@ import scala.concurrent.duration._
 import scala.collection.breakOut
 
 import actorApi._
-import lidraughts.hub.TimeBomb
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.{ SocketActor, History, Historical }
 
@@ -17,11 +16,8 @@ private[tournament] final class Socket(
     val history: History[Messadata],
     jsonView: JsonView,
     lightUser: lidraughts.common.LightUser.Getter,
-    uidTimeout: Duration,
-    socketTimeout: Duration
+    uidTimeout: Duration
 ) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
-
-  private val timeBomb = new TimeBomb(socketTimeout)
 
   private var delayedCrowdNotification = false
   private var delayedReloadNotification = false
@@ -63,13 +59,7 @@ private[tournament] final class Socket(
 
     case Ping(uid, vOpt, lt) =>
       ping(uid, lt)
-      timeBomb.delay
       pushEventsSinceForMobileBC(vOpt, uid)
-
-    case Broom => {
-      broom
-      if (timeBomb.boom) self ! PoisonPill
-    }
 
     case lidraughts.socket.Socket.GetVersion => sender ! history.version
 

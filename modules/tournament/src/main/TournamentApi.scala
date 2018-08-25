@@ -31,7 +31,7 @@ final class TournamentApi(
     clearTrophyCache: Tournament => Unit,
     renderer: ActorSelection,
     timeline: ActorSelection,
-    socketHub: ActorRef,
+    socketHub: lidraughts.hub.ActorMapNew,
     site: ActorSelection,
     lobby: ActorSelection,
     roundMap: lidraughts.hub.DuctMap[_],
@@ -520,5 +520,5 @@ final class TournamentApi(
   }
 
   private def sendTo(tourId: Tournament.ID, msg: Any): Unit =
-    socketHub ! Tell(tourId, msg)
+    socketHub.tell(tourId, msg)
 }
