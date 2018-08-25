@@ -15,7 +15,7 @@ final class ChallengeApi(
     jsonView: JsonView,
     gameCache: lila.game.Cached,
     maxPlaying: Int,
-    socketHub: ActorRef,
+    socketHub: lila.hub.ActorMapNew,
     userRegister: ActorSelection,
     asyncCache: lila.memo.AsyncCache.Builder,
     lilaBus: lila.common.Bus
@@ -114,7 +114,7 @@ final class ChallengeApi(
   }
 
   private def socketReload(id: Challenge.ID): Unit =
-    socketHub ! Tell(id, Socket.Reload)
+    socketHub.tell(id, Socket.Reload)
 
   private def notify(userId: User.ID): Funit = for {
     all <- allFor(userId)

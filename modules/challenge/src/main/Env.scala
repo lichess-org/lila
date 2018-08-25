@@ -5,9 +5,9 @@ import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.user.User
 import lila.hub.actorApi.map.Ask
 import lila.socket.Socket.{ GetVersion, SocketVersion }
+import lila.user.User
 import makeTimeout.short
 
 final class Env(
@@ -31,25 +31,24 @@ final class Env(
     val HistoryMessageTtl = config duration "history.message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
-    val SocketName = config getString "socket.name"
     val MaxPlaying = config getInt "max_playing"
   }
   import settings._
 
-  private val socketHub = system.actorOf(
-    Props(new lila.socket.SocketHubActor.Default[Socket] {
-      def mkActor(challengeId: String) = new Socket(
-        challengeId = challengeId,
-        history = new lila.socket.History(ttl = HistoryMessageTtl),
-        getChallenge = repo.byId,
-        uidTimeout = UidTimeout,
-        socketTimeout = SocketTimeout
-      )
-    }), name = SocketName
+  private val socketHub = new lila.hub.ActorMapNew(
+    mkActor = id => new Socket(
+      challengeId = id,
+      history = new lila.socket.History(ttl = HistoryMessageTtl),
+      getChallenge = repo.byId,
+      uidTimeout = UidTimeout
+    ),
+    accessTimeout = SocketTimeout,
+    name = "challenge.socket",
+    system = system
   )
 
   def version(challengeId: Challenge.ID): Fu[SocketVersion] =
-    socketHub ? Ask(challengeId, GetVersion) mapTo manifest[SocketVersion]
+    socketHub.ask[SocketVersion](challengeId, GetVersion)
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
