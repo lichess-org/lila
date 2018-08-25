@@ -17,7 +17,7 @@ lidraughts.movetimeChart = function(data, trans) {
             var tree = data.treeParts;
             var moveCentis = data.game.moveCentis ||
               data.game.moveTimes.map(function(i) { return i * 10; });
-            var ply = 0;
+            var ply = 0, lastPly = ply;
             var max = 0;
 
             var logC = Math.pow(Math.log(3), 2);
@@ -28,32 +28,35 @@ lidraughts.movetimeChart = function(data, trans) {
             moveCentis.forEach(function(time, i) {
               var node = tree[i + 1];
               ply = node ? node.ply : ply + 1;
-              var san = node ? node.san : '-';
+              if (ply !== lastPly) {
+                lastPly = ply;
+                var san = node ? node.san : '-';
 
-              var turn = (ply + 1) >> 1;
-              var color = ply & 1;
+                var turn = (ply + 1) >> 1;
+                var color = ply & 1;
 
-              var y = Math.pow(Math.log(.005 * Math.min(time, 12e4) + 3), 2) - logC;
-              max = Math.max(y, max);
+                var y = Math.pow(Math.log(.005 * Math.min(time, 12e4) + 3), 2) - logC;
+                max = Math.max(y, max);
 
-              var point = {
-                name: turn + (color ? '. ' : '... ') + san,
-                x: i,
-                y: color ? y : -y
-              };
-
-              if (blurs[color].shift() === '1') {
-                point.marker = {
-                  symbol: 'square',
-                  radius: 3,
-                  lineWidth: '1px',
-                  lineColor: '#3893E8',
-                  fillColor: color ? '#fff' : '#333'
+                var point = {
+                  name: turn + (color ? '. ' : '... ') + san,
+                  x: i,
+                  y: color ? y : -y
                 };
-                point.name += ' [blur]';
-              }
 
-              series[color ? 'white' : 'black'].push(point);
+                if (blurs[color].shift() === '1') {
+                  point.marker = {
+                    symbol: 'square',
+                    radius: 3,
+                    lineWidth: '1px',
+                    lineColor: '#3893E8',
+                    fillColor: color ? '#fff' : '#333'
+                  };
+                  point.name += ' [blur]';
+                }
+
+                series[color ? 'white' : 'black'].push(point);
+              }
             });
 
             var disabled = {

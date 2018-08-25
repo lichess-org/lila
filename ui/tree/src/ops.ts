@@ -264,7 +264,7 @@ export function reconstruct(parts: any): Tree.Node {
       else
         node.uci = node.uci + n.uci.substr(2, 2);
 
-      if (prevNode && node.san.indexOf('x') !== -1)
+      if (prevNode && curX !== -1)
         prevNode.captLen = node.uci.length / 2 - 1;
 
     } else {

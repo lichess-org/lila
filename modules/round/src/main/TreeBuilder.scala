@@ -74,7 +74,7 @@ object TreeBuilder {
             move = m,
             fen = fen,
             opening = openingOf(fen),
-            clock = withClocks ?? (_ lift (g.turns - init.turns - 1)),
+            clock = withClocks ?? (_ lift (g.displayTurns - init.turns - 1)),
             eval = info map makeEval,
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
             comments = Node.Comments {
