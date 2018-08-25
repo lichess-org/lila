@@ -12,4 +12,5 @@ case class NewGame(sloppy: Game) extends AnyVal {
   def finished = sloppy.finished
   def winnerColor = sloppy.winnerColor
   def status = sloppy.status
+  def history = sloppy.history
 }
