@@ -1,6 +1,6 @@
 @(channel: lila.tv.Tv.Channel, povs: List[Pov], champions: lila.tv.Tv.Champions)(implicit ctx: Context)
 
-@title = @{ s"${channel.name} • ${trans.currentGames()}" }
+@title = @{ s"${channel.name} • ${trans.currentGames.txt()}" }
 
 @base.layout(
 title = title,
