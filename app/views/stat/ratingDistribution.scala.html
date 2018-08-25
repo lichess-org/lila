@@ -10,7 +10,7 @@ myRating: @ctx.me.fold("null")(_.perfs(perfType).intRating.toString)
 }
 }
 
-@title = { @trans.weeklyPerfTypeRatingDistribution(perfType.name) }
+@title = @{ trans.weeklyPerfTypeRatingDistribution.txt(perfType.name) }
 
 @layout(
 title = title.toString,

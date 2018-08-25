@@ -52,8 +52,8 @@ moreJs = moreJs,
 side = side.some,
 openGraph = lidraughts.app.ui.OpenGraph(
 url = s"$netBaseUrl${routes.Tournament.home().url}",
-title = s"${trans.tournamentHomeTitle()}",
-description = s"${trans.tournamentHomeDescription()}").some) {
+title = trans.tournamentHomeTitle.txt(),
+description = trans.tournamentHomeDescription.txt()).some) {
 <div class="content_box tournament_box no_padding">
   <div class="create_tournament">
     <a href="/tournament/calendar" class="blue">@trans.tournamentCalendar()</a>
