@@ -61,7 +61,7 @@ private[tournament] object Pairing {
   case class LastOpponents(hash: Map[User.ID, User.ID]) extends AnyVal
 
   private def make(tourId: Tournament.ID, u1: User.ID, u2: User.ID): Fu[Pairing] =
-    fuccess(IdGenerator.uncheckedGame) dmap { id =>
+    IdGenerator.game dmap { id =>
       new Pairing(
         id = id,
         tourId = tourId,
