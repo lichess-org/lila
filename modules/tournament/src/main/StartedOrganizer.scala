@@ -12,7 +12,7 @@ private final class StartedOrganizer(
     api: TournamentApi,
     reminder: ActorRef,
     isOnline: String => Boolean,
-    socketHub: ActorRef
+    socketHub: lila.hub.ActorMapNew
 ) extends Actor {
 
   override def preStart: Unit = {
@@ -66,5 +66,5 @@ private final class StartedOrganizer(
     }
 
   private def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] =
-    socketHub ? Ask(tour.id, GetWaitingUsers) mapTo manifest[WaitingUsers]
+    socketHub.ask[WaitingUsers](tour.id, GetWaitingUsers)
 }
