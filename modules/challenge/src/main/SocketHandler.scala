@@ -1,8 +1,5 @@
 package lidraughts.challenge
 
-import akka.actor._
-import akka.pattern.ask
-
 import lidraughts.hub.actorApi.map._
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Handler
@@ -12,7 +9,7 @@ import makeTimeout.short
 
 private[challenge] final class SocketHandler(
     hub: lidraughts.hub.Env,
-    socketHub: ActorRef,
+    socketHub: lidraughts.hub.ActorMapNew,
     pingChallenge: Challenge.ID => Funit
 ) {
 
@@ -22,17 +19,17 @@ private[challenge] final class SocketHandler(
     userId: Option[User.ID],
     owner: Boolean,
     version: Option[SocketVersion]
-  ): Fu[Option[JsSocketHandler]] = for {
-    socket ← socketHub ? Get(challengeId) mapTo manifest[ActorRef]
-    join = Socket.Join(uid, userId, owner, version)
-    handler ← Handler(hub, socket, uid, join) {
+  ): Fu[Option[JsSocketHandler]] = {
+    val socket = socketHub getOrMake challengeId
+    val join = Socket.Join(uid, userId, owner, version)
+    Handler(hub, socket, uid, join) {
       case Socket.Connected(enum, member) =>
         (controller(socket, challengeId, uid, member), enum, member)
-    }
-  } yield handler.some
+    } map some
+  }
 
   private def controller(
-    socket: ActorRef,
+    socket: akka.actor.ActorRef,
     challengeId: Challenge.ID,
     uid: Uid,
     member: Socket.Member
