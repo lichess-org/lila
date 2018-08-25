@@ -1,3 +1,5 @@
+var lichess = window.lichess = window.lichess || {};
+
 lichess.trans = function(i18n) {
   var format = function(str, args) {
     if (args.length && str.indexOf('$s') > -1)
