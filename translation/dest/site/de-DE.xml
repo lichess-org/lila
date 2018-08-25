@@ -86,7 +86,7 @@
   </plurals>
   <string name="noGameFound">Kein Spiel gefunden</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Spiele über das \"Einstellungen\"-Menü einbezogen werden?</string>
-  <string name="openingExplorer">Eröffnungsdatenbank &amp; Tablebases</string>
+  <string name="openingExplorer">Eröffnungsdatenbank</string>
   <string name="xOpeningExplorer">%s Eröffnungsbuch</string>
   <string name="winPreventedBy50MoveRule">Sieg durch 50-Züge-Regel verhindert</string>
   <string name="lossSavedBy50MoveRule">Verlust durch 50-Züge-Regel verhindert</string>
