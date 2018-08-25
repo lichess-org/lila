@@ -1,15 +1,13 @@
 package lila.hub
 
+import akka.actor.ActorSystem
+import java.util.concurrent.atomic._
 import scala.collection.immutable.Queue
 import scala.concurrent.duration._
 import scala.concurrent.Promise
-import scala.concurrent.stm._
 
-import lila.base.LilaException
-
-/*
- * Sequential like an actor, but for async functions,
- * and using an STM backend instead of akka actor.
+/**
+ * Sequential like an actor, but for async functions.
  */
 trait Duct {
 
@@ -17,28 +15,23 @@ trait Duct {
   protected val process: Duct.ReceiveAsync
 
   def !(msg: Any): Unit =
-    if (stateRef.single.getAndTransform { q =>
-      Some(q.fold(Queue.empty[Any])(_ enqueue msg))
-    } isEmpty) run(msg)
+    if (state.getAndUpdate(_ enqueue msg) isEmpty) run(msg)
 
-  def queueSize = stateRef.single().??(_.size)
+  def queueSize = state.get.size
 
   /*
-   * Idle: None
-   * Busy: Some(Queue.empty)
-   * Busy with backlog: Some(Queue.nonEmpty)
+   * Queue contains msg currently processing, as well as backlog.
+   * Idle: queue.isEmpty
+   * Busy: queue.size == 1
+   * Busy with backlog: queue.size > 1
    */
-  private[this] val stateRef: Ref[Option[Queue[Any]]] = Ref(None)
+  private[this] val state: AtomicReference[Queue[Any]] = new AtomicReference(Queue.empty)
 
   private[this] def run(msg: Any): Unit =
     process.applyOrElse(msg, Duct.fallback) onComplete postRun
 
   private[this] val postRun = (_: Any) =>
-    stateRef.single.getAndTransform {
-      _ flatMap { q =>
-        if (q.isEmpty) None else Some(q.tail)
-      }
-    } flatMap (_.headOption) foreach run
+    state.updateAndGet(_.tail).headOption foreach run
 }
 
 object Duct {
@@ -59,7 +52,7 @@ object Duct {
 
     case class LazyFu[A](f: () => Fu[A]) {
 
-      def apply(timeout: Option[FiniteDuration])(implicit system: akka.actor.ActorSystem) =
+      def apply(timeout: Option[FiniteDuration])(implicit system: ActorSystem) =
         timeout.foldLeft(f()) { (fu, dur) =>
           fu.withTimeout(
             duration = dur,
@@ -72,13 +65,13 @@ object Duct {
     def lazyFu = new Duct {
       val process: Duct.ReceiveAsync = { case LazyFu(f) => f() }
     }
-    def lazyFu(timeout: FiniteDuration)(implicit system: akka.actor.ActorSystem) = new Duct {
+    def lazyFu(timeout: FiniteDuration)(implicit system: ActorSystem) = new Duct {
       val process: Duct.ReceiveAsync = { case lf: LazyFu[_] => lf(timeout.some) }
     }
 
     case class LazyPromise[A](f: LazyFu[A], promise: Promise[A])
 
-    def lazyPromise(timeout: Option[FiniteDuration])(implicit system: akka.actor.ActorSystem) = new Duct {
+    def lazyPromise(timeout: Option[FiniteDuration])(implicit system: ActorSystem) = new Duct {
       val process: Duct.ReceiveAsync = {
         case lf: LazyFu[_] => lf(timeout)
         case LazyPromise(lf, promise) => promise.completeWith { lf(timeout)(system) }.future
