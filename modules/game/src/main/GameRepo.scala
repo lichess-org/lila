@@ -6,6 +6,7 @@ import chess.format.{ Forsyth, FEN }
 import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.api.commands.GetLastError
+import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ CursorProducer, ReadPreference }
 import reactivemongo.bson.BSONDocument
 
@@ -284,7 +285,9 @@ object GameRepo {
       F.checkAt -> checkInHours.map(DateTime.now.plusHours),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
-    coll insert bson void
+    coll insert bson addFailureEffect {
+      case e: WriteResult if e.code.contains(11000) => lila.mon.game.idCollision()
+    } void
   } >>- {
     lila.mon.game.create.variant(g.variant.key)()
     lila.mon.game.create.source(g.source.fold("unknown")(_.name))()
