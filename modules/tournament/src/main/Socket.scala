@@ -91,21 +91,19 @@ private[tournament] final class Socket(
     send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
   )
 
-  def notifyCrowd: Unit = {
+  def notifyCrowd: Unit =
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
       context.system.scheduler.scheduleOnce(1000 millis, self, NotifyCrowd)
     }
-  }
 
-  def notifyReload: Unit = {
+  def notifyReload: Unit =
     if (!delayedReloadNotification) {
       delayedReloadNotification = true
       // keep the delay low for immediate response to join/withdraw,
       // but still debounce to avoid tourney start message rush
       context.system.scheduler.scheduleOnce(700 millis, self, NotifyReload)
     }
-  }
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =
     message.metadata.trollish && !member.troll
