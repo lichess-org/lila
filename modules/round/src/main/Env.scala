@@ -101,7 +101,7 @@ final class Env(
 
   private var historyPersistenceEnabled = false
 
-  private val socketHub = new lila.hub.ActorMap(
+  private val socketHub = new lila.hub.ActorMapNew(
     mkActor = id => new Socket(
       gameId = id,
       history = eventHistory(id, historyPersistenceEnabled),

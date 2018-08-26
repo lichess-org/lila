@@ -15,7 +15,7 @@ import makeTimeout.short
 
 private final class CorresAlarm(
     coll: Coll,
-    socketHub: lila.hub.ActorMap
+    socketHub: lila.hub.ActorMapNew
 ) extends Actor {
 
   object Schedule

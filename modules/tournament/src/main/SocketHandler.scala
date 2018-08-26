@@ -15,7 +15,7 @@ import makeTimeout.short
 
 private[tournament] final class SocketHandler(
     hub: lila.hub.Env,
-    socketHub: lila.hub.ActorMap,
+    socketHub: lila.hub.ActorMapNew,
     chat: ActorSelection,
     flood: Flood
 ) {

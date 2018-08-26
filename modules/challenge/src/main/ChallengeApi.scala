@@ -15,7 +15,7 @@ final class ChallengeApi(
     jsonView: JsonView,
     gameCache: lila.game.Cached,
     maxPlaying: Int,
-    socketHub: lila.hub.ActorMap,
+    socketHub: lila.hub.ActorMapNew,
     userRegister: ActorSelection,
     asyncCache: lila.memo.AsyncCache.Builder,
     lilaBus: lila.common.Bus

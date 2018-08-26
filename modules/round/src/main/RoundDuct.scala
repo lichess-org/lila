@@ -301,7 +301,7 @@ object Round {
       player: Player,
       drawer: Drawer,
       forecastApi: ForecastApi,
-      socketHub: lila.hub.ActorMap,
+      socketHub: lila.hub.ActorMapNew,
       scheduler: Scheduler,
       moretimeDuration: FiniteDuration
   )

@@ -26,7 +26,7 @@ import makeTimeout.short
 
 private[round] final class SocketHandler(
     roundMap: DuctMap[Round],
-    socketHub: lila.hub.ActorMap,
+    socketHub: lila.hub.ActorMapNew,
     hub: lila.hub.Env,
     messenger: Messenger,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,

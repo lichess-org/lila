@@ -14,7 +14,7 @@ import makeTimeout.short
 
 private[simul] final class SocketHandler(
     hub: lila.hub.Env,
-    socketHub: lila.hub.ActorMap,
+    socketHub: lila.hub.ActorMapNew,
     chat: ActorSelection,
     exists: Simul.ID => Fu[Boolean]
 ) {

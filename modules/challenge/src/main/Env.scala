@@ -35,7 +35,7 @@ final class Env(
   }
   import settings._
 
-  private val socketHub = new lila.hub.ActorMap(
+  private val socketHub = new lila.hub.ActorMapNew(
     mkActor = id => new Socket(
       challengeId = id,
       history = new lila.socket.History(ttl = HistoryMessageTtl),
