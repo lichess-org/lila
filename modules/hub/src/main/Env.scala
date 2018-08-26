@@ -37,6 +37,7 @@ final class Env(config: Config, system: ActorSystem) {
     val lobby = select("socket.lobby")
     val roundActor = select("socket.round")
     val site = select("socket.site")
+    val hub = select("socket.hub")
   }
 
   private def select(name: String) =
