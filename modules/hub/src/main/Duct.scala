@@ -80,7 +80,6 @@ object Duct {
 
     def lazyPromise(timeout: Option[FiniteDuration])(implicit system: akka.actor.ActorSystem) = new Duct {
       val process: Duct.ReceiveAsync = {
-        case lf: LazyFu[_] => lf(timeout)
         case LazyPromise(lf, promise) => promise.completeWith { lf(timeout)(system) }.future
       }
     }
