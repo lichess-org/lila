@@ -277,7 +277,7 @@ lichess.StrongSocket.sri = (function() {
     var cryptoObj = window.crypto || window.msCrypto;
     if (cryptoObj !== undefined) {
       var data = cryptoObj.getRandomValues(new Uint8Array(9));
-      sri = btoa(String.fromCharCode.apply(null, data)).replace('/', 'a').replace('+', 'b').replace('=', 'c');
+      sri = btoa(String.fromCharCode.apply(null, data)).replace(/\//g, 'a').replace(/\+/g, 'b').replace(/=/g, 'c');
     } else {
       sri = Math.random().toString(36).slice(2, 12);
     }
