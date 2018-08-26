@@ -41,7 +41,7 @@
   <string name="blackResigned">Beltzak amore eman du</string>
   <string name="whiteLeftTheGame">Zuria partidatik atera da</string>
   <string name="blackLeftTheGame">Beltza partidatik atera da</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">URL hau partekatu ikusleek partida behatu ahal dezaten</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">URL hau partekatu, ikusleak zure partidara gonbidatzeko</string>
   <string name="theComputerAnalysisHasFailed">Ordenagailuaren analisiak huts egin du</string>
   <string name="viewTheComputerAnalysis">Ordenagailuaren analisia ikusi</string>
   <string name="requestAComputerAnalysis">Ordenagailuaren analisia eskatu</string>
