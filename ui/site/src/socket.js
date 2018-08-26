@@ -272,16 +272,16 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 };
 lichess.StrongSocket.sri = (function() {
-  var sri = lichess.tempStorage.get('socketSri');
+  var sri = lichess.tempStorage.get('socket.sri');
   if (!sri) {
     var cryptoObj = window.crypto || window.msCrypto;
     if (cryptoObj !== undefined) {
       var data = cryptoObj.getRandomValues(new Uint8Array(9));
-      sri = btoa(String.fromCharCode.apply(null, data));
+      sri = btoa(String.fromCharCode.apply(null, data)).replace('/', 'a').replace('+', 'b').replace('=', 'c');
     } else {
       sri = Math.random().toString(36).slice(2, 12);
     }
-    lichess.tempStorage.set('socketSri', sri);
+    lichess.tempStorage.set('socket.sri', sri);
   }
   return sri;
 })();
