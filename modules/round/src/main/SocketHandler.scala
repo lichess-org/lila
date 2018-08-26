@@ -14,10 +14,10 @@ import actorApi._, round._
 import lila.chat.Chat
 import lila.common.IpAddress
 import lila.game.{ Pov, PovRef, Game }
+import lila.hub.DuctMap
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
 import lila.hub.actorApi.shutup.PublicSource
-import lila.hub.DuctMap
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.socket.Socket.{ Uid, SocketVersion }
@@ -26,7 +26,7 @@ import makeTimeout.short
 
 private[round] final class SocketHandler(
     roundMap: DuctMap[Round],
-    socketHub: lila.hub.ActorMapNew,
+    socketHub: ActorRef,
     hub: lila.hub.Env,
     messenger: Messenger,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
@@ -160,12 +160,13 @@ private[round] final class SocketHandler(
     val chatSetup = playerId.isDefined ?? {
       pov.game.tournamentId.map(Chat.tournamentSetup) orElse pov.game.simulId.map(Chat.simulSetup)
     }
-    val socket = socketHub getOrMake pov.gameId
-    Handler(hub, socket, uid, join) {
-      case Connected(enum, member) =>
-        // register to the TV channel when watching TV
-        if (playerId.isEmpty && isRecentTv(pov.gameId)) hub.channel.tvSelect ! lila.socket.Channel.Sub(member)
-        (controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user), enum, member)
+    socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
+      Handler(hub, socket, uid, join) {
+        case Connected(enum, member) =>
+          // register to the TV channel when watching TV
+          if (playerId.isEmpty && isRecentTv(pov.gameId)) hub.channel.tvSelect ! lila.socket.Channel.Sub(member)
+          (controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, user), enum, member)
+      }
     }
   }
 
