@@ -162,7 +162,7 @@ object Tournament extends LilaController {
       NoPlayban {
         val password = ctx.body.body.\("p").asOpt[String]
         env.api.joinWithResult(id, me, password, getUserTeamIds) flatMap { result =>
-        negotiate(
+          negotiate(
             html = Redirect(routes.Tournament.show(id)).fuccess,
             api = _ => fuccess {
               if (result) jsonOkResult

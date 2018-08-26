@@ -30,6 +30,7 @@ final class Env(
     val HistoryMessageTtl = config duration "history.message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
+    val SocketName = config getString "socket.name"
     val ActorName = config getString "actor.name"
   }
   import settings._
@@ -56,18 +57,18 @@ final class Env(
 
   lazy val jsonView = new JsonView(lightUser)
 
-  private val socketHub = new lila.hub.ActorMapNew(
-    mkActor = id => new Socket(
-      simulId = id,
-      history = new History(ttl = HistoryMessageTtl),
-      getSimul = repo.find,
-      jsonView = jsonView,
-      uidTimeout = UidTimeout,
-      lightUser = lightUser
-    ),
-    accessTimeout = SocketTimeout,
-    name = "simul.socket",
-    system = system
+  private val socketHub = system.actorOf(
+    Props(new lila.socket.SocketHubActor.Default[Socket] {
+      def mkActor(simulId: String) = new Socket(
+        simulId = simulId,
+        history = new History(ttl = HistoryMessageTtl),
+        getSimul = repo.find,
+        jsonView = jsonView,
+        uidTimeout = UidTimeout,
+        socketTimeout = SocketTimeout,
+        lightUser = lightUser
+      )
+    }), name = SocketName
   )
 
   lazy val socketHandler = new SocketHandler(
@@ -106,7 +107,7 @@ final class Env(
   )
 
   def version(simulId: String): Fu[SocketVersion] =
-    socketHub.ask[SocketVersion](simulId, GetVersion)
+    socketHub ? Ask(simulId, GetVersion) mapTo manifest[SocketVersion]
 
   private[simul] val simulColl = db(CollectionSimul)
 
