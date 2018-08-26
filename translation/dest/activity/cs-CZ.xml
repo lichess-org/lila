@@ -3,11 +3,47 @@
 <resources>
   <string name="activity">Aktivita</string>
   <string name="supportedNbMonths">Podporuje lichess %1$s měsíců jako %2$s</string>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Procvičena %1$s pozice v %2$s</item>
+    <item quantity="few">Procvičeny %1$s pozice v %2$s</item>
+    <item quantity="many">Procvičeno %1$s pozic v %2$s</item>
+    <item quantity="other">Procvičeno %1$s pozic v %2$s</item>
+  </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Vyřešena %s taktická úloha</item>
     <item quantity="few">Vyřešeny %s taktické úlohy</item>
     <item quantity="many">Vyřešeno %s taktických úloh</item>
     <item quantity="other">Vyřešeno %s taktických úloh</item>
   </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Odehrána %1$s %2$s hra</item>
+    <item quantity="few">Odehrány %1$s %2$s hry</item>
+    <item quantity="many">Odehráno %1$s %2$s her</item>
+    <item quantity="other">Odehráno %1$s %2$s her</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Vytvořena %s studie</item>
+    <item quantity="few">Vytvořeny %s studie</item>
+    <item quantity="many">Vytvořeno %s studií</item>
+    <item quantity="other">Vytvořeno %s studií</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Účast v %s turnaji</item>
+    <item quantity="few">Účast ve %s turnajích</item>
+    <item quantity="many">Účast v %s turnajích</item>
+    <item quantity="other">Účast v %s turnajích</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Skončil #%1$s (top %2$s%%) s %3$s hrou v %4$s</item>
+    <item quantity="few">Skončil #%1$s (top %2$s%%) s %3$s hrami v %4$s</item>
+    <item quantity="many">Skončil #%1$s (top %2$s%%) s %3$s hrami v %4$s</item>
+    <item quantity="other">Skončil #%1$s (top %2$s%%) s %3$s hrami v %4$s</item>
+  </plurals>
   <string name="signedUp">Vytvořen účet na lichess</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Přidal se k %s týmu</item>
+    <item quantity="few">Přidal se k %s týmům</item>
+    <item quantity="many">Přidal se k %s týmům</item>
+    <item quantity="other">Přidal se k %s týmům</item>
+  </plurals>
 </resources>

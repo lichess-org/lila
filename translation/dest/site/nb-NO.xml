@@ -510,6 +510,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="troll">Troll</string>
   <string name="other">Annet</string>
   <string name="reportDescriptionHelp">Kopier lenken til partiet/partiene og forklar hva som er galt med denne brukerens oppførsel.</string>
+  <string name="error.provideOneCheatedGameLink">Oppgi minst én lenke til et jukseparti.</string>
   <string name="by">av %s</string>
   <string name="thisTopicIsNowClosed">Dette emnet er nå lukket.</string>
   <string name="theming">Utseende</string>

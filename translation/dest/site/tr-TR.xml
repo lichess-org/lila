@@ -509,6 +509,7 @@
   <string name="troll">Trol</string>
   <string name="other">Diğer</string>
   <string name="reportDescriptionHelp">Oyunun (veya oyunların) linkini yapıştırın ve kullanıcı hakkındaki şikayetinizi açıklayın.</string>
+  <string name="error.provideOneCheatedGameLink">Hileli oyun için en az bir bağlantı veriniz.</string>
   <string name="by">%s yazdı</string>
   <string name="thisTopicIsNowClosed">Bu konu kapanmıştır.</string>
   <string name="theming">Ortam</string>

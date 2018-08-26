@@ -563,6 +563,7 @@
   <string name="troll">Troll</string>
   <string name="other">Jiné</string>
   <string name="reportDescriptionHelp">Vložte link na hru(y) a popište, co je špatně na chování tohoto hráče. (Pokud možno anglicky.)</string>
+  <string name="error.provideOneCheatedGameLink">Prosím, uveďte alespoň jeden link na partii, ve které se podvádělo.</string>
   <string name="by">od %s</string>
   <string name="thisTopicIsNowClosed">Toto téma je již uzavřeno.</string>
   <string name="theming">Témata</string>

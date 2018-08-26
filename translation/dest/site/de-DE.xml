@@ -86,7 +86,7 @@
   </plurals>
   <string name="noGameFound">Kein Spiel gefunden</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Spiele über das \"Einstellungen\"-Menü einbezogen werden?</string>
-  <string name="openingExplorer">Eröffnungsdatenbank &amp; Tablebases</string>
+  <string name="openingExplorer">Eröffnungsdatenbank</string>
   <string name="xOpeningExplorer">%s Eröffnungsbuch</string>
   <string name="winPreventedBy50MoveRule">Sieg durch 50-Züge-Regel verhindert</string>
   <string name="lossSavedBy50MoveRule">Verlust durch 50-Züge-Regel verhindert</string>
@@ -509,6 +509,7 @@
   <string name="troll">Troll</string>
   <string name="other">Sonstiges</string>
   <string name="reportDescriptionHelp">Füge den Link zu einer oder mehreren Partien ein und erkläre die Auffälligkeiten bezüglich des Spielerverhaltens. Bitte schreibe nicht einfach nur „dieser Spieler betrügt“, sondern begründe auch, wie Du zu diesem Schluss kommst. Dein Bericht wird schneller bearbeitet, wenn er in englischer Sprache verfasst ist.</string>
+  <string name="error.provideOneCheatedGameLink">Bitte gib mindestens einen LInk zu einem Spiel in dem betrogen wurde an.</string>
   <string name="by">von %s</string>
   <string name="thisTopicIsNowClosed">Dieses Thema wurde geschlossen.</string>
   <string name="theming">Design</string>

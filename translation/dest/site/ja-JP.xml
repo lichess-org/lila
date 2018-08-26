@@ -483,6 +483,7 @@
   <string name="troll">荒らし</string>
   <string name="other">その他</string>
   <string name="reportDescriptionHelp">問題のゲームへのリンクを貼って、相手ユーザーの問題点を説明してください。ただ「イカサマだ」と言うのではなく、なぜそう思うか理由を書いてください。英語で書くと対応が早くできます。</string>
+  <string name="error.provideOneCheatedGameLink">不正のあった対局 1 局以上へのリンクを添えてください。</string>
   <string name="by">%s によって</string>
   <string name="thisTopicIsNowClosed">このトピックは閉鎖されました。</string>
   <string name="theming">デザインテーマ</string>

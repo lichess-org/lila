@@ -563,6 +563,7 @@
   <string name="troll">Troll</string>
   <string name="other">Iné</string>
   <string name="reportDescriptionHelp">Vložte odkaz na hru/y, a vysvetlite, čo je zlé na tomto správaní používateľa.</string>
+  <string name="error.provideOneCheatedGameLink">Prosím, uveďte aspoň jeden odkaz na partiu, v ktorej sa podvádzalo.</string>
   <string name="by">od %s</string>
   <string name="thisTopicIsNowClosed">Táto téma je uzavretá.</string>
   <string name="theming">Motívy</string>

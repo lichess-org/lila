@@ -537,6 +537,7 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="troll">Provokacija</string>
   <string name="other">Ostalo</string>
   <string name="reportDescriptionHelp">Zalijepi poveznicu na partiju/e u pitanju i objasni što nije u redu s ponašanjem korisnika. Nemoj samo reći \"varao je\", nego reci kako si došao/la do tog zaključka. Tvoja prijava bit će obrađena brže ako ju napišeš na engleskom jeziku.</string>
+  <string name="error.provideOneCheatedGameLink">Molimo navedite barem jedan link igre u kojoj je igrač varao.</string>
   <string name="by">od %s</string>
   <string name="thisTopicIsNowClosed">Ova tema je zatvorena.</string>
   <string name="theming">Izgled</string>
@@ -860,7 +861,7 @@ u %3$s</string>
   <string name="advantage">Prednost</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekundi</item>
-    <item quantity="few">%s sekunda</item>
+    <item quantity="few">%s sekundi</item>
     <item quantity="other">%s sekundi</item>
   </plurals>
   <string name="opening">Otvaranje</string>
