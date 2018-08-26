@@ -3,6 +3,7 @@ package lila.study
 import scala.concurrent.duration._
 
 import akka.actor._
+import akka.pattern.ask
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
@@ -20,7 +21,7 @@ import makeTimeout.short
 
 final class SocketHandler(
     hub: lila.hub.Env,
-    socketHub: lila.hub.ActorMapNew,
+    socketHub: ActorRef,
     chat: ActorSelection,
     api: StudyApi,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler
@@ -70,7 +71,7 @@ final class SocketHandler(
     case ("p", o) => socket ! Ping(uid, o)
     case ("talk", o) => o str "d" foreach { text =>
       member.userId foreach { userId =>
-        api.talk(userId, studyId, text)
+        api.talk(userId, studyId, text, socket)
       }
     }
     case ("anaMove", o) => AnaMove parse o foreach {
@@ -276,15 +277,18 @@ final class SocketHandler(
   private implicit val gamebookReader = Json.reads[Gamebook]
   private implicit val explorerGame = Json.reads[actorApi.ExplorerGame]
 
+  def getSocket(id: Study.Id): Fu[ActorRef] =
+    socketHub ? Get(id.value) mapTo manifest[ActorRef]
+
   def join(
     studyId: Study.Id,
     uid: Uid,
     user: Option[User],
     version: Option[SocketVersion]
-  ): Fu[Option[JsSocketHandler]] = {
-    val socket = getSocket(studyId)
-    join(studyId, uid, user, socket, member => makeController(socket, studyId, uid, member, user = user), version)
-  }
+  ): Fu[Option[JsSocketHandler]] =
+    getSocket(studyId) flatMap { socket =>
+      join(studyId, uid, user, socket, member => makeController(socket, studyId, uid, member, user = user), version)
+    }
 
   def join(
     studyId: Study.Id,
@@ -299,6 +303,4 @@ final class SocketHandler(
       case Socket.Connected(enum, member) => (controller(member), enum, member)
     } map some
   }
-
-  def getSocket(studyId: Study.Id): ActorRef = socketHub getOrMake studyId.value
 }
