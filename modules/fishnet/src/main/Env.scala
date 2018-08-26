@@ -61,7 +61,7 @@ final class Env(
       import lila.hub.actorApi.map.Exists
       import akka.pattern.ask
       import makeTimeout.short
-      hub.socket.roundActor ? Exists(id) mapTo manifest[Boolean]
+      hub.socket.round ? Exists(id) mapTo manifest[Boolean]
     },
     clientVersion = clientVersion,
     offlineMode = OfflineMode,

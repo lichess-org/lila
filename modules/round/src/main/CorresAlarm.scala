@@ -1,7 +1,7 @@
 package lila.round
 
 import akka.actor._
-
+import akka.pattern.ask
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import reactivemongo.api._
@@ -15,7 +15,7 @@ import makeTimeout.short
 
 private final class CorresAlarm(
     coll: Coll,
-    socketHub: lila.hub.ActorMapNew
+    roundSocketHub: ActorSelection
 ) extends Actor {
 
   object Schedule
@@ -56,7 +56,7 @@ private final class CorresAlarm(
           case (count, alarm) => GameRepo.game(alarm._id).flatMap {
             _ ?? { game =>
               val pov = Pov(game, game.turnColor)
-              socketHub.ask[Boolean](pov.gameId, IsOnGame(pov.color)) addEffect {
+              roundSocketHub ? Ask(pov.gameId, IsOnGame(pov.color)) mapTo manifest[Boolean] addEffect {
                 case true => // already looking at the game
                 case false => context.system.lilaBus.publish(
                   lila.game.actorApi.CorresAlarmEvent(pov),
