@@ -45,6 +45,7 @@ final class Env(
     val RankingCacheTtl = config duration "ranking.cache.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
+    val SocketName = config getString "socket.name"
     val ApiActorName = config getString "api_actor.name"
     val SequencerTimeout = config duration "sequencer.timeout"
     val ChannelStanding = config getString "channel.standing.name "
@@ -141,17 +142,17 @@ final class Env(
     leaderboardColl = leaderboardColl
   )
 
-  private val socketHub = new lila.hub.ActorMapNew(
-    mkActor = id => new Socket(
-      tournamentId = id,
-      history = new History(ttl = HistoryMessageTtl),
-      jsonView = jsonView,
-      uidTimeout = UidTimeout,
-      lightUser = lightUserApi.async
-    ),
-    accessTimeout = SocketTimeout,
-    name = "tournament.socket",
-    system = system
+  private val socketHub = system.actorOf(
+    Props(new lila.socket.SocketHubActor.Default[Socket] {
+      def mkActor(tournamentId: String) = new Socket(
+        tournamentId = tournamentId,
+        history = new History(ttl = HistoryMessageTtl),
+        jsonView = jsonView,
+        uidTimeout = UidTimeout,
+        socketTimeout = SocketTimeout,
+        lightUser = lightUserApi.async
+      )
+    }), name = SocketName
   )
 
   private val sequencerMap = new DuctMap(
@@ -183,13 +184,13 @@ final class Env(
   TournamentInviter.start(system, api, notifyApi)
 
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
-    socketHub.ask[SocketVersion](tourId, GetVersion)
+    socketHub ? Ask(tourId, GetVersion) mapTo manifest[SocketVersion]
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
-  def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
-    socketHub.ask[Boolean](tourId, lila.hub.actorApi.HasUserId(userId)) >>|
-      PairingRepo.isPlaying(tourId, userId)
+  def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] = {
+    socketHub ? Ask(tourId, lila.hub.actorApi.HasUserId(userId)) mapTo manifest[Boolean]
+  } >>| PairingRepo.isPlaying(tourId, userId)
 
   def cli = new lila.common.Cli {
     def process = {
