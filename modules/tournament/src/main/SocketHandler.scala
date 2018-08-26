@@ -1,6 +1,7 @@
 package lila.tournament
 
 import akka.actor._
+import akka.pattern.ask
 
 import actorApi._
 import akka.actor.ActorSelection
