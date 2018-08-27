@@ -20,7 +20,7 @@ final class PdnDump(
     }
     val ts = tags(game, initialFen, imported)
     val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
-    val moves2 = fenSituation.??(_.situation.color.black).fold(".." +: game.pdnMoves, game.pdnMoves)
+    val moves2 = fenSituation.??(_.situation.color.black).fold(".." +: game.pdnMovesConcat, game.pdnMovesConcat)
     val turns = makeTurns(
       moves2,
       fenSituation.map(_.fullMoveNumber) | 1,

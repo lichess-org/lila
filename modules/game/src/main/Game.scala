@@ -149,6 +149,19 @@ case class Game(
 
   def bothClockStates: Option[Vector[Centis]] = clockHistory.map(_ bothClockStates startColor)
 
+  def pdnMovesConcat: PdnMoves = pdnMoves.foldLeft(Vector[String]()) {
+    (cMoves, curMove) =>
+      cMoves.lastOption match {
+        case Some(lastMove) =>
+          val lastX = lastMove.lastIndexOf('x')
+          val curX = curMove.lastIndexOf('x')
+          if (lastX != -1 && curX != -1 && lastMove.takeRight(lastMove.length - lastX - 1) == curMove.take(curX)) {
+            cMoves.dropRight(1) :+ (lastMove.take(lastX) + curMove.takeRight(curX))
+          } else cMoves :+ curMove
+        case _ => cMoves :+ curMove
+      }
+  }
+
   def pdnMoves(color: Color): PdnMoves = {
     val pivot = if (color == startColor) 0 else 1
     pdnMoves.zipWithIndex.collect {
