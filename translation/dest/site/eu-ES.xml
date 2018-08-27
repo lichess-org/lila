@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Zure %1$s sailkapena (%2$s) baxuegia da</string>
   <string name="ratedMoreThanInPerf">%1$s baino sailkapen handiagoa %2$s-n</string>
   <string name="ratedLessThanInPerf">%1$s baino sailkapen txikiagoa %2$s-n</string>
+  <string name="mustBeInTeam">%s taldean egon behar da</string>
+  <string name="youAreNotInTeam">Ez zaude %s taldean</string>
   <string name="backToGame">Partidara itzuli</string>
   <string name="siteDescription">Doako xake zerbitzaria. Xakean interfaze argiarekin jokatu. Izena ematea ez da beharrezkoa. Iragarkirik gabe. Jokatu xakean ordenagailu, lagun edo beste aurkariekin.</string>
   <string name="teams">Taldeak</string>
@@ -507,6 +509,7 @@
   <string name="troll">Trolla</string>
   <string name="other">Bestelakoak</string>
   <string name="reportDescriptionHelp">Partidaren esteka itsasi, eta azaldu zer egin duen gaizki erabiltzaileak. Ez esan \"tranpak egiten ditu\" bakarrik, eman horren arrazoiak. Zure mezua azkarrago begiratuko dugu ingelesez idazten baduzu.</string>
+  <string name="error.provideOneCheatedGameLink">Iruzurra izandako partida baten lotura bidali gutxienez.</string>
   <string name="by">egilea %s</string>
   <string name="thisTopicIsNowClosed">Gai hau itxita dago.</string>
   <string name="theming">Itxura</string>
