@@ -62,18 +62,13 @@ case class Assessible(analysed: Analysed, color: Color) {
     else
       false
 
-  lazy val moderatelyConsistentMoveTimeStreaks: Boolean =
-    slidingMoveTimesCvs(Pov(game, color)) ?? {
-      _ exists cvIndicatesModeratelyFlatTimes
-    }
-
   lazy val mkFlags: PlayerFlags = PlayerFlags(
     suspiciousErrorRate,
     alwaysHasAdvantage,
     highBlurRate || highChunkBlurRate,
     moderateBlurRate || moderateChunkBlurRate,
     highlyConsistentMoveTimes || highlyConsistentMoveTimeStreaks,
-    moderatelyConsistentMoveTimes(Pov(game, color)) || moderatelyConsistentMoveTimeStreaks,
+    moderatelyConsistentMoveTimes(Pov(game, color)),
     noFastMoves(Pov(game, color)),
     suspiciousHoldAlert
   )
