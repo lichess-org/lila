@@ -271,7 +271,7 @@ lidraughts.desktopNotification = (function() {
     storage.set(now);
     if ($.isFunction(msg)) msg = msg();
     var notification = new Notification('lidraughts.org', {
-      icon: '//lidraughts1.org/assets/images/logo.256.png',
+      icon: '//lidraughts.org/assets/images/logo.256.png',
       body: msg
     });
     notification.onclick = function() {
