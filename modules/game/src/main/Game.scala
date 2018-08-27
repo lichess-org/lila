@@ -156,7 +156,7 @@ case class Game(
           val lastX = lastMove.lastIndexOf('x')
           val curX = curMove.lastIndexOf('x')
           if (lastX != -1 && curX != -1 && lastMove.takeRight(lastMove.length - lastX - 1) == curMove.take(curX)) {
-            cMoves.dropRight(1) :+ (lastMove.take(lastX) + curMove.takeRight(curX))
+            cMoves.dropRight(1) :+ (lastMove.take(lastX) + curMove.takeRight(curMove.length - curX))
           } else cMoves :+ curMove
         case _ => cMoves :+ curMove
       }

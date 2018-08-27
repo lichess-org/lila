@@ -94,7 +94,7 @@ object Parser extends scalaz.syntax.ToTraverseOps {
     }
 
     //val moveRegex = """0\-0\-0|0\-0|[PQKRBNOoa-h@][QKRBNa-h1-8xOo\-=\+\#\@]{1,6}[\?!□]{0,2}""".r
-    val moveRegex = """\s*\d+[\-x]\d+\s*""".r
+    val moveRegex = """(50|[1-4][0-9]|0?[1-9])[\-x](50|[1-4][0-9]|0?[1-9])[\?!□]{0,2}""".r
 
     def strMove: Parser[StrMove] = as("move") {
       ((number | commentary)*) ~> (moveRegex ~ nagGlyphs ~ rep(commentary) ~ rep(variation)) <~ (moveExtras*) ^^ {
@@ -102,7 +102,7 @@ object Parser extends scalaz.syntax.ToTraverseOps {
       }
     }
 
-    def number: Parser[String] = """\d+\.+\s*""".r
+    def number: Parser[String] = """[1-9]\d*\.+\s*""".r
 
     def moveExtras: Parser[Unit] = as("moveExtras") {
       (commentary).^^^(())
@@ -139,7 +139,7 @@ object Parser extends scalaz.syntax.ToTraverseOps {
 
   object MoveParser extends RegexParsers with Logging {
 
-    private val MoveR = """^(\d+)(-|x)(\d+)(\#?)$""".r
+    private val MoveR = """^(50|[1-4][0-9]|0?[1-9])(-|x)(50|[1-4][0-9]|0?[1-9])(\#?)$""".r
 
     def apply(str: String, variant: Variant): Valid[San] = {
       str match {
