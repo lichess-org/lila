@@ -87,31 +87,21 @@ body.fpmenu #fpmenu {
 #fpmenu .anon h2 {
   margin-bottom: 22px;
 }
-#fpmenu .login input {
+#fpmenu .login {
   -webkit-appearance: none;
-  width: 290px;
   line-height: 47px;
   padding: 0 15px;
-  background: #fff;
-  border: 1px solid #ebebeb;
   outline: none;
-}
-#fpmenu .login input.password {
-  border-top: none;
-}
-#fpmenu .login input.submit {
-  margin-top: 30px;
-  width: 100%;
+  text-transform: uppercase;
+  text-align: center;
   background: #d59120;
   border: none;
-  text-transform: uppercase;
   color: #fff;
   font-weight: bold;
   opacity: 0.6;
   cursor: pointer;
-  transition: opacity 0.13s;
 }
-#fpmenu .login input.submit:hover {
+#fpmenu .login:hover {
   opacity: 0.65;
 }
 #fpmenu .forgot {
@@ -223,13 +213,6 @@ body.dark #fpmenu {
 }
 body.dark #fpmenu h2 {
   color: #aeaeae;
-}
-body.dark #fpmenu .login input {
-  background-color: #1c2328;
-  border-color: #404040;
-}
-body.dark #fpmenu .login input.submit {
-  background: #d59120;
 }
 body.dark #fpmenu .user,
 body.dark #fpmenu .anon {

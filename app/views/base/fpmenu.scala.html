@@ -23,13 +23,9 @@
     </div>
     }.getOrElse {
     <div class="anon">
-      <section class="login">
+      <section>
         <h2>@trans.signIn()</h2>
-        <form action="@routes.Auth.authenticate" method="POST">
-          <input placeholder="@trans.usernameOrEmail()" type="text" class="username" required="required" name="username" />
-          <input placeholder="@trans.password()" type="password" class="password" required="required" name="password" />
-          <input type="submit" class="submit" value="@trans.signIn()" />
-        </form>
+        <a class="login" href="@routes.Auth.login">@trans.signIn()</a>
         <div class="forgot">
           <a href="@routes.Auth.passwordReset">@trans.forgotPassword()</a>
         </div>
