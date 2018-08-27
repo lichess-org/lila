@@ -1,6 +1,7 @@
 package lila.tournament
 
 import akka.actor._
+import akka.pattern.ask
 
 import actorApi._
 import akka.actor.ActorSelection
@@ -15,7 +16,7 @@ import makeTimeout.short
 
 private[tournament] final class SocketHandler(
     hub: lila.hub.Env,
-    socketHub: lila.hub.ActorMap,
+    socketHub: ActorRef,
     chat: ActorSelection,
     flood: Flood
 ) {
@@ -28,12 +29,14 @@ private[tournament] final class SocketHandler(
   ): Fu[Option[JsSocketHandler]] =
     TournamentRepo.exists(tourId) flatMap {
       _ ?? {
-        val socket = socketHub getOrMake tourId
-        val join = Join(uid, user, version)
-        Handler(hub, socket, uid, join) {
-          case Connected(enum, member) =>
-            (controller(socket, tourId, uid, member), enum, member)
-        } map some
+        for {
+          socket ← socketHub ? Get(tourId) mapTo manifest[ActorRef]
+          join = Join(uid, user, version)
+          handler ← Handler(hub, socket, uid, join) {
+            case Connected(enum, member) =>
+              (controller(socket, tourId, uid, member), enum, member)
+          }
+        } yield handler.some
       }
     }
 

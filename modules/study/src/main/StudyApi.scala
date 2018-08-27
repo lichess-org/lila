@@ -27,7 +27,7 @@ final class StudyApi(
     chat: ActorSelection,
     bus: lila.common.Bus,
     timeline: ActorSelection,
-    socketHub: lila.hub.ActorMap,
+    socketHub: ActorRef,
     serverEvalRequester: ServerEval.Requester,
     lightStudyCache: LightStudyCache
 ) {
@@ -100,13 +100,17 @@ final class StudyApi(
       case Some(study) if study.canContribute(user.id) =>
         import akka.pattern.ask
         import makeTimeout.short
-        addChapter(
-          byUserId = user.id,
-          studyId = study.id,
-          data = data.form.toChapterData,
-          sticky = study.settings.sticky,
-          uid = Uid("") // the user is not in the study yet
-        ) >> byIdWithChapter(studyId)
+        for {
+          socket <- socketHub ? lila.hub.actorApi.map.Get(studyId.value) mapTo manifest[ActorRef]
+          _ <- addChapter(
+            byUserId = user.id,
+            studyId = study.id,
+            data = data.form.toChapterData,
+            sticky = study.settings.sticky,
+            uid = Uid("") // the user is not in the study yet
+          )
+          made <- byIdWithChapter(studyId)
+        } yield made
       case _ => fuccess(none)
     } orElse importGame(data.copy(form = data.form.copy(asStr = none)), user)
   }) addEffect {
@@ -150,7 +154,7 @@ final class StudyApi(
     }
   }
 
-  def talk(userId: User.ID, studyId: Study.Id, text: String) = byId(studyId) foreach {
+  def talk(userId: User.ID, studyId: Study.Id, text: String, socket: ActorRef) = byId(studyId) foreach {
     _ foreach { study =>
       (study canChat userId) ?? {
         chat ! lila.chat.actorApi.UserTalk(
@@ -709,5 +713,5 @@ final class StudyApi(
   private def sendTo(study: Study, msg: Any): Unit = sendTo(study.id, msg)
 
   private def sendTo(studyId: Study.Id, msg: Any): Unit =
-    socketHub.tell(studyId.value, msg)
+    socketHub ! Tell(studyId.value, msg)
 }

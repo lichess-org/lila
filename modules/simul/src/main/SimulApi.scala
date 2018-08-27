@@ -20,7 +20,7 @@ final class SimulApi(
     system: ActorSystem,
     sequencers: DuctMap[_],
     onGameStart: Game.ID => Unit,
-    socketHub: lila.hub.ActorMap,
+    socketHub: ActorRef,
     site: ActorSelection,
     renderer: ActorSelection,
     timeline: ActorSelection,
@@ -239,9 +239,11 @@ final class SimulApi(
     def apply(): Unit = { debouncer ! Debouncer.Nothing }
   }
 
-  private def sendTo(simulId: Simul.ID, msg: Any): Unit =
-    socketHub.tell(simulId, msg)
+  private def sendTo(simulId: Simul.ID, msg: Any): Unit = {
+    socketHub ! Tell(simulId, msg)
+  }
 
-  private def socketReload(simulId: Simul.ID): Unit =
+  private def socketReload(simulId: Simul.ID): Unit = {
     sendTo(simulId, actorApi.Reload)
+  }
 }

@@ -5,6 +5,7 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration.Duration
 
+import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.{ Uid, GetVersion, SocketVersion }
 import lila.socket.{ SocketActor, History, Historical }
@@ -13,8 +14,11 @@ private final class Socket(
     challengeId: String,
     val history: History[Unit],
     getChallenge: Challenge.ID => Fu[Option[Challenge]],
-    uidTimeout: Duration
+    uidTimeout: Duration,
+    socketTimeout: Duration
 ) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Unit] {
+
+  private val timeBomb = new TimeBomb(socketTimeout)
 
   def receiveSpecific = {
 
@@ -27,7 +31,13 @@ private final class Socket(
 
     case Ping(uid, vOpt, lagCentis) =>
       ping(uid, lagCentis)
+      timeBomb.delay
       pushEventsSinceForMobileBC(vOpt, uid)
+
+    case Broom => {
+      broom
+      if (timeBomb.boom) self ! PoisonPill
+    }
 
     case GetVersion => sender ! history.version
 
