@@ -14,7 +14,7 @@ private final class ReportScore(
       impl.baseScore +
         impl.accuracyScore(accuracy) +
         impl.reporterScore(candidate.reporter) +
-        impl.textScore(candidate.reason, candidate.text)
+        impl.autoScore(candidate)
     } map impl.fixedAutoCommScore(candidate) map { score =>
       candidate scored Report.Score(score atLeast 5 atMost 100)
     }
@@ -36,12 +36,8 @@ private final class ReportScore(
     def flagScore(user: User) =
       (user.lameOrTroll) ?? -30d
 
-    private val gameRegex = """lichess.org/\w{8,12}""".r
-
-    def textScore(reason: Reason, text: String) = {
-      (reason == Reason.Cheat || reason == Reason.Boost) &&
-        gameRegex.find(text)
-    } ?? 20
+    def autoScore(candidate: Report.Candidate) =
+      candidate.isAutomatic ?? 20d
 
     // https://github.com/ornicar/lila/issues/4093
     def fixedAutoCommScore(c: Report.Candidate)(score: Double): Double =
