@@ -121,7 +121,7 @@ object Forsyth {
       "H" + game.halfMoveClock.toString,
       "F" + game.fullMoveNumber.toString
     ) ::: {
-        if (game.board.variant == variant.Frisian) List(exportCheckCount(game.board))
+        if (game.board.variant == variant.Frisian) List(exportKingMoves(game.board))
         else List()
       }
   } mkString ":"
@@ -131,7 +131,7 @@ object Forsyth {
     exportBoard(board)
   ) mkString ":"
 
-  private def exportCheckCount(board: Board) = board.history.kingMoves match {
+  private def exportKingMoves(board: Board) = board.history.kingMoves match {
     case KingMoves(white, black) => s"+$black+$white"
   }
 

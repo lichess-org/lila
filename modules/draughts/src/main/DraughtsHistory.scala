@@ -57,9 +57,13 @@ case class DraughtsHistory(
 
   def withLastMove(m: Uci) = copy(lastMove = Some(m))
 
-  def withKingMove(color: Color, v: Boolean) =
-    if (v)
+  def withKingMove(color: Color, v: Boolean, resetOther: Boolean = false) =
+    if (v && resetOther)
+      copy(kingMoves = kingMoves add color reset !color)
+    else if (v)
       copy(kingMoves = kingMoves add color)
+    else if (resetOther)
+      copy(kingMoves = KingMoves())
     else
       copy(kingMoves = kingMoves reset color)
 

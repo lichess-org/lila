@@ -31,7 +31,7 @@ case class Move(
       h1.copy(lastMove = Some(toUci))
     }
 
-    board.variant.finalizeBoard(board, toUci, capture flatMap before.apply, situationBefore.captureLengthFrom(orig).getOrElse(0) - 1) updateHistory { h =>
+    board.variant.finalizeBoard(board, toUci, taken flatMap before.apply, situationBefore.captureLengthFrom(orig).getOrElse(0) - 1) updateHistory { h =>
       // Update position hashes last, only after updating the board,
       h.copy(positionHashes = board.variant.updatePositionHashes(board, this, h.positionHashes))
     }
@@ -42,7 +42,7 @@ case class Move(
   def afterWithLastMove = after.variant.finalizeBoard(
     after.copy(history = after.history.withLastMove(toUci)),
     toUci,
-    capture flatMap before.apply,
+    taken flatMap before.apply,
     situationBefore.captureLengthFrom(orig).getOrElse(0) - 1
   )
 
