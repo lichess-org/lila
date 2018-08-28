@@ -77,7 +77,7 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
 
   function toggleZen() {
     data.zen = data.zen ? 0 : 1;
-    $('body').toggleClass('zen', data.zen)
+    $('body').toggleClass('zen', data.zen);
     $.post('/pref/zen', { zen: data.zen });
     redraw();
   }
