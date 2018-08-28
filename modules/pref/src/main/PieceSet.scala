@@ -27,7 +27,7 @@ object PieceSet extends PieceSetObject {
   val all = List(
     default.name, "merida", "alpha", "pirouetti",
     "chessnut", "chess7", "reillycraig", "companion",
-    "fantasy", "spatial", "riohacha", "shapes", "letter"
+    "riohacha", "leipzig", "fantasy", "spatial", "shapes", "letter"
   ) map { name => new PieceSet(name) }
 }
 

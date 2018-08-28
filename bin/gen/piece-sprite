@@ -21,7 +21,8 @@ themes = [
   ['chessnut', 'svg'],
   ['companion', 'svg'],
   ['letter', 'svg'],
-  ['riohacha', 'svg']
+  ['riohacha', 'svg'],
+  ['leipzig', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',

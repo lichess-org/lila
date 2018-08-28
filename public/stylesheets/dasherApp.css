@@ -404,6 +404,9 @@
 #dasher_app piece.riohacha {
   background-image: url(../piece/riohacha/wN.svg);
 }
+#dasher_app piece.leipzig {
+  background-image: url(../piece/leipzig/wN.svg);
+}
 
 body.dark #dasher_app .subs,
 body.dark #dasher_app .status,
