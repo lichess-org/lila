@@ -47,6 +47,13 @@ private[tournament] case class WaitingUsers(
     }(scala.collection.breakOut)
   }
 
+  def waitingLong: List[User.ID] = {
+    val since = date minusSeconds waitSeconds * 2
+    hash.collect {
+      case (u, d) if d.isBefore(since) => u
+    }(scala.collection.breakOut)
+  }
+
   def update(us: Set[User.ID], clock: Option[TournamentClock]) = {
     val newDate = DateTime.now
     copy(

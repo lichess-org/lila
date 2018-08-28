@@ -19,10 +19,10 @@ private object OrnicarPairing {
     type Combination = List[RankedPairing]
 
     def justPlayedTogether(u1: String, u2: String): Boolean =
-      lastOpponents.hash.get(u1).contains(u2) || lastOpponents.hash.get(u2).contains(u1)
+      (!waitingLong.contains(u1) && lastOpponents.hash.get(u1).contains(u2)) || (!waitingLong.contains(u2) && lastOpponents.hash.get(u2).contains(u1))
 
     def veryMuchJustPlayedTogether(u1: String, u2: String): Boolean =
-      lastOpponents.hash.get(u1).contains(u2) && lastOpponents.hash.get(u2).contains(u1)
+      !waitingLong.contains(u1) && lastOpponents.hash.get(u1).contains(u2) && !waitingLong.contains(u2) && lastOpponents.hash.get(u2).contains(u1)
 
     def rankFactor = PairingSystem.rankFactorFor(players)
 
