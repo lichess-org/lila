@@ -94,23 +94,10 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     }
   }
 
-  private val monitoredTimeout = Set("jannlee", "yasser-seirawan", "isaacly", "thibault")
-
-  def broom: Unit = {
+  def broom: Unit =
     members.keys foreach { uid =>
-      if (!aliveUids.get(uid)) {
-        for { // Does people time out here?
-          member <- members get uid
-          userId <- member.userId
-          if monitoredTimeout(userId)
-        } {
-          lila.mon.socket.eject(userId)()
-          lila.mon.socket.ejectAll()
-        }
-        ejectUidString(uid)
-      }
+      if (!aliveUids.get(uid)) ejectUidString(uid)
     }
-  }
 
   protected def ejectUidString(uid: String): Unit = eject(Socket.Uid(uid))
 
