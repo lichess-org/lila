@@ -38,16 +38,14 @@ class RawHtmlTest extends Specification {
     "detect image" in {
       val url = "http://zombo.com/pic.jpg"
       addLinks(s"""img to $url here""") must_== {
-        val img = s"""<img class="embed" src="$url" alt="$url"/>"""
-        s"""img to <a rel="nofollow" href="$url" target="_blank">$img</a> here"""
+        s"""img to <img class="embed" src="$url" alt="$url"/> here"""
       }
     }
     "detect imgur image URL" in {
       val url = "https://imgur.com/NXy19Im"
       val picUrl = "https://i.imgur.com/NXy19Im.jpg"
-      val img = s"""<img class="embed" src="$picUrl" alt="$url"/>"""
       addLinks(s"""img to $url here""") must_==
-        s"""img to <a rel="nofollow" href="$url" target="_blank">$img</a> here"""
+        s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
     }
     "ignore imgur gallery URL" in {
       val url = "http://imgur.com/gallery/pMtTE"
