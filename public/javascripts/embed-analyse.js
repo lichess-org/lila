@@ -153,5 +153,5 @@ lidraughts.startEmbeddedAnalyse = function(opts) {
     lidraughts.dispatchEvent(document.body, 'draughtsground.resize');
   };
   onResize();
-  window.addEventListener('resize', onResize);
+  window.addEventListener('resize', lidraughts.fp.debounce(onResize, 500));
 };
