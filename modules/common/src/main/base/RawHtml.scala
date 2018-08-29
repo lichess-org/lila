@@ -120,9 +120,9 @@ final object RawHtml {
             val isHttp = domainS - start == 7
             val url = (if (isHttp) "http://" else "https://") + allButScheme
             val text = if (isHttp) url else allButScheme
-            sb.append(s"""<a rel="nofollow" href="$url" target="_blank">${
-              imgUrl(url).getOrElse(text)
-            }</a>""")
+            sb.append(imgUrl(url).getOrElse(
+              s"""<a rel="nofollow" href="$url" target="_blank">$text</a>"""
+            ))
           }
           lastAppendIdx = end
         } while (m.find)
