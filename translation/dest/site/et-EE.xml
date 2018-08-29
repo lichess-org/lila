@@ -510,6 +510,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="troll">Troll</string>
   <string name="other">Muu</string>
   <string name="reportDescriptionHelp">Kleebi link mängust ja selgita, mis on valesti selle kasutaja käitumises.</string>
+  <string name="error.provideOneCheatedGameLink">Palun andke vähemalt üks link pettust sisaldavale mängule.</string>
   <string name="by">Postitas %s</string>
   <string name="thisTopicIsNowClosed">See teema on nüüd lõpetatud.</string>
   <string name="theming">Teemad</string>
