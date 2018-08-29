@@ -21,7 +21,7 @@ export function nowPlaying() {
 export function anonPoolSeek(pool) {
   return $.ajax({
     method: 'POST',
-    url: '/setup/hook/' + encodeURIComponent(window.lidraughts.StrongSocket.sri),
+    url: '/setup/hook/' + window.lidraughts.StrongSocket.sri,
     data: {
       variant: 1,
       timeMode: 1,
