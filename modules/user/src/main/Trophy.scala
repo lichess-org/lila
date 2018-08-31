@@ -110,6 +110,15 @@ object Trophy {
       order = 101
     )
 
+    object Verified extends Kind(
+      key = "verified",
+      name = "Verified account",
+      icon = "E".some,
+      url = none,
+      "icon3d".some,
+      order = 102
+    )
+
     object ZHWC extends Kind(
       key = "zhwc",
       name = "Crazyhouse champion",
@@ -120,7 +129,7 @@ object Trophy {
     )
 
     val all = List(
-      Developer, Moderator,
+      Developer, Moderator, Verified,
       MarathonTopHundred, MarathonTopTen, MarathonTopFifty, MarathonWinner,
       ZHWC,
       WayOfBerserk,
