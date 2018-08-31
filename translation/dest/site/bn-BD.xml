@@ -393,6 +393,7 @@
   <string name="conditionOfEntry">এন্ট্রির শর্তাবলি:</string>
   <string name="advancedSettings">এডভান্সড সেটিংস</string>
   <string name="safeTournamentName">টুর্নামেন্টের জন্য একটি নিরাপদ নাম পছন্দ করুন।</string>
+  <string name="inappropriateNameWarning">এমনকি সামান্য অনুপযুক্ত কিছুও আপনার অ্যাকাউন্ট বন্ধ করতে পারে।</string>
   <string name="join">যোগ দিন</string>
   <string name="withdraw">উঠিয়ে নিন</string>
   <string name="points">পয়েন্ট</string>
