@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">আপনার %1$s অনুপাত (%2$s) হয় অনেক কম</string>
   <string name="ratedMoreThanInPerf">অনুপাতদিত ≥ %1$s এ %2$s</string>
   <string name="ratedLessThanInPerf">অনুপাদিত ≤ %1$s এ %2$s</string>
+  <string name="mustBeInTeam">অবশ্যই %s টিমে থাকতে হবে।</string>
+  <string name="youAreNotInTeam">আপনি %s দলে নেই।</string>
   <string name="backToGame">খেলায় এ ফিরে যান</string>
   <string name="siteDescription">ফ্রি অনলাইন দাবা খেলা। এখন থেকে পরিচ্ছন্ন ইন্টারফেসে দাবা খেলুন। কোন রেজিস্ট্রেশনের দরকার নেই, নেই কোন বিজ্ঞাপন, এমনকি কোনও প্লাগইন-এরও প্রয়োজন নেই। দাবা খেলুন কম্পিউটারের সাথে, অথবা বন্ধুর সাথে অথবা অজানা যে কোন প্রতিপক্ষের সাথে।</string>
   <string name="teams">দল</string>
@@ -387,6 +389,10 @@
   <string name="winner">বিজয়ী</string>
   <string name="standing">অপেক্ষারত</string>
   <string name="createANewTournament">নতুন টুর্নামেন্ট সৃষ্টি করুন</string>
+  <string name="tournamentCalendar">টুর্নামেন্ট ক্যালেন্ডার</string>
+  <string name="conditionOfEntry">এন্ট্রির শর্তাবলি:</string>
+  <string name="advancedSettings">এডভান্সড সেটিংস</string>
+  <string name="safeTournamentName">টুর্নামেন্টের জন্য একটি নিরাপদ নাম পছন্দ করুন।</string>
   <string name="join">যোগ দিন</string>
   <string name="withdraw">উঠিয়ে নিন</string>
   <string name="points">পয়েন্ট</string>
