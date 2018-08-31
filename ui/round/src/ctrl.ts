@@ -664,8 +664,6 @@ export default class RoundController {
     if (this.isPlaying()) {
       const zen = !$('body').hasClass('zen');
       $('body').toggleClass('zen', zen);
-      $('#dasher_app .zen a').attr('data-icon', zen ? 'E' : 'K');
-      $('#dasher_app .zen a').toggleClass('active', zen);
       $.post('/pref/zen', { zen: zen ? 1 : 0 });
     }
   }
