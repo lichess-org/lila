@@ -8,6 +8,7 @@ final class Env(
     config: Config,
     db: lidraughts.db.Env,
     studyEnv: lidraughts.study.Env,
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
     system: ActorSystem
 ) {
 
@@ -47,6 +48,7 @@ final class Env(
   private val fetch = system.actorOf(Props(new RelayFetch(
     sync = sync,
     api = api,
+    formatApi = new RelayFormatApi(asyncCache),
     chapterRepo = studyEnv.chapterRepo
   )))
 
@@ -66,6 +68,7 @@ object Env {
     db = lidraughts.db.Env.current,
     config = lidraughts.common.PlayApp loadConfig "relay",
     studyEnv = lidraughts.study.Env.current,
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
     system = lidraughts.common.PlayApp.system
   )
 }

@@ -98,13 +98,7 @@ object Relay {
   }
 
   object Sync {
-    sealed abstract class Upstream(val key: String, val url: String, val heavy: Boolean) {
-      override def toString = s"$key $url"
-    }
-    object Upstream {
-      case class DgtOneFile(fileUrl: String) extends Upstream("dgt-one", fileUrl, false)
-      case class DgtManyFiles(dirUrl: String) extends Upstream("dgt-many", dirUrl, true)
-    }
+    case class Upstream(url: String) extends AnyVal
   }
 
   case class WithStudy(relay: Relay, study: Study)
