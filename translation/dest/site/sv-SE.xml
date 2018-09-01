@@ -12,7 +12,7 @@
   <string name="level">Nivå</string>
   <string name="toggleTheChat">Dölj/visa chattrutan</string>
   <string name="toggleSound">Ljud av/på</string>
-  <string name="chat">Chatt</string>
+  <string name="chat">Chatta</string>
   <string name="resign">Ge upp</string>
   <string name="checkmate">Schackmatt</string>
   <string name="stalemate">Patt</string>
@@ -509,6 +509,7 @@
   <string name="troll">Troll</string>
   <string name="other">Övrigt</string>
   <string name="reportDescriptionHelp">Klistra in länken till partiet och förklara vad som är fel med den här användarens beteende. Säg inte bara \"de fuskar\", utan förklara hur du dragit denna slutsats. Din rapport kommer att behandlas fortare om den är skriven på engelska.</string>
+  <string name="error.provideOneCheatedGameLink">Ange minst en länk till ett spel där användaren fuskade.</string>
   <string name="by">av %s</string>
   <string name="thisTopicIsNowClosed">Det här ämnet är nu stängt.</string>
   <string name="theming">Teman</string>
