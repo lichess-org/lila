@@ -8,6 +8,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     studyEnv: lila.study.Env,
+    asyncCache: lila.memo.AsyncCache.Builder,
     system: ActorSystem
 ) {
 
@@ -47,6 +48,7 @@ final class Env(
   private val fetch = system.actorOf(Props(new RelayFetch(
     sync = sync,
     api = api,
+    formatApi = new RelayFormatApi(asyncCache),
     chapterRepo = studyEnv.chapterRepo
   )))
 
@@ -66,6 +68,7 @@ object Env {
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "relay",
     studyEnv = lila.study.Env.current,
+    asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system
   )
 }
