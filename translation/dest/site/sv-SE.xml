@@ -56,9 +56,9 @@
   <string name="showThreat">Visa hot</string>
   <string name="inLocalBrowser">i lokal webbläsare</string>
   <string name="toggleLocalEvaluation">Lokal analys av/på</string>
-  <string name="promoteVariation">Höj upp variant</string>
-  <string name="makeMainLine">Gör till huvudvariant</string>
-  <string name="deleteFromHere">Radera från här</string>
+  <string name="promoteVariation">Höj upp variation</string>
+  <string name="makeMainLine">Gör till huvudvariation</string>
+  <string name="deleteFromHere">Radera härifrån</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
   <string name="variantWin">Variantvinst</string>
@@ -85,15 +85,15 @@
     <item quantity="other">Nästa slag eller bondedrag inom %s halvdrag (drag till nollställning av räknaren för 50-dragsregeln)</item>
   </plurals>
   <string name="noGameFound">Inget parti hittades</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">För att söka bland fler partier, gå till Inställningar?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Överväg att ändra inställningarna för att inkludera fler partier.</string>
   <string name="openingExplorer">Öppningsbok</string>
   <string name="xOpeningExplorer">%s öppningsutforskare</string>
-  <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-drags regeln</string>
+  <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-dragsregeln</string>
   <string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-dragsregeln</string>
   <string name="allSet">OK</string>
   <string name="importPgn">Importera PGN</string>
   <string name="delete">Ta bort</string>
-  <string name="deleteThisImportedGame">Ta bort detta importerade partil?</string>
+  <string name="deleteThisImportedGame">Ta bort detta importerade parti?</string>
   <string name="replayMode">Uppspelningsläge</string>
   <string name="realtimeReplay">Realtid</string>
   <string name="byCPL">CPL</string>
@@ -105,8 +105,8 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Oändlig analys</string>
-  <string name="removesTheDepthLimit">Tar bort sökdjup-begränsningen, och håller datorn varm</string>
-  <string name="blunder">Tabbe</string>
+  <string name="removesTheDepthLimit">Tar bort sökdjupsbegränsningen, och håller datorn varm</string>
+  <string name="blunder">Blunder</string>
   <string name="blunders">Blundrar</string>
   <string name="mistake">Misstag</string>
   <string name="mistakes">Misstag</string>
