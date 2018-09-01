@@ -33,6 +33,7 @@ case class Clock(
   def isRunning = timer.isDefined
 
   def start = if (isRunning) this else copy(timer = Some(now))
+  def restart = copy(timer = timer.map(_ => now))
 
   def stop = timer.fold(this) { t =>
     copy(
@@ -82,10 +83,14 @@ case class Clock(
   // To do: safely add this to takeback to remove inc from player.
   // def deinc = updatePlayer(color, _.giveTime(-incrementOf(color)))
 
-  def takeback = switch
+  def takeback = copy(color = !color)
 
   def giveTime(c: Color, t: Centis) = updatePlayer(c) {
     _.giveTime(t)
+  }
+
+  def takeTime(c: Color, t: Centis) = updatePlayer(c) {
+    _.takeTime(t)
   }
 
   def setRemainingTime(c: Color, centis: Centis) = updatePlayer(c) {

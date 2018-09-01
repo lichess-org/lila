@@ -13,10 +13,10 @@ private[round] final class Takebacker(
   def yes(situation: Round.TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, Round.TakebackSituation)] = IfAllowed(pov.game) {
     pov match {
       case Pov(game, color) if pov.opponent.isProposingTakeback => {
-        if (pov.opponent.proposeTakebackAt == game.turns) rewindUntilPly(game, game.displayTurns - (game.situation.ghosts == 0 || game.turnColor != color).fold(1, 2))
-        else rewindUntilPly(game, game.displayTurns - 2)
+        if (pov.opponent.proposeTakebackAt == game.turns) rewindUntilPly(game, game.displayTurns - (game.situation.ghosts == 0 || game.turnColor != color).fold(1, 2), pov.opponent.color)
+        else rewindUntilPly(game, game.displayTurns - 2, pov.opponent.color)
       } map (_ -> situation.reset)
-      case Pov(game, _) if pov.opponent.isAi => double(game) map (_ -> situation)
+      //case Pov(game, _) if pov.opponent.isAi => double(game) map (_ -> situation)
       case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable => {
         messenger.system(game, _.takebackPropositionSent)
         val progress = Progress(game) map { g =>
@@ -69,37 +69,20 @@ private[round] final class Takebacker(
       _.fold(f, fufail(ClientError("[takebacker] disallowed by preferences " + game.id)))
     }
 
-  private def single(game: Game)(implicit proxy: GameProxy): Fu[Events] = for {
-    fen ← GameRepo initialFen game
-    progress ← Rewind(game, fen).future
-    _ ← fuccess { uciMemo.drop(game, 1) }
-    events ← saveAndNotify(progress)
-  } yield events
-
-  private def double(game: Game)(implicit proxy: GameProxy): Fu[Events] = for {
-    fen ← GameRepo initialFen game
-    prog1 ← Rewind(game, fen).future
-    prog2 ← Rewind(prog1.game, fen).future map { progress =>
-      prog1 withGame progress.game
-    }
-    _ ← fuccess { uciMemo.drop(game, 2) }
-    events ← saveAndNotify(prog2)
-  } yield events
-
-  private def rewindUntilPly(game: Game, ply: Int)(implicit proxy: GameProxy): Fu[Events] =
+  private def rewindUntilPly(game: Game, ply: Int, takeBacker: draughts.Color)(implicit proxy: GameProxy): Fu[Events] =
     GameRepo initialFen game flatMap {
       fen =>
-        Rewind(game, fen).future flatMap {
-          prog1 => rewindPly(game, fen, ply, prog1, 0)
+        Rewind(game, fen, game.turns, takeBacker, game.turns == ply).future flatMap {
+          prog1 => rewindPly(game, fen, game.turns, takeBacker, ply, prog1, 1)
         }
     }
 
-  private def rewindPly(game: Game, fen: Option[String], targetPly: Int, prog: Progress, rewinds: Int)(implicit proxy: GameProxy): Fu[Events] =
+  private def rewindPly(game: Game, fen: Option[String], initialPly: Int, takeBacker: draughts.Color, targetPly: Int, prog: Progress, rewinds: Int)(implicit proxy: GameProxy): Fu[Events] =
     if (prog.game.turns + (prog.game.situation.ghosts > 0).fold(1, 0) <= targetPly)
       fuccess { uciMemo.drop(game, rewinds) } flatMap { _ => saveAndNotify(prog) }
-    else Rewind(prog.game, fen).future map { progress =>
+    else Rewind(prog.game, fen, initialPly, takeBacker, initialPly == targetPly).future map { progress =>
       prog withGame progress.game
-    } flatMap { progn => rewindPly(game, fen, targetPly, progn, rewinds + 1) }
+    } flatMap { progn => rewindPly(game, fen, initialPly, takeBacker, targetPly, progn, rewinds + 1) }
 
   private def saveAndNotify(p1: Progress)(implicit proxy: GameProxy): Fu[Events] = {
     val p2 = p1 + Event.Reload
