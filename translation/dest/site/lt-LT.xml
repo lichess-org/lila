@@ -402,6 +402,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="troll">„Troll\'ino“</string>
   <string name="other">Kita</string>
   <string name="reportDescriptionHelp">Įdėkite nuorodą į žaidimą(-us) ir paaiškinkite, kas netinkamo yra šio vartotojo elgsenoje.</string>
+  <string name="error.provideOneCheatedGameLink">Pateikite bent vieną nuorodą į sukčiautą partiją.</string>
   <string name="by">nuo %s</string>
   <string name="thisTopicIsNowClosed">Ši tema yra uždaryta.</string>
   <string name="theming">Išvaizda</string>
