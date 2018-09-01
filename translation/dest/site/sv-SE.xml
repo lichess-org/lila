@@ -77,8 +77,8 @@
   <string name="topGames">Toppartier</string>
   <string name="masterDbExplanation">Två miljoner schackpartier spelade av %1$s+ elorankade spelare (>2200) från %2$s till %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Matt i %s halvdrag</item>
-    <item quantity="other">Matt i %s halvdrag</item>
+    <item quantity="one">Matt på %s halvdrag</item>
+    <item quantity="other">Matt på %s halvdrag</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Nästa slag eller bondedrag inom %s halvdrag (drag till nollställning av räknaren för 50-dragsregeln)</item>
@@ -89,7 +89,7 @@
   <string name="openingExplorer">Öppningsbok</string>
   <string name="xOpeningExplorer">%s öppningsutforskare</string>
   <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-drags regeln</string>
-  <string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-drags regeln</string>
+  <string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-dragsregeln</string>
   <string name="allSet">OK</string>
   <string name="importPgn">Importera PGN</string>
   <string name="delete">Ta bort</string>
