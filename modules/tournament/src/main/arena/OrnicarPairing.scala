@@ -6,6 +6,7 @@ import PairingSystem.{ Data, url }
 private object OrnicarPairing {
 
   private val smartPairingsMaxMillis = 600
+  private val waitLongMaxPlayers = 15
 
   def apply(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.nonEmpty ?? {
     import data._
@@ -19,10 +20,10 @@ private object OrnicarPairing {
     type Combination = List[RankedPairing]
 
     def justPlayedTogether(u1: String, u2: String): Boolean =
-      (!waitingLong.contains(u1) && lastOpponents.hash.get(u1).contains(u2)) || (!waitingLong.contains(u2) && lastOpponents.hash.get(u2).contains(u1))
+      ((tour.nbPlayers > waitLongMaxPlayers || !waitingLong.contains(u1)) && lastOpponents.hash.get(u1).contains(u2)) || ((tour.nbPlayers > waitLongMaxPlayers || !waitingLong.contains(u2)) && lastOpponents.hash.get(u2).contains(u1))
 
     def veryMuchJustPlayedTogether(u1: String, u2: String): Boolean =
-      !waitingLong.contains(u1) && lastOpponents.hash.get(u1).contains(u2) && !waitingLong.contains(u2) && lastOpponents.hash.get(u2).contains(u1)
+      (tour.nbPlayers > waitLongMaxPlayers || (!waitingLong.contains(u1) && !waitingLong.contains(u2))) && lastOpponents.hash.get(u1).contains(u2) && lastOpponents.hash.get(u2).contains(u1)
 
     def rankFactor = PairingSystem.rankFactorFor(players)
 

@@ -48,7 +48,7 @@ private[tournament] case class WaitingUsers(
   }
 
   def waitingLong: List[User.ID] = {
-    val since = date minusSeconds waitSeconds * 2
+    val since = date minusSeconds waitSeconds * 5
     hash.collect {
       case (u, d) if d.isBefore(since) => u
     }(scala.collection.breakOut)
