@@ -43,7 +43,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     else if (game.variant.exotic) game.variant.name else "draughts"
     import draughts.Status._
     val result = (game.winner, game.loser, game.status) match {
-      case (Some(w), _, Mate) => s"${playerText(w)} won by checkmate"
+      case (Some(w), _, Mate) => s"${playerText(w)} won"
       case (_, Some(l), Resign | Timeout | Cheat | NoStart) => s"${playerText(l)} resigned"
       case (_, Some(l), Outoftime) => s"${playerText(l)} forfeits by time"
       case (Some(w), _, UnknownFinish) => s"${playerText(w)} won"

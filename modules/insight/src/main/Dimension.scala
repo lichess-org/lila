@@ -57,7 +57,7 @@ object Dimension {
 
   case object Termination extends Dimension[Termination](
     "termination", "Game termination", F.termination, Game,
-    Html("The way that the game ended, like Checkmate or Resignation.")
+    Html("The way that the game ended, like Clock Flag or Resignation.")
   )
 
   case object Color extends Dimension[Color](
