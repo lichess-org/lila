@@ -109,6 +109,7 @@ object Query {
     case s if s.is(_.UnknownFinish) => none
     case s if s.is(_.Outoftime) => Some(s.id -> "Clock Flag")
     case s if s.is(_.VariantEnd) => Some(s.id -> "Variant End")
+    case s if s.is(_.Mate) => Some(s.id -> "Win")
     case s => Some(s.id -> s.toString)
   }.flatten
 }

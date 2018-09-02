@@ -30,7 +30,7 @@ object Status {
   val all = List(Created, Started, Aborted, Mate, Resign, Stalemate, Timeout, Draw, Outoftime, Cheat, NoStart, UnknownFinish, VariantEnd)
 
   val finishedNotCheated = all filter { s =>
-    s.id >= Mate.id && s.id != Cheat.id
+    s.id >= Mate.id && s.id != Cheat.id && s.id != Stalemate.id
   }
 
   val finishedWithWinner = List(Mate, Resign, Timeout, Outoftime, Cheat, NoStart, VariantEnd)
