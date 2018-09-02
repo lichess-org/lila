@@ -19,4 +19,4 @@ module.exports = function(element, opts) {
   };
 };
 
-window.lidraughtsChat = require('chat');
+window.LidraughtsChat = require('chat');
