@@ -564,7 +564,6 @@ body.online.reconnected #reconnecting {
 body.online #reconnecting::before {
   content: 'J'
 }
-
 #clinput {
   display: flex;
   height: 24px;
