@@ -556,12 +556,10 @@ body.online.reconnected #reconnecting {
 body.online #reconnecting::before {
   content: 'J'
 }
-
 p.errortext {
   margin-top: 4px;
   color: #dc322f;
 }
-
 #clinput {
   display: flex;
   height: 24px;
