@@ -11,6 +11,19 @@
   width: 512px;
   height: 512px;
 }
+.board_and_ground .cg-board-wrap fieldnumber {
+  margin-left: 0px;
+  text-align: center;
+  z-index: 5;
+  line-height: 10%;
+  top: 4%;
+  opacity: 0.85;
+  font-family: monospace;
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, 0px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000, 0px 2px 0 #000, 0px -2px 0 #000, -2px 0px 0 #000, 2px 0px 0 #000, 1px 2px 0 #000, -1px 2px 0 #000, 1px -2px 0 #000, -1px -2px 0 #000, 2px 1px 0 #000, -2px 1px 0 #000, 2px -1px 0 #000, -2px -1px 0 #000;
+}
 #trainer piece.ghost {
   opacity: 0.54;
 }

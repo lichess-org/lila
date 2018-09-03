@@ -26,7 +26,7 @@ export default function(ctrl: LobbyController) {
               insert(vnode) {
                 const lm = pov.lastMove;
                 const config = {
-                  coordinates: false,
+                  coordinates: 0,
                   drawable: { enabled: false, visible: false },
                   resizable: false,
                   viewOnly: true,

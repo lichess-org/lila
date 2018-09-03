@@ -132,7 +132,7 @@ function makeConfig(ctrl) {
   return {
     fen: ctrl.cfg.fen,
     orientation: ctrl.options.orientation || 'white',
-    coordinates: !ctrl.embed,
+    coordinates: ctrl.embed ? 0 : 2,
     autoCastle: false,
     addPieceZIndex: ctrl.cfg.is3d,
     movable: {
@@ -147,7 +147,7 @@ function makeConfig(ctrl) {
       enabled: false
     },
     drawable: {
-      enabled: true
+      enabled: false
     },
     draggable: {
       showGhost: true,

@@ -11,8 +11,7 @@ export interface Config {
   captureLength?: number; //Amount of forced captures in this turn
   lastMove?: cg.Key[]; // squares part of the last move ["c3", "c4"]
   selected?: cg.Key; // square currently selected "a1"
-  coordinates?: boolean; // include coords attributes
-  bigCoordinates?: boolean; //fieldnumbers inside the board
+  coordinates?: number; // include coords attributes
   autoCastle?: boolean; // immediately complete the castle by moving the rook after king move
   viewOnly?: boolean; // don't bind events: the user will never be able to move pieces around
   disableContextMenu?: boolean; // because who needs a context menu on a draughtsboard

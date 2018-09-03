@@ -6,9 +6,9 @@ function parseFen($elem) {
     var $this = $(this).removeClass('parse_fen');
     var lm = $this.data('lastmove');
     var color = $this.data('color');
-    var ground = $this.data('chessground');
+    var ground = $this.data('draughtsground');
     var config = {
-      coordinates: false,
+      coordinates: 0,
       resizable: false,
       drawable: { enabled: false, visible: false },
       viewOnly: true,
@@ -19,7 +19,7 @@ function parseFen($elem) {
     if (ground) ground.set(config);
     else {
       this.innerHTML = '<div class="cg-board-wrap"></div>';
-      $this.data('chessground', Draughtsground(this.firstChild, config));
+      $this.data('draughtsground', Draughtsground(this.firstChild, config));
     }
   });
 }

@@ -24,7 +24,7 @@ function makeConfig(ctrl: RoundController): Config {
         turnColor: (step.ply - (ghosts == 0 ? 0 : 1)) % 2 === 0 ? 'white' : 'black',
         lastMove: util.uci2move(step.uci),
         captureLength: data.captureLength,
-        coordinates: data.pref.coords !== 0,
+        coordinates: data.pref.coords,
         addPieceZIndex: ctrl.data.pref.is3d,
         autoCastle: data.game.variant.key === 'standard',
         highlight: {

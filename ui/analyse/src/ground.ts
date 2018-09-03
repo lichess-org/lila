@@ -45,7 +45,7 @@ function makeConfig(ctrl: AnalyseCtrl): CgConfig {
         lastMove: opts.lastMove,
         captureLength: opts.captureLength,
         orientation: ctrl.bottomColor(),
-        coordinates: pref.coords !== 0 && !ctrl.embed,
+        coordinates: ctrl.embed ? 0 : pref.coords,
         addPieceZIndex: pref.is3d,
         viewOnly: !!ctrl.embed,
         movable: {

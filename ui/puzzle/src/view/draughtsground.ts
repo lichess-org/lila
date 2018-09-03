@@ -18,7 +18,7 @@ function makeConfig(ctrl): CgConfig {
     orientation: opts.orientation,
     turnColor: opts.turnColor,
     lastMove: opts.lastMove,
-    coordinates: ctrl.pref.coords !== 0,
+    coordinates: ctrl.pref.coords,
     addPieceZIndex: ctrl.pref.is3d,
     movable: {
       free: false,

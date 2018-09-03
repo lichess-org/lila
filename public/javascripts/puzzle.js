@@ -3,7 +3,7 @@ elem.target = '_blank';
 var lm = elem.getAttribute('data-lastmove');
 elem.innerHTML = '<div class="cg-board-wrap">';
 Draughtsground(elem.firstChild, {
-  coordinates: false,
+  coordinates: 0,
   resizable: false,
   drawable: { enabled: false, visible: false },
   viewOnly: true,

@@ -79,23 +79,6 @@ square {
   background-color: rgba(255, 0, 0, 0.5);
   transition: background-color 0.1s;
 }
-fieldnumber {
-  position: absolute;
-  text-align: center;
-  line-height: 10.0%;
-  width: 10.0%;
-  height: 10.0%;
-  top: 0;
-  left: 0;
-  z-index: 5;
-  font-family: monospace;
-  font-size: 32px;
-  font-weight: bold;
-  text-transform: uppercase;
-  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, 0px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000, 0px 2px 0 #000, 0px -2px 0 #000, -2px 0px 0 #000, 2px 0px 0 #000, 1px 2px 0 #000, -1px 2px 0 #000, 1px -2px 0 #000, -1px -2px 0 #000, 2px 1px 0 #000, -2px 1px 0 #000, 2px -1px 0 #000, -2px -1px 0 #000;
-  color: #fff;
-  pointer-events: none;
-}
 piece {
   position: absolute;
   width: 10.0%;
@@ -189,6 +172,18 @@ piece.fading {
 }
 .cg-board-wrap coords.ranks coord {
   transform: translateY(39%);
+}
+
+.cg-board-wrap fieldnumber {
+  margin-left: -1px;
+  position: absolute;
+  text-align: right;
+  width: 10.0%;
+  height: 10.0%;
+  pointer-events: none;
+  opacity: 0.8;
+  color: #fff;
+  text-shadow: 0 1px 2px #000;
 }
 
 /* lidraughts */

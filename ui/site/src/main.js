@@ -166,7 +166,7 @@ lidraughts.topMenuIntent = function() {
       var playable = !!$this.data('playable');
       var resizable = !!$this.data('resizable');
       var config = {
-        coordinates: false,
+        coordinates: 0,
         viewOnly: !playable,
         resizable: resizable,
         fen: $this.data('fen') || lidraughts.readServerFen($this.data('z')),

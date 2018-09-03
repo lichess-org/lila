@@ -12,8 +12,7 @@ export interface State {
   lastMove?: cg.Key[]; // squares part of the last move ["c3"; "c4"]
   /** square currently selected "a1" */
   selected?: cg.Key;
-  coordinates: boolean; // include coords attributes
-  bigCoordinates?: boolean //render fat coordinate overlay on top of each field
+  coordinates: number; // include coords attributes
   viewOnly: boolean; // don't bind events: the user will never be able to move pieces around
   disableContextMenu: boolean; // because who needs a context menu on a draughtsboard
   resizable: boolean; // listens to draughtsground.resize on document.body to clear bounds cache
@@ -101,7 +100,7 @@ export function defaults(): Partial<State> {
     pieces: fen.read(fen.initial),
     orientation: 'white',
     turnColor: 'white',
-    coordinates: true,
+    coordinates: 2,
     viewOnly: false,
     disableContextMenu: false,
     resizable: true,

@@ -66,7 +66,7 @@ window.onload = function() {
     drawable: { enabled: false, visible: false },
     fen: challenge.initialFen,
     orientation: (opts.owner ^ challenge.color === 'black') ? 'white' : 'black',
-    coordinates: false,
+    coordinates: 0,
     disableContextMenu: true
   });
   setTimeout(function() {
