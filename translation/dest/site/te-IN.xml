@@ -6,4 +6,6 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">ఆటకు ఆహ్వానించడానికి ఈ లింక్ ఇవ్వండి</string>
   <string name="gameOver">ఆట నమాప్తం</string>
   <string name="waitingForOpponent">ఎదిరి కోసం ఎదురుచూస్తున్నాం</string>
+  <string name="waiting">ఎదురుచాస్తున్నాం</string>
+  <string name="yourTurn">మీ వంతు</string>
 </resources>
