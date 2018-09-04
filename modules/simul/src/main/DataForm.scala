@@ -32,7 +32,7 @@ final class DataForm {
     "clockIncrement" -> numberIn(clockIncrementChoices),
     "clockExtra" -> numberIn(clockExtraChoices),
     "variants" -> list {
-      number.verifying(Set(draughts.variant.Standard.id, draughts.variant.Frisian.id) contains _)
+      number.verifying(Set(draughts.variant.Standard.id, draughts.variant.Frisian.id, draughts.variant.Antidraughts.id) contains _)
     }.verifying("At least one variant", _.nonEmpty),
     "color" -> stringIn(colorChoices)
   )(SimulSetup.apply)(SimulSetup.unapply)) fill SimulSetup(

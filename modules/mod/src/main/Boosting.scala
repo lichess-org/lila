@@ -19,7 +19,8 @@ final class BoostingApi(
 
   private val variants = Set[variant.Variant](
     variant.Standard,
-    variant.Frisian
+    variant.Frisian,
+    variant.Antidraughts
   )
 
   def getBoostingRecord(id: String): Fu[Option[BoostingRecord]] =

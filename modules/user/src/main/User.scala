@@ -91,7 +91,7 @@ case class User(
     } take nb
 
   private val firstRow: List[PerfType] = List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
-  private val secondRow: List[PerfType] = List(PerfType.UltraBullet, PerfType.Frisian)
+  private val secondRow: List[PerfType] = List(PerfType.UltraBullet, PerfType.Frisian, PerfType.Antidraughts)
 
   def best8Perfs: List[PerfType] = bestOf(firstRow, 4) ::: bestOf(secondRow, 4)
 

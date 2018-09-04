@@ -1,7 +1,7 @@
 package draughts
 
 import format.Uci
-import variant.{ Variant, Standard, Frisian }
+import variant.{ Variant, Standard }
 
 // Consecutive king moves by the respective side.
 case class KingMoves(white: Int = 0, black: Int = 0) {
@@ -41,9 +41,9 @@ case class DraughtsHistory(
     copy(positionHashes = DraughtsHistory.spoofHashes(v + 1))
 
   /**
-   * Checks for threefold repetition, does not apply to frisian chess
+   * Checks for threefold repetition, does not apply to frisian chess or antidraughts
    */
-  def threefoldRepetition: Boolean = !variant.frisian && halfMoveClock >= 8 && {
+  def threefoldRepetition: Boolean = !variant.frisian && !variant.antidraughts && halfMoveClock >= 8 && {
     // compare only hashes for positions with the same side to move
     val positions = (positionHashes grouped Hash.size).sliding(1, 2).flatten.toList
     positions.headOption match {

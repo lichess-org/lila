@@ -142,11 +142,11 @@ interface WebAssemblyStatic {
 
 declare var WebAssembly: WebAssemblyStatic | undefined;
 
-declare type VariantKey = 'standard' | 'chess960' | 'antichess' | 'fromPosition' | 'kingOfTheHill' | 'threeCheck' | 'atomic' | 'horde' | 'racingKings' | 'crazyhouse' | 'frisian'
+declare type VariantKey = 'standard' | 'antidraughts' | 'fromPosition' | 'frisian' | 'atomic'
 
 declare type Speed = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'unlimited'
 
-declare type Perf = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'chess960' | 'antichess' | 'fromPosition' | 'kingOfTheHill' | 'threeCheck' | 'atomic' | 'horde' | 'racingKings' | 'crazyhouse'
+declare type Perf = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'antidraughts' | 'fromPosition' | 'frisian'
 
 declare type Color = 'white' | 'black';
 

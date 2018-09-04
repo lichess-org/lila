@@ -5,6 +5,7 @@ import lidraughts.rating.PerfType
 case class History(
     standard: RatingsMap,
     frisian: RatingsMap,
+    antidraughts: RatingsMap,
     ultraBullet: RatingsMap,
     bullet: RatingsMap,
     blitz: RatingsMap,
@@ -22,6 +23,7 @@ case class History(
     case PerfType.Classical => classical
     case PerfType.Correspondence => correspondence
     case PerfType.Frisian => frisian
+    case PerfType.Antidraughts => antidraughts
     case PerfType.Puzzle => puzzle
     case PerfType.UltraBullet => ultraBullet
     case x => sys error s"No history for perf $x"
@@ -46,6 +48,7 @@ object History {
       History(
         standard = ratingsMap("standard"),
         frisian = ratingsMap("frisian"),
+        antidraughts = ratingsMap("antidraughts"),
         ultraBullet = ratingsMap("ultraBullet"),
         bullet = ratingsMap("bullet"),
         blitz = ratingsMap("blitz"),

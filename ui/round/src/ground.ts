@@ -53,7 +53,7 @@ function makeConfig(ctrl: RoundController): Config {
         premovable: {
             enabled: data.pref.enablePremove,
             showDests: data.pref.destination,
-            castle: data.game.variant.key !== 'antichess',
+            castle: false,
             variant: data.game.variant.key,
             events: {
                 set: hooks.onPremove,
@@ -61,7 +61,7 @@ function makeConfig(ctrl: RoundController): Config {
             }
         },
         predroppable: {
-            enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse',
+            enabled: false,
             events: {
                 set: hooks.onPredrop,
                 unset() { hooks.onPredrop(undefined) }
@@ -100,8 +100,7 @@ export function promote(ground: CgApi, key: cg.Key, role: cg.Role) {
 }
 
 export function boardOrientation(data: RoundData, flip: boolean): Color {
-  if (data.game.variant.key === 'racingKings') return flip ? 'black': 'white';
-  else return flip ? data.opponent.color : data.player.color;
+  return flip ? data.opponent.color : data.player.color;
 }
 
 export function render(ctrl: RoundController) {

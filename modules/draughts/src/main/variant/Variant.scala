@@ -21,6 +21,7 @@ abstract class Variant(
 
   def standard = this == Standard
   def frisian = this == Frisian
+  def antidraughts = this == Antidraughts
   def fromPosition = this == FromPosition
 
   def exotic = !standard
@@ -40,39 +41,6 @@ abstract class Variant(
       case actor if actor.captures.nonEmpty =>
         actor.pos -> actor.captures
     }(breakOut)
-
-  def validMovesOld(situation: Situation, finalSquare: Boolean = false): Map[Pos, List[Move]] = {
-
-    var bestLineValue = 0f
-    var longestLine = 0
-    var kingCaptures = false
-    val captures: Map[Pos, List[Move]] = situation.actors.collect {
-      case actor if (if (finalSquare) actor.capturesFinal else actor.captures).nonEmpty => {
-        val capts = if (finalSquare) actor.capturesFinal else actor.captures
-        if (frisian) {
-          val lineValue = capts.head.frisianValue
-          if (lineValue > bestLineValue) {
-            bestLineValue = lineValue
-            kingCaptures = actor.piece.role == King
-          } else if (actor.piece.role == King && (lineValue - bestLineValue).abs < 0.001)
-            kingCaptures = true
-        } else {
-          val len = capts.head.capture.fold(0)(_.length)
-          if (len > longestLine) longestLine = len
-        }
-        actor.pos -> capts
-      }
-    }(breakOut)
-
-    if (captures.nonEmpty) {
-      if (frisian) captures.filter(c => (c._2.head.frisianValue - bestLineValue).abs < 0.001 && (!kingCaptures || situation.board(c._1).fold(false)(_.role == King)))
-      else captures.filter(_._2.head.capture.fold(false)(_.lengthCompare(longestLine) == 0))
-    } else
-      situation.actors.collect {
-        case actor if actor.noncaptures.nonEmpty => actor.pos -> actor.noncaptures
-      }(breakOut)
-
-  }
 
   def validMoves(situation: Situation, finalSquare: Boolean = false): Map[Pos, List[Move]] = {
 
@@ -241,7 +209,7 @@ abstract class Variant(
 
 object Variant {
 
-  val all = List(Standard, Frisian, FromPosition)
+  val all = List(Standard, Frisian, Antidraughts, FromPosition)
   val byId = all map { v => (v.id, v) } toMap
   val byKey = all map { v => (v.key, v) } toMap
 
@@ -262,12 +230,14 @@ object Variant {
 
   val openingSensibleVariants: Set[Variant] = Set(
     draughts.variant.Standard,
-    draughts.variant.Frisian
+    draughts.variant.Frisian,
+    draughts.variant.Antidraughts
   )
 
   val divisionSensibleVariants: Set[Variant] = Set(
     draughts.variant.Standard,
     draughts.variant.Frisian,
+    draughts.variant.Antidraughts,
     draughts.variant.FromPosition
   )
 

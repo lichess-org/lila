@@ -65,13 +65,6 @@ function knightMovesTo(s: Square): Square[] {
     o => o >= 0 && o < 64 && squareDist(s, o) <= 2);
 }
 
-function pawnAttacksTo(turn: boolean, s: Square): Square[] {
-  let left = turn ? 7 : -7;
-  let right = turn ? 9 : -9;
-  return [s + left, s + right].filter(
-    o => o >= 0 && o < 64 && squareDist(s, o) === 1);
-}
-
 const ROOK_DELTAS = [8, 1, -8, -1];
 const BISHOP_DELTAS = [9, -9, 7, -7];
 const QUEEN_DELTAS = ROOK_DELTAS.concat(BISHOP_DELTAS);
@@ -87,34 +80,6 @@ function slidingMovesTo(s: Square, deltas: number[], board: Board): Square[] {
     }
   });
   return result;
-}
-
-function isCheck(variant: VariantKey, board: Board): boolean {
-  if (variant === 'antichess' || variant == 'racingKings') return false;
-
-  const turn = board.turn,
-  ksq = turn ? board.K : board.k;
-
-  if (typeof ksq !== 'number') return false;
-
-  // no check when kings are touching in atomic
-  if (variant === 'atomic' &&
-    typeof board.k !== 'undefined' &&
-    typeof board.K !== 'undefined' &&
-    squareDist(board.k, board.K) <= 1)
-  return false;
-
-  const p = turn ? 'p' : 'P',
-  n = turn ? 'n' : 'N',
-  r = turn ? 'r' : 'R',
-  b = turn ? 'b' : 'B',
-  q = turn ? 'q' : 'Q';
-
-  return (
-    pawnAttacksTo(turn, ksq).some(o => board.pieces[o] === p) ||
-      knightMovesTo(ksq).some(o => board.pieces[o] === n) ||
-        slidingMovesTo(ksq, ROOK_DELTAS, board).some(o => board.pieces[o] === r || board.pieces[o] === q) ||
-          slidingMovesTo(ksq, BISHOP_DELTAS, board).some(o => board.pieces[o] === b || board.pieces[o] === q));
 }
 
 function makeMove(variant: VariantKey, board: Board, uci: string) {
@@ -242,7 +207,6 @@ export default function(variant: VariantKey, fen: string, threat: boolean, moves
     first = false;
     s += san(board, uci);
     makeMove(variant, board, uci);
-    if (isCheck(variant, board)) s += '+';
     return s;
   }).join(' ');
 

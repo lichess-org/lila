@@ -92,6 +92,11 @@ object Tv {
       icon = P.Frisian.iconChar.toString,
       filters = Seq(variant(V.Frisian), freshBlitz)
     )
+    case object Antidraughts extends Channel(
+      name = V.Antidraughts.name,
+      icon = P.Antidraughts.iconChar.toString,
+      filters = Seq(variant(V.Antidraughts), freshBlitz)
+    )
     case object UltraBullet extends Channel(
       name = S.UltraBullet.name,
       icon = P.UltraBullet.iconChar.toString,
@@ -105,7 +110,7 @@ object Tv {
     val all = List(
       Best,
       Bullet, Blitz, Rapid, Classical,
-      Frisian,
+      Frisian, Antidraughts,
       UltraBullet
     //Computer
     )

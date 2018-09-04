@@ -253,26 +253,8 @@ module.exports = function(cfg, element) {
         case '10':
           key = 'frisian';
           break;
-        case '2':
-          key = 'chess960';
-          break;
-        case '4':
-          key = 'kingOfTheHill';
-          break;
-        case '5':
-          key = 'threeCheck';
-          break;
         case '6':
-          key = 'antichess'
-          break;
-        case '7':
-          key = 'atomic'
-          break;
-        case '8':
-          key = "horde"
-          break;
-        case '9':
-          key = "racingKings"
+          key = 'antidraughts'
           break;
       }
       $ratings.hide().filter('.' + key).show();

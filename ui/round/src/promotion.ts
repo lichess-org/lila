@@ -121,7 +121,7 @@ export function view(ctrl: RoundController) {
   if (!promoting) return;
 
   return renderPromotion(ctrl, promoting.move[1],
-    ctrl.data.game.variant.key === 'antichess' ? roles.concat('king') : roles,
+    roles,
     ctrl.data.player.color,
     ctrl.draughtsground.state.orientation);
 };

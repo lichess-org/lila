@@ -19,11 +19,7 @@ export const perf = {
     rapid: "C",
     classical: "+",
     correspondence: ";",
-    chess960: "'",
-    kingOfTheHill: "(",
-    threeCheck: ".",
-    antichess: "@",
-    atomic: ">",
-    horde: "_"
+    frisian: "'",
+    antidraughts: "@"
   }
 };

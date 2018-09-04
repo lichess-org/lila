@@ -585,7 +585,8 @@ object Game {
 
   val analysableVariants: Set[Variant] = Set(
     draughts.variant.Standard,
-    draughts.variant.Frisian
+    draughts.variant.Frisian,
+    draughts.variant.Antidraughts
   )
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants

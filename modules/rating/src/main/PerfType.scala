@@ -81,6 +81,14 @@ object PerfType {
     iconChar = '''
   )
 
+  case object Antidraughts extends PerfType(
+    13,
+    key = "antidraughts",
+    name = draughts.variant.Antidraughts.name,
+    title = "Antidraughts variant",
+    iconChar = '@'
+  )
+
   case object Puzzle extends PerfType(
     20,
     key = "puzzle",
@@ -89,7 +97,7 @@ object PerfType {
     iconChar = '-'
   )
 
-  val all: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Standard, Frisian, Puzzle)
+  val all: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Standard, Frisian, Antidraughts, Puzzle)
   val byKey = all map { p => (p.key, p) } toMap
   val byId = all map { p => (p.id, p) } toMap
 
@@ -104,11 +112,11 @@ object PerfType {
 
   def id2key(id: Perf.ID): Option[Perf.Key] = byId get id map (_.key)
 
-  val nonPuzzle: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Frisian)
+  val nonPuzzle: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Frisian, Antidraughts)
   val nonGame: List[PerfType] = List(Puzzle)
-  val leaderboardable: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, UltraBullet, Frisian)
-  val variants: List[PerfType] = List(Frisian)
-  val variantsPlus: List[PerfType] = List(Standard, Frisian)
+  val leaderboardable: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, UltraBullet, Frisian, Antidraughts)
+  val variants: List[PerfType] = List(Frisian, Antidraughts)
+  val variantsPlus: List[PerfType] = List(Standard, Frisian, Antidraughts)
   val standard: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, Correspondence)
 
   def isGame(pt: PerfType) = !nonGame.contains(pt)
@@ -119,11 +127,13 @@ object PerfType {
 
   def variantOf(pt: PerfType): draughts.variant.Variant = pt match {
     case Frisian => draughts.variant.Frisian
+    case Antidraughts => draughts.variant.Antidraughts
     case _ => draughts.variant.Standard
   }
 
   def byVariant(variant: draughts.variant.Variant): Option[PerfType] = variant match {
     case draughts.variant.Frisian => Frisian.some
+    case draughts.variant.Antidraughts => Antidraughts.some
     case _ => none
   }
 

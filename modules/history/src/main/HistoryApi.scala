@@ -21,6 +21,7 @@ final class HistoryApi(coll: Coll) {
     val changes = List(
       isStd.option("standard" -> perfs.standard),
       game.ratingVariant.frisian.option("frisian" -> perfs.frisian),
+      game.ratingVariant.antidraughts.option("antidraughts" -> perfs.antidraughts),
       (isStd && game.speed == Speed.UltraBullet).option("ultraBullet" -> perfs.ultraBullet),
       (isStd && game.speed == Speed.Bullet).option("bullet" -> perfs.bullet),
       (isStd && game.speed == Speed.Blitz).option("blitz" -> perfs.blitz),

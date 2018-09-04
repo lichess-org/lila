@@ -22,7 +22,7 @@ lidraughts.advantageChart = function(data, trans, el) {
               cp = node.eval.mate > 0 ? Infinity : -Infinity;
             } else if (node.san.indexOf('#') > 0) {
               cp = color === 1 ? Infinity : -Infinity;
-              if (d.game.variant.key === 'antichess') cp = -cp;
+              if (d.game.variant.key === 'antidraughts') cp = -cp;
             } else if (node.eval && typeof node.eval.cp !== 'undefined') {
               cp = node.eval.cp;
             } else return {

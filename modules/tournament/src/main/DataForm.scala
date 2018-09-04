@@ -94,7 +94,7 @@ object DataForm {
   }
   val positionDefault = StartingPosition.initial.fen
 
-  val validVariants = List(Standard, Frisian)
+  val validVariants = List(Standard, Frisian, Antidraughts)
 
   val validVariantIds = validVariants.map(_.id).toSet
 

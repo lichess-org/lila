@@ -31,13 +31,7 @@ export default class Protocol {
     // contempt 0 is more suitable for analysis (default is 20 since sf 9)
     send('setoption name Contempt value 0');
 
-    if (opts.variant === 'fromPosition' || opts.variant === 'chess960')
-      send('setoption name UCI_Chess960 value true');
-    else if (opts.variant === 'antichess')
-      send('setoption name UCI_Variant value giveaway');
-    else if (opts.variant === 'threeCheck')
-      send('setoption name UCI_Variant value 3check');
-    else if (opts.variant !== 'standard')
+    if (opts.variant !== 'standard')
       send('setoption name UCI_Variant value ' + opts.variant.toLowerCase());
   }
 

@@ -65,6 +65,7 @@ withInfScroll = false) {
   <div class="user_lists">
 
     @userTopPerf(leaderboards.bullet, PerfType.Bullet)
+    @userTopPerf(leaderboards.frisian, PerfType.Frisian)
     <div class="user_top">
       <h2 class="text" data-icon="g">
         <a href="@routes.Tournament.leaderboard">@trans.tournamentWinners()</a>
@@ -78,14 +79,13 @@ withInfScroll = false) {
     </div>
 
     @userTopPerf(leaderboards.blitz, PerfType.Blitz)
+    @userTopPerf(leaderboards.antidraughts, PerfType.Antidraughts)
     @userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some)
 
     @userTopPerf(leaderboards.rapid, PerfType.Rapid)
-
     @userTopPerf(leaderboards.classical, PerfType.Classical)
-
     @userTopPerf(leaderboards.ultraBullet, PerfType.UltraBullet)
-    @userTopPerf(leaderboards.frisian, PerfType.Frisian)
+
 
   </div>
 </div>

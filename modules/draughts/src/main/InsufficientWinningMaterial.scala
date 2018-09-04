@@ -26,7 +26,9 @@ object InsufficientWinningMaterial {
         if (board.pieces.size == 3) 14.some
         else 4.some
       } else none
-    } else if (board.pieces.size <= 4) {
+    } else if (board.variant.antidraughts)
+      none
+    else if (board.pieces.size <= 4) {
 
       val whitePieces = board.piecesOf(Color.White)
       val blackPieces = board.piecesOf(Color.Black)

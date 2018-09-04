@@ -208,7 +208,8 @@ object User extends LidraughtsController {
             "blitz" -> leaderboards.blitz,
             "rapid" -> leaderboards.rapid,
             "classical" -> leaderboards.classical,
-            "frisian" -> leaderboards.frisian
+            "frisian" -> leaderboards.frisian,
+            "antidraughts" -> leaderboards.antidraughts
           ))
         }
       )

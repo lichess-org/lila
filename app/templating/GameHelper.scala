@@ -50,7 +50,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case (_, _, Draw | Stalemate | UnknownFinish) => "Game is a draw"
       case (_, _, Aborted) => "Game has been aborted"
       case (_, _, VariantEnd) => game.variant match {
-        case draughts.variant.Frisian => "King in the center"
+        case draughts.variant.Frisian => "Capture horizontally and vertically"
+        case draughts.variant.Antidraughts => "Lose all your pieces or run out of moves"
         case _ => "Variant ending"
       }
       case _ => "Game is still being played"

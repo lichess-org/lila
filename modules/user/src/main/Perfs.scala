@@ -9,6 +9,7 @@ import lidraughts.rating.{ Perf, PerfType, Glicko }
 case class Perfs(
     standard: Perf,
     frisian: Perf,
+    antidraughts: Perf,
     ultraBullet: Perf,
     bullet: Perf,
     blitz: Perf,
@@ -21,6 +22,7 @@ case class Perfs(
   def perfs = List(
     "standard" -> standard,
     "frisian" -> frisian,
+    "antidraughts" -> antidraughts,
     "ultraBullet" -> ultraBullet,
     "bullet" -> bullet,
     "blitz" -> blitz,
@@ -82,6 +84,7 @@ case class Perfs(
 
   lazy val perfsMap: Map[String, Perf] = Map(
     "frisian" -> frisian,
+    "antidraughts" -> antidraughts,
     "ultraBullet" -> ultraBullet,
     "bullet" -> bullet,
     "blitz" -> blitz,
@@ -106,6 +109,7 @@ case class Perfs(
     case PerfType.Classical => classical
     case PerfType.Correspondence => correspondence
     case PerfType.Frisian => frisian
+    case PerfType.Antidraughts => antidraughts
     case PerfType.Puzzle => puzzle
   }
 
@@ -145,12 +149,13 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p, p)
   }
 
   def variantLens(variant: draughts.variant.Variant): Option[Perfs => Perf] = variant match {
     case draughts.variant.Standard => Some(_.standard)
     case draughts.variant.Frisian => Some(_.frisian)
+    case draughts.variant.Antidraughts => Some(_.antidraughts)
     case _ => none
   }
 
@@ -172,6 +177,7 @@ case object Perfs {
       Perfs(
         standard = perf("standard"),
         frisian = perf("frisian"),
+        antidraughts = perf("antidraughts"),
         ultraBullet = perf("ultraBullet"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
@@ -187,6 +193,7 @@ case object Perfs {
     def writes(w: BSON.Writer, o: Perfs) = reactivemongo.bson.BSONDocument(
       "standard" -> notNew(o.standard),
       "frisian" -> notNew(o.frisian),
+      "antidraughts" -> notNew(o.antidraughts),
       "ultraBullet" -> notNew(o.ultraBullet),
       "bullet" -> notNew(o.bullet),
       "blitz" -> notNew(o.blitz),
@@ -203,6 +210,7 @@ case object Perfs {
       blitz: List[User.LightPerf],
       rapid: List[User.LightPerf],
       classical: List[User.LightPerf],
-      frisian: List[User.LightPerf]
+      frisian: List[User.LightPerf],
+      antidraughts: List[User.LightPerf]
   )
 }

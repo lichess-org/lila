@@ -7,7 +7,7 @@ import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
 
 function analysisBoardOrientation(data: RoundData) {
-  return data.game.variant.key === 'racingKings' ? 'white' : data.player.color;
+  return data.player.color;
 }
 
 function poolUrl(clock: ClockData, blocking?: PlayerUser) {
