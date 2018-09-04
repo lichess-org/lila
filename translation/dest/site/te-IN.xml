@@ -3,6 +3,7 @@
 <resources>
   <string name="playWithAFriend">మిత్రులతో ఆడండి</string>
   <string name="playWithTheMachine">కంప్యూటర్ తో ఆడండి</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">ఆటకు ఎవరినైనా ఆహ్వానించడానికి ఈ లింక్ ఇవ్వండి</string>
-  <string name="gameOver">ఆట ముగిసిపోయింది</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">ఆటకు ఆహ్వానించడానికి ఈ లింక్ ఇవ్వండి</string>
+  <string name="gameOver">ఆట నమాప్తం</string>
+  <string name="waitingForOpponent">ఎదిరి కోసం ఎదురుచూస్తున్నాం</string>
 </resources>
