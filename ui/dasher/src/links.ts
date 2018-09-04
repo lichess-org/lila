@@ -81,9 +81,8 @@ export default function(ctrl: DasherCtrl): VNode {
 
   const zenToggle = ctrl.opts.playing ? h('div.zen.selector', [
     h('a', {
-      class: { active: !!ctrl.data.zen },
       attrs: {
-        'data-icon': ctrl.data.zen ? 'E' : 'K',
+        'data-icon': 'K',
         title: 'Keyboard: z'
       },
       hook: bind('click', ctrl.toggleZen)

@@ -663,7 +663,7 @@ export default class RoundController {
   toggleZen = () => {
     if (this.isPlaying()) {
       const zen = !$('body').hasClass('zen');
-      $('body').toggleClass('zen', zen)
+      $('body').toggleClass('zen', zen);
       $.post('/pref/zen', { zen: zen ? 1 : 0 });
     }
   }
