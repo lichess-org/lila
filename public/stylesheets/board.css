@@ -1216,6 +1216,7 @@ body.playing.zen .table_wrap:hover .replay .buttons {
   padding: 10px 15px;
   opacity: 0.5;
   display: none;
+  z-index: 3;
 }
 body.playing.zen #zentog {
   display: block;
