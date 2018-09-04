@@ -85,7 +85,7 @@ export default function(ctrl: DasherCtrl): VNode {
         'data-icon': 'K',
         title: 'Keyboard: z'
       },
-      hook: bind('click', ctrl.toggleZen)
+      hook: bind('click', ctrl.enableZen)
     }, noarg('zenMode'))
   ]) : null;
 

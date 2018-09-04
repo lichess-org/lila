@@ -20,7 +20,6 @@ export interface DasherData {
   board: BoardData;
   theme: ThemeData;
   piece: PieceData;
-  zen: 0 | 1;
   kid: boolean;
   coach: boolean;
   streamer: boolean;
@@ -43,7 +42,7 @@ export interface DasherCtrl {
     theme: ThemeCtrl;
     piece: PieceCtrl;
   },
-  toggleZen(): void;
+  enableZen(): void;
   opts: DasherOpts;
 }
 
@@ -75,10 +74,9 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
     piece: pieceCtrl(data.piece, trans, () => data.board.is3d ? 'd3' : 'd2', redraw, setMode)
   };
 
-  function toggleZen() {
-    data.zen = data.zen ? 0 : 1;
-    $('body').toggleClass('zen', data.zen);
-    $.post('/pref/zen', { zen: data.zen });
+  function enableZen() {
+    $('body').addClass('zen');
+    $.post('/pref/zen', { zen: 1 });
     redraw();
   }
 
@@ -90,6 +88,6 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
     ping,
     subs,
     opts,
-    toggleZen
+    enableZen
   };
 };
