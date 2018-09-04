@@ -99,7 +99,7 @@ csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx:
     <div id="stage">This is an empty lichess preview website for developers. <a href="https://lichess.org">Go to lichess.org instead</a></div>
     }
     @lila.security.EmailConfirm.cookie.get(ctx.req).map(auth.emailConfirmBanner(_))
-    @if(playing) { <a data-icon="E" id="zentog" class="text fbt active@if(!ctx.pref.isZen){ none}">ZEN MODE</a> }
+    @if(playing) { <a data-icon="E" id="zentog" class="text fbt active">ZEN MODE</a> }
     <div id="top" class="@if(ctx.pref.is3d){is3d}else{is2d}">
       @topmenu()
       <div id="ham-plate" class="link hint--bottom" data-hint="@trans.menu()">

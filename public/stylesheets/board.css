@@ -1122,17 +1122,19 @@ body.playing.zen #chat,
 body.playing.zen .underboard .center .crosstable,
 body.playing.zen #now_playing,
 body.playing.zen .clock .moretime,
-body.playing.zen #top > *,
-body.playing.zen #site_title,
-#zentog {
+body.playing.zen #topmenu,
+body.playing.zen #ham-plate,
+body.playing.zen .dasher,
+body.playing.zen .site_notifications,
+body.playing.zen .challenge_notifications,
+body.playing.zen #clinput,
+body.playing.zen #site_title {
   display: none;
 }
-body.playing.zen .table_wrap .replay .buttons,
-body.playing.zen.offline #reconnecting {
+body.playing.zen .table_wrap .replay .buttons {
   opacity: 0!important;
 }
-body.playing.zen .table_wrap:hover .replay .buttons,
-body.playing.zen.offline #reconnecting {
+body.playing.zen .table_wrap:hover .replay .buttons {
   opacity: 1!important;
 }
 #zentog {
@@ -1142,6 +1144,7 @@ body.playing.zen.offline #reconnecting {
   padding: 10px 15px;
   opacity: 0.5;
   z-index: 3;
+  display: none;
 }
 body.playing.zen #zentog {
   display: block;
