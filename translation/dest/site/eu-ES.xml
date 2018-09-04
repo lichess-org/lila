@@ -148,11 +148,11 @@
   <string name="variants">Aldaerak</string>
   <string name="timeControl">Denbora kontrola</string>
   <string name="realTime">Partida arinak</string>
-  <string name="correspondence">Egunetako partidak</string>
+  <string name="correspondence">Posta bidezko partidak</string>
   <string name="daysPerTurn">Zenbat egun txandako</string>
   <string name="oneDay">Egun bat</string>
   <plurals name="nbDays">
-    <item quantity="one">%s egun</item>
+    <item quantity="one">Egun %s</item>
     <item quantity="other">%s egun</item>
   </plurals>
   <plurals name="nbHours">
@@ -173,10 +173,10 @@
   <string name="forgotPassword">Pasahitza ahaztu duzu?</string>
   <string name="rank">Maila</string>
   <string name="rankX">Sailkapena: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Sailkapena %s minutuero eguneratzen da</string>
+  <string name="rankIsUpdatedEveryXMinutes">Sailkapena %s minuturo eguneratzen da</string>
   <plurals name="nbPuzzles">
     <item quantity="one">Puzzle %s</item>
-    <item quantity="other">%s puzzle</item>
+    <item quantity="other">%s ariketa</item>
   </plurals>
   <string name="gamesPlayed">Partida jokaturik</string>
   <plurals name="nbGamesWithYou">
@@ -329,9 +329,9 @@
   <string name="xCreatedTeamY">%1$s(e)k %2$s taldea sortu du</string>
   <string name="averageElo">Bataz besteko puntuazioa</string>
   <string name="location">Lokalizazioa</string>
-  <string name="settings">Doikuntzak</string>
+  <string name="settings">Ezarpenak</string>
   <string name="filterGames">Partidak filtratu</string>
-  <string name="reset">Doikuntzak berrezarri</string>
+  <string name="reset">Berrezarri</string>
   <string name="apply">Gorde</string>
   <string name="leaderboard">Jokalaririk onenak</string>
   <string name="pasteTheFenStringHere">FEN-a kodea hemen jarri</string>
@@ -348,7 +348,7 @@
   <string name="clickOnTheBoardToMakeYourMove">Egizu jokaldia taulan, gizakia zarela frogatzeko.</string>
   <string name="captcha.fail">Ebatzi xake captcha mesedez.</string>
   <string name="notACheckmate">Hori ez da xake-matea!</string>
-  <string name="colorPlaysCheckmateInOne">%sen txanda; xake-matea jokaldi batean</string>
+  <string name="colorPlaysCheckmateInOne">%sren txanda da; xake-mate jokaldi baten</string>
   <string name="retry">Berriro saiatu</string>
   <string name="reconnecting">Konektatuz</string>
   <string name="onlineFriends">Konektatutako lagunak</string>
@@ -447,14 +447,14 @@
   <string name="activeToday">Gaurko aktiboak</string>
   <string name="activePlayers">Jokalari aktiboak</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Kontuz!  erlojurik eduki ez arren, partida hau puntuagarria da!</string>
-  <string name="training">Entrenatu</string>
-  <string name="yourPuzzleRatingX">Puzzleetako zure sailkapena da: %s</string>
+  <string name="training">Ariketak</string>
+  <string name="yourPuzzleRatingX">Ariketen zure sailkapena: %s</string>
   <string name="findTheBestMoveForWhite">Zurien jokaldi onena bilatu.</string>
   <string name="findTheBestMoveForBlack">Beltzen jokaldi onena bilatu.</string>
   <string name="toTrackYourProgress">Zure aurrerabidea ikusteko:</string>
   <string name="trainingSignupExplanation">Lichess-ek  zure mailako puzzleak bilatuko ditu, entrenamendu hobeak lortzeko.</string>
-  <string name="puzzleId">Puzzlea %s</string>
-  <string name="puzzleOfTheDay">Eguneko puzzlea</string>
+  <string name="puzzleId">%s ariketa</string>
+  <string name="puzzleOfTheDay">Eguneko ariketa</string>
   <string name="clickToSolve">Ebazteko klik egin</string>
   <string name="goodMove">Jokaldi ona</string>
   <string name="butYouCanDoBetter">Baina hobe egin dezakezu</string>
@@ -463,7 +463,7 @@
   <string name="puzzleFailed">Huts egin duzu</string>
   <string name="butYouCanKeepTrying">Baina berriro saia zaitezke.</string>
   <string name="success">Zorionak</string>
-  <string name="wasThisPuzzleAnyGood">Puzzle hau gustatu zaizu?</string>
+  <string name="wasThisPuzzleAnyGood">Ariketa hau gustatu zaizu?</string>
   <string name="pleaseVotePuzzle">Eman botoa Lichess-i laguntzeko, goranzko zein beheranzko gezia hautatuz:</string>
   <string name="thankYou">Eskerrik asko!</string>
   <string name="ratingX">Sailkapena: %s</string>
@@ -473,16 +473,16 @@
   </plurals>
   <string name="fromGameLink">%s partidatik hartua</string>
   <string name="continueTraining">Entrenatzen jarraitu</string>
-  <string name="retryThisPuzzle">Puzzle hau berriz egin</string>
-  <string name="thisPuzzleIsCorrect">Puzzlea ondo dago, interesgarria da</string>
-  <string name="thisPuzzleIsWrong">Puzzlea gaizki dago edo aspergarria da</string>
+  <string name="retryThisPuzzle">Ariketa hau berriz egin</string>
+  <string name="thisPuzzleIsCorrect">Ariketa ondo dago eta interesgarria da</string>
+  <string name="thisPuzzleIsWrong">Ariketa gaizki dago edo aspergarria da</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partida une honetan</item>
     <item quantity="other">%s partida une honetan</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Mugitu ondoren, hurrengo partidara joan</string>
   <string name="autoSwitch">Hurrengo partidara</string>
-  <string name="puzzles">Puzzleak</string>
+  <string name="puzzles">Ariketak</string>
   <string name="latestUpdates">Azken eguneraketak</string>
   <string name="tournamentWinners">Txapelketaren irabazleak</string>
   <string name="name">Izena</string>
@@ -557,7 +557,7 @@
   <string name="privacy">Pribatutasuna</string>
   <string name="letOtherPlayersFollowYou">Beste jokalari batzuk zu jarraitzea baimendu</string>
   <string name="letOtherPlayersChallengeYou">Beste jokalari batzuk erronka egin dezatela baimentzea</string>
-  <string name="letOtherPlayersInviteYouToStudy">Beste jokalari batzuk zu ikerketetara gonbidatzea aktibatu</string>
+  <string name="letOtherPlayersInviteYouToStudy">Utzi beste jokalari batzuei zu ikerketetara gonbidatzen</string>
   <string name="sound">Soinua</string>
   <string name="yourPreferencesHaveBeenSaved">Zure lehentasunak gorde dira</string>
   <string name="none">Desaktibaturik</string>
@@ -721,7 +721,7 @@
   <string name="withFriends">Lagunekin</string>
   <string name="withEverybody">Edonorekin</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Email hau erregistratu duzu dagoeneko: %s</string>
-  <string name="kidMode">Haurrentzako modua.</string>
+  <string name="kidMode">Haurren modua</string>
   <string name="kidModeExplanation">Hau segurtasunari buruzkoa da. Haurren moduan, webguneko komunikazio guztiak desaktibatuta daude. Aktibatu zure haur eta ikasleei beste Internet erabiltzaileengandik babesteko.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Haurren moduan, lichess logoak %s ikonoa du, haurrak seguru daudela jakin dezazun.</string>
   <string name="enableKidMode">Haurren modua aktibatu</string>
