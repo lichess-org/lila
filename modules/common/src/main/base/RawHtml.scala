@@ -8,6 +8,7 @@ import lila.common.base.StringUtils.escapeHtml
 
 final object RawHtml {
   @inline implicit def toPimpedChars(i: Iterable[CharSequence]) = new PimpedChars(i)
+  @inline implicit def toPimpedBoolean(i: Boolean) = new PimpedBoolean(i)
 
   def nl2br(s: String): String = {
     var i = s.indexOf('\n')
