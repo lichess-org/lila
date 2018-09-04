@@ -442,7 +442,9 @@ export default class AnalyseCtrl {
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
     this.justPlayed = orig;
     this.justDropped = undefined;
-    this.sound[capture ? 'capture' : 'move']();
+    const piece = this.chessground.state.pieces[dest];
+    const isCapture = capture || (piece && piece.role == 'pawn' && orig[0] != dest[0]);
+    this.sound[isCapture ? 'capture' : 'move']();
     if (!promotion.start(this, orig, dest, capture, this.sendMove)) this.sendMove(orig, dest, capture);
   }
 
