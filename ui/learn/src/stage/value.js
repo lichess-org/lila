@@ -23,8 +23,8 @@ module.exports = {
     detectCapture: false
   }, {
     goal: 'takeThePieceWithTheHighestValue',
-    fen: '8/8/4b3/1p6/6r1/8/4Q3/8 w - -',
-    scenario: ['e2e6'],
+    fen: '4b3/8/8/1p6/6r1/8/4Q3/8 w - -',
+    scenario: ['e2g4'],
     nbMoves: 1,
     captures: 1,
     success: assert.scenarioComplete,
