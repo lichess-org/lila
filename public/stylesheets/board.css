@@ -1141,6 +1141,7 @@ body.playing.zen.offline #reconnecting {
   left: 0;
   padding: 10px 15px;
   opacity: 0.5;
+  z-index: 3;
 }
 body.playing.zen #zentog {
   display: block;
