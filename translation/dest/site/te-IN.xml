@@ -13,4 +13,8 @@
   <string name="white">తెలుపు రంగు</string>
   <string name="black">నలుపు రంగు</string>
   <string name="randomColor">ఏ రంగైనా సరౌ</string>
+  <string name="createAGame">ఒక ఆట మొదలుపెడదాం</string>
+  <string name="whiteIsVictorious">తెలుపుకు గెలువు</string>
+  <string name="blackIsVictorious">నలుపుకు గెలుపు</string>
+  <string name="kingInTheCenter">రాజు రంగమధ్యం చేరారు</string>
 </resources>
