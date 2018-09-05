@@ -1,4 +1,9 @@
-lichess.ratingHistoryChart = function(data) {
+lichess.ratingHistoryChart = function(data, singlePerfName) {
+  var singlePerfIndex = data.findIndex(x => x.name === singlePerfName);
+  if (singlePerfName && data[singlePerfIndex].points.length === 0) {
+    $('div.rating_history').hide();
+    return;
+  }
   lichess.loadScript('javascripts/chart/common.js').done(function() {
     lichess.chartCommon('highstock').done(function() {
       var disabled = {
@@ -26,7 +31,7 @@ lichess.ratingHistoryChart = function(data) {
           'Dash',
           // UltraBullet
           'ShortDot'
-        ];
+        ].filter((_, i) => !singlePerfName || i === singlePerfIndex);
         $(this).highcharts('StockChart', {
           yAxis: {
             title: noText
@@ -35,7 +40,7 @@ lichess.ratingHistoryChart = function(data) {
           legend: disabled,
           colors: ["#56B4E9", "#0072B2", "#009E73", "#459F3B", "#F0E442", "#E69F00", "#D55E00",
             "#CC79A7", "#DF5353", "#66558C", "#99E699", "#FFAEAA"
-          ],
+          ].filter((_, i) => !singlePerfName || i === singlePerfIndex),
           rangeSelector: {
             enabled: true,
             selected: 1,
@@ -51,7 +56,7 @@ lichess.ratingHistoryChart = function(data) {
             tickWidth: 0
           },
           scrollbar: disabled,
-          series: data.map(function(serie, i) {
+          series: data.filter(v => !singlePerfName || v.name === singlePerfName).map(function(serie, i) {
             return {
               name: serie.name,
               type: 'line',
@@ -61,7 +66,11 @@ lichess.ratingHistoryChart = function(data) {
                 radius: 2
               },
               data: serie.points.map(function(r) {
-                return [Date.UTC(r[0], r[1], r[2]), r[3]];
+                if (singlePerfName && serie.name !== singlePerfName) {
+                  return [];
+                } else {
+                  return [Date.UTC(r[0], r[1], r[2]), r[3]];
+                }
               })
             };
           })
