@@ -9,4 +9,8 @@
   <string name="waiting">ఎదురుచాస్తున్నాం</string>
   <string name="yourTurn">మీ వంతు</string>
   <string name="resign">రాజీనామా</string>
+  <string name="checkmate">ఆటకట్టు</string>
+  <string name="white">తెలుపు రంగు</string>
+  <string name="black">నలుపు రంగు</string>
+  <string name="randomColor">ఏ రంగైనా సరౌ</string>
 </resources>
