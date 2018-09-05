@@ -1,7 +1,11 @@
-@(u: User, rankMap: lidraughts.rating.UserRankMap, perfType: lidraughts.rating.PerfType, data: play.api.libs.json.JsObject)(implicit ctx: Context)
+@(u: User, rankMap: lidraughts.rating.UserRankMap, perfType: lidraughts.rating.PerfType, data: play.api.libs.json.JsObject, ratingChart: Option[String])(implicit ctx: Context)
 
 @moreJs = {
 @jsAt(s"compiled/lidraughts.perfStat${isProd??(".min")}.js")
+@ratingChart.map { rc =>
+@jsTag("chart/ratingHistory.js")
+@embedJsUnsafe(s"lidraughts.ratingHistoryChart($rc,'${perfType.name}');")
+}
 @embedJs {
 $(function() {
 LidraughtsPerfStat(document.getElementById('perfStatContent'), {
@@ -35,6 +39,11 @@ evenMoreCss = moreCss) {
       </a>
     </h1>
   </div>
+  @if(ratingChart.isDefined){
+  <div class="rating_history">
+    @base.spinner()
+  </div>
+  }
   <div class="content_box_content" id="perfStatContent"></div>
 </div>
 }
