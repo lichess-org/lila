@@ -177,7 +177,6 @@ object TournamentRepo {
   def uniques(max: Int): Fu[List[Tournament]] =
     coll.find(selectUnique)
       .sort($doc("startsAt" -> -1))
-      .hint($doc("startsAt" -> -1))
       .list[Tournament](max)
 
   def scheduledUnfinished: Fu[List[Tournament]] =
