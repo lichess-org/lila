@@ -54,7 +54,7 @@ moreCss = cssTag("report.css")) {
         <td class="atoms">
           @r.bestAtoms(3).map { atom =>
           <div class="atom">
-            <span class="head">@reportScore(atom.score) @userIdLink(atom.by.value.some), @momentFromNowOnce(r.recentAtom.at)</span>
+            <span class="head">@reportScore(atom.score) @userIdLink(atom.by.value.some), @momentFromNowOnce(atom.at)</span>
             <p class="text@if(atom.text.size > 100 || atom.text.lines.size > 3){ large}">
               @shorten(atom.text, 200)
             </p>
