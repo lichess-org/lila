@@ -18,6 +18,7 @@ object Quote {
     new Quote("Chess- and draughtsplayers are gentle beings.", "Ton Sijbrands"), //https://www.nrc.nl/nieuws/2009/02/10/sijbrands-was-graag-goede-gitarist-geweest-11681641-a191406
     new Quote("Draughts grabbed hold of me when I was eleven and grew into an insane passion. I'm thinking about it day and night.", "Ton Sijbrands"), //https://www.psychologiemagazine.nl/artikel/ton-sijbrands-na-een-zware-wedstrijd-ben-ik-twee-weken-gevloerd/
     new Quote("The beauty of draughts is that you're never finished analyzing.", "Ton Sijbrands"), //https://www.psychologiemagazine.nl/artikel/ton-sijbrands-na-een-zware-wedstrijd-ben-ik-twee-weken-gevloerd/
+    new Quote("Time is a child playing a game of draughts; the kingship is in the hands of a child.", "Heraclitus"),
     new Quote("I am never proud of anything. That is what I am most proud of.", "Alexander Georgiev"),
     new Quote("The most important element for success is to love what you do and do what you love. ", "Alexander Georgiev"),
     new Quote("I studied economics in Saint Petersburg, but when I became European champion in 1995, I decided to become a professional draughts player. That seemed to be more exciting than a boring life as a bookkeeper.", "Alexander Georgiev"),
