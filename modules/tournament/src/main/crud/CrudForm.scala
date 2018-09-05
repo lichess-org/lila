@@ -22,7 +22,7 @@ object CrudForm {
     "clockTime" -> numberInDouble(clockTimePrivateChoices),
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> number(min = 20, max = 1440),
-    "variant" -> nonEmptyText.verifying(v => guessVariant(v).isDefined),
+    "variant" -> number.verifying(v => variantFromId(v).isDefined),
     "position" -> nonEmptyText.verifying(DataForm.positions contains _),
     "date" -> utcDate,
     "image" -> stringIn(imageChoices),
@@ -38,7 +38,7 @@ object CrudForm {
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
-    variant = chess.variant.Standard.key,
+    variant = chess.variant.Standard.id,
     position = StartingPosition.initial.fen,
     date = DateTime.now plusDays 7,
     image = "",
@@ -54,7 +54,7 @@ object CrudForm {
       clockTime: Double,
       clockIncrement: Int,
       minutes: Int,
-      variant: String,
+      variant: Int,
       position: String,
       date: DateTime,
       image: String,
@@ -64,7 +64,7 @@ object CrudForm {
       berserkable: Boolean
   ) {
 
-    def realVariant = DataForm.guessVariant(variant) | chess.variant.Standard
+    def realVariant = DataForm.variantFromId(variant) | chess.variant.Standard
 
     def validClock = (clockTime + clockIncrement) > 0
 
