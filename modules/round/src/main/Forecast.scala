@@ -15,11 +15,10 @@ case class Forecast(
 
   def apply(g: Game, lastMove: Move): Option[(Forecast, Uci.Move)] =
     nextMove(g, lastMove) map { move =>
-      lidraughts.log("Forecast.apply").info(s"move: ${move}, lastMove: ${lastMove}")
       copy(
         steps = steps.collect {
-          case (fst :: snd :: rest) if rest.nonEmpty && g.turns == fst.ply && g.situation.captureLengthFrom(snd.uciMove.get.orig).getOrElse(0) > 1 && fst.is(lastMove) && snd.is(move) => snd :: rest
-          case (fst :: snd :: rest) if rest.nonEmpty && g.turns == fst.ply && fst.is(lastMove) && snd.is(move) => rest
+          case (fst :: snd :: rest) if rest.nonEmpty && g.turns == fst.ply && g.situation.captureLengthFrom(snd.uciMove.get.orig).getOrElse(0) > 1 && fst.is(lastMove.toShortUci) && snd.is(move) => snd :: rest
+          case (fst :: snd :: rest) if rest.nonEmpty && g.turns == fst.ply && fst.is(lastMove.toShortUci) && snd.is(move) => rest
         },
         date = DateTime.now
       ) -> move
@@ -27,10 +26,9 @@ case class Forecast(
 
   def moveOpponent(g: Game, lastMove: Move): Option[(Forecast, Uci.Move)] =
     nextMove(g, lastMove) map { move =>
-      lidraughts.log("Forecast.removeOpponent").info(s"move: ${move}, lastMove: ${lastMove}")
       copy(
         steps = steps.collect {
-          case (fst :: snd :: rest) if rest.nonEmpty && g.turns == fst.ply && fst.is(lastMove) && snd.is(move) => snd :: rest
+          case (fst :: snd :: rest) if rest.nonEmpty && g.turns == fst.ply && fst.is(lastMove.toShortUci) && snd.is(move) => snd :: rest
         },
         date = DateTime.now
       ) -> lastMove.toShortUci
@@ -40,7 +38,7 @@ case class Forecast(
   def truncate = copy(steps = steps.take(30).map(_ take 30))
 
   private def nextMove(g: Game, last: Move) = steps.foldLeft(none[Uci.Move]) {
-    case (None, fst :: snd :: _) if g.turns == fst.ply && fst.is(last) => snd.uciMove
+    case (None, fst :: snd :: _) if g.turns == fst.ply && fst.is(last.toShortUci) => snd.uciMove
     case (move, _) => move
   }
 }
@@ -58,7 +56,6 @@ object Forecast {
       fen: String
   ) {
 
-    def is(move: Move) = move.toShortUci.uci == uci
     def is(move: Uci.Move) = move.uci == uci
 
     def uciMove = Uci.Move(uci)
