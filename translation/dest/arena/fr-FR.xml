@@ -16,7 +16,7 @@ Par exemple, deux victoires suivies d\'un mach nul rapportera 6 points : 2 + 2 +
 
 Le fait de passer des contrôles temporels avec une augmentation annule également l\'augmentation. (1 + 2 est une exception, il donne 1 + 0)
 
-Le bouton berserk n\'est pas disponible pour les jeux avec zéro temps initial (0 + 1, 0 + 2).
+Le mode berserk n\'est pas disponible pour les parties sans temps initial (0 + 1, 0 + 2).
 
 L\'option berserk n\'accorde qu\'un point supplémentaire si vous jouez au moins 7 mouvements dans le jeu.</string>
   <string name="howIsTheWinnerDecided">Comment le gagnant est-il déterminé ?</string>
