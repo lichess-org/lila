@@ -251,22 +251,22 @@ object User extends LilaController {
 
   protected[controllers] def renderModZone(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
     OptionFuOk(UserRepo named username logTime s"$username UserRepo.named") { user =>
-      UserRepo.emails(user.id).logTime(s"$username UserRepo.emails") zip
-        UserRepo.isErased(user).logTime(s"$username UserRepo.isErased") zip
-        (Env.security userSpy user).logTime(s"$username security.userSpy") zip
-        Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id).logTime(s"$username getPlayerAggregateAssessmentWithGames") zip
-        Env.mod.logApi.userHistory(user.id).logTime(s"$username logApi.userHistory") zip
-        Env.plan.api.recentChargesOf(user).logTime(s"$username plan.recentChargesOf") zip
-        Env.report.api.byAndAbout(user, 20).logTime(s"$username report.byAndAbout") zip
-        Env.pref.api.getPref(user).logTime(s"$username pref.getPref") zip
-        Env.irwin.api.reports.withPovs(user).logTime(s"$username irwin.reports") flatMap {
+      UserRepo.emails(user.id).logTimeIfGt(s"$username UserRepo.emails", 100 millis) zip
+        UserRepo.isErased(user).logTimeIfGt(s"$username UserRepo.isErased", 100 millis) zip
+        (Env.security userSpy user).logTimeIfGt(s"$username security.userSpy", 100 millis) zip
+        Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id).logTimeIfGt(s"$username getPlayerAggregateAssessmentWithGames", 100 millis) zip
+        Env.mod.logApi.userHistory(user.id).logTimeIfGt(s"$username logApi.userHistory", 100 millis) zip
+        Env.plan.api.recentChargesOf(user).logTimeIfGt(s"$username plan.recentChargesOf", 100 millis) zip
+        Env.report.api.byAndAbout(user, 20).logTimeIfGt(s"$username report.byAndAbout", 100 millis) zip
+        Env.pref.api.getPref(user).logTimeIfGt(s"$username pref.getPref", 100 millis) zip
+        Env.irwin.api.reports.withPovs(user).logTimeIfGt(s"$username irwin.reports", 100 millis) flatMap {
           case emails ~ erased ~ spy ~ assess ~ history ~ charges ~ reports ~ pref ~ irwin =>
             val familyUserIds = user.id :: spy.otherUserIds.toList
-            Env.playban.api.bans(familyUserIds).logTime(s"$username playban.bans") zip
-              Env.user.noteApi.forMod(familyUserIds).logTime(s"$username noteApi.forMod") zip
+            Env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 100 millis) zip
+              Env.user.noteApi.forMod(familyUserIds).logTimeIfGt(s"$username noteApi.forMod", 100 millis) zip
               Env.user.lightUserApi.preloadMany {
                 reports.userIds ::: assess.??(_.games).flatMap(_.userIds)
-              }.logTime(s"$username lightUserApi.preloadMany") map {
+              }.logTimeIfGt(s"$username lightUserApi.preloadMany", 100 millis) map {
                 case bans ~ notes ~ _ =>
                   html.user.mod(user, emails, spy, assess, bans, history, charges, reports, pref, irwin, notes, erased)
               }
