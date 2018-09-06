@@ -77,7 +77,6 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
   function enableZen() {
     $('body').addClass('zen');
     $.post('/pref/zen', { zen: 1 });
-    redraw();
   }
 
   return {
