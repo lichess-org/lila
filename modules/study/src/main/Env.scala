@@ -148,6 +148,7 @@ final class Env(
     studyMaker = studyMaker,
     inviter = studyInvite,
     tagsFixer = new ChapterTagsFixer(chapterRepo, gamePdnDump),
+    gameFixer = new ChapterGameFixer(chapterRepo),
     explorerGameHandler = explorerGame,
     lightUser = lightUserApi.sync,
     scheduler = system.scheduler,
