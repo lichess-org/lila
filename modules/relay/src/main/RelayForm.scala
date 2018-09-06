@@ -53,7 +53,7 @@ object RelayForm {
       until = none,
       nextAt = none,
       delay = throttle,
-      log = SyncLog(Vector.empty)
+      log = SyncLog.empty
     )
 
     def make(user: User) = Relay(

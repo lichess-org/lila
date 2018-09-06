@@ -19,6 +19,8 @@ object SyncLog {
 
   val historySize = 5
 
+  val empty = SyncLog(Vector.empty)
+
   case class Event(
       moves: Int,
       error: Option[String],

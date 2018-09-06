@@ -93,6 +93,7 @@ object Relay {
     def paused = !playing
 
     def addLog(event: SyncLog.Event) = copy(log = log add event)
+    def clearLog = copy(log = SyncLog.empty)
 
     override def toString = upstream.toString
   }
