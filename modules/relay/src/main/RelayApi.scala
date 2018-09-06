@@ -16,7 +16,6 @@ final class RelayApi(
     repo: RelayRepo,
     studyApi: StudyApi,
     withStudy: RelayWithStudy,
-    clearFormatCache: Url => Unit,
     system: ActorSystem
 ) {
 
@@ -80,7 +79,6 @@ final class RelayApi(
       relay.sync.log.events.lastOption.ifTrue(relay.sync.log != from.sync.log).foreach { event =>
         sendToContributors(relay.id, "relayLog", JsonView.syncLogEventWrites writes event)
       }
-      clearFormatCache(Url parse relay.sync.upstream.url)
     } inject relay
   }
 

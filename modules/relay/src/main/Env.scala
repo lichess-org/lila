@@ -26,7 +26,6 @@ final class Env(
     repo = repo,
     studyApi = studyEnv.api,
     withStudy = withStudy,
-    clearFormatCache = formatApi.refresh,
     system = system
   )
 
@@ -48,7 +47,9 @@ final class Env(
 
   private lazy val formatApi = new RelayFormatApi(asyncCache)
 
-  private lazy val fetch = system.actorOf(Props(new RelayFetch(
+  def clearFormat(url: String) = formatApi refresh io.lemonlabs.uri.Url.parse(url)
+
+  system.actorOf(Props(new RelayFetch(
     sync = sync,
     api = api,
     formatApi = formatApi,
