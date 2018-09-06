@@ -15,11 +15,13 @@ private final class RelayFormatApi(
 
   import RelayFormat._
 
-  def get(url: String): Fu[Option[RelayFormat]] = cache get Url.parse(url.pp).pp
+  def get(url: String): Fu[Option[RelayFormat]] = cache get Url.parse(url)
 
-  def refresh(url: Url): Unit = cache refresh url
+  def refresh(url: Url): Unit = cache refresh url.pp("refresh")
 
   private def guessFormat(url: Url): Fu[Option[RelayFormat]] = {
+
+    println(s"guessing format for $url")
 
     def guessSingleFile: Fu[Option[RelayFormat]] =
       lila.common.Future.find(List(
@@ -44,12 +46,12 @@ private final class RelayFormatApi(
         }
 
     guessManyFiles orElse guessSingleFile
-  } thenPp
+  }
 
   private val cache = asyncCache.multi[Url, Option[RelayFormat]](
     name = "relayFormat",
     f = guessFormat,
-    expireAfter = _.ExpireAfterAccess(15 minutes)
+    expireAfter = _.ExpireAfterWrite(10 minutes)
   )
 }
 
@@ -77,7 +79,7 @@ private object RelayFormat {
   }
 
   def httpGet(url: Url): Fu[Option[String]] =
-    WS.url(url.toString.pp("httpGet")).withRequestTimeout(4.seconds.toMillis).get().map {
+    WS.url(url.toString).withRequestTimeout(4.seconds.toMillis).get().map {
       case res if res.status == 200 => res.body.some
       case _ => none
     }

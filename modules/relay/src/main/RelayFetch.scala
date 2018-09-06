@@ -74,8 +74,7 @@ private final class RelayFetch(
           logger.info(s"Sync timeout $relay")
           res
         case _ =>
-          // logger.info(s"Sync error $relay ${e.getMessage take 80}")
-          logger.error(s"Sync error $relay ${e.getMessage take 80}", e)
+          logger.info(s"Sync error $relay ${e.getMessage take 80}")
           SyncResult.Error(e.getMessage)
       }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
     } flatMap {
@@ -122,51 +121,53 @@ private final class RelayFetch(
         games
     }
 
-  // private def dgtManyFiles(dir: String, max: Int, format: DgtMany): Fu[MultiPgn] = {
-  //   val indexFile = s"$dir/${format.indexFile}"
-  //   httpGet(indexFile) flatMap {
-  //     case res if res.status == 200 => roundReads reads res.json match {
-  //       case JsError(err) => fufail(err.toString)
-  //       case JsSuccess(round, _) => round.pairings.zipWithIndex.map {
-  //         case (pairing, i) =>
-  //           val number = i + 1
-  //           val gameUrl = s"$dir/${format.gameFile(number)}"
-  //           httpGet(gameUrl).flatMap {
-  //             case res if res.status == 200 => fuccess(number -> format.toPgn(res, pairing))
-  //             case res => fufail(s"[${res.status}] $gameUrl")
-  //           }
-  //       }.sequenceFu map { results =>
-  //         MultiPgn(results.sortBy(_._1).map(_._2).toList)
-  //       }
-  //     }
-  //     case res => fufail(s"[${res.status}] $indexFile")
-  //   }
-  // }
-
   private val cache: Cache[Upstream, GamesSeenBy] = Scaffeine()
     .expireAfterWrite(30.seconds)
     .build[Upstream, GamesSeenBy]
 
-  private def doFetch(upstream: Upstream, max: Int): Fu[RelayGames] =
+  private def doFetch(upstream: Upstream, max: Int): Fu[RelayGames] = {
+    import RelayFetch.DgtJson._
     formatApi.get(upstream.url) flatMap {
       _.fold[Fu[MultiPgn]](fufail("Cannot find any DGT compatible files")) {
-        case RelayFormat.SingleFile(doc) => httpGet(doc.url) map { body =>
-          doc.format match {
-            // all games in a single PGN file
-            case RelayFormat.DocFormat.Pgn => MultiPgn.split(body, max)
-            // maybe a single JSON game? Why not
-            case RelayFormat.DocFormat.Json => MultiPgn(List(RelayFetch.jsonToPgn(body)))
+        case RelayFormat.SingleFile(doc) => doc.format match {
+          // all games in a single PGN file
+          case RelayFormat.DocFormat.Pgn => httpGet(doc.url) map { MultiPgn.split(_, max) }
+          // maybe a single JSON game? Why not
+          case RelayFormat.DocFormat.Json => httpGetJson[GameJson](doc.url)(gameReads) map { game =>
+            MultiPgn(List(game.toPgn()))
           }
         }
-        case f: RelayFormat.ManyFiles => ???
+        case RelayFormat.ManyFiles(indexUrl, makeGameDoc) => httpGetJson[RoundJson](indexUrl) flatMap { round =>
+          round.pairings.zipWithIndex.map {
+            case (pairing, i) =>
+              val number = i + 1
+              val gameDoc = makeGameDoc(number)
+              (gameDoc.format match {
+                case RelayFormat.DocFormat.Pgn => httpGet(gameDoc.url)
+                case RelayFormat.DocFormat.Json => httpGetJson[GameJson](gameDoc.url) map { _.toPgn(pairing.tags) }
+              }) map (number -> _)
+          }.sequenceFu.map { results =>
+            MultiPgn(results.sortBy(_._1).map(_._2).toList)
+          }
+        }
       }
     } flatMap RelayFetch.multiPgnToGames.apply
+  }
 
   private def httpGet(url: Url): Fu[String] =
     WS.url(url.toString).withRequestTimeout(4.seconds.toMillis).get().flatMap {
       case res if res.status == 200 => fuccess(res.body)
-      case res => fufail(s"[${res.status}]")
+      case res => fufail(s"[${res.status}] $url")
     }
+
+  private def httpGetJson[A: Reads](url: Url): Fu[A] = for {
+    str <- httpGet(url)
+    json <- scala.concurrent.Future(Json parse str) // Json.parse throws exceptions (!)
+    data <- implicitly[Reads[A]].reads(json).fold(
+      err => fufail(s"Invalid JSON from $url: $err"),
+      fuccess
+    )
+  } yield data
 }
 
 private object RelayFetch {
@@ -197,40 +198,20 @@ private object RelayFetch {
     implicit val roundPairingReads = Json.reads[RoundJsonPairing]
     implicit val roundReads = Json.reads[RoundJson]
 
-    case class GameJson(moves: List[String], result: Option[String])
+    case class GameJson(moves: List[String], result: Option[String]) {
+      def toPgn(extraTags: Tags = Tags.empty) = {
+        val strMoves = moves.map(_ split ' ') map { move =>
+          chess.format.pgn.Move(
+            san = ~move.headOption,
+            secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap parseIntOption
+          )
+        } mkString " "
+        s"${extraTags}\n\n$strMoves"
+      }
+    }
     implicit val gameReads = Json.reads[GameJson]
   }
   import DgtJson._
-
-  private sealed abstract class DgtMany(val indexFile: String, val gameFile: Int => String, val toPgn: (WSResponse, RoundJsonPairing) => String)
-  private object DgtMany {
-    case object RoundPgn extends DgtMany("round.json", n => s"game-$n.pgn", (r, _) => r.body)
-    case object Indexjson extends DgtMany("index.json", n => s"game-$n.pgn", {
-      case (res, pairing) => res.json.validate[GameJson] match {
-        case JsSuccess(game, _) =>
-          val moves = game.moves.map(_ split ' ') map { move =>
-            chess.format.pgn.Move(
-              san = ~move.headOption,
-              secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap parseIntOption
-            )
-          } mkString " "
-          s"${pairing.tags}\n\n$moves"
-        case JsError(err) => ""
-      }
-    })
-  }
-
-  private def jsonToPgn(str: String, extraTags: Tags = Tags.empty) = Json.parse(str).validate[GameJson] match {
-    case JsSuccess(game, _) =>
-      val moves = game.moves.map(_ split ' ') map { move =>
-        chess.format.pgn.Move(
-          san = ~move.headOption,
-          secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap parseIntOption
-        )
-      } mkString " "
-      s"${extraTags}\n\n$moves"
-    case JsError(err) => ""
-  }
 
   private object multiPgnToGames {
 
