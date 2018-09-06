@@ -302,6 +302,7 @@
   <string name="yourPerfRatingIsTooLow">Tu classification (%2$s) de %1$s es troppo basse</string>
   <string name="ratedMoreThanInPerf">Classification ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Classification ≤ %1$s in %2$s</string>
+  <string name="youAreNotInTeam">Tu non es in le equipa %s</string>
   <string name="backToGame">Retro al partite</string>
   <string name="siteDescription">Servitor de chacos gratis in linea. Joca al chacos ora in un interfacie simple. Nulle registration, nulle annuncios, nulle plugin requirite. Joca al chacos con le computator, con amicos o con adversarios aleatori.</string>
   <string name="teams">Equipas</string>
@@ -384,6 +385,9 @@
   <string name="winner">Vincitor</string>
   <string name="standing">Position</string>
   <string name="createANewTournament">Crear un nove torneo</string>
+  <string name="tournamentCalendar">Calendario del torneo</string>
+  <string name="advancedSettings">Configurationes avantiate</string>
+  <string name="showAdvancedSettings">Monstrar le configurationes avantiate</string>
   <string name="join">Participar</string>
   <string name="withdraw">Retirar se</string>
   <string name="points">Punctos</string>
@@ -515,6 +519,7 @@ pro le nigro.</string>
   <string name="thisAccountIsClosed">Iste conto ha essite claudite.</string>
   <string name="invalidUsernameOrPassword">Nomine de usator o contrasigno invalide</string>
   <string name="incorrectPassword">Contrasigno incorrecte</string>
+  <string name="invalidAuthenticationCode">Codice de authentication invalide</string>
   <string name="emailMeALink">Inviar me un ligamine per e-posta</string>
   <string name="currentPassword">Contrasigno actual</string>
   <string name="newPassword">Nove contrasigno</string>
@@ -783,6 +788,7 @@ in %3$s</string>
   <string name="theGameIsADraw">Le partita es nulle.</string>
   <string name="seeBestMove">Vider le melior movimento</string>
   <string name="hideBestMove">Celar le melior movimento</string>
+  <string name="getAHint">Obtener un suggestion</string>
   <string name="evaluatingYourMove">Evalutante tu movimento ...</string>
   <string name="whiteWinsGame">Le blanco vince</string>
   <string name="blackWinsGame">Le nigro vince</string>
@@ -791,6 +797,7 @@ in %3$s</string>
   <string name="next">Sequente</string>
   <string name="youCanDoBetter">Tu pote facer melio</string>
   <string name="solution">Solution</string>
+  <string name="doItAgain">Facer de novo</string>
   <string name="advantage">Avantage</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s secunda</item>
@@ -802,5 +809,7 @@ in %3$s</string>
   <string name="youCannotChallengeX">Tu non pote defiar %s.</string>
   <string name="xDoesNotAcceptChallenges">%s non accepta defias.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s solmente accepta defias de amicos.</string>
+  <string name="conditionalPremoves">Preselectiones conditional</string>
+  <string name="noConditionalPremoves">Nulle preselectiones conditional</string>
   <string name="playX">Joca %s</string>
 </resources>
