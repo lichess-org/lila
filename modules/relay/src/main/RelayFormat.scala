@@ -21,8 +21,6 @@ private final class RelayFormatApi(
 
   private def guessFormat(url: Url): Fu[Option[RelayFormat]] = {
 
-    println(s"guessing format for $url")
-
     def guessSingleFile: Fu[Option[RelayFormat]] =
       lila.common.Future.find(List(
         url.some,
@@ -46,6 +44,8 @@ private final class RelayFormatApi(
         }
 
     guessManyFiles orElse guessSingleFile
+  } addEffect { format =>
+    logger.info(s"guessed format of $url: ${format.fold("???")(_.toString)}")
   }
 
   private val cache = asyncCache.multi[Url, Option[RelayFormat]](
