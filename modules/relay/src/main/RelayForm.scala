@@ -12,16 +12,10 @@ object RelayForm {
 
   import lila.common.Form.UTCDate._
 
-  val syncTypes = List(
-    "dgt-one" -> "DGT (traditional): all games in a single file",
-    "dgt-many" -> "DGT (new): one file per game"
-  )
-
   val form = Form(mapping(
     "name" -> nonEmptyText(minLength = 3, maxLength = 80),
     "description" -> nonEmptyText(minLength = 3, maxLength = 4000),
     "official" -> boolean,
-    "syncType" -> text.verifying(syncTypes.map(_._1).contains _),
     "syncUrl" -> nonEmptyText,
     "startsAt" -> optional(utcDate),
     "throttle" -> optional(number(min = 0, max = 60))
@@ -35,7 +29,6 @@ object RelayForm {
       name: String,
       description: String,
       official: Boolean,
-      syncType: String,
       syncUrl: String,
       startsAt: Option[DateTime],
       throttle: Option[Int]
@@ -56,14 +49,11 @@ object RelayForm {
     )
 
     def makeSync = Relay.Sync(
-      upstream = syncType match {
-        case "dgt-one" => Relay.Sync.Upstream.DgtOneFile(cleanUrl)
-        case _ => Relay.Sync.Upstream.DgtManyFiles(cleanUrl)
-      },
+      upstream = Relay.Sync.Upstream(cleanUrl),
       until = none,
       nextAt = none,
       delay = throttle,
-      log = SyncLog(Vector.empty)
+      log = SyncLog.empty
     )
 
     def make(user: User) = Relay(
@@ -87,7 +77,6 @@ object RelayForm {
       name = relay.name,
       description = relay.description,
       official = relay.official,
-      syncType = relay.sync.upstream.key,
       syncUrl = relay.sync.upstream.url,
       startsAt = relay.startsAt,
       throttle = relay.sync.delay

@@ -5,6 +5,7 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import play.api.libs.json._
 import reactivemongo.bson._
+import io.lemonlabs.uri.Url
 
 import lila.db.dsl._
 import lila.study.{ StudyApi, Study, StudyMaker, Settings }
@@ -72,7 +73,7 @@ final class RelayApi(
   def update(from: Relay)(f: Relay => Relay): Fu[Relay] = {
     val relay = f(from)
     if (relay == from) fuccess(relay)
-    else repo.coll.update($id(relay.id), relay).void >> {
+    else repo.coll.update($id(relay.id), relay.withSync(_.clearLog)).void >> {
       (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
     } >>- {
       relay.sync.log.events.lastOption.ifTrue(relay.sync.log != from.sync.log).foreach { event =>
@@ -133,9 +134,7 @@ final class RelayApi(
     import makeTimeout.short
     import akka.pattern.ask
     import lila.study.Socket.{ GetNbMembers, NbMembers }
-    studySocketActor(relay.id) ? GetNbMembers mapTo manifest[NbMembers] map (_.value) recover {
-      case _: Exception => 0
-    }
+    studySocketActor(relay.id) ? GetNbMembers mapTo manifest[NbMembers] map (_.value) nevermind
   }
 
   private def studySocketActor(id: Relay.Id) = system actorSelection s"/user/study-socket/${id.value}"

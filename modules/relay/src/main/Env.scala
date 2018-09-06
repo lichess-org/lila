@@ -8,6 +8,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     studyEnv: lila.study.Env,
+    asyncCache: lila.memo.AsyncCache.Builder,
     system: ActorSystem
 ) {
 
@@ -44,9 +45,14 @@ final class Env(
     api = api
   )
 
-  private val fetch = system.actorOf(Props(new RelayFetch(
+  private lazy val formatApi = new RelayFormatApi(asyncCache)
+
+  def clearFormat(url: String) = formatApi refresh io.lemonlabs.uri.Url.parse(url)
+
+  system.actorOf(Props(new RelayFetch(
     sync = sync,
     api = api,
+    formatApi = formatApi,
     chapterRepo = studyEnv.chapterRepo
   )))
 
@@ -66,6 +72,7 @@ object Env {
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "relay",
     studyEnv = lila.study.Env.current,
+    asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system
   )
 }
