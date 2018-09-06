@@ -211,6 +211,8 @@
   <string name="thisGameIsRated">Iste partita vale punctos classificatori</string>
   <string name="rematch">Vindicar</string>
   <string name="rematchOfferSent">Proposition de vindicantia inviate</string>
+  <string name="rematchOfferSentWhite">Le blanco offere le vindicantia</string>
+  <string name="rematchOfferSentBlack">Le nigre offere le vindicantia</string>
   <string name="rematchOfferAccepted">Proposition de vindicantia acceptate</string>
   <string name="rematchOfferCanceled">Proposition de vindicantia cancellate</string>
   <string name="rematchOfferDeclined">Proposition de vindicantia declinate</string>
