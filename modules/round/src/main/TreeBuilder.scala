@@ -105,7 +105,8 @@ object TreeBuilder {
           case Nil => root
           case ((g, m), i) :: rest => root prependChild rest.foldLeft(makeBranch(i + 1, g, m)) {
             case (node, ((g, m), i)) =>
-              if (mergeCapts && node.move.uci.origDest._1 == m.uci.origDest._2)
+              val shortUci = Uci(m.uci.shortUci).get
+              if (mergeCapts && node.move.uci.origDest._1 == shortUci.origDest._2)
                 node.copy(
                   id = UciCharPair.combine(m.uci, node.move.uci),
                   move = Uci.WithSan(Uci(m.uci.uci.take(2) + node.move.uci.uci).get, Uci.combineSan(m.san, node.move.san))
