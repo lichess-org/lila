@@ -15,7 +15,7 @@ private final class ReportScore(
         impl.accuracyScore(accuracy) +
         impl.reporterScore(candidate.reporter) +
         impl.autoScore(candidate)
-    } map impl.fixedAutoCommScore(candidate) map { score =>
+    } map impl.fixedAutoCommPrintScore(candidate) map { score =>
       candidate scored Report.Score(score atLeast 5 atMost 100)
     }
 
@@ -40,8 +40,11 @@ private final class ReportScore(
       candidate.isAutomatic ?? 20d
 
     // https://github.com/ornicar/lila/issues/4093
-    def fixedAutoCommScore(c: Report.Candidate)(score: Double): Double =
-      if (c.isAutoComm) baseScore else score
+    // https://github.com/ornicar/lila/issues/4587
+    def fixedAutoCommPrintScore(c: Report.Candidate)(score: Double): Double =
+      if (c.isAutoComm) baseScore
+      else if (c.isPrint) baseScore + 20
+      else score
   }
 
   private def candidateOf(report: Report, atom: Report.Atom): Fu[Option[Report.Candidate.Scored]] = for {
