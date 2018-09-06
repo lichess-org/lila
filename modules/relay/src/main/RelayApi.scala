@@ -71,9 +71,11 @@ final class RelayApi(
   }
 
   def update(from: Relay)(f: Relay => Relay): Fu[Relay] = {
-    val relay = f(from)
+    val relay = f(from) |> { r =>
+      if (r.sync.upstream.url != from.sync.upstream.url) r.withSync(_.clearLog) else r
+    }
     if (relay == from) fuccess(relay)
-    else repo.coll.update($id(relay.id), relay.withSync(_.clearLog)).void >> {
+    else repo.coll.update($id(relay.id), relay).void >> {
       (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
     } >>- {
       relay.sync.log.events.lastOption.ifTrue(relay.sync.log != from.sync.log).foreach { event =>
