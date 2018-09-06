@@ -11,9 +11,9 @@ import * as keyboard from '../keyboard';
 import crazyView from '../crazy/crazyView';
 import { render as keyboardMove } from '../keyboardMove';
 import RoundController from '../ctrl';
-import * as cg from 'chessground/types';
+import { MaterialDiff, MaterialDiffSide } from '../interfaces';
 
-function renderMaterial(material: cg.MaterialDiffSide, score: number, checks?: number) {
+function renderMaterial(material: MaterialDiffSide, score: number, checks?: number) {
   const children: VNode[] = [];
   let role: string, i: number;
   for (role in material) {
@@ -56,7 +56,7 @@ function blindBoard(ctrl: RoundController) {
   ]);
 }
 
-const emptyMaterialDiff: cg.MaterialDiff = {
+const emptyMaterialDiff: MaterialDiff = {
   white: {},
   black: {}
 };
@@ -66,7 +66,7 @@ export function main(ctrl: RoundController): VNode {
   cgState = ctrl.chessground && ctrl.chessground.state,
   topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
   bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
-  let material: cg.MaterialDiff, score: number = 0;
+  let material: MaterialDiff, score: number = 0;
   if (d.pref.showCaptured) {
     var pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
     material = util.getMaterialDiff(pieces);
