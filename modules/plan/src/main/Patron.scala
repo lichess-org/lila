@@ -6,6 +6,7 @@ case class Patron(
     _id: Patron.UserId,
     stripe: Option[Patron.Stripe] = none,
     payPal: Option[Patron.PayPal] = none,
+    free: Option[Patron.Free] = none,
     expiresAt: Option[DateTime] = none,
     lifetime: Option[Boolean] = None,
     lastLevelUp: DateTime
@@ -66,4 +67,6 @@ object Patron {
     case class Email(value: String) extends AnyVal
     case class SubId(value: String) extends AnyVal
   }
+
+  case class Free(at: DateTime)
 }

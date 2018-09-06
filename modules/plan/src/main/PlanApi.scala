@@ -76,7 +76,8 @@ final class PlanApi(
             logger.info(s"Charged $charge $patron")
             UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
               val p2 = patron.copy(
-                stripe = Patron.Stripe(stripeCharge.customer).some
+                stripe = Patron.Stripe(stripeCharge.customer).some,
+                free = none
               ).levelUpIfPossible
               patronColl.update($id(patron.id), p2) >>
                 setDbUserPlanOnCharge(user, p2) >> {
@@ -129,7 +130,8 @@ final class PlanApi(
                 notifier.onStart(user)
               case Some(patron) =>
                 val p2 = patron.copy(
-                  payPal = payPal.some
+                  payPal = payPal.some,
+                  free = none
                 ).levelUpIfPossible.expireInOneMonth
                 patronColl.update($id(patron.id), p2) >>
                   setDbUserPlanOnCharge(user, p2)
@@ -219,7 +221,7 @@ final class PlanApi(
 
       case (None, None) if patron.isLifetime => fuccess(Synced(patron.some, none))
 
-      case (None, None) if user.plan.active =>
+      case (None, None) if user.plan.active && patron.free.isEmpty =>
         logger.warn(s"${user.username} sync: disable plan of patron with no paypal or stripe")
         setDbUserPlan(user, user.plan.disable) inject ReloadUser
 
@@ -239,7 +241,22 @@ final class PlanApi(
     $id(user.id),
     $set(
       "lastLevelUp" -> DateTime.now,
-      "lifetime" -> true
+      "lifetime" -> true,
+      "free" -> Patron.Free(DateTime.now)
+    )
+  ).void >>- lightUserApi.invalidate(user.id)
+
+  def giveMonth(user: User): Funit = UserRepo.setPlan(user, lidraughts.user.Plan(
+    months = user.plan.months | 1,
+    active = true,
+    since = user.plan.since orElse DateTime.now.some
+  )) >> patronColl.update(
+    $id(user.id),
+    $set(
+      "lastLevelUp" -> DateTime.now,
+      "lifetime" -> false,
+      "free" -> Patron.Free(DateTime.now),
+      "expiresAt" -> DateTime.now.plusMonths(1).plusDays(1)
     )
   ).void >>- lightUserApi.invalidate(user.id)
 
