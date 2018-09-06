@@ -26,6 +26,7 @@ final class Env(
     repo = repo,
     studyApi = studyEnv.api,
     withStudy = withStudy,
+    clearFormatCache = formatApi.refresh,
     system = system
   )
 
@@ -45,10 +46,12 @@ final class Env(
     api = api
   )
 
-  private val fetch = system.actorOf(Props(new RelayFetch(
+  private lazy val formatApi = new RelayFormatApi(asyncCache)
+
+  private lazy val fetch = system.actorOf(Props(new RelayFetch(
     sync = sync,
     api = api,
-    formatApi = new RelayFormatApi(asyncCache),
+    formatApi = formatApi,
     chapterRepo = studyEnv.chapterRepo
   )))
 

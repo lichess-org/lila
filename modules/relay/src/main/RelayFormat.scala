@@ -17,6 +17,8 @@ private final class RelayFormatApi(
 
   def get(url: String): Fu[Option[RelayFormat]] = cache get Url.parse(url.pp).pp
 
+  def refresh(url: Url): Unit = cache refresh url
+
   private def guessFormat(url: Url): Fu[Option[RelayFormat]] = {
 
     def guessSingleFile: Fu[Option[RelayFormat]] =
@@ -30,17 +32,24 @@ private final class RelayFormatApi(
     def guessManyFiles: Fu[Option[RelayFormat]] =
       lila.common.Future.find(
         List(url) ::: mostCommonIndexNames.filterNot(url.path.parts.contains).map(addPart(url, _))
-      )(looksLikeJson) map2 { (index: Url) =>
-          ManyFiles(index, i => pgnDoc(replaceLastPart(index, s"game-$i.pgn")))
+      )(looksLikeJson) flatMap {
+          _ ?? { index =>
+            val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
+            val pgnUrl = (n: Int) => pgnDoc(replaceLastPart(index, s"game-$n.pgn"))
+            looksLikeJson(jsonUrl(1).url).map(_ option jsonUrl) orElse
+              looksLikePgn(pgnUrl(1).url).map(_ option pgnUrl) map2 { (gameUrl: GameNumberToDoc) =>
+                ManyFiles(index, gameUrl)
+              }
+          }
         }
 
-    guessSingleFile orElse guessManyFiles
+    guessManyFiles orElse guessSingleFile
   } thenPp
 
   private val cache = asyncCache.multi[Url, Option[RelayFormat]](
     name = "relayFormat",
     f = guessFormat,
-    expireAfter = _.ExpireAfterAccess(1 hour)
+    expireAfter = _.ExpireAfterAccess(15 minutes)
   )
 }
 
@@ -61,7 +70,11 @@ private object RelayFormat {
 
   case class SingleFile(doc: Doc) extends RelayFormat
 
-  case class ManyFiles(jsonIndex: Url, game: Int => Doc) extends RelayFormat
+  type GameNumberToDoc = Int => Doc
+
+  case class ManyFiles(jsonIndex: Url, game: GameNumberToDoc) extends RelayFormat {
+    override def toString = s"Manyfiles($jsonIndex, ${game(0)})"
+  }
 
   def httpGet(url: Url): Fu[Option[String]] =
     WS.url(url.toString.pp("httpGet")).withRequestTimeout(4.seconds.toMillis).get().map {
@@ -74,7 +87,11 @@ private object RelayFormat {
   }
   def looksLikePgn(url: Url): Fu[Boolean] = httpGet(url).map { _ exists looksLikePgn }
 
-  def looksLikeJson(body: String): Boolean = Json.parse(body) != JsNull
+  def looksLikeJson(body: String): Boolean = try {
+    Json.parse(body) != JsNull
+  } catch {
+    case _: Exception => false
+  }
   def looksLikeJson(url: Url): Fu[Boolean] = httpGet(url).map { _ exists looksLikeJson }
 
   def addPart(url: Url, part: String) = url.withPath(url.path addPart part)

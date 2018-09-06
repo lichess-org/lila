@@ -74,7 +74,8 @@ private final class RelayFetch(
           logger.info(s"Sync timeout $relay")
           res
         case _ =>
-          logger.info(s"Sync error $relay ${e.getMessage take 80}")
+          // logger.info(s"Sync error $relay ${e.getMessage take 80}")
+          logger.error(s"Sync error $relay ${e.getMessage take 80}", e)
           SyncResult.Error(e.getMessage)
       }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
     } flatMap {
