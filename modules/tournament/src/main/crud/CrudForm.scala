@@ -7,6 +7,7 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
 import chess.StartingPosition
+import chess.variant.Variant
 import lila.common.Form._
 
 object CrudForm {
@@ -22,7 +23,7 @@ object CrudForm {
     "clockTime" -> numberInDouble(clockTimePrivateChoices),
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> number(min = 20, max = 1440),
-    "variant" -> number.verifying(v => variantFromId(v).isDefined),
+    "variant" -> number.verifying(v => Variant.byId.get(v).isDefined),
     "position" -> nonEmptyText.verifying(DataForm.positions contains _),
     "date" -> utcDate,
     "image" -> stringIn(imageChoices),
@@ -64,7 +65,7 @@ object CrudForm {
       berserkable: Boolean
   ) {
 
-    def realVariant = DataForm.variantFromId(variant) | chess.variant.Standard
+    def realVariant = Variant.byId.get(variant) | chess.variant.Standard
 
     def validClock = (clockTime + clockIncrement) > 0
 

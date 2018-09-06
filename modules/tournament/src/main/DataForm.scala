@@ -108,10 +108,6 @@ object DataForm {
     v.key == from || parseIntOption(from).exists(v.id ==)
   }
 
-  def variantFromId(id: Int): Option[Variant] = validVariants.find { v =>
-    v.id == id
-  }
-
   def startingPosition(fen: String, variant: Variant): StartingPosition =
     Thematic.byFen(fen).ifTrue(variant.standard) | StartingPosition.initial
 }
