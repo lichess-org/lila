@@ -302,6 +302,7 @@
   <string name="yourPerfRatingIsTooLow">Tu classification (%2$s) de %1$s es troppo basse</string>
   <string name="ratedMoreThanInPerf">Classification ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Classification ≤ %1$s in %2$s</string>
+  <string name="mustBeInTeam">Tu debe esser in le equipa %s</string>
   <string name="youAreNotInTeam">Tu non es in le equipa %s</string>
   <string name="backToGame">Retro al partite</string>
   <string name="siteDescription">Servitor de chacos gratis in linea. Joca al chacos ora in un interfacie simple. Nulle registration, nulle annuncios, nulle plugin requirite. Joca al chacos con le computator, con amicos o con adversarios aleatori.</string>
@@ -386,7 +387,9 @@
   <string name="standing">Position</string>
   <string name="createANewTournament">Crear un nove torneo</string>
   <string name="tournamentCalendar">Calendario del torneo</string>
+  <string name="conditionOfEntry">Condition de entrata:</string>
   <string name="advancedSettings">Configurationes avantiate</string>
+  <string name="safeTournamentName">Selige un nomine assatis secur pro le torneo.</string>
   <string name="showAdvancedSettings">Monstrar le configurationes avantiate</string>
   <string name="join">Participar</string>
   <string name="withdraw">Retirar se</string>
@@ -786,6 +789,7 @@ in %3$s</string>
   <string name="anotherWasX">Un alternativa esserea %s</string>
   <string name="bestWasX">Melior esserea %s</string>
   <string name="theGameIsADraw">Le partita es nulle.</string>
+  <string name="computerThinking">Le computator es calculante ...</string>
   <string name="seeBestMove">Vider le melior movimento</string>
   <string name="hideBestMove">Celar le melior movimento</string>
   <string name="getAHint">Obtener un suggestion</string>
