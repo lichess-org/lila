@@ -23,7 +23,7 @@ object CrudForm {
     "clockTime" -> numberInDouble(clockTimePrivateChoices),
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> number(min = 20, max = 1440),
-    "variant" -> number.verifying(v => Variant.byId.get(v).isDefined),
+    "variant" -> number.verifying(Variant exists _),
     "position" -> nonEmptyText.verifying(DataForm.positions contains _),
     "date" -> utcDate,
     "image" -> stringIn(imageChoices),
@@ -65,7 +65,7 @@ object CrudForm {
       berserkable: Boolean
   ) {
 
-    def realVariant = Variant.byId.get(variant) | chess.variant.Standard
+    def realVariant = Variant orDefault variant
 
     def validClock = (clockTime + clockIncrement) > 0
 
