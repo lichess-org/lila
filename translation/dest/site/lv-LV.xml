@@ -536,6 +536,7 @@
   <string name="troll">Troļļošana</string>
   <string name="other">Cits</string>
   <string name="reportDescriptionHelp">Iekopē saiti uz spēli un paskaidro, kas nav kārtībā ar lietotāja uzvedību.</string>
+  <string name="error.provideOneCheatedGameLink">Lūdzu, norādiet vismaz vienu saiti uz spēli, kurā pretinieks ir krāpies.</string>
   <string name="by">No %s</string>
   <string name="thisTopicIsNowClosed">Šis temats tagad ir slēgts.</string>
   <string name="theming">Tēmas</string>

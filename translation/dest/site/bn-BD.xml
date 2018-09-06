@@ -211,8 +211,8 @@
   <string name="thisGameIsRated">এই খেলাটি রেট করা</string>
   <string name="rematch">আবার খেলুন</string>
   <string name="rematchOfferSent">পুনঃম্যাচের অফার পাঠানো হয়েছে</string>
-  <string name="rematchOfferSentWhite">সাদা পুনঃম্যাচের অফার দিয়েছেন</string>
-  <string name="rematchOfferSentBlack">কালো পুনঃম্যাচের অফার দিয়েছেন</string>
+  <string name="rematchOfferSentWhite">সাদা রিম্যাচের অফার দিয়েছেন</string>
+  <string name="rematchOfferSentBlack">কালো রিম্যাচের অফার দিয়েছেন</string>
   <string name="rematchOfferAccepted">পুনঃম্যাচের অফার গ্রহণ করা হয়েছে</string>
   <string name="rematchOfferCanceled">পুনঃম্যাচের অফার বাতিল করা হয়েছে</string>
   <string name="rematchOfferDeclined">পুনঃম্যাচের অফার প্রত্যাখ্যাত হয়েছে</string>
@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">আপনার %1$s অনুপাত (%2$s) হয় অনেক কম</string>
   <string name="ratedMoreThanInPerf">অনুপাতদিত ≥ %1$s এ %2$s</string>
   <string name="ratedLessThanInPerf">অনুপাদিত ≤ %1$s এ %2$s</string>
+  <string name="mustBeInTeam">অবশ্যই %s টিমে থাকতে হবে।</string>
+  <string name="youAreNotInTeam">আপনি %s দলে নেই।</string>
   <string name="backToGame">খেলায় এ ফিরে যান</string>
   <string name="siteDescription">ফ্রি অনলাইন দাবা খেলা। এখন থেকে পরিচ্ছন্ন ইন্টারফেসে দাবা খেলুন। কোন রেজিস্ট্রেশনের দরকার নেই, নেই কোন বিজ্ঞাপন, এমনকি কোনও প্লাগইন-এরও প্রয়োজন নেই। দাবা খেলুন কম্পিউটারের সাথে, অথবা বন্ধুর সাথে অথবা অজানা যে কোন প্রতিপক্ষের সাথে।</string>
   <string name="teams">দল</string>
@@ -387,6 +389,15 @@
   <string name="winner">বিজয়ী</string>
   <string name="standing">অপেক্ষারত</string>
   <string name="createANewTournament">নতুন টুর্নামেন্ট সৃষ্টি করুন</string>
+  <string name="tournamentCalendar">টুর্নামেন্ট ক্যালেন্ডার</string>
+  <string name="conditionOfEntry">এন্ট্রির শর্তাবলি:</string>
+  <string name="advancedSettings">এডভান্সড সেটিংস</string>
+  <string name="safeTournamentName">টুর্নামেন্টের জন্য একটি নিরাপদ নাম পছন্দ করুন।</string>
+  <string name="inappropriateNameWarning">এমনকি সামান্য অনুপযুক্ত কিছুও আপনার অ্যাকাউন্ট বন্ধ করতে পারে।</string>
+  <string name="emptyTournamentName">কোন গ্র্যান্ডমাস্টারের নামে টুর্নামেন্টের নাম দিতে চাইলে খালি রাখুন।</string>
+  <string name="recommendNotTouching">এটা টাচ না করার জন্য পরামর্শ দেয়া হচ্ছে।</string>
+  <string name="fewerPlayers">যদি আপনি এন্ট্রি করার শর্ত ঠিক করে দেন, তাহলে টুর্নামেন্টে তুলনামূলকভাবে কম খেলোয়ার পাওয়া যাবে।</string>
+  <string name="showAdvancedSettings">এডভান্সড সেটিংসে যান</string>
   <string name="join">যোগ দিন</string>
   <string name="withdraw">উঠিয়ে নিন</string>
   <string name="points">পয়েন্ট</string>
@@ -499,6 +510,7 @@
   <string name="troll">ব্যঙ্গ করছে</string>
   <string name="other">অন্য কোনো কারণ</string>
   <string name="reportDescriptionHelp">এখানে সেই খেলাটির link দেন এবং বলুন ওই ব্যক্তি ব্যবহারে কি অসুবিধা ছিল ?</string>
+  <string name="error.provideOneCheatedGameLink">অনুগ্রহ করে একটা চিটেড গেমের লিংক দিন।</string>
   <string name="by">%s এর দ্বারা</string>
   <string name="thisTopicIsNowClosed">এই বিষয়টি এখন শেষ হয়ে গেছে</string>
   <string name="theming">ছবি</string>
@@ -516,6 +528,7 @@
   <string name="thisAccountIsClosed">এই একাউন্টটি বন্ধ করা হয়েছে</string>
   <string name="invalidUsernameOrPassword">ব্যবহারকারী নাম অথবা পাসওয়ার্ড টি ঠিক নয়</string>
   <string name="incorrectPassword">ভুল সঙ্কেত শব্দ</string>
+  <string name="invalidAuthenticationCode">ইনভ্যালিড অথেন্টিকেশন কোড</string>
   <string name="emailMeALink">আমাকে লিংক ইমেইল কর</string>
   <string name="currentPassword">বর্তমান পাসওয়ার্ড</string>
   <string name="newPassword">নতুন পাসওয়ার্ড</string>
@@ -636,6 +649,7 @@
   <string name="videoLibrary">ভিডিও লাইব্রেরি</string>
   <string name="mobileApp">মোবাইল অ্যাপ</string>
   <string name="webmasters">ওয়েবমাস্টারগুলো</string>
+  <string name="about">সম্পর্কে</string>
   <string name="contribute">অবদান</string>
   <string name="contact">যোগাযোগ</string>
   <string name="termsOfService">পরিষেবার শর্তাদি</string>
@@ -756,6 +770,9 @@
   <string name="pieceSet">টুকরা সেট</string>
   <string name="embedInYourWebsite">আপনার ওয়েবসাইটে বসান</string>
   <string name="usernameAlreadyUsed">এই ব্যবহারকারীর নাম ইতিমধ্যে ব্যবহার করা হয়েছে, দয়া করে অন্য একটি চেষ্টা করুন.</string>
+  <string name="usernamePrefixInvalid">ইউজারনেম অবশ্যই কোন অক্ষর দ্বারা শুরু হতে হবে।</string>
+  <string name="usernameSuffixInvalid">ইউজারনেম অবশ্যই কোন অক্ষর বা সংখ্যা দ্বারা শেষ হতে হবে।</string>
+  <string name="usernameCharsInvalid">ইউজারনেমে শুধুমাত্র অক্ষর, নাম্বার, আন্ডারস্কোর এবং হাইফেন থাকতে পারবে। </string>
   <string name="usernameUnacceptable">এই ব্যবহারকারী নামটি গ্রহণযোগ্য নয়.</string>
   <string name="directlySupportLichess">সরাসরি লিচাস সমার্থন</string>
   <string name="playChessInStyle">দাবা খেলুন শৈলিতে</string>

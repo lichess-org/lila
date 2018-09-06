@@ -12,7 +12,7 @@
   <string name="level">Nivå</string>
   <string name="toggleTheChat">Dölj/visa chattrutan</string>
   <string name="toggleSound">Ljud av/på</string>
-  <string name="chat">Chatt</string>
+  <string name="chat">Chatta</string>
   <string name="resign">Ge upp</string>
   <string name="checkmate">Schackmatt</string>
   <string name="stalemate">Patt</string>
@@ -56,9 +56,9 @@
   <string name="showThreat">Visa hot</string>
   <string name="inLocalBrowser">i lokal webbläsare</string>
   <string name="toggleLocalEvaluation">Lokal analys av/på</string>
-  <string name="promoteVariation">Höj upp variant</string>
-  <string name="makeMainLine">Gör till huvudvariant</string>
-  <string name="deleteFromHere">Radera från här</string>
+  <string name="promoteVariation">Höj upp variation</string>
+  <string name="makeMainLine">Gör till huvudvariation</string>
+  <string name="deleteFromHere">Radera härifrån</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
   <string name="variantWin">Variantvinst</string>
@@ -77,23 +77,23 @@
   <string name="topGames">Toppartier</string>
   <string name="masterDbExplanation">Två miljoner schackpartier spelade av %1$s+ elorankade spelare (>2200) från %2$s till %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Matt i %s halvdrag</item>
-    <item quantity="other">Matt i %s halvdrag</item>
+    <item quantity="one">Matt på %s halvdrag</item>
+    <item quantity="other">Matt på %s halvdrag</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Nästa slag eller bondedrag inom %s halvdrag (drag till nollställning av räknaren för 50-dragsregeln)</item>
     <item quantity="other">Nästa slag eller bondedrag inom %s halvdrag (drag till nollställning av räknaren för 50-dragsregeln)</item>
   </plurals>
   <string name="noGameFound">Inget parti hittades</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">För att söka bland fler partier, gå till Inställningar?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Överväg att ändra inställningarna för att inkludera fler partier.</string>
   <string name="openingExplorer">Öppningsbok</string>
   <string name="xOpeningExplorer">%s öppningsutforskare</string>
-  <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-drags regeln</string>
-  <string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-drags regeln</string>
+  <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-dragsregeln</string>
+  <string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-dragsregeln</string>
   <string name="allSet">OK</string>
   <string name="importPgn">Importera PGN</string>
   <string name="delete">Ta bort</string>
-  <string name="deleteThisImportedGame">Ta bort detta importerade partil?</string>
+  <string name="deleteThisImportedGame">Ta bort detta importerade parti?</string>
   <string name="replayMode">Uppspelningsläge</string>
   <string name="realtimeReplay">Realtid</string>
   <string name="byCPL">CPL</string>
@@ -105,8 +105,8 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Oändlig analys</string>
-  <string name="removesTheDepthLimit">Tar bort sökdjup-begränsningen, och håller datorn varm</string>
-  <string name="blunder">Tabbe</string>
+  <string name="removesTheDepthLimit">Tar bort sökdjupsbegränsningen, och håller datorn varm</string>
+  <string name="blunder">Blunder</string>
   <string name="blunders">Blundrar</string>
   <string name="mistake">Misstag</string>
   <string name="mistakes">Misstag</string>
@@ -509,6 +509,7 @@
   <string name="troll">Troll</string>
   <string name="other">Övrigt</string>
   <string name="reportDescriptionHelp">Klistra in länken till partiet och förklara vad som är fel med den här användarens beteende. Säg inte bara \"de fuskar\", utan förklara hur du dragit denna slutsats. Din rapport kommer att behandlas fortare om den är skriven på engelska.</string>
+  <string name="error.provideOneCheatedGameLink">Ange minst en länk till ett spel där användaren fuskade.</string>
   <string name="by">av %s</string>
   <string name="thisTopicIsNowClosed">Det här ämnet är nu stängt.</string>
   <string name="theming">Teman</string>
