@@ -6,13 +6,14 @@ import lidraughts.round.JsonView.WithFlags
 
 private object GameToRoot {
 
-  def apply(game: Game, initialFen: Option[FEN], withClocks: Boolean): Node.Root = {
+  def apply(game: Game, initialFen: Option[FEN], withClocks: Boolean, mergeCapts: Boolean = false): Node.Root = {
     val root = Node.Root.fromRoot {
       lidraughts.round.TreeBuilder(
         game = game,
         analysis = none,
         initialFen = initialFen | FEN(game.variant.initialFen),
-        withFlags = WithFlags(clocks = withClocks)
+        withFlags = WithFlags(clocks = withClocks),
+        mergeCapts = mergeCapts
       )
     }
     endComment(game).fold(root) { comment =>

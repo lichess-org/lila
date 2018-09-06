@@ -79,6 +79,9 @@ object Uci
 
   def apply(move: draughts.Move) = Uci.Move(move.orig, move.dest, move.promotion)
 
+  def combine(uci1: Uci, uci2: Uci) = apply(uci1.uci + uci2.uci.drop(2)).getOrElse(Uci.Move(uci1.origDest._1, uci2.origDest._2))
+  def combineSan(san1: String, san2: String) = san1.substring(0, san1.indexOf('x')) + san2.substring(san2.indexOf('x'))
+
   def apply(move: String): Option[Uci] = Uci.Move(move)
 
   def piotr(move: String): Option[Uci] = Uci.Move.piotr(move)

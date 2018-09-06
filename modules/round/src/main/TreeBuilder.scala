@@ -24,7 +24,8 @@ object TreeBuilder {
     game: lidraughts.game.Game,
     analysis: Option[Analysis],
     initialFen: FEN,
-    withFlags: WithFlags
+    withFlags: WithFlags,
+    mergeCapts: Boolean
   ): Root = apply(
     id = game.id,
     pdnmoves = game.pdnMoves,
@@ -32,7 +33,8 @@ object TreeBuilder {
     analysis = analysis,
     initialFen = initialFen,
     withFlags = withFlags,
-    clocks = withFlags.clocks ?? game.bothClockStates
+    clocks = withFlags.clocks ?? game.bothClockStates,
+    mergeCapts = mergeCapts
   )
 
   def apply(
@@ -43,7 +45,8 @@ object TreeBuilder {
     initialFen: FEN,
     withFlags: WithFlags,
     clocks: Option[Vector[Centis]],
-    iteratedCapts: Boolean = false
+    iteratedCapts: Boolean = false,
+    mergeCapts: Boolean = false
   ): Root = {
     val withClocks = withFlags.clocks ?? clocks
     draughts.Replay.gameMoveWhileValid(pdnmoves, initialFen.value, variant, iteratedCapts) match {
@@ -60,10 +63,12 @@ object TreeBuilder {
         val root = Root(
           ply = init.turns,
           fen = fen,
+          captureLength = init.situation.allMovesCaptureLength,
           opening = openingOf(fen),
           clock = withFlags.clocks ?? init.clock.map(_.limit),
           eval = infos lift 0 map makeEval
         )
+
         def makeBranch(index: Int, g: draughts.DraughtsGame, m: Uci.WithSan) = {
           val fen = Forsyth >> g
           val info = infos lift (index - 1)
@@ -73,6 +78,7 @@ object TreeBuilder {
             ply = g.turns,
             move = m,
             fen = fen,
+            captureLength = if (g.situation.ghosts > 0) g.situation.captureLengthFrom(m.uci.origDest._2) else g.situation.allMovesCaptureLength,
             opening = openingOf(fen),
             clock = withClocks ?? (_ lift (g.displayTurns - init.turns - 1)),
             eval = info map makeEval,
@@ -98,7 +104,13 @@ object TreeBuilder {
         games.zipWithIndex.reverse match {
           case Nil => root
           case ((g, m), i) :: rest => root prependChild rest.foldLeft(makeBranch(i + 1, g, m)) {
-            case (node, ((g, m), i)) => makeBranch(i + 1, g, m) prependChild node
+            case (node, ((g, m), i)) =>
+              if (mergeCapts && node.move.uci.origDest._1 == m.uci.origDest._2)
+                node.copy(
+                  id = UciCharPair.combine(m.uci, node.move.uci),
+                  move = Uci.WithSan(Uci(m.uci.uci.take(2) + node.move.uci.uci).get, Uci.combineSan(m.san, node.move.san))
+                )
+              else makeBranch(i + 1, g, m) prependChild node
           }
         }
     }

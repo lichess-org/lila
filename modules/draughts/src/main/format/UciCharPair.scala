@@ -15,6 +15,8 @@ object UciCharPair {
   def apply(uci: Uci, ambiguity: Int): UciCharPair = UciCharPair(toChar(uci.origDest._1), ambiguity2charMap.getOrElse(ambiguity, voidChar))
   def apply(orig: Char, ambiguity: Int): UciCharPair = UciCharPair(orig, ambiguity2charMap.getOrElse(ambiguity, voidChar))
 
+  def combine(uci1: Uci, uci2: Uci): UciCharPair = UciCharPair(toChar(uci1.origDest._1), toChar(uci2.origDest._2))
+
   private[format] object implementation {
 
     type File = Int

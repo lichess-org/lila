@@ -106,7 +106,7 @@ case class Node(
   def mergeCapture(n: Node): Node = copy(
     id = UciCharPair(id.a, n.id.b),
     ply = n.ply,
-    move = Uci.WithSan(Uci(move.uci.uci + n.move.uci.uci.drop(2)).getOrElse(Uci.Move(move.uci.origDest._1, n.move.uci.origDest._2)), move.san.substring(0, move.san.indexOf("x")) + n.move.san.substring(n.move.san.indexOf("x"))),
+    move = Uci.WithSan(Uci.combine(move.uci, n.move.uci), Uci.combineSan(move.san, n.move.san)),
     fen = n.fen,
     shapes = shapes ++ n.shapes,
     comments = comments ++ n.comments,
