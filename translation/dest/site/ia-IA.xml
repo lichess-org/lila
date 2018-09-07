@@ -803,6 +803,7 @@ in %3$s</string>
   <string name="skipThisMove">Omitte iste movimento</string>
   <string name="next">Sequente</string>
   <string name="xWasPlayed">%s esseva jocate</string>
+  <string name="resumeLearning">Retorna al apprentissage</string>
   <string name="youCanDoBetter">Tu pote facer melio</string>
   <string name="tryAnotherMoveForWhite">Tenta un altere movimento pro le blanco</string>
   <string name="tryAnotherMoveForBlack">Tenta un altere movimento pro le nigro</string>
@@ -810,6 +811,8 @@ in %3$s</string>
   <string name="waitingForAnalysis">Attendente le analyse</string>
   <string name="noMistakesFoundForWhite">Nulle errores trovate pro le blanco</string>
   <string name="noMistakesFoundForBlack">Nulle errores trovate pro le nigro</string>
+  <string name="doneReviewingWhiteMistakes">Le revision del errores del blanco ha concludite</string>
+  <string name="doneReviewingBlackMistakes">Le revision del errores del nigro ha concludite</string>
   <string name="doItAgain">Facer de novo</string>
   <string name="reviewWhiteMistakes">Revider le errores del blanco</string>
   <string name="reviewBlackMistakes">Revider le errores del nigro</string>
@@ -824,8 +827,11 @@ in %3$s</string>
   <string name="registerToSendChallenges">Per favor, registra un conto pro inviar defias.</string>
   <string name="youCannotChallengeX">Tu non pote defiar %s.</string>
   <string name="xDoesNotAcceptChallenges">%s non accepta defias.</string>
+  <string name="yourXRatingIsTooFarFromY">Tu classification de %1$s es troppo distante de %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Defias non es permittite a causa de tu classification provisori %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s solmente accepta defias de amicos.</string>
   <string name="conditionalPremoves">Preselectiones conditional</string>
+  <string name="addCurrentVariation">Adder variation currente</string>
   <string name="playVariationToCreateConditionalPremoves">Joca un movimento variante pro crear preselectiones conditional</string>
   <string name="noConditionalPremoves">Nulle preselectiones conditional</string>
   <string name="playX">Joca %s</string>
