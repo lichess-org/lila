@@ -816,6 +816,7 @@ in %3$s</string>
   <string name="xDoesNotAcceptChallenges">%s non accepta defias.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s solmente accepta defias de amicos.</string>
   <string name="conditionalPremoves">Preselectiones conditional</string>
+  <string name="playVariationToCreateConditionalPremoves">Joca un movimento variante pro crear preselectiones conditional</string>
   <string name="noConditionalPremoves">Nulle preselectiones conditional</string>
   <string name="playX">Joca %s</string>
 </resources>
