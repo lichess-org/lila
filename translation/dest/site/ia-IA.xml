@@ -800,10 +800,19 @@ in %3$s</string>
   <string name="blackWinsGame">Le nigro vince</string>
   <string name="learnFromYourMistakes">Apprende ab tu errores</string>
   <string name="learnFromThisMistake">Apprende ab iste error</string>
+  <string name="skipThisMove">Omitte iste movimento</string>
   <string name="next">Sequente</string>
+  <string name="xWasPlayed">%s esseva jocate</string>
   <string name="youCanDoBetter">Tu pote facer melio</string>
+  <string name="tryAnotherMoveForWhite">Tenta un altere movimento pro le blanco</string>
+  <string name="tryAnotherMoveForBlack">Tenta un altere movimento pro le nigro</string>
   <string name="solution">Solution</string>
+  <string name="waitingForAnalysis">Attendente le analyse</string>
+  <string name="noMistakesFoundForWhite">Nulle errores trovate pro le blanco</string>
+  <string name="noMistakesFoundForBlack">Nulle errores trovate pro le nigro</string>
   <string name="doItAgain">Facer de novo</string>
+  <string name="reviewWhiteMistakes">Revider le errores del blanco</string>
+  <string name="reviewBlackMistakes">Revider le errores del nigro</string>
   <string name="advantage">Avantage</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s secunda</item>
@@ -812,6 +821,7 @@ in %3$s</string>
   <string name="opening">Initio de joco</string>
   <string name="middlegame">Medio del joco</string>
   <string name="endgame">Fin del joco</string>
+  <string name="registerToSendChallenges">Per favor, registra un conto pro inviar defias.</string>
   <string name="youCannotChallengeX">Tu non pote defiar %s.</string>
   <string name="xDoesNotAcceptChallenges">%s non accepta defias.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s solmente accepta defias de amicos.</string>
@@ -819,4 +829,8 @@ in %3$s</string>
   <string name="playVariationToCreateConditionalPremoves">Joca un movimento variante pro crear preselectiones conditional</string>
   <string name="noConditionalPremoves">Nulle preselectiones conditional</string>
   <string name="playX">Joca %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">e salveguarda %s linea de preselection</item>
+    <item quantity="other">e salveguarda %s lineas de preselection</item>
+  </plurals>
 </resources>
