@@ -17,7 +17,7 @@ private final class RelayFormatApi(
 
   def get(url: String): Fu[Option[RelayFormat]] = cache get Url.parse(url)
 
-  def refresh(url: Url): Unit = cache refresh url.pp("refresh")
+  def refresh(url: Url): Unit = cache refresh url
 
   private def guessFormat(url: Url): Fu[Option[RelayFormat]] = {
 
