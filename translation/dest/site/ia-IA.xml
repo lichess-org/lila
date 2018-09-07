@@ -392,6 +392,7 @@
   <string name="conditionOfEntry">Condition de entrata:</string>
   <string name="advancedSettings">Configurationes avantiate</string>
   <string name="safeTournamentName">Selige un nomine assatis secur pro le torneo.</string>
+  <string name="inappropriateNameWarning">Mesmo alco levemente inappropriate pote causar que tu conto sia terminate.</string>
   <string name="showAdvancedSettings">Monstrar le configurationes avantiate</string>
   <string name="join">Participar</string>
   <string name="withdraw">Retirar se</string>
@@ -790,6 +791,8 @@ in %3$s</string>
   <string name="practiceWithComputer">Practicar con le computator</string>
   <string name="anotherWasX">Un alternativa esserea %s</string>
   <string name="bestWasX">Melior esserea %s</string>
+  <string name="youBrowsedAway">Tu navigava ultra le revision</string>
+  <string name="resumePractice">Retornar al practica</string>
   <string name="theGameIsADraw">Le partita es nulle.</string>
   <string name="computerThinking">Le computator es calculante ...</string>
   <string name="seeBestMove">Vider le melior movimento</string>
