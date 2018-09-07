@@ -1127,6 +1127,7 @@ body.playing.zen #ham-plate,
 body.playing.zen .dasher,
 body.playing.zen .site_notifications,
 body.playing.zen .challenge_notifications,
+body.playing.zen .reports,
 body.playing.zen #clinput,
 body.playing.zen #site_title {
   display: none;
