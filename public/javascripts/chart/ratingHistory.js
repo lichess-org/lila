@@ -4,6 +4,9 @@ lichess.ratingHistoryChart = function(data, singlePerfName) {
     $('div.rating_history').hide();
     return;
   }
+  var indexFilter = function(_, i) {
+    return !singlePerfName || i === singlePerfIndex;
+  };
   lichess.loadScript('javascripts/chart/common.js').done(function() {
     lichess.chartCommon('highstock').done(function() {
       var disabled = {
@@ -31,7 +34,7 @@ lichess.ratingHistoryChart = function(data, singlePerfName) {
           'Dash',
           // UltraBullet
           'ShortDot'
-        ].filter((_, i) => !singlePerfName || i === singlePerfIndex);
+        ].filter(indexFilter);
         $(this).highcharts('StockChart', {
           yAxis: {
             title: noText
@@ -40,7 +43,7 @@ lichess.ratingHistoryChart = function(data, singlePerfName) {
           legend: disabled,
           colors: ["#56B4E9", "#0072B2", "#009E73", "#459F3B", "#F0E442", "#E69F00", "#D55E00",
             "#CC79A7", "#DF5353", "#66558C", "#99E699", "#FFAEAA"
-          ].filter((_, i) => !singlePerfName || i === singlePerfIndex),
+          ].filter(indexFilter),
           rangeSelector: {
             enabled: true,
             selected: 1,
@@ -56,7 +59,9 @@ lichess.ratingHistoryChart = function(data, singlePerfName) {
             tickWidth: 0
           },
           scrollbar: disabled,
-          series: data.filter(v => !singlePerfName || v.name === singlePerfName).map(function(serie, i) {
+          series: data.filter(function(v) {
+            return !singlePerfName || v.name === singlePerfName;
+          }).map(function(serie, i) {
             return {
               name: serie.name,
               type: 'line',
