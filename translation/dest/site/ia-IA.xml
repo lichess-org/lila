@@ -812,6 +812,7 @@ in %3$s</string>
   <string name="next">Sequente</string>
   <string name="xWasPlayed">%s esseva jocate</string>
   <string name="findBetterMoveForWhite">Trova un movimento melior pro le blanco</string>
+  <string name="findBetterMoveForBlack">Trova un movimento melior pro le nigro</string>
   <string name="resumeLearning">Retorna al apprentissage</string>
   <string name="youCanDoBetter">Tu pote facer melio</string>
   <string name="tryAnotherMoveForWhite">Tenta un altere movimento pro le blanco</string>
