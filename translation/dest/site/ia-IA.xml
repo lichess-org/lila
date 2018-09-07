@@ -393,6 +393,9 @@
   <string name="advancedSettings">Configurationes avantiate</string>
   <string name="safeTournamentName">Selige un nomine assatis secur pro le torneo.</string>
   <string name="inappropriateNameWarning">Mesmo alco levemente inappropriate pote causar que tu conto sia terminate.</string>
+  <string name="emptyTournamentName">Lassa iste campo vacue pro que le torneo ha un nomine de un Grande Maestro al hasardo.</string>
+  <string name="recommendNotTouching">Nos recommenda non modificar isto.</string>
+  <string name="fewerPlayers">Si tu impone conditiones de entrata, tu torneo habera minus jocatores.</string>
   <string name="showAdvancedSettings">Monstrar le configurationes avantiate</string>
   <string name="join">Participar</string>
   <string name="withdraw">Retirar se</string>
@@ -508,6 +511,7 @@ pro le nigro.</string>
   <string name="troll">Troll</string>
   <string name="other">Altere</string>
   <string name="reportDescriptionHelp">Colla le ligamine al joco(s) e explica lo que es improprie re le conducto del usator. Non dice solmente \"ille frauda\", ma informa como tu arrivava a iste conclusion. Tu reporto essera processate plus rapidemente si tu scribe in anglese.</string>
+  <string name="error.provideOneCheatedGameLink">Per favor, provide al minus un ligamine de un partita fraudate.</string>
   <string name="by">per %s</string>
   <string name="thisTopicIsNowClosed">Iste topico es ora claudite.</string>
   <string name="theming">Apparentia</string>
@@ -768,6 +772,7 @@ in %3$s</string>
   <string name="usernameAlreadyUsed">Iste nomine de usator ja es usate, per favor, selectiona un altere.</string>
   <string name="usernamePrefixInvalid">Le nomine de usator debe initiar con un littera.</string>
   <string name="usernameSuffixInvalid">Le nomine de usator debe finir con un littera o un numero.</string>
+  <string name="usernameCharsInvalid">Le nomine de usator debe continer solmente litteras, numeros, sublineas ( _ ) e lineettas ( - ).</string>
   <string name="usernameUnacceptable">Iste nomine de usator non es acceptabile.</string>
   <string name="directlySupportLichess">Appoia directemente Lichess</string>
   <string name="playChessInStyle">Joca chacos con stilo</string>
@@ -806,6 +811,7 @@ in %3$s</string>
   <string name="skipThisMove">Omitte iste movimento</string>
   <string name="next">Sequente</string>
   <string name="xWasPlayed">%s esseva jocate</string>
+  <string name="findBetterMoveForWhite">Trova un movimento melior pro le blanco</string>
   <string name="resumeLearning">Retorna al apprentissage</string>
   <string name="youCanDoBetter">Tu pote facer melio</string>
   <string name="tryAnotherMoveForWhite">Tenta un altere movimento pro le blanco</string>
