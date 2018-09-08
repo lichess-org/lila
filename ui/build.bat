@@ -2,7 +2,7 @@
 
 mkdir public\compiled
 
-set ts_apps=common draughts ceval game tree chat draughtsground
+set ts_apps=common draughts ceval game chat draughtsground tree
 
 call yarn install
 
