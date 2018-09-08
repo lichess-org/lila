@@ -327,10 +327,11 @@ object User extends LilaController {
           distribution <- u.perfs(perfType).established ?? {
             Env.user.cached.ratingDistribution(perfType) map some
           }
+          ratingChart <- Env.history.ratingChartApi.apply(u)
           _ <- Env.user.lightUserApi preloadMany { u.id :: perfStat.userIds.map(_.value) }
           data = Env.perfStat.jsonView(u, perfStat, ranks get perfType.key, distribution)
           response <- negotiate(
-            html = Ok(html.user.perfStat(u, ranks, perfType, data)).fuccess,
+            html = Ok(html.user.perfStat(u, ranks, perfType, data, ratingChart)).fuccess,
             api = _ => getBool("graph").?? {
               Env.history.ratingChartApi.singlePerf(u, perfType).map(_.some)
             } map {
