@@ -144,7 +144,8 @@ Thank you all, you rock!"""
               },
 
             List( // monthly variant tournaments!
-              month.lastWeek.withDayOfWeek(SUNDAY) -> Frisian
+              month.firstWeek.withDayOfWeek(SATURDAY) -> Antidraughts,
+              month.firstWeek.withDayOfWeek(SUNDAY) -> Frisian
             ).flatMap {
                 case (day, variant) => at(day, 18) map { date =>
                   Schedule(Monthly, Blitz, variant, std, date).plan
@@ -168,6 +169,7 @@ Thank you all, you rock!"""
           },
 
         List( // weekly variant tournaments!
+          nextSaturday -> Antidraughts,
           nextSunday -> Frisian
         ).flatMap {
             case (day, variant) => at(day, 20) map { date =>
@@ -177,12 +179,12 @@ Thank you all, you rock!"""
 
         List( // daily tournaments!
           at(today, 17) map { date => Schedule(Daily, Bullet, Standard, std, date |> orTomorrow).plan },
-          at(today, 18) map { date => Schedule(Daily, SuperBlitz, Standard, std, date |> orTomorrow).plan },
-          at(today, 21) map { date => Schedule(Daily, HyperBullet, Standard, std, date |> orTomorrow).plan }
+          at(today, 18) map { date => Schedule(Daily, SuperBlitz, Standard, std, date |> orTomorrow).plan }
         ).flatten,
 
         List( // daily variant tournaments!
-          at(today, 20) map { date => Schedule(Daily, SuperBlitz, Frisian, std, date |> orTomorrow).plan }
+          at(today, 20) map { date => Schedule(Daily, SuperBlitz, Frisian, std, date |> orTomorrow).plan },
+          at(today, 21) map { date => Schedule(Daily, SuperBlitz, Antidraughts, std, date |> orTomorrow).plan }
         ).flatten,
 
         List( // eastern tournaments!
