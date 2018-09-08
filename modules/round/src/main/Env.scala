@@ -80,9 +80,14 @@ final class Env(
     accessTimeout = ActiveTtl
   )
 
-  bus.subscribeFun('roundMapTell, 'deploy) {
+  bus.subscribeFun('roundMapTell, 'deploy, 'accountClose) {
     case Tell(id, msg) => roundMap.tell(id, msg)
     case DeployPost => roundMap.tellAll(DeployPost)
+    case lila.hub.actorApi.security.CloseAccount(userId) => GameRepo.allPlaying(userId) map {
+      _ foreach { pov =>
+        roundMap.tell(pov.gameId, Resign(pov.playerId))
+      }
+    }
   }
 
   private var nbRounds = 0
