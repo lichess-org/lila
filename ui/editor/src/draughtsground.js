@@ -147,7 +147,7 @@ function makeConfig(ctrl) {
       enabled: false
     },
     drawable: {
-      enabled: false
+      enabled: true
     },
     draggable: {
       showGhost: true,
@@ -163,6 +163,7 @@ function makeConfig(ctrl) {
     },
     events: {
       change: ctrl.onChange.bind(ctrl)
-    }
+    },
+    disableContextMenu: true
   };
 }

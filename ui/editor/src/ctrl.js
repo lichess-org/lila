@@ -82,7 +82,12 @@ module.exports = function(cfg) {
 
   this.changeFen = function(fen) {
     this.vm.redirecting = true;
-    window.location = editor.makeUrl(this.data.baseUrl, fen);
+    window.location = editor.makeUrl(this.data.baseUrl + (this.data.variant !== 'standard' ? this.data.variant + '/' : ''), fen);
+  }.bind(this);
+
+  this.changeVariant = function(variant) {
+    this.data.variant = variant;
+    m.redraw();
   }.bind(this);
 
   this.positionLooksLegit = function() {

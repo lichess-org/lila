@@ -199,7 +199,8 @@ export function view(ctrl): VNode {
                 $.when(
                   window.lidraughts.loadScript('/assets/compiled/lidraughts.editor.min.js'),
                   $.get('/editor.json', {
-                    fen: ctrl.root.node.fen
+                    fen: ctrl.root.node.fen,
+                    variant: currentChapterSetup.variant.key
                   })
                 ).then(function (_, b) {
                   const data = b[0];

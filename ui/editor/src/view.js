@@ -19,7 +19,7 @@ function studyButton(ctrl, fen) {
       value: ctrl.bottomColor()
     }),
     m('input[type=hidden][name=variant]', {
-      value: 'standard'
+      value: ctrl.data.variant
     }),
     m('input[type=hidden][name=fen]', {
       value: fen
@@ -44,6 +44,16 @@ function controls(ctrl, fen) {
         selected: currentPosition && currentPosition.fen === pos.fen
       },
       children: [pos.eco ? pos.eco + " " + pos.name : pos.name]
+    };
+  };
+  var variant2option = function(key, name) {
+    return {
+      tag: 'option',
+      attrs: {
+        value: key,
+        selected: ctrl.data.variant == key
+      },
+      children: [name]
     };
   };
   var looksLegit = ctrl.positionLooksLegit();
@@ -76,7 +86,21 @@ function controls(ctrl, fen) {
             selected: ctrl.data.color() === key[0]
           }, ctrl.trans(key));
         }))
-      )
+      ),
+      m('div.variant', [
+        m('strong', ctrl.trans('variant')),
+        m('div', [
+          m('select', {
+            onchange: function(e) {
+              ctrl.changeVariant(e.target.value);
+            }
+          }, [
+            variant2option('standard', 'Standard'),
+            variant2option('frisian', 'Frisian'),
+            variant2option('antidraughts', 'Antidraughts')
+          ])
+        ])
+      ])
     ]),
     ctrl.embed ? m('div', [
       m('a.button.frameless', {
@@ -93,15 +117,15 @@ function controls(ctrl, fen) {
           }
         }, ctrl.trans('flipBoard')),
         looksLegit ? m('a.button.text[data-icon="A"]', {
-          href: editor.makeUrl('/analysis/', fen),
+          href: editor.makeUrl('/analysis/' + (ctrl.data.variant !== 'standard' ? ctrl.data.variant + '/' : ''), fen),
           rel: 'nofollow'
         }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="A"]', {
           rel: 'nofollow'
         }, ctrl.trans('analysis')),
         m('a.button', {
-          class: looksLegit ? '' : 'disabled',
+          class: (looksLegit && ctrl.data.variant === 'standard') ? '' : 'disabled',
           onclick: function() {
-            if (ctrl.positionLooksLegit()) $.modal($('.continue_with'));
+            if (ctrl.positionLooksLegit() && ctrl.data.variant === 'standard') $.modal($('.continue_with'));
           }
         },
         m('span.text[data-icon=U]', ctrl.trans('continueFromHere'))),
@@ -138,7 +162,7 @@ function inputs(ctrl, fen) {
     m('p', [
       m('strong.name', 'URL'),
       m('input.copyable.autoselect[readonly][spellCheck=false]', {
-        value: editor.makeUrl(ctrl.data.baseUrl, fen)
+        value: editor.makeUrl(ctrl.data.baseUrl + (ctrl.data.variant !== 'standard' ? ctrl.data.variant + '/' : ''), fen)
       })
     ])
   ]);

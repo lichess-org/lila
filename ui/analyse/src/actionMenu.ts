@@ -144,7 +144,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
       ]),
       ctrl.ongoing ? null : h('a.fbt', {
         attrs: {
-          href: d.userAnalysis ? '/editor?fen=' + ctrl.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.node.fen,
+          href: (d.userAnalysis ? '/editor?fen=' + ctrl.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.node.fen) + (d.game.variant.key !== 'standard' ? "&variant=" + d.game.variant.key : ''),
           rel: 'nofollow',
           target: ctrl.embed ? '_blank' : ''
         }

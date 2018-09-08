@@ -102,8 +102,7 @@ body.dark #board_editor .spare.white {
 #board_editor .editor-side > div.metadata div.color {
   margin-bottom: 1em;
 }
-#board_editor .editor-side .castling label,
-#board_editor .editor-side .castling input {
+#board_editor .editor-side .variant select {
   display:inline-block;
   margin: 3px;
   vertical-align: middle;
