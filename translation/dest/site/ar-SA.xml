@@ -384,6 +384,7 @@
   <string name="yourPerfRatingIsTooLow">تقييمك في %1$s وقدره %2$s منخفض جدًا</string>
   <string name="ratedMoreThanInPerf">تقييم %1$s على الأقل %2$s</string>
   <string name="ratedLessThanInPerf">تقييم %1$s فأقل %2$s</string>
+  <string name="mustBeInTeam">يجب أن تكون في فريق %s</string>
   <string name="youAreNotInTeam">عذراََ, أنت لست عضو في فريق %s</string>
   <string name="backToGame">العودة للمباراة</string>
   <string name="siteDescription">موقع شطرنج مجاني. العب الشطرنج الآن بتصميم نظيف، دون تسجيل او دعايات أو إضافات برمجية. العب الشطرنج مع الحاسب، الأصدقاء أو خصوما من حول الكرة الأرضية</string>
@@ -616,6 +617,7 @@
   <string name="troll">إزعاج</string>
   <string name="other">أخرى</string>
   <string name="reportDescriptionHelp">الصق رابط المباراة (المباريات) واشرح بالتفصيل المشكلة في تصرف هذا المستحدم. لا تقل فقط \"انهم يغشون\"، ولكن اشرح لنا سبب استنتاجك. سيكون الرد أسرع إن كتبت بالإنكليزية.</string>
+  <string name="error.provideOneCheatedGameLink">برجاء تقديم رابط واحد علي الأقل لمباراة حدث فيها غش.</string>
   <string name="by">كتبها %s</string>
   <string name="thisTopicIsNowClosed">هذا الموضوع مغلق الآن.</string>
   <string name="theming">السمات</string>
