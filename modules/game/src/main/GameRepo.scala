@@ -11,8 +11,8 @@ import reactivemongo.api.{ CursorProducer, ReadPreference }
 import reactivemongo.bson.BSONDocument
 
 import lidraughts.db.BSON.BSONJodaDateTimeHandler
-import lidraughts.db.{ ByteArray, isDuplicateKey }
 import lidraughts.db.dsl._
+import lidraughts.db.{ ByteArray, isDuplicateKey }
 import lidraughts.user.User
 
 object GameRepo {
@@ -192,6 +192,10 @@ object GameRepo {
       .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
       .uno
       .map { _ flatMap { Pov(_, user) } }
+
+  def allPlaying(userId: User.ID): Fu[List[Pov]] =
+    coll.find(Query nowPlaying userId).list[Game]()
+      .map { _ flatMap { Pov.ofUserId(_, userId) } }
 
   def lastPlayed(user: User): Fu[Option[Pov]] =
     coll.find(Query user user.id)
