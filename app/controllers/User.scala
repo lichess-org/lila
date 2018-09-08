@@ -256,7 +256,7 @@ object User extends LidraughtsController {
     else renderModZone(username, me).logTime(s"$username renderModZone")
 
   protected[controllers] def renderModZone(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
-    OptionFuOk(UserRepo named username logTime s"$username UserRepo.named") { user =>
+    OptionFuOk(UserRepo named username) { user =>
       UserRepo.emails(user.id).logTimeIfGt(s"$username UserRepo.emails", 100 millis) zip
         UserRepo.isErased(user).logTimeIfGt(s"$username UserRepo.isErased", 100 millis) zip
         (Env.security userSpy user).logTimeIfGt(s"$username security.userSpy", 100 millis) zip
