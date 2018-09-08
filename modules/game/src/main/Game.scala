@@ -6,6 +6,7 @@ import draughts.opening.{ FullOpening, FullOpeningDB }
 import draughts.variant.{ Variant, Standard }
 import draughts.{ KingMoves, Speed, PieceMap, MoveMetrics, DraughtsHistory, Board, Move, Pos, DraughtsGame, Clock, Status, Color, Mode, PositionHash, Centis, Situation }
 import org.joda.time.DateTime
+import scala.annotation.tailrec
 
 import lidraughts.common.Sequence
 import lidraughts.db.ByteArray
@@ -77,6 +78,7 @@ case class Game(
   def turnOf(u: User): Boolean = player(u) ?? turnOf
 
   def playedTurns = turns - draughts.startedAtTurn
+  def playedMoves = pdnMoves.size
 
   def flagged = (status == Status.Outoftime).option(turnColor)
 
@@ -126,7 +128,7 @@ case class Game(
       // On the other hand, if history.size is more than playedTurns,
       // then the game ended during a players turn by async event, and
       // the last recorded time is in the history for turnColor.
-      val noLastInc = finished && (history.size <= playedTurns) == (color != turnColor)
+      val noLastInc = finished && (history.size <= playedMoves) == (color != turnColor)
 
       pairs map {
         case (first, second) => {
@@ -136,18 +138,79 @@ case class Game(
       } toList
     }
   } orElse binaryMoveTimes.map { binary =>
-    // TODO: make movetime.read return List after writes are disabled.
-    val base = BinaryFormat.moveTime.read(binary, playedTurns)
-    val mts = if (color == startColor) base else base.drop(1)
-    everyOther(mts.toList)
+    val mts = BinaryFormat.moveTime.read(binary, playedMoves)
+    collectMoveTimes(
+      moveTimes = mts,
+      moveFirst = true,
+      collectFirst = color == startColor
+    )
   }
 
-  def moveTimes: Option[Vector[Centis]] = for {
-    a <- moveTimes(startColor)
-    b <- moveTimes(!startColor)
-  } yield Sequence.interleave(a, b)
+  def moveTimes: Option[Vector[Centis]] =
+    binaryMoveTimes.map { binary =>
+      BinaryFormat.moveTime.read(binary, playedMoves)
+    } orElse {
+      for {
+        a <- moveTimes(startColor)
+        b <- moveTimes(!startColor)
+        w <- weaveMoveTimes(
+          moveTimes1st = a,
+          moveTimes2nd = b,
+          moveFirst = true
+        )
+      } yield w
+    }
 
-  def bothClockStates: Option[Vector[Centis]] = clockHistory.map(_ bothClockStates startColor)
+  private def weaveMoveTimes(moveTimes1st: List[Centis], moveTimes2nd: List[Centis], moveFirst: Boolean): Option[Vector[Centis]] = {
+    @tailrec
+    def weave(mvt1: List[Centis], mvt2: List[Centis], mv1: Boolean, mvs: Vector[String], field: String, res: Vector[Centis]): Option[Vector[Centis]] =
+      mvs.headOption match {
+        case Some(curMove) =>
+          val curX = curMove.indexOf('x')
+          val switch = curX != -1 && field == curMove.take(curX)
+          val moveColor = switch.fold(!mv1, mv1)
+          weave(
+            mvt1 = (moveColor && mvt1.nonEmpty).fold(mvt1.tail, mvt1),
+            mvt2 = (!moveColor && mvt2.nonEmpty).fold(mvt2.tail, mvt2),
+            mv1 = !moveColor,
+            mvs = mvs.tail,
+            field = (curX != -1).fold(curMove.takeRight(curMove.length - curX - 1), ""),
+            res = moveColor.fold(mvt1.headOption, mvt2.headOption).fold(res)(newTime => res :+ newTime)
+          )
+        case _ => res.isEmpty.fold(None, res.some)
+      }
+    weave(moveTimes1st, moveTimes2nd, moveFirst, pdnMoves, "", Vector[Centis]())
+  }
+
+  private def collectMoveTimes(moveTimes: Vector[Centis], moveFirst: Boolean, collectFirst: Boolean): List[Centis] = {
+    @tailrec
+    def collect(mvt: Vector[Centis], mv1: Boolean, coll1: Boolean, mvs: Vector[String], field: String, res: Vector[Centis]): Vector[Centis] =
+      mvs.headOption match {
+        case Some(curMove) =>
+          val curX = curMove.indexOf('x')
+          val switch = curX != -1 && field == curMove.take(curX)
+          val moveColor = switch.fold(!mv1, mv1)
+          collect(
+            mvt = (moveColor == coll1 && mvt.nonEmpty).fold(mvt.tail, mvt),
+            mv1 = !moveColor,
+            coll1 = coll1,
+            mvs = mvs.tail,
+            field = (curX != -1).fold(curMove.takeRight(curMove.length - curX - 1), ""),
+            res = if (moveColor == coll1 && mvt.nonEmpty) res :+ mvt.head else res
+          )
+        case _ => res
+      }
+    collect(moveTimes, moveFirst, collectFirst, pdnMoves, "", Vector[Centis]()).toList
+  }
+
+  def bothClockStates: Option[Vector[Centis]] = clockHistory.fold(none[Vector[Centis]]) {
+    ch =>
+      weaveMoveTimes(
+        moveTimes1st = ch.white.toList,
+        moveTimes2nd = ch.black.toList,
+        moveFirst = startColor.white
+      )
+  }
 
   def pdnMovesConcat: PdnMoves = pdnMoves.foldLeft(Vector[String]()) {
     (cMoves, curMove) =>
@@ -179,7 +242,7 @@ case class Game(
     def copyPlayer(player: Player) =
       if (blur && move.color == player.color)
         player.copy(
-          blurs = player.blurs.add(playerMoves(player.color))
+          blurs = player.blurs.add(playerMoves(player.color)) //blurs are stored at turn/ply level, which hides multiple blurs in one sequence, but we have space for only 64 blurs anyway
         )
       else player
 
@@ -710,10 +773,4 @@ case class ClockHistory(
 
   def size = white.size + black.size
 
-  // first state is of the color that moved first.
-  def bothClockStates(firstMoveBy: Color): Vector[Centis] =
-    Sequence.interleave(
-      firstMoveBy.fold(white, black),
-      firstMoveBy.fold(black, white)
-    )
 }

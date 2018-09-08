@@ -122,35 +122,6 @@ export function copyNode(node: Tree.Node, copyChildren: boolean = false): Tree.N
   } as Tree.Node;
 }
 
-export function adjustMergedPlies(merged: Tree.Node[]) {
-
-  if (merged.length > 1) {
-
-    var situation = "";
-    for (let i = 0; i < merged.length; i++) {
-      if (i != 0) situation += ", "
-      situation += merged[i].ply + "/" + merged[i].displayPly;
-    }
-    alert(situation);
-
-    const targetPly = merged[merged.length - 1].ply;
-    for (let i = 0; i < merged.length - 1; i++) {
-      if (merged[i].ply === targetPly) {
-        merged[i].displayPly = merged[i].ply;
-        merged[i].ply = merged[i].ply - 1;
-      }
-    }
-
-    situation = "";
-    for (let i = 0; i < merged.length; i++) {
-      if (i != 0) situation += ", "
-      situation += merged[i].ply + "/" + merged[i].displayPly;
-    }
-    alert(situation);
-
-  }
-}
-
 export function expandMergedNodes(nodeList: Tree.Node[], skipSteps: number = 0): Tree.Node[] {
   var node: Tree.Node, nodes = [], skippedSteps = 0;
   for (var i in nodeList) {
@@ -171,7 +142,6 @@ export function expandMergedNodes(nodeList: Tree.Node[], skipSteps: number = 0):
 }
 
 export function mergeExpandedNodes(parent: Tree.Node): Tree.Node {
-
   var mergedParent = copyNode(parent);
   if (parent.children.length !== 0) {
 
@@ -196,6 +166,8 @@ export function mergeExpandedNodes(parent: Tree.Node): Tree.Node {
 
 export function mergeNodes(curNode: Tree.Node, newNode: Tree.Node, copyChildren = false) {
 
+  const curGhosts = countGhosts(curNode.fen);
+
   if (curNode.mergedNodes)
     curNode.mergedNodes.push(copyNode(newNode, copyChildren));
   else
@@ -214,12 +186,17 @@ export function mergeNodes(curNode: Tree.Node, newNode: Tree.Node, copyChildren 
   }
 
   if (curNode.uci && newNode.uci) {
-    curNode.uci = curNode.uci + newNode.uci.substr(2, 2);
+    if (curGhosts === 1)
+      curNode.uci = curNode.uci.substr(0, 4) + newNode.uci.substr(2, 2);
+    else
+      curNode.uci = curNode.uci + newNode.uci.substr(2, 2);
   }
 
-  if (countGhosts(newNode.fen) == 0 && curNode.displayPly)
+  if (curNode.displayPly && countGhosts(newNode.fen) == 0)
     curNode.ply = curNode.displayPly;
 
+  curNode.clock = newNode.clock;
+  curNode.parentClock = newNode.parentClock;
   curNode.puzzle = newNode.puzzle;
   curNode.eval = newNode.eval;
   if (newNode.glyphs) curNode.glyphs = newNode.glyphs;
@@ -233,70 +210,33 @@ export function mergeNodes(curNode: Tree.Node, newNode: Tree.Node, copyChildren 
 }
 
 export function reconstruct(parts: any): Tree.Node {
-
-  const root = parts[0], nb = parts.length;
-
-  let prevNode: Tree.Node | undefined = undefined;
+  const root = copyNode(parts[0], true), nb = parts.length;
   let node = root, i: number;
   root.id = '';
   for (i = 1; i < nb; i++) {
-
-    const n = parts[i];
-
+    const n = copyNode(parts[i], true);
     const ghosts = countGhosts(node.fen);
     if (ghosts !== 0) {
-
-      if (node.mergedNodes)
-        node.mergedNodes.push(n);
-      else
-        node.mergedNodes = [copyNode(node), n];
-
-      node.id = node.id.slice(0, 1) + n.id.slice(1, 2);
-      node.fen = n.fen;
+      mergeNodes(node, n);
       node.ply = n.ply;
-
-      const curX = node.san.indexOf('x'), newX = n.san.indexOf('x');
-      if (curX != -1 && newX != -1)
-        node.san = node.san.slice(0, curX) + n.san.slice(newX);
-
-      if (ghosts === 1)
-        node.uci = node.uci.substr(0, 4) + n.uci.substr(2, 2);
-      else
-        node.uci = node.uci + n.uci.substr(2, 2);
-
-      if (prevNode && curX !== -1)
-        prevNode.captLen = node.uci.length / 2 - 1;
-
     } else {
-
-      if (prevNode && node.san.indexOf('x') !== -1)
-        prevNode.captLen = node.uci.length / 2 - 1;
-
       if (countGhosts(n.fen) !== 0)
         n.displayPly = n.ply + 1;
-
       if (node.children) {
         node.children.forEach(function (child: Tree.Node) {
           if (countGhosts(child.fen) !== 0)
             child.displayPly = child.ply + 1;
         });
         node.children.unshift(n);
-      }
-      else node.children = [n];
-
-      prevNode = node;
+      } else node.children = [n];
       node = n;
-
     }
-
   }
-
   node.children = node.children || [];
   return root;
-
 }
 
-// adds n2 into n1, returns if any halfway multicapture variation was merged, thus changing the currently played move
+// adds n2 into n1, returns any halfway multicapture variation that was merged, thus changing the currently played move (accomodates puzzle solution clicked halfway through move)
 export function merge(n1: Tree.Node, n2: Tree.Node, n2Expanded?: Tree.Node): Tree.Node | undefined {
   n1.eval = n2.eval;
   if (n2.glyphs) n1.glyphs = n2.glyphs;

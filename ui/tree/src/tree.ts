@@ -284,7 +284,7 @@ export function build(root: Tree.Node): TreeWrapper {
   }
 
   function getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined {
-    if (!('parentClock' in node)) {
+    if (!('parentClock' in node) || !node.parentClock) {
       const par = path && parentNode(path);
       if (!par) node.parentClock = node.clock;
       else if (!('clock' in par)) node.parentClock = undefined;

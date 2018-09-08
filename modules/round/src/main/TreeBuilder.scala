@@ -80,7 +80,7 @@ object TreeBuilder {
             fen = fen,
             captureLength = if (g.situation.ghosts > 0) g.situation.captureLengthFrom(m.uci.origDest._2) else g.situation.allMovesCaptureLength,
             opening = openingOf(fen),
-            clock = withClocks ?? (_ lift (g.displayTurns - init.turns - 1)),
+            clock = withClocks ?? (_ lift (index - 1)),
             eval = info map makeEval,
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
             comments = Node.Comments {

@@ -15,7 +15,7 @@ lidraughts.movetimeChart = function(data, trans) {
             };
 
             var tree = data.treeParts;
-            var moveCentis = data.game.moveCentis ||
+            var moveCentis = data.game.moveCentis.slice() ||
               data.game.moveTimes.map(function(i) { return i * 10; });
             var ply = 0, lastPly = ply;
             var max = 0;
@@ -25,17 +25,22 @@ lidraughts.movetimeChart = function(data, trans) {
             var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
             if (data.player.color === 'white') blurs.reverse();
 
-            moveCentis.forEach(function(time, i) {
-              var node = tree[i + 1];
+            var skipped = 0, mergedSan = "";
+            for (var i = 0; i < moveCentis.length; i++) {
+              var node = tree[i + 1 + skipped];
               ply = node ? node.ply : ply + 1;
               if (ply !== lastPly) {
                 lastPly = ply;
-                var san = node ? node.san : '-';
+                var san = node ? (node.san) : '-';
+                if (mergedSan.length != 0 && node) {
+                  san = mergedSan + san.slice(san.indexOf('x') + 1);
+                  mergedSan = "";
+                }
 
                 var turn = (ply + 1) >> 1;
                 var color = ply & 1;
 
-                var y = Math.pow(Math.log(.005 * Math.min(time, 12e4) + 3), 2) - logC;
+                var y = Math.pow(Math.log(.005 * Math.min(moveCentis[i], 12e4) + 3), 2) - logC;
                 max = Math.max(y, max);
 
                 var point = {
@@ -56,8 +61,15 @@ lidraughts.movetimeChart = function(data, trans) {
                 }
 
                 series[color ? 'white' : 'black'].push(point);
+              } else {
+                if (mergedSan.length == 0 && node)
+                  mergedSan = node.san.slice(0, node.san.indexOf('x') + 1);
+                moveCentis[i + 1] += moveCentis[i];
+                moveCentis.splice(i, 1);
+                i--;
+                skipped++;
               }
-            });
+            }
 
             var disabled = {
               enabled: false
