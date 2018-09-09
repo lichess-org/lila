@@ -11,7 +11,7 @@ case class AssetVersion(value: String) extends AnyVal with StringValue
 object AssetVersion {
   var current = random
   def change = { current = random }
-  private def random = AssetVersion(ornicar.scalalib.Random nextString 6)
+  private def random = AssetVersion(ornicar.scalalib.Random secureString 6)
 }
 
 case class MaxPerPage(value: Int) extends AnyVal with IntValue
