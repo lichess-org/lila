@@ -21,7 +21,6 @@ private[round] final class Titivate(
     chat: ActorSelection
 ) extends Actor {
 
-  object Schedule
   object Run
 
   override def preStart(): Unit = {
