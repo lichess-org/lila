@@ -50,7 +50,7 @@ csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx:
     @if(ctx.userContext.impersonatedBy.isDefined) { @cssTag("impersonate.css") }
     @if(isStage) { @cssTag("stage.css") }
     @moreCss
-    <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=${ctx.pageData.assetVersion}")" type="text/css" rel="stylesheet"/>
+    <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
     <meta content="@openGraph.fold(trans.siteDescription.txt())(o => o.description)" name="description">
     <link id="favicon" rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
     <link rel="mask-icon" href="@staticUrl("favicon.svg")" color="black">
@@ -84,7 +84,7 @@ csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx:
     data-sound-set="@ctx.currentSoundSet"
     data-socket-domain="@socketDomain"
     data-asset-url="@assetBaseUrl"
-    data-asset-version="@ctx.pageData.assetVersion"
+    data-asset-version="@assetVersion"
     @ctx.nonce.map { nonce => data-nonce="@nonce" }
     @ctx.zoom.map { zoom => data-zoom="@zoom" }>
     <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST"><input type="hidden" name="enable" value="@if(ctx.blindMode){0}else{1}" /><input type="hidden" name="redirect" value="@ctx.req.path" /><button type="submit">Accessibility: @if(ctx.blindMode){Disable}else{Enable} blind mode</button></form>

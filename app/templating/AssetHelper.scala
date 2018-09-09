@@ -17,44 +17,37 @@ trait AssetHelper { self: I18nHelper =>
 
   val assetBaseUrl = s"//$assetDomain"
 
-  def assetUrl(path: String, version: AssetVersion): String =
-    s"$assetBaseUrl/assets/$version/$path"
-  def assetUrl(path: String)(implicit ctx: Context): String =
-    assetUrl(path, ctx.pageData.assetVersion)
+  def assetVersion = AssetVersion.current
+
+  def assetUrl(path: String): String =
+    s"$assetBaseUrl/assets/$assetVersion/$path"
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
   def staticUrl(path: String) = s"$assetBaseUrl/assets/$path"
 
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
-  def cssTag(name: String)(implicit ctx: Context): Html =
-    cssAt("stylesheets/" + name)
+  def cssTag(name: String): Html = cssAt("stylesheets/" + name)
 
-  def cssVendorTag(name: String)(implicit ctx: Context) =
-    cssAt("vendor/" + name)
+  def cssVendorTag(name: String) = cssAt("vendor/" + name)
 
-  def cssAt(path: String, version: AssetVersion): Html = Html {
-    val href = assetUrl(path, version)
-    s"""<link href="$href" type="text/css" rel="stylesheet"/>"""
+  def cssAt(path: String): Html = Html {
+    s"""<link href="${assetUrl(path)}" type="text/css" rel="stylesheet"/>"""
   }
-  def cssAt(path: String)(implicit ctx: Context): Html =
-    cssAt(path, ctx.pageData.assetVersion)
 
-  def jsTag(name: String, async: Boolean = false)(implicit ctx: Context) =
+  def jsTag(name: String, async: Boolean = false) =
     jsAt("javascripts/" + name, async = async)
 
-  def jsAt(path: String, async: Boolean, version: AssetVersion): Html = Html {
-    val src = assetUrl(path, version)
+  def jsAt(path: String, async: Boolean = false): Html = Html {
+    val src = assetUrl(path)
     s"""<script${if (async) " async defer" else ""} src="$src"></script>"""
   }
-  def jsAt(path: String, async: Boolean = false)(implicit ctx: Context): Html =
-    jsAt(path, async, ctx.pageData.assetVersion)
 
   val jQueryTag = Html {
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
-  def roundTag(implicit ctx: Context) =
+  def roundTag =
     jsAt(s"compiled/lichess.round${isProd ?? (".min")}.js", async = true)
 
   val highchartsLatestTag = Html {

@@ -1,4 +1,4 @@
-@(pov: Pov, bg: String, theme: String, assetVersion: lila.common.AssetVersion)(implicit req: RequestHeader)
+@(pov: Pov, bg: String, theme: String)(implicit req: RequestHeader)
 
 <!doctype html>
 <html>
@@ -7,11 +7,11 @@
     <meta name="Content-Security-Policy" content="@basicCsp">
     <title>lichess.org TV</title>
     @if(bg == "dark") {
-    @cssAt("stylesheets/dark.css", assetVersion)
+    @cssAt("stylesheets/dark.css")
     }
-    @cssAt(s"stylesheets/piece/merida.css", assetVersion)
-    @cssAt("stylesheets/common.css", assetVersion)
-    @cssAt("stylesheets/board.css", assetVersion)
+    @cssAt(s"stylesheets/piece/merida.css")
+    @cssAt("stylesheets/common.css")
+    @cssAt("stylesheets/board.css")
   </head>
   <body
     class="base highlight @bg"
@@ -22,7 +22,7 @@
       @game.vstext(pov)(none)
     </div>
     @jQueryTag
-    @jsAt("javascripts/vendor/chessground.min.js", false, assetVersion)
-    @jsAt("compiled/tv.js", false, assetVersion)
+    @jsAt("javascripts/vendor/chessground.min.js", false)
+    @jsAt("compiled/tv.js", false)
   </body>
 </html>

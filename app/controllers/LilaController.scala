@@ -376,7 +376,7 @@ private[controllers] trait LilaController
   private def pageDataBuilder(ctx: UserContext, hasFingerprint: Boolean): Fu[PageData] = {
     val isPage = HTTPRequest isSynchronousHttp ctx.req
     val nonce = isPage option Nonce.random
-    ctx.me.fold(fuccess(PageData.anon(ctx.req, getAssetVersion, nonce, blindMode(ctx)))) { me =>
+    ctx.me.fold(fuccess(PageData.anon(ctx.req, nonce, blindMode(ctx)))) { me =>
       import lila.relation.actorApi.OnlineFriends
       Env.pref.api.getPref(me, ctx.req) zip {
         if (isPage) {
@@ -394,14 +394,11 @@ private[controllers] trait LilaController
           PageData(onlineFriends, teamNbRequests, nbChallenges, nbNotifications, pref,
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerprint,
-            assetVersion = getAssetVersion,
             inquiry = inquiry,
             nonce = nonce)
       }
     }
   }
-
-  protected def getAssetVersion = lila.common.AssetVersion(Env.api.assetVersionSetting.get())
 
   private def blindMode(implicit ctx: UserContext) =
     ctx.req.cookies.get(Env.api.Accessibility.blindCookieName) ?? { c =>

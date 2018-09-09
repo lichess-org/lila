@@ -67,7 +67,6 @@ object Global extends GlobalSettings {
         fuccess(InternalServerError(views.html.base.errorPage(ex) {
           lila.api.Context.error(
             req,
-            lila.common.AssetVersion(lila.app.Env.api.assetVersionSetting.get()),
             lila.i18n.defaultLang,
             HTTPRequest.isSynchronousHttp(req) option lila.common.Nonce.random
           )

@@ -14,7 +14,6 @@ object Dev extends LilaController {
     Env.security.ugcArmedSetting,
     Env.security.emailBlacklistSetting,
     Env.irwin.irwinModeSetting,
-    Env.api.assetVersionSetting,
     Env.explorer.indexFlowSetting,
     Env.report.scoreThresholdSetting,
     Env.api.cspEnabledSetting
