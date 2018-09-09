@@ -67,7 +67,6 @@ object Global extends GlobalSettings {
         fuccess(InternalServerError(views.html.base.errorPage(ex) {
           lidraughts.api.Context.error(
             req,
-            lidraughts.common.AssetVersion(lidraughts.app.Env.api.assetVersionSetting.get()),
             lidraughts.i18n.defaultLang,
             HTTPRequest.isSynchronousHttp(req) option lidraughts.common.Nonce.random
           )

@@ -60,13 +60,6 @@ final class Env(
   private val InfluxEventEndpoint = config getString "api.influx_event.endpoint"
   private val InfluxEventEnv = config getString "api.influx_event.env"
 
-  val assetVersionSetting = settingStore[Int](
-    "assetVersion",
-    default = config getInt "net.asset.version",
-    text = "Assets version. Increment to force all clients to load a new version of static assets. Decrement to serve a previous revision of static assets.".some,
-    init = (config, db) => config.value max db.value
-  )
-
   val cspEnabledSetting = settingStore[Boolean](
     "cspEnabled",
     default = true,

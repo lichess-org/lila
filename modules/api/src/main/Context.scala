@@ -3,7 +3,7 @@ package lidraughts.api
 import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
 
-import lidraughts.common.{ HTTPRequest, AssetVersion, Nonce }
+import lidraughts.common.{ HTTPRequest, Nonce }
 import lidraughts.pref.Pref
 import lidraughts.relation.actorApi.OnlineFriends
 import lidraughts.user.{ UserContext, HeaderUserContext, BodyUserContext }
@@ -16,7 +16,6 @@ case class PageData(
     pref: Pref,
     blindMode: Boolean,
     hasFingerprint: Boolean,
-    assetVersion: AssetVersion,
     inquiry: Option[lidraughts.mod.Inquiry],
     nonce: Option[Nonce],
     error: Boolean = false
@@ -24,7 +23,7 @@ case class PageData(
 
 object PageData {
 
-  def anon(req: RequestHeader, v: AssetVersion, nonce: Option[Nonce], blindMode: Boolean = false) = PageData(
+  def anon(req: RequestHeader, nonce: Option[Nonce], blindMode: Boolean = false) = PageData(
     OnlineFriends.empty,
     teamNbRequests = 0,
     nbChallenges = 0,
@@ -32,12 +31,11 @@ object PageData {
     lidraughts.pref.RequestPref fromRequest req,
     blindMode = blindMode,
     hasFingerprint = false,
-    assetVersion = v,
     inquiry = none,
     nonce = nonce
   )
 
-  def error(req: RequestHeader, v: AssetVersion, nonce: Option[Nonce]) = anon(req, v, nonce).copy(error = true)
+  def error(req: RequestHeader, nonce: Option[Nonce]) = anon(req, nonce).copy(error = true)
 }
 
 sealed trait Context extends lidraughts.user.UserContextWrapper {
@@ -97,8 +95,8 @@ final class HeaderContext(
 
 object Context {
 
-  def error(req: RequestHeader, v: AssetVersion, lang: Lang, nonce: Option[Nonce]): HeaderContext =
-    new HeaderContext(UserContext(req, none, none, lang), PageData.error(req, v, nonce))
+  def error(req: RequestHeader, lang: Lang, nonce: Option[Nonce]): HeaderContext =
+    new HeaderContext(UserContext(req, none, none, lang), PageData.error(req, nonce))
 
   def apply(userContext: HeaderUserContext, pageData: PageData): HeaderContext =
     new HeaderContext(userContext, pageData)

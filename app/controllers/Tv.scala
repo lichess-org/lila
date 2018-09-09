@@ -104,8 +104,7 @@ object Tv extends LidraughtsController {
       case Some(game) => Ok(views.html.tv.embed(
         Pov first game,
         get("bg", req) | "light",
-        lidraughts.pref.Theme(~get("theme", req)).cssClass,
-        assetVersion = getAssetVersion
+        lidraughts.pref.Theme(~get("theme", req)).cssClass
       ))
     }
   }

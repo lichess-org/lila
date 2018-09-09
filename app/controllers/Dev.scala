@@ -13,7 +13,6 @@ object Dev extends LidraughtsController {
   private lazy val settingsList = List[lidraughts.memo.SettingStore[_]](
     Env.security.ugcArmedSetting,
     Env.security.emailBlacklistSetting,
-    Env.api.assetVersionSetting,
     Env.explorer.indexFlowSetting,
     Env.report.scoreThresholdSetting,
     Env.game.pdnEncodingSetting,

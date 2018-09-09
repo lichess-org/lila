@@ -18,6 +18,10 @@ private[api] final class Cli(bus: lidraughts.common.Bus) extends lidraughts.comm
     case "uptime" :: Nil => fuccess(lidraughts.common.PlayApp.uptime.toStandardSeconds.getSeconds.toString)
     case "deploy" :: "pre" :: Nil => remindDeploy(lidraughts.hub.actorApi.DeployPre)
     case "deploy" :: "post" :: Nil => remindDeploy(lidraughts.hub.actorApi.DeployPost)
+    case "change" :: ("asset" | "assets") :: "version" :: Nil =>
+      import lidraughts.common.AssetVersion
+      AssetVersion.change
+      fuccess(s"Changed to ${AssetVersion.current}")
     case "gdpr" :: "erase" :: username :: "forever" :: Nil =>
       lidraughts.user.UserRepo named username flatMap {
         case None => fuccess("No such user.")
