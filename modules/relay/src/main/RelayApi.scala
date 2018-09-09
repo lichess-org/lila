@@ -26,7 +26,7 @@ final class RelayApi(
 
   def byIdAndContributor(id: Relay.Id, me: User) = byIdWithStudy(id) map {
     _ collect {
-      case Relay.WithStudy(relay, study) if study.canContribute(me.id) || Granter(_.Beta)(me) => relay
+      case Relay.WithStudy(relay, study) if study.canContribute(me.id) => relay
     }
   }
 
