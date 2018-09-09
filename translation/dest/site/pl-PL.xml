@@ -97,7 +97,6 @@
   <string name="inaccuracy">Niedokładność</string>
   <string name="inaccuracies">Niedokładności</string>
   <string name="moveTimes">Czas przeznaczony na ruch</string>
-  <string name="flipBoard">Obróć</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
   <string name="claimADraw">Ogłoś remis</string>
   <string name="offerDraw">Zaproponuj remis</string>
@@ -657,6 +656,7 @@
   <string name="noSimulExplanation">Taka symultana nie istnieje</string>
   <string name="returnToSimulHomepage">Wróć do symultany</string>
   <string name="aboutSimul">Symultana pozwala symultaniście grać z wieloma przeciwnikami równocześnie.</string>
+  <string name="aboutSimulImage">Sijbrands grając na 169 szachownicach wygrał 115 partii, 43 zremisował i 11 przegrał.</string>
   <string name="aboutSimulRealLife">Pomysł został zaczerpnięty z rzeczywistych rozgrywek. Symultanista przemieszcza się pomiędzy nicami aby wykonać poszczególne posunięcia.</string>
   <string name="aboutSimulRules">Gdy symultana się rozpocznie, każdy gracz rozgrywa partię przeciwko symultaniście. Symultanista gra zawsze białymi. Symultana kończy się po zakończeniu wszystkich partii.</string>
   <string name="aboutSimulSettings">Symultany są zawsze grami towarzyskimi. Rewanż, cofanie ruchów i dodawanie czasu nie są dostępne.</string>
