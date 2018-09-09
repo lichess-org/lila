@@ -4,11 +4,11 @@
   <string name="activity">Activiteit</string>
   <string name="supportedNbMonths">Ondersteunde lidraughts.org voor %1$s maanden als %2$s</string>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Beoefend %1$s positie van %2$s</item>
-    <item quantity="other">Beoefend %1$s posities van %2$s</item>
+    <item quantity="one">Geoefend %1$s positie van %2$s</item>
+    <item quantity="other">Geoefend %1$s posities van %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">%s tactische puzzels opgelost</item>
+    <item quantity="one">%s tactische puzzel opgelost</item>
     <item quantity="other">%s tactische puzzels opgelost</item>
   </plurals>
   <plurals name="playedNbGames">
@@ -21,7 +21,7 @@
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Speelde %1$s zet in %2$s correspondentie partij(en)</item>
-    <item quantity="other">Speelde %1$s zettten in %2$s correspondentie partij(en)</item>
+    <item quantity="other">Speelde %1$s zetten in %2$s correspondentie partij(en)</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Voltooide %s correspondentie partij</item>
@@ -32,20 +32,20 @@
     <item quantity="other">Begon %s spelers te volgen</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">%s nieuwe volgers verworven</item>
+    <item quantity="one">%s nieuwe volger verworven</item>
     <item quantity="other">%s nieuwe volgers verworven</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Gaf %s simultaan</item>
-    <item quantity="other">Gaf %s simultanen</item>
+    <item quantity="other">Gaf %s simultaans</item>
   </plurals>
   <plurals name="joinedNbSimuls">
     <item quantity="one">Nam deel in %s simultaan</item>
-    <item quantity="other">Nam deel in %s simultanen</item>
+    <item quantity="other">Nam deel in %s simultaans</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">%s nieuwe studie aangemaakt</item>
-    <item quantity="other">%s nieuwe studie aangemaakt</item>
+    <item quantity="other">%s nieuwe studies aangemaakt</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Nam deel in %s toernooi</item>

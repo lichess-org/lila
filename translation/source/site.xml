@@ -14,7 +14,6 @@
   <string name="toggleSound">Toggle sound</string>
   <string name="chat">Chat</string>
   <string name="resign">Resign</string>
-  <string name="stalemate">Stalemate</string>
   <string name="white">White</string>
   <string name="black">Black</string>
   <string name="randomColor">Random side</string>
@@ -533,7 +532,6 @@
   <string name="bothClicksAndDrag">Either</string>
   <string name="premovesPlayingDuringOpponentTurn">Premoves (playing during opponent turn)</string>
   <string name="takebacksWithOpponentApproval">Takebacks (with opponent approval)</string>
-  <string name="promoteToQueenAutomatically">Promote to Queen automatically</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Claim draw on threefold repetition automatically</string>
   <string name="privacy">Privacy</string>
   <string name="letOtherPlayersFollowYou">Let other players follow you</string>
@@ -612,11 +610,6 @@ in %3$s</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
   <string name="onlyFriends">Only friends</string>
   <string name="menu">Menu</string>
-  <string name="castling">Castling</string>
-  <string name="whiteCastlingKingside">White O-O</string>
-  <string name="whiteCastlingQueenside">White O-O-O</string>
-  <string name="blackCastlingKingside">Black O-O</string>
-  <string name="blackCastlingQueenside">Black O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s forum post</item>
     <item quantity="other">%s forum posts</item>

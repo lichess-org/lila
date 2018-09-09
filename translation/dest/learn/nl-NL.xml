@@ -3,7 +3,6 @@
 <resources>
   <string name="learnDraughts">Leer dammen</string>
   <string name="byPlaying">door te spelen!</string>
-  <string name="menu">Menu</string>
   <string name="progressX">Voortgang: %s</string>
   <string name="resetMyProgress">Reset mijn voortgang</string>
   <string name="youWillLoseAllYourProgress">Je zult al je voortgang verliezen!</string>
@@ -16,18 +15,18 @@
   <string name="takeTheEnemyPieces">Sla de schijven van de tegenstander</string>
   <string name="takeTheBlackPieces">Sla de zwarte stukken!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Sla de zwarte stukken!
-En verlies uw eigen niet.</string>
+    En verlies uw eigen niet.</string>
   <string name="captureComplete">Gefeliciteerd! U kunt nu vechten met damschijven!</string>
   <string name="protection">Dekken</string>
   <string name="keepYourPiecesSafe">Houd je stukken veilig</string>
   <string name="protectionIntro">Stel vast welke stukken door je tegenstander worden aangevallen, en verdedig ze!</string>
   <string name="protectionComplete">Van harte! Een stuk dat je niet verliest is een stuk dat je wint!</string>
   <string name="escape">Je wordt aangevallen!
-Ontsnap aan de dreiging!</string>
+    Ontsnap aan de dreiging!</string>
   <string name="noEscape">Er is geen ontsnapping mogelijk,
-maar je kunt verdedigen!</string>
+    maar je kunt verdedigen!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Laat hen geen enkel
-onbeschermde schijf slaan!</string>
+    onbeschermde schijf slaan!</string>
   <string name="combat">Strijd</string>
   <string name="captureAndDefendPieces">Verover en verdedig stukken</string>
   <string name="combatIntro">Een goede strijder kan zowel aanvallen als verdedigen!</string>
@@ -40,7 +39,7 @@ onbeschermde schijf slaan!</string>
     van iedere dampartij!
     Doe een willekeurige zet om door te gaan.</string>
   <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het dambord moet opstellen.</string>
-  <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">De partij eindigt in remise</string>
   <string name="advanced">Geavanceerd</string>
   <string name="whatNext">En nu?</string>
   <string name="youKnowHowToPlayDraughts">Je weet hoe je moet dammen, gefeliciteerd! Wil je een sterkere speler worden?</string>
@@ -61,7 +60,6 @@ onbeschermde schijf slaan!</string>
   <string name="awesome">Geweldig!</string>
   <string name="excellent">Uitstekend!</string>
   <string name="greatJob">Goed gedaan!</string>
-  <string name="perfect">Perfect!</string>
   <string name="outstanding">Uitstekend!</string>
   <string name="wayToGo">Super, goed gedaan!</string>
   <string name="yesYesYes">Ok, ok, ok!</string>

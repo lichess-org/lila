@@ -13,7 +13,6 @@ De volgende partijen zullen steeds het dubbele aantal punten waard zijn totdat j
 Dus, een overwinning zal 4 punten waard zijn, een gelijkspel 2, en een verlies is nog steeds 0 punten waard.
 
 Bijvoorbeeld, twee overwinningen gevolgd door een gelijkspel zullen 6 punten waard zijn: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Arena Berserk</string>
   <string name="berserkAnswer">Wanneer een speler op de Berserk-knop klikt aan het begin van het spel, verliest hij/zij de helft van de tijd op de klok, maar de overwinning is één extra toernooipunt waard.
 
 Berserk gaan in partijen met een klok met extra seconden per zet, zorgt ervoor dat je ook die extra seconden kwijt bent. Bijvoorbeeld 2+1 wordt 1+0. (1+2 is een uitzondering, dat geeft 1+0)
@@ -32,7 +31,7 @@ Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer 
 Partijen die nog aan de gang zijn, moeten uitgespeeld worden, maar ze tellen niet meer mee voor het toernooi.</string>
   <string name="otherRules">Andere belangrijke regels.</string>
   <string name="otherRulesAnswer">Je bent verplicht om je eerste zet te maken binnen 20 seconden van jouw beurt. Als je geen zet maakt binnen deze tijd, wint je tegenstander de partij.
-Een remise binnen de eerste 10 zetten van de partij zal geen enkele van de spelers punten geven.</string>
+Een remise binnen de eerste 10 zetten van de partij levert geen van beide spelers punten op.</string>
   <string name="thisIsPrivate">Dit is een privétoernooi</string>
   <string name="shareUrl">Deel deze URL om mensen deel te laten nemen: %s</string>
 </resources>
