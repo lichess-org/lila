@@ -50,7 +50,7 @@ csp: Option[lila.common.ContentSecurityPolicy] = None)(body: Html)(implicit ctx:
     @if(ctx.userContext.impersonatedBy.isDefined) { @cssTag("impersonate.css") }
     @if(isStage) { @cssTag("stage.css") }
     @moreCss
-    <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
+    <link id="piece-sprite" href="@assetUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css")" type="text/css" rel="stylesheet"/>
     <meta content="@openGraph.fold(trans.siteDescription.txt())(o => o.description)" name="description">
     <link id="favicon" rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
     <link rel="mask-icon" href="@staticUrl("favicon.svg")" color="black">
