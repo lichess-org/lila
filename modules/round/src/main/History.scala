@@ -10,7 +10,7 @@ import lila.socket.Socket.SocketVersion
 
 /**
  * NOT THREAD SAFE
- * Designed for use within a sequential actor
+ * Designed for use within a sequential actor (or a Duct)
  */
 private[round] final class History(
     load: Fu[VersionedEvents],

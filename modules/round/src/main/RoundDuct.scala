@@ -106,7 +106,6 @@ private[round] final class Round(
 
     // exceptionally we don't block nor publish events
     // if the game is abandoned, then nobody is around to see it
-    // we can also terminate this actor
     case Abandon => fuccess {
       proxy withGame { game =>
         game.abandoned ?? {
