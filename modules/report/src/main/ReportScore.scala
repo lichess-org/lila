@@ -22,6 +22,7 @@ private final class ReportScore(
   private object impl {
 
     val baseScore = 30
+    val baseScoreAboveThreshold = 50
 
     def accuracyScore(a: Option[Accuracy]): Double = a ?? { accuracy =>
       (accuracy.value - 50) * 0.7d
@@ -43,7 +44,7 @@ private final class ReportScore(
     // https://github.com/ornicar/lila/issues/4587
     def fixedAutoCommPrintScore(c: Report.Candidate)(score: Double): Double =
       if (c.isAutoComm) baseScore
-      else if (c.isPrint) baseScore + 20
+      else if (c.isPrint) baseScoreAboveThreshold
       else score
   }
 
