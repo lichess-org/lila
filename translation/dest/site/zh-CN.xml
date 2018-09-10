@@ -15,7 +15,7 @@
   <string name="chat">聊天</string>
   <string name="resign">认输</string>
   <string name="checkmate">将死</string>
-  <string name="stalemate">僵持</string>
+  <string name="stalemate">逼和</string>
   <string name="white">白方</string>
   <string name="black">黑方</string>
   <string name="randomColor">随机选色</string>
@@ -64,7 +64,7 @@
   <string name="variantWin">因变体规则赢棋</string>
   <string name="insufficientMaterial">因棋子不够和棋</string>
   <string name="pawnMove">走兵</string>
-  <string name="capture">吃棋</string>
+  <string name="capture">吃子</string>
   <string name="close">关闭</string>
   <string name="winning">赢棋</string>
   <string name="losing">输棋</string>
@@ -88,10 +88,10 @@
   <string name="xOpeningExplorer">%s开局浏览器</string>
   <string name="winPreventedBy50MoveRule">本棋局本应取胜，但由于50回合规则导致和棋。</string>
   <string name="lossSavedBy50MoveRule">本局面本应输棋，但因为50回合规则可以和棋。</string>
-  <string name="allSet">好了！</string>
+  <string name="allSet">一切就绪！</string>
   <string name="importPgn">上传PGN</string>
   <string name="delete">删</string>
-  <string name="deleteThisImportedGame">删打开的盘？</string>
+  <string name="deleteThisImportedGame">删除此导入的棋局？</string>
   <string name="replayMode">重放模式</string>
   <string name="realtimeReplay">实时重放</string>
   <string name="byCPL">按错误严重度</string>
@@ -127,7 +127,7 @@
     <item quantity="other">书签里有%s盘棋</item>
   </plurals>
   <string name="viewInFullSize">在整个网页里观看棋局</string>
-  <string name="logOut">登出</string>
+  <string name="logOut">退出</string>
   <string name="signIn">登录</string>
   <string name="newToLichess">新访客？</string>
   <string name="youNeedAnAccountToDoThat">请注册以完成该操作</string>
