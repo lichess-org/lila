@@ -229,9 +229,6 @@ final class SocketHandler(
         }
       }
 
-    case ("relaySync", o) =>
-      (o \ "d").asOpt[Boolean]
-
     case ("like", o) => for {
       byUserId <- member.userId
       v <- (o \ "d" \ "liked").asOpt[Boolean]
