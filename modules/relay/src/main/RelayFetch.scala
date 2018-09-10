@@ -104,7 +104,7 @@ private final class RelayFetch(
       }
     })) map { seconds =>
       r.withSync(_.copy(nextAt = DateTime.now plusSeconds {
-        seconds atLeast { if (r.sync.log.isOk) 5 else 15 }
+        seconds atLeast { if (r.sync.log.isOk) 3 else 12 }
       } some))
     }
 
