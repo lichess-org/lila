@@ -127,6 +127,7 @@ object Report {
     def scored(score: Score) = Candidate.Scored(this, score)
     def isAutomatic = reporter.id == ReporterId.lichess
     def isAutoComm = isAutomatic && isTrollOrInsult
+    def isCoachReview = isOther && text.contains("COACH REVIEW")
   }
 
   object Candidate {
