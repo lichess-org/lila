@@ -1,21 +1,22 @@
 package lila.relay
 
 import akka.actor._
+import io.lemonlabs.uri.Url
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import play.api.libs.json._
 import reactivemongo.bson._
-import io.lemonlabs.uri.Url
 
 import lila.db.dsl._
+import lila.security.Granter
 import lila.study.{ StudyApi, Study, StudyMaker, Settings }
 import lila.user.User
-import lila.security.Granter
 
 final class RelayApi(
     repo: RelayRepo,
     studyApi: StudyApi,
     withStudy: RelayWithStudy,
+    clearFormatCache: Url => Unit,
     system: ActorSystem
 ) {
 
@@ -65,6 +66,7 @@ final class RelayApi(
   }
 
   def requestPlay(id: Relay.Id, v: Boolean): Funit = WithRelay(id) { relay =>
+    clearFormatCache(Url parse relay.sync.upstream.url)
     update(relay) { r =>
       if (v) r.withSync(_.play) else r.withSync(_.pause)
     } void

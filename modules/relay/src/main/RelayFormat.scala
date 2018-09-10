@@ -15,11 +15,11 @@ private final class RelayFormatApi(
 
   import RelayFormat._
 
-  def get(url: String): Fu[Option[RelayFormat]] = cache get Url.parse(url)
+  def get(url: String): Fu[RelayFormat] = cache get Url.parse(url)
 
   def refresh(url: Url): Unit = cache refresh url
 
-  private def guessFormat(url: Url): Fu[Option[RelayFormat]] = {
+  private def guessFormat(url: Url): Fu[RelayFormat] = {
 
     def guessSingleFile: Fu[Option[RelayFormat]] =
       lila.common.Future.find(List(
@@ -43,12 +43,14 @@ private final class RelayFormatApi(
           }
         }
 
-    guessManyFiles orElse guessSingleFile
+    guessManyFiles orElse guessSingleFile flatten "Cannot find any DGT compatible files"
   } addEffect { format =>
-    logger.info(s"guessed format of $url: ${format.fold("???")(_.toString)}")
+    logger.info(s"guessed format of $url: $format")
+  } addFailureEffect { err =>
+    logger.info(s"can't guess format of $url: $err")
   }
 
-  private val cache = asyncCache.multi[Url, Option[RelayFormat]](
+  private val cache = asyncCache.multi[Url, RelayFormat](
     name = "relayFormat",
     f = guessFormat,
     expireAfter = _.ExpireAfterWrite(10 minutes)

@@ -18,7 +18,7 @@ object RelayForm {
     "official" -> boolean,
     "syncUrl" -> nonEmptyText,
     "startsAt" -> optional(utcDate),
-    "throttle" -> optional(number(min = 0, max = 60))
+    "throttle" -> optional(number(min = 2, max = 60))
   )(Data.apply)(Data.unapply))
 
   def create = form

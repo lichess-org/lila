@@ -49,7 +49,6 @@ object Relay extends LilaController {
       env.forms.edit(relay).bindFromRequest.fold(
         err => BadRequest(html.relay.edit(relay, err)).fuccess,
         data => env.api.update(relay) { data.update(_, me) } map { r =>
-          env clearFormat r.sync.upstream.url
           Redirect(showRoute(r))
         }
       )

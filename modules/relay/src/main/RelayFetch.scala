@@ -22,8 +22,6 @@ private final class RelayFetch(
     chapterRepo: lila.study.ChapterRepo
 ) extends Actor {
 
-  val frequency = 1.seconds
-
   override def preStart: Unit = {
     logger.info("Start RelaySync")
     context setReceiveTimeout 20.seconds
@@ -33,7 +31,7 @@ private final class RelayFetch(
   case object Tick
 
   def scheduleNext =
-    context.system.scheduler.scheduleOnce(frequency, self, Tick)
+    context.system.scheduler.scheduleOnce(600 millis, self, Tick)
 
   def receive = {
 
@@ -100,11 +98,11 @@ private final class RelayFetch(
     (if (r.sync.log.alwaysFails) fuccess(60) else (r.sync.delay match {
       case Some(delay) => fuccess(delay)
       case None => api.getNbViewers(r) map { nb =>
-        (18 - nb) atLeast 8
+        (18 - nb) atLeast 7
       }
     })) map { seconds =>
       r.withSync(_.copy(nextAt = DateTime.now plusSeconds {
-        seconds atLeast { if (r.sync.log.isOk) 3 else 12 }
+        seconds atLeast { if (r.sync.log.alwaysFails) 10 else 2 }
       } some))
     }
 
@@ -128,27 +126,25 @@ private final class RelayFetch(
   private def doFetch(upstream: Upstream, max: Int): Fu[RelayGames] = {
     import RelayFetch.DgtJson._
     formatApi.get(upstream.url) flatMap {
-      _.fold[Fu[MultiPgn]](fufail("Cannot find any DGT compatible files")) {
-        case RelayFormat.SingleFile(doc) => doc.format match {
-          // all games in a single PGN file
-          case RelayFormat.DocFormat.Pgn => httpGet(doc.url) map { MultiPgn.split(_, max) }
-          // maybe a single JSON game? Why not
-          case RelayFormat.DocFormat.Json => httpGetJson[GameJson](doc.url)(gameReads) map { game =>
-            MultiPgn(List(game.toPgn()))
-          }
+      case RelayFormat.SingleFile(doc) => doc.format match {
+        // all games in a single PGN file
+        case RelayFormat.DocFormat.Pgn => httpGet(doc.url) map { MultiPgn.split(_, max) }
+        // maybe a single JSON game? Why not
+        case RelayFormat.DocFormat.Json => httpGetJson[GameJson](doc.url)(gameReads) map { game =>
+          MultiPgn(List(game.toPgn()))
         }
-        case RelayFormat.ManyFiles(indexUrl, makeGameDoc) => httpGetJson[RoundJson](indexUrl) flatMap { round =>
-          round.pairings.zipWithIndex.map {
-            case (pairing, i) =>
-              val number = i + 1
-              val gameDoc = makeGameDoc(number)
-              (gameDoc.format match {
-                case RelayFormat.DocFormat.Pgn => httpGet(gameDoc.url)
-                case RelayFormat.DocFormat.Json => httpGetJson[GameJson](gameDoc.url) map { _.toPgn(pairing.tags) }
-              }) map (number -> _)
-          }.sequenceFu.map { results =>
-            MultiPgn(results.sortBy(_._1).map(_._2).toList)
-          }
+      }
+      case RelayFormat.ManyFiles(indexUrl, makeGameDoc) => httpGetJson[RoundJson](indexUrl) flatMap { round =>
+        round.pairings.zipWithIndex.map {
+          case (pairing, i) =>
+            val number = i + 1
+            val gameDoc = makeGameDoc(number)
+            (gameDoc.format match {
+              case RelayFormat.DocFormat.Pgn => httpGet(gameDoc.url)
+              case RelayFormat.DocFormat.Json => httpGetJson[GameJson](gameDoc.url) map { _.toPgn(pairing.tags) }
+            }) map (number -> _)
+        }.sequenceFu.map { results =>
+          MultiPgn(results.sortBy(_._1).map(_._2).toList)
         }
       }
     } flatMap RelayFetch.multiPgnToGames.apply
