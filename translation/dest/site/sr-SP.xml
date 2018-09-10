@@ -537,6 +537,7 @@
   <string name="troll">Трол</string>
   <string name="other">Остало</string>
   <string name="reportDescriptionHelp">Налепи везу партије и објасни шта није у реду са понашањем овог коринсика</string>
+  <string name="error.provideOneCheatedGameLink">Навидете бар један линк партије против играча који вара.</string>
   <string name="by">од %s</string>
   <string name="thisTopicIsNowClosed">Ова тема је сада затворена</string>
   <string name="theming">Тематизација</string>
