@@ -788,7 +788,7 @@
   <string name="perfRatingX">Wertung: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekunde, um den ersten Zug zu machen</item>
-    <item quantity="other">%s Sekunden, um den ersten Zug zu spielen</item>
+    <item quantity="other">%s Sekunden, um den ersten Zug zu machen</item>
   </plurals>
   <string name="practiceWithComputer">Übe mit dem Computer</string>
   <string name="anotherWasX">Auch möglich war %s</string>

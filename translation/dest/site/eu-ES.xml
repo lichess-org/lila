@@ -134,7 +134,7 @@
   <string name="viewInFullSize">Pantaila osoa</string>
   <string name="logOut">Irten</string>
   <string name="signIn">Sartu</string>
-  <string name="newToLichess">Berria Lichess-en?</string>
+  <string name="newToLichess">Berria Lichessen?</string>
   <string name="youNeedAnAccountToDoThat">Kontu bat behar duzu hori egiteko</string>
   <string name="signUp">Izen ematea</string>
   <string name="computersAreNotAllowedToPlay">Xake-programen erabilera debekatuta dago. Mesedez, ez erabili beste jokalari, xake-programa edo datu-baseren laguntzariik. Kontuan izan kontu asko sortzea ere oso gaizki ikusita dagoela; kontu gehieg sortzeak zu kanporatzea ekar dezake.</string>
@@ -464,7 +464,7 @@
   <string name="butYouCanKeepTrying">Baina berriro saia zaitezke.</string>
   <string name="success">Zorionak</string>
   <string name="wasThisPuzzleAnyGood">Ariketa hau gustatu zaizu?</string>
-  <string name="pleaseVotePuzzle">Eman botoa Lichess-i laguntzeko, goranzko zein beheranzko gezia hautatuz:</string>
+  <string name="pleaseVotePuzzle">Eman botoa Lichessi laguntzeko, goranzko zein beheranzko gezia hautatuz:</string>
   <string name="thankYou">Eskerrik asko!</string>
   <string name="ratingX">Sailkapena: %s</string>
   <plurals name="playedXTimes">
@@ -701,7 +701,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ez baduzu mezua aurkitzen, begiratu beste tokietan: zaborrontzian, spam karpetan, ...</string>
   <string name="weHaveSentYouAnEmailTo">Mezu bat bidali dugu %s helbidera. Egizu klik mezuan zure pasahitza berrizteko.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Izena ematean, gure %s onartzen dituzu.</string>
-  <string name="networkLagBetweenYouAndLichess">Sarearen atzerapena lichess-en eta zure artean.</string>
+  <string name="networkLagBetweenYouAndLichess">Sarearen atzerapena Lichessen eta zure artean</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess zerbitzariak jokaldi bat egiteko denbora</string>
   <string name="downloadAnnotated">Oharrekin jaitsi</string>
   <string name="downloadRaw">Oharrik gabe jaitsi</string>
