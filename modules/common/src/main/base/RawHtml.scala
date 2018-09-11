@@ -162,9 +162,17 @@ final object RawHtml {
   private[this] val imgurRegex = """https?://imgur\.com/(\w+)""".r
   private[this] val imgUrlPat = """\.(?:jpg|jpeg|png|gif)$""".r.pattern
 
+  private def camo(url: String): String = {
+    val mac = javax.crypto.Mac.getInstance("HMACSHA1")
+    mac.init(new javax.crypto.spec.SecretKeySpec("uk9QueChuh3ku4ceiphe8aefeequ5See0pheeVei".getBytes, "HMACSHA1"))
+    val signature = java.util.Base64.getUrlEncoder.encodeToString(mac.doFinal(url.getBytes))
+    val target = java.util.Base64.getUrlEncoder.encodeToString(url.getBytes)
+    s"""https://camo.lichess.ovh/$signature/$target"""
+  }
+
   private[this] def imgUrl(url: String): Option[String] = (url match {
     case imgurRegex(id) => Some(s"""https://i.imgur.com/$id.jpg""")
-    case _ if imgUrlPat.matcher(url).find => Some(url)
+    case _ if imgUrlPat.matcher(url).find => Some(camo(url))
     case _ => None
   }) map { img => s"""<img class="embed" src="$img" alt="$url"/>""" }
 
