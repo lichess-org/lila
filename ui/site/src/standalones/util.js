@@ -225,7 +225,7 @@ lidraughts.assetUrl = function(path, opts) {
   opts = opts || {};
   var baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url');
   var version = document.body.getAttribute('data-asset-version');
-  return baseUrl + '/assets' + (opts.noVersion ? '' : '/' + version) + '/' + path;
+  return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
 };
 lidraughts.loadedCss = {};
 lidraughts.loadCss = function(url, opts) {
