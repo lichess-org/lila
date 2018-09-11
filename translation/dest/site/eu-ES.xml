@@ -675,7 +675,7 @@
   <string name="tournamentFAQ">Arena txapelketaren ohiko galderak</string>
   <string name="tournamentOfficial">Ofiziala</string>
   <string name="timeBeforeTournamentStarts">Txapelketa hasteko denbora</string>
-  <string name="averageCentipawnLoss">Bataz besteko peio-ehuneko galera</string>
+  <string name="averageCentipawnLoss">Bataz besteko peoi-ehuneko galera</string>
   <string name="keyboardShortcuts">Tekla laguntzaileak</string>
   <string name="keyMoveBackwardOrForward">Aurrerantz edo atzerantz mugitu</string>
   <string name="keyGoToStartOrEnd">Hasierara edo azkenea joan</string>
