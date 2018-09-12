@@ -47,7 +47,11 @@
   <string name="requestAComputerAnalysis">Iarr anailís ar ríomhaire</string>
   <string name="computerAnalysis">Anailís ar ríomhaire</string>
   <string name="analysis">Bórd anailíse</string>
-  <string name="move">Gluais</string>
+  <string name="move">Bog</string>
+  <string name="capture">Gabh</string>
+  <string name="close">Dún</string>
+  <string name="winning">Buach</string>
+  <string name="losing">Caillteach</string>
   <string name="blunders">Botúin mhóra</string>
   <string name="mistakes">Botúin</string>
   <string name="inaccuracies">Bearta míchruinne</string>
