@@ -63,7 +63,7 @@ private final class RelayFetch(
     else doProcess(relay) flatMap { games =>
       sync(relay, games)
         .chronometer.mon(_.relay.sync.duration.each).result
-        .withTimeout(1 second, SyncResult.Timeout)(context.system) map { res =>
+        .withTimeout(1500 millis, SyncResult.Timeout)(context.system) map { res =>
           res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
         }
     } recover {
