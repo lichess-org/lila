@@ -217,10 +217,10 @@ private object RelayFetch {
 
     def apply(multiPdn: MultiPdn): Fu[List[RelayGame]] =
       multiPdn.value.foldLeft[Try[(List[RelayGame], Int)]](Success(List.empty -> 0)) {
-        case (Success((acc, index)), pdn) => pdnCache.get(pdn) map { f =>
+        case (Success((acc, index)), pdn) => pdnCache.get(pdn) flatMap { f =>
           val game = f(index)
-          if (game.isEmpty) acc -> index
-          else (game :: acc, index + 1)
+          if (game.isEmpty) Failure(LidraughtsException(s"Found an empty PDN at index $index"))
+          else Success(game :: acc, index + 1)
         }
         case (acc, _) => acc
       }.future.map(_._1.reverse)
