@@ -7,6 +7,13 @@ import { povChances } from './winningChances';
 
 const li = window.lichess;
 
+function sanIrreversible(variant: VariantKey, san: string) {
+  if (san.indexOf('O-O') === 0) return true;
+  if (variant === 'crazyhouse') return false;
+  if (variant === 'threeCheck') return san.indexOf('x') > 0 || san.indexOf('+') > 0;
+  return san.indexOf('x') > 0;
+}
+
 export default function(opts: CevalOpts): CevalCtrl {
 
   const storageKey = function(k: string): string {
@@ -130,7 +137,7 @@ export default function(opts: CevalOpts): CevalCtrl {
       // send fen after latest castling move and the following moves
       for (let i = 1; i < steps.length; i++) {
         let s = steps[i];
-        if (s.san!.indexOf('O-O') === 0) {
+        if (sanIrreversible(opts.variant.key, s.san!)) {
           work.moves = [];
           work.initialFen = s.fen;
         } else work.moves.push(s.uci!);
