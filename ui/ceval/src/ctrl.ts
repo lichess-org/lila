@@ -7,11 +7,12 @@ import { povChances } from './winningChances';
 
 const li = window.lichess;
 
-function sanIrreversible(variant: VariantKey, san: string) {
+function sanIrreversible(variant: VariantKey, san: string): boolean {
   if (san.indexOf('O-O') === 0) return true;
   if (variant === 'crazyhouse') return false;
-  if (variant === 'threeCheck') return san.indexOf('x') > 0 || san.indexOf('+') > 0;
-  return san.indexOf('x') > 0;
+  if (san.indexOf('x') > 0) return true; // capture
+  if (san.toLowerCase() === san) return true; // pawn move
+  return variant === 'threeCheck' && san.indexOf('+') > 0;
 }
 
 export default function(opts: CevalOpts): CevalCtrl {
