@@ -57,6 +57,11 @@ final class Env(
   val ExplorerEndpoint = config getString "explorer.endpoint"
   val TablebaseEndpoint = config getString "explorer.tablebase.endpoint"
 
+  object Camo {
+    val Endpoint = config getString "camo.endpoint"
+    val Secret = config getString "camo.secret"
+  }
+
   private val InfluxEventEndpoint = config getString "api.influx_event.endpoint"
   private val InfluxEventEnv = config getString "api.influx_event.env"
 

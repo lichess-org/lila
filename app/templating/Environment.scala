@@ -74,4 +74,6 @@ object Environment
     }
     s"""<signal data-hint="$title" class="q$v hint--top">$bars</signal>"""
   }
+
+  def camo(url: String) = new lila.common.Camo(apiEnv.Camo.Endpoint, apiEnv.Camo.Secret).apply(url)
 }

@@ -67,7 +67,7 @@ final object RawHtml {
     } else List(text)
   }
 
-  def addLinks(text: String): String = {
+  def addLinks(text: String, camo: String => String): String = {
     expandAtUser(text) map { expanded =>
       val m = urlPattern.matcher(expanded)
 
@@ -120,7 +120,7 @@ final object RawHtml {
             val isHttp = domainS - start == 7
             val url = (if (isHttp) "http://" else "https://") + allButScheme
             val text = if (isHttp) url else allButScheme
-            sb.append(imgUrl(url).getOrElse(
+            sb.append(imgUrl(url, camo).getOrElse(
               s"""<a rel="nofollow" href="$url" target="_blank">$text</a>"""
             ))
           }
@@ -162,15 +162,7 @@ final object RawHtml {
   private[this] val imgurRegex = """https?://imgur\.com/(\w+)""".r
   private[this] val imgUrlPat = """\.(?:jpg|jpeg|png|gif)$""".r.pattern
 
-  private def camo(url: String): String = {
-    val mac = javax.crypto.Mac.getInstance("HMACSHA1")
-    mac.init(new javax.crypto.spec.SecretKeySpec("uk9QueChuh3ku4ceiphe8aefeequ5See0pheeVei".getBytes, "HMACSHA1"))
-    val signature = java.util.Base64.getUrlEncoder.encodeToString(mac.doFinal(url.getBytes))
-    val target = java.util.Base64.getUrlEncoder.encodeToString(url.getBytes)
-    s"""https://camo.lichess.ovh/$signature/$target"""
-  }
-
-  private[this] def imgUrl(url: String): Option[String] = (url match {
+  private[this] def imgUrl(url: String, camo: String => String): Option[String] = (url match {
     case imgurRegex(id) => Some(s"""https://i.imgur.com/$id.jpg""")
     case _ if imgUrlPat.matcher(url).find => Some(camo(url))
     case _ => None
