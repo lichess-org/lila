@@ -16,6 +16,8 @@ final class Env(
     system: ActorSystem,
     db: lidraughts.db.Env,
     hub: lidraughts.hub.Env,
+    draughtsnetPlayer: lidraughts.draughtsnet.Player,
+    aiPerfApi: lidraughts.draughtsnet.AiPerfApi,
     crosstableApi: lidraughts.game.CrosstableApi,
     playban: lidraughts.playban.PlaybanApi,
     lightUser: lidraughts.common.LightUser.Getter,
@@ -172,6 +174,7 @@ final class Env(
   )
 
   private lazy val player: Player = new Player(
+    draughtsnetPlayer = draughtsnetPlayer,
     bus = bus,
     finisher = finisher,
     uciMemo = uciMemo
@@ -255,6 +258,8 @@ object Env {
     system = lidraughts.common.PlayApp.system,
     db = lidraughts.db.Env.current,
     hub = lidraughts.hub.Env.current,
+    draughtsnetPlayer = lidraughts.draughtsnet.Env.current.player,
+    aiPerfApi = lidraughts.draughtsnet.Env.current.aiPerfApi,
     crosstableApi = lidraughts.game.Env.current.crosstableApi,
     playban = lidraughts.playban.Env.current.api,
     lightUser = lidraughts.user.Env.current.lightUser,

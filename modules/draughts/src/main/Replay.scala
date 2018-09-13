@@ -96,6 +96,45 @@ object Replay {
       }
   }
 
+  def exportScanMoves(
+    moveStrs: Seq[String],
+    initialFen: String,
+    variant: draughts.variant.Variant,
+    iteratedCapts: Boolean = false
+  ): List[String] = {
+
+    def mk(g: DraughtsGame, moves: List[(San, String)], ambs: List[(San, String)]): (List[String], Option[ErrorMessage]) = {
+      var newAmb = none[(San, String)]
+      val res = moves match {
+        case (san, sanStr) :: rest =>
+          san(g.situation, iteratedCapts, if (ambs.isEmpty) None else ambs.collect({ case (ambSan, ambUci) if ambSan == san => ambUci }).some).fold(
+            err => (Nil, err.head.some),
+            move => {
+              val newGame = g(move)
+              val scanMove = move.toScanMove
+              if (iteratedCapts && move.capture.fold(false)(_.lengthCompare(1) > 0) && move.situationBefore.ambiguitiesMove(move) > 0)
+                newAmb = (san -> move.toUci.uci).some
+              mk(newGame, rest, if (newAmb.isDefined) newAmb.get :: ambs else ambs) match {
+                case (next, msg) => (scanMove :: next, msg)
+              }
+            }
+          )
+        case _ => (Nil, None)
+      }
+      if (res._2.isDefined && newAmb.isDefined) mk(g, moves, newAmb.get :: ambs)
+      else res
+    }
+
+    val init = makeGame(variant, initialFen.some)
+    Parser.moves(moveStrs, variant).fold(
+      err => List.empty[String] -> err.head.some,
+      moves => mk(init, moves.value zip moveStrs, Nil)
+    ) match {
+        case (moves, None) => moves
+        case _ => Nil
+      }
+  }
+
   private def recursiveSituations(sit: Situation, sans: List[San]): Valid[List[Situation]] =
     sans match {
       case Nil => success(Nil)

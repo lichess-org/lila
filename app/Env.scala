@@ -138,6 +138,7 @@ final class Env(
     Env.slack, // required to load the actor
     Env.challenge, // required to load the actor
     Env.explorer, // required to load the actor
+    Env.draughtsnet, // required to schedule the cleaner
     Env.notifyModule, // required to load the actor
     Env.plan, // required to load the actor
     Env.studySearch, // required to load the actor
@@ -208,6 +209,7 @@ object Env {
   def slack = lidraughts.slack.Env.current
   def challenge = lidraughts.challenge.Env.current
   def explorer = lidraughts.explorer.Env.current
+  def draughtsnet = lidraughts.draughtsnet.Env.current
   def study = lidraughts.study.Env.current
   def studySearch = lidraughts.studySearch.Env.current
   def learn = lidraughts.learn.Env.current

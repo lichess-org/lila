@@ -10,11 +10,21 @@ private[setup] final class Processor(
     lobby: ActorSelection,
     gameCache: lidraughts.game.Cached,
     maxPlaying: Int,
+    draughtsnetPlayer: lidraughts.draughtsnet.Player,
     onStart: String => Unit
 ) {
 
   def filter(config: FilterConfig)(implicit ctx: UserContext): Funit =
     saveConfig(_ withFilter config)
+
+  def ai(config: AiConfig)(implicit ctx: UserContext): Fu[Pov] = {
+    val pov = config pov ctx.me
+    saveConfig(_ withAi config) >>
+      (GameRepo insertDenormalized pov.game) >>-
+      onStart(pov.game.id) >> {
+        pov.game.player.isAi ?? draughtsnetPlayer(pov.game)
+      } inject pov
+  }
 
   def hook(
     configBase: HookConfig,

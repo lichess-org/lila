@@ -274,13 +274,13 @@ export function view(ctrl: AnalyseCtrl): VNode {
         .concat([
           deleteButton(ctrl, ctrl.opts.userId),
           canContinue ? h('div.continue_with.g_' + d.game.id, [
-            /*h('a.button', {
+            h('a.button', {
               attrs: {
                 href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.cont(d, 'ai') + '?fen=' + ctrl.node.fen,
                 rel: 'nofollow'
               }
             }, noarg('playWithTheMachine')),
-            h('br'),*/
+            h('br'),
             h('a.button', {
               attrs: {
                 href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.cont(d, 'friend') + '?fen=' + ctrl.node.fen,

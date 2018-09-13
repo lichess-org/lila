@@ -162,6 +162,23 @@ object Forsyth {
     fenW.toString
   }
 
+  def exportScanPosition(sit: Option[Situation]): String = sit.fold("") {
+    situation =>
+      val pos = new scala.collection.mutable.StringBuilder(51)
+      pos.append(situation.color.letter.toUpper)
+
+      for (f <- 1 to 50) {
+        situation.board(f) match {
+          case Some(Piece(White, Man)) => pos append 'w'
+          case Some(Piece(Black, Man)) => pos append 'b'
+          case Some(Piece(White, King)) => pos append 'W'
+          case Some(Piece(Black, King)) => pos append 'B'
+          case _ => pos append 'e'
+        }
+      }
+      pos.toString
+  }
+
   def getFullMove(rawSource: String): Option[Int] = read(rawSource) { fen =>
     fen.split(':') filter (s => s.length > 1 && s.charAt(0) == 'F') lift 0 flatMap parseIntOption
   }

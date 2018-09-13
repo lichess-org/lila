@@ -9,6 +9,7 @@ final class Env(
     config: AppConfig,
     db: lidraughts.db.Env,
     hub: lidraughts.hub.Env,
+    draughtsnetPlayer: lidraughts.draughtsnet.Player,
     onStart: String => Unit,
     prefApi: lidraughts.pref.PrefApi,
     relationApi: lidraughts.relation.RelationApi,
@@ -29,6 +30,7 @@ final class Env(
     lobby = hub.actor.lobby,
     gameCache = gameCache,
     maxPlaying = MaxPlaying,
+    draughtsnetPlayer = draughtsnetPlayer,
     onStart = onStart
   )
 
@@ -42,6 +44,7 @@ object Env {
     config = lidraughts.common.PlayApp loadConfig "setup",
     db = lidraughts.db.Env.current,
     hub = lidraughts.hub.Env.current,
+    draughtsnetPlayer = lidraughts.draughtsnet.Env.current.player,
     onStart = lidraughts.game.Env.current.onStart,
     prefApi = lidraughts.pref.Env.current.api,
     relationApi = lidraughts.relation.Env.current.api,

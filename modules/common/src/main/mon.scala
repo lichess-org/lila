@@ -175,7 +175,7 @@ object mon {
     }
     object error {
       val client = inc("round.error.client")
-      val fishnet = inc("round.error.fishnet")
+      val draughtsnet = inc("round.error.draughtsnet")
       val glicko = inc("round.error.glicko")
     }
     object titivate {
@@ -479,7 +479,7 @@ object mon {
       }
     }
   }
-  object fishnet {
+  object draughtsnet {
     object client {
       def result(client: String, skill: String) = new {
         def success = apply("success")
@@ -489,56 +489,56 @@ object mon {
         def notFound = apply("not_found")
         def notAcquired = apply("not_acquired")
         def abort = apply("abort")
-        private def apply(r: String) = inc(s"fishnet.client.result.$skill.$client.$r")
+        private def apply(r: String) = inc(s"draughtsnet.client.result.$skill.$client.$r")
       }
       object status {
-        val enabled = rec("fishnet.client.status.enabled")
-        val disabled = rec("fishnet.client.status.disabled")
+        val enabled = rec("draughtsnet.client.status.enabled")
+        val disabled = rec("draughtsnet.client.status.disabled")
       }
-      def skill(v: String) = rec(s"fishnet.client.skill.$v")
-      def version(v: String) = rec(s"fishnet.client.version.${makeVersion(v)}")
-      def stockfish(v: String) = rec(s"fishnet.client.engine.stockfish.${makeVersion(v)}")
-      def python(v: String) = rec(s"fishnet.client.python.${makeVersion(v)}")
+      def skill(v: String) = rec(s"draughtsnet.client.skill.$v")
+      def version(v: String) = rec(s"draughtsnet.client.version.${makeVersion(v)}")
+      def scan(v: String) = rec(s"draughtsnet.client.engine.scan.${makeVersion(v)}")
+      def python(v: String) = rec(s"draughtsnet.client.python.${makeVersion(v)}")
     }
     object queue {
-      def db(skill: String) = rec(s"fishnet.queue.db.$skill")
-      def sequencer(skill: String) = rec(s"fishnet.queue.sequencer.$skill")
+      def db(skill: String) = rec(s"draughtsnet.queue.db.$skill")
+      def sequencer(skill: String) = rec(s"draughtsnet.queue.sequencer.$skill")
     }
     object acquire {
-      def time(skill: String) = rec(s"fishnet.acquire.skill.$skill")
-      def timeout(skill: String) = inc(s"fishnet.acquire.timeout.skill.$skill")
+      def time(skill: String) = rec(s"draughtsnet.acquire.skill.$skill")
+      def timeout(skill: String) = inc(s"draughtsnet.acquire.timeout.skill.$skill")
     }
     object work {
-      def acquired(skill: String) = rec(s"fishnet.work.$skill.acquired")
-      def queued(skill: String) = rec(s"fishnet.work.$skill.queued")
-      def forUser(skill: String) = rec(s"fishnet.work.$skill.for_user")
-      val moveDbSize = rec("fishnet.work.move.db_size")
+      def acquired(skill: String) = rec(s"draughtsnet.work.$skill.acquired")
+      def queued(skill: String) = rec(s"draughtsnet.work.$skill.queued")
+      def forUser(skill: String) = rec(s"draughtsnet.work.$skill.for_user")
+      val moveDbSize = rec("draughtsnet.work.move.db_size")
     }
     object move {
-      def time(client: String) = rec(s"fishnet.move.time.$client")
-      def fullTimeLvl1(client: String) = rec(s"fishnet.move.full_time_lvl_1.$client")
-      val post = rec("fishnet.move.post")
-      val dbDrop = inc("fishnet.move.db_drop")
+      def time(client: String) = rec(s"draughtsnet.move.time.$client")
+      def fullTimeLvl1(client: String) = rec(s"draughtsnet.move.full_time_lvl_1.$client")
+      val post = rec("draughtsnet.move.post")
+      val dbDrop = inc("draughtsnet.move.db_drop")
     }
     object analysis {
       def by(client: String) = new {
-        def hash = rec(s"fishnet.analysis.hash.$client")
-        def threads = rec(s"fishnet.analysis.threads.$client")
-        def movetime = rec(s"fishnet.analysis.movetime.$client")
-        def node = rec(s"fishnet.analysis.node.$client")
-        def nps = rec(s"fishnet.analysis.nps.$client")
-        def depth = rec(s"fishnet.analysis.depth.$client")
-        def pvSize = rec(s"fishnet.analysis.pv_size.$client")
-        def pvTotal = incX(s"fishnet.analysis.pvs.total.$client")
-        def pvShort = incX(s"fishnet.analysis.pvs.short.$client")
-        def pvLong = incX(s"fishnet.analysis.pvs.long.$client")
-        def totalMeganode = incX(s"fishnet.analysis.total.meganode.$client")
-        def totalSecond = incX(s"fishnet.analysis.total.second.$client")
-        def totalPosition = incX(s"fishnet.analysis.total.position.$client")
+        def hash = rec(s"draughtsnet.analysis.hash.$client")
+        def threads = rec(s"draughtsnet.analysis.threads.$client")
+        def movetime = rec(s"draughtsnet.analysis.movetime.$client")
+        def node = rec(s"draughtsnet.analysis.node.$client")
+        def nps = rec(s"draughtsnet.analysis.nps.$client")
+        def depth = rec(s"draughtsnet.analysis.depth.$client")
+        def pvSize = rec(s"draughtsnet.analysis.pv_size.$client")
+        def pvTotal = incX(s"draughtsnet.analysis.pvs.total.$client")
+        def pvShort = incX(s"draughtsnet.analysis.pvs.short.$client")
+        def pvLong = incX(s"draughtsnet.analysis.pvs.long.$client")
+        def totalMeganode = incX(s"draughtsnet.analysis.total.meganode.$client")
+        def totalSecond = incX(s"draughtsnet.analysis.total.second.$client")
+        def totalPosition = incX(s"draughtsnet.analysis.total.position.$client")
       }
-      val post = rec("fishnet.analysis.post")
-      val requestCount = inc("fishnet.analysis.request")
-      val evalCacheHits = rec("fishnet.analysis.eval_cache_hits")
+      val post = rec("draughtsnet.analysis.post")
+      val requestCount = inc("draughtsnet.analysis.request")
+      val evalCacheHits = rec("draughtsnet.analysis.eval_cache_hits")
     }
   }
   object api {

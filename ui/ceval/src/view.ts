@@ -90,7 +90,7 @@ export function getBestEval(evs: NodeEvals): Eval | undefined {
   if (!serverEv) return localEv;
   if (!localEv) return serverEv;
 
-  // Prefer localEv if it exeeds fishnet node limit or finds a better mate.
+  // Prefer localEv if it exeeds draughtsnet node limit or finds a better mate.
   if (localEv.nodes > serverNodes ||
     (typeof localEv.mate !== 'undefined' && (typeof serverEv.mate === 'undefined' || Math.abs(localEv.mate) < Math.abs(serverEv.mate))))
   return localEv;

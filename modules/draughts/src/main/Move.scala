@@ -69,6 +69,10 @@ case class Move(
   def toUci = Uci.Move(orig, dest, promotion, capture)
   def toShortUci = Uci.Move(orig, dest, promotion, if (capture.isDefined) capture.get.takeRight(1).some else None)
 
+  def toScanMove =
+    if (taken.isDefined) (List(orig.shortKey, dest.shortKey) ::: taken.get.reverse.map(_.shortKey)) mkString "x"
+    else s"${orig.shortKey}-${dest.shortKey}"
+
   override def toString = s"$piece ${toUci.uci}"
 
   def frisianValue = taken.fold(0f)(takes => {

@@ -111,8 +111,8 @@ object Tv {
       Best,
       Bullet, Blitz, Rapid, Classical,
       Frisian, Antidraughts,
-      UltraBullet
-    //Computer
+      UltraBullet,
+      Computer
     )
     val byKey = all.map { c => c.key -> c }.toMap
   }

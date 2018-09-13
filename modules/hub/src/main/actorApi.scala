@@ -203,7 +203,7 @@ package team {
   case class JoinTeam(id: String, userId: String)
 }
 
-package fishnet {
+package draughtsnet {
   case class AutoAnalyse(gameId: String)
   case class NewKey(userId: String, key: String)
   case class StudyChapterRequest(
@@ -245,6 +245,7 @@ package round {
   case class Berserk(gameId: String, userId: String)
   case class IsOnGame(color: draughts.Color)
   sealed trait SocketEvent
+  case class DraughtsnetPlay(uci: draughts.format.Uci, taken: String, currentFen: draughts.format.FEN)
   case class TourStanding(json: JsArray)
 }
 

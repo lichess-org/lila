@@ -77,14 +77,14 @@ ${Mailgun.txt.serviceNote}
       }
     }
 
-  def onFishnetKey(userId: User.ID, key: String)(implicit lang: Lang): Funit = for {
+  def onDraughtsnetKey(userId: User.ID, key: String)(implicit lang: Lang): Funit = for {
     user <- UserRepo named userId flatten s"No such user $userId"
     emailOption <- UserRepo email user.id
   } yield emailOption ?? { email =>
 
     val body = s"""Hello,
 
-Here is your private fishnet key:
+Here is your private draughtsnet key:
 
 $key
 
@@ -102,7 +102,7 @@ The lidraughts team
 
     mailgun send Mailgun.Message(
       to = email,
-      subject = "Your private fishnet key",
+      subject = "Your private draughtsnet key",
       text = s"""
 $body
 

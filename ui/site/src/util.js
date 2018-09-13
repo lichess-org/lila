@@ -1,6 +1,6 @@
 var lidraughts = window.lidraughts = window.lidraughts || {};
 
-lidraughts.engineName = 'Stockfish 9+';
+lidraughts.engineName = 'Scan 3.0';
 
 lidraughts.raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
 lidraughts.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);

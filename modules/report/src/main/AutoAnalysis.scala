@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import lidraughts.game.{ Game, GameRepo }
 
 final class AutoAnalysis(
-    fishnet: akka.actor.ActorSelection,
+    draughtsnet: akka.actor.ActorSelection,
     system: akka.actor.ActorSystem
 ) {
 
@@ -25,7 +25,7 @@ final class AutoAnalysis(
         logger.info(s"Auto-analyse ${games.size} games after report by ${candidate.reporter.user.id}")
       games foreach { game =>
         lidraughts.mon.cheat.autoAnalysis.reason("Report")()
-        fishnet ! lidraughts.hub.actorApi.fishnet.AutoAnalyse(game.id)
+        draughtsnet ! lidraughts.hub.actorApi.draughtsnet.AutoAnalyse(game.id)
       }
     }
 

@@ -2,7 +2,7 @@ package lidraughts.evaluation
 
 object Display {
 
-  def stockfishSig(pa: PlayerAssessment): Int =
+  def scanSig(pa: PlayerAssessment): Int =
     (pa.flags.suspiciousErrorRate, pa.flags.alwaysHasAdvantage) match {
       case (true, true) => 5
       case (true, false) => 4

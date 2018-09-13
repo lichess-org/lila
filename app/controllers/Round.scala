@@ -39,15 +39,15 @@ object Round extends LidraughtsController with TheftPrevention {
         if (isTheft(pov)) fuccess(Left(theftResponse))
         else getSocketUid("sri") match {
           case Some(uid) =>
-            //requestAiMove(pov) >>
-            env.socketHandler.player(pov, uid, ctx.me, ctx.ip) map Right.apply
+            requestAiMove(pov) >>
+              env.socketHandler.player(pov, uid, ctx.me, ctx.ip) map Right.apply
           case None => fuccess(Left(NotFound))
         }
       case None => fuccess(Left(NotFound))
     }
   }
 
-  //private def requestAiMove(pov: Pov) = pov.game.playableByAi ?? Env.fishnet.player(pov.game)
+  private def requestAiMove(pov: Pov) = pov.game.playableByAi ?? Env.draughtsnet.player(pov.game)
 
   private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] = negotiate(
     html = pov.game.started.fold(

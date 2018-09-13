@@ -16,7 +16,7 @@ package round {
 
   private[round] sealed trait BenignError extends lidraughts.base.LidraughtsException
   private[round] case class ClientError(message: String) extends BenignError
-  private[round] case class FishnetError(message: String) extends BenignError
+  private[round] case class DraughtsnetError(message: String) extends BenignError
 
   sealed trait OnTv
 

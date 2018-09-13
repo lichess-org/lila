@@ -22,12 +22,12 @@ object Setup extends LidraughtsController with TheftPrevention {
     name = "setup post",
     key = "setup_post")
 
-  /*def aiForm = Open { implicit ctx =>
+  def aiForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req) {
       env.forms aiFilled get("fen") map { form =>
         html.setup.ai(
           form,
-          Env.fishnet.aiPerfApi.intRatings,
+          Env.draughtsnet.aiPerfApi.intRatings,
           form("fen").value flatMap ValidFen(getBool("strict"))
         )
       }
@@ -38,7 +38,7 @@ object Setup extends LidraughtsController with TheftPrevention {
 
   def ai = process(env.forms.ai) { config => implicit ctx =>
     env.processor ai config
-  }*/
+  }
 
   def friendForm(userId: Option[String]) = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req)

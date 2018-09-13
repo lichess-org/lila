@@ -8,7 +8,7 @@ import lidraughts.user.UserContext
 trait AiHelper { self: I18nHelper =>
 
   def aiName(level: Int, withRating: Boolean = true)(implicit ctx: UserContext): String = {
-    val name = lidraughts.i18n.I18nKeys.aiNameLevelAiLevel.txt("Stockfish AI", level)
+    val name = lidraughts.i18n.I18nKeys.aiNameLevelAiLevel.txt("Scan AI", level)
     val rating = withRating ?? {
       aiRating(level) ?? { r => s" ($r)" }
     }
@@ -18,5 +18,5 @@ trait AiHelper { self: I18nHelper =>
   def aiNameHtml(level: Int, withRating: Boolean = true)(implicit ctx: UserContext) =
     Html(aiName(level, withRating).replace(" ", "&nbsp;"))
 
-  def aiRating(level: Int): Option[Int] = None //Env.fishnet.aiPerfApi.intRatings get level
+  def aiRating(level: Int): Option[Int] = Env.draughtsnet.aiPerfApi.intRatings get level
 }

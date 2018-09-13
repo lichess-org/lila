@@ -139,7 +139,6 @@ GET   /broadcast/:slug/$id<\w{8}>          controllers.Relay.show(slug: String, 
 GET   /broadcast/:slug/$id<\w{8}>/$chapterId<\w{8}> controllers.Relay.chapter(slug: String, id: String, chapterId: String)
 GET   /broadcast/:slug/$id<\w{8}>/edit     controllers.Relay.edit(slug: String, id: String)
 POST  /broadcast/:slug/$id<\w{8}>/edit     controllers.Relay.update(slug: String, id: String)
-# GET   /broadcast/:slug/$id<\w{8}>/$chapterId<\w{8}> controllers.Relay.chapter(slug: String, id: String, chapterId: String)
 GET   /broadcast/$id<\w{8}>/socket/v:apiVersion controllers.Relay.websocket(id: String, apiVersion: Int)
 
 # Learn
@@ -284,13 +283,13 @@ POST  /team/:id/close                         controllers.Team.close(id: String)
 GET   /game/export/$gameId<\w{8}>.pdn         controllers.Export.pdn(gameId: String)
 GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: String)
 
-# Fishnet
-#POST  /fishnet/acquire                        controllers.Fishnet.acquire
-#POST  /fishnet/move/$workId<\w{8}>            controllers.Fishnet.move(workId: String)
-#POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String)
-#POST  /fishnet/abort/$workId<\w{8}>           controllers.Fishnet.abort(workId: String)
-#GET   /fishnet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key: String)
-#GET   /fishnet/status                         controllers.Fishnet.status
+# Draughtsnet
+POST  /draughtsnet/acquire                        controllers.Draughtsnet.acquire
+POST  /draughtsnet/move/$workId<\w{8}>            controllers.Draughtsnet.move(workId: String)
+#POST  /draughtsnet/analysis/$workId<\w{8}>        controllers.Draughtsnet.analysis(workId: String)
+POST  /draughtsnet/abort/$workId<\w{8}>           controllers.Draughtsnet.abort(workId: String)
+GET   /draughtsnet/key/$key<\w{8}>                controllers.Draughtsnet.keyExists(key: String)
+GET   /draughtsnet/status                         controllers.Draughtsnet.status
 
 # Pref
 POST  /pref/zoom                       controllers.Pref.setZoom
@@ -300,8 +299,8 @@ POST  /account/preferences             controllers.Pref.formApply
 POST  /account/preferences/tag/:name/:value controllers.Pref.saveTag(name: String, value: String)
 
 # Setup
-#GET   /setup/ai                        controllers.Setup.aiForm
-#POST  /setup/ai                        controllers.Setup.ai
+GET   /setup/ai                        controllers.Setup.aiForm
+POST  /setup/ai                        controllers.Setup.ai
 GET   /setup/friend                    controllers.Setup.friendForm(user: Option[String] ?= None)
 POST  /setup/friend                    controllers.Setup.friend(user: Option[String] ?= None)
 GET   /setup/hook                      controllers.Setup.hookForm
@@ -537,7 +536,7 @@ GET   /embed                           controllers.Main.embed
 GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
 GET   /fpmenu                          controllers.Main.fpmenu
-#GET   /get-fishnet                     controllers.Main.getFishnet
+#GET   /get-draughtsnet                controllers.Main.getDraughtsnet
 
 # Dev
 GET   /dev/cli                         controllers.Dev.cli

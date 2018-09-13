@@ -135,12 +135,12 @@
       </rollingPolicy>
     </appender>
   </logger>
-  <logger name="fishnet" level="DEBUG">
+  <logger name="draughtsnet" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-      <file>/var/log/lidraughts/fishnet.log</file>
+      <file>/var/log/lidraughts/draughtsnet.log</file>
       <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <fileNamePattern>/var/log/lidraughts/fishnet-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <fileNamePattern>/var/log/lidraughts/draughtsnet-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
         <maxHistory>7</maxHistory>
       </rollingPolicy>
     </appender>

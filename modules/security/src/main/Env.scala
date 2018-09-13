@@ -176,9 +176,9 @@ final class Env(
   // api actor
   system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lidraughts.hub.actorApi.fishnet.NewKey(userId, key) => automaticEmail.onFishnetKey(userId, key)
+      case lidraughts.hub.actorApi.draughtsnet.NewKey(userId, key) => automaticEmail.onDraughtsnetKey(userId, key)
     }
-  })), 'fishnet)
+  })), 'draughtsnet)
 
   private[security] lazy val storeColl = db(CollectionSecurity)
   private[security] lazy val firewallColl = db(FirewallCollectionFirewall)

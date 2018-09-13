@@ -24,7 +24,7 @@ function renderPlayer(ctrl: AnalyseCtrl, color: Color): VNode {
   ]);
   return h('span',
      p.name ||
-     (p.ai && 'Stockfish level ' + p.ai) ||
+     (p.ai && 'Scan level ' + p.ai) ||
      (ctrl.study && findTag(ctrl.study.data.chapter.tags, color)) ||
      'Anonymous');
 }

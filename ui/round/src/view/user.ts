@@ -11,7 +11,7 @@ function ratingDiff(player: Player): VNode | undefined {
 }
 
 export function aiName(ctrl: RoundController, level: number) {
-  return ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
+  return ctrl.trans('aiNameLevelAiLevel', 'Scan', level);
 }
 
 export function userHtml(ctrl: RoundController, player: Player) {

@@ -1,0 +1,22 @@
+@(form: Form[_], ratings: Map[Int, Int], validFen: Option[lidraughts.setup.ValidFen])(implicit ctx: Context)
+
+@fields = {
+@setup.variant(form, translatedAiVariantChoices)
+@fenInput(form("fen"), true, validFen)
+@setup.timeMode(form, lidraughts.setup.AiConfig)
+@trans.level()
+<div class="level buttons">
+  <div id="config_level">
+    @setup.radios(form("level"), lidraughts.setup.AiConfig.levelChoices)
+  </div>
+  <div class="ai_info">
+    @ratings.map {
+    case (level, rating) => {
+    <div class="level_@level">@trans.aiNameLevelAiLevel("A.I.", level)</div>
+    }
+    }
+  </div>
+</div>
+}
+
+@setup.config(form, "ai", trans.playWithTheMachine(), routes.Setup.ai, fields)

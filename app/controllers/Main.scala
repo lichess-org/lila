@@ -150,7 +150,7 @@ Disallow: /games/export
     Ok(html.base.fpmenu()).fuccess
   }
 
-  def getFishnet = Open { implicit ctx =>
-    Ok(html.site.getFishnet()).fuccess
+  def getDraughtsnet = Open { implicit ctx =>
+    Ok(html.site.getDraughtsnet()).fuccess
   }
 }

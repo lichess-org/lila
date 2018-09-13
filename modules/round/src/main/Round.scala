@@ -3,13 +3,16 @@ package lidraughts.round
 import akka.actor._
 import akka.pattern.ask
 import org.joda.time.DateTime
-import scala.concurrent.duration._
 
-import actorApi._, round._
-import draughts.Color
-import lidraughts.game.{ Game, Progress, Pov, Event }
+import scala.concurrent.duration._
+import actorApi._
+import round._
+import draughts.{ Color, Pos }
+import draughts.format.Uci
+import lidraughts.game.{ Event, Game, Pov, Progress }
 import lidraughts.hub.actorApi.DeployPost
 import lidraughts.hub.actorApi.map._
+import lidraughts.hub.actorApi.round.DraughtsnetPlay
 import lidraughts.hub.SequentialActor
 import lidraughts.socket.UserLagCache
 import makeTimeout.large
@@ -67,6 +70,30 @@ private[round] final class Round(
         lidraughts.mon.round.move.full.count()
         scheduleExpiration
       }
+
+    case DraughtsnetPlay(uci, taken, currentFen) => handle { game =>
+      if (taken.length > 2) {
+        val takenList = (for { c <- 0 until taken.length by 2 } yield Pos.posAt(taken.slice(c, c + 2))).flatten.toList
+        val takenSet = takenList.toSet
+        val validMoves = game.variant.validMovesFrom(game.situation, uci.origDest._1, finalSquare = true)
+        validMoves.find(
+          move => move.dest == uci.origDest._2 && move.taken.fold(false) { _.toSet == takenSet }
+        ) match {
+            case Some(fullCapture) if fullCapture.captures && fullCapture.capture.get.size > 1 =>
+              val captures = fullCapture.capture.get
+              Uci(captures.last.key + captures.head.key) match {
+                case Some(nextUci) =>
+                  val newTaken = takenSet - fullCapture.taken.get.last
+                  player.draughtsnet(game, Uci.Move(fullCapture.orig, captures.last), currentFen, self, context, (nextUci, newTaken.mkString).some)
+                case _ =>
+                  fufail(DraughtsnetError(s"Received invalid move $uci"))
+              }
+            case _ =>
+              fufail(DraughtsnetError(s"Received invalid move $uci"))
+          }
+      } else
+        player.draughtsnet(game, uci, currentFen, self, context)
+    } >>- lidraughts.mon.round.move.full.count()
 
     case Abort(playerId) => handle(playerId) { pov =>
       pov.game.abortable ?? finisher.abort(pov)
@@ -304,9 +331,9 @@ private[round] final class Round(
     case e: ClientError =>
       logger.info(s"Round client error $name", e)
       lidraughts.mon.round.error.client()
-    case e: FishnetError =>
-      logger.info(s"Round fishnet error $name", e)
-      lidraughts.mon.round.error.fishnet()
+    case e: DraughtsnetError =>
+      logger.info(s"Round draughtsnet error $name", e)
+      lidraughts.mon.round.error.draughtsnet()
     case e: Exception => logger.warn(s"$name: ${e.getMessage}")
   }
 }

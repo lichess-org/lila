@@ -61,7 +61,7 @@ lazy val modules = Seq(
   evaluation, chat, puzzle, tv, coordinate, blog, qa,
   history, shutup, push, explorer,
   playban, insight, perfStat, slack, quote, challenge,
-  study, studySearch, learn, plan,
+  study, studySearch, draughtsnet, learn, plan,
   event, practice, evalCache,
   activity, relay, streamer
 )
@@ -196,7 +196,7 @@ lazy val analyse = module("analyse", Seq(common, hub, game, user, notifyModule, 
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
-lazy val round = module("round", Seq(common, db, memo, hub, socket, evalCache, analyse, game, user, i18n, pref, chat, history, playban)).settings(
+lazy val round = module("round", Seq(common, db, memo, hub, socket, evalCache, draughtsnet, analyse, game, user, i18n, pref, chat, history, playban)).settings(
   libraryDependencies ++= provided(play.api, hasher, kamon.core, reactivemongo.driver, reactivemongo.iteratees)
 )
 
@@ -226,6 +226,10 @@ lazy val tournament = module("tournament", Seq(common, hub, socket, game, round,
 
 lazy val simul = module("simul", Seq(common, hub, socket, game, round, chat, memo, quote)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
+)
+
+lazy val draughtsnet = module("draughtsnet", Seq(common, game, analyse, db, evalCache)).settings(
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, semver)
 )
 
 lazy val oauth = module("oauth", Seq(common, db, user)).settings(

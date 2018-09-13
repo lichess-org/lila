@@ -39,6 +39,7 @@ private[api] final class Cli(bus: lidraughts.common.Bus) extends lidraughts.comm
       lidraughts.puzzle.Env.current.cli.process orElse
       lidraughts.tournament.Env.current.cli.process orElse
       lidraughts.explorer.Env.current.cli.process orElse
+      lidraughts.draughtsnet.Env.current.cli.process orElse
       lidraughts.study.Env.current.cli.process orElse
       lidraughts.studySearch.Env.current.cli.process orElse
       lidraughts.evalCache.Env.current.cli.process orElse

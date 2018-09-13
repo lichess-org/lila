@@ -85,7 +85,7 @@ final class Env(
     logApi = logApi,
     modApi = api,
     reporter = hub.actor.report,
-    fishnet = hub.actor.fishnet,
+    draughtsnet = hub.actor.draughtsnet,
     userIdsSharingIp = securityApi.userIdsSharingIp
   )
 

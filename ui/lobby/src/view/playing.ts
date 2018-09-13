@@ -40,7 +40,7 @@ export default function(ctrl: LobbyController) {
           }, [ h('div.cg-board') ])
         ]),
         h('span.meta', [
-          pov.opponent.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', pov.opponent.ai) : pov.opponent.username,
+          pov.opponent.ai ? ctrl.trans('aiNameLevelAiLevel', 'Scan', pov.opponent.ai) : pov.opponent.username,
           h('span.indicator',
             pov.isMyTurn ?
             (pov.secondsLeft ? timer(pov) : [ctrl.trans.noarg('yourTurn')]) :

@@ -1,13 +1,15 @@
 package lidraughts.round
 
-import draughts.format.{ Forsyth, FEN, Uci }
-import draughts.{ MoveMetrics, Centis, Status, Color, Move }
-
-import actorApi.round.{ HumanPlay, DrawNo, TooManyPlies, TakebackNo, ForecastPlay }
-import akka.actor.ActorRef
-import lidraughts.game.{ Game, Progress, Pov, UciMemo }
+import scala.concurrent.duration._
+import draughts.format.{ FEN, Forsyth, Uci }
+import draughts.{ Centis, Color, Move, MoveMetrics, Status }
+import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
+import akka.actor._
+import lidraughts.game.{ Game, Pov, Progress, UciMemo }
+import lidraughts.hub.actorApi.round.DraughtsnetPlay
 
 private[round] final class Player(
+    draughtsnetPlayer: lidraughts.draughtsnet.Player,
     bus: lidraughts.common.Bus,
     finisher: Finisher,
     uciMemo: UciMemo
@@ -30,13 +32,11 @@ private[round] final class Player(
               if (pov.game.hasAi) uciMemo.add(pov.game, moveOrDrop)
               notifyMove(moveOrDrop, progress.game)
             } >> progress.game.finished.fold(
-              moveFinish(progress.game, color) dmap {
-                progress.events ::: _
-              }, {
+              moveFinish(progress.game, color) dmap { progress.events ::: _ }, {
+                if (progress.game.playableByAi) requestDraughtsnet(progress.game, round)
                 if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
                 if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
                 if (pov.game.forecastable) round ! ForecastPlay(moveOrDrop)
-
                 fuccess(progress.events)
               }
             ) >>- promiseOption.foreach(_.success(()))
@@ -50,7 +50,42 @@ private[round] final class Player(
     }
   }
 
-  private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
+  def draughtsnet(game: Game, uci: Uci, currentFen: FEN, round: ActorRef, context: ActorContext, nextMove: Option[(Uci, String)] = None)(implicit proxy: GameProxy): Fu[Events] =
+    if (game.playable && game.player.isAi) {
+      if (currentFen == FEN(Forsyth >> game.draughts))
+        applyUci(game, uci, blur = false, metrics = draughtsnetLag)
+          .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
+            case Flagged => finisher.outOfTime(game)
+            case MoveApplied(progress, move) =>
+              proxy.save(progress) >>-
+                uciMemo.add(progress.game, move) >>-
+                notifyMove(move, progress.game) >>
+                progress.game.finished.fold(
+                  moveFinish(progress.game, game.turnColor) dmap { progress.events ::: _ },
+                  fuccess(progress.events)
+                ) >>-
+                  nextMove.fold() { nextMove =>
+                    context.system.scheduler.scheduleOnce(game.clock.fold((300 + scala.util.Random.nextInt(200)).milliseconds) {
+                      clock =>
+                        val remaining = clock.remainingTime(game.player.color).centis
+                        if (remaining > 1500)
+                          (300 + scala.util.Random.nextInt(200)).milliseconds
+                        else if (remaining > 500)
+                          (200 + scala.util.Random.nextInt(100)).milliseconds
+                        else
+                          (100 + scala.util.Random.nextInt(50)).milliseconds
+                    }, round, DraughtsnetPlay(nextMove._1, nextMove._2, FEN(Forsyth >> progress.game.draughts)))
+                  }
+          }
+      else requestDraughtsnet(game, round) >> fufail(DraughtsnetError(s"Invalid AI move current FEN $currentFen != ${FEN(Forsyth >> game.draughts)}"))
+    } else fufail(DraughtsnetError("Not AI turn"))
+
+  private def requestDraughtsnet(game: Game, round: ActorRef): Funit = game.playableByAi ?? {
+    if (game.turns <= draughtsnetPlayer.maxPlies) draughtsnetPlayer(game)
+    else fuccess(round ! actorApi.round.ResignAi)
+  }
+
+  private val draughtsnetLag = MoveMetrics(clientLag = Centis(5).some)
 
   private def applyUci(game: Game, uci: Uci, blur: Boolean, metrics: MoveMetrics, finalSquare: Boolean = false): Valid[MoveResult] =
     (uci match {
@@ -61,9 +96,9 @@ private[round] final class Player(
       case _ => s"Could not apply move: $uci".failureNel
     }).map {
       case (ncg, _) if ncg.clock.exists(_.outOfTime(game.turnColor, false)) => Flagged
-      case (newChessGame, moveOrDrop) => MoveApplied(
-        game.update(newChessGame, moveOrDrop, blur, metrics),
-        moveOrDrop
+      case (newGame, move) => MoveApplied(
+        game.update(newGame, move, blur, metrics),
+        move
       )
     }
 

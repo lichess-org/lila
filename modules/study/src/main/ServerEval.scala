@@ -5,7 +5,7 @@ import play.api.libs.json._
 import draughts.format.{ Forsyth, FEN, Uci, UciCharPair }
 import draughts.format.pdn.Glyphs
 import lidraughts.analyse.{ Analysis, Info }
-import lidraughts.hub.actorApi.fishnet.StudyChapterRequest
+import lidraughts.hub.actorApi.draughtsnet.StudyChapterRequest
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.socket.Socket.Uid
 import lidraughts.tree._
@@ -15,13 +15,13 @@ import lidraughts.user.User
 object ServerEval {
 
   final class Requester(
-      fishnetActor: akka.actor.ActorSelection,
+      draughtsnetActor: akka.actor.ActorSelection,
       chapterRepo: ChapterRepo
   ) {
 
     def apply(study: Study, chapter: Chapter, userId: User.ID): Funit =
       chapterRepo.startServerEval(chapter) >>- {
-        fishnetActor ! StudyChapterRequest(
+        draughtsnetActor ! StudyChapterRequest(
           studyId = study.id.value,
           chapterId = chapter.id.value,
           initialFen = chapter.root.fen.some,

@@ -20,7 +20,7 @@ final class AssessApi(
     logApi: ModlogApi,
     modApi: ModApi,
     reporter: ActorSelection,
-    fishnet: ActorSelection,
+    draughtsnet: ActorSelection,
     userIdsSharingIp: String => Fu[List[String]]
 ) {
 
@@ -193,7 +193,7 @@ final class AssessApi(
 
     shouldAnalyse foreach { reason =>
       lidraughts.mon.cheat.autoAnalysis.reason(reason.toString)()
-      fishnet ! lidraughts.hub.actorApi.fishnet.AutoAnalyse(game.id)
+      draughtsnet ! lidraughts.hub.actorApi.draughtsnet.AutoAnalyse(game.id)
     }
 
     funit

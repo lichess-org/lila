@@ -121,7 +121,7 @@ final class Env(
   )
 
   private lazy val serverEvalRequester = new ServerEval.Requester(
-    fishnetActor = hub.actor.fishnet,
+    draughtsnetActor = hub.actor.draughtsnet,
     chapterRepo = chapterRepo
   )
 
