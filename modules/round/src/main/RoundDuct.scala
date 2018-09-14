@@ -29,7 +29,7 @@ private[round] final class Round(
 
   private[this] var takebackSituation: Option[Round.TakebackSituation] = None
 
-  def game: Fu[Option[Game]] = proxy.game
+  def getGame: Fu[Option[Game]] = proxy.game
 
   val process: Duct.ReceiveAsync = {
 
@@ -49,7 +49,7 @@ private[round] final class Round(
       handleBotPlay(p) { pov =>
         if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
         else player.bot(p, this)(pov)
-      } >>- scheduleExpiration
+      }
 
     case DraughtsnetPlay(uci, taken, currentFen) => handle { game =>
       if (taken.length > 2) {
@@ -262,13 +262,6 @@ private[round] final class Round(
       } UserLagCache.put(user, lag)
     }
 
-  private[this] def scheduleExpiration: Unit = proxy.game foreach {
-    _.flatMap(_.timeBeforeExpiration) foreach { centis =>
-      scheduler.scheduleOnce((centis.millis + 1000).millis) { this ! NoStart }
-    }
-  }
-  scheduleExpiration // schedule it right now
-
   private[this] def handle[A](op: Game => Fu[Events]): Funit =
     handleGame(proxy.game)(op)
 
@@ -334,7 +327,6 @@ object Round {
       drawer: Drawer,
       forecastApi: ForecastApi,
       socketHub: ActorRef,
-      scheduler: Scheduler,
       moretimeDuration: FiniteDuration
   )
 

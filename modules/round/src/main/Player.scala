@@ -19,6 +19,7 @@ private[round] final class Player(
     draughtsnetPlayer: lidraughts.draughtsnet.Player,
     bus: lidraughts.common.Bus,
     finisher: Finisher,
+    scheduleExpiration: Game => Unit,
     uciMemo: UciMemo
 ) {
 
@@ -83,7 +84,8 @@ private[round] final class Player(
       if (progress.game.playableByAi) requestDraughtsnet(progress.game, round)
       if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
       if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
-      if (pov.game.forecastable) round ! ForecastPlay(move)
+      if (progress.game.forecastable) round ! ForecastPlay(move)
+      scheduleExpiration(progress.game)
       fuccess(progress.events)
     }
     res >>- promiseOption.foreach(_.success(()))
