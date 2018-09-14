@@ -11,8 +11,6 @@ final class Env(
     appPath: String
 ) {
 
-  val CliUsername = config getString "cli.username"
-
   private val RendererName = config getString "app.renderer.name"
 
   lazy val preloader = new mashup.Preload(

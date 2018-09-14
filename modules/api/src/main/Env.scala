@@ -36,8 +36,6 @@ final class Env(
     val isProd: Boolean
 ) {
 
-  val CliUsername = config getString "cli.username"
-
   val apiToken = config getString "api.token"
 
   val isStage = config getBoolean "app.stage"
