@@ -15,6 +15,7 @@ private[round] final class Player(
     fishnetPlayer: lila.fishnet.Player,
     bus: lila.common.Bus,
     finisher: Finisher,
+    scheduleExpiration: Game => Unit,
     uciMemo: UciMemo
 ) {
 
@@ -79,9 +80,10 @@ private[round] final class Player(
       if (progress.game.playableByAi) requestFishnet(progress.game, round)
       if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
       if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
-      if (pov.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
+      if (progress.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
         round ! ForecastPlay(move)
       }
+      scheduleExpiration(progress.game)
       fuccess(progress.events)
     }
     res >>- promiseOption.foreach(_.success(()))

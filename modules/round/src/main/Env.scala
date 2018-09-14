@@ -69,14 +69,17 @@ final class Env(
     drawer = drawer,
     forecastApi = forecastApi,
     socketHub = socketHub,
-    scheduler = system.scheduler,
     moretimeDuration = MoretimeDuration
   )
   val roundMap = new lila.hub.DuctMap[Round](
-    mkDuct = id => new Round(
-      dependencies = roundDependencies,
-      gameId = id
-    ),
+    mkDuct = id => {
+      val duct = new Round(
+        dependencies = roundDependencies,
+        gameId = id
+      )
+      duct.getGame foreach { _ foreach scheduleExpiration }
+      duct
+    },
     accessTimeout = ActiveTtl
   )
 
@@ -99,10 +102,15 @@ final class Env(
   }
 
   def roundProxyGame(gameId: Game.ID): Fu[Option[Game]] =
-    roundMap.getOrMake(gameId).game.mon(_.round.proxyGameWatcherTime) addEffect { g =>
+    roundMap.getOrMake(gameId).getGame addEffect { g =>
       if (!g.isDefined) roundMap kill gameId
-      lila.mon.round.proxyGameWatcherCount(g.isDefined.toString)()
     }
+
+  private def scheduleExpiration(game: Game): Unit = game.timeBeforeExpiration foreach { centis =>
+    system.scheduler.scheduleOnce((centis.millis + 1000).millis) {
+      roundMap.tell(game.id, actorApi.round.NoStart)
+    }
+  }
 
   private val socketHub = {
     val actor = system.actorOf(
@@ -197,6 +205,7 @@ final class Env(
     fishnetPlayer = fishnetPlayer,
     bus = bus,
     finisher = finisher,
+    scheduleExpiration = scheduleExpiration,
     uciMemo = uciMemo
   )
 
