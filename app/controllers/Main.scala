@@ -127,9 +127,9 @@ object Main extends LidraughtsController {
     }
   }
 
-  val robots = Action {
+  val robots = Action { req =>
     Ok {
-      if (Env.api.Net.Crawlable) """User-agent: *
+      if (Env.api.Net.Crawlable && req.domain == Env.api.Net.Domain) """User-agent: *
 Allow: /
 Disallow: /game/export
 Disallow: /games/export
