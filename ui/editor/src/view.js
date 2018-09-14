@@ -151,7 +151,7 @@ function controls(ctrl, fen) {
         m('a.button', {
           class: (looksLegit && selectedVariant === 'standard') ? '' : 'disabled',
           onclick: function() {
-            if (ctrl.positionLooksLegit()) $.modal($('.continue_with'));
+            if (ctrl.positionLooksLegit() && selectedVariant === 'standard') $.modal($('.continue_with'));
           }
         },
         m('span.text[data-icon=U]', ctrl.trans('continueFromHere'))),
