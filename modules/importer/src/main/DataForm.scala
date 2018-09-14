@@ -20,11 +20,10 @@ private[importer] final class DataForm {
     ImportData(pdn, none).preprocess(none).isSuccess
 }
 
-private[importer] case class Result(status: Status, winner: Option[Color])
+private[importer] case class TagResult(status: Status, winner: Option[Color])
 case class Preprocessed(
     game: NewGame,
     replay: Replay,
-    result: Result,
     initialFen: Option[FEN],
     parsed: ParsedPdn
 )
@@ -73,15 +72,6 @@ case class ImportData(pdn: String, analyse: Option[String]) {
             case Some(_) => Status.UnknownFinish
           }
 
-          val result =
-            parsed.tags.resultColor
-              .ifFalse(game.situation.end)
-              .fold(Result(Status.Started, none)) {
-                case Some(color) => Result(status, color.some)
-                case None if status == Status.Outoftime => Result(status, none)
-                case None => Result(Status.Draw, none)
-              }
-
           val date = parsed.tags.anyDate
 
           def name(whichName: TagPicker, whichRating: TagPicker): String = parsed.tags(whichName).fold("?") { n =>
@@ -95,9 +85,21 @@ case class ImportData(pdn: String, analyse: Option[String]) {
             mode = Mode.Casual,
             source = Source.Import,
             pdnImport = PdnImport.make(user = user, date = date, pdn = pdn).some
-          ).start
+          ).sloppy.start |> { dbGame =>
+            // apply the result from the board or the tags
+            game.situation.status match {
+              case Some(situationStatus) => dbGame.finish(situationStatus, game.situation.winner).game
+              case None => parsed.tags.resultColor.map {
+                case Some(color) => TagResult(status, color.some)
+                case None if status == Status.Outoftime => TagResult(status, none)
+                case None => TagResult(Status.Draw, none)
+              }.filter(_.status > Status.Started).fold(dbGame) { res =>
+                dbGame.finish(res.status, res.winner).game
+              }
+            }
+          }
 
-          Preprocessed(dbGame, replay.copy(state = game), result, initialFen, parsed)
+          Preprocessed(NewGame(dbGame), replay.copy(state = game), initialFen, parsed)
       }
   }
 }

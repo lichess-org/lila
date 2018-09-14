@@ -27,7 +27,7 @@ object PdnImport {
 
   def apply(pdn: String, contributors: List[LightUser], draughtsResult: Boolean): Valid[Result] =
     ImportData(pdn, analyse = none).preprocess(user = none).map {
-      case prep @ Preprocessed(game, replay, result, initialFen, parsedPdn) =>
+      case prep @ Preprocessed(game, replay, initialFen, parsedPdn) =>
         val annotator = findAnnotator(parsedPdn, contributors)
         parseComments(parsedPdn.initialPosition.comments, annotator) match {
           case (shapes, _, comments) =>
@@ -57,17 +57,13 @@ object PdnImport {
                 nodeRes._1.fold(variations._1)(_ :: variations._1).toVector
               }
             )
-            val end: Option[End] = {
-              (if (game.finished) game.status else result.status).some
-                .filter(draughts.Status.Aborted <=).map { status =>
-                  val winner = game.winnerColor orElse result.winner
-                  End(
-                    status = status,
-                    winner = winner,
-                    resultText = draughts.Color.showResult(winner, draughtsResult),
-                    statusText = lidraughts.game.StatusText(status, winner, game.variant)
-                  )
-                }
+            val end: Option[End] = (game.finished option game.status).map { status =>
+              End(
+                status = status,
+                winner = game.winnerColor,
+                resultText = draughts.Color.showResult(game.winnerColor, draughtsResult),
+                statusText = lidraughts.game.StatusText(status, game.winnerColor, game.variant)
+              )
             }
             val commented =
               if (root.mainline.lastOption.??(_.isCommented)) root
