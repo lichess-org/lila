@@ -563,6 +563,7 @@
   <string name="troll">Provokacija</string>
   <string name="other">Drugo</string>
   <string name="reportDescriptionHelp">Prilepite povezave do iger in pojasnite kaj je narobe z obnašanjem uporabnika. Na napišite samo \"uporabnik goljufa\" temveč pojsnite zakaj mislite tako. Prijava bo obdelana hitreje če bo napisana v angleščini.</string>
+  <string name="error.provideOneCheatedGameLink">Navedite vsaj eno povezavo do igre s primerom goljufanja.</string>
   <string name="by">od %s</string>
   <string name="thisTopicIsNowClosed">Tema je zaprta</string>
   <string name="theming">Oblikovanje</string>
