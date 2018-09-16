@@ -86,7 +86,6 @@ private final class MoveDB(
         coll get moveId match {
           case None => Monitor.notFound(moveId, client)
           case Some(move) if move isAcquiredBy client =>
-            logger.info(s"Reveiced $data")
             data.move.uci match {
               case Some(uci) =>
                 coll -= move.id

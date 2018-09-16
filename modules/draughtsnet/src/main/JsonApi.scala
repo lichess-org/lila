@@ -152,11 +152,12 @@ object JsonApi {
 
   def fromGame(g: W.Game) = {
     val initialFen = g.initialFen.fold(g.variant.initialFen)(_.value)
+    val moves = g.moves.nonEmpty.fold(draughts.Replay.exportScanMoves(g.moves, initialFen, g.variant) mkString " ", "")
     Game(
       game_id = if (g.studyId.isDefined) "" else g.id,
       position = FEN(Forsyth.exportScanPosition(Forsyth << initialFen)),
       variant = g.variant,
-      moves = g.moves.nonEmpty.fold(draughts.Replay.exportScanMoves(g.moves, initialFen, g.variant) mkString " ", "")
+      moves = moves
     )
   }
 
