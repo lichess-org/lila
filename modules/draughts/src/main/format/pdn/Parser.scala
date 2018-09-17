@@ -94,7 +94,7 @@ object Parser extends scalaz.syntax.ToTraverseOps {
     }
 
     //val moveRegex = """0\-0\-0|0\-0|[PQKRBNOoa-h@][QKRBNa-h1-8xOo\-=\+\#\@]{1,6}[\?!□]{0,2}""".r
-    val moveRegex = """(50|[1-4][0-9]|0?[1-9])[\-x](50|[1-4][0-9]|0?[1-9])[\?!□]{0,2}""".r
+    val moveRegex = """(50|[1-4][0-9]|0?[1-9])[\-x](50|[1-4][0-9]|0?[1-9])[\?!□⨀]{0,2}""".r
 
     def strMove: Parser[StrMove] = as("move") {
       ((number | commentary)*) ~> (moveRegex ~ nagGlyphs ~ rep(commentary) ~ rep(variation)) <~ (moveExtras*) ^^ {
@@ -139,38 +139,36 @@ object Parser extends scalaz.syntax.ToTraverseOps {
 
   object MoveParser extends RegexParsers with Logging {
 
-    private val MoveR = """^(50|[1-4][0-9]|0?[1-9])(-|x)(50|[1-4][0-9]|0?[1-9])(\#?)$""".r
+    private val MoveR = """^(50|[1-4][0-9]|0?[1-9])(-|x)(50|[1-4][0-9]|0?[1-9])([\?!□⨀]{0,2})$""".r
 
     def apply(str: String, variant: Variant): Valid[San] = {
       str match {
-        case MoveR(srcR, cptR, dstR, mate) => {
-          val srcField = parseIntOption(srcR)
-          val dstField = parseIntOption(dstR)
-          (srcField, dstField) match {
-            case (Some(srcF), Some(dstF)) => (Pos.posAt(srcF), Pos.posAt(dstF)) match {
-              case (Some(srcP), Some(dstP)) =>
-                succezz(Std(
-                  src = srcP,
-                  dest = dstP,
-                  capture = cptR == "x",
-                  metas = Metas(
-                    checkmate = mate.nonEmpty,
-                    comments = Nil,
-                    glyphs = Glyphs.empty,
-                    variations = Nil
-                  )
-                ))
-              case _ => s"Cannot parse positions: $srcF -> $dstF".failureNel
-            }
-            case _ => s"Cannot parse fields: $srcR -> $dstR".failureNel
+        case MoveR(srcR, cptR, dstR, suff) => {
+          val src = parseIntOption(srcR) flatMap Pos.posAt
+          val dst = parseIntOption(dstR) flatMap Pos.posAt
+          (src, dst) match {
+            case (Some(srcP), Some(dstP)) =>
+              val parseGlyphs = if (suff.isEmpty) Glyphs.empty
+              else parseAll(glyphs, suff) match {
+                case Success(glphs, _) => glphs
+                case err => Glyphs.empty
+              }
+              succezz(Std(
+                src = srcP,
+                dest = dstP,
+                capture = cptR == "x",
+                metas = Metas(
+                  checkmate = false,
+                  comments = Nil,
+                  glyphs = parseGlyphs,
+                  variations = Nil
+                )
+              ))
+            case _ => s"Cannot parse fields: $srcR($cptR)$dstR".failureNel
           }
         }
         case _ => s"Cannot parse move: $str".failureNel
       }
-    }
-
-    def suffixes: Parser[Suffixes] = checkmate ~ glyphs ^^ {
-      case cm ~ g => Suffixes(cm, g)
     }
 
     def glyphs: Parser[Glyphs] = as("glyphs") {
@@ -183,8 +181,6 @@ object Parser extends scalaz.syntax.ToTraverseOps {
         "glyph"
       )
     }
-
-    val checkmate = ("#" | "++") ^^^ true | success(false)
 
     def exists(c: String): Parser[Boolean] = c ^^^ true | success(false)
 
