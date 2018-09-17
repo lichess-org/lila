@@ -11,6 +11,7 @@ case class Actor(
 
   import Actor._
 
+  lazy val validMoves: List[Move] = if (captures.nonEmpty) captures else noncaptures
   lazy val allMoves: List[Move] = captures ::: noncaptures
   lazy val noncaptures: List[Move] = noncaptureMoves()
   lazy val captures: List[Move] = captureMoves(false)
