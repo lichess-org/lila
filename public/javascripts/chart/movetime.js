@@ -25,6 +25,8 @@ lidraughts.movetimeChart = function(data, trans) {
             var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
             if (data.player.color === 'white') blurs.reverse();
 
+            var corres = (data.game.speed && data.game.speed == "correspondence");
+
             var skipped = 0, mergedSan = "";
             for (var i = 0; i < moveCentis.length; i++) {
               var node = tree[i + 1 + skipped];
@@ -64,8 +66,10 @@ lidraughts.movetimeChart = function(data, trans) {
               } else {
                 if (mergedSan.length == 0 && node)
                   mergedSan = node.san.slice(0, node.san.indexOf('x') + 1);
-                moveCentis[i + 1] += moveCentis[i];
-                moveCentis.splice(i, 1);
+                if (!corres) {
+                  moveCentis[i + 1] += moveCentis[i];
+                  moveCentis.splice(i, 1);
+                }
                 i--;
                 skipped++;
               }
