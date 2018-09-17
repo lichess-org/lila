@@ -16,7 +16,8 @@ private[round] final class Takebacker(
         if (pov.opponent.proposeTakebackAt == game.turns) rewindUntilPly(game, game.displayTurns - (game.situation.ghosts == 0 || game.turnColor != color).fold(1, 2), pov.opponent.color)
         else rewindUntilPly(game, game.displayTurns - 2, pov.opponent.color)
       } map (_ -> situation.reset)
-      //case Pov(game, _) if pov.opponent.isAi => double(game) map (_ -> situation)
+      case Pov(game, _) if pov.opponent.isAi =>
+        rewindUntilPly(game, game.displayTurns - ((game.situation.ghosts == 0 && game.turnColor == pov.opponent.color) || (game.situation.ghosts != 0 && game.turnColor != pov.opponent.color)).fold(1, 2), pov.opponent.color) map (_ -> situation)
       case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable => {
         messenger.system(game, _.takebackPropositionSent)
         val progress = Progress(game) map { g =>
