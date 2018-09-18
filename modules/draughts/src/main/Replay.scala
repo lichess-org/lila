@@ -106,9 +106,10 @@ object Replay {
       var newAmb = none[(String, String)]
       val res = moves match {
         case uci :: rest => Uci.Move(uci) match {
-          case Some(uciMove) => Std(uciMove.orig, uciMove.dest, uciMove.capture.getOrElse(Nil).nonEmpty).apply(
+          case Some(uciMove) => Std(uciMove.orig, uciMove.dest, uciMove.capture.getOrElse(Nil).nonEmpty).move(
             g.situation, true,
-            if (ambs.isEmpty) None else ambs.collect({ case (ambFrom, ambUci) if ambFrom == uci => ambUci }).some
+            if (ambs.isEmpty) None else ambs.collect({ case (ambFrom, ambUci) if ambFrom == uci => ambUci }).some,
+            uciMove.capture
           ).fold(
               err => (Nil, err.head.some),
               move => {
@@ -163,11 +164,11 @@ object Replay {
       }
     }
 
-  private def recursiveReplayFromUci(replay: Replay, ucis: List[Uci]): Valid[Replay] =
+  private def recursiveReplayFromUci(replay: Replay, ucis: List[Uci], finalSquare: Boolean = false): Valid[Replay] =
     ucis match {
       case Nil => success(replay)
-      case uci :: rest => uci(replay.state.situation) flatMap { moveOrDrop =>
-        recursiveReplayFromUci(replay addMove moveOrDrop, rest)
+      case uci :: rest => uci(replay.state.situation, finalSquare) flatMap { move =>
+        recursiveReplayFromUci(replay addMove move, rest, finalSquare)
       }
     }
 
@@ -210,9 +211,10 @@ object Replay {
   def apply(
     moves: List[Uci],
     initialFen: Option[String],
-    variant: draughts.variant.Variant
+    variant: draughts.variant.Variant,
+    finalSquare: Boolean = false
   ): Valid[Replay] =
-    recursiveReplayFromUci(Replay(makeGame(variant, initialFen)), moves)
+    recursiveReplayFromUci(Replay(makeGame(variant, initialFen)), moves, finalSquare)
 
   def plyAtFen(
     moveStrs: Traversable[String],
