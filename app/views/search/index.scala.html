@@ -79,7 +79,7 @@ description = s"Search in ${nbGames.localize} draughts games using advanced crit
           <div class="half">To @base.form.select(form("ratingMax"), Query.averageRatings, "".some)</div>
         </td>
       </tr>
-      @*<tr>
+      <tr>
         <th>
           <label for="@form("hasAi").id">@trans.opponent() <span class="help" title="Whether the player's opponent was a human or a computer">(?)</span></label>
         </th>
@@ -95,7 +95,7 @@ description = s"Search in ${nbGames.localize} draughts games using advanced crit
           <div class="half">From @base.form.select(form("aiLevelMin"), Query.aiLevels, "".some)</div>
           <div class="half">To @base.form.select(form("aiLevelMax"), Query.aiLevels, "".some)</div>
         </td>
-      </tr>*@
+      </tr>
       <tr>
         <th>
           <label for="@form("source").id">Source</label>
@@ -190,14 +190,14 @@ description = s"Search in ${nbGames.localize} draughts games using advanced crit
           <div class="half">@base.form.select(form("sort")("order"), Sorting.orders)</div>
         </td>
       </tr>
-      @*<tr>
+      <tr>
         <th>
           <label for="analysed">Analysis <span class="help" title="Whether computer analysis is available or not">(?)</span></label>
         </th>
         <td class="single">
           @base.form.checkbox(form("analysed"), "", 1)
         </td>
-      </tr>*@
+      </tr>
       <tr>
         <th></th>
         <td class="simple action">
