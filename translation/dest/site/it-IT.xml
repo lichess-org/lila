@@ -197,7 +197,7 @@
   <string name="accept">Accetta</string>
   <string name="decline">Rifiuta</string>
   <string name="playingRightNow">Partita in corso</string>
-  <string name="eventInProgress">In corso in questo momento</string>
+  <string name="eventInProgress">In corso</string>
   <string name="finished">Terminati</string>
   <string name="abortGame">Interrompi la partita</string>
   <string name="gameAborted">Partita interrotta</string>
