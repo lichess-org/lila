@@ -263,11 +263,11 @@
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Questo giocatore modifica il proprio punteggio irregolarmente</string>
   <string name="openingExplorerAndTablebase">Explorer delle aperture &amp; tablebase</string>
   <string name="takeback">Ritira la mossa</string>
-  <string name="proposeATakeback">Proponi di ritirare la mossa</string>
+  <string name="proposeATakeback">Chiedi di ritirare la mossa</string>
   <string name="takebackPropositionSent">Richiesta di ritiro mossa inviata</string>
-  <string name="takebackPropositionDeclined">Proposta di ritiro mossa rifiutata</string>
-  <string name="takebackPropositionAccepted">Proposta di ritiro mossa accettata</string>
-  <string name="takebackPropositionCanceled">Proposta di ritiro mossa annullata</string>
+  <string name="takebackPropositionDeclined">Richiesta di ritiro mossa rifiutata</string>
+  <string name="takebackPropositionAccepted">Richiesta di ritiro mossa accettata</string>
+  <string name="takebackPropositionCanceled">Richiesta di ritiro mossa annullata</string>
   <string name="yourOpponentProposesATakeback">Il tuo avversario chiede di ritirare la mossa</string>
   <string name="bookmarkThisGame">Aggiungi questa partita ai preferiti</string>
   <string name="search">Cerca</string>
