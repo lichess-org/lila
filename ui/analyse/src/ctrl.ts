@@ -153,7 +153,7 @@ export default class AnalyseCtrl {
       if (plyStr === 'last') this.initialPath = treePath.fromNodeList(mainline);
       else {
         const ply = parseInt(plyStr as string);
-        if (ply) this.initialPath = treeOps.takePathWhile(mainline, n => n.ply <= ply);
+        if (ply) this.initialPath = treeOps.takePathWhile(mainline, n => (n.displayPly ? n.displayPly : n.ply) <= ply);
       }
     }
 
@@ -334,7 +334,7 @@ export default class AnalyseCtrl {
     };
 
   private onChange: () => void = throttle(300, () => {
-    li.pubsub.emit('analysis.change')(this.node.fen, this.path, this.onMainline ? this.node.ply : false);
+    li.pubsub.emit('analysis.change')(this.node.fen, this.path, this.onMainline ? (this.node.displayPly ? this.node.displayPly : this.node.ply) : false);
   });
 
   private updateHref: () => void = li.fp.debounce(() => {
@@ -400,7 +400,7 @@ export default class AnalyseCtrl {
   }
 
   mainlinePathToPly(ply: Ply): Tree.Path {
-    return treeOps.takePathWhile(this.mainline, n => n.ply <= ply);
+    return treeOps.takePathWhile(this.mainline, n => (n.displayPly ? n.displayPly : n.ply) <= ply);
   }
 
   jumpToMain = (ply: Ply): void => {

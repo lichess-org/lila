@@ -31,10 +31,14 @@ lidraughts.movetimeChart = function(data, trans) {
             for (var i = 0; i < moveCentis.length; i++) {
               var node = tree[i + 1 + skipped];
               ply = node ? node.ply : ply + 1;
-              if (ply !== lastPly) {
+              if (ply !== lastPly || i + 1 === moveCentis.length) {
+
+                if (i + 1 === moveCentis.length && ply === lastPly)
+                  ply++;
                 lastPly = ply;
-                var san = node ? (node.san) : '-';
-                if (mergedSan.length != 0 && node) {
+
+                var san = node ? node.san : '-';
+                if (mergedSan.length !== 0 && node) {
                   san = mergedSan + san.slice(san.indexOf('x') + 1);
                   mergedSan = "";
                 }
