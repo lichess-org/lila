@@ -33,4 +33,19 @@
   <string name="makeYourOpponentResign">ተጫዋቹን እኩል እንዲወጣ ያድርጉ</string>
   <string name="forceResignation">ድል ይውሰዱ</string>
   <string name="forceDraw">እኩል ለመውጣት ይጠይቁ</string>
+  <string name="talkInChat">እባክዎን ውይይት ላይ ጥሩ ባህሪ ይኑርዎት!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">ይህን ማስፈንጥሪያ የተጠቀመ የመጀመሪያ ሰው ከእርስዎ ጋር ይጫወታል.</string>
+  <string name="whiteResigned">ነጭ እጅ ሰቷል</string>
+  <string name="blackResigned">ጥቁር እጅ ሰቷል</string>
+  <string name="whiteLeftTheGame">ነጭ ጨዋታውን ትቶ ሄዷል</string>
+  <string name="blackLeftTheGame">ጥቁር ጨዋታውን ትቶ ሄዷል</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">ይህን ማስፈንጠሪያ ለተመልካቾች ያጋሩ</string>
+  <string name="theComputerAnalysisHasFailed">የኮምፒውተር ትንተና አልተሳካም</string>
+  <string name="viewTheComputerAnalysis">የኮምፒውተሩን ትንተና ይመልከቱ</string>
+  <string name="requestAComputerAnalysis">የኮሞፒውተር ትንተና ይጠይቁ</string>
+  <string name="computerAnalysis">የኮምፒውተር ትንተና</string>
+  <string name="computerAnalysisAvailable">የኮምፒውተር ትንተና ይገኛል</string>
+  <string name="analysis">የትንተና ሰሌዳ</string>
+  <string name="depthX">ጥልቀት %s</string>
+  <string name="usingServerAnalysis">የሰርቨር ትንተና</string>
 </resources>
