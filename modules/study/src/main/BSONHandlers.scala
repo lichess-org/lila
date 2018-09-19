@@ -134,7 +134,7 @@ object BSONHandlers {
     def write(e: Score) = BSONInteger {
       e.value.fold(
         cp => cp.value atLeast (-winFactor + 1) atMost (winFactor - 1),
-        mate => mate.value * winFactor
+        win => win.value * winFactor
       )
     }
   }

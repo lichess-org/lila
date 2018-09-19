@@ -19,8 +19,8 @@ object JsonView {
   }
   import PracticeGoal._
   implicit val practiceGoalWrites: Writes[PracticeGoal] = OWrites {
-    case Mate => Json.obj("result" -> "mate")
-    case MateIn(moves) => Json.obj("result" -> "mateIn", "moves" -> moves)
+    case Mate => Json.obj("result" -> "win")
+    case MateIn(moves) => Json.obj("result" -> "winIn", "moves" -> moves)
     case DrawIn(moves) => Json.obj("result" -> "drawIn", "moves" -> moves)
     case EqualIn(moves) => Json.obj("result" -> "equalIn", "moves" -> moves)
     case EvalIn(cp, moves) => Json.obj("result" -> "evalIn", "cp" -> cp, "moves" -> moves)
