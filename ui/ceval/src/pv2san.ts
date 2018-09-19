@@ -193,7 +193,7 @@ function san(board: Board, uci: string): string  {
   return san;
 }
 
-export default function(variant: VariantKey, fen: string, threat: boolean, moves: string[], mate?: number): string {
+export default function(variant: VariantKey, fen: string, threat: boolean, moves: string[], win?: number): string {
   const board = readFen(fen);
   if (threat) board.turn = !board.turn;
   const turn = board.turn;
@@ -210,10 +210,10 @@ export default function(variant: VariantKey, fen: string, threat: boolean, moves
     return s;
   }).join(' ');
 
-  if (mate) {
-    let matePlies = mate * 2;
-    if (mate > 0 === turn) matePlies--;
-    if (moves.length >= matePlies) line = line.replace(/\+?$/, '#');
+  if (win) {
+    let winPlies = win * 2;
+    if (win > 0 === turn) winPlies--;
+    if (moves.length >= winPlies) line = line.replace(/\+?$/, '#');
   }
 
   return line;

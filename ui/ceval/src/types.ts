@@ -2,7 +2,7 @@ import { Prop, StoredProp, StoredBooleanProp } from 'common';
 
 export interface Eval {
   cp?: number;
-  mate?: number;
+  win?: number;
 }
 
 export interface WorkerOpts {

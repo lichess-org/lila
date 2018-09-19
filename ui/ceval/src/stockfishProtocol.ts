@@ -3,7 +3,7 @@ import { WorkerOpts, Work } from './types';
 
 const EVAL_REGEX = new RegExp(''
   + /^info depth (\d+) seldepth \d+ multipv (\d+) /.source
-  + /score (cp|mate) ([-\d]+) /.source
+  + /score (cp|win) ([-\d]+) /.source
   + /(?:(upper|lower)bound )?nodes (\d+) nps \S+ /.source
   + /(?:hashfull \d+ )?tbhits \d+ time (\S+) /.source
   + /pv (.+)/.source);
@@ -50,7 +50,7 @@ export default class Protocol {
 
     let depth = parseInt(matches[1]),
         multiPv = parseInt(matches[2]),
-        isMate = matches[3] === 'mate',
+        isWin = matches[3] === 'win',
         ev = parseInt(matches[4]),
         evalType = matches[5],
         nodes = parseInt(matches[6]),
@@ -58,7 +58,7 @@ export default class Protocol {
         moves = matches[8].split(' ');
 
     // Sometimes we get #0. Let's just skip it.
-    if (isMate && !ev) return;
+    if (isWin && !ev) return;
 
     // Track max pv index to determine when pv prints are done.
     if (this.expectedPvs < multiPv) this.expectedPvs = multiPv;
@@ -76,8 +76,8 @@ export default class Protocol {
 
     let pvData = {
       moves,
-      cp: isMate ? undefined : ev,
-      mate: isMate ? ev : undefined,
+      cp: isWin ? undefined : ev,
+      win: isWin ? ev : undefined,
       depth,
     };
 
@@ -88,8 +88,8 @@ export default class Protocol {
         depth,
         knps: nodes / elapsedMs,
         nodes,
-        cp: isMate ? undefined : ev,
-        mate: isMate ? ev : undefined,
+        cp: isWin ? undefined : ev,
+        win: isWin ? ev : undefined,
         pvs: [pvData],
         millis: elapsedMs
       };

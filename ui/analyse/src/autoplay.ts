@@ -27,7 +27,7 @@ export class Autoplay {
 
   private evalToCp(node: Tree.Node): number {
       if (!node.eval) return (node.displayPly ? node.displayPly : node.ply) % 2 ? 990 : -990; // game over
-      if (node.eval.mate) return (node.eval.mate > 0) ? 990 : -990;
+      if (node.eval.win) return (node.eval.win > 0) ? 990 : -990;
       return node.eval.cp!;
   }
 

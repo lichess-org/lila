@@ -27,7 +27,7 @@ function toPutData(variant, ev) {
     pvs: ev.pvs.map(pv => {
       return {
         cp: pv.cp,
-        mate: pv.mate,
+        win: pv.win,
         moves: pv.moves.slice(0, evalPutMaxMoves).join(' ')
       };
     })
@@ -47,13 +47,13 @@ function toCeval(e) {
         moves: from.moves.split(' ')
       };
       if (defined(from.cp)) to.cp = from.cp;
-      else to.mate = from.mate;
+      else to.win = from.win;
       return to;
     }),
     cloud: true
   };
   if (defined(res.pvs[0].cp)) res.cp = res.pvs[0].cp;
-  else res.mate = res.pvs[0].mate;
+  else res.win = res.pvs[0].win;
   res.cloud = true;
   return res;
 }

@@ -185,14 +185,14 @@ function winner(stm: string, move: TablebaseMoveStats): Color | undefined {
 function showDtm(ctrl: AnalyseCtrl, stm: string, move: TablebaseMoveStats) {
   if (move.dtm) return h('result.' + winner(stm, move), {
     attrs: {
-      title: ctrl.trans.plural('mateInXHalfMoves', Math.abs(move.dtm)) + ' (Depth To Mate)'
+      title: ctrl.trans.plural('winInXHalfMoves', Math.abs(move.dtm)) + ' (Depth To Win)'
     }
   }, 'DTM ' + Math.abs(move.dtm));
 }
 
 function showDtz(ctrl: AnalyseCtrl, stm: string, move: TablebaseMoveStats): VNode | null {
   const trans = ctrl.trans.noarg;
-  if (move.checkmate) return h('result.' + winner(stm, move), trans('checkmate'));
+  if (move.checkmate) return h('result.' + winner(stm, move), '');
   else if (move.stalemate) return h('result.draws', trans('stalemate'));
   else if (move.variant_win) return h('result.' + winner(stm, move), trans('variantLoss'));
   else if (move.variant_loss) return h('result.' + winner(stm, move), trans('variantWin'));
@@ -261,7 +261,7 @@ function show(ctrl: AnalyseCtrl) {
     ] as [string, (move: TablebaseMoveStats) => boolean][])
       .map(a => showTablebase(ctrl, a[0] as string, moves.filter(a[1]), data.fen))
       .reduce(function(a, b) { return a.concat(b); }, []));
-    else if (data.checkmate) lastShow = showGameEnd(ctrl, trans('checkmate'))
+    else if (data.checkmate) lastShow = showGameEnd(ctrl, '')
       else if (data.stalemate) lastShow = showGameEnd(ctrl, trans('stalemate'))
         else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, trans('variantEnding'));
       else lastShow = showEmpty(ctrl);

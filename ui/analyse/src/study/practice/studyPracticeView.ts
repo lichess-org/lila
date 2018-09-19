@@ -30,10 +30,10 @@ function selector(data: StudyPracticeData) {
 function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
   const goal = practice.goal();
   switch (goal.result) {
-    case 'mate':
-      return 'Checkmate the opponent';
-    case 'mateIn':
-      return 'Checkmate the opponent in ' + plural('move', inMoves);
+    case 'win':
+      return 'Win the game';
+    case 'winIn':
+      return 'Win the game in ' + plural('move', inMoves);
     case 'drawIn':
       return 'Hold the draw for ' + plural('more move', inMoves);
     case 'equalIn':

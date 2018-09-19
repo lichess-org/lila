@@ -177,19 +177,19 @@ declare namespace Tree {
     pvs: PvData[];
     cloud?: boolean;
     cp?: number;
-    mate?: number;
+    win?: number;
     retried?: boolean;
   }
 
   export interface ServerEval {
     cp?: number;
-    mate?: number;
+    win?: number;
     best?: Uci;
   }
 
   export interface PvData {
     moves: string[];
-    mate?: number;
+    win?: number;
     cp?: number;
   }
 

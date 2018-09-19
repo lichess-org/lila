@@ -47,13 +47,13 @@ function renderOffTrack(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
 }
 
 function renderEnd(root: AnalyseCtrl, end: string): VNode {
-  const isMate = end === 'checkmate';
-  const color = isMate ? opposite(root.turnColor()) : root.turnColor();
+  const isWin = end === 'checkmate';
+  const color = isWin ? opposite(root.turnColor()) : root.turnColor();
   return h('div.player', [
     color ? h('div.no-square', h('piece.king.' + color)) : h('div.icon.off', '!'),
     h('div.instruction', [
       h('strong', root.trans.noarg(end)),
-      isMate ?
+      isWin ?
         h('em', h('color', root.trans.noarg(color === 'white' ? 'whiteWinsGame' : 'blackWinsGame'))) :
         h('em', root.trans.noarg('theGameIsADraw'))
     ])

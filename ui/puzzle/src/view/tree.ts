@@ -127,7 +127,7 @@ export function renderMove(ctx, node): MaybeVNodes {
   return [
     node.san,
     defined(ev.cp) ? renderEval(normalizeEval(ev.cp)) : (
-      defined(ev.mate) ? renderEval('#' + ev.mate) : null
+      defined(ev.win) ? renderEval('#' + ev.win) : null
     ),
     puzzleGlyph(ctx, node)
   ];

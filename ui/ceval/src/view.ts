@@ -90,9 +90,9 @@ export function getBestEval(evs: NodeEvals): Eval | undefined {
   if (!serverEv) return localEv;
   if (!localEv) return serverEv;
 
-  // Prefer localEv if it exeeds draughtsnet node limit or finds a better mate.
+  // Prefer localEv if it exeeds draughtsnet node limit or finds a better win.
   if (localEv.nodes > serverNodes ||
-    (typeof localEv.mate !== 'undefined' && (typeof serverEv.mate === 'undefined' || Math.abs(localEv.mate) < Math.abs(serverEv.mate))))
+    (typeof localEv.win !== 'undefined' && (typeof serverEv.win === 'undefined' || Math.abs(localEv.win) < Math.abs(serverEv.win))))
   return localEv;
 
   return serverEv;
@@ -128,8 +128,8 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
     percent = evs.client ? Math.min(100, Math.round(100 * evs.client.depth / (evs.client.maxDepth || instance.effectiveMaxDepth()))) : 0;
-  } else if (bestEv && defined(bestEv.mate)) {
-    pearl = '#' + bestEv.mate;
+  } else if (bestEv && defined(bestEv.win)) {
+    pearl = '#' + bestEv.win;
     percent = 100;
   } else if (ctrl.gameOver()) {
     pearl = '-';
@@ -252,11 +252,11 @@ export function renderPvs(ctrl: ParentCtrl) {
     }
   }, range(multiPv).map(function(i) {
     if (!pvs[i]) return h('div.pv');
-    const san = pv2san(instance.variant.key, node.fen, threat, pvs[i].moves.slice(0, 12), pvs[i].mate);
+    const san = pv2san(instance.variant.key, node.fen, threat, pvs[i].moves.slice(0, 12), pvs[i].win);
     return h('div.pv', threat ? {} : {
       attrs: { 'data-uci': pvs[i].moves[0] }
     }, [
-      multiPv > 1 ? h('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp!)) : null,
+      multiPv > 1 ? h('strong', defined(pvs[i].win) ? ('#' + pvs[i].win) : renderEval(pvs[i].cp!)) : null,
       h('span', san)
     ]);
   }));

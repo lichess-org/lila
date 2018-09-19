@@ -38,7 +38,7 @@ export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
     .concat((node.glyphs && ctx.showGlyphs) ? renderGlyphs(node.glyphs) : [])
     .concat(ctx.showEval ? (
       defined(ev.cp) ? [renderEval(normalizeEval(ev.cp))] : (
-        defined(ev.mate) ? [renderEval('#' + ev.mate)] : []
+        defined(ev.win) ? [renderEval('#' + ev.win)] : []
       )
     ) : []);
 }
