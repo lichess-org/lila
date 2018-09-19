@@ -402,6 +402,7 @@
   <string name="troll">Троль</string>
   <string name="other">Іншае</string>
   <string name="reportDescriptionHelp">Устаўце спасылку на гульню(і) і растлумачце што не так ў паводзінах карыстальніка</string>
+  <string name="error.provideOneCheatedGameLink">Калі ласка, дадайце спасылку хоць бы на адну гульню, дзе па вашай думцы былі парушаны правілы.</string>
   <string name="by">пакінуў %s</string>
   <string name="thisTopicIsNowClosed">Тэма закрытая</string>
   <string name="theming">Тэмы</string>
