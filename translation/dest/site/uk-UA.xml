@@ -468,6 +468,7 @@
   <string name="troll">Надокучливість</string>
   <string name="other">Інше</string>
   <string name="reportDescriptionHelp">Вставте посилання на гру (ігри) та поясніть, що не так із поведінкою цього користувача.</string>
+  <string name="error.provideOneCheatedGameLink">Будь ласка, додайте посилання хоча б на одну гру, де на вашу думку були порушені правила.</string>
   <string name="by">від %s</string>
   <string name="thisTopicIsNowClosed">Наразі цю тему завершено.</string>
   <string name="theming">Вигляд</string>
