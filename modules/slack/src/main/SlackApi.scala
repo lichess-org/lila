@@ -14,12 +14,6 @@ final class SlackApi(
 
   import SlackApi._
 
-  private object rooms {
-    private val general = "team"
-    private val tavern = "tavern"
-    private val tavernBots = "tavern-bots"
-  }
-
   object charge {
 
     import lila.hub.actorApi.plan.ChargeEvent
@@ -185,6 +179,12 @@ final class SlackApi(
 }
 
 private object SlackApi {
+
+  object rooms {
+    val general = "team"
+    val tavern = "tavern"
+    val tavernBots = "tavern-bots"
+  }
 
   object stage {
     val name = "stage.lichess.org"
