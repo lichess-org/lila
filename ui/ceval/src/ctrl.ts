@@ -23,8 +23,8 @@ export default function(opts: CevalOpts): CevalCtrl {
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
   const enableStorage = li.storage.make(storageKey('client-eval-enabled'));
-  const allowed = prop(true);
-  const enabled = prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
+  const allowed = prop(false); //prop(true);
+  const enabled = prop(false); //prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
