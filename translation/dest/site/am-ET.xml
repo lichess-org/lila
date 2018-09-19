@@ -10,4 +10,27 @@
   <string name="yourTurn">የእርስዎ ተራ</string>
   <string name="aiNameLevelAiLevel">%1$s ደረጃ %2$s</string>
   <string name="level">ደረጃ</string>
+  <string name="toggleTheChat">መወያያውን ይቀይሩ</string>
+  <string name="toggleSound">ድምፅ ይቀይሩ</string>
+  <string name="chat">ያውሩ</string>
+  <string name="resign">እጅ ሰጥቻለው</string>
+  <string name="checkmate">ቼክሜት</string>
+  <string name="white">ነጭ</string>
+  <string name="black">ጥቁር</string>
+  <string name="randomColor">ከሁለት በአንዱ</string>
+  <string name="createAGame">ጨዋታ ይፍጠሩ</string>
+  <string name="whiteIsVictorious">ነጭ አሸንፏል</string>
+  <string name="blackIsVictorious">ጥቁር አሸንፏል</string>
+  <string name="kingInTheCenter">ንጉስ መሃል ላይ</string>
+  <string name="threeChecks">ሶስት ቼክ</string>
+  <string name="raceFinished">ውድድሩ አልቋል</string>
+  <string name="newOpponent">አዲስ ተጫዋች</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">ተጫዋቹ/ቿ ከእርሶ ጋር እንደገና መጫወት ይፈልጋል</string>
+  <string name="joinTheGame">ጨዋታውን ይቀላቀሉ</string>
+  <string name="whitePlays">የነጭ ተራ</string>
+  <string name="blackPlays">የጥቁር ተራ</string>
+  <string name="opponentLeftChoices">ተጫዋቹ/ቿ ጨዋታውን ትተው ወተውዋል. ድሉን ይውሰዱ ፣ እንደ እኩል ይጋሩ.</string>
+  <string name="makeYourOpponentResign">ተጫዋቹን እኩል እንዲወጣ ያድርጉ</string>
+  <string name="forceResignation">ድል ይውሰዱ</string>
+  <string name="forceDraw">እኩል ለመውጣት ይጠይቁ</string>
 </resources>
