@@ -353,7 +353,7 @@
   <string name="fromPosition">С позиции</string>
   <string name="continueFromHere">Продолжить с этой позиции</string>
   <string name="importGame">Импортировать игру</string>
-  <string name="importGameExplanation">Вставьте запись игры в формате PGN, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
+  <string name="importGameExplanation">Вставьте запись игры в формате PDN, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s импортированная</item>
     <item quantity="few">%s импортированные</item>
@@ -679,7 +679,6 @@
   <string name="tournamentFAQ">Вопросы и ответы про Арену</string>
   <string name="tournamentOfficial">Официальный</string>
   <string name="timeBeforeTournamentStarts">Время до начала турнира</string>
-  <string name="averageCentipawnLoss">Потери сантипешек в среднем</string>
   <string name="keyboardShortcuts">Горячие клавиши</string>
   <string name="keyMoveBackwardOrForward">ход назад/вперёд</string>
   <string name="keyGoToStartOrEnd">в начало/конец</string>

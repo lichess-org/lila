@@ -12,12 +12,12 @@ sealed trait Advice {
   def turn = info.turn
   def color = info.color
   def cp = info.cp
-  def mate = info.mate
+  def win = info.win
 
   def makeComment(withEval: Boolean, withBestMove: Boolean): String =
     withEval.??(evalComment ?? { c => s"($c) " }) +
       (this match {
-        case MateAdvice(seq, _, _, _) => seq.desc
+        case WinAdvice(seq, _, _, _) => seq.desc
         case CpAdvice(judgment, _, _) => judgment.toString
       }) + "." + {
         withBestMove ?? {
@@ -43,7 +43,7 @@ object Advice {
     val all = List(Inaccuracy, Mistake, Blunder)
   }
 
-  def apply(prev: Info, info: Info): Option[Advice] = CpAdvice(prev, info) orElse MateAdvice(prev, info)
+  def apply(prev: Info, info: Info): Option[Advice] = CpAdvice(prev, info) orElse WinAdvice(prev, info)
 }
 
 private[analyse] case class CpAdvice(
@@ -61,58 +61,58 @@ private[analyse] object CpAdvice {
   )
 
   def apply(prev: Info, info: Info): Option[CpAdvice] = for {
-    cp ← prev.cp map (_.ceiled.centipawns)
-    infoCp ← info.cp map (_.ceiled.centipawns)
+    cp ← prev.cp map (_.ceiled.centipieces)
+    infoCp ← info.cp map (_.ceiled.centipieces)
     delta = (infoCp - cp) |> { d => info.color.fold(-d, d) }
     judgment ← cpJudgments find { case (d, n) => d <= delta } map (_._2)
   } yield CpAdvice(judgment, info, prev)
 }
 
-private[analyse] sealed abstract class MateSequence(val desc: String)
-private[analyse] case object MateDelayed extends MateSequence(
-  desc = "Not the best checkmate sequence"
+private[analyse] sealed abstract class WinSequence(val desc: String)
+private[analyse] case object WinDelayed$ extends WinSequence(
+  desc = "Not the best winning sequence"
 )
-private[analyse] case object MateLost extends MateSequence(
-  desc = "Lost forced checkmate sequence"
+private[analyse] case object WinLost$ extends WinSequence(
+  desc = "Lost forced winning sequence"
 )
-private[analyse] case object MateCreated extends MateSequence(
-  desc = "Checkmate is now unavoidable"
+private[analyse] case object WinCreated$ extends WinSequence(
+  desc = "Win is now unavoidable"
 )
 
-private[analyse] object MateSequence {
-  def apply(prev: Option[Mate], next: Option[Mate]): Option[MateSequence] =
+private[analyse] object WinSequence {
+  def apply(prev: Option[Win], next: Option[Win]): Option[WinSequence] =
     (prev, next).some collect {
-      case (None, Some(n)) if n.negative => MateCreated
-      case (Some(p), None) if p.positive => MateLost
-      case (Some(p), Some(n)) if p.positive && n.negative => MateLost
-      case (Some(p), Some(n)) if p.positive && n >= p && p <= Mate(5) => MateDelayed
+      case (None, Some(n)) if n.negative => WinCreated$
+      case (Some(p), None) if p.positive => WinLost$
+      case (Some(p), Some(n)) if p.positive && n.negative => WinLost$
+      case (Some(p), Some(n)) if p.positive && n >= p && p <= Win(5) => WinDelayed$
     }
 }
-private[analyse] case class MateAdvice(
-    sequence: MateSequence,
+private[analyse] case class WinAdvice(
+    sequence: WinSequence,
     judgment: Advice.Judgment,
     info: Info,
     prev: Info
 ) extends Advice
-private[analyse] object MateAdvice {
+private[analyse] object WinAdvice {
 
-  def apply(prev: Info, info: Info): Option[MateAdvice] = {
+  def apply(prev: Info, info: Info): Option[WinAdvice] = {
     def invertCp(cp: Cp) = cp invertIf info.color.black
-    def invertMate(mate: Mate) = mate invertIf info.color.black
-    def prevCp = prev.cp.map(invertCp).??(_.centipawns)
-    def nextCp = info.cp.map(invertCp).??(_.centipawns)
-    MateSequence(prev.mate map invertMate, info.mate map invertMate) map { sequence =>
+    def invertWin(win: Win) = win invertIf info.color.black
+    def prevCp = prev.cp.map(invertCp).??(_.centipieces)
+    def nextCp = info.cp.map(invertCp).??(_.centipieces)
+    WinSequence(prev.win map invertWin, info.win map invertWin) map { sequence =>
       import Advice.Judgment._
       val judgment = sequence match {
-        case MateCreated if prevCp < -999 => Inaccuracy
-        case MateCreated if prevCp < -700 => Mistake
-        case MateCreated => Blunder
-        case MateLost if nextCp > 999 => Inaccuracy
-        case MateLost if nextCp > 700 => Mistake
-        case MateLost => Blunder
-        case MateDelayed => Inaccuracy
+        case WinCreated$ if prevCp < -999 => Inaccuracy
+        case WinCreated$ if prevCp < -700 => Mistake
+        case WinCreated$ => Blunder
+        case WinLost$ if nextCp > 999 => Inaccuracy
+        case WinLost$ if nextCp > 700 => Mistake
+        case WinLost$ => Blunder
+        case WinDelayed$ => Inaccuracy
       }
-      MateAdvice(sequence, judgment, info, prev)
+      WinAdvice(sequence, judgment, info, prev)
     }
   }
 }

@@ -57,7 +57,7 @@ object EvalCacheEntry {
     def bestMove: Uci = bestPv.moves.value.head
 
     def looksValid = pvs.toList.forall(_.looksValid) && {
-      pvs.toList.forall(_.score.mateFound) || (knodes.value >= MIN_KNODES || depth >= MIN_DEPTH)
+      pvs.toList.forall(_.score.winFound) || (knodes.value >= MIN_KNODES || depth >= MIN_DEPTH)
     }
 
     def truncatePvs = copy(pvs = pvs.map(_.truncate))
@@ -81,9 +81,9 @@ object EvalCacheEntry {
 
   case class Pv(score: Score, moves: Moves) {
 
-    def looksValid = score.mate match {
+    def looksValid = score.win match {
       case None => moves.value.size > MIN_PV_SIZE
-      case Some(mate) => mate.value != 0 // sometimes we get #0. Dunno why.
+      case Some(win) => win.value != 0 // sometimes we get #0. Dunno why.
     }
 
     def truncate = copy(moves = moves.truncate)

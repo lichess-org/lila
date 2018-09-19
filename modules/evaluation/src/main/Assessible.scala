@@ -20,8 +20,8 @@ case class Assessible(analysed: Analysed) {
 
   def alwaysHasAdvantage(color: Color): Boolean =
     !analysis.infos.exists { info =>
-      info.cp.fold(info.mate.fold(false) { a => (a.signum == color.fold(-1, 1)) }) { cp =>
-        color.fold(cp.centipawns < -100, cp.centipawns > 100)
+      info.cp.fold(info.win.fold(false) { a => (a.signum == color.fold(-1, 1)) }) { cp =>
+        color.fold(cp.centipieces < -100, cp.centipieces > 100)
       }
     }
 

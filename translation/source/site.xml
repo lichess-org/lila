@@ -329,7 +329,7 @@
   <string name="continueFromHere">Continue from here</string>
   <string name="importGame">Import game</string>
   <string name="importGameExplanation">When pasting a game PDN you get a browsable replay,
- a game chat and a shareable URL.</string>
+a computer analysis, a game chat and a shareable URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
     <item quantity="other">%s imported games</item>
@@ -650,7 +650,7 @@ in %3$s</string>
   <string name="tournamentFAQ">Arena tournament FAQ</string>
   <string name="tournamentOfficial">Official</string>
   <string name="timeBeforeTournamentStarts">Time before tournament starts</string>
-  <string name="averageCentipawnLoss">Average centipawn loss</string>
+  <string name="averageCentipieceLoss">Average centipiece loss</string>
   <string name="keyboardShortcuts">Keyboard shortcuts</string>
   <string name="keyMoveBackwardOrForward">move backward/forward</string>
   <string name="keyGoToStartOrEnd">go to start/end</string>

@@ -17,7 +17,7 @@ private object BSONHandlers {
   implicit val PvsHandler = new BSONHandler[BSONString, NonEmptyList[Pv]] {
     private def scoreWrite(s: Score): String = s.value.fold(_.value.toString, m => s"#${m.value}")
     private def scoreRead(str: String): Option[Score] =
-      if (str startsWith "#") parseIntOption(str drop 1) map { m => Score mate Mate(m) }
+      if (str startsWith "#") parseIntOption(str drop 1) map { m => Score win Win(m) }
       else parseIntOption(str) map { c => Score cp Cp(c) }
     private def movesWrite(moves: Moves): String = Uci writeListPiotr moves.value.toList
     private def movesRead(str: String): Option[Moves] =

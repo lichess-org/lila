@@ -10,7 +10,7 @@ object JsonView {
   def moves(analysis: Analysis) = JsArray(analysis.infoAdvices map {
     case ((info, adviceOption)) => Json.obj()
       .add("eval" -> info.cp)
-      .add("mate" -> info.mate)
+      .add("win" -> info.win)
       .add("best" -> info.best.map(_.uci))
       .add("variation" -> info.variation.nonEmpty.option(info.variation mkString " "))
       .add("judgment" -> adviceOption.map { a =>

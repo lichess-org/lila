@@ -77,7 +77,7 @@ final class JsonView(
       "analysis" -> analysis.map { a =>
         JsArray(a.infos.map { info =>
           info.cp.map { cp => Json.obj("cp" -> cp.value) } orElse
-            info.mate.map { mate => Json.obj("mate" -> mate.value) } getOrElse
+            info.win.map { win => Json.obj("win" -> win.value) } getOrElse
             JsNull
         })
       }

@@ -320,7 +320,7 @@
   <string name="continueFromHere">Ga vanaf hier verder</string>
   <string name="importGame">Importeer partij</string>
   <string name="importGameExplanation">Wanneer je een PDN in het venster plakt dan krijg je een doorzoekbare replay,
-een chatbox bij de partij en een deelbare URL.</string>
+een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Geïmporteerde partij</item>
     <item quantity="other">%s Geïmporteerde partijen</item>
@@ -630,7 +630,7 @@ een chatbox bij de partij en een deelbare URL.</string>
   <string name="tournamentFAQ">Veelgestelde vragen over Arena toernooien</string>
   <string name="tournamentOfficial">Officieel</string>
   <string name="timeBeforeTournamentStarts">Tijd voordat het toernooi start</string>
-  <string name="averageCentipawnLoss">Gemiddelde centipion verlies</string>
+  <string name="averageCentipieceLoss">Gemiddelde fout (1/100 schijf)</string>
   <string name="keyboardShortcuts">Toetsenbordsnelkoppelingen</string>
   <string name="keyMoveBackwardOrForward">zet achteruit/vooruit</string>
   <string name="keyGoToStartOrEnd">ga naar het begin/eind</string>

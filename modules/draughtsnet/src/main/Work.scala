@@ -48,10 +48,19 @@ object Work {
       initialFen: Option[FEN],
       studyId: Option[String],
       variant: Variant,
-      moves: List[String]
+      moves: List[String],
+      finalSquare: Boolean = false
   ) {
 
-    def uciList: List[Uci] = moves.map(Uci.apply).flatten
+    def uciList: List[Uci] =
+      finalSquare.fold(moves, moves.foldRight(List[String]()) {
+        (move, moves) =>
+          moves.headOption match {
+            case Some(lastMove) if lastMove.take(2) == move.slice(2, 4) =>
+              (move.take(2) + lastMove) :: moves.tail
+            case _ => move.take(4) :: moves
+          }
+      }).map(Uci.apply).flatten
   }
 
   case class Sender(

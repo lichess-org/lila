@@ -4,49 +4,49 @@ import draughts.format.Uci
 
 case class Eval(
     cp: Option[Eval.Cp],
-    mate: Option[Eval.Mate],
+    win: Option[Eval.Win],
     best: Option[Uci]
 ) {
 
-  def isEmpty = cp.isEmpty && mate.isEmpty
+  def isEmpty = cp.isEmpty && win.isEmpty
 
   def dropBest = copy(best = None)
 
-  def invert = copy(cp = cp.map(_.invert), mate = mate.map(_.invert))
+  def invert = copy(cp = cp.map(_.invert), win = win.map(_.invert))
 
-  def score: Option[Eval.Score] = cp.map(Eval.Score.cp) orElse mate.map(Eval.Score.mate)
+  def score: Option[Eval.Score] = cp.map(Eval.Score.cp) orElse win.map(Eval.Score.win)
 }
 
 object Eval {
 
-  case class Score(value: Either[Cp, Mate]) extends AnyVal {
+  case class Score(value: Either[Cp, Win]) extends AnyVal {
 
     def cp: Option[Cp] = value.left.toOption
-    def mate: Option[Mate] = value.right.toOption
+    def win: Option[Win] = value.right.toOption
 
-    def isCheckmate = value == Score.checkmate
-    def mateFound = value.isRight
+    def isWin = value == Score.iswin
+    def winFound = value.isRight
 
     def invert = copy(value = value.left.map(_.invert).right.map(_.invert))
     def invertIf(cond: Boolean) = if (cond) invert else this
 
-    def eval = Eval(cp, mate, None)
+    def eval = Eval(cp, win, None)
   }
 
   object Score {
 
     def cp(x: Cp): Score = Score(Left(x))
-    def mate(y: Mate): Score = Score(Right(y))
+    def win(y: Win): Score = Score(Right(y))
 
-    val checkmate: Either[Cp, Mate] = Right(Mate(0))
+    val iswin: Either[Cp, Win] = Right(Win(0))
   }
 
   case class Cp(value: Int) extends AnyVal with Ordered[Cp] {
 
-    def centipawns = value
+    def centipieces = value
 
-    def pawns: Float = value / 100f
-    def showPawns: String = "%.2f" format pawns
+    def pieces: Float = value / 100f
+    def showPieces: String = "%.2f" format pieces
 
     def ceiled =
       if (value > Cp.CEILING) Cp(Cp.CEILING)
@@ -68,14 +68,14 @@ object Eval {
     val initial = Cp(15)
   }
 
-  case class Mate(value: Int) extends AnyVal with Ordered[Mate] {
+  case class Win(value: Int) extends AnyVal with Ordered[Win] {
 
     def moves = value
 
-    def invert = Mate(value = -value)
+    def invert = Win(value = -value)
     def invertIf(cond: Boolean) = if (cond) invert else this
 
-    def compare(other: Mate) = value compare other.value
+    def compare(other: Win) = value compare other.value
 
     def signum: Int = Math.signum(value).toInt
 
@@ -98,9 +98,9 @@ object Eval {
       Writes { cp => JsNumber(cp.value) }
     )
 
-    implicit val mateFormat: Format[Mate] = Format[Mate](
-      Reads.of[Int] map Mate.apply,
-      Writes { mate => JsNumber(mate.value) }
+    implicit val winFormat: Format[Win] = Format[Win](
+      Reads.of[Int] map Win.apply,
+      Writes { win => JsNumber(win.value) }
     )
 
     implicit val evalWrites = Json.writes[Eval]

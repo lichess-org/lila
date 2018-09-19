@@ -56,7 +56,7 @@ final class Analyser(
       case true => fuFalse
       case _ => {
         import req._
-        val sender = Work.Sender(req.userId, none, false, system = req.userId == "lidraughts")
+        val sender = Work.Sender(req.userId, none, false, system = req.userId.has("lidraughts"))
         limiter(sender, ignoreConcurrentCheck = true) flatMap { accepted =>
           accepted ?? {
             val work = makeWork(
@@ -86,20 +86,23 @@ final class Analyser(
       }
     }
 
-  private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] =
+  private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] = {
     GameRepo.initialFen(game) zip uciMemo.get(game) map {
-      case (initialFen, moves) => makeWork(
-        game = Work.Game(
-          id = game.id,
-          initialFen = initialFen map FEN.apply,
-          studyId = none,
-          variant = game.variant,
-          moves = moves take maxPlies toList
-        ),
-        startPly = game.draughts.startedAtTurn,
-        sender = sender
-      )
+      case (initialFen, moves) =>
+        makeWork(
+          game = Work.Game(
+            id = game.id,
+            initialFen = initialFen map FEN.apply,
+            studyId = none,
+            variant = game.variant,
+            moves = moves take maxPlies toList,
+            finalSquare = game.imported
+          ),
+          startPly = game.draughts.startedAtTurn,
+          sender = sender
+        )
     }
+  }
 
   private def makeWork(game: Work.Game, startPly: Int, sender: Work.Sender): Work.Analysis =
     Work.Analysis(

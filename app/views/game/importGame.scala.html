@@ -31,13 +31,13 @@ description = "When pasting a game PDN, you get a browsable replay, a computer a
       @errMsg(field)
       }
     </label>
-    @*<p class="analyse">
+    <p class="analyse">
       <span>
         <input name="@form("analyse").name" id="import_analyse" class="cmn-toggle cmn-toggle-round" type="checkbox" />
         <label for="import_analyse"></label>
       </span>
       <label for="import_analyse">@trans.requestAComputerAnalysis()</label>
-    </p>*@
+    </p>
     <button class="submit text button" type="submit" data-icon="G">@trans.importGame()</button>
   </form>
 </div>

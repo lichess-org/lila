@@ -24,11 +24,11 @@ private final class Monitor(
 
     monitor.totalSecond(sumOf(result.evaluations)(_.time) * threads.|(1) / 1000)
     monitor.totalMeganode(sumOf(result.evaluations) { eval =>
-      eval.nodes ifFalse eval.mateFound
+      eval.nodes ifFalse eval.winFound
     } / 1000000)
     monitor.totalPosition(result.evaluations.size)
 
-    val metaMovesSample = sample(result.evaluations.drop(6).filterNot(_.mateFound), 100)
+    val metaMovesSample = sample(result.evaluations.drop(6).filterNot(_.winFound), 100)
     def avgOf(f: JsonApi.Request.Evaluation => Option[Int]): Option[Int] = {
       val (sum, nb) = metaMovesSample.foldLeft(0 -> 0) {
         case ((sum, nb), move) => f(move).fold(sum -> nb) { v =>
@@ -44,7 +44,7 @@ private final class Monitor(
     avgOf(_.pv.size.some) foreach { monitor.pvSize(_) }
 
     val significantPvSizes =
-      result.evaluations.filterNot(_.mateFound).filterNot(_.deadDraw).map(_.pv.size)
+      result.evaluations.filterNot(_.winFound).filterNot(_.deadDraw).map(_.pv.size)
 
     monitor.pvTotal(significantPvSizes.size)
     monitor.pvShort(significantPvSizes.count(_ < 3))

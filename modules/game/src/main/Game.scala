@@ -647,9 +647,7 @@ object Game {
   val maxPlies = 600 // unlimited can cause StackOverflowError
 
   val analysableVariants: Set[Variant] = Set(
-    draughts.variant.Standard,
-    draughts.variant.Frisian,
-    draughts.variant.Antidraughts
+    draughts.variant.Standard
   )
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants

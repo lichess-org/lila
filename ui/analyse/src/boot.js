@@ -1,4 +1,5 @@
 var defined = require('common').defined;
+var tree = require("tree")
 
 module.exports = function(element, cfg) {
   var data = cfg.data;
@@ -20,7 +21,7 @@ module.exports = function(element, cfg) {
         analysisProgress: function(d) {
           var partial = !d.tree.eval;
           if (!lidraughts.advantageChart) startAdvantageChart();
-          else if (lidraughts.advantageChart.update) lidraughts.advantageChart.update(data, partial);
+          else if (lidraughts.advantageChart.update) lidraughts.advantageChart.update({ game: data.game, treeParts: tree.ops.mainlineNodeList(tree.build(d.tree).root) }, partial);
           if (!partial) $("#adv_chart_loader").remove();
         },
         crowd: function(event) {

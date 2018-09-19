@@ -125,16 +125,16 @@ object BSONHandlers {
   }
 
   implicit val EvalScoreBSONHandler = new BSONHandler[BSONInteger, Score] {
-    private val mateFactor = 1000000
+    private val winFactor = 1000000
     def read(i: BSONInteger) = Score {
       val v = i.value
-      if (v >= mateFactor || v <= -mateFactor) Right(Eval.Mate(v / mateFactor))
+      if (v >= winFactor || v <= -winFactor) Right(Eval.Win(v / winFactor))
       else Left(Eval.Cp(v))
     }
     def write(e: Score) = BSONInteger {
       e.value.fold(
-        cp => cp.value atLeast (-mateFactor + 1) atMost (mateFactor - 1),
-        mate => mate.value * mateFactor
+        cp => cp.value atLeast (-winFactor + 1) atMost (winFactor - 1),
+        mate => mate.value * winFactor
       )
     }
   }

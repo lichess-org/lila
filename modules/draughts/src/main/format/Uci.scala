@@ -11,7 +11,7 @@ sealed trait Uci {
 
   def origDest: (Pos, Pos)
 
-  def apply(situation: Situation): Valid[Move]
+  def apply(situation: Situation, finalSquare: Boolean = false): Valid[Move]
 
 }
 
@@ -37,7 +37,7 @@ object Uci
 
     def origDest = orig -> dest
 
-    def apply(situation: Situation) = situation.move(orig, dest, promotion)
+    def apply(situation: Situation, finalSquare: Boolean = false) = situation.move(orig, dest, promotion, finalSquare)
 
     def toSan = s"${orig.shortKey}${if (capture.nonEmpty) "x" else "-"}${dest.shortKey}"
 

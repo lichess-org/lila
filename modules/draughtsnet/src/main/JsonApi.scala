@@ -9,7 +9,7 @@ import draughts.variant.Variant
 import lidraughts.common.{ Maths, IpAddress }
 import lidraughts.draughtsnet.{ Work => W }
 import lidraughts.tree.Eval.JsonHandlers._
-import lidraughts.tree.Eval.{ Cp, Mate }
+import lidraughts.tree.Eval.{ Cp, Win }
 
 object JsonApi {
 
@@ -93,7 +93,7 @@ object JsonApi {
 
       def medianNodes = Maths.median {
         evaluations
-          .filterNot(_.mateFound)
+          .filterNot(_.winFound)
           .filterNot(_.deadDraw)
           .flatMap(_.nodes)
       }
@@ -120,8 +120,8 @@ object JsonApi {
 
       val cappedPv = pv take lidraughts.analyse.Info.LineMaxPlies
 
-      def isCheckmate = score.mate has Mate(0)
-      def mateFound = score.mate.isDefined
+      def isWin = score.win has Win(0)
+      def winFound = score.win.isDefined
       def deadDraw = score.cp has Cp(0)
     }
 
@@ -131,8 +131,8 @@ object JsonApi {
 
       type OrSkipped = Either[Skipped.type, Evaluation]
 
-      case class Score(cp: Option[Cp], mate: Option[Mate]) {
-        def invert = copy(cp.map(_.invert), mate.map(_.invert))
+      case class Score(cp: Option[Cp], win: Option[Win]) {
+        def invert = copy(cp.map(_.invert), win.map(_.invert))
         def invertIf(cond: Boolean) = if (cond) invert else this
       }
 
@@ -152,7 +152,7 @@ object JsonApi {
 
   def fromGame(g: W.Game) = {
     val initialFen = g.initialFen.fold(g.variant.initialFen)(_.value)
-    val moves = g.moves.nonEmpty.fold(draughts.Replay.exportScanMoves(g.moves, initialFen, g.variant) mkString " ", "")
+    val moves = g.moves.nonEmpty.fold(draughts.Replay.exportScanMoves(g.moves, initialFen, g.variant, g.finalSquare) mkString " ", "")
     Game(
       game_id = if (g.studyId.isDefined) "" else g.id,
       position = FEN(Forsyth.exportScanPosition(Forsyth << initialFen)),

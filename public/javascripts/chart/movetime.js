@@ -17,7 +17,7 @@ lidraughts.movetimeChart = function(data, trans) {
             var tree = data.treeParts;
             var moveCentis = data.game.moveCentis.slice() ||
               data.game.moveTimes.map(function(i) { return i * 10; });
-            var ply = 0, lastPly = ply;
+            var ply = 0, lastPly = -1;
             var max = 0;
 
             var logC = Math.pow(Math.log(3), 2);
@@ -33,7 +33,7 @@ lidraughts.movetimeChart = function(data, trans) {
               ply = node ? node.ply : ply + 1;
               if (ply !== lastPly || i + 1 === moveCentis.length) {
 
-                if (i + 1 === moveCentis.length && ply === lastPly)
+                if (ply === lastPly)
                   ply++;
                 lastPly = ply;
 

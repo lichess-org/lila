@@ -13,40 +13,63 @@ lidraughts.advantageChart = function(data, trans, el) {
         var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
         if (data.player.color === 'white') blurs.reverse();
 
+        var serieTree;
         var makeSerieData = function(d, partial) {
-          return d.treeParts.slice(1).map(function(node, i) {
+          serieTree = d.treeParts;
+          var nodes = serieTree.slice(1), points = [];
+          var lastPly = -1, mergedSan = "";
+          for (var i = 0; i < nodes.length; i++) {
+            var node = nodes[i];
+            if (node.ply !== lastPly || i + 1 === nodes.length) {
 
-            var color = node.ply & 1, cp;
+              var ply = node.ply === lastPly ? (node.ply + 1) : node.ply;
+              lastPly = node.ply;
 
-            if (node.eval && node.eval.mate) {
-              cp = node.eval.mate > 0 ? Infinity : -Infinity;
-            } else if (node.san.indexOf('#') > 0) {
-              cp = color === 1 ? Infinity : -Infinity;
-              if (d.game.variant.key === 'antidraughts') cp = -cp;
-            } else if (node.eval && typeof node.eval.cp !== 'undefined') {
-              cp = node.eval.cp;
-            } else return {
-              y: null
-            };
+              var color = ply & 1;
 
-            var turn = Math.floor((node.ply - 1) / 2) + 1;
-            var dots = color === 1 ? '.' : '...';
-            var point = {
-              name: turn + dots + ' ' + node.san,
-              y: 2 / (1 + Math.exp(-0.004 * cp)) - 1
-            };
-            if (!partial && blurs[color].shift() === '1') {
-              point.marker = {
-                symbol: 'square',
-                radius: 3,
-                lineWidth: '1px',
-                lineColor: '#d85000',
-                fillColor: color ? '#fff' : '#333'
-              };
-              point.name += ' [blur]';
+              var san = (node && node.san) ? node.san : '-';
+              if (mergedSan.length != 0 && node) {
+                san = mergedSan + san.slice(san.indexOf('x') + 1);
+                mergedSan = "";
+              }
+
+              var cp;
+              if (node.eval && node.eval.win) {
+                cp = node.eval.win > 0 ? Infinity : -Infinity;
+              } else if (node.san.indexOf('#') > 0) {
+                cp = color === 1 ? Infinity : -Infinity;
+                if (d.game.variant.key === 'antidraughts') cp = -cp;
+              } else if (node.eval && typeof node.eval.cp !== 'undefined') {
+                cp = node.eval.cp;
+              }
+
+              if (cp !== undefined) {
+                var turn = Math.floor((ply - 1) / 2) + 1;
+                var dots = color === 1 ? '.' : '...';
+                var point = {
+                  name: turn + dots + ' ' + san,
+                  y: 2 / (1 + Math.exp(-0.004 * cp)) - 1
+                };
+                if (!partial && blurs[color].shift() === '1') {
+                  point.marker = {
+                    symbol: 'square',
+                    radius: 3,
+                    lineWidth: '1px',
+                    lineColor: '#d85000',
+                    fillColor: color ? '#fff' : '#333'
+                  };
+                  point.name += ' [blur]';
+                }
+                points.push(point);
+              } else points.push( {
+                  y: null
+                });
+            } else {
+              if (mergedSan.length == 0 && node.san)
+                mergedSan = node.san.slice(0, node.san.indexOf('x') + 1);
             }
-            return point;
-          });
+          }
+          return points;
         };
 
         var disabled = {
@@ -111,11 +134,11 @@ lidraughts.advantageChart = function(data, trans, el) {
           tooltip: {
             pointFormatter: function(format) {
               format = format.replace('{series.name}', trans('advantage'));
-              var eval = data.treeParts[this.x + 1].eval;
+              var eval = serieTree[this.x + 1].eval;
               if (!eval) return;
-              else if (eval.mate) return format.replace('{point.y}', '#' + eval.mate);
+              else if (eval.win) return format.replace('{point.y}', '#' + eval.win);
               else if (typeof eval.cp !== 'undefined') {
-                var e = Math.max(Math.min(Math.round(eval.cp / 10) / 10, 99), -99);
+                var e = Math.max(Math.min(eval.cp / 100, 100), -100); //Math.max(Math.min(Math.round(eval.cp / 10) / 10, 99), -99)
                 if (e > 0) e = '+' + e;
                 return format.replace('{point.y}', e);
               }

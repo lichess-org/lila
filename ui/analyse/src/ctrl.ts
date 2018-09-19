@@ -80,7 +80,7 @@ export default class AnalyseCtrl {
   showComments: boolean = true; // whether to display comments in the move tree
   showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
   showGauge: StoredBooleanProp = storedProp('show-gauge', true);
-  showComputer: StoredBooleanProp = () => { return false }; //storedProp('show-computer', false);
+  showComputer: StoredBooleanProp = storedProp('show-computer', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;

@@ -308,7 +308,7 @@
   <string name="fromPosition">Depuis une position</string>
   <string name="continueFromHere">Continuer depuis cette position</string>
   <string name="importGame">Importer une partie</string>
-  <string name="importGameExplanation">Quand vous collez une partie en PGN vous pouvez la rejouer, consulter l\'analyse de l\'ordinateur, utiliser le tchat et partager le lien.</string>
+  <string name="importGameExplanation">Quand vous collez une partie en PDN vous pouvez la rejouer, consulter l\'analyse de l\'ordinateur, utiliser le tchat et partager le lien.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partie importée</item>
     <item quantity="other">%s parties importées</item>
@@ -607,7 +607,6 @@ en %3$s</string>
   <string name="tournamentFAQ">FAQ des tournois</string>
   <string name="tournamentOfficial">Officiel</string>
   <string name="timeBeforeTournamentStarts">Temps restant avant le début du tournoi</string>
-  <string name="averageCentipawnLoss">Perte moyenne en centipions</string>
   <string name="keyboardShortcuts">Raccourcis clavier</string>
   <string name="keyMoveBackwardOrForward">avancer/reculer</string>
   <string name="keyGoToStartOrEnd">aller au début/à la fin</string>
@@ -634,9 +633,9 @@ en %3$s</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En vous inscrivant, vous acceptez d\'être lié à notre %s.</string>
   <string name="networkLagBetweenYouAndLidraughts">Latence du réseau entre vous et lidraughts</string>
   <string name="timeToProcessAMoveOnLidraughtsServer">Temps nécessaire au traitement d\'un coup sur un serveur lidraughts</string>
-  <string name="downloadAnnotated">Télécharger le PGN annoté</string>
-  <string name="downloadRaw">Télécharger le PGN brut</string>
-  <string name="downloadImported">Télécharger le PGN importé</string>
+  <string name="downloadAnnotated">Télécharger le PDN annoté</string>
+  <string name="downloadRaw">Télécharger le PDN brut</string>
+  <string name="downloadImported">Télécharger le PDN importé</string>
   <string name="printFriendlyPDF">PDF pour l\'impression</string>
   <string name="crosstable">Historique des parties</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vous pouvez aussi utiliser la molette sur l\'échiquier pour voir la partie</string>

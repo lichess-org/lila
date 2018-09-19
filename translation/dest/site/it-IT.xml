@@ -302,7 +302,7 @@
   <string name="fromPosition">Da una posizione</string>
   <string name="continueFromHere">Continua da qui</string>
   <string name="importGame">Importa partita</string>
-  <string name="importGameExplanation">Quando incolli una partita tramite PGN potrai ripercorrerla,
+  <string name="importGameExplanation">Quando incolli una partita tramite PDN potrai ripercorrerla,
 analizzarla con il computer, commentarla in chat, e condividerla tramire indirizzo URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partita importata</item>
@@ -595,7 +595,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="tournamentFAQ">FAQ tornei Arena</string>
   <string name="tournamentOfficial">Ufficiale</string>
   <string name="timeBeforeTournamentStarts">Tempo prima dell\'inizio del torneo</string>
-  <string name="averageCentipawnLoss">Centesimi di pedone persi in media</string>
   <string name="keyboardShortcuts">Scorciatoie da tastiera</string>
   <string name="keyMoveBackwardOrForward">muovi indietro/avanti</string>
   <string name="keyGoToStartOrEnd">vai all\'inizio/fine</string>
@@ -622,8 +621,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registrandoti, accetti i nostri %s</string>
   <string name="networkLagBetweenYouAndLidraughts">Ping tra te e Lidraughts</string>
   <string name="timeToProcessAMoveOnLidraughtsServer">Tempo per elaborare una mossa sul server di Lidraughts</string>
-  <string name="downloadAnnotated">Scarica PGN annotato</string>
-  <string name="downloadRaw">Scarica PGN senza annotazioni</string>
+  <string name="downloadAnnotated">Scarica PDN annotato</string>
+  <string name="downloadRaw">Scarica PDN senza annotazioni</string>
   <string name="downloadImported">Download importato</string>
   <string name="printFriendlyPDF">Stampa in PDF</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">È inoltre possibile scorrere sopra il bordo per entrare nel gioco.</string>

@@ -25,15 +25,15 @@ object Importer extends LidraughtsController {
         api = _ => BadRequest(Json.obj("error" -> "Invalid PDN")).fuccess
       ),
       data => env.importer(data, ctx.userId) flatMap { game =>
-        (ctx.userId ?? Env.game.cached.clearNbImportedByCache) inject Redirect(routes.Round.watcher(game.id, "white"))
-        /*(data.analyse.isDefined && game.analysable) ?? {
-            Env.fishnet.analyser(game, lidraughts.fishnet.Work.Sender(
+        (ctx.userId ?? Env.game.cached.clearNbImportedByCache) >>
+          (data.analyse.isDefined && game.analysable) ?? {
+            Env.draughtsnet.analyser(game, lidraughts.draughtsnet.Work.Sender(
               userId = ctx.userId,
               ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
               mod = isGranted(_.Hunter),
               system = false
             ))
-          }inject Redirect(routes.Round.watcher(game.id, "white"))*/
+          } inject Redirect(routes.Round.watcher(game.id, "white"))
       } recover {
         case e =>
           controllerLogger.branch("importer").warn(

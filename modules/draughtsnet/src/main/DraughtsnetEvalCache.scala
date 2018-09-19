@@ -23,7 +23,7 @@ private final class DraughtsnetEvalCache(
             pv = pv.moves.value.toList,
             score = Evaluation.Score(
               cp = pv.score.cp,
-              mate = pv.score.mate
+              win = pv.score.win
             ).invertIf((i + work.startPly) % 2 == 1), // draughtsnet evals are from POV
             time = none,
             nodes = eval.knodes.intNodes.some,

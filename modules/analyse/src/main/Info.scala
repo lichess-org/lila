@@ -13,7 +13,7 @@ case class Info(
 ) {
 
   def cp = eval.cp
-  def mate = eval.mate
+  def win = eval.win
   def best = eval.best
 
   def turn = 1 + (ply - 1) / 2
@@ -23,7 +23,7 @@ case class Info(
   def encode: String = List(
     best ?? (_.piotr),
     variation take Info.LineMaxPlies mkString " ",
-    mate ?? (_.value.toString),
+    win ?? (_.value.toString),
     cp ?? (_.value.toString)
   ).dropWhile(_.isEmpty).reverse mkString Info.separator
 
@@ -32,24 +32,24 @@ case class Info(
 
   def invert = copy(eval = eval.invert)
 
-  def cpComment: Option[String] = cp map (_.showPawns)
-  def mateComment: Option[String] = mate map { m => s"Mate in ${math.abs(m.value)}" }
-  def evalComment: Option[String] = cpComment orElse mateComment
+  def cpComment: Option[String] = cp map (_.showPieces)
+  def winComment: Option[String] = win map { m => s"Win in ${math.abs(m.value)}" }
+  def evalComment: Option[String] = cpComment orElse winComment
 
-  def isEmpty = cp.isEmpty && mate.isEmpty
+  def isEmpty = cp.isEmpty && win.isEmpty
 
-  def forceCentipawns: Option[Int] = mate match {
-    case None => cp.map(_.centipawns)
+  def forceCentipieces: Option[Int] = win match {
+    case None => cp.map(_.centipieces)
     case Some(m) if m.negative => Some(Int.MinValue - m.value)
     case Some(m) => Some(Int.MaxValue - m.value)
   }
 
-  override def toString = s"Info $color [$ply] ${cp.fold("?")(_.showPawns)} ${mate.??(_.value)} ${variation.mkString(" ")}"
+  override def toString = s"Info $color [$ply] ${cp.fold("?")(_.showPieces)} ${win.??(_.value)} ${variation.mkString(" ")}"
 }
 
 object Info {
 
-  import Eval.{ Cp, Mate }
+  import Eval.{ Cp, Win }
 
   val LineMaxPlies = 14
 
@@ -59,14 +59,14 @@ object Info {
   def start(ply: Int) = Info(ply, Eval.initial, Nil)
 
   private def strCp(s: String) = parseIntOption(s) map Cp.apply
-  private def strMate(s: String) = parseIntOption(s) map Mate.apply
+  private def strWin(s: String) = parseIntOption(s) map Win.apply
 
   private def decode(ply: Int, str: String): Option[Info] = str.split(separator) match {
     case Array() => Info(ply, Eval.empty).some
     case Array(cp) => Info(ply, Eval(strCp(cp), None, None)).some
-    case Array(cp, ma) => Info(ply, Eval(strCp(cp), strMate(ma), None)).some
-    case Array(cp, ma, va) => Info(ply, Eval(strCp(cp), strMate(ma), None), va.split(' ').toList).some
-    case Array(cp, ma, va, be) => Info(ply, Eval(strCp(cp), strMate(ma), Uci.Move piotr be), va.split(' ').toList).some
+    case Array(cp, ma) => Info(ply, Eval(strCp(cp), strWin(ma), None)).some
+    case Array(cp, ma, va) => Info(ply, Eval(strCp(cp), strWin(ma), None), va.split(' ').toList).some
+    case Array(cp, ma, va, be) => Info(ply, Eval(strCp(cp), strWin(ma), Uci.Move piotr be), va.split(' ').toList).some
     case _ => none
   }
 
@@ -78,6 +78,6 @@ object Info {
 
   def encodeList(infos: List[Info]): String = infos map (_.encode) mkString listSeparator
 
-  def apply(cp: Option[Cp], mate: Option[Mate], variation: List[String]): Int => Info =
-    ply => Info(ply, Eval(cp, mate, None), variation)
+  def apply(cp: Option[Cp], win: Option[Win], variation: List[String]): Int => Info =
+    ply => Info(ply, Eval(cp, win, None), variation)
 }

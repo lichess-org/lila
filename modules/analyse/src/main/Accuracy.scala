@@ -7,10 +7,10 @@ object Accuracy {
 
   private def withSignOf(i: Int, signed: Int) = if (signed < 0) -i else i
 
-  private val makeDiff: PartialFunction[(Option[Cp], Option[Mate], Option[Cp], Option[Mate]), Int] = {
-    case (Some(s1), _, Some(s2), _) => s2.ceiled.centipawns - s1.ceiled.centipawns
-    case (Some(s1), _, _, Some(m2)) => withSignOf(Cp.CEILING, m2.value) - s1.ceiled.centipawns
-    case (_, Some(m1), Some(s2), _) => s2.ceiled.centipawns - withSignOf(Cp.CEILING, m1.value)
+  private val makeDiff: PartialFunction[(Option[Cp], Option[Win], Option[Cp], Option[Win]), Int] = {
+    case (Some(s1), _, Some(s2), _) => s2.ceiled.centipieces - s1.ceiled.centipieces
+    case (Some(s1), _, _, Some(m2)) => withSignOf(Cp.CEILING, m2.value) - s1.ceiled.centipieces
+    case (_, Some(m1), Some(s2), _) => s2.ceiled.centipieces - withSignOf(Cp.CEILING, m1.value)
     case (_, Some(m1), _, Some(m2)) => withSignOf(Cp.CEILING, m2.value) - withSignOf(Cp.CEILING, m1.value)
   }
 
@@ -32,7 +32,7 @@ object Accuracy {
       analysis.infos
     ).grouped(2).foldLeft(List[Int]()) {
         case (list, List(i1, i2)) =>
-          makeDiff.lift(i1.cp, i1.mate, i2.cp, i2.mate).fold(list) { diff =>
+          makeDiff.lift(i1.cp, i1.win, i2.cp, i2.win).fold(list) { diff =>
             (if (pov.color.white) -diff else diff).max(0) :: list
           }
         case (list, _) => list

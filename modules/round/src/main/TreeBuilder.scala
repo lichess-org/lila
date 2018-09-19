@@ -16,7 +16,7 @@ object TreeBuilder {
 
   private def makeEval(info: Info) = Eval(
     cp = info.cp,
-    mate = info.mate,
+    win = info.win,
     best = info.best
   )
 
@@ -71,8 +71,8 @@ object TreeBuilder {
 
         def makeBranch(index: Int, g: draughts.DraughtsGame, m: Uci.WithSan) = {
           val fen = Forsyth >> g
-          val info = infos lift (index - 1)
-          val advice = advices get g.turns
+          val info = infos lift (g.displayTurns - g.startedAtTurn - 1)
+          val advice = advices get g.displayTurns
           val branch = Branch(
             id = UciCharPair(m.uci),
             ply = g.turns,
@@ -93,7 +93,7 @@ object TreeBuilder {
               }
             }
           )
-          advices.get(g.turns + 1).flatMap { adv =>
+          advices.get(g.displayTurns + 1).flatMap { adv =>
             games.lift(index - 1).map {
               case (fromGame, _) =>
                 val fromFen = FEN(Forsyth >> fromGame)
@@ -129,7 +129,7 @@ object TreeBuilder {
         eval = none
       )
     }
-    draughts.Replay.gameMoveWhileValid(info.variation take 20, fromFen.value, variant) match {
+    draughts.Replay.gameMoveWhileValid(info.variation take 20, fromFen.value, variant, true) match {
       case (init, games, error) =>
         error foreach logChessError(id)
         games.zipWithIndex.reverse match {

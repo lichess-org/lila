@@ -278,7 +278,7 @@ POST  /team/:id/kick                          controllers.Team.kick(id: String)
 POST  /team/:id/close                         controllers.Team.close(id: String)
 
 # Analyse
-# POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: String)
+POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: String)
 
 GET   /game/export/$gameId<\w{8}>.pdn         controllers.Export.pdn(gameId: String)
 GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: String)
@@ -286,7 +286,7 @@ GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: Str
 # Draughtsnet
 POST  /draughtsnet/acquire                        controllers.Draughtsnet.acquire
 POST  /draughtsnet/move/$workId<\w{8}>            controllers.Draughtsnet.move(workId: String)
-#POST  /draughtsnet/analysis/$workId<\w{8}>        controllers.Draughtsnet.analysis(workId: String)
+POST  /draughtsnet/analysis/$workId<\w{8}>        controllers.Draughtsnet.analysis(workId: String)
 POST  /draughtsnet/abort/$workId<\w{8}>           controllers.Draughtsnet.abort(workId: String)
 GET   /draughtsnet/key/$key<\w{8}>                controllers.Draughtsnet.keyExists(key: String)
 GET   /draughtsnet/status                         controllers.Draughtsnet.status

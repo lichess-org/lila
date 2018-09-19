@@ -63,7 +63,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
                 }).concat(
                     h('tr', [
                         h('td', '' + (defined(acpl) ? acpl : '?')),
-                        h('th', trans('averageCentipawnLoss'))
+                        h('th', trans('averageCentipieceLoss'))
                     ])
                     ))
         ])

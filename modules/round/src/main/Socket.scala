@@ -193,7 +193,9 @@ private[round] final class Socket(
           analysis = a.analysis.some,
           initialFen = a.initialFen,
           withFlags = JsonView.WithFlags(),
-          clocks = none
+          clocks = none,
+          iteratedCapts = a.game.imported,
+          mergeCapts = true
         )
       ))
 

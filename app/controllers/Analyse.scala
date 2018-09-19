@@ -14,9 +14,9 @@ object Analyse extends LidraughtsController {
 
   private def env = Env.analyse
 
-  /*def requestAnalysis(id: String) = Auth { implicit ctx => me =>
+  def requestAnalysis(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(GameRepo game id) { game =>
-      Env.fishnet.analyser(game, lidraughts.fishnet.Work.Sender(
+      Env.draughtsnet.analyser(game, lidraughts.draughtsnet.Work.Sender(
         userId = me.id.some,
         ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
         mod = isGranted(_.Hunter),
@@ -26,19 +26,20 @@ object Analyse extends LidraughtsController {
         case false => Unauthorized
       }
     }
-  }*/
+  }
 
   def replay(pov: Pov, userTv: Option[lidraughts.user.User])(implicit ctx: Context) =
     if (HTTPRequest isBot ctx.req) replayBot(pov)
     else GameRepo initialFen pov.game.id flatMap { initialFen =>
       Game.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {
         (env.analyser get pov.game.id) zip
+          Env.draughtsnet.api.prioritaryAnalysisInProgress(pov.game.id) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
           Round.getWatcherChat(pov.game) zip
           Env.game.crosstableApi.withMatchup(pov.game) zip
           Env.bookmark.api.exists(pov.game, ctx.me) zip
           Env.api.pdnDump(pov.game, initialFen, PdnDump.WithFlags(clocks = false)) flatMap {
-            case analysis ~ simul ~ chat ~ crosstable ~ bookmarked ~ pdn =>
+            case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pdn =>
               Env.api.roundApi.review(pov, lidraughts.api.Mobile.Api.currentVersion,
                 tv = userTv.map { u => lidraughts.round.OnUserTv(u.id) },
                 analysis,
@@ -55,6 +56,7 @@ object Analyse extends LidraughtsController {
                     initialFen,
                     Env.analyse.annotator(pdn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
                     analysis,
+                    analysisInProgress,
                     simul,
                     crosstable,
                     userTv,

@@ -26,12 +26,13 @@ private final class AnalysisBuilder(evalCache: DraughtsnetEvalCache) {
          */
       val cached = if (isPartial) cachedFull - 0 else cachedFull
       def debug = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
-      draughts.Replay(work.game.uciList, work.game.initialFen.map(_.value), work.game.variant).fold(
+      val uciList = work.game.uciList
+      draughts.Replay(uciList, work.game.initialFen.map(_.value), work.game.variant, true).fold(
         fufail(_),
         replay => UciToPdn(replay, Analysis(
           id = work.game.id,
           studyId = work.game.studyId,
-          infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
+          infos = makeInfos(mergeEvalsAndCached(work, evals, cached), uciList, work.startPly),
           startPly = work.startPly,
           uid = work.sender.userId,
           by = !client.Lidraughts option client.userId.value,
@@ -59,7 +60,7 @@ private final class AnalysisBuilder(evalCache: DraughtsnetEvalCache) {
     }
 
   private def makeInfos(evals: List[Option[Evaluation]], moves: List[Uci], startedAtPly: Int): List[Info] =
-    (evals filterNot (_ ?? (_.isCheckmate)) sliding 2).toList.zip(moves).zipWithIndex map {
+    (evals filterNot (_ ?? (_.isWin)) sliding 2).toList.zip(moves).zipWithIndex map {
       case ((List(Some(before), Some(after)), move), index) => {
         val variation = before.cappedPv match {
           case first :: rest if first != move => first :: rest
@@ -70,7 +71,7 @@ private final class AnalysisBuilder(evalCache: DraughtsnetEvalCache) {
           ply = index + 1 + startedAtPly,
           eval = Eval(
             after.score.cp,
-            after.score.mate,
+            after.score.win,
             best
           ),
           variation = variation.map(_.uci)

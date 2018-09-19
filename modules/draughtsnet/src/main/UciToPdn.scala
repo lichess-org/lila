@@ -32,7 +32,7 @@ private object UciToPdn {
       ucis ← variation.map(Uci.apply).sequence toValid "Invalid UCI moves " + variation
       moves ← ucis.foldLeft[Valid[(Situation, List[Move])]](success(situation -> Nil)) {
         case (scalaz.Success((sit, moves)), uci: Uci.Move) =>
-          sit.move(uci.orig, uci.dest, uci.promotion) prefixFailuresWith s"ply $ply " map { move =>
+          sit.move(uci.orig, uci.dest, uci.promotion, true) prefixFailuresWith s"ply $ply " map { move =>
             move.situationAfter -> (move :: moves)
           }
         case (failure, _) => failure

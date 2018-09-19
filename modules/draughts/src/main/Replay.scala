@@ -25,7 +25,8 @@ object Replay {
   def apply(
     moveStrs: Traversable[String],
     initialFen: Option[String],
-    variant: draughts.variant.Variant
+    variant: draughts.variant.Variant,
+    finalSquare: Boolean
   ): Valid[Reader.Result] =
     moveStrs.some.filter(_.nonEmpty) toValid "[replay] pdn is empty" flatMap { nonEmptyMoves =>
       Reader.moves(
@@ -33,7 +34,8 @@ object Replay {
         Tags(List(
           initialFen map { fen => Tag(_.FEN, fen) },
           variant.some.filterNot(_.standard) map { v => Tag(_.GameType, v.gameType) }
-        ).flatten)
+        ).flatten),
+        finalSquare
       )
     }
 

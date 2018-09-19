@@ -111,8 +111,8 @@ final class Env(
   system.actorOf(Props(new Actor {
     def receive = {
       case lidraughts.hub.actorApi.draughtsnet.AutoAnalyse(gameId) =>
-        () //analyser(gameId, Work.Sender(userId = none, ip = none, mod = false, system = true))
-      case req: lidraughts.hub.actorApi.draughtsnet.StudyChapterRequest => () //analyser study req
+        analyser(gameId, Work.Sender(userId = none, ip = none, mod = false, system = true))
+      case req: lidraughts.hub.actorApi.draughtsnet.StudyChapterRequest => analyser study req
     }
   }), name = ActorName)
 

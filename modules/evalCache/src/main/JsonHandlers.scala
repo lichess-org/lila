@@ -10,7 +10,7 @@ import lidraughts.tree.Eval._
 object JsonHandlers {
 
   private implicit val cpWriter = intAnyValWriter[Cp](_.value)
-  private implicit val mateWriter = intAnyValWriter[Mate](_.value)
+  private implicit val winWriter = intAnyValWriter[Win](_.value)
   private implicit val knodesWriter = intAnyValWriter[Knodes](_.value)
 
   def writeEval(e: Eval, fen: FEN) = Json.obj(
@@ -24,7 +24,7 @@ object JsonHandlers {
     "moves" -> pv.moves.value.toList.map(_.uci).mkString(" ")
   )
     .add("cp", pv.score.cp)
-    .add("mate", pv.score.mate)
+    .add("win", pv.score.win)
 
   def readPut(trustedUser: TrustedUser, o: JsObject): Option[Input.Candidate] = for {
     d <- o obj "d"
@@ -49,7 +49,7 @@ object JsonHandlers {
       case _ => None
     }.flatMap(_.reverse.toNel) map Moves.apply
     cp = d int "cp" map Cp.apply
-    mate = d int "mate" map Mate.apply
-    score <- cp.map(Score.cp) orElse mate.map(Score.mate)
+    win = d int "win" map Win.apply
+    score <- cp.map(Score.cp) orElse win.map(Score.win)
   } yield Pv(score, moves)
 }
