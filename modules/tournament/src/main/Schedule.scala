@@ -111,6 +111,7 @@ object Schedule {
     def similar(s1: Speed, s2: Speed) = (s1, s2) match {
       case (a, b) if a == b => true
       case (HyperBullet, Bullet) | (Bullet, HyperBullet) => true
+      case (HyperBullet, HippoBullet) | (HippoBullet, HyperBullet) => true
       case (Bullet, HippoBullet) | (HippoBullet, Bullet) => true
       case (Blitz, SuperBlitz) | (SuperBlitz, Blitz) => true
       case _ => false
