@@ -195,12 +195,8 @@ module.exports = function(element, cfg) {
     });
     $(this).toggleClass('active');
   });
-  if (lichess.isMS) setTimeout(function() {
-    var prop = 'backgroundImage',
-    prev = $('.cg-board').css(prop);
-    $('.cg-board').css(prop, 'none');
-    setTimeout(function() {
-      $('.cg-board').css(prop, prev);
-    }, 100);
+  if (lidraughts.isMS) setTimeout(function() {
+    var prop = 'backgroundImage';
+    $('.cg-board').css(prop, $('.cg-board').css(prop).replace(')','?1)'));
   }, 1000);
 };
