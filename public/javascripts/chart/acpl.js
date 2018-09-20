@@ -138,7 +138,7 @@ lidraughts.advantageChart = function(data, trans, el) {
               if (!eval) return;
               else if (eval.win) return format.replace('{point.y}', '#' + eval.win);
               else if (typeof eval.cp !== 'undefined') {
-                var e = Math.max(Math.min(eval.cp / 100, 100), -100); //Math.max(Math.min(Math.round(eval.cp / 10) / 10, 99), -99)
+                var e = Math.max(Math.min(Math.round(eval.cp / 10) / 10, 99), -99)
                 if (e > 0) e = '+' + e;
                 return format.replace('{point.y}', e);
               }
