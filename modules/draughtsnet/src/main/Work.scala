@@ -147,7 +147,7 @@ object Work {
       InProgress(a.userId, a.date)
     }
 
-    def nbMoves = game.moves.count(' ' ==) + 1
+    def nbMoves = game.moves.size
 
     override def toString = s"id:$id game:${game.id} tries:$tries requestedBy:$sender acquired:$acquired"
   }
