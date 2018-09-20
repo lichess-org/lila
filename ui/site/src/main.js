@@ -306,6 +306,8 @@ lichess.topMenuIntent = function() {
         if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket", false);
       }, 300);
 
+      var initiatingHtml = '<div class="initiating">' + lichess.spinnerHtml + '</div>';
+
       lichess.challengeApp = (function() {
         var instance, booted;
         var $toggle = $('#challenge_notifications_tag');
@@ -354,7 +356,7 @@ lichess.topMenuIntent = function() {
         var load = function(data, incoming) {
           if (booted) return;
           booted = true;
-          var $el = $('#notify_app').html(lichess.initiatingHtml);
+          var $el = $('#notify_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
           lichess.loadCss('stylesheets/notifyApp.css');
           lichess.loadScript('compiled/lichess.notify' + (isDev ? '' : '.min') + '.js').done(function() {
@@ -454,7 +456,7 @@ lichess.topMenuIntent = function() {
         $('#top .dasher .toggle').one('mouseover click', function() {
           if (booted) return;
           booted = true;
-          var $el = $('#dasher_app').html(lichess.initiatingHtml);
+          var $el = $('#dasher_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
           var isPlaying = $('body').hasClass('playing');
           lichess.loadCss('stylesheets/dasherApp.css');
