@@ -90,7 +90,8 @@ export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
   if (!ctx.ctrl.showComments || empty(node.comments)) return [];
   return node.comments!.map(comment => {
     if (comment.by === 'lidraughts' && !ctx.showComputer) return;
-    const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
+    const commentAuthor = commentAuthorText(comment.by);
+    const by = (node.comments![1] || (ctx.ctrl.study && commentAuthor.toLowerCase() != ctx.ctrl.study.data.ownerId.toLowerCase())) ? `<span class="by">${commentAuthor}</span>` : '',
       truncated = truncateComment(comment.text, 300, ctx);
     return h('comment', {
       hook: innerHTML(truncated, text => by + enrichText(text, true))

@@ -176,7 +176,8 @@ function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, w
     else if (comment.text.indexOf('Mistake.') === 0) sel += '.mistake';
     else if (comment.text.indexOf('Blunder.') === 0) sel += '.blunder';
     if (conceal) sel += '.' + conceal;
-    const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
+    const commentAuthor = commentAuthorText(comment.by);
+    const by = (node.comments![1] || (ctx.ctrl.study && commentAuthor.toLowerCase() != ctx.ctrl.study.data.ownerId.toLowerCase())) ? `<span class="by">${commentAuthor}</span>` : '',
       truncated = truncateComment(comment.text, 400, ctx);
     return h(sel, {
       hook: innerHTML(truncated, text => by + enrichText(text, true))
