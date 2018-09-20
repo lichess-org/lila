@@ -27,4 +27,4 @@ rsync --archive --no-o --no-g --progress public $REMOTE:$REMOTE_DIR
 
 lilalog "Deploy complete"
 
-xdg-open https://lichess.org/dev/settings
+xdg-open https://lichess.org/dev/cli
