@@ -199,7 +199,7 @@ Thank you all, you rock!"""
           val bulletType = if (hour % 3 == 0) HyperBullet else if (hour % 3 == 2) HippoBullet else Bullet
           val blitzType = if (hour % 3 == 0) Blitz else SuperBlitz
           List(
-            at(date, hour) map { date => Schedule(Hourly, bulletType, Standard, std, date).plan },
+            at(date, hour) map { date => Schedule(Hourly, bulletType, if (hour % 3 == 1) Frisian else Standard, std, date).plan }, //Frisian bullet
             at(date, hour, 30) collect { case date if bulletType != HippoBullet => Schedule(Hourly, Bullet, Standard, std, date).plan },
             //no hourly blitz during frisian
             at(date, hour) collect { case date if hour % 3 != 2 => Schedule(Hourly, blitzType, Standard, std, date).plan }
@@ -210,14 +210,10 @@ Thank you all, you rock!"""
         (0 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
-          val speed = if (hour % 6 == 2) SuperBlitz else Bullet
+          val speed = if (hour % 6 == 2) SuperBlitz else Blitz
           if (hour % 3 != 2) Nil
           else List(
-            at(date, hour) map { date => Schedule(Hourly, speed, Frisian, std, date).plan },
-            at(date, hour, 30) collect {
-              case date if speed == Bullet =>
-                Schedule(Hourly, Bullet, Frisian, std, date).plan
-            }
+            at(date, hour) map { date => Schedule(Hourly, speed, Frisian, std, date).plan }
           ).flatten
         }
       ).flatten

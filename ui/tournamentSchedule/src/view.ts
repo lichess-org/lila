@@ -31,7 +31,11 @@ function laneGrouper(t) {
   if (t.schedule && t.schedule.freq === 'unique') {
     return -1;
   } else if (t.variant.key !== 'standard') {
-    return 1; //Frisian temporarily among blitz
+    if (t.fullName.endsWith('Bullet Arena')) {
+      return 0;   //bullet variants among ordinary bullet
+    } else {
+      return 1;  //all other variants among blitz
+    }
   //} else if (t.variant.key !== 'standard' || (t.perf.key === 'rapid' && t.schedule.freq === 'hourly')) {
   //  return 99;
   //} else if (t.perf.key === 'ultraBullet') {
