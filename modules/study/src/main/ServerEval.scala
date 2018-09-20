@@ -29,7 +29,8 @@ object ServerEval {
           moves = draughts.format.UciDump(
             moves = chapter.root.mainline.map(_.move.san),
             initialFen = chapter.root.fen.value.some,
-            variant = chapter.setup.variant
+            variant = chapter.setup.variant,
+            finalSquare = true
           ).toOption.map(_.map(draughts.format.Uci.apply).flatten) | List.empty,
           userId = userId.some
         )

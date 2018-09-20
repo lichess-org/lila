@@ -3,6 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import AnalyseCtrl from '../ctrl';
 import { spinner, bind } from '../util';
 import { Prop, prop, defined } from 'common';
+import { ops as treeOps } from 'tree';
 
 export interface ServerEvalCtrl {
   requested: Prop<boolean>;
@@ -55,7 +56,7 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
     },
     chapterId,
     onMergeAnalysisData() {
-      if (li.advantageChart) li.advantageChart.update(root.data);
+      if (li.advantageChart) li.advantageChart.update({ game: root.data.game, treeParts: treeOps.mainlineNodeList(root.tree.root) });
     },
     request() {
       root.socket.send('requestAnalysis', chapterId());

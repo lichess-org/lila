@@ -5,7 +5,6 @@ import AnalyseCtrl from './ctrl';
 import { findTag } from './study/studyChapters';
 import { game } from 'game';
 import { defined } from 'common';
-import { bind, dataIcon } from './util';
 
 function renderRatingDiff(rd: number | undefined): VNode | undefined {
   if (rd === 0) return h('span.rp.null', '±0');
@@ -80,11 +79,11 @@ function doRender(ctrl: AnalyseCtrl): VNode {
     }
   }, [
     playerTable(ctrl, 'white'),
-    ctrl.study ? null : h('a.button.text', {
+    /*ctrl.study ? null : h('a.button.text', {
       class: { active: !!ctrl.retro },
       attrs: dataIcon('G'),
       hook: bind('click', ctrl.toggleRetro, ctrl.redraw)
-    }, ctrl.trans.noarg('learnFromYourMistakes')),
+    }, ctrl.trans.noarg('learnFromYourMistakes')),*/
     playerTable(ctrl, 'black')
   ]);
 }

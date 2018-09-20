@@ -87,13 +87,13 @@ function buttons(root: AnalyseCtrl): VNode {
         icon: h('i.glyph-icon'),
         count: (root.node.glyphs || []).length
       }) : null,
-      /*toolButton({
+      toolButton({
         ctrl,
         tab: 'serverEval',
         hint: root.trans.noarg('computerAnalysis'),
         icon: iconTag(''),
         count: root.data.analysis && '✓'
-      }),*/
+      }),
       toolButton({
         ctrl,
         tab: 'share',

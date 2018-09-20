@@ -65,7 +65,8 @@ final class Analyser(
                 initialFen = initialFen,
                 studyId = studyId.some,
                 variant = variant,
-                moves = moves take maxPlies map (_.uci)
+                moves = moves take maxPlies map (_.uci),
+                finalSquare = true
               ),
               startPly = 0,
               sender = sender
