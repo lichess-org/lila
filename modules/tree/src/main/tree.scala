@@ -62,6 +62,10 @@ case class Root(
 
   def addChild(branch: Branch) = copy(children = children :+ branch)
   def prependChild(branch: Branch) = copy(children = branch :: children)
+  def prependChild(branchOpt: Option[Branch]) = branchOpt match {
+    case Some(branch) => copy(children = branch :: children)
+    case _ => this
+  }
   def dropFirstChild = copy(children = if (children.isEmpty) children else children.tail)
 }
 

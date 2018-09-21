@@ -101,18 +101,24 @@ object TreeBuilder {
             }
           } getOrElse branch
         }
+        def truncateGhosts(moveList: List[((draughts.DraughtsGame, Uci.WithSan), Int)], mergeCapts: Boolean): Option[Branch] = moveList match {
+          case ((g, m), i) :: rest =>
+            if (mergeCapts && g.situation.ghosts > 0) truncateGhosts(rest, mergeCapts)
+            else rest.foldLeft(makeBranch(i + 1, g, m)) {
+              case (node, ((g, m), i)) =>
+                val shortUci = Uci(m.uci.shortUci).get
+                if (mergeCapts && node.move.uci.origDest._1 == shortUci.origDest._2)
+                  node.copy(
+                    id = UciCharPair.combine(m.uci, node.move.uci),
+                    move = Uci.WithSan(Uci(m.uci.uci.take(2) + node.move.uci.uci).get, Uci.combineSan(m.san, node.move.san))
+                  )
+                else makeBranch(i + 1, g, m) prependChild node
+            } some
+          case Nil => None
+        }
         games.zipWithIndex.reverse match {
-          case Nil => root
-          case ((g, m), i) :: rest => root prependChild rest.foldLeft(makeBranch(i + 1, g, m)) {
-            case (node, ((g, m), i)) =>
-              val shortUci = Uci(m.uci.shortUci).get
-              if (mergeCapts && node.move.uci.origDest._1 == shortUci.origDest._2)
-                node.copy(
-                  id = UciCharPair.combine(m.uci, node.move.uci),
-                  move = Uci.WithSan(Uci(m.uci.uci.take(2) + node.move.uci.uci).get, Uci.combineSan(m.san, node.move.san))
-                )
-              else makeBranch(i + 1, g, m) prependChild node
-          }
+          case revMoves if revMoves.nonEmpty => root prependChild truncateGhosts(revMoves, mergeCapts)
+          case _ => root
         }
     }
   }
