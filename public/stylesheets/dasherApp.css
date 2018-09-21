@@ -318,6 +318,12 @@
 #dasher_app piece.wide_crown {
   background-image: url(../piece-src/wide_crown/wK.svg);
 }
+#dasher_app piece.fabirovsky {
+  background-image: url(../piece-src/fabirovsky/wK.svg);
+}
+#dasher_app piece.basic {
+  background-image: url(../piece-src/basic/wK.svg);
+}
 
 body.dark #dasher_app .subs,
 body.dark #dasher_app .status,
