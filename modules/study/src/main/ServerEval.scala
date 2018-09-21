@@ -95,7 +95,7 @@ object ServerEval {
     )
 
     private def analysisLine(root: RootOrNode, variant: draughts.variant.Variant, info: Info): Option[Node] =
-      draughts.Replay.gameMoveWhileValid(info.variation take 20, root.fen.value, variant) match {
+      draughts.Replay.gameMoveWhileValid(info.variation take 20, root.fen.value, variant, true) match {
         case (init, games, error) =>
           error foreach { logger.info(_) }
           games.reverse match {
