@@ -240,7 +240,7 @@ GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 GET   /tournament/shields                     controllers.Tournament.shields
 
 # Tournament CRUD
-GET   /tournament/manager                     controllers.TournamentCrud.index
+GET   /tournament/manager                     controllers.TournamentCrud.index(page: Int ?= 1)
 GET   /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.edit(id: String)
 POST  /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.update(id: String)
 GET   /tournament/manager/new                 controllers.TournamentCrud.form

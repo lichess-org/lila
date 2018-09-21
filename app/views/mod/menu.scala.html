@@ -19,7 +19,7 @@
 <a class="@active.active("practice")" href="@routes.Practice.config">Practice</a>
 }
 @if(isGranted(_.ManageTournament)) {
-<a class="@active.active("tour")" href="@routes.TournamentCrud.index">Tournaments</a>
+<a class="@active.active("tour")" href="@routes.TournamentCrud.index(1)">Tournaments</a>
 }
 @if(isGranted(_.ManageEvent)) {
 <a class="@active.active("event")" href="@routes.Event.manager">Events</a>
