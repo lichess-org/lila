@@ -30,12 +30,12 @@ function leftPos(time) {
 function laneGrouper(t) {
   if (t.schedule && t.schedule.freq === 'unique') {
     return -1;
+  } else if (t.variant.key === 'frisian') {
+    if (t.fullName.endsWith('Bullet Arena'))
+      return 0;   //frisian bullet among ordinary bullet
+    else return 1;  //all other timecontrols among blitz
   } else if (t.variant.key !== 'standard') {
-    if (t.fullName.endsWith('Bullet Arena')) {
-      return 0;   //bullet variants among ordinary bullet
-    } else {
-      return 1;  //all other variants among blitz
-    }
+    return 2; //other variants below blitz
   //} else if (t.variant.key !== 'standard' || (t.perf.key === 'rapid' && t.schedule.freq === 'hourly')) {
   //  return 99;
   //} else if (t.perf.key === 'ultraBullet') {
