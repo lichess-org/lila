@@ -90,13 +90,15 @@ final class Analyser(
   private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] = {
     GameRepo.initialFen(game) zip uciMemo.get(game) map {
       case (initialFen, moves) =>
+        val moveList = moves.take(maxPlies)
+        val dropMoves = game.situation.ghosts
         makeWork(
           game = Work.Game(
             id = game.id,
             initialFen = initialFen map FEN.apply,
             studyId = none,
             variant = game.variant,
-            moves = moves take maxPlies toList,
+            moves = moveList.dropRight(if (game.imported && dropMoves > 1) 1 else dropMoves).toList,
             finalSquare = game.imported
           ),
           startPly = game.draughts.startedAtTurn,

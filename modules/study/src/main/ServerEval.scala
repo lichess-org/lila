@@ -21,13 +21,14 @@ object ServerEval {
 
     def apply(study: Study, chapter: Chapter, userId: User.ID): Funit =
       chapterRepo.startServerEval(chapter) >>- {
+        val mainline = chapter.root.mainline
         draughtsnetActor ! StudyChapterRequest(
           studyId = study.id.value,
           chapterId = chapter.id.value,
           initialFen = chapter.root.fen.some,
           variant = chapter.setup.variant,
           moves = draughts.format.UciDump(
-            moves = chapter.root.mainline.map(_.move.san),
+            moves = (if (mainline.nonEmpty && Forsyth.countGhosts(mainline.last.fen.value) > 0) mainline.dropRight(1) else mainline).map(_.move.san),
             initialFen = chapter.root.fen.value.some,
             variant = chapter.setup.variant,
             finalSquare = true

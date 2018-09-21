@@ -8,7 +8,6 @@ import draughts.variant.Variant
 
 object UciDump {
 
-  // a2a4, b8c6
   def apply(replay: Replay): List[String] =
     replay.chronoMoves map move(replay.setup.board.variant)
 
