@@ -1,13 +1,9 @@
 @(questions: Paginator[lidraughts.qa.Question], popular: List[lidraughts.qa.Question])(implicit ctx: Context)
 
-@side = {
-@popularBox(popular)
-}
-
 @layout(
 title = trans.questionsAndAnswers.txt(),
-moreJs = jsTag("vendor/jquery.infinitescroll.min.js"),
-side = side.some,
+moreJs = infiniteScrollTag,
+side = popularBox(popular).some,
 openGraph = lidraughts.app.ui.OpenGraph(
 title = trans.questionsAndAnswers.txt(),
 url = s"$netBaseUrl${routes.QaQuestion.index().url}",

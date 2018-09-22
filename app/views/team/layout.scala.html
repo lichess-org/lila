@@ -4,10 +4,6 @@
 @cssTag("team.css")
 }
 
-@moreJs = {
-@jsTag("vendor/jquery.infinitescroll.min.js")
-}
-
 @side = {
 <div class="side_menu">
   @defining(~currentTab) { tab =>
@@ -36,7 +32,7 @@
 @base.layout(
 title = title,
 moreCss = moreCss,
-moreJs = moreJs,
+moreJs = infiniteScrollTag,
 openGraph = openGraph,
 side = side.some) {
 @body

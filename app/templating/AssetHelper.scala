@@ -77,6 +77,8 @@ trait AssetHelper { self: I18nHelper =>
     """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 2000) });"""
   }
 
+  val infiniteScrollTag = jsTag("vendor/jquery.infinitescroll.min.js")
+
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
     val assets = if (req.secure) "https://" + assetDomain else assetDomain
     val socket = (if (req.secure) "wss://" else "ws://") + socketDomain
