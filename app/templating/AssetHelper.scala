@@ -73,6 +73,8 @@ trait AssetHelper { self: I18nHelper =>
     s"""<script async defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
 
+  val infiniteScrollTag = jsTag("vendor/jquery.infinitescroll.min.js")
+
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
     val assets = if (req.secure) "https://" + assetDomain else assetDomain
     val socket = (if (req.secure) "wss://" else "ws://") + socketDomain
