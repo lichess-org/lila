@@ -164,14 +164,14 @@ export function mergeExpandedNodes(parent: Tree.Node): Tree.Node {
   return mergedParent;
 }
 
-export function mergeNodes(curNode: Tree.Node, newNode: Tree.Node, copyChildren = false) {
+export function mergeNodes(curNode: Tree.Node, newNode: Tree.Node, mergeChildren = false) {
 
   const curGhosts = countGhosts(curNode.fen);
 
   if (curNode.mergedNodes)
-    curNode.mergedNodes.push(copyNode(newNode, copyChildren));
+    curNode.mergedNodes.push(copyNode(newNode));
   else
-    curNode.mergedNodes = [copyNode(curNode, copyChildren), copyNode(newNode, copyChildren)];
+    curNode.mergedNodes = [copyNode(curNode), copyNode(newNode)];
 
   curNode.id = curNode.id.slice(0, 1) + newNode.id.slice(1, 2);
   curNode.fen = newNode.fen;
@@ -207,6 +207,16 @@ export function mergeNodes(curNode: Tree.Node, newNode: Tree.Node, copyChildren 
     }).length) curNode.comments.push(c);
   });
 
+  if (mergeChildren && newNode.children) {
+    newNode.children.forEach(function (child: Tree.Node) {
+      if (countGhosts(child.fen) !== 0)
+        child.displayPly = child.ply + 1;
+    });
+    if (curNode.children)
+      curNode.children.concat(newNode.children);
+    else curNode.children = newNode.children;
+  }
+
 }
 
 export function reconstruct(parts: any): Tree.Node {
@@ -217,7 +227,7 @@ export function reconstruct(parts: any): Tree.Node {
     const n = copyNode(parts[i], true);
     const ghosts = countGhosts(node.fen);
     if (ghosts !== 0) {
-      mergeNodes(node, n);
+      mergeNodes(node, n, true);
       node.ply = n.ply;
     } else {
       if (countGhosts(n.fen) !== 0)
