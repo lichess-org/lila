@@ -12,7 +12,7 @@ import lila.db.paginator.{ Adapter, CachedAdapter }
 
 object TournamentRepo {
 
-  private lazy val coll = Env.current.tournamentColl
+  private[tournament] lazy val coll = Env.current.tournamentColl
 
   private val enterableSelect = $doc("status" $lt Status.Finished.id)
   private val createdSelect = $doc("status" -> Status.Created.id)
@@ -25,7 +25,7 @@ object TournamentRepo {
     if (variant.standard) $doc("variant" -> $doc("$exists" -> false))
     else $doc("variant" -> variant.id)
   private val nonEmptySelect = $doc("nbPlayers" -> $doc("$ne" -> 0))
-  private val selectUnique = $doc("schedule.freq" -> "unique")
+  private[tournament] val selectUnique = $doc("schedule.freq" -> "unique")
 
   def byId(id: String): Fu[Option[Tournament]] = coll.find($id(id)).uno[Tournament]
 

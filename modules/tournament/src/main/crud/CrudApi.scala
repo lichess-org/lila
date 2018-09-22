@@ -1,6 +1,11 @@
 package lila.tournament
 package crud
 
+import BSONHandlers._
+
+import lila.common.paginator.Paginator
+import lila.db.dsl._
+import lila.db.paginator.Adapter
 import lila.user.User
 
 final class CrudApi {
@@ -34,6 +39,13 @@ final class CrudApi {
     val tour = updateTour(empty, data).copy(createdBy = owner.id)
     TournamentRepo insert tour inject tour
   }
+
+  def paginator(page: Int) = Paginator[Tournament](adapter = new Adapter[Tournament](
+    collection = TournamentRepo.coll,
+    selector = TournamentRepo.selectUnique,
+    projection = $empty,
+    sort = $doc("startsAt" -> -1)
+  ), currentPage = page)
 
   private def empty = Tournament.make(
     by = Left(User.lichessId),
