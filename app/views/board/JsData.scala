@@ -16,6 +16,7 @@ object JsData extends lidraughts.Lidraughtsisms {
     animationDuration: Duration
   )(implicit ctx: Context) = Json.obj(
     "fen" -> fen.split(":").take(3).mkString(":"),
+    "coords" -> ctx.pref.coords,
     "variant" -> sit.board.variant.key,
     "baseUrl" -> s"$netBaseUrl${routes.Editor.parse("")}",
     "color" -> sit.color.letter.toString,

@@ -132,7 +132,7 @@ function makeConfig(ctrl) {
   return {
     fen: ctrl.cfg.fen,
     orientation: ctrl.options.orientation || 'white',
-    coordinates: ctrl.embed ? 0 : 2,
+    coordinates: ctrl.embed ? 0 : ctrl.cfg.coords,
     autoCastle: false,
     addPieceZIndex: ctrl.cfg.is3d,
     movable: {
