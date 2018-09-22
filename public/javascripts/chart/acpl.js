@@ -15,12 +15,12 @@ lidraughts.advantageChart = function(data, trans, el) {
 
         var serieTree;
         var makeSerieData = function(d, partial) {
-          serieTree = d.treeParts;
-          var nodes = serieTree.slice(1), points = [];
+          serieTree = d.treeParts.slice(1);
+          var points = [];
           var lastPly = -1, mergedSan = "";
-          for (var i = 0; i < nodes.length; i++) {
-            var node = nodes[i];
-            if (node.ply !== lastPly || i + 1 === nodes.length) {
+          for (var i = 0; i < serieTree.length; i++) {
+            var node = serieTree[i];
+            if (node.ply !== lastPly || i + 1 === serieTree.length) {
 
               var ply = node.ply === lastPly ? (node.ply + 1) : node.ply;
               lastPly = node.ply;
@@ -67,6 +67,8 @@ lidraughts.advantageChart = function(data, trans, el) {
             } else {
               if (mergedSan.length == 0 && node.san)
                 mergedSan = node.san.slice(0, node.san.indexOf('x') + 1);
+              serieTree.splice(i, 1);
+              i--;
             }
           }
           return points;
@@ -134,7 +136,7 @@ lidraughts.advantageChart = function(data, trans, el) {
           tooltip: {
             pointFormatter: function(format) {
               format = format.replace('{series.name}', trans('advantage'));
-              var eval = serieTree[this.x + 1].eval;
+              var eval = serieTree[this.x].eval;
               if (!eval) return;
               else if (eval.win) return format.replace('{point.y}', '#' + eval.win);
               else if (typeof eval.cp !== 'undefined') {
