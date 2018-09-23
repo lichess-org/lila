@@ -398,6 +398,9 @@
 #dasher_app piece.leipzig {
   background-image: url(../piece/leipzig/wN.svg);
 }
+#dasher_app piece.kosal {
+  background-image: url(../piece/kosal/wN.svg);
+}
 
 body.dark #dasher_app .subs,
 body.dark #dasher_app .status,
