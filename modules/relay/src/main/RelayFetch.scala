@@ -94,17 +94,23 @@ private final class RelayFetch(
     }
   }
 
-  def continueRelay(r: Relay): Fu[Relay] =
-    (if (r.sync.log.alwaysFails) fuccess(60) else (r.sync.delay match {
+  def continueRelay(r: Relay): Fu[Relay] = {
+    if (r.sync.log.alwaysFails) fuccess(60)
+    else r.sync.delay match {
       case Some(delay) => fuccess(delay)
       case None => api.getNbViewers(r) map { nb =>
         (18 - nb) atLeast 7
       }
-    })) map { seconds =>
-      r.withSync(_.copy(nextAt = DateTime.now plusSeconds {
-        seconds atLeast { if (r.sync.log.alwaysFails) 10 else 2 }
-      } some))
     }
+  } map { seconds =>
+    r.withSync {
+      _.copy(
+        nextAt = DateTime.now plusSeconds {
+          seconds atLeast { if (r.sync.log.justTimedOut) 10 else 2 }
+        } some
+      )
+    }
+  }
 
   import RelayFetch.GamesSeenBy
 
