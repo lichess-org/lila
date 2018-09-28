@@ -10,41 +10,61 @@
         background-color: #1a1a1a;
         background-image: linear-gradient(to bottom, #2c2c2c, #1a1a1a 116px);
         background-repeat: no-repeat;
-        color: #929292;
+        color: #a0a0a0;
         margin: 0;
         padding: 0;
         height: 100%;
       }
-      h1 { font-size: 3em; margin: 0.4em 0 0 0; }
-      h2 { font-size: 1.6em; font-style: italic; font-weight: normal; margin: 0; }
-      p { margin-bottom: 2em; }
+      h1 { font-size: 3em; margin: 0.8em 0 0 0; font-weight: normal }
+      h2 { font-size: 1.2em; font-style: italic; font-weight: normal; margin: 0; }
+      .explain {
+        margin: 3em auto;
+        padding: 1.5em 0;
+        border: 1px solid #333;
+        border-width: 1px 0;
+        background: #252525;
+      }
       a { color: #3893E8!important; }
-      .game { margin-bottom: 2em; }
+      .panels {
+        display: flex;
+        justify-content: center;
+      }
+      .twitter {
+        flex: 0 1 400px;
+      }
+      .more {
+        margin-left: 2em;
+        text-align: left;
+      }
+      .game { margin: 1em 0; }
     </style>
     <meta content="noindex, nofollow" name="robots">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300" rel="stylesheet">
   </head>
   <body>
     <h1>lichess.org</h1>
-    <h2>maintenance in progress</h2>
-    <p>
-      Our hosting provider is performing maintenance<br />
-      on our servers this Friday, 6:00 CET for about one hour.<br />
-      <a href="https://lichess.org">Try and reload lichess.org</a>
+    <p class="explain">
+      We are performing maintenance on our servers
+      this Friday, 6:00 CET for about one hour.<br />
     </p>
-    <p>
-      To get updates on the maintenance,<br />
-      join <a href="https://twitter.com/lichess">@lichess on twitter</a> or
-      <a href="https://discord.gg/hy5jqSs">the lichess discord</a>.<br />
-      To pass the time, try out this minigame:
-    </p>
-    <div class="game">
-      <iframe
-        src="//lichess1.org/assets/vendor/ChessPursuit/bin-release/index.html"
-        frameBorder='0'
-        width="400"
-        height="500">
-      </iframe>
+    <div class="panels">
+      <div class="twitter">
+        <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/lichess?ref_src=twsrc%5Etfw">Tweets by lichess</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      </div>
+      <div class="more">
+        To get updates on the maintenance,<br />
+        join <a href="https://twitter.com/lichess">@lichess on twitter</a> or
+        <a href="https://discord.gg/hy5jqSs">the lichess discord</a>.<br />
+        To pass the time, try out this minigame:
+        <div class="game">
+          <iframe
+            src="//lichess1.org/assets/vendor/ChessPursuit/bin-release/index.html"
+            frameBorder='0'
+            width="400"
+            height="500">
+          </iframe>
+        </div>
+      </div>
     </div>
   </body>
 </html>
