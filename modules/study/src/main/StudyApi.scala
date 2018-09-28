@@ -269,13 +269,36 @@ final class StudyApi(
       } match {
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>-
-            sendTo(study, Socket.Promote(position, toMainline, uid))
+            sendTo(study, Socket.Promote(position, toMainline, uid)) >>
+            newChapter.root.children.nodesOn {
+              newChapter.root.mainlinePath.intersect(position.path)
+            }.collect {
+              case (node, path) if node.forceVariation =>
+                doForceVariation(Study.WithChapter(study, newChapter), path, false, Uid(""))
+            }.sequenceFu.void
         case None =>
           fufail(s"Invalid promoteToMainline $studyId $position") >>-
             reloadUidBecauseOf(study, uid, chapter.id)
       }
     }
   }
+
+  def forceVariation(userId: User.ID, studyId: Study.Id, position: Position.Ref, force: Boolean, uid: Uid): Funit =
+    sequenceStudyWithChapter(studyId, position.chapterId) { sc =>
+      Contribute(userId, sc.study) {
+        doForceVariation(sc, position.path, force, uid)
+      }
+    }
+
+  private def doForceVariation(sc: Study.WithChapter, path: Path, force: Boolean, uid: Uid): Funit =
+    sc.chapter.forceVariation(force, path) match {
+      case Some(newChapter) =>
+        chapterRepo.forceVariation(newChapter, path, force) >>-
+          sendTo(sc.study, Socket.ForceVariation(Position(newChapter, path).ref, force, uid))
+      case None =>
+        fufail(s"Invalid forceVariation ${Position(sc.chapter, path)} $force") >>-
+          reloadUidBecauseOf(sc.study, uid, sc.chapter.id)
+    }
 
   def setRole(byUserId: User.ID, studyId: Study.Id, userId: User.ID, roleStr: String) = sequenceStudy(studyId) { study =>
     (study isOwner byUserId) ?? {
@@ -452,19 +475,6 @@ final class StudyApi(
       }
     }
   }
-
-  def forceVariation(studyId: Study.Id, position: Position.Ref, force: Boolean, uid: Uid): Funit =
-    sequenceStudyWithChapter(studyId, position.chapterId) { sc =>
-      sc.chapter.forceVariation(force, position.path) match {
-        case Some(newChapter) =>
-          studyRepo.updateNow(sc.study)
-          chapterRepo.forceVariation(newChapter, position.path, force) >>-
-            sendTo(sc.study, Socket.SetClock(position, clock, uid))
-        case None =>
-          fufail(s"Invalid setClock $position $clock") >>-
-            reloadUidBecauseOf(sc.study, uid, position.chapterId)
-      }
-    }
 
   def explorerGame(userId: User.ID, studyId: Study.Id, data: actorApi.ExplorerGame, uid: Uid) = sequenceStudyWithChapter(studyId, data.position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {

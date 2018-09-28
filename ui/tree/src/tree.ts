@@ -21,10 +21,12 @@ export interface TreeWrapper {
   setGlyphsAt(glyphs: Tree.Glyph[], path: Tree.Path): MaybeNode;
   setClockAt(clock: Tree.Clock | undefined, path: Tree.Path): MaybeNode;
   pathIsMainline(path: Tree.Path): boolean;
+  pathIsForcedVariation(path: Tree.Path): boolean;
   lastMainlineNode(path: Tree.Path): Tree.Node;
   pathExists(path: Tree.Path): boolean;
   deleteNodeAt(path: Tree.Path): void;
   promoteAt(path: Tree.Path, toMainline: boolean): void;
+  forceVariationAt(path: Tree.Path, force: boolean): MaybeNode;
   getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[];
   merge(tree: Tree.Node): void;
   removeCeval(): void;
@@ -91,6 +93,10 @@ export function build(root: Tree.Node): TreeWrapper {
     child = node.children[0];
     if (!child || child.id !== pathId) return false;
     return pathIsMainlineFrom(child, treePath.tail(path));
+  }
+
+  function pathIsForcedVariation(path: Tree.Path): boolean {
+    return !!getNodeList(path).find(n => n.forceVariation);
   }
 
   function lastMainlineNodeFrom(node: Tree.Node, path: Tree.Path): Tree.Node {
@@ -192,12 +198,6 @@ export function build(root: Tree.Node): TreeWrapper {
     });
   }
 
-  function setClockAt(clock: Tree.Clock | undefined, path: Tree.Path) {
-    return updateAt(path, function(node) {
-      node.clock = clock;
-    });
-  }
-
   function parentNode(path: Tree.Path): Tree.Node {
     return nodeAtPath(treePath.init(path));
   }
@@ -238,14 +238,24 @@ export function build(root: Tree.Node): TreeWrapper {
     setCommentAt,
     deleteCommentAt,
     setGlyphsAt,
-    setClockAt,
+    setClockAt(clock: Tree.Clock | undefined, path: Tree.Path) {
+      return updateAt(path, function(node) {
+        node.clock = clock;
+      });
+    },
     pathIsMainline,
+    pathIsForcedVariation,
     lastMainlineNode(path: Tree.Path): Tree.Node {
       return lastMainlineNodeFrom(root, path);
     },
     pathExists,
     deleteNodeAt,
     promoteAt,
+    forceVariationAt(path: Tree.Path, force: boolean) {
+      return updateAt(path, function(node) {
+        node.forceVariation = force;
+      });
+    },
     getCurrentNodesAfterPly,
     merge(tree: Tree.Node) {
       ops.merge(root, tree);

@@ -217,6 +217,7 @@ declare namespace Tree {
     glyphs?: Glyph[];
     clock?: Clock;
     parentClock?: Clock;
+    forceVariation: boolean;
     shapes?: Shape[];
     comp?: boolean;
     san?: string;

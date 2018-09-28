@@ -36,39 +36,41 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
   if (opts.isMainline) {
     const isWhite = main.ply % 2 === 1,
     commentTags = renderMainlineCommentsOf(ctx, main, conceal, true).filter(nonEmpty);
-    if (!cs[1] && empty(commentTags)) return ((isWhite ? [moveView.renderIndex(main.ply, false)] : []) as MaybeVNodes).concat(
+    if (!cs[1] && empty(commentTags) && !main.forceVariation) return ((isWhite ? [moveView.renderIndex(main.ply, false)] : []) as MaybeVNodes).concat(
       renderMoveAndChildrenOf(ctx, main, {
         parentPath: opts.parentPath,
         isMainline: true,
         conceal
       }) || []
     );
-    const mainChildren = renderChildrenOf(ctx, main, {
+    const mainChildren = main.forceVariation ? undefined : renderChildrenOf(ctx, main, {
       parentPath: opts.parentPath + main.id,
       isMainline: true,
       conceal
     });
     const passOpts = {
       parentPath: opts.parentPath,
-      isMainline: true,
+      isMainline: !main.forceVariation,
       conceal
     };
-    return (isWhite ? [moveView.renderIndex(main.ply, false)] : [] as MaybeVNodes).concat([
-      renderMoveOf(ctx, main, passOpts),
-      isWhite ? emptyMove(passOpts.conceal) : null,
-      h('interrupt', commentTags.concat(
-        renderLines(ctx, cs.slice(1), {
-          parentPath: opts.parentPath,
-          isMainline: true,
-          conceal,
-          noConceal: !conceal
-        })
-      ))
-    ] as MaybeVNodes).concat(
-      isWhite && mainChildren ? [
-        moveView.renderIndex(main.ply, false),
-        emptyMove(passOpts.conceal)
-      ] : []).concat(mainChildren || []);
+    return (isWhite ? [moveView.renderIndex(main.ply, false)] : [] as MaybeVNodes).concat(
+      main.forceVariation ? [] : [
+        renderMoveOf(ctx, main, passOpts),
+        isWhite ? emptyMove(passOpts.conceal) : null
+      ]).concat([
+        h('interrupt', commentTags.concat(
+          renderLines(ctx, main.forceVariation ? cs : cs.slice(1), {
+            parentPath: opts.parentPath,
+            isMainline: passOpts.isMainline,
+            conceal,
+            noConceal: !conceal
+          })
+        ))
+      ] as MaybeVNodes).concat(
+        isWhite && mainChildren ? [
+          moveView.renderIndex(main.ply, false),
+          emptyMove(passOpts.conceal)
+        ] : []).concat(mainChildren || []);
   }
   if (!cs[1]) return renderMoveAndChildrenOf(ctx, main, opts);
   return renderInlined(ctx, cs, opts) || [renderLines(ctx, cs, opts)];

@@ -55,6 +55,7 @@ case class Node(
   def addChild(child: Node) = copy(children = children addNode child)
 
   def withClock(centis: Option[Centis]) = copy(clock = centis)
+  def withForceVariation(force: Boolean) = copy(forceVariation = force)
 
   def isCommented = comments.value.nonEmpty
 
@@ -111,6 +112,14 @@ object Node {
     def nodeAt(path: Path): Option[Node] = path.split flatMap {
       case (head, tail) if tail.isEmpty => get(head)
       case (head, tail) => get(head) flatMap (_.children nodeAt tail)
+    }
+
+    def nodesOn(path: Path): List[(Node, Path)] = path.split ?? {
+      case (head, tail) => get(head) ?? { first =>
+        (first, Path(List(head))) :: first.children.nodesOn(tail).map {
+          case (n, p) => (n, p prepend head)
+        }
+      }
     }
 
     def addNodeAt(node: Node, path: Path): Option[Children] = path.split match {
@@ -255,6 +264,10 @@ object Node {
     def setClockAt(clock: Option[Centis], path: Path): Option[Root] =
       if (path.isEmpty) copy(clock = clock).some
       else updateChildrenAt(path, _ withClock clock)
+
+    def forceVariationAt(force: Boolean, path: Path): Option[Root] =
+      if (path.isEmpty) copy(clock = clock).some
+      else updateChildrenAt(path, _ withForceVariation force)
 
     private def updateChildrenAt(path: Path, f: Node => Node): Option[Root] =
       withChildren(_.updateAt(path, f))

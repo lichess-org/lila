@@ -36,7 +36,8 @@ object TreeBuilder {
       crazyData = node.crazyData,
       eval = node.score.map(_.eval),
       children = toBranches(node.children),
-      opening = FullOpeningDB findByFen node.fen.value
+      opening = FullOpeningDB findByFen node.fen.value,
+      forceVariation = node.forceVariation
     )
 
   def makeRoot(root: Node.Root) =
