@@ -104,6 +104,14 @@ final class SocketHandler(
         } api.promote(userId, studyId, position.ref, toMainline, uid)
       }
     }
+    case ("forceVariation", o) => AnaRateLimit(uid, member) {
+      reading[AtPosition](o) { position =>
+        for {
+          force <- (o \ "d" \ "force").asOpt[Boolean]
+          userId <- member.userId
+        } api.forceVariation(userId, studyId, position.ref, force, uid)
+      }
+    }
     case ("setRole", o) => AnaRateLimit(uid, member) {
       reading[SetRole](o) { d =>
         member.userId foreach { userId =>

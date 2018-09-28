@@ -115,7 +115,8 @@ object ServerEval {
         check = g.situation.check,
         crazyData = g.situation.board.crazyData,
         clock = none,
-        children = Node.emptyChildren
+        children = Node.emptyChildren,
+        forceVariation = false
       )
     }
   }

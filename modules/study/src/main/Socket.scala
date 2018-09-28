@@ -165,6 +165,12 @@ private final class Socket(
       "w" -> who(uid)
     ), noMessadata)
 
+    case ForceVariation(pos, force, uid) => notifyVersion("forceVariation", Json.obj(
+      "p" -> pos,
+      "force" -> force,
+      "w" -> who(uid)
+    ), noMessadata)
+
     case SetConceal(pos, ply) => notifyVersion("conceal", Json.obj(
       "p" -> pos,
       "ply" -> ply.map(_.value)
@@ -322,6 +328,7 @@ object Socket {
   case class DeleteComment(position: Position.Ref, commentId: Comment.Id, uid: Uid)
   case class SetGlyphs(position: Position.Ref, glyphs: Glyphs, uid: Uid)
   case class SetClock(position: Position.Ref, clock: Option[Centis], uid: Uid)
+  case class ForceVariation(position: Position.Ref, force: Boolean, uid: Uid)
   case class ReloadChapters(chapters: List[Chapter.Metadata])
   case object ReloadAll
   case class ChangeChapter(uid: Uid, position: Position.Ref)

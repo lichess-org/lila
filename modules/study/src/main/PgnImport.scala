@@ -137,7 +137,8 @@ object PgnImport {
                 Node.Children {
                   makeNode(game, rest, annotator).fold(variations)(_ :: variations).toVector
                 }
-              }
+              },
+              forceVariation = false
             ).some
           }
         }

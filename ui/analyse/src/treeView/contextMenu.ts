@@ -18,8 +18,7 @@ interface Coords {
 const elementId = 'analyse-cm';
 
 function getPosition(e: MouseEvent): Coords {
-  let posx = 0;
-  let posy = 0;
+  let posx = 0, posy = 0;
   if (e.pageX || e.pageY) {
     posx = e.pageX;
     posy = e.pageY;
@@ -59,7 +58,8 @@ function action(icon: string, text: string, handler: () => void): VNode {
 function view(opts: Opts, coords: Coords): VNode {
   const ctrl = opts.root,
   node = ctrl.tree.nodeAtPath(opts.path),
-  onMainline = ctrl.tree.pathIsMainline(opts.path);
+  onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path),
+  trans = ctrl.trans.noarg;
   return h('div#' + elementId + '.visible', {
     hook: {
       insert: vnode => positionMenu(vnode.elm as HTMLElement, coords),
@@ -67,12 +67,16 @@ function view(opts: Opts, coords: Coords): VNode {
     }
   }, [
     h('p.title', nodeFullName(node)),
-    onMainline ? null : action('S', ctrl.trans.noarg('promoteVariation'), () => ctrl.promote(opts.path, false)),
-    onMainline ? null : action('E', ctrl.trans.noarg('makeMainLine'), () => ctrl.promote(opts.path, true)),
-    action('q', ctrl.trans.noarg('deleteFromHere'), () => ctrl.deleteNode(opts.path))
+    onMainline ? null : action('S', trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
+    onMainline ? null : action('E', trans('makeMainLine'), () => ctrl.promote(opts.path, true)),
+    action('q', trans('deleteFromHere'), () => ctrl.deleteNode(opts.path))
   ].concat(
     ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : []
-  ));
+  ).concat([
+    onMainline ?
+    action('F', 'Force variation', () => ctrl.forceVariation(opts.path, true)) :
+    null
+  ]));
 }
 
 export default function(e: MouseEvent, opts: Opts): void {

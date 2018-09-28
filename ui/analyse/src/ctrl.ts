@@ -520,6 +520,12 @@ export default class AnalyseCtrl {
     if (this.study) this.study.promote(path, toMainline);
   }
 
+  forceVariation(path: Tree.Path, force: boolean): void {
+    this.tree.forceVariationAt(path, force);
+    this.jump(path);
+    if (this.study) this.study.forceVariation(path, force);
+  }
+
   reset(): void {
     this.showGround();
     this.redraw();

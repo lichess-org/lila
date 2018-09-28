@@ -57,6 +57,9 @@ case class Chapter(
   def setClock(clock: Option[Centis], path: Path): Option[Chapter] =
     updateRoot(_.setClockAt(clock, path))
 
+  def forceVariation(force: Boolean, path: Path): Option[Chapter] =
+    updateRoot(_.forceVariationAt(force, path))
+
   def opening: Option[FullOpening] =
     if (!Variant.openingSensibleVariants(setup.variant)) none
     else FullOpeningDB searchInFens root.mainline.map(_.fen)
