@@ -115,6 +115,10 @@
   background: #F0F0F0;
   color: #444;
 }
+#dasher_app .selector a.active {
+  background: #3893E8!important;
+  color: #fff!important;
+}
 #dasher_app .selector a::before {
   margin-right: 8px;
   font-size: 19px;
@@ -125,6 +129,10 @@
 #dasher_app .selector a:hover::before {
   opacity: 1;
   color: #3893E8;
+}
+#dasher_app .selector a.active::before {
+  opacity: 1;
+  color: #fff!important;
 }
 #dasher_app .zen a::before {
   font-size: 18px;
