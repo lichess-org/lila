@@ -453,6 +453,19 @@ final class StudyApi(
     }
   }
 
+  def forceVariation(studyId: Study.Id, position: Position.Ref, force: Boolean, uid: Uid): Funit =
+    sequenceStudyWithChapter(studyId, position.chapterId) { sc =>
+      sc.chapter.forceVariation(force, position.path) match {
+        case Some(newChapter) =>
+          studyRepo.updateNow(sc.study)
+          chapterRepo.forceVariation(newChapter, position.path, force) >>-
+            sendTo(sc.study, Socket.SetClock(position, clock, uid))
+        case None =>
+          fufail(s"Invalid setClock $position $clock") >>-
+            reloadUidBecauseOf(sc.study, uid, position.chapterId)
+      }
+    }
+
   def explorerGame(userId: User.ID, studyId: Study.Id, data: actorApi.ExplorerGame, uid: Uid) = sequenceStudyWithChapter(studyId, data.position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
       if (data.insert) explorerGameHandler.insert(userId, study, Position(chapter, data.position.path), data.gameId) flatMap {

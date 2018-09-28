@@ -29,6 +29,7 @@ sealed trait Node {
   def addChild(branch: Branch): Node
   def dropFirstChild: Node
   def clock: Option[Centis]
+  def forceVariation: Boolean
 
   // implementation dependent
   def idOption: Option[UciCharPair]
@@ -62,6 +63,7 @@ case class Root(
   def idOption = None
   def moveOption = None
   def comp = false
+  def forceVariation = false
 
   def addChild(branch: Branch) = copy(children = children :+ branch)
   def prependChild(branch: Branch) = copy(children = branch :: children)
@@ -86,7 +88,8 @@ case class Branch(
     opening: Option[FullOpening] = None,
     comp: Boolean = false,
     clock: Option[Centis] = None, // clock state after the move is played, and the increment applied
-    crazyData: Option[Crazyhouse.Data]
+    crazyData: Option[Crazyhouse.Data],
+    forceVariation: Boolean = false // cannot be mainline
 ) extends Node {
 
   def idOption = Some(id)
@@ -273,6 +276,7 @@ object Node {
         .add("crazy", crazyData)
         .add("comp", comp)
         .add("children", if (alwaysChildren || children.nonEmpty) Some(children) else None)
+        .add("forceVariation", forceVariation)
     } catch {
       case e: StackOverflowError =>
         e.printStackTrace

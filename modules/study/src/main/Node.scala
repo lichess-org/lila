@@ -39,7 +39,8 @@ case class Node(
     score: Option[Score] = None,
     clock: Option[Centis],
     crazyData: Option[Crazyhouse.Data],
-    children: Node.Children
+    children: Node.Children,
+    forceVariation: Boolean
 ) extends RootOrNode {
 
   import Node.Children
@@ -91,7 +92,8 @@ case class Node(
     crazyData = n.crazyData orElse crazyData,
     children = n.children.nodes.foldLeft(children) {
       case (cs, c) => children addNode c
-    }
+    },
+    forceVariation = n.forceVariation || forceVariation
   )
 
   override def toString = s"$ply.${move.san} ${children.nodes}"
@@ -305,6 +307,7 @@ object Node {
     check = b.check,
     crazyData = b.crazyData,
     clock = b.clock,
-    children = Children(b.children.map(fromBranch)(scala.collection.breakOut))
+    children = Children(b.children.map(fromBranch)(scala.collection.breakOut)),
+    forceVariation = false
   )
 }
