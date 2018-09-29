@@ -473,7 +473,7 @@ private[controllers] trait LilaController
   }
 
   protected def jsonFormError(err: Form[_])(implicit lang: play.api.i18n.Lang) =
-    fuccess(BadRequest(errorsAsJson(err)))
+    fuccess(BadRequest(jsonError(errorsAsJson(err))))
 
   protected def pageHit(implicit ctx: lila.api.Context) =
     if (HTTPRequest isHuman ctx.req) lila.mon.http.request.path(ctx.req.path)()
