@@ -639,7 +639,7 @@
     <item quantity="one">Foroko mezu %s</item>
     <item quantity="other">Foroko %s mezu</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">Jolasten egondako denbora: %s</string>
+  <string name="tpTimeSpentPlaying">Jokatzen egondako denbora: %s</string>
   <string name="watchGames">Partidak ikusi</string>
   <string name="tpTimeSpentOnTV">TV ikusten egondako denbora: %s</string>
   <string name="watch">Ikusi</string>
@@ -666,7 +666,7 @@
   <string name="aboutSimulRules">Aldibereko partidak hastean, jokalari nagusiak pieza zuriekin hasten da partida bana. Aldiberekoa erakusketa amaitzen da partida guztiak amaitzean.</string>
   <string name="aboutSimulSettings">Aldibereko partidetan puntuazioak ez dira sekula aldatzen.  Ezin da errebantxarik, atzera-jokatzerik edo-eta denbora-gehitzerik erabili.</string>
   <string name="create">Sortu</string>
-  <string name="whenCreateSimul">Aldiberekoa sortzean, jokalari guztien kontra batera jokatu behar duzu.</string>
+  <string name="whenCreateSimul">Aldiberekoa sortzean, jokalari guztien aurka batera jokatu behar duzu.</string>
   <string name="simulVariantsHint">Aldaera batzuk hautatzen badituzu, jokalari bakoitzak nahi duena aukeratuko du</string>
   <string name="simulClockHint">Fischer erloju doikuntza. Zenbat eta jokalari gehiagoren aurka jokatua,  are denbora gehiago behar izango duzu</string>
   <string name="simulAddExtraTime">Aldibereko partidetan aritu ahal izateko, agian  denbora gehiago gehitu beharko diozu zure erlojuari</string>
