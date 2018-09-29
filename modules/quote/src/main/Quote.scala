@@ -568,6 +568,7 @@ object Quote {
     new Quote("Fortune favors the lucky!", "Robert Houdart (Houdini author)"),
     new Quote("Gens una sumus; \"We are one people\"", "FIDE"),
     new Quote("I don't berserk, I am not a caveman", "Magnus Carlsen"),
+    new Quote("1.e4 is the move you play when you're young, naive, and believe the world owes you something. Open positions, infinite horizons - what's not to love? Well, I've got news for you, buddy: it's a cruel chess board out there.", "John Bartholomew"),
 
     // lichess facts
     new Quote("All features for free; for everyone; forever.", "lichess.org"),
