@@ -22,7 +22,7 @@ case class Game(
     daysPerTurn: Option[Int],
     binaryMoveTimes: Option[ByteArray] = None,
     mode: Mode = Mode.default,
-    next: Option[String] = None,
+    next: Option[Game.ID] = None,
     bookmarks: Int = 0,
     createdAt: DateTime = DateTime.now,
     movedAt: DateTime = DateTime.now,
