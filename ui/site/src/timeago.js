@@ -1,13 +1,20 @@
 /** based on https://github.com/hustcc/timeago.js Copyright (c) 2016 hustcc License: MIT **/
 lichess.timeago = (function() {
 
-  // second, minute, hour, day, week, month, year(365 days)
-  var SEC_ARRAY = [60,
-                   60 * 60,
-                   60 * 60 * 24,
-                   60 * 60 * 24 * 7,
-                   60 * 60 * 2 * 365, // 24/12 = 2
-                   60 * 60 * 24 * 365];
+  const TIME_FORMATS = [
+    // Seconds
+    {limit: 60, divider: 1},
+    // Minutes
+    {limit: 60 * 60, divider: 60},
+    // Hours
+    {limit: 60 * 60 * 24 * 3, divider: 60 * 60},
+    // Days
+    {limit: 60 * 60 * 24 * 7, divider: 60 * 60 * 24},
+    // Weeks
+    {limit: 60 * 60 * 2 * 365, divider: 60 * 60 * 24 * 7},
+    // Months
+    {limit: 60 * 60 * 24 * 365, divider: 60 * 60 * 2 * 365},
+  ];
 
   // format Date / string / timestamp to Date instance.
   function toDate(input) {
@@ -23,9 +30,10 @@ lichess.timeago = (function() {
       agoin = 1;
       diff = -diff;
     } 
-    var i = 0, total_sec = diff;
-    while (i < 6 && diff >= SEC_ARRAY[i]) i++;
-    if (i > 0) diff /= SEC_ARRAY[i - 1];
+    var total_sec = diff;
+
+    while (i < TIME_FORMATS.length && diff >= TIME_FORMATS[i].limit) i++;
+    diff /= TIME_FORMATS[i].divider;
     
     diff = Math.floor(diff);
     i *= 2;
