@@ -49,10 +49,13 @@ final class GameApiV2(
 
   def exportByUser(config: ByUserConfig): Enumerator[String] = {
 
+    val query =
+      config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) } ++
+        Query.createdBetween(config.since, config.until) ++
+        (!config.ongoing).??(Query.finished)
+
     val infiniteGames = GameRepo.sortedCursor(
-      config.vs.fold(Query.user(config.user.id)) { vs =>
-        Query.opponents(config.user, vs)
-      } ++ Query.createdBetween(config.since, config.until) ++ Query.finished,
+      query,
       Query.sortCreated,
       batchSize = config.perSecond.value
     ).bulkEnumerator() &>
@@ -178,6 +181,7 @@ object GameApiV2 {
       rated: Option[Boolean] = None,
       perfType: Set[lila.rating.PerfType],
       analysed: Option[Boolean] = None,
+      ongoing: Boolean = false,
       color: Option[chess.Color],
       flags: WithFlags,
       perSecond: MaxPerSecond

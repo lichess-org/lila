@@ -70,13 +70,14 @@ object Game extends LilaController {
                 user = user,
                 format = format,
                 vs = vs,
-                since = getLong("since", req) map { ts => new DateTime(ts) },
-                until = getLong("until", req) map { ts => new DateTime(ts) },
+                since = getLong("since", req) map { new DateTime(_) },
+                until = getLong("until", req) map { new DateTime(_) },
                 max = getInt("max", req) map (_ atLeast 1),
                 rated = getBoolOpt("rated", req),
                 perfType = ~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) } toSet,
                 color = get("color", req) flatMap chess.Color.apply,
                 analysed = getBoolOpt("analysed", req),
+                ongoing = getBool("ongoing", req),
                 flags = requestPgnFlags(req, extended = false).copy(
                   literate = false
                 ),
