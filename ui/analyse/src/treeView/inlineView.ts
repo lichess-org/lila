@@ -102,7 +102,6 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 }
 
 export default function(ctrl: AnalyseCtrl): VNode {
-  const root = ctrl.tree.root;
   const ctx: Ctx = {
     ctrl,
     truncateComments: false,
@@ -111,12 +110,11 @@ export default function(ctrl: AnalyseCtrl): VNode {
     showEval: !!ctrl.study || ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl)
   };
-  const commentTags = renderInlineCommentsOf(ctx, root);
   return h('div.tview2.inline', {
     hook: mainHook(ctrl)
   }, [
-    ...commentTags,
-    ...(renderChildrenOf(ctx, root, {
+    ...renderInlineCommentsOf(ctx, ctrl.tree.root),
+    ...(renderChildrenOf(ctx, ctrl.tree.root, {
       parentPath: '',
       isMainline: true
     }) || [])
