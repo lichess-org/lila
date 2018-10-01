@@ -32,7 +32,7 @@ lichess.timeago = (function() {
     }
     var total_sec = diff;
 
-    while (i < TIME_FORMATS.length && diff >= TIME_FORMATS[i].limit) i++;
+    for (;i < TIME_FORMATS.length - 1 && diff >= TIME_FORMATS[i].limit;) i++;
     diff /= TIME_FORMATS[i].divider;
 
     diff = Math.floor(diff);
