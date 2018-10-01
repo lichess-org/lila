@@ -23,7 +23,7 @@
     "tsify": "^3",
     "@types/lichess": "1.0.0",
     "typescript": "^2",
-    "uglify-js": "^2",
+    "uglify-js": "^3",
     "vinyl-buffer": "^1",
     "vinyl-source-stream": "^1",
     "watchify": "^3"

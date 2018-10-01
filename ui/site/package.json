@@ -18,7 +18,7 @@
     "gulp-util": "^3",
     "request": "^2",
     "tsify": "^4.0.0",
-    "uglify-js": "^2",
+    "uglify-js": "^3",
     "vinyl-source-stream": "^1"
   },
   "dependencies": {
