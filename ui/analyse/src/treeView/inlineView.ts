@@ -13,27 +13,27 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
   main = cs[0];
   if (!main) return;
   if (opts.isMainline) {
-    if (!cs[1]) return renderMoveAndChildrenOf(ctx, main, {
+    if (!cs[1] && !main.forceVariation) return renderMoveAndChildrenOf(ctx, main, {
       parentPath: opts.parentPath,
       isMainline: true,
       withIndex: opts.withIndex
     });
-    return renderInlined(ctx, cs, opts) || [
-      renderMoveOf(ctx, main, {
+    return /* renderInlined(ctx, cs, opts) || */ [
+      main.forceVariation ? undefined : renderMoveOf(ctx, main, {
         parentPath: opts.parentPath,
         isMainline: true,
         withIndex: opts.withIndex
       }),
       ...renderInlineCommentsOf(ctx, main),
-      h('interrupt', renderLines(ctx, cs.slice(1), {
+      h('interrupt', renderLines(ctx, main.forceVariation ? cs : cs.slice(1), {
         parentPath: opts.parentPath,
         isMainline: true
       })),
-      ...(renderChildrenOf(ctx, main, {
+      ...(main.forceVariation ? [] : (renderChildrenOf(ctx, main, {
         parentPath: opts.parentPath + main.id,
         isMainline: true,
         withIndex: true
-      }) || [])
+      }) || []))
     ];
   }
   if (!cs[1]) return renderMoveAndChildrenOf(ctx, main, opts);
@@ -102,16 +102,16 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 }
 
 export default function(ctrl: AnalyseCtrl): VNode {
-  const root = ctrl.tree.root;
-  const ctx: Ctx = {
+  const root = ctrl.tree.root,
+  ctx: Ctx = {
     ctrl,
     truncateComments: false,
     showComputer: ctrl.showComputer() && !ctrl.retro,
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
     showEval: !!ctrl.study || ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl)
-  };
-  const commentTags = renderInlineCommentsOf(ctx, root);
+  },
+  commentTags = renderInlineCommentsOf(ctx, root);
   return h('div.tview2.inline', {
     hook: mainHook(ctrl)
   }, [
