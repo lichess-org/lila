@@ -9,13 +9,15 @@
 @mod.menu("forum")
 }
 
+@title = @{ s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}" }
+
 @forum.layout(
-title = s"${categ.name} / ${topic.name} page ${posts.currentPage}",
+title = title,
 menu = modMenu.some.ifTrue(categ.isStaff),
 moreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(
-title = s"Forum: ${categ.name} / ${topic.name} page ${posts.currentPage}",
-url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug).url}",
+title = topic.name,
+url = title,
 description = shorten(posts.currentPageResults.headOption.??(_.text), 152)).some) {
 <div class="topic">
   @categ.team.map { team =>
