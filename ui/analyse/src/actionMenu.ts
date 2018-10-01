@@ -164,7 +164,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ])
   ];
 
-    const cevalConfig: MaybeVNodes = (ceval && ceval.possible && ceval.allowed() && ctrl.showComputer()) ? ([ //Ugly fix to hide computer settings: ctrl.showComputer()
+    const cevalConfig: MaybeVNodes = (ceval && ceval.possible && ceval.allowed()) ? ([
     h('h2', noarg('computerAnalysis'))
   ] as MaybeVNodes).concat([
     ctrlBoolSetting({
@@ -197,7 +197,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         checked: ceval.infinite(),
         change: ctrl.cevalSetInfinite
       }, ctrl),
-      (id => {
+      /*(id => {
         const max = 5;
         return h('div.setting', [
           h('label', { attrs: { 'for': id } }, noarg('multipleLines')),
@@ -214,7 +214,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           }),
           h('div.range_value', ceval.multiPv() + ' / ' + max)
         ]);
-      })('analyse-multipv'),
+      })('analyse-multipv'),*/
       ceval.pnaclSupported ? (id => {
         let max = navigator.hardwareConcurrency;
         if (!max) return;

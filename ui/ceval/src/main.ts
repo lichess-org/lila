@@ -11,6 +11,14 @@ export function isEvalBetter(a: Tree.ClientEval, b?: Tree.ClientEval): boolean {
   return !b || a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
 }
 
+export function san2uci(san: string): string {
+  let sep = san.indexOf('-');
+  if (sep === -1) sep = san.indexOf('x');
+  if (sep === -1) return san;
+  const orig = san.slice(0, sep), dest = san.slice(sep + 1);
+  return (orig.length == 1 ? "0" + orig : orig) + (dest.length == 1 ? "0" + dest : dest);
+}
+
 // stop when another tab starts. Listen only once here,
 // as the ctrl can be instanciated several times.
 // gotta do the click on the toggle to have it visually change.

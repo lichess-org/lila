@@ -682,8 +682,9 @@ export default class AnalyseCtrl {
     return !!this.studyPractice;
   }
 
-  private cevalReset(): void {
-    this.ceval.stop();
+  private cevalReset(hard: Boolean = false): void {
+    if (hard) this.ceval.destroy();
+    else this.ceval.stop();
     if (!this.ceval.enabled()) this.ceval.toggle();
     this.startCeval();
     this.redraw();
@@ -697,12 +698,12 @@ export default class AnalyseCtrl {
 
   cevalSetThreads = (v: number): void => {
     this.ceval.threads(v);
-    this.cevalReset();
+    this.cevalReset(true);
   }
 
   cevalSetHashSize = (v: number): void => {
     this.ceval.hashSize(v);
-    this.cevalReset();
+    this.cevalReset(true);
   }
 
   cevalSetInfinite = (v: boolean): void => {

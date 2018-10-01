@@ -16,25 +16,25 @@ export default function(opts: CevalOpts): CevalCtrl {
   const pnaclSupported: boolean = !opts.failsafe && 'application/x-pnacl' in navigator.mimeTypes;
   const wasmSupported = typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
   const minDepth = 6;
-  const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 18);
-  const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
+  const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 15);
+  const multiPv = prop('1'); //storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const threads = storedProp(storageKey('ceval.threads'), Math.ceil((navigator.hardwareConcurrency || 1) / 2));
   const hashSize = storedProp(storageKey('ceval.hash-size'), 128);
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
   const enableStorage = li.storage.make(storageKey('client-eval-enabled'));
-  const allowed = prop(false); //prop(true);
-  const enabled = prop(false); //prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
+  const allowed = prop(true);
+  const enabled = prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
   const isDeeper = prop(false);
 
-  const sfPath = '/assets/vendor/stockfish/stockfish';
+  const scanPath = '/assets/vendor/scan/scan';
   const pool = new Pool({
-    asmjs: li.assetUrl(sfPath + '.js', {sameDomain: true}),
-    pnacl: pnaclSupported && li.assetUrl(sfPath + '.nmf'),
-    wasm: wasmSupported && li.assetUrl(sfPath + '.wasm.js', {sameDomain: true}),
+    asmjs: li.assetUrl(scanPath + '.js', {sameDomain: true}),
+    pnacl: pnaclSupported && li.assetUrl(scanPath + '.nmf'),
+    wasm: wasmSupported && li.assetUrl(scanPath + '.wasm.js', {sameDomain: true}),
     onCrash: opts.onCrash
   }, {
     minDepth,
@@ -47,25 +47,25 @@ export default function(opts: CevalOpts): CevalCtrl {
   const npsRecorder = (function() {
     const values: number[] = [];
     const applies = function(ev: Tree.ClientEval) {
-      return ev.knps && ev.depth >= 16 &&
+      return ev.knps && ev.depth >= 12 &&
         typeof ev.cp !== 'undefined' && Math.abs(ev.cp) < 500 &&
-        (ev.fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1) >= 10;
+        (ev.fen.split(',').length - 1) >= 10;
     }
-    return function(ev: Tree.ClientEval) {
+    return function (ev: Tree.ClientEval) {
       if (!applies(ev)) return;
       values.push(ev.knps);
       if (values.length >= 5) {
-        var depth = 18,
+        var depth = 15,
           knps = median(values) || 0;
-        if (knps > 100) depth = 19;
-        if (knps > 150) depth = 20;
-        if (knps > 250) depth = 21;
-        if (knps > 500) depth = 22;
-        if (knps > 1000) depth = 23;
-        if (knps > 2000) depth = 24;
-        if (knps > 3500) depth = 25;
-        if (knps > 5000) depth = 26;
-        if (knps > 7000) depth = 27;
+        if (knps > 150) depth = 16;
+        if (knps > 250) depth = 17;
+        if (knps > 500) depth = 18;
+        if (knps > 1000) depth = 19;
+        if (knps > 2000) depth = 20;
+        if (knps > 3500) depth = 21;
+        if (knps > 5500) depth = 22;
+        if (knps > 8000) depth = 23;
+        if (knps > 11000) depth = 24;
         maxDepth(depth);
         if (values.length > 20) values.shift();
       }

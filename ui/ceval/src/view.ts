@@ -3,8 +3,9 @@ import * as winningChances from './winningChances';
 import { defined } from 'common';
 import { renderEval } from 'draughts';
 import pv2san from './pv2san';
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import { san2uci } from './main';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [];
@@ -252,9 +253,9 @@ export function renderPvs(ctrl: ParentCtrl) {
     }
   }, range(multiPv).map(function(i) {
     if (!pvs[i]) return h('div.pv');
-    const san = pv2san(instance.variant.key, node.fen, threat, pvs[i].moves.slice(0, 12), pvs[i].win);
+    const san = pv2san(node.fen, threat, pvs[i].moves.slice(0, 12), pvs[i].win);
     return h('div.pv', threat ? {} : {
-      attrs: { 'data-uci': pvs[i].moves[0] }
+      attrs: { 'data-uci': san2uci(pvs[i].moves[0]) }
     }, [
       multiPv > 1 ? h('strong', defined(pvs[i].win) ? ('#' + pvs[i].win) : renderEval(pvs[i].cp!)) : null,
       h('span', san)

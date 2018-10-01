@@ -107,7 +107,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       verdict,
       best: best ? {
         uci: best,
-        san: pv2san(root.data.game.variant.key, prev.fen, false, [best])
+        san: pv2san(prev.fen, false, [best])
       } : undefined
     };
   }

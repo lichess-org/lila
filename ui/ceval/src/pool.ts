@@ -1,6 +1,6 @@
 import { sync, Sync } from 'common';
 import { PoolOpts, WorkerOpts, Work } from './types';
-import Protocol from './stockfishProtocol';
+import Protocol from './scanProtocol';
 
 export abstract class AbstractWorker {
   protected url: string;
@@ -22,9 +22,9 @@ export abstract class AbstractWorker {
   start(work: Work) {
     // wait for boot
     this.protocol.promise.then(protocol => {
-      const timeout = new Promise((_, reject) => setTimeout(reject, 1000));
+      const timeout = new Promise((_, reject) => setTimeout(reject, 3000));
       Promise.race([protocol.stop(), timeout]).catch(() => {
-        // reboot if not stopped after 1s
+        // reboot if not stopped after 3s
         this.destroy();
         this.protocol = sync(this.boot());
       }).then(() => {
@@ -88,7 +88,7 @@ class PNaClWorker extends AbstractWorker {
           if (this.protocol.sync) this.protocol.sync.received((e as any).data);
         }, true);
         this.listener.addEventListener('crash', e => {
-          const err = this.worker ? (this.worker as any).lastError : e;
+          const err = this.worker ? ((this.worker as any).lastError + " (exitStatus " + (this.worker as any).exitStatus + ")") : e;
           this.poolOpts.onCrash(err);
         }, true);
         document.body.appendChild(this.listener);

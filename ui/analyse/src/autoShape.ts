@@ -1,11 +1,12 @@
 import { winningChances } from 'ceval';
+import { san2uci } from 'ceval'
 import { decomposeUci } from 'draughts';
 import { opposite } from 'draughtsground/util';
 import { DrawShape } from 'draughtsground/draw';
 import AnalyseCtrl from './ctrl';
 
 export function makeShapesFromUci(uci: Uci, brush: string, modifiers?: any): DrawShape[] {
-  const moves = decomposeUci(uci);
+  const moves = decomposeUci(san2uci(uci));
   const shapes: DrawShape[] = new Array<DrawShape>();
   for (let i = 0; i < moves.length; i++) {
     if (i + 1 >= moves.length) {
