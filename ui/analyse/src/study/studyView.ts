@@ -98,7 +98,7 @@ function buttons(root: AnalyseCtrl): VNode {
         ctrl,
         tab: 'share',
         hint: 'Share & export',
-        icon: iconTag('z')
+        icon: iconTag('$')
       })
     ]),
     gbOverrideButton(ctrl) || helpButton(ctrl)
