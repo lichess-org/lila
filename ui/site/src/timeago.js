@@ -7,7 +7,7 @@ lichess.timeago = (function() {
     // Minutes
     {limit: 60 * 60, divider: 60},
     // Hours
-    {limit: 60 * 60 * 24 * 3, divider: 60 * 60},
+    {limit: 60 * 60 * 24 * 2, divider: 60 * 60},
     // Days
     {limit: 60 * 60 * 24 * 7, divider: 60 * 60 * 24},
     // Weeks
