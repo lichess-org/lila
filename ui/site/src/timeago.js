@@ -29,12 +29,12 @@ lichess.timeago = (function() {
     if (diff < 0) {
       agoin = 1;
       diff = -diff;
-    } 
+    }
     var total_sec = diff;
 
     while (i < TIME_FORMATS.length && diff >= TIME_FORMATS[i].limit) i++;
     diff /= TIME_FORMATS[i].divider;
-    
+
     diff = Math.floor(diff);
     i *= 2;
 
@@ -55,34 +55,34 @@ lichess.timeago = (function() {
       }).format : function(d) { return d.toLocaleString(); })
   }
 
-   return {
-     render: function(nodes) {
-       var cl, abs, set, str, diff, now = Date.now();
-       nodes.forEach(function(node) {
-         cl = node.classList,
-         abs = cl.contains('abs'),
-         set = cl.contains('set');
-         node.date = node.date || toDate(node.getAttribute('datetime'));
-         if (!set) {
-           str = formatter()(node.date);
-           if (abs) node.textContent = str;
-           else node.setAttribute('title', str);
-           cl.add('set');
-           if (abs || cl.contains('once')) cl.remove('timeago');
-         }
-         if (!abs) {
-           diff = (now - node.date) / 1000;
-           node.textContent = formatDiff(diff);
-           if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
-         }
-       });
-     },
-     // relative
-     format: function(date) {
-       return formatDiff((Date.now() - toDate(date)) / 1000);
-     },
-     absolute: function(date) {
-       return formatter()(toDate(date));
-     }
-   };
+  return {
+    render: function(nodes) {
+      var cl, abs, set, str, diff, now = Date.now();
+      nodes.forEach(function(node) {
+        cl = node.classList,
+        abs = cl.contains('abs'),
+        set = cl.contains('set');
+        node.date = node.date || toDate(node.getAttribute('datetime'));
+        if (!set) {
+          str = formatter()(node.date);
+          if (abs) node.textContent = str;
+          else node.setAttribute('title', str);
+          cl.add('set');
+          if (abs || cl.contains('once')) cl.remove('timeago');
+        }
+        if (!abs) {
+          diff = (now - node.date) / 1000;
+          node.textContent = formatDiff(diff);
+          if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
+        }
+      });
+    },
+    // relative
+    format: function(date) {
+      return formatDiff((Date.now() - toDate(date)) / 1000);
+    },
+    absolute: function(date) {
+      return formatter()(toDate(date));
+    }
+  };
 })();
