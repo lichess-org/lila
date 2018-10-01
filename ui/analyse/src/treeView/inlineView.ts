@@ -18,13 +18,15 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
       isMainline: true,
       withIndex: opts.withIndex
     });
-    return /* renderInlined(ctx, cs, opts) || */ [
-      main.forceVariation ? undefined : renderMoveOf(ctx, main, {
-        parentPath: opts.parentPath,
-        isMainline: true,
-        withIndex: opts.withIndex
-      }),
-      ...renderInlineCommentsOf(ctx, main),
+    return renderInlined(ctx, cs, opts) || [
+      ...(main.forceVariation ? [] : [
+        renderMoveOf(ctx, main, {
+          parentPath: opts.parentPath,
+          isMainline: true,
+          withIndex: opts.withIndex
+        }),
+        ...renderInlineCommentsOf(ctx, main)
+      ]),
       h('interrupt', renderLines(ctx, main.forceVariation ? cs : cs.slice(1), {
         parentPath: opts.parentPath,
         isMainline: true
@@ -42,7 +44,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
 
 function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): MaybeVNodes | undefined {
   // only 2 branches
-  if (!nodes[1] || nodes[2]) return;
+  if (!nodes[1] || nodes[2] || nodes[0].forceVariation) return;
   // only if second branch has no sub-branches
   if (treeOps.hasBranching(nodes[1], 6)) return;
   return renderMoveAndChildrenOf(ctx, nodes[0], {
