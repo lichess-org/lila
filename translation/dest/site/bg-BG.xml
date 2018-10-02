@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">Вашият %1$s рейтинг (%2$s) е твърде висок</string>
   <string name="ratedMoreThanInPerf">%2$s рейтинг ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s рейтинг ≤ %1$s</string>
+  <string name="mustBeInTeam">Трябва да сте в тим %s</string>
+  <string name="youAreNotInTeam">Не сте в тимът %s</string>
   <string name="backToGame">Връщане към играта</string>
   <string name="siteDescription">Безплатна онлайн шах игра. Играй шах сега в изчистен интерфейс. Без нужда от регистрация, реклами или добавки. Играй шах с компютъра, с приятели или случайни противници.</string>
   <string name="teams">Отбори</string>
@@ -508,6 +510,7 @@
   <string name="troll">Вредител</string>
   <string name="other">Друго</string>
   <string name="reportDescriptionHelp">Поставете линк към играта и обяснете какъв е проблемът с поведението на този потребител. Не казвайте единствено, че мами, но ни кажете как сте стигнали до този извод. Вашият доклад ще бъде обработен по-бързо, ако е написан на английски.</string>
+  <string name="error.provideOneCheatedGameLink">Моля дай поне един линк до измамна игра.</string>
   <string name="by">от %s</string>
   <string name="thisTopicIsNowClosed">Темата е затворена</string>
   <string name="theming">Тема</string>
@@ -525,7 +528,7 @@
   <string name="thisAccountIsClosed">Тази регистрация е закрита.</string>
   <string name="invalidUsernameOrPassword">Грешен потребител или парола</string>
   <string name="incorrectPassword">Неправилна парола</string>
-  <string name="invalidAuthenticationCode">Не валиден код за заверка</string>
+  <string name="invalidAuthenticationCode">Не валиден код за удостоверяване</string>
   <string name="emailMeALink">Изпрати ми препратка на ел. поща</string>
   <string name="currentPassword">Текуща парола</string>
   <string name="newPassword">Нова парола</string>
