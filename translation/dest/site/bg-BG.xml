@@ -34,11 +34,11 @@
   <string name="opponentLeftChoices">Другият играч може да е напуснал играта. Можеш да изискаш победа, равенство, или да чакаш.</string>
   <string name="makeYourOpponentResign">Принуди противника си да се предаде</string>
   <string name="forceResignation">Претендирай победа</string>
-  <string name="forceDraw">Наложи равенство</string>
+  <string name="forceDraw">Претендирай реми</string>
   <string name="talkInChat">Моля бъдете учтиви в чата!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Първият човек, който отвори този адрес, ще играе с вас.</string>
-  <string name="whiteResigned">Белите се отказаха</string>
-  <string name="blackResigned">Черните се отказаха</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Първият човек който отвори този адрес ще играе с вас.</string>
+  <string name="whiteResigned">Белите се предадоха</string>
+  <string name="blackResigned">Черните се предадоха</string>
   <string name="whiteLeftTheGame">Белите напуснаха</string>
   <string name="blackLeftTheGame">Черните напуснаха</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Сподели адреса с приятели, които да наблюдават играта</string>
