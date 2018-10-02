@@ -58,6 +58,6 @@
   <string name="signedUp">Регистрира се в lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Присъедини се в %s отбор</item>
-    <item quantity="other">Присъедини се в %s отбора</item>
+    <item quantity="other">Присъедини се в %s отбори</item>
   </plurals>
 </resources>
