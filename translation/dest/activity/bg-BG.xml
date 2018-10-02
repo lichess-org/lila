@@ -52,8 +52,8 @@
     <item quantity="other">Участва в %s турнира</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">#%1$s място (топ %2$s%%) с %3$s игра в %4$s</item>
-    <item quantity="other">#%1$s място (топ %2$s%%) с %3$s игри в %4$s</item>
+    <item quantity="one">#%1$s място (горен %2$s%%) с %3$s игра в %4$s</item>
+    <item quantity="other">#%1$s място (горен %2$s%%) с %3$s игра в %4$s</item>
   </plurals>
   <string name="signedUp">Регистрира се в lichess.org</string>
   <plurals name="joinedNbTeams">
