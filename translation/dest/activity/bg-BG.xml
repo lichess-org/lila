@@ -20,7 +20,7 @@
     <item quantity="other">Публикувал %1$s съобщения в %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Изиграл %1$s ход в %2$s кореспондентни игра(и)</item>
+    <item quantity="one">Изиграл %1$s ход в %2$s кореспондент(на/ни) игра(и)</item>
     <item quantity="other">Изиграл %1$s хода в %2$s кореспондент(на/ни) игра(и)</item>
   </plurals>
   <plurals name="completedNbGames">
@@ -28,16 +28,16 @@
     <item quantity="other">Завършил %s кореспондентни игри</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Последва %s играч</item>
+    <item quantity="one">Следва %s играч</item>
     <item quantity="other">Следва %s играчи</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Беше последван от %s играч</item>
+    <item quantity="one">Прибави %s нов последовател</item>
     <item quantity="other">Прибави %s нови последователи</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Бе домакин на %s шахматен сеанс</item>
-    <item quantity="other">Бе домакин на %s шахматни сеанса</item>
+    <item quantity="one">Домакин на %s шахматен сеанс</item>
+    <item quantity="other">Домакин на %s шахматни сеанса</item>
   </plurals>
   <plurals name="joinedNbSimuls">
     <item quantity="one">Участва в %s шахматен сеанс</item>
