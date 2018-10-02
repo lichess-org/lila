@@ -8,7 +8,7 @@
     <item quantity="other">Упражнил %1$s позиции на %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Решил %s тактически пъзела</item>
+    <item quantity="one">Решил %s тактически пъзел</item>
     <item quantity="other">Решил %s тактически пъзели</item>
   </plurals>
   <plurals name="playedNbGames">
@@ -21,7 +21,7 @@
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Изиграл %1$s ход в %2$s кореспондентни игра(и)</item>
-    <item quantity="other">Изиграл %1$s хода в %2$s кореспондентни игра(и)</item>
+    <item quantity="other">Изиграл %1$s хода в %2$s кореспондент(на/ни) игра(и)</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Завършил %s кореспондентна игра</item>
@@ -29,7 +29,7 @@
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Последва %s играч</item>
-    <item quantity="other">Последва %s играчи</item>
+    <item quantity="other">Следва %s играчи</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Беше последван от %s играч</item>
