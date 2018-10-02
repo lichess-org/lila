@@ -287,8 +287,8 @@
     <item quantity="other">≥ %s rated games</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s rated game</item>
-    <item quantity="other">≥ %1$s %2%s rated games</item>
+    <item quantity="one">≥ %1$s %2$s rated game</item>
+    <item quantity="other">≥ %1$s %2$s rated games</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">You need to play %1$s more %2$s rated game</item>
