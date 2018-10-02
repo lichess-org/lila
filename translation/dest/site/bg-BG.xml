@@ -25,13 +25,13 @@
   <string name="kingInTheCenter">Царят е в центъра</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Надпреварата завърши</string>
-  <string name="variantEnding">Край на играта</string>
-  <string name="newOpponent">Друг противник</string>
+  <string name="variantEnding">Край на варианта</string>
+  <string name="newOpponent">Различен (от последния) противник</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Противник иска да играе нова игра с вас</string>
-  <string name="joinTheGame">Влез в игра</string>
+  <string name="joinTheGame">Влез в играта</string>
   <string name="whitePlays">Белите на ход</string>
   <string name="blackPlays">Черните на ход</string>
-  <string name="opponentLeftChoices">Другият играч може да е напуснал играта. Можеш да изискаш победа, равенство, или да чакаш.</string>
+  <string name="opponentLeftChoices">Другият играч може да е напуснал играта. Можете да претендирате победа, претендирате реми, или ижчакате.</string>
   <string name="makeYourOpponentResign">Принуди противника си да се предаде</string>
   <string name="forceResignation">Претендирай победа</string>
   <string name="forceDraw">Претендирай реми</string>
