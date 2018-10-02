@@ -8,7 +8,7 @@
   <string name="knowingTheChessBoard">Познаването на координатите на шахматната дъска е много важно умение:</string>
   <string name="mostChessCourses">Повечето шахматни уроци и упражнения използват изобилно алгебричната нотация.</string>
   <string name="talkToYourChessFriends">Това улеснява шахматният разговор с приятели, тъй като вие разбирате \"езика на шахмата\".</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Можете да анализирате една игра по-ефективно ако намирате съответствието на координати по-бързо.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Можете да анализирате една игра по-ефективно ако сте по-бързи в намирането на съответствие на всеки координат.</string>
   <string name="aSquareNameAppears">Обозначението на полето се показва на дъската, и вие трябва да натиснете съответното поле. Имате 30 секунди да разпознаете колкото се може повече полета!</string>
   <string name="startTraining">Започни упражнението</string>
 </resources>
