@@ -33,7 +33,7 @@
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Беше последван от %s играч</item>
-    <item quantity="other">Беше последван от %s играчи</item>
+    <item quantity="other">Прибави %s нови последователи</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Бе домакин на %s шахматен сеанс</item>
