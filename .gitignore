@@ -6,7 +6,7 @@
 *.js.map
 yarn-error.log
 logs
-data
+data/*
 database
 project/target
 public/compiled
