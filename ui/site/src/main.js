@@ -532,11 +532,19 @@ lichess.topMenuIntent = function() {
               }
             });
           }).find('div.pager').hide().end();
-          $scroller.parent().append($('<button class="button inf-more">More</button>').on('click', function() {
+
+          const $moreButton = $('<button class="button inf-more">More</button>').on('click', function() {
             $scroller.infinitescroll('retrieve');
-          }));
+          });
+
+          var $moreButtonParent = $scroller.parent();
+          // prevent adding buttons as child of elements where buttons are note allowed
+          if ($moreButton.is('table, ul, ol, dl')) {
+            $moreButtonParent = $moreButtonParent.parent();
+          }
+          $moreButtonParent.after($moreButton);
         });
-      }
+      };
       lichess.loadInfiniteScroll('.infinitescroll');
 
       $('#top').on('click', 'a.toggle', function() {
