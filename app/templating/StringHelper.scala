@@ -54,10 +54,10 @@ trait StringHelper { self: NumberHelper =>
     htmls mkString separator
   }
 
-  def camo(url: String): String
+  def rewriteImgSrc(url: String): String
 
   def richText(rawText: String, nl2br: Boolean = true) = Html {
-    val withLinks = RawHtml.addLinks(rawText, camo)
+    val withLinks = RawHtml.addLinks(rawText, rewriteImgSrc)
     if (nl2br) RawHtml.nl2br(withLinks) else withLinks
   }
 }
