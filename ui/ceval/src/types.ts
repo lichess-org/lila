@@ -96,6 +96,7 @@ export interface ParentCtrl {
   getOrientation(): Color;
   threatMode(): boolean;
   getNode(): Tree.Node;
+  getCevalNode(): Tree.Node;
   showComputer(): boolean;
   trans: Trans;
 }
@@ -110,6 +111,7 @@ export interface Step {
   fen: string;
   san?: string;
   uci?: string;
+  displayPly?: number;
   threat?: Tree.ClientEval;
   ceval?: Tree.ClientEval;
 }

@@ -11,12 +11,13 @@ export function isEvalBetter(a: Tree.ClientEval, b?: Tree.ClientEval): boolean {
   return !b || a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
 }
 
-export function san2uci(san: string): string {
-  let sep = san.indexOf('-');
-  if (sep === -1) sep = san.indexOf('x');
-  if (sep === -1) return san;
-  const orig = san.slice(0, sep), dest = san.slice(sep + 1);
-  return (orig.length == 1 ? "0" + orig : orig) + (dest.length == 1 ? "0" + dest : dest);
+export function scan2uci(san: string): string {
+  if (san.indexOf('x') !== -1)
+    return san.split('x').map(m => (m.length == 1 ? "0" + m : m)).join('');
+  else if (san.indexOf('-') !== -1)
+    return san.split('-').map(m => (m.length == 1 ? "0" + m : m)).join('');
+  else
+    return san;
 }
 
 // stop when another tab starts. Listen only once here,

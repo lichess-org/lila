@@ -1,4 +1,4 @@
-import { winningChances } from 'ceval';
+import { winningChances, scan2uci } from 'ceval';
 import { decomposeUci } from 'draughts';
 import { DrawShape } from 'draughtsground/draw';
 import { Vm } from './interfaces';
@@ -15,13 +15,21 @@ interface Opts {
 }
 
 function makeAutoShapesFromUci(uci: Uci, brush: string, modifiers?: any): DrawShape[] {
-  const move = decomposeUci(uci);
-  return [{
-    orig: move[0],
-    dest: move[1],
-    brush: brush,
-    modifiers: modifiers
+  const moves = decomposeUci(scan2uci(uci));
+  if (moves.length == 1) return [{
+    orig: moves[0],
+    brush,
+    modifiers
   }];
+  const shapes: DrawShape[] = new Array<DrawShape>();
+  for (let i = 0; i < moves.length - 1; i++)
+    shapes.push({
+      orig: moves[i],
+      dest: moves[i + 1],
+      brush,
+      modifiers
+    });
+  return shapes;
 }
 
 export default function(opts: Opts): DrawShape[] {
@@ -34,9 +42,20 @@ export default function(opts: Opts): DrawShape[] {
     if (n.eval) shapes = shapes.concat(makeAutoShapesFromUci(n.eval.best!, 'paleGreen'));
     if (!hovering) {
       let nextBest: Uci | undefined = opts.nextNodeBest;
-      if (!nextBest && opts.ceval.enabled() && n.ceval) nextBest = n.ceval.pvs[0].moves[0];
+      const ghostNode = n.displayPly && n.displayPly !== n.ply && opts.vm.nodeList.length > 1;
+      if (!nextBest && opts.ceval.enabled()) {
+        const prevCeval = ghostNode ? opts.vm.nodeList[opts.vm.nodeList.length - 2].ceval : undefined;
+        if (ghostNode && prevCeval && prevCeval.pvs[0].moves[0].indexOf('x') !== -1 && n.uci) {
+          const ucis = n.uci.match(/.{1,2}/g);
+          if (!!ucis) {
+            const sans = ucis.slice(0, ucis.length - 1).map(uci => parseInt(uci).toString()).join('x');
+            nextBest = prevCeval.pvs[0].moves[0].slice(sans.length + 1);
+          }
+        } else if (n.ceval)
+          nextBest = n.ceval.pvs[0].moves[0];
+      }
       if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(nextBest, 'paleBlue'));
-      if (opts.ceval.enabled() && n.ceval && n.ceval.pvs && n.ceval.pvs[1] && !(opts.threatMode && n.threat && n.threat.pvs[2])) {
+      if (!ghostNode && opts.ceval.enabled() && n.ceval && n.ceval.pvs && n.ceval.pvs[1] && !(opts.threatMode && n.threat && n.threat.pvs[2])) {
         n.ceval.pvs.forEach(function(pv) {
           if (pv.moves[0] === nextBest) return;
           var shift = winningChances.povDiff(color as Color, n.ceval!.pvs[0], pv);

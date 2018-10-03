@@ -249,6 +249,9 @@ export default class AnalyseCtrl {
   getNode(): Tree.Node { // required by ui/ceval
     return this.node;
   }
+  getCevalNode(): Tree.Node { // required by ui/ceval
+    return (this.nodeList.length > 1 && this.node.displayPly && this.node.displayPly !== this.node.ply) ? this.nodeList[this.nodeList.length - 2] : this.node;
+  }
 
   turnColor(): Color {
     return util.plyColor(this.node.ply);
@@ -556,9 +559,10 @@ export default class AnalyseCtrl {
   }
 
   currentEvals() {
+    const evalNode = this.getCevalNode();
     return {
-      server: this.node.eval,
-      client: this.node.ceval
+      server: evalNode.eval,
+      client: evalNode.ceval
     };
   }
 
@@ -646,8 +650,12 @@ export default class AnalyseCtrl {
   startCeval = throttle(800, () => {
     if (this.ceval.enabled()) {
       if (this.canUseCeval()) {
-        this.ceval.start(this.path, this.nodeList, this.threatMode(), false);
-        this.evalCache.fetch(this.path, parseInt(this.ceval.multiPv()));
+        // only analyze startingposition of multicaptures
+        const ghostEnd = (this.nodeList.length > 0 && this.node.displayPly && this.node.displayPly !== this.node.ply);
+        const path = ghostEnd ? this.path.slice(2) : this.path;
+        const nodeList = ghostEnd ? this.nodeList.slice(1) : this.nodeList;
+        this.ceval.start(path, nodeList, this.threatMode(), false);
+        this.evalCache.fetch(path, parseInt(this.ceval.multiPv()));
       } else this.ceval.stop();
     }
   });
@@ -664,7 +672,7 @@ export default class AnalyseCtrl {
   }
 
   toggleThreatMode = () => {
-    if (this.node.check) return;
+    if (this.node.displayPly && this.node.displayPly !== this.node.ply) return;
     if (!this.ceval.enabled()) this.ceval.toggle();
     if (!this.ceval.enabled()) return;
     this.threatMode(!this.threatMode());
@@ -682,9 +690,8 @@ export default class AnalyseCtrl {
     return !!this.studyPractice;
   }
 
-  private cevalReset(hard: Boolean = false): void {
-    if (hard) this.ceval.destroy();
-    else this.ceval.stop();
+  private cevalReset(): void {
+    this.ceval.stop();
     if (!this.ceval.enabled()) this.ceval.toggle();
     this.startCeval();
     this.redraw();
@@ -698,12 +705,12 @@ export default class AnalyseCtrl {
 
   cevalSetThreads = (v: number): void => {
     this.ceval.threads(v);
-    this.cevalReset(true);
+    this.cevalReset();
   }
 
   cevalSetHashSize = (v: number): void => {
     this.ceval.hashSize(v);
-    this.cevalReset(true);
+    this.cevalReset();
   }
 
   cevalSetInfinite = (v: boolean): void => {

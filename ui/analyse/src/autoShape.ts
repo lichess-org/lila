@@ -1,29 +1,24 @@
-import { winningChances } from 'ceval';
-import { san2uci } from 'ceval'
+import { winningChances, scan2uci} from 'ceval';
 import { decomposeUci } from 'draughts';
 import { opposite } from 'draughtsground/util';
 import { DrawShape } from 'draughtsground/draw';
 import AnalyseCtrl from './ctrl';
 
 export function makeShapesFromUci(uci: Uci, brush: string, modifiers?: any): DrawShape[] {
-  const moves = decomposeUci(san2uci(uci));
+  const moves = decomposeUci(scan2uci(uci));
+  if (moves.length == 1) return [{
+    orig: moves[0],
+    brush,
+    modifiers
+  }];
   const shapes: DrawShape[] = new Array<DrawShape>();
-  for (let i = 0; i < moves.length; i++) {
-    if (i + 1 >= moves.length) {
-      shapes.push({
-        orig: moves[i],
-        brush,
-        modifiers
-      });
-      break;
-    } else
-      shapes.push({
-        orig: moves[i],
-        dest: moves[i + 1],
-        brush,
-        modifiers
-      });
-  }
+  for (let i = 0; i < moves.length - 1; i++)
+    shapes.push({
+      orig: moves[i],
+      dest: moves[i + 1],
+      brush,
+      modifiers
+    });
   return shapes;
 }
 
@@ -62,9 +57,20 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     if (nEval.best) shapes = shapes.concat(makeShapesFromUci(nEval.best, 'paleGreen'));
     if (!hovering) {
       let nextBest = ctrl.nextNodeBest();
-      if (!nextBest && instance.enabled() && nCeval) nextBest = nCeval.pvs[0].moves[0];
+      const ghostNode = ctrl.node.displayPly && ctrl.node.displayPly !== ctrl.node.ply && ctrl.nodeList.length > 1;
+      if (!nextBest && instance.enabled()) {
+        const prevCeval = ghostNode ? ctrl.nodeList[ctrl.nodeList.length - 2].ceval : undefined;
+        if (ghostNode && prevCeval && prevCeval.pvs[0].moves[0].indexOf('x') !== -1 && ctrl.node.uci) {
+          const ucis = ctrl.node.uci.match(/.{1,2}/g);
+          if (!!ucis) {
+            const sans = ucis.slice(0, ucis.length - 1).map(uci => parseInt(uci).toString()).join('x');
+            nextBest = prevCeval.pvs[0].moves[0].slice(sans.length + 1);
+          }
+        } else if (nCeval)
+          nextBest = nCeval.pvs[0].moves[0];
+      }
       if (nextBest) shapes = shapes.concat(makeShapesFromUci(nextBest, 'paleBlue'));
-      if (instance.enabled() && nCeval && nCeval.pvs[1] && !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)) {
+      if (!ghostNode && instance.enabled() && nCeval && nCeval.pvs[1] && !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)) {
         nCeval.pvs.forEach(function (pv) {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color, nCeval.pvs[0], pv);

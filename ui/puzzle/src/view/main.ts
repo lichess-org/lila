@@ -83,7 +83,7 @@ function buttons(ctrl: Controller) {
 let cevalShown = false;
 
 export default function(ctrl: Controller): VNode {
-  const showCeval = false; //ctrl.vm.showComputer();
+  const showCeval = ctrl.vm.showComputer();
   if (cevalShown !== showCeval) {
     if (!cevalShown) ctrl.vm.autoScrollNow = true;
     cevalShown = showCeval;

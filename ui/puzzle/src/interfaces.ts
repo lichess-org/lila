@@ -21,6 +21,7 @@ export interface Controller {
   getOrientation(): Color;
   threatMode: Prop<boolean>;
   getNode(): Tree.Node;
+  getCevalNode(): Tree.Node;
   showComputer(): boolean;
   [key: string]: any;
   trans: Trans;

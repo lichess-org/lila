@@ -5,7 +5,7 @@ import { renderEval } from 'draughts';
 import pv2san from './pv2san';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { san2uci } from './main';
+import { scan2uci } from './main';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [];
@@ -57,10 +57,11 @@ function threatInfo(ctrl: ParentCtrl, threat?: Tree.ClientEval | false): string 
 
 function threatButton(ctrl: ParentCtrl): VNode | null {
   if (ctrl.disableThreatMode && ctrl.disableThreatMode()) return null;
+  const node = ctrl.getNode();
   return h('a.show-threat', {
     class: {
       active: ctrl.threatMode(),
-      hidden: !!ctrl.getNode().check
+      hidden: (node.displayPly !== undefined && node.displayPly !== node.ply)
     },
     attrs: {
       'data-icon': '7',
@@ -225,7 +226,7 @@ export function renderPvs(ctrl: ParentCtrl) {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
   const multiPv = parseInt(instance.multiPv()),
-  node = ctrl.getNode();
+    node = ctrl.getCevalNode();
   let pvs : Tree.PvData[], threat = false;
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
@@ -255,7 +256,7 @@ export function renderPvs(ctrl: ParentCtrl) {
     if (!pvs[i]) return h('div.pv');
     const san = pv2san(node.fen, threat, pvs[i].moves.slice(0, 12), pvs[i].win);
     return h('div.pv', threat ? {} : {
-      attrs: { 'data-uci': san2uci(pvs[i].moves[0]) }
+      attrs: { 'data-uci': scan2uci(pvs[i].moves[0]) }
     }, [
       multiPv > 1 ? h('strong', defined(pvs[i].win) ? ('#' + pvs[i].win) : renderEval(pvs[i].cp!)) : null,
       h('span', san)

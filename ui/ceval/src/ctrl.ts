@@ -13,10 +13,10 @@ export default function(opts: CevalOpts): CevalCtrl {
     return opts.storageKeyPrefix ? opts.storageKeyPrefix + '.' + k : k;
   };
 
-  const pnaclSupported: boolean = !opts.failsafe && 'application/x-pnacl' in navigator.mimeTypes;
+  const pnaclSupported: boolean = false; // Disabled until stability issues are resolved !opts.failsafe && 'application/x-pnacl' in navigator.mimeTypes;
   const wasmSupported = typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
   const minDepth = 6;
-  const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 15);
+  const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 16);
   const multiPv = prop('1'); //storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const threads = storedProp(storageKey('ceval.threads'), Math.ceil((navigator.hardwareConcurrency || 1) / 2));
   const hashSize = storedProp(storageKey('ceval.hash-size'), 128);
@@ -55,17 +55,17 @@ export default function(opts: CevalOpts): CevalCtrl {
       if (!applies(ev)) return;
       values.push(ev.knps);
       if (values.length >= 5) {
-        var depth = 15,
+        var depth = 16,
           knps = median(values) || 0;
-        if (knps > 150) depth = 16;
-        if (knps > 250) depth = 17;
-        if (knps > 500) depth = 18;
-        if (knps > 1000) depth = 19;
-        if (knps > 2000) depth = 20;
-        if (knps > 3500) depth = 21;
-        if (knps > 5500) depth = 22;
-        if (knps > 8000) depth = 23;
-        if (knps > 11000) depth = 24;
+        if (knps > 150) depth = 17;
+        if (knps > 250) depth = 18;
+        if (knps > 500) depth = 19;
+        if (knps > 1000) depth = 20;
+        if (knps > 2000) depth = 21;
+        if (knps > 3500) depth = 22;
+        if (knps > 5500) depth = 23;
+        if (knps > 8000) depth = 24;
+        if (knps > 11000) depth = 25;
         maxDepth(depth);
         if (values.length > 20) values.shift();
       }
@@ -122,15 +122,15 @@ export default function(opts: CevalOpts): CevalCtrl {
     };
 
     if (threatMode) {
-      const c = step.ply % 2 === 1 ? 'w' : 'b';
-      const fen = step.fen.replace(/ (w|b) /, ' ' + c + ' ');
+      const c = step.ply % 2 === 1 ? 'W' : 'B';
+      const fen = c + step.fen.slice(1);
       work.currentFen = fen;
       work.initialFen = fen;
     } else {
-      // send fen after latest castling move and the following moves
+      // send fen after last capture and the following moves
       for (let i = 1; i < steps.length; i++) {
         let s = steps[i];
-        if (s.san!.indexOf('O-O') === 0) {
+        if (s.san!.indexOf('x') !== -1) {
           work.moves = [];
           work.initialFen = s.fen;
         } else work.moves.push(s.uci!);
