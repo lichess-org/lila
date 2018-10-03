@@ -2,11 +2,11 @@ import { build as treeBuild, ops as treeOps, path as treePath } from 'tree';
 import { ctrl as cevalCtrl } from 'ceval';
 import { readDests, readCaptureLength, decomposeUci } from 'draughts';
 import { opposite } from 'draughtsground/util';
+import { countGhosts } from 'draughtsground/fen';
 import keyboard from './keyboard';
 import socketBuild from './socket';
 import moveTestBuild from './moveTest';
 import mergeSolution from './solution';
-import makePromotion from './promotion';
 import computeAutoShapes from './autoShape';
 import { prop, throttle, storedProp } from 'common';
 import * as xhr from './xhr';
@@ -133,15 +133,15 @@ export default function (opts, redraw: () => void): Controller {
     return config;
   };
 
-  function showGround(g) {
-    g.set(makeCgOpts());
+  function showGround(g, noCaptSequences: boolean = false) {
+    g.set(makeCgOpts(), noCaptSequences);
     if (!vm.node.dests) getDests();
   };
 
   function userMove(orig, dest, capture) {
     vm.justPlayed = orig;
     sound[capture ? 'capture' : 'move']();
-    if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
+    sendMove(orig, dest);
   };
 
   function sendMove(orig: Key, dest: Key, prom?: cg.Role) {
@@ -169,14 +169,16 @@ export default function (opts, redraw: () => void): Controller {
 
   var addNode = function (node, path) {
     var newPath = tree.addNode(node, path);
-    jump(newPath);
-    reorderChildren(path);
-    redraw();
-    withGround(function (g) { g.playPremove(); });
+    if (newPath) { // path can be undefined when solution is clicked in the middle of opponent capt sequence
+      jump(newPath);
+      reorderChildren(path);
+      redraw();
+      withGround(function (g) { if (countGhosts(node.fen) == 0) g.playPremove(); });
 
-    var progress = moveTest();
-    if (progress) applyProgress(progress);
-    redraw();
+      var progress = moveTest();
+      if (progress) applyProgress(progress);
+      redraw();
+    }
   };
 
   function reorderChildren(path: Tree.Path, recursive?: boolean) {
@@ -369,26 +371,24 @@ export default function (opts, redraw: () => void): Controller {
     return vm.node.check ? 'checkmate' : 'draw';
   };
 
+  const playedLastMoveMyself = () =>
+    !!vm.justPlayed && !!vm.node.uci && vm.node.uci.substr(vm.node.uci.length - 4, 2) === vm.justPlayed;
+
   function jump(path, forceSound = false) {
     var pathChanged = path !== vm.path;
-    const curPly = vm.node.ply;
+    const oldPly = vm.node.displayPly ? vm.node.displayPly : vm.node.ply;
     setPath(path);
-    withGround(showGround);
+    withGround((g) => showGround(g, Math.abs(oldPly - (vm.node.displayPly ? vm.node.displayPly : vm.node.ply)) > 1));
     if (pathChanged) {
       if (!vm.node.uci) sound.move(); // initial position
-      else if (!vm.justPlayed || vm.node.uci.substr(vm.node.uci.length - 4, 2) !== vm.justPlayed) {
-        const color: Color = (vm.node.displayPly ? vm.node.displayPly : vm.node.ply) % 2 === 0 ? 'white' : 'black';
-        if (forceSound || Math.abs(curPly - vm.node.ply) !== 0 || color === data.puzzle.color) {
-          if (vm.node.san!.indexOf('x') !== -1) sound.capture();
-          else sound.move();
-        }
+      else if (forceSound || !playedLastMoveMyself()) {
+        if (vm.node.san!.indexOf('x') !== -1) sound.capture();
+        else sound.move();
       }
-      //if (/\+|\#/.test(vm.node.san!)) sound.check();
       threatMode(false);
       ceval.stop();
       startCeval();
     }
-    promotion.cancel();
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
   };
@@ -455,8 +455,6 @@ export default function (opts, redraw: () => void): Controller {
   });
 
   initiate(opts.data);
-
-  const promotion = makePromotion(vm, ground, redraw);
 
   keyboard({
     vm,
@@ -526,7 +524,6 @@ export default function (opts, redraw: () => void): Controller {
     },
     getCevalNode,
     showComputer: vm.showComputer,
-    promotion,
     redraw,
     ongoing: false
   };

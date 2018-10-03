@@ -41,8 +41,7 @@ function visualBoard(ctrl: Controller) {
     h('div.lidraughts_board', {
       hook: bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
-      draughtsground(ctrl),
-      ctrl.promotion.view()
+      draughtsground(ctrl)
     ]),
     cevalView.renderGauge(ctrl)
   ]);

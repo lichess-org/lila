@@ -54,7 +54,6 @@ export default function (vm, puzzle) {
             vm.node.puzzle = 'good';
 
         var opponentUci = decomposeUci(nextKey);
-        //var promotion = opponentUci[2] ? sanToRole[opponentUci[2].toUpperCase()] : null;
 
         var move: any = {
             orig: opponentUci[0],
@@ -62,7 +61,6 @@ export default function (vm, puzzle) {
             fen: vm.node.fen,
             path: vm.path
         };
-        //if (promotion) move.promotion = promotion;
 
         return move;
     };
