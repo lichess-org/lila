@@ -176,8 +176,11 @@ export default class Protocol {
 
     if (depth < this.opts.minDepth) return;
 
-    let pivot = this.work.threatMode ? 0 : 1;
-    if (this.work.ply % 2 === pivot) ev = -ev;
+    const pivot = this.work.threatMode ? 0 : 1;
+    if (this.work.ply % 2 === pivot) {
+      if (win) win = -win;
+      else ev = -ev;
+    }
 
     let pvData = {
       moves,
