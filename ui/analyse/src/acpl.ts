@@ -3,6 +3,7 @@ import { VNode, VNodeData } from 'snabbdom/vnode'
 import { MaybeVNode } from './interfaces';
 import AnalyseCtrl from './ctrl';
 import { findTag } from './study/studyChapters';
+import { bind, dataIcon } from './util';
 import { game } from 'game';
 import { defined } from 'common';
 
@@ -79,11 +80,11 @@ function doRender(ctrl: AnalyseCtrl): VNode {
     }
   }, [
     playerTable(ctrl, 'white'),
-    /*ctrl.study ? null : h('a.button.text', {
+    ctrl.study ? null : h('a.button.text', {
       class: { active: !!ctrl.retro },
       attrs: dataIcon('G'),
       hook: bind('click', ctrl.toggleRetro, ctrl.redraw)
-    }, ctrl.trans.noarg('learnFromYourMistakes')),*/
+    }, ctrl.trans.noarg('learnFromYourMistakes')),
     playerTable(ctrl, 'black')
   ]);
 }

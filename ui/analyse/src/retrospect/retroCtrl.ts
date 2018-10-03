@@ -2,7 +2,7 @@ import { evalSwings } from '../nodeFinder';
 import { winningChances } from 'ceval';
 import { path as treePath } from 'tree';
 import { empty, prop } from 'common';
-import { OpeningData } from '../explorer/interfaces';
+//import { OpeningData } from '../explorer/interfaces';
 import AnalyseCtrl from '../ctrl';
 
 export interface RetroCtrl {
@@ -15,7 +15,7 @@ type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view';
 
 export function make(root: AnalyseCtrl): RetroCtrl {
 
-  const game = root.data.game;
+  //const game = root.data.game;
   const color = root.bottomColor();
   let candidateNodes: Tree.Node[] = [];
   const explorerCancelPlies: number[] = [];
@@ -65,7 +65,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
       openingUcis: []
     });
     // fetch opening explorer moves
-    if (game.variant.key === 'standard' && game.division && (!game.division.middle || fault.node.ply < game.division.middle)) {
+    /*if (game.variant.key === 'standard' && game.division && (!game.division.middle || fault.node.ply < game.division.middle)) {
       root.explorer.fetchMasterOpening(prev.node.fen).then((res: OpeningData) => {
         const cur = current();
         const ucis: Uci[] = [];
@@ -82,7 +82,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
           current(cur);
         }
       });
-    }
+    }*/
     root.userJump(prev.path);
     redraw();
   };
