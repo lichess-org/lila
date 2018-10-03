@@ -199,7 +199,7 @@
   <string name="finished">Завершено</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
-  <string name="standard">Классические шахматы</string>
+  <string name="standard">Классические шашки</string>
   <string name="unlimited">Отсутствует</string>
   <string name="mode">Режим</string>
   <string name="casual">Товарищеская</string>
@@ -666,7 +666,6 @@
   <string name="noSimulExplanation">Этот сеанс одновременной игры не существует.</string>
   <string name="returnToSimulHomepage">Вернуться на страницу сеансов</string>
   <string name="aboutSimul">Сеансы подразумевают сражение одного игрока с несколькими противниками одновременно.</string>
-  <string name="aboutSimulRealLife">Идея повторяет принятую в живых шахматах концепцию, когда дающий сеанс одновременной игры перемещается от стола к столу, чтобы совершить один ход.</string>
   <string name="aboutSimulRules">Когда начинается сеанс одновременной игры, каждый игрок начинает игру с сеансёром, который играет белыми. Сеанс закончится, когда все партии будут сыграны.</string>
   <string name="aboutSimulSettings">Сеансы одновременной игры не предполагают партий на рейтинг. Переигровки, отмены ходов и «добавки времени» запрещены.</string>
   <string name="create">Создать</string>

@@ -29,9 +29,7 @@
   <string name="combatIntro">Хороший воин знает как атаку, так и защиту!</string>
   <string name="intermediate">Средний уровень</string>
   <string name="boardSetup">Расстановка фигур</string>
-  <string name="howTheGameStarts">Начало шахматной партии</string>
   <string name="boardSetupIntro">Две армии, готовые к бою, встретились лицом к лицу.</string>
-  <string name="boardSetupComplete">Поздравляем! Теперь вы знаете, как расставить фигуры на шахматной доске.</string>
   <string name="theGameIsADraw">Игра заканчивается вничью</string>
   <string name="advanced">Продвинутый уровень</string>
   <string name="whatNext">Что дальше?</string>
@@ -42,7 +40,6 @@
   <string name="exerciseYourTacticalSkills">Тренируйте свои тактические навыки</string>
   <string name="videos">Видео</string>
   <string name="playPeople">Игроки</string>
-  <string name="opponentsFromAroundTheWorld">Сражайтесь с шахматистами со всего мира</string>
   <string name="playMachine">Компьютер</string>
   <string name="testYourSkillsWithTheComputer">Проверьте свои навыки на искусственном интеллекте</string>
   <string name="letsGo">Поехали!</string>
