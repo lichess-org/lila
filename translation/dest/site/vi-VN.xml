@@ -284,6 +284,8 @@
   <string name="yourPerfRatingIsTooLow">Rate của bạn %1$s (%2$s) quá thấp</string>
   <string name="ratedMoreThanInPerf">Rate ≥ %1$s trong %2$s</string>
   <string name="ratedLessThanInPerf">Rate ≤ %1$s trong %2$s</string>
+  <string name="mustBeInTeam">Phải ở trong đội %s</string>
+  <string name="youAreNotInTeam">Bạn không ở trong đội %s</string>
   <string name="backToGame">Quay lại ván đấu</string>
   <string name="siteDescription">Chơi Cờ Vua online miễn phí. Chơi Cờ Vua với giao diện đẹp. Không cần đăng ký, không quảng cáo, không yêu cầu plugin. Chơi Cờ Vua với máy tính, bạn bè hoặc đấu thủ.</string>
   <string name="teams">Đội</string>
