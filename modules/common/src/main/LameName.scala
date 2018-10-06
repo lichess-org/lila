@@ -70,7 +70,8 @@ object LameName {
       "wanker",
       "feces",
       "fart",
-      "cuck"
+      "cuck",
+      "butthole"
     ).map {
         _.map(subs).map(_ + "+").mkString
       }.mkString("|").r
