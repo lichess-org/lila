@@ -67,7 +67,7 @@ final object RawHtml {
     } else List(text)
   }
 
-  def addLinks(text: String): String = {
+  def addLinks(text: String, rewriteImgSrc: String => String): String = {
     expandAtUser(text) map { expanded =>
       val m = urlPattern.matcher(expanded)
 
@@ -120,7 +120,7 @@ final object RawHtml {
             val isHttp = domainS - start == 7
             val url = (if (isHttp) "http://" else "https://") + allButScheme
             val text = if (isHttp) url else allButScheme
-            sb.append(imgUrl(url).getOrElse(
+            sb.append(imgUrl(url, rewriteImgSrc).getOrElse(
               s"""<a rel="nofollow" href="$url" target="_blank">$text</a>"""
             ))
           }
@@ -162,9 +162,9 @@ final object RawHtml {
   private[this] val imgurRegex = """https?://imgur\.com/(\w+)""".r
   private[this] val imgUrlPat = """\.(?:jpg|jpeg|png|gif)$""".r.pattern
 
-  private[this] def imgUrl(url: String): Option[String] = (url match {
+  private[this] def imgUrl(url: String, rewriteImgSrc: String => String): Option[String] = (url match {
     case imgurRegex(id) => Some(s"""https://i.imgur.com/$id.jpg""")
-    case _ if imgUrlPat.matcher(url).find => Some(url)
+    case _ if imgUrlPat.matcher(url).find => Some(rewriteImgSrc(url))
     case _ => None
   }) map { img => s"""<img class="embed" src="$img" alt="$url"/>""" }
 

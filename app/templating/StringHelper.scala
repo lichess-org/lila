@@ -4,6 +4,7 @@ package templating
 import ornicar.scalalib.Zero
 import play.twirl.api.Html
 
+import lila.base.RawHtml
 import lila.user.UserContext
 
 trait StringHelper { self: NumberHelper =>
@@ -51,5 +52,12 @@ trait StringHelper { self: NumberHelper =>
 
   def htmlList(htmls: List[Html], separator: String = ", ") = Html {
     htmls mkString separator
+  }
+
+  def rewriteImgSrc(url: String): String
+
+  def richText(rawText: String, nl2br: Boolean = true) = Html {
+    val withLinks = RawHtml.addLinks(rawText, rewriteImgSrc)
+    if (nl2br) RawHtml.nl2br(withLinks) else withLinks
   }
 }

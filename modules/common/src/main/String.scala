@@ -52,11 +52,6 @@ final object String {
   val atUsernameRegex = RawHtml.atUsernameRegex
 
   object html {
-    def richText(rawText: String, nl2br: Boolean = true) = Html {
-      val withLinks = RawHtml.addLinks(rawText)
-      if (nl2br) RawHtml.nl2br(withLinks) else withLinks
-    }
-
     def nl2brUnsafe(text: String) = Html {
       RawHtml.nl2br(text)
     }
@@ -92,5 +87,4 @@ final object String {
       safeJsonValue(jsValue)
     }
   }
-
 }
