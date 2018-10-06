@@ -5,7 +5,7 @@ object LameName {
   def username(name: String) =
     anyName(name) || lameTitlePrefix.matcher(name).lookingAt
 
-  def anyName(name: String) = lameWords.find(name)
+  def anyName(name: String) = lameWords.find(name.replaceIf('_', ""))
 
   def anyNameButLichessIsOk(name: String) = lameWords find {
     lichessRegex.replaceAllIn(name, "")
