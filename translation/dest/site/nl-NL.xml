@@ -742,14 +742,14 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="practiceWithComputer">Oefen met de computer</string>
   <string name="anotherWasX">Een andere mogelijkheid was %s</string>
   <string name="bestWasX">De beste zet was %s</string>
-  <string name="youBrowsedAway">U was op een ander tabblad bezig</string>
+  <string name="youBrowsedAway">Je bekijkt een andere positie</string>
   <string name="resumePractice">Hervat training</string>
   <string name="theGameIsADraw">De partij eindigt in remise.</string>
   <string name="computerThinking">De computer denkt na ...</string>
   <string name="seeBestMove">Toon de beste zet</string>
   <string name="hideBestMove">Verberg de beste zet</string>
   <string name="getAHint">Een hint vragen</string>
-  <string name="evaluatingYourMove">De evaluatie van je zet...</string>
+  <string name="evaluatingYourMove">Je zet wordt geëvalueerd...</string>
   <string name="whiteWinsGame">Wit wint</string>
   <string name="blackWinsGame">Zwart wint</string>
   <string name="learnFromYourMistakes">Leren van je fouten</string>
