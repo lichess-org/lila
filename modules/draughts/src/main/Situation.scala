@@ -78,8 +78,8 @@ case class Situation(board: Board, color: Color) {
     else if (autoDraw) Status.Draw.some
     else none
 
-  def move(from: Pos, to: Pos, promotion: Option[PromotableRole], finalSquare: Boolean = false): Valid[Move] =
-    board.variant.move(this, from, to, promotion, finalSquare)
+  def move(from: Pos, to: Pos, promotion: Option[PromotableRole], finalSquare: Boolean = false, forbiddenUci: Option[List[String]] = None, captures: Option[List[Pos]] = None): Valid[Move] =
+    board.variant.move(this, from, to, promotion, finalSquare, forbiddenUci, captures)
 
   def move(uci: Uci.Move): Valid[Move] =
     board.variant.move(this, uci.orig, uci.dest, uci.promotion)

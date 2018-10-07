@@ -108,10 +108,10 @@ abstract class Variant(
     next == to || (!board.pieces.contains(next) && longRangeThreatens(board, next, dir, to))
   }*/
 
-  def move(situation: Situation, from: Pos, to: Pos, promotion: Option[PromotableRole], finalSquare: Boolean = false): Valid[Move] = {
+  def move(situation: Situation, from: Pos, to: Pos, promotion: Option[PromotableRole], finalSquare: Boolean = false, forbiddenUci: Option[List[String]] = None, captures: Option[List[Pos]] = None): Valid[Move] = {
 
     // Find the move in the variant specific list of valid moves
-    def findMove(from: Pos, to: Pos) = validMovesFrom(situation, from, finalSquare).find(_.dest == to)
+    def findMove(from: Pos, to: Pos) = validMovesFrom(situation, from, finalSquare).find(m => m.dest == to && captures.fold(true)(m.capture.contains) && !forbiddenUci.fold(false)(_.contains(m.toUci.uci)))
 
     for {
       actor ← situation.board.actors get from toValid "No piece on " + from
