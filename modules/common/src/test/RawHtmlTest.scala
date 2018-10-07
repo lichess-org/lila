@@ -81,6 +81,9 @@ class RawHtmlTest extends Specification {
       addLinks("lichess.org/(2)-)?") must_== """<a href="/(2)">lichess.org/(2)</a>-)?"""
 
       addLinks("lichess.org.-") must_== """<a href="/">lichess.org</a>.-"""
+
+      addLinks("lichess.org/foo:bar") must_== """<a href="/foo:bar">lichess.org/foo:bar</a>"""
+      addLinks("lichess.org/foo:bar:") must_== """<a href="/foo:bar">lichess.org/foo:bar</a>:"""
     }
 
     "handle embedded links" in {

@@ -136,7 +136,7 @@ final object RawHtml {
   private[this] def adjustUrlEnd(sArr: Array[Char], start: Int, end: Int): Int = {
     var last = end - 1
     while ((sArr(last): @switch) match {
-      case '.' | ',' | '?' | '!' | ';' | '-' | '–' | '—' | '@' | '\'' | '(' => true
+      case '.' | ',' | '?' | '!' | ':' | ';' | '-' | '–' | '—' | '@' | '\'' | '(' => true
       case _ => false
     }) { last -= 1 }
 
@@ -150,7 +150,7 @@ final object RawHtml {
         }))
       var parenCnt = pCnter(start, -1)
       while ((sArr(last): @switch) match {
-        case '.' | ',' | '?' | '!' | ';' | '-' | '–' | '—' | '@' | '\'' => true
+        case '.' | ',' | '?' | '!' | ':' | ';' | '-' | '–' | '—' | '@' | '\'' => true
         case '(' => { parenCnt -= 1; true }
         case ')' => { parenCnt += 1; parenCnt <= 0 }
         case _ => false
