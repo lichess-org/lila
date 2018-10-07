@@ -3,7 +3,7 @@ package controllers
 import ornicar.scalalib.Zero
 import play.api.data.Form
 import play.api.http._
-import play.api.libs.json.{ Json, JsObject, Writes }
+import play.api.libs.json.{ Json, JsObject, JsArray, JsString, Writes }
 import play.api.mvc._
 import play.twirl.api.Html
 import BodyParsers.parse
@@ -316,6 +316,9 @@ private[controllers] trait LilaController
 
   def jsonError[A: Writes](err: A): JsObject = Json.obj("error" -> err)
 
+  def ridiculousBackwardCompatibleJsonError(err: JsObject): JsObject =
+    err ++ Json.obj("error" -> err)
+
   protected def notFoundReq(req: RequestHeader): Fu[Result] =
     reqToCtx(req) flatMap (x => notFound(x))
 
@@ -463,17 +466,21 @@ private[controllers] trait LilaController
     ) andThen (__ \ "").json.prune
   }
 
-  protected def errorsAsJson(form: Form[_])(implicit lang: play.api.i18n.Lang) = {
-    val json = Json.toJson(
+  protected def errorsAsJson(form: Form[_])(implicit lang: play.api.i18n.Lang): JsObject = {
+    val json = JsObject(
       form.errors.groupBy(_.key).mapValues { errors =>
-        errors.map(e => lila.i18n.Translator.txt.literal(e.message, lila.i18n.I18nDb.Site, e.args, lang))
+        JsArray {
+          errors.map { e =>
+            JsString(lila.i18n.Translator.txt.literal(e.message, lila.i18n.I18nDb.Site, e.args, lang))
+          }
+        }
       }
     )
     json validate jsonGlobalErrorRenamer getOrElse json
   }
 
   protected def jsonFormError(err: Form[_])(implicit lang: play.api.i18n.Lang) =
-    fuccess(BadRequest(jsonError(errorsAsJson(err))))
+    fuccess(BadRequest(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))))
 
   protected def pageHit(implicit ctx: lila.api.Context) =
     if (HTTPRequest isHuman ctx.req) lila.mon.http.request.path(ctx.req.path)()
