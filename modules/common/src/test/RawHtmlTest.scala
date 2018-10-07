@@ -35,11 +35,10 @@ class RawHtmlTest extends Specification {
       val url = "http://foo@bar"
       addLinks(s"""link to $url here""") must not contain ("""href="http://foo"""")
     }
-    "detect image" in {
+    "ignore image from untrusted host" in {
       val url = "http://zombo.com/pic.jpg"
-      addLinks(s"""img to $url here""") must_== {
-        s"""img to <img class="embed" src="$url" alt="$url"/> here"""
-      }
+      addLinks(s"""link to $url here""") must_==
+        s"""link to <a rel="nofollow" href="$url" target="_blank">$url</a> here"""
     }
     "detect imgur image URL" in {
       val url = "https://imgur.com/NXy19Im"
