@@ -601,7 +601,7 @@ export default class AnalyseCtrl {
     if (this.ceval) this.ceval.destroy();
     const cfg: CevalOpts = {
       variant: this.data.game.variant,
-      possible: !this.embed && this.data.game.variant.key === 'standard' && (
+      possible: !this.embed && (this.data.game.variant.key === 'standard' || this.data.game.variant.key === 'fromPosition') && (
         this.synthetic || !game.playable(this.data)
       ),
       emit: (ev: Tree.ClientEval, work: CevalWork) => {
