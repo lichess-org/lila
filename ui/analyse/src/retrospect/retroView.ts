@@ -155,7 +155,8 @@ const feedback = {
 function renderFeedback(root: AnalyseCtrl, fb) {
   const ctrl: RetroCtrl = root.retro!;
   const current = ctrl.current();
-  if (ctrl.isSolving() && current && root.path !== current.prev.path)
+  const rootNode = root.getNode();
+  if (ctrl.isSolving() && current && (root.path !== current.prev.path && !(rootNode.displayPly && rootNode.displayPly !== rootNode.ply && root.path.length > 1 && root.path.slice(0, root.path.length - 2) === current.prev.path)))
     return feedback.offTrack(ctrl);
   if (fb === 'find') return current ? feedback.find(ctrl) :
     feedback.end(ctrl, root.flip, root.hasFullComputerAnalysis);
