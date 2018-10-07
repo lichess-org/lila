@@ -26,7 +26,7 @@ import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
 import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
-import { nextGlyphSymbol } from './nodeFinder';
+import { getCompChild, nextGlyphSymbol } from './nodeFinder';
 import { AnalyseOpts, AnalyseData, ServerEvalData, Key, CgDests, JustCaptured } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
@@ -566,8 +566,17 @@ export default class AnalyseCtrl {
     };
   }
 
+  private pickUci(compChild?: Tree.Node, nextBest?: string) {
+    if (!nextBest)
+      return undefined;
+    else if (!!compChild && compChild.uci && compChild.uci.length > nextBest.length && compChild.uci.slice(0, 2) === nextBest.slice(0, 2) && compChild.uci.slice(compChild.uci.length - 2) === nextBest.slice(nextBest.length - 2))
+      return compChild.uci;
+    else
+      return nextBest;
+  }
+
   nextNodeBest() {
-    return treeOps.withMainlineChild(this.node, (n: Tree.Node) => n.eval ? n.eval.best : undefined);
+    return treeOps.withMainlineChild(this.node, (n: Tree.Node) => n.eval ? this.pickUci(getCompChild(this.node), n.eval.best) : undefined);
   }
 
   setAutoShapes = (): void => {
