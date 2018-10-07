@@ -92,13 +92,13 @@ export default class Protocol {
     const fieldX = (f: number) => f % 5 + 1;
     const fieldY = (f: number) => (f + (5 - f % 5)) / 5;
 
-    const walkLine = (pieces: string[], srcF: number, dstF: number, eyesF?: number): number | undefined => {
+    const walkLine = (pieces: string[], king: boolean, srcF: number, dstF: number, eyesF?: number, eyesStraight?: boolean): number | undefined => {
       const srcY = fieldY(srcF), srcX = fieldX(srcF);
       const dstY = fieldY(dstF), dstX = fieldX(dstF);
       const up = dstY > srcY;
       const right = dstX > srcX || (dstX == srcX && srcY % 2 == 0)
-      let walker = eyesF? dstF : srcF;
-      while (eyesF || walker !== dstF) {
+      let walker = eyesF ? dstF : srcF, steps = 0;
+      while ((king || steps < 1) && (eyesF || walker !== dstF)) {
 
         const walkerY = fieldY(walker);
         if (up) {
@@ -110,12 +110,22 @@ export default class Protocol {
           if (right) walker += walkerY % 2 == 1 ? 1 : 0;
           else walker += walkerY % 2 == 0 ? -1 : 0;
         }
+        steps++;
 
         if (walker < 0 || walker > 49) return undefined;
         if (Math.abs(fieldY(walker) - walkerY) !== 1) return undefined;
-        if (walker !== dstF && pieces[walker]) return undefined;
+        if (pieces[walker]) {
+          if (walker !== dstF)
+            return undefined;
+          else
+            steps = 0;
+        }
 
-        if (eyesF && walkLine(pieces, walker, eyesF) !== undefined) return walker;
+        if (eyesF && eyesStraight) {
+          if (eyesF === walker) return walker; // eyesStraight: destination square only in current capture direction
+        } else if (eyesF && walkLine(pieces, king, walker, eyesF) !== undefined)
+          return walker; // !eyesStraight: current capture direction or perpendicular
+
       }
       return srcF;
     }
@@ -123,11 +133,12 @@ export default class Protocol {
     const tryCaptures = (pieces: string[], capts: number[], cur: number, dest: number): number[] => {
       for (let i = 0; i < capts.length; i++) {
         const capt = capts[i]; 
-        if (walkLine(pieces, cur, capt)) {
+        const king = (pieces[cur] === 'W' || pieces[cur] === 'B');
+        if (walkLine(pieces, king, cur, capt)) {
           for (let k = 0; k < capts.length; k++) {
-            const captNext = i !== k ? capts[k] : (capts.length == 1 ? dest : -1);
+            const captNext = i !== k ? capts[k] : (capts.length === 1 ? dest : -1);
             if (captNext !== -1) {
-              const pivot = walkLine(pieces, cur, capt, captNext);
+              const pivot = walkLine(pieces, king, cur, capt, captNext, i === k && capts.length === 1);
               if (pivot) {
                 const newCapts = capts.slice();
                 newCapts.splice(i, 1);
