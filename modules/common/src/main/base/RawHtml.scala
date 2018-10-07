@@ -159,12 +159,10 @@ final object RawHtml {
     last + 1
   }
 
-  private[this] val imgurRegex = """https?://imgur\.com/(\w+)""".r
-  private[this] val imgUrlPat = """\.(?:jpg|jpeg|png|gif)$""".r.pattern
+  private[this] val imgurRegex = """https?://(?:i\.)?imgur\.com/(\w+)(?:\.jpe?g|\.png|\.gif)?""".r
 
   private[this] def imgUrl(url: String): Option[String] = (url match {
     case imgurRegex(id) => Some(s"""https://i.imgur.com/$id.jpg""")
-    case _ if imgUrlPat.matcher(url).find => Some(url)
     case _ => None
   }) map { img => s"""<img class="embed" src="$img" alt="$url"/>""" }
 
