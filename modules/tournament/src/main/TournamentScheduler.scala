@@ -138,7 +138,7 @@ Thank you all, you rock!"""
             month.lastWeek.withDayOfWeek(MONDAY) -> Chess960,
             month.lastWeek.withDayOfWeek(TUESDAY) -> Crazyhouse,
             month.lastWeek.withDayOfWeek(WEDNESDAY) -> KingOfTheHill,
-            month.lastWeek.withDayOfWeek(THURSDAY) -> ThreeCheck,
+            month.lastWeek.withDayOfWeek(THURSDAY) -> RacingKings,
             month.lastWeek.withDayOfWeek(FRIDAY) -> Antichess,
             month.lastWeek.withDayOfWeek(SATURDAY) -> Atomic,
             month.lastWeek.withDayOfWeek(SUNDAY) -> Horde
@@ -171,11 +171,11 @@ Thank you all, you rock!"""
             month.secondWeek.withDayOfWeek(SUNDAY) -> Chess960,
             month.thirdWeek.withDayOfWeek(MONDAY) -> Crazyhouse,
             month.thirdWeek.withDayOfWeek(TUESDAY) -> KingOfTheHill,
-            month.thirdWeek.withDayOfWeek(WEDNESDAY) -> ThreeCheck,
+            month.thirdWeek.withDayOfWeek(WEDNESDAY) -> RacingKings,
             month.thirdWeek.withDayOfWeek(THURSDAY) -> Antichess,
             month.thirdWeek.withDayOfWeek(FRIDAY) -> Atomic,
             month.thirdWeek.withDayOfWeek(SATURDAY) -> Horde,
-            month.thirdWeek.withDayOfWeek(SUNDAY) -> RacingKings
+            month.thirdWeek.withDayOfWeek(SUNDAY) -> ThreeCheck
           ).flatMap {
               case (day, variant) => at(day, 16) map { date =>
                 Schedule(Shield, Blitz, variant, std, date) plan {
@@ -206,7 +206,7 @@ Thank you all, you rock!"""
         nextMonday -> Chess960,
         nextTuesday -> Crazyhouse,
         nextWednesday -> KingOfTheHill,
-        nextThursday -> ThreeCheck,
+        nextThursday -> RacingKings,
         nextFriday -> Antichess,
         nextSaturday -> Atomic,
         nextSunday -> Horde
@@ -238,7 +238,7 @@ Thank you all, you rock!"""
         at(today, 20) map { date => Schedule(Daily, Blitz, Crazyhouse, std, date |> orTomorrow).plan },
         at(today, 21) map { date => Schedule(Daily, Blitz, Chess960, std, date |> orTomorrow).plan },
         at(today, 22) map { date => Schedule(Daily, SuperBlitz, KingOfTheHill, std, date |> orTomorrow).plan },
-        at(today, 23) map { date => Schedule(Daily, SuperBlitz, ThreeCheck, std, date |> orTomorrow).plan },
+        at(today, 23) map { date => Schedule(Daily, SuperBlitz, RacingKings, std, date |> orTomorrow).plan },
         at(today, 0) map { date => Schedule(Daily, SuperBlitz, Antichess, std, date |> orTomorrow).plan },
         at(tomorrow, 1) map { date => Schedule(Daily, SuperBlitz, Atomic, std, date).plan },
         at(tomorrow, 2) map { date => Schedule(Daily, SuperBlitz, Horde, std, date).plan }
