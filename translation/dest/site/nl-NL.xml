@@ -661,6 +661,9 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="videoLibrary">Videobibliotheek</string>
   <string name="mobileApp">Mobiele app</string>
   <string name="about">Over</string>
+  <string name="aboutX">Over %s</string>
+  <string name="xIsAFreeYLibreOpenSourceDraughtsServer">%1$s is een gratis (%2$s), libre, zonder reclame, open source dam server.</string>
+  <string name="really">echt</string>
   <string name="contribute">Draag bij</string>
   <string name="termsOfService">Algemene voorwaarden</string>
   <string name="sourceCode">Broncode</string>

@@ -37,8 +37,9 @@
 </div>
 }.getOrElse {
 <div class="about-side">
-  lidraughts.org is a (really) free, no-ads, open source draughts server.<br />
-  <a class="blue" href="/about">Read more about lidraughts.org</a>
+  @*@trans.xIsAFreeYLibreOpenSourceDraughtsServer("Lidraughts", Html(s"""<a class="blue" href="${routes.Plan.features}">${trans.really.txt()}</a>"""))*@
+  @trans.xIsAFreeYLibreOpenSourceDraughtsServer("Lidraughts", Html(s"""${trans.really.txt()}"""))
+  <a class="blue" href="/about">@trans.aboutX("lidraughts.org")...</a>
 </div>
 }
 }
@@ -227,5 +228,5 @@ asyncJs = true) {
     <span>@trans.playDraughtsInStyle()</span>
   </a>
 </div>*@
-<div class="about-footer"><a href="/about">About lidraughts.org</a></div>
+<div class="about-footer"><a href="/about">@trans.aboutX("lidraughts.org")</a></div>
 }
