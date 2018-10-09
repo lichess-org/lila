@@ -471,7 +471,7 @@
     <item quantity="one">Joué %s fois</item>
     <item quantity="other">Joué %s fois</item>
   </plurals>
-  <string name="fromGameLink">Extrait de la partie de %s</string>
+  <string name="fromGameLink">Extrait de la partie %s</string>
   <string name="continueTraining">Continuer l\'entraînement</string>
   <string name="retryThisPuzzle">Réessayer ce problème</string>
   <string name="thisPuzzleIsCorrect">Ce problème est correct et intéressant</string>
