@@ -650,6 +650,7 @@
   <string name="mobileApp">Мобилно Приложение</string>
   <string name="webmasters">Управители</string>
   <string name="about">Относно</string>
+  <string name="aboutX">Относно %s</string>
   <string name="contribute">Принос</string>
   <string name="contact">Връзка</string>
   <string name="termsOfService">Условия</string>
