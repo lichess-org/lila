@@ -651,6 +651,8 @@
   <string name="webmasters">Управители</string>
   <string name="about">Относно</string>
   <string name="aboutX">Относно %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s е шахматен сървър който е безплатен (%2$s), свободен, без реклами и с отворен код.</string>
+  <string name="really">наистина</string>
   <string name="contribute">Принос</string>
   <string name="contact">Връзка</string>
   <string name="termsOfService">Условия</string>
