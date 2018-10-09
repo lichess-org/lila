@@ -616,6 +616,9 @@ trong %3$s</string>
   <string name="mobileApp">Ứng dụng Điện thoại</string>
   <string name="webmasters">Các quản trị</string>
   <string name="about">Giới thiệu</string>
+  <string name="aboutX">Về %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ đánh cờ (%2$s) miễn phí, không quảng cáo, mã nguồn mở.</string>
+  <string name="really">thật sự</string>
   <string name="contribute">Đóng góp</string>
   <string name="contact">Liên hệ</string>
   <string name="termsOfService">Điều khoản dịch vụ</string>
