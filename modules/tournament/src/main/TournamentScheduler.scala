@@ -238,10 +238,11 @@ Thank you all, you rock!"""
         at(today, 20) map { date => Schedule(Daily, Blitz, Crazyhouse, std, date |> orTomorrow).plan },
         at(today, 21) map { date => Schedule(Daily, Blitz, Chess960, std, date |> orTomorrow).plan },
         at(today, 22) map { date => Schedule(Daily, SuperBlitz, KingOfTheHill, std, date |> orTomorrow).plan },
-        at(today, 23) map { date => Schedule(Daily, SuperBlitz, RacingKings, std, date |> orTomorrow).plan },
+        at(today, 23) map { date => Schedule(Daily, SuperBlitz, ThreeCheck, std, date |> orTomorrow).plan },
         at(today, 0) map { date => Schedule(Daily, SuperBlitz, Antichess, std, date |> orTomorrow).plan },
         at(tomorrow, 1) map { date => Schedule(Daily, SuperBlitz, Atomic, std, date).plan },
-        at(tomorrow, 2) map { date => Schedule(Daily, SuperBlitz, Horde, std, date).plan }
+        at(tomorrow, 2) map { date => Schedule(Daily, SuperBlitz, Horde, std, date).plan },
+        at(tomorrow, 3) map { date => Schedule(Daily, SuperBlitz, RacingKings, std, date).plan }
       ).flatten,
 
       List( // eastern tournaments!
