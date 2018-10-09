@@ -648,6 +648,9 @@
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmaster</string>
   <string name="about">Über</string>
+  <string name="aboutX">Über %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ist ein freier, quelloffener Schachserver. Kostenlos (%2$s) und ohne Werbung.</string>
+  <string name="really">wirklich</string>
   <string name="contribute">Mitmachen</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">AGB</string>
