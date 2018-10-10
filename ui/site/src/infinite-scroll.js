@@ -29,7 +29,7 @@ lichess.loadInfiniteScroll = function(el) {
     });
 
     var $moreButtonParent = $scroller.parent();
-    // prevent adding buttons as child of elements where buttons are note allowed
+    // prevent adding buttons as child of elements where buttons are not allowed
     if ($moreButton.is('table, ul, ol, dl')) {
       $moreButtonParent = $moreButtonParent.parent();
     }
