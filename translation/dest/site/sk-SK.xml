@@ -709,6 +709,7 @@
   <string name="webmasters">Správcovia</string>
   <string name="about">Viac o</string>
   <string name="aboutX">O %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s je bezplatný (%2$s), slobodný open source šachový server bez reklám.</string>
   <string name="really">naozaj</string>
   <string name="contribute">Prispieť</string>
   <string name="contact">Kontakt</string>
