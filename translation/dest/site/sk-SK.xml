@@ -708,6 +708,8 @@
   <string name="mobileApp">Mobilná aplikácia</string>
   <string name="webmasters">Správcovia</string>
   <string name="about">Viac o</string>
+  <string name="aboutX">O %s</string>
+  <string name="really">naozaj</string>
   <string name="contribute">Prispieť</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Podmienky služby</string>
