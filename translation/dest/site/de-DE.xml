@@ -509,7 +509,7 @@
   <string name="troll">Troll</string>
   <string name="other">Sonstiges</string>
   <string name="reportDescriptionHelp">Füge den Link zu einer oder mehreren Partien ein und erkläre die Auffälligkeiten bezüglich des Spielerverhaltens. Bitte schreibe nicht einfach nur „dieser Spieler betrügt“, sondern begründe auch, wie Du zu diesem Schluss kommst. Dein Bericht wird schneller bearbeitet, wenn er in englischer Sprache verfasst ist.</string>
-  <string name="error.provideOneCheatedGameLink">Bitte stelle mindestens einen Link zu einem Spiel zur Verfügung, in dem betrogen wurde.</string>
+  <string name="error.provideOneCheatedGameLink">Bitte gib mindestens einen Link zu einem Spiel an, in dem betrogen wurde.</string>
   <string name="by">von %s</string>
   <string name="thisTopicIsNowClosed">Dieses Thema wurde geschlossen.</string>
   <string name="theming">Design</string>
@@ -649,7 +649,7 @@
   <string name="webmasters">Webmaster</string>
   <string name="about">Über</string>
   <string name="aboutX">Über %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ist ein freier, quelloffener Schachserver. Kostenlos (%2$s) und ohne Werbung.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ist ein freier, open-source Schachserver. Kostenlos (%2$s) und ohne Werbung.</string>
   <string name="really">wirklich</string>
   <string name="contribute">Mitmachen</string>
   <string name="contact">Kontakt</string>
