@@ -709,6 +709,7 @@
   <string name="webmasters">Webmasterzy</string>
   <string name="about">Informacje o</string>
   <string name="aboutX">Informacje o %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s jest darmowym (%2$s), bez reklam, o otwartym kodzie źródłowym serwerem szachowym.</string>
   <string name="contribute">Wsparcie</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Zasady</string>
