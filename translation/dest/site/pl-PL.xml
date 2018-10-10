@@ -708,6 +708,7 @@
   <string name="mobileApp">Aplikacja mobilna</string>
   <string name="webmasters">Webmasterzy</string>
   <string name="about">Informacje o</string>
+  <string name="aboutX">Informacje o %s</string>
   <string name="contribute">Wsparcie</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Zasady</string>
