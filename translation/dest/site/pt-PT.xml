@@ -794,10 +794,10 @@
     <item quantity="other">%s segundos para jogar o primeiro movimento</item>
   </plurals>
   <string name="practiceWithComputer">Pratica com o computador</string>
-  <string name="anotherWasX">Outro era %s</string>
+  <string name="anotherWasX">Outro seria %s</string>
   <string name="bestWasX">O melhor era %s</string>
   <string name="youBrowsedAway">Saíste</string>
-  <string name="resumePractice">Continuar a prática</string>
+  <string name="resumePractice">Continuar o treino</string>
   <string name="theGameIsADraw">O jogo é empate.</string>
   <string name="computerThinking">Computador pensando...</string>
   <string name="seeBestMove">Ver o melhor movimento</string>
