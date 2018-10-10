@@ -58,7 +58,13 @@
   <string name="toggleLocalEvaluation">Kveikja á greiningu</string>
   <string name="deleteFromHere">Eyða héðan</string>
   <string name="move">Færa</string>
+  <string name="close">Loka</string>
+  <string name="winning">Vinnur</string>
+  <string name="losing">Tapar</string>
+  <string name="drawn">Jafntefli</string>
   <string name="unknown">Óþekktur</string>
+  <string name="whiteDrawBlack">Hvitur / Jafntefli / Svartur</string>
+  <string name="topGames">Bestir leikir</string>
   <string name="openingExplorer">Skoða opnanir</string>
   <string name="winPreventedBy50MoveRule">Enginn sigur vegna 50 leikja reglu</string>
   <string name="lossSavedBy50MoveRule">Bjargað frá tapi með 50 leikja reglu</string>
