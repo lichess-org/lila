@@ -709,6 +709,9 @@ v %3$s</string>
   <string name="mobileApp">Mobilní aplikace</string>
   <string name="webmasters">Správci webu</string>
   <string name="about">O</string>
+  <string name="aboutX">O %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s je bezplatný (%2$s), svobodný open source šachový server bez reklam.</string>
+  <string name="really">opravdu</string>
   <string name="contribute">Přispějte</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Podmínky používání</string>
