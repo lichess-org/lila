@@ -46,7 +46,7 @@
   <string name="viewTheComputerAnalysis">コンピューターの解析を見る</string>
   <string name="requestAComputerAnalysis">コンピューターの解析をリクエスト</string>
   <string name="computerAnalysis">コンピューター分析</string>
-  <string name="computerAnalysisAvailable">コンピュータ解析が可能です</string>
+  <string name="computerAnalysisAvailable">コンピュータ解析がされています</string>
   <string name="analysis">棋譜解析</string>
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">サーバ解析を使用</string>
@@ -620,6 +620,9 @@
   <string name="mobileApp">モバイルアプリ</string>
   <string name="webmasters">ウェブ管理者</string>
   <string name="about">Lichess概要</string>
+  <string name="aboutX">%s について</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・自由・広告なし・オープンソースのチェス サーバです。</string>
+  <string name="really">本当に</string>
   <string name="contribute">力を貸す</string>
   <string name="contact">連絡先</string>
   <string name="termsOfService">利用規約</string>
