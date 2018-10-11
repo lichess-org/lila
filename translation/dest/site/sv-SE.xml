@@ -298,7 +298,7 @@
     <item quantity="one">Du behöver spela ytterligare %s rankat parti</item>
     <item quantity="other">Du behöver spela ytterligare %s rankade partier</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Din %s rating är provisorisk</string>
+  <string name="yourPerfRatingIsProvisional">Din %srating är provisorisk</string>
   <string name="yourPerfRatingIsTooHigh">Din rating i %1$s är för hög (%2$s)</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din topprating denna vecka i %1$s är för hög (%2$s)</string>
   <string name="yourPerfRatingIsTooLow">Din rating i %1$s är för låg (%2$s)</string>
@@ -430,7 +430,7 @@
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapportera %s till moderatorerna</string>
   <string name="profileCompletion">Profil fulländning: %s</string>
-  <string name="xRating">%s rating</string>
+  <string name="xRating">%srating</string>
   <string name="ifNoneLeaveEmpty">Om ingen, lämna tomt</string>
   <string name="gameCompletionRate">Parti slutförandefrekvens: %s</string>
   <string name="profile">Profil</string>
@@ -688,14 +688,14 @@
   <string name="tournamentDoesNotExist">Denna turnering finns inte.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blivit inställd om alla spelare lämnade den innan start.</string>
   <string name="returnToTournamentsHomepage">Återgå till turneringens hemsida</string>
-  <string name="weeklyPerfTypeRatingDistribution">Veckans %s ratingfördelning</string>
+  <string name="weeklyPerfTypeRatingDistribution">Veckans %sratingfördelning</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s %2$s spelare denna vecka.</item>
     <item quantity="other">%1$s %2$s spelare denna vecka.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Din %1$s rating är %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Din %1$srating är %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du är bättre än %1$s av %2$s spelarna.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har inte en etablerad %s rating.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har inte en etablerad %srating.</string>
   <string name="checkYourEmail">Kolla din email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har skickat ett e-postmeddelande. Klicka på länken i meddelandet för att aktivera ditt konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du inte ser e-postmeddelandet, kontrollera andra ställen där det kan vara, som din skräppost, spam, sociala eller andra mappar.</string>
@@ -835,8 +835,8 @@
   <string name="registerToSendChallenges">Vänligen registrera ett konto för att skicka utmaningar.</string>
   <string name="youCannotChallengeX">Du kan inte utmana %s.</string>
   <string name="xDoesNotAcceptChallenges">%s accepterar inte utmaningar.</string>
-  <string name="yourXRatingIsTooFarFromY">Din %1$s rating är för långt från %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Ingen utmaning eftersom det bara finns en temporär %s värdering.</string>
+  <string name="yourXRatingIsTooFarFromY">Din %1$srating är för långt från %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan inte utmana på grund av provisorisk %srating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accepterar utmaningar endast från vänner.</string>
   <string name="conditionalPremoves">Villkorade förhandsdrag</string>
   <string name="addCurrentVariation">Addera aktuell variant</string>
