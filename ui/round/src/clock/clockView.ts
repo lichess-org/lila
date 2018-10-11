@@ -99,8 +99,12 @@ function renderBerserk(ctrl: RoundController, color: Color, position: Position) 
 function goBerserk(ctrl: RoundController) {
   if (!game.berserkableBy(ctrl.data)) return;
   if (ctrl.goneBerserk[ctrl.data.player.color]) return;
+
+  var berserkMssg = "GO BERSERK! Half the time, bonus point";
+  const increment = ctrl.data.clock!.increment;
+  if (increment > 0) berserkMssg = "GO BERSERK! Lose increment for a bonus point";
   return h('button.fbt.berserk.hint--bottom-left', {
-    attrs: { 'data-hint': "GO BERSERK! Half the time, bonus point" },
+    attrs: { 'data-hint': berserkMssg },
     hook: bind('click', ctrl.goBerserk)
   }, [
     h('span', justIcon('`'))
