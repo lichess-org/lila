@@ -389,7 +389,7 @@
   <string name="standing">Ställning</string>
   <string name="createANewTournament">Skapa en ny turnering</string>
   <string name="tournamentCalendar">Turneringskalender</string>
-  <string name="conditionOfEntry">Villkor för inträde:</string>
+  <string name="conditionOfEntry">Inträdesvillkor:</string>
   <string name="advancedSettings">Avancerade inställningar</string>
   <string name="safeTournamentName">Välj ett mycket säkert namn för turneringen.</string>
   <string name="inappropriateNameWarning">Någonting bara lite olämpligt skulle kunna få ditt konto att stängas.</string>
