@@ -650,6 +650,9 @@ in %3$s</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">About</string>
+  <string name="aboutX">About %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source chess server.</string>
+  <string name="really">really</string>
   <string name="contribute">Contribute</string>
   <string name="contact">Contact</string>
   <string name="termsOfService">Terms of Service</string>
