@@ -651,6 +651,7 @@ in %3$s</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Info su</string>
   <string name="aboutX">Informazioni %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s è un server di scacchi a sorgente aperta (%2$s) gratuito, privo di pubblicità e rilasciato sotto licenza libera.</string>
   <string name="really">veramente</string>
   <string name="contribute">Contribuisci</string>
   <string name="contact">Contattaci</string>
