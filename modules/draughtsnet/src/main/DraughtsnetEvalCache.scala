@@ -37,7 +37,8 @@ private final class DraughtsnetEvalCache(
     draughts.Replay.situationsFromUci(
       game.uciList.take(maxPlies - 1),
       game.initialFen,
-      game.variant
+      game.variant,
+      finalSquare = true
     ).fold(
         _ => fuccess(Nil),
         _.zipWithIndex.map {

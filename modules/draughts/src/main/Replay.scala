@@ -157,12 +157,12 @@ object Replay {
       }
     }
 
-  private def recursiveSituationsFromUci(sit: Situation, ucis: List[Uci]): Valid[List[Situation]] =
+  private def recursiveSituationsFromUci(sit: Situation, ucis: List[Uci], finalSquare: Boolean = false): Valid[List[Situation]] =
     ucis match {
       case Nil => success(Nil)
-      case uci :: rest => uci(sit) flatMap { moveOrDrop =>
-        val after = Situation(moveOrDrop.afterWithLastMove, !sit.color)
-        recursiveSituationsFromUci(after, rest) map { after :: _ }
+      case uci :: rest => uci(sit, finalSquare) flatMap { move =>
+        val after = Situation(move.afterWithLastMove, !sit.color)
+        recursiveSituationsFromUci(after, rest, finalSquare) map { after :: _ }
       }
     }
 
@@ -204,10 +204,11 @@ object Replay {
   def situationsFromUci(
     moves: List[Uci],
     initialFen: Option[FEN],
-    variant: draughts.variant.Variant
+    variant: draughts.variant.Variant,
+    finalSquare: Boolean = false
   ): Valid[List[Situation]] = {
     val sit = initialFenToSituation(initialFen, variant)
-    recursiveSituationsFromUci(sit, moves) map { sit :: _ }
+    recursiveSituationsFromUci(sit, moves, finalSquare) map { sit :: _ }
   }
 
   def apply(
