@@ -63,7 +63,7 @@ private final class AnalysisBuilder(evalCache: DraughtsnetEvalCache) {
     (evals filterNot (_ ?? (_.isWin)) sliding 2).toList.zip(moves).zipWithIndex map {
       case ((List(Some(before), Some(after)), move), index) => {
         val variation = before.cappedPv match {
-          case first :: rest if first != move => first :: rest
+          case first :: rest if first.origDest != move.origDest => first :: rest
           case _ => Nil
         }
         val best = variation.headOption
