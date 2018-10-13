@@ -4,6 +4,7 @@ h1.lidraughts_title {
 }
 h1.lidraughts_title a.new {
   float: right;
+  color: #3893E8!important;
 }
 h1.lidraughts_title span {
   display: block;
