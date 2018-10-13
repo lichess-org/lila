@@ -619,6 +619,7 @@
   <string name="mobileApp">แอปมือถือ</string>
   <string name="webmasters">เว็บมาสเตอร์</string>
   <string name="about">เกี่ยวกับ</string>
+  <string name="aboutX">เกี่ยวกับ %s</string>
   <string name="contribute">เอื้อเฟื้อ</string>
   <string name="contact">ติดต่อ</string>
   <string name="termsOfService">ข้อกำหนดการใช้</string>
