@@ -127,14 +127,14 @@ export default class Protocol {
           return walker; // !eyesStraight: current capture direction or perpendicular
 
       }
-      return srcF;
+      return walker === dstF ? srcF : undefined;
     }
 
     const tryCaptures = (pieces: string[], capts: number[], cur: number, dest: number): number[] => {
       for (let i = 0; i < capts.length; i++) {
         const capt = capts[i]; 
         const king = (pieces[cur] === 'W' || pieces[cur] === 'B');
-        if (walkLine(pieces, king, cur, capt)) {
+        if (walkLine(pieces, king, cur, capt) !== undefined) {
           for (let k = 0; k < capts.length; k++) {
             const captNext = i !== k ? capts[k] : (capts.length === 1 ? dest : -1);
             if (captNext !== -1) {
