@@ -620,6 +620,8 @@
   <string name="webmasters">เว็บมาสเตอร์</string>
   <string name="about">เกี่ยวกับ</string>
   <string name="aboutX">เกี่ยวกับ %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s เป็นเซิร์ฟเวอร์หมากรุกระบบเปิด ซึ่งอิสระ ไม่มีโฆษณา และฟรี (%2$s)</string>
+  <string name="really">จริง ๆ</string>
   <string name="contribute">เอื้อเฟื้อ</string>
   <string name="contact">ติดต่อ</string>
   <string name="termsOfService">ข้อกำหนดการใช้</string>
