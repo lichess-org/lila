@@ -160,6 +160,21 @@ final class Env(
     busOption = system.lidraughtsBus.some
   )
 
+  import reactivemongo.bson._
+
+  lazy val spamKeywordsSetting = {
+    val stringListIso = lidraughts.common.Iso.stringList(",")
+    implicit val stringListBsonHandler = lidraughts.db.dsl.isoHandler(stringListIso)
+    implicit val stringListReader = lidraughts.memo.SettingStore.StringReader.fromIso(stringListIso)
+    settingStore[List[String]](
+      "spamKeywords",
+      default = Nil,
+      text = "Spam keywords separated by a comma".some
+    )
+  }
+
+  lazy val spam = new Spam(spamKeywordsSetting.get)
+
   scheduler.once(15 seconds)(disposableEmailDomain.refresh)
   scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmailDomain.refresh)
 

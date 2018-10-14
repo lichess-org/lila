@@ -11,6 +11,7 @@ final class Env(
     blocks: (String, String) => Fu[Boolean],
     follows: (String, String) => Fu[Boolean],
     getPref: String => Fu[lidraughts.pref.Pref],
+    spam: lidraughts.security.Spam,
     system: ActorSystem,
     isOnline: lidraughts.user.User.ID => Boolean,
     lightUser: lidraughts.common.LightUser.GetterSync
@@ -43,7 +44,8 @@ final class Env(
   lazy val security = new MessageSecurity(
     follows = follows,
     blocks = blocks,
-    getPref = getPref
+    getPref = getPref,
+    spam = spam
   )
 
   system.lidraughtsBus.subscribeFun('gdprErase) {
@@ -61,6 +63,7 @@ object Env {
     blocks = lidraughts.relation.Env.current.api.fetchBlocks,
     follows = lidraughts.relation.Env.current.api.fetchFollows,
     getPref = lidraughts.pref.Env.current.api.getPref,
+    spam = lidraughts.security.Env.current.spam,
     system = lidraughts.common.PlayApp.system,
     isOnline = lidraughts.user.Env.current.isOnline,
     lightUser = lidraughts.user.Env.current.lightUserSync

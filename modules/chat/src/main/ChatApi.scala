@@ -7,12 +7,12 @@ import scala.concurrent.duration._
 import lidraughts.db.dsl._
 import lidraughts.hub.actorApi.shutup.{ PublicSource, RecordPublicChat, RecordPrivateChat }
 import lidraughts.user.{ User, UserRepo }
-import lidraughts.security.Spam
 
 final class ChatApi(
     coll: Coll,
     chatTimeout: ChatTimeout,
     flood: lidraughts.security.Flood,
+    spam: lidraughts.security.Spam,
     shutup: akka.actor.ActorSelection,
     modLog: akka.actor.ActorSelection,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
@@ -211,7 +211,7 @@ final class ChatApi(
 
     import java.util.regex.{ Pattern, Matcher }
 
-    def preprocessUserInput(in: String) = multiline(Spam.replace(noShouting(noPrivateUrl(in))))
+    def preprocessUserInput(in: String) = multiline(spam.replace(noShouting(noPrivateUrl(in))))
 
     def cut(text: String) = Some(text.trim take Line.textMaxSize) filter (_.nonEmpty)
 
