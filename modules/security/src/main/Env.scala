@@ -159,6 +159,21 @@ final class Env(
     busOption = system.lilaBus.some
   )
 
+  import reactivemongo.bson._
+
+  lazy val spamKeywordsSetting = {
+    val stringListIso = lila.common.Iso.stringList(",")
+    implicit val stringListBsonHandler = lila.db.dsl.isoHandler(stringListIso)
+    implicit val stringListReader = lila.memo.SettingStore.StringReader.fromIso(stringListIso)
+    settingStore[List[String]](
+      "spamKeywords",
+      default = Nil,
+      text = "Spam keywords separated by a comma".some
+    )
+  }
+
+  lazy val spam = new Spam(spamKeywordsSetting.get)
+
   scheduler.once(15 seconds)(disposableEmailDomain.refresh)
   scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmailDomain.refresh)
 

@@ -53,15 +53,16 @@ object SettingStore {
     ) = new SettingStore[A](coll, id, default, text, persist = persist, init = init)
   }
 
-  private final class StringReader[A](val read: String => Option[A])
+  final class StringReader[A](val read: String => Option[A])
 
-  private object StringReader {
+  object StringReader {
     implicit val booleanReader = new StringReader[Boolean](v =>
       if (Set("on", "yes", "true", "1")(v)) true.some
       else if (Set("off", "no", "false", "0")(v)) false.some
       else none)
     implicit val intReader = new StringReader[Int](parseIntOption)
     implicit val stringReader = new StringReader[String](some)
+    def fromIso[A](iso: lila.common.Iso[String, A]) = new StringReader[A](v => iso.from(v).some)
   }
 
   def formOf(s: SettingStore[_]): Option[Form[_]] = s.value match {

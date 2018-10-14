@@ -2,14 +2,14 @@ package lila.message
 
 import org.joda.time.DateTime
 
-import lila.security.Spam
 import lila.shutup.Analyser
 import lila.user.User
 
 private[message] final class MessageSecurity(
     follows: (String, String) => Fu[Boolean],
     blocks: (String, String) => Fu[Boolean],
-    getPref: String => Fu[lila.pref.Pref]
+    getPref: String => Fu[lila.pref.Pref],
+    spam: lila.security.Spam
 ) {
 
   import lila.pref.Pref.Message._
@@ -26,7 +26,7 @@ private[message] final class MessageSecurity(
 
   def muteThreadIfNecessary(thread: Thread, creator: User, invited: User): Fu[Thread] = {
     val fullText = s"${thread.name} ${~thread.firstPost.map(_.text)}"
-    if (Spam.detect(fullText)) fuTrue
+    if (spam.detect(fullText)) fuTrue
     else if (creator.troll) !follows(invited.id, creator.id)
     else if (Analyser(fullText).dirty && creator.createdAt.isAfter(DateTime.now.minusDays(7))) {
       follows(invited.id, creator.id) map { f =>

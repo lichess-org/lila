@@ -7,12 +7,12 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicChat, RecordPrivateChat }
 import lila.user.{ User, UserRepo }
-import lila.security.Spam
 
 final class ChatApi(
     coll: Coll,
     chatTimeout: ChatTimeout,
     flood: lila.security.Flood,
+    spam: lila.security.Spam,
     shutup: akka.actor.ActorSelection,
     modLog: akka.actor.ActorSelection,
     asyncCache: lila.memo.AsyncCache.Builder,
@@ -211,7 +211,7 @@ final class ChatApi(
 
     import java.util.regex.{ Pattern, Matcher }
 
-    def preprocessUserInput(in: String) = multiline(Spam.replace(noShouting(noPrivateUrl(in))))
+    def preprocessUserInput(in: String) = multiline(spam.replace(noShouting(noPrivateUrl(in))))
 
     def cut(text: String) = Some(text.trim take Line.textMaxSize) filter (_.nonEmpty)
 
