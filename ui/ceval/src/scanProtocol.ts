@@ -98,7 +98,7 @@ export default class Protocol {
       const up = dstY > srcY;
       const right = dstX > srcX || (dstX == srcX && srcY % 2 == 0)
       let walker = eyesF ? dstF : srcF, steps = 0;
-      while ((king || steps < 1) && (eyesF || walker !== dstF)) {
+      while ((king || steps < 1) && (eyesF !== undefined || walker !== dstF)) {
 
         const walkerY = fieldY(walker);
         if (up) {
@@ -121,9 +121,9 @@ export default class Protocol {
             steps = 0;
         }
 
-        if (eyesF && eyesStraight) {
+        if (eyesF !== undefined && eyesStraight) {
           if (eyesF === walker) return walker; // eyesStraight: destination square only in current capture direction
-        } else if (eyesF && walkLine(pieces, king, walker, eyesF) !== undefined)
+        } else if (eyesF !== undefined && walkLine(pieces, king, walker, eyesF) !== undefined)
           return walker; // !eyesStraight: current capture direction or perpendicular
 
       }
@@ -139,7 +139,7 @@ export default class Protocol {
             const captNext = i !== k ? capts[k] : (capts.length === 1 ? dest : -1);
             if (captNext !== -1) {
               const pivot = walkLine(pieces, king, cur, capt, captNext, i === k && capts.length === 1);
-              if (pivot) {
+              if (pivot !== undefined) {
                 const newCapts = capts.slice();
                 newCapts.splice(i, 1);
                 const newPieces = pieces.slice();
