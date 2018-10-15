@@ -178,7 +178,7 @@ function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, w
     if (conceal) sel += '.' + conceal;
     const commentAuthor = commentAuthorText(comment.by);
     const by = (node.comments![1] || (ctx.ctrl.study && commentAuthor != "lidraughts.org" && commentAuthor.toLowerCase() != ctx.ctrl.study.data.ownerId.toLowerCase())) ? `<span class="by">${commentAuthor}</span>` : '',
-      truncated = truncateComment(comment.text, 400, ctx);
+      truncated = truncateComment(comment.text, 650, ctx);
     return h(sel, {
       hook: innerHTML(truncated, text => by + enrichText(text, true))
     });
