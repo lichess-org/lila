@@ -56,7 +56,7 @@
   <string name="showThreat">Εμφάνιση απειλής</string>
   <string name="inLocalBrowser">σε τοπικό περιηγητή</string>
   <string name="toggleLocalEvaluation">Εναλλαγή τοπικής αξιολόγησης</string>
-  <string name="promoteVariation">Νέα παραλλαγή</string>
+  <string name="promoteVariation">Προαγωγή βαριάντας</string>
   <string name="makeMainLine">Δημιουργήστε κύρια γραμμή</string>
   <string name="deleteFromHere">Διαγραφή από εδώ</string>
   <string name="move">Κίνηση</string>
