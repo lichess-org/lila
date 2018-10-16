@@ -650,6 +650,8 @@
   <string name="mobileApp">Εφαρμογή για Κινητά</string>
   <string name="webmasters">Διαχειριστές</string>
   <string name="about">Σχετικά με</string>
+  <string name="aboutX">Σχετικά με %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s είναι δωρεάν (%2$s), ελεύθερο, χωρίς διαφημίσεις, ανοικτού κώδικα διακομιστής για σκάκι.</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="contact">Επικοινωνία</string>
   <string name="termsOfService">Όροι χρήσης</string>
