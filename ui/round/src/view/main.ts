@@ -39,7 +39,7 @@ function wheel(ctrl: RoundController, e: WheelEvent): boolean {
 
 function visualBoard(ctrl: RoundController) {
   return h('div.lidraughts_board_wrap', [
-    h('div.lidraughts_board.' + ctrl.data.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
+    h('div.lidraughts_board.' + ctrl.data.game.variant.key, {
       hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [renderGround(ctrl)]),
     promotion.view(ctrl)
@@ -73,7 +73,7 @@ export function main(ctrl: RoundController): VNode {
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
   return h('div.round.cg-512', [
-    h('div.lidraughts_game.gotomove.variant_' + d.game.variant.key, {
+    h('div.lidraughts_game.gotomove.variant_' + d.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
       hook: {
         insert: () => window.lidraughts.pubsub.emit('content_loaded')()
       }
