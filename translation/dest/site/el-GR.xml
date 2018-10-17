@@ -768,7 +768,7 @@
   <string name="boardGeometry">Γεωμετρία σκακιέρας</string>
   <string name="boardTheme">Θέμα σκακιέρας</string>
   <string name="boardSize">Μέγεθος σκακιέρας</string>
-  <string name="pieceSet">Επιλογή πιονιών</string>
+  <string name="pieceSet">Επιλογή κομματιών</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
   <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη ήδη χρησιμοποιείται, παρακαλώ δοκιμάστε ένα άλλο.</string>
   <string name="usernamePrefixInvalid">Το όνομα χρήστη πρέπει να αρχίζει με ένα γράμμα.</string>
