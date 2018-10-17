@@ -97,11 +97,11 @@ piece {
 .mini_board piece {
   z-index: initial;
 }
-.lichess_board.blindfold piece,
-.other_games.blindfold piece {
+.blindfold .lichess_board piece,
+.blindfold .other_games piece {
   opacity: 0;
 }
-.lichess_board.blindfold square.check {
+.blindfold .lichess_board square.check {
   background: none;
 }
 piece.dragging {
@@ -499,6 +499,9 @@ body.piece_letter .lichess_ground .replay move {
 }
 .pocket.usable piece.premove:hover {
   background-color: #666;
+}
+.blindfold .pocket:not(.usable) {
+  opacity: 0;
 }
 .pocket piece[data-nb='0'] {
   cursor: auto;
