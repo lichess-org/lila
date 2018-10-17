@@ -17,7 +17,7 @@ private final class RelaySync(
     studyApi byId relay.studyId flatten "Missing relay study!" flatMap { study =>
       chapterRepo orderedByStudy study.id flatMap { chapters =>
         RelayInputSanity(chapters, games) match {
-          case Some(fail) => fufail(SyncResult.SourceFail(fail.msg))
+          case Some(fail) => fufail(fail.msg)
           case None => lila.common.Future.traverseSequentially(games) { game =>
             findCorrespondingChapter(game, chapters, games.size) match {
               case Some(chapter) => updateChapter(study, chapter, game)
@@ -74,7 +74,7 @@ private final class RelaySync(
             position = Position(chapter, path).ref,
             toMainline = true,
             uid = socketUid
-          )
+          ) >> chapterRepo.setRelayPath(chapter.id, path)
         } >> newNode.?? { node =>
           lila.common.Future.fold(node.mainline)(Position(chapter, path).ref) {
             case (position, n) => studyApi.addNode(
@@ -190,10 +190,7 @@ object SyncResult {
     val reportKey = "timeout"
     override def getMessage = "In progress..."
   }
-  case class Error(msg: String) extends Exception with SyncResult {
-    val reportKey = "error"
-  }
-  case class SourceFail(msg: String) extends Exception with SyncResult {
+  case class Error(msg: String) extends SyncResult {
     val reportKey = "error"
   }
 }
