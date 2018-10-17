@@ -67,7 +67,7 @@ private final class RelaySync(
     } match {
       case (path, newNode) =>
         !Path.isMainline(chapter.root, path) ?? {
-          logger.info(s"Promote ${showSC(study, chapter)} $path")
+          logger.info(s"Change mainline ${showSC(study, chapter)} $path")
           studyApi.promote(
             userId = chapter.ownerId,
             studyId = study.id,
@@ -111,7 +111,7 @@ private final class RelaySync(
     }
     (chapterNewTags != chapter.tags) ?? {
       if (vs(chapterNewTags) != vs(chapter.tags))
-        logger.info(s"Update ${showSC(study, chapter)} tags '${vs(chapterNewTags)}' -> '${vs(chapter.tags)}'")
+        logger.info(s"Update ${showSC(study, chapter)} tags '${vs(chapter.tags)}' -> '${vs(chapterNewTags)}'")
       studyApi.setTags(
         userId = chapter.ownerId,
         studyId = study.id,
@@ -173,8 +173,7 @@ private final class RelaySync(
 
   private val socketUid = Uid("")
 
-  private def vs(tags: Tags) =
-    (tags(_.White) |@| tags(_.Black)).tupled map { case (w, b) => s"$w - $b" }
+  private def vs(tags: Tags) = s"${tags(_.White) | "?"} - ${tags(_.Black) | "?"}"
 
   private def showSC(study: Study, chapter: Chapter) =
     s"#${study.id} chapter[${chapter.relay.fold("?")(_.index.toString)}]"
