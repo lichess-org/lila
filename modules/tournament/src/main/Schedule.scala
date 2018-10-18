@@ -198,9 +198,8 @@ object Schedule {
     }
   }
 
-  private val standardIncHours = Set(1, 4, 8, 13, 16, 19, 22)
-  private def standardInc(s: Schedule) = standardIncHours(s.at.getHourOfDay)
-  private def zhInc(s: Schedule) = s.at.getHourOfDay % 2 == 0
+  private def standardInc(s: Schedule) = s.at.getHourOfDay % 6 == 1
+  private def bulletInc(s: Schedule) = s.at.getHourOfDay % 3 == 1
 
   private[tournament] def clockFor(s: Schedule) = {
     import Freq._, Speed._
@@ -210,9 +209,9 @@ object Schedule {
 
     (s.freq, s.variant, s.speed) match {
       // Special cases.
-      //case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1)
-      //case (Hourly, Crazyhouse, Blitz) if zhInc(s) => TC(4 * 60, 2)
-      //case (Hourly, Standard, SuperBlitz) if standardInc(s) => TC(3 * 60, 2)
+      case (Weekly, Frisian, Blitz) => TC(5 * 60, 2)
+      case (Hourly, Standard, Bullet) if bulletInc(s) => TC(60, 1)
+      case (Hourly, Standard, SuperBlitz) if standardInc(s) => TC(3 * 60, 2)
       case (Hourly, Frisian, SuperBlitz) => TC(3 * 60, 2)
       case (Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2)
 
