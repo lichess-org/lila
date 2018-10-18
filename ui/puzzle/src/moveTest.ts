@@ -27,9 +27,9 @@ export default function(vm, puzzle) {
 
     var progress = puzzle.lines;
     for (var i in nodes) {
-      progress = progress[nodes[i].uci];
-      if (!progress && nodes[i].castle) progress = progress[altCastles[nodes[i].uci]];
-      if (!progress) progress = 'fail';
+      if (progress[nodes[i].uci]) progress = progress[nodes[i].uci];
+      else if (nodes[i].castle) progress = progress[altCastles[nodes[i].uci]] || 'fail';
+      else progress = 'fail';
       if (typeof progress === 'string') break;
     }
     if (typeof progress === 'string') {
