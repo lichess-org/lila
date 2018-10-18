@@ -86,7 +86,7 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       val birthday = new DateTime(2018, 8, 13, 12, 0, 0)
 
       // schedule daily and longer CET, others UTC
-      val offsetCET = rightNow.withZone(DateTimeZone.forID("Europe/Amsterdam")).getHourOfDay - rightNow.getHourOfDay
+      val offsetCET = birthday.withZone(DateTimeZone.forID("Europe/Amsterdam")).getHourOfDay - birthday.getHourOfDay
 
       val nextPlans: List[Schedule.Plan] = List(
 
