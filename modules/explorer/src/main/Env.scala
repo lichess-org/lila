@@ -7,6 +7,7 @@ final class Env(
     config: Config,
     gameColl: lila.db.dsl.Coll,
     gameImporter: lila.importer.Importer,
+    getBotUserIds: () => Fu[Set[lila.user.User.ID]],
     settingStore: lila.memo.SettingStore.Builder,
     system: ActorSystem
 ) {
@@ -15,6 +16,7 @@ final class Env(
 
   private lazy val indexer = new ExplorerIndexer(
     gameColl = gameColl,
+    getBotUserIds = getBotUserIds,
     internalEndpoint = InternalEndpoint
   )
 
@@ -46,6 +48,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "explorer",
     gameColl = lila.game.Env.current.gameColl,
     gameImporter = lila.importer.Env.current.importer,
+    getBotUserIds = () => lila.user.Env.current.cached.botIds.get,
     settingStore = lila.memo.Env.current.settingStore,
     system = lila.common.PlayApp.system
   )

@@ -344,6 +344,12 @@ object UserRepo {
     if (v) $doc(F.title -> User.botTitle)
     else $doc(F.title -> $ne(User.botTitle))
 
+  private[user] def botIds = coll.distinctWithReadPreference[String, Set](
+    "_id",
+    some(botSelect(true) ++ enabledSelect),
+    ReadPreference.secondaryPreferred
+  )
+
   def getTitle(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.title)
 
   def setPlan(user: User, plan: Plan): Funit = {
