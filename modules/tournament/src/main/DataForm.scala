@@ -66,7 +66,7 @@ object DataForm {
 
   import draughts.variant._
 
-  val clockTimes: Seq[Double] = Seq(0d, 1 / 4d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ (2d to 7d by 1d)
+  val clockTimes: Seq[Double] = Seq(0d, 1 / 4d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ (2d to 8d by 1d)
   val clockTimesPrivate: Seq[Double] = clockTimes ++ (10d to 30d by 5d) ++ (40d to 60d by 10d)
   val clockTimeDefault = 2d
   private def formatLimit(l: Double) =
@@ -76,14 +76,14 @@ object DataForm {
   val clockTimeChoices = optionsDouble(clockTimes, formatLimit)
   val clockTimePrivateChoices = optionsDouble(clockTimesPrivate, formatLimit)
 
-  val clockIncrements = 0 to 2 by 1
-  val clockIncrementsPrivate = clockIncrements ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
+  val clockIncrements = 0 to 5 by 1
+  val clockIncrementsPrivate = clockIncrements ++ (6 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
   val clockIncrementDefault = 0
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
   val clockIncrementPrivateChoices = options(clockIncrementsPrivate, "%d second{s}")
 
-  val minutes = (20 to 60 by 5) ++ (70 to 120 by 10)
-  val minutesPrivate = minutes ++ (150 to 360 by 30)
+  val minutes = (20 to 60 by 5) ++ (70 to 120 by 10) :+ 150
+  val minutesPrivate = minutes ++ (180 to 360 by 30)
   val minuteDefault = 45
   val minuteChoices = options(minutes, "%d minute{s}")
   val minutePrivateChoices = options(minutesPrivate, "%d minute{s}")
