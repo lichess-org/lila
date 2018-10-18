@@ -471,7 +471,7 @@
     <item quantity="one">Joué %s fois</item>
     <item quantity="other">Joué %s fois</item>
   </plurals>
-  <string name="fromGameLink">Extrait de la partie de %s</string>
+  <string name="fromGameLink">Extrait de la partie %s</string>
   <string name="continueTraining">Continuer l\'entraînement</string>
   <string name="retryThisPuzzle">Réessayer ce problème</string>
   <string name="thisPuzzleIsCorrect">Ce problème est correct et intéressant</string>
@@ -649,6 +649,9 @@ en %3$s</string>
   <string name="mobileApp">L\'application</string>
   <string name="webmasters">Webmestres</string>
   <string name="about">À propos de</string>
+  <string name="aboutX">Environ %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s est gratuit (%2$s), libre, sans pubs, serveur d\'échecs avec source ouverte.</string>
+  <string name="really">pour de vrai</string>
   <string name="contribute">Contribuer</string>
   <string name="contact">Nous contacter</string>
   <string name="termsOfService">Conditions d\'utilisation</string>

@@ -56,7 +56,7 @@
   <string name="showThreat">Εμφάνιση απειλής</string>
   <string name="inLocalBrowser">σε τοπικό περιηγητή</string>
   <string name="toggleLocalEvaluation">Εναλλαγή τοπικής αξιολόγησης</string>
-  <string name="promoteVariation">Νέα παραλλαγή</string>
+  <string name="promoteVariation">Προαγωγή βαριάντας</string>
   <string name="makeMainLine">Δημιουργήστε κύρια γραμμή</string>
   <string name="deleteFromHere">Διαγραφή από εδώ</string>
   <string name="move">Κίνηση</string>
@@ -119,7 +119,7 @@
   <string name="offerDraw">Προσφορά ισοπαλίας</string>
   <string name="draw">Ισοπαλία</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s συνδεδεμένοι παίκτες</item>
+    <item quantity="one">%s συνδεδεμένος παίκτης</item>
     <item quantity="other">%s συνδεδεμένοι παίκτες</item>
   </plurals>
   <string name="currentGames">Παιχνίδια σε εξέλιξη</string>
@@ -137,7 +137,7 @@
   <string name="newToLichess">Νέοι στο Lichess;</string>
   <string name="youNeedAnAccountToDoThat">Χρειάζεστε λογαριασμό για να το κάνετε αυτό</string>
   <string name="signUp">Εγγραφή</string>
-  <string name="computersAreNotAllowedToPlay">Δεν επιτρέπουμε στους υπολογιστές και παίκτες με υποβοήθηση υπολογιστή να παίζουν στο Lichess. Παρακαλούμε μη δεχτείτε βοήθεια από σκακιστικούς υπολογιστές, βάσεις δεδομένων ή άλλους παίκτες όσο παίζετε εδώ. Επίσης σημειώστε πως αποθαρρύνoυμε την δημιουργία πολλών λογαριασμών και υπερβολή σε αυτό θα καταλήξει σε αποκλεισμό.</string>
+  <string name="computersAreNotAllowedToPlay">Δεν επιτρέπουμε στους υπολογιστές και παίκτες με υποβοήθηση υπολογιστή να παίζουν στο Lichess. Παρακαλούμε μη δεχτείτε βοήθεια από σκακιστικούς υπολογιστές, βάσεις δεδομένων ή άλλους παίκτες όσο παίζετε εδώ. Επίσης σημειώστε πως αποθαρρύνουμε την δημιουργία πολλών λογαριασμών και υπερβολή σε αυτό θα καταλήξει σε αποκλεισμό.</string>
   <string name="games">Παιχνίδια</string>
   <string name="forum">Φόρουμ</string>
   <string name="xPostedInForumY">Ο χρήστης %1$s έγραψε στη συζήτηση %2$s</string>
@@ -650,6 +650,8 @@
   <string name="mobileApp">Εφαρμογή για Κινητά</string>
   <string name="webmasters">Διαχειριστές</string>
   <string name="about">Σχετικά με</string>
+  <string name="aboutX">Σχετικά με %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s είναι δωρεάν (%2$s), ελεύθερο, χωρίς διαφημίσεις, ανοικτού κώδικα διακομιστής για σκάκι.</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="contact">Επικοινωνία</string>
   <string name="termsOfService">Όροι χρήσης</string>
@@ -766,7 +768,7 @@
   <string name="boardGeometry">Γεωμετρία σκακιέρας</string>
   <string name="boardTheme">Θέμα σκακιέρας</string>
   <string name="boardSize">Μέγεθος σκακιέρας</string>
-  <string name="pieceSet">Επιλογή πιονιών</string>
+  <string name="pieceSet">Επιλογή κομματιών</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
   <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη ήδη χρησιμοποιείται, παρακαλώ δοκιμάστε ένα άλλο.</string>
   <string name="usernamePrefixInvalid">Το όνομα χρήστη πρέπει να αρχίζει με ένα γράμμα.</string>

@@ -79,7 +79,9 @@
   <string name="delete">წაშლა</string>
   <string name="deleteThisImportedGame">წაიშალოს ეს იმპორტირებული თამაში?</string>
   <string name="replayMode">გამეორების რეჟიმი</string>
+  <string name="openStudy">გახსენი სწავლება</string>
   <string name="enable">ჩართვა</string>
+  <string name="bestMoveArrow">საუკეთესო სვლის ისარი</string>
   <string name="multipleLines">რამდენიმე ხაზი</string>
   <string name="cpus">პროცესორები</string>
   <string name="memory">მეხსიერება</string>
