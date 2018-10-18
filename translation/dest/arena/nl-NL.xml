@@ -21,7 +21,9 @@ Berserk is niet beschikbaar voor partijen met nul begintijd (0+1, 0+2).
 
 Berserk geeft je enkel een extra punt als je minstens 7 zetten speelt in de partij.</string>
   <string name="howIsTheWinnerDecided">Hoe wordt de winnaar bepaald?</string>
-  <string name="howIsTheWinnerDecidedAnswer">De speler(s) met de meeste punten op het einde van de tijdslimiet van het toernooi zal (zullen) aangeduid worden als winnaar(s).</string>
+  <string name="howIsTheWinnerDecidedAnswer">De speler(s) met de meeste punten op het einde van de tijdslimiet van het toernooi zal (zullen) aangeduid worden als winnaar(s).
+
+Als twee spelers hetzelfde aantal punten hebben, wint de speler met de hoogste toernooi prestatie rating.</string>
   <string name="howDoesPairingWork">Hoe werkt de koppeling?</string>
   <string name="howDoesPairingWorkAnswer">Aan het begin van het toernooi worden spelers gekoppeld op basis van hun rating.
 Wanneer je een partij eindigt, keer terug naar de toernooilobby: je zult dan gekoppeld worden met een speler dicht bij uw rang in het toernooi. Dit zorgt voor zo min mogelijk wachttijd, maar het is mogelijk dat je niet tegen iedereen in het toernooi speelt.
