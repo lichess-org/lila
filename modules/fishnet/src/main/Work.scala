@@ -138,6 +138,8 @@ object Work {
       InProgress(a.userId, a.date)
     }
 
+    def started = Started(createdAt)
+
     def nbMoves = game.moves.count(' ' ==) + 1
 
     override def toString = s"id:$id game:${game.id} tries:$tries requestedBy:$sender acquired:$acquired"
@@ -148,5 +150,9 @@ object Work {
   case class InProgress(by: Client.UserId, since: DateTime) {
 
     def byLichess = by.value startsWith "lichess-"
+  }
+
+  case class Started(since: DateTime) {
+
   }
 }

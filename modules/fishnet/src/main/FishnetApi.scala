@@ -138,6 +138,14 @@ final class FishnetApi(
   def prioritaryAnalysisInProgress(gameId: String): Fu[Option[Work.InProgress]] =
     repo.getAnalysisByGameId(gameId) map { _.flatMap(_.inProgress) }
 
+  /**
+   * @param gameId the game ID
+   * @return  a description of when an analysis was initially enqueued, if an analysis
+   *         has been requested on the given game.
+   */
+  def priorityAnalysisStarted(gameId: String): Fu[Option[Work.Started]] =
+    repo.getAnalysisByGameId(gameId) map { _.map(_.started) }
+
   def status = repo.countAnalysis(acquired = false) map { queued =>
     import play.api.libs.json.Json
     Json.obj(

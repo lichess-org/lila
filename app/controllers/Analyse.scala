@@ -33,7 +33,7 @@ object Analyse extends LilaController {
     else GameRepo initialFen pov.gameId flatMap { initialFen =>
       Game.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {
         (env.analyser get pov.game) zip
-          Env.fishnet.api.prioritaryAnalysisInProgress(pov.gameId) zip
+          Env.fishnet.api.priorityAnalysisStarted(pov.gameId) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
           Round.getWatcherChat(pov.game) zip
           Env.game.crosstableApi.withMatchup(pov.game) zip
