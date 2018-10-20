@@ -7,10 +7,10 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
-import lila.api.Context
+import lila.api.{ Context, GameApiV2 }
 import lila.app._
 import lila.common.PimpedJson._
-import lila.common.{ HTTPRequest, IpAddress, MaxPerPage }
+import lila.common.{ HTTPRequest, IpAddress, MaxPerPage, MaxPerSecond }
 
 object Api extends LilaController {
 
@@ -229,12 +229,31 @@ object Api extends LilaController {
   }
 
   def tournament(id: String) = ApiRequest { req =>
-    val page = (getInt("page", req) | 1) atLeast 1 atMost 200
     lila.tournament.TournamentRepo byId id flatMap {
       _ ?? { tour =>
+        val page = (getInt("page", req) | 1) atLeast 1 atMost 200
         Env.tournament.jsonView(tour, page.some, none, { _ => fuccess(Nil) }, none, none, lila.i18n.defaultLang) map some
       }
     } map toApiResult
+  }
+
+  def tournamentGames(id: String) = Action.async { req =>
+    lila.tournament.TournamentRepo byId id flatMap {
+      _ ?? { tour =>
+        GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+          val format = GameApiV2.Format byRequest req
+          val config = GameApiV2.ByTournamentConfig(
+            tournamentId = tour.id,
+            format = GameApiV2.Format byRequest req,
+            flags = Game.requestPgnFlags(req, extended = false),
+            perSecond = MaxPerSecond(20)
+          )
+          Ok.chunked(Env.api.gameApiV2.exportByTournament(config)).withHeaders(
+            CONTENT_TYPE -> Game.gameContentType(config)
+          ).fuccess
+        }
+      }
+    }
   }
 
   def gamesByUsersStream = Action.async(parse.tolerantText) { req =>

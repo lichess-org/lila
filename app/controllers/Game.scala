@@ -122,7 +122,7 @@ object Game extends LilaController {
       }
     }
 
-  private def requestPgnFlags(req: RequestHeader, extended: Boolean) =
+  private[controllers] def requestPgnFlags(req: RequestHeader, extended: Boolean) =
     lila.game.PgnDump.WithFlags(
       moves = getBoolOpt("moves", req) | true,
       tags = getBoolOpt("tags", req) | true,
@@ -132,7 +132,7 @@ object Game extends LilaController {
       literate = getBoolOpt("literate", req) | false
     )
 
-  private def gameContentType(config: GameApiV2.Config) = config.format match {
+  private[controllers] def gameContentType(config: GameApiV2.Config) = config.format match {
     case GameApiV2.Format.PGN => pgnContentType
     case GameApiV2.Format.JSON => config match {
       case _: GameApiV2.OneConfig => JSON

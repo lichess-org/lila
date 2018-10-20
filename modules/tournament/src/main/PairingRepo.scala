@@ -2,6 +2,7 @@ package lila.tournament
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
+import reactivemongo.api.{ CursorProducer, ReadPreference }
 import scala.collection.breakOut
 
 import BSONHandlers._
@@ -136,6 +137,17 @@ object PairingRepo {
       $id(pairing.id),
       $set(field -> true)
     ).void
+  }
+
+  def sortedGameIdsCursor(
+    tournamentId: Tournament.ID,
+    batchSize: Int = 0,
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  )(implicit cp: CursorProducer[Bdoc]) = {
+    val query = coll
+      .find(selectTour(tournamentId), $id(true))
+      .sort(recentSort)
+    query.copy(options = query.options.batchSize(batchSize)).cursor[Bdoc](readPreference)
   }
 
   private[tournament] def playingUserIds(tour: Tournament): Fu[Set[User.ID]] =

@@ -14,6 +14,7 @@ import lila.db.dsl._
 import lila.game.JsonView._
 import lila.game.PgnDump.WithFlags
 import lila.game.{ Game, GameRepo, Query, PerfPicker }
+import lila.tournament.Tournament
 import lila.user.User
 
 final class GameApiV2(
@@ -81,6 +82,19 @@ final class GameApiV2(
       Query.sortCreated,
       batchSize = config.perSecond.value
     ).bulkEnumerator() &>
+      lila.common.Iteratee.delay(1 second) &>
+      Enumeratee.mapConcat(_.toSeq) &>
+      Enumeratee.mapM(enrich(config.flags)) &>
+      formatterFor(config)
+
+  def exportByTournament(config: ByTournamentConfig): Enumerator[String] =
+    lila.tournament.PairingRepo.sortedGameIdsCursor(
+      tournamentId = config.tournamentId,
+      batchSize = config.perSecond.value
+    ).bulkEnumerator() &>
+      Enumeratee.mapM { pairingDocs =>
+        GameRepo.gamesFromSecondary(pairingDocs.flatMap { _.getAs[Game.ID]("_id") }.toSeq)
+      } &>
       lila.common.Iteratee.delay(1 second) &>
       Enumeratee.mapConcat(_.toSeq) &>
       Enumeratee.mapM(enrich(config.flags)) &>
@@ -196,6 +210,13 @@ object GameApiV2 {
 
   case class ByIdsConfig(
       ids: Seq[Game.ID],
+      format: Format,
+      flags: WithFlags,
+      perSecond: MaxPerSecond
+  ) extends Config
+
+  case class ByTournamentConfig(
+      tournamentId: Tournament.ID,
       format: Format,
       flags: WithFlags,
       perSecond: MaxPerSecond
