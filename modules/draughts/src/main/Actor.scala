@@ -26,7 +26,7 @@ case class Actor(
   private def noncaptureMoves(): List[Move] = piece.role match {
     case Man => shortRangeMoves(dirsOfColor)
     case King =>
-      if (board.variant.frisian && board.history.kingMoves(color) >= 3) Nil
+      if (board.variant.frisian && board.history.kingMoves(color) >= 3 && board.history.kingMoves.kingPos(color).fold(true)(_ == pos)) Nil
       else longRangeMoves(dirsAll)
     case _ => Nil
   }

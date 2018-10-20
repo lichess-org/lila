@@ -229,11 +229,13 @@ object Event {
       CorrespondenceClock(clock.whiteTime, clock.blackTime)
   }
 
-  case class KingMoves(white: Int, black: Int) extends Event {
+  case class KingMoves(white: Int, black: Int, whiteKing: Option[Pos], blackKing: Option[Pos]) extends Event {
     def typ = "kingMoves"
     def data = Json.obj(
       "white" -> white,
-      "black" -> black
+      "black" -> black,
+      "whiteKing" -> whiteKing.map(_.toString),
+      "blackKing" -> blackKing.map(_.toString)
     )
   }
 

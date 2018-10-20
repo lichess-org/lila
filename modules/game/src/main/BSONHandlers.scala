@@ -16,7 +16,7 @@ object BSONHandlers {
   import lidraughts.db.ByteArray.ByteArrayBSONHandler
 
   private[game] implicit val kingMovesWriter = new BSONWriter[KingMoves, BSONArray] {
-    def write(km: KingMoves) = BSONArray(km.white, km.black)
+    def write(km: KingMoves) = BSONArray(km.white, km.black, km.whiteKing.fold(0)(_.fieldNumber), km.blackKing.fold(0)(_.fieldNumber))
   }
 
   implicit val StatusBSONHandler = new BSONHandler[BSONInteger, Status] {
@@ -58,7 +58,7 @@ object BSONHandlers {
           positionHashes = decoded.positionHashes,
           kingMoves = if (gameVariant.frisian) {
             val counts = r.intsD(F.kingMoves)
-            KingMoves(~counts.headOption, ~counts.lastOption)
+            KingMoves(~counts.headOption, ~counts.tailOption.flatMap(_.headOption), (counts.length > 2).fold(draughts.Pos.posAt(counts(2)), none), (counts.length > 3).fold(draughts.Pos.posAt(counts(3)), none))
           } else Game.emptyKingMoves,
           variant = gameVariant
         ),

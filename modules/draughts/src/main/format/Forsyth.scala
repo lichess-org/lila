@@ -60,18 +60,16 @@ object Forsyth {
 
   def <<<(rawSource: String): Option[SituationPlus] = <<<@(Standard, rawSource)
 
-  def makeKingMoves(str: String): Option[KingMoves] = str.toList match {
-    case '+' :: w :: '+' :: b :: Nil => for {
-      white <- parseIntOption(w.toString) if white <= 3
-      black <- parseIntOption(b.toString) if black <= 3
-    } yield KingMoves(black, white)
-    case w :: '+' :: b :: Nil => for {
-      white <- parseIntOption(w.toString) if white <= 3
-      black <- parseIntOption(b.toString) if black <= 3
-    } yield KingMoves(3 - black, 3 - white)
-    case _ => None
+  def makeKingMoves(str: String): Option[KingMoves] = {
+    str.split('+').filter(_.nonEmpty).map(_.toList) match {
+      case Array(w, b) if (w.length == 1 || w.length == 3) && (b.length == 1 || b.length == 3) =>
+        for {
+          white <- parseIntOption(w.head.toString) if white <= 3
+          black <- parseIntOption(b.head.toString) if black <= 3
+        } yield KingMoves(black, white, Pos.posAt(b.tail.mkString), Pos.posAt(w.tail.mkString))
+      case _ => None
+    }
   }
-
   /**
    * Only cares about pieces positions on the board (second and third part of FEN string)
    */
@@ -132,7 +130,7 @@ object Forsyth {
   ) mkString ":"
 
   private def exportKingMoves(board: Board) = board.history.kingMoves match {
-    case KingMoves(white, black) => s"+$black+$white"
+    case KingMoves(white, black, whiteKing, blackKing) => s"+$black${blackKing.fold("")(_.toString)}+$white${whiteKing.fold("")(_.toString)}"
   }
 
   private implicit val posOrdering = Ordering.by[Pos, Int](_.x)

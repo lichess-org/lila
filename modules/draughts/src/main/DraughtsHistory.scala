@@ -4,27 +4,32 @@ import format.Uci
 import variant.{ Variant, Standard }
 
 // Consecutive king moves by the respective side.
-case class KingMoves(white: Int = 0, black: Int = 0) {
+case class KingMoves(white: Int = 0, black: Int = 0, whiteKing: Option[Pos] = None, blackKing: Option[Pos] = None) {
 
-  def add(color: Color) = copy(
+  def add(color: Color, pos: Option[Pos]) = copy(
     white = white + color.fold(1, 0),
-    black = black + color.fold(0, 1)
+    black = black + color.fold(0, 1),
+    whiteKing = color.fold(pos, whiteKing),
+    blackKing = color.fold(blackKing, pos)
   )
 
   def reset(color: Color) = copy(
     white = color.fold(0, white),
-    black = color.fold(black, 0)
+    black = color.fold(black, 0),
+    whiteKing = color.fold(none, whiteKing),
+    blackKing = color.fold(blackKing, none)
   )
 
   def nonEmpty = white > 0 || black > 0
 
   def apply(color: Color) = color.fold(white, black)
+  def kingPos(color: Color) = color.fold(whiteKing, blackKing)
 }
 
 case class DraughtsHistory(
     lastMove: Option[Uci] = None,
     positionHashes: PositionHash = Hash.zero,
-    kingMoves: KingMoves = KingMoves(0, 0),
+    kingMoves: KingMoves = KingMoves(),
     variant: Variant = Standard
 ) {
 
@@ -57,11 +62,11 @@ case class DraughtsHistory(
 
   def withLastMove(m: Uci) = copy(lastMove = Some(m))
 
-  def withKingMove(color: Color, v: Boolean, resetOther: Boolean = false) =
+  def withKingMove(color: Color, pos: Option[Pos], v: Boolean, resetOther: Boolean = false) =
     if (v && resetOther)
-      copy(kingMoves = kingMoves add color reset !color)
+      copy(kingMoves = kingMoves.add(color, pos).reset(!color))
     else if (v)
-      copy(kingMoves = kingMoves add color)
+      copy(kingMoves = kingMoves.add(color, pos))
     else if (resetOther)
       copy(kingMoves = KingMoves())
     else

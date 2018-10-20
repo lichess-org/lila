@@ -283,7 +283,9 @@ case class Game(
         // abstraction leak, I know.
         updated.board.variant.frisian ?? List(Event.KingMoves(
           white = updated.history.kingMoves.white,
-          black = updated.history.kingMoves.black
+          black = updated.history.kingMoves.black,
+          whiteKing = updated.history.kingMoves.whiteKing,
+          blackKing = updated.history.kingMoves.blackKing
         ))
       }
 
