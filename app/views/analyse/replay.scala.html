@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[chess.format.FEN], pgn: String, analysis: Option[lila.analyse.Analysis], analysisStarted: Option[lila.fishnet.Work.Started], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable.WithMatchup], userTv: Option[User], chatOption: Option[lila.chat.UserChat.Mine], bookmarked: Boolean, onCheatList: Option[Boolean])(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[chess.format.FEN], pgn: String, analysis: Option[lila.analyse.Analysis], analysisStarted: Boolean, simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable.WithMatchup], userTv: Option[User], chatOption: Option[lila.chat.UserChat.Mine], bookmarked: Boolean, onCheatList: Option[Boolean])(implicit ctx: Context)
 
 @import pov._
 
@@ -58,7 +58,7 @@ atom = atom.some) {
   <div class="analysis_panels">
     @if(game.analysable) {
     <div class="panel computer_analysis">
-      @if(analysis.isDefined || analysisStarted.isDefined) {
+      @if(analysis.isDefined || analysisStarted) {
       <div id="adv_chart"></div>
       } else {
       <form class="future_game_analysis@if(ctx.isAnon){ must_login}" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
