@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="learnDraughts">Learn draughts</string>
+  <string name="byPlaying">by playing!</string>
+  <string name="menu">Menu</string>
+  <string name="progressX">Progress: %s</string>
+  <string name="resetMyProgress">Reset my progress</string>
+  <string name="youWillLoseAllYourProgress">You will lose all your progress!</string>
+  <string name="play">play!</string>
+  <string name="draughtsPieces">Draughts pieces</string>
+  <string name="theMen">The men</string>
+  <string name="theKing">The king</string>
+  <string name="fundamentals">Fundamentals</string>
+  <string name="capture">Capture</string>
+  <string name="takeTheEnemyPieces">Take the enemy pieces</string>
+  <string name="takeTheBlackPieces">Take the black pieces!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Take the black pieces!
+And don't lose yours.</string>
+  <string name="captureComplete">Congratulations! You know how to capture with draughts pieces!</string>
+  <string name="protection">Protection</string>
+  <string name="keepYourPiecesSafe">Keep your pieces safe</string>
+  <string name="protectionIntro">Identify the pieces your opponent attacks, and defend them!</string>
+  <string name="protectionComplete">Congratulations! A piece you don't lose is a piece you win!</string>
+  <string name="escape">You're under attack!
+Escape the threat!</string>
+  <string name="noEscape">There is no escape,
+but you can defend!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Don't let them take
+any undefended piece!</string>
+  <string name="combat">Combat</string>
+  <string name="captureAndDefendPieces">Capture and defend pieces</string>
+  <string name="combatIntro">A good warrior knows both attack and defence!</string>
+  <string name="combatComplete">Congratulations! You know how to fight with draughts pieces!</string>
+  <string name="intermediate">Intermediate</string>
+  <string name="boardSetup">Board setup</string>
+  <string name="howTheGameStarts">How the game starts</string>
+  <string name="boardSetupIntro">The two armies face each other, ready for the battle.</string>
+  <string name="thisIsTheInitialPosition">This is the initial position
+of every game of draughts!
+Make any move to continue.</string>
+  <string name="boardSetupComplete">Congratulations! You know how to set up the draughts board.</string>
+  <string name="theGameIsADraw">The game is a draw</string>
+  <string name="advanced">Advanced</string>
+  <string name="whatNext">What next?</string>
+  <string name="youKnowHowToPlayDraughts">You know how to play draughts, congratulations! Do you want to become a stronger player?</string>
+  <string name="register">Register</string>
+  <string name="getAFreeLidraughtsAccount">Get a free Lidraughts account</string>
+  <string name="practice">Practice</string>
+  <string name="learnCommonDraughtsPositions">Learn common draughts positions</string>
+  <string name="puzzles">Puzzles</string>
+  <string name="exerciseYourTacticalSkills">Exercise your tactical skills</string>
+  <string name="videos">Videos</string>
+  <string name="watchInstructiveDraughtsVideos">Watch instructive draughts videos</string>
+  <string name="playPeople">Play people</string>
+  <string name="opponentsFromAroundTheWorld">Opponents from around the world</string>
+  <string name="playMachine">Play machine</string>
+  <string name="testYourSkillsWithTheComputer">Test your skills with the computer</string>
+  <string name="letsGo">Let's go!</string>
+  <string name="stageX">Stage %s</string>
+  <string name="awesome">Awesome!</string>
+  <string name="excellent">Excellent!</string>
+  <string name="greatJob">Great job!</string>
+  <string name="perfect">Perfect!</string>
+  <string name="outstanding">Outstanding!</string>
+  <string name="wayToGo">Way to go!</string>
+  <string name="yesYesYes">Yes, yes, yes!</string>
+  <string name="youreGoodAtThis">You're good at this!</string>
+  <string name="nailedIt">Nailed it.</string>
+  <string name="rightOn">Right on!</string>
+  <string name="stageXComplete">Stage %s complete</string>
+  <string name="yourScore">Your score</string>
+  <string name="next">Next</string>
+  <string name="backToMenu">Back to menu</string>
+  <string name="puzzleFailed">Puzzle failed!</string>
+  <string name="retry">Retry</string>
+</resources>
