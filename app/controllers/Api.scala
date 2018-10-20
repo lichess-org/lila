@@ -7,10 +7,10 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
-import lidraughts.api.Context
+import lidraughts.api.{ Context, GameApiV2 }
 import lidraughts.app._
 import lidraughts.common.PimpedJson._
-import lidraughts.common.{ HTTPRequest, IpAddress, MaxPerPage }
+import lidraughts.common.{ HTTPRequest, IpAddress, MaxPerPage, MaxPerSecond }
 
 object Api extends LidraughtsController {
 
@@ -229,12 +229,31 @@ object Api extends LidraughtsController {
   }
 
   def tournament(id: String) = ApiRequest { req =>
-    val page = (getInt("page", req) | 1) atLeast 1 atMost 200
     lidraughts.tournament.TournamentRepo byId id flatMap {
       _ ?? { tour =>
+        val page = (getInt("page", req) | 1) atLeast 1 atMost 200
         Env.tournament.jsonView(tour, page.some, none, { _ => fuccess(Nil) }, none, none, lidraughts.i18n.defaultLang) map some
       }
     } map toApiResult
+  }
+
+  def tournamentGames(id: String) = Action.async { req =>
+    lidraughts.tournament.TournamentRepo byId id flatMap {
+      _ ?? { tour =>
+        GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+          val format = GameApiV2.Format byRequest req
+          val config = GameApiV2.ByTournamentConfig(
+            tournamentId = tour.id,
+            format = GameApiV2.Format byRequest req,
+            flags = Game.requestPdnFlags(req, lidraughts.pref.Pref.default.draughtsResult, extended = false),
+            perSecond = MaxPerSecond(20)
+          )
+          Ok.chunked(Env.api.gameApiV2.exportByTournament(config)).withHeaders(
+            CONTENT_TYPE -> Game.gameContentType(config)
+          ).fuccess
+        }
+      }
+    }
   }
 
   def gamesByUsersStream = Action.async(parse.tolerantText) { req =>

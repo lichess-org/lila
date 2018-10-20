@@ -122,7 +122,7 @@ object Game extends LidraughtsController {
       }
     }
 
-  private def requestPdnFlags(req: RequestHeader, draughtsResult: Boolean, extended: Boolean) =
+  private[controllers] def requestPdnFlags(req: RequestHeader, draughtsResult: Boolean, extended: Boolean) =
     lidraughts.game.PdnDump.WithFlags(
       moves = getBoolOpt("moves", req) | true,
       tags = getBoolOpt("tags", req) | true,
@@ -133,7 +133,7 @@ object Game extends LidraughtsController {
       draughtsResult = draughtsResult
     )
 
-  private def gameContentType(config: GameApiV2.Config) = config.format match {
+  private[controllers] def gameContentType(config: GameApiV2.Config) = config.format match {
     case GameApiV2.Format.PDN => pdnContentType
     case GameApiV2.Format.JSON => config match {
       case _: GameApiV2.OneConfig => JSON
