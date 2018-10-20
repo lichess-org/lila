@@ -651,7 +651,7 @@ i %3$s</string>
   <string name="webmasters">Webadministratorar</string>
   <string name="about">Om</string>
   <string name="aboutX">Omlag %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en fritt tilgjengeleg (%2$s), libre, annonsefri, open kjeldekode sjakk-server.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er ein fritt tilgjengeleg (%2$s), libre, annonsefri, open kjeldekode sjakk-server.</string>
   <string name="really">verkeleg</string>
   <string name="contribute">Bidra</string>
   <string name="contact">Kontakt</string>
