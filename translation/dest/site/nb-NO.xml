@@ -650,6 +650,9 @@ i %3$s</string>
   <string name="mobileApp">Mobilapplikasjon</string>
   <string name="webmasters">Webadministratorer</string>
   <string name="about">Om</string>
+  <string name="aboutX">Rundt %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en fritt tilgjengelig (%2$s), libre, annonsefri, åpen kildekode sjakk-server.</string>
+  <string name="really">virkelig</string>
   <string name="contribute">Bidra</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Tjenestevilkår</string>
