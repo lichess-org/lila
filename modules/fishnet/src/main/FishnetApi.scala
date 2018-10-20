@@ -135,8 +135,7 @@ final class FishnetApi(
     }
   }
 
-  def prioritaryAnalysisInProgress(gameId: String): Fu[Option[Work.InProgress]] =
-    repo.getAnalysisByGameId(gameId) map { _.flatMap(_.inProgress) }
+  def gameIdExists(gameId: String) = analysisColl.exists($doc("game.id" -> gameId))
 
   def status = repo.countAnalysis(acquired = false) map { queued =>
     import play.api.libs.json.Json
