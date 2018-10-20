@@ -19,7 +19,7 @@ case object Frisian extends Variant(
     else {
       val tookMan = captured.fold(false)(_.exists(_.role == Man))
       (board.actorAt(uci.dest) match {
-        case Some(act) if board.count(Man, act.color) != 0 => board updateHistory { _.withKingMove(act.color, act.piece.role == King && uci.promotion.isEmpty, tookMan && board.count(Man, !act.color) == 0) }
+        case Some(act) if board.count(Man, act.color) != 0 => board updateHistory { _.withKingMove(act.color, act.piece.role == King && uci.promotion.isEmpty && captured.fold(true)(_.isEmpty), tookMan && board.count(Man, !act.color) == 0) }
         case Some(act) if tookMan && board.count(Man, !act.color) == 0 => board updateHistory { _.withKingMove(!act.color, false) }
         case _ => board
       }).withouthGhosts()
