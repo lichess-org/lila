@@ -169,8 +169,7 @@ object Api extends LilaController {
   )
 
   def game(id: String) = ApiRequest { req =>
-    val ip = HTTPRequest lastRemoteAddress req
-    GameRateLimitPerIP(ip, cost = 1) {
+    GameRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
       lila.mon.api.game.cost(1)
       gameApi.one(id take lila.game.Game.gameIdSize, gameFlagsFromRequest(req)) map toApiResult
     }
