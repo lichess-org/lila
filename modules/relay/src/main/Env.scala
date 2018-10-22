@@ -9,6 +9,7 @@ final class Env(
     db: lila.db.Env,
     studyEnv: lila.study.Env,
     asyncCache: lila.memo.AsyncCache.Builder,
+    slackApi: lila.slack.SlackApi,
     system: ActorSystem
 ) {
 
@@ -51,6 +52,7 @@ final class Env(
   system.actorOf(Props(new RelayFetch(
     sync = sync,
     api = api,
+    slackApi = slackApi,
     formatApi = formatApi,
     chapterRepo = studyEnv.chapterRepo
   )))
@@ -72,6 +74,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "relay",
     studyEnv = lila.study.Env.current,
     asyncCache = lila.memo.Env.current.asyncCache,
+    slackApi = lila.slack.Env.current.api,
     system = lila.common.PlayApp.system
   )
 }

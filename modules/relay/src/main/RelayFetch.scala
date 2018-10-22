@@ -18,6 +18,7 @@ import Relay.Sync.Upstream
 private final class RelayFetch(
     sync: RelaySync,
     api: RelayApi,
+    slackApi: lila.slack.SlackApi,
     formatApi: RelayFormatApi,
     chapterRepo: lila.study.ChapterRepo
 ) extends Actor {
@@ -95,8 +96,10 @@ private final class RelayFetch(
   }
 
   def continueRelay(r: Relay): Fu[Relay] = {
-    if (r.sync.log.alwaysFails) fuccess(60)
-    else r.sync.delay match {
+    if (r.sync.log.alwaysFails) {
+      if (r.official) slackApi.broadcastError(r.id.value, r.name)
+      fuccess(60)
+    } else r.sync.delay match {
       case Some(delay) => fuccess(delay)
       case None => api.getNbViewers(r) map { nb =>
         (18 - nb) atLeast 7

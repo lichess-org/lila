@@ -88,6 +88,13 @@ final class SlackApi(
     channel = rooms.tavernBots
   ))
 
+  def broadcastError(id: String, name: String): Funit = client(SlackMessage(
+    username = "lichess error",
+    icon = "lightning",
+    text = s"${broadcastLink(id, name)} is failing",
+    channel = rooms.broadcast
+  ))
+
   def publishError(msg: String): Funit = client(SlackMessage(
     username = "lichess error",
     icon = "lightning",
@@ -127,6 +134,7 @@ final class SlackApi(
 
   private def userLink(name: String) = s"<https://lichess.org/@/$name?mod|$name>"
   private def userNotesLink(name: String) = s"<https://lichess.org/@/$name?notes|notes>"
+  private def broadcastLink(id: String, name: String) = s"<https://lichess.org/broadcast/-/$id|$name>"
 
   val userRegex = lila.common.String.atUsernameRegex.pattern
 
@@ -184,6 +192,7 @@ private object SlackApi {
     val general = "team"
     val tavern = "tavern"
     val tavernBots = "tavern-bots"
+    val broadcast = "broadcast"
   }
 
   object stage {
