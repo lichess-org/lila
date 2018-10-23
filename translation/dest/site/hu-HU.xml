@@ -75,19 +75,19 @@
   <string name="averageRatingX">Átlagos értékszám: %s</string>
   <string name="recentGames">Legutóbbi játszmák</string>
   <string name="topGames">Legjobb játszmák</string>
-  <string name="masterDbExplanation">Két millió verseny játszma %2$s és %3$s között %1$s fölött rangsorolt FIDE játékosoktól</string>
+  <string name="masterDbExplanation">Kétmillió táblán játszott parti %2$s és %3$s között %1$s fölött rangsorolt FIDE játékosoktól</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Matt %s fél lépésben</item>
-    <item quantity="other">Matt %s fél-lépésben</item>
+    <item quantity="one">Matt %s féllépésben</item>
+    <item quantity="other">Matt %s féllépésben</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">A következő ütés vagy gyaloglépés %s fél-lépésre van (az 50 lépés számláló nullázásához szükséges táv)</item>
-    <item quantity="other">A következő ütés vagy gyaloglépés %s fél-lépésre van (az 50 lépés számláló nullázásához szükséges táv)</item>
+    <item quantity="one">%s féllépés a következő ütésig vagy gyaloglépésig (az 50 lépés számláló nullázásáig)</item>
+    <item quantity="other">%s féllépés a következő ütésig vagy gyaloglépésig (az 50 lépés számláló nullázásáig)</item>
   </plurals>
   <string name="noGameFound">Nem található játszma</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Próbáltál több játszmát hozzáadni a beállítások menüben?</string>
-  <string name="openingExplorer">Megnyitás tallózó</string>
-  <string name="xOpeningExplorer">%s megnyitás kereső</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">És ha több játszmát beveszel a beállítások menüben?</string>
+  <string name="openingExplorer">Megnyitás böngésző</string>
+  <string name="xOpeningExplorer">%s megnyitás böngésző</string>
   <string name="winPreventedBy50MoveRule">Az 50 lépés szabály miatt nem nyert</string>
   <string name="lossSavedBy50MoveRule">Az 50 lépés szabály miatt nem vesztett</string>
   <string name="allSet">Mehet!</string>
@@ -102,7 +102,7 @@
   <string name="bestMoveArrow">Legjobb lépés nyíl</string>
   <string name="evaluationGauge">Értékelő mérce</string>
   <string name="multipleLines">Több változat</string>
-  <string name="cpus">CPU-k</string>
+  <string name="cpus">Processzorok</string>
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Végtelen elemzés</string>
   <string name="removesTheDepthLimit">Feloldja a mélységi korlátot, és melegen tartja a számítógéped</string>
