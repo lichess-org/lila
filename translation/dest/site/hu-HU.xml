@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">Játék egy ismerőssel</string>
   <string name="playWithTheMachine">Játék a gép ellen</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Hogy meghívj valakit játszani, küldd el neki ezt a linket</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Küldd el ezt a linket annak, akivel játszani szeretnél</string>
   <string name="gameOver">Játszma vége</string>
   <string name="waitingForOpponent">Várakozás az ellenfélre</string>
   <string name="waiting">Várakozás</string>
@@ -614,7 +614,7 @@
   <string name="tools">Eszközök</string>
   <string name="increment">Növekmény</string>
   <string name="sharePGN">PGN megosztása</string>
-  <string name="playOnline">Játssz online</string>
+  <string name="playOnline">Online játék</string>
   <string name="playOffline">Offline játék</string>
   <string name="allowAnalytics">Statisztika engedélyezése</string>
   <string name="shareGameURL">URL megosztása</string>
