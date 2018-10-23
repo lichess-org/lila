@@ -647,6 +647,8 @@
   <string name="mobileApp">Mobil alkalmazás</string>
   <string name="webmasters">Webmester</string>
   <string name="about">Rólunk</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s egy ingyenes (%2$s), szabad, reklámmentes, nyílt forráskódú sakkszerver.</string>
+  <string name="really">tényleg</string>
   <string name="contribute">Hozzájárul</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Használati útmutató</string>
