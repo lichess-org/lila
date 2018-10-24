@@ -229,12 +229,12 @@
   <string name="subject">Tárgy</string>
   <string name="recipient">Címzett</string>
   <string name="send">Küldés</string>
-  <string name="incrementInSeconds">Másodpercnövekmény</string>
+  <string name="incrementInSeconds">Többletidő (másodpercben)</string>
   <string name="freeOnlineChess">Ingyenes Online Sakk</string>
   <string name="spectators">Nézők:</string>
   <plurals name="nbRated">
-    <item quantity="one">%s rangsorolt</item>
-    <item quantity="other">%s rangsorolt</item>
+    <item quantity="one">%s értékelt</item>
+    <item quantity="other">%s értékelt</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s győzelem</item>
@@ -252,15 +252,15 @@
     <item quantity="one">%s folyamatban</item>
     <item quantity="other">%s folyamatban</item>
   </plurals>
-  <string name="exportGames">Játékok exportálása</string>
-  <string name="ratingRange">Pontszámtartomány</string>
+  <string name="exportGames">Játszmák exportálása</string>
+  <string name="ratingRange">Értékszámtartomány</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Adj %s másodpercet</item>
     <item quantity="other">Adj %s másodpercet</item>
   </plurals>
   <string name="giveMoreTime">Több idő adása</string>
-  <string name="thisPlayerUsesChessComputerAssistance">Ez a játékos számítógépes sakkprogram segítségét használja</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ez a játékos mesterségesen növeli/csökkenti a pontszámát</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Ez a játékos sakkprogram segítségét használja</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ez a játékos mesterségesen növeli/csökkenti az értékszámát</string>
   <string name="openingExplorerAndTablebase">Megnyitás tallózó &amp; tablebase</string>
   <string name="takeback">Visszalépés</string>
   <string name="proposeATakeback">Visszalépés kérése</string>
