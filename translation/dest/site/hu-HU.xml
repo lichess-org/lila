@@ -261,15 +261,15 @@
   <string name="giveMoreTime">Több idő adása</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ez a játékos sakkprogram segítségét használja</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ez a játékos mesterségesen növeli/csökkenti az értékszámát</string>
-  <string name="openingExplorerAndTablebase">Megnyitás tallózó &amp; tablebase</string>
+  <string name="openingExplorerAndTablebase">Megnyitás- és állásböngésző</string>
   <string name="takeback">Visszalépés</string>
   <string name="proposeATakeback">Visszalépés kérése</string>
-  <string name="takebackPropositionSent">Visszalépés kérése elküldve</string>
-  <string name="takebackPropositionDeclined">Visszalépés kérése elutasítva</string>
+  <string name="takebackPropositionSent">Visszalépéskérés elküldve</string>
+  <string name="takebackPropositionDeclined">Visszalépéskérés elutasítva</string>
   <string name="takebackPropositionAccepted">Visszalépés kérése elfogadva</string>
-  <string name="takebackPropositionCanceled">Visszalépés kérés elvetve</string>
-  <string name="yourOpponentProposesATakeback">Az ellenfeled visszalépést kér</string>
-  <string name="bookmarkThisGame">Játszma hozzáadása a könyvjelzőkhöz</string>
+  <string name="takebackPropositionCanceled">Visszalépéskérés elvetve</string>
+  <string name="yourOpponentProposesATakeback">Az ellenfeled vissza szeretne lépni</string>
+  <string name="bookmarkThisGame">Játszma könyvjelzőzése</string>
   <string name="search">Keresés</string>
   <string name="advancedSearch">Bővített keresés</string>
   <string name="tournament">Verseny</string>
@@ -283,12 +283,12 @@
   <string name="backToTournament">Vissza a versenyhez</string>
   <string name="thematic">Tematikus</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s rangsorolt játszma</item>
-    <item quantity="other">≥ %s rangsorolt játszma</item>
+    <item quantity="one">≥ %s értékelt játszma</item>
+    <item quantity="other">≥ %s értékelt játszma</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s rangsorolt játszma</item>
-    <item quantity="other">≥ %1$s %2%s rangsorolt játszma</item>
+    <item quantity="one">≥ %1$s értékelt %2$s játszma</item>
+    <item quantity="other">≥ %1$s értékelt %2$s játszma</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Még %1$s további %2$s rangsorolt játszma szükséges</item>
