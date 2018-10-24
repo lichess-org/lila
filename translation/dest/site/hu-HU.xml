@@ -146,10 +146,10 @@
   <string name="minutesPerSide">Perc játékosonként</string>
   <string name="variant">Variáns</string>
   <string name="variants">Variánsok</string>
-  <string name="timeControl">Időkontroll</string>
+  <string name="timeControl">Játékidő</string>
   <string name="realTime">Valós idő</string>
   <string name="correspondence">Levelezés</string>
-  <string name="daysPerTurn">Lépésenkénti napok száma</string>
+  <string name="daysPerTurn">Nap lépésenként</string>
   <string name="oneDay">Egy nap</string>
   <plurals name="nbDays">
     <item quantity="one">%s nap</item>
@@ -159,8 +159,8 @@
     <item quantity="one">%s óra</item>
     <item quantity="other">%s óra</item>
   </plurals>
-  <string name="time">Idő</string>
-  <string name="rating">Pontszám</string>
+  <string name="time">Játékidő</string>
+  <string name="rating">Értékszám</string>
   <string name="ratingStats">Pontszám statisztikák</string>
   <string name="username">Felhasználónév</string>
   <string name="usernameOrEmail">Felhasználónév vagy jelszó</string>
