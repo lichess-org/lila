@@ -161,9 +161,9 @@
   </plurals>
   <string name="time">Játékidő</string>
   <string name="rating">Értékszám</string>
-  <string name="ratingStats">Pontszám statisztikák</string>
+  <string name="ratingStats">Értékszám statisztika</string>
   <string name="username">Felhasználónév</string>
-  <string name="usernameOrEmail">Felhasználónév vagy jelszó</string>
+  <string name="usernameOrEmail">Felhasználónév vagy email</string>
   <string name="password">Jelszó</string>
   <string name="haveAnAccount">Van már fiókod?</string>
   <string name="changePassword">Jelszó megváltoztatása</string>
