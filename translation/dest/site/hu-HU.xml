@@ -105,8 +105,8 @@
   <string name="cpus">Processzorok</string>
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Végtelen elemzés</string>
-  <string name="removesTheDepthLimit">Feloldja a mélységi korlátot, és melegen tartja a számítógéped</string>
-  <string name="blunder">Baklövés</string>
+  <string name="removesTheDepthLimit">Nincs mélységkorlát és melegszik a számítógéped</string>
+  <string name="blunder">Durva hiba</string>
   <string name="blunders">Durva hiba</string>
   <string name="mistake">Hiba</string>
   <string name="mistakes">Hiba</string>
@@ -119,10 +119,10 @@
   <string name="offerDraw">Döntetlen felajánlása</string>
   <string name="draw">Döntetlen</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s csatlakozott játékos</item>
-    <item quantity="other">%s csatlakozott játékos</item>
+    <item quantity="one">%s játékos</item>
+    <item quantity="other">%s játékos</item>
   </plurals>
-  <string name="currentGames">Éppen zajló játékok</string>
+  <string name="currentGames">Futó játékok</string>
   <plurals name="nbGames">
     <item quantity="one">%s játszma</item>
     <item quantity="other">%s játszma</item>
