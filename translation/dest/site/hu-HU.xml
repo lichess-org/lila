@@ -219,12 +219,12 @@
   <string name="cancelRematchOffer">Visszavágó lemondása</string>
   <string name="viewRematch">Visszavágó megtekintése</string>
   <string name="play">Játék</string>
-  <string name="inbox">Beérkező üzenetek</string>
+  <string name="inbox">Érkezett üzenetek</string>
   <string name="chatRoom">Csevegő</string>
-  <string name="loginToChat">Jelentkezz be a chateléshez</string>
-  <string name="youHaveBeenTimedOut">Lelettél tiltva egy időre.</string>
-  <string name="spectatorRoom">Figyelő szoba</string>
-  <string name="composeMessage">Üzenet írása</string>
+  <string name="loginToChat">Jelentkezz be a csevegéshez</string>
+  <string name="youHaveBeenTimedOut">Lenémítottak egy időre.</string>
+  <string name="spectatorRoom">Figyelőszoba</string>
+  <string name="composeMessage">Üzenetírás</string>
   <string name="noNewMessages">Nincs új üzenet</string>
   <string name="subject">Tárgy</string>
   <string name="recipient">Címzett</string>
