@@ -481,6 +481,7 @@
   <string name="troll">Hát</string>
   <string name="other">Khác</string>
   <string name="reportDescriptionHelp">Dán đường dẫn (các) ván cờ và giải thích sự sai lầm trong cách ứng phó của kỳ thủ này</string>
+  <string name="error.provideOneCheatedGameLink">Xin vui lòng cung cấp ít nhất một đường dẫn đến ván cờ lừa đảo.</string>
   <string name="by">bởi %s</string>
   <string name="thisTopicIsNowClosed">Chủ đề này bây giờ đã đóng</string>
   <string name="theming">Chủ đề</string>
