@@ -212,11 +212,11 @@
   <string name="rematch">Visszavágó</string>
   <string name="rematchOfferSent">Visszavágó felajánlva</string>
   <string name="rematchOfferSentWhite">Világos visszavágót szeretne</string>
-  <string name="rematchOfferSentBlack">Sötét visszavágót szeretne</string>
+  <string name="rematchOfferSentBlack">Sötét visszavágóra hív</string>
   <string name="rematchOfferAccepted">Visszavágó elfogadva</string>
-  <string name="rematchOfferCanceled">Visszavágó ajánlat elvetve</string>
-  <string name="rematchOfferDeclined">Visszavágót visszautasították</string>
-  <string name="cancelRematchOffer">Visszavágó elvetése</string>
+  <string name="rematchOfferCanceled">Visszavágó lemondva</string>
+  <string name="rematchOfferDeclined">Visszavágó elutasítva</string>
+  <string name="cancelRematchOffer">Visszavágó lemondása</string>
   <string name="viewRematch">Visszavágó megtekintése</string>
   <string name="play">Játék</string>
   <string name="inbox">Beérkező üzenetek</string>
