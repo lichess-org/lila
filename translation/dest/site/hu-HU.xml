@@ -636,12 +636,12 @@
   <string name="blackCastlingKingside">Sötét rövidre sáncolhat</string>
   <string name="blackCastlingQueenside">Sötét hosszúra sáncolhat</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s Fórumbejegyzés</item>
-    <item quantity="other">%s Fórumbejegyzés</item>
+    <item quantity="one">%s fórumbejegyzés</item>
+    <item quantity="other">%s fórumbejegyzés</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">Játékkal eltöltött idő: %s</string>
-  <string name="watchGames">Játszmák megtekintése</string>
-  <string name="tpTimeSpentOnTV">TV-n eltöltött idő: %s</string>
+  <string name="tpTimeSpentPlaying">Játékkal töltött idő: %s</string>
+  <string name="watchGames">Játszmák nézése</string>
+  <string name="tpTimeSpentOnTV">TV-n töltött idő: %s</string>
   <string name="watch">Néznivaló</string>
   <string name="internationalEvents">Nemzetközi események</string>
   <string name="videoLibrary">Videó könyvtár</string>
