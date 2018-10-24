@@ -100,7 +100,7 @@
   <string name="openStudy">Tanulmány megnyitása</string>
   <string name="enable">Bekapcsolva</string>
   <string name="bestMoveArrow">Legjobb lépés nyíl</string>
-  <string name="evaluationGauge">Értékelő mérce</string>
+  <string name="evaluationGauge">Állásértékelő oldaljelzés</string>
   <string name="multipleLines">Több változat</string>
   <string name="cpus">Processzorok</string>
   <string name="memory">Memória</string>
