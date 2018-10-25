@@ -16,23 +16,24 @@ lichess.timeago = (function() {
     );
   }
 
-  // format the diff second to *** time ago
-  function formatDiff(diff) {
-    var i = 0, agoin = 0;
-    if (diff < 0) {
-      agoin = 1;
-      diff = -diff;
-    } 
-    var i = 0, total_sec = diff;
-    while (i < 6 && diff >= SEC_ARRAY[i]) i++;
-    if (i > 0) diff /= SEC_ARRAY[i - 1];
-    
-    diff = Math.floor(diff);
-    i *= 2;
+  // format the diff and start rounding down to days only after diff iss less than days_back
+   function formatDiff(diff) {
+        var i = 0, agoin = 0;
+        if (diff < 0) {
+            agoin = 1;
+            diff = -diff;
+        }
+        var i = 0, total_sec = diff, days_back = 2;
+        while (i < 6 && diff >= SEC_ARRAY[i]) i++;
+        if ((i - 1) == 2) (diff <= days_back * SEC_ARRAY[i - 1] ? i -= 1 : i = i)
+        if (i > 0) diff /= SEC_ARRAY[i - 1];
 
-    if (diff > (i === 0 ? 9 : 1)) i += 1;
-    return lichess.timeagoLocale(diff, i, total_sec)[agoin].replace('%s', diff);
-  }
+        diff = Math.floor(diff);
+        i *= 2;
+
+        if (diff > (i === 0 ? 9 : 1)) i += 1;
+        return lichess.timeagoLocale(diff, i, total_sec)[agoin].replace('%s', diff);
+   }
 
   var formatterInst;
 
